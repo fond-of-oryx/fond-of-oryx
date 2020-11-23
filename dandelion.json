@@ -1,0 +1,16 @@
+{
+  "repositories": {
+      "sales-locale-connector": {
+          "url": "https://<GITHUB_TOKEN>@github.com/fond-of-oryx/sales-locale-connector.git",
+          "path": "bundles/sales-locale-connector/",
+          "version": "1.0.0"
+      },
+      "mail-bcc": {
+          "url": "https://<GITHUB_TOKEN>@github.com/fond-of-oryx/mail-bcc.git",
+          "path": "bundles/mail-bcc/",
+          "version": "1.0.0"
+      }
+  },
+  "pathToTempDirectory": "/home/dandelion/project/tmp/",
+  "pathToSplitshLite": "/usr/local/bin/splitsh-lite"
+}

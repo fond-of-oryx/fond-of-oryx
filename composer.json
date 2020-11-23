@@ -1,0 +1,40 @@
+{
+  "name": "fond-of-oryx/fond-of-oryx",
+  "description": "FOND OF Oryx Monorepo",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Daniel Rose",
+      "email": "daniel-rose@gmx.de"
+    }
+  ],
+  "require": {
+    "php": ">=7.1",
+    "spryker/locale": "^2.2.0 || ^3.0.0",
+    "spryker/sales": "^6.0.0 || ^7.0.0 || ^8.0.0 || ^10.0.0 || ^11.0.0",
+    "spryker/sales-extension": "^1.3.0"
+  },
+  "require-dev": {
+    "spryker/code-sniffer": "*",
+    "spryker-sdk/phpstan-spryker": "*",
+    "codeception/codeception": "^2.0 || ^3.0 || ^4.0",
+    "fond-of-codeception/spryker": "dev-master"
+  },
+  "replace": {
+    "fond-of-oryx/sales-locale-connector": "*"
+  },
+  "minimum-stability": "dev",
+  "prefer-stable": true,
+  "autoload": {
+    "psr-4": {
+      "FondOfOryx\\Shared\\SalesLocaleConnector\\": "bundles/sales-locale-connector/src/FondOfOryx/Shared/SalesLocaleConnector",
+      "FondOfOryx\\Zed\\SalesLocaleConnector\\": "bundles/sales-locale-connector/src/FondOfOryx/Zed/SalesLocaleConnector"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "FondOfOryx\\Zed\\SalesLocaleConnector\\": "bundles/sales-locale-connector/tests/FondOfOryx/Zed/SalesLocaleConnector",
+      "Generated\\": "src/Generated/"
+    }
+  }
+}
