@@ -21,6 +21,8 @@
     "fond-of-codeception/spryker": "dev-master"
   },
   "replace": {
+    "fond-of-oryx/erp-order": "*",
+    "fond-of-oryx/erp-order-api": "*",
     "fond-of-oryx/sales-locale-connector": "*"
   },
   "minimum-stability": "dev",
@@ -28,12 +30,16 @@
   "autoload": {
     "psr-4": {
       "FondOfOryx\\Shared\\SalesLocaleConnector\\": "bundles/sales-locale-connector/src/FondOfOryx/Shared/SalesLocaleConnector",
+      "FondOfOryx\\Zed\\ErpOrder\\": "bundles/erp-order/src/FondOfOryx/Zed/ErpOrder",
+      "FondOfOryx\\Zed\\ErpOrderApi\\": "bundles/erp-order-api/src/FondOfOryx/Zed/ErpOrderApi",
       "FondOfOryx\\Zed\\SalesLocaleConnector\\": "bundles/sales-locale-connector/src/FondOfOryx/Zed/SalesLocaleConnector"
     }
   },
   "autoload-dev": {
     "psr-4": {
       "FondOfOryx\\Zed\\SalesLocaleConnector\\": "bundles/sales-locale-connector/tests/FondOfOryx/Zed/SalesLocaleConnector",
+      "FondOfOryx\\Zed\\ErpOrder\\": "bundles/erp-order/src/FondOfOryx/Zed/ErpOrder",
+      "FondOfOryx\\Zed\\ErpOrderApi\\": "bundles/erp-order-api/tests/FondOfOryx/Zed/ErpOrderApi",
       "Generated\\": "src/Generated/"
     }
   }

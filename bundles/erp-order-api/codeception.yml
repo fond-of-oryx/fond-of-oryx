@@ -1,8 +1,4 @@
-namespace: fond-of-oryx/fond-of-oryx
-
-include:
-  - bundles/erp-order-api
-  - bundles/sales-locale-connector
+namespace: fond-of-oryx/erp-order-api
 
 suites:
   unit:
@@ -21,7 +17,5 @@ paths:
 
 coverage:
   enabled: true
-
-modules:
-  enabled:
-    - \FondOfCodeception\Module\Spryker
+  include:
+    - src/*.php
