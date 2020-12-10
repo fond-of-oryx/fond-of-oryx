@@ -12,6 +12,7 @@ use Spryker\Zed\Kernel\Persistence\AbstractPersistenceFactory;
  * @codeCoverageIgnore
  *
  * @method \FondOfOryx\Zed\ErpOrderApi\Persistence\ErpOrderApiRepositoryInterface getRepository()
+ * @method \FondOfOryx\Zed\ErpOrderApi\ErpOrderApiConfig getConfig()
  */
 class ErpOrderApiPersistenceFactory extends AbstractPersistenceFactory
 {

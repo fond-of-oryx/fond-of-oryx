@@ -31,7 +31,6 @@ class ErpOrderApiValidatorTest extends Unit
         $this->erpOrderApiValidator = new ErpOrderApiValidator();
     }
 
-    
     /**
      * @return void
      */
