@@ -4,6 +4,7 @@ namespace FondOfOryx\Zed\ErpOrderApi\Business\Model;
 
 use FondOfOryx\Zed\ErpOrderApi\Dependency\Facade\ErpOrderApiToErpOrderFacadeInterface;
 use FondOfOryx\Zed\ErpOrderApi\Dependency\QueryContainer\ErpOrderApiToApiQueryContainerInterface;
+use FondOfOryx\Zed\ErpOrderApi\Persistence\ErpOrderApiRepositoryInterface;
 use Generated\Shared\Transfer\ApiCollectionTransfer;
 use Generated\Shared\Transfer\ApiDataTransfer;
 use Generated\Shared\Transfer\ApiItemTransfer;
@@ -26,15 +27,23 @@ class ErpOrderApi implements ErpOrderApiInterface
     protected $erpOrderFacade;
 
     /**
+     * @var \FondOfOryx\Zed\ErpOrderApi\Persistence\ErpOrderApiRepositoryInterface
+     */
+    protected $repository;
+
+    /**
      * @param \FondOfOryx\Zed\ErpOrderApi\Dependency\QueryContainer\ErpOrderApiToApiQueryContainerInterface $apiQueryContainer
      * @param \FondOfOryx\Zed\ErpOrderApi\Dependency\Facade\ErpOrderApiToErpOrderFacadeInterface $erpOrderFacade
+     * @param \FondOfOryx\Zed\ErpOrderApi\Persistence\ErpOrderApiRepositoryInterface $repository
      */
     public function __construct(
         ErpOrderApiToApiQueryContainerInterface $apiQueryContainer,
-        ErpOrderApiToErpOrderFacadeInterface $erpOrderFacade
+        ErpOrderApiToErpOrderFacadeInterface $erpOrderFacade,
+        ErpOrderApiRepositoryInterface $repository
     ) {
         $this->apiQueryContainer = $apiQueryContainer;
         $this->erpOrderFacade = $erpOrderFacade;
+        $this->repository = $repository;
     }
 
     /**
@@ -114,7 +123,19 @@ class ErpOrderApi implements ErpOrderApiInterface
      */
     public function find(ApiRequestTransfer $apiRequestTransfer): ApiCollectionTransfer
     {
-        return new ApiCollectionTransfer();
+        $data = [];
+        $apiCollectionTransfer = $this->repository->find($apiRequestTransfer);
+
+        foreach ($apiCollectionTransfer->getData() as $item) {
+            if (!isset($item['id_erp_order'])) {
+                continue;
+            }
+
+            $data[] = $this->get($item['id_erp_order'])
+                ->getData();
+        }
+
+        return $apiCollectionTransfer->setData($data);
     }
 
     /**
