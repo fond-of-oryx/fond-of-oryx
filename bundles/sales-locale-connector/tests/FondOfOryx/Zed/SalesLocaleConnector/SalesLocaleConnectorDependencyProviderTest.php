@@ -32,7 +32,7 @@ class SalesLocaleConnectorDependencyProviderTest extends Unit
     protected $localeFacadeMock;
 
     /**
-     * @var \FondOfSpryker\Zed\SalesLocaleConnector\SalesLocaleConnectorDependencyProvider
+     * @var \FondOfOryx\Zed\SalesLocaleConnector\SalesLocaleConnectorDependencyProvider
      */
     protected $salesLocaleConnectorDependencyProvider;
 

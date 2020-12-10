@@ -6,7 +6,7 @@ use Generated\Shared\Transfer\OrderTransfer;
 use Spryker\Zed\Kernel\Business\AbstractFacade;
 
 /**
- * @method \FondOfSpryker\Zed\SalesLocaleConnector\Business\SalesLocaleConnectorBusinessFactory getFactory()
+ * @method \FondOfOryx\Zed\SalesLocaleConnector\Business\SalesLocaleConnectorBusinessFactory getFactory()
  */
 class SalesLocaleConnectorFacade extends AbstractFacade implements SalesLocaleConnectorFacadeInterface
 {

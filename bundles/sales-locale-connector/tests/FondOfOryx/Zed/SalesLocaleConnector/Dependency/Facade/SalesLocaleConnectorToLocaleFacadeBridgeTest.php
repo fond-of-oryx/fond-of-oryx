@@ -19,7 +19,7 @@ class SalesLocaleConnectorToLocaleFacadeBridgeTest extends Unit
     protected $localeTransferMock;
 
     /**
-     * @var \FondOfSpryker\Zed\SalesLocaleConnector\Dependency\Facade\SalesLocaleConnectorToLocaleFacadeBridge
+     * @var \FondOfOryx\Zed\SalesLocaleConnector\Dependency\Facade\SalesLocaleConnectorToLocaleFacadeBridge
      */
     protected $salesLocaleConnectorToLocaleFacadeBridge;
 

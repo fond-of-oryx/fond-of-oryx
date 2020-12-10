@@ -22,12 +22,12 @@
   "prefer-stable": true,
   "autoload": {
     "psr-4": {
-      "FondOfSpryker\\": "src/FondOfOryx/"
+      "FondOfOryx\\": "src/FondOfOryx/"
     }
   },
   "autoload-dev": {
     "psr-4": {
-      "FondOfSpryker\\": "tests/FondOfOryx/",
+      "FondOfOryx\\": "tests/FondOfOryx/",
       "Generated\\": "src/Generated/"
     }
   }

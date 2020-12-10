@@ -7,7 +7,7 @@ use Spryker\Zed\Kernel\Communication\AbstractPlugin;
 use Spryker\Zed\SalesExtension\Dependency\Plugin\OrderExpanderPluginInterface;
 
 /**
- * @method \FondOfSpryker\Zed\SalesLocaleConnector\Business\SalesLocaleConnectorFacadeInterface getFacade()
+ * @method \FondOfOryx\Zed\SalesLocaleConnector\Business\SalesLocaleConnectorFacadeInterface getFacade()
  */
 class LocaleOrderExpanderPlugin extends AbstractPlugin implements OrderExpanderPluginInterface
 {

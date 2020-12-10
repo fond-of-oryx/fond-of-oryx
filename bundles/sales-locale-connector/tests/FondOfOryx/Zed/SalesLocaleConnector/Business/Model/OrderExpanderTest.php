@@ -10,7 +10,7 @@ use Generated\Shared\Transfer\OrderTransfer;
 class OrderExpanderTest extends Unit
 {
     /**
-     * @var \PHPUnit\Framework\MockObject\MockObject|\FondOfSpryker\Zed\SalesLocaleConnector\Dependency\Facade\SalesLocaleConnectorToLocaleFacadeInterface
+     * @var \PHPUnit\Framework\MockObject\MockObject|\FondOfOryx\Zed\SalesLocaleConnector\Dependency\Facade\SalesLocaleConnectorToLocaleFacadeInterface
      */
     protected $localeFacadeMock;
 
@@ -25,7 +25,7 @@ class OrderExpanderTest extends Unit
     protected $localeTransferMock;
 
     /**
-     * @var \FondOfSpryker\Zed\SalesLocaleConnector\Business\Model\OrderExpanderInterface
+     * @var \FondOfOryx\Zed\SalesLocaleConnector\Business\Model\OrderExpanderInterface
      */
     protected $orderExpander;
 
