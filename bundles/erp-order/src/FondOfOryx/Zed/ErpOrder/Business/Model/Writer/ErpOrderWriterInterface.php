@@ -24,8 +24,6 @@ interface ErpOrderWriterInterface
     /**
      * @param int $idErpOrder
      *
-     * @throws \Exception
-     *
      * @return void
      */
     public function delete(int $idErpOrder): void;

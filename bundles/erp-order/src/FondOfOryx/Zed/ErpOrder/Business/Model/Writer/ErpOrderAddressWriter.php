@@ -2,7 +2,6 @@
 
 namespace FondOfOryx\Zed\ErpOrder\Business\Model\Writer;
 
-use Exception;
 use FondOfOryx\Zed\ErpOrder\Business\PluginExecutor\ErpOrderAddressPluginExecutorInterface;
 use FondOfOryx\Zed\ErpOrder\Persistence\ErpOrderEntityManagerInterface;
 use Generated\Shared\Transfer\ErpOrderAddressTransfer;
@@ -42,16 +41,11 @@ class ErpOrderAddressWriter implements ErpOrderAddressWriterInterface
     public function create(ErpOrderAddressTransfer $erpOrderAddressTransfer): ErpOrderAddressTransfer
     {
         $self = $this;
-        try {
-            $erpOrderAddressTransfer = $this->getTransactionHandler()->handleTransaction(
-                function () use ($erpOrderAddressTransfer, $self) {
-                    return $self->executePersistTransaction($erpOrderAddressTransfer);
-                }
-            );
-        } catch (Exception $exception) {
-            //ToDo Maybe logging
-            throw new $exception();
-        }
+        $erpOrderAddressTransfer = $this->getTransactionHandler()->handleTransaction(
+            static function () use ($erpOrderAddressTransfer, $self) {
+                return $self->executePersistTransaction($erpOrderAddressTransfer);
+            }
+        );
 
         return $erpOrderAddressTransfer;
     }
@@ -64,16 +58,11 @@ class ErpOrderAddressWriter implements ErpOrderAddressWriterInterface
     public function update(ErpOrderAddressTransfer $erpOrderAddressTransfer): ErpOrderAddressTransfer
     {
         $self = $this;
-        try {
-            $erpOrderAddressTransfer = $this->getTransactionHandler()->handleTransaction(
-                function () use ($erpOrderAddressTransfer, $self) {
-                    return $self->executeUpdateTransaction($erpOrderAddressTransfer);
-                }
-            );
-        } catch (Exception $exception) {
-            //ToDo Maybe logging
-            throw new $exception();
-        }
+        $erpOrderAddressTransfer = $this->getTransactionHandler()->handleTransaction(
+            static function () use ($erpOrderAddressTransfer, $self) {
+                return $self->executeUpdateTransaction($erpOrderAddressTransfer);
+            }
+        );
 
         return $erpOrderAddressTransfer;
     }
@@ -86,16 +75,11 @@ class ErpOrderAddressWriter implements ErpOrderAddressWriterInterface
     public function delete(int $idErpOrderAddress): void
     {
         $self = $this;
-        try {
-            $this->getTransactionHandler()->handleTransaction(
-                function () use ($idErpOrderAddress, $self) {
-                    return $self->executeDeleteTransaction($idErpOrderAddress);
-                }
-            );
-        } catch (Exception $exception) {
-            //ToDo Maybe logging
-            throw new $exception();
-        }
+        $this->getTransactionHandler()->handleTransaction(
+            static function () use ($idErpOrderAddress, $self) {
+                return $self->executeDeleteTransaction($idErpOrderAddress);
+            }
+        );
     }
 
     /**

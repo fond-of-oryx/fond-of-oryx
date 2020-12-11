@@ -9,8 +9,6 @@ interface ErpOrderAddressWriterInterface
     /**
      * @param \Generated\Shared\Transfer\ErpOrderAddressTransfer $erpOrderAddressTransfer
      *
-     * @throws \Exception
-     *
      * @return \Generated\Shared\Transfer\ErpOrderAddressTransfer
      */
     public function create(ErpOrderAddressTransfer $erpOrderAddressTransfer): ErpOrderAddressTransfer;
@@ -18,16 +16,12 @@ interface ErpOrderAddressWriterInterface
     /**
      * @param \Generated\Shared\Transfer\ErpOrderAddressTransfer $erpOrderAddressTransfer
      *
-     * @throws \Exception
-     *
      * @return \Generated\Shared\Transfer\ErpOrderAddressTransfer
      */
     public function update(ErpOrderAddressTransfer $erpOrderAddressTransfer): ErpOrderAddressTransfer;
 
     /**
      * @param int $idErpOrderAddress
-     *
-     * @throws \Exception
      *
      * @return void
      */

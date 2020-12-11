@@ -2,7 +2,6 @@
 
 namespace FondOfOryx\Zed\ErpOrder\Business\Model\Writer;
 
-use Exception;
 use FondOfOryx\Zed\ErpOrder\Business\PluginExecutor\ErpOrderItemPluginExecutorInterface;
 use FondOfOryx\Zed\ErpOrder\Persistence\ErpOrderEntityManagerInterface;
 use Generated\Shared\Transfer\ErpOrderItemTransfer;
@@ -42,16 +41,11 @@ class ErpOrderItemWriter implements ErpOrderItemWriterInterface
     public function create(ErpOrderItemTransfer $erpOrderItemTransfer): ErpOrderItemTransfer
     {
         $self = $this;
-        try {
-            $erpOrderItemTransfer = $this->getTransactionHandler()->handleTransaction(
-                function () use ($erpOrderItemTransfer, $self) {
-                    return $self->executePersistTransaction($erpOrderItemTransfer);
-                }
-            );
-        } catch (Exception $exception) {
-            //ToDo Maybe logging
-            throw new $exception();
-        }
+        $erpOrderItemTransfer = $this->getTransactionHandler()->handleTransaction(
+            static function () use ($erpOrderItemTransfer, $self) {
+                return $self->executePersistTransaction($erpOrderItemTransfer);
+            }
+        );
 
         return $erpOrderItemTransfer;
     }
@@ -68,16 +62,11 @@ class ErpOrderItemWriter implements ErpOrderItemWriterInterface
             ->requireFkErpOrder();
 
         $self = $this;
-        try {
-            $erpOrderItemTransfer = $this->getTransactionHandler()->handleTransaction(
-                function () use ($erpOrderItemTransfer, $self) {
-                    return $self->executeUpdateTransaction($erpOrderItemTransfer);
-                }
-            );
-        } catch (Exception $exception) {
-            //ToDo Maybe logging
-            throw new $exception();
-        }
+        $erpOrderItemTransfer = $this->getTransactionHandler()->handleTransaction(
+            static function () use ($erpOrderItemTransfer, $self) {
+                return $self->executeUpdateTransaction($erpOrderItemTransfer);
+            }
+        );
 
         return $erpOrderItemTransfer;
     }
@@ -90,16 +79,11 @@ class ErpOrderItemWriter implements ErpOrderItemWriterInterface
     public function delete(int $idErpOrderItem): void
     {
         $self = $this;
-        try {
-            $this->getTransactionHandler()->handleTransaction(
-                function () use ($idErpOrderItem, $self) {
-                    return $self->executeDeleteTransaction($idErpOrderItem);
-                }
-            );
-        } catch (Exception $exception) {
-            //ToDo Maybe logging
-            throw new $exception();
-        }
+        $this->getTransactionHandler()->handleTransaction(
+            static function () use ($idErpOrderItem, $self) {
+                return $self->executeDeleteTransaction($idErpOrderItem);
+            }
+        );
     }
 
     /**

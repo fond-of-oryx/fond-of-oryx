@@ -48,13 +48,11 @@ class ErpOrderWriter implements ErpOrderWriterInterface
             ->setIsSuccessful(true);
         try {
             $responseTransfer = $this->getTransactionHandler()->handleTransaction(
-                function () use ($responseTransfer, $self) {
+                static function () use ($responseTransfer, $self) {
                     return $self->executePersistTransaction($responseTransfer);
                 }
             );
         } catch (Exception $exception) {
-            echo $exception->getMessage();
-            echo $exception->getTraceAsString();
             $responseTransfer->setErpOrder(null)
                 ->setIsSuccessful(false);
         }
@@ -75,7 +73,7 @@ class ErpOrderWriter implements ErpOrderWriterInterface
             ->setIsSuccessful(true);
         try {
             $responseTransfer = $this->getTransactionHandler()->handleTransaction(
-                function () use ($responseTransfer, $self) {
+                static function () use ($responseTransfer, $self) {
                     return $self->executeUpdateTransaction($responseTransfer);
                 }
             );
@@ -95,16 +93,11 @@ class ErpOrderWriter implements ErpOrderWriterInterface
     public function delete(int $idErpOrder): void
     {
         $self = $this;
-        try {
-            $this->getTransactionHandler()->handleTransaction(
-                function () use ($idErpOrder, $self) {
-                    return $self->executeDeleteTransaction($idErpOrder);
-                }
-            );
-        } catch (Exception $exception) {
-            //ToDo Maybe logging
-            throw new $exception();
-        }
+        $this->getTransactionHandler()->handleTransaction(
+            static function () use ($idErpOrder, $self) {
+                return $self->executeDeleteTransaction($idErpOrder);
+            }
+        );
     }
 
     /**

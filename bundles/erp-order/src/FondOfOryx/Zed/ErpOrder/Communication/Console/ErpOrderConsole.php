@@ -131,7 +131,8 @@ class ErpOrderConsole extends Console
             ->setConcreteDeliveryDate(date('Y-m-d', strtotime(time() . ' + 10 days')))
             ->setExternalReference($externalRef);
 
-        for ($i = 0; $i < mt_rand(1, 7); $i++) {
+        $rnd = mt_rand(1, 7);
+        for ($i = 0; $i < $rnd; $i++) {
             $erpOrderTransfer->addOrderItem($this->createItem());
         }
 
