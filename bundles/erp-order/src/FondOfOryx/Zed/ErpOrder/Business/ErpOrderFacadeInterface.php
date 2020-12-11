@@ -34,4 +34,25 @@ interface ErpOrderFacadeInterface
      * @return \Generated\Shared\Transfer\ErpOrderTransfer|null
      */
     public function findErpOrderByIdErpOrder(int $idErpOrder): ?ErpOrderTransfer;
+
+    /**
+     * @param \Generated\Shared\Transfer\ErpOrderTransfer $erpOrderTransfer
+     *
+     * @return \Generated\Shared\Transfer\ErpOrderTransfer
+     */
+    public function persistBillingAddress(ErpOrderTransfer $erpOrderTransfer): ErpOrderTransfer;
+
+    /**
+     * @param \Generated\Shared\Transfer\ErpOrderTransfer $erpOrderTransfer
+     *
+     * @return \Generated\Shared\Transfer\ErpOrderTransfer
+     */
+    public function persistShippingAddress(ErpOrderTransfer $erpOrderTransfer): ErpOrderTransfer;
+
+    /**
+     * @param \Generated\Shared\Transfer\ErpOrderTransfer $erpOrderTransfer
+     *
+     * @return \Generated\Shared\Transfer\ErpOrderTransfer
+     */
+    public function persistErpOrderItem(ErpOrderTransfer $erpOrderTransfer): ErpOrderTransfer;
 }

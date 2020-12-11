@@ -1,0 +1,140 @@
+<?php
+
+namespace FondOfOryx\Zed\ErpOrder\Business\Model\Writer;
+
+use Exception;
+use FondOfOryx\Zed\ErpOrder\Business\PluginExecutor\ErpOrderAddressPluginExecutorInterface;
+use FondOfOryx\Zed\ErpOrder\Persistence\ErpOrderEntityManagerInterface;
+use Generated\Shared\Transfer\ErpOrderAddressTransfer;
+use Spryker\Zed\Kernel\Persistence\EntityManager\TransactionTrait;
+
+class ErpOrderAddressWriter implements ErpOrderAddressWriterInterface
+{
+    use TransactionTrait;
+
+    /**
+     * @var \FondOfOryx\Zed\ErpOrder\Persistence\ErpOrderEntityManagerInterface
+     */
+    protected $entityManager;
+
+    /**
+     * @var \FondOfOryx\Zed\ErpOrder\Business\PluginExecutor\ErpOrderAddressPluginExecutorInterface
+     */
+    protected $erpOrderAddressPluginExecutor;
+
+    /**
+     * @param \FondOfOryx\Zed\ErpOrder\Persistence\ErpOrderEntityManagerInterface $entityManager
+     * @param \FondOfOryx\Zed\ErpOrder\Business\PluginExecutor\ErpOrderAddressPluginExecutorInterface $erpOrderAddressPluginExecutor
+     */
+    public function __construct(
+        ErpOrderEntityManagerInterface $entityManager,
+        ErpOrderAddressPluginExecutorInterface $erpOrderAddressPluginExecutor
+    ) {
+        $this->entityManager = $entityManager;
+        $this->erpOrderAddressPluginExecutor = $erpOrderAddressPluginExecutor;
+    }
+
+    /**
+     * @param \Generated\Shared\Transfer\ErpOrderAddressTransfer $erpOrderAddressTransfer
+     *
+     * @return \Generated\Shared\Transfer\ErpOrderAddressTransfer
+     */
+    public function create(ErpOrderAddressTransfer $erpOrderAddressTransfer): ErpOrderAddressTransfer
+    {
+        $self = $this;
+        try {
+            $erpOrderAddressTransfer = $this->getTransactionHandler()->handleTransaction(
+                function () use ($erpOrderAddressTransfer, $self) {
+                    return $self->executePersistTransaction($erpOrderAddressTransfer);
+                }
+            );
+        } catch (Exception $exception) {
+            //ToDo Maybe logging
+            throw new $exception();
+        }
+
+        return $erpOrderAddressTransfer;
+    }
+
+    /**
+     * @param \Generated\Shared\Transfer\ErpOrderAddressTransfer $erpOrderAddressTransfer
+     *
+     * @return \Generated\Shared\Transfer\ErpOrderAddressTransfer
+     */
+    public function update(ErpOrderAddressTransfer $erpOrderAddressTransfer): ErpOrderAddressTransfer
+    {
+        $self = $this;
+        try {
+            $erpOrderAddressTransfer = $this->getTransactionHandler()->handleTransaction(
+                function () use ($erpOrderAddressTransfer, $self) {
+                    return $self->executeUpdateTransaction($erpOrderAddressTransfer);
+                }
+            );
+        } catch (Exception $exception) {
+            //ToDo Maybe logging
+            throw new $exception();
+        }
+
+        return $erpOrderAddressTransfer;
+    }
+
+    /**
+     * @param int $idErpOrderAddress
+     *
+     * @return void
+     */
+    public function delete(int $idErpOrderAddress): void
+    {
+        $self = $this;
+        try {
+            $this->getTransactionHandler()->handleTransaction(
+                function () use ($idErpOrderAddress, $self) {
+                    return $self->executeDeleteTransaction($idErpOrderAddress);
+                }
+            );
+        } catch (Exception $exception) {
+            //ToDo Maybe logging
+            throw new $exception();
+        }
+    }
+
+    /**
+     * @param \Generated\Shared\Transfer\ErpOrderAddressTransfer $erpOrderAddressTransfer
+     *
+     * @return \Generated\Shared\Transfer\ErpOrderAddressTransfer
+     */
+    protected function executePersistTransaction(
+        ErpOrderAddressTransfer $erpOrderAddressTransfer
+    ): ErpOrderAddressTransfer {
+        $erpOrderAddressTransfer = $this->erpOrderAddressPluginExecutor->executePreSavePlugins($erpOrderAddressTransfer);
+        $erpOrderAddressTransfer = $this->entityManager->createErpOrderAddress($erpOrderAddressTransfer);
+        $erpOrderAddressTransfer = $this->erpOrderAddressPluginExecutor->executePreSavePlugins($erpOrderAddressTransfer);
+
+        return $erpOrderAddressTransfer;
+    }
+
+    /**
+     * @param \Generated\Shared\Transfer\ErpOrderAddressTransfer $erpOrderAddressTransfer
+     *
+     * @return \Generated\Shared\Transfer\ErpOrderAddressTransfer
+     */
+    protected function executeUpdateTransaction(
+        ErpOrderAddressTransfer $erpOrderAddressTransfer
+    ): ErpOrderAddressTransfer {
+        $erpOrderAddressTransfer = $this->erpOrderAddressPluginExecutor->executePreSavePlugins($erpOrderAddressTransfer);
+        $erpOrderAddressTransfer = $this->entityManager->updateErpOrderAddress($erpOrderAddressTransfer);
+        $erpOrderAddressTransfer = $this->erpOrderAddressPluginExecutor->executePreSavePlugins($erpOrderAddressTransfer);
+
+        return $erpOrderAddressTransfer;
+    }
+
+    /**
+     * @param int $idErpOrderAddress
+     *
+     * @return void
+     */
+    protected function executeDeleteTransaction(int $idErpOrderAddress): void
+    {
+        $this->entityManager->deleteErpOrderByIdErpOrder($idErpOrderAddress);
+    }
+}
