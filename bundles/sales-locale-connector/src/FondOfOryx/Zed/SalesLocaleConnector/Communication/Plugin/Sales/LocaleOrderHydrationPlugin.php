@@ -7,7 +7,7 @@ use Spryker\Zed\Kernel\Communication\AbstractPlugin;
 use Spryker\Zed\Sales\Dependency\Plugin\HydrateOrderPluginInterface;
 
 /**
- * @method \FondOfSpryker\Zed\SalesLocaleConnector\Business\SalesLocaleConnectorFacadeInterface getFacade()
+ * @method \FondOfOryx\Zed\SalesLocaleConnector\Business\SalesLocaleConnectorFacadeInterface getFacade()
  */
 class LocaleOrderHydrationPlugin extends AbstractPlugin implements HydrateOrderPluginInterface
 {

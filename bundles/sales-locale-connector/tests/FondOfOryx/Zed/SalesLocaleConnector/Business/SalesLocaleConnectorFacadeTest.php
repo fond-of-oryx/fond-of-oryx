@@ -9,12 +9,12 @@ use Generated\Shared\Transfer\OrderTransfer;
 class SalesLocaleConnectorFacadeTest extends Unit
 {
     /**
-     * @var \PHPUnit\Framework\MockObject\MockObject|\FondOfSpryker\Zed\SalesLocaleConnector\Business\SalesLocaleConnectorBusinessFactory
+     * @var \PHPUnit\Framework\MockObject\MockObject|\FondOfOryx\Zed\SalesLocaleConnector\Business\SalesLocaleConnectorBusinessFactory
      */
     protected $salesLocaleConnectorBusinessFactoryMock;
 
     /**
-     * @var \PHPUnit\Framework\MockObject\MockObject|\FondOfSpryker\Zed\SalesLocaleConnector\Business\Model\OrderExpanderInterface
+     * @var \PHPUnit\Framework\MockObject\MockObject|\FondOfOryx\Zed\SalesLocaleConnector\Business\Model\OrderExpanderInterface
      */
     protected $orderExpanderMock;
 
@@ -24,7 +24,7 @@ class SalesLocaleConnectorFacadeTest extends Unit
     protected $orderTransferMock;
 
     /**
-     * @var \FondOfSpryker\Zed\SalesLocaleConnector\Business\SalesLocaleConnectorFacade
+     * @var \FondOfOryx\Zed\SalesLocaleConnector\Business\SalesLocaleConnectorFacade
      */
     protected $salesLocaleConnectorFacade;
 

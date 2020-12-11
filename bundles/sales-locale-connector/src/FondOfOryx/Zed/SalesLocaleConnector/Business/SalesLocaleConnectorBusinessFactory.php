@@ -11,7 +11,7 @@ use Spryker\Zed\Kernel\Business\AbstractBusinessFactory;
 class SalesLocaleConnectorBusinessFactory extends AbstractBusinessFactory
 {
     /**
-     * @return \FondOfSpryker\Zed\SalesLocaleConnector\Business\Model\OrderExpanderInterface
+     * @return \FondOfOryx\Zed\SalesLocaleConnector\Business\Model\OrderExpanderInterface
      */
     public function createOrderExpander(): OrderExpanderInterface
     {
@@ -19,7 +19,7 @@ class SalesLocaleConnectorBusinessFactory extends AbstractBusinessFactory
     }
 
     /**
-     * @return \FondOfSpryker\Zed\SalesLocaleConnector\Dependency\Facade\SalesLocaleConnectorToLocaleFacadeInterface
+     * @return \FondOfOryx\Zed\SalesLocaleConnector\Dependency\Facade\SalesLocaleConnectorToLocaleFacadeInterface
      */
     protected function getLocaleFacade(): SalesLocaleConnectorToLocaleFacadeInterface
     {

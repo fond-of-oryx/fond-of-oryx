@@ -16,12 +16,12 @@ class SalesLocaleConnectorBusinessFactoryTest extends Unit
     protected $containerMock;
 
     /**
-     * @var \PHPUnit\Framework\MockObject\MockObject|\FondOfSpryker\Zed\SalesLocaleConnector\Dependency\Facade\SalesLocaleConnectorToLocaleFacadeInterface
+     * @var \PHPUnit\Framework\MockObject\MockObject|\FondOfOryx\Zed\SalesLocaleConnector\Dependency\Facade\SalesLocaleConnectorToLocaleFacadeInterface
      */
     protected $localeFacadeMock;
 
     /**
-     * @var \FondOfSpryker\Zed\SalesLocaleConnector\Business\SalesLocaleConnectorBusinessFactory
+     * @var \FondOfOryx\Zed\SalesLocaleConnector\Business\SalesLocaleConnectorBusinessFactory
      */
     protected $salesLocaleConnectorBusinessFactory;
 
