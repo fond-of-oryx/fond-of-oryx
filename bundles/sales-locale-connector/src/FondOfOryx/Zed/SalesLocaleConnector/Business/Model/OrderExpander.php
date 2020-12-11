@@ -8,12 +8,12 @@ use Generated\Shared\Transfer\OrderTransfer;
 class OrderExpander implements OrderExpanderInterface
 {
     /**
-     * @var \FondOfSpryker\Zed\SalesLocaleConnector\Dependency\Facade\SalesLocaleConnectorToLocaleFacadeInterface
+     * @var \FondOfOryx\Zed\SalesLocaleConnector\Dependency\Facade\SalesLocaleConnectorToLocaleFacadeInterface
      */
     protected $localeFacade;
 
     /**
-     * @param \FondOfSpryker\Zed\SalesLocaleConnector\Dependency\Facade\SalesLocaleConnectorToLocaleFacadeInterface $localeFacade
+     * @param \FondOfOryx\Zed\SalesLocaleConnector\Dependency\Facade\SalesLocaleConnectorToLocaleFacadeInterface $localeFacade
      */
     public function __construct(SalesLocaleConnectorToLocaleFacadeInterface $localeFacade)
     {
