@@ -139,7 +139,7 @@ class LoginCountIncrementerTest extends Unit
 
         static::assertEquals(
             $this->customerStatisticResponseTransferMock,
-            $this->loginCountIncrementer->increment($this->customerTransferMock),
+            $this->loginCountIncrementer->increment($this->customerTransferMock)
         );
     }
 
