@@ -18,7 +18,7 @@ class CustomerStatisticFacade extends AbstractFacade implements CustomerStatisti
      *
      * @api
      *
-     * @param \Generated\Shared\Transfer\CustomerStatisticTransfer $customerStatisticTransfer
+     * @param \Generated\Shared\Transfer\CustomerTransfer $customerTransfer
      *
      * @return \Generated\Shared\Transfer\CustomerStatisticResponseTransfer
      */

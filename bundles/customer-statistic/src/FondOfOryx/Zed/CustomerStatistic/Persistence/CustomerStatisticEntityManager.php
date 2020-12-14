@@ -6,6 +6,8 @@ use Generated\Shared\Transfer\CustomerStatisticTransfer;
 use Spryker\Zed\Kernel\Persistence\AbstractEntityManager;
 
 /**
+ * @codeCoverageIgnore
+ *
  * @method \FondOfOryx\Zed\CustomerStatistic\Persistence\CustomerStatisticPersistenceFactory getFactory()
  */
 class CustomerStatisticEntityManager extends AbstractEntityManager implements CustomerStatisticEntityManagerInterface

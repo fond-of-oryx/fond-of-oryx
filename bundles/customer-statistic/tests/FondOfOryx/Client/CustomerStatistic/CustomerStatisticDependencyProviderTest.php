@@ -1,23 +1,23 @@
 <?php
 
-namespace FondOfOryx\Zed\CustomerStatistic;
+namespace FondOfOryx\Client\CustomerStatistic;
 
 use Codeception\Test\Unit;
-use FondOfOryx\Zed\CustomerStatistic\Dependency\QueryContainer\CustomerStatisticToCustomerQueryContainerBridge;
+use FondOfOryx\Client\CustomerStatistic\Dependency\Client\CustomerStatisticToZedRequestClientBridge;
+use Spryker\Client\Kernel\Container;
+use Spryker\Client\Kernel\Locator;
+use Spryker\Client\ZedRequest\ZedRequestClientInterface;
 use Spryker\Shared\Kernel\BundleProxy;
-use Spryker\Zed\Customer\Persistence\CustomerQueryContainerInterface;
-use Spryker\Zed\Kernel\Container;
-use Spryker\Zed\Kernel\Locator;
 
 class CustomerStatisticDependencyProviderTest extends Unit
 {
     /**
-     * @var \PHPUnit\Framework\MockObject\MockObject|\Spryker\Zed\Kernel\Container
+     * @var \PHPUnit\Framework\MockObject\MockObject|\Spryker\Client\Kernel\Container
      */
     protected $containerMock;
 
     /**
-     * @var \PHPUnit\Framework\MockObject\MockObject|\Spryker\Zed\Kernel\Locator
+     * @var \PHPUnit\Framework\MockObject\MockObject|\Spryker\Client\Kernel\Locator
      */
     protected $locatorMock;
 
@@ -27,12 +27,12 @@ class CustomerStatisticDependencyProviderTest extends Unit
     protected $bundleProxyMock;
 
     /**
-     * @var \Spryker\Zed\Customer\Persistence\CustomerQueryContainerInterface|\PHPUnit\Framework\MockObject\MockObject
+     * @var \PHPUnit\Framework\MockObject\MockObject|\Spryker\Client\ZedRequest\ZedRequestClientInterface
      */
-    protected $customerQueryContainerMock;
+    protected $zedRequestClientMock;
 
     /**
-     * @var \FondOfOryx\Zed\CustomerStatistic\CustomerStatisticDependencyProvider
+     * @var \FondOfOryx\Client\CustomerStatistic\CustomerStatisticDependencyProvider
      */
     protected $customerStatisticDependencyProvider;
 
@@ -55,7 +55,7 @@ class CustomerStatisticDependencyProviderTest extends Unit
             ->disableOriginalConstructor()
             ->getMock();
 
-        $this->customerQueryContainerMock = $this->getMockBuilder(CustomerQueryContainerInterface::class)
+        $this->zedRequestClientMock = $this->getMockBuilder(ZedRequestClientInterface::class)
             ->disableOriginalConstructor()
             ->getMock();
 
@@ -65,7 +65,7 @@ class CustomerStatisticDependencyProviderTest extends Unit
     /**
      * @return void
      */
-    public function testProvidePersistenceLayerDependencies(): void
+    public function testProvideServiceLayerDependencies(): void
     {
         $this->containerMock->expects(static::atLeastOnce())
             ->method('getLocator')
@@ -73,23 +73,21 @@ class CustomerStatisticDependencyProviderTest extends Unit
 
         $this->locatorMock->expects(static::atLeastOnce())
             ->method('__call')
-            ->with('customer')
+            ->with('zedRequest')
             ->willReturn($this->bundleProxyMock);
 
         $this->bundleProxyMock->expects(static::atLeastOnce())
             ->method('__call')
-            ->with('queryContainer')
-            ->willReturn($this->customerQueryContainerMock);
+            ->with('client')
+            ->willReturn($this->zedRequestClientMock);
 
-        $container = $this->customerStatisticDependencyProvider->providePersistenceLayerDependencies(
-            $this->containerMock
-        );
+        $container = $this->customerStatisticDependencyProvider->provideServiceLayerDependencies($this->containerMock);
 
         static::assertEquals($this->containerMock, $container);
 
         static::assertInstanceOf(
-            CustomerStatisticToCustomerQueryContainerBridge::class,
-            $container[CustomerStatisticDependencyProvider::QUERY_CONTAINER_CUSTOMER]
+            CustomerStatisticToZedRequestClientBridge::class,
+            $container[CustomerStatisticDependencyProvider::CLIENT_ZED_REQUEST]
         );
     }
 }

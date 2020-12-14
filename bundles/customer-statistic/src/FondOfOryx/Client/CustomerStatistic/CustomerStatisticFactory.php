@@ -12,7 +12,7 @@ class CustomerStatisticFactory extends AbstractFactory
     /**
      * @return \FondOfOryx\Client\CustomerStatistic\Dependency\Client\CustomerStatisticToZedRequestClientInterface
      */
-    public function getZedRequestClient(): CustomerStatisticToZedRequestClientInterface
+    protected function getZedRequestClient(): CustomerStatisticToZedRequestClientInterface
     {
         return $this->getProvidedDependency(CustomerStatisticDependencyProvider::CLIENT_ZED_REQUEST);
     }

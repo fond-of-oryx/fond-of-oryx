@@ -5,6 +5,9 @@ namespace FondOfOryx\Zed\CustomerStatistic\Persistence\Propel\Mapper;
 use Generated\Shared\Transfer\CustomerStatisticTransfer;
 use Orm\Zed\CustomerStatistic\Persistence\FooCustomerStatistic;
 
+/**
+ * @codeCoverageIgnore
+ */
 class CustomerStatisticMapper implements CustomerStatisticMapperInterface
 {
     /**

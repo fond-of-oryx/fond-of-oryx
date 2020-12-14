@@ -10,6 +10,8 @@ use Orm\Zed\CustomerStatistic\Persistence\FooCustomerStatisticQuery;
 use Spryker\Zed\Kernel\Persistence\AbstractPersistenceFactory;
 
 /**
+ * @codeCoverageIgnore
+ *
  * @method \FondOfOryx\Zed\CustomerStatistic\Persistence\CustomerStatisticRepositoryInterface getRepository()
  */
 class CustomerStatisticPersistenceFactory extends AbstractPersistenceFactory

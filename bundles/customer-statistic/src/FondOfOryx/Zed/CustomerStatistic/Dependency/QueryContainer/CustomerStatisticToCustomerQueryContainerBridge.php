@@ -5,6 +5,9 @@ namespace FondOfOryx\Zed\CustomerStatistic\Dependency\QueryContainer;
 use Orm\Zed\Customer\Persistence\SpyCustomerQuery;
 use Spryker\Zed\Customer\Persistence\CustomerQueryContainerInterface;
 
+/**
+ * @codeCoverageIgnore
+ */
 class CustomerStatisticToCustomerQueryContainerBridge implements CustomerStatisticToCustomerQueryContainerInterface
 {
     /**

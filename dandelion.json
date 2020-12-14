@@ -1,5 +1,10 @@
 {
     "repositories": {
+        "customer-statistic": {
+            "url": "https://<GITHUB_TOKEN>@github.com/fond-of-oryx/customer-statistic.git",
+            "path": "bundles/customer-statistic/",
+            "version": "1.0.0"
+        },
         "erp-order": {
             "url": "https://<GITHUB_TOKEN>@github.com/fond-of-oryx/erp-order.git",
             "path": "bundles/erp-order/",

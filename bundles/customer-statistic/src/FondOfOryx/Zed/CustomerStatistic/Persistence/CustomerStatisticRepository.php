@@ -7,6 +7,8 @@ use Orm\Zed\Customer\Persistence\Map\SpyCustomerTableMap;
 use Spryker\Zed\Kernel\Persistence\AbstractRepository;
 
 /**
+ * @codeCoverageIgnore
+ *
  * @method \FondOfOryx\Zed\CustomerStatistic\Persistence\CustomerStatisticPersistenceFactory getFactory()
  */
 class CustomerStatisticRepository extends AbstractRepository implements CustomerStatisticRepositoryInterface
