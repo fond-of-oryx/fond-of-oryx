@@ -117,21 +117,10 @@ class ErpOrderDependencyProvider extends AbstractBundleDependencyProvider
     public function addErpOrderPostSavePlugin(Container $container): Container
     {
         $container[static::PLUGIN_ERP_ORDER_POST_SAVE] = function (Container $container) {
-            $collection = new ArrayObject();
-            foreach ($this->getErpOrderPostSavePlugin() as $postSavePlugin) {
-                if ($postSavePlugin instanceof ErpOrderPostSavePluginInterface) {
-                    $collection->append($postSavePlugin);
+            $plugins = $this->getErpOrderPostSavePlugin();
+            $this->validatePlugin($plugins, ErpOrderPostSavePluginInterface::class);
 
-                    continue;
-                } else {
-                    $this->throwWrongInterfaceException(
-                        get_class($postSavePlugin),
-                        ErpOrderPostSavePluginInterface::class
-                    );
-                }
-            }
-
-            return $collection;
+            return new ArrayObject($plugins);
         };
 
         return $container;
@@ -145,21 +134,10 @@ class ErpOrderDependencyProvider extends AbstractBundleDependencyProvider
     public function addErpOrderPreSavePlugin(Container $container): Container
     {
         $container[static::PLUGIN_ERP_ORDER_PRE_SAVE] = function (Container $container) {
-            $collection = new ArrayObject();
-            foreach ($this->getErpOrderPreSavePlugin() as $preSavePlugin) {
-                if ($preSavePlugin instanceof ErpOrderPreSavePluginInterface) {
-                    $collection->append($preSavePlugin);
+            $plugins = $this->getErpOrderPreSavePlugin();
+            $this->validatePlugin($plugins, ErpOrderPreSavePluginInterface::class);
 
-                    continue;
-                } else {
-                    $this->throwWrongInterfaceException(
-                        get_class($preSavePlugin),
-                        ErpOrderPreSavePluginInterface::class
-                    );
-                }
-            }
-
-            return $collection;
+            return new ArrayObject($plugins);
         };
 
         return $container;
@@ -173,21 +151,10 @@ class ErpOrderDependencyProvider extends AbstractBundleDependencyProvider
     public function addErpOrderItemPostSavePlugin(Container $container): Container
     {
         $container[static::PLUGIN_ERP_ORDER_ITEM_POST_SAVE] = function (Container $container) {
-            $collection = new ArrayObject();
-            foreach ($this->getErpOrderItemPostSavePlugin() as $postSavePlugin) {
-                if ($postSavePlugin instanceof ErpOrderItemPostSavePluginInterface) {
-                    $collection->append($postSavePlugin);
+            $plugins = $this->getErpOrderItemPostSavePlugin();
+            $this->validatePlugin($plugins, ErpOrderItemPostSavePluginInterface::class);
 
-                    continue;
-                } else {
-                    $this->throwWrongInterfaceException(
-                        get_class($postSavePlugin),
-                        ErpOrderItemPostSavePluginInterface::class
-                    );
-                }
-            }
-
-            return $collection;
+            return new ArrayObject($plugins);
         };
 
         return $container;
@@ -201,21 +168,10 @@ class ErpOrderDependencyProvider extends AbstractBundleDependencyProvider
     public function addErpOrderItemPreSavePlugin(Container $container): Container
     {
         $container[static::PLUGIN_ERP_ORDER_ITEM_PRE_SAVE] = function (Container $container) {
-            $collection = new ArrayObject();
-            foreach ($this->getErpOrderItemPreSavePlugin() as $preSavePlugin) {
-                if ($preSavePlugin instanceof ErpOrderItemPreSavePluginInterface) {
-                    $collection->append($preSavePlugin);
+            $plugins = $this->getErpOrderItemPreSavePlugin();
+            $this->validatePlugin($plugins, ErpOrderItemPreSavePluginInterface::class);
 
-                    continue;
-                } else {
-                    $this->throwWrongInterfaceException(
-                        get_class($preSavePlugin),
-                        ErpOrderItemPreSavePluginInterface::class
-                    );
-                }
-            }
-
-            return $collection;
+            return new ArrayObject($plugins);
         };
 
         return $container;
@@ -229,21 +185,10 @@ class ErpOrderDependencyProvider extends AbstractBundleDependencyProvider
     public function addErpOrderAddressPostSavePlugin(Container $container): Container
     {
         $container[static::PLUGIN_ERP_ORDER_ADDRESS_POST_SAVE] = function (Container $container) {
-            $collection = new ArrayObject();
-            foreach ($this->getErpOrderAddressPostSavePlugin() as $postSavePlugin) {
-                if ($postSavePlugin instanceof ErpOrderAddressPostSavePluginInterface) {
-                    $collection->append($postSavePlugin);
+            $plugins = $this->getErpOrderAddressPostSavePlugin();
+            $this->validatePlugin($plugins, ErpOrderAddressPostSavePluginInterface::class);
 
-                    continue;
-                } else {
-                    $this->throwWrongInterfaceException(
-                        get_class($postSavePlugin),
-                        ErpOrderAddressPostSavePluginInterface::class
-                    );
-                }
-            }
-
-            return $collection;
+            return new ArrayObject($plugins);
         };
 
         return $container;
@@ -257,24 +202,35 @@ class ErpOrderDependencyProvider extends AbstractBundleDependencyProvider
     public function addErpOrderAddressPreSavePlugin(Container $container): Container
     {
         $container[static::PLUGIN_ERP_ORDER_ADDRESS_PRE_SAVE] = function (Container $container) {
-            $collection = new ArrayObject();
-            foreach ($this->getErpOrderAddressPreSavePlugin() as $preSavePlugin) {
-                if ($preSavePlugin instanceof ErpOrderAddressPreSavePluginInterface) {
-                    $collection->append($preSavePlugin);
+            $plugins = $this->getErpOrderAddressPreSavePlugin();
+            $this->validatePlugin($plugins, ErpOrderAddressPreSavePluginInterface::class);
 
-                    continue;
-                } else {
-                    $this->throwWrongInterfaceException(
-                        get_class($preSavePlugin),
-                        ErpOrderAddressPreSavePluginInterface::class
-                    );
-                }
-            }
-
-            return $collection;
+            return new ArrayObject($plugins);
         };
 
         return $container;
+    }
+
+    /**
+     * @param array $plugins
+     * @param string $class
+     *
+     * @throws \FondOfOryx\Zed\ErpOrder\Exception\WrongInterfaceException
+     *
+     * @return void
+     */
+    protected function validatePlugin(array $plugins, string $class): void
+    {
+        foreach ($plugins as $plugin) {
+            $instance = end((array_values(explode('\\', $class))));
+            if (($plugin instanceof $instance) === false) {
+                throw new WrongInterfaceException(sprintf(
+                    'Plugin %s has to implement interface from type %s',
+                    get_class($plugin),
+                    $class
+                ));
+            }
+        }
     }
 
     /**
@@ -323,22 +279,5 @@ class ErpOrderDependencyProvider extends AbstractBundleDependencyProvider
     protected function getErpOrderAddressPreSavePlugin(): array
     {
         return [];
-    }
-
-    /**
-     * @param string $class
-     * @param string $rightInterface
-     *
-     * @throws \FondOfOryx\Zed\ErpOrder\Exception\WrongInterfaceException
-     *
-     * @return void
-     */
-    protected function throwWrongInterfaceException(string $class, string $rightInterface): void
-    {
-        throw new WrongInterfaceException(sprintf(
-            'Plugin %s has to implement interface from type %s',
-            $class,
-            $rightInterface
-        ));
     }
 }
