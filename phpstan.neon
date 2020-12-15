@@ -2,5 +2,6 @@ parameters:
     level: 5
     ignoreErrors:
         - '#.* has invalid type Orm\\Zed\\.*#'
+        - '#.* has invalid typehint type Orm\\Zed\\.*#'
         - '#.* on an unknown class Orm\\Zed\\.*#'
-        - '#.* on an unknown class Generated\\(Clinet|Glue|Service|Yves|Zed)\\.*#'
+        - '#.* on an unknown class Generated\\(Client|Glue|Service|Yves|Zed)\\.*#'

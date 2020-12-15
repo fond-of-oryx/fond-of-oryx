@@ -101,11 +101,17 @@ class ErpOrderAddressHandler implements ErpOrderAddressHandlerInterface
      */
     protected function getAddressByType(ErpOrderTransfer $erpOrderTransfer, string $addressType): ErpOrderAddressTransfer
     {
+        $addressTransfer = null;
+
         if ($addressType === static::BILLING_TYPE) {
-            return $erpOrderTransfer->getBillingAddress();
+            $addressTransfer = $erpOrderTransfer->getBillingAddress();
         }
         if ($addressType === static::SHIPPING_TYPE) {
-            return $erpOrderTransfer->getShippingAddress();
+            $addressTransfer = $erpOrderTransfer->getShippingAddress();
+        }
+
+        if ($addressTransfer !== null){
+            return $addressTransfer;
         }
 
         $this->throwUnkownTypeException($addressType);
@@ -146,6 +152,6 @@ class ErpOrderAddressHandler implements ErpOrderAddressHandlerInterface
      */
     protected function throwUnkownTypeException(string $type): void
     {
-        throw new UnknownTypeException(sprintf('Type "%s" not known!', $type));
+        throw new UnknownTypeException(sprintf('Type "%s" not known or address is null!', $type));
     }
 }
