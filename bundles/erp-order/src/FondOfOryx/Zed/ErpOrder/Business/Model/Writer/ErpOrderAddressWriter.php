@@ -77,7 +77,7 @@ class ErpOrderAddressWriter implements ErpOrderAddressWriterInterface
         $self = $this;
         $this->getTransactionHandler()->handleTransaction(
             static function () use ($idErpOrderAddress, $self) {
-                return $self->executeDeleteTransaction($idErpOrderAddress);
+                $self->executeDeleteTransaction($idErpOrderAddress);
             }
         );
     }

@@ -45,12 +45,14 @@ class ErpOrderAddressHandler implements ErpOrderAddressHandlerInterface
      * @param \Generated\Shared\Transfer\ErpOrderTransfer $erpOrderTransfer
      * @param string $addressType
      *
+     * @throws \FondOfOryx\Zed\ErpOrder\Exception\UnknownTypeException
+     *
      * @return \Generated\Shared\Transfer\ErpOrderTransfer
      */
     public function handle(ErpOrderTransfer $erpOrderTransfer, string $addressType): ErpOrderTransfer
     {
         if (in_array($addressType, static::KNOWN_TYPES, true) === false) {
-            $this->throwUnkownTypeException($addressType);
+            throw new UnknownTypeException(sprintf('Type "%s" not known or address is null!', $addressType));
         }
 
         $orderAddressTransfer = $this->getAddressByType($erpOrderTransfer, $addressType);
@@ -97,6 +99,8 @@ class ErpOrderAddressHandler implements ErpOrderAddressHandlerInterface
      * @param \Generated\Shared\Transfer\ErpOrderTransfer $erpOrderTransfer
      * @param string $addressType
      *
+     * @throws \FondOfOryx\Zed\ErpOrder\Exception\UnknownTypeException
+     *
      * @return \Generated\Shared\Transfer\ErpOrderAddressTransfer
      */
     protected function getAddressByType(ErpOrderTransfer $erpOrderTransfer, string $addressType): ErpOrderAddressTransfer
@@ -114,13 +118,15 @@ class ErpOrderAddressHandler implements ErpOrderAddressHandlerInterface
             return $addressTransfer;
         }
 
-        $this->throwUnkownTypeException($addressType);
+        throw new UnknownTypeException(sprintf('Type "%s" not known or address is null!', $addressType));
     }
 
     /**
      * @param \Generated\Shared\Transfer\ErpOrderTransfer $erpOrderTransfer
      * @param \Generated\Shared\Transfer\ErpOrderAddressTransfer $erpOrderAddressTransfer
      * @param string $addressType
+     *
+     * @throws \FondOfOryx\Zed\ErpOrder\Exception\UnknownTypeException
      *
      * @return \Generated\Shared\Transfer\ErpOrderTransfer
      */
@@ -140,18 +146,6 @@ class ErpOrderAddressHandler implements ErpOrderAddressHandlerInterface
                 ->setFkShippingAddress($erpOrderAddressTransfer->getIdErpOrderAddress());
         }
 
-        $this->throwUnkownTypeException($addressType);
-    }
-
-    /**
-     * @param string $type
-     *
-     * @throws \FondOfOryx\Zed\ErpOrder\Exception\UnknownTypeException
-     *
-     * @return void
-     */
-    protected function throwUnkownTypeException(string $type): void
-    {
-        throw new UnknownTypeException(sprintf('Type "%s" not known or address is null!', $type));
+        throw new UnknownTypeException(sprintf('Type "%s" not known or address is null!', $addressType));
     }
 }

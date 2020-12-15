@@ -19,9 +19,9 @@ class ErpOrderWriter implements ErpOrderWriterInterface
     protected $entityManager;
 
     /**
-     * @var array
+     * @var \FondOfOryx\Zed\ErpOrder\Business\PluginExecutor\ErpOrderPluginExecutorInterface
      */
-    protected $erpOrderPluginExecutor = [];
+    protected $erpOrderPluginExecutor;
 
     /**
      * @param \FondOfOryx\Zed\ErpOrder\Persistence\ErpOrderEntityManagerInterface $entityManager
@@ -95,7 +95,7 @@ class ErpOrderWriter implements ErpOrderWriterInterface
         $self = $this;
         $this->getTransactionHandler()->handleTransaction(
             static function () use ($idErpOrder, $self) {
-                return $self->executeDeleteTransaction($idErpOrder);
+                $self->executeDeleteTransaction($idErpOrder);
             }
         );
     }

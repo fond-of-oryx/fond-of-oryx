@@ -38,7 +38,7 @@
       "FondOfOryx\\Shared\\SalesLocaleConnector\\": "bundles/sales-locale-connector/src/FondOfOryx/Shared/SalesLocaleConnector",
       "FondOfOryx\\Zed\\ErpOrder\\": "bundles/erp-order/src/FondOfOryx/Zed/ErpOrder",
       "FondOfOryx\\Zed\\ErpOrderApi\\": "bundles/erp-order-api/src/FondOfOryx/Zed/ErpOrderApi",
-      "FondOfOryx\\Zed\\ErpOrderExtension\\": "bundles/erp-order-api/src/FondOfOryx/Zed/ErpOrderExtension",
+      "FondOfOryx\\Zed\\ErpOrderExtension\\": "bundles/erp-order-extension/src/FondOfOryx/Zed/ErpOrderExtension",
       "FondOfOryx\\Zed\\MailBcc\\": "bundles/mail-bcc/src/FondOfOryx/Zed/MailBcc",
       "FondOfOryx\\Zed\\SalesLocaleConnector\\": "bundles/sales-locale-connector/src/FondOfOryx/Zed/SalesLocaleConnector"
     }
@@ -48,7 +48,7 @@
       "FondOfOryx\\Zed\\SalesLocaleConnector\\": "bundles/sales-locale-connector/tests/FondOfOryx/Zed/SalesLocaleConnector",
       "FondOfOryx\\Zed\\ErpOrder\\": "bundles/erp-order/src/FondOfOryx/Zed/ErpOrder",
       "FondOfOryx\\Zed\\ErpOrderApi\\": "bundles/erp-order-api/tests/FondOfOryx/Zed/ErpOrderApi",
-      "FondOfOryx\\Zed\\ErpOrderExtension\\": "bundles/erp-order-api/tests/FondOfOryx/Zed/ErpOrderExtension",
+      "FondOfOryx\\Zed\\ErpOrderExtension\\": "bundles/erp-order-extension/tests/FondOfOryx/Zed/ErpOrderExtension",
       "FondOfOryx\\Zed\\MailBcc\\": "bundles/mail-bcc/tests/FondOfOryx/Zed/MailBcc",
       "Generated\\": "src/Generated/"
     }

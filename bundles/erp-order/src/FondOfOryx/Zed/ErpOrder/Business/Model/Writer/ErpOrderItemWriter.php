@@ -81,7 +81,7 @@ class ErpOrderItemWriter implements ErpOrderItemWriterInterface
         $self = $this;
         $this->getTransactionHandler()->handleTransaction(
             static function () use ($idErpOrderItem, $self) {
-                return $self->executeDeleteTransaction($idErpOrderItem);
+                $self->executeDeleteTransaction($idErpOrderItem);
             }
         );
     }

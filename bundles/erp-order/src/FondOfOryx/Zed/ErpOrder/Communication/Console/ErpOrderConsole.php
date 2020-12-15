@@ -119,7 +119,7 @@ class ErpOrderConsole extends Console
      */
     protected function getCreateErpOrderData(): ErpOrderTransfer
     {
-        $externalRef = md5(time());
+        $externalRef = md5((string)time());
         $ref = md5($externalRef);
         $erpOrderTransfer = new ErpOrderTransfer();
         $erpOrderTransfer
@@ -152,7 +152,7 @@ class ErpOrderConsole extends Console
             ->setName2('Wurst')
             ->setAddress1('Wurst Weg 99')
             ->setCity('Wursterer')
-            ->setZipCode(mt_rand(10000, 99999));
+            ->setZipCode((string)mt_rand(10000, 99999));
 
         return $address;
     }
@@ -165,7 +165,7 @@ class ErpOrderConsole extends Console
         $item = new ErpOrderItemTransfer();
         $qty = mt_rand(0, 100);
         $item
-            ->setName(md5(time()))
+            ->setName(md5((string)time()))
             ->setSku(sprintf('sku-%s-%s-abc', mt_rand(10000, 99999), mt_rand(10000, 99999)))
             ->setCanceledQuantity(0)
             ->setShippedQuantity($qty)
