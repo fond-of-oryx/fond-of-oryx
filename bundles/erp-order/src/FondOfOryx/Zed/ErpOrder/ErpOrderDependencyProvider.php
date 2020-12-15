@@ -123,9 +123,12 @@ class ErpOrderDependencyProvider extends AbstractBundleDependencyProvider
                     $collection->append($postSavePlugin);
 
                     continue;
+                } else {
+                    $this->throwWrongInterfaceException(
+                        get_class($postSavePlugin),
+                        ErpOrderPostSavePluginInterface::class
+                    );
                 }
-
-                $this->throwWrongInterfaceException(get_class($postSavePlugin), ErpOrderPostSavePluginInterface::class);
             }
 
             return $collection;
@@ -148,9 +151,12 @@ class ErpOrderDependencyProvider extends AbstractBundleDependencyProvider
                     $collection->append($preSavePlugin);
 
                     continue;
+                } else {
+                    $this->throwWrongInterfaceException(
+                        get_class($preSavePlugin),
+                        ErpOrderPreSavePluginInterface::class
+                    );
                 }
-
-                $this->throwWrongInterfaceException(get_class($preSavePlugin), ErpOrderPreSavePluginInterface::class);
             }
 
             return $collection;
@@ -173,9 +179,12 @@ class ErpOrderDependencyProvider extends AbstractBundleDependencyProvider
                     $collection->append($postSavePlugin);
 
                     continue;
+                } else {
+                    $this->throwWrongInterfaceException(
+                        get_class($postSavePlugin),
+                        ErpOrderItemPostSavePluginInterface::class
+                    );
                 }
-
-                $this->throwWrongInterfaceException(get_class($postSavePlugin), ErpOrderItemPostSavePluginInterface::class);
             }
 
             return $collection;
@@ -198,9 +207,12 @@ class ErpOrderDependencyProvider extends AbstractBundleDependencyProvider
                     $collection->append($preSavePlugin);
 
                     continue;
+                } else {
+                    $this->throwWrongInterfaceException(
+                        get_class($preSavePlugin),
+                        ErpOrderItemPreSavePluginInterface::class
+                    );
                 }
-
-                $this->throwWrongInterfaceException(get_class($preSavePlugin), ErpOrderItemPreSavePluginInterface::class);
             }
 
             return $collection;
@@ -223,9 +235,12 @@ class ErpOrderDependencyProvider extends AbstractBundleDependencyProvider
                     $collection->append($postSavePlugin);
 
                     continue;
+                } else {
+                    $this->throwWrongInterfaceException(
+                        get_class($postSavePlugin),
+                        ErpOrderAddressPostSavePluginInterface::class
+                    );
                 }
-
-                $this->throwWrongInterfaceException(get_class($postSavePlugin), ErpOrderAddressPostSavePluginInterface::class);
             }
 
             return $collection;
@@ -248,9 +263,12 @@ class ErpOrderDependencyProvider extends AbstractBundleDependencyProvider
                     $collection->append($preSavePlugin);
 
                     continue;
+                } else {
+                    $this->throwWrongInterfaceException(
+                        get_class($preSavePlugin),
+                        ErpOrderAddressPreSavePluginInterface::class
+                    );
                 }
-
-                $this->throwWrongInterfaceException(get_class($preSavePlugin), ErpOrderAddressPreSavePluginInterface::class);
             }
 
             return $collection;
@@ -317,6 +335,10 @@ class ErpOrderDependencyProvider extends AbstractBundleDependencyProvider
      */
     protected function throwWrongInterfaceException(string $class, string $rightInterface): void
     {
-        throw new WrongInterfaceException(sprintf('Plugin %s has to implement interface from type %s', $class, $rightInterface));
+        throw new WrongInterfaceException(sprintf(
+            'Plugin %s has to implement interface from type %s',
+            $class,
+            $rightInterface
+        ));
     }
 }

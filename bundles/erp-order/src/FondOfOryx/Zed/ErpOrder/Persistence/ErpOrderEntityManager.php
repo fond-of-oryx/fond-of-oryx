@@ -149,7 +149,6 @@ class ErpOrderEntityManager extends AbstractEntityManager implements ErpOrderEnt
         $entity->fromArray($orderItemTransfer->toArray());
         $entity
             ->setIdErpOrderItem($idItem)
-            ->setFkErpOrder($idErpOrder)
             ->setCreatedAt($createdAt)
             ->setUpdatedAt($updatedAt);
 
