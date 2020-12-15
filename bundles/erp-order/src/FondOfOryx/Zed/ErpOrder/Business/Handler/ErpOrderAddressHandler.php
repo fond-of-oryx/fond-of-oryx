@@ -110,7 +110,7 @@ class ErpOrderAddressHandler implements ErpOrderAddressHandlerInterface
             $addressTransfer = $erpOrderTransfer->getShippingAddress();
         }
 
-        if ($addressTransfer !== null){
+        if ($addressTransfer !== null) {
             return $addressTransfer;
         }
 
