@@ -222,9 +222,7 @@ class ErpOrderDependencyProvider extends AbstractBundleDependencyProvider
     protected function validatePlugin(array $plugins, string $class): void
     {
         foreach ($plugins as $plugin) {
-            $split = explode('\\', $class);
-            $instance = end((array_values($split)));
-            if (($plugin instanceof $instance) === false) {
+            if (($plugin instanceof $class) === false) {
                 throw new WrongInterfaceException(sprintf(
                     'Plugin %s has to implement interface from type %s',
                     get_class($plugin),
