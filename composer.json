@@ -15,6 +15,7 @@
     "spryker/api-query-builder": "^0.1.0",
     "spryker/company-business-unit": "^1.0.0 || ^2.0.0",
     "spryker/company-user": "^1.0.0 || ^2.0.0",
+    "spryker/customer": "^6.0.0 || ^7.0.0",
     "spryker/locale": "^2.2.0 || ^3.0.0",
     "spryker/sales": "^6.0.0 || ^7.0.0 || ^8.0.0 || ^10.0.0 || ^11.0.0",
     "spryker/sales-extension": "^1.3.0"
@@ -35,7 +36,9 @@
   "prefer-stable": true,
   "autoload": {
     "psr-4": {
+      "FondOfOryx\\Client\\CustomerStatistic\\": "bundles/customer-statistic/src/FondOfOryx/Client/CustomerStatistic",
       "FondOfOryx\\Shared\\SalesLocaleConnector\\": "bundles/sales-locale-connector/src/FondOfOryx/Shared/SalesLocaleConnector",
+      "FondOfOryx\\Zed\\CustomerStatistic\\": "bundles/customer-statistic/src/FondOfOryx/Zed/CustomerStatistic",
       "FondOfOryx\\Zed\\ErpOrder\\": "bundles/erp-order/src/FondOfOryx/Zed/ErpOrder",
       "FondOfOryx\\Zed\\ErpOrderApi\\": "bundles/erp-order-api/src/FondOfOryx/Zed/ErpOrderApi",
       "FondOfOryx\\Zed\\ErpOrderExtension\\": "bundles/erp-order-extension/src/FondOfOryx/Zed/ErpOrderExtension",
@@ -45,7 +48,9 @@
   },
   "autoload-dev": {
     "psr-4": {
+      "FondOfOryx\\Client\\CustomerStatistic\\": "bundles/customer-statistic/tests/FondOfOryx/Client/CustomerStatistic",
       "FondOfOryx\\Zed\\SalesLocaleConnector\\": "bundles/sales-locale-connector/tests/FondOfOryx/Zed/SalesLocaleConnector",
+      "FondOfOryx\\Zed\\CustomerStatistic\\": "bundles/customer-statistic/tests/FondOfOryx/Zed/CustomerStatistic",
       "FondOfOryx\\Zed\\ErpOrder\\": "bundles/erp-order/src/FondOfOryx/Zed/ErpOrder",
       "FondOfOryx\\Zed\\ErpOrderApi\\": "bundles/erp-order-api/tests/FondOfOryx/Zed/ErpOrderApi",
       "FondOfOryx\\Zed\\ErpOrderExtension\\": "bundles/erp-order-extension/tests/FondOfOryx/Zed/ErpOrderExtension",
