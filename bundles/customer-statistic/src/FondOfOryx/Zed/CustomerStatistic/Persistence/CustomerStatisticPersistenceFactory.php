@@ -12,6 +12,7 @@ use Spryker\Zed\Kernel\Persistence\AbstractPersistenceFactory;
 /**
  * @codeCoverageIgnore
  *
+ * @method \FondOfOryx\Zed\CustomerStatistic\Persistence\CustomerStatisticEntityManagerInterface getEntityManager()
  * @method \FondOfOryx\Zed\CustomerStatistic\Persistence\CustomerStatisticRepositoryInterface getRepository()
  */
 class CustomerStatisticPersistenceFactory extends AbstractPersistenceFactory

@@ -24,6 +24,11 @@ class CustomerStatisticDependencyProvider extends AbstractBundleDependencyProvid
         return $container;
     }
 
+    /**
+     * @param \Spryker\Zed\Kernel\Container $container
+     *
+     * @return \Spryker\Zed\Kernel\Container
+     */
     protected function addCustomerQueryContainer(Container $container): Container
     {
         $container[static::QUERY_CONTAINER_CUSTOMER] = static function (Container $container) {

@@ -47,7 +47,6 @@ class CustomerStatisticBusinessFactoryTest extends Unit
         $this->customerStatisticBusinessFactory->setRepository($this->repositoryMock);
     }
 
-    
     /**
      * @return void
      */
@@ -59,7 +58,6 @@ class CustomerStatisticBusinessFactoryTest extends Unit
         );
     }
 
-    
     /**
      * @return void
      */
