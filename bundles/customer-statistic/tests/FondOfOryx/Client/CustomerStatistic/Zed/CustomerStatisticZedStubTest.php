@@ -59,7 +59,7 @@ class CustomerStatisticZedStubTest extends Unit
     {
         $this->zedRequestClientMock->expects(static::atLeastOnce())
             ->method('call')
-            ->with('/customer-statistic/gateway/increment-login-count', $this->customerTransferMock)
+            ->with(CustomerStatisticZedStub::URL_INCREMENT_LOGIN_COUNT, $this->customerTransferMock)
             ->willReturn($this->customerStatisticResponseTransferMock);
 
         static::assertEquals(

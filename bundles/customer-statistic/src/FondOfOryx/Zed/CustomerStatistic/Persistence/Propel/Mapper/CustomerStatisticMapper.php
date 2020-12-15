@@ -38,7 +38,8 @@ class CustomerStatisticMapper implements CustomerStatisticMapperInterface
         CustomerStatisticTransfer $customerStatisticTransfer
     ): CustomerStatisticTransfer {
         return $customerStatisticTransfer->fromArray(
-            $fooCustomerStatistic->toArray()
+            $fooCustomerStatistic->toArray(),
+            true
         );
     }
 }
