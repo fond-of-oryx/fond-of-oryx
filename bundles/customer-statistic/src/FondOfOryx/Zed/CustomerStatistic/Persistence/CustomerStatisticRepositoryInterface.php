@@ -7,9 +7,16 @@ use Generated\Shared\Transfer\CustomerStatisticTransfer;
 interface CustomerStatisticRepositoryInterface
 {
     /**
-     * @param string $customerReference
+     * @param int $idCustomer
      *
      * @return \Generated\Shared\Transfer\CustomerStatisticTransfer|null
      */
-    public function getCustomerStatisticByCustomerReference(string $customerReference): ?CustomerStatisticTransfer;
+    public function getCustomerStatisticByIdCustomer(int $idCustomer): ?CustomerStatisticTransfer;
+
+    /**
+     * @param string $customerReference
+     *
+     * @return int|null
+     */
+    public function getIdCustomerByCustomerReference(string $customerReference): ?int;
 }
