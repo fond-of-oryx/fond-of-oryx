@@ -28,7 +28,7 @@ class TaxCalculationConnectorPersistenceFactory extends AbstractPersistenceFacto
     /**
      * @return \Orm\Zed\Tax\Persistence\SpyTaxSetQuery
      */
-    public function createTaxSetQuery()
+    public function createTaxSetQuery(): SpyTaxSetQuery
     {
         return SpyTaxSetQuery::create();
     }
