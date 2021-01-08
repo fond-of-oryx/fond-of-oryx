@@ -37,18 +37,18 @@ class LoginCountIncrementer implements LoginCountIncrementerInterface
      */
     public function increment(CustomerTransfer $customerTransfer): CustomerStatisticResponseTransfer
     {
-        if ($customerTransfer->getIdCustomer() === null || $customerTransfer->getCustomerReference() === null) {
+        $idCustomer = $customerTransfer->getIdCustomer();
+
+        if ($idCustomer === null) {
             return (new CustomerStatisticResponseTransfer())
                 ->setIsSuccessful(false);
         }
 
-        $customerStatisticTransfer = $this->customerStatisticReader->getByCustomerReference(
-            $customerTransfer->getCustomerReference()
-        );
+        $customerStatisticTransfer = $this->customerStatisticReader->getByIdCustomer($idCustomer);
 
         if ($customerStatisticTransfer === null) {
             $customerStatisticTransfer = (new CustomerStatisticTransfer())
-                ->setFkCustomer($customerTransfer->getIdCustomer());
+                ->setFkCustomer($idCustomer);
         }
 
         $loginCount = $customerStatisticTransfer->getLoginCount() ?? 0;
