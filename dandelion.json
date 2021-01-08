@@ -5,6 +5,11 @@
             "path": "bundles/customer-statistic/",
             "version": "1.0.0"
         },
+        "customer-statistics-rest-api": {
+            "url": "https://<GITHUB_TOKEN>@github.com/fond-of-oryx/customer-statistics-rest-api.git",
+            "path": "bundles/customer-statistics-rest-api/",
+            "version": "1.0.0"
+        },
         "erp-order": {
             "url": "https://<GITHUB_TOKEN>@github.com/fond-of-oryx/erp-order.git",
             "path": "bundles/erp-order/",
