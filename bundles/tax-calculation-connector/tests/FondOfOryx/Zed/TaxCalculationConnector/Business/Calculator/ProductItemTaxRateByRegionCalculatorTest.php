@@ -8,6 +8,8 @@ use Generated\Shared\Transfer\AddressTransfer;
 use Generated\Shared\Transfer\CalculableObjectTransfer;
 use Generated\Shared\Transfer\ItemTransfer;
 use Generated\Shared\Transfer\ShipmentTransfer;
+use Generated\Shared\Transfer\TaxCalculationConnectorProductTaxSetTransfer;
+use Generated\Shared\Transfer\TaxCalculationConnectorTransfer;
 use Propel\Runtime\Collection\ArrayCollection;
 use FondOfOryx\Zed\TaxCalculationConnector\Dependency\Facade\TaxCalculationConnectorToTaxInterface;
 use \Orm\Zed\Tax\Persistence\SpyTaxSetQuery;
@@ -25,9 +27,9 @@ class ProductItemTaxRateByRegionCalculatorTest extends Unit
     private $queryContainerMock;
 
     /**
-     * @var \Orm\Zed\Tax\Persistence\SpyTaxSetQuery|\PHPUnit\Framework\MockObject\MockObject
+     * @var \Generated\Shared\Transfer\TaxCalculationConnectorTransfer
      */
-    private $taxSetQueryMock;
+    private $transferMock;
 
     /**
      * @return void
@@ -40,16 +42,13 @@ class ProductItemTaxRateByRegionCalculatorTest extends Unit
 
         $this->queryContainerMock = $this->getMockBuilder(TaxCalculationConnectorRepository::class)
             ->onlyMethods([
-                'queryTaxSetByIdProductAbstractAndCountryIso2CodesAndIdRegions',
-                'queryTaxSetByIdProductAbstractAndCountryIso2Codes'
+                'getTaxSetByIdProductAbstractAndCountryIso2CodesAndIdRegions',
+                'getTaxSetByIdProductAbstractAndCountryIso2Codes'
             ])
             ->disableOriginalConstructor()
             ->getMock();
 
-        $this->taxSetQueryMock = $this->getMockBuilder(SpyTaxSetQuery::class)
-            ->onlyMethods(['find'])
-            ->disableOriginalConstructor()
-            ->getMock();
+        $this->transferMock = new TaxCalculationConnectorTransfer();
     }
 
     /**
@@ -59,13 +58,18 @@ class ProductItemTaxRateByRegionCalculatorTest extends Unit
     {
         $country = 'DE';
         $idProductAbstract = 1;
-        $this->taxSetQueryMock
-            ->method('find')
-            ->willReturn($this->getTaxObject($country, $idProductAbstract));
+
+        $this->transferMock->addProductTaxSets(
+            (new TaxCalculationConnectorProductTaxSetTransfer())
+                ->setCountryIso2Code($country)
+                ->setIdAbstractProduct($idProductAbstract)
+                ->setMaxTaxRate(19.00)
+        );
+
         $this->queryContainerMock
-            ->method('queryTaxSetByIdProductAbstractAndCountryIso2Codes')
+            ->method('getTaxSetByIdProductAbstractAndCountryIso2Codes')
             ->with([$idProductAbstract], [$country])
-            ->willReturn($this->taxSetQueryMock);
+            ->willReturn($this->transferMock);
 
         $calculableObject = new CalculableObjectTransfer();
         $item = new ItemTransfer();
@@ -77,7 +81,7 @@ class ProductItemTaxRateByRegionCalculatorTest extends Unit
 
         $calculatedObject = $calculator->recalculateWithCalculableObject($calculableObject);
 
-        $this->assertEquals('19.00', $calculatedObject->getItems()[0]->getTaxRate());
+        $this->assertEquals(19.00, $calculatedObject->getItems()[0]->getTaxRate());
     }
 
     /**
@@ -88,13 +92,18 @@ class ProductItemTaxRateByRegionCalculatorTest extends Unit
         $country = 'US';
         $idProductAbstract = 1;
         $region = 10;
-        $this->taxSetQueryMock
-            ->method('find')
-            ->willReturn($this->getTaxObject($country, $idProductAbstract));
+
+        $this->transferMock->addProductTaxSets(
+            (new TaxCalculationConnectorProductTaxSetTransfer())
+                ->setCountryIso2Code($country)
+                ->setIdAbstractProduct($idProductAbstract)
+                ->setMaxTaxRate(16.00)
+        );
+
         $this->queryContainerMock
-            ->method('queryTaxSetByIdProductAbstractAndCountryIso2CodesAndIdRegions')
+            ->method('getTaxSetByIdProductAbstractAndCountryIso2CodesAndIdRegions')
             ->with([$idProductAbstract], [$country], [$region])
-            ->willReturn($this->taxSetQueryMock);
+            ->willReturn($this->transferMock);
 
         $calculableObject = new CalculableObjectTransfer();
         $item = new ItemTransfer();
@@ -105,7 +114,7 @@ class ProductItemTaxRateByRegionCalculatorTest extends Unit
         $calculator = new ProductItemTaxRateByRegionCalculator($this->queryContainerMock, $this->taxFacadeMock);
 
         $calculatedObject = $calculator->recalculateWithCalculableObject($calculableObject);
-        $this->assertEquals('19.00', $calculatedObject->getItems()[0]->getTaxRate());
+        $this->assertEquals(16.00, $calculatedObject->getItems()[0]->getTaxRate());
     }
 
     /**
@@ -124,22 +133,4 @@ class ProductItemTaxRateByRegionCalculatorTest extends Unit
             ->setShippingAddress($address);
     }
 
-    /**
-     * @param string $country
-     * @param int $idProductAbstract
-     *
-     * @return \Propel\Runtime\Collection\ArrayCollection
-     */
-    protected function getTaxObject(string $country, int $idProductAbstract): ArrayCollection
-    {
-        $taxObject = new ArrayCollection();
-        $taxObject->setData([
-            [
-                'IdProductAbstract' => $idProductAbstract,
-                'COUNTRY_CODE' => $country,
-                'MaxTaxRate' => '19.00',
-            ]
-        ]);
-        return $taxObject;
-    }
 }

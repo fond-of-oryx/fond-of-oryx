@@ -6,6 +6,7 @@ include:
   - bundles/erp-order-api
   - bundles/mail-bcc
   - bundles/sales-locale-connector
+  - bundles/tax-calculation-connector
 
 suites:
   unit:

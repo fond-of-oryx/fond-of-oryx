@@ -69,12 +69,11 @@ class ProductItemTaxRateByRegionCalculator implements CalculatorInterface
      */
     protected function recalculateWithItemTransfers(ArrayObject $itemTransfers): ArrayObject
     {
-
-        $taxRatesByIdProductAbstract= $this->getTaxSet($itemTransfers);
+        $taxRatesByIdProductAbstract = $this->getTaxSet($itemTransfers);
 
         foreach ($itemTransfers as $itemTransfer) {
             $taxRate = $this->getEffectiveTaxRate(
-                $taxRatesByIdProductAbstract->getProductTaxSets()->getArrayCopy(),
+                $taxRatesByIdProductAbstract->getProductTaxSets(),
                 $itemTransfer->getIdProductAbstract(),
                 $this->getShippingCountryIso2CodeByItem($itemTransfer)
             );
@@ -180,23 +179,26 @@ class ProductItemTaxRateByRegionCalculator implements CalculatorInterface
     }
 
     /**
-     * @param array $mappedTaxRates
+     * @param \ArrayObject|\Generated\Shared\Transfer\TaxCalculationConnectorProductTaxSetTransfer[] $taxSets
      * @param int $idProductAbstract
      * @param string $countryIso2Code
      *
      * @return float
      */
     protected function getEffectiveTaxRate(
-        array $mappedTaxRates,
+        ArrayObject $taxSets,
         int $idProductAbstract,
         string $countryIso2Code
     ): float {
+        foreach ($taxSets as $taxSet) {
+            if (
+                $taxSet->getIdAbstractProduct() === $idProductAbstract &&
+                ($taxSet->getCountryIso2Code() === $countryIso2Code || $taxSet->getCountryIso2Code() === TaxCalculationConnectorConstants::TAX_EXEMPT_PLACEHOLDER)) {
+                return (float) $taxSet->getMaxTaxRate();
+            }
+        }
 
-        $taxRate = $mappedTaxRates[$idProductAbstract][$countryIso2Code] ??
-            $mappedTaxRates[$idProductAbstract][TaxCalculationConnectorConstants::TAX_EXEMPT_PLACEHOLDER] ??
-            $this->getDefaultTaxRate();
-
-        return (float)$taxRate;
+        return $this->getDefaultTaxRate();
     }
 
     /**

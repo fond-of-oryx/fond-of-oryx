@@ -3,11 +3,12 @@
 namespace FondOfOryx\Zed\TaxCalculationConnector\Business;
 
 use Generated\Shared\Transfer\CalculableObjectTransfer;
+use Spryker\Zed\Kernel\Business\AbstractFacade;
 
 /**
  * @method \FondOfOryx\Zed\TaxCalculationConnector\Business\TaxCalculationConnectorBusinessFactory getFactory()
  */
-class TaxCalculationConnectorFacade implements TaxCalculationConnectorFacadeInterface
+class TaxCalculationConnectorFacade extends AbstractFacade implements TaxCalculationConnectorFacadeInterface
 {
     /**
      * {@inheritDoc}

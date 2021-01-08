@@ -1,4 +1,4 @@
-namespace: fond-of-oryx/product-tax-calculator
+namespace: fond-of-oryx/tax-calculation-connector
 
 suites:
   unit:

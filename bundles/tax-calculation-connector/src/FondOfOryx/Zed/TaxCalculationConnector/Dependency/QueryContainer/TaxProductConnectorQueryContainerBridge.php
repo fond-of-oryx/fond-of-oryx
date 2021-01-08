@@ -25,6 +25,6 @@ class TaxProductConnectorQueryContainerBridge implements TaxProductConnectorQuer
      */
     public function queryTaxSetByIdProductAbstractAndCountryIso2Codes(array $allIdProductAbstracts, array $countryIso2Codes): SpyTaxSetQuery
     {
-        $this->queryContainer->queryTaxSetByIdProductAbstractAndCountryIso2Codes($allIdProductAbstracts, $countryIso2Codes);
+        return $this->queryContainer->queryTaxSetByIdProductAbstractAndCountryIso2Codes($allIdProductAbstracts, $countryIso2Codes);
     }
 }
