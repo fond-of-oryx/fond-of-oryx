@@ -14,18 +14,12 @@ use Spryker\Zed\Kernel\Persistence\AbstractRepository;
 class CustomerStatisticRepository extends AbstractRepository implements CustomerStatisticRepositoryInterface
 {
     /**
-     * @param string $customerReference
+     * @param int $idCustomer
      *
      * @return \Generated\Shared\Transfer\CustomerStatisticTransfer|null
      */
-    public function getCustomerStatisticByCustomerReference(string $customerReference): ?CustomerStatisticTransfer
+    public function getCustomerStatisticByIdCustomer(int $idCustomer): ?CustomerStatisticTransfer
     {
-        $idCustomer = $this->getIdCustomerByCustomerReference($customerReference);
-
-        if ($idCustomer === null) {
-            return null;
-        }
-
         $fooCustomerStatistic = $this->getFactory()
             ->createFooCustomerStatisticQuery()
             ->filterByFkCustomer($idCustomer)
@@ -45,14 +39,14 @@ class CustomerStatisticRepository extends AbstractRepository implements Customer
      *
      * @return int|null
      */
-    protected function getIdCustomerByCustomerReference(string $customerReference): ?int
+    public function getIdCustomerByCustomerReference(string $customerReference): ?int
     {
         /** @var int|null $idCustomer */
         $idCustomer = $this->getFactory()
             ->getCustomerQueryContainer()
             ->queryCustomerByReference($customerReference)
             ->select([SpyCustomerTableMap::COL_ID_CUSTOMER])
-            ->find();
+            ->findOne();
 
         return $idCustomer;
     }

@@ -9,9 +9,10 @@
     }
   ],
   "require": {
-    "php": ">=7.1",
+    "php": ">=7.2",
     "spryker/api": "^0.1.0 || ^0.2.0 || ^0.3.0",
     "spryker/api-query-builder": "^0.1.0",
+    "spryker/auth-rest-api-extension": "^1.0.0",
     "spryker/customer": "^6.0.0 || ^7.0.0",
     "spryker/locale": "^2.2.0 || ^3.0.0",
     "spryker/sales": "^6.0.0 || ^7.0.0 || ^8.0.0 || ^10.0.0 || ^11.0.0",
@@ -24,6 +25,8 @@
     "fond-of-codeception/spryker": "dev-master"
   },
   "replace": {
+    "fond-of-oryx/customer-statistic": "*",
+    "fond-of-oryx/customer-statistics-rest-api": "*",
     "fond-of-oryx/erp-order": "*",
     "fond-of-oryx/erp-order-api": "*",
     "fond-of-oryx/sales-locale-connector": "*"
@@ -44,11 +47,11 @@
   "autoload-dev": {
     "psr-4": {
       "FondOfOryx\\Client\\CustomerStatistic\\": "bundles/customer-statistic/tests/FondOfOryx/Client/CustomerStatistic",
-      "FondOfOryx\\Zed\\SalesLocaleConnector\\": "bundles/sales-locale-connector/tests/FondOfOryx/Zed/SalesLocaleConnector",
       "FondOfOryx\\Zed\\CustomerStatistic\\": "bundles/customer-statistic/tests/FondOfOryx/Zed/CustomerStatistic",
       "FondOfOryx\\Zed\\ErpOrder\\": "bundles/erp-order/src/FondOfOryx/Zed/ErpOrder",
       "FondOfOryx\\Zed\\ErpOrderApi\\": "bundles/erp-order-api/tests/FondOfOryx/Zed/ErpOrderApi",
       "FondOfOryx\\Zed\\MailBcc\\": "bundles/mail-bcc/tests/FondOfOryx/Zed/MailBcc",
+      "FondOfOryx\\Zed\\SalesLocaleConnector\\": "bundles/sales-locale-connector/tests/FondOfOryx/Zed/SalesLocaleConnector",
       "Generated\\": "src/Generated/"
     }
   }

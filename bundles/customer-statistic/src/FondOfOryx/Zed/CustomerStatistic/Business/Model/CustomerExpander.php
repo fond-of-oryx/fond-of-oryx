@@ -26,12 +26,12 @@ class CustomerExpander implements CustomerExpanderInterface
      */
     public function expand(CustomerTransfer $customerTransfer): CustomerTransfer
     {
-        if ($customerTransfer->getIdCustomer() === null || $customerTransfer->getCustomerReference() === null) {
+        if ($customerTransfer->getIdCustomer() === null) {
             return $customerTransfer;
         }
 
-        $customerStatisticTransfer = $this->customerStatisticReader->getByCustomerReference(
-            $customerTransfer->getCustomerReference()
+        $customerStatisticTransfer = $this->customerStatisticReader->getByIdCustomer(
+            $customerTransfer->getIdCustomer()
         );
 
         return $customerTransfer->setCustomerStatistic($customerStatisticTransfer);

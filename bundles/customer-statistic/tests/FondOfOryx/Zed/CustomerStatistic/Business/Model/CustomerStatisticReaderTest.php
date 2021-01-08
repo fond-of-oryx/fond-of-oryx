@@ -54,43 +54,43 @@ class CustomerStatisticReaderTest extends Unit
     /**
      * @return void
      */
-    public function testGetByCustomerReference(): void
+    public function testGetByIdCustomer(): void
     {
-        $customerReference = 'STORE-1';
+        $idCustomer = 1;
 
         $this->repositoryMock->expects(static::atLeastOnce())
-            ->method('getCustomerStatisticByCustomerReference')
-            ->with($customerReference)
+            ->method('getCustomerStatisticByIdCustomer')
+            ->with($idCustomer)
             ->willReturn($this->customerStatisticTransferMock);
 
         static::assertEquals(
             $this->customerStatisticTransferMock,
-            $this->customerStatisticReader->getByCustomerReference($customerReference)
+            $this->customerStatisticReader->getByIdCustomer($idCustomer)
         );
     }
 
     /**
      * @return void
      */
-    public function testFindByCustomerReference(): void
+    public function testFindByIdCustomer(): void
     {
-        $customerReference = 'STORE-1';
+        $idCustomer = 1;
 
         $this->customerTransferMock->expects(static::atLeastOnce())
-            ->method('requireCustomerReference')
+            ->method('requireIdCustomer')
             ->willReturn($this->customerTransferMock);
 
         $this->customerTransferMock->expects(static::atLeastOnce())
-            ->method('getCustomerReference')
-            ->willReturn($customerReference);
+            ->method('getIdCustomer')
+            ->willReturn($idCustomer);
 
         $this->repositoryMock->expects(static::atLeastOnce())
-            ->method('getCustomerStatisticByCustomerReference')
-            ->with($customerReference)
+            ->method('getCustomerStatisticByIdCustomer')
+            ->with($idCustomer)
             ->willReturn($this->customerStatisticTransferMock);
 
         $customerStatisticResponseTransfer = $this->customerStatisticReader
-            ->findByCustomerReference($this->customerTransferMock);
+            ->findByIdCustomer($this->customerTransferMock);
 
         static::assertTrue($customerStatisticResponseTransfer->getIsSuccessful());
         static::assertEquals(
