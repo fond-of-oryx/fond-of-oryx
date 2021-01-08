@@ -58,19 +58,14 @@ class CustomerExpanderTest extends Unit
     public function testExpand(): void
     {
         $idCustomer = 1;
-        $customerReference = sprintf('STORE-%s', $idCustomer);
 
         $this->customerTransferMock->expects(static::atLeastOnce())
             ->method('getIdCustomer')
             ->willReturn($idCustomer);
 
-        $this->customerTransferMock->expects(static::atLeastOnce())
-            ->method('getCustomerReference')
-            ->willReturn($customerReference);
-
         $this->customerStatisticReaderMock->expects(static::atLeastOnce())
-            ->method('getByCustomerReference')
-            ->with($customerReference)
+            ->method('getByIdCustomer')
+            ->with($idCustomer)
             ->willReturn($this->customerStatisticTransferMock);
 
         $this->customerTransferMock->expects(static::atLeastOnce())
@@ -93,11 +88,8 @@ class CustomerExpanderTest extends Unit
             ->method('getIdCustomer')
             ->willReturn(null);
 
-        $this->customerTransferMock->expects(static::never())
-            ->method('getCustomerReference');
-
         $this->customerStatisticReaderMock->expects(static::never())
-            ->method('getByCustomerReference');
+            ->method('getByIdCustomer');
 
         $this->customerTransferMock->expects(static::never())
             ->method('setCustomerStatistic');

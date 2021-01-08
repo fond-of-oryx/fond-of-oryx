@@ -1,5 +1,5 @@
 {
-  "name": "fond-of-oryx/customer-statistic",
+  "name": "fond-of-oryx/customer-statistics-rest-api",
   "description": "Customer statistic module.",
   "license": "MIT",
   "authors": [
@@ -9,9 +9,7 @@
     }
   ],
   "require": {
-    "php": ">=7.2",
-    "spryker/auth-rest-api-extension": "^1.0.0",
-    "spryker/customer": "^6.0.0 || ^7.0.0"
+    "php": ">=7.2"
   },
   "require-dev": {
     "fond-of-codeception/spryker": "dev-master",

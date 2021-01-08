@@ -16,4 +16,9 @@
     <transfer name="Customer">
         <property name="customerStatistic" type="CustomerStatistic"/>
     </transfer>
+
+    <transfer name="OauthResponse">
+        <property name="customerReference" type="string"/>
+        <property name="isSuccessful" type="bool"/>
+    </transfer>
 </transfers>
