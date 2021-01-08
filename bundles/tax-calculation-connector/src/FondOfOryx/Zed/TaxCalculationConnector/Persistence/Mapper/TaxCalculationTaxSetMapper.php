@@ -2,6 +2,10 @@
 
 namespace FondOfOryx\Zed\TaxCalculationConnector\Persistence\Mapper;
 
+use FondOfOryx\Zed\TaxCalculationConnector\Persistence\TaxCalculationConnectorConstants;
+use Generated\Shared\Transfer\TaxCalculationConnectorProductTaxSetTransfer;
+use Generated\Shared\Transfer\TaxCalculationConnectorTransfer;
+
 class TaxCalculationTaxSetMapper
 {
     /**
@@ -14,11 +18,11 @@ class TaxCalculationTaxSetMapper
         $transfer = new TaxCalculationConnectorTransfer();
 
         foreach ($taxRateEntity as $taxRate) {
-            $transfer->addItem(
-                (new TaxCalculationConnectorProductTaxSet())
-                    ->setIdProductAbstract($taxRate[static::COL_ID_ABSTRACT_PRODUCT])
-                    ->setCountryIso2Code($taxRate[static::COL_COUNTRY_CODE] ?? static::TAX_EXEMPT_PLACEHOLDER)
-                    ->setMaxTaxRate($taxRate[static::COL_MAX_TAX_RATE])
+            $transfer->addProductTaxSets(
+                (new TaxCalculationConnectorProductTaxSetTransfer())
+                    ->setIdAbstractProduct($taxRate[TaxCalculationConnectorConstants::COL_ID_ABSTRACT_PRODUCT])
+                    ->setCountryIso2Code($taxRate[TaxCalculationConnectorConstants::COL_COUNTRY_CODE] ?? TaxCalculationConnectorConstants::TAX_EXEMPT_PLACEHOLDER)
+                    ->setMaxTaxRate($taxRate[TaxCalculationConnectorConstants::COL_MAX_TAX_RATE])
             );
         }
 

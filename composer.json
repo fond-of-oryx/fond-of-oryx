@@ -13,6 +13,7 @@
     "spryker/api": "^0.1.0 || ^0.2.0 || ^0.3.0",
     "spryker/api-query-builder": "^0.1.0",
     "spryker/customer": "^6.0.0 || ^7.0.0",
+    "spryker/calculation": "^4.4.1",
     "spryker/country": "^3.0.0",
     "spryker/locale": "^2.2.0 || ^3.0.0",
     "spryker/product": "^5.0.0 || ^6.0.0",
@@ -30,7 +31,7 @@
     "fond-of-oryx/erp-order": "*",
     "fond-of-oryx/erp-order-api": "*",
     "fond-of-oryx/sales-locale-connector": "*",
-    "fond-of-oryx/product-taxt-calculator": "*"
+    "fond-of-oryx/tax-calculation-connector": "*"
   },
   "minimum-stability": "dev",
   "prefer-stable": true,

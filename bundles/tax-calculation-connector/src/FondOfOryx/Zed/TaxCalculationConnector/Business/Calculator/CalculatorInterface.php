@@ -1,6 +1,6 @@
 <?php
 
-namespace FondOfOryx\Zed\TaxCalculaionConnector\Business\Calculator;
+namespace FondOfOryx\Zed\TaxCalculationConnector\Business\Calculator;
 
 use Generated\Shared\Transfer\CalculableObjectTransfer;
 

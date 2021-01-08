@@ -3,17 +3,20 @@
 namespace FondOfOryx\Zed\TaxCalculationConnector\Business;
 
 use FondOfOryx\Zed\TaxCalculationConnector\Business\Calculator\ProductItemTaxRateByRegionCalculator;
+use FondOfOryx\Zed\TaxCalculationConnector\Dependency\Facade\TaxCalculationConnectorToTaxInterface;
 use FondOfOryx\Zed\TaxCalculationConnector\TaxCalculationConnectorDependencyProvider;
 use Spryker\Zed\Kernel\Business\AbstractBusinessFactory;
 use FondOfOryx\Zed\TaxCalculationConnector\Business\Calculator\CalculatorInterface;
 
-
+/**
+ * @method \FondOfOryx\Zed\TaxCalculationConnector\Persistence\TaxCalculationConnectorRepositoryInterface getRepository()
+ */
 class TaxCalculationConnectorBusinessFactory extends AbstractBusinessFactory
 {
     /**
-     * @return \Spryker\Zed\TaxCalculationConnector\Dependency\Facade\TaxCalculationConnectorToTaxInterface
+     * @return \FondOfOryx\Zed\TaxCalculationConnector\Dependency\Facade\TaxCalculationConnectorToTaxInterface
      */
-    protected function getTaxFacade()
+    protected function getTaxFacade(): TaxCalculationConnectorToTaxInterface
     {
         return $this->getProvidedDependency(TaxCalculationConnectorDependencyProvider::FACADE_TAX);
     }

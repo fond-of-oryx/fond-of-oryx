@@ -5,7 +5,7 @@ namespace FondOfOryx\Zed\TaxCalculationConnector\Business;
 use Generated\Shared\Transfer\CalculableObjectTransfer;
 
 /**
- * @method \FondOfOryx\Zed\TaxCalculationConnector\Business\ProductTaxCalculatorBusinessFactory getFactory()
+ * @method \FondOfOryx\Zed\TaxCalculationConnector\Business\TaxCalculationConnectorBusinessFactory getFactory()
  */
 class TaxCalculationConnectorFacade implements TaxCalculationConnectorFacadeInterface
 {

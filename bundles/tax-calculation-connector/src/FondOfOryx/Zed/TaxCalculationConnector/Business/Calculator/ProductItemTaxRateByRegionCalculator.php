@@ -3,11 +3,12 @@
 namespace FondOfOryx\Zed\TaxCalculationConnector\Business\Calculator;
 
 use ArrayObject;
+use FondOfOryx\Zed\TaxCalculationConnector\Persistence\TaxCalculationConnectorConstants;
 use FondOfOryx\Zed\TaxCalculationConnector\Persistence\TaxCalculationConnectorRepositoryInterface;
 use Generated\Shared\Transfer\CalculableObjectTransfer;
 use Generated\Shared\Transfer\ItemTransfer;
-use Generated\Shared\Transfer\QuoteTransfer;
 use FondOfOryx\Zed\TaxCalculationConnector\Dependency\Facade\TaxCalculationConnectorToTaxInterface;
+use Generated\Shared\Transfer\TaxCalculationConnectorTransfer;
 
 class ProductItemTaxRateByRegionCalculator implements CalculatorInterface
 {
@@ -73,7 +74,7 @@ class ProductItemTaxRateByRegionCalculator implements CalculatorInterface
 
         foreach ($itemTransfers as $itemTransfer) {
             $taxRate = $this->getEffectiveTaxRate(
-                $taxRatesByIdProductAbstract,
+                $taxRatesByIdProductAbstract->getProductTaxSets()->getArrayCopy(),
                 $itemTransfer->getIdProductAbstract(),
                 $this->getShippingCountryIso2CodeByItem($itemTransfer)
             );
@@ -190,8 +191,9 @@ class ProductItemTaxRateByRegionCalculator implements CalculatorInterface
         int $idProductAbstract,
         string $countryIso2Code
     ): float {
+
         $taxRate = $mappedTaxRates[$idProductAbstract][$countryIso2Code] ??
-            $mappedTaxRates[$idProductAbstract][static::TAX_EXEMPT_PLACEHOLDER] ??
+            $mappedTaxRates[$idProductAbstract][TaxCalculationConnectorConstants::TAX_EXEMPT_PLACEHOLDER] ??
             $this->getDefaultTaxRate();
 
         return (float)$taxRate;

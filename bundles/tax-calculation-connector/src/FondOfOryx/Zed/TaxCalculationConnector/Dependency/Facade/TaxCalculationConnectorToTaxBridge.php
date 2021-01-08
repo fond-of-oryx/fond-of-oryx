@@ -2,6 +2,8 @@
 
 namespace FondOfOryx\Zed\TaxCalculationConnector\Dependency\Facade;
 
+use Spryker\Zed\Tax\Business\TaxFacadeInterface;
+
 class TaxCalculationConnectorToTaxBridge implements TaxCalculationConnectorToTaxInterface
 {
     /**
@@ -12,7 +14,7 @@ class TaxCalculationConnectorToTaxBridge implements TaxCalculationConnectorToTax
     /**
      * @param \Spryker\Zed\Tax\Business\TaxFacadeInterface $taxFacade
      */
-    public function __construct($taxFacade)
+    public function __construct(TaxFacadeInterface $taxFacade)
     {
         $this->taxFacade = $taxFacade;
     }

@@ -7,7 +7,7 @@ use Spryker\Zed\CalculationExtension\Dependency\Plugin\CalculationPluginInterfac
 use Spryker\Zed\Kernel\Communication\AbstractPlugin;
 
 /**
- * @method \FondOfOryx\Zed\TaxCalculationConnector\Business\ProductTaxCalculatorFacadeInterface getFacade()
+ * @method \FondOfOryx\Zed\TaxCalculationConnector\Business\TaxCalculationConnectorFacadeInterface getFacade()
  */
 class ProductItemTaxRateByRegionCalculatorPlugin extends AbstractPlugin implements CalculationPluginInterface
 {

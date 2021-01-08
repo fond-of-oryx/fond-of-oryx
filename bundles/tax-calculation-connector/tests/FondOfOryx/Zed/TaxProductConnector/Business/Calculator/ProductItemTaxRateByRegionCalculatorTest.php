@@ -2,26 +2,25 @@
 
 namespace FondOfOryx\Zed\TaxCalculationConnector\Business\Calculator;
 
-use ArrayObject;
 use Codeception\Test\Unit;
-use FondOfOryx\Zed\TaxCalculationConnector\Persistence\ProductTaxCalculatorQueryContainer;
+use FondOfOryx\Zed\TaxCalculationConnector\Persistence\TaxCalculationConnectorRepository;
 use Generated\Shared\Transfer\AddressTransfer;
 use Generated\Shared\Transfer\CalculableObjectTransfer;
 use Generated\Shared\Transfer\ItemTransfer;
 use Generated\Shared\Transfer\ShipmentTransfer;
 use Propel\Runtime\Collection\ArrayCollection;
-use Spryker\Zed\ProductTaxCalculator\Dependency\Facade\ProductTaxCalculatorToTaxInterface;
+use FondOfOryx\Zed\TaxCalculationConnector\Dependency\Facade\TaxCalculationConnectorToTaxInterface;
 use \Orm\Zed\Tax\Persistence\SpyTaxSetQuery;
 
 class ProductItemTaxRateByRegionCalculatorTest extends Unit
 {
     /**
-     * @var \PHPUnit\Framework\MockObject\MockObject|\Spryker\Zed\ProductTaxCalculator\Dependency\Facade\ProductTaxCalculatorToTaxInterface
+     * @var \PHPUnit\Framework\MockObject\MockObject|\FondOfOryx\Zed\TaxCalculationConnector\Dependency\Facade\TaxCalculationConnectorToTaxInterface
      */
     private $taxFacadeMock;
 
     /**
-     * @var \PHPUnit\Framework\MockObject\MockBuilder|\FondOfOryx\Zed\TaxCalculationConnector\Persistence\ProductTaxCalculatorQueryContainer
+     * @var \PHPUnit\Framework\MockObject\MockBuilder|\FondOfOryx\Zed\TaxCalculationConnector\Persistence\TaxCalculationConnectorRepository
      */
     private $queryContainerMock;
 
@@ -35,11 +34,11 @@ class ProductItemTaxRateByRegionCalculatorTest extends Unit
      */
     protected function _before(): void
     {
-        $this->taxFacadeMock = $this->getMockBuilder(ProductTaxCalculatorToTaxInterface::class)
+        $this->taxFacadeMock = $this->getMockBuilder(TaxCalculationConnectorToTaxInterface::class)
             ->getMock();
 
 
-        $this->queryContainerMock = $this->getMockBuilder(ProductTaxCalculatorQueryContainer::class)
+        $this->queryContainerMock = $this->getMockBuilder(TaxCalculationConnectorRepository::class)
             ->onlyMethods([
                 'queryTaxSetByIdProductAbstractAndCountryIso2CodesAndIdRegions',
                 'queryTaxSetByIdProductAbstractAndCountryIso2Codes'

@@ -3,6 +3,7 @@
 namespace FondOfOryx\Zed\TaxCalculationConnector;
 
 use FondOfOryx\Zed\TaxCalculationConnector\Dependency\Facade\TaxCalculationConnectorToTaxBridge;
+use FondOfOryx\Zed\TaxCalculationConnector\Dependency\QueryContainer\TaxProductConnectorQueryContainerBridge;
 use Spryker\Zed\Kernel\AbstractBundleDependencyProvider;
 use Spryker\Zed\Kernel\Container;
 
@@ -17,7 +18,7 @@ class TaxCalculationConnectorDependencyProvider extends AbstractBundleDependency
      *
      * @return \Spryker\Zed\Kernel\Container
      */
-    public function provideBusinessLayerDependencies(Container $container)
+    public function provideBusinessLayerDependencies(Container $container): Container
     {
         $container = $this->addTaxFacade($container);
 
@@ -29,7 +30,7 @@ class TaxCalculationConnectorDependencyProvider extends AbstractBundleDependency
      *
      * @return \Spryker\Zed\Kernel\Container
      */
-    public function providePersistenceLayerDependencies(Container $container)
+    public function providePersistenceLayerDependencies(Container $container): Container
     {
         $container = $this->addProductTaxConnectorQueryConnector($container);
 
@@ -39,7 +40,9 @@ class TaxCalculationConnectorDependencyProvider extends AbstractBundleDependency
     protected function addProductTaxConnectorQueryConnector(Container $container): Container
     {
         $container[static::QUERY_CONTAINER_PRODUCT_TAX] = function (Container $container) {
-            return $container->getLocator()->productTaxConnector()->queryContainer();
+            return new TaxProductConnectorQueryContainerBridge(
+                $container->getLocator()->taxProductConnector()->queryContainer()
+            );
         };
 
         return $container;
@@ -50,7 +53,7 @@ class TaxCalculationConnectorDependencyProvider extends AbstractBundleDependency
      *
      * @return \Spryker\Zed\Kernel\Container
      */
-    protected function addTaxFacade(Container $container)
+    protected function addTaxFacade(Container $container): Container
     {
         $container[static::FACADE_TAX] = function (Container $container) {
             return new TaxCalculationConnectorToTaxBridge($container->getLocator()->tax()->facade());
