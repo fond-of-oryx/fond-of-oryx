@@ -25,6 +25,11 @@
             "path": "bundles/sales-locale-connector/",
             "version": "1.0.0"
         },
+        "tax-calculation-connector": {
+            "url": "https://<GITHUB_TOKEN>@github.com/fond-of-oryx/tax-calculation-connector.git",
+            "path": "bundles/tax-calculation-connector/",
+            "version": "1.0.0"
+        },
         "mail-bcc": {
             "url": "https://<GITHUB_TOKEN>@github.com/fond-of-oryx/mail-bcc.git",
             "path": "bundles/mail-bcc/",
