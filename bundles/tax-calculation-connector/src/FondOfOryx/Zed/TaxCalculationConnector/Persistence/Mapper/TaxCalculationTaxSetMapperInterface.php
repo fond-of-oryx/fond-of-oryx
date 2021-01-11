@@ -5,7 +5,7 @@ namespace FondOfOryx\Zed\TaxCalculationConnector\Persistence\Mapper;
 interface TaxCalculationTaxSetMapperInterface
 {
     /**
-     * @param iterable|\Propel\Runtime\Collection\ArrayCollection  $taxRateEntity
+     * @param iterable|\Propel\Runtime\Collection\ArrayCollection $taxRateEntity
      *
      * @return \Generated\Shared\Transfer\TaxCalculationConnectorTransfer
      */

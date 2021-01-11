@@ -13,7 +13,11 @@ interface TaxCalculationConnectorRepositoryInterface
      *
      * @return \Generated\Shared\Transfer\TaxCalculationConnectorTransfer
      */
-    public function getTaxSetByIdProductAbstractAndCountryIso2CodesAndIdRegions(array $idProductAbstracts, array $countryIso2Code, array $idRegions): TaxCalculationConnectorTransfer;
+    public function getTaxSetByIdProductAbstractAndCountryIso2CodesAndIdRegions(
+        array $idProductAbstracts,
+        array $countryIso2Code,
+        array $idRegions
+    ): TaxCalculationConnectorTransfer;
 
     /**
      * @param array $idProductAbstracts

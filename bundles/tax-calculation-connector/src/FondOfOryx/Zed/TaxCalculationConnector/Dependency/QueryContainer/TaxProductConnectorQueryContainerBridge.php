@@ -2,8 +2,8 @@
 
 namespace FondOfOryx\Zed\TaxCalculationConnector\Dependency\QueryContainer;
 
+use Orm\Zed\Tax\Persistence\SpyTaxSetQuery;
 use Spryker\Zed\TaxProductConnector\Persistence\TaxProductConnectorQueryContainerInterface;
-use \Orm\Zed\Tax\Persistence\SpyTaxSetQuery;
 
 class TaxProductConnectorQueryContainerBridge implements TaxProductConnectorQueryContainerBridgeInterface
 {
@@ -12,6 +12,9 @@ class TaxProductConnectorQueryContainerBridge implements TaxProductConnectorQuer
      */
     private $queryContainer;
 
+    /**
+     * @param \Spryker\Zed\TaxProductConnector\Persistence\TaxProductConnectorQueryContainerInterface $queryContainer
+     */
     public function __construct(TaxProductConnectorQueryContainerInterface $queryContainer)
     {
         $this->queryContainer = $queryContainer;

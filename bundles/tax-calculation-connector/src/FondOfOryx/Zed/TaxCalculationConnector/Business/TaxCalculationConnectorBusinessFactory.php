@@ -2,11 +2,11 @@
 
 namespace FondOfOryx\Zed\TaxCalculationConnector\Business;
 
+use FondOfOryx\Zed\TaxCalculationConnector\Business\Calculator\CalculatorInterface;
 use FondOfOryx\Zed\TaxCalculationConnector\Business\Calculator\ProductItemTaxRateByRegionCalculator;
 use FondOfOryx\Zed\TaxCalculationConnector\Dependency\Facade\TaxCalculationConnectorToTaxInterface;
 use FondOfOryx\Zed\TaxCalculationConnector\TaxCalculationConnectorDependencyProvider;
 use Spryker\Zed\Kernel\Business\AbstractBusinessFactory;
-use FondOfOryx\Zed\TaxCalculationConnector\Business\Calculator\CalculatorInterface;
 
 /**
  * @method \FondOfOryx\Zed\TaxCalculationConnector\Persistence\TaxCalculationConnectorRepositoryInterface getRepository()

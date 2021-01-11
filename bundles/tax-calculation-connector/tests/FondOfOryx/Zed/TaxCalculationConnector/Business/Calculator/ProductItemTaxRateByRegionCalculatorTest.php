@@ -3,6 +3,7 @@
 namespace FondOfOryx\Zed\TaxCalculationConnector\Business\Calculator;
 
 use Codeception\Test\Unit;
+use FondOfOryx\Zed\TaxCalculationConnector\Dependency\Facade\TaxCalculationConnectorToTaxInterface;
 use FondOfOryx\Zed\TaxCalculationConnector\Persistence\TaxCalculationConnectorRepository;
 use Generated\Shared\Transfer\AddressTransfer;
 use Generated\Shared\Transfer\CalculableObjectTransfer;
@@ -10,9 +11,6 @@ use Generated\Shared\Transfer\ItemTransfer;
 use Generated\Shared\Transfer\ShipmentTransfer;
 use Generated\Shared\Transfer\TaxCalculationConnectorProductTaxSetTransfer;
 use Generated\Shared\Transfer\TaxCalculationConnectorTransfer;
-use Propel\Runtime\Collection\ArrayCollection;
-use FondOfOryx\Zed\TaxCalculationConnector\Dependency\Facade\TaxCalculationConnectorToTaxInterface;
-use \Orm\Zed\Tax\Persistence\SpyTaxSetQuery;
 
 class ProductItemTaxRateByRegionCalculatorTest extends Unit
 {
@@ -39,12 +37,13 @@ class ProductItemTaxRateByRegionCalculatorTest extends Unit
         $this->taxFacadeMock = $this->getMockBuilder(TaxCalculationConnectorToTaxInterface::class)
             ->getMock();
 
-
         $this->repositoryMock = $this->getMockBuilder(TaxCalculationConnectorRepository::class)
-            ->onlyMethods([
+            ->onlyMethods(
+                [
                 'getTaxSetByIdProductAbstractAndCountryIso2CodesAndIdRegions',
-                'getTaxSetByIdProductAbstractAndCountryIso2Codes'
-            ])
+                'getTaxSetByIdProductAbstractAndCountryIso2Codes',
+                ]
+            )
             ->disableOriginalConstructor()
             ->getMock();
 
@@ -154,7 +153,7 @@ class ProductItemTaxRateByRegionCalculatorTest extends Unit
 
     /**
      * @param string $country
-     * @param null|int $region
+     * @param int|null $region
      *
      * @return \Generated\Shared\Transfer\ShipmentTransfer
      */
@@ -167,5 +166,4 @@ class ProductItemTaxRateByRegionCalculatorTest extends Unit
         return (new ShipmentTransfer())
             ->setShippingAddress($address);
     }
-
 }

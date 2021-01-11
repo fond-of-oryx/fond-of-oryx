@@ -37,6 +37,11 @@ class TaxCalculationConnectorDependencyProvider extends AbstractBundleDependency
         return $container;
     }
 
+    /**
+     * @param \Spryker\Zed\Kernel\Container $container
+     *
+     * @return \Spryker\Zed\Kernel\Container
+     */
     protected function addProductTaxConnectorQueryConnector(Container $container): Container
     {
         $container[static::QUERY_CONTAINER_PRODUCT_TAX] = function (Container $container) {

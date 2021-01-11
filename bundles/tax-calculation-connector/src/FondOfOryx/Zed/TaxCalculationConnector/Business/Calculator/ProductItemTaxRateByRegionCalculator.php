@@ -3,11 +3,11 @@
 namespace FondOfOryx\Zed\TaxCalculationConnector\Business\Calculator;
 
 use ArrayObject;
+use FondOfOryx\Zed\TaxCalculationConnector\Dependency\Facade\TaxCalculationConnectorToTaxInterface;
 use FondOfOryx\Zed\TaxCalculationConnector\Persistence\TaxCalculationConnectorConstants;
 use FondOfOryx\Zed\TaxCalculationConnector\Persistence\TaxCalculationConnectorRepositoryInterface;
 use Generated\Shared\Transfer\CalculableObjectTransfer;
 use Generated\Shared\Transfer\ItemTransfer;
-use FondOfOryx\Zed\TaxCalculationConnector\Dependency\Facade\TaxCalculationConnectorToTaxInterface;
 use Generated\Shared\Transfer\TaxCalculationConnectorProductTaxSetTransfer;
 use Generated\Shared\Transfer\TaxCalculationConnectorTransfer;
 
@@ -34,7 +34,7 @@ class ProductItemTaxRateByRegionCalculator implements CalculatorInterface
     protected $defaultTaxRate;
 
     /**
-     * @var null|int
+     * @var int|null
      */
     protected $defaultRegionId;
 
@@ -193,7 +193,7 @@ class ProductItemTaxRateByRegionCalculator implements CalculatorInterface
     ): float {
         foreach ($taxSets as $taxSet) {
             if ($this->hasValidTaxRate($taxSet, $idProductAbstract, $countryIso2Code)) {
-                return (float) $taxSet->getMaxTaxRate();
+                return (float)$taxSet->getMaxTaxRate();
             }
         }
 
@@ -210,14 +210,16 @@ class ProductItemTaxRateByRegionCalculator implements CalculatorInterface
     protected function hasValidTaxRate(
         TaxCalculationConnectorProductTaxSetTransfer $taxSet,
         int $idProductAbstract,
-        string $countryIso2Code): bool
-    {
+        string $countryIso2Code
+    ): bool {
         if ($taxSet->getIdAbstractProduct() !== $idProductAbstract) {
             return false;
         }
 
-        if ($taxSet->getCountryIso2Code() !== $countryIso2Code &&
-            $taxSet->getCountryIso2Code() !== TaxCalculationConnectorConstants::TAX_EXEMPT_PLACEHOLDER) {
+        if (
+            $taxSet->getCountryIso2Code() !== $countryIso2Code
+            && $taxSet->getCountryIso2Code() !== TaxCalculationConnectorConstants::TAX_EXEMPT_PLACEHOLDER
+        ) {
             return false;
         }
 
@@ -249,7 +251,7 @@ class ProductItemTaxRateByRegionCalculator implements CalculatorInterface
         foreach ($itemTransfers as $itemTransfer) {
             $region = $this->getRegionIdByItem($itemTransfer);
 
-            if($region === null) {
+            if ($region === null) {
                 continue;
             }
 
@@ -262,7 +264,7 @@ class ProductItemTaxRateByRegionCalculator implements CalculatorInterface
     /**
      * @param \Generated\Shared\Transfer\ItemTransfer $itemTransfer
      *
-     * @return null|int
+     * @return int|null
      */
     protected function getRegionIdByItem(ItemTransfer $itemTransfer): ?int
     {
@@ -288,11 +290,10 @@ class ProductItemTaxRateByRegionCalculator implements CalculatorInterface
     }
 
     /**
-     * @return null|int
+     * @return int|null
      */
     protected function getDefaultTaxRegionId(): ?int
     {
         return $this->defaultRegionId;
     }
-
 }

@@ -7,6 +7,7 @@ use Spryker\Zed\Kernel\Business\AbstractFacade;
 
 /**
  * @method \FondOfOryx\Zed\TaxCalculationConnector\Business\TaxCalculationConnectorBusinessFactory getFactory()
+ * @method \FondOfOryx\Zed\TaxCalculationConnector\Persistence\TaxCalculationConnectorRepositoryInterface getRepository()
  */
 class TaxCalculationConnectorFacade extends AbstractFacade implements TaxCalculationConnectorFacadeInterface
 {
@@ -25,5 +26,4 @@ class TaxCalculationConnectorFacade extends AbstractFacade implements TaxCalcula
             ->createProductItemTaxRateByRegionCalculator()
             ->recalculateWithCalculableObject($calculableObjectTransfer);
     }
-
 }
