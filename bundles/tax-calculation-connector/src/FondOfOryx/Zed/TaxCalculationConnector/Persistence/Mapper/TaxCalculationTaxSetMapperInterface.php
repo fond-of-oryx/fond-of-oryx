@@ -2,6 +2,8 @@
 
 namespace FondOfOryx\Zed\TaxCalculationConnector\Persistence\Mapper;
 
+use Generated\Shared\Transfer\TaxCalculationConnectorTransfer;
+
 interface TaxCalculationTaxSetMapperInterface
 {
     /**

@@ -28,6 +28,7 @@ class TaxCalculationConnectorRepository extends AbstractRepository implements Ta
         array $countryIso2Code,
         array $idRegions
     ): TaxCalculationConnectorTransfer {
+        /** @var iterable|\Propel\Runtime\Collection\ArrayCollection $taxRateEntity */
         $taxRateEntity = $this->getFactory()
             ->createTaxSetQuery()
             ->useSpyProductAbstractQuery()
@@ -63,6 +64,7 @@ class TaxCalculationConnectorRepository extends AbstractRepository implements Ta
      */
     public function getTaxSetByIdProductAbstractAndCountryIso2Codes(array $idProductAbstracts, array $countryIso2Code): TaxCalculationConnectorTransfer
     {
+        /** @var iterable|\Propel\Runtime\Collection\ArrayCollection $taxRateEntity */
         $taxRateEntity = $this->getFactory()
             ->getProductTaxQueryContainer()
             ->queryTaxSetByIdProductAbstractAndCountryIso2Codes($idProductAbstracts, $countryIso2Code);
