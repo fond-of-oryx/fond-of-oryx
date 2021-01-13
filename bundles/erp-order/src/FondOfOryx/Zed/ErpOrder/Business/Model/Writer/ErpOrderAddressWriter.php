@@ -92,7 +92,7 @@ class ErpOrderAddressWriter implements ErpOrderAddressWriterInterface
     ): ErpOrderAddressTransfer {
         $erpOrderAddressTransfer = $this->erpOrderAddressPluginExecutor->executePreSavePlugins($erpOrderAddressTransfer);
         $erpOrderAddressTransfer = $this->entityManager->createErpOrderAddress($erpOrderAddressTransfer);
-        $erpOrderAddressTransfer = $this->erpOrderAddressPluginExecutor->executePreSavePlugins($erpOrderAddressTransfer);
+        $erpOrderAddressTransfer = $this->erpOrderAddressPluginExecutor->executePostSavePlugins($erpOrderAddressTransfer);
 
         return $erpOrderAddressTransfer;
     }
@@ -107,7 +107,7 @@ class ErpOrderAddressWriter implements ErpOrderAddressWriterInterface
     ): ErpOrderAddressTransfer {
         $erpOrderAddressTransfer = $this->erpOrderAddressPluginExecutor->executePreSavePlugins($erpOrderAddressTransfer);
         $erpOrderAddressTransfer = $this->entityManager->updateErpOrderAddress($erpOrderAddressTransfer);
-        $erpOrderAddressTransfer = $this->erpOrderAddressPluginExecutor->executePreSavePlugins($erpOrderAddressTransfer);
+        $erpOrderAddressTransfer = $this->erpOrderAddressPluginExecutor->executePostSavePlugins($erpOrderAddressTransfer);
 
         return $erpOrderAddressTransfer;
     }
@@ -119,6 +119,6 @@ class ErpOrderAddressWriter implements ErpOrderAddressWriterInterface
      */
     protected function executeDeleteTransaction(int $idErpOrderAddress): void
     {
-        $this->entityManager->deleteErpOrderByIdErpOrder($idErpOrderAddress);
+        $this->entityManager->deleteErpOrderAddressByIdErpOrderAddress($idErpOrderAddress);
     }
 }

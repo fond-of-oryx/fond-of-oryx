@@ -187,6 +187,34 @@ class ErpOrderEntityManager extends AbstractEntityManager implements ErpOrderEnt
     }
 
     /**
+     * @param int $idErpOrderItem
+     *
+     * @return void
+     */
+    public function deleteErpOrderItemByIdErpOrderItem(int $idErpOrderItem): void
+    {
+        $orderItem = $this->getFactory()->createErpOrderItemQuery()->findOneByIdErpOrderItem($idErpOrderItem);
+        if ($orderItem === null) {
+            return;
+        }
+        $orderItem->delete();
+    }
+
+    /**
+     * @param int $idErpOrderAddress
+     *
+     * @return void
+     */
+    public function deleteErpOrderAddressByIdErpOrderAddress(int $idErpOrderAddress): void
+    {
+        $orderAddress = $this->getFactory()->createErpOrderAddressQuery()->findOneByIdErpOrderAddress($idErpOrderAddress);
+        if ($orderAddress === null) {
+            return;
+        }
+        $orderAddress->delete();
+    }
+
+    /**
      * @param \Generated\Shared\Transfer\ErpOrderAddressTransfer $erpOrderAddressTransfer
      *
      * @throws \Exception

@@ -67,4 +67,18 @@ interface ErpOrderEntityManagerInterface
      * @return void
      */
     public function deleteErpOrderByIdErpOrder(int $idErpOrder): void;
+
+    /**
+     * @param int $idErpOrderItem
+     *
+     * @return void
+     */
+    public function deleteErpOrderItemByIdErpOrderItem(int $idErpOrderItem): void;
+
+    /**
+     * @param int $idErpOrderAddress
+     *
+     * @return void
+     */
+    public function deleteErpOrderAddressByIdErpOrderAddress(int $idErpOrderAddress): void;
 }

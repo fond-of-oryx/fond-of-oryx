@@ -96,7 +96,7 @@ class ErpOrderItemWriter implements ErpOrderItemWriterInterface
     ): ErpOrderItemTransfer {
         $erpOrderItemTransfer = $this->erpOrderItemPluginExecutor->executePreSavePlugins($erpOrderItemTransfer);
         $erpOrderItemTransfer = $this->entityManager->createErpOrderItem($erpOrderItemTransfer);
-        $erpOrderItemTransfer = $this->erpOrderItemPluginExecutor->executePreSavePlugins($erpOrderItemTransfer);
+        $erpOrderItemTransfer = $this->erpOrderItemPluginExecutor->executePostSavePlugins($erpOrderItemTransfer);
 
         return $erpOrderItemTransfer;
     }
@@ -111,7 +111,7 @@ class ErpOrderItemWriter implements ErpOrderItemWriterInterface
     ): ErpOrderItemTransfer {
         $erpOrderItemTransfer = $this->erpOrderItemPluginExecutor->executePreSavePlugins($erpOrderItemTransfer);
         $erpOrderItemTransfer = $this->entityManager->updateErpOrderItem($erpOrderItemTransfer);
-        $erpOrderItemTransfer = $this->erpOrderItemPluginExecutor->executePreSavePlugins($erpOrderItemTransfer);
+        $erpOrderItemTransfer = $this->erpOrderItemPluginExecutor->executePostSavePlugins($erpOrderItemTransfer);
 
         return $erpOrderItemTransfer;
     }
@@ -123,6 +123,6 @@ class ErpOrderItemWriter implements ErpOrderItemWriterInterface
      */
     protected function executeDeleteTransaction(int $idErpOrderItem): void
     {
-        $this->entityManager->deleteErpOrderByIdErpOrder($idErpOrderItem);
+        $this->entityManager->deleteErpOrderItemByIdErpOrderItem($idErpOrderItem);
     }
 }

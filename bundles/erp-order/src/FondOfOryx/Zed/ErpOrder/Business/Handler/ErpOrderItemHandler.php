@@ -85,10 +85,10 @@ class ErpOrderItemHandler implements ErpOrderItemHandlerInterface
     {
         $erpOrderItemTransfer->requireIdErpOrderItem();
 
-        $address = $this->erpOrderItemReader->findErpOrderItemByIdErpOrderItem($erpOrderItemTransfer->getIdErpOrderItem());
-        $address->fromArray($erpOrderItemTransfer->toArray(), true);
+        $item = $this->erpOrderItemReader->findErpOrderItemByIdErpOrderItem($erpOrderItemTransfer->getIdErpOrderItem());
+        $item->fromArray($erpOrderItemTransfer->toArray(), true);
 
-        return $this->erpOrderItemWriter->update($address);
+        return $this->erpOrderItemWriter->update($item);
     }
 
     /**
