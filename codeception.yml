@@ -2,10 +2,12 @@ namespace: fond-of-oryx/fond-of-oryx
 
 include:
   - bundles/customer-statistic
+  - bundles/customer-statistics-rest-api
   - bundles/erp-order-api
   - bundles/erp-order
   - bundles/mail-bcc
   - bundles/sales-locale-connector
+  - bundles/tax-calculation-connector
 
 suites:
   unit:

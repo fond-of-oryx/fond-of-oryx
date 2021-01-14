@@ -9,16 +9,16 @@ use Generated\Shared\Transfer\CustomerTransfer;
 interface CustomerStatisticReaderInterface
 {
     /**
-     * @param string $customerReference
+     * @param int $idCustomer
      *
      * @return \Generated\Shared\Transfer\CustomerStatisticTransfer|null
      */
-    public function getByCustomerReference(string $customerReference): ?CustomerStatisticTransfer;
+    public function getByIdCustomer(int $idCustomer): ?CustomerStatisticTransfer;
 
     /**
      * @param \Generated\Shared\Transfer\CustomerTransfer $customerTransfer
      *
      * @return \Generated\Shared\Transfer\CustomerStatisticResponseTransfer
      */
-    public function findByCustomerReference(CustomerTransfer $customerTransfer): CustomerStatisticResponseTransfer;
+    public function findByIdCustomer(CustomerTransfer $customerTransfer): CustomerStatisticResponseTransfer;
 }

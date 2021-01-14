@@ -10,6 +10,7 @@
   ],
   "require": {
     "php": ">=7.2",
+    "spryker/auth-rest-api-extension": "^1.0.0",
     "spryker/customer": "^6.0.0 || ^7.0.0"
   },
   "require-dev": {

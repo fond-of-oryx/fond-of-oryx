@@ -23,13 +23,13 @@ class CustomerStatisticReader implements CustomerStatisticReaderInterface
     }
 
     /**
-     * @param string $customerReference
+     * @param int $idCustomer
      *
      * @return \Generated\Shared\Transfer\CustomerStatisticTransfer|null
      */
-    public function getByCustomerReference(string $customerReference): ?CustomerStatisticTransfer
+    public function getByIdCustomer(int $idCustomer): ?CustomerStatisticTransfer
     {
-        return $this->repository->getCustomerStatisticByCustomerReference($customerReference);
+        return $this->repository->getCustomerStatisticByIdCustomer($idCustomer);
     }
 
     /**
@@ -37,11 +37,11 @@ class CustomerStatisticReader implements CustomerStatisticReaderInterface
      *
      * @return \Generated\Shared\Transfer\CustomerStatisticResponseTransfer
      */
-    public function findByCustomerReference(CustomerTransfer $customerTransfer): CustomerStatisticResponseTransfer
+    public function findByIdCustomer(CustomerTransfer $customerTransfer): CustomerStatisticResponseTransfer
     {
-        $customerTransfer->requireCustomerReference();
+        $customerTransfer->requireIdCustomer();
 
-        $customerStatisticTransfer = $this->getByCustomerReference($customerTransfer->getCustomerReference());
+        $customerStatisticTransfer = $this->getByIdCustomer($customerTransfer->getIdCustomer());
 
         return (new CustomerStatisticResponseTransfer())
             ->setIsSuccessful($customerStatisticTransfer !== null)
