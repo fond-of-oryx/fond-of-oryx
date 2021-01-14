@@ -3,16 +3,16 @@
 namespace FondOfOryx\Zed\ErpOrder\Business\PluginExecutor;
 
 use Codeception\Test\Unit;
-use FondOfOryx\Zed\ErpOrderExtension\Dependency\Plugin\ErpOrderItemPostSavePluginInterface;
-use FondOfOryx\Zed\ErpOrderExtension\Dependency\Plugin\ErpOrderItemPreSavePluginInterface;
-use Generated\Shared\Transfer\ErpOrderItemTransfer;
+use FondOfOryx\Zed\ErpOrderExtension\Dependency\Plugin\ErpOrderPostSavePluginInterface;
+use FondOfOryx\Zed\ErpOrderExtension\Dependency\Plugin\ErpOrderPreSavePluginInterface;
+use Generated\Shared\Transfer\ErpOrderTransfer;
 
-class ErpOrderItemPluginExecutorTest extends Unit
+class ErpOrderPluginExecutorTest extends Unit
 {
     /**
-     * @var \Generated\Shared\Transfer\ErpOrderItemTransfer|\PHPUnit\Framework\MockObject\MockObject
+     * @var \Generated\Shared\Transfer\ErpOrderTransfer|\PHPUnit\Framework\MockObject\MockObject
      */
-    protected $erpOrderItemTransferMock;
+    protected $erpOrderTransferMock;
 
     /**
      * @var \FondOfOryx\Zed\ErpOrder\Business\ErpOrderFacadeInterface|\PHPUnit\Framework\MockObject\MockObject
@@ -20,12 +20,12 @@ class ErpOrderItemPluginExecutorTest extends Unit
     protected $erpOrderFacadeMock;
 
     /**
-     * @var \FondOfOryx\Zed\ErpOrderExtension\Dependency\Plugin\ErpOrderItemPreSavePluginInterface|\PHPUnit\Framework\MockObject\MockObject
+     * @var \FondOfOryx\Zed\ErpOrderExtension\Dependency\Plugin\ErpOrderPreSavePluginInterface|\PHPUnit\Framework\MockObject\MockObject
      */
     protected $preSavePluginMock;
 
     /**
-     * @var \FondOfOryx\Zed\ErpOrderExtension\Dependency\Plugin\ErpOrderItemPostSavePluginInterface|\PHPUnit\Framework\MockObject\MockObject
+     * @var \FondOfOryx\Zed\ErpOrderExtension\Dependency\Plugin\ErpOrderPostSavePluginInterface|\PHPUnit\Framework\MockObject\MockObject
      */
     protected $postSavePluginMock;
 
@@ -41,15 +41,15 @@ class ErpOrderItemPluginExecutorTest extends Unit
     {
         parent::_before();
 
-        $this->erpOrderItemTransferMock = $this->getMockBuilder(ErpOrderItemTransfer::class)
+        $this->erpOrderTransferMock = $this->getMockBuilder(ErpOrderTransfer::class)
             ->disableOriginalConstructor()
             ->getMock();
 
-        $this->preSavePluginMock = $this->getMockBuilder(ErpOrderItemPreSavePluginInterface::class)
+        $this->preSavePluginMock = $this->getMockBuilder(ErpOrderPreSavePluginInterface::class)
             ->disableOriginalConstructor()
             ->getMock();
 
-        $this->postSavePluginMock = $this->getMockBuilder(ErpOrderItemPostSavePluginInterface::class)
+        $this->postSavePluginMock = $this->getMockBuilder(ErpOrderPostSavePluginInterface::class)
             ->disableOriginalConstructor()
             ->getMock();
     }
@@ -59,11 +59,11 @@ class ErpOrderItemPluginExecutorTest extends Unit
      */
     public function testExecutePostSavePlugins(): void
     {
-        $this->postSavePluginMock->expects($this->once())->method('postSave')->willReturn($this->erpOrderItemTransferMock);
-        $this->preSavePluginMock->expects($this->never())->method('preSave')->willReturn($this->erpOrderItemTransferMock);
+        $this->postSavePluginMock->expects($this->once())->method('postSave')->willReturn($this->erpOrderTransferMock);
+        $this->preSavePluginMock->expects($this->never())->method('preSave')->willReturn($this->erpOrderTransferMock);
 
-        $pluginExecutor = new ErpOrderItemPluginExecutor([$this->preSavePluginMock], [$this->postSavePluginMock]);
-        $pluginExecutor->executePostSavePlugins($this->erpOrderItemTransferMock);
+        $pluginExecutor = new ErpOrderPluginExecutor([$this->preSavePluginMock], [$this->postSavePluginMock]);
+        $pluginExecutor->executePostSavePlugins($this->erpOrderTransferMock);
     }
 
     /**
@@ -71,10 +71,10 @@ class ErpOrderItemPluginExecutorTest extends Unit
      */
     public function testExecutePreSavePlugins(): void
     {
-        $this->postSavePluginMock->expects($this->never())->method('postSave')->willReturn($this->erpOrderItemTransferMock);
-        $this->preSavePluginMock->expects($this->once())->method('preSave')->willReturn($this->erpOrderItemTransferMock);
+        $this->postSavePluginMock->expects($this->never())->method('postSave')->willReturn($this->erpOrderTransferMock);
+        $this->preSavePluginMock->expects($this->once())->method('preSave')->willReturn($this->erpOrderTransferMock);
 
-        $pluginExecutor = new ErpOrderItemPluginExecutor([$this->preSavePluginMock], [$this->postSavePluginMock]);
-        $pluginExecutor->executePreSavePlugins($this->erpOrderItemTransferMock);
+        $pluginExecutor = new ErpOrderPluginExecutor([$this->preSavePluginMock], [$this->postSavePluginMock]);
+        $pluginExecutor->executePreSavePlugins($this->erpOrderTransferMock);
     }
 }

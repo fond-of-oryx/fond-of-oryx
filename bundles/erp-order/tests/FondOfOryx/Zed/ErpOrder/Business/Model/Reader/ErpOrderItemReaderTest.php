@@ -4,9 +4,10 @@ namespace FondOfOryx\Zed\ErpOrder\Business\Model\Reader;
 
 use Codeception\Test\Unit;
 use FondOfOryx\Zed\ErpOrder\Persistence\ErpOrderRepository;
-use Generated\Shared\Transfer\ErpOrderAddressTransfer;
+use Generated\Shared\Transfer\ErpOrderItemCollectionTransfer;
+use Generated\Shared\Transfer\ErpOrderItemTransfer;
 
-class ErpOrderAddressReaderTest extends Unit
+class ErpOrderItemReaderTest extends Unit
 {
     /**
      * @var \FondOfOryx\Zed\ErpOrder\Persistence\ErpOrderRepositoryInterface|\PHPUnit\Framework\MockObject\MockObject
@@ -14,12 +15,17 @@ class ErpOrderAddressReaderTest extends Unit
     protected $repositoryMock;
 
     /**
-     * @var \Generated\Shared\Transfer\ErpOrderAddressTransfer|\PHPUnit\Framework\MockObject\MockObject
+     * @var \Generated\Shared\Transfer\ErpOrderItemCollectionTransfer|\PHPUnit\Framework\MockObject\MockObject
      */
-    protected $erpOrderAddressTransfer;
+    protected $erpOrderItemCollectionTransferMock;
 
     /**
-     * @var \FondOfOryx\Zed\ErpOrder\Business\Model\Reader\ErpOrderAddressReaderInterface
+     * @var \Generated\Shared\Transfer\ErpOrderItemTransfer|\PHPUnit\Framework\MockObject\MockObject
+     */
+    protected $erpOrderItemTransfer;
+
+    /**
+     * @var \FondOfOryx\Zed\ErpOrder\Business\Model\Reader\ErpOrderItemReaderInterface
      */
     protected $reader;
 
@@ -34,22 +40,38 @@ class ErpOrderAddressReaderTest extends Unit
             ->disableOriginalConstructor()
             ->getMock();
 
-        $this->erpOrderAddressTransfer = $this->getMockBuilder(ErpOrderAddressTransfer::class)
+        $this->erpOrderItemCollectionTransferMock = $this->getMockBuilder(ErpOrderItemCollectionTransfer::class)
             ->disableOriginalConstructor()
             ->getMock();
 
-        $this->reader = new ErpOrderAddressReader($this->repositoryMock);
+        $this->erpOrderItemTransfer = $this->getMockBuilder(ErpOrderItemTransfer::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $this->reader = new ErpOrderItemReader($this->repositoryMock);
     }
 
     /**
      * @return void
      */
-    public function testFindErpOrderAddressByIdErpOrderAddress(): void
+    public function testFindErpOrderItemsByIdErpOrder(): void
     {
-        $this->repositoryMock->expects($this->once())->method('findErpOrderAddressByIdErpOrderAddress')->willReturn($this->erpOrderAddressTransfer);
+        $this->repositoryMock->expects($this->once())->method('findErpOrderItemsByIdErpOrder')->willReturn($this->erpOrderItemCollectionTransferMock);
 
-        $result = $this->reader->findErpOrderAddressByIdErpOrderAddress(1);
+        $result = $this->reader->findErpOrderItemsByIdErpOrder(1);
 
-        $this->assertInstanceOf(ErpOrderAddressTransfer::class, $result);
+        $this->assertInstanceOf(ErpOrderItemCollectionTransfer::class, $result);
+    }
+
+    /**
+     * @return void
+     */
+    public function testFindErpOrderItemByIdErpOrderItem(): void
+    {
+        $this->repositoryMock->expects($this->once())->method('findErpOrderItemByIdErpOrderItem')->willReturn($this->erpOrderItemTransfer);
+
+        $result = $this->reader->findErpOrderItemByIdErpOrderItem(1);
+
+        $this->assertInstanceOf(ErpOrderItemTransfer::class, $result);
     }
 }

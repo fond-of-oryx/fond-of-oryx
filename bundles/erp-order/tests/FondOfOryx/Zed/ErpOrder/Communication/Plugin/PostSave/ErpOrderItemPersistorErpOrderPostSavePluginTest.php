@@ -6,7 +6,7 @@ use Codeception\Test\Unit;
 use FondOfOryx\Zed\ErpOrder\Business\ErpOrderFacade;
 use Generated\Shared\Transfer\ErpOrderTransfer;
 
-class ErpOrderPersistorErpOrderPostSavePluginTest extends Unit
+class ErpOrderItemPersistorErpOrderPostSavePluginTest extends Unit
 {
     /**
      * @var \Generated\Shared\Transfer\ErpOrderTransfer|\PHPUnit\Framework\MockObject\MockObject
