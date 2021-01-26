@@ -1,0 +1,35 @@
+{
+  "name": "fond-of-oryx/erp-order",
+  "description": "ERP Order module",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Julian Zimmermann",
+      "email": "info@julianzimmermann.dev"
+    }
+  ],
+  "require": {
+    "php": ">=7.2",
+    "fond-of-oryx/erp-order-extension": "dev-master",
+    "fond-of-spryker/country": "dev-spryker_upgrade",
+    "spryker/company-business-unit": "^1.0.0 || ^2.0.0",
+    "spryker/company-user": "^1.0.0 || ^2.0.0"
+  },
+  "require-dev": {
+    "fond-of-codeception/spryker": "dev-master",
+    "spryker/code-sniffer": "^0.12"
+  },
+  "minimum-stability": "dev",
+  "prefer-stable": true,
+  "autoload": {
+    "psr-4": {
+      "FondOfOryx\\": "src/FondOfOryx/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "FondOfOryx\\": "tests/FondOfOryx/",
+      "Generated\\": "tests/Generated/"
+    }
+  }
+}

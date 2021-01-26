@@ -4,6 +4,7 @@ include:
   - bundles/customer-statistic
   - bundles/customer-statistics-rest-api
   - bundles/erp-order-api
+  - bundles/erp-order
   - bundles/mail-bcc
   - bundles/sales-locale-connector
   - bundles/tax-calculation-connector
@@ -15,7 +16,8 @@ suites:
 settings:
   shuffle: true
   lint: true
-  bootstrap: _bootstrap.php
+
+bootstrap: _bootstrap.php
 
 paths:
   tests: tests

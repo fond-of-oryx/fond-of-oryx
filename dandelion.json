@@ -13,11 +13,16 @@
         "erp-order": {
             "url": "https://<GITHUB_TOKEN>@github.com/fond-of-oryx/erp-order.git",
             "path": "bundles/erp-order/",
-            "version": "1.0.0"
+            "version": "alpha-0.0.1"
         },
         "erp-order-api": {
             "url": "https://<GITHUB_TOKEN>@github.com/fond-of-oryx/erp-order-api.git",
             "path": "bundles/erp-order-api/",
+            "version": "1.0.0"
+        },
+        "erp-order-extension": {
+            "url": "https://<GITHUB_TOKEN>@github.com/fond-of-oryx/erp-order-extension.git",
+            "path": "bundles/erp-order-extension/",
             "version": "1.0.0"
         },
         "sales-locale-connector": {

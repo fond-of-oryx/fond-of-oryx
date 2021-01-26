@@ -1,0 +1,96 @@
+<?xml version="1.0"?>
+<database xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" name="zed"
+          xsi:noNamespaceSchemaLocation="http://static.spryker.com/schema-01.xsd"
+          namespace="Orm\Zed\ErpOrder\Persistence" package="src.Orm.Zed.ErpOrder.Persistence">
+
+    <table name="foo_erp_order" phpName="ErpOrder" identifierQuoting="true">
+        <column name="id_erp_order" required="true" type="INTEGER" autoIncrement="true" primaryKey="true"/>
+
+        <column name="fk_billing_address" required="true" type="INTEGER"/>
+        <column name="fk_shipping_address" required="true" type="INTEGER"/>
+        <column name="fk_company_business_unit" required="true" type="INTEGER"/>
+        <column name="fk_company_user" required="true" type="INTEGER"/>
+
+        <column name="external_reference" required="false" size="255" type="VARCHAR"/>
+        <column name="reference" required="false" size="255" type="VARCHAR"/>
+        <column name="concrete_delivery_date" required="false" type="DATE"/>
+
+        <behavior name="timestampable"/>
+
+        <id-method-parameter value="foo_erp_order_pk_seq"/>
+
+        <unique name="foo_erp_order-reference">
+            <unique-column name="reference"/>
+        </unique>
+
+        <index name="foo_erp_order-index-reference">
+            <index-column name="reference"/>
+        </index>
+
+        <foreign-key name="foo_erp_order-foo_erp_order_billing_address" foreignTable="foo_erp_order_address" phpName="ErpOrderBillingAddress">
+            <reference local="fk_billing_address" foreign="id_erp_order_address"/>
+        </foreign-key>
+
+        <foreign-key name="foo_erp_order-foo_erp_order_shipping_address" foreignTable="foo_erp_order_address" phpName="ErpOrderShippingAddress" >
+            <reference local="fk_shipping_address" foreign="id_erp_order_address"/>
+        </foreign-key>
+
+        <foreign-key name="foo_erp_order-spy_company_business_unit" foreignTable="spy_company_business_unit" phpName="CompanyBusinessUnit">
+            <reference local="fk_company_business_unit" foreign="id_company_business_unit"/>
+        </foreign-key>
+
+        <foreign-key name="foo_erp_order-spy_company_user" foreignTable="spy_company_user" phpName="CompanyUser">
+            <reference local="fk_company_user" foreign="id_company_user"/>
+        </foreign-key>
+    </table>
+
+    <table name="foo_erp_order_item" phpName="ErpOrderItem" identifierQuoting="true">
+        <column name="id_erp_order_item" required="true" type="INTEGER" autoIncrement="true" primaryKey="true"/>
+
+        <column name="fk_erp_order" required="true" type="INTEGER"/>
+
+        <column name="sku" required="true" size="255" type="VARCHAR"/>
+        <column name="name" required="true" size="255" type="VARCHAR"/>
+        <column name="canceled_quantity" required="false" type="INTEGER"/>
+        <column name="ordered_quantity" required="false" type="INTEGER"/>
+        <column name="shipped_quantity" required="false" type="INTEGER"/>
+        <column name="invoice_quantity" required="false" type="INTEGER"/>
+        <column name="status" required="false" type="INTEGER"/>
+        <column name="concrete_delivery_date" required="false" type="DATE"/>
+
+        <behavior name="timestampable"/>
+
+        <id-method-parameter value="foo_erp_order_item_pk_seq"/>
+
+        <foreign-key name="foo_erp_order_item-fk_erp_order" foreignTable="foo_erp_order" phpName="ErpOrder" refPhpName="ErpOrderItem">
+            <reference local="fk_erp_order" foreign="id_erp_order"/>
+        </foreign-key>
+    </table>
+
+    <table name="foo_erp_order_address" phpName="ErpOrderAddress" identifierQuoting="true">
+        <column name="id_erp_order_address" required="true" type="INTEGER" autoIncrement="true" primaryKey="true"/>
+
+        <column name="fk_country" required="true" type="INTEGER"/>
+        <column name="fk_region" required="false" type="INTEGER"/>
+
+        <column name="name1" required="true" size="255" type="VARCHAR"/>
+        <column name="name2" required="true" size="255" type="VARCHAR"/>
+        <column name="address1" required="true" size="255" type="VARCHAR"/>
+        <column name="address2" required="false" size="255" type="VARCHAR"/>
+        <column name="address3" required="false" size="255" type="VARCHAR"/>
+        <column name="city" required="true" size="255" type="VARCHAR"/>
+        <column name="zip_code" required="true" size="15" type="VARCHAR"/>
+
+        <behavior name="timestampable"/>
+
+        <id-method-parameter value="foo_erp_order_address_pk_seq"/>
+
+        <foreign-key name="foo_erp_order_address-fk_country" foreignTable="spy_country" phpName="Country" refPhpName="ErpOrderAddress">
+            <reference local="fk_country" foreign="id_country"/>
+        </foreign-key>
+
+        <foreign-key name="foo_erp_order_address-fk_region" foreignTable="spy_region" phpName="Region" refPhpName="ErpOrderAddress">
+            <reference local="fk_region" foreign="id_region"/>
+        </foreign-key>
+    </table>
+</database>
