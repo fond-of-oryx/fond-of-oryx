@@ -4,4 +4,5 @@ parameters:
         - '#.* has invalid type Orm\\Zed\\.*#'
         - '#.* has invalid typehint type Orm\\Zed\\.*#'
         - '#.* on an unknown class Orm\\Zed\\.*#'
+        - '#.* class Orm\\Zed\\.*#'
         - '#.* on an unknown class Generated\\(Client|Glue|Service|Yves|Zed)\\.*#'
