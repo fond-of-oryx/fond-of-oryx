@@ -10,7 +10,7 @@
   ],
   "require": {
     "php": ">=7.2",
-    "fond-of-spryker/country": "dev-spryker_upgrade",
+    "fond-of-spryker/country": "dev-spryker_upgrade || dev-dev-feature/paypal-refund",
     "spryker/api": "^0.1.0 || ^0.2.0 || ^0.3.0",
     "spryker/api-query-builder": "^0.1.0",
     "spryker/auth-rest-api-extension": "^1.0.0",
