@@ -45,7 +45,9 @@ class ErpOrderEntityManager extends AbstractEntityManager implements ErpOrderEnt
             ->setUpdatedAt($now)
             ->save();
 
-        return $this->getFactory()->createEntityToTransferMapper()->fromErpOrderToTransfer($entity);
+        return $this->getFactory()
+            ->createEntityToTransferMapper()
+            ->fromErpOrderToTransfer($entity, $erpOrderTransfer);
     }
 
     /**
