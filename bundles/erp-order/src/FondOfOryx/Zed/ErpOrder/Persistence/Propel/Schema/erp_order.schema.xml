@@ -42,6 +42,10 @@
         <foreign-key name="foo_erp_order-spy_company_user" foreignTable="spy_company_user" phpName="CompanyUser">
             <reference local="fk_company_user" foreign="id_company_user"/>
         </foreign-key>
+
+        <behavior name="event">
+            <parameter name="foo_erp_order_all" column="*"/>
+        </behavior>
     </table>
 
     <table name="foo_erp_order_item" phpName="ErpOrderItem" identifierQuoting="true">
