@@ -58,7 +58,7 @@
         <column name="canceled_quantity" required="false" type="INTEGER"/>
         <column name="ordered_quantity" required="false" type="INTEGER"/>
         <column name="shipped_quantity" required="false" type="INTEGER"/>
-        <column name="invoice_quantity" required="false" type="INTEGER"/>
+        <column name="invoiced_quantity" required="false" type="INTEGER"/>
         <column name="status" required="false" type="INTEGER"/>
         <column name="concrete_delivery_date" required="false" type="DATE"/>
 
