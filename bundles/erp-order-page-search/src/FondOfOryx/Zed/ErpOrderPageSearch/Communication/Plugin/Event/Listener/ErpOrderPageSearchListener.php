@@ -2,6 +2,8 @@
 
 namespace FondOfOryx\Zed\ErpOrderPageSearch\Communication\Plugin\Event\Listener;
 
+use FondOfOryx\Zed\ErpOrder\Dependency\ErpOrderEvents;
+use FondOfSpryker\Zed\ConditionalAvailability\Dependency\ConditionalAvailabilityEvents;
 use Spryker\Zed\Event\Dependency\Plugin\EventBulkHandlerInterface;
 use Spryker\Zed\Kernel\Communication\AbstractPlugin;
 use Spryker\Zed\PropelOrm\Business\Transaction\DatabaseTransactionHandlerTrait;
@@ -18,8 +20,19 @@ class ErpOrderPageSearchListener extends AbstractPlugin implements EventBulkHand
      */
     public function handleBulk(array $eventTransfers, $eventName): void
     {
-        $this->preventTransaction();
+        $erpOrderIds = $this->getFactory()
+            ->getEventBehaviorFacade()
+            ->getEventTransferIds($eventTransfers);
 
-        //$this->getFacade()->publish();
+        if (
+            $eventName === ErpOrderEvents::ENTITY_FOO_ERP_ORDER_DELETE ||
+            $eventName === ErpOrderEvents::ERP_ORDER_UNPUBLISH
+        ) {
+            $this->getFacade()->unpublish($erpOrderIds);
+
+            return;
+        }
+
+        $this->getFacade()->publish($erpOrderIds);
     }
 }
