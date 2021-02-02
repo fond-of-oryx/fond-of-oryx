@@ -1,7 +1,7 @@
 <?php
 namespace FondOfOryx\Zed\ErpOrderPageSearch\Communication\Controller;
 
-use Generated\Shared\Transfer\ErpOrderPageSearchTransfer;
+use Generated\Shared\Transfer\ErpOrderCollectionTransfer;
 use Spryker\Zed\Kernel\Communication\Controller\AbstractGatewayController;
 
 /**
@@ -11,9 +11,9 @@ use Spryker\Zed\Kernel\Communication\Controller\AbstractGatewayController;
 class GatewayController extends AbstractGatewayController
 {
     /**
-     * @return \Generated\Shared\Transfer\ErpOrderPageSearchTransfer
+     * @return \Generated\Shared\Transfer\ErpOrderCollectionTransfer
      */
-    public function getErpOrderByRequestAction(): ErpOrderPageSearchTransfer
+    public function getErpOrderByRequestAction(): ErpOrderCollectionTransfer
     {
         return $this->getFacade()
             ->getErpOrderByRequest();

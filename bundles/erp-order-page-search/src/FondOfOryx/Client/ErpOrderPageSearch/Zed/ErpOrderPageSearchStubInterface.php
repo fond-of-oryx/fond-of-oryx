@@ -2,7 +2,7 @@
 namespace FondOfOryx\Client\ErpOrderPageSearch\Zed;
 
 use Generated\Shared\Transfer\ErpOrderPageSearchRequestTransfer;
-use Generated\Shared\Transfer\ErpOrderPageSearchTransfer;
+use Generated\Shared\Transfer\ErpOrderCollectionTransfer;
 
 /**
  * Interface ErpOrderPageSearchStubInterface
@@ -14,7 +14,7 @@ interface ErpOrderPageSearchStubInterface
     /**
      * @param  \Generated\Shared\Transfer\ErpOrderPageSearchRequestTransfer  $request
      *
-     * @return \Generated\Shared\Transfer\ErpOrderPageSearchTransfer
+     * @return \Generated\Shared\Transfer\ErpOrderCollectionTransfer
      */
-    public function findErpOrdersByFilterTransfer(ErpOrderPageSearchRequestTransfer $request): ErpOrderPageSearchTransfer;
+    public function findErpOrdersByFilterTransfer(ErpOrderPageSearchRequestTransfer $request): ErpOrderCollectionTransfer;
 }

@@ -2,7 +2,7 @@
 namespace FondOfOryx\Client\ErpOrderPageSearch;
 
 use Generated\Shared\Transfer\ErpOrderPageSearchRequestTransfer;
-use Generated\Shared\Transfer\ErpOrderPageSearchTransfer;
+use Generated\Shared\Transfer\ErpOrderCollectionTransfer;
 use FondOfOryx\Client\ErpOrderPageSearch\Zed\ErpOrderPageSearchStubInterface;
 use Spryker\Client\Kernel\AbstractClient;
 
@@ -22,9 +22,9 @@ class ErpOrderPageSearchClient extends AbstractClient implements ErpOrderPageSea
     /**
      * @param  \Generated\Shared\Transfer\ErpOrderPageSearchRequestTransfer  $request
      *
-     * @return \Generated\Shared\Transfer\ErpOrderPageSearchTransfer
+     * @return \Generated\Shared\Transfer\ErpOrderCollectionTransfer
      */
-    public function findErpOrdersByFilterTransfer(ErpOrderPageSearchRequestTransfer $request): ErpOrderPageSearchTransfer
+    public function findErpOrdersByFilterTransfer(ErpOrderPageSearchRequestTransfer $request): ErpOrderCollectionTransfer
     {
         return $this->getZedStub()->findErpOrdersByFilterTransfer($request);
     }
