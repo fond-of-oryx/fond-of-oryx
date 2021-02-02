@@ -9,8 +9,14 @@
         <property name="includes" type="array"/>
     </transfer>
 
-    <transfer name="ErpOrderPageSearch">
+    <transfer name="ErpOrderCollection">
         <property name="erpOrders" singular="erpOrder" type="ErpOrder[]"/>
+    </transfer>
+
+    <transfer name="ErpOrderPageSearch">
+        <property name="fkErpOrder" type="int"/>
+        <property name="structuredData" type="string"/>
+        <property name="data" singular="data" type="array"/>
     </transfer>
 
     <transfer name="RestBrandsRequestAttributes">
@@ -19,6 +25,11 @@
         <property name="smallLogoUrl" type="string" />
         <property name="largeLogoUrl" type="string" />
         <property name="isActive" type="bool"/>
+    </transfer>
+
+    <transfer name="SynchronizationData">
+        <property name="key" type="string"/>
+        <property name="data" type="string"/>
     </transfer>
 
 </transfers>
