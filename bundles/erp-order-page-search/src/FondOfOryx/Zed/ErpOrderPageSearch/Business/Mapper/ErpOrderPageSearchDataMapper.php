@@ -2,9 +2,6 @@
 
 namespace FondOfOryx\Zed\ErpOrderPageSearch\Business\Model;
 
-use FondOfSpryker\Zed\ConditionalAvailabilityPageSearch\Dependency\Facade\ConditionalAvailabilityPageSearchToStoreFacadeInterface;
-use Generated\Shared\Search\ConditionalAvailabilityPeriodIndexMap;
-
 class ErpOrderPageSearchDataMapper implements ErpOrderPageSearchDataMapperInterface
 {
     /**
@@ -24,7 +21,7 @@ class ErpOrderPageSearchDataMapper implements ErpOrderPageSearchDataMapperInterf
         $searchData = [
 
         ];
-        
+
         return $searchData;
     }
 }

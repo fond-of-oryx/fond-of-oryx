@@ -3,9 +3,9 @@
 namespace FondOfOryx\Zed\ErpOrderPageSearch\Business\Model;
 
 use FondOfOryx\Zed\ErpOrderPageSearch\Dependency\Service\ErpOrderPageSearchToUtilEncodingServiceInterface;
+use FondOfOryx\Zed\ErpOrderPageSearch\Persistence\ErpOrderPageSearchEntityManagerInterface;
 use Generated\Shared\Transfer\ErpOrderPageSearchTransfer;
-use Orm\Zed\ConditionalAvailability\Persistence\Base\FosConditionalAvailabilityPeriod;
-use Orm\Zed\ErpOrder\Persistence\Base\FooErpOrder;
+use Orm\Zed\ErpOrder\Persistence\ErpOrder;
 
 class ErpOrderPageSearchPublisher implements ErpOrderPageSearchPublisherInterface
 {
@@ -15,29 +15,28 @@ class ErpOrderPageSearchPublisher implements ErpOrderPageSearchPublisherInterfac
     protected $entityManager;
 
     /**
-     * @var \FondOfOryx\Zed\ErpOrderPageSearch\Dependency\Service\ErpOrderPageSearchToUtilEncodingServiceInterface 
+     * @var \FondOfOryx\Zed\ErpOrderPageSearch\Dependency\Service\ErpOrderPageSearchToUtilEncodingServiceInterface
      */
     protected $utilEncodingService;
 
     /**
-     * @var \FondOfOryx\Zed\ErpOrderPageSearch\Business\Model\ErpOrderPageSearchDataMapper
+     * @var \FondOfOryx\Zed\ErpOrderPageSearch\Business\Model\ErpOrderPageSearchDataMapperInterface
      */
     protected $erpOrderPageSearchDataMapper;
 
     /**
      * ErpOrderPageSearchPublisher constructor.
      *
-     * @param \FondOfOryx\Zed\ErpOrderPageSearch\Business\Model\ErpOrderPageSearchEntityManagerInterface $entityManager
-     * @param \FondOfOryx\Zed\ErpOrderPageSearch\Dependency\Service\ErpOrderPageSearchToUtilEncodingServiceInterface $utilEncodingService
-     * @param \FondOfOryx\Zed\ErpOrderPageSearch\Business\Model\ErpOrderPageSearchDataMapper $erpOrderPageSearchDataMapper
+     * @param  \FondOfOryx\Zed\ErpOrderPageSearch\Persistence\ErpOrderPageSearchEntityManagerInterface  $entityManager
+     * @param  \FondOfOryx\Zed\ErpOrderPageSearch\Dependency\Service\ErpOrderPageSearchToUtilEncodingServiceInterface  $utilEncodingService
+     * @param  \FondOfOryx\Zed\ErpOrderPageSearch\Business\Model\ErpOrderPageSearchDataMapperInterface  $erpOrderPageSearchDataMapper
      */
     public function __construct(
         ErpOrderPageSearchEntityManagerInterface $entityManager,
         ErpOrderPageSearchToUtilEncodingServiceInterface $utilEncodingService,
-        ErpOrderPageSearchDataMapper $erpOrderPageSearchDataMapper
+        ErpOrderPageSearchDataMapperInterface $erpOrderPageSearchDataMapper
     ) {
         $this->entityManager = $entityManager;
-        $this->conditionalAvailabilityPeriodPageSearchExpander = $conditionalAvailabilityPeriodPageSearchExpander;
         $this->utilEncodingService = $utilEncodingService;
         $this->erpOrderPageSearchDataMapper = $erpOrderPageSearchDataMapper;
     }
@@ -67,16 +66,16 @@ class ErpOrderPageSearchPublisher implements ErpOrderPageSearchPublisherInterfac
     }
 
     /**
-     * @param \Orm\Zed\ErpOrder\Persistence\Base\FooErpOrder $fooErpOrder
+     * @param  \Orm\Zed\ErpOrder\Persistence\ErpOrder  $fooErpOrderEntity
      *
      * @return void
      */
-    protected function storeDataSet(FooErpOrder $fooErpOrderEntity): void
+    protected function storeDataSet(ErpOrder $fooErpOrderEntity): void
     {
         $erpOrderData = $fooErpOrderEntity->toArray();
 
         $erpOrderPageSearchTransfer = (new ErpOrderPageSearchTransfer())
-            ->fromArray($erpOrderDataData, true)
+            ->fromArray($erpOrderData, true)
             ->setData($erpOrderData);
 
          $erpOrderPageSearchTransfer = $this->addDataAttributes($erpOrderPageSearchTransfer);
