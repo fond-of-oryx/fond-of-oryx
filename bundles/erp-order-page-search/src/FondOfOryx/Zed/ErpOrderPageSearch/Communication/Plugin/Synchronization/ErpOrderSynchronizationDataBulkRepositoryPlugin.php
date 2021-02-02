@@ -1,6 +1,6 @@
 <?php
 
-namespace FondOfOryx\Zed\ErpOrderPageSearch\Communication\Plugin\SynchronizationExtension;
+namespace FondOfOryx\Zed\ErpOrderPageSearch\Communication\Plugin\Synchronization;
 
 use FondOfOryx\Shared\ErpOrderPageSearch\ErpOrderPageSearchConstants;
 use Generated\Shared\Transfer\FilterTransfer;
