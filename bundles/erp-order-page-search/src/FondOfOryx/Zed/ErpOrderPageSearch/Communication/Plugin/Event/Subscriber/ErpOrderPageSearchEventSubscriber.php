@@ -3,6 +3,7 @@
 namespace FondOfOryx\Zed\ErpOrderPageSearch\Communication\Plugin\Event\Subscriber;
 
 
+use FondOfOryx\Zed\ErpOrder\Dependency\ErpOrderEvents;
 use FondOfOryx\Zed\ErpOrderPageSearch\Communication\Plugin\Event\Listener\ErpOrderPageSearchListener;
 use Spryker\Zed\Event\Dependency\EventCollectionInterface;
 use Spryker\Zed\Event\Dependency\Plugin\EventSubscriberInterface;
@@ -17,7 +18,38 @@ class ErpOrderPageSearchEventSubscriber extends AbstractPlugin implements EventS
      */
     public function getSubscribedEvents(EventCollectionInterface $eventCollection)
     {
+        $this->addErpOrderPublishListener($eventCollection);
+        $this->addErpOrderUnPublishListener($eventCollection);
+
         return $eventCollection;
     }
 
+
+    /**
+     * @param \Spryker\Zed\Event\Dependency\EventCollectionInterface $eventCollection
+     *
+     * @return void
+     */
+    protected function addErpOrderPublishListener(
+        EventCollectionInterface $eventCollection
+    ): void {
+        $eventCollection->addListenerQueued(
+            ErpOrderEvents::ERP_ORDER_PUBLISH,
+            new ErpOrderPageSearchListener()
+        );
+    }
+
+    /**
+     * @param \Spryker\Zed\Event\Dependency\EventCollectionInterface $eventCollection
+     *
+     * @return void
+     */
+    protected function addErpOrderUnPublishListener(
+        EventCollectionInterface $eventCollection
+    ): void {
+        $eventCollection->addListenerQueued(
+            ErpOrderEvents::ERP_ORDER_UNPUBLISH,
+            new ErpOrderPageSearchListener()
+        );
+    }
 }
