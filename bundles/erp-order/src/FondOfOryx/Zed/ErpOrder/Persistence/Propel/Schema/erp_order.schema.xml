@@ -15,8 +15,6 @@
         <column name="reference" required="false" size="255" type="VARCHAR"/>
         <column name="concrete_delivery_date" required="false" type="DATE"/>
 
-        <behavior name="timestampable"/>
-
         <id-method-parameter value="foo_erp_order_pk_seq"/>
 
         <unique name="foo_erp_order-reference">
@@ -46,6 +44,8 @@
         <behavior name="event">
             <parameter name="foo_erp_order_all" column="*"/>
         </behavior>
+
+        <behavior name="timestampable"/>
     </table>
 
     <table name="foo_erp_order_item" phpName="ErpOrderItem" identifierQuoting="true">
