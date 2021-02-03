@@ -1,7 +1,8 @@
 <?php
 
-namespace FondOfOryx\Zed\ErpOrderPageSearch\Business\Model;
+namespace FondOfOryx\Zed\ErpOrderPageSearch\Business\Publisher;
 
+use FondOfOryx\Zed\ErpOrderPageSearch\Business\Mapper\ErpOrderPageSearchDataMapperInterface;
 use FondOfOryx\Zed\ErpOrderPageSearch\Dependency\Service\ErpOrderPageSearchToUtilEncodingServiceInterface;
 use FondOfOryx\Zed\ErpOrderPageSearch\Persistence\ErpOrderPageSearchEntityManagerInterface;
 use Generated\Shared\Transfer\ErpOrderPageSearchTransfer;
@@ -20,7 +21,7 @@ class ErpOrderPageSearchPublisher implements ErpOrderPageSearchPublisherInterfac
     protected $utilEncodingService;
 
     /**
-     * @var \FondOfOryx\Zed\ErpOrderPageSearch\Business\Model\ErpOrderPageSearchDataMapperInterface
+     * @var \FondOfOryx\Zed\ErpOrderPageSearch\Business\Mapper\ErpOrderPageSearchDataMapperInterface
      */
     protected $erpOrderPageSearchDataMapper;
 
@@ -29,7 +30,7 @@ class ErpOrderPageSearchPublisher implements ErpOrderPageSearchPublisherInterfac
      *
      * @param  \FondOfOryx\Zed\ErpOrderPageSearch\Persistence\ErpOrderPageSearchEntityManagerInterface  $entityManager
      * @param  \FondOfOryx\Zed\ErpOrderPageSearch\Dependency\Service\ErpOrderPageSearchToUtilEncodingServiceInterface  $utilEncodingService
-     * @param  \FondOfOryx\Zed\ErpOrderPageSearch\Business\Model\ErpOrderPageSearchDataMapperInterface  $erpOrderPageSearchDataMapper
+     * @param  \FondOfOryx\Zed\ErpOrderPageSearch\Business\Mapper\ErpOrderPageSearchDataMapperInterface  $erpOrderPageSearchDataMapper
      */
     public function __construct(
         ErpOrderPageSearchEntityManagerInterface $entityManager,

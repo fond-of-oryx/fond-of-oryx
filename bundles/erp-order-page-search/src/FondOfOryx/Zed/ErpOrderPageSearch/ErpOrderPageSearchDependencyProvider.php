@@ -2,15 +2,15 @@
 
 namespace FondOfOryx\Zed\ErpOrderPageSearch;
 
-use FondOfOryx\Zed\ErporderPageSearch\Dependency\Service\ErpOrderPageSearchToEventBehaviorFacadeBridge;
-use FondOfOryx\Zed\ErporderPageSearch\Dependency\Service\ErpOrderPageSearchToUtilEncodingServiceBridge;
+use FondOfOryx\Zed\ErpOrderPageSearch\Dependency\Facade\ErpOrderPageSearchToEventBehaviorFacadeBridge;
+use FondOfOryx\Zed\ErpOrderPageSearch\Dependency\Service\ErpOrderPageSearchToUtilEncodingServiceBridge;
 use Orm\Zed\ErpOrder\Persistence\ErpOrderQuery;
 use Orm\Zed\ErpOrderPageSearch\Persistence\FooErpOrderPageSearchQuery;
 use Spryker\Zed\Kernel\AbstractBundleDependencyProvider;
 use Spryker\Zed\Kernel\Container;
 
 /**
- * @method \FondOfOryx\Zed\ErporderPageSearch\ErpOrderPageSearchConfig getConfig()
+ * @method \FondOfOryx\Zed\ErpOrderPageSearch\ErpOrderPageSearchConfig getConfig()
  */
 class ErpOrderPageSearchDependencyProvider extends AbstractBundleDependencyProvider
 {

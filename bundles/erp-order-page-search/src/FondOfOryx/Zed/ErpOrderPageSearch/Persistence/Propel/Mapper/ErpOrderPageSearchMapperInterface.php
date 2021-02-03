@@ -1,6 +1,6 @@
 <?php
 
-namespace FondOfOryx\Zed\ErporderPageSearch\Persistence\Mapper;
+namespace FondOfOryx\Zed\ErpOrderPageSearch\Persistence\Mapper;
 
 interface ErpOrderPageSearchMapperInterface
 {

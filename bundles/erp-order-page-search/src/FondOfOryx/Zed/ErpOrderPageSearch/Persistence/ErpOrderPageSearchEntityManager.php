@@ -1,13 +1,14 @@
 <?php
 
-namespace FondOfOryx\Zed\ErporderPageSearch\Persistence;
+namespace FondOfOryx\Zed\ErpOrderPageSearch\Persistence;
 
 use Generated\Shared\Transfer\ErpOrderPageSearchTransfer;
 use Orm\Zed\ErpOrderPageSearch\Persistence\FooErpOrderPageSearch;
+use Spryker\Zed\Kernel\Persistence\AbstractEntityManager;
 
 /**
  * Class ErpOrderPageSearchEntityManager
- * @package FondOfOryx\Zed\ErporderPageSearch\Persistence
+ * @package FondOfOryx\Zed\ErpOrderPageSearch\Persistence
  *
  * @method \FondOfOryx\Zed\ErpOrderPageSearch\Persistence\ErpOrderPageSearchPersistenceFactory getFactory()
  */

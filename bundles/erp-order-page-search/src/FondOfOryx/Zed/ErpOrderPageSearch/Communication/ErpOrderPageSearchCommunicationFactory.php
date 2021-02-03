@@ -2,7 +2,7 @@
 
 namespace FondOfOryx\Zed\ErpOrderPageSearch\Communication;
 
-use FondOfOryx\Zed\ErporderPageSearch\Dependency\Service\ErpOrderPageSearchToEventBehaviorFacadeInterface;
+use FondOfOryx\Zed\ErpOrderPageSearch\Dependency\Facade\ErpOrderPageSearchToEventBehaviorFacadeInterface;
 use FondOfOryx\Zed\ErpOrderPageSearch\ErpOrderPageSearchDependencyProvider;
 use Spryker\Zed\Kernel\Communication\AbstractCommunicationFactory;
 
@@ -14,7 +14,7 @@ use Spryker\Zed\Kernel\Communication\AbstractCommunicationFactory;
 class ErpOrderPageSearchCommunicationFactory extends AbstractCommunicationFactory
 {
     /**
-     * @return \FondOfOryx\Zed\ErporderPageSearch\Dependency\Service\ErpOrderPageSearchToEventBehaviorFacadeInterface
+     * @return \FondOfOryx\Zed\ErpOrderPageSearch\Dependency\Facade\ErpOrderPageSearchToEventBehaviorFacadeInterface
      * @throws \Spryker\Zed\Kernel\Exception\Container\ContainerKeyNotFoundException
      */
     public function getEventBehaviorFacade(): ErpOrderPageSearchToEventBehaviorFacadeInterface

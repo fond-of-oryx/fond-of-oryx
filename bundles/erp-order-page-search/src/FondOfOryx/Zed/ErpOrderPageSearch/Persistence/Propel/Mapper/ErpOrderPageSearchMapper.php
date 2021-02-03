@@ -1,6 +1,6 @@
 <?php
 
-namespace FondOfOryx\Zed\ErporderPageSearch\Persistence\Mapper;
+namespace FondOfOryx\Zed\ErpOrderPageSearch\Persistence\Mapper;
 
 use Generated\Shared\Transfer\ErpOrderPageSearchTransfer;
 use Orm\Zed\ErpOrderPageSearch\Persistence\FooErpOrderPageSearch;

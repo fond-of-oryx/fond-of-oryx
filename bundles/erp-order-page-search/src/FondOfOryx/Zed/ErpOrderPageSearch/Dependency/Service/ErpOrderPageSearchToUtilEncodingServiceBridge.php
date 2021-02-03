@@ -1,6 +1,6 @@
 <?php
 
-namespace FondOfOryx\Zed\ErporderPageSearch\Dependency\Service;
+namespace FondOfOryx\Zed\ErpOrderPageSearch\Dependency\Service;
 
 use Spryker\Service\UtilEncoding\UtilEncodingServiceInterface;
 

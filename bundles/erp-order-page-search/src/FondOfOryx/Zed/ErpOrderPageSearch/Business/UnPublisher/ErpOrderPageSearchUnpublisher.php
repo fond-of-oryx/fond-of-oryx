@@ -1,13 +1,13 @@
 <?php
 
-namespace FondOfOryx\Zed\ErpOrderPageSearch\Business\Model;
+namespace FondOfOryx\Zed\ErpOrderPageSearch\Business\UnPublisher;
 
 use FondOfOryx\Zed\ErpOrderPageSearch\Persistence\ErpOrderPageSearchEntityManagerInterface;
 
 class ErpOrderPageSearchUnpublisher implements ErpOrderPageSearchUnpublisherInterface
 {
     /**
-     * @var \FondOfOryx\Zed\ErporderPageSearch\Persistence\ErpOrderPageSearchEntityManagerInterface
+     * @var \FondOfOryx\Zed\ErpOrderPageSearch\Persistence\ErpOrderPageSearchEntityManagerInterface
      */
     protected $entityManager;
 

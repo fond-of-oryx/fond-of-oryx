@@ -1,6 +1,6 @@
 <?php
 
-namespace FondOfOryx\Zed\ErpOrderPageSearch\Business\Model;
+namespace FondOfOryx\Zed\ErpOrderPageSearch\Business\UnPublisher;
 
 interface ErpOrderPageSearchUnpublisherInterface
 {
