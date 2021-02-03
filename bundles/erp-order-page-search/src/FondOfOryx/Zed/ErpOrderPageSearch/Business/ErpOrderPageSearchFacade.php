@@ -4,7 +4,10 @@ namespace FondOfOryx\Zed\ErpOrderPageSearch\Business;
 
 use Spryker\Zed\Kernel\Business\AbstractFacade;
 
-class ErpOrderPageSearchFacade extends AbstractFacade
+/**
+ * @method \FondOfOryx\Zed\ErpOrderPageSearch\Business\ErpOrderPageSearchBusinessFactory getFactory()
+ */
+class ErpOrderPageSearchFacade extends AbstractFacade implements ErpOrderPageSearchFacadeInterface
 {
     /**
      * {@inheritDoc}

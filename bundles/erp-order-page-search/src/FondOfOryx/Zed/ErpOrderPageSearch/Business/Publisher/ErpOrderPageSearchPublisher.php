@@ -10,7 +10,7 @@ use Orm\Zed\ErpOrder\Persistence\ErpOrder;
 class ErpOrderPageSearchPublisher implements ErpOrderPageSearchPublisherInterface
 {
     /**
-     * @var \FondOfOryx\Zed\ErpOrderPageSearch\Business\Model\ErpOrderPageSearchEntityManagerInterface
+     * @var \FondOfOryx\Zed\ErpOrderPageSearch\Persistence\ErpOrderPageSearchEntityManagerInterface
      */
     protected $entityManager;
 
@@ -54,7 +54,7 @@ class ErpOrderPageSearchPublisher implements ErpOrderPageSearchPublisherInterfac
     }
 
     /**
-     * @param \Orm\Zed\ErpOrder\Persistence\Base\FooErpOrder[] $fooErpOrderEntities
+     * @param \Orm\Zed\ErpOrder\Persistence\ErpOrder[] $fooErpOrderEntities
      *
      * @return void
      */
