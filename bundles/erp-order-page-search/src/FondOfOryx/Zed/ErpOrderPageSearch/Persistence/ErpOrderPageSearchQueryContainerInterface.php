@@ -15,4 +15,14 @@ interface ErpOrderPageSearchQueryContainerInterface
     public function queryErpOrdersByErpOrderIds(
         array $erpOrderIds
     ): ErpOrderQuery;
+
+    /**
+     * @param  int[]  $erpOrderIds
+     *
+     * @return \Orm\Zed\ErpOrder\Persistence\ErpOrderQuery
+     * @throws \Spryker\Zed\Kernel\Exception\Container\ContainerKeyNotFoundException
+     */
+    public function queryErpOrderWithAddressesAndCompanyBusinessUnitAndCompanyUserByErpOrderIds(
+        array $erpOrderIds
+    ): ErpOrderQuery;
 }

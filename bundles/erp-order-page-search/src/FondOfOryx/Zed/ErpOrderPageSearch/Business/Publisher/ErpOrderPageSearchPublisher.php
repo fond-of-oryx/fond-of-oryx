@@ -5,6 +5,7 @@ namespace FondOfOryx\Zed\ErpOrderPageSearch\Business\Publisher;
 use FondOfOryx\Zed\ErpOrderPageSearch\Business\Mapper\ErpOrderPageSearchDataMapperInterface;
 use FondOfOryx\Zed\ErpOrderPageSearch\Dependency\Service\ErpOrderPageSearchToUtilEncodingServiceInterface;
 use FondOfOryx\Zed\ErpOrderPageSearch\Persistence\ErpOrderPageSearchEntityManagerInterface;
+use FondOfOryx\Zed\ErpOrderPageSearch\Persistence\ErpOrderPageSearchQueryContainerInterface;
 use Generated\Shared\Transfer\ErpOrderPageSearchTransfer;
 use Orm\Zed\ErpOrder\Persistence\ErpOrder;
 
@@ -14,6 +15,11 @@ class ErpOrderPageSearchPublisher implements ErpOrderPageSearchPublisherInterfac
      * @var \FondOfOryx\Zed\ErpOrderPageSearch\Persistence\ErpOrderPageSearchEntityManagerInterface
      */
     protected $entityManager;
+
+    /**
+     * @var \FondOfOryx\Zed\ErpOrderPageSearch\Persistence\ErpOrderPageSearchQueryContainerInterface
+     */
+    protected $queryContainer;
 
     /**
      * @var \FondOfOryx\Zed\ErpOrderPageSearch\Dependency\Service\ErpOrderPageSearchToUtilEncodingServiceInterface
@@ -29,15 +35,18 @@ class ErpOrderPageSearchPublisher implements ErpOrderPageSearchPublisherInterfac
      * ErpOrderPageSearchPublisher constructor.
      *
      * @param  \FondOfOryx\Zed\ErpOrderPageSearch\Persistence\ErpOrderPageSearchEntityManagerInterface  $entityManager
+     * @param  \FondOfOryx\Zed\ErpOrderPageSearch\Persistence\ErpOrderPageSearchQueryContainerInterface  $queryContainer
      * @param  \FondOfOryx\Zed\ErpOrderPageSearch\Dependency\Service\ErpOrderPageSearchToUtilEncodingServiceInterface  $utilEncodingService
      * @param  \FondOfOryx\Zed\ErpOrderPageSearch\Business\Mapper\ErpOrderPageSearchDataMapperInterface  $erpOrderPageSearchDataMapper
      */
     public function __construct(
         ErpOrderPageSearchEntityManagerInterface $entityManager,
+        ErpOrderPageSearchQueryContainerInterface $queryContainer,
         ErpOrderPageSearchToUtilEncodingServiceInterface $utilEncodingService,
         ErpOrderPageSearchDataMapperInterface $erpOrderPageSearchDataMapper
     ) {
         $this->entityManager = $entityManager;
+        $this->queryContainer = $queryContainer;
         $this->utilEncodingService = $utilEncodingService;
         $this->erpOrderPageSearchDataMapper = $erpOrderPageSearchDataMapper;
     }
@@ -49,7 +58,14 @@ class ErpOrderPageSearchPublisher implements ErpOrderPageSearchPublisherInterfac
      */
     public function publish(array $erpOrderIds): void
     {
-        $fooErpOrderEntities = [];
+        $fooErpOrderEntities = $this->queryContainer->queryErpOrderWithAddressesAndCompanyBusinessUnitAndCompanyUserByErpOrderIds($erpOrderIds)->find()
+            ->getData();
+
+        if (count($fooErpOrderEntities) > 0) {
+            $this->entityManager->deleteErpOrderSearchPagesByErpOrderIds(
+                $erpOrderIds
+            );
+        }
 
         $this->storeData($fooErpOrderEntities);
     }
@@ -77,7 +93,8 @@ class ErpOrderPageSearchPublisher implements ErpOrderPageSearchPublisherInterfac
 
         $erpOrderPageSearchTransfer = (new ErpOrderPageSearchTransfer())
             ->fromArray($erpOrderData, true)
-            ->setData($erpOrderData);
+            ->setData($erpOrderData)
+            ->setFkErpOrder($fooErpOrderEntity->getIdErpOrder());
 
          $erpOrderPageSearchTransfer = $this->addDataAttributes($erpOrderPageSearchTransfer);
 

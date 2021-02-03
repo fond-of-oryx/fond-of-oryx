@@ -1,0 +1,40 @@
+{
+  "mappings": {
+    "erp-order": {
+      "dynamic_templates": [
+        {
+          "search-result-data": {
+            "mapping": {
+              "index": "false"
+            },
+            "path_match": "search-result-data.*"
+          }
+        }
+      ],
+      "properties": {
+        "search-result-data": {
+          "type": "object",
+          "properties": {
+
+          }
+        },
+        "external-reference": {
+          "type": "keyword"
+        },
+        "reference": {
+          "type": "keyword"
+        },
+        "fk-company-user": {
+          "type": "integer"
+        },
+        "fk-company-business-unit": {
+          "type": "integer"
+        },
+        "concrete-delivery-date": {
+          "type": "date",
+          "format": "yyyy-MM-dd HH:mm:ss.SSSSSS"
+        }
+      }
+    }
+  }
+}

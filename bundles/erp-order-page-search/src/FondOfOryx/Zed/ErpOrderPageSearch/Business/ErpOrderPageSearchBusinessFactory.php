@@ -13,6 +13,7 @@ use Spryker\Zed\Kernel\Business\AbstractBusinessFactory;
 
 /**
  * @method \FondOfOryx\Zed\ErpOrderPageSearch\Persistence\ErpOrderPageSearchEntityManagerInterface getEntityManager()
+ * @method \FondOfOryx\Zed\ErpOrderPageSearch\Persistence\ErpOrderPageSearchQueryContainerInterface getQueryContainer()
  */
 class ErpOrderPageSearchBusinessFactory extends AbstractBusinessFactory
 {
@@ -23,6 +24,7 @@ class ErpOrderPageSearchBusinessFactory extends AbstractBusinessFactory
     {
         return new ErpOrderPageSearchPublisher(
             $this->getEntityManager(),
+            $this->getQueryContainer(),
             $this->getUtilEncodingService(),
             $this->createErpOrderPageSearchDataMapper()
         );

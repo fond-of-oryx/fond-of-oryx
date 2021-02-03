@@ -2,7 +2,6 @@
 
 namespace FondOfOryx\Zed\ErpOrderPageSearch\Persistence;
 
-use FondOfOryx\Zed\ErpOrderPageSearch\Persistence\ErpOrderPageSearchQueryContainerInterface;
 use Orm\Zed\ErpOrder\Persistence\ErpOrderQuery;
 use Spryker\Zed\Kernel\Persistence\AbstractQueryContainer;
 
@@ -29,5 +28,19 @@ class ErpOrderPageSearchQueryContainer extends AbstractQueryContainer implements
         return $erpOrderQuery->filterByIdErpOrder_In(
             $erpOrderIds
         );
+    }
+
+    /**
+     * @param  int[]  $erpOrderIds
+     *
+     * @return \Orm\Zed\ErpOrder\Persistence\ErpOrderQuery
+     * @throws \Spryker\Zed\Kernel\Exception\Container\ContainerKeyNotFoundException
+     */
+    public function queryErpOrderWithAddressesAndCompanyBusinessUnitAndCompanyUserByErpOrderIds(
+        array $erpOrderIds
+    ): ErpOrderQuery {
+        $fooErpOrderQuery = $this->queryErpOrdersByErpOrderIds($erpOrderIds);
+
+        return $fooErpOrderQuery;
     }
 }
