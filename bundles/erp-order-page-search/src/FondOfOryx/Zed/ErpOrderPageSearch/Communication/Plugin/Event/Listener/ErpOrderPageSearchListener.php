@@ -16,16 +16,22 @@ class ErpOrderPageSearchListener extends AbstractPlugin implements EventBulkHand
     use DatabaseTransactionHandlerTrait;
 
     /**
-     * @param array $eventTransfers
+     * Specification
+     *  - Listeners needs to implement this interface to execute the codes for more
+     *  than one event at same time (Bulk Operation)
+     *
+     * @api
+     *
+     * @param \Generated\Shared\Transfer\EventEntityTransfer[] $transfers
      * @param string $eventName
      *
      * @return void
      */
-    public function handleBulk(array $eventTransfers, $eventName): void
+    public function handleBulk(array $transfers, $eventName): void
     {
         $erpOrderIds = $this->getFactory()
             ->getEventBehaviorFacade()
-            ->getEventTransferIds($eventTransfers);
+            ->getEventTransferIds($transfers);
 
         if (
             $eventName === ErpOrderEvents::ENTITY_FOO_ERP_ORDER_DELETE ||
