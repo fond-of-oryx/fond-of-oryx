@@ -12,7 +12,7 @@ use FondOfOryx\Zed\ErpOrderPageSearch\ErpOrderPageSearchDependencyProvider;
 use Spryker\Zed\Kernel\Business\AbstractBusinessFactory;
 
 /**
- * @method \FondOfSpryker\Zed\ConditionalAvailabilityPageSearch\Persistence\ConditionalAvailabilityPageSearchEntityManagerInterface getEntityManager()
+ * @method \FondOfOryx\Zed\ErpOrderPageSearch\Persistence\ErpOrderPageSearchEntityManagerInterface getEntityManager()
  */
 class ErpOrderPageSearchBusinessFactory extends AbstractBusinessFactory
 {
@@ -39,7 +39,7 @@ class ErpOrderPageSearchBusinessFactory extends AbstractBusinessFactory
     }
 
     /**
-     * @return \FondOfSpryker\Zed\ConditionalAvailabilityPageSearch\Business\Model\ConditionalAvailabilityPeriodPageSearchDataMapperInterface
+     * @return \FondOfOryx\Zed\ErpOrderPageSearch\Business\Model\ErpOrderPageSearchDataMapperInterface
      */
     protected function createErpOrderPageSearchDataMapper(): ErpOrderPageSearchDataMapperInterface
     {
@@ -47,7 +47,7 @@ class ErpOrderPageSearchBusinessFactory extends AbstractBusinessFactory
     }
 
     /**
-     * @return \FondOfSpryker\Zed\ConditionalAvailabilityPageSearch\Dependency\Service\ConditionalAvailabilityPageSearchToUtilEncodingServiceInterface
+     * @return \FondOfOryx\Zed\ErpOrderPageSearch\Dependency\Service\ErpOrderPageSearchToUtilEncodingServiceInterface
      */
     protected function getUtilEncodingService(): ErpOrderPageSearchToUtilEncodingServiceInterface
     {

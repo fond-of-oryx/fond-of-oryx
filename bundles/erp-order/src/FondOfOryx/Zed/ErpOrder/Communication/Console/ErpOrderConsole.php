@@ -170,7 +170,7 @@ class ErpOrderConsole extends Console
             ->setCanceledQuantity(0)
             ->setShippedQuantity($qty)
             ->setOrderedQuantity($qty * mt_rand(1, 3))
-            ->setInvoiceQuantity($qty)
+            ->setInvoicedQuantity($qty)
             ->setStatus(mt_rand(0, 1));
 
         return $item;

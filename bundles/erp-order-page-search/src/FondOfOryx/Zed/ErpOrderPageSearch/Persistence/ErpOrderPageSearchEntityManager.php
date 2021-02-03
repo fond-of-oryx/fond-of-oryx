@@ -20,7 +20,7 @@ class ErpOrderPageSearchEntityManager extends AbstractEntityManager implements E
      */
     public function deleteErpOrderSearchPagesByErpOrderIds(array $erpOrderIds): void
     {
-        $entities = $this->getFactory()->createErpOrderPageSearchQuery()->filterByFkErpOrder_In($erpOrderIds)->find();
+        $entities = $this->getFactory()->getErpOrderPageSearchQuery()->filterByFkErpOrder_In($erpOrderIds)->find();
 
         foreach ($entities as $entity) {
             $entity->delete();

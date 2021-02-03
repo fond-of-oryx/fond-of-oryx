@@ -2,6 +2,8 @@
 
 namespace FondOfOryx\Zed\ErpOrderPageSearch\Persistence;
 
+use Generated\Shared\Transfer\ErpOrderPageSearchTransfer;
+
 interface ErpOrderPageSearchEntityManagerInterface
 {
     /**
@@ -12,7 +14,9 @@ interface ErpOrderPageSearchEntityManagerInterface
     public function deleteErpOrderSearchPagesByErpOrderIds(array $erpOrderIds): void;
 
     /**
-     * @param \FondOfOryx\Zed\ErpOrderPageSearch\Persistence\ErpOrderPageSearchTransfer $erpOrderPageSearchTransfer
+     * @param  \Generated\Shared\Transfer\ErpOrderPageSearchTransfer  $erpOrderPageSearchTransfer
+     *
+     * @return void
      */
     public function createErpOrderPageSearch(ErpOrderPageSearchTransfer $erpOrderPageSearchTransfer): void;
 }

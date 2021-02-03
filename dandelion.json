@@ -25,6 +25,11 @@
             "path": "bundles/erp-order-extension/",
             "version": "1.0.0"
         },
+        "erp-order-page-search": {
+            "url": "https://<GITHUB_TOKEN>@github.com/fond-of-oryx/erp-order-page-search.git",
+            "path": "bundles/erp-order-page-search/",
+            "version": "1.0.0"
+        },
         "sales-locale-connector": {
             "url": "https://<GITHUB_TOKEN>@github.com/fond-of-oryx/sales-locale-connector.git",
             "path": "bundles/sales-locale-connector/",
