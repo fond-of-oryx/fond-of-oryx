@@ -3,8 +3,8 @@
 namespace FondOfOryx\Zed\ErpOrderPageSearch\Persistence;
 
 use FondOfOryx\Zed\ErpOrderPageSearch\ErpOrderPageSearchDependencyProvider;
-use FondOfOryx\Zed\ErpOrderPageSearch\Persistence\Mapper\ErpOrderPageSearchMapper;
-use FondOfOryx\Zed\ErpOrderPageSearch\Persistence\Mapper\ErpOrderPageSearchMapperInterface;
+use FondOfOryx\Zed\ErpOrderPageSearch\Persistence\Propel\Mapper\ErpOrderPageSearchMapper;
+use FondOfOryx\Zed\ErpOrderPageSearch\Persistence\Propel\Mapper\ErpOrderPageSearchMapperInterface;
 use Orm\Zed\ErpOrder\Persistence\ErpOrderQuery;
 use Orm\Zed\ErpOrderPageSearch\Persistence\FooErpOrderPageSearchQuery;
 use Spryker\Zed\Kernel\Persistence\AbstractPersistenceFactory;
@@ -12,7 +12,7 @@ use Spryker\Zed\Kernel\Persistence\AbstractPersistenceFactory;
 class ErpOrderPageSearchPersistenceFactory extends AbstractPersistenceFactory
 {
     /**
-     * @return \FondOfOryx\Zed\ErpOrderPageSearch\Persistence\Mapper\ErpOrderPageSearchMapperInterface
+     * @return \FondOfOryx\Zed\ErpOrderPageSearch\Persistence\Propel\Mapper\ErpOrderPageSearchMapperInterface
      */
     public function createErpOrderPageSearchMapper(): ErpOrderPageSearchMapperInterface
     {
