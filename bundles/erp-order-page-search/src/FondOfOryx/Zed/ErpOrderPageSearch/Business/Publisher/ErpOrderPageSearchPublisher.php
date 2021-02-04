@@ -151,7 +151,7 @@ class ErpOrderPageSearchPublisher implements ErpOrderPageSearchPublisherInterfac
         ErpOrder $fooErpOrderEntity
     ): ErpOrderPageSearchTransfer {
         $updatedAt = $fooErpOrderEntity->getUpdatedAt();
-        $hash = md5($updatedAt->getTimestamp());
+        $hash = md5(sprintf('%s/%s', $updatedAt->getTimestamp(), mt_rand(0,999)));
         $uki = sprintf('%s-%s', $fooErpOrderEntity->getIdErpOrder(), $hash);
 
         return $erpOrderPageSearchTransfer->setUniqueKeyIdentifier($uki);
