@@ -4,6 +4,7 @@ namespace FondOfOryx\Zed\ErpOrder\Persistence;
 
 use DateTime;
 use Exception;
+use FondOfOryx\Shared\ErpOrder\ErpOrderConstants;
 use Generated\Shared\Transfer\ErpOrderAddressTransfer;
 use Generated\Shared\Transfer\ErpOrderItemTransfer;
 use Generated\Shared\Transfer\ErpOrderTransfer;
@@ -18,11 +19,11 @@ use Spryker\Zed\Kernel\Persistence\AbstractEntityManager;
 class ErpOrderEntityManager extends AbstractEntityManager implements ErpOrderEntityManagerInterface
 {
     /**
-     * @param \Generated\Shared\Transfer\ErpOrderTransfer $erpOrderTransfer
-     *
-     * @throws \Exception
+     * @param  \Generated\Shared\Transfer\ErpOrderTransfer  $erpOrderTransfer
      *
      * @return \Generated\Shared\Transfer\ErpOrderTransfer
+     * @throws \Exception
+     *
      */
     public function createErpOrder(ErpOrderTransfer $erpOrderTransfer): ErpOrderTransfer
     {
@@ -43,6 +44,7 @@ class ErpOrderEntityManager extends AbstractEntityManager implements ErpOrderEnt
             ->setFkCompanyUser($erpOrderTransfer->getFkCompanyUser() ?: $erpOrderTransfer->getCompanyUser()->getIdCompanyUser())
             ->setCreatedAt($now)
             ->setUpdatedAt($now)
+            ->setConcreteDeliveryDate($this->getConcreteDeliveryDate($erpOrderTransfer->getConcreteDeliveryDate()))
             ->save();
 
         return $this->getFactory()
@@ -51,7 +53,7 @@ class ErpOrderEntityManager extends AbstractEntityManager implements ErpOrderEnt
     }
 
     /**
-     * @param \Generated\Shared\Transfer\ErpOrderAddressTransfer $orderAddressTransfer
+     * @param  \Generated\Shared\Transfer\ErpOrderAddressTransfer  $orderAddressTransfer
      *
      * @return \Generated\Shared\Transfer\ErpOrderAddressTransfer
      */
@@ -72,7 +74,7 @@ class ErpOrderEntityManager extends AbstractEntityManager implements ErpOrderEnt
     }
 
     /**
-     * @param \Generated\Shared\Transfer\ErpOrderItemTransfer $itemTransfer
+     * @param  \Generated\Shared\Transfer\ErpOrderItemTransfer  $itemTransfer
      *
      * @return \Generated\Shared\Transfer\ErpOrderItemTransfer
      */
@@ -90,6 +92,7 @@ class ErpOrderEntityManager extends AbstractEntityManager implements ErpOrderEnt
         $entity
             ->setCreatedAt($now)
             ->setUpdatedAt($now)
+            ->setConcreteDeliveryDate($this->getConcreteDeliveryDate($itemTransfer->getConcreteDeliveryDate()))
             ->save();
 
         return $this->getFactory()->createEntityToTransferMapper()->fromEprOrderItemToTransfer(
@@ -99,11 +102,11 @@ class ErpOrderEntityManager extends AbstractEntityManager implements ErpOrderEnt
     }
 
     /**
-     * @param \Generated\Shared\Transfer\ErpOrderTransfer $erpOrderTransfer
-     *
-     * @throws \Exception
+     * @param  \Generated\Shared\Transfer\ErpOrderTransfer  $erpOrderTransfer
      *
      * @return \Generated\Shared\Transfer\ErpOrderTransfer
+     * @throws \Exception
+     *
      */
     public function updateErpOrder(ErpOrderTransfer $erpOrderTransfer): ErpOrderTransfer
     {
@@ -127,13 +130,14 @@ class ErpOrderEntityManager extends AbstractEntityManager implements ErpOrderEnt
             ->setIdErpOrder($id)
             ->setCreatedAt($createdAt)
             ->setUpdatedAt($updatedAt)
+            ->setConcreteDeliveryDate($this->getConcreteDeliveryDate($erpOrderTransfer->getConcreteDeliveryDate()))
             ->save();
 
         return $this->getFactory()->createEntityToTransferMapper()->fromErpOrderToTransfer($entity);
     }
 
     /**
-     * @param \Generated\Shared\Transfer\ErpOrderItemTransfer $orderItemTransfer
+     * @param  \Generated\Shared\Transfer\ErpOrderItemTransfer  $orderItemTransfer
      *
      * @return \Generated\Shared\Transfer\ErpOrderItemTransfer
      */
@@ -151,6 +155,7 @@ class ErpOrderEntityManager extends AbstractEntityManager implements ErpOrderEnt
         $entity->fromArray($orderItemTransfer->toArray());
         $entity
             ->setIdErpOrderItem($idItem)
+            ->setConcreteDeliveryDate($this->getConcreteDeliveryDate($orderItemTransfer->getConcreteDeliveryDate()))
             ->setCreatedAt($createdAt)
             ->setUpdatedAt($updatedAt);
 
@@ -158,7 +163,7 @@ class ErpOrderEntityManager extends AbstractEntityManager implements ErpOrderEnt
     }
 
     /**
-     * @param int $idErpOrder
+     * @param  int  $idErpOrder
      *
      * @return void
      */
@@ -189,7 +194,7 @@ class ErpOrderEntityManager extends AbstractEntityManager implements ErpOrderEnt
     }
 
     /**
-     * @param int $idErpOrderItem
+     * @param  int  $idErpOrderItem
      *
      * @return void
      */
@@ -203,7 +208,7 @@ class ErpOrderEntityManager extends AbstractEntityManager implements ErpOrderEnt
     }
 
     /**
-     * @param int $idErpOrderAddress
+     * @param  int  $idErpOrderAddress
      *
      * @return void
      */
@@ -217,11 +222,11 @@ class ErpOrderEntityManager extends AbstractEntityManager implements ErpOrderEnt
     }
 
     /**
-     * @param \Generated\Shared\Transfer\ErpOrderAddressTransfer $erpOrderAddressTransfer
-     *
-     * @throws \Exception
+     * @param  \Generated\Shared\Transfer\ErpOrderAddressTransfer  $erpOrderAddressTransfer
      *
      * @return \Generated\Shared\Transfer\ErpOrderAddressTransfer
+     * @throws \Exception
+     *
      */
     public function updateErpOrderAddress(ErpOrderAddressTransfer $erpOrderAddressTransfer): ErpOrderAddressTransfer
     {
@@ -251,8 +256,8 @@ class ErpOrderEntityManager extends AbstractEntityManager implements ErpOrderEnt
     }
 
     /**
-     * @param int $idErpOrder
-     * @param string $sku
+     * @param  int  $idErpOrder
+     * @param  string  $sku
      *
      * @return \Orm\Zed\ErpOrder\Persistence\ErpOrderItem
      */
@@ -262,5 +267,20 @@ class ErpOrderEntityManager extends AbstractEntityManager implements ErpOrderEnt
             ->filterByIdErpOrderItem($idErpOrder)
             ->filterBySku($sku)
             ->findOneOrCreate();
+    }
+
+    /**
+     * @param  string|null  $deliveryDate
+     *
+     * @return \DateTime|null
+     */
+    protected function getConcreteDeliveryDate(?string $deliveryDate): ?DateTime
+    {
+        if ($deliveryDate !== null) {
+            $deliveryDate = new DateTime($deliveryDate);
+            $deliveryDate->format(ErpOrderConstants::CONCRETE_DELIVERY_DATE_FORMAT);
+        }
+
+        return $deliveryDate;
     }
 }
