@@ -15,16 +15,9 @@
 
     <transfer name="ErpOrderPageSearch">
         <property name="fkErpOrder" type="int"/>
+        <property name="uniqueKeyIdentifier" type="string"/>
         <property name="structuredData" type="string"/>
         <property name="data" singular="data" type="array"/>
-    </transfer>
-
-    <transfer name="RestBrandsRequestAttributes">
-        <property name="name" type="string" />
-        <property name="url" type="string" />
-        <property name="smallLogoUrl" type="string" />
-        <property name="largeLogoUrl" type="string" />
-        <property name="isActive" type="bool"/>
     </transfer>
 
     <transfer name="SynchronizationData">

@@ -58,7 +58,7 @@ class ErpOrderPageSearchPublisher implements ErpOrderPageSearchPublisherInterfac
     }
 
     /**
-     * @param int[] $erpOrderIds
+     * @param  int[]  $erpOrderIds
      *
      * @return void
      */
@@ -77,7 +77,7 @@ class ErpOrderPageSearchPublisher implements ErpOrderPageSearchPublisherInterfac
     }
 
     /**
-     * @param \Orm\Zed\ErpOrder\Persistence\ErpOrder[] $fooErpOrderEntities
+     * @param  \Orm\Zed\ErpOrder\Persistence\ErpOrder[]  $fooErpOrderEntities
      *
      * @return void
      */
@@ -114,13 +114,14 @@ class ErpOrderPageSearchPublisher implements ErpOrderPageSearchPublisherInterfac
             ->setData($erpOrderData)
             ->setFkErpOrder($fooErpOrderEntity->getIdErpOrder());
 
-         $erpOrderPageSearchTransfer = $this->addDataAttributes($erpOrderPageSearchTransfer);
+        $erpOrderPageSearchTransfer = $this->addDataAttributes($erpOrderPageSearchTransfer);
+        $erpOrderPageSearchTransfer = $this->addUniqueKeyIdentifier($erpOrderPageSearchTransfer, $fooErpOrderEntity);
 
         $this->entityManager->createErpOrderPageSearch($erpOrderPageSearchTransfer);
     }
 
     /**
-     * @param \Generated\Shared\Transfer\ErpOrderPageSearchTransfer $erpOrderPageSearchTransfer
+     * @param  \Generated\Shared\Transfer\ErpOrderPageSearchTransfer  $erpOrderPageSearchTransfer
      *
      * @return \Generated\Shared\Transfer\ErpOrderPageSearchTransfer
      */
@@ -139,5 +140,22 @@ class ErpOrderPageSearchPublisher implements ErpOrderPageSearchPublisherInterfac
 
         return $erpOrderPageSearchTransfer->setData($data)
             ->setStructuredData($structuredData);
+    }
+
+    /**
+     * @param  \Generated\Shared\Transfer\ErpOrderPageSearchTransfer  $erpOrderPageSearchTransfer
+     * @param  \Orm\Zed\ErpOrder\Persistence\ErpOrder  $fooErpOrderEntity
+     *
+     * @return \Generated\Shared\Transfer\ErpOrderPageSearchTransfer
+     * @throws \Propel\Runtime\Exception\PropelException
+     */
+    protected function addUniqueKeyIdentifier(
+        ErpOrderPageSearchTransfer $erpOrderPageSearchTransfer,
+        ErpOrder $fooErpOrderEntity
+    ): ErpOrderPageSearchTransfer {
+        $updatedAt = $fooErpOrderEntity->getUpdatedAt();
+        $hash = md5($updatedAt->getTimestamp());
+        $uki = sprintf('%s-%s', $fooErpOrderEntity->getIdErpOrder(), $hash);
+        return $erpOrderPageSearchTransfer->setUniqueKeyIdentifier($uki);
     }
 }
