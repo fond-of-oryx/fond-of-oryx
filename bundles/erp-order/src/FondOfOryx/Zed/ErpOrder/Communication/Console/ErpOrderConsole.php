@@ -122,13 +122,14 @@ class ErpOrderConsole extends Console
         $externalRef = md5((string)time());
         $ref = md5($externalRef);
         $erpOrderTransfer = new ErpOrderTransfer();
+
         $erpOrderTransfer
             ->setFkCompanyUser(2)
             ->setFkCompanyBusinessUnit(1)
             ->setBillingAddress($this->createAddress())
             ->setShippingAddress($this->createAddress())
             ->setReference($ref)
-            ->setConcreteDeliveryDate(date('Y-m-d', strtotime(time() . ' + 10 days')))
+            ->setConcreteDeliveryDate(date('Y-m-d', strtotime('+ 10 days')))
             ->setExternalReference($externalRef);
 
         $rnd = mt_rand(1, 7);

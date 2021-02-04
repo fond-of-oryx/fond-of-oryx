@@ -30,8 +30,14 @@
         "fk-company-user": {
           "type": "integer"
         },
+        "company-user-id": {
+          "type": "integer"
+        },
         "fk-company-business-unit": {
           "type": "integer"
+        },
+        "company-business-unit-id": {
+          "type": "string"
         },
         "concrete-delivery-date": {
           "type": "date",

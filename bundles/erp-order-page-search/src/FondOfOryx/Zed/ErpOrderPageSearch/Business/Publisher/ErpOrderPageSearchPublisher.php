@@ -11,6 +11,12 @@ use Orm\Zed\ErpOrder\Persistence\ErpOrder;
 
 class ErpOrderPageSearchPublisher implements ErpOrderPageSearchPublisherInterface
 {
+    public const COMPANY_BUSINESS_UNIT = 'companyBusinessUnit';
+    public const COMPANY_USER = 'companyUser';
+    public const ERP_ORDER_ITEMS = 'erpOrderItems';
+    public const BILLING_ADDRESS = 'billingAddress';
+    public const SHIPPING_ADDRESS = 'shippingAddress';
+
     /**
      * @var \FondOfOryx\Zed\ErpOrderPageSearch\Persistence\ErpOrderPageSearchEntityManagerInterface
      */
@@ -90,6 +96,18 @@ class ErpOrderPageSearchPublisher implements ErpOrderPageSearchPublisherInterfac
     protected function storeDataSet(ErpOrder $fooErpOrderEntity): void
     {
         $erpOrderData = $fooErpOrderEntity->toArray();
+
+        $companyBusinessUnit = $fooErpOrderEntity->getCompanyBusinessUnit();
+        $companyUser = $fooErpOrderEntity->getCompanyUser();
+        $orderItems = $fooErpOrderEntity->getErpOrderItems();
+        $billingAddress = $fooErpOrderEntity->getErpOrderBillingAddress();
+        $shippingAddress = $fooErpOrderEntity->getErpOrderShippingAddress();
+
+        $erpOrderData[static::COMPANY_BUSINESS_UNIT] = $companyBusinessUnit->toArray();
+        $erpOrderData[static::COMPANY_USER] = $companyUser->toArray();
+        $erpOrderData[static::ERP_ORDER_ITEMS] = $orderItems->toArray();
+        $erpOrderData[static::BILLING_ADDRESS] = $billingAddress->toArray();
+        $erpOrderData[static::SHIPPING_ADDRESS] = $shippingAddress->toArray();
 
         $erpOrderPageSearchTransfer = (new ErpOrderPageSearchTransfer())
             ->fromArray($erpOrderData, true)
