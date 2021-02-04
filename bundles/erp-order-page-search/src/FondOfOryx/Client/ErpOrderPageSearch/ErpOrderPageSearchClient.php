@@ -28,4 +28,30 @@ class ErpOrderPageSearchClient extends AbstractClient implements ErpOrderPageSea
     {
         return $this->getZedStub()->findErpOrdersByFilterTransfer($request);
     }
+
+    /**
+     * {@inheritDoc}
+     *
+     * @api
+     *
+     * @param string $searchString
+     * @param array $requestParameters
+     *
+     * @return array
+     */
+    public function search(string $searchString, array $requestParameters = []): array
+    {
+        $searchQuery = $this
+            ->getFactory()
+            ->createSearchQuery($searchString);
+
+        $resultFormatters = $this
+            ->getFactory()
+            ->getSearchResultFormatterPlugins();
+
+        return $this
+            ->getFactory()
+            ->getSearchClient()
+            ->search($searchQuery, $resultFormatters, $requestParameters);
+    }
 }
