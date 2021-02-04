@@ -11,10 +11,9 @@ use Spryker\Zed\Kernel\Persistence\AbstractQueryContainer;
 class ErpOrderPageSearchQueryContainer extends AbstractQueryContainer implements ErpOrderPageSearchQueryContainerInterface
 {
     /**
-     * @param  int[] $erpOrderIds
+     * @param int[] $erpOrderIds
      *
      * @return \Orm\Zed\ErpOrder\Persistence\ErpOrderQuery
-     * @throws \Spryker\Zed\Kernel\Exception\Container\ContainerKeyNotFoundException
      */
     public function queryErpOrdersByErpOrderIds(
         array $erpOrderIds
@@ -31,10 +30,9 @@ class ErpOrderPageSearchQueryContainer extends AbstractQueryContainer implements
     }
 
     /**
-     * @param  int[]  $erpOrderIds
+     * @param int[] $erpOrderIds
      *
      * @return \Orm\Zed\ErpOrder\Persistence\ErpOrderQuery
-     * @throws \Spryker\Zed\Kernel\Exception\Container\ContainerKeyNotFoundException
      */
     public function queryErpOrderWithAddressesAndCompanyBusinessUnitAndCompanyUserByErpOrderIds(
         array $erpOrderIds

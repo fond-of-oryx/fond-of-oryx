@@ -1,4 +1,5 @@
 <?php
+
 namespace FondOfOryx\Client\ErpOrderPageSearch;
 
 use FondOfOryx\Client\ErporderPageSearch\Dependency\Client\ErpOrderPageSearchToSearchClientInterface;
@@ -25,7 +26,6 @@ class ErpOrderPageSearchFactory extends AbstractFactory
         return new ErpOrderPageSearchStub($this->getZedRequestClient());
     }
 
-
     /**
      * @param string $searchString
      *
@@ -44,7 +44,6 @@ class ErpOrderPageSearchFactory extends AbstractFactory
 
     /**
      * @return mixed
-     * @throws \Spryker\Client\Kernel\Exception\Container\ContainerKeyNotFoundException
      */
     protected function getZedRequestClient()
     {
@@ -52,8 +51,6 @@ class ErpOrderPageSearchFactory extends AbstractFactory
     }
 
     /**
-     * @throws \Spryker\Client\Kernel\Exception\Container\ContainerKeyNotFoundException
-     *
      * @return \Spryker\Client\Session\SessionClientInterface
      */
     protected function getSessionClient(): SessionClientInterface
@@ -63,8 +60,6 @@ class ErpOrderPageSearchFactory extends AbstractFactory
 
     /**
      * @return \FondOfOryx\Client\ErporderPageSearch\Dependency\Client\ErpOrderPageSearchToSearchClientInterface
-     *
-     * @throws \Spryker\Client\Kernel\Exception\Container\ContainerKeyNotFoundException
      */
     public function getSearchClient(): ErpOrderPageSearchToSearchClientInterface
     {

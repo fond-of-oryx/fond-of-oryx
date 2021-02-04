@@ -1,4 +1,5 @@
 <?php
+
 namespace FondOfOryx\Client\ErpOrderPageSearch;
 
 use FondOfOryx\Client\ErpOrderPageSearch\Dependency\Client\ErpOrderPageSearchToSearchClientBridge;

@@ -14,7 +14,7 @@ interface ErpOrderPageSearchEntityManagerInterface
     public function deleteErpOrderSearchPagesByErpOrderIds(array $erpOrderIds): void;
 
     /**
-     * @param  \Generated\Shared\Transfer\ErpOrderPageSearchTransfer  $erpOrderPageSearchTransfer
+     * @param \Generated\Shared\Transfer\ErpOrderPageSearchTransfer $erpOrderPageSearchTransfer
      *
      * @return void
      */

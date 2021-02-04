@@ -6,6 +6,8 @@ use Spryker\Zed\Kernel\Business\AbstractFacade;
 
 /**
  * @method \FondOfOryx\Zed\ErpOrderPageSearch\Business\ErpOrderPageSearchBusinessFactory getFactory()
+ * @method \FondOfOryx\Zed\ErpOrderPageSearch\Persistence\ErpOrderPageSearchEntityManagerInterface getEntityManager()
+ * @method \FondOfOryx\Zed\ErpOrderPageSearch\Persistence\ErpOrderPageSearchRepositoryInterface getRepository()
  */
 class ErpOrderPageSearchFacade extends AbstractFacade implements ErpOrderPageSearchFacadeInterface
 {
@@ -38,5 +40,4 @@ class ErpOrderPageSearchFacade extends AbstractFacade implements ErpOrderPageSea
         $this->getFactory()->createErpOrderPageSearchUnPublisher()
             ->unpublish($erpOrderIds);
     }
-
 }

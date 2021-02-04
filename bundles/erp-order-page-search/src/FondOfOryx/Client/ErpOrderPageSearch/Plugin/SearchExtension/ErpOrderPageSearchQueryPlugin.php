@@ -34,9 +34,6 @@ class ErpOrderPageSearchQueryPlugin extends AbstractPlugin implements QueryInter
      */
     protected $searchString = '';
 
-    /**
-     * ErpOrderPageSearchQueryPlugin constructor.
-     */
     public function __construct()
     {
         $this->query = $this->createSearchQuery();

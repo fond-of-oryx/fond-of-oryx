@@ -135,6 +135,8 @@ class ErpOrderWriterTest extends Unit
     }
 
     /**
+     * @throws \Exception
+     *
      * @return void
      */
     public function testCreateNotSuccesful(): void
@@ -168,6 +170,8 @@ class ErpOrderWriterTest extends Unit
     }
 
     /**
+     * @throws \Exception
+     *
      * @return void
      */
     public function testUpdateNotSuccesful(): void
@@ -195,6 +199,8 @@ class ErpOrderWriterTest extends Unit
     }
 
     /**
+     * @throws \Exception
+     *
      * @return void
      */
     public function testDeleteWillThrowException(): void

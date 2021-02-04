@@ -19,11 +19,11 @@ use Spryker\Zed\Kernel\Persistence\AbstractEntityManager;
 class ErpOrderEntityManager extends AbstractEntityManager implements ErpOrderEntityManagerInterface
 {
     /**
-     * @param  \Generated\Shared\Transfer\ErpOrderTransfer  $erpOrderTransfer
+     * @param \Generated\Shared\Transfer\ErpOrderTransfer $erpOrderTransfer
      *
-     * @return \Generated\Shared\Transfer\ErpOrderTransfer
      * @throws \Exception
      *
+     * @return \Generated\Shared\Transfer\ErpOrderTransfer
      */
     public function createErpOrder(ErpOrderTransfer $erpOrderTransfer): ErpOrderTransfer
     {
@@ -53,7 +53,7 @@ class ErpOrderEntityManager extends AbstractEntityManager implements ErpOrderEnt
     }
 
     /**
-     * @param  \Generated\Shared\Transfer\ErpOrderAddressTransfer  $orderAddressTransfer
+     * @param \Generated\Shared\Transfer\ErpOrderAddressTransfer $orderAddressTransfer
      *
      * @return \Generated\Shared\Transfer\ErpOrderAddressTransfer
      */
@@ -74,7 +74,7 @@ class ErpOrderEntityManager extends AbstractEntityManager implements ErpOrderEnt
     }
 
     /**
-     * @param  \Generated\Shared\Transfer\ErpOrderItemTransfer  $itemTransfer
+     * @param \Generated\Shared\Transfer\ErpOrderItemTransfer $itemTransfer
      *
      * @return \Generated\Shared\Transfer\ErpOrderItemTransfer
      */
@@ -102,11 +102,11 @@ class ErpOrderEntityManager extends AbstractEntityManager implements ErpOrderEnt
     }
 
     /**
-     * @param  \Generated\Shared\Transfer\ErpOrderTransfer  $erpOrderTransfer
+     * @param \Generated\Shared\Transfer\ErpOrderTransfer $erpOrderTransfer
      *
-     * @return \Generated\Shared\Transfer\ErpOrderTransfer
      * @throws \Exception
      *
+     * @return \Generated\Shared\Transfer\ErpOrderTransfer
      */
     public function updateErpOrder(ErpOrderTransfer $erpOrderTransfer): ErpOrderTransfer
     {
@@ -137,7 +137,7 @@ class ErpOrderEntityManager extends AbstractEntityManager implements ErpOrderEnt
     }
 
     /**
-     * @param  \Generated\Shared\Transfer\ErpOrderItemTransfer  $orderItemTransfer
+     * @param \Generated\Shared\Transfer\ErpOrderItemTransfer $orderItemTransfer
      *
      * @return \Generated\Shared\Transfer\ErpOrderItemTransfer
      */
@@ -163,7 +163,7 @@ class ErpOrderEntityManager extends AbstractEntityManager implements ErpOrderEnt
     }
 
     /**
-     * @param  int  $idErpOrder
+     * @param int $idErpOrder
      *
      * @return void
      */
@@ -194,7 +194,7 @@ class ErpOrderEntityManager extends AbstractEntityManager implements ErpOrderEnt
     }
 
     /**
-     * @param  int  $idErpOrderItem
+     * @param int $idErpOrderItem
      *
      * @return void
      */
@@ -208,7 +208,7 @@ class ErpOrderEntityManager extends AbstractEntityManager implements ErpOrderEnt
     }
 
     /**
-     * @param  int  $idErpOrderAddress
+     * @param int $idErpOrderAddress
      *
      * @return void
      */
@@ -222,11 +222,11 @@ class ErpOrderEntityManager extends AbstractEntityManager implements ErpOrderEnt
     }
 
     /**
-     * @param  \Generated\Shared\Transfer\ErpOrderAddressTransfer  $erpOrderAddressTransfer
+     * @param \Generated\Shared\Transfer\ErpOrderAddressTransfer $erpOrderAddressTransfer
      *
-     * @return \Generated\Shared\Transfer\ErpOrderAddressTransfer
      * @throws \Exception
      *
+     * @return \Generated\Shared\Transfer\ErpOrderAddressTransfer
      */
     public function updateErpOrderAddress(ErpOrderAddressTransfer $erpOrderAddressTransfer): ErpOrderAddressTransfer
     {
@@ -256,8 +256,8 @@ class ErpOrderEntityManager extends AbstractEntityManager implements ErpOrderEnt
     }
 
     /**
-     * @param  int  $idErpOrder
-     * @param  string  $sku
+     * @param int $idErpOrder
+     * @param string $sku
      *
      * @return \Orm\Zed\ErpOrder\Persistence\ErpOrderItem
      */
@@ -270,7 +270,7 @@ class ErpOrderEntityManager extends AbstractEntityManager implements ErpOrderEnt
     }
 
     /**
-     * @param  string|null  $deliveryDate
+     * @param string|null $deliveryDate
      *
      * @return \DateTime|null
      */

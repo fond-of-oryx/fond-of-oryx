@@ -12,9 +12,7 @@ class ErpOrderPageSearchToEventBehaviorFacadeBridge implements ErpOrderPageSearc
     protected $facade;
 
     /**
-     * ErpOrderPageSearchToEventBehaviorFacadeBridge constructor.
-     *
-     * @param  \Spryker\Zed\EventBehavior\Business\EventBehaviorFacadeInterface  $facade
+     * @param \Spryker\Zed\EventBehavior\Business\EventBehaviorFacadeInterface $facade
      */
     public function __construct(EventBehaviorFacadeInterface $facade)
     {

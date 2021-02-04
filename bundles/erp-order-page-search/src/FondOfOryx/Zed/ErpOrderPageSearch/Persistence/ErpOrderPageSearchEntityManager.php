@@ -8,6 +8,7 @@ use Spryker\Zed\Kernel\Persistence\AbstractEntityManager;
 
 /**
  * Class ErpOrderPageSearchEntityManager
+ *
  * @package FondOfOryx\Zed\ErpOrderPageSearch\Persistence
  *
  * @method \FondOfOryx\Zed\ErpOrderPageSearch\Persistence\ErpOrderPageSearchPersistenceFactory getFactory()
@@ -16,8 +17,8 @@ class ErpOrderPageSearchEntityManager extends AbstractEntityManager implements E
 {
     /**
      * @param array $erpOrderIds
-     * @throws \Propel\Runtime\Exception\PropelException
-     * @throws \Spryker\Zed\Kernel\Exception\Container\ContainerKeyNotFoundException
+     *
+     * @return void
      */
     public function deleteErpOrderSearchPagesByErpOrderIds(array $erpOrderIds): void
     {
@@ -30,7 +31,8 @@ class ErpOrderPageSearchEntityManager extends AbstractEntityManager implements E
 
     /**
      * @param \Generated\Shared\Transfer\ErpOrderPageSearchTransfer $erpOrderPageSearchTransfer
-     * @throws \Propel\Runtime\Exception\PropelException
+     *
+     * @return void
      */
     public function createErpOrderPageSearch(ErpOrderPageSearchTransfer $erpOrderPageSearchTransfer): void
     {

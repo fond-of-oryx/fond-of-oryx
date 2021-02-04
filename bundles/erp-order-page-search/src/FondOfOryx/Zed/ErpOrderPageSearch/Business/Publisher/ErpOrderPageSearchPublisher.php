@@ -38,12 +38,10 @@ class ErpOrderPageSearchPublisher implements ErpOrderPageSearchPublisherInterfac
     protected $erpOrderPageSearchDataMapper;
 
     /**
-     * ErpOrderPageSearchPublisher constructor.
-     *
-     * @param  \FondOfOryx\Zed\ErpOrderPageSearch\Persistence\ErpOrderPageSearchEntityManagerInterface  $entityManager
-     * @param  \FondOfOryx\Zed\ErpOrderPageSearch\Persistence\ErpOrderPageSearchQueryContainerInterface  $queryContainer
-     * @param  \FondOfOryx\Zed\ErpOrderPageSearch\Dependency\Service\ErpOrderPageSearchToUtilEncodingServiceInterface  $utilEncodingService
-     * @param  \FondOfOryx\Zed\ErpOrderPageSearch\Business\Mapper\ErpOrderPageSearchDataMapperInterface  $erpOrderPageSearchDataMapper
+     * @param \FondOfOryx\Zed\ErpOrderPageSearch\Persistence\ErpOrderPageSearchEntityManagerInterface $entityManager
+     * @param \FondOfOryx\Zed\ErpOrderPageSearch\Persistence\ErpOrderPageSearchQueryContainerInterface $queryContainer
+     * @param \FondOfOryx\Zed\ErpOrderPageSearch\Dependency\Service\ErpOrderPageSearchToUtilEncodingServiceInterface $utilEncodingService
+     * @param \FondOfOryx\Zed\ErpOrderPageSearch\Business\Mapper\ErpOrderPageSearchDataMapperInterface $erpOrderPageSearchDataMapper
      */
     public function __construct(
         ErpOrderPageSearchEntityManagerInterface $entityManager,
@@ -58,7 +56,7 @@ class ErpOrderPageSearchPublisher implements ErpOrderPageSearchPublisherInterfac
     }
 
     /**
-     * @param  int[]  $erpOrderIds
+     * @param int[] $erpOrderIds
      *
      * @return void
      */
@@ -77,7 +75,7 @@ class ErpOrderPageSearchPublisher implements ErpOrderPageSearchPublisherInterfac
     }
 
     /**
-     * @param  \Orm\Zed\ErpOrder\Persistence\ErpOrder[]  $fooErpOrderEntities
+     * @param \Orm\Zed\ErpOrder\Persistence\ErpOrder[] $fooErpOrderEntities
      *
      * @return void
      */
@@ -89,7 +87,7 @@ class ErpOrderPageSearchPublisher implements ErpOrderPageSearchPublisherInterfac
     }
 
     /**
-     * @param  \Orm\Zed\ErpOrder\Persistence\ErpOrder  $fooErpOrderEntity
+     * @param \Orm\Zed\ErpOrder\Persistence\ErpOrder $fooErpOrderEntity
      *
      * @return void
      */
@@ -121,7 +119,7 @@ class ErpOrderPageSearchPublisher implements ErpOrderPageSearchPublisherInterfac
     }
 
     /**
-     * @param  \Generated\Shared\Transfer\ErpOrderPageSearchTransfer  $erpOrderPageSearchTransfer
+     * @param \Generated\Shared\Transfer\ErpOrderPageSearchTransfer $erpOrderPageSearchTransfer
      *
      * @return \Generated\Shared\Transfer\ErpOrderPageSearchTransfer
      */
@@ -143,11 +141,10 @@ class ErpOrderPageSearchPublisher implements ErpOrderPageSearchPublisherInterfac
     }
 
     /**
-     * @param  \Generated\Shared\Transfer\ErpOrderPageSearchTransfer  $erpOrderPageSearchTransfer
-     * @param  \Orm\Zed\ErpOrder\Persistence\ErpOrder  $fooErpOrderEntity
+     * @param \Generated\Shared\Transfer\ErpOrderPageSearchTransfer $erpOrderPageSearchTransfer
+     * @param \Orm\Zed\ErpOrder\Persistence\ErpOrder $fooErpOrderEntity
      *
      * @return \Generated\Shared\Transfer\ErpOrderPageSearchTransfer
-     * @throws \Propel\Runtime\Exception\PropelException
      */
     protected function addUniqueKeyIdentifier(
         ErpOrderPageSearchTransfer $erpOrderPageSearchTransfer,
@@ -156,6 +153,7 @@ class ErpOrderPageSearchPublisher implements ErpOrderPageSearchPublisherInterfac
         $updatedAt = $fooErpOrderEntity->getUpdatedAt();
         $hash = md5($updatedAt->getTimestamp());
         $uki = sprintf('%s-%s', $fooErpOrderEntity->getIdErpOrder(), $hash);
+
         return $erpOrderPageSearchTransfer->setUniqueKeyIdentifier($uki);
     }
 }

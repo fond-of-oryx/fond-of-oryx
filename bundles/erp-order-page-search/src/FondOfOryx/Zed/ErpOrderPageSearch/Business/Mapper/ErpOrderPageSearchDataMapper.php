@@ -42,10 +42,9 @@ class ErpOrderPageSearchDataMapper implements ErpOrderPageSearchDataMapperInterf
     public const SEARCH_RESULT_COMPANY_BUSINESS_UNIT = 'company_business_unit';
     public const SEARCH_RESULT_COMPANY_USER = 'company_user';
 
-    /**
-     * ErpOrderPageSearchDataMapper constructor.
-     */
-    public function __construct() {}
+    public function __construct()
+    {
+    }
 
     /**
      * @param array $data
@@ -96,7 +95,7 @@ class ErpOrderPageSearchDataMapper implements ErpOrderPageSearchDataMapperInterf
     }
 
     /**
-     * @param  string|null  $deliveryDate
+     * @param string|null $deliveryDate
      *
      * @return \DateTime|string|null
      */

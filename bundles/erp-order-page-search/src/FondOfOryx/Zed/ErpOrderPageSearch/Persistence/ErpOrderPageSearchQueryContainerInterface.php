@@ -7,20 +7,22 @@ use Orm\Zed\ErpOrder\Persistence\ErpOrderQuery;
 interface ErpOrderPageSearchQueryContainerInterface
 {
     /**
-     * @param  int[] $erpOrderIds
+     * @param int[] $erpOrderIds
+     *
+     * @throws \Spryker\Zed\Kernel\Exception\Container\ContainerKeyNotFoundException
      *
      * @return \Orm\Zed\ErpOrder\Persistence\ErpOrderQuery
-     * @throws \Spryker\Zed\Kernel\Exception\Container\ContainerKeyNotFoundException
      */
     public function queryErpOrdersByErpOrderIds(
         array $erpOrderIds
     ): ErpOrderQuery;
 
     /**
-     * @param  int[]  $erpOrderIds
+     * @param int[] $erpOrderIds
+     *
+     * @throws \Spryker\Zed\Kernel\Exception\Container\ContainerKeyNotFoundException
      *
      * @return \Orm\Zed\ErpOrder\Persistence\ErpOrderQuery
-     * @throws \Spryker\Zed\Kernel\Exception\Container\ContainerKeyNotFoundException
      */
     public function queryErpOrderWithAddressesAndCompanyBusinessUnitAndCompanyUserByErpOrderIds(
         array $erpOrderIds

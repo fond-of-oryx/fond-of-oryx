@@ -43,5 +43,4 @@ interface ErpOrderEvents
      * @api
      */
     public const ERP_ORDER_UNPUBLISH = 'ErpOrder.erp_order.unpublish';
-
 }

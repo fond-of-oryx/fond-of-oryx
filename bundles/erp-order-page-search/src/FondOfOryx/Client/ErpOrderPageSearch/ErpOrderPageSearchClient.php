@@ -1,9 +1,10 @@
 <?php
+
 namespace FondOfOryx\Client\ErpOrderPageSearch;
 
-use Generated\Shared\Transfer\ErpOrderPageSearchRequestTransfer;
-use Generated\Shared\Transfer\ErpOrderCollectionTransfer;
 use FondOfOryx\Client\ErpOrderPageSearch\Zed\ErpOrderPageSearchStubInterface;
+use Generated\Shared\Transfer\ErpOrderCollectionTransfer;
+use Generated\Shared\Transfer\ErpOrderPageSearchRequestTransfer;
 use Spryker\Client\Kernel\AbstractClient;
 
 /**
@@ -20,7 +21,7 @@ class ErpOrderPageSearchClient extends AbstractClient implements ErpOrderPageSea
     }
 
     /**
-     * @param  \Generated\Shared\Transfer\ErpOrderPageSearchRequestTransfer  $request
+     * @param \Generated\Shared\Transfer\ErpOrderPageSearchRequestTransfer $request
      *
      * @return \Generated\Shared\Transfer\ErpOrderCollectionTransfer
      */
