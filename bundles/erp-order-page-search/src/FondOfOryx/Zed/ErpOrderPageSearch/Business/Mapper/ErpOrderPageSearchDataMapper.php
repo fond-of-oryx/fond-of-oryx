@@ -27,9 +27,7 @@ class ErpOrderPageSearchDataMapper implements ErpOrderPageSearchDataMapperInterf
     /**
      * ErpOrderPageSearchDataMapper constructor.
      */
-    public function __construct() {
-
-    }
+    public function __construct() {}
 
     /**
      * @param array $data
@@ -39,6 +37,7 @@ class ErpOrderPageSearchDataMapper implements ErpOrderPageSearchDataMapperInterf
     public function mapErpOrderDataToSearchData(array $data): array
     {
         $searchData = [
+            ErpOrderIndexMap::LOCALE => null,
             ErpOrderIndexMap::CONCRETE_DELIVERY_DATE => $data[static::CONCRETE_DELIVERY_DATE],
             ErpOrderIndexMap::EXTERNAL_REFERENCE => $data[static::EXTERNAL_REFERENCE],
             ErpOrderIndexMap::FK_COMPANY_BUSINESS_UNIT => $data[static::FK_COMPANY_BUSINESS_UNIT],

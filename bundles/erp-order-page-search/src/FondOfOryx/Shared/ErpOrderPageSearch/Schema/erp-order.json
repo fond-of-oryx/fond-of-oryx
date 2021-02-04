@@ -18,6 +18,9 @@
 
           }
         },
+        "locale": {
+          "type": "keyword"
+        },
         "external-reference": {
           "type": "keyword"
         },
