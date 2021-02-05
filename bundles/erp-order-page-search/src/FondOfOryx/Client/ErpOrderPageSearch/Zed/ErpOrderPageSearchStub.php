@@ -2,6 +2,7 @@
 
 namespace FondOfOryx\Client\ErpOrderPageSearch\Zed;
 
+use FondOfOryx\Client\ErpOrderPageSearch\Dependency\Client\ErpOrderPageSearchToZedRequestClientInterface;
 use Generated\Shared\Transfer\ErpOrderCollectionTransfer;
 use Generated\Shared\Transfer\ErpOrderPageSearchRequestTransfer;
 use Spryker\Client\ZedRequest\Stub\ZedRequestStub;
@@ -13,6 +14,21 @@ use Spryker\Client\ZedRequest\Stub\ZedRequestStub;
  */
 class ErpOrderPageSearchStub extends ZedRequestStub implements ErpOrderPageSearchStubInterface
 {
+    /**
+     * @var \FondOfOryx\Client\ErpOrderPageSearch\Dependency\Client\ErpOrderPageSearchToZedRequestClientInterface
+     */
+    protected $zedStub;
+
+    /**
+     * ErpOrderPageSearchStub constructor.
+     *
+     * @param  \FondOfOryx\Client\ErpOrderPageSearch\Dependency\Client\ErpOrderPageSearchToZedRequestClientInterface  $zedStub
+     */
+    public function __construct(ErpOrderPageSearchToZedRequestClientInterface $zedStub)
+    {
+        $this->zedStub = $zedStub;
+    }
+
     /**
      * @param \Generated\Shared\Transfer\ErpOrderPageSearchRequestTransfer $request
      *

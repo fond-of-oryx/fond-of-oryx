@@ -2,12 +2,15 @@
 
 namespace FondOfOryx\Client\ErpOrderPageSearch;
 
+use FondOfOryx\Client\ErpOrderPageSearch\Dependency\Client\ErpOrderPageSearchToCustomerClientInterface;
 use FondOfOryx\Client\ErporderPageSearch\Dependency\Client\ErpOrderPageSearchToSearchClientInterface;
+use FondOfOryx\Client\ErpOrderPageSearch\Dependency\Client\ErpOrderPageSearchToSessionClientInterface;
+use FondOfOryx\Client\ErpOrderPageSearch\Dependency\Client\ErpOrderPageSearchToZedRequestClientInterface;
 use FondOfOryx\Client\ErpOrderPageSearch\Zed\ErpOrderPageSearchStub;
+use FondOfOryx\Client\ErpOrderPageSearch\Zed\ErpOrderPageSearchStubInterface;
 use Spryker\Client\Kernel\AbstractFactory;
-use Spryker\Client\Search\Dependency\Plugin\QueryInterface;
+use Spryker\Client\SearchExtension\Dependency\Plugin\QueryInterface;
 use Spryker\Client\SearchExtension\Dependency\Plugin\SearchStringSetterInterface;
-use Spryker\Client\Session\SessionClientInterface;
 
 /**
  * Class ErpOrderPageSearchFactory
@@ -20,8 +23,9 @@ class ErpOrderPageSearchFactory extends AbstractFactory
 {
     /**
      * @return \FondOfOryx\Client\ErpOrderPageSearch\Zed\ErpOrderPageSearchStubInterface
+     * @throws \Spryker\Client\Kernel\Exception\Container\ContainerKeyNotFoundException
      */
-    public function createZedStub()
+    public function createZedStub(): ErpOrderPageSearchStubInterface
     {
         return new ErpOrderPageSearchStub($this->getZedRequestClient());
     }
@@ -43,19 +47,30 @@ class ErpOrderPageSearchFactory extends AbstractFactory
     }
 
     /**
-     * @return mixed
+     * @return \FondOfOryx\Client\ErpOrderPageSearch\Dependency\Client\ErpOrderPageSearchToZedRequestClientInterface
+     * @throws \Spryker\Client\Kernel\Exception\Container\ContainerKeyNotFoundException
      */
-    protected function getZedRequestClient()
+    protected function getZedRequestClient(): ErpOrderPageSearchToZedRequestClientInterface
     {
         return $this->getProvidedDependency(ErpOrderPageSearchDependencyProvider::CLIENT_ZED_REQUEST);
     }
 
     /**
-     * @return \Spryker\Client\Session\SessionClientInterface
+     * @return \FondOfOryx\Client\ErpOrderPageSearch\Dependency\Client\ErpOrderPageSearchToSessionClientInterface
+     * @throws \Spryker\Client\Kernel\Exception\Container\ContainerKeyNotFoundException
      */
-    protected function getSessionClient(): SessionClientInterface
+    protected function getSessionClient(): ErpOrderPageSearchToSessionClientInterface
     {
         return $this->getProvidedDependency(ErpOrderPageSearchDependencyProvider::CLIENT_SESSION);
+    }
+
+    /**
+     * @return \FondOfOryx\Client\ErpOrderPageSearch\Dependency\Client\ErpOrderPageSearchToCustomerClientInterface
+     * @throws \Spryker\Client\Kernel\Exception\Container\ContainerKeyNotFoundException
+     */
+    public function getCustomerClient(): ErpOrderPageSearchToCustomerClientInterface
+    {
+        return $this->getProvidedDependency(ErpOrderPageSearchDependencyProvider::CLIENT_CUSTOMER);
     }
 
     /**
@@ -80,5 +95,13 @@ class ErpOrderPageSearchFactory extends AbstractFactory
     public function getSearchResultFormatterPlugins(): array
     {
         return $this->getProvidedDependency(ErpOrderPageSearchDependencyProvider::PLUGINS_SEARCH_RESULT_FORMATTER);
+    }
+
+    /**
+     * @return \Spryker\Client\SearchExtension\Dependency\Plugin\QueryExpanderPluginInterface[]
+     */
+    public function getSearchQueryExpanderPlugins(): array
+    {
+        return $this->getProvidedDependency(ErpOrderPageSearchDependencyProvider::PLUGINS_SEARCH_QUERY_EXPANDER);
     }
 }

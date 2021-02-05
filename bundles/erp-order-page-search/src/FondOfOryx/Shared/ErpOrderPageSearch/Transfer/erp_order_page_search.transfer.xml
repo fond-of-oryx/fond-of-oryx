@@ -6,7 +6,9 @@
     <transfer name="ErpOrderPageSearchRequest">
         <property name="companyBusinessUnitId" type="string"/>
         <property name="externalReference" type="string"/>
-        <property name="includes" type="array"/>
+        <property name="includes" singular="include" type="array"/>
+        <property name="requestParams" singular="requestParam" type="array"/>
+        <property name="searchString" type="string"/>
     </transfer>
 
     <transfer name="ErpOrderCollection">

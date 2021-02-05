@@ -32,5 +32,5 @@ interface ErpOrderPageSearchClientInterface
      *
      * @return array
      */
-    public function search(string $searchString, array $requestParameters = []): array;
+    public function search(string $searchString, array $requestParameters = []);
 }
