@@ -2,6 +2,7 @@
 
 namespace FondOfOryx\Glue\ErpOrderPageSearchRestApi;
 
+use FondOfOryx\Glue\ErpOrderPageSearchRestApi\Dependency\Client\ErpOrderPageSearchRestApiToErpOrderPageSearchClientBridge;
 use Spryker\Glue\Kernel\AbstractBundleDependencyProvider;
 use Spryker\Glue\Kernel\Container;
 
@@ -25,7 +26,7 @@ class ErpOrderPageSearchRestApiDependencyProvider extends AbstractBundleDependen
     protected function addErpOrderPageSearchClient(Container $container): Container
     {
         $container[static::CLIENT_ERP_ORDER_PAGE_SEARCH] = static function (Container $container) {
-            return $container->getLocator()->erpOrderPageSearch()->client();
+            return new ErpOrderPageSearchRestApiToErpOrderPageSearchClientBridge($container->getLocator()->erpOrderPageSearch()->client());
         };
 
         return $container;

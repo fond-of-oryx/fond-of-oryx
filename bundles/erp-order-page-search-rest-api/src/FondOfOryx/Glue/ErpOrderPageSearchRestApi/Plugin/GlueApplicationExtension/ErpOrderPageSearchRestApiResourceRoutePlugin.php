@@ -18,7 +18,7 @@ class ErpOrderPageSearchRestApiResourceRoutePlugin extends AbstractPlugin implem
     public function configure(ResourceRouteCollectionInterface $resourceRouteCollection): ResourceRouteCollectionInterface
     {
         $resourceRouteCollection
-            ->addGet('get');
+            ->addGet(ErpOrderPageSearchRestApiConfig::ACTION_ERP_ORDER_PAGE_SEARCH_REST_API_GET);
 
         return $resourceRouteCollection;
     }

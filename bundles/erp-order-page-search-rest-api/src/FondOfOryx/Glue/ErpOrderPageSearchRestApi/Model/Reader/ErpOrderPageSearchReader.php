@@ -2,27 +2,34 @@
 
 namespace FondOfOryx\Glue\ErpOrderPageSearchRestApi\Model\Reader;
 
-use FondOfOryx\Client\ErpOrderPageSearch\ErpOrderPageSearchClientInterface;
-use Generated\Shared\Transfer\ErpOrderPageSearchRequestTransfer;
-use Generated\Shared\Transfer\ErpOrderPageSearchTransfer;
+use FondOfOryx\Glue\ErpOrderPageSearchRestApi\Dependency\Client\ErpOrderPageSearchRestApiToErpOrderPageSearchClientInterface;
+use FondOfOryx\Glue\ErpOrderPageSearchRestApi\Model\Builder\RequestBuilderInterface;
+use Spryker\Glue\GlueApplication\Rest\JsonApi\RestResponse;
 use Spryker\Glue\GlueApplication\Rest\JsonApi\RestResponseInterface;
 use Spryker\Glue\GlueApplication\Rest\Request\Data\RestRequestInterface;
 
 class ErpOrderPageSearchReader implements ErpOrderPageSearchReaderInterface
 {
     /**
-     * @var \FondOfOryx\Client\ErpOrderPageSearch\ErpOrderPageSearchClientInterface
+     * @var \FondOfOryx\Glue\ErpOrderPageSearchRestApi\Dependency\Client\ErpOrderPageSearchRestApiToErpOrderPageSearchClientInterface
      */
     protected $erpOrderPageSearchClient;
 
     /**
+     * @var \FondOfOryx\Glue\ErpOrderPageSearchRestApi\Model\Builder\RequestBuilderInterface
+     */
+    protected $requestBuilder;
+
+    /**
      * ErpOrderPageSearchReader constructor.
      *
-     * @param  \FondOfOryx\Client\ErpOrderPageSearch\ErpOrderPageSearchClientInterface  $erpOrderPageSearchClient
+     * @param  \FondOfOryx\Glue\ErpOrderPageSearchRestApi\Dependency\Client\ErpOrderPageSearchRestApiToErpOrderPageSearchClientInterface  $erpOrderPageSearchClient
+     * @param  \FondOfOryx\Glue\ErpOrderPageSearchRestApi\Model\Builder\RequestBuilderInterface  $requestBuilder
      */
-    public function __construct(ErpOrderPageSearchClientInterface $erpOrderPageSearchClient)
+    public function __construct(ErpOrderPageSearchRestApiToErpOrderPageSearchClientInterface $erpOrderPageSearchClient, RequestBuilderInterface $requestBuilder)
     {
         $this->erpOrderPageSearchClient = $erpOrderPageSearchClient;
+        $this->requestBuilder = $requestBuilder;
     }
 
     /**
@@ -32,24 +39,18 @@ class ErpOrderPageSearchReader implements ErpOrderPageSearchReaderInterface
      */
     public function findErpOrdersByFilterTransfer(RestRequestInterface $restRequest): RestResponseInterface
     {
-        return $this->createResponse($this->erpOrderPageSearchClient->findErpOrdersByFilterTransfer($this->createRequest($restRequest)));
+        $requestTransfer = $this->requestBuilder->create($restRequest);
+        return $this->createResponse($this->erpOrderPageSearchClient->search($requestTransfer->getSearchString(), $requestTransfer->getRequestParams()));
     }
 
     /**
-     * @param  \Spryker\Glue\GlueApplication\Rest\Request\Data\RestRequestInterface  $restRequest
-     *
-     * @return \Generated\Shared\Transfer\ErpOrderPageSearchRequestTransfer
-     */
-    protected function createRequest(RestRequestInterface $restRequest): ErpOrderPageSearchRequestTransfer
-    {
-    }
-
-    /**
-     * @param  \Generated\Shared\Transfer\ErpOrderPageSearchTransfer  $erpOrderPageSearchTransfer
+     * @param  array  $response
      *
      * @return \Spryker\Glue\GlueApplication\Rest\JsonApi\RestResponseInterface
      */
-    protected function createResponse(ErpOrderPageSearchTransfer $erpOrderPageSearchTransfer): RestResponseInterface
+    protected function createResponse($response): RestResponseInterface
     {
+        //ToDo
+        return new RestResponse();
     }
 }
