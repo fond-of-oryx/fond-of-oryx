@@ -15,8 +15,6 @@
         <column name="reference" required="false" size="255" type="VARCHAR"/>
         <column name="concrete_delivery_date" required="false" type="DATE"/>
 
-        <behavior name="timestampable"/>
-
         <id-method-parameter value="foo_erp_order_pk_seq"/>
 
         <unique name="foo_erp_order-reference">
@@ -42,6 +40,12 @@
         <foreign-key name="foo_erp_order-spy_company_user" foreignTable="spy_company_user" phpName="CompanyUser">
             <reference local="fk_company_user" foreign="id_company_user"/>
         </foreign-key>
+
+        <behavior name="event">
+            <parameter name="foo_erp_order_all" column="*"/>
+        </behavior>
+
+        <behavior name="timestampable"/>
     </table>
 
     <table name="foo_erp_order_item" phpName="ErpOrderItem" identifierQuoting="true">
@@ -54,7 +58,7 @@
         <column name="canceled_quantity" required="false" type="INTEGER"/>
         <column name="ordered_quantity" required="false" type="INTEGER"/>
         <column name="shipped_quantity" required="false" type="INTEGER"/>
-        <column name="invoice_quantity" required="false" type="INTEGER"/>
+        <column name="invoiced_quantity" required="false" type="INTEGER"/>
         <column name="status" required="false" type="INTEGER"/>
         <column name="concrete_delivery_date" required="false" type="DATE"/>
 

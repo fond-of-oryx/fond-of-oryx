@@ -4,6 +4,7 @@ namespace FondOfOryx\Zed\ErpOrder\Persistence;
 
 use DateTime;
 use Exception;
+use FondOfOryx\Shared\ErpOrder\ErpOrderConstants;
 use Generated\Shared\Transfer\ErpOrderAddressTransfer;
 use Generated\Shared\Transfer\ErpOrderItemTransfer;
 use Generated\Shared\Transfer\ErpOrderTransfer;
@@ -43,9 +44,12 @@ class ErpOrderEntityManager extends AbstractEntityManager implements ErpOrderEnt
             ->setFkCompanyUser($erpOrderTransfer->getFkCompanyUser() ?: $erpOrderTransfer->getCompanyUser()->getIdCompanyUser())
             ->setCreatedAt($now)
             ->setUpdatedAt($now)
+            ->setConcreteDeliveryDate($this->getConcreteDeliveryDate($erpOrderTransfer->getConcreteDeliveryDate()))
             ->save();
 
-        return $this->getFactory()->createEntityToTransferMapper()->fromErpOrderToTransfer($entity);
+        return $this->getFactory()
+            ->createEntityToTransferMapper()
+            ->fromErpOrderToTransfer($entity, $erpOrderTransfer);
     }
 
     /**
@@ -88,6 +92,7 @@ class ErpOrderEntityManager extends AbstractEntityManager implements ErpOrderEnt
         $entity
             ->setCreatedAt($now)
             ->setUpdatedAt($now)
+            ->setConcreteDeliveryDate($this->getConcreteDeliveryDate($itemTransfer->getConcreteDeliveryDate()))
             ->save();
 
         return $this->getFactory()->createEntityToTransferMapper()->fromEprOrderItemToTransfer(
@@ -125,6 +130,7 @@ class ErpOrderEntityManager extends AbstractEntityManager implements ErpOrderEnt
             ->setIdErpOrder($id)
             ->setCreatedAt($createdAt)
             ->setUpdatedAt($updatedAt)
+            ->setConcreteDeliveryDate($this->getConcreteDeliveryDate($erpOrderTransfer->getConcreteDeliveryDate()))
             ->save();
 
         return $this->getFactory()->createEntityToTransferMapper()->fromErpOrderToTransfer($entity);
@@ -149,6 +155,7 @@ class ErpOrderEntityManager extends AbstractEntityManager implements ErpOrderEnt
         $entity->fromArray($orderItemTransfer->toArray());
         $entity
             ->setIdErpOrderItem($idItem)
+            ->setConcreteDeliveryDate($this->getConcreteDeliveryDate($orderItemTransfer->getConcreteDeliveryDate()))
             ->setCreatedAt($createdAt)
             ->setUpdatedAt($updatedAt);
 
@@ -260,5 +267,20 @@ class ErpOrderEntityManager extends AbstractEntityManager implements ErpOrderEnt
             ->filterByIdErpOrderItem($idErpOrder)
             ->filterBySku($sku)
             ->findOneOrCreate();
+    }
+
+    /**
+     * @param string|null $deliveryDate
+     *
+     * @return \DateTime|null
+     */
+    protected function getConcreteDeliveryDate(?string $deliveryDate): ?DateTime
+    {
+        if ($deliveryDate !== null) {
+            $deliveryDate = new DateTime($deliveryDate);
+            $deliveryDate->format(ErpOrderConstants::CONCRETE_DELIVERY_DATE_FORMAT);
+        }
+
+        return $deliveryDate;
     }
 }

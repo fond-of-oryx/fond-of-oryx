@@ -1,9 +1,10 @@
 <?php
+
 namespace FondOfOryx\Client\ErpOrderPageSearch;
 
-use Generated\Shared\Transfer\ErpOrderPageSearchRequestTransfer;
-use Generated\Shared\Transfer\ErpOrderPageSearchTransfer;
 use FondOfOryx\Client\ErpOrderPageSearch\Zed\ErpOrderPageSearchStubInterface;
+use Generated\Shared\Transfer\ErpOrderCollectionTransfer;
+use Generated\Shared\Transfer\ErpOrderPageSearchRequestTransfer;
 use Spryker\Client\Kernel\AbstractClient;
 
 /**
@@ -20,12 +21,38 @@ class ErpOrderPageSearchClient extends AbstractClient implements ErpOrderPageSea
     }
 
     /**
-     * @param  \Generated\Shared\Transfer\ErpOrderPageSearchRequestTransfer  $request
+     * @param \Generated\Shared\Transfer\ErpOrderPageSearchRequestTransfer $request
      *
-     * @return \Generated\Shared\Transfer\ErpOrderPageSearchTransfer
+     * @return \Generated\Shared\Transfer\ErpOrderCollectionTransfer
      */
-    public function findErpOrdersByFilterTransfer(ErpOrderPageSearchRequestTransfer $request): ErpOrderPageSearchTransfer
+    public function findErpOrdersByFilterTransfer(ErpOrderPageSearchRequestTransfer $request): ErpOrderCollectionTransfer
     {
         return $this->getZedStub()->findErpOrdersByFilterTransfer($request);
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * @api
+     *
+     * @param string $searchString
+     * @param array $requestParameters
+     *
+     * @return array
+     */
+    public function search(string $searchString, array $requestParameters = []): array
+    {
+        $searchQuery = $this
+            ->getFactory()
+            ->createSearchQuery($searchString);
+
+        $resultFormatters = $this
+            ->getFactory()
+            ->getSearchResultFormatterPlugins();
+
+        return $this
+            ->getFactory()
+            ->getSearchClient()
+            ->search($searchQuery, $resultFormatters, $requestParameters);
     }
 }

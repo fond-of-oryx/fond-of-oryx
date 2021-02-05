@@ -29,7 +29,7 @@
         <property name="canceledQuantity" type="int"/>
         <property name="orderedQuantity" type="int"/>
         <property name="shippedQuantity" type="int"/>
-        <property name="invoiceQuantity" type="int"/>
+        <property name="invoicedQuantity" type="int"/>
         <property name="status" type="int"/>
         <property name="concreteDeliveryDate" type="string"/>
         <property name="createdAt" type="int"/>
