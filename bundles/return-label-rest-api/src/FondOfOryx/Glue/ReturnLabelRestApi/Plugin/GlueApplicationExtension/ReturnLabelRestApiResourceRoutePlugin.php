@@ -1,6 +1,6 @@
 <?php
 
-namespace FondOfOryx\Glue\ReturnLabelRestApi\Plugin;
+namespace FondOfOryx\Glue\ReturnLabelRestApi\Plugin\GlueApplicationExtension;
 
 use FondOfOryx\Glue\ReturnLabelRestApi\ReturnLabelRestApiConfig;
 use Spryker\Glue\GlueApplicationExtension\Dependency\Plugin\ResourceRouteCollectionInterface;
@@ -67,22 +67,6 @@ class ReturnLabelRestApiResourceRoutePlugin extends AbstractPlugin implements Re
     public function getResourceAttributesClassName(): string
     {
         // TODO: Implement getResourceAttributesClassName() method.
-    }
-
-    /**
-     * @return string
-     * @api
-     *
-     * Specification:
-     *  - Indicates that resource relates/depend on other resource, should provide resource name it's linked
-     * This is relationship when resources are nesting within same request path,
-     * e.g. /carts/1/items. So items resource will have parent carts.
-     *
-     * This must be used together with resource routing plugin
-     *
-     */
-    public function getParentResourceType(): string
-    {
-        // TODO: Implement getParentResourceType() method.
+        return '';
     }
 }

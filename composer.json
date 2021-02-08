@@ -55,7 +55,11 @@
       "FondOfOryx\\Zed\\MailBcc\\": "bundles/mail-bcc/src/FondOfOryx/Zed/MailBcc",
       "FondOfOryx\\Zed\\SalesLocaleConnector\\": "bundles/sales-locale-connector/src/FondOfOryx/Zed/SalesLocaleConnector",
       "FondOfOryx\\Zed\\TaxCalculationConnector\\": "bundles/tax-calculation-connector/src/FondOfOryx/Zed/TaxCalculationConnector",
-      "FondOfOryx\\Shared\\TaxCalculationConnector\\": "bundles/tax-calculation-connector/src/FondOfOryx/Shared/TaxCalculationConnector"
+      "FondOfOryx\\Shared\\TaxCalculationConnector\\": "bundles/tax-calculation-connector/src/FondOfOryx/Shared/TaxCalculationConnector",
+      "FondOfOryx\\Glue\\ReturnLabelRestApi\\": "bundles/return-label-rest-api/src/FondOfOryx/Glue/ReturnLabelRestApi",
+      "FondOfOryx\\Client\\ReturnLabelRestApi\\": "bundles/return-label-rest-api/src/FondOfOryx/Client/ReturnLabelRestApi",
+      "FondOfOryx\\Zed\\ReturnLabelRestApi\\": "bundles/return-label-rest-api/src/FondOfOryx/Zed/ReturnLabelRestApi",
+      "FondOfOryx\\Shared\\ReturnLabelRestApi\\": "bundles/return-label-rest-api/src/FondOfOryx/Shared/ReturnLabelRestApi"
     }
   },
   "autoload-dev": {
