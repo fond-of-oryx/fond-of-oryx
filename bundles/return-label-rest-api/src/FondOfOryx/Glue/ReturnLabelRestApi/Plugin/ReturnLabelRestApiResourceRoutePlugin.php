@@ -1,0 +1,88 @@
+<?php
+
+namespace FondOfOryx\Glue\ReturnLabelRestApi\Plugin;
+
+use FondOfOryx\Glue\ReturnLabelRestApi\ReturnLabelRestApiConfig;
+use Spryker\Glue\GlueApplicationExtension\Dependency\Plugin\ResourceRouteCollectionInterface;
+use Spryker\Glue\GlueApplicationExtension\Dependency\Plugin\ResourceRoutePluginInterface;
+use Spryker\Glue\Kernel\AbstractPlugin;
+
+class ReturnLabelRestApiResourceRoutePlugin extends AbstractPlugin implements ResourceRoutePluginInterface
+{
+
+    /**
+     * @param \Spryker\Glue\GlueApplicationExtension\Dependency\Plugin\ResourceRouteCollectionInterface $resourceRouteCollection
+     *
+     * @return \Spryker\Glue\GlueApplicationExtension\Dependency\Plugin\ResourceRouteCollectionInterface
+     * @api
+     *
+     * Specification:
+     *  - Configuration for resource routing, how http methods map to controller actions, is action is protected, also possible
+     * to add additional contextual data for action for later access when processing controller action.
+     *
+     */
+    public function configure(ResourceRouteCollectionInterface $resourceRouteCollection): ResourceRouteCollectionInterface
+    {
+        $resourceRouteCollection->addPost(ReturnLabelRestApiConfig::ACTION_RETURN_LABEL_POST, true);
+
+        return $resourceRouteCollection;
+    }
+
+    /**
+     * @return string
+     * @api
+     *
+     * Specification:
+     *  - Resource name this plugins handles, must be plural string. This name also is matched with request path where resource
+     * is provided.
+     *
+     */
+    public function getResourceType(): string
+    {
+        return ReturnLabelRestApiConfig::RESOURCE_RETURN_LABEL;
+    }
+
+    /**
+     * @return string
+     * @api
+     *
+     * Specification:
+     *  - Module controller name, separated by dashes. cart-items-resource would point to CartItemsResourceController
+     *
+     */
+    public function getController(): string
+    {
+        return ReturnLabelRestApiConfig::CONTROLLER_RETURN_LABEL;
+    }
+
+    /**
+     * @return string
+     * @api
+     *
+     * Specification:
+     *  - This method should return FQCN to transfer object. This object will be automatically populated from POST/PATCH
+     * requests, and passed to REST controller actions as first argument. It is also used when creating JSONAPI resource objects.
+     *
+     */
+    public function getResourceAttributesClassName(): string
+    {
+        // TODO: Implement getResourceAttributesClassName() method.
+    }
+
+    /**
+     * @return string
+     * @api
+     *
+     * Specification:
+     *  - Indicates that resource relates/depend on other resource, should provide resource name it's linked
+     * This is relationship when resources are nesting within same request path,
+     * e.g. /carts/1/items. So items resource will have parent carts.
+     *
+     * This must be used together with resource routing plugin
+     *
+     */
+    public function getParentResourceType(): string
+    {
+        // TODO: Implement getParentResourceType() method.
+    }
+}

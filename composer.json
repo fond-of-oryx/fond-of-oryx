@@ -33,6 +33,7 @@
     "fond-of-codeception/spryker": "dev-master"
   },
   "replace": {
+    "fond-of-oryx/return-label-rest-api": "*",
     "fond-of-oryx/customer-statistic": "*",
     "fond-of-oryx/customer-statistics-rest-api": "*",
     "fond-of-oryx/erp-order": "*",

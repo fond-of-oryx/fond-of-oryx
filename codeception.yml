@@ -8,6 +8,7 @@ include:
   - bundles/mail-bcc
   - bundles/sales-locale-connector
   - bundles/tax-calculation-connector
+  - bundles/return-label-rest-api
 
 suites:
   unit:
