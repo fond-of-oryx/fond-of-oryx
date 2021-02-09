@@ -25,6 +25,11 @@
             "path": "bundles/erp-order-extension/",
             "version": "1.0.0"
         },
+        "erp-order-permission": {
+            "url": "https://<GITHUB_TOKEN>@github.com/fond-of-oryx/erp-order-permission.git",
+            "path": "bundles/erp-order-permission/",
+            "version": "1.0.0"
+        },
         "erp-order-page-search": {
             "url": "https://<GITHUB_TOKEN>@github.com/fond-of-oryx/erp-order-page-search.git",
             "path": "bundles/erp-order-page-search/",
