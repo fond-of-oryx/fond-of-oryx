@@ -8,6 +8,7 @@ use FondOfOryx\Zed\ErpOrderPageSearch\Persistence\ErpOrderPageSearchEntityManage
 use FondOfOryx\Zed\ErpOrderPageSearch\Persistence\ErpOrderPageSearchQueryContainerInterface;
 use Generated\Shared\Transfer\ErpOrderPageSearchTransfer;
 use Orm\Zed\ErpOrder\Persistence\ErpOrder;
+use Propel\Runtime\Map\TableMap;
 
 class ErpOrderPageSearchPublisher implements ErpOrderPageSearchPublisherInterface
 {
@@ -103,7 +104,7 @@ class ErpOrderPageSearchPublisher implements ErpOrderPageSearchPublisherInterfac
 
         $erpOrderData[static::COMPANY_BUSINESS_UNIT] = $companyBusinessUnit->toArray();
         $erpOrderData[static::COMPANY_USER] = $companyUser->toArray();
-        $erpOrderData[static::ERP_ORDER_ITEMS] = $orderItems->toArray();
+        $erpOrderData[static::ERP_ORDER_ITEMS] = $orderItems->toArray(null, false, TableMap::TYPE_FIELDNAME);
         $erpOrderData[static::BILLING_ADDRESS] = $billingAddress->toArray();
         $erpOrderData[static::SHIPPING_ADDRESS] = $shippingAddress->toArray();
 

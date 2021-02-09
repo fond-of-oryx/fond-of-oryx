@@ -2,6 +2,7 @@
 
 namespace FondOfOryx\Client\ErpOrderPageSearch;
 
+use FondOfOryx\Client\ErpOrderPageSearch\Dependency\Client\ErpOrderPageSearchToCompanyUserClientInterface;
 use FondOfOryx\Client\ErpOrderPageSearch\Dependency\Client\ErpOrderPageSearchToCustomerClientInterface;
 use FondOfOryx\Client\ErporderPageSearch\Dependency\Client\ErpOrderPageSearchToSearchClientInterface;
 use FondOfOryx\Client\ErpOrderPageSearch\Dependency\Client\ErpOrderPageSearchToSessionClientInterface;
@@ -71,6 +72,15 @@ class ErpOrderPageSearchFactory extends AbstractFactory
     public function getCustomerClient(): ErpOrderPageSearchToCustomerClientInterface
     {
         return $this->getProvidedDependency(ErpOrderPageSearchDependencyProvider::CLIENT_CUSTOMER);
+    }
+
+    /**
+     * @return \FondOfOryx\Client\ErpOrderPageSearch\Dependency\Client\ErpOrderPageSearchToCompanyUserClientInterface
+     * @throws \Spryker\Client\Kernel\Exception\Container\ContainerKeyNotFoundException
+     */
+    public function getCompanyUserClient(): ErpOrderPageSearchToCompanyUserClientInterface
+    {
+        return $this->getProvidedDependency(ErpOrderPageSearchDependencyProvider::CLIENT_COMPANY_USER);
     }
 
     /**
