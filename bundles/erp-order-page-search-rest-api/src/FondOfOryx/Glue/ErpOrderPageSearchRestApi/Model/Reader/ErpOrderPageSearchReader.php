@@ -40,7 +40,7 @@ class ErpOrderPageSearchReader implements ErpOrderPageSearchReaderInterface
     public function findErpOrdersByFilterTransfer(RestRequestInterface $restRequest): RestResponseInterface
     {
         $requestTransfer = $this->requestBuilder->create($restRequest);
-        return $this->createResponse($this->erpOrderPageSearchClient->search($requestTransfer->getSearchString(), $requestTransfer->getRequestParams()));
+        return $this->createResponse($this->erpOrderPageSearchClient->search($requestTransfer->getSearchString(), $requestTransfer->toArray()));
     }
 
     /**
