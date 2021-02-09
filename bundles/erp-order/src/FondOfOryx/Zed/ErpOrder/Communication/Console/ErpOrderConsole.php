@@ -124,13 +124,13 @@ class ErpOrderConsole extends Console
         $erpOrderTransfer = new ErpOrderTransfer();
 
         $erpOrderTransfer
-            ->setFkCompanyUser(2)
-            ->setFkCompanyBusinessUnit(1)
+            ->setFkCompanyUser(34)
+            ->setFkCompanyBusinessUnit(2)
             ->setBillingAddress($this->createAddress())
             ->setShippingAddress($this->createAddress())
             ->setReference($ref)
             ->setConcreteDeliveryDate(date('Y-m-d', strtotime('+ 10 days')))
-            ->setExternalReference($externalRef);
+            ->setExternalReference('06aae44d-b33c-4d6a-8bd8-85c61a921f18');
 
         $rnd = mt_rand(1, 7);
         for ($i = 0; $i < $rnd; $i++) {
