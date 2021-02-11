@@ -11,6 +11,9 @@ use Spryker\Zed\Kernel\Communication\AbstractPlugin;
 
 /**
  * @method \FondOfOryx\Zed\ErpOrderPageSearch\Persistence\ErpOrderPageSearchQueryContainerInterface getQueryContainer()
+ * @method \FondOfOryx\Zed\ErpOrderPageSearch\ErpOrderPageSearchConfig getConfig()
+ * @method \FondOfOryx\Zed\ErpOrderPageSearch\Communication\ErpOrderPageSearchCommunicationFactory getFactory()
+ * @method \FondOfOryx\Zed\ErpOrderPageSearch\Business\ErpOrderPageSearchFacadeInterface getFacade()
  */
 class ErpOrderEventResourceQueryContainerPlugin extends AbstractPlugin implements EventResourceQueryContainerPluginInterface
 {
@@ -39,10 +42,9 @@ class ErpOrderEventResourceQueryContainerPlugin extends AbstractPlugin implement
     }
 
     /**
-     * @param  int[]  $ids
+     * @param int[] $ids
      *
      * @return \Propel\Runtime\ActiveQuery\ModelCriteria|null
-     * @throws \Spryker\Zed\Kernel\Exception\Container\ContainerKeyNotFoundException
      */
     public function queryData(array $ids = []): ?ModelCriteria
     {

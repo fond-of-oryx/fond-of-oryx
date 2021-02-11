@@ -12,8 +12,6 @@ class ErpOrderPageSearchUnpublisher implements ErpOrderPageSearchUnpublisherInte
     protected $entityManager;
 
     /**
-     * ErpOrderPageSearchUnpublisher constructor.
-     *
      * @param \FondOfOryx\Zed\ErpOrderPageSearch\Persistence\ErpOrderPageSearchEntityManagerInterface $entityManager
      */
     public function __construct(ErpOrderPageSearchEntityManagerInterface $entityManager)

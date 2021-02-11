@@ -9,6 +9,12 @@ use Orm\Zed\ErpOrder\Persistence\ErpOrderQuery;
 use Orm\Zed\ErpOrderPageSearch\Persistence\FooErpOrderPageSearchQuery;
 use Spryker\Zed\Kernel\Persistence\AbstractPersistenceFactory;
 
+/**
+ * @method \FondOfOryx\Zed\ErpOrderPageSearch\ErpOrderPageSearchConfig getConfig()
+ * @method \FondOfOryx\Zed\ErpOrderPageSearch\Persistence\ErpOrderPageSearchQueryContainerInterface getQueryContainer()
+ * @method \FondOfOryx\Zed\ErpOrderPageSearch\Persistence\ErpOrderPageSearchEntityManagerInterface getEntityManager()
+ * @method \FondOfOryx\Zed\ErpOrderPageSearch\Persistence\ErpOrderPageSearchRepositoryInterface getRepository()
+ */
 class ErpOrderPageSearchPersistenceFactory extends AbstractPersistenceFactory
 {
     /**
@@ -21,7 +27,6 @@ class ErpOrderPageSearchPersistenceFactory extends AbstractPersistenceFactory
 
     /**
      * @return \Orm\Zed\ErpOrderPageSearch\Persistence\FooErpOrderPageSearchQuery
-     * @throws \Spryker\Zed\Kernel\Exception\Container\ContainerKeyNotFoundException
      */
     public function getErpOrderPageSearchQuery(): FooErpOrderPageSearchQuery
     {
@@ -30,7 +35,6 @@ class ErpOrderPageSearchPersistenceFactory extends AbstractPersistenceFactory
 
     /**
      * @return \Orm\Zed\ErpOrder\Persistence\ErpOrderQuery
-     * @throws \Spryker\Zed\Kernel\Exception\Container\ContainerKeyNotFoundException
      */
     public function getErpOrderQuery(): ErpOrderQuery
     {

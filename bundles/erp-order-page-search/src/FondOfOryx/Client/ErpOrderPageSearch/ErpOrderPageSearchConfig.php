@@ -9,4 +9,6 @@ use Spryker\Client\Kernel\AbstractBundleConfig;
  */
 class ErpOrderPageSearchConfig extends AbstractBundleConfig
 {
+    public const COMPANY_BUSINESS_UNIT_ID = 'company_business_unit_id';
+    public const EXTERNAL_REFERENCE = 'external_reference';
 }

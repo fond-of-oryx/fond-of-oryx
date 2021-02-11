@@ -8,6 +8,7 @@ use FondOfOryx\Zed\ErpOrderPageSearch\Persistence\ErpOrderPageSearchEntityManage
 use FondOfOryx\Zed\ErpOrderPageSearch\Persistence\ErpOrderPageSearchQueryContainerInterface;
 use Generated\Shared\Transfer\ErpOrderPageSearchTransfer;
 use Orm\Zed\ErpOrder\Persistence\ErpOrder;
+use Propel\Runtime\Map\TableMap;
 
 class ErpOrderPageSearchPublisher implements ErpOrderPageSearchPublisherInterface
 {
@@ -38,12 +39,10 @@ class ErpOrderPageSearchPublisher implements ErpOrderPageSearchPublisherInterfac
     protected $erpOrderPageSearchDataMapper;
 
     /**
-     * ErpOrderPageSearchPublisher constructor.
-     *
-     * @param  \FondOfOryx\Zed\ErpOrderPageSearch\Persistence\ErpOrderPageSearchEntityManagerInterface  $entityManager
-     * @param  \FondOfOryx\Zed\ErpOrderPageSearch\Persistence\ErpOrderPageSearchQueryContainerInterface  $queryContainer
-     * @param  \FondOfOryx\Zed\ErpOrderPageSearch\Dependency\Service\ErpOrderPageSearchToUtilEncodingServiceInterface  $utilEncodingService
-     * @param  \FondOfOryx\Zed\ErpOrderPageSearch\Business\Mapper\ErpOrderPageSearchDataMapperInterface  $erpOrderPageSearchDataMapper
+     * @param \FondOfOryx\Zed\ErpOrderPageSearch\Persistence\ErpOrderPageSearchEntityManagerInterface $entityManager
+     * @param \FondOfOryx\Zed\ErpOrderPageSearch\Persistence\ErpOrderPageSearchQueryContainerInterface $queryContainer
+     * @param \FondOfOryx\Zed\ErpOrderPageSearch\Dependency\Service\ErpOrderPageSearchToUtilEncodingServiceInterface $utilEncodingService
+     * @param \FondOfOryx\Zed\ErpOrderPageSearch\Business\Mapper\ErpOrderPageSearchDataMapperInterface $erpOrderPageSearchDataMapper
      */
     public function __construct(
         ErpOrderPageSearchEntityManagerInterface $entityManager,
@@ -89,7 +88,7 @@ class ErpOrderPageSearchPublisher implements ErpOrderPageSearchPublisherInterfac
     }
 
     /**
-     * @param  \Orm\Zed\ErpOrder\Persistence\ErpOrder  $fooErpOrderEntity
+     * @param \Orm\Zed\ErpOrder\Persistence\ErpOrder $fooErpOrderEntity
      *
      * @return void
      */
@@ -105,7 +104,7 @@ class ErpOrderPageSearchPublisher implements ErpOrderPageSearchPublisherInterfac
 
         $erpOrderData[static::COMPANY_BUSINESS_UNIT] = $companyBusinessUnit->toArray();
         $erpOrderData[static::COMPANY_USER] = $companyUser->toArray();
-        $erpOrderData[static::ERP_ORDER_ITEMS] = $orderItems->toArray();
+        $erpOrderData[static::ERP_ORDER_ITEMS] = $orderItems->toArray(null, false, TableMap::TYPE_FIELDNAME);
         $erpOrderData[static::BILLING_ADDRESS] = $billingAddress->toArray();
         $erpOrderData[static::SHIPPING_ADDRESS] = $shippingAddress->toArray();
 
@@ -114,7 +113,8 @@ class ErpOrderPageSearchPublisher implements ErpOrderPageSearchPublisherInterfac
             ->setData($erpOrderData)
             ->setFkErpOrder($fooErpOrderEntity->getIdErpOrder());
 
-         $erpOrderPageSearchTransfer = $this->addDataAttributes($erpOrderPageSearchTransfer);
+        $erpOrderPageSearchTransfer = $this->addDataAttributes($erpOrderPageSearchTransfer);
+        $erpOrderPageSearchTransfer = $this->addUniqueKeyIdentifier($erpOrderPageSearchTransfer, $fooErpOrderEntity);
 
         $this->entityManager->createErpOrderPageSearch($erpOrderPageSearchTransfer);
     }
@@ -139,5 +139,22 @@ class ErpOrderPageSearchPublisher implements ErpOrderPageSearchPublisherInterfac
 
         return $erpOrderPageSearchTransfer->setData($data)
             ->setStructuredData($structuredData);
+    }
+
+    /**
+     * @param \Generated\Shared\Transfer\ErpOrderPageSearchTransfer $erpOrderPageSearchTransfer
+     * @param \Orm\Zed\ErpOrder\Persistence\ErpOrder $fooErpOrderEntity
+     *
+     * @return \Generated\Shared\Transfer\ErpOrderPageSearchTransfer
+     */
+    protected function addUniqueKeyIdentifier(
+        ErpOrderPageSearchTransfer $erpOrderPageSearchTransfer,
+        ErpOrder $fooErpOrderEntity
+    ): ErpOrderPageSearchTransfer {
+        $updatedAt = $fooErpOrderEntity->getUpdatedAt();
+        $hash = md5(sprintf('%s/%s', $updatedAt->getTimestamp(), mt_rand(0,999)));
+        $uki = sprintf('%s-%s', $fooErpOrderEntity->getIdErpOrder(), $hash);
+
+        return $erpOrderPageSearchTransfer->setUniqueKeyIdentifier($uki);
     }
 }

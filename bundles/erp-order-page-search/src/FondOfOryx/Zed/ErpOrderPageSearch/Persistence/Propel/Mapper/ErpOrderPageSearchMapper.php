@@ -10,6 +10,7 @@ class ErpOrderPageSearchMapper implements ErpOrderPageSearchMapperInterface
     /**
      * @param \Generated\Shared\Transfer\ErpOrderPageSearchTransfer $erpOrderPageSearchTransfer
      * @param \Orm\Zed\ErpOrderPageSearch\Persistence\FooErpOrderPageSearch $fooErpOrderPageSearch
+     *
      * @return \Orm\Zed\ErpOrderPageSearch\Persistence\FooErpOrderPageSearch
      */
     public function mapTransferToEntity(
@@ -17,7 +18,7 @@ class ErpOrderPageSearchMapper implements ErpOrderPageSearchMapperInterface
         FooErpOrderPageSearch $fooErpOrderPageSearch
     ): FooErpOrderPageSearch {
         $fooErpOrderPageSearch->fromArray($erpOrderPageSearchTransfer->modifiedToArray(false));
+
         return $fooErpOrderPageSearch;
     }
-
 }

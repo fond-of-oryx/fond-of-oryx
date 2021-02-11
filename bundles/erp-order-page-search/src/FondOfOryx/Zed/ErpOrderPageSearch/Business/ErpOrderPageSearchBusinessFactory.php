@@ -1,4 +1,5 @@
 <?php
+
 namespace FondOfOryx\Zed\ErpOrderPageSearch\Business;
 
 use FondOfOryx\Zed\ErpOrderPageSearch\Business\Mapper\ErpOrderPageSearchDataMapper;
@@ -14,6 +15,8 @@ use Spryker\Zed\Kernel\Business\AbstractBusinessFactory;
 /**
  * @method \FondOfOryx\Zed\ErpOrderPageSearch\Persistence\ErpOrderPageSearchEntityManagerInterface getEntityManager()
  * @method \FondOfOryx\Zed\ErpOrderPageSearch\Persistence\ErpOrderPageSearchQueryContainerInterface getQueryContainer()
+ * @method \FondOfOryx\Zed\ErpOrderPageSearch\ErpOrderPageSearchConfig getConfig()
+ * @method \FondOfOryx\Zed\ErpOrderPageSearch\Persistence\ErpOrderPageSearchRepositoryInterface getRepository()
  */
 class ErpOrderPageSearchBusinessFactory extends AbstractBusinessFactory
 {

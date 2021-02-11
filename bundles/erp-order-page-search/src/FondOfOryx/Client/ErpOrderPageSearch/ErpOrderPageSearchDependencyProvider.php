@@ -1,7 +1,12 @@
 <?php
+
 namespace FondOfOryx\Client\ErpOrderPageSearch;
 
+use FondOfOryx\Client\ErpOrderPageSearch\Dependency\Client\ErpOrderPageSearchToCompanyUserClientBridge;
+use FondOfOryx\Client\ErpOrderPageSearch\Dependency\Client\ErpOrderPageSearchToCustomerClientBridge;
 use FondOfOryx\Client\ErpOrderPageSearch\Dependency\Client\ErpOrderPageSearchToSearchClientBridge;
+use FondOfOryx\Client\ErpOrderPageSearch\Dependency\Client\ErpOrderPageSearchToSessionClientBridge;
+use FondOfOryx\Client\ErpOrderPageSearch\Dependency\Client\ErpOrderPageSearchToZedRequestClientBridge;
 use FondOfOryx\Client\ErpOrderPageSearch\Plugin\SearchExtension\ErpOrderPageSearchQueryPlugin;
 use Spryker\Client\Kernel\AbstractDependencyProvider;
 use Spryker\Client\Kernel\Container;
@@ -16,11 +21,14 @@ class ErpOrderPageSearchDependencyProvider extends AbstractDependencyProvider
     public const CLIENT_ZED_REQUEST = 'CLIENT_ZED_REQUEST';
     public const CLIENT_SESSION = 'CLIENT_SESSION';
     public const CLIENT_SEARCH = 'CLIENT_SEARCH';
+    public const CLIENT_CUSTOMER = 'CLIENT_CUSTOMER';
+    public const CLIENT_COMPANY_USER = 'CLIENT_COMPANY_USER';
     public const PLUGIN_SEARCH_QUERY = 'PLUGIN_SEARCH_QUERY';
     public const PLUGINS_SEARCH_RESULT_FORMATTER = 'PLUGINS_SEARCH_RESULT_FORMATTER';
+    public const PLUGINS_SEARCH_QUERY_EXPANDER = 'PLUGINS_SEARCH_QUERY_EXPANDER';
 
     /**
-     * @param \Spryker\Client\Kernel\Container $container
+     * @param  \Spryker\Client\Kernel\Container  $container
      *
      * @return \Spryker\Client\Kernel\Container
      */
@@ -29,14 +37,17 @@ class ErpOrderPageSearchDependencyProvider extends AbstractDependencyProvider
         $container = $this->addZedRequestClient($container);
         $container = $this->addSessionClient($container);
         $container = $this->addSearchClient($container);
+        $container = $this->addCustomerClient($container);
+        $container = $this->addCompanyUserClient($container);
         $container = $this->addSearchQueryPlugin($container);
         $container = $this->addResultFormatterPlugins($container);
+        $container = $this->addQueryExpanderPlugins($container);
 
         return $container;
     }
 
     /**
-     * @param \Spryker\Client\Kernel\Container $container
+     * @param  \Spryker\Client\Kernel\Container  $container
      *
      * @return \Spryker\Client\Kernel\Container
      */
@@ -52,31 +63,63 @@ class ErpOrderPageSearchDependencyProvider extends AbstractDependencyProvider
     }
 
     /**
-     * @param \Spryker\Client\Kernel\Container $container
+     * @param  \Spryker\Client\Kernel\Container  $container
      *
      * @return void
      */
-    protected function addZedRequestClient(Container $container): void
+    protected function addZedRequestClient(Container $container): Container
     {
         $container[static::CLIENT_ZED_REQUEST] = static function (Container $container) {
-            return $container->getLocator()->zedRequest()->client();
+            return new ErpOrderPageSearchToZedRequestClientBridge($container->getLocator()->zedRequest()->client());
         };
+
+        return $container;
     }
 
     /**
-     * @param \Spryker\Client\Kernel\Container $container
+     * @param  \Spryker\Client\Kernel\Container  $container
      *
      * @return void
      */
-    private function addSessionClient(Container $container): void
+    protected function addCustomerClient(Container $container): Container
     {
-        $container[static::CLIENT_SESSION] = static function (Container $container) {
-            return $container->getLocator()->session()->client();
+        $container[static::CLIENT_CUSTOMER] = static function (Container $container) {
+            return new ErpOrderPageSearchToCustomerClientBridge($container->getLocator()->customer()->client());
         };
+
+        return $container;
     }
 
     /**
-     * @param \Spryker\Client\Kernel\Container $container
+     * @param  \Spryker\Client\Kernel\Container  $container
+     *
+     * @return void
+     */
+    protected function addCompanyUserClient(Container $container): Container
+    {
+        $container[static::CLIENT_COMPANY_USER] = static function (Container $container) {
+            return new ErpOrderPageSearchToCompanyUserClientBridge($container->getLocator()->companyUser()->client());
+        };
+
+        return $container;
+    }
+
+    /**
+     * @param  \Spryker\Client\Kernel\Container  $container
+     *
+     * @return void
+     */
+    private function addSessionClient(Container $container): Container
+    {
+        $container[static::CLIENT_SESSION] = static function (Container $container) {
+            return new ErpOrderPageSearchToSessionClientBridge($container->getLocator()->session()->client());
+        };
+
+        return $container;
+    }
+
+    /**
+     * @param  \Spryker\Client\Kernel\Container  $container
      *
      * @return \Spryker\Client\Kernel\Container
      */
@@ -90,7 +133,7 @@ class ErpOrderPageSearchDependencyProvider extends AbstractDependencyProvider
     }
 
     /**
-     * @param \Spryker\Client\Kernel\Container $container
+     * @param  \Spryker\Client\Kernel\Container  $container
      *
      * @return \Spryker\Client\Kernel\Container
      */
@@ -109,6 +152,30 @@ class ErpOrderPageSearchDependencyProvider extends AbstractDependencyProvider
      * @return \Spryker\Client\Search\Dependency\Plugin\ResultFormatterPluginInterface[]
      */
     protected function getResultFormatterPlugins(): array
+    {
+        return [];
+    }
+
+    /**
+     * @param \Spryker\Client\Kernel\Container $container
+     *
+     * @return \Spryker\Client\Kernel\Container
+     */
+    protected function addQueryExpanderPlugins(Container $container): Container
+    {
+        $self = $this;
+
+        $container[static::PLUGINS_SEARCH_QUERY_EXPANDER] = static function () use ($self) {
+            return $self->getQueryExpanderPlugins();
+        };
+
+        return $container;
+    }
+
+    /**
+     * @return \Spryker\Client\Search\Dependency\Plugin\QueryExpanderPluginInterface[]
+     */
+    protected function getQueryExpanderPlugins(): array
     {
         return [];
     }

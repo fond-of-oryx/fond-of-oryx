@@ -1,8 +1,9 @@
 <?php
+
 namespace FondOfOryx\Client\ErpOrderPageSearch;
 
-use Generated\Shared\Transfer\ErpOrderPageSearchRequestTransfer;
 use Generated\Shared\Transfer\ErpOrderCollectionTransfer;
+use Generated\Shared\Transfer\ErpOrderPageSearchRequestTransfer;
 
 /**
  * Interface ErpOrderPageSearchClientInterface
@@ -12,7 +13,7 @@ use Generated\Shared\Transfer\ErpOrderCollectionTransfer;
 interface ErpOrderPageSearchClientInterface
 {
     /**
-     * @param  \Generated\Shared\Transfer\ErpOrderPageSearchRequestTransfer  $request
+     * @param \Generated\Shared\Transfer\ErpOrderPageSearchRequestTransfer $request
      *
      * @return \Generated\Shared\Transfer\ErpOrderCollectionTransfer
      */
@@ -31,5 +32,5 @@ interface ErpOrderPageSearchClientInterface
      *
      * @return array
      */
-    public function search(string $searchString, array $requestParameters = []): array;
+    public function search(string $searchString, array $requestParameters = []);
 }

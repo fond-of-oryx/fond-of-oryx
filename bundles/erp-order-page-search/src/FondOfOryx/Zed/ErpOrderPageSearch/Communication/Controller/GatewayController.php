@@ -1,4 +1,5 @@
 <?php
+
 namespace FondOfOryx\Zed\ErpOrderPageSearch\Communication\Controller;
 
 use Generated\Shared\Transfer\ErpOrderCollectionTransfer;

@@ -27,21 +27,21 @@
         "reference": {
           "type": "keyword"
         },
-        "fk-company-user": {
+        "id-company-user": {
           "type": "integer"
         },
-        "company-user-id": {
+        "company-user-reference": {
+          "type": "keyword"
+        },
+        "id-company-business-unit": {
           "type": "integer"
         },
-        "fk-company-business-unit": {
-          "type": "integer"
-        },
-        "company-business-unit-id": {
-          "type": "string"
+        "company-business-unit-uuid": {
+          "type": "keyword"
         },
         "concrete-delivery-date": {
           "type": "date",
-          "format": "yyyy-MM-dd HH:mm:ss.SSSSSS"
+          "format": "yyyy-MM-dd HH:mm:ss.SSSSSS||yyyy-MM-dd HH:mm:ss||yyyy-MM-dd HH:mm:ss.SSSSSSZ"
         }
       }
     }
