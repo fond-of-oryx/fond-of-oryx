@@ -4,11 +4,18 @@
            xsi:schemaLocation="spryker:transfer-01 http://static.spryker.com/transfer-01.xsd">
 
     <transfer name="ErpOrderPageSearchRequest">
-        <property name="companyBusinessUnitId" type="string"/>
-        <property name="externalReference" type="string"/>
         <property name="includes" singular="include" type="array"/>
         <property name="requestParams" singular="requestParam" type="array"/>
         <property name="searchString" type="string"/>
+        <property name="filters" singular="filter" type="array"/>
+        <property name="offset" type="int"/>
+        <property name="limit" type="int"/>
+    </transfer>
+
+    <transfer name="ErpOrderPageSearchFilter">
+        <property name="resource" type="string"/>
+        <property name="value" type="string"/>
+        <property name="field" type="string"/>
     </transfer>
 
     <transfer name="ErpOrderCollection">

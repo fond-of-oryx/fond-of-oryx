@@ -13,9 +13,7 @@ class ErpOrderPageSearchToCustomerClientBridge implements ErpOrderPageSearchToCu
     protected $client;
 
     /**
-     * ErpOrderPageSearchToUserClientBridge constructor.
-     *
-     * @param  \Spryker\Client\Customer\CustomerClientInterface  $client
+     * @param \Spryker\Client\Customer\CustomerClientInterface $client
      */
     public function __construct(CustomerClientInterface $client)
     {

@@ -12,9 +12,7 @@ class ErpOrderPageSearchToSessionClientBridge implements ErpOrderPageSearchToSes
     protected $client;
 
     /**
-     * ErpOrderPageSearchToSessionClientBridge constructor.
-     *
-     * @param  \Spryker\Client\Session\SessionClientInterface  $client
+     * @param \Spryker\Client\Session\SessionClientInterface $client
      */
     public function __construct(SessionClientInterface $client)
     {

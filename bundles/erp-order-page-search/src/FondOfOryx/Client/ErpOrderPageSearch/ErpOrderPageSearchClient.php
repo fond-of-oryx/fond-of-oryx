@@ -5,8 +5,6 @@ namespace FondOfOryx\Client\ErpOrderPageSearch;
 use FondOfOryx\Client\ErpOrderPageSearch\Zed\ErpOrderPageSearchStubInterface;
 use FondOfOryx\Client\ErpOrderPermission\Plugin\Permission\SeeErpOrdersPermissionPlugin;
 use Generated\Shared\Transfer\CustomerTransfer;
-use Generated\Shared\Transfer\ErpOrderCollectionTransfer;
-use Generated\Shared\Transfer\ErpOrderPageSearchRequestTransfer;
 use Spryker\Client\Kernel\AbstractClient;
 use Spryker\Client\Kernel\PermissionAwareTrait;
 
@@ -26,28 +24,18 @@ class ErpOrderPageSearchClient extends AbstractClient implements ErpOrderPageSea
     }
 
     /**
-     * @param  \Generated\Shared\Transfer\ErpOrderPageSearchRequestTransfer  $request
-     *
-     * @return \Generated\Shared\Transfer\ErpOrderCollectionTransfer
-     */
-    public function findErpOrdersByFilterTransfer(ErpOrderPageSearchRequestTransfer $request
-    ): ErpOrderCollectionTransfer {
-        return $this->getZedStub()->findErpOrdersByFilterTransfer($request);
-    }
-
-    /**
      * {@inheritDoc}
      *
-     * @param  string  $searchString
-     * @param  array  $requestParameters
-     *
-     * @return array
      * @api
      *
+     * @param string $searchString
+     * @param array $requestParameters
+     *
+     * @return array
      */
     public function search(string $searchString, array $requestParameters = [])
     {
-        if ($this->canSeeErpOrders() === false){
+        if ($this->canSeeErpOrders() === false) {
             return [];
         }
 
@@ -75,8 +63,10 @@ class ErpOrderPageSearchClient extends AbstractClient implements ErpOrderPageSea
      */
     protected function canSeeErpOrders(): bool
     {
-        return $this->can(SeeErpOrdersPermissionPlugin::KEY,
-            $this->getCustomer()->getCompanyUserTransfer()->getFkCompany());
+        return $this->can(
+            SeeErpOrdersPermissionPlugin::KEY,
+            $this->getCustomer()->getCompanyUserTransfer()->getFkCompany()
+        );
     }
 
     /**

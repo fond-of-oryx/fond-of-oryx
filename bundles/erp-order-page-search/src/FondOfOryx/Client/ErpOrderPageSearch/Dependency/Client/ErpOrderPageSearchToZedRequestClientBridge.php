@@ -13,9 +13,7 @@ class ErpOrderPageSearchToZedRequestClientBridge implements ErpOrderPageSearchTo
     protected $client;
 
     /**
-     * ErpOrderPageSearchToZedRequestClientBridge constructor.
-     *
-     * @param  \Spryker\Client\ZedRequest\ZedRequestClientInterface  $client
+     * @param \Spryker\Client\ZedRequest\ZedRequestClientInterface $client
      */
     public function __construct(ZedRequestClientInterface $client)
     {
@@ -29,13 +27,13 @@ class ErpOrderPageSearchToZedRequestClientBridge implements ErpOrderPageSearchTo
      * Third argument has changed from int to array. BC compatibility method will
      * convert the previous accepted integer to `['timeout => $timeoutInSeconds]`
      *
-     * @param  string  $url
-     * @param  \Spryker\Shared\Kernel\Transfer\TransferInterface  $object
-     * @param  array|null  $requestOptions  Deprecated: Do not use "int" anymore, please use an array for requestOptions.
-     *
-     * @return \Spryker\Shared\Kernel\Transfer\TransferInterface
      * @api
      *
+     * @param string $url
+     * @param \Spryker\Shared\Kernel\Transfer\TransferInterface $object
+     * @param array|null $requestOptions Deprecated: Do not use "int" anymore, please use an array for requestOptions.
+     *
+     * @return \Spryker\Shared\Kernel\Transfer\TransferInterface
      */
     public function call(string $url, TransferInterface $object, ?array $requestOptions = null): TransferInterface
     {

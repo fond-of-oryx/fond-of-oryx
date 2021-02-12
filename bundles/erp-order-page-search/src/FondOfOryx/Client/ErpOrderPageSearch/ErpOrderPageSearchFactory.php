@@ -24,7 +24,6 @@ class ErpOrderPageSearchFactory extends AbstractFactory
 {
     /**
      * @return \FondOfOryx\Client\ErpOrderPageSearch\Zed\ErpOrderPageSearchStubInterface
-     * @throws \Spryker\Client\Kernel\Exception\Container\ContainerKeyNotFoundException
      */
     public function createZedStub(): ErpOrderPageSearchStubInterface
     {
@@ -49,7 +48,6 @@ class ErpOrderPageSearchFactory extends AbstractFactory
 
     /**
      * @return \FondOfOryx\Client\ErpOrderPageSearch\Dependency\Client\ErpOrderPageSearchToZedRequestClientInterface
-     * @throws \Spryker\Client\Kernel\Exception\Container\ContainerKeyNotFoundException
      */
     protected function getZedRequestClient(): ErpOrderPageSearchToZedRequestClientInterface
     {
@@ -58,7 +56,6 @@ class ErpOrderPageSearchFactory extends AbstractFactory
 
     /**
      * @return \FondOfOryx\Client\ErpOrderPageSearch\Dependency\Client\ErpOrderPageSearchToSessionClientInterface
-     * @throws \Spryker\Client\Kernel\Exception\Container\ContainerKeyNotFoundException
      */
     protected function getSessionClient(): ErpOrderPageSearchToSessionClientInterface
     {
@@ -67,7 +64,6 @@ class ErpOrderPageSearchFactory extends AbstractFactory
 
     /**
      * @return \FondOfOryx\Client\ErpOrderPageSearch\Dependency\Client\ErpOrderPageSearchToCustomerClientInterface
-     * @throws \Spryker\Client\Kernel\Exception\Container\ContainerKeyNotFoundException
      */
     public function getCustomerClient(): ErpOrderPageSearchToCustomerClientInterface
     {
@@ -76,7 +72,6 @@ class ErpOrderPageSearchFactory extends AbstractFactory
 
     /**
      * @return \FondOfOryx\Client\ErpOrderPageSearch\Dependency\Client\ErpOrderPageSearchToCompanyUserClientInterface
-     * @throws \Spryker\Client\Kernel\Exception\Container\ContainerKeyNotFoundException
      */
     public function getCompanyUserClient(): ErpOrderPageSearchToCompanyUserClientInterface
     {
