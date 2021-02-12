@@ -10,7 +10,12 @@ class ErpOrderPageSearchRestApiDependencyProvider extends AbstractBundleDependen
 {
     public const CLIENT_ERP_ORDER_PAGE_SEARCH = 'CLIENT_ERP_ORDER_PAGE_SEARCH';
 
-    public function provideDependencies(Container $container)
+    /**
+     * @param \Spryker\Glue\Kernel\Container $container
+     *
+     * @return \Spryker\Glue\Kernel\Container
+     */
+    public function provideDependencies(Container $container): Container
     {
         $container = parent::provideDependencies($container);
         $container = $this->addErpOrderPageSearchClient($container);
@@ -19,7 +24,7 @@ class ErpOrderPageSearchRestApiDependencyProvider extends AbstractBundleDependen
     }
 
     /**
-     * @param  \Spryker\Glue\Kernel\Container  $container
+     * @param \Spryker\Glue\Kernel\Container $container
      *
      * @return \Spryker\Glue\Kernel\Container
      */

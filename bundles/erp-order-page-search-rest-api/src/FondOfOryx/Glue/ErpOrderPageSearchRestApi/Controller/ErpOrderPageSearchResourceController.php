@@ -12,10 +12,9 @@ use Spryker\Glue\Kernel\Controller\AbstractController;
 class ErpOrderPageSearchResourceController extends AbstractController
 {
     /**
-     * @param  \Spryker\Glue\GlueApplication\Rest\Request\Data\RestRequestInterface  $restRequest
+     * @param \Spryker\Glue\GlueApplication\Rest\Request\Data\RestRequestInterface $restRequest
      *
      * @return \Spryker\Glue\GlueApplication\Rest\JsonApi\RestResponseInterface
-     * @throws \Spryker\Glue\Kernel\Exception\Container\ContainerKeyNotFoundException
      */
     public function getAction(RestRequestInterface $restRequest): RestResponseInterface
     {

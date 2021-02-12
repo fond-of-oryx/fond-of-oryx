@@ -8,4 +8,24 @@
         <property name="externalReference" type="string" />
     </transfer>
 
+    <transfer name="RestErpOrderPageSearchCollectionResponse">
+        <property name="erpOrders" singular="erpOrder" type="ErpOrder[]"/>
+        <property name="pagination" type="RestErpOrderPageSearchPagination"/>
+        <property name="sort" type="RestErpOrderPageSearchPaginationSort"/>
+    </transfer>
+
+    <transfer name="RestErpOrderPageSearchPagination">
+        <property name="numFound" type="int" />
+        <property name="currentPage" type="int" />
+        <property name="maxPage" type="int" />
+        <property name="currentItemsPerPage" type="int" />
+    </transfer>
+
+    <transfer name="RestErpOrderPageSearchPaginationSort">
+        <property name="sortParamNames" type="array" singular="sortParamNames"/>
+        <property name="sortParamLocalizedNames" type="array" singular="sortParamLocalizedNames"/>
+        <property name="currentSortParam" type="string"/>
+        <property name="currentSortOrder" type="string"/>
+    </transfer>
+
 </transfers>
