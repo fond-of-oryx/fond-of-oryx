@@ -16,14 +16,6 @@ class ErpOrderPageSearchClient extends AbstractClient implements ErpOrderPageSea
     use PermissionAwareTrait;
 
     /**
-     * @return \FondOfOryx\Client\ErpOrderPageSearch\Zed\ErpOrderPageSearchStubInterface
-     */
-    protected function getZedStub(): ErpOrderPageSearchStubInterface
-    {
-        return $this->getFactory()->createZedStub();
-    }
-
-    /**
      * {@inheritDoc}
      *
      * @api
