@@ -3,23 +3,34 @@
 namespace FondOfOryx\Zed\ErpOrderPageSearch\Communication\Plugin\Event\Listener;
 
 use Codeception\Test\Unit;
+use FondOfOryx\Zed\ErpOrder\Dependency\ErpOrderEvents;
+use FondOfOryx\Zed\ErpOrderPageSearch\Business\ErpOrderPageSearchFacade;
+use FondOfOryx\Zed\ErpOrderPageSearch\Business\ErpOrderPageSearchFacadeInterface;
+use FondOfOryx\Zed\ErpOrderPageSearch\Communication\ErpOrderPageSearchCommunicationFactory;
+use FondOfOryx\Zed\ErpOrderPageSearch\Dependency\Facade\ErpOrderPageSearchToEventBehaviorFacadeInterface;
 
 class ErpOrderPageSearchListenerTest extends Unit
 {
     /**
-     * @var \PHPUnit\Framework\MockObject\MockObject|\FondOfOryx\Zed\ErpOrderPageSearch\ErpOrderPageSearchConfig
+     * @var \FondOfOryx\Zed\ErpOrderPageSearch\Communication\Plugin\Event\Listener\ErpOrderPageSearchListener
      */
-    protected $configMock;
+    protected $erpOrderPageSearchListener;
 
     /**
-     * @var \FondOfOryx\Zed\ErpOrderPageSearch\Communication\Plugin\Event\Subscriber\ErpOrderPageSearchEventSubscriber
+     * @var \PHPUnit\Framework\MockObject\MockObject|\FondOfOryx\Zed\ErpOrderPageSearch\Dependency\Facade\ErpOrderPageSearchToEventBehaviorFacadeInterface
      */
-    protected $erpOrderPageSearchEventSubscriber;
+    protected $erpOrderPageSearchToEventBehaviorFacadeMock;
 
     /**
-     * @var \PHPUnit\Framework\MockObject\MockObject|\Spryker\Zed\Event\Dependency\EventCollectionInterface
+     * @var \PHPUnit\Framework\MockObject\MockObject|\FondOfOryx\Zed\ErpOrderPageSearch\Communication\ErpOrderPageSearchCommunicationFactory
      */
-    protected $eventCollectionMock;
+    protected $erpOrderPageSearchCommunicationFactoryMock;
+
+    /**
+     * @var \PHPUnit\Framework\MockObject\MockObject|\FondOfOryx\Zed\ErpOrderPageSearch\Business\ErpOrderPageSearchFacadeInterface
+     */
+    protected $erpOrderPageSearchFacadeMock;
+
 
     /**
      * @return void
@@ -28,16 +39,21 @@ class ErpOrderPageSearchListenerTest extends Unit
     {
         parent::_before();
 
-        $this->configMock = $this->getMockBuilder(ErpOrderPageSearchConfig::class)
+        $this->erpOrderPageSearchCommunicationFactoryMock = $this->getMockBuilder(ErpOrderPageSearchCommunicationFactory::class)
             ->disableOriginalConstructor()
             ->getMock();
 
-        $this->eventCollectionMock = $this->getMockBuilder(EventCollectionInterface::class)
+        $this->erpOrderPageSearchFacadeMock = $this->getMockBuilder(ErpOrderPageSearchFacade::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $this->erpOrderPageSearchToEventBehaviorFacadeMock = $this->getMockBuilder(ErpOrderPageSearchToEventBehaviorFacadeInterface::class)
             ->disableOriginalConstructor()
             ->getMock();
 
         $this->erpOrderPageSearchListener = new ErpOrderPageSearchListener();
-        $this->erpOrderPageSearchEventSubscriber->setConfig($this->configMock);
+        $this->erpOrderPageSearchListener->setFactory($this->erpOrderPageSearchCommunicationFactoryMock);
+        $this->erpOrderPageSearchListener->setFacade($this->erpOrderPageSearchFacadeMock);
     }
 
     /**
@@ -45,9 +61,23 @@ class ErpOrderPageSearchListenerTest extends Unit
      */
     public function testGetSubscribedEvents()
     {
-        $this->assertInstanceOf(
-            EventCollectionInterface::class,
-            $this->erpOrderPageSearchEventSubscriber->getSubscribedEvents($this->eventCollectionMock)
+        $transfers = [];
+
+        $this->erpOrderPageSearchCommunicationFactoryMock->expects(static::atLeastOnce())
+            ->method('getEventBehaviorFacade')
+            ->willReturn($this->erpOrderPageSearchToEventBehaviorFacadeMock);
+
+        $this->erpOrderPageSearchToEventBehaviorFacadeMock->expects(static::atLeastOnce())
+            ->method('getEventTransferIds')
+            ->with($transfers)
+            ->willReturn([]);
+
+        $this->erpOrderPageSearchFacadeMock->expects(static::atLeastOnce())
+            ->method('publish');
+
+        $this->erpOrderPageSearchListener->handleBulk(
+            $transfers,
+            ErpOrderEvents::ERP_ORDER_PUBLISH
         );
     }
 }
