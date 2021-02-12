@@ -2,9 +2,6 @@
 
 namespace FondOfOryx\Client\ErpOrderPageSearch;
 
-use Generated\Shared\Transfer\ErpOrderCollectionTransfer;
-use Generated\Shared\Transfer\ErpOrderPageSearchRequestTransfer;
-
 /**
  * Interface ErpOrderPageSearchClientInterface
  *
@@ -12,13 +9,6 @@ use Generated\Shared\Transfer\ErpOrderPageSearchRequestTransfer;
  */
 interface ErpOrderPageSearchClientInterface
 {
-    /**
-     * @param \Generated\Shared\Transfer\ErpOrderPageSearchRequestTransfer $request
-     *
-     * @return \Generated\Shared\Transfer\ErpOrderCollectionTransfer
-     */
-    public function findErpOrdersByFilterTransfer(ErpOrderPageSearchRequestTransfer $request): ErpOrderCollectionTransfer;
-
     /**
      * Specification:
      * - A query based on the given search string and request parameters will be executed

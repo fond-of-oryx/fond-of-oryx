@@ -14,7 +14,7 @@ class RequestBuilder implements RequestBuilderInterface
     protected $requestTransfer;
 
     /**
-     * @param  \Spryker\Glue\GlueApplication\Rest\Request\Data\RestRequestInterface  $restRequest
+     * @param \Spryker\Glue\GlueApplication\Rest\Request\Data\RestRequestInterface $restRequest
      *
      * @return \Generated\Shared\Transfer\ErpOrderPageSearchRequestTransfer
      */
@@ -30,39 +30,44 @@ class RequestBuilder implements RequestBuilderInterface
     }
 
     /**
-     * @param  \Spryker\Glue\GlueApplication\Rest\Request\Data\RestRequestInterface  $restRequest
+     * @param \Spryker\Glue\GlueApplication\Rest\Request\Data\RestRequestInterface $restRequest
      *
      * @return \Generated\Shared\Transfer\ErpOrderPageSearchRequestTransfer
      */
     protected function addFilterFromRestRequest(RestRequestInterface $restRequest): ErpOrderPageSearchRequestTransfer
     {
-        foreach ($restRequest->getHttpRequest()->query->all() as $filter => $filterValue) {
-            if (strpos($filter, ErpOrderPageSearchRestApiConfig::FILTER_PREFIX) === 0) {
-                $filter = str_replace(ErpOrderPageSearchRestApiConfig::FILTER_PREFIX, '', $filter);
-                $function = sprintf('set%s', implode('', array_map('ucfirst', explode('-', $filter))));
-                if (method_exists($this->requestTransfer, $function)) {
-                    $this->requestTransfer->{$function}($filterValue);
-                }
+        $filterCollection = [];
+        foreach ($restRequest->getFilters() as $filterName => $filters) {
+            foreach ($filters as $filter) {
+                $filterCollection[$filterName][] = [
+                    'resource' => $filter->getResource(),
+                    'value' => $filter->getValue(),
+                    'field' => $filter->getField(),
+                ];
             }
         }
+        $this->requestTransfer->setFilters($filterCollection);
+
         return $this->requestTransfer;
     }
 
     /**
-     * @param  \Spryker\Glue\GlueApplication\Rest\Request\Data\RestRequestInterface  $restRequest
-     * @param  string  $parameterName
+     * @param \Spryker\Glue\GlueApplication\Rest\Request\Data\RestRequestInterface $restRequest
+     * @param string $parameterName
      *
      * @return \Generated\Shared\Transfer\ErpOrderPageSearchRequestTransfer
      */
-    protected function addRequestParameter(RestRequestInterface $restRequest, string $parameterName = ErpOrderPageSearchRestApiConfig::QUERY_STRING_PARAMETER): ErpOrderPageSearchRequestTransfer
-    {
+    protected function addRequestParameter(
+        RestRequestInterface $restRequest,
+        string $parameterName = ErpOrderPageSearchRestApiConfig::QUERY_STRING_PARAMETER
+    ): ErpOrderPageSearchRequestTransfer {
         $this->requestTransfer->setSearchString($restRequest->getHttpRequest()->query->get($parameterName, ''));
 
         return $this->requestTransfer;
     }
 
     /**
-     * @param  \Spryker\Glue\GlueApplication\Rest\Request\Data\RestRequestInterface  $restRequest
+     * @param \Spryker\Glue\GlueApplication\Rest\Request\Data\RestRequestInterface $restRequest
      *
      * @return \Generated\Shared\Transfer\ErpOrderPageSearchRequestTransfer
      */
@@ -84,6 +89,7 @@ class RequestBuilder implements RequestBuilderInterface
     protected function createRequest(): ErpOrderPageSearchRequestTransfer
     {
         $this->requestTransfer = new ErpOrderPageSearchRequestTransfer();
+
         return $this->requestTransfer;
     }
 }

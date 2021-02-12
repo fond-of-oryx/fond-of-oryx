@@ -95,10 +95,9 @@ class ErpOrderPageSearchDataMapper implements ErpOrderPageSearchDataMapperInterf
     }
 
     /**
-     * @param  string|null  $deliveryDate
+     * @param string|null $deliveryDate
      *
      * @return string|null
-     * @throws \Exception
      */
     protected function getConcreteDeliveryDate(?string $deliveryDate): ?string
     {

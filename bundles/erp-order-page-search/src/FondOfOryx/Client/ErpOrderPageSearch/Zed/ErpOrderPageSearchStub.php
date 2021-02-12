@@ -20,9 +20,7 @@ class ErpOrderPageSearchStub extends ZedRequestStub implements ErpOrderPageSearc
     protected $zedStub;
 
     /**
-     * ErpOrderPageSearchStub constructor.
-     *
-     * @param  \FondOfOryx\Client\ErpOrderPageSearch\Dependency\Client\ErpOrderPageSearchToZedRequestClientInterface  $zedStub
+     * @param \FondOfOryx\Client\ErpOrderPageSearch\Dependency\Client\ErpOrderPageSearchToZedRequestClientInterface $zedStub
      */
     public function __construct(ErpOrderPageSearchToZedRequestClientInterface $zedStub)
     {

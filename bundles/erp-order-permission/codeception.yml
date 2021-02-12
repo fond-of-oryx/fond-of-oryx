@@ -1,4 +1,4 @@
-namespace: fond-of-oryx/erp-order-page-search-rest-api
+namespace: fond-of-oryx/erp-order-permission
 
 suites:
   unit:

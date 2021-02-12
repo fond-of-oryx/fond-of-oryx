@@ -28,7 +28,7 @@ class ErpOrderPageSearchDependencyProvider extends AbstractDependencyProvider
     public const PLUGINS_SEARCH_QUERY_EXPANDER = 'PLUGINS_SEARCH_QUERY_EXPANDER';
 
     /**
-     * @param  \Spryker\Client\Kernel\Container  $container
+     * @param \Spryker\Client\Kernel\Container $container
      *
      * @return \Spryker\Client\Kernel\Container
      */
@@ -47,7 +47,7 @@ class ErpOrderPageSearchDependencyProvider extends AbstractDependencyProvider
     }
 
     /**
-     * @param  \Spryker\Client\Kernel\Container  $container
+     * @param \Spryker\Client\Kernel\Container $container
      *
      * @return \Spryker\Client\Kernel\Container
      */
@@ -63,9 +63,9 @@ class ErpOrderPageSearchDependencyProvider extends AbstractDependencyProvider
     }
 
     /**
-     * @param  \Spryker\Client\Kernel\Container  $container
+     * @param \Spryker\Client\Kernel\Container $container
      *
-     * @return void
+     * @return \Spryker\Client\Kernel\Container
      */
     protected function addZedRequestClient(Container $container): Container
     {
@@ -77,9 +77,9 @@ class ErpOrderPageSearchDependencyProvider extends AbstractDependencyProvider
     }
 
     /**
-     * @param  \Spryker\Client\Kernel\Container  $container
+     * @param \Spryker\Client\Kernel\Container $container
      *
-     * @return void
+     * @return \Spryker\Client\Kernel\Container
      */
     protected function addCustomerClient(Container $container): Container
     {
@@ -91,9 +91,9 @@ class ErpOrderPageSearchDependencyProvider extends AbstractDependencyProvider
     }
 
     /**
-     * @param  \Spryker\Client\Kernel\Container  $container
+     * @param \Spryker\Client\Kernel\Container $container
      *
-     * @return void
+     * @return \Spryker\Client\Kernel\Container
      */
     protected function addCompanyUserClient(Container $container): Container
     {
@@ -105,9 +105,9 @@ class ErpOrderPageSearchDependencyProvider extends AbstractDependencyProvider
     }
 
     /**
-     * @param  \Spryker\Client\Kernel\Container  $container
+     * @param \Spryker\Client\Kernel\Container $container
      *
-     * @return void
+     * @return \Spryker\Client\Kernel\Container
      */
     private function addSessionClient(Container $container): Container
     {
@@ -119,7 +119,7 @@ class ErpOrderPageSearchDependencyProvider extends AbstractDependencyProvider
     }
 
     /**
-     * @param  \Spryker\Client\Kernel\Container  $container
+     * @param \Spryker\Client\Kernel\Container $container
      *
      * @return \Spryker\Client\Kernel\Container
      */
@@ -133,7 +133,7 @@ class ErpOrderPageSearchDependencyProvider extends AbstractDependencyProvider
     }
 
     /**
-     * @param  \Spryker\Client\Kernel\Container  $container
+     * @param \Spryker\Client\Kernel\Container $container
      *
      * @return \Spryker\Client\Kernel\Container
      */

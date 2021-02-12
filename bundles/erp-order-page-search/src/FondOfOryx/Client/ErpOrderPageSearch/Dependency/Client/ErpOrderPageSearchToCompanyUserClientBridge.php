@@ -14,9 +14,7 @@ class ErpOrderPageSearchToCompanyUserClientBridge implements ErpOrderPageSearchT
     protected $client;
 
     /**
-     * ErpOrderPageSearchToCompanyUserClientBridge constructor.
-     *
-     * @param  \Spryker\Client\CompanyUser\CompanyUserClientInterface  $client
+     * @param \Spryker\Client\CompanyUser\CompanyUserClientInterface $client
      */
     public function __construct(CompanyUserClientInterface $client)
     {
@@ -36,8 +34,7 @@ class ErpOrderPageSearchToCompanyUserClientBridge implements ErpOrderPageSearchT
      */
     public function getActiveCompanyUsersByCustomerReference(
         CustomerTransfer $customerTransfer
-    ): CompanyUserCollectionTransfer
-    {
+    ): CompanyUserCollectionTransfer {
         return $this->client->getActiveCompanyUsersByCustomerReference($customerTransfer);
     }
 }
