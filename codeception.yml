@@ -5,6 +5,7 @@ include:
   - bundles/customer-statistics-rest-api
   - bundles/erp-order-api
   - bundles/erp-order
+  - bundles/erp-order-page-search
   - bundles/mail-bcc
   - bundles/sales-locale-connector
   - bundles/tax-calculation-connector
