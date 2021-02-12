@@ -4,6 +4,8 @@ namespace FondOfOryx\Zed\ErpOrderPageSearch\Business;
 
 use Codeception\Test\Unit;
 use FondOfOryx\Zed\ErpOrderPageSearch\Business\Publisher\ErpOrderPageSearchPublisher;
+use FondOfOryx\Zed\ErpOrderPageSearch\Business\Publisher\ErpOrderPageSearchPublisherInterface;
+use FondOfOryx\Zed\ErpOrderPageSearch\Business\UnPublisher\ErpOrderPageSearchUnpublisherInterface;
 use FondOfOryx\Zed\ErpOrderPageSearch\Dependency\Service\ErpOrderPageSearchToUtilEncodingServiceInterface;
 use FondOfOryx\Zed\ErpOrderPageSearch\ErpOrderPageSearchDependencyProvider;
 use FondOfOryx\Zed\ErpOrderPageSearch\Persistence\ErpOrderPageSearchEntityManager;
@@ -80,9 +82,20 @@ class ErpOrderPageSearchBusinessFactoryTest extends Unit
             ->willReturn($this->erpOrderPageSearchToUtilEncodingServiceMock);
 
         $this->assertInstanceOf(
-            ErpOrderPageSearchPublisher::class,
+            ErpOrderPageSearchPublisherInterface::class,
             $this->erpOrderPageSearchBusinessFactory->createErpOrderPageSearchPublisher()
         );
 
+    }
+
+    /**
+     * @return void
+     */
+    public function testCreateErpOrderPageSearchUnPublisher()
+    {
+        $this->assertInstanceOf(
+            ErpOrderPageSearchUnpublisherInterface::class,
+            $this->erpOrderPageSearchBusinessFactory->createErpOrderPageSearchUnPublisher()
+        );
     }
 }
