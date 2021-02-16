@@ -6,7 +6,6 @@ use Codeception\Test\Unit;
 use FondOfOryx\Zed\ErpOrderPageSearch\Persistence\ErpOrderPageSearchPersistenceFactory;
 use FondOfOryx\Zed\ErpOrderPageSearch\Persistence\ErpOrderPageSearchRepository;
 use Generated\Shared\Transfer\FilterTransfer;
-use Generated\Shared\Transfer\FooErpOrderPageSearchEntityTransfer;
 use Orm\Zed\ErpOrderPageSearch\Persistence\FooErpOrderPageSearchQuery;
 
 class ErpOrderPageSearchRepositoryTest extends Unit
@@ -75,5 +74,4 @@ class ErpOrderPageSearchRepositoryTest extends Unit
 
         $this->assertIsArray($searchEntities);*/
     }
-
 }

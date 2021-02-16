@@ -109,5 +109,4 @@ class ErpOrderPageSearchPersistenceFactoryTest extends Unit
             $this->erpOrderPageSearchPersistenceFactory->getErpOrderQuery()
         );
     }
-
 }
