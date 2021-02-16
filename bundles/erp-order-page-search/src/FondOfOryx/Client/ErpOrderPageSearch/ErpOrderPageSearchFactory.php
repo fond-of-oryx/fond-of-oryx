@@ -23,14 +23,6 @@ use Spryker\Client\SearchExtension\Dependency\Plugin\SearchStringSetterInterface
 class ErpOrderPageSearchFactory extends AbstractFactory
 {
     /**
-     * @return \FondOfOryx\Client\ErpOrderPageSearch\Zed\ErpOrderPageSearchStubInterface
-     */
-    public function createZedStub(): ErpOrderPageSearchStubInterface
-    {
-        return new ErpOrderPageSearchStub($this->getZedRequestClient());
-    }
-
-    /**
      * @param string $searchString
      *
      * @return \Spryker\Client\SearchExtension\Dependency\Plugin\QueryInterface

@@ -66,7 +66,7 @@ class ErpOrderPageSearchPublisher implements ErpOrderPageSearchPublisherInterfac
         $fooErpOrderEntities = $this->queryContainer->queryErpOrderWithAddressesAndCompanyBusinessUnitAndCompanyUserByErpOrderIds($erpOrderIds)->find()
             ->getData();
 
-        if (count($fooErpOrderEntities) > 0) {
+        if (count($erpOrderIds) > 0) {
             $this->entityManager->deleteErpOrderSearchPagesByErpOrderIds(
                 $erpOrderIds
             );
