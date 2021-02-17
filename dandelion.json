@@ -1,5 +1,10 @@
 {
     "repositories": {
+        "availability-alert": {
+            "url": "https://<GITHUB_TOKEN>@github.com/fond-of-oryx/availability-alert.git",
+            "path": "bundles/availability-alert/",
+            "version": "1.0.0"
+        },
         "customer-statistic": {
             "url": "https://<GITHUB_TOKEN>@github.com/fond-of-oryx/customer-statistic.git",
             "path": "bundles/customer-statistic/",
@@ -33,6 +38,11 @@
         "tax-calculation-connector": {
             "url": "https://<GITHUB_TOKEN>@github.com/fond-of-oryx/tax-calculation-connector.git",
             "path": "bundles/tax-calculation-connector/",
+            "version": "1.0.0"
+        },
+        "mail": {
+            "url": "https://<GITHUB_TOKEN>@github.com/fond-of-oryx/mail.git",
+            "path": "bundles/mail/",
             "version": "1.0.0"
         },
         "mail-bcc": {

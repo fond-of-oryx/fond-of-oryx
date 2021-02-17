@@ -1,0 +1,24 @@
+{% extends template('widget') %}
+
+{% define data = {
+    availabilityAlertFormWidget: _widget.availabilityAlertFormWidget
+} %}
+
+{% block body %}
+    {{ form_start(data.availabilityAlertFormWidget, {'action': path('availability-alert/widget/submit'), 'method': 'POST', 'attr': {'class': 'roduct-view__form--alert form-inline', 'id': 'form-product-alert' }}) }}
+        <div class="product-detail-notification__form">
+            <p class="product-detail-notification__form-headline    ">{{ 'availibility_alert.notifyIfIAavailable' | trans }}</p>
+
+            <div class="form__fieldset">
+                <div class="form__field form__field--input">
+                    {{ form_widget(data.availabilityAlertFormWidget.email, {'attr': {'class': 'form-control form__input input-text required-entry validate-email', 'placeholder': 'availibility_alert.input.placeholder' | trans }}) }}
+                </div>
+                <div class="form__field form__field--btn">
+                    <button type="submit" class="btn btn--alert form__btn">{{ 'availibility_alert.submit' | trans }}</button>
+                </div>
+
+            </div>
+        </div>
+        {{ form_errors(data.availabilityAlertFormWidget.email) }}
+    {{ form_end(data.availabilityAlertFormWidget) }}
+{% endblock %}
