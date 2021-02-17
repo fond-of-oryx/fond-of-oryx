@@ -162,6 +162,5 @@ class ErpOrderPageSearchDependencyProviderTest extends Unit
             FooErpOrderPageSearchQuery::class,
             $this->containerMock[ErpOrderPageSearchDependencyProvider::QUERY_ERP_ORDER_PAGE_SEARCH]
         );
-
     }
 }

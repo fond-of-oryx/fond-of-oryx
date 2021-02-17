@@ -3,7 +3,6 @@
 namespace FondOfOryx\Zed\ErpOrderPageSearch\Dependency\Service;
 
 use Codeception\Test\Unit;
-use FondOfOryx\Zed\ErpOrderPageSearch\Dependency\Service\ErpOrderPageSearchToUtilEncodingServiceBridge;
 use Spryker\Service\UtilEncoding\UtilEncodingServiceInterface;
 
 class ErpOrderPageSearchToUtilEncodingServiceBridgeTest extends Unit
@@ -57,8 +56,8 @@ class ErpOrderPageSearchToUtilEncodingServiceBridgeTest extends Unit
      */
     public function testDecodeJson(): void
     {
-        $value = "A string!";
-        $decodedJson = ["A string!"];
+        $value = 'A string!';
+        $decodedJson = ['A string!'];
 
         $this->utilEncodingServiceMock->expects(static::atLeastOnce())
             ->method('decodeJson')
@@ -70,4 +69,3 @@ class ErpOrderPageSearchToUtilEncodingServiceBridgeTest extends Unit
         );
     }
 }
-

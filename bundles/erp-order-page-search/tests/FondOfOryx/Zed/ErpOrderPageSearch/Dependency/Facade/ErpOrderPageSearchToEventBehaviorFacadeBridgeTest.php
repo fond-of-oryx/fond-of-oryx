@@ -3,7 +3,6 @@
 namespace FondOfOryx\Zed\ErpOrderPageSearch\Dependency\Facade;
 
 use Codeception\Test\Unit;
-use FondOfOryx\Zed\ErpOrderPageSearch\Dependency\Service\ErpOrderPageSearchToUtilEncodingServiceBridge;
 use Spryker\Zed\EventBehavior\Business\EventBehaviorFacadeInterface;
 
 class ErpOrderPageSearchToEventBehaviorFacadeBridgeTest extends Unit
@@ -50,4 +49,3 @@ class ErpOrderPageSearchToEventBehaviorFacadeBridgeTest extends Unit
         );
     }
 }
-

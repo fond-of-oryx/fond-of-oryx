@@ -71,8 +71,9 @@ class ErpOrderPageSearchQueryContainerTest extends Unit
         $this->assertInstanceOf(ErpOrderQuery::class, $erpOrderQuery);
     }
 
+    
     /**
-     * @throws \Spryker\Zed\Kernel\Exception\Container\ContainerKeyNotFoundException
+     * @return void
      */
     public function testQueryErpOrderWithAddressesAndCompanyBusinessUnitAndCompanyUserByErpOrderIds()
     {
@@ -94,5 +95,4 @@ class ErpOrderPageSearchQueryContainerTest extends Unit
 
         $this->assertInstanceOf(ErpOrderQuery::class, $erpOrderQuery);
     }
-
 }
