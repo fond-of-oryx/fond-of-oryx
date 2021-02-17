@@ -1,6 +1,6 @@
 <?php
 
-namespace FondOfOryx\Client\ErporderPageSearch\Dependency\Client;
+namespace FondOfOryx\Client\ErpOrderPageSearch\Dependency\Client;
 
 use Spryker\Client\SearchExtension\Dependency\Plugin\QueryInterface;
 

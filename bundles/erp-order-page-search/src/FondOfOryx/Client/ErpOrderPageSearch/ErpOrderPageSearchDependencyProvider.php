@@ -34,7 +34,8 @@ class ErpOrderPageSearchDependencyProvider extends AbstractDependencyProvider
      */
     public function provideServiceLayerDependencies(Container $container): Container
     {
-        $container = $this->addZedRequestClient($container);
+        $container = parent::provideServiceLayerDependencies($container);
+
         $container = $this->addSessionClient($container);
         $container = $this->addSearchClient($container);
         $container = $this->addCustomerClient($container);
@@ -51,12 +52,10 @@ class ErpOrderPageSearchDependencyProvider extends AbstractDependencyProvider
      *
      * @return \Spryker\Client\Kernel\Container
      */
-    protected function addSearchClient(Container $container): Container
+    private function addSessionClient(Container $container): Container
     {
-        $container[static::CLIENT_SEARCH] = static function (Container $container) {
-            return new ErpOrderPageSearchToSearchClientBridge(
-                $container->getLocator()->search()->client()
-            );
+        $container[static::CLIENT_SESSION] = static function (Container $container) {
+            return new ErpOrderPageSearchToSessionClientBridge($container->getLocator()->session()->client());
         };
 
         return $container;
@@ -67,10 +66,12 @@ class ErpOrderPageSearchDependencyProvider extends AbstractDependencyProvider
      *
      * @return \Spryker\Client\Kernel\Container
      */
-    protected function addZedRequestClient(Container $container): Container
+    protected function addSearchClient(Container $container): Container
     {
-        $container[static::CLIENT_ZED_REQUEST] = static function (Container $container) {
-            return new ErpOrderPageSearchToZedRequestClientBridge($container->getLocator()->zedRequest()->client());
+        $container[static::CLIENT_SEARCH] = static function (Container $container) {
+            return new ErpOrderPageSearchToSearchClientBridge(
+                $container->getLocator()->search()->client()
+            );
         };
 
         return $container;
@@ -104,19 +105,6 @@ class ErpOrderPageSearchDependencyProvider extends AbstractDependencyProvider
         return $container;
     }
 
-    /**
-     * @param \Spryker\Client\Kernel\Container $container
-     *
-     * @return \Spryker\Client\Kernel\Container
-     */
-    private function addSessionClient(Container $container): Container
-    {
-        $container[static::CLIENT_SESSION] = static function (Container $container) {
-            return new ErpOrderPageSearchToSessionClientBridge($container->getLocator()->session()->client());
-        };
-
-        return $container;
-    }
 
     /**
      * @param \Spryker\Client\Kernel\Container $container
