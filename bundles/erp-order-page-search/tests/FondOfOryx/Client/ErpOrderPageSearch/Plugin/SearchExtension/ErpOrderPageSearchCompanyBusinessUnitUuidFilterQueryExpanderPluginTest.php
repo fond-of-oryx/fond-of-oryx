@@ -4,6 +4,8 @@ namespace FondOfOryx\Client\ErpOrderPageSearch\Plugin\SearchExtension;
 
 use ArrayObject;
 use Codeception\Test\Unit;
+use Elastica\Query;
+use Elastica\Query\BoolQuery;
 use FondOfOryx\Client\ErpOrderPageSearch\Dependency\Client\ErpOrderPageSearchToCompanyUserClientInterface;
 use FondOfOryx\Client\ErpOrderPageSearch\Dependency\Client\ErpOrderPageSearchToCustomerClientInterface;
 use FondOfOryx\Client\ErpOrderPageSearch\ErpOrderPageSearchClient;
@@ -17,10 +19,14 @@ use Spryker\Client\SearchExtension\Dependency\Plugin\QueryInterface;
 class ErpOrderPageSearchCompanyBusinessUnitUuidFilterQueryExpanderPluginTest extends Unit
 {
     /**
+     * @var \PHPUnit\Framework\MockObject\MockObject|\Elastica\Query\BoolQuery
+     */
+    protected $elasticaBoolQueryMock;
+
+    /**
      * @var \PHPUnit\Framework\MockObject\MockObject|\Generated\Shared\Transfer\CompanyBusinessUnitTransfer
      */
     protected $companyBusinessUnitTransferMock;
-
 
     /**
      * @var \PHPUnit\Framework\MockObject\MockObject|\Generated\Shared\Transfer\CompanyUserCollectionTransfer
@@ -36,6 +42,11 @@ class ErpOrderPageSearchCompanyBusinessUnitUuidFilterQueryExpanderPluginTest ext
      * @var \PHPUnit\Framework\MockObject\MockObject|\Generated\Shared\Transfer\CustomerTransfer
      */
     protected $customerTransferMock;
+
+    /**
+     * @var \PHPUnit\Framework\MockObject\MockObject|\Elastica\Query
+     */
+    protected $elasticaQueryMock;
 
     /**
      * @var \FondOfOryx\Client\ErpOrderPageSearch\Plugin\SearchExtension\ErpOrderPageSearchCompanyBusinessUnitUuidFilterQueryExpanderPlugin
@@ -67,7 +78,6 @@ class ErpOrderPageSearchCompanyBusinessUnitUuidFilterQueryExpanderPluginTest ext
      */
     protected function _before(): void
     {
-
         $this->pluginQueryMock = $this->getMockBuilder(QueryInterface::class)
             ->disableOriginalConstructor()
             ->getMock();
@@ -100,22 +110,16 @@ class ErpOrderPageSearchCompanyBusinessUnitUuidFilterQueryExpanderPluginTest ext
             ->disableOriginalConstructor()
             ->getMock();
 
+        $this->elasticaQueryMock = $this->getMockBuilder(Query::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $this->elasticaBoolQueryMock = $this->getMockBuilder(BoolQuery::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
         $this->erpOrderPageSearchCompanyBusinessUnitUuidFilterQueryExpanderPlugin =
-            new class () extends ErpOrderPageSearchCompanyBusinessUnitUuidFilterQueryExpanderPlugin {
-
-                /**
-                 * @param string $resource
-                 * @param string $field
-                 * @param array $filterData
-                 *
-                 * @return array
-                 */
-                protected function getFilterData(string $resource, string $field, array $filterData): array
-                {
-                    return [];
-                }
-
-        };
+            new ErpOrderPageSearchCompanyBusinessUnitUuidFilterQueryExpanderPlugin ();
 
         $this->erpOrderPageSearchCompanyBusinessUnitUuidFilterQueryExpanderPlugin
             ->setFactory($this->erpOrderPageSearchFactoryMock);
@@ -165,6 +169,18 @@ class ErpOrderPageSearchCompanyBusinessUnitUuidFilterQueryExpanderPluginTest ext
         $this->companyBusinessUnitTransferMock->expects(static::atLeastOnce())
             ->method('getUuid')
             ->willReturn('73327634-71c4-11eb-9439-0242ac130002');
+
+        $this->pluginQueryMock->expects(static::atLeastOnce())
+            ->method('getSearchQuery')
+            ->willReturn($this->elasticaQueryMock);
+
+        $this->elasticaQueryMock->expects(static::atLeastOnce())
+            ->method('getQuery')
+            ->willReturn($this->elasticaBoolQueryMock);
+
+        $this->elasticaBoolQueryMock->expects(static::atLeastOnce())
+            ->method('addMust')
+            ->willReturn($this->elasticaBoolQueryMock);
 
         $query = $this->erpOrderPageSearchCompanyBusinessUnitUuidFilterQueryExpanderPlugin->expandQuery(
             $this->pluginQueryMock,

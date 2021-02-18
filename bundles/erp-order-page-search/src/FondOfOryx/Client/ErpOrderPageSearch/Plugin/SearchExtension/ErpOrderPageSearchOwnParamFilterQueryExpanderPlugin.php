@@ -49,7 +49,6 @@ class ErpOrderPageSearchOwnParamFilterQueryExpanderPlugin extends ErpOrderPageSe
     {
         if (count($requestParameters) > 0) {
             $this->prepareData();
-
             $externalReferences = $this->getFilterData(
                 'request_params',
                 ErpOrderIndexMap::EXTERNAL_REFERENCE,
