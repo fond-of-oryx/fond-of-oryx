@@ -26,7 +26,11 @@
     "spryker/sales": "^6.0.0 || ^7.0.0 || ^8.0.0 || ^10.0.0 || ^11.0.0",
     "spryker/sales-extension": "^1.3.0",
     "spryker/tax": "^4.0.0 || ^5.0.0",
-    "spryker/tax-product-connector": "^4.2.0"
+    "spryker/tax-product-connector": "^4.2.0",
+    "spryker/glossary": "^3.8.0",
+    "spryker/kernel": "^3.42.0",
+    "spryker/zed-request": "^3.12.0",
+    "spryker/oms": "^11.1.0"
   },
   "require-dev": {
     "spryker/code-sniffer": "*",
@@ -43,7 +47,8 @@
     "fond-of-oryx/tax-calculation-connector": "*",
     "fond-of-oryx/erp-order-extension": "*",
     "fond-of-oryx/sales-locale-connector": "*",
-    "fond-of-oryx/mail": "*"
+    "fond-of-oryx/mail": "*",
+    "fond-of-oryx/oms": "*"
   },
   "minimum-stability": "dev",
   "prefer-stable": true,
@@ -62,6 +67,7 @@
       "FondOfOryx\\Zed\\ErpOrderExtension\\": "bundles/erp-order-extension/src/FondOfOryx/Zed/ErpOrderExtension",
       "FondOfOryx\\Zed\\Mail\\": "bundles/mail/src/FondOfOryx/Zed/Mail",
       "FondOfOryx\\Zed\\MailBcc\\": "bundles/mail-bcc/src/FondOfOryx/Zed/MailBcc",
+      "FondOfOryx\\Zed\\Oms\\": "bundles/oms/src/FondOfOryx/Zed/Oms",
       "FondOfOryx\\Zed\\SalesLocaleConnector\\": "bundles/sales-locale-connector/src/FondOfOryx/Zed/SalesLocaleConnector",
       "FondOfOryx\\Zed\\TaxCalculationConnector\\": "bundles/tax-calculation-connector/src/FondOfOryx/Zed/TaxCalculationConnector",
       "FondOfOryx\\Shared\\TaxCalculationConnector\\": "bundles/tax-calculation-connector/src/FondOfOryx/Shared/TaxCalculationConnector"
@@ -82,6 +88,7 @@
       "FondOfOryx\\Zed\\ErpOrderExtension\\": "bundles/erp-order-extension/src/FondOfOryx/Zed/ErpOrderExtension",
       "FondOfOryx\\Zed\\Mail\\": "bundles/mail/src/FondOfOryx/Zed/Mail",
       "FondOfOryx\\Zed\\MailBcc\\": "bundles/mail-bcc/src/FondOfOryx/Zed/MailBcc",
+      "FondOfOryx\\Zed\\Oms\\": "bundles/oms/src/FondOfOryx/Zed/Oms",
       "FondOfOryx\\Zed\\SalesLocaleConnector\\": "bundles/sales-locale-connector/src/FondOfOryx/Zed/SalesLocaleConnector",
       "FondOfOryx\\Zed\\TaxCalculationConnector\\": "bundles/tax-calculation-connector/src/FondOfOryx/Zed/TaxCalculationConnector",
       "FondOfOryx\\Shared\\TaxCalculationConnector\\": "bundles/tax-calculation-connector/src/FondOfOryx/Shared/TaxCalculationConnector",
