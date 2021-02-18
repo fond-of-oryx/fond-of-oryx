@@ -5,6 +5,11 @@
             "path": "bundles/availability-alert/",
             "version": "1.0.0"
         },
+        "availability-alert-cross-engage": {
+            "url": "https://<GITHUB_TOKEN>@github.com/fond-of-oryx/availability-alert-cross-engage.git",
+            "path": "bundles/availability-alert-cross-engage/",
+            "version": "1.0.0"
+        },
         "availability-alert-data-import": {
             "url": "https://<GITHUB_TOKEN>@github.com/fond-of-oryx/availability-alert-data-import.git",
             "path": "bundles/availability-alert-data-import/",
