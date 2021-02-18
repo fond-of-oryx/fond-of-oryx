@@ -5,6 +5,11 @@
             "path": "bundles/availability-alert/",
             "version": "1.0.0"
         },
+        "availability-alert-data-import": {
+            "url": "https://<GITHUB_TOKEN>@github.com/fond-of-oryx/availability-alert-data-import.git",
+            "path": "bundles/availability-alert-data-import/",
+            "version": "1.0.0"
+        },
         "customer-statistic": {
             "url": "https://<GITHUB_TOKEN>@github.com/fond-of-oryx/customer-statistic.git",
             "path": "bundles/customer-statistic/",
@@ -28,6 +33,11 @@
         "erp-order-extension": {
             "url": "https://<GITHUB_TOKEN>@github.com/fond-of-oryx/erp-order-extension.git",
             "path": "bundles/erp-order-extension/",
+            "version": "1.0.0"
+        },
+        "feed": {
+            "url": "https://<GITHUB_TOKEN>@github.com/fond-of-oryx/feed.git",
+            "path": "bundles/feed/",
             "version": "1.0.0"
         },
         "sales-locale-connector": {
