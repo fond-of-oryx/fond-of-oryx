@@ -4,6 +4,7 @@ namespace FondOfOryx\Client\ErpOrderPageSearch\Plugin\SearchExtension;
 
 use ArrayObject;
 use Codeception\Test\Unit;
+use Exception;
 use Elastica\Query;
 use Elastica\Query\BoolQuery;
 use FondOfOryx\Client\ErpOrderPageSearch\Dependency\Client\ErpOrderPageSearchToCompanyUserClientInterface;
@@ -15,6 +16,7 @@ use Generated\Shared\Transfer\CompanyUserCollectionTransfer;
 use Generated\Shared\Transfer\CompanyUserTransfer;
 use Generated\Shared\Transfer\CustomerTransfer;
 use Spryker\Client\SearchExtension\Dependency\Plugin\QueryInterface;
+use stdClass;
 
 class ErpOrderPageSearchCompanyBusinessUnitUuidFilterQueryExpanderPluginTest extends Unit
 {
@@ -133,6 +135,103 @@ class ErpOrderPageSearchCompanyBusinessUnitUuidFilterQueryExpanderPluginTest ext
     public function testExpandQuery(): void
     {
         $companyUsers = new ArrayObject();
+        $companyUsers->append($this->companyUserTransferMock);
+
+        $requestParameters = [
+            'filters' => [
+                'company-business-unit' => [
+                    [
+                        'resource' => 'company-business-unit',
+                        'value' => '73327634-71c4-11eb-9439-0242ac130002',
+                        'field' => 'uuid'
+                    ]
+                ]
+            ]
+        ];
+
+        $this->erpOrderPageSearchFactoryMock->expects(static::atLeastOnce())
+            ->method('getCustomerClient')
+            ->willReturn($this->erpOrderPageSearchToCustomerClientMock);
+
+        $this->erpOrderPageSearchToCustomerClientMock->expects(static::atLeastOnce())
+            ->method('getCustomer')
+            ->willReturn($this->customerTransferMock);
+
+        $this->erpOrderPageSearchFactoryMock->expects(static::atLeastOnce())
+            ->method('getCompanyUserClient')
+            ->willReturn($this->erpOrderPageSearchToCompanyUserClientMock);
+
+        $this->erpOrderPageSearchToCompanyUserClientMock->expects(static::atLeastOnce())
+            ->method('getActiveCompanyUsersByCustomerReference')
+            ->with($this->customerTransferMock)
+            ->willReturn($this->companyUserCollectionTransferMock);
+
+        $this->companyUserCollectionTransferMock->expects(static::atLeastOnce())
+            ->method('getCompanyUsers')
+            ->willReturn($companyUsers);
+
+        $this->companyUserTransferMock->expects(static::atLeastOnce())
+            ->method('getCompanyUserReference')
+            ->willReturn('company-user-reference');
+
+        $this->companyUserTransferMock->expects(static::atLeastOnce())
+            ->method('getExternalReference')
+            ->willReturn('external-reference');
+
+        $this->companyUserTransferMock->expects(static::atLeastOnce())
+            ->method('getCompanyBusinessUnit')
+            ->willReturn($this->companyBusinessUnitTransferMock);
+
+        $this->companyBusinessUnitTransferMock->expects(static::atLeastOnce())
+            ->method('getUuid')
+            ->willReturn('73327634-71c4-11eb-9439-0242ac130002');
+
+        $this->companyBusinessUnitTransferMock->expects(static::atLeastOnce())
+            ->method('getUuid')
+            ->willReturn('73327634-71c4-11eb-9439-0242ac130002');
+
+        $this->companyBusinessUnitTransferMock->expects(static::atLeastOnce())
+            ->method('getExternalReference')
+            ->willReturn('company-business-unit-external-reference');
+
+        $this->companyUserTransferMock->expects(static::atLeastOnce())
+            ->method('getCompanyBusinessUnit')
+            ->willReturn($this->companyBusinessUnitTransferMock);
+
+        $this->companyBusinessUnitTransferMock->expects(static::atLeastOnce())
+            ->method('getUuid')
+            ->willReturn('73327634-71c4-11eb-9439-0242ac130002');
+
+        $this->pluginQueryMock->expects(static::atLeastOnce())
+            ->method('getSearchQuery')
+            ->willReturn($this->elasticaQueryMock);
+
+        $this->elasticaQueryMock->expects(static::atLeastOnce())
+            ->method('getQuery')
+            ->willReturn($this->elasticaBoolQueryMock);
+
+        $this->elasticaBoolQueryMock->expects(static::atLeastOnce())
+            ->method('addMust')
+            ->willReturn($this->elasticaBoolQueryMock);
+
+        $query = $this->erpOrderPageSearchCompanyBusinessUnitUuidFilterQueryExpanderPlugin->expandQuery(
+            $this->pluginQueryMock,
+            $requestParameters
+        );
+
+        $this->assertInstanceOf(
+            QueryInterface::class,
+            $query
+        );
+    }
+
+
+    /**
+     * @return void
+     */
+    public function testExpandQueryWithWrongBoolQueryObject(): void
+    {
+        $companyUsers = new ArrayObject();
         $requestParameters = [
             'filters' => []
         ];
@@ -176,20 +275,15 @@ class ErpOrderPageSearchCompanyBusinessUnitUuidFilterQueryExpanderPluginTest ext
 
         $this->elasticaQueryMock->expects(static::atLeastOnce())
             ->method('getQuery')
-            ->willReturn($this->elasticaBoolQueryMock);
+            ->willReturn(new stdClass());
 
-        $this->elasticaBoolQueryMock->expects(static::atLeastOnce())
-            ->method('addMust')
-            ->willReturn($this->elasticaBoolQueryMock);
+        $this->expectException(Exception::class);
 
-        $query = $this->erpOrderPageSearchCompanyBusinessUnitUuidFilterQueryExpanderPlugin->expandQuery(
+        $this->erpOrderPageSearchCompanyBusinessUnitUuidFilterQueryExpanderPlugin->expandQuery(
             $this->pluginQueryMock,
             $requestParameters
         );
 
-        $this->assertInstanceOf(
-            QueryInterface::class,
-            $query
-        );
+
     }
 }

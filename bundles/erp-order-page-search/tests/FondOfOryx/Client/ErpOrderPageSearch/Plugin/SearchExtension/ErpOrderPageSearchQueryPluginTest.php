@@ -14,10 +14,19 @@ class ErpOrderPageSearchQueryPluginTest extends Unit
     protected $erpOrderPageSearchQueryPlugin;
 
     /**
+     * @var \PHPUnit\Framework\MockObject\MockObject|\Generated\Shared\Transfer\SearchContextTransfer
+     */
+    protected $searchContextTransfer;
+
+    /**
      * @return void
      */
     protected function _before(): void
     {
+        $this->searchContextTransfer = $this->getMockBuilder(SearchContextTransfer::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
         $this->erpOrderPageSearchQueryPlugin = new ErpOrderPageSearchQueryPlugin();
     }
 
@@ -49,5 +58,34 @@ class ErpOrderPageSearchQueryPluginTest extends Unit
     public function testGetSearchString(): void
     {
         $this->assertIsString($this->erpOrderPageSearchQueryPlugin->getSearchString());
+    }
+
+    /**
+     * @return void
+     */
+    public function testSetSearchContext(): void
+    {
+        $this->erpOrderPageSearchQueryPlugin->setSearchContext($this->searchContextTransfer);
+
+        $this->assertEquals(
+            $this->searchContextTransfer,
+            $this->erpOrderPageSearchQueryPlugin->getSearchContext()
+        );
+    }
+
+    /**
+     * @return void
+     */
+    public function testSetSearchString(): void
+    {
+        $searchString = 'searchString';
+        $this->erpOrderPageSearchQueryPlugin->setSearchString(
+            $searchString
+        );
+
+        $this->assertEquals(
+            $searchString,
+            $this->erpOrderPageSearchQueryPlugin->getSearchString()
+        );
     }
 }

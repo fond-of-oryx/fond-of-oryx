@@ -66,7 +66,7 @@ class ErpOrderPageSearchToSearchClientBridgeTest extends Unit
         $this->searchClientMock->expects(static::atLeastOnce())
             ->method('expandQuery')
             ->with($this->pluginQueryMock, [], [])
-            ->willReturn([]);
+            ->willReturn($this->pluginQueryMock);
 
         $this->assertInstanceOf(
             QueryInterface::class,
