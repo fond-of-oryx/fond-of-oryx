@@ -20,6 +20,7 @@
     "spryker/customer": "^7.0.0",
     "spryker/event-behavior": "^1.0.0",
     "spryker/search": "^8.0.0",
+    "spryker/search-elasticsearch": "^1.0.0",
     "spryker/synchronization-extension": "^1.0.0"
   },
   "require-dev": {
