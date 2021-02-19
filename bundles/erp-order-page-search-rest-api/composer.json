@@ -4,6 +4,10 @@
   "license": "MIT",
   "authors": [
     {
+      "name": "József Geng",
+      "email": "gengjozsef86@gmail.com"
+    },
+    {
       "name": "Julian Zimmermann",
       "email": "info@julianzimmermann.dev"
     }
@@ -15,6 +19,7 @@
   "require-dev": {
     "fond-of-codeception/spryker": "dev-master",
     "spryker/code-sniffer": "^0.12",
+    "spryker/glue-application-extension": "^1.0.0",
     "spryker/search": "^8.0.0"
   },
   "minimum-stability": "dev",
