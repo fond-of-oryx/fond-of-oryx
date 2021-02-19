@@ -80,18 +80,18 @@ class ErpOrderPageSearchDependencyProviderTest extends Unit
      */
     public function testProvideBusinessLayerDependencies(): void
     {
-        $this->containerMock->expects($this->atLeastOnce())
+        $this->containerMock->expects(static::atLeastOnce())
             ->method('getLocator')
             ->willReturn($this->locatorMock);
 
-        $this->locatorMock->expects($this->atLeastOnce())
+        $this->locatorMock->expects(static::atLeastOnce())
             ->method('__call')
             ->withConsecutive(
                 ['utilEncoding']
             )
             ->willReturn($this->bundleProxyMock);
 
-        $this->bundleProxyMock->expects($this->atLeastOnce())
+        $this->bundleProxyMock->expects(static::atLeastOnce())
             ->method('__call')
             ->with('service')
             ->willReturnOnConsecutiveCalls(
@@ -114,18 +114,18 @@ class ErpOrderPageSearchDependencyProviderTest extends Unit
      */
     public function testProvideCommunicationLayerDependencies(): void
     {
-        $this->containerMock->expects($this->atLeastOnce())
+        $this->containerMock->expects(static::atLeastOnce())
             ->method('getLocator')
             ->willReturn($this->locatorMock);
 
-        $this->locatorMock->expects($this->atLeastOnce())
+        $this->locatorMock->expects(static::atLeastOnce())
             ->method('__call')
             ->withConsecutive(
                 ['eventBehavior']
             )
             ->willReturn($this->bundleProxyMock);
 
-        $this->bundleProxyMock->expects($this->atLeastOnce())
+        $this->bundleProxyMock->expects(static::atLeastOnce())
             ->method('__call')
             ->with('facade')
             ->willReturnOnConsecutiveCalls(
