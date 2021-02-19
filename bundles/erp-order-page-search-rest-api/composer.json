@@ -10,11 +10,12 @@
   ],
   "require": {
     "php": ">=7.2",
-    "fond-of-oryx/erp-order-page-search": "dev-master"
+    "fond-of-oryx/erp-order-page-search": "dev-main"
   },
   "require-dev": {
     "fond-of-codeception/spryker": "dev-master",
-    "spryker/code-sniffer": "^0.12"
+    "spryker/code-sniffer": "^0.12",
+    "spryker/search": "^8.0.0"
   },
   "minimum-stability": "dev",
   "prefer-stable": true,

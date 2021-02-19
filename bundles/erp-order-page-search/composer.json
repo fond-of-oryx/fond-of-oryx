@@ -14,8 +14,11 @@
   ],
   "require": {
     "php": ">=7.2",
-    "fond-of-oryx/erp-order": "dev-master",
-    "fond-of-oryx/erp-order-permission": "dev-master",
+    "fond-of-oryx/erp-order": "dev-main",
+    "fond-of-oryx/erp-order-permission": "dev-main",
+    "spryker/company-user": "^2.0.0",
+    "spryker/customer": "^7.0.0",
+    "spryker/event-behavior": "^1.0.0",
     "spryker/search": "^8.0.0"
   },
   "require-dev": {
