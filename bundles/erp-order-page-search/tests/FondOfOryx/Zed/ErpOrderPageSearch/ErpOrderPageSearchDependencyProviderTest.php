@@ -144,6 +144,8 @@ class ErpOrderPageSearchDependencyProviderTest extends Unit
     }
 
     /**
+     * @skip
+     *
      * @return void
      */
     public function testProvidePersistenceLayerDependencies(): void

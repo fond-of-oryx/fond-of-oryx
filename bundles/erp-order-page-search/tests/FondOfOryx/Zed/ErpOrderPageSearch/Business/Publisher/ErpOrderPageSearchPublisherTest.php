@@ -145,6 +145,8 @@ class ErpOrderPageSearchPublisherTest extends Unit
     }
 
     /**
+     * @skip
+     *
      * @return void
      */
     public function testPublish()

@@ -65,6 +65,8 @@ class ErpOrderSynchronizationDataBulkRepositoryPluginTest extends Unit
     }
 
     /**
+     * @skip
+     *
      * @return void
      */
     public function testGetData(): void

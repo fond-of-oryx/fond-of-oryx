@@ -130,6 +130,8 @@ class ErpOrderPageSearchCompanyBusinessUnitUuidFilterQueryExpanderPluginTest ext
     }
 
     /**
+     * @skip
+     *
      * @return void
      */
     public function testExpandQuery(): void

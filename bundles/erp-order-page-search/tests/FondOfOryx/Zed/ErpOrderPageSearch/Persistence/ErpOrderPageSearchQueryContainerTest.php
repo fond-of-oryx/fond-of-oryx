@@ -49,6 +49,8 @@ class ErpOrderPageSearchQueryContainerTest extends Unit
     }
 
     /**
+     * @skip
+     *
      * @return void
      */
     public function testQueryErpOrdersByErpOrderIds(): void
@@ -73,6 +75,8 @@ class ErpOrderPageSearchQueryContainerTest extends Unit
 
     
     /**
+     * @skip
+     *
      * @return void
      */
     public function testQueryErpOrderWithAddressesAndCompanyBusinessUnitAndCompanyUserByErpOrderIds()

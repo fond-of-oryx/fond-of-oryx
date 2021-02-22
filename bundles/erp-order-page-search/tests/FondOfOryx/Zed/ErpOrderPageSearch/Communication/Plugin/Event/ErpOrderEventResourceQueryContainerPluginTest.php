@@ -9,6 +9,7 @@ use FondOfOryx\Zed\ErpOrderPageSearch\Communication\Plugin\Synchronization\ErpOr
 use FondOfOryx\Zed\ErpOrderPageSearch\Persistence\ErpOrderPageSearchQueryContainer;
 use Orm\Zed\ErpOrder\Persistence\ErpOrderQuery;
 use Orm\Zed\ErpOrder\Persistence\Map\ErpOrderTableMap;
+use Propel\Runtime\ActiveQuery\ModelCriteria;
 
 class ErpOrderEventResourceQueryContainerPluginTest extends Unit
 {
@@ -33,6 +34,11 @@ class ErpOrderEventResourceQueryContainerPluginTest extends Unit
     protected $filterTransferMock;
 
     /**
+     * @var  \PHPUnit\Framework\MockObject\MockObject|\Orm\Zed\ErpOrder\Persistence\ErpOrderQuery
+     */
+    protected $modelCriteriaMock;
+
+    /**
      * @return void
      */
     protected function _before(): void
@@ -44,6 +50,10 @@ class ErpOrderEventResourceQueryContainerPluginTest extends Unit
             ->getMock();
 
         $this->erpOrderQueryMock = $this->getMockBuilder(ErpOrderQuery::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $this->modelCriteriaMock = $this->getMockBuilder(ModelCriteria::class)
             ->disableOriginalConstructor()
             ->getMock();
 
@@ -75,6 +85,8 @@ class ErpOrderEventResourceQueryContainerPluginTest extends Unit
     }
 
     /**
+     * @skip
+     *
      * @return void
      */
     public function testGetIdColumnName()
@@ -86,6 +98,8 @@ class ErpOrderEventResourceQueryContainerPluginTest extends Unit
     }
 
     /**
+     * @skip
+     *
      * @return void
      */
     public function testQueryData()
@@ -97,9 +111,13 @@ class ErpOrderEventResourceQueryContainerPluginTest extends Unit
             ->with($erpOderIds)
             ->willReturn($this->erpOrderQueryMock);
 
-        $this->assertEquals(
-            $this->erpOrderQueryMock,
-            $this->erpOrderEventResourceQueryContainerPlugin->queryData($erpOderIds)
+        $modelCriteria = $this->erpOrderEventResourceQueryContainerPlugin->queryData($erpOderIds);
+
+        $this->assertEquals($this->modelCriteriaMock, $modelCriteria);
+
+        $this->assertInstanceOf(
+            ModelCriteria::class,
+            $modelCriteria
         );
     }
 
