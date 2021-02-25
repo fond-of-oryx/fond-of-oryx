@@ -12,8 +12,10 @@ use Spryker\Zed\Kernel\Communication\AbstractCommunicationFactory;
 
 /**
  * @method \FondOfOryx\Zed\AvailabilityAlert\AvailabilityAlertConfig getConfig()
- * @method \FondOfOryx\Zed\AvailabilityAlert\Persistence\AvailabilityAlertQueryContainerInterface getQueryContainer()
  * @method \FondOfOryx\Zed\AvailabilityAlert\Business\AvailabilityAlertFacadeInterface getFacade()
+ * @method \FondOfOryx\Zed\AvailabilityAlert\Persistence\AvailabilityAlertEntityManagerInterface getEntityManager()
+ * @method \FondOfOryx\Zed\AvailabilityAlert\Persistence\AvailabilityAlertRepositoryInterface getRepository()
+ * @method \FondOfOryx\Zed\AvailabilityAlert\Persistence\AvailabilityAlertQueryContainerInterface getQueryContainer()
  */
 class AvailabilityAlertCommunicationFactory extends AbstractCommunicationFactory
 {
@@ -32,7 +34,8 @@ class AvailabilityAlertCommunicationFactory extends AbstractCommunicationFactory
     /**
      * @return \FondOfOryx\Zed\AvailabilityAlert\Communication\Controller\Mapper\AvailabilityAlertSubscriptionTransferExpanderInterface
      */
-    public function createAvailabilityAlertSubscriptionTransferExpander(): AvailabilityAlertSubscriptionTransferExpanderInterface{
+    public function createAvailabilityAlertSubscriptionTransferExpander(): AvailabilityAlertSubscriptionTransferExpanderInterface
+    {
         return new AvailabilityAlertSubscriptionTransferExpander($this->getAvailabilityAlertSubscriptionExpanderPlugins());
     }
 
@@ -54,7 +57,6 @@ class AvailabilityAlertCommunicationFactory extends AbstractCommunicationFactory
 
     /**
      * @return \FondOfOryx\Zed\AvailabilityAlert\Dependency\Plugin\AvailabilityAlertSubscriptionTransferExpanderPluginInterface[]
-     * @throws \Spryker\Zed\Kernel\Exception\Container\ContainerKeyNotFoundException
      */
     protected function getAvailabilityAlertSubscriptionExpanderPlugins(): array
     {

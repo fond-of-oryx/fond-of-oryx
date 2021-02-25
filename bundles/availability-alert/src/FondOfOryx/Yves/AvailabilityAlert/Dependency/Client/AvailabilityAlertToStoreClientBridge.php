@@ -1,4 +1,5 @@
 <?php
+
 namespace FondOfOryx\Yves\AvailabilityAlert\Dependency\Client;
 
 use Generated\Shared\Transfer\StoreTransfer;
@@ -12,9 +13,7 @@ class AvailabilityAlertToStoreClientBridge implements AvailabilityAlertToStoreCl
     protected $client;
 
     /**
-     * AvailabilityAlertToStoreClientBridge constructor.
-     *
-     * @param  \Spryker\Client\Store\StoreClientInterface  $storeClient
+     * @param \Spryker\Client\Store\StoreClientInterface $storeClient
      */
     public function __construct(StoreClientInterface $storeClient)
     {
@@ -24,7 +23,8 @@ class AvailabilityAlertToStoreClientBridge implements AvailabilityAlertToStoreCl
     /**
      * @return \Generated\Shared\Transfer\StoreTransfer
      */
-    public function getCurrentStore(): StoreTransfer{
+    public function getCurrentStore(): StoreTransfer
+    {
         return $this->client->getCurrentStore();
     }
 }

@@ -1,8 +1,6 @@
 <?php
 
-
 namespace FondOfOryx\Zed\AvailabilityAlert\Persistence;
-
 
 use FondOfOryx\Zed\AvailabilityAlert\Persistence\Propel\Mapper\AvailabilityAlertSubscriberMapperInterface;
 use FondOfOryx\Zed\AvailabilityAlert\Persistence\Propel\Mapper\AvailabilityAlertSubscriptionMapperInterface;
@@ -38,11 +36,9 @@ class AvailabilityAlertEntityManager extends AbstractEntityManager implements Av
     protected $subscriberQuery;
 
     /**
-     * @param  \Generated\Shared\Transfer\AvailabilityAlertSubscriptionTransfer  $availabilityAlertSubscriptionTransfer
+     * @param \Generated\Shared\Transfer\AvailabilityAlertSubscriptionTransfer $availabilityAlertSubscriptionTransfer
      *
      * @return \Generated\Shared\Transfer\AvailabilityAlertSubscriptionTransfer
-     * @throws \Propel\Runtime\Exception\PropelException
-     * @throws \Spryker\Zed\Propel\Business\Exception\AmbiguousComparisonException
      */
     public function createOrUpdateSubscription(
         AvailabilityAlertSubscriptionTransfer $availabilityAlertSubscriptionTransfer
@@ -73,14 +69,12 @@ class AvailabilityAlertEntityManager extends AbstractEntityManager implements Av
     }
 
     /**
-     * @param  \Generated\Shared\Transfer\AvailabilityAlertSubscriberTransfer  $availabilityAlertSubscriberTransfer
+     * @param \Generated\Shared\Transfer\AvailabilityAlertSubscriberTransfer $availabilityAlertSubscriberTransfer
      *
      * @return \Generated\Shared\Transfer\AvailabilityAlertSubscriberTransfer
-     * @throws \Propel\Runtime\Exception\PropelException
-     * @throws \Spryker\Zed\Propel\Business\Exception\AmbiguousComparisonException
      */
-    public function createOrUpdateSubscriber(AvailabilityAlertSubscriberTransfer $availabilityAlertSubscriberTransfer
-    ): AvailabilityAlertSubscriberTransfer {
+    public function createOrUpdateSubscriber(AvailabilityAlertSubscriberTransfer $availabilityAlertSubscriberTransfer): AvailabilityAlertSubscriberTransfer
+    {
         $availabilityAlertSubscriberTransfer->requireEmail();
 
         $mappedEntity = $this->getSubscriberMapper()->fromTransfer($availabilityAlertSubscriberTransfer);

@@ -4,7 +4,6 @@ namespace FondOfOryx\Yves\AvailabilityAlert;
 
 use FondOfOryx\Yves\AvailabilityAlert\Dependency\Client\AvailabilityAlertToLocaleClientBridge;
 use FondOfOryx\Yves\AvailabilityAlert\Dependency\Client\AvailabilityAlertToStoreClientBridge;
-use FondOfOryx\Zed\AvailabilityAlert\Business\Model\NotificationPlugins\MailNotificationPlugin;
 use Spryker\Yves\Kernel\AbstractBundleDependencyProvider;
 use Spryker\Yves\Kernel\Container;
 
@@ -14,7 +13,6 @@ class AvailabilityAlertDependencyProvider extends AbstractBundleDependencyProvid
     public const CLIENT_STORE = 'CLIENT_STORE';
     public const CLIENT_LOCALE = 'CLIENT_LOCALE';
     public const PLUGINS_AVAILABILITY_ALERT_SUBSCRIPTION_REQUEST_EXPANDER = 'PLUGINS_AVAILABILITY_ALERT_SUBSCRIPTION_REQUEST_EXPANDER';
-    public const PLUGINS_AVAILABILITY_ALERT_NOTIFICATION = 'PLUGINS_AVAILABILITY_ALERT_NOTIFICATION';
 
     /**
      * @param \Spryker\Yves\Kernel\Container $container
@@ -29,7 +27,6 @@ class AvailabilityAlertDependencyProvider extends AbstractBundleDependencyProvid
         $container = $this->addStoreClient($container);
         $container = $this->addLocaleClient($container);
         $container = $this->addAvailabilityAlertSubscriptionRequestExpanderPlugins($container);
-        $container = $this->addAvailabilityAlertSubscriptionNotificationPlugins($container);
 
         return $container;
     }
@@ -53,7 +50,7 @@ class AvailabilityAlertDependencyProvider extends AbstractBundleDependencyProvid
      *
      * @return \Spryker\Yves\Kernel\Container
      */
-    protected function addStoreClient(Container $container):Container
+    protected function addStoreClient(Container $container): Container
     {
         $container[static::CLIENT_STORE] = function (Container $container) {
             return new AvailabilityAlertToStoreClientBridge($container->getLocator()->store()->client());
@@ -67,7 +64,7 @@ class AvailabilityAlertDependencyProvider extends AbstractBundleDependencyProvid
      *
      * @return \Spryker\Yves\Kernel\Container
      */
-    protected function addLocaleClient(Container $container):Container
+    protected function addLocaleClient(Container $container): Container
     {
         $container[static::CLIENT_LOCALE] = function (Container $container) {
             return new AvailabilityAlertToLocaleClientBridge($container->getLocator()->locale()->client());
@@ -96,29 +93,5 @@ class AvailabilityAlertDependencyProvider extends AbstractBundleDependencyProvid
     protected function getAvailabilityAlertSubscriptionRequestExpanderPlugins(): array
     {
         return [];
-    }
-
-    /**
-     * @param \Spryker\Yves\Kernel\Container $container
-     *
-     * @return \Spryker\Yves\Kernel\Container
-     */
-    protected function addAvailabilityAlertSubscriptionNotificationPlugins(Container $container): Container
-    {
-        $container[static::PLUGINS_AVAILABILITY_ALERT_NOTIFICATION] = function () {
-            return $this->getAvailabilityAlertSubscriptionNotificationPlugins();
-        };
-
-        return $container;
-    }
-
-    /**
-     * @return \FondOfOryx\Yves\AvailabilityAlert\Dependency\Plugin\AvailabilityAlertSubscriptionRequestExpanderPlugin[]
-     */
-    protected function getAvailabilityAlertSubscriptionNotificationPlugins(): array
-    {
-        return [
-            new MailNotificationPlugin(),
-        ];
     }
 }

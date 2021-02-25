@@ -8,23 +8,24 @@ use Generated\Shared\Transfer\AvailabilityAlertSubscriptionTransfer;
 interface AvailabilityAlertEntityManagerInterface
 {
     /**
-     * @param  \Generated\Shared\Transfer\AvailabilityAlertSubscriptionTransfer  $availabilityAlertSubscriptionTransfer
+     * @param \Generated\Shared\Transfer\AvailabilityAlertSubscriptionTransfer $availabilityAlertSubscriptionTransfer
      *
-     * @return \Generated\Shared\Transfer\AvailabilityAlertSubscriptionTransfer
      * @throws \Propel\Runtime\Exception\PropelException
      * @throws \Spryker\Zed\Propel\Business\Exception\AmbiguousComparisonException
+     *
+     * @return \Generated\Shared\Transfer\AvailabilityAlertSubscriptionTransfer
      */
     public function createOrUpdateSubscription(
         AvailabilityAlertSubscriptionTransfer $availabilityAlertSubscriptionTransfer
     ): AvailabilityAlertSubscriptionTransfer;
 
     /**
-     * @param  \Generated\Shared\Transfer\AvailabilityAlertSubscriberTransfer  $availabilityAlertSubscriberTransfer
+     * @param \Generated\Shared\Transfer\AvailabilityAlertSubscriberTransfer $availabilityAlertSubscriberTransfer
      *
-     * @return \Generated\Shared\Transfer\AvailabilityAlertSubscriberTransfer
      * @throws \Propel\Runtime\Exception\PropelException
      * @throws \Spryker\Zed\Propel\Business\Exception\AmbiguousComparisonException
+     *
+     * @return \Generated\Shared\Transfer\AvailabilityAlertSubscriberTransfer
      */
-    public function createOrUpdateSubscriber(AvailabilityAlertSubscriberTransfer $availabilityAlertSubscriberTransfer
-    ): AvailabilityAlertSubscriberTransfer;
+    public function createOrUpdateSubscriber(AvailabilityAlertSubscriberTransfer $availabilityAlertSubscriberTransfer): AvailabilityAlertSubscriberTransfer;
 }

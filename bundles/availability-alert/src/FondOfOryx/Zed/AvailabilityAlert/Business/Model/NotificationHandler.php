@@ -1,8 +1,6 @@
 <?php
 
-
 namespace FondOfOryx\Zed\AvailabilityAlert\Business\Model;
-
 
 use Generated\Shared\Transfer\AvailabilityAlertSubscriptionTransfer;
 
@@ -14,9 +12,7 @@ class NotificationHandler implements NotificationHandlerInterface
     protected $notificationPlugins;
 
     /**
-     * NotificationHandler constructor.
-     *
-     * @param  \FondOfOryx\Zed\AvailabilityAlert\Dependency\Plugin\NotificationPluginInterface[]  $notificationPlugins
+     * @param \FondOfOryx\Zed\AvailabilityAlert\Dependency\Plugin\NotificationPluginInterface[] $notificationPlugins
      */
     public function __construct(array $notificationPlugins)
     {
@@ -24,7 +20,7 @@ class NotificationHandler implements NotificationHandlerInterface
     }
 
     /**
-     * @param  \Generated\Shared\Transfer\AvailabilityAlertSubscriptionTransfer  $availabilityAlertSubscriptionTransfer
+     * @param \Generated\Shared\Transfer\AvailabilityAlertSubscriptionTransfer $availabilityAlertSubscriptionTransfer
      *
      * @return void
      */

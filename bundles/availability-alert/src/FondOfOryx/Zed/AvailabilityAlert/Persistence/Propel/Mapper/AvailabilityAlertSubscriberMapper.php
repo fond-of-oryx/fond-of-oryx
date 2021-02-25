@@ -2,14 +2,13 @@
 
 namespace FondOfOryx\Zed\AvailabilityAlert\Persistence\Propel\Mapper;
 
-
 use Generated\Shared\Transfer\AvailabilityAlertSubscriberTransfer;
 use Orm\Zed\AvailabilityAlert\Persistence\FooAvailabilityAlertSubscriber;
 
 class AvailabilityAlertSubscriberMapper implements AvailabilityAlertSubscriberMapperInterface
 {
     /**
-     * @param  \Orm\Zed\AvailabilityAlert\Persistence\FooAvailabilityAlertSubscriber  $availabilityAlertSubscriber
+     * @param \Orm\Zed\AvailabilityAlert\Persistence\FooAvailabilityAlertSubscriber $availabilityAlertSubscriber
      *
      * @return \Generated\Shared\Transfer\AvailabilityAlertSubscriberTransfer
      */
@@ -19,7 +18,7 @@ class AvailabilityAlertSubscriberMapper implements AvailabilityAlertSubscriberMa
     }
 
     /**
-     * @param  \Generated\Shared\Transfer\AvailabilityAlertSubscriberTransfer  $availabilityAlertSubscriberTransfer
+     * @param \Generated\Shared\Transfer\AvailabilityAlertSubscriberTransfer $availabilityAlertSubscriberTransfer
      *
      * @return \Orm\Zed\AvailabilityAlert\Persistence\FooAvailabilityAlertSubscriber
      */

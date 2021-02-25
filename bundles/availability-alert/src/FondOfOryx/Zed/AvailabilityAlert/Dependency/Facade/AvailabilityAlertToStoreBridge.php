@@ -30,10 +30,9 @@ class AvailabilityAlertToStoreBridge implements AvailabilityAlertToStoreInterfac
     }
 
     /**
-     * @param  int  $idStore
+     * @param int $idStore
      *
      * @return \Generated\Shared\Transfer\StoreTransfer
-     * @throws \Spryker\Zed\Store\Business\Model\Exception\StoreNotFoundException
      */
     public function getStoreById(int $idStore): StoreTransfer
     {

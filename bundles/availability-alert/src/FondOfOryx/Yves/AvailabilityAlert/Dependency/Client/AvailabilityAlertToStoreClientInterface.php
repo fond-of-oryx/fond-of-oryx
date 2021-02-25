@@ -1,4 +1,5 @@
 <?php
+
 namespace FondOfOryx\Yves\AvailabilityAlert\Dependency\Client;
 
 use Generated\Shared\Transfer\StoreTransfer;

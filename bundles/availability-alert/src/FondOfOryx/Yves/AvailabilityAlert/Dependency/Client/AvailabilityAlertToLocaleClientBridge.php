@@ -3,7 +3,6 @@
 namespace FondOfOryx\Yves\AvailabilityAlert\Dependency\Client;
 
 use Spryker\Client\Locale\LocaleClientInterface;
-use Spryker\Zed\Locale\Business\LocaleFacadeInterface;
 
 class AvailabilityAlertToLocaleClientBridge implements AvailabilityAlertToLocaleClientInterface
 {
@@ -13,9 +12,7 @@ class AvailabilityAlertToLocaleClientBridge implements AvailabilityAlertToLocale
     protected $client;
 
     /**
-     * AvailabilityAlertToLocaleClientBridge constructor.
-     *
-     * @param  \Spryker\Client\Locale\LocaleClientInterface  $localeFacade
+     * @param \Spryker\Client\Locale\LocaleClientInterface $localeFacade
      */
     public function __construct(LocaleClientInterface $localeFacade)
     {

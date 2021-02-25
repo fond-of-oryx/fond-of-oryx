@@ -39,13 +39,11 @@ class SubscriptionManager implements SubscriptionManagerInterface
     protected $availabilityAlertSubscriptionPluginExecutor;
 
     /**
-     * SubscriptionManager constructor.
-     *
-     * @param  \FondOfOryx\Zed\AvailabilityAlert\Persistence\AvailabilityAlertEntityManagerInterface  $entityManager
-     * @param  \FondOfOryx\Zed\AvailabilityAlert\Persistence\AvailabilityAlertRepositoryInterface  $repository
-     * @param  \FondOfOryx\Zed\AvailabilityAlert\Dependency\Facade\AvailabilityAlertToStoreInterface  $storeFacade
-     * @param  \FondOfOryx\Zed\AvailabilityAlert\Business\PluginExecutor\AvailabilityAlertSubscriptionPluginExecutorInterface  $subscriptionPluginExecutor
-     * @param  \FondOfOryx\Zed\AvailabilityAlert\Business\PluginExecutor\AvailabilityAlertSubscriberPluginExecutorInterface  $subscriberPluginExecutor
+     * @param \FondOfOryx\Zed\AvailabilityAlert\Persistence\AvailabilityAlertEntityManagerInterface $entityManager
+     * @param \FondOfOryx\Zed\AvailabilityAlert\Persistence\AvailabilityAlertRepositoryInterface $repository
+     * @param \FondOfOryx\Zed\AvailabilityAlert\Dependency\Facade\AvailabilityAlertToStoreInterface $storeFacade
+     * @param \FondOfOryx\Zed\AvailabilityAlert\Business\PluginExecutor\AvailabilityAlertSubscriptionPluginExecutorInterface $subscriptionPluginExecutor
+     * @param \FondOfOryx\Zed\AvailabilityAlert\Business\PluginExecutor\AvailabilityAlertSubscriberPluginExecutorInterface $subscriberPluginExecutor
      */
     public function __construct(
         AvailabilityAlertEntityManagerInterface $entityManager,
@@ -62,7 +60,7 @@ class SubscriptionManager implements SubscriptionManagerInterface
     }
 
     /**
-     * @param  \Generated\Shared\Transfer\AvailabilityAlertSubscriptionTransfer  $availabilityAlertSubscriptionTransfer
+     * @param \Generated\Shared\Transfer\AvailabilityAlertSubscriptionTransfer $availabilityAlertSubscriptionTransfer
      *
      * @return bool
      */
@@ -78,13 +76,14 @@ class SubscriptionManager implements SubscriptionManagerInterface
             ->findSubscriptionByEmailAndIdProductAbstractAndStatus(
                 $subscriber->getEmail(),
                 $availabilityAlertSubscriptionTransfer->getFkProductAbstract(),
-                FooAvailabilityAlertSubscriptionTableMap::COL_STATUS_PENDING);
+                FooAvailabilityAlertSubscriptionTableMap::COL_STATUS_PENDING
+            );
 
         return $subscription !== null;
     }
 
     /**
-     * @param  \Generated\Shared\Transfer\AvailabilityAlertSubscriptionTransfer  $availabilityAlertSubscriptionTransfer
+     * @param \Generated\Shared\Transfer\AvailabilityAlertSubscriptionTransfer $availabilityAlertSubscriptionTransfer
      *
      * @return void
      */
@@ -103,19 +102,16 @@ class SubscriptionManager implements SubscriptionManagerInterface
             ->setStatus(FooAvailabilityAlertSubscriptionTableMap::COL_STATUS_PENDING)
             ->setFkSubscriber($subscriber->getIdAvailabilityAlertSubscriber());
 
-
         $this->handleSubscription($availabilityAlertSubscriptionTransfer);
     }
 
     /**
-     * @param  \Generated\Shared\Transfer\AvailabilityAlertSubscriptionTransfer  $availabilityAlertSubscriptionTransfer
+     * @param \Generated\Shared\Transfer\AvailabilityAlertSubscriptionTransfer $availabilityAlertSubscriptionTransfer
      *
      * @return \Generated\Shared\Transfer\AvailabilityAlertSubscriptionTransfer
-     * @throws \Propel\Runtime\Exception\PropelException
-     * @throws \Spryker\Zed\Propel\Business\Exception\AmbiguousComparisonException
      */
-    public function updateSubscription(AvailabilityAlertSubscriptionTransfer $availabilityAlertSubscriptionTransfer
-    ): AvailabilityAlertSubscriptionTransfer {
+    public function updateSubscription(AvailabilityAlertSubscriptionTransfer $availabilityAlertSubscriptionTransfer): AvailabilityAlertSubscriptionTransfer
+    {
         $availabilityAlertSubscriptionTransfer->requireFkProductAbstract();
         $availabilityAlertSubscriptionTransfer->requireFkLocale();
         $availabilityAlertSubscriptionTransfer->requireFkStore();
@@ -126,8 +122,6 @@ class SubscriptionManager implements SubscriptionManagerInterface
 
     /**
      * @return array
-     * @throws \Propel\Runtime\Exception\PropelException
-     * @throws \Spryker\Zed\Propel\Business\Exception\AmbiguousComparisonException
      */
     public function getCurrentSubscriptionCountPerProductAbstract(): array
     {
@@ -135,21 +129,21 @@ class SubscriptionManager implements SubscriptionManagerInterface
     }
 
     /**
-     * @param  int  $status
+     * @param int $status
      *
      * @return \Generated\Shared\Transfer\AvailabilityAlertSubscriptionCollectionTransfer
-     * @throws \Spryker\Zed\Propel\Business\Exception\AmbiguousComparisonException
      */
-    public function getSubscriptionsForCurrentStoreAndStatus(int $status
-    ): AvailabilityAlertSubscriptionCollectionTransfer {
+    public function getSubscriptionsForCurrentStoreAndStatus(int $status): AvailabilityAlertSubscriptionCollectionTransfer
+    {
         $currentStore = $this->storeFacade->getCurrentStore();
+
         return $this->repository->findSubscriptionsByIdStoreAndStatus($currentStore->getIdStore(), $status);
     }
 
     /**
-     * @param  \Generated\Shared\Transfer\AvailabilityAlertSubscriptionTransfer  $availabilityAlertSubscriptionTransfer
+     * @param \Generated\Shared\Transfer\AvailabilityAlertSubscriptionTransfer $availabilityAlertSubscriptionTransfer
      *
-     * @return false|\Generated\Shared\Transfer\AvailabilityAlertSubscriberTransfer
+     * @return \Generated\Shared\Transfer\AvailabilityAlertSubscriberTransfer|false
      */
     protected function handleSubscriber(AvailabilityAlertSubscriptionTransfer $availabilityAlertSubscriptionTransfer)
     {
@@ -173,16 +167,15 @@ class SubscriptionManager implements SubscriptionManagerInterface
     }
 
     /**
-     * @param  \Generated\Shared\Transfer\AvailabilityAlertSubscriptionTransfer  $availabilityAlertSubscriptionTransfer
+     * @param \Generated\Shared\Transfer\AvailabilityAlertSubscriptionTransfer $availabilityAlertSubscriptionTransfer
      *
      * @return \Generated\Shared\Transfer\AvailabilityAlertSubscriptionTransfer
-     * @throws \Propel\Runtime\Exception\PropelException
-     * @throws \Spryker\Zed\Propel\Business\Exception\AmbiguousComparisonException
      */
-    protected function handleSubscription(AvailabilityAlertSubscriptionTransfer $availabilityAlertSubscriptionTransfer
-    ): AvailabilityAlertSubscriptionTransfer {
+    protected function handleSubscription(AvailabilityAlertSubscriptionTransfer $availabilityAlertSubscriptionTransfer): AvailabilityAlertSubscriptionTransfer
+    {
         $availabilityAlertSubscriptionTransfer = $this->availabilityAlertSubscriptionPluginExecutor->executePreSavePlugins($availabilityAlertSubscriptionTransfer);
         $availabilityAlertSubscriptionTransfer = $this->entityManager->createOrUpdateSubscription($availabilityAlertSubscriptionTransfer);
+
         return $this->availabilityAlertSubscriptionPluginExecutor->executePostSavePlugins($availabilityAlertSubscriptionTransfer);
     }
 }

@@ -7,18 +7,16 @@ use Generated\Shared\Transfer\AvailabilityAlertSubscriptionTransfer;
 interface AvailabilityAlertSubscriptionPluginExecutorInterface
 {
     /**
-     * @param  \Generated\Shared\Transfer\AvailabilityAlertSubscriptionTransfer  $subscriptionTransfer
+     * @param \Generated\Shared\Transfer\AvailabilityAlertSubscriptionTransfer $subscriptionTransfer
      *
      * @return \Generated\Shared\Transfer\AvailabilityAlertSubscriptionTransfer
      */
-    public function executePreSavePlugins(AvailabilityAlertSubscriptionTransfer $subscriptionTransfer
-    ): AvailabilityAlertSubscriptionTransfer;
+    public function executePreSavePlugins(AvailabilityAlertSubscriptionTransfer $subscriptionTransfer): AvailabilityAlertSubscriptionTransfer;
 
     /**
-     * @param  \Generated\Shared\Transfer\AvailabilityAlertSubscriptionTransfer  $subscriptionTransfer
+     * @param \Generated\Shared\Transfer\AvailabilityAlertSubscriptionTransfer $subscriptionTransfer
      *
      * @return \Generated\Shared\Transfer\AvailabilityAlertSubscriptionTransfer
      */
-    public function executePostSavePlugins(AvailabilityAlertSubscriptionTransfer $subscriptionTransfer
-    ): AvailabilityAlertSubscriptionTransfer;
+    public function executePostSavePlugins(AvailabilityAlertSubscriptionTransfer $subscriptionTransfer): AvailabilityAlertSubscriptionTransfer;
 }

@@ -1,8 +1,6 @@
 <?php
 
-
 namespace FondOfOryx\Zed\AvailabilityAlert\Persistence;
-
 
 use FondOfOryx\Zed\AvailabilityAlert\Exception\SubscriberNotFoundException;
 use Generated\Shared\Transfer\AvailabilityAlertSubscriberTransfer;
@@ -18,7 +16,7 @@ use Spryker\Zed\Kernel\Persistence\AbstractRepository;
 class AvailabilityAlertRepository extends AbstractRepository implements AvailabilityAlertRepositoryInterface
 {
     /**
-     * @param  string  $email
+     * @param string $email
      *
      * @return \Generated\Shared\Transfer\AvailabilityAlertSubscriberTransfer|null
      */
@@ -35,7 +33,9 @@ class AvailabilityAlertRepository extends AbstractRepository implements Availabi
     }
 
     /**
-     * @param  int  $idSubscriber
+     * @param int $idSubscriber
+     *
+     * @throws \FondOfOryx\Zed\AvailabilityAlert\Exception\SubscriberNotFoundException
      *
      * @return \Generated\Shared\Transfer\AvailabilityAlertSubscriberTransfer
      */
@@ -52,21 +52,23 @@ class AvailabilityAlertRepository extends AbstractRepository implements Availabi
     }
 
     /**
-     * @param  string  $mail
-     * @param  int  $idProductAbstract
-     * @param  string  $status
+     * @param string $mail
+     * @param int $idProductAbstract
+     * @param string $status
      *
      * @return \Generated\Shared\Transfer\AvailabilityAlertSubscriptionTransfer|null
-     * @throws \Spryker\Zed\Propel\Business\Exception\AmbiguousComparisonException
      */
-    public function findSubscriptionByEmailAndIdProductAbstractAndStatus(string $mail, int $idProductAbstract, string $status): ?AvailabilityAlertSubscriptionTransfer
-    {
+    public function findSubscriptionByEmailAndIdProductAbstractAndStatus(
+        string $mail,
+        int $idProductAbstract,
+        string $status
+    ): ?AvailabilityAlertSubscriptionTransfer {
         $query = $this->getFactory()->createAvailabilityAlertSubscriptionQuery();
         $query->joinWithFooAvailabilityAlertSubscriber(FooAvailabilityAlertSubscriberTableMap::TABLE_NAME)->useFooAvailabilityAlertSubscriberQuery()->filterByEmail($mail)->endUse()->filterByStatus($status);
 
         $entity = $query->findOneByFkProductAbstract($idProductAbstract);
 
-        if ($entity === null){
+        if ($entity === null) {
             return null;
         }
 
@@ -75,8 +77,6 @@ class AvailabilityAlertRepository extends AbstractRepository implements Availabi
 
     /**
      * @return array
-     * @throws \Propel\Runtime\Exception\PropelException
-     * @throws \Spryker\Zed\Propel\Business\Exception\AmbiguousComparisonException
      */
     public function getCountOfSubscriberPerProductAbstract(): array
     {
@@ -91,11 +91,10 @@ class AvailabilityAlertRepository extends AbstractRepository implements Availabi
     }
 
     /**
-     * @param  int  $idStore
-     * @param  int  $status
+     * @param int $idStore
+     * @param int $status
      *
      * @return \Generated\Shared\Transfer\AvailabilityAlertSubscriptionCollectionTransfer
-     * @throws \Spryker\Zed\Propel\Business\Exception\AmbiguousComparisonException
      */
     public function findSubscriptionsByIdStoreAndStatus(int $idStore, int $status): AvailabilityAlertSubscriptionCollectionTransfer
     {
@@ -105,7 +104,7 @@ class AvailabilityAlertRepository extends AbstractRepository implements Availabi
 
         $data = $query->find()->getData();
         $collection = new AvailabilityAlertSubscriptionCollectionTransfer();
-        foreach ($data as $entity){
+        foreach ($data as $entity) {
             $collection->addSubscription($this->getFactory()->createAvailabilityAlertSubscriptionMapper()->fromEntity($entity));
         }
 

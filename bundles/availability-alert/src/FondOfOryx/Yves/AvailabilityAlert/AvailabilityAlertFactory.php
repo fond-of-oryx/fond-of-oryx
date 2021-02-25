@@ -13,7 +13,7 @@ use Spryker\Yves\Kernel\AbstractFactory;
 class AvailabilityAlertFactory extends AbstractFactory
 {
     /**
-     * @param  int  $idProductAbstract
+     * @param int $idProductAbstract
      *
      * @return \Symfony\Component\Form\FormInterface
      */
@@ -64,7 +64,6 @@ class AvailabilityAlertFactory extends AbstractFactory
 
     /**
      * @return \FondOfOryx\Yves\AvailabilityAlert\Dependency\Client\AvailabilityAlertToStoreClientInterface
-     * @throws \Spryker\Yves\Kernel\Exception\Container\ContainerKeyNotFoundException
      */
     public function getStoreClient(): AvailabilityAlertToStoreClientInterface
     {
@@ -73,7 +72,6 @@ class AvailabilityAlertFactory extends AbstractFactory
 
     /**
      * @return \FondOfOryx\Yves\AvailabilityAlert\Dependency\Client\AvailabilityAlertToLocaleClientInterface
-     * @throws \Spryker\Yves\Kernel\Exception\Container\ContainerKeyNotFoundException
      */
     public function getLocaleClient(): AvailabilityAlertToLocaleClientInterface
     {

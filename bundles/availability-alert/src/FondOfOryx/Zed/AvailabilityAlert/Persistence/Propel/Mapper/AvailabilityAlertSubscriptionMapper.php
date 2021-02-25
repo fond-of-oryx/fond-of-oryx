@@ -2,7 +2,6 @@
 
 namespace FondOfOryx\Zed\AvailabilityAlert\Persistence\Propel\Mapper;
 
-
 use Generated\Shared\Transfer\AvailabilityAlertSubscriptionTransfer;
 use Generated\Shared\Transfer\LocaleTransfer;
 use Generated\Shared\Transfer\ProductAbstractTransfer;
@@ -20,9 +19,7 @@ class AvailabilityAlertSubscriptionMapper implements AvailabilityAlertSubscripti
     protected $subscriberMapper;
 
     /**
-     * AvailabilityAlertSubscriptionMapper constructor.
-     *
-     * @param  \FondOfOryx\Zed\AvailabilityAlert\Persistence\Propel\Mapper\AvailabilityAlertSubscriberMapperInterface  $subscriberMapper
+     * @param \FondOfOryx\Zed\AvailabilityAlert\Persistence\Propel\Mapper\AvailabilityAlertSubscriberMapperInterface $subscriberMapper
      */
     public function __construct(AvailabilityAlertSubscriberMapperInterface $subscriberMapper)
     {
@@ -30,12 +27,12 @@ class AvailabilityAlertSubscriptionMapper implements AvailabilityAlertSubscripti
     }
 
     /**
-     * @param  \Orm\Zed\AvailabilityAlert\Persistence\FooAvailabilityAlertSubscription  $availabilityAlertSubscription
+     * @param \Orm\Zed\AvailabilityAlert\Persistence\FooAvailabilityAlertSubscription $availabilityAlertSubscription
      *
      * @return \Generated\Shared\Transfer\AvailabilityAlertSubscriptionTransfer
      */
-    public function fromEntity(FooAvailabilityAlertSubscription $availabilityAlertSubscription
-    ): AvailabilityAlertSubscriptionTransfer {
+    public function fromEntity(FooAvailabilityAlertSubscription $availabilityAlertSubscription): AvailabilityAlertSubscriptionTransfer
+    {
         $transfer = new AvailabilityAlertSubscriptionTransfer();
         $transfer->fromArray($availabilityAlertSubscription->toArray(), true);
 
@@ -48,12 +45,12 @@ class AvailabilityAlertSubscriptionMapper implements AvailabilityAlertSubscripti
     }
 
     /**
-     * @param  \Generated\Shared\Transfer\AvailabilityAlertSubscriptionTransfer  $availabilityAlertSubscriptionTransfer
+     * @param \Generated\Shared\Transfer\AvailabilityAlertSubscriptionTransfer $availabilityAlertSubscriptionTransfer
      *
      * @return \Orm\Zed\AvailabilityAlert\Persistence\FooAvailabilityAlertSubscription
      */
-    public function fromTransfer(AvailabilityAlertSubscriptionTransfer $availabilityAlertSubscriptionTransfer
-    ): FooAvailabilityAlertSubscription {
+    public function fromTransfer(AvailabilityAlertSubscriptionTransfer $availabilityAlertSubscriptionTransfer): FooAvailabilityAlertSubscription
+    {
         $entity = new FooAvailabilityAlertSubscription();
         $entity->fromArray($availabilityAlertSubscriptionTransfer->toArray());
         $entity->setFkAvailabilityAlertSubscriber($availabilityAlertSubscriptionTransfer->getFkSubscriber());
@@ -65,7 +62,7 @@ class AvailabilityAlertSubscriptionMapper implements AvailabilityAlertSubscripti
     }
 
     /**
-     * @param  \Orm\Zed\Store\Persistence\SpyStore  $spyStore
+     * @param \Orm\Zed\Store\Persistence\SpyStore $spyStore
      *
      * @return \Generated\Shared\Transfer\StoreTransfer
      */
@@ -78,7 +75,7 @@ class AvailabilityAlertSubscriptionMapper implements AvailabilityAlertSubscripti
     }
 
     /**
-     * @param  \Orm\Zed\Product\Persistence\SpyProductAbstract  $spyProductAbstract
+     * @param \Orm\Zed\Product\Persistence\SpyProductAbstract $spyProductAbstract
      *
      * @return \Generated\Shared\Transfer\ProductAbstractTransfer
      */
@@ -91,7 +88,7 @@ class AvailabilityAlertSubscriptionMapper implements AvailabilityAlertSubscripti
     }
 
     /**
-     * @param  \Orm\Zed\Locale\Persistence\SpyLocale  $spyLocale
+     * @param \Orm\Zed\Locale\Persistence\SpyLocale $spyLocale
      *
      * @return \Generated\Shared\Transfer\LocaleTransfer
      */

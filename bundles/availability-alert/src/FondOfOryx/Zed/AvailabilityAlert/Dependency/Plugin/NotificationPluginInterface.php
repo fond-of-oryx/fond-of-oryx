@@ -1,15 +1,13 @@
 <?php
 
-
 namespace FondOfOryx\Zed\AvailabilityAlert\Dependency\Plugin;
-
 
 use Generated\Shared\Transfer\AvailabilityAlertSubscriptionTransfer;
 
 interface NotificationPluginInterface
 {
     /**
-     * @param  \Generated\Shared\Transfer\AvailabilityAlertSubscriptionTransfer  $availabilityAlertSubscriptionTransfer
+     * @param \Generated\Shared\Transfer\AvailabilityAlertSubscriptionTransfer $availabilityAlertSubscriptionTransfer
      *
      * @return void
      */

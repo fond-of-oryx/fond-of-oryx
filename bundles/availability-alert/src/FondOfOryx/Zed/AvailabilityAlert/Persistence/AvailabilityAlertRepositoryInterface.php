@@ -9,42 +9,49 @@ use Generated\Shared\Transfer\AvailabilityAlertSubscriptionTransfer;
 interface AvailabilityAlertRepositoryInterface
 {
     /**
-     * @param  string  $email
+     * @param string $email
      *
      * @return \Generated\Shared\Transfer\AvailabilityAlertSubscriberTransfer|null
      */
     public function findSubscriberByMail(string $email): ?AvailabilityAlertSubscriberTransfer;
 
     /**
-     * @param  int  $idSubscriber
+     * @param int $idSubscriber
      *
      * @return \Generated\Shared\Transfer\AvailabilityAlertSubscriberTransfer|null
      */
     public function findSubscriberById(int $idSubscriber): ?AvailabilityAlertSubscriberTransfer;
 
     /**
-     * @param  string  $mail
-     * @param  int  $idProductAbstract
-     * @param  string  $status
+     * @param string $mail
+     * @param int $idProductAbstract
+     * @param string $status
+     *
+     * @throws \Spryker\Zed\Propel\Business\Exception\AmbiguousComparisonException
      *
      * @return \Generated\Shared\Transfer\AvailabilityAlertSubscriptionTransfer|null
-     * @throws \Spryker\Zed\Propel\Business\Exception\AmbiguousComparisonException
      */
-    public function findSubscriptionByEmailAndIdProductAbstractAndStatus(string $mail, int $idProductAbstract, string $status): ?AvailabilityAlertSubscriptionTransfer;
+    public function findSubscriptionByEmailAndIdProductAbstractAndStatus(
+        string $mail,
+        int $idProductAbstract,
+        string $status
+    ): ?AvailabilityAlertSubscriptionTransfer;
 
     /**
-     * @return array
      * @throws \Propel\Runtime\Exception\PropelException
      * @throws \Spryker\Zed\Propel\Business\Exception\AmbiguousComparisonException
+     *
+     * @return array
      */
     public function getCountOfSubscriberPerProductAbstract(): array;
 
     /**
-     * @param  int  $idStore
-     * @param  int  $status
+     * @param int $idStore
+     * @param int $status
+     *
+     * @throws \Spryker\Zed\Propel\Business\Exception\AmbiguousComparisonException
      *
      * @return \Generated\Shared\Transfer\AvailabilityAlertSubscriptionCollectionTransfer
-     * @throws \Spryker\Zed\Propel\Business\Exception\AmbiguousComparisonException
      */
     public function findSubscriptionsByIdStoreAndStatus(int $idStore, int $status): AvailabilityAlertSubscriptionCollectionTransfer;
 }

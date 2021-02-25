@@ -17,10 +17,8 @@ class AvailabilityAlertSubscriptionPluginExecutor implements AvailabilityAlertSu
     protected $postSavePlugins;
 
     /**
-     * AvailabilityAlertSubscriptionPluginExecutor constructor.
-     *
-     * @param  \FondOfOryx\Zed\AvailabilityAlert\Dependency\Plugin\AvailabilityAlertSubscriptionPreSavePluginInterface[]  $preSavePlugins
-     * @param  \FondOfOryx\Zed\AvailabilityAlert\Dependency\Plugin\AvailabilityAlertSubscriptionPostSavePluginInterface[]  $postSavePlugins
+     * @param \FondOfOryx\Zed\AvailabilityAlert\Dependency\Plugin\AvailabilityAlertSubscriptionPreSavePluginInterface[] $preSavePlugins
+     * @param \FondOfOryx\Zed\AvailabilityAlert\Dependency\Plugin\AvailabilityAlertSubscriptionPostSavePluginInterface[] $postSavePlugins
      */
     public function __construct(array $preSavePlugins, array $postSavePlugins)
     {
@@ -29,13 +27,12 @@ class AvailabilityAlertSubscriptionPluginExecutor implements AvailabilityAlertSu
     }
 
     /**
-     * @param  \Generated\Shared\Transfer\AvailabilityAlertSubscriptionTransfer  $subscriptionTransfer
+     * @param \Generated\Shared\Transfer\AvailabilityAlertSubscriptionTransfer $subscriptionTransfer
      *
      * @return \Generated\Shared\Transfer\AvailabilityAlertSubscriptionTransfer
      */
-    public function executePreSavePlugins(AvailabilityAlertSubscriptionTransfer $subscriptionTransfer
-    ): AvailabilityAlertSubscriptionTransfer {
-
+    public function executePreSavePlugins(AvailabilityAlertSubscriptionTransfer $subscriptionTransfer): AvailabilityAlertSubscriptionTransfer
+    {
         foreach ($this->preSavePlugins as $preSavePlugin) {
             $subscriptionTransfer = $preSavePlugin->preSave($subscriptionTransfer);
         }
@@ -44,13 +41,12 @@ class AvailabilityAlertSubscriptionPluginExecutor implements AvailabilityAlertSu
     }
 
     /**
-     * @param  \Generated\Shared\Transfer\AvailabilityAlertSubscriptionTransfer  $subscriptionTransfer
+     * @param \Generated\Shared\Transfer\AvailabilityAlertSubscriptionTransfer $subscriptionTransfer
      *
      * @return \Generated\Shared\Transfer\AvailabilityAlertSubscriptionTransfer
      */
-    public function executePostSavePlugins(AvailabilityAlertSubscriptionTransfer $subscriptionTransfer
-    ): AvailabilityAlertSubscriptionTransfer {
-
+    public function executePostSavePlugins(AvailabilityAlertSubscriptionTransfer $subscriptionTransfer): AvailabilityAlertSubscriptionTransfer
+    {
         foreach ($this->postSavePlugins as $postSavePlugin) {
             $subscriptionTransfer = $postSavePlugin->postSave($subscriptionTransfer);
         }

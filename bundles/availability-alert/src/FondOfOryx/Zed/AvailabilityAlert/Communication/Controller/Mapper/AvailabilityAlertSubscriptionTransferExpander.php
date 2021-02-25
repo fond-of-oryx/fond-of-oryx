@@ -1,8 +1,6 @@
 <?php
 
-
 namespace FondOfOryx\Zed\AvailabilityAlert\Communication\Controller\Mapper;
-
 
 use Generated\Shared\Transfer\AvailabilityAlertSubscriptionRequestTransfer;
 use Generated\Shared\Transfer\AvailabilityAlertSubscriptionTransfer;
@@ -15,9 +13,7 @@ class AvailabilityAlertSubscriptionTransferExpander implements AvailabilityAlert
     protected $expanderPlugins;
 
     /**
-     * AvailabilityAlertSubscriptionTransferExpander constructor.
-     *
-     * @param  \FondOfOryx\Zed\AvailabilityAlert\Dependency\Plugin\AvailabilityAlertSubscriptionTransferExpanderPluginInterface[]  $expanderPlugins
+     * @param \FondOfOryx\Zed\AvailabilityAlert\Dependency\Plugin\AvailabilityAlertSubscriptionTransferExpanderPluginInterface[] $expanderPlugins
      */
     public function __construct(array $expanderPlugins)
     {
@@ -25,8 +21,8 @@ class AvailabilityAlertSubscriptionTransferExpander implements AvailabilityAlert
     }
 
     /**
-     * @param  \Generated\Shared\Transfer\AvailabilityAlertSubscriptionTransfer  $availabilityAlertSubscriptionTransfer
-     * @param  \Generated\Shared\Transfer\AvailabilityAlertSubscriptionRequestTransfer  $alertSubscriptionRequestTransfer
+     * @param \Generated\Shared\Transfer\AvailabilityAlertSubscriptionTransfer $availabilityAlertSubscriptionTransfer
+     * @param \Generated\Shared\Transfer\AvailabilityAlertSubscriptionRequestTransfer $alertSubscriptionRequestTransfer
      *
      * @return \Generated\Shared\Transfer\AvailabilityAlertSubscriptionTransfer
      */
@@ -35,8 +31,10 @@ class AvailabilityAlertSubscriptionTransferExpander implements AvailabilityAlert
         AvailabilityAlertSubscriptionRequestTransfer $alertSubscriptionRequestTransfer
     ): AvailabilityAlertSubscriptionTransfer {
         foreach ($this->expanderPlugins as $plugin) {
-            $availabilityAlertSubscriptionTransfer = $plugin->expand($availabilityAlertSubscriptionTransfer,
-                $alertSubscriptionRequestTransfer);
+            $availabilityAlertSubscriptionTransfer = $plugin->expand(
+                $availabilityAlertSubscriptionTransfer,
+                $alertSubscriptionRequestTransfer
+            );
         }
 
         return $availabilityAlertSubscriptionTransfer;

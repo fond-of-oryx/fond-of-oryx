@@ -36,13 +36,11 @@ class SubscribersNotifier implements SubscribersNotifierInterface
     protected $subscribersNotifierPluginExecutor;
 
     /**
-     * SubscribersNotifier constructor.
-     *
-     * @param  \Spryker\Zed\Availability\Business\AvailabilityFacadeInterface  $availabilityFacade
-     * @param  \FondOfOryx\Zed\AvailabilityAlert\Business\Model\NotificationHandlerInterface  $notificationHandler
-     * @param  \FondOfOryx\Zed\AvailabilityAlert\Business\Model\SubscriptionManagerInterface  $subscriptionManager
-     * @param  int  $minimalPercentageDifference
-     * @param  \FondOfOryx\Zed\AvailabilityAlert\Business\Model\SubscribersNotifier\SubscribersNotifierPluginExecutorInterface  $subscribersNotifierPluginExecutor
+     * @param \Spryker\Zed\Availability\Business\AvailabilityFacadeInterface $availabilityFacade
+     * @param \FondOfOryx\Zed\AvailabilityAlert\Business\Model\NotificationHandlerInterface $notificationHandler
+     * @param \FondOfOryx\Zed\AvailabilityAlert\Business\Model\SubscriptionManagerInterface $subscriptionManager
+     * @param int $minimalPercentageDifference
+     * @param \FondOfOryx\Zed\AvailabilityAlert\Business\Model\SubscribersNotifier\SubscribersNotifierPluginExecutorInterface $subscribersNotifierPluginExecutor
      */
     public function __construct(
         AvailabilityFacadeInterface $availabilityFacade,
@@ -66,8 +64,12 @@ class SubscribersNotifier implements SubscribersNotifierInterface
         $countOfSubscriberPerProductAbstract = $this->subscriptionManager->getCurrentSubscriptionCountPerProductAbstract();
 
         foreach ($this->subscriptionManager->getSubscriptionsForCurrentStoreAndStatus(0)->getSubscriptions() as $availabilityAlertSubscriptionTransfer) {
-            if (!$this->canSendNotification($availabilityAlertSubscriptionTransfer,
-                $countOfSubscriberPerProductAbstract)) {
+            if (
+                !$this->canSendNotification(
+                    $availabilityAlertSubscriptionTransfer,
+                    $countOfSubscriberPerProductAbstract
+                )
+            ) {
                 continue;
             }
 
@@ -84,11 +86,11 @@ class SubscribersNotifier implements SubscribersNotifierInterface
     }
 
     /**
-     * @param  \Generated\Shared\Transfer\AvailabilityAlertSubscriptionTransfer  $availabilityAlertSubscriptionTransfer
+     * @param \Generated\Shared\Transfer\AvailabilityAlertSubscriptionTransfer $availabilityAlertSubscriptionTransfer
      *
-     * @return $this
+     * @return void
      */
-    protected function sendNotification(AvailabilityAlertSubscriptionTransfer $availabilityAlertSubscriptionTransfer): SubscribersNotifierInterface
+    protected function sendNotification(AvailabilityAlertSubscriptionTransfer $availabilityAlertSubscriptionTransfer): void
     {
         $this->notificationHandler->execute($availabilityAlertSubscriptionTransfer);
 
@@ -96,19 +98,17 @@ class SubscribersNotifier implements SubscribersNotifierInterface
             ->setStatus(FooAvailabilityAlertSubscriptionTableMap::COL_STATUS_NOTIFIED);
 
         $this->subscriptionManager->updateSubscription($availabilityAlertSubscriptionTransfer);
-
-        return $this;
     }
 
     /**
-     * @param  \Generated\Shared\Transfer\AvailabilityAlertSubscriptionTransfer  $availabilityAlertSubscriptionTransfer
-     * @param $countOfSubscriberPerProductAbstract
+     * @param \Generated\Shared\Transfer\AvailabilityAlertSubscriptionTransfer $availabilityAlertSubscriptionTransfer
+     * @param array $countOfSubscriberPerProductAbstract
      *
      * @return bool
      */
     protected function canSendNotification(
         AvailabilityAlertSubscriptionTransfer $availabilityAlertSubscriptionTransfer,
-        $countOfSubscriberPerProductAbstract
+        array $countOfSubscriberPerProductAbstract
     ): bool {
         $percentageDifference = $this->calculatePercentageDifference(
             $availabilityAlertSubscriptionTransfer,
@@ -119,8 +119,8 @@ class SubscribersNotifier implements SubscribersNotifierInterface
     }
 
     /**
-     * @param  \Generated\Shared\Transfer\AvailabilityAlertSubscriptionTransfer  $availabilityAlertSubscriptionTransfer
-     * @param  array  $countOfSubscriberPerProductAbstract
+     * @param \Generated\Shared\Transfer\AvailabilityAlertSubscriptionTransfer $availabilityAlertSubscriptionTransfer
+     * @param array $countOfSubscriberPerProductAbstract
      *
      * @return float
      */
@@ -132,11 +132,11 @@ class SubscribersNotifier implements SubscribersNotifierInterface
         $subscriberCount = $countOfSubscriberPerProductAbstract[$fkProductAbstract];
         $availability = $this->getAvailability($availabilityAlertSubscriptionTransfer)->toInt();
 
-        return (float) ($availability * 100 / $subscriberCount);
+        return (float)($availability * 100 / $subscriberCount);
     }
 
     /**
-     * @param  \Generated\Shared\Transfer\AvailabilityAlertSubscriptionTransfer  $availabilityAlertSubscriptionTransfer
+     * @param \Generated\Shared\Transfer\AvailabilityAlertSubscriptionTransfer $availabilityAlertSubscriptionTransfer
      *
      * @return \Spryker\DecimalObject\Decimal|null
      */

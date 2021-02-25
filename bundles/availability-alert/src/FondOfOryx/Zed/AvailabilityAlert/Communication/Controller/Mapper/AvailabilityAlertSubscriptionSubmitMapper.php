@@ -26,11 +26,9 @@ class AvailabilityAlertSubscriptionSubmitMapper implements AvailabilityAlertSubs
     protected $expander;
 
     /**
-     * AvailabilityAlertSubscriptionSubmitMapper constructor.
-     *
-     * @param  \FondOfOryx\Zed\AvailabilityAlert\Dependency\Facade\AvailabilityAlertToLocaleInterface  $localeFacade
-     * @param  \FondOfOryx\Zed\AvailabilityAlert\Dependency\Facade\AvailabilityAlertToStoreInterface  $storeFacade
-     * @param  \FondOfOryx\Zed\AvailabilityAlert\Communication\Controller\Mapper\AvailabilityAlertSubscriptionTransferExpanderInterface  $expander
+     * @param \FondOfOryx\Zed\AvailabilityAlert\Dependency\Facade\AvailabilityAlertToLocaleInterface $localeFacade
+     * @param \FondOfOryx\Zed\AvailabilityAlert\Dependency\Facade\AvailabilityAlertToStoreInterface $storeFacade
+     * @param \FondOfOryx\Zed\AvailabilityAlert\Communication\Controller\Mapper\AvailabilityAlertSubscriptionTransferExpanderInterface $expander
      */
     public function __construct(
         AvailabilityAlertToLocaleInterface $localeFacade,
@@ -43,7 +41,7 @@ class AvailabilityAlertSubscriptionSubmitMapper implements AvailabilityAlertSubs
     }
 
     /**
-     * @param  \Generated\Shared\Transfer\AvailabilityAlertSubscriptionRequestTransfer  $availabilityAlertSubscriptionRequestTransfer
+     * @param \Generated\Shared\Transfer\AvailabilityAlertSubscriptionRequestTransfer $availabilityAlertSubscriptionRequestTransfer
      *
      * @return \Generated\Shared\Transfer\AvailabilityAlertSubscriptionTransfer
      */
@@ -66,19 +64,21 @@ class AvailabilityAlertSubscriptionSubmitMapper implements AvailabilityAlertSubs
     }
 
     /**
-     * @param  \Generated\Shared\Transfer\AvailabilityAlertSubscriptionRequestTransfer  $availabilityAlertSubscriptionRequestTransfer
+     * @param \Generated\Shared\Transfer\AvailabilityAlertSubscriptionRequestTransfer $availabilityAlertSubscriptionRequestTransfer
      *
      * @return \Generated\Shared\Transfer\AvailabilityAlertSubscriberTransfer
      */
     protected function mapSubscriber(
         AvailabilityAlertSubscriptionRequestTransfer $availabilityAlertSubscriptionRequestTransfer
     ): AvailabilityAlertSubscriberTransfer {
-        return (new AvailabilityAlertSubscriberTransfer())->fromArray($availabilityAlertSubscriptionRequestTransfer->toArray(),
-            true);
+        return (new AvailabilityAlertSubscriberTransfer())->fromArray(
+            $availabilityAlertSubscriptionRequestTransfer->toArray(),
+            true
+        );
     }
 
     /**
-     * @param  \Generated\Shared\Transfer\AvailabilityAlertSubscriptionRequestTransfer  $availabilityAlertSubscriptionRequestTransfer
+     * @param \Generated\Shared\Transfer\AvailabilityAlertSubscriptionRequestTransfer $availabilityAlertSubscriptionRequestTransfer
      *
      * @return int
      */
@@ -89,7 +89,7 @@ class AvailabilityAlertSubscriptionSubmitMapper implements AvailabilityAlertSubs
     }
 
     /**
-     * @param  \Generated\Shared\Transfer\AvailabilityAlertSubscriptionRequestTransfer  $availabilityAlertSubscriptionRequestTransfer
+     * @param \Generated\Shared\Transfer\AvailabilityAlertSubscriptionRequestTransfer $availabilityAlertSubscriptionRequestTransfer
      *
      * @return int
      */
@@ -100,7 +100,7 @@ class AvailabilityAlertSubscriptionSubmitMapper implements AvailabilityAlertSubs
     }
 
     /**
-     * @param  \Generated\Shared\Transfer\AvailabilityAlertSubscriptionRequestTransfer  $availabilityAlertSubscriptionRequestTransfer
+     * @param \Generated\Shared\Transfer\AvailabilityAlertSubscriptionRequestTransfer $availabilityAlertSubscriptionRequestTransfer
      *
      * @return void
      */
