@@ -28,4 +28,23 @@ class AvailabilityAlertToStoreBridge implements AvailabilityAlertToStoreInterfac
     {
         return $this->storeFacade->getStoreByName($store);
     }
+
+    /**
+     * @param  int  $idStore
+     *
+     * @return \Generated\Shared\Transfer\StoreTransfer
+     * @throws \Spryker\Zed\Store\Business\Model\Exception\StoreNotFoundException
+     */
+    public function getStoreById(int $idStore): StoreTransfer
+    {
+        return $this->storeFacade->getStoreById($idStore);
+    }
+
+    /**
+     * @return \Generated\Shared\Transfer\StoreTransfer
+     */
+    public function getCurrentStore(): StoreTransfer
+    {
+        return $this->storeFacade->getCurrentStore();
+    }
 }

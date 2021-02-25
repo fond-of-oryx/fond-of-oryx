@@ -3,7 +3,9 @@
 namespace FondOfOryx\Zed\AvailabilityAlert\Business;
 
 use FondOfOryx\Zed\AvailabilityAlert\AvailabilityAlertDependencyProvider;
-use FondOfOryx\Zed\AvailabilityAlert\Business\Model\MailHandler;
+use FondOfOryx\Zed\AvailabilityAlert\Business\Model\NotificationHandler;
+use FondOfOryx\Zed\AvailabilityAlert\Business\Model\NotificationHandlerInterface;
+use FondOfOryx\Zed\AvailabilityAlert\Business\Model\Notification\MailNotificationHandler;
 use FondOfOryx\Zed\AvailabilityAlert\Business\Model\SubscribersNotifier;
 use FondOfOryx\Zed\AvailabilityAlert\Business\Model\SubscribersNotifier\PreCheck\SubscribersNotifierHasProductAssignedStoresCheck;
 use FondOfOryx\Zed\AvailabilityAlert\Business\Model\SubscribersNotifier\PreCheck\SubscribersNotifierHasProductAssignedStoresCheckInterface;
@@ -16,14 +18,21 @@ use FondOfOryx\Zed\AvailabilityAlert\Business\Model\SubscriptionManager;
 use FondOfOryx\Zed\AvailabilityAlert\Business\Model\SubscriptionManagerInterface;
 use FondOfOryx\Zed\AvailabilityAlert\Business\Model\SubscriptionRequestHandler;
 use FondOfOryx\Zed\AvailabilityAlert\Business\Model\SubscriptionRequestHandlerInterface;
+use FondOfOryx\Zed\AvailabilityAlert\Business\PluginExecutor\AvailabilityAlertSubscriberPluginExecutor;
+use FondOfOryx\Zed\AvailabilityAlert\Business\PluginExecutor\AvailabilityAlertSubscriberPluginExecutorInterface;
+use FondOfOryx\Zed\AvailabilityAlert\Business\PluginExecutor\AvailabilityAlertSubscriptionPluginExecutor;
+use FondOfOryx\Zed\AvailabilityAlert\Business\PluginExecutor\AvailabilityAlertSubscriptionPluginExecutorInterface;
 use FondOfOryx\Zed\AvailabilityAlert\Dependency\Facade\AvailabilityAlertToMailInterface;
 use FondOfOryx\Zed\AvailabilityAlert\Dependency\Facade\AvailabilityAlertToProductInterface;
+use FondOfOryx\Zed\AvailabilityAlert\Dependency\Facade\AvailabilityAlertToStoreInterface;
 use Spryker\Zed\Availability\Business\AvailabilityFacadeInterface;
 use Spryker\Zed\Kernel\Business\AbstractBusinessFactory;
 
 /**
  * @method \FondOfOryx\Zed\AvailabilityAlert\AvailabilityAlertConfig getConfig()
  * @method \FondOfOryx\Zed\AvailabilityAlert\Persistence\AvailabilityAlertQueryContainerInterface getQueryContainer()
+ * @method \FondOfOryx\Zed\AvailabilityAlert\Persistence\AvailabilityAlertEntityManagerInterface getEntityManager()
+ * @method \FondOfOryx\Zed\AvailabilityAlert\Persistence\AvailabilityAlertRepositoryInterface getRepository()()
  */
 class AvailabilityAlertBusinessFactory extends AbstractBusinessFactory
 {
@@ -43,34 +52,47 @@ class AvailabilityAlertBusinessFactory extends AbstractBusinessFactory
     protected function createSubscriptionManager(): SubscriptionManagerInterface
     {
         return new SubscriptionManager(
-            $this->getQueryContainer()
+            $this->getEntityManager(),
+            $this->getRepository(),
+            $this->getStoreFacade(),
+            $this->createAvailabilityAlertSubscriptionPluginExecutor(),
+            $this->createAvailabilityAlertSubscriberPluginExecutor()
         );
     }
 
     /**
      * @return \FondOfOryx\Zed\AvailabilityAlert\Business\Model\SubscribersNotifierInterface
      */
-    public function createSubscribersNotifer(): SubscribersNotifierInterface
+    public function createSubscribersNotifier(): SubscribersNotifierInterface
     {
         return new SubscribersNotifier(
             $this->getAvailabilityFacade(),
-            $this->createMailHandler(),
-            $this->getQueryContainer(),
+            $this->createNotificationHandler(),
+            $this->createSubscriptionManager(),
             $this->getConfig()->getMinimalPercentageDifference(),
             $this->createSubscribersNotifierPluginExecutor()
         );
     }
 
     /**
-     * @return \FondOfOryx\Zed\AvailabilityAlert\Business\Model\MailHandler
+     * @return \FondOfOryx\Zed\AvailabilityAlert\Business\Model\Notification\MailNotificationHandler
      */
-    protected function createMailHandler(): MailHandler
+    public function createMailHandler(): MailNotificationHandler
     {
-        return new MailHandler(
+        return new MailNotificationHandler(
             $this->getMailFacade(),
             $this->getProductFacade(),
             $this->getConfig()->getBaseUrlSslYves()
         );
+    }
+
+    /**
+     * @return \FondOfOryx\Zed\AvailabilityAlert\Business\Model\NotificationHandlerInterface
+     * @throws \Spryker\Zed\Kernel\Exception\Container\ContainerKeyNotFoundException
+     */
+    protected function createNotificationHandler(): NotificationHandlerInterface
+    {
+        return new NotificationHandler($this->getNotificationHandlerPlugins());
     }
 
     /**
@@ -84,9 +106,30 @@ class AvailabilityAlertBusinessFactory extends AbstractBusinessFactory
     }
 
     /**
+     * @return \FondOfOryx\Zed\AvailabilityAlert\Business\PluginExecutor\AvailabilityAlertSubscriberPluginExecutorInterface
+     */
+    public function createAvailabilityAlertSubscriberPluginExecutor(
+    ): AvailabilityAlertSubscriberPluginExecutorInterface
+    {
+        return new AvailabilityAlertSubscriberPluginExecutor($this->getSubscriberPreSavePlugins(),
+            $this->getSubscriberPostSavePlugins());
+    }
+
+    /**
+     * @return \FondOfOryx\Zed\AvailabilityAlert\Business\PluginExecutor\AvailabilityAlertSubscriptionPluginExecutorInterface
+     */
+    public function createAvailabilityAlertSubscriptionPluginExecutor(
+    ): AvailabilityAlertSubscriptionPluginExecutorInterface
+    {
+        return new AvailabilityAlertSubscriptionPluginExecutor($this->getSubscriptionPreSavePlugins(),
+            $this->getSubscriptionPostSavePlugins());
+    }
+
+    /**
      * @return \FondOfOryx\Zed\AvailabilityAlert\Business\Model\SubscribersNotifier\PreCheck\SubscribersNotifierHasProductAssignedStoresCheckInterface
      */
-    public function createSubscribersNotifierHasProductAssignedStoresCheck(): SubscribersNotifierHasProductAssignedStoresCheckInterface
+    public function createSubscribersNotifierHasProductAssignedStoresCheck(
+    ): SubscribersNotifierHasProductAssignedStoresCheckInterface
     {
         return new SubscribersNotifierHasProductAssignedStoresCheck(
             $this->getProductFacade()
@@ -96,7 +139,8 @@ class AvailabilityAlertBusinessFactory extends AbstractBusinessFactory
     /**
      * @return \FondOfOryx\Zed\AvailabilityAlert\Business\Model\SubscribersNotifier\PreCheck\SubscribersNotifierProductAttributeReleaseDateInPastOrIsEmptyCheckInterface
      */
-    public function createSubscribersNotifierProductAttributeReleaseDateInPastOrIsEmptyCheck(): SubscribersNotifierProductAttributeReleaseDateInPastOrIsEmptyCheckInterface
+    public function createSubscribersNotifierProductAttributeReleaseDateInPastOrIsEmptyCheck(
+    ): SubscribersNotifierProductAttributeReleaseDateInPastOrIsEmptyCheckInterface
     {
         return new SubscribersNotifierProductAttributeReleaseDateInPastOrIsEmptyCheck(
             $this->getProductFacade()
@@ -133,5 +177,59 @@ class AvailabilityAlertBusinessFactory extends AbstractBusinessFactory
     protected function getProductFacade(): AvailabilityAlertToProductInterface
     {
         return $this->getProvidedDependency(AvailabilityAlertDependencyProvider::FACADE_PRODUCT);
+    }
+
+    /**
+     * @return \FondOfOryx\Zed\AvailabilityAlert\Dependency\Facade\AvailabilityAlertToStoreInterface
+     * @throws \Spryker\Zed\Kernel\Exception\Container\ContainerKeyNotFoundException
+     */
+    protected function getStoreFacade(): AvailabilityAlertToStoreInterface
+    {
+        return $this->getProvidedDependency(AvailabilityAlertDependencyProvider::FACADE_STORE);
+    }
+
+    /**
+     * @return \FondOfOryx\Zed\AvailabilityAlert\Dependency\Plugin\AvailabilityAlertSubscriberPostSavePluginInterface[]
+     * @throws \Spryker\Zed\Kernel\Exception\Container\ContainerKeyNotFoundException
+     */
+    protected function getSubscriberPostSavePlugins(): array
+    {
+        return $this->getProvidedDependency(AvailabilityAlertDependencyProvider::PLUGINS_SUBSCRIBER_POST_SAVE);
+    }
+
+    /**
+     * @return \FondOfOryx\Zed\AvailabilityAlert\Dependency\Plugin\AvailabilityAlertSubscriberPreSavePluginInterface[]
+     * @throws \Spryker\Zed\Kernel\Exception\Container\ContainerKeyNotFoundException
+     */
+    protected function getSubscriberPreSavePlugins(): array
+    {
+        return $this->getProvidedDependency(AvailabilityAlertDependencyProvider::PLUGINS_SUBSCRIBER_PRE_SAVE);
+    }
+
+    /**
+     * @return \FondOfOryx\Zed\AvailabilityAlert\Dependency\Plugin\AvailabilityAlertSubscriptionPostSavePluginInterface[]
+     * @throws \Spryker\Zed\Kernel\Exception\Container\ContainerKeyNotFoundException
+     */
+    protected function getSubscriptionPostSavePlugins(): array
+    {
+        return $this->getProvidedDependency(AvailabilityAlertDependencyProvider::PLUGINS_SUBSCRIPTION_POST_SAVE);
+    }
+
+    /**
+     * @return \FondOfOryx\Zed\AvailabilityAlert\Dependency\Plugin\AvailabilityAlertSubscriptionPreSavePluginInterface[]
+     * @throws \Spryker\Zed\Kernel\Exception\Container\ContainerKeyNotFoundException
+     */
+    protected function getSubscriptionPreSavePlugins(): array
+    {
+        return $this->getProvidedDependency(AvailabilityAlertDependencyProvider::PLUGINS_SUBSCRIPTION_PRE_SAVE);
+    }
+
+    /**
+     * @return \FondOfOryx\Zed\AvailabilityAlert\Dependency\Plugin\NotificationPluginInterface[]
+     * @throws \Spryker\Zed\Kernel\Exception\Container\ContainerKeyNotFoundException
+     */
+    protected function getNotificationHandlerPlugins(): array
+    {
+        return $this->getProvidedDependency(AvailabilityAlertDependencyProvider::PLUGINS_AVAILABILITY_ALERT_NOTIFICATION);
     }
 }

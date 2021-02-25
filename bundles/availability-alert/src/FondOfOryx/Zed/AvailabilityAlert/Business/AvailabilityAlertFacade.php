@@ -32,7 +32,17 @@ class AvailabilityAlertFacade extends AbstractFacade implements AvailabilityAler
      */
     public function notifySubscribers(): void
     {
-        $this->getFactory()->createSubscribersNotifer()->notify();
+        $this->getFactory()->createSubscribersNotifier()->notify();
+    }
+
+    /**
+     * @param  \Generated\Shared\Transfer\AvailabilityAlertSubscriptionTransfer  $availabilityAlertSubscriptionTransfer
+     *
+     * @return void
+     */
+    public function sendEmailNotification(AvailabilityAlertSubscriptionTransfer $availabilityAlertSubscriptionTransfer): void
+    {
+        $this->getFactory()->createMailHandler()->notify($availabilityAlertSubscriptionTransfer);
     }
 
     /**

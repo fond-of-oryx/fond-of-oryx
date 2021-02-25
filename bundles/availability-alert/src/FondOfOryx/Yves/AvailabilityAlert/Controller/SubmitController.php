@@ -4,7 +4,6 @@ namespace FondOfOryx\Yves\AvailabilityAlert\Controller;
 
 use Generated\Shared\Transfer\AvailabilityAlertSubscriptionRequestTransfer;
 use Generated\Shared\Transfer\AvailabilityAlertSubscriptionResponseTransfer;
-use Spryker\Shared\Kernel\Store;
 use Spryker\Yves\Kernel\Controller\AbstractController;
 use Symfony\Component\Form\FormError;
 use Symfony\Component\Form\FormInterface;
@@ -17,7 +16,7 @@ use Symfony\Component\HttpFoundation\Request;
 class SubmitController extends AbstractController
 {
     /**
-     * @param \Symfony\Component\HttpFoundation\Request $request
+     * @param  \Symfony\Component\HttpFoundation\Request  $request
      *
      * @return array
      */
@@ -38,7 +37,7 @@ class SubmitController extends AbstractController
     }
 
     /**
-     * @param \Symfony\Component\HttpFoundation\Request $request
+     * @param  \Symfony\Component\HttpFoundation\Request  $request
      *
      * @return \Symfony\Component\HttpFoundation\JsonResponse
      */
@@ -46,13 +45,8 @@ class SubmitController extends AbstractController
     {
         $formData = $request->request->get('availabilityAlertSubscriptionForm');
         $subscribed = false;
-        $subscriptionForm = false;
         if ($formData !== null) {
-            $idProductAbstract = $formData['idProductAbstract'];
-            $subscriptionForm = $this->getFactory()
-                ->createSubscriptionForm($idProductAbstract)->createView();
-
-            $subscribed = $this->registerForAvailabilityAlert($formData);
+            $subscribed = $this->registerForAvailabilityAlert($formData, $request);
         }
 
         return $this->jsonResponse(
@@ -63,28 +57,50 @@ class SubmitController extends AbstractController
     }
 
     /**
-     * @param array $formData
+     * @param  array  $formData
+     * @param  \Symfony\Component\HttpFoundation\Request  $request
      *
-     * @return \Generated\Shared\Transfer\AvailabilityAlertSubscriptionResponseTransfer
+     * @return \Generated\Shared\Transfer\AvailabilityAlertSubscriptionRequestTransfer
+     * @throws \Spryker\Shared\Kernel\Locale\LocaleNotFoundException
      */
-    protected function registerForAvailabilityAlert(array $formData): AvailabilityAlertSubscriptionResponseTransfer
-    {
+    protected function createSubscriptionRequest(
+        array $formData,
+        Request $request
+    ): AvailabilityAlertSubscriptionRequestTransfer {
+        $currentStore = $this->getFactory()->getStoreClient()->getCurrentStore();
         $availabilityAlertSubscriptionRequestTransfer = new AvailabilityAlertSubscriptionRequestTransfer();
-        $availabilityAlertSubscriptionRequestTransfer->setStore(Store::getInstance()->getStoreName());
+        $availabilityAlertSubscriptionRequestTransfer->setStore($currentStore->getName());
         $availabilityAlertSubscriptionRequestTransfer->setEmail($formData['email']);
         $availabilityAlertSubscriptionRequestTransfer->setIdProductAbstract($formData['idProductAbstract']);
-        $availabilityAlertSubscriptionRequestTransfer->setLocaleName(Store::getInstance()->getCurrentLocale());
+        $availabilityAlertSubscriptionRequestTransfer->setLocaleName($this->getFactory()->getLocaleClient()->getCurrentLocale());
 
+        $availabilityAlertSubscriptionRequestTransfer = $this->expandForm($availabilityAlertSubscriptionRequestTransfer,
+            $request, $formData);
+
+        return $availabilityAlertSubscriptionRequestTransfer;
+    }
+
+    /**
+     * @param  array  $formData
+     * @param  \Symfony\Component\HttpFoundation\Request  $request
+     *
+     * @return \Generated\Shared\Transfer\AvailabilityAlertSubscriptionResponseTransfer
+     * @throws \Spryker\Shared\Kernel\Locale\LocaleNotFoundException
+     */
+    protected function registerForAvailabilityAlert(
+        array $formData,
+        Request $request
+    ): AvailabilityAlertSubscriptionResponseTransfer {
         return $this->getFactory()
             ->getAvailabilityAlertClient()
             ->subscribe(
-                $availabilityAlertSubscriptionRequestTransfer
+                $this->createSubscriptionRequest($formData, $request)
             );
     }
 
     /**
-     * @param \Symfony\Component\Form\FormInterface $form
-     * @param \Symfony\Component\HttpFoundation\Request $request
+     * @param  \Symfony\Component\Form\FormInterface  $form
+     * @param  \Symfony\Component\HttpFoundation\Request  $request
      *
      * @return bool
      */
@@ -94,12 +110,14 @@ class SubmitController extends AbstractController
             return false;
         }
 
+        $formTransfer = $this->getSubscriptionFormData($form)->setLocaleName($this->getLocale())
+            ->setStore($this->getFactory()->getStoreClient()->getCurrentStore()->getName());
+        $formTransfer = $this->expandForm($formTransfer, $request);
+
         $availabilityAlertSubscriptionResponseTransfer = $this->getFactory()
             ->getAvailabilityAlertClient()
             ->subscribe(
-                $this->getSubscriptionFormData($form)
-                    ->setLocaleName($this->getLocale())
-                    ->setStore(Store::getInstance()->getStoreName())
+                $formTransfer
             );
 
         if ($availabilityAlertSubscriptionResponseTransfer->getIsSuccess()) {
@@ -118,7 +136,7 @@ class SubmitController extends AbstractController
     }
 
     /**
-     * @param \Symfony\Component\Form\FormInterface $form
+     * @param  \Symfony\Component\Form\FormInterface  $form
      *
      * @return \Generated\Shared\Transfer\AvailabilityAlertSubscriptionRequestTransfer
      */
@@ -133,5 +151,24 @@ class SubmitController extends AbstractController
     protected function getParentRequest()
     {
         return $this->getApplication()['request_stack']->getParentRequest();
+    }
+
+    /**
+     * @param  \Generated\Shared\Transfer\AvailabilityAlertSubscriptionRequestTransfer  $availabilityAlertSubscriptionRequestTransfer
+     * @param  \Symfony\Component\HttpFoundation\Request  $request
+     * @param  array  $formData
+     *
+     * @return \Generated\Shared\Transfer\AvailabilityAlertSubscriptionRequestTransfer
+     */
+    protected function expandForm(
+        AvailabilityAlertSubscriptionRequestTransfer $availabilityAlertSubscriptionRequestTransfer,
+        Request $request,
+        array $formData = []
+    ): AvailabilityAlertSubscriptionRequestTransfer {
+        foreach ($this->getFactory()->getAvailabilityAlertSubscriptionRequestExpanderPlugins() as $plugin) {
+            $availabilityAlertSubscriptionRequestTransfer = $plugin->expand($availabilityAlertSubscriptionRequestTransfer,
+                $formData, $request);
+        }
+        return $availabilityAlertSubscriptionRequestTransfer;
     }
 }

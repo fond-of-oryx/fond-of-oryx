@@ -64,7 +64,7 @@ class AvailabilityAlertMailTypePlugin extends AbstractPlugin implements MailType
             ->getAvailabilityAlertSubscription();
 
         $mailBuilder->addRecipient(
-            $availabilityAlertSubscriptionTransfer->getEmail(),
+            $availabilityAlertSubscriptionTransfer->getSubscriber()->getEmail(),
             ''
         );
 

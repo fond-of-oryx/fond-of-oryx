@@ -4,6 +4,10 @@ namespace FondOfOryx\Zed\AvailabilityAlert\Communication;
 
 use FondOfOryx\Zed\AvailabilityAlert\AvailabilityAlertDependencyProvider;
 use FondOfOryx\Zed\AvailabilityAlert\Communication\Controller\Mapper\AvailabilityAlertSubscriptionSubmitMapper;
+use FondOfOryx\Zed\AvailabilityAlert\Communication\Controller\Mapper\AvailabilityAlertSubscriptionTransferExpander;
+use FondOfOryx\Zed\AvailabilityAlert\Communication\Controller\Mapper\AvailabilityAlertSubscriptionTransferExpanderInterface;
+use FondOfOryx\Zed\AvailabilityAlert\Dependency\Facade\AvailabilityAlertToLocaleInterface;
+use FondOfOryx\Zed\AvailabilityAlert\Dependency\Facade\AvailabilityAlertToStoreInterface;
 use Spryker\Zed\Kernel\Communication\AbstractCommunicationFactory;
 
 /**
@@ -20,14 +24,22 @@ class AvailabilityAlertCommunicationFactory extends AbstractCommunicationFactory
     {
         return new AvailabilityAlertSubscriptionSubmitMapper(
             $this->getLocaleFacade(),
-            $this->getStoreFacade()
+            $this->getStoreFacade(),
+            $this->createAvailabilityAlertSubscriptionTransferExpander()
         );
+    }
+
+    /**
+     * @return \FondOfOryx\Zed\AvailabilityAlert\Communication\Controller\Mapper\AvailabilityAlertSubscriptionTransferExpanderInterface
+     */
+    public function createAvailabilityAlertSubscriptionTransferExpander(): AvailabilityAlertSubscriptionTransferExpanderInterface{
+        return new AvailabilityAlertSubscriptionTransferExpander($this->getAvailabilityAlertSubscriptionExpanderPlugins());
     }
 
     /**
      * @return \FondOfOryx\Zed\AvailabilityAlert\Dependency\Facade\AvailabilityAlertToLocaleInterface
      */
-    protected function getLocaleFacade()
+    protected function getLocaleFacade(): AvailabilityAlertToLocaleInterface
     {
         return $this->getProvidedDependency(AvailabilityAlertDependencyProvider::FACADE_LOCALE);
     }
@@ -35,8 +47,17 @@ class AvailabilityAlertCommunicationFactory extends AbstractCommunicationFactory
     /**
      * @return \FondOfOryx\Zed\AvailabilityAlert\Dependency\Facade\AvailabilityAlertToStoreInterface
      */
-    protected function getStoreFacade()
+    protected function getStoreFacade(): AvailabilityAlertToStoreInterface
     {
         return $this->getProvidedDependency(AvailabilityAlertDependencyProvider::FACADE_STORE);
+    }
+
+    /**
+     * @return \FondOfOryx\Zed\AvailabilityAlert\Dependency\Plugin\AvailabilityAlertSubscriptionTransferExpanderPluginInterface[]
+     * @throws \Spryker\Zed\Kernel\Exception\Container\ContainerKeyNotFoundException
+     */
+    protected function getAvailabilityAlertSubscriptionExpanderPlugins(): array
+    {
+        return $this->getProvidedDependency(AvailabilityAlertDependencyProvider::PLUGINS_AVAILABILITY_ALERT_SUBSCRIPTION_TRANSFER_EXPANDER);
     }
 }
