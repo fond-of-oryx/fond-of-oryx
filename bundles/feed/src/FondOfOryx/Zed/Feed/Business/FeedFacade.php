@@ -9,6 +9,7 @@ use Spryker\Zed\Kernel\Business\AbstractFacade;
 
 /**
  * @method \FondOfOryx\Zed\Feed\Business\FeedBusinessFactory getFactory()
+ * @method \FondOfOryx\Zed\Feed\Persistence\FeedRepositoryInterface getRepository()
  */
 class FeedFacade extends AbstractFacade implements FeedFacadeInterface
 {
