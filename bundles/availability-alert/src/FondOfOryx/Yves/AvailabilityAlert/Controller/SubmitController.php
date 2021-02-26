@@ -20,7 +20,7 @@ class SubmitController extends AbstractController
      *
      * @return array
      */
-    public function indexAction(Request $request)
+    public function indexAction(Request $request): array
     {
         $parentRequest = $this->getParentRequest();
         $idProductAbstract = $request->attributes->get('idProductAbstract');
@@ -121,7 +121,7 @@ class SubmitController extends AbstractController
                 $formTransfer
             );
 
-        if ($availabilityAlertSubscriptionResponseTransfer->getIsSuccess()) {
+        if ($availabilityAlertSubscriptionResponseTransfer->getIsSuccess() && method_exists($request->getSession(), 'getFlashBag')) {
             $request->getSession()
                 ->getFlashBag()
                 ->add('availability-alert-success', 'availibility_alert.feedback.success');
@@ -141,7 +141,7 @@ class SubmitController extends AbstractController
      *
      * @return \Generated\Shared\Transfer\AvailabilityAlertSubscriptionRequestTransfer
      */
-    protected function getSubscriptionFormData(FormInterface $form)
+    protected function getSubscriptionFormData(FormInterface $form): AvailabilityAlertSubscriptionRequestTransfer
     {
         return $form->getData();
     }
@@ -149,7 +149,7 @@ class SubmitController extends AbstractController
     /**
      * @return \Symfony\Component\HttpFoundation\Request
      */
-    protected function getParentRequest()
+    protected function getParentRequest(): Request
     {
         return $this->getApplication()['request_stack']->getParentRequest();
     }

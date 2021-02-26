@@ -3,6 +3,7 @@
 namespace FondOfOryx\Client\AvailabilityAlert;
 
 use Generated\Shared\Transfer\AvailabilityAlertSubscriptionRequestTransfer;
+use Generated\Shared\Transfer\AvailabilityAlertSubscriptionResponseTransfer;
 
 interface AvailabilityAlertClientInterface
 {
@@ -17,5 +18,5 @@ interface AvailabilityAlertClientInterface
      *
      * @return \Generated\Shared\Transfer\AvailabilityAlertSubscriptionResponseTransfer
      */
-    public function subscribe(AvailabilityAlertSubscriptionRequestTransfer $availabilityAlertRequestTransfer);
+    public function subscribe(AvailabilityAlertSubscriptionRequestTransfer $availabilityAlertRequestTransfer): AvailabilityAlertSubscriptionResponseTransfer;
 }

@@ -54,7 +54,11 @@ class AvailabilityAlertSubscriptionMapper implements AvailabilityAlertSubscripti
         $entity = new FooAvailabilityAlertSubscription();
         $entity->fromArray($availabilityAlertSubscriptionTransfer->toArray());
         $entity->setFkAvailabilityAlertSubscriber($availabilityAlertSubscriptionTransfer->getFkSubscriber());
-        if ($entity->getFkAvailabilityAlertSubscriber() === null && $availabilityAlertSubscriptionTransfer->getSubscriber() !== null) {
+        if ($availabilityAlertSubscriptionTransfer->getFkSubscriber() !== null) {
+            $entity->setFkAvailabilityAlertSubscriber($availabilityAlertSubscriptionTransfer->getFkSubscriber());
+        }
+
+        if ($availabilityAlertSubscriptionTransfer->getFkSubscriber() === null && $availabilityAlertSubscriptionTransfer->getSubscriber() !== null) {
             $entity->setFkAvailabilityAlertSubscriber($availabilityAlertSubscriptionTransfer->getSubscriber()->getIdAvailabilityAlertSubscriber());
         }
 
