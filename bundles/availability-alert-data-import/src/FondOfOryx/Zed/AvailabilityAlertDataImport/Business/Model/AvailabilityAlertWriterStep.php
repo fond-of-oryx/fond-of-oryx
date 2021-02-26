@@ -50,9 +50,6 @@ class AvailabilityAlertWriterStep extends PublishAwareStep implements DataImport
     /**
      * @param \Spryker\Zed\DataImport\Business\Model\DataSet\DataSetInterface $dataSet
      *
-     * @throws \Propel\Runtime\Exception\PropelException
-     * @throws \Spryker\Zed\Propel\Business\Exception\AmbiguousComparisonException
-     *
      * @return \Orm\Zed\AvailabilityAlert\Persistence\FooAvailabilityAlertSubscription
      */
     protected function findOrCreateAvailabilityAlert(DataSetInterface $dataSet)
