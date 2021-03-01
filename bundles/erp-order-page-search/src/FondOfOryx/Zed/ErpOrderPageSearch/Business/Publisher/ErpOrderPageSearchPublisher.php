@@ -13,7 +13,6 @@ use Propel\Runtime\Map\TableMap;
 class ErpOrderPageSearchPublisher implements ErpOrderPageSearchPublisherInterface
 {
     public const COMPANY_BUSINESS_UNIT = 'companyBusinessUnit';
-    public const COMPANY_USER = 'companyUser';
     public const ERP_ORDER_ITEMS = 'erpOrderItems';
     public const BILLING_ADDRESS = 'billingAddress';
     public const SHIPPING_ADDRESS = 'shippingAddress';
@@ -63,7 +62,7 @@ class ErpOrderPageSearchPublisher implements ErpOrderPageSearchPublisherInterfac
      */
     public function publish(array $erpOrderIds): void
     {
-        $fooErpOrderEntities = $this->queryContainer->queryErpOrderWithAddressesAndCompanyBusinessUnitAndCompanyUserByErpOrderIds($erpOrderIds)->find()
+        $fooErpOrderEntities = $this->queryContainer->queryErpOrderWithAddressesAndCompanyBusinessUnitByErpOrderIds($erpOrderIds)->find()
             ->getData();
 
         if (count($erpOrderIds) > 0) {
@@ -97,13 +96,11 @@ class ErpOrderPageSearchPublisher implements ErpOrderPageSearchPublisherInterfac
         $erpOrderData = $fooErpOrderEntity->toArray();
 
         $companyBusinessUnit = $fooErpOrderEntity->getCompanyBusinessUnit();
-        $companyUser = $fooErpOrderEntity->getCompanyUser();
         $orderItems = $fooErpOrderEntity->getErpOrderItems();
         $billingAddress = $fooErpOrderEntity->getErpOrderBillingAddress();
         $shippingAddress = $fooErpOrderEntity->getErpOrderShippingAddress();
 
         $erpOrderData[static::COMPANY_BUSINESS_UNIT] = $companyBusinessUnit->toArray();
-        $erpOrderData[static::COMPANY_USER] = $companyUser->toArray();
         $erpOrderData[static::ERP_ORDER_ITEMS] = $orderItems->toArray(null, false, TableMap::TYPE_FIELDNAME);
         $erpOrderData[static::BILLING_ADDRESS] = $billingAddress->toArray();
         $erpOrderData[static::SHIPPING_ADDRESS] = $shippingAddress->toArray();

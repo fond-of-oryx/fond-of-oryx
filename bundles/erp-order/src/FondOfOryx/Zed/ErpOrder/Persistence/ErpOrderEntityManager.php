@@ -41,7 +41,6 @@ class ErpOrderEntityManager extends AbstractEntityManager implements ErpOrderEnt
         $entity->fromArray($erpOrderTransfer->toArray());
         $entity
             ->setFkCompanyBusinessUnit($erpOrderTransfer->getFkCompanyBusinessUnit() ?: $erpOrderTransfer->getCompanyBusinessUnit()->getIdCompanyBusinessUnit())
-            ->setFkCompanyUser($erpOrderTransfer->getFkCompanyUser() ?: $erpOrderTransfer->getCompanyUser()->getIdCompanyUser())
             ->setCreatedAt($now)
             ->setUpdatedAt($now)
             ->setConcreteDeliveryDate($this->getConcreteDeliveryDate($erpOrderTransfer->getConcreteDeliveryDate()))

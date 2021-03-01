@@ -9,8 +9,6 @@
         <column name="fk_billing_address" required="true" type="INTEGER"/>
         <column name="fk_shipping_address" required="true" type="INTEGER"/>
         <column name="fk_company_business_unit" required="true" type="INTEGER"/>
-        <column name="fk_company_user" required="true" type="INTEGER"/>
-
         <column name="external_reference" required="false" size="255" type="VARCHAR"/>
         <column name="reference" required="false" size="255" type="VARCHAR"/>
         <column name="concrete_delivery_date" required="false" type="DATE"/>
@@ -35,10 +33,6 @@
 
         <foreign-key name="foo_erp_order-spy_company_business_unit" foreignTable="spy_company_business_unit" phpName="CompanyBusinessUnit">
             <reference local="fk_company_business_unit" foreign="id_company_business_unit"/>
-        </foreign-key>
-
-        <foreign-key name="foo_erp_order-spy_company_user" foreignTable="spy_company_user" phpName="CompanyUser">
-            <reference local="fk_company_user" foreign="id_company_user"/>
         </foreign-key>
 
         <behavior name="event">

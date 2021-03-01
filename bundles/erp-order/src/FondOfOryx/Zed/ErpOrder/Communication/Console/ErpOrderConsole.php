@@ -124,7 +124,6 @@ class ErpOrderConsole extends Console
         $erpOrderTransfer = new ErpOrderTransfer();
 
         $erpOrderTransfer
-            ->setFkCompanyUser(34)
             ->setFkCompanyBusinessUnit(2)
             ->setBillingAddress($this->createAddress())
             ->setShippingAddress($this->createAddress())

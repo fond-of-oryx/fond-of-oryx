@@ -8,12 +8,10 @@
         <property name="fkBillingAddress" type="int"/>
         <property name="fkShippingAddress" type="int"/>
         <property name="fkCompanyBusinessUnit" type="int"/>
-        <property name="fkCompanyUser" type="int"/>
         <property name="orderItems" singular="orderItem" type="ErpOrderItem[]"/>
         <property name="billingAddress" type="ErpOrderAddress"/>
         <property name="shippingAddress" type="ErpOrderAddress"/>
         <property name="companyBusinessUnit" type="CompanyBusinessUnit"/>
-        <property name="companyUser" type="CompanyUser"/>
         <property name="externalReference" type="string"/>
         <property name="reference" type="string"/>
         <property name="concreteDeliveryDate" type="string"/>

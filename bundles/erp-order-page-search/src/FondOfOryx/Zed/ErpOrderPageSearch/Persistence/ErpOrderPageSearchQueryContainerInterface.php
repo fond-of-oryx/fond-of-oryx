@@ -24,7 +24,7 @@ interface ErpOrderPageSearchQueryContainerInterface
      *
      * @return \Orm\Zed\ErpOrder\Persistence\ErpOrderQuery
      */
-    public function queryErpOrderWithAddressesAndCompanyBusinessUnitAndCompanyUserByErpOrderIds(
+    public function queryErpOrderWithAddressesAndCompanyBusinessUnitByErpOrderIds(
         array $erpOrderIds
     ): ErpOrderQuery;
 }

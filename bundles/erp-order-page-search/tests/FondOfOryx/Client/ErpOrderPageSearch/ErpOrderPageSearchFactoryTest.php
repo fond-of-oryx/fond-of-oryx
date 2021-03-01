@@ -3,7 +3,6 @@
 namespace FondOfOryx\Client\ErpOrderPageSearch;
 
 use Codeception\Test\Unit;
-use FondOfOryx\Client\ErpOrderPageSearch\Dependency\Client\ErpOrderPageSearchToCompanyUserClientBridge;
 use FondOfOryx\Client\ErpOrderPageSearch\Dependency\Client\ErpOrderPageSearchToCustomerClientBridge;
 use FondOfOryx\Client\ErpOrderPageSearch\Dependency\Client\ErpOrderPageSearchToSearchClientBridge;
 use FondOfOryx\Client\ErpOrderPageSearch\Plugin\SearchExtension\ErpOrderPageSearchQueryPlugin;
@@ -34,11 +33,6 @@ class ErpOrderPageSearchFactoryTest extends Unit
     protected $erpOrderPageSearchToCustomerClientMock;
 
     /**
-     * @var \PHPUnit\Framework\MockObject\MockObject|\FondOfOryx\Client\ErpOrderPageSearch\Dependency\Client\ErpOrderPageSearchToCompanyUserClientBridge
-     */
-    protected $erpOrderPageSearchToCompanyUserClientMock;
-
-    /**
      * @var \PHPUnit\Framework\MockObject\MockObject|\FondOfOryx\Client\ErpOrderPageSearch\Dependency\Client\ErpOrderPageSearchToSearchClientBridge
      */
     protected $erpOrderPageSearchToSearchClientMock;
@@ -59,11 +53,7 @@ class ErpOrderPageSearchFactoryTest extends Unit
         $this->erpOrderPageSearchToCustomerClientMock =  $this->getMockBuilder(ErpOrderPageSearchToCustomerClientBridge::class)
             ->disableOriginalConstructor()
             ->getMock();
-
-        $this->erpOrderPageSearchToCompanyUserClientMock =  $this->getMockBuilder(ErpOrderPageSearchToCompanyUserClientBridge::class)
-            ->disableOriginalConstructor()
-            ->getMock();
-
+        
         $this->erpOrderPageSearchToSearchClientMock = $this->getMockBuilder(ErpOrderPageSearchToSearchClientBridge::class)
             ->disableOriginalConstructor()
             ->getMock();

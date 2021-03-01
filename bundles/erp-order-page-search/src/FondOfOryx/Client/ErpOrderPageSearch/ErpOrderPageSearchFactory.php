@@ -2,7 +2,6 @@
 
 namespace FondOfOryx\Client\ErpOrderPageSearch;
 
-use FondOfOryx\Client\ErpOrderPageSearch\Dependency\Client\ErpOrderPageSearchToCompanyUserClientInterface;
 use FondOfOryx\Client\ErpOrderPageSearch\Dependency\Client\ErpOrderPageSearchToCustomerClientInterface;
 use FondOfOryx\Client\ErporderPageSearch\Dependency\Client\ErpOrderPageSearchToSearchClientInterface;
 use FondOfOryx\Client\ErpOrderPageSearch\Dependency\Client\ErpOrderPageSearchToSessionClientInterface;
@@ -61,15 +60,7 @@ class ErpOrderPageSearchFactory extends AbstractFactory
     {
         return $this->getProvidedDependency(ErpOrderPageSearchDependencyProvider::CLIENT_CUSTOMER);
     }
-
-    /**
-     * @return \FondOfOryx\Client\ErpOrderPageSearch\Dependency\Client\ErpOrderPageSearchToCompanyUserClientInterface
-     */
-    public function getCompanyUserClient(): ErpOrderPageSearchToCompanyUserClientInterface
-    {
-        return $this->getProvidedDependency(ErpOrderPageSearchDependencyProvider::CLIENT_COMPANY_USER);
-    }
-
+    
     /**
      * @return \FondOfOryx\Client\ErporderPageSearch\Dependency\Client\ErpOrderPageSearchToSearchClientInterface
      */

@@ -27,12 +27,6 @@
         "reference": {
           "type": "keyword"
         },
-        "id-company-user": {
-          "type": "integer"
-        },
-        "company-user-reference": {
-          "type": "keyword"
-        },
         "id-company-business-unit": {
           "type": "integer"
         },

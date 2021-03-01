@@ -9,7 +9,6 @@ use FondOfOryx\Zed\ErpOrderPageSearch\Dependency\Service\ErpOrderPageSearchToUti
 use FondOfOryx\Zed\ErpOrderPageSearch\Persistence\ErpOrderPageSearchEntityManagerInterface;
 use FondOfOryx\Zed\ErpOrderPageSearch\Persistence\ErpOrderPageSearchQueryContainerInterface;
 use Orm\Zed\CompanyBusinessUnit\Persistence\SpyCompanyBusinessUnit;
-use Orm\Zed\CompanyUser\Persistence\SpyCompanyUser;
 use Orm\Zed\ErpOrder\Persistence\ErpOrder;
 use Orm\Zed\ErpOrder\Persistence\ErpOrderAddress;
 use Orm\Zed\ErpOrder\Persistence\ErpOrderItem;
@@ -22,11 +21,6 @@ class ErpOrderPageSearchPublisherTest extends Unit
      * @var \PHPUnit\Framework\MockObject\MockObject|\Orm\Zed\CompanyBusinessUnit\Persistence\SpyCompanyBusinessUnit
      */
     protected $companyBusinessUnitMock;
-
-    /**
-     * @var \PHPUnit\Framework\MockObject\MockObject|\Orm\Zed\CompanyUser\Persistence\SpyCompanyUser
-     */
-    protected $companyUser;
 
     /**
      * @var \PHPUnit\Framework\MockObject\MockObject|\Orm\Zed\ErpOrder\Persistence\ErpOrderAddress
@@ -125,10 +119,6 @@ class ErpOrderPageSearchPublisherTest extends Unit
             ->getMock();
 
         $this->companyBusinessUnitMock = $this->getMockBuilder(SpyCompanyBusinessUnit::class)
-            ->disableOriginalConstructor()
-            ->getMock();
-
-        $this->companyUser = $this->getMockBuilder(SpyCompanyUser::class)
             ->disableOriginalConstructor()
             ->getMock();
 
