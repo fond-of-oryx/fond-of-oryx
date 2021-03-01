@@ -39,6 +39,7 @@
     "fond-of-oryx/erp-order-api": "*",
     "fond-of-oryx/tax-calculation-connector": "*",
     "fond-of-oryx/erp-order-extension": "*",
+    "fond-of-oryx/one-time-password": "*",
     "fond-of-oryx/one-time-password-rest-api": "*"
   },
   "minimum-stability": "dev",
@@ -46,6 +47,7 @@
   "autoload": {
     "psr-4": {
       "FondOfOryx\\Client\\CustomerStatistic\\": "bundles/customer-statistic/src/FondOfOryx/Client/CustomerStatistic",
+      "FondOfOryx\\Zed\\OneTimePassword\\": "bundles/one-time-password/src/FondOfOryx/Zed/OneTimePassword",
       "FondOfOryx\\Glue\\OneTimePasswordRestApi\\": "bundles/one-time-password-rest-api/src/FondOfOryx/Glue/OneTimePasswordRestApi",
       "FondOfOryx\\Shared\\SalesLocaleConnector\\": "bundles/sales-locale-connector/src/FondOfOryx/Shared/SalesLocaleConnector",
       "FondOfOryx\\Zed\\CustomerStatistic\\": "bundles/customer-statistic/src/FondOfOryx/Zed/CustomerStatistic",
@@ -61,6 +63,7 @@
   "autoload-dev": {
     "psr-4": {
       "FondOfOryx\\Client\\CustomerStatistic\\": "bundles/customer-statistic/tests/FondOfOryx/Client/CustomerStatistic",
+      "FondOfOryx\\Zed\\OneTimePassword\\": "bundles/one-time-password/tests/FondOfOryx/Zed/OneTimePassword",
       "FondOfOryx\\Glue\\OneTimePasswordRestApi\\": "bundles/one-time-password-rest-api/tests/FondOfOryx/Glue/OneTimePasswordRestApi",
       "FondOfOryx\\Zed\\CustomerStatistic\\": "bundles/customer-statistic/tests/FondOfOryx/Zed/CustomerStatistic",
       "FondOfOryx\\Zed\\ErpOrder\\": "bundles/erp-order/src/FondOfOryx/Zed/ErpOrder",
