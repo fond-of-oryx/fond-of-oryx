@@ -105,8 +105,7 @@ class ErpOrderPageSearchDependencyProviderTest extends Unit
             ->willReturnOnConsecutiveCalls(
                 $this->sessionClientMock,
                 $this->searchClientMock,
-                $this->customerClientMock,
-                $this->companyUserClientMock
+                $this->customerClientMock
             );
 
         $container = $this->erpOrderPageSearchDependencyProvider->provideServiceLayerDependencies($this->containerMock);

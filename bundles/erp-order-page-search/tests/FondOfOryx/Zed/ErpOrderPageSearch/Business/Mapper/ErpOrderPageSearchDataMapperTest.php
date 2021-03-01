@@ -33,10 +33,6 @@ class ErpOrderPageSearchDataMapperTest extends Unit
             ErpOrderPageSearchDataMapper::COMPANY_BUSINESS_UNIT =>  [
                 ErpOrderPageSearchDataMapper::COMPANY_BUSINESS_UNIT_UUID => ''
             ],
-            ErpOrderPageSearchDataMapper::FK_COMPANY_USER => '',
-            ErpOrderPageSearchDataMapper::COMPANY_USER => [
-                ErpOrderPageSearchDataMapper::COMPANY_USER_REFERENCE => ''
-            ],
             ErpOrderPageSearchDataMapper::REFERENCE => '',
             ErpOrderPageSearchDataMapper::ID_ERP_ORDER => '',
             ErpOrderPageSearchDataMapper::FK_BILLING_ADDRESS => '',

@@ -13,6 +13,21 @@ use Spryker\Client\SearchExtension\Dependency\Plugin\QueryInterface;
 class ErpOrderPageSearchCompanyBusinessUnitUuidFilterQueryExpanderPlugin extends AbstractErpOrderPageSearchQueryExpanderPlugin
 {
     /**
+     * @var \Generated\Shared\Transfer\CustomerTransfer
+     */
+    protected $currentUser;
+
+    /**
+     * @var string[]
+     */
+    protected $companyUserExternalReferences = [];
+
+    /**
+     * @var string[]
+     */
+    protected $companyUserReferences = [];
+
+    /**
      * @var string[]
      */
     protected $companyBusinessUnitUuids = [];

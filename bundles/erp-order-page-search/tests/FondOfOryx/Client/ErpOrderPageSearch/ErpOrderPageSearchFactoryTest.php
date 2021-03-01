@@ -109,27 +109,6 @@ class ErpOrderPageSearchFactoryTest extends Unit
     /**
      * @return void
      */
-    public function testGetCompanyUserClient(): void
-    {
-        $this->containerMock->expects(static::atLeastOnce())
-            ->method('has')
-            ->with(ErpOrderPageSearchDependencyProvider::CLIENT_COMPANY_USER)
-            ->willReturn(true);
-
-        $this->containerMock->expects(static::atLeastOnce())
-            ->method('get')
-            ->with(ErpOrderPageSearchDependencyProvider::CLIENT_COMPANY_USER)
-            ->willReturn($this->erpOrderPageSearchToCompanyUserClientMock);
-
-        $this->assertInstanceOf(
-            ErpOrderPageSearchToCompanyUserClientBridge::class,
-            $this->erpOrderPageSearchFactory->getCompanyUserClient()
-        );
-    }
-
-    /**
-     * @return void
-     */
     public function testGetSearchClient(): void
     {
         $this->containerMock->expects(static::atLeastOnce())
