@@ -29,4 +29,4 @@ release:
 	docker run -i -v $(BASE_DIRECTORY):/home/dandelion/project -w /home/dandelion/project dandelionphp/dandelion:latest dandelion release:all $(BRANCH)
 
 .PHONY: ci
-ci: codeception phpcs phpstan
+ci: install codeception phpcs phpstan
