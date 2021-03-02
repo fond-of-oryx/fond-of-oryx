@@ -6,11 +6,13 @@ use FondOfOryx\Zed\AvailabilityAlertCrossEngage\AvailabilityAlertCrossEngageDepe
 use FondOfOryx\Zed\AvailabilityAlertCrossEngage\Dependency\Service\AvailabilityAlertCrossEngageToCrossEngageServiceInterface;
 use Spryker\Zed\Kernel\Communication\AbstractCommunicationFactory;
 
+/**
+ * @method \FondOfOryx\Zed\AvailabilityAlertCrossEngage\Business\AvailabilityAlertCrossEngageFacadeInterface getFacade()
+ */
 class AvailabilityAlertCrossEngageCommunicationFactory extends AbstractCommunicationFactory
 {
     /**
      * @return \FondOfOryx\Zed\AvailabilityAlertCrossEngage\Dependency\Service\AvailabilityAlertCrossEngageToCrossEngageServiceInterface
-     * @throws \Spryker\Zed\Kernel\Exception\Container\ContainerKeyNotFoundException
      */
     public function getCrossEngageService(): AvailabilityAlertCrossEngageToCrossEngageServiceInterface
     {

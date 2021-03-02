@@ -9,9 +9,9 @@ use Symfony\Component\HttpFoundation\Request;
 class CrossEngageAvailabilityAlertSubscriptionRequestExpanderPlugin implements AvailabilityAlertSubscriptionRequestExpanderPlugin
 {
     /**
-     * @param  \Generated\Shared\Transfer\AvailabilityAlertSubscriptionRequestTransfer  $alertSubscriptionRequestTransfer
-     * @param  array  $formData
-     * @param  \Symfony\Component\HttpFoundation\Request  $request
+     * @param \Generated\Shared\Transfer\AvailabilityAlertSubscriptionRequestTransfer $alertSubscriptionRequestTransfer
+     * @param array $formData
+     * @param \Symfony\Component\HttpFoundation\Request $request
      *
      * @return \Generated\Shared\Transfer\AvailabilityAlertSubscriptionRequestTransfer
      */

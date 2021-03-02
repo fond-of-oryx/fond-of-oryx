@@ -1,4 +1,5 @@
 <?php
+
 namespace FondOfOryx\Zed\AvailabilityAlertCrossEngage\Business\Handler;
 
 use FondOfOryx\Zed\AvailabilityAlertCrossEngage\Dependency\Facade\AvailabilityAlertCrossEngageToJellyfishAvailabilityAlertFacadeInterface;
@@ -13,9 +14,7 @@ class NotificationHandler implements NotificationHandlerInterface
     protected $jellyfishAvailabilityAlertFacade;
 
     /**
-     * RegisterSubscriberHandler constructor.
-     *
-     * @param  \FondOfOryx\Zed\AvailabilityAlertCrossEngage\Dependency\Facade\AvailabilityAlertCrossEngageToJellyfishAvailabilityAlertFacadeInterface  $jellyfishAvailabilityAlertFacade
+     * @param \FondOfOryx\Zed\AvailabilityAlertCrossEngage\Dependency\Facade\AvailabilityAlertCrossEngageToJellyfishAvailabilityAlertFacadeInterface $jellyfishAvailabilityAlertFacade
      */
     public function __construct(
         AvailabilityAlertCrossEngageToJellyfishAvailabilityAlertFacadeInterface $jellyfishAvailabilityAlertFacade
@@ -24,11 +23,12 @@ class NotificationHandler implements NotificationHandlerInterface
     }
 
     /**
-     * @param  \Generated\Shared\Transfer\AvailabilityAlertSubscriptionTransfer  $subscriptionTransfer
+     * @param \Generated\Shared\Transfer\AvailabilityAlertSubscriptionTransfer $subscriptionTransfer
      *
      * @return \Generated\Shared\Transfer\AvailabilityAlertCrossEngageDispatchSubscriptionResponseTransfer
      */
-    public function sendSubscription(AvailabilityAlertSubscriptionTransfer $subscriptionTransfer
+    public function sendSubscription(
+        AvailabilityAlertSubscriptionTransfer $subscriptionTransfer
     ): AvailabilityAlertCrossEngageDispatchSubscriptionResponseTransfer {
         $response = new AvailabilityAlertCrossEngageDispatchSubscriptionResponseTransfer();
         $response->setSubscription($subscriptionTransfer);
@@ -38,6 +38,7 @@ class NotificationHandler implements NotificationHandlerInterface
         } catch (Exception $exception) {
             $response->setStatus(false);
         }
+
         return $response;
     }
 }

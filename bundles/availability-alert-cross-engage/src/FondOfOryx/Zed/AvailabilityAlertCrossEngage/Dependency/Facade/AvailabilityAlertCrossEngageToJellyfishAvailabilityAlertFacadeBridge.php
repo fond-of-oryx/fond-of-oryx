@@ -1,8 +1,6 @@
 <?php
 
-
 namespace FondOfOryx\Zed\AvailabilityAlertCrossEngage\Dependency\Facade;
-
 
 use FondOfOryx\Zed\JellyfishAvailabilityAlert\Business\JellyfishAvailabilityAlertFacadeInterface;
 use Generated\Shared\Transfer\AvailabilityAlertSubscriberTransfer;
@@ -16,9 +14,7 @@ class AvailabilityAlertCrossEngageToJellyfishAvailabilityAlertFacadeBridge imple
     protected $facade;
 
     /**
-     * AvailabilityAlertCrossEngageToJellyfishAvailabilityAlertBridge constructor.
-     *
-     * @param  \FondOfOryx\Zed\JellyfishAvailabilityAlert\Business\JellyfishAvailabilityAlertFacadeInterface  $jellyfishAvailabilityAlertFacade
+     * @param \FondOfOryx\Zed\JellyfishAvailabilityAlert\Business\JellyfishAvailabilityAlertFacadeInterface $jellyfishAvailabilityAlertFacade
      */
     public function __construct(JellyfishAvailabilityAlertFacadeInterface $jellyfishAvailabilityAlertFacade)
     {
@@ -26,7 +22,7 @@ class AvailabilityAlertCrossEngageToJellyfishAvailabilityAlertFacadeBridge imple
     }
 
     /**
-     * @param  \Generated\Shared\Transfer\AvailabilityAlertSubscriberTransfer  $availabilityAlertSubscriberTransfer
+     * @param \Generated\Shared\Transfer\AvailabilityAlertSubscriberTransfer $availabilityAlertSubscriberTransfer
      *
      * @return void
      */
@@ -36,7 +32,7 @@ class AvailabilityAlertCrossEngageToJellyfishAvailabilityAlertFacadeBridge imple
     }
 
     /**
-     * @param  \Generated\Shared\Transfer\AvailabilityAlertSubscriptionTransfer  $availabilityAlertSubscriptionTransfer
+     * @param \Generated\Shared\Transfer\AvailabilityAlertSubscriptionTransfer $availabilityAlertSubscriptionTransfer
      *
      * @return void
      */

@@ -13,7 +13,7 @@ class AvailabilityAlertCrossEngageDependencyProvider extends AbstractBundleDepen
     public const FACADE_JELLYFISH_AVAILABILITY_ALERT = 'FACADE_JELLYFISH_AVAILABILITY_ALERT';
 
     /**
-     * @param  \Spryker\Zed\Kernel\Container  $container
+     * @param \Spryker\Zed\Kernel\Container $container
      *
      * @return \Spryker\Zed\Kernel\Container
      */
@@ -26,7 +26,7 @@ class AvailabilityAlertCrossEngageDependencyProvider extends AbstractBundleDepen
     }
 
     /**
-     * @param  \Spryker\Zed\Kernel\Container  $container
+     * @param \Spryker\Zed\Kernel\Container $container
      *
      * @return \Spryker\Zed\Kernel\Container
      */
@@ -38,9 +38,8 @@ class AvailabilityAlertCrossEngageDependencyProvider extends AbstractBundleDepen
         return $container;
     }
 
-
     /**
-     * @param  \Spryker\Zed\Kernel\Container  $container
+     * @param \Spryker\Zed\Kernel\Container $container
      *
      * @return \Spryker\Zed\Kernel\Container
      */
@@ -49,11 +48,12 @@ class AvailabilityAlertCrossEngageDependencyProvider extends AbstractBundleDepen
         $container[static::SERVICE_CROSS_ENGAGE] = static function (Container $container) {
             return new AvailabilityAlertCrossEngageToCrossEngageServiceBridge($container->getLocator()->crossEngage()->service());
         };
+
         return $container;
     }
 
     /**
-     * @param  \Spryker\Zed\Kernel\Container  $container
+     * @param \Spryker\Zed\Kernel\Container $container
      *
      * @return \Spryker\Zed\Kernel\Container
      */
@@ -62,7 +62,7 @@ class AvailabilityAlertCrossEngageDependencyProvider extends AbstractBundleDepen
         $container[static::FACADE_JELLYFISH_AVAILABILITY_ALERT] = static function (Container $container) {
             return new AvailabilityAlertCrossEngageToJellyfishAvailabilityAlertFacadeBridge($container->getLocator()->jellyfishAvailabilityAlert()->facade());
         };
+
         return $container;
     }
-
 }

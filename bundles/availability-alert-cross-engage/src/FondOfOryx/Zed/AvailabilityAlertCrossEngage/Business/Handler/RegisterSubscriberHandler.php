@@ -1,8 +1,6 @@
 <?php
 
-
 namespace FondOfOryx\Zed\AvailabilityAlertCrossEngage\Business\Handler;
-
 
 use Exception;
 use FondOfOryx\Zed\AvailabilityAlertCrossEngage\Dependency\Facade\AvailabilityAlertCrossEngageToJellyfishAvailabilityAlertFacadeInterface;
@@ -17,9 +15,7 @@ class RegisterSubscriberHandler implements RegisterSubscriberHandlerInterface
     protected $jellyfishAvailabilityAlertFacade;
 
     /**
-     * RegisterSubscriberHandler constructor.
-     *
-     * @param  \FondOfOryx\Zed\AvailabilityAlertCrossEngage\Dependency\Facade\AvailabilityAlertCrossEngageToJellyfishAvailabilityAlertFacadeInterface  $jellyfishAvailabilityAlertFacade
+     * @param \FondOfOryx\Zed\AvailabilityAlertCrossEngage\Dependency\Facade\AvailabilityAlertCrossEngageToJellyfishAvailabilityAlertFacadeInterface $jellyfishAvailabilityAlertFacade
      */
     public function __construct(
         AvailabilityAlertCrossEngageToJellyfishAvailabilityAlertFacadeInterface $jellyfishAvailabilityAlertFacade
@@ -28,11 +24,12 @@ class RegisterSubscriberHandler implements RegisterSubscriberHandlerInterface
     }
 
     /**
-     * @param  \Generated\Shared\Transfer\AvailabilityAlertSubscriberTransfer  $subscriberTransfer
+     * @param \Generated\Shared\Transfer\AvailabilityAlertSubscriberTransfer $subscriberTransfer
      *
      * @return \Generated\Shared\Transfer\AvailabilityAlertCrossEngageSubscriberRegistrationResponseTransfer
      */
-    public function registerSubscriber(AvailabilityAlertSubscriberTransfer $subscriberTransfer
+    public function registerSubscriber(
+        AvailabilityAlertSubscriberTransfer $subscriberTransfer
     ): AvailabilityAlertCrossEngageSubscriberRegistrationResponseTransfer {
         $response = new AvailabilityAlertCrossEngageSubscriberRegistrationResponseTransfer();
         $response->setSubscriber($subscriberTransfer);
@@ -42,6 +39,7 @@ class RegisterSubscriberHandler implements RegisterSubscriberHandlerInterface
         } catch (Exception $exception) {
             $response->setStatus(false);
         }
+
         return $response;
     }
 }

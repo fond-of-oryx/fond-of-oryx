@@ -14,7 +14,6 @@ class AvailabilityAlertCrossEngageBusinessFactory extends AbstractBusinessFactor
 {
     /**
      * @return \FondOfOryx\Zed\AvailabilityAlertCrossEngage\Business\Handler\RegisterSubscriberHandlerInterface
-     * @throws \Spryker\Zed\Kernel\Exception\Container\ContainerKeyNotFoundException
      */
     public function createRegisterSubscriberHandler(): RegisterSubscriberHandlerInterface
     {
@@ -23,7 +22,6 @@ class AvailabilityAlertCrossEngageBusinessFactory extends AbstractBusinessFactor
 
     /**
      * @return \FondOfOryx\Zed\AvailabilityAlertCrossEngage\Business\Handler\NotificationHandlerInterface
-     * @throws \Spryker\Zed\Kernel\Exception\Container\ContainerKeyNotFoundException
      */
     public function createNotificationHandler(): NotificationHandlerInterface
     {
@@ -32,10 +30,8 @@ class AvailabilityAlertCrossEngageBusinessFactory extends AbstractBusinessFactor
 
     /**
      * @return \FondOfOryx\Zed\AvailabilityAlertCrossEngage\Dependency\Facade\AvailabilityAlertCrossEngageToJellyfishAvailabilityAlertFacadeInterface
-     * @throws \Spryker\Zed\Kernel\Exception\Container\ContainerKeyNotFoundException
      */
-    protected function getJellyfishAvailabilityAlertFacade(
-    ): AvailabilityAlertCrossEngageToJellyfishAvailabilityAlertFacadeInterface
+    protected function getJellyfishAvailabilityAlertFacade(): AvailabilityAlertCrossEngageToJellyfishAvailabilityAlertFacadeInterface
     {
         return $this->getProvidedDependency(AvailabilityAlertCrossEngageDependencyProvider::FACADE_JELLYFISH_AVAILABILITY_ALERT);
     }

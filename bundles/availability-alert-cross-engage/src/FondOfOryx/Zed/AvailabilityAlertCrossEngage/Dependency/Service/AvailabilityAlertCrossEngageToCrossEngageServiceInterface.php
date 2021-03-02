@@ -5,7 +5,7 @@ namespace FondOfOryx\Zed\AvailabilityAlertCrossEngage\Dependency\Service;
 interface AvailabilityAlertCrossEngageToCrossEngageServiceInterface
 {
     /**
-     * @param  string  $string
+     * @param string $string
      *
      * @return string
      */

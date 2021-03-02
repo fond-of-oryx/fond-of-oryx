@@ -12,9 +12,7 @@ class AvailabilityAlertCrossEngageToCrossEngageServiceBridge implements Availabi
     protected $service;
 
     /**
-     * AvailabilityAlertCrossEngageToCrossEngageServiceBridge constructor.
-     *
-     * @param  \FondOfOryx\Service\CrossEngage\CrossEngageServiceInterface  $crossEngageService
+     * @param \FondOfOryx\Service\CrossEngage\CrossEngageServiceInterface $crossEngageService
      */
     public function __construct(CrossEngageServiceInterface $crossEngageService)
     {
@@ -22,7 +20,7 @@ class AvailabilityAlertCrossEngageToCrossEngageServiceBridge implements Availabi
     }
 
     /**
-     * @param  string  $string
+     * @param string $string
      *
      * @return string
      */
