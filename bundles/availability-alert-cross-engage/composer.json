@@ -10,7 +10,8 @@
   ],
   "require": {
     "php": ">=7.2",
-    "fond-of-oryx/availability-alert": "dev-master"
+    "fond-of-oryx/availability-alert": "dev-master",
+    "fond-of-oryx/jellyfish-availability-alert": "dev-master"
   },
   "require-dev": {
     "spryker/code-sniffer": "^0.14.7",

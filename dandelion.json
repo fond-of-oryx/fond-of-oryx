@@ -15,6 +15,11 @@
             "path": "bundles/availability-alert-data-import/",
             "version": "1.0.0"
         },
+        "cross-engage": {
+            "url": "https://<GITHUB_TOKEN>@github.com/fond-of-oryx/cross-engage.git",
+            "path": "bundles/cross-engage/",
+            "version": "1.0.0"
+        },
         "customer-statistic": {
             "url": "https://<GITHUB_TOKEN>@github.com/fond-of-oryx/customer-statistic.git",
             "path": "bundles/customer-statistic/",
@@ -44,6 +49,11 @@
             "url": "https://<GITHUB_TOKEN>@github.com/fond-of-oryx/feed.git",
             "path": "bundles/feed/",
             "version": "1.0.0"
+        },
+        "jellyfish-availability-alert": {
+            "url": "https://<GITHUB_TOKEN>@github.com/fond-of-oryx/jellyfish-availability-alert.git",
+            "path": "bundles/jellyfish-availability-alert/",
+            "version": "0.0.1"
         },
         "sales-locale-connector": {
             "url": "https://<GITHUB_TOKEN>@github.com/fond-of-oryx/sales-locale-connector.git",
