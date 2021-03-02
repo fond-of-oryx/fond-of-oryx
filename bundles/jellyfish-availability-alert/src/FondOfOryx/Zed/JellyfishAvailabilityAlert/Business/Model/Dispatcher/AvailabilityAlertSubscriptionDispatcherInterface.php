@@ -7,7 +7,7 @@ use Generated\Shared\Transfer\AvailabilityAlertSubscriptionTransfer;
 interface AvailabilityAlertSubscriptionDispatcherInterface
 {
     /**
-     * @param  \Generated\Shared\Transfer\AvailabilityAlertSubscriptionTransfer  $availabilityAlertSubscriptionTransfer
+     * @param \Generated\Shared\Transfer\AvailabilityAlertSubscriptionTransfer $availabilityAlertSubscriptionTransfer
      *
      * @return void
      */
