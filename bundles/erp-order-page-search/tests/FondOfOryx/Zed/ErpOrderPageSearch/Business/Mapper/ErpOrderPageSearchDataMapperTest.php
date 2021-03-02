@@ -3,7 +3,6 @@
 namespace FondOfOryx\Zed\ErpOrderPageSearch\Business\Mapper;
 
 use Codeception\Test\Unit;
-use Orm\Zed\ErpOrder\Persistence\Base\ErpOrder;
 
 class ErpOrderPageSearchDataMapperTest extends Unit
 {
@@ -17,7 +16,6 @@ class ErpOrderPageSearchDataMapperTest extends Unit
      */
     protected function _before(): void
     {
-
         $this->erpOrderPageSearchDataMapper = new ErpOrderPageSearchDataMapper();
     }
 
@@ -30,8 +28,8 @@ class ErpOrderPageSearchDataMapperTest extends Unit
             ErpOrderPageSearchDataMapper::CONCRETE_DELIVERY_DATE => 'now',
             ErpOrderPageSearchDataMapper::EXTERNAL_REFERENCE => '',
             ErpOrderPageSearchDataMapper::FK_COMPANY_BUSINESS_UNIT => '',
-            ErpOrderPageSearchDataMapper::COMPANY_BUSINESS_UNIT =>  [
-                ErpOrderPageSearchDataMapper::COMPANY_BUSINESS_UNIT_UUID => ''
+            ErpOrderPageSearchDataMapper::COMPANY_BUSINESS_UNIT => [
+                ErpOrderPageSearchDataMapper::COMPANY_BUSINESS_UNIT_UUID => '',
             ],
             ErpOrderPageSearchDataMapper::REFERENCE => '',
             ErpOrderPageSearchDataMapper::ID_ERP_ORDER => '',
@@ -39,7 +37,7 @@ class ErpOrderPageSearchDataMapperTest extends Unit
             ErpOrderPageSearchDataMapper::FK_SHIPPING_ADDRESS => '',
             ErpOrderPageSearchDataMapper::ERP_ORDER_ITEMS => [],
             ErpOrderPageSearchDataMapper::SHIPPING_ADDRESS => null,
-            ErpOrderPageSearchDataMapper::BILLING_ADDRESS => null
+            ErpOrderPageSearchDataMapper::BILLING_ADDRESS => null,
         ];
 
         $searchData = $this->erpOrderPageSearchDataMapper->mapErpOrderDataToSearchData($data);

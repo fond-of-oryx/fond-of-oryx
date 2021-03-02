@@ -23,7 +23,6 @@ class ErpOrderPageSearchToCustomerClientBridgeTest extends Unit
      */
     protected $customerClientMock;
 
-
     /**
      * @return void
      */

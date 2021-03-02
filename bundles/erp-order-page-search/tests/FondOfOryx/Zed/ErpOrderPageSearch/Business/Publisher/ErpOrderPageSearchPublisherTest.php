@@ -2,8 +2,8 @@
 
 namespace FondOfOryx\Zed\ErpOrderPageSearch\Business\Publisher;
 
-use DateTime;
 use Codeception\Test\Unit;
+use DateTime;
 use FondOfOryx\Zed\ErpOrderPageSearch\Business\Mapper\ErpOrderPageSearchDataMapperInterface;
 use FondOfOryx\Zed\ErpOrderPageSearch\Dependency\Service\ErpOrderPageSearchToUtilEncodingServiceInterface;
 use FondOfOryx\Zed\ErpOrderPageSearch\Persistence\ErpOrderPageSearchEntityManagerInterface;
@@ -144,7 +144,7 @@ class ErpOrderPageSearchPublisherTest extends Unit
         $erpOrderIds = [];
 
         $orderEntities = [
-            $this->erpOrderMock
+            $this->erpOrderMock,
         ];
 
         $updatedAt = new DateTime('NOW');
@@ -204,5 +204,4 @@ class ErpOrderPageSearchPublisherTest extends Unit
 
         $this->erpOrderPageSearchPublisher->publish($erpOrderIds);
     }
-
 }

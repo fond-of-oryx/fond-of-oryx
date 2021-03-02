@@ -4,7 +4,6 @@ namespace FondOfOryx\Zed\ErpOrderPageSearch\Communication\Plugin\Event\Subscribe
 
 use Codeception\Test\Unit;
 use FondOfOryx\Zed\ErpOrderPageSearch\ErpOrderPageSearchConfig;
-use Spryker\Zed\Event\Dependency\EventCollection;
 use Spryker\Zed\Event\Dependency\EventCollectionInterface;
 
 class ErpOrderPageSearchEventSubscriberTest extends Unit

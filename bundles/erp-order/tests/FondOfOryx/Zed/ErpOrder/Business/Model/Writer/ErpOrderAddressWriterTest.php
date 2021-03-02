@@ -132,8 +132,6 @@ class ErpOrderAddressWriterTest extends Unit
     }
 
     /**
-     * @throws \Exception
-     *
      * @return void
      */
     public function testCreateNotSuccesful(): void
@@ -170,8 +168,6 @@ class ErpOrderAddressWriterTest extends Unit
     }
 
     /**
-     * @throws \Exception
-     *
      * @return void
      */
     public function testUpdateNotSuccesful(): void
@@ -204,8 +200,6 @@ class ErpOrderAddressWriterTest extends Unit
     }
 
     /**
-     * @throws \Exception
-     *
      * @return void
      */
     public function testDeleteWillThrowException(): void

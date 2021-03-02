@@ -4,12 +4,11 @@ namespace FondOfOryx\Client\ErpOrderPageSearch\Plugin\SearchExtension;
 
 use ArrayObject;
 use Codeception\Test\Unit;
-use Exception;
 use Elastica\Query;
 use Elastica\Query\BoolQuery;
+use Exception;
 use FondOfOryx\Client\ErpOrderPageSearch\Dependency\Client\ErpOrderPageSearchToCompanyUserClientInterface;
 use FondOfOryx\Client\ErpOrderPageSearch\Dependency\Client\ErpOrderPageSearchToCustomerClientInterface;
-use FondOfOryx\Client\ErpOrderPageSearch\ErpOrderPageSearchClient;
 use FondOfOryx\Client\ErpOrderPageSearch\ErpOrderPageSearchFactory;
 use Generated\Shared\Transfer\CompanyBusinessUnitTransfer;
 use Generated\Shared\Transfer\CompanyUserCollectionTransfer;
@@ -121,12 +120,10 @@ class ErpOrderPageSearchCompanyBusinessUnitUuidFilterQueryExpanderPluginTest ext
             ->getMock();
 
         $this->erpOrderPageSearchCompanyBusinessUnitUuidFilterQueryExpanderPlugin =
-            new ErpOrderPageSearchCompanyBusinessUnitUuidFilterQueryExpanderPlugin ();
+            new ErpOrderPageSearchCompanyBusinessUnitUuidFilterQueryExpanderPlugin();
 
         $this->erpOrderPageSearchCompanyBusinessUnitUuidFilterQueryExpanderPlugin
             ->setFactory($this->erpOrderPageSearchFactoryMock);
-
-
     }
 
     /**
@@ -145,10 +142,10 @@ class ErpOrderPageSearchCompanyBusinessUnitUuidFilterQueryExpanderPluginTest ext
                     [
                         'resource' => 'company-business-unit',
                         'value' => '73327634-71c4-11eb-9439-0242ac130002',
-                        'field' => 'uuid'
-                    ]
-                ]
-            ]
+                        'field' => 'uuid',
+                    ],
+                ],
+            ],
         ];
 
         $this->erpOrderPageSearchFactoryMock->expects(static::atLeastOnce())
@@ -227,7 +224,6 @@ class ErpOrderPageSearchCompanyBusinessUnitUuidFilterQueryExpanderPluginTest ext
         );
     }
 
-
     /**
      * @return void
      */
@@ -235,7 +231,7 @@ class ErpOrderPageSearchCompanyBusinessUnitUuidFilterQueryExpanderPluginTest ext
     {
         $companyUsers = new ArrayObject();
         $requestParameters = [
-            'filters' => []
+            'filters' => [],
         ];
 
         $this->erpOrderPageSearchFactoryMock->expects(static::atLeastOnce())
@@ -285,7 +281,5 @@ class ErpOrderPageSearchCompanyBusinessUnitUuidFilterQueryExpanderPluginTest ext
             $this->pluginQueryMock,
             $requestParameters
         );
-
-
     }
 }

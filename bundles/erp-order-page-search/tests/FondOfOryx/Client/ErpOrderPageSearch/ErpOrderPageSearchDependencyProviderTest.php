@@ -78,7 +78,7 @@ class ErpOrderPageSearchDependencyProviderTest extends Unit
             ->disableOriginalConstructor()
             ->getMock();
 
-        $this->customerClientMock =  $this->getMockBuilder(CustomerClientInterface::class)
+        $this->customerClientMock = $this->getMockBuilder(CustomerClientInterface::class)
             ->disableOriginalConstructor()
             ->getMock();
 
@@ -126,7 +126,7 @@ class ErpOrderPageSearchDependencyProviderTest extends Unit
             ErpOrderPageSearchToCustomerClientBridge::class,
             $container[ErpOrderPageSearchDependencyProvider::CLIENT_CUSTOMER]
         );
-        
+
         $this->assertInstanceOf(
             ErpOrderPageSearchQueryPlugin::class,
             $container[ErpOrderPageSearchDependencyProvider::PLUGIN_SEARCH_QUERY]
@@ -139,6 +139,5 @@ class ErpOrderPageSearchDependencyProviderTest extends Unit
         $this->assertIsArray(
             $container[ErpOrderPageSearchDependencyProvider::PLUGINS_SEARCH_RESULT_FORMATTER]
         );
-
     }
 }

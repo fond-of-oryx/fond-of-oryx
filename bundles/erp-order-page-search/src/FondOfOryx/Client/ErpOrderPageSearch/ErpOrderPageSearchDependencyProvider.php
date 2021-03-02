@@ -6,7 +6,6 @@ use FondOfOryx\Client\ErpOrderPageSearch\Dependency\Client\ErpOrderPageSearchToC
 use FondOfOryx\Client\ErpOrderPageSearch\Dependency\Client\ErpOrderPageSearchToCustomerClientBridge;
 use FondOfOryx\Client\ErpOrderPageSearch\Dependency\Client\ErpOrderPageSearchToSearchClientBridge;
 use FondOfOryx\Client\ErpOrderPageSearch\Dependency\Client\ErpOrderPageSearchToSessionClientBridge;
-use FondOfOryx\Client\ErpOrderPageSearch\Dependency\Client\ErpOrderPageSearchToZedRequestClientBridge;
 use FondOfOryx\Client\ErpOrderPageSearch\Plugin\SearchExtension\ErpOrderPageSearchQueryPlugin;
 use Spryker\Client\Kernel\AbstractDependencyProvider;
 use Spryker\Client\Kernel\Container;
@@ -104,7 +103,6 @@ class ErpOrderPageSearchDependencyProvider extends AbstractDependencyProvider
 
         return $container;
     }
-
 
     /**
      * @param \Spryker\Client\Kernel\Container $container

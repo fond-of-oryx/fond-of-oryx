@@ -4,7 +4,7 @@ namespace FondOfOryx\Zed\ErpOrderPageSearch;
 
 use Codeception\Test\Unit;
 
-class BrandProductConfigTest extends Unit
+class ErpOrderPageSearchConfigTest extends Unit
 {
     /**
      * @var \PHPUnit\Framework\MockObject\MockObject|\FondOfOryx\Zed\ErpOrderPageSearch\ErpOrderPageSearchConfig
@@ -18,7 +18,7 @@ class BrandProductConfigTest extends Unit
     {
         $this->erpOrderPageSearchConfig = new ErpOrderPageSearchConfig();
     }
-    
+
     /**
      * @return void
      */

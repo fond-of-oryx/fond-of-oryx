@@ -3,7 +3,6 @@
 namespace FondOfOryx\Zed\ErpOrderPageSearch\Business;
 
 use Codeception\Test\Unit;
-use FondOfOryx\Zed\ErpOrderPageSearch\Business\Publisher\ErpOrderPageSearchPublisher;
 use FondOfOryx\Zed\ErpOrderPageSearch\Business\Publisher\ErpOrderPageSearchPublisherInterface;
 use FondOfOryx\Zed\ErpOrderPageSearch\Business\UnPublisher\ErpOrderPageSearchUnpublisherInterface;
 use FondOfOryx\Zed\ErpOrderPageSearch\Dependency\Service\ErpOrderPageSearchToUtilEncodingServiceInterface;
@@ -85,7 +84,6 @@ class ErpOrderPageSearchBusinessFactoryTest extends Unit
             ErpOrderPageSearchPublisherInterface::class,
             $this->erpOrderPageSearchBusinessFactory->createErpOrderPageSearchPublisher()
         );
-
     }
 
     /**

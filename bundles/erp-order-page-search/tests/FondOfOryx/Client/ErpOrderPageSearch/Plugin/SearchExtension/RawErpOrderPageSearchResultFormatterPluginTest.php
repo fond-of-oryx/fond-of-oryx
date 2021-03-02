@@ -65,11 +65,10 @@ class RawErpOrderPageSearchResultFormatterPluginTest extends Unit
                 [ErpOrderIndexMap::SEARCH_RESULT_DATA => []]
             );
 
-        $rawErpOrders =  $this->rawErpOrderPageSearchResultFormatterPlugin
+        $rawErpOrders = $this->rawErpOrderPageSearchResultFormatterPlugin
             ->formatSearchResult($this->resultSetMock, []);
 
         $this->assertIsArray($rawErpOrders);
         $this->assertNotEmpty($rawErpOrders);
     }
-
 }

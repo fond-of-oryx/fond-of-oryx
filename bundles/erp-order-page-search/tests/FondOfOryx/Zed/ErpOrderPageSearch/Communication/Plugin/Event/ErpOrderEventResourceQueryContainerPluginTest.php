@@ -5,7 +5,6 @@ namespace FondOfOryx\Zed\ErpOrderPageSearch\Communication\Plugin\Event;
 use Codeception\Test\Unit;
 use FondOfOryx\Shared\ErpOrderPageSearch\ErpOrderPageSearchConstants;
 use FondOfOryx\Zed\ErpOrder\Dependency\ErpOrderEvents;
-use FondOfOryx\Zed\ErpOrderPageSearch\Communication\Plugin\Synchronization\ErpOrderSynchronizationDataBulkRepositoryPlugin;
 use FondOfOryx\Zed\ErpOrderPageSearch\Persistence\ErpOrderPageSearchQueryContainer;
 use Orm\Zed\ErpOrder\Persistence\ErpOrderQuery;
 use Orm\Zed\ErpOrder\Persistence\Map\ErpOrderTableMap;
@@ -34,7 +33,7 @@ class ErpOrderEventResourceQueryContainerPluginTest extends Unit
     protected $filterTransferMock;
 
     /**
-     * @var  \PHPUnit\Framework\MockObject\MockObject|\Orm\Zed\ErpOrder\Persistence\ErpOrderQuery
+     * @var \PHPUnit\Framework\MockObject\MockObject|\Orm\Zed\ErpOrder\Persistence\ErpOrderQuery
      */
     protected $modelCriteriaMock;
 
@@ -70,7 +69,6 @@ class ErpOrderEventResourceQueryContainerPluginTest extends Unit
             ErpOrderPageSearchConstants::ERP_ORDER_RESOURCE_NAME,
             $this->erpOrderEventResourceQueryContainerPlugin->getResourceName()
         );
-
     }
 
     /**
@@ -120,6 +118,4 @@ class ErpOrderEventResourceQueryContainerPluginTest extends Unit
             $modelCriteria
         );
     }
-
 }
-

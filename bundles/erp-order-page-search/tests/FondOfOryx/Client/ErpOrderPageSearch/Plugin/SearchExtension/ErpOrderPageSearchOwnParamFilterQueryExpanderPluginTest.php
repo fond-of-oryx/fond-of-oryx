@@ -113,7 +113,7 @@ class ErpOrderPageSearchOwnParamFilterQueryExpanderPluginTest extends Unit
             ->getMock();
 
         $this->erpOrderPageSearchOwnParamFilterQueryExpanderPlugin =
-            new  ErpOrderPageSearchOwnParamFilterQueryExpanderPlugin();
+            new ErpOrderPageSearchOwnParamFilterQueryExpanderPlugin();
 
         $this->erpOrderPageSearchOwnParamFilterQueryExpanderPlugin->setFactory($this->erpOrderPageSearchFactoryMock);
     }
@@ -127,9 +127,8 @@ class ErpOrderPageSearchOwnParamFilterQueryExpanderPluginTest extends Unit
         $requestParameters = [
             'request_params' => [
                 'external-reference' => ['reference'],
-                'company-business-unit-uuid' => ['73327634-71c4-11eb-9439-0242ac130002']
-            ]
-
+                'company-business-unit-uuid' => ['73327634-71c4-11eb-9439-0242ac130002'],
+            ],
         ];
 
         $this->erpOrderPageSearchFactoryMock->expects(static::atLeastOnce())

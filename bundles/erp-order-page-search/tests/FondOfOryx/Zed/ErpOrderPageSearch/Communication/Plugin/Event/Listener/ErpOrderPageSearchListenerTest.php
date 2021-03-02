@@ -5,7 +5,6 @@ namespace FondOfOryx\Zed\ErpOrderPageSearch\Communication\Plugin\Event\Listener;
 use Codeception\Test\Unit;
 use FondOfOryx\Zed\ErpOrder\Dependency\ErpOrderEvents;
 use FondOfOryx\Zed\ErpOrderPageSearch\Business\ErpOrderPageSearchFacade;
-use FondOfOryx\Zed\ErpOrderPageSearch\Business\ErpOrderPageSearchFacadeInterface;
 use FondOfOryx\Zed\ErpOrderPageSearch\Communication\ErpOrderPageSearchCommunicationFactory;
 use FondOfOryx\Zed\ErpOrderPageSearch\Dependency\Facade\ErpOrderPageSearchToEventBehaviorFacadeInterface;
 
@@ -30,7 +29,6 @@ class ErpOrderPageSearchListenerTest extends Unit
      * @var \PHPUnit\Framework\MockObject\MockObject|\FondOfOryx\Zed\ErpOrderPageSearch\Business\ErpOrderPageSearchFacadeInterface
      */
     protected $erpOrderPageSearchFacadeMock;
-
 
     /**
      * @return void

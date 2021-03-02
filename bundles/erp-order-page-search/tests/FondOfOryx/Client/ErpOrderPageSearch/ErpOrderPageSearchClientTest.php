@@ -4,11 +4,7 @@ namespace FondOfOryx\Client\ErpOrderPageSearch;
 
 use Codeception\Test\Unit;
 use FondOfOryx\Client\ErpOrderPageSearch\Dependency\Client\ErpOrderPageSearchToSearchClientInterface;
-use FondOfOryx\Client\ErpOrderPermission\Plugin\Permission\SeeErpOrdersPermissionPlugin;
-use FondOfSpryker\Zed\CollaborativeCartsRestApi\Communication\Controller\GatewayController;
-use Spryker\Client\Kernel\PermissionAwareTrait;
 use Spryker\Client\SearchExtension\Dependency\Plugin\QueryInterface;
-use Spryker\Zed\Kernel\Business\AbstractFacade;
 
 class ErpOrderPageSearchClientTest extends Unit
 {
@@ -61,14 +57,16 @@ class ErpOrderPageSearchClientTest extends Unit
              */
             public function canSeeErpOrders(): bool
             {
-               return true;
+                return true;
             }
-
         };
 
         $this->erpOrderPageSearchClient->setFactory($this->erpOrderPageSearchFactoryMock);
     }
 
+    /**
+     * @return void
+     */
     public function testSearch(): void
     {
         $searchString = 'search-string';
@@ -101,4 +99,3 @@ class ErpOrderPageSearchClientTest extends Unit
         $this->assertIsArray($this->erpOrderPageSearchClient->search($searchString));
     }
 }
-

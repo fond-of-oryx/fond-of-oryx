@@ -4,7 +4,6 @@ namespace FondOfOryx\Zed\ErpOrderPageSearch\Business;
 
 use Codeception\Test\Unit;
 use FondOfOryx\Zed\ErpOrderPageSearch\Business\Publisher\ErpOrderPageSearchPublisher;
-use FondOfOryx\Zed\ErpOrderPageSearch\Communication\ErpOrderPageSearchCommunicationFactory;
 
 class ErpOrderPageSearchFacadeTest extends Unit
 {

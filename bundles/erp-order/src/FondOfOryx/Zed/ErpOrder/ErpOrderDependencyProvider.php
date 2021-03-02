@@ -73,7 +73,7 @@ class ErpOrderDependencyProvider extends AbstractBundleDependencyProvider
 
         return $container;
     }
-    
+
     /**
      * @param \Spryker\Zed\Kernel\Container $container
      *

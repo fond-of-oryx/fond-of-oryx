@@ -38,7 +38,6 @@ class ErpOrderPageSearchExternalReferenceFilterQueryExpanderPluginTest extends U
             ->disableOriginalConstructor()
             ->getMock();
 
-
         $this->elasticaQueryMock = $this->getMockBuilder(Query::class)
             ->disableOriginalConstructor()
             ->getMock();
@@ -57,7 +56,7 @@ class ErpOrderPageSearchExternalReferenceFilterQueryExpanderPluginTest extends U
     public function testExpandQuery(): void
     {
         $requestParameters = [
-            'filters' => []
+            'filters' => [],
         ];
 
         $this->assertInstanceOf(
@@ -67,7 +66,5 @@ class ErpOrderPageSearchExternalReferenceFilterQueryExpanderPluginTest extends U
                 $requestParameters
             )
         );
-
     }
-
 }

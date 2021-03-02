@@ -6,7 +6,6 @@ use Codeception\Test\Unit;
 use FondOfOryx\Client\ErpOrderPageSearch\Dependency\Client\ErpOrderPageSearchToCustomerClientBridge;
 use FondOfOryx\Client\ErpOrderPageSearch\Dependency\Client\ErpOrderPageSearchToSearchClientBridge;
 use FondOfOryx\Client\ErpOrderPageSearch\Plugin\SearchExtension\ErpOrderPageSearchQueryPlugin;
-use Orm\Zed\ErpOrder\Persistence\Base\ErpOrder;
 use Spryker\Client\Kernel\Container;
 use Spryker\Client\Search\Dependency\Plugin\QueryInterface;
 
@@ -50,10 +49,10 @@ class ErpOrderPageSearchFactoryTest extends Unit
             ->disableOriginalConstructor()
             ->getMock();
 
-        $this->erpOrderPageSearchToCustomerClientMock =  $this->getMockBuilder(ErpOrderPageSearchToCustomerClientBridge::class)
+        $this->erpOrderPageSearchToCustomerClientMock = $this->getMockBuilder(ErpOrderPageSearchToCustomerClientBridge::class)
             ->disableOriginalConstructor()
             ->getMock();
-        
+
         $this->erpOrderPageSearchToSearchClientMock = $this->getMockBuilder(ErpOrderPageSearchToSearchClientBridge::class)
             ->disableOriginalConstructor()
             ->getMock();

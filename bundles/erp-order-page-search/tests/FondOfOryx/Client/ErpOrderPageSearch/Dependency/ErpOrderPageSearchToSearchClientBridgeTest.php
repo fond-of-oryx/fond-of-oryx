@@ -3,7 +3,6 @@
 namespace FondOfOryx\Client\ErpOrderPageSearch\Dependency\Client;
 
 use Codeception\Test\Unit;
-use Generated\Shared\Transfer\CustomerTransfer;
 use Spryker\Client\Search\SearchClientInterface;
 use Spryker\Client\SearchExtension\Dependency\Plugin\QueryInterface;
 

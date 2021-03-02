@@ -22,7 +22,6 @@ class ErpOrderPageSearchUnpublisherTest extends Unit
      */
     protected function _before(): void
     {
-
         $this->erpOrderPageSearchEntityManagerMock = $this->getMockBuilder(ErpOrderPageSearchEntityManagerInterface::class)
             ->disableOriginalConstructor()
             ->getMock();
@@ -43,5 +42,4 @@ class ErpOrderPageSearchUnpublisherTest extends Unit
 
         $this->erpOrderPageSearchUnpublisher->unpublish([]);
     }
-
 }

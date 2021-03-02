@@ -73,7 +73,6 @@ class ErpOrderPageSearchQueryContainerTest extends Unit
         $this->assertInstanceOf(ErpOrderQuery::class, $erpOrderQuery);
     }
 
-    
     /**
      * @skip
      *

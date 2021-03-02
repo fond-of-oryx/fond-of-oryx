@@ -27,8 +27,6 @@ class EntityToTransferMapper implements EntityToTransferMapperInterface
     protected $companyBusinessUnitFacade;
 
     /**
-     * EntityToTransferMapper constructor.
-     *
      * @param \FondOfOryx\Zed\ErpOrder\Dependency\Facade\ErpOrderToCompanyBusinessUnitFacadeInterface $companyBusinessUnitFacade
      * @param \FondOfOryx\Zed\ErpOrder\Dependency\Facade\ErpOrderToCountryFacadeInterface $countryFacade
      */

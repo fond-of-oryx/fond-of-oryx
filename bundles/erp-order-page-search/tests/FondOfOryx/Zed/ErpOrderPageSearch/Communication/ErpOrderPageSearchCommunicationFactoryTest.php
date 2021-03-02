@@ -67,5 +67,4 @@ class ErpOrderPageSearchCommunicationFactoryTest extends Unit
             $this->erpOrderPageSearchCommunicationFactory->getEventBehaviorFacade()
         );
     }
-
 }

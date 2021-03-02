@@ -76,7 +76,7 @@ class ErpOrderSynchronizationDataBulkRepositoryPluginTest extends Unit
         $ids = [1];
 
         $fooErpOrderPageSearchEntityTransfers = [
-            '0' => $this->fooErpOrderPageSearchEntityTransferMock
+            '0' => $this->fooErpOrderPageSearchEntityTransferMock,
         ];
 
         $this->repositoryMock->expects(static::atLeastOnce())
@@ -152,6 +152,4 @@ class ErpOrderSynchronizationDataBulkRepositoryPluginTest extends Unit
             $this->erpOrderSynchronizationDataBulkRepositoryPlugin->getSynchronizationQueuePoolName()
         );
     }
-
 }
-
