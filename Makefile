@@ -10,7 +10,7 @@ phpcs:
 
 .PHONY: phpstan
 phpstan:
-	./vendor/bin/phpstan analyse ./bundles/*/src/
+	./vendor/bin/phpstan analyse --memory-limit=-1 ./bundles/*/src/
 
 .PHONY: codeception
 codeception:
@@ -28,5 +28,5 @@ split:
 release:
 	docker run -i -v $(BASE_DIRECTORY):/home/dandelion/project -w /home/dandelion/project dandelionphp/dandelion:latest dandelion release:all $(BRANCH)
 
-.PHONY: test
-test: install phpcs phpstan codeception
+.PHONY: ci
+ci: codeception phpcs phpstan
