@@ -26,6 +26,13 @@ interface AvailabilityAlertFacadeInterface
     public function notifySubscribers(): void;
 
     /**
+     * @param \Generated\Shared\Transfer\AvailabilityAlertSubscriptionTransfer $availabilityAlertSubscriptionTransfer
+     *
+     * @return void
+     */
+    public function sendEmailNotification(AvailabilityAlertSubscriptionTransfer $availabilityAlertSubscriptionTransfer): void;
+
+    /**
      * {@inheritDoc}
      *
      * @api

@@ -2,6 +2,7 @@
 
 namespace FondOfOryx\Zed\AvailabilityAlert;
 
+use FondOfOryx\Zed\AvailabilityAlert\Communication\Plugin\NotificationPlugins\MailNotificationPlugin;
 use FondOfOryx\Zed\AvailabilityAlert\Communication\Plugin\SubscribersNotifier\SubscribersNotifierHasProductAssignedStoresPreCheckPlugin;
 use FondOfOryx\Zed\AvailabilityAlert\Communication\Plugin\SubscribersNotifier\SubscribersNotifierProductAttributeReleaseDateInPastOrIsEmptyPreCheckPlugin;
 use FondOfOryx\Zed\AvailabilityAlert\Dependency\Facade\AvailabilityAlertToLocaleBridge;
@@ -19,6 +20,12 @@ class AvailabilityAlertDependencyProvider extends AbstractBundleDependencyProvid
     public const FACADE_PRODUCT = 'FACADE_PRODUCT';
     public const FACADE_STORE = 'FACADE_STORE';
     public const SUBSCRIBERS_NOTIFIER_PRE_CHECK_PLUGINS = 'SUBSCRIBERS_NOTIFIER_PRE_CHECK_PLUGINS';
+    public const PLUGINS_SUBSCRIBER_PRE_SAVE = 'PLUGINS_SUBSCRIBER_PRE_SAVE';
+    public const PLUGINS_SUBSCRIBER_POST_SAVE = 'PLUGINS_SUBSCRIBER_POST_SAVE';
+    public const PLUGINS_SUBSCRIPTION_PRE_SAVE = 'PLUGINS_SUBSCRIPTION_PRE_SAVE';
+    public const PLUGINS_SUBSCRIPTION_POST_SAVE = 'PLUGINS_SUBSCRIPTION_POST_SAVE';
+    public const PLUGINS_AVAILABILITY_ALERT_SUBSCRIPTION_TRANSFER_EXPANDER = 'PLUGINS_AVAILABILITY_ALERT_SUBSCRIPTION_TRANSFER_EXPANDER';
+    public const PLUGINS_AVAILABILITY_ALERT_NOTIFICATION = 'PLUGINS_AVAILABILITY_ALERT_NOTIFICATION';
 
     /**
      * @param \Spryker\Zed\Kernel\Container $container
@@ -30,7 +37,13 @@ class AvailabilityAlertDependencyProvider extends AbstractBundleDependencyProvid
         $container = $this->addMailFacade($container);
         $container = $this->addAvailabilityFacade($container);
         $container = $this->addProductFacade($container);
+        $container = $this->addStoreFacade($container);
         $container = $this->addSubscribersNotifierPreCheckPlugins($container);
+        $container = $this->addSubscriberPreSavePlugins($container);
+        $container = $this->addSubscriberPostSavePlugins($container);
+        $container = $this->addSubscriptionPreSavePlugins($container);
+        $container = $this->addSubscriptionPostSavePlugins($container);
+        $container = $this->addAvailabilityAlertNotificationPlugins($container);
 
         return $container;
     }
@@ -44,6 +57,7 @@ class AvailabilityAlertDependencyProvider extends AbstractBundleDependencyProvid
     {
         $container = $this->addLocaleFacade($container);
         $container = $this->addStoreFacade($container);
+        $container = $this->addAvailabilityAlertSubscriptionTransferExpanderPlugins($container);
 
         return $container;
     }
@@ -140,6 +154,140 @@ class AvailabilityAlertDependencyProvider extends AbstractBundleDependencyProvid
         return [
             new SubscribersNotifierHasProductAssignedStoresPreCheckPlugin(),
             new SubscribersNotifierProductAttributeReleaseDateInPastOrIsEmptyPreCheckPlugin(),
+        ];
+    }
+
+    /**
+     * @param \Spryker\Zed\Kernel\Container $container
+     *
+     * @return \Spryker\Zed\Kernel\Container
+     */
+    protected function addSubscriberPreSavePlugins(Container $container): Container
+    {
+        $container[static::PLUGINS_SUBSCRIBER_PRE_SAVE] = function () {
+            return $this->getAvailabilityAlertSubscriberPreSavePlugins();
+        };
+
+        return $container;
+    }
+
+    /**
+     * @return \FondOfOryx\Zed\AvailabilityAlert\Dependency\Plugin\AvailabilityAlertSubscriberPreSavePluginInterface[]
+     */
+    protected function getAvailabilityAlertSubscriberPreSavePlugins(): array
+    {
+        return [];
+    }
+
+    /**
+     * @param \Spryker\Zed\Kernel\Container $container
+     *
+     * @return \Spryker\Zed\Kernel\Container
+     */
+    protected function addSubscriptionPreSavePlugins(Container $container): Container
+    {
+        $container[static::PLUGINS_SUBSCRIPTION_PRE_SAVE] = function () {
+            return $this->getAvailabilityAlertSubscriptionPreSavePlugins();
+        };
+
+        return $container;
+    }
+
+    /**
+     * @return \FondOfOryx\Zed\AvailabilityAlert\Dependency\Plugin\AvailabilityAlertSubscriptionPreSavePluginInterface[]
+     */
+    protected function getAvailabilityAlertSubscriptionPreSavePlugins(): array
+    {
+        return [];
+    }
+
+    /**
+     * @param \Spryker\Zed\Kernel\Container $container
+     *
+     * @return \Spryker\Zed\Kernel\Container
+     */
+    protected function addSubscriptionPostSavePlugins(Container $container): Container
+    {
+        $container[static::PLUGINS_SUBSCRIPTION_POST_SAVE] = function () {
+            return $this->getAvailabilityAlertSubscriptionPostSavePlugins();
+        };
+
+        return $container;
+    }
+
+    /**
+     * @return \FondOfOryx\Zed\AvailabilityAlert\Dependency\Plugin\AvailabilityAlertSubscriptionPostSavePluginInterface[]
+     */
+    protected function getAvailabilityAlertSubscriptionPostSavePlugins(): array
+    {
+        return [];
+    }
+
+    /**
+     * @param \Spryker\Zed\Kernel\Container $container
+     *
+     * @return \Spryker\Zed\Kernel\Container
+     */
+    protected function addSubscriberPostSavePlugins(Container $container): Container
+    {
+        $container[static::PLUGINS_SUBSCRIBER_POST_SAVE] = function () {
+            return $this->getAvailabilityAlertSubscriberPostSavePlugins();
+        };
+
+        return $container;
+    }
+
+    /**
+     * @return \FondOfOryx\Zed\AvailabilityAlert\Dependency\Plugin\AvailabilityAlertSubscriberPostSavePluginInterface[]
+     */
+    protected function getAvailabilityAlertSubscriberPostSavePlugins(): array
+    {
+        return [];
+    }
+
+    /**
+     * @param \Spryker\Zed\Kernel\Container $container
+     *
+     * @return \Spryker\Zed\Kernel\Container
+     */
+    protected function addAvailabilityAlertSubscriptionTransferExpanderPlugins(Container $container): Container
+    {
+        $container[static::PLUGINS_AVAILABILITY_ALERT_SUBSCRIPTION_TRANSFER_EXPANDER] = function () {
+            return $this->getAvailabilityAlertSubscriptionTransferExpanderPlugins();
+        };
+
+        return $container;
+    }
+
+    /**
+     * @return \FondOfOryx\Zed\AvailabilityAlert\Dependency\Plugin\AvailabilityAlertSubscriberPostSavePluginInterface[]
+     */
+    protected function getAvailabilityAlertSubscriptionTransferExpanderPlugins(): array
+    {
+        return [];
+    }
+
+    /**
+     * @param \Spryker\Zed\Kernel\Container $container
+     *
+     * @return \Spryker\Zed\Kernel\Container
+     */
+    protected function addAvailabilityAlertNotificationPlugins(Container $container): Container
+    {
+        $container[static::PLUGINS_AVAILABILITY_ALERT_NOTIFICATION] = function () {
+            return $this->getAvailabilityAlertNotificationPlugins();
+        };
+
+        return $container;
+    }
+
+    /**
+     * @return \FondOfOryx\Zed\AvailabilityAlert\Dependency\Plugin\NotificationPluginInterface[]
+     */
+    protected function getAvailabilityAlertNotificationPlugins(): array
+    {
+        return [
+            new MailNotificationPlugin(),
         ];
     }
 }

@@ -39,6 +39,7 @@ class Timeout extends SprykerTimeout implements TimeoutInterface
 
     /**
      * @param \Orm\Zed\Sales\Persistence\SpySalesOrderItem[] $groupedOrderItems
+     *
      * @return array
      */
     protected function filterByActiveStore(array $groupedOrderItems): array
@@ -46,13 +47,13 @@ class Timeout extends SprykerTimeout implements TimeoutInterface
         $activeStore = $this->getCurrentStore();
         foreach ($groupedOrderItems as $idSalesOrder => $orderData) {
             $salesOrder = $this->queryContainer->querySalesOrderById($idSalesOrder)->findOneByStore($activeStore);
-            if ($salesOrder === null){
+            if ($salesOrder === null) {
                 $this->countAffectedItems -= count($orderData);
                 unset($groupedOrderItems[$idSalesOrder]);
             }
         }
 
-        return  $groupedOrderItems;
+        return $groupedOrderItems;
     }
 
     /**

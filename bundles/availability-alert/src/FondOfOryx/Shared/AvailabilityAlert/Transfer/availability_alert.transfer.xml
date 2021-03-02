@@ -7,6 +7,24 @@
         <property name="fkProductAbstract" type="int" />
         <property name="fkLocale" type="int" />
         <property name="fkStore" type="int" />
+        <property name="fkSubscriber" type="int" />
+        <property name="status" type="int" />
+        <property name="sentAt" type="int" />
+        <property name="createdAt" type="int" />
+        <property name="updatedAt" type="int" />
+        <property name="subscriber" type="AvailabilityAlertSubscriber" />
+        <property name="productAbstract" type="ProductAbstract" />
+        <property name="locale" type="Locale" />
+        <property name="store" type="Store" />
+    </transfer>
+
+    <transfer name="AvailabilityAlertSubscriptionCollection">
+        <property name="subscriptions" singular="subscription" type="AvailabilityAlertSubscription[]" />
+    </transfer>
+
+    <transfer name="AvailabilityAlertSubscriber">
+        <property name="idAvailabilityAlertSubscriber" type="int" />
+        <property name="fkCustomer" type="int" />
         <property name="email" type="string" />
     </transfer>
 

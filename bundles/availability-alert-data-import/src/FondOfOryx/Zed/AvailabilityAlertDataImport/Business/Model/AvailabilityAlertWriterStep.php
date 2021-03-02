@@ -3,7 +3,8 @@
 namespace FondOfOryx\Zed\AvailabilityAlertDataImport\Business\Model;
 
 use Exception;
-use Orm\Zed\AvailabilityAlert\Persistence\FosAvailabilityAlertSubscriptionQuery;
+use Orm\Zed\AvailabilityAlert\Persistence\FooAvailabilityAlertSubscriberQuery;
+use Orm\Zed\AvailabilityAlert\Persistence\FooAvailabilityAlertSubscriptionQuery;
 use Orm\Zed\Locale\Persistence\SpyLocaleQuery;
 use Orm\Zed\Product\Persistence\SpyProductAbstractQuery;
 use Spryker\Zed\DataImport\Business\Model\DataImportStep\DataImportStepInterface;
@@ -49,15 +50,21 @@ class AvailabilityAlertWriterStep extends PublishAwareStep implements DataImport
     /**
      * @param \Spryker\Zed\DataImport\Business\Model\DataSet\DataSetInterface $dataSet
      *
-     * @return \Orm\Zed\AvailabilityAlert\Persistence\FosAvailabilityAlertSubscription
+     * @return \Orm\Zed\AvailabilityAlert\Persistence\FooAvailabilityAlertSubscription
      */
     protected function findOrCreateAvailabilityAlert(DataSetInterface $dataSet)
     {
         $dataSet[static::KEY_FK_PRODUCT_ABSTRACT] = $this->getProductAbstractIdBySku($dataSet[static::KEY_PRODUCT_ABSTRACT_SKU]);
         $dataSet[static::KEY_FK_LOCALE] = $this->getLocaleByName($dataSet[static::KEY_LOCALE]);
 
-        $availabilityAlertEntity = FosAvailabilityAlertSubscriptionQuery::create()
-            ->filterByEmail($dataSet[static::KEY_EMAIL])
+        $availabilityAlertSubscriberEntity = FooAvailabilityAlertSubscriberQuery::create()->filterByEmail($dataSet[static::KEY_EMAIL])->findOneOrCreate();
+
+        if ($availabilityAlertSubscriberEntity->isNew() === false) {
+            $availabilityAlertSubscriberEntity->setEmail($dataSet[static::KEY_EMAIL])->save();
+        }
+
+        $availabilityAlertEntity = FooAvailabilityAlertSubscriptionQuery::create()
+            ->filterByFkAvailabilityAlertSubscriber($availabilityAlertSubscriberEntity->getIdAvailabilityAlertSubscriber())
             ->filterByFkProductAbstract($dataSet[static::KEY_FK_PRODUCT_ABSTRACT])
             ->findOneOrCreate();
 
@@ -65,7 +72,6 @@ class AvailabilityAlertWriterStep extends PublishAwareStep implements DataImport
             try {
                 $availabilityAlertEntity->setFkProductAbstract($dataSet[static::KEY_FK_PRODUCT_ABSTRACT]);
                 $availabilityAlertEntity->setFkLocale($dataSet[static::KEY_FK_LOCALE]);
-                $availabilityAlertEntity->setEmail($dataSet[static::KEY_EMAIL]);
                 if (isset($dataSet[static::KEY_SENT_AT])) {
                     $availabilityAlertEntity->setSentAt($dataSet[static::KEY_SENT_AT]);
                 }
@@ -75,7 +81,8 @@ class AvailabilityAlertWriterStep extends PublishAwareStep implements DataImport
                 $availabilityAlertEntity->save();
             } catch (Exception $e) {
                 print $e->getMessage();
-                exit();
+
+                exit(0);
             }
         }
 

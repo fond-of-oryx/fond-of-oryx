@@ -7,7 +7,7 @@ use Generated\Shared\Transfer\ProductAbstractTransfer;
 interface FeedToProductFacadeInterface
 {
     /**
-     * @param  int  $idProductAbstract
+     * @param int $idProductAbstract
      *
      * @return \Generated\Shared\Transfer\ProductAbstractTransfer|null
      */

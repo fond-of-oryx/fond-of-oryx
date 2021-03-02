@@ -2,6 +2,9 @@
 
 namespace FondOfOryx\Yves\AvailabilityAlert;
 
+use FondOfOryx\Client\AvailabilityAlert\AvailabilityAlertClientInterface;
+use FondOfOryx\Yves\AvailabilityAlert\Dependency\Client\AvailabilityAlertToLocaleClientInterface;
+use FondOfOryx\Yves\AvailabilityAlert\Dependency\Client\AvailabilityAlertToStoreClientInterface;
 use FondOfOryx\Yves\AvailabilityAlert\Form\DataProvider\SubscriptionFormDataProvider;
 use FondOfOryx\Yves\AvailabilityAlert\Form\SubscriptionForm;
 use Spryker\Shared\Application\ApplicationConstants;
@@ -54,8 +57,32 @@ class AvailabilityAlertFactory extends AbstractFactory
     /**
      * @return \FondOfOryx\Client\AvailabilityAlert\AvailabilityAlertClientInterface
      */
-    public function getAvailabilityAlertClient()
+    public function getAvailabilityAlertClient(): AvailabilityAlertClientInterface
     {
         return $this->getProvidedDependency(AvailabilityAlertDependencyProvider::CLIENT_AVAILABILITY_ALERT);
+    }
+
+    /**
+     * @return \FondOfOryx\Yves\AvailabilityAlert\Dependency\Client\AvailabilityAlertToStoreClientInterface
+     */
+    public function getStoreClient(): AvailabilityAlertToStoreClientInterface
+    {
+        return $this->getProvidedDependency(AvailabilityAlertDependencyProvider::CLIENT_STORE);
+    }
+
+    /**
+     * @return \FondOfOryx\Yves\AvailabilityAlert\Dependency\Client\AvailabilityAlertToLocaleClientInterface
+     */
+    public function getLocaleClient(): AvailabilityAlertToLocaleClientInterface
+    {
+        return $this->getProvidedDependency(AvailabilityAlertDependencyProvider::CLIENT_LOCALE);
+    }
+
+    /**
+     * @return \FondOfOryx\Yves\AvailabilityAlert\Dependency\Plugin\AvailabilityAlertSubscriptionRequestExpanderPlugin[]
+     */
+    public function getAvailabilityAlertSubscriptionRequestExpanderPlugins(): array
+    {
+        return $this->getProvidedDependency(AvailabilityAlertDependencyProvider::PLUGINS_AVAILABILITY_ALERT_SUBSCRIPTION_REQUEST_EXPANDER);
     }
 }

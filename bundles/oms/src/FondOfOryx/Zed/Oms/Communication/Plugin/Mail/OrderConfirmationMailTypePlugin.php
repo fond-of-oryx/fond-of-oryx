@@ -89,7 +89,7 @@ class OrderConfirmationMailTypePlugin extends SprykerOrderConfirmationMailTypePl
             return 'default.';
         }
 
-        $arrStore = explode("_", $orderTransfer->getStore());
+        $arrStore = explode('_', $orderTransfer->getStore());
 
         if (is_array($arrStore) && count($arrStore) > 0) {
             return strtolower($arrStore[0]);
@@ -218,7 +218,7 @@ class OrderConfirmationMailTypePlugin extends SprykerOrderConfirmationMailTypePl
     }
 
     /**
-     * @param  \Spryker\Zed\Mail\Business\Model\Mail\Builder\MailBuilderInterface  $mailBuilder
+     * @param \Spryker\Zed\Mail\Business\Model\Mail\Builder\MailBuilderInterface $mailBuilder
      *
      * @return \Generated\Shared\Transfer\AddressTransfer|null
      */
@@ -236,11 +236,17 @@ class OrderConfirmationMailTypePlugin extends SprykerOrderConfirmationMailTypePl
             }
         }
 
-        if ($shippingAddress === null && $orderTransfer !== null && method_exists($orderTransfer,
-                'getShippingAddress')) {
+        if (
+            $shippingAddress === null && $orderTransfer !== null && method_exists(
+                $orderTransfer,
+                'getShippingAddress'
+            )
+        ) {
             $shippingAddress = $orderTransfer->getShippingAddress();
         }
+
         return $shippingAddress;
+
         //End ToDo
-}
+    }
 }

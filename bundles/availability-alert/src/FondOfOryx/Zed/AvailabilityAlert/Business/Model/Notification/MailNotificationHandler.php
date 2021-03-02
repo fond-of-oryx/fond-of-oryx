@@ -1,17 +1,14 @@
 <?php
 
-namespace FondOfOryx\Zed\AvailabilityAlert\Business\Model;
+namespace FondOfOryx\Zed\AvailabilityAlert\Business\Model\Notification;
 
 use FondOfOryx\Zed\AvailabilityAlert\Communication\Plugin\Mail\AvailabilityAlertMailTypePlugin;
 use FondOfOryx\Zed\AvailabilityAlert\Dependency\Facade\AvailabilityAlertToMailInterface;
 use FondOfOryx\Zed\AvailabilityAlert\Dependency\Facade\AvailabilityAlertToProductInterface;
 use Generated\Shared\Transfer\AvailabilityAlertSubscriptionTransfer;
-use Generated\Shared\Transfer\LocaleTransfer;
 use Generated\Shared\Transfer\MailTransfer;
-use Generated\Shared\Transfer\ProductAbstractTransfer;
-use Orm\Zed\AvailabilityAlert\Persistence\FosAvailabilityAlertSubscription;
 
-class MailHandler
+class MailNotificationHandler
 {
     /**
      * @var string
@@ -44,15 +41,13 @@ class MailHandler
     }
 
     /**
-     * @param \Orm\Zed\AvailabilityAlert\Persistence\FosAvailabilityAlertSubscription $fosAvailabilityAlertSubscription
+     * @param \Generated\Shared\Transfer\AvailabilityAlertSubscriptionTransfer $availabilityAlertSubscriptionTransfer
      *
      * @return void
      */
-    public function sendAvailabilityAlertMail(FosAvailabilityAlertSubscription $fosAvailabilityAlertSubscription)
+    public function notify(AvailabilityAlertSubscriptionTransfer $availabilityAlertSubscriptionTransfer): void
     {
-        $availabilityAlertSubscriptionTransfer = $this->getAvailabilityAlertSubscriptionTransfer($fosAvailabilityAlertSubscription);
-        $localeTransfer = $this->getLocaleTransfer($fosAvailabilityAlertSubscription);
-        $productAbstractTransfer = $this->getProductAbstractTransfer($fosAvailabilityAlertSubscription);
+        $productAbstractTransfer = $availabilityAlertSubscriptionTransfer->getProductAbstract();
         $productUrlTransfer = $this->productFacade->getProductUrl($productAbstractTransfer);
         $priceProductTransfer = $productAbstractTransfer->getPrices();
         $currentLocaleProductUrlTransfer = null;
@@ -60,7 +55,7 @@ class MailHandler
 
         /** @var \Generated\Shared\Transfer\LocalizedUrlTransfer $localizedUrlTransfer */
         foreach ($productUrlTransfer->getUrls() as $localizedUrlTransfer) {
-            if ($localizedUrlTransfer->getLocale()->getIdLocale() == $localeTransfer->getIdLocale()) {
+            if ($localizedUrlTransfer->getLocale()->getIdLocale() == $availabilityAlertSubscriptionTransfer->getFkLocale()) {
                 $currentLocaleProductUrlTransfer = $localizedUrlTransfer;
 
                 break;
@@ -77,7 +72,7 @@ class MailHandler
 
         $mailTransfer = new MailTransfer();
         $mailTransfer->setAvailabilityAlertSubscription($availabilityAlertSubscriptionTransfer);
-        $mailTransfer->setLocale($localeTransfer);
+        $mailTransfer->setLocale($availabilityAlertSubscriptionTransfer->getLocale());
         $mailTransfer->setProductAbstract($productAbstractTransfer);
         $mailTransfer->setType(AvailabilityAlertMailTypePlugin::MAIL_TYPE);
         $mailTransfer->setLocalizedUrl($currentLocaleProductUrlTransfer);
@@ -85,48 +80,5 @@ class MailHandler
         $mailTransfer->setBaseUrlSslYves($this->baseUrlSslYves);
 
         $this->mailFacade->handleMail($mailTransfer);
-    }
-
-    /**
-     * @param \Orm\Zed\AvailabilityAlert\Persistence\FosAvailabilityAlertSubscription $fosAvailabilityAlertSubscription
-     *
-     * @return \Generated\Shared\Transfer\AvailabilityAlertSubscriptionTransfer
-     */
-    protected function getAvailabilityAlertSubscriptionTransfer(
-        FosAvailabilityAlertSubscription $fosAvailabilityAlertSubscription
-    ) {
-        $availabilityAlertSubscriptionTransfer = new AvailabilityAlertSubscriptionTransfer();
-
-        $availabilityAlertSubscriptionTransfer->fromArray($fosAvailabilityAlertSubscription->toArray(), true);
-
-        return $availabilityAlertSubscriptionTransfer;
-    }
-
-    /**
-     * @param \Orm\Zed\AvailabilityAlert\Persistence\FosAvailabilityAlertSubscription $fosAvailabilityAlertSubscription
-     *
-     * @return \Generated\Shared\Transfer\LocaleTransfer
-     */
-    protected function getLocaleTransfer(FosAvailabilityAlertSubscription $fosAvailabilityAlertSubscription)
-    {
-        $spyLocale = $fosAvailabilityAlertSubscription->getSpyLocale();
-
-        $localeTransfer = new LocaleTransfer();
-
-        $localeTransfer->fromArray($spyLocale->toArray(), true);
-
-        return $localeTransfer;
-    }
-
-    /**
-     * @param \Orm\Zed\AvailabilityAlert\Persistence\FosAvailabilityAlertSubscription $fosAvailabilityAlertSubscription
-     *
-     * @return \Generated\Shared\Transfer\ProductAbstractTransfer
-     */
-    protected function getProductAbstractTransfer(FosAvailabilityAlertSubscription $fosAvailabilityAlertSubscription): ProductAbstractTransfer
-    {
-        $spyProductAbstract = $fosAvailabilityAlertSubscription->getSpyProductAbstract();
-
-        return $this->productFacade->findProductAbstractById($spyProductAbstract->getPrimaryKey());
     }
 }

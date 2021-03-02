@@ -8,6 +8,8 @@ use Spryker\Zed\Kernel\Business\AbstractFacade;
 
 /**
  * @method \FondOfOryx\Zed\AvailabilityAlert\Business\AvailabilityAlertBusinessFactory getFactory()
+ * @method \FondOfOryx\Zed\AvailabilityAlert\Persistence\AvailabilityAlertEntityManagerInterface getEntityManager()
+ * @method \FondOfOryx\Zed\AvailabilityAlert\Persistence\AvailabilityAlertRepositoryInterface getRepository()
  */
 class AvailabilityAlertFacade extends AbstractFacade implements AvailabilityAlertFacadeInterface
 {
@@ -32,7 +34,17 @@ class AvailabilityAlertFacade extends AbstractFacade implements AvailabilityAler
      */
     public function notifySubscribers(): void
     {
-        $this->getFactory()->createSubscribersNotifer()->notify();
+        $this->getFactory()->createSubscribersNotifier()->notify();
+    }
+
+    /**
+     * @param \Generated\Shared\Transfer\AvailabilityAlertSubscriptionTransfer $availabilityAlertSubscriptionTransfer
+     *
+     * @return void
+     */
+    public function sendEmailNotification(AvailabilityAlertSubscriptionTransfer $availabilityAlertSubscriptionTransfer): void
+    {
+        $this->getFactory()->createMailHandler()->notify($availabilityAlertSubscriptionTransfer);
     }
 
     /**

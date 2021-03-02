@@ -1,0 +1,74 @@
+<?xml version="1.0"?>
+<database xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:noNamespaceSchemaLocation="http://static.spryker.com/schema-01.xsd"
+          name="zed"
+          defaultIdMethod="native"
+          namespace="Orm\Zed\AvailabilityAlert\Persistence"
+          package="src.Orm.Zed.AvailabilityAlert.Persistence">
+
+    <table name="foo_availability_alert_subscription" idMethod="native" allowPkInsert="true">
+        <column name="id_availability_alert_subscription" required="true" type="INTEGER" primaryKey="true" autoIncrement="true"/>
+        <column name="fk_product_abstract" required="true" type="INTEGER"/>
+        <column name="fk_locale" required="true" type="INTEGER"/>
+        <column name="fk_availability_alert_subscriber" type="INTEGER" required="true"/>
+        <column name="sent_at" type="TIMESTAMP" defaultValue="NULL"/>
+        <column name="status" required="true" type="ENUM" valueSet="pending, notified" defaultValue="pending"/>
+        <column name="fk_store" required="true" type="INTEGER"/>
+
+        <behavior name="timestampable"/>
+
+        <id-method-parameter value="foo_id_availability_alert_subscription_pk_seq"/>
+
+        <foreign-key name="foo_availability_alert_subscription-fk_locale" foreignTable="spy_locale">
+            <reference local="fk_locale" foreign="id_locale"/>
+        </foreign-key>
+
+        <index name="foo_availability_alert_subscription-fk_product_abstract">
+            <index-column name="fk_product_abstract"/>
+        </index>
+
+        <foreign-key name="foo_availability_alert_subscription-fk_product_abstract" foreignTable="spy_product_abstract">
+            <reference local="fk_product_abstract" foreign="id_product_abstract"/>
+        </foreign-key>
+
+        <foreign-key name="foo_availability_alert_subscription-fk_store" foreignTable="spy_store">
+            <reference foreign="id_store" local="fk_store"/>
+        </foreign-key>
+
+        <foreign-key name="foo_availability_alert_subscription-fk_availability_alert_subscriber" foreignTable="foo_availability_alert_subscriber">
+            <reference foreign="id_availability_alert_subscriber" local="fk_availability_alert_subscriber"/>
+        </foreign-key>
+
+        <index name="foo_availability_alert_subscription-fk_locale">
+            <index-column name="fk_locale"/>
+        </index>
+
+        <unique name="foo_availability_alert_subscription-fk_product_abstract-fk_availability_alert_subscriber">
+            <unique-column name="fk_product_abstract"/>
+            <unique-column name="fk_availability_alert_subscriber"/>
+            <unique-column name="fk_store"/>
+        </unique>
+    </table>
+
+    <table name="foo_availability_alert_subscriber" idMethod="native" allowPkInsert="true">
+        <column name="id_availability_alert_subscriber" required="true" type="INTEGER" primaryKey="true" autoIncrement="true"/>
+        <column name="fk_customer" type="INTEGER" required="false"/>
+        <column name="email" type="VARCHAR" size="255" required="true"/>
+
+        <behavior name="timestampable"/>
+
+        <id-method-parameter value="foo_id_availability_alert_subscriber_pk_seq"/>
+
+        <index name="foo_availability_alert_subscriber-fk_customer">
+            <index-column name="fk_customer"/>
+        </index>
+
+        <foreign-key name="foo_availability_alert_subscriber-fk_customer" foreignTable="spy_customer">
+            <reference foreign="id_customer" local="fk_customer"/>
+        </foreign-key>
+
+        <unique name="foo_availability_alert_subscriber-email">
+            <unique-column name="email"/>
+        </unique>
+    </table>
+</database>

@@ -1,9 +1,0 @@
-<?php
-
-namespace FondOfOryx\Zed\AvailabilityAlert\Persistence\Propel;
-
-use Orm\Zed\AvailabilityAlert\Persistence\FosAvailabilityAlertSubscriptionQuery as BaseFosAvailabilityAlertSubscriptionQuery;
-
-abstract class AbstractFosAvailabilityAlertSubscriptionQuery extends BaseFosAvailabilityAlertSubscriptionQuery
-{
-}

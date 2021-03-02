@@ -33,7 +33,7 @@ class AvailabilityAlertMailTypePlugin extends AbstractPlugin implements MailType
     /**
      * @return string
      */
-    public function getName()
+    public function getName(): string
     {
         return static::MAIL_TYPE;
     }
@@ -43,7 +43,7 @@ class AvailabilityAlertMailTypePlugin extends AbstractPlugin implements MailType
      *
      * @return void
      */
-    public function build(MailBuilderInterface $mailBuilder)
+    public function build(MailBuilderInterface $mailBuilder): void
     {
         $this->setSubject($mailBuilder)
             ->setHtmlTemplate($mailBuilder)
@@ -64,7 +64,7 @@ class AvailabilityAlertMailTypePlugin extends AbstractPlugin implements MailType
             ->getAvailabilityAlertSubscription();
 
         $mailBuilder->addRecipient(
-            $availabilityAlertSubscriptionTransfer->getEmail(),
+            $availabilityAlertSubscriptionTransfer->getSubscriber()->getEmail(),
             ''
         );
 
@@ -110,9 +110,9 @@ class AvailabilityAlertMailTypePlugin extends AbstractPlugin implements MailType
     /**
      * @param \Spryker\Zed\Mail\Business\Model\Mail\Builder\MailBuilderInterface $mailBuilder
      *
-     * @return \FondOfOryx\Zed\Oms\Communication\Plugin\Mail\OrderConfirmationMailTypePlugin
+     * @return $this
      */
-    protected function setSender(MailBuilderInterface $mailBuilder): self
+    protected function setSender(MailBuilderInterface $mailBuilder)
     {
         $mailBuilder->setSender($this->config->getSenderEmail(), $this->config->getSenderName());
 

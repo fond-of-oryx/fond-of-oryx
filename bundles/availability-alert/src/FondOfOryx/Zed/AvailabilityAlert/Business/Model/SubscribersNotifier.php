@@ -2,15 +2,10 @@
 
 namespace FondOfOryx\Zed\AvailabilityAlert\Business\Model;
 
-use DateTime;
 use FondOfOryx\Zed\AvailabilityAlert\Business\Model\SubscribersNotifier\SubscribersNotifierPluginExecutorInterface;
-use FondOfOryx\Zed\AvailabilityAlert\Persistence\AvailabilityAlertQueryContainerInterface;
 use Generated\Shared\Transfer\AvailabilityAlertSubscriptionTransfer;
-use Orm\Zed\AvailabilityAlert\Persistence\FosAvailabilityAlertSubscription;
-use Orm\Zed\AvailabilityAlert\Persistence\Map\FosAvailabilityAlertSubscriptionTableMap;
-use Orm\Zed\Store\Persistence\SpyStoreQuery;
+use Orm\Zed\AvailabilityAlert\Persistence\Map\FooAvailabilityAlertSubscriptionTableMap;
 use Spryker\DecimalObject\Decimal;
-use Spryker\Shared\Kernel\Store;
 use Spryker\Zed\Availability\Business\AvailabilityFacadeInterface;
 
 class SubscribersNotifier implements SubscribersNotifierInterface
@@ -21,14 +16,14 @@ class SubscribersNotifier implements SubscribersNotifierInterface
     protected $availabilityFacade;
 
     /**
-     * @var \FondOfOryx\Zed\AvailabilityAlert\Persistence\AvailabilityAlertQueryContainerInterface
+     * @var \FondOfOryx\Zed\AvailabilityAlert\Business\Model\SubscriptionManagerInterface
      */
-    protected $queryContainer;
+    protected $subscriptionManager;
 
     /**
-     * @var \FondOfOryx\Zed\AvailabilityAlert\Business\Model\MailHandler
+     * @var \FondOfOryx\Zed\AvailabilityAlert\Business\Model\NotificationHandlerInterface
      */
-    protected $mailHandler;
+    protected $notificationHandler;
 
     /**
      * @var int
@@ -42,21 +37,21 @@ class SubscribersNotifier implements SubscribersNotifierInterface
 
     /**
      * @param \Spryker\Zed\Availability\Business\AvailabilityFacadeInterface $availabilityFacade
-     * @param \FondOfOryx\Zed\AvailabilityAlert\Business\Model\MailHandler $mailHandler
-     * @param \FondOfOryx\Zed\AvailabilityAlert\Persistence\AvailabilityAlertQueryContainerInterface $queryContainer
+     * @param \FondOfOryx\Zed\AvailabilityAlert\Business\Model\NotificationHandlerInterface $notificationHandler
+     * @param \FondOfOryx\Zed\AvailabilityAlert\Business\Model\SubscriptionManagerInterface $subscriptionManager
      * @param int $minimalPercentageDifference
      * @param \FondOfOryx\Zed\AvailabilityAlert\Business\Model\SubscribersNotifier\SubscribersNotifierPluginExecutorInterface $subscribersNotifierPluginExecutor
      */
     public function __construct(
         AvailabilityFacadeInterface $availabilityFacade,
-        MailHandler $mailHandler,
-        AvailabilityAlertQueryContainerInterface $queryContainer,
-        $minimalPercentageDifference,
+        NotificationHandlerInterface $notificationHandler,
+        SubscriptionManagerInterface $subscriptionManager,
+        int $minimalPercentageDifference,
         SubscribersNotifierPluginExecutorInterface $subscribersNotifierPluginExecutor
     ) {
         $this->availabilityFacade = $availabilityFacade;
-        $this->mailHandler = $mailHandler;
-        $this->queryContainer = $queryContainer;
+        $this->notificationHandler = $notificationHandler;
+        $this->subscriptionManager = $subscriptionManager;
         $this->minimalPercentageDifference = $minimalPercentageDifference;
         $this->subscribersNotifierPluginExecutor = $subscribersNotifierPluginExecutor;
     }
@@ -66,69 +61,57 @@ class SubscribersNotifier implements SubscribersNotifierInterface
      */
     public function notify(): SubscribersNotifierInterface
     {
-        $countOfSubscriberPerProductAbstract = $this->getCountOfSubscriberPerProductAbstract();
+        $countOfSubscriberPerProductAbstract = $this->subscriptionManager->getCurrentSubscriptionCountPerProductAbstract();
 
-        foreach ($this->getSubscritpions() as $fosAvailabilityAlertSubscription) {
-            if (!$this->canSendNotification($fosAvailabilityAlertSubscription, $countOfSubscriberPerProductAbstract)) {
+        foreach ($this->subscriptionManager->getSubscriptionsForCurrentStoreAndStatus(0)->getSubscriptions() as $availabilityAlertSubscriptionTransfer) {
+            if (
+                !$this->canSendNotification(
+                    $availabilityAlertSubscriptionTransfer,
+                    $countOfSubscriberPerProductAbstract
+                )
+            ) {
                 continue;
             }
 
-            $isPassed = $this->subscribersNotifierPluginExecutor->executePreCheckPlugins(
-                $this->createAvailabilityAlertSubscriptionTransfer($fosAvailabilityAlertSubscription)
-            );
+            $isPassed = $this->subscribersNotifierPluginExecutor->executePreCheckPlugins($availabilityAlertSubscriptionTransfer);
 
             if ($isPassed === false) {
                 continue;
             }
 
-            $this->sendNotification($fosAvailabilityAlertSubscription);
+            $this->sendNotification($availabilityAlertSubscriptionTransfer);
         }
 
         return $this;
     }
 
     /**
-     * @param \Orm\Zed\AvailabilityAlert\Persistence\FosAvailabilityAlertSubscription $fosAvailabilityAlertSubscription
+     * @param \Generated\Shared\Transfer\AvailabilityAlertSubscriptionTransfer $availabilityAlertSubscriptionTransfer
      *
-     * @return \Generated\Shared\Transfer\AvailabilityAlertSubscriptionTransfer
+     * @return void
      */
-    protected function createAvailabilityAlertSubscriptionTransfer(
-        FosAvailabilityAlertSubscription $fosAvailabilityAlertSubscription
-    ): AvailabilityAlertSubscriptionTransfer {
-        $availabilityAlertSubscriptionTransfer = new AvailabilityAlertSubscriptionTransfer();
-        $availabilityAlertSubscriptionTransfer->fromArray($fosAvailabilityAlertSubscription->toArray(), true);
-
-        return $availabilityAlertSubscriptionTransfer;
-    }
-
-    /**
-     * @param \Orm\Zed\AvailabilityAlert\Persistence\FosAvailabilityAlertSubscription $fosAvailabilityAlertSubscription
-     *
-     * @return $this
-     */
-    protected function sendNotification(FosAvailabilityAlertSubscription $fosAvailabilityAlertSubscription)
+    protected function sendNotification(AvailabilityAlertSubscriptionTransfer $availabilityAlertSubscriptionTransfer): void
     {
-        $this->mailHandler->sendAvailabilityAlertMail($fosAvailabilityAlertSubscription);
+        $this->notificationHandler->execute($availabilityAlertSubscriptionTransfer);
 
-        $fosAvailabilityAlertSubscription->setSentAt(new DateTime())
-            ->setStatus(FosAvailabilityAlertSubscriptionTableMap::COL_STATUS_NOTIFIED)
-            ->save();
+        $availabilityAlertSubscriptionTransfer->setSentAt(time())
+            ->setStatus(FooAvailabilityAlertSubscriptionTableMap::COL_STATUS_NOTIFIED);
 
-        return $this;
+        $this->subscriptionManager->updateSubscription($availabilityAlertSubscriptionTransfer);
     }
 
     /**
-     * @param \Orm\Zed\AvailabilityAlert\Persistence\FosAvailabilityAlertSubscription $fosAvailabilityAlertSubscription
+     * @param \Generated\Shared\Transfer\AvailabilityAlertSubscriptionTransfer $availabilityAlertSubscriptionTransfer
      * @param array $countOfSubscriberPerProductAbstract
      *
      * @return bool
      */
     protected function canSendNotification(
-        FosAvailabilityAlertSubscription $fosAvailabilityAlertSubscription,
-        $countOfSubscriberPerProductAbstract
+        AvailabilityAlertSubscriptionTransfer $availabilityAlertSubscriptionTransfer,
+        array $countOfSubscriberPerProductAbstract
     ): bool {
         $percentageDifference = $this->calculatePercentageDifference(
-            $fosAvailabilityAlertSubscription,
+            $availabilityAlertSubscriptionTransfer,
             $countOfSubscriberPerProductAbstract
         );
 
@@ -136,75 +119,35 @@ class SubscribersNotifier implements SubscribersNotifierInterface
     }
 
     /**
-     * @param \Orm\Zed\AvailabilityAlert\Persistence\FosAvailabilityAlertSubscription $fosAvailabilityAlertSubscription
+     * @param \Generated\Shared\Transfer\AvailabilityAlertSubscriptionTransfer $availabilityAlertSubscriptionTransfer
      * @param array $countOfSubscriberPerProductAbstract
      *
-     * @return float|int
+     * @return float
      */
     protected function calculatePercentageDifference(
-        FosAvailabilityAlertSubscription $fosAvailabilityAlertSubscription,
-        $countOfSubscriberPerProductAbstract
-    ) {
-        $fkProductAbstract = $fosAvailabilityAlertSubscription->getFkProductAbstract();
+        AvailabilityAlertSubscriptionTransfer $availabilityAlertSubscriptionTransfer,
+        array $countOfSubscriberPerProductAbstract
+    ): float {
+        $fkProductAbstract = $availabilityAlertSubscriptionTransfer->getFkProductAbstract();
         $subscriberCount = $countOfSubscriberPerProductAbstract[$fkProductAbstract];
-        $availability = $this->getAvailability($fosAvailabilityAlertSubscription)->toInt();
+        $availability = $this->getAvailability($availabilityAlertSubscriptionTransfer)->toInt();
 
-        return $availability * 100 / $subscriberCount;
+        return (float)($availability * 100 / $subscriberCount);
     }
 
     /**
-     * @param \Orm\Zed\AvailabilityAlert\Persistence\FosAvailabilityAlertSubscription $fosAvailabilityAlertSubscription
+     * @param \Generated\Shared\Transfer\AvailabilityAlertSubscriptionTransfer $availabilityAlertSubscriptionTransfer
      *
      * @return \Spryker\DecimalObject\Decimal|null
      */
     protected function getAvailability(
-        FosAvailabilityAlertSubscription $fosAvailabilityAlertSubscription
+        AvailabilityAlertSubscriptionTransfer $availabilityAlertSubscriptionTransfer
     ): ?Decimal {
         $productAbstractAvailability = $this->availabilityFacade->getProductAbstractAvailability(
-            $fosAvailabilityAlertSubscription->getFkProductAbstract(),
-            $fosAvailabilityAlertSubscription->getFkLocale()
+            $availabilityAlertSubscriptionTransfer->getFkProductAbstract(),
+            $availabilityAlertSubscriptionTransfer->getFkLocale()
         );
 
         return $productAbstractAvailability->getAvailability();
-    }
-
-    /**
-     * @return \Orm\Zed\AvailabilityAlert\Persistence\FosAvailabilityAlertSubscription[]|\Propel\Runtime\Collection\ObjectCollection
-     */
-    protected function getSubscritpions()
-    {
-        $idStore = $this->getIdStoreByStoreName(Store::getInstance()->getStoreName());
-
-        return $this->queryContainer
-            ->querySubscriptionsByIdStoreAndStatus($idStore, 0)
-            ->find();
-    }
-
-    /**
-     * @return int[]
-     */
-    protected function getCountOfSubscriberPerProductAbstract(): array
-    {
-        return $this->queryContainer->queryCountOfSubscriberPerProductAbstract()
-            ->find()
-            ->toKeyValue(FosAvailabilityAlertSubscriptionTableMap::COL_FK_PRODUCT_ABSTRACT, 'count_of_subscriber');
-    }
-
-    /**
-     * @param string $storeName
-     *
-     * @return int
-     */
-    protected function getIdStoreByStoreName(string $storeName): int
-    {
-        $storeEntity = SpyStoreQuery::create()
-            ->filterByName($storeName)
-            ->findOne();
-
-        if ($storeEntity === null) {
-            return 0;
-        }
-
-        return $storeEntity->getIdStore();
     }
 }

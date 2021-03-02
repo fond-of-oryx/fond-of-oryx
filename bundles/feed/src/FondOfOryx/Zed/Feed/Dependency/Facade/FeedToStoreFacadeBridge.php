@@ -13,9 +13,7 @@ class FeedToStoreFacadeBridge implements FeedToStoreFacadeInterface
     protected $storeFacade;
 
     /**
-     * FeedToStoreFacadeBridge constructor.
-     *
-     * @param  \Spryker\Zed\Store\Business\StoreFacadeInterface  $storeFacade
+     * @param \Spryker\Zed\Store\Business\StoreFacadeInterface $storeFacade
      */
     public function __construct(StoreFacadeInterface $storeFacade)
     {
