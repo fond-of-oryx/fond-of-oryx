@@ -2,8 +2,8 @@
 
 namespace FondOfOryx\Service\CrossEngage\Model\Generator;
 
-use FondOfOryx\Service\CrossEngage\Exception\ModifierNotFoundException;
 use FondOfOryx\Service\CrossEngage\CrossEngageConfig;
+use FondOfOryx\Service\CrossEngage\Exception\ModifierNotFoundException;
 
 class HashGenerator implements HashGeneratorInterface
 {

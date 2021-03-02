@@ -2,7 +2,7 @@
 
 namespace FondOfOryx\Shared\CrossEngage;
 
-interface CROSSENGAGEConstants
+interface CrossEngageConstants
 {
     public const CROSSENGAGE = 'CROSSENGAGE';
     public const TOKEN = 'token';
