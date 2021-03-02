@@ -90,7 +90,7 @@ class RequestBuilderTest extends Unit
         $this->parameterBagMock->expects($this->once())->method('get')->willReturn(ErpOrderPageSearchRestApiConfig::QUERY_STRING_PARAMETER);
         $this->parameterBagMock->expects($this->once())->method('all')->willReturn(['all params']);
         $this->restRequestMock->expects($this->once())->method('getInclude')->willReturn([]);
-        $this->restRequestMock->expects($this->once())->method('getFilters')->willReturn(['test' => [$this->filterMock]]);
+        $this->restRequestMock->expects($this->once())->method('getFilters')->willReturn(['test' => $this->filterMock]);
         $this->restRequestMock->expects($this->atLeastOnce())->method('getHttpRequest')->willReturn($this->requestMock);
 
         $transfer = $this->requestBuilder->create($this->restRequestMock);
@@ -116,7 +116,7 @@ class RequestBuilderTest extends Unit
         $this->pageMock->expects($this->atLeastOnce())->method('getLimit')->willReturn(1);
         $this->pageMock->expects($this->atLeastOnce())->method('getOffset')->willReturn(1);
         $this->restRequestMock->expects($this->once())->method('getInclude')->willReturn([]);
-        $this->restRequestMock->expects($this->once())->method('getFilters')->willReturn(['test' => [$this->filterMock]]);
+        $this->restRequestMock->expects($this->once())->method('getFilters')->willReturn(['test' => $this->filterMock]);
         $this->restRequestMock->expects($this->atLeastOnce())->method('getHttpRequest')->willReturn($this->requestMock);
 
         $transfer = $this->requestBuilder->create($this->restRequestMock);
