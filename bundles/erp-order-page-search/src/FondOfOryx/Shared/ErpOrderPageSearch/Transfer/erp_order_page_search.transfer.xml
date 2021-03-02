@@ -34,4 +34,12 @@
         <property name="data" type="string"/>
     </transfer>
 
+    <transfer name="CompanyUser">
+        <property name="externalReference" type="string"/>
+    </transfer>
+
+    <transfer name="CompanyBusinessUnit">
+        <property name="externalReference" type="string"/>
+    </transfer>
+
 </transfers>

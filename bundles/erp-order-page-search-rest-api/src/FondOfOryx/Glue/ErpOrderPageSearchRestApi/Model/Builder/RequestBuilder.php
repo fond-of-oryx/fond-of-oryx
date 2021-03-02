@@ -37,14 +37,12 @@ class RequestBuilder implements RequestBuilderInterface
     protected function addFilterFromRestRequest(RestRequestInterface $restRequest): ErpOrderPageSearchRequestTransfer
     {
         $filterCollection = [];
-        foreach ($restRequest->getFilters() as $filterName => $filters) {
-            foreach ($filters as $filter) {
-                $filterCollection[$filterName][] = [
-                    'resource' => $filter->getResource(),
-                    'value' => $filter->getValue(),
-                    'field' => $filter->getField(),
-                ];
-            }
+        foreach ($restRequest->getFilters() as $filterName => $filter) { // TODO: Check Type
+            $filterCollection[$filterName][] = [
+                'resource' => $filter->getResource(),
+                'value' => $filter->getValue(),
+                'field' => $filter->getField(),
+            ];
         }
         $this->requestTransfer->setFilters($filterCollection);
 

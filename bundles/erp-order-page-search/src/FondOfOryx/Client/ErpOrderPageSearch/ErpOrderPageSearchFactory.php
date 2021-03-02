@@ -4,7 +4,7 @@ namespace FondOfOryx\Client\ErpOrderPageSearch;
 
 use FondOfOryx\Client\ErpOrderPageSearch\Dependency\Client\ErpOrderPageSearchToCompanyUserClientInterface;
 use FondOfOryx\Client\ErpOrderPageSearch\Dependency\Client\ErpOrderPageSearchToCustomerClientInterface;
-use FondOfOryx\Client\ErporderPageSearch\Dependency\Client\ErpOrderPageSearchToSearchClientInterface;
+use FondOfOryx\Client\ErpOrderPageSearch\Dependency\Client\ErpOrderPageSearchToSearchClientInterface;
 use FondOfOryx\Client\ErpOrderPageSearch\Dependency\Client\ErpOrderPageSearchToSessionClientInterface;
 use Spryker\Client\Kernel\AbstractFactory;
 use Spryker\Client\SearchExtension\Dependency\Plugin\QueryInterface;
@@ -60,7 +60,7 @@ class ErpOrderPageSearchFactory extends AbstractFactory
     }
 
     /**
-     * @return \FondOfOryx\Client\ErporderPageSearch\Dependency\Client\ErpOrderPageSearchToSearchClientInterface
+     * @return \FondOfOryx\Client\ErpOrderPageSearch\Dependency\Client\ErpOrderPageSearchToSearchClientInterface
      */
     public function getSearchClient(): ErpOrderPageSearchToSearchClientInterface
     {

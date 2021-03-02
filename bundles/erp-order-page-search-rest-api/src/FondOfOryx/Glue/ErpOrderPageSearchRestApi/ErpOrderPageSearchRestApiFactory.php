@@ -31,7 +31,7 @@ class ErpOrderPageSearchRestApiFactory extends AbstractFactory
      */
     protected function createErpOrderMapper(): ErpOrderMapperInterface
     {
-        return new ErpOrderMapper($this->getResourceBuilder());
+        return new ErpOrderMapper();
     }
 
     /**

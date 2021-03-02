@@ -34,7 +34,7 @@ class ErpOrderPageSearchBusinessFactory extends AbstractBusinessFactory
     }
 
     /**
-     * @return \FondOfOryx\Zed\ErpOrderPageSearch\Business\Mapper\ErpOrderPageSearchUnpublisherInterface
+     * @return \FondOfOryx\Zed\ErpOrderPageSearch\Business\UnPublisher\ErpOrderPageSearchUnpublisherInterface
      */
     public function createErpOrderPageSearchUnPublisher(): ErpOrderPageSearchUnpublisherInterface
     {

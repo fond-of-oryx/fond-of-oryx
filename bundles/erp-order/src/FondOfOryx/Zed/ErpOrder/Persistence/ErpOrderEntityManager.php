@@ -4,7 +4,6 @@ namespace FondOfOryx\Zed\ErpOrder\Persistence;
 
 use DateTime;
 use Exception;
-use FondOfOryx\Shared\ErpOrder\ErpOrderConstants;
 use Generated\Shared\Transfer\ErpOrderAddressTransfer;
 use Generated\Shared\Transfer\ErpOrderItemTransfer;
 use Generated\Shared\Transfer\ErpOrderTransfer;
@@ -277,7 +276,6 @@ class ErpOrderEntityManager extends AbstractEntityManager implements ErpOrderEnt
     {
         if ($deliveryDate !== null) {
             $deliveryDate = new DateTime($deliveryDate);
-            $deliveryDate->format(ErpOrderConstants::CONCRETE_DELIVERY_DATE_FORMAT);
         }
 
         return $deliveryDate;
