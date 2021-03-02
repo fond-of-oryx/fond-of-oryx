@@ -1,4 +1,4 @@
-namespace: fond-of-oryx/jellyfish-availability-alert-
+namespace: fond-of-oryx/jellyfish-availability-alert
 
 suites:
   unit:

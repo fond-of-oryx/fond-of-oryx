@@ -1,8 +1,6 @@
 <?php
 
-
 namespace FondOfOryx\Zed\JellyfishAvailabilityAlert\Business;
-
 
 use FondOfOryx\Zed\JellyfishAvailabilityAlert\Business\Api\Adapter\AvailabilityAlertAdapter;
 use FondOfOryx\Zed\JellyfishAvailabilityAlert\Business\Api\Adapter\AvailabilityAlertAdapterInterface;
@@ -62,7 +60,6 @@ class JellyfishAvailabilityAlertBusinessFactory extends AbstractBusinessFactory
 
     /**
      * @return \FondOfOryx\Zed\JellyfishAvailabilityAlert\Business\Dependency\Service\JellyfishAvailabilityAlertToUtilEncodingServiceInterface
-     * @throws \Spryker\Zed\Kernel\Exception\Container\ContainerKeyNotFoundException
      */
     protected function getUtilEncodingService(): JellyfishAvailabilityAlertToUtilEncodingServiceInterface
     {

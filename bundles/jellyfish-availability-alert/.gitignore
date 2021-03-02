@@ -3,4 +3,6 @@
 .DS_Store
 
 vendor
+Generated
+src/Generated
 composer.lock
