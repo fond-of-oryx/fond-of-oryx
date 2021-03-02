@@ -32,7 +32,7 @@
   "autoload-dev": {
     "psr-4": {
       "FondOfOryx\\": "tests/FondOfOryx",
-      "Generated\\": "srs/Generated"
+      "Generated\\": "src/Generated"
     }
   }
 }
