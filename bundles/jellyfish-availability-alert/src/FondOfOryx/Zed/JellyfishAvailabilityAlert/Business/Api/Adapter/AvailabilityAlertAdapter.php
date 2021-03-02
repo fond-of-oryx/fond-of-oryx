@@ -14,11 +14,9 @@ class AvailabilityAlertAdapter extends FondOfSprykerJellyfishAbstractAdapter imp
     protected const URI = 'standard/availability-alert';
 
     /**
-     * AvailabilityAlertAdapter constructor.
-     *
-     * @param  \FondOfOryx\Zed\JellyfishAvailabilityAlert\Business\Dependency\Service\JellyfishAvailabilityAlertToUtilEncodingServiceInterface  $utilEncodingService
-     * @param  \GuzzleHttp\ClientInterface  $client
-     * @param  \FondOfSpryker\Zed\Jellyfish\JellyfishConfig  $config
+     * @param \FondOfOryx\Zed\JellyfishAvailabilityAlert\Business\Dependency\Service\JellyfishAvailabilityAlertToUtilEncodingServiceInterface $utilEncodingService
+     * @param \GuzzleHttp\ClientInterface $client
+     * @param \FondOfSpryker\Zed\Jellyfish\JellyfishConfig $config
      */
     public function __construct(
         JellyfishAvailabilityAlertToUtilEncodingServiceInterface $utilEncodingService,

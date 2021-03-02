@@ -17,18 +17,17 @@ class AvailabilityAlertSubscriptionDispatcher implements AvailabilityAlertSubscr
     protected $adapter;
 
     /**
-     * AvailabilityAlertSubscriptionDispatcher constructor.
-     *
-     * @param  \FondOfOryx\Zed\JellyfishAvailabilityAlert\Business\Api\Adapter\AvailabilityAlertAdapterInterface  $adapter
+     * @param \FondOfOryx\Zed\JellyfishAvailabilityAlert\Business\Api\Adapter\AvailabilityAlertAdapterInterface $adapter
      */
-    public function __construct(
-        AvailabilityAlertAdapterInterface $adapter
-    ) {
+    public function __construct(AvailabilityAlertAdapterInterface $adapter)
+    {
         $this->adapter = $adapter;
     }
 
     /**
-     * @param  \Generated\Shared\Transfer\AvailabilityAlertSubscriptionTransfer  $availabilityAlertSubscriptionTransfer
+     * @param \Generated\Shared\Transfer\AvailabilityAlertSubscriptionTransfer $availabilityAlertSubscriptionTransfer
+     *
+     * @throws \Exception
      *
      * @return void
      */

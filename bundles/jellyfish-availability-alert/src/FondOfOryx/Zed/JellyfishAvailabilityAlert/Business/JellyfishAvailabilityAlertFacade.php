@@ -1,8 +1,6 @@
 <?php
 
-
 namespace FondOfOryx\Zed\JellyfishAvailabilityAlert\Business;
-
 
 use Generated\Shared\Transfer\AvailabilityAlertSubscriberTransfer;
 use Generated\Shared\Transfer\AvailabilityAlertSubscriptionTransfer;
@@ -14,7 +12,7 @@ use Spryker\Zed\Kernel\Business\AbstractFacade;
 class JellyfishAvailabilityAlertFacade extends AbstractFacade implements JellyfishAvailabilityAlertFacadeInterface
 {
     /**
-     * @param  \Generated\Shared\Transfer\AvailabilityAlertSubscriberTransfer  $availabilityAlertSubscriberTransfer
+     * @param \Generated\Shared\Transfer\AvailabilityAlertSubscriberTransfer $availabilityAlertSubscriberTransfer
      *
      * @return void
      */
@@ -24,7 +22,7 @@ class JellyfishAvailabilityAlertFacade extends AbstractFacade implements Jellyfi
     }
 
     /**
-     * @param  \Generated\Shared\Transfer\AvailabilityAlertSubscriptionTransfer  $availabilityAlertSubscriptionTransfer
+     * @param \Generated\Shared\Transfer\AvailabilityAlertSubscriptionTransfer $availabilityAlertSubscriptionTransfer
      *
      * @return void
      */
