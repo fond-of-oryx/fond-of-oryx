@@ -4,4 +4,5 @@
 
 vendor
 Generated
+src/Generated
 composer.lock
