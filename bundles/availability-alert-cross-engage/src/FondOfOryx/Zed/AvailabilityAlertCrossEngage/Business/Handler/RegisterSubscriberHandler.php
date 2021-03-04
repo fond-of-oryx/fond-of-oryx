@@ -31,9 +31,10 @@ class RegisterSubscriberHandler implements RegisterSubscriberHandlerInterface
     public function registerSubscriber(
         AvailabilityAlertSubscriberTransfer $subscriberTransfer
     ): AvailabilityAlertCrossEngageSubscriberRegistrationResponseTransfer {
-        $response = new AvailabilityAlertCrossEngageSubscriberRegistrationResponseTransfer();
-        $response->setSubscriber($subscriberTransfer);
-        $response->setStatus(true);
+        $response = (new AvailabilityAlertCrossEngageSubscriberRegistrationResponseTransfer())
+            ->setSubscriber($subscriberTransfer)
+            ->setStatus(true);
+
         try {
             $this->jellyfishAvailabilityAlertFacade->dispatchSubscriber($subscriberTransfer);
         } catch (Exception $exception) {

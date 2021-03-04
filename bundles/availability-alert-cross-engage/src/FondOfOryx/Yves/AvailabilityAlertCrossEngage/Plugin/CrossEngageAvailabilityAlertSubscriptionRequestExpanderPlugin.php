@@ -21,20 +21,22 @@ class CrossEngageAvailabilityAlertSubscriptionRequestExpanderPlugin implements A
         Request $request
     ): AvailabilityAlertSubscriptionRequestTransfer {
         return $alertSubscriptionRequestTransfer
-            ->setSubscriberIp($this->getCustomerIpAddress());
+            ->setSubscriberIp($this->getCustomerIpAddress($request));
     }
 
     /**
+     * @param  \Symfony\Component\HttpFoundation\Request  $request
+     *
      * @return string|null
      */
-    protected function getCustomerIpAddress(): ?string
+    protected function getCustomerIpAddress(Request $request): ?string
     {
-        $ipAddress = $_SERVER['REMOTE_ADDR'];
+        $ipAddresses = $request->getClientIps();
 
-        if (isset($_SERVER['HTTP_X_FORWARDED_FOR']) && $_SERVER['HTTP_X_FORWARDED_FOR']) {
-            $ipAddress = $_SERVER['HTTP_X_FORWARDED_FOR'];
+        if ($ipAddresses === null) {
+            return null;
         }
 
-        return $ipAddress;
+        return end($ipAddresses) ?? current($ipAddresses);
     }
 }
