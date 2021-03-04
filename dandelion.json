@@ -1,5 +1,10 @@
 {
     "repositories": {
+        "catalog-sku-filter": {
+            "url": "https://<GITHUB_TOKEN>@github.com/fond-of-oryx/catalog-sku-filter.git",
+            "path": "bundles/catalog-sku-filter/",
+            "version": "1.0.0"
+        },
         "customer-statistic": {
             "url": "https://<GITHUB_TOKEN>@github.com/fond-of-oryx/customer-statistic.git",
             "path": "bundles/customer-statistic/",
