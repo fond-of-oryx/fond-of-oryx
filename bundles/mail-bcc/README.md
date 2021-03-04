@@ -1,7 +1,6 @@
 # Mail BCC
-[![Build Status](https://travis-ci.org/fond-of/spryker-mail-bcc.svg?branch=master)](https://travis-ci.org/fond-of/spryker-mail-bcc)
-[![PHP from Travis config](https://img.shields.io/travis/php-v/fond-of/spryker-mail-bcc.svg)](https://php.net/)
-[![license](https://img.shields.io/github/license/fond-of/spryker-mail-bcc.svg)](https://packagist.org/packages/fond-of-oryx/mail-bcc)
+
+[![license](https://img.shields.io/github/license/fond-of-oryx/mail-bcc.svg)](https://packagist.org/packages/fond-of-oryx/mail-bcc)
 
 ## Description
 

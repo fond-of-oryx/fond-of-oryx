@@ -1,34 +1,44 @@
 namespace: fond-of-oryx/fond-of-oryx
 
 include:
-  - bundles/catalog-sku-filter
-  - bundles/customer-statistic
-  - bundles/customer-statistics-rest-api
-  - bundles/erp-order-api
-  - bundles/erp-order
-  - bundles/mail-bcc
-  - bundles/sales-locale-connector
-  - bundles/tax-calculation-connector
+    - bundles/catalog-sku-filter
+    - bundles/customer-statistic
+    - bundles/customer-statistics-rest-api
+    - bundles/erp-order-api
+    - bundles/erp-order
+    - bundles/mail-bcc
+    - bundles/sales-locale-connector
+    - bundles/tax-calculation-connector
 
 suites:
-  unit:
-    path: .
+    unit:
+        path: .
 
 settings:
-  shuffle: true
-  lint: true
+    shuffle: true
+    lint: true
 
 bootstrap: _bootstrap.php
 
 paths:
-  tests: tests
-  output: tests/_output
-  support: tests/_support
-  data: tests/_data
+    tests: tests
+    output: tests/_output
+    support: tests/_support
+    data: tests/_data
 
 coverage:
-  enabled: true
+    enabled: true
 
 modules:
-  enabled:
-    - \FondOfCodeception\Module\Spryker
+    enabled:
+        - \FondOfCodeception\Module\Spryker
+    config:
+        \FondOfCodeception\Module\Spryker:
+            generate_transfer: false
+            generate_map_classes: false
+    standalone:
+        modules:
+            config:
+                \FondOfCodeception\Module\Spryker:
+                    generate_transfer: true
+                    generate_map_classes: true

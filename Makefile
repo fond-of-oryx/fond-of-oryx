@@ -14,7 +14,7 @@ phpstan:
 
 .PHONY: codeception
 codeception:
-	./vendor/bin/codecept run --coverage --coverage-xml --coverage-html
+	./vendor/bin/codecept run --coverage --coverage-xml --coverage-html --env standalone
 
 .PHONY: prepare-dandelion-config
 prepare-dandelion-config:
@@ -28,5 +28,5 @@ split:
 release:
 	docker run -i -v $(BASE_DIRECTORY):/home/dandelion/project -w /home/dandelion/project dandelionphp/dandelion:latest dandelion release:all $(BRANCH)
 
-.PHONY: test
-test: install phpcs phpstan codeception
+.PHONY: ci
+ci: phpcs codeception phpstan
