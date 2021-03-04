@@ -1,0 +1,42 @@
+{
+  "name": "fond-of-oryx/erp-order-page-search",
+  "description": "ERP Order Page Search module",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "József Geng",
+      "email": "gengjozsef86@gmail.com"
+    },
+    {
+      "name": "Julian Zimmermann",
+      "email": "info@julianzimmermann.dev"
+    }
+  ],
+  "require": {
+    "php": ">=7.3",
+    "fond-of-oryx/erp-order": "dev-main",
+    "fond-of-oryx/erp-order-permission": "dev-main",
+    "spryker/customer": "^7.0.0",
+    "spryker/event-behavior": "^1.0.0",
+    "spryker/search": "^8.0.0",
+    "spryker/search-elasticsearch": "^1.0.0",
+    "spryker/synchronization-extension": "^1.0.0"
+  },
+  "require-dev": {
+    "fond-of-codeception/spryker": "^1.0",
+    "spryker/code-sniffer": "^0.12"
+  },
+  "minimum-stability": "dev",
+  "prefer-stable": true,
+  "autoload": {
+    "psr-4": {
+      "FondOfOryx\\": "src/FondOfOryx/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "FondOfOryx\\": "tests/FondOfOryx/",
+      "Generated\\": "src/Generated/"
+    }
+  }
+}

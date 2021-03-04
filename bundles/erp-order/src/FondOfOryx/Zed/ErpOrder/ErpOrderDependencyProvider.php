@@ -4,7 +4,6 @@ namespace FondOfOryx\Zed\ErpOrder;
 
 use ArrayObject;
 use FondOfOryx\Zed\ErpOrder\Dependency\Facade\ErpOrderToCompanyBusinessUnitFacadeBridge;
-use FondOfOryx\Zed\ErpOrder\Dependency\Facade\ErpOrderToCompanyUserFacadeBridge;
 use FondOfOryx\Zed\ErpOrder\Dependency\Facade\ErpOrderToCountryFacadeBridge;
 use FondOfOryx\Zed\ErpOrder\Exception\WrongInterfaceException;
 use FondOfOryx\Zed\ErpOrderExtension\Dependency\Plugin\ErpOrderAddressPostSavePluginInterface;
@@ -19,7 +18,6 @@ use Spryker\Zed\Kernel\Container;
 class ErpOrderDependencyProvider extends AbstractBundleDependencyProvider
 {
     public const FACADE_COMPANY_BUSINESS_UNIT = 'FACADE_COMPANY_BUSINESS_UNIT';
-    public const FACADE_COMPANY_USER = 'FACADE_COMPANY_USER';
     public const FACADE_COUNTRY = 'FACADE_COUNTRY';
     public const PLUGIN_ERP_ORDER_PRE_SAVE = 'PLUGIN_ERP_ORDER_PRE_SAVE';
     public const PLUGIN_ERP_ORDER_POST_SAVE = 'PLUGIN_ERP_ORDER_POST_SAVE';
@@ -37,7 +35,6 @@ class ErpOrderDependencyProvider extends AbstractBundleDependencyProvider
     {
         $container = parent::providePersistenceLayerDependencies($container);
         $container = $this->addCompanyBusinessUnitFacade($container);
-        $container = $this->addCompanyUserFacade($container);
         $container = $this->addCountryFacade($container);
 
         return $container;
@@ -71,22 +68,6 @@ class ErpOrderDependencyProvider extends AbstractBundleDependencyProvider
         $container[static::FACADE_COMPANY_BUSINESS_UNIT] = function (Container $container) {
             return new ErpOrderToCompanyBusinessUnitFacadeBridge(
                 $container->getLocator()->companyBusinessUnit()->facade()
-            );
-        };
-
-        return $container;
-    }
-
-    /**
-     * @param \Spryker\Zed\Kernel\Container $container
-     *
-     * @return \Spryker\Zed\Kernel\Container
-     */
-    public function addCompanyUserFacade(Container $container): Container
-    {
-        $container[static::FACADE_COMPANY_USER] = function (Container $container) {
-            return new ErpOrderToCompanyUserFacadeBridge(
-                $container->getLocator()->companyUser()->facade()
             );
         };
 

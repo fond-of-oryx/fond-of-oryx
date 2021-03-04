@@ -3,7 +3,6 @@
 namespace FondOfOryx\Zed\ErpOrder\Persistence;
 
 use FondOfOryx\Zed\ErpOrder\Dependency\Facade\ErpOrderToCompanyBusinessUnitFacadeInterface;
-use FondOfOryx\Zed\ErpOrder\Dependency\Facade\ErpOrderToCompanyUserFacadeInterface;
 use FondOfOryx\Zed\ErpOrder\Dependency\Facade\ErpOrderToCountryFacadeInterface;
 use FondOfOryx\Zed\ErpOrder\ErpOrderDependencyProvider;
 use FondOfOryx\Zed\ErpOrder\Persistence\Propel\Mapper\EntityToTransferMapper;
@@ -27,7 +26,6 @@ class ErpOrderPersistenceFactory extends AbstractPersistenceFactory
     {
         return new EntityToTransferMapper(
             $this->getCompanyBusinessUnitFacade(),
-            $this->getCompanyUserFacade(),
             $this->getCountryFacade()
         );
     }
@@ -38,14 +36,6 @@ class ErpOrderPersistenceFactory extends AbstractPersistenceFactory
     public function getCompanyBusinessUnitFacade(): ErpOrderToCompanyBusinessUnitFacadeInterface
     {
         return $this->getProvidedDependency(ErpOrderDependencyProvider::FACADE_COMPANY_BUSINESS_UNIT);
-    }
-
-    /**
-     * @return \FondOfOryx\Zed\ErpOrder\Dependency\Facade\ErpOrderToCompanyUserFacadeInterface
-     */
-    public function getCompanyUserFacade(): ErpOrderToCompanyUserFacadeInterface
-    {
-        return $this->getProvidedDependency(ErpOrderDependencyProvider::FACADE_COMPANY_USER);
     }
 
     /**
