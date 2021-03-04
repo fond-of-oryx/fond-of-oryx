@@ -20,7 +20,3 @@ coverage:
   enabled: true
   include:
     - src/*.php
-
-modules:
-  enabled:
-    - \FondOfCodeception\Module\Spryker
