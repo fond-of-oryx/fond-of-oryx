@@ -9,7 +9,7 @@
     }
   ],
   "require": {
-    "php": ">=7.2",
+    "php": ">=7.3",
     "spryker/calculation": "^4.4.1",
     "spryker/country": "^3.0.0",
     "spryker/product": "^5.0.0 || ^6.0.0",
@@ -17,7 +17,7 @@
     "spryker/tax-product-connector": "^4.2.0"
   },
   "require-dev": {
-    "fond-of-codeception/spryker": "dev-master",
+    "fond-of-codeception/spryker": "^1.0",
     "spryker/code-sniffer": "^0.12"
   },
   "minimum-stability": "dev",

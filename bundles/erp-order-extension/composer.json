@@ -9,10 +9,10 @@
     }
   ],
   "require": {
-    "php": ">=7.2"
+    "php": ">=7.3"
   },
   "require-dev": {
-    "fond-of-codeception/spryker": "dev-master",
+    "fond-of-codeception/spryker": "^1.0",
     "spryker/code-sniffer": "^0.12"
   },
   "minimum-stability": "dev",

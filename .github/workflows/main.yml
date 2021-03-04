@@ -9,7 +9,7 @@ jobs:
         strategy:
             fail-fast: false
             matrix:
-                php-versions: ["7.2", "7.3", "7.4"]
+                php-versions: ["7.3", "7.4"]
         steps:
             - name: Checkout
               uses: actions/checkout@v2
@@ -30,11 +30,5 @@ jobs:
                   # key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.json') }}
                   key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
                   restore-keys: ${{ runner.os }}-composer-
-            - name: Run install
-              run: make install
-            - name: Run tests
-              run: make codeception
-            - name: Run code sniffer
-              run: make phpcs
-            - name: Run phpstan
-              run: make phpstan
+            - name: Install dependencies and run ci tasks
+              run: make install ci
