@@ -21,8 +21,10 @@
     "spryker/country": "^3.0.0",
     "spryker/locale": "^2.2.0 || ^3.0.0",
     "spryker/product": "^5.0.0 || ^6.0.0",
+    "spryker/product-page-search-extension": "^1.0.0",
     "spryker/sales": "^6.0.0 || ^7.0.0 || ^8.0.0 || ^10.0.0 || ^11.0.0",
     "spryker/sales-extension": "^1.3.0",
+    "spryker/search-extension": "^1.0.0",
     "spryker/tax": "^4.0.0 || ^5.0.0",
     "spryker/tax-product-connector": "^4.2.0"
   },
@@ -30,7 +32,7 @@
     "spryker/code-sniffer": "*",
     "spryker-sdk/phpstan-spryker": "*",
     "codeception/codeception": "^2.0 || ^3.0 || ^4.0",
-    "fond-of-codeception/spryker": "dev-master"
+    "fond-of-codeception/spryker": "^1.0"
   },
   "replace": {
     "fond-of-oryx/customer-statistic": "*",
@@ -45,8 +47,11 @@
   "prefer-stable": true,
   "autoload": {
     "psr-4": {
+      "FondOfOryx\\Client\\CatalogSkuFilter\\": "bundles/catalog-sku-filter/src/FondOfOryx/Client/CatalogSkuFilter",
       "FondOfOryx\\Client\\CustomerStatistic\\": "bundles/customer-statistic/src/FondOfOryx/Client/CustomerStatistic",
+      "FondOfOryx\\Shared\\CatalogSkuFilter\\": "bundles/catalog-sku-filter/src/FondOfOryx/Shared/CatalogSkuFilter",
       "FondOfOryx\\Shared\\SalesLocaleConnector\\": "bundles/sales-locale-connector/src/FondOfOryx/Shared/SalesLocaleConnector",
+      "FondOfOryx\\Zed\\CatalogSkuFilter\\": "bundles/catalog-sku-filter/src/FondOfOryx/Zed/CatalogSkuFilter",
       "FondOfOryx\\Zed\\CustomerStatistic\\": "bundles/customer-statistic/src/FondOfOryx/Zed/CustomerStatistic",
       "FondOfOryx\\Zed\\ErpOrder\\": "bundles/erp-order/src/FondOfOryx/Zed/ErpOrder",
       "FondOfOryx\\Zed\\ErpOrderApi\\": "bundles/erp-order-api/src/FondOfOryx/Zed/ErpOrderApi",
@@ -59,14 +64,17 @@
   },
   "autoload-dev": {
     "psr-4": {
+      "FondOfOryx\\Client\\CatalogSkuFilter\\": "bundles/catalog-sku-filter/tests/FondOfOryx/Client/CatalogSkuFilter",
       "FondOfOryx\\Client\\CustomerStatistic\\": "bundles/customer-statistic/tests/FondOfOryx/Client/CustomerStatistic",
+      "FondOfOryx\\Shared\\CatalogSkuFilter\\": "bundles/catalog-sku-filter/tests/FondOfOryx/Shared/CatalogSkuFilter",
+      "FondOfOryx\\Shared\\TaxCalculationConnector\\": "bundles/tax-calculation-connector/src/FondOfOryx/Shared/TaxCalculationConnector",
+      "FondOfOryx\\Zed\\CatalogSkuFilter\\": "bundles/catalog-sku-filter/tests/FondOfOryx/Zed/CatalogSkuFilter",
       "FondOfOryx\\Zed\\CustomerStatistic\\": "bundles/customer-statistic/tests/FondOfOryx/Zed/CustomerStatistic",
       "FondOfOryx\\Zed\\ErpOrder\\": "bundles/erp-order/src/FondOfOryx/Zed/ErpOrder",
       "FondOfOryx\\Zed\\ErpOrderApi\\": "bundles/erp-order-api/tests/FondOfOryx/Zed/ErpOrderApi",
       "FondOfOryx\\Zed\\ErpOrderExtension\\": "bundles/erp-order-extension/tests/FondOfOryx/Zed/ErpOrderExtension",
       "FondOfOryx\\Zed\\MailBcc\\": "bundles/mail-bcc/tests/FondOfOryx/Zed/MailBcc",
       "FondOfOryx\\Zed\\TaxCalculationConnector\\": "bundles/tax-calculation-connector/src/FondOfOryx/Zed/TaxCalculationConnector",
-      "FondOfOryx\\Shared\\TaxCalculationConnector\\": "bundles/tax-calculation-connector/src/FondOfOryx/Shared/TaxCalculationConnector",
       "FondOfOryx\\Zed\\SalesLocaleConnector\\": "bundles/sales-locale-connector/tests/FondOfOryx/Zed/SalesLocaleConnector",
       "Generated\\": "src/Generated/"
     }

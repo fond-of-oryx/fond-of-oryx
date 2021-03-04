@@ -1,6 +1,7 @@
 namespace: fond-of-oryx/fond-of-oryx
 
 include:
+  - bundles/catalog-sku-filter
   - bundles/customer-statistic
   - bundles/customer-statistics-rest-api
   - bundles/erp-order-api
