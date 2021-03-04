@@ -1,6 +1,7 @@
 namespace: fond-of-oryx/fond-of-oryx
 
 include:
+  - bundles/catalog-sku-filter
   - bundles/customer-statistic
   - bundles/customer-statistics-rest-api
   - bundles/erp-order-api
@@ -35,9 +36,16 @@ modules:
   enabled:
     - \FondOfCodeception\Module\Spryker
   config:
-     \FondOfCodeception\Module\Spryker:
-        generate_transfer: true
-        generate_map_classes: true
-        supported_source_identifiers:
-          - page
-          - erp-order
+    \FondOfCodeception\Module\Spryker:
+      generate_transfer: true
+      generate_map_classes: true
+      supported_source_identifiers:
+        - page
+        - erp-oder
+env:
+  standalone:
+    modules:
+      config:
+        \FondOfCodeception\Module\Spryker:
+          generate_transfer: true
+          generate_map_classes: true

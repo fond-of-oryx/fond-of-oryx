@@ -1,5 +1,9 @@
 {
     "repositories": {
+        "catalog-sku-filter": {
+            "path": "bundles/catalog-sku-filter/",
+            "version": "1.0.0"
+        },
         "customer-statistic": {
             "path": "bundles/customer-statistic/",
             "version": "1.0.0"
