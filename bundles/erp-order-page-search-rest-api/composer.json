@@ -13,13 +13,13 @@
     }
   ],
   "require": {
-    "php": ">=7.2",
+    "php": ">=7.3",
     "fond-of-oryx/erp-order-page-search": "dev-main",
     "spryker/glue-application": "^1.0.0",
     "spryker/glue-application-extension": "^1.0.0"
   },
   "require-dev": {
-    "fond-of-codeception/spryker": "dev-master",
+    "fond-of-codeception/spryker": "^1.0",
     "spryker/code-sniffer": "^0.12"
   },
   "minimum-stability": "dev",

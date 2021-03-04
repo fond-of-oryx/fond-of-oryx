@@ -96,14 +96,13 @@ class ErpOrderPageSearchDependencyProviderTest extends Unit
 
         $this->locatorMock->expects(static::atLeastOnce())
             ->method('__call')
-            ->withConsecutive(['session'], ['search'], ['customer'])
+            ->withConsecutive(['search'], ['customer'])
             ->willReturn($this->bundleProxyMock);
 
         $this->bundleProxyMock->expects(static::atLeastOnce())
             ->method('__call')
             ->with('client')
             ->willReturnOnConsecutiveCalls(
-                $this->sessionClientMock,
                 $this->searchClientMock,
                 $this->customerClientMock
             );
@@ -111,11 +110,6 @@ class ErpOrderPageSearchDependencyProviderTest extends Unit
         $container = $this->erpOrderPageSearchDependencyProvider->provideServiceLayerDependencies($this->containerMock);
 
         $this->assertEquals($this->containerMock, $container);
-
-        $this->assertInstanceOf(
-            ErpOrderPageSearchToSessionClientBridge::class,
-            $container[ErpOrderPageSearchDependencyProvider::CLIENT_SESSION]
-        );
 
         $this->assertInstanceOf(
             ErpOrderPageSearchToSearchClientBridge::class,

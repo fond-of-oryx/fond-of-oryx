@@ -13,7 +13,7 @@
     }
   ],
   "require": {
-    "php": ">=7.2",
+    "php": ">=7.3",
     "fond-of-oryx/erp-order": "dev-main",
     "fond-of-oryx/erp-order-permission": "dev-main",
     "spryker/customer": "^7.0.0",
@@ -23,7 +23,7 @@
     "spryker/synchronization-extension": "^1.0.0"
   },
   "require-dev": {
-    "fond-of-codeception/spryker": "dev-master",
+    "fond-of-codeception/spryker": "^1.0.0",
     "spryker/code-sniffer": "^0.12"
   },
   "minimum-stability": "dev",
@@ -36,7 +36,7 @@
   "autoload-dev": {
     "psr-4": {
       "FondOfOryx\\": "tests/FondOfOryx/",
-      "Generated\\": "tests/Generated/"
+      "Generated\\": "src/Generated/"
     }
   }
 }

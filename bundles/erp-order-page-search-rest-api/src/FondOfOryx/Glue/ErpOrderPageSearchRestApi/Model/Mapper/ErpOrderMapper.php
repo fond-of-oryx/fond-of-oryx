@@ -10,6 +10,9 @@ use Generated\Shared\Transfer\RestErpOrderPageSearchCollectionResponseTransfer;
 
 class ErpOrderMapper implements ErpOrderMapperInterface
 {
+    protected const SEARCH_RESULT_KEY_ERP_ORDERS = 'erp-orders';
+    protected const ERP_ORDER_DATA_KEY_ERP_ORDER_ITEMS = 'erp_order_items';
+
     /**
      * @param array $searchResults
      *
@@ -20,10 +23,12 @@ class ErpOrderMapper implements ErpOrderMapperInterface
     ): RestErpOrderPageSearchCollectionResponseTransfer {
         $responseTransfer = (new RestErpOrderPageSearchCollectionResponseTransfer())->fromArray($searchResults, true);
 
-        foreach ($searchResults['erp-orders'] as $erpOrderData) {
+        foreach ($searchResults[self::SEARCH_RESULT_KEY_ERP_ORDERS] as $erpOrderData) {
             $erpOrder = new ErpOrderTransfer();
             $erpOrder->fromArray($erpOrderData, true);
-            $responseTransfer->addErpOrder($this->mapErpOrderItemData($erpOrder, $erpOrderData['erp_order_items']));
+            $responseTransfer->addErpOrder(
+                $this->mapErpOrderItemData($erpOrder, $erpOrderData[self::ERP_ORDER_DATA_KEY_ERP_ORDER_ITEMS])
+            );
         }
 
         return $responseTransfer;

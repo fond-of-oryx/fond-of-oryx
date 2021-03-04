@@ -26,12 +26,15 @@ abstract class AbstractErpOrderPageSearchQueryExpanderPlugin extends AbstractPlu
     protected function getFilterData(string $resource, string $field, array $filterData): array
     {
         $filterCollection = [];
-        if (array_key_exists($resource, $filterData)) {
-            foreach ($filterData[$resource] as $filter) {
-                $filterTransfer = (new ErpOrderPageSearchFilterTransfer())->fromArray($filter, true);
-                if ($filterTransfer->getResource() === $resource && $filterTransfer->getField() === $field) {
-                    $filterCollection[$filterTransfer->getValue()] = $filterTransfer;
-                }
+
+        if (array_key_exists($resource, $filterData) === false) {
+            return $filterCollection;
+        }
+
+        foreach ($filterData[$resource] as $filter) {
+            $filterTransfer = (new ErpOrderPageSearchFilterTransfer())->fromArray($filter, true);
+            if ($filterTransfer->getResource() === $resource && $filterTransfer->getField() === $field) {
+                $filterCollection[$filterTransfer->getValue()] = $filterTransfer;
             }
         }
 

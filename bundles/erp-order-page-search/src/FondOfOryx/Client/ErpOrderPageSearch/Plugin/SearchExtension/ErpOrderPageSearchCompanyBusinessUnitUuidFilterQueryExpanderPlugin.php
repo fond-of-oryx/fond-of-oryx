@@ -49,34 +49,38 @@ class ErpOrderPageSearchCompanyBusinessUnitUuidFilterQueryExpanderPlugin extends
      */
     public function expandQuery(QueryInterface $searchQuery, array $requestParameters = []): QueryInterface
     {
-        if (count($requestParameters) > 0) {
-            $this->prepareData();
-            $companyBusinessUnitUuids = $this->getFilterData(
-                ErpOrderPageSearchRestApiConfig::RESOURCE_COMPANY_BUSINESS_UNIT,
-                'uuid',
-                $requestParameters['filters']
-            );
-
-            foreach ($companyBusinessUnitUuids as $uuid => $data) {
-                if (in_array($uuid, $this->companyBusinessUnitUuids) === false) {
-                    unset($companyBusinessUnitUuids[$uuid]);
-                }
-            }
-
-            $uuids = array_keys($companyBusinessUnitUuids);
-
-            if (count($uuids) === 0) {
-                $uuids[] = $this->getCustomer()->getCompanyUserTransfer()->getCompanyBusinessUnit()->getUuid();
-            }
-
-            $searchQuery = $this->addTerms(
-                ErpOrderIndexMap::COMPANY_BUSINESS_UNIT_UUID,
-                $uuids,
-                $searchQuery
-            );
-
-            unset($this->currentUser);
+        if (count($requestParameters) === 0) {
+            return $searchQuery;
         }
+
+        $this->prepareData();
+        $companyBusinessUnitUuids = $this->getFilterData(
+            ErpOrderPageSearchRestApiConfig::RESOURCE_COMPANY_BUSINESS_UNIT,
+            'uuid',
+            $requestParameters['filters']
+        );
+
+        $uuids = array_keys($companyBusinessUnitUuids);
+
+        foreach ($uuids as $uuid ) {
+            if (in_array($uuid, $uuids) === true) {
+                continue;
+            }
+
+            unset($uuids[$uuid]);
+        }
+
+        if (count($uuids) === 0) {
+            $uuids[] = $this->getCustomer()->getCompanyUserTransfer()->getCompanyBusinessUnit()->getUuid();
+        }
+
+        $searchQuery = $this->addTerms(
+            ErpOrderIndexMap::COMPANY_BUSINESS_UNIT_UUID,
+            $uuids,
+            $searchQuery
+        );
+
+        unset($this->currentUser);
 
         return $searchQuery;
     }

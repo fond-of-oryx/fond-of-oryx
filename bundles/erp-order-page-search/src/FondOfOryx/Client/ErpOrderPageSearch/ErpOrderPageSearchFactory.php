@@ -36,14 +36,6 @@ class ErpOrderPageSearchFactory extends AbstractFactory
     }
 
     /**
-     * @return \FondOfOryx\Client\ErpOrderPageSearch\Dependency\Client\ErpOrderPageSearchToSessionClientInterface
-     */
-    protected function getSessionClient(): ErpOrderPageSearchToSessionClientInterface
-    {
-        return $this->getProvidedDependency(ErpOrderPageSearchDependencyProvider::CLIENT_SESSION);
-    }
-
-    /**
      * @return \FondOfOryx\Client\ErpOrderPageSearch\Dependency\Client\ErpOrderPageSearchToCustomerClientInterface
      */
     public function getCustomerClient(): ErpOrderPageSearchToCustomerClientInterface

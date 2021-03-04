@@ -18,7 +18,6 @@ use Spryker\Client\Kernel\Container;
 class ErpOrderPageSearchDependencyProvider extends AbstractDependencyProvider
 {
     public const CLIENT_ZED_REQUEST = 'CLIENT_ZED_REQUEST';
-    public const CLIENT_SESSION = 'CLIENT_SESSION';
     public const CLIENT_SEARCH = 'CLIENT_SEARCH';
     public const CLIENT_CUSTOMER = 'CLIENT_CUSTOMER';
     public const CLIENT_COMPANY_USER = 'CLIENT_COMPANY_USER';
@@ -35,27 +34,12 @@ class ErpOrderPageSearchDependencyProvider extends AbstractDependencyProvider
     {
         $container = parent::provideServiceLayerDependencies($container);
 
-        $container = $this->addSessionClient($container);
         $container = $this->addSearchClient($container);
         $container = $this->addCustomerClient($container);
         $container = $this->addCompanyUserClient($container);
         $container = $this->addSearchQueryPlugin($container);
         $container = $this->addResultFormatterPlugins($container);
         $container = $this->addQueryExpanderPlugins($container);
-
-        return $container;
-    }
-
-    /**
-     * @param \Spryker\Client\Kernel\Container $container
-     *
-     * @return \Spryker\Client\Kernel\Container
-     */
-    private function addSessionClient(Container $container): Container
-    {
-        $container[static::CLIENT_SESSION] = static function (Container $container) {
-            return new ErpOrderPageSearchToSessionClientBridge($container->getLocator()->session()->client());
-        };
 
         return $container;
     }
