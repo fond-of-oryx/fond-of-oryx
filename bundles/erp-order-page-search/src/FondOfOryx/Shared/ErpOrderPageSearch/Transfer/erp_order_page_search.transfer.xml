@@ -35,6 +35,7 @@
     </transfer>
 
     <transfer name="CompanyUser">
+        <property name="companyUserReference" type="string"/>
         <property name="externalReference" type="string"/>
     </transfer>
 
