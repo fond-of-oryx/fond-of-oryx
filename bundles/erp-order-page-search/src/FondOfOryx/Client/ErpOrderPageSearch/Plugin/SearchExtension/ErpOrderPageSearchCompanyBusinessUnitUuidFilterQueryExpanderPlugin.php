@@ -62,7 +62,7 @@ class ErpOrderPageSearchCompanyBusinessUnitUuidFilterQueryExpanderPlugin extends
 
         $uuids = array_keys($companyBusinessUnitUuids);
 
-        foreach ($uuids as $uuid ) {
+        foreach ($uuids as $uuid) {
             if (in_array($uuid, $uuids) === true) {
                 continue;
             }

@@ -5,13 +5,11 @@ namespace FondOfOryx\Client\ErpOrderPageSearch;
 use Codeception\Test\Unit;
 use FondOfOryx\Client\ErpOrderPageSearch\Dependency\Client\ErpOrderPageSearchToCustomerClientBridge;
 use FondOfOryx\Client\ErpOrderPageSearch\Dependency\Client\ErpOrderPageSearchToSearchClientBridge;
-use FondOfOryx\Client\ErpOrderPageSearch\Dependency\Client\ErpOrderPageSearchToSessionClientBridge;
 use FondOfOryx\Client\ErpOrderPageSearch\Plugin\SearchExtension\ErpOrderPageSearchQueryPlugin;
 use Spryker\Client\Customer\CustomerClientInterface;
 use Spryker\Client\Kernel\Container;
 use Spryker\Client\Kernel\Locator;
 use Spryker\Client\Search\SearchClientInterface;
-use Spryker\Client\Session\SessionClientInterface;
 use Spryker\Shared\Kernel\BundleProxy;
 
 class ErpOrderPageSearchDependencyProviderTest extends Unit
@@ -67,10 +65,6 @@ class ErpOrderPageSearchDependencyProviderTest extends Unit
             ->getMock();
 
         $this->locatorMock = $this->getMockBuilder(Locator::class)
-            ->disableOriginalConstructor()
-            ->getMock();
-
-        $this->sessionClientMock = $this->getMockBuilder(SessionClientInterface::class)
             ->disableOriginalConstructor()
             ->getMock();
 
