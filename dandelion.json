@@ -24,6 +24,18 @@
             "path": "bundles/erp-order-extension/",
             "version": "1.0.0"
         },
+        "erp-order-permission": {
+            "path": "bundles/erp-order-permission/",
+            "version": "1.0.0"
+        },
+        "erp-order-page-search": {
+            "path": "bundles/erp-order-page-search/",
+            "version": "0.0.1-alpha"
+        },
+        "erp-order-page-search-rest-api": {
+            "path": "bundles/erp-order-page-search-rest-api/",
+            "version": "0.0.1-alpha"
+        },
         "sales-locale-connector": {
             "path": "bundles/sales-locale-connector/",
             "version": "1.0.0"

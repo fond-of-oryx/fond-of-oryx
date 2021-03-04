@@ -1,0 +1,46 @@
+<?xml version="1.0"?>
+<transfers xmlns="spryker:transfer-01"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="spryker:transfer-01 http://static.spryker.com/transfer-01.xsd">
+
+    <transfer name="ErpOrderPageSearchRequest">
+        <property name="includes" singular="include" type="array"/>
+        <property name="requestParams" singular="requestParam" type="array"/>
+        <property name="searchString" type="string"/>
+        <property name="filters" singular="filter" type="array"/>
+        <property name="offset" type="int"/>
+        <property name="limit" type="int"/>
+    </transfer>
+
+    <transfer name="ErpOrderPageSearchFilter">
+        <property name="resource" type="string"/>
+        <property name="value" type="string"/>
+        <property name="field" type="string"/>
+    </transfer>
+
+    <transfer name="ErpOrderCollection">
+        <property name="erpOrders" singular="erpOrder" type="ErpOrder[]"/>
+    </transfer>
+
+    <transfer name="ErpOrderPageSearch">
+        <property name="fkErpOrder" type="int"/>
+        <property name="uniqueKeyIdentifier" type="string"/>
+        <property name="structuredData" type="string"/>
+        <property name="data" singular="data" type="array"/>
+    </transfer>
+
+    <transfer name="SynchronizationData">
+        <property name="key" type="string"/>
+        <property name="data" type="string"/>
+    </transfer>
+
+    <transfer name="CompanyUser">
+        <property name="companyUserReference" type="string"/>
+        <property name="externalReference" type="string"/>
+    </transfer>
+
+    <transfer name="CompanyBusinessUnit">
+        <property name="externalReference" type="string"/>
+    </transfer>
+
+</transfers>
