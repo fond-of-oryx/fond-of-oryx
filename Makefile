@@ -22,7 +22,7 @@ prepare-dandelion-config:
 
 .PHONY: init-split-repos
 init-split-repos:
-	docker run -i -v $(BASE_DIRECTORY):/home/dandelion/project -w /home/dandelion/project dandelionphp/dandelion:2.0.0 dandelion split-repository:init:all
+	docker run -i -v $(BASE_DIRECTORY):/home/dandelion/project -w /home/dandelion/project dandelionphp/dandelion:latest dandelion split-repository:init:all
 
 .PHONY: split
 split:
