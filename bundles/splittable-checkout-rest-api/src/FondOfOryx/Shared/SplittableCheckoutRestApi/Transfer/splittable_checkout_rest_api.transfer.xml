@@ -1,0 +1,57 @@
+<?xml version="1.0"?>
+<transfers xmlns="spryker:transfer-01"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="spryker:transfer-01 http://static.spryker.com/transfer-01.xsd">
+
+    <transfer name="RestSplittableCheckoutRequest">
+        <property name="id" type="string" />
+        <property name="restSplittableCheckoutRequestAttributes" type="RestSplittableCheckoutRequestAttributes" />
+    </transfer>
+
+    <transfer name="RestSplittableCheckoutRequestAttributes">
+        <property name="customer" type="RestCustomer" restRequestParameter="yes"/>
+        <property name="idCart" type="string" restRequestParameter="required"/>
+        <property name="billingAddress" type="RestAddress" restRequestParameter="yes"/>
+        <property name="shippingAddress" type="RestAddress" restRequestParameter="yes"/>
+        <property name="payments" type="RestPayment[]" singular="payment" restRequestParameter="yes"/>
+        <property name="shipment" type="RestShipment" restRequestParameter="yes"/>
+    </transfer>
+
+    <transfer name="RestSplittableCheckoutResponse">
+        <property name="isSuccess" type="bool" />
+        <property name="errors" type="RestSplittableCheckoutError[]" singular="error" />
+        <property name="orderReferences" type="array" singular="orderReference" />
+        <property name="splittableCheckoutData" type="RestSplittableCheckoutData"/>
+    </transfer>
+
+    <transfer name="RestSplittableCheckoutData">
+        <property name="addresses" type="Addresses" singular="address"/>
+        <property name="shipmentMethods" type="ShipmentMethods" singular="shipmentMethod"/>
+        <property name="paymentProviders" type="PaymentProviderCollection" singular="paymentProvider"/>
+        <property name="availablePaymentMethods" type="PaymentMethods"/>
+        <property name="quote" type="Quote"/>
+    </transfer>
+
+    <transfer name="RestSplittableCheckoutDataResponse">
+        <property name="isSuccess" type="bool" />
+        <property name="errors" type="RestSplittableCheckoutError[]" singular="error" />
+        <property name="splittableCheckoutData" type="RestSplittableCheckoutData"/>
+    </transfer>
+
+    <transfer name="RestSplittableCheckoutError">
+        <property name="status" type="int"/>
+        <property name="code" type="string"/>
+        <property name="detail" type="string"/>
+        <property name="errorIdentifier" type="string"/>
+    </transfer>
+
+    <transfer name="RestSplittableCheckoutResponseAttributes">
+        <property name="orderReferences" type="array" singular="orderReference" />
+    </transfer>
+
+    <transfer name="SplittableCheckoutData">
+        <property name="shipment" type="RestShipment"/>
+        <property name="quote" type="Quote"/>
+    </transfer>
+
+</transfers>

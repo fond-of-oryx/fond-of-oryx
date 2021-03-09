@@ -1,0 +1,38 @@
+{
+  "name": "fond-of-oryx/splittable-checkout-rest-api",
+  "description": "Erp order api module.",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "József Geng",
+      "email": "gengjozsef86@gmail.com"
+    }
+  ],
+  "require": {
+    "php": ">=7.3",
+    "spryker/calculation": "^4.0.0",
+    "spryker/cart": "^7.0.0",
+    "spryker/carts-rest-api": "^5.0.0",
+    "spryker/customer": "^7.0.0",
+    "spryker/payment": "^5.0.0",
+    "spryker/quote": "^2.0.0",
+    "spryker/shipment": "^8.0.0"
+  },
+  "require-dev": {
+    "fond-of-codeception/spryker": "^1.0",
+    "spryker/code-sniffer": "^0.12"
+  },
+  "minimum-stability": "dev",
+  "prefer-stable": true,
+  "autoload": {
+    "psr-4": {
+      "FondOfOryx\\": "src/FondOfOryx/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "FondOfOryx\\": "tests/FondOfOryx/",
+      "Generated\\": "src/Generated/"
+    }
+  }
+}
