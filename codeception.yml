@@ -11,6 +11,7 @@ include:
   - bundles/erp-order-permission
   - bundles/mail-bcc
   - bundles/sales-locale-connector
+  - bundles/splittable-checkout
   - bundles/tax-calculation-connector
 
 suites:
