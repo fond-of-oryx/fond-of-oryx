@@ -4,6 +4,8 @@ namespace FondOfOryx\Glue\SplittableCheckoutRestApi\Mapper;
 
 use Generated\Shared\Transfer\RestCheckoutResponseAttributesTransfer;
 use Generated\Shared\Transfer\RestCheckoutResponseTransfer;
+use Generated\Shared\Transfer\RestSplittableCheckoutResponseAttributesTransfer;
+use Generated\Shared\Transfer\RestSplittableCheckoutResponseTransfer;
 
 class SplittableCheckoutResponseMapper implements SplittableCheckoutResponseMapperInterface
 {
@@ -21,20 +23,20 @@ class SplittableCheckoutResponseMapper implements SplittableCheckoutResponseMapp
     }
 
     /**
-     * @param \Generated\Shared\Transfer\RestCheckoutResponseTransfer $restCheckoutResponseTransfer
-     * @param \Generated\Shared\Transfer\RestCheckoutResponseAttributesTransfer $restCheckoutResponseAttributesTransfer
+     * @param \Generated\Shared\Transfer\RestSplittableCheckoutResponseTransfer $restSplittableCheckoutResponseTransfer
+     * @param \Generated\Shared\Transfer\RestSplittableCheckoutResponseAttributesTransfer $restSplittableCheckoutResponseAttributesTransfer
      *
-     * @return \Generated\Shared\Transfer\RestCheckoutResponseAttributesTransfer
+     * @return \Generated\Shared\Transfer\RestSplittableCheckoutResponseAttributesTransfer
      */
-    public function mapRestCheckoutResponseTransferToRestCheckoutResponseAttributesTransfer(
-        RestCheckoutResponseTransfer $restCheckoutResponseTransfer,
-        RestCheckoutResponseAttributesTransfer $restCheckoutResponseAttributesTransfer
-    ): RestCheckoutResponseAttributesTransfer {
-        $restCheckoutResponseAttributesTransfer->fromArray($restCheckoutResponseTransfer->toArray(), true);
+    public function mapRestSplittableCheckoutResponseTransferToRestSplittableCheckoutResponseAttributesTransfer(
+        RestSplittableCheckoutResponseTransfer $restSplittableCheckoutResponseTransfer,
+        RestSplittableCheckoutResponseAttributesTransfer $restSplittableCheckoutResponseAttributesTransfer
+    ): RestSplittableCheckoutResponseAttributesTransfer {
+        $restSplittableCheckoutResponseTransfer->fromArray($restSplittableCheckoutResponseTransfer->toArray(), true);
 
         return $this->executeCheckoutResponseMapperPlugins(
-            $restCheckoutResponseTransfer,
-            $restCheckoutResponseAttributesTransfer
+            $restSplittableCheckoutResponseTransfer,
+            $restSplittableCheckoutResponseAttributesTransfer
         );
     }
 
