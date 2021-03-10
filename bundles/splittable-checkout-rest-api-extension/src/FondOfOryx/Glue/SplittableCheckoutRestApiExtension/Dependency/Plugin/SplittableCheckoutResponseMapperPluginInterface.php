@@ -16,7 +16,7 @@ interface SplittableCheckoutResponseMapperPluginInterface
      * @param \Generated\Shared\Transfer\RestSplittableCheckoutResponseTransfer $restSplittableCheckoutResponseTransfer
      * @param \Generated\Shared\Transfer\RestSplittableCheckoutResponseAttributesTransfer $restSplittableCheckoutResponseAttributesTransfer
      *
-     * @return \Generated\Shared\Transfer\RestCheckoutResponseAttributesTransfer
+     * @return \Generated\Shared\Transfer\RestSplittableCheckoutResponseAttributesTransfer
      */
     public function mapRestSplittableCheckoutResponseTransferToRestSplittableCheckoutResponseAttributesTransfer(
         RestSplittableCheckoutResponseTransfer $restSplittableCheckoutResponseTransfer,
