@@ -3,7 +3,7 @@
 namespace FondOfOryx\Zed\SplittableCheckoutRestApiExtension\Dependency\Plugin;
 
 use Generated\Shared\Transfer\QuoteTransfer;
-use Generated\Shared\Transfer\RestCheckoutRequestAttributesTransfer;
+use Generated\Shared\Transfer\RestSplittableCheckoutRequestAttributesTransfer;
 
 interface QuoteMapperPluginInterface
 {
@@ -13,7 +13,7 @@ interface QuoteMapperPluginInterface
      *
      * @api
      * 
-     * @param \FondOfSpryker\Zed\SplittableCheckoutRestApiExtension\Dependency\Plugin\RestSplittableCheckoutRequestAttributesTransfer $restSplittableCheckoutRequestAttributesTransfer
+     * @param \Generated\Shared\Transfer\RestSplittableCheckoutRequestAttributesTransfer $restSplittableCheckoutRequestAttributesTransfer
      * @param \Generated\Shared\Transfer\QuoteTransfer $quoteTransfer
      *
      * @return \Generated\Shared\Transfer\QuoteTransfer

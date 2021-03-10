@@ -2,8 +2,8 @@
 
 namespace FondOfOryx\Glue\SplittableCheckoutRestApiExtension\Dependency\Plugin;
 
-use Generated\Shared\Transfer\RestCheckoutResponseAttributesTransfer;
-use Generated\Shared\Transfer\RestCheckoutResponseTransfer;
+use Generated\Shared\Transfer\RestSplittableCheckoutResponseTransfer;
+use Generated\Shared\Transfer\RestSplittableCheckoutResponseAttributesTransfer;
 
 interface SplittableCheckoutResponseMapperPluginInterface
 {
