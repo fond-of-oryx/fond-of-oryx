@@ -54,7 +54,8 @@
     "fond-of-oryx/erp-order-permission": "*",
     "fond-of-oryx/tax-calculation-connector": "*",
     "fond-of-oryx/erp-order-extension": "*",
-    "fond-of-oryx/sales-locale-connector": "*"
+    "fond-of-oryx/sales-locale-connector": "*",
+    "fond-of-oryx/splittable-checkout-rest-api-extension": "*"
   },
   "minimum-stability": "dev",
   "prefer-stable": true,
@@ -66,6 +67,7 @@
       "FondOfOryx\\Client\\ErpOrderPermission\\": "bundles/erp-order-permission/src/FondOfOryx/Client/ErpOrderPermission",
       "FondOfOryx\\Shared\\ErpOrderPageSearch\\": "bundles/erp-order-page-search/src/FondOfOryx/Shared/ErpOrderPageSearch",
       "FondOfOryx\\Glue\\ErpOrderPageSearchRestApi\\": "bundles/erp-order-page-search-rest-api/src/FondOfOryx/Glue/ErpOrderPageSearchRestApi",
+      "FondOfOryx\\Glue\\SplittableCheckoutRestApiExtension\\": "bundles/splittable-checkout-rest-api-extension/src/FondOfOryx/Glue/SplittableCheckoutRestApiExtension",
       "FondOfOryx\\Shared\\CatalogSkuFilter\\": "bundles/catalog-sku-filter/src/FondOfOryx/Shared/CatalogSkuFilter",
       "FondOfOryx\\Shared\\SalesLocaleConnector\\": "bundles/sales-locale-connector/src/FondOfOryx/Shared/SalesLocaleConnector",
       "FondOfOryx\\Zed\\CatalogSkuFilter\\": "bundles/catalog-sku-filter/src/FondOfOryx/Zed/CatalogSkuFilter",
@@ -76,6 +78,7 @@
       "FondOfOryx\\Zed\\ErpOrderExtension\\": "bundles/erp-order-extension/src/FondOfOryx/Zed/ErpOrderExtension",
       "FondOfOryx\\Zed\\MailBcc\\": "bundles/mail-bcc/src/FondOfOryx/Zed/MailBcc",
       "FondOfOryx\\Zed\\SalesLocaleConnector\\": "bundles/sales-locale-connector/src/FondOfOryx/Zed/SalesLocaleConnector",
+      "FondOfOryx\\Zed\\SplittableCheckoutRestApiExtension\\": "bundles/splittable-checkout-rest-api-extension/src/FondOfOryx/Zed/SplittableCheckoutRestApiExtension",
       "FondOfOryx\\Zed\\TaxCalculationConnector\\": "bundles/tax-calculation-connector/src/FondOfOryx/Zed/TaxCalculationConnector",
       "FondOfOryx\\Shared\\TaxCalculationConnector\\": "bundles/tax-calculation-connector/src/FondOfOryx/Shared/TaxCalculationConnector",
       "FondOfOryx\\Shared\\ErpOrder\\": "bundles/erp-order/src/FondOfOryx/Shared/ErpOrder"
@@ -88,6 +91,7 @@
       "FondOfOryx\\Client\\ErpOrderPageSearch\\": "bundles/erp-order-page-search/src/FondOfOryx/Client/ErpOrderPageSearch",
       "FondOfOryx\\Client\\ErpOrderPermission\\": "bundles/erp-order-permission/src/FondOfOryx/Client/ErpOrderPermission",
       "FondOfOryx\\Glue\\ErpOrderPageSearchRestApi\\": "bundles/erp-order-page-search-rest-api/src/FondOfOryx/Glue/ErpOrderPageSearchRestApi",
+      "FondOfOryx\\Glue\\SplittableCheckoutRestApiExtension\\": "bundles/splittable-checkout-rest-api-extension/src/FondOfOryx/Glue/SplittableCheckoutRestApiExtension",
       "FondOfOryx\\Shared\\ErpOrderPageSearch\\": "bundles/erp-order-page-search/src/FondOfOryx/Shared/ErpOrderPageSearch",
       "FondOfOryx\\Shared\\CatalogSkuFilter\\": "bundles/catalog-sku-filter/tests/FondOfOryx/Shared/CatalogSkuFilter",
       "FondOfOryx\\Shared\\TaxCalculationConnector\\": "bundles/tax-calculation-connector/src/FondOfOryx/Shared/TaxCalculationConnector",
@@ -100,6 +104,7 @@
       "FondOfOryx\\Zed\\MailBcc\\": "bundles/mail-bcc/tests/FondOfOryx/Zed/MailBcc",
       "FondOfOryx\\Zed\\TaxCalculationConnector\\": "bundles/tax-calculation-connector/src/FondOfOryx/Zed/TaxCalculationConnector",
       "FondOfOryx\\Zed\\SalesLocaleConnector\\": "bundles/sales-locale-connector/tests/FondOfOryx/Zed/SalesLocaleConnector",
+      "FondOfOryx\\Zed\\SplittableCheckoutRestApiExtension\\": "bundles/splittable-checkout-rest-api-extension/src/FondOfOryx/Zed/SplittableCheckoutRestApiExtension",
       "FondOfOryx\\Shared\\ErpOrder\\": "bundles/erp-order/src/FondOfOryx/Shared/ErpOrder",
       "Generated\\": "src/Generated/"
     }
