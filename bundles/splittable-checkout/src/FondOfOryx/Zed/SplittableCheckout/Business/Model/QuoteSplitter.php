@@ -8,7 +8,6 @@ use FondOfOryx\Zed\SplittableCheckout\SplittableCheckoutConfig;
 use Generated\Shared\Transfer\QuoteCollectionTransfer;
 use Generated\Shared\Transfer\QuoteResponseTransfer;
 use Generated\Shared\Transfer\QuoteTransfer;
-use phpDocumentor\GraphViz\Exception;
 
 class QuoteSplitter implements QuoteSplitterInterface
 {
