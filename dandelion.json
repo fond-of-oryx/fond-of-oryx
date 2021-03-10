@@ -43,6 +43,10 @@
         "splittable-checkout": {
             "path": "bundles/splittable-checkout/",
             "version": "1.0.0"
+        }
+        "splittable-checkout-rest-api-extension": {
+            "path": "bundles/splittable-checkout-rest-api-extension/",
+            "version": "1.0.0"
         },
         "tax-calculation-connector": {
             "path": "bundles/tax-calculation-connector/",
