@@ -3,6 +3,7 @@
 namespace FondOfOryx\Zed\SplittableCheckout\Business\Model;
 
 use ArrayObject;
+use Exception;
 use FondOfOryx\Zed\SplittableCheckout\Dependency\Facade\SplittableCheckoutToPersistentCartFacadeInterface;
 use FondOfOryx\Zed\SplittableCheckout\SplittableCheckoutConfig;
 use Generated\Shared\Transfer\QuoteCollectionTransfer;
