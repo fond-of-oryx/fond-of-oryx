@@ -12,7 +12,7 @@ interface SplittableCheckoutRequestAttributesValidatorPluginInterface
      * - Validates splittable checkout Rest API request attributes.
      *
      * @api
-     * 
+     *
      * @param \Generated\Shared\Transfer\RestSplittableCheckoutRequestAttributesTransfer $restSplittableCheckoutRequestAttributesTransfer
      *
      * @return \Generated\Shared\Transfer\RestErrorCollectionTransfer

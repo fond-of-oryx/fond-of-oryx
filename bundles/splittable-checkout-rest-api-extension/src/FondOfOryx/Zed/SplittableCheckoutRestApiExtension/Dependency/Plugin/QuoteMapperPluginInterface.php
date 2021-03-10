@@ -12,7 +12,7 @@ interface QuoteMapperPluginInterface
      * - Maps rest splittable checkout request data to quote transfer.
      *
      * @api
-     * 
+     *
      * @param \Generated\Shared\Transfer\RestSplittableCheckoutRequestAttributesTransfer $restSplittableCheckoutRequestAttributesTransfer
      * @param \Generated\Shared\Transfer\QuoteTransfer $quoteTransfer
      *
