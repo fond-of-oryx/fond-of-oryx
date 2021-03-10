@@ -14,8 +14,6 @@ class SplittableCheckoutToCheckoutFacadeBridge implements SplittableCheckoutToCh
     protected $checkoutFacade;
 
     /**
-     * SplittableCheckoutToCheckoutFacadeBridge constructor.
-     *
      * @param \Spryker\Zed\Checkout\Business\CheckoutFacadeInterface $checkoutFacade
      */
     public function __construct(CheckoutFacadeInterface $checkoutFacade)

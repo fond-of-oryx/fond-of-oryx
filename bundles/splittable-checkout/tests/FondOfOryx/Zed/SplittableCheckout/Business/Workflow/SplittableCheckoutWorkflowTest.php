@@ -5,7 +5,6 @@ namespace FondOfOryx\Zed\SplittableCheckout\Business\Workflow;
 use ArrayObject;
 use Codeception\Test\Unit;
 use FondOfOryx\Zed\SplittableCheckout\Business\Model\QuoteSplitterInterface;
-use FondOfOryx\Zed\SplittableCheckout\Business\Workflow\SplittableCheckoutWorkflow;
 use FondOfOryx\Zed\SplittableCheckout\Dependency\Facade\SplittableCheckoutToCheckoutFacadeInterface;
 use FondOfOryx\Zed\SplittableCheckout\Dependency\Facade\SplittableCheckoutToQuoteFacadeInterface;
 use Generated\Shared\Transfer\CheckoutResponseTransfer;
@@ -14,7 +13,6 @@ use Generated\Shared\Transfer\QuoteResponseTransfer;
 use Generated\Shared\Transfer\QuoteTransfer;
 use Generated\Shared\Transfer\SaveOrderTransfer;
 use Generated\Shared\Transfer\SplittableCheckoutResponseTransfer;
-use Spryker\Zed\Kernel\Container;
 
 class SplittableCheckoutWorkflowTest extends Unit
 {

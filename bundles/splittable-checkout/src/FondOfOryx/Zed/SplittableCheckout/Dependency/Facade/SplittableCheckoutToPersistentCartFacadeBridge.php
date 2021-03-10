@@ -2,7 +2,6 @@
 
 namespace FondOfOryx\Zed\SplittableCheckout\Dependency\Facade;
 
-use Generated\Shared\Transfer\CheckoutResponseTransfer;
 use Generated\Shared\Transfer\PersistentCartChangeTransfer;
 use Generated\Shared\Transfer\QuoteResponseTransfer;
 use Generated\Shared\Transfer\QuoteTransfer;
@@ -16,8 +15,6 @@ class SplittableCheckoutToPersistentCartFacadeBridge implements SplittableChecko
     protected $persistentCartFacade;
 
     /**
-     * SplittableCheckoutToPersistentCartFacadeBridge constructor.
-     *
      * @param \Spryker\Zed\PersistentCart\Business\PersistentCartFacadeInterface $persistentCartFacade
      */
     public function __construct(PersistentCartFacadeInterface $persistentCartFacade)

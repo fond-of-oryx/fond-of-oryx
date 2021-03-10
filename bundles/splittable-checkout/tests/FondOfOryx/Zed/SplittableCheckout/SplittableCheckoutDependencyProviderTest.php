@@ -3,22 +3,13 @@
 namespace FondOfOryx\Zed\SplittableCheckout;
 
 use Codeception\Test\Unit;
-use FondOfOryx\Zed\CompanyUserReference\Business\CompanyUserReferenceFacadeInterface;
-use FondOfOryx\Zed\ProductListCustomer\ProductListCustomerDependencyProvider;
-use FondOfOryx\Zed\ProductListCustomerBrandConnector\Dependency\Facade\ProductListCustomerBrandConnectorToBrandCustomerFacadeBridge;
-use FondOfOryx\Zed\ProductListCustomerBrandConnector\Dependency\Facade\ProductListCustomerBrandConnectorToProductListBrandConnectorFacadeBridge;
-use FondOfOryx\Zed\ProductListCustomerBrandConnector\ProductListCustomerBrandConnectorDependencyProvider;
 use FondOfOryx\Zed\SplittableCheckout\Dependency\Facade\SplittableCheckoutToCheckoutFacadeBridge;
-use FondOfOryx\Zed\SplittableCheckout\Dependency\Facade\SplittableCheckoutToCheckoutFacadeInterface;
 use FondOfOryx\Zed\SplittableCheckout\Dependency\Facade\SplittableCheckoutToQuoteFacadeBridge;
-use FondOfOryx\Zed\SplittableCheckout\Dependency\Facade\SplittableCheckoutToQuoteFacadeInterface;
 use Spryker\Shared\Kernel\BundleProxy;
 use Spryker\Zed\Checkout\Business\CheckoutFacadeInterface;
-use Spryker\Zed\CompanyUser\Business\CompanyUserFacadeInterface;
 use Spryker\Zed\Customer\Business\CustomerFacadeInterface;
 use Spryker\Zed\Kernel\Container;
 use Spryker\Zed\Kernel\Locator;
-use Spryker\Zed\Permission\Business\PermissionFacadeInterface;
 use Spryker\Zed\Quote\Business\QuoteFacadeInterface;
 
 class SplittableCheckoutDependencyProviderTest extends Unit
@@ -52,7 +43,6 @@ class SplittableCheckoutDependencyProviderTest extends Unit
      * @var \PHPUnit\Framework\MockObject\MockObject|\Spryker\Zed\Quote\Business\QuoteFacadeInterface
      */
     protected $quoteFacadeMock;
-
 
     /**
      * @return void

@@ -31,8 +31,6 @@ class SplittableCheckoutBusinessFactory extends AbstractBusinessFactory
 
     /**
      * @return \FondOfOryx\Zed\SplittableCheckout\Dependency\Facade\SplittableCheckoutToCheckoutFacadeInterface
-     *
-     * @throws \Spryker\Zed\Kernel\Exception\Container\ContainerKeyNotFoundException
      */
     protected function getSplittableCheckoutFacade(): SplittableCheckoutToCheckoutFacadeInterface
     {
@@ -41,8 +39,6 @@ class SplittableCheckoutBusinessFactory extends AbstractBusinessFactory
 
     /**
      * @return \FondOfOryx\Zed\SplittableCheckout\Dependency\Facade\SplittableCheckoutToPersistentCartFacadeInterface
-     *
-     * @throws \Spryker\Zed\Kernel\Exception\Container\ContainerKeyNotFoundException
      */
     protected function getPersistentCartFacade(): SplittableCheckoutToPersistentCartFacadeInterface
     {
@@ -51,8 +47,6 @@ class SplittableCheckoutBusinessFactory extends AbstractBusinessFactory
 
     /**
      * @return \FondOfOryx\Zed\SplittableCheckout\Dependency\Facade\SplittableCheckoutToQuoteFacadeInterface
-     *
-     * @throws \Spryker\Zed\Kernel\Exception\Container\ContainerKeyNotFoundException
      */
     protected function getQuoteFacade(): SplittableCheckoutToQuoteFacadeInterface
     {

@@ -3,20 +3,12 @@
 namespace FondOfOryx\Zed\SplittableCheckout\Business\Workflow;
 
 use ArrayObject;
-use FondOfOryx\Zed\SplittableCheckout\Business\Model\QuoteSplitInterface;
-use FondOfOryx\Zed\SplittableCheckout\Business\Model\QuoteSplitter;
 use FondOfOryx\Zed\SplittableCheckout\Business\Model\QuoteSplitterInterface;
 use FondOfOryx\Zed\SplittableCheckout\Dependency\Facade\SplittableCheckoutToCheckoutFacadeInterface;
 use FondOfOryx\Zed\SplittableCheckout\Dependency\Facade\SplittableCheckoutToQuoteFacadeInterface;
-use Generated\Shared\Transfer\CheckoutResponseTransfer;
 use Generated\Shared\Transfer\QuoteCollectionTransfer;
 use Generated\Shared\Transfer\QuoteTransfer;
-use Generated\Shared\Transfer\SaveOrderTransfer;
 use Generated\Shared\Transfer\SplittableCheckoutResponseTransfer;
-use Spryker\Zed\Checkout\Dependency\Facade\CheckoutToOmsFacadeInterface;
-use Spryker\Zed\Checkout\Dependency\Plugin\CheckoutPreSaveHookInterface;
-use Spryker\Zed\Checkout\Dependency\Plugin\CheckoutSaveOrderInterface as ObsoleteCheckoutSaveOrderInterface;
-use Spryker\Zed\PropelOrm\Business\Transaction\DatabaseTransactionHandlerTrait;
 
 class SplittableCheckoutWorkflow implements SplittableCheckoutWorkflowInterface
 {
@@ -36,8 +28,6 @@ class SplittableCheckoutWorkflow implements SplittableCheckoutWorkflowInterface
     protected $quoteSplitter;
 
     /**
-     * SplittableCheckoutWorkflow constructor.
-     *
      * @param \FondOfOryx\Zed\SplittableCheckout\Dependency\Facade\SplittableCheckoutToCheckoutFacadeInterface $checkoutFacade
      * @param \FondOfOryx\Zed\SplittableCheckout\Dependency\Facade\SplittableCheckoutToQuoteFacadeInterface $quoteFacade
      * @param \FondOfOryx\Zed\SplittableCheckout\Business\Model\QuoteSplitterInterface $quoteSplitter
@@ -61,7 +51,7 @@ class SplittableCheckoutWorkflow implements SplittableCheckoutWorkflowInterface
     {
         $quoteCollectionTransfer = $this->quoteSplitter->split($quoteTransfer);
 
-        if (count($quoteCollectionTransfer->getQuotes()) === 0 ) {
+        if (count($quoteCollectionTransfer->getQuotes()) === 0) {
             return (new SplittableCheckoutResponseTransfer())->setIsSuccess(true);
         }
 
@@ -82,10 +72,11 @@ class SplittableCheckoutWorkflow implements SplittableCheckoutWorkflowInterface
         foreach ($quoteCollectionTransfer->getQuotes() as $quoteTransfer) {
             $checkoutResponseTransfer = $this->checkoutFacade->placeOrder($quoteTransfer);
 
-            if ($checkoutResponseTransfer->getIsSuccess() === false ) {
+            if ($checkoutResponseTransfer->getIsSuccess() === false) {
                 $checkoutResponseErrors->append(
                     $this->mapCheckoutErrorsToSplittableCheckoutErrors($checkoutResponseTransfer->getErrors())
                 );
+
                 continue;
             }
 
@@ -110,5 +101,4 @@ class SplittableCheckoutWorkflow implements SplittableCheckoutWorkflowInterface
 
         return $splittableCheckoutErrors;
     }
-
 }

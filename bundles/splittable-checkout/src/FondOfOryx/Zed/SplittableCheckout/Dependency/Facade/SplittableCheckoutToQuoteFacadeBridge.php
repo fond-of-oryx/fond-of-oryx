@@ -14,8 +14,6 @@ class SplittableCheckoutToQuoteFacadeBridge implements SplittableCheckoutToQuote
     protected $quoteFacade;
 
     /**
-     * SplittableCheckoutToQuoteFacadeBridge constructor.
-     *
      * @param \Spryker\Zed\Quote\Business\QuoteFacadeInterface $quoteFacade
      */
     public function __construct(QuoteFacadeInterface $quoteFacade)

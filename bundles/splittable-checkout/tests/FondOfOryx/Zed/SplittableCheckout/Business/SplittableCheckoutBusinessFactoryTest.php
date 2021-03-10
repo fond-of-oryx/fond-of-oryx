@@ -3,7 +3,6 @@
 namespace FondOfOryx\Zed\SplittableCheckout\Business;
 
 use Codeception\Test\Unit;
-use FondOfOryx\Zed\SplittableCheckout\Business\SplittableCheckoutBusinessFactory;
 use FondOfOryx\Zed\SplittableCheckout\Business\Workflow\SplittableCheckoutWorkflowInterface;
 use FondOfOryx\Zed\SplittableCheckout\Dependency\Facade\SplittableCheckoutToCheckoutFacadeInterface;
 use FondOfOryx\Zed\SplittableCheckout\Dependency\Facade\SplittableCheckoutToPersistentCartFacadeInterface;
@@ -69,7 +68,6 @@ class SplittableCheckoutBusinessFactoryTest extends Unit
             ->disableOriginalConstructor()
             ->getMock();
 
-
         $this->splittableCheckoutBusinessFactory = new SplittableCheckoutBusinessFactory();
         $this->splittableCheckoutBusinessFactory->setContainer($this->containerMock);
         $this->splittableCheckoutBusinessFactory->setConfig($this->configMock);
@@ -80,7 +78,6 @@ class SplittableCheckoutBusinessFactoryTest extends Unit
      */
     public function testCreateSplittableCheckoutWorkflow(): void
     {
-
         $this->containerMock->expects($this->atLeastOnce())
             ->method('has')
             ->willReturn(true);

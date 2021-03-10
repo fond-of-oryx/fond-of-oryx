@@ -3,7 +3,6 @@
 namespace FondOfOryx\Zed\SplittableCheckout;
 
 use Codeception\Test\Unit;
-use FondOfOryx\Shared\CompanyTypeRole\CompanyTypeRoleConstants;
 use FondOfOryx\Shared\SplittableCheckout\SplittableCheckoutConstants;
 
 class SplittableCheckoutConfigTest extends Unit
@@ -20,9 +19,7 @@ class SplittableCheckoutConfigTest extends Unit
     {
         parent::_before();
 
-        $this->splittableCheckoutConfig = new class()
-            extends SplittableCheckoutConfig {
-
+        $this->splittableCheckoutConfig = new class () extends SplittableCheckoutConfig {
             /**
              * @param string $key
              * @param mixed|null $default
@@ -41,9 +38,9 @@ class SplittableCheckoutConfigTest extends Unit
     }
 
     /**
-     * @return void
-     *
      * @skip
+     *
+     * @return void
      */
     public function testGetQuoteSplitQuoteItemAttribute(): void
     {
