@@ -61,7 +61,7 @@ class QuoteSplitter implements QuoteSplitterInterface
     /**
      * @param \Generated\Shared\Transfer\QuoteTransfer $quoteTransfer
      *
-     * @return Generated\Shared\Transfer\ItemTransfer[]
+     * @return \Generated\Shared\Transfer\ItemTransfer[][]
      */
     protected function getQuoteItemsGroupedBySplitAttribute(QuoteTransfer $quoteTransfer): array
     {
@@ -80,9 +80,11 @@ class QuoteSplitter implements QuoteSplitterInterface
 
     /**
      * @param \Generated\Shared\Transfer\QuoteTransfer $quoteTransfer
-     * @param \Generated\Shared\Transfer\ItemTransfer[] $quoteItemGroups
+     * @param array $quoteItemsGroups
      *
      * @return \Generated\Shared\Transfer\QuoteCollectionTransfer
+     *
+     * @throws \phpDocumentor\GraphViz\Exception
      */
     protected function createQuoteCollection(
         QuoteTransfer $quoteTransfer,
@@ -145,7 +147,7 @@ class QuoteSplitter implements QuoteSplitterInterface
     /**
      * @param \Generated\Shared\Transfer\QuoteTransfer $quoteTransfer
      *
-     * @return \Generated\Shared\Transfer\QuoteTransfer
+     * @return \Generated\Shared\Transfer\QuoteResponseTransfer
      */
     protected function persistQuoteTransfer (QuoteTransfer $quoteTransfer): QuoteResponseTransfer
     {

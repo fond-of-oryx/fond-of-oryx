@@ -8,9 +8,9 @@ use Generated\Shared\Transfer\QuoteTransfer;
 interface SplittableCheckoutToQuoteFacadeInterface
 {
     /**
-     * @param \FondOfOryx\Zed\SplittableCheckout\Dependency\Facade\QuoteTransfer $quoteTransfer
+     * @param \Generated\Shared\Transfer\QuoteTransfer $quoteTransfer
      *
-     * @return \FondOfOryx\Zed\SplittableCheckout\Dependency\Facade\QuoteResponseTransfer
+     * @return \Generated\Shared\Transfer\QuoteResponseTransfer
      */
     public function deleteQuote(QuoteTransfer $quoteTransfer): QuoteResponseTransfer;
 }

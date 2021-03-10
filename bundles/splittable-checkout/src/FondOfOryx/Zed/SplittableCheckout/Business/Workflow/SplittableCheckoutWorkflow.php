@@ -61,7 +61,7 @@ class SplittableCheckoutWorkflow implements SplittableCheckoutWorkflowInterface
     {
         $quoteCollectionTransfer = $this->quoteSplitter->split($quoteTransfer);
 
-        if ($quoteCollectionTransfer === null || count($quoteCollectionTransfer->getQuotes()) === 0 ) {
+        if (count($quoteCollectionTransfer->getQuotes()) === 0 ) {
             return (new SplittableCheckoutResponseTransfer())->setIsSuccess(true);
         }
 
@@ -76,7 +76,6 @@ class SplittableCheckoutWorkflow implements SplittableCheckoutWorkflowInterface
     protected function placeSplitOrders(
         QuoteCollectionTransfer $quoteCollectionTransfer
     ): SplittableCheckoutResponseTransfer {
-
         $splittableCheckoutResponseTransfer = new SplittableCheckoutResponseTransfer();
         $checkoutResponseErrors = new ArrayObject();
         $checkoutResponseOrderReferences = [];

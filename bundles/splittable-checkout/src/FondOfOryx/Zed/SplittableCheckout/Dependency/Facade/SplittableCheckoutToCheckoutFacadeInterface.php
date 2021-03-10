@@ -8,7 +8,7 @@ use Generated\Shared\Transfer\QuoteTransfer;
 interface SplittableCheckoutToCheckoutFacadeInterface
 {
     /**
-     * @param \FondOfOryx\Zed\SplittableCheckout\Dependency\Facade\QuoteTransfer $quoteTransfer
+     * @param \Generated\Shared\Transfer\QuoteTransfer $quoteTransfer
      *
      * @return \Generated\Shared\Transfer\CheckoutResponseTransfer
      */

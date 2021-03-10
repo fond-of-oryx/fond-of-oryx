@@ -16,7 +16,7 @@ interface SplittableCheckoutToPersistentCartFacadeInterface
     public function createQuote(QuoteTransfer $quoteTransfer): QuoteResponseTransfer;
 
     /**
-     * @param \FondOfOryx\Zed\SplittableCheckout\Dependency\Facade\PersistentCartChangeTransfer $persistentCartChangeTransfer
+     * @param \Generated\Shared\Transfer\PersistentCartChangeTransfer $persistentCartChangeTransfer
      *
      * @return \Generated\Shared\Transfer\QuoteResponseTransfer
      */
