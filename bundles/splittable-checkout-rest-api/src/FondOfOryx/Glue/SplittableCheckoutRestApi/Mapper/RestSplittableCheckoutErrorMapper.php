@@ -20,9 +20,7 @@ class RestSplittableCheckoutErrorMapper implements RestSplittableCheckoutErrorMa
     protected $glossaryStorageClient;
 
     /**
-     * RestSplittableCheckoutErrorMapper constructor.
-     *
-     * @param \FondOfOryx\Glue\SplittableCheckoutRestApi\Mapper\CheckoutRestApiConfig $config
+     * @param \FondOfOryx\Glue\SplittableCheckoutRestApi\SplittableCheckoutRestApiConfig $config
      * @param \FondOfOryx\Glue\SplittableCheckoutRestApi\Dependency\Client\SplittableCheckoutRestApiToGlossaryStorageClientInterface $glossaryStorageClient
      */
     public function __construct(
@@ -34,7 +32,7 @@ class RestSplittableCheckoutErrorMapper implements RestSplittableCheckoutErrorMa
     }
 
     /**
-     * @param \Generated\Shared\Transfer\RestCheckoutErrorTransfer $restCheckoutErrorTransfer
+     * @param \Generated\Shared\Transfer\RestSplittableCheckoutErrorTransfer $restSplittableCheckoutErrorTransfer
      * @param \Generated\Shared\Transfer\RestErrorMessageTransfer $restErrorMessageTransfer
      * @param string $locale
      *
@@ -84,10 +82,10 @@ class RestSplittableCheckoutErrorMapper implements RestSplittableCheckoutErrorMa
     }
 
     /**
-     * @param \Generated\Shared\Transfer\RestCheckoutErrorTransfer $restCheckoutErrorTransfer
+     * @param \Generated\Shared\Transfer\RestSplittableCheckoutErrorTransfer $restSplittableCheckoutErrorTransfer
      * @param string $locale
      *
-     * @return \Generated\Shared\Transfer\RestCheckoutErrorTransfer
+     * @return \Generated\Shared\Transfer\RestSplittableCheckoutErrorTransfer
      */
     protected function translateCheckoutErrorMessage(
         RestSplittableCheckoutErrorTransfer $restSplittableCheckoutErrorTransfer,

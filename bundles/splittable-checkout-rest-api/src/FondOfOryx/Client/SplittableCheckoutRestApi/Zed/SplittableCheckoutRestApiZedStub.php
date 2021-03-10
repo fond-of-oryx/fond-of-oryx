@@ -3,7 +3,6 @@
 namespace FondOfOryx\Client\SplittableCheckoutRestApi\Zed;
 
 use FondOfOryx\Client\SplittableCheckoutRestApi\Dependency\Client\SplittableCheckoutRestApiToZedRequestClientInterface;
-use FondOfOryx\Client\SplittableCheckoutRestApi\Zed\SplittableCheckoutRestApiZedStubInterface;
 use Generated\Shared\Transfer\RestSplittableCheckoutRequestAttributesTransfer;
 use Generated\Shared\Transfer\RestSplittableCheckoutResponseTransfer;
 
@@ -15,8 +14,6 @@ class SplittableCheckoutRestApiZedStub implements SplittableCheckoutRestApiZedSt
     protected $zedRequestClient;
 
     /**
-     * SplittableCheckoutRestApiZedStub constructor.
-     *
      * @param \FondOfOryx\Client\SplittableCheckoutRestApi\Dependency\Client\SplittableCheckoutRestApiToZedRequestClientInterface $zedRequestClient
      */
     public function __construct(SplittableCheckoutRestApiToZedRequestClientInterface $zedRequestClient)

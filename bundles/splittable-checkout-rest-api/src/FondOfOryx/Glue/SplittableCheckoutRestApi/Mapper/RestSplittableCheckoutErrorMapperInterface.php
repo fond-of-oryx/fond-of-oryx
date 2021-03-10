@@ -2,8 +2,8 @@
 
 namespace FondOfOryx\Glue\SplittableCheckoutRestApi\Mapper;
 
-use Generated\Shared\Transfer\RestSplittableCheckoutErrorTransfer;
 use Generated\Shared\Transfer\RestErrorMessageTransfer;
+use Generated\Shared\Transfer\RestSplittableCheckoutErrorTransfer;
 
 interface RestSplittableCheckoutErrorMapperInterface
 {

@@ -2,10 +2,8 @@
 
 namespace FondOfOryx\Glue\SplittableCheckoutRestApi\Processor\Validator;
 
-use FondOfOryx\Glue\SplittableCheckoutRestApi\SplittableCheckoutRestApiConfig;
 use Generated\Shared\Transfer\RestErrorCollectionTransfer;
 use Generated\Shared\Transfer\RestSplittableCheckoutRequestAttributesTransfer;
-use Generated\Shared\Transfer\RestSplittableCheckoutRequestTransfer;
 use Spryker\Glue\GlueApplication\Rest\Request\Data\RestRequestInterface;
 
 class SplittableCheckoutRequestValidator implements SplittableCheckoutRequestValidatorInterface
@@ -21,8 +19,6 @@ class SplittableCheckoutRequestValidator implements SplittableCheckoutRequestVal
     protected $splittableCheckoutRequestAttributesValidatorPlugins;
 
     /**
-     * SplittableCheckoutRequestValidator constructor.
-     *
      * @param \FondOfOryx\Glue\SplittableCheckoutRestApiExtension\Dependency\Plugin\SplittableCheckoutRequestValidatorPluginInterface[] $splittableCheckoutRequestValidatorPlugins
      * @param \FondOfOryx\Glue\SplittableCheckoutRestApiExtension\Dependency\Plugin\SplittableCheckoutRequestAttributesValidatorPluginInterface[] $splittableCheckoutRequestAttributesValidatorPlugins
      */
@@ -36,7 +32,7 @@ class SplittableCheckoutRequestValidator implements SplittableCheckoutRequestVal
 
     /**
      * @param \Spryker\Glue\GlueApplication\Rest\Request\Data\RestRequestInterface $restRequest
-     * @param \Generated\Shared\Transfer\RestSplittableCheckoutRequestAttributesTransfer $splittableCheckoutRequestAttributesTransfer
+     * @param \Generated\Shared\Transfer\RestSplittableCheckoutRequestAttributesTransfer $restSplittableCheckoutRequestAttributesTransfer
      *
      * @return \Generated\Shared\Transfer\RestErrorCollectionTransfer
      */
@@ -119,5 +115,4 @@ class SplittableCheckoutRequestValidator implements SplittableCheckoutRequestVal
 
         return $restErrorCollectionTransfer;
     }
-
 }

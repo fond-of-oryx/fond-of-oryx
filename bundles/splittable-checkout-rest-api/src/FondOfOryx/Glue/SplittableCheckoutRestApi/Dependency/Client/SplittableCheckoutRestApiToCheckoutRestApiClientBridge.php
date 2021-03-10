@@ -23,11 +23,10 @@ class SplittableCheckoutRestApiToCheckoutRestApiClientBridge implements Splittab
     }
 
     /**
-     * {@inheritdoc}
-     *
      * @api
      *
      * @param \Generated\Shared\Transfer\RestCheckoutRequestAttributesTransfer $restCheckoutRequestAttributesTransfer
+     *
      * @return \Generated\Shared\Transfer\RestCheckoutResponseTransfer
      */
     public function placeOrder(

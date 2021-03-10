@@ -48,7 +48,6 @@ class SplittableCheckoutResourceController extends AbstractController
         RestRequestInterface $restRequest,
         RestSplittableCheckoutRequestAttributesTransfer $restCheckoutRequestAttributesTransfer
     ): RestResponseInterface {
-
         return $this->getFactory()
             ->createSplittableCheckoutProcessor()
             ->placeOrder($restRequest, $restCheckoutRequestAttributesTransfer);

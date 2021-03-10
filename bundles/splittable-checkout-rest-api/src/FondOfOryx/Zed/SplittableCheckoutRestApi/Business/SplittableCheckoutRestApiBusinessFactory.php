@@ -13,7 +13,6 @@ use FondOfOryx\Zed\SplittableCheckoutRestApi\Business\Validator\SplittableChecko
 use FondOfOryx\Zed\SplittableCheckoutRestApi\Dependency\Facade\SplittableCheckoutRestApiToCalculationFacadeInterface;
 use FondOfOryx\Zed\SplittableCheckoutRestApi\Dependency\Facade\SplittableCheckoutRestApiToCartFacadeInterface;
 use FondOfOryx\Zed\SplittableCheckoutRestApi\Dependency\Facade\SplittableCheckoutRestApiToCartsRestApiFacadeInterface;
-use FondOfOryx\Zed\SplittableCheckoutRestApi\Dependency\Facade\SplittableCheckoutRestApiToCheckoutFacadeInterface;
 use FondOfOryx\Zed\SplittableCheckoutRestApi\Dependency\Facade\SplittableCheckoutRestApiToPaymentFacadeInterface;
 use FondOfOryx\Zed\SplittableCheckoutRestApi\Dependency\Facade\SplittableCheckoutRestApiToQuoteFacadeInterface;
 use FondOfOryx\Zed\SplittableCheckoutRestApi\Dependency\Facade\SplittableCheckoutRestApiToShipmentFacadeInterface;
@@ -23,11 +22,8 @@ use Spryker\Zed\Kernel\Business\AbstractBusinessFactory;
 
 class SplittableCheckoutRestApiBusinessFactory extends AbstractBusinessFactory
 {
-
     /**
      * @return \FondOfOryx\Zed\SplittableCheckoutRestApi\Business\SplittableCheckout\PlaceOrderProcessorInterface
-     *
-     * @throws \Spryker\Zed\Kernel\Exception\Container\ContainerKeyNotFoundException
      */
     public function createPlaceOrderProcessor(): PlaceOrderProcessorInterface
     {
@@ -41,8 +37,6 @@ class SplittableCheckoutRestApiBusinessFactory extends AbstractBusinessFactory
 
     /**
      * @return \FondOfOryx\Zed\SplittableCheckoutRestApi\Business\Validator\SplittableCheckoutValidatorInterface
-     *
-     * @throws \Spryker\Zed\Kernel\Exception\Container\ContainerKeyNotFoundException
      */
     public function createSplittableCheckoutValidator(): SplittableCheckoutValidatorInterface
     {
@@ -54,8 +48,6 @@ class SplittableCheckoutRestApiBusinessFactory extends AbstractBusinessFactory
 
     /**
      * @return \FondOfOryx\Zed\SplittableCheckoutRestApi\Business\SplittableCheckout\Quote\QuoteReaderInterface
-     *
-     * @throws \Spryker\Zed\Kernel\Exception\Container\ContainerKeyNotFoundException
      */
     public function createQuoteReader(): QuoteReaderInterface
     {
@@ -64,8 +56,6 @@ class SplittableCheckoutRestApiBusinessFactory extends AbstractBusinessFactory
 
     /**
      * @return \FondOfOryx\Zed\SplittableCheckoutRestApi\Business\SplittableCheckout\Address\AddressReaderInterface
-     *
-     * @throws \Spryker\Zed\Kernel\Exception\Container\ContainerKeyNotFoundException
      */
     public function createAddressReader(): AddressReaderInterface
     {
@@ -74,8 +64,6 @@ class SplittableCheckoutRestApiBusinessFactory extends AbstractBusinessFactory
 
     /**
      * @return \FondOfOryx\Zed\SplittableCheckoutRestApi\Dependency\Facade\SplittableCheckoutRestApiToCartFacadeInterface
-     *
-     * @throws \Spryker\Zed\Kernel\Exception\Container\ContainerKeyNotFoundException
      */
     public function getCartFacade(): SplittableCheckoutRestApiToCartFacadeInterface
     {
@@ -84,8 +72,6 @@ class SplittableCheckoutRestApiBusinessFactory extends AbstractBusinessFactory
 
     /**
      * @return \FondOfOryx\Zed\SplittableCheckoutRestApi\Dependency\Facade\SplittableCheckoutRestApiToCartsRestApiFacadeInterface
-     *
-     * @throws \Spryker\Zed\Kernel\Exception\Container\ContainerKeyNotFoundException
      */
     public function getCartsRestApiFacade(): SplittableCheckoutRestApiToCartsRestApiFacadeInterface
     {
@@ -94,8 +80,6 @@ class SplittableCheckoutRestApiBusinessFactory extends AbstractBusinessFactory
 
     /**
      * @return \FondOfOryx\Zed\SplittableCheckoutRestApi\Dependency\Facade\SplittableCheckoutRestApiToCheckoutFacadeInterface
-     *
-     * @throws \Spryker\Zed\Kernel\Exception\Container\ContainerKeyNotFoundException
      */
     public function getSplittableCheckoutFacade(): SplittableCheckoutRestApiToSplittableCheckoutFacadeInterface
     {
@@ -104,8 +88,6 @@ class SplittableCheckoutRestApiBusinessFactory extends AbstractBusinessFactory
 
     /**
      * @return \FondOfOryx\Zed\SplittableCheckoutRestApi\Business\SplittableCheckoutRestApiToCustomerFacadeInterface
-     *
-     * @throws \Spryker\Zed\Kernel\Exception\Container\ContainerKeyNotFoundException
      */
     public function getCustomerFacade(): SplittableCheckoutRestApiToCustomerFacadeInterface
     {
@@ -114,8 +96,6 @@ class SplittableCheckoutRestApiBusinessFactory extends AbstractBusinessFactory
 
     /**
      * @return \FondOfOryx\Zed\SplittableCheckoutRestApi\Dependency\Facade\SplittableCheckoutRestApiToPaymentFacadeInterface
-     *
-     * @throws \Spryker\Zed\Kernel\Exception\Container\ContainerKeyNotFoundException
      */
     public function getPaymentFacade(): SplittableCheckoutRestApiToPaymentFacadeInterface
     {
@@ -124,8 +104,6 @@ class SplittableCheckoutRestApiBusinessFactory extends AbstractBusinessFactory
 
     /**
      * @return \FondOfOryx\Zed\SplittableCheckoutRestApi\Dependency\Facade\SplittableCheckoutRestApiToQuoteFacadeInterface
-     *
-     * @throws \Spryker\Zed\Kernel\Exception\Container\ContainerKeyNotFoundException
      */
     public function getQuoteFacade(): SplittableCheckoutRestApiToQuoteFacadeInterface
     {
@@ -134,8 +112,6 @@ class SplittableCheckoutRestApiBusinessFactory extends AbstractBusinessFactory
 
     /**
      * @return \FondOfOryx\Zed\SplittableCheckoutRestApi\Dependency\Facade\SplittableCheckoutRestApiToShipmentFacadeInterface
-     *
-     * @throws \Spryker\Zed\Kernel\Exception\Container\ContainerKeyNotFoundException
      */
     public function getShipmentFacade(): SplittableCheckoutRestApiToShipmentFacadeInterface
     {
@@ -144,8 +120,6 @@ class SplittableCheckoutRestApiBusinessFactory extends AbstractBusinessFactory
 
     /**
      * @return \FondOfOryx\Zed\SplittableCheckoutRestApi\Dependency\Facade\SplittableCheckoutRestApiToCalculationFacadeInterface
-     *
-     * @throws \Spryker\Zed\Kernel\Exception\Container\ContainerKeyNotFoundException
      */
     public function getCalculationFacade(): SplittableCheckoutRestApiToCalculationFacadeInterface
     {

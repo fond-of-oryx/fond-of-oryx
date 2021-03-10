@@ -15,8 +15,6 @@ class QuoteReader implements QuoteReaderInterface
     protected $cartsRestApiFacade;
 
     /**
-     * QuoteReader constructor.
-     *
      * @param \FondOfOryx\Zed\SplittableCheckoutRestApi\Dependency\Facade\SplittableCheckoutRestApiToCartsRestApiFacadeInterface $cartsRestApiFacade
      */
     public function __construct(SplittableCheckoutRestApiToCartsRestApiFacadeInterface $cartsRestApiFacade)
@@ -32,8 +30,10 @@ class QuoteReader implements QuoteReaderInterface
     public function findCustomerQuoteByUuid(
         RestSplittableCheckoutRequestAttributesTransfer $restSplittableCheckoutRequestAttributesTransfer
     ): ?QuoteTransfer {
-        if (!$restSplittableCheckoutRequestAttributesTransfer->getCustomer()
-            || !$restSplittableCheckoutRequestAttributesTransfer->getCustomer()->getCustomerReference()) {
+        if (
+            !$restSplittableCheckoutRequestAttributesTransfer->getCustomer()
+            || !$restSplittableCheckoutRequestAttributesTransfer->getCustomer()->getCustomerReference()
+        ) {
             return null;
         }
 

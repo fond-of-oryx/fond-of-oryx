@@ -3,7 +3,6 @@
 namespace FondOfOryx\Glue\SplittableCheckoutRestApi\Processor\RequestAttributesExpander;
 
 use FondOfOryx\Glue\SplittableCheckoutRestApi\Processor\Customer\CustomerMapper;
-use FondOfOryx\Glue\SplittableCheckoutRestApi\Processor\Customer\CustomerMapperInterface;
 use FondOfOryx\Glue\SplittableCheckoutRestApi\SplittableCheckoutRestApiConfig;
 use Generated\Shared\Transfer\RestSplittableCheckoutRequestAttributesTransfer;
 use Spryker\Glue\GlueApplication\Rest\Request\Data\RestRequestInterface;
@@ -26,8 +25,9 @@ class SplittableCheckoutRequestAttributesExpander implements SplittableCheckoutR
     protected $checkoutRequestExpanderPlugins;
 
     /**
-     * SplittableCheckoutRequestAttributesExpander constructor.
+     * @param \FondOfOryx\Glue\SplittableCheckoutRestApi\Processor\Customer\CustomerMapper $customerMapper
      * @param \FondOfOryx\Glue\SplittableCheckoutRestApi\SplittableCheckoutRestApiConfig $config
+     * @param array $checkoutRequestExpanderPlugins
      */
     public function __construct(
         CustomerMapper $customerMapper,
@@ -85,8 +85,7 @@ class SplittableCheckoutRequestAttributesExpander implements SplittableCheckoutR
      */
     protected function expandPaymentSelection(
         RestSplittableCheckoutRequestAttributesTransfer $restSplittableCheckoutRequestAttributesTransfer
-    ): RestSplittableCheckoutRequestAttributesTransfer
-    {
+    ): RestSplittableCheckoutRequestAttributesTransfer {
         $payments = $restSplittableCheckoutRequestAttributesTransfer->getPayments();
         $paymentProviderMethodToStateMachineMapping = $this->config->getPaymentProviderMethodToStateMachineMapping();
 

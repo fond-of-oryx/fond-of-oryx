@@ -24,6 +24,7 @@ class SplittableCheckoutRestResponseBuilder implements SplittableCheckoutRestRes
 
     /**
      * @param \Spryker\Glue\GlueApplication\Rest\JsonApi\RestResourceBuilderInterface $restResourceBuilder
+     * @param \FondOfOryx\Glue\SplittableCheckoutRestApi\Mapper\RestSplittableCheckoutErrorMapperInterface $restSplittableCheckoutErrorMapper
      */
     public function __construct(
         RestResourceBuilderInterface $restResourceBuilder,
@@ -41,7 +42,6 @@ class SplittableCheckoutRestResponseBuilder implements SplittableCheckoutRestRes
     public function createSplittableCheckoutRestResponse(
         RestSplittableCheckoutResponseTransfer $restSplittableCheckoutResponseTransfer
     ): RestResponseInterface {
-
         $restResponse = $this->restResourceBuilder->createRestResponse();
 
         return $restResponse->addResource(
@@ -57,7 +57,6 @@ class SplittableCheckoutRestResponseBuilder implements SplittableCheckoutRestRes
     public function createSplittableCheckoutResource(
         RestSplittableCheckoutResponseTransfer $restSplittableCheckoutResponseTransfer
     ): RestResourceInterface {
-
         return $this->restResourceBuilder->createRestResource(
             SplittableCheckoutRestApiConfig::RESOURCE_SPLITTABLE_CHECKOUT,
             null,

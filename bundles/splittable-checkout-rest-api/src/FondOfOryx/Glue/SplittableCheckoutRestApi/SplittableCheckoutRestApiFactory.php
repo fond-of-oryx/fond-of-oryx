@@ -78,6 +78,9 @@ class SplittableCheckoutRestApiFactory extends AbstractFactory
         return new CustomerMapper();
     }
 
+    /**
+     * @return \FondOfOryx\Glue\SplittableCheckoutRestApi\Mapper\RestSplittableCheckoutErrorMapperInterface
+     */
     public function createRestSplittableCheckoutErrorMapper(): RestSplittableCheckoutErrorMapperInterface
     {
         return new RestSplittableCheckoutErrorMapper(

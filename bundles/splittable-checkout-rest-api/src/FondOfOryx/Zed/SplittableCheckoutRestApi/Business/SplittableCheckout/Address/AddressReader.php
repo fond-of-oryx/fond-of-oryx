@@ -15,8 +15,6 @@ class AddressReader implements AddressReaderInterface
     protected $customerFacade;
 
     /**
-     * AddressReader constructor.
-     *
      * @param \FondOfOryx\Zed\SplittableCheckoutRestApi\Dependency\Facade\SplittableCheckoutRestApiToCustomerFacadeInterface $customerFacade
      */
     public function __construct(SplittableCheckoutRestApiToCustomerFacadeInterface $customerFacade)

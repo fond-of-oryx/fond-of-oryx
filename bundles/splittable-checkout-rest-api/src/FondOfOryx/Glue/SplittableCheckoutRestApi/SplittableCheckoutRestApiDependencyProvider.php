@@ -18,7 +18,6 @@ class SplittableCheckoutRestApiDependencyProvider extends AbstractBundleDependen
     public const PLUGINS_SPLITTABLE_CHECKOUT_REQUEST_ATTRIBUTES_VALIDATOR = 'PLUGINS_SPLITTABLE_CHECKOUT_REQUEST_ATTRIBUTES_VALIDATOR';
     public const PLUGINS_SPLITTABLE_CHECKOUT_REQUEST_EXPANDER = 'PLUGINS_SPLITTABLE_CHECKOUT_REQUEST_EXPANDER';
 
-
     /**
      * @param \Spryker\Glue\Kernel\Container $container
      *
@@ -96,7 +95,6 @@ class SplittableCheckoutRestApiDependencyProvider extends AbstractBundleDependen
 
         return $container;
     }
-
 
     /**
      * @param \Spryker\Glue\Kernel\Container $container

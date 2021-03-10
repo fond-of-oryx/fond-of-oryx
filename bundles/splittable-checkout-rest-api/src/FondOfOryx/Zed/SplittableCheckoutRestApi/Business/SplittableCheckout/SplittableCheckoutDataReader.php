@@ -4,24 +4,22 @@ namespace FondOfOryx\Zed\SplittableCheckoutRestApi\Business\SplittableCheckout;
 
 use FondOfOryx\Glue\SplittableCheckoutRestApi\SplittableCheckoutRestApiConfig;
 use FondOfOryx\Zed\SplittableCheckoutRestApi\Business\SplittableCheckout\Address\AddressReaderInterface;
+use FondOfOryx\Zed\SplittableCheckoutRestApi\Business\SplittableCheckout\Quote\QuoteReaderInterface;
 use FondOfOryx\Zed\SplittableCheckoutRestApi\Dependency\Facade\SplittableCheckoutRestApiToPaymentFacadeInterface;
 use FondOfOryx\Zed\SplittableCheckoutRestApi\Dependency\Facade\SplittableCheckoutRestApiToShipmentFacadeInterface;
 use Generated\Shared\Transfer\PaymentMethodsTransfer;
 use Generated\Shared\Transfer\PaymentProviderCollectionTransfer;
 use Generated\Shared\Transfer\QuoteTransfer;
-use Generated\Shared\Transfer\RestCheckoutDataResponseTransfer;
-use Generated\Shared\Transfer\RestCheckoutDataTransfer;
-use Generated\Shared\Transfer\RestCheckoutErrorTransfer;
-use Generated\Shared\Transfer\RestCheckoutRequestAttributesTransfer;
 use Generated\Shared\Transfer\RestSplittableCheckoutDataResponseTransfer;
 use Generated\Shared\Transfer\RestSplittableCheckoutDataTransfer;
 use Generated\Shared\Transfer\RestSplittableCheckoutErrorTransfer;
+use Generated\Shared\Transfer\RestSplittableCheckoutRequestAttributesTransfer;
 use Generated\Shared\Transfer\ShipmentMethodsTransfer;
 
 class SplittableCheckoutDataReader implements SplittableCheckoutDataReaderInterface
 {
     /**
-     * @var \FondOfOryx\Zed\SplittableCheckoutRestApi\Business\SplittableCheckout\QuoteReaderInterface
+     * @var \FondOfOryx\Zed\SplittableCheckoutRestApi\Business\SplittableCheckout\Quote\QuoteReaderInterface
      */
     protected $quoteReader;
 
@@ -46,13 +44,11 @@ class SplittableCheckoutDataReader implements SplittableCheckoutDataReaderInterf
     protected $quoteMapperPlugins;
 
     /**
-     * SplittableCheckoutDataReader constructor.
-     *
-     * @param \FondOfOryx\Zed\SplittableCheckoutRestApi\Business\SplittableCheckout\QuoteReaderInterface $quoteReader
+     * @param \FondOfOryx\Zed\SplittableCheckoutRestApi\Business\SplittableCheckout\Quote\QuoteReaderInterface $quoteReader
      * @param \FondOfOryx\Zed\SplittableCheckoutRestApi\Dependency\Facade\SplittableCheckoutRestApiToShipmentFacadeInterface $shipmentFacade
      * @param \FondOfOryx\Zed\SplittableCheckoutRestApi\Dependency\Facade\SplittableCheckoutRestApiToPaymentFacadeInterface $paymentFacade
      * @param \FondOfOryx\Zed\SplittableCheckoutRestApi\Business\SplittableCheckout\Address\AddressReaderInterface $addressReader
-     * @param \FondOfOryx\Zed\SplittableCheckoutRestApiExtension\Dependency\Plugin\QuoteMapperPluginInterface[] $quoteMapperPlugins
+     * @param array $quoteMapperPlugins
      */
     public function __construct(
         QuoteReaderInterface $quoteReader,
@@ -69,9 +65,9 @@ class SplittableCheckoutDataReader implements SplittableCheckoutDataReaderInterf
     }
 
     /**
-     * @param \Generated\Shared\Transfer\RestCheckoutRequestAttributesTransfer $restCheckoutRequestAttributesTransfer
+     * @param \Generated\Shared\Transfer\RestSplittableCheckoutRequestAttributesTransfer $restSplittableCheckoutRequestAttributesTransfer
      *
-     * @return \Generated\Shared\Transfer\RestCheckoutDataResponseTransfer
+     * @return \Generated\Shared\Transfer\RestSplittableCheckoutDataResponseTransfer
      */
     public function getSplittableCheckoutData(
         RestSplittableCheckoutRequestAttributesTransfer $restSplittableCheckoutRequestAttributesTransfer

@@ -2,9 +2,7 @@
 
 namespace FondOfOryx\Client\SplittableCheckoutRestApi;
 
-use Generated\Shared\Transfer\RestCheckoutDataResponseTransfer;
 use Generated\Shared\Transfer\RestSplittableCheckoutRequestAttributesTransfer;
-use Generated\Shared\Transfer\RestSplittableCheckoutRequestTransfer;
 use Generated\Shared\Transfer\RestSplittableCheckoutResponseTransfer;
 
 interface SplittableCheckoutRestApiClientInterface

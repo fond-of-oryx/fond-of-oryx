@@ -12,7 +12,7 @@ interface SplittableCheckoutDataReaderInterface
      *
      * @return \Generated\Shared\Transfer\RestSplittableCheckoutDataResponseTransfer
      */
-    public function getCheckoutData(
+    public function getSplittableCheckoutData(
         RestSplittableCheckoutRequestAttributesTransfer $restSplittableCheckoutRequestAttributesTransfer
     ): RestSplittableCheckoutDataResponseTransfer;
 }

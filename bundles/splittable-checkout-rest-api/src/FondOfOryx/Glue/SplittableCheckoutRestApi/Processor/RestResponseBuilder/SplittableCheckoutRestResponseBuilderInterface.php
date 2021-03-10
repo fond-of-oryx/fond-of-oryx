@@ -1,6 +1,5 @@
 <?php
 
-
 namespace FondOfOryx\Glue\SplittableCheckoutRestApi\Processor\RestResponseBuilder;
 
 use Generated\Shared\Transfer\RestSplittableCheckoutResponseTransfer;
@@ -27,6 +26,4 @@ interface SplittableCheckoutRestResponseBuilderInterface
         ArrayObject $errors,
         string $locale
     ): RestResponseInterface;
-
-
 }

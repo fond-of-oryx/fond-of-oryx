@@ -5,23 +5,11 @@ namespace FondOfOryx\Zed\SplittableCheckoutRestApi\Business\SplittableCheckout;
 use FondOfOryx\Glue\SplittableCheckoutRestApi\SplittableCheckoutRestApiConfig;
 use FondOfOryx\Zed\SplittableCheckoutRestApi\Business\Validator\SplittableCheckoutValidatorInterface;
 use FondOfOryx\Zed\SplittableCheckoutRestApi\Dependency\Facade\SplittableCheckoutRestApiToCalculationFacadeInterface;
-use FondOfOryx\Zed\SplittableCheckoutRestApi\Dependency\Facade\SplittableCheckoutRestApiToCartFacadeInterface;
-use FondOfOryx\Zed\SplittableCheckoutRestApi\Dependency\Facade\SplittableCheckoutRestApiToCartsRestApiFacadeInterface;
-use FondOfOryx\Zed\SplittableCheckoutRestApi\Dependency\Facade\SplittableCheckoutRestApiToCheckoutFacadeInterface;
-use FondOfOryx\Zed\SplittableCheckoutRestApi\Dependency\Facade\SplittableCheckoutRestApiToQuoteFacadeInterface;
 use FondOfOryx\Zed\SplittableCheckoutRestApi\Dependency\Facade\SplittableCheckoutRestApiToSplittableCheckoutFacadeInterface;
-use Generated\Shared\Transfer\CheckoutDataTransfer;
-use Generated\Shared\Transfer\CheckoutResponseTransfer;
-use Generated\Shared\Transfer\QuoteCollectionTransfer;
-use Generated\Shared\Transfer\QuoteResponseTransfer;
 use Generated\Shared\Transfer\QuoteTransfer;
-use Generated\Shared\Transfer\RestCheckoutErrorTransfer;
-use Generated\Shared\Transfer\RestCheckoutRequestAttributesTransfer;
-use Generated\Shared\Transfer\RestCheckoutResponseTransfer;
 use Generated\Shared\Transfer\RestSplittableCheckoutErrorTransfer;
 use Generated\Shared\Transfer\RestSplittableCheckoutRequestAttributesTransfer;
 use Generated\Shared\Transfer\RestSplittableCheckoutResponseTransfer;
-use Generated\Shared\Transfer\SplittableCheckoutDataTransfer;
 use Generated\Shared\Transfer\SplittableCheckoutResponseTransfer;
 
 class PlaceOrderProcessor implements PlaceOrderProcessorInterface
@@ -47,8 +35,6 @@ class PlaceOrderProcessor implements PlaceOrderProcessorInterface
     protected $splittableCheckoutDataValidator;
 
     /**
-     * PlaceOrderProcessor constructor.
-     *
      * @param \FondOfOryx\Zed\SplittableCheckoutRestApi\Dependency\Facade\SplittableCheckoutRestApiToSplittableCheckoutFacadeInterface $splittableCheckoutFacade
      * @param \FondOfOryx\Zed\SplittableCheckoutRestApi\Dependency\Facade\SplittableCheckoutRestApiToCalculationFacadeInterface $calculationFacade
      * @param \FondOfOryx\Zed\SplittableCheckoutRestApi\Business\Validator\SplittableCheckoutValidatorInterface $splittableCheckoutDataValidator
@@ -83,18 +69,18 @@ class PlaceOrderProcessor implements PlaceOrderProcessorInterface
 
         $quoteTransfer = $this->executeQuoteMapperPlugins(
             $restSplittableCheckoutRequestAttributesTransfer,
-            $quoteTransfer
+            new QuoteTransfer()
         );
 
         $quoteTransfer = $this->calculationFacade->recalculateQuote($quoteTransfer);
 
         return $this->executePlaceOrder($quoteTransfer);
 
-        if ($splittableCheckoutResponseTransfer->getIsSuccess() === false) {
+       /* if ($splittableCheckoutResponseTransfer->getIsSuccess() === false) {
             return $this->createPlaceOrderErrorResponse($splittableCheckoutResponseTransfer);
         }
 
-        return $this->createRestSplittableCheckoutResponseTransfer($splittableCheckoutResponseTransfer);
+        return $this->createRestSplittableCheckoutResponseTransfer($splittableCheckoutResponseTransfer);*/
     }
 
     /**
@@ -133,7 +119,6 @@ class PlaceOrderProcessor implements PlaceOrderProcessorInterface
         return $this->createRestSplittableCheckoutResponseTransfer($splittableCheckoutResponseTransfer);
     }
 
-
     /**
      * @param \Generated\Shared\Transfer\SplittableCheckoutResponseTransfer $splittableCheckoutResponseTransfer
      *
@@ -141,8 +126,7 @@ class PlaceOrderProcessor implements PlaceOrderProcessorInterface
      */
     protected function createPlaceOrderErrorResponse(
         SplittableCheckoutResponseTransfer $splittableCheckoutResponseTransfer
-    ): RestSplittableCheckoutResponseTransfer
-    {
+    ): RestSplittableCheckoutResponseTransfer {
         $restSplittableCheckoutResponseTransfer = (new RestSplittableCheckoutResponseTransfer())
             ->setIsSuccess(false);
 
@@ -153,7 +137,6 @@ class PlaceOrderProcessor implements PlaceOrderProcessorInterface
                         ->setErrorIdentifier(SplittableCheckoutRestApiConfig::ERROR_IDENTIFIER_ORDER_NOT_PLACED)
                 );
         }
-
 
         foreach ($splittableCheckoutResponseTransfer->getErrors() as $errorTransfer) {
             $restSplittableCheckoutResponseTransfer->addError(
@@ -179,5 +162,4 @@ class PlaceOrderProcessor implements PlaceOrderProcessorInterface
             ->setIsSuccess(true)
             ->setOrderReferences($splittableCheckoutResponseTransfer->getOrderReferences());
     }
-
 }

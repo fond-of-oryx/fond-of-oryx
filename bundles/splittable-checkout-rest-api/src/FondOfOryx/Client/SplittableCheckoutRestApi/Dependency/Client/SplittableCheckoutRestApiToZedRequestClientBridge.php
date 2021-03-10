@@ -2,7 +2,6 @@
 
 namespace FondOfOryx\Client\SplittableCheckoutRestApi\Dependency\Client;
 
-use FondOfOryx\Client\SplittableCheckoutRestApi\Dependency\Client\SplittableCheckoutRestApiToZedRequestClientInterface;
 use Spryker\Shared\Kernel\Transfer\TransferInterface;
 
 class SplittableCheckoutRestApiToZedRequestClientBridge implements SplittableCheckoutRestApiToZedRequestClientInterface

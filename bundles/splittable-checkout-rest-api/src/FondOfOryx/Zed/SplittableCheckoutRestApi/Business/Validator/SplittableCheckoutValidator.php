@@ -4,7 +4,6 @@ namespace FondOfOryx\Zed\SplittableCheckoutRestApi\Business\Validator;
 
 use FondOfOryx\Shared\SplittableCheckoutRestApi\SplittableCheckoutRestApiConfig;
 use FondOfOryx\Zed\SplittableCheckoutRestApi\Business\SplittableCheckout\Quote\QuoteReaderInterface;
-use Generated\Shared\Transfer\RestSplittableCheckoutDataResponseTransfer;
 use Generated\Shared\Transfer\RestSplittableCheckoutErrorTransfer;
 use Generated\Shared\Transfer\RestSplittableCheckoutRequestAttributesTransfer;
 use Generated\Shared\Transfer\RestSplittableCheckoutResponseTransfer;
@@ -24,10 +23,8 @@ class SplittableCheckoutValidator implements SplittableCheckoutValidatorInterfac
     protected $splittableCheckoutDataValidatorPlugins;
 
     /**
-     * SplittableCheckoutValidator constructor.
      * @param \FondOfOryx\Zed\SplittableCheckoutRestApi\Business\SplittableCheckout\Quote\QuoteReaderInterface $quoteReader
-     *
-     * @param array $splittableCheckoutDataValidatorPlugins
+     * @param \FondOfOryx\Zed\SplittableCheckoutRestApiExtension\Dependency\Plugin\SplittableCheckoutDataValidatorPluginInterface[] $splittableCheckoutDataValidatorPlugins
      */
     public function __construct(
         QuoteReaderInterface $quoteReader,
@@ -90,9 +87,9 @@ class SplittableCheckoutValidator implements SplittableCheckoutValidatorInterfac
 
     /**
      * @param \Generated\Shared\Transfer\SplittableCheckoutResponseTransfer $splittableCheckoutResponseTransfer
-     * @param \FondOfOryx\Zed\SplittableCheckoutRestApi\Business\Validator\RestSplittableCheckoutDataResponseTransfer $restSplittableCheckoutDataResponseTransfer
-     * 
-     * @return \FondOfOryx\Zed\SplittableCheckoutRestApi\Business\Validator\RestSplittableCheckoutDataResponseTransfer
+     * @param \Generated\Shared\Transfer\RestSplittableCheckoutResponseTransfer $restSplittableCheckoutResponseTransfer
+     *
+     * @return \Generated\Shared\Transfer\RestSplittableCheckoutResponseTransfer
      */
     protected function copySplittableCheckoutDataResponseErrors(
         SplittableCheckoutResponseTransfer $splittableCheckoutResponseTransfer,
@@ -109,12 +106,11 @@ class SplittableCheckoutValidator implements SplittableCheckoutValidatorInterfac
         return $restSplittableCheckoutResponseTransfer->setIsSuccess(false);
     }
 
-
     /**
-     * @param \Generated\Shared\Transfer\CheckoutDataTransfer $checkoutDataTransfer
-     * @param \Generated\Shared\Transfer\RestCheckoutResponseTransfer $restCheckoutResponseTransfer
+     * @param \Generated\Shared\Transfer\SplittableCheckoutDataTransfer $splittableCheckoutDataTransfer
+     * @param \Generated\Shared\Transfer\RestSplittableCheckoutResponseTransfer $restSplittableCheckoutResponseTransfer
      *
-     * @return \Generated\Shared\Transfer\RestCheckoutResponseTransfer
+     * @return \Generated\Shared\Transfer\RestSplittableCheckoutResponseTransfer
      */
     protected function getRestSplittableCheckoutResponse(
         SplittableCheckoutDataTransfer $splittableCheckoutDataTransfer,
@@ -122,7 +118,8 @@ class SplittableCheckoutValidator implements SplittableCheckoutValidatorInterfac
     ): RestSplittableCheckoutResponseTransfer {
         $restSplittableCheckoutResponseTransfer->setSplittableCheckoutData($splittableCheckoutDataTransfer);
 
-        if ($restSplittableCheckoutResponseTransfer->getIsSuccess() === true
+        if (
+            $restSplittableCheckoutResponseTransfer->getIsSuccess() === true
             || $restSplittableCheckoutResponseTransfer->getErrors()->count() === 0
         ) {
             return $restSplittableCheckoutResponseTransfer->setIsSuccess(true);
@@ -134,6 +131,4 @@ class SplittableCheckoutValidator implements SplittableCheckoutValidatorInterfac
                     ->setErrorIdentifier(SplittableCheckoutRestApiConfig::ERROR_IDENTIFIER_ORDER_NOT_PLACED)
             );
     }
-
-
 }

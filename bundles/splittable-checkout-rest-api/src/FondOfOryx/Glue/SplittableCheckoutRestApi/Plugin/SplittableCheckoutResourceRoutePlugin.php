@@ -13,8 +13,6 @@ class SplittableCheckoutResourceRoutePlugin extends AbstractPlugin implements Re
     /**
      * @api
      *
-     * {@inheritdoc}
-     *
      * @param \Spryker\Glue\GlueApplicationExtension\Dependency\Plugin\ResourceRouteCollectionInterface $resourceRouteCollection
      *
      * @return \Spryker\Glue\GlueApplicationExtension\Dependency\Plugin\ResourceRouteCollectionInterface
@@ -30,8 +28,6 @@ class SplittableCheckoutResourceRoutePlugin extends AbstractPlugin implements Re
     /**
      * @api
      *
-     * {@inheritdoc}
-     *
      * @return string
      */
     public function getResourceType(): string
@@ -42,8 +38,6 @@ class SplittableCheckoutResourceRoutePlugin extends AbstractPlugin implements Re
     /**
      * @api
      *
-     * {@inheritdoc}
-     *
      * @return string
      */
     public function getController(): string
@@ -53,8 +47,6 @@ class SplittableCheckoutResourceRoutePlugin extends AbstractPlugin implements Re
 
     /**
      * @api
-     *
-     * {@inheritdoc}
      *
      * @return string
      */

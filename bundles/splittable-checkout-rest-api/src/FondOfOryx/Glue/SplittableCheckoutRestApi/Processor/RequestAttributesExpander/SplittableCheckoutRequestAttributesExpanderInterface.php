@@ -2,7 +2,6 @@
 
 namespace FondOfOryx\Glue\SplittableCheckoutRestApi\Processor\RequestAttributesExpander;
 
-use Generated\Shared\Transfer\RestCheckoutRequestAttributesTransfer;
 use Generated\Shared\Transfer\RestSplittableCheckoutRequestAttributesTransfer;
 use Spryker\Glue\GlueApplication\Rest\Request\Data\RestRequestInterface;
 

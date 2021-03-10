@@ -14,8 +14,6 @@ class SplittableCheckoutRestApiToSplittableCheckoutFacadeBridge implements Split
     protected $splitttableCheckoutFacade;
 
     /**
-     * SplittableCheckoutRestApiToSplittableCheckoutFacadeBridge constructor.
-     *
      * @param \FondOfOryx\Zed\SplittableCheckout\Business\SplittableCheckoutFacadeInterface $splittableCheckoutFacade
      */
     public function __construct(SplittableCheckoutFacadeInterface $splittableCheckoutFacade)

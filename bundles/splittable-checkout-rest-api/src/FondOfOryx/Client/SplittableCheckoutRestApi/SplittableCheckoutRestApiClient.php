@@ -12,8 +12,6 @@ use Spryker\Client\Kernel\AbstractClient;
 class SplittableCheckoutRestApiClient extends AbstractClient implements SplittableCheckoutRestApiClientInterface
 {
     /**
-     * {@inheritdoc}
-     *
      * @api
      *
      * @param \Generated\Shared\Transfer\RestSplittableCheckoutRequestAttributesTransfer $restSplittableCheckoutRequestAttributesTransfer
