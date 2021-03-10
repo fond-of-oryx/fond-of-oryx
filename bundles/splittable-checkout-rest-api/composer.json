@@ -10,6 +10,7 @@
   ],
   "require": {
     "php": ">=7.3",
+    "fond-of-oryx/splittable-checkout-rest-api": "dev-main",
     "spryker/calculation": "^4.0.0",
     "spryker/cart": "^7.0.0",
     "spryker/carts-rest-api": "^5.0.0",

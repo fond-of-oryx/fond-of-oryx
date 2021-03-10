@@ -61,7 +61,8 @@
     "fond-of-oryx/tax-calculation-connector": "*",
     "fond-of-oryx/erp-order-extension": "*",
     "fond-of-oryx/sales-locale-connector": "*",
-    "fond-of-oryx/splittable-checkout-rest-api": "*"
+    "fond-of-oryx/splittable-checkout-rest-api": "*",
+    "fond-of-oryx/splittable-checkout-rest-api-extension": "*"
   },
   "minimum-stability": "dev",
   "prefer-stable": true,
