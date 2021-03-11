@@ -90,6 +90,7 @@ class ThirtyFiveUpOrderExpanderPluginTest extends Unit
 
     /**
      * @skip Needs propel
+     *
      * @return void
      */
     public function testExpand(): void
@@ -103,6 +104,7 @@ class ThirtyFiveUpOrderExpanderPluginTest extends Unit
 
     /**
      * @skip Needs propel
+     *
      * @return void
      */
     public function testExpandNo35UpOrder(): void

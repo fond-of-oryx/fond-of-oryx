@@ -139,13 +139,13 @@ class ThirtyFiveUpEntityManager extends AbstractEntityManager implements ThirtyF
     }
 
     /**
-     * @param $dateTime
+     * @param DateTime $dateTime
      *
      * @throws \Exception
      *
      * @return int|null
      */
-    protected function convertDateTimeToTimestamp($dateTime): ?int
+    protected function convertDateTimeToTimestamp(DateTime $dateTime): ?int
     {
         if ($dateTime === null) {
             return null;
