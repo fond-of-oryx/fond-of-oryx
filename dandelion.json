@@ -36,6 +36,10 @@
             "path": "bundles/erp-order-page-search-rest-api/",
             "version": "0.0.1-alpha"
         },
+        "thirty-five-up-payment-filter": {
+            "path": "bundles/thirty-five-up-payment-filter/",
+            "version": "1.0.0"
+        },
         "sales-locale-connector": {
             "path": "bundles/sales-locale-connector/",
             "version": "1.0.0"
