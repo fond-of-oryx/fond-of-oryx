@@ -40,6 +40,10 @@
             "path": "bundles/sales-locale-connector/",
             "version": "1.0.0"
         },
+        "splittable-checkout": {
+            "path": "bundles/splittable-checkout/",
+            "version": "1.0.0"
+        },
         "splittable-checkout-rest-api-extension": {
             "path": "bundles/splittable-checkout-rest-api-extension/",
             "version": "1.0.0"
