@@ -139,7 +139,7 @@ class ThirtyFiveUpEntityManager extends AbstractEntityManager implements ThirtyF
     }
 
     /**
-     * @param DateTime $dateTime
+     * @param \DateTime $dateTime
      *
      * @throws \Exception
      *
