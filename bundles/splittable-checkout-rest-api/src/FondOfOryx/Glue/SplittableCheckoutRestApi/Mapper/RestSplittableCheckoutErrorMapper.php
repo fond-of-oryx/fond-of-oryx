@@ -46,7 +46,7 @@ class RestSplittableCheckoutErrorMapper implements RestSplittableCheckoutErrorMa
         return $this->mergeErrorDataWithErrorConfiguration(
             $restSplittableCheckoutErrorTransfer,
             $restErrorMessageTransfer,
-            $this->translateCheckoutErrorMessage($restCheckoutErrorTransfer, $locale)->toArray()
+            $this->translateCheckoutErrorMessage($restSplittableCheckoutErrorTransfer, $locale)->toArray()
         );
     }
 

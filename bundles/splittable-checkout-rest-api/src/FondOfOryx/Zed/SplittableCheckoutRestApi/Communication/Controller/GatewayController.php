@@ -12,7 +12,7 @@ use Spryker\Zed\Kernel\Communication\Controller\AbstractGatewayController;
 class GatewayController extends AbstractGatewayController
 {
     /**
-     * @param \FondOfOryx\Zed\SplittableCheckoutRestApi\Communication\Controller\RestSplittableCheckoutRequestAttributesTransfer $restSplittableCheckoutRequestAttributesTransfer
+     * @param \Generated\Shared\Transfer\RestSplittableCheckoutRequestAttributesTransfer $restSplittableCheckoutRequestAttributesTransfer
      *
      * @return \Generated\Shared\Transfer\RestSplittableCheckoutResponseTransfer
      */

@@ -2,6 +2,7 @@
 
 namespace FondOfOryx\Zed\SplittableCheckoutRestApi\Dependency\Facade;
 
+use FondOfOryx\Zed\SplittableCheckout\Business\SplittableCheckoutFacadeInterface;
 use Generated\Shared\Transfer\QuoteTransfer;
 use Generated\Shared\Transfer\SplittableCheckoutResponseTransfer;
 

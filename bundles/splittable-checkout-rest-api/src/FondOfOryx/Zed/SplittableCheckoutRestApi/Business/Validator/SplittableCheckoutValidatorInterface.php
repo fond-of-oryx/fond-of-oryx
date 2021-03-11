@@ -10,7 +10,7 @@ interface SplittableCheckoutValidatorInterface
     /**
      * @param \Generated\Shared\Transfer\RestSplittableCheckoutRequestAttributesTransfer $restSplittableCheckoutRequestAttributesTransfer
      *
-     * @return \Generated\Shared\Transfer\RestSplittableCheckoutDataResponseTransfer
+     * @return \Generated\Shared\Transfer\RestSplittableCheckoutResponseTransfer
      */
     public function validateSplittableCheckout(
         RestSplittableCheckoutRequestAttributesTransfer $restSplittableCheckoutRequestAttributesTransfer

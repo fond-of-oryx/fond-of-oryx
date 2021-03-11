@@ -4,6 +4,7 @@ namespace FondOfOryx\Zed\SplittableCheckoutRestApi\Dependency\Facade;
 
 use Generated\Shared\Transfer\PaymentProviderCollectionTransfer;
 use Generated\Shared\Transfer\QuoteTransfer;
+use Spryker\Zed\Payment\Business\PaymentFacadeInterface;
 
 class SplittableCheckoutRestApiToPaymentFacadeBridge implements SplittableCheckoutRestApiToPaymentFacadeInterface
 {
@@ -15,17 +16,19 @@ class SplittableCheckoutRestApiToPaymentFacadeBridge implements SplittableChecko
     /**
      * @param \Spryker\Zed\Payment\Business\PaymentFacadeInterface $paymentFacade
      */
-    public function __construct($paymentFacade)
+    public function __construct(PaymentFacadeInterface $paymentFacade)
     {
         $this->paymentFacade = $paymentFacade;
     }
 
     /**
+     * @param string $storeName
+     *
      * @return \Generated\Shared\Transfer\PaymentProviderCollectionTransfer
      */
-    public function getAvailablePaymentProviders(): PaymentProviderCollectionTransfer
+    public function getAvailablePaymentProvidersForStore(string $storeName): PaymentProviderCollectionTransfer
     {
-        return $this->paymentFacade->getAvailablePaymentProviders();
+        return $this->paymentFacade->getAvailablePaymentProvidersForStore($storeName);
     }
 
     /**

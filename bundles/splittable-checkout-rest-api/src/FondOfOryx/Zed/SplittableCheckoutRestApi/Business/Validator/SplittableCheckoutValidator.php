@@ -91,7 +91,7 @@ class SplittableCheckoutValidator implements SplittableCheckoutValidatorInterfac
      *
      * @return \Generated\Shared\Transfer\RestSplittableCheckoutResponseTransfer
      */
-    protected function copySplittableCheckoutDataResponseErrors(
+    protected function copySplittableCheckoutResponseErrors(
         SplittableCheckoutResponseTransfer $splittableCheckoutResponseTransfer,
         RestSplittableCheckoutResponseTransfer $restSplittableCheckoutResponseTransfer
     ): RestSplittableCheckoutResponseTransfer {

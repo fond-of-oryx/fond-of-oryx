@@ -3,8 +3,10 @@
 namespace FondOfOryx\Zed\SplittableCheckoutRestApi\Dependency\Facade;
 
 use Generated\Shared\Transfer\QuoteTransfer;
+use Generated\Shared\Transfer\ShipmentMethodsCollectionTransfer;
+use Spryker\Zed\Shipment\Business\ShipmentFacadeInterface;
 
-class SplittableCheckoutRestApiToShipmentFacadeBridge implements CheckoutRestApiToShipmentFacadeInterface
+class SplittableCheckoutRestApiToShipmentFacadeBridge implements SplittableCheckoutRestApiToShipmentFacadeInterface
 {
     /**
      * @var \Spryker\Zed\Shipment\Business\ShipmentFacadeInterface
@@ -14,7 +16,7 @@ class SplittableCheckoutRestApiToShipmentFacadeBridge implements CheckoutRestApi
     /**
      * @param \Spryker\Zed\Shipment\Business\ShipmentFacadeInterface $shipmentFacade
      */
-    public function __construct($shipmentFacade)
+    public function __construct(ShipmentFacadeInterface $shipmentFacade)
     {
         $this->shipmentFacade = $shipmentFacade;
     }
@@ -22,10 +24,10 @@ class SplittableCheckoutRestApiToShipmentFacadeBridge implements CheckoutRestApi
     /**
      * @param \Generated\Shared\Transfer\QuoteTransfer $quoteTransfer
      *
-     * @return \Generated\Shared\Transfer\ShipmentMethodsTransfer
+     * @return \Generated\Shared\Transfer\ShipmentMethodsCollectionTransfer
      */
-    public function getAvailableMethods(QuoteTransfer $quoteTransfer)
+    public function getAvailableMethodsByShipment(QuoteTransfer $quoteTransfer): ShipmentMethodsCollectionTransfer
     {
-        return $this->shipmentFacade->getAvailableMethods($quoteTransfer);
+        return $this->shipmentFacade->getAvailableMethodsByShipment($quoteTransfer);
     }
 }

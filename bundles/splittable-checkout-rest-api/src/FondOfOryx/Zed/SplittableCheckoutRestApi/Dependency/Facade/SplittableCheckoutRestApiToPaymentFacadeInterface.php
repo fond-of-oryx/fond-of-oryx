@@ -8,9 +8,11 @@ use Generated\Shared\Transfer\QuoteTransfer;
 interface SplittableCheckoutRestApiToPaymentFacadeInterface
 {
     /**
+     * @param string $storeName
+     *
      * @return \Generated\Shared\Transfer\PaymentProviderCollectionTransfer
      */
-    public function getAvailablePaymentProviders(): PaymentProviderCollectionTransfer;
+    public function getAvailablePaymentProvidersForStore(string $storeName): PaymentProviderCollectionTransfer;
 
     /**
      * @param \Generated\Shared\Transfer\QuoteTransfer $quoteTransfer
