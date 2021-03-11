@@ -49,19 +49,21 @@
     "fond-of-codeception/spryker": "^1.0"
   },
   "replace": {
+    "fond-of-oryx/catalog-sku-filter": "*",
     "fond-of-oryx/customer-statistic": "*",
     "fond-of-oryx/customer-statistics-rest-api": "*",
     "fond-of-oryx/erp-order": "*",
+    "fond-of-oryx/erp-order-api": "*",
+    "fond-of-oryx/erp-order-extension": "*",
     "fond-of-oryx/erp-order-page-search": "*",
     "fond-of-oryx/erp-order-page-search-rest-api": "*",
-    "fond-of-oryx/erp-order-api": "*",
     "fond-of-oryx/erp-order-permission": "*",
-    "fond-of-oryx/thirty-five-up-payment-filter": "*",
-    "fond-of-oryx/tax-calculation-connector": "*",
-    "fond-of-oryx/erp-order-extension": "*",
+    "fond-of-oryx/mail-bcc": "*",
     "fond-of-oryx/sales-locale-connector": "*",
     "fond-of-oryx/splittable-checkout": "*",
-    "fond-of-oryx/splittable-checkout-rest-api-extension": "*"
+    "fond-of-oryx/splittable-checkout-rest-api-extension": "*",
+    "fond-of-oryx/tax-calculation-connector": "*",
+    "fond-of-oryx/thirty-five-up-payment-filter": "*"
   },
   "minimum-stability": "dev",
   "prefer-stable": true,
