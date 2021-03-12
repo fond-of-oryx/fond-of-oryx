@@ -39,11 +39,8 @@ modules:
     - \FondOfCodeception\Module\Spryker
   config:
     \FondOfCodeception\Module\Spryker:
-      generate_transfer: true
-      generate_map_classes: true
-      supported_source_identifiers:
-        - erp-order
-        - page
+      generate_transfer: false
+      generate_map_classes: false
 
 env:
   standalone:
@@ -52,3 +49,6 @@ env:
         \FondOfCodeception\Module\Spryker:
           generate_transfer: true
           generate_map_classes: true
+          supported_source_identifiers:
+            - erp-order
+            - page
