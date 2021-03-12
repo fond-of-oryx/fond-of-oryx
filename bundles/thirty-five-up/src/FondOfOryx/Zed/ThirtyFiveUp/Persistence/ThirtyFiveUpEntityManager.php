@@ -3,7 +3,6 @@
 namespace FondOfOryx\Zed\ThirtyFiveUp\Persistence;
 
 use DateTime;
-use Exception;
 use FondOfOryx\Zed\ThirtyFiveUp\Exception\ThirtyFiveUpOrderNotFoundException;
 use Generated\Shared\Transfer\ThirtyFiveUpOrderItemTransfer;
 use Generated\Shared\Transfer\ThirtyFiveUpOrderTransfer;
@@ -36,7 +35,7 @@ class ThirtyFiveUpEntityManager extends AbstractEntityManager implements ThirtyF
 
         foreach ($thirtyFiveUpOrderTransfer->getVendorItems() as $itemTransfer) {
             $itemTransfer->setIdThirtyFiveUpOrder($entity->getIdThirtyFiveUpOrder());
-            $itemTransfer = $this->createThirtyFiveUpOrderItem($itemTransfer);
+            $this->createThirtyFiveUpOrderItem($itemTransfer);
         }
         $thirtyFiveUpOrderTransfer->fromArray($entity->toArray(), true);
         $thirtyFiveUpOrderTransfer->setId($entity->getIdThirtyFiveUpOrder())
@@ -129,9 +128,9 @@ class ThirtyFiveUpEntityManager extends AbstractEntityManager implements ThirtyF
 
         $query = $this->getFactory()->createThirtyFiveUpVendorQuery();
         $entity = $query->filterByName($vendorTransfer->getName())->findOneOrCreate();
-        if ($entity->getIdThirtyFiveUpVendor() === null) {
-            $entity->save();
-        }
+
+        $entity->save();
+
         $vendorTransfer->fromArray($entity->toArray(), true);
         $vendorTransfer->setId($entity->getIdThirtyFiveUpVendor());
 
@@ -139,26 +138,16 @@ class ThirtyFiveUpEntityManager extends AbstractEntityManager implements ThirtyF
     }
 
     /**
-     * @param \DateTime $dateTime
-     *
-     * @throws \Exception
+     * @param \DateTime|null $dateTime
      *
      * @return int|null
      */
-    protected function convertDateTimeToTimestamp(DateTime $dateTime): ?int
+    protected function convertDateTimeToTimestamp(?DateTime $dateTime): ?int
     {
-        if ($dateTime === null) {
-            return null;
-        }
-
         if ($dateTime instanceof DateTime) {
             return $dateTime->getTimestamp();
         }
 
-        if (is_object($dateTime) === false && is_string($dateTime) === true) {
-            return strtotime($dateTime);
-        }
-
-        throw new Exception('Could not convert DateTime to timestamp');
+        return null;
     }
 }

@@ -28,7 +28,7 @@
 
     <transfer name="ThirtyFiveUpVendor">
         <property name="id" type="int" />
-        <property name="name" type="int" />
+        <property name="name" type="string" />
     </transfer>
 
     <transfer name="ThirtyFiveUpResponse">

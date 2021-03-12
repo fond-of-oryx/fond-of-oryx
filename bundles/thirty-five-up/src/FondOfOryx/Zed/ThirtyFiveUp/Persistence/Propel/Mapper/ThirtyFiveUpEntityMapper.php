@@ -3,7 +3,6 @@
 namespace FondOfOryx\Zed\ThirtyFiveUp\Persistence\Propel\Mapper;
 
 use DateTime;
-use Exception;
 use Generated\Shared\Transfer\ThirtyFiveUpOrderItemTransfer;
 use Generated\Shared\Transfer\ThirtyFiveUpOrderTransfer;
 use Generated\Shared\Transfer\ThirtyFiveUpVendorTransfer;
@@ -76,26 +75,16 @@ class ThirtyFiveUpEntityMapper implements ThirtyFiveUpEntityMapperInterface
     }
 
     /**
-     * @param \Object|string $dateTime
-     *
-     * @throws \Exception
+     * @param \DateTime|null $dateTime
      *
      * @return int|null
      */
-    protected function convertDateTimeToTimestamp($dateTime): ?int
+    protected function convertDateTimeToTimestamp(?DateTime $dateTime): ?int
     {
-        if ($dateTime === null) {
-            return null;
-        }
-
         if ($dateTime instanceof DateTime) {
             return $dateTime->getTimestamp();
         }
 
-        if (is_object($dateTime) === false && is_string($dateTime) === true) {
-            return strtotime($dateTime);
-        }
-
-        throw new Exception('Could not convert DateTime to timestamp');
+        return null;
     }
 }
