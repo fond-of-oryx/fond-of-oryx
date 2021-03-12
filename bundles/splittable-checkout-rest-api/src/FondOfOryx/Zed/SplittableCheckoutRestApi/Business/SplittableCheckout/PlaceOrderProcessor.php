@@ -63,15 +63,12 @@ class PlaceOrderProcessor implements PlaceOrderProcessorInterface
         $splittableCheckoutResponseTransfer = $this->splittableCheckoutDataValidator
             ->validateSplittableCheckout($restSplittableCheckoutRequestAttributesTransfer);
 
-        if ($splittableCheckoutResponseTransfer->getIsSuccess() === false) {
+        if (!$splittableCheckoutResponseTransfer->getIsSuccess()) {
             return $splittableCheckoutResponseTransfer;
         }
 
-        $quoteTransfer = $this->executeQuoteMapperPlugins(
-            $restSplittableCheckoutRequestAttributesTransfer,
-            new QuoteTransfer()
-        );
-
+        $quoteTransfer = $splittableCheckoutResponseTransfer->getSplittableCheckoutData()->getQuote();
+        $quoteTransfer = $this->executeQuoteMapperPlugins($restSplittableCheckoutRequestAttributesTransfer, $quoteTransfer);
         $quoteTransfer = $this->calculationFacade->recalculateQuote($quoteTransfer);
 
         return $this->executePlaceOrder($quoteTransfer);

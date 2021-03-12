@@ -4,6 +4,8 @@ namespace FondOfOryx\Zed\SplittableCheckoutRestApi\Business\Validator;
 
 use FondOfOryx\Shared\SplittableCheckoutRestApi\SplittableCheckoutRestApiConfig;
 use FondOfOryx\Zed\SplittableCheckoutRestApi\Business\SplittableCheckout\Quote\QuoteReaderInterface;
+use Generated\Shared\Transfer\QuoteTransfer;
+use Generated\Shared\Transfer\RestSplittableCheckoutDataResponseTransfer;
 use Generated\Shared\Transfer\RestSplittableCheckoutErrorTransfer;
 use Generated\Shared\Transfer\RestSplittableCheckoutRequestAttributesTransfer;
 use Generated\Shared\Transfer\RestSplittableCheckoutResponseTransfer;
@@ -43,7 +45,11 @@ class SplittableCheckoutValidator implements SplittableCheckoutValidatorInterfac
         RestSplittableCheckoutRequestAttributesTransfer $restSplittableCheckoutRequestAttributesTransfer
     ): RestSplittableCheckoutResponseTransfer {
         $quoteTransfer = $this->quoteReader->findCustomerQuoteByUuid($restSplittableCheckoutRequestAttributesTransfer);
-        $restSplittableCheckoutResponseTransfer = new RestSplittableCheckoutResponseTransfer();
+        $restSplittableCheckoutResponseTransfer = $this->validateQuoteInCheckout($quoteTransfer);
+
+        if (!$restSplittableCheckoutResponseTransfer->getIsSuccess()) {
+            return $restCheckoutResponseTransfer;
+        }
 
         $splittableCheckoutDataTransfer = (new SplittableCheckoutDataTransfer())
             ->fromArray($restSplittableCheckoutRequestAttributesTransfer->toArray(), true)
@@ -61,10 +67,26 @@ class SplittableCheckoutValidator implements SplittableCheckoutValidatorInterfac
     }
 
     /**
-     * @param \Generated\Shared\Transfer\SplittableCheckoutDataTransfer $splittableCheckoutDataTransfer
-     * @param \Generated\Shared\Transfer\RestSplittableCheckoutResponseTransfer $restSplittableCheckoutResponseTransfer
+     * @param \Generated\Shared\Transfer\QuoteTransfer|null $quoteTransfer
      *
-     * @return \Generated\Shared\Transfer\RestSplittableCheckoutResponseTransfer
+     * @return \Generated\Shared\Transfer\RestSplittableCheckoutDataResponseTransfer
+     */
+    protected function validateQuoteInCheckout(
+        ?QuoteTransfer $quoteTransfer
+    ): RestSplittableCheckoutResponseTransfer {
+        if (!$quoteTransfer) {
+            return $this->createSplittableCheckoutDataCartNotFoundErrorResponse();
+        }
+
+        return (new RestSplittableCheckoutResponseTransfer())
+            ->setIsSuccess(true);
+    }
+
+    /**
+     * @param \Generated\Shared\Transfer\SplittableCheckoutDataTransfer $splittableCheckoutDataTransfer
+     * @param \Generated\Shared\Transfer\RestSplittableCheckoutDataResponseTransfer $restSplittableCheckoutDataResponseTransfer
+     *
+     * @return \Generated\Shared\Transfer\RestSplittableCheckoutDataResponseTransfer
      */
     protected function executeSplittableCheckoutDataValidatorPlugins(
         SplittableCheckoutDataTransfer $splittableCheckoutDataTransfer,
@@ -74,7 +96,7 @@ class SplittableCheckoutValidator implements SplittableCheckoutValidatorInterfac
             $splittableCheckoutResponseTransfer = $splittableCheckoutDataValidatorPlugin
                 ->validateSplittableCheckoutData($splittableCheckoutDataTransfer);
 
-            if ($splittableCheckoutResponseTransfer->getIsSuccess() === false) {
+            if (!$splittableCheckoutResponseTransfer->getIsSuccess()) {
                 $restSplittableCheckoutResponseTransfer = $this->copySplittableCheckoutResponseErrors(
                     $splittableCheckoutResponseTransfer,
                     $restSplittableCheckoutResponseTransfer
@@ -119,8 +141,8 @@ class SplittableCheckoutValidator implements SplittableCheckoutValidatorInterfac
         $restSplittableCheckoutResponseTransfer->setSplittableCheckoutData($splittableCheckoutDataTransfer);
 
         if (
-            $restSplittableCheckoutResponseTransfer->getIsSuccess() === true
-            || $restSplittableCheckoutResponseTransfer->getErrors()->count() === 0
+             $restSplittableCheckoutResponseTransfer->getIsSuccess()
+            || $restSplittableCheckoutResponseTransfer->getErrors()->count()
         ) {
             return $restSplittableCheckoutResponseTransfer->setIsSuccess(true);
         }
@@ -129,6 +151,19 @@ class SplittableCheckoutValidator implements SplittableCheckoutValidatorInterfac
             ->addError(
                 (new RestSplittableCheckoutErrorTransfer())
                     ->setErrorIdentifier(SplittableCheckoutRestApiConfig::ERROR_IDENTIFIER_ORDER_NOT_PLACED)
+            );
+    }
+
+    /**
+     * @return \Generated\Shared\Transfer\RestSplittableCheckoutDataResponseTransfer
+     */
+    protected function createSplittableCheckoutDataCartNotFoundErrorResponse(): RestSplittableCheckoutDataResponseTransfer
+    {
+        return (new RestSplittableCheckoutDataResponseTransfer())
+            ->setIsSuccess(false)
+            ->addError(
+                (new RestSplittableCheckoutErrorTransfer())
+                    ->setErrorIdentifier(SplittableCheckoutRestApiConfig::ERROR_IDENTIFIER_CART_NOT_FOUND)
             );
     }
 }

@@ -2,6 +2,7 @@
 
 namespace FondOfOryx\Zed\SplittableCheckoutRestApi\Communication\Controller;
 
+use Generated\Shared\Transfer\RestSplittableCheckoutDataResponseTransfer;
 use Generated\Shared\Transfer\RestSplittableCheckoutRequestAttributesTransfer;
 use Generated\Shared\Transfer\RestSplittableCheckoutResponseTransfer;
 use Spryker\Zed\Kernel\Communication\Controller\AbstractGatewayController;
@@ -18,7 +19,7 @@ class GatewayController extends AbstractGatewayController
      */
     public function placeOrderAction(
         RestSplittableCheckoutRequestAttributesTransfer $restSplittableCheckoutRequestAttributesTransfer
-    ): RestSplittableCheckoutResponseTransfer {
+    ): RestSplittableCheckoutDataResponseTransfer {
         return $this->getFacade()->placeOrder($restSplittableCheckoutRequestAttributesTransfer);
     }
 }
