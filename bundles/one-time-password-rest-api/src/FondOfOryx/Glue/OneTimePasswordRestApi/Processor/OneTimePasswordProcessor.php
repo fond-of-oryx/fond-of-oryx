@@ -23,7 +23,7 @@ class OneTimePasswordProcessor implements OneTimePasswordProcessorInterface
     protected $oneTimePasswordClient;
 
     /**
-     * @param \Spryker\Glue\GlueApplication\Rest\JsonApi\RestResourceBuilderInterface $restResourceBuilder
+     * @param \Spryker\Glue\GlueApplication\Rest\JsonApi\RestResourceBuilderInterface         $restResourceBuilder
      * @param \FondOfOryx\Client\OneTimePasswordRestApi\OneTimePasswordRestApiClientInterface $oneTimePasswordClient
      */
     public function __construct(
@@ -35,7 +35,7 @@ class OneTimePasswordProcessor implements OneTimePasswordProcessorInterface
     }
 
     /**
-     * @param \Spryker\Glue\GlueApplication\Rest\Request\Data\RestRequestInterface $restRequest
+     * @param \Spryker\Glue\GlueApplication\Rest\Request\Data\RestRequestInterface    $restRequest
      * @param \Generated\Shared\Transfer\RestOneTimePasswordRequestAttributesTransfer $restOneTimePasswordRequestAttributesTransfer
      *
      * @return \Spryker\Glue\GlueApplication\Rest\JsonApi\RestResponseInterface

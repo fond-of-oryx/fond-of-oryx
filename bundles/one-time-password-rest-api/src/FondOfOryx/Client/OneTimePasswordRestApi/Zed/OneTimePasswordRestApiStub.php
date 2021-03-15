@@ -29,7 +29,9 @@ class OneTimePasswordRestApiStub implements OneTimePasswordRestApiStubInterface
     public function requestOneTimePassword(
         RestOneTimePasswordRequestAttributesTransfer $restOneTimePasswordRequestAttributesTransfer
     ): RestOneTimePasswordResponseTransfer {
-        /** @var \Generated\Shared\Transfer\RestOneTimePasswordResponseTransfer $restOneTimePasswordResponseTransfer */
+        /**
+ * @var \Generated\Shared\Transfer\RestOneTimePasswordResponseTransfer $restOneTimePasswordResponseTransfer 
+*/
         $restOneTimePasswordResponseTransfer = $this->zedStubClient->call('/one-time-password/gateway/request-one-time-password', $restOneTimePasswordRequestAttributesTransfer);
 
         return $restOneTimePasswordResponseTransfer;
