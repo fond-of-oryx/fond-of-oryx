@@ -49,7 +49,7 @@
     "psr-4": {
       "FondOfOryx\\Client\\CustomerStatistic\\": "bundles/customer-statistic/src/FondOfOryx/Client/CustomerStatistic",
       "FondOfOryx\\Zed\\OneTimePassword\\": "bundles/one-time-password/src/FondOfOryx/Zed/OneTimePassword",
-      "FondOfOryx\\Client\\OneTimePassword\\": "bundles/one-time-password/tests/FondOfOryx/Client/OneTimePassword",
+      "FondOfOryx\\Client\\OneTimePassword\\": "bundles/one-time-password/src/FondOfOryx/Client/OneTimePassword",
       "FondOfOryx\\Glue\\OneTimePasswordRestApi\\": "bundles/one-time-password-rest-api/src/FondOfOryx/Glue/OneTimePasswordRestApi",
       "FondOfOryx\\Client\\OneTimePasswordRestApi\\": "bundles/one-time-password-rest-api/src/FondOfOryx/Client/OneTimePasswordRestApi",
       "FondOfOryx\\Shared\\SalesLocaleConnector\\": "bundles/sales-locale-connector/src/FondOfOryx/Shared/SalesLocaleConnector",
@@ -69,7 +69,7 @@
       "FondOfOryx\\Zed\\OneTimePassword\\": "bundles/one-time-password/tests/FondOfOryx/Zed/OneTimePassword",
       "FondOfOryx\\Client\\OneTimePassword\\": "bundles/one-time-password/tests/FondOfOryx/Client/OneTimePassword",
       "FondOfOryx\\Glue\\OneTimePasswordRestApi\\": "bundles/one-time-password-rest-api/tests/FondOfOryx/Glue/OneTimePasswordRestApi",
-      "FondOfOryx\\Client\\OneTimePasswordRestApi\\": "bundles/one-time-password-rest-api/src/FondOfOryx/Client/OneTimePasswordRestApi",
+      "FondOfOryx\\Client\\OneTimePasswordRestApi\\": "bundles/one-time-password-rest-api/tests/FondOfOryx/Client/OneTimePasswordRestApi",
       "FondOfOryx\\Zed\\CustomerStatistic\\": "bundles/customer-statistic/tests/FondOfOryx/Zed/CustomerStatistic",
       "FondOfOryx\\Zed\\ErpOrder\\": "bundles/erp-order/src/FondOfOryx/Zed/ErpOrder",
       "FondOfOryx\\Zed\\ErpOrderApi\\": "bundles/erp-order-api/tests/FondOfOryx/Zed/ErpOrderApi",
