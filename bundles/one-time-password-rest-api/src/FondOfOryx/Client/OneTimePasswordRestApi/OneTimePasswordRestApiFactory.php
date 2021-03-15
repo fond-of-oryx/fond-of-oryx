@@ -2,7 +2,6 @@
 
 namespace FondOfOryx\Client\OneTimePasswordRestApi;
 
-use FondOfOryx\Client\OneTimePassword\OneTimePasswordDependencyProvider;
 use FondOfOryx\Client\OneTimePasswordRestApi\Dependency\Client\OneTimePasswordRestApiToZedRequestClientInterface;
 use FondOfOryx\Client\OneTimePasswordRestApi\Zed\OneTimePasswordRestApiStub;
 use FondOfOryx\Client\OneTimePasswordRestApi\Zed\OneTimePasswordRestApiStubInterface;
@@ -23,6 +22,6 @@ class OneTimePasswordRestApiFactory extends AbstractFactory
      */
     public function getZedRequestClient(): OneTimePasswordRestApiToZedRequestClientInterface
     {
-        return $this->getProvidedDependency(OneTimePasswordDependencyProvider::CLIENT_ZED_REQUEST);
+        return $this->getProvidedDependency(OneTimePasswordRestApiDependencyProvider::CLIENT_ZED_REQUEST);
     }
 }
