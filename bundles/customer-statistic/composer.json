@@ -9,12 +9,12 @@
     }
   ],
   "require": {
-    "php": ">=7.2",
+    "php": ">=7.3",
     "spryker/auth-rest-api-extension": "^1.0.0",
     "spryker/customer": "^6.0.0 || ^7.0.0"
   },
   "require-dev": {
-    "fond-of-codeception/spryker": "dev-master",
+    "fond-of-codeception/spryker": "^1.0",
     "spryker/code-sniffer": "^0.12"
   },
   "minimum-stability": "dev",

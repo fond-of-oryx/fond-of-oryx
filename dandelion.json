@@ -1,45 +1,72 @@
 {
     "repositories": {
+        "catalog-sku-filter": {
+            "path": "bundles/catalog-sku-filter/",
+            "version": "1.0.0"
+        },
         "customer-statistic": {
-            "url": "https://<GITHUB_TOKEN>@github.com/fond-of-oryx/customer-statistic.git",
             "path": "bundles/customer-statistic/",
             "version": "1.0.0"
         },
         "customer-statistics-rest-api": {
-            "url": "https://<GITHUB_TOKEN>@github.com/fond-of-oryx/customer-statistics-rest-api.git",
             "path": "bundles/customer-statistics-rest-api/",
             "version": "1.0.0"
         },
         "erp-order": {
-            "url": "https://<GITHUB_TOKEN>@github.com/fond-of-oryx/erp-order.git",
             "path": "bundles/erp-order/",
             "version": "alpha-0.0.1"
         },
         "erp-order-api": {
-            "url": "https://<GITHUB_TOKEN>@github.com/fond-of-oryx/erp-order-api.git",
             "path": "bundles/erp-order-api/",
             "version": "1.0.0"
         },
         "erp-order-extension": {
-            "url": "https://<GITHUB_TOKEN>@github.com/fond-of-oryx/erp-order-extension.git",
             "path": "bundles/erp-order-extension/",
             "version": "1.0.0"
         },
+        "erp-order-permission": {
+            "path": "bundles/erp-order-permission/",
+            "version": "1.0.0"
+        },
+        "erp-order-page-search": {
+            "path": "bundles/erp-order-page-search/",
+            "version": "0.0.1-alpha"
+        },
+        "erp-order-page-search-rest-api": {
+            "path": "bundles/erp-order-page-search-rest-api/",
+            "version": "0.0.1-alpha"
+        },
+        "thirty-five-up-payment-filter": {
+            "path": "bundles/thirty-five-up-payment-filter/",
+            "version": "1.0.0"
+        },
         "sales-locale-connector": {
-            "url": "https://<GITHUB_TOKEN>@github.com/fond-of-oryx/sales-locale-connector.git",
             "path": "bundles/sales-locale-connector/",
             "version": "1.0.0"
         },
+        "splittable-checkout": {
+            "path": "bundles/splittable-checkout/",
+            "version": "1.0.0"
+        },
+        "splittable-checkout-rest-api-extension": {
+            "path": "bundles/splittable-checkout-rest-api-extension/",
+            "version": "1.0.0"
+        },
         "tax-calculation-connector": {
-            "url": "https://<GITHUB_TOKEN>@github.com/fond-of-oryx/tax-calculation-connector.git",
             "path": "bundles/tax-calculation-connector/",
             "version": "1.0.0"
         },
         "mail-bcc": {
-            "url": "https://<GITHUB_TOKEN>@github.com/fond-of-oryx/mail-bcc.git",
             "path": "bundles/mail-bcc/",
             "version": "1.0.0"
         }
+    },
+    "vcs": {
+        "owner": {
+            "type": "organisation",
+            "name": "fond-of-oryx"
+        },
+        "token": "<GITHUB_TOKEN>"
     },
     "pathToTempDirectory": "/home/dandelion/project/tmp/",
     "pathToSplitshLite": "/usr/local/bin/splitsh-lite"
