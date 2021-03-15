@@ -85,8 +85,6 @@ class AddThirtyFiveUpDataToSalesOrderItemExpanderPreSavePluginTest extends Unit
     }
 
     /**
-     * @skip Needs propel
-     *
      * @return void
      */
     public function testExpandOrderItem(): void
