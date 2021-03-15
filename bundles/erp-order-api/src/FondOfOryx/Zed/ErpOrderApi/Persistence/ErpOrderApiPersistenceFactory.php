@@ -5,7 +5,7 @@ namespace FondOfOryx\Zed\ErpOrderApi\Persistence;
 use FondOfOryx\Zed\ErpOrderApi\Dependency\QueryContainer\ErpOrderApiToApiQueryBuilderQueryContainerInterface;
 use FondOfOryx\Zed\ErpOrderApi\Dependency\QueryContainer\ErpOrderApiToApiQueryContainerInterface;
 use FondOfOryx\Zed\ErpOrderApi\ErpOrderApiDependencyProvider;
-use Orm\Zed\ErpOrder\Persistence\FooErpOrderQuery;
+use Orm\Zed\ErpOrder\Persistence\ErpOrderQuery;
 use Spryker\Zed\Kernel\Persistence\AbstractPersistenceFactory;
 
 /**
@@ -17,9 +17,9 @@ use Spryker\Zed\Kernel\Persistence\AbstractPersistenceFactory;
 class ErpOrderApiPersistenceFactory extends AbstractPersistenceFactory
 {
     /**
-     * @return \Orm\Zed\ErpOrder\Persistence\FooErpOrderQuery
+     * @return \Orm\Zed\ErpOrder\Persistence\ErpOrderQuery
      */
-    public function getErpOrderQuery(): FooErpOrderQuery
+    public function getErpOrderQuery(): ErpOrderQuery
     {
         return $this->getProvidedDependency(ErpOrderApiDependencyProvider::PROPEL_QUERY_ERP_ORDER);
     }

@@ -10,7 +10,7 @@ phpcs:
 
 .PHONY: phpstan
 phpstan:
-	./vendor/bin/phpstan analyse ./bundles/*/src/
+	./vendor/bin/phpstan --memory-limit=-1 analyse ./bundles/*/src/
 
 .PHONY: codeception
 codeception:
