@@ -11,7 +11,6 @@ use Generated\Shared\Transfer\ApiRequestTransfer;
 use Generated\Shared\Transfer\PropelQueryBuilderColumnSelectionTransfer;
 use Generated\Shared\Transfer\PropelQueryBuilderColumnTransfer;
 use Orm\Zed\ErpOrder\Persistence\Map\ErpOrderTableMap;
-use Orm\Zed\ErpOrder\Persistence\Map\FooErpOrderTableMap;
 use Propel\Runtime\ActiveQuery\ModelCriteria;
 use Propel\Runtime\Map\TableMap;
 use Spryker\Zed\Kernel\Persistence\AbstractRepository;
