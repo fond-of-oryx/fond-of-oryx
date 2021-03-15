@@ -10,6 +10,7 @@ use Generated\Shared\Transfer\ErpOrderTransfer;
 use Orm\Zed\ErpOrder\Persistence\ErpOrder;
 use Orm\Zed\ErpOrder\Persistence\ErpOrderAddress;
 use Orm\Zed\ErpOrder\Persistence\ErpOrderItem;
+use Propel\Runtime\Collection\ObjectCollection;
 use Spryker\Zed\Kernel\Persistence\AbstractEntityManager;
 
 /**
@@ -181,14 +182,16 @@ class ErpOrderEntityManager extends AbstractEntityManager implements ErpOrderEnt
         $order->delete();
 
         $ordersWithBilling = $this->getFactory()->createErpOrderQuery()->filterByFkBillingAddress_In($addressIds)->find();
-        if (empty($ordersWithBilling->getData()) === true) {
+        if (!$ordersWithBilling instanceof ObjectCollection
+            || empty($ordersWithBilling->getData()) === true) {
             $this->getFactory()->createErpOrderAddressQuery()
                 ->findOneByIdErpOrderAddress($addressIds[0])
                 ->delete();
         }
 
         $ordersWithShipping = $this->getFactory()->createErpOrderQuery()->filterByFkShippingAddress_In($addressIds)->find();
-        if (empty($ordersWithShipping->getData()) === true) {
+        if (!$ordersWithShipping instanceof ObjectCollection
+            || empty($ordersWithShipping->getData()) === true) {
             $this->getFactory()->createErpOrderAddressQuery()
                 ->findOneByIdErpOrderAddress($addressIds[1])
                 ->delete();
