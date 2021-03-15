@@ -3,8 +3,8 @@
 namespace FondOfOryx\Client\OneTimePasswordRestApi\Zed;
 
 use FondOfOryx\Client\OneTimePasswordRestApi\Dependency\Client\OneTimePasswordRestApiToZedRequestClientInterface;
-use Generated\Shared\Transfer\RestOneTimePasswordResponseTransfer;
 use Generated\Shared\Transfer\RestOneTimePasswordRequestAttributesTransfer;
+use Generated\Shared\Transfer\RestOneTimePasswordResponseTransfer;
 
 class OneTimePasswordRestApiStub implements OneTimePasswordRestApiStubInterface
 {
@@ -30,7 +30,7 @@ class OneTimePasswordRestApiStub implements OneTimePasswordRestApiStubInterface
         RestOneTimePasswordRequestAttributesTransfer $restOneTimePasswordRequestAttributesTransfer
     ): RestOneTimePasswordResponseTransfer {
         /**
- * @var \Generated\Shared\Transfer\RestOneTimePasswordResponseTransfer $restOneTimePasswordResponseTransfer 
+ * @var \Generated\Shared\Transfer\RestOneTimePasswordResponseTransfer $restOneTimePasswordResponseTransfer
 */
         $restOneTimePasswordResponseTransfer = $this->zedStubClient->call('/one-time-password/gateway/request-one-time-password', $restOneTimePasswordRequestAttributesTransfer);
 

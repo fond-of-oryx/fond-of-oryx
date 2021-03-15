@@ -7,9 +7,9 @@ use Spryker\Shared\Kernel\Transfer\TransferInterface;
 interface OneTimePasswordRestApiToZedRequestClientInterface
 {
     /**
-     * @param string                                            $url
+     * @param string $url
      * @param \Spryker\Shared\Kernel\Transfer\TransferInterface $object
-     * @param array|null                                        $requestOptions
+     * @param array|null $requestOptions
      *
      * @return \Spryker\Shared\Kernel\Transfer\TransferInterface
      */
