@@ -1,13 +1,18 @@
 namespace: fond-of-oryx/fond-of-oryx
 
 include:
+  - bundles/catalog-sku-filter
   - bundles/customer-statistic
   - bundles/customer-statistics-rest-api
   - bundles/erp-order-api
   - bundles/erp-order
+  - bundles/erp-order-page-search
+  - bundles/erp-order-page-search-rest-api
+  - bundles/erp-order-permission
   - bundles/mail-bcc
   - bundles/one-time-password-rest-api
   - bundles/sales-locale-connector
+  - bundles/splittable-checkout
   - bundles/tax-calculation-connector
 
 suites:
@@ -32,3 +37,18 @@ coverage:
 modules:
   enabled:
     - \FondOfCodeception\Module\Spryker
+  config:
+    \FondOfCodeception\Module\Spryker:
+      generate_transfer: true
+      generate_map_classes: true
+      supported_source_identifiers:
+        - erp-order
+        - page
+
+env:
+  standalone:
+    modules:
+      config:
+        \FondOfCodeception\Module\Spryker:
+          generate_transfer: true
+          generate_map_classes: true
