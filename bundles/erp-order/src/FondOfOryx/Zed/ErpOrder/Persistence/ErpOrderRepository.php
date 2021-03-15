@@ -82,7 +82,7 @@ class ErpOrderRepository extends AbstractRepository implements ErpOrderRepositor
         $query = $this->getErpOrderAddressQuery();
         $address = $query->findOneByIdErpOrderAddress($idErpOrderAddress);
 
-        if (empty($address) || $address->getIdErpOrderAddress() === null) {
+        if (empty($address)) {
             return null;
         }
 
