@@ -5,7 +5,7 @@ namespace FondOfOryx\Zed\ErpOrderApi;
 use FondOfOryx\Zed\ErpOrderApi\Dependency\Facade\ErpOrderApiToErpOrderFacadeBridge;
 use FondOfOryx\Zed\ErpOrderApi\Dependency\QueryContainer\ErpOrderApiToApiQueryBuilderQueryContainerBridge;
 use FondOfOryx\Zed\ErpOrderApi\Dependency\QueryContainer\ErpOrderApiToApiQueryContainerBridge;
-use Orm\Zed\ErpOrder\Persistence\FooErpOrderQuery;
+use Orm\Zed\ErpOrder\Persistence\ErpOrderQuery;
 use Spryker\Zed\Kernel\AbstractBundleDependencyProvider;
 use Spryker\Zed\Kernel\Container;
 
@@ -91,7 +91,7 @@ class ErpOrderApiDependencyProvider extends AbstractBundleDependencyProvider
     protected function addErpOrderPropelQuery(Container $container): Container
     {
         $container[static::PROPEL_QUERY_ERP_ORDER] = static function () {
-            return FooErpOrderQuery::create();
+            return ErpOrderQuery::create();
         };
 
         return $container;

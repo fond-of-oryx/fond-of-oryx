@@ -10,7 +10,7 @@ use Generated\Shared\Transfer\ApiQueryBuilderQueryTransfer;
 use Generated\Shared\Transfer\ApiRequestTransfer;
 use Generated\Shared\Transfer\PropelQueryBuilderColumnSelectionTransfer;
 use Generated\Shared\Transfer\PropelQueryBuilderColumnTransfer;
-use Orm\Zed\ErpOrder\Persistence\Map\FooErpOrderTableMap;
+use Orm\Zed\ErpOrder\Persistence\Map\ErpOrderTableMap;
 use Propel\Runtime\ActiveQuery\ModelCriteria;
 use Propel\Runtime\Map\TableMap;
 use Spryker\Zed\Kernel\Persistence\AbstractRepository;
@@ -79,11 +79,11 @@ class ErpOrderApiRepository extends AbstractRepository implements ErpOrderApiRep
     protected function buildColumnSelection(): PropelQueryBuilderColumnSelectionTransfer
     {
         $columnSelectionTransfer = new PropelQueryBuilderColumnSelectionTransfer();
-        $tableColumns = FooErpOrderTableMap::getFieldNames(TableMap::TYPE_FIELDNAME);
+        $tableColumns = ErpOrderTableMap::getFieldNames(TableMap::TYPE_FIELDNAME);
 
         foreach ($tableColumns as $columnAlias) {
             $columnTransfer = (new PropelQueryBuilderColumnTransfer())
-                ->setName(FooErpOrderTableMap::TABLE_NAME . '.' . $columnAlias)
+                ->setName(ErpOrderTableMap::TABLE_NAME . '.' . $columnAlias)
                 ->setAlias($columnAlias);
 
             $columnSelectionTransfer->addTableColumn($columnTransfer);
