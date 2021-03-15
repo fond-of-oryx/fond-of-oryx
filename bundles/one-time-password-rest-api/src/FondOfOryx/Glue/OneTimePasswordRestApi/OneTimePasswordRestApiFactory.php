@@ -7,7 +7,7 @@ use FondOfOryx\Glue\OneTimePasswordRestApi\Processor\OneTimePasswordProcessorInt
 use Spryker\Glue\Kernel\AbstractFactory;
 
 /**
- * @method \FondOfOryx\Client\OneTimePassword\OneTimePasswordClientInterface getClient()
+ * @method \FondOfOryx\Client\OneTimePasswordRestApi\OneTimePasswordRestApiClientInterface getClient()
  */
 class OneTimePasswordRestApiFactory extends AbstractFactory
 {
@@ -16,6 +16,9 @@ class OneTimePasswordRestApiFactory extends AbstractFactory
      */
     public function createOneTimePasswordProcessor(): OneTimePasswordProcessorInterface
     {
-        return new OneTimePasswordProcessor($this->getResourceBuilder());
+        return new OneTimePasswordProcessor(
+            $this->getResourceBuilder(),
+            $this->getClient()
+        );
     }
 }

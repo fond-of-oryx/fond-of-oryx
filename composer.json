@@ -19,7 +19,7 @@
     "spryker/customer": "^6.0.0 || ^7.0.0",
     "spryker/calculation": "^4.4.1",
     "spryker/country": "^3.0.0",
-    "spryker/glue-application": "^1.21.0",
+    "spryker/glue-application": "^1.0.0",
     "spryker/locale": "^2.2.0 || ^3.0.0",
     "spryker/product": "^5.0.0 || ^6.0.0",
     "spryker/sales": "^6.0.0 || ^7.0.0 || ^8.0.0 || ^10.0.0 || ^11.0.0",
@@ -49,7 +49,9 @@
     "psr-4": {
       "FondOfOryx\\Client\\CustomerStatistic\\": "bundles/customer-statistic/src/FondOfOryx/Client/CustomerStatistic",
       "FondOfOryx\\Zed\\OneTimePassword\\": "bundles/one-time-password/src/FondOfOryx/Zed/OneTimePassword",
+      "FondOfOryx\\Client\\OneTimePassword\\": "bundles/one-time-password/tests/FondOfOryx/Client/OneTimePassword",
       "FondOfOryx\\Glue\\OneTimePasswordRestApi\\": "bundles/one-time-password-rest-api/src/FondOfOryx/Glue/OneTimePasswordRestApi",
+      "FondOfOryx\\Client\\OneTimePasswordRestApi\\": "bundles/one-time-password-rest-api/src/FondOfOryx/Client/OneTimePasswordRestApi",
       "FondOfOryx\\Shared\\SalesLocaleConnector\\": "bundles/sales-locale-connector/src/FondOfOryx/Shared/SalesLocaleConnector",
       "FondOfOryx\\Zed\\CustomerStatistic\\": "bundles/customer-statistic/src/FondOfOryx/Zed/CustomerStatistic",
       "FondOfOryx\\Zed\\ErpOrder\\": "bundles/erp-order/src/FondOfOryx/Zed/ErpOrder",
@@ -65,7 +67,9 @@
     "psr-4": {
       "FondOfOryx\\Client\\CustomerStatistic\\": "bundles/customer-statistic/tests/FondOfOryx/Client/CustomerStatistic",
       "FondOfOryx\\Zed\\OneTimePassword\\": "bundles/one-time-password/tests/FondOfOryx/Zed/OneTimePassword",
+      "FondOfOryx\\Client\\OneTimePassword\\": "bundles/one-time-password/tests/FondOfOryx/Client/OneTimePassword",
       "FondOfOryx\\Glue\\OneTimePasswordRestApi\\": "bundles/one-time-password-rest-api/tests/FondOfOryx/Glue/OneTimePasswordRestApi",
+      "FondOfOryx\\Client\\OneTimePasswordRestApi\\": "bundles/one-time-password-rest-api/src/FondOfOryx/Client/OneTimePasswordRestApi",
       "FondOfOryx\\Zed\\CustomerStatistic\\": "bundles/customer-statistic/tests/FondOfOryx/Zed/CustomerStatistic",
       "FondOfOryx\\Zed\\ErpOrder\\": "bundles/erp-order/src/FondOfOryx/Zed/ErpOrder",
       "FondOfOryx\\Zed\\ErpOrderApi\\": "bundles/erp-order-api/tests/FondOfOryx/Zed/ErpOrderApi",

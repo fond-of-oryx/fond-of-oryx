@@ -2,6 +2,7 @@
 
 namespace FondOfOryx\Glue\OneTimePasswordRestApi\Processor;
 
+use FondOfOryx\Client\OneTimePasswordRestApi\OneTimePasswordRestApiClientInterface;
 use FondOfOryx\Glue\OneTimePasswordRestApi\OneTimePasswordRestApiConfig;
 use Generated\Shared\Transfer\RestErrorMessageTransfer;
 use Generated\Shared\Transfer\RestOneTimePasswordRequestAttributesTransfer;
@@ -17,11 +18,20 @@ class OneTimePasswordProcessor implements OneTimePasswordProcessorInterface
     protected $restResourceBuilder;
 
     /**
-     * @param \Spryker\Glue\GlueApplication\Rest\JsonApi\RestResourceBuilderInterface $restResourceBuilder
+     * @var \FondOfOryx\Client\OneTimePasswordRestApi\OneTimePasswordRestApiClientInterface
      */
-    public function __construct(RestResourceBuilderInterface $restResourceBuilder)
-    {
+    protected $oneTimePasswordClient;
+
+    /**
+     * @param \Spryker\Glue\GlueApplication\Rest\JsonApi\RestResourceBuilderInterface $restResourceBuilder
+     * @param \FondOfOryx\Client\OneTimePasswordRestApi\OneTimePasswordRestApiClientInterface $oneTimePasswordClient
+     */
+    public function __construct(
+        RestResourceBuilderInterface $restResourceBuilder,
+        OneTimePasswordRestApiClientInterface $oneTimePasswordClient
+    ) {
         $this->restResourceBuilder = $restResourceBuilder;
+        $this->oneTimePasswordClient = $oneTimePasswordClient;
     }
 
     /**
@@ -37,6 +47,10 @@ class OneTimePasswordProcessor implements OneTimePasswordProcessorInterface
         if (!$restOneTimePasswordRequestAttributesTransfer->getEmail()) {
             return $this->createEmailRequiredError();
         }
+
+        $RestOneTimePasswordResponseTransfer = $this->oneTimePasswordClient->requestOneTimePassword(
+            $restOneTimePasswordRequestAttributesTransfer
+        );
 
         return $this->restResourceBuilder
             ->createRestResponse()

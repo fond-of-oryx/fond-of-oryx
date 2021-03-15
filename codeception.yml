@@ -6,6 +6,7 @@ include:
   - bundles/erp-order-api
   - bundles/erp-order
   - bundles/mail-bcc
+  - bundles/one-time-password-rest-api
   - bundles/sales-locale-connector
   - bundles/tax-calculation-connector
 
