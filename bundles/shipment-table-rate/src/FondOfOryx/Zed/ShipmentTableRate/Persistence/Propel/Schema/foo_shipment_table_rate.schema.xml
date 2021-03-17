@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<database xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" name="zed"
+          xsi:noNamespaceSchemaLocation="http://xsd.propelorm.org/1.6/database.xsd"
+          namespace="Orm\Zed\ShipmentTableRate\Persistence" package="src.Orm.Zed.ShipmentTableRate.Persistence">
+
+    <table name="foo_shipment_table_rate" idMethod="native" allowPkInsert="true" phpName="FooShipmentTableRate">
+        <column name="id_shipment_table_rate" required="true" type="INTEGER" autoIncrement="true" primaryKey="true"/>
+        <column name="min_price_to_pay" required="true" type="INTEGER" defaultValue="0"/>
+        <column name="price" required="true" type="INTEGER" defaultValue="0"/>
+        <column name="fk_country" type="INTEGER" required="true"/>
+        <column name="zip_code_pattern" type="VARCHAR" size="255" required="false"/>
+        <column name="fk_store" type="INTEGER" required="true"/>
+
+        <foreign-key name="foo_shipment_table_rate-fk_country" foreignTable="spy_country" phpName="Country" refPhpName="FooShipmentTableRate">
+            <reference local="fk_country" foreign="id_country"/>
+        </foreign-key>
+
+        <foreign-key name="foo_shipment_table_rate-fk_store" foreignTable="spy_store" phpName="Store" refPhpName="FooShipmentTableRate">
+            <reference local="fk_store" foreign="id_store"/>
+        </foreign-key>
+
+        <id-method-parameter value="foo_shipment_table_rate_pk_seq"/>
+    </table>
+
+</database>
