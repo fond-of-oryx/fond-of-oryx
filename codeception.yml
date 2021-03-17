@@ -12,6 +12,7 @@ include:
   - bundles/mail-bcc
   - bundles/one-time-password-rest-api
   - bundles/sales-locale-connector
+  - bundles/shipment-table-rate
   - bundles/splittable-checkout
   - bundles/tax-calculation-connector
   - bundles/thirty-five-up
