@@ -10,6 +10,7 @@ include:
   - bundles/erp-order-page-search-rest-api
   - bundles/erp-order-permission
   - bundles/mail-bcc
+  - bundles/one-time-password-rest-api
   - bundles/sales-locale-connector
   - bundles/shipment-table-rate
   - bundles/splittable-checkout

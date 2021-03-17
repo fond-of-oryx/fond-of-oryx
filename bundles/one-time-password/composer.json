@@ -1,0 +1,27 @@
+{
+  "name": "fond-of-oryx/one-time-password",
+  "description": "Spryker One Time Password Module.",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Daniel Kemna",
+      "email": "danielkemna@t-online.de"
+    }
+  ],
+  "require": {
+    "php": ">=7.3"
+  },
+  "minimum-stability": "dev",
+  "prefer-stable": true,
+  "autoload": {
+    "psr-4": {
+      "FondOfOryx\\": "src/FondOfOryx/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "FondOfOryx\\": "tests/FondOfOryx/",
+      "Generated\\": "src/Generated/"
+    }
+  }
+}
