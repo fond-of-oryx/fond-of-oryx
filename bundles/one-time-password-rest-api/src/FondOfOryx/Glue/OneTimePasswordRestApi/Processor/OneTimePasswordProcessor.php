@@ -19,7 +19,7 @@ class OneTimePasswordProcessor implements OneTimePasswordProcessorInterface
     protected $restResourceBuilder;
 
     /**
-     * @var \FondOfOryx\Zed\OneTimePassword\Business\OneTimePasswordFacadeInterface
+     * @var \FondOfOryx\Client\OneTimePasswordRestApi\OneTimePasswordRestApiClientInterface
      */
     protected $oneTimePasswordRestApiClient;
 
