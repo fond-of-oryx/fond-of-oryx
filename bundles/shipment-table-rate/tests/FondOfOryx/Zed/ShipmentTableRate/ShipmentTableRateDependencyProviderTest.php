@@ -3,8 +3,10 @@
 namespace FondOfOryx\Zed\ShipmentTableRate;
 
 use Codeception\Test\Unit;
+use FondOfOryx\Service\UtilMathFormula\UtilMathFormulaServiceInterface;
 use FondOfOryx\Zed\ShipmentTableRate\Dependency\Facade\ShipmentTableRateToCountryFacadeBridge;
 use FondOfOryx\Zed\ShipmentTableRate\Dependency\Facade\ShipmentTableRateToStoreFacadeBridge;
+use FondOfOryx\Zed\ShipmentTableRate\Dependency\Service\ShipmentTableRateToUtilMathFormulaServiceBridge;
 use Spryker\Shared\Kernel\BundleProxy;
 use Spryker\Zed\Country\Business\CountryFacadeInterface;
 use Spryker\Zed\Kernel\Container;
@@ -39,6 +41,11 @@ class ShipmentTableRateDependencyProviderTest extends Unit
     protected $countryFacadeMock;
 
     /**
+     * @var \FondOfOryx\Service\UtilMathFormula\UtilMathFormulaServiceInterface|\PHPUnit\Framework\MockObject\MockObject
+     */
+    protected $utilMathFormulaServiceMock;
+
+    /**
      * @var \FondOfOryx\Zed\ShipmentTableRate\ShipmentTableRateDependencyProvider
      */
     protected $shipmentTableRateDependencyProvider;
@@ -68,6 +75,10 @@ class ShipmentTableRateDependencyProviderTest extends Unit
             ->disableOriginalConstructor()
             ->getMock();
 
+        $this->utilMathFormulaServiceMock = $this->getMockBuilder(UtilMathFormulaServiceInterface::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
         $this->shipmentTableRateDependencyProvider = new ShipmentTableRateDependencyProvider();
     }
 
@@ -76,37 +87,40 @@ class ShipmentTableRateDependencyProviderTest extends Unit
      */
     public function testProvideBusinessLayerDependencies(): void
     {
-        $this->containerMock->expects($this->atLeastOnce())
+        $this->containerMock->expects(static::atLeastOnce())
             ->method('getLocator')
             ->willReturn($this->locatorMock);
 
-        $this->locatorMock->expects($this->atLeastOnce())
+        $this->locatorMock->expects(static::atLeastOnce())
             ->method('__call')
             ->withConsecutive(['country'], ['store'])
             ->willReturn($this->bundleProxyMock);
 
-        $this->bundleProxyMock->expects($this->atLeastOnce())
+        $this->bundleProxyMock->expects(static::atLeastOnce())
             ->method('__call')
-            ->with('facade')
+            ->withConsecutive(['facade'], ['facade'], ['service'])
             ->willReturnOnConsecutiveCalls(
                 $this->countryFacadeMock,
-                $this->storeFacadeMock
+                $this->storeFacadeMock,
+                $this->utilMathFormulaServiceMock
             );
 
         $container = $this->shipmentTableRateDependencyProvider->provideBusinessLayerDependencies(
             $this->containerMock
         );
 
-        $this->assertEquals($this->containerMock, $container);
-        $this->assertInstanceOf(
+        static::assertEquals($this->containerMock, $container);
+        static::assertInstanceOf(
             ShipmentTableRateToCountryFacadeBridge::class,
             $container[ShipmentTableRateDependencyProvider::FACADE_COUNTRY]
         );
-
-        $this->assertEquals($this->containerMock, $container);
-        $this->assertInstanceOf(
+        static::assertInstanceOf(
             ShipmentTableRateToStoreFacadeBridge::class,
             $container[ShipmentTableRateDependencyProvider::FACADE_STORE]
+        );
+        static::assertInstanceOf(
+            ShipmentTableRateToUtilMathFormulaServiceBridge::class,
+            $container[ShipmentTableRateDependencyProvider::SERVICE_UTIL_MATH_FORMULA]
         );
     }
 }

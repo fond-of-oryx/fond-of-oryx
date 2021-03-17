@@ -9,10 +9,11 @@
     <transfer name="ShipmentTableRate">
         <property name="idShipmentTableRate" type="int"/>
         <property name="minPriceToPay" type="int"/>
-        <property name="price" type="int"/>
+        <property name="maxPriceToPay" type="int"/>
+        <property name="formula" type="string"/>
+        <property name="zipCodePattern" type="string"/>
         <property name="fkCountry" type="int"/>
         <property name="fkStore" type="int"/>
-        <property name="zipCodePattern" type="string"/>
     </transfer>
 
     <transfer name="ShipmentTableRateCriteriaFilter">

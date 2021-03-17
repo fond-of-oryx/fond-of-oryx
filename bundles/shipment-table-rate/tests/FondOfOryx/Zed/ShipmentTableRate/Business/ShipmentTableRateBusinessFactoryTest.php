@@ -6,6 +6,7 @@ use Codeception\Test\Unit;
 use FondOfOryx\Zed\ShipmentTableRate\Business\Model\PriceCalculator;
 use FondOfOryx\Zed\ShipmentTableRate\Dependency\Facade\ShipmentTableRateToCountryFacadeInterface;
 use FondOfOryx\Zed\ShipmentTableRate\Dependency\Facade\ShipmentTableRateToStoreFacadeInterface;
+use FondOfOryx\Zed\ShipmentTableRate\Dependency\Service\ShipmentTableRateToUtilMathFormulaServiceInterface;
 use FondOfOryx\Zed\ShipmentTableRate\Persistence\ShipmentTableRateRepository;
 use FondOfOryx\Zed\ShipmentTableRate\ShipmentTableRateConfig;
 use FondOfOryx\Zed\ShipmentTableRate\ShipmentTableRateDependencyProvider;
@@ -39,6 +40,11 @@ class ShipmentTableRateBusinessFactoryTest extends Unit
     protected $countryFacadeMock;
 
     /**
+     * @var \FondOfOryx\Zed\ShipmentTableRate\Dependency\Service\ShipmentTableRateToUtilMathFormulaServiceInterface|\PHPUnit\Framework\MockObject\MockObject
+     */
+    protected $utilMathFormulaServiceMock;
+
+    /**
      * @var \FondOfOryx\Zed\ShipmentTableRate\Business\ShipmentTableRateBusinessFactory
      */
     protected $shipmentTableRateBusinessFactory;
@@ -68,6 +74,10 @@ class ShipmentTableRateBusinessFactoryTest extends Unit
             ->disableOriginalConstructor()
             ->getMock();
 
+        $this->utilMathFormulaServiceMock = $this->getMockBuilder(ShipmentTableRateToUtilMathFormulaServiceInterface::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
         $this->shipmentTableRateBusinessFactory = new ShipmentTableRateBusinessFactory();
         $this->shipmentTableRateBusinessFactory->setRepository($this->shipmentTableRateRepositoryMock);
         $this->shipmentTableRateBusinessFactory->setContainer($this->containerMock);
@@ -79,21 +89,23 @@ class ShipmentTableRateBusinessFactoryTest extends Unit
      */
     public function testCreatePriceCalculator(): void
     {
-        $this->containerMock->expects($this->atLeastOnce())
+        $this->containerMock->expects(static::atLeastOnce())
             ->method('has')
             ->willReturn(true);
 
-        $this->containerMock->expects($this->atLeastOnce())
+        $this->containerMock->expects(static::atLeastOnce())
             ->method('get')
             ->withConsecutive(
                 [ShipmentTableRateDependencyProvider::FACADE_COUNTRY],
-                [ShipmentTableRateDependencyProvider::FACADE_STORE]
+                [ShipmentTableRateDependencyProvider::FACADE_STORE],
+                [ShipmentTableRateDependencyProvider::SERVICE_UTIL_MATH_FORMULA]
             )->willReturnOnConsecutiveCalls(
                 $this->countryFacadeMock,
-                $this->storeFacadeMock
+                $this->storeFacadeMock,
+                $this->utilMathFormulaServiceMock
             );
 
-        $this->assertInstanceOf(
+        static::assertInstanceOf(
             PriceCalculator::class,
             $this->shipmentTableRateBusinessFactory->createPriceCalculator()
         );

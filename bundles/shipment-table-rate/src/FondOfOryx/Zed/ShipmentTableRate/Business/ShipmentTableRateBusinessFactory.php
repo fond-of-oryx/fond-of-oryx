@@ -6,10 +6,13 @@ use FondOfOryx\Zed\ShipmentTableRate\Business\Model\PriceCalculator;
 use FondOfOryx\Zed\ShipmentTableRate\Business\Model\PriceCalculatorInterface;
 use FondOfOryx\Zed\ShipmentTableRate\Business\Model\ShipmentTableRateReader;
 use FondOfOryx\Zed\ShipmentTableRate\Business\Model\ShipmentTableRateReaderInterface;
+use FondOfOryx\Zed\ShipmentTableRate\Business\Model\VariableExtractor;
+use FondOfOryx\Zed\ShipmentTableRate\Business\Model\VariableExtractorInterface;
 use FondOfOryx\Zed\ShipmentTableRate\Business\Model\ZipCodePatternsGenerator;
 use FondOfOryx\Zed\ShipmentTableRate\Business\Model\ZipCodePatternsGeneratorInterface;
 use FondOfOryx\Zed\ShipmentTableRate\Dependency\Facade\ShipmentTableRateToCountryFacadeInterface;
 use FondOfOryx\Zed\ShipmentTableRate\Dependency\Facade\ShipmentTableRateToStoreFacadeInterface;
+use FondOfOryx\Zed\ShipmentTableRate\Dependency\Service\ShipmentTableRateToUtilMathFormulaServiceInterface;
 use FondOfOryx\Zed\ShipmentTableRate\ShipmentTableRateDependencyProvider;
 use Spryker\Zed\Kernel\Business\AbstractBusinessFactory;
 
@@ -26,7 +29,9 @@ class ShipmentTableRateBusinessFactory extends AbstractBusinessFactory
     {
         return new PriceCalculator(
             $this->createShipmentTableRateReader(),
-            $this->getConfig()
+            $this->getConfig(),
+            $this->getUtilMathFormulaService(),
+            $this->createVariableExtractor()
         );
     }
 
@@ -65,5 +70,21 @@ class ShipmentTableRateBusinessFactory extends AbstractBusinessFactory
     protected function getStoreFacade(): ShipmentTableRateToStoreFacadeInterface
     {
         return $this->getProvidedDependency(ShipmentTableRateDependencyProvider::FACADE_STORE);
+    }
+
+    /**
+     * @return \FondOfOryx\Zed\ShipmentTableRate\Dependency\Service\ShipmentTableRateToUtilMathFormulaServiceInterface
+     */
+    protected function getUtilMathFormulaService(): ShipmentTableRateToUtilMathFormulaServiceInterface
+    {
+        return $this->getProvidedDependency(ShipmentTableRateDependencyProvider::SERVICE_UTIL_MATH_FORMULA);
+    }
+
+    /**
+     * @return \FondOfOryx\Zed\ShipmentTableRate\Business\Model\VariableExtractorInterface
+     */
+    protected function createVariableExtractor(): VariableExtractorInterface
+    {
+        return new VariableExtractor();
     }
 }
