@@ -2,8 +2,8 @@
 
 namespace FondOfOryx\Client\OneTimePasswordRestApi;
 
-use Generated\Shared\Transfer\RestOneTimePasswordRequestAttributesTransfer;
 use Generated\Shared\Transfer\RestOneTimePasswordResponseTransfer;
+use Generated\Shared\Transfer\RestOneTimePasswordRequestAttributesTransfer;
 use Spryker\Client\Kernel\AbstractClient;
 
 /**
@@ -20,7 +20,7 @@ class OneTimePasswordRestApiClient extends AbstractClient implements OneTimePass
         RestOneTimePasswordRequestAttributesTransfer $restOneTimePasswordRequestAttributesTransfer
     ): RestOneTimePasswordResponseTransfer {
         return $this->getFactory()
-            ->createOneTimePasswordRestApiZedStub()
+            ->createOneTimePasswordZedStub()
             ->requestOneTimePassword($restOneTimePasswordRequestAttributesTransfer);
     }
 }

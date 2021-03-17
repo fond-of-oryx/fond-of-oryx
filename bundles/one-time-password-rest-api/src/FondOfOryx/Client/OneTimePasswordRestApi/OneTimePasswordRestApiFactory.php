@@ -12,7 +12,7 @@ class OneTimePasswordRestApiFactory extends AbstractFactory
     /**
      * @return \FondOfOryx\Client\OneTimePasswordRestApi\Zed\OneTimePasswordRestApiStubInterface
      */
-    public function createOneTimePasswordRestApiZedStub(): OneTimePasswordRestApiStubInterface
+    public function createOneTimePasswordZedStub(): OneTimePasswordRestApiStubInterface
     {
         return new OneTimePasswordRestApiStub($this->getZedRequestClient());
     }

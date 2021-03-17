@@ -2,8 +2,8 @@
 
 namespace FondOfOryx\Client\OneTimePasswordRestApi\Zed;
 
-use Generated\Shared\Transfer\RestOneTimePasswordRequestAttributesTransfer;
 use Generated\Shared\Transfer\RestOneTimePasswordResponseTransfer;
+use Generated\Shared\Transfer\RestOneTimePasswordRequestAttributesTransfer;
 
 interface OneTimePasswordRestApiStubInterface
 {

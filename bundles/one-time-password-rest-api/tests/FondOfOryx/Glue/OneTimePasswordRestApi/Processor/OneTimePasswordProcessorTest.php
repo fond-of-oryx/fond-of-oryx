@@ -4,11 +4,12 @@ namespace FondOfOryx\Glue\OneTimePasswordRestApi\Processor;
 
 use Codeception\Test\Unit;
 use FondOfOryx\Client\OneTimePasswordRestApi\OneTimePasswordRestApiClientInterface;
-use Generated\Shared\Transfer\RestOneTimePasswordRequestAttributesTransfer;
 use Generated\Shared\Transfer\RestOneTimePasswordResponseTransfer;
+use Generated\Shared\Transfer\RestOneTimePasswordRequestAttributesTransfer;
 use Spryker\Glue\GlueApplication\Rest\JsonApi\RestResourceBuilderInterface;
 use Spryker\Glue\GlueApplication\Rest\JsonApi\RestResponseInterface;
 use Spryker\Glue\GlueApplication\Rest\Request\Data\RestRequestInterface;
+use Symfony\Component\HttpFoundation\Response;
 
 class OneTimePasswordProcessorTest extends Unit
 {
@@ -109,7 +110,7 @@ class OneTimePasswordProcessorTest extends Unit
 
         $this->restResponseMock->expects($this->atLeastOnce())
             ->method('setStatus')
-            ->with(204)
+            ->with(Response::HTTP_NO_CONTENT)
             ->willReturnSelf();
 
         $this->assertSame(

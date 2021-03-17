@@ -3,22 +3,22 @@
 namespace FondOfOryx\Client\OneTimePasswordRestApi\Zed;
 
 use FondOfOryx\Client\OneTimePasswordRestApi\Dependency\Client\OneTimePasswordRestApiToZedRequestClientInterface;
-use Generated\Shared\Transfer\RestOneTimePasswordRequestAttributesTransfer;
 use Generated\Shared\Transfer\RestOneTimePasswordResponseTransfer;
+use Generated\Shared\Transfer\RestOneTimePasswordRequestAttributesTransfer;
 
 class OneTimePasswordRestApiStub implements OneTimePasswordRestApiStubInterface
 {
     /**
      * @var \FondOfOryx\Client\OneTimePasswordRestApi\Dependency\Client\OneTimePasswordRestApiToZedRequestClientInterface
      */
-    protected $zedStubClient;
+    protected $zedStub;
 
     /**
-     * @param \FondOfOryx\Client\OneTimePasswordRestApi\Dependency\Client\OneTimePasswordRestApiToZedRequestClientInterface $zedStubClient
+     * @param \FondOfOryx\Client\OneTimePasswordRestApi\Dependency\Client\OneTimePasswordRestApiToZedRequestClientInterface $zedStub
      */
-    public function __construct(OneTimePasswordRestApiToZedRequestClientInterface $zedStubClient)
+    public function __construct(OneTimePasswordRestApiToZedRequestClientInterface $zedStub)
     {
-        $this->zedStubClient = $zedStubClient;
+        $this->zedStub = $zedStub;
     }
 
     /**
@@ -29,10 +29,11 @@ class OneTimePasswordRestApiStub implements OneTimePasswordRestApiStubInterface
     public function requestOneTimePassword(
         RestOneTimePasswordRequestAttributesTransfer $restOneTimePasswordRequestAttributesTransfer
     ): RestOneTimePasswordResponseTransfer {
-        /**
- * @var \Generated\Shared\Transfer\RestOneTimePasswordResponseTransfer $restOneTimePasswordResponseTransfer
-*/
-        $restOneTimePasswordResponseTransfer = $this->zedStubClient->call('/one-time-password/gateway/request-one-time-password', $restOneTimePasswordRequestAttributesTransfer);
+        /** @var RestOneTimePasswordResponseTransfer $restOneTimePasswordResponseTransfer */
+        $restOneTimePasswordResponseTransfer = $this->zedStub->call(
+            '/one-time-password-rest-api/gateway/request-one-time-password',
+            $restOneTimePasswordRequestAttributesTransfer
+        );
 
         return $restOneTimePasswordResponseTransfer;
     }

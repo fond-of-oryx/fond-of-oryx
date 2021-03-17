@@ -9,6 +9,7 @@ use Generated\Shared\Transfer\RestOneTimePasswordRequestAttributesTransfer;
 use Spryker\Glue\GlueApplication\Rest\JsonApi\RestResourceBuilderInterface;
 use Spryker\Glue\GlueApplication\Rest\JsonApi\RestResponseInterface;
 use Spryker\Glue\GlueApplication\Rest\Request\Data\RestRequestInterface;
+use Symfony\Component\HttpFoundation\Response;
 
 class OneTimePasswordProcessor implements OneTimePasswordProcessorInterface
 {
@@ -18,20 +19,20 @@ class OneTimePasswordProcessor implements OneTimePasswordProcessorInterface
     protected $restResourceBuilder;
 
     /**
-     * @var \FondOfOryx\Client\OneTimePasswordRestApi\OneTimePasswordRestApiClientInterface
+     * @var \FondOfOryx\Zed\OneTimePassword\Business\OneTimePasswordFacadeInterface
      */
-    protected $oneTimePasswordClient;
+    protected $oneTimePasswordRestApiClient;
 
     /**
      * @param \Spryker\Glue\GlueApplication\Rest\JsonApi\RestResourceBuilderInterface $restResourceBuilder
-     * @param \FondOfOryx\Client\OneTimePasswordRestApi\OneTimePasswordRestApiClientInterface $oneTimePasswordClient
+     * @param \FondOfOryx\Client\OneTimePasswordRestApi\OneTimePasswordRestApiClientInterface $oneTimePasswordRestApiClient
      */
     public function __construct(
         RestResourceBuilderInterface $restResourceBuilder,
-        OneTimePasswordRestApiClientInterface $oneTimePasswordClient
+        OneTimePasswordRestApiClientInterface $oneTimePasswordRestApiClient
     ) {
         $this->restResourceBuilder = $restResourceBuilder;
-        $this->oneTimePasswordClient = $oneTimePasswordClient;
+        $this->oneTimePasswordRestApiClient = $oneTimePasswordRestApiClient;
     }
 
     /**
@@ -48,13 +49,14 @@ class OneTimePasswordProcessor implements OneTimePasswordProcessorInterface
             return $this->createEmailRequiredError();
         }
 
-        $RestOneTimePasswordResponseTransfer = $this->oneTimePasswordClient->requestOneTimePassword(
+        //Ignore response success because security reasons (can check for email is in system)
+        $restOneTimePasswordResponseTransfer = $this->oneTimePasswordRestApiClient->requestOneTimePassword(
             $restOneTimePasswordRequestAttributesTransfer
         );
 
         return $this->restResourceBuilder
             ->createRestResponse()
-            ->setStatus(204);
+            ->setStatus(Response::HTTP_NO_CONTENT);
     }
 
     /**
@@ -64,7 +66,7 @@ class OneTimePasswordProcessor implements OneTimePasswordProcessorInterface
     {
         $restErrorMessageTransfer = new RestErrorMessageTransfer();
 
-        $restErrorMessageTransfer->setStatus(400)
+        $restErrorMessageTransfer->setStatus(Response::HTTP_BAD_REQUEST)
             ->setCode(OneTimePasswordRestApiConfig::EMAIL_REQUIRED_ERROR_CODE)
             ->setDetail(OneTimePasswordRestApiConfig::EMAIL_REQUIRED_ERROR_DETAIL);
 

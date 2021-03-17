@@ -6,6 +6,9 @@ use Spryker\Glue\Kernel\AbstractBundleConfig;
 
 class OneTimePasswordRestApiConfig extends AbstractBundleConfig
 {
+    public const SUCCESS_STATUS_CODE = 204;
+    public const ERROR_VALIDATION_STATUS_CODE = 400;
+
     public const RESOURCE_ONE_TIME_PASSWORD = 'one-time-password';
     public const CONTROLLER_ONE_TIME_PASSWORD = 'one-time-password-resource';
 

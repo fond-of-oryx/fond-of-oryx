@@ -18,6 +18,7 @@ class OneTimePasswordRestApiDependencyProvider extends AbstractDependencyProvide
     public function provideServiceLayerDependencies(Container $container): Container
     {
         $container = parent::provideServiceLayerDependencies($container);
+
         $container = $this->addZedRequestClient($container);
 
         return $container;
@@ -30,12 +31,9 @@ class OneTimePasswordRestApiDependencyProvider extends AbstractDependencyProvide
      */
     protected function addZedRequestClient(Container $container): Container
     {
-        $container->set(
-            static::CLIENT_ZED_REQUEST,
-            function (Container $container) {
-                return new OneTimePasswordRestApiToZedRequestClientBridge($container->getLocator()->zedRequest()->client());
-            }
-        );
+        $container[self::CLIENT_ZED_REQUEST] = static function (Container $container) {
+            return new OneTimePasswordRestApiToZedRequestClientBridge($container->getLocator()->zedRequest()->client());
+        };
 
         return $container;
     }
