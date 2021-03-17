@@ -4,8 +4,8 @@ namespace FondOfOryx\Glue\OneTimePasswordRestApi\Processor;
 
 use Codeception\Test\Unit;
 use FondOfOryx\Client\OneTimePasswordRestApi\OneTimePasswordRestApiClientInterface;
-use Generated\Shared\Transfer\RestOneTimePasswordResponseTransfer;
 use Generated\Shared\Transfer\RestOneTimePasswordRequestAttributesTransfer;
+use Generated\Shared\Transfer\RestOneTimePasswordResponseTransfer;
 use Spryker\Glue\GlueApplication\Rest\JsonApi\RestResourceBuilderInterface;
 use Spryker\Glue\GlueApplication\Rest\JsonApi\RestResponseInterface;
 use Spryker\Glue\GlueApplication\Rest\Request\Data\RestRequestInterface;

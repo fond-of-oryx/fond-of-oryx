@@ -4,7 +4,6 @@ namespace FondOfOryx\Glue\OneTimePasswordRestApi;
 
 use FondOfOryx\Glue\OneTimePasswordRestApi\Processor\OneTimePasswordProcessor;
 use FondOfOryx\Glue\OneTimePasswordRestApi\Processor\OneTimePasswordProcessorInterface;
-use FondOfOryx\Zed\OneTimePassword\Business\OneTimePasswordFacadeInterface;
 use Spryker\Glue\Kernel\AbstractFactory;
 
 /**
