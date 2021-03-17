@@ -67,6 +67,10 @@
         "thirty-five-up-payment-filter": {
             "path": "bundles/thirty-five-up-payment-filter/",
             "version": "1.0.0"
+        },
+        "util-math-formula": {
+            "path": "bundles/util-math-formula/",
+            "version": "1.0.0"
         }
     },
     "vcs": {
