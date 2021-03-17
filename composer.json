@@ -67,6 +67,8 @@
     "fond-of-oryx/splittable-checkout": "*",
     "fond-of-oryx/splittable-checkout-rest-api-extension": "*",
     "fond-of-oryx/tax-calculation-connector": "*",
+    "fond-of-oryx/one-time-password": "*",
+    "fond-of-oryx/one-time-password-rest-api": "*",
     "fond-of-oryx/thirty-five-up": "*",
     "fond-of-oryx/thirty-five-up-payment-filter": "*"
   },
@@ -76,6 +78,10 @@
     "psr-4": {
       "FondOfOryx\\Client\\CatalogSkuFilter\\": "bundles/catalog-sku-filter/src/FondOfOryx/Client/CatalogSkuFilter",
       "FondOfOryx\\Client\\CustomerStatistic\\": "bundles/customer-statistic/src/FondOfOryx/Client/CustomerStatistic",
+      "FondOfOryx\\Zed\\OneTimePassword\\": "bundles/one-time-password/src/FondOfOryx/Zed/OneTimePassword",
+      "FondOfOryx\\Client\\OneTimePassword\\": "bundles/one-time-password/src/FondOfOryx/Client/OneTimePassword",
+      "FondOfOryx\\Glue\\OneTimePasswordRestApi\\": "bundles/one-time-password-rest-api/src/FondOfOryx/Glue/OneTimePasswordRestApi",
+      "FondOfOryx\\Client\\OneTimePasswordRestApi\\": "bundles/one-time-password-rest-api/src/FondOfOryx/Client/OneTimePasswordRestApi",
       "FondOfOryx\\Client\\ErpOrderPageSearch\\": "bundles/erp-order-page-search/src/FondOfOryx/Client/ErpOrderPageSearch",
       "FondOfOryx\\Client\\ErpOrderPermission\\": "bundles/erp-order-permission/src/FondOfOryx/Client/ErpOrderPermission",
       "FondOfOryx\\Glue\\ErpOrderPageSearchRestApi\\": "bundles/erp-order-page-search-rest-api/src/FondOfOryx/Glue/ErpOrderPageSearchRestApi",
@@ -107,6 +113,10 @@
     "psr-4": {
       "FondOfOryx\\Client\\CatalogSkuFilter\\": "bundles/catalog-sku-filter/tests/FondOfOryx/Client/CatalogSkuFilter",
       "FondOfOryx\\Client\\CustomerStatistic\\": "bundles/customer-statistic/tests/FondOfOryx/Client/CustomerStatistic",
+      "FondOfOryx\\Zed\\OneTimePassword\\": "bundles/one-time-password/tests/FondOfOryx/Zed/OneTimePassword",
+      "FondOfOryx\\Client\\OneTimePassword\\": "bundles/one-time-password/tests/FondOfOryx/Client/OneTimePassword",
+      "FondOfOryx\\Glue\\OneTimePasswordRestApi\\": "bundles/one-time-password-rest-api/tests/FondOfOryx/Glue/OneTimePasswordRestApi",
+      "FondOfOryx\\Client\\OneTimePasswordRestApi\\": "bundles/one-time-password-rest-api/tests/FondOfOryx/Client/OneTimePasswordRestApi",
       "FondOfOryx\\Client\\ErpOrderPageSearch\\": "bundles/erp-order-page-search/src/FondOfOryx/Client/ErpOrderPageSearch",
       "FondOfOryx\\Client\\ErpOrderPermission\\": "bundles/erp-order-permission/src/FondOfOryx/Client/ErpOrderPermission",
       "FondOfOryx\\Glue\\ErpOrderPageSearchRestApi\\": "bundles/erp-order-page-search-rest-api/src/FondOfOryx/Glue/ErpOrderPageSearchRestApi",
