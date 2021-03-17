@@ -1,0 +1,28 @@
+{
+  "name": "fond-of-oryx/one-time-password-rest-api",
+  "description": "Spryker One Time Password Rest Api Module.",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Daniel Kemna",
+      "email": "danielkemna@t-online.de"
+    }
+  ],
+  "require": {
+    "php": ">=7.3",
+    "spryker/glue-application": "^1.0.0"
+  },
+  "minimum-stability": "dev",
+  "prefer-stable": true,
+  "autoload": {
+    "psr-4": {
+      "FondOfOryx\\": "src/FondOfOryx/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "FondOfOryx\\": "tests/FondOfOryx/",
+      "Generated\\": "src/Generated/"
+    }
+  }
+}
