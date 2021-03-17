@@ -16,6 +16,7 @@ include:
   - bundles/splittable-checkout
   - bundles/tax-calculation-connector
   - bundles/thirty-five-up
+  - bundles/util-math-formula
 
 suites:
   unit:

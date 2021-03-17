@@ -14,8 +14,9 @@
   ],
   "require": {
     "php": ">=7.3",
-
+    "ext-json": "*",
     "fond-of-spryker/country": "dev-spryker_upgrade || dev-feature/paypal-refund",
+    "mossadal/math-parser": "^1.3.0",
     "spryker/api": "^0.1.0 || ^0.2.0 || ^0.3.0",
     "spryker/api-query-builder": "^0.1.0",
     "spryker/auth-rest-api-extension": "^1.0.0",
@@ -86,6 +87,7 @@
       "FondOfOryx\\Client\\ErpOrderPermission\\": "bundles/erp-order-permission/src/FondOfOryx/Client/ErpOrderPermission",
       "FondOfOryx\\Glue\\ErpOrderPageSearchRestApi\\": "bundles/erp-order-page-search-rest-api/src/FondOfOryx/Glue/ErpOrderPageSearchRestApi",
       "FondOfOryx\\Glue\\SplittableCheckoutRestApiExtension\\": "bundles/splittable-checkout-rest-api-extension/src/FondOfOryx/Glue/SplittableCheckoutRestApiExtension",
+      "FondOfOryx\\Service\\UtilMathFormula\\": "bundles/util-math-formula/src/FondOfOryx/Service/UtilMathFormula",
       "FondOfOryx\\Shared\\CatalogSkuFilter\\": "bundles/catalog-sku-filter/src/FondOfOryx/Shared/CatalogSkuFilter",
       "FondOfOryx\\Shared\\ErpOrder\\": "bundles/erp-order/src/FondOfOryx/Shared/ErpOrder",
       "FondOfOryx\\Shared\\ErpOrderPageSearch\\": "bundles/erp-order-page-search/src/FondOfOryx/Shared/ErpOrderPageSearch",
@@ -121,6 +123,7 @@
       "FondOfOryx\\Client\\ErpOrderPermission\\": "bundles/erp-order-permission/src/FondOfOryx/Client/ErpOrderPermission",
       "FondOfOryx\\Glue\\ErpOrderPageSearchRestApi\\": "bundles/erp-order-page-search-rest-api/src/FondOfOryx/Glue/ErpOrderPageSearchRestApi",
       "FondOfOryx\\Glue\\SplittableCheckoutRestApiExtension\\": "bundles/splittable-checkout-rest-api-extension/src/FondOfOryx/Glue/SplittableCheckoutRestApiExtension",
+      "FondOfOryx\\Service\\UtilMathFormula\\": "bundles/util-math-formula/tests/FondOfOryx/Service/UtilMathFormula",
       "FondOfOryx\\Shared\\CatalogSkuFilter\\": "bundles/catalog-sku-filter/tests/FondOfOryx/Shared/CatalogSkuFilter",
       "FondOfOryx\\Shared\\ErpOrder\\": "bundles/erp-order/src/FondOfOryx/Shared/ErpOrder",
       "FondOfOryx\\Shared\\ErpOrderPageSearch\\": "bundles/erp-order-page-search/src/FondOfOryx/Shared/ErpOrderPageSearch",
