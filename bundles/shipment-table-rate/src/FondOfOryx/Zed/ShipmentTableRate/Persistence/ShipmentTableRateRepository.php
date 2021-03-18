@@ -5,6 +5,7 @@ namespace FondOfOryx\Zed\ShipmentTableRate\Persistence;
 use Generated\Shared\Transfer\ShipmentTableRateCriteriaFilterTransfer;
 use Generated\Shared\Transfer\ShipmentTableRateTransfer;
 use Orm\Zed\ShipmentTableRate\Persistence\FooShipmentTableRateQuery;
+use Orm\Zed\ShipmentTableRate\Persistence\Map\FooShipmentTableRateTableMap;
 use Propel\Runtime\ActiveQuery\Criteria;
 use Spryker\Zed\Kernel\Persistence\AbstractRepository;
 
@@ -13,6 +14,9 @@ use Spryker\Zed\Kernel\Persistence\AbstractRepository;
  */
 class ShipmentTableRateRepository extends AbstractRepository implements ShipmentTableRateRepositoryInterface
 {
+    public const CONDITION_IS_MAX_PRICE_TO_PAY_GREATER_THEN_PRICE_TO_PAY = 'isMaxPriceToPayGreaterThenPriceToPay';
+    public const CONDITION_IS_MAX_PRICE_TO_PAY_EQUAL_INFINITY = 'isMaxPriceToPayEqualInfinity';
+
     /**
      * @param \Generated\Shared\Transfer\ShipmentTableRateCriteriaFilterTransfer $shipmentTableRateCriteriaFilterTransfer
      *
@@ -29,7 +33,6 @@ class ShipmentTableRateRepository extends AbstractRepository implements Shipment
         );
 
         $shipmentTableRate = $shipmentTableRateQuery->orderByZipCodePattern(Criteria::DESC)
-            ->orderByPrice(Criteria::ASC)
             ->findOne();
 
         if ($shipmentTableRate === null) {
@@ -56,16 +59,34 @@ class ShipmentTableRateRepository extends AbstractRepository implements Shipment
             $shipmentTableRateQuery->filterByZipCodePattern_In($shipmentTableRateCriteriaFilterTransfer->getZipCodePatterns());
         }
 
-        if ($shipmentTableRateCriteriaFilterTransfer->getFkCountry()) {
+        if ($shipmentTableRateCriteriaFilterTransfer->getFkCountry() !== null) {
             $shipmentTableRateQuery->filterByFkCountry($shipmentTableRateCriteriaFilterTransfer->getFkCountry());
         }
 
-        if ($shipmentTableRateCriteriaFilterTransfer->getFkStore()) {
+        if ($shipmentTableRateCriteriaFilterTransfer->getFkStore() !== null) {
             $shipmentTableRateQuery->filterByFkStore($shipmentTableRateCriteriaFilterTransfer->getFkStore());
         }
 
-        if ($shipmentTableRateCriteriaFilterTransfer->getPriceToPay()) {
-            $shipmentTableRateQuery->filterByMinPriceToPay($shipmentTableRateCriteriaFilterTransfer->getPriceToPay(), Criteria::LESS_EQUAL);
+        if ($shipmentTableRateCriteriaFilterTransfer->getPriceToPay() !== null) {
+            $priceToPay = $shipmentTableRateCriteriaFilterTransfer->getPriceToPay();
+
+            $shipmentTableRateQuery->filterByMinPriceToPay(
+                $priceToPay,
+                Criteria::LESS_EQUAL
+            )->condition(
+                static::CONDITION_IS_MAX_PRICE_TO_PAY_GREATER_THEN_PRICE_TO_PAY,
+                FooShipmentTableRateTableMap::COL_MAX_PRICE_TO_PAY . ' > ?',
+                $priceToPay
+            )->condition(
+                static::CONDITION_IS_MAX_PRICE_TO_PAY_EQUAL_INFINITY,
+                FooShipmentTableRateTableMap::COL_MAX_PRICE_TO_PAY . ' IS NULL'
+            )->combine(
+                [
+                    static::CONDITION_IS_MAX_PRICE_TO_PAY_GREATER_THEN_PRICE_TO_PAY,
+                    static::CONDITION_IS_MAX_PRICE_TO_PAY_EQUAL_INFINITY,
+                ],
+                Criteria::LOGICAL_OR
+            );
         }
 
         return $shipmentTableRateQuery;
