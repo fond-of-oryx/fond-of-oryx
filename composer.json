@@ -71,7 +71,8 @@
     "fond-of-oryx/one-time-password": "*",
     "fond-of-oryx/one-time-password-rest-api": "*",
     "fond-of-oryx/thirty-five-up": "*",
-    "fond-of-oryx/thirty-five-up-payment-filter": "*"
+    "fond-of-oryx/thirty-five-up-payment-filter": "*",
+    "fond-of-oryx/util-math-formula": "*"
   },
   "minimum-stability": "dev",
   "prefer-stable": true,
