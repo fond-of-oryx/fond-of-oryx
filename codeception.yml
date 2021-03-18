@@ -13,6 +13,7 @@ include:
   - bundles/one-time-password-rest-api
   - bundles/sales-locale-connector
   - bundles/shipment-table-rate
+  - bundles/shipment-table-rate-data-import
   - bundles/splittable-checkout
   - bundles/tax-calculation-connector
   - bundles/thirty-five-up

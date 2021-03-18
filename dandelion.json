@@ -48,6 +48,10 @@
             "path": "bundles/shipment-table-rate/",
             "version": "1.0.0"
         },
+        "shipment-table-rate-data-import": {
+            "path": "bundles/shipment-table-rate-data-import/",
+            "version": "1.0.0"
+        },
         "splittable-checkout": {
             "path": "bundles/splittable-checkout/",
             "version": "1.0.0"
