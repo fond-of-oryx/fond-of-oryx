@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<database xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" name="zed"
+          xsi:noNamespaceSchemaLocation="http://xsd.propelorm.org/1.6/database.xsd"
+          namespace="Orm\Zed\ShipmentTableRate\Persistence" package="src.Orm.Zed.ShipmentTableRate.Persistence">
+
+    <table name="foo_shipment_table_rate">
+        <column name="key" type="VARCHAR" size="255" description="Key is used for DataImport as identifier for existing entities. This should never be changed."/>
+    </table>
+</database>
