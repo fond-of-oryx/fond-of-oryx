@@ -3,22 +3,22 @@
            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
            xsi:schemaLocation="spryker:transfer-01 http://static.spryker.com/transfer-01.xsd">
 
-    <transfer name="RestErrorCollectionTransfer">
+    <transfer name="RestErrorCollection">
     </transfer>
 
-    <transfer name="RestSplittableCheckoutRequestAttributesTransfer">
+    <transfer name="RestSplittableCheckoutRequestAttributes">
     </transfer>
 
-    <transfer name="RestSplittableCheckoutResponseTransfer">
+    <transfer name="RestSplittableCheckoutResponse">
     </transfer>
 
-    <transfer name="RestSplittableCheckoutResponseAttributesTransfer">
+    <transfer name="RestSplittableCheckoutResponseAttributes">
     </transfer>
 
-    <transfer name="SplittableCheckoutDataTransfer">
+    <transfer name="SplittableCheckoutData">
     </transfer>
 
-    <transfer name="SplittableCheckoutResponseTransfer">
+    <transfer name="SplittableCheckoutResponse">
     </transfer>
 
 </transfers>
