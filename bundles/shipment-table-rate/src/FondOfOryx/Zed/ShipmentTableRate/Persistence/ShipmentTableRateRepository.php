@@ -75,11 +75,11 @@ class ShipmentTableRateRepository extends AbstractRepository implements Shipment
                 Criteria::LESS_EQUAL
             )->condition(
                 static::CONDITION_IS_MAX_PRICE_TO_PAY_GREATER_THEN_PRICE_TO_PAY,
-                FooShipmentTableRateTableMap::COL_MAX_PRICE_TO_PAY . '> ?',
+                FooShipmentTableRateTableMap::COL_MAX_PRICE_TO_PAY . ' > ?',
                 $priceToPay
             )->condition(
                 static::CONDITION_IS_MAX_PRICE_TO_PAY_EQUAL_INFINITY,
-                FooShipmentTableRateTableMap::COL_MAX_PRICE_TO_PAY . 'IS NULL'
+                FooShipmentTableRateTableMap::COL_MAX_PRICE_TO_PAY . ' IS NULL'
             )->combine(
                 [
                     static::CONDITION_IS_MAX_PRICE_TO_PAY_GREATER_THEN_PRICE_TO_PAY,

@@ -110,8 +110,8 @@ class PriceCalculatorTest extends Unit
      */
     public function testCalculate(): void
     {
-        $formula = 'priceToPay-5000';
-        $variables = ['priceToPay' => (float)5495];
+        $formula = 'p-5000';
+        $variables = ['p' => (float)5495];
         $expectedPrice = 495;
 
         $this->quoteTransferMock->expects(static::atLeastOnce())
@@ -154,8 +154,8 @@ class PriceCalculatorTest extends Unit
      */
     public function testCalculateWithoutShipmentGroup(): void
     {
-        $formula = 'priceToPay-5000';
-        $variables = ['priceToPay' => (float)5495];
+        $formula = 'p-5000';
+        $variables = ['p' => (float)5495];
         $expectedPrice = 495;
 
         $this->quoteTransferMock->expects(static::atLeastOnce())

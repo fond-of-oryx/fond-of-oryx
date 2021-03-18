@@ -68,9 +68,9 @@ class VariableExtractorTest extends Unit
 
         static::assertEquals(
             [
-                'priceToPay' => (float)$priceToPay,
-                'subtotal' => (float)$subtotal,
-                'discountTotal' => (float)$discountTotal,
+                'p' => (float)$priceToPay,
+                's' => (float)$subtotal,
+                'd' => (float)$discountTotal,
             ],
             $this->variableExtractor->extractFromQuote($this->quoteTransferMock)
         );
@@ -99,9 +99,9 @@ class VariableExtractorTest extends Unit
 
         static::assertEquals(
             [
-                'priceToPay' => (float)$priceToPay,
-                'subtotal' => (float)$subtotal,
-                'discountTotal' => (float)$discountTotal,
+                'p' => (float)$priceToPay,
+                's' => (float)$subtotal,
+                'd' => (float)$discountTotal,
             ],
             $this->variableExtractor->extractFromTotals($this->totalsTransferMock)
         );

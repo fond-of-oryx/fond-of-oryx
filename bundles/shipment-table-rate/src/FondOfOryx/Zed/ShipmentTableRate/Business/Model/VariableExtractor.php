@@ -35,15 +35,15 @@ class VariableExtractor implements VariableExtractorInterface
         $variables = [];
 
         if ($totalsTransfer->getPriceToPay() !== null) {
-            $variables['priceToPay'] = (float)$totalsTransfer->getPriceToPay();
+            $variables['p'] = (float)$totalsTransfer->getPriceToPay();
         }
 
         if ($totalsTransfer->getSubtotal() !== null) {
-            $variables['subtotal'] = (float)$totalsTransfer->getSubtotal();
+            $variables['s'] = (float)$totalsTransfer->getSubtotal();
         }
 
         if ($totalsTransfer->getDiscountTotal() !== null) {
-            $variables['discountTotal'] = (float)$totalsTransfer->getDiscountTotal();
+            $variables['d'] = (float)$totalsTransfer->getDiscountTotal();
         }
 
         return $variables;
