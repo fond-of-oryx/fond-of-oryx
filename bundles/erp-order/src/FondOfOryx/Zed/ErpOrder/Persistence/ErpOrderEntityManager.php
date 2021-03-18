@@ -120,18 +120,21 @@ class ErpOrderEntityManager extends AbstractEntityManager implements ErpOrderEnt
                 $erpOrderTransfer->getIdErpOrder()
             ));
         }
-        $id = $entity->getIdErpOrder();
-        $createdAt = $entity->getCreatedAt();
-        $updatedAt = new DateTime();
+        $createdAt =  $entity->getCreatedAt();
         $entity->fromArray($erpOrderTransfer->toArray());
+
         $entity
-            ->setIdErpOrder($id)
+            ->setFkCompanyBusinessUnit($erpOrderTransfer->getFkCompanyBusinessUnit() ?: $erpOrderTransfer->getCompanyBusinessUnit()->getIdCompanyBusinessUnit())
+            ->setIdErpOrder($entity->getIdErpOrder())
             ->setCreatedAt($createdAt)
-            ->setUpdatedAt($updatedAt)
+            ->setUpdatedAt(new DateTime())
             ->setConcreteDeliveryDate($this->getConcreteDeliveryDate($erpOrderTransfer->getConcreteDeliveryDate()))
             ->save();
 
-        return $this->getFactory()->createEntityToTransferMapper()->fromErpOrderToTransfer($entity);
+
+        return $this->getFactory()
+            ->createEntityToTransferMapper()
+            ->fromErpOrderToTransfer($entity, $erpOrderTransfer);
     }
 
     /**
@@ -151,11 +154,14 @@ class ErpOrderEntityManager extends AbstractEntityManager implements ErpOrderEnt
         $updatedAt = new DateTime();
         $idItem = $entity->getIdErpOrderItem();
         $entity->fromArray($orderItemTransfer->toArray());
+
         $entity
             ->setIdErpOrderItem($idItem)
             ->setConcreteDeliveryDate($this->getConcreteDeliveryDate($orderItemTransfer->getConcreteDeliveryDate()))
             ->setCreatedAt($createdAt)
-            ->setUpdatedAt($updatedAt);
+            ->setUpdatedAt($updatedAt)
+            ->save();
+
 
         return $this->getFactory()->createEntityToTransferMapper()->fromEprOrderItemToTransfer($entity);
     }
@@ -181,17 +187,13 @@ class ErpOrderEntityManager extends AbstractEntityManager implements ErpOrderEnt
         $order->delete();
 
         $ordersWithBilling = $this->getFactory()->createErpOrderQuery()->filterByFkBillingAddress_In($addressIds)->find();
-        if (empty($ordersWithBilling->getData()) === true) {
-            $this->getFactory()->createErpOrderAddressQuery()
-                ->findOneByIdErpOrderAddress($addressIds[0])
-                ->delete();
+        if ($ordersWithBilling === null || empty($ordersWithBilling->getData()) === true) {
+            $this->getFactory()->createErpOrderAddressQuery()->delete($addressIds[0]);
         }
 
         $ordersWithShipping = $this->getFactory()->createErpOrderQuery()->filterByFkShippingAddress_In($addressIds)->find();
-        if (empty($ordersWithShipping->getData()) === true) {
-            $this->getFactory()->createErpOrderAddressQuery()
-                ->findOneByIdErpOrderAddress($addressIds[1])
-                ->delete();
+        if ($ordersWithShipping === null || empty($ordersWithShipping->getData()) === true) {
+            $this->getFactory()->createErpOrderAddressQuery()->delete($addressIds[1]);
         }
     }
 
