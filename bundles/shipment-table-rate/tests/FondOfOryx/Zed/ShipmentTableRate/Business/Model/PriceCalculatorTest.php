@@ -4,6 +4,7 @@ namespace FondOfOryx\Zed\ShipmentTableRate\Business\Model;
 
 use Codeception\Test\Unit;
 use FondOfOryx\Shared\ShipmentTableRate\ShipmentTableRateConstants;
+use FondOfOryx\Zed\ShipmentTableRate\Dependency\Service\ShipmentTableRateToUtilMathFormulaServiceInterface;
 use FondOfOryx\Zed\ShipmentTableRate\ShipmentTableRateConfig;
 use Generated\Shared\Transfer\QuoteTransfer;
 use Generated\Shared\Transfer\ShipmentGroupTransfer;
@@ -21,6 +22,16 @@ class PriceCalculatorTest extends Unit
      * @var \PHPUnit\Framework\MockObject\MockObject|\FondOfOryx\Zed\ShipmentTableRate\ShipmentTableRateConfig
      */
     protected $shipmentTableRateConfigMock;
+
+    /**
+     * @var \FondOfOryx\Zed\ShipmentTableRate\Business\Model\VariableExtractorInterface|\PHPUnit\Framework\MockObject\MockObject
+     */
+    protected $variableExtractorMock;
+
+    /**
+     * @var \FondOfOryx\Zed\ShipmentTableRate\Dependency\Service\ShipmentTableRateToUtilMathFormulaServiceInterface|\PHPUnit\Framework\MockObject\MockObject
+     */
+    protected $utilMathFormulaServiceMock;
 
     /**
      * @var \PHPUnit\Framework\MockObject\MockObject|\Generated\Shared\Transfer\ShipmentTableRateTransfer
@@ -62,6 +73,14 @@ class PriceCalculatorTest extends Unit
             ->disableOriginalConstructor()
             ->getMock();
 
+        $this->variableExtractorMock = $this->getMockBuilder(VariableExtractorInterface::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $this->utilMathFormulaServiceMock = $this->getMockBuilder(ShipmentTableRateToUtilMathFormulaServiceInterface::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
         $this->shipmentTableRateTransferMock = $this->getMockBuilder(ShipmentTableRateTransfer::class)
             ->disableOriginalConstructor()
             ->getMock();
@@ -80,7 +99,9 @@ class PriceCalculatorTest extends Unit
 
         $this->priceCalculator = new PriceCalculator(
             $this->shipmentTableRateReaderMock,
-            $this->shipmentTableRateConfigMock
+            $this->shipmentTableRateConfigMock,
+            $this->utilMathFormulaServiceMock,
+            $this->variableExtractorMock
         );
     }
 
@@ -89,31 +110,43 @@ class PriceCalculatorTest extends Unit
      */
     public function testCalculate(): void
     {
+        $formula = 'p-5000';
+        $variables = ['p' => (float)5495];
         $expectedPrice = 495;
 
-        $this->quoteTransferMock->expects($this->atLeastOnce())
+        $this->quoteTransferMock->expects(static::atLeastOnce())
             ->method('getShipment')
             ->willReturn($this->shipmentTransferMock);
 
-        $this->shipmentGroupTransferMock->expects($this->atLeastOnce())
+        $this->shipmentGroupTransferMock->expects(static::atLeastOnce())
             ->method('getShipment')
             ->willReturn($this->shipmentTransferMock);
 
-        $this->shipmentTableRateConfigMock->expects($this->never())
+        $this->shipmentTableRateConfigMock->expects(static::never())
             ->method('getFallbackPrice');
 
-        $this->shipmentTableRateReaderMock->expects($this->atLeastOnce())
+        $this->shipmentTableRateReaderMock->expects(static::atLeastOnce())
             ->method('getByShipmentAndQuote')
             ->with($this->shipmentTransferMock, $this->quoteTransferMock)
             ->willReturn($this->shipmentTableRateTransferMock);
 
-        $this->shipmentTableRateTransferMock->expects($this->atLeastOnce())
-            ->method('getPrice')
-            ->willReturn($expectedPrice);
+        $this->shipmentTableRateTransferMock->expects(static::atLeastOnce())
+            ->method('getFormula')
+            ->willReturn($formula);
+
+        $this->variableExtractorMock->expects(static::atLeastOnce())
+            ->method('extractFromQuote')
+            ->with($this->quoteTransferMock)
+            ->willReturn($variables);
+
+        $this->utilMathFormulaServiceMock->expects(static::atLeastOnce())
+            ->method('evaluateFormula')
+            ->with($formula, $variables)
+            ->willReturn((float)$expectedPrice);
 
         $price = $this->priceCalculator->calculate($this->quoteTransferMock, $this->shipmentGroupTransferMock);
 
-        $this->assertEquals($expectedPrice, $price);
+        static::assertEquals($expectedPrice, $price);
     }
 
     /**
@@ -121,27 +154,39 @@ class PriceCalculatorTest extends Unit
      */
     public function testCalculateWithoutShipmentGroup(): void
     {
+        $formula = 'p-5000';
+        $variables = ['p' => (float)5495];
         $expectedPrice = 495;
 
-        $this->quoteTransferMock->expects($this->atLeastOnce())
+        $this->quoteTransferMock->expects(static::atLeastOnce())
             ->method('getShipment')
             ->willReturn($this->shipmentTransferMock);
 
-        $this->shipmentGroupTransferMock->expects($this->never())
+        $this->shipmentGroupTransferMock->expects(static::never())
             ->method('getShipment');
 
-        $this->shipmentTableRateReaderMock->expects($this->atLeastOnce())
+        $this->shipmentTableRateReaderMock->expects(static::atLeastOnce())
             ->method('getByShipmentAndQuote')
             ->with($this->shipmentTransferMock, $this->quoteTransferMock)
             ->willReturn($this->shipmentTableRateTransferMock);
 
-        $this->shipmentTableRateTransferMock->expects($this->atLeastOnce())
-            ->method('getPrice')
-            ->willReturn($expectedPrice);
+        $this->shipmentTableRateTransferMock->expects(static::atLeastOnce())
+            ->method('getFormula')
+            ->willReturn($formula);
+
+        $this->variableExtractorMock->expects(static::atLeastOnce())
+            ->method('extractFromQuote')
+            ->with($this->quoteTransferMock)
+            ->willReturn($variables);
+
+        $this->utilMathFormulaServiceMock->expects(static::atLeastOnce())
+            ->method('evaluateFormula')
+            ->with($formula, $variables)
+            ->willReturn((float)$expectedPrice);
 
         $price = $this->priceCalculator->calculate($this->quoteTransferMock, null);
 
-        $this->assertEquals($expectedPrice, $price);
+        static::assertEquals($expectedPrice, $price);
     }
 
     /**
@@ -149,27 +194,33 @@ class PriceCalculatorTest extends Unit
      */
     public function testCalculateWithoutShipment(): void
     {
-        $this->quoteTransferMock->expects($this->atLeastOnce())
+        $this->quoteTransferMock->expects(static::atLeastOnce())
             ->method('getShipment')
             ->willReturn(null);
 
-        $this->shipmentGroupTransferMock->expects($this->atLeastOnce())
+        $this->shipmentGroupTransferMock->expects(static::atLeastOnce())
             ->method('getShipment')
             ->willReturn(null);
 
-        $this->shipmentTableRateConfigMock->expects($this->atLeastOnce())
+        $this->shipmentTableRateConfigMock->expects(static::atLeastOnce())
             ->method('getFallbackPrice')
             ->willReturn(ShipmentTableRateConstants::FALLBACK_PRICE_DEFAULT_VALUE);
 
-        $this->shipmentTableRateReaderMock->expects($this->never())
+        $this->shipmentTableRateReaderMock->expects(static::never())
             ->method('getByShipmentAndQuote');
 
-        $this->shipmentTableRateTransferMock->expects($this->never())
-            ->method('getPrice');
+        $this->shipmentTableRateTransferMock->expects(static::never())
+            ->method('getFormula');
+
+        $this->variableExtractorMock->expects(static::never())
+            ->method('extractFromQuote');
+
+        $this->utilMathFormulaServiceMock->expects(static::never())
+            ->method('evaluateFormula');
 
         $price = $this->priceCalculator->calculate($this->quoteTransferMock, $this->shipmentGroupTransferMock);
 
-        $this->assertEquals(ShipmentTableRateConstants::FALLBACK_PRICE_DEFAULT_VALUE, $price);
+        static::assertEquals(ShipmentTableRateConstants::FALLBACK_PRICE_DEFAULT_VALUE, $price);
     }
 
     /**
@@ -177,28 +228,34 @@ class PriceCalculatorTest extends Unit
      */
     public function testCalculateWithoutShipmentTableRate(): void
     {
-        $this->quoteTransferMock->expects($this->atLeastOnce())
+        $this->quoteTransferMock->expects(static::atLeastOnce())
             ->method('getShipment')
             ->willReturn($this->shipmentTransferMock);
 
-        $this->shipmentGroupTransferMock->expects($this->atLeastOnce())
+        $this->shipmentGroupTransferMock->expects(static::atLeastOnce())
             ->method('getShipment')
             ->willReturn($this->shipmentTransferMock);
 
-        $this->shipmentTableRateReaderMock->expects($this->atLeastOnce())
+        $this->shipmentTableRateReaderMock->expects(static::atLeastOnce())
             ->method('getByShipmentAndQuote')
             ->with($this->shipmentTransferMock, $this->quoteTransferMock)
             ->willReturn(null);
 
-        $this->shipmentTableRateConfigMock->expects($this->atLeastOnce())
+        $this->shipmentTableRateConfigMock->expects(static::atLeastOnce())
             ->method('getFallbackPrice')
             ->willReturn(ShipmentTableRateConstants::FALLBACK_PRICE_DEFAULT_VALUE);
 
-        $this->shipmentTableRateTransferMock->expects($this->never())
-            ->method('getPrice');
+        $this->shipmentTableRateTransferMock->expects(static::never())
+            ->method('getFormula');
+
+        $this->variableExtractorMock->expects(static::never())
+            ->method('extractFromQuote');
+
+        $this->utilMathFormulaServiceMock->expects(static::never())
+            ->method('evaluateFormula');
 
         $price = $this->priceCalculator->calculate($this->quoteTransferMock, $this->shipmentGroupTransferMock);
 
-        $this->assertEquals(ShipmentTableRateConstants::FALLBACK_PRICE_DEFAULT_VALUE, $price);
+        static::assertEquals(ShipmentTableRateConstants::FALLBACK_PRICE_DEFAULT_VALUE, $price);
     }
 }
