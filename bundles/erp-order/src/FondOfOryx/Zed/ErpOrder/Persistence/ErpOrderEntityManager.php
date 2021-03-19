@@ -120,7 +120,7 @@ class ErpOrderEntityManager extends AbstractEntityManager implements ErpOrderEnt
                 $erpOrderTransfer->getIdErpOrder()
             ));
         }
-        $createdAt =  $entity->getCreatedAt();
+        $createdAt = $entity->getCreatedAt();
         $entity->fromArray($erpOrderTransfer->toArray());
 
         $entity
@@ -130,7 +130,6 @@ class ErpOrderEntityManager extends AbstractEntityManager implements ErpOrderEnt
             ->setUpdatedAt(new DateTime())
             ->setConcreteDeliveryDate($this->getConcreteDeliveryDate($erpOrderTransfer->getConcreteDeliveryDate()))
             ->save();
-
 
         return $this->getFactory()
             ->createEntityToTransferMapper()
@@ -161,7 +160,6 @@ class ErpOrderEntityManager extends AbstractEntityManager implements ErpOrderEnt
             ->setCreatedAt($createdAt)
             ->setUpdatedAt($updatedAt)
             ->save();
-
 
         return $this->getFactory()->createEntityToTransferMapper()->fromEprOrderItemToTransfer($entity);
     }

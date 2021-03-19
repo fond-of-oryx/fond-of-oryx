@@ -137,5 +137,4 @@ class EntityToTransferMapper implements EntityToTransferMapperInterface
 
         throw new Exception('Could not convert DateTime to timestamp');
     }
-
 }
