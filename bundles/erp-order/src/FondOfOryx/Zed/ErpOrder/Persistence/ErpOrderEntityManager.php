@@ -185,13 +185,17 @@ class ErpOrderEntityManager extends AbstractEntityManager implements ErpOrderEnt
         $order->delete();
 
         $ordersWithBilling = $this->getFactory()->createErpOrderQuery()->filterByFkBillingAddress_In($addressIds)->find();
-        if ($ordersWithBilling === null || empty($ordersWithBilling->getData()) === true) {
-            $this->getFactory()->createErpOrderAddressQuery()->delete($addressIds[0]);
+        if (count($ordersWithBilling) === 0 || empty($ordersWithBilling->getData()) === true) {
+            foreach ($ordersWithBilling as $order) {
+                $order->delete();
+            }
         }
 
         $ordersWithShipping = $this->getFactory()->createErpOrderQuery()->filterByFkShippingAddress_In($addressIds)->find();
-        if ($ordersWithShipping === null || empty($ordersWithShipping->getData()) === true) {
-            $this->getFactory()->createErpOrderAddressQuery()->delete($addressIds[1]);
+        if (count($ordersWithShipping) === 0 || empty($ordersWithShipping->getData()) === true) {
+            foreach ($ordersWithShipping as $order) {
+                $order->delete();
+            }
         }
     }
 
