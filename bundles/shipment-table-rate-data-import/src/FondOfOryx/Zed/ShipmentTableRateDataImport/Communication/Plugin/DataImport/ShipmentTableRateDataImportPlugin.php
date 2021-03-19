@@ -1,6 +1,6 @@
 <?php
 
-namespace FondOfOryx\Zed\ShipmentTableRateDataImport\Communication\Plugin;
+namespace FondOfOryx\Zed\ShipmentTableRateDataImport\Communication\Plugin\DataImport;
 
 use FondOfOryx\Zed\ShipmentTableRateDataImport\ShipmentTableRateDataImportConfig;
 use Generated\Shared\Transfer\DataImporterConfigurationTransfer;
