@@ -68,14 +68,19 @@ class EntityToTransferMapper implements EntityToTransferMapperInterface
         ErpOrder $erpOrder,
         ?ErpOrderTransfer $erpOrderTransfer = null
     ): ErpOrderTransfer {
+        $addEntityItems = false;
+
         if ($erpOrderTransfer === null) {
             $erpOrderTransfer = new ErpOrderTransfer();
+            $addEntityItems = true;
         }
 
         $erpOrderTransfer->fromArray($erpOrder->toArray(), true);
 
-        foreach ($erpOrder->getErpOrderItems() as $erpOrderItem) {
-            $erpOrderTransfer->addOrderItem($this->fromEprOrderItemToTransfer($erpOrderItem));
+        if ($addEntityItems) {
+            foreach ($erpOrder->getErpOrderItems() as $erpOrderItem) {
+                $erpOrderTransfer->addOrderItem($this->fromEprOrderItemToTransfer($erpOrderItem));
+            }
         }
 
         return $erpOrderTransfer
