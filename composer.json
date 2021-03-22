@@ -72,6 +72,7 @@
     "fond-of-oryx/tax-calculation-connector": "*",
     "fond-of-oryx/one-time-password": "*",
     "fond-of-oryx/one-time-password-rest-api": "*",
+    "fond-of-oryx/product-locale-restriction": "*",
     "fond-of-oryx/thirty-five-up": "*",
     "fond-of-oryx/thirty-five-up-payment-filter": "*",
     "fond-of-oryx/util-math-formula": "*"
@@ -105,6 +106,7 @@
       "FondOfOryx\\Zed\\ErpOrderExtension\\": "bundles/erp-order-extension/src/FondOfOryx/Zed/ErpOrderExtension",
       "FondOfOryx\\Zed\\ErpOrderPageSearch\\": "bundles/erp-order-page-search/src/FondOfOryx/Zed/ErpOrderPageSearch",
       "FondOfOryx\\Zed\\MailBcc\\": "bundles/mail-bcc/src/FondOfOryx/Zed/MailBcc",
+      "FondOfOryx\\Zed\\ProductLocaleRestriction\\": "bundles/product-locale-restriction/src/FondOfOryx/Zed/ProductLocaleRestriction",
       "FondOfOryx\\Zed\\SalesLocaleConnector\\": "bundles/sales-locale-connector/src/FondOfOryx/Zed/SalesLocaleConnector",
       "FondOfOryx\\Zed\\ShipmentTableRate\\": "bundles/shipment-table-rate/src/FondOfOryx/Zed/ShipmentTableRate",
       "FondOfOryx\\Zed\\ShipmentTableRateDataImport\\": "bundles/shipment-table-rate-data-import/src/FondOfOryx/Zed/ShipmentTableRateDataImport",
@@ -140,6 +142,7 @@
       "FondOfOryx\\Zed\\ErpOrderExtension\\": "bundles/erp-order-extension/tests/FondOfOryx/Zed/ErpOrderExtension",
       "FondOfOryx\\Zed\\ErpOrderPageSearch\\": "bundles/erp-order-page-search/src/FondOfOryx/Zed/ErpOrderPageSearch",
       "FondOfOryx\\Zed\\MailBcc\\": "bundles/mail-bcc/tests/FondOfOryx/Zed/MailBcc",
+      "FondOfOryx\\Zed\\ProductLocaleRestriction\\": "bundles/product-locale-restriction/tests/FondOfOryx/Zed/ProductLocaleRestriction",
       "FondOfOryx\\Zed\\SalesLocaleConnector\\": "bundles/sales-locale-connector/tests/FondOfOryx/Zed/SalesLocaleConnector",
       "FondOfOryx\\Zed\\ShipmentTableRate\\": "bundles/shipment-table-rate/tests/FondOfOryx/Zed/ShipmentTableRate",
       "FondOfOryx\\Zed\\ShipmentTableRateDataImport\\": "bundles/shipment-table-rate-data-import/tests/FondOfOryx/Zed/ShipmentTableRateDataImport",
