@@ -9,7 +9,8 @@
     }
   ],
   "require": {
-    "php": ">=7.3"
+    "php": ">=7.3",
+    "hackzilla/password-generator": "^1.6"
   },
   "minimum-stability": "dev",
   "prefer-stable": true,
