@@ -3,6 +3,7 @@
 namespace FondOfOryx\Zed\OneTimePasswordRestApi\Business\Sender;
 
 use FondOfOryx\Zed\OneTimePassword\Business\OneTimePasswordFacadeInterface;
+use FondOfOryx\Zed\OneTimePasswordRestApi\Dependency\Facade\OneTimePasswordRestApiToOneTimePasswordFacadeInterface;
 use Generated\Shared\Transfer\CustomerTransfer;
 use Generated\Shared\Transfer\RestOneTimePasswordRequestAttributesTransfer;
 use Generated\Shared\Transfer\RestOneTimePasswordResponseTransfer;
@@ -10,14 +11,14 @@ use Generated\Shared\Transfer\RestOneTimePasswordResponseTransfer;
 class OneTimePasswordRestApiSender implements OneTimePasswordRestApiSenderInterface
 {
     /**
-     * @var \FondOfOryx\Zed\OneTimePassword\Business\OneTimePasswordFacadeInterface
+     * @var \FondOfOryx\Zed\OneTimePasswordRestApi\Dependency\Facade\OneTimePasswordRestApiToOneTimePasswordFacadeInterface
      */
     protected $oneTimePasswordFacade;
 
     /**
-     * @param \FondOfOryx\Zed\OneTimePassword\Business\OneTimePasswordFacadeInterface $oneTimePasswordFacade
+     * @param \FondOfOryx\Zed\OneTimePasswordRestApi\Dependency\Facade\OneTimePasswordRestApiToOneTimePasswordFacadeInterface $oneTimePasswordFacade
      */
-    public function __construct(OneTimePasswordFacadeInterface $oneTimePasswordFacade)
+    public function __construct(OneTimePasswordRestApiToOneTimePasswordFacadeInterface $oneTimePasswordFacade)
     {
         $this->oneTimePasswordFacade = $oneTimePasswordFacade;
     }

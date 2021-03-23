@@ -2,6 +2,7 @@
 
 namespace FondOfOryx\Zed\OneTimePasswordRestApi;
 
+use FondOfOryx\Zed\OneTimePasswordRestApi\Dependency\Facade\OneTimePasswordRestApiToOneTimePasswordFacadeBridge;
 use Spryker\Zed\Kernel\AbstractBundleDependencyProvider;
 use Spryker\Zed\Kernel\Container;
 
@@ -31,7 +32,9 @@ class OneTimePasswordRestApiDependencyProvider extends AbstractBundleDependencyP
     protected function addOneTimePasswordFacade(Container $container): Container
     {
         $container[static::FACADE_ONE_TIME_PASSWORD] = static function (Container $container) {
-            return $container->getLocator()->oneTimePassword()->facade();
+            return new OneTimePasswordRestApiToOneTimePasswordFacadeBridge(
+                $container->getLocator()->oneTimePassword()->facade()
+            );
         };
 
         return $container;

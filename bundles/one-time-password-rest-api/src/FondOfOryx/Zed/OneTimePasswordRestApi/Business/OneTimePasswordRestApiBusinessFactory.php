@@ -2,9 +2,9 @@
 
 namespace FondOfOryx\Zed\OneTimePasswordRestApi\Business;
 
-use FondOfOryx\Zed\OneTimePassword\Business\OneTimePasswordFacadeInterface;
 use FondOfOryx\Zed\OneTimePasswordRestApi\Business\Sender\OneTimePasswordRestApiSender;
 use FondOfOryx\Zed\OneTimePasswordRestApi\Business\Sender\OneTimePasswordRestApiSenderInterface;
+use FondOfOryx\Zed\OneTimePasswordRestApi\Dependency\Facade\OneTimePasswordRestApiToOneTimePasswordFacadeInterface;
 use FondOfOryx\Zed\OneTimePasswordRestApi\OneTimePasswordRestApiDependencyProvider;
 use Spryker\Zed\Kernel\Business\AbstractBusinessFactory;
 
@@ -19,9 +19,9 @@ class OneTimePasswordRestApiBusinessFactory extends AbstractBusinessFactory
     }
 
     /**
-     * @return \FondOfOryx\Zed\OneTimePassword\Business\OneTimePasswordFacadeInterface
+     * @return \FondOfOryx\Zed\OneTimePasswordRestApi\Dependency\Facade\OneTimePasswordRestApiToOneTimePasswordFacadeInterface
      */
-    protected function getOneTimePasswordFacade(): OneTimePasswordFacadeInterface
+    protected function getOneTimePasswordFacade(): OneTimePasswordRestApiToOneTimePasswordFacadeInterface
     {
         return $this->getProvidedDependency(OneTimePasswordRestApiDependencyProvider::FACADE_ONE_TIME_PASSWORD);
     }
