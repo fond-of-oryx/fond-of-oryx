@@ -33,7 +33,7 @@ interface ProductAbstractLocaleRestrictionMapperInterface
      *
      * @return array
      */
-    public function mapEntityCollectionToGroupedLocaleIds(
+    public function mapEntityCollectionToGroupedLocaleNames(
         ObjectCollection $fooProductAbstractLocaleRestrictionCollection
     ): array;
 }

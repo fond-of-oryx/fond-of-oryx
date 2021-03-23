@@ -42,9 +42,7 @@ class ProductLocaleRestrictionFacade extends AbstractFacade implements ProductLo
     }
 
     /**
-     * Specifications:
-     * - Retrieves blacklisted locale ids for product abstract ids.
-     * - Returns blacklisted locales (key: product abstract id, value: array of locale ids).
+     * {@inheritDoc}
      *
      * @api
      *
@@ -52,8 +50,8 @@ class ProductLocaleRestrictionFacade extends AbstractFacade implements ProductLo
      *
      * @return array
      */
-    public function getBlacklistedLocaleIdsByProductAbstractIds(array $productAbstractIds): array
+    public function getBlacklistedLocalesByProductAbstractIds(array $productAbstractIds): array
     {
-        return $this->getRepository()->findBlacklistedLocaleIdsByProductAbstractIds($productAbstractIds);
+        return $this->getRepository()->findBlacklistedLocalesByProductAbstractIds($productAbstractIds);
     }
 }
