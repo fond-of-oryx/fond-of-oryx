@@ -40,4 +40,20 @@ class ProductLocaleRestrictionFacade extends AbstractFacade implements ProductLo
     {
         return $this->getFactory()->createProductAbstractExpander()->expand($productAbstractTransfer);
     }
+
+    /**
+     * Specifications:
+     * - Retrieves blacklisted locale ids for product abstract ids.
+     * - Returns blacklisted locales (key: product abstract id, value: array of locale ids).
+     *
+     * @api
+     *
+     * @param int[] $productAbstractIds
+     *
+     * @return array
+     */
+    public function getBlacklistedLocaleIdsByProductAbstractIds(array $productAbstractIds): array
+    {
+        return $this->getRepository()->findBlacklistedLocaleIdsByProductAbstractIds($productAbstractIds);
+    }
 }

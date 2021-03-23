@@ -27,4 +27,13 @@ interface ProductAbstractLocaleRestrictionMapperInterface
         ProductAbstractLocaleRestrictionTransfer $transfer,
         FooProductAbstractLocaleRestriction $entity
     ): FooProductAbstractLocaleRestriction;
+
+    /**
+     * @param \Propel\Runtime\Collection\ObjectCollection|\Orm\Zed\ProductLocaleRestriction\Persistence\FooProductAbstractLocaleRestriction[] $fooProductAbstractLocaleRestrictionCollection
+     *
+     * @return array
+     */
+    public function mapEntityCollectionToGroupedLocaleIds(
+        ObjectCollection $fooProductAbstractLocaleRestrictionCollection
+    ): array;
 }

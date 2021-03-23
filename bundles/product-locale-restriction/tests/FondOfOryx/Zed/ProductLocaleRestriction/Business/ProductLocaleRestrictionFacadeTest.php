@@ -5,6 +5,7 @@ namespace FondOfOryx\Zed\ProductLocaleRestriction\Business;
 use Codeception\Test\Unit;
 use FondOfOryx\Zed\ProductLocaleRestriction\Business\Model\ProductAbstractExpanderInterface;
 use FondOfOryx\Zed\ProductLocaleRestriction\Business\Model\ProductAbstractLocaleRestrictionsPersisterInterface;
+use FondOfOryx\Zed\ProductLocaleRestriction\Persistence\ProductLocaleRestrictionRepository;
 use Generated\Shared\Transfer\ProductAbstractTransfer;
 
 class ProductLocaleRestrictionFacadeTest extends Unit
@@ -13,6 +14,11 @@ class ProductLocaleRestrictionFacadeTest extends Unit
      * @var \FondOfOryx\Zed\ProductLocaleRestriction\Business\ProductLocaleRestrictionBusinessFactory|\PHPUnit\Framework\MockObject\MockObject
      */
     protected $factoryMock;
+
+    /**
+     * @var \FondOfOryx\Zed\ProductLocaleRestriction\Persistence\ProductLocaleRestrictionRepository|\PHPUnit\Framework\MockObject\MockObject
+     */
+    protected $repositoryMock;
 
     /**
      * @var \FondOfOryx\Zed\ProductLocaleRestriction\Business\Model\ProductAbstractExpanderInterface|\PHPUnit\Framework\MockObject\MockObject
@@ -45,6 +51,10 @@ class ProductLocaleRestrictionFacadeTest extends Unit
             ->disableOriginalConstructor()
             ->getMock();
 
+        $this->repositoryMock = $this->getMockBuilder(ProductLocaleRestrictionRepository::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
         $this->productAbstractExpanderMock = $this->getMockBuilder(ProductAbstractExpanderInterface::class)
             ->disableOriginalConstructor()
             ->getMock();
@@ -59,6 +69,7 @@ class ProductLocaleRestrictionFacadeTest extends Unit
 
         $this->productLocaleRestrictionFacade = new ProductLocaleRestrictionFacade();
         $this->productLocaleRestrictionFacade->setFactory($this->factoryMock);
+        $this->productLocaleRestrictionFacade->setRepository($this->repositoryMock);
     }
 
     /**
@@ -96,6 +107,27 @@ class ProductLocaleRestrictionFacadeTest extends Unit
 
         $this->productLocaleRestrictionFacade->persistProductAbstractLocaleRestrictions(
             $this->productAbstractTransferMock
+        );
+    }
+
+    /**
+     * @return void
+     */
+    public function testGetBlacklistedLocaleIdsByProductAbstractIds(): void
+    {
+        $productAbstractIds = [1, 2];
+        $blacklistedLocaleIds = [2, 4];
+
+        $this->repositoryMock->expects(static::atLeastOnce())
+            ->method('findBlacklistedLocaleIdsByProductAbstractIds')
+            ->with($productAbstractIds)
+            ->willReturn($blacklistedLocaleIds);
+
+        static::assertEquals(
+            $blacklistedLocaleIds,
+            $this->productLocaleRestrictionFacade->getBlacklistedLocaleIdsByProductAbstractIds(
+                $productAbstractIds
+            )
         );
     }
 }

@@ -28,6 +28,30 @@ class ProductAbstractLocaleRestrictionMapper implements ProductAbstractLocaleRes
     }
 
     /**
+     * @param \Propel\Runtime\Collection\ObjectCollection|\Orm\Zed\ProductLocaleRestriction\Persistence\FooProductAbstractLocaleRestriction[] $fooProductAbstractLocaleRestrictionCollection
+     *
+     * @return array
+     */
+    public function mapEntityCollectionToGroupedLocaleIds(
+        ObjectCollection $fooProductAbstractLocaleRestrictionCollection
+    ): array {
+        $groupedLocaleIds = [];
+
+        foreach ($fooProductAbstractLocaleRestrictionCollection as $fooProductAbstractLocaleRestriction) {
+            $idProductAbstract = $fooProductAbstractLocaleRestriction->getFkProductAbstract();
+            $idLocale = $fooProductAbstractLocaleRestriction->getFkLocale();
+
+            if (!isset($groupedLocaleIds[$idProductAbstract])) {
+                $groupedLocaleIds[$idProductAbstract] = [];
+            }
+
+            $groupedLocaleIds[$idProductAbstract][] = $idLocale;
+        }
+
+        return $groupedLocaleIds;
+    }
+
+    /**
      * @param \Generated\Shared\Transfer\ProductAbstractLocaleRestrictionTransfer $transfer
      * @param \Orm\Zed\ProductLocaleRestriction\Persistence\FooProductAbstractLocaleRestriction $entity
      *

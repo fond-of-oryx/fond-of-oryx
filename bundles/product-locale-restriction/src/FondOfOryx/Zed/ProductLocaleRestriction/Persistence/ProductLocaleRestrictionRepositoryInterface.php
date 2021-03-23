@@ -21,4 +21,13 @@ interface ProductLocaleRestrictionRepositoryInterface
     public function findLocaleBlacklistIdsByIdProductAbstract(
         int $idProductAbstract
     ): array;
+
+    /**
+     * @param int[] $idProductAbstracts
+     *
+     * @return array
+     */
+    public function findBlacklistedLocaleIdsByProductAbstractIds(
+        array $idProductAbstracts
+    ): array;
 }
