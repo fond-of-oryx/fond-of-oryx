@@ -12,6 +12,7 @@ include:
   - bundles/mail-bcc
   - bundles/one-time-password-rest-api
   - bundles/product-locale-restriction
+  - bundles/product-locale-restriction-search
   - bundles/sales-locale-connector
   - bundles/shipment-table-rate
   - bundles/shipment-table-rate-data-import
