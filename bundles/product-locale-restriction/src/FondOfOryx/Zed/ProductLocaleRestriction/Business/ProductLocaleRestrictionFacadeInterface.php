@@ -29,4 +29,17 @@ interface ProductLocaleRestrictionFacadeInterface
      * @return \Generated\Shared\Transfer\ProductAbstractTransfer
      */
     public function expandProductAbstract(ProductAbstractTransfer $productAbstractTransfer): ProductAbstractTransfer;
+
+    /**
+     * Specifications:
+     * - Retrieves blacklisted locale ids for product abstract ids.
+     * - Returns blacklisted locales (key: product abstract id, value: array of locale ids).
+     *
+     * @api
+     *
+     * @param int[] $productAbstractIds
+     *
+     * @return array
+     */
+    public function getBlacklistedLocaleIdsByProductAbstractIds(array $productAbstractIds): array;
 }

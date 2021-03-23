@@ -22,6 +22,7 @@ class ProductLocaleRestrictionRepository extends AbstractRepository implements P
 
         $fooProductAbstractLocaleRestrictionCollection = $fooProductAbstractLocaleRestrictionQuery
             ->filterByFkProductAbstract($idProductAbstract)
+            ->innerJoinWithLocale()
             ->find();
 
         return $this->getFactory()->createProductAbstractLocaleRestrictionMapper()
@@ -42,5 +43,23 @@ class ProductLocaleRestrictionRepository extends AbstractRepository implements P
             ->select(FooProductAbstractLocaleRestrictionTableMap::COL_FK_LOCALE)
             ->findByFkProductAbstract($idProductAbstract)
             ->toArray();
+    }
+
+    /**
+     * @param int[] $idProductAbstracts
+     *
+     * @return array
+     */
+    public function findBlacklistedLocaleIdsByProductAbstractIds(array $idProductAbstracts): array
+    {
+        $fooProductAbstractLocaleRestrictionQuery = $this->getFactory()
+            ->createFooProductAbstractLocaleRestrictionQuery();
+
+        $fooProductAbstractLocaleRestrictionCollection = $fooProductAbstractLocaleRestrictionQuery
+            ->filterByFkProductAbstract_In($idProductAbstracts)
+            ->find();
+
+        return $this->getFactory()->createProductAbstractLocaleRestrictionMapper()
+            ->mapEntityCollectionToGroupedLocaleIds($fooProductAbstractLocaleRestrictionCollection);
     }
 }
