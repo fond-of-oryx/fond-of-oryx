@@ -2,7 +2,6 @@
 
 namespace FondOfOryx\Zed\OneTimePasswordRestApi\Business\Sender;
 
-use FondOfOryx\Zed\OneTimePassword\Business\OneTimePasswordFacadeInterface;
 use FondOfOryx\Zed\OneTimePasswordRestApi\Dependency\Facade\OneTimePasswordRestApiToOneTimePasswordFacadeInterface;
 use Generated\Shared\Transfer\CustomerTransfer;
 use Generated\Shared\Transfer\RestOneTimePasswordRequestAttributesTransfer;
