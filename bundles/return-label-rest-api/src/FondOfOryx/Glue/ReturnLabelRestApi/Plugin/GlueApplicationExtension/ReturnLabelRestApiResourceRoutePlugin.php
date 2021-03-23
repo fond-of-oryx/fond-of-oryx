@@ -3,6 +3,7 @@
 namespace FondOfOryx\Glue\ReturnLabelRestApi\Plugin\GlueApplicationExtension;
 
 use FondOfOryx\Glue\ReturnLabelRestApi\ReturnLabelRestApiConfig;
+use Generated\Shared\Transfer\RestReturnLabelRequestAttributesTransfer;
 use Spryker\Glue\GlueApplicationExtension\Dependency\Plugin\ResourceRouteCollectionInterface;
 use Spryker\Glue\GlueApplicationExtension\Dependency\Plugin\ResourceRoutePluginInterface;
 use Spryker\Glue\Kernel\AbstractPlugin;
@@ -23,7 +24,9 @@ class ReturnLabelRestApiResourceRoutePlugin extends AbstractPlugin implements Re
      */
     public function configure(ResourceRouteCollectionInterface $resourceRouteCollection): ResourceRouteCollectionInterface
     {
-        $resourceRouteCollection->addPost(ReturnLabelRestApiConfig::ACTION_RETURN_LABEL_POST, true);
+        $resourceRouteCollection
+            ->addPost(ReturnLabelRestApiConfig::ACTION_RETURN_LABEL_REST_API_POST, true)
+            ->addGet(ReturnLabelRestApiConfig::ACTION_RETURN_LABEL_REST_API_GET, true);
 
         return $resourceRouteCollection;
     }
@@ -39,7 +42,7 @@ class ReturnLabelRestApiResourceRoutePlugin extends AbstractPlugin implements Re
      */
     public function getResourceType(): string
     {
-        return ReturnLabelRestApiConfig::RESOURCE_RETURN_LABEL;
+        return ReturnLabelRestApiConfig::RESOURCE_RETURN_LABEL_REST_API;
     }
 
     /**
@@ -52,7 +55,7 @@ class ReturnLabelRestApiResourceRoutePlugin extends AbstractPlugin implements Re
      */
     public function getController(): string
     {
-        return ReturnLabelRestApiConfig::CONTROLLER_RETURN_LABEL;
+        return ReturnLabelRestApiConfig::CONTROLLER_RETURN_LABEL_REST_API;
     }
 
     /**
@@ -66,7 +69,6 @@ class ReturnLabelRestApiResourceRoutePlugin extends AbstractPlugin implements Re
      */
     public function getResourceAttributesClassName(): string
     {
-        // TODO: Implement getResourceAttributesClassName() method.
-        return '';
+        return RestReturnLabelRequestAttributesTransfer::class;
     }
 }
