@@ -6,6 +6,9 @@ use Spryker\Glue\GlueApplication\Rest\JsonApi\RestResponseInterface;
 use Spryker\Glue\GlueApplication\Rest\Request\Data\RestRequestInterface;
 use Spryker\Glue\Kernel\Controller\AbstractController;
 
+/**
+ * @package FondOfOryx\Glue\ReturnLabelRestApi\Controller
+ */
 class ReturnLabelRestApiResourceController extends AbstractController
 {
     /**
@@ -15,19 +18,7 @@ class ReturnLabelRestApiResourceController extends AbstractController
      */
     public function postAction(RestRequestInterface $restRequest): RestResponseInterface
     {
-        var_dump('POST');
-
-        die();
-    }
-
-    /**
-     * @param RestRequestInterface $restRequest
-     *
-     * @return RestResponseInterface
-     */
-    public function getAction(RestRequestInterface $restRequest): RestResponseInterface
-    {
-        var_dump('GET');
+        var_dump($restRequest);
 
         die();
     }
