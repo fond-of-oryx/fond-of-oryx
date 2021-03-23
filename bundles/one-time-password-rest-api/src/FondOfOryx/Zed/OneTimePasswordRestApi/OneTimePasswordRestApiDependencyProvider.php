@@ -30,7 +30,7 @@ class OneTimePasswordRestApiDependencyProvider extends AbstractBundleDependencyP
      */
     protected function addOneTimePasswordFacade(Container $container): Container
     {
-        $container[self::FACADE_ONE_TIME_PASSWORD] = static function (Container $container) {
+        $container[static::FACADE_ONE_TIME_PASSWORD] = static function (Container $container) {
             return $container->getLocator()->oneTimePassword()->facade();
         };
 
