@@ -24,8 +24,7 @@ class ReturnLabelRestApiResourceRoutePlugin extends AbstractPlugin implements Re
      */
     public function configure(ResourceRouteCollectionInterface $resourceRouteCollection): ResourceRouteCollectionInterface
     {
-        $resourceRouteCollection
-            ->addPost(ReturnLabelRestApiConfig::ACTION_RETURN_LABEL_REST_API_POST, true)
+        $resourceRouteCollection->addPost(ReturnLabelRestApiConfig::ACTION_RETURN_LABEL_REST_API_POST, true);
 
         return $resourceRouteCollection;
     }
