@@ -2,8 +2,39 @@
 
 namespace FondOfOryx\Zed\OneTimePassword;
 
+use Orm\Zed\Customer\Persistence\SpyCustomerQuery;
 use Spryker\Zed\Kernel\AbstractBundleDependencyProvider;
+use Spryker\Zed\Kernel\Container;
 
 class OneTimePasswordDependencyProvider extends AbstractBundleDependencyProvider
 {
+    public const QUERY_SPY_CUSTOMER = 'QUERY_SPY_CUSTOMER';
+
+    /**
+     * @param \Spryker\Zed\Kernel\Container $container
+     *
+     * @return \Spryker\Zed\Kernel\Container
+     */
+    public function providePersistenceLayerDependencies(Container $container): Container
+    {
+        $container = parent::providePersistenceLayerDependencies($container);
+
+        $container = $this->addSpyCustomerQuery($container);
+
+        return $container;
+    }
+
+    /**
+     * @param \Spryker\Zed\Kernel\Container $container
+     *
+     * @return \Spryker\Zed\Kernel\Container
+     */
+    protected function addSpyCustomerQuery(Container $container): Container
+    {
+        $container[static::QUERY_SPY_CUSTOMER] = static function () {
+            return SpyCustomerQuery::create();
+        };
+
+        return $container;
+    }
 }

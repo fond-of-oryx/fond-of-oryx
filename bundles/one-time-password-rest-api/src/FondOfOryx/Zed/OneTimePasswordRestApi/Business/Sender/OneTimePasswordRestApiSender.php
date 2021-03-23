@@ -34,9 +34,9 @@ class OneTimePasswordRestApiSender implements OneTimePasswordRestApiSenderInterf
 
         $customerTransfer = (new CustomerTransfer())->setEmail($email);
 
-        $customerResponseTransfer = $this->oneTimePasswordFacade->requestOneTimePassword($customerTransfer);
+        $oneTimePasswordResponseTransfer = $this->oneTimePasswordFacade->requestOneTimePassword($customerTransfer);
 
         return (new RestOneTimePasswordResponseTransfer())
-            ->setSuccess($customerResponseTransfer->getIsSuccess());
+            ->setSuccess($oneTimePasswordResponseTransfer->getIsSuccess());
     }
 }

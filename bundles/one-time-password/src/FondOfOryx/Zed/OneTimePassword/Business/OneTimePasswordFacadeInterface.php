@@ -2,8 +2,8 @@
 
 namespace FondOfOryx\Zed\OneTimePassword\Business;
 
-use Generated\Shared\Transfer\CustomerResponseTransfer;
 use Generated\Shared\Transfer\CustomerTransfer;
+use Generated\Shared\Transfer\OneTimePasswordResponseTransfer;
 
 interface OneTimePasswordFacadeInterface
 {
@@ -16,11 +16,11 @@ interface OneTimePasswordFacadeInterface
      *
      * @param \Generated\Shared\Transfer\CustomerTransfer $customerTransfer
      *
-     * @return \Generated\Shared\Transfer\CustomerResponseTransfer
+     * @return \Generated\Shared\Transfer\OneTimePasswordResponseTransfer
      */
     public function requestOneTimePassword(
         CustomerTransfer $customerTransfer
-    ): CustomerResponseTransfer;
+    ): OneTimePasswordResponseTransfer;
 
     /**
      * Specification:
@@ -31,9 +31,9 @@ interface OneTimePasswordFacadeInterface
      *
      * @param \Generated\Shared\Transfer\CustomerTransfer $customerTransfer
      *
-     * @return \Generated\Shared\Transfer\CustomerResponseTransfer
+     * @return \Generated\Shared\Transfer\OneTimePasswordResponseTransfer
      */
     public function generateOneTimePassword(
         CustomerTransfer $customerTransfer
-    ): CustomerResponseTransfer;
+    ): OneTimePasswordResponseTransfer;
 }

@@ -4,11 +4,10 @@ namespace FondOfOryx\Zed\OneTimePassword\Business\Generator;
 
 use FondOfOryx\Zed\OneTimePassword\OneTimePasswordConfig;
 use FondOfOryx\Zed\OneTimePassword\Persistence\OneTimePasswordEntityManagerInterface;
-use FondOfOryx\Zed\OneTimePassword\Persistence\OneTimePasswordQueryContainerInterface;
-use Generated\Shared\Transfer\CustomerResponseTransfer;
+use FondOfOryx\Zed\OneTimePassword\Persistence\OneTimePasswordRepositoryInterface;
 use Generated\Shared\Transfer\CustomerTransfer;
+use Generated\Shared\Transfer\OneTimePasswordResponseTransfer;
 use Hackzilla\PasswordGenerator\Generator\HumanPasswordGenerator;
-use Orm\Zed\Customer\Persistence\SpyCustomer;
 use Symfony\Component\Security\Core\Encoder\NativePasswordEncoder;
 
 class OneTimePasswordGenerator implements OneTimePasswordGeneratorInterface
@@ -22,7 +21,7 @@ class OneTimePasswordGenerator implements OneTimePasswordGeneratorInterface
     protected $humanPasswordGenerator;
 
     /**
-     * @var \FondOfOryx\Zed\OneTimePassword\Persistence\OneTimePasswordQueryContainerInterface
+     * @var \FondOfOryx\Zed\OneTimePassword\Persistence\OneTimePasswordRepositoryInterface
      */
     protected $oneTimePasswordQueryContainer;
 
@@ -32,64 +31,47 @@ class OneTimePasswordGenerator implements OneTimePasswordGeneratorInterface
     protected $oneTimePasswordEntityManager;
 
     /**
+     * @var \FondOfOryx\Zed\OneTimePassword\OneTimePasswordConfig
+     */
+    protected $oneTimePasswordConfig;
+
+    /**
      * @param \Hackzilla\PasswordGenerator\Generator\HumanPasswordGenerator $humanPasswordGenerator
-     * @param \FondOfOryx\Zed\OneTimePassword\Persistence\OneTimePasswordQueryContainerInterface $oneTimePasswordQueryContainer
+     * @param \FondOfOryx\Zed\OneTimePassword\Persistence\OneTimePasswordRepositoryInterface $oneTimePasswordRepository
      * @param \FondOfOryx\Zed\OneTimePassword\Persistence\OneTimePasswordEntityManagerInterface $oneTimePasswordEntityManager
+     * @param \FondOfOryx\Zed\OneTimePassword\OneTimePasswordConfig $oneTimePasswordConfig
      */
     public function __construct(
         HumanPasswordGenerator $humanPasswordGenerator,
-        OneTimePasswordQueryContainerInterface $oneTimePasswordQueryContainer,
-        OneTimePasswordEntityManagerInterface $oneTimePasswordEntityManager
+        OneTimePasswordRepositoryInterface $oneTimePasswordRepository,
+        OneTimePasswordEntityManagerInterface $oneTimePasswordEntityManager,
+        OneTimePasswordConfig $oneTimePasswordConfig
     ) {
         $this->humanPasswordGenerator = $humanPasswordGenerator;
-        $this->oneTimePasswordQueryContainer = $oneTimePasswordQueryContainer;
+        $this->oneTimePasswordQueryContainer = $oneTimePasswordRepository;
         $this->oneTimePasswordEntityManager = $oneTimePasswordEntityManager;
+        $this->oneTimePasswordConfig = $oneTimePasswordConfig;
     }
 
     /**
      * @param \Generated\Shared\Transfer\CustomerTransfer $customerTransfer
      *
-     * @return \Generated\Shared\Transfer\CustomerResponseTransfer
+     * @return \Generated\Shared\Transfer\OneTimePasswordResponseTransfer
      */
-    public function generateOneTimePassword(CustomerTransfer $customerTransfer): CustomerResponseTransfer
+    public function generateOneTimePassword(CustomerTransfer $customerTransfer): OneTimePasswordResponseTransfer
     {
         $customerTransfer->requireEmail();
 
-        $customerTransfer->setNewPassword($this->generateNewEncodedPassword());
+        $password = $this->generateNewPassword();
 
-        $customerEntity = $this->getCustomer($customerTransfer);
+        $customerTransfer->setNewPassword($this->getEncodedPassword($password));
 
-        $customerEntity->setPassword($customerTransfer->getNewPassword());
+        $customerResponseTransfer = $this->oneTimePasswordEntityManager->updateCustomerPassword($customerTransfer);
 
-        $changedRows = $customerEntity->save();
-
-        $customerTransfer->fromArray($customerEntity->toArray(), true);
-
-        return (new CustomerResponseTransfer())
-            ->setIsSuccess($changedRows > 0)
-            ->setCustomerTransfer($customerTransfer);
-    }
-
-    /**
-     * @param \Generated\Shared\Transfer\CustomerTransfer $customerTransfer
-     *
-     * @return \Orm\Zed\Customer\Persistence\SpyCustomer
-     */
-    protected function getCustomer(CustomerTransfer $customerTransfer): SpyCustomer
-    {
-        return $this->oneTimePasswordQueryContainer
-            ->queryCustomerByEmail($customerTransfer->getEmail())
-            ->findOne();
-    }
-
-    /**
-     * @return string
-     */
-    protected function generateNewEncodedPassword(): string
-    {
-        return $this->getEncodedPassword(
-            $this->generateNewPassword()
-        );
+        return (new OneTimePasswordResponseTransfer())
+            ->setIsSuccess($customerResponseTransfer->getIsSuccess())
+            ->setCustomerTransfer($customerResponseTransfer->getCustomerTransfer())
+            ->setNewPasswordPlain($password);
     }
 
     /**
@@ -97,8 +79,10 @@ class OneTimePasswordGenerator implements OneTimePasswordGeneratorInterface
      */
     protected function generateNewPassword(): string
     {
+        $wordlistPath = APPLICATION_ROOT_DIR . DIRECTORY_SEPARATOR . $this->oneTimePasswordConfig->getGermanWordListPath();
+
         return $this->humanPasswordGenerator
-            ->setWordList(__DIR__ . OneTimePasswordConfig::GERMAN_WORD_LIST_PATH)
+            ->setWordList($wordlistPath)
             ->setWordCount(3)
             ->setWordSeparator('-')
             ->generatePassword();
@@ -113,6 +97,6 @@ class OneTimePasswordGenerator implements OneTimePasswordGeneratorInterface
     {
         $encoder = new NativePasswordEncoder(null, null, static::BCRYPT_FACTOR);
 
-        return $encoder->encodePassword($currentPassword, self::BCRYPT_SALT);
+        return $encoder->encodePassword($currentPassword, static::BCRYPT_SALT);
     }
 }

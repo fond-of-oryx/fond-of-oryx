@@ -2,14 +2,15 @@
 
 namespace FondOfOryx\Zed\OneTimePassword\Persistence;
 
-use Generated\Shared\Transfer\SpyCustomerEntityTransfer;
+use Generated\Shared\Transfer\CustomerResponseTransfer;
+use Generated\Shared\Transfer\CustomerTransfer;
 
 interface OneTimePasswordEntityManagerInterface
 {
     /**
-     * @param \Generated\Shared\Transfer\SpyCustomerEntityTransfer $customerEntityTransfer
+     * @param \Generated\Shared\Transfer\CustomerTransfer $customerTransfer
      *
-     * @return int
+     * @return \Generated\Shared\Transfer\CustomerResponseTransfer
      */
-    public function updateCustomerPassword(SpyCustomerEntityTransfer $customerEntityTransfer): int;
+    public function updateCustomerPassword(CustomerTransfer $customerTransfer): CustomerResponseTransfer;
 }

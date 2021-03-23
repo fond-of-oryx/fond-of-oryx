@@ -10,7 +10,7 @@ use Hackzilla\PasswordGenerator\Generator\HumanPasswordGenerator;
 use Spryker\Zed\Kernel\Business\AbstractBusinessFactory;
 
 /**
- * @method \FondOfOryx\Zed\OneTimePassword\Persistence\OneTimePasswordQueryContainerInterface getQueryContainer()
+ * @method \FondOfOryx\Zed\OneTimePassword\Persistence\OneTimePasswordRepositoryInterface getRepository()
  * @method \FondOfOryx\Zed\OneTimePassword\Persistence\OneTimePasswordEntityManagerInterface getEntityManager()
  * @method \FondOfOryx\Zed\OneTimePassword\OneTimePasswordConfig getConfig()
  */
@@ -33,8 +33,9 @@ class OneTimePasswordBusinessFactory extends AbstractBusinessFactory
     {
         return new OneTimePasswordGenerator(
             $this->createComputerPasswordGenerator(),
-            $this->getQueryContainer(),
-            $this->getEntityManager()
+            $this->getRepository(),
+            $this->getEntityManager(),
+            $this->getConfig()
         );
     }
 

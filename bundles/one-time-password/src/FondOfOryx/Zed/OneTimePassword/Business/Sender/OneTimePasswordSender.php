@@ -3,8 +3,8 @@
 namespace FondOfOryx\Zed\OneTimePassword\Business\Sender;
 
 use FondOfOryx\Zed\OneTimePassword\Business\Generator\OneTimePasswordGeneratorInterface;
-use Generated\Shared\Transfer\CustomerResponseTransfer;
 use Generated\Shared\Transfer\CustomerTransfer;
+use Generated\Shared\Transfer\OneTimePasswordResponseTransfer;
 
 class OneTimePasswordSender implements OneTimePasswordSenderInterface
 {
@@ -24,11 +24,11 @@ class OneTimePasswordSender implements OneTimePasswordSenderInterface
     /**
      * @param \Generated\Shared\Transfer\CustomerTransfer $customerTransfer
      *
-     * @return \Generated\Shared\Transfer\CustomerResponseTransfer
+     * @return \Generated\Shared\Transfer\OneTimePasswordResponseTransfer
      */
     public function requestOneTimePassword(
         CustomerTransfer $customerTransfer
-    ): CustomerResponseTransfer {
+    ): OneTimePasswordResponseTransfer {
         $customerTransfer->requireEmail();
 
         return $this->oneTimePasswordGenerator->generateOneTimePassword($customerTransfer);

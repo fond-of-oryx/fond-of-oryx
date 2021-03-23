@@ -2,7 +2,8 @@
 
 namespace FondOfOryx\Zed\OneTimePassword\Persistence;
 
-use Generated\Shared\Transfer\SpyCustomerEntityTransfer;
+use Generated\Shared\Transfer\CustomerResponseTransfer;
+use Generated\Shared\Transfer\CustomerTransfer;
 use Spryker\Zed\Kernel\Persistence\AbstractEntityManager;
 
 /**
@@ -10,20 +11,29 @@ use Spryker\Zed\Kernel\Persistence\AbstractEntityManager;
  */
 class OneTimePasswordEntityManager extends AbstractEntityManager implements OneTimePasswordEntityManagerInterface
 {
-    /**
-     * @param \Generated\Shared\Transfer\SpyCustomerEntityTransfer $customerEntityTransfer
-     *
-     * @return int
-     */
-    public function updateCustomerPassword(SpyCustomerEntityTransfer $customerEntityTransfer): int
-    {
-        $customerEntityTransfer->requireEmail();
+    protected const COLUMN_PASSWORD = 'Password';
 
-        return $this->getFactory()
-            ->createSpyCustomer()
-            ->filterByEmail($customerEntityTransfer->getEmail())
+    /**
+     * @param \Generated\Shared\Transfer\CustomerTransfer $customerTransfer
+     *
+     * @return \Generated\Shared\Transfer\CustomerResponseTransfer
+     */
+    public function updateCustomerPassword(CustomerTransfer $customerTransfer): CustomerResponseTransfer
+    {
+        $customerTransfer->requireEmail()->requireNewPassword();
+
+        $changesRows = $this->getFactory()
+            ->getSpyCustomerQuery()
+            ->filterByEmail($customerTransfer->getEmail())
             ->update([
-                'password' => $customerEntityTransfer->getPassword(),
+                static::COLUMN_PASSWORD => $customerTransfer->getNewPassword(),
             ]);
+
+        $customerTransfer->setPassword($customerTransfer->getNewPassword())
+            ->setNewPassword(null);
+
+        return (new CustomerResponseTransfer())
+            ->setIsSuccess($changesRows > 0)
+            ->setCustomerTransfer($customerTransfer);
     }
 }
