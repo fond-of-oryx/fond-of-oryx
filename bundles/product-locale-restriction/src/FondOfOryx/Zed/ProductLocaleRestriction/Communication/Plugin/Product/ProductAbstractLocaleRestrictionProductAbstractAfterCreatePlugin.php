@@ -5,7 +5,6 @@ namespace FondOfOryx\Zed\ProductLocaleRestriction\Communication\Plugin\Product;
 use Generated\Shared\Transfer\ProductAbstractTransfer;
 use Spryker\Zed\Kernel\Communication\AbstractPlugin;
 use Spryker\Zed\Product\Dependency\Plugin\ProductAbstractPluginCreateInterface;
-use Spryker\Zed\Product\Dependency\Plugin\ProductAbstractPluginUpdateInterface;
 
 /**
  * @method \FondOfOryx\Zed\ProductLocaleRestriction\Business\ProductLocaleRestrictionFacadeInterface getFacade()
@@ -14,6 +13,7 @@ class ProductAbstractLocaleRestrictionProductAbstractAfterCreatePlugin extends A
 {
     /**
      * @param \Generated\Shared\Transfer\ProductAbstractTransfer $productAbstractTransfer
+     *
      * @return \Generated\Shared\Transfer\ProductAbstractTransfer
      */
     public function create(ProductAbstractTransfer $productAbstractTransfer): ProductAbstractTransfer

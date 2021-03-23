@@ -9,6 +9,7 @@ use Spryker\Zed\Kernel\Persistence\AbstractPersistenceFactory;
 
 /**
  * @method \FondOfOryx\Zed\ProductLocaleRestriction\Persistence\ProductLocaleRestrictionRepositoryInterface getRepository()
+ * @method \FondOfOryx\Zed\ProductLocaleRestriction\Persistence\ProductLocaleRestrictionEntityManagerInterface getEntityManager()
  */
 class ProductLocaleRestrictionPersistenceFactory extends AbstractPersistenceFactory
 {

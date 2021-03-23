@@ -43,8 +43,8 @@ class ProductLocaleRestrictionEntityManager extends AbstractEntityManager implem
             ->createFooProductAbstractLocaleRestrictionQuery();
 
         $fooProductAbstractLocaleRestrictions = $fooProductAbstractLocaleRestrictionQuery->filterByFkProductAbstract(
-                $idProductAbstract
-            )->filterByFkLocale_In($localeIds)
+            $idProductAbstract
+        )->filterByFkLocale_In($localeIds)
             ->find();
 
         foreach ($fooProductAbstractLocaleRestrictions as $fooProductAbstractLocaleRestriction) {

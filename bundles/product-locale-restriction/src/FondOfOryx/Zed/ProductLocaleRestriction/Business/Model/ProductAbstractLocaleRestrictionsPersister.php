@@ -40,7 +40,7 @@ class ProductAbstractLocaleRestrictionsPersister implements ProductAbstractLocal
     {
         $idProductAbstract = $productAbstractTransfer->getIdProductAbstract();
 
-        if ($productAbstractTransfer->getIdProductAbstract() === null) {
+        if ($idProductAbstract === null) {
             return;
         }
 
