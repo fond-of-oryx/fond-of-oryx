@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<transfers xmlns="spryker:transfer-01"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="spryker:transfer-01 http://static.spryker.com/transfer-01.xsd">
+    <transfer name="ProductPageLoad">
+        <property name="productAbstractIds" type="array" singular="productAbstractIds"/>
+        <property name="payloadTransfers" type="array" singular="payloadTransfers"/>
+    </transfer>
+
+    <transfer name="ProductPayload">
+        <property name="blacklistedLocales" type="string[]" singular="blacklistedLocale"/>
+        <property name="idProductAbstract" type="int"/>
+    </transfer>
+
+    <transfer name="PageMap">
+        <property name="blacklistedLocales" type="string[]" singular="blacklistedLocale"/>
+    </transfer>
+
+    <transfer name="ProductPageSearch">
+        <property name="blacklistedLocales" type="string[]" singular="blacklistedLocale"/>
+    </transfer>
+
+</transfers>
