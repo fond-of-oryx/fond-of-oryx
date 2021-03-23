@@ -32,20 +32,20 @@ class ProductAbstractLocaleRestrictionMapper implements ProductAbstractLocaleRes
      *
      * @return array
      */
-    public function mapEntityCollectionToGroupedLocaleIds(
+    public function mapEntityCollectionToGroupedLocaleNames(
         ObjectCollection $fooProductAbstractLocaleRestrictionCollection
     ): array {
         $groupedLocaleIds = [];
 
         foreach ($fooProductAbstractLocaleRestrictionCollection as $fooProductAbstractLocaleRestriction) {
             $idProductAbstract = $fooProductAbstractLocaleRestriction->getFkProductAbstract();
-            $idLocale = $fooProductAbstractLocaleRestriction->getFkLocale();
+            $locale = $fooProductAbstractLocaleRestriction->getLocale();
 
             if (!isset($groupedLocaleIds[$idProductAbstract])) {
                 $groupedLocaleIds[$idProductAbstract] = [];
             }
 
-            $groupedLocaleIds[$idProductAbstract][] = $idLocale;
+            $groupedLocaleIds[$idProductAbstract][] = $locale->getLocaleName();
         }
 
         return $groupedLocaleIds;

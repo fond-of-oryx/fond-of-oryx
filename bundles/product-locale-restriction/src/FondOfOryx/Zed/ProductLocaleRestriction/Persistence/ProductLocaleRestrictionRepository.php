@@ -10,6 +10,8 @@ use Spryker\Zed\Kernel\Persistence\AbstractRepository;
  */
 class ProductLocaleRestrictionRepository extends AbstractRepository implements ProductLocaleRestrictionRepositoryInterface
 {
+    protected const COLUMN_LOCALE_CODE = 'locale_code';
+
     /**
      * @param int $idProductAbstract
      *
@@ -50,16 +52,17 @@ class ProductLocaleRestrictionRepository extends AbstractRepository implements P
      *
      * @return array
      */
-    public function findBlacklistedLocaleIdsByProductAbstractIds(array $idProductAbstracts): array
+    public function findBlacklistedLocalesByProductAbstractIds(array $idProductAbstracts): array
     {
         $fooProductAbstractLocaleRestrictionQuery = $this->getFactory()
             ->createFooProductAbstractLocaleRestrictionQuery();
 
         $fooProductAbstractLocaleRestrictionCollection = $fooProductAbstractLocaleRestrictionQuery
             ->filterByFkProductAbstract_In($idProductAbstracts)
+            ->innerJoinWithLocale()
             ->find();
 
         return $this->getFactory()->createProductAbstractLocaleRestrictionMapper()
-            ->mapEntityCollectionToGroupedLocaleIds($fooProductAbstractLocaleRestrictionCollection);
+            ->mapEntityCollectionToGroupedLocaleNames($fooProductAbstractLocaleRestrictionCollection);
     }
 }

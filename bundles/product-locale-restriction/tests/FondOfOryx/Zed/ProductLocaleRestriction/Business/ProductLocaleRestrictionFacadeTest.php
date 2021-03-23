@@ -113,19 +113,19 @@ class ProductLocaleRestrictionFacadeTest extends Unit
     /**
      * @return void
      */
-    public function testGetBlacklistedLocaleIdsByProductAbstractIds(): void
+    public function testGetBlacklistedLocalesByProductAbstractIds(): void
     {
         $productAbstractIds = [1, 2];
-        $blacklistedLocaleIds = [2, 4];
+        $blacklistedLocales = [1 => ['de_DE', 'fr_FR']];
 
         $this->repositoryMock->expects(static::atLeastOnce())
-            ->method('findBlacklistedLocaleIdsByProductAbstractIds')
+            ->method('findBlacklistedLocalesByProductAbstractIds')
             ->with($productAbstractIds)
-            ->willReturn($blacklistedLocaleIds);
+            ->willReturn($blacklistedLocales);
 
         static::assertEquals(
-            $blacklistedLocaleIds,
-            $this->productLocaleRestrictionFacade->getBlacklistedLocaleIdsByProductAbstractIds(
+            $blacklistedLocales,
+            $this->productLocaleRestrictionFacade->getBlacklistedLocalesByProductAbstractIds(
                 $productAbstractIds
             )
         );

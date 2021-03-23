@@ -32,8 +32,8 @@ interface ProductLocaleRestrictionFacadeInterface
 
     /**
      * Specifications:
-     * - Retrieves blacklisted locale ids for product abstract ids.
-     * - Returns blacklisted locales (key: product abstract id, value: array of locale ids).
+     * - Retrieves blacklisted locales for product abstract ids.
+     * - Returns blacklisted locales (key: product abstract id, value: array of locale names like de_DE).
      *
      * @api
      *
@@ -41,5 +41,5 @@ interface ProductLocaleRestrictionFacadeInterface
      *
      * @return array
      */
-    public function getBlacklistedLocaleIdsByProductAbstractIds(array $productAbstractIds): array;
+    public function getBlacklistedLocalesByProductAbstractIds(array $productAbstractIds): array;
 }
