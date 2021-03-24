@@ -24,7 +24,7 @@ class ReturnLabelsRestApiResourceRoutePlugin extends AbstractPlugin implements R
      */
     public function configure(ResourceRouteCollectionInterface $resourceRouteCollection): ResourceRouteCollectionInterface
     {
-        $resourceRouteCollection->addPost(ReturnLabelsRestApiConfig::ACTION_RETURN_LABEL_REST_API_POST, true);
+        $resourceRouteCollection->addPost(ReturnLabelsRestApiConfig::ACTION_RETURN_LABELS_REST_API_POST, true);
 
         return $resourceRouteCollection;
     }
@@ -40,7 +40,7 @@ class ReturnLabelsRestApiResourceRoutePlugin extends AbstractPlugin implements R
      */
     public function getResourceType(): string
     {
-        return ReturnLabelsRestApiConfig::RESOURCE_RETURN_LABEL_REST_API;
+        return ReturnLabelsRestApiConfig::RESOURCE_RETURN_LABELS_REST_API;
     }
 
     /**
@@ -53,7 +53,7 @@ class ReturnLabelsRestApiResourceRoutePlugin extends AbstractPlugin implements R
      */
     public function getController(): string
     {
-        return ReturnLabelsRestApiConfig::CONTROLLER_RETURN_LABEL_REST_API;
+        return ReturnLabelsRestApiConfig::CONTROLLER_RETURN_LABELS_REST_API;
     }
 
     /**
