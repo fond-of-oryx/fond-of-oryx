@@ -62,7 +62,7 @@ class OneTimePasswordGenerator implements OneTimePasswordGeneratorInterface
         return (new OneTimePasswordResponseTransfer())
             ->setIsSuccess($customerResponseTransfer->getIsSuccess())
             ->setCustomerTransfer($customerResponseTransfer->getCustomerTransfer())
-            ->setNewPasswordPlain($password);
+            ->setOneTimePasswordPlain($password);
     }
 
     /**
