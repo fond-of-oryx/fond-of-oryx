@@ -40,6 +40,10 @@
             "path": "bundles/mail-bcc/",
             "version": "1.0.0"
         },
+        "product-locale-restriction": {
+            "path": "bundles/product-locale-restriction/",
+            "version": "1.0.0"
+        },
         "sales-locale-connector": {
             "path": "bundles/sales-locale-connector/",
             "version": "1.0.0"

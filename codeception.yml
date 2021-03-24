@@ -11,6 +11,8 @@ include:
   - bundles/erp-order-permission
   - bundles/mail-bcc
   - bundles/one-time-password-rest-api
+  - bundles/product-locale-restriction
+  - bundles/product-locale-restriction-search
   - bundles/sales-locale-connector
   - bundles/shipment-table-rate
   - bundles/shipment-table-rate-data-import
@@ -45,6 +47,7 @@ modules:
     \FondOfCodeception\Module\Spryker:
       generate_transfer: false
       generate_map_classes: false
+      generate_propel_classes: false
 
 env:
   standalone:
@@ -53,6 +56,7 @@ env:
         \FondOfCodeception\Module\Spryker:
           generate_transfer: true
           generate_map_classes: true
+          generate_propel_classes: true
           supported_source_identifiers:
             - erp-order
             - page
