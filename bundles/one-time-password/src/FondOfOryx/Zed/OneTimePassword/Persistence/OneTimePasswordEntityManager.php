@@ -23,8 +23,8 @@ class OneTimePasswordEntityManager extends AbstractEntityManager implements OneT
         $customerTransfer->requireEmail()->requireNewPassword();
 
         $changesRows = $this->getFactory()
-            ->getSpyCustomerQuery()
-            ->filterByEmail($customerTransfer->getEmail())
+            ->getCustomerQueryContainer()
+            ->queryCustomerByEmail($customerTransfer->getEmail())
             ->update([
                 static::COLUMN_PASSWORD => $customerTransfer->getNewPassword(),
             ]);

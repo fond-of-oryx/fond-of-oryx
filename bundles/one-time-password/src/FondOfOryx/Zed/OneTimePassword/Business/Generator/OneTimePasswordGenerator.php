@@ -4,7 +4,6 @@ namespace FondOfOryx\Zed\OneTimePassword\Business\Generator;
 
 use FondOfOryx\Zed\OneTimePassword\OneTimePasswordConfig;
 use FondOfOryx\Zed\OneTimePassword\Persistence\OneTimePasswordEntityManagerInterface;
-use FondOfOryx\Zed\OneTimePassword\Persistence\OneTimePasswordRepositoryInterface;
 use Generated\Shared\Transfer\CustomerTransfer;
 use Generated\Shared\Transfer\OneTimePasswordResponseTransfer;
 use Hackzilla\PasswordGenerator\Generator\HumanPasswordGenerator;
@@ -21,11 +20,6 @@ class OneTimePasswordGenerator implements OneTimePasswordGeneratorInterface
     protected $humanPasswordGenerator;
 
     /**
-     * @var \FondOfOryx\Zed\OneTimePassword\Persistence\OneTimePasswordRepositoryInterface
-     */
-    protected $oneTimePasswordQueryContainer;
-
-    /**
      * @var \FondOfOryx\Zed\OneTimePassword\Persistence\OneTimePasswordEntityManagerInterface
      */
     protected $oneTimePasswordEntityManager;
@@ -37,18 +31,15 @@ class OneTimePasswordGenerator implements OneTimePasswordGeneratorInterface
 
     /**
      * @param \Hackzilla\PasswordGenerator\Generator\HumanPasswordGenerator $humanPasswordGenerator
-     * @param \FondOfOryx\Zed\OneTimePassword\Persistence\OneTimePasswordRepositoryInterface $oneTimePasswordRepository
      * @param \FondOfOryx\Zed\OneTimePassword\Persistence\OneTimePasswordEntityManagerInterface $oneTimePasswordEntityManager
      * @param \FondOfOryx\Zed\OneTimePassword\OneTimePasswordConfig $oneTimePasswordConfig
      */
     public function __construct(
         HumanPasswordGenerator $humanPasswordGenerator,
-        OneTimePasswordRepositoryInterface $oneTimePasswordRepository,
         OneTimePasswordEntityManagerInterface $oneTimePasswordEntityManager,
         OneTimePasswordConfig $oneTimePasswordConfig
     ) {
         $this->humanPasswordGenerator = $humanPasswordGenerator;
-        $this->oneTimePasswordQueryContainer = $oneTimePasswordRepository;
         $this->oneTimePasswordEntityManager = $oneTimePasswordEntityManager;
         $this->oneTimePasswordConfig = $oneTimePasswordConfig;
     }

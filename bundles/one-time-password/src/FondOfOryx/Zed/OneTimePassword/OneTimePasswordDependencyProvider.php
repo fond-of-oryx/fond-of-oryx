@@ -2,13 +2,13 @@
 
 namespace FondOfOryx\Zed\OneTimePassword;
 
-use Orm\Zed\Customer\Persistence\SpyCustomerQuery;
+use FondOfOryx\Zed\OneTimePassword\Dependency\QueryContainer\OneTimePasswordToCustomerQueryContainerBridge;
 use Spryker\Zed\Kernel\AbstractBundleDependencyProvider;
 use Spryker\Zed\Kernel\Container;
 
 class OneTimePasswordDependencyProvider extends AbstractBundleDependencyProvider
 {
-    public const QUERY_SPY_CUSTOMER = 'QUERY_SPY_CUSTOMER';
+    public const QUERY_CONTAINER_CUSTOMER = 'QUERY_CONTAINER_CUSTOMER';
 
     /**
      * @param \Spryker\Zed\Kernel\Container $container
@@ -19,7 +19,7 @@ class OneTimePasswordDependencyProvider extends AbstractBundleDependencyProvider
     {
         $container = parent::providePersistenceLayerDependencies($container);
 
-        $container = $this->addSpyCustomerQuery($container);
+        $container = $this->addCustomerQueryContainer($container);
 
         return $container;
     }
@@ -29,10 +29,12 @@ class OneTimePasswordDependencyProvider extends AbstractBundleDependencyProvider
      *
      * @return \Spryker\Zed\Kernel\Container
      */
-    protected function addSpyCustomerQuery(Container $container): Container
+    protected function addCustomerQueryContainer(Container $container): Container
     {
-        $container[static::QUERY_SPY_CUSTOMER] = static function () {
-            return SpyCustomerQuery::create();
+        $container[static::QUERY_CONTAINER_CUSTOMER] = static function (Container $container) {
+            return new OneTimePasswordToCustomerQueryContainerBridge(
+                $container->getLocator()->customer()->queryContainer()
+            );
         };
 
         return $container;

@@ -2,8 +2,8 @@
 
 namespace FondOfOryx\Zed\OneTimePassword\Persistence;
 
+use FondOfOryx\Zed\OneTimePassword\Dependency\QueryContainer\OneTimePasswordToCustomerQueryContainerInterface;
 use FondOfOryx\Zed\OneTimePassword\OneTimePasswordDependencyProvider;
-use Orm\Zed\Customer\Persistence\SpyCustomerQuery;
 use Spryker\Zed\Kernel\Persistence\AbstractPersistenceFactory;
 
 /**
@@ -14,10 +14,10 @@ use Spryker\Zed\Kernel\Persistence\AbstractPersistenceFactory;
 class OneTimePasswordPersistenceFactory extends AbstractPersistenceFactory
 {
     /**
-     * @return \Orm\Zed\Customer\Persistence\SpyCustomerQuery
+     * @return \FondOfOryx\Zed\OneTimePassword\Dependency\QueryContainer\OneTimePasswordToCustomerQueryContainerInterface
      */
-    public function getSpyCustomerQuery(): SpyCustomerQuery
+    public function getCustomerQueryContainer(): OneTimePasswordToCustomerQueryContainerInterface
     {
-        return $this->getProvidedDependency(OneTimePasswordDependencyProvider::QUERY_SPY_CUSTOMER);
+        return $this->getProvidedDependency(OneTimePasswordDependencyProvider::QUERY_CONTAINER_CUSTOMER);
     }
 }

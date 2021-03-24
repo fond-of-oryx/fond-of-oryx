@@ -1,10 +1,10 @@
 <?php
 
-namespace FondOfOryx\Zed\OneTimePassword\Persistence;
+namespace FondOfOryx\Zed\OneTimePassword\Dependency\QueryContainer;
 
 use Orm\Zed\Customer\Persistence\SpyCustomerQuery;
 
-interface OneTimePasswordRepositoryInterface
+interface OneTimePasswordToCustomerQueryContainerInterface
 {
     /**
      * @param string $email
