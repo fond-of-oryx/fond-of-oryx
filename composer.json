@@ -48,7 +48,8 @@
     "spryker/store": "^1.2.0",
     "spryker/synchronization-extension": "^1.0.0",
     "spryker/tax": "^4.0.0 || ^5.0.0",
-    "spryker/tax-product-connector": "^4.2.0"
+    "spryker/tax-product-connector": "^4.2.0",
+    "fond-of-spryker/mail": "dev-spryker_upgrade"
   },
   "require-dev": {
     "fond-of-codeception/spryker": "^1.0",
@@ -88,6 +89,8 @@
       "FondOfOryx\\Client\\CustomerStatistic\\": "bundles/customer-statistic/src/FondOfOryx/Client/CustomerStatistic",
       "FondOfOryx\\Zed\\OneTimePassword\\": "bundles/one-time-password/src/FondOfOryx/Zed/OneTimePassword",
       "FondOfOryx\\Shared\\OneTimePassword\\": "bundles/one-time-password/src/FondOfOryx/Shared/OneTimePassword",
+      "FondOfOryx\\Zed\\OneTimePasswordEmailConnector\\": "bundles/one-time-password/src/FondOfOryx/Zed/OneTimePasswordEmailConnector",
+      "FondOfOryx\\Shared\\OneTimePasswordEmailConnector\\": "bundles/one-time-password/src/FondOfOryx/Shared/OneTimePasswordEmailConnector",
       "FondOfOryx\\Glue\\OneTimePasswordRestApi\\": "bundles/one-time-password-rest-api/src/FondOfOryx/Glue/OneTimePasswordRestApi",
       "FondOfOryx\\Client\\OneTimePasswordRestApi\\": "bundles/one-time-password-rest-api/src/FondOfOryx/Client/OneTimePasswordRestApi",
       "FondOfOryx\\Zed\\OneTimePasswordRestApi\\": "bundles/one-time-password-rest-api/src/FondOfOryx/Zed/OneTimePasswordRestApi",
@@ -128,6 +131,8 @@
       "FondOfOryx\\Client\\CustomerStatistic\\": "bundles/customer-statistic/tests/FondOfOryx/Client/CustomerStatistic",
       "FondOfOryx\\Zed\\OneTimePassword\\": "bundles/one-time-password/tests/FondOfOryx/Zed/OneTimePassword",
       "FondOfOryx\\Shared\\OneTimePassword\\": "bundles/one-time-password/tests/FondOfOryx/Shared/OneTimePassword",
+      "FondOfOryx\\Zed\\OneTimePasswordEmailConnector\\": "bundles/one-time-password/tests/FondOfOryx/Zed/OneTimePasswordEmailConnector",
+      "FondOfOryx\\Shared\\OneTimePasswordEmailConnector\\": "bundles/one-time-password/tests/FondOfOryx/Shared/OneTimePasswordEmailConnector",
       "FondOfOryx\\Glue\\OneTimePasswordRestApi\\": "bundles/one-time-password-rest-api/tests/FondOfOryx/Glue/OneTimePasswordRestApi",
       "FondOfOryx\\Client\\OneTimePasswordRestApi\\": "bundles/one-time-password-rest-api/tests/FondOfOryx/Client/OneTimePasswordRestApi",
       "FondOfOryx\\Zed\\OneTimePasswordRestApi\\": "bundles/one-time-password-rest-api/tests/FondOfOryx/Zed/OneTimePasswordRestApi",

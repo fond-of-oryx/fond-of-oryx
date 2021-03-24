@@ -1,0 +1,28 @@
+{
+  "name": "fond-of-oryx/one-time-password-email-connector",
+  "description": "Spryker One Time Password Email Connector Module.",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Daniel Kemna",
+      "email": "danielkemna@t-online.de"
+    }
+  ],
+  "require": {
+    "php": ">=7.3",
+    "fond-of-spryker/mail": "^1.1.0 || ^2.0.0 || dev-spryker_upgrade"
+  },
+  "minimum-stability": "dev",
+  "prefer-stable": true,
+  "autoload": {
+    "psr-4": {
+      "FondOfOryx\\": "src/FondOfOryx/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "FondOfOryx\\": "tests/FondOfOryx/",
+      "Generated\\": "src/Generated/"
+    }
+  }
+}
