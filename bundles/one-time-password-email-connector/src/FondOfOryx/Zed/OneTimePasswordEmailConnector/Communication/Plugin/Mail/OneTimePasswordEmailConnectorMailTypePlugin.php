@@ -15,19 +15,6 @@ class OneTimePasswordEmailConnectorMailTypePlugin extends AbstractPlugin impleme
     public const MAIL_TYPE = 'one time password mail';
 
     /**
-     * @var \FondOfSpryker\Zed\Mail\MailConfig
-     */
-    protected $mailConfig;
-
-    /**
-     * @param \FondOfSpryker\Zed\Mail\MailConfig $mailConfig
-     */
-    public function __construct(MailConfig $mailConfig)
-    {
-        $this->mailConfig = $mailConfig;
-    }
-
-    /**
      * @return string
      */
     public function getName(): string
@@ -109,7 +96,7 @@ class OneTimePasswordEmailConnectorMailTypePlugin extends AbstractPlugin impleme
      */
     protected function setSender(MailBuilderInterface $mailBuilder)
     {
-        $mailBuilder->setSender($this->mailConfig->getSenderEmail(), $this->mailConfig->getSenderName());
+        $mailBuilder->setSender('mail.sender.email', 'mail.sender.sender');
 
         return $this;
     }

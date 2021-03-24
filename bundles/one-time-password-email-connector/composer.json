@@ -9,8 +9,7 @@
     }
   ],
   "require": {
-    "php": ">=7.3",
-    "fond-of-spryker/mail": "^1.1.0 || ^2.0.0 || dev-spryker_upgrade"
+    "php": ">=7.3"
   },
   "minimum-stability": "dev",
   "prefer-stable": true,

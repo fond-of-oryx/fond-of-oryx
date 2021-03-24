@@ -48,8 +48,7 @@
     "spryker/store": "^1.2.0",
     "spryker/synchronization-extension": "^1.0.0",
     "spryker/tax": "^4.0.0 || ^5.0.0",
-    "spryker/tax-product-connector": "^4.2.0",
-    "fond-of-spryker/mail": "dev-spryker_upgrade"
+    "spryker/tax-product-connector": "^4.2.0"
   },
   "require-dev": {
     "fond-of-codeception/spryker": "^1.0",

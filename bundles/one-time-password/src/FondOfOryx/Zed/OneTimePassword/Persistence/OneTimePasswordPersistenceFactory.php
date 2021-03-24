@@ -8,7 +8,6 @@ use Spryker\Zed\Kernel\Persistence\AbstractPersistenceFactory;
 
 /**
  * @method \FondOfOryx\Zed\OneTimePassword\Persistence\OneTimePasswordEntityManagerInterface getEntityManager()
- * @method \FondOfOryx\Zed\OneTimePassword\Persistence\OneTimePasswordRepositoryInterface getRepository()
  * @method \FondOfOryx\Zed\OneTimePassword\OneTimePasswordConfig getConfig()
  */
 class OneTimePasswordPersistenceFactory extends AbstractPersistenceFactory

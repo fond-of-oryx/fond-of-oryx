@@ -30,14 +30,14 @@ class OneTimePasswordEmailConnector implements OneTimePasswordEmailConnectorInte
     public function sendOneTimePasswordMail(OneTimePasswordResponseTransfer $oneTimePasswordResponseTransfer): void
     {
         $customerTransfer = $oneTimePasswordResponseTransfer
-            ->requireNewPasswordPlain()
+            ->requireOneTimePasswordPlain()
             ->requireCustomerTransfer()
             ->getCustomerTransfer();
 
         $mailTransfer = (new MailTransfer())
             ->setType(OneTimePasswordEmailConnectorMailTypePlugin::MAIL_TYPE)
             ->setCustomer($customerTransfer)
-            ->setNewPasswordPlain($oneTimePasswordResponseTransfer->getNewPasswordPlain())
+            ->setOneTimePasswordPlain($oneTimePasswordResponseTransfer->getOneTimePasswordPlain())
             ->setLocale($customerTransfer->getLocale());
 
         $this->mailFacade->handleMail($mailTransfer);
