@@ -5,7 +5,6 @@ namespace FondOfOryx\Zed\ErpOrderApi\Business\Model;
 use Codeception\Test\Unit;
 use FondOfOryx\Zed\ErpOrderApi\Business\Mapper\TransferMapper;
 use Generated\Shared\Transfer\ErpOrderApiTransfer;
-use Orm\Zed\ErpOrder\Persistence\ErpOrder;
 
 class TransferMapperTest extends Unit
 {
@@ -29,7 +28,6 @@ class TransferMapperTest extends Unit
      */
     public function testToTransfer(): void
     {
-
         static::assertInstanceOf(
             ErpOrderApiTransfer::class,
             $this->transferMapper->toTransfer([])
@@ -42,7 +40,7 @@ class TransferMapperTest extends Unit
     public function testToTransferCollection(): void
     {
         $datas = [
-            'data' => []
+            'data' => [],
         ];
 
         $collection = $this->transferMapper->toTransferCollection($datas);

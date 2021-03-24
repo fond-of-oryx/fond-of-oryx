@@ -375,7 +375,7 @@ class ErpOrderApiTest extends Unit
         ];
 
         $data = [
-            'id_erp_order' => 1
+            'id_erp_order' => 1,
         ];
 
         $collection = [$this->erpOrderApiTransferMock];
