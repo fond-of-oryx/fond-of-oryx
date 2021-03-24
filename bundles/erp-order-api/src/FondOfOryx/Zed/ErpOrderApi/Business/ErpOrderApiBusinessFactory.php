@@ -24,7 +24,6 @@ class ErpOrderApiBusinessFactory extends AbstractBusinessFactory
      */
     public function createErpOrderApi(): ErpOrderApiInterface
     {
-
         return new ErpOrderApi(
             $this->getApiQueryContainer(),
             $this->getErpOrderFacade(),

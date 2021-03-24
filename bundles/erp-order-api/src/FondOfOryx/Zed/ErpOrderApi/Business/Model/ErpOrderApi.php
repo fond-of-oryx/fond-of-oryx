@@ -4,21 +4,16 @@ namespace FondOfOryx\Zed\ErpOrderApi\Business\Model;
 
 use FondOfOryx\Zed\ErpOrderApi\Business\Mapper\TransferMapperInterface;
 use FondOfOryx\Zed\ErpOrderApi\Dependency\Facade\ErpOrderApiToErpOrderFacadeInterface;
-use FondOfOryx\Zed\ErpOrderApi\Dependency\QueryContainer\ErpOrderApiToApiQueryBuilderQueryContainerInterface;
 use FondOfOryx\Zed\ErpOrderApi\Dependency\QueryContainer\ErpOrderApiToApiQueryContainerInterface;
 use FondOfOryx\Zed\ErpOrderApi\Persistence\ErpOrderApiRepositoryInterface;
 use Generated\Shared\Transfer\ApiCollectionTransfer;
 use Generated\Shared\Transfer\ApiDataTransfer;
 use Generated\Shared\Transfer\ApiItemTransfer;
-use Generated\Shared\Transfer\ApiPaginationTransfer;
-use Generated\Shared\Transfer\ApiQueryBuilderQueryTransfer;
 use Generated\Shared\Transfer\ApiRequestTransfer;
 use Generated\Shared\Transfer\ErpOrderTransfer;
-use Propel\Runtime\ActiveQuery\ModelCriteria;
 use Spryker\Zed\Api\ApiConfig;
 use Spryker\Zed\Api\Business\Exception\EntityNotFoundException;
 use Spryker\Zed\Api\Business\Exception\EntityNotSavedException;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class ErpOrderApi implements ErpOrderApiInterface
 {
@@ -48,8 +43,6 @@ class ErpOrderApi implements ErpOrderApiInterface
     protected $transferMapper;
 
     /**
-     * ErpOrderApi constructor.
-     *
      * @param \FondOfOryx\Zed\ErpOrderApi\Dependency\QueryContainer\ErpOrderApiToApiQueryContainerInterface $apiQueryContainer
      * @param \FondOfOryx\Zed\ErpOrderApi\Dependency\Facade\ErpOrderApiToErpOrderFacadeInterface $erpOrderFacade
      * @param \FondOfOryx\Zed\ErpOrderApi\Persistence\ErpOrderApiRepositoryInterface $repository
@@ -139,7 +132,7 @@ class ErpOrderApi implements ErpOrderApiInterface
 
     /**
      * @TODO add pagination
-     * 
+     *
      * @param \Generated\Shared\Transfer\ApiRequestTransfer $apiRequestTransfer
      *
      * @return \Generated\Shared\Transfer\ApiCollectionTransfer
@@ -157,7 +150,6 @@ class ErpOrderApi implements ErpOrderApiInterface
 
         return $apiCollectionTransfer;
     }
-
 
     /**
      * @param int $idErpOrder
