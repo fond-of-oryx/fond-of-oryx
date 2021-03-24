@@ -2,6 +2,8 @@
 
 namespace FondOfOryx\Zed\ErpOrderApi\Business;
 
+use FondOfOryx\Zed\ErpOrderApi\Business\Mapper\TransferMapper;
+use FondOfOryx\Zed\ErpOrderApi\Business\Mapper\TransferMapperInterface;
 use FondOfOryx\Zed\ErpOrderApi\Business\Model\ErpOrderApi;
 use FondOfOryx\Zed\ErpOrderApi\Business\Model\ErpOrderApiInterface;
 use FondOfOryx\Zed\ErpOrderApi\Business\Validator\ErpOrderApiValidator;
@@ -22,10 +24,12 @@ class ErpOrderApiBusinessFactory extends AbstractBusinessFactory
      */
     public function createErpOrderApi(): ErpOrderApiInterface
     {
+
         return new ErpOrderApi(
             $this->getApiQueryContainer(),
             $this->getErpOrderFacade(),
-            $this->getRepository()
+            $this->getRepository(),
+            $this->createTransferMapper()
         );
     }
 
@@ -51,5 +55,13 @@ class ErpOrderApiBusinessFactory extends AbstractBusinessFactory
     public function createErpOrderApiValidator(): ErpOrderApiValidatorInterface
     {
         return new ErpOrderApiValidator();
+    }
+
+    /**
+     * @return \FondOfOryx\Zed\ErpOrderApi\Business\Mapper\TransferMapperInterface
+     */
+    protected function createTransferMapper(): TransferMapperInterface
+    {
+        return new TransferMapper();
     }
 }

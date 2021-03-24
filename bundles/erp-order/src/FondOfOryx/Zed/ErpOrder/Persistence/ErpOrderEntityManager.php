@@ -144,6 +144,7 @@ class ErpOrderEntityManager extends AbstractEntityManager implements ErpOrderEnt
     public function updateErpOrderItem(ErpOrderItemTransfer $orderItemTransfer): ErpOrderItemTransfer
     {
         $orderItemTransfer
+            ->requireIdErpOrderItem()
             ->requireFkErpOrder()
             ->requireSku()
             ->requireName();
@@ -151,11 +152,9 @@ class ErpOrderEntityManager extends AbstractEntityManager implements ErpOrderEnt
         $entity = $this->findOrCreateErpOrderItem($orderItemTransfer->getFkErpOrder(), $orderItemTransfer->getSku());
         $createdAt = $entity->getCreatedAt();
         $updatedAt = new DateTime();
-        $idItem = $entity->getIdErpOrderItem();
-        $entity->fromArray($orderItemTransfer->toArray());
+        $entity->fromArray($orderItemTransfer->modifiedToArray());
 
         $entity
-            ->setIdErpOrderItem($idItem)
             ->setConcreteDeliveryDate($this->getConcreteDeliveryDate($orderItemTransfer->getConcreteDeliveryDate()))
             ->setCreatedAt($createdAt)
             ->setUpdatedAt($updatedAt)
@@ -270,7 +269,7 @@ class ErpOrderEntityManager extends AbstractEntityManager implements ErpOrderEnt
     protected function findOrCreateErpOrderItem(int $idErpOrder, string $sku): ErpOrderItem
     {
         return $this->getFactory()->createErpOrderItemQuery()
-            ->filterByIdErpOrderItem($idErpOrder)
+            ->filterByFkErpOrder($idErpOrder)
             ->filterBySku($sku)
             ->findOneOrCreate();
     }

@@ -41,7 +41,7 @@ class ErpOrderRepository extends AbstractRepository implements ErpOrderRepositor
     public function findErpOrderItemsByIdErpOrder(int $idErpOrder): ErpOrderItemCollectionTransfer
     {
         $query = $this->getErpOrderItemQuery();
-        $items = $query->findByIdErpOrderItem($idErpOrder);
+        $items = $query->findByFkErpOrder($idErpOrder);
         $itemCollectionTransfer = new ErpOrderItemCollectionTransfer();
 
         if (empty($items) || empty($items->getData())) {
