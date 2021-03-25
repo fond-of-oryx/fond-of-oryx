@@ -1,93 +1,97 @@
 {
-    "repositories": {
-        "catalog-sku-filter": {
-            "path": "bundles/catalog-sku-filter/",
-            "version": "1.0.0"
-        },
-        "customer-statistic": {
-            "path": "bundles/customer-statistic/",
-            "version": "1.0.0"
-        },
-        "customer-statistics-rest-api": {
-            "path": "bundles/customer-statistics-rest-api/",
-            "version": "1.0.0"
-        },
-        "erp-order": {
-            "path": "bundles/erp-order/",
-            "version": "alpha-0.0.1"
-        },
-        "erp-order-api": {
-            "path": "bundles/erp-order-api/",
-            "version": "1.0.0"
-        },
-        "erp-order-extension": {
-            "path": "bundles/erp-order-extension/",
-            "version": "1.0.0"
-        },
-        "erp-order-page-search": {
-            "path": "bundles/erp-order-page-search/",
-            "version": "0.0.1-alpha"
-        },
-        "erp-order-page-search-rest-api": {
-            "path": "bundles/erp-order-page-search-rest-api/",
-            "version": "0.0.1-alpha"
-        },
-        "erp-order-permission": {
-            "path": "bundles/erp-order-permission/",
-            "version": "1.0.0"
-        },
-        "mail-bcc": {
-            "path": "bundles/mail-bcc/",
-            "version": "1.0.0"
-        },
-        "product-locale-restriction": {
-            "path": "bundles/product-locale-restriction/",
-            "version": "1.0.0"
-        },
-        "sales-locale-connector": {
-            "path": "bundles/sales-locale-connector/",
-            "version": "1.0.0"
-        },
-        "shipment-table-rate": {
-            "path": "bundles/shipment-table-rate/",
-            "version": "1.0.0"
-        },
-        "shipment-table-rate-data-import": {
-            "path": "bundles/shipment-table-rate-data-import/",
-            "version": "1.0.0"
-        },
-        "splittable-checkout": {
-            "path": "bundles/splittable-checkout/",
-            "version": "1.0.0"
-        },
-        "splittable-checkout-rest-api-extension": {
-            "path": "bundles/splittable-checkout-rest-api-extension/",
-            "version": "1.0.0"
-        },
-        "tax-calculation-connector": {
-            "path": "bundles/tax-calculation-connector/",
-            "version": "1.0.0"
-        },
-        "thirty-five-up": {
-            "path": "bundles/thirty-five-up/",
-            "version": "1.0.0"
-        },
-        "thirty-five-up-payment-filter": {
-            "path": "bundles/thirty-five-up-payment-filter/",
-            "version": "1.0.0"
-        },
-        "util-math-formula": {
-            "path": "bundles/util-math-formula/",
-            "version": "1.0.0"
-        }
+  "repositories": {
+    "catalog-sku-filter": {
+      "path": "bundles/catalog-sku-filter/",
+      "version": "1.0.0"
     },
-    "vcs": {
-        "owner": {
-            "type": "organisation",
-            "name": "fond-of-oryx"
-        },
-        "token": "<GITHUB_TOKEN>"
+    "customer-statistic": {
+      "path": "bundles/customer-statistic/",
+      "version": "1.0.0"
     },
-    "pathToTempDirectory": "/home/dandelion/project/tmp/",
-    "pathToSplitshLite": "/usr/local/bin/splitsh-lite"
+    "customer-statistics-rest-api": {
+      "path": "bundles/customer-statistics-rest-api/",
+      "version": "1.0.0"
+    },
+    "erp-order": {
+      "path": "bundles/erp-order/",
+      "version": "alpha-0.0.1"
+    },
+    "erp-order-api": {
+      "path": "bundles/erp-order-api/",
+      "version": "1.0.0"
+    },
+    "erp-order-extension": {
+      "path": "bundles/erp-order-extension/",
+      "version": "1.0.0"
+    },
+    "erp-order-page-search": {
+      "path": "bundles/erp-order-page-search/",
+      "version": "0.0.1-alpha"
+    },
+    "erp-order-page-search-rest-api": {
+      "path": "bundles/erp-order-page-search-rest-api/",
+      "version": "0.0.1-alpha"
+    },
+    "erp-order-permission": {
+      "path": "bundles/erp-order-permission/",
+      "version": "1.0.0"
+    },
+    "mail-bcc": {
+      "path": "bundles/mail-bcc/",
+      "version": "1.0.0"
+    },
+    "product-locale-restriction": {
+      "path": "bundles/product-locale-restriction/",
+      "version": "1.0.0"
+    },
+    "product-locale-restriction-search": {
+      "path": "bundles/product-locale-restriction-search/",
+      "version": "1.0.0"
+    },
+    "sales-locale-connector": {
+      "path": "bundles/sales-locale-connector/",
+      "version": "1.0.0"
+    },
+    "shipment-table-rate": {
+      "path": "bundles/shipment-table-rate/",
+      "version": "1.0.0"
+    },
+    "shipment-table-rate-data-import": {
+      "path": "bundles/shipment-table-rate-data-import/",
+      "version": "1.0.0"
+    },
+    "splittable-checkout": {
+      "path": "bundles/splittable-checkout/",
+      "version": "1.0.0"
+    },
+    "splittable-checkout-rest-api-extension": {
+      "path": "bundles/splittable-checkout-rest-api-extension/",
+      "version": "1.0.0"
+    },
+    "tax-calculation-connector": {
+      "path": "bundles/tax-calculation-connector/",
+      "version": "1.0.0"
+    },
+    "thirty-five-up": {
+      "path": "bundles/thirty-five-up/",
+      "version": "1.0.0"
+    },
+    "thirty-five-up-payment-filter": {
+      "path": "bundles/thirty-five-up-payment-filter/",
+      "version": "1.0.0"
+    },
+    "util-math-formula": {
+      "path": "bundles/util-math-formula/",
+      "version": "1.0.0"
+    }
+  },
+  "vcs": {
+    "owner": {
+      "type": "organisation",
+      "name": "fond-of-oryx"
+    },
+    "token": "<GITHUB_TOKEN>"
+  },
+  "pathToTempDirectory": "/home/dandelion/project/tmp/",
+  "pathToSplitshLite": "/usr/local/bin/splitsh-lite"
 }
