@@ -4,6 +4,7 @@ namespace FondOfOryx\Zed\ErpOrderApi\Business\Model;
 
 use Codeception\Test\Unit;
 use Exception;
+use FondOfOryx\Zed\ErpOrderApi\Business\Mapper\TransferMapperInterface;
 use FondOfOryx\Zed\ErpOrderApi\Dependency\Facade\ErpOrderApiToErpOrderFacadeInterface;
 use FondOfOryx\Zed\ErpOrderApi\Dependency\QueryContainer\ErpOrderApiToApiQueryContainerInterface;
 use FondOfOryx\Zed\ErpOrderApi\Persistence\ErpOrderApiRepositoryInterface;
@@ -11,6 +12,7 @@ use Generated\Shared\Transfer\ApiCollectionTransfer;
 use Generated\Shared\Transfer\ApiDataTransfer;
 use Generated\Shared\Transfer\ApiItemTransfer;
 use Generated\Shared\Transfer\ApiRequestTransfer;
+use Generated\Shared\Transfer\ErpOrderApiTransfer;
 use Generated\Shared\Transfer\ErpOrderResponseTransfer;
 use Generated\Shared\Transfer\ErpOrderTransfer;
 
@@ -20,6 +22,11 @@ class ErpOrderApiTest extends Unit
      * @var \FondOfOryx\Zed\ErpOrderApi\Dependency\QueryContainer\ErpOrderApiToApiQueryContainerInterface|\PHPUnit\Framework\MockObject\MockObject
      */
     protected $apiQueryContainerMock;
+
+    /**
+     * @var \Generated\Shared\Transfer\ErpOrderApiTransfer|\PHPUnit\Framework\MockObject\MockObject
+     */
+    protected $erpOrderApiTransferMock;
 
     /**
      * @var \FondOfOryx\Zed\ErpOrderApi\Dependency\Facade\ErpOrderApiToErpOrderFacadeInterface|\PHPUnit\Framework\MockObject\MockObject
@@ -67,6 +74,11 @@ class ErpOrderApiTest extends Unit
     protected $erpOrderApi;
 
     /**
+     * @var \FondOfOryx\Zed\ErpOrderApi\Business\Mapper\TransferMapperInterface|\PHPUnit\Framework\MockObject\MockObject
+     */
+    protected $transferMapperMock;
+
+    /**
      * @return void
      */
     protected function _before(): void
@@ -86,6 +98,10 @@ class ErpOrderApiTest extends Unit
             ->getMock();
 
         $this->erpOrderResponseTransferMock = $this->getMockBuilder(ErpOrderResponseTransfer::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $this->erpOrderApiTransferMock = $this->getMockBuilder(ErpOrderApiTransfer::class)
             ->disableOriginalConstructor()
             ->getMock();
 
@@ -109,10 +125,15 @@ class ErpOrderApiTest extends Unit
             ->disableOriginalConstructor()
             ->getMock();
 
+        $this->transferMapperMock = $this->getMockBuilder(TransferMapperInterface::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
         $this->erpOrderApi = new ErpOrderApi(
             $this->apiQueryContainerMock,
             $this->erpOrderFacadeMock,
-            $this->erpOrderApiRepositoryMock
+            $this->erpOrderApiRepositoryMock,
+            $this->transferMapperMock
         );
     }
 
@@ -355,8 +376,9 @@ class ErpOrderApiTest extends Unit
 
         $data = [
             'id_erp_order' => 1,
-            'foo' => 'bar',
         ];
+
+        $collection = [$this->erpOrderApiTransferMock];
 
         $this->erpOrderApiRepositoryMock->expects(static::atLeastOnce())
             ->method('find')
@@ -366,6 +388,14 @@ class ErpOrderApiTest extends Unit
         $this->apiCollectionTransferMock->expects(static::atLeastOnce())
             ->method('getData')
             ->willReturn($apiCollectionTransferData);
+
+        $this->transferMapperMock->expects(static::atLeastOnce())
+            ->method('toTransferCollection')
+            ->willReturn($collection);
+
+        $this->erpOrderApiTransferMock->expects(static::atLeastOnce())
+            ->method('getIdErpOrder')
+            ->willReturn($apiCollectionTransferData[0]['id_erp_order']);
 
         $this->erpOrderFacadeMock->expects(static::atLeastOnce())
             ->method('findErpOrderByIdErpOrder')
@@ -381,22 +411,20 @@ class ErpOrderApiTest extends Unit
             ->method('getData')
             ->willReturn($data);
 
-        $this->apiCollectionTransferMock->expects(static::atLeastOnce())
-            ->method('setData')
-            ->with(
-                static::callback(
-                    static function (array $newData) use ($data) {
-                        return count($newData) === 1
-                            && isset($newData[0]['id_erp_order'], $newData[0]['foo'])
-                            && $newData[0]['id_erp_order'] === $data['id_erp_order']
-                            && $newData[0]['foo'] === $data['foo'];
-                    }
-                )
-            )->willReturn($this->apiCollectionTransferMock);
+        $this->apiQueryContainerMock->expects(static::atLeastOnce())
+            ->method('createApiCollection')
+            ->willReturn($this->apiCollectionTransferMock);
+
+        $apiCollectionTransfer = $this->erpOrderApi->find($this->apiRequestTransferMock);
+
+        static::assertInstanceOf(
+            ApiCollectionTransfer::class,
+            $apiCollectionTransfer
+        );
 
         static::assertEquals(
             $this->apiCollectionTransferMock,
-            $this->erpOrderApi->find($this->apiRequestTransferMock)
+            $apiCollectionTransfer
         );
     }
 }

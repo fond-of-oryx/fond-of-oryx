@@ -23,7 +23,7 @@ class ErpOrderApiBusinessFactory extends AbstractBusinessFactory
      * @return \FondOfOryx\Zed\ErpOrderApi\Business\Model\ErpOrderApiInterface
      */
     public function createErpOrderApi(): ErpOrderApiInterface
-    {  
+    {
         return new ErpOrderApi(
             $this->getApiQueryContainer(),
             $this->getErpOrderFacade(),

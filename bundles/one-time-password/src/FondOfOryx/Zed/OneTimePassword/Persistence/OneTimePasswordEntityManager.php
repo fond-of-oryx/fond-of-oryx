@@ -36,4 +36,21 @@ class OneTimePasswordEntityManager extends AbstractEntityManager implements OneT
             ->setIsSuccess($changesRows > 0)
             ->setCustomerTransfer($customerTransfer);
     }
+
+    /**
+     * @param \Generated\Shared\Transfer\CustomerTransfer $customerTransfer
+     *
+     * @return void
+     */
+    public function resetCustomerPassword(CustomerTransfer $customerTransfer): void
+    {
+        $customerTransfer->requireCustomerReference();
+
+        $this->getFactory()
+            ->getCustomerQueryContainer()
+            ->queryCustomerByReference($customerTransfer->getCustomerReference())
+            ->update([
+                static::COLUMN_PASSWORD => null,
+            ]);
+    }
 }

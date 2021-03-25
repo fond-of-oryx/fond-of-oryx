@@ -9,7 +9,6 @@ use Spryker\Zed\Kernel\Business\AbstractFacade;
 /**
  * @method \FondOfOryx\Zed\OneTimePassword\Persistence\OneTimePasswordEntityManagerInterface getEntityManager()
  * @method \FondOfOryx\Zed\OneTimePassword\Business\OneTimePasswordBusinessFactory getFactory()
- * @method \FondOfOryx\Zed\OneTimePassword\Persistence\OneTimePasswordRepositoryInterface getRepository()
  */
 class OneTimePasswordFacade extends AbstractFacade implements OneTimePasswordFacadeInterface
 {
@@ -45,5 +44,17 @@ class OneTimePasswordFacade extends AbstractFacade implements OneTimePasswordFac
         return $this->getFactory()
             ->createOneTimePasswordGenerator()
             ->generateOneTimePassword($customerTransfer);
+    }
+
+    /**
+     * @param \Generated\Shared\Transfer\CustomerTransfer $customerTransfer
+     *
+     * @return void
+     */
+    public function resetOneTimePassword(CustomerTransfer $customerTransfer): void
+    {
+        $this->getFactory()
+            ->createOneTimePasswordResetter()
+            ->resetOneTimePassword($customerTransfer);
     }
 }

@@ -3,22 +3,16 @@
 namespace FondOfOryx\Zed\ErpOrderApi\Business\Model;
 
 use FondOfOryx\Zed\ErpOrderApi\Dependency\Facade\ErpOrderApiToErpOrderFacadeInterface;
-use FondOfOryx\Zed\ErpOrderApi\Dependency\QueryContainer\ErpOrderApiToApiQueryBuilderQueryContainerInterface;
 use FondOfOryx\Zed\ErpOrderApi\Dependency\QueryContainer\ErpOrderApiToApiQueryContainerInterface;
 use FondOfOryx\Zed\ErpOrderApi\Persistence\ErpOrderApiRepositoryInterface;
 use Generated\Shared\Transfer\ApiCollectionTransfer;
 use Generated\Shared\Transfer\ApiDataTransfer;
 use Generated\Shared\Transfer\ApiItemTransfer;
-use Generated\Shared\Transfer\ApiPaginationTransfer;
-use Generated\Shared\Transfer\ApiQueryBuilderQueryTransfer;
 use Generated\Shared\Transfer\ApiRequestTransfer;
 use Generated\Shared\Transfer\ErpOrderTransfer;
-use Orm\Zed\ErpOrder\Persistence\Map\ErpOrderTableMap;
-use Propel\Runtime\ActiveQuery\ModelCriteria;
 use Spryker\Zed\Api\ApiConfig;
 use Spryker\Zed\Api\Business\Exception\EntityNotFoundException;
 use Spryker\Zed\Api\Business\Exception\EntityNotSavedException;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class ErpOrderApi implements ErpOrderApiInterface
 {
@@ -28,11 +22,6 @@ class ErpOrderApi implements ErpOrderApiInterface
      * @var \FondOfOryx\Zed\ErpOrderApi\Dependency\QueryContainer\ErpOrderApiToApiQueryContainerInterface
      */
     protected $apiQueryContainer;
-
-    /**
-     * @var \FondOfOryx\Zed\ErpOrderApi\Dependency\QueryContainer\ErpOrderApiToApiQueryBuilderQueryContainerInterface
-     */
-    protected $apiQueryBuilderQueryContainer;
 
     /**
      * @var \FondOfOryx\Zed\ErpOrderApi\Dependency\Facade\ErpOrderApiToErpOrderFacadeInterface
@@ -152,7 +141,6 @@ class ErpOrderApi implements ErpOrderApiInterface
         
         return $apiCollectionTransfer->setData($data);
     }
-
 
     /**
      * @param int $idErpOrder
