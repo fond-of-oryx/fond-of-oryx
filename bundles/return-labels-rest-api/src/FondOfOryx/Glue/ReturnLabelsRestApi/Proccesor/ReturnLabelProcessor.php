@@ -28,10 +28,10 @@ class ReturnLabelProcessor implements ReturnLabelProcessorInterface
     public function getReturnLabel(
         RestRequestInterface $restRequest,
         RestReturnLabelRequestAttributesTransfer $restReturnLabelRequestAttributesTransfer
-    ): void
-    {
+    ): void {
         $returnLabelsRestApiTransfer = $this->createReturnLabelsRestApiTransfer(
-            $restRequest, $restReturnLabelRequestAttributesTransfer
+            $restRequest,
+            $restReturnLabelRequestAttributesTransfer
         );
 
         $companyUnitAddressTransfer = $this->hasPermissionsToReadCompanyUnitAddress($returnLabelsRestApiTransfer);
@@ -43,8 +43,7 @@ class ReturnLabelProcessor implements ReturnLabelProcessorInterface
      */
     protected function hasPermissionsToReadCompanyUnitAddress(
         ReturnLabelsRestApiTransfer $returnLabelsRestApiTransfer
-    ): ?CompanyUnitAddressTransfer
-    {
+    ): ?CompanyUnitAddressTransfer {
         $companyUnitAddressTransfer = $this->client->findCompanyUnitAddressByUuid($returnLabelsRestApiTransfer);
 
         if ($companyUnitAddressTransfer === null) {
@@ -57,8 +56,7 @@ class ReturnLabelProcessor implements ReturnLabelProcessorInterface
     protected function createReturnLabelsRestApiTransfer(
         RestRequestInterface $restRequest,
         RestReturnLabelRequestAttributesTransfer $restReturnLabelRequestAttributesTransfer
-    ): ReturnLabelsRestApiTransfer
-    {
+    ): ReturnLabelsRestApiTransfer {
         return (new ReturnLabelsRestApiTransfer())
             ->setRestUserNaturalIndetifier($restRequest->getRestUser()->getNaturalIdentifier())
             ->setCustomerId($restRequest->getRestUser()->getSurrogateIdentifier())

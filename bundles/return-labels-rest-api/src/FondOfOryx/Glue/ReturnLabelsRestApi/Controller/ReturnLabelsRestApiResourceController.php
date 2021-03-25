@@ -21,8 +21,7 @@ class ReturnLabelsRestApiResourceController extends AbstractController
     public function postAction(
         RestRequestInterface $restRequest,
         RestReturnLabelRequestAttributesTransfer $restReturnLabelRequestAttributesTransfer
-    ): RestResponseInterface
-    {
+    ): RestResponseInterface {
         var_dump($restRequest->getRestUser()->getNaturalIdentifier());
         var_dump($restRequest->getRestUser()->getSurrogateIdentifier());
         var_dump($restReturnLabelRequestAttributesTransfer->getCompanyUnitAddressUuid());

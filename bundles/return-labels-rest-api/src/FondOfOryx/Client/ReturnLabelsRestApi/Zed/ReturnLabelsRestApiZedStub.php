@@ -30,8 +30,7 @@ class ReturnLabelsRestApiZedStub implements ReturnLabelsRestApiZedStubInterface
      */
     public function findCompanyUnitAddressByUuid(
         ReturnLabelsRestApiTransfer $returnLabelsRestApiTransfer
-    ): ReturnLabelRestApiResponseTransfer
-    {
+    ): ReturnLabelRestApiResponseTransfer {
         /** @var ReturnLabelRestApiResponseTransfer $returnLabelRestApiResponseTransfer */
         $returnLabelRestApiResponseTransfer = $this->zedRequestClient->call(
             '/return-labels-rest-api/gateaway/find-company-unit-address',

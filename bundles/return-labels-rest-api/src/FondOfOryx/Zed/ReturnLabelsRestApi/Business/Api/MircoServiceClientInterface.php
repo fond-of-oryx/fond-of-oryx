@@ -1,8 +1,6 @@
 <?php
 
-
 namespace FondOfOryx\Zed\ReturnLabelsRestApi\Facade\Api;
-
 
 interface MircoServiceClientInterface
 {

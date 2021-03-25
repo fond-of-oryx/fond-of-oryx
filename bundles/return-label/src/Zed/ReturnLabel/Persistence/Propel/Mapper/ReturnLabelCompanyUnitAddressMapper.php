@@ -16,8 +16,7 @@ class ReturnLabelCompanyUnitAddressMapper implements ReturnLabelCompanyUnitAddre
     public function mapCompanyUnitAddressEntityToCompanyUnitAddressTransfer(
         SpyCompanyUnitAddress $companyUnitAddressEntity,
         CompanyUnitAddressTransfer $companyUnitAddressTransfer
-    ): CompanyUnitAddressTransfer
-    {
+    ): CompanyUnitAddressTransfer {
         $companyUnitAddressTransfer = $companyUnitAddressTransfer->fromArray(
             $companyUnitAddressEntity->toArray(),
             true

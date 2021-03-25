@@ -1,8 +1,6 @@
 <?php
 
-
 namespace FondOfOryx\Zed\ReturnLabel\Business;
-
 
 use FondOfOryx\Zed\ReturnLabel\Business\Model\ReturnLabelApi;
 use FondOfOryx\Zed\ReturnLabel\Business\Model\ReturnLabelApiInterface;

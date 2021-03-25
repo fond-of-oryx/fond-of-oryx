@@ -20,8 +20,7 @@ class ReturnLabelsRestApiClient extends AbstractClient implements ReturnLabelsRe
      */
     public function findCompanyUnitAddressByUuid(
         ReturnLabelsRestApiTransfer $returnLabelsRestApiTransfer
-    ): ?CompanyUnitAddressTransfer
-    {
+    ): ?CompanyUnitAddressTransfer {
         return $this->getFactory()
             ->createReturnLabelZedStub()
             ->findCompanyUnitAddressByUuid($returnLabelsRestApiTransfer);

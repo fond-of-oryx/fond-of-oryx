@@ -30,8 +30,6 @@ class ReturnLabelsRestApiFacade extends AbstractFacade implements ReturnLabelsRe
      */
     public function findCompanyUnitAddress(
         ReturnLabelsRestApiAttributesTransfer $returnLabelsRestApiAttributesTransfer
-    )
-    {
-
+    ) {
     }
 }

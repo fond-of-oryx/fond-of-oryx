@@ -1,8 +1,6 @@
 <?php
 
-
 namespace FondOfOryx\Zed\ReturnLabel\Persistence\Propel\Mapper;
-
 
 use Generated\Shared\Transfer\CompanyUnitAddressTransfer;
 use Orm\Zed\CompanyUnitAddress\Persistence\SpyCompanyUnitAddress;
