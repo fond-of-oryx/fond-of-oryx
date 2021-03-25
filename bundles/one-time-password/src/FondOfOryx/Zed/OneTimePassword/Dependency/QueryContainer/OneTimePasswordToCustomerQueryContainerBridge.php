@@ -29,4 +29,14 @@ class OneTimePasswordToCustomerQueryContainerBridge implements OneTimePasswordTo
     {
         return $this->customerQueryContainer->queryCustomerByEmail($email);
     }
+
+    /**
+     * @param string $customerReference
+     *
+     * @return \Orm\Zed\Customer\Persistence\SpyCustomerQuery
+     */
+    public function queryCustomerByReference(string $customerReference): SpyCustomerQuery
+    {
+        return $this->customerQueryContainer->queryCustomerByReference($customerReference);
+    }
 }
