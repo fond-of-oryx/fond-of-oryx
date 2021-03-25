@@ -5,6 +5,7 @@ namespace FondOfOryx\Client\ReturnLabelsRestApi\Dependency\Client;
 use Spryker\Shared\Kernel\Transfer\TransferInterface;
 
 interface ReturnLabelsRestApiToZedRequestClientInterface
+
 {
     /**
      * @param string $url
