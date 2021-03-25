@@ -23,11 +23,6 @@ class ErpOrderApi implements ErpOrderApiInterface
     protected $apiQueryContainer;
 
     /**
-     * @var \FondOfOryx\Zed\ErpOrderApi\Dependency\QueryContainer\ErpOrderApiToApiQueryBuilderQueryContainerInterface
-     */
-    protected $apiQueryBuilderQueryContainer;
-
-    /**
      * @var \FondOfOryx\Zed\ErpOrderApi\Dependency\Facade\ErpOrderApiToErpOrderFacadeInterface
      */
     protected $erpOrderFacade;
