@@ -36,4 +36,17 @@ interface OneTimePasswordFacadeInterface
     public function generateOneTimePassword(
         CustomerTransfer $customerTransfer
     ): OneTimePasswordResponseTransfer;
+
+    /**
+     * Specification:
+     * - Invalidate current one time password
+     * - Identifies customer by customer reference
+     *
+     * @api
+     *
+     * @param \Generated\Shared\Transfer\CustomerTransfer $customerTransfer
+     *
+     * @return void
+     */
+    public function resetOneTimePassword(CustomerTransfer $customerTransfer): void;
 }

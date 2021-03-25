@@ -3,6 +3,7 @@
 namespace FondOfOryx\Zed\OneTimePassword\Business\Sender;
 
 use FondOfOryx\Zed\OneTimePassword\Business\Generator\OneTimePasswordGeneratorInterface;
+use FondOfOryx\Zed\OneTimePassword\Dependency\Facade\OneTimePasswordToOneTimePasswordEmailConnectorFacadeInterface;
 use Generated\Shared\Transfer\CustomerTransfer;
 use Generated\Shared\Transfer\OneTimePasswordResponseTransfer;
 
@@ -14,11 +15,20 @@ class OneTimePasswordSender implements OneTimePasswordSenderInterface
     protected $oneTimePasswordGenerator;
 
     /**
-     * @param \FondOfOryx\Zed\OneTimePassword\Business\Generator\OneTimePasswordGeneratorInterface $oneTimePasswordGenerator
+     * @var \FondOfOryx\Zed\OneTimePassword\Dependency\Facade\OneTimePasswordToOneTimePasswordEmailConnectorFacadeInterface
      */
-    public function __construct(OneTimePasswordGeneratorInterface $oneTimePasswordGenerator)
-    {
+    protected $oneTimePasswordEmailConnector;
+
+    /**
+     * @param \FondOfOryx\Zed\OneTimePassword\Business\Generator\OneTimePasswordGeneratorInterface $oneTimePasswordGenerator
+     * @param \FondOfOryx\Zed\OneTimePassword\Dependency\Facade\OneTimePasswordToOneTimePasswordEmailConnectorFacadeInterface $oneTimePasswordEmailConnectorFacade
+     */
+    public function __construct(
+        OneTimePasswordGeneratorInterface $oneTimePasswordGenerator,
+        OneTimePasswordToOneTimePasswordEmailConnectorFacadeInterface $oneTimePasswordEmailConnectorFacade
+    ) {
         $this->oneTimePasswordGenerator = $oneTimePasswordGenerator;
+        $this->oneTimePasswordEmailConnector = $oneTimePasswordEmailConnectorFacade;
     }
 
     /**
@@ -31,6 +41,12 @@ class OneTimePasswordSender implements OneTimePasswordSenderInterface
     ): OneTimePasswordResponseTransfer {
         $customerTransfer->requireEmail();
 
-        return $this->oneTimePasswordGenerator->generateOneTimePassword($customerTransfer);
+        $oneTimePasswordResponseTransfer = $this->oneTimePasswordGenerator->generateOneTimePassword($customerTransfer);
+
+        if ($oneTimePasswordResponseTransfer->getIsSuccess()) {
+            $this->oneTimePasswordEmailConnector->sendOneTimePasswordMail($oneTimePasswordResponseTransfer);
+        }
+
+        return $oneTimePasswordResponseTransfer;
     }
 }
