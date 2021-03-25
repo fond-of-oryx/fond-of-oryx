@@ -3,8 +3,8 @@
 namespace FondOfOryx\Zed\JellyfishAvailabilityAlert\Business\Api\Adapter;
 
 use FondOfOryx\Zed\JellyfishAvailabilityAlert\Business\Dependency\Service\JellyfishAvailabilityAlertToUtilEncodingServiceInterface;
+use FondOfOryx\Zed\JellyfishAvailabilityAlert\JellyfishAvailabilityAlertConfig;
 use FondOfSpryker\Zed\Jellyfish\Business\Api\Adapter\AbstractAdapter as FondOfSprykerJellyfishAbstractAdapter;
-use FondOfSpryker\Zed\Jellyfish\JellyfishConfig;
 use GuzzleHttp\ClientInterface;
 use Psr\Http\Message\ResponseInterface;
 use Spryker\Shared\Kernel\Transfer\AbstractTransfer;
@@ -14,14 +14,21 @@ class AvailabilityAlertAdapter extends FondOfSprykerJellyfishAbstractAdapter imp
     protected const URI = 'standard/availability-alert';
 
     /**
-     * @param \FondOfOryx\Zed\JellyfishAvailabilityAlert\Business\Dependency\Service\JellyfishAvailabilityAlertToUtilEncodingServiceInterface $utilEncodingService
-     * @param \GuzzleHttp\ClientInterface $client
-     * @param \FondOfSpryker\Zed\Jellyfish\JellyfishConfig $config
+     * @var \FondOfOryx\Zed\JellyfishAvailabilityAlert\JellyfishAvailabilityAlertConfig
+     */
+    protected $config;
+
+    /**
+     * AvailabilityAlertAdapter constructor.
+     *
+     * @param  \FondOfOryx\Zed\JellyfishAvailabilityAlert\Business\Dependency\Service\JellyfishAvailabilityAlertToUtilEncodingServiceInterface  $utilEncodingService
+     * @param  \GuzzleHttp\ClientInterface  $client
+     * @param  \FondOfOryx\Zed\JellyfishAvailabilityAlert\JellyfishAvailabilityAlertConfig  $config
      */
     public function __construct(
         JellyfishAvailabilityAlertToUtilEncodingServiceInterface $utilEncodingService,
         ClientInterface $client,
-        JellyfishConfig $config
+        JellyfishAvailabilityAlertConfig $config
     ) {
         $this->utilEncodingService = $utilEncodingService;
         $this->client = $client;

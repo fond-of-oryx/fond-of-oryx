@@ -4,6 +4,7 @@ namespace FondOfOryx\Zed\JellyfishAvailabilityAlert\Business\Model\Dispatcher;
 
 use Exception;
 use FondOfOryx\Zed\JellyfishAvailabilityAlert\Business\Api\Adapter\AvailabilityAlertAdapterInterface;
+use Generated\Shared\Transfer\AvailabilityAlertDataWrapperTransfer;
 use Generated\Shared\Transfer\AvailabilityAlertSubscriberTransfer;
 use Spryker\Shared\Log\LoggerTrait;
 
@@ -34,7 +35,7 @@ class AvailabilityAlertSubscriberDispatcher implements AvailabilityAlertSubscrib
     public function dispatch(AvailabilityAlertSubscriberTransfer $availabilityAlertSubscriberTransfer): void
     {
         try {
-            $this->adapter->sendRequest($availabilityAlertSubscriberTransfer);
+            $this->adapter->sendRequest((new AvailabilityAlertDataWrapperTransfer())->setSubscriber($availabilityAlertSubscriberTransfer));
         } catch (Exception $exception) {
             $this->getLogger()->error(
                 sprintf(
