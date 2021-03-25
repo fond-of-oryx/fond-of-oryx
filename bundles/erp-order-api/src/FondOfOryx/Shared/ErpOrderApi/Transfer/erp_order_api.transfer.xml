@@ -10,4 +10,5 @@
         <property name="isSuccessful" type="bool"/>
         <property name="erpOrder" type="ErpOrder"/>
     </transfer>
+
 </transfers>

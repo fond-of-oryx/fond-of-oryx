@@ -115,7 +115,7 @@ class ErpOrderApiRepository extends AbstractRepository implements ErpOrderApiRep
         $total = $query->count();
 
         $page = $limit > 0 && $offset >= 0 ? ($offset / $limit + 1) : 1;
-        $pageTotal = $limit > 0 && $total >= 0 ? (int)ceil($total / $limit + 1) : 1;
+        $pageTotal = $limit > 0 && $total >= 0 ? (int)ceil($total / $limit) : 1;
 
         if ($page > $pageTotal) {
             throw new Exception('Out of bounds.');

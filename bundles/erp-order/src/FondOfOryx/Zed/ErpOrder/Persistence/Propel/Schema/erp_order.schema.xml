@@ -42,11 +42,9 @@
         <behavior name="timestampable"/>
     </table>
 
-    <table name="foo_erp_order_item" phpName="ErpOrderItem" identifierQuoting="true">
+    <table name="foo_erp_order_item" phpName="ErpOrderItem" idMethod="native" identifierQuoting="true" allowPkInsert="true">
         <column name="id_erp_order_item" required="true" type="INTEGER" autoIncrement="true" primaryKey="true"/>
-
         <column name="fk_erp_order" required="true" type="INTEGER"/>
-
         <column name="sku" required="true" size="255" type="VARCHAR"/>
         <column name="name" required="true" size="255" type="VARCHAR"/>
         <column name="canceled_quantity" required="false" type="INTEGER"/>
