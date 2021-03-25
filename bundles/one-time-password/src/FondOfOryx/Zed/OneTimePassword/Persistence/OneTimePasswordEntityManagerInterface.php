@@ -13,4 +13,11 @@ interface OneTimePasswordEntityManagerInterface
      * @return \Generated\Shared\Transfer\CustomerResponseTransfer
      */
     public function updateCustomerPassword(CustomerTransfer $customerTransfer): CustomerResponseTransfer;
+
+    /**
+     * @param \Generated\Shared\Transfer\CustomerTransfer $customerTransfer
+     *
+     * @return void
+     */
+    public function resetCustomerPassword(CustomerTransfer $customerTransfer): void;
 }

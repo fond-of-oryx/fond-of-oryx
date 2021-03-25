@@ -12,4 +12,11 @@ interface OneTimePasswordToCustomerQueryContainerInterface
      * @return \Orm\Zed\Customer\Persistence\SpyCustomerQuery
      */
     public function queryCustomerByEmail(string $email): SpyCustomerQuery;
+
+    /**
+     * @param string $customerReference
+     *
+     * @return \Orm\Zed\Customer\Persistence\SpyCustomerQuery
+     */
+    public function queryCustomerByReference(string $customerReference): SpyCustomerQuery;
 }
