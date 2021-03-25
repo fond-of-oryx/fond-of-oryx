@@ -2,8 +2,6 @@
 
 namespace FondOfOryx\Zed\ErpOrderApi\Business;
 
-use FondOfOryx\Zed\ErpOrderApi\Business\Mapper\TransferMapper;
-use FondOfOryx\Zed\ErpOrderApi\Business\Mapper\TransferMapperInterface;
 use FondOfOryx\Zed\ErpOrderApi\Business\Model\ErpOrderApi;
 use FondOfOryx\Zed\ErpOrderApi\Business\Model\ErpOrderApiInterface;
 use FondOfOryx\Zed\ErpOrderApi\Business\Validator\ErpOrderApiValidator;

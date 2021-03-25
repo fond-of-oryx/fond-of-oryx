@@ -16,7 +16,7 @@ use Spryker\Zed\Api\Business\Exception\EntityNotSavedException;
 
 class ErpOrderApi implements ErpOrderApiInterface
 {
-    protected const KEY_ID_ERP_ORDER = "id_erp_order";
+    protected const KEY_ID_ERP_ORDER = 'id_erp_order';
 
     /**
      * @var \FondOfOryx\Zed\ErpOrderApi\Dependency\QueryContainer\ErpOrderApiToApiQueryContainerInterface
@@ -34,7 +34,6 @@ class ErpOrderApi implements ErpOrderApiInterface
     protected $repository;
 
     /**
-     * ErpOrderApi constructor.
      * @param \FondOfOryx\Zed\ErpOrderApi\Dependency\QueryContainer\ErpOrderApiToApiQueryContainerInterface $apiQueryContainer
      * @param \FondOfOryx\Zed\ErpOrderApi\Dependency\Facade\ErpOrderApiToErpOrderFacadeInterface $erpOrderFacade
      * @param \FondOfOryx\Zed\ErpOrderApi\Persistence\ErpOrderApiRepositoryInterface $repository
@@ -138,7 +137,7 @@ class ErpOrderApi implements ErpOrderApiInterface
 
             $data[$index] = $this->getByIdErpOrder($item[static::KEY_ID_ERP_ORDER])->toArray();
         }
-        
+
         return $apiCollectionTransfer->setData($data);
     }
 
