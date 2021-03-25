@@ -23,13 +23,11 @@ class ErpOrderApiBusinessFactory extends AbstractBusinessFactory
      * @return \FondOfOryx\Zed\ErpOrderApi\Business\Model\ErpOrderApiInterface
      */
     public function createErpOrderApi(): ErpOrderApiInterface
-    {
-
+    {  
         return new ErpOrderApi(
             $this->getApiQueryContainer(),
             $this->getErpOrderFacade(),
-            $this->getRepository(),
-            $this->createTransferMapper()
+            $this->getRepository()
         );
     }
 
@@ -55,13 +53,5 @@ class ErpOrderApiBusinessFactory extends AbstractBusinessFactory
     public function createErpOrderApiValidator(): ErpOrderApiValidatorInterface
     {
         return new ErpOrderApiValidator();
-    }
-
-    /**
-     * @return \FondOfOryx\Zed\ErpOrderApi\Business\Mapper\TransferMapperInterface
-     */
-    protected function createTransferMapper(): TransferMapperInterface
-    {
-        return new TransferMapper();
     }
 }

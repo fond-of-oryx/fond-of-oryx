@@ -2,7 +2,6 @@
 
 namespace FondOfOryx\Zed\ErpOrderApi\Business\Model;
 
-use FondOfOryx\Zed\ErpOrderApi\Business\Mapper\TransferMapperInterface;
 use FondOfOryx\Zed\ErpOrderApi\Dependency\Facade\ErpOrderApiToErpOrderFacadeInterface;
 use FondOfOryx\Zed\ErpOrderApi\Dependency\QueryContainer\ErpOrderApiToApiQueryBuilderQueryContainerInterface;
 use FondOfOryx\Zed\ErpOrderApi\Dependency\QueryContainer\ErpOrderApiToApiQueryContainerInterface;
@@ -14,6 +13,7 @@ use Generated\Shared\Transfer\ApiPaginationTransfer;
 use Generated\Shared\Transfer\ApiQueryBuilderQueryTransfer;
 use Generated\Shared\Transfer\ApiRequestTransfer;
 use Generated\Shared\Transfer\ErpOrderTransfer;
+use Orm\Zed\ErpOrder\Persistence\Map\ErpOrderTableMap;
 use Propel\Runtime\ActiveQuery\ModelCriteria;
 use Spryker\Zed\Api\ApiConfig;
 use Spryker\Zed\Api\Business\Exception\EntityNotFoundException;
@@ -22,6 +22,8 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class ErpOrderApi implements ErpOrderApiInterface
 {
+    protected const KEY_ID_ERP_ORDER = "id_erp_order";
+
     /**
      * @var \FondOfOryx\Zed\ErpOrderApi\Dependency\QueryContainer\ErpOrderApiToApiQueryContainerInterface
      */
@@ -43,28 +45,19 @@ class ErpOrderApi implements ErpOrderApiInterface
     protected $repository;
 
     /**
-     * @var \FondOfOryx\Zed\ErpOrderApi\Business\Mapper\TransferMapperInterface
-     */
-    protected $transferMapper;
-
-    /**
      * ErpOrderApi constructor.
-     *
      * @param \FondOfOryx\Zed\ErpOrderApi\Dependency\QueryContainer\ErpOrderApiToApiQueryContainerInterface $apiQueryContainer
      * @param \FondOfOryx\Zed\ErpOrderApi\Dependency\Facade\ErpOrderApiToErpOrderFacadeInterface $erpOrderFacade
      * @param \FondOfOryx\Zed\ErpOrderApi\Persistence\ErpOrderApiRepositoryInterface $repository
-     * @param \FondOfOryx\Zed\ErpOrderApi\Business\Mapper\TransferMapperInterface $transferMapper
      */
     public function __construct(
         ErpOrderApiToApiQueryContainerInterface $apiQueryContainer,
         ErpOrderApiToErpOrderFacadeInterface $erpOrderFacade,
-        ErpOrderApiRepositoryInterface $repository,
-        TransferMapperInterface $transferMapper
+        ErpOrderApiRepositoryInterface $repository
     ) {
         $this->apiQueryContainer = $apiQueryContainer;
         $this->erpOrderFacade = $erpOrderFacade;
         $this->repository = $repository;
-        $this->transferMapper = $transferMapper;
     }
 
     /**
@@ -139,23 +132,25 @@ class ErpOrderApi implements ErpOrderApiInterface
 
     /**
      * @TODO add pagination
-     * 
+     *
      * @param \Generated\Shared\Transfer\ApiRequestTransfer $apiRequestTransfer
      *
      * @return \Generated\Shared\Transfer\ApiCollectionTransfer
      */
     public function find(ApiRequestTransfer $apiRequestTransfer): ApiCollectionTransfer
     {
+        $data = [];
         $apiCollectionTransfer = $this->repository->find($apiRequestTransfer);
-        $collection = $this->transferMapper->toTransferCollection($apiCollectionTransfer->getData());
 
-        foreach ($collection as $key => $erpOrderApiTransfer) {
-            $collection[$key] = $this->get($erpOrderApiTransfer->getIdErpOrder())->getData();
+        foreach ($apiCollectionTransfer->getData() as $index => $item) {
+            if (!isset($item[static::KEY_ID_ERP_ORDER])) {
+                continue;
+            }
+
+            $data[$index] = $this->getByIdErpOrder($item[static::KEY_ID_ERP_ORDER])->toArray();
         }
-
-        $apiCollectionTransfer = $this->apiQueryContainer->createApiCollection($collection);
-
-        return $apiCollectionTransfer;
+        
+        return $apiCollectionTransfer->setData($data);
     }
 
 
