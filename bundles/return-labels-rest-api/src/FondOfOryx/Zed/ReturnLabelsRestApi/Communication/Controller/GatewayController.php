@@ -3,7 +3,7 @@
 namespace FondOfOryx\Zed\ReturnLabelsRestApi\Communication\Controller;
 
 use FondOfOryx\Zed\ReturnLabelsRestApi\Facade\ReturnLabelsRestApiFacadeInterface;
-use Generated\Shared\Transfer\ReturnLabelsRestApiAttributesTransfer;
+use Generated\Shared\Transfer\ReturnLabelsRestApiTransfer;
 use Spryker\Zed\Kernel\Communication\Controller\AbstractGatewayController;
 
 /**
@@ -14,8 +14,8 @@ class GatewayController extends AbstractGatewayController
     /**
      * @param ReturnLabelRestApiResponseTransfer $returnLabelRestApiResponseTransfer
      */
-    public function findCompanyUnitAddress(ReturnLabelsRestApiAttributesTransfer $returnLabelsRestApiAttributesTransfer)
+    public function findCompanyUnitAddressAction(ReturnLabelsRestApiTransfer $returnLabelsRestApiTransfer)
     {
-        $this->getFacade()->findCompanyUnitAddress($returnLabelsRestApiAttributesTransfer);
+        $this->getFacade()->findCompanyUnitAddress($returnLabelsRestApiTransfer);
     }
 }

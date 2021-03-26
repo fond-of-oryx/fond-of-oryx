@@ -33,7 +33,7 @@ class ReturnLabelsRestApiZedStub implements ReturnLabelsRestApiZedStubInterface
     ): ReturnLabelRestApiResponseTransfer {
         /** @var ReturnLabelRestApiResponseTransfer $returnLabelRestApiResponseTransfer */
         $returnLabelRestApiResponseTransfer = $this->zedRequestClient->call(
-            '/return-labels-rest-api/gateaway/find-company-unit-address',
+            '/return-labels-rest-api/gateway/find-company-unit-address',
             $returnLabelsRestApiTransfer
         );
 

@@ -1,9 +1,9 @@
 <?php
 
-namespace FondOfOryx\Zed\ReturnLabelsRestApi\Facade;
+namespace FondOfOryx\Zed\ReturnLabelsRestApi\Business;
 
 use Generated\Shared\Transfer\ApiItemTransfer;
-use Generated\Shared\Transfer\ReturnLabelsRestApiAttributesTransfer;
+use Generated\Shared\Transfer\ReturnLabelsRestApiTransfer;
 
 interface ReturnLabelsRestApiFacadeInterface
 {
@@ -15,11 +15,9 @@ interface ReturnLabelsRestApiFacadeInterface
     public function requestReturnLabel(int $idCompanyUnitAddress): ApiItemTransfer;
 
     /**
-     * @param ReturnLabelRestApiResponseTransfer $returnLabelRestApiResponseTransfer
+     * @param ReturnLabelsRestApiTransfer $returnLabelsRestApiTransfer
      *
      * @return mixed
      */
-    public function findCompanyUnitAddress(
-        ReturnLabelsRestApiAttributesTransfer $returnLabelsRestApiAttributesTransfer
-    );
+    public function findCompanyUnitAddress(ReturnLabelsRestApiTransfer $returnLabelsRestApiTransfer);
 }
