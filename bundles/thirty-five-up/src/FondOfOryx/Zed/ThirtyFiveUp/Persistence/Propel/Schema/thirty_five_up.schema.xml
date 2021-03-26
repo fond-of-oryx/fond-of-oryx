@@ -1,0 +1,67 @@
+<?xml version="1.0"?>
+<database xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" name="zed"
+          xsi:noNamespaceSchemaLocation="http://static.spryker.com/schema-01.xsd"
+          namespace="Orm\Zed\ThirtyFiveUp\Persistence" package="src.Orm.Zed.ThirtyFiveUp.Persistence">
+
+    <table name="fos_thirty_five_up_order" phpName="ThirtyFiveUpOrder" identifierQuoting="true">
+        <column name="id_thirty_five_up_order" required="true" type="INTEGER" autoIncrement="true" primaryKey="true"/>
+
+        <column name="fk_sales_order" required="false" type="INTEGER"/>
+
+        <column name="order_reference" required="false" size="255" type="VARCHAR"/>
+        <column name="store" required="true" size="255" type="VARCHAR"/>
+        <column name="payment_status" required="false" size="255" type="VARCHAR"/>
+        <column name="thirty_five_up_reference" required="false" size="255" type="VARCHAR"/>
+
+        <id-method-parameter value="fos_thirty_five_up_order_pk_seq"/>
+
+        <unique name="fos_thirty_five_up_order-order_reference">
+            <unique-column name="order_reference"/>
+        </unique>
+
+        <unique name="fos_thirty_five_up_order-thirty_five_up_reference">
+            <unique-column name="thirty_five_up_reference"/>
+        </unique>
+
+        <index name="fos_thirty_five_up_order-index-order_reference">
+            <index-column name="order_reference"/>
+        </index>
+
+        <index name="fos_thirty_five_up_order-index-thirty_five_up_reference">
+            <index-column name="thirty_five_up_reference"/>
+        </index>
+
+        <behavior name="timestampable"/>
+    </table>
+
+    <table name="fos_thirty_five_up_order_item" phpName="ThirtyFiveUpOrderItem" identifierQuoting="true">
+        <column name="id_thirty_five_up_order_item" required="true" type="INTEGER" autoIncrement="true" primaryKey="true"/>
+
+        <column name="fk_thirty_five_up_order" required="true" type="INTEGER"/>
+        <column name="fk_thirty_five_up_vendor" required="true" type="INTEGER"/>
+
+        <column name="sku" required="true" size="255" type="VARCHAR"/>
+        <column name="shop_sku" required="true" size="255" type="VARCHAR"/>
+        <column name="qty" required="true" type="INTEGER"/>
+
+        <id-method-parameter value="fos_thirty_five_up_order_item_pk_seq"/>
+
+        <behavior name="timestampable"/>
+
+        <foreign-key name="fos_thirty_five_up_order_item-fk_thirty_five_up_order" foreignTable="fos_thirty_five_up_order" phpName="ThirtyFiveUpOrder" refPhpName="ThirtyFiveUpOrderItem">
+            <reference local="fk_thirty_five_up_order" foreign="id_thirty_five_up_order"/>
+        </foreign-key>
+
+        <foreign-key name="fos_thirty_five_up_order_item-fk_thirty_five_up_vendor" foreignTable="fos_thirty_five_up_vendor" phpName="ThirtyFiveUpVendor" refPhpName="ThirtyFiveUpOrderItem">
+            <reference local="fk_thirty_five_up_vendor" foreign="id_thirty_five_up_vendor"/>
+        </foreign-key>
+    </table>
+
+    <table name="fos_thirty_five_up_vendor" phpName="ThirtyFiveUpVendor" identifierQuoting="true">
+        <column name="id_thirty_five_up_vendor" required="true" type="INTEGER" autoIncrement="true" primaryKey="true"/>
+
+        <column name="name" required="true" size="255" type="VARCHAR"/>
+
+        <id-method-parameter value="fos_thirty_five_up_vendor_pk_seq"/>
+    </table>
+</database>
