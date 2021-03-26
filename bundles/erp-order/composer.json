@@ -4,19 +4,22 @@
   "license": "MIT",
   "authors": [
     {
+      "name": "József Geng",
+      "email": "gengjozsef86@gmail.com"
+    },
+    {
       "name": "Julian Zimmermann",
       "email": "info@julianzimmermann.dev"
     }
   ],
   "require": {
     "php": ">=7.2",
-    "fond-of-oryx/erp-order-extension": "dev-master",
+    "fond-of-oryx/erp-order-extension": "dev-main",
     "fond-of-spryker/country": "dev-spryker_upgrade || dev-feature/paypal-refund",
-    "spryker/company-business-unit": "^1.0.0 || ^2.0.0",
-    "spryker/company-user": "^1.0.0 || ^2.0.0"
+    "spryker/company-business-unit": "^1.0.0 || ^2.0.0"
   },
   "require-dev": {
-    "fond-of-codeception/spryker": "dev-master",
+    "fond-of-codeception/spryker": "^1.0",
     "spryker/code-sniffer": "^0.12"
   },
   "minimum-stability": "dev",
@@ -29,7 +32,7 @@
   "autoload-dev": {
     "psr-4": {
       "FondOfOryx\\": "tests/FondOfOryx/",
-      "Generated\\": "tests/Generated/"
+      "Generated\\": "src/Generated/"
     }
   }
 }

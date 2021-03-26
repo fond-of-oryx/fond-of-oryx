@@ -1,0 +1,14 @@
+{
+    "mappings": {
+        "page": {
+            "properties": {
+                "sku": {
+                    "type": "keyword"
+                },
+                "concrete-skus": {
+                    "type": "keyword"
+                }
+            }
+        }
+    }
+}
