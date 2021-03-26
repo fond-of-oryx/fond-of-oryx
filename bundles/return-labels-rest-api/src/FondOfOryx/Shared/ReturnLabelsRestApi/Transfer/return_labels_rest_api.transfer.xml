@@ -14,6 +14,6 @@
     </transfer>
 
     <transfer name="ReturnLabelRestApiResponse">
-        <property name="name" type="string" />
+        <property name="returnLabel" type="string" />
     </transfer>
 </transfers>

@@ -4,6 +4,7 @@ namespace FondOfOryx\Client\ReturnLabelsRestApi;
 
 use Generated\Shared\Transfer\CompanyUnitAddressTransfer;
 use Generated\Shared\Transfer\RestUserTransfer;
+use Generated\Shared\Transfer\ReturnLabelRestApiResponseTransfer;
 use Generated\Shared\Transfer\ReturnLabelsRestApiAttributesTransfer;
 use Generated\Shared\Transfer\ReturnLabelsRestApiTransfer;
 use Spryker\Client\Kernel\AbstractClient;
@@ -24,5 +25,18 @@ class ReturnLabelsRestApiClient extends AbstractClient implements ReturnLabelsRe
         return $this->getFactory()
             ->createReturnLabelZedStub()
             ->findCompanyUnitAddressByUuid($returnLabelsRestApiTransfer);
+    }
+
+    /**
+     * @param CompanyUnitAddressTransfer $companyUnitAddressTransfer
+     *
+     * @return ReturnLabelRestApiResponseTransfer
+     */
+    public function getReturnLabelAction(
+        CompanyUnitAddressTransfer $companyUnitAddressTransfer
+    ): ReturnLabelRestApiResponseTransfer {
+        return $this->getFactory()
+            ->createReturnLabelZedStub()
+            ->getReturnLabel($companyUnitAddressTransfer);
     }
 }

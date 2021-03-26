@@ -6,6 +6,7 @@ use FondOfOryx\Client\ReturnLabelsRestApi\ReturnLabelsRestApiClientInterface;
 use Generated\Shared\Transfer\CompanyUnitAddressTransfer;
 use Generated\Shared\Transfer\RestReturnLabelRequestAttributesTransfer;
 use Generated\Shared\Transfer\RestUserTransfer;
+use Generated\Shared\Transfer\ReturnLabelRestApiResponseTransfer;
 use Generated\Shared\Transfer\ReturnLabelsRestApiAttributesTransfer;
 use Generated\Shared\Transfer\ReturnLabelsRestApiTransfer;
 use Spryker\Glue\GlueApplication\Rest\Request\Data\RestRequestInterface;
@@ -25,21 +26,30 @@ class ReturnLabelProcessor implements ReturnLabelProcessorInterface
         $this->client = $client;
     }
 
+    /**
+     * @param RestRequestInterface $restRequest
+     * @param RestReturnLabelRequestAttributesTransfer $restReturnLabelRequestAttributesTransfer
+     *
+     * @return ReturnLabelRestApiResponseTransfer
+     */
     public function getReturnLabel(
         RestRequestInterface $restRequest,
         RestReturnLabelRequestAttributesTransfer $restReturnLabelRequestAttributesTransfer
-    ): void {
+    ): ReturnLabelRestApiResponseTransfer {
         $returnLabelsRestApiTransfer = $this->createReturnLabelsRestApiTransfer(
             $restRequest,
             $restReturnLabelRequestAttributesTransfer
         );
 
         $companyUnitAddressTransfer = $this->hasPermissionsToReadCompanyUnitAddress($returnLabelsRestApiTransfer);
+
+        return $this->client->getReturnLabelAction($companyUnitAddressTransfer);
     }
 
     /**
-     * @param string $uuid
-     * @param RestUserTransfer $restUserTransfer
+     * @param ReturnLabelsRestApiTransfer $returnLabelsRestApiTransfer
+     *
+     * @return CompanyUnitAddressTransfer|null
      */
     protected function hasPermissionsToReadCompanyUnitAddress(
         ReturnLabelsRestApiTransfer $returnLabelsRestApiTransfer
@@ -53,6 +63,12 @@ class ReturnLabelProcessor implements ReturnLabelProcessorInterface
         return $companyUnitAddressTransfer;
     }
 
+    /**
+     * @param RestRequestInterface $restRequest
+     * @param RestReturnLabelRequestAttributesTransfer $restReturnLabelRequestAttributesTransfer
+     *
+     * @return ReturnLabelsRestApiTransfer
+     */
     protected function createReturnLabelsRestApiTransfer(
         RestRequestInterface $restRequest,
         RestReturnLabelRequestAttributesTransfer $restReturnLabelRequestAttributesTransfer

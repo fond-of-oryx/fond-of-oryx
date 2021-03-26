@@ -3,7 +3,8 @@
 namespace FondOfOryx\Zed\ReturnLabelsRestApi\Business;
 
 use Generated\Shared\Transfer\ApiItemTransfer;
-use Generated\Shared\Transfer\ReturnLabelsRestApiAttributesTransfer;
+use Generated\Shared\Transfer\CompanyUnitAddressTransfer;
+use Generated\Shared\Transfer\ReturnLabelRestApiResponseTransfer;
 use Generated\Shared\Transfer\ReturnLabelsRestApiTransfer;
 use Spryker\Zed\Kernel\Business\AbstractFacade;
 
@@ -13,23 +14,28 @@ use Spryker\Zed\Kernel\Business\AbstractFacade;
 class ReturnLabelsRestApiFacade extends AbstractFacade implements ReturnLabelsRestApiFacadeInterface
 {
     /**
-     * @param int $idCompanyUnitAddress
+     * @param ReturnLabelsRestApiTransfer $returnLabelsRestApiTransfer
      *
-     * @return ApiItemTransfer
+     * @return CompanyUnitAddressTransfer|null
      */
-    public function requestReturnLabel(int $idCompanyUnitAddress): ApiItemTransfer
-    {
-        return $this->getFactory()
-            ->createMicroServiceClient()
-            ->getReturnLabel($idCompanyUnitAddress);
+    public function findCompanyUnitAddress(
+        ReturnLabelsRestApiTransfer $returnLabelsRestApiTransfer
+    ): ?CompanyUnitAddressTransfer {
+        // connect to return-label facade here
+
+        return new CompanyUnitAddressTransfer();
     }
 
     /**
-     * @param ReturnLabelsRestApiTransfer $returnLabelsRestApiTransfer
+     * @param CompanyUnitAddressTransfer $companyUnitAddressTransfer
      *
-     * @return mixed
+     * @return ReturnLabelRestApiResponseTransfer
      */
-    public function findCompanyUnitAddress(ReturnLabelsRestApiTransfer $returnLabelsRestApiTransfer)
-    {
+    public function getReturnLabel(
+        CompanyUnitAddressTransfer $companyUnitAddressTransfer
+    ): ReturnLabelRestApiResponseTransfer {
+        // connect to return-label facade here
+
+        return new ReturnLabelRestApiResponseTransfer();
     }
 }

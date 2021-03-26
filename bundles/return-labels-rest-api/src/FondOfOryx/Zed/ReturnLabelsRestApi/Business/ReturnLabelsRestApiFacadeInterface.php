@@ -3,21 +3,27 @@
 namespace FondOfOryx\Zed\ReturnLabelsRestApi\Business;
 
 use Generated\Shared\Transfer\ApiItemTransfer;
+use Generated\Shared\Transfer\CompanyUnitAddressTransfer;
+use Generated\Shared\Transfer\ReturnLabelRestApiResponseTransfer;
 use Generated\Shared\Transfer\ReturnLabelsRestApiTransfer;
 
 interface ReturnLabelsRestApiFacadeInterface
 {
     /**
-     * @param int $idCompanyUnitAddress
-     *
-     * @return ApiItemTransfer
-     */
-    public function requestReturnLabel(int $idCompanyUnitAddress): ApiItemTransfer;
-
-    /**
      * @param ReturnLabelsRestApiTransfer $returnLabelsRestApiTransfer
      *
-     * @return mixed
+     * @return CompanyUnitAddressTransfer|null
      */
-    public function findCompanyUnitAddress(ReturnLabelsRestApiTransfer $returnLabelsRestApiTransfer);
+    public function findCompanyUnitAddress(
+        ReturnLabelsRestApiTransfer $returnLabelsRestApiTransfer
+    ): ?CompanyUnitAddressTransfer;
+
+    /**
+     * @param CompanyUnitAddressTransfer $companyUnitAddressTransfer
+     *
+     * @return ReturnLabelRestApiResponseTransfer
+     */
+    public function getReturnLabel(
+        CompanyUnitAddressTransfer $companyUnitAddressTransfer
+    ): ReturnLabelRestApiResponseTransfer;
 }
