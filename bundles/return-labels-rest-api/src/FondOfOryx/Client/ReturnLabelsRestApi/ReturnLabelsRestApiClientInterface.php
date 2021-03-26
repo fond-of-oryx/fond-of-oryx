@@ -2,19 +2,12 @@
 
 namespace FondOfOryx\Client\ReturnLabelsRestApi;
 
-use Generated\Shared\Transfer\CompanyUnitAddressTransfer;
-use Generated\Shared\Transfer\RestUserTransfer;
-use Generated\Shared\Transfer\ReturnLabelsRestApiAttributesTransfer;
-use Generated\Shared\Transfer\ReturnLabelsRestApiTransfer;
-
 interface ReturnLabelsRestApiClientInterface
 {
     /**
-     * @param ReturnLabelsRestApiTransfer $returnLabelsRestApiTransfer
+     * @param int $idCompanyUnitAddress
      *
-     * @return CompanyUnitAddressTransfer|null
+     * @return mixed
      */
-    public function findCompanyUnitAddressByUuid(
-        ReturnLabelsRestApiTransfer $returnLabelsRestApiTransfer
-    ): ?CompanyUnitAddressTransfer;
+    public function getCompanyUnitAddress(int $idCompanyUnitAddress);
 }

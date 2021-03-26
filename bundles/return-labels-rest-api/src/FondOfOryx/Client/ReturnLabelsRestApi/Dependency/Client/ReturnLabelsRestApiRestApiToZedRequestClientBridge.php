@@ -5,7 +5,7 @@ namespace FondOfOryx\Client\ReturnLabelsRestApi\Dependency\Client;
 use Spryker\Client\ZedRequest\ZedRequestClientInterface;
 use Spryker\Shared\Kernel\Transfer\TransferInterface;
 
-class ReturnLabelsRestApiToZedRequestClientBridge implements ReturnLabelsRestApiToZedRequestClientInterface
+class ReturnLabelsRestApiRestApiToZedRequestClientBridge implements ReturnLabelsRestApiToZedRequestClientInterface
 {
     /**
      * @var \Spryker\Client\ZedRequest\ZedRequestClientInterface
