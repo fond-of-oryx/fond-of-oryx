@@ -1,6 +1,8 @@
 <?php
 
+
 namespace FondOfOryx\Zed\ReturnLabel\Persistence;
+
 
 use Generated\Shared\Transfer\CompanyUnitAddressTransfer;
 

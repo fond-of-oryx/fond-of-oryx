@@ -34,7 +34,8 @@ class ReturnLabelApi implements ReturnLabelApiInterface
         ReturnLabelRepositoryInterface $returnLabelRepository,
         HttpClient $httpClient,
         ReturnLabelConfig $config
-    ) {
+    )
+    {
         $this->returnLabelRepository = $returnLabelRepository;
         $this->httpClient = $httpClient;
         $this->config = $config;

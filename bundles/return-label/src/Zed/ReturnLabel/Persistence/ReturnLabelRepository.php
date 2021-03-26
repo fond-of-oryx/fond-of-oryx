@@ -23,7 +23,8 @@ class ReturnLabelRepository extends AbstractRepository implements ReturnLabelRep
     public function findCompanyBusinessUnitAddressByUuidAndCompany(
         string $companyBusinessUnitUuid,
         string $companyBusinessUnitAddressUuid
-    ): ?CompanyUnitAddressTransfer {
+    ): ?CompanyUnitAddressTransfer
+    {
         $this->getFactory()
             ->getCompanyUnitAddressQueryContainer()
             ->queryCompanyUnitAddress()
@@ -54,5 +55,6 @@ class ReturnLabelRepository extends AbstractRepository implements ReturnLabelRep
         $query->filterByUuid($uuid)
             ->leftJoinWith('companyUnitAddressQuery.')
         ;
+
     }
 }

@@ -1,6 +1,8 @@
 <?php
 
+
 namespace FondOfOryx\Zed\ReturnLabel\Dependency\QueryContainer;
+
 
 use Spryker\Zed\Customer\Persistence\CustomerQueryContainerInterface;
 
@@ -12,4 +14,6 @@ class ReturnLabelToCustomerQueryContainerBridge implements ReturnLabelToCustomer
     {
         $this->customerQueryContainer = $customerQueryContainer;
     }
+
+
 }

@@ -32,7 +32,7 @@ class ReturnLabelDependencyProvider extends AbstractBundleDependencyProvider
      */
     protected function getCompanyUnitAddressQueryContainer(Container $container): Container
     {
-        $container->set(static::COMPANY_UNIT_ADDRESS_QUERY_CONTAINER, static function (Container $container) {
+        $container->set(static::COMPANY_UNIT_ADDRESS_QUERY_CONTAINER, static function(Container $container) {
             return new ReturnLabelToCompanyUnitAddressQueryContainerBridge(
                 $container->getLocator()->companyUnitAddress->queryContainer
             );

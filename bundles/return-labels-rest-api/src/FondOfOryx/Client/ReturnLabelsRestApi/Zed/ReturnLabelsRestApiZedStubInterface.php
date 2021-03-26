@@ -1,6 +1,8 @@
 <?php
 
+
 namespace FondOfOryx\Client\ReturnLabelsRestApi\Zed;
+
 
 use Generated\Shared\Transfer\ReturnLabelsRestApiAttributesTransfer;
 use Generated\Shared\Transfer\ReturnLabelsRestApiTransfer;

@@ -23,7 +23,8 @@ class MircoServiceClient implements MircoServiceClientInterface
     public function __construct(
         ClientInterface $client,
         ReturnLabelsRestApiToCompanyUnitAddressApiFacadeInterface $companyUnitAddressApiFacade
-    ) {
+    )
+    {
         $this->client = $client;
         $this->companyUnitAddressApiFacade = $companyUnitAddressApiFacade;
     }

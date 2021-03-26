@@ -1,6 +1,8 @@
 <?php
 
+
 namespace FondOfOryx\Client\ReturnLabelsRestApi;
+
 
 use FondOfOryx\Client\ReturnLabelsRestApi\Dependency\Client\ReturnLabelsRestApiToZedRequestClientBridge;
 use Spryker\Client\Kernel\AbstractDependencyProvider;
