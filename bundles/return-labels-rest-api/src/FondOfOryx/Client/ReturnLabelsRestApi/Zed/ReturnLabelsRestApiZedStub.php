@@ -8,6 +8,7 @@ use Generated\Shared\Transfer\RestReturnLabelResponseTransfer;
 use Generated\Shared\Transfer\ReturnLabelRestApiResponseTransfer;
 use Generated\Shared\Transfer\ReturnLabelsRestApiAttributesTransfer;
 use Generated\Shared\Transfer\ReturnLabelsRestApiTransfer;
+use Spryker\Glue\GlueApplication\Rest\JsonApi\RestResponseInterface;
 
 class ReturnLabelsRestApiZedStub implements ReturnLabelsRestApiZedStubInterface
 {

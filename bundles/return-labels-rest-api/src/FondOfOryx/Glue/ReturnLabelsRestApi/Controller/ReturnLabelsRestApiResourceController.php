@@ -3,6 +3,7 @@
 namespace FondOfOryx\Glue\ReturnLabelsRestApi\Controller;
 
 use Generated\Shared\Transfer\RestReturnLabelRequestAttributesTransfer;
+use Generated\Shared\Transfer\ReturnLabelRestApiResponseTransfer;
 use Spryker\Glue\GlueApplication\Rest\JsonApi\RestResponseInterface;
 use Spryker\Glue\GlueApplication\Rest\Request\Data\RestRequestInterface;
 use Spryker\Glue\Kernel\Controller\AbstractController;
@@ -16,16 +17,14 @@ class ReturnLabelsRestApiResourceController extends AbstractController
     /**
      * @param RestRequestInterface $restRequest
      *
-     * @return RestResponseInterface
+     * @return ReturnLabelRestApiResponseTransfer
      */
     public function postAction(
         RestRequestInterface $restRequest,
         RestReturnLabelRequestAttributesTransfer $restReturnLabelRequestAttributesTransfer
     ): RestResponseInterface {
-        $this->getFactory()
+        return $this->getFactory()
             ->createReturnLabelProcessor()
             ->getReturnLabel($restRequest, $restReturnLabelRequestAttributesTransfer);
-
-        die();
     }
 }

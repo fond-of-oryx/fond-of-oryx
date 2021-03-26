@@ -13,6 +13,9 @@ class ReturnLabelsRestApiFactory extends AbstractFactory
 {
     public function createReturnLabelProcessor(): ReturnLabelProcessorInterface
     {
-        return new ReturnLabelProcessor($this->getClient());
+        return new ReturnLabelProcessor(
+            $this->getClient(),
+            $this->getResourceBuilder()
+        );
     }
 }

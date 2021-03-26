@@ -8,6 +8,7 @@ use Generated\Shared\Transfer\ReturnLabelRestApiResponseTransfer;
 use Generated\Shared\Transfer\ReturnLabelsRestApiAttributesTransfer;
 use Generated\Shared\Transfer\ReturnLabelsRestApiTransfer;
 use Spryker\Client\Kernel\AbstractClient;
+use Spryker\Glue\GlueApplication\Rest\JsonApi\RestResponseInterface;
 
 /**
  * @method \FondOfOryx\Client\ReturnLabelsRestApi\ReturnLabelsRestApiFactory getFactory()

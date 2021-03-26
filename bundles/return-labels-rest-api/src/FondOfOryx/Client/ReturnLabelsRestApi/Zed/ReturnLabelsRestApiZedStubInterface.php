@@ -6,6 +6,7 @@ use Generated\Shared\Transfer\CompanyUnitAddressTransfer;
 use Generated\Shared\Transfer\ReturnLabelsRestApiAttributesTransfer;
 use Generated\Shared\Transfer\ReturnLabelsRestApiTransfer;
 use Generated\Shared\Transfer\ReturnLabelRestApiResponseTransfer;
+use Spryker\Glue\GlueApplication\Rest\JsonApi\RestResponseInterface;
 
 interface ReturnLabelsRestApiZedStubInterface
 {
