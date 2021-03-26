@@ -10,15 +10,19 @@ phpcs:
 
 .PHONY: phpstan
 phpstan:
-	./vendor/bin/phpstan analyse ./bundles/*/src/
+	./vendor/bin/phpstan --memory-limit=-1 analyse ./bundles/*/src/
 
 .PHONY: codeception
 codeception:
-	./vendor/bin/codecept run --coverage --coverage-xml --coverage-html
+	./vendor/bin/codecept run --env standalone --coverage --coverage-xml --coverage-html
 
 .PHONY: prepare-dandelion-config
 prepare-dandelion-config:
 	sed -i "s/<GITHUB_TOKEN>/$(GITHUB_TOKEN)/" $(BASE_DIRECTORY)/dandelion.json
+
+.PHONY: init-split-repos
+init-split-repos:
+	docker run -i -v $(BASE_DIRECTORY):/home/dandelion/project -w /home/dandelion/project dandelionphp/dandelion:latest dandelion split-repository:init:all
 
 .PHONY: split
 split:
@@ -28,5 +32,13 @@ split:
 release:
 	docker run -i -v $(BASE_DIRECTORY):/home/dandelion/project -w /home/dandelion/project dandelionphp/dandelion:latest dandelion release:all $(BRANCH)
 
-.PHONY: test
-test: install phpcs phpstan codeception
+.PHONY: ci
+ci: phpcs codeception phpstan
+
+.PHONY: print-composer-replace-content
+print-composer-replace-content:
+	./Makefile.d/composer.sh print_replace_content
+
+.PHONY: add-all-to-packagist
+add-all-to-packagist:
+	./Makefile.d/packagist.sh add_all

@@ -40,12 +40,14 @@ class ErpOrderEntityManager extends AbstractEntityManager implements ErpOrderEnt
         $entity->fromArray($erpOrderTransfer->toArray());
         $entity
             ->setFkCompanyBusinessUnit($erpOrderTransfer->getFkCompanyBusinessUnit() ?: $erpOrderTransfer->getCompanyBusinessUnit()->getIdCompanyBusinessUnit())
-            ->setFkCompanyUser($erpOrderTransfer->getFkCompanyUser() ?: $erpOrderTransfer->getCompanyUser()->getIdCompanyUser())
             ->setCreatedAt($now)
             ->setUpdatedAt($now)
+            ->setConcreteDeliveryDate($this->getConcreteDeliveryDate($erpOrderTransfer->getConcreteDeliveryDate()))
             ->save();
 
-        return $this->getFactory()->createEntityToTransferMapper()->fromErpOrderToTransfer($entity);
+        return $this->getFactory()
+            ->createEntityToTransferMapper()
+            ->fromErpOrderToTransfer($entity, $erpOrderTransfer);
     }
 
     /**
@@ -88,6 +90,7 @@ class ErpOrderEntityManager extends AbstractEntityManager implements ErpOrderEnt
         $entity
             ->setCreatedAt($now)
             ->setUpdatedAt($now)
+            ->setConcreteDeliveryDate($this->getConcreteDeliveryDate($itemTransfer->getConcreteDeliveryDate()))
             ->save();
 
         return $this->getFactory()->createEntityToTransferMapper()->fromEprOrderItemToTransfer(
@@ -117,17 +120,20 @@ class ErpOrderEntityManager extends AbstractEntityManager implements ErpOrderEnt
                 $erpOrderTransfer->getIdErpOrder()
             ));
         }
-        $id = $entity->getIdErpOrder();
         $createdAt = $entity->getCreatedAt();
-        $updatedAt = new DateTime();
         $entity->fromArray($erpOrderTransfer->toArray());
+
         $entity
-            ->setIdErpOrder($id)
+            ->setFkCompanyBusinessUnit($erpOrderTransfer->getFkCompanyBusinessUnit() ?: $erpOrderTransfer->getCompanyBusinessUnit()->getIdCompanyBusinessUnit())
+            ->setIdErpOrder($entity->getIdErpOrder())
             ->setCreatedAt($createdAt)
-            ->setUpdatedAt($updatedAt)
+            ->setUpdatedAt(new DateTime())
+            ->setConcreteDeliveryDate($this->getConcreteDeliveryDate($erpOrderTransfer->getConcreteDeliveryDate()))
             ->save();
 
-        return $this->getFactory()->createEntityToTransferMapper()->fromErpOrderToTransfer($entity);
+        return $this->getFactory()
+            ->createEntityToTransferMapper()
+            ->fromErpOrderToTransfer($entity, $erpOrderTransfer);
     }
 
     /**
@@ -138,6 +144,7 @@ class ErpOrderEntityManager extends AbstractEntityManager implements ErpOrderEnt
     public function updateErpOrderItem(ErpOrderItemTransfer $orderItemTransfer): ErpOrderItemTransfer
     {
         $orderItemTransfer
+            ->requireIdErpOrderItem()
             ->requireFkErpOrder()
             ->requireSku()
             ->requireName();
@@ -145,12 +152,13 @@ class ErpOrderEntityManager extends AbstractEntityManager implements ErpOrderEnt
         $entity = $this->findOrCreateErpOrderItem($orderItemTransfer->getFkErpOrder(), $orderItemTransfer->getSku());
         $createdAt = $entity->getCreatedAt();
         $updatedAt = new DateTime();
-        $idItem = $entity->getIdErpOrderItem();
-        $entity->fromArray($orderItemTransfer->toArray());
+        $entity->fromArray($orderItemTransfer->modifiedToArray());
+
         $entity
-            ->setIdErpOrderItem($idItem)
+            ->setConcreteDeliveryDate($this->getConcreteDeliveryDate($orderItemTransfer->getConcreteDeliveryDate()))
             ->setCreatedAt($createdAt)
-            ->setUpdatedAt($updatedAt);
+            ->setUpdatedAt($updatedAt)
+            ->save();
 
         return $this->getFactory()->createEntityToTransferMapper()->fromEprOrderItemToTransfer($entity);
     }
@@ -176,13 +184,17 @@ class ErpOrderEntityManager extends AbstractEntityManager implements ErpOrderEnt
         $order->delete();
 
         $ordersWithBilling = $this->getFactory()->createErpOrderQuery()->filterByFkBillingAddress_In($addressIds)->find();
-        if ($ordersWithBilling === null || empty($ordersWithBilling->getData()) === true) {
-            $this->getFactory()->createErpOrderAddressQuery()->delete($addressIds[0]);
+        if (count($ordersWithBilling) === 0 || empty($ordersWithBilling->getData()) === true) {
+            $this->getFactory()->createErpOrderAddressQuery()
+                ->findOneByIdErpOrderAddress($addressIds[0])
+                ->delete();
         }
 
         $ordersWithShipping = $this->getFactory()->createErpOrderQuery()->filterByFkShippingAddress_In($addressIds)->find();
-        if ($ordersWithShipping === null || empty($ordersWithShipping->getData()) === true) {
-            $this->getFactory()->createErpOrderAddressQuery()->delete($addressIds[1]);
+        if (count($ordersWithShipping) === 0 || empty($ordersWithShipping->getData()) === true) {
+            $this->getFactory()->createErpOrderAddressQuery()
+                ->findOneByIdErpOrderAddress($addressIds[1])
+                ->delete();
         }
     }
 
@@ -257,8 +269,22 @@ class ErpOrderEntityManager extends AbstractEntityManager implements ErpOrderEnt
     protected function findOrCreateErpOrderItem(int $idErpOrder, string $sku): ErpOrderItem
     {
         return $this->getFactory()->createErpOrderItemQuery()
-            ->filterByIdErpOrderItem($idErpOrder)
+            ->filterByFkErpOrder($idErpOrder)
             ->filterBySku($sku)
             ->findOneOrCreate();
+    }
+
+    /**
+     * @param string|null $deliveryDate
+     *
+     * @return \DateTime|null
+     */
+    protected function getConcreteDeliveryDate(?string $deliveryDate): ?DateTime
+    {
+        if ($deliveryDate !== null) {
+            $deliveryDate = new DateTime($deliveryDate);
+        }
+
+        return $deliveryDate;
     }
 }

@@ -5,7 +5,6 @@ namespace FondOfOryx\Zed\ErpOrder\Persistence\Propel\Mapper;
 use DateTime;
 use Exception;
 use FondOfOryx\Zed\ErpOrder\Dependency\Facade\ErpOrderToCompanyBusinessUnitFacadeInterface;
-use FondOfOryx\Zed\ErpOrder\Dependency\Facade\ErpOrderToCompanyUserFacadeInterface;
 use FondOfOryx\Zed\ErpOrder\Dependency\Facade\ErpOrderToCountryFacadeInterface;
 use Generated\Shared\Transfer\CompanyBusinessUnitTransfer;
 use Generated\Shared\Transfer\ErpOrderAddressTransfer;
@@ -23,27 +22,19 @@ class EntityToTransferMapper implements EntityToTransferMapperInterface
     protected $countryFacade;
 
     /**
-     * @var \FondOfOryx\Zed\ErpOrder\Dependency\Facade\ErpOrderToCompanyUserFacadeInterface
-     */
-    protected $companyUserFacade;
-
-    /**
      * @var \FondOfOryx\Zed\ErpOrder\Dependency\Facade\ErpOrderToCompanyBusinessUnitFacadeInterface
      */
     protected $companyBusinessUnitFacade;
 
     /**
      * @param \FondOfOryx\Zed\ErpOrder\Dependency\Facade\ErpOrderToCompanyBusinessUnitFacadeInterface $companyBusinessUnitFacade
-     * @param \FondOfOryx\Zed\ErpOrder\Dependency\Facade\ErpOrderToCompanyUserFacadeInterface $companyUserFacade
      * @param \FondOfOryx\Zed\ErpOrder\Dependency\Facade\ErpOrderToCountryFacadeInterface $countryFacade
      */
     public function __construct(
         ErpOrderToCompanyBusinessUnitFacadeInterface $companyBusinessUnitFacade,
-        ErpOrderToCompanyUserFacadeInterface $companyUserFacade,
         ErpOrderToCountryFacadeInterface $countryFacade
     ) {
         $this->companyBusinessUnitFacade = $companyBusinessUnitFacade;
-        $this->companyUserFacade = $companyUserFacade;
         $this->countryFacade = $countryFacade;
     }
 
@@ -77,19 +68,23 @@ class EntityToTransferMapper implements EntityToTransferMapperInterface
         ErpOrder $erpOrder,
         ?ErpOrderTransfer $erpOrderTransfer = null
     ): ErpOrderTransfer {
+        $addEntityItems = false;
+
         if ($erpOrderTransfer === null) {
             $erpOrderTransfer = new ErpOrderTransfer();
+            $addEntityItems = true;
         }
 
         $erpOrderTransfer->fromArray($erpOrder->toArray(), true);
 
-        foreach ($erpOrder->getErpOrderItems() as $erpOrderItem) {
-            $erpOrderTransfer->addOrderItem($this->fromEprOrderItemToTransfer($erpOrderItem));
+        if ($addEntityItems) {
+            foreach ($erpOrder->getErpOrderItems() as $erpOrderItem) {
+                $erpOrderTransfer->addOrderItem($this->fromEprOrderItemToTransfer($erpOrderItem));
+            }
         }
 
         return $erpOrderTransfer
             ->setCompanyBusinessUnit($this->companyBusinessUnitFacade->getCompanyBusinessUnitById((new CompanyBusinessUnitTransfer())->setIdCompanyBusinessUnit($erpOrder->getFkCompanyBusinessUnit())))
-            ->setCompanyUser($this->companyUserFacade->getCompanyUserById($erpOrder->getFkCompanyUser()))
             ->setShippingAddress($this->fromErpOrderAddressToTransfer($erpOrder->getErpOrderShippingAddress()))
             ->setBillingAddress($this->fromErpOrderAddressToTransfer($erpOrder->getErpOrderBillingAddress()))
             ->setCreatedAt($this->convertDateTimeToTimestamp($erpOrder->getCreatedAt()))

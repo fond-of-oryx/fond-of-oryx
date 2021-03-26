@@ -9,13 +9,9 @@
         <column name="fk_billing_address" required="true" type="INTEGER"/>
         <column name="fk_shipping_address" required="true" type="INTEGER"/>
         <column name="fk_company_business_unit" required="true" type="INTEGER"/>
-        <column name="fk_company_user" required="true" type="INTEGER"/>
-
         <column name="external_reference" required="false" size="255" type="VARCHAR"/>
         <column name="reference" required="false" size="255" type="VARCHAR"/>
         <column name="concrete_delivery_date" required="false" type="DATE"/>
-
-        <behavior name="timestampable"/>
 
         <id-method-parameter value="foo_erp_order_pk_seq"/>
 
@@ -39,22 +35,22 @@
             <reference local="fk_company_business_unit" foreign="id_company_business_unit"/>
         </foreign-key>
 
-        <foreign-key name="foo_erp_order-spy_company_user" foreignTable="spy_company_user" phpName="CompanyUser">
-            <reference local="fk_company_user" foreign="id_company_user"/>
-        </foreign-key>
+        <behavior name="event">
+            <parameter name="foo_erp_order_all" column="*"/>
+        </behavior>
+
+        <behavior name="timestampable"/>
     </table>
 
-    <table name="foo_erp_order_item" phpName="ErpOrderItem" identifierQuoting="true">
+    <table name="foo_erp_order_item" phpName="ErpOrderItem" idMethod="native" identifierQuoting="true" allowPkInsert="true">
         <column name="id_erp_order_item" required="true" type="INTEGER" autoIncrement="true" primaryKey="true"/>
-
         <column name="fk_erp_order" required="true" type="INTEGER"/>
-
         <column name="sku" required="true" size="255" type="VARCHAR"/>
         <column name="name" required="true" size="255" type="VARCHAR"/>
         <column name="canceled_quantity" required="false" type="INTEGER"/>
         <column name="ordered_quantity" required="false" type="INTEGER"/>
         <column name="shipped_quantity" required="false" type="INTEGER"/>
-        <column name="invoice_quantity" required="false" type="INTEGER"/>
+        <column name="invoiced_quantity" required="false" type="INTEGER"/>
         <column name="status" required="false" type="INTEGER"/>
         <column name="concrete_delivery_date" required="false" type="DATE"/>
 
