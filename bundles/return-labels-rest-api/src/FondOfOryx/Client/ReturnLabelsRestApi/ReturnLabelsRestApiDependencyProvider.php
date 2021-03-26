@@ -1,10 +1,8 @@
 <?php
 
-
 namespace FondOfOryx\Client\ReturnLabelsRestApi;
 
-
-use FondOfOryx\Client\ReturnLabelsRestApi\Dependency\ReturnLabelToZedRequestClientBridge;
+use FondOfOryx\Client\ReturnLabelsRestApi\Dependency\Client\ReturnLabelsRestApiToZedRequestClientBridge;
 use Spryker\Client\Kernel\AbstractDependencyProvider;
 use Spryker\Client\Kernel\Container;
 
@@ -33,7 +31,7 @@ class ReturnLabelsRestApiDependencyProvider extends AbstractDependencyProvider
     protected function addZedRequestClient(Container $container): Container
     {
         $container[static::CLIENT_ZED_REQUEST] = static function (Container $container) {
-            return new ReturnLabelToZedRequestClientBridge(
+            return new ReturnLabelsRestApiToZedRequestClientBridge(
                 $container->getLocator()->zedRequest()->client()
             );
         };

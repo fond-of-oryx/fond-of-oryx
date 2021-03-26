@@ -33,6 +33,7 @@
     "fond-of-codeception/spryker": "dev-master"
   },
   "replace": {
+    "fond-of-oryx/return-label": "*",
     "fond-of-oryx/return-labels-rest-api": "*",
     "fond-of-oryx/customer-statistic": "*",
     "fond-of-oryx/customer-statistics-rest-api": "*",
@@ -59,7 +60,9 @@
       "FondOfOryx\\Glue\\ReturnLabelsRestApi\\": "bundles/return-labels-rest-api/src/FondOfOryx/Glue/ReturnLabelsRestApi",
       "FondOfOryx\\Client\\ReturnLabelsRestApi\\": "bundles/return-labels-rest-api/src/FondOfOryx/Client/ReturnLabelsRestApi",
       "FondOfOryx\\Zed\\ReturnLabelsRestApi\\": "bundles/return-labels-rest-api/src/FondOfOryx/Zed/ReturnLabelsRestApi",
-      "FondOfOryx\\Shared\\ReturnLabelsRestApi\\": "bundles/return-labels-rest-api/src/FondOfOryx/Shared/ReturnLabelsRestApi"
+      "FondOfOryx\\Shared\\ReturnLabelsRestApi\\": "bundles/return-labels-rest-api/src/FondOfOryx/Shared/ReturnLabelsRestApi",
+      "FondOfOryx\\Zed\\ReturnLabel\\": "bundles/return-label/src/FondOfOryx/Zed/ReturnLabel",
+      "FondOfOryx\\Shared\\ReturnLabel\\": "bundles/return-label/src/FondOfOryx/Shared/ReturnLabel"
     }
   },
   "autoload-dev": {

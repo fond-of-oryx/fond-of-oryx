@@ -1,6 +1,5 @@
 <?php
 
-
 class CompanyUnitAddressReaderInterface
 {
 

@@ -3,6 +3,7 @@
 namespace FondOfOryx\Zed\ReturnLabelsRestApi\Facade;
 
 use Generated\Shared\Transfer\ApiItemTransfer;
+use Generated\Shared\Transfer\ReturnLabelsRestApiAttributesTransfer;
 
 interface ReturnLabelsRestApiFacadeInterface
 {
@@ -12,4 +13,13 @@ interface ReturnLabelsRestApiFacadeInterface
      * @return ApiItemTransfer
      */
     public function requestReturnLabel(int $idCompanyUnitAddress): ApiItemTransfer;
+
+    /**
+     * @param ReturnLabelRestApiResponseTransfer $returnLabelRestApiResponseTransfer
+     *
+     * @return mixed
+     */
+    public function findCompanyUnitAddress(
+        ReturnLabelsRestApiAttributesTransfer $returnLabelsRestApiAttributesTransfer
+    );
 }

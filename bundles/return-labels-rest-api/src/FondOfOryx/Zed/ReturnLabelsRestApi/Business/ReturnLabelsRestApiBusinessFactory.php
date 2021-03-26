@@ -11,22 +11,6 @@ use Spryker\Zed\Kernel\Business\AbstractBusinessFactory;
 
 class ReturnLabelsRestApiBusinessFactory extends AbstractBusinessFactory
 {
-    public function createMicroServiceClient(): MircoServiceClientInterface
-    {
-        return new MircoServiceClient(
-            $this->createClient(),
-            $this->getCompanyUnitAddressApiFacade()
-        );
-    }
-
-    /**
-     * @return ClientInterface
-     */
-    public function createClient(): ClientInterface
-    {
-        return new Client();
-    }
-
     /**
      * @return ReturnLabelsRestApiToCompanyAddressApiFacadeInterface
      *
