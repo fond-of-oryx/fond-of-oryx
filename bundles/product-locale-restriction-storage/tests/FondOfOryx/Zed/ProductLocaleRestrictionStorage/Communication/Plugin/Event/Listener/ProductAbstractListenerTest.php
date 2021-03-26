@@ -66,7 +66,6 @@ class ProductAbstractListenerTest extends Unit
              */
             protected function preventTransaction(): void
             {
-                return;
             }
         };
 

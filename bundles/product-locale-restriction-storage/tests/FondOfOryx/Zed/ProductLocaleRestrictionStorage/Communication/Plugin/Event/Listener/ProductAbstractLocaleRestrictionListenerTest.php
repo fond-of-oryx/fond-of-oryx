@@ -67,7 +67,6 @@ class ProductAbstractLocaleRestrictionListenerTest extends Unit
              */
             protected function preventTransaction(): void
             {
-                return;
             }
         };
 

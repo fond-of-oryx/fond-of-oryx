@@ -14,7 +14,7 @@ class ProductLocaleRestrictionStorageToEventBehaviorFacadeBridgeTest extends Uni
     protected $eventBehaviorFacadeMock;
 
     /**
-     * @var \Generated\Shared\Transfer\EventEntityTransfer[]|
+     * @var \Generated\Shared\Transfer\EventEntityTransfer[]|\PHPUnit\Framework\MockObject\MockObject[]
      */
     protected $eventEntityTransferMocks;
 
