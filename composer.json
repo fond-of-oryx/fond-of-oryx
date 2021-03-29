@@ -130,18 +130,15 @@
       "FondOfOryx\\Zed\\SplittableCheckout\\": "bundles/splittable-checkout/src/FondOfOryx/Zed/SplittableCheckout",
       "FondOfOryx\\Zed\\SplittableCheckoutRestApiExtension\\": "bundles/splittable-checkout-rest-api-extension/src/FondOfOryx/Zed/SplittableCheckoutRestApiExtension",
       "FondOfOryx\\Zed\\TaxCalculationConnector\\": "bundles/tax-calculation-connector/src/FondOfOryx/Zed/TaxCalculationConnector",
-<<<<<<< HEAD
       "FondOfOryx\\Shared\\TaxCalculationConnector\\": "bundles/tax-calculation-connector/src/FondOfOryx/Shared/TaxCalculationConnector",
       "FondOfOryx\\Glue\\ReturnLabelsRestApi\\": "bundles/return-labels-rest-api/src/FondOfOryx/Glue/ReturnLabelsRestApi",
       "FondOfOryx\\Client\\ReturnLabelsRestApi\\": "bundles/return-labels-rest-api/src/FondOfOryx/Client/ReturnLabelsRestApi",
       "FondOfOryx\\Zed\\ReturnLabelsRestApi\\": "bundles/return-labels-rest-api/src/FondOfOryx/Zed/ReturnLabelsRestApi",
       "FondOfOryx\\Shared\\ReturnLabelsRestApi\\": "bundles/return-labels-rest-api/src/FondOfOryx/Shared/ReturnLabelsRestApi",
       "FondOfOryx\\Zed\\ReturnLabel\\": "bundles/return-label/src/FondOfOryx/Zed/ReturnLabel",
-      "FondOfOryx\\Shared\\ReturnLabel\\": "bundles/return-label/src/FondOfOryx/Shared/ReturnLabel"
-=======
+      "FondOfOryx\\Shared\\ReturnLabel\\": "bundles/return-label/src/FondOfOryx/Shared/ReturnLabel",
       "FondOfOryx\\Zed\\ThirtyFiveUp\\": "bundles/thirty-five-up/src/FondOfOryx/Zed/ThirtyFiveUp",
       "FondOfOryx\\Zed\\ThirtyFiveUpPaymentFilter\\": "bundles/thirty-five-up-payment-filter/src/FondOfOryx/Zed/ThirtyFiveUpPaymentFilter"
->>>>>>> main
     }
   },
   "autoload-dev": {
