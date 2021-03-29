@@ -14,15 +14,22 @@ use Spryker\Glue\GlueApplication\Rest\JsonApi\RestResourceBuilderInterface;
 use Spryker\Glue\GlueApplication\Rest\JsonApi\RestResponseInterface;
 use Spryker\Glue\GlueApplication\Rest\Request\Data\RestRequestInterface;
 use FondOfOryx\Glue\ReturnLabelsRestApi\ReturnLabelsRestApiConfig;
+use Spryker\Glue\Kernel\PermissionAwareTrait;
 use Symfony\Component\HttpFoundation\Response;
+use FondOfSpryker\Client\CompanyUnitAddressPermission\Plugin\ReadCompanyUnitAddressPermissionPlugin;
 
 class ReturnLabelProcessor implements ReturnLabelProcessorInterface
 {
+    use PermissionAwareTrait;
+
     /**
      * @var ReturnLabelsRestApiClientInterface
      */
     protected $client;
 
+    /**
+     * @var RestResourceBuilderInterface
+     */
     protected $resourceBuilder;
 
     /**
@@ -89,6 +96,8 @@ class ReturnLabelProcessor implements ReturnLabelProcessorInterface
         if ($companyUnitAddressTransfer === null) {
             return null;
         }
+
+        return $this->can(ReadCompanyUnitAddressPermissionPlugin::KEY, [1,2,3]);
 
         return $companyUnitAddressTransfer;
     }

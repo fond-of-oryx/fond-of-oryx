@@ -4,11 +4,8 @@ namespace FondOfOryx\Client\ReturnLabelsRestApi\Zed;
 
 use FondOfOryx\Client\ReturnLabelsRestApi\Dependency\Client\ReturnLabelsRestApiToZedRequestClientInterface;
 use Generated\Shared\Transfer\CompanyUnitAddressTransfer;
-use Generated\Shared\Transfer\RestReturnLabelResponseTransfer;
 use Generated\Shared\Transfer\ReturnLabelRestApiResponseTransfer;
-use Generated\Shared\Transfer\ReturnLabelsRestApiAttributesTransfer;
 use Generated\Shared\Transfer\ReturnLabelsRestApiTransfer;
-use Spryker\Glue\GlueApplication\Rest\JsonApi\RestResponseInterface;
 
 class ReturnLabelsRestApiZedStub implements ReturnLabelsRestApiZedStubInterface
 {
@@ -26,7 +23,7 @@ class ReturnLabelsRestApiZedStub implements ReturnLabelsRestApiZedStubInterface
     }
 
     /**
-     * @param ReturnLabelsRestApiAttributesTransfer $returnLabelsRestApiAttributesTransfer
+     * @param ReturnLabelsRestApiTransfer $returnLabelsRestApiTransfer
      *
      * @return CompanyUnitAddressTransfer|null
      */

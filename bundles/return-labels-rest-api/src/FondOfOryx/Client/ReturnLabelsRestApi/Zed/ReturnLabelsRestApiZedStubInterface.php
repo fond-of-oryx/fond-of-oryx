@@ -11,7 +11,7 @@ use Spryker\Glue\GlueApplication\Rest\JsonApi\RestResponseInterface;
 interface ReturnLabelsRestApiZedStubInterface
 {
     /**
-     * @param ReturnLabelsRestApiAttributesTransfer $returnLabelsRestApiAttributesTransfer
+     * @param ReturnLabelsRestApiTransfer v
      *
      * @return CompanyUnitAddressTransfer|null
      */

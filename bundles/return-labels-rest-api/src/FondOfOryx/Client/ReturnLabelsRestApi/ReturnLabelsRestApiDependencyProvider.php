@@ -9,6 +9,7 @@ use Spryker\Client\Kernel\Container;
 class ReturnLabelsRestApiDependencyProvider extends AbstractDependencyProvider
 {
     public const CLIENT_ZED_REQUEST = 'CLIENT_ZED_REQUEST';
+    public const CLIENT_COMPANY_USER_REFERENCE_CLIENT = 'CLIENT_COMPANY_USER_REFERENCE_CLIENT';
 
     /**
      * @param \Spryker\Client\Kernel\Container $container
@@ -19,6 +20,7 @@ class ReturnLabelsRestApiDependencyProvider extends AbstractDependencyProvider
     {
         $container = parent::provideServiceLayerDependencies($container);
         $container = $this->addZedRequestClient($container);
+        $container = $this->addCompanyUserReferenceClient($container);
 
         return $container;
     }
@@ -35,6 +37,22 @@ class ReturnLabelsRestApiDependencyProvider extends AbstractDependencyProvider
                 $container->getLocator()->zedRequest()->client()
             );
         };
+
+        return $container;
+    }
+
+    /**
+     * @param Container $container
+     *
+     * @return Container
+     */
+    protected function addCompanyUserReferenceClient(Container $container): Container
+    {
+        $container->set(static::CLIENT_COMPANY_USER_REFERENCE_CLIENT, static function (Container $container) {
+            return new ReturnLabelsRestApiToCompanyUserReferenceClientBridge(
+                $container->getLocator()->companyUserReference()->getClient()
+            );
+        });
 
         return $container;
     }
