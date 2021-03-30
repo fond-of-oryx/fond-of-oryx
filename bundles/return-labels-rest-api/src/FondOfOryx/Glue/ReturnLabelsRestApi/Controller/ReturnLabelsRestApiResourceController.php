@@ -3,7 +3,6 @@
 namespace FondOfOryx\Glue\ReturnLabelsRestApi\Controller;
 
 use Generated\Shared\Transfer\RestReturnLabelRequestAttributesTransfer;
-use Generated\Shared\Transfer\ReturnLabelRestApiResponseTransfer;
 use Spryker\Glue\GlueApplication\Rest\JsonApi\RestResponseInterface;
 use Spryker\Glue\GlueApplication\Rest\Request\Data\RestRequestInterface;
 use Spryker\Glue\Kernel\Controller\AbstractController;
@@ -15,9 +14,9 @@ use Spryker\Glue\Kernel\Controller\AbstractController;
 class ReturnLabelsRestApiResourceController extends AbstractController
 {
     /**
-     * @param RestRequestInterface $restRequest
+     * @param \Spryker\Glue\GlueApplication\Rest\Request\Data\RestRequestInterface $restRequest
      *
-     * @return ReturnLabelRestApiResponseTransfer
+     * @return \Generated\Shared\Transfer\ReturnLabelRestApiResponseTransfer
      */
     public function postAction(
         RestRequestInterface $restRequest,

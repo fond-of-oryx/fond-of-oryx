@@ -4,7 +4,6 @@ namespace FondOfOryx\Zed\ReturnLabelsRestApi\Business\Reader;
 
 use FondOfOryx\Zed\ReturnLabelsRestApi\Persistence\ReturnLabelsRestApiRepositoryInterface;
 use Generated\Shared\Transfer\CompanyUnitAddressResponseTransfer;
-use Generated\Shared\Transfer\CompanyUnitAddressTransfer;
 use Generated\Shared\Transfer\ReturnLabelsRestApiTransfer;
 
 class CompanyUnitAddressReader implements CompanyUnitAddressReaderInterface
@@ -15,7 +14,7 @@ class CompanyUnitAddressReader implements CompanyUnitAddressReaderInterface
     protected $companyUnitAddressRepository;
 
     /**
-     * @param ReturnLabelsRestApiRepositoryInterface $companyUnitAddressRepository
+     * @param \FondOfOryx\Zed\ReturnLabelsRestApi\Persistence\ReturnLabelsRestApiRepositoryInterface $companyUnitAddressRepository
      */
     public function __construct(ReturnLabelsRestApiRepositoryInterface $companyUnitAddressRepository)
     {
@@ -23,7 +22,7 @@ class CompanyUnitAddressReader implements CompanyUnitAddressReaderInterface
     }
 
     /**
-     * @param ReturnLabelsRestApiTransfer $returnLabelsRestApiTransfer
+     * @param \Generated\Shared\Transfer\ReturnLabelsRestApiTransfer $returnLabelsRestApiTransfer
      *
      * @return \Generated\Shared\Transfer\CompanyUnitAddressResponseTransfer
      */
@@ -33,8 +32,7 @@ class CompanyUnitAddressReader implements CompanyUnitAddressReaderInterface
         $companyUnitAddressTransfer = $this->companyUnitAddressRepository
             ->findCompanyUnitAddressByExternalReference(
                 $returnLabelsRestApiTransfer->getCompanyUnitAddressExternalReference()
-            )
-        ;
+            );
 
         $companyUnitAddressResponseTransfer = new CompanyUnitAddressResponseTransfer();
 

@@ -2,7 +2,6 @@
 
 namespace FondOfOryx\Zed\ReturnLabelsRestApi\Business;
 
-use Generated\Shared\Transfer\ApiItemTransfer;
 use Generated\Shared\Transfer\CompanyUnitAddressResponseTransfer;
 use Generated\Shared\Transfer\CompanyUnitAddressTransfer;
 use Generated\Shared\Transfer\ReturnLabelRestApiResponseTransfer;
@@ -11,13 +10,14 @@ use Spryker\Zed\Kernel\Business\AbstractFacade;
 
 /**
  * @method \FondOfOryx\Zed\ReturnLabelsRestApi\Facade\ReturnLabelsRestApiBusinessFactory getFactory()
+ * @method \FondOfOryx\Zed\ReturnLabelsRestApi\Persistence\ReturnLabelsRestApiRepositoryInterface getRepository()
  */
 class ReturnLabelsRestApiFacade extends AbstractFacade implements ReturnLabelsRestApiFacadeInterface
 {
     /**
-     * @param ReturnLabelsRestApiTransfer $returnLabelsRestApiTransfer
+     * @param \Generated\Shared\Transfer\ReturnLabelsRestApiTransfer $returnLabelsRestApiTransfer
      *
-     * @return CompanyUnitAddressTransfer
+     * @return \Generated\Shared\Transfer\CompanyUnitAddressTransfer
      */
     public function findCompanyUnitAddressByExternalReference(
         ReturnLabelsRestApiTransfer $returnLabelsRestApiTransfer
@@ -28,9 +28,9 @@ class ReturnLabelsRestApiFacade extends AbstractFacade implements ReturnLabelsRe
     }
 
     /**
-     * @param CompanyUnitAddressTransfer $companyUnitAddressTransfer
+     * @param \Generated\Shared\Transfer\CompanyUnitAddressTransfer $companyUnitAddressTransfer
      *
-     * @return ReturnLabelRestApiResponseTransfer
+     * @return \Generated\Shared\Transfer\ReturnLabelRestApiResponseTransfer
      */
     public function getReturnLabel(
         CompanyUnitAddressTransfer $companyUnitAddressTransfer

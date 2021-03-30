@@ -6,12 +6,9 @@ use Generated\Shared\Transfer\CompanyUnitAddressResponseTransfer;
 use Generated\Shared\Transfer\CompanyUnitAddressTransfer;
 use Generated\Shared\Transfer\CompanyUserResponseTransfer;
 use Generated\Shared\Transfer\CompanyUserTransfer;
-use Generated\Shared\Transfer\RestUserTransfer;
 use Generated\Shared\Transfer\ReturnLabelRestApiResponseTransfer;
-use Generated\Shared\Transfer\ReturnLabelsRestApiAttributesTransfer;
 use Generated\Shared\Transfer\ReturnLabelsRestApiTransfer;
 use Spryker\Client\Kernel\AbstractClient;
-use Spryker\Glue\GlueApplication\Rest\JsonApi\RestResponseInterface;
 
 /**
  * @method \FondOfOryx\Client\ReturnLabelsRestApi\ReturnLabelsRestApiFactory getFactory()
@@ -19,9 +16,9 @@ use Spryker\Glue\GlueApplication\Rest\JsonApi\RestResponseInterface;
 class ReturnLabelsRestApiClient extends AbstractClient implements ReturnLabelsRestApiClientInterface
 {
     /**
-     * @param CompanyUnitAddressTransfer $companyUnitAddressTransfer
+     * @param \Generated\Shared\Transfer\CompanyUnitAddressTransfer $companyUnitAddressTransfer
      *
-     * @return ReturnLabelRestApiResponseTransfer
+     * @return \Generated\Shared\Transfer\ReturnLabelRestApiResponseTransfer
      */
     public function getReturnLabelAction(
         CompanyUnitAddressTransfer $companyUnitAddressTransfer
@@ -40,9 +37,9 @@ class ReturnLabelsRestApiClient extends AbstractClient implements ReturnLabelsRe
     }
 
     /**
-     * @param ReturnLabelsRestApiTransfer $returnLabelsRestApiTransfer
+     * @param \Generated\Shared\Transfer\ReturnLabelsRestApiTransfer $returnLabelsRestApiTransfer
      *
-     * @return CompanyUnitAddressResponseTransfer
+     * @return \Generated\Shared\Transfer\CompanyUnitAddressResponseTransfer
      */
     public function findCompanyUnitAddressByExternalReference(
         ReturnLabelsRestApiTransfer $returnLabelsRestApiTransfer

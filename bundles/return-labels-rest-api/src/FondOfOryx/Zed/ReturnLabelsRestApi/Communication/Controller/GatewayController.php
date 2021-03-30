@@ -16,7 +16,7 @@ class GatewayController extends AbstractGatewayController
     /**
      * @param string $externalReference
      *
-     * @return CompanyUnitAddressResponseTransfer
+     * @return \Generated\Shared\Transfer\CompanyUnitAddressResponseTransfer
      */
     public function findCompanyUnitAddressByExternalReferenceAction(
         ReturnLabelsRestApiTransfer $returnLabelsRestApiTransfer
@@ -25,11 +25,10 @@ class GatewayController extends AbstractGatewayController
             ->findCompanyUnitAddressByExternalReference($returnLabelsRestApiTransfer);
     }
 
-
     /**
-     * @param CompanyUnitAddressTransfer $companyUnitAddressTransfer
+     * @param \Generated\Shared\Transfer\CompanyUnitAddressTransfer $companyUnitAddressTransfer
      *
-     * @return ReturnLabelRestApiResponseTransfer
+     * @return \Generated\Shared\Transfer\ReturnLabelRestApiResponseTransfer
      */
     public function getReturnLabelAction(
         CompanyUnitAddressTransfer $companyUnitAddressTransfer

@@ -2,10 +2,13 @@
 
 namespace FondOfOryx\Zed\ReturnLabelsRestApi\Persistence;
 
+use FondOfOryx\Zed\ReturnLabelsRestApi\ReturnLabelsRestApiDependencyProvider;
 use Orm\Zed\CompanyUnitAddress\Persistence\SpyCompanyUnitAddressQuery;
 use Spryker\Zed\Kernel\Persistence\AbstractPersistenceFactory;
-use FondOfOryx\Zed\ReturnLabelsRestApi\ReturnLabelsRestApiDependencyProvider;
 
+/**
+ * @method \FondOfOryx\Zed\ReturnLabelsRestApi\Persistence\ReturnLabelsRestApiRepositoryInterface getRepository()
+ */
 class ReturnLabelsRestApiPersistenceFactory extends AbstractPersistenceFactory
 {
     /**

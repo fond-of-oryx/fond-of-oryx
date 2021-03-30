@@ -11,12 +11,12 @@ use Generated\Shared\Transfer\ReturnLabelsRestApiTransfer;
 class ReturnLabelsRestApiZedStub implements ReturnLabelsRestApiZedStubInterface
 {
     /**
-     * @var ReturnLabelsRestApiToZedRequestClientInterface
+     * @var \FondOfOryx\Client\ReturnLabelsRestApi\Dependency\Client\ReturnLabelsRestApiToZedRequestClientInterface
      */
     protected $zedRequestClient;
 
     /**
-     * @param ReturnLabelsRestApiToZedRequestClientInterface $zedRequestClient
+     * @param \FondOfOryx\Client\ReturnLabelsRestApi\Dependency\Client\ReturnLabelsRestApiToZedRequestClientInterface $zedRequestClient
      */
     public function __construct(ReturnLabelsRestApiToZedRequestClientInterface $zedRequestClient)
     {
@@ -24,9 +24,9 @@ class ReturnLabelsRestApiZedStub implements ReturnLabelsRestApiZedStubInterface
     }
 
     /**
-     * @param CompanyUnitAddressTransfer $companyUnitAddressTransfer
+     * @param \Generated\Shared\Transfer\CompanyUnitAddressTransfer $companyUnitAddressTransfer
      *
-     * @return ReturnLabelRestApiResponseTransfer
+     * @return \Generated\Shared\Transfer\ReturnLabelRestApiResponseTransfer
      */
     public function getReturnLabel(
         CompanyUnitAddressTransfer $companyUnitAddressTransfer
@@ -38,9 +38,9 @@ class ReturnLabelsRestApiZedStub implements ReturnLabelsRestApiZedStubInterface
     }
 
     /**
-     * @param ReturnLabelsRestApiTransfer $returnLabelsRestApiTransfer
+     * @param \Generated\Shared\Transfer\ReturnLabelsRestApiTransfer $returnLabelsRestApiTransfer
      *
-     * @return CompanyUnitAddressResponseTransfer
+     * @return \Generated\Shared\Transfer\CompanyUnitAddressResponseTransfer
      */
     public function findCompanyUnitAddressByExternalReference(
         ReturnLabelsRestApiTransfer $returnLabelsRestApiTransfer

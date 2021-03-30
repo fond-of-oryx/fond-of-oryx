@@ -2,10 +2,10 @@
 
 namespace FondOfOryx\Client\ReturnLabelsRestApi;
 
+use FondOfOryx\Client\ReturnLabelsRestApi\Dependency\Client\ReturnLabelsRestApiToCompanyUserReferenceClientBridge;
 use FondOfOryx\Client\ReturnLabelsRestApi\Dependency\Client\ReturnLabelsRestApiToZedRequestClientBridge;
 use Spryker\Client\Kernel\AbstractDependencyProvider;
 use Spryker\Client\Kernel\Container;
-use FondOfOryx\Client\ReturnLabelsRestApi\Dependency\Client\ReturnLabelsRestApiToCompanyUserReferenceClientBridge;
 
 class ReturnLabelsRestApiDependencyProvider extends AbstractDependencyProvider
 {
@@ -43,9 +43,9 @@ class ReturnLabelsRestApiDependencyProvider extends AbstractDependencyProvider
     }
 
     /**
-     * @param Container $container
+     * @param \Spryker\Client\Kernel\Container $container
      *
-     * @return Container
+     * @return \Spryker\Client\Kernel\Container
      */
     protected function addCompanyUserReferenceClient(Container $container): Container
     {

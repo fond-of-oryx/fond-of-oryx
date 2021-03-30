@@ -13,9 +13,9 @@ class ReturnLabelsRestApiDependencyProvider extends AbstractBundleDependencyProv
     public const PROPEL_QUERY_COMPANY_UNIT_ADDRESS = 'PROPEL_QUERY_COMPANY_UNIT_ADDRESS';
 
     /**
-     * @param Container $container
+     * @param \Spryker\Zed\Kernel\Container $container
      *
-     * @return Container
+     * @return \Spryker\Zed\Kernel\Container
      */
     public function provideBusinessLayerDependencies(Container $container): Container
     {
@@ -25,9 +25,9 @@ class ReturnLabelsRestApiDependencyProvider extends AbstractBundleDependencyProv
     }
 
     /**
-     * @param Container $container
+     * @param \Spryker\Zed\Kernel\Container $container
      *
-     * @return Container
+     * @return \Spryker\Zed\Kernel\Container
      */
     public function providePersistenceLayerDependencies(Container $container): Container
     {
@@ -38,11 +38,9 @@ class ReturnLabelsRestApiDependencyProvider extends AbstractBundleDependencyProv
     }
 
     /**
-     * @param Container $container
+     * @param \Spryker\Zed\Kernel\Container $container
      *
-     * @return Container
-     *
-     * @throws \Spryker\Service\Container\Exception\FrozenServiceException
+     * @return \Spryker\Zed\Kernel\Container
      */
     public function addCompanyUnitAddressApiFacade(Container $container): Container
     {

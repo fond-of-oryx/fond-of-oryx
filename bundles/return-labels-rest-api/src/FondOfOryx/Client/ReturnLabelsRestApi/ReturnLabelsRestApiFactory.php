@@ -2,10 +2,10 @@
 
 namespace FondOfOryx\Client\ReturnLabelsRestApi;
 
+use FondOfOryx\Client\ReturnLabelsRestApi\Dependency\Client\ReturnLabelsRestApiToCompanyUserReferenceClientInterface;
 use FondOfOryx\Client\ReturnLabelsRestApi\Dependency\Client\ReturnLabelsRestApiToZedRequestClientInterface;
 use FondOfOryx\Client\ReturnLabelsRestApi\Zed\ReturnLabelsRestApiZedStub;
 use FondOfOryx\Client\ReturnLabelsRestApi\Zed\ReturnLabelsRestApiZedStubInterface;
-use FondOfOryx\Client\ReturnLabelsRestApi\Dependency\Client\ReturnLabelsRestApiToCompanyUserReferenceClientInterface;
 use Spryker\Client\Kernel\AbstractFactory;
 
 class ReturnLabelsRestApiFactory extends AbstractFactory
@@ -19,7 +19,7 @@ class ReturnLabelsRestApiFactory extends AbstractFactory
     }
 
     /**
-     * @return ReturnLabelsRestApiToCompanyUserReferenceClientInterface
+     * @return \FondOfOryx\Client\ReturnLabelsRestApi\Dependency\Client\ReturnLabelsRestApiToCompanyUserReferenceClientInterface
      */
     public function getCompanyUserReferenceClient(): ReturnLabelsRestApiToCompanyUserReferenceClientInterface
     {

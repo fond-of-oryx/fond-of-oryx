@@ -9,12 +9,12 @@ use Generated\Shared\Transfer\CompanyUserTransfer;
 class ReturnLabelsRestApiToCompanyUserReferenceClientBridge implements ReturnLabelsRestApiToCompanyUserReferenceClientInterface
 {
     /**
-     * @var CompanyUserReferenceClientInterface
+     * @var \FondOfSpryker\Client\CompanyUserReference\CompanyUserReferenceClientInterface
      */
     protected $companyUserReferenceClient;
 
     /**
-     * @param CompanyUserReferenceClientInterface $companyUserReferenceClient
+     * @param \FondOfSpryker\Client\CompanyUserReference\CompanyUserReferenceClientInterface $companyUserReferenceClient
      */
     public function __construct(CompanyUserReferenceClientInterface $companyUserReferenceClient)
     {

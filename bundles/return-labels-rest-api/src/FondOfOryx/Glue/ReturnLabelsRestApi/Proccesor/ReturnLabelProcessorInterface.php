@@ -3,17 +3,16 @@
 namespace FondOfOryx\Glue\ReturnLabelsRestApi\Proccesor;
 
 use Generated\Shared\Transfer\RestReturnLabelRequestAttributesTransfer;
-use Generated\Shared\Transfer\ReturnLabelRestApiResponseTransfer;
 use Spryker\Glue\GlueApplication\Rest\JsonApi\RestResponseInterface;
 use Spryker\Glue\GlueApplication\Rest\Request\Data\RestRequestInterface;
 
 interface ReturnLabelProcessorInterface
 {
     /**
-     * @param RestRequestInterface $restRequest
-     * @param RestReturnLabelRequestAttributesTransfer $restReturnLabelRequestAttributesTransfer
+     * @param \Spryker\Glue\GlueApplication\Rest\Request\Data\RestRequestInterface $restRequest
+     * @param \Generated\Shared\Transfer\RestReturnLabelRequestAttributesTransfer $restReturnLabelRequestAttributesTransfer
      *
-     * @return RestResponseInterface
+     * @return \Spryker\Glue\GlueApplication\Rest\JsonApi\RestResponseInterface
      */
     public function getReturnLabel(
         RestRequestInterface $restRequest,

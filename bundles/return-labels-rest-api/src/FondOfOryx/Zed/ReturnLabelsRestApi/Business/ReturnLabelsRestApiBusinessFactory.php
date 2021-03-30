@@ -3,11 +3,7 @@
 namespace FondOfOryx\Zed\ReturnLabelsRestApi\Business;
 
 use FondOfOryx\Zed\ReturnLabelsRestApi\Business\Reader\CompanyUnitAddressReader;
-use FondOfOryx\Zed\ReturnLabelsRestApi\Facade\Api\MircoServiceClient;
-use FondOfOryx\Zed\ReturnLabelsRestApi\Facade\Api\MircoServiceClientInterface;
 use FondOfOryx\Zed\ReturnLabelsRestApi\ReturnLabelsRestApiDependencyProvider;
-use GuzzleHttp\Client;
-use GuzzleHttp\ClientInterface;
 use Spryker\Zed\Kernel\Business\AbstractBusinessFactory;
 
 /**
@@ -22,8 +18,6 @@ class ReturnLabelsRestApiBusinessFactory extends AbstractBusinessFactory
 
     /**
      * @return ReturnLabelsRestApiToCompanyAddressApiFacadeInterface
-     *
-     * @throws \Spryker\Zed\Kernel\Exception\Container\ContainerKeyNotFoundException
      */
     public function getCompanyUnitAddressApiFacade(): ReturnLabelsRestApiToCompanyAddressApiFacadeInterface
     {

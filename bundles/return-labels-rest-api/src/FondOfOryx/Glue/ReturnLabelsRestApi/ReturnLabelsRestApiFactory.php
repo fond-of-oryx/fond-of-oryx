@@ -2,9 +2,9 @@
 
 namespace FondOfOryx\Glue\ReturnLabelsRestApi;
 
+use FondOfOryx\Glue\ReturnLabelsRestApi\Proccesor\ReturnLabelProcessor;
 use FondOfOryx\Glue\ReturnLabelsRestApi\Proccesor\ReturnLabelProcessorInterface;
 use Spryker\Glue\Kernel\AbstractFactory;
-use FondOfOryx\Glue\ReturnLabelsRestApi\Proccesor\ReturnLabelProcessor;
 
 /**
  * @method \FondOfOryx\Client\ReturnLabelsRestApi\ReturnLabelsRestApiClientInterface getClient()

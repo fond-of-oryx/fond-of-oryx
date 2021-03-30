@@ -3,41 +3,35 @@
 namespace FondOfOryx\Glue\ReturnLabelsRestApi\Proccesor;
 
 use FondOfOryx\Client\ReturnLabelsRestApi\ReturnLabelsRestApiClientInterface;
-use Generated\Shared\Transfer\CompanyUnitAddressResponseTransfer;
+use FondOfOryx\Glue\ReturnLabelsRestApi\ReturnLabelsRestApiConfig;
 use Generated\Shared\Transfer\CompanyUnitAddressTransfer;
-use Generated\Shared\Transfer\CompanyUserResponseTransfer;
 use Generated\Shared\Transfer\CompanyUserTransfer;
 use Generated\Shared\Transfer\RestErrorMessageTransfer;
 use Generated\Shared\Transfer\RestReturnLabelRequestAttributesTransfer;
-use Generated\Shared\Transfer\RestUserTransfer;
-use Generated\Shared\Transfer\ReturnLabelRestApiResponseTransfer;
-use Generated\Shared\Transfer\ReturnLabelsRestApiAttributesTransfer;
 use Generated\Shared\Transfer\ReturnLabelsRestApiTransfer;
 use Spryker\Glue\GlueApplication\Rest\JsonApi\RestResourceBuilderInterface;
 use Spryker\Glue\GlueApplication\Rest\JsonApi\RestResponseInterface;
 use Spryker\Glue\GlueApplication\Rest\Request\Data\RestRequestInterface;
-use FondOfOryx\Glue\ReturnLabelsRestApi\ReturnLabelsRestApiConfig;
 use Spryker\Glue\Kernel\PermissionAwareTrait;
 use Symfony\Component\HttpFoundation\Response;
-use FondOfSpryker\Client\CompanyUnitAddressPermission\Plugin\ReadCompanyUnitAddressPermissionPlugin;
 
 class ReturnLabelProcessor implements ReturnLabelProcessorInterface
 {
     use PermissionAwareTrait;
 
     /**
-     * @var ReturnLabelsRestApiClientInterface
+     * @var \FondOfOryx\Client\ReturnLabelsRestApi\ReturnLabelsRestApiClientInterface
      */
     protected $client;
 
     /**
-     * @var RestResourceBuilderInterface
+     * @var \Spryker\Glue\GlueApplication\Rest\JsonApi\RestResourceBuilderInterface
      */
     protected $resourceBuilder;
 
     /**
-     * @param ReturnLabelsRestApiClientInterface $client
-     * @param RestResourceBuilderInterface $resourceBuilder
+     * @param \FondOfOryx\Client\ReturnLabelsRestApi\ReturnLabelsRestApiClientInterface $client
+     * @param \Spryker\Glue\GlueApplication\Rest\JsonApi\RestResourceBuilderInterface $resourceBuilder
      */
     public function __construct(
         ReturnLabelsRestApiClientInterface $client,
@@ -48,10 +42,10 @@ class ReturnLabelProcessor implements ReturnLabelProcessorInterface
     }
 
     /**
-     * @param RestRequestInterface $restRequest
-     * @param RestReturnLabelRequestAttributesTransfer $restReturnLabelRequestAttributesTransfer
+     * @param \Spryker\Glue\GlueApplication\Rest\Request\Data\RestRequestInterface $restRequest
+     * @param \Generated\Shared\Transfer\RestReturnLabelRequestAttributesTransfer $restReturnLabelRequestAttributesTransfer
      *
-     * @return ReturnLabelRestApiResponseTransfer
+     * @return \Generated\Shared\Transfer\ReturnLabelRestApiResponseTransfer
      */
     public function getReturnLabel(
         RestRequestInterface $restRequest,
@@ -85,9 +79,9 @@ class ReturnLabelProcessor implements ReturnLabelProcessorInterface
     }
 
     /**
-     * @param ReturnLabelsRestApiTransfer $returnLabelsRestApiTransfer
+     * @param \Generated\Shared\Transfer\ReturnLabelsRestApiTransfer $returnLabelsRestApiTransfer
      *
-     * @return CompanyUnitAddressTransfer|null
+     * @return \Generated\Shared\Transfer\CompanyUnitAddressTransfer|null
      */
     protected function hasPermissionsToReadCompanyUnitAddress(
         ReturnLabelsRestApiTransfer $returnLabelsRestApiTransfer
@@ -109,10 +103,10 @@ class ReturnLabelProcessor implements ReturnLabelProcessorInterface
     }
 
     /**
-     * @param RestRequestInterface $restRequest
-     * @param RestReturnLabelRequestAttributesTransfer $restReturnLabelRequestAttributesTransfer
+     * @param \Spryker\Glue\GlueApplication\Rest\Request\Data\RestRequestInterface $restRequest
+     * @param \Generated\Shared\Transfer\RestReturnLabelRequestAttributesTransfer $restReturnLabelRequestAttributesTransfer
      *
-     * @return ReturnLabelsRestApiTransfer
+     * @return \Generated\Shared\Transfer\ReturnLabelsRestApiTransfer
      */
     protected function createReturnLabelsRestApiTransfer(
         RestRequestInterface $restRequest,
@@ -122,7 +116,6 @@ class ReturnLabelProcessor implements ReturnLabelProcessorInterface
             ->setRestUserNaturalIndetifier($restRequest->getRestUser()->getNaturalIdentifier())
             ->setCustomerId($restRequest->getRestUser()->getSurrogateIdentifier())
             ->setCompanyUserReference($restReturnLabelRequestAttributesTransfer->getCompanyUserReference())
-            ->setCompanyUnitAddressExternalReference($restReturnLabelRequestAttributesTransfer->getCompanyUnitAddressExternalReference())
-        ;
+            ->setCompanyUnitAddressExternalReference($restReturnLabelRequestAttributesTransfer->getCompanyUnitAddressExternalReference());
     }
 }
