@@ -14,7 +14,7 @@ use Spryker\Zed\Kernel\Communication\Controller\AbstractGatewayController;
 class GatewayController extends AbstractGatewayController
 {
     /**
-     * @param string $externalReference
+     * @param \Generated\Shared\Transfer\ReturnLabelsRestApiTransfer $returnLabelsRestApiTransfer
      *
      * @return \Generated\Shared\Transfer\CompanyUnitAddressResponseTransfer
      */

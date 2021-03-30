@@ -28,6 +28,11 @@ class ReturnLabelsRestApiClient extends AbstractClient implements ReturnLabelsRe
             ->getReturnLabel($companyUnitAddressTransfer);
     }
 
+    /**
+     * @param \Generated\Shared\Transfer\CompanyUserTransfer $companyUserTransfer
+     *
+     * @return \Generated\Shared\Transfer\CompanyUserResponseTransfer
+     */
     public function findCompanyUserByCompanyUserReference(
         CompanyUserTransfer $companyUserTransfer
     ): CompanyUserResponseTransfer {

@@ -3,7 +3,7 @@
 namespace FondOfOryx\Zed\ReturnLabelsRestApi\Business;
 
 use FondOfOryx\Zed\ReturnLabelsRestApi\Business\Reader\CompanyUnitAddressReader;
-use FondOfOryx\Zed\ReturnLabelsRestApi\ReturnLabelsRestApiDependencyProvider;
+use FondOfOryx\Zed\ReturnLabelsRestApi\Persistence\ReturnLabelsRestApiRepositoryInterface;
 use Spryker\Zed\Kernel\Business\AbstractBusinessFactory;
 
 /**
@@ -11,16 +11,11 @@ use Spryker\Zed\Kernel\Business\AbstractBusinessFactory;
  */
 class ReturnLabelsRestApiBusinessFactory extends AbstractBusinessFactory
 {
-    public function createCompanyUnitAddressReader()
+    /**
+     * @return \FondOfOryx\Zed\ReturnLabelsRestApi\Persistence\ReturnLabelsRestApiRepositoryInterface
+     */
+    public function createCompanyUnitAddressReader(): ReturnLabelsRestApiRepositoryInterface
     {
         return new CompanyUnitAddressReader($this->getRepository());
-    }
-
-    /**
-     * @return ReturnLabelsRestApiToCompanyAddressApiFacadeInterface
-     */
-    public function getCompanyUnitAddressApiFacade(): ReturnLabelsRestApiToCompanyAddressApiFacadeInterface
-    {
-        return $this->getProvidedDependency(ReturnLabelsRestApiDependencyProvider::COMPANY_UNIT_ADDRESS_API_FACADE);
     }
 }

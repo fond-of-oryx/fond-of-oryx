@@ -11,6 +11,9 @@ use Spryker\Glue\Kernel\AbstractFactory;
  */
 class ReturnLabelsRestApiFactory extends AbstractFactory
 {
+    /**
+     * @return \FondOfOryx\Glue\ReturnLabelsRestApi\Proccesor\ReturnLabelProcessorInterface
+     */
     public function createReturnLabelProcessor(): ReturnLabelProcessorInterface
     {
         return new ReturnLabelProcessor(

@@ -9,7 +9,7 @@ use Generated\Shared\Transfer\ReturnLabelsRestApiTransfer;
 class CompanyUnitAddressReader implements CompanyUnitAddressReaderInterface
 {
     /**
-     * @var ReturnLabelsRestApiCompanyUnitAddressRepositoryInterface
+     * @var \FondOfOryx\Zed\ReturnLabelsRestApi\Persistence\ReturnLabelsRestApiRepositoryInterface
      */
     protected $companyUnitAddressRepository;
 
