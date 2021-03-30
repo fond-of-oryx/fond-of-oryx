@@ -6,10 +6,12 @@
     <transfer name="ReturnLabelsRestApi">
         <property name="restUserNaturalIndetifier" type="string" />
         <property name="customerId" type="int" />
+        <property name="companyUserReference" type="string" />
         <property name="companyUnitAddressUuid" type="string" />
     </transfer>
 
     <transfer name="RestReturnLabelRequestAttributes">
+        <property name="companyUserReference" type="string" />
         <property name="companyUnitAddressUuid" type="string" />
     </transfer>
 

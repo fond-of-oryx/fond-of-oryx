@@ -5,6 +5,7 @@ namespace FondOfOryx\Client\ReturnLabelsRestApi;
 use FondOfOryx\Client\ReturnLabelsRestApi\Dependency\Client\ReturnLabelsRestApiToZedRequestClientBridge;
 use Spryker\Client\Kernel\AbstractDependencyProvider;
 use Spryker\Client\Kernel\Container;
+use FondOfOryx\Client\ReturnLabelsRestApi\Dependency\Client\ReturnLabelsRestApiToCompanyUserReferenceClientBridge;
 
 class ReturnLabelsRestApiDependencyProvider extends AbstractDependencyProvider
 {
@@ -50,7 +51,7 @@ class ReturnLabelsRestApiDependencyProvider extends AbstractDependencyProvider
     {
         $container->set(static::CLIENT_COMPANY_USER_REFERENCE_CLIENT, static function (Container $container) {
             return new ReturnLabelsRestApiToCompanyUserReferenceClientBridge(
-                $container->getLocator()->companyUserReference()->getClient()
+                $container->getLocator()->companyUserReference()->client()
             );
         });
 

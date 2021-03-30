@@ -5,6 +5,7 @@ namespace FondOfOryx\Client\ReturnLabelsRestApi;
 use FondOfOryx\Client\ReturnLabelsRestApi\Dependency\Client\ReturnLabelsRestApiToZedRequestClientInterface;
 use FondOfOryx\Client\ReturnLabelsRestApi\Zed\ReturnLabelsRestApiZedStub;
 use FondOfOryx\Client\ReturnLabelsRestApi\Zed\ReturnLabelsRestApiZedStubInterface;
+use FondOfOryx\Client\ReturnLabelsRestApi\Dependency\Client\ReturnLabelsRestApiToCompanyUserReferenceClientInterface;
 use Spryker\Client\Kernel\AbstractFactory;
 
 class ReturnLabelsRestApiFactory extends AbstractFactory
@@ -15,6 +16,14 @@ class ReturnLabelsRestApiFactory extends AbstractFactory
     protected function getZedRequestClient(): ReturnLabelsRestApiToZedRequestClientInterface
     {
         return $this->getProvidedDependency(ReturnLabelsRestApiDependencyProvider::CLIENT_ZED_REQUEST);
+    }
+
+    /**
+     * @return ReturnLabelsRestApiToCompanyUserReferenceClientInterface
+     */
+    public function getCompanyUserReferenceClient(): ReturnLabelsRestApiToCompanyUserReferenceClientInterface
+    {
+        return $this->getProvidedDependency(ReturnLabelsRestApiDependencyProvider::CLIENT_COMPANY_USER_REFERENCE_CLIENT);
     }
 
     /**

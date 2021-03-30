@@ -4,6 +4,8 @@ namespace FondOfOryx\Glue\ReturnLabelsRestApi\Proccesor;
 
 use FondOfOryx\Client\ReturnLabelsRestApi\ReturnLabelsRestApiClientInterface;
 use Generated\Shared\Transfer\CompanyUnitAddressTransfer;
+use Generated\Shared\Transfer\CompanyUserResponseTransfer;
+use Generated\Shared\Transfer\CompanyUserTransfer;
 use Generated\Shared\Transfer\RestErrorMessageTransfer;
 use Generated\Shared\Transfer\RestReturnLabelRequestAttributesTransfer;
 use Generated\Shared\Transfer\RestUserTransfer;
@@ -61,6 +63,9 @@ class ReturnLabelProcessor implements ReturnLabelProcessorInterface
             $restReturnLabelRequestAttributesTransfer
         );
 
+        var_dump($returnLabelsRestApiTransfer);
+        die();
+
         $companyUnitAddressTransfer = $this->hasPermissionsToReadCompanyUnitAddress($returnLabelsRestApiTransfer);
 
         if ($companyUnitAddressTransfer === null) {
@@ -93,11 +98,16 @@ class ReturnLabelProcessor implements ReturnLabelProcessorInterface
     ): ?CompanyUnitAddressTransfer {
         $companyUnitAddressTransfer = $this->client->findCompanyUnitAddressByUuid($returnLabelsRestApiTransfer);
 
+        $companyUserResponseTransfer = $this->client->findCompanyUserByCompanyUserReference(
+            (new CompanyUserTransfer)
+                ->setCompanyUserReference($returnLabelsRestApiTransfer->getCompanyUserReference())
+        );
+
+        var_dump($companyUserResponseTransfer);
+
         if ($companyUnitAddressTransfer === null) {
             return null;
         }
-
-        return $this->can(ReadCompanyUnitAddressPermissionPlugin::KEY, [1,2,3]);
 
         return $companyUnitAddressTransfer;
     }
@@ -115,6 +125,8 @@ class ReturnLabelProcessor implements ReturnLabelProcessorInterface
         return (new ReturnLabelsRestApiTransfer())
             ->setRestUserNaturalIndetifier($restRequest->getRestUser()->getNaturalIdentifier())
             ->setCustomerId($restRequest->getRestUser()->getSurrogateIdentifier())
-            ->setCompanyUnitAddressUuid($restReturnLabelRequestAttributesTransfer->getCompanyUnitAddressUuid());
+            ->setCompanyUserId($restReturnLabelRequestAttributesTransfer->getCompanyUserId())
+            ->setCompanyUnitAddressId($restReturnLabelRequestAttributesTransfer->getCompanyUnitAddressId())
+        ;
     }
 }

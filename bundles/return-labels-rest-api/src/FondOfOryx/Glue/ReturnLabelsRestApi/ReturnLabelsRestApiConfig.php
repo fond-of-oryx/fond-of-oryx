@@ -7,7 +7,7 @@ use Spryker\Glue\Kernel\AbstractBundleConfig;
 class ReturnLabelsRestApiConfig extends AbstractBundleConfig
 {
     public const ACTION_RETURN_LABELS_REST_API_POST = 'post';
-    public const RESOURCE_RETURN_LABELS_REST_API = 'return-labels-rest-api';
+    public const RESOURCE_RETURN_LABELS_REST_API = 'return-labels';
     public const CONTROLLER_RETURN_LABELS_REST_API = 'return-labels-rest-api-resource';
 
     public const RESPONSE_CODE_NO_PERMISSION = '802';
