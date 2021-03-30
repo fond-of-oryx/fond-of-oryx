@@ -3,6 +3,7 @@
 namespace FondOfOryx\Client\ReturnLabelsRestApi\Zed;
 
 use FondOfOryx\Client\ReturnLabelsRestApi\Dependency\Client\ReturnLabelsRestApiToZedRequestClientInterface;
+use Generated\Shared\Transfer\CompanyUnitAddressResponseTransfer;
 use Generated\Shared\Transfer\CompanyUnitAddressTransfer;
 use Generated\Shared\Transfer\ReturnLabelRestApiResponseTransfer;
 use Generated\Shared\Transfer\ReturnLabelsRestApiTransfer;
@@ -23,20 +24,6 @@ class ReturnLabelsRestApiZedStub implements ReturnLabelsRestApiZedStubInterface
     }
 
     /**
-     * @param ReturnLabelsRestApiTransfer $returnLabelsRestApiTransfer
-     *
-     * @return CompanyUnitAddressTransfer|null
-     */
-    public function findCompanyUnitAddressByUuid(
-        ReturnLabelsRestApiTransfer $returnLabelsRestApiTransfer
-    ): ?CompanyUnitAddressTransfer {
-        return $this->zedRequestClient->call(
-            '/return-labels-rest-api/gateway/find-company-unit-address',
-            $returnLabelsRestApiTransfer
-        );
-    }
-
-    /**
      * @param CompanyUnitAddressTransfer $companyUnitAddressTransfer
      *
      * @return ReturnLabelRestApiResponseTransfer
@@ -47,6 +34,21 @@ class ReturnLabelsRestApiZedStub implements ReturnLabelsRestApiZedStubInterface
         return $this->zedRequestClient->call(
             '/return-labels-rest-api/gateway/get-return-label',
             $companyUnitAddressTransfer
+        );
+    }
+
+    /**
+     * @param ReturnLabelsRestApiTransfer $returnLabelsRestApiTransfer
+     *
+     * @return CompanyUnitAddressResponseTransfer
+     */
+    public function findCompanyUnitAddressByExternalReference(
+        ReturnLabelsRestApiTransfer $returnLabelsRestApiTransfer
+    ): CompanyUnitAddressResponseTransfer
+    {
+        return $this->zedRequestClient->call(
+            'find-company-unit-address-by-external-reference',
+            $returnLabelsRestApiTransfer
         );
     }
 }

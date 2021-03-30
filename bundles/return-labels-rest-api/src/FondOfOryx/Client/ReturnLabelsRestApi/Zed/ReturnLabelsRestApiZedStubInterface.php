@@ -2,6 +2,7 @@
 
 namespace FondOfOryx\Client\ReturnLabelsRestApi\Zed;
 
+use Generated\Shared\Transfer\CompanyUnitAddressResponseTransfer;
 use Generated\Shared\Transfer\CompanyUnitAddressTransfer;
 use Generated\Shared\Transfer\ReturnLabelsRestApiAttributesTransfer;
 use Generated\Shared\Transfer\ReturnLabelsRestApiTransfer;
@@ -11,11 +12,13 @@ use Spryker\Glue\GlueApplication\Rest\JsonApi\RestResponseInterface;
 interface ReturnLabelsRestApiZedStubInterface
 {
     /**
-     * @param ReturnLabelsRestApiTransfer v
+     * @param ReturnLabelsRestApiTransfer $returnLabelsRestApiTransfer
      *
-     * @return CompanyUnitAddressTransfer|null
+     * @return CompanyUnitAddressResponseTransfer
      */
-    public function findCompanyUnitAddressByUuid(ReturnLabelsRestApiTransfer $returnLabelsRestApiTransfer): ?CompanyUnitAddressTransfer;
+    public function findCompanyUnitAddressByExternalReference(
+        ReturnLabelsRestApiTransfer $returnLabelsRestApiTransfer
+    ): CompanyUnitAddressResponseTransfer;
 
     /**
      * @param CompanyUnitAddressTransfer $companyUnitAddressTransfer

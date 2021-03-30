@@ -2,6 +2,7 @@
 
 namespace FondOfOryx\Client\ReturnLabelsRestApi;
 
+use Generated\Shared\Transfer\CompanyUnitAddressResponseTransfer;
 use Generated\Shared\Transfer\CompanyUnitAddressTransfer;
 use Generated\Shared\Transfer\CompanyUserResponseTransfer;
 use Generated\Shared\Transfer\CompanyUserTransfer;
@@ -13,15 +14,6 @@ use Spryker\Glue\GlueApplication\Rest\JsonApi\RestResponseInterface;
 
 interface ReturnLabelsRestApiClientInterface
 {
-    /**
-     * @param ReturnLabelsRestApiTransfer $returnLabelsRestApiTransfer
-     *
-     * @return CompanyUnitAddressTransfer|null
-     */
-    public function findCompanyUnitAddressByUuid(
-        ReturnLabelsRestApiTransfer $returnLabelsRestApiTransfer
-    ): ?CompanyUnitAddressTransfer;
-
     /**
      * @param CompanyUnitAddressTransfer $companyUnitAddressTransfer
      *
@@ -39,4 +31,13 @@ interface ReturnLabelsRestApiClientInterface
     public function findCompanyUserByCompanyUserReference(
         CompanyUserTransfer $companyUserTransfer
     ): CompanyUserResponseTransfer;
+
+    /**
+     * @param ReturnLabelsRestApiTransfer $returnLabelsRestApiTransfer
+     *
+     * @return CompanyUnitAddressResponseTransfer
+     */
+    public function findCompanyUnitAddressByExternalReference(
+        ReturnLabelsRestApiTransfer $returnLabelsRestApiTransfer
+    ): CompanyUnitAddressResponseTransfer;
 }

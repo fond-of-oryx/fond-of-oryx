@@ -3,6 +3,7 @@
 namespace FondOfOryx\Zed\ReturnLabelsRestApi\Business;
 
 use Generated\Shared\Transfer\ApiItemTransfer;
+use Generated\Shared\Transfer\CompanyUnitAddressResponseTransfer;
 use Generated\Shared\Transfer\CompanyUnitAddressTransfer;
 use Generated\Shared\Transfer\ReturnLabelRestApiResponseTransfer;
 use Generated\Shared\Transfer\ReturnLabelsRestApiTransfer;
@@ -16,14 +17,15 @@ class ReturnLabelsRestApiFacade extends AbstractFacade implements ReturnLabelsRe
     /**
      * @param ReturnLabelsRestApiTransfer $returnLabelsRestApiTransfer
      *
-     * @return CompanyUnitAddressTransfer|null
+     * @return CompanyUnitAddressTransfer
      */
-    public function findCompanyUnitAddress(
+    public function findCompanyUnitAddressByExternalReference(
         ReturnLabelsRestApiTransfer $returnLabelsRestApiTransfer
-    ): ?CompanyUnitAddressTransfer {
-        // connect to return-label facade here
-
-        return new CompanyUnitAddressTransfer();
+    ): CompanyUnitAddressResponseTransfer
+    {
+        return $this->getFactory()
+            ->createCompanyUnitAddressReader()
+            ->findCompanyUnitAddressByExternalReference($returnLabelsRestApiTransfer);
     }
 
     /**

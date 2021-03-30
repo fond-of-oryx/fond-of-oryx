@@ -3,6 +3,7 @@
 namespace FondOfOryx\Glue\ReturnLabelsRestApi\Proccesor;
 
 use FondOfOryx\Client\ReturnLabelsRestApi\ReturnLabelsRestApiClientInterface;
+use Generated\Shared\Transfer\CompanyUnitAddressResponseTransfer;
 use Generated\Shared\Transfer\CompanyUnitAddressTransfer;
 use Generated\Shared\Transfer\CompanyUserResponseTransfer;
 use Generated\Shared\Transfer\CompanyUserTransfer;
@@ -63,9 +64,6 @@ class ReturnLabelProcessor implements ReturnLabelProcessorInterface
             $restReturnLabelRequestAttributesTransfer
         );
 
-        var_dump($returnLabelsRestApiTransfer);
-        die();
-
         $companyUnitAddressTransfer = $this->hasPermissionsToReadCompanyUnitAddress($returnLabelsRestApiTransfer);
 
         if ($companyUnitAddressTransfer === null) {
@@ -96,7 +94,17 @@ class ReturnLabelProcessor implements ReturnLabelProcessorInterface
     protected function hasPermissionsToReadCompanyUnitAddress(
         ReturnLabelsRestApiTransfer $returnLabelsRestApiTransfer
     ): ?CompanyUnitAddressTransfer {
-        $companyUnitAddressTransfer = $this->client->findCompanyUnitAddressByUuid($returnLabelsRestApiTransfer);
+        $companyUserTransfer = (new CompanyUserTransfer())
+            ->setCompanyUserReference($returnLabelsRestApiTransfer->getCompanyUserReference());
+
+        $companyUserResponseTransfer = $this->client->findCompanyUserByCompanyUserReference($companyUserTransfer);
+        $companyUnitAddressResponseTransfer = $this->client->findCompanyUnitAddressByExternalReference($returnLabelsRestApiTransfer);
+
+        var_dump($companyUserResponseTransfer->getCompanyUser()->getFkCompany());
+        var_dump($companyUnitAddressResponseTransfer);
+        die();
+
+        /*$companyUnitAddressTransfer = $this->client->findCompanyUnitAddressByUuid($returnLabelsRestApiTransfer);
 
         $companyUserResponseTransfer = $this->client->findCompanyUserByCompanyUserReference(
             (new CompanyUserTransfer)
@@ -109,7 +117,7 @@ class ReturnLabelProcessor implements ReturnLabelProcessorInterface
             return null;
         }
 
-        return $companyUnitAddressTransfer;
+        return $companyUnitAddressTransfer;*/
     }
 
     /**
@@ -125,8 +133,8 @@ class ReturnLabelProcessor implements ReturnLabelProcessorInterface
         return (new ReturnLabelsRestApiTransfer())
             ->setRestUserNaturalIndetifier($restRequest->getRestUser()->getNaturalIdentifier())
             ->setCustomerId($restRequest->getRestUser()->getSurrogateIdentifier())
-            ->setCompanyUserId($restReturnLabelRequestAttributesTransfer->getCompanyUserId())
-            ->setCompanyUnitAddressId($restReturnLabelRequestAttributesTransfer->getCompanyUnitAddressId())
+            ->setCompanyUserReference($restReturnLabelRequestAttributesTransfer->getCompanyUserReference())
+            ->setCompanyUnitAddressExternalReference($restReturnLabelRequestAttributesTransfer->getCompanyUnitAddressExternalReference())
         ;
     }
 }

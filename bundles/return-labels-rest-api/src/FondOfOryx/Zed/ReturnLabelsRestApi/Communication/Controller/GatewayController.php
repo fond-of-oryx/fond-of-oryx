@@ -2,6 +2,7 @@
 
 namespace FondOfOryx\Zed\ReturnLabelsRestApi\Communication\Controller;
 
+use Generated\Shared\Transfer\CompanyUnitAddressResponseTransfer;
 use Generated\Shared\Transfer\CompanyUnitAddressTransfer;
 use Generated\Shared\Transfer\ReturnLabelRestApiResponseTransfer;
 use Generated\Shared\Transfer\ReturnLabelsRestApiTransfer;
@@ -13,15 +14,17 @@ use Spryker\Zed\Kernel\Communication\Controller\AbstractGatewayController;
 class GatewayController extends AbstractGatewayController
 {
     /**
-     * @param ReturnLabelsRestApiTransfer $returnLabelsRestApiTransfer
+     * @param string $externalReference
      *
-     * CompanyUnitAddressTransfer|null
+     * @return CompanyUnitAddressResponseTransfer
      */
-    public function findCompanyUnitAddressAction(
+    public function findCompanyUnitAddressByExternalReferenceAction(
         ReturnLabelsRestApiTransfer $returnLabelsRestApiTransfer
-    ): ?CompanyUnitAddressTransfer {
-        return $this->getFacade()->findCompanyUnitAddress($returnLabelsRestApiTransfer);
+    ): CompanyUnitAddressResponseTransfer {
+        return $this->getFacade()
+            ->findCompanyUnitAddressByExternalReference($returnLabelsRestApiTransfer);
     }
+
 
     /**
      * @param CompanyUnitAddressTransfer $companyUnitAddressTransfer
@@ -31,6 +34,7 @@ class GatewayController extends AbstractGatewayController
     public function getReturnLabelAction(
         CompanyUnitAddressTransfer $companyUnitAddressTransfer
     ): ReturnLabelRestApiResponseTransfer {
-        return $this->getFacade()->getReturnLabel($companyUnitAddressTransfer);
+        return $this->getFacade()
+            ->getReturnLabel($companyUnitAddressTransfer);
     }
 }
