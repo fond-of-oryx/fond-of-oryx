@@ -33,8 +33,7 @@ class ReturnLabelsRestApiClient extends AbstractClient implements ReturnLabelsRe
 
     public function findCompanyUserByCompanyUserReference(
         CompanyUserTransfer $companyUserTransfer
-    ): CompanyUserResponseTransfer
-    {
+    ): CompanyUserResponseTransfer {
         return $this->getFactory()
             ->getCompanyUserReferenceClient()
             ->findCompanyUserByCompanyUserReference($companyUserTransfer);
@@ -47,9 +46,8 @@ class ReturnLabelsRestApiClient extends AbstractClient implements ReturnLabelsRe
      */
     public function findCompanyUnitAddressByExternalReference(
         ReturnLabelsRestApiTransfer $returnLabelsRestApiTransfer
-    ): CompanyUnitAddressResponseTransfer
-    {
-        $this->getFactory()
+    ): CompanyUnitAddressResponseTransfer {
+        return $this->getFactory()
             ->createReturnLabelZedStub()
             ->findCompanyUnitAddressByExternalReference($returnLabelsRestApiTransfer);
     }

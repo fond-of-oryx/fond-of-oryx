@@ -21,8 +21,7 @@ class ReturnLabelsRestApiFacade extends AbstractFacade implements ReturnLabelsRe
      */
     public function findCompanyUnitAddressByExternalReference(
         ReturnLabelsRestApiTransfer $returnLabelsRestApiTransfer
-    ): CompanyUnitAddressResponseTransfer
-    {
+    ): CompanyUnitAddressResponseTransfer {
         return $this->getFactory()
             ->createCompanyUnitAddressReader()
             ->findCompanyUnitAddressByExternalReference($returnLabelsRestApiTransfer);

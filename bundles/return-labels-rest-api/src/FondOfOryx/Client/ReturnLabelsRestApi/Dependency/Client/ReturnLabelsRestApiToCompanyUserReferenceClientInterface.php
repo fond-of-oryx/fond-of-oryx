@@ -1,8 +1,6 @@
 <?php
 
-
 namespace FondOfOryx\Client\ReturnLabelsRestApi\Dependency\Client;
-
 
 use Generated\Shared\Transfer\CompanyUserResponseTransfer;
 use Generated\Shared\Transfer\CompanyUserTransfer;

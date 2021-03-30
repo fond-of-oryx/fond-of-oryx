@@ -44,10 +44,9 @@ class ReturnLabelsRestApiZedStub implements ReturnLabelsRestApiZedStubInterface
      */
     public function findCompanyUnitAddressByExternalReference(
         ReturnLabelsRestApiTransfer $returnLabelsRestApiTransfer
-    ): CompanyUnitAddressResponseTransfer
-    {
+    ): CompanyUnitAddressResponseTransfer {
         return $this->zedRequestClient->call(
-            'find-company-unit-address-by-external-reference',
+            '/return-labels-rest-api/gateway/find-company-unit-address-by-external-reference',
             $returnLabelsRestApiTransfer
         );
     }

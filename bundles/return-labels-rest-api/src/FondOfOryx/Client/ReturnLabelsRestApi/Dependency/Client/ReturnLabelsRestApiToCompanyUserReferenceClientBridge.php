@@ -34,8 +34,7 @@ class ReturnLabelsRestApiToCompanyUserReferenceClientBridge implements ReturnLab
      */
     public function findCompanyUserByCompanyUserReference(
         CompanyUserTransfer $companyUserTransfer
-    ): CompanyUserResponseTransfer
-    {
+    ): CompanyUserResponseTransfer {
         return $this->companyUserReferenceClient->findCompanyUserByCompanyUserReference($companyUserTransfer);
     }
 }

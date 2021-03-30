@@ -8,7 +8,7 @@ use Spryker\Zed\Kernel\Persistence\AbstractRepository;
 /**
  * @method \FondOfOryx\Zed\ReturnLabelsRestApi\Persistence\ReturnLabelsRestApiPersistenceFactory getFactory()
  */
-class ReturnLabelsRestApiCompanyUnitAddressRepository extends AbstractRepository implements ReturnLabelsRestApiCompanyUnitAddressRepositoryInterface
+class ReturnLabelsRestApiRepository extends AbstractRepository implements ReturnLabelsRestApiRepositoryInterface
 {
     /**
      * {@inheritDoc}

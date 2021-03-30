@@ -1,6 +1,6 @@
 <?php
 
-namespace FondOfOryx\Zed\ReturnLabelsRestApi\Facade;
+namespace FondOfOryx\Zed\ReturnLabelsRestApi\Business;
 
 use FondOfOryx\Zed\ReturnLabelsRestApi\Business\Reader\CompanyUnitAddressReader;
 use FondOfOryx\Zed\ReturnLabelsRestApi\Facade\Api\MircoServiceClient;
@@ -11,7 +11,7 @@ use GuzzleHttp\ClientInterface;
 use Spryker\Zed\Kernel\Business\AbstractBusinessFactory;
 
 /**
- * @method \FondOfOryx\Zed\ReturnLabelsRestApi\Persistence\ReturnLabelsRestApiCompanyUnitAddressRepositoryInterface getRepository()
+ * @method \FondOfOryx\Zed\ReturnLabelsRestApi\Persistence\ReturnLabelsRestApiRepositoryInterface getRepository()
  */
 class ReturnLabelsRestApiBusinessFactory extends AbstractBusinessFactory
 {

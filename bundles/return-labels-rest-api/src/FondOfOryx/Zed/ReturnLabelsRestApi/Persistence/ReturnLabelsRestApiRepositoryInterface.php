@@ -4,7 +4,7 @@ namespace FondOfOryx\Zed\ReturnLabelsRestApi\Persistence;
 
 use Generated\Shared\Transfer\CompanyUnitAddressTransfer;
 
-interface ReturnLabelsRestApiCompanyUnitAddressRepositoryInterface
+interface ReturnLabelsRestApiRepositoryInterface
 {
     /**
      * {@inheritDoc}

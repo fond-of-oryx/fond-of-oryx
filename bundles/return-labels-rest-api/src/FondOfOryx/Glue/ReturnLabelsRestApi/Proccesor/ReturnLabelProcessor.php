@@ -64,9 +64,7 @@ class ReturnLabelProcessor implements ReturnLabelProcessorInterface
             $restReturnLabelRequestAttributesTransfer
         );
 
-        $companyUnitAddressTransfer = $this->hasPermissionsToReadCompanyUnitAddress($returnLabelsRestApiTransfer);
-
-        if ($companyUnitAddressTransfer === null) {
+        if ($this->hasPermissionsToReadCompanyUnitAddress($returnLabelsRestApiTransfer) === false) {
             $restErrorMessageTransfer = (new RestErrorMessageTransfer())
                 ->setCode(ReturnLabelsRestApiConfig::RESPONSE_CODE_NO_PERMISSION)
                 ->setStatus(Response::HTTP_BAD_REQUEST)
@@ -100,24 +98,14 @@ class ReturnLabelProcessor implements ReturnLabelProcessorInterface
         $companyUserResponseTransfer = $this->client->findCompanyUserByCompanyUserReference($companyUserTransfer);
         $companyUnitAddressResponseTransfer = $this->client->findCompanyUnitAddressByExternalReference($returnLabelsRestApiTransfer);
 
-        var_dump($companyUserResponseTransfer->getCompanyUser()->getFkCompany());
-        var_dump($companyUnitAddressResponseTransfer);
-        die();
-
-        /*$companyUnitAddressTransfer = $this->client->findCompanyUnitAddressByUuid($returnLabelsRestApiTransfer);
-
-        $companyUserResponseTransfer = $this->client->findCompanyUserByCompanyUserReference(
-            (new CompanyUserTransfer)
-                ->setCompanyUserReference($returnLabelsRestApiTransfer->getCompanyUserReference())
-        );
-
-        var_dump($companyUserResponseTransfer);
-
-        if ($companyUnitAddressTransfer === null) {
-            return null;
+        if (
+            $companyUserResponseTransfer->getCompanyUser() === null ||
+            $companyUnitAddressResponseTransfer->getCompanyUnitAddressTransfer() === null
+        ) {
+            return false;
         }
 
-        return $companyUnitAddressTransfer;*/
+        return $companyUserResponseTransfer->getCompanyUser()->getFkCompany() === $companyUnitAddressResponseTransfer->getCompanyUnitAddressTransfer()->getFkCompany();
     }
 
     /**
