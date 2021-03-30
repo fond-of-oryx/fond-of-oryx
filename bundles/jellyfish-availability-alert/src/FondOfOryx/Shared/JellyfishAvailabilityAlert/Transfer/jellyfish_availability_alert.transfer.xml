@@ -6,6 +6,13 @@
     <transfer name="AvailabilityAlertDataWrapper">
         <property name="subscriber" type="AvailabilityAlertSubscriber" />
         <property name="subscription" type="AvailabilityAlertSubscription" />
+        <property name="configuration" type="AvailabilityAlertConfiguration" />
+    </transfer>
+
+    <transfer name="AvailabilityAlertConfiguration">
+        <property name="storeName" type="string" />
+        <property name="localeName" type="string" />
+        <property name="path" type="string" />
     </transfer>
 </transfers>
 

@@ -25,7 +25,7 @@ class CrossEngageAvailabilityAlertSubscriptionRequestExpanderPlugin implements A
     }
 
     /**
-     * @param  \Symfony\Component\HttpFoundation\Request  $request
+     * @param \Symfony\Component\HttpFoundation\Request $request
      *
      * @return string|null
      */
