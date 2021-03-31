@@ -40,6 +40,18 @@
       "path": "bundles/mail-bcc/",
       "version": "1.0.0"
     },
+    "one-time-password": {
+      "path": "bundles/one-time-password/",
+      "version": "1.0.0-beta.0"
+    },
+    "one-time-password-email-connector": {
+      "path": "bundles/one-time-password-email-connector/",
+      "version": "1.0.0-beta.0"
+    },
+    "one-time-password-rest-api": {
+      "path": "bundles/one-time-password-rest-api/",
+      "version": "1.0.0-beta.0"
+    },
     "product-locale-restriction": {
       "path": "bundles/product-locale-restriction/",
       "version": "1.0.0"
