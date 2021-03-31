@@ -30,9 +30,9 @@ class ReturnLabelsRestApiDependencyProvider extends AbstractBundleDependencyProv
      */
     protected function addCompanyUnitAddressPropelQuery(Container $container): Container
     {
-        $container[static::PROPEL_QUERY_COMPANY_UNIT_ADDRESS] = function () {
+        $container->set(static::PROPEL_QUERY_COMPANY_UNIT_ADDRESS, function () {
             return SpyCompanyUnitAddressQuery::create();
-        };
+        });
 
         return $container;
     }

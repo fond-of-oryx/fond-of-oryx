@@ -18,4 +18,31 @@
     <transfer name="ReturnLabelRestApiResponse">
         <property name="returnLabel" type="string" />
     </transfer>
+
+    <transfer name="RestRequest">
+        <property name="restUser" type="RestUser" />
+    </transfer>
+
+    <transfer name="RestUser">
+        <property name="naturalIdentifier" type="string"/>
+        <property name="surrogateIdentifier" type="int"/>
+    </transfer>
+
+    <transfer name="CompanyUnitAddress">
+        <property name="companyUserReference" type="string"/>
+        <property name="fkCompany" type="int"/>
+    </transfer>
+
+    <transfer name="CompanyUserResponse">
+        <property name="companyUser" type="CompanyUser"/>
+        <property name="fkCompany" type="int"/>
+    </transfer>
+
+    <transfer name="CompanyUser">
+        <property name="companyUnitAddress" type="CompanyUnitAddress"/>
+    </transfer>
+
+    <transfer name="CompanyUnitAddressResponse">
+        <property name="companyUnitAddress" type="CompanyUnitAddress"/>
+    </transfer>
 </transfers>
