@@ -40,13 +40,13 @@ class ProductAbstractLocaleRestrictionStorageReader implements ProductAbstractLo
     public function getByIdProductAbstract(int $idProductAbstract): ?ProductAbstractLocaleRestrictionStorageTransfer
     {
         $key = $this->generateKey($idProductAbstract);
-        $productAbstractLocaleRestrictionStorageDate = $this->storageClient->get($key);
+        $productAbstractLocaleRestrictionStorageData = $this->storageClient->get($key);
 
-        if (!$productAbstractLocaleRestrictionStorageDate) {
+        if (!$productAbstractLocaleRestrictionStorageData) {
             return null;
         }
 
-        return $this->mapProductAbstractLocaleRestrictionStorage($productAbstractLocaleRestrictionStorageDate);
+        return $this->mapProductAbstractLocaleRestrictionStorage($productAbstractLocaleRestrictionStorageData);
     }
 
     /**
