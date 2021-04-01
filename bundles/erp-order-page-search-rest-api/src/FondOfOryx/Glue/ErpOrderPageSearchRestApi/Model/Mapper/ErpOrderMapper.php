@@ -23,7 +23,14 @@ class ErpOrderMapper implements ErpOrderMapperInterface
     ): RestErpOrderPageSearchCollectionResponseTransfer {
         $responseTransfer = (new RestErpOrderPageSearchCollectionResponseTransfer())->fromArray($searchResults, true);
 
-        foreach ($searchResults[self::SEARCH_RESULT_KEY_ERP_ORDERS] as $erpOrderData) {
+        if (
+            empty($searchResults)
+            || !array_key_exists(static::SEARCH_RESULT_KEY_ERP_ORDERS, $searchResults)
+        ) {
+            return $responseTransfer;
+        }
+
+        foreach ($searchResults[static::SEARCH_RESULT_KEY_ERP_ORDERS] as $erpOrderData) {
             $erpOrder = new ErpOrderTransfer();
             $erpOrder->fromArray($erpOrderData, true);
             $responseTransfer->addErpOrder(
