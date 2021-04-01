@@ -6,6 +6,9 @@ use Generated\Shared\Transfer\CartChangeTransfer;
 use Spryker\Client\CartExtension\Dependency\Plugin\CartChangeRequestExpanderPluginInterface;
 use Spryker\Client\Kernel\AbstractPlugin;
 
+/**
+ * @method \FondOfOryx\Client\ProductLocaleRestrictionCartConnector\ProductLocaleRestrictionCartConnectorFactory getFactory()
+ */
 class LocaleCartChangeRequestExpanderPlugin extends AbstractPlugin implements CartChangeRequestExpanderPluginInterface
 {
     /**
@@ -20,6 +23,8 @@ class LocaleCartChangeRequestExpanderPlugin extends AbstractPlugin implements Ca
      */
     public function expand(CartChangeTransfer $cartChangeTransfer, array $params = []): CartChangeTransfer
     {
-        return $cartChangeTransfer;
+        return $cartChangeTransfer->setCurrentLocale(
+            $this->getFactory()->getLocaleClient()->getCurrentLocale()
+        );
     }
 }
