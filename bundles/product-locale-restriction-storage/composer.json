@@ -10,7 +10,10 @@
   ],
   "require": {
     "php": ">=7.3",
+    "fond-of-oryx/product-locale-restriction": "dev-main",
     "spryker/event-behavior": "^1.0.0",
+    "spryker/locale": "^2.2.0 || ^3.0.0",
+    "spryker/product-storage-extension": "^1.0.0",
     "spryker/storage": "^3.0.0",
     "spryker/synchronization": "^1.0.0",
     "spryker/synchronization-behavior": "^1.0.0",

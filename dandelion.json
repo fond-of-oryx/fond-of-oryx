@@ -60,6 +60,10 @@
       "path": "bundles/product-locale-restriction-search/",
       "version": "1.0.0"
     },
+    "product-locale-restriction-storage": {
+      "path": "bundles/product-locale-restriction-storage/",
+      "version": "1.0.0"
+    },
     "sales-locale-connector": {
       "path": "bundles/sales-locale-connector/",
       "version": "1.0.0"
