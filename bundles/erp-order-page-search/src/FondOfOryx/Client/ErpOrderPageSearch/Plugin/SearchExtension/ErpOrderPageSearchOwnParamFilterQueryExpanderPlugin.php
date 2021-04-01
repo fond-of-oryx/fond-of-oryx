@@ -54,6 +54,11 @@ class ErpOrderPageSearchOwnParamFilterQueryExpanderPlugin extends ErpOrderPageSe
                 ErpOrderIndexMap::EXTERNAL_REFERENCE,
                 $requestParameters
             );
+            $references = $this->getFilterData(
+                'request_params',
+                ErpOrderIndexMap::REFERENCE,
+                $requestParameters
+            );
             $companyBusinessUnitUuids = $this->getFilterData(
                 'request_params',
                 ErpOrderIndexMap::COMPANY_BUSINESS_UNIT_UUID,
@@ -75,11 +80,19 @@ class ErpOrderPageSearchOwnParamFilterQueryExpanderPlugin extends ErpOrderPageSe
                 array_values($companyBusinessUnitUuids),
                 $searchQuery
             );
+
             $searchQuery = $this->addTerms(
                 ErpOrderIndexMap::EXTERNAL_REFERENCE,
                 array_values($externalReferences),
                 $searchQuery
             );
+
+            $searchQuery = $this->addTerms(
+                ErpOrderIndexMap::REFERENCE,
+                array_values($references),
+                $searchQuery
+            );
+
             unset($this->currentUser);
         }
 
