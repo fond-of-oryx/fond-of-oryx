@@ -74,7 +74,7 @@ class ErpOrderPageSearchOwnParamFilterQueryExpanderPlugin extends ErpOrderPageSe
             if (count($companyBusinessUnitUuids) === 0) {
                 $companyBusinessUnitUuids[] = $this->getCustomer()->getCompanyUserTransfer()->getCompanyBusinessUnit()->getUuid();
             }
-            
+
             $searchQuery = $this->addTerms(
                 ErpOrderIndexMap::COMPANY_BUSINESS_UNIT_UUID,
                 array_values($companyBusinessUnitUuids),
