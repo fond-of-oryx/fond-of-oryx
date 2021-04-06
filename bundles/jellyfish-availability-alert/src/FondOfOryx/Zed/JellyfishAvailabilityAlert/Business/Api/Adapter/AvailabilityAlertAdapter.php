@@ -47,7 +47,7 @@ class AvailabilityAlertAdapter implements AvailabilityAlertAdapterInterface
     protected $client;
 
     /**
-     * @var \FondOfSpryker\Zed\Jellyfish\Dependency\Service\JellyfishToUtilEncodingServiceInterface
+     * @var \FondOfOryx\Zed\JellyfishAvailabilityAlert\Business\Dependency\Service\JellyfishAvailabilityAlertToUtilEncodingServiceInterface
      */
     protected $utilEncodingService;
 
