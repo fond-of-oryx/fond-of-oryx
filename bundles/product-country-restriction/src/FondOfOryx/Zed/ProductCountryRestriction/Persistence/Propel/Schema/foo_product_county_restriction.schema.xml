@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<database xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" name="zed"
+          xsi:noNamespaceSchemaLocation="http://static.spryker.com/schema-01.xsd"
+          namespace="Orm\Zed\ProductCountryRestriction\Persistence" package="src.Orm.Zed.ProductCountryRestriction.Persistence">
+    <table name="foo_product_abstract_country_restriction" phpName="FooProductAbstractCountryRestriction" identifierQuoting="true">
+        <column name="id_product_abstract_country_restriction" required="true" type="INTEGER" autoIncrement="true" primaryKey="true"/>
+
+        <column name="fk_country" required="true" type="INTEGER"/>
+        <column name="fk_product_abstract" required="true" type="INTEGER"/>
+
+        <id-method-parameter value="id_product_country_restriction_pk_seq"/>
+
+        <foreign-key name="foo_product_abstract_country_restriction-fk_country" foreignTable="spy_country" phpName="Country" refPhpName="FooProductAbstractCountryRestriction">
+            <reference local="fk_country" foreign="id_country"/>
+        </foreign-key>
+
+        <foreign-key name="foo_product_abstract_country_restriction-fk_product_abstract" foreignTable="spy_product_abstract" phpName="ProductAbstract" refPhpName="FooProductAbstractCountryRestriction">
+            <reference local="fk_product_abstract" foreign="id_product_abstract"/>
+        </foreign-key>
+    </table>
+</database>

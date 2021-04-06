@@ -42,4 +42,17 @@ interface ProductLocaleRestrictionFacadeInterface
      * @return array
      */
     public function getBlacklistedLocalesByProductAbstractIds(array $productAbstractIds): array;
+
+    /**
+     * Specifications:
+     * - Retrieves blacklisted locales for product concrete skus.
+     * - Returns blacklisted locales (key: product concrete sku, value: array of locale names like de_DE).
+     *
+     * @api
+     *
+     * @param string[] $productConcreteSkus
+     *
+     * @return array
+     */
+    public function getBlacklistedLocalesByProductConcreteSkus(array $productConcreteSkus): array;
 }

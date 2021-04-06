@@ -34,7 +34,7 @@ class ProductAbstractExpander implements ProductAbstractExpanderInterface
             return $productAbstractTransfer;
         }
 
-        $blacklistedLocales = $this->repository->findLocaleBlacklistByIdProductAbstract($idProductAbstract);
+        $blacklistedLocales = $this->repository->findBlacklistedLocaleByIdProductAbstract($idProductAbstract);
         $blacklistedLocaleIds = [];
 
         foreach ($blacklistedLocales as $blacklistedLocale) {
