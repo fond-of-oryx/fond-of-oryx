@@ -2,8 +2,15 @@
 
 namespace FondOfOryx\Zed\JellyfishAvailabilityAlert\Business\Api\Adapter;
 
-use FondOfSpryker\Zed\Jellyfish\Business\Api\Adapter\AdapterInterface as FondOfSprykerAdapterInterface;
+use Generated\Shared\Transfer\AvailabilityAlertDataWrapperTransfer;
+use Psr\Http\Message\StreamInterface;
 
-interface AvailabilityAlertAdapterInterface extends FondOfSprykerAdapterInterface
+interface AvailabilityAlertAdapterInterface
 {
+    /**
+     * @param \Generated\Shared\Transfer\AvailabilityAlertDataWrapperTransfer $availabilityAlertDataWrapperTransfer
+     *
+     * @return \Psr\Http\Message\StreamInterface|null
+     */
+    public function sendRequest(AvailabilityAlertDataWrapperTransfer $availabilityAlertDataWrapperTransfer): ?StreamInterface;
 }
