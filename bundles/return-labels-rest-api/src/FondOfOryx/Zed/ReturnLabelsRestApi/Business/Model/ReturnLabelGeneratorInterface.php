@@ -2,9 +2,17 @@
 
 namespace FondOfOryx\Zed\ReturnLabelsRestApi\Business\Model;
 
-use Generated\Shared\Transfer\RestReturnLabelTransfer;
+use Generated\Shared\Transfer\RestReturnLabelRequestTransfer;
+use Generated\Shared\Transfer\ReturnLabelRestApiResponseTransfer;
 
 interface ReturnLabelGeneratorInterface
 {
-    public function generate(RestReturnLabelTransfer $restReturnLabelTransfer): void;
+    /**
+     * @param \Generated\Shared\Transfer\RestReturnLabelRequestTransfer $restReturnLabelRequestTransfer
+     *
+     * @return \Generated\Shared\Transfer\ReturnLabelRestApiResponseTransfer
+     */
+    public function generate(
+        RestReturnLabelRequestTransfer $restReturnLabelRequestTransfer
+    ): ReturnLabelRestApiResponseTransfer;
 }

@@ -10,6 +10,6 @@ class ReturnLabelsRestApiConfig extends AbstractBundleConfig
     public const RESOURCE_RETURN_LABELS_REST_API = 'return-labels';
     public const CONTROLLER_RETURN_LABELS_REST_API = 'return-labels-rest-api-resource';
 
-    public const RESPONSE_CODE_NO_PERMISSION = '802';
-    public const RESPONSE_DETAIL_NO_PERMISSION = 'No permission to read company unit address';
+    public const RESPONSE_CODE_NO_ADDRESS_FOUND = '1000';
+    public const RESPONSE_DETAIL_NO_ADDRESS_FOUND = 'No company-unit-address found for customer %s';
 }

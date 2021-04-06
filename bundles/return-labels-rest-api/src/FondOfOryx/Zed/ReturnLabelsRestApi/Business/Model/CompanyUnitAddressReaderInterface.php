@@ -2,16 +2,16 @@
 
 namespace FondOfOryx\Zed\ReturnLabelsRestApi\Business\Model;
 
-use Generated\Shared\Transfer\RestReturnLabelTransfer;
+use Generated\Shared\Transfer\RestReturnLabelRequestTransfer;
 
 interface CompanyUnitAddressReaderInterface
 {
     /**
-     * @param \Generated\Shared\Transfer\RestReturnLabelTransfer $restReturnLabelTransfer
+     * @param \Generated\Shared\Transfer\RestReturnLabelRequestTransfer $restReturnLabelRequestTransfer
      *
-     * @return \Generated\Shared\Transfer\CompanyUnitAddressTransfer|null
+     * @return int|null
      */
     public function getIdCompanyUnitAddressByRestReturnLabel(
-        RestReturnLabelTransfer $restReturnLabelTransfer
+        RestReturnLabelRequestTransfer $restReturnLabelRequestTransfer
     ): ?int;
 }

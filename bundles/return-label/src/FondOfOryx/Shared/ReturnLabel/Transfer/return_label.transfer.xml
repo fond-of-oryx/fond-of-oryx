@@ -11,8 +11,6 @@
        <property name="idCompanyUnitAddress" type="int"/>
    </transfer>
 
-    <transfer name="ReturnLabelRequest">
-        <property name="idCustomer" type="int"/>
-        <property name="idCompanyUnitAddress" type="int"/>
+    <transfer name="ReturnLabelResponse">
     </transfer>
 </transfers>

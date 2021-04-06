@@ -3,7 +3,7 @@
 namespace FondOfOryx\Zed\ReturnLabelsRestApi\Business\Model;
 
 use FondOfOryx\Zed\ReturnLabelsRestApi\Persistence\ReturnLabelsRestApiRepositoryInterface;
-use Generated\Shared\Transfer\RestReturnLabelTransfer;
+use Generated\Shared\Transfer\RestReturnLabelRequestTransfer;
 
 class CompanyUnitAddressReader implements CompanyUnitAddressReaderInterface
 {
@@ -25,9 +25,10 @@ class CompanyUnitAddressReader implements CompanyUnitAddressReaderInterface
      *
      * @return int|null
      */
-    public function getIdCompanyUnitAddressByRestReturnLabel(RestReturnLabelTransfer $restReturnLabelTransfer): ?int
-    {
-        $companyUnitAddressUuid = $restReturnLabelTransfer->getCompanyUnitAddressUuid();
+    public function getIdCompanyUnitAddressByRestReturnLabel(
+        RestReturnLabelRequestTransfer $restReturnLabelRequestTransfer
+    ): ?int {
+        $companyUnitAddressUuid = $restReturnLabelRequestTransfer->getCompanyUnitAddressUuid();
 
         if ($companyUnitAddressUuid === null) {
             return null;

@@ -2,8 +2,7 @@
 
 namespace FondOfOryx\Client\ReturnLabelsRestApi;
 
-use Generated\Shared\Transfer\CompanyUnitAddressTransfer;
-use Generated\Shared\Transfer\RestReturnLabelTransfer;
+use Generated\Shared\Transfer\RestReturnLabelRequestTransfer;
 use Generated\Shared\Transfer\ReturnLabelRestApiResponseTransfer;
 
 interface ReturnLabelsRestApiClientInterface
@@ -14,6 +13,6 @@ interface ReturnLabelsRestApiClientInterface
      * @return \Generated\Shared\Transfer\ReturnLabelRestApiResponseTransfer
      */
     public function generateReturnLabel(
-        RestReturnLabelTransfer $restReturnLabelTransfer
+        RestReturnLabelRequestTransfer $restReturnLabelRequestTransfer
     ): ReturnLabelRestApiResponseTransfer;
 }

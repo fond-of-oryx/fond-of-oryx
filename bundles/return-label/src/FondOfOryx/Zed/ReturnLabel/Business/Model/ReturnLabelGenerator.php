@@ -5,6 +5,7 @@ namespace FondOfOryx\Zed\ReturnLabel\Business\Model;
 use FondOfOryx\Zed\ReturnLabel\Business\Api\Adapter\ReturnLabelAdapterInterface;
 use Generated\Shared\Transfer\AddressesTransfer;
 use Generated\Shared\Transfer\ReturnLabelRequestTransfer;
+use Generated\Shared\Transfer\ReturnLabelResponseTransfer;
 
 class ReturnLabelGenerator implements ReturnLabelGeneratorInterface
 {
@@ -34,9 +35,9 @@ class ReturnLabelGenerator implements ReturnLabelGeneratorInterface
     /**
      * @param \Generated\Shared\Transfer\ReturnLabelRequestTransfer $returnLabelRequestTransfer
      *
-     * @return void
+     * @return \Generated\Shared\Transfer\ReturnLabelResponseTransfer
      */
-    public function generate(ReturnLabelRequestTransfer $returnLabelRequestTransfer): void //TODO: ReturnLabelResponseTransfer
+    public function generate(ReturnLabelRequestTransfer $returnLabelRequestTransfer): ReturnLabelResponseTransfer
     {
         $companyUnitAddressTransfer = $this->companyUnitAddressReader->getByReturnLabelRequest(
             $returnLabelRequestTransfer

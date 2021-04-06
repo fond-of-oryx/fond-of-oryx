@@ -4,12 +4,14 @@ namespace FondOfOryx\Glue\ReturnLabelsRestApi\Proccesor;
 
 use FondOfOryx\Client\ReturnLabelsRestApi\ReturnLabelsRestApiClientInterface;
 use FondOfOryx\Glue\ReturnLabelsRestApi\ReturnLabelsRestApiConfig;
+use Generated\Shared\Transfer\RestErrorMessageTransfer;
 use Generated\Shared\Transfer\RestReturnLabelRequestAttributesTransfer;
-use Generated\Shared\Transfer\RestReturnLabelTransfer;
+use Generated\Shared\Transfer\RestReturnLabelRequestTransfer;
 use Spryker\Glue\GlueApplication\Rest\JsonApi\RestResourceBuilderInterface;
 use Spryker\Glue\GlueApplication\Rest\JsonApi\RestResponseInterface;
 use Spryker\Glue\GlueApplication\Rest\Request\Data\RestRequestInterface;
 use Spryker\Glue\Kernel\PermissionAwareTrait;
+use Symfony\Component\HttpFoundation\Response;
 
 class ReturnLabelProcessor implements ReturnLabelProcessorInterface
 {
@@ -48,15 +50,21 @@ class ReturnLabelProcessor implements ReturnLabelProcessorInterface
         RestReturnLabelRequestAttributesTransfer $restReturnLabelRequestAttributesTransfer
     ): RestResponseInterface {
         $restResponse = $this->resourceBuilder->createRestResponse();
-        $restReturnLabelTransfer = $this->createRestReturnLabel(
+        $restReturnLabelRequestTransfer = $this->createRestReturnLabelRequest(
             $restRequest,
             $restReturnLabelRequestAttributesTransfer
         );
 
-        $restReturnLabelResponseTransfer = $this->client->generateReturnLabel($restReturnLabelTransfer);
+        $restReturnLabelResponseTransfer = $this->client->generateReturnLabel($restReturnLabelRequestTransfer);
 
         if (!$restReturnLabelResponseTransfer->isSuccess()) {
-            return;
+            return $restResponse->addError((new RestErrorMessageTransfer())
+                ->setStatus(Response::HTTP_BAD_REQUEST)
+                ->setCode(ReturnLabelsRestApiConfig::ReturnLabelsRestApiConfig)
+                ->setDetail(sprintf(
+                    ReturnLabelsRestApiConfig::RESPONSE_DETAIL_NO_ADDRESS_FOUND,
+                    $restReturnLabelRequestTransfer->getIdCustomer()
+                )));
         }
 
         $restResource = $this->resourceBuilder->createRestResource(
@@ -72,11 +80,11 @@ class ReturnLabelProcessor implements ReturnLabelProcessorInterface
      * @param \Spryker\Glue\GlueApplication\Rest\Request\Data\RestRequestInterface $restRequest
      * @param \Generated\Shared\Transfer\RestReturnLabelRequestAttributesTransfer $restReturnLabelRequestAttributesTransfer
      */
-    protected function createRestReturnLabel(
+    protected function createRestReturnLabelRequest(
         RestRequestInterface $restRequest,
         RestReturnLabelRequestAttributesTransfer $restReturnLabelRequestAttributesTransfer
-    ): RestReturnLabelTransfer {
-        return (new RestReturnLabelTransfer())
+    ): RestReturnLabelRequestTransfer {
+        return (new RestReturnLabelRequestTransfer())
             ->setIdCustomer($restRequest->getRestUser()->getSurrogateIdentifier())
             ->setCompanyUnitAddressUuid($restReturnLabelRequestAttributesTransfer->getCompanyUnitAddressUuid());
     }

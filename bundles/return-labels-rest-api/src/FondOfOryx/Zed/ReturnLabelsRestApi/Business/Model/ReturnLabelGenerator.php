@@ -3,8 +3,9 @@
 namespace FondOfOryx\Zed\ReturnLabelsRestApi\Business\Model;
 
 use FondOfOryx\Zed\ReturnLabelsRestApi\Dependency\Facade\ReturnLabelsRestApiToReturnLabelFacadeInterface;
-use Generated\Shared\Transfer\RestReturnLabelTransfer;
+use Generated\Shared\Transfer\RestReturnLabelRequestTransfer;
 use Generated\Shared\Transfer\ReturnLabelRequestTransfer;
+use Generated\Shared\Transfer\ReturnLabelRestApiResponseTransfer;
 
 class ReturnLabelGenerator implements ReturnLabelGeneratorInterface
 {
@@ -32,12 +33,14 @@ class ReturnLabelGenerator implements ReturnLabelGeneratorInterface
 
     /**
      * @param \Generated\Shared\Transfer\RestReturnLabelTransfer $restReturnLabelTransfer
+     *
      * @return void
      */
-    public function generate(RestReturnLabelTransfer $restReturnLabelTransfer): void
-    {
+    public function generate(
+        RestReturnLabelRequestTransfer $restReturnLabelRequestTransfer
+    ): ReturnLabelRestApiResponseTransfer {
         $idCompanyUnitAddress = $this->companyUnitAddressReader->getIdCompanyUnitAddressByRestReturnLabel(
-            $restReturnLabelTransfer
+            $restReturnLabelRequestTransfer
         );
 
         if ($idCompanyUnitAddress === null) {

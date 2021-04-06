@@ -21,13 +21,8 @@ class ReturnLabelDependencyProvider extends AbstractBundleDependencyProvider
     public function provideBusinessLayerDependencies(Container $container): Container
     {
         $container = parent::provideBusinessLayerDependencies($container);
-
-        $container->set(static::SERVICE_UTIL_ENCODING, static function (Container $container) {
-            return new ReturnLabelToUtilEncodingServiceBridge(
-                $container->getLocator()->utilEncoding()->service()
-            );
-        });
-
+        $container = $this->addUtilEncodingService($container);
+        
         return $container;
     }
 
@@ -41,6 +36,17 @@ class ReturnLabelDependencyProvider extends AbstractBundleDependencyProvider
         $container = parent::providePersistenceLayerDependencies($container);
 
         $container = $this->addCompanyUnitAddressPropelQuery($container);
+
+        return $container;
+    }
+
+    protected function addUtilEncodingService(): Container
+    {
+        $container->set(static::SERVICE_UTIL_ENCODING, static function (Container $container) {
+            return new ReturnLabelToUtilEncodingServiceBridge(
+                $container->getLocator()->utilEncoding()->service()
+            );
+        });
 
         return $container;
     }

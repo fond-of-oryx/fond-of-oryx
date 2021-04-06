@@ -2,10 +2,10 @@
 
 namespace FondOfOryx\Zed\ReturnLabelsRestApi\Business;
 
-use FondOfOryx\Zed\ReturnLabelsRestApi\Business\Model\ReturnLabelGenerator;
-use FondOfOryx\Zed\ReturnLabelsRestApi\Business\Model\ReturnLabelGeneratorInterface;
 use FondOfOryx\Zed\ReturnLabelsRestApi\Business\Model\CompanyUnitAddressReader;
 use FondOfOryx\Zed\ReturnLabelsRestApi\Business\Model\CompanyUnitAddressReaderInterface;
+use FondOfOryx\Zed\ReturnLabelsRestApi\Business\Model\ReturnLabelGenerator;
+use FondOfOryx\Zed\ReturnLabelsRestApi\Business\Model\ReturnLabelGeneratorInterface;
 use FondOfOryx\Zed\ReturnLabelsRestApi\Dependency\Facade\ReturnLabelsRestApiToReturnLabelFacadeInterface;
 use FondOfOryx\Zed\ReturnLabelsRestApi\ReturnLabelsRestApiDependencyProvider;
 use Spryker\Zed\Kernel\Business\AbstractBusinessFactory;

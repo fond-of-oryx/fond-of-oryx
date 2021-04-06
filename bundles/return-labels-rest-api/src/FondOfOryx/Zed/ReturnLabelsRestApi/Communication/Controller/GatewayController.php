@@ -2,7 +2,7 @@
 
 namespace FondOfOryx\Zed\ReturnLabelsRestApi\Communication\Controller;
 
-use Generated\Shared\Transfer\RestReturnLabelTransfer;
+use Generated\Shared\Transfer\RestReturnLabelRequestTransfer;
 use Generated\Shared\Transfer\ReturnLabelRestApiResponseTransfer;
 use Spryker\Zed\Kernel\Communication\Controller\AbstractGatewayController;
 
@@ -17,9 +17,9 @@ class GatewayController extends AbstractGatewayController
      * @return \Generated\Shared\Transfer\ReturnLabelRestApiResponseTransfer
      */
     public function generateReturnLabelAction(
-        RestReturnLabelTransfer $restReturnLabelTransfer
+        RestReturnLabelRequestTransfer $restReturnLabelRequestTransfer
     ): ReturnLabelRestApiResponseTransfer {
         return $this->getFacade()
-            ->generateReturnLabel($restReturnLabelTransfer);
+            ->generateReturnLabel($restReturnLabelRequestTransfer);
     }
 }
