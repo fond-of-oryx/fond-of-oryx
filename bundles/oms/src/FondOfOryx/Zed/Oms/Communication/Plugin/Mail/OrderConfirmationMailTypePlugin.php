@@ -2,8 +2,8 @@
 
 namespace FondOfOryx\Zed\Oms\Communication\Plugin\Mail;
 
-use FondOfSpryker\Shared\Customer\CustomerConstants;
 use FondOfOryx\Zed\Mail\MailConfig;
+use FondOfSpryker\Shared\Customer\CustomerConstants;
 use Generated\Shared\Transfer\CountryTransfer;
 use Generated\Shared\Transfer\OrderTransfer;
 use Orm\Zed\Country\Persistence\SpyCountryQuery;

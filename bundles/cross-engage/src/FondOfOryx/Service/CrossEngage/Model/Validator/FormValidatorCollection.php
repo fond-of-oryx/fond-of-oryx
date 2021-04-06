@@ -39,6 +39,8 @@ class FormValidatorCollection implements Countable, IteratorAggregate, FormValid
     /**
      * @param string $validatorName
      *
+     * @throws \FondOfOryx\Service\CrossEngage\Exception\FormValidatorNotFoundException
+     *
      * @return \FondOfOryx\Service\CrossEngage\Model\Validator\FormValidatorInterface[]
      */
     public function getValidator(string $validatorName): array

@@ -95,6 +95,4 @@ class AvailabilityAlertAdapter extends FondOfSprykerJellyfishAbstractAdapter imp
     protected function handleResponse(ResponseInterface $response, AbstractTransfer $transfer): void
     {
     }
-
-
 }

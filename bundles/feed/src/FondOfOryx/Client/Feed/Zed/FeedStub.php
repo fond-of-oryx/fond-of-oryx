@@ -24,13 +24,15 @@ class FeedStub implements FeedStubInterface
     }
 
     /**
+     * @throws \Exception
+     *
      * @return \Generated\Shared\Transfer\FeedDataAvailabilityResponseTransfer
      */
     public function getAvailabilityFeedData(): FeedDataAvailabilityResponseTransfer
     {
         $response = $this->zedRequestClient->call('/feed/gateway/get-availability-feed-data', new FeedDataRequestTransfer());
 
-        if ($response instanceof FeedDataAvailabilityResponseTransfer){
+        if ($response instanceof FeedDataAvailabilityResponseTransfer) {
             return $response;
         }
 
@@ -38,13 +40,15 @@ class FeedStub implements FeedStubInterface
     }
 
     /**
+     * @throws \Exception
+     *
      * @return \Generated\Shared\Transfer\FeedDataAvailabilityAlertResponseTransfer
      */
     public function getAvailabilityAlertFeedData(): FeedDataAvailabilityAlertResponseTransfer
     {
         $response = $this->zedRequestClient->call('/feed/gateway/get-availability-alert-feed-data', new FeedDataRequestTransfer());
 
-        if ($response instanceof FeedDataAvailabilityAlertResponseTransfer){
+        if ($response instanceof FeedDataAvailabilityAlertResponseTransfer) {
             return $response;
         }
 
