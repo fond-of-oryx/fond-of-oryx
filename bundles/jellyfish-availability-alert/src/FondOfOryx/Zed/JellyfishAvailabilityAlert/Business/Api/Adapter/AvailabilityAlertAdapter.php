@@ -6,16 +6,24 @@ use FondOfOryx\Zed\JellyfishAvailabilityAlert\Business\Dependency\Facade\Jellyfi
 use FondOfOryx\Zed\JellyfishAvailabilityAlert\Business\Dependency\Facade\JellyfishAvailabilityAlertToStoreFacadeInterface;
 use FondOfOryx\Zed\JellyfishAvailabilityAlert\Business\Dependency\Service\JellyfishAvailabilityAlertToUtilEncodingServiceInterface;
 use FondOfOryx\Zed\JellyfishAvailabilityAlert\JellyfishAvailabilityAlertConfig;
-use FondOfSpryker\Zed\Jellyfish\Business\Api\Adapter\AbstractAdapter as FondOfSprykerJellyfishAbstractAdapter;
 use Generated\Shared\Transfer\AvailabilityAlertConfigurationTransfer;
 use Generated\Shared\Transfer\AvailabilityAlertDataWrapperTransfer;
 use GuzzleHttp\ClientInterface;
+use GuzzleHttp\RequestOptions;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\StreamInterface;
 use Spryker\Shared\Kernel\Transfer\AbstractTransfer;
+use Spryker\Shared\Log\LoggerTrait;
 
-class AvailabilityAlertAdapter extends FondOfSprykerJellyfishAbstractAdapter implements AvailabilityAlertAdapterInterface
+class AvailabilityAlertAdapter implements AvailabilityAlertAdapterInterface
 {
+    use LoggerTrait;
+
+    protected const DEFAULT_HEADERS = [
+        'Accept' => 'application/json',
+        'Content-Type' => 'application/json',
+    ];
+
     protected const URI = 'standard/availability-alert';
 
     /**
@@ -32,6 +40,31 @@ class AvailabilityAlertAdapter extends FondOfSprykerJellyfishAbstractAdapter imp
      * @var \FondOfOryx\Zed\JellyfishAvailabilityAlert\Business\Dependency\Facade\JellyfishAvailabilityAlertToLocaleFacadeInterface
      */
     protected $localeFacade;
+
+    /**
+     * @var \GuzzleHttp\ClientInterface
+     */
+    protected $client;
+
+    /**
+     * @var \FondOfSpryker\Zed\Jellyfish\Dependency\Service\JellyfishToUtilEncodingServiceInterface
+     */
+    protected $utilEncodingService;
+
+    /**
+     * @var string
+     */
+    protected $username;
+
+    /**
+     * @var string
+     */
+    protected $password;
+
+    /**
+     * @var bool
+     */
+    protected $dryRun;
 
     /**
      * @param \FondOfOryx\Zed\JellyfishAvailabilityAlert\Business\Dependency\Service\JellyfishAvailabilityAlertToUtilEncodingServiceInterface $utilEncodingService
@@ -59,23 +92,70 @@ class AvailabilityAlertAdapter extends FondOfSprykerJellyfishAbstractAdapter imp
     }
 
     /**
-     * @param \Spryker\Shared\Kernel\Transfer\AbstractTransfer $transfer
+     * @param \Generated\Shared\Transfer\AvailabilityAlertDataWrapperTransfer $availabilityAlertDataWrapperTransfer
      *
      * @return \Psr\Http\Message\StreamInterface|null
      */
-    public function sendRequest(AbstractTransfer $transfer): ?StreamInterface
+    public function sendRequest(AvailabilityAlertDataWrapperTransfer $availabilityAlertDataWrapperTransfer): ?StreamInterface
     {
-        if ($transfer instanceof AvailabilityAlertDataWrapperTransfer) {
-            //ToDo: Move this to a better place
-            $configuration = (new AvailabilityAlertConfigurationTransfer())
-                ->setStoreName($this->storeFacade->getCurrentStore()->getName())
-                ->setPath('availability/notification/%s/%s')
-                ->setLocaleName($this->localeFacade->getCurrentLocale()->getLocaleName());
+        //ToDo: Move this to a better place
+        $configuration = (new AvailabilityAlertConfigurationTransfer())
+            ->setStoreName($this->storeFacade->getCurrentStore()->getName())
+            ->setPath('availability/notification/%s/%s')
+            ->setLocaleName($this->localeFacade->getCurrentLocale()->getLocaleName());
 
-            $transfer->setConfiguration($configuration);
+        $availabilityAlertDataWrapperTransfer->setConfiguration($configuration);
+
+        if ($this->dryRun === true) {
+            $this->getLogger()->error($this->utilEncodingService->encodeJson($availabilityAlertDataWrapperTransfer->toArray(true, true)));
+
+            return null;
         }
 
-        return parent::sendRequest($transfer);
+        $options = $this->createOptions($availabilityAlertDataWrapperTransfer);
+        $response = $this->send($options);
+
+        $this->handleResponse($response, $availabilityAlertDataWrapperTransfer);
+
+        return $response->getBody();
+    }
+
+    /**
+     * @param \Generated\Shared\Transfer\AvailabilityAlertDataWrapperTransfer $availabilityAlertDataWrapperTransfer
+     *
+     * @return array
+     */
+    protected function createOptions(AvailabilityAlertDataWrapperTransfer $availabilityAlertDataWrapperTransfer): array
+    {
+        $options = [];
+
+        $options[RequestOptions::HEADERS] = static::DEFAULT_HEADERS;
+        if (!empty($this->username) && !empty($this->password)) {
+            $options[RequestOptions::AUTH] = [
+                $this->username,
+                $this->password,
+            ];
+        }
+        $options['timeout'] = 4;
+        $options[RequestOptions::BODY] = $this->utilEncodingService->encodeJson($availabilityAlertDataWrapperTransfer->toArray(true, true));
+
+        return $options;
+    }
+
+    /**
+     * @param array $options
+     *
+     * @return \Psr\Http\Message\ResponseInterface
+     */
+    protected function send(array $options = []): ResponseInterface
+    {
+        $uri = $this->getUri();
+        $optionsAsJson = $this->utilEncodingService->encodeJson($options);
+        $logMessage = sprintf('API request [%s]: %s', $uri, $optionsAsJson);
+
+        $this->getLogger()->info($logMessage);
+
+        return $this->client->post($uri, $options);
     }
 
     /**
@@ -88,11 +168,11 @@ class AvailabilityAlertAdapter extends FondOfSprykerJellyfishAbstractAdapter imp
 
     /**
      * @param \Psr\Http\Message\ResponseInterface $response
-     * @param \Spryker\Shared\Kernel\Transfer\AbstractTransfer $transfer
+     * @param \Spryker\Shared\Kernel\Transfer\AbstractTransfer $availabilityAlertDataWrapperTransfer
      *
      * @return void
      */
-    protected function handleResponse(ResponseInterface $response, AbstractTransfer $transfer): void
+    protected function handleResponse(ResponseInterface $response, AbstractTransfer $availabilityAlertDataWrapperTransfer): void
     {
     }
 }
