@@ -147,6 +147,8 @@ class AvailabilityAlertAdapter implements AvailabilityAlertAdapterInterface
     /**
      * @param array $options
      *
+     * @throws \Exception
+     *
      * @return \Psr\Http\Message\ResponseInterface
      */
     protected function send(array $options = []): ResponseInterface
@@ -157,7 +159,7 @@ class AvailabilityAlertAdapter implements AvailabilityAlertAdapterInterface
 
         $this->getLogger()->info($logMessage);
 
-        if ($this->client instanceof Client && method_exists($this->client, 'post')){
+        if ($this->client instanceof Client && method_exists($this->client, 'post')) {
             return $this->client->post($uri, $options);
         }
 
