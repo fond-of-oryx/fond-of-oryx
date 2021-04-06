@@ -86,17 +86,17 @@ class CartCheckerTest extends Unit
             ->willReturn(new ArrayObject($this->itemTransferMocks));
 
         $this->itemTransferMocks[0]->expects(static::atLeastOnce())
-            ->method('getIdProductAbstract')
-            ->willReturn(1);
+            ->method('getSku')
+            ->willReturn('FOO-1');
 
         $this->itemTransferMocks[1]->expects(static::atLeastOnce())
-            ->method('getIdProductAbstract')
-            ->willReturn(2);
+            ->method('getSku')
+            ->willReturn('FOO-2');
 
         $this->productLocaleRestrictionFacadeMock->expects(static::atLeastOnce())
-            ->method('getBlacklistedLocalesByProductAbstractIds')
+            ->method('getBlacklistedLocalesByProductConcreteSkus')
             ->with(static::callback(static function (array $productAbstractIds) {
-                return $productAbstractIds[0] === 1 && $productAbstractIds[1] === 2;
+                return $productAbstractIds[0] === 'FOO-1' && $productAbstractIds[1] === 'FOO-2';
             }))->willReturn([]);
 
         $cartPreCheckResponseTransfer = $this->cartChecker->preCheck($this->cartChangeTransferMock);
@@ -121,22 +121,22 @@ class CartCheckerTest extends Unit
             ->willReturn(new ArrayObject($this->itemTransferMocks));
 
         $this->itemTransferMocks[0]->expects(static::atLeastOnce())
-            ->method('getIdProductAbstract')
-            ->willReturn(1);
+            ->method('getSku')
+            ->willReturn('FOO-1');
 
         $this->itemTransferMocks[1]->expects(static::atLeastOnce())
-            ->method('getIdProductAbstract')
-            ->willReturn(2);
+            ->method('getSku')
+            ->willReturn('FOO-2');
 
         $this->productLocaleRestrictionFacadeMock->expects(static::atLeastOnce())
-            ->method('getBlacklistedLocalesByProductAbstractIds')
+            ->method('getBlacklistedLocalesByProductConcreteSkus')
             ->with(
                 static::callback(
                     static function (array $productAbstractIds) {
-                        return $productAbstractIds[0] === 1 && $productAbstractIds[1] === 2;
+                        return $productAbstractIds[0] === 'FOO-1' && $productAbstractIds[1] === 'FOO-2';
                     }
                 )
-            )->willReturn([1 => [$currentLocale]]);
+            )->willReturn(['FOO-1' => [$currentLocale]]);
 
         $cartPreCheckResponseTransfer = $this->cartChecker->preCheck($this->cartChangeTransferMock);
 

@@ -67,7 +67,7 @@ class ProductAbstractExpanderTest extends Unit
             ->willReturn($idProductAbstract);
 
         $this->repositoryMock->expects(static::atLeastOnce())
-            ->method('findLocaleBlacklistByIdProductAbstract')
+            ->method('findBlacklistedLocaleByIdProductAbstract')
             ->with($idProductAbstract)
             ->willReturn($this->localeTransferMocks);
 
@@ -106,7 +106,7 @@ class ProductAbstractExpanderTest extends Unit
             ->willReturn(null);
 
         $this->repositoryMock->expects(static::never())
-            ->method('findLocaleBlacklistByIdProductAbstract');
+            ->method('findBlacklistedLocaleByIdProductAbstract');
 
         $this->productAbstractTransferMock->expects(static::never())
             ->method('setBlacklistedLocales')
