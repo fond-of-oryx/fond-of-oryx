@@ -11,19 +11,19 @@ use Spryker\Zed\Kernel\Persistence\AbstractRepository;
 class ReturnLabelsRestApiRepository extends AbstractRepository implements ReturnLabelsRestApiRepositoryInterface
 {
     /**
-     * {@inheritDoc}
-     *
-     * @api
-     *
      * @param string $externalReference
+     * @param array $companyIds
      *
      * @return \Generated\Shared\Transfer\CompanyUnitAddressTransfer|null
      */
-    public function findCompanyUnitAddressByExternalReference(string $externalReference): ?CompanyUnitAddressTransfer
-    {
+    public function findCompanyUnitAddressByExternalReferenceAndCompanyIds(
+        string $externalReference,
+        array $companyIds
+    ): ?CompanyUnitAddressTransfer {
         $companyUnitAddressEntity = $this->getFactory()
             ->getCompanyUnitAddressQuery()
             ->filterByExternalReference($externalReference)
+            ->filterByFkCompany_In($companyIds)
             ->findOne();
 
         if (!$companyUnitAddressEntity) {

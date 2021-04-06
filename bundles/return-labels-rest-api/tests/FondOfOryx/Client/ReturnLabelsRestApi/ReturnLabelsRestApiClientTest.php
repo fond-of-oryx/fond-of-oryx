@@ -19,7 +19,6 @@ class ReturnLabelsRestApiClientTest extends Unit
      */
     public function testGetReturnLabelAction(): void
     {
-
     }
 
     /**
@@ -27,7 +26,6 @@ class ReturnLabelsRestApiClientTest extends Unit
      */
     public function testFindCompanyUserByCompanyUserReference(): void
     {
-
     }
 
     /**
@@ -35,6 +33,5 @@ class ReturnLabelsRestApiClientTest extends Unit
      */
     public function testFindCompanyUnitAddressByExternalReference(): void
     {
-
     }
 }

@@ -19,7 +19,6 @@ class ReturnLabelsRestApiZedStubTest extends Unit
      */
     public function testGetReturnLabel(): void
     {
-
     }
 
     /**
@@ -27,6 +26,5 @@ class ReturnLabelsRestApiZedStubTest extends Unit
      */
     public function testFindCompanyUnitAddressByExternalReference(): void
     {
-
     }
 }

@@ -2,12 +2,13 @@
 
 namespace FondOfOryx\Glue\ReturnLabelsRestApi\Proccesor;
 
-use FondOfOryx\Client\ReturnLabelsRestApi\ReturnLabelsRestApiClient;
 use Codeception\Test\Unit;
+use FondOfOryx\Client\ReturnLabelsRestApi\ReturnLabelsRestApiClient;
+use Generated\Shared\Transfer\RestReturnLabelRequestAttributesTransfer;
 use Generated\Shared\Transfer\RestUserTransfer;
 use Spryker\Glue\GlueApplication\Rest\JsonApi\RestResourceBuilder;
+use Spryker\Glue\GlueApplication\Rest\JsonApi\RestResponse;
 use Spryker\Glue\GlueApplication\Rest\Request\Data\RestRequest;
-use Generated\Shared\Transfer\RestReturnLabelRequestAttributesTransfer;
 
 class ReturnLabelProcessorTest extends Unit
 {
@@ -32,14 +33,19 @@ class ReturnLabelProcessorTest extends Unit
     protected $restRequest;
 
     /**
+     * @var \Spryker\Glue\GlueApplication\Rest\JsonApi\RestResponseInterface|\PHPUnit\Framework\MockObject\MockObject
+     */
+    protected $restResponse;
+
+    /**
      * @var \Generated\Shared\Transfer\RestUserTransfer|\PHPUnit\Framework\MockObject\MockObject
      */
-    protected $restUser;
+    protected $restUserTransferMock;
 
     /**
      * @var \Generated\Shared\Transfer\RestReturnLabelRequestAttributesTransfer|\PHPUnit\Framework\MockObject\MockObject
      */
-    protected $restReturnLabelRequestAttributesTransfer;
+    protected $restReturnLabelRequestAttributesTransferMock;
 
     /**
      * @return void
@@ -60,6 +66,11 @@ class ReturnLabelProcessorTest extends Unit
 
         $this->restRequest = $this
             ->getMockBuilder(RestRequest::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $this->restResponse = $this
+            ->getMockBuilder(RestResponse::class)
             ->disableOriginalConstructor()
             ->getMock();
 
@@ -84,31 +95,13 @@ class ReturnLabelProcessorTest extends Unit
      */
     public function testGetReturnLabel(): void
     {
-        /*$restUser = (new RestUserTransfer())
-            ->setNaturalIdentifier('PS--19')
-            ->setSurrogateIdentifier(19);*/
+        $this->resourceBuilder->expects(static::atLeastOnce())
+            ->method('createRestResponse')
+            ->willReturn($this->restResponse);
 
-        $this->restUser->expects($this->atLeastOnce())
-            ->method('getNaturalIdentifier')
-            ->willReturn('PS--19');
-
-        $this->restUser->expects($this->atLeastOnce())
-            ->method('getSurrogateIdentifier')
-            ->willReturn(19);
-
-        $this->restRequest->expects($this->atLeastOnce())
+        $this->restRequest->expects(static::atLeastOnce())
             ->method('getRestUser')
             ->willReturn($this->restUser);
-
-
-
-        $this->restReturnLabelRequestAttributesTransfer->expects($this->atLeastOnce())
-            ->method('getCompanyUserReference')
-            ->willReturn('PS--CU-161');
-
-        $this->restReturnLabelRequestAttributesTransfer->expects($this->atLeastOnce())
-            ->method('getCompanyUnitAddressExternalReference')
-            ->willReturn('37151a0e-006a-4c23-93d7-ad4e0d26d1be');
 
         $restResponse = $this->returnLabelProcessor->getReturnLabel(
             $this->restRequest,

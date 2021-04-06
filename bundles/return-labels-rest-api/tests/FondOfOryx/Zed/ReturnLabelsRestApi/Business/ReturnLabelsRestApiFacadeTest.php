@@ -19,7 +19,6 @@ class ReturnLabelsRestApiFacadeTest extends Unit
      */
     public function testFindCompanyUnitAddressByExternalReference(): void
     {
-
     }
 
     /**
@@ -27,6 +26,5 @@ class ReturnLabelsRestApiFacadeTest extends Unit
      */
     public function testGetReturnLabel(): void
     {
-
     }
 }

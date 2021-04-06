@@ -23,10 +23,6 @@ class ReturnLabelsRestApiResourceController extends AbstractController
         RestRequestInterface $restRequest,
         RestReturnLabelRequestAttributesTransfer $restReturnLabelRequestAttributesTransfer
     ): RestResponseInterface {
-        var_dump($restRequest->getRestUser()->getSurrogateIdentifier());
-        var_dump($restRequest->getRestUser()->getNaturalIdentifier());
-        die();
-
         return $this->getFactory()
             ->createReturnLabelProcessor()
             ->getReturnLabel($restRequest, $restReturnLabelRequestAttributesTransfer);

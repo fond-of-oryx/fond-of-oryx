@@ -19,6 +19,5 @@ class CompanyUnitAddressReaderTest extends Unit
      */
     public function testfindCompanyUnitAddressByExternalReference(): void
     {
-
     }
 }

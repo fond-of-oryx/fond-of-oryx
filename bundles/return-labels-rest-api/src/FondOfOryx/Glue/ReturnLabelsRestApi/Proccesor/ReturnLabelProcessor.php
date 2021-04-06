@@ -4,8 +4,6 @@ namespace FondOfOryx\Glue\ReturnLabelsRestApi\Proccesor;
 
 use FondOfOryx\Client\ReturnLabelsRestApi\ReturnLabelsRestApiClientInterface;
 use FondOfOryx\Glue\ReturnLabelsRestApi\ReturnLabelsRestApiConfig;
-use Generated\Shared\Transfer\CompanyUnitAddressTransfer;
-use Generated\Shared\Transfer\CompanyUserTransfer;
 use Generated\Shared\Transfer\RestErrorMessageTransfer;
 use Generated\Shared\Transfer\RestReturnLabelRequestAttributesTransfer;
 use Generated\Shared\Transfer\ReturnLabelsRestApiTransfer;
@@ -52,7 +50,6 @@ class ReturnLabelProcessor implements ReturnLabelProcessorInterface
         RestReturnLabelRequestAttributesTransfer $restReturnLabelRequestAttributesTransfer
     ): RestResponseInterface {
         $restResponse = $this->resourceBuilder->createRestResponse();
-
         $returnLabelsRestApiTransfer = $this->createReturnLabelsRestApiTransfer(
             $restRequest,
             $restReturnLabelRequestAttributesTransfer
@@ -81,25 +78,18 @@ class ReturnLabelProcessor implements ReturnLabelProcessorInterface
     /**
      * @param \Generated\Shared\Transfer\ReturnLabelsRestApiTransfer $returnLabelsRestApiTransfer
      *
-     * @return \Generated\Shared\Transfer\CompanyUnitAddressTransfer|null
+     * @return \Generated\Shared\Transfer\CompanyUnitAddressTransfer
      */
     protected function hasPermissionsToReadCompanyUnitAddress(
         ReturnLabelsRestApiTransfer $returnLabelsRestApiTransfer
-    ): ?CompanyUnitAddressTransfer {
-        $companyUserTransfer = (new CompanyUserTransfer())
-            ->setCompanyUserReference($returnLabelsRestApiTransfer->getCompanyUserReference());
-
-        $companyUserResponseTransfer = $this->client->findCompanyUserByCompanyUserReference($companyUserTransfer);
+    ): bool {
         $companyUnitAddressResponseTransfer = $this->client->findCompanyUnitAddressByExternalReference($returnLabelsRestApiTransfer);
 
-        if (
-            $companyUserResponseTransfer->getCompanyUser() === null ||
-            $companyUnitAddressResponseTransfer->getCompanyUnitAddressTransfer() === null
-        ) {
+        if ($companyUnitAddressResponseTransfer->getIsSuccessful() === false) {
             return false;
         }
 
-        return $companyUserResponseTransfer->getCompanyUser()->getFkCompany() === $companyUnitAddressResponseTransfer->getCompanyUnitAddressTransfer()->getFkCompany();
+        return true;
     }
 
     /**
@@ -113,8 +103,8 @@ class ReturnLabelProcessor implements ReturnLabelProcessorInterface
         RestReturnLabelRequestAttributesTransfer $restReturnLabelRequestAttributesTransfer
     ): ReturnLabelsRestApiTransfer {
         return (new ReturnLabelsRestApiTransfer())
-            ->setRestUserNaturalIndetifier($restRequest->getRestUser()->getNaturalIdentifier())
             ->setCustomerId($restRequest->getRestUser()->getSurrogateIdentifier())
+            ->setCustomerReference($restRequest->getRestUser()->getNaturalIdentifier())
             ->setCompanyUserReference($restReturnLabelRequestAttributesTransfer->getCompanyUserReference())
             ->setCompanyUnitAddressExternalReference($restReturnLabelRequestAttributesTransfer->getCompanyUnitAddressExternalReference());
     }

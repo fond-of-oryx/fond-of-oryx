@@ -7,13 +7,13 @@ use Generated\Shared\Transfer\CompanyUnitAddressTransfer;
 interface ReturnLabelsRestApiRepositoryInterface
 {
     /**
-     * {@inheritDoc}
-     *
-     * @api
-     *
      * @param string $externalReference
+     * @param array $companyIds
      *
      * @return \Generated\Shared\Transfer\CompanyUnitAddressTransfer|null
      */
-    public function findCompanyUnitAddressByExternalReference(string $externalReference): ?CompanyUnitAddressTransfer;
+    public function findCompanyUnitAddressByExternalReferenceAndCompanyIds(
+        string $externalReference,
+        array $companyIds
+    ): ?CompanyUnitAddressTransfer;
 }

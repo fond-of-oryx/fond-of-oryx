@@ -19,6 +19,5 @@ class ReturnLabelsRestApiToCompanyUserReferenceClientBridgeTest extends Unit
      */
     public function testFindCompanyUserByCompanyUserReference(): void
     {
-
     }
 }

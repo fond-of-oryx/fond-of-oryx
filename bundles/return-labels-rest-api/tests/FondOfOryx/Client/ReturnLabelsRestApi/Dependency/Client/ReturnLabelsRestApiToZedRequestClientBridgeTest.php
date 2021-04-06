@@ -1,8 +1,6 @@
 <?php
 
-
 namespace FondOfOryx\Client\ReturnLabelsRestApi\Dependency\Client;
-
 
 use Codeception\Test\Unit;
 
@@ -21,6 +19,5 @@ class ReturnLabelsRestApiToZedRequestClientBridgeTest extends Unit
      */
     public function testCall(): void
     {
-
     }
 }

@@ -4,8 +4,6 @@ namespace FondOfOryx\Client\ReturnLabelsRestApi;
 
 use Generated\Shared\Transfer\CompanyUnitAddressResponseTransfer;
 use Generated\Shared\Transfer\CompanyUnitAddressTransfer;
-use Generated\Shared\Transfer\CompanyUserResponseTransfer;
-use Generated\Shared\Transfer\CompanyUserTransfer;
 use Generated\Shared\Transfer\ReturnLabelRestApiResponseTransfer;
 use Generated\Shared\Transfer\ReturnLabelsRestApiTransfer;
 
@@ -19,15 +17,6 @@ interface ReturnLabelsRestApiClientInterface
     public function getReturnLabelAction(
         CompanyUnitAddressTransfer $companyUnitAddressTransfer
     ): ReturnLabelRestApiResponseTransfer;
-
-    /**
-     * @param \Generated\Shared\Transfer\CompanyUserTransfer $companyUserTransfer
-     *
-     * @return \Generated\Shared\Transfer\CompanyUserResponseTransfer
-     */
-    public function findCompanyUserByCompanyUserReference(
-        CompanyUserTransfer $companyUserTransfer
-    ): CompanyUserResponseTransfer;
 
     /**
      * @param \Generated\Shared\Transfer\ReturnLabelsRestApiTransfer $returnLabelsRestApiTransfer

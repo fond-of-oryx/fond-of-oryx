@@ -4,8 +4,8 @@
            xsi:schemaLocation="spryker:transfer-01 http://static.spryker.com/transfer-01.xsd">
 
     <transfer name="ReturnLabelsRestApi">
-        <property name="restUserNaturalIndetifier" type="string" />
         <property name="customerId" type="int" />
+        <property name="customerReference" type="string" />
         <property name="companyUserReference" type="string" />
         <property name="companyUnitAddressExternalReference" type="string" />
     </transfer>
@@ -19,10 +19,6 @@
         <property name="returnLabel" type="string" />
     </transfer>
 
-    <transfer name="RestRequest">
-        <property name="restUser" type="RestUser" />
-    </transfer>
-
     <transfer name="RestUser">
         <property name="naturalIdentifier" type="string"/>
         <property name="surrogateIdentifier" type="int"/>
@@ -30,11 +26,6 @@
 
     <transfer name="CompanyUnitAddress">
         <property name="companyUserReference" type="string"/>
-        <property name="fkCompany" type="int"/>
-    </transfer>
-
-    <transfer name="CompanyUserResponse">
-        <property name="companyUser" type="CompanyUser"/>
         <property name="fkCompany" type="int"/>
     </transfer>
 

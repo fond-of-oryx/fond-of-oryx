@@ -14,18 +14,6 @@ use Spryker\Zed\Kernel\Communication\Controller\AbstractGatewayController;
 class GatewayController extends AbstractGatewayController
 {
     /**
-     * @param \Generated\Shared\Transfer\ReturnLabelsRestApiTransfer $returnLabelsRestApiTransfer
-     *
-     * @return \Generated\Shared\Transfer\CompanyUnitAddressResponseTransfer
-     */
-    public function findCompanyUnitAddressByExternalReferenceAction(
-        ReturnLabelsRestApiTransfer $returnLabelsRestApiTransfer
-    ): CompanyUnitAddressResponseTransfer {
-        return $this->getFacade()
-            ->findCompanyUnitAddressByExternalReference($returnLabelsRestApiTransfer);
-    }
-
-    /**
      * @param \Generated\Shared\Transfer\CompanyUnitAddressTransfer $companyUnitAddressTransfer
      *
      * @return \Generated\Shared\Transfer\ReturnLabelRestApiResponseTransfer
@@ -35,5 +23,17 @@ class GatewayController extends AbstractGatewayController
     ): ReturnLabelRestApiResponseTransfer {
         return $this->getFacade()
             ->getReturnLabel($companyUnitAddressTransfer);
+    }
+
+    /**
+     * @param \Generated\Shared\Transfer\ReturnLabelsRestApiTransfer $returnLabelsRestApiTransfer
+     *
+     * @return \Generated\Shared\Transfer\CompanyUnitAddressResponseTransfer
+     */
+    public function findCompanyUnitAddressByExternalReferenceAction(
+        ReturnLabelsRestApiTransfer $returnLabelsRestApiTransfer
+    ): CompanyUnitAddressResponseTransfer {
+        return $this->getFacade()
+            ->findCompanyUnitAddressByExternalReference($returnLabelsRestApiTransfer);
     }
 }
