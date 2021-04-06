@@ -9,7 +9,8 @@
     }
   ],
   "require": {
-    "php": ">=7.4"
+    "php": ">=7.3",
+    "spryker/company-unit-address": "^1.7.0"
   },
   "require-dev": {
     "fond-of-codeception/spryker": "dev-master",

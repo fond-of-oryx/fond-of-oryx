@@ -4,14 +4,12 @@ namespace FondOfOryx\Glue\ReturnLabelsRestApi\Proccesor;
 
 use FondOfOryx\Client\ReturnLabelsRestApi\ReturnLabelsRestApiClientInterface;
 use FondOfOryx\Glue\ReturnLabelsRestApi\ReturnLabelsRestApiConfig;
-use Generated\Shared\Transfer\RestErrorMessageTransfer;
 use Generated\Shared\Transfer\RestReturnLabelRequestAttributesTransfer;
-use Generated\Shared\Transfer\ReturnLabelsRestApiTransfer;
+use Generated\Shared\Transfer\RestReturnLabelTransfer;
 use Spryker\Glue\GlueApplication\Rest\JsonApi\RestResourceBuilderInterface;
 use Spryker\Glue\GlueApplication\Rest\JsonApi\RestResponseInterface;
 use Spryker\Glue\GlueApplication\Rest\Request\Data\RestRequestInterface;
 use Spryker\Glue\Kernel\PermissionAwareTrait;
-use Symfony\Component\HttpFoundation\Response;
 
 class ReturnLabelProcessor implements ReturnLabelProcessorInterface
 {
@@ -50,21 +48,16 @@ class ReturnLabelProcessor implements ReturnLabelProcessorInterface
         RestReturnLabelRequestAttributesTransfer $restReturnLabelRequestAttributesTransfer
     ): RestResponseInterface {
         $restResponse = $this->resourceBuilder->createRestResponse();
-        $returnLabelsRestApiTransfer = $this->createReturnLabelsRestApiTransfer(
+        $restReturnLabelTransfer = $this->createRestReturnLabel(
             $restRequest,
             $restReturnLabelRequestAttributesTransfer
         );
 
-        if ($this->hasPermissionsToReadCompanyUnitAddress($returnLabelsRestApiTransfer) === false) {
-            $restErrorMessageTransfer = (new RestErrorMessageTransfer())
-                ->setCode(ReturnLabelsRestApiConfig::RESPONSE_CODE_NO_PERMISSION)
-                ->setStatus(Response::HTTP_BAD_REQUEST)
-                ->setDetail(ReturnLabelsRestApiConfig::RESPONSE_DETAIL_NO_PERMISSION);
+        $restReturnLabelResponseTransfer = $this->client->generateReturnLabel($restReturnLabelTransfer);
 
-            return $restResponse->addError($restErrorMessageTransfer);
+        if (!$restReturnLabelResponseTransfer->isSuccess()) {
+            return;
         }
-
-        $returnLabelRestApiResponseTransfer = $this->client->getReturnLabelAction($companyUnitAddressTransfer);
 
         $restResource = $this->resourceBuilder->createRestResource(
             ReturnLabelsRestApiConfig::RESOURCE_RETURN_LABELS_REST_API,
@@ -76,36 +69,15 @@ class ReturnLabelProcessor implements ReturnLabelProcessorInterface
     }
 
     /**
-     * @param \Generated\Shared\Transfer\ReturnLabelsRestApiTransfer $returnLabelsRestApiTransfer
-     *
-     * @return \Generated\Shared\Transfer\CompanyUnitAddressTransfer
-     */
-    protected function hasPermissionsToReadCompanyUnitAddress(
-        ReturnLabelsRestApiTransfer $returnLabelsRestApiTransfer
-    ): bool {
-        $companyUnitAddressResponseTransfer = $this->client->findCompanyUnitAddressByExternalReference($returnLabelsRestApiTransfer);
-
-        if ($companyUnitAddressResponseTransfer->getIsSuccessful() === false) {
-            return false;
-        }
-
-        return true;
-    }
-
-    /**
      * @param \Spryker\Glue\GlueApplication\Rest\Request\Data\RestRequestInterface $restRequest
      * @param \Generated\Shared\Transfer\RestReturnLabelRequestAttributesTransfer $restReturnLabelRequestAttributesTransfer
-     *
-     * @return \Generated\Shared\Transfer\ReturnLabelsRestApiTransfer
      */
-    protected function createReturnLabelsRestApiTransfer(
+    protected function createRestReturnLabel(
         RestRequestInterface $restRequest,
         RestReturnLabelRequestAttributesTransfer $restReturnLabelRequestAttributesTransfer
-    ): ReturnLabelsRestApiTransfer {
-        return (new ReturnLabelsRestApiTransfer())
-            ->setCustomerId($restRequest->getRestUser()->getSurrogateIdentifier())
-            ->setCustomerReference($restRequest->getRestUser()->getNaturalIdentifier())
-            ->setCompanyUserReference($restReturnLabelRequestAttributesTransfer->getCompanyUserReference())
-            ->setCompanyUnitAddressExternalReference($restReturnLabelRequestAttributesTransfer->getCompanyUnitAddressExternalReference());
+    ): RestReturnLabelTransfer {
+        return (new RestReturnLabelTransfer())
+            ->setIdCustomer($restRequest->getRestUser()->getSurrogateIdentifier())
+            ->setCompanyUnitAddressUuid($restReturnLabelRequestAttributesTransfer->getCompanyUnitAddressUuid());
     }
 }

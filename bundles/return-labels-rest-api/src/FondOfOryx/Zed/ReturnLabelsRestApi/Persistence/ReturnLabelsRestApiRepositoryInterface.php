@@ -2,18 +2,12 @@
 
 namespace FondOfOryx\Zed\ReturnLabelsRestApi\Persistence;
 
-use Generated\Shared\Transfer\CompanyUnitAddressTransfer;
-
 interface ReturnLabelsRestApiRepositoryInterface
 {
     /**
-     * @param string $externalReference
-     * @param array $companyIds
+     * @param string $uuid
      *
-     * @return \Generated\Shared\Transfer\CompanyUnitAddressTransfer|null
+     * @return int|null
      */
-    public function findCompanyUnitAddressByExternalReferenceAndCompanyIds(
-        string $externalReference,
-        array $companyIds
-    ): ?CompanyUnitAddressTransfer;
+    public function getIdCompanyUnitAddressByCompanyUnitAddressUuid(string $uuid): ?int;
 }

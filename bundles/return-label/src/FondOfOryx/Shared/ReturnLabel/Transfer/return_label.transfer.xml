@@ -6,20 +6,13 @@
     <transfer name="CompanyUnitAddress">
     </transfer>
 
-    <transfer name="ReturnLabelApiRequest">
-        <property name="type" type="string"/>
-        <property name="receiverId" type="string"/>
-        <property name="customerReference" type="string"/>
-        <property name="shipmentReference" type="string"/>
-        <property name="email" type="string"/>
-        <property name="company" type="string"/>
-        <property name="name" type="string"/>
-        <property name="street" type="string"/>
-        <property name="houseNumber" type="string"/>
-        <property name="zipCode" type="string"/>
-        <property name="city" type="string"/>
-        <property name="country" type="string"/>
-        <property name="countryISOCode" type="string"/>
-        <property name="phone" type="string"/>
+   <transfer name="ReturnLabelRequest">
+       <property name="idCustomer" type="int"/>
+       <property name="idCompanyUnitAddress" type="int"/>
+   </transfer>
+
+    <transfer name="ReturnLabelRequest">
+        <property name="idCustomer" type="int"/>
+        <property name="idCompanyUnitAddress" type="int"/>
     </transfer>
 </transfers>

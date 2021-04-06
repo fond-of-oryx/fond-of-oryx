@@ -2,28 +2,21 @@
 
 namespace FondOfOryx\Zed\ReturnLabelsRestApi\Business;
 
-use Generated\Shared\Transfer\CompanyUnitAddressResponseTransfer;
-use Generated\Shared\Transfer\CompanyUnitAddressTransfer;
-use Generated\Shared\Transfer\ReturnLabelRestApiResponseTransfer;
-use Generated\Shared\Transfer\ReturnLabelsRestApiTransfer;
+use Generated\Shared\Transfer\RestReturnLabelTransfer;
 
 interface ReturnLabelsRestApiFacadeInterface
 {
     /**
-     * @param \Generated\Shared\Transfer\ReturnLabelsRestApiTransfer $returnLabelsRestApiTransfer
+     * Specifications:
+     * - Create return label
      *
-     * @return \Generated\Shared\Transfer\CompanyUnitAddressTransfer
-     */
-    public function findCompanyUnitAddressByExternalReference(
-        ReturnLabelsRestApiTransfer $returnLabelsRestApiTransfer
-    ): CompanyUnitAddressResponseTransfer;
-
-    /**
-     * @param \Generated\Shared\Transfer\CompanyUnitAddressTransfer $companyUnitAddressTransfer
+     * @api
      *
-     * @return \Generated\Shared\Transfer\ReturnLabelRestApiResponseTransfer
+     * @param \Generated\Shared\Transfer\RestReturnLabelTransfer $restReturnLabelTransfer
+     *
+     * @return void
      */
-    public function getReturnLabel(
-        CompanyUnitAddressTransfer $companyUnitAddressTransfer
-    ): ReturnLabelRestApiResponseTransfer;
+    public function generateReturnLabel(
+        RestReturnLabelTransfer $restReturnLabelTransfer
+    ): void;
 }

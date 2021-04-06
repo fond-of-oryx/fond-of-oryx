@@ -3,16 +3,23 @@
            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
            xsi:schemaLocation="spryker:transfer-01 http://static.spryker.com/transfer-01.xsd">
 
-    <transfer name="ReturnLabelsRestApi">
-        <property name="customerId" type="int" />
-        <property name="customerReference" type="string" />
-        <property name="companyUserReference" type="string" />
-        <property name="companyUnitAddressExternalReference" type="string" />
+    <transfer name="RestReturnLabelRequest">
+        <property name="idCustomer" type="int" />
+        <property name="companyUnitAddressUuid" type="string" />
+    </transfer>
+
+    <transfer name="RestReturnLabelResponse">
+        <property name="errors" type="Message[]" singular="error"/>
+        <property name="isSuccessful" type="bool"/>
+        <property name="quoteTransfer" type="RestReturnLabel"/>
+    </transfer>
+
+    <transfer name="RestReturnLabel">
+        <property name="data" type="string" />
     </transfer>
 
     <transfer name="RestReturnLabelRequestAttributes">
-        <property name="companyUserReference" type="string" />
-        <property name="companyUnitAddressExternalReference" type="string" />
+        <property name="companyUnitAddressUuid" type="string" />
     </transfer>
 
     <transfer name="ReturnLabelRestApiResponse">
@@ -22,18 +29,5 @@
     <transfer name="RestUser">
         <property name="naturalIdentifier" type="string"/>
         <property name="surrogateIdentifier" type="int"/>
-    </transfer>
-
-    <transfer name="CompanyUnitAddress">
-        <property name="companyUserReference" type="string"/>
-        <property name="fkCompany" type="int"/>
-    </transfer>
-
-    <transfer name="CompanyUser">
-        <property name="companyUnitAddress" type="CompanyUnitAddress"/>
-    </transfer>
-
-    <transfer name="CompanyUnitAddressResponse">
-        <property name="companyUnitAddress" type="CompanyUnitAddress"/>
     </transfer>
 </transfers>

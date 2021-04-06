@@ -2,12 +2,11 @@
 
 namespace FondOfOryx\Zed\ReturnLabelsRestApi\Business;
 
-use FondOfOryx\Zed\ReturnLabelsRestApi\Business\Reader\CompanyUnitAddressReader;
-use FondOfOryx\Zed\ReturnLabelsRestApi\Business\Reader\CompanyUnitAddressReaderInterface;
-use FondOfOryx\Zed\ReturnLabelsRestApi\Business\Validator\PermissionValidator;
-use FondOfOryx\Zed\ReturnLabelsRestApi\Business\Validator\PermissionValidatorInterface;
-use FondOfOryx\Zed\ReturnLabelsRestApi\Dependency\ReturnLabelsRestApiToCompanyUserFacadeInterface;
-use FondOfOryx\Zed\ReturnLabelsRestApi\Dependency\ReturnLabelsRestApiToCustomerFacadeInterface;
+use FondOfOryx\Zed\ReturnLabelsRestApi\Business\Model\ReturnLabelGenerator;
+use FondOfOryx\Zed\ReturnLabelsRestApi\Business\Model\ReturnLabelGeneratorInterface;
+use FondOfOryx\Zed\ReturnLabelsRestApi\Business\Model\CompanyUnitAddressReader;
+use FondOfOryx\Zed\ReturnLabelsRestApi\Business\Model\CompanyUnitAddressReaderInterface;
+use FondOfOryx\Zed\ReturnLabelsRestApi\Dependency\Facade\ReturnLabelsRestApiToReturnLabelFacadeInterface;
 use FondOfOryx\Zed\ReturnLabelsRestApi\ReturnLabelsRestApiDependencyProvider;
 use Spryker\Zed\Kernel\Business\AbstractBusinessFactory;
 
@@ -17,40 +16,31 @@ use Spryker\Zed\Kernel\Business\AbstractBusinessFactory;
 class ReturnLabelsRestApiBusinessFactory extends AbstractBusinessFactory
 {
     /**
-     * @return \FondOfOryx\Zed\ReturnLabelsRestApi\Business\Reader\CompanyUnitAddressReaderInterface
+     * @return \FondOfOryx\Zed\ReturnLabelsRestApi\Business\Model\ReturnLabelGeneratorInterface
      */
-    public function createCompanyUnitAddressReader(): CompanyUnitAddressReaderInterface
+    public function createReturnLabelGenerator(): ReturnLabelGeneratorInterface
+    {
+        return new ReturnLabelGenerator(
+            $this->createCompanyUnitAddressReader(),
+            $this->getReturnLabelFacade()
+        );
+    }
+
+    /**
+     * @return \FondOfOryx\Zed\ReturnLabelsRestApi\Business\Model\CompanyUnitAddressReaderInterface
+     */
+    protected function createCompanyUnitAddressReader(): CompanyUnitAddressReaderInterface
     {
         return new CompanyUnitAddressReader(
-            $this->getCustomerFacade(),
-            $this->getCompanyUserFacade(),
             $this->getRepository()
         );
     }
 
     /**
-     * @return \FondOfOryx\Zed\ReturnLabelsRestApi\Business\Validator\PermissionValidatorInterface
+     * @return \FondOfOryx\Zed\ReturnLabelsRestApi\Dependency\Facade\ReturnLabelsRestApiToReturnLabelFacadeInterface
      */
-    public function createPermissionValidator(): PermissionValidatorInterface
+    protected function getReturnLabelFacade(): ReturnLabelsRestApiToReturnLabelFacadeInterface
     {
-        return new PermissionValidator(
-            $this->getCustomerFacade()
-        );
-    }
-
-    /**
-     * @return \FondOfOryx\Zed\ReturnLabelsRestApi\Dependency\ReturnLabelsRestApiToCustomerFacadeInterface
-     */
-    public function getCustomerFacade(): ReturnLabelsRestApiToCustomerFacadeInterface
-    {
-        return $this->getProvidedDependency(ReturnLabelsRestApiDependencyProvider::FACADE_CUSTOMER);
-    }
-
-    /**
-     * @return \FondOfOryx\Zed\ReturnLabelsRestApi\Dependency\ReturnLabelsRestApiToCompanyUserInterface
-     */
-    public function getCompanyUserFacade(): ReturnLabelsRestApiToCompanyUserFacadeInterface
-    {
-        return $this->getProvidedDependency(ReturnLabelsRestApiDependencyProvider::FACADE_COMPANY_USER);
+        return $this->getProvidedDependency(ReturnLabelsRestApiDependencyProvider::FACADE_RETURN_LABEL);
     }
 }
