@@ -5,9 +5,9 @@ namespace FondOfOryx\Zed\ProductLocaleRestrictionCartConnector\Dependency\Facade
 interface ProductLocaleRestrictionCartConnectorToProductLocaleRestrictionFacadeInterface
 {
     /**
-     * @param int[] $productAbstractIds
+     * @param string[] $productConcreteSkus
      *
      * @return array
      */
-    public function getBlacklistedLocalesByProductAbstractIds(array $productAbstractIds): array;
+    public function getBlacklistedLocalesByProductConcreteSkus(array $productConcreteSkus): array;
 }

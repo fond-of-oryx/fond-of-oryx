@@ -69,16 +69,16 @@ class CartChecker implements CartCheckerInterface
      */
     protected function getBlacklistedLocalesByItems(array $itemTransfers): array
     {
-        $productAbstractIds = array_map(static function (ItemTransfer $itemTransfer) {
-            return $itemTransfer->getIdProductAbstract();
+        $productConcreteSkus = array_map(static function (ItemTransfer $itemTransfer) {
+            return $itemTransfer->getSku();
         }, $itemTransfers);
 
-        if (empty($productAbstractIds)) {
+        if (empty($productConcreteSkus)) {
             return [];
         }
 
-        return $this->productLocaleRestrictionFacade->getBlacklistedLocalesByProductAbstractIds(
-            $productAbstractIds
+        return $this->productLocaleRestrictionFacade->getBlacklistedLocalesByProductConcreteSkus(
+            $productConcreteSkus
         );
     }
 
@@ -91,9 +91,9 @@ class CartChecker implements CartCheckerInterface
      */
     protected function isValidItem(ItemTransfer $itemTransfer, string $currentLocale, array $blacklistedLocales): bool
     {
-        $idProductAbstract = $itemTransfer->getIdProductAbstract();
+        $productConcreteSku = $itemTransfer->getSku();
 
-        return !isset($blacklistedLocales[$idProductAbstract])
-            || !in_array($currentLocale, $blacklistedLocales[$idProductAbstract], true);
+        return !isset($blacklistedLocales[$productConcreteSku])
+            || !in_array($currentLocale, $blacklistedLocales[$productConcreteSku], true);
     }
 }

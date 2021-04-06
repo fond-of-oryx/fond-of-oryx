@@ -21,12 +21,12 @@ class ProductLocaleRestrictionCartConnectorToProductLocaleRestrictionFacadeBridg
     }
 
     /**
-     * @param int[] $productAbstractIds
+     * @param string[] $productConcreteSkus
      *
      * @return array
      */
-    public function getBlacklistedLocalesByProductAbstractIds(array $productAbstractIds): array
+    public function getBlacklistedLocalesByProductConcreteSkus(array $productConcreteSkus): array
     {
-        return $this->productLocaleRestrictionFacade->getBlacklistedLocalesByProductAbstractIds($productAbstractIds);
+        return $this->productLocaleRestrictionFacade->getBlacklistedLocalesByProductConcreteSkus($productConcreteSkus);
     }
 }
