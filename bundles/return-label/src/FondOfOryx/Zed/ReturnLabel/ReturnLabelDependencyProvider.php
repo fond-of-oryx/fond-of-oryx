@@ -6,5 +6,4 @@ use Spryker\Zed\Kernel\AbstractBundleDependencyProvider;
 
 class ReturnLabelDependencyProvider extends AbstractBundleDependencyProvider
 {
-
 }
