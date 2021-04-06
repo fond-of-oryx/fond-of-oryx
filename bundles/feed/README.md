@@ -39,22 +39,6 @@ class AvailabilityQueryContainer extends SprykerAvailabilityQueryContainer imple
 ```
 
 ### 4. Register Controller
-#### Silex Routing (deprecated use Symfony Routing instead)
-add in src/Pyz/Yves/ShopApplication/YvesBootstrap.php
-```
-    /**
-     * @param bool|null $isSsl
-     *
-     * @return \SprykerShop\Yves\ShopApplication\Plugin\Provider\AbstractYvesControllerProvider[]
-     */
-    protected function getControllerProviderStack($isSsl)
-    {
-        return [
-            new FeedControllerProvider(),
-        ];
-    }
-```
-
 #### Symfony Routing
 add in src/Pyz/Yves/Router/RouterDependencyProvider.php
 ```
