@@ -21,4 +21,14 @@ class AvailabilityAlertCrossEngageFacade extends AbstractFacade implements Avail
     ): AvailabilityAlertCrossEngageSubscriberRegistrationResponseTransfer {
         return $this->getFactory()->createRegisterSubscriberHandler()->registerSubscriber($subscriberTransfer);
     }
+
+    /**
+     * @param string $string
+     *
+     * @return string
+     */
+    public function generateKey(string $string): string
+    {
+        return $this->getFactory()->createKeyGenerator()->generate($string);
+    }
 }

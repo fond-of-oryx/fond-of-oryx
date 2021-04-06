@@ -9,6 +9,7 @@ use Spryker\Zed\Kernel\Communication\AbstractPlugin;
 /**
  * @method \FondOfOryx\Zed\AvailabilityAlertCrossEngage\Business\AvailabilityAlertCrossEngageFacadeInterface getFacade()
  * @method \FondOfOryx\Zed\AvailabilityAlertCrossEngage\Communication\AvailabilityAlertCrossEngageCommunicationFactory getFactory()
+ * @method \FondOfOryx\Zed\AvailabilityAlertCrossEngage\AvailabilityAlertCrossEngageConfig getConfig()
  */
 class CrossEngageNotificationPlugin extends AbstractPlugin implements NotificationPluginInterface
 {
@@ -19,6 +20,7 @@ class CrossEngageNotificationPlugin extends AbstractPlugin implements Notificati
      */
     public function notify(AvailabilityAlertSubscriptionTransfer $availabilityAlertSubscriptionTransfer): void
     {
-        $this->getFacade()->sendEmailNotification($availabilityAlertSubscriptionTransfer);
+        //ToDo has to be implemented soon
+//        $this->getFacade()->sendEmailNotification($availabilityAlertSubscriptionTransfer);
     }
 }

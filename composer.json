@@ -41,6 +41,7 @@
     "spryker/product-page-search": "^3.2.0",
     "spryker/product-page-search-extension": "^1.0.0",
     "spryker/quote": "^2.0.0",
+    "spryker/router": "^1.6.0",
     "spryker/sales": "^6.0.0 || ^7.0.0 || ^8.0.0 || ^10.0.0 || ^11.0.0",
     "spryker/sales-extension": "^1.3.0",
     "spryker/search": "^8.0.0",
@@ -58,8 +59,10 @@
     "spryker/glossary": "^3.8.0",
     "spryker/kernel": "^3.42.0",
     "spryker/zed-request": "^3.12.0",
-    "spryker/oms": "^11.1.0",
-    "spryker/propel-orm": "^1.9.1"
+    "spryker/oms": "^11.1.0, <=11.8.0",
+    "spryker/propel-orm": "^1.9.1",
+    "spryker-shop/shop-application": "^1.8.0",
+    "fond-of-spryker/customer": "dev-spryker_upgrade"
   },
   "require-dev": {
     "fond-of-codeception/spryker": "^1.0",

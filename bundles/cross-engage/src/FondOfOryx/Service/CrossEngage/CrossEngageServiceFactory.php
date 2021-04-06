@@ -13,6 +13,9 @@ use FondOfOryx\Service\CrossEngage\Model\Validator\FormValidatorCollectionInterf
 use Spryker\Service\Kernel\AbstractServiceFactory;
 use Spryker\Shared\Kernel\Store;
 
+/**
+ * @method \FondOfOryx\Service\CrossEngage\CrossEngageConfig getConfig()
+ */
 class CrossEngageServiceFactory extends AbstractServiceFactory
 {
     /**

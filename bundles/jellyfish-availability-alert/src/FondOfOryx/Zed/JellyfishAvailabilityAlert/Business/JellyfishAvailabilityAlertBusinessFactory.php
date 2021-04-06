@@ -4,6 +4,8 @@ namespace FondOfOryx\Zed\JellyfishAvailabilityAlert\Business;
 
 use FondOfOryx\Zed\JellyfishAvailabilityAlert\Business\Api\Adapter\AvailabilityAlertAdapter;
 use FondOfOryx\Zed\JellyfishAvailabilityAlert\Business\Api\Adapter\AvailabilityAlertAdapterInterface;
+use FondOfOryx\Zed\JellyfishAvailabilityAlert\Business\Dependency\Facade\JellyfishAvailabilityAlertToLocaleFacadeInterface;
+use FondOfOryx\Zed\JellyfishAvailabilityAlert\Business\Dependency\Facade\JellyfishAvailabilityAlertToStoreFacadeInterface;
 use FondOfOryx\Zed\JellyfishAvailabilityAlert\Business\Dependency\Service\JellyfishAvailabilityAlertToUtilEncodingServiceInterface;
 use FondOfOryx\Zed\JellyfishAvailabilityAlert\Business\Model\Dispatcher\AvailabilityAlertSubscriberDispatcher;
 use FondOfOryx\Zed\JellyfishAvailabilityAlert\Business\Model\Dispatcher\AvailabilityAlertSubscriberDispatcherInterface;
@@ -43,7 +45,9 @@ class JellyfishAvailabilityAlertBusinessFactory extends AbstractBusinessFactory
         return new AvailabilityAlertAdapter(
             $this->getUtilEncodingService(),
             $this->createHttpClient(),
-            $this->getConfig()
+            $this->getConfig(),
+            $this->getStoreFacade(),
+            $this->getLocaleFacade()
         );
     }
 
@@ -64,5 +68,21 @@ class JellyfishAvailabilityAlertBusinessFactory extends AbstractBusinessFactory
     protected function getUtilEncodingService(): JellyfishAvailabilityAlertToUtilEncodingServiceInterface
     {
         return $this->getProvidedDependency(JellyfishAvailabilityAlertDependencyProvider::SERVICE_UTIL_ENCODING);
+    }
+
+    /**
+     * @return \FondOfOryx\Zed\JellyfishAvailabilityAlert\Business\Dependency\Facade\JellyfishAvailabilityAlertToStoreFacadeInterface
+     */
+    protected function getStoreFacade(): JellyfishAvailabilityAlertToStoreFacadeInterface
+    {
+        return $this->getProvidedDependency(JellyfishAvailabilityAlertDependencyProvider::FACADE_STORE);
+    }
+
+    /**
+     * @return \FondOfOryx\Zed\JellyfishAvailabilityAlert\Business\Dependency\Facade\JellyfishAvailabilityAlertToLocaleFacadeInterface
+     */
+    protected function getLocaleFacade(): JellyfishAvailabilityAlertToLocaleFacadeInterface
+    {
+        return $this->getProvidedDependency(JellyfishAvailabilityAlertDependencyProvider::FACADE_LOCALE);
     }
 }

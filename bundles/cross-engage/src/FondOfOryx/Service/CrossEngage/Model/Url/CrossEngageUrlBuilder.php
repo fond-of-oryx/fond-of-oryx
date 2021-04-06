@@ -105,7 +105,7 @@ class CrossEngageUrlBuilder implements CrossEngageUrlBuilderInterface
      */
     public function getNameParam(): string
     {
-        return CrossEngageConstants::NEWSTLETTER;
+        return CrossEngageConstants::CROSSENGAGE;
     }
 
     /**

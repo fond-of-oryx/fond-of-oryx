@@ -3,6 +3,8 @@
 namespace FondOfOryx\Zed\AvailabilityAlertCrossEngage\Business;
 
 use FondOfOryx\Zed\AvailabilityAlertCrossEngage\AvailabilityAlertCrossEngageDependencyProvider;
+use FondOfOryx\Zed\AvailabilityAlertCrossEngage\Business\Generator\KeyGenerator;
+use FondOfOryx\Zed\AvailabilityAlertCrossEngage\Business\Generator\KeyGeneratorInterface;
 use FondOfOryx\Zed\AvailabilityAlertCrossEngage\Business\Handler\NotificationHandler;
 use FondOfOryx\Zed\AvailabilityAlertCrossEngage\Business\Handler\NotificationHandlerInterface;
 use FondOfOryx\Zed\AvailabilityAlertCrossEngage\Business\Handler\RegisterSubscriberHandler;
@@ -10,6 +12,9 @@ use FondOfOryx\Zed\AvailabilityAlertCrossEngage\Business\Handler\RegisterSubscri
 use FondOfOryx\Zed\AvailabilityAlertCrossEngage\Dependency\Facade\AvailabilityAlertCrossEngageToJellyfishAvailabilityAlertFacadeInterface;
 use Spryker\Zed\Kernel\Business\AbstractBusinessFactory;
 
+/**
+ * @method \FondOfOryx\Zed\AvailabilityAlertCrossEngage\AvailabilityAlertCrossEngageConfig getConfig()
+ */
 class AvailabilityAlertCrossEngageBusinessFactory extends AbstractBusinessFactory
 {
     /**
@@ -26,6 +31,14 @@ class AvailabilityAlertCrossEngageBusinessFactory extends AbstractBusinessFactor
     public function createNotificationHandler(): NotificationHandlerInterface
     {
         return new NotificationHandler($this->getJellyfishAvailabilityAlertFacade());
+    }
+
+    /**
+     * @return \FondOfOryx\Zed\AvailabilityAlertCrossEngage\Business\Generator\KeyGeneratorInterface
+     */
+    public function createKeyGenerator(): KeyGeneratorInterface
+    {
+        return new KeyGenerator($this->getConfig());
     }
 
     /**

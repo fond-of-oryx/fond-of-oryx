@@ -9,7 +9,7 @@
         <property name="fkLocale" type="int" />
         <property name="fkStore" type="int" />
         <property name="fkSubscriber" type="int" />
-        <property name="status" type="int" />
+        <property name="status" type="string" />
         <property name="sentAt" type="int" />
         <property name="createdAt" type="int" />
         <property name="updatedAt" type="int" />

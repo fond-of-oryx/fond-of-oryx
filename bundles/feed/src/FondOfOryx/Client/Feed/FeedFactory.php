@@ -2,7 +2,6 @@
 
 namespace FondOfOryx\Client\Feed;
 
-use FondOfOryx\Client\Contact\ContactDependencyProvider;
 use FondOfOryx\Client\Feed\Zed\FeedStub;
 use FondOfOryx\Client\Feed\Zed\FeedStubInterface;
 use Spryker\Client\Kernel\AbstractFactory;
@@ -23,6 +22,6 @@ class FeedFactory extends AbstractFactory
      */
     protected function getZedRequestClient(): ZedRequestClient
     {
-        return $this->getProvidedDependency(ContactDependencyProvider::ZED_CLIENT);
+        return $this->getProvidedDependency(FeedDependencyProvider::ZED_CLIENT);
     }
 }

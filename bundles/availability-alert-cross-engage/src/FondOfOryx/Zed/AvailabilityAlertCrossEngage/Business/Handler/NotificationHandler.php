@@ -2,6 +2,7 @@
 
 namespace FondOfOryx\Zed\AvailabilityAlertCrossEngage\Business\Handler;
 
+use Exception;
 use FondOfOryx\Zed\AvailabilityAlertCrossEngage\Dependency\Facade\AvailabilityAlertCrossEngageToJellyfishAvailabilityAlertFacadeInterface;
 use Generated\Shared\Transfer\AvailabilityAlertCrossEngageDispatchSubscriptionResponseTransfer;
 use Generated\Shared\Transfer\AvailabilityAlertSubscriptionTransfer;

@@ -5,7 +5,7 @@ namespace FondOfOryx\Zed\Feed\Persistence;
 use FondOfOryx\Zed\Feed\Dependency\Facade\FeedToStoreFacadeInterface;
 use FondOfOryx\Zed\Feed\FeedDependencyProvider;
 use Orm\Zed\Availability\Persistence\SpyAvailabilityQuery;
-use Orm\Zed\AvailabilityAlert\Persistence\FosAvailabilityAlertSubscriptionQuery;
+use Orm\Zed\AvailabilityAlert\Persistence\FooAvailabilityAlertSubscriptionQuery;
 use Orm\Zed\Store\Persistence\Base\SpyStoreQuery;
 use Spryker\Zed\Kernel\Persistence\AbstractPersistenceFactory;
 
@@ -32,9 +32,9 @@ class FeedPersistenceFactory extends AbstractPersistenceFactory
     }
 
     /**
-     * @return \Orm\Zed\AvailabilityAlert\Persistence\FosAvailabilityAlertSubscriptionQuery
+     * @return \Orm\Zed\AvailabilityAlert\Persistence\FooAvailabilityAlertSubscriptionQuery
      */
-    public function getAvailabilityAlertSubscriptionQuery(): FosAvailabilityAlertSubscriptionQuery
+    public function getAvailabilityAlertSubscriptionQuery(): FooAvailabilityAlertSubscriptionQuery
     {
         return $this->getProvidedDependency(FeedDependencyProvider::PROPEL_AVAILABILITY_ALERT_SUBSCRIPTION_QUERY);
     }

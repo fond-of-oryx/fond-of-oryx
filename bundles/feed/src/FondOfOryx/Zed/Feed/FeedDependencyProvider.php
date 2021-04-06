@@ -5,7 +5,7 @@ namespace FondOfOryx\Zed\Feed;
 use FondOfOryx\Zed\Feed\Dependency\Facade\FeedToProductFacadeBridge;
 use FondOfOryx\Zed\Feed\Dependency\Facade\FeedToStoreFacadeBridge;
 use Orm\Zed\Availability\Persistence\SpyAvailabilityQuery;
-use Orm\Zed\AvailabilityAlert\Persistence\FosAvailabilityAlertSubscriptionQuery;
+use Orm\Zed\AvailabilityAlert\Persistence\FooAvailabilityAlertSubscriptionQuery;
 use Spryker\Zed\Kernel\AbstractBundleDependencyProvider;
 use Spryker\Zed\Kernel\Container;
 
@@ -65,7 +65,7 @@ class FeedDependencyProvider extends AbstractBundleDependencyProvider
     public function addAvailabilityAlertSubscriptionQuery(Container $container): Container
     {
         $container[static::PROPEL_AVAILABILITY_ALERT_SUBSCRIPTION_QUERY] = function () {
-            return FosAvailabilityAlertSubscriptionQuery::create();
+            return FooAvailabilityAlertSubscriptionQuery::create();
         };
 
         return $container;

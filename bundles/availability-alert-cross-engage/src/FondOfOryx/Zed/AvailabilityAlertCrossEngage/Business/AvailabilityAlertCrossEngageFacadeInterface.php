@@ -15,4 +15,11 @@ interface AvailabilityAlertCrossEngageFacadeInterface
     public function registerSubscriber(
         AvailabilityAlertSubscriberTransfer $subscriberTransfer
     ): AvailabilityAlertCrossEngageSubscriberRegistrationResponseTransfer;
+
+    /**
+     * @param string $string
+     *
+     * @return string
+     */
+    public function generateKey(string $string): string;
 }

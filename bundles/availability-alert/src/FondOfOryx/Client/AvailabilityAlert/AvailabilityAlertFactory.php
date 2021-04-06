@@ -2,6 +2,7 @@
 
 namespace FondOfOryx\Client\AvailabilityAlert;
 
+use FondOfOryx\Client\AvailabilityAlert\Dependency\Client\AvailabilityAlertToZedRequestInterface;
 use FondOfOryx\Client\AvailabilityAlert\Zed\AvailabilityAlertStub;
 use Spryker\Client\Kernel\AbstractFactory;
 
@@ -16,9 +17,9 @@ class AvailabilityAlertFactory extends AbstractFactory
     }
 
     /**
-     * @return \Spryker\Client\ZedRequest\ZedRequestClientInterface
+     * @return \FondOfOryx\Client\AvailabilityAlert\Dependency\Client\AvailabilityAlertToZedRequestInterface
      */
-    protected function getZedRequestClient()
+    protected function getZedRequestClient(): AvailabilityAlertToZedRequestInterface
     {
         return $this->getProvidedDependency(AvailabilityAlertDependencyProvider::CLIENT_ZED_REQUEST);
     }

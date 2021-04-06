@@ -41,9 +41,9 @@ class FormValidatorCollection implements Countable, IteratorAggregate, FormValid
      *
      * @throws \FondOfOryx\Service\CrossEngage\Exception\FormValidatorNotFoundException
      *
-     * @return \FondOfOryx\Service\CrossEngage\Model\Validator\FormValidatorInterface
+     * @return \FondOfOryx\Service\CrossEngage\Model\Validator\FormValidatorInterface[]
      */
-    public function getValidator(string $validatorName): FormValidatorInterface
+    public function getValidator(string $validatorName): array
     {
         if (array_key_exists($validatorName, $this->validatorCollection)) {
             return [$this->validatorCollection[$validatorName]];

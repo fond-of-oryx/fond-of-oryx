@@ -10,6 +10,7 @@ use Spryker\Zed\Kernel\Communication\AbstractPlugin;
 /**
  * @method \FondOfOryx\Zed\AvailabilityAlertCrossEngage\Communication\AvailabilityAlertCrossEngageCommunicationFactory getFactory()
  * @method \FondOfOryx\Zed\AvailabilityAlertCrossEngage\Business\AvailabilityAlertCrossEngageFacadeInterface getFacade()
+ * @method \FondOfOryx\Zed\AvailabilityAlertCrossEngage\AvailabilityAlertCrossEngageConfig getConfig()
  */
 class CrossEngageAvailabilityAlertSubscriptionTransferExpanderPlugin extends AbstractPlugin implements AvailabilityAlertSubscriptionTransferExpanderPluginInterface
 {
@@ -27,6 +28,7 @@ class CrossEngageAvailabilityAlertSubscriptionTransferExpanderPlugin extends Abs
 
         $subscriber = $availabilityAlertSubscriptionTransfer->getSubscriber();
         $subscriber->setSubscriberIp($alertSubscriptionRequestTransfer->getSubscriberIp())
+            ->setKey($this->getFacade()->generateKey($availabilityAlertSubscriptionTransfer->getSubscriber()->getEmail()))
             ->setHash($this->getFactory()->getCrossEngageService()->getHash($availabilityAlertSubscriptionTransfer->getSubscriber()->getEmail()));
 
         $availabilityAlertSubscriptionTransfer->setSubscriber($subscriber);
