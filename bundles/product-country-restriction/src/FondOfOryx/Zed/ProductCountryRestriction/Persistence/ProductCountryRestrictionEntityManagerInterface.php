@@ -8,6 +8,8 @@ interface ProductCountryRestrictionEntityManagerInterface
 {
     /**
      * @param \Generated\Shared\Transfer\ProductAbstractCountryRestrictionTransfer $productAbstractCountryRestriction
+     *
+     * @return void
      */
     public function createProductAbstractCountryRestriction(
         ProductAbstractCountryRestrictionTransfer $productAbstractCountryRestriction
