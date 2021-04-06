@@ -33,7 +33,7 @@ class CrossEngageAvailabilityAlertSubscriptionRequestExpanderPlugin implements A
     {
         $ipAddresses = $request->getClientIps();
 
-        if ($ipAddresses === null) {
+        if (empty($ipAddresses)) {
             return null;
         }
 
