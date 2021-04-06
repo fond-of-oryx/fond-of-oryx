@@ -74,20 +74,18 @@ class ProductLocaleRestrictionRepository extends AbstractRepository implements P
      */
     public function findBlacklistedLocalesByProductConcreteSkus(array $productConcreteSkus): array
     {
+        /** @var \Orm\Zed\ProductLocaleRestriction\Persistence\FooProductAbstractLocaleRestrictionQuery $fooProductAbstractLocaleRestrictionQuery */
         $fooProductAbstractLocaleRestrictionQuery = $this->getFactory()
-            ->createFooProductAbstractLocaleRestrictionQuery();
-
-        $fooProductAbstractLocaleRestrictionCollection = $fooProductAbstractLocaleRestrictionQuery
+            ->createFooProductAbstractLocaleRestrictionQuery()
             ->innerJoinWithLocale()
             ->useProductAbstractQuery()
                 ->useSpyProductQuery()
                     ->filterBySku_In($productConcreteSkus)
                     ->withColumn(SpyProductTableMap::COL_SKU, 'sku')
                 ->endUse()
-            ->endUse()
-            ->find();
+            ->endUse();
 
         return $this->getFactory()->createProductAbstractLocaleRestrictionMapper()
-            ->mapEntityCollectionToGroupedLocaleNames($fooProductAbstractLocaleRestrictionCollection, 'sku');
+            ->mapEntityCollectionToGroupedLocaleNames($fooProductAbstractLocaleRestrictionQuery->find(), 'sku');
     }
 }

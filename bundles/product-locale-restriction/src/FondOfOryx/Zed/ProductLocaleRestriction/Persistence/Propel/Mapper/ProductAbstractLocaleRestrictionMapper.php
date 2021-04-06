@@ -47,10 +47,8 @@ class ProductAbstractLocaleRestrictionMapper implements ProductAbstractLocaleRes
                 $key = $fooProductAbstractLocaleRestriction->getVirtualColumn($virtualColumnForGrouping);
             }
 
-            if ($fooProductAbstractLocaleRestriction) {
-                if (!isset($groupedLocaleIds[$key])) {
-                    $groupedLocaleIds[$key] = [];
-                }
+            if (!isset($groupedLocaleIds[$key])) {
+                $groupedLocaleIds[$key] = [];
             }
 
             $groupedLocaleIds[$key][] = $locale->getLocaleName();
