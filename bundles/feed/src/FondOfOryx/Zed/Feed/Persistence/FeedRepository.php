@@ -13,7 +13,7 @@ class FeedRepository extends AbstractRepository implements FeedRepositoryInterfa
      * @param int $idStore
      * @param int $status
      *
-     * @return \Orm\Zed\AvailabilityAlert\Persistence\FosAvailabilityAlertSubscription[]
+     * @return \Orm\Zed\AvailabilityAlert\Persistence\FooAvailabilityAlertSubscription[]
      */
     public function findSubscriptionsByIdStoreAndStatus(int $idStore, int $status): array
     {
@@ -21,11 +21,7 @@ class FeedRepository extends AbstractRepository implements FeedRepositoryInterfa
             ->filterByFkStore($idStore)
             ->filterByStatus($status)->find();
 
-        if ($data !== null) {
-            return $data->getData();
-        }
-
-        return [];
+        return $data->getData();
     }
 
     /**
@@ -37,10 +33,6 @@ class FeedRepository extends AbstractRepository implements FeedRepositoryInterfa
     {
         $data = $this->getFactory()->getAvailabilityQuery()->filterByFkStore($idStore)->find();
 
-        if ($data !== null) {
-            return $data->getData();
-        }
-
-        return [];
+        return $data->getData();
     }
 }

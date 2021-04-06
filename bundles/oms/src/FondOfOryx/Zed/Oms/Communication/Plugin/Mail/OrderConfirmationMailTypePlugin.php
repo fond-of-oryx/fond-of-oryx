@@ -2,7 +2,7 @@
 
 namespace FondOfOryx\Zed\Oms\Communication\Plugin\Mail;
 
-use FondOfOryx\Shared\Customer\CustomerConstants;
+use FondOfSpryker\Shared\Customer\CustomerConstants;
 use FondOfOryx\Zed\Mail\MailConfig;
 use Generated\Shared\Transfer\CountryTransfer;
 use Generated\Shared\Transfer\OrderTransfer;
@@ -91,11 +91,11 @@ class OrderConfirmationMailTypePlugin extends SprykerOrderConfirmationMailTypePl
 
         $arrStore = explode('_', $orderTransfer->getStore());
 
-        if (is_array($arrStore) && count($arrStore) > 0) {
-            return strtolower($arrStore[0]);
+        if (empty($arrStore)) {
+            return 'default.';
         }
 
-        return 'default.';
+        return strtolower($arrStore[0]);
     }
 
     /**

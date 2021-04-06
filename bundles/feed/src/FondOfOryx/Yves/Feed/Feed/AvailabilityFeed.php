@@ -28,7 +28,7 @@ class AvailabilityFeed implements FeedInterface
     {
         $content = new CsvContent(['SKU', 'Quantity']);
         foreach ($this->client->getAvailabilityFeedData()->getFeedDataArray() as $feedData) {
-            $content->addRow([$feedData->getSku(), $feedData->getQuantity()]);
+            $content->addRow([$feedData->getSku(), (string)$feedData->getQuantity()]);
         }
 
         return $content;

@@ -8,7 +8,7 @@ use Generated\Shared\Transfer\AvailabilityAlertSubscriptionRequestTransfer;
 class AvailabilityAlertStub implements AvailabilityAlertStubInterface
 {
     /**
-     * @var \FondOfOryx\Client\AvailabilityAlert\Dependency\Client\AvailabilityAlertToZedRequestBridge
+     * @var \FondOfOryx\Client\AvailabilityAlert\Dependency\Client\AvailabilityAlertToZedRequestInterface
      */
     protected $zedRequestClient;
 

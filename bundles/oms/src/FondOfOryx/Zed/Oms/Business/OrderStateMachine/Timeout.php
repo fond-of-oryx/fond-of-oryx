@@ -38,7 +38,7 @@ class Timeout extends SprykerTimeout implements TimeoutInterface
     }
 
     /**
-     * @param \Orm\Zed\Sales\Persistence\SpySalesOrderItem[] $groupedOrderItems
+     * @param \Orm\Zed\Sales\Persistence\SpySalesOrderItem[][] $groupedOrderItems
      *
      * @return array
      */

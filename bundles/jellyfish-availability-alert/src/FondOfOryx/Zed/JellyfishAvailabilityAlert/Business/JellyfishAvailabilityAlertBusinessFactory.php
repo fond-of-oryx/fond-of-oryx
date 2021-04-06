@@ -71,7 +71,7 @@ class JellyfishAvailabilityAlertBusinessFactory extends AbstractBusinessFactory
     }
 
     /**
-     * @return \FondOfOryx\Zed\JellyfishAvailabilityAlert\Business\Dependency\Service\JellyfishAvailabilityAlertToStoreFacadeInterface
+     * @return \FondOfOryx\Zed\JellyfishAvailabilityAlert\Business\Dependency\Facade\JellyfishAvailabilityAlertToStoreFacadeInterface
      */
     protected function getStoreFacade(): JellyfishAvailabilityAlertToStoreFacadeInterface
     {

@@ -49,7 +49,7 @@ class AvailabilityFeed extends AbstractPlugin
             /** @var \Orm\Zed\Availability\Persistence\SpyAvailability $spyAvailability */
 
             $feedData = new FeedDataAvailabilityTransfer();
-            $feedData->setQuantity($spyAvailability->getQuantity());
+            $feedData->setQuantity((int)$spyAvailability->getQuantity());
             $feedData->setSku($spyAvailability->getSku());
 
             $feedDataAvailabilityResponse->addFeedData($feedData);
