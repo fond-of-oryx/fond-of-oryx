@@ -30,10 +30,12 @@ interface ProductAbstractLocaleRestrictionMapperInterface
 
     /**
      * @param \Propel\Runtime\Collection\ObjectCollection|\Orm\Zed\ProductLocaleRestriction\Persistence\FooProductAbstractLocaleRestriction[] $fooProductAbstractLocaleRestrictionCollection
+     * @param string|null $virtualColumnForGrouping
      *
      * @return array
      */
     public function mapEntityCollectionToGroupedLocaleNames(
-        ObjectCollection $fooProductAbstractLocaleRestrictionCollection
+        ObjectCollection $fooProductAbstractLocaleRestrictionCollection,
+        ?string $virtualColumnForGrouping = null
     ): array;
 }

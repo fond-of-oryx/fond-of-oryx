@@ -54,4 +54,18 @@ class ProductLocaleRestrictionFacade extends AbstractFacade implements ProductLo
     {
         return $this->getRepository()->findBlacklistedLocalesByProductAbstractIds($productAbstractIds);
     }
+
+    /**
+     * {@inheritDoc}
+     *
+     * @api
+     *
+     * @param string[] $productConcreteSkus
+     *
+     * @return array
+     */
+    public function getBlacklistedLocalesByProductConcreteSkus(array $productConcreteSkus): array
+    {
+        return $this->getRepository()->findBlacklistedLocalesByProductConcreteSkus($productConcreteSkus);
+    }
 }

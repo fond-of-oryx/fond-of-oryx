@@ -36,20 +36,20 @@ class ProductLocaleRestrictionCartConnectorToProductLocaleRestrictionFacadeBridg
     /**
      * @return void
      */
-    public function testGetBlacklistedLocalesByProductAbstractIds(): void
+    public function testGetBlacklistedLocalesByProductConcreteSkus(): void
     {
-        $productAbstractIds = [1, 2];
-        $blacklistedLocales = [1 => ['de_DE', 'en_US']];
+        $productConcreteSkus = ['FOO-1', 'FOO-2'];
+        $blacklistedLocales = ['FOO-1' => ['de_DE', 'en_US']];
 
          $this->productLocaleRestrictionFacadeMock->expects(static::atLeastOnce())
-            ->method('getBlacklistedLocalesByProductAbstractIds')
-             ->with($productAbstractIds)
+            ->method('getBlacklistedLocalesByProductConcreteSkus')
+             ->with($productConcreteSkus)
              ->willReturn($blacklistedLocales);
 
          static::assertEquals(
              $blacklistedLocales,
              $this->productLocaleRestrictionCartConnectorToProductLocaleRestrictionFacadeBridge
-                 ->getBlacklistedLocalesByProductAbstractIds($productAbstractIds)
+                 ->getBlacklistedLocalesByProductConcreteSkus($productConcreteSkus)
          );
     }
 }

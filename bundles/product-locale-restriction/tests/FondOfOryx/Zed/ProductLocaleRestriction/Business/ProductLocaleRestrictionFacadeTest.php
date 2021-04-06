@@ -130,4 +130,25 @@ class ProductLocaleRestrictionFacadeTest extends Unit
             )
         );
     }
+
+    /**
+     * @return void
+     */
+    public function testGetBlacklistedLocalesByProductConcreteSkus(): void
+    {
+        $productConcreteSkus = ['FOO-1', 'FOO-2'];
+        $blacklistedLocales = ['FOO-1' => ['de_DE', 'fr_FR']];
+
+        $this->repositoryMock->expects(static::atLeastOnce())
+            ->method('findBlacklistedLocalesByProductConcreteSkus')
+            ->with($productConcreteSkus)
+            ->willReturn($blacklistedLocales);
+
+        static::assertEquals(
+            $blacklistedLocales,
+            $this->productLocaleRestrictionFacade->getBlacklistedLocalesByProductConcreteSkus(
+                $productConcreteSkus
+            )
+        );
+    }
 }

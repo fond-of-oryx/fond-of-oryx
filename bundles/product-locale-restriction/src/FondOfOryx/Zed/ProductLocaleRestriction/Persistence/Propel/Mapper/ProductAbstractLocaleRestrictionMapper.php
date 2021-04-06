@@ -29,23 +29,29 @@ class ProductAbstractLocaleRestrictionMapper implements ProductAbstractLocaleRes
 
     /**
      * @param \Propel\Runtime\Collection\ObjectCollection|\Orm\Zed\ProductLocaleRestriction\Persistence\FooProductAbstractLocaleRestriction[] $fooProductAbstractLocaleRestrictionCollection
+     * @param string|null $virtualColumnForGrouping
      *
      * @return array
      */
     public function mapEntityCollectionToGroupedLocaleNames(
-        ObjectCollection $fooProductAbstractLocaleRestrictionCollection
+        ObjectCollection $fooProductAbstractLocaleRestrictionCollection,
+        ?string $virtualColumnForGrouping = null
     ): array {
         $groupedLocaleIds = [];
 
         foreach ($fooProductAbstractLocaleRestrictionCollection as $fooProductAbstractLocaleRestriction) {
-            $idProductAbstract = $fooProductAbstractLocaleRestriction->getFkProductAbstract();
+            $key = $fooProductAbstractLocaleRestriction->getFkProductAbstract();
             $locale = $fooProductAbstractLocaleRestriction->getLocale();
 
-            if (!isset($groupedLocaleIds[$idProductAbstract])) {
-                $groupedLocaleIds[$idProductAbstract] = [];
+            if ($virtualColumnForGrouping !== null) {
+                $key = $fooProductAbstractLocaleRestriction->getVirtualColumn($virtualColumnForGrouping);
             }
 
-            $groupedLocaleIds[$idProductAbstract][] = $locale->getLocaleName();
+            if (!isset($groupedLocaleIds[$key])) {
+                $groupedLocaleIds[$key] = [];
+            }
+
+            $groupedLocaleIds[$key][] = $locale->getLocaleName();
         }
 
         return $groupedLocaleIds;

@@ -44,7 +44,7 @@ class ProductAbstractLocaleRestrictionsPersister implements ProductAbstractLocal
             return;
         }
 
-        $currentLocaleIds = $this->repository->findLocaleBlacklistIdsByIdProductAbstract($idProductAbstract);
+        $currentLocaleIds = $this->repository->findBlacklistedLocaleIdsByIdProductAbstract($idProductAbstract);
         $newLocaleIds = $productAbstractTransfer->getBlacklistedLocaleIds();
 
         $localeIdsToDelete = array_diff($currentLocaleIds, $newLocaleIds);
