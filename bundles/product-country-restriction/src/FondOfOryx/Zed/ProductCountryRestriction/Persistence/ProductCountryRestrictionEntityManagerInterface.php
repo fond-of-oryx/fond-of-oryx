@@ -1,0 +1,26 @@
+<?php
+
+namespace FondOfOryx\Zed\ProductCountryRestriction\Persistence;
+
+use Generated\Shared\Transfer\ProductAbstractCountryRestrictionTransfer;
+
+interface ProductCountryRestrictionEntityManagerInterface
+{
+    /**
+     * @param \Generated\Shared\Transfer\ProductAbstractCountryRestrictionTransfer $productAbstractCountryRestriction
+     */
+    public function createProductAbstractCountryRestriction(
+        ProductAbstractCountryRestrictionTransfer $productAbstractCountryRestriction
+    ): void;
+
+    /**
+     * @param int $idProductAbstract
+     * @param int[] $countryIds
+     *
+     * @return void
+     */
+    public function deleteProductAbstractCountryRestrictions(
+        int $idProductAbstract,
+        array $countryIds
+    ): void;
+}

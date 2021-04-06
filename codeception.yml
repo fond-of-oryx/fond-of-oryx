@@ -11,6 +11,7 @@ include:
   - bundles/erp-order-permission
   - bundles/mail-bcc
   - bundles/one-time-password-rest-api
+  - bundles/product-country-restriction
   - bundles/product-locale-restriction
   - bundles/product-locale-restriction-cart-connector
   - bundles/product-locale-restriction-search
