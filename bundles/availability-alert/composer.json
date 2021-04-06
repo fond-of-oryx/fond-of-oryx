@@ -12,7 +12,8 @@
     "php": ">=7.2",
     "spryker/availability": "^9.1.0",
     "spryker/product": "^6.17.1",
-    "spryker/router": "^1.6.0"
+    "spryker/router": "^1.6.0",
+    "spryker-shop/shop-application": "^1.8.0"
   },
   "require-dev": {
     "spryker/code-sniffer": "^0.14.7",
