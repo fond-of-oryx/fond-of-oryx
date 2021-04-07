@@ -10,7 +10,7 @@ use Spryker\Client\Kernel\AbstractFactory;
 class ProductCountryRestrictionCheckoutConnectorFactory extends AbstractFactory
 {
     /**
-     * @return \FondOfOryx\Client\OneTimePasswordRestApi\Zed\OneTimePasswordRestApiStubInterface
+     * @return \FondOfOryx\Client\ProductCountryRestrictionCheckoutConnector\Zed\ProductCountryRestrictionCheckoutConnectorStubInterface
      */
     public function createProductCountryRestrictionCheckoutConnectorZedStub(): ProductCountryRestrictionCheckoutConnectorStubInterface
     {
