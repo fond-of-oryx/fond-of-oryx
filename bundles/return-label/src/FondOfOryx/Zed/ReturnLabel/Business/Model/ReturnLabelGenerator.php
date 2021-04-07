@@ -4,7 +4,6 @@ namespace FondOfOryx\Zed\ReturnLabel\Business\Model;
 
 use FondOfOryx\Zed\ReturnLabel\Business\Api\Adapter\ReturnLabelAdapterInterface;
 use FondOfOryx\Zed\ReturnLabel\Business\Mapper\ReturnLabelAddressMapperInterface;
-use Generated\Shared\Transfer\AddressesTransfer;
 use Generated\Shared\Transfer\ReturnLabelAddressTransfer;
 use Generated\Shared\Transfer\ReturnLabelRequestTransfer;
 use Generated\Shared\Transfer\ReturnLabelResponseTransfer;
@@ -23,14 +22,14 @@ class ReturnLabelGenerator implements ReturnLabelGeneratorInterface
     protected $returnLabelAdapter;
 
     /**
-     * @var ReturnLabelAddressMapperInterface
+     * @var \FondOfOryx\Zed\ReturnLabel\Business\Mapper\ReturnLabelAddressMapperInterface
      */
     protected $returnLabelAddressMapper;
 
     /**
-     * @param CompanyUnitAddressReaderInterface $companyUnitAddressReader
-     * @param ReturnLabelAdapterInterface $returnLabelAdapter
-     * @param ReturnLabelAddressMapperInterface $returnLabelAddressMapper
+     * @param \FondOfOryx\Zed\ReturnLabel\Business\Model\CompanyUnitAddressReaderInterface $companyUnitAddressReader
+     * @param \FondOfOryx\Zed\ReturnLabel\Business\Api\Adapter\ReturnLabelAdapterInterface $returnLabelAdapter
+     * @param \FondOfOryx\Zed\ReturnLabel\Business\Mapper\ReturnLabelAddressMapperInterface $returnLabelAddressMapper
      */
     public function __construct(
         CompanyUnitAddressReaderInterface $companyUnitAddressReader,
@@ -62,8 +61,7 @@ class ReturnLabelGenerator implements ReturnLabelGeneratorInterface
             ->mapCompanyUnitAddressToReturnLabelAddress(
                 $companyUnitAddressTransfer,
                 new ReturnLabelAddressTransfer()
-            )
-        ;
+            );
 
         $returnLabelServiceRequestTransfer = (new ReturnLabelServiceRequestTransfer())
             ->setQrCode(true)

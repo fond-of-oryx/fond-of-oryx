@@ -8,10 +8,10 @@ use Generated\Shared\Transfer\ReturnLabelAddressTransfer;
 interface ReturnLabelAddressMapperInterface
 {
     /**
-     * @param CompanyUnitAddressTransfer $companyUnitAddressTransfer
-     * @param ReturnLabelAddressTransfer $returnLabelAddressTransfer
+     * @param \Generated\Shared\Transfer\CompanyUnitAddressTransfer $companyUnitAddressTransfer
+     * @param \Generated\Shared\Transfer\ReturnLabelAddressTransfer $returnLabelAddressTransfer
      *
-     * @return ReturnLabelAddressTransfer
+     * @return \Generated\Shared\Transfer\ReturnLabelAddressTransfer
      */
     public function mapCompanyUnitAddressToReturnLabelAddress(
         CompanyUnitAddressTransfer $companyUnitAddressTransfer,

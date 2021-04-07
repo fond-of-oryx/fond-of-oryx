@@ -4,7 +4,6 @@ namespace FondOfOryx\Zed\ReturnLabelsRestApi\Communication\Controller;
 
 use Generated\Shared\Transfer\RestReturnLabelRequestTransfer;
 use Generated\Shared\Transfer\RestReturnLabelResponseTransfer;
-use Generated\Shared\Transfer\ReturnLabelRestApiResponseTransfer;
 use Spryker\Zed\Kernel\Communication\Controller\AbstractGatewayController;
 
 /**

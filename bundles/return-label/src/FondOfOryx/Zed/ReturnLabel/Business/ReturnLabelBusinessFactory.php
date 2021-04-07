@@ -55,7 +55,7 @@ class ReturnLabelBusinessFactory extends AbstractBusinessFactory
     }
 
     /**
-     * @return ReturnLabelAddressMapperInterface
+     * @return \FondOfOryx\Zed\ReturnLabel\Business\Mapper\ReturnLabelAddressMapperInterface
      */
     public function createReturnLabelAddressMapper(): ReturnLabelAddressMapperInterface
     {

@@ -8,19 +8,18 @@ use Generated\Shared\Transfer\ReturnLabelAddressTransfer;
 class ReturnLabelAddressMapper implements ReturnLabelAddressMapperInterface
 {
     /**
-     * @param CompanyUnitAddressTransfer $companyUnitAddressTransfer
-     * @param ReturnLabelAddressTransfer $returnLabelAddressTransfer
+     * @param \Generated\Shared\Transfer\CompanyUnitAddressTransfer $companyUnitAddressTransfer
+     * @param \Generated\Shared\Transfer\ReturnLabelAddressTransfer $returnLabelAddressTransfer
      *
-     * @return ReturnLabelAddressTransfer
+     * @return \Generated\Shared\Transfer\ReturnLabelAddressTransfer
      */
     public function mapCompanyUnitAddressToReturnLabelAddress(
         CompanyUnitAddressTransfer $companyUnitAddressTransfer,
         ReturnLabelAddressTransfer $returnLabelAddressTransfer
-    ): ReturnLabelAddressTransfer
-    {
+    ): ReturnLabelAddressTransfer {
         return $returnLabelAddressTransfer
             ->setCompany('')
-            ->setName($companyUnitAddressTransfer->getName1().' '.$companyUnitAddressTransfer->getName2())
+            ->setName($companyUnitAddressTransfer->getName1() . ' ' . $companyUnitAddressTransfer->getName2())
             ->setAddress1($companyUnitAddressTransfer->getAddress1())
             ->setAddress2($companyUnitAddressTransfer->getAddress2())
             ->setAddress3($companyUnitAddressTransfer->getAddress3())

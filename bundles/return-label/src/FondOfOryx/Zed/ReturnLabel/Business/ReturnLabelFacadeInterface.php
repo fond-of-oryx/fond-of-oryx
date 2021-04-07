@@ -4,7 +4,6 @@ namespace FondOfOryx\Zed\ReturnLabel\Business;
 
 use Generated\Shared\Transfer\ReturnLabelRequestTransfer;
 use Generated\Shared\Transfer\ReturnLabelResponseTransfer;
-use Generated\Shared\Transfer\ReturnLabelRestApiResponseTransfer;
 
 interface ReturnLabelFacadeInterface
 {

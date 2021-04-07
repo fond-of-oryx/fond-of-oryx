@@ -5,7 +5,6 @@ namespace FondOfOryx\Zed\ReturnLabelsRestApi\Dependency\Facade;
 use FondOfOryx\Zed\ReturnLabel\Business\ReturnLabelFacadeInterface;
 use Generated\Shared\Transfer\ReturnLabelRequestTransfer;
 use Generated\Shared\Transfer\ReturnLabelResponseTransfer;
-use Generated\Shared\Transfer\ReturnLabelRestApiResponseTransfer;
 
 class ReturnLabelsRestApiToReturnLabelFacadeBridge implements ReturnLabelsRestApiToReturnLabelFacadeInterface
 {
@@ -23,9 +22,9 @@ class ReturnLabelsRestApiToReturnLabelFacadeBridge implements ReturnLabelsRestAp
     }
 
     /**
-     * @param ReturnLabelRequestTransfer $returnLabelRequestTransfer
+     * @param \Generated\Shared\Transfer\ReturnLabelRequestTransfer $returnLabelRequestTransfer
      *
-     * @return ReturnLabelResponseTransfer
+     * @return \Generated\Shared\Transfer\ReturnLabelResponseTransfer
      */
     public function generateReturnLabel(
         ReturnLabelRequestTransfer $returnLabelRequestTransfer

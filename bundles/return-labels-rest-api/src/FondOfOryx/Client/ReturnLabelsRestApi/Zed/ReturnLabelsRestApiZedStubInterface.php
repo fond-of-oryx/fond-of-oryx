@@ -4,7 +4,6 @@ namespace FondOfOryx\Client\ReturnLabelsRestApi\Zed;
 
 use Generated\Shared\Transfer\RestReturnLabelRequestTransfer;
 use Generated\Shared\Transfer\RestReturnLabelResponseTransfer;
-use Generated\Shared\Transfer\ReturnLabelRestApiResponseTransfer;
 
 interface ReturnLabelsRestApiZedStubInterface
 {

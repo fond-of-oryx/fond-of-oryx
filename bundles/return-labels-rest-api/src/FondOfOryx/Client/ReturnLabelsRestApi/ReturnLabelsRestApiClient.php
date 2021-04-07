@@ -4,7 +4,6 @@ namespace FondOfOryx\Client\ReturnLabelsRestApi;
 
 use Generated\Shared\Transfer\RestReturnLabelRequestTransfer;
 use Generated\Shared\Transfer\RestReturnLabelResponseTransfer;
-use Generated\Shared\Transfer\ReturnLabelRestApiResponseTransfer;
 use Spryker\Client\Kernel\AbstractClient;
 
 /**

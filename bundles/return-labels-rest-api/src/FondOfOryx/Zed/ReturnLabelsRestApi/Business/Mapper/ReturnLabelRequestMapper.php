@@ -8,15 +8,14 @@ use Generated\Shared\Transfer\ReturnLabelRequestTransfer;
 class ReturnLabelRequestMapper implements ReturnLabelRequestMapperInterface
 {
     /**
-     * @param RestReturnLabelRequestTransfer $restReturnLabelRequestTransfer
+     * @param \Generated\Shared\Transfer\RestReturnLabelRequestTransfer $restReturnLabelRequestTransfer
      *
-     * @return ReturnLabelRequestTransfer
+     * @return \Generated\Shared\Transfer\ReturnLabelRequestTransfer
      */
     public function mapRestReturnLabelRequestToReturnLabelRequest(
         RestReturnLabelRequestTransfer $restReturnLabelRequestTransfer
-    ): ReturnLabelRequestTransfer
-    {
-        return (new ReturnLabelRequestTransfer)
+    ): ReturnLabelRequestTransfer {
+        return (new ReturnLabelRequestTransfer())
             ->setIdCustomer($restReturnLabelRequestTransfer->getIdCustomer())
             ->setIdCompanyUnitAddress($restReturnLabelRequestTransfer->getCompanyUnitAddressUuid());
     }

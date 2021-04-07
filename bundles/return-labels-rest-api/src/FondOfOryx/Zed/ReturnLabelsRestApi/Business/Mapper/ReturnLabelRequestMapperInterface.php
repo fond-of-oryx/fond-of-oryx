@@ -8,9 +8,9 @@ use Generated\Shared\Transfer\ReturnLabelRequestTransfer;
 interface ReturnLabelRequestMapperInterface
 {
     /**
-     * @param RestReturnLabelRequestTransfer $restReturnLabelRequestTransfer
+     * @param \Generated\Shared\Transfer\RestReturnLabelRequestTransfer $restReturnLabelRequestTransfer
      *
-     * @return ReturnLabelRequestTransfer
+     * @return \Generated\Shared\Transfer\ReturnLabelRequestTransfer
      */
     public function mapRestReturnLabelRequestToReturnLabelRequest(
         RestReturnLabelRequestTransfer $restReturnLabelRequestTransfer

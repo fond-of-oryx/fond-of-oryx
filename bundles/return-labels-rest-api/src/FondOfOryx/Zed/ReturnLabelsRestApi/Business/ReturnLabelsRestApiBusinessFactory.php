@@ -40,7 +40,7 @@ class ReturnLabelsRestApiBusinessFactory extends AbstractBusinessFactory
     }
 
     /**
-     * @return ReturnLabelRequestMapperInterface
+     * @return \FondOfOryx\Zed\ReturnLabelsRestApi\Business\Mapper\ReturnLabelRequestMapperInterface
      */
     protected function createReturnLabelRequestMapper(): ReturnLabelRequestMapperInterface
     {

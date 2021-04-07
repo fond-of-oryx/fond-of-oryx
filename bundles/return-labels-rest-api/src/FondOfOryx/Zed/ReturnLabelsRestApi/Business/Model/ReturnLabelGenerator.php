@@ -6,8 +6,6 @@ use FondOfOryx\Zed\ReturnLabelsRestApi\Business\Mapper\ReturnLabelRequestMapperI
 use FondOfOryx\Zed\ReturnLabelsRestApi\Dependency\Facade\ReturnLabelsRestApiToReturnLabelFacadeInterface;
 use Generated\Shared\Transfer\RestReturnLabelRequestTransfer;
 use Generated\Shared\Transfer\RestReturnLabelResponseTransfer;
-use Generated\Shared\Transfer\ReturnLabelRequestTransfer;
-use Generated\Shared\Transfer\ReturnLabelRestApiResponseTransfer;
 
 class ReturnLabelGenerator implements ReturnLabelGeneratorInterface
 {
@@ -22,14 +20,14 @@ class ReturnLabelGenerator implements ReturnLabelGeneratorInterface
     protected $returnLabelFacade;
 
     /**
-     * @var ReturnLabelRequestMapperInterface
+     * @var \FondOfOryx\Zed\ReturnLabelsRestApi\Business\Mapper\ReturnLabelRequestMapperInterface
      */
     protected $returnLabelRequestMapper;
 
     /**
-     * @param CompanyUnitAddressReaderInterface $companyUnitAddressReader
-     * @param ReturnLabelsRestApiToReturnLabelFacadeInterface $returnLabelFacade
-     * @param ReturnLabelRequestMapperInterface $returnLabelRequestMapper
+     * @param \FondOfOryx\Zed\ReturnLabelsRestApi\Business\Model\CompanyUnitAddressReaderInterface $companyUnitAddressReader
+     * @param \FondOfOryx\Zed\ReturnLabelsRestApi\Dependency\Facade\ReturnLabelsRestApiToReturnLabelFacadeInterface $returnLabelFacade
+     * @param \FondOfOryx\Zed\ReturnLabelsRestApi\Business\Mapper\ReturnLabelRequestMapperInterface $returnLabelRequestMapper
      */
     public function __construct(
         CompanyUnitAddressReaderInterface $companyUnitAddressReader,
@@ -54,7 +52,7 @@ class ReturnLabelGenerator implements ReturnLabelGeneratorInterface
         );
 
         if ($idCompanyUnitAddress === null) {
-            return (new RestReturnLabelResponseTransfer)
+            return (new RestReturnLabelResponseTransfer())
                 ->setIsSuccessful(false);
         }
 
@@ -66,7 +64,7 @@ class ReturnLabelGenerator implements ReturnLabelGeneratorInterface
         $returnLabelResponseTransfer = $this->returnLabelFacade
             ->generateReturnLabel($returnLabelRequestTransfer);
 
-        return (new RestReturnLabelResponseTransfer)
+        return (new RestReturnLabelResponseTransfer())
             ->setIsSuccessful(true)
             ->setReturnLabelResponse($returnLabelResponseTransfer);
     }
