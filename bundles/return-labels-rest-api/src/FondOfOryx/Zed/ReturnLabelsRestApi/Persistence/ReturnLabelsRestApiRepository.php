@@ -21,7 +21,8 @@ class ReturnLabelsRestApiRepository extends AbstractRepository implements Return
         $idCompanyUnitAddress = $this->getFactory()
             ->getCompanyUnitAddressQuery()
             ->clear()
-            ->select([SpyCompanyUnitAddressTableMap::COL_UUID])
+            ->select([SpyCompanyUnitAddressTableMap::COL_ID_COMPANY_UNIT_ADDRESS])
+            ->filterByUuid($uuid)
             ->findOne();
 
         return $idCompanyUnitAddress;

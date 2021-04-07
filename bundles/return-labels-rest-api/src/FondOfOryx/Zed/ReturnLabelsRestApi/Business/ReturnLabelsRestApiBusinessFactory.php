@@ -2,6 +2,8 @@
 
 namespace FondOfOryx\Zed\ReturnLabelsRestApi\Business;
 
+use FondOfOryx\Zed\ReturnLabelsRestApi\Business\Mapper\ReturnLabelRequestMapper;
+use FondOfOryx\Zed\ReturnLabelsRestApi\Business\Mapper\ReturnLabelRequestMapperInterface;
 use FondOfOryx\Zed\ReturnLabelsRestApi\Business\Model\CompanyUnitAddressReader;
 use FondOfOryx\Zed\ReturnLabelsRestApi\Business\Model\CompanyUnitAddressReaderInterface;
 use FondOfOryx\Zed\ReturnLabelsRestApi\Business\Model\ReturnLabelGenerator;
@@ -22,7 +24,8 @@ class ReturnLabelsRestApiBusinessFactory extends AbstractBusinessFactory
     {
         return new ReturnLabelGenerator(
             $this->createCompanyUnitAddressReader(),
-            $this->getReturnLabelFacade()
+            $this->getReturnLabelFacade(),
+            $this->createReturnLabelRequestMapper()
         );
     }
 
@@ -34,6 +37,14 @@ class ReturnLabelsRestApiBusinessFactory extends AbstractBusinessFactory
         return new CompanyUnitAddressReader(
             $this->getRepository()
         );
+    }
+
+    /**
+     * @return ReturnLabelRequestMapperInterface
+     */
+    protected function createReturnLabelRequestMapper(): ReturnLabelRequestMapperInterface
+    {
+        return new ReturnLabelRequestMapper();
     }
 
     /**

@@ -1,0 +1,18 @@
+<?php
+
+namespace FondOfOryx\Zed\ReturnLabelsRestApi\Business\Mapper;
+
+use Generated\Shared\Transfer\RestReturnLabelRequestTransfer;
+use Generated\Shared\Transfer\ReturnLabelRequestTransfer;
+
+interface ReturnLabelRequestMapperInterface
+{
+    /**
+     * @param RestReturnLabelRequestTransfer $restReturnLabelRequestTransfer
+     *
+     * @return ReturnLabelRequestTransfer
+     */
+    public function mapRestReturnLabelRequestToReturnLabelRequest(
+        RestReturnLabelRequestTransfer $restReturnLabelRequestTransfer
+    ): ReturnLabelRequestTransfer;
+}

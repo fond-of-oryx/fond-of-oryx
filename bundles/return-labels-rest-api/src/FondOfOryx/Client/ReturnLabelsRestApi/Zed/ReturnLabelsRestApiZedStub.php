@@ -4,6 +4,7 @@ namespace FondOfOryx\Client\ReturnLabelsRestApi\Zed;
 
 use FondOfOryx\Client\ReturnLabelsRestApi\Dependency\Client\ReturnLabelsRestApiToZedRequestClientInterface;
 use Generated\Shared\Transfer\RestReturnLabelRequestTransfer;
+use Generated\Shared\Transfer\RestReturnLabelResponseTransfer;
 use Generated\Shared\Transfer\ReturnLabelRestApiResponseTransfer;
 
 class ReturnLabelsRestApiZedStub implements ReturnLabelsRestApiZedStubInterface
@@ -24,11 +25,11 @@ class ReturnLabelsRestApiZedStub implements ReturnLabelsRestApiZedStubInterface
     /**
      * @param \Generated\Shared\Transfer\CompanyUnitAddressTransfer $companyUnitAddressTransfer
      *
-     * @return \Generated\Shared\Transfer\ReturnLabelRestApiResponseTransfer
+     * @return \Generated\Shared\Transfer\RestReturnLabelResponseTransfer
      */
     public function generateReturnLabel(
         RestReturnLabelRequestTransfer $restReturnLabelRequestTransfer
-    ): ReturnLabelRestApiResponseTransfer {
+    ): RestReturnLabelResponseTransfer {
         return $this->zedRequestClient->call(
             '/return-labels-rest-api/gateway/generate-return-label',
             $restReturnLabelRequestTransfer

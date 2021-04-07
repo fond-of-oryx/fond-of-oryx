@@ -12,5 +12,7 @@ interface ReturnLabelGeneratorInterface
      *
      * @return \Generated\Shared\Transfer\ReturnLabelResponseTransfer
      */
-    public function generate(ReturnLabelRequestTransfer $returnLabelRequestTransfer): ReturnLabelResponseTransfer;
+    public function generate(
+        ReturnLabelRequestTransfer $returnLabelRequestTransfer
+    ): ReturnLabelResponseTransfer;
 }

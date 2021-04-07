@@ -3,6 +3,7 @@
 namespace FondOfOryx\Zed\ReturnLabelsRestApi\Business;
 
 use Generated\Shared\Transfer\RestReturnLabelRequestTransfer;
+use Generated\Shared\Transfer\RestReturnLabelResponseTransfer;
 use Generated\Shared\Transfer\ReturnLabelRestApiResponseTransfer;
 
 interface ReturnLabelsRestApiFacadeInterface
@@ -15,9 +16,9 @@ interface ReturnLabelsRestApiFacadeInterface
      *
      * @param \Generated\Shared\Transfer\RestReturnLabelTransfer $restReturnLabelTransfer
      *
-     * @return void
+     * @return RestReturnLabelResponseTransfer
      */
     public function generateReturnLabel(
         RestReturnLabelRequestTransfer $restReturnLabelRequestTransfer
-    ): ReturnLabelRestApiResponseTransfer;
+    ): RestReturnLabelResponseTransfer;
 }

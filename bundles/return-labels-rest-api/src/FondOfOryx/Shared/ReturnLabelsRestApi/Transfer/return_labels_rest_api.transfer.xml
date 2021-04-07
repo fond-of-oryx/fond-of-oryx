@@ -11,10 +11,10 @@
     <transfer name="RestReturnLabelResponse">
         <property name="errors" type="Message[]" singular="error"/>
         <property name="isSuccessful" type="bool"/>
-        <property name="quoteTransfer" type="RestReturnLabel"/>
+        <property name="returnLabelResponse" type="ReturnLabelResponse"/>
     </transfer>
 
-    <transfer name="RestReturnLabel">
+    <transfer name="ReturnLabelResponse">
         <property name="data" type="string" />
     </transfer>
 

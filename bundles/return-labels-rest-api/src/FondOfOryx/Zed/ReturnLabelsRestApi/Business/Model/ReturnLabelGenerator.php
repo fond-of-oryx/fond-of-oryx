@@ -2,8 +2,10 @@
 
 namespace FondOfOryx\Zed\ReturnLabelsRestApi\Business\Model;
 
+use FondOfOryx\Zed\ReturnLabelsRestApi\Business\Mapper\ReturnLabelRequestMapperInterface;
 use FondOfOryx\Zed\ReturnLabelsRestApi\Dependency\Facade\ReturnLabelsRestApiToReturnLabelFacadeInterface;
 use Generated\Shared\Transfer\RestReturnLabelRequestTransfer;
+use Generated\Shared\Transfer\RestReturnLabelResponseTransfer;
 use Generated\Shared\Transfer\ReturnLabelRequestTransfer;
 use Generated\Shared\Transfer\ReturnLabelRestApiResponseTransfer;
 
@@ -20,15 +22,23 @@ class ReturnLabelGenerator implements ReturnLabelGeneratorInterface
     protected $returnLabelFacade;
 
     /**
-     * @param \FondOfOryx\Zed\ReturnLabelsRestApi\Business\Model\CompanyUnitAddressReaderInterface $companyUnitAddressReader
-     * @param \FondOfOryx\Zed\ReturnLabelsRestApi\Dependency\Facade\ReturnLabelsRestApiToReturnLabelFacadeInterface $returnLabelFacade
+     * @var ReturnLabelRequestMapperInterface
+     */
+    protected $returnLabelRequestMapper;
+
+    /**
+     * @param CompanyUnitAddressReaderInterface $companyUnitAddressReader
+     * @param ReturnLabelsRestApiToReturnLabelFacadeInterface $returnLabelFacade
+     * @param ReturnLabelRequestMapperInterface $returnLabelRequestMapper
      */
     public function __construct(
         CompanyUnitAddressReaderInterface $companyUnitAddressReader,
-        ReturnLabelsRestApiToReturnLabelFacadeInterface $returnLabelFacade
+        ReturnLabelsRestApiToReturnLabelFacadeInterface $returnLabelFacade,
+        ReturnLabelRequestMapperInterface $returnLabelRequestMapper
     ) {
         $this->companyUnitAddressReader = $companyUnitAddressReader;
         $this->returnLabelFacade = $returnLabelFacade;
+        $this->returnLabelRequestMapper = $returnLabelRequestMapper;
     }
 
     /**
@@ -38,19 +48,24 @@ class ReturnLabelGenerator implements ReturnLabelGeneratorInterface
      */
     public function generate(
         RestReturnLabelRequestTransfer $restReturnLabelRequestTransfer
-    ): ReturnLabelRestApiResponseTransfer {
+    ): RestReturnLabelResponseTransfer {
         $idCompanyUnitAddress = $this->companyUnitAddressReader->getIdCompanyUnitAddressByRestReturnLabel(
             $restReturnLabelRequestTransfer
         );
 
         if ($idCompanyUnitAddress === null) {
-            return;
+            return (new RestReturnLabelResponseTransfer)
+                ->setIsSuccessful(false);
         }
 
-        $returnLabelRequestTransfer = (new ReturnLabelRequestTransfer())
-            ->setIdCustomer($restReturnLabelTransfer->getIdCustomer())
-            ->setIdCompanyUnitAddress($idCompanyUnitAddress);
+        $returnLabelRequestTransfer = $this->returnLabelRequestMapper
+            ->mapRestReturnLabelRequestToReturnLabelRequest($restReturnLabelRequestTransfer);
 
-        $this->returnLabelFacade->generateReturnLabel($returnLabelRequestTransfer);
+        $returnLabelResponseTransfer = $this->returnLabelFacade
+            ->generateReturnLabel($returnLabelRequestTransfer);
+
+        return (new RestReturnLabelResponseTransfer)
+            ->setIsSuccessful(true)
+            ->setReturnLabelResponse($returnLabelResponseTransfer);
     }
 }

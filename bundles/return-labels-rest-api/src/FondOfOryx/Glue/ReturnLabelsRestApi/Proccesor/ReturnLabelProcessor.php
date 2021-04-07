@@ -57,20 +57,21 @@ class ReturnLabelProcessor implements ReturnLabelProcessorInterface
 
         $restReturnLabelResponseTransfer = $this->client->generateReturnLabel($restReturnLabelRequestTransfer);
 
-        if (!$restReturnLabelResponseTransfer->isSuccess()) {
+        if (!$restReturnLabelResponseTransfer->getIsSuccessful()) {
             return $restResponse->addError((new RestErrorMessageTransfer())
                 ->setStatus(Response::HTTP_BAD_REQUEST)
-                ->setCode(ReturnLabelsRestApiConfig::ReturnLabelsRestApiConfig)
+                ->setCode(ReturnLabelsRestApiConfig::RESPONSE_CODE_NO_ADDRESS_FOUND)
                 ->setDetail(sprintf(
                     ReturnLabelsRestApiConfig::RESPONSE_DETAIL_NO_ADDRESS_FOUND,
+                    $restReturnLabelRequestTransfer->getCompanyUnitAddressUuid(),
                     $restReturnLabelRequestTransfer->getIdCustomer()
                 )));
         }
 
         $restResource = $this->resourceBuilder->createRestResource(
             ReturnLabelsRestApiConfig::RESOURCE_RETURN_LABELS_REST_API,
-            $companyUnitAddressTransfer->getUuid(),
-            $returnLabelRestApiResponseTransfer
+            $restReturnLabelRequestTransfer->getCompanyUnitAddressUuid(),
+            $restReturnLabelResponseTransfer
         );
 
         return $restResponse->addResource($restResource);

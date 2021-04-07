@@ -12,5 +12,23 @@
    </transfer>
 
     <transfer name="ReturnLabelResponse">
+        <property name="data" type="string" />
+    </transfer>
+
+    <transfer name="ReturnLabelServiceRequest">
+        <property name="qrCode" type="bool"/>
+        <property name="returnForm" type="bool"/>
+        <property name="returnLabelAddress" type="ReturnLabelAddress"/>
+    </transfer>
+
+    <transfer name="ReturnLabelAddress">
+        <property name="company" type="string"/>
+        <property name="name" type="string"/>
+        <property name="address1" type="string"/>
+        <property name="address2" type="string"/>
+        <property name="address3" type="string"/>
+        <property name="zip" type="string"/>
+        <property name="city" type="string"/>
+        <property name="country" type="string"/>
     </transfer>
 </transfers>

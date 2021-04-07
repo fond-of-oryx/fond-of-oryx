@@ -3,6 +3,8 @@
 namespace FondOfOryx\Zed\ReturnLabelsRestApi\Business;
 
 use Generated\Shared\Transfer\RestReturnLabelRequestTransfer;
+use Generated\Shared\Transfer\RestReturnLabelResponseTransfer;
+use Generated\Shared\Transfer\ReturnLabelRestApiResponseTransfer;
 use Spryker\Zed\Kernel\Business\AbstractFacade;
 
 /**
@@ -19,10 +21,14 @@ class ReturnLabelsRestApiFacade extends AbstractFacade implements ReturnLabelsRe
      *
      * @param \Generated\Shared\Transfer\RestReturnLabelTransfer $restReturnLabelTransfer
      *
-     * @return void
+     * @return RestReturnLabelResponseTransfer
      */
-    public function generateReturnLabel(RestReturnLabelRequestTransfer $restReturnLabelRequestTransfer): void
+    public function generateReturnLabel(
+        RestReturnLabelRequestTransfer $restReturnLabelRequestTransfer
+    ): RestReturnLabelResponseTransfer
     {
-        return $this->getFactory()->createReturnLabelGenerator()->generate($restReturnLabelRequestTransfer);
+        return $this->getFactory()
+            ->createReturnLabelGenerator()
+            ->generate($restReturnLabelRequestTransfer);
     }
 }

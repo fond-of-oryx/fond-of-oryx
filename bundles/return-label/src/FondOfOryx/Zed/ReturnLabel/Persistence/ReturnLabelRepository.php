@@ -38,7 +38,8 @@ class ReturnLabelRepository extends AbstractRepository implements ReturnLabelRep
             return null;
         }
 
-        return $this->getFactory()->createCompanyUnitAddressMapper()
+        return $this->getFactory()
+            ->createCompanyUnitAddressMapper()
             ->mapEntityToTransfer($spyCompanyUnitAddressEntity, new CompanyUnitAddressTransfer());
     }
 }
