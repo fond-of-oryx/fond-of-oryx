@@ -52,8 +52,20 @@
       "path": "bundles/one-time-password-rest-api/",
       "version": "1.0.0-beta.0"
     },
+    "product-country-restriction": {
+      "path": "bundles/product-country-restriction/",
+      "version": "1.0.0"
+    },
+    "product-country-restriction-checkout-connector": {
+      "path": "bundles/product-country-restriction-checkout-connector/",
+      "version": "1.0.0"
+    },
     "product-locale-restriction": {
       "path": "bundles/product-locale-restriction/",
+      "version": "1.0.0"
+    },
+    "product-locale-restriction-cart-connector": {
+      "path": "bundles/product-locale-restriction-cart-connector/",
       "version": "1.0.0"
     },
     "product-locale-restriction-search": {
