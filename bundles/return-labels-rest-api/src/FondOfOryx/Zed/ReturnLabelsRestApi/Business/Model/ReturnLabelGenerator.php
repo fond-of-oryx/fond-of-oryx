@@ -61,6 +61,8 @@ class ReturnLabelGenerator implements ReturnLabelGeneratorInterface
         $returnLabelRequestTransfer = $this->returnLabelRequestMapper
             ->mapRestReturnLabelRequestToReturnLabelRequest($restReturnLabelRequestTransfer);
 
+        $returnLabelRequestTransfer->setIdCompanyUnitAddress($idCompanyUnitAddress);
+
         $returnLabelResponseTransfer = $this->returnLabelFacade
             ->generateReturnLabel($returnLabelRequestTransfer);
 

@@ -24,7 +24,7 @@ class ReturnLabelRepository extends AbstractRepository implements ReturnLabelRep
             ->getCompanyUnitAddressQuery()
             ->clear()
             ->filterByIdCompanyUnitAddress($returnLabelRequestTransfer->getIdCompanyUnitAddress())
-            ->useSpyCompanyBusinessUnitQuery()
+            ->useCompanyQuery()
                 ->useCompanyUserQuery()
                     ->useCustomerQuery()
                         ->filterByIdCustomer($returnLabelRequestTransfer->getIdCustomer())

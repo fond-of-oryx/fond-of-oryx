@@ -18,12 +18,12 @@ class ReturnLabelAddressMapper implements ReturnLabelAddressMapperInterface
         ReturnLabelAddressTransfer $returnLabelAddressTransfer
     ): ReturnLabelAddressTransfer
     {
-        $returnLabelAddressTransfer
+        return $returnLabelAddressTransfer
             ->setCompany('')
             ->setName($companyUnitAddressTransfer->getName1().' '.$companyUnitAddressTransfer->getName2())
-            ->setAddress1($companyUnitAddressTransfer->setAddress1())
-            ->setAddress2($companyUnitAddressTransfer->setAddress2())
-            ->setAddress3($companyUnitAddressTransfer->setAddress3())
+            ->setAddress1($companyUnitAddressTransfer->getAddress1())
+            ->setAddress2($companyUnitAddressTransfer->getAddress2())
+            ->setAddress3($companyUnitAddressTransfer->getAddress3())
             ->setZip($companyUnitAddressTransfer->getZipCode())
             ->setCity($companyUnitAddressTransfer->getCity())
             ->setCountry($companyUnitAddressTransfer->getCountry());

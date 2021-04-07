@@ -71,12 +71,9 @@ class ReturnLabelGenerator implements ReturnLabelGeneratorInterface
             ->setReturnLabelAddress($returnLabelAddressTransfer);
 
         $response = $this->returnLabelAdapter
-            ->sendRequest($returnLabelServiceRequest); //TODO: Use api transfer model
-
-        var_dump($response);
-
-        return new ReturnLabelResponseTransfer();
+            ->sendRequest($returnLabelServiceRequestTransfer);
 
         // TODO: Map to ReturnLabelResponseTransfer and return
+        return new ReturnLabelResponseTransfer();
     }
 }
