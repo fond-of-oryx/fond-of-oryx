@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+<transfers xmlns="spryker:transfer-01"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="spryker:transfer-01 http://static.spryker.com/transfer-01.xsd">
+    <transfer name="ProductAbstract">
+        <property name="idProductAbstract" type="int" />
+        <property name="blacklistedCountries" type="Country[]" singular="blacklistedCountry" />
+        <property name="blacklistedCountryIds" type="int[]" singular="blacklistedCountryId" />
+    </transfer>
+
+    <transfer name="ProductAbstractCountryRestriction">
+        <property name="idProductAbstract" type="int" />
+        <property name="idCountry" type="int"/>
+    </transfer>
+
+    <transfer name="Quote">
+        <property name="items" type="Item[]" singular="item" />
+    </transfer>
+
+    <transfer name="Item">
+        <property name="shipment" type="Shipment" />
+    </transfer>
+
+    <transfer name="Shipment">
+        <property name="shippingAddress" type="Address" />
+    </transfer>
+
+    <transfer name="Address">
+        <property name="iso2Code" type="string" />
+    </transfer>
+
+    <transfer name="QuoteValidationResponse">
+        <property name="isSuccess" type="bool" deprecated="use isSuccessful property instead"/>
+        <property name="isSuccessful" type="bool"/>
+        <property name="errors" type="QuoteError[]" singular="errors"/>
+        <property name="messages" type="Message[]"  singular="message"/>
+    </transfer>
+</transfers>
