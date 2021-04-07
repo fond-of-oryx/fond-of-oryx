@@ -38,6 +38,10 @@ class ErpOrderApiRepository extends AbstractRepository implements ErpOrderApiRep
             ->getApiQueryContainer()
             ->createApiCollection($data);
 
+        if (count($apiCollectionTransfer->getData()) === 0) {
+            return $apiCollectionTransfer;
+        }
+
         return $this->addPagination($query, $apiCollectionTransfer, $apiRequestTransfer);
     }
 
