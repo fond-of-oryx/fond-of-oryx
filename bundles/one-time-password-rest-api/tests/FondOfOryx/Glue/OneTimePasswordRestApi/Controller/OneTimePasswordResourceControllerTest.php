@@ -66,7 +66,7 @@ class OneTimePasswordResourceControllerTest extends Unit
             ->disableOriginalConstructor()
             ->getMock();
 
-        $this->oneTimePasswordResourceController = new class($this->oneTimePasswordRestApiFactoryMock) extends OneTimePasswordResourceController {
+        $this->oneTimePasswordResourceController = new class ($this->oneTimePasswordRestApiFactoryMock) extends OneTimePasswordResourceController {
             /**
              * @var \FondOfOryx\Glue\OneTimePasswordRestApi\OneTimePasswordRestApiFactory
              */

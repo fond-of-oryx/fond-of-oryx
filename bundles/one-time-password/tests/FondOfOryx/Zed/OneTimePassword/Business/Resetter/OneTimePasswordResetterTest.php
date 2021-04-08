@@ -6,7 +6,7 @@ use Codeception\Test\Unit;
 use FondOfOryx\Zed\OneTimePassword\Persistence\OneTimePasswordEntityManagerInterface;
 use Generated\Shared\Transfer\CustomerTransfer;
 
-class OneTimePasswordResetterTest extends Unit#
+class OneTimePasswordResetterTest extends Unit
 {
     /**
      * @var \FondOfOryx\Zed\OneTimePassword\Business\Resetter\OneTimePasswordResetter
