@@ -87,7 +87,7 @@ class CompanyUnitAddressReader implements CompanyUnitAddressReaderInterface
     /**
      * @param \Generated\Shared\Transfer\CompanyUserCollectionTransfer $companyUserCollectionTransfer
      *
-     * @return array
+     * @return string[]
      */
     protected function getCompanyUserReferenceCollection(CompanyUserCollectionTransfer $companyUserCollectionTransfer): array
     {
@@ -101,9 +101,9 @@ class CompanyUnitAddressReader implements CompanyUnitAddressReaderInterface
     }
 
     /**
-     * @param \Generated\Shared\Transfer\CompanyUserTransfer[] $companyUsersTransfer
+     * @param \Generated\Shared\Transfer\CompanyUserCollectionTransfer $companyUserCollectionTransfer
      *
-     * @return array
+     * @return int[]
      */
     protected function getCompanyIds(CompanyUserCollectionTransfer $companyUserCollectionTransfer): array
     {

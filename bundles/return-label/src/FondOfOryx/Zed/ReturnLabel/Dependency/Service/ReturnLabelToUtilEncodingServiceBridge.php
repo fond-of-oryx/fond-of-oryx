@@ -11,6 +11,9 @@ class ReturnLabelToUtilEncodingServiceBridge implements ReturnLabelToUtilEncodin
      */
     protected $utilEncodingService;
 
+    /**
+     * @param \Spryker\Service\UtilEncoding\UtilEncodingServiceInterface $utilEncodingService
+     */
     public function __construct(UtilEncodingServiceInterface $utilEncodingService)
     {
         $this->utilEncodingService = $utilEncodingService;
