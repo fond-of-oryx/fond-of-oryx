@@ -16,6 +16,9 @@
         <property name="blacklistedLocales" type="string[]" singular="blacklistedLocale"/>
     </transfer>
 
+    <transfer name="Locale">
+    </transfer>
+
     <transfer name="ProductPageSearch">
         <property name="blacklistedLocales" type="string[]" singular="blacklistedLocale"/>
     </transfer>
