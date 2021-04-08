@@ -27,7 +27,9 @@ class CompanyUnitAddressReader implements CompanyUnitAddressReaderInterface
     protected $repository;
 
     /**
-     * @param \FondOfOryx\Zed\ReturnLabelsRestApi\Persistence\ReturnLabelsRestApiRepositoryInterface $companyUnitAddressRepository
+     * @param \FondOfOryx\Zed\ReturnLabelsRestApi\Dependency\ReturnLabelsRestApiToCustomerFacadeInterface $customerFacade
+     * @param \FondOfOryx\Zed\ReturnLabelsRestApi\Dependency\ReturnLabelsRestApiToCompanyUserFacadeInterface $companyUserFacade
+     * @param \FondOfOryx\Zed\ReturnLabelsRestApi\Persistence\ReturnLabelsRestApiRepositoryInterface $repository
      */
     public function __construct(
         ReturnLabelsRestApiToCustomerFacadeInterface $customerFacade,

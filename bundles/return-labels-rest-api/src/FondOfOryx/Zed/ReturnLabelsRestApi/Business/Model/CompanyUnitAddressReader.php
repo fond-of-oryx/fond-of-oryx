@@ -21,7 +21,7 @@ class CompanyUnitAddressReader implements CompanyUnitAddressReaderInterface
     }
 
     /**
-     * @param \Generated\Shared\Transfer\RestReturnLabelTransfer $restReturnLabelTransfer
+     * @param \Generated\Shared\Transfer\RestReturnLabelRequestTransfer $restReturnLabelRequestTransfer
      *
      * @return int|null
      */

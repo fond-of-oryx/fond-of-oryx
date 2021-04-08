@@ -80,6 +80,8 @@ class ReturnLabelProcessor implements ReturnLabelProcessorInterface
     /**
      * @param \Spryker\Glue\GlueApplication\Rest\Request\Data\RestRequestInterface $restRequest
      * @param \Generated\Shared\Transfer\RestReturnLabelRequestAttributesTransfer $restReturnLabelRequestAttributesTransfer
+     *
+     * @return \Generated\Shared\Transfer\RestReturnLabelRequestTransfer
      */
     protected function createRestReturnLabelRequest(
         RestRequestInterface $restRequest,

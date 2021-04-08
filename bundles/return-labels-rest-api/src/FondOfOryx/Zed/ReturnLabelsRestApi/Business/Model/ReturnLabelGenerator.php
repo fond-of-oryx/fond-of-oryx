@@ -40,9 +40,9 @@ class ReturnLabelGenerator implements ReturnLabelGeneratorInterface
     }
 
     /**
-     * @param \Generated\Shared\Transfer\RestReturnLabelTransfer $restReturnLabelTransfer
+     * @param \Generated\Shared\Transfer\RestReturnLabelRequestTransfer $restReturnLabelRequestTransfer
      *
-     * @return void
+     * @return \Generated\Shared\Transfer\RestReturnLabelResponseTransfer
      */
     public function generate(
         RestReturnLabelRequestTransfer $restReturnLabelRequestTransfer

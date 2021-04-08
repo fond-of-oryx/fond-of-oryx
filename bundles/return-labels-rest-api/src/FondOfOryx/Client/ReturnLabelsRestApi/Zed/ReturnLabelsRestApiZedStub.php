@@ -22,7 +22,7 @@ class ReturnLabelsRestApiZedStub implements ReturnLabelsRestApiZedStubInterface
     }
 
     /**
-     * @param \Generated\Shared\Transfer\CompanyUnitAddressTransfer $companyUnitAddressTransfer
+     * @param \Generated\Shared\Transfer\RestReturnLabelRequestTransfer $restReturnLabelRequestTransfer
      *
      * @return \Generated\Shared\Transfer\RestReturnLabelResponseTransfer
      */

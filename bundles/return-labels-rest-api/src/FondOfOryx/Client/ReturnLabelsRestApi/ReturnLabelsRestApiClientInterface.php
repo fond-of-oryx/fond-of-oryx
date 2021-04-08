@@ -8,7 +8,7 @@ use Generated\Shared\Transfer\RestReturnLabelResponseTransfer;
 interface ReturnLabelsRestApiClientInterface
 {
     /**
-     * @param \Generated\Shared\Transfer\CompanyUnitAddressTransfer $companyUnitAddressTransfer
+     * @param \Generated\Shared\Transfer\RestReturnLabelRequestTransfer $restReturnLabelRequestTransfer
      *
      * @return \Generated\Shared\Transfer\RestReturnLabelResponseTransfer
      */

@@ -51,6 +51,8 @@ class ReturnLabelAdapter implements ReturnLabelAdapterInterface
 
     /**
      * @param \Spryker\Shared\Kernel\Transfer\AbstractTransfer $transfer
+     *
+     * @return \Psr\Http\Message\StreamInterface|null
      */
     public function sendRequest(AbstractTransfer $transfer): ?StreamInterface
     {

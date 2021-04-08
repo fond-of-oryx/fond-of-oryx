@@ -12,7 +12,7 @@ use Spryker\Client\Kernel\AbstractClient;
 class ReturnLabelsRestApiClient extends AbstractClient implements ReturnLabelsRestApiClientInterface
 {
     /**
-     * @param \Generated\Shared\Transfer\CompanyUnitAddressTransfer $companyUnitAddressTransfer
+     * @param \Generated\Shared\Transfer\RestReturnLabelRequestTransfer $restReturnLabelRequestTransfer
      *
      * @return \Generated\Shared\Transfer\RestReturnLabelResponseTransfer
      */
