@@ -6,6 +6,7 @@ use Codeception\Test\Unit;
 use FondOfOryx\Client\ProductCountryRestrictionCheckoutConnector\ProductCountryRestrictionCheckoutConnectorClient;
 use Generated\Shared\Transfer\QuoteTransfer;
 use Generated\Shared\Transfer\QuoteValidationResponseTransfer;
+use Spryker\Client\Kernel\AbstractClient;
 
 class ProductCountryRestrictionCheckoutPreCheckPluginTest extends Unit
 {
@@ -48,8 +49,33 @@ class ProductCountryRestrictionCheckoutPreCheckPluginTest extends Unit
             ->disableOriginalConstructor()
             ->getMock();
 
-        $this->productCountryRestrictionCheckoutPreCheckPlugin = new ProductCountryRestrictionCheckoutPreCheckPlugin();
-        $this->productCountryRestrictionCheckoutPreCheckPlugin->setClient($this->clientMock);
+        if (method_exists(ProductCountryRestrictionCheckoutPreCheckPlugin::class, 'setClient')) {
+            $this->productCountryRestrictionCheckoutPreCheckPlugin = new ProductCountryRestrictionCheckoutPreCheckPlugin();
+            $this->productCountryRestrictionCheckoutPreCheckPlugin->setClient($this->clientMock);
+        } else {
+            $this->productCountryRestrictionCheckoutPreCheckPlugin = new class ($this->clientMock) extends ProductCountryRestrictionCheckoutPreCheckPlugin {
+                /**
+                 * @var \Spryker\Client\Kernel\AbstractClient
+                 */
+                protected $productCountryRestrictionCheckoutConnectorClient;
+
+                /**
+                 * @param \Spryker\Client\Kernel\AbstractClient $client
+                 */
+                public function __construct(AbstractClient $client)
+                {
+                    $this->productCountryRestrictionCheckoutConnectorClient = $client;
+                }
+
+                /**
+                 * @return \Spryker\Client\Kernel\AbstractClient
+                 */
+                protected function getClient(): AbstractClient
+                {
+                    return $this->productCountryRestrictionCheckoutConnectorClient;
+                }
+            };
+        }
     }
 
     /**

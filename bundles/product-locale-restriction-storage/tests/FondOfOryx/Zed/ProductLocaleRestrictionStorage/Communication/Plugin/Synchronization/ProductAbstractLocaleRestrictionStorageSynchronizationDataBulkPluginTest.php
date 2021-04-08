@@ -9,6 +9,7 @@ use FondOfOryx\Zed\ProductLocaleRestrictionStorage\ProductLocaleRestrictionStora
 use Generated\Shared\Transfer\FilterTransfer;
 use Generated\Shared\Transfer\FooProductAbstractLocaleRestrictionStorageEntityTransfer;
 use Orm\Zed\ProductLocaleRestrictionStorage\Persistence\Map\FooProductAbstractLocaleRestrictionStorageTableMap;
+use Spryker\Zed\Kernel\AbstractBundleConfig;
 
 class ProductAbstractLocaleRestrictionStorageSynchronizationDataBulkPluginTest extends Unit
 {
@@ -53,8 +54,34 @@ class ProductAbstractLocaleRestrictionStorageSynchronizationDataBulkPluginTest e
                 ->getMock(),
         ];
 
-        $this->productAbstractLocaleRestrictionStorageSynchronizationDataBulkPlugin = new ProductAbstractLocaleRestrictionStorageSynchronizationDataBulkPlugin();
-        $this->productAbstractLocaleRestrictionStorageSynchronizationDataBulkPlugin->setConfig($this->configMock);
+        if (method_exists(ProductAbstractLocaleRestrictionStorageSynchronizationDataBulkPlugin::class, 'setConfig')) {
+            $this->productAbstractLocaleRestrictionStorageSynchronizationDataBulkPlugin = new ProductAbstractLocaleRestrictionStorageSynchronizationDataBulkPlugin();
+            $this->productAbstractLocaleRestrictionStorageSynchronizationDataBulkPlugin->setConfig($this->configMock);
+        } else {
+            $this->productAbstractLocaleRestrictionStorageSynchronizationDataBulkPlugin = new class ($this->configMock) extends ProductAbstractLocaleRestrictionStorageSynchronizationDataBulkPlugin {
+                /**
+                 * @var \Spryker\Zed\Kernel\AbstractBundleConfig
+                 */
+                protected $productLocaleRestrictionStorageConfig;
+
+                /**
+                 * @param \Spryker\Zed\Kernel\AbstractBundleConfig $config
+                 */
+                public function __construct(AbstractBundleConfig $config)
+                {
+                    $this->productLocaleRestrictionStorageConfig = $config;
+                }
+
+                /**
+                 * @return \Spryker\Zed\Kernel\AbstractBundleConfig
+                 */
+                protected function getConfig(): AbstractBundleConfig
+                {
+                    return $this->productLocaleRestrictionStorageConfig;
+                }
+            };
+        }
+
         $this->productAbstractLocaleRestrictionStorageSynchronizationDataBulkPlugin->setRepository(
             $this->repositoryMock
         );
