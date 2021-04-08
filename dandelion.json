@@ -57,17 +57,33 @@
       path: "bundles/one-time-password-rest-api/",
       version: "1.0.0-beta.0"
     },
-    product-locale-restriction: {
-      path: "bundles/product-locale-restriction/",
-      version: "1.0.0"
+    "product-country-restriction": {
+      "path": "bundles/product-country-restriction/",
+      "version": "1.0.0"
     },
-    product-locale-restriction-search: {
-      path: "bundles/product-locale-restriction-search/",
-      version: "1.0.0"
+    "product-country-restriction-checkout-connector": {
+      "path": "bundles/product-country-restriction-checkout-connector/",
+      "version": "1.0.0"
     },
-    sales-locale-connector: {
-      path: "bundles/sales-locale-connector/",
-      version: "1.0.0"
+    "product-locale-restriction": {
+      "path": "bundles/product-locale-restriction/",
+      "version": "1.0.0"
+    },
+    "product-locale-restriction-cart-connector": {
+      "path": "bundles/product-locale-restriction-cart-connector/",
+      "version": "1.0.0"
+    },
+    "product-locale-restriction-search": {
+      "path": "bundles/product-locale-restriction-search/",
+      "version": "1.0.0"
+    },
+    "product-locale-restriction-storage": {
+      "path": "bundles/product-locale-restriction-storage/",
+      "version": "1.0.0"
+    },
+    "sales-locale-connector": {
+      "path": "bundles/sales-locale-connector/",
+      "version": "1.0.0"
     },
     shipment-table-rate: {
       path: "bundles/shipment-table-rate/",
@@ -97,7 +113,7 @@
       path: "bundles/thirty-five-up-payment-filter/",
       version: "1.0.0"
     },
-    util-math-formula: {
+    util-math-formula:   {
       path: "bundles/util-math-formula/",
       version: "1.0.0"
     }

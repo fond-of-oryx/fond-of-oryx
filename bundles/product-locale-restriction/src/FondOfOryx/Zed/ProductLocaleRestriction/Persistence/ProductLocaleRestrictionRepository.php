@@ -2,6 +2,7 @@
 
 namespace FondOfOryx\Zed\ProductLocaleRestriction\Persistence;
 
+use Orm\Zed\Product\Persistence\Map\SpyProductTableMap;
 use Orm\Zed\ProductLocaleRestriction\Persistence\Map\FooProductAbstractLocaleRestrictionTableMap;
 use Spryker\Zed\Kernel\Persistence\AbstractRepository;
 
@@ -17,7 +18,7 @@ class ProductLocaleRestrictionRepository extends AbstractRepository implements P
      *
      * @return \Generated\Shared\Transfer\LocaleTransfer[]
      */
-    public function findLocaleBlacklistByIdProductAbstract(int $idProductAbstract): array
+    public function findBlacklistedLocaleByIdProductAbstract(int $idProductAbstract): array
     {
         $fooProductAbstractLocaleRestrictionQuery = $this->getFactory()
             ->createFooProductAbstractLocaleRestrictionQuery();
@@ -36,7 +37,7 @@ class ProductLocaleRestrictionRepository extends AbstractRepository implements P
      *
      * @return int[]
      */
-    public function findLocaleBlacklistIdsByIdProductAbstract(int $idProductAbstract): array
+    public function findBlacklistedLocaleIdsByIdProductAbstract(int $idProductAbstract): array
     {
         $fooProductAbstractLocaleRestrictionQuery = $this->getFactory()
             ->createFooProductAbstractLocaleRestrictionQuery();
@@ -64,5 +65,27 @@ class ProductLocaleRestrictionRepository extends AbstractRepository implements P
 
         return $this->getFactory()->createProductAbstractLocaleRestrictionMapper()
             ->mapEntityCollectionToGroupedLocaleNames($fooProductAbstractLocaleRestrictionCollection);
+    }
+
+    /**
+     * @param string[] $productConcreteSkus
+     *
+     * @return array
+     */
+    public function findBlacklistedLocalesByProductConcreteSkus(array $productConcreteSkus): array
+    {
+        /** @var \Orm\Zed\ProductLocaleRestriction\Persistence\FooProductAbstractLocaleRestrictionQuery $fooProductAbstractLocaleRestrictionQuery */
+        $fooProductAbstractLocaleRestrictionQuery = $this->getFactory()
+            ->createFooProductAbstractLocaleRestrictionQuery()
+            ->innerJoinWithLocale()
+            ->useProductAbstractQuery()
+                ->useSpyProductQuery()
+                    ->filterBySku_In($productConcreteSkus)
+                    ->withColumn(SpyProductTableMap::COL_SKU, 'sku')
+                ->endUse()
+            ->endUse();
+
+        return $this->getFactory()->createProductAbstractLocaleRestrictionMapper()
+            ->mapEntityCollectionToGroupedLocaleNames($fooProductAbstractLocaleRestrictionQuery->find(), 'sku');
     }
 }

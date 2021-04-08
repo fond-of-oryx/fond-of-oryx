@@ -69,7 +69,7 @@ class ProductAbstractLocaleRestrictionsPersisterTest extends Unit
             ->willReturn($idProductAbstract);
 
         $this->repositoryMock->expects(static::atLeastOnce())
-            ->method('findLocaleBlacklistIdsByIdProductAbstract')
+            ->method('findBlacklistedLocaleIdsByIdProductAbstract')
             ->with($idProductAbstract)
             ->willReturn($currentLocaleIds);
 
@@ -118,7 +118,7 @@ class ProductAbstractLocaleRestrictionsPersisterTest extends Unit
             ->willReturn(null);
 
         $this->repositoryMock->expects(static::never())
-            ->method('findLocaleBlacklistIdsByIdProductAbstract');
+            ->method('findBlacklistedLocaleIdsByIdProductAbstract');
 
         $this->productAbstractTransferMock->expects(static::never())
             ->method('getBlacklistedLocaleIds');
