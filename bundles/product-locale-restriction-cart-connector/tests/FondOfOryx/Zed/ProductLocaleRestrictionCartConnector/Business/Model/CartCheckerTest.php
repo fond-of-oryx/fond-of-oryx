@@ -2,11 +2,11 @@
 
 namespace FondOfOryx\Zed\ProductLocaleRestrictionCartConnector\Business\Model;
 
+use ArrayObject;
 use Codeception\Test\Unit;
 use FondOfOryx\Zed\ProductLocaleRestrictionCartConnector\Dependency\Facade\ProductLocaleRestrictionCartConnectorToProductLocaleRestrictionFacadeInterface;
 use Generated\Shared\Transfer\CartChangeTransfer;
 use Generated\Shared\Transfer\ItemTransfer;
-use Laminas\Stdlib\ArrayObject;
 
 class CartCheckerTest extends Unit
 {
