@@ -9,6 +9,7 @@ use FondOfOryx\Zed\ProductLocaleRestrictionStorage\Communication\Plugin\Event\Li
 use FondOfOryx\Zed\ProductLocaleRestrictionStorage\ProductLocaleRestrictionStorageConfig;
 use Spryker\Zed\Event\Dependency\EventCollectionInterface;
 use Spryker\Zed\Event\Dependency\Plugin\EventBaseHandlerInterface;
+use Spryker\Zed\Kernel\AbstractBundleConfig;
 use Spryker\Zed\Product\Dependency\ProductEvents;
 
 class ProductLocaleRestrictionStorageEventSubscriberTest extends Unit
@@ -43,8 +44,33 @@ class ProductLocaleRestrictionStorageEventSubscriberTest extends Unit
             ->disableOriginalConstructor()
             ->getMock();
 
-        $this->productLocaleRestrictionStorageEventSubscriber = new ProductLocaleRestrictionStorageEventSubscriber();
-        $this->productLocaleRestrictionStorageEventSubscriber->setConfig($this->configMock);
+        if (method_exists(ProductLocaleRestrictionStorageEventSubscriber::class, 'setConfig')) {
+            $this->productLocaleRestrictionStorageEventSubscriber = new ProductLocaleRestrictionStorageEventSubscriber();
+            $this->productLocaleRestrictionStorageEventSubscriber->setConfig($this->configMock);
+        } else {
+            $this->productLocaleRestrictionStorageEventSubscriber = new class ($this->configMock) extends ProductLocaleRestrictionStorageEventSubscriber {
+                /**
+                 * @var \Spryker\Zed\Kernel\AbstractBundleConfig
+                 */
+                protected $productLocaleRestrictionStorageConfig;
+
+                /**
+                 * @param \Spryker\Zed\Kernel\AbstractBundleConfig $config
+                 */
+                public function __construct(AbstractBundleConfig $config)
+                {
+                    $this->productLocaleRestrictionStorageConfig = $config;
+                }
+
+                /**
+                 * @return \Spryker\Zed\Kernel\AbstractBundleConfig
+                 */
+                protected function getConfig(): AbstractBundleConfig
+                {
+                    return $this->productLocaleRestrictionStorageConfig;
+                }
+            };
+        }
     }
 
     /**
