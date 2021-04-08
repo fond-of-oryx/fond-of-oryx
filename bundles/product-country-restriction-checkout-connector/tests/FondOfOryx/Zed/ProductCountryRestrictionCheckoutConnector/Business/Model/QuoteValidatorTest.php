@@ -89,7 +89,7 @@ class QuoteValidatorTest extends Unit
     {
         $blacklistedCountries = [
             'FOO-1' => ['DE'],
-            'FOO-2' => ['DE'],
+            'FOO-2' => ['DE', 'BE'],
         ];
 
         $this->quoteTransferMock->expects(static::atLeastOnce())

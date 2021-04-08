@@ -69,7 +69,7 @@ class QuoteValidator implements QuoteValidatorInterface
     {
         $sku = $itemTransfer->getSku();
 
-        if (!isset($blacklistedCountries[$sku])) {
+        if (empty($blacklistedCountries[$sku]) || !is_array($blacklistedCountries[$sku])) {
             return false;
         }
 
@@ -122,22 +122,10 @@ class QuoteValidator implements QuoteValidatorInterface
      */
     protected function createErrorMessage(ItemTransfer $itemTransfer, array $blacklistedCountries): MessageTransfer
     {
-        $sku = $itemTransfer->getSku();
-        $blacklistedCountryCodes = [];
-
-        if (isset($blacklistedCountries[$sku])) {
-            $blacklistedCountryCodes = $blacklistedCountries[$sku];
-        }
-
         return (new MessageTransfer())
             ->setType('error')
             ->setValue(static::MESSAGE_ERROR_ITEM_IS_RESTRICTED)
-            ->setParameters(
-                [
-                    static::MESSAGE_PARAM_SKU => $sku,
-                    static::MESSAGE_PARAM_BLACKLISTED_COUNTRY_CODES => $blacklistedCountryCodes,
-                ]
-            );
+            ->setParameters($this->createParameters($itemTransfer, $blacklistedCountries));
     }
 
     /**
@@ -148,20 +136,39 @@ class QuoteValidator implements QuoteValidatorInterface
      */
     protected function createQuoteError(ItemTransfer $itemTransfer, array $blacklistedCountries): QuoteErrorTransfer
     {
-        $sku = $itemTransfer->getSku();
-        $blacklistedCountryCodes = [];
-
-        if (isset($blacklistedCountries[$sku])) {
-            $blacklistedCountryCodes = $blacklistedCountries[$sku];
-        }
-
         return (new QuoteErrorTransfer())
             ->setMessage(static::MESSAGE_ERROR_ITEM_IS_RESTRICTED)
-            ->setParameters(
-                [
-                    static::MESSAGE_PARAM_SKU => $sku,
-                    static::MESSAGE_PARAM_BLACKLISTED_COUNTRY_CODES => $blacklistedCountryCodes,
-                ]
+            ->setParameters($this->createParameters($itemTransfer, $blacklistedCountries));
+    }
+
+    /**
+     * @param \Generated\Shared\Transfer\ItemTransfer $itemTransfer
+     * @param array $blacklistedCountries
+     *
+     * @return array
+     */
+    protected function createParameters(ItemTransfer $itemTransfer, array $blacklistedCountries): array
+    {
+        $sku = $itemTransfer->getSku();
+        $blacklistedCountryCodeList = [];
+
+        if (!empty($blacklistedCountries[$sku]) && is_array($blacklistedCountries[$sku])) {
+            $blacklistedCountryCodeList = $blacklistedCountries[$sku];
+        }
+
+        $blacklistedCountryCodes = array_pop($blacklistedCountryCodeList);
+
+        if (!empty($blacklistedCountryCodeList)) {
+            $blacklistedCountryCodes = sprintf(
+                '%s & %s',
+                implode(', ', $blacklistedCountryCodeList),
+                $blacklistedCountryCodes
             );
+        }
+
+        return [
+            static::MESSAGE_PARAM_SKU => $sku,
+            static::MESSAGE_PARAM_BLACKLISTED_COUNTRY_CODES => $blacklistedCountryCodes ?? '',
+        ];
     }
 }
