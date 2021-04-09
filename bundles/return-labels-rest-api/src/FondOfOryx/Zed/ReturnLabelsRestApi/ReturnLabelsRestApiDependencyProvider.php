@@ -20,7 +20,6 @@ class ReturnLabelsRestApiDependencyProvider extends AbstractBundleDependencyProv
     public function provideBusinessLayerDependencies(Container $container)
     {
         $container = parent::provideBusinessLayerDependencies($container);
-
         $container = $this->addReturnLabelFacade($container);
 
         return $container;
@@ -34,7 +33,6 @@ class ReturnLabelsRestApiDependencyProvider extends AbstractBundleDependencyProv
     public function providePersistenceLayerDependencies(Container $container): Container
     {
         $container = parent::providePersistenceLayerDependencies($container);
-
         $container = $this->addCompanyUnitAddressPropelQuery($container);
 
         return $container;
@@ -61,11 +59,11 @@ class ReturnLabelsRestApiDependencyProvider extends AbstractBundleDependencyProv
      */
     protected function addReturnLabelFacade(Container $container): Container
     {
-        $container->set(static::FACADE_RETURN_LABEL, static function (Container $container) {
+        $container[static::FACADE_RETURN_LABEL] = static function (Container $container) {
             return new ReturnLabelsRestApiToReturnLabelFacadeBridge(
                 $container->getLocator()->returnLabel()->facade()
             );
-        });
+        };
 
         return $container;
     }
