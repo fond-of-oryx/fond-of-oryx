@@ -2,14 +2,12 @@
 
 namespace FondOfOryx\Zed\JellyfishAvailabilityAlert\Business\Api\Adapter;
 
-use Exception;
 use FondOfOryx\Zed\JellyfishAvailabilityAlert\Business\Dependency\Facade\JellyfishAvailabilityAlertToLocaleFacadeInterface;
 use FondOfOryx\Zed\JellyfishAvailabilityAlert\Business\Dependency\Facade\JellyfishAvailabilityAlertToStoreFacadeInterface;
 use FondOfOryx\Zed\JellyfishAvailabilityAlert\Business\Dependency\Service\JellyfishAvailabilityAlertToUtilEncodingServiceInterface;
 use FondOfOryx\Zed\JellyfishAvailabilityAlert\JellyfishAvailabilityAlertConfig;
 use Generated\Shared\Transfer\AvailabilityAlertConfigurationTransfer;
 use Generated\Shared\Transfer\AvailabilityAlertDataWrapperTransfer;
-use GuzzleHttp\Client;
 use GuzzleHttp\ClientInterface;
 use GuzzleHttp\RequestOptions;
 use Psr\Http\Message\ResponseInterface;
@@ -147,8 +145,6 @@ class AvailabilityAlertAdapter implements AvailabilityAlertAdapterInterface
     /**
      * @param array $options
      *
-     * @throws \Exception
-     *
      * @return \Psr\Http\Message\ResponseInterface
      */
     protected function send(array $options = []): ResponseInterface
@@ -159,11 +155,7 @@ class AvailabilityAlertAdapter implements AvailabilityAlertAdapterInterface
 
         $this->getLogger()->info($logMessage);
 
-        if ($this->client instanceof Client && method_exists($this->client, 'post')) {
-            return $this->client->post($uri, $options);
-        }
-
-        throw new Exception(sprintf('Method "post" not exists in %s', get_class($this->client)));
+        return $this->client->request('POST', $uri, $options);
     }
 
     /**

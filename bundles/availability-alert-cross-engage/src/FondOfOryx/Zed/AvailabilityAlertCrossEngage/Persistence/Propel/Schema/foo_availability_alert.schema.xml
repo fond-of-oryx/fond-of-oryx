@@ -11,5 +11,6 @@
         <column name="hash" type="VARCHAR" size="255" required="true"/>
         <column name="key" type="VARCHAR" size="40" required="true"/>
         <column name="is_active" type="BOOLEAN" defaultValue="false" required="true"/>
+        <column name="exported" type="BOOLEAN" defaultValue="false" required="true"/>
     </table>
 </database>

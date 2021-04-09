@@ -20,7 +20,6 @@ class CrossEngageNotificationPlugin extends AbstractPlugin implements Notificati
      */
     public function notify(AvailabilityAlertSubscriptionTransfer $availabilityAlertSubscriptionTransfer): void
     {
-        //ToDo has to be implemented soon
-//        $this->getFacade()->sendEmailNotification($availabilityAlertSubscriptionTransfer);
+        $this->getFacade()->sendNotification($availabilityAlertSubscriptionTransfer);
     }
 }

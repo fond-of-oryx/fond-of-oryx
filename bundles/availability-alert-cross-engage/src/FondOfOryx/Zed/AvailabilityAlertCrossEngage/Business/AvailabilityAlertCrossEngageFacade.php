@@ -4,6 +4,7 @@ namespace FondOfOryx\Zed\AvailabilityAlertCrossEngage\Business;
 
 use Generated\Shared\Transfer\AvailabilityAlertCrossEngageSubscriberRegistrationResponseTransfer;
 use Generated\Shared\Transfer\AvailabilityAlertSubscriberTransfer;
+use Generated\Shared\Transfer\AvailabilityAlertSubscriptionTransfer;
 use Spryker\Zed\Kernel\Business\AbstractFacade;
 
 /**
@@ -30,5 +31,15 @@ class AvailabilityAlertCrossEngageFacade extends AbstractFacade implements Avail
     public function generateKey(string $string): string
     {
         return $this->getFactory()->createKeyGenerator()->generate($string);
+    }
+
+    /**
+     * @param \Generated\Shared\Transfer\AvailabilityAlertSubscriptionTransfer $availabilityAlertSubscriptionTransfer
+     *
+     * @return void
+     */
+    public function sendNotification(AvailabilityAlertSubscriptionTransfer $availabilityAlertSubscriptionTransfer): void
+    {
+        $this->getFactory()->createNotificationHandler()->sendSubscription($availabilityAlertSubscriptionTransfer);
     }
 }
