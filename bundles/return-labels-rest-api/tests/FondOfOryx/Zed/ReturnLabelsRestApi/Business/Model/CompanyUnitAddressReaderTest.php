@@ -19,7 +19,7 @@ class CompanyUnitAddressReaderTest extends Unit
     protected $restReturnLabelRequestTransferMock;
 
     /**
-     * @var CompanyUnitAddressReaderInterface
+     * @var \FondOfOryx\Zed\ReturnLabelsRestApi\Business\Model\CompanyUnitAddressReaderInterface
      */
     protected $companyUnitAddressReader;
 

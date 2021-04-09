@@ -11,7 +11,7 @@ use Spryker\Glue\GlueApplicationExtension\Dependency\Plugin\ResourceRouteCollect
 class ReturnLabelsRestApiResourceRoutePluginTest extends Unit
 {
     /**
-     * @var ReturnLabelsRestApiResourceRoutePlugin
+     * @var \FondOfOryx\Glue\ReturnLabelsRestApi\Plugin\GlueApplicationExtension\ReturnLabelsRestApiResourceRoutePlugin
      */
     protected $plugin;
 

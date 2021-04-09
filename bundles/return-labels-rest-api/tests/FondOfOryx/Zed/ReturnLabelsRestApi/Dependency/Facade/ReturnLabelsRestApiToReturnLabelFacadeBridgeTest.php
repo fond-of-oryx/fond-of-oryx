@@ -20,7 +20,7 @@ class ReturnLabelsRestApiToReturnLabelFacadeBridgeTest extends Unit
     protected $returnLabelRequestTransferMock;
 
     /**
-     * @var ReturnLabelsRestApiToReturnLabelFacadeInterface
+     * @var \FondOfOryx\Zed\ReturnLabelsRestApi\Dependency\Facade\ReturnLabelsRestApiToReturnLabelFacadeInterface
      */
     protected $bridge;
 

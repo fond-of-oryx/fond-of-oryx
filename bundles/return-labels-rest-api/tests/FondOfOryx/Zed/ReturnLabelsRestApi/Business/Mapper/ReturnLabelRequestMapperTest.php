@@ -9,7 +9,7 @@ use Generated\Shared\Transfer\ReturnLabelRequestTransfer;
 class ReturnLabelRequestMapperTest extends Unit
 {
     /**
-     * @var ReturnLabelRequestMapperInterface
+     * @var \FondOfOryx\Zed\ReturnLabelsRestApi\Business\Mapper\ReturnLabelRequestMapperInterface
      */
     protected $returnLabelRequestMapper;
 

@@ -20,7 +20,7 @@ class ReturnLabelsRestApiPersistenceFactoryTest extends Unit
     protected $spyCompanyUnitAddressQueryMock;
 
     /**
-     * @var ReturnLabelsRestApiPersistenceFactory
+     * @var \FondOfOryx\Zed\ReturnLabelsRestApi\Persistence\ReturnLabelsRestApiPersistenceFactory
      */
     protected $factory;
 

@@ -57,7 +57,7 @@ class ReturnLabelProcessorTest extends Unit
     protected $restErrorMessageTransferMock;
 
     /**
-     * @var \Spryker\Glue\GlueApplication\Rest\JsonApi\RestResourceInterface||\PHPUnit\Framework\MockObject\MockObject
+     * @var \Spryker\Glue\GlueApplication\Rest\JsonApi\RestResourceInterface|\PHPUnit\Framework\MockObject\MockObject
      */
     protected $restResourceMock;
 
@@ -69,7 +69,7 @@ class ReturnLabelProcessorTest extends Unit
     /**
      * @return void
      */
-    protected function _before()
+    protected function _before(): void
     {
         parent::_before();
 

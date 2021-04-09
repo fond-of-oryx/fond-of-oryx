@@ -31,7 +31,7 @@ class ReturnLabelGeneratorTest extends Unit
     protected $restReturnLabelRequestTransferMock;
 
     /**
-     * @var ReturnLabelGeneratorInterface
+     * @var \FondOfOryx\Zed\ReturnLabelsRestApi\Business\Model\ReturnLabelGeneratorInterface
      */
     protected $returnLabelGenerator;
 

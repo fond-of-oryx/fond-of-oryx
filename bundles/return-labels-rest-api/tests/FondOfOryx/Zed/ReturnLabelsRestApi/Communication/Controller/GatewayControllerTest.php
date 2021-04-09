@@ -23,9 +23,12 @@ class GatewayControllerTest extends Unit
     /**
      * @var \Generated\Shared\Transfer\RestReturnLabelRequestTransfer|\PHPUnit\Framework\MockObject\MockObject
      */
-    protected $restReturnLabelRequestTransfer;
+    protected $restReturnLabelRequestTransferMock;
 
-    protected $restReturnLabelResponseTransfer;
+    /**
+     * @var \Generated\Shared\Transfer\RestReturnLabelResponseTransfer|\PHPUnit\Framework\MockObject\MockObject
+     */
+    protected $restReturnLabelResponseTransferMock;
 
     /**
      * @return void
@@ -38,11 +41,11 @@ class GatewayControllerTest extends Unit
             ->disableOriginalConstructor()
             ->getMock();
 
-        $this->restReturnLabelRequestTransfer = $this->getMockBuilder(RestReturnLabelRequestTransfer::class)
+        $this->restReturnLabelRequestTransferMock = $this->getMockBuilder(RestReturnLabelRequestTransfer::class)
             ->disableOriginalConstructor()
             ->getMock();
 
-        $this->restReturnLabelResponseTransfer = $this->getMockBuilder(RestReturnLabelResponseTransfer::class)
+        $this->restReturnLabelResponseTransferMock = $this->getMockBuilder(RestReturnLabelResponseTransfer::class)
             ->disableOriginalConstructor()
             ->getMock();
 
@@ -64,12 +67,12 @@ class GatewayControllerTest extends Unit
     {
         $this->facadeMock->expects(static::atLeastOnce())
             ->method('generateReturnLabel')
-            ->with($this->restReturnLabelRequestTransfer)
-            ->willReturn($this->restReturnLabelResponseTransfer);
+            ->with($this->restReturnLabelRequestTransferMock)
+            ->willReturn($this->restReturnLabelResponseTransferMock);
 
         static::assertEquals(
-            $this->restReturnLabelResponseTransfer,
-            $this->gatewayController->generateReturnLabelAction($this->restReturnLabelRequestTransfer)
+            $this->restReturnLabelResponseTransferMock,
+            $this->gatewayController->generateReturnLabelAction($this->restReturnLabelRequestTransferMock)
         );
     }
 }
