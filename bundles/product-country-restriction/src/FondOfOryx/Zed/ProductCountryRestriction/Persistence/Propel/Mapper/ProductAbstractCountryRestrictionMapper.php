@@ -39,7 +39,7 @@ class ProductAbstractCountryRestrictionMapper implements ProductAbstractCountryR
     ): FooProductAbstractCountryRestriction {
         $entity->fromArray($transfer->toArray());
 
-        return $entity->setFkProductAbstract($transfer->getIdCountry())
+        return $entity->setFkCountry($transfer->getIdCountry())
             ->setFkProductAbstract($transfer->getIdProductAbstract());
     }
 

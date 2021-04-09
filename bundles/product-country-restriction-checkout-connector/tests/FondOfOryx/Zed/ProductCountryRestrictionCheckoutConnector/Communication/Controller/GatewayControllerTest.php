@@ -49,15 +49,33 @@ class GatewayControllerTest extends Unit
             ->disableOriginalConstructor()
             ->getMock();
 
-        $this->gatewayController = new class ($this->facadeMock) extends GatewayController {
-            /**
-             * @param \Spryker\Zed\Kernel\Business\AbstractFacade $facade
-             */
-            public function __construct(AbstractFacade $facade)
-            {
-                $this->facade = $facade;
-            }
-        };
+        if (method_exists(GatewayController::class, 'setFacade')) {
+            $this->gatewayController = new GatewayController();
+            $this->gatewayController->setFacade($this->facadeMock);
+        } else {
+            $this->gatewayController = new class ($this->facadeMock) extends GatewayController {
+                /**
+                 * @var \Spryker\Zed\Kernel\Business\AbstractFacade
+                 */
+                protected $productCountryRestrictionCheckoutConnectorFacade;
+
+                /**
+                 * @param \Spryker\Zed\Kernel\Business\AbstractFacade $facade
+                 */
+                public function __construct(AbstractFacade $facade)
+                {
+                    $this->productCountryRestrictionCheckoutConnectorFacade = $facade;
+                }
+
+                /**
+                 * @return \Spryker\Zed\Kernel\Business\AbstractFacade
+                 */
+                protected function getFacade(): AbstractFacade
+                {
+                    return $this->productCountryRestrictionCheckoutConnectorFacade;
+                }
+            };
+        }
     }
 
     /**
