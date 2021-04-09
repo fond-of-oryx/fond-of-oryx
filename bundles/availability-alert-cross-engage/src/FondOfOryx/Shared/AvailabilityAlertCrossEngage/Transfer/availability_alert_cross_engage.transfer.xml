@@ -12,6 +12,7 @@
         <property name="key" type="string" />
         <property name="subscriberIp" type="string" />
         <property name="isActive" type="bool" />
+        <property name="exported" type="bool" />
     </transfer>
 
     <transfer name="AvailabilityAlertCrossEngageSubscriberRegistrationResponse">

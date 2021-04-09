@@ -4,6 +4,7 @@ namespace FondOfOryx\Zed\AvailabilityAlertCrossEngage\Business;
 
 use Generated\Shared\Transfer\AvailabilityAlertCrossEngageSubscriberRegistrationResponseTransfer;
 use Generated\Shared\Transfer\AvailabilityAlertSubscriberTransfer;
+use Generated\Shared\Transfer\AvailabilityAlertSubscriptionTransfer;
 
 interface AvailabilityAlertCrossEngageFacadeInterface
 {
@@ -22,4 +23,11 @@ interface AvailabilityAlertCrossEngageFacadeInterface
      * @return string
      */
     public function generateKey(string $string): string;
+
+    /**
+     * @param \Generated\Shared\Transfer\AvailabilityAlertSubscriptionTransfer $availabilityAlertSubscriptionTransfer
+     *
+     * @return void
+     */
+    public function sendNotification(AvailabilityAlertSubscriptionTransfer $availabilityAlertSubscriptionTransfer): void;
 }
