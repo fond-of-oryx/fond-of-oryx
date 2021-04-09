@@ -16,7 +16,7 @@ interface ProductCountryRestrictionRepositoryInterface
     /**
      * @param int $idProductAbstract
      *
-     * @return \Generated\Shared\Transfer\CountryTransfer[]
+     * @return int[]
      */
     public function findBlacklistedCountryIdsByIdProductAbstract(
         int $idProductAbstract

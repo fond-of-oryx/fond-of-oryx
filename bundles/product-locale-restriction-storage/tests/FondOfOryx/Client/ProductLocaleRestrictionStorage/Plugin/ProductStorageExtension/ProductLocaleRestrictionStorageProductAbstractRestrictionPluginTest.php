@@ -4,6 +4,7 @@ namespace FondOfOryx\Client\ProductLocaleRestrictionStorage\Plugin\ProductStorag
 
 use Codeception\Test\Unit;
 use FondOfOryx\Client\ProductLocaleRestrictionStorage\ProductLocaleRestrictionStorageClient;
+use Spryker\Client\Kernel\AbstractClient;
 
 class ProductLocaleRestrictionStorageProductAbstractRestrictionPluginTest extends Unit
 {
@@ -30,8 +31,33 @@ class ProductLocaleRestrictionStorageProductAbstractRestrictionPluginTest extend
             ->disableOriginalConstructor()
             ->getMock();
 
-        $this->plugin = new ProductLocaleRestrictionStorageProductAbstractRestrictionPlugin();
-        $this->plugin->setClient($this->clientMock);
+        if (method_exists(ProductLocaleRestrictionStorageProductAbstractRestrictionPlugin::class, 'setClient')) {
+            $this->plugin = new ProductLocaleRestrictionStorageProductAbstractRestrictionPlugin();
+            $this->plugin->setClient($this->clientMock);
+        } else {
+            $this->plugin = new class ($this->clientMock) extends ProductLocaleRestrictionStorageProductAbstractRestrictionPlugin {
+                /**
+                 * @var \Spryker\Client\Kernel\AbstractClient
+                 */
+                protected $productLocaleRestrictionStorageClient;
+
+                /**
+                 * @param \Spryker\Client\Kernel\AbstractClient $client
+                 */
+                public function __construct(AbstractClient $client)
+                {
+                    $this->productLocaleRestrictionStorageClient = $client;
+                }
+
+                /**
+                 * @return \Spryker\Client\Kernel\AbstractClient
+                 */
+                protected function getClient(): AbstractClient
+                {
+                    return $this->productLocaleRestrictionStorageClient;
+                }
+            };
+        }
     }
 
     /**
