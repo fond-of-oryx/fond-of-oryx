@@ -31,4 +31,10 @@
         <property name="city" type="string"/>
         <property name="country" type="string"/>
     </transfer>
+
+    <transfer name="CompanyUnitAddress">
+        <property name="name1" type="string"/>
+        <property name="name2" type="string"/>
+        <property name="country" type="string"/>
+    </transfer>
 </transfers>

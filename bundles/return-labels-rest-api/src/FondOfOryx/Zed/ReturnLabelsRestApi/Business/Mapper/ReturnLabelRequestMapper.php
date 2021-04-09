@@ -16,7 +16,6 @@ class ReturnLabelRequestMapper implements ReturnLabelRequestMapperInterface
         RestReturnLabelRequestTransfer $restReturnLabelRequestTransfer
     ): ReturnLabelRequestTransfer {
         return (new ReturnLabelRequestTransfer())
-            ->setIdCustomer($restReturnLabelRequestTransfer->getIdCustomer())
-            ->setIdCompanyUnitAddress($restReturnLabelRequestTransfer->getCompanyUnitAddressUuid());
+            ->setIdCustomer($restReturnLabelRequestTransfer->getIdCustomer());
     }
 }

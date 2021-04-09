@@ -10,7 +10,7 @@ use Generated\Shared\Transfer\RestReturnLabelResponseTransfer;
 class ReturnLabelGenerator implements ReturnLabelGeneratorInterface
 {
     /**
-     * @var \FondOfOryx\Zed\ReturnLabel\Business\Model\CompanyUnitAddressReaderInterface
+     * @var \FondOfOryx\Zed\ReturnLabelsRestApi\Business\Model\CompanyUnitAddressReaderInterface
      */
     protected $companyUnitAddressReader;
 

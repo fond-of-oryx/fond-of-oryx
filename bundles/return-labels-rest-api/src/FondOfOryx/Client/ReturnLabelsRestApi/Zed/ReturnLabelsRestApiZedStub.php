@@ -29,9 +29,11 @@ class ReturnLabelsRestApiZedStub implements ReturnLabelsRestApiZedStubInterface
     public function generateReturnLabel(
         RestReturnLabelRequestTransfer $restReturnLabelRequestTransfer
     ): RestReturnLabelResponseTransfer {
-        return $this->zedRequestClient->call(
+        $restReturnLabelResponseTransfer = $this->zedRequestClient->call(
             '/return-labels-rest-api/gateway/generate-return-label',
             $restReturnLabelRequestTransfer
         );
+
+        return $restReturnLabelResponseTransfer;
     }
 }
