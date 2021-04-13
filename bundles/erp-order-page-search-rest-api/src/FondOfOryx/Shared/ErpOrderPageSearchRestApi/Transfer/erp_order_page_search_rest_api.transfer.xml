@@ -36,6 +36,7 @@
         <property name="updatedAt" type="string" />
         <property name="billingAddress" type="RestErpOrderAddress"/>
         <property name="shippingAddress" type="RestErpOrderAddress"/>
+        <property name="companyBusinessUnit" type="RestCompanyBusinessUnit"/>
         <property name="items" singular="item" type="RestErpOrderItem[]"/>
     </transfer>
 
@@ -60,6 +61,11 @@
         <property name="canceledQuantity" type="int"/>
         <property name="concreteDeliveryDate" type="string"/>
         <property name="status" type="string"/>
+    </transfer>
+
+    <transfer name="RestCompanyBusinessUnit">
+        <property name="name" type="string"/>
+        <property name="uuid" type="string"/>
     </transfer>
 
 </transfers>

@@ -7,6 +7,7 @@ namespace FondOfOryx\Glue\ErpOrderPageSearchRestApi\Model\Mapper;
 use Generated\Shared\Transfer\ErpOrderAddressTransfer;
 use Generated\Shared\Transfer\ErpOrderItemTransfer;
 use Generated\Shared\Transfer\ErpOrderTransfer;
+use Generated\Shared\Transfer\RestCompanyBusinessUnitTransfer;
 use Generated\Shared\Transfer\RestErpOrderAddressTransfer;
 use Generated\Shared\Transfer\RestErpOrderItemTransfer;
 use Generated\Shared\Transfer\RestErpOrderPageSearchCollectionResponseTransfer;
@@ -16,6 +17,7 @@ class ErpOrderMapper implements ErpOrderMapperInterface
 {
     protected const SEARCH_RESULT_KEY_ERP_ORDERS = 'erp-orders';
     protected const ERP_ORDER_DATA_KEY_ERP_ORDER_ITEMS = 'erp_order_items';
+    protected const ERP_ORDER_DATA_KEY_COMPANY_BUSINESS_UNIT = 'company_business_unit';
 
     /**
      * @param array $searchResults
@@ -37,6 +39,11 @@ class ErpOrderMapper implements ErpOrderMapperInterface
         foreach ($searchResults[static::SEARCH_RESULT_KEY_ERP_ORDERS] as $erpOrderData) {
             $restErpOrder = new RestErpOrderTransfer();
             $restErpOrder->fromArray($erpOrderData, true);
+            $restErpOrder->setCompanyBusinessUnit(
+                $this->mapCompanyBusinessUnitToRestCompanyBusinessUnit(
+                    $erpOrderData[static::ERP_ORDER_DATA_KEY_COMPANY_BUSINESS_UNIT]
+                )
+            );
 
             $this->addRestErpOrderItems($restErpOrder, $erpOrderData[self::ERP_ORDER_DATA_KEY_ERP_ORDER_ITEMS]);
 
@@ -47,13 +54,14 @@ class ErpOrderMapper implements ErpOrderMapperInterface
     }
 
     /**
-     * @param array $address
+     * @param array $companyBusinessUnit
      *
-     * @return \Generated\Shared\Transfer\RestErpOrderAddressTransfer
+     * @return \Generated\Shared\Transfer\RestCompanyBusinessUnitTransfer
      */
-    protected function mapErpOrderAddressToRestErpOrderAddress(array $address): RestErpOrderAddressTransfer
-    {
-        return (new RestErpOrderAddressTransfer())->fromArray($address, true);
+    protected function mapCompanyBusinessUnitToRestCompanyBusinessUnit(
+        array $companyBusinessUnit
+    ): RestCompanyBusinessUnitTransfer {
+        return (new RestCompanyBusinessUnitTransfer())->fromArray($companyBusinessUnit, true);
     }
 
     /**
