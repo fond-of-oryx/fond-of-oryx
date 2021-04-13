@@ -152,18 +152,6 @@ class ErpOrderPageSearchOwnParamFilterQueryExpanderPluginTest extends Unit
             ->method('getCompanyUsers')
             ->willReturn($companyUsers);
 
-        $this->customerTransferMock->expects(static::atLeastOnce())
-            ->method('getCompanyUserTransfer')
-            ->willReturn($this->companyUserTransferMock);
-
-        $this->companyUserTransferMock->expects(static::atLeastOnce())
-            ->method('getCompanyBusinessUnit')
-            ->willReturn($this->companyBusinessUnitTransferMock);
-
-        $this->companyBusinessUnitTransferMock->expects(static::atLeastOnce())
-            ->method('getUuid')
-            ->willReturn('73327634-71c4-11eb-9439-0242ac130005');
-
         $this->pluginQueryMock->expects(static::atLeastOnce())
             ->method('getSearchQuery')
             ->willReturn($this->elasticaQueryMock);
