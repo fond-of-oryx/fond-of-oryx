@@ -22,6 +22,7 @@ include:
   - bundles/shipment-table-rate-data-import
   - bundles/splittable-checkout
   - bundles/tax-calculation-connector
+  - bundles/return-label
   - bundles/return-labels-rest-api
 
 suites:
