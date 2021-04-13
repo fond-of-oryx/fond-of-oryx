@@ -65,12 +65,6 @@ class ErpOrderPageSearchOwnParamFilterQueryExpanderPlugin extends ErpOrderPageSe
                 $requestParameters
             );
 
-            foreach ($companyBusinessUnitUuids as $index => $uuid) {
-                if (in_array($uuid, $this->companyBusinessUnitUuids) === false) {
-                    unset($companyBusinessUnitUuids[$index]);
-                }
-            }
-
             if (count($companyBusinessUnitUuids) === 0) {
                 $companyBusinessUnitUuids[] = $this->getCustomer()->getCompanyUserTransfer()->getCompanyBusinessUnit()->getUuid();
             }
