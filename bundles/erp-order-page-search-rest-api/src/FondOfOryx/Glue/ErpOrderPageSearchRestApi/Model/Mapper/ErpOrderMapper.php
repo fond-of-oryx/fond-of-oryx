@@ -4,9 +4,13 @@ declare(strict_types = 1);
 
 namespace FondOfOryx\Glue\ErpOrderPageSearchRestApi\Model\Mapper;
 
+use Generated\Shared\Transfer\ErpOrderAddressTransfer;
 use Generated\Shared\Transfer\ErpOrderItemTransfer;
 use Generated\Shared\Transfer\ErpOrderTransfer;
+use Generated\Shared\Transfer\RestErpOrderAddressTransfer;
+use Generated\Shared\Transfer\RestErpOrderItemTransfer;
 use Generated\Shared\Transfer\RestErpOrderPageSearchCollectionResponseTransfer;
+use Generated\Shared\Transfer\RestErpOrderTransfer;
 
 class ErpOrderMapper implements ErpOrderMapperInterface
 {
@@ -31,29 +35,42 @@ class ErpOrderMapper implements ErpOrderMapperInterface
         }
 
         foreach ($searchResults[static::SEARCH_RESULT_KEY_ERP_ORDERS] as $erpOrderData) {
-            $erpOrder = new ErpOrderTransfer();
-            $erpOrder->fromArray($erpOrderData, true);
-            $responseTransfer->addErpOrder(
-                $this->mapErpOrderItemData($erpOrder, $erpOrderData[self::ERP_ORDER_DATA_KEY_ERP_ORDER_ITEMS])
-            );
+            $restErpOrder = new RestErpOrderTransfer();
+            $restErpOrder->fromArray($erpOrderData, true);
+
+            $this->addRestErpOrderItems($restErpOrder, $erpOrderData[self::ERP_ORDER_DATA_KEY_ERP_ORDER_ITEMS]);
+
+            $responseTransfer->addErpOrder($restErpOrder);
         }
 
         return $responseTransfer;
     }
 
     /**
-     * @param \Generated\Shared\Transfer\ErpOrderTransfer $erpOrderTransfer
+     * @param array $address
+     *
+     * @return \Generated\Shared\Transfer\RestErpOrderAddressTransfer
+     */
+    protected function mapErpOrderAddressToRestErpOrderAddress(array $address): RestErpOrderAddressTransfer
+    {
+        return (new RestErpOrderAddressTransfer())->fromArray($address, true);
+    }
+
+    /**
+     * @param \Generated\Shared\Transfer\RestErpOrderTransfer $restErpOrderTransfer
      * @param array $erpOrderItems
      *
-     * @return \Generated\Shared\Transfer\ErpOrderTransfer
+     * @return \Generated\Shared\Transfer\RestErpOrderTransfer
      */
-    protected function mapErpOrderItemData(ErpOrderTransfer $erpOrderTransfer, array $erpOrderItems): ErpOrderTransfer
-    {
+    protected function addRestErpOrderItems(
+        RestErpOrderTransfer $restErpOrderTransfer,
+        array $erpOrderItems
+    ): RestErpOrderTransfer {
         foreach ($erpOrderItems as $erpOrderItemData) {
-            $erpOrderItemTransfer = (new ErpOrderItemTransfer())->fromArray($erpOrderItemData, true);
-            $erpOrderTransfer->addOrderItem($erpOrderItemTransfer);
+            $restErpOrderItemTransfer = (new RestErpOrderItemTransfer())->fromArray($erpOrderItemData, true);
+            $restErpOrderTransfer->addItem($restErpOrderItemTransfer);
         }
 
-        return $erpOrderTransfer;
+        return $restErpOrderTransfer;
     }
 }
