@@ -96,7 +96,7 @@ class ErpOrderPageSearchPublisher implements ErpOrderPageSearchPublisherInterfac
     protected function storeDataSet(ErpOrder $fooErpOrderEntity): void
     {
         $erpOrderData = $fooErpOrderEntity->toArray();
-        
+
         $companyBusinessUnit = $fooErpOrderEntity->getCompanyBusinessUnit();
         $orderItems = $fooErpOrderEntity->getErpOrderItems();
         $billingAddress = $fooErpOrderEntity->getErpOrderBillingAddress();
@@ -120,9 +120,8 @@ class ErpOrderPageSearchPublisher implements ErpOrderPageSearchPublisherInterfac
 
     /**
      * @param \Orm\Zed\ErpOrder\Persistence\ErpOrderAddress $erpOrderAddressEntity
-     * @return array
      *
-     * @throws \Propel\Runtime\Exception\PropelException
+     * @return array
      */
     protected function getAddress(ErpOrderAddress $erpOrderAddressEntity): array
     {

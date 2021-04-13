@@ -4,11 +4,7 @@ declare(strict_types = 1);
 
 namespace FondOfOryx\Glue\ErpOrderPageSearchRestApi\Model\Mapper;
 
-use Generated\Shared\Transfer\ErpOrderAddressTransfer;
-use Generated\Shared\Transfer\ErpOrderItemTransfer;
-use Generated\Shared\Transfer\ErpOrderTransfer;
 use Generated\Shared\Transfer\RestCompanyBusinessUnitTransfer;
-use Generated\Shared\Transfer\RestErpOrderAddressTransfer;
 use Generated\Shared\Transfer\RestErpOrderItemTransfer;
 use Generated\Shared\Transfer\RestErpOrderPageSearchCollectionResponseTransfer;
 use Generated\Shared\Transfer\RestErpOrderTransfer;

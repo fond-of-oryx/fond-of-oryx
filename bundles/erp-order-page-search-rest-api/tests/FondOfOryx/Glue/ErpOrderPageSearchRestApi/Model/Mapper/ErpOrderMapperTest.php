@@ -35,7 +35,7 @@ class ErpOrderMapperTest extends Unit
                     ],
                     'company_business_unit' => [
                         0 => ['name' => 'Default Unit'],
-                    ]
+                    ],
                 ],
             ],
         ];
