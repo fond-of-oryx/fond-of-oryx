@@ -4,7 +4,6 @@ namespace FondOfOryx\Zed\AvailabilityAlertCrossEngage\Communication\Plugin\Expan
 
 use Codeception\Test\Unit;
 use FondOfOryx\Zed\AvailabilityAlertCrossEngage\Business\AvailabilityAlertCrossEngageFacade;
-use FondOfOryx\Zed\AvailabilityAlertCrossEngage\Business\AvailabilityAlertCrossEngageFacadeInterface;
 use FondOfOryx\Zed\AvailabilityAlertCrossEngage\Communication\AvailabilityAlertCrossEngageCommunicationFactory;
 use FondOfOryx\Zed\AvailabilityAlertCrossEngage\Dependency\Service\AvailabilityAlertCrossEngageToCrossEngageServiceBridge;
 use Generated\Shared\Transfer\AvailabilityAlertSubscriberTransfer;
@@ -64,23 +63,23 @@ class CrossEngageAvailabilityAlertSubscriptionTransferExpanderPluginTest extends
 
         $this->expander = new class ($this->facadeMock, $this->factoryMock) extends CrossEngageAvailabilityAlertSubscriptionTransferExpanderPlugin {
             /**
-             * @var \FondOfOryx\Zed\AvailabilityAlertCrossEngage\Communication\AvailabilityAlertCrossEngageCommunicationFactory
+             * @var \Spryker\Zed\Kernel\Communication\AbstractCommunicationFactory
              */
             protected $factory;
 
             /**
-             * @var \FondOfOryx\Zed\AvailabilityAlertCrossEngage\Business\AvailabilityAlertCrossEngageFacadeInterface
+             * @var \Spryker\Zed\Kernel\Business\AbstractFacade
              */
             protected $facade;
 
             /**
              *  constructor.
              *
-             * @param \FondOfOryx\Zed\AvailabilityAlertCrossEngage\Business\AvailabilityAlertCrossEngageFacadeInterface $facade
+             * @param \FondOfOryx\Zed\AvailabilityAlertCrossEngage\Business\AvailabilityAlertCrossEngageFacade $facade
              * @param \FondOfOryx\Zed\AvailabilityAlertCrossEngage\Communication\AvailabilityAlertCrossEngageCommunicationFactory $factory
              */
             public function __construct(
-                AvailabilityAlertCrossEngageFacadeInterface $facade,
+                AvailabilityAlertCrossEngageFacade $facade,
                 AvailabilityAlertCrossEngageCommunicationFactory $factory
             ) {
                 $this->factory = $factory;
@@ -88,17 +87,17 @@ class CrossEngageAvailabilityAlertSubscriptionTransferExpanderPluginTest extends
             }
 
             /**
-             * @return \FondOfOryx\Zed\AvailabilityAlertCrossEngage\Business\AvailabilityAlertCrossEngageFacadeInterface
+             * @return \Spryker\Zed\Kernel\Business\AbstractFacade
              */
-            public function getFacade(): AvailabilityAlertCrossEngageFacadeInterface
+            public function getFacade()
             {
                 return $this->facade;
             }
 
             /**
-             * @return \FondOfOryx\Zed\AvailabilityAlertCrossEngage\Communication\AvailabilityAlertCrossEngageCommunicationFactory
+             * @return \Spryker\Zed\Kernel\Communication\AbstractCommunicationFactory
              */
-            public function getFactory(): AvailabilityAlertCrossEngageCommunicationFactory
+            public function getFactory()
             {
                 return $this->factory;
             }
