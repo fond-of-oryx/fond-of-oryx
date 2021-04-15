@@ -65,12 +65,12 @@ class CrossEngageAvailabilityAlertSubscriptionTransferExpanderPluginTest extends
             /**
              * @var \Spryker\Zed\Kernel\Communication\AbstractCommunicationFactory
              */
-            protected $factory;
+            protected $factoryOwn;
 
             /**
              * @var \Spryker\Zed\Kernel\Business\AbstractFacade
              */
-            protected $facade;
+            protected $facadeOwn;
 
             /**
              *  constructor.
@@ -82,8 +82,8 @@ class CrossEngageAvailabilityAlertSubscriptionTransferExpanderPluginTest extends
                 AvailabilityAlertCrossEngageFacade $facade,
                 AvailabilityAlertCrossEngageCommunicationFactory $factory
             ) {
-                $this->factory = $factory;
-                $this->facade = $facade;
+                $this->factoryOwn = $factory;
+                $this->facadeOwn = $facade;
             }
 
             /**
@@ -91,7 +91,7 @@ class CrossEngageAvailabilityAlertSubscriptionTransferExpanderPluginTest extends
              */
             protected function getFacade()
             {
-                return $this->facade;
+                return $this->facadeOwn;
             }
 
             /**
@@ -99,7 +99,7 @@ class CrossEngageAvailabilityAlertSubscriptionTransferExpanderPluginTest extends
              */
             protected function getFactory()
             {
-                return $this->factory;
+                return $this->factoryOwn;
             }
         };
     }

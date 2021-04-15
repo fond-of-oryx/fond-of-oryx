@@ -37,7 +37,7 @@ class CrossEngageNotificationPluginTest extends Unit
             /**
              * @var \Spryker\Zed\Kernel\Business\AbstractFacade
              */
-            protected $facade;
+            protected $facadeOwn;
 
             /**
              *  constructor.
@@ -47,7 +47,7 @@ class CrossEngageNotificationPluginTest extends Unit
             public function __construct(
                 AvailabilityAlertCrossEngageFacade $facade
             ) {
-                $this->facade = $facade;
+                $this->facadeOwn = $facade;
             }
 
             /**
@@ -55,7 +55,7 @@ class CrossEngageNotificationPluginTest extends Unit
              */
             protected function getFacade()
             {
-                return $this->facade;
+                return $this->facadeOwn;
             }
         };
     }
