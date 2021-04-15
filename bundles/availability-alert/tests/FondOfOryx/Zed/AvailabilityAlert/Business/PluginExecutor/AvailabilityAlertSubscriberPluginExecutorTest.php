@@ -1,9 +1,8 @@
 <?php
 
-namespace FondOfOryx\Zed\AvailabilityAlert\Communication\Controller\Mapper;
+namespace FondOfOryx\Zed\AvailabilityAlert\Business\PluginExecutor;
 
 use Codeception\Test\Unit;
-use FondOfOryx\Zed\AvailabilityAlert\Business\PluginExecutor\AvailabilityAlertSubscriberPluginExecutor;
 use FondOfOryx\Zed\AvailabilityAlert\Dependency\Plugin\AvailabilityAlertSubscriberPostSavePluginInterface;
 use FondOfOryx\Zed\AvailabilityAlert\Dependency\Plugin\AvailabilityAlertSubscriberPreSavePluginInterface;
 use Generated\Shared\Transfer\AvailabilityAlertSubscriberTransfer;
