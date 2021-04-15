@@ -9,7 +9,7 @@ use Spryker\Zed\Availability\Business\AvailabilityFacadeInterface;
 class AvailabilityAlertToAvailabilityFacadeBridge implements AvailabilityAlertToAvailabilityFacadeInterface
 {
     /**
-     * @var \Spryker\Zed\Locale\Business\LocaleFacadeInterface
+     * @var \Spryker\Zed\Availability\Business\AvailabilityFacadeInterface
      */
     protected $facade;
 
