@@ -9,6 +9,8 @@ use FondOfOryx\Zed\AvailabilityAlertCrossEngage\Dependency\Service\AvailabilityA
 use Generated\Shared\Transfer\AvailabilityAlertSubscriberTransfer;
 use Generated\Shared\Transfer\AvailabilityAlertSubscriptionRequestTransfer;
 use Generated\Shared\Transfer\AvailabilityAlertSubscriptionTransfer;
+use Spryker\Zed\Kernel\Business\AbstractFacade;
+use Spryker\Zed\Kernel\Communication\AbstractCommunicationFactory;
 
 class CrossEngageAvailabilityAlertSubscriptionTransferExpanderPluginTest extends Unit
 {
@@ -89,7 +91,7 @@ class CrossEngageAvailabilityAlertSubscriptionTransferExpanderPluginTest extends
             /**
              * @return \Spryker\Zed\Kernel\Business\AbstractFacade
              */
-            protected function getFacade()
+            protected function getFacade(): AbstractFacade
             {
                 return $this->facadeOwn;
             }
@@ -97,7 +99,7 @@ class CrossEngageAvailabilityAlertSubscriptionTransferExpanderPluginTest extends
             /**
              * @return \Spryker\Zed\Kernel\Communication\AbstractCommunicationFactory
              */
-            protected function getFactory()
+            protected function getFactory(): AbstractCommunicationFactory
             {
                 return $this->factoryOwn;
             }

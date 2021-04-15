@@ -5,6 +5,7 @@ namespace FondOfOryx\Zed\AvailabilityAlertCrossEngage\Communication\Plugin\Notif
 use Codeception\Test\Unit;
 use FondOfOryx\Zed\AvailabilityAlertCrossEngage\Business\AvailabilityAlertCrossEngageFacade;
 use Generated\Shared\Transfer\AvailabilityAlertSubscriptionTransfer;
+use Spryker\Zed\Kernel\Business\AbstractFacade;
 
 class CrossEngageNotificationPluginTest extends Unit
 {
@@ -53,7 +54,7 @@ class CrossEngageNotificationPluginTest extends Unit
             /**
              * @return \Spryker\Zed\Kernel\Business\AbstractFacade
              */
-            protected function getFacade()
+            protected function getFacade(): AbstractFacade
             {
                 return $this->facadeOwn;
             }

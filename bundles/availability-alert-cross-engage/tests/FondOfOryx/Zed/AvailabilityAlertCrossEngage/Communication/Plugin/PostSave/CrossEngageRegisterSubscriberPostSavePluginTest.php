@@ -6,6 +6,7 @@ use Codeception\Test\Unit;
 use FondOfOryx\Zed\AvailabilityAlertCrossEngage\Business\AvailabilityAlertCrossEngageFacade;
 use Generated\Shared\Transfer\AvailabilityAlertCrossEngageSubscriberRegistrationResponseTransfer;
 use Generated\Shared\Transfer\AvailabilityAlertSubscriberTransfer;
+use Spryker\Zed\Kernel\Business\AbstractFacade;
 
 class CrossEngageRegisterSubscriberPostSavePluginTest extends Unit
 {
@@ -60,7 +61,7 @@ class CrossEngageRegisterSubscriberPostSavePluginTest extends Unit
             /**
              * @return \Spryker\Zed\Kernel\Business\AbstractFacade
              */
-            protected function getFacade()
+            protected function getFacade(): AbstractFacade
             {
                 return $this->facadeOwn;
             }
