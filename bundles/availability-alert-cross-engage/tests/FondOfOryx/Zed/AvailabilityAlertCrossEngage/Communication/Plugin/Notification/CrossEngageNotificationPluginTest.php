@@ -36,25 +36,25 @@ class CrossEngageNotificationPluginTest extends Unit
 
         $this->plugin = new class ($this->facadeMock) extends CrossEngageNotificationPlugin {
             /**
-             * @var \FondOfOryx\Zed\AvailabilityAlertCrossEngage\Business\AvailabilityAlertCrossEngageFacadeInterface
+             * @var \FondOfOryx\Zed\AvailabilityAlertCrossEngage\Business\AvailabilityAlertCrossEngageFacade
              */
             protected $facade;
 
             /**
              *  constructor.
              *
-             * @param \FondOfOryx\Zed\AvailabilityAlertCrossEngage\Business\AvailabilityAlertCrossEngageFacadeInterface $facade
+             * @param \FondOfOryx\Zed\AvailabilityAlertCrossEngage\Business\AvailabilityAlertCrossEngageFacade $facade
              */
             public function __construct(
-                AvailabilityAlertCrossEngageFacadeInterface $facade
+                AvailabilityAlertCrossEngageFacade $facade
             ) {
                 $this->facade = $facade;
             }
 
             /**
-             * @return \FondOfOryx\Zed\AvailabilityAlertCrossEngage\Business\AvailabilityAlertCrossEngageFacadeInterface
+             * @return \Spryker\Zed\Kernel\Business\AbstractFacade
              */
-            public function getFacade(): AvailabilityAlertCrossEngageFacadeInterface
+            protected function getFacade()
             {
                 return $this->facade;
             }
