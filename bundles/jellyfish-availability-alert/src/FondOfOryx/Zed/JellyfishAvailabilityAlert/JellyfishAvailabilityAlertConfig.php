@@ -20,7 +20,7 @@ class JellyfishAvailabilityAlertConfig extends AbstractBundleConfig
      */
     public function getTimeout(): float
     {
-        return $this->get(JellyfishAvailabilityAlertConstants::TIMEOUT, 2.0);
+        return (float)$this->get(JellyfishAvailabilityAlertConstants::TIMEOUT, 4.0);
     }
 
     /**

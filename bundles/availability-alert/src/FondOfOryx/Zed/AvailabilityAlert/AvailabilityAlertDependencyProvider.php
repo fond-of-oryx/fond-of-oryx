@@ -5,6 +5,7 @@ namespace FondOfOryx\Zed\AvailabilityAlert;
 use FondOfOryx\Zed\AvailabilityAlert\Communication\Plugin\NotificationPlugins\MailNotificationPlugin;
 use FondOfOryx\Zed\AvailabilityAlert\Communication\Plugin\SubscribersNotifier\SubscribersNotifierHasProductAssignedStoresPreCheckPlugin;
 use FondOfOryx\Zed\AvailabilityAlert\Communication\Plugin\SubscribersNotifier\SubscribersNotifierProductAttributeReleaseDateInPastOrIsEmptyPreCheckPlugin;
+use FondOfOryx\Zed\AvailabilityAlert\Dependency\Facade\AvailabilityAlertToAvailabilityFacadeBridge;
 use FondOfOryx\Zed\AvailabilityAlert\Dependency\Facade\AvailabilityAlertToLocaleBridge;
 use FondOfOryx\Zed\AvailabilityAlert\Dependency\Facade\AvailabilityAlertToMailBridge;
 use FondOfOryx\Zed\AvailabilityAlert\Dependency\Facade\AvailabilityAlertToProductBridge;
@@ -126,7 +127,7 @@ class AvailabilityAlertDependencyProvider extends AbstractBundleDependencyProvid
     protected function addAvailabilityFacade(Container $container): Container
     {
         $container[static::FACADE_AVAILABILITY] = static function (Container $container) {
-            return $container->getLocator()->availability()->facade();
+            return new AvailabilityAlertToAvailabilityFacadeBridge($container->getLocator()->availability()->facade());
         };
 
         return $container;

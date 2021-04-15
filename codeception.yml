@@ -23,6 +23,9 @@ include:
   - bundles/splittable-checkout
   - bundles/tax-calculation-connector
   - bundles/util-math-formula
+  - bundles/availability-alert-cross-engage
+  - bundles/jellyfish-availability-alert
+  - bundles/availability-alert
 
 suites:
   unit:

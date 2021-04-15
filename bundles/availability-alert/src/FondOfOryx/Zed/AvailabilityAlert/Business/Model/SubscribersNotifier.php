@@ -3,15 +3,15 @@
 namespace FondOfOryx\Zed\AvailabilityAlert\Business\Model;
 
 use FondOfOryx\Zed\AvailabilityAlert\Business\Model\SubscribersNotifier\SubscribersNotifierPluginExecutorInterface;
+use FondOfOryx\Zed\AvailabilityAlert\Dependency\Facade\AvailabilityAlertToAvailabilityFacadeInterface;
 use Generated\Shared\Transfer\AvailabilityAlertSubscriptionTransfer;
 use Orm\Zed\AvailabilityAlert\Persistence\Map\FooAvailabilityAlertSubscriptionTableMap;
 use Spryker\DecimalObject\Decimal;
-use Spryker\Zed\Availability\Business\AvailabilityFacadeInterface;
 
 class SubscribersNotifier implements SubscribersNotifierInterface
 {
     /**
-     * @var \Spryker\Zed\Availability\Business\AvailabilityFacadeInterface
+     * @var \FondOfOryx\Zed\AvailabilityAlert\Dependency\Facade\AvailabilityAlertToAvailabilityFacadeInterface
      */
     protected $availabilityFacade;
 
@@ -36,14 +36,14 @@ class SubscribersNotifier implements SubscribersNotifierInterface
     protected $subscribersNotifierPluginExecutor;
 
     /**
-     * @param \Spryker\Zed\Availability\Business\AvailabilityFacadeInterface $availabilityFacade
+     * @param \FondOfOryx\Zed\AvailabilityAlert\Dependency\Facade\AvailabilityAlertToAvailabilityFacadeInterface $availabilityFacade
      * @param \FondOfOryx\Zed\AvailabilityAlert\Business\Model\NotificationHandlerInterface $notificationHandler
      * @param \FondOfOryx\Zed\AvailabilityAlert\Business\Model\SubscriptionManagerInterface $subscriptionManager
      * @param int $minimalPercentageDifference
      * @param \FondOfOryx\Zed\AvailabilityAlert\Business\Model\SubscribersNotifier\SubscribersNotifierPluginExecutorInterface $subscribersNotifierPluginExecutor
      */
     public function __construct(
-        AvailabilityFacadeInterface $availabilityFacade,
+        AvailabilityAlertToAvailabilityFacadeInterface $availabilityFacade,
         NotificationHandlerInterface $notificationHandler,
         SubscriptionManagerInterface $subscriptionManager,
         int $minimalPercentageDifference,

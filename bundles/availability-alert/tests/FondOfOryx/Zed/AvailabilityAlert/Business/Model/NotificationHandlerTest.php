@@ -1,0 +1,42 @@
+<?php
+
+namespace FondOfOryx\Zed\AvailabilityAlert\Business\Model;
+
+use Codeception\Test\Unit;
+use FondOfOryx\Zed\AvailabilityAlert\Dependency\Plugin\NotificationPluginInterface;
+use Generated\Shared\Transfer\AvailabilityAlertSubscriptionTransfer;
+
+class NotificationHandlerTest extends Unit
+{
+    /**
+     * @var \Generated\Shared\Transfer\AvailabilityAlertSubscriptionTransfer|\PHPUnit\Framework\MockObject\MockObject
+     */
+    protected $subscriptionTransferMock;
+
+    /**
+     * @var \FondOfOryx\Zed\AvailabilityAlert\Dependency\Plugin\NotificationPluginInterface|\PHPUnit\Framework\MockObject\MockObject
+     */
+    protected $pluginMock;
+
+    /**
+     * @return void
+     */
+    public function _before()
+    {
+        parent::_before();
+
+        $this->subscriptionTransferMock = static::getMockBuilder(AvailabilityAlertSubscriptionTransfer::class)->disableOriginalConstructor()->getMock();
+        $this->pluginMock = static::getMockBuilder(NotificationPluginInterface::class)->disableOriginalConstructor()->getMock();
+    }
+
+    /**
+     * @return void
+     */
+    public function testExecutePreCheckPluginsWillReturnTrue(): void
+    {
+        $this->pluginMock->expects(static::once())->method('notify');
+        $executor = new NotificationHandler([$this->pluginMock]);
+
+        $executor->execute($this->subscriptionTransferMock);
+    }
+}

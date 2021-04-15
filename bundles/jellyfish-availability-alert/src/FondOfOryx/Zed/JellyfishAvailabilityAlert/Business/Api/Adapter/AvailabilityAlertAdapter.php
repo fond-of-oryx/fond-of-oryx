@@ -52,21 +52,6 @@ class AvailabilityAlertAdapter implements AvailabilityAlertAdapterInterface
     protected $utilEncodingService;
 
     /**
-     * @var string
-     */
-    protected $username;
-
-    /**
-     * @var string
-     */
-    protected $password;
-
-    /**
-     * @var bool
-     */
-    protected $dryRun;
-
-    /**
      * @param \FondOfOryx\Zed\JellyfishAvailabilityAlert\Business\Dependency\Service\JellyfishAvailabilityAlertToUtilEncodingServiceInterface $utilEncodingService
      * @param \GuzzleHttp\ClientInterface $client
      * @param \FondOfOryx\Zed\JellyfishAvailabilityAlert\JellyfishAvailabilityAlertConfig $config
@@ -84,11 +69,7 @@ class AvailabilityAlertAdapter implements AvailabilityAlertAdapterInterface
         $this->client = $client;
         $this->storeFacade = $storeFacade;
         $this->localeFacade = $localeFacade;
-
         $this->config = $config;
-        $this->username = $config->getUsername();
-        $this->password = $config->getPassword();
-        $this->dryRun = $config->dryRun();
     }
 
     /**
@@ -106,7 +87,7 @@ class AvailabilityAlertAdapter implements AvailabilityAlertAdapterInterface
 
         $availabilityAlertDataWrapperTransfer->setConfiguration($configuration);
 
-        if ($this->dryRun === true) {
+        if ($this->config->dryRun() === true) {
             $this->getLogger()->error($this->utilEncodingService->encodeJson($availabilityAlertDataWrapperTransfer->toArray(true, true)));
 
             return null;
@@ -130,13 +111,13 @@ class AvailabilityAlertAdapter implements AvailabilityAlertAdapterInterface
         $options = [];
 
         $options[RequestOptions::HEADERS] = static::DEFAULT_HEADERS;
-        if (!empty($this->username) && !empty($this->password)) {
+        if (!empty($this->config->getUsername()) && !empty($this->config->getPassword())) {
             $options[RequestOptions::AUTH] = [
-                $this->username,
-                $this->password,
+                $this->config->getUsername(),
+                $this->config->getPassword(),
             ];
         }
-        $options['timeout'] = 4;
+        $options['timeout'] = $this->config->getTimeout();
         $options[RequestOptions::BODY] = $this->utilEncodingService->encodeJson($availabilityAlertDataWrapperTransfer->toArray(true, true));
 
         return $options;
