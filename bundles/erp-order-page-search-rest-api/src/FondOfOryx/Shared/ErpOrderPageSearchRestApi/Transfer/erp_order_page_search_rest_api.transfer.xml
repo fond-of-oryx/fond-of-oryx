@@ -9,7 +9,7 @@
     </transfer>
 
     <transfer name="RestErpOrderPageSearchCollectionResponse">
-        <property name="erpOrders" singular="erpOrder" type="ErpOrder[]"/>
+        <property name="erpOrders" singular="erpOrder" type="RestErpOrder[]"/>
         <property name="pagination" type="RestErpOrderPageSearchPagination"/>
         <property name="sort" type="RestErpOrderPageSearchPaginationSort"/>
     </transfer>
@@ -26,6 +26,46 @@
         <property name="sortParamLocalizedNames" type="array" singular="sortParamLocalizedNames"/>
         <property name="currentSortParam" type="string"/>
         <property name="currentSortOrder" type="string"/>
+    </transfer>
+
+    <transfer name="RestErpOrder">
+        <property name="externalReference" type="string" />
+        <property name="reference" type="string" />
+        <property name="concreteDeliveryDate" type="string" />
+        <property name="createdAt" type="string" />
+        <property name="updatedAt" type="string" />
+        <property name="billingAddress" type="RestErpOrderAddress"/>
+        <property name="shippingAddress" type="RestErpOrderAddress"/>
+        <property name="companyBusinessUnit" type="RestCompanyBusinessUnit"/>
+        <property name="items" singular="item" type="RestErpOrderItem[]"/>
+    </transfer>
+
+    <transfer name="RestErpOrderAddress">
+        <property name="name1" type="string"/>
+        <property name="name2" type="string"/>
+        <property name="address1" type="string"/>
+        <property name="address2" type="string"/>
+        <property name="address3" type="string"/>
+        <property name="country" type="string"/>
+        <property name="city" type="string"/>
+        <property name="zipCode" type="string"/>
+        <property name="phone" type="string"/>
+    </transfer>
+
+    <transfer name="RestErpOrderItem">
+        <property name="sku" type="string"/>
+        <property name="name" type="string"/>
+        <property name="orderedQuantity" type="int"/>
+        <property name="invoicedQuantity" type="int"/>
+        <property name="shippedQuantity" type="int"/>
+        <property name="canceledQuantity" type="int"/>
+        <property name="concreteDeliveryDate" type="string"/>
+        <property name="status" type="string"/>
+    </transfer>
+
+    <transfer name="RestCompanyBusinessUnit">
+        <property name="name" type="string"/>
+        <property name="uuid" type="string"/>
     </transfer>
 
 </transfers>
