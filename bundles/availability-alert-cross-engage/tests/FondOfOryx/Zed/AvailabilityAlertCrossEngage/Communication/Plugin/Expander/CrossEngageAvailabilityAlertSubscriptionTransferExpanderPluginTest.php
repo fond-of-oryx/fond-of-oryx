@@ -89,7 +89,7 @@ class CrossEngageAvailabilityAlertSubscriptionTransferExpanderPluginTest extends
             /**
              * @return \Spryker\Zed\Kernel\Business\AbstractFacade
              */
-            public function getFacade()
+            protected function getFacade()
             {
                 return $this->facade;
             }
@@ -97,7 +97,7 @@ class CrossEngageAvailabilityAlertSubscriptionTransferExpanderPluginTest extends
             /**
              * @return \Spryker\Zed\Kernel\Communication\AbstractCommunicationFactory
              */
-            public function getFactory()
+            protected function getFactory()
             {
                 return $this->factory;
             }
