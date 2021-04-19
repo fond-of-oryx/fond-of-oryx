@@ -26,6 +26,7 @@ class ErpOrderPageSearchEventSubscriber extends AbstractPlugin implements EventS
         $this->addErpOrderPublishListener($eventCollection);
         $this->addErpOrderUnPublishListener($eventCollection);
         $this->addErpOrderCreateListener($eventCollection);
+        $this->addErpOrderUpdateListener($eventCollection);
 
         return $eventCollection;
     }
@@ -39,6 +40,22 @@ class ErpOrderPageSearchEventSubscriber extends AbstractPlugin implements EventS
     {
         $eventCollection->addListenerQueued(
             ErpOrderEvents::ENTITY_FOO_ERP_ORDER_CREATE,
+            new ErpOrderPageSearchListener(),
+            0,
+            null,
+            $this->getConfig()->getEventQueueName()
+        );
+    }
+
+    /**
+     * @param \Spryker\Zed\Event\Dependency\EventCollectionInterface $eventCollection
+     *
+     * @return void
+     */
+    protected function addErpOrderUpdateListener(EventCollectionInterface $eventCollection): void
+    {
+        $eventCollection->addListenerQueued(
+            ErpOrderEvents::ENTITY_FOO_ERP_ORDER_UPDATE,
             new ErpOrderPageSearchListener(),
             0,
             null,
