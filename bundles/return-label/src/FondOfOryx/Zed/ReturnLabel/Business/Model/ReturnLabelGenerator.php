@@ -5,6 +5,7 @@ namespace FondOfOryx\Zed\ReturnLabel\Business\Model;
 use FondOfOryx\Zed\ReturnLabel\Business\Api\Adapter\ReturnLabelAdapterInterface;
 use FondOfOryx\Zed\ReturnLabel\Business\Mapper\ReturnLabelAddressMapperInterface;
 use Generated\Shared\Transfer\ReturnLabelAddressTransfer;
+use Generated\Shared\Transfer\ReturnLabelCustomerTransfer;
 use Generated\Shared\Transfer\ReturnLabelRequestTransfer;
 use Generated\Shared\Transfer\ReturnLabelResponseTransfer;
 use Generated\Shared\Transfer\ReturnLabelServiceRequestTransfer;
@@ -57,19 +58,29 @@ class ReturnLabelGenerator implements ReturnLabelGeneratorInterface
             return new ReturnLabelResponseTransfer();
         }
 
-        $returnLabelAddressTransfer = $this->returnLabelAddressMapper
-            ->mapCompanyUnitAddressToReturnLabelAddress(
-                $companyUnitAddressTransfer,
-                new ReturnLabelAddressTransfer()
-            );
+        $returnLabelCustomerTransfer = (new ReturnLabelCustomerTransfer())
+            ->setReceiverId('deu')
+            ->setCustomerReference('50000')
+            ->setEmail('foobar@mailinator.com')
+            ->setPhone('657890657890')
+            ->setAddress($this->returnLabelAddressMapper
+                ->mapCompanyUnitAddressToReturnLabelAddress(
+                    $companyUnitAddressTransfer,
+                    new ReturnLabelAddressTransfer()
+                )
+            )
+        ;
 
         $returnLabelServiceRequestTransfer = (new ReturnLabelServiceRequestTransfer())
             ->setQrCode(true)
             ->setReturnForm(true)
-            ->setReturnLabelAddress($returnLabelAddressTransfer);
+            ->setCustomer($returnLabelCustomerTransfer);
 
         $response = $this->returnLabelAdapter
             ->sendRequest($returnLabelServiceRequestTransfer);
+
+        var_dump($response);
+        die();
 
         // TODO: Map to ReturnLabelResponseTransfer and return
         return new ReturnLabelResponseTransfer();

@@ -19,8 +19,11 @@ class ReturnLabelsRestApiClient extends AbstractClient implements ReturnLabelsRe
     public function generateReturnLabel(
         RestReturnLabelRequestTransfer $restReturnLabelRequestTransfer
     ): RestReturnLabelResponseTransfer {
-        return $this->getFactory()
+        /** @var \Generated\Shared\Transfer\RestReturnLabelResponseTransfer $restReturnLabelResponseTransfer */
+        $restReturnLabelResponseTransfer = $this->getFactory()
             ->createReturnLabelZedStub()
             ->generateReturnLabel($restReturnLabelRequestTransfer);
+
+        return $restReturnLabelResponseTransfer;
     }
 }
