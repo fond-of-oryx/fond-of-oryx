@@ -8,6 +8,7 @@ use FondOfOryx\Zed\ErpOrderPageSearch\Persistence\ErpOrderPageSearchEntityManage
 use FondOfOryx\Zed\ErpOrderPageSearch\Persistence\ErpOrderPageSearchQueryContainerInterface;
 use Generated\Shared\Transfer\ErpOrderPageSearchTransfer;
 use Orm\Zed\ErpOrder\Persistence\ErpOrder;
+use Orm\Zed\ErpOrder\Persistence\ErpOrderAddress;
 use Propel\Runtime\Map\TableMap;
 
 class ErpOrderPageSearchPublisher implements ErpOrderPageSearchPublisherInterface
@@ -16,6 +17,7 @@ class ErpOrderPageSearchPublisher implements ErpOrderPageSearchPublisherInterfac
     public const ERP_ORDER_ITEMS = 'erpOrderItems';
     public const BILLING_ADDRESS = 'billingAddress';
     public const SHIPPING_ADDRESS = 'shippingAddress';
+    public const FIELD_COUNTRY = 'country';
 
     /**
      * @var \FondOfOryx\Zed\ErpOrderPageSearch\Persistence\ErpOrderPageSearchEntityManagerInterface
@@ -102,8 +104,8 @@ class ErpOrderPageSearchPublisher implements ErpOrderPageSearchPublisherInterfac
 
         $erpOrderData[static::COMPANY_BUSINESS_UNIT] = $companyBusinessUnit->toArray();
         $erpOrderData[static::ERP_ORDER_ITEMS] = $orderItems->toArray(null, false, TableMap::TYPE_FIELDNAME);
-        $erpOrderData[static::BILLING_ADDRESS] = $billingAddress->toArray();
-        $erpOrderData[static::SHIPPING_ADDRESS] = $shippingAddress->toArray();
+        $erpOrderData[static::BILLING_ADDRESS] = $this->getAddress($billingAddress);
+        $erpOrderData[static::SHIPPING_ADDRESS] = $this->getAddress($shippingAddress);
 
         $erpOrderPageSearchTransfer = (new ErpOrderPageSearchTransfer())
             ->fromArray($erpOrderData, true)
@@ -114,6 +116,19 @@ class ErpOrderPageSearchPublisher implements ErpOrderPageSearchPublisherInterfac
         $erpOrderPageSearchTransfer = $this->addUniqueKeyIdentifier($erpOrderPageSearchTransfer, $fooErpOrderEntity);
 
         $this->entityManager->createErpOrderPageSearch($erpOrderPageSearchTransfer);
+    }
+
+    /**
+     * @param \Orm\Zed\ErpOrder\Persistence\ErpOrderAddress $erpOrderAddressEntity
+     *
+     * @return array
+     */
+    protected function getAddress(ErpOrderAddress $erpOrderAddressEntity): array
+    {
+        $address = $erpOrderAddressEntity->toArray();
+        $address[static::FIELD_COUNTRY] = $erpOrderAddressEntity->getCountry()->getIso2Code();
+
+        return $address;
     }
 
     /**
