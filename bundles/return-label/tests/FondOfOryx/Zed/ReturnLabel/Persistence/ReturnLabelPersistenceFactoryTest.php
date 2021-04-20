@@ -8,7 +8,6 @@ use FondOfOryx\Zed\ReturnLabel\ReturnLabelConfig;
 use FondOfOryx\Zed\ReturnLabel\ReturnLabelDependencyProvider;
 use Orm\Zed\CompanyUnitAddress\Persistence\SpyCompanyUnitAddressQuery;
 use Spryker\Zed\Kernel\Container;
-use function PHPUnit\Framework\assertEquals;
 
 class ReturnLabelPersistenceFactoryTest extends Unit
 {

@@ -9,12 +9,12 @@ use Orm\Zed\CompanyUnitAddress\Persistence\SpyCompanyUnitAddress;
 class CompanyUnitAddressMapperTest extends Unit
 {
     /**
-     * @var SpyCompanyUnitAddress|\PHPUnit\Framework\MockObject\MockObject
+     * @var \Orm\Zed\CompanyUnitAddress\Persistence\SpyCompanyUnitAddress|\PHPUnit\Framework\MockObject\MockObject
      */
     protected $spyCompanyUnitAddressMock;
 
     /**
-     * @var CompanyUnitAddressTransfer|\PHPUnit\Framework\MockObject\MockObject
+     * @var \Generated\Shared\Transfer\CompanyUnitAddressTransfer|\PHPUnit\Framework\MockObject\MockObject
      */
     protected $companyUnitAddressTransferMock;
 

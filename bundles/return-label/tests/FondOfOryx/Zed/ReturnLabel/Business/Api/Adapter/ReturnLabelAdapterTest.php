@@ -8,7 +8,6 @@ use FondOfOryx\Zed\ReturnLabel\ReturnLabelConfig;
 use Generated\Shared\Transfer\ReturnLabelServiceRequestTransfer;
 use GuzzleHttp\Client;
 use GuzzleHttp\Psr7\Response;
-use Psr\Http\Message\ResponseInterface;
 
 class ReturnLabelAdapterTest extends Unit
 {

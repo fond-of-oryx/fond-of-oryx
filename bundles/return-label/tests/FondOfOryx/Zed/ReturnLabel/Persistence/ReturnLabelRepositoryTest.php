@@ -1,8 +1,6 @@
 <?php
 
-
 namespace FondOfOryx\Zed\ReturnLabel\Persistence;
-
 
 use Codeception\Test\Unit;
 use Generated\Shared\Transfer\ReturnLabelRequestTransfer;

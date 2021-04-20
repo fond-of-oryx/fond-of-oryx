@@ -11,9 +11,9 @@ use FondOfOryx\Zed\ReturnLabel\Dependency\Service\ReturnLabelToUtilEncodingServi
 use FondOfOryx\Zed\ReturnLabel\Dependency\Service\ReturnLabelToUtilEncodingServiceInterface;
 use FondOfOryx\Zed\ReturnLabel\Persistence\ReturnLabelRepository;
 use FondOfOryx\Zed\ReturnLabel\ReturnLabelConfig;
-use Spryker\Zed\Kernel\Container;
 use FondOfOryx\Zed\ReturnLabel\ReturnLabelDependencyProvider;
 use GuzzleHttp\ClientInterface as HttpClientInterface;
+use Spryker\Zed\Kernel\Container;
 
 class ReturnLabelBusinessFactoryTest extends Unit
 {
@@ -71,6 +71,9 @@ class ReturnLabelBusinessFactoryTest extends Unit
         $this->factory->setConfig($this->configMock);
     }
 
+    /**
+     * @return void
+     */
     public function testCreateReturnLabelGenerator(): void
     {
         $this->containerMock->expects(static::atLeastOnce())
@@ -90,6 +93,8 @@ class ReturnLabelBusinessFactoryTest extends Unit
 
     /**
      * @retrun void
+     *
+     * @return void
      */
     public function testCreateCompanyUnitAddressReader(): void
     {
@@ -101,6 +106,8 @@ class ReturnLabelBusinessFactoryTest extends Unit
 
     /**
      * @retrun void
+     *
+     * @return void
      */
     public function testCreateReturnLabelAdapter(): void
     {
@@ -121,6 +128,8 @@ class ReturnLabelBusinessFactoryTest extends Unit
 
     /**
      * @retrun void
+     *
+     * @return void
      */
     public function testCreateReturnLabelAddressMapper()
     {
@@ -132,6 +141,8 @@ class ReturnLabelBusinessFactoryTest extends Unit
 
     /**
      * @retrun void
+     *
+     * @return void
      */
     public function testCreateHttpClient(): void
     {
@@ -143,6 +154,8 @@ class ReturnLabelBusinessFactoryTest extends Unit
 
     /**
      * @retrun void
+     *
+     * @return void
      */
     public function testGetUtilEncodingService(): void
     {

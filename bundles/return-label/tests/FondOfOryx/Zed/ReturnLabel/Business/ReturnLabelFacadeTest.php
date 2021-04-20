@@ -1,8 +1,6 @@
 <?php
 
-
 namespace FondOfOryx\Zed\ReturnLabel\Business;
-
 
 use Codeception\Test\Unit;
 use FondOfOryx\Zed\ReturnLabel\Business\Model\ReturnLabelGenerator;

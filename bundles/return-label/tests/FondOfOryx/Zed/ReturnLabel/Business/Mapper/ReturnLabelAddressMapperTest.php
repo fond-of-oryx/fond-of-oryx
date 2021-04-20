@@ -46,6 +46,38 @@ class ReturnLabelAddressMapperTest extends Unit
      */
     public function testMapCompanyUnitAddressToReturnLabelAddress(): void
     {
+        $this->returnLabelAddressTransferMock->expects(static::atLeastOnce())
+            ->method('setCompany')
+            ->willReturn($this->returnLabelAddressTransferMock);
+
+        $this->returnLabelAddressTransferMock->expects(static::atLeastOnce())
+            ->method('setName1')
+            ->willReturn($this->returnLabelAddressTransferMock);
+
+        $this->returnLabelAddressTransferMock->expects(static::atLeastOnce())
+            ->method('setAddress1')
+            ->willReturn($this->returnLabelAddressTransferMock);
+
+        $this->returnLabelAddressTransferMock->expects(static::atLeastOnce())
+            ->method('setAddress2')
+            ->willReturn($this->returnLabelAddressTransferMock);
+
+        $this->returnLabelAddressTransferMock->expects(static::atLeastOnce())
+            ->method('setAddress3')
+            ->willReturn($this->returnLabelAddressTransferMock);
+
+        $this->returnLabelAddressTransferMock->expects(static::atLeastOnce())
+            ->method('setZipCode')
+            ->willReturn($this->returnLabelAddressTransferMock);
+
+        $this->returnLabelAddressTransferMock->expects(static::atLeastOnce())
+            ->method('setCity')
+            ->willReturn($this->returnLabelAddressTransferMock);
+
+        $this->returnLabelAddressTransferMock->expects(static::atLeastOnce())
+            ->method('setCountry')
+            ->willReturn($this->returnLabelAddressTransferMock);
+
         $response = $this->mapper->mapCompanyUnitAddressToReturnLabelAddress(
             $this->companyUnitAddressTransferMock,
             $this->returnLabelAddressTransferMock

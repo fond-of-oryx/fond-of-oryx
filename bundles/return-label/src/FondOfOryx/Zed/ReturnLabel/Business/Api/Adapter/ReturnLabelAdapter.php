@@ -5,7 +5,6 @@ namespace FondOfOryx\Zed\ReturnLabel\Business\Api\Adapter;
 use FondOfOryx\Zed\ReturnLabel\Dependency\Service\ReturnLabelToUtilEncodingServiceInterface;
 use FondOfOryx\Zed\ReturnLabel\ReturnLabelConfig;
 use GuzzleHttp\ClientInterface as HttpClientInterface;
-use GuzzleHttp\Exception\GuzzleException;
 use GuzzleHttp\RequestOptions;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\StreamInterface;

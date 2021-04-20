@@ -67,9 +67,7 @@ class ReturnLabelGenerator implements ReturnLabelGeneratorInterface
                 ->mapCompanyUnitAddressToReturnLabelAddress(
                     $companyUnitAddressTransfer,
                     new ReturnLabelAddressTransfer()
-                )
-            )
-        ;
+                ));
 
         $returnLabelServiceRequestTransfer = (new ReturnLabelServiceRequestTransfer())
             ->setQrCode(true)
@@ -78,9 +76,6 @@ class ReturnLabelGenerator implements ReturnLabelGeneratorInterface
 
         $response = $this->returnLabelAdapter
             ->sendRequest($returnLabelServiceRequestTransfer);
-
-        var_dump($response);
-        die();
 
         // TODO: Map to ReturnLabelResponseTransfer and return
         return new ReturnLabelResponseTransfer();
