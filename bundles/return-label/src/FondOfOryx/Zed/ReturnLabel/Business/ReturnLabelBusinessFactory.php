@@ -6,6 +6,8 @@ use FondOfOryx\Zed\ReturnLabel\Business\Api\Adapter\ReturnLabelAdapter;
 use FondOfOryx\Zed\ReturnLabel\Business\Api\Adapter\ReturnLabelAdapterInterface;
 use FondOfOryx\Zed\ReturnLabel\Business\Mapper\ReturnLabelAddressMapper;
 use FondOfOryx\Zed\ReturnLabel\Business\Mapper\ReturnLabelAddressMapperInterface;
+use FondOfOryx\Zed\ReturnLabel\Business\Model\CompanyBusinessUnitReader;
+use FondOfOryx\Zed\ReturnLabel\Business\Model\CompanyBusinessUnitReaderInterface;
 use FondOfOryx\Zed\ReturnLabel\Business\Model\CompanyUnitAddressReader;
 use FondOfOryx\Zed\ReturnLabel\Business\Model\CompanyUnitAddressReaderInterface;
 use FondOfOryx\Zed\ReturnLabel\Business\Model\ReturnLabelGenerator;
@@ -29,8 +31,10 @@ class ReturnLabelBusinessFactory extends AbstractBusinessFactory
     {
         return new ReturnLabelGenerator(
             $this->createCompanyUnitAddressReader(),
+            $this->createCompanyBusinessUnitReader(),
             $this->createReturnLabelAdapter(),
-            $this->createReturnLabelAddressMapper()
+            $this->createReturnLabelAddressMapper(),
+            $this->getConfig()
         );
     }
 
@@ -40,6 +44,14 @@ class ReturnLabelBusinessFactory extends AbstractBusinessFactory
     public function createCompanyUnitAddressReader(): CompanyUnitAddressReaderInterface
     {
         return new CompanyUnitAddressReader($this->getRepository());
+    }
+
+    /**
+     * @return \FondOfOryx\Zed\ReturnLabel\Business\Model\CompanyBusinessUnitReaderInterface
+     */
+    public function createCompanyBusinessUnitReader(): CompanyBusinessUnitReaderInterface
+    {
+        return new CompanyBusinessUnitReader($this->getRepository());
     }
 
     /**

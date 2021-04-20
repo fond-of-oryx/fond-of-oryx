@@ -48,4 +48,20 @@ class ReturnLabelConfig extends AbstractBundleConfig
 
         return $apiPassword;
     }
+
+    /**
+     * @return bool
+     */
+    public function appendReturnForm(): bool
+    {
+        return $this->get(ReturnLabelConstants::APPEND_RETURN_FORM, true);
+    }
+
+    /**
+     * @return bool
+     */
+    public function printQrCodeOnReturnForm(): bool
+    {
+        return $this->get(ReturnLabelConstants::PRINT_QR_CODE_ON_RETURN_FORM, true);
+    }
 }

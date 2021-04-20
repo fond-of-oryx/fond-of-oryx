@@ -51,4 +51,14 @@
         <property name="city" type="string"/>
         <property name="country" type="string"/>
     </transfer>
+
+    <transfer name="CompanyBusinessUnit">
+        <property name="email" type="string"/>
+        <property name="phone" type="string"/>
+        <property name="company" type="Company"/>
+    </transfer>
+
+    <transfer name="Company">
+        <property name="debtorNumber" type="string"/>
+    </transfer>
 </transfers>

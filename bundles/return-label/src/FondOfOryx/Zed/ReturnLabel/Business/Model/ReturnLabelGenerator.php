@@ -4,6 +4,7 @@ namespace FondOfOryx\Zed\ReturnLabel\Business\Model;
 
 use FondOfOryx\Zed\ReturnLabel\Business\Api\Adapter\ReturnLabelAdapterInterface;
 use FondOfOryx\Zed\ReturnLabel\Business\Mapper\ReturnLabelAddressMapperInterface;
+use FondOfOryx\Zed\ReturnLabel\ReturnLabelConfig;
 use Generated\Shared\Transfer\ReturnLabelAddressTransfer;
 use Generated\Shared\Transfer\ReturnLabelCustomerTransfer;
 use Generated\Shared\Transfer\ReturnLabelRequestTransfer;
@@ -18,6 +19,11 @@ class ReturnLabelGenerator implements ReturnLabelGeneratorInterface
     protected $companyUnitAddressReader;
 
     /**
+     * @var \FondOfOryx\Zed\ReturnLabel\Business\Model\CompanyBusinessUnitReaderInterface
+     */
+    protected $companyBusinessUnitReader;
+
+    /**
      * @var \FondOfOryx\Zed\ReturnLabel\Business\Api\Adapter\ReturnLabelAdapterInterface
      */
     protected $returnLabelAdapter;
@@ -28,18 +34,29 @@ class ReturnLabelGenerator implements ReturnLabelGeneratorInterface
     protected $returnLabelAddressMapper;
 
     /**
+     * @var \FondOfOryx\Zed\ReturnLabel\ReturnLabelConfig
+     */
+    protected $config;
+
+    /**
      * @param \FondOfOryx\Zed\ReturnLabel\Business\Model\CompanyUnitAddressReaderInterface $companyUnitAddressReader
+     * @param \FondOfOryx\Zed\ReturnLabel\Business\Model\CompanyBusinessUnitReaderInterface $companyBusinessUnitReader
      * @param \FondOfOryx\Zed\ReturnLabel\Business\Api\Adapter\ReturnLabelAdapterInterface $returnLabelAdapter
      * @param \FondOfOryx\Zed\ReturnLabel\Business\Mapper\ReturnLabelAddressMapperInterface $returnLabelAddressMapper
+     * @param \FondOfOryx\Zed\ReturnLabel\ReturnLabelConfig $config
      */
     public function __construct(
         CompanyUnitAddressReaderInterface $companyUnitAddressReader,
+        CompanyBusinessUnitReaderInterface $companyBusinessUnitReader,
         ReturnLabelAdapterInterface $returnLabelAdapter,
-        ReturnLabelAddressMapperInterface $returnLabelAddressMapper
+        ReturnLabelAddressMapperInterface $returnLabelAddressMapper,
+        ReturnLabelConfig $config
     ) {
         $this->companyUnitAddressReader = $companyUnitAddressReader;
+        $this->companyBusinessUnitReader = $companyBusinessUnitReader;
         $this->returnLabelAdapter = $returnLabelAdapter;
         $this->returnLabelAddressMapper = $returnLabelAddressMapper;
+        $this->config = $config;
     }
 
     /**
@@ -54,15 +71,19 @@ class ReturnLabelGenerator implements ReturnLabelGeneratorInterface
             $returnLabelRequestTransfer
         );
 
-        if ($companyUnitAddressTransfer === null) {
+        $companyBusinessUnitTransfer = $this->companyBusinessUnitReader->getByReturnLabelRequest(
+            $returnLabelRequestTransfer
+        );
+
+        if ($companyUnitAddressTransfer === null || $companyBusinessUnitTransfer === null) {
             return new ReturnLabelResponseTransfer();
         }
 
         $returnLabelCustomerTransfer = (new ReturnLabelCustomerTransfer())
             ->setReceiverId('deu')
-            ->setCustomerReference('50000')
-            ->setEmail('foobar@mailinator.com')
-            ->setPhone('657890657890')
+            ->setCustomerReference($companyBusinessUnitTransfer->getCompany()->getDebtorNumber())
+            ->setEmail($companyBusinessUnitTransfer->getEmail())
+            ->setPhone($companyBusinessUnitTransfer->getPhone())
             ->setAddress($this->returnLabelAddressMapper
                 ->mapCompanyUnitAddressToReturnLabelAddress(
                     $companyUnitAddressTransfer,
@@ -70,8 +91,8 @@ class ReturnLabelGenerator implements ReturnLabelGeneratorInterface
                 ));
 
         $returnLabelServiceRequestTransfer = (new ReturnLabelServiceRequestTransfer())
-            ->setQrCode(true)
-            ->setReturnForm(true)
+            ->setQrCode($this->config->printQrCodeOnReturnForm())
+            ->setReturnForm($this->config->appendReturnForm())
             ->setCustomer($returnLabelCustomerTransfer);
 
         $response = $this->returnLabelAdapter

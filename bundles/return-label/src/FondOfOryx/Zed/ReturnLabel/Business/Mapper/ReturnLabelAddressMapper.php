@@ -18,8 +18,8 @@ class ReturnLabelAddressMapper implements ReturnLabelAddressMapperInterface
         ReturnLabelAddressTransfer $returnLabelAddressTransfer
     ): ReturnLabelAddressTransfer {
         return $returnLabelAddressTransfer
-            ->setCompany('')
-            ->setName1($companyUnitAddressTransfer->getName1() . ' ' . $companyUnitAddressTransfer->getName2())
+            ->setName1($companyUnitAddressTransfer->getName1())
+            ->setName2($companyUnitAddressTransfer->getName2())
             ->setAddress1($companyUnitAddressTransfer->getAddress1())
             ->setAddress2($companyUnitAddressTransfer->getAddress2())
             ->setAddress3($companyUnitAddressTransfer->getAddress3())

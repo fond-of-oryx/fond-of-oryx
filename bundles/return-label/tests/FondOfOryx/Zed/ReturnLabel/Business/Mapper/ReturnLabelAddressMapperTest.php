@@ -47,11 +47,11 @@ class ReturnLabelAddressMapperTest extends Unit
     public function testMapCompanyUnitAddressToReturnLabelAddress(): void
     {
         $this->returnLabelAddressTransferMock->expects(static::atLeastOnce())
-            ->method('setCompany')
+            ->method('setName1')
             ->willReturn($this->returnLabelAddressTransferMock);
 
         $this->returnLabelAddressTransferMock->expects(static::atLeastOnce())
-            ->method('setName1')
+            ->method('setName2')
             ->willReturn($this->returnLabelAddressTransferMock);
 
         $this->returnLabelAddressTransferMock->expects(static::atLeastOnce())
