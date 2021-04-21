@@ -67,6 +67,8 @@ class ReturnLabelGenerator implements ReturnLabelGeneratorInterface
     public function generate(
         ReturnLabelRequestTransfer $returnLabelRequestTransfer
     ): ReturnLabelResponseTransfer {
+        $returnLabelResponseTransfer = new ReturnLabelResponseTransfer();
+
         $companyUnitAddressTransfer = $this->companyUnitAddressReader->getByReturnLabelRequest(
             $returnLabelRequestTransfer
         );
@@ -76,7 +78,7 @@ class ReturnLabelGenerator implements ReturnLabelGeneratorInterface
         );
 
         if ($companyUnitAddressTransfer === null || $companyBusinessUnitTransfer === null) {
-            return new ReturnLabelResponseTransfer();
+            $returnLabelResponseTransfer
         }
 
         $returnLabelCustomerTransfer = (new ReturnLabelCustomerTransfer())
@@ -86,7 +88,7 @@ class ReturnLabelGenerator implements ReturnLabelGeneratorInterface
             ->setPhone($companyBusinessUnitTransfer->getPhone())
             ->setAddress($this->returnLabelAddressMapper
                 ->mapCompanyUnitAddressToReturnLabelAddress(
-                    $companyUnitAddressTransfer,
+                    $companyUnitAddressTransfe,
                     new ReturnLabelAddressTransfer()
                 ));
 
@@ -99,6 +101,6 @@ class ReturnLabelGenerator implements ReturnLabelGeneratorInterface
             ->sendRequest($returnLabelServiceRequestTransfer);
 
         // TODO: Map to ReturnLabelResponseTransfer and return
-        return new ReturnLabelResponseTransfer();
+        return $returnLabelResponseTransfer->setData($response->getContents());
     }
 }

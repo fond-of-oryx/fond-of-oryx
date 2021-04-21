@@ -66,7 +66,7 @@ class ReturnLabelGeneratorTest extends Unit
     protected $streamInterfaceMock;
 
     /**
-     * @var ReturnLabelConfig|\PHPUnit\Framework\MockObject\MockObject
+     * @var \FondOfOryx\Zed\ReturnLabel\ReturnLabelConfig|\PHPUnit\Framework\MockObject\MockObject
      */
     protected $configMock;
 
