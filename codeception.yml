@@ -23,6 +23,7 @@ include:
   - bundles/shipment-table-rate
   - bundles/shipment-table-rate-data-import
   - bundles/splittable-checkout
+  - bundles/splittable-totals
   - bundles/splittable-totals-extension
   - bundles/tax-calculation-connector
   - bundles/util-math-formula
