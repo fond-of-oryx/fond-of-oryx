@@ -40,7 +40,6 @@ class QuoteSplitter implements QuoteSplitterInterface
         foreach ($quoteTransfer->getItems() as $itemTransfer) {
             $splitItemAttributeValue = $itemTransfer->$getterMethod() ?? '*';
 
-
             if (!isset($quoteTransfers[$splitItemAttributeValue])) {
                 $quoteTransfers[$splitItemAttributeValue] = $this->cloneQuote($quoteTransfer);
             }

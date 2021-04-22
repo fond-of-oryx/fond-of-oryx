@@ -73,7 +73,6 @@ class SplittableTotalsDependencyProviderTest extends Unit
         $this->dependencyProvider = new SplittableTotalsDependencyProvider();
     }
 
-    
     /**
      * @return void
      */
