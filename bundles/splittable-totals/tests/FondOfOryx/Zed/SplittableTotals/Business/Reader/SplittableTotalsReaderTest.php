@@ -6,16 +6,10 @@ use Codeception\Test\Unit;
 use FondOfOryx\Zed\SplittableTotals\Business\Splitter\QuoteSplitterInterface;
 use FondOfOryx\Zed\SplittableTotals\Dependency\Facade\SplittableTotalsToCalculationFacadeInterface;
 use Generated\Shared\Transfer\QuoteTransfer;
-use Generated\Shared\Transfer\SplittableTotalsRequestTransfer;
 use Generated\Shared\Transfer\TotalsTransfer;
 
 class SplittableTotalsReaderTest extends Unit
 {
-    /**
-     * @var \FondOfOryx\Zed\SplittableTotals\Business\Reader\QuoteReaderInterface|\PHPUnit\Framework\MockObject\MockObject
-     */
-    protected $quoteReaderMock;
-
     /**
      * @var \FondOfOryx\Zed\SplittableTotals\Business\Splitter\QuoteSplitterInterface|\PHPUnit\Framework\MockObject\MockObject
      */
@@ -25,11 +19,6 @@ class SplittableTotalsReaderTest extends Unit
      * @var \FondOfOryx\Zed\SplittableTotals\Dependency\Facade\SplittableTotalsToCalculationFacadeInterface|\PHPUnit\Framework\MockObject\MockObject
      */
     protected $calculationFacadeMock;
-
-    /**
-     * @var \Generated\Shared\Transfer\SplittableTotalsRequestTransfer|\PHPUnit\Framework\MockObject\MockObject
-     */
-    protected $splittableTotalsRequestTransfer;
 
     /**
      * @var \Generated\Shared\Transfer\QuoteTransfer|\PHPUnit\Framework\MockObject\MockObject
@@ -47,27 +36,17 @@ class SplittableTotalsReaderTest extends Unit
     protected $splittableTotalsReader;
 
     /**
-     * @Override
-     *
      * @return void
      */
     protected function _before(): void
     {
         parent::_before();
 
-        $this->quoteReaderMock = $this->getMockBuilder(QuoteReaderInterface::class)
-            ->disableOriginalConstructor()
-            ->getMock();
-
         $this->quoteSplitterMock = $this->getMockBuilder(QuoteSplitterInterface::class)
             ->disableOriginalConstructor()
             ->getMock();
 
         $this->calculationFacadeMock = $this->getMockBuilder(SplittableTotalsToCalculationFacadeInterface::class)
-            ->disableOriginalConstructor()
-            ->getMock();
-
-        $this->splittableTotalsRequestTransfer = $this->getMockBuilder(SplittableTotalsRequestTransfer::class)
             ->disableOriginalConstructor()
             ->getMock();
 
@@ -80,7 +59,6 @@ class SplittableTotalsReaderTest extends Unit
             ->getMock();
 
         $this->splittableTotalsReader = new SplittableTotalsReader(
-            $this->quoteReaderMock,
             $this->quoteSplitterMock,
             $this->calculationFacadeMock
         );
@@ -92,11 +70,6 @@ class SplittableTotalsReaderTest extends Unit
     public function testGetBySplittableTotalsRequest(): void
     {
         $key = 'foo';
-
-        $this->quoteReaderMock->expects(static::atLeastOnce())
-            ->method('getBySplittableTotalsRequest')
-            ->with($this->splittableTotalsRequestTransfer)
-            ->willReturn($this->quoteTransferMock);
 
         $this->quoteSplitterMock->expects(static::atLeastOnce())
             ->method('split')
@@ -113,7 +86,7 @@ class SplittableTotalsReaderTest extends Unit
             ->willReturn($this->totalsTransferMock);
 
         $splittableTotalsResponseTransfer = $this->splittableTotalsReader
-            ->getBySplittableTotalsRequest($this->splittableTotalsRequestTransfer);
+            ->getByQuote($this->quoteTransferMock);
 
         $totalsList = $splittableTotalsResponseTransfer->getTotalsList();
 

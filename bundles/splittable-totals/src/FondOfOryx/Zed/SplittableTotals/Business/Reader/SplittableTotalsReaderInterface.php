@@ -2,17 +2,17 @@
 
 namespace FondOfOryx\Zed\SplittableTotals\Business\Reader;
 
-use Generated\Shared\Transfer\SplittableTotalsRequestTransfer;
-use Generated\Shared\Transfer\SplittableTotalsResponseTransfer;
+use Generated\Shared\Transfer\QuoteTransfer;
+use Generated\Shared\Transfer\SplittableTotalsTransfer;
 
 interface SplittableTotalsReaderInterface
 {
     /**
-     * @param \Generated\Shared\Transfer\SplittableTotalsRequestTransfer $splittableTotalsRequestTransfer
+     * @param \Generated\Shared\Transfer\QuoteTransfer $quoteTransfer
      *
-     * @return \Generated\Shared\Transfer\SplittableTotalsResponseTransfer
+     * @return \Generated\Shared\Transfer\SplittableTotalsTransfer
      */
-    public function getBySplittableTotalsRequest(
-        SplittableTotalsRequestTransfer $splittableTotalsRequestTransfer
-    ): SplittableTotalsResponseTransfer;
+    public function getByQuote(
+        QuoteTransfer $quoteTransfer
+    ): SplittableTotalsTransfer;
 }
