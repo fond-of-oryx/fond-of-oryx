@@ -19,8 +19,4 @@ paths:
 coverage:
   enabled: true
   include:
-    - src/FondOfOryx/*.php
-
-modules:
-  enabled:
-    - \FondOfCodeception\Module\Spryker
+    - src/*.php

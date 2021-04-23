@@ -1,12 +1,17 @@
 <?php
 
-use Spryker\Shared\Config\Environment;
+$pathToAutoloader = codecept_root_dir('vendor/autoload.php');
 
-require_once __DIR__ . '/../vendor/autoload.php';
+if (!file_exists($pathToAutoloader)) {
+    $pathToAutoloader = codecept_root_dir('../../vendor/autoload.php');
+}
 
-define('APPLICATION_ENV', Environment::TESTING);
-define('APPLICATION_STORE', 'UNIT');
+if (!file_exists($pathToAutoloader)) {
+    $pathToAutoloader = codecept_root_dir('../../autoload.php');
+}
 
-$x = \org\bovigo\vfs\vfsStream::setup('root');
+if (!file_exists($pathToAutoloader)) {
+    $pathToAutoloader = codecept_root_dir('../../../../autoload.php');
+}
 
-define('APPLICATION_ROOT_DIR', $x->url());
+require_once $pathToAutoloader;

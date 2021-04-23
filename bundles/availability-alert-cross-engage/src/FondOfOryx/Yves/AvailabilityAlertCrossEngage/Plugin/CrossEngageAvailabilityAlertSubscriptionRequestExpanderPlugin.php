@@ -37,6 +37,6 @@ class CrossEngageAvailabilityAlertSubscriptionRequestExpanderPlugin implements A
             return null;
         }
 
-        return end($ipAddresses) ?? current($ipAddresses);
+        return end($ipAddresses) ?? null;
     }
 }
