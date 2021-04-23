@@ -125,6 +125,8 @@
       "FondOfOryx\\Yves\\AvailabilityAlertCrossEngage\\": "bundles/availability-alert-cross-engage/src/FondOfOryx/Yves/AvailabilityAlertCrossEngage",
       "FondOfOryx\\Zed\\AvailabilityAlertCrossEngage\\": "bundles/availability-alert-cross-engage/src/FondOfOryx/Zed/AvailabilityAlertCrossEngage",
       "FondOfOryx\\Zed\\AvailabilityAlertDataImport\\": "bundles/availability-alert-data-import/src/FondOfOryx/Zed/AvailabilityAlertDataImport",
+      "FondOfOryx\\Shared\\AvailabilityAlertMigrator\\": "bundles/availability-alert-migrator/src/FondOfOryx/Shared/AvailabilityAlertMigrator",
+      "FondOfOryx\\Zed\\AvailabilityAlertMigrator\\": "bundles/availability-alert-migrator/src/FondOfOryx/Zed/AvailabilityAlertMigrator",
       "FondOfOryx\\Service\\CrossEngage\\": "bundles/cross-engage/src/FondOfOryx/Service/CrossEngage",
       "FondOfOryx\\Shared\\CrossEngage\\": "bundles/cross-engage/src/FondOfOryx/Shared/CrossEngage",
       "FondOfOryx\\Client\\CatalogSkuFilter\\": "bundles/catalog-sku-filter/src/FondOfOryx/Client/CatalogSkuFilter",
