@@ -241,9 +241,7 @@
       "FondOfOryx\\Zed\\SplittableCheckoutRestApiExtension\\": "bundles/splittable-checkout-rest-api-extension/src/FondOfOryx/Zed/SplittableCheckoutRestApiExtension",
       "FondOfOryx\\Zed\\SplittableTotals\\": "bundles/splittable-totals/src/FondOfOryx/Zed/SplittableTotals",
       "FondOfOryx\\Zed\\SplittableTotalsExtension\\": "bundles/splittable-totals-extension/src/FondOfOryx/Zed/SplittableTotalsExtension",
-      "FondOfOryx\\Zed\\SplittableTotals\\": "bundles/splittable-totals/tests/FondOfOryx/Zed/SplittableTotals",
-      "FondOfOryx\\Zed\\SplittableTotalsCompanyUnitAddressConnector\\": "bundles/splittable-totals-company-unit-address-connector/tests/FondOfOryx/Zed/SplittableTotalsCompanyUnitAddressConnector",
-      "FondOfOryx\\Zed\\SplittableTotalsExtension\\": "bundles/splittable-totals-extension/tests/FondOfOryx/Zed/SplittableTotalsExtension",
+      "FondOfOryx\\Zed\\SplittableTotalsCompanyUnitAddressConnector\\": "bundles/splittable-totals-company-unit-address-connector/src/FondOfOryx/Zed/SplittableTotalsCompanyUnitAddressConnector",
       "FondOfOryx\\Zed\\TaxCalculationConnector\\": "bundles/tax-calculation-connector/src/FondOfOryx/Zed/TaxCalculationConnector",
       "Generated\\": "src/Generated/",
       "Orm\\Zed\\": "src/Orm/Zed/"
