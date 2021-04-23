@@ -1,0 +1,9 @@
+{{ form_start(subscriptionForm) }}
+    <label></label>
+    <div class="input-group">
+        {{ form_widget(subscriptionForm.email, {'attr': {'class': 'input-group-field', 'placeholder': subscriptionForm.email.vars.label}}) }}
+    </div>
+    {{ form_errors(subscriptionForm.email) }}
+
+    <button type="submit" class="button expanded">Subscribe</button>
+{{ form_end(subscriptionForm) }}

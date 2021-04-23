@@ -1,0 +1,35 @@
+{
+  "name": "fond-of-oryx/feed",
+  "description": "Creates a data feed. Currently only an availability CSV File SKU/Quantity.",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "FOND OF",
+      "email": "spryker@fondof.de"
+    }
+  ],
+  "require": {
+    "php": ">=7.2",
+    "fond-of-oryx/availability-alert": "dev-master"
+  },
+  "require-dev": {
+    "spryker/code-sniffer": "^0.14.7",
+    "codeception/codeception": "^2.5",
+    "mikey179/vfsstream": "^1.6",
+    "phpro/grumphp": "^0.14",
+    "sebastian/phpcpd": "^4.1",
+    "php-coveralls/php-coveralls": "^2.0"
+  },
+  "minimum-stability": "dev",
+  "prefer-stable": true,
+  "autoload": {
+    "psr-4": {
+      "FondOfOryx\\": "src/FondOfOryx/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "FondOfOryx\\": "tests/FondOfOryx/"
+    }
+  }
+}
