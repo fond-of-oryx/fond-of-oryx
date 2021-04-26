@@ -17,8 +17,6 @@
     "ext-json": "*",
     "fond-of-spryker/country": "dev-spryker_upgrade || dev-feature/paypal-refund",
     "fond-of-spryker/customer": "dev-spryker_upgrade",
-    "fond-of-spryker/jellyfish": "dev-feature/refractoring-remove-order-export",
-    "guzzlehttp/guzzle": "^6.3.0",
     "hackzilla/password-generator": "^1.6",
     "mossadal/math-parser": "^1.3.0",
     "spryker/api": "^0.1.0 || ^0.2.0 || ^0.3.0",
@@ -39,6 +37,7 @@
     "spryker/glossary": "^3.8.0",
     "spryker/glue-application": "^1.0.0",
     "spryker/glue-application-extension": "^1.0.0",
+    "spryker/guzzle": "^2.2.0",
     "spryker/kernel": "^3.42.0",
     "spryker/locale": "^2.2.0 || ^3.0.0",
     "spryker/mail": "^4.0.0",
@@ -66,7 +65,8 @@
     "spryker/synchronization-extension": "^1.0.0",
     "spryker/tax": "^4.0.0 || ^5.0.0",
     "spryker/tax-product-connector": "^4.2.0",
-    "spryker/zed-request": "^3.12.0"
+    "spryker/util-encoding": "^1.0.0 || ^2.0.0",
+    "spryker/zed-request": "^3.3.0"
   },
   "require-dev": {
     "fond-of-codeception/spryker": "^1.0",
