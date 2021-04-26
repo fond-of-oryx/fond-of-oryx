@@ -11,7 +11,6 @@ use Spryker\Zed\Mail\Dependency\Plugin\MailTypePluginInterface;
  * @method \FondOfOryx\Zed\AvailabilityAlert\Business\AvailabilityAlertFacade getFacade()
  * @method \FondOfOryx\Zed\AvailabilityAlert\Communication\AvailabilityAlertCommunicationFactory getFactory()
  * @method \FondOfOryx\Zed\AvailabilityAlert\AvailabilityAlertConfig getConfig()
- * @method \FondOfOryx\Zed\AvailabilityAlert\Persistence\AvailabilityAlertQueryContainerInterface getQueryContainer()
  */
 class AvailabilityAlertMailTypePlugin extends AbstractPlugin implements MailTypePluginInterface
 {

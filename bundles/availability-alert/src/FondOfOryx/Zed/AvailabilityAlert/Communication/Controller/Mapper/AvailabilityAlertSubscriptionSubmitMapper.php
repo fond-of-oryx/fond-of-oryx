@@ -95,7 +95,7 @@ class AvailabilityAlertSubscriptionSubmitMapper implements AvailabilityAlertSubs
     protected function getIdStore(
         AvailabilityAlertSubscriptionRequestTransfer $availabilityAlertSubscriptionRequestTransfer
     ): int {
-        return $this->storeFacade->getStore($availabilityAlertSubscriptionRequestTransfer->getStore())->getIdStore();
+        return $this->storeFacade->getStoreByName($availabilityAlertSubscriptionRequestTransfer->getStore())->getIdStore();
     }
 
     /**
