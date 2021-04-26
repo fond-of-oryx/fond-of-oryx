@@ -9,16 +9,17 @@
     }
   ],
   "require": {
-    "php": ">=7.2",
-    "fond-of-oryx/availability-alert": "dev-master"
+    "php": ">=7.3",
+    "fond-of-oryx/availability-alert": "dev-main",
+    "spryker/product": "^5.0.0 || ^6.0.0",
+    "spryker/router": "^1.1.0",
+    "spryker/store": "^1.2.0",
+    "spryker/zed-request": "^3.3.0"
   },
   "require-dev": {
-    "spryker/code-sniffer": "^0.14.7",
-    "codeception/codeception": "^2.5",
-    "mikey179/vfsstream": "^1.6",
-    "phpro/grumphp": "^0.14",
-    "sebastian/phpcpd": "^4.1",
-    "php-coveralls/php-coveralls": "^2.0"
+    "fond-of-codeception/spryker": "^1.0",
+    "spryker/code-sniffer": "*",
+    "spryker-sdk/phpstan-spryker": "*"
   },
   "minimum-stability": "dev",
   "prefer-stable": true,
@@ -29,7 +30,8 @@
   },
   "autoload-dev": {
     "psr-4": {
-      "FondOfOryx\\": "tests/FondOfOryx/"
+      "FondOfOryx\\": "tests/FondOfOryx/",
+      "Generated\\": "src/Generated/"
     }
   }
 }
