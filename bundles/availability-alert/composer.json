@@ -15,11 +15,13 @@
     "spryker/mail": "^4.0.0",
     "spryker/product": "^5.0.0 || ^6.0.0",
     "spryker/router": "^1.1.0",
-    "spryker/store": "^1.2.0"
+    "spryker/store": "^1.2.0",
+    "spryker/zed-request": "^3.3.0"
   },
   "require-dev": {
     "fond-of-codeception/spryker": "^1.0",
-    "spryker/code-sniffer": "^0.12"
+    "spryker/code-sniffer": "*",
+    "spryker-sdk/phpstan-spryker": "*"
   },
   "minimum-stability": "dev",
   "prefer-stable": true,
