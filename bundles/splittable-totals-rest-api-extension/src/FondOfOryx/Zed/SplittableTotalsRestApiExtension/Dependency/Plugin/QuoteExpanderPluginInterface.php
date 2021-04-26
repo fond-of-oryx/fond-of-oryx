@@ -1,6 +1,6 @@
 <?php
 
-namespace FondOfOryx\Zed\SplittableTotalsExtension\Dependency\Plugin;
+namespace FondOfOryx\Zed\SplittableTotalsRestApiExtension\Dependency\Plugin;
 
 use Generated\Shared\Transfer\QuoteTransfer;
 use Generated\Shared\Transfer\SplittableTotalsRequestTransfer;
