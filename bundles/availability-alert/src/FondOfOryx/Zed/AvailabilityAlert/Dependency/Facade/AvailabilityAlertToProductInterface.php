@@ -14,7 +14,7 @@ interface AvailabilityAlertToProductInterface
      *
      * @return \Generated\Shared\Transfer\ProductAbstractTransfer|null
      */
-    public function findProductAbstractById($idProductAbstract): ?ProductAbstractTransfer;
+    public function findProductAbstractById(int $idProductAbstract): ?ProductAbstractTransfer;
 
     /**
      * @see \Spryker\Zed\Product\Business\ProductFacadeInterface

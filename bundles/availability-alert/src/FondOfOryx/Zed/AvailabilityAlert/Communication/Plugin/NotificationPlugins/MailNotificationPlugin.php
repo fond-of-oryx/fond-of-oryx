@@ -10,7 +10,6 @@ use Spryker\Zed\Kernel\Communication\AbstractPlugin;
  * @method \FondOfOryx\Zed\AvailabilityAlert\Communication\AvailabilityAlertCommunicationFactory getFactory()
  * @method \FondOfOryx\Zed\AvailabilityAlert\Business\AvailabilityAlertFacadeInterface getFacade()()
  * @method \FondOfOryx\Zed\AvailabilityAlert\AvailabilityAlertConfig getConfig()
- * @method \FondOfOryx\Zed\AvailabilityAlert\Persistence\AvailabilityAlertQueryContainerInterface getQueryContainer()
  */
 class MailNotificationPlugin extends AbstractPlugin implements NotificationPluginInterface
 {

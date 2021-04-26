@@ -3,6 +3,7 @@
 namespace FondOfOryx\Zed\AvailabilityAlert\Dependency\Facade;
 
 use Generated\Shared\Transfer\MailTransfer;
+use Spryker\Zed\Mail\Business\MailFacadeInterface;
 
 class AvailabilityAlertToMailBridge implements AvailabilityAlertToMailInterface
 {
@@ -14,7 +15,7 @@ class AvailabilityAlertToMailBridge implements AvailabilityAlertToMailInterface
     /**
      * @param \Spryker\Zed\Mail\Business\MailFacadeInterface $mailFacade
      */
-    public function __construct($mailFacade)
+    public function __construct(MailFacadeInterface $mailFacade)
     {
         $this->mailFacade = $mailFacade;
     }
@@ -24,7 +25,7 @@ class AvailabilityAlertToMailBridge implements AvailabilityAlertToMailInterface
      *
      * @return void
      */
-    public function handleMail(MailTransfer $mailTransfer)
+    public function handleMail(MailTransfer $mailTransfer): void
     {
         $this->mailFacade->handleMail($mailTransfer);
     }

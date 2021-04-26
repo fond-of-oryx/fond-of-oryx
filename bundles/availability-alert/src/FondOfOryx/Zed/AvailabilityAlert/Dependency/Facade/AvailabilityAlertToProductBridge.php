@@ -26,7 +26,7 @@ class AvailabilityAlertToProductBridge implements AvailabilityAlertToProductInte
      *
      * @return \Generated\Shared\Transfer\ProductAbstractTransfer|null
      */
-    public function findProductAbstractById($idProductAbstract): ?ProductAbstractTransfer
+    public function findProductAbstractById(int $idProductAbstract): ?ProductAbstractTransfer
     {
         return $this->productFacade->findProductAbstractById($idProductAbstract);
     }
