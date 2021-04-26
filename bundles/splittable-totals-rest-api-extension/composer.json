@@ -1,6 +1,6 @@
 {
-  "name": "fond-of-oryx/splittable-totals-extension",
-  "description": "Splittable Totals Extension Module",
+  "name": "fond-of-oryx/splittable-totals-rest-api-extension",
+  "description": "Splittable Totals Extension Rest Api Module",
   "license": "MIT",
   "authors": [
     {

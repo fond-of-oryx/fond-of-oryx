@@ -10,7 +10,7 @@
   ],
   "require": {
     "php": ">=7.3",
-    "fond-of-oryx/splittable-totals-extension": "dev-main",
+    "fond-of-oryx/splittable-totals-rest-api-extension": "dev-main",
     "spryker/company-unit-address": "^1.0.0"
   },
   "require-dev": {

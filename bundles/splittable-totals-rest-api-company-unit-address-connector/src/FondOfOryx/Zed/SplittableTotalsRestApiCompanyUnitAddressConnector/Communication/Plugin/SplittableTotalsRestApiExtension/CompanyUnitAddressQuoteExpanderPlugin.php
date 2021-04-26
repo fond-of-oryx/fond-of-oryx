@@ -1,8 +1,8 @@
 <?php
 
-namespace FondOfOryx\Zed\SplittableTotalsRestApiCompanyUnitAddressConnector\Communication\Plugin\SplittableTotalsExtension;
+namespace FondOfOryx\Zed\SplittableTotalsRestApiCompanyUnitAddressConnector\Communication\Plugin\SplittableTotalsRestApiExtension;
 
-use FondOfOryx\Zed\SplittableTotalsExtension\Dependency\Plugin\QuoteExpanderPluginInterface;
+use FondOfOryx\Zed\SplittableTotalsRestApiExtension\Dependency\Plugin\QuoteExpanderPluginInterface;
 use Generated\Shared\Transfer\QuoteTransfer;
 use Generated\Shared\Transfer\SplittableTotalsRequestTransfer;
 use Spryker\Zed\Kernel\Communication\AbstractPlugin;

@@ -1,4 +1,4 @@
-namespace: fond-of-oryx/splittable-totals-extension
+namespace: fond-of-oryx/splittable-totals-rest-api-extension
 
 suites:
   unit:

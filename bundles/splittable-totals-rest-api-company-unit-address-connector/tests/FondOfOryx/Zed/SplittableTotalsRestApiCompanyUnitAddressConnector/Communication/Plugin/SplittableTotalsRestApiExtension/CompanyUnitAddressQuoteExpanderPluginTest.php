@@ -1,6 +1,6 @@
 <?php
 
-namespace FondOfOryx\Zed\SplittableTotalsRestApiCompanyUnitAddressConnector\Communication\Plugin\SplittableTotalsExtension;
+namespace FondOfOryx\Zed\SplittableTotalsRestApiCompanyUnitAddressConnector\Communication\Plugin\SplittableTotalsRestApiExtension;
 
 use Codeception\Test\Unit;
 use FondOfOryx\Zed\SplittableTotalsRestApiCompanyUnitAddressConnector\Business\SplittableTotalsRestApiCompanyUnitAddressConnectorFacade;
@@ -25,7 +25,7 @@ class CompanyUnitAddressQuoteExpanderPluginTest extends Unit
     protected $quoteTransferMock;
 
     /**
-     * @var \FondOfOryx\Zed\SplittableTotalsRestApiCompanyUnitAddressConnector\Communication\Plugin\SplittableTotalsExtension\CompanyUnitAddressQuoteExpanderPlugin
+     * @var \FondOfOryx\Zed\SplittableTotalsRestApiCompanyUnitAddressConnector\Communication\Plugin\SplittableTotalsRestApiExtension\CompanyUnitAddressQuoteExpanderPlugin
      */
     protected $companyUnitAddressQuoteExpanderPlugin;
 
