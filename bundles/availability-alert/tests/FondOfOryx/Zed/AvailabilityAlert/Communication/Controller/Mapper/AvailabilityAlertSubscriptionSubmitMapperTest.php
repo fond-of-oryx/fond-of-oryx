@@ -81,7 +81,7 @@ class AvailabilityAlertSubscriptionSubmitMapperTest extends Unit
         $this->subscriptionRequestTransferMock->expects(static::once())->method('modifiedToArray')->willReturn([]);
         $this->subscriptionRequestTransferMock->expects(static::once())->method('getIdProductAbstract')->willReturn(1);
         $this->subscriptionRequestTransferMock->expects(static::once())->method('getLocaleName')->willReturn('test');
-        $this->subscriptionRequestTransferMock->expects(static::once())->method('getStore')->willReturn('test');
+        $this->subscriptionRequestTransferMock->expects(static::once())->method('getStoreByName')->willReturn('test');
         $this->subscriptionRequestTransferMock->expects(static::once())->method('toArray')->willReturn([]);
         $this->localeFacadeMock->expects(static::once())->method('getLocale')->willReturn($this->localeTransferMock);
         $this->localeTransferMock->expects(static::once())->method('getIdLocale')->willReturn(1);
