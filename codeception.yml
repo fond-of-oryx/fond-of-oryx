@@ -3,7 +3,9 @@ namespace: fond-of-oryx/fond-of-oryx
 include:
   - bundles/availability-alert
   - bundles/availability-alert-cross-engage
+  - bundles/availability-alert-data-import
   - bundles/catalog-sku-filter
+  - bundles/cross-engage
   - bundles/customer-statistic
   - bundles/customer-statistics-rest-api
   - bundles/erp-order-api
@@ -11,6 +13,7 @@ include:
   - bundles/erp-order-page-search
   - bundles/erp-order-page-search-rest-api
   - bundles/erp-order-permission
+  - bundles/feed
   - bundles/jellyfish-availability-alert
   - bundles/mail-bcc
   - bundles/one-time-password

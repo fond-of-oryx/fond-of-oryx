@@ -1,4 +1,4 @@
-namespace: FondOfOryx
+namespace: fond-of-oryx/availability-alert-data-import
 suites:
   unit:
     path: .
@@ -6,7 +6,8 @@ suites:
 settings:
   shuffle: true
   lint: true
-  bootstrap: _bootstrap.php
+
+bootstrap: _bootstrap.php
 
 paths:
   tests: tests

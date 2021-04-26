@@ -2,10 +2,10 @@
 
 namespace FondOfOryx\Zed\AvailabilityAlert\Communication\Plugin\Mail;
 
-use FondOfOryx\Zed\Mail\MailConfig;
 use Spryker\Zed\Kernel\Communication\AbstractPlugin;
 use Spryker\Zed\Mail\Business\Model\Mail\Builder\MailBuilderInterface;
 use Spryker\Zed\Mail\Dependency\Plugin\MailTypePluginInterface;
+use Spryker\Zed\Mail\MailConfig;
 
 /**
  * @method \FondOfOryx\Zed\AvailabilityAlert\Business\AvailabilityAlertFacade getFacade()
@@ -17,12 +17,12 @@ class AvailabilityAlertMailTypePlugin extends AbstractPlugin implements MailType
     public const MAIL_TYPE = 'availability alert mail';
 
     /**
-     * @var \FondOfOryx\Zed\Mail\MailConfig
+     * @var \Spryker\Zed\Mail\MailConfig
      */
     protected $config;
 
     /**
-     * @param \FondOfOryx\Zed\Mail\MailConfig $config
+     * @param \Spryker\Zed\Mail\MailConfig $config
      */
     public function __construct(MailConfig $config)
     {
