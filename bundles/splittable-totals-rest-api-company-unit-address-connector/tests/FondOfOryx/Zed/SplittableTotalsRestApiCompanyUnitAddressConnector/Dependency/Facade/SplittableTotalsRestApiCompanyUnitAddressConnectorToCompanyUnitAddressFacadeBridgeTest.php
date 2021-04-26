@@ -3,6 +3,7 @@
 namespace FondOfOryx\Zed\SplittableTotalsRestApiCompanyUnitAddressConnector\Dependency\Facade;
 
 use Codeception\Test\Unit;
+use Generated\Shared\Transfer\CompanyUnitAddressResponseTransfer;
 use Generated\Shared\Transfer\CompanyUnitAddressTransfer;
 use Spryker\Zed\CompanyUnitAddress\Business\CompanyUnitAddressFacadeInterface;
 
@@ -17,6 +18,11 @@ class SplittableTotalsRestApiCompanyUnitAddressConnectorToCompanyUnitAddressFaca
      * @var \Generated\Shared\Transfer\CompanyUnitAddressTransfer|\PHPUnit\Framework\MockObject\MockObject
      */
     protected $companyUnitAddressTransferMock;
+
+    /**
+     * @var \Generated\Shared\Transfer\CompanyUnitAddressResponseTransfer|\PHPUnit\Framework\MockObject\MockObject
+     */
+    protected $companyUnitAddressResponseTransferMock;
 
     /**
      * @var \FondOfOryx\Zed\SplittableTotalsRestApiCompanyUnitAddressConnector\Dependency\Facade\SplittableTotalsRestApiCompanyUnitAddressConnectorToCompanyUnitAddressFacadeBridge
@@ -38,6 +44,10 @@ class SplittableTotalsRestApiCompanyUnitAddressConnectorToCompanyUnitAddressFaca
             ->disableOriginalConstructor()
             ->getMock();
 
+        $this->companyUnitAddressResponseTransferMock = $this->getMockBuilder(CompanyUnitAddressResponseTransfer::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
         $this->facadeBridge = new SplittableTotalsRestApiCompanyUnitAddressConnectorToCompanyUnitAddressFacadeBridge(
             $this->companyUnitAddressFacadeMock
         );
@@ -46,16 +56,16 @@ class SplittableTotalsRestApiCompanyUnitAddressConnectorToCompanyUnitAddressFaca
     /**
      * @return void
      */
-    public function testGetCompanyUnitAddressById(): void
+    public function testFindCompanyBusinessUnitAddressByUuid(): void
     {
         $this->companyUnitAddressFacadeMock->expects(static::atLeastOnce())
-            ->method('getCompanyUnitAddressById')
+            ->method('findCompanyBusinessUnitAddressByUuid')
             ->with($this->companyUnitAddressTransferMock)
-            ->willReturn($this->companyUnitAddressTransferMock);
+            ->willReturn($this->companyUnitAddressResponseTransferMock);
 
         static::assertEquals(
-            $this->companyUnitAddressTransferMock,
-            $this->facadeBridge->getCompanyUnitAddressById($this->companyUnitAddressTransferMock)
+            $this->companyUnitAddressResponseTransferMock,
+            $this->facadeBridge->findCompanyBusinessUnitAddressByUuid($this->companyUnitAddressTransferMock)
         );
     }
 }

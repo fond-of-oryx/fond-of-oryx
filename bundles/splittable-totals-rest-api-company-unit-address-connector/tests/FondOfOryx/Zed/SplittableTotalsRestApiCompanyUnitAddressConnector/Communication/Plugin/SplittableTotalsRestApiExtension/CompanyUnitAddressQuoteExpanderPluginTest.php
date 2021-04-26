@@ -5,7 +5,7 @@ namespace FondOfOryx\Zed\SplittableTotalsRestApiCompanyUnitAddressConnector\Comm
 use Codeception\Test\Unit;
 use FondOfOryx\Zed\SplittableTotalsRestApiCompanyUnitAddressConnector\Business\SplittableTotalsRestApiCompanyUnitAddressConnectorFacade;
 use Generated\Shared\Transfer\QuoteTransfer;
-use Generated\Shared\Transfer\SplittableTotalsRequestTransfer;
+use Generated\Shared\Transfer\RestSplittableTotalsRequestTransfer;
 
 class CompanyUnitAddressQuoteExpanderPluginTest extends Unit
 {
@@ -15,9 +15,9 @@ class CompanyUnitAddressQuoteExpanderPluginTest extends Unit
     protected $facadeMock;
 
     /**
-     * @var \Generated\Shared\Transfer\SplittableTotalsRequestTransfer|\PHPUnit\Framework\MockObject\MockObject
+     * @var \Generated\Shared\Transfer\RestSplittableTotalsRequestTransfer|\PHPUnit\Framework\MockObject\MockObject
      */
-    protected $splittableTotalsRequestTransferMock;
+    protected $restSplittableTotalsRequestTransferMock;
 
     /**
      * @var \Generated\Shared\Transfer\QuoteTransfer|\PHPUnit\Framework\MockObject\MockObject
@@ -40,7 +40,7 @@ class CompanyUnitAddressQuoteExpanderPluginTest extends Unit
             ->disableOriginalConstructor()
             ->getMock();
 
-        $this->splittableTotalsRequestTransferMock = $this->getMockBuilder(SplittableTotalsRequestTransfer::class)
+        $this->restSplittableTotalsRequestTransferMock = $this->getMockBuilder(RestSplittableTotalsRequestTransfer::class)
             ->disableOriginalConstructor()
             ->getMock();
 
@@ -60,14 +60,14 @@ class CompanyUnitAddressQuoteExpanderPluginTest extends Unit
         $this->facadeMock->expects(static::atLeastOnce())
             ->method('expandQuote')
             ->with(
-                $this->splittableTotalsRequestTransferMock,
+                $this->restSplittableTotalsRequestTransferMock,
                 $this->quoteTransferMock
             )->willReturn($this->quoteTransferMock);
 
         static::assertEquals(
             $this->quoteTransferMock,
             $this->companyUnitAddressQuoteExpanderPlugin->expandQuote(
-                $this->splittableTotalsRequestTransferMock,
+                $this->restSplittableTotalsRequestTransferMock,
                 $this->quoteTransferMock
             )
         );

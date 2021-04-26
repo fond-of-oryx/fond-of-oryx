@@ -6,9 +6,9 @@ interface SplittableTotalsRestApiCompanyUnitAddressConnectorRepositoryInterface
 {
     /**
      * @param int $idCustomer
-     * @param int $idCompanyUnitAddress
+     * @param string $idCompanyUnitAddress
      *
      * @return bool
      */
-    public function existsCompanyUnitAddress(int $idCustomer, int $idCompanyUnitAddress): bool;
+    public function existsCompanyUnitAddress(int $idCustomer, string $idCompanyUnitAddress): bool;
 }

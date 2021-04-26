@@ -8,8 +8,8 @@ use FondOfOryx\Zed\SplittableTotalsRestApiCompanyUnitAddressConnector\Business\R
 use Generated\Shared\Transfer\AddressTransfer;
 use Generated\Shared\Transfer\ItemTransfer;
 use Generated\Shared\Transfer\QuoteTransfer;
+use Generated\Shared\Transfer\RestSplittableTotalsRequestTransfer;
 use Generated\Shared\Transfer\ShipmentTransfer;
-use Generated\Shared\Transfer\SplittableTotalsRequestTransfer;
 
 class QuoteExpanderTest extends Unit
 {
@@ -19,9 +19,9 @@ class QuoteExpanderTest extends Unit
     protected $companyUnitAddressReaderMock;
 
     /**
-     * @var \Generated\Shared\Transfer\SplittableTotalsRequestTransfer|\PHPUnit\Framework\MockObject\MockObject
+     * @var \Generated\Shared\Transfer\RestSplittableTotalsRequestTransfer|\PHPUnit\Framework\MockObject\MockObject
      */
-    protected $splittableTotalsRequestTransferMock;
+    protected $restSplittableTotalsRequestTransferMock;
 
     /**
      * @var \Generated\Shared\Transfer\QuoteTransfer|\PHPUnit\Framework\MockObject\MockObject
@@ -59,7 +59,7 @@ class QuoteExpanderTest extends Unit
             ->disableOriginalConstructor()
             ->getMock();
 
-        $this->splittableTotalsRequestTransferMock = $this->getMockBuilder(SplittableTotalsRequestTransfer::class)
+        $this->restSplittableTotalsRequestTransferMock = $this->getMockBuilder(RestSplittableTotalsRequestTransfer::class)
             ->disableOriginalConstructor()
             ->getMock();
 
@@ -88,8 +88,8 @@ class QuoteExpanderTest extends Unit
     public function testExpand(): void
     {
         $this->companyUnitAddressReaderMock->expects(static::atLeastOnce())
-            ->method('getBillingAddressBySplittableTotalsRequestTransfer')
-            ->with($this->splittableTotalsRequestTransferMock)
+            ->method('getBillingAddressByRestSplittableTotalsRequestTransfer')
+            ->with($this->restSplittableTotalsRequestTransferMock)
             ->willReturn($this->addressTransferMock);
 
         $this->quoteTransferMock->expects(static::atLeastOnce())
@@ -98,8 +98,8 @@ class QuoteExpanderTest extends Unit
             ->willReturn($this->quoteTransferMock);
 
         $this->companyUnitAddressReaderMock->expects(static::atLeastOnce())
-            ->method('getShippingAddressBySplittableTotalsRequestTransfer')
-            ->with($this->splittableTotalsRequestTransferMock)
+            ->method('getShippingAddressByRestSplittableTotalsRequestTransfer')
+            ->with($this->restSplittableTotalsRequestTransferMock)
             ->willReturn($this->addressTransferMock);
 
         $this->quoteTransferMock->expects(static::atLeastOnce())
@@ -143,7 +143,7 @@ class QuoteExpanderTest extends Unit
 
         static::assertEquals(
             $this->quoteTransferMock,
-            $this->quoteExpander->expand($this->splittableTotalsRequestTransferMock, $this->quoteTransferMock)
+            $this->quoteExpander->expand($this->restSplittableTotalsRequestTransferMock, $this->quoteTransferMock)
         );
     }
 
@@ -153,16 +153,16 @@ class QuoteExpanderTest extends Unit
     public function testExpandWithoutAddresses(): void
     {
         $this->companyUnitAddressReaderMock->expects(static::atLeastOnce())
-            ->method('getBillingAddressBySplittableTotalsRequestTransfer')
-            ->with($this->splittableTotalsRequestTransferMock)
+            ->method('getBillingAddressByRestSplittableTotalsRequestTransfer')
+            ->with($this->restSplittableTotalsRequestTransferMock)
             ->willReturn(null);
 
         $this->quoteTransferMock->expects(static::never())
             ->method('setBillingAddress');
 
         $this->companyUnitAddressReaderMock->expects(static::atLeastOnce())
-            ->method('getShippingAddressBySplittableTotalsRequestTransfer')
-            ->with($this->splittableTotalsRequestTransferMock)
+            ->method('getShippingAddressByRestSplittableTotalsRequestTransfer')
+            ->with($this->restSplittableTotalsRequestTransferMock)
             ->willReturn(null);
 
         $this->quoteTransferMock->expects(static::never())
@@ -192,7 +192,7 @@ class QuoteExpanderTest extends Unit
 
         static::assertEquals(
             $this->quoteTransferMock,
-            $this->quoteExpander->expand($this->splittableTotalsRequestTransferMock, $this->quoteTransferMock)
+            $this->quoteExpander->expand($this->restSplittableTotalsRequestTransferMock, $this->quoteTransferMock)
         );
     }
 
@@ -202,8 +202,8 @@ class QuoteExpanderTest extends Unit
     public function testExpandWithoutItemShipment(): void
     {
         $this->companyUnitAddressReaderMock->expects(static::atLeastOnce())
-            ->method('getBillingAddressBySplittableTotalsRequestTransfer')
-            ->with($this->splittableTotalsRequestTransferMock)
+            ->method('getBillingAddressByRestSplittableTotalsRequestTransfer')
+            ->with($this->restSplittableTotalsRequestTransferMock)
             ->willReturn($this->addressTransferMock);
 
         $this->quoteTransferMock->expects(static::atLeastOnce())
@@ -212,8 +212,8 @@ class QuoteExpanderTest extends Unit
             ->willReturn($this->quoteTransferMock);
 
         $this->companyUnitAddressReaderMock->expects(static::atLeastOnce())
-            ->method('getShippingAddressBySplittableTotalsRequestTransfer')
-            ->with($this->splittableTotalsRequestTransferMock)
+            ->method('getShippingAddressByRestSplittableTotalsRequestTransfer')
+            ->with($this->restSplittableTotalsRequestTransferMock)
             ->willReturn($this->addressTransferMock);
 
         $this->quoteTransferMock->expects(static::atLeastOnce())
@@ -257,7 +257,7 @@ class QuoteExpanderTest extends Unit
 
         static::assertEquals(
             $this->quoteTransferMock,
-            $this->quoteExpander->expand($this->splittableTotalsRequestTransferMock, $this->quoteTransferMock)
+            $this->quoteExpander->expand($this->restSplittableTotalsRequestTransferMock, $this->quoteTransferMock)
         );
     }
 }

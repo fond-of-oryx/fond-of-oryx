@@ -62,6 +62,7 @@
     "spryker/tax": "^4.0.0 || ^5.0.0",
     "spryker/tax-product-connector": "^4.2.0",
     "spryker/util-encoding": "^1.0.0 || ^2.0.0",
+    "spryker/uuid-behavior": "^1.0.0",
     "spryker/zed-request": "^3.3.0"
   },
   "require-dev": {

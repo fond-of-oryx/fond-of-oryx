@@ -3,25 +3,25 @@
 namespace FondOfOryx\Zed\SplittableTotalsRestApiCompanyUnitAddressConnector\Business\Reader;
 
 use Generated\Shared\Transfer\AddressTransfer;
-use Generated\Shared\Transfer\SplittableTotalsRequestTransfer;
+use Generated\Shared\Transfer\RestSplittableTotalsRequestTransfer;
 
 interface CompanyUnitAddressReaderInterface
 {
     /**
-     * @param \Generated\Shared\Transfer\SplittableTotalsRequestTransfer $splittableTotalsRequestTransfer
+     * @param \Generated\Shared\Transfer\RestSplittableTotalsRequestTransfer $restSplittableTotalsRequestTransfer
      *
      * @return \Generated\Shared\Transfer\AddressTransfer|null
      */
-    public function getBillingAddressBySplittableTotalsRequestTransfer(
-        SplittableTotalsRequestTransfer $splittableTotalsRequestTransfer
+    public function getBillingAddressByRestSplittableTotalsRequestTransfer(
+        RestSplittableTotalsRequestTransfer $restSplittableTotalsRequestTransfer
     ): ?AddressTransfer;
 
     /**
-     * @param \Generated\Shared\Transfer\SplittableTotalsRequestTransfer $splittableTotalsRequestTransfer
+     * @param \Generated\Shared\Transfer\RestSplittableTotalsRequestTransfer $restSplittableTotalsRequestTransfer
      *
      * @return \Generated\Shared\Transfer\AddressTransfer|null
      */
-    public function getShippingAddressBySplittableTotalsRequestTransfer(
-        SplittableTotalsRequestTransfer $splittableTotalsRequestTransfer
+    public function getShippingAddressByRestSplittableTotalsRequestTransfer(
+        RestSplittableTotalsRequestTransfer $restSplittableTotalsRequestTransfer
     ): ?AddressTransfer;
 }

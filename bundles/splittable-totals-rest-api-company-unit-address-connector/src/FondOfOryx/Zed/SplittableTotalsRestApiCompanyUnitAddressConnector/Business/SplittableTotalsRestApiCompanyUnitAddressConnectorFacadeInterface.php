@@ -3,7 +3,7 @@
 namespace FondOfOryx\Zed\SplittableTotalsRestApiCompanyUnitAddressConnector\Business;
 
 use Generated\Shared\Transfer\QuoteTransfer;
-use Generated\Shared\Transfer\SplittableTotalsRequestTransfer;
+use Generated\Shared\Transfer\RestSplittableTotalsRequestTransfer;
 
 interface SplittableTotalsRestApiCompanyUnitAddressConnectorFacadeInterface
 {
@@ -13,13 +13,13 @@ interface SplittableTotalsRestApiCompanyUnitAddressConnectorFacadeInterface
      *
      * @api
      *
-     * @param \Generated\Shared\Transfer\SplittableTotalsRequestTransfer $splittableTotalsRequestTransfer
+     * @param \Generated\Shared\Transfer\RestSplittableTotalsRequestTransfer $restSplittableTotalsRequestTransfer
      * @param \Generated\Shared\Transfer\QuoteTransfer $quoteTransfer
      *
      * @return \Generated\Shared\Transfer\QuoteTransfer
      */
     public function expandQuote(
-        SplittableTotalsRequestTransfer $splittableTotalsRequestTransfer,
+        RestSplittableTotalsRequestTransfer $restSplittableTotalsRequestTransfer,
         QuoteTransfer $quoteTransfer
     ): QuoteTransfer;
 }
