@@ -10,7 +10,6 @@
   ],
   "require": {
     "php": ">=7.3",
-    "fond-of-oryx/splittable-totals-extension": "dev-main",
     "spryker/calculation": "^4.9.0",
     "spryker/quote": "^2.0.0"
   },

@@ -4,16 +4,11 @@ namespace FondOfOryx\Zed\SplittableTotals\Business\Reader;
 
 use FondOfOryx\Zed\SplittableTotals\Business\Splitter\QuoteSplitterInterface;
 use FondOfOryx\Zed\SplittableTotals\Dependency\Facade\SplittableTotalsToCalculationFacadeInterface;
-use Generated\Shared\Transfer\SplittableTotalsRequestTransfer;
-use Generated\Shared\Transfer\SplittableTotalsResponseTransfer;
+use Generated\Shared\Transfer\QuoteTransfer;
+use Generated\Shared\Transfer\SplittableTotalsTransfer;
 
 class SplittableTotalsReader implements SplittableTotalsReaderInterface
 {
-    /**
-     * @var \FondOfOryx\Zed\SplittableTotals\Business\Reader\QuoteReaderInterface
-     */
-    protected $quoteReader;
-
     /**
      * @var \FondOfOryx\Zed\SplittableTotals\Business\Splitter\QuoteSplitterInterface
      */
@@ -25,42 +20,33 @@ class SplittableTotalsReader implements SplittableTotalsReaderInterface
     protected $calculationFacade;
 
     /**
-     * @param \FondOfOryx\Zed\SplittableTotals\Business\Reader\QuoteReaderInterface $quoteReader
      * @param \FondOfOryx\Zed\SplittableTotals\Business\Splitter\QuoteSplitterInterface $quoteSplitter
      * @param \FondOfOryx\Zed\SplittableTotals\Dependency\Facade\SplittableTotalsToCalculationFacadeInterface $calculationFacade
      */
     public function __construct(
-        QuoteReaderInterface $quoteReader,
         QuoteSplitterInterface $quoteSplitter,
         SplittableTotalsToCalculationFacadeInterface $calculationFacade
     ) {
-        $this->quoteReader = $quoteReader;
         $this->quoteSplitter = $quoteSplitter;
         $this->calculationFacade = $calculationFacade;
     }
 
     /**
-     * @param \Generated\Shared\Transfer\SplittableTotalsRequestTransfer $splittableTotalsRequestTransfer
+     * @param \Generated\Shared\Transfer\QuoteTransfer $quoteTransfer
      *
-     * @return \Generated\Shared\Transfer\SplittableTotalsResponseTransfer
+     * @return \Generated\Shared\Transfer\SplittableTotalsTransfer
      */
-    public function getBySplittableTotalsRequest(
-        SplittableTotalsRequestTransfer $splittableTotalsRequestTransfer
-    ): SplittableTotalsResponseTransfer {
-        $splittableTotalsResponseTransfer = new SplittableTotalsResponseTransfer();
-        $quoteTransfer = $this->quoteReader->getBySplittableTotalsRequest($splittableTotalsRequestTransfer);
+    public function getByQuote(
+        QuoteTransfer $quoteTransfer
+    ): SplittableTotalsTransfer {
+        $splittedQuoteTransfers = $this->quoteSplitter->split($quoteTransfer);
+        $splittableTotalsTransfer = (new SplittableTotalsTransfer());
 
-        if ($quoteTransfer === null) {
-            return $splittableTotalsResponseTransfer;
+        foreach ($splittedQuoteTransfers as $key => $splittedQuoteTransfer) {
+            $splittedQuoteTransfer = $this->calculationFacade->recalculateQuote($splittedQuoteTransfer, false);
+            $splittableTotalsTransfer->addTotals($key, $splittedQuoteTransfer->getTotals());
         }
 
-        $quoteTransfers = $this->quoteSplitter->split($quoteTransfer);
-
-        foreach ($quoteTransfers as $key => $quoteTransfer) {
-            $quoteTransfer = $this->calculationFacade->recalculateQuote($quoteTransfer, false);
-            $splittableTotalsResponseTransfer->addTotals($key, $quoteTransfer->getTotals());
-        }
-
-        return $splittableTotalsResponseTransfer;
+        return $splittableTotalsTransfer;
     }
 }
