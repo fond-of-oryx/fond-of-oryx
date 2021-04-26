@@ -31,7 +31,7 @@ include:
   - bundles/splittable-checkout
   - bundles/splittable-totals
   - bundles/splittable-totals-rest-api-company-unit-address-connector
-  - bundles/splittable-totals-extension
+  - bundles/splittable-totals-rest-api-extension
   - bundles/tax-calculation-connector
   - bundles/util-math-formula
 
