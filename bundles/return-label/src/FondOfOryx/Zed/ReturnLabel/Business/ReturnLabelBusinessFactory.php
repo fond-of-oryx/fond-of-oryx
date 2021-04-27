@@ -18,6 +18,7 @@ use FondOfOryx\Zed\ReturnLabel\ReturnLabelDependencyProvider;
 use GuzzleHttp\Client as HttpClient;
 use GuzzleHttp\ClientInterface as HttpClientInterface;
 use Spryker\Zed\Kernel\Business\AbstractBusinessFactory;
+use FondOfOryx\Zed\ReturnLabel\Business\Mapper\ReturnLabelCustomerMapper;
 
 /**
  * @method \FondOfOryx\Zed\ReturnLabel\ReturnLabelConfig getConfig()

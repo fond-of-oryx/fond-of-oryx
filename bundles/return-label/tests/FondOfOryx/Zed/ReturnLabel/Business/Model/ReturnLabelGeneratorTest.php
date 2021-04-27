@@ -5,13 +5,17 @@ namespace FondOfOryx\Zed\ReturnLabel\Business\Model;
 use Codeception\Test\Unit;
 use FondOfOryx\Zed\ReturnLabel\Business\Api\Adapter\ReturnLabelAdapter;
 use FondOfOryx\Zed\ReturnLabel\Business\Mapper\ReturnLabelAddressMapper;
+use FondOfOryx\Zed\ReturnLabel\Business\Mapper\ReturnLabelCustomerMapper;
+use FondOfOryx\Zed\ReturnLabel\Business\Mapper\ReturnLabelCustomerMapperInterface;
 use FondOfOryx\Zed\ReturnLabel\ReturnLabelConfig;
 use Generated\Shared\Transfer\CompanyBusinessUnitTransfer;
 use Generated\Shared\Transfer\CompanyTransfer;
 use Generated\Shared\Transfer\CompanyUnitAddressTransfer;
+use Generated\Shared\Transfer\ReturnLabelCustomerTransfer;
 use Generated\Shared\Transfer\ReturnLabelRequestTransfer;
 use Generated\Shared\Transfer\ReturnLabelResponseTransfer;
 use Psr\Http\Message\StreamInterface;
+use GuzzleHttp\Psr7\Stream;
 
 class ReturnLabelGeneratorTest extends Unit
 {
@@ -31,39 +35,9 @@ class ReturnLabelGeneratorTest extends Unit
     protected $returnLabelAdapterMock;
 
     /**
-     * @var \FondOfOryx\Zed\ReturnLabel\Business\Mapper\ReturnLabelAddressMapperInterface|\PHPUnit\Framework\MockObject\MockObject
+     * @var \FondOfOryx\Zed\ReturnLabel\Business\Mapper\ReturnLabelCustomerMapperInterface|\PHPUnit\Framework\MockObject\MockObject
      */
-    protected $returnLabelAddressMapperMock;
-
-    /**
-     * @var \Generated\Shared\Transfer\ReturnLabelRequestTransfer|\PHPUnit\Framework\MockObject\MockObject
-     */
-    protected $returnLabelRequestTransferMock;
-
-    /**
-     * @var \Generated\Shared\Transfer\ReturnLabelResponseTransfer|\PHPUnit\Framework\MockObject\MockObject
-     */
-    protected $returnLabelResponseTransferMock;
-
-    /**
-     * @var \Generated\Shared\Transfer\ReturnLabelServiceRequestTransfer|\PHPUnit\Framework\MockObject\MockObject
-     */
-    protected $returnLabelServiceRequestTransferMock;
-
-    /**
-     * @var \Generated\Shared\Transfer\CompanyUnitAddressTransfer|\PHPUnit\Framework\MockObject\MockObject
-     */
-    protected $companyUnitAddressTransferMock;
-
-    /**
-     * @var \FondOfOryx\Zed\ReturnLabel\Business\Model\ReturnLabelGeneratorInterface
-     */
-    protected $generator;
-
-    /**
-     * @var \Psr\Http\Message\StreamInterface
-     */
-    protected $streamInterfaceMock;
+    protected $returnLabelCustomerMapper;
 
     /**
      * @var \FondOfOryx\Zed\ReturnLabel\ReturnLabelConfig|\PHPUnit\Framework\MockObject\MockObject
@@ -71,14 +45,35 @@ class ReturnLabelGeneratorTest extends Unit
     protected $configMock;
 
     /**
+     * @var \Generated\Shared\Transfer\ReturnLabelRequestTransfer|\PHPUnit\Framework\MockObject\MockObject
+     */
+    protected $returnLabelRequestTransferMock;
+
+    /**
      * @var \Generated\Shared\Transfer\CompanyBusinessUnitTransfer|\PHPUnit\Framework\MockObject\MockObject
      */
     protected $companyBusinessUnitTransferMock;
 
     /**
-     * @var \Generated\Shared\Transfer\CompanyTransfer|\PHPUnit\Framework\MockObject\MockObject
+     * @var \Generated\Shared\Transfer\CompanyUnitAddressTransfer|\PHPUnit\Framework\MockObject\MockObject
      */
-    protected $companyTransferMock;
+    protected $companyUnitAddressTransferMock;
+
+    /**
+     * @var ReturnLabelCustomerTransfer|\PHPUnit\Framework\MockObject\MockObject
+     */
+    protected $returnLabelCustomerTransferMock;
+
+    /**
+     * @var \Psr\Http\Message\StreamInterface|\PHPUnit\Framework\MockObject\MockObject
+     */
+    protected $streamMock;
+
+    /**
+     * @var \FondOfOryx\Zed\ReturnLabel\Business\Model\ReturnLabelGeneratorInterface
+     */
+    protected $generator;
+
 
     /**
      * @return void
@@ -91,31 +86,15 @@ class ReturnLabelGeneratorTest extends Unit
             ->disableOriginalConstructor()
             ->getMock();
 
+        $this->companyBusinessUnitReaderMock = $this->getMockBuilder(CompanyBusinessUnitReader::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
         $this->returnLabelAdapterMock = $this->getMockBuilder(ReturnLabelAdapter::class)
             ->disableOriginalConstructor()
             ->getMock();
 
-        $this->returnLabelAddressMapperMock = $this->getMockBuilder(ReturnLabelAddressMapper::class)
-            ->disableOriginalConstructor()
-            ->getMock();
-
-        $this->returnLabelRequestTransferMock = $this->getMockBuilder(ReturnLabelRequestTransfer::class)
-            ->disableOriginalConstructor()
-            ->getMock();
-
-        $this->returnLabelResponseTransferMock = $this->getMockBuilder(ReturnLabelResponseTransfer::class)
-            ->disableOriginalConstructor()
-            ->getMock();
-
-        $this->returnLabelServiceRequestTransferMock = $this->getMockBuilder(ReturnLabelResponseTransfer::class)
-            ->disableOriginalConstructor()
-            ->getMock();
-
-        $this->companyUnitAddressTransferMock = $this->getMockBuilder(CompanyUnitAddressTransfer::class)
-            ->disableOriginalConstructor()
-            ->getMock();
-
-        $this->streamInterfaceMock = $this->getMockBuilder(StreamInterface::class)
+        $this->returnLabelCustomerMapper = $this->getMockBuilder(ReturnLabelCustomerMapper::class)
             ->disableOriginalConstructor()
             ->getMock();
 
@@ -123,15 +102,23 @@ class ReturnLabelGeneratorTest extends Unit
             ->disableOriginalConstructor()
             ->getMock();
 
+        $this->returnLabelRequestTransferMock = $this->getMockBuilder(ReturnLabelRequestTransfer::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
         $this->companyBusinessUnitTransferMock = $this->getMockBuilder(CompanyBusinessUnitTransfer::class)
             ->disableOriginalConstructor()
             ->getMock();
 
-        $this->companyBusinessUnitReaderMock = $this->getMockBuilder(CompanyBusinessUnitReader::class)
+        $this->companyUnitAddressTransferMock = $this->getMockBuilder(CompanyUnitAddressTransfer::class)
             ->disableOriginalConstructor()
             ->getMock();
 
-        $this->companyTransferMock = $this->getMockBuilder(CompanyTransfer::class)
+        $this->returnLabelCustomerTransferMock = $this->getMockBuilder(ReturnLabelCustomerTransfer::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $this->streamMock = $this->getMockBuilder(Stream::class)
             ->disableOriginalConstructor()
             ->getMock();
 
@@ -139,7 +126,7 @@ class ReturnLabelGeneratorTest extends Unit
             $this->companyUnitAddressReaderMock,
             $this->companyBusinessUnitReaderMock,
             $this->returnLabelAdapterMock,
-            $this->returnLabelAddressMapperMock,
+            $this->returnLabelCustomerMapper,
             $this->configMock
         );
     }
@@ -149,44 +136,29 @@ class ReturnLabelGeneratorTest extends Unit
      */
     public function testGenerateSuccess(): void
     {
-        $this->companyUnitAddressReaderMock->expects(static::atLeastOnce())
-            ->method('getByReturnLabelRequest')
-            ->willReturn($this->companyUnitAddressTransferMock);
-
         $this->companyBusinessUnitReaderMock->expects(static::atLeastOnce())
             ->method('getByReturnLabelRequest')
             ->willReturn($this->companyBusinessUnitTransferMock);
 
-        $this->companyBusinessUnitTransferMock->expects(static::atLeastOnce())
-            ->method('getCompany')
-            ->willReturn($this->companyTransferMock);
+        $this->companyUnitAddressReaderMock->expects(static::atLeastOnce())
+            ->method('getByReturnLabelRequest')
+            ->willReturn($this->companyUnitAddressTransferMock);
 
-        $this->companyTransferMock->expects(static::atLeastOnce())
-            ->method('getDebtorNumber')
-            ->willReturn('345345');
+        $this->returnLabelCustomerMapper->expects(static::atLeastOnce())
+            ->method('mapCompanyBusinessUnitToReturnLabelCustomer')
+            ->willReturn($this->returnLabelCustomerTransferMock);
+
+        $this->returnLabelCustomerMapper->expects(static::atLeastOnce())
+            ->method('mapCompanyUnitAddressToReturnLabelCustomer')
+            ->willReturn($this->returnLabelCustomerTransferMock);
+
+        $this->returnLabelAdapterMock->expects(static::atLeastOnce())
+            ->method('sendRequest')
+            ->willReturn($this->streamMock);
 
         static::assertInstanceOf(
             ReturnLabelResponseTransfer::class,
             $this->generator->generate($this->returnLabelRequestTransferMock)
         );
-    }
-
-    /**
-     * @return void
-     */
-    public function testGenerateNull(): void
-    {
-        /*$this->companyUnitAddressReaderMock->expects(static::atLeastOnce())
-            ->method('getByReturnLabelRequest')
-            ->willReturn(null);
-
-        $returnLabelRequestTransfer = (new ReturnLabelRequestTransfer())->fromArray(
-            unserialize('a:2:{s:11:"id_customer";i:19;s:23:"id_company_unit_address";i:39;}'), true
-        );
-
-        static::assertInstanceOf(
-            ReturnLabelResponseTransfer::class,
-            $this->generator->generate($returnLabelRequestTransfer)
-        );*/
     }
 }
