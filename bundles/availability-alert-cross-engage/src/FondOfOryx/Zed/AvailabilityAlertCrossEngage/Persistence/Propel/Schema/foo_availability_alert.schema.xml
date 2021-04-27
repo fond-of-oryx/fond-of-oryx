@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<database xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:noNamespaceSchemaLocation="http://static.spryker.com/schema-01.xsd"
+          name="zed"
+          defaultIdMethod="native"
+          namespace="Orm\Zed\AvailabilityAlert\Persistence"
+          package="src.Orm.Zed.AvailabilityAlert.Persistence">
+
+    <table name="foo_availability_alert_subscriber" idMethod="native" allowPkInsert="true">
+        <column name="subscriber_ip" type="VARCHAR" size="255" required="true"/>
+        <column name="hash" type="VARCHAR" size="255" required="true"/>
+        <column name="key" type="VARCHAR" size="40" required="true"/>
+        <column name="is_active" type="BOOLEAN" defaultValue="false" required="true"/>
+        <column name="exported" type="BOOLEAN" defaultValue="false" required="true"/>
+    </table>
+</database>

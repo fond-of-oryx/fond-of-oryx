@@ -1,29 +1,6 @@
 namespace: fond-of-oryx/fond-of-oryx
 
 include:
-  - bundles/catalog-sku-filter
-  - bundles/customer-statistic
-  - bundles/customer-statistics-rest-api
-  - bundles/erp-order-api
-  - bundles/erp-order
-  - bundles/erp-order-page-search
-  - bundles/erp-order-page-search-rest-api
-  - bundles/erp-order-permission
-  - bundles/mail-bcc
-  - bundles/one-time-password
-  - bundles/one-time-password-email-connector
-  - bundles/one-time-password-rest-api
-  - bundles/product-country-restriction
-  - bundles/product-country-restriction-checkout-connector
-  - bundles/product-locale-restriction
-  - bundles/product-locale-restriction-cart-connector
-  - bundles/product-locale-restriction-search
-  - bundles/product-locale-restriction-storage
-  - bundles/sales-locale-connector
-  - bundles/shipment-table-rate
-  - bundles/shipment-table-rate-data-import
-  - bundles/splittable-checkout
-  - bundles/tax-calculation-connector
   - bundles/return-label
   - bundles/return-labels-rest-api
 

@@ -1,0 +1,47 @@
+<?php
+
+
+namespace FondOfOryx\Zed\ReturnLabel\Business\Mapper;
+
+
+use Generated\Shared\Transfer\CompanyUnitAddressTransfer;
+use Generated\Shared\Transfer\ReturnLabelAddressTransfer;
+use Generated\Shared\Transfer\ReturnLabelCustomerTransfer;
+
+class ReturnLabelCustomerMapper implements ReturnLabelCustomerMapperInterface
+{
+    /**
+     * @var ReturnLabelAddressMapperInterface
+     */
+    protected $returnLabelAddressMapper;
+
+    /**
+     * @param ReturnLabelAddressMapperInterface $returnLabelAddressMapper
+     */
+    public function __construct(ReturnLabelAddressMapperInterface $returnLabelAddressMapper)
+    {
+        $this->returnLabelAddressMapper = $returnLabelAddressMapper;
+    }
+
+    /**
+     * @param CompanyUnitAddressTransfer $companyUnitAddressTransfer
+     * @param ReturnLabelCustomerTransfer $returnLabelCustomerTransfer
+     *
+     * @return ReturnLabelCustomerTransfer
+     */
+    public function mapCompanyUnitAddressToReturnLabelCustomer(
+        CompanyUnitAddressTransfer $companyUnitAddressTransfer,
+        ReturnLabelCustomerTransfer $returnLabelCustomerTransfer
+    ): ReturnLabelCustomerTransfer {
+        return $returnLabelCustomerTransfer
+            ->setReceiverId('deu')
+            ->setCustomerReference($companyBusinessUnitTransfer->getCompany()->getDebtorNumber())
+            ->setEmail($companyBusinessUnitTransfer->getEmail())
+            ->setPhone($companyBusinessUnitTransfer->getPhone())
+            ->setAddress($this->returnLabelAddressMapper
+                ->mapCompanyUnitAddressToReturnLabelAddress(
+                    $companyUnitAddressTransfer,
+                    new ReturnLabelAddressTransfer()
+                ));
+    }
+}

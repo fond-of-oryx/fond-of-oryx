@@ -91,10 +91,6 @@ class ReturnLabelGeneratorTest extends Unit
             ->disableOriginalConstructor()
             ->getMock();
 
-        $this->companyBusinessUnitReader = $this->getMockBuilder(CompanyBusinessUnitReader::class)
-            ->disableOriginalConstructor()
-            ->getMock();
-
         $this->returnLabelAdapterMock = $this->getMockBuilder(ReturnLabelAdapter::class)
             ->disableOriginalConstructor()
             ->getMock();
@@ -141,7 +137,7 @@ class ReturnLabelGeneratorTest extends Unit
 
         $this->generator = new ReturnLabelGenerator(
             $this->companyUnitAddressReaderMock,
-            $this->companyBusinessUnitReader,
+            $this->companyBusinessUnitReaderMock,
             $this->returnLabelAdapterMock,
             $this->returnLabelAddressMapperMock,
             $this->configMock
@@ -165,9 +161,13 @@ class ReturnLabelGeneratorTest extends Unit
             ->method('getCompany')
             ->willReturn($this->companyTransferMock);
 
+        $this->companyTransferMock->expects(static::atLeastOnce())
+            ->method('getDebtorNumber')
+            ->willReturn('345345');
+
         static::assertInstanceOf(
             ReturnLabelResponseTransfer::class,
-            $this->generator->generate($returnLabelRequestTransfer)
+            $this->generator->generate($this->returnLabelRequestTransferMock)
         );
     }
 

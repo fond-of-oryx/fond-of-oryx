@@ -10,6 +10,7 @@ use Generated\Shared\Transfer\ReturnLabelCustomerTransfer;
 use Generated\Shared\Transfer\ReturnLabelRequestTransfer;
 use Generated\Shared\Transfer\ReturnLabelResponseTransfer;
 use Generated\Shared\Transfer\ReturnLabelServiceRequestTransfer;
+use FondOfOryx\Zed\ReturnLabel\Business\Mapper\ReturnLabelCustomerMapperInterface;
 
 class ReturnLabelGenerator implements ReturnLabelGeneratorInterface
 {
@@ -29,9 +30,9 @@ class ReturnLabelGenerator implements ReturnLabelGeneratorInterface
     protected $returnLabelAdapter;
 
     /**
-     * @var \FondOfOryx\Zed\ReturnLabel\Business\Mapper\ReturnLabelAddressMapperInterface
+     * @var \FondOfOryx\Zed\ReturnLabel\Business\Mapper\ReturnLabelCustomerMapperInterface
      */
-    protected $returnLabelAddressMapper;
+    protected $returnLabelCustomerMapper;
 
     /**
      * @var \FondOfOryx\Zed\ReturnLabel\ReturnLabelConfig
@@ -42,20 +43,20 @@ class ReturnLabelGenerator implements ReturnLabelGeneratorInterface
      * @param \FondOfOryx\Zed\ReturnLabel\Business\Model\CompanyUnitAddressReaderInterface $companyUnitAddressReader
      * @param \FondOfOryx\Zed\ReturnLabel\Business\Model\CompanyBusinessUnitReaderInterface $companyBusinessUnitReader
      * @param \FondOfOryx\Zed\ReturnLabel\Business\Api\Adapter\ReturnLabelAdapterInterface $returnLabelAdapter
-     * @param \FondOfOryx\Zed\ReturnLabel\Business\Mapper\ReturnLabelAddressMapperInterface $returnLabelAddressMapper
+     * @param \FondOfOryx\Zed\ReturnLabel\Business\Mapper\ReturnLabelCustomerMapperInterface $returnLabelCustomerMapper
      * @param \FondOfOryx\Zed\ReturnLabel\ReturnLabelConfig $config
      */
     public function __construct(
         CompanyUnitAddressReaderInterface $companyUnitAddressReader,
         CompanyBusinessUnitReaderInterface $companyBusinessUnitReader,
         ReturnLabelAdapterInterface $returnLabelAdapter,
-        ReturnLabelAddressMapperInterface $returnLabelAddressMapper,
+        ReturnLabelCustomerMapperInterface $returnLabelCustomerMapper,
         ReturnLabelConfig $config
     ) {
         $this->companyUnitAddressReader = $companyUnitAddressReader;
         $this->companyBusinessUnitReader = $companyBusinessUnitReader;
         $this->returnLabelAdapter = $returnLabelAdapter;
-        $this->returnLabelAddressMapper = $returnLabelAddressMapper;
+        $this->returnLabelCustomerMapper = $returnLabelCustomerMapper;
         $this->config = $config;
     }
 
@@ -81,16 +82,10 @@ class ReturnLabelGenerator implements ReturnLabelGeneratorInterface
             return $returnLabelResponseTransfer;
         }
 
-        $returnLabelCustomerTransfer = (new ReturnLabelCustomerTransfer())
-            ->setReceiverId('deu')
-            ->setCustomerReference($companyBusinessUnitTransfer->getCompany()->getDebtorNumber())
-            ->setEmail($companyBusinessUnitTransfer->getEmail())
-            ->setPhone($companyBusinessUnitTransfer->getPhone())
-            ->setAddress($this->returnLabelAddressMapper
-                ->mapCompanyUnitAddressToReturnLabelAddress(
-                    $companyUnitAddressTransfer,
-                    new ReturnLabelAddressTransfer()
-                ));
+        $returnLabelCustomerTransfer = $this->returnLabelCustomerMapper->mapCompanyUnitAddressToReturnLabelCustomer(
+            $returnLabelCustomerTransfer,
+            new ReturnLabelCustomerTransfer()
+        );
 
         $returnLabelServiceRequestTransfer = (new ReturnLabelServiceRequestTransfer())
             ->setQrCode($this->config->printQrCodeOnReturnForm())
@@ -99,7 +94,7 @@ class ReturnLabelGenerator implements ReturnLabelGeneratorInterface
 
         $response = $this->returnLabelAdapter
             ->sendRequest($returnLabelServiceRequestTransfer);
-        
+
         return $returnLabelResponseTransfer->setData($response->getContents());
     }
 }

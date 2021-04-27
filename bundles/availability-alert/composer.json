@@ -1,0 +1,39 @@
+{
+  "name": "fond-of-oryx/availability-alert",
+  "description": "n/a",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Daniel Rose",
+      "email": "daniel-rose@gmx.de"
+    }
+  ],
+  "require": {
+    "php": ">=7.3",
+    "spryker/availability": "^6.0.0 || ^7.0.0 || ^8.0.0 || ^9.0.0",
+    "spryker/locale": "^2.2.0 || ^3.0.0",
+    "spryker/mail": "^4.0.0",
+    "spryker/product": "^5.0.0 || ^6.0.0",
+    "spryker/router": "^1.1.0",
+    "spryker/store": "^1.2.0",
+    "spryker/zed-request": "^3.3.0"
+  },
+  "require-dev": {
+    "fond-of-codeception/spryker": "^1.0",
+    "spryker/code-sniffer": "*",
+    "spryker-sdk/phpstan-spryker": "*"
+  },
+  "minimum-stability": "dev",
+  "prefer-stable": true,
+  "autoload": {
+    "psr-4": {
+      "FondOfOryx\\": "src/FondOfOryx"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "FondOfOryx\\": "tests/FondOfOryx",
+      "Generated\\": "tests/Generated"
+    }
+  }
+}

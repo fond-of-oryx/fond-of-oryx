@@ -1,0 +1,22 @@
+<?php
+
+
+namespace FondOfOryx\Zed\ReturnLabel\Business\Mapper;
+
+
+use Generated\Shared\Transfer\CompanyUnitAddressTransfer;
+use Generated\Shared\Transfer\ReturnLabelCustomerTransfer;
+
+interface ReturnLabelCustomerMapperInterface
+{
+    /**
+     * @param CompanyUnitAddressTransfer $companyUnitAddressTransfer
+     * @param ReturnLabelCustomerTransfer $returnLabelCustomerTransfer
+     * 
+     * @return ReturnLabelCustomerTransfer
+     */
+    public function mapCompanyUnitAddressToReturnLabelCustomer(
+        CompanyUnitAddressTransfer $companyUnitAddressTransfer,
+        ReturnLabelCustomerTransfer $returnLabelCustomerTransfer
+    ): ReturnLabelCustomerTransfer;
+}

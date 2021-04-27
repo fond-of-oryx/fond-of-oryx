@@ -1,0 +1,56 @@
+<?xml version="1.0"?>
+<transfers xmlns="spryker:transfer-01"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="spryker:transfer-01 http://static.spryker.com/transfer-01.xsd">
+
+    <transfer name="AvailabilityAlertSubscription">
+        <property name="idAvailabilityAlertSubscription" type="int" />
+        <property name="fkProductAbstract" type="int" />
+        <property name="fkLocale" type="int" />
+        <property name="fkStore" type="int" />
+        <property name="fkSubscriber" type="int" />
+        <property name="status" type="string" />
+        <property name="sentAt" type="int" />
+        <property name="createdAt" type="int" />
+        <property name="updatedAt" type="int" />
+        <property name="subscriber" type="AvailabilityAlertSubscriber" />
+        <property name="productAbstract" type="ProductAbstract" />
+        <property name="locale" type="Locale" />
+        <property name="store" type="Store" />
+    </transfer>
+
+    <transfer name="AvailabilityAlertSubscriptionCollection">
+        <property name="subscriptions" singular="subscription" type="AvailabilityAlertSubscription[]" />
+    </transfer>
+
+    <transfer name="AvailabilityAlertSubscriber">
+        <property name="idAvailabilityAlertSubscriber" type="int" />
+        <property name="fkCustomer" type="int" />
+        <property name="email" type="string" />
+    </transfer>
+
+    <transfer name="AvailabilityAlertSubscriptionError">
+        <property name="message" type="string" />
+    </transfer>
+
+    <transfer name="AvailabilityAlertSubscriptionRequest">
+        <property name="idProductAbstract" type="int" />
+        <property name="localeName" type="string" />
+        <property name="store" type="string" />
+        <property name="email" type="string" />
+    </transfer>
+
+    <transfer name="AvailabilityAlertSubscriptionResponse">
+        <property name="isSuccess" type="bool" />
+        <property name="errors" type="AvailabilityAlertSubscriptionError[]" singular="error" />
+    </transfer>
+
+    <transfer name="Mail">
+        <property name="availabilityAlertSubscription" type="AvailabilityAlertSubscription" />
+        <property name="productAbstract" type="ProductAbstract" />
+        <property name="localizedUrl" type="LocalizedUrl" />
+        <property name="moneyValue" type="MoneyValue" />
+        <property name="baseUrlSslYves" type="string" />
+    </transfer>
+</transfers>
+
