@@ -5,7 +5,7 @@ namespace FondOfOryx\Zed\SplittableTotalsRestApiCompanyUnitAddressConnector\Busi
 use FondOfOryx\Zed\SplittableTotalsRestApiCompanyUnitAddressConnector\Business\Reader\CompanyUnitAddressReaderInterface;
 use Generated\Shared\Transfer\AddressTransfer;
 use Generated\Shared\Transfer\QuoteTransfer;
-use Generated\Shared\Transfer\SplittableTotalsRequestTransfer;
+use Generated\Shared\Transfer\RestSplittableTotalsRequestTransfer;
 
 class QuoteExpander implements QuoteExpanderInterface
 {
@@ -24,33 +24,33 @@ class QuoteExpander implements QuoteExpanderInterface
     }
 
     /**
-     * @param \Generated\Shared\Transfer\SplittableTotalsRequestTransfer $splittableTotalsRequestTransfer
+     * @param \Generated\Shared\Transfer\RestSplittableTotalsRequestTransfer $restSplittableTotalsRequestTransfer
      * @param \Generated\Shared\Transfer\QuoteTransfer $quoteTransfer
      *
      * @return \Generated\Shared\Transfer\QuoteTransfer
      */
     public function expand(
-        SplittableTotalsRequestTransfer $splittableTotalsRequestTransfer,
+        RestSplittableTotalsRequestTransfer $restSplittableTotalsRequestTransfer,
         QuoteTransfer $quoteTransfer
     ): QuoteTransfer {
-        $quoteTransfer = $this->expandWithBillingAddress($splittableTotalsRequestTransfer, $quoteTransfer);
-        $quoteTransfer = $this->expandWithShippingAddress($splittableTotalsRequestTransfer, $quoteTransfer);
+        $quoteTransfer = $this->expandWithBillingAddress($restSplittableTotalsRequestTransfer, $quoteTransfer);
+        $quoteTransfer = $this->expandWithShippingAddress($restSplittableTotalsRequestTransfer, $quoteTransfer);
 
         return $this->expandWithBillingSameAsShipping($quoteTransfer);
     }
 
     /**
-     * @param \Generated\Shared\Transfer\SplittableTotalsRequestTransfer $splittableTotalsRequestTransfer
+     * @param \Generated\Shared\Transfer\RestSplittableTotalsRequestTransfer $restSplittableTotalsRequestTransfer
      * @param \Generated\Shared\Transfer\QuoteTransfer $quoteTransfer
      *
      * @return \Generated\Shared\Transfer\QuoteTransfer
      */
     protected function expandWithBillingAddress(
-        SplittableTotalsRequestTransfer $splittableTotalsRequestTransfer,
+        RestSplittableTotalsRequestTransfer $restSplittableTotalsRequestTransfer,
         QuoteTransfer $quoteTransfer
     ): QuoteTransfer {
-        $addressTransfer = $this->companyUnitAddressReader->getBillingAddressBySplittableTotalsRequestTransfer(
-            $splittableTotalsRequestTransfer
+        $addressTransfer = $this->companyUnitAddressReader->getBillingAddressByRestSplittableTotalsRequestTransfer(
+            $restSplittableTotalsRequestTransfer
         );
 
         if ($addressTransfer === null) {
@@ -61,17 +61,17 @@ class QuoteExpander implements QuoteExpanderInterface
     }
 
     /**
-     * @param \Generated\Shared\Transfer\SplittableTotalsRequestTransfer $splittableTotalsRequestTransfer
+     * @param \Generated\Shared\Transfer\RestSplittableTotalsRequestTransfer $restSplittableTotalsRequestTransfer
      * @param \Generated\Shared\Transfer\QuoteTransfer $quoteTransfer
      *
      * @return \Generated\Shared\Transfer\QuoteTransfer
      */
     protected function expandWithShippingAddress(
-        SplittableTotalsRequestTransfer $splittableTotalsRequestTransfer,
+        RestSplittableTotalsRequestTransfer $restSplittableTotalsRequestTransfer,
         QuoteTransfer $quoteTransfer
     ): QuoteTransfer {
-        $addressTransfer = $this->companyUnitAddressReader->getShippingAddressBySplittableTotalsRequestTransfer(
-            $splittableTotalsRequestTransfer
+        $addressTransfer = $this->companyUnitAddressReader->getShippingAddressByRestSplittableTotalsRequestTransfer(
+            $restSplittableTotalsRequestTransfer
         );
 
         if ($addressTransfer === null) {

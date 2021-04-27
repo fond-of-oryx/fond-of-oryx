@@ -3,7 +3,7 @@
 namespace FondOfOryx\Zed\SplittableTotalsRestApiCompanyUnitAddressConnector\Business;
 
 use Generated\Shared\Transfer\QuoteTransfer;
-use Generated\Shared\Transfer\SplittableTotalsRequestTransfer;
+use Generated\Shared\Transfer\RestSplittableTotalsRequestTransfer;
 use Spryker\Zed\Kernel\Business\AbstractFacade;
 
 /**
@@ -18,15 +18,15 @@ class SplittableTotalsRestApiCompanyUnitAddressConnectorFacade extends AbstractF
      *
      * @api
      *
-     * @param \Generated\Shared\Transfer\SplittableTotalsRequestTransfer $splittableTotalsRequestTransfer
+     * @param \Generated\Shared\Transfer\RestSplittableTotalsRequestTransfer $restSplittableTotalsRequestTransfer
      * @param \Generated\Shared\Transfer\QuoteTransfer $quoteTransfer
      *
      * @return \Generated\Shared\Transfer\QuoteTransfer
      */
     public function expandQuote(
-        SplittableTotalsRequestTransfer $splittableTotalsRequestTransfer,
+        RestSplittableTotalsRequestTransfer $restSplittableTotalsRequestTransfer,
         QuoteTransfer $quoteTransfer
     ): QuoteTransfer {
-        return $this->getFactory()->createQuoteExpander()->expand($splittableTotalsRequestTransfer, $quoteTransfer);
+        return $this->getFactory()->createQuoteExpander()->expand($restSplittableTotalsRequestTransfer, $quoteTransfer);
     }
 }

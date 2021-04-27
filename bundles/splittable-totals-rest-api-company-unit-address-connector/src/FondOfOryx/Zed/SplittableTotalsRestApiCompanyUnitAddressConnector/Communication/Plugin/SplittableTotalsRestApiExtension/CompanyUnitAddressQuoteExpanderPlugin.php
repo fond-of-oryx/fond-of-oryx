@@ -4,7 +4,7 @@ namespace FondOfOryx\Zed\SplittableTotalsRestApiCompanyUnitAddressConnector\Comm
 
 use FondOfOryx\Zed\SplittableTotalsRestApiExtension\Dependency\Plugin\QuoteExpanderPluginInterface;
 use Generated\Shared\Transfer\QuoteTransfer;
-use Generated\Shared\Transfer\SplittableTotalsRequestTransfer;
+use Generated\Shared\Transfer\RestSplittableTotalsRequestTransfer;
 use Spryker\Zed\Kernel\Communication\AbstractPlugin;
 
 /**
@@ -13,15 +13,15 @@ use Spryker\Zed\Kernel\Communication\AbstractPlugin;
 class CompanyUnitAddressQuoteExpanderPlugin extends AbstractPlugin implements QuoteExpanderPluginInterface
 {
     /**
-     * @param \Generated\Shared\Transfer\SplittableTotalsRequestTransfer $splittableTotalsRequestTransfer
+     * @param \Generated\Shared\Transfer\RestSplittableTotalsRequestTransfer $restSplittableTotalsRequestTransfer
      * @param \Generated\Shared\Transfer\QuoteTransfer $quoteTransfer
      *
      * @return \Generated\Shared\Transfer\QuoteTransfer
      */
     public function expandQuote(
-        SplittableTotalsRequestTransfer $splittableTotalsRequestTransfer,
+        RestSplittableTotalsRequestTransfer $restSplittableTotalsRequestTransfer,
         QuoteTransfer $quoteTransfer
     ): QuoteTransfer {
-        return $this->getFacade()->expandQuote($splittableTotalsRequestTransfer, $quoteTransfer);
+        return $this->getFacade()->expandQuote($restSplittableTotalsRequestTransfer, $quoteTransfer);
     }
 }

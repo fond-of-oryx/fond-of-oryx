@@ -11,11 +11,11 @@ class SplittableTotalsRestApiCompanyUnitAddressConnectorRepository extends Abstr
 {
     /**
      * @param int $idCustomer
-     * @param int $idCompanyUnitAddress
+     * @param string $idCompanyUnitAddress
      *
      * @return bool
      */
-    public function existsCompanyUnitAddress(int $idCustomer, int $idCompanyUnitAddress): bool
+    public function existsCompanyUnitAddress(int $idCustomer, string $idCompanyUnitAddress): bool
     {
         $spyCompanyUnitAddressToCompanyBusinessUnitQuery = $this->getFactory()
             ->getCompanyUnitAddressToCompanyBusinessUnitQuery();
@@ -25,7 +25,7 @@ class SplittableTotalsRestApiCompanyUnitAddressConnectorRepository extends Abstr
                     ->filterByFkCustomer($idCustomer)
                 ->endUse()
             ->endUse()
-            ->filterByFkCompanyUnitAddress($idCompanyUnitAddress)
+            ->filterByUuid($idCompanyUnitAddress)
             ->exists();
     }
 }

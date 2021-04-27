@@ -7,8 +7,10 @@ use FondOfOryx\Zed\SplittableTotalsRestApiCompanyUnitAddressConnector\Business\M
 use FondOfOryx\Zed\SplittableTotalsRestApiCompanyUnitAddressConnector\Dependency\Facade\SplittableTotalsRestApiCompanyUnitAddressConnectorToCompanyUnitAddressFacadeInterface;
 use FondOfOryx\Zed\SplittableTotalsRestApiCompanyUnitAddressConnector\Persistence\SplittableTotalsRestApiCompanyUnitAddressConnectorRepositoryInterface;
 use Generated\Shared\Transfer\AddressTransfer;
+use Generated\Shared\Transfer\CompanyUnitAddressResponseTransfer;
 use Generated\Shared\Transfer\CompanyUnitAddressTransfer;
-use Generated\Shared\Transfer\SplittableTotalsRequestTransfer;
+use Generated\Shared\Transfer\RestAddressTransfer;
+use Generated\Shared\Transfer\RestSplittableTotalsRequestTransfer;
 
 class CompanyUnitAddressReaderTest extends Unit
 {
@@ -28,14 +30,24 @@ class CompanyUnitAddressReaderTest extends Unit
     protected $companyUnitAddressFacadeMock;
 
     /**
-     * @var \Generated\Shared\Transfer\SplittableTotalsRequestTransfer|\PHPUnit\Framework\MockObject\MockObject
+     * @var \Generated\Shared\Transfer\RestSplittableTotalsRequestTransfer|\PHPUnit\Framework\MockObject\MockObject
      */
-    protected $splittableTotalsRequestTransferMock;
+    protected $restSplittableTotalsRequestTransferMock;
+
+    /**
+     * @var \Generated\Shared\Transfer\RestAddressTransfer|\PHPUnit\Framework\MockObject\MockObject
+     */
+    protected $restAddressTransferMock;
 
     /**
      * @var \Generated\Shared\Transfer\CompanyUnitAddressTransfer|\PHPUnit\Framework\MockObject\MockObject
      */
     protected $companyUnitAddressTransferMock;
+
+    /**
+     * @var \Generated\Shared\Transfer\CompanyUnitAddressResponseTransfer|\PHPUnit\Framework\MockObject\MockObject
+     */
+    protected $companyUnitAddressResponseTransferMock;
 
     /**
      * @var \Generated\Shared\Transfer\AddressTransfer|\PHPUnit\Framework\MockObject\MockObject
@@ -66,11 +78,19 @@ class CompanyUnitAddressReaderTest extends Unit
             ->disableOriginalConstructor()
             ->getMock();
 
-        $this->splittableTotalsRequestTransferMock = $this->getMockBuilder(SplittableTotalsRequestTransfer::class)
+        $this->restSplittableTotalsRequestTransferMock = $this->getMockBuilder(RestSplittableTotalsRequestTransfer::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $this->restAddressTransferMock = $this->getMockBuilder(RestAddressTransfer::class)
             ->disableOriginalConstructor()
             ->getMock();
 
         $this->companyUnitAddressTransferMock = $this->getMockBuilder(CompanyUnitAddressTransfer::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $this->companyUnitAddressResponseTransferMock = $this->getMockBuilder(CompanyUnitAddressResponseTransfer::class)
             ->disableOriginalConstructor()
             ->getMock();
 
@@ -88,17 +108,21 @@ class CompanyUnitAddressReaderTest extends Unit
     /**
      * @return void
      */
-    public function testGetBillingAddressBySplittableTotalsRequestTransfer(): void
+    public function testGetBillingAddressByRestSplittableTotalsRequestTransfer(): void
     {
         $idCustomer = 1;
-        $idCompanyUnitAddress = 1;
+        $idCompanyUnitAddress = 'd73ec41e-2fc6-4b90-9632-823de9ba18c5';
 
-        $this->splittableTotalsRequestTransferMock->expects(static::atLeastOnce())
+        $this->restSplittableTotalsRequestTransferMock->expects(static::atLeastOnce())
             ->method('getIdCustomer')
             ->willReturn($idCustomer);
 
-        $this->splittableTotalsRequestTransferMock->expects(static::atLeastOnce())
-            ->method('getIdBillingAddress')
+        $this->restSplittableTotalsRequestTransferMock->expects(static::atLeastOnce())
+            ->method('getBillingAddress')
+            ->willReturn($this->restAddressTransferMock);
+
+        $this->restAddressTransferMock->expects(static::atLeastOnce())
+            ->method('getId')
             ->willReturn($idCompanyUnitAddress);
 
         $this->repositoryMock->expects(static::atLeastOnce())
@@ -107,14 +131,22 @@ class CompanyUnitAddressReaderTest extends Unit
             ->willReturn(true);
 
         $this->companyUnitAddressFacadeMock->expects(static::atLeastOnce())
-            ->method('getCompanyUnitAddressById')
+            ->method('findCompanyBusinessUnitAddressByUuid')
             ->with(
                 static::callback(
                     static function (CompanyUnitAddressTransfer $companyUnitAddressTransfer) use ($idCompanyUnitAddress) {
-                        return $companyUnitAddressTransfer->getIdCompanyUnitAddress() === $idCompanyUnitAddress;
+                        return $companyUnitAddressTransfer->getUuid() === $idCompanyUnitAddress;
                     }
                 )
-            )->willReturn($this->companyUnitAddressTransferMock);
+            )->willReturn($this->companyUnitAddressResponseTransferMock);
+
+        $this->companyUnitAddressResponseTransferMock->expects(static::atLeastOnce())
+            ->method('getIsSuccessful')
+            ->willReturn(true);
+
+        $this->companyUnitAddressResponseTransferMock->expects(static::atLeastOnce())
+            ->method('getCompanyUnitAddressTransfer')
+            ->willReturn($this->companyUnitAddressTransferMock);
 
         $this->addressMapperMock->expects(static::atLeastOnce())
             ->method('fromCompanyUnitAddressTransfer')
@@ -123,8 +155,8 @@ class CompanyUnitAddressReaderTest extends Unit
 
         static::assertEquals(
             $this->addressTransferMock,
-            $this->companyUnitAddressReader->getBillingAddressBySplittableTotalsRequestTransfer(
-                $this->splittableTotalsRequestTransferMock
+            $this->companyUnitAddressReader->getBillingAddressByRestSplittableTotalsRequestTransfer(
+                $this->restSplittableTotalsRequestTransferMock
             )
         );
     }
@@ -132,32 +164,34 @@ class CompanyUnitAddressReaderTest extends Unit
     /**
      * @return void
      */
-    public function testGetBillingAddressBySplittableTotalsRequestTransferWithoutCustomerId(): void
+    public function testGetBillingAddressByRestSplittableTotalsRequestTransferWithoutCustomerId(): void
     {
         $idCustomer = null;
-        $idCompanyUnitAddress = 1;
 
-        $this->splittableTotalsRequestTransferMock->expects(static::atLeastOnce())
+        $this->restSplittableTotalsRequestTransferMock->expects(static::atLeastOnce())
             ->method('getIdCustomer')
             ->willReturn($idCustomer);
 
-        $this->splittableTotalsRequestTransferMock->expects(static::atLeastOnce())
-            ->method('getIdBillingAddress')
-            ->willReturn($idCompanyUnitAddress);
+        $this->restSplittableTotalsRequestTransferMock->expects(static::atLeastOnce())
+            ->method('getBillingAddress')
+            ->willReturn($this->restAddressTransferMock);
+
+        $this->restAddressTransferMock->expects(static::never())
+            ->method('getId');
 
         $this->repositoryMock->expects(static::never())
             ->method('existsCompanyUnitAddress');
 
         $this->companyUnitAddressFacadeMock->expects(static::never())
-            ->method('getCompanyUnitAddressById');
+            ->method('findCompanyBusinessUnitAddressByUuid');
 
         $this->addressMapperMock->expects(static::never())
             ->method('fromCompanyUnitAddressTransfer');
 
         static::assertEquals(
             null,
-            $this->companyUnitAddressReader->getBillingAddressBySplittableTotalsRequestTransfer(
-                $this->splittableTotalsRequestTransferMock
+            $this->companyUnitAddressReader->getBillingAddressByRestSplittableTotalsRequestTransfer(
+                $this->restSplittableTotalsRequestTransferMock
             )
         );
     }
@@ -165,17 +199,21 @@ class CompanyUnitAddressReaderTest extends Unit
     /**
      * @return void
      */
-    public function testGetBillingAddressBySplittableTotalsRequestTransferWithNonExistingCompanyUnitAddress(): void
+    public function testGetBillingAddressByRestSplittableTotalsRequestTransferWithNonExistingCompanyUnitAddress(): void
     {
         $idCustomer = 1;
-        $idCompanyUnitAddress = 1;
+        $idCompanyUnitAddress = 'd73ec41e-2fc6-4b90-9632-823de9ba18c5';
 
-        $this->splittableTotalsRequestTransferMock->expects(static::atLeastOnce())
+        $this->restSplittableTotalsRequestTransferMock->expects(static::atLeastOnce())
             ->method('getIdCustomer')
             ->willReturn($idCustomer);
 
-        $this->splittableTotalsRequestTransferMock->expects(static::atLeastOnce())
-            ->method('getIdBillingAddress')
+        $this->restSplittableTotalsRequestTransferMock->expects(static::atLeastOnce())
+            ->method('getBillingAddress')
+            ->willReturn($this->restAddressTransferMock);
+
+        $this->restAddressTransferMock->expects(static::atLeastOnce())
+            ->method('getId')
             ->willReturn($idCompanyUnitAddress);
 
         $this->repositoryMock->expects(static::atLeastOnce())
@@ -184,15 +222,15 @@ class CompanyUnitAddressReaderTest extends Unit
             ->willReturn(false);
 
         $this->companyUnitAddressFacadeMock->expects(static::never())
-            ->method('getCompanyUnitAddressById');
+            ->method('findCompanyBusinessUnitAddressByUuid');
 
         $this->addressMapperMock->expects(static::never())
             ->method('fromCompanyUnitAddressTransfer');
 
         static::assertEquals(
             null,
-            $this->companyUnitAddressReader->getBillingAddressBySplittableTotalsRequestTransfer(
-                $this->splittableTotalsRequestTransferMock
+            $this->companyUnitAddressReader->getBillingAddressByRestSplittableTotalsRequestTransfer(
+                $this->restSplittableTotalsRequestTransferMock
             )
         );
     }
@@ -200,17 +238,21 @@ class CompanyUnitAddressReaderTest extends Unit
     /**
      * @return void
      */
-    public function testGetShippingAddressBySplittableTotalsRequestTransfer(): void
+    public function testGetShippingAddressByRestSplittableTotalsRequestTransfer(): void
     {
         $idCustomer = 1;
-        $idCompanyUnitAddress = 1;
+        $idCompanyUnitAddress = 'd73ec41e-2fc6-4b90-9632-823de9ba18c5';
 
-        $this->splittableTotalsRequestTransferMock->expects(static::atLeastOnce())
+        $this->restSplittableTotalsRequestTransferMock->expects(static::atLeastOnce())
             ->method('getIdCustomer')
             ->willReturn($idCustomer);
 
-        $this->splittableTotalsRequestTransferMock->expects(static::atLeastOnce())
-            ->method('getIdShippingAddress')
+        $this->restSplittableTotalsRequestTransferMock->expects(static::atLeastOnce())
+            ->method('getShippingAddress')
+            ->willReturn($this->restAddressTransferMock);
+
+        $this->restAddressTransferMock->expects(static::atLeastOnce())
+            ->method('getId')
             ->willReturn($idCompanyUnitAddress);
 
         $this->repositoryMock->expects(static::atLeastOnce())
@@ -219,14 +261,22 @@ class CompanyUnitAddressReaderTest extends Unit
             ->willReturn(true);
 
         $this->companyUnitAddressFacadeMock->expects(static::atLeastOnce())
-            ->method('getCompanyUnitAddressById')
+            ->method('findCompanyBusinessUnitAddressByUuid')
             ->with(
                 static::callback(
                     static function (CompanyUnitAddressTransfer $companyUnitAddressTransfer) use ($idCompanyUnitAddress) {
-                        return $companyUnitAddressTransfer->getIdCompanyUnitAddress() === $idCompanyUnitAddress;
+                        return $companyUnitAddressTransfer->getUuid() === $idCompanyUnitAddress;
                     }
                 )
-            )->willReturn($this->companyUnitAddressTransferMock);
+            )->willReturn($this->companyUnitAddressResponseTransferMock);
+
+        $this->companyUnitAddressResponseTransferMock->expects(static::atLeastOnce())
+            ->method('getIsSuccessful')
+            ->willReturn(true);
+
+        $this->companyUnitAddressResponseTransferMock->expects(static::atLeastOnce())
+            ->method('getCompanyUnitAddressTransfer')
+            ->willReturn($this->companyUnitAddressTransferMock);
 
         $this->addressMapperMock->expects(static::atLeastOnce())
             ->method('fromCompanyUnitAddressTransfer')
@@ -235,8 +285,8 @@ class CompanyUnitAddressReaderTest extends Unit
 
         static::assertEquals(
             $this->addressTransferMock,
-            $this->companyUnitAddressReader->getShippingAddressBySplittableTotalsRequestTransfer(
-                $this->splittableTotalsRequestTransferMock
+            $this->companyUnitAddressReader->getShippingAddressByRestSplittableTotalsRequestTransfer(
+                $this->restSplittableTotalsRequestTransferMock
             )
         );
     }
@@ -244,32 +294,34 @@ class CompanyUnitAddressReaderTest extends Unit
     /**
      * @return void
      */
-    public function testGetShippingAddressBySplittableTotalsRequestTransferWithoutCustomerId(): void
+    public function testGetShippingAddressByRestSplittableTotalsRequestTransferWithoutCustomerId(): void
     {
         $idCustomer = null;
-        $idCompanyUnitAddress = 1;
 
-        $this->splittableTotalsRequestTransferMock->expects(static::atLeastOnce())
+        $this->restSplittableTotalsRequestTransferMock->expects(static::atLeastOnce())
             ->method('getIdCustomer')
             ->willReturn($idCustomer);
 
-        $this->splittableTotalsRequestTransferMock->expects(static::atLeastOnce())
-            ->method('getIdShippingAddress')
-            ->willReturn($idCompanyUnitAddress);
+        $this->restSplittableTotalsRequestTransferMock->expects(static::atLeastOnce())
+            ->method('getShippingAddress')
+            ->willReturn($this->restAddressTransferMock);
+
+        $this->restAddressTransferMock->expects(static::never())
+            ->method('getId');
 
         $this->repositoryMock->expects(static::never())
             ->method('existsCompanyUnitAddress');
 
         $this->companyUnitAddressFacadeMock->expects(static::never())
-            ->method('getCompanyUnitAddressById');
+            ->method('findCompanyBusinessUnitAddressByUuid');
 
         $this->addressMapperMock->expects(static::never())
             ->method('fromCompanyUnitAddressTransfer');
 
         static::assertEquals(
             null,
-            $this->companyUnitAddressReader->getShippingAddressBySplittableTotalsRequestTransfer(
-                $this->splittableTotalsRequestTransferMock
+            $this->companyUnitAddressReader->getShippingAddressByRestSplittableTotalsRequestTransfer(
+                $this->restSplittableTotalsRequestTransferMock
             )
         );
     }
