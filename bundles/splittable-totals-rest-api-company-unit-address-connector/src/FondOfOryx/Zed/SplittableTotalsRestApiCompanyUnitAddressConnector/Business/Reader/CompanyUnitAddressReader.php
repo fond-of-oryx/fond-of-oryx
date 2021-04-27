@@ -7,7 +7,7 @@ use FondOfOryx\Zed\SplittableTotalsRestApiCompanyUnitAddressConnector\Dependency
 use FondOfOryx\Zed\SplittableTotalsRestApiCompanyUnitAddressConnector\Persistence\SplittableTotalsRestApiCompanyUnitAddressConnectorRepositoryInterface;
 use Generated\Shared\Transfer\AddressTransfer;
 use Generated\Shared\Transfer\CompanyUnitAddressTransfer;
-use Generated\Shared\Transfer\SplittableTotalsRequestTransfer;
+use Generated\Shared\Transfer\RestSplittableTotalsRequestTransfer;
 
 class CompanyUnitAddressReader implements CompanyUnitAddressReaderInterface
 {
@@ -42,59 +42,67 @@ class CompanyUnitAddressReader implements CompanyUnitAddressReaderInterface
     }
 
     /**
-     * @param \Generated\Shared\Transfer\SplittableTotalsRequestTransfer $splittableTotalsRequestTransfer
+     * @param \Generated\Shared\Transfer\RestSplittableTotalsRequestTransfer $restSplittableTotalsRequestTransfer
      *
      * @return \Generated\Shared\Transfer\AddressTransfer|null
      */
-    public function getBillingAddressBySplittableTotalsRequestTransfer(
-        SplittableTotalsRequestTransfer $splittableTotalsRequestTransfer
+    public function getBillingAddressByRestSplittableTotalsRequestTransfer(
+        RestSplittableTotalsRequestTransfer $restSplittableTotalsRequestTransfer
     ): ?AddressTransfer {
-        $idCustomer = $splittableTotalsRequestTransfer->getIdCustomer();
-        $idBillingAddress = $splittableTotalsRequestTransfer->getIdBillingAddress();
+        $idCustomer = $restSplittableTotalsRequestTransfer->getIdCustomer();
+        $restAddressTransfer = $restSplittableTotalsRequestTransfer->getBillingAddress();
 
-        if ($idCustomer === null || $idBillingAddress === null) {
+        if ($idCustomer === null || $restAddressTransfer === null || $restAddressTransfer->getId() === null) {
             return null;
         }
 
-        return $this->getAddressTransfer($idBillingAddress, $idCustomer);
+        return $this->getAddressTransfer($restAddressTransfer->getId(), $idCustomer);
     }
 
     /**
-     * @param \Generated\Shared\Transfer\SplittableTotalsRequestTransfer $splittableTotalsRequestTransfer
+     * @param \Generated\Shared\Transfer\RestSplittableTotalsRequestTransfer $restSplittableTotalsRequestTransfer
      *
      * @return \Generated\Shared\Transfer\AddressTransfer|null
      */
-    public function getShippingAddressBySplittableTotalsRequestTransfer(
-        SplittableTotalsRequestTransfer $splittableTotalsRequestTransfer
+    public function getShippingAddressByRestSplittableTotalsRequestTransfer(
+        RestSplittableTotalsRequestTransfer $restSplittableTotalsRequestTransfer
     ): ?AddressTransfer {
-        $idCustomer = $splittableTotalsRequestTransfer->getIdCustomer();
-        $idShippingAddress = $splittableTotalsRequestTransfer->getIdShippingAddress();
+        $idCustomer = $restSplittableTotalsRequestTransfer->getIdCustomer();
+        $restAddressTransfer = $restSplittableTotalsRequestTransfer->getShippingAddress();
 
-        if ($idCustomer === null || $idShippingAddress === null) {
+        if ($idCustomer === null || $restAddressTransfer === null || $restAddressTransfer->getId() === null) {
             return null;
         }
 
-        return $this->getAddressTransfer($idShippingAddress, $idCustomer);
+        return $this->getAddressTransfer($restAddressTransfer->getId(), $idCustomer);
     }
 
     /**
-     * @param int $idCompanyUnitAddress
+     * @param string $idCompanyUnitAddress
      * @param int $idCustomer
      *
      * @return \Generated\Shared\Transfer\AddressTransfer|null
      */
-    protected function getAddressTransfer(int $idCompanyUnitAddress, int $idCustomer): ?AddressTransfer
+    protected function getAddressTransfer(string $idCompanyUnitAddress, int $idCustomer): ?AddressTransfer
     {
         if (!$this->repository->existsCompanyUnitAddress($idCustomer, $idCompanyUnitAddress)) {
             return null;
         }
 
         $companyUnitAddressTransfer = (new CompanyUnitAddressTransfer())
-            ->setIdCompanyUnitAddress($idCompanyUnitAddress);
+            ->setUuid($idCompanyUnitAddress);
 
-        $companyUnitAddressTransfer = $this->companyUnitAddressFacade->getCompanyUnitAddressById(
+        $companyUnitAddressResponseTransfer = $this->companyUnitAddressFacade->findCompanyBusinessUnitAddressByUuid(
             $companyUnitAddressTransfer
         );
+
+        $companyUnitAddressTransfer = $companyUnitAddressResponseTransfer->getCompanyUnitAddressTransfer();
+
+        if ($companyUnitAddressTransfer === null || !$companyUnitAddressResponseTransfer->getIsSuccessful()) {
+            // @codeCoverageIgnoreStart
+            return null;
+            // @codeCoverageIgnoreEnd
+        }
 
         return $this->addressMapper->fromCompanyUnitAddressTransfer($companyUnitAddressTransfer);
     }

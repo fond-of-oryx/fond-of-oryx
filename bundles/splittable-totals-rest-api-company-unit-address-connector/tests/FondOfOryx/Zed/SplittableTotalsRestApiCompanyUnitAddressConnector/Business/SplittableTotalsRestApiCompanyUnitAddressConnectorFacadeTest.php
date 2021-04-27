@@ -5,7 +5,7 @@ namespace FondOfOryx\Zed\SplittableTotalsRestApiCompanyUnitAddressConnector\Busi
 use Codeception\Test\Unit;
 use FondOfOryx\Zed\SplittableTotalsRestApiCompanyUnitAddressConnector\Business\Expander\QuoteExpanderInterface;
 use Generated\Shared\Transfer\QuoteTransfer;
-use Generated\Shared\Transfer\SplittableTotalsRequestTransfer;
+use Generated\Shared\Transfer\RestSplittableTotalsRequestTransfer;
 
 class SplittableTotalsRestApiCompanyUnitAddressConnectorFacadeTest extends Unit
 {
@@ -27,7 +27,7 @@ class SplittableTotalsRestApiCompanyUnitAddressConnectorFacadeTest extends Unit
     /**
      * @var \Generated\Shared\Transfer\SplittableTotalsRequestTransfer|\PHPUnit\Framework\MockObject\MockObject
      */
-    protected $splittableTotalsRequestTransferMock;
+    protected $restSplittableTotalsRequestTransferMock;
 
     /**
      * @var \FondOfOryx\Zed\SplittableTotalsRestApiCompanyUnitAddressConnector\Business\SplittableTotalsRestApiCompanyUnitAddressConnectorFacade
@@ -55,7 +55,7 @@ class SplittableTotalsRestApiCompanyUnitAddressConnectorFacadeTest extends Unit
             ->disableOriginalConstructor()
             ->getMock();
 
-        $this->splittableTotalsRequestTransferMock = $this->getMockBuilder(SplittableTotalsRequestTransfer::class)
+        $this->restSplittableTotalsRequestTransferMock = $this->getMockBuilder(RestSplittableTotalsRequestTransfer::class)
             ->disableOriginalConstructor()
             ->getMock();
 
@@ -74,12 +74,12 @@ class SplittableTotalsRestApiCompanyUnitAddressConnectorFacadeTest extends Unit
 
         $this->quoteExpanderMock->expects(static::atLeastOnce())
             ->method('expand')
-            ->with($this->splittableTotalsRequestTransferMock, $this->quoteTransferMock)
+            ->with($this->restSplittableTotalsRequestTransferMock, $this->quoteTransferMock)
             ->willReturn($this->quoteTransferMock);
 
         static::assertEquals(
             $this->quoteTransferMock,
-            $this->facade->expandQuote($this->splittableTotalsRequestTransferMock, $this->quoteTransferMock)
+            $this->facade->expandQuote($this->restSplittableTotalsRequestTransferMock, $this->quoteTransferMock)
         );
     }
 }
