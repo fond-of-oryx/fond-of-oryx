@@ -1,7 +1,11 @@
 namespace: fond-of-oryx/fond-of-oryx
 
 include:
+  - bundles/availability-alert
+  - bundles/availability-alert-cross-engage
+  - bundles/availability-alert-data-import
   - bundles/catalog-sku-filter
+  - bundles/cross-engage
   - bundles/customer-statistic
   - bundles/customer-statistics-rest-api
   - bundles/erp-order-api
@@ -9,6 +13,8 @@ include:
   - bundles/erp-order-page-search
   - bundles/erp-order-page-search-rest-api
   - bundles/erp-order-permission
+  - bundles/feed
+  - bundles/jellyfish-availability-alert
   - bundles/mail-bcc
   - bundles/one-time-password
   - bundles/one-time-password-email-connector
@@ -24,13 +30,10 @@ include:
   - bundles/shipment-table-rate-data-import
   - bundles/splittable-checkout
   - bundles/splittable-totals
-  - bundles/splittable-totals-company-unit-address-connector
-  - bundles/splittable-totals-extension
+  - bundles/splittable-totals-rest-api-company-unit-address-connector
+  - bundles/splittable-totals-rest-api-extension
   - bundles/tax-calculation-connector
   - bundles/util-math-formula
-  - bundles/availability-alert
-  - bundles/availability-alert-cross-engage
-  - bundles/jellyfish-availability-alert
 
 suites:
   unit:

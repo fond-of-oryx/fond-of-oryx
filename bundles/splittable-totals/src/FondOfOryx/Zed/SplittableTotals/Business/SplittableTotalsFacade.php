@@ -2,8 +2,8 @@
 
 namespace FondOfOryx\Zed\SplittableTotals\Business;
 
-use Generated\Shared\Transfer\SplittableTotalsRequestTransfer;
-use Generated\Shared\Transfer\SplittableTotalsResponseTransfer;
+use Generated\Shared\Transfer\QuoteTransfer;
+use Generated\Shared\Transfer\SplittableTotalsTransfer;
 use Spryker\Zed\Kernel\Business\AbstractFacade;
 
 /**
@@ -16,14 +16,14 @@ class SplittableTotalsFacade extends AbstractFacade implements SplittableTotalsF
      *
      * @api
      *
-     * @param \Generated\Shared\Transfer\SplittableTotalsRequestTransfer $splittableTotalsRequestTransfer
+     * @param \Generated\Shared\Transfer\QuoteTransfer $quoteTransfer
      *
-     * @return \Generated\Shared\Transfer\SplittableTotalsResponseTransfer
+     * @return \Generated\Shared\Transfer\SplittableTotalsTransfer
      */
-    public function getSplittableTotalsBySplittableTotalsRequest(
-        SplittableTotalsRequestTransfer $splittableTotalsRequestTransfer
-    ): SplittableTotalsResponseTransfer {
+    public function getSplittableTotalsByQuote(
+        QuoteTransfer $quoteTransfer
+    ): SplittableTotalsTransfer {
         return $this->getFactory()->createSplittableTotalsReader()
-            ->getBySplittableTotalsRequest($splittableTotalsRequestTransfer);
+            ->getByQuote($quoteTransfer);
     }
 }

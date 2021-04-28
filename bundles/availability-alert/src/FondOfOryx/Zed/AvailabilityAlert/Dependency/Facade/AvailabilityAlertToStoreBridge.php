@@ -3,6 +3,7 @@
 namespace FondOfOryx\Zed\AvailabilityAlert\Dependency\Facade;
 
 use Generated\Shared\Transfer\StoreTransfer;
+use Spryker\Zed\Store\Business\StoreFacadeInterface;
 
 class AvailabilityAlertToStoreBridge implements AvailabilityAlertToStoreInterface
 {
@@ -14,7 +15,7 @@ class AvailabilityAlertToStoreBridge implements AvailabilityAlertToStoreInterfac
     /**
      * @param \Spryker\Zed\Store\Business\StoreFacadeInterface $storeFacade
      */
-    public function __construct($storeFacade)
+    public function __construct(StoreFacadeInterface $storeFacade)
     {
         $this->storeFacade = $storeFacade;
     }
@@ -24,7 +25,7 @@ class AvailabilityAlertToStoreBridge implements AvailabilityAlertToStoreInterfac
      *
      * @return \Generated\Shared\Transfer\StoreTransfer
      */
-    public function getStore(string $store): StoreTransfer
+    public function getStoreByName(string $store): StoreTransfer
     {
         return $this->storeFacade->getStoreByName($store);
     }

@@ -3,6 +3,7 @@
 namespace FondOfOryx\Zed\AvailabilityAlert\Dependency\Facade;
 
 use Generated\Shared\Transfer\LocaleTransfer;
+use Spryker\Zed\Locale\Business\LocaleFacadeInterface;
 
 class AvailabilityAlertToLocaleBridge implements AvailabilityAlertToLocaleInterface
 {
@@ -14,7 +15,7 @@ class AvailabilityAlertToLocaleBridge implements AvailabilityAlertToLocaleInterf
     /**
      * @param \Spryker\Zed\Locale\Business\LocaleFacadeInterface $localeFacade
      */
-    public function __construct($localeFacade)
+    public function __construct(LocaleFacadeInterface $localeFacade)
     {
         $this->localeFacade = $localeFacade;
     }

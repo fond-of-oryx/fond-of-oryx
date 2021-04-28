@@ -14,7 +14,6 @@ use Spryker\Zed\Kernel\Persistence\AbstractPersistenceFactory;
  * @method \FondOfOryx\Zed\AvailabilityAlert\AvailabilityAlertConfig getConfig()
  * @method \FondOfOryx\Zed\AvailabilityAlert\Persistence\AvailabilityAlertEntityManagerInterface getEntityManager()
  * @method \FondOfOryx\Zed\AvailabilityAlert\Persistence\AvailabilityAlertRepositoryInterface getRepository()
- * @method \FondOfOryx\Zed\AvailabilityAlert\Persistence\AvailabilityAlertQueryContainerInterface getQueryContainer()
  */
 class AvailabilityAlertPersistenceFactory extends AbstractPersistenceFactory
 {

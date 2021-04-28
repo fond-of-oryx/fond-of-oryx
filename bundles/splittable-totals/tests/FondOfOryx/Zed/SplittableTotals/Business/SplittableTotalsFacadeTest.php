@@ -4,8 +4,8 @@ namespace FondOfOryx\Zed\SplittableTotals\Business;
 
 use Codeception\Test\Unit;
 use FondOfOryx\Zed\SplittableTotals\Business\Reader\SplittableTotalsReaderInterface;
-use Generated\Shared\Transfer\SplittableTotalsRequestTransfer;
-use Generated\Shared\Transfer\SplittableTotalsResponseTransfer;
+use Generated\Shared\Transfer\QuoteTransfer;
+use Generated\Shared\Transfer\SplittableTotalsTransfer;
 
 class SplittableTotalsFacadeTest extends Unit
 {
@@ -20,14 +20,14 @@ class SplittableTotalsFacadeTest extends Unit
     protected $splittableTotalsReaderMock;
 
     /**
-     * @var \Generated\Shared\Transfer\SplittableTotalsRequestTransfer|\PHPUnit\Framework\MockObject\MockObject
+     * @var \Generated\Shared\Transfer\QuoteTransfer|\PHPUnit\Framework\MockObject\MockObject
      */
-    protected $splittableTotalsRequestTransferMock;
+    protected $quoteTransferMock;
 
     /**
-     * @var \Generated\Shared\Transfer\SplittableTotalsResponseTransfer|\PHPUnit\Framework\MockObject\MockObject
+     * @var \Generated\Shared\Transfer\SplittableTotalsTransfer|\PHPUnit\Framework\MockObject\MockObject
      */
-    protected $splittableTotalsResponseTransferMock;
+    protected $splittableTotalsTransferMock;
 
     /**
      * @var \FondOfOryx\Zed\SplittableTotals\Business\SplittableTotalsFacade
@@ -49,11 +49,11 @@ class SplittableTotalsFacadeTest extends Unit
             ->disableOriginalConstructor()
             ->getMock();
 
-        $this->splittableTotalsRequestTransferMock = $this->getMockBuilder(SplittableTotalsRequestTransfer::class)
+        $this->quoteTransferMock = $this->getMockBuilder(QuoteTransfer::class)
             ->disableOriginalConstructor()
             ->getMock();
 
-        $this->splittableTotalsResponseTransferMock = $this->getMockBuilder(SplittableTotalsResponseTransfer::class)
+        $this->splittableTotalsTransferMock = $this->getMockBuilder(SplittableTotalsTransfer::class)
             ->disableOriginalConstructor()
             ->getMock();
 
@@ -71,14 +71,14 @@ class SplittableTotalsFacadeTest extends Unit
             ->willReturn($this->splittableTotalsReaderMock);
 
         $this->splittableTotalsReaderMock->expects(static::atLeastOnce())
-            ->method('getBySplittableTotalsRequest')
-            ->with($this->splittableTotalsRequestTransferMock)
-            ->willReturn($this->splittableTotalsResponseTransferMock);
+            ->method('getByQuote')
+            ->with($this->quoteTransferMock)
+            ->willReturn($this->splittableTotalsTransferMock);
 
         static::assertEquals(
-            $this->splittableTotalsResponseTransferMock,
-            $this->facade->getSplittableTotalsBySplittableTotalsRequest(
-                $this->splittableTotalsRequestTransferMock
+            $this->splittableTotalsTransferMock,
+            $this->facade->getSplittableTotalsByQuote(
+                $this->quoteTransferMock
             )
         );
     }
