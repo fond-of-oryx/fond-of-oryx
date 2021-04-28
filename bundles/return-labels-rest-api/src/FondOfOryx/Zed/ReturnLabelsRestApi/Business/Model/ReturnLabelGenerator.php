@@ -2,10 +2,12 @@
 
 namespace FondOfOryx\Zed\ReturnLabelsRestApi\Business\Model;
 
+use FondOfOryx\Shared\ReturnLabelsRestApi\ReturnLabelsRestApiConstants;
 use FondOfOryx\Zed\ReturnLabelsRestApi\Business\Mapper\ReturnLabelRequestMapperInterface;
 use FondOfOryx\Zed\ReturnLabelsRestApi\Dependency\Facade\ReturnLabelsRestApiToReturnLabelFacadeInterface;
 use Generated\Shared\Transfer\RestReturnLabelRequestTransfer;
 use Generated\Shared\Transfer\RestReturnLabelResponseTransfer;
+use Generated\Shared\Transfer\MessageTransfer;
 
 class ReturnLabelGenerator implements ReturnLabelGeneratorInterface
 {
@@ -25,6 +27,11 @@ class ReturnLabelGenerator implements ReturnLabelGeneratorInterface
     protected $returnLabelRequestMapper;
 
     /**
+     * @var \FondOfOryx\Zed\ReturnLabelsRestApi\ReturnLabelsRestApiConfig
+     */
+    protected $config;
+
+    /**
      * @param \FondOfOryx\Zed\ReturnLabelsRestApi\Business\Model\CompanyUnitAddressReaderInterface $companyUnitAddressReader
      * @param \FondOfOryx\Zed\ReturnLabelsRestApi\Dependency\Facade\ReturnLabelsRestApiToReturnLabelFacadeInterface $returnLabelFacade
      * @param \FondOfOryx\Zed\ReturnLabelsRestApi\Business\Mapper\ReturnLabelRequestMapperInterface $returnLabelRequestMapper
@@ -32,11 +39,13 @@ class ReturnLabelGenerator implements ReturnLabelGeneratorInterface
     public function __construct(
         CompanyUnitAddressReaderInterface $companyUnitAddressReader,
         ReturnLabelsRestApiToReturnLabelFacadeInterface $returnLabelFacade,
-        ReturnLabelRequestMapperInterface $returnLabelRequestMapper
+        ReturnLabelRequestMapperInterface $returnLabelRequestMapper,
+        ReturnLabelsRestApiConfig $config
     ) {
         $this->companyUnitAddressReader = $companyUnitAddressReader;
         $this->returnLabelFacade = $returnLabelFacade;
         $this->returnLabelRequestMapper = $returnLabelRequestMapper;
+        $this->config = $config;
     }
 
     /**
@@ -47,19 +56,27 @@ class ReturnLabelGenerator implements ReturnLabelGeneratorInterface
     public function generate(
         RestReturnLabelRequestTransfer $restReturnLabelRequestTransfer
     ): RestReturnLabelResponseTransfer {
-        $idCompanyUnitAddress = $this->companyUnitAddressReader->getIdCompanyUnitAddressByRestReturnLabel(
+        $companyUnitAddressTransfer = $this->companyUnitAddressReader->getCompanyUnitAddressByRestReturnLabel(
             $restReturnLabelRequestTransfer
         );
 
-        if ($idCompanyUnitAddress === null) {
+        if ($companyUnitAddressTransfer === null) {
             return (new RestReturnLabelResponseTransfer())
                 ->setIsSuccessful(false);
+        }
+
+        if (!in_array($companyUnitAddressTransfer->getFkCountry(), $this->config->getAllowedCountryIds())) {
+            return (new RestReturnLabelResponseTransfer())
+                ->setIsSuccessful(false)
+                ->addError((new MessageTransfer)
+                    ->setMessage(ReturnLabelsRestApiConstants::ERROR_MESSAGE_COUNTRY_NOT_ALLOWED);
+                );
         }
 
         $returnLabelRequestTransfer = $this->returnLabelRequestMapper
             ->mapRestReturnLabelRequestToReturnLabelRequest($restReturnLabelRequestTransfer);
 
-        $returnLabelRequestTransfer->setIdCompanyUnitAddress($idCompanyUnitAddress);
+        $returnLabelRequestTransfer->setIdCompanyUnitAddress($companyUnitAddressTransfer->getIdCompanyUnitAddress());
 
         $returnLabelResponseTransfer = $this->returnLabelFacade
             ->generateReturnLabel($returnLabelRequestTransfer);

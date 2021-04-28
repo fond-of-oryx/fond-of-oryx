@@ -50,6 +50,7 @@
         <property name="zipCode" type="string"/>
         <property name="city" type="string"/>
         <property name="country" type="string"/>
+        <property name="fkCountry" type="int"/>
     </transfer>
 
     <transfer name="CompanyBusinessUnit">

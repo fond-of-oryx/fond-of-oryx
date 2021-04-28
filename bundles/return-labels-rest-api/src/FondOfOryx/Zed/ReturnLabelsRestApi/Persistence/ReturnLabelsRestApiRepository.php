@@ -2,7 +2,10 @@
 
 namespace FondOfOryx\Zed\ReturnLabelsRestApi\Persistence;
 
+use Generated\Shared\Transfer\CompanyUnitAddressTransfer;
+use Orm\Zed\CompanyUnitAddress\Persistence\Base\SpyCompanyUnitAddress;
 use Orm\Zed\CompanyUnitAddress\Persistence\Map\SpyCompanyUnitAddressTableMap;
+use Orm\Zed\CompanyUnitAddress\Persistence\SpyCompanyUnitAddressQuery;
 use Spryker\Zed\Kernel\Persistence\AbstractRepository;
 
 /**
@@ -11,20 +14,27 @@ use Spryker\Zed\Kernel\Persistence\AbstractRepository;
 class ReturnLabelsRestApiRepository extends AbstractRepository implements ReturnLabelsRestApiRepositoryInterface
 {
     /**
-     * @param string $uuid
+     * @param null|string $uuid
      *
-     * @return int|null
+     * @return CompanyUnitAddressTransfer
      */
-    public function getIdCompanyUnitAddressByCompanyUnitAddressUuid(string $uuid): ?int
+    public function getCompanyUnitAddressByCompanyUnitAddressUuid(string $uuid): ?CompanyUnitAddressTransfer
     {
-        /** @var int|null $idCompanyUnitAddress */
-        $idCompanyUnitAddress = $this->getFactory()
+        /** @var SpyCompanyUnitAddressQuery $spyCompanyUnitAddressQuery */
+        $spyCompanyUnitAddressQuery = $this->getFactory()
             ->getCompanyUnitAddressQuery()
             ->clear()
-            ->select([SpyCompanyUnitAddressTableMap::COL_ID_COMPANY_UNIT_ADDRESS])
-            ->filterByUuid($uuid)
-            ->findOne();
+            ->leftJoinCountry()
+            ->filterByUuid($uuid);
 
-        return $idCompanyUnitAddress;
+        $spyCompanyUnitAddressEntity = $spyCompanyUnitAddressQuery->findOne();
+
+        if ($spyCompanyUnitAddressEntity === null) {
+            return null;
+        }
+
+        return $this->getFactory()
+            ->createCompanyUnitAddressMapper()
+            ->mapEntityToTransfer($spyCompanyUnitAddressEntity, new CompanyUnitAddressTransfer());
     }
 }

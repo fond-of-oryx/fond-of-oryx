@@ -13,6 +13,7 @@ use FondOfOryx\Zed\ReturnLabelsRestApi\ReturnLabelsRestApiDependencyProvider;
 use Spryker\Zed\Kernel\Business\AbstractBusinessFactory;
 
 /**
+ * @method \FondOfOryx\Zed\ReturnLabelsRestApi\ReturnLabelsRestApiConfig getConfig()
  * @method \FondOfOryx\Zed\ReturnLabelsRestApi\Persistence\ReturnLabelsRestApiRepositoryInterface getRepository()
  */
 class ReturnLabelsRestApiBusinessFactory extends AbstractBusinessFactory
@@ -25,7 +26,8 @@ class ReturnLabelsRestApiBusinessFactory extends AbstractBusinessFactory
         return new ReturnLabelGenerator(
             $this->createCompanyUnitAddressReader(),
             $this->getReturnLabelFacade(),
-            $this->createReturnLabelRequestMapper()
+            $this->createReturnLabelRequestMapper(),
+            $this->getConfig()
         );
     }
 
