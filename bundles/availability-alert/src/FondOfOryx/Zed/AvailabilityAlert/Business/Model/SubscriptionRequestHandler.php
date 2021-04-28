@@ -37,11 +37,11 @@ class SubscriptionRequestHandler implements SubscriptionRequestHandlerInterface
 
         try {
             if (!$this->subscriptionManager->isAlreadySubscribed($availabilityAlertSubscriptionTransfer)) {
-                $this->subscriptionManager->subscribe($availabilityAlertSubscriptionTransfer);
+                $subscription = $this->subscriptionManager->subscribe($availabilityAlertSubscriptionTransfer);
+                $subscriptionResponse->setSubscription($subscription);
             }
         } catch (Exception $e) {
             $subscriptionError = $this->createSubscriptionError();
-
             $subscriptionError->setMessage($e->getMessage());
 
             $subscriptionResponse->setIsSuccess(false)

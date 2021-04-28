@@ -85,11 +85,11 @@ class SubscriptionManager implements SubscriptionManagerInterface
     /**
      * @param \Generated\Shared\Transfer\AvailabilityAlertSubscriptionTransfer $availabilityAlertSubscriptionTransfer
      *
-     * @return void
+     * @return \Generated\Shared\Transfer\AvailabilityAlertSubscriptionTransfer
      */
     public function subscribe(
         AvailabilityAlertSubscriptionTransfer $availabilityAlertSubscriptionTransfer
-    ) {
+    ): AvailabilityAlertSubscriptionTransfer {
         $availabilityAlertSubscriptionTransfer->requireFkProductAbstract();
         $availabilityAlertSubscriptionTransfer->requireFkLocale();
         $availabilityAlertSubscriptionTransfer->requireFkStore();
@@ -102,7 +102,7 @@ class SubscriptionManager implements SubscriptionManagerInterface
             ->setStatus(FooAvailabilityAlertSubscriptionTableMap::COL_STATUS_PENDING)
             ->setFkSubscriber($subscriber->getIdAvailabilityAlertSubscriber());
 
-        $this->handleSubscription($availabilityAlertSubscriptionTransfer);
+        return $this->handleSubscription($availabilityAlertSubscriptionTransfer);
     }
 
     /**

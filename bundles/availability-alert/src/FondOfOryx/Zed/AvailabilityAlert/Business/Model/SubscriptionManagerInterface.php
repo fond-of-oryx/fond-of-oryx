@@ -23,7 +23,7 @@ interface SubscriptionManagerInterface
      */
     public function subscribe(
         AvailabilityAlertSubscriptionTransfer $availabilityAlertSubscriptionTransfer
-    );
+    ): AvailabilityAlertSubscriptionTransfer;
 
     /**
      * @param \Generated\Shared\Transfer\AvailabilityAlertSubscriptionTransfer $availabilityAlertSubscriptionTransfer
