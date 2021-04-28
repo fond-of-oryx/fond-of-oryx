@@ -27,7 +27,7 @@ class ReturnLabelsRestApiFactoryTest extends Unit
     protected $containerMock;
 
     /**
-     * @var \PHPUnit\Framework\MockObject\MockObject|\FondOfOryx\Glue\ReturnLabelsRestApi\ReturnLabelProcessorInterface
+     * @var \PHPUnit\Framework\MockObject\MockObject|\FondOfOryx\Glue\ReturnLabelsRestApi\Proccesor\ReturnLabelProcessorInterface
      */
     protected $returnLabelProcessor;
 

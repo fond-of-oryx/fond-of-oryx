@@ -6,7 +6,6 @@ use Codeception\Test\Unit;
 use FondOfOryx\Client\ReturnLabelsRestApi\ReturnLabelsRestApiClient;
 use FondOfOryx\Glue\ReturnLabelsRestApi\Proccesor\ReturnLabelProcessor;
 use Generated\Shared\Transfer\RestErrorMessageTransfer;
-use Generated\Shared\Transfer\RestReturnLabelRequestAttributesTransfer;
 use Generated\Shared\Transfer\RestReturnLabelResponseTransfer;
 use Generated\Shared\Transfer\RestUserTransfer;
 use Spryker\Glue\GlueApplication\Rest\JsonApi\RestResource;
@@ -30,11 +29,6 @@ class ReturnLabelProcessorTest extends Unit
      * @var \Spryker\Glue\GlueApplication\Rest\Request\Data\RestRequestInterface|\PHPUnit\Framework\MockObject\MockObject
      */
     protected $restRequestMock;
-
-    /**
-     * @var \Generated\Shared\Transfer\RestReturnLabelRequestAttributesTransfer|\PHPUnit\Framework\MockObject\MockObject
-     */
-    protected $restReturnLabelRequestAttributesTransfer;
 
     /**
      * @var \Spryker\Glue\GlueApplication\Rest\JsonApi\RestResponse|\PHPUnit\Framework\MockObject\MockObject
@@ -82,10 +76,6 @@ class ReturnLabelProcessorTest extends Unit
             ->getMock();
 
         $this->restRequestMock = $this->getMockBuilder(RestRequest::class)
-            ->disableOriginalConstructor()
-            ->getMock();
-
-        $this->restReturnLabelRequestAttributesTransfer = $this->getMockBuilder(RestReturnLabelRequestAttributesTransfer::class)
             ->disableOriginalConstructor()
             ->getMock();
 
@@ -137,13 +127,17 @@ class ReturnLabelProcessorTest extends Unit
             ->method('getSurrogateIdentifier')
             ->willReturn(42);
 
-        $this->restReturnLabelRequestAttributesTransfer->expects(static::atLeastOnce())
-            ->method('getCompanyUnitAddressUuid')
+        $this->restRequestMock->expects(static::atLeastOnce())
+            ->method('getResource')
+            ->willReturn($this->restResourceMock);
+
+        $this->restResourceMock->expects(static::atLeastOnce())
+            ->method('getId')
             ->willReturn('company-unit-address-uuid');
 
         $restErrorMessageTransfer = (new RestErrorMessageTransfer())
             ->setStatus(400)
-            ->setCode(1000)
+            ->setCode('1000')
             ->setDetail('No company-unit-address (company-unit-address-uuid) found for customer 42');
 
         $this->restResponseMock->expects(static::atLeastOnce())
@@ -155,10 +149,7 @@ class ReturnLabelProcessorTest extends Unit
             ->method('getErrors')
             ->willReturn([$restErrorMessageTransfer]);
 
-        $response = $this->processor->getReturnLabel(
-            $this->restRequestMock,
-            $this->restReturnLabelRequestAttributesTransfer
-        );
+        $response = $this->processor->getReturnLabel($this->restRequestMock);
 
         static::assertGreaterThan(
             0,
@@ -199,14 +190,7 @@ class ReturnLabelProcessorTest extends Unit
             ->method('getSurrogateIdentifier')
             ->willReturn(42);
 
-        $this->restReturnLabelRequestAttributesTransfer->expects(static::atLeastOnce())
-            ->method('getCompanyUnitAddressUuid')
-            ->willReturn('company-unit-address-uuid');
-
-        $response = $this->processor->getReturnLabel(
-            $this->restRequestMock,
-            $this->restReturnLabelRequestAttributesTransfer
-        );
+        $response = $this->processor->getReturnLabel($this->restRequestMock);
 
         static::assertEquals(
             0,

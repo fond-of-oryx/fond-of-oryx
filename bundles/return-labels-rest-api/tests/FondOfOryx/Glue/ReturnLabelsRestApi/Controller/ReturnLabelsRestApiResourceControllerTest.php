@@ -98,7 +98,7 @@ class ReturnLabelsRestApiResourceControllerTest extends Unit
     /**
      * @return void
      */
-    public function testPostAction(): void
+    public function testGetAction(): void
     {
         $this->factoryMock->expects(static::atLeastOnce())
             ->method('createReturnLabelProcessor')
@@ -106,10 +106,10 @@ class ReturnLabelsRestApiResourceControllerTest extends Unit
 
         $this->returnLabelProcessorMock->expects(static::atLeastOnce())
             ->method('getReturnLabel')
-            ->with($this->restRequestMock, $this->restReturnLabelRequestAttributesTransfer)
+            ->with($this->restRequestMock)
             ->willReturn($this->restResponseMock);
 
-        $restResponse = $this->controller->postAction($this->restRequestMock, $this->restReturnLabelRequestAttributesTransfer);
+        $restResponse = $this->controller->getAction($this->restRequestMock);
 
         static::assertEquals(
             $this->restResponseMock,

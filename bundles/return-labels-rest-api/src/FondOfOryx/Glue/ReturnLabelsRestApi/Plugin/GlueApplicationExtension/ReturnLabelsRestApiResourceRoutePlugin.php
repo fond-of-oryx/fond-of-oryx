@@ -23,7 +23,7 @@ class ReturnLabelsRestApiResourceRoutePlugin extends AbstractPlugin implements R
      */
     public function configure(ResourceRouteCollectionInterface $resourceRouteCollection): ResourceRouteCollectionInterface
     {
-        $resourceRouteCollection->addPost(ReturnLabelsRestApiConfig::ACTION_RETURN_LABELS_REST_API_POST, true);
+        $resourceRouteCollection->addGet(ReturnLabelsRestApiConfig::ACTION_RETURN_LABELS_REST_API_GET, true);
 
         return $resourceRouteCollection;
     }

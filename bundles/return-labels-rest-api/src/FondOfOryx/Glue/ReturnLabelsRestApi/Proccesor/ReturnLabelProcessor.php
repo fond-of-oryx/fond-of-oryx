@@ -5,7 +5,6 @@ namespace FondOfOryx\Glue\ReturnLabelsRestApi\Proccesor;
 use FondOfOryx\Client\ReturnLabelsRestApi\ReturnLabelsRestApiClientInterface;
 use FondOfOryx\Glue\ReturnLabelsRestApi\ReturnLabelsRestApiConfig;
 use Generated\Shared\Transfer\RestErrorMessageTransfer;
-use Generated\Shared\Transfer\RestReturnLabelRequestAttributesTransfer;
 use Generated\Shared\Transfer\RestReturnLabelRequestTransfer;
 use Spryker\Glue\GlueApplication\Rest\JsonApi\RestResourceBuilderInterface;
 use Spryker\Glue\GlueApplication\Rest\JsonApi\RestResponseInterface;
@@ -41,19 +40,13 @@ class ReturnLabelProcessor implements ReturnLabelProcessorInterface
 
     /**
      * @param \Spryker\Glue\GlueApplication\Rest\Request\Data\RestRequestInterface $restRequest
-     * @param \Generated\Shared\Transfer\RestReturnLabelRequestAttributesTransfer $restReturnLabelRequestAttributesTransfer
      *
      * @return \Spryker\Glue\GlueApplication\Rest\JsonApi\RestResponseInterface
      */
-    public function getReturnLabel(
-        RestRequestInterface $restRequest,
-        RestReturnLabelRequestAttributesTransfer $restReturnLabelRequestAttributesTransfer
-    ): RestResponseInterface {
+    public function getReturnLabel(RestRequestInterface $restRequest): RestResponseInterface
+    {
         $restResponse = $this->resourceBuilder->createRestResponse();
-        $restReturnLabelRequestTransfer = $this->createRestReturnLabelRequest(
-            $restRequest,
-            $restReturnLabelRequestAttributesTransfer
-        );
+        $restReturnLabelRequestTransfer = $this->createRestReturnLabelRequest($restRequest);
 
         $restReturnLabelResponseTransfer = $this->client->generateReturnLabel($restReturnLabelRequestTransfer);
 
@@ -79,16 +72,13 @@ class ReturnLabelProcessor implements ReturnLabelProcessorInterface
 
     /**
      * @param \Spryker\Glue\GlueApplication\Rest\Request\Data\RestRequestInterface $restRequest
-     * @param \Generated\Shared\Transfer\RestReturnLabelRequestAttributesTransfer $restReturnLabelRequestAttributesTransfer
      *
      * @return \Generated\Shared\Transfer\RestReturnLabelRequestTransfer
      */
-    protected function createRestReturnLabelRequest(
-        RestRequestInterface $restRequest,
-        RestReturnLabelRequestAttributesTransfer $restReturnLabelRequestAttributesTransfer
-    ): RestReturnLabelRequestTransfer {
+    protected function createRestReturnLabelRequest(RestRequestInterface $restRequest): RestReturnLabelRequestTransfer
+    {
         return (new RestReturnLabelRequestTransfer())
             ->setIdCustomer($restRequest->getRestUser()->getSurrogateIdentifier())
-            ->setCompanyUnitAddressUuid($restReturnLabelRequestAttributesTransfer->getCompanyUnitAddressUuid());
+            ->setCompanyUnitAddressUuid($restRequest->getResource()->getId());
     }
 }

@@ -41,7 +41,7 @@ class ReturnLabelsRestApiResourceRoutePluginTest extends Unit
     public function testConfigure(): void
     {
         $this->resourceRouteCollectionMock->expects($this->once())
-            ->method('addPost')
+            ->method('addGet')
             ->willReturn($this->resourceRouteCollectionMock);
 
         $collection = $this->plugin->configure($this->resourceRouteCollectionMock);
