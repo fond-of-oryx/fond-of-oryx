@@ -72,15 +72,15 @@ class SubscriptionManagerTest extends Unit
     {
         parent::_before();
 
-        $this->subscriptionTransferMock = static::getMockBuilder(AvailabilityAlertSubscriptionTransfer::class)->disableOriginalConstructor()->getMock();
-        $this->subscriberTransferMock = static::getMockBuilder(AvailabilityAlertSubscriberTransfer::class)->disableOriginalConstructor()->getMock();
-        $this->storeTransferMock = static::getMockBuilder(StoreTransfer::class)->disableOriginalConstructor()->getMock();
-        $this->collectionTransferMock = static::getMockBuilder(AvailabilityAlertSubscriptionCollectionTransfer::class)->disableOriginalConstructor()->getMock();
-        $this->entityManagerMock = static::getMockBuilder(AvailabilityAlertEntityManager::class)->disableOriginalConstructor()->getMock();
-        $this->repositoryMock = static::getMockBuilder(AvailabilityAlertRepository::class)->disableOriginalConstructor()->getMock();
-        $this->storeFacadeMock = static::getMockBuilder(AvailabilityAlertToStoreBridge::class)->disableOriginalConstructor()->getMock();
-        $this->subscriptionPluginExecutor = static::getMockBuilder(AvailabilityAlertSubscriptionPluginExecutor::class)->disableOriginalConstructor()->getMock();
-        $this->subscriberPluginExecutor = static::getMockBuilder(AvailabilityAlertSubscriberPluginExecutor::class)->disableOriginalConstructor()->getMock();
+        $this->subscriptionTransferMock = $this->getMockBuilder(AvailabilityAlertSubscriptionTransfer::class)->disableOriginalConstructor()->getMock();
+        $this->subscriberTransferMock = $this->getMockBuilder(AvailabilityAlertSubscriberTransfer::class)->disableOriginalConstructor()->getMock();
+        $this->storeTransferMock = $this->getMockBuilder(StoreTransfer::class)->disableOriginalConstructor()->getMock();
+        $this->collectionTransferMock = $this->getMockBuilder(AvailabilityAlertSubscriptionCollectionTransfer::class)->disableOriginalConstructor()->getMock();
+        $this->entityManagerMock = $this->getMockBuilder(AvailabilityAlertEntityManager::class)->disableOriginalConstructor()->getMock();
+        $this->repositoryMock = $this->getMockBuilder(AvailabilityAlertRepository::class)->disableOriginalConstructor()->getMock();
+        $this->storeFacadeMock = $this->getMockBuilder(AvailabilityAlertToStoreBridge::class)->disableOriginalConstructor()->getMock();
+        $this->subscriptionPluginExecutor = $this->getMockBuilder(AvailabilityAlertSubscriptionPluginExecutor::class)->disableOriginalConstructor()->getMock();
+        $this->subscriberPluginExecutor = $this->getMockBuilder(AvailabilityAlertSubscriberPluginExecutor::class)->disableOriginalConstructor()->getMock();
 
         $this->manager = new SubscriptionManager($this->entityManagerMock, $this->repositoryMock, $this->storeFacadeMock, $this->subscriptionPluginExecutor, $this->subscriberPluginExecutor);
     }

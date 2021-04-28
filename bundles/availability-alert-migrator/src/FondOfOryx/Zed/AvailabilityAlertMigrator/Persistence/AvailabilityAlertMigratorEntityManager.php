@@ -25,7 +25,7 @@ class AvailabilityAlertMigratorEntityManager extends AbstractEntityManager imple
 
         $subscriber = $availabilityAlertSubscriptionTransfer->getSubscriber();
         if ($subscriber === null) {
-            return false;
+            return null;
         }
 
         $subscriber->requireEmail();
