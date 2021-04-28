@@ -2,15 +2,15 @@
 
 namespace FondOfOryx\Zed\ReturnLabelsRestApi\Persistence;
 
-use FondOfOryx\Zed\ReturnLabelsRestApi\ReturnLabelsRestApiDependencyProvider;
-use Generated\Shared\Transfer\CompanyUnitAddressTransfer;
-use Orm\Zed\CompanyUnitAddress\Persistence\SpyCompanyUnitAddressQuery;
-use Spryker\Zed\Kernel\Persistence\AbstractPersistenceFactory;
 use FondOfOryx\Zed\ReturnLabelsRestApi\Persistence\Propel\Mapper\CompanyUnitAddressMapper;
 use FondOfOryx\Zed\ReturnLabelsRestApi\Persistence\Propel\Mapper\CompanyUnitAddressMapperInterface;
+use FondOfOryx\Zed\ReturnLabelsRestApi\ReturnLabelsRestApiDependencyProvider;
+use Orm\Zed\CompanyUnitAddress\Persistence\SpyCompanyUnitAddressQuery;
+use Spryker\Zed\Kernel\Persistence\AbstractPersistenceFactory;
 
 /**
  * @method \FondOfOryx\Zed\ReturnLabelsRestApi\Persistence\ReturnLabelsRestApiRepositoryInterface getRepository()
+ * @method \FondOfOryx\Zed\ReturnLabelsRestApi\ReturnLabelsRestApiConfig getConfig()
  */
 class ReturnLabelsRestApiPersistenceFactory extends AbstractPersistenceFactory
 {
@@ -23,7 +23,7 @@ class ReturnLabelsRestApiPersistenceFactory extends AbstractPersistenceFactory
     }
 
     /**
-     * @return CompanyUnitAddressMapperInterface
+     * @return \FondOfOryx\Zed\ReturnLabelsRestApi\Persistence\Propel\Mapper\CompanyUnitAddressMapperInterface
      */
     public function createCompanyUnitAddressMapper(): CompanyUnitAddressMapperInterface
     {

@@ -1,11 +1,9 @@
 <?php
 
-
 namespace FondOfOryx\Zed\ReturnLabelsRestApi;
 
-
-use Spryker\Zed\Kernel\AbstractBundleConfig;
 use FondOfOryx\Shared\ReturnLabelsRestApi\ReturnLabelsRestApiConstants;
+use Spryker\Zed\Kernel\AbstractBundleConfig;
 
 class ReturnLabelsRestApiConfig extends AbstractBundleConfig
 {

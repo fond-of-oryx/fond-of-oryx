@@ -7,9 +7,9 @@ use Generated\Shared\Transfer\CompanyUnitAddressTransfer;
 interface ReturnLabelsRestApiRepositoryInterface
 {
     /**
-     * @param null|string $uuid
+     * @param string $uuid
      *
-     * @return CompanyUnitAddressTransfer
+     * @return \Generated\Shared\Transfer\CompanyUnitAddressTransfer|null
      */
     public function getCompanyUnitAddressByCompanyUnitAddressUuid(string $uuid): ?CompanyUnitAddressTransfer;
 }

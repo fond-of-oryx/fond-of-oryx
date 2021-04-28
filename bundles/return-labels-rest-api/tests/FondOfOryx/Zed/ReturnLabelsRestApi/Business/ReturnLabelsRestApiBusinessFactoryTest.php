@@ -9,6 +9,7 @@ use FondOfOryx\Zed\ReturnLabelsRestApi\Business\Model\ReturnLabelGenerator;
 use FondOfOryx\Zed\ReturnLabelsRestApi\Business\Model\ReturnLabelGeneratorInterface;
 use FondOfOryx\Zed\ReturnLabelsRestApi\Dependency\Facade\ReturnLabelsRestApiToReturnLabelFacadeBridge;
 use FondOfOryx\Zed\ReturnLabelsRestApi\Persistence\ReturnLabelsRestApiRepository;
+use FondOfOryx\Zed\ReturnLabelsRestApi\ReturnLabelsRestApiConfig;
 use FondOfOryx\Zed\ReturnLabelsRestApi\ReturnLabelsRestApiDependencyProvider;
 use Spryker\Zed\Kernel\Container;
 
@@ -50,6 +51,11 @@ class ReturnLabelsRestApiBusinessFactoryTest extends Unit
     protected $containerMock;
 
     /**
+     * @var \FondOfOryx\Zed\ReturnLabelsRestApi\ReturnLabelsRestApiConfig|\PHPUnit\Framework\MockObject\MockObject
+     */
+    protected $configMock;
+
+    /**
      * @return void
      */
     protected function _before(): void
@@ -78,9 +84,14 @@ class ReturnLabelsRestApiBusinessFactoryTest extends Unit
             ->disableOriginalConstructor()
             ->getMock();
 
+        $this->configMock = $this->getMockBuilder(ReturnLabelsRestApiConfig::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
         $this->returnLabelsRestApiBusinessFactory = new ReturnLabelsRestApiBusinessFactory();
         $this->returnLabelsRestApiBusinessFactory->setRepository($this->repositoryMock);
         $this->returnLabelsRestApiBusinessFactory->setContainer($this->containerMock);
+        $this->returnLabelsRestApiBusinessFactory->setConfig($this->configMock);
     }
 
     /**

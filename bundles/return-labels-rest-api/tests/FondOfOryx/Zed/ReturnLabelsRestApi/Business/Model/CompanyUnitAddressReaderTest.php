@@ -4,6 +4,7 @@ namespace FondOfOryx\Zed\ReturnLabelsRestApi\Business\Model;
 
 use Codeception\Test\Unit;
 use FondOfOryx\Zed\ReturnLabelsRestApi\Persistence\ReturnLabelsRestApiRepository;
+use Generated\Shared\Transfer\CompanyUnitAddressTransfer;
 use Generated\Shared\Transfer\RestReturnLabelRequestTransfer;
 
 class CompanyUnitAddressReaderTest extends Unit
@@ -17,6 +18,11 @@ class CompanyUnitAddressReaderTest extends Unit
      * @var \Generated\Shared\Transfer\RestReturnLabelRequestTransfer|\PHPUnit\Framework\MockObject\MockObject
      */
     protected $restReturnLabelRequestTransferMock;
+
+    /**
+     * @var \Generated\Shared\Transfer\CompanyUnitAddressTransfer|\PHPUnit\Framework\MockObject\MockObject
+     */
+    protected $companyUnitAddressTransferMock;
 
     /**
      * @var \FondOfOryx\Zed\ReturnLabelsRestApi\Business\Model\CompanyUnitAddressReaderInterface
@@ -38,38 +44,45 @@ class CompanyUnitAddressReaderTest extends Unit
             ->disableOriginalConstructor()
             ->getMock();
 
+        $this->companyUnitAddressTransferMock = $this->getMockBuilder(CompanyUnitAddressTransfer::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
         $this->companyUnitAddressReader = new CompanyUnitAddressReader($this->repositoryMock);
     }
 
     /**
      * @return void
      */
-    public function testGetIdCompanyUnitAddressByRestReturnLabelReturnInt(): void
+    public function testGetCompanyUnitAddressByRestReturnLabelReturnTransfer(): void
     {
-        $this->repositoryMock->expects(static::atLeastOnce())
-            ->method('getIdCompanyUnitAddressByCompanyUnitAddressUuid')
-            ->willReturn(42);
-
         $this->restReturnLabelRequestTransferMock->expects(static::atLeastOnce())
             ->method('getCompanyUnitAddressUuid')
             ->willReturn('company-unit-address-uuid');
 
-        $result = $this->companyUnitAddressReader->getIdCompanyUnitAddressByRestReturnLabel(
+        $this->repositoryMock->expects(static::atLeastOnce())
+            ->method('getCompanyUnitAddressByCompanyUnitAddressUuid')
+            ->willReturn($this->companyUnitAddressTransferMock);
+
+        $companyUnitAddressTransfer = $this->companyUnitAddressReader->getCompanyUnitAddressByRestReturnLabel(
             $this->restReturnLabelRequestTransferMock
         );
 
-        $this->assertEquals(42, $result);
+        $this->assertInstanceOf(
+            CompanyUnitAddressTransfer::class,
+            $companyUnitAddressTransfer
+        );
     }
 
     /**
      * @return void
      */
-    public function testGetIdCompanyUnitAddressByRestReturnLabelReturnNull(): void
+    public function testGetCompanyUnitAddressByRestReturnLabelReturnNull(): void
     {
-        $result = $this->companyUnitAddressReader->getIdCompanyUnitAddressByRestReturnLabel(
+        $companyUnitAddressTransfer = $this->companyUnitAddressReader->getCompanyUnitAddressByRestReturnLabel(
             $this->restReturnLabelRequestTransferMock
         );
 
-        $this->assertEquals(null, $result);
+        $this->assertEquals(null, $companyUnitAddressTransfer);
     }
 }

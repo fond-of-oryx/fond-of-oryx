@@ -10,7 +10,6 @@ use Spryker\Glue\GlueApplication\Rest\JsonApi\RestResourceBuilderInterface;
 use Spryker\Glue\GlueApplication\Rest\JsonApi\RestResponseInterface;
 use Spryker\Glue\GlueApplication\Rest\Request\Data\RestRequestInterface;
 use Spryker\Glue\Kernel\PermissionAwareTrait;
-use Symfony\Component\HttpFoundation\Response;
 
 class ReturnLabelProcessor implements ReturnLabelProcessorInterface
 {
@@ -51,14 +50,16 @@ class ReturnLabelProcessor implements ReturnLabelProcessorInterface
         $restReturnLabelResponseTransfer = $this->client->generateReturnLabel($restReturnLabelRequestTransfer);
 
         if (!$restReturnLabelResponseTransfer->getIsSuccessful()) {
-            return $restResponse->addError((new RestErrorMessageTransfer())
-                ->setStatus(Response::HTTP_BAD_REQUEST)
-                ->setCode(ReturnLabelsRestApiConfig::RESPONSE_CODE_NO_ADDRESS_FOUND)
-                ->setDetail(sprintf(
-                    ReturnLabelsRestApiConfig::RESPONSE_DETAIL_NO_ADDRESS_FOUND,
-                    $restReturnLabelRequestTransfer->getCompanyUnitAddressUuid(),
-                    $restReturnLabelRequestTransfer->getIdCustomer()
-                )));
+            foreach ($restReturnLabelResponseTransfer->getErrors() as $error) {
+                $error = (new RestErrorMessageTransfer())
+                    ->setStatus(500)
+                    ->setCode($error->getValue())
+                    ->setDetail($error->getMessage());
+
+                $restResponse->addError($error);
+            }
+
+            return $restResponse;
         }
 
         $restResource = $this->resourceBuilder->createRestResource(

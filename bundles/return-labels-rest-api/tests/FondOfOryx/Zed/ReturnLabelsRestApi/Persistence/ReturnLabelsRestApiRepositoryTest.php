@@ -3,6 +3,9 @@
 namespace FondOfOryx\Zed\ReturnLabelsRestApi\Persistence;
 
 use Codeception\Test\Unit;
+use FondOfOryx\Zed\ReturnLabelsRestApi\Persistence\Propel\Mapper\CompanyUnitAddressMapper;
+use Generated\Shared\Transfer\CompanyUnitAddressTransfer;
+use Orm\Zed\CompanyUnitAddress\Persistence\SpyCompanyUnitAddress;
 use Orm\Zed\CompanyUnitAddress\Persistence\SpyCompanyUnitAddressQuery;
 
 class ReturnLabelsRestApiRepositoryTest extends Unit
@@ -23,6 +26,21 @@ class ReturnLabelsRestApiRepositoryTest extends Unit
     protected $spyCompanyUnitAddressQueryMock;
 
     /**
+     * @var \Orm\Zed\CompanyUnitAddress\Persistence\SpyCompanyUnitAddress|\PHPUnit\Framework\MockObject\MockObject
+     */
+    protected $spyCompanyUnitAddressEntityMock;
+
+    /**
+     * @var FondOfOryx\Zed\ReturnLabelsRestApi\Persistence\Propel\Mapper\CompanyUnitAddressMapperInterface|\PHPUnit\Framework\MockObject\MockObject
+     */
+    protected $companyUnitAddressMapperMock;
+
+    /**
+     * @var \Generated\Shared\Transfer\CompanyUnitAddressTransfer|\PHPUnit\Framework\MockObject\MockObject
+     */
+    protected $companyUnitAddressTransferMock;
+
+    /**
      * @return void
      */
     protected function _before(): void
@@ -37,6 +55,18 @@ class ReturnLabelsRestApiRepositoryTest extends Unit
             ->disableOriginalConstructor()
             ->getMock();
 
+        $this->spyCompanyUnitAddressEntityMock = $this->getMockBuilder(SpyCompanyUnitAddress::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $this->companyUnitAddressMapperMock = $this->getMockBuilder(CompanyUnitAddressMapper::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $this->companyUnitAddressTransferMock = $this->getMockBuilder(CompanyUnitAddressTransfer::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
         $this->repository = new ReturnLabelsRestApiRepository();
         $this->repository->setFactory($this->factoryMock);
     }
@@ -44,7 +74,7 @@ class ReturnLabelsRestApiRepositoryTest extends Unit
     /**
      * @return void
      */
-    public function testGetIdCompanyUnitAddressByCompanyUnitAddressUuidReturnNull(): void
+    public function testGetCompanyUnitAddressByCompanyUnitAddressUuidReturnNull(): void
     {
         $this->factoryMock->expects(static::atLeastOnce())
             ->method('getCompanyUnitAddressQuery')
@@ -55,15 +85,15 @@ class ReturnLabelsRestApiRepositoryTest extends Unit
             ->willReturn($this->spyCompanyUnitAddressQueryMock);
 
         $this->spyCompanyUnitAddressQueryMock->expects(static::atLeastOnce())
-            ->method('select')
-            ->willReturn($this->spyCompanyUnitAddressQueryMock);
-
-        $this->spyCompanyUnitAddressQueryMock->expects(static::atLeastOnce())
             ->method('filterByUuid')
             ->with('company-unit-address-uuid')
-            ->willReturn($this->spyCompanyUnitAddressQueryMock);
+            ->willReturnSelf();
 
-        $response = $this->repository->getIdCompanyUnitAddressByCompanyUnitAddressUuid('company-unit-address-uuid');
+        $this->spyCompanyUnitAddressQueryMock->expects(static::atLeastOnce())
+            ->method('findOne')
+            ->willReturn(null);
+
+        $response = $this->repository->getCompanyUnitAddressByCompanyUnitAddressUuid('company-unit-address-uuid');
 
         static::assertEquals(null, $response);
     }
@@ -71,7 +101,7 @@ class ReturnLabelsRestApiRepositoryTest extends Unit
     /**
      * @return void
      */
-    public function testGetIdCompanyUnitAddressByCompanyUnitAddressUuidReturnInt(): void
+    public function testGetCompanyUnitAddressByCompanyUnitAddressUuidReturnTransfer(): void
     {
         $this->factoryMock->expects(static::atLeastOnce())
             ->method('getCompanyUnitAddressQuery')
@@ -82,20 +112,24 @@ class ReturnLabelsRestApiRepositoryTest extends Unit
             ->willReturn($this->spyCompanyUnitAddressQueryMock);
 
         $this->spyCompanyUnitAddressQueryMock->expects(static::atLeastOnce())
-            ->method('select')
-            ->willReturn($this->spyCompanyUnitAddressQueryMock);
-
-        $this->spyCompanyUnitAddressQueryMock->expects(static::atLeastOnce())
             ->method('filterByUuid')
             ->with('company-unit-address-uuid')
-            ->willReturn($this->spyCompanyUnitAddressQueryMock);
+            ->willReturnSelf();
 
         $this->spyCompanyUnitAddressQueryMock->expects(static::atLeastOnce())
             ->method('findOne')
-            ->willReturn(42);
+            ->willReturn($this->spyCompanyUnitAddressEntityMock);
 
-        $response = $this->repository->getIdCompanyUnitAddressByCompanyUnitAddressUuid('company-unit-address-uuid');
+        $this->factoryMock->expects(static::atLeastOnce())
+            ->method('createCompanyUnitAddressMapper')
+            ->willReturn($this->companyUnitAddressMapperMock);
 
-        static::assertEquals(42, $response);
+        $this->companyUnitAddressMapperMock->expects(static::atLeastOnce())
+            ->method('mapEntityToTransfer')
+            ->willReturn($this->companyUnitAddressTransferMock);
+
+        $companyUnitAddressTransfer = $this->repository->getCompanyUnitAddressByCompanyUnitAddressUuid('company-unit-address-uuid');
+
+        static::assertInstanceOf(CompanyUnitAddressTransfer::class, $companyUnitAddressTransfer);
     }
 }

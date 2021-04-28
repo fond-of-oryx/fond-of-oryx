@@ -22,9 +22,9 @@ class CompanyUnitAddressReader implements CompanyUnitAddressReaderInterface
     }
 
     /**
-     * @param RestReturnLabelRequestTransfer $restReturnLabelRequestTransfer
+     * @param \Generated\Shared\Transfer\RestReturnLabelRequestTransfer $restReturnLabelRequestTransfer
      *
-     * @return CompanyUnitAddressTransfer|null
+     * @return \Generated\Shared\Transfer\CompanyUnitAddressTransfer|null
      */
     public function getCompanyUnitAddressByRestReturnLabel(
         RestReturnLabelRequestTransfer $restReturnLabelRequestTransfer
