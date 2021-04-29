@@ -6,7 +6,7 @@ use FondOfOryx\Zed\AvailabilityAlert\Business\AvailabilityAlertFacadeInterface;
 use Generated\Shared\Transfer\AvailabilityAlertSubscriptionResponseTransfer;
 use Generated\Shared\Transfer\AvailabilityAlertSubscriptionTransfer;
 
-class AvailabilityAlertMigrationToAvailabilityAlertFacadeBridge implements AvailabilityAlertMigrationToAvailabilityAlertFacadeInterface
+class AvailabilityAlertMigratorToAvailabilityAlertFacadeBridge implements AvailabilityAlertMigratorToAvailabilityAlertFacadeInterface
 {
     /**
      * @var \FondOfOryx\Zed\AvailabilityAlert\Business\AvailabilityAlertFacadeInterface
@@ -22,15 +22,15 @@ class AvailabilityAlertMigrationToAvailabilityAlertFacadeBridge implements Avail
     }
 
     /**
-     * @api
-     *
      * @param \Generated\Shared\Transfer\AvailabilityAlertSubscriptionTransfer $availabilityAlertSubscriptionTransfer
+     * @param bool $preferFromTransfer
      *
      * @return \Generated\Shared\Transfer\AvailabilityAlertSubscriptionResponseTransfer
      */
     public function subscribe(
-        AvailabilityAlertSubscriptionTransfer $availabilityAlertSubscriptionTransfer
+        AvailabilityAlertSubscriptionTransfer $availabilityAlertSubscriptionTransfer,
+        bool $preferFromTransfer = false
     ): AvailabilityAlertSubscriptionResponseTransfer {
-        return $this->facade->subscribe($availabilityAlertSubscriptionTransfer);
+        return $this->facade->subscribe($availabilityAlertSubscriptionTransfer, $preferFromTransfer);
     }
 }

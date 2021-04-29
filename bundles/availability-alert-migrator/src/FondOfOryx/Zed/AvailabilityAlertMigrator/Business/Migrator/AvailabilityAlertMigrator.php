@@ -3,9 +3,10 @@
 namespace FondOfOryx\Zed\AvailabilityAlertMigrator\Business\Migrator;
 
 use FondOfOryx\Shared\AvailabilityAlertMigrator\AvailabilityAlertMigratorConstants;
-use FondOfOryx\Zed\AvailabilityAlertMigrator\Dependency\Facade\AvailabilityAlertMigrationToAvailabilityAlertFacadeInterface;
+use FondOfOryx\Zed\AvailabilityAlertMigrator\Dependency\Facade\AvailabilityAlertMigratorToAvailabilityAlertFacadeInterface;
 use FondOfOryx\Zed\AvailabilityAlertMigrator\Persistence\AvailabilityAlertMigratorEntityManagerInterface;
 use FondOfOryx\Zed\AvailabilityAlertMigrator\Persistence\AvailabilityAlertMigratorRepositoryInterface;
+use Generated\Shared\Transfer\AvailabilityAlertMigratorFilterTransfer;
 use Psr\Log\LoggerInterface;
 
 class AvailabilityAlertMigrator implements AvailabilityAlertMigratorInterface
@@ -21,7 +22,7 @@ class AvailabilityAlertMigrator implements AvailabilityAlertMigratorInterface
     protected $entityManager;
 
     /**
-     * @var \FondOfOryx\Zed\AvailabilityAlertMigrator\Dependency\Facade\AvailabilityAlertMigrationToAvailabilityAlertFacadeInterface
+     * @var \FondOfOryx\Zed\AvailabilityAlertMigrator\Dependency\Facade\AvailabilityAlertMigratorToAvailabilityAlertFacadeInterface
      */
     protected $availabilityAlertFacade;
 
@@ -31,13 +32,13 @@ class AvailabilityAlertMigrator implements AvailabilityAlertMigratorInterface
     protected $logger;
 
     /**
-     * @param \FondOfOryx\Zed\AvailabilityAlertMigrator\Dependency\Facade\AvailabilityAlertMigrationToAvailabilityAlertFacadeInterface $availabilityAlertFacade
+     * @param \FondOfOryx\Zed\AvailabilityAlertMigrator\Dependency\Facade\AvailabilityAlertMigratorToAvailabilityAlertFacadeInterface $availabilityAlertFacade
      * @param \FondOfOryx\Zed\AvailabilityAlertMigrator\Persistence\AvailabilityAlertMigratorRepositoryInterface $repository
      * @param \FondOfOryx\Zed\AvailabilityAlertMigrator\Persistence\AvailabilityAlertMigratorEntityManagerInterface $entityManager
      * @param \Psr\Log\LoggerInterface $logger
      */
     public function __construct(
-        AvailabilityAlertMigrationToAvailabilityAlertFacadeInterface $availabilityAlertFacade,
+        AvailabilityAlertMigratorToAvailabilityAlertFacadeInterface $availabilityAlertFacade,
         AvailabilityAlertMigratorRepositoryInterface $repository,
         AvailabilityAlertMigratorEntityManagerInterface $entityManager,
         LoggerInterface $logger
@@ -53,14 +54,17 @@ class AvailabilityAlertMigrator implements AvailabilityAlertMigratorInterface
      */
     public function migrate(): void
     {
-        $count = $this->repository->getSubscriptionCount();
-        $offset = 0;
+        $filterTransfer = new AvailabilityAlertMigratorFilterTransfer();
+        $filterTransfer->setOffset(0)
+            ->setLimit(AvailabilityAlertMigratorConstants::LIMIT)
+            ->setFindOnlyNotMigratedSubscription(true);
+        $count = $this->repository->getSubscriptionCount($filterTransfer);
 
         do {
-            $subscriptions = $this->repository->getAllSubscriptions($offset, AvailabilityAlertMigratorConstants::LIMIT);
+            $subscriptions = $this->repository->getAllSubscriptions($filterTransfer);
 
             foreach ($subscriptions as $subscription) {
-                $subscriptionResponse = $this->availabilityAlertFacade->subscribe($subscription);
+                $subscriptionResponse = $this->availabilityAlertFacade->subscribe($subscription, true);
                 $marked = null;
                 if ($subscriptionResponse->getIsSuccess() === true) {
                     $marked = $this->entityManager->setMigrated($subscription);
@@ -74,7 +78,7 @@ class AvailabilityAlertMigrator implements AvailabilityAlertMigratorInterface
                 $this->logger->error(sprintf('Migration incomplete! Wrote new entry "%s" updated old entry "%s"', $subscriptionResponse->getIsSuccess(), $marked));
             }
 
-            $offset += AvailabilityAlertMigratorConstants::LIMIT;
+            $filterTransfer->setOffset($filterTransfer->getOffset() + AvailabilityAlertMigratorConstants::LIMIT);
             $count -= AvailabilityAlertMigratorConstants::LIMIT;
         } while ($count >= 0);
     }

@@ -89,17 +89,17 @@ class AvailabilityAlertAdapterTest extends Unit
     {
         parent::_before();
 
-        $this->utilEncodingServiceMock = static::getMockBuilder(JellyfishAvailabilityAlertToUtilEncodingServiceBridge::class)->disableOriginalConstructor()->getMock();
-        $this->clientMock = static::getMockBuilder(Client::class)->disableOriginalConstructor()->getMock();
-        $this->configMock = static::getMockBuilder(JellyfishAvailabilityAlertConfig::class)->disableOriginalConstructor()->getMock();
-        $this->storeFacadeMock = static::getMockBuilder(JellyfishAvailabilityAlertToStoreFacadeBridge::class)->disableOriginalConstructor()->getMock();
-        $this->localeFacadeMock = static::getMockBuilder(JellyfishAvailabilityAlertToLocaleFacadeBridge::class)->disableOriginalConstructor()->getMock();
-        $this->storeTransferMock = static::getMockBuilder(StoreTransfer::class)->disableOriginalConstructor()->getMock();
-        $this->localeTransferMock = static::getMockBuilder(LocaleTransfer::class)->disableOriginalConstructor()->getMock();
-        $this->loggerMock = static::getMockBuilder(Logger::class)->disableOriginalConstructor()->getMock();
-        $this->dataWrapperTransferMock = static::getMockBuilder(AvailabilityAlertDataWrapperTransfer::class)->disableOriginalConstructor()->getMock();
-        $this->responseMock = static::getMockBuilder(Response::class)->disableOriginalConstructor()->getMock();
-        $this->streamMock = static::getMockBuilder(Stream::class)->disableOriginalConstructor()->getMock();
+        $this->utilEncodingServiceMock = $this->getMockBuilder(JellyfishAvailabilityAlertToUtilEncodingServiceBridge::class)->disableOriginalConstructor()->getMock();
+        $this->clientMock = $this->getMockBuilder(Client::class)->disableOriginalConstructor()->getMock();
+        $this->configMock = $this->getMockBuilder(JellyfishAvailabilityAlertConfig::class)->disableOriginalConstructor()->getMock();
+        $this->storeFacadeMock = $this->getMockBuilder(JellyfishAvailabilityAlertToStoreFacadeBridge::class)->disableOriginalConstructor()->getMock();
+        $this->localeFacadeMock = $this->getMockBuilder(JellyfishAvailabilityAlertToLocaleFacadeBridge::class)->disableOriginalConstructor()->getMock();
+        $this->storeTransferMock = $this->getMockBuilder(StoreTransfer::class)->disableOriginalConstructor()->getMock();
+        $this->localeTransferMock = $this->getMockBuilder(LocaleTransfer::class)->disableOriginalConstructor()->getMock();
+        $this->loggerMock = $this->getMockBuilder(Logger::class)->disableOriginalConstructor()->getMock();
+        $this->dataWrapperTransferMock = $this->getMockBuilder(AvailabilityAlertDataWrapperTransfer::class)->disableOriginalConstructor()->getMock();
+        $this->responseMock = $this->getMockBuilder(Response::class)->disableOriginalConstructor()->getMock();
+        $this->streamMock = $this->getMockBuilder(Stream::class)->disableOriginalConstructor()->getMock();
 
         $this->adapter = new class ($this->utilEncodingServiceMock, $this->clientMock, $this->configMock, $this->storeFacadeMock, $this->localeFacadeMock, $this->loggerMock) extends AvailabilityAlertAdapter
         {
