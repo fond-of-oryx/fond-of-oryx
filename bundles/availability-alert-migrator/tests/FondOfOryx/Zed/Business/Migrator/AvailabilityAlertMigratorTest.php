@@ -3,6 +3,7 @@
 namespace FondOfOryx\Zed\AvailabilityAlertMigrator\Business\Migrator;
 
 use Codeception\Test\Unit;
+use FondOfOryx\Shared\AvailabilityAlertMigrator\AvailabilityAlertMigratorConstants;
 use FondOfOryx\Zed\AvailabilityAlertMigrator\Dependency\Facade\AvailabilityAlertMigratorToAvailabilityAlertFacadeBridge;
 use FondOfOryx\Zed\AvailabilityAlertMigrator\Persistence\AvailabilityAlertMigratorEntityManager;
 use FondOfOryx\Zed\AvailabilityAlertMigrator\Persistence\AvailabilityAlertMigratorRepository;
@@ -119,6 +120,29 @@ class AvailabilityAlertMigratorTest extends Unit
         $this->subscriptionTransferMock->expects(static::never())->method('getIdAvailabilityAlertSubscription')->willReturn(1);
         $this->loggerMock->expects(static::never())->method('info');
         $this->loggerMock->expects(static::once())->method('error');
+
+        $this->migrator->migrate();
+    }
+
+    /**
+     * @return void
+     */
+    public function testMigrateLimit(): void
+    {
+        $this->repositoryMock->expects(static::once())->method('getSubscriptionCount')->willReturn(1);
+        $entries = AvailabilityAlertMigratorConstants::LIMIT + 50;
+        $subscription = [];
+        for ($i = 0; $i < $entries; $i++){
+            $subscription[$i] = $this->subscriptionTransferMock;
+        }
+        $this->repositoryMock->expects(static::once())->method('getAllSubscriptions')->willReturn($subscription);
+        $this->availabilityAlertFacadeMock->expects(static::exactly($entries))->method('subscribe')->willReturn($this->subscriptionResponseTransferMock);
+        $this->subscriptionResponseTransferMock->expects(static::exactly($entries))->method('getIsSuccess')->willReturn(true);
+        $this->subscriptionResponseTransferMock->expects(static::exactly($entries * 2))->method('getSubscription')->willReturn($this->subscriptionTransferMock);
+        $this->entityManagerMock->expects(static::exactly($entries))->method('setMigrated')->willReturn(12);
+        $this->subscriptionTransferMock->expects(static::exactly($entries))->method('getIdAvailabilityAlertSubscription')->willReturn(12);
+        $this->loggerMock->expects(static::exactly($entries))->method('info');
+        $this->loggerMock->expects(static::never())->method('error');
 
         $this->migrator->migrate();
     }
