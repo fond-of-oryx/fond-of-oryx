@@ -25,11 +25,13 @@ class SubscriptionRequestHandler implements SubscriptionRequestHandlerInterface
 
     /**
      * @param \Generated\Shared\Transfer\AvailabilityAlertSubscriptionTransfer $availabilityAlertSubscriptionTransfer
+     * @param bool $preferFromTransfer
      *
      * @return \Generated\Shared\Transfer\AvailabilityAlertSubscriptionResponseTransfer
      */
     public function processAvailabilityAlertSubscription(
-        AvailabilityAlertSubscriptionTransfer $availabilityAlertSubscriptionTransfer
+        AvailabilityAlertSubscriptionTransfer $availabilityAlertSubscriptionTransfer,
+        bool $preferFromTransfer = false
     ): AvailabilityAlertSubscriptionResponseTransfer {
         $subscriptionResponse = $this->createSubscriptionResponse();
 
@@ -37,7 +39,7 @@ class SubscriptionRequestHandler implements SubscriptionRequestHandlerInterface
 
         try {
             if (!$this->subscriptionManager->isAlreadySubscribed($availabilityAlertSubscriptionTransfer)) {
-                $subscription = $this->subscriptionManager->subscribe($availabilityAlertSubscriptionTransfer);
+                $subscription = $this->subscriptionManager->subscribe($availabilityAlertSubscriptionTransfer, $preferFromTransfer);
                 $subscriptionResponse->setSubscription($subscription);
             }
         } catch (Exception $e) {
