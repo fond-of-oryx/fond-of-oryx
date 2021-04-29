@@ -37,4 +37,17 @@
         <property name="naturalIdentifier" type="string"/>
         <property name="surrogateIdentifier" type="int"/>
     </transfer>
+
+    <transfer name="CompanyUnitAddress">
+        <property name="idCompanyUnitAddress" type="int"/>
+        <property name="uuid" type="string"/>
+        <property name="address1" type="string"/>
+        <property name="address2" type="string"/>
+        <property name="address3" type="string"/>
+        <property name="city" type="string"/>
+        <property name="zipCode" type="string"/>
+        <property name="phone" type="string"/>
+        <property name="iso2Code" type="string"/>
+        <property name="iso3Code" type="string"/>
+    </transfer>
 </transfers>

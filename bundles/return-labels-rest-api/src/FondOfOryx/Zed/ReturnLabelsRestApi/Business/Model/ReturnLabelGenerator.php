@@ -71,7 +71,7 @@ class ReturnLabelGenerator implements ReturnLabelGeneratorInterface
             );
         }
 
-        if (!in_array($companyUnitAddressTransfer->getFkCountry(), $this->config->getAllowedCountryIds())) {
+        if (!in_array($companyUnitAddressTransfer->getIso3Code(), $this->config->getAllowedCountryIds())) {
             return $this->addError(
                 ReturnLabelsRestApiConstants::ERROR_MESSAGE_COUNTRY_NOT_ALLOWED,
                 ReturnLabelsRestApiConstants::ERROR_MESSAGE_COUNTRY_NOT_ALLOWED_CODE,
