@@ -7,7 +7,6 @@ use Spryker\Glue\GlueApplication\Rest\Request\Data\RestRequestInterface;
 use Spryker\Glue\Kernel\Controller\AbstractController;
 
 /**
- * @package FondOfOryx\Glue\ReturnLabelsRestApi\Controller
  * @method \FondOfOryx\Glue\ReturnLabelsRestApi\ReturnLabelsRestApiFactory getFactory()
  */
 class ReturnLabelsRestApiResourceController extends AbstractController
@@ -24,7 +23,7 @@ class ReturnLabelsRestApiResourceController extends AbstractController
      *          }],
      *          "responses": {
      *              "404": "Address for customer not found.",
-     *.             "422": "company-unit-address country not allowed for return-label"
+     *.             "422": "Could not process requested country"
      *          }
      *     }
      * })
