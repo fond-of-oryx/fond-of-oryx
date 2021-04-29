@@ -100,7 +100,7 @@ class ReturnLabelGeneratorTest extends Unit
             ->willReturn('DEU');
 
         $this->configMock->expects(static::atLeastOnce())
-            ->method('getAllowedCountryIds')
+            ->method('getAllowedCountryIso3')
             ->willReturn(['DEU']);
 
         $response = $this->returnLabelGenerator->generate($this->restReturnLabelRequestTransferMock);
@@ -134,12 +134,12 @@ class ReturnLabelGeneratorTest extends Unit
             ->willReturn($this->companyUnitAddressTransferMock);
 
         $this->companyUnitAddressTransferMock->expects(static::atLeastOnce())
-            ->method('getFkCountry')
-            ->willReturn(99);
+            ->method('getIso3Code')
+            ->willReturn('FRA');
 
         $this->configMock->expects(static::atLeastOnce())
-            ->method('getAllowedCountryIds')
-            ->willReturn([60]);
+            ->method('getAllowedCountryIso3')
+            ->willReturn(['DEU']);
 
         $response = $this->returnLabelGenerator->generate($this->restReturnLabelRequestTransferMock);
 

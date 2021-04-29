@@ -10,8 +10,8 @@ class ReturnLabelsRestApiConfig extends AbstractBundleConfig
     /**
      * @return array
      */
-    public function getAllowedCountryIds(): array
+    public function getAllowedCountryIso3(): array
     {
-        return $this->get(ReturnLabelsRestApiConstants::ALLOWED_COUNTRY_IDS, []);
+        return $this->get(ReturnLabelsRestApiConstants::ALLOWED_COUNTRY_ISO3, []);
     }
 }
