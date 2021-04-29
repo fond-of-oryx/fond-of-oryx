@@ -37,6 +37,10 @@ class ShipmentTableRateWriterStep implements DataImportStepInterface
 
         $shipmentTableRateEntity->fromArray($dataSet->getArrayCopy());
 
+        if ($dataSet[ShipmentTableRateDataSet::SHIPMENT_TABLE_RATE_MAX_PRICE_TO_PAY] === '') {
+            $shipmentTableRateEntity->setMaxPriceToPay(null);
+        }
+
         $shipmentTableRateEntity->setFkCountry(
             $this->getCountryIdByIso2Code($dataSet[ShipmentTableRateDataSet::SHIPMENT_TABLE_RATE_COUNTRY])
         )->setFkStore(
