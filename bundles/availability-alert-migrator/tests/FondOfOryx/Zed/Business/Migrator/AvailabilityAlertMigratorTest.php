@@ -3,7 +3,7 @@
 namespace FondOfOryx\Zed\AvailabilityAlertMigrator\Business\Migrator;
 
 use Codeception\Test\Unit;
-use FondOfOryx\Zed\AvailabilityAlertMigrator\Dependency\Facade\AvailabilityAlertMigrationToAvailabilityAlertFacadeBridge;
+use FondOfOryx\Zed\AvailabilityAlertMigrator\Dependency\Facade\AvailabilityAlertMigratorToAvailabilityAlertFacadeBridge;
 use FondOfOryx\Zed\AvailabilityAlertMigrator\Persistence\AvailabilityAlertMigratorEntityManager;
 use FondOfOryx\Zed\AvailabilityAlertMigrator\Persistence\AvailabilityAlertMigratorRepository;
 use Generated\Shared\Transfer\AvailabilityAlertSubscriptionResponseTransfer;
@@ -23,7 +23,7 @@ class AvailabilityAlertMigratorTest extends Unit
     protected $entityManagerMock;
 
     /**
-     * @var \FondOfOryx\Zed\AvailabilityAlertMigrator\Dependency\Facade\AvailabilityAlertMigrationToAvailabilityAlertFacadeInterface|\PHPUnit\Framework\MockObject\MockObject
+     * @var \FondOfOryx\Zed\AvailabilityAlertMigrator\Dependency\Facade\AvailabilityAlertMigratorToAvailabilityAlertFacadeInterface|\PHPUnit\Framework\MockObject\MockObject
      */
     protected $availabilityAlertFacadeMock;
 
@@ -54,7 +54,7 @@ class AvailabilityAlertMigratorTest extends Unit
     {
         parent::_before();
 
-        $this->availabilityAlertFacadeMock = $this->getMockBuilder(AvailabilityAlertMigrationToAvailabilityAlertFacadeBridge::class)->disableOriginalConstructor()->getMock();
+        $this->availabilityAlertFacadeMock = $this->getMockBuilder(AvailabilityAlertMigratorToAvailabilityAlertFacadeBridge::class)->disableOriginalConstructor()->getMock();
         $this->repositoryMock = $this->getMockBuilder(AvailabilityAlertMigratorRepository::class)->disableOriginalConstructor()->getMock();
         $this->entityManagerMock = $this->getMockBuilder(AvailabilityAlertMigratorEntityManager::class)->disableOriginalConstructor()->getMock();
         $this->loggerMock = $this->getMockBuilder(Logger::class)->disableOriginalConstructor()->getMock();

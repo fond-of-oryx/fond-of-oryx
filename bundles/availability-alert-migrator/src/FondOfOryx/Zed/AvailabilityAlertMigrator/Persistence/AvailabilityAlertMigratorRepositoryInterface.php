@@ -2,18 +2,21 @@
 
 namespace FondOfOryx\Zed\AvailabilityAlertMigrator\Persistence;
 
+use Generated\Shared\Transfer\AvailabilityAlertMigratorFilterTransfer;
+
 interface AvailabilityAlertMigratorRepositoryInterface
 {
     /**
-     * @param int $offset
-     * @param int|null $limit
+     * @param \Generated\Shared\Transfer\AvailabilityAlertMigratorFilterTransfer $filterTransfer
      *
      * @return \Generated\Shared\Transfer\AvailabilityAlertSubscriptionTransfer[]
      */
-    public function getAllSubscriptions(int $offset = 0, ?int $limit = null): array;
+    public function getAllSubscriptions(AvailabilityAlertMigratorFilterTransfer $filterTransfer): array;
 
     /**
+     * @param \Generated\Shared\Transfer\AvailabilityAlertMigratorFilterTransfer $filterTransfer
+     *
      * @return int
      */
-    public function getSubscriptionCount(): int;
+    public function getSubscriptionCount(AvailabilityAlertMigratorFilterTransfer $filterTransfer): int;
 }

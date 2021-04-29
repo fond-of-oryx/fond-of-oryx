@@ -2,13 +2,15 @@
 
 namespace FondOfOryx\Zed\AvailabilityAlertMigrator;
 
-use FondOfOryx\Zed\AvailabilityAlertMigrator\Dependency\Facade\AvailabilityAlertMigrationToAvailabilityAlertFacadeBridge;
+use FondOfOryx\Zed\AvailabilityAlertMigrator\Dependency\Facade\AvailabilityAlertMigratorToAvailabilityAlertFacadeBridge;
+use FondOfOryx\Zed\AvailabilityAlertMigrator\Dependency\Facade\AvailabilityAlertMigratorToStoreFacadeBridge;
 use Spryker\Zed\Kernel\AbstractBundleDependencyProvider;
 use Spryker\Zed\Kernel\Container;
 
 class AvailabilityAlertMigratorDependencyProvider extends AbstractBundleDependencyProvider
 {
     public const FACADE_AVAILABILITY_ALERT = 'FACADE_AVAILABILITY_ALERT';
+    public const FACADE_STORE = 'FACADE_STORE';
     public const PLUGINS_AVAILABILITY_ALERT_MIGRATOR_EXPANDER = 'PLUGINS_AVAILABILITY_ALERT_MIGRATOR_EXPANDER';
 
     /**
@@ -33,6 +35,7 @@ class AvailabilityAlertMigratorDependencyProvider extends AbstractBundleDependen
     {
         $container = parent::providePersistenceLayerDependencies($container);
         $container = $this->addAvailabilityAlertMigratorExpanderPlugins($container);
+        $container = $this->addStoreFacade($container);
 
         return $container;
     }
@@ -45,7 +48,21 @@ class AvailabilityAlertMigratorDependencyProvider extends AbstractBundleDependen
     protected function addAvailabilityAlertFacade(Container $container): Container
     {
         $container[static::FACADE_AVAILABILITY_ALERT] = static function (Container $container) {
-            return new AvailabilityAlertMigrationToAvailabilityAlertFacadeBridge($container->getLocator()->availabilityAlert()->facade());
+            return new AvailabilityAlertMigratorToAvailabilityAlertFacadeBridge($container->getLocator()->availabilityAlert()->facade());
+        };
+
+        return $container;
+    }
+
+    /**
+     * @param \Spryker\Zed\Kernel\Container $container
+     *
+     * @return \Spryker\Zed\Kernel\Container
+     */
+    protected function addStoreFacade(Container $container): Container
+    {
+        $container[static::FACADE_STORE] = static function (Container $container) {
+            return new AvailabilityAlertMigratorToStoreFacadeBridge($container->getLocator()->store()->facade());
         };
 
         return $container;

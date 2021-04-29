@@ -3,6 +3,7 @@
 namespace FondOfOryx\Zed\AvailabilityAlertMigrator\Persistence;
 
 use FondOfOryx\Zed\AvailabilityAlertMigrator\AvailabilityAlertMigratorDependencyProvider;
+use FondOfOryx\Zed\AvailabilityAlertMigrator\Dependency\Facade\AvailabilityAlertMigratorToStoreFacadeInterface;
 use FondOfOryx\Zed\AvailabilityAlertMigrator\Persistence\Propel\Mapper\AvailabilityAlertMigrationDataMapper;
 use FondOfOryx\Zed\AvailabilityAlertMigrator\Persistence\Propel\Mapper\AvailabilityAlertMigrationDataMapperInterface;
 use FondOfOryx\Zed\AvailabilityAlertMigrator\Persistence\Propel\Mapper\Expander\Expander;
@@ -30,6 +31,14 @@ class AvailabilityAlertMigratorPersistenceFactory extends AbstractPersistenceFac
     public function createAvailabilityAlertMigrationDataMapper(): AvailabilityAlertMigrationDataMapperInterface
     {
         return new AvailabilityAlertMigrationDataMapper($this->createExpander());
+    }
+
+    /**
+     * @return \FondOfOryx\Zed\AvailabilityAlertMigrator\Dependency\Facade\AvailabilityAlertMigratorToStoreFacadeInterface
+     */
+    public function getStoreFacade(): AvailabilityAlertMigratorToStoreFacadeInterface
+    {
+        return $this->getProvidedDependency(AvailabilityAlertMigratorDependencyProvider::FACADE_STORE);
     }
 
     /**

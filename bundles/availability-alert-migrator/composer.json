@@ -9,7 +9,7 @@
     }
   ],
   "require": {
-    "php": ">=7.2",
+    "php": ">=7.3",
     "fond-of-oryx/availability-alert": "dev-main"
   },
   "require-dev": {
@@ -27,7 +27,7 @@
   "autoload-dev": {
     "psr-4": {
       "FondOfOryx\\": "tests/FondOfOryx",
-      "Generated\\": "tests/Generated"
+      "Generated\\": "src/Generated"
     }
   }
 }
