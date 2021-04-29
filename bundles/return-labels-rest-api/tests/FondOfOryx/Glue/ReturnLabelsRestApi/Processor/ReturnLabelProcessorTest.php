@@ -116,6 +116,10 @@ class ReturnLabelProcessorTest extends Unit
             ->willReturn($this->restReturnLabelResponseTransferMock);
 
         $this->restReturnLabelResponseTransferMock->expects(static::atLeastOnce())
+            ->method('getErrors')
+            ->willReturn([]);
+
+        $this->restReturnLabelResponseTransferMock->expects(static::atLeastOnce())
             ->method('getIsSuccessful')
             ->willReturn(false);
 
@@ -139,11 +143,6 @@ class ReturnLabelProcessorTest extends Unit
             ->setStatus(400)
             ->setCode('1000')
             ->setDetail('No company-unit-address (company-unit-address-uuid) found for customer 42');
-
-        $this->restResponseMock->expects(static::atLeastOnce())
-            ->method('addError')
-            ->with($restErrorMessageTransfer)
-            ->willReturn($this->restResponseMock);
 
         $this->restResponseMock->expects(static::atLeastOnce())
             ->method('getErrors')

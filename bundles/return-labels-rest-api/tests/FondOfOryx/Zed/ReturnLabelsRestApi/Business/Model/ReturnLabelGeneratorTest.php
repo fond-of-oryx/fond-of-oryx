@@ -96,12 +96,12 @@ class ReturnLabelGeneratorTest extends Unit
             ->willReturn($this->companyUnitAddressTransferMock);
 
         $this->companyUnitAddressTransferMock->expects(static::atLeastOnce())
-            ->method('getFkCountry')
-            ->willReturn(60);
+            ->method('getIso3Code')
+            ->willReturn('DEU');
 
         $this->configMock->expects(static::atLeastOnce())
             ->method('getAllowedCountryIds')
-            ->willReturn([60]);
+            ->willReturn(['DEU']);
 
         $response = $this->returnLabelGenerator->generate($this->restReturnLabelRequestTransferMock);
 
