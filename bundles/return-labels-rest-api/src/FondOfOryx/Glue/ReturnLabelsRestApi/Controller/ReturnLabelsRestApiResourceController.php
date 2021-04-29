@@ -7,7 +7,6 @@ use Spryker\Glue\GlueApplication\Rest\Request\Data\RestRequestInterface;
 use Spryker\Glue\Kernel\Controller\AbstractController;
 
 /**
- * @package FondOfOryx\Glue\ReturnLabelsRestApi\Controller
  * @method \FondOfOryx\Glue\ReturnLabelsRestApi\ReturnLabelsRestApiFactory getFactory()
  */
 class ReturnLabelsRestApiResourceController extends AbstractController
