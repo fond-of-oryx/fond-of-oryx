@@ -146,7 +146,7 @@ class SubscriptionManagerTest extends Unit
         $this->subscriberPluginExecutor->expects(static::once())->method('executePreSavePlugins')->willReturn($this->subscriberTransferMock);
         $this->subscriberPluginExecutor->expects(static::once())->method('executePostSavePlugins')->willReturn($this->subscriberTransferMock);
 
-        $this->manager->subscribe($this->subscriptionTransferMock);
+        $this->manager->subscribe($this->subscriptionTransferMock, false);
     }
 
     /**
@@ -174,7 +174,7 @@ class SubscriptionManagerTest extends Unit
         $this->subscriberPluginExecutor->expects(static::once())->method('executePreSavePlugins')->willReturn($this->subscriberTransferMock);
         $this->subscriberPluginExecutor->expects(static::once())->method('executePostSavePlugins')->willReturn($this->subscriberTransferMock);
 
-        $this->manager->subscribe($this->subscriptionTransferMock);
+        $this->manager->subscribe($this->subscriptionTransferMock, false);
     }
 
     /**
@@ -182,10 +182,10 @@ class SubscriptionManagerTest extends Unit
      */
     public function testUpdateSubscription(): void
     {
-        $this->subscriptionTransferMock->expects(static::once())->method('requireFkProductAbstract');
-        $this->subscriptionTransferMock->expects(static::once())->method('requireFkLocale');
-        $this->subscriptionTransferMock->expects(static::once())->method('requireFkStore');
-        $this->subscriptionTransferMock->expects(static::never())->method('requireSubscriber');
+        $this->subscriptionTransferMock->expects(static::once())->method('requireFkProductAbstract')->willReturn($this->subscriptionTransferMock);
+        $this->subscriptionTransferMock->expects(static::once())->method('requireFkLocale')->willReturn($this->subscriptionTransferMock);
+        $this->subscriptionTransferMock->expects(static::once())->method('requireFkStore')->willReturn($this->subscriptionTransferMock);
+        $this->subscriptionTransferMock->expects(static::never())->method('requireSubscriber')->willReturn($this->subscriptionTransferMock);
         $this->subscriptionPluginExecutor->expects(static::once())->method('executePreSavePlugins')->willReturn($this->subscriptionTransferMock);
         $this->subscriptionPluginExecutor->expects(static::once())->method('executePostSavePlugins')->willReturn($this->subscriptionTransferMock);
         $this->entityManagerMock->expects(static::once())->method('createOrUpdateSubscription')->willReturn($this->subscriptionTransferMock);

@@ -56,7 +56,7 @@ class AvailabilityAlertEntityManager extends AbstractEntityManager implements Av
             ->findOneOrCreate();
 
         $id = $entity->getIdAvailabilityAlertSubscription();
-        $createdAt = $entity->getCreatedAt();
+        $createdAt = $entity->getCreatedAt() !== null ?: $mappedEntity->getCreatedAt();
 
         $entity->fromArray($mappedEntity->toArray());
         $entity
