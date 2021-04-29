@@ -132,7 +132,7 @@ class AvailabilityAlertMigratorTest extends Unit
         $this->repositoryMock->expects(static::once())->method('getSubscriptionCount')->willReturn(1);
         $entries = AvailabilityAlertMigratorConstants::LIMIT + 50;
         $subscription = [];
-        for ($i = 0; $i < $entries; $i++){
+        for ($i = 0; $i < $entries; $i++) {
             $subscription[$i] = $this->subscriptionTransferMock;
         }
         $this->repositoryMock->expects(static::once())->method('getAllSubscriptions')->willReturn($subscription);
