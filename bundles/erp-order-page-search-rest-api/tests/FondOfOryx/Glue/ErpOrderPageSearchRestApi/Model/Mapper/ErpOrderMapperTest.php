@@ -31,7 +31,10 @@ class ErpOrderMapperTest extends Unit
             'erp-orders' => [
                 0 => [
                     'erp_order_items' => [
-                        0 => ['id_erp_order_item' => 1],
+                        0 => ['sku' => 'sku'],
+                    ],
+                    'company_business_unit' => [
+                        0 => ['name' => 'Default Unit'],
                     ],
                 ],
             ],
@@ -39,6 +42,6 @@ class ErpOrderMapperTest extends Unit
         $transfer = $this->erpOrderMapper->mapErpOrderResource($data);
 
         $this->assertInstanceOf(RestErpOrderPageSearchCollectionResponseTransfer::class, $transfer);
-        $this->assertEquals(1, $transfer->getErpOrders()[0]->getOrderItems()[0]->getIdErpOrderItem());
+        $this->assertEquals('sku', $transfer->getErpOrders()[0]->getItems()[0]->getSku());
     }
 }

@@ -10,7 +10,7 @@ phpcs:
 
 .PHONY: phpstan
 phpstan:
-	./vendor/bin/phpstan analyse ./bundles/*/src/
+	./vendor/bin/phpstan --memory-limit=-1 analyse ./bundles/*/src/
 
 .PHONY: codeception
 codeception:
@@ -34,3 +34,11 @@ release:
 
 .PHONY: ci
 ci: phpcs codeception phpstan
+
+.PHONY: print-composer-replace-content
+print-composer-replace-content:
+	./Makefile.d/composer.sh print_replace_content
+
+.PHONY: add-all-to-packagist
+add-all-to-packagist:
+	./Makefile.d/packagist.sh add_all

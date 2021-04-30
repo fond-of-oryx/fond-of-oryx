@@ -1,7 +1,11 @@
 namespace: fond-of-oryx/fond-of-oryx
 
 include:
+  - bundles/availability-alert
+  - bundles/availability-alert-cross-engage
+  - bundles/availability-alert-data-import
   - bundles/catalog-sku-filter
+  - bundles/cross-engage
   - bundles/customer-statistic
   - bundles/customer-statistics-rest-api
   - bundles/erp-order-api
@@ -9,11 +13,27 @@ include:
   - bundles/erp-order-page-search
   - bundles/erp-order-page-search-rest-api
   - bundles/erp-order-permission
+  - bundles/feed
+  - bundles/jellyfish-availability-alert
   - bundles/mail-bcc
+  - bundles/one-time-password
+  - bundles/one-time-password-email-connector
+  - bundles/one-time-password-rest-api
+  - bundles/product-country-restriction
+  - bundles/product-country-restriction-checkout-connector
+  - bundles/product-locale-restriction
+  - bundles/product-locale-restriction-cart-connector
+  - bundles/product-locale-restriction-search
+  - bundles/product-locale-restriction-storage
   - bundles/sales-locale-connector
+  - bundles/shipment-table-rate
+  - bundles/shipment-table-rate-data-import
   - bundles/splittable-checkout
-  - bundles/splittable-checkout-rest-api
+  - bundles/splittable-totals
+  - bundles/splittable-totals-rest-api-company-unit-address-connector
+  - bundles/splittable-totals-rest-api-extension
   - bundles/tax-calculation-connector
+  - bundles/util-math-formula
 
 suites:
   unit:
@@ -39,11 +59,9 @@ modules:
     - \FondOfCodeception\Module\Spryker
   config:
     \FondOfCodeception\Module\Spryker:
-      generate_transfer: true
-      generate_map_classes: true
-      supported_source_identifiers:
-        - erp-order
-        - page
+      generate_transfer: false
+      generate_map_classes: false
+      generate_propel_classes: false
 
 env:
   standalone:
@@ -52,3 +70,7 @@ env:
         \FondOfCodeception\Module\Spryker:
           generate_transfer: true
           generate_map_classes: true
+          generate_propel_classes: true
+          supported_source_identifiers:
+            - erp-order
+            - page

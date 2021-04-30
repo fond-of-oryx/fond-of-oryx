@@ -372,13 +372,8 @@ class ErpOrderApiTest extends Unit
             ->with($apiCollectionTransferData[0]['id_erp_order'])
             ->willReturn($this->erpOrderTransferMock);
 
-        $this->apiQueryContainerMock->expects(static::atLeastOnce())
-            ->method('createApiItem')
-            ->with($this->erpOrderTransferMock, $apiCollectionTransferData[0]['id_erp_order'])
-            ->willReturn($this->apiItemTransferMock);
-
-        $this->apiItemTransferMock->expects(static::atLeastOnce())
-            ->method('getData')
+        $this->erpOrderTransferMock->expects(static::atLeastOnce())
+            ->method('toArray')
             ->willReturn($data);
 
         $this->apiCollectionTransferMock->expects(static::atLeastOnce())

@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<transfers xmlns="spryker:transfer-01"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="spryker:transfer-01 http://static.spryker.com/transfer-01.xsd">
+
+    <transfer name="AvailabilityAlertDataWrapper">
+        <property name="subscriber" type="AvailabilityAlertSubscriber" />
+        <property name="subscription" type="AvailabilityAlertSubscription" />
+        <property name="configuration" type="AvailabilityAlertConfiguration" />
+    </transfer>
+
+    <transfer name="AvailabilityAlertConfiguration">
+        <property name="storeName" type="string" />
+        <property name="localeName" type="string" />
+        <property name="path" type="string" />
+    </transfer>
+</transfers>
+

@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<transfers xmlns="spryker:transfer-01"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="spryker:transfer-01 http://static.spryker.com/transfer-01.xsd">
+
+    <transfer name="FeedDataRequest">
+        <property name="string" type="type" />
+    </transfer>
+
+
+
+    <transfer name="FeedDataAvailabilityResponse">
+        <property name="feedDataArray" type="FeedDataAvailability[]" singular="feedData"/>
+    </transfer>
+
+    <transfer name="FeedDataAvailability">
+        <property name="sku" type="string" />
+        <property name="quantity" type="int" />
+    </transfer>
+
+
+
+    <transfer name="FeedDataAvailabilityAlertResponse">
+        <property name="feedDataArray" type="FeedDataAvailabilityAlert[]" singular="feedData"/>
+    </transfer>
+
+    <transfer name="FeedDataAvailabilityAlert">
+        <property name="sku" type="string" />
+        <property name="subscriberCount" type="int" />
+    </transfer>
+</transfers>

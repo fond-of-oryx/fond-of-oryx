@@ -10,7 +10,7 @@ use Generated\Shared\Transfer\ApiQueryBuilderQueryTransfer;
 use Generated\Shared\Transfer\ApiRequestTransfer;
 use Generated\Shared\Transfer\PropelQueryBuilderColumnSelectionTransfer;
 use Generated\Shared\Transfer\PropelQueryBuilderColumnTransfer;
-use Orm\Zed\ErpOrder\Persistence\Map\FooErpOrderTableMap;
+use Orm\Zed\ErpOrder\Persistence\Map\ErpOrderTableMap;
 use Propel\Runtime\ActiveQuery\ModelCriteria;
 use Propel\Runtime\Map\TableMap;
 use Spryker\Zed\Kernel\Persistence\AbstractRepository;
@@ -37,6 +37,10 @@ class ErpOrderApiRepository extends AbstractRepository implements ErpOrderApiRep
         $apiCollectionTransfer = $this->getFactory()
             ->getApiQueryContainer()
             ->createApiCollection($data);
+
+        if (count($apiCollectionTransfer->getData()) === 0) {
+            return $apiCollectionTransfer;
+        }
 
         return $this->addPagination($query, $apiCollectionTransfer, $apiRequestTransfer);
     }
@@ -79,11 +83,11 @@ class ErpOrderApiRepository extends AbstractRepository implements ErpOrderApiRep
     protected function buildColumnSelection(): PropelQueryBuilderColumnSelectionTransfer
     {
         $columnSelectionTransfer = new PropelQueryBuilderColumnSelectionTransfer();
-        $tableColumns = FooErpOrderTableMap::getFieldNames(TableMap::TYPE_FIELDNAME);
+        $tableColumns = ErpOrderTableMap::getFieldNames(TableMap::TYPE_FIELDNAME);
 
         foreach ($tableColumns as $columnAlias) {
             $columnTransfer = (new PropelQueryBuilderColumnTransfer())
-                ->setName(FooErpOrderTableMap::TABLE_NAME . '.' . $columnAlias)
+                ->setName(ErpOrderTableMap::TABLE_NAME . '.' . $columnAlias)
                 ->setAlias($columnAlias);
 
             $columnSelectionTransfer->addTableColumn($columnTransfer);
@@ -115,7 +119,7 @@ class ErpOrderApiRepository extends AbstractRepository implements ErpOrderApiRep
         $total = $query->count();
 
         $page = $limit > 0 && $offset >= 0 ? ($offset / $limit + 1) : 1;
-        $pageTotal = $limit > 0 && $total >= 0 ? (int)ceil($total / $limit + 1) : 1;
+        $pageTotal = $limit > 0 && $total >= 0 ? (int)ceil($total / $limit) : 1;
 
         if ($page > $pageTotal) {
             throw new Exception('Out of bounds.');
