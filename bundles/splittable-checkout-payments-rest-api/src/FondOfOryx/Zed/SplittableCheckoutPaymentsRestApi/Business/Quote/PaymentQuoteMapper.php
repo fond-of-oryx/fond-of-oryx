@@ -32,11 +32,11 @@ class PaymentQuoteMapper implements PaymentQuoteMapperInterface
     }
 
     /**
-     * @param \Generated\Shared\Transfer\RestPaymentTransfer $restPaymentTransfer
+     * @param \Generated\Shared\Transfer\RestPaymentTransfer[] $restPaymentTransfers
      *
      * @return \ArrayObject
      */
-    protected function getPayments(RestPaymentTransfer $restPaymentTransfer ): ArrayObject
+    protected function getPayments(ArrayObject $restPaymentTransfers ): ArrayObject
     {
         $payments = new ArrayObject();
 

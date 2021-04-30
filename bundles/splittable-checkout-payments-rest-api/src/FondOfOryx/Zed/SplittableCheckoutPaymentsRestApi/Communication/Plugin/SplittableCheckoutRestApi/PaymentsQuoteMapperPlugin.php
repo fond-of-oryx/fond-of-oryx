@@ -27,6 +27,6 @@ class PaymentsQuoteMapperPlugin extends AbstractPlugin implements QuoteMapperPlu
         QuoteTransfer $quoteTransfer
     ): QuoteTransfer {
         return $this->getFacade()
-            ->mapPaymentsToQuote($restCheckoutRequestAttributesTransfer, $quoteTransfer);
+            ->mapPaymentsToQuote($restSplittableCheckoutRequestAttributesTransfer, $quoteTransfer);
     }
 }

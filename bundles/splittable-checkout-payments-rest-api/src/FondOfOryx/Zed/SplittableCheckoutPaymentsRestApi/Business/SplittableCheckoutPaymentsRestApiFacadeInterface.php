@@ -1,11 +1,11 @@
 <?php
 
-namespace FondOfOrxy\Zed\SplittableCheckoutPaymentsRestApi\Business;
+namespace FondOfOryx\Zed\SplittableCheckoutPaymentsRestApi\Business;
 
 use Generated\Shared\Transfer\QuoteTransfer;
 use Generated\Shared\Transfer\RestSplittableCheckoutRequestAttributesTransfer;
 
-interface PaymentsRestApiFacadeInterface
+interface SplittableCheckoutPaymentsRestApiFacadeInterface
 {
     /**
      * @api

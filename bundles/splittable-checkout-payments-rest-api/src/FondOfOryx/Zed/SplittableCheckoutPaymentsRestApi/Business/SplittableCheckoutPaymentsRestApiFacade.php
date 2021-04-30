@@ -1,6 +1,6 @@
 <?php
 
-namespace FondOfSpryker\Zed\SplittableCheckoutPaymentsRestApi\Business;
+namespace FondOfOryx\Zed\SplittableCheckoutPaymentsRestApi\Business;
 
 use Generated\Shared\Transfer\QuoteTransfer;
 use Generated\Shared\Transfer\RestSplittableCheckoutRequestAttributesTransfer;
@@ -9,7 +9,7 @@ use Spryker\Zed\Kernel\Business\AbstractFacade;
 /**
  * @method \FondOfOryx\Zed\SplittableCheckoutPaymentsRestApi\Business\SplittableCheckoutPaymentsRestApiBusinessFactory getFactory()
  */
-class PaymentsRestApiFacade extends AbstractFacade implements PaymentsRestApiFacadeInterface
+class SplittableCheckoutPaymentsRestApiFacade extends AbstractFacade implements SplittableCheckoutPaymentsRestApiFacadeInterface
 {
     /**
      * {@inheritDoc}

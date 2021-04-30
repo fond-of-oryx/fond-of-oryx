@@ -1,9 +1,8 @@
 <?php
 
-namespace FondOfOrxy\Zed\SplittableCheckoutPaymentsRestApi\Business\Quote;
+namespace FondOfOryx\Zed\SplittableCheckoutPaymentsRestApi\Business\Quote;
 
 use Generated\Shared\Transfer\QuoteTransfer;
-use Generated\Shared\Transfer\RestCheckoutRequestAttributesTransfer;
 use Generated\Shared\Transfer\RestSplittableCheckoutRequestAttributesTransfer;
 
 interface PaymentQuoteMapperInterface
