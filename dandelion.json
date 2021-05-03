@@ -14,7 +14,7 @@
     },
     "erp-order": {
       "path": "bundles/erp-order/",
-      "version": "alpha-0.0.1"
+      "version": "1.0.0"
     },
     "erp-order-api": {
       "path": "bundles/erp-order-api/",
@@ -26,11 +26,11 @@
     },
     "erp-order-page-search": {
       "path": "bundles/erp-order-page-search/",
-      "version": "0.0.1-alpha"
+      "version": "1.0.0"
     },
     "erp-order-page-search-rest-api": {
       "path": "bundles/erp-order-page-search-rest-api/",
-      "version": "0.0.1-alpha"
+      "version": "1.0.0"
     },
     "erp-order-permission": {
       "path": "bundles/erp-order-permission/",
@@ -86,14 +86,6 @@
     },
     "shipment-table-rate-data-import": {
       "path": "bundles/shipment-table-rate-data-import/",
-      "version": "1.0.0"
-    },
-    "splittable-checkout": {
-      "path": "bundles/splittable-checkout/",
-      "version": "1.0.0"
-    },
-    "splittable-checkout-rest-api-extension": {
-      "path": "bundles/splittable-checkout-rest-api-extension/",
       "version": "1.0.0"
     },
     "tax-calculation-connector": {
