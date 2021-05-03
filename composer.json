@@ -73,7 +73,6 @@
   "replace": {
     "fond-of-oryx/availability-alert": "*",
     "fond-of-oryx/availability-alert-cross-engage": "*",
-    "fond-of-oryx/availability-alert-data-import": "*",
     "fond-of-oryx/availability-alert-migrator": "*",
     "fond-of-oryx/catalog-sku-filter": "*",
     "fond-of-oryx/cross-engage": "*",
@@ -155,7 +154,6 @@
       "FondOfOryx\\Yves\\AvailabilityAlert\\": "bundles/availability-alert/src/FondOfOryx/Yves/AvailabilityAlert",
       "FondOfOryx\\Yves\\Feed\\": "bundles/feed/src/FondOfOryx/Yves/Feed",
       "FondOfOryx\\Zed\\AvailabilityAlertCrossEngage\\": "bundles/availability-alert-cross-engage/src/FondOfOryx/Zed/AvailabilityAlertCrossEngage",
-      "FondOfOryx\\Zed\\AvailabilityAlertDataImport\\": "bundles/availability-alert-data-import/src/FondOfOryx/Zed/AvailabilityAlertDataImport",
       "FondOfOryx\\Shared\\AvailabilityAlertMigrator\\": "bundles/availability-alert-migrator/src/FondOfOryx/Shared/AvailabilityAlertMigrator",
       "FondOfOryx\\Zed\\AvailabilityAlertMigrator\\": "bundles/availability-alert-migrator/src/FondOfOryx/Zed/AvailabilityAlertMigrator",
       "FondOfOryx\\Zed\\AvailabilityAlert\\": "bundles/availability-alert/src/FondOfOryx/Zed/AvailabilityAlert",
@@ -233,7 +231,6 @@
       "FondOfOryx\\Yves\\AvailabilityAlert\\": "bundles/availability-alert/src/FondOfOryx/Yves/AvailabilityAlert",
       "FondOfOryx\\Yves\\Feed\\": "bundles/feed/src/FondOfOryx/Yves/Feed",
       "FondOfOryx\\Zed\\AvailabilityAlertCrossEngage\\": "bundles/availability-alert-cross-engage/src/FondOfOryx/Zed/AvailabilityAlertCrossEngage",
-      "FondOfOryx\\Zed\\AvailabilityAlertDataImport\\": "bundles/availability-alert-data-import/src/FondOfOryx/Zed/AvailabilityAlertDataImport",
       "FondOfOryx\\Zed\\AvailabilityAlert\\": "bundles/availability-alert/src/FondOfOryx/Zed/AvailabilityAlert",
       "FondOfOryx\\Zed\\CatalogSkuFilter\\": "bundles/catalog-sku-filter/src/FondOfOryx/Zed/CatalogSkuFilter",
       "FondOfOryx\\Zed\\CustomerStatistic\\": "bundles/customer-statistic/src/FondOfOryx/Zed/CustomerStatistic",
