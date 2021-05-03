@@ -10,7 +10,7 @@
   ],
   "require": {
     "php": ">=7.3",
-    "fond-of-oryx/availability-alert": "dev-main"
+    "fond-of-oryx/availability-alert": "^1.0.0"
   },
   "require-dev": {
     "fond-of-codeception/spryker": "^1.0",

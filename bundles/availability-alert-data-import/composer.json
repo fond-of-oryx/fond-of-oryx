@@ -14,7 +14,7 @@
   ],
   "require": {
     "php": ">=7.3",
-    "fond-of-oryx/availability-alert": "dev-main",
+    "fond-of-oryx/availability-alert": "^1.0.0",
     "spryker/data-import": "^1.3.0"
   },
   "require-dev": {

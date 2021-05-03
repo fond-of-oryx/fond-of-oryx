@@ -10,7 +10,7 @@
   ],
   "require": {
     "php": ">=7.3",
-    "fond-of-oryx/product-country-restriction": "dev-main",
+    "fond-of-oryx/product-country-restriction": "^1.0.0",
     "spryker/checkout-extension": "^1.1.0"
   },
   "require-dev": {
