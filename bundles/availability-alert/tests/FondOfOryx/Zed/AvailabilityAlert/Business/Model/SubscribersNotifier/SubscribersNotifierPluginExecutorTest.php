@@ -24,8 +24,8 @@ class SubscribersNotifierPluginExecutorTest extends Unit
     {
         parent::_before();
 
-        $this->subscriptionTransferMock = static::getMockBuilder(AvailabilityAlertSubscriptionTransfer::class)->disableOriginalConstructor()->getMock();
-        $this->pluginMock = static::getMockBuilder(SubscribersNotifierPreCheckPluginInterface::class)->disableOriginalConstructor()->getMock();
+        $this->subscriptionTransferMock = $this->getMockBuilder(AvailabilityAlertSubscriptionTransfer::class)->disableOriginalConstructor()->getMock();
+        $this->pluginMock = $this->getMockBuilder(SubscribersNotifierPreCheckPluginInterface::class)->disableOriginalConstructor()->getMock();
     }
 
     /**

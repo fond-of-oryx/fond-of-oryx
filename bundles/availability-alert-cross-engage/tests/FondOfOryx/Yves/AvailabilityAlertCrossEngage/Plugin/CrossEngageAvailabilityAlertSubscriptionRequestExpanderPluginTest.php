@@ -30,8 +30,8 @@ class CrossEngageAvailabilityAlertSubscriptionRequestExpanderPluginTest extends 
     {
         parent::_before();
 
-        $this->requestMock = static::getMockBuilder(Request::class)->disableOriginalConstructor()->getMock();
-        $this->subscriptionRequestMock = static::getMockBuilder(AvailabilityAlertSubscriptionRequestTransfer::class)->disableOriginalConstructor()->getMock();
+        $this->requestMock = $this->getMockBuilder(Request::class)->disableOriginalConstructor()->getMock();
+        $this->subscriptionRequestMock = $this->getMockBuilder(AvailabilityAlertSubscriptionRequestTransfer::class)->disableOriginalConstructor()->getMock();
 
         $this->plugin = new CrossEngageAvailabilityAlertSubscriptionRequestExpanderPlugin();
     }

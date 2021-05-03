@@ -14,17 +14,17 @@ use Spryker\Zed\Kernel\Business\AbstractFacade;
 class AvailabilityAlertFacade extends AbstractFacade implements AvailabilityAlertFacadeInterface
 {
     /**
-     * @api
-     *
      * @param \Generated\Shared\Transfer\AvailabilityAlertSubscriptionTransfer $availabilityAlertSubscriptionTransfer
+     * @param bool $preferFromTransfer
      *
      * @return \Generated\Shared\Transfer\AvailabilityAlertSubscriptionResponseTransfer
      */
     public function subscribe(
-        AvailabilityAlertSubscriptionTransfer $availabilityAlertSubscriptionTransfer
+        AvailabilityAlertSubscriptionTransfer $availabilityAlertSubscriptionTransfer,
+        bool $preferFromTransfer = false
     ): AvailabilityAlertSubscriptionResponseTransfer {
         return $this->getFactory()->createSubscriptionRequestHandler()
-            ->processAvailabilityAlertSubscription($availabilityAlertSubscriptionTransfer);
+            ->processAvailabilityAlertSubscription($availabilityAlertSubscriptionTransfer, $preferFromTransfer);
     }
 
     /**
