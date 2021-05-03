@@ -72,15 +72,15 @@ class MailNotificationHandlerTest extends Unit
     {
         parent::_before();
 
-        $this->mailFacadeMock = static::getMockBuilder(AvailabilityAlertToMailBridge::class)->disableOriginalConstructor()->getMock();
-        $this->productFacadeMock = static::getMockBuilder(AvailabilityAlertToProductBridge::class)->disableOriginalConstructor()->getMock();
-        $this->subscriptionTransferMock = static::getMockBuilder(AvailabilityAlertSubscriptionTransfer::class)->disableOriginalConstructor()->getMock();
-        $this->productAbstractTransferMock = static::getMockBuilder(ProductAbstractTransfer::class)->disableOriginalConstructor()->getMock();
-        $this->productUrlTransferMock = static::getMockBuilder(ProductUrlTransfer::class)->disableOriginalConstructor()->getMock();
-        $this->localizedUrlTransfer = static::getMockBuilder(LocalizedUrlTransfer::class)->disableOriginalConstructor()->getMock();
-        $this->localeTransfer = static::getMockBuilder(LocaleTransfer::class)->disableOriginalConstructor()->getMock();
-        $this->priceProductTransfer = static::getMockBuilder(PriceProductTransfer::class)->disableOriginalConstructor()->getMock();
-        $this->moneyValueTransfer = static::getMockBuilder(MoneyValueTransfer::class)->disableOriginalConstructor()->getMock();
+        $this->mailFacadeMock = $this->getMockBuilder(AvailabilityAlertToMailBridge::class)->disableOriginalConstructor()->getMock();
+        $this->productFacadeMock = $this->getMockBuilder(AvailabilityAlertToProductBridge::class)->disableOriginalConstructor()->getMock();
+        $this->subscriptionTransferMock = $this->getMockBuilder(AvailabilityAlertSubscriptionTransfer::class)->disableOriginalConstructor()->getMock();
+        $this->productAbstractTransferMock = $this->getMockBuilder(ProductAbstractTransfer::class)->disableOriginalConstructor()->getMock();
+        $this->productUrlTransferMock = $this->getMockBuilder(ProductUrlTransfer::class)->disableOriginalConstructor()->getMock();
+        $this->localizedUrlTransfer = $this->getMockBuilder(LocalizedUrlTransfer::class)->disableOriginalConstructor()->getMock();
+        $this->localeTransfer = $this->getMockBuilder(LocaleTransfer::class)->disableOriginalConstructor()->getMock();
+        $this->priceProductTransfer = $this->getMockBuilder(PriceProductTransfer::class)->disableOriginalConstructor()->getMock();
+        $this->moneyValueTransfer = $this->getMockBuilder(MoneyValueTransfer::class)->disableOriginalConstructor()->getMock();
 
         $this->handler = new MailNotificationHandler($this->mailFacadeMock, $this->productFacadeMock, '');
     }

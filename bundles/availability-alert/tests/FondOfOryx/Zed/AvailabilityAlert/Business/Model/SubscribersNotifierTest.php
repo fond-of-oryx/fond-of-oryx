@@ -64,14 +64,14 @@ class SubscribersNotifierTest extends Unit
     {
         parent::_before();
 
-        $this->subscriptionTransferMock = static::getMockBuilder(AvailabilityAlertSubscriptionTransfer::class)->disableOriginalConstructor()->getMock();
-        $this->subscriptionCollectionTransferMock = static::getMockBuilder(AvailabilityAlertSubscriptionCollectionTransfer::class)->disableOriginalConstructor()->getMock();
-        $this->executorMock = static::getMockBuilder(SubscribersNotifierPluginExecutor::class)->disableOriginalConstructor()->getMock();
-        $this->availabilityFacadeMock = static::getMockBuilder(AvailabilityAlertToAvailabilityFacadeBridge::class)->disableOriginalConstructor()->getMock();
-        $this->notificationHandlerMock = static::getMockBuilder(NotificationHandler::class)->disableOriginalConstructor()->getMock();
-        $this->subscriptionManagerMock = static::getMockBuilder(SubscriptionManager::class)->disableOriginalConstructor()->getMock();
-        $this->decimalMock = static::getMockBuilder(Decimal::class)->disableOriginalConstructor()->getMock();
-        $this->availabilityTransferMock = static::getMockBuilder(ProductAbstractAvailabilityTransfer::class)->disableOriginalConstructor()->getMock();
+        $this->subscriptionTransferMock = $this->getMockBuilder(AvailabilityAlertSubscriptionTransfer::class)->disableOriginalConstructor()->getMock();
+        $this->subscriptionCollectionTransferMock = $this->getMockBuilder(AvailabilityAlertSubscriptionCollectionTransfer::class)->disableOriginalConstructor()->getMock();
+        $this->executorMock = $this->getMockBuilder(SubscribersNotifierPluginExecutor::class)->disableOriginalConstructor()->getMock();
+        $this->availabilityFacadeMock = $this->getMockBuilder(AvailabilityAlertToAvailabilityFacadeBridge::class)->disableOriginalConstructor()->getMock();
+        $this->notificationHandlerMock = $this->getMockBuilder(NotificationHandler::class)->disableOriginalConstructor()->getMock();
+        $this->subscriptionManagerMock = $this->getMockBuilder(SubscriptionManager::class)->disableOriginalConstructor()->getMock();
+        $this->decimalMock = $this->getMockBuilder(Decimal::class)->disableOriginalConstructor()->getMock();
+        $this->availabilityTransferMock = $this->getMockBuilder(ProductAbstractAvailabilityTransfer::class)->disableOriginalConstructor()->getMock();
 
         $this->notifier = new SubscribersNotifier($this->availabilityFacadeMock, $this->notificationHandlerMock, $this->subscriptionManagerMock, 50, $this->executorMock);
     }

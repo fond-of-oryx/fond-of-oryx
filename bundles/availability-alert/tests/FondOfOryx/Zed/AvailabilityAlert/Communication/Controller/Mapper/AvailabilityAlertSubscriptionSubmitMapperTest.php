@@ -59,13 +59,13 @@ class AvailabilityAlertSubscriptionSubmitMapperTest extends Unit
     {
         parent::_before();
 
-        $this->storeFacadeMock = static::getMockBuilder(AvailabilityAlertToStoreBridge::class)->disableOriginalConstructor()->getMock();
-        $this->localeFacadeMock = static::getMockBuilder(AvailabilityAlertToLocaleBridge::class)->disableOriginalConstructor()->getMock();
-        $this->expanderMock = static::getMockBuilder(AvailabilityAlertSubscriptionTransferExpander::class)->disableOriginalConstructor()->getMock();
-        $this->subscriptionTransferMock = static::getMockBuilder(AvailabilityAlertSubscriptionTransfer::class)->disableOriginalConstructor()->getMock();
-        $this->subscriptionRequestTransferMock = static::getMockBuilder(AvailabilityAlertSubscriptionRequestTransfer::class)->disableOriginalConstructor()->getMock();
-        $this->localeTransferMock = static::getMockBuilder(LocaleTransfer::class)->disableOriginalConstructor()->getMock();
-        $this->storeTransferMock = static::getMockBuilder(StoreTransfer::class)->disableOriginalConstructor()->getMock();
+        $this->storeFacadeMock = $this->getMockBuilder(AvailabilityAlertToStoreBridge::class)->disableOriginalConstructor()->getMock();
+        $this->localeFacadeMock = $this->getMockBuilder(AvailabilityAlertToLocaleBridge::class)->disableOriginalConstructor()->getMock();
+        $this->expanderMock = $this->getMockBuilder(AvailabilityAlertSubscriptionTransferExpander::class)->disableOriginalConstructor()->getMock();
+        $this->subscriptionTransferMock = $this->getMockBuilder(AvailabilityAlertSubscriptionTransfer::class)->disableOriginalConstructor()->getMock();
+        $this->subscriptionRequestTransferMock = $this->getMockBuilder(AvailabilityAlertSubscriptionRequestTransfer::class)->disableOriginalConstructor()->getMock();
+        $this->localeTransferMock = $this->getMockBuilder(LocaleTransfer::class)->disableOriginalConstructor()->getMock();
+        $this->storeTransferMock = $this->getMockBuilder(StoreTransfer::class)->disableOriginalConstructor()->getMock();
 
         $this->mapper = new AvailabilityAlertSubscriptionSubmitMapper($this->localeFacadeMock, $this->storeFacadeMock, $this->expanderMock);
     }

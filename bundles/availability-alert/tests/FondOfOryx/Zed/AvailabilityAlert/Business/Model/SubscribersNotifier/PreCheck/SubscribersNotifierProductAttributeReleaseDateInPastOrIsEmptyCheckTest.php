@@ -37,9 +37,9 @@ class SubscribersNotifierProductAttributeReleaseDateInPastOrIsEmptyCheckTest ext
     {
         parent::_before();
 
-        $this->productFacadeMock = static::getMockBuilder(AvailabilityAlertToProductBridge::class)->disableOriginalConstructor()->getMock();
-        $this->subscriptionTransferMock = static::getMockBuilder(AvailabilityAlertSubscriptionTransfer::class)->disableOriginalConstructor()->getMock();
-        $this->productAbstractTransferMock = static::getMockBuilder(ProductAbstractTransfer::class)->disableOriginalConstructor()->getMock();
+        $this->productFacadeMock = $this->getMockBuilder(AvailabilityAlertToProductBridge::class)->disableOriginalConstructor()->getMock();
+        $this->subscriptionTransferMock = $this->getMockBuilder(AvailabilityAlertSubscriptionTransfer::class)->disableOriginalConstructor()->getMock();
+        $this->productAbstractTransferMock = $this->getMockBuilder(ProductAbstractTransfer::class)->disableOriginalConstructor()->getMock();
 
         $this->handler = new SubscribersNotifierProductAttributeReleaseDateInPastOrIsEmptyCheck($this->productFacadeMock);
     }

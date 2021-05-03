@@ -34,6 +34,7 @@ include:
   - bundles/splittable-totals-rest-api-extension
   - bundles/tax-calculation-connector
   - bundles/util-math-formula
+  - bundles/availability-alert-migrator
 
 suites:
   unit:

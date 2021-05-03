@@ -9,10 +9,12 @@ interface SubscriptionRequestHandlerInterface
 {
     /**
      * @param \Generated\Shared\Transfer\AvailabilityAlertSubscriptionTransfer $availabilityAlertSubscriptionTransfer
+     * @param bool $preferFromTransfer
      *
      * @return \Generated\Shared\Transfer\AvailabilityAlertSubscriptionResponseTransfer
      */
     public function processAvailabilityAlertSubscription(
-        AvailabilityAlertSubscriptionTransfer $availabilityAlertSubscriptionTransfer
+        AvailabilityAlertSubscriptionTransfer $availabilityAlertSubscriptionTransfer,
+        bool $preferFromTransfer = false
     ): AvailabilityAlertSubscriptionResponseTransfer;
 }

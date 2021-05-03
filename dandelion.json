@@ -103,6 +103,34 @@
     "util-math-formula": {
       "path": "bundles/util-math-formula/",
       "version": "1.0.0"
+    },
+    "availability-alert": {
+      "path": "bundles/availability-alert/",
+      "version": "1.0.0"
+    },
+    "availability-alert-cross-engage": {
+      "path": "bundles/availability-alert-cross-engage/",
+      "version": "1.0.0"
+    },
+    "availability-alert-data-import": {
+      "path": "bundles/availability-alert-data-import/",
+      "version": "1.0.0"
+    },
+    "availability-alert-migrator": {
+      "path": "bundles/availability-alert-migrator/",
+      "version": "1.0.0"
+    },
+    "cross-engage": {
+      "path": "bundles/cross-engage/",
+      "version": "1.0.0"
+    },
+    "feed": {
+      "path": "bundles/feed/",
+      "version": "1.0.0"
+    },
+    "jellyfish-availability-alert": {
+      "path": "bundles/jellyfish-availability-alert/",
+      "version": "1.0.0"
     }
   },
   "vcs": {

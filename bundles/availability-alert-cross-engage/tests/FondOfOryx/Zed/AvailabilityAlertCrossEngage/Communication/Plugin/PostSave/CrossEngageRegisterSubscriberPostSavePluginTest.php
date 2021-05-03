@@ -37,9 +37,9 @@ class CrossEngageRegisterSubscriberPostSavePluginTest extends Unit
     {
         parent::_before();
 
-        $this->facadeMock = static::getMockBuilder(AvailabilityAlertCrossEngageFacade::class)->disableOriginalConstructor()->getMock();
-        $this->subscriberTransferMock = static::getMockBuilder(AvailabilityAlertSubscriberTransfer::class)->disableOriginalConstructor()->getMock();
-        $this->responseTransferMock = static::getMockBuilder(AvailabilityAlertCrossEngageSubscriberRegistrationResponseTransfer::class)->disableOriginalConstructor()->getMock();
+        $this->facadeMock = $this->getMockBuilder(AvailabilityAlertCrossEngageFacade::class)->disableOriginalConstructor()->getMock();
+        $this->subscriberTransferMock = $this->getMockBuilder(AvailabilityAlertSubscriberTransfer::class)->disableOriginalConstructor()->getMock();
+        $this->responseTransferMock = $this->getMockBuilder(AvailabilityAlertCrossEngageSubscriberRegistrationResponseTransfer::class)->disableOriginalConstructor()->getMock();
 
         $this->plugin = new class ($this->facadeMock) extends CrossEngageRegisterSubscriberPostSavePlugin {
             /**

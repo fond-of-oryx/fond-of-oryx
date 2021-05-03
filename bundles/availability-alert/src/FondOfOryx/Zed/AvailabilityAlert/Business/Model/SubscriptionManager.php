@@ -84,12 +84,14 @@ class SubscriptionManager implements SubscriptionManagerInterface
 
     /**
      * @param \Generated\Shared\Transfer\AvailabilityAlertSubscriptionTransfer $availabilityAlertSubscriptionTransfer
+     * @param bool $preferFromTransfer
      *
-     * @return void
+     * @return \Generated\Shared\Transfer\AvailabilityAlertSubscriptionTransfer
      */
     public function subscribe(
-        AvailabilityAlertSubscriptionTransfer $availabilityAlertSubscriptionTransfer
-    ) {
+        AvailabilityAlertSubscriptionTransfer $availabilityAlertSubscriptionTransfer,
+        bool $preferFromTransfer
+    ): AvailabilityAlertSubscriptionTransfer {
         $availabilityAlertSubscriptionTransfer->requireFkProductAbstract();
         $availabilityAlertSubscriptionTransfer->requireFkLocale();
         $availabilityAlertSubscriptionTransfer->requireFkStore();
@@ -98,11 +100,11 @@ class SubscriptionManager implements SubscriptionManagerInterface
 
         $availabilityAlertSubscriptionTransfer
             ->setSubscriber($subscriber)
-            ->setSentAt(null)
-            ->setStatus(FooAvailabilityAlertSubscriptionTableMap::COL_STATUS_PENDING)
+            ->setSentAt($preferFromTransfer === true ? $availabilityAlertSubscriptionTransfer->getSentAt() : null)
+            ->setStatus($preferFromTransfer === true ? $availabilityAlertSubscriptionTransfer->getStatus() : FooAvailabilityAlertSubscriptionTableMap::COL_STATUS_PENDING)
             ->setFkSubscriber($subscriber->getIdAvailabilityAlertSubscriber());
 
-        $this->handleSubscription($availabilityAlertSubscriptionTransfer);
+        return $this->handleSubscription($availabilityAlertSubscriptionTransfer);
     }
 
     /**
@@ -112,10 +114,11 @@ class SubscriptionManager implements SubscriptionManagerInterface
      */
     public function updateSubscription(AvailabilityAlertSubscriptionTransfer $availabilityAlertSubscriptionTransfer): AvailabilityAlertSubscriptionTransfer
     {
-        $availabilityAlertSubscriptionTransfer->requireFkProductAbstract();
-        $availabilityAlertSubscriptionTransfer->requireFkLocale();
-        $availabilityAlertSubscriptionTransfer->requireFkStore();
-        $availabilityAlertSubscriptionTransfer->requireFkSubscriber();
+        $availabilityAlertSubscriptionTransfer
+            ->requireFkProductAbstract()
+            ->requireFkLocale()
+            ->requireFkStore()
+            ->requireFkSubscriber();
 
         return $this->handleSubscription($availabilityAlertSubscriptionTransfer);
     }

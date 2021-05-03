@@ -31,9 +31,9 @@ class AvailabilityAlertSubscriptionTransferExpanderTest extends Unit
     {
         parent::_before();
 
-        $this->pluginMock = static::getMockBuilder(AvailabilityAlertSubscriptionTransferExpanderPluginInterface::class)->disableOriginalConstructor()->getMock();
-        $this->subscriptionTransferMock = static::getMockBuilder(AvailabilityAlertSubscriptionTransfer::class)->disableOriginalConstructor()->getMock();
-        $this->subscriptionRequestTransferMock = static::getMockBuilder(AvailabilityAlertSubscriptionRequestTransfer::class)->disableOriginalConstructor()->getMock();
+        $this->pluginMock = $this->getMockBuilder(AvailabilityAlertSubscriptionTransferExpanderPluginInterface::class)->disableOriginalConstructor()->getMock();
+        $this->subscriptionTransferMock = $this->getMockBuilder(AvailabilityAlertSubscriptionTransfer::class)->disableOriginalConstructor()->getMock();
+        $this->subscriptionRequestTransferMock = $this->getMockBuilder(AvailabilityAlertSubscriptionRequestTransfer::class)->disableOriginalConstructor()->getMock();
     }
 
     /**
