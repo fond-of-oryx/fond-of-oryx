@@ -23,6 +23,7 @@ class RestResponseBuilder implements RestResponseBuilderInterface
     protected $restResourceBuilder;
 
     /**
+     * @param \FondOfOryx\Glue\SplittableTotalsRestApi\Processor\Mapper\RestSplittableTotalsMapperInterface $restSplittableTotalsMapper
      * @param \Spryker\Glue\GlueApplication\Rest\JsonApi\RestResourceBuilderInterface $restResourceBuilder
      */
     public function __construct(

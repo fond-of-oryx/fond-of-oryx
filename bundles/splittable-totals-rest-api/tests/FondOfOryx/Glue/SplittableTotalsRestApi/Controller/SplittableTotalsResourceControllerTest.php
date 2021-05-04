@@ -23,7 +23,7 @@ class SplittableTotalsResourceControllerTest extends Unit
     protected $restSplittableTotalsReaderMock;
 
     /**
-     * @var \FondOfOryx\Glue\SplittableTotalsRestApi\Controller\SplittableTotalsResourceController|__anonymous@1261
+     * @var \FondOfOryx\Glue\SplittableTotalsRestApi\Controller\SplittableTotalsResourceController
      */
     protected $splittableTotalsResourceController;
 

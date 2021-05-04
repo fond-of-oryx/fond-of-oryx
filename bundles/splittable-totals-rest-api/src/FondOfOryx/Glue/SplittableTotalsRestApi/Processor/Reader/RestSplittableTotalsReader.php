@@ -3,9 +3,9 @@
 namespace FondOfOryx\Glue\SplittableTotalsRestApi\Processor\Reader;
 
 use FondOfOryx\Client\SplittableTotalsRestApi\SplittableTotalsRestApiClientInterface;
+use FondOfOryx\Glue\SplittableTotalsRestApi\Processor\Builder\RestResponseBuilderInterface;
 use FondOfOryx\Glue\SplittableTotalsRestApi\Processor\Expander\RestSplittableTotalsRequestExpanderInterface;
 use FondOfOryx\Glue\SplittableTotalsRestApi\Processor\Mapper\RestSplittableTotalsRequestMapperInterface;
-use FondOfOryx\Glue\SplittableTotalsRestApi\Processor\Builder\RestResponseBuilderInterface;
 use Generated\Shared\Transfer\RestSplittableTotalsRequestAttributesTransfer;
 use Spryker\Glue\GlueApplication\Rest\JsonApi\RestResponseInterface;
 use Spryker\Glue\GlueApplication\Rest\Request\Data\RestRequestInterface;

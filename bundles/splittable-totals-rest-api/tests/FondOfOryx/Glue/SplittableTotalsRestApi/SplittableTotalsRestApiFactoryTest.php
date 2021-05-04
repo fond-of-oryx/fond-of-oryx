@@ -71,6 +71,8 @@ class SplittableTotalsRestApiFactoryTest extends Unit
             protected $restResourceBuilder;
 
             /**
+             * @param \Spryker\Glue\Kernel\AbstractBundleConfig $abstractBundleConfig
+             * @param \Spryker\Client\Kernel\AbstractClient $abstractClient
              * @param \Spryker\Glue\GlueApplication\Rest\JsonApi\RestResourceBuilderInterface $restResourceBuilder
              */
             public function __construct(
