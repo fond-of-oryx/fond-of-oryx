@@ -32,8 +32,8 @@ class NotificationHandlerTest extends Unit
     {
         parent::_before();
 
-        $this->facadeMock = static::getMockBuilder(AvailabilityAlertCrossEngageToJellyfishAvailabilityAlertFacadeBridge::class)->disableOriginalConstructor()->getMock();
-        $this->subscriptionTransferMock = static::getMockBuilder(AvailabilityAlertSubscriptionTransfer::class)->disableOriginalConstructor()->getMock();
+        $this->facadeMock = $this->getMockBuilder(AvailabilityAlertCrossEngageToJellyfishAvailabilityAlertFacadeBridge::class)->disableOriginalConstructor()->getMock();
+        $this->subscriptionTransferMock = $this->getMockBuilder(AvailabilityAlertSubscriptionTransfer::class)->disableOriginalConstructor()->getMock();
 
         $this->handler = new NotificationHandler($this->facadeMock);
     }

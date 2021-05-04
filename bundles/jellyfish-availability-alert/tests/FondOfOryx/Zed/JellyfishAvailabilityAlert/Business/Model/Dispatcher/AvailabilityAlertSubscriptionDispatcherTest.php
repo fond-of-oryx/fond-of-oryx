@@ -39,9 +39,9 @@ class AvailabilityAlertSubscriptionDispatcherTest extends Unit
     {
         parent::_before();
 
-        $this->adapterMock = static::getMockBuilder(AvailabilityAlertAdapter::class)->disableOriginalConstructor()->getMock();
-        $this->loggerMock = static::getMockBuilder(Logger::class)->disableOriginalConstructor()->getMock();
-        $this->subscriptionTransferMock = static::getMockBuilder(AvailabilityAlertSubscriptionTransfer::class)->disableOriginalConstructor()->getMock();
+        $this->adapterMock = $this->getMockBuilder(AvailabilityAlertAdapter::class)->disableOriginalConstructor()->getMock();
+        $this->loggerMock = $this->getMockBuilder(Logger::class)->disableOriginalConstructor()->getMock();
+        $this->subscriptionTransferMock = $this->getMockBuilder(AvailabilityAlertSubscriptionTransfer::class)->disableOriginalConstructor()->getMock();
 
         $this->dispatcher = new class ($this->adapterMock, $this->loggerMock) extends AvailabilityAlertSubscriptionDispatcher
         {

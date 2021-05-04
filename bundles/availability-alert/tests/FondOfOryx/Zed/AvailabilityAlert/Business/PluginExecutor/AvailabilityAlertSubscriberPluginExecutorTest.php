@@ -31,9 +31,9 @@ class AvailabilityAlertSubscriberPluginExecutorTest extends Unit
     {
         parent::_before();
 
-        $this->preSavePluginMock = static::getMockBuilder(AvailabilityAlertSubscriberPreSavePluginInterface::class)->disableOriginalConstructor()->getMock();
-        $this->postSavePluginMock = static::getMockBuilder(AvailabilityAlertSubscriberPostSavePluginInterface::class)->disableOriginalConstructor()->getMock();
-        $this->subscriberTransfer = static::getMockBuilder(AvailabilityAlertSubscriberTransfer::class)->disableOriginalConstructor()->getMock();
+        $this->preSavePluginMock = $this->getMockBuilder(AvailabilityAlertSubscriberPreSavePluginInterface::class)->disableOriginalConstructor()->getMock();
+        $this->postSavePluginMock = $this->getMockBuilder(AvailabilityAlertSubscriberPostSavePluginInterface::class)->disableOriginalConstructor()->getMock();
+        $this->subscriberTransfer = $this->getMockBuilder(AvailabilityAlertSubscriberTransfer::class)->disableOriginalConstructor()->getMock();
     }
 
     /**

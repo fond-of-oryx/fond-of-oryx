@@ -41,6 +41,7 @@
     </transfer>
 
     <transfer name="AvailabilityAlertSubscriptionResponse">
+        <property name="subscription" type="AvailabilityAlertSubscription" />
         <property name="isSuccess" type="bool" />
         <property name="errors" type="AvailabilityAlertSubscriptionError[]" singular="error" />
     </transfer>
