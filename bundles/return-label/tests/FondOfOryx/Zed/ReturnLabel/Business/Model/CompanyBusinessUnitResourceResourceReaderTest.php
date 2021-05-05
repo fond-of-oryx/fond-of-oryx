@@ -4,10 +4,10 @@ namespace FondOfOryx\Zed\ReturnLabel\Business\Model;
 
 use Codeception\Test\Unit;
 use FondOfOryx\Zed\ReturnLabel\Persistence\ReturnLabelRepository;
-use Generated\Shared\Transfer\CompanyUnitAddressTransfer;
+use Generated\Shared\Transfer\CompanyBusinessUnitTransfer;
 use Generated\Shared\Transfer\ReturnLabelRequestTransfer;
 
-class CompanyUnitAddressReaderTest extends Unit
+class CompanyBusinessUnitResourceResourceReaderTest extends Unit
 {
     /**
      * @var \FondOfOryx\Zed\ReturnLabel\Persistence\ReturnLabelRepositoryInterface|\PHPUnit\Framework\MockObject\MockObject
@@ -15,17 +15,17 @@ class CompanyUnitAddressReaderTest extends Unit
     protected $repositoryMock;
 
     /**
+     * @var \Generated\Shared\Transfer\CompanyBusinessUnitTransfer|\PHPUnit\Framework\MockObject\MockObject
+     */
+    protected $companyBusinessUnitTransferMock;
+
+    /**
      * @var \Generated\Shared\Transfer\ReturnLabelRequestTransfer|\PHPUnit\Framework\MockObject\MockObject
      */
     protected $returnLabelRequestTransferMock;
 
     /**
-     * @var \Generated\Shared\Transfer\CompanyUnitAddressTransfer|\PHPUnit\Framework\MockObject\MockObject
-     */
-    protected $companyUnitAddressTransferMock;
-
-    /**
-     * @var \FondOfOryx\Zed\ReturnLabel\Business\Model\CompanyUnitAddressResourceReaderInterface
+     * @var \FondOfOryx\Zed\ReturnLabel\Business\Model\CompanyBusinessUnitResourceReaderInterface
      */
     protected $reader;
 
@@ -34,13 +34,11 @@ class CompanyUnitAddressReaderTest extends Unit
      */
     protected function _before(): void
     {
-        parent::_before();
-
         $this->repositoryMock = $this->getMockBuilder(ReturnLabelRepository::class)
             ->disableOriginalConstructor()
             ->getMock();
 
-        $this->companyUnitAddressTransferMock = $this->getMockBuilder(CompanyUnitAddressTransfer::class)
+        $this->companyBusinessUnitTransferMock = $this->getMockBuilder(CompanyBusinessUnitTransfer::class)
             ->disableOriginalConstructor()
             ->getMock();
 
@@ -48,7 +46,7 @@ class CompanyUnitAddressReaderTest extends Unit
             ->disableOriginalConstructor()
             ->getMock();
 
-        $this->reader = new CompanyUnitAddressResourceReader($this->repositoryMock);
+        $this->reader = new CompanyBusinessUnitResourceResourceReader($this->repositoryMock);
     }
 
     /**
@@ -57,12 +55,12 @@ class CompanyUnitAddressReaderTest extends Unit
     public function testGetByReturnLabelRequest(): void
     {
         $this->repositoryMock->expects(static::atLeastOnce())
-            ->method('getCompanyUnitAddressByReturnLabelRequest')
+            ->method('getCompanyBusinessUnitByReturnLabelRequest')
             ->with($this->returnLabelRequestTransferMock)
-            ->willReturn($this->companyUnitAddressTransferMock);
+            ->willReturn($this->companyBusinessUnitTransferMock);
 
-        static::assertEquals(
-            $this->companyUnitAddressTransferMock,
+        static::assertInstanceOf(
+            CompanyBusinessUnitTransfer::class,
             $this->reader->getByReturnLabelRequest($this->returnLabelRequestTransferMock)
         );
     }

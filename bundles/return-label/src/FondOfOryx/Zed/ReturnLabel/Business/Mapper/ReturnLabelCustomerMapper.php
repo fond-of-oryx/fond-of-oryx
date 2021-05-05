@@ -2,11 +2,11 @@
 
 namespace FondOfOryx\Zed\ReturnLabel\Business\Mapper;
 
+use FondOfOryx\Zed\ReturnLabel\ReturnLabelConfig;
 use Generated\Shared\Transfer\CompanyBusinessUnitTransfer;
 use Generated\Shared\Transfer\CompanyUnitAddressTransfer;
 use Generated\Shared\Transfer\ReturnLabelAddressTransfer;
 use Generated\Shared\Transfer\ReturnLabelCustomerTransfer;
-use FondOfOryx\Zed\ReturnLabel\ReturnLabelConfig;
 
 class ReturnLabelCustomerMapper implements ReturnLabelCustomerMapperInterface
 {
@@ -27,8 +27,7 @@ class ReturnLabelCustomerMapper implements ReturnLabelCustomerMapperInterface
     public function __construct(
         ReturnLabelAddressMapperInterface $returnLabelAddressMapper,
         ReturnLabelConfig $config
-    )
-    {
+    ) {
         $this->returnLabelAddressMapper = $returnLabelAddressMapper;
         $this->config = $config;
     }
