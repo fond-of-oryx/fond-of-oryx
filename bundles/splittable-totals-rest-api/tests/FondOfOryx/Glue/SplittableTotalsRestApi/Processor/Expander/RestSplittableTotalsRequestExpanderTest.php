@@ -84,7 +84,7 @@ class RestSplittableTotalsRequestExpanderTest extends Unit
      */
     public function testExpand(): void
     {
-        $idCustomer = 1;
+        $customerReference = 'FOO-1';
         $paymentProviderMethodToStateMachineMapping = [
             'FooPayment' => [
                 'Credit Card' => 'fooPaymentCreditCard',
@@ -97,12 +97,12 @@ class RestSplittableTotalsRequestExpanderTest extends Unit
             ->willReturn($this->restUserTransferMock);
 
         $this->restUserTransferMock->expects(static::atLeastOnce())
-            ->method('getSurrogateIdentifier')
-            ->willReturn($idCustomer);
+            ->method('getNaturalIdentifier')
+            ->willReturn($customerReference);
 
         $this->restSplittableTotalsRequestTransferMock->expects(static::atLeastOnce())
-            ->method('setIdCustomer')
-            ->with($idCustomer)
+            ->method('setCustomerReference')
+            ->with($customerReference)
             ->willReturn($this->restSplittableTotalsRequestTransferMock);
 
         $this->configMock->expects(static::atLeastOnce())
