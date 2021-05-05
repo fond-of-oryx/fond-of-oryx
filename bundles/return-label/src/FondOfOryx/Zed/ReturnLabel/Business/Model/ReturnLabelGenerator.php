@@ -5,6 +5,8 @@ namespace FondOfOryx\Zed\ReturnLabel\Business\Model;
 use FondOfOryx\Zed\ReturnLabel\Business\Api\Adapter\ReturnLabelAdapterInterface;
 use FondOfOryx\Zed\ReturnLabel\Business\Mapper\ReturnLabelCustomerMapperInterface;
 use FondOfOryx\Zed\ReturnLabel\ReturnLabelConfig;
+use Generated\Shared\Transfer\CompanyBusinessUnitTransfer;
+use Generated\Shared\Transfer\CompanyUnitAddressTransfer;
 use Generated\Shared\Transfer\ReturnLabelCustomerTransfer;
 use Generated\Shared\Transfer\ReturnLabelRequestTransfer;
 use Generated\Shared\Transfer\ReturnLabelResponseTransfer;
@@ -76,7 +78,9 @@ class ReturnLabelGenerator implements ReturnLabelGeneratorInterface
             $returnLabelRequestTransfer
         );
 
-        if ($companyUnitAddressTransfer === null || $companyBusinessUnitTransfer === null) {
+        if (!$companyUnitAddressTransfer instanceof CompanyUnitAddressTransfer ||
+            !$companyBusinessUnitTransfer instanceof CompanyBusinessUnitTransfer
+        ) {
             return $returnLabelResponseTransfer;
         }
 
