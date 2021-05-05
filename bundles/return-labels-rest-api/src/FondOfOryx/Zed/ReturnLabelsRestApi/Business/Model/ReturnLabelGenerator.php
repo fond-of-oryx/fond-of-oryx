@@ -137,7 +137,7 @@ class ReturnLabelGenerator implements ReturnLabelGeneratorInterface
         return (new RestReturnLabelResponseTransfer())
             ->setIsSuccessful(false)
             ->addError((new MessageTransfer())
-                ->setType($httpType)
+                ->setType((string)$httpType)
                 ->setValue($value)
                 ->setMessage(vsprintf($message, $list)));
     }

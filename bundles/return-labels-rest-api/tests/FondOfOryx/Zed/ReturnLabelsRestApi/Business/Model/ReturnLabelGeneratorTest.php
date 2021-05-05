@@ -13,7 +13,7 @@ use Generated\Shared\Transfer\RestReturnLabelResponseTransfer;
 class ReturnLabelGeneratorTest extends Unit
 {
     /**
-     * @var \FondOfOryx\Zed\ReturnLabel\Business\Model\CompanyUnitAddressReaderInterface|\PHPUnit\Framework\MockObject\MockObject
+     * @var \FondOfOryx\Zed\ReturnLabel\Business\Model\CompanyUnitAddressResourceReaderInterface|\PHPUnit\Framework\MockObject\MockObject
      */
     protected $companyUnitAddressReaderMock;
 

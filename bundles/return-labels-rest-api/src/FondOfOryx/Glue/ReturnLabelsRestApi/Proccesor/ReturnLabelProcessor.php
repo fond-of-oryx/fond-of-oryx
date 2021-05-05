@@ -52,7 +52,7 @@ class ReturnLabelProcessor implements ReturnLabelProcessorInterface
         if (!$restReturnLabelResponseTransfer->getIsSuccessful()) {
             foreach ($restReturnLabelResponseTransfer->getErrors() as $error) {
                 $error = (new RestErrorMessageTransfer())
-                    ->setStatus($error->getType())
+                    ->setStatus((int)$error->getType())
                     ->setCode($error->getValue())
                     ->setDetail($error->getMessage());
 

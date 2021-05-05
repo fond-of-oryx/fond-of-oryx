@@ -23,7 +23,7 @@ class ReturnLabelsRestApiResourceController extends AbstractController
      *          }],
      *          "responses": {
      *              "404": "Address for customer not found.",
-     *.             "422": "Could not process requested country"
+     *              "422": "Could not process requested country"
      *          }
      *     }
      * })
