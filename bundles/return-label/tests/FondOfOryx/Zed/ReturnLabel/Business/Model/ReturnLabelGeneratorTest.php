@@ -4,17 +4,13 @@ namespace FondOfOryx\Zed\ReturnLabel\Business\Model;
 
 use Codeception\Test\Unit;
 use FondOfOryx\Zed\ReturnLabel\Business\Api\Adapter\ReturnLabelAdapter;
-use FondOfOryx\Zed\ReturnLabel\Business\Mapper\ReturnLabelAddressMapper;
 use FondOfOryx\Zed\ReturnLabel\Business\Mapper\ReturnLabelCustomerMapper;
-use FondOfOryx\Zed\ReturnLabel\Business\Mapper\ReturnLabelCustomerMapperInterface;
 use FondOfOryx\Zed\ReturnLabel\ReturnLabelConfig;
 use Generated\Shared\Transfer\CompanyBusinessUnitTransfer;
-use Generated\Shared\Transfer\CompanyTransfer;
 use Generated\Shared\Transfer\CompanyUnitAddressTransfer;
 use Generated\Shared\Transfer\ReturnLabelCustomerTransfer;
 use Generated\Shared\Transfer\ReturnLabelRequestTransfer;
 use Generated\Shared\Transfer\ReturnLabelResponseTransfer;
-use Psr\Http\Message\StreamInterface;
 use GuzzleHttp\Psr7\Stream;
 
 class ReturnLabelGeneratorTest extends Unit
@@ -60,7 +56,7 @@ class ReturnLabelGeneratorTest extends Unit
     protected $companyUnitAddressTransferMock;
 
     /**
-     * @var ReturnLabelCustomerTransfer|\PHPUnit\Framework\MockObject\MockObject
+     * @var \Generated\Shared\Transfer\ReturnLabelCustomerTransfer|\PHPUnit\Framework\MockObject\MockObject
      */
     protected $returnLabelCustomerTransferMock;
 
@@ -73,7 +69,6 @@ class ReturnLabelGeneratorTest extends Unit
      * @var \FondOfOryx\Zed\ReturnLabel\Business\Model\ReturnLabelGeneratorInterface
      */
     protected $generator;
-
 
     /**
      * @return void

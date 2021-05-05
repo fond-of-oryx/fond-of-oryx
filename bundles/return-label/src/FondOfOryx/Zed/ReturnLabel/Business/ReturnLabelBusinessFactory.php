@@ -6,6 +6,7 @@ use FondOfOryx\Zed\ReturnLabel\Business\Api\Adapter\ReturnLabelAdapter;
 use FondOfOryx\Zed\ReturnLabel\Business\Api\Adapter\ReturnLabelAdapterInterface;
 use FondOfOryx\Zed\ReturnLabel\Business\Mapper\ReturnLabelAddressMapper;
 use FondOfOryx\Zed\ReturnLabel\Business\Mapper\ReturnLabelAddressMapperInterface;
+use FondOfOryx\Zed\ReturnLabel\Business\Mapper\ReturnLabelCustomerMapper;
 use FondOfOryx\Zed\ReturnLabel\Business\Mapper\ReturnLabelCustomerMapperInterface;
 use FondOfOryx\Zed\ReturnLabel\Business\Model\CompanyBusinessUnitReader;
 use FondOfOryx\Zed\ReturnLabel\Business\Model\CompanyBusinessUnitReaderInterface;
@@ -18,7 +19,6 @@ use FondOfOryx\Zed\ReturnLabel\ReturnLabelDependencyProvider;
 use GuzzleHttp\Client as HttpClient;
 use GuzzleHttp\ClientInterface as HttpClientInterface;
 use Spryker\Zed\Kernel\Business\AbstractBusinessFactory;
-use FondOfOryx\Zed\ReturnLabel\Business\Mapper\ReturnLabelCustomerMapper;
 
 /**
  * @method \FondOfOryx\Zed\ReturnLabel\ReturnLabelConfig getConfig()
@@ -77,7 +77,7 @@ class ReturnLabelBusinessFactory extends AbstractBusinessFactory
     }
 
     /**
-     * @return ReturnLabelCustomerMapperInterface
+     * @return \FondOfOryx\Zed\ReturnLabel\Business\Mapper\ReturnLabelCustomerMapperInterface
      */
     public function createReturnLabelCustomerMapper(): ReturnLabelCustomerMapperInterface
     {

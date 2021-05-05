@@ -3,14 +3,12 @@
 namespace FondOfOryx\Zed\ReturnLabel\Business\Model;
 
 use FondOfOryx\Zed\ReturnLabel\Business\Api\Adapter\ReturnLabelAdapterInterface;
-use FondOfOryx\Zed\ReturnLabel\Business\Mapper\ReturnLabelAddressMapperInterface;
+use FondOfOryx\Zed\ReturnLabel\Business\Mapper\ReturnLabelCustomerMapperInterface;
 use FondOfOryx\Zed\ReturnLabel\ReturnLabelConfig;
-use Generated\Shared\Transfer\ReturnLabelAddressTransfer;
 use Generated\Shared\Transfer\ReturnLabelCustomerTransfer;
 use Generated\Shared\Transfer\ReturnLabelRequestTransfer;
 use Generated\Shared\Transfer\ReturnLabelResponseTransfer;
 use Generated\Shared\Transfer\ReturnLabelServiceRequestTransfer;
-use FondOfOryx\Zed\ReturnLabel\Business\Mapper\ReturnLabelCustomerMapperInterface;
 
 class ReturnLabelGenerator implements ReturnLabelGeneratorInterface
 {
@@ -83,11 +81,13 @@ class ReturnLabelGenerator implements ReturnLabelGeneratorInterface
         }
 
         $returnLabelCustomerTransfer = $this->returnLabelCustomerMapper->mapCompanyBusinessUnitToReturnLabelCustomer(
-            $companyBusinessUnitTransfer, new ReturnLabelCustomerTransfer()
+            $companyBusinessUnitTransfer,
+            new ReturnLabelCustomerTransfer()
         );
 
         $returnLabelCustomerTransfer = $this->returnLabelCustomerMapper->mapCompanyUnitAddressToReturnLabelCustomer(
-            $companyUnitAddressTransfer, $returnLabelCustomerTransfer
+            $companyUnitAddressTransfer,
+            $returnLabelCustomerTransfer
         );
 
         $returnLabelServiceRequestTransfer = (new ReturnLabelServiceRequestTransfer())

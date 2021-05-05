@@ -1,8 +1,6 @@
 <?php
 
-
 namespace FondOfOryx\Zed\ReturnLabel\Business\Mapper;
-
 
 use Codeception\Test\Unit;
 use Generated\Shared\Transfer\CompanyBusinessUnitTransfer;
@@ -19,7 +17,7 @@ class ReturnLabelCustomerMapperTest extends Unit
     protected $returnLabelAddressMapperMock;
 
     /**
-     * @var CompanyBusinessUnitTransfer|\PHPUnit\Framework\MockObject\MockObject
+     * @var \Generated\Shared\Transfer\CompanyBusinessUnitTransfer|\PHPUnit\Framework\MockObject\MockObject
      */
     protected $companyBusinessUnitTransferMock;
 
@@ -29,17 +27,17 @@ class ReturnLabelCustomerMapperTest extends Unit
     protected $companyUnitAddressTransferMock;
 
     /**
-     * @var ReturnLabelCustomerTransfer|\PHPUnit\Framework\MockObject\MockObject
+     * @var \Generated\Shared\Transfer\ReturnLabelCustomerTransfer|\PHPUnit\Framework\MockObject\MockObject
      */
     protected $returnLabelCustomerTransferMock;
 
     /**
-     * @var CompanyTransfer|\PHPUnit\Framework\MockObject\MockObject
+     * @var \Generated\Shared\Transfer\CompanyTransfer|\PHPUnit\Framework\MockObject\MockObject
      */
     protected $companyTransferMock;
 
     /**
-     * @var ReturnLabelAddressTransfer|\PHPUnit\Framework\MockObject\MockObject
+     * @var \Generated\Shared\Transfer\ReturnLabelAddressTransfer|\PHPUnit\Framework\MockObject\MockObject
      */
     protected $returnLabelAddressTransferMock;
 

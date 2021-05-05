@@ -1,8 +1,6 @@
 <?php
 
-
 namespace FondOfOryx\Zed\ReturnLabel\Business\Mapper;
-
 
 use Generated\Shared\Transfer\CompanyBusinessUnitTransfer;
 use Generated\Shared\Transfer\CompanyUnitAddressTransfer;
@@ -12,12 +10,12 @@ use Generated\Shared\Transfer\ReturnLabelCustomerTransfer;
 class ReturnLabelCustomerMapper implements ReturnLabelCustomerMapperInterface
 {
     /**
-     * @var ReturnLabelAddressMapperInterface
+     * @var \FondOfOryx\Zed\ReturnLabel\Business\Mapper\ReturnLabelAddressMapperInterface
      */
     protected $returnLabelAddressMapper;
 
     /**
-     * @param ReturnLabelAddressMapperInterface $returnLabelAddressMapper
+     * @param \FondOfOryx\Zed\ReturnLabel\Business\Mapper\ReturnLabelAddressMapperInterface $returnLabelAddressMapper
      */
     public function __construct(ReturnLabelAddressMapperInterface $returnLabelAddressMapper)
     {
@@ -25,10 +23,10 @@ class ReturnLabelCustomerMapper implements ReturnLabelCustomerMapperInterface
     }
 
     /**
-     * @param CompanyBusinessUnitTransfer $companyBusinessUnitTransfer
-     * @param ReturnLabelCustomerTransfer $returnLabelCustomerTransfer
+     * @param \Generated\Shared\Transfer\CompanyBusinessUnitTransfer $companyBusinessUnitTransfer
+     * @param \Generated\Shared\Transfer\ReturnLabelCustomerTransfer $returnLabelCustomerTransfer
      *
-     * @return ReturnLabelCustomerTransfer
+     * @return \Generated\Shared\Transfer\ReturnLabelCustomerTransfer
      */
     public function mapCompanyBusinessUnitToReturnLabelCustomer(
         CompanyBusinessUnitTransfer $companyBusinessUnitTransfer,
@@ -42,21 +40,19 @@ class ReturnLabelCustomerMapper implements ReturnLabelCustomerMapperInterface
     }
 
     /**
-     * @param CompanyUnitAddressTransfer $companyUnitAddressTransfer
-     * @param ReturnLabelCustomerTransfer $returnLabelCustomerTransfer
+     * @param \Generated\Shared\Transfer\CompanyUnitAddressTransfer $companyUnitAddressTransfer
+     * @param \Generated\Shared\Transfer\ReturnLabelCustomerTransfer $returnLabelCustomerTransfer
      *
-     * @return ReturnLabelCustomerTransfer
+     * @return \Generated\Shared\Transfer\ReturnLabelCustomerTransfer
      */
     public function mapCompanyUnitAddressToReturnLabelCustomer(
         CompanyUnitAddressTransfer $companyUnitAddressTransfer,
         ReturnLabelCustomerTransfer $returnLabelCustomerTransfer
-    ): ReturnLabelCustomerTransfer
-    {
+    ): ReturnLabelCustomerTransfer {
         return $returnLabelCustomerTransfer->setAddress($this->returnLabelAddressMapper
             ->mapCompanyUnitAddressToReturnLabelAddress(
                 $companyUnitAddressTransfer,
                 new ReturnLabelAddressTransfer()
-            )
-        );
+            ));
     }
 }
