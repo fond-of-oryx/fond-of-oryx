@@ -54,7 +54,7 @@ class ReturnLabelConfig extends AbstractBundleConfig
      */
     public function getReceiverId(): string
     {
-        return $this->getReceiverId(ReturnLabelConstants::API_RECEIVER_ID, 'deu');
+        return $this->get(ReturnLabelConstants::API_RECEIVER_ID, 'deu');
     }
 
     /**
