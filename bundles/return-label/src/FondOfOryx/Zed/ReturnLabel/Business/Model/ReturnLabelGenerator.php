@@ -78,7 +78,8 @@ class ReturnLabelGenerator implements ReturnLabelGeneratorInterface
             $returnLabelRequestTransfer
         );
 
-        if (!$companyUnitAddressTransfer instanceof CompanyUnitAddressTransfer ||
+        if (
+            !$companyUnitAddressTransfer instanceof CompanyUnitAddressTransfer ||
             !$companyBusinessUnitTransfer instanceof CompanyBusinessUnitTransfer
         ) {
             return $returnLabelResponseTransfer;
