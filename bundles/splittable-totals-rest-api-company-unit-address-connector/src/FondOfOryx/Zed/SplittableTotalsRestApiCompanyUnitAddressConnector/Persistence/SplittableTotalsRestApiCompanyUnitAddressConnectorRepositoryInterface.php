@@ -5,10 +5,10 @@ namespace FondOfOryx\Zed\SplittableTotalsRestApiCompanyUnitAddressConnector\Pers
 interface SplittableTotalsRestApiCompanyUnitAddressConnectorRepositoryInterface
 {
     /**
-     * @param int $idCustomer
+     * @param string $customerReference
      * @param string $idCompanyUnitAddress
      *
      * @return bool
      */
-    public function existsCompanyUnitAddress(int $idCustomer, string $idCompanyUnitAddress): bool;
+    public function existsCompanyUnitAddress(string $customerReference, string $idCompanyUnitAddress): bool;
 }

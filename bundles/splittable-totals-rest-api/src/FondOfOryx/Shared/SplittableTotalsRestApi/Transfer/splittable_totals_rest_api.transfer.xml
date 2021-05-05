@@ -12,7 +12,7 @@
     </transfer>
 
     <transfer name="RestSplittableTotalsRequest">
-        <property name="idCustomer" type="int"/>
+        <property name="customerReference" type="string"/>
         <property name="idCart" type="string"/>
         <property name="billingAddress" type="RestAddress"/>
         <property name="shippingAddress" type="RestAddress"/>
