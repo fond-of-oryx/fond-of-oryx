@@ -12,7 +12,7 @@ use Generated\Shared\Transfer\ReturnLabelCustomerTransfer;
 class ReturnLabelCustomerMapperTest extends Unit
 {
     /**
-     * @var ReturnLabelAddressMapperInterface|\PHPUnit\Framework\MockObject\MockObject
+     * @var \FondOfOryx\Zed\ReturnLabel\Business\Mapper\ReturnLabelAddressMapperInterface|\PHPUnit\Framework\MockObject\MockObject
      */
     protected $returnLabelAddressMapperMock;
 
@@ -22,7 +22,7 @@ class ReturnLabelCustomerMapperTest extends Unit
     protected $companyBusinessUnitTransferMock;
 
     /**
-     * @var CompanyUnitAddressTransferr|\PHPUnit\Framework\MockObject\MockObject
+     * @var \Generated\Shared\Transfer\CompanyUnitAddressTransfer|\PHPUnit\Framework\MockObject\MockObject
      */
     protected $companyUnitAddressTransferMock;
 
@@ -42,7 +42,7 @@ class ReturnLabelCustomerMapperTest extends Unit
     protected $returnLabelAddressTransferMock;
 
     /**
-     * @var ReturnLabelCustomerMapperInterface
+     * @var \FondOfOryx\Zed\ReturnLabel\Business\Mapper\ReturnLabelCustomerMapperInterface
      */
     protected $mapper;
 
