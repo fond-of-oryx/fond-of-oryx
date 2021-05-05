@@ -12,12 +12,8 @@ use Spryker\Shared\Kernel\Transfer\AbstractTransfer;
 
 class ReturnLabelAdapter implements ReturnLabelAdapterInterface
 {
+    protected const POST = 'post';
     protected const RESOURCE_PATH = 'standard/return-labels';
-
-    protected const DEFAULT_HEADERS = [
-        'Accept' => 'application/json',
-        'Content-Type' => 'application/json',
-    ];
 
     /**
      * @var \GuzzleHttp\ClientInterface
@@ -70,8 +66,8 @@ class ReturnLabelAdapter implements ReturnLabelAdapterInterface
     protected function createOptions(AbstractTransfer $transfer): array
     {
         $options = [
-            RequestOptions::HEADERS => static::DEFAULT_HEADERS,
-            RequestOptions::TIMEOUT => 4,
+            RequestOptions::HEADERS => $this->config->getApiRequestHeader(),
+            RequestOptions::TIMEOUT => $this->config->getApiRequestTimeout(),
             RequestOptions::BODY => $this->utilEncodingService->encodeJson(
                 $transfer->toArray(true, true)
             ),
@@ -95,7 +91,7 @@ class ReturnLabelAdapter implements ReturnLabelAdapterInterface
     {
         $uri = $this->getUri();
 
-        return $this->httpClient->request('POST', $uri, $options);
+        return $this->httpClient->request(static::POST, $uri, $options);
     }
 
     /**

@@ -6,6 +6,7 @@ use Generated\Shared\Transfer\CompanyBusinessUnitTransfer;
 use Generated\Shared\Transfer\CompanyUnitAddressTransfer;
 use Generated\Shared\Transfer\ReturnLabelAddressTransfer;
 use Generated\Shared\Transfer\ReturnLabelCustomerTransfer;
+use FondOfOryx\Zed\ReturnLabel\ReturnLabelConfig;
 
 class ReturnLabelCustomerMapper implements ReturnLabelCustomerMapperInterface
 {
@@ -15,11 +16,21 @@ class ReturnLabelCustomerMapper implements ReturnLabelCustomerMapperInterface
     protected $returnLabelAddressMapper;
 
     /**
-     * @param \FondOfOryx\Zed\ReturnLabel\Business\Mapper\ReturnLabelAddressMapperInterface $returnLabelAddressMapper
+     * @var \FondOfOryx\Zed\ReturnLabel\ReturnLabelConfig
      */
-    public function __construct(ReturnLabelAddressMapperInterface $returnLabelAddressMapper)
+    protected $config;
+
+    /**
+     * @param \FondOfOryx\Zed\ReturnLabel\Business\Mapper\ReturnLabelAddressMapperInterface $returnLabelAddressMapper
+     * @param \FondOfOryx\Zed\ReturnLabel\ReturnLabelConfig $config
+     */
+    public function __construct(
+        ReturnLabelAddressMapperInterface $returnLabelAddressMapper,
+        ReturnLabelConfig $config
+    )
     {
         $this->returnLabelAddressMapper = $returnLabelAddressMapper;
+        $this->config = $config;
     }
 
     /**
@@ -33,7 +44,7 @@ class ReturnLabelCustomerMapper implements ReturnLabelCustomerMapperInterface
         ReturnLabelCustomerTransfer $returnLabelCustomerTransfer
     ): ReturnLabelCustomerTransfer {
         return $returnLabelCustomerTransfer
-            ->setReceiverId('deu')
+            ->setReceiverId($this->config->getReceiverId())
             ->setCustomerReference($companyBusinessUnitTransfer->getCompany()->getDebtorNumber())
             ->setEmail($companyBusinessUnitTransfer->getEmail())
             ->setPhone($companyBusinessUnitTransfer->getPhone());

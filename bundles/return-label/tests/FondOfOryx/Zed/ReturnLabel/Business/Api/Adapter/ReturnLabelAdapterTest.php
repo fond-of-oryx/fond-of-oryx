@@ -100,6 +100,17 @@ class ReturnLabelAdapterTest extends Unit
             ->method('getApiBaseUri')
             ->willReturn('api-base-uri');
 
+        $this->returnLabelConfigMock->expects(static::atLeastOnce())
+            ->method('getApiRequestHeader')
+            ->willReturn([
+                'Accept' => 'application/json',
+                'Content-Type' => 'application/json',
+            ]);
+
+        $this->returnLabelConfigMock->expects(static::atLeastOnce())
+            ->method('getApiRequestTimeout')
+            ->willReturn(4);
+
         $this->httpClientMock->expects(static::atLeastOnce())
             ->method('request')
             ->willReturn($this->responseMock);

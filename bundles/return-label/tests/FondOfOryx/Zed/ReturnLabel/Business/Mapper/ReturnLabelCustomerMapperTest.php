@@ -3,6 +3,7 @@
 namespace FondOfOryx\Zed\ReturnLabel\Business\Mapper;
 
 use Codeception\Test\Unit;
+use FondOfOryx\Zed\ReturnLabel\ReturnLabelConfig;
 use Generated\Shared\Transfer\CompanyBusinessUnitTransfer;
 use Generated\Shared\Transfer\CompanyTransfer;
 use Generated\Shared\Transfer\CompanyUnitAddressTransfer;
@@ -42,6 +43,11 @@ class ReturnLabelCustomerMapperTest extends Unit
     protected $returnLabelAddressTransferMock;
 
     /**
+     * @var \FondOfOryx\Zed\ReturnLabel\ReturnLabelConfig|\PHPUnit\Framework\MockObject\MockObject
+     */
+    protected $configMock;
+
+    /**
      * @var \FondOfOryx\Zed\ReturnLabel\Business\Mapper\ReturnLabelCustomerMapperInterface
      */
     protected $mapper;
@@ -77,7 +83,14 @@ class ReturnLabelCustomerMapperTest extends Unit
             ->disableOriginalConstructor()
             ->getMock();
 
-        $this->mapper = new ReturnLabelCustomerMapper($this->returnLabelAddressMapperMock);
+        $this->configMock = $this->getMockBuilder(ReturnLabelConfig::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $this->mapper = new ReturnLabelCustomerMapper(
+            $this->returnLabelAddressMapperMock,
+            $this->configMock
+        );
     }
 
     /**
@@ -104,6 +117,10 @@ class ReturnLabelCustomerMapperTest extends Unit
         $this->returnLabelCustomerTransferMock->expects(static::atLeastOnce())
             ->method('setPhone')
             ->willReturnSelf();
+
+        $this->configMock->expects(static::atLeastOnce())
+            ->method('getReceiverId')
+            ->willReturn('receiverId');
 
         static::assertInstanceOf(
             ReturnLabelCustomerTransfer::class,

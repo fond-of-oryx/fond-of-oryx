@@ -81,7 +81,10 @@ class ReturnLabelBusinessFactory extends AbstractBusinessFactory
      */
     public function createReturnLabelCustomerMapper(): ReturnLabelCustomerMapperInterface
     {
-        return new ReturnLabelCustomerMapper($this->createReturnLabelAddressMapper());
+        return new ReturnLabelCustomerMapper(
+            $this->createReturnLabelAddressMapper(),
+            $this->getConfig()
+        );
     }
 
     /**

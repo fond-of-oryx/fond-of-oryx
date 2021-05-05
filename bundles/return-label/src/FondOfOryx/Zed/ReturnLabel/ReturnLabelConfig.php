@@ -50,6 +50,14 @@ class ReturnLabelConfig extends AbstractBundleConfig
     }
 
     /**
+     * @return string
+     */
+    public function getReceiverId(): string
+    {
+        return $this->getReceiverId(ReturnLabelConstants::API_RECEIVER_ID, 'deu');
+    }
+
+    /**
      * @return bool
      */
     public function appendReturnForm(): bool
@@ -63,5 +71,24 @@ class ReturnLabelConfig extends AbstractBundleConfig
     public function printQrCodeOnReturnForm(): bool
     {
         return $this->get(ReturnLabelConstants::PRINT_QR_CODE_ON_RETURN_FORM, true);
+    }
+
+    /**
+     * @return int
+     */
+    public function getApiRequestTimeout(): int
+    {
+        return $this->get(ReturnLabelConstants::API_REQUEST_TIMEOUT, 4);
+    }
+
+    /**
+     * @return array
+     */
+    public function getApiRequestHeader(): array
+    {
+        return $this->get(ReturnLabelConstants::API_REQUEST_HEADER, [
+            'Accept' => 'application/json',
+            'Content-Type' => 'application/json',
+        ]);
     }
 }
