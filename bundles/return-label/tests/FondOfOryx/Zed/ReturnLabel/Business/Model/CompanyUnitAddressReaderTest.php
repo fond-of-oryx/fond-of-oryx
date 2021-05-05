@@ -25,7 +25,7 @@ class CompanyUnitAddressReaderTest extends Unit
     protected $companyUnitAddressTransferMock;
 
     /**
-     * @var \FondOfOryx\Zed\ReturnLabel\Business\Model\CompanyUnitAddressReaderInterface
+     * @var \FondOfOryx\Zed\ReturnLabel\Business\Model\CompanyUnitAddressResourceReaderInterface
      */
     protected $reader;
 
@@ -48,7 +48,7 @@ class CompanyUnitAddressReaderTest extends Unit
             ->disableOriginalConstructor()
             ->getMock();
 
-        $this->reader = new CompanyUnitAddressReader($this->repositoryMock);
+        $this->reader = new CompanyUnitAddressResourceReader($this->repositoryMock);
     }
 
     /**
