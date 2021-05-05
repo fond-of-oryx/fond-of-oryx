@@ -40,9 +40,9 @@ class QuoteReader implements QuoteReaderInterface
         RestSplittableTotalsRequestTransfer $restSplittableTotalsRequestTransfer
     ): ?QuoteTransfer {
         $uuid = $restSplittableTotalsRequestTransfer->getIdCart();
-        $idCustomer = $restSplittableTotalsRequestTransfer->getIdCustomer();
+        $customerReference = $restSplittableTotalsRequestTransfer->getCustomerReference();
 
-        if ($uuid === null || $idCustomer === null) {
+        if ($uuid === null || $customerReference === null) {
             return null;
         }
 
@@ -53,7 +53,7 @@ class QuoteReader implements QuoteReaderInterface
             return null;
         }
 
-        if ($quoteTransfer->getCustomer() === null || $quoteTransfer->getCustomer()->getIdCustomer() !== $idCustomer) {
+        if ($quoteTransfer->getCustomerReference() !== $customerReference) {
             return null;
         }
 

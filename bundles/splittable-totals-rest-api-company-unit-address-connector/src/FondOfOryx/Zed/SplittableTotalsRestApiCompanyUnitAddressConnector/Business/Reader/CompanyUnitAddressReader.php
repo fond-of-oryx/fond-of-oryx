@@ -49,14 +49,14 @@ class CompanyUnitAddressReader implements CompanyUnitAddressReaderInterface
     public function getBillingAddressByRestSplittableTotalsRequestTransfer(
         RestSplittableTotalsRequestTransfer $restSplittableTotalsRequestTransfer
     ): ?AddressTransfer {
-        $idCustomer = $restSplittableTotalsRequestTransfer->getIdCustomer();
+        $customerReference = $restSplittableTotalsRequestTransfer->getCustomerReference();
         $restAddressTransfer = $restSplittableTotalsRequestTransfer->getBillingAddress();
 
-        if ($idCustomer === null || $restAddressTransfer === null || $restAddressTransfer->getId() === null) {
+        if ($customerReference === null || $restAddressTransfer === null || $restAddressTransfer->getId() === null) {
             return null;
         }
 
-        return $this->getAddressTransfer($restAddressTransfer->getId(), $idCustomer);
+        return $this->getAddressTransfer($restAddressTransfer->getId(), $customerReference);
     }
 
     /**
@@ -67,25 +67,25 @@ class CompanyUnitAddressReader implements CompanyUnitAddressReaderInterface
     public function getShippingAddressByRestSplittableTotalsRequestTransfer(
         RestSplittableTotalsRequestTransfer $restSplittableTotalsRequestTransfer
     ): ?AddressTransfer {
-        $idCustomer = $restSplittableTotalsRequestTransfer->getIdCustomer();
+        $customerReference = $restSplittableTotalsRequestTransfer->getCustomerReference();
         $restAddressTransfer = $restSplittableTotalsRequestTransfer->getShippingAddress();
 
-        if ($idCustomer === null || $restAddressTransfer === null || $restAddressTransfer->getId() === null) {
+        if ($customerReference === null || $restAddressTransfer === null || $restAddressTransfer->getId() === null) {
             return null;
         }
 
-        return $this->getAddressTransfer($restAddressTransfer->getId(), $idCustomer);
+        return $this->getAddressTransfer($restAddressTransfer->getId(), $customerReference);
     }
 
     /**
      * @param string $idCompanyUnitAddress
-     * @param int $idCustomer
+     * @param string $customerReference
      *
      * @return \Generated\Shared\Transfer\AddressTransfer|null
      */
-    protected function getAddressTransfer(string $idCompanyUnitAddress, int $idCustomer): ?AddressTransfer
+    protected function getAddressTransfer(string $idCompanyUnitAddress, string $customerReference): ?AddressTransfer
     {
-        if (!$this->repository->existsCompanyUnitAddress($idCustomer, $idCompanyUnitAddress)) {
+        if (!$this->repository->existsCompanyUnitAddress($customerReference, $idCompanyUnitAddress)) {
             return null;
         }
 

@@ -110,12 +110,12 @@ class CompanyUnitAddressReaderTest extends Unit
      */
     public function testGetBillingAddressByRestSplittableTotalsRequestTransfer(): void
     {
-        $idCustomer = 1;
+        $customerReference = 'FOO-1';
         $idCompanyUnitAddress = 'd73ec41e-2fc6-4b90-9632-823de9ba18c5';
 
         $this->restSplittableTotalsRequestTransferMock->expects(static::atLeastOnce())
-            ->method('getIdCustomer')
-            ->willReturn($idCustomer);
+            ->method('getCustomerReference')
+            ->willReturn($customerReference);
 
         $this->restSplittableTotalsRequestTransferMock->expects(static::atLeastOnce())
             ->method('getBillingAddress')
@@ -127,7 +127,7 @@ class CompanyUnitAddressReaderTest extends Unit
 
         $this->repositoryMock->expects(static::atLeastOnce())
             ->method('existsCompanyUnitAddress')
-            ->with($idCustomer, $idCompanyUnitAddress)
+            ->with($customerReference, $idCompanyUnitAddress)
             ->willReturn(true);
 
         $this->companyUnitAddressFacadeMock->expects(static::atLeastOnce())
@@ -166,11 +166,11 @@ class CompanyUnitAddressReaderTest extends Unit
      */
     public function testGetBillingAddressByRestSplittableTotalsRequestTransferWithoutCustomerId(): void
     {
-        $idCustomer = null;
+        $customerReference = null;
 
         $this->restSplittableTotalsRequestTransferMock->expects(static::atLeastOnce())
-            ->method('getIdCustomer')
-            ->willReturn($idCustomer);
+            ->method('getCustomerReference')
+            ->willReturn($customerReference);
 
         $this->restSplittableTotalsRequestTransferMock->expects(static::atLeastOnce())
             ->method('getBillingAddress')
@@ -201,12 +201,12 @@ class CompanyUnitAddressReaderTest extends Unit
      */
     public function testGetBillingAddressByRestSplittableTotalsRequestTransferWithNonExistingCompanyUnitAddress(): void
     {
-        $idCustomer = 1;
+        $customerReference = 1;
         $idCompanyUnitAddress = 'd73ec41e-2fc6-4b90-9632-823de9ba18c5';
 
         $this->restSplittableTotalsRequestTransferMock->expects(static::atLeastOnce())
-            ->method('getIdCustomer')
-            ->willReturn($idCustomer);
+            ->method('getCustomerReference')
+            ->willReturn($customerReference);
 
         $this->restSplittableTotalsRequestTransferMock->expects(static::atLeastOnce())
             ->method('getBillingAddress')
@@ -218,7 +218,7 @@ class CompanyUnitAddressReaderTest extends Unit
 
         $this->repositoryMock->expects(static::atLeastOnce())
             ->method('existsCompanyUnitAddress')
-            ->with($idCustomer, $idCompanyUnitAddress)
+            ->with($customerReference, $idCompanyUnitAddress)
             ->willReturn(false);
 
         $this->companyUnitAddressFacadeMock->expects(static::never())
@@ -240,12 +240,12 @@ class CompanyUnitAddressReaderTest extends Unit
      */
     public function testGetShippingAddressByRestSplittableTotalsRequestTransfer(): void
     {
-        $idCustomer = 1;
+        $customerReference = 'FOO-1';
         $idCompanyUnitAddress = 'd73ec41e-2fc6-4b90-9632-823de9ba18c5';
 
         $this->restSplittableTotalsRequestTransferMock->expects(static::atLeastOnce())
-            ->method('getIdCustomer')
-            ->willReturn($idCustomer);
+            ->method('getCustomerReference')
+            ->willReturn($customerReference);
 
         $this->restSplittableTotalsRequestTransferMock->expects(static::atLeastOnce())
             ->method('getShippingAddress')
@@ -257,7 +257,7 @@ class CompanyUnitAddressReaderTest extends Unit
 
         $this->repositoryMock->expects(static::atLeastOnce())
             ->method('existsCompanyUnitAddress')
-            ->with($idCustomer, $idCompanyUnitAddress)
+            ->with($customerReference, $idCompanyUnitAddress)
             ->willReturn(true);
 
         $this->companyUnitAddressFacadeMock->expects(static::atLeastOnce())
@@ -296,11 +296,11 @@ class CompanyUnitAddressReaderTest extends Unit
      */
     public function testGetShippingAddressByRestSplittableTotalsRequestTransferWithoutCustomerId(): void
     {
-        $idCustomer = null;
+        $customerReference = null;
 
         $this->restSplittableTotalsRequestTransferMock->expects(static::atLeastOnce())
-            ->method('getIdCustomer')
-            ->willReturn($idCustomer);
+            ->method('getCustomerReference')
+            ->willReturn($customerReference);
 
         $this->restSplittableTotalsRequestTransferMock->expects(static::atLeastOnce())
             ->method('getShippingAddress')

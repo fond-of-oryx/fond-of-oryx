@@ -62,8 +62,8 @@ class RestSplittableTotalsRequestExpander implements RestSplittableTotalsRequest
         /** @var \Generated\Shared\Transfer\RestUserTransfer|\Spryker\Glue\GlueApplication\Rest\Request\Data\UserInterface $restUser */
         $restUser = $restRequest->$getUserMethod();
 
-        return $restSplittableTotalsRequestTransfer->setIdCustomer(
-            $restUser->getSurrogateIdentifier()
+        return $restSplittableTotalsRequestTransfer->setCustomerReference(
+            $restUser->getNaturalIdentifier()
         );
     }
 
