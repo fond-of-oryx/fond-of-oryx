@@ -2,17 +2,17 @@
 
 namespace FondOfOryx\Zed\ReturnLabel\Business\Model;
 
-use Generated\Shared\Transfer\CompanyBusinessUnitTransfer;
+use Generated\Shared\Transfer\CompanyUnitAddressTransfer;
 use Generated\Shared\Transfer\ReturnLabelRequestTransfer;
 
-interface CompanyBusinessUnitReaderInterface
+interface CompanyUnitAddressResourceReaderInterface
 {
     /**
      * @param \Generated\Shared\Transfer\ReturnLabelRequestTransfer $returnLabelRequestTransfer
      *
-     * @return \Generated\Shared\Transfer\CompanyBusinessUnitTransfer
+     * @return \Generated\Shared\Transfer\CompanyUnitAddressTransfer|null
      */
     public function getByReturnLabelRequest(
         ReturnLabelRequestTransfer $returnLabelRequestTransfer
-    ): CompanyBusinessUnitTransfer;
+    ): ?CompanyUnitAddressTransfer;
 }

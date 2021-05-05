@@ -3,10 +3,10 @@
 namespace FondOfOryx\Zed\ReturnLabel\Business\Model;
 
 use FondOfOryx\Zed\ReturnLabel\Persistence\ReturnLabelRepositoryInterface;
-use Generated\Shared\Transfer\CompanyUnitAddressTransfer;
+use Generated\Shared\Transfer\CompanyBusinessUnitTransfer;
 use Generated\Shared\Transfer\ReturnLabelRequestTransfer;
 
-class CompanyUnitAddressReader implements CompanyUnitAddressReaderInterface
+class CompanyBusinessUnitResourceResourceReader implements CompanyBusinessUnitResourceReaderInterface
 {
     /**
      * @var \FondOfOryx\Zed\ReturnLabel\Persistence\ReturnLabelRepositoryInterface
@@ -24,10 +24,13 @@ class CompanyUnitAddressReader implements CompanyUnitAddressReaderInterface
     /**
      * @param \Generated\Shared\Transfer\ReturnLabelRequestTransfer $returnLabelRequestTransfer
      *
-     * @return \Generated\Shared\Transfer\CompanyUnitAddressTransfer|null
+     * @return \Generated\Shared\Transfer\CompanyBusinessUnitTransfer
      */
-    public function getByReturnLabelRequest(ReturnLabelRequestTransfer $returnLabelRequestTransfer): ?CompanyUnitAddressTransfer
-    {
-        return $this->repository->getCompanyUnitAddressByReturnLabelRequest($returnLabelRequestTransfer);
+    public function getByReturnLabelRequest(
+        ReturnLabelRequestTransfer $returnLabelRequestTransfer
+    ): CompanyBusinessUnitTransfer {
+        return $this->repository->getCompanyBusinessUnitByReturnLabelRequest(
+            $returnLabelRequestTransfer
+        );
     }
 }

@@ -5,7 +5,7 @@ namespace FondOfOryx\Zed\ReturnLabel\Business;
 use Codeception\Test\Unit;
 use FondOfOryx\Zed\ReturnLabel\Business\Api\Adapter\ReturnLabelAdapterInterface;
 use FondOfOryx\Zed\ReturnLabel\Business\Mapper\ReturnLabelAddressMapperInterface;
-use FondOfOryx\Zed\ReturnLabel\Business\Model\CompanyUnitAddressReaderInterface;
+use FondOfOryx\Zed\ReturnLabel\Business\Model\CompanyUnitAddressResourceReaderInterface;
 use FondOfOryx\Zed\ReturnLabel\Business\Model\ReturnLabelGeneratorInterface;
 use FondOfOryx\Zed\ReturnLabel\Dependency\Service\ReturnLabelToUtilEncodingServiceBridge;
 use FondOfOryx\Zed\ReturnLabel\Dependency\Service\ReturnLabelToUtilEncodingServiceInterface;
@@ -99,8 +99,8 @@ class ReturnLabelBusinessFactoryTest extends Unit
     public function testCreateCompanyUnitAddressReader(): void
     {
         static::assertInstanceOf(
-            CompanyUnitAddressReaderInterface::class,
-            $this->factory->createCompanyUnitAddressReader()
+            CompanyUnitAddressResourceReaderInterface::class,
+            $this->factory->createCompanyUnitAddressResourceReader()
         );
     }
 

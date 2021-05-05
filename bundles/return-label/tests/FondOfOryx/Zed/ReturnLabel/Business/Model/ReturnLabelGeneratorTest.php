@@ -16,12 +16,12 @@ use GuzzleHttp\Psr7\Stream;
 class ReturnLabelGeneratorTest extends Unit
 {
     /**
-     * @var \FondOfOryx\Zed\ReturnLabel\Business\Model\CompanyBusinessUnitReaderInterface|\PHPUnit\Framework\MockObject\MockObject
+     * @var \FondOfOryx\Zed\ReturnLabel\Business\Model\CompanyBusinessUnitResourceReaderInterface|\PHPUnit\Framework\MockObject\MockObject
      */
     protected $companyUnitAddressReaderMock;
 
     /**
-     * @var \FondOfOryx\Zed\ReturnLabel\Business\Model\CompanyUnitAddressReaderInterface|\PHPUnit\Framework\MockObject\MockObject
+     * @var \FondOfOryx\Zed\ReturnLabel\Business\Model\CompanyUnitAddressResourceReaderInterface|\PHPUnit\Framework\MockObject\MockObject
      */
     protected $companyBusinessUnitReaderMock;
 
@@ -77,11 +77,11 @@ class ReturnLabelGeneratorTest extends Unit
     {
         parent::_before();
 
-        $this->companyUnitAddressReaderMock = $this->getMockBuilder(CompanyUnitAddressReader::class)
+        $this->companyUnitAddressReaderMock = $this->getMockBuilder(CompanyUnitAddressResourceReader::class)
             ->disableOriginalConstructor()
             ->getMock();
 
-        $this->companyBusinessUnitReaderMock = $this->getMockBuilder(CompanyBusinessUnitReader::class)
+        $this->companyBusinessUnitReaderMock = $this->getMockBuilder(CompanyBusinessUnitResourceResourceReader::class)
             ->disableOriginalConstructor()
             ->getMock();
 

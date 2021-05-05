@@ -15,12 +15,12 @@ use Generated\Shared\Transfer\ReturnLabelServiceRequestTransfer;
 class ReturnLabelGenerator implements ReturnLabelGeneratorInterface
 {
     /**
-     * @var \FondOfOryx\Zed\ReturnLabel\Business\Model\CompanyUnitAddressReaderInterface
+     * @var \FondOfOryx\Zed\ReturnLabel\Business\Model\CompanyUnitAddressResourceReaderInterface
      */
     protected $companyUnitAddressReader;
 
     /**
-     * @var \FondOfOryx\Zed\ReturnLabel\Business\Model\CompanyBusinessUnitReaderInterface
+     * @var \FondOfOryx\Zed\ReturnLabel\Business\Model\CompanyBusinessUnitResourceReaderInterface
      */
     protected $companyBusinessUnitReader;
 
@@ -40,15 +40,15 @@ class ReturnLabelGenerator implements ReturnLabelGeneratorInterface
     protected $config;
 
     /**
-     * @param \FondOfOryx\Zed\ReturnLabel\Business\Model\CompanyUnitAddressReaderInterface $companyUnitAddressReader
-     * @param \FondOfOryx\Zed\ReturnLabel\Business\Model\CompanyBusinessUnitReaderInterface $companyBusinessUnitReader
+     * @param \FondOfOryx\Zed\ReturnLabel\Business\Model\CompanyUnitAddressResourceReaderInterface $companyUnitAddressReader
+     * @param \FondOfOryx\Zed\ReturnLabel\Business\Model\CompanyBusinessUnitResourceReaderInterface $companyBusinessUnitReader
      * @param \FondOfOryx\Zed\ReturnLabel\Business\Api\Adapter\ReturnLabelAdapterInterface $returnLabelAdapter
      * @param \FondOfOryx\Zed\ReturnLabel\Business\Mapper\ReturnLabelCustomerMapperInterface $returnLabelCustomerMapper
      * @param \FondOfOryx\Zed\ReturnLabel\ReturnLabelConfig $config
      */
     public function __construct(
-        CompanyUnitAddressReaderInterface $companyUnitAddressReader,
-        CompanyBusinessUnitReaderInterface $companyBusinessUnitReader,
+        CompanyUnitAddressResourceReaderInterface $companyUnitAddressReader,
+        CompanyBusinessUnitResourceReaderInterface $companyBusinessUnitReader,
         ReturnLabelAdapterInterface $returnLabelAdapter,
         ReturnLabelCustomerMapperInterface $returnLabelCustomerMapper,
         ReturnLabelConfig $config
