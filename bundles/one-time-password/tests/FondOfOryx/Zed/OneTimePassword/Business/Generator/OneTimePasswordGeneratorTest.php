@@ -68,6 +68,21 @@ class OneTimePasswordGeneratorTest extends Unit
     protected $success;
 
     /**
+     * @var string
+     */
+    protected $autoLoginPath;
+
+    /**
+     * @var string
+     */
+    protected $email;
+
+    /**
+     * @var string
+     */
+    protected $autoLoginParameterName;
+
+    /**
      * @return void
      */
     protected function _before(): void
@@ -101,6 +116,12 @@ class OneTimePasswordGeneratorTest extends Unit
             ->getMock();
 
         $this->success = true;
+
+        $this->autoLoginPath = 'auto-login-path';
+
+        $this->email = 'email';
+
+        $this->autoLoginParameterName = 'auto-login-parameter-name';
 
         $this->oneTimePasswordGenerator = new OneTimePasswordGenerator(
             $this->humanPasswordGeneratorMock,
@@ -158,6 +179,120 @@ class OneTimePasswordGeneratorTest extends Unit
         $this->assertInstanceOf(
             OneTimePasswordResponseTransfer::class,
             $this->oneTimePasswordGenerator->generateOneTimePassword(
+                $this->customerTransferMock
+            )
+        );
+    }
+
+    /**
+     * @return void
+     */
+    public function testGenerateSelfServiceLoginLink(): void
+    {
+        $this->customerTransferMock->expects($this->atLeastOnce())
+            ->method('requireEmail');
+
+        $this->oneTimePasswordConfigMock->expects($this->atLeastOnce())
+            ->method('getGermanWordListPath')
+            ->willReturn($this->germanWordListPath);
+
+        $this->humanPasswordGeneratorMock->expects($this->atLeastOnce())
+            ->method('setWordList')
+            ->willReturnSelf();
+
+        $this->humanPasswordGeneratorMock->expects($this->atLeastOnce())
+            ->method('setWordCount')
+            ->with($this->wordCount)
+            ->willReturnSelf();
+
+        $this->humanPasswordGeneratorMock->expects($this->atLeastOnce())
+            ->method('setWordSeparator')
+            ->with($this->wordSeparator)
+            ->willReturnSelf();
+
+        $this->humanPasswordGeneratorMock->expects($this->atLeastOnce())
+            ->method('generatePassword')
+            ->willReturn($this->password);
+
+        $this->customerTransferMock->expects($this->atLeastOnce())
+            ->method('setNewPassword')
+            ->willReturnSelf();
+
+        $this->oneTimePasswordEntityManagerMock->expects($this->atLeastOnce())
+            ->method('updateCustomerPassword')
+            ->willReturn($this->customerResponseTransferMock);
+
+        $this->customerResponseTransferMock->expects($this->atLeastOnce())
+            ->method('getIsSuccess')
+            ->willReturn($this->success);
+
+        $this->customerResponseTransferMock->expects($this->atLeastOnce())
+            ->method('getCustomerTransfer')
+            ->willReturn($this->customerTransferMock);
+
+        $this->customerTransferMock->expects($this->atLeastOnce())
+            ->method('getEmail')
+            ->willReturn($this->email);
+
+        $this->oneTimePasswordConfigMock->expects($this->atLeastOnce())
+            ->method('getAutoLoginPath')
+            ->willReturn($this->autoLoginPath);
+
+        $this->oneTimePasswordConfigMock->expects($this->atLeastOnce())
+            ->method('getAutoLoginParameterName')
+            ->willReturn($this->autoLoginParameterName);
+
+        $this->assertIsString(
+            $this->oneTimePasswordGenerator->generateSelfServiceLoginLink(
+                $this->customerTransferMock
+            )
+        );
+    }
+
+    /**
+     * @return void
+     */
+    public function testGenerateSelfServiceLoginLinkNull(): void
+    {
+        $this->customerTransferMock->expects($this->atLeastOnce())
+            ->method('requireEmail');
+
+        $this->oneTimePasswordConfigMock->expects($this->atLeastOnce())
+            ->method('getGermanWordListPath')
+            ->willReturn($this->germanWordListPath);
+
+        $this->humanPasswordGeneratorMock->expects($this->atLeastOnce())
+            ->method('setWordList')
+            ->willReturnSelf();
+
+        $this->humanPasswordGeneratorMock->expects($this->atLeastOnce())
+            ->method('setWordCount')
+            ->with($this->wordCount)
+            ->willReturnSelf();
+
+        $this->humanPasswordGeneratorMock->expects($this->atLeastOnce())
+            ->method('setWordSeparator')
+            ->with($this->wordSeparator)
+            ->willReturnSelf();
+
+        $this->humanPasswordGeneratorMock->expects($this->atLeastOnce())
+            ->method('generatePassword')
+            ->willReturn($this->password);
+
+        $this->customerTransferMock->expects($this->atLeastOnce())
+            ->method('setNewPassword')
+            ->willReturnSelf();
+
+        $this->oneTimePasswordEntityManagerMock->expects($this->atLeastOnce())
+            ->method('updateCustomerPassword')
+            ->willReturn($this->customerResponseTransferMock);
+
+        $this->customerResponseTransferMock->expects($this->atLeastOnce())
+            ->method('getIsSuccess')
+            ->willReturn(false);
+
+        $this->assertNull(
+            $this->oneTimePasswordGenerator->generateSelfServiceLoginLink(
                 $this->customerTransferMock
             )
         );

@@ -49,4 +49,18 @@ interface OneTimePasswordFacadeInterface
      * @return void
      */
     public function resetOneTimePassword(CustomerTransfer $customerTransfer): void;
+
+    /**
+     * Specification:
+     * - Generate a new one time password for given customer
+     * - Identifies customer by customer email
+     * - Creates a Link with base64 encoded login parameters
+     *
+     * @api
+     *
+     * @param \Generated\Shared\Transfer\CustomerTransfer $customerTransfer
+     *
+     * @return string|null
+     */
+    public function generateSelfServiceLoginLink(CustomerTransfer $customerTransfer): ?string;
 }

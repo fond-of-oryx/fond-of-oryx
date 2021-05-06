@@ -90,4 +90,26 @@ class OneTimePasswordGenerator implements OneTimePasswordGeneratorInterface
 
         return $encoder->encodePassword($currentPassword, static::BCRYPT_SALT);
     }
+
+    /**
+     * @param \Generated\Shared\Transfer\CustomerTransfer $customerTransfer
+     *
+     * @return string|null
+     */
+    public function generateSelfServiceLoginLink(CustomerTransfer $customerTransfer): ?string
+    {
+        $oneTimePasswordResponseTransfer = $this->generateOneTimePassword($customerTransfer);
+
+        if (!$oneTimePasswordResponseTransfer->getIsSuccess()) {
+            return null;
+        }
+
+        $customerTransfer = $oneTimePasswordResponseTransfer->getCustomerTransfer();
+
+        $loginCredentials = "{$customerTransfer->getEmail()}:{$oneTimePasswordResponseTransfer->getOneTimePasswordPlain()}";
+
+        $encodedLoginCredentials = base64_encode($loginCredentials);
+
+        return "{$this->oneTimePasswordConfig->getAutoLoginPath()}?{$this->oneTimePasswordConfig->getAutoLoginParameterName()}={$encodedLoginCredentials}";
+    }
 }

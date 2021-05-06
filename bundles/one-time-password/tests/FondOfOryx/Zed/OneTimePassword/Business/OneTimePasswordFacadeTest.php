@@ -47,6 +47,11 @@ class OneTimePasswordFacadeTest extends Unit
     protected $oneTimePasswordResetterMock;
 
     /**
+     * @var string
+     */
+    protected $selfServiceLoginLink;
+
+    /**
      * @return void
      */
     protected function _before(): void
@@ -74,6 +79,8 @@ class OneTimePasswordFacadeTest extends Unit
         $this->oneTimePasswordResetterMock = $this->getMockBuilder(OneTimePasswordResetterInterface::class)
             ->disableOriginalConstructor()
             ->getMock();
+
+        $this->selfServiceLoginLink = 'one-time-password-login-link';
 
         $this->oneTimePasswordFacade = new OneTimePasswordFacade();
         $this->oneTimePasswordFacade->setFactory($this->oneTimePasswordBusinessFactoryMock);
@@ -138,6 +145,27 @@ class OneTimePasswordFacadeTest extends Unit
 
         $this->oneTimePasswordFacade->resetOneTimePassword(
             $this->customerTransferMock
+        );
+    }
+
+    /**
+     * @return void
+     */
+    public function testGenerateOneTimePasswordLoginLink(): void
+    {
+        $this->oneTimePasswordBusinessFactoryMock->expects($this->atLeastOnce())
+            ->method('createOneTimePasswordGenerator')
+            ->willReturn($this->oneTimePasswordGenerator);
+
+        $this->oneTimePasswordGenerator->expects($this->atLeastOnce())
+            ->method('generateSelfServiceLoginLink')
+            ->willReturn($this->selfServiceLoginLink);
+
+        $this->assertSame(
+            $this->selfServiceLoginLink,
+            $this->oneTimePasswordFacade->generateSelfServiceLoginLink(
+                $this->customerTransferMock
+            )
         );
     }
 }

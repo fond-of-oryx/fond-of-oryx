@@ -47,6 +47,10 @@ class OneTimePasswordFacade extends AbstractFacade implements OneTimePasswordFac
     }
 
     /**
+     * {@inheritDoc}
+     *
+     * @api
+     *
      * @param \Generated\Shared\Transfer\CustomerTransfer $customerTransfer
      *
      * @return void
@@ -56,5 +60,21 @@ class OneTimePasswordFacade extends AbstractFacade implements OneTimePasswordFac
         $this->getFactory()
             ->createOneTimePasswordResetter()
             ->resetOneTimePassword($customerTransfer);
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * @api
+     *
+     * @param \Generated\Shared\Transfer\CustomerTransfer $customerTransfer
+     *
+     * @return string|null
+     */
+    public function generateSelfServiceLoginLink(CustomerTransfer $customerTransfer): ?string
+    {
+        return $this->getFactory()
+            ->createOneTimePasswordGenerator()
+            ->generateSelfServiceLoginLink($customerTransfer);
     }
 }
