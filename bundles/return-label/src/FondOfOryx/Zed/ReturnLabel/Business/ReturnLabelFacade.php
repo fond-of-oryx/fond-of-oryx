@@ -8,7 +8,6 @@ use Spryker\Zed\Kernel\Business\AbstractFacade;
 
 /**
  * @method \FondOfOryx\Zed\ReturnLabel\Business\ReturnLabelBusinessFactory getFactory()
- * @method \FondOfOryx\Zed\ReturnLabel\Persistence\ReturnLabelRepositoryInterface getRepository()
  */
 class ReturnLabelFacade extends AbstractFacade implements ReturnLabelFacadeInterface
 {

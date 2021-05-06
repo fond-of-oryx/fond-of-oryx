@@ -4,14 +4,6 @@ namespace FondOfOryx\Zed\ReturnLabel\Business;
 
 use FondOfOryx\Zed\ReturnLabel\Business\Api\Adapter\ReturnLabelAdapter;
 use FondOfOryx\Zed\ReturnLabel\Business\Api\Adapter\ReturnLabelAdapterInterface;
-use FondOfOryx\Zed\ReturnLabel\Business\Mapper\ReturnLabelAddressMapper;
-use FondOfOryx\Zed\ReturnLabel\Business\Mapper\ReturnLabelAddressMapperInterface;
-use FondOfOryx\Zed\ReturnLabel\Business\Mapper\ReturnLabelCustomerMapper;
-use FondOfOryx\Zed\ReturnLabel\Business\Mapper\ReturnLabelCustomerMapperInterface;
-use FondOfOryx\Zed\ReturnLabel\Business\Model\CompanyBusinessUnitResourceReaderInterface;
-use FondOfOryx\Zed\ReturnLabel\Business\Model\CompanyBusinessUnitResourceResourceReader;
-use FondOfOryx\Zed\ReturnLabel\Business\Model\CompanyUnitAddressResourceReader;
-use FondOfOryx\Zed\ReturnLabel\Business\Model\CompanyUnitAddressResourceReaderInterface;
 use FondOfOryx\Zed\ReturnLabel\Business\Model\ReturnLabelGenerator;
 use FondOfOryx\Zed\ReturnLabel\Business\Model\ReturnLabelGeneratorInterface;
 use FondOfOryx\Zed\ReturnLabel\Dependency\Service\ReturnLabelToUtilEncodingServiceInterface;
@@ -32,34 +24,15 @@ class ReturnLabelBusinessFactory extends AbstractBusinessFactory
     public function createReturnLabelGenerator(): ReturnLabelGeneratorInterface
     {
         return new ReturnLabelGenerator(
-            $this->createCompanyUnitAddressResourceReader(),
-            $this->createCompanyBusinessUnitResourceReader(),
             $this->createReturnLabelAdapter(),
-            $this->createReturnLabelCustomerMapper(),
             $this->getConfig()
         );
     }
 
     /**
-     * @return \FondOfOryx\Zed\ReturnLabel\Business\Model\CompanyUnitAddressResourceReaderInterface
-     */
-    public function createCompanyUnitAddressResourceReader(): CompanyUnitAddressResourceReaderInterface
-    {
-        return new CompanyUnitAddressResourceReader($this->getRepository());
-    }
-
-    /**
-     * @return \FondOfOryx\Zed\ReturnLabel\Business\Model\CompanyBusinessUnitResourceReaderInterface
-     */
-    public function createCompanyBusinessUnitResourceReader(): CompanyBusinessUnitResourceReaderInterface
-    {
-        return new CompanyBusinessUnitResourceResourceReader($this->getRepository());
-    }
-
-    /**
      * @return \FondOfOryx\Zed\ReturnLabel\Business\Api\Adapter\ReturnLabelAdapterInterface
      */
-    public function createReturnLabelAdapter(): ReturnLabelAdapterInterface
+    protected function createReturnLabelAdapter(): ReturnLabelAdapterInterface
     {
         return new ReturnLabelAdapter(
             $this->createHttpClient(),
@@ -69,28 +42,9 @@ class ReturnLabelBusinessFactory extends AbstractBusinessFactory
     }
 
     /**
-     * @return \FondOfOryx\Zed\ReturnLabel\Business\Mapper\ReturnLabelAddressMapperInterface
-     */
-    public function createReturnLabelAddressMapper(): ReturnLabelAddressMapperInterface
-    {
-        return new ReturnLabelAddressMapper();
-    }
-
-    /**
-     * @return \FondOfOryx\Zed\ReturnLabel\Business\Mapper\ReturnLabelCustomerMapperInterface
-     */
-    public function createReturnLabelCustomerMapper(): ReturnLabelCustomerMapperInterface
-    {
-        return new ReturnLabelCustomerMapper(
-            $this->createReturnLabelAddressMapper(),
-            $this->getConfig()
-        );
-    }
-
-    /**
      * @return \GuzzleHttp\ClientInterface
      */
-    public function createHttpClient(): HttpClientInterface
+    protected function createHttpClient(): HttpClientInterface
     {
         return new HttpClient();
     }
@@ -98,7 +52,7 @@ class ReturnLabelBusinessFactory extends AbstractBusinessFactory
     /**
      * @return \FondOfOryx\Zed\ReturnLabel\Dependency\Service\ReturnLabelToUtilEncodingServiceInterface
      */
-    public function getUtilEncodingService(): ReturnLabelToUtilEncodingServiceInterface
+    protected function getUtilEncodingService(): ReturnLabelToUtilEncodingServiceInterface
     {
         return $this->getProvidedDependency(ReturnLabelDependencyProvider::SERVICE_UTIL_ENCODING);
     }
