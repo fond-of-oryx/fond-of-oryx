@@ -21,6 +21,8 @@
         <property name="parameters" type="array" />
     </transfer>
 
+    <transfer name="ReturnLabelRequest"/>
+
     <transfer name="ReturnLabelResponse">
         <property name="data" type="string" />
     </transfer>

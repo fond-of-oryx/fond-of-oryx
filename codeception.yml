@@ -27,6 +27,7 @@ include:
   - bundles/product-locale-restriction-storage
   - bundles/return-label
   - bundles/return-labels-rest-api
+  - bundles/return-labels-rest-api-extension
   - bundles/sales-locale-connector
   - bundles/shipment-table-rate
   - bundles/shipment-table-rate-data-import
