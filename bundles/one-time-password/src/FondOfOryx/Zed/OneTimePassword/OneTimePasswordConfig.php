@@ -39,4 +39,15 @@ class OneTimePasswordConfig extends AbstractBundleConfig
             'signature'
         );
     }
+
+    /**
+     * @return string
+     */
+    public function getAutoLoginOrderReferenceName(): string
+    {
+        return $this->get(
+            OneTimePasswordConstants::ONE_TIME_PASSWORD_AUTO_LOGIN_ORDER_REFERENCE_NAME,
+            'orderReference'
+        );
+    }
 }

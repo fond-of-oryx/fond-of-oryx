@@ -2,9 +2,9 @@
 
 namespace FondOfOryx\Zed\OneTimePassword\Business;
 
-use FondOfOryx\Zed\OneTimePassword\Business\Encoder\OneTimePasswordEncoderInterface;
 use Generated\Shared\Transfer\CustomerTransfer;
 use Generated\Shared\Transfer\OneTimePasswordResponseTransfer;
+use Generated\Shared\Transfer\OrderTransfer;
 use Spryker\Zed\Kernel\Business\AbstractFacade;
 
 /**
@@ -69,16 +69,33 @@ class OneTimePasswordFacade extends AbstractFacade implements OneTimePasswordFac
      * @api
      *
      * @param \Generated\Shared\Transfer\CustomerTransfer $customerTransfer
-     * @param \FondOfOryx\Zed\OneTimePassword\Business\Encoder\OneTimePasswordEncoderInterface $oneTimePasswordEncoder
      *
      * @return string|null
      */
     public function generateLoginLink(
-        CustomerTransfer $customerTransfer,
-        OneTimePasswordEncoderInterface $oneTimePasswordEncoder
+        CustomerTransfer $customerTransfer
     ): ?string {
         return $this->getFactory()
             ->createOneTimePasswordLinkGenerator()
-            ->generateLoginLink($customerTransfer, $oneTimePasswordEncoder);
+            ->generateLoginLink($customerTransfer);
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * @api
+     *
+     * @param \Generated\Shared\Transfer\OrderTransfer $orderTransfer
+     *
+     * @return string|null
+     */
+    public function generateLoginLinkWithOrderReference(
+        OrderTransfer $orderTransfer
+    ): ?string {
+        return $this->getFactory()
+            ->createOneTimePasswordLinkGenerator()
+            ->generateLoginLinkWithOrderReference(
+                $orderTransfer
+            );
     }
 }

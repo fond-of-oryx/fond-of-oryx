@@ -48,4 +48,14 @@ class OneTimePasswordConfigTest extends Unit
             $this->oneTimePasswordConfig->getAutoLoginParameterName()
         );
     }
+
+    /**
+     * @return void
+     */
+    public function testAutoLoginOrderReferenceName(): void
+    {
+        $this->assertIsString(
+            $this->oneTimePasswordConfig->getAutoLoginOrderReferenceName()
+        );
+    }
 }

@@ -2,6 +2,8 @@
 
 namespace FondOfOryx\Zed\OneTimePassword\Business;
 
+use FondOfOryx\Zed\OneTimePassword\Business\Encoder\OneTimePasswordBase64Encoder;
+use FondOfOryx\Zed\OneTimePassword\Business\Encoder\OneTimePasswordEncoderInterface;
 use FondOfOryx\Zed\OneTimePassword\Business\Generator\OneTimePasswordGenerator;
 use FondOfOryx\Zed\OneTimePassword\Business\Generator\OneTimePasswordGeneratorInterface;
 use FondOfOryx\Zed\OneTimePassword\Business\Generator\OneTimePasswordLinkGenerator;
@@ -61,8 +63,17 @@ class OneTimePasswordBusinessFactory extends AbstractBusinessFactory
     {
         return new OneTimePasswordLinkGenerator(
             $this->createOneTimePasswordGenerator(),
+            $this->createOneTimePasswordEncoder(),
             $this->getConfig()
         );
+    }
+
+    /**
+     * @return \FondOfOryx\Zed\OneTimePassword\Business\Encoder\OneTimePasswordBase64Encoder
+     */
+    protected function createOneTimePasswordEncoder(): OneTimePasswordEncoderInterface
+    {
+        return new OneTimePasswordBase64Encoder();
     }
 
     /**
