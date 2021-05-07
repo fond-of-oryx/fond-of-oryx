@@ -17,4 +17,26 @@ class OneTimePasswordConfig extends AbstractBundleConfig
             'vendor/fond-of-oryx/fond-of-oryx/bundles/one-time-password/src/FondOfOryx/Shared/OneTimePassword/data/german-wordlist.txt'
         );
     }
+
+    /**
+     * @return string
+     */
+    public function getAutoLoginPath(): string
+    {
+        return $this->get(
+            OneTimePasswordConstants::ONE_TIME_PASSWORD_AUTO_LOGIN_PATH,
+            '/login'
+        );
+    }
+
+    /**
+     * @return string
+     */
+    public function getAutoLoginParameterName(): string
+    {
+        return $this->get(
+            OneTimePasswordConstants::ONE_TIME_PASSWORD_AUTO_LOGIN_PARAMETER_NAME,
+            'signature'
+        );
+    }
 }

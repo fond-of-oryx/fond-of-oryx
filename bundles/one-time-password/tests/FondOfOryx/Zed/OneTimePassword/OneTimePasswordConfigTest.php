@@ -28,4 +28,24 @@ class OneTimePasswordConfigTest extends Unit
             $this->oneTimePasswordConfig->getGermanWordListPath()
         );
     }
+
+    /**
+     * @return void
+     */
+    public function testGetAutoLoginPath(): void
+    {
+        $this->assertIsString(
+            $this->oneTimePasswordConfig->getAutoLoginPath()
+        );
+    }
+
+    /**
+     * @return void
+     */
+    public function testGetAutoLoginParameterName(): void
+    {
+        $this->assertIsString(
+            $this->oneTimePasswordConfig->getAutoLoginParameterName()
+        );
+    }
 }

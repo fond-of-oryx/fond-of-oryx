@@ -3,7 +3,9 @@
 namespace FondOfOryx\Zed\OneTimePassword\Business;
 
 use Codeception\Test\Unit;
+use FondOfOryx\Zed\OneTimePassword\Business\Encoder\OneTimePasswordEncoderInterface;
 use FondOfOryx\Zed\OneTimePassword\Business\Generator\OneTimePasswordGeneratorInterface;
+use FondOfOryx\Zed\OneTimePassword\Business\Generator\OneTimePasswordLinkGeneratorInterface;
 use FondOfOryx\Zed\OneTimePassword\Business\Resetter\OneTimePasswordResetterInterface;
 use FondOfOryx\Zed\OneTimePassword\Business\Sender\OneTimePasswordSenderInterface;
 use Generated\Shared\Transfer\CustomerTransfer;
@@ -39,12 +41,27 @@ class OneTimePasswordFacadeTest extends Unit
     /**
      * @var \FondOfOryx\Zed\OneTimePassword\Business\Generator\OneTimePasswordGeneratorInterface|\PHPUnit\Framework\MockObject\MockObject
      */
-    protected $oneTimePasswordGenerator;
+    protected $oneTimePasswordGeneratorMock;
 
     /**
      * @var \FondOfOryx\Zed\OneTimePassword\Business\Resetter\OneTimePasswordResetterInterface|\PHPUnit\Framework\MockObject\MockObject
      */
     protected $oneTimePasswordResetterMock;
+
+    /**
+     * @var string
+     */
+    protected $selfServiceLoginLink;
+
+    /**
+     * @var \FondOfOryx\Zed\OneTimePassword\Business\Generator\OneTimePasswordLinkGeneratorInterface|\PHPUnit\Framework\MockObject\MockObject
+     */
+    protected $oneTimePasswordLinkGeneratorMock;
+
+    /**
+     * @var \FondOfOryx\Zed\OneTimePassword\Business\Encoder\OneTimePasswordEncoderInterface|\PHPUnit\Framework\MockObject\MockObject
+     */
+    protected $oneTimePasswordEncoderMock;
 
     /**
      * @return void
@@ -67,11 +84,21 @@ class OneTimePasswordFacadeTest extends Unit
             ->disableOriginalConstructor()
             ->getMock();
 
-        $this->oneTimePasswordGenerator = $this->getMockBuilder(OneTimePasswordGeneratorInterface::class)
+        $this->oneTimePasswordGeneratorMock = $this->getMockBuilder(OneTimePasswordGeneratorInterface::class)
             ->disableOriginalConstructor()
             ->getMock();
 
         $this->oneTimePasswordResetterMock = $this->getMockBuilder(OneTimePasswordResetterInterface::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $this->selfServiceLoginLink = 'one-time-password-login-link';
+
+        $this->oneTimePasswordLinkGeneratorMock = $this->getMockBuilder(OneTimePasswordLinkGeneratorInterface::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $this->oneTimePasswordEncoderMock = $this->getMockBuilder(OneTimePasswordEncoderInterface::class)
             ->disableOriginalConstructor()
             ->getMock();
 
@@ -108,9 +135,9 @@ class OneTimePasswordFacadeTest extends Unit
     {
         $this->oneTimePasswordBusinessFactoryMock->expects($this->atLeastOnce())
             ->method('createOneTimePasswordGenerator')
-            ->willReturn($this->oneTimePasswordGenerator);
+            ->willReturn($this->oneTimePasswordGeneratorMock);
 
-        $this->oneTimePasswordGenerator->expects($this->atLeastOnce())
+        $this->oneTimePasswordGeneratorMock->expects($this->atLeastOnce())
             ->method('generateOneTimePassword')
             ->with($this->customerTransferMock)
             ->willReturn($this->oneTimePasswordResponseTransferMock);
@@ -138,6 +165,28 @@ class OneTimePasswordFacadeTest extends Unit
 
         $this->oneTimePasswordFacade->resetOneTimePassword(
             $this->customerTransferMock
+        );
+    }
+
+    /**
+     * @return void
+     */
+    public function testGenerateOneTimePasswordLoginLink(): void
+    {
+        $this->oneTimePasswordBusinessFactoryMock->expects($this->atLeastOnce())
+            ->method('createOneTimePasswordLinkGenerator')
+            ->willReturn($this->oneTimePasswordLinkGeneratorMock);
+
+        $this->oneTimePasswordLinkGeneratorMock->expects($this->atLeastOnce())
+            ->method('generateLoginLink')
+            ->willReturn($this->selfServiceLoginLink);
+
+        $this->assertSame(
+            $this->selfServiceLoginLink,
+            $this->oneTimePasswordFacade->generateLoginLink(
+                $this->customerTransferMock,
+                $this->oneTimePasswordEncoderMock
+            )
         );
     }
 }
