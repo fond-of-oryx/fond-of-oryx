@@ -13,11 +13,4 @@ interface OneTimePasswordGeneratorInterface
      * @return \Generated\Shared\Transfer\OneTimePasswordResponseTransfer
      */
     public function generateOneTimePassword(CustomerTransfer $customerTransfer): OneTimePasswordResponseTransfer;
-
-    /**
-     * @param \Generated\Shared\Transfer\CustomerTransfer $customerTransfer
-     *
-     * @return string|null
-     */
-    public function generateSelfServiceLoginLink(CustomerTransfer $customerTransfer): ?string;
 }

@@ -2,6 +2,7 @@
 
 namespace FondOfOryx\Zed\OneTimePassword\Business;
 
+use FondOfOryx\Zed\OneTimePassword\Business\Encoder\OneTimePasswordEncoderInterface;
 use Generated\Shared\Transfer\CustomerTransfer;
 use Generated\Shared\Transfer\OneTimePasswordResponseTransfer;
 
@@ -54,13 +55,17 @@ interface OneTimePasswordFacadeInterface
      * Specification:
      * - Generate a new one time password for given customer
      * - Identifies customer by customer email
-     * - Creates a Link with base64 encoded login parameters
+     * - Creates a Link with login parameters
      *
      * @api
      *
      * @param \Generated\Shared\Transfer\CustomerTransfer $customerTransfer
+     * @param \FondOfOryx\Zed\OneTimePassword\Business\Encoder\OneTimePasswordEncoderInterface $oneTimePasswordEncoder
      *
      * @return string|null
      */
-    public function generateSelfServiceLoginLink(CustomerTransfer $customerTransfer): ?string;
+    public function generateLoginLink(
+        CustomerTransfer $customerTransfer,
+        OneTimePasswordEncoderInterface $oneTimePasswordEncoder
+    ): ?string;
 }
