@@ -1,20 +1,20 @@
 <?php
 
 
-namespace FondOfOryx\Zed\ReturnLabelsRestApiCompanyBusinessUnitConnector\Business;
+namespace FondOfOryx\Zed\ReturnLabelsRestApiCustomerConnector\Business;
 
 use Generated\Shared\Transfer\RestReturnLabelRequestTransfer;
 use Generated\Shared\Transfer\ReturnLabelRequestTransfer;
 use Spryker\Zed\Kernel\Business\AbstractFacade;
 
 /**
- * @method \FondOfOryx\Zed\ReturnLabelsRestApiCompanyBusinessUnitConnector\Business\ReturnLabelsRestApiCompanyBusinessUnitConnectorBusinessFactory getFactory()
+ * @method \FondOfOryx\Zed\ReturnLabelsRestApiCustomerConnector\Business\ReturnLabelsRestApiCustomerConnectorBusinessFactory getFactory()
  */
-class ReturnLabelsRestApiCompanyBusinessUnitConnectorFacade extends AbstractFacade implements ReturnLabelsRestApiCompanyBusinessUnitConnectorFacadeInterface
+class ReturnLabelsRestApiCustomerConnectorFacade extends AbstractFacade implements ReturnLabelsRestApiCustomerConnectorFacadeInterface
 {
     /**
      * Specifications:
-     * - Expands return label request with company business unit
+     * - Expands return label request with customer
      *
      * @api
      *
@@ -28,7 +28,7 @@ class ReturnLabelsRestApiCompanyBusinessUnitConnectorFacade extends AbstractFaca
         ReturnLabelRequestTransfer $returnLabelRequestTransfer
     ): ReturnLabelRequestTransfer
     {
-        return $this->getFactory()->createCompanyBusinessUnitExpander()->expand(
+        return $this->getFactory()->createCustomerExpander()->expand(
             $restReturnLabelRequestTransfer,
             $returnLabelRequestTransfer
         );

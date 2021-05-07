@@ -1,26 +1,19 @@
 <?php
 
-
-namespace FondOfOryx\Zed\ReturnLabelsRestApiCompanyBusinessUnitConnector\Business;
-
+namespace FondOfOryx\Zed\ReturnLabelsRestApiCustomerConnector\Business\Expander;
 
 use Generated\Shared\Transfer\RestReturnLabelRequestTransfer;
 use Generated\Shared\Transfer\ReturnLabelRequestTransfer;
 
-interface ReturnLabelsRestApiCompanyBusinessUnitConnectorFacadeInterface
+interface CustomerExpanderInterface
 {
     /**
-     * Specifications:
-     * - Expands return label request with company business unit
-     *
-     * @api
-     *
      * @param \Generated\Shared\Transfer\RestReturnLabelRequestTransfer $restReturnLabelRequestTransfer
      * @param \Generated\Shared\Transfer\ReturnLabelRequestTransfer $returnLabelRequestTransfer
      *
      * @return \Generated\Shared\Transfer\ReturnLabelRequestTransfer
      */
-    public function expandReturnLabelRequest(
+    public function expand(
         RestReturnLabelRequestTransfer $restReturnLabelRequestTransfer,
         ReturnLabelRequestTransfer $returnLabelRequestTransfer
     ): ReturnLabelRequestTransfer;

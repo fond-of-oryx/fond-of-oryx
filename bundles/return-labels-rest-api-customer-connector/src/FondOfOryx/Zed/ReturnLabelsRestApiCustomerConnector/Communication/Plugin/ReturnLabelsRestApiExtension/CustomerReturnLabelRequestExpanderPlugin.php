@@ -1,6 +1,6 @@
 <?php
 
-namespace FondOfOryx\Zed\ReturnLabelsRestApiCompanyBusinessUnitConnector\Communication\Plugin\ReturnLabelsRestApiExtension;
+namespace FondOfOryx\Zed\ReturnLabelsRestApiCustomerConnector\Communication\Plugin\ReturnLabelsRestApiExtension;
 
 use FondOfOryx\Zed\ReturnLabelsRestApiExtension\Dependency\Plugin\ReturnLabelRequestExpanderPluginInterface;
 use Generated\Shared\Transfer\RestReturnLabelRequestTransfer;
@@ -9,9 +9,9 @@ use Spryker\Zed\Kernel\Business\AbstractFacade;
 use Spryker\Zed\Kernel\Communication\AbstractPlugin;
 
 /**
- * @method \FondOfOryx\Zed\ReturnLabelsRestApiCompanyBusinessUnitConnector\Business\ReturnLabelsRestApiCompanyBusinessUnitConnectorFacadeInterface getFacade()
+ * @method \FondOfOryx\Zed\ReturnLabelsRestApiCustomerConnector\Business\ReturnLabelsRestApiCustomerConnectorFacadeInterface getFacade()
  */
-class CompanyBusinessUnitReturnLabelRequestExpanderPlugin extends AbstractPlugin implements ReturnLabelRequestExpanderPluginInterface
+class CustomerReturnLabelRequestExpanderPlugin extends AbstractPlugin implements ReturnLabelRequestExpanderPluginInterface
 {
     /**
      * @param \Generated\Shared\Transfer\RestReturnLabelRequestTransfer $restReturnLabelRequestTransfer

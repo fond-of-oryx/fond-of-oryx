@@ -1,4 +1,4 @@
-namespace: fond-of-oryx/return-labels-rest-api-company-business-unit-connector
+namespace: fond-of-oryx/return-labels-rest-api-customer-connector
 
 suites:
   unit:
