@@ -5,15 +5,22 @@
 
     <transfer name="RestReturnLabelRequestAttributes">
         <property name="address" type="RestAddress" />
-    </transfer>
-
-    <transfer name="RestReturnLabelRequest">
-        <property name="address" type="RestAddress" />
-        <property name="idCustomer" type="int" />
+        <property name="customer" type="RestCustomer" />
     </transfer>
 
     <transfer name="RestAddress">
         <property name="id" type="string"/>
+    </transfer>
+
+    <transfer name="RestCustomer">
+        <property name="idCustomer" type="int" />
+        <property name="reference" type="string"/>
+    </transfer>
+
+    <transfer name="RestReturnLabelRequest">
+        <property name="address" type="RestAddress" />
+        <property name="customer" type="RestCustomer" />
+        <property name="idCustomer" type="int" />
     </transfer>
 
     <transfer name="RestReturnLabelResponse">
