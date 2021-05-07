@@ -4,7 +4,6 @@ namespace FondOfOryx\Zed\ReturnLabel\Business;
 
 use Codeception\Test\Unit;
 use FondOfOryx\Zed\ReturnLabel\Business\Model\ReturnLabelGenerator;
-use FondOfOryx\Zed\ReturnLabel\Persistence\ReturnLabelRepository;
 use Generated\Shared\Transfer\ReturnLabelRequestTransfer;
 use Generated\Shared\Transfer\ReturnLabelResponseTransfer;
 
@@ -24,11 +23,6 @@ class ReturnLabelFacadeTest extends Unit
      * @var \FondOfOryx\Zed\ReturnLabel\Business\ReturnLabelBusinessFactory|\PHPUnit\Framework\MockObject\MockObject
      */
     protected $factoryMock;
-
-    /**
-     * @var \FondOfOryx\Zed\ReturnLabel\Persistence\ReturnLabelRepositoryInterface|\PHPUnit\Framework\MockObject\MockObject
-     */
-    protected $repositoryMock;
 
     /**
      * @var \FondOfOryx\Zed\ReturnLabel\Business\Model\ReturnLabelGeneratorInterface|\PHPUnit\Framework\MockObject\MockObject
@@ -55,10 +49,6 @@ class ReturnLabelFacadeTest extends Unit
             ->disableOriginalConstructor()
             ->getMock();
 
-        $this->repositoryMock = $this->getMockBuilder(ReturnLabelRepository::class)
-            ->disableOriginalConstructor()
-            ->getMock();
-
         $this->factoryMock = $this->getMockBuilder(ReturnLabelBusinessFactory::class)
             ->disableOriginalConstructor()
             ->getMock();
@@ -69,7 +59,6 @@ class ReturnLabelFacadeTest extends Unit
 
         $this->facade = new ReturnLabelFacade();
         $this->facade->setFactory($this->factoryMock);
-        $this->facade->setRepository($this->repositoryMock);
     }
 
     /**
@@ -85,8 +74,8 @@ class ReturnLabelFacadeTest extends Unit
             ->method('generate')
             ->willReturn($this->returnLabelResponseTransferMock);
 
-        static::assertInstanceOf(
-            ReturnLabelResponseTransfer::class,
+        static::assertEquals(
+            $this->returnLabelResponseTransferMock,
             $this->facade->generateReturnLabel($this->returnLabelRequestTransferMock)
         );
     }

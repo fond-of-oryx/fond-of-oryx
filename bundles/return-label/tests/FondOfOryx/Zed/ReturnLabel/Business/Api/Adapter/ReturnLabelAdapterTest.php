@@ -5,9 +5,10 @@ namespace FondOfOryx\Zed\ReturnLabel\Business\Api\Adapter;
 use Codeception\Test\Unit;
 use FondOfOryx\Zed\ReturnLabel\Dependency\Service\ReturnLabelToUtilEncodingServiceBridge;
 use FondOfOryx\Zed\ReturnLabel\ReturnLabelConfig;
-use Generated\Shared\Transfer\ReturnLabelServiceRequestTransfer;
+use Generated\Shared\Transfer\ReturnLabelRequestTransfer;
 use GuzzleHttp\Client;
 use GuzzleHttp\Psr7\Response;
+use GuzzleHttp\Psr7\Stream;
 
 class ReturnLabelAdapterTest extends Unit
 {
@@ -27,14 +28,19 @@ class ReturnLabelAdapterTest extends Unit
     protected $utilEncodingServiceMock;
 
     /**
-     * @var \Generated\Shared\Transfer\ReturnLabelServiceRequestTransfer|\PHPUnit\Framework\MockObject\MockObject
+     * @var \Generated\Shared\Transfer\ReturnLabelRequestTransfer|\PHPUnit\Framework\MockObject\MockObject
      */
-    protected $returnLabelServiceRequestTransferMock;
+    protected $returnLabelRequestTransferMock;
 
     /**
      * @var \GuzzleHttp\Psr7\Response|\PHPUnit\Framework\MockObject\MockObject
      */
     protected $responseMock;
+
+    /**
+     * @var \GuzzleHttp\Psr7\Stream|\PHPUnit\Framework\MockObject\MockObject
+     */
+    protected $streamMock;
 
     /**
      * @var \FondOfOryx\Zed\ReturnLabel\Business\Api\Adapter\ReturnLabelAdapter
@@ -60,11 +66,15 @@ class ReturnLabelAdapterTest extends Unit
             ->disableOriginalConstructor()
             ->getMock();
 
-        $this->returnLabelServiceRequestTransferMock = $this->getMockBuilder(ReturnLabelServiceRequestTransfer::class)
+        $this->returnLabelRequestTransferMock = $this->getMockBuilder(ReturnLabelRequestTransfer::class)
             ->disableOriginalConstructor()
             ->getMock();
 
         $this->responseMock = $this->getMockBuilder(Response::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $this->streamMock = $this->getMockBuilder(Stream::class)
             ->disableOriginalConstructor()
             ->getMock();
 
@@ -84,7 +94,7 @@ class ReturnLabelAdapterTest extends Unit
             ->method('encodeJson')
             ->willReturn('{}');
 
-        $this->returnLabelServiceRequestTransferMock->expects(static::atLeastOnce())
+        $this->returnLabelRequestTransferMock->expects(static::atLeastOnce())
             ->method('toArray')
             ->willReturn([]);
 
@@ -115,6 +125,17 @@ class ReturnLabelAdapterTest extends Unit
             ->method('request')
             ->willReturn($this->responseMock);
 
-        $response = $this->adapter->sendRequest($this->returnLabelServiceRequestTransferMock);
+        $this->responseMock->expects(static::atLeastOnce())
+            ->method('getStatusCode')
+            ->willReturn(200);
+
+        $this->responseMock->expects(static::atLeastOnce())
+            ->method('getBody')
+            ->willReturn($this->streamMock);
+
+        static::assertEquals(
+            $this->streamMock,
+            $this->adapter->sendRequest($this->returnLabelRequestTransferMock)
+        );
     }
 }

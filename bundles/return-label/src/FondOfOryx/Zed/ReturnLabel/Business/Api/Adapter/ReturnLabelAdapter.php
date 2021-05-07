@@ -8,6 +8,7 @@ use GuzzleHttp\ClientInterface as HttpClientInterface;
 use GuzzleHttp\RequestOptions;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\StreamInterface;
+use RuntimeException;
 use Spryker\Shared\Kernel\Transfer\AbstractTransfer;
 
 class ReturnLabelAdapter implements ReturnLabelAdapterInterface
@@ -48,12 +49,18 @@ class ReturnLabelAdapter implements ReturnLabelAdapterInterface
     /**
      * @param \Spryker\Shared\Kernel\Transfer\AbstractTransfer $transfer
      *
+     * @throws \RuntimeException
+     *
      * @return \Psr\Http\Message\StreamInterface|null
      */
     public function sendRequest(AbstractTransfer $transfer): ?StreamInterface
     {
         $options = $this->createOptions($transfer);
         $response = $this->send($options);
+
+        if ($response->getStatusCode() !== 200) {
+            throw new RuntimeException();
+        }
 
         return $response->getBody();
     }

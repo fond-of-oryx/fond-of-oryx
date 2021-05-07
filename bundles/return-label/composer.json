@@ -10,10 +10,11 @@
   ],
   "require": {
     "php": ">=7.3",
-    "spryker/company-unit-address": "^1.7.0"
+    "spryker/guzzle": "^2.2.0",
+    "spryker/util-encoding": "^1.0.0 || ^2.0.0"
   },
   "require-dev": {
-    "fond-of-codeception/spryker": "dev-master",
+    "fond-of-codeception/spryker": "^1.0",
     "spryker/code-sniffer": "^0.12"
   },
   "minimum-stability": "dev",
