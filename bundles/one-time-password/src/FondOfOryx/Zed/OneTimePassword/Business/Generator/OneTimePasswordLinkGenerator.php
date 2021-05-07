@@ -49,7 +49,7 @@ class OneTimePasswordLinkGenerator implements OneTimePasswordLinkGeneratorInterf
         $encodedLoginCredentials = $oneTimePasswordEncoder->encode($oneTimePasswordResponseTransfer);
 
         return sprintf(
-            "%s?%s=%s",
+            '%s?%s=%s',
             $this->oneTimePasswordConfig->getAutoLoginPath(),
             $this->oneTimePasswordConfig->getAutoLoginParameterName(),
             $encodedLoginCredentials
