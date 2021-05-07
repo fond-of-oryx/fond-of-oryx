@@ -5,7 +5,6 @@ namespace FondOfOryx\Zed\ReturnLabelsRestApi;
 use Codeception\Test\Unit;
 use FondOfOryx\Zed\ReturnLabel\Business\ReturnLabelFacade;
 use FondOfOryx\Zed\ReturnLabelsRestApi\Dependency\Facade\ReturnLabelsRestApiToReturnLabelFacadeInterface;
-use Orm\Zed\CompanyUnitAddress\Persistence\SpyCompanyUnitAddressQuery;
 use Spryker\Shared\Kernel\BundleProxy;
 use Spryker\Zed\Kernel\Container;
 use Spryker\Zed\Kernel\Locator;
@@ -88,18 +87,10 @@ class ReturnLabelsRestApiDependencyProviderTest extends Unit
             ReturnLabelsRestApiToReturnLabelFacadeInterface::class,
             $container->get(ReturnLabelsRestApiDependencyProvider::FACADE_RETURN_LABEL)
         );
-    }
 
-    /**
-     * @return void
-     */
-    public function testProvidePersistenceLayerDependencies(): void
-    {
-        $container = $this->dependencyProvider->providePersistenceLayerDependencies($this->containerMock);
-
-        static::assertInstanceOf(
-            SpyCompanyUnitAddressQuery::class,
-            $container[ReturnLabelsRestApiDependencyProvider::PROPEL_QUERY_COMPANY_UNIT_ADDRESS]
+        static::assertCount(
+            0,
+            $container->get(ReturnLabelsRestApiDependencyProvider::PLUGINS_RETURN_LABEL_REQUEST_EXPANDER)
         );
     }
 }

@@ -10,12 +10,10 @@
   ],
   "require": {
     "php": ">=7.3",
-    "spryker/glue-application": "^1.28",
-    "spryker/company-unit-address": "^1.7.0",
-    "spryker/company-business-unit-addresses-rest-api": "^1.0.0"
+    "spryker/glue-application-extension": "^1.0.0"
   },
   "require-dev": {
-    "fond-of-codeception/spryker": "dev-master",
+    "fond-of-codeception/spryker": "^1.0",
     "spryker/code-sniffer": "^0.12"
   },
   "minimum-stability": "dev",

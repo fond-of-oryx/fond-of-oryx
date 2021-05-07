@@ -3,53 +3,41 @@
            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
            xsi:schemaLocation="spryker:transfer-01 http://static.spryker.com/transfer-01.xsd">
 
+    <transfer name="RestReturnLabelRequestAttributes">
+        <property name="address" type="RestAddress" />
+    </transfer>
+
     <transfer name="RestReturnLabelRequest">
+        <property name="address" type="RestAddress" />
         <property name="idCustomer" type="int" />
-        <property name="companyUnitAddressUuid" type="string" />
+    </transfer>
+
+    <transfer name="RestAddress">
+        <property name="id" type="string"/>
     </transfer>
 
     <transfer name="RestReturnLabelResponse">
-        <property name="errors" type="Message[]" singular="error"/>
         <property name="isSuccessful" type="bool"/>
-        <property name="returnLabelResponse" type="ReturnLabelResponse"/>
-    </transfer>
-
-    <transfer name="Message">
-        <property name="value" type="string" />
-        <property name="type" type="string" />
-        <property name="message" type="string" />
-        <property name="parameters" type="array" />
+        <property name="returnLabel" type="ReturnLabel"/>
     </transfer>
 
     <transfer name="ReturnLabelRequest"/>
 
     <transfer name="ReturnLabelResponse">
+        <property name="isSuccessful" type="bool"/>
+        <property name="returnLabel" type="ReturnLabel" />
+    </transfer>
+
+    <transfer name="ReturnLabel">
         <property name="data" type="string" />
     </transfer>
 
-    <transfer name="RestReturnLabelRequestAttributes">
-        <property name="companyUnitAddressUuid" type="string" />
-    </transfer>
-
-    <transfer name="ReturnLabelRestApiResponse">
-        <property name="returnLabel" type="string" />
+    <transfer name="RestReturnLabel">
+        <property name="data" type="string" />
     </transfer>
 
     <transfer name="RestUser">
         <property name="naturalIdentifier" type="string"/>
         <property name="surrogateIdentifier" type="int"/>
-    </transfer>
-
-    <transfer name="CompanyUnitAddress">
-        <property name="idCompanyUnitAddress" type="int"/>
-        <property name="uuid" type="string"/>
-        <property name="address1" type="string"/>
-        <property name="address2" type="string"/>
-        <property name="address3" type="string"/>
-        <property name="city" type="string"/>
-        <property name="zipCode" type="string"/>
-        <property name="phone" type="string"/>
-        <property name="iso2Code" type="string"/>
-        <property name="iso3Code" type="string"/>
     </transfer>
 </transfers>

@@ -20,6 +20,11 @@ class ReturnLabelsRestApiToReturnLabelFacadeBridgeTest extends Unit
     protected $returnLabelRequestTransferMock;
 
     /**
+     * @var \Generated\Shared\Transfer\ReturnLabelResponseTransfer|\PHPUnit\Framework\MockObject\MockObject
+     */
+    protected $returnLabelResponseTransferMock;
+
+    /**
      * @var \FondOfOryx\Zed\ReturnLabelsRestApi\Dependency\Facade\ReturnLabelsRestApiToReturnLabelFacadeInterface
      */
     protected $bridge;
@@ -39,6 +44,10 @@ class ReturnLabelsRestApiToReturnLabelFacadeBridgeTest extends Unit
             ->disableOriginalConstructor()
             ->getMock();
 
+        $this->returnLabelResponseTransferMock = $this->getMockBuilder(ReturnLabelResponseTransfer::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
         $this->bridge = new ReturnLabelsRestApiToReturnLabelFacadeBridge($this->returnLabelFacadeMock);
     }
 
@@ -47,8 +56,13 @@ class ReturnLabelsRestApiToReturnLabelFacadeBridgeTest extends Unit
      */
     public function testGenerateReturnLabel(): void
     {
-        static::assertInstanceOf(
-            ReturnLabelResponseTransfer::class,
+        $this->returnLabelFacadeMock->expects(static::atLeastOnce())
+            ->method('generateReturnLabel')
+            ->with($this->returnLabelRequestTransferMock)
+            ->willReturn($this->returnLabelResponseTransferMock);
+
+        static::assertEquals(
+            $this->returnLabelResponseTransferMock,
             $this->returnLabelFacadeMock->generateReturnLabel($this->returnLabelRequestTransferMock)
         );
     }
