@@ -95,9 +95,7 @@ class QuoteExpander implements QuoteExpanderInterface
         $shipmentTransfer = $quoteTransfer->getShipment();
 
         if ($shipmentTransfer === null) {
-            // @codeCoverageIgnoreStart
             return $quoteTransfer;
-            // @codeCoverageIgnoreEnd
         }
 
         $shipmentTransfer->setMethod($shipmentMethodTransfer);

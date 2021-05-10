@@ -101,9 +101,6 @@ class QuoteExpanderTest extends Unit
             $this->getMockBuilder(ItemTransfer::class)
                 ->disableOriginalConstructor()
                 ->getMock(),
-            $this->getMockBuilder(ItemTransfer::class)
-                ->disableOriginalConstructor()
-                ->getMock(),
         ];
 
         $this->quoteExpander = new QuoteExpander($this->shipmentFacadeMock);
@@ -145,10 +142,6 @@ class QuoteExpanderTest extends Unit
             ->willReturn(new ArrayObject($this->itemTransferMocks));
 
         $this->itemTransferMocks[0]->expects(static::atLeastOnce())
-            ->method('getShipment')
-            ->willReturn(null);
-
-        $this->itemTransferMocks[1]->expects(static::atLeastOnce())
             ->method('getShipment')
             ->willReturn($this->shipmentTransferMock);
 
@@ -217,9 +210,6 @@ class QuoteExpanderTest extends Unit
         $this->itemTransferMocks[0]->expects(static::never())
             ->method('getShipment');
 
-        $this->itemTransferMocks[1]->expects(static::never())
-            ->method('getShipment');
-
         $this->shipmentTransferMock->expects(static::never())
             ->method('setMethod');
 
@@ -264,9 +254,6 @@ class QuoteExpanderTest extends Unit
         $this->itemTransferMocks[0]->expects(static::never())
             ->method('getShipment');
 
-        $this->itemTransferMocks[1]->expects(static::never())
-            ->method('getShipment');
-
         $this->shipmentTransferMock->expects(static::never())
             ->method('setMethod');
 
@@ -275,6 +262,79 @@ class QuoteExpanderTest extends Unit
 
         $this->quoteTransferMock->expects(static::never())
             ->method('addExpense');
+
+        static::assertEquals(
+            $this->quoteTransferMock,
+            $this->quoteExpander->expand($this->restSplittableTotalsRequestTransferMock, $this->quoteTransferMock)
+        );
+    }
+
+    /**
+     * @return void
+     */
+    public function testExpandWithoutShipment(): void
+    {
+        $idShipmentMethod = 1;
+        $storeCurrencyPrice = 499;
+        $self = $this;
+
+        $this->restSplittableTotalsRequestTransferMock->expects(static::atLeastOnce())
+            ->method('getShipment')
+            ->willReturn($this->restShipmentTransferMock);
+
+        $this->restShipmentTransferMock->expects(static::atLeastOnce())
+            ->method('getIdShipmentMethod')
+            ->willReturn($idShipmentMethod);
+
+        $this->shipmentFacadeMock->expects(static::atLeastOnce())
+            ->method('findAvailableMethodById')
+            ->with($idShipmentMethod, $this->quoteTransferMock)
+            ->willReturn($this->shipmentMethodTransferMock);
+
+        $this->quoteTransferMock->expects(static::atLeastOnce())
+            ->method('getShipment')
+            ->willReturn(null);
+
+        $this->quoteTransferMock->expects(static::atLeastOnce())
+            ->method('getItems')
+            ->willReturn(new ArrayObject($this->itemTransferMocks));
+
+        $this->itemTransferMocks[0]->expects(static::atLeastOnce())
+            ->method('getShipment')
+            ->willReturn(null);
+
+        $this->shipmentMethodTransferMock->expects(static::atLeastOnce())
+            ->method('getIdShipmentMethod')
+            ->willReturn($idShipmentMethod);
+
+        $this->quoteTransferMock->expects(static::atLeastOnce())
+            ->method('getShippingAddress')
+            ->willReturn($this->addressTransferMock);
+
+        $this->shipmentMethodTransferMock->expects(static::atLeastOnce())
+            ->method('toArray')
+            ->willReturn([]);
+
+        $this->shipmentMethodTransferMock->expects(static::atLeastOnce())
+            ->method('getStoreCurrencyPrice')
+            ->willReturn($storeCurrencyPrice);
+
+        $this->quoteTransferMock->expects(static::atLeastOnce())
+            ->method('addExpense')
+            ->with(
+                static::callback(
+                    static function (ExpenseTransfer $expenseTransfer) use ($storeCurrencyPrice, $idShipmentMethod, $self) {
+                        return $expenseTransfer->getType() === ShipmentConfig::SHIPMENT_EXPENSE_TYPE
+                            && $expenseTransfer->getUnitNetPrice() === $storeCurrencyPrice
+                            && $expenseTransfer->getUnitGrossPrice() === $storeCurrencyPrice
+                            && $expenseTransfer->getQuantity() === 1
+                            && $expenseTransfer->getShipment() !== null
+                            && $expenseTransfer->getShipment()->getShipmentSelection() === (string)$idShipmentMethod
+                            && $expenseTransfer->getShipment()->getMethod() === $self->shipmentMethodTransferMock
+                            && $expenseTransfer->getShipment()->getShippingAddress() === $self->addressTransferMock;
+                    }
+                )
+            )->willReturn($this->quoteTransferMock);
 
         static::assertEquals(
             $this->quoteTransferMock,
