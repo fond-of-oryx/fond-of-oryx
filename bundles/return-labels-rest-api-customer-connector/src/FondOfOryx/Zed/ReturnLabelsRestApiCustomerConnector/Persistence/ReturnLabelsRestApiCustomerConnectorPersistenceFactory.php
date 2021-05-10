@@ -15,7 +15,7 @@ class ReturnLabelsRestApiCustomerConnectorPersistenceFactory extends AbstractPer
      */
     public function getCustomerQuery(): SpyCustomerQuery
     {
-        return $this->get(ReturnLabelsRestApiCustomerConnectorDependencyProvider::PROPEL_QUERY_CUSTOMER_QUERY);
+        return $this->getProvidedDependency(ReturnLabelsRestApiCustomerConnectorDependencyProvider::PROPEL_QUERY_CUSTOMER_QUERY);
     }
 
     /**

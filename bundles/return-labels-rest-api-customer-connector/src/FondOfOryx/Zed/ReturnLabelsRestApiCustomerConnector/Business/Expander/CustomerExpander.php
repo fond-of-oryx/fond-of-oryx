@@ -3,6 +3,7 @@
 
 namespace FondOfOryx\Zed\ReturnLabelsRestApiCustomerConnector\Business\Expander;
 
+use FondOfOryx\Zed\ReturnLabelsRestApiCustomerConnector\Business\Mapper\ReturnLabelRequestCustomerMapperInterface;
 use FondOfOryx\Zed\ReturnLabelsRestApiCustomerConnector\Business\Reader\CustomerReaderInterface;
 use Generated\Shared\Transfer\RestReturnLabelRequestTransfer;
 use Generated\Shared\Transfer\ReturnLabelRequestTransfer;
@@ -15,11 +16,21 @@ class CustomerExpander implements CustomerExpanderInterface
     protected $customerReader;
 
     /**
-     * @param \FondOfOryx\Zed\ReturnLabelsRestApiCustomerConnector\Business\Reader\CustomerReaderInterface $customerReader
+     * @var \FondOfOryx\Zed\ReturnLabelsRestApiCustomerConnector\Business\Mapper\ReturnLabelRequestCustomerMapperInterface
      */
-    public function __construct(CustomerReaderInterface $customerReader)
+    protected $returnLabelRequestCustomerMapper;
+
+    /**
+     * @param \FondOfOryx\Zed\ReturnLabelsRestApiCustomerConnector\Business\Reader\CustomerReaderInterface $customerReader
+     * @param \FondOfOryx\Zed\ReturnLabelsRestApiCustomerConnector\Business\Mapper\ReturnLabelRequestCustomerMapperInterface $returnLabelRequestCustomerMapper
+     */
+    public function __construct(
+        CustomerReaderInterface $customerReader,
+        ReturnLabelRequestCustomerMapperInterface $returnLabelRequestCustomerMapper
+    )
     {
         $this->customerReader = $customerReader;
+        $this->returnLabelRequestCustomerMapper = $returnLabelRequestCustomerMapper;
     }
 
     /**
@@ -39,8 +50,11 @@ class CustomerExpander implements CustomerExpanderInterface
             return $returnLabelRequestTransfer;
         }
 
-        $returnLabelRequestTransfer->getCustomer()
-            ->setEmail($customerTransfer->getEmail())
-            ->setReference($restReturnLabelRequestTransfer->getCustomer()->getReference());
+        $returnLabelRequestCustomerTransfer = $this->returnLabelRequestCustomerMapper->fromCustomerTransfer(
+            $customerTransfer
+        );
+
+        return $returnLabelRequestTransfer->setCustomer($returnLabelRequestCustomerTransfer);
+
     }
 }
