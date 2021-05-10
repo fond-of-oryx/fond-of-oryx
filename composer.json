@@ -182,6 +182,7 @@
       "FondOfOryx\\Zed\\SplittableTotalsRestApi\\": "bundles/splittable-totals-rest-api/src/FondOfOryx/Zed/SplittableTotalsRestApi",
       "FondOfOryx\\Zed\\SplittableTotalsRestApiCompanyUnitAddressConnector\\": "bundles/splittable-totals-rest-api-company-unit-address-connector/src/FondOfOryx/Zed/SplittableTotalsRestApiCompanyUnitAddressConnector",
       "FondOfOryx\\Zed\\SplittableTotalsRestApiExtension\\": "bundles/splittable-totals-rest-api-extension/src/FondOfOryx/Zed/SplittableTotalsRestApiExtension",
+      "FondOfOryx\\Zed\\SplittableTotalsRestApiShipmentConnector\\": "bundles/splittable-totals-rest-api-shipment-connector/src/FondOfOryx/Zed/SplittableTotalsRestApiShipmentConnector",
       "FondOfOryx\\Zed\\SplittableTotals\\": "bundles/splittable-totals/src/FondOfOryx/Zed/SplittableTotals",
       "FondOfOryx\\Zed\\TaxCalculationConnector\\": "bundles/tax-calculation-connector/src/FondOfOryx/Zed/TaxCalculationConnector"
     }
@@ -256,6 +257,7 @@
       "FondOfOryx\\Zed\\SplittableCheckout\\": "bundles/splittable-checkout/tests/FondOfOryx/Zed/SplittableCheckout",
       "FondOfOryx\\Zed\\SplittableTotalsRestApiCompanyUnitAddressConnector\\": "bundles/splittable-totals-rest-api-company-unit-address-connector/tests/FondOfOryx/Zed/SplittableTotalsRestApiCompanyUnitAddressConnector",
       "FondOfOryx\\Zed\\SplittableTotalsRestApiExtension\\": "bundles/splittable-totals-rest-api-extension/tests/FondOfOryx/Zed/SplittableTotalsRestApiExtension",
+      "FondOfOryx\\Zed\\SplittableTotalsRestApiShipmentConnector\\": "bundles/splittable-totals-rest-api-shipment-connector/tests/FondOfOryx/Zed/SplittableTotalsRestApiShipmentConnector",
       "FondOfOryx\\Zed\\SplittableTotalsRestApi\\": "bundles/splittable-totals-rest-api/tests/FondOfOryx/Zed/SplittableTotalsRestApi",
       "FondOfOryx\\Zed\\SplittableTotals\\": "bundles/splittable-totals/tests/FondOfOryx/Zed/SplittableTotals",
       "FondOfOryx\\Zed\\TaxCalculationConnector\\": "bundles/tax-calculation-connector/tests/FondOfOryx/Zed/TaxCalculationConnector",
