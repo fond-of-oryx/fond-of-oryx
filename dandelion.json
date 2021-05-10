@@ -1,7 +1,23 @@
 {
   "repositories": {
+    "availability-alert": {
+      "path": "bundles/availability-alert/",
+      "version": "1.0.0"
+    },
+    "availability-alert-cross-engage": {
+      "path": "bundles/availability-alert-cross-engage/",
+      "version": "1.0.0"
+    },
+    "availability-alert-migrator": {
+      "path": "bundles/availability-alert-migrator/",
+      "version": "1.0.0"
+    },
     "catalog-sku-filter": {
       "path": "bundles/catalog-sku-filter/",
+      "version": "1.0.0"
+    },
+    "cross-engage": {
+      "path": "bundles/cross-engage/",
       "version": "1.0.0"
     },
     "customer-statistic": {
@@ -34,6 +50,14 @@
     },
     "erp-order-permission": {
       "path": "bundles/erp-order-permission/",
+      "version": "1.0.0"
+    },
+    "feed": {
+      "path": "bundles/feed/",
+      "version": "1.0.0"
+    },
+    "jellyfish-availability-alert": {
+      "path": "bundles/jellyfish-availability-alert/",
       "version": "1.0.0"
     },
     "mail-bcc": {
@@ -88,36 +112,32 @@
       "path": "bundles/shipment-table-rate-data-import/",
       "version": "1.0.0"
     },
+    "splittable-totals": {
+      "path": "bundles/splittable-totals/",
+      "version": "1.0.0"
+    },
+    "splittable-totals-rest-api": {
+      "path": "bundles/splittable-totals-rest-api/",
+      "version": "1.0.0"
+    },
+    "splittable-totals-rest-api-company-unit-address-connector": {
+      "path": "bundles/splittable-totals-rest-api-company-unit-address-connector/",
+      "version": "1.0.0"
+    },
+    "splittable-totals-rest-api-extension": {
+      "path": "bundles/splittable-totals-rest-api-extension/",
+      "version": "1.0.0"
+    },
+    "splittable-totals-rest-api-shipment-connector": {
+      "path": "bundles/splittable-totals-rest-api-shipment-connector/",
+      "version": "1.0.0"
+    },
     "tax-calculation-connector": {
       "path": "bundles/tax-calculation-connector/",
       "version": "1.0.0"
     },
     "util-math-formula": {
       "path": "bundles/util-math-formula/",
-      "version": "1.0.0"
-    },
-    "availability-alert": {
-      "path": "bundles/availability-alert/",
-      "version": "1.0.0"
-    },
-    "availability-alert-cross-engage": {
-      "path": "bundles/availability-alert-cross-engage/",
-      "version": "1.0.0"
-    },
-    "availability-alert-migrator": {
-      "path": "bundles/availability-alert-migrator/",
-      "version": "1.0.0"
-    },
-    "cross-engage": {
-      "path": "bundles/cross-engage/",
-      "version": "1.0.0"
-    },
-    "feed": {
-      "path": "bundles/feed/",
-      "version": "1.0.0"
-    },
-    "jellyfish-availability-alert": {
-      "path": "bundles/jellyfish-availability-alert/",
       "version": "1.0.0"
     }
   },
