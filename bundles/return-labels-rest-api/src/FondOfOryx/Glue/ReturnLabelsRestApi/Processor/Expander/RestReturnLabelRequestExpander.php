@@ -40,8 +40,10 @@ class RestReturnLabelRequestExpander implements RestReturnLabelRequestExpanderIn
         /** @var \Generated\Shared\Transfer\RestUserTransfer|\Spryker\Glue\GlueApplication\Rest\Request\Data\UserInterface $restUser */
         $restUser = $restRequest->$getUserMethod();
 
-        return $restReturnLabelRequestTransfer->setIdCustomer(
+        $restReturnLabelRequestTransfer->getCustomer()->setIdCustomer(
             $restUser->getSurrogateIdentifier()
         );
+
+        return $restReturnLabelRequestTransfer;
     }
 }

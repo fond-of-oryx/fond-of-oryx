@@ -62,11 +62,11 @@ class ReturnLabelGenerator implements ReturnLabelGeneratorInterface
         $restReturnLabelTransfer = $this->restReturnLabelRequestMapper
             ->fromRestReturnLabelRequestAttributes($restReturnLabelRequestAttributesTransfer);
 
-        $restSplittableTotalsRequestTransfer = $this->restReturnLabelRequestExpander
+        $restReturnLabelRequestTransfer = $this->restReturnLabelRequestExpander
             ->expand($restReturnLabelTransfer, $restRequest);
 
         $restReturnLabelResponseTransfer = $this->client
-            ->generateReturnLabel($restSplittableTotalsRequestTransfer);
+            ->generateReturnLabel($restReturnLabelRequestTransfer);
 
         $returnLabelTransfer = $restReturnLabelResponseTransfer->getReturnLabel();
 
