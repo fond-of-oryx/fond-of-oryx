@@ -16,6 +16,6 @@ class AddressMapper implements AddressMapperInterface
         CompanyUnitAddressTransfer $companyUnitAddressTransfer
     ): AddressTransfer {
         return (new AddressTransfer())
-            ->fromArray($companyUnitAddressTransfer->toArray(), false);
+            ->fromArray($companyUnitAddressTransfer->toArray(), true);
     }
 }

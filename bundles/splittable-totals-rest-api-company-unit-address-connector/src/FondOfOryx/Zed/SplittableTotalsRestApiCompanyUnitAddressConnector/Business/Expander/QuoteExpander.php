@@ -6,6 +6,7 @@ use FondOfOryx\Zed\SplittableTotalsRestApiCompanyUnitAddressConnector\Business\R
 use Generated\Shared\Transfer\AddressTransfer;
 use Generated\Shared\Transfer\QuoteTransfer;
 use Generated\Shared\Transfer\RestSplittableTotalsRequestTransfer;
+use Generated\Shared\Transfer\ShipmentTransfer;
 
 class QuoteExpander implements QuoteExpanderInterface
 {
@@ -78,10 +79,11 @@ class QuoteExpander implements QuoteExpanderInterface
             return $quoteTransfer;
         }
 
-        if ($quoteTransfer->getShipment() !== null) {
-            $quoteTransfer->getShipment()->setShippingAddress($addressTransfer);
+        if ($quoteTransfer->getShipment() === null) {
+            $quoteTransfer->setShipment(new ShipmentTransfer());
         }
 
+        $quoteTransfer->getShipment()->setShippingAddress($addressTransfer);
         $quoteTransfer->setShippingAddress($addressTransfer);
 
         return $this->expandItemsWithShippingAddress($quoteTransfer, $addressTransfer);
@@ -99,7 +101,7 @@ class QuoteExpander implements QuoteExpanderInterface
     ): QuoteTransfer {
         foreach ($quoteTransfer->getItems() as $item) {
             if ($item->getShipment() === null) {
-                continue;
+                $item->setShipment(new ShipmentTransfer());
             }
 
             $item->getShipment()->setShippingAddress($shippingAddressTransfer);
