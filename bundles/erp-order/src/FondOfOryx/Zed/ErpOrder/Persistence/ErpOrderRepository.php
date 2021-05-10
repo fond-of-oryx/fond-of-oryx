@@ -5,10 +5,13 @@ namespace FondOfOryx\Zed\ErpOrder\Persistence;
 use Generated\Shared\Transfer\ErpOrderAddressTransfer;
 use Generated\Shared\Transfer\ErpOrderItemCollectionTransfer;
 use Generated\Shared\Transfer\ErpOrderItemTransfer;
+use Generated\Shared\Transfer\ErpOrderTotalTransfer;
 use Generated\Shared\Transfer\ErpOrderTransfer;
 use Orm\Zed\ErpOrder\Persistence\ErpOrderAddressQuery;
 use Orm\Zed\ErpOrder\Persistence\ErpOrderItemQuery;
 use Orm\Zed\ErpOrder\Persistence\ErpOrderQuery;
+use Orm\Zed\ErpOrder\Persistence\ErpOrderTotalQuery;
+use Orm\Zed\ErpOrder\Persistence\ErpOrderTotalsQuery;
 use Spryker\Zed\Kernel\Persistence\AbstractRepository;
 
 /**
@@ -90,6 +93,44 @@ class ErpOrderRepository extends AbstractRepository implements ErpOrderRepositor
     }
 
     /**
+     * @param int $idErpOrderTotal
+     *
+     * @return \Generated\Shared\Transfer\ErpOrderTotalTransfer|null
+     *
+     * @throws \Exception
+     */
+    public function findErpOrderTotalByIdErpOrderTotal(int $idErpOrderTotal): ?ErpOrderTotalTransfer
+    {
+        $query = $this->getErpOrderTotalQuery();
+        $total = $query->findOneByIdErpOrderTotal($idErpOrderTotal);
+
+        if (!is_int($total->getIdErpOrderTotal()) || empty($total)) {
+            return null;
+        }
+
+
+        return $this->getFactory()->createEntityToTransferMapper()->fromErpOrderTotalToTransfer($total);
+    }
+
+    /**
+     * @param int $idErpOrderTotal
+     *
+     * @return \Generated\Shared\Transfer\ErpOrderTotalTransfer|null
+     */
+    public function findErpOrderTotalByIdErpOrder(int $idErpOrder): ?ErpOrderTotalTransfer
+    {
+        $query = $this->getErpOrderTotalQuery();
+        $total = $query->findOneByFkErpOrder($idErpOrder);
+
+        if ($total === null || !is_int($total->getIdErpOrderTotal()) || empty($total)) {
+            return null;
+        }
+
+        return $this->getFactory()->createEntityToTransferMapper()->fromErpOrderTotalToTransfer($total);
+    }
+
+
+    /**
      * @return \Orm\Zed\ErpOrder\Persistence\ErpOrderQuery
      */
     protected function getErpOrderQuery(): ErpOrderQuery
@@ -111,5 +152,13 @@ class ErpOrderRepository extends AbstractRepository implements ErpOrderRepositor
     protected function getErpOrderAddressQuery(): ErpOrderAddressQuery
     {
         return $this->getFactory()->createErpOrderAddressQuery();
+    }
+
+    /**
+     * @return \Orm\Zed\ErpOrder\Persistence\ErpOrderTotalQuery
+     */
+    protected function getErpOrderTotalQuery(): ErpOrderTotalQuery
+    {
+        return $this->getFactory()->createErpOrderTotalQuery();
     }
 }

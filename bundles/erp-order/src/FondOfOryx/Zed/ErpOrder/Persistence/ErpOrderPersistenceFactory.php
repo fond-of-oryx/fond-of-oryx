@@ -7,9 +7,11 @@ use FondOfOryx\Zed\ErpOrder\Dependency\Facade\ErpOrderToCountryFacadeInterface;
 use FondOfOryx\Zed\ErpOrder\ErpOrderDependencyProvider;
 use FondOfOryx\Zed\ErpOrder\Persistence\Propel\Mapper\EntityToTransferMapper;
 use FondOfOryx\Zed\ErpOrder\Persistence\Propel\Mapper\EntityToTransferMapperInterface;
+use Orm\Zed\ErpOrder\Persistence\Base\ErpOrderTotalsQuery;
 use Orm\Zed\ErpOrder\Persistence\ErpOrderAddressQuery;
 use Orm\Zed\ErpOrder\Persistence\ErpOrderItemQuery;
 use Orm\Zed\ErpOrder\Persistence\ErpOrderQuery;
+use Orm\Zed\ErpOrder\Persistence\ErpOrderTotalQuery;
 use Spryker\Zed\Kernel\Persistence\AbstractPersistenceFactory;
 
 /**
@@ -68,5 +70,13 @@ class ErpOrderPersistenceFactory extends AbstractPersistenceFactory
     public function createErpOrderAddressQuery(): ErpOrderAddressQuery
     {
         return ErpOrderAddressQuery::create();
+    }
+
+    /**
+     * @return \Orm\Zed\ErpOrder\Persistence\ErpOrderTotalQuery
+     */
+    public function createErpOrderTotalQuery(): ErpOrderTotalQuery
+    {
+        return ErpOrderTotalQuery::create();
     }
 }

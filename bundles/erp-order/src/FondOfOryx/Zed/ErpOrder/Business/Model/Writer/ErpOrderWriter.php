@@ -53,6 +53,7 @@ class ErpOrderWriter implements ErpOrderWriterInterface
                 }
             );
         } catch (Exception $exception) {
+            exit($exception->getMessage());
             $responseTransfer->setErpOrder(null)
                 ->setIsSuccessful(false);
         }
@@ -128,7 +129,6 @@ class ErpOrderWriter implements ErpOrderWriterInterface
         $erpOrderTransfer = $this->erpOrderPluginExecutor->executePreSavePlugins($erpOrderTransfer);
         $erpOrderTransfer = $this->entityManager->createErpOrder($erpOrderTransfer);
         $erpOrderTransfer = $this->erpOrderPluginExecutor->executePostSavePlugins($erpOrderTransfer);
-
         return $erpOrderResponseTransfer->setErpOrder($erpOrderTransfer);
     }
 
