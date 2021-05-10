@@ -3,6 +3,7 @@
 namespace FondOfOryx\Zed\AvailabilityAlert\Persistence\Propel\Mapper;
 
 use Generated\Shared\Transfer\AvailabilityAlertSubscriptionTransfer;
+use Generated\Shared\Transfer\FooAvailabilityAlertSubscriptionEntityTransfer;
 use Orm\Zed\AvailabilityAlert\Persistence\FooAvailabilityAlertSubscription;
 
 interface AvailabilityAlertSubscriptionMapperInterface
@@ -15,9 +16,9 @@ interface AvailabilityAlertSubscriptionMapperInterface
     public function fromEntity(FooAvailabilityAlertSubscription $availabilityAlertSubscription): AvailabilityAlertSubscriptionTransfer;
 
     /**
-     * @param \Generated\Shared\Transfer\AvailabilityAlertSubscriptionTransfer $availabilityAlertSubscriptionTransfer
+     * @param  \Generated\Shared\Transfer\AvailabilityAlertSubscriptionTransfer  $availabilityAlertSubscriptionTransfer
      *
-     * @return \Orm\Zed\AvailabilityAlert\Persistence\FooAvailabilityAlertSubscription
+     * @return \Generated\Shared\Transfer\FooAvailabilityAlertSubscriptionEntityTransfer
      */
-    public function fromTransfer(AvailabilityAlertSubscriptionTransfer $availabilityAlertSubscriptionTransfer): FooAvailabilityAlertSubscription;
+    public function fromTransfer(AvailabilityAlertSubscriptionTransfer $availabilityAlertSubscriptionTransfer): FooAvailabilityAlertSubscriptionEntityTransfer;
 }
