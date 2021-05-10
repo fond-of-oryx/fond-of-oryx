@@ -16,7 +16,6 @@ class ReturnLabelRequestCustomerMapper implements ReturnLabelRequestCustomerMapp
     public function fromCustomerTransfer(CustomerTransfer $customerTransfer): ReturnLabelRequestCustomerTransfer
     {
         return $returnLabelRequestCustomerTransfer = (new ReturnLabelRequestCustomerTransfer())
-            ->setEmail($customerTransfer->getEmail())
-            ->setReference($customerTransfer->getCustomerReference());
+            ->setEmail($customerTransfer->getEmail());
     }
 }

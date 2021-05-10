@@ -64,7 +64,7 @@ class CustomerExpanderTest extends Unit
             ->disableOriginalConstructor()
             ->getMock();
 
-        $this->returnLabelRequestTransfer = $this->getMockBuilder(ReturnLabelRequestTransfer::class)
+        $this->returnLabelRequestTransferMock = $this->getMockBuilder(ReturnLabelRequestTransfer::class)
             ->disableOriginalConstructor()
             ->getMock();
 

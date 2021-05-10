@@ -2,23 +2,23 @@
 
 namespace FondOfOryx\Zed\ReturnLabelsRestApiCustomerConnector\Business\Reader;
 
+use FondOfOryx\Zed\ReturnLabelsRestApiCustomerConnector\Dependency\Facade\ReturnLabelsRestApiCustomerConnectorToCustomerFacadeInterface;
 use Generated\Shared\Transfer\CustomerTransfer;
 use Generated\Shared\Transfer\RestReturnLabelRequestTransfer;
-use FondOfOryx\Zed\ReturnLabelsRestApiCustomerConnector\Persistence\ReturnLabelsRestApiCustomerConnectorRepositoryInterface;
 
 class CustomerReader implements CustomerReaderInterface
 {
     /**
-     * @var \FondOfOryx\Zed\ReturnLabelsRestApiCustomerConnector\Persistence\ReturnLabelsRestApiCustomerConnectorRepositoryInterface
+     * @var \FondOfOryx\Zed\ReturnLabelsRestApiCustomerConnector\Dependency\Facade\ReturnLabelsRestApiCustomerConnectorToCustomerFacadeInterface
      */
-    protected $repository;
+    protected $customerFacade;
 
     /**
      * @param \FondOfOryx\Zed\ReturnLabelsRestApiCustomerConnector\Persistence\ReturnLabelsRestApiCustomerConnectorRepositoryInterface
      */
-    public function __construct(ReturnLabelsRestApiCustomerConnectorRepositoryInterface $repository)
+    public function __construct(ReturnLabelsRestApiCustomerConnectorToCustomerFacadeInterface $customerFacade)
     {
-        $this->repository = $repository;
+        $this->customerFacade = $customerFacade;
     }
 
     /**
@@ -36,6 +36,8 @@ class CustomerReader implements CustomerReaderInterface
             return null;
         }
 
-        return $this->repository->getCustomerById($idCustomer);
+        $customerTransfer = (new CustomerTransfer())->setIdCustomer($idCustomer);
+
+        return $this->customerFacade->findCustomerById($customerTransfer);
     }
 }

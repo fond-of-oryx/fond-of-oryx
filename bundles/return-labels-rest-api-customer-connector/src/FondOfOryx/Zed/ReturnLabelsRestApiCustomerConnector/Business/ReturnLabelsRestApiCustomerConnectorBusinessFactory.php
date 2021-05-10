@@ -8,11 +8,10 @@ use FondOfOryx\Zed\ReturnLabelsRestApiCustomerConnector\Business\Mapper\ReturnLa
 use FondOfOryx\Zed\ReturnLabelsRestApiCustomerConnector\Business\Mapper\ReturnLabelRequestCustomerMapperInterface;
 use FondOfOryx\Zed\ReturnLabelsRestApiCustomerConnector\Business\Reader\CustomerReaderInterface;
 use FondOfOryx\Zed\ReturnLabelsRestApiCustomerConnector\Business\Reader\CustomerReader;
+use FondOfOryx\Zed\ReturnLabelsRestApiCustomerConnector\Dependency\Facade\ReturnLabelsRestApiCustomerConnectorToCustomerFacadeInterface;
+use FondOfOryx\Zed\ReturnLabelsRestApiCustomerConnector\ReturnLabelsRestApiCustomerConnectorDependencyProvider;
 use Spryker\Zed\Kernel\Business\AbstractBusinessFactory;
 
-/**
- * @method \FondOfOryx\Zed\ReturnLabelsRestApiCustomerConnector\Persistence\ReturnLabelsRestApiCustomerConnectorRepositoryInterface getRepository()
- */
 class ReturnLabelsRestApiCustomerConnectorBusinessFactory extends AbstractBusinessFactory
 {
     /**
@@ -31,7 +30,7 @@ class ReturnLabelsRestApiCustomerConnectorBusinessFactory extends AbstractBusine
      */
     protected function createCustomerReader(): CustomerReaderInterface
     {
-        return new CustomerReader($this->getRepository());
+        return new CustomerReader($this->getCustomerFacade());
     }
 
     /**
@@ -40,5 +39,13 @@ class ReturnLabelsRestApiCustomerConnectorBusinessFactory extends AbstractBusine
     protected function createReturnLabelRequestCustomerMapper(): ReturnLabelRequestCustomerMapperInterface
     {
         return new ReturnLabelRequestCustomerMapper();
+    }
+
+    /**
+     * @return \FondOfOryx\Zed\ReturnLabelsRestApiCustomerConnector\Dependency\Facade\ReturnLabelsRestApiCustomerConnectorToCustomerFacadeInterface
+     */
+    protected function getCustomerFacade(): ReturnLabelsRestApiCustomerConnectorToCustomerFacadeInterface
+    {
+        return $this->getProvidedDependency(ReturnLabelsRestApiCustomerConnectorDependencyProvider::FACADE_CUSTOMER);
     }
 }

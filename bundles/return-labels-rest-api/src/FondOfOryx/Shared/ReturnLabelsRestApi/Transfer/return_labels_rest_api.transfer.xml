@@ -4,6 +4,7 @@
            xsi:schemaLocation="spryker:transfer-01 http://static.spryker.com/transfer-01.xsd">
 
     <transfer name="RestReturnLabelRequestAttributes">
+        <property name="reference" type="string" />
         <property name="address" type="RestAddress" />
         <property name="customer" type="RestCustomer" />
     </transfer>
@@ -14,7 +15,6 @@
 
     <transfer name="RestCustomer">
         <property name="idCustomer" type="int" />
-        <property name="reference" type="string"/>
     </transfer>
 
     <transfer name="RestReturnLabelRequest">

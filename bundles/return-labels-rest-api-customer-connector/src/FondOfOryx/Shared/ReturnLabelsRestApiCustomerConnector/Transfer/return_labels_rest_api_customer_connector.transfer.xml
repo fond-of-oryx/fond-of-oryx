@@ -6,6 +6,11 @@
     <transfer name="RestReturnLabelRequest">
         <property name="idCustomer" type="int" />
         <property name="address" type="RestAddress" />
+        <property name="customer" type="RestCustomer" />
+    </transfer>
+
+    <transfer name="RestCustomer">
+        <property name="idCustomer" type="int"/>
     </transfer>
 
     <transfer name="RestAddress">
@@ -17,8 +22,13 @@
     </transfer>
 
     <transfer name="ReturnLabelRequestCustomer">
-        <property name="reference" type="string"/>
-        <property name="email" type="string"/>
+        <property name="reference" type="string" />
+        <property name="email" type="string" />
         <property name="address" type="ReturnLabelRequestAddress"/>
+    </transfer>
+
+    <transfer name="Customer">
+        <property name="email" type="string" />
+        <property name="customerReference" type="string" />
     </transfer>
 </transfers>
