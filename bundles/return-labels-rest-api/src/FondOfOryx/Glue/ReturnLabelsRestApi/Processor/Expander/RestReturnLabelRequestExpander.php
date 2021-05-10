@@ -2,6 +2,7 @@
 
 namespace FondOfOryx\Glue\ReturnLabelsRestApi\Processor\Expander;
 
+use Generated\Shared\Transfer\RestCustomerTransfer;
 use Generated\Shared\Transfer\RestReturnLabelRequestTransfer;
 use Spryker\Glue\GlueApplication\Rest\Request\Data\RestRequestInterface;
 
@@ -40,9 +41,12 @@ class RestReturnLabelRequestExpander implements RestReturnLabelRequestExpanderIn
         /** @var \Generated\Shared\Transfer\RestUserTransfer|\Spryker\Glue\GlueApplication\Rest\Request\Data\UserInterface $restUser */
         $restUser = $restRequest->$getUserMethod();
 
-        $restReturnLabelRequestTransfer->getCustomer()->setIdCustomer(
-            $restUser->getSurrogateIdentifier()
-        );
+        if ($restReturnLabelRequestTransfer->getCustomer() === null) {
+            $restReturnLabelRequestTransfer->setCustomer(new RestCustomerTransfer());
+        }
+
+        $restReturnLabelRequestTransfer->getCustomer()
+            ->setIdCustomer($restUser->getSurrogateIdentifier());
 
         return $restReturnLabelRequestTransfer;
     }

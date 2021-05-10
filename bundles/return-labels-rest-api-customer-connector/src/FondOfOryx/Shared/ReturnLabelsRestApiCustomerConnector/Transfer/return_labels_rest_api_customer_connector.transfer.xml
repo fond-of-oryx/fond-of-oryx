@@ -22,7 +22,6 @@
     </transfer>
 
     <transfer name="ReturnLabelRequestCustomer">
-        <property name="reference" type="string" />
         <property name="email" type="string" />
         <property name="address" type="ReturnLabelRequestAddress"/>
     </transfer>
