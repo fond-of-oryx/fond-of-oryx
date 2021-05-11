@@ -9,10 +9,6 @@ use Generated\Shared\Transfer\ErpOrderTransfer;
 
 class ErpOrderTotalHandler implements ErpOrderTotalHandlerInterface
 {
-    protected const NEW = 'new';
-    protected const UPDATE = 'update';
-    protected const DELETE = 'delete';
-
     /**
      * @var \FondOfOryx\Zed\ErpOrder\Business\Model\Writer\ErpOrderTotalWriterInterface
      */
