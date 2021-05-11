@@ -2,7 +2,7 @@
   "repositories": {
     "availability-alert": {
       "path": "bundles/availability-alert/",
-      "version": "1.0.0"
+      "version": "1.0.1"
     },
     "availability-alert-cross-engage": {
       "path": "bundles/availability-alert-cross-engage/",
