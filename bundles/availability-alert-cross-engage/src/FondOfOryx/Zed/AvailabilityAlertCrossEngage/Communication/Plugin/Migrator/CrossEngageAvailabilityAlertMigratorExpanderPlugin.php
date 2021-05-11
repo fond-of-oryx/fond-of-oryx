@@ -38,6 +38,7 @@ class CrossEngageAvailabilityAlertMigratorExpanderPlugin extends AbstractPlugin 
 
         $subscriber
             ->setSubscriberIp('from migration')
+            ->setIsActive($this->getConfig()->getDefaultSubscriberActivationState())
             ->setKey($this->getFacade()->generateKey($subscriber->getEmail()))
             ->setHash($this->getFactory()->getCrossEngageService()->getHash($subscriber->getEmail()));
 

@@ -26,7 +26,7 @@ class AvailabilityAlertSubscriberMapper implements AvailabilityAlertSubscriberMa
     public function fromTransfer(AvailabilityAlertSubscriberTransfer $availabilityAlertSubscriberTransfer): FooAvailabilityAlertSubscriberEntityTransfer
     {
         $entity = new FooAvailabilityAlertSubscriberEntityTransfer();
-        $entity->fromArray($availabilityAlertSubscriberTransfer->modifiedToArray());
+        $entity->fromArray($availabilityAlertSubscriberTransfer->modifiedToArray(), true);
 
         return $entity;
     }
