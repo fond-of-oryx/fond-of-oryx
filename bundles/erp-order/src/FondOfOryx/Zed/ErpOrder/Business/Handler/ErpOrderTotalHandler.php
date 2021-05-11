@@ -93,19 +93,9 @@ class ErpOrderTotalHandler implements ErpOrderTotalHandlerInterface
     }
 
     /**
-     * @param int $erpOrderItemId
-     *
-     * @return void
-     */
-    protected function delete(int $erpOrderItemId): void
-    {
-        $this->erpOrderItemWriter->delete($erpOrderItemId);
-    }
-
-    /**
      * @param int $idErpOrder
      *
-     * @return \Generated\Shared\Transfer\ErpOrderTotalTransfer
+     * @return \Generated\Shared\Transfer\ErpOrderTotalTransfer|null
      */
     protected function findErpOrderTotal(int $idErpOrder): ?ErpOrderTotalTransfer
     {

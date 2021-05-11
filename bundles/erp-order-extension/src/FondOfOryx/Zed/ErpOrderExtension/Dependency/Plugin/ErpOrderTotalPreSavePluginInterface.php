@@ -2,7 +2,7 @@
 
 namespace FondOfOryx\Zed\ErpOrderExtension\Dependency\Plugin;
 
-use Generated\Shared\Transfer\ErpOrderTotalTransfer
+use Generated\Shared\Transfer\ErpOrderTotalTransfer;
 
 interface ErpOrderTotalPreSavePluginInterface
 {

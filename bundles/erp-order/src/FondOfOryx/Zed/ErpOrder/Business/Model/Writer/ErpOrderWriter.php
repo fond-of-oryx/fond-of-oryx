@@ -53,7 +53,6 @@ class ErpOrderWriter implements ErpOrderWriterInterface
                 }
             );
         } catch (Exception $exception) {
-            exit($exception->getMessage());
             $responseTransfer->setErpOrder(null)
                 ->setIsSuccessful(false);
         }
