@@ -6,11 +6,11 @@
     },
     "availability-alert-cross-engage": {
       "path": "bundles/availability-alert-cross-engage/",
-      "version": "1.0.0"
+      "version": "1.0.1"
     },
     "availability-alert-migrator": {
       "path": "bundles/availability-alert-migrator/",
-      "version": "1.0.0"
+      "version": "1.0.1"
     },
     "catalog-sku-filter": {
       "path": "bundles/catalog-sku-filter/",
