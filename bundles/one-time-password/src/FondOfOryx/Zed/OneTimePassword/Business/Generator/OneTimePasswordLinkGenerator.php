@@ -9,6 +9,9 @@ use Generated\Shared\Transfer\OrderTransfer;
 
 class OneTimePasswordLinkGenerator implements OneTimePasswordLinkGeneratorInterface
 {
+    protected const LINK_PARAMETER_FORMAT = '%s?%s=%s';
+    protected const LINK_PARAMETER_EXTENSION_FORMAT = '%s&%s=%s';
+
     /**
      * @var \FondOfOryx\Zed\OneTimePassword\Business\Generator\OneTimePasswordGeneratorInterface
      */
@@ -56,7 +59,7 @@ class OneTimePasswordLinkGenerator implements OneTimePasswordLinkGeneratorInterf
         $encodedLoginCredentials = $this->oneTimePasswordEncoder->encode($oneTimePasswordResponseTransfer);
 
         return sprintf(
-            '%s?%s=%s',
+            self::LINK_PARAMETER_FORMAT,
             $this->oneTimePasswordConfig->getLoginLinkPath(),
             $this->oneTimePasswordConfig->getLoginLinkParameterName(),
             $encodedLoginCredentials
@@ -84,7 +87,7 @@ class OneTimePasswordLinkGenerator implements OneTimePasswordLinkGeneratorInterf
         }
 
         return sprintf(
-            '%s&%s=%s',
+            self::LINK_PARAMETER_EXTENSION_FORMAT,
             $credentialsLink,
             $this->oneTimePasswordConfig->getLoginLinkOrderReferenceName(),
             $orderTransfer->getOrderReference()
