@@ -11,7 +11,7 @@ use Spryker\Zed\OmsExtension\Dependency\Plugin\OmsOrderMailExpanderPluginInterfa
  * @method \FondOfOryx\Zed\OneTimePassword\Business\OneTimePasswordFacadeInterface getFacade()
  * @method \FondOfOryx\Zed\OneTimePassword\OneTimePasswordConfig getConfig()
  */
-class AddLoginLinkOmsOrderMailExpanderPlugin extends AbstractPlugin implements OmsOrderMailExpanderPluginInterface
+class LoginLinkOrderMailExpanderPlugin extends AbstractPlugin implements OmsOrderMailExpanderPluginInterface
 {
     /**
      * @param \Generated\Shared\Transfer\MailTransfer $mailTransfer

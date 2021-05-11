@@ -7,10 +7,10 @@ use FondOfOryx\Zed\OneTimePassword\Business\OneTimePasswordFacade;
 use Generated\Shared\Transfer\MailTransfer;
 use Generated\Shared\Transfer\OrderTransfer;
 
-class AddLoginLinkOmsOrderMailExpanderPluginTest extends Unit
+class LoginLinkOrderMailExpanderPluginTest extends Unit
 {
     /**
-     * @var \FondOfOryx\Zed\OneTimePassword\Communication\Plugin\AddLoginLinkOmsOrderMailExpanderPlugin
+     * @var \FondOfOryx\Zed\OneTimePassword\Communication\Plugin\LoginLinkOrderMailExpanderPlugin
      */
     protected $addLoginLinkOmsOrderMailExpanderPlugin;
 
@@ -53,7 +53,7 @@ class AddLoginLinkOmsOrderMailExpanderPluginTest extends Unit
 
         $this->loginLink = 'login-link';
 
-        $this->addLoginLinkOmsOrderMailExpanderPlugin = new AddLoginLinkOmsOrderMailExpanderPlugin();
+        $this->addLoginLinkOmsOrderMailExpanderPlugin = new LoginLinkOrderMailExpanderPlugin();
         $this->addLoginLinkOmsOrderMailExpanderPlugin->setFacade($this->oneTimePasswordFacadeMock);
     }
 
