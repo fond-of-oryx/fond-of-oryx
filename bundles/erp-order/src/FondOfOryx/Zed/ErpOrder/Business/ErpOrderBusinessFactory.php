@@ -180,7 +180,7 @@ class ErpOrderBusinessFactory extends AbstractBusinessFactory
     {
         return new ErpOrderTotalPluginExecutor(
             $this->getErpOrderTotalPreSavePlugin(),
-            $this->getErpOrderItemPostSavePlugin()
+            $this->getErpOrderTotalPostSavePlugin()
         );
     }
 

@@ -68,9 +68,9 @@ class ErpOrderTotalHandler implements ErpOrderTotalHandlerInterface
     }
 
     /**
-     * @param \Generated\Shared\Transfer\ErpOrderItemTransfer $erpOrderItemTransfer
+     * @param \Generated\Shared\Transfer\ErpOrderTotalTransfer $erpOrderTotalTransfer
      *
-     * @return \Generated\Shared\Transfer\ErpOrderItemTransfer
+     * @return \Generated\Shared\Transfer\ErpOrderTotalTransfer
      */
     protected function create(ErpOrderTotalTransfer $erpOrderTotalTransfer): ErpOrderTotalTransfer
     {
@@ -78,9 +78,9 @@ class ErpOrderTotalHandler implements ErpOrderTotalHandlerInterface
     }
 
     /**
-     * @param \Generated\Shared\Transfer\ErpOrderItemTransfer $erpOrderItemTransfer
+     * @param \Generated\Shared\Transfer\ErpOrderTotalTransfer $erpOrderTotalTransfer
      *
-     * @return \Generated\Shared\Transfer\ErpOrderItemTransfer
+     * @return \Generated\Shared\Transfer\ErpOrderTotalTransfer
      */
     protected function update(ErpOrderTotalTransfer $erpOrderTotalTransfer): ErpOrderTotalTransfer
     {

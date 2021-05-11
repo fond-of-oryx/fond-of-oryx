@@ -50,7 +50,7 @@ interface EntityToTransferMapperInterface
     ): ErpOrderAddressTransfer;
 
     /**
-     * @param \Orm\Zed\ErpOrder\Persistence\ErpOrderTotals $erpOrderTotals
+     * @param \Orm\Zed\ErpOrder\Persistence\ErpOrderTotal $erpOrderTotal
      * @param \Generated\Shared\Transfer\ErpOrderTotalTransfer|null $erpOrderTotalTransfer
      *
      * @return \Generated\Shared\Transfer\ErpOrderTotalTransfer

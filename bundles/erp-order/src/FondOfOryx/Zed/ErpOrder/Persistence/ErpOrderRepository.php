@@ -113,7 +113,7 @@ class ErpOrderRepository extends AbstractRepository implements ErpOrderRepositor
     }
 
     /**
-     * @param int $idErpOrderTotal
+     * @param int $idErpOrder
      *
      * @return \Generated\Shared\Transfer\ErpOrderTotalTransfer|null
      */

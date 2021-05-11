@@ -118,12 +118,10 @@ class EntityToTransferMapper implements EntityToTransferMapperInterface
     }
 
     /**
-     * @param \Orm\Zed\ErpOrder\Persistence\ErpOrderTotals $erpOrderTotals
+     * @param \Orm\Zed\ErpOrder\Persistence\ErpOrderTotal $erpOrderTotal
      * @param \Generated\Shared\Transfer\ErpOrderTotalTransfer|null $erpOrderTotalTransfer
      *
      * @return \Generated\Shared\Transfer\ErpOrderTotalTransfer
-     *
-     * @throws \Exception
      */
     public function fromErpOrderTotalToTransfer(
         ErpOrderTotal $erpOrderTotal,
