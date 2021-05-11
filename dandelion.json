@@ -14,7 +14,7 @@
     },
     "catalog-sku-filter": {
       "path": "bundles/catalog-sku-filter/",
-      "version": "1.0.0"
+      "version": "1.1.0"
     },
     "cross-engage": {
       "path": "bundles/cross-engage/",
