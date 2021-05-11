@@ -6,6 +6,7 @@ use Codeception\Test\Unit;
 use Exception;
 use MathParser\Interpreting\Evaluator;
 use MathParser\StdMathParser;
+use Throwable;
 
 class FormulaEvaluatorTest extends Unit
 {
@@ -46,7 +47,7 @@ class FormulaEvaluatorTest extends Unit
         try {
             $this->formulaEvaluator->evaluate('x+1', ['x' => 'x']);
             static::fail();
-        } catch (Exception $exception) {
+        } catch (Throwable $exception) {
         }
     }
 
