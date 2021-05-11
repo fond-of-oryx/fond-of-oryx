@@ -7,6 +7,7 @@ use FondOfOryx\Zed\AvailabilityAlert\Business\PluginExecutor\AvailabilityAlertSu
 use FondOfOryx\Zed\AvailabilityAlert\Dependency\Facade\AvailabilityAlertToStoreInterface;
 use FondOfOryx\Zed\AvailabilityAlert\Persistence\AvailabilityAlertEntityManagerInterface;
 use FondOfOryx\Zed\AvailabilityAlert\Persistence\AvailabilityAlertRepositoryInterface;
+use Generated\Shared\Transfer\AvailabilityAlertSubscriberTransfer;
 use Generated\Shared\Transfer\AvailabilityAlertSubscriptionCollectionTransfer;
 use Generated\Shared\Transfer\AvailabilityAlertSubscriptionTransfer;
 use Orm\Zed\AvailabilityAlert\Persistence\Map\FooAvailabilityAlertSubscriptionTableMap;
@@ -146,15 +147,15 @@ class SubscriptionManager implements SubscriptionManagerInterface
     /**
      * @param \Generated\Shared\Transfer\AvailabilityAlertSubscriptionTransfer $availabilityAlertSubscriptionTransfer
      *
-     * @return \Generated\Shared\Transfer\AvailabilityAlertSubscriberTransfer|false
+     * @return \Generated\Shared\Transfer\AvailabilityAlertSubscriberTransfer
      */
-    protected function handleSubscriber(AvailabilityAlertSubscriptionTransfer $availabilityAlertSubscriptionTransfer)
+    protected function handleSubscriber(AvailabilityAlertSubscriptionTransfer $availabilityAlertSubscriptionTransfer): AvailabilityAlertSubscriberTransfer
     {
         $subscriber = false;
 
         if ($availabilityAlertSubscriptionTransfer->getFkSubscriber() === null) {
             $availabilityAlertSubscriptionTransfer->requireSubscriber();
-            $subscriber = $availabilityAlertSubscriptionTransfer->getSubscriber();
+            $subscriber = $this->appendBusinessUnit($availabilityAlertSubscriptionTransfer, $availabilityAlertSubscriptionTransfer->getSubscriber());
             $subscriber->requireEmail();
         }
 
@@ -162,9 +163,9 @@ class SubscriptionManager implements SubscriptionManagerInterface
             $subscriber = $this->repository->findSubscriberById($availabilityAlertSubscriptionTransfer->getFkSubscriber());
         }
 
-        $subscriber = $this->availabilityAlertSubscriberPluginExecutor->executePreSavePlugins($subscriber);
+        $subscriber = $this->availabilityAlertSubscriberPluginExecutor->executePreSavePlugins($subscriber, $availabilityAlertSubscriptionTransfer);
         $subscriber = $this->entityManager->createOrUpdateSubscriber($subscriber);
-        $subscriber = $this->availabilityAlertSubscriberPluginExecutor->executePostSavePlugins($subscriber);
+        $subscriber = $this->availabilityAlertSubscriberPluginExecutor->executePostSavePlugins($subscriber, $availabilityAlertSubscriptionTransfer);
 
         return $subscriber;
     }
@@ -180,5 +181,24 @@ class SubscriptionManager implements SubscriptionManagerInterface
         $availabilityAlertSubscriptionTransfer = $this->entityManager->createOrUpdateSubscription($availabilityAlertSubscriptionTransfer);
 
         return $this->availabilityAlertSubscriptionPluginExecutor->executePostSavePlugins($availabilityAlertSubscriptionTransfer);
+    }
+
+    /**
+     * @param \Generated\Shared\Transfer\AvailabilityAlertSubscriptionTransfer $subscriptionTransfer
+     * @param \Generated\Shared\Transfer\AvailabilityAlertSubscriberTransfer $subscriberTransfer
+     *
+     * @return \Generated\Shared\Transfer\AvailabilityAlertSubscriberTransfer
+     */
+    protected function appendBusinessUnit(
+        AvailabilityAlertSubscriptionTransfer $subscriptionTransfer,
+        AvailabilityAlertSubscriberTransfer $subscriberTransfer
+    ): AvailabilityAlertSubscriberTransfer {
+        $locale = $subscriptionTransfer->getLocale();
+
+        if ($locale === null || method_exists($subscriberTransfer, 'setBusinessUnit') === false) {
+            return $subscriberTransfer;
+        }
+
+        return $subscriberTransfer->setBusinessUnit($locale->getLocaleName());
     }
 }
