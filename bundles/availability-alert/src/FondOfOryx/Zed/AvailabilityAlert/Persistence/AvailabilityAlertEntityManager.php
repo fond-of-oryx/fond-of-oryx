@@ -26,16 +26,6 @@ class AvailabilityAlertEntityManager extends AbstractEntityManager implements Av
     protected $subscriberMapper;
 
     /**
-     * @var \Orm\Zed\AvailabilityAlert\Persistence\FooAvailabilityAlertSubscriptionQuery
-     */
-    protected $subscriptionQuery;
-
-    /**
-     * @var \Orm\Zed\AvailabilityAlert\Persistence\FooAvailabilityAlertSubscriberQuery
-     */
-    protected $subscriberQuery;
-
-    /**
      * @param \Generated\Shared\Transfer\AvailabilityAlertSubscriptionTransfer $availabilityAlertSubscriptionTransfer
      *
      * @return \Generated\Shared\Transfer\AvailabilityAlertSubscriptionTransfer
@@ -55,12 +45,10 @@ class AvailabilityAlertEntityManager extends AbstractEntityManager implements Av
             ->filterByFkProductAbstract($availabilityAlertSubscriptionTransfer->getFkProductAbstract())
             ->findOneOrCreate();
 
-        $id = $entity->getIdAvailabilityAlertSubscription();
-        $createdAt = $entity->getCreatedAt() !== null ?: $mappedEntity->getCreatedAt();
+        $createdAt = $entity->getCreatedAt() !== null ? $entity->getCreatedAt() : $availabilityAlertSubscriptionTransfer->getCreatedAt();
 
-        $entity->fromArray($mappedEntity->toArray());
+        $entity->fromArray($mappedEntity->modifiedToArray());
         $entity
-            ->setIdAvailabilityAlertSubscription($id)
             ->setUpdatedAt(time())
             ->setCreatedAt($createdAt)
             ->save();
@@ -83,12 +71,10 @@ class AvailabilityAlertEntityManager extends AbstractEntityManager implements Av
             ->filterByEmail($availabilityAlertSubscriberTransfer->getEmail())
             ->findOneOrCreate();
 
-        $id = $entity->getIdAvailabilityAlertSubscriber();
         $createdAt = $entity->getCreatedAt();
 
-        $entity->fromArray($mappedEntity->toArray());
+        $entity->fromArray($mappedEntity->modifiedToArray());
         $entity
-            ->setIdAvailabilityAlertSubscriber($id)
             ->setUpdatedAt(time())
             ->setCreatedAt($createdAt)
             ->save();
@@ -125,11 +111,7 @@ class AvailabilityAlertEntityManager extends AbstractEntityManager implements Av
      */
     protected function getSubscriptionQuery(): FooAvailabilityAlertSubscriptionQuery
     {
-        if ($this->subscriptionQuery === null) {
-            $this->subscriptionQuery = $this->getFactory()->createAvailabilityAlertSubscriptionQuery();
-        }
-
-        return $this->subscriptionQuery;
+        return $this->getFactory()->createAvailabilityAlertSubscriptionQuery();
     }
 
     /**
@@ -137,10 +119,6 @@ class AvailabilityAlertEntityManager extends AbstractEntityManager implements Av
      */
     protected function getSubscriberQuery(): FooAvailabilityAlertSubscriberQuery
     {
-        if ($this->subscriberQuery === null) {
-            $this->subscriberQuery = $this->getFactory()->createAvailabilityAlertSubscriberQuery();
-        }
-
-        return $this->subscriberQuery;
+        return $this->getFactory()->createAvailabilityAlertSubscriberQuery();
     }
 }

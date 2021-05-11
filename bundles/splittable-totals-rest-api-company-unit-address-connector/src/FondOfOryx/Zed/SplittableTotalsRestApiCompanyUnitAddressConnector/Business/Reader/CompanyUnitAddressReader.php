@@ -101,6 +101,7 @@ class CompanyUnitAddressReader implements CompanyUnitAddressReaderInterface
         if ($companyUnitAddressTransfer === null || !$companyUnitAddressResponseTransfer->getIsSuccessful()) {
             // @codeCoverageIgnoreStart
             return null;
+
             // @codeCoverageIgnoreEnd
         }
 
