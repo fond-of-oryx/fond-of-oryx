@@ -6,13 +6,13 @@ use Codeception\Test\Unit;
 use Elastica\Query;
 use Elastica\Query\BoolQuery;
 use Elastica\Query\MatchQuery;
-use Elastica\Query\Terms;
+use Elastica\Query\Wildcard;
 use Exception;
 use FondOfOryx\Shared\CatalogSkuFilter\CatalogSkuFilterConstants;
 use Generated\Shared\Search\PageIndexMap;
 use Spryker\Client\SearchExtension\Dependency\Plugin\QueryInterface;
 
-class SkuQueryExpanderPluginTest extends Unit
+class SkuPatternQueryExpanderPluginTest extends Unit
 {
     /**
      * @var \PHPUnit\Framework\MockObject\MockObject|\Spryker\Client\SearchExtension\Dependency\Plugin\QueryInterface
@@ -20,7 +20,7 @@ class SkuQueryExpanderPluginTest extends Unit
     protected $queryMock;
 
     /**
-     * @var string[][]
+     * @var string[]
      */
     protected $requestParameters;
 
@@ -40,9 +40,9 @@ class SkuQueryExpanderPluginTest extends Unit
     protected $matchQueryMock;
 
     /**
-     * @var \FondOfOryx\Client\CatalogSkuFilter\Plugin\SearchExtension\SkuQueryExpanderPlugin
+     * @var \FondOfOryx\Client\CatalogSkuFilter\Plugin\SearchExtension\SkuPatternQueryExpanderPlugin
      */
-    protected $skuQueryExpanderPlugin;
+    protected $skuPatternQueryExpanderPlugin;
 
     /**
      * @return void
@@ -68,12 +68,10 @@ class SkuQueryExpanderPluginTest extends Unit
             ->getMock();
 
         $this->requestParameters = [
-            CatalogSkuFilterConstants::PARAMETER_SKU => [
-                'FOO-BAR-1',
-            ],
+            CatalogSkuFilterConstants::PARAMETER_SKU_PATTERN => '*FOO-BAR*',
         ];
 
-        $this->skuQueryExpanderPlugin = new SkuQueryExpanderPlugin();
+        $this->skuPatternQueryExpanderPlugin = new SkuPatternQueryExpanderPlugin();
     }
 
     /**
@@ -95,16 +93,16 @@ class SkuQueryExpanderPluginTest extends Unit
             ->method('addMust')
             ->with(
                 static::callback(
-                    static function (Terms $terms) use ($self) {
-                        $data = $terms->toArray();
+                    static function (Wildcard $wildcard) use ($self) {
+                        $data = $wildcard->toArray();
 
-                        return isset($data['terms'][PageIndexMap::SKU])
-                            && $data['terms'][PageIndexMap::SKU] === $self->requestParameters[CatalogSkuFilterConstants::PARAMETER_SKU];
+                        return isset($data['wildcard'][PageIndexMap::SKU]['value'])
+                            && $data['wildcard'][PageIndexMap::SKU]['value'] === $self->requestParameters[CatalogSkuFilterConstants::PARAMETER_SKU_PATTERN];
                     }
                 )
             )->willReturn($this->boolQueryMock);
 
-        $query = $this->skuQueryExpanderPlugin->expandQuery(
+        $query = $this->skuPatternQueryExpanderPlugin->expandQuery(
             $this->queryMock,
             $this->requestParameters
         );
@@ -123,7 +121,7 @@ class SkuQueryExpanderPluginTest extends Unit
         $this->queryMock->expects(static::never())
             ->method('getSearchQuery');
 
-        $query = $this->skuQueryExpanderPlugin->expandQuery(
+        $query = $this->skuPatternQueryExpanderPlugin->expandQuery(
             $this->queryMock,
             []
         );
@@ -142,10 +140,10 @@ class SkuQueryExpanderPluginTest extends Unit
         $this->queryMock->expects(static::never())
             ->method('getSearchQuery');
 
-        $query = $this->skuQueryExpanderPlugin->expandQuery(
+        $query = $this->skuPatternQueryExpanderPlugin->expandQuery(
             $this->queryMock,
             [
-                CatalogSkuFilterConstants::PARAMETER_SKU => '',
+                CatalogSkuFilterConstants::PARAMETER_SKU_PATTERN => '',
             ]
         );
 
@@ -169,7 +167,7 @@ class SkuQueryExpanderPluginTest extends Unit
             ->willReturn($this->matchQueryMock);
 
         try {
-            $this->skuQueryExpanderPlugin->expandQuery(
+            $this->skuPatternQueryExpanderPlugin->expandQuery(
                 $this->queryMock,
                 $this->requestParameters
             );
