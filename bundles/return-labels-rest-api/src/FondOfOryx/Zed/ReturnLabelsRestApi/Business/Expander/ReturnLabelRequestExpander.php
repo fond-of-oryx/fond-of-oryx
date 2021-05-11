@@ -3,7 +3,6 @@
 namespace FondOfOryx\Zed\ReturnLabelsRestApi\Business\Expander;
 
 use Generated\Shared\Transfer\RestReturnLabelRequestTransfer;
-use Generated\Shared\Transfer\ReturnLabelRequestCustomerTransfer;
 use Generated\Shared\Transfer\ReturnLabelRequestTransfer;
 
 class ReturnLabelRequestExpander implements ReturnLabelRequestExpanderInterface
