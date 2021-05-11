@@ -16,7 +16,7 @@ interface AvailabilityAlertSubscriberMapperInterface
     public function fromEntity(FooAvailabilityAlertSubscriber $availabilityAlertSubscriber): AvailabilityAlertSubscriberTransfer;
 
     /**
-     * @param  \Generated\Shared\Transfer\AvailabilityAlertSubscriberTransfer  $availabilityAlertSubscriberTransfer
+     * @param \Generated\Shared\Transfer\AvailabilityAlertSubscriberTransfer $availabilityAlertSubscriberTransfer
      *
      * @return \Generated\Shared\Transfer\FooAvailabilityAlertSubscriberEntityTransfer
      */

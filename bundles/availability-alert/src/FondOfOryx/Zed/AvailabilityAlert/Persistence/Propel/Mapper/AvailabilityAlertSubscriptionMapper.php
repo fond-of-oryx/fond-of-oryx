@@ -46,7 +46,7 @@ class AvailabilityAlertSubscriptionMapper implements AvailabilityAlertSubscripti
     }
 
     /**
-     * @param  \Generated\Shared\Transfer\AvailabilityAlertSubscriptionTransfer  $availabilityAlertSubscriptionTransfer
+     * @param \Generated\Shared\Transfer\AvailabilityAlertSubscriptionTransfer $availabilityAlertSubscriptionTransfer
      *
      * @return \Generated\Shared\Transfer\FooAvailabilityAlertSubscriptionEntityTransfer
      */
