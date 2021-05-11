@@ -76,11 +76,41 @@ class CustomerReaderTest extends Unit
             ->method('getIdCustomer')
             ->willReturn($idCustomer);
 
-        $customerTransfer = $this->reader->getByRestReturnLabelRequest($this->restReturnLabelRequestTransferMock);
+        $this->customerFacadeMock->expects(static::atLeastOnce())
+            ->method('findCustomerById')
+            ->willReturn($this->customerTransferMock);
 
         static::assertEquals(
-            $idCustomer,
-            $customerTransfer->getIdCustomer()
+            $this->customerTransferMock,
+            $this->reader->getByRestReturnLabelRequest($this->restReturnLabelRequestTransferMock)
         );
+    }
+
+    /**
+     * @return void
+     */
+    public function testGetByRestReturnLabelRequestCustomerNull(): void
+    {
+        $this->restReturnLabelRequestTransferMock->expects(static::atLeastOnce())
+            ->method('getCustomer')
+            ->willReturn(null);
+
+        static::assertNull($this->reader->getByRestReturnLabelRequest($this->restReturnLabelRequestTransferMock));
+    }
+
+    /**
+     * @return void
+     */
+    public function testGetByRestReturnLabelRequestCustomerIdNull(): void
+    {
+        $this->restReturnLabelRequestTransferMock->expects(static::atLeastOnce())
+            ->method('getCustomer')
+            ->willReturn($this->restCustomerTransferMock);
+
+        $this->restCustomerTransferMock->expects(static::atLeastOnce())
+            ->method('getIdCustomer')
+            ->willReturn(null);
+
+        static::assertNull($this->reader->getByRestReturnLabelRequest($this->restReturnLabelRequestTransferMock));
     }
 }

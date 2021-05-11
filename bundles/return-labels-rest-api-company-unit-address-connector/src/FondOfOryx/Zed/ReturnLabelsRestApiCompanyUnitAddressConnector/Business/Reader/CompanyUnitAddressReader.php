@@ -29,6 +29,10 @@ class CompanyUnitAddressReader implements CompanyUnitAddressReaderInterface
     public function getByRestReturnLabelRequest(
         RestReturnLabelRequestTransfer $restReturnLabelRequestTransfer
     ): ?CompanyUnitAddressTransfer {
+        if ($restReturnLabelRequestTransfer->getCustomer() === null) {
+            return null;
+        }
+
         $idCustomer = $restReturnLabelRequestTransfer->getCustomer()->getIdCustomer();
         $restAddressTransfer = $restReturnLabelRequestTransfer->getAddress();
 

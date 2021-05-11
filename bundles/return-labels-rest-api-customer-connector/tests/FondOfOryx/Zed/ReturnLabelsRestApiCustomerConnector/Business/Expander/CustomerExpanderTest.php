@@ -106,13 +106,7 @@ class CustomerExpanderTest extends Unit
 
         $this->returnLabelRequestCustomerMapperMock->expects(static::atLeastOnce())
             ->method('fromCustomerTransfer')
-            ->with($this->customerTransferMock)
             ->willReturn($this->returnLabelRequestCustomerTransferMock);
-
-        $this->returnLabelRequestCustomerTransferMock->expects(static::atLeastOnce())
-            ->method('setReference')
-            ->with($reference)
-            ->willReturnSelf();
 
         $this->restReturnLabelRequestTransferMock->expects(static::atLeastOnce())
             ->method('getCustomer')
@@ -127,19 +121,12 @@ class CustomerExpanderTest extends Unit
             ->with($this->returnLabelRequestCustomerTransferMock)
             ->willReturnSelf();
 
-        $returnLabelRequestTransfer = $this->expander->expand(
-            $this->restReturnLabelRequestTransferMock,
-            $this->returnLabelRequestTransferMock
-        );
-
         static::assertEquals(
             $this->returnLabelRequestTransferMock,
-            $returnLabelRequestTransfer
-        );
-
-        static::assertEquals(
-            $returnLabelRequestTransfer->getCustomer()->getReference(),
-            $reference
+            $this->expander->expand(
+                $this->restReturnLabelRequestTransferMock,
+                $this->returnLabelRequestTransferMock
+            )
         );
     }
 

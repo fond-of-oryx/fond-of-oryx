@@ -44,7 +44,7 @@ class CustomerExpander implements CustomerExpanderInterface
         $customerTransfer = $this->customerReader
             ->getByRestReturnLabelRequest($restReturnLabelRequestTransfer);
 
-        if ($customerTransfer === null) {
+        if ($customerTransfer === null || $restReturnLabelRequestTransfer->getCustomer() === null) {
             return $returnLabelRequestTransfer;
         }
 
