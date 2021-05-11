@@ -4,6 +4,8 @@ namespace FondOfOryx\Zed\OneTimePassword\Business;
 
 use FondOfOryx\Zed\OneTimePassword\Business\Generator\OneTimePasswordGenerator;
 use FondOfOryx\Zed\OneTimePassword\Business\Generator\OneTimePasswordGeneratorInterface;
+use FondOfOryx\Zed\OneTimePassword\Business\Generator\OneTimePasswordLinkGenerator;
+use FondOfOryx\Zed\OneTimePassword\Business\Generator\OneTimePasswordLinkGeneratorInterface;
 use FondOfOryx\Zed\OneTimePassword\Business\Resetter\OneTimePasswordResetter;
 use FondOfOryx\Zed\OneTimePassword\Business\Resetter\OneTimePasswordResetterInterface;
 use FondOfOryx\Zed\OneTimePassword\Business\Sender\OneTimePasswordSender;
@@ -49,6 +51,17 @@ class OneTimePasswordBusinessFactory extends AbstractBusinessFactory
     {
         return new OneTimePasswordResetter(
             $this->getEntityManager()
+        );
+    }
+
+    /**
+     * @return \FondOfOryx\Zed\OneTimePassword\Business\Generator\OneTimePasswordLinkGeneratorInterface
+     */
+    public function createOneTimePasswordLinkGenerator(): OneTimePasswordLinkGeneratorInterface
+    {
+        return new OneTimePasswordLinkGenerator(
+            $this->createOneTimePasswordGenerator(),
+            $this->getConfig()
         );
     }
 

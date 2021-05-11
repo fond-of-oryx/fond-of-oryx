@@ -68,6 +68,21 @@ class OneTimePasswordGeneratorTest extends Unit
     protected $success;
 
     /**
+     * @var string
+     */
+    protected $autoLoginPath;
+
+    /**
+     * @var string
+     */
+    protected $email;
+
+    /**
+     * @var string
+     */
+    protected $autoLoginParameterName;
+
+    /**
      * @return void
      */
     protected function _before(): void
@@ -101,6 +116,12 @@ class OneTimePasswordGeneratorTest extends Unit
             ->getMock();
 
         $this->success = true;
+
+        $this->autoLoginPath = 'auto-login-path';
+
+        $this->email = 'email';
+
+        $this->autoLoginParameterName = 'auto-login-parameter-name';
 
         $this->oneTimePasswordGenerator = new OneTimePasswordGenerator(
             $this->humanPasswordGeneratorMock,

@@ -218,7 +218,11 @@ class QuoteExpanderTest extends Unit
 
         $this->quoteTransferMock->expects(static::atLeastOnce())
             ->method('getShipment')
-            ->willReturn($this->shipmentTransferMock);
+            ->willReturnOnConsecutiveCalls(null, $this->shipmentTransferMock);
+
+        $this->quoteTransferMock->expects(static::atLeastOnce())
+            ->method('setShipment')
+            ->willReturn($this->quoteTransferMock);
 
         $this->shipmentTransferMock->expects(static::atLeastOnce())
             ->method('setShippingAddress')
@@ -236,7 +240,7 @@ class QuoteExpanderTest extends Unit
 
         $this->itemTransferMocks[0]->expects(static::atLeastOnce())
             ->method('getShipment')
-            ->willReturn(null);
+            ->willReturn($this->shipmentTransferMock);
 
         $this->quoteTransferMock->expects(static::atLeastOnce())
             ->method('getBillingAddress')

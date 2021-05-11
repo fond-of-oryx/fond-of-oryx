@@ -27,7 +27,9 @@ class SplittableTotalsRestApiCompanyUnitAddressConnectorRepository extends Abstr
                     ->endUse()
                 ->endUse()
             ->endUse()
-            ->filterByUuid($idCompanyUnitAddress)
+            ->useCompanyUnitAddressQuery()
+                ->filterByUuid($idCompanyUnitAddress)
+            ->endUse()
             ->exists();
     }
 }
