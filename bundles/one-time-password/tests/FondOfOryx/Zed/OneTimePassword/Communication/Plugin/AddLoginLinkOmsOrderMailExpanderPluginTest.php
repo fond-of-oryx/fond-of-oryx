@@ -68,7 +68,7 @@ class AddLoginLinkOmsOrderMailExpanderPluginTest extends Unit
             ->willReturn($this->loginLink);
 
         $this->mailTransferMock->expects($this->atLeastOnce())
-            ->method('setSelfServiceLoginLink')
+            ->method('setLoginLink')
             ->with($this->loginLink)
             ->willReturnSelf();
 

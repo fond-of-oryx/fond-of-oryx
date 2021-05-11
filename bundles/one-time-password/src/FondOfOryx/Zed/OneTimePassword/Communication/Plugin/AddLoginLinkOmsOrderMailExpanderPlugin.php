@@ -23,7 +23,7 @@ class AddLoginLinkOmsOrderMailExpanderPlugin extends AbstractPlugin implements O
     {
         $loginLink = $this->getFacade()->generateLoginLinkWithOrderReference($orderTransfer);
 
-        $mailTransfer->setSelfServiceLoginLink($loginLink);
+        $mailTransfer->setLoginLink($loginLink);
 
         return $mailTransfer;
     }

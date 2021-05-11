@@ -57,8 +57,8 @@ class OneTimePasswordLinkGenerator implements OneTimePasswordLinkGeneratorInterf
 
         return sprintf(
             '%s?%s=%s',
-            $this->oneTimePasswordConfig->getAutoLoginPath(),
-            $this->oneTimePasswordConfig->getAutoLoginParameterName(),
+            $this->oneTimePasswordConfig->getLoginLinkPath(),
+            $this->oneTimePasswordConfig->getLoginLinkParameterName(),
             $encodedLoginCredentials
         );
     }
@@ -86,7 +86,7 @@ class OneTimePasswordLinkGenerator implements OneTimePasswordLinkGeneratorInterf
         return sprintf(
             '%s&%s=%s',
             $credentialsLink,
-            $this->oneTimePasswordConfig->getAutoLoginOrderReferenceName(),
+            $this->oneTimePasswordConfig->getLoginLinkOrderReferenceName(),
             $orderTransfer->getOrderReference()
         );
     }

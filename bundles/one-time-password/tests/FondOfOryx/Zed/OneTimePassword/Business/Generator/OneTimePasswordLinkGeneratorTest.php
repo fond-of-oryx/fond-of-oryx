@@ -44,12 +44,12 @@ class OneTimePasswordLinkGeneratorTest extends Unit
     /**
      * @var string
      */
-    protected $autoLoginPath;
+    protected $loginLinkPath;
 
     /**
      * @var string
      */
-    protected $autoLoginParameterName;
+    protected $loginLinkParameterName;
 
     /**
      * @var \FondOfOryx\Zed\OneTimePassword\Business\Encoder\OneTimePasswordEncoderInterface|\PHPUnit\Framework\MockObject\MockObject
@@ -64,7 +64,7 @@ class OneTimePasswordLinkGeneratorTest extends Unit
     /**
      * @var string
      */
-    protected $autoLoginOrderReferenceName;
+    protected $loginLinkOrderReferenceName;
 
     /**
      * @var string
@@ -94,9 +94,9 @@ class OneTimePasswordLinkGeneratorTest extends Unit
 
         $this->encodedLoginCredentials = 'encoded-login-credentials';
 
-        $this->autoLoginPath = 'auto-login-path';
+        $this->loginLinkPath = 'auto-login-path';
 
-        $this->autoLoginParameterName = 'auto-login-parameter-name';
+        $this->loginLinkParameterName = 'auto-login-parameter-name';
 
         $this->oneTimePasswordEncoderMock = $this->getMockBuilder(OneTimePasswordEncoderInterface::class)
             ->disableOriginalConstructor()
@@ -106,7 +106,7 @@ class OneTimePasswordLinkGeneratorTest extends Unit
             ->disableOriginalConstructor()
             ->getMock();
 
-        $this->autoLoginOrderReferenceName = 'auto-login-order-reference-name';
+        $this->loginLinkOrderReferenceName = 'auto-login-order-reference-name';
 
         $this->orderReference = 'order-reference';
 
@@ -137,12 +137,12 @@ class OneTimePasswordLinkGeneratorTest extends Unit
             ->willReturn($this->encodedLoginCredentials);
 
         $this->oneTimePasswordConfigMock->expects($this->atLeastOnce())
-            ->method('getAutoLoginPath')
-            ->willReturn($this->autoLoginPath);
+            ->method('getLoginLinkPath')
+            ->willReturn($this->loginLinkPath);
 
         $this->oneTimePasswordConfigMock->expects($this->atLeastOnce())
-            ->method('getAutoLoginParameterName')
-            ->willReturn($this->autoLoginParameterName);
+            ->method('getLoginLinkParameterName')
+            ->willReturn($this->loginLinkParameterName);
 
         $this->assertIsString(
             $this->oneTimePasswordLinkGenerator->generateLoginLink(
@@ -196,16 +196,16 @@ class OneTimePasswordLinkGeneratorTest extends Unit
             ->willReturn($this->encodedLoginCredentials);
 
         $this->oneTimePasswordConfigMock->expects($this->atLeastOnce())
-            ->method('getAutoLoginPath')
-            ->willReturn($this->autoLoginPath);
+            ->method('getLoginLinkPath')
+            ->willReturn($this->loginLinkPath);
 
         $this->oneTimePasswordConfigMock->expects($this->atLeastOnce())
-            ->method('getAutoLoginParameterName')
-            ->willReturn($this->autoLoginParameterName);
+            ->method('getLoginLinkParameterName')
+            ->willReturn($this->loginLinkParameterName);
 
         $this->oneTimePasswordConfigMock->expects($this->atLeastOnce())
-            ->method('getAutoLoginOrderReferenceName')
-            ->willReturn($this->autoLoginOrderReferenceName);
+            ->method('getLoginLinkOrderReferenceName')
+            ->willReturn($this->loginLinkOrderReferenceName);
 
         $this->orderTransferMock->expects($this->atLeastOnce())
             ->method('getOrderReference')
