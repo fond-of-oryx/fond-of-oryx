@@ -29,14 +29,18 @@ class CustomerReader implements CustomerReaderInterface
     public function getByRestReturnLabelRequest(
         RestReturnLabelRequestTransfer $restReturnLabelRequestTransfer
     ): ?CustomerTransfer {
+        if ($restReturnLabelRequestTransfer->getCustomer() === null) {
+            return null;
+        }
+
         $idCustomer = $restReturnLabelRequestTransfer->getCustomer()->getIdCustomer();
 
         if ($idCustomer === null) {
             return null;
         }
 
-        $customerTransfer = (new CustomerTransfer())->setIdCustomer($idCustomer);
-
-        return $this->customerFacade->findCustomerById($customerTransfer);
+        return $this->customerFacade->findCustomerById(
+            (new CustomerTransfer())->setIdCustomer($idCustomer)
+        );
     }
 }
