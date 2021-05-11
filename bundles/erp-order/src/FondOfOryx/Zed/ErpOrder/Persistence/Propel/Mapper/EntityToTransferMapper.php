@@ -15,7 +15,6 @@ use Orm\Zed\ErpOrder\Persistence\ErpOrder;
 use Orm\Zed\ErpOrder\Persistence\ErpOrderAddress;
 use Orm\Zed\ErpOrder\Persistence\ErpOrderItem;
 use Orm\Zed\ErpOrder\Persistence\ErpOrderTotal;
-use Orm\Zed\ErpOrder\Persistence\ErpOrderTotals;
 
 class EntityToTransferMapper implements EntityToTransferMapperInterface
 {

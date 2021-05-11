@@ -2,7 +2,6 @@
 
 namespace FondOfOryx\Zed\ErpOrder\Business\Handler;
 
-use ArrayObject;
 use FondOfOryx\Zed\ErpOrder\Business\Model\Reader\ErpOrderTotalReaderInterface;
 use FondOfOryx\Zed\ErpOrder\Business\Model\Writer\ErpOrderTotalWriterInterface;
 use Generated\Shared\Transfer\ErpOrderTotalTransfer;
@@ -25,8 +24,6 @@ class ErpOrderTotalHandler implements ErpOrderTotalHandlerInterface
     protected $erpOrderTotalReader;
 
     /**
-     * ErpOrderTotalHandler constructor.
-     *
      * @param \FondOfOryx\Zed\ErpOrder\Business\Model\Writer\ErpOrderTotalWriterInterface $erpOrderTotalWriter
      * @param \FondOfOryx\Zed\ErpOrder\Business\Model\Reader\ErpOrderTotalReaderInterface $erpOrderTotalReader
      */
@@ -56,15 +53,14 @@ class ErpOrderTotalHandler implements ErpOrderTotalHandlerInterface
                 ->setFkErpOrder($erpOrderTransfer->getIdErpOrder());
 
             $erpOrderTotalTransfer = $this->create($erpOrderTotalTransfer);
-
-        }else {
+        } else {
             $erpOrderTotalTransfer = $this->update($erpOrderTotalTransfer->fromArray(
-                $erpOrderTransfer->getTotal()->modifiedToArray(), true)
-            );
+                $erpOrderTransfer->getTotal()->modifiedToArray(),
+                true
+            ));
         }
 
         return $erpOrderTransfer->setTotal($erpOrderTotalTransfer);
-
     }
 
     /**
@@ -101,5 +97,4 @@ class ErpOrderTotalHandler implements ErpOrderTotalHandlerInterface
     {
         return $this->erpOrderTotalReader->findErpOrderTotalByIdErpOrder($idErpOrder);
     }
-
 }

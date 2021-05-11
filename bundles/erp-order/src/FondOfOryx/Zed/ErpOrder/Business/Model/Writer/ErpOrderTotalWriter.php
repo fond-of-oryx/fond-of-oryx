@@ -22,8 +22,6 @@ class ErpOrderTotalWriter implements ErpOrderTotalWriterInterface
     protected $erpOrderTotalPluginExecutor;
 
     /**
-     * ErpOrderTotalWriter constructor.
-     *
      * @param \FondOfOryx\Zed\ErpOrder\Persistence\ErpOrderEntityManagerInterface $entityManager
      * @param \FondOfOryx\Zed\ErpOrder\Business\PluginExecutor\ErpOrderTotalPluginExecutorInterface $erpOrderTotalPluginExecutor
      */
@@ -73,8 +71,6 @@ class ErpOrderTotalWriter implements ErpOrderTotalWriterInterface
      * @param \Generated\Shared\Transfer\ErpOrderTotalTransfer $erpOrderTotalTransfer
      *
      * @return \Generated\Shared\Transfer\ErpOrderTotalTransfer
-     *
-     * @throws \Propel\Runtime\Exception\PropelException
      */
     protected function executePersistTransaction(
         ErpOrderTotalTransfer $erpOrderTotalTransfer
@@ -100,5 +96,4 @@ class ErpOrderTotalWriter implements ErpOrderTotalWriterInterface
 
         return $erpOrderTotalTransfer;
     }
-
 }
