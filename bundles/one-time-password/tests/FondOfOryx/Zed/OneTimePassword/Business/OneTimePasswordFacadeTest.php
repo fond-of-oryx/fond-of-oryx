@@ -10,6 +10,7 @@ use FondOfOryx\Zed\OneTimePassword\Business\Resetter\OneTimePasswordResetterInte
 use FondOfOryx\Zed\OneTimePassword\Business\Sender\OneTimePasswordSenderInterface;
 use Generated\Shared\Transfer\CustomerTransfer;
 use Generated\Shared\Transfer\OneTimePasswordResponseTransfer;
+use Generated\Shared\Transfer\OrderTransfer;
 
 class OneTimePasswordFacadeTest extends Unit
 {
@@ -64,6 +65,16 @@ class OneTimePasswordFacadeTest extends Unit
     protected $oneTimePasswordEncoderMock;
 
     /**
+     * @var \Generated\Shared\Transfer\OrderTransfer|\PHPUnit\Framework\MockObject\MockObject
+     */
+    protected $orderTransferMock;
+
+    /**
+     * @var string
+     */
+    protected $selfServiceLoginLinkWithOrderReference;
+
+    /**
      * @return void
      */
     protected function _before(): void
@@ -101,6 +112,12 @@ class OneTimePasswordFacadeTest extends Unit
         $this->oneTimePasswordEncoderMock = $this->getMockBuilder(OneTimePasswordEncoderInterface::class)
             ->disableOriginalConstructor()
             ->getMock();
+
+        $this->orderTransferMock = $this->getMockBuilder(OrderTransfer::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $this->selfServiceLoginLinkWithOrderReference = 'self-service-login-link-with-order-reference';
 
         $this->oneTimePasswordFacade = new OneTimePasswordFacade();
         $this->oneTimePasswordFacade->setFactory($this->oneTimePasswordBusinessFactoryMock);
@@ -184,8 +201,28 @@ class OneTimePasswordFacadeTest extends Unit
         $this->assertSame(
             $this->selfServiceLoginLink,
             $this->oneTimePasswordFacade->generateLoginLink(
-                $this->customerTransferMock,
-                $this->oneTimePasswordEncoderMock
+                $this->customerTransferMock
+            )
+        );
+    }
+
+    /**
+     * @return void
+     */
+    public function testGenerateLoginLinkWithOrderReference(): void
+    {
+        $this->oneTimePasswordBusinessFactoryMock->expects($this->atLeastOnce())
+            ->method('createOneTimePasswordLinkGenerator')
+            ->willReturn($this->oneTimePasswordLinkGeneratorMock);
+
+        $this->oneTimePasswordLinkGeneratorMock->expects($this->atLeastOnce())
+            ->method('generateLoginLinkWithOrderReference')
+            ->willReturn($this->selfServiceLoginLinkWithOrderReference);
+
+        $this->assertSame(
+            $this->selfServiceLoginLinkWithOrderReference,
+            $this->oneTimePasswordFacade->generateLoginLinkWithOrderReference(
+                $this->orderTransferMock
             )
         );
     }

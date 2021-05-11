@@ -7,6 +7,7 @@ use FondOfOryx\Zed\OneTimePassword\Business\Encoder\OneTimePasswordEncoderInterf
 use FondOfOryx\Zed\OneTimePassword\OneTimePasswordConfig;
 use Generated\Shared\Transfer\CustomerTransfer;
 use Generated\Shared\Transfer\OneTimePasswordResponseTransfer;
+use Generated\Shared\Transfer\OrderTransfer;
 
 class OneTimePasswordLinkGeneratorTest extends Unit
 {
@@ -43,17 +44,32 @@ class OneTimePasswordLinkGeneratorTest extends Unit
     /**
      * @var string
      */
-    protected $autoLoginPath;
+    protected $loginLinkPath;
 
     /**
      * @var string
      */
-    protected $autoLoginParameterName;
+    protected $loginLinkParameterName;
 
     /**
      * @var \FondOfOryx\Zed\OneTimePassword\Business\Encoder\OneTimePasswordEncoderInterface|\PHPUnit\Framework\MockObject\MockObject
      */
     protected $oneTimePasswordEncoderMock;
+
+    /**
+     * @var \Generated\Shared\Transfer\OrderTransfer|\PHPUnit\Framework\MockObject\MockObject
+     */
+    protected $orderTransferMock;
+
+    /**
+     * @var string
+     */
+    protected $loginLinkOrderReferenceName;
+
+    /**
+     * @var string
+     */
+    protected $orderReference;
 
     /**
      * @return void
@@ -78,16 +94,25 @@ class OneTimePasswordLinkGeneratorTest extends Unit
 
         $this->encodedLoginCredentials = 'encoded-login-credentials';
 
-        $this->autoLoginPath = 'auto-login-path';
+        $this->loginLinkPath = 'auto-login-path';
 
-        $this->autoLoginParameterName = 'auto-login-parameter-name';
+        $this->loginLinkParameterName = 'auto-login-parameter-name';
 
         $this->oneTimePasswordEncoderMock = $this->getMockBuilder(OneTimePasswordEncoderInterface::class)
             ->disableOriginalConstructor()
             ->getMock();
 
+        $this->orderTransferMock = $this->getMockBuilder(OrderTransfer::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $this->loginLinkOrderReferenceName = 'auto-login-order-reference-name';
+
+        $this->orderReference = 'order-reference';
+
         $this->oneTimePasswordLinkGenerator = new OneTimePasswordLinkGenerator(
             $this->oneTimePasswordGeneratorMock,
+            $this->oneTimePasswordEncoderMock,
             $this->oneTimePasswordConfigMock
         );
     }
@@ -112,17 +137,16 @@ class OneTimePasswordLinkGeneratorTest extends Unit
             ->willReturn($this->encodedLoginCredentials);
 
         $this->oneTimePasswordConfigMock->expects($this->atLeastOnce())
-            ->method('getAutoLoginPath')
-            ->willReturn($this->autoLoginPath);
+            ->method('getLoginLinkPath')
+            ->willReturn($this->loginLinkPath);
 
         $this->oneTimePasswordConfigMock->expects($this->atLeastOnce())
-            ->method('getAutoLoginParameterName')
-            ->willReturn($this->autoLoginParameterName);
+            ->method('getLoginLinkParameterName')
+            ->willReturn($this->loginLinkParameterName);
 
         $this->assertIsString(
             $this->oneTimePasswordLinkGenerator->generateLoginLink(
-                $this->customerTransferMock,
-                $this->oneTimePasswordEncoderMock
+                $this->customerTransferMock
             )
         );
     }
@@ -143,8 +167,94 @@ class OneTimePasswordLinkGeneratorTest extends Unit
 
         $this->assertNull(
             $this->oneTimePasswordLinkGenerator->generateLoginLink(
-                $this->customerTransferMock,
-                $this->oneTimePasswordEncoderMock
+                $this->customerTransferMock
+            )
+        );
+    }
+
+    /**
+     * @return void
+     */
+    public function testGenerateLoginLinkWithOrderReference(): void
+    {
+        $this->orderTransferMock->expects($this->atLeastOnce())
+            ->method('getCustomer')
+            ->willReturn($this->customerTransferMock);
+
+        $this->oneTimePasswordGeneratorMock->expects($this->atLeastOnce())
+            ->method('generateOneTimePassword')
+            ->with($this->customerTransferMock)
+            ->willReturn($this->oneTimePasswordResponseTransferMock);
+
+        $this->oneTimePasswordResponseTransferMock->expects($this->atLeastOnce())
+            ->method('getIsSuccess')
+            ->willReturn(true);
+
+        $this->oneTimePasswordEncoderMock->expects($this->atLeastOnce())
+            ->method('encode')
+            ->with($this->oneTimePasswordResponseTransferMock)
+            ->willReturn($this->encodedLoginCredentials);
+
+        $this->oneTimePasswordConfigMock->expects($this->atLeastOnce())
+            ->method('getLoginLinkPath')
+            ->willReturn($this->loginLinkPath);
+
+        $this->oneTimePasswordConfigMock->expects($this->atLeastOnce())
+            ->method('getLoginLinkParameterName')
+            ->willReturn($this->loginLinkParameterName);
+
+        $this->oneTimePasswordConfigMock->expects($this->atLeastOnce())
+            ->method('getLoginLinkOrderReferenceName')
+            ->willReturn($this->loginLinkOrderReferenceName);
+
+        $this->orderTransferMock->expects($this->atLeastOnce())
+            ->method('getOrderReference')
+            ->willReturn($this->orderReference);
+
+        $this->assertIsString(
+            $this->oneTimePasswordLinkGenerator->generateLoginLinkWithOrderReference(
+                $this->orderTransferMock
+            )
+        );
+    }
+
+    /**
+     * @return void
+     */
+    public function testGenerateLoginLinkWithOrderReferenceCustomerNull(): void
+    {
+        $this->orderTransferMock->expects($this->atLeastOnce())
+            ->method('getCustomer')
+            ->willReturn(null);
+
+        $this->assertNull(
+            $this->oneTimePasswordLinkGenerator->generateLoginLinkWithOrderReference(
+                $this->orderTransferMock
+            )
+        );
+    }
+
+    /**
+     * @return void
+     */
+    public function testGenerateLoginLinkWithOrderReferenceLinkNull(): void
+    {
+        $this->orderTransferMock->expects($this->atLeastOnce())
+            ->method('getCustomer')
+            ->willReturn($this->customerTransferMock);
+
+        $this->oneTimePasswordGeneratorMock->expects($this->atLeastOnce())
+            ->method('generateOneTimePassword')
+            ->with($this->customerTransferMock)
+            ->willReturn($this->oneTimePasswordResponseTransferMock);
+
+        $this->oneTimePasswordResponseTransferMock->expects($this->atLeastOnce())
+            ->method('getIsSuccess')
+            ->willReturn(false);
+
+        $this->assertNull(
+            $this->oneTimePasswordLinkGenerator->generateLoginLinkWithOrderReference(
+                $this->orderTransferMock
             )
         );
     }

@@ -35,7 +35,7 @@ class OneTimePasswordConfigTest extends Unit
     public function testGetAutoLoginPath(): void
     {
         $this->assertIsString(
-            $this->oneTimePasswordConfig->getAutoLoginPath()
+            $this->oneTimePasswordConfig->getLoginLinkPath()
         );
     }
 
@@ -45,7 +45,17 @@ class OneTimePasswordConfigTest extends Unit
     public function testGetAutoLoginParameterName(): void
     {
         $this->assertIsString(
-            $this->oneTimePasswordConfig->getAutoLoginParameterName()
+            $this->oneTimePasswordConfig->getLoginLinkParameterName()
+        );
+    }
+
+    /**
+     * @return void
+     */
+    public function testAutoLoginOrderReferenceName(): void
+    {
+        $this->assertIsString(
+            $this->oneTimePasswordConfig->getLoginLinkOrderReferenceName()
         );
     }
 }

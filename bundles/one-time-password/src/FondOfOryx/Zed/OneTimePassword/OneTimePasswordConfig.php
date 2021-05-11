@@ -21,10 +21,10 @@ class OneTimePasswordConfig extends AbstractBundleConfig
     /**
      * @return string
      */
-    public function getAutoLoginPath(): string
+    public function getLoginLinkPath(): string
     {
         return $this->get(
-            OneTimePasswordConstants::ONE_TIME_PASSWORD_AUTO_LOGIN_PATH,
+            OneTimePasswordConstants::ONE_TIME_PASSWORD_LOGIN_LINK_PATH,
             '/login'
         );
     }
@@ -32,11 +32,22 @@ class OneTimePasswordConfig extends AbstractBundleConfig
     /**
      * @return string
      */
-    public function getAutoLoginParameterName(): string
+    public function getLoginLinkParameterName(): string
     {
         return $this->get(
-            OneTimePasswordConstants::ONE_TIME_PASSWORD_AUTO_LOGIN_PARAMETER_NAME,
+            OneTimePasswordConstants::ONE_TIME_PASSWORD_LOGIN_LINK_PARAMETER_NAME,
             'signature'
+        );
+    }
+
+    /**
+     * @return string
+     */
+    public function getLoginLinkOrderReferenceName(): string
+    {
+        return $this->get(
+            OneTimePasswordConstants::ONE_TIME_PASSWORD_LOGIN_LINK_ORDER_REFERENCE_NAME,
+            'orderReference'
         );
     }
 }
