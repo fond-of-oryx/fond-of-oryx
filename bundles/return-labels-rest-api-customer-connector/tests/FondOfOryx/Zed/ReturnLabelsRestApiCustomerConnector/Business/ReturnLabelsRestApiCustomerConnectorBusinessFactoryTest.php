@@ -3,22 +3,25 @@
 namespace FondOfOryx\Zed\ReturnLabelsRestApiCustomerConnector\Business;
 
 use Codeception\Test\Unit;
-use FondOfOryx\Zed\ReturnLabelsRestApiCustomerConnector\Business\Expander\CustomerExpander;
-use FondOfOryx\Zed\ReturnLabelsRestApiCustomerConnector\Business\Mapper\ReturnLabelRequestCustomerMapper;
-use FondOfOryx\Zed\ReturnLabelsRestApiCustomerConnector\Business\Reader\CustomerReader;
-use FondOfOryx\Zed\ReturnLabelsRestApiCustomerConnector\Persistence\ReturnLabelsRestApiCustomerConnectorRepository;
+use FondOfOryx\Zed\ReturnLabelsRestApiCustomerConnector\Dependency\Facade\ReturnLabelsRestApiCustomerConnectorToCustomerFacadeBridge;
+use Spryker\Zed\Kernel\Container;
 
 class ReturnLabelsRestApiCustomerConnectorBusinessFactoryTest extends Unit
 {
     /**
-     * @var \FondOfOryx\Zed\ReturnLabelsRestApiCustomerConnector\Persistence\ReturnLabelsRestApiCustomerConnectorRepositoryInterface|\PHPUnit\Framework\MockObject\MockObject
-     */
-    protected $returnLabelsRestApiCustomerConnectorRepositoryMock;
-
-    /**
      * @var \FondOfOryx\Zed\ReturnLabelsRestApiCustomerConnector\Business\ReturnLabelsRestApiCustomerConnectorBusinessFactory
      */
     protected $factory;
+
+    /**
+     * @var \FondOfOryx\Zed\ReturnLabelsRestApiCustomerConnector\Dependency\Facade\ReturnLabelsRestApiCustomerConnectorToCustomerFacadeInterface|\PHPUnit\Framework\MockObject\MockObject
+     */
+    protected $customerFacadeMock;
+
+    /**
+     * @var \Spryker\Zed\Kernel\Container|\PHPUnit\Framework\MockObject\MockObject
+     */
+    protected $containerMock;
 
     /**
      * @return void
@@ -27,12 +30,16 @@ class ReturnLabelsRestApiCustomerConnectorBusinessFactoryTest extends Unit
     {
         parent::_before();
 
-        $this->returnLabelsRestApiCustomerConnectorRepositoryMock = $this->getMockBuilder(ReturnLabelsRestApiCustomerConnectorRepository::class)
+        $this->customerFacadeMock = $this->getMockBuilder(ReturnLabelsRestApiCustomerConnectorToCustomerFacadeBridge::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $this->containerMock = $this->getMockBuilder(Container::class)
             ->disableOriginalConstructor()
             ->getMock();
 
         $this->factory = new ReturnLabelsRestApiCustomerConnectorBusinessFactory();
-        $this->factory->setRepository($this->returnLabelsRestApiCustomerConnectorRepositoryMock);
+        $this->factory->setContainer($this->containerMock);
     }
 
     /**
@@ -40,9 +47,14 @@ class ReturnLabelsRestApiCustomerConnectorBusinessFactoryTest extends Unit
      */
     public function testCreateCustomerExpander(): void
     {
+        /*$this->containerMock->expects(static::atLeastOnce())
+            ->method('get')
+            ->with([ReturnLabelsRestApiCustomerConnectorDependencyProvider::FACADE_CUSTOMER])
+            ->willReturnOnConsecutiveCalls($this->customerFacadeMock);
+
         static::assertEquals(
             CustomerExpander::class,
             $this->factory->createCustomerExpander()
-        );
+        );*/
     }
 }

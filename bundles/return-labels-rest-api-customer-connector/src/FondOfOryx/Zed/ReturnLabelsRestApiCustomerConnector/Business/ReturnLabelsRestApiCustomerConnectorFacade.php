@@ -1,6 +1,5 @@
 <?php
 
-
 namespace FondOfOryx\Zed\ReturnLabelsRestApiCustomerConnector\Business;
 
 use Generated\Shared\Transfer\RestReturnLabelRequestTransfer;
@@ -26,8 +25,7 @@ class ReturnLabelsRestApiCustomerConnectorFacade extends AbstractFacade implemen
     public function expandReturnLabelRequest(
         RestReturnLabelRequestTransfer $restReturnLabelRequestTransfer,
         ReturnLabelRequestTransfer $returnLabelRequestTransfer
-    ): ReturnLabelRequestTransfer
-    {
+    ): ReturnLabelRequestTransfer {
         return $this->getFactory()->createCustomerExpander()->expand(
             $restReturnLabelRequestTransfer,
             $returnLabelRequestTransfer

@@ -1,11 +1,11 @@
 <?php
 
-
 namespace FondOfOryx\Zed\ReturnLabelsRestApiCustomerConnector\Business;
-
 
 use Codeception\Test\Unit;
 use FondOfOryx\Zed\ReturnLabelsRestApiCustomerConnector\Business\Expander\CustomerExpander;
+use Generated\Shared\Transfer\RestReturnLabelRequestTransfer;
+use Generated\Shared\Transfer\ReturnLabelRequestTransfer;
 
 class ReturnLabelsRestApiCustomerConnectorFacadeTest extends Unit
 {
@@ -42,6 +42,14 @@ class ReturnLabelsRestApiCustomerConnectorFacadeTest extends Unit
         parent::_before();
 
         $this->returnLabelsRestApiCustomerConnectorBusinessFactory = $this->getMockBuilder(ReturnLabelsRestApiCustomerConnectorBusinessFactory::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $this->returnLabelRequestTransferMock = $this->getMockBuilder(ReturnLabelRequestTransfer::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $this->restReturnLabelRequestTransferMock = $this->getMockBuilder(RestReturnLabelRequestTransfer::class)
             ->disableOriginalConstructor()
             ->getMock();
 

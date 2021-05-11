@@ -1,6 +1,5 @@
 <?php
 
-
 namespace FondOfOryx\Zed\ReturnLabelsRestApiCustomerConnector\Business\Expander;
 
 use FondOfOryx\Zed\ReturnLabelsRestApiCustomerConnector\Business\Mapper\ReturnLabelRequestCustomerMapperInterface;
@@ -27,8 +26,7 @@ class CustomerExpander implements CustomerExpanderInterface
     public function __construct(
         CustomerReaderInterface $customerReader,
         ReturnLabelRequestCustomerMapperInterface $returnLabelRequestCustomerMapper
-    )
-    {
+    ) {
         $this->customerReader = $customerReader;
         $this->returnLabelRequestCustomerMapper = $returnLabelRequestCustomerMapper;
     }
@@ -54,7 +52,12 @@ class CustomerExpander implements CustomerExpanderInterface
             $customerTransfer
         );
 
-        return $returnLabelRequestTransfer->setCustomer($returnLabelRequestCustomerTransfer);
+        $returnLabelRequestCustomerTransfer->setReference(
+            $restReturnLabelRequestTransfer->getCustomer()->getReference()
+        );
 
+        $returnLabelRequestTransfer->setCustomer($returnLabelRequestCustomerTransfer);
+
+        return $returnLabelRequestTransfer;
     }
 }

@@ -5,7 +5,6 @@ namespace FondOfOryx\Zed\ReturnLabelsRestApiCustomerConnector\Communication\Plug
 use FondOfOryx\Zed\ReturnLabelsRestApiExtension\Dependency\Plugin\ReturnLabelRequestExpanderPluginInterface;
 use Generated\Shared\Transfer\RestReturnLabelRequestTransfer;
 use Generated\Shared\Transfer\ReturnLabelRequestTransfer;
-use Spryker\Zed\Kernel\Business\AbstractFacade;
 use Spryker\Zed\Kernel\Communication\AbstractPlugin;
 
 /**

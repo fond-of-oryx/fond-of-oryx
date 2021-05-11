@@ -35,19 +35,13 @@ class ReturnLabelRequestCustomerMapperTest extends Unit
     public function testFromCustomerTransfer(): void
     {
         $email = 'john.doe@mailinator.com';
-        $reference = 'FOOBAR';
 
         $this->customerTransferMock->expects(static::atLeastOnce())
             ->method('getEmail')
             ->willReturn($email);
 
-        $this->customerTransferMock->expects(static::atLeastOnce())
-            ->method('getCustomerReference')
-            ->willReturn($reference);
-
         $returnLabelRequestCustomerTransfer = $this->mapper->fromCustomerTransfer($this->customerTransferMock);
 
         static::assertEquals($email, $returnLabelRequestCustomerTransfer->getEmail());
-        static::assertEquals($reference, $returnLabelRequestCustomerTransfer->getReference());
     }
 }

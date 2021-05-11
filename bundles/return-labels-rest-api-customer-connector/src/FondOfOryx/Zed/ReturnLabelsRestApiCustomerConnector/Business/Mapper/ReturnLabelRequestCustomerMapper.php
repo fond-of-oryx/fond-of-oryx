@@ -3,7 +3,6 @@
 namespace FondOfOryx\Zed\ReturnLabelsRestApiCustomerConnector\Business\Mapper;
 
 use Generated\Shared\Transfer\CustomerTransfer;
-use Generated\Shared\Transfer\ReturnLabelRequestAddressTransfer;
 use Generated\Shared\Transfer\ReturnLabelRequestCustomerTransfer;
 
 class ReturnLabelRequestCustomerMapper implements ReturnLabelRequestCustomerMapperInterface

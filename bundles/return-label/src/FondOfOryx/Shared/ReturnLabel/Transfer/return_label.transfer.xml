@@ -6,11 +6,11 @@
        <property name="qrCode" type="bool"/>
        <property name="returnForm" type="bool"/>
        <property name="receiverId" type="string"/>
-       <property name="reference" type="string"/>
        <property name="customer" type="ReturnLabelRequestCustomer"/>
     </transfer>
 
     <transfer name="ReturnLabelRequestCustomer">
+        <property name="reference" type="string"/>
         <property name="email" type="string"/>
         <property name="address" type="ReturnLabelRequestAddress"/>
     </transfer>

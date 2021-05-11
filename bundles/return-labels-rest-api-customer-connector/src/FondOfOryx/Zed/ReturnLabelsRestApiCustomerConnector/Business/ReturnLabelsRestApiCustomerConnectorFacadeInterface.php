@@ -1,8 +1,6 @@
 <?php
 
-
 namespace FondOfOryx\Zed\ReturnLabelsRestApiCustomerConnector\Business;
-
 
 use Generated\Shared\Transfer\RestReturnLabelRequestTransfer;
 use Generated\Shared\Transfer\ReturnLabelRequestTransfer;

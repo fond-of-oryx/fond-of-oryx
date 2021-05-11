@@ -2,7 +2,6 @@
 
 namespace FondOfOryx\Zed\ReturnLabelsRestApiCustomerConnector\Communication\Plugin\ReturnLabelsRestApiExtension;
 
-
 use Codeception\Test\Unit;
 use FondOfOryx\Zed\ReturnLabelsRestApiCustomerConnector\Business\ReturnLabelsRestApiCustomerConnectorFacade;
 use Generated\Shared\Transfer\RestReturnLabelRequestTransfer;
@@ -45,7 +44,7 @@ class CustomerReturnLabelRequestExpanderPluginTest extends Unit
             ->disableOriginalConstructor()
             ->getMock();
 
-        $this->returnLabelRequestTransfer = $this->getMockBuilder(ReturnLabelRequestTransfer::class)
+        $this->returnLabelRequestTransferMock = $this->getMockBuilder(ReturnLabelRequestTransfer::class)
             ->disableOriginalConstructor()
             ->getMock();
 
@@ -61,7 +60,7 @@ class CustomerReturnLabelRequestExpanderPluginTest extends Unit
         $this->facadeMock->expects(static::atLeastOnce())
             ->method('expandReturnLabelRequest')
             ->with($this->restReturnLabelRequestTransferMock, $this->returnLabelRequestTransferMock)
-            ->willReturn($this->returnLabelRequestTransfer);
+            ->willReturn($this->returnLabelRequestTransferMock);
 
         static::assertEquals(
             $this->returnLabelRequestTransferMock,

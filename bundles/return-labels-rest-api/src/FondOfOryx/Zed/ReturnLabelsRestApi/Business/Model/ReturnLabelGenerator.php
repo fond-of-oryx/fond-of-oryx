@@ -40,11 +40,8 @@ class ReturnLabelGenerator implements ReturnLabelGeneratorInterface
     public function generate(
         RestReturnLabelRequestTransfer $restReturnLabelRequestTransfer
     ): RestReturnLabelResponseTransfer {
-        $returnLabelRequestTransfer = (new ReturnLabelRequestTransfer())
-            ->setReference($restReturnLabelRequestTransfer->getReference());
-
         $returnLabelRequestTransfer = $this->returnLabelRequestExpander
-            ->expand($restReturnLabelRequestTransfer, $returnLabelRequestTransfer);
+            ->expand($restReturnLabelRequestTransfer, new ReturnLabelRequestTransfer());
 
         $returnLabelResponseTransfer = $this->returnLabelFacade
             ->generateReturnLabel($returnLabelRequestTransfer);

@@ -1,8 +1,6 @@
 <?php
 
-
 namespace FondOfOryx\Zed\ReturnLabelsRestApiCustomerConnector\Dependency\Facade;
-
 
 use Generated\Shared\Transfer\CustomerTransfer;
 use Spryker\Zed\Customer\Business\CustomerFacadeInterface;
@@ -15,7 +13,7 @@ class ReturnLabelsRestApiCustomerConnectorToCustomerFacadeBridge implements Retu
     protected $customerFacade;
 
     /**
-     * @param CustomerFacadeInterface $customerFacade
+     * @param \Spryker\Zed\Customer\Business\CustomerFacadeInterface $customerFacade
      */
     public function __construct(CustomerFacadeInterface $customerFacade)
     {

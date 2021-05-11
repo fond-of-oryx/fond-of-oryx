@@ -6,6 +6,7 @@ use Codeception\Test\Unit;
 use FondOfOryx\Zed\ReturnLabelsRestApiCustomerConnector\Business\Mapper\ReturnLabelRequestCustomerMapper;
 use FondOfOryx\Zed\ReturnLabelsRestApiCustomerConnector\Business\Reader\CustomerReader;
 use Generated\Shared\Transfer\CustomerTransfer;
+use Generated\Shared\Transfer\RestCustomerTransfer;
 use Generated\Shared\Transfer\RestReturnLabelRequestTransfer;
 use Generated\Shared\Transfer\ReturnLabelRequestCustomerTransfer;
 use Generated\Shared\Transfer\ReturnLabelRequestTransfer;
@@ -38,6 +39,11 @@ class CustomerExpanderTest extends Unit
     protected $customerTransferMock;
 
     /**
+     * @var \Generated\Shared\Transfer\RestCustomerTransfer|\PHPUnit\Framework\MockObject\MockObject
+     */
+    protected $restCustomerTransferMock;
+
+    /**
      * @var \Generated\Shared\Transfer\ReturnLabelRequestCustomerTransfer|\PHPUnit\Framework\MockObject\MockObject
      */
     protected $returnLabelRequestCustomerTransferMock;
@@ -60,7 +66,7 @@ class CustomerExpanderTest extends Unit
             ->disableOriginalConstructor()
             ->getMock();
 
-        $this->restReturnLabelRequestTransfer = $this->getMockBuilder(RestReturnLabelRequestTransfer::class)
+        $this->restReturnLabelRequestTransferMock = $this->getMockBuilder(RestReturnLabelRequestTransfer::class)
             ->disableOriginalConstructor()
             ->getMock();
 
@@ -69,6 +75,10 @@ class CustomerExpanderTest extends Unit
             ->getMock();
 
         $this->customerTransferMock = $this->getMockBuilder(CustomerTransfer::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $this->restCustomerTransferMock = $this->getMockBuilder(RestCustomerTransfer::class)
             ->disableOriginalConstructor()
             ->getMock();
 
@@ -87,6 +97,8 @@ class CustomerExpanderTest extends Unit
      */
     public function testExpand(): void
     {
+        $reference = '1234567890';
+
         $this->customerReaderMock->expects(static::atLeastOnce())
             ->method('getByRestReturnLabelRequest')
             ->with($this->restReturnLabelRequestTransferMock)
@@ -95,21 +107,39 @@ class CustomerExpanderTest extends Unit
         $this->returnLabelRequestCustomerMapperMock->expects(static::atLeastOnce())
             ->method('fromCustomerTransfer')
             ->with($this->customerTransferMock)
-            ->with($this->returnLabelRequestCustomerTransferMock);
+            ->willReturn($this->returnLabelRequestCustomerTransferMock);
+
+        $this->returnLabelRequestCustomerTransferMock->expects(static::atLeastOnce())
+            ->method('setReference')
+            ->with($reference)
+            ->willReturnSelf();
+
+        $this->restReturnLabelRequestTransferMock->expects(static::atLeastOnce())
+            ->method('getCustomer')
+            ->willReturn($this->restCustomerTransferMock);
+
+        $this->restCustomerTransferMock->expects(static::atLeastOnce())
+            ->method('getReference')
+            ->willReturn($reference);
 
         $this->returnLabelRequestTransferMock->expects(static::atLeastOnce())
             ->method('setCustomer')
-            ->with($this->returnLabelRequestCustomerMapperMock)
-            ->willReturn($this->returnLabelRequestTransferMock);
+            ->with($this->returnLabelRequestCustomerTransferMock)
+            ->willReturnSelf();
 
         $returnLabelRequestTransfer = $this->expander->expand(
             $this->restReturnLabelRequestTransferMock,
             $this->returnLabelRequestTransferMock
         );
 
-        static::assertInstanceOf(
-            $returnLabelRequestTransfer->getCustomer(),
-            $this->returnLabelRequestCustomerTransferMock
+        static::assertEquals(
+            $this->returnLabelRequestTransferMock,
+            $returnLabelRequestTransfer
+        );
+
+        static::assertEquals(
+            $returnLabelRequestTransfer->getCustomer()->getReference(),
+            $reference
         );
     }
 
@@ -123,11 +153,12 @@ class CustomerExpanderTest extends Unit
             ->with($this->restReturnLabelRequestTransferMock)
             ->willReturn(null);
 
-        $returnLabelRequestTransfer = $this->expander->expand(
+        $this->returnLabelRequestCustomerMapperMock->expects(static::never())
+            ->method('fromCustomerTransfer');
+
+        $this->expander->expand(
             $this->restReturnLabelRequestTransferMock,
             $this->returnLabelRequestTransferMock
         );
-
-        static::assertNull($returnLabelRequestTransfer->getCustomer());
     }
 }

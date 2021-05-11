@@ -14,7 +14,7 @@ class CustomerReader implements CustomerReaderInterface
     protected $customerFacade;
 
     /**
-     * @param \FondOfOryx\Zed\ReturnLabelsRestApiCustomerConnector\Persistence\ReturnLabelsRestApiCustomerConnectorRepositoryInterface
+     * @param \FondOfOryx\Zed\ReturnLabelsRestApiCustomerConnector\Dependency\Facade\ReturnLabelsRestApiCustomerConnectorToCustomerFacadeInterface $customerFacade
      */
     public function __construct(ReturnLabelsRestApiCustomerConnectorToCustomerFacadeInterface $customerFacade)
     {
@@ -28,8 +28,7 @@ class CustomerReader implements CustomerReaderInterface
      */
     public function getByRestReturnLabelRequest(
         RestReturnLabelRequestTransfer $restReturnLabelRequestTransfer
-    ): ?CustomerTransfer
-    {
+    ): ?CustomerTransfer {
         $idCustomer = $restReturnLabelRequestTransfer->getCustomer()->getIdCustomer();
 
         if ($idCustomer === null) {

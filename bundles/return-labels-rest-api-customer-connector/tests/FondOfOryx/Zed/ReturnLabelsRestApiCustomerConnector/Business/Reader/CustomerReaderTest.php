@@ -3,7 +3,7 @@
 namespace FondOfOryx\Zed\ReturnLabelsRestApiCustomerConnector\Business\Reader;
 
 use Codeception\Test\Unit;
-use FondOfOryx\Zed\ReturnLabelsRestApiCustomerConnector\Persistence\ReturnLabelsRestApiCustomerConnectorRepository;
+use FondOfOryx\Zed\ReturnLabelsRestApiCustomerConnector\Dependency\Facade\ReturnLabelsRestApiCustomerConnectorToCustomerFacadeBridge;
 use Generated\Shared\Transfer\CustomerTransfer;
 use Generated\Shared\Transfer\RestCustomerTransfer;
 use Generated\Shared\Transfer\RestReturnLabelRequestTransfer;
@@ -16,9 +16,9 @@ class CustomerReaderTest extends Unit
     protected $restReturnLabelRequestTransferMock;
 
     /**
-     * @var \FondOfOryx\Zed\ReturnLabelsRestApiCustomerConnector\Persistence\ReturnLabelsRestApiCustomerConnectorRepositoryInterface|\PHPUnit\Framework\MockObject\MockObject
+     * @var \FondOfOryx\Zed\ReturnLabelsRestApiCustomerConnector\Dependency\Facade\ReturnLabelsRestApiCustomerConnectorToCustomerFacadeInterface|\PHPUnit\Framework\MockObject\MockObject
      */
-    protected $repositoryMock;
+    protected $customerFacadeMock;
 
     /**
      * @var \Generated\Shared\Transfer\CustomerTransfer|\PHPUnit\Framework\MockObject\MockObject
@@ -42,7 +42,7 @@ class CustomerReaderTest extends Unit
     {
         parent::_before();
 
-        $this->repositoryMock = $this->getMockBuilder(ReturnLabelsRestApiCustomerConnectorRepository::class)
+        $this->customerFacadeMock = $this->getMockBuilder(ReturnLabelsRestApiCustomerConnectorToCustomerFacadeBridge::class)
             ->disableOriginalConstructor()
             ->getMock();
 
@@ -58,7 +58,7 @@ class CustomerReaderTest extends Unit
             ->disableOriginalConstructor()
             ->getMock();
 
-        $this->reader = new CustomerReader($this->repositoryMock);
+        $this->reader = new CustomerReader($this->customerFacadeMock);
     }
 
     /**
@@ -66,20 +66,21 @@ class CustomerReaderTest extends Unit
      */
     public function testGetByRestReturnLabelRequest(): void
     {
+        $idCustomer = 99;
+
         $this->restReturnLabelRequestTransferMock->expects(static::atLeastOnce())
             ->method('getCustomer')
             ->willReturn($this->restCustomerTransferMock);
 
         $this->restCustomerTransferMock->expects(static::atLeastOnce())
             ->method('getIdCustomer')
-            ->willReturn(99);
+            ->willReturn($idCustomer);
 
-        $this->repositoryMock->expects(static::atLeastOnce())
-            ->method('getCustomerById')
-            ->willReturn($this->customerTransferMock);
+        $customerTransfer = $this->reader->getByRestReturnLabelRequest($this->restReturnLabelRequestTransferMock);
 
-        $customerTransfer = $this->reader->getByRestReturnLabelRequest($this->restReturnLabelRequestTransfer);
-
-        static::assertEquals(99, $customerTransfer->getIdCustomer());
+        static::assertEquals(
+            $idCustomer,
+            $customerTransfer->getIdCustomer()
+        );
     }
 }
