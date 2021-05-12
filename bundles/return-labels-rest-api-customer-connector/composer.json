@@ -1,6 +1,6 @@
 {
   "name": "fond-of-oryx/return-labels-rest-api-customer-connector",
-  "description": "Return Labels Rest Api Extension Module",
+  "description": "Return Labels Rest Api Customer Connector Module",
   "license": "MIT",
   "authors": [
     {
@@ -10,7 +10,8 @@
   ],
   "require": {
     "php": ">=7.3",
-    "spryker/customer": "^7.0.0"
+    "fond-of-oryx/return-labels-rest-api-extension": "^1.0.0",
+    "spryker/customer": "^6.0.0 || ^7.0.0"
   },
   "require-dev": {
     "fond-of-codeception/spryker": "^1.0",
