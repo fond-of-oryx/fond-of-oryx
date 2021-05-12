@@ -16,7 +16,6 @@ class PaymentEpcQrCodeServiceFactory extends AbstractServiceFactory
 {
     /**
      * @return \FondOfOryx\Service\PaymentEpcQrCode\Model\QrCodeWriterInterface
-     * @throws \Spryker\Service\Kernel\Exception\Container\ContainerKeyNotFoundException
      */
     public function createQrCodeWriter(): QrCodeWriterInterface
     {
@@ -26,13 +25,13 @@ class PaymentEpcQrCodeServiceFactory extends AbstractServiceFactory
     /**
      * @return \FondOfOryx\Service\PaymentEpcQrCode\Model\QrCodeInterface
      */
-    protected function createQrCode(): QrCodeInterface{
+    protected function createQrCode(): QrCodeInterface
+    {
         return new QrCode();
     }
 
     /**
      * @return \FondOfOryx\Service\PaymentEpcQrCode\Dependency\Wrapper\QrCodeWrapperInterface
-     * @throws \Spryker\Service\Kernel\Exception\Container\ContainerKeyNotFoundException
      */
     protected function getQrCodeWrapper(): QrCodeWrapperInterface
     {

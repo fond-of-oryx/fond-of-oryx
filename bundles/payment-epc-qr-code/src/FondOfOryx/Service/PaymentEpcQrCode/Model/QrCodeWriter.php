@@ -18,9 +18,8 @@ class QrCodeWriter implements QrCodeWriterInterface
     protected $qrCode;
 
     /**
-     * QrCode constructor.
-     *
-     * @param  \FondOfOryx\Service\PaymentEpcQrCode\Dependency\Wrapper\QrCodeWrapperInterface  $wrapper
+     * @param \FondOfOryx\Service\PaymentEpcQrCode\Dependency\Wrapper\QrCodeWrapperInterface $wrapper
+     * @param \FondOfOryx\Service\PaymentEpcQrCode\Model\QrCodeInterface $qrCode
      */
     public function __construct(QrCodeWrapperInterface $wrapper, QrCodeInterface $qrCode)
     {
@@ -29,10 +28,9 @@ class QrCodeWriter implements QrCodeWriterInterface
     }
 
     /**
-     * @param  \Generated\Shared\Transfer\PaymentEpcQrCodeRequestTransfer  $paymentEpcQrCodeRequestTransfer
+     * @param \Generated\Shared\Transfer\PaymentEpcQrCodeRequestTransfer $paymentEpcQrCodeRequestTransfer
      *
      * @return \FondOfOryx\Service\PaymentEpcQrCode\Model\QrCodeInterface
-     * @throws \Exception
      */
     public function generateQrCode(PaymentEpcQrCodeRequestTransfer $paymentEpcQrCodeRequestTransfer): QrCodeInterface
     {

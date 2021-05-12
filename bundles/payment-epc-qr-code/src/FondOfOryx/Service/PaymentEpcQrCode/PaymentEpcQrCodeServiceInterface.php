@@ -8,10 +8,11 @@ use Generated\Shared\Transfer\PaymentEpcQrCodeRequestTransfer;
 interface PaymentEpcQrCodeServiceInterface
 {
     /**
-     * @param  \Generated\Shared\Transfer\PaymentEpcQrCodeRequestTransfer  $paymentEpcQrCodeRequestTransfer
+     * @param \Generated\Shared\Transfer\PaymentEpcQrCodeRequestTransfer $paymentEpcQrCodeRequestTransfer
+     *
+     * @throws \Spryker\Service\Kernel\Exception\Container\ContainerKeyNotFoundException
      *
      * @return \Endroid\QrCode\QrCodeInterface
-     * @throws \Spryker\Service\Kernel\Exception\Container\ContainerKeyNotFoundException
      */
     public function createQrCode(PaymentEpcQrCodeRequestTransfer $paymentEpcQrCodeRequestTransfer): QrCodeInterface;
 }

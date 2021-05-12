@@ -8,10 +8,11 @@ use Generated\Shared\Transfer\PaymentEpcQrCodeRequestTransfer;
 interface QrCodeWrapperInterface
 {
     /**
-     * @param  \Generated\Shared\Transfer\PaymentEpcQrCodeRequestTransfer  $paymentEpcQrCodeRequestTransfer
+     * @param \Generated\Shared\Transfer\PaymentEpcQrCodeRequestTransfer $paymentEpcQrCodeRequestTransfer
+     *
+     * @throws \Exception
      *
      * @return \Endroid\QrCode\Writer\Result\ResultInterface
-     * @throws \Exception
      */
     public function createQrCode(PaymentEpcQrCodeRequestTransfer $paymentEpcQrCodeRequestTransfer): ResultInterface;
 }

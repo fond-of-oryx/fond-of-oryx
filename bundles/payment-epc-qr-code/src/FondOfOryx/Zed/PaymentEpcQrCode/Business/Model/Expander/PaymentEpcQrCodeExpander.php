@@ -17,7 +17,6 @@ class PaymentEpcQrCodeExpander implements ExpanderInterface
      */
     public function expand(MailTransfer $mailTransfer, OrderTransfer $orderTransfer): MailTransfer
     {
-
         return $mailTransfer;
     }
 }

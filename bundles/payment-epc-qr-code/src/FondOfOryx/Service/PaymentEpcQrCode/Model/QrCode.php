@@ -1,8 +1,6 @@
 <?php
 
-
 namespace FondOfOryx\Service\PaymentEpcQrCode\Model;
-
 
 use Endroid\QrCode\Writer\Result\ResultInterface;
 
@@ -14,13 +12,15 @@ class QrCode implements QrCodeInterface
     protected $result;
 
     /**
-     * @param  \Endroid\QrCode\Writer\Result\ResultInterface  $result
+     * @param \Endroid\QrCode\Writer\Result\ResultInterface $result
      *
      * @return \FondOfOryx\Service\PaymentEpcQrCode\Model\QrCodeInterface
      */
     public function init(ResultInterface $result): QrCodeInterface
     {
         $this->result = $result;
+
+        return $this;
     }
 
     /**
@@ -34,8 +34,9 @@ class QrCode implements QrCodeInterface
     /**
      * @return string
      */
-    public function getDataUri(): string{
-        $this->result->getDataUri();
+    public function getDataUri(): string
+    {
+        return $this->result->getDataUri();
     }
 
     /**
@@ -47,7 +48,7 @@ class QrCode implements QrCodeInterface
     }
 
     /**
-     * @param  string  $path
+     * @param string $path
      *
      * @return void
      */
