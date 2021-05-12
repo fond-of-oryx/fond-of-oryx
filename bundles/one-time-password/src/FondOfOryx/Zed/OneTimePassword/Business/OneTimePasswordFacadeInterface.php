@@ -4,6 +4,7 @@ namespace FondOfOryx\Zed\OneTimePassword\Business;
 
 use Generated\Shared\Transfer\CustomerTransfer;
 use Generated\Shared\Transfer\OneTimePasswordResponseTransfer;
+use Generated\Shared\Transfer\OrderTransfer;
 
 interface OneTimePasswordFacadeInterface
 {
@@ -49,4 +50,37 @@ interface OneTimePasswordFacadeInterface
      * @return void
      */
     public function resetOneTimePassword(CustomerTransfer $customerTransfer): void;
+
+    /**
+     * Specification:
+     * - Generate a new one time password for given customer
+     * - Identifies customer by customer email
+     * - Creates a Link with login parameters
+     *
+     * @api
+     *
+     * @param \Generated\Shared\Transfer\CustomerTransfer $customerTransfer
+     *
+     * @return string|null
+     */
+    public function generateLoginLink(
+        CustomerTransfer $customerTransfer
+    ): ?string;
+
+    /**
+     * Specification:
+     * - Generate a new one time password for given customer
+     * - Identifies customer by customer email
+     * - Creates a Link with login parameters
+     * - Add order reference to query params
+     *
+     * @api
+     *
+     * @param \Generated\Shared\Transfer\OrderTransfer $orderTransfer
+     *
+     * @return string|null
+     */
+    public function generateLoginLinkWithOrderReference(
+        OrderTransfer $orderTransfer
+    ): ?string;
 }

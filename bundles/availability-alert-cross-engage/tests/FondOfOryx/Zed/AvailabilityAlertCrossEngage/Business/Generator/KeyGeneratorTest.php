@@ -24,7 +24,7 @@ class KeyGeneratorTest extends Unit
     {
         parent::_before();
 
-        $this->configMock = static::getMockBuilder(AvailabilityAlertCrossEngageConfig::class)->disableOriginalConstructor()->getMock();
+        $this->configMock = $this->getMockBuilder(AvailabilityAlertCrossEngageConfig::class)->disableOriginalConstructor()->getMock();
 
         $this->generator = new KeyGenerator($this->configMock);
     }

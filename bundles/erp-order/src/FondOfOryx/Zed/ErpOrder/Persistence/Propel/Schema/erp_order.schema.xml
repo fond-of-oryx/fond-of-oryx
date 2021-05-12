@@ -89,4 +89,17 @@
             <reference local="fk_region" foreign="id_region"/>
         </foreign-key>
     </table>
+
+    <table name="foo_erp_order_total" phpName="ErpOrderTotal" identifierQuoting="true">
+        <column name="id_erp_order_total" required="true" type="INTEGER" autoIncrement="true" primaryKey="true"/>
+        <column name="fk_erp_order" required="true" type="INTEGER"/>
+        <column name="grand_total" type="INTEGER" required="false" default="0"/>
+        <column name="tax_total" type="INTEGER" required="false" default="0"/>
+
+        <foreign-key name="foo_erp_order_total-fk_erp_order" foreignTable="foo_erp_order" phpName="ErpOrder" refPhpName="ErpOrderTotal">
+            <reference local="fk_erp_order" foreign="id_erp_order"/>
+        </foreign-key>
+
+    <id-method-parameter value="foo_erp_order_total_pk_seq"/></table>
+
 </database>

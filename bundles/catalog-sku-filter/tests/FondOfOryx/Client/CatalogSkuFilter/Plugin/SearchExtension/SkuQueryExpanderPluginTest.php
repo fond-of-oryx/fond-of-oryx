@@ -20,7 +20,7 @@ class SkuQueryExpanderPluginTest extends Unit
     protected $queryMock;
 
     /**
-     * @var \string[][]
+     * @var string[][]
      */
     protected $requestParameters;
 
@@ -40,7 +40,7 @@ class SkuQueryExpanderPluginTest extends Unit
     protected $matchQueryMock;
 
     /**
-     * @var \FondOfOryx\Client\CatalogSkuFilter\Plugin\SearchExtension\ConcreteSkuQueryExpanderPlugin
+     * @var \FondOfOryx\Client\CatalogSkuFilter\Plugin\SearchExtension\SkuQueryExpanderPlugin
      */
     protected $skuQueryExpanderPlugin;
 

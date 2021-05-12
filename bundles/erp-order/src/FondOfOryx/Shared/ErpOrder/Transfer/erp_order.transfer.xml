@@ -15,6 +15,7 @@
         <property name="externalReference" type="string"/>
         <property name="reference" type="string"/>
         <property name="concreteDeliveryDate" type="string"/>
+        <property name="total" type="ErpOrderTotal"/>
         <property name="createdAt" type="int"/>
         <property name="updatedAt" type="int"/>
     </transfer>
@@ -49,6 +50,13 @@
         <property name="zipCode" type="string" />
         <property name="createdAt" type="int"/>
         <property name="updatedAt" type="int"/>
+    </transfer>
+
+    <transfer name="ErpOrderTotal">
+        <property name="idErpOrderTotal" type="int" />
+        <property name="fkErpOrder" type="int" />
+        <property name="grandTotal" type="int"/>
+        <property name="taxTotal" type="int"/>
     </transfer>
 
     <transfer name="ErpOrderItemCollection">

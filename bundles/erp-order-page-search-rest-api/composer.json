@@ -14,7 +14,7 @@
   ],
   "require": {
     "php": ">=7.3",
-    "fond-of-oryx/erp-order-page-search": "dev-main",
+    "fond-of-oryx/erp-order-page-search": "^1.0.0",
     "spryker/glue-application": "^1.0.0",
     "spryker/glue-application-extension": "^1.0.0"
   },
