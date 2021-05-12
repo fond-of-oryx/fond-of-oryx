@@ -4,6 +4,7 @@ namespace FondOfOryx\Zed\ErpOrder\Persistence;
 
 use Generated\Shared\Transfer\ErpOrderAddressTransfer;
 use Generated\Shared\Transfer\ErpOrderItemTransfer;
+use Generated\Shared\Transfer\ErpOrderTotalTransfer;
 use Generated\Shared\Transfer\ErpOrderTransfer;
 
 interface ErpOrderEntityManagerInterface
@@ -25,6 +26,13 @@ interface ErpOrderEntityManagerInterface
      * @return \Generated\Shared\Transfer\ErpOrderAddressTransfer
      */
     public function createErpOrderAddress(ErpOrderAddressTransfer $orderAddressTransfer): ErpOrderAddressTransfer;
+
+    /**
+     * @param \Generated\Shared\Transfer\ErpOrderTotalTransfer $orderTotalTransfer
+     *
+     * @return \Generated\Shared\Transfer\ErpOrderTotalTransfer
+     */
+    public function createErpOrderTotal(ErpOrderTotalTransfer $orderTotalTransfer): ErpOrderTotalTransfer;
 
     /**
      * @param \Generated\Shared\Transfer\ErpOrderItemTransfer $itemTransfer
@@ -60,6 +68,13 @@ interface ErpOrderEntityManagerInterface
      * @return \Generated\Shared\Transfer\ErpOrderAddressTransfer
      */
     public function updateErpOrderAddress(ErpOrderAddressTransfer $erpOrderAddressTransfer): ErpOrderAddressTransfer;
+
+    /**
+     * @param \Generated\Shared\Transfer\ErpOrderTotalTransfer $erpOrderTotalTransfer
+     *
+     * @return \Generated\Shared\Transfer\ErpOrderTotalTransfer
+     */
+    public function updateErpOrderTotal(ErpOrderTotalTransfer $erpOrderTotalTransfer): ErpOrderTotalTransfer;
 
     /**
      * @param int $idErpOrder
