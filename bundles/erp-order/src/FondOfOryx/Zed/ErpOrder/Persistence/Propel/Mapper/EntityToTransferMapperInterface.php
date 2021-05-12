@@ -4,10 +4,12 @@ namespace FondOfOryx\Zed\ErpOrder\Persistence\Propel\Mapper;
 
 use Generated\Shared\Transfer\ErpOrderAddressTransfer;
 use Generated\Shared\Transfer\ErpOrderItemTransfer;
+use Generated\Shared\Transfer\ErpOrderTotalTransfer;
 use Generated\Shared\Transfer\ErpOrderTransfer;
 use Orm\Zed\ErpOrder\Persistence\ErpOrder;
 use Orm\Zed\ErpOrder\Persistence\ErpOrderAddress;
 use Orm\Zed\ErpOrder\Persistence\ErpOrderItem;
+use Orm\Zed\ErpOrder\Persistence\ErpOrderTotal;
 
 interface EntityToTransferMapperInterface
 {
@@ -45,4 +47,15 @@ interface EntityToTransferMapperInterface
         ErpOrderAddress $erpOrderAddress,
         ?ErpOrderAddressTransfer $erpOrderAddressTransfer = null
     ): ErpOrderAddressTransfer;
+
+    /**
+     * @param \Orm\Zed\ErpOrder\Persistence\ErpOrderTotal $erpOrderTotal
+     * @param \Generated\Shared\Transfer\ErpOrderTotalTransfer|null $erpOrderTotalTransfer
+     *
+     * @return \Generated\Shared\Transfer\ErpOrderTotalTransfer
+     */
+    public function fromErpOrderTotalToTransfer(
+        ErpOrderTotal $erpOrderTotal,
+        ?ErpOrderTotalTransfer $erpOrderTotalTransfer = null
+    ): ErpOrderTotalTransfer;
 }
