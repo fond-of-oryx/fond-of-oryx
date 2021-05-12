@@ -3,12 +3,14 @@
 namespace FondOfOryx\Zed\AvailabilityAlertCrossEngage\Communication\Plugin\Expander;
 
 use Codeception\Test\Unit;
+use FondOfOryx\Zed\AvailabilityAlertCrossEngage\AvailabilityAlertCrossEngageConfig;
 use FondOfOryx\Zed\AvailabilityAlertCrossEngage\Business\AvailabilityAlertCrossEngageFacade;
 use FondOfOryx\Zed\AvailabilityAlertCrossEngage\Communication\AvailabilityAlertCrossEngageCommunicationFactory;
 use FondOfOryx\Zed\AvailabilityAlertCrossEngage\Dependency\Service\AvailabilityAlertCrossEngageToCrossEngageServiceBridge;
 use Generated\Shared\Transfer\AvailabilityAlertSubscriberTransfer;
 use Generated\Shared\Transfer\AvailabilityAlertSubscriptionRequestTransfer;
 use Generated\Shared\Transfer\AvailabilityAlertSubscriptionTransfer;
+use Spryker\Zed\Kernel\AbstractBundleConfig;
 use Spryker\Zed\Kernel\Business\AbstractFacade;
 use Spryker\Zed\Kernel\Communication\AbstractCommunicationFactory;
 
@@ -23,6 +25,11 @@ class CrossEngageAvailabilityAlertSubscriptionTransferExpanderPluginTest extends
      * @var \FondOfOryx\Zed\AvailabilityAlertCrossEngage\Communication\AvailabilityAlertCrossEngageCommunicationFactory|\PHPUnit\Framework\MockObject\MockObject
      */
     protected $factoryMock;
+
+    /**
+     * @var \FondOfOryx\Zed\AvailabilityAlertCrossEngage\AvailabilityAlertCrossEngageConfig|\PHPUnit\Framework\MockObject\MockObject
+     */
+    protected $configMock;
 
     /**
      * @var \Generated\Shared\Transfer\AvailabilityAlertSubscriptionTransfer|\PHPUnit\Framework\MockObject\MockObject
@@ -58,12 +65,13 @@ class CrossEngageAvailabilityAlertSubscriptionTransferExpanderPluginTest extends
 
         $this->facadeMock = $this->getMockBuilder(AvailabilityAlertCrossEngageFacade::class)->disableOriginalConstructor()->getMock();
         $this->factoryMock = $this->getMockBuilder(AvailabilityAlertCrossEngageCommunicationFactory::class)->disableOriginalConstructor()->getMock();
+        $this->configMock = $this->getMockBuilder(AvailabilityAlertCrossEngageConfig::class)->disableOriginalConstructor()->getMock();
         $this->subscriptionTransferMock = $this->getMockBuilder(AvailabilityAlertSubscriptionTransfer::class)->disableOriginalConstructor()->getMock();
         $this->subscriberTransferMock = $this->getMockBuilder(AvailabilityAlertSubscriberTransfer::class)->disableOriginalConstructor()->getMock();
         $this->subscriptionRequestTransferMock = $this->getMockBuilder(AvailabilityAlertSubscriptionRequestTransfer::class)->disableOriginalConstructor()->getMock();
         $this->crossEngageServiceMock = $this->getMockBuilder(AvailabilityAlertCrossEngageToCrossEngageServiceBridge::class)->disableOriginalConstructor()->getMock();
 
-        $this->expander = new class ($this->facadeMock, $this->factoryMock) extends CrossEngageAvailabilityAlertSubscriptionTransferExpanderPlugin {
+        $this->expander = new class ($this->facadeMock, $this->factoryMock, $this->configMock) extends CrossEngageAvailabilityAlertSubscriptionTransferExpanderPlugin {
             /**
              * @var \Spryker\Zed\Kernel\Communication\AbstractCommunicationFactory
              */
@@ -75,17 +83,25 @@ class CrossEngageAvailabilityAlertSubscriptionTransferExpanderPluginTest extends
             protected $facadeOwn;
 
             /**
+             * @var \Spryker\Zed\Kernel\AbstractBundleConfig
+             */
+            protected $configOwn;
+
+            /**
              *  constructor.
              *
              * @param \FondOfOryx\Zed\AvailabilityAlertCrossEngage\Business\AvailabilityAlertCrossEngageFacade $facade
              * @param \FondOfOryx\Zed\AvailabilityAlertCrossEngage\Communication\AvailabilityAlertCrossEngageCommunicationFactory $factory
+             * @param \FondOfOryx\Zed\AvailabilityAlertCrossEngage\AvailabilityAlertCrossEngageConfig $config
              */
             public function __construct(
                 AvailabilityAlertCrossEngageFacade $facade,
-                AvailabilityAlertCrossEngageCommunicationFactory $factory
+                AvailabilityAlertCrossEngageCommunicationFactory $factory,
+                AvailabilityAlertCrossEngageConfig $config
             ) {
                 $this->factoryOwn = $factory;
                 $this->facadeOwn = $facade;
+                $this->configOwn = $config;
             }
 
             /**
@@ -103,6 +119,14 @@ class CrossEngageAvailabilityAlertSubscriptionTransferExpanderPluginTest extends
             {
                 return $this->factoryOwn;
             }
+
+            /**
+             * @return \Spryker\Zed\Kernel\AbstractBundleConfig
+             */
+            public function getConfig(): AbstractBundleConfig
+            {
+                return $this->configOwn;
+            }
         };
     }
 
@@ -116,6 +140,7 @@ class CrossEngageAvailabilityAlertSubscriptionTransferExpanderPluginTest extends
         $this->crossEngageServiceMock->expects(static::once())->method('getHash')->willReturn('');
         $this->subscriberTransferMock->expects(static::atLeastOnce())->method('getEmail')->willReturn('test@test.de');
         $this->subscriberTransferMock->expects(static::once())->method('setSubscriberIp')->willReturn($this->subscriberTransferMock);
+        $this->subscriberTransferMock->expects(static::once())->method('setIsActive')->willReturn($this->subscriberTransferMock);
         $this->subscriberTransferMock->expects(static::once())->method('setKey')->willReturn($this->subscriberTransferMock);
         $this->subscriberTransferMock->expects(static::once())->method('setHash')->willReturn($this->subscriberTransferMock);
         $this->subscriptionRequestTransferMock->expects(static::once())->method('getSubscriberIp')->willReturn('');

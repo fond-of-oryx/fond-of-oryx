@@ -6,6 +6,7 @@ use Codeception\Test\Unit;
 use FondOfOryx\Zed\AvailabilityAlert\Dependency\Plugin\AvailabilityAlertSubscriberPostSavePluginInterface;
 use FondOfOryx\Zed\AvailabilityAlert\Dependency\Plugin\AvailabilityAlertSubscriberPreSavePluginInterface;
 use Generated\Shared\Transfer\AvailabilityAlertSubscriberTransfer;
+use Generated\Shared\Transfer\AvailabilityAlertSubscriptionTransfer;
 
 class AvailabilityAlertSubscriptionPluginExecutorTest extends Unit
 {
@@ -13,6 +14,11 @@ class AvailabilityAlertSubscriptionPluginExecutorTest extends Unit
      * @var \Generated\Shared\Transfer\AvailabilityAlertSubscriberTransfer|\PHPUnit\Framework\MockObject\MockObject
      */
     protected $subscriberTransfer;
+
+    /**
+     * @var \Generated\Shared\Transfer\AvailabilityAlertSubscriptionTransfer|\PHPUnit\Framework\MockObject\MockObject
+     */
+    protected $subscriptionTransfer;
 
     /**
      * @var \FondOfOryx\Zed\AvailabilityAlert\Dependency\Plugin\AvailabilityAlertSubscriberPostSavePluginInterface|\PHPUnit\Framework\MockObject\MockObject
@@ -34,6 +40,7 @@ class AvailabilityAlertSubscriptionPluginExecutorTest extends Unit
         $this->preSavePluginMock = $this->getMockBuilder(AvailabilityAlertSubscriberPreSavePluginInterface::class)->disableOriginalConstructor()->getMock();
         $this->postSavePluginMock = $this->getMockBuilder(AvailabilityAlertSubscriberPostSavePluginInterface::class)->disableOriginalConstructor()->getMock();
         $this->subscriberTransfer = $this->getMockBuilder(AvailabilityAlertSubscriberTransfer::class)->disableOriginalConstructor()->getMock();
+        $this->subscriptionTransfer = $this->getMockBuilder(AvailabilityAlertSubscriptionTransfer::class)->disableOriginalConstructor()->getMock();
     }
 
     /**
@@ -44,7 +51,7 @@ class AvailabilityAlertSubscriptionPluginExecutorTest extends Unit
         $this->preSavePluginMock->expects(static::exactly(2))->method('preSave')->willReturn($this->subscriberTransfer);
         $this->postSavePluginMock->expects(static::never())->method('postSave');
         $expander = new AvailabilityAlertSubscriberPluginExecutor([$this->preSavePluginMock, $this->preSavePluginMock], [$this->postSavePluginMock, $this->postSavePluginMock]);
-        $response = $expander->executePreSavePlugins($this->subscriberTransfer);
+        $response = $expander->executePreSavePlugins($this->subscriberTransfer, $this->subscriptionTransfer);
         static::assertInstanceOf(AvailabilityAlertSubscriberTransfer::class, $response);
     }
 
@@ -56,7 +63,7 @@ class AvailabilityAlertSubscriptionPluginExecutorTest extends Unit
         $this->postSavePluginMock->expects(static::exactly(2))->method('postSave')->willReturn($this->subscriberTransfer);
         $this->preSavePluginMock->expects(static::never())->method('preSave');
         $expander = new AvailabilityAlertSubscriberPluginExecutor([$this->preSavePluginMock, $this->preSavePluginMock], [$this->postSavePluginMock, $this->postSavePluginMock]);
-        $response = $expander->executePostSavePlugins($this->subscriberTransfer);
+        $response = $expander->executePostSavePlugins($this->subscriberTransfer, $this->subscriptionTransfer);
         static::assertInstanceOf(AvailabilityAlertSubscriberTransfer::class, $response);
     }
 }
