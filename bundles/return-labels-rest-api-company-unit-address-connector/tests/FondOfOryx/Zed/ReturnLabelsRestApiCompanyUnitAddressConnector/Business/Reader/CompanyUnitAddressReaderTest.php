@@ -150,6 +150,4 @@ class CompanyUnitAddressReaderTest extends Unit
 
         static::assertNull($this->reader->getByRestReturnLabelRequest($this->restReturnLabelRequestTransferMock));
     }
-
-
 }
