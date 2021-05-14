@@ -55,6 +55,7 @@
     <transfer name="ErpOrderTotal">
         <property name="idErpOrderTotal" type="int" />
         <property name="fkErpOrder" type="int" />
+        <property name="subtotal" type="int"/>
         <property name="grandTotal" type="int"/>
         <property name="taxTotal" type="int"/>
     </transfer>

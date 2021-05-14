@@ -93,6 +93,7 @@
     <table name="foo_erp_order_total" phpName="ErpOrderTotal" identifierQuoting="true">
         <column name="id_erp_order_total" required="true" type="INTEGER" autoIncrement="true" primaryKey="true"/>
         <column name="fk_erp_order" required="true" type="INTEGER"/>
+        <column name="subtotal" type="INTEGER" required="false" default="0"/>
         <column name="grand_total" type="INTEGER" required="false" default="0"/>
         <column name="tax_total" type="INTEGER" required="false" default="0"/>
 

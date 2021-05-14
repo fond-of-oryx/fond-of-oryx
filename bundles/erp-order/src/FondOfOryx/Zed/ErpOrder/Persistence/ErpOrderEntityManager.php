@@ -82,6 +82,7 @@ class ErpOrderEntityManager extends AbstractEntityManager implements ErpOrderEnt
     {
         $orderTotalTransfer
             ->requireFkErpOrder()
+            ->requireSubtotal()
             ->requireGrandTotal()
             ->requireTaxTotal();
 
