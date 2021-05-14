@@ -3,7 +3,6 @@
 namespace FondOfOryx\Zed\ErpOrder\Business\Model\Reader;
 
 use Generated\Shared\Transfer\ErpOrderTotalTransfer;
-use Orm\Zed\ErpOrder\Persistence\ErpOrder;
 
 interface ErpOrderTotalReaderInterface
 {

@@ -21,9 +21,9 @@ class ErpOrderTotalReader implements ErpOrderTotalReaderInterface
     }
 
     /**
-     * @param int $idErpOrder
+     * @param int $idErpOrderTotal
      *
-     * @return \Generated\Shared\Transfer\ErpOrderItemCollectionTransfer
+     * @return \Generated\Shared\Transfer\ErpOrderTotalTransfer|null
      */
     public function findErpOrderTotalByIdErpOrderTotal(int $idErpOrderTotal): ?ErpOrderTotalTransfer
     {

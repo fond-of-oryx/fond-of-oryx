@@ -3,13 +3,10 @@
 namespace FondOfOryx\Zed\ErpOrder\Business\Handler;
 
 use Codeception\Test\Unit;
-use Exception;
 use FondOfOryx\Zed\ErpOrder\Business\Model\Reader\ErpOrderTotalReaderInterface;
-use FondOfOryx\Zed\ErpOrder\Business\Model\Writer\ErpOrderTotalWriter;
 use FondOfOryx\Zed\ErpOrder\Business\Model\Writer\ErpOrderTotalWriterInterface;
 use Generated\Shared\Transfer\ErpOrderTotalTransfer;
 use Generated\Shared\Transfer\ErpOrderTransfer;
-use ReflectionMethod;
 
 class ErpOrderTotalHandlerTest extends Unit
 {
@@ -146,7 +143,7 @@ class ErpOrderTotalHandlerTest extends Unit
 
         $this->erpOrderTotalReaderMock->expects($this->once())
             ->method('findErpOrderTotalByIdErpOrderTotal')
-            ->with( $idErpOrderTotal)
+            ->with($idErpOrderTotal)
             ->willReturn($this->erpOrderTotalTransferMock);
 
         $this->erpOrderTotalWriterMock->expects($this->atLeastOnce())
@@ -163,5 +160,4 @@ class ErpOrderTotalHandlerTest extends Unit
 
         $this->assertInstanceOf(ErpOrderTransfer::class, $erpOrderTransfer);
     }
-
 }

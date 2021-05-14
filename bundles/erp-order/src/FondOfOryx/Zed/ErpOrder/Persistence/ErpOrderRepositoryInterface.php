@@ -46,7 +46,7 @@ interface ErpOrderRepositoryInterface
     public function findErpOrderTotalByIdErpOrderTotal(int $idErpOrderTotal): ?ErpOrderTotalTransfer;
 
     /**
-     * @param int $idErpOrderTotal
+     * @param int $idErpOrder
      *
      * @return \Generated\Shared\Transfer\ErpOrderTotalTransfer|null
      */

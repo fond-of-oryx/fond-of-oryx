@@ -2,7 +2,6 @@
 
 namespace FondOfOryx\Zed\ErpOrder\Business\Handler;
 
-use ArrayObject;
 use FondOfOryx\Zed\ErpOrder\Business\Model\Reader\ErpOrderTotalReaderInterface;
 use FondOfOryx\Zed\ErpOrder\Business\Model\Writer\ErpOrderTotalWriterInterface;
 use Generated\Shared\Transfer\ErpOrderTotalTransfer;
@@ -10,10 +9,6 @@ use Generated\Shared\Transfer\ErpOrderTransfer;
 
 class ErpOrderTotalHandler implements ErpOrderTotalHandlerInterface
 {
-    protected const NEW = 'new';
-    protected const UPDATE = 'update';
-    protected const DELETE = 'delete';
-
     /**
      * @var \FondOfOryx\Zed\ErpOrder\Business\Model\Writer\ErpOrderTotalWriterInterface
      */
@@ -25,8 +20,6 @@ class ErpOrderTotalHandler implements ErpOrderTotalHandlerInterface
     protected $erpOrderTotalReader;
 
     /**
-     * ErpOrderTotalHandler constructor.
-     *
      * @param \FondOfOryx\Zed\ErpOrder\Business\Model\Writer\ErpOrderTotalWriterInterface $erpOrderTotalWriter
      * @param \FondOfOryx\Zed\ErpOrder\Business\Model\Reader\ErpOrderTotalReaderInterface $erpOrderTotalReader
      */
@@ -56,21 +49,20 @@ class ErpOrderTotalHandler implements ErpOrderTotalHandlerInterface
                 ->setFkErpOrder($erpOrderTransfer->getIdErpOrder());
 
             $erpOrderTotalTransfer = $this->create($erpOrderTotalTransfer);
-
-        }else {
+        } else {
             $erpOrderTotalTransfer = $this->update($erpOrderTotalTransfer->fromArray(
-                $erpOrderTransfer->getTotal()->modifiedToArray(), true)
-            );
+                $erpOrderTransfer->getTotal()->modifiedToArray(),
+                true
+            ));
         }
 
         return $erpOrderTransfer->setTotal($erpOrderTotalTransfer);
-
     }
 
     /**
-     * @param \Generated\Shared\Transfer\ErpOrderItemTransfer $erpOrderItemTransfer
+     * @param \Generated\Shared\Transfer\ErpOrderTotalTransfer $erpOrderTotalTransfer
      *
-     * @return \Generated\Shared\Transfer\ErpOrderItemTransfer
+     * @return \Generated\Shared\Transfer\ErpOrderTotalTransfer
      */
     protected function create(ErpOrderTotalTransfer $erpOrderTotalTransfer): ErpOrderTotalTransfer
     {
@@ -78,9 +70,9 @@ class ErpOrderTotalHandler implements ErpOrderTotalHandlerInterface
     }
 
     /**
-     * @param \Generated\Shared\Transfer\ErpOrderItemTransfer $erpOrderItemTransfer
+     * @param \Generated\Shared\Transfer\ErpOrderTotalTransfer $erpOrderTotalTransfer
      *
-     * @return \Generated\Shared\Transfer\ErpOrderItemTransfer
+     * @return \Generated\Shared\Transfer\ErpOrderTotalTransfer
      */
     protected function update(ErpOrderTotalTransfer $erpOrderTotalTransfer): ErpOrderTotalTransfer
     {
@@ -101,5 +93,4 @@ class ErpOrderTotalHandler implements ErpOrderTotalHandlerInterface
     {
         return $this->erpOrderTotalReader->findErpOrderTotalByIdErpOrder($idErpOrder);
     }
-
 }

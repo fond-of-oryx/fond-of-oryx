@@ -6,6 +6,7 @@ use Codeception\Test\Unit;
 use DateTime;
 use FondOfOryx\Zed\AvailabilityAlertMigrator\Persistence\Propel\Mapper\AvailabilityAlertMigrationDataMapper;
 use Orm\Zed\AvailabilityAlert\Persistence\FosAvailabilityAlertSubscription;
+use Orm\Zed\Locale\Persistence\SpyLocale;
 
 class AvailabilityAlertMigrationDataMapperTest extends Unit
 {
@@ -13,6 +14,11 @@ class AvailabilityAlertMigrationDataMapperTest extends Unit
      * @var \Orm\Zed\AvailabilityAlert\Persistence\FosAvailabilityAlertSubscription|\PHPUnit\Framework\MockObject\MockObject
      */
     protected $fosAvailabilityAlertSubscriptionMock;
+
+    /**
+     * @var \Orm\Zed\Locale\Persistence\SpyLocale|\PHPUnit\Framework\MockObject\MockObject
+     */
+    protected $spyLocaleMock;
 
     /**
      * @var \FondOfOryx\Zed\AvailabilityAlertMigrator\Persistence\Propel\Mapper\Expander\ExpanderInterface|\PHPUnit\Framework\MockObject\MockObject
@@ -32,6 +38,7 @@ class AvailabilityAlertMigrationDataMapperTest extends Unit
         parent::_before();
 
         $this->fosAvailabilityAlertSubscriptionMock = $this->getMockBuilder(FosAvailabilityAlertSubscription::class)->disableOriginalConstructor()->getMock();
+        $this->spyLocaleMock = $this->getMockBuilder(SpyLocale::class)->disableOriginalConstructor()->getMock();
         $this->expanderMock = $this->getMockBuilder(Expander::class)->disableOriginalConstructor()->getMock();
 
         $this->mapper = new AvailabilityAlertMigrationDataMapper($this->expanderMock);
@@ -52,6 +59,8 @@ class AvailabilityAlertMigrationDataMapperTest extends Unit
         $this->fosAvailabilityAlertSubscriptionMock->expects(static::once())->method('getFkLocale')->willReturn(2);
         $this->fosAvailabilityAlertSubscriptionMock->expects(static::once())->method('getFkStore')->willReturn(3);
         $this->fosAvailabilityAlertSubscriptionMock->expects(static::once())->method('toArray')->willReturn([]);
+        $this->fosAvailabilityAlertSubscriptionMock->expects(static::once())->method('getSpyLocale')->willReturn($this->spyLocaleMock);
+        $this->spyLocaleMock->expects(static::once())->method('getLocaleName')->willReturn('de_DE');
         $transfer = $this->mapper->fromFosAvailabilityAlertSubscription($this->fosAvailabilityAlertSubscriptionMock);
 
         static::assertSame(1, $transfer->getFkProductAbstract());
@@ -78,6 +87,8 @@ class AvailabilityAlertMigrationDataMapperTest extends Unit
         $this->fosAvailabilityAlertSubscriptionMock->expects(static::once())->method('getFkLocale')->willReturn(2);
         $this->fosAvailabilityAlertSubscriptionMock->expects(static::once())->method('getFkStore')->willReturn(3);
         $this->fosAvailabilityAlertSubscriptionMock->expects(static::once())->method('toArray')->willReturn([]);
+        $this->fosAvailabilityAlertSubscriptionMock->expects(static::once())->method('getSpyLocale')->willReturn($this->spyLocaleMock);
+        $this->spyLocaleMock->expects(static::once())->method('getLocaleName')->willReturn('de_DE');
         $transfer = $this->mapper->fromFosAvailabilityAlertSubscription($this->fosAvailabilityAlertSubscriptionMock);
 
         static::assertSame(1, $transfer->getFkProductAbstract());

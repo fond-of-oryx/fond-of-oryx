@@ -46,7 +46,8 @@ class AvailabilityAlertMigrationDataMapper implements AvailabilityAlertMigration
         FosAvailabilityAlertSubscription $availabilityAlertSubscription
     ): AvailabilityAlertSubscriberTransfer {
         return (new AvailabilityAlertSubscriberTransfer())
-            ->setEmail($availabilityAlertSubscription->getEmail());
+            ->setEmail($availabilityAlertSubscription->getEmail())
+            ->setBusinessUnit($availabilityAlertSubscription->getSpyLocale()->getLocaleName());
     }
 
     /**

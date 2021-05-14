@@ -284,9 +284,10 @@ class ErpOrderEntityManager extends AbstractEntityManager implements ErpOrderEnt
 
     /**
      * @param \Generated\Shared\Transfer\ErpOrderTotalTransfer $erpOrderTotalTransfer
-     * @return \Generated\Shared\Transfer\ErpOrderTotalTransfer
      *
-     * @throws \Propel\Runtime\Exception\PropelException
+     * @throws \Exception
+     *
+     * @return \Generated\Shared\Transfer\ErpOrderTotalTransfer
      */
     public function updateErpOrderTotal(ErpOrderTotalTransfer $erpOrderTotalTransfer): ErpOrderTotalTransfer
     {

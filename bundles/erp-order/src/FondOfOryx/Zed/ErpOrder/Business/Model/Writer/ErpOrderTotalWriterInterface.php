@@ -14,9 +14,9 @@ interface ErpOrderTotalWriterInterface
     public function create(ErpOrderTotalTransfer $erpOrderTotalTransfer): ErpOrderTotalTransfer;
 
     /**
-     * @param \Generated\Shared\Transfer\ErpOrderAddressTransfer $erpOrderAddressTransfer
+     * @param \Generated\Shared\Transfer\ErpOrderTotalTransfer $erpOrderTotalTransfer
      *
-     * @return \Generated\Shared\Transfer\ErpOrderAddressTransfer
+     * @return \Generated\Shared\Transfer\ErpOrderTotalTransfer
      */
     public function update(ErpOrderTotalTransfer $erpOrderTotalTransfer): ErpOrderTotalTransfer;
 }

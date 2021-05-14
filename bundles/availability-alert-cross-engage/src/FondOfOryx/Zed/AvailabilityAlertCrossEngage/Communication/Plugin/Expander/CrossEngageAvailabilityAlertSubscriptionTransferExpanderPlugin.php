@@ -28,6 +28,7 @@ class CrossEngageAvailabilityAlertSubscriptionTransferExpanderPlugin extends Abs
 
         $subscriber = $availabilityAlertSubscriptionTransfer->getSubscriber();
         $subscriber->setSubscriberIp($alertSubscriptionRequestTransfer->getSubscriberIp())
+            ->setIsActive($this->getConfig()->getDefaultSubscriberActivationState())
             ->setKey($this->getFacade()->generateKey($subscriber->getEmail()))
             ->setHash($this->getFactory()->getCrossEngageService()->getHash($subscriber->getEmail()));
 

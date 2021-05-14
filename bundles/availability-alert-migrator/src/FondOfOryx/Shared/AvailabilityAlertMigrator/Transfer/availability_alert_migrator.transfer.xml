@@ -9,5 +9,8 @@
         <property name="findOnlyNotMigratedSubscription" type="bool" />
     </transfer>
 
+    <transfer name="AvailabilityAlertSubscriber">
+        <property name="businessUnit" type="string" />
+    </transfer>
 </transfers>
 

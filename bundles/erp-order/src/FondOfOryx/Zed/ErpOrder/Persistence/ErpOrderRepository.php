@@ -11,7 +11,6 @@ use Orm\Zed\ErpOrder\Persistence\ErpOrderAddressQuery;
 use Orm\Zed\ErpOrder\Persistence\ErpOrderItemQuery;
 use Orm\Zed\ErpOrder\Persistence\ErpOrderQuery;
 use Orm\Zed\ErpOrder\Persistence\ErpOrderTotalQuery;
-use Orm\Zed\ErpOrder\Persistence\ErpOrderTotalsQuery;
 use Spryker\Zed\Kernel\Persistence\AbstractRepository;
 
 /**
@@ -96,8 +95,6 @@ class ErpOrderRepository extends AbstractRepository implements ErpOrderRepositor
      * @param int $idErpOrderTotal
      *
      * @return \Generated\Shared\Transfer\ErpOrderTotalTransfer|null
-     *
-     * @throws \Exception
      */
     public function findErpOrderTotalByIdErpOrderTotal(int $idErpOrderTotal): ?ErpOrderTotalTransfer
     {
@@ -108,12 +105,11 @@ class ErpOrderRepository extends AbstractRepository implements ErpOrderRepositor
             return null;
         }
 
-
         return $this->getFactory()->createEntityToTransferMapper()->fromErpOrderTotalToTransfer($total);
     }
 
     /**
-     * @param int $idErpOrderTotal
+     * @param int $idErpOrder
      *
      * @return \Generated\Shared\Transfer\ErpOrderTotalTransfer|null
      */
@@ -128,7 +124,6 @@ class ErpOrderRepository extends AbstractRepository implements ErpOrderRepositor
 
         return $this->getFactory()->createEntityToTransferMapper()->fromErpOrderTotalToTransfer($total);
     }
-
 
     /**
      * @return \Orm\Zed\ErpOrder\Persistence\ErpOrderQuery

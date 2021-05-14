@@ -5,7 +5,6 @@ namespace FondOfOryx\Zed\ErpOrder\Business\Model\Reader;
 use Codeception\Test\Unit;
 use FondOfOryx\Zed\ErpOrder\Persistence\ErpOrderRepository;
 use Generated\Shared\Transfer\ErpOrderTotalTransfer;
-use Orm\Zed\ErpOrder\Persistence\ErpOrderTotal;
 
 class ErpOrderTotalReaderTest extends Unit
 {
