@@ -8,7 +8,7 @@ use Generated\Shared\Transfer\PaymentEpcQrCodeRequestTransfer;
 interface PaymentEpcQrCodeServiceInterface
 {
     /**
-     * @param  \Generated\Shared\Transfer\PaymentEpcQrCodeRequestTransfer  $paymentEpcQrCodeRequestTransfer
+     * @param \Generated\Shared\Transfer\PaymentEpcQrCodeRequestTransfer $paymentEpcQrCodeRequestTransfer
      *
      * @return \FondOfOryx\Service\PaymentEpcQrCode\Model\QrCodeInterface
      */

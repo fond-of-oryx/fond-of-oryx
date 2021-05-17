@@ -12,10 +12,9 @@ use Spryker\Service\Kernel\AbstractService;
 class PaymentEpcQrCodeService extends AbstractService implements PaymentEpcQrCodeServiceInterface
 {
     /**
-     * @param  \Generated\Shared\Transfer\PaymentEpcQrCodeRequestTransfer  $paymentEpcQrCodeRequestTransfer
+     * @param \Generated\Shared\Transfer\PaymentEpcQrCodeRequestTransfer $paymentEpcQrCodeRequestTransfer
      *
      * @return \FondOfOryx\Service\PaymentEpcQrCode\Model\QrCodeInterface
-     * @throws \Exception
      */
     public function createQrCode(PaymentEpcQrCodeRequestTransfer $paymentEpcQrCodeRequestTransfer): QrCodeInterface
     {
