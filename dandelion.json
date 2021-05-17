@@ -100,6 +100,26 @@
       "path": "bundles/product-locale-restriction-storage/",
       "version": "1.0.0"
     },
+    "return-label": {
+      "path": "bundles/return-label/",
+      "version": "1.0.0"
+    },
+    "return-labels-rest-api": {
+      "path": "bundles/return-labels-rest-api/",
+      "version": "1.0.0"
+    },
+    "return-labels-rest-api-company-unit-address-connector": {
+      "path": "bundles/return-labels-rest-api-company-unit-address-connector/",
+      "version": "1.0.0"
+    },
+    "return-labels-rest-api-customer-connector": {
+      "path": "bundles/return-labels-rest-api-customer-connector/",
+      "version": "1.0.0"
+    },
+    "return-labels-rest-api-extension": {
+      "path": "bundles/return-labels-rest-api-extension/",
+      "version": "1.0.0"
+    },
     "sales-locale-connector": {
       "path": "bundles/sales-locale-connector/",
       "version": "1.0.0"
