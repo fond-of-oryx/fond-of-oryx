@@ -10,7 +10,8 @@
   ],
   "require": {
     "php": ">=7.3",
-    "endroid/qr-code": "^4.1.0"
+    "endroid/qr-code": "^4.1.0",
+    "spryker/oms": "^11.0.0"
   },
   "require-dev": {
     "fond-of-codeception/spryker": "^1.0",
