@@ -54,6 +54,10 @@ class ErpOrderPageSearchClient extends AbstractClient implements ErpOrderPageSea
      */
     protected function canSeeErpOrders(): bool
     {
+        if ($this->getCustomer()->getCompanyUserTransfer() === null) {
+            return false;
+        }
+
         return $this->can(
             SeeErpOrdersPermissionPlugin::KEY,
             $this->getCustomer()->getCompanyUserTransfer()->getFkCompany()
