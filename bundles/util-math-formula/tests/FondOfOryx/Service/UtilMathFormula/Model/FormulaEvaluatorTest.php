@@ -57,7 +57,7 @@ class FormulaEvaluatorTest extends Unit
     public function testEvaluateWithInvalidFormula(): void
     {
         try {
-            $this->formulaEvaluator->evaluate('x/0', ['x' => '1']);
+            $this->formulaEvaluator->evaluate('x/0', ['x' => 1]);
             static::fail();
         } catch (Exception $exception) {
         }
