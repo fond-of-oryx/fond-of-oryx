@@ -1,0 +1,49 @@
+<?xml version="1.0"?>
+<database xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:noNamespaceSchemaLocation="http://static.spryker.com/schema-01.xsd"
+          name="zed"
+          defaultIdMethod="native"
+          namespace="Orm\Zed\AvailabilityAlert\Persistence"
+          package="src.Orm.Zed.AvailabilityAlert.Persistence">
+
+    <table name="fos_availability_alert_subscription" idMethod="native" allowPkInsert="true">
+        <column name="id_availability_alert_subscription" required="true" type="INTEGER" primaryKey="true" autoIncrement="true"/>
+        <column name="fk_product_abstract" required="true" type="INTEGER"/>
+        <column name="fk_locale" required="true" type="INTEGER"/>
+        <column name="email" type="VARCHAR" size="255" required="true"/>
+        <column name="sent_at" type="TIMESTAMP" defaultValue="NULL"/>
+        <column name="status" required="true" type="ENUM" valueSet="pending, notified" defaultValue="pending"/>
+        <column name="fk_store" required="true" type="INTEGER"/>
+        <column name="migrated" required="false"  type="BOOLEAN" defaultValue="false"/>
+
+        <behavior name="timestampable"/>
+
+        <id-method-parameter value="id_availability_alert_subscription_pk_seq"/>
+
+        <foreign-key name="fos_availability_alert_subscription-fk_locale" foreignTable="spy_locale">
+            <reference local="fk_locale" foreign="id_locale"/>
+        </foreign-key>
+
+        <index name="fos_availability_alert_subscription-fk_product_abstract">
+            <index-column name="fk_product_abstract"/>
+        </index>
+
+        <foreign-key name="fos_availability_alert_subscription-fk_product_abstract" foreignTable="spy_product_abstract">
+            <reference local="fk_product_abstract" foreign="id_product_abstract"/>
+        </foreign-key>
+
+        <foreign-key name="fos_availability-fk_store" foreignTable="spy_store">
+            <reference foreign="id_store" local="fk_store"/>
+        </foreign-key>
+
+        <index name="fos_availability_alert_subscription_alert-fk_locale">
+            <index-column name="fk_locale"/>
+        </index>
+
+        <unique name="fos_availability_alert_subscription-fk_product_abstract-email">
+            <unique-column name="fk_product_abstract"/>
+            <unique-column name="email"/>
+            <unique-column name="fk_store"/>
+        </unique>
+    </table>
+</database>

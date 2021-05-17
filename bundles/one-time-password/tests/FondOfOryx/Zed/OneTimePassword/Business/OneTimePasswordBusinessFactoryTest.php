@@ -3,6 +3,8 @@
 namespace FondOfOryx\Zed\OneTimePassword\Business;
 
 use Codeception\Test\Unit;
+use FondOfOryx\Zed\OneTimePassword\Business\Generator\OneTimePasswordLinkGeneratorInterface;
+use FondOfOryx\Zed\OneTimePassword\Business\Resetter\OneTimePasswordResetterInterface;
 use FondOfOryx\Zed\OneTimePassword\Business\Sender\OneTimePasswordSenderInterface;
 use FondOfOryx\Zed\OneTimePassword\Dependency\Facade\OneTimePasswordToOneTimePasswordEmailConnectorFacadeInterface;
 use FondOfOryx\Zed\OneTimePassword\OneTimePasswordConfig;
@@ -81,6 +83,28 @@ class OneTimePasswordBusinessFactoryTest extends Unit
         $this->assertInstanceOf(
             OneTimePasswordSenderInterface::class,
             $this->oneTimePasswordBusinessFactory->createOneTimePasswordSender()
+        );
+    }
+
+    /**
+     * @return void
+     */
+    public function testCreateOneTimePasswordResetter(): void
+    {
+        $this->assertInstanceOf(
+            OneTimePasswordResetterInterface::class,
+            $this->oneTimePasswordBusinessFactory->createOneTimePasswordResetter()
+        );
+    }
+
+    /**
+     * @return void
+     */
+    public function testCreateOneTimePasswordLinkGenerator(): void
+    {
+        $this->assertInstanceOf(
+            OneTimePasswordLinkGeneratorInterface::class,
+            $this->oneTimePasswordBusinessFactory->createOneTimePasswordLinkGenerator()
         );
     }
 }

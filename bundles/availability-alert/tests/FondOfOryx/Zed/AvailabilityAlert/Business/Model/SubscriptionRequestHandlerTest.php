@@ -31,8 +31,8 @@ class SubscriptionRequestHandlerTest extends Unit
     {
         parent::_before();
 
-        $this->subscriptionTransferMock = static::getMockBuilder(AvailabilityAlertSubscriptionTransfer::class)->disableOriginalConstructor()->getMock();
-        $this->subscriptionManagerMock = static::getMockBuilder(SubscriptionManager::class)->disableOriginalConstructor()->getMock();
+        $this->subscriptionTransferMock = $this->getMockBuilder(AvailabilityAlertSubscriptionTransfer::class)->disableOriginalConstructor()->getMock();
+        $this->subscriptionManagerMock = $this->getMockBuilder(SubscriptionManager::class)->disableOriginalConstructor()->getMock();
 
         $this->handler = new SubscriptionRequestHandler($this->subscriptionManagerMock);
     }
