@@ -13,9 +13,6 @@ use Spryker\Zed\OmsExtension\Dependency\Plugin\OmsOrderMailExpanderPluginInterfa
 class PaymentEpcQrCodeExpanderPlugin extends AbstractPlugin implements OmsOrderMailExpanderPluginInterface
 {
     /**
-     * Specification:
-     *  - Expands order mail transfer data with MailBcc groups data.
-     *
      * @api
      *
      * @param \Generated\Shared\Transfer\MailTransfer $mailTransfer
