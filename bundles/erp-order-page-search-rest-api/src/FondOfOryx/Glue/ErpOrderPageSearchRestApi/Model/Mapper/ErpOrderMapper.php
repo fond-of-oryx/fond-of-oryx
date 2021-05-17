@@ -7,6 +7,7 @@ namespace FondOfOryx\Glue\ErpOrderPageSearchRestApi\Model\Mapper;
 use Generated\Shared\Transfer\RestCompanyBusinessUnitTransfer;
 use Generated\Shared\Transfer\RestErpOrderItemTransfer;
 use Generated\Shared\Transfer\RestErpOrderPageSearchCollectionResponseTransfer;
+use Generated\Shared\Transfer\RestErpOrderTotalTransfer;
 use Generated\Shared\Transfer\RestErpOrderTransfer;
 
 class ErpOrderMapper implements ErpOrderMapperInterface
@@ -14,6 +15,7 @@ class ErpOrderMapper implements ErpOrderMapperInterface
     protected const SEARCH_RESULT_KEY_ERP_ORDERS = 'erp-orders';
     protected const ERP_ORDER_DATA_KEY_ERP_ORDER_ITEMS = 'erp_order_items';
     protected const ERP_ORDER_DATA_KEY_COMPANY_BUSINESS_UNIT = 'company_business_unit';
+    protected const ERP_ORDER_DATA_KEY_ERP_ORDER_TOTAL = 'erp_order_total';
 
     /**
      * @param array $searchResults
@@ -42,6 +44,9 @@ class ErpOrderMapper implements ErpOrderMapperInterface
             );
 
             $this->addRestErpOrderItems($restErpOrder, $erpOrderData[self::ERP_ORDER_DATA_KEY_ERP_ORDER_ITEMS]);
+            $restErpOrder->setTotal($this->mapErpOrderTotalToRestOrderTotal(
+                $erpOrderData[static::ERP_ORDER_DATA_KEY_ERP_ORDER_TOTAL]
+            ));
 
             $responseTransfer->addErpOrder($restErpOrder);
         }
@@ -58,6 +63,17 @@ class ErpOrderMapper implements ErpOrderMapperInterface
         array $companyBusinessUnit
     ): RestCompanyBusinessUnitTransfer {
         return (new RestCompanyBusinessUnitTransfer())->fromArray($companyBusinessUnit, true);
+    }
+
+    /**
+     * @param array $erpOrderTotal
+     *
+     * @return \Generated\Shared\Transfer\RestErpOrderTotalTransfer
+     */
+    protected function mapErpOrderTotalToRestOrderTotal(
+        array $erpOrderTotal
+    ): RestErpOrderTotalTransfer {
+        return (new RestErpOrderTotalTransfer())->fromArray($erpOrderTotal, true);
     }
 
     /**
