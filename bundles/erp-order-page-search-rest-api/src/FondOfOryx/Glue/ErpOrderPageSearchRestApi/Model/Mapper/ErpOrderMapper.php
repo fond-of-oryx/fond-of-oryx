@@ -65,6 +65,11 @@ class ErpOrderMapper implements ErpOrderMapperInterface
         return (new RestCompanyBusinessUnitTransfer())->fromArray($companyBusinessUnit, true);
     }
 
+    /**
+     * @param array $companyBusinessUnit
+     *
+     * @return \Generated\Shared\Transfer\RestErpOrderTotalTransfer
+     */
     protected function mapErpOrderTotalToRestOrderTotal(
         array $companyBusinessUnit
     ): RestErpOrderTotalTransfer {
