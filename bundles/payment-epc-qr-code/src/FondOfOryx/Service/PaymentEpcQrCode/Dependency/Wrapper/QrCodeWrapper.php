@@ -5,12 +5,14 @@ namespace FondOfOryx\Service\PaymentEpcQrCode\Dependency\Wrapper;
 use Endroid\QrCode\Color\Color;
 use Endroid\QrCode\Encoding\Encoding;
 use Endroid\QrCode\ErrorCorrectionLevel\ErrorCorrectionLevelHigh;
+use Endroid\QrCode\ErrorCorrectionLevel\ErrorCorrectionLevelInterface;
 use Endroid\QrCode\ErrorCorrectionLevel\ErrorCorrectionLevelLow;
 use Endroid\QrCode\ErrorCorrectionLevel\ErrorCorrectionLevelMedium;
 use Endroid\QrCode\ErrorCorrectionLevel\ErrorCorrectionLevelQuartile;
 use Endroid\QrCode\QrCode;
 use Endroid\QrCode\QrCodeInterface;
 use Endroid\QrCode\RoundBlockSizeMode\RoundBlockSizeModeEnlarge;
+use Endroid\QrCode\RoundBlockSizeMode\RoundBlockSizeModeInterface;
 use Endroid\QrCode\RoundBlockSizeMode\RoundBlockSizeModeMargin;
 use Endroid\QrCode\RoundBlockSizeMode\RoundBlockSizeModeNone;
 use Endroid\QrCode\RoundBlockSizeMode\RoundBlockSizeModeShrink;
@@ -29,11 +31,23 @@ class QrCodeWrapper implements QrCodeWrapperInterface
     protected $config;
 
     /**
+     * @var \Endroid\QrCode\ErrorCorrectionLevel\ErrorCorrectionLevelInterface[]
+     */
+    protected $errorLevel;
+
+    /**
+     * @var \Endroid\QrCode\RoundBlockSizeMode\RoundBlockSizeModeInterface[]
+     */
+    protected $roundBlockSizeMode;
+
+    /**
      * @param \FondOfOryx\Service\PaymentEpcQrCode\PaymentEpcQrCodeConfig $config
      */
     public function __construct(PaymentEpcQrCodeConfig $config)
     {
         $this->config = $config;
+        $this->initErrorLevel();
+        $this->initRoundBlockSizeModes();
     }
 
     /**
@@ -62,87 +76,79 @@ class QrCodeWrapper implements QrCodeWrapperInterface
     protected function initQrCode(PaymentEpcQrCodeRequestTransfer $paymentEpcQrCodeRequestTransfer): QrCodeInterface
     {
         $qrCode = QrCode::create($this->convertTransferToData($paymentEpcQrCodeRequestTransfer));
-        $qrCode = $this->appendDefaultErrorCorrectionLevel($qrCode);
-        $qrCode = $this->appendDefaultRoundBlockSizeMode($qrCode);
 
         return $qrCode
             ->setEncoding(new Encoding($this->config->getEncoding()))
             ->setMargin($this->config->getSize())
+            ->setErrorCorrectionLevel($this->getErrorLevel($this->config->getErrorCorrectionLevel()))
+            ->setRoundBlockSizeMode($this->getRoundBlockSizeMode($this->config->getRoundedBlockSizeMode()))
             ->setForegroundColor($this->createColor($this->config->getForegroundColor()))
             ->setBackgroundColor($this->createColor($this->config->getBackgroundColor()))
             ->setSize($this->config->getSize());
     }
 
     /**
-     * @param \Endroid\QrCode\QrCode $qrCode
+     * @param int $errorLevelCode
      *
      * @throws \Exception
      *
-     * @return \Endroid\QrCode\QrCode
+     * @return \Endroid\QrCode\ErrorCorrectionLevel\ErrorCorrectionLevelInterface
      */
-    protected function appendDefaultErrorCorrectionLevel(QrCode $qrCode): QrCode
+    protected function getErrorLevel(int $errorLevelCode): ErrorCorrectionLevelInterface
     {
-        switch ($this->config->getErrorCorrectionLevel()) {
-            case 0:
-                $errorLevel = new ErrorCorrectionLevelLow();
-
-                break;
-            case 1:
-                $errorLevel = new ErrorCorrectionLevelMedium();
-
-                break;
-            case 2:
-                $errorLevel = new ErrorCorrectionLevelHigh();
-
-                break;
-            case 3:
-                $errorLevel = new ErrorCorrectionLevelQuartile();
-
-                break;
-            default:
-                throw new Exception(sprintf(
-                    'Error level %s not known. Please chose from 0 to 3 (low, medium, high, quartile)',
-                    $this->config->getErrorCorrectionLevel()
-                ));
+        if (array_key_exists($errorLevelCode, $this->errorLevel)) {
+            return $this->errorLevel[$errorLevelCode];
         }
 
-        return $qrCode->setErrorCorrectionLevel($errorLevel);
+        throw new Exception(sprintf(
+            'Error level %s not known. Please chose from 0 to 3 (low, medium, high, quartile)',
+            $errorLevelCode
+        ));
     }
 
     /**
-     * @param \Endroid\QrCode\QrCode $qrCode
+     * @param int $roundedBlockSizeModeCode
      *
      * @throws \Exception
      *
-     * @return \Endroid\QrCode\QrCode
+     * @return \Endroid\QrCode\RoundBlockSizeMode\RoundBlockSizeModeInterface
      */
-    protected function appendDefaultRoundBlockSizeMode(QrCode $qrCode): QrCode
+    protected function getRoundBlockSizeMode(int $roundedBlockSizeModeCode): RoundBlockSizeModeInterface
     {
-        switch ($this->config->getErrorCorrectionLevel()) {
-            case 0:
-                $mode = new RoundBlockSizeModeNone();
-
-                break;
-            case 1:
-                $mode = new RoundBlockSizeModeMargin();
-
-                break;
-            case 2:
-                $mode = new RoundBlockSizeModeEnlarge();
-
-                break;
-            case 3:
-                $mode = new RoundBlockSizeModeShrink();
-
-                break;
-            default:
-                throw new Exception(sprintf(
-                    'Mode %s not known. Please chose from 0 to 3 (none, margin, large, shrink)',
-                    $this->config->getErrorCorrectionLevel()
-                ));
+        if (array_key_exists($roundedBlockSizeModeCode, $this->roundBlockSizeMode)) {
+            return $this->roundBlockSizeMode[$roundedBlockSizeModeCode];
         }
 
-        return $qrCode->setRoundBlockSizeMode($mode);
+        throw new Exception(sprintf(
+            'Mode %s not known. Please chose from 0 to 3 (none, margin, large, shrink)',
+            $roundedBlockSizeModeCode
+        ));
+    }
+
+    /**
+     * @return void
+     */
+    protected function initErrorLevel(): void
+    {
+        $this->errorLevel = [
+            0 => new ErrorCorrectionLevelLow(),
+            1 => new ErrorCorrectionLevelMedium(),
+            2 => new ErrorCorrectionLevelHigh(),
+            3 => new ErrorCorrectionLevelQuartile(),
+        ];
+    }
+
+    /**
+     * @return void
+     */
+    protected function initRoundBlockSizeModes(): void
+    {
+        $this->roundBlockSizeMode = [
+            0 => new RoundBlockSizeModeNone(),
+            1 => new RoundBlockSizeModeMargin(),
+            2 => new RoundBlockSizeModeEnlarge(),
+            3 => new RoundBlockSizeModeShrink(),
+        ];
     }
 
     /**
@@ -192,20 +198,36 @@ class QrCodeWrapper implements QrCodeWrapperInterface
         $purpose = $paymentEpcQrCodeRequestTransfer->getPurpose() ?? '';
 
         if (empty($usage) && empty($reference)) {
-            throw new Exception(sprintf('One of "Reference(%s)" or "Purpose(%s)" must be null!', $paymentEpcQrCodeRequestTransfer->getReference(), $paymentEpcQrCodeRequestTransfer->getUsage()));
+            throw new Exception(sprintf(
+                'One of "Reference(%s)" or "Purpose(%s)" must be null!',
+                $paymentEpcQrCodeRequestTransfer->getReference(),
+                $paymentEpcQrCodeRequestTransfer->getUsage()
+            ));
         }
 
-        return $paymentEpcQrCodeRequestTransfer->getServiceTag() . PHP_EOL .
-            $paymentEpcQrCodeRequestTransfer->getVersion() . PHP_EOL .
-            $paymentEpcQrCodeRequestTransfer->getEncoding() . PHP_EOL .
-            $paymentEpcQrCodeRequestTransfer->getType() . PHP_EOL .
-            $paymentEpcQrCodeRequestTransfer->getBic() . PHP_EOL .
-            $paymentEpcQrCodeRequestTransfer->getBank() . PHP_EOL .
-            $paymentEpcQrCodeRequestTransfer->getIban() . PHP_EOL .
-            $paymentEpcQrCodeRequestTransfer->getAmount() . PHP_EOL .
-            $purpose . PHP_EOL .
-            $reference . PHP_EOL .
-            $usage . PHP_EOL .
-            '';
+        $dataString = $paymentEpcQrCodeRequestTransfer->getServiceTag();
+        $dataString = $this->appendStringAsNewLine($dataString, $paymentEpcQrCodeRequestTransfer->getVersion());
+        $dataString = $this->appendStringAsNewLine($dataString, $paymentEpcQrCodeRequestTransfer->getEncoding());
+        $dataString = $this->appendStringAsNewLine($dataString, $paymentEpcQrCodeRequestTransfer->getType());
+        $dataString = $this->appendStringAsNewLine($dataString, $paymentEpcQrCodeRequestTransfer->getBic());
+        $dataString = $this->appendStringAsNewLine($dataString, $paymentEpcQrCodeRequestTransfer->getBank());
+        $dataString = $this->appendStringAsNewLine($dataString, $paymentEpcQrCodeRequestTransfer->getIban());
+        $dataString = $this->appendStringAsNewLine($dataString, $paymentEpcQrCodeRequestTransfer->getAmount());
+        $dataString = $this->appendStringAsNewLine($dataString, $paymentEpcQrCodeRequestTransfer->$purpose());
+        $dataString = $this->appendStringAsNewLine($dataString, $paymentEpcQrCodeRequestTransfer->$reference());
+        $dataString = $this->appendStringAsNewLine($dataString, $paymentEpcQrCodeRequestTransfer->$usage());
+
+        return $this->appendStringAsNewLine($dataString, '');
+    }
+
+    /**
+     * @param string $string
+     * @param string $stringToAppend
+     *
+     * @return string
+     */
+    protected function appendStringAsNewLine(string $string, string $stringToAppend): string
+    {
+        return sprintf('%s%s%s', $string, PHP_EOL, $stringToAppend);
     }
 }

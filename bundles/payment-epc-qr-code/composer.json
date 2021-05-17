@@ -13,7 +13,6 @@
     "endroid/qr-code": "^4.1.0"
   },
   "require-dev": {
-    "endroid/qr-code": "^4.1",
     "fond-of-codeception/spryker": "^1.0",
     "spryker/code-sniffer": "^0.12"
   },

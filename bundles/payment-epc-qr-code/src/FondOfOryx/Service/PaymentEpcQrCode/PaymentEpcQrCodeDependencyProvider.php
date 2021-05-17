@@ -32,8 +32,9 @@ class PaymentEpcQrCodeDependencyProvider extends AbstractBundleDependencyProvide
      */
     public function addQrCodeWrapper(Container $container): Container
     {
-        $container[static::WRAPPER_QR_CODE] = function () {
-            return new QrCodeWrapper($this->getConfig());
+        $self = $this;
+        $container[static::WRAPPER_QR_CODE] = static function () use ($self) {
+            return new QrCodeWrapper($self->getConfig());
         };
 
         return $container;
