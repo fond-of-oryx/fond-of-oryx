@@ -2,17 +2,15 @@
 
 namespace FondOfOryx\Service\PaymentEpcQrCode;
 
-use Endroid\QrCode\QrCodeInterface;
+use FondOfOryx\Service\PaymentEpcQrCode\Model\QrCodeInterface;
 use Generated\Shared\Transfer\PaymentEpcQrCodeRequestTransfer;
 
 interface PaymentEpcQrCodeServiceInterface
 {
     /**
-     * @param \Generated\Shared\Transfer\PaymentEpcQrCodeRequestTransfer $paymentEpcQrCodeRequestTransfer
+     * @param  \Generated\Shared\Transfer\PaymentEpcQrCodeRequestTransfer  $paymentEpcQrCodeRequestTransfer
      *
-     * @throws \Spryker\Service\Kernel\Exception\Container\ContainerKeyNotFoundException
-     *
-     * @return \Endroid\QrCode\QrCodeInterface
+     * @return \FondOfOryx\Service\PaymentEpcQrCode\Model\QrCodeInterface
      */
     public function createQrCode(PaymentEpcQrCodeRequestTransfer $paymentEpcQrCodeRequestTransfer): QrCodeInterface;
 }
