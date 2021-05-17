@@ -62,7 +62,8 @@ class ReturnLabelRequestExpanderTest extends Unit
             ->willReturn($this->returnLabelRequestTransferMock);
 
         $this->expander->expand(
-            $this->restReturnLabelRequestTransferMock, $this->returnLabelRequestTransferMock
+            $this->restReturnLabelRequestTransferMock,
+            $this->returnLabelRequestTransferMock
         );
     }
 }
