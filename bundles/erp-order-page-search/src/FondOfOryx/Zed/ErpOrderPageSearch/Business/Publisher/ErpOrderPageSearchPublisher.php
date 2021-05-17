@@ -15,6 +15,7 @@ class ErpOrderPageSearchPublisher implements ErpOrderPageSearchPublisherInterfac
 {
     public const COMPANY_BUSINESS_UNIT = 'companyBusinessUnit';
     public const ERP_ORDER_ITEMS = 'erpOrderItems';
+    public const ERP_ORDER_TOTAL = 'erpOrderTotal';
     public const BILLING_ADDRESS = 'billingAddress';
     public const SHIPPING_ADDRESS = 'shippingAddress';
     public const FIELD_COUNTRY = 'country';
@@ -96,9 +97,9 @@ class ErpOrderPageSearchPublisher implements ErpOrderPageSearchPublisherInterfac
     protected function storeDataSet(ErpOrder $fooErpOrderEntity): void
     {
         $erpOrderData = $fooErpOrderEntity->toArray();
-
         $companyBusinessUnit = $fooErpOrderEntity->getCompanyBusinessUnit();
         $orderItems = $fooErpOrderEntity->getErpOrderItems();
+        $orderTotal = $fooErpOrderEntity->getErpOrderTotals()->offsetGet(0);
         $billingAddress = $fooErpOrderEntity->getErpOrderBillingAddress();
         $shippingAddress = $fooErpOrderEntity->getErpOrderShippingAddress();
 
@@ -106,6 +107,7 @@ class ErpOrderPageSearchPublisher implements ErpOrderPageSearchPublisherInterfac
         $erpOrderData[static::ERP_ORDER_ITEMS] = $orderItems->toArray(null, false, TableMap::TYPE_FIELDNAME);
         $erpOrderData[static::BILLING_ADDRESS] = $this->getAddress($billingAddress);
         $erpOrderData[static::SHIPPING_ADDRESS] = $this->getAddress($shippingAddress);
+        $erpOrderData[static::ERP_ORDER_TOTAL] = $orderTotal->toArray();
 
         $erpOrderPageSearchTransfer = (new ErpOrderPageSearchTransfer())
             ->fromArray($erpOrderData, true)
