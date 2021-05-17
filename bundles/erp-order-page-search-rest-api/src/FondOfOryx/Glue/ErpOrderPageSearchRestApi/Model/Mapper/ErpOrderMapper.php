@@ -66,14 +66,14 @@ class ErpOrderMapper implements ErpOrderMapperInterface
     }
 
     /**
-     * @param array $companyBusinessUnit
+     * @param array $erpOrderTotal
      *
      * @return \Generated\Shared\Transfer\RestErpOrderTotalTransfer
      */
     protected function mapErpOrderTotalToRestOrderTotal(
-        array $companyBusinessUnit
+        array $erpOrderTotal
     ): RestErpOrderTotalTransfer {
-        return (new RestErpOrderTotalTransfer())->fromArray($companyBusinessUnit, true);
+        return (new RestErpOrderTotalTransfer())->fromArray($erpOrderTotal, true);
     }
 
     /**
