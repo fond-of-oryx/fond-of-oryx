@@ -33,7 +33,7 @@ class PaymentEpcQrCodeConfig extends AbstractBundleConfig
      */
     public function getSize(): int
     {
-        return $this->get(PaymentEpcQrCodeConstants::QR_CODE_SIZE, 300);
+        return $this->get(PaymentEpcQrCodeConstants::QR_CODE_SIZE, 100);
     }
 
     /**

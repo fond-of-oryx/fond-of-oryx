@@ -16,8 +16,8 @@ use Endroid\QrCode\RoundBlockSizeMode\RoundBlockSizeModeInterface;
 use Endroid\QrCode\RoundBlockSizeMode\RoundBlockSizeModeMargin;
 use Endroid\QrCode\RoundBlockSizeMode\RoundBlockSizeModeNone;
 use Endroid\QrCode\RoundBlockSizeMode\RoundBlockSizeModeShrink;
+use Endroid\QrCode\Writer\PngWriter;
 use Endroid\QrCode\Writer\Result\ResultInterface;
-use Endroid\QrCode\Writer\SvgWriter;
 use Endroid\QrCode\Writer\WriterInterface;
 use Exception;
 use FondOfOryx\Service\PaymentEpcQrCode\PaymentEpcQrCodeConfig;
@@ -57,15 +57,15 @@ class QrCodeWrapper implements QrCodeWrapperInterface
      */
     public function createQrCode(PaymentEpcQrCodeRequestTransfer $paymentEpcQrCodeRequestTransfer): ResultInterface
     {
-        return $this->createSvgWriter()->write($this->initQrCode($paymentEpcQrCodeRequestTransfer));
+        return $this->createPngWriter()->write($this->initQrCode($paymentEpcQrCodeRequestTransfer));
     }
 
     /**
      * @return \Endroid\QrCode\Writer\WriterInterface
      */
-    protected function createSvgWriter(): WriterInterface
+    protected function createPngWriter(): WriterInterface
     {
-        return new SvgWriter();
+        return new PngWriter();
     }
 
     /**
@@ -79,7 +79,7 @@ class QrCodeWrapper implements QrCodeWrapperInterface
 
         return $qrCode
             ->setEncoding(new Encoding($this->config->getEncoding()))
-            ->setMargin($this->config->getSize())
+            ->setMargin($this->config->getMargin())
             ->setErrorCorrectionLevel($this->getErrorLevel($this->config->getErrorCorrectionLevel()))
             ->setRoundBlockSizeMode($this->getRoundBlockSizeMode($this->config->getRoundedBlockSizeMode()))
             ->setForegroundColor($this->createColor($this->config->getForegroundColor()))
@@ -189,7 +189,7 @@ class QrCodeWrapper implements QrCodeWrapperInterface
             ->requireEncoding()
             ->requireType()
             ->requireBic()
-            ->requireBank()
+            ->requireReceiverName()
             ->requireIban()
             ->requireAmount();
 
@@ -210,12 +210,12 @@ class QrCodeWrapper implements QrCodeWrapperInterface
         $dataString = $this->appendStringAsNewLine($dataString, $paymentEpcQrCodeRequestTransfer->getEncoding());
         $dataString = $this->appendStringAsNewLine($dataString, $paymentEpcQrCodeRequestTransfer->getType());
         $dataString = $this->appendStringAsNewLine($dataString, $paymentEpcQrCodeRequestTransfer->getBic());
-        $dataString = $this->appendStringAsNewLine($dataString, $paymentEpcQrCodeRequestTransfer->getBank());
+        $dataString = $this->appendStringAsNewLine($dataString, $paymentEpcQrCodeRequestTransfer->getReceiverName());
         $dataString = $this->appendStringAsNewLine($dataString, $paymentEpcQrCodeRequestTransfer->getIban());
         $dataString = $this->appendStringAsNewLine($dataString, $paymentEpcQrCodeRequestTransfer->getAmount());
-        $dataString = $this->appendStringAsNewLine($dataString, $paymentEpcQrCodeRequestTransfer->$purpose());
-        $dataString = $this->appendStringAsNewLine($dataString, $paymentEpcQrCodeRequestTransfer->$reference());
-        $dataString = $this->appendStringAsNewLine($dataString, $paymentEpcQrCodeRequestTransfer->$usage());
+        $dataString = $this->appendStringAsNewLine($dataString, $purpose);
+        $dataString = $this->appendStringAsNewLine($dataString, $reference);
+        $dataString = $this->appendStringAsNewLine($dataString, $usage);
 
         return $this->appendStringAsNewLine($dataString, '');
     }
