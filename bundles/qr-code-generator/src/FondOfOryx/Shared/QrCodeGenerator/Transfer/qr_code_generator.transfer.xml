@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<transfers xmlns="spryker:transfer-01"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="spryker:transfer-01 http://static.spryker.com/transfer-01.xsd">
+
+    <transfer name="QrCodeGeneratorRequest">
+        <property name="data" type="string" />
+        <property name="format" type="string" />
+        <property name="size" type="int" />
+        <property name="margin" type="int" />
+        <property name="errorCorrectionLevel" type="int" />
+        <property name="roundedBlockSizeMode" type="int" />
+        <property name="encoding" type="string" />
+        <property name="foregroundColor" type="QrCodeColorConfiguration" />
+        <property name="BackgroundColor" type="QrCodeColorConfiguration" />
+    </transfer>
+
+    <transfer name="QrCodeColorConfiguration">
+        <property name="red" type="int" />
+        <property name="green" type="int" />
+        <property name="blue" type="int" />
+    </transfer>
+</transfers>
+
