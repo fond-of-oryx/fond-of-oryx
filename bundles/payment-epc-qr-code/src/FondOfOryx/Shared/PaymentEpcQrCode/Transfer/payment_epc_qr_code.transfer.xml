@@ -6,11 +6,11 @@
     <transfer name="PaymentEpcQrCodeRequest">
         <property name="serviceTag" type="string" />
         <property name="version" type="string" />
-        <property name="encoding" type="string" />
+        <property name="encoding" type="int" />
         <property name="type" type="string" />
         <property name="bic" type="string" />
         <property name="iban" type="string" />
-        <property name="bank" type="string" />
+        <property name="receiverName" type="string" />
         <property name="iban" type="string" />
         <property name="amount" type="string" />
         <property name="purpose" type="string" />
@@ -21,6 +21,10 @@
     <transfer name="PaymentEpcQrCodeResponse">
         <property name="isSuccess" type="boolean" />
         <property name="data" type="string" />
+    </transfer>
+
+    <transfer name="Order">
+        <property name="prepaymentEpcQrData" type="string" />
     </transfer>
 </transfers>
 
