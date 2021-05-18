@@ -83,7 +83,7 @@ class WriterCollection implements WriterCollectionInterface
             return $this->writer[$name];
         }
 
-        throw new Exception('Writer with name "%s" not known! Available writer %s', $name, implode(',', array_keys($this->writer)));
+        throw new Exception(sprintf('Writer with name "%s" not known! Available writer %s', $name, implode(',', array_keys($this->writer))));
     }
 
     /**
