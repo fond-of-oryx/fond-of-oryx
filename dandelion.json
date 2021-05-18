@@ -30,7 +30,7 @@
     },
     "erp-order": {
       "path": "bundles/erp-order/",
-      "version": "1.0.0"
+      "version": "1.1.0"
     },
     "erp-order-api": {
       "path": "bundles/erp-order-api/",
@@ -42,11 +42,11 @@
     },
     "erp-order-page-search": {
       "path": "bundles/erp-order-page-search/",
-      "version": "1.0.0"
+      "version": "1.1.0"
     },
     "erp-order-page-search-rest-api": {
       "path": "bundles/erp-order-page-search-rest-api/",
-      "version": "1.0.0"
+      "version": "1.1.0"
     },
     "erp-order-permission": {
       "path": "bundles/erp-order-permission/",
@@ -171,4 +171,3 @@
   "pathToTempDirectory": "/home/dandelion/project/tmp/",
   "pathToSplitshLite": "/usr/local/bin/splitsh-lite"
 }
-
