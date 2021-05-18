@@ -50,11 +50,6 @@ class OneTimePasswordFacadeTest extends Unit
     protected $oneTimePasswordResetterMock;
 
     /**
-     * @var string
-     */
-    protected $selfServiceLoginLink;
-
-    /**
      * @var \FondOfOryx\Zed\OneTimePassword\Business\Generator\OneTimePasswordLinkGeneratorInterface|\PHPUnit\Framework\MockObject\MockObject
      */
     protected $oneTimePasswordLinkGeneratorMock;
@@ -68,11 +63,6 @@ class OneTimePasswordFacadeTest extends Unit
      * @var \Generated\Shared\Transfer\OrderTransfer|\PHPUnit\Framework\MockObject\MockObject
      */
     protected $orderTransferMock;
-
-    /**
-     * @var string
-     */
-    protected $selfServiceLoginLinkWithOrderReference;
 
     /**
      * @return void
@@ -103,8 +93,6 @@ class OneTimePasswordFacadeTest extends Unit
             ->disableOriginalConstructor()
             ->getMock();
 
-        $this->selfServiceLoginLink = 'one-time-password-login-link';
-
         $this->oneTimePasswordLinkGeneratorMock = $this->getMockBuilder(OneTimePasswordLinkGeneratorInterface::class)
             ->disableOriginalConstructor()
             ->getMock();
@@ -116,8 +104,6 @@ class OneTimePasswordFacadeTest extends Unit
         $this->orderTransferMock = $this->getMockBuilder(OrderTransfer::class)
             ->disableOriginalConstructor()
             ->getMock();
-
-        $this->selfServiceLoginLinkWithOrderReference = 'self-service-login-link-with-order-reference';
 
         $this->oneTimePasswordFacade = new OneTimePasswordFacade();
         $this->oneTimePasswordFacade->setFactory($this->oneTimePasswordBusinessFactoryMock);
@@ -196,10 +182,10 @@ class OneTimePasswordFacadeTest extends Unit
 
         $this->oneTimePasswordLinkGeneratorMock->expects($this->atLeastOnce())
             ->method('generateLoginLink')
-            ->willReturn($this->selfServiceLoginLink);
+            ->willReturn($this->oneTimePasswordResponseTransferMock);
 
         $this->assertSame(
-            $this->selfServiceLoginLink,
+            $this->oneTimePasswordResponseTransferMock,
             $this->oneTimePasswordFacade->generateLoginLink(
                 $this->customerTransferMock
             )
@@ -217,10 +203,10 @@ class OneTimePasswordFacadeTest extends Unit
 
         $this->oneTimePasswordLinkGeneratorMock->expects($this->atLeastOnce())
             ->method('generateLoginLinkWithOrderReference')
-            ->willReturn($this->selfServiceLoginLinkWithOrderReference);
+            ->willReturn($this->oneTimePasswordResponseTransferMock);
 
         $this->assertSame(
-            $this->selfServiceLoginLinkWithOrderReference,
+            $this->oneTimePasswordResponseTransferMock,
             $this->oneTimePasswordFacade->generateLoginLinkWithOrderReference(
                 $this->orderTransferMock
             )

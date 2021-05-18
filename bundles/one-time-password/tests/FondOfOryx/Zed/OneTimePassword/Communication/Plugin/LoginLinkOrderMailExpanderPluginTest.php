@@ -5,6 +5,7 @@ namespace FondOfOryx\Zed\OneTimePassword\Communication\Plugin;
 use Codeception\Test\Unit;
 use FondOfOryx\Zed\OneTimePassword\Business\OneTimePasswordFacade;
 use Generated\Shared\Transfer\MailTransfer;
+use Generated\Shared\Transfer\OneTimePasswordResponseTransfer;
 use Generated\Shared\Transfer\OrderTransfer;
 
 class LoginLinkOrderMailExpanderPluginTest extends Unit
@@ -35,6 +36,11 @@ class LoginLinkOrderMailExpanderPluginTest extends Unit
     protected $loginLink;
 
     /**
+     * @var \Generated\Shared\Transfer\OneTimePasswordResponseTransfer|\PHPUnit\Framework\MockObject\MockObject
+     */
+    protected $oneTimePasswordResponseTransfer;
+
+    /**
      * @return void
      */
     protected function _before(): void
@@ -48,6 +54,10 @@ class LoginLinkOrderMailExpanderPluginTest extends Unit
             ->getMock();
 
         $this->orderTransferMock = $this->getMockBuilder(OrderTransfer::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $this->oneTimePasswordResponseTransfer = $this->getMockBuilder(OneTimePasswordResponseTransfer::class)
             ->disableOriginalConstructor()
             ->getMock();
 
@@ -65,10 +75,14 @@ class LoginLinkOrderMailExpanderPluginTest extends Unit
         $this->oneTimePasswordFacadeMock->expects($this->atLeastOnce())
             ->method('generateLoginLinkWithOrderReference')
             ->with($this->orderTransferMock)
+            ->willReturn($this->oneTimePasswordResponseTransfer);
+
+        $this->oneTimePasswordResponseTransfer->expects($this->atLeastOnce())
+            ->method('getLoginLink')
             ->willReturn($this->loginLink);
 
         $this->mailTransferMock->expects($this->atLeastOnce())
-            ->method('setLoginLink')
+            ->method('setOneTimePasswordLoginLink')
             ->with($this->loginLink)
             ->willReturnSelf();
 
