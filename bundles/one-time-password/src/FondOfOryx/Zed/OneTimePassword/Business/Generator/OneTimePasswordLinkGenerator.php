@@ -5,6 +5,7 @@ namespace FondOfOryx\Zed\OneTimePassword\Business\Generator;
 use FondOfOryx\Zed\OneTimePassword\Business\Encoder\OneTimePasswordEncoderInterface;
 use FondOfOryx\Zed\OneTimePassword\OneTimePasswordConfig;
 use Generated\Shared\Transfer\CustomerTransfer;
+use Generated\Shared\Transfer\OneTimePasswordResponseTransfer;
 use Generated\Shared\Transfer\OrderTransfer;
 
 class OneTimePasswordLinkGenerator implements OneTimePasswordLinkGeneratorInterface
@@ -45,52 +46,54 @@ class OneTimePasswordLinkGenerator implements OneTimePasswordLinkGeneratorInterf
     /**
      * @param \Generated\Shared\Transfer\CustomerTransfer $customerTransfer
      *
-     * @return string|null
+     * @return \Generated\Shared\Transfer\OneTimePasswordResponseTransfer
      */
     public function generateLoginLink(
         CustomerTransfer $customerTransfer
-    ): ?string {
+    ): OneTimePasswordResponseTransfer {
         $oneTimePasswordResponseTransfer = $this->oneTimePasswordGenerator->generateOneTimePassword($customerTransfer);
 
         if (!$oneTimePasswordResponseTransfer->getIsSuccess()) {
-            return null;
+            return $oneTimePasswordResponseTransfer;
         }
 
         $encodedLoginCredentials = $this->oneTimePasswordEncoder->encode($oneTimePasswordResponseTransfer);
 
-        return sprintf(
+        $loginLink = sprintf(
             self::LINK_PARAMETER_FORMAT,
             $this->oneTimePasswordConfig->getLoginLinkPath(),
             $this->oneTimePasswordConfig->getLoginLinkParameterName(),
             $encodedLoginCredentials
         );
+
+        return $oneTimePasswordResponseTransfer
+            ->setLoginLink($loginLink);
     }
 
     /**
      * @param \Generated\Shared\Transfer\OrderTransfer $orderTransfer
      *
-     * @return string|null
+     * @return \Generated\Shared\Transfer\OneTimePasswordResponseTransfer
      */
     public function generateLoginLinkWithOrderReference(
         OrderTransfer $orderTransfer
-    ): ?string {
-        $customerTransfer = $orderTransfer->getCustomer();
+    ): OneTimePasswordResponseTransfer {
+        $customerTransfer = $orderTransfer->requireCustomer()->getCustomer();
 
-        if (!$customerTransfer) {
-            return null;
+        $oneTimePasswordResponseTransfer = $this->generateLoginLink($customerTransfer);
+
+        if (!$oneTimePasswordResponseTransfer->getIsSuccess()) {
+            return $oneTimePasswordResponseTransfer;
         }
 
-        $credentialsLink = $this->generateLoginLink($customerTransfer);
-
-        if (!$credentialsLink) {
-            return null;
-        }
-
-        return sprintf(
+        $loginLink = sprintf(
             self::LINK_PARAMETER_EXTENSION_FORMAT,
-            $credentialsLink,
+            $oneTimePasswordResponseTransfer->getLoginLink(),
             $this->oneTimePasswordConfig->getLoginLinkOrderReferenceName(),
             $orderTransfer->getOrderReference()
         );
+
+        return $oneTimePasswordResponseTransfer
+            ->setLoginLink($loginLink);
     }
 }
