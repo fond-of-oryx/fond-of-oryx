@@ -74,7 +74,6 @@ class ErpOrderMapper implements ErpOrderMapperInterface
         array $erpOrderTotal
     ): RestErpOrderTotalTransfer {
         return (new RestErpOrderTotalTransfer())->fromArray($erpOrderTotal, true);
-
     }
 
     /**
