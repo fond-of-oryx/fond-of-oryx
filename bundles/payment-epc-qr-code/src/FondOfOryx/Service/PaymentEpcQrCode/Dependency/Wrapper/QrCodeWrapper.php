@@ -207,7 +207,7 @@ class QrCodeWrapper implements QrCodeWrapperInterface
 
         $dataString = $paymentEpcQrCodeRequestTransfer->getServiceTag();
         $dataString = $this->appendStringAsNewLine($dataString, $paymentEpcQrCodeRequestTransfer->getVersion());
-        $dataString = $this->appendStringAsNewLine($dataString, $paymentEpcQrCodeRequestTransfer->getEncoding());
+        $dataString = $this->appendStringAsNewLine($dataString, (string)$paymentEpcQrCodeRequestTransfer->getEncoding());
         $dataString = $this->appendStringAsNewLine($dataString, $paymentEpcQrCodeRequestTransfer->getType());
         $dataString = $this->appendStringAsNewLine($dataString, $paymentEpcQrCodeRequestTransfer->getBic());
         $dataString = $this->appendStringAsNewLine($dataString, $paymentEpcQrCodeRequestTransfer->getReceiverName());
