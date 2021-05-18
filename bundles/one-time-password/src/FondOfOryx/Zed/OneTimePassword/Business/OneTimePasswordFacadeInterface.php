@@ -61,11 +61,11 @@ interface OneTimePasswordFacadeInterface
      *
      * @param \Generated\Shared\Transfer\CustomerTransfer $customerTransfer
      *
-     * @return string|null
+     * @return \Generated\Shared\Transfer\OneTimePasswordResponseTransfer
      */
     public function generateLoginLink(
         CustomerTransfer $customerTransfer
-    ): ?string;
+    ): OneTimePasswordResponseTransfer;
 
     /**
      * Specification:
@@ -78,9 +78,9 @@ interface OneTimePasswordFacadeInterface
      *
      * @param \Generated\Shared\Transfer\OrderTransfer $orderTransfer
      *
-     * @return string|null
+     * @return \Generated\Shared\Transfer\OneTimePasswordResponseTransfer
      */
     public function generateLoginLinkWithOrderReference(
         OrderTransfer $orderTransfer
-    ): ?string;
+    ): OneTimePasswordResponseTransfer;
 }

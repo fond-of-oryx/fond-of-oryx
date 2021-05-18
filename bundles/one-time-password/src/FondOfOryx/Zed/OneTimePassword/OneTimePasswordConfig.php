@@ -10,17 +10,6 @@ class OneTimePasswordConfig extends AbstractBundleConfig
     /**
      * @return string
      */
-    public function getGermanWordListPath(): string
-    {
-        return $this->get(
-            OneTimePasswordConstants::ONE_TIME_PASSWORD_GERMAN_WORD_LIST_PATH,
-            'vendor/fond-of-oryx/fond-of-oryx/bundles/one-time-password/src/FondOfOryx/Shared/OneTimePassword/data/german-wordlist.txt'
-        );
-    }
-
-    /**
-     * @return string
-     */
     public function getLoginLinkPath(): string
     {
         return $this->get(
@@ -48,6 +37,83 @@ class OneTimePasswordConfig extends AbstractBundleConfig
         return $this->get(
             OneTimePasswordConstants::ONE_TIME_PASSWORD_LOGIN_LINK_ORDER_REFERENCE_NAME,
             'orderReference'
+        );
+    }
+
+    /**
+     * @return bool
+     */
+    public function getPasswordGeneratorUppercase(): bool
+    {
+        return $this->get(
+            OneTimePasswordConstants::ONE_TIME_PASSWORD_GENERATE_PASSWORD_UPPERCASE,
+            true
+        );
+    }
+
+    /**
+     * @return bool
+     */
+    public function getPasswordGeneratorLowercase(): bool
+    {
+        return $this->get(
+            OneTimePasswordConstants::ONE_TIME_PASSWORD_GENERATE_PASSWORD_LOWERCASE,
+            true
+        );
+    }
+
+    /**
+     * @return bool
+     */
+    public function getPasswordGeneratorNumbers(): bool
+    {
+        return $this->get(
+            OneTimePasswordConstants::ONE_TIME_PASSWORD_GENERATE_PASSWORD_NUMBERS,
+            true
+        );
+    }
+
+    /**
+     * @return bool
+     */
+    public function getPasswordGeneratorSymbols(): bool
+    {
+        return $this->get(
+            OneTimePasswordConstants::ONE_TIME_PASSWORD_GENERATE_PASSWORD_SYMBOLS,
+            true
+        );
+    }
+
+    /**
+     * @return int
+     */
+    public function getPasswordGeneratorSegmentLength(): int
+    {
+        return $this->get(
+            OneTimePasswordConstants::ONE_TIME_PASSWORD_GENERATE_PASSWORD_SEGMENT_LENGTH,
+            3
+        );
+    }
+
+    /**
+     * @return int
+     */
+    public function getPasswordGeneratorSegmentCount(): int
+    {
+        return $this->get(
+            OneTimePasswordConstants::ONE_TIME_PASSWORD_GENERATE_PASSWORD_SEGMENT_COUNT,
+            4
+        );
+    }
+
+    /**
+     * @return string
+     */
+    public function getPasswordGeneratorSegmentSeparator(): string
+    {
+        return $this->get(
+            OneTimePasswordConstants::ONE_TIME_PASSWORD_GENERATE_PASSWORD_SEGMENT_SEPARATOR,
+            '-'
         );
     }
 }

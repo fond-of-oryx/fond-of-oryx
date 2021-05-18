@@ -21,9 +21,9 @@ class LoginLinkOrderMailExpanderPlugin extends AbstractPlugin implements OmsOrde
      */
     public function expand(MailTransfer $mailTransfer, OrderTransfer $orderTransfer): MailTransfer
     {
-        $loginLink = $this->getFacade()->generateLoginLinkWithOrderReference($orderTransfer);
+        $oneTimePasswordResponseTransfer = $this->getFacade()->generateLoginLinkWithOrderReference($orderTransfer);
 
-        $mailTransfer->setLoginLink($loginLink);
+        $mailTransfer->setOneTimePasswordLoginLink($oneTimePasswordResponseTransfer->getLoginLink());
 
         return $mailTransfer;
     }

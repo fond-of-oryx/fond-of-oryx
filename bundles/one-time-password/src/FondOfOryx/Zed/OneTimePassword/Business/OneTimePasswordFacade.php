@@ -70,11 +70,11 @@ class OneTimePasswordFacade extends AbstractFacade implements OneTimePasswordFac
      *
      * @param \Generated\Shared\Transfer\CustomerTransfer $customerTransfer
      *
-     * @return string|null
+     * @return \Generated\Shared\Transfer\OneTimePasswordResponseTransfer
      */
     public function generateLoginLink(
         CustomerTransfer $customerTransfer
-    ): ?string {
+    ): OneTimePasswordResponseTransfer {
         return $this->getFactory()
             ->createOneTimePasswordLinkGenerator()
             ->generateLoginLink($customerTransfer);
@@ -87,11 +87,11 @@ class OneTimePasswordFacade extends AbstractFacade implements OneTimePasswordFac
      *
      * @param \Generated\Shared\Transfer\OrderTransfer $orderTransfer
      *
-     * @return string|null
+     * @return \Generated\Shared\Transfer\OneTimePasswordResponseTransfer
      */
     public function generateLoginLinkWithOrderReference(
         OrderTransfer $orderTransfer
-    ): ?string {
+    ): OneTimePasswordResponseTransfer {
         return $this->getFactory()
             ->createOneTimePasswordLinkGenerator()
             ->generateLoginLinkWithOrderReference(
