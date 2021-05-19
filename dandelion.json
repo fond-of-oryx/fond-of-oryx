@@ -66,15 +66,15 @@
     },
     "one-time-password": {
       "path": "bundles/one-time-password/",
-      "version": "1.0.0-beta.0"
+      "version": "1.0.0-beta.1"
     },
     "one-time-password-email-connector": {
       "path": "bundles/one-time-password-email-connector/",
-      "version": "1.0.0-beta.0"
+      "version": "1.0.0-beta.1"
     },
     "one-time-password-rest-api": {
       "path": "bundles/one-time-password-rest-api/",
-      "version": "1.0.0-beta.0"
+      "version": "1.0.0-beta.1"
     },
     "product-country-restriction": {
       "path": "bundles/product-country-restriction/",
