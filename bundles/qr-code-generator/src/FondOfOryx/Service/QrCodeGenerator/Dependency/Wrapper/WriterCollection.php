@@ -15,7 +15,7 @@ use Exception;
 class WriterCollection implements WriterCollectionInterface
 {
     /**
-     * @var \Endroid\QrCode\Writer\WriterInterface[]
+     * @var \Endroid\QrCode\Writer\WriterInterface[]|\Closure[]
      */
     protected $writer = [];
 
