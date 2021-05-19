@@ -60,23 +60,19 @@ class ErpOrderTotalPluginExecutorTest extends Unit
     public function testExecutePostSavePlugins(): void
     {
         $this->postSavePluginMock->expects($this->once())->method('postSave')->willReturn($this->erpOrderTotalTransferMock);
-        $this->preSavePluginMock->expects($this->never())->method('preSave')->willReturn($this->erpOrderTotalTransferMock);
-
         $pluginExecutor = new ErpOrderTotalPluginExecutor([$this->preSavePluginMock], [$this->postSavePluginMock]);
+
         $pluginExecutor->executePostSavePlugins($this->erpOrderTotalTransferMock);
     }
 
     /**
-     * @skip
-     *
      * @return void
      */
     public function testExecutePreSavePlugins(): void
     {
-        $this->postSavePluginMock->expects($this->never())->method('postSave')->willReturn($this->erpOrderTotalTransferMock);
         $this->preSavePluginMock->expects($this->once())->method('preSave')->willReturn($this->erpOrderTotalTransferMock);
-
         $pluginExecutor = new ErpOrderTotalPluginExecutor([$this->preSavePluginMock], [$this->postSavePluginMock]);
+
         $pluginExecutor->executePreSavePlugins($this->erpOrderTotalTransferMock);
     }
 }
