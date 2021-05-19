@@ -13,7 +13,7 @@ use Generated\Shared\Transfer\QrCodeGeneratorRequestTransfer;
 class EpcQrCodeGenerator implements EpcQrCodeGeneratorInterface
 {
     /**
-     * @var \FondOfOryx\Service\PaymentEpcQrCode\Dependency\Service\PaymentEpcQrCodeToQrCodeGeneratorServiceInterface
+     * @var \FondOfOryx\Service\PaymentEpcQrCode\Model\Builder\EpcDataBuilderInterface
      */
     protected $dataBuilder;
 
