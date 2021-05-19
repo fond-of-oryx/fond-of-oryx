@@ -8,7 +8,7 @@ use FondOfOryx\Zed\OneTimePassword\Persistence\OneTimePasswordEntityManagerInter
 use Generated\Shared\Transfer\CustomerResponseTransfer;
 use Generated\Shared\Transfer\CustomerTransfer;
 use Generated\Shared\Transfer\OneTimePasswordResponseTransfer;
-use Hackzilla\PasswordGenerator\Generator\HumanPasswordGenerator;
+use Hackzilla\PasswordGenerator\Generator\HybridPasswordGenerator;
 
 class OneTimePasswordGeneratorTest extends Unit
 {
@@ -20,7 +20,7 @@ class OneTimePasswordGeneratorTest extends Unit
     /**
      * @var \Hackzilla\PasswordGenerator\Generator\HumanPasswordGenerator|\PHPUnit\Framework\MockObject\MockObject
      */
-    protected $humanPasswordGeneratorMock;
+    protected $hybridPasswordGeneratorMock;
 
     /**
      * @var \FondOfOryx\Zed\OneTimePassword\Persistence\OneTimePasswordEntityManagerInterface|\PHPUnit\Framework\MockObject\MockObject
@@ -83,11 +83,46 @@ class OneTimePasswordGeneratorTest extends Unit
     protected $autoLoginParameterName;
 
     /**
+     * @var bool
+     */
+    protected $passwordGeneratorUppercase;
+
+    /**
+     * @var bool
+     */
+    protected $passwordGeneratorLowercase;
+
+    /**
+     * @var bool
+     */
+    protected $passwordGeneratorNumbers;
+
+    /**
+     * @var bool
+     */
+    protected $passwordGeneratorSymbols;
+
+    /**
+     * @var int
+     */
+    protected $passwordGeneratorSegmentLength;
+
+    /**
+     * @var int
+     */
+    protected $passwordGeneratorSegmentCount;
+
+    /**
+     * @var string
+     */
+    protected $passwordGeneratorSegmentSeparator;
+
+    /**
      * @return void
      */
     protected function _before(): void
     {
-        $this->humanPasswordGeneratorMock = $this->getMockBuilder(HumanPasswordGenerator::class)
+        $this->hybridPasswordGeneratorMock = $this->getMockBuilder(HybridPasswordGenerator::class)
             ->disableOriginalConstructor()
             ->getMock();
 
@@ -123,8 +158,22 @@ class OneTimePasswordGeneratorTest extends Unit
 
         $this->autoLoginParameterName = 'auto-login-parameter-name';
 
+        $this->passwordGeneratorUppercase = true;
+
+        $this->passwordGeneratorLowercase = true;
+
+        $this->passwordGeneratorNumbers = true;
+
+        $this->passwordGeneratorSymbols = true;
+
+        $this->passwordGeneratorSegmentLength = 1;
+
+        $this->passwordGeneratorSegmentCount = 2;
+
+        $this->passwordGeneratorSegmentSeparator = 'segment-separator';
+
         $this->oneTimePasswordGenerator = new OneTimePasswordGenerator(
-            $this->humanPasswordGeneratorMock,
+            $this->hybridPasswordGeneratorMock,
             $this->oneTimePasswordEntityManagerMock,
             $this->oneTimePasswordConfigMock
         );
@@ -139,24 +188,69 @@ class OneTimePasswordGeneratorTest extends Unit
             ->method('requireEmail');
 
         $this->oneTimePasswordConfigMock->expects($this->atLeastOnce())
-            ->method('getGermanWordListPath')
-            ->willReturn($this->germanWordListPath);
+            ->method('getPasswordGeneratorUppercase')
+            ->willReturn($this->passwordGeneratorUppercase);
 
-        $this->humanPasswordGeneratorMock->expects($this->atLeastOnce())
-            ->method('setWordList')
+        $this->hybridPasswordGeneratorMock->expects($this->atLeastOnce())
+            ->method('setUppercase')
+            ->with($this->passwordGeneratorUppercase)
             ->willReturnSelf();
 
-        $this->humanPasswordGeneratorMock->expects($this->atLeastOnce())
-            ->method('setWordCount')
-            ->with($this->wordCount)
+        $this->oneTimePasswordConfigMock->expects($this->atLeastOnce())
+            ->method('getPasswordGeneratorLowercase')
+            ->willReturn($this->passwordGeneratorLowercase);
+
+        $this->hybridPasswordGeneratorMock->expects($this->atLeastOnce())
+            ->method('setLowercase')
+            ->with($this->passwordGeneratorLowercase)
             ->willReturnSelf();
 
-        $this->humanPasswordGeneratorMock->expects($this->atLeastOnce())
-            ->method('setWordSeparator')
-            ->with($this->wordSeparator)
+        $this->oneTimePasswordConfigMock->expects($this->atLeastOnce())
+            ->method('getPasswordGeneratorNumbers')
+            ->willReturn($this->passwordGeneratorNumbers);
+
+        $this->hybridPasswordGeneratorMock->expects($this->atLeastOnce())
+            ->method('setNumbers')
+            ->with($this->passwordGeneratorNumbers)
             ->willReturnSelf();
 
-        $this->humanPasswordGeneratorMock->expects($this->atLeastOnce())
+        $this->oneTimePasswordConfigMock->expects($this->atLeastOnce())
+            ->method('getPasswordGeneratorSymbols')
+            ->willReturn($this->passwordGeneratorSymbols);
+
+        $this->hybridPasswordGeneratorMock->expects($this->atLeastOnce())
+            ->method('setSymbols')
+            ->with($this->passwordGeneratorSymbols)
+            ->willReturnSelf();
+
+        $this->oneTimePasswordConfigMock->expects($this->atLeastOnce())
+            ->method('getPasswordGeneratorSegmentLength')
+            ->willReturn($this->passwordGeneratorSegmentLength);
+
+        $this->hybridPasswordGeneratorMock->expects($this->atLeastOnce())
+            ->method('setSegmentLength')
+            ->with($this->passwordGeneratorSegmentLength)
+            ->willReturnSelf();
+
+        $this->oneTimePasswordConfigMock->expects($this->atLeastOnce())
+            ->method('getPasswordGeneratorSegmentCount')
+            ->willReturn($this->passwordGeneratorSegmentCount);
+
+        $this->hybridPasswordGeneratorMock->expects($this->atLeastOnce())
+            ->method('setSegmentCount')
+            ->with($this->passwordGeneratorSegmentCount)
+            ->willReturnSelf();
+
+        $this->oneTimePasswordConfigMock->expects($this->atLeastOnce())
+            ->method('getPasswordGeneratorSegmentSeparator')
+            ->willReturn($this->passwordGeneratorSegmentSeparator);
+
+        $this->hybridPasswordGeneratorMock->expects($this->atLeastOnce())
+            ->method('setSegmentSeparator')
+            ->with($this->passwordGeneratorSegmentSeparator)
+            ->willReturnSelf();
+
+        $this->hybridPasswordGeneratorMock->expects($this->atLeastOnce())
             ->method('generatePassword')
             ->willReturn($this->password);
 

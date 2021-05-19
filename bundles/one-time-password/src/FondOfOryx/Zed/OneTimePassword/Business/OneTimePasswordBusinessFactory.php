@@ -14,7 +14,7 @@ use FondOfOryx\Zed\OneTimePassword\Business\Sender\OneTimePasswordSender;
 use FondOfOryx\Zed\OneTimePassword\Business\Sender\OneTimePasswordSenderInterface;
 use FondOfOryx\Zed\OneTimePassword\Dependency\Facade\OneTimePasswordToOneTimePasswordEmailConnectorFacadeInterface;
 use FondOfOryx\Zed\OneTimePassword\OneTimePasswordDependencyProvider;
-use Hackzilla\PasswordGenerator\Generator\HumanPasswordGenerator;
+use Hackzilla\PasswordGenerator\Generator\HybridPasswordGenerator;
 use Spryker\Zed\Kernel\Business\AbstractBusinessFactory;
 
 /**
@@ -40,7 +40,7 @@ class OneTimePasswordBusinessFactory extends AbstractBusinessFactory
     public function createOneTimePasswordGenerator(): OneTimePasswordGeneratorInterface
     {
         return new OneTimePasswordGenerator(
-            $this->createComputerPasswordGenerator(),
+            $this->createHybridPasswordGenerator(),
             $this->getEntityManager(),
             $this->getConfig()
         );
@@ -77,11 +77,11 @@ class OneTimePasswordBusinessFactory extends AbstractBusinessFactory
     }
 
     /**
-     * @return \Hackzilla\PasswordGenerator\Generator\HumanPasswordGenerator
+     * @return \Hackzilla\PasswordGenerator\Generator\HybridPasswordGenerator
      */
-    protected function createComputerPasswordGenerator(): HumanPasswordGenerator
+    protected function createHybridPasswordGenerator(): HybridPasswordGenerator
     {
-        return new HumanPasswordGenerator();
+        return new HybridPasswordGenerator();
     }
 
     /**
