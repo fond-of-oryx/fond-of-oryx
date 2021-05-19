@@ -2,7 +2,7 @@
 
 namespace FondOfOryx\Service\PaymentEpcQrCode;
 
-use FondOfOryx\Service\PaymentEpcQrCode\Model\QrCodeInterface;
+use FondOfOryx\Service\QrCodeGenerator\Model\QrCodeInterface;
 use Generated\Shared\Transfer\PaymentEpcQrCodeRequestTransfer;
 use Spryker\Service\Kernel\AbstractService;
 
@@ -14,10 +14,10 @@ class PaymentEpcQrCodeService extends AbstractService implements PaymentEpcQrCod
     /**
      * @param \Generated\Shared\Transfer\PaymentEpcQrCodeRequestTransfer $paymentEpcQrCodeRequestTransfer
      *
-     * @return \FondOfOryx\Service\PaymentEpcQrCode\Model\QrCodeInterface
+     * @return \FondOfOryx\Service\QrCodeGenerator\Model\QrCodeInterface
      */
-    public function createQrCode(PaymentEpcQrCodeRequestTransfer $paymentEpcQrCodeRequestTransfer): QrCodeInterface
+    public function createEpcQrCode(PaymentEpcQrCodeRequestTransfer $paymentEpcQrCodeRequestTransfer): QrCodeInterface
     {
-        return $this->getFactory()->createQrCodeWriter()->generateQrCode($paymentEpcQrCodeRequestTransfer);
+        return $this->getFactory()->createEpcQrCodeGenerator()->generateEpcQrCode($paymentEpcQrCodeRequestTransfer);
     }
 }

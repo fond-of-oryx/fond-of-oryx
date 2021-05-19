@@ -15,56 +15,64 @@ class PaymentEpcQrCodeConfig extends AbstractBundleConfig
     /**
      * @return string
      */
-    public function getEncoding(): string
+    public function getFormat(): string
     {
-        return $this->get(PaymentEpcQrCodeConstants::QR_CODE_ENCODING, 'UTF-8');
+        return $this->get(PaymentEpcQrCodeConstants::EPC_QR_CODE_QR_CODE_FORMAT, 'pdf');
     }
 
     /**
-     * @return int
+     * @return string|null
      */
-    public function getErrorCorrectionLevel(): int
+    public function getEncoding(): ?string
     {
-        return $this->get(PaymentEpcQrCodeConstants::QR_CODE_ERROR_CORRECTION_LEVEL, 1);
+        return $this->get(PaymentEpcQrCodeConstants::EPC_QR_CODE_QR_CODE_ENCODING_OVERRIDE);
     }
 
     /**
-     * @return int
+     * @return int|null
      */
-    public function getSize(): int
+    public function getErrorCorrectionLevel(): ?int
     {
-        return $this->get(PaymentEpcQrCodeConstants::QR_CODE_SIZE, 250);
+        return $this->get(PaymentEpcQrCodeConstants::EPC_QR_CODE_QR_CODE_ERROR_CORRECTION_LEVEL_OVERRIDE);
     }
 
     /**
-     * @return int
+     * @return int|null
      */
-    public function getMargin(): int
+    public function getSize(): ?int
     {
-        return $this->get(PaymentEpcQrCodeConstants::QR_CODE_MARGIN, 10);
+        return $this->get(PaymentEpcQrCodeConstants::EPC_QR_CODE_QR_CODE_SIZE_OVERRIDE);
     }
 
     /**
-     * @return int
+     * @return int|null
      */
-    public function getRoundedBlockSizeMode(): int
+    public function getMargin(): ?int
     {
-        return $this->get(PaymentEpcQrCodeConstants::QR_CODE_ROUNDED_BLOCK_SIZE_MODE, 1);
+        return $this->get(PaymentEpcQrCodeConstants::EPC_QR_CODE_QR_CODE_MARGIN_OVERRIDE);
     }
 
     /**
-     * @return array
+     * @return int|null
      */
-    public function getForegroundColor(): array
+    public function getRoundedBlockSizeMode(): ?int
     {
-        return $this->get(PaymentEpcQrCodeConstants::QR_CODE_FOREGROUND_COLOR, [0, 0, 0]);
+        return $this->get(PaymentEpcQrCodeConstants::EPC_QR_CODE_QR_CODE_ROUNDED_BLOCK_SIZE_MODE_OVERRIDE);
     }
 
     /**
-     * @return array
+     * @return array|null
      */
-    public function getBackgroundColor(): array
+    public function getForegroundColor(): ?array
     {
-        return $this->get(PaymentEpcQrCodeConstants::QR_CODE_BACKGROUND_COLOR, [255, 255, 255]);
+        return $this->get(PaymentEpcQrCodeConstants::EPC_QR_CODE_QR_CODE_FOREGROUND_COLOR_OVERRIDE);
+    }
+
+    /**
+     * @return array|null
+     */
+    public function getBackgroundColor(): ?array
+    {
+        return $this->get(PaymentEpcQrCodeConstants::EPC_QR_CODE_QR_CODE_BACKGROUND_COLOR_OVERRIDE);
     }
 }

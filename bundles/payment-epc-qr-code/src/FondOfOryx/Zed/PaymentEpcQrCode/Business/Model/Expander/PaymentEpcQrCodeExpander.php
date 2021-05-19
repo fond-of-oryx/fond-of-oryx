@@ -59,7 +59,7 @@ class PaymentEpcQrCodeExpander implements ExpanderInterface
 
         $orderTransferFromMailTransfer = $mailTransfer->getOrder();
 
-        $qrCode = $this->qrCodeService->createQrCode($this->createQrCodeRequestFromOrder($orderTransferFromMailTransfer));
+        $qrCode = $this->qrCodeService->createEpcQrCode($this->createQrCodeRequestFromOrder($orderTransferFromMailTransfer));
         $orderTransferFromMailTransfer->setPrepaymentEpcQrData($qrCode->getDataUri());
 
         return $mailTransfer->setOrder($orderTransferFromMailTransfer);
@@ -91,18 +91,18 @@ class PaymentEpcQrCodeExpander implements ExpanderInterface
         $requestTransfer = new PaymentEpcQrCodeRequestTransfer();
 
         return $requestTransfer
-            ->setServiceTag($this->config->getServiceTag())
-            ->setVersion($this->config->getVersion())
-            ->setEncoding($this->getEncoding($this->config->getEncoding()))
-            ->setType($this->config->getType())
-            ->setBic($this->config->getBic())
-            ->setReceiverName($this->config->getReceiverName())
-            ->setIban($this->config->getIban())
+            ->setServiceTag($this->config->getEpcDataServiceTag())
+            ->setVersion($this->config->getEpcDataVersion())
+            ->setEncoding($this->getEncoding($this->config->getEpcDataEncoding()))
+            ->setType($this->config->getEpcDataType())
+            ->setBic($this->config->getEpcDataBic())
+            ->setReceiverName($this->config->getEpcDataReceiverName())
+            ->setIban($this->config->getEpcDataIban())
             ->setAmount($this->getMoneyAmount(
                 $orderTransfer->getTotals()->getSubtotal(),
                 $orderTransfer->getCurrencyIsoCode()
             ))
-            ->setPurpose($this->config->getPurpose())
+            ->setPurpose($this->config->getEpcDataPurpose())
             ->setReference(null)
             ->setUsage($orderTransfer->getOrderReference());
     }
