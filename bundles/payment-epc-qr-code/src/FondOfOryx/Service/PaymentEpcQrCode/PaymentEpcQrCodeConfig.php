@@ -28,8 +28,7 @@ class PaymentEpcQrCodeConfig extends AbstractBundleConfig
     {
         try {
             return $this->get(PaymentEpcQrCodeConstants::EPC_QR_CODE_QR_CODE_ENCODING_OVERRIDE);
-        }
-        catch (Exception $exception){
+        } catch (Exception $exception) {
             return null;
         }
     }
@@ -41,8 +40,7 @@ class PaymentEpcQrCodeConfig extends AbstractBundleConfig
     {
         try {
             return $this->get(PaymentEpcQrCodeConstants::EPC_QR_CODE_QR_CODE_ERROR_CORRECTION_LEVEL_OVERRIDE);
-        }
-        catch (Exception $exception){
+        } catch (Exception $exception) {
             return null;
         }
     }
@@ -54,8 +52,7 @@ class PaymentEpcQrCodeConfig extends AbstractBundleConfig
     {
         try {
             return $this->get(PaymentEpcQrCodeConstants::EPC_QR_CODE_QR_CODE_SIZE_OVERRIDE);
-        }
-        catch (Exception $exception){
+        } catch (Exception $exception) {
             return null;
         }
     }
@@ -67,8 +64,7 @@ class PaymentEpcQrCodeConfig extends AbstractBundleConfig
     {
         try {
             return $this->get(PaymentEpcQrCodeConstants::EPC_QR_CODE_QR_CODE_MARGIN_OVERRIDE);
-        }
-        catch (Exception $exception){
+        } catch (Exception $exception) {
             return null;
         }
     }
@@ -80,8 +76,7 @@ class PaymentEpcQrCodeConfig extends AbstractBundleConfig
     {
         try {
             return $this->get(PaymentEpcQrCodeConstants::EPC_QR_CODE_QR_CODE_ROUNDED_BLOCK_SIZE_MODE_OVERRIDE);
-        }
-        catch (Exception $exception){
+        } catch (Exception $exception) {
             return null;
         }
     }
@@ -93,8 +88,7 @@ class PaymentEpcQrCodeConfig extends AbstractBundleConfig
     {
         try {
             return $this->get(PaymentEpcQrCodeConstants::EPC_QR_CODE_QR_CODE_FOREGROUND_COLOR_OVERRIDE);
-        }
-        catch (Exception $exception){
+        } catch (Exception $exception) {
             return null;
         }
     }
@@ -106,8 +100,7 @@ class PaymentEpcQrCodeConfig extends AbstractBundleConfig
     {
         try {
             return $this->get(PaymentEpcQrCodeConstants::EPC_QR_CODE_QR_CODE_BACKGROUND_COLOR_OVERRIDE);
-        }
-        catch (Exception $exception){
+        } catch (Exception $exception) {
             return null;
         }
     }

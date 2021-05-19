@@ -36,12 +36,24 @@ class WriterCollection implements WriterCollectionInterface
     {
         $self = $this;
         $this->writer = [
-            'png' => static function() use($self) { return $self->createPngWriter(); },
-            'svg' => static function() use($self) { return $self->createSvgWriter(); },
-            'binary' => static function() use($self) { return $self->createBinaryWriter(); },
-            'eps' => static function() use($self) { return $self->createEpsWriter(); },
-            'pdf' => static function() use($self) { return $self->createPdfWriter(); },
-            'debug' => static function() use($self) { return $self->createDebugWriter(); },
+            'png' => static function () use ($self) {
+                return $self->createPngWriter();
+            },
+            'svg' => static function () use ($self) {
+                return $self->createSvgWriter();
+            },
+            'binary' => static function () use ($self) {
+                return $self->createBinaryWriter();
+            },
+            'eps' => static function () use ($self) {
+                return $self->createEpsWriter();
+            },
+            'pdf' => static function () use ($self) {
+                return $self->createPdfWriter();
+            },
+            'debug' => static function () use ($self) {
+                return $self->createDebugWriter();
+            },
         ];
 
         foreach ($writerBag as $name => $writer) {
@@ -83,7 +95,7 @@ class WriterCollection implements WriterCollectionInterface
     {
         if ($this->has($name)) {
             $writer = $this->writer[$name];
-            if ($writer instanceof Closure){
+            if ($writer instanceof Closure) {
                 return $writer();
             }
 
