@@ -35,12 +35,12 @@ class QrCodeWrapper implements QrCodeWrapperInterface
     protected $writerCollection;
 
     /**
-     * @var \Endroid\QrCode\ErrorCorrectionLevel\ErrorCorrectionLevelInterface[]
+     * @var \Closure[]
      */
     protected $errorLevel;
 
     /**
-     * @var \Endroid\QrCode\RoundBlockSizeMode\RoundBlockSizeModeInterface[]
+     * @var \Closure[]
      */
     protected $roundBlockSizeMode;
 
@@ -65,7 +65,7 @@ class QrCodeWrapper implements QrCodeWrapperInterface
     {
         $writer = $this->writerCollection->get($this->getStringValue($this->config->getFormat(), $qrCodeGeneratorRequestTransfer->getFormat()));
 
-        return $writer->write($this->initQrCode($qrCodeGeneratorRequestTransfer));
+        return $writer->write($this->buildQrCode($qrCodeGeneratorRequestTransfer));
     }
 
     /**
@@ -73,7 +73,7 @@ class QrCodeWrapper implements QrCodeWrapperInterface
      *
      * @return \Endroid\QrCode\QrCodeInterface
      */
-    protected function initQrCode(QrCodeGeneratorRequestTransfer $qrCodeGeneratorRequestTransfer): QrCodeInterface
+    protected function buildQrCode(QrCodeGeneratorRequestTransfer $qrCodeGeneratorRequestTransfer): QrCodeInterface
     {
         $qrCode = QrCode::create($qrCodeGeneratorRequestTransfer->getData());
 
@@ -121,7 +121,7 @@ class QrCodeWrapper implements QrCodeWrapperInterface
         $errorLevelCode = $this->getIntValue($this->config->getErrorCorrectionLevel(), $qrCodeGeneratorRequestTransfer->getErrorCorrectionLevel());
 
         if (array_key_exists($errorLevelCode, $this->errorLevel)) {
-            return $this->errorLevel[$errorLevelCode];
+            return $this->errorLevel[$errorLevelCode]();
         }
 
         throw new Exception(sprintf(
@@ -142,7 +142,7 @@ class QrCodeWrapper implements QrCodeWrapperInterface
         $roundedBlockSizeModeCode = $this->getIntValue($this->config->getRoundedBlockSizeMode(), $qrCodeGeneratorRequestTransfer->getRoundedBlockSizeMode());
 
         if (array_key_exists($roundedBlockSizeModeCode, $this->roundBlockSizeMode)) {
-            return $this->roundBlockSizeMode[$roundedBlockSizeModeCode];
+            return $this->roundBlockSizeMode[$roundedBlockSizeModeCode]();
         }
 
         throw new Exception(sprintf(
@@ -157,10 +157,10 @@ class QrCodeWrapper implements QrCodeWrapperInterface
     protected function initErrorLevel(): void
     {
         $this->errorLevel = [
-            0 => new ErrorCorrectionLevelLow(),
-            1 => new ErrorCorrectionLevelMedium(),
-            2 => new ErrorCorrectionLevelHigh(),
-            3 => new ErrorCorrectionLevelQuartile(),
+            0 => static function(){ return new ErrorCorrectionLevelLow();},
+            1 => static function(){ return new ErrorCorrectionLevelMedium();},
+            2 => static function(){ return new ErrorCorrectionLevelHigh();},
+            3 => static function(){ return new ErrorCorrectionLevelQuartile();},
         ];
     }
 
@@ -170,10 +170,10 @@ class QrCodeWrapper implements QrCodeWrapperInterface
     protected function initRoundBlockSizeModes(): void
     {
         $this->roundBlockSizeMode = [
-            0 => new RoundBlockSizeModeNone(),
-            1 => new RoundBlockSizeModeMargin(),
-            2 => new RoundBlockSizeModeEnlarge(),
-            3 => new RoundBlockSizeModeShrink(),
+            0 => static function(){ return new RoundBlockSizeModeNone();},
+            1 => static function(){ return new RoundBlockSizeModeMargin();},
+            2 => static function(){ return new RoundBlockSizeModeEnlarge();},
+            3 => static function(){ return new RoundBlockSizeModeShrink();},
         ];
     }
 
@@ -209,12 +209,12 @@ class QrCodeWrapper implements QrCodeWrapperInterface
     protected function createColor(array $colorValue): Color
     {
         if (count($colorValue) !== 3) {
-            throw new Exception('Color value mismatch!');
+            throw new Exception('Missing color value! Array in format [255, 255, 255] needed. Possible values 0 - 255');
         }
 
         foreach ($colorValue as $value) {
             if (is_numeric($value) === false || $value > 255 || $value < 0) {
-                throw new Exception();
+                throw new Exception(vsprintf('Color mismatch! Red, green, blue (0 - 255) required. Given red: %s, green: %s, blue: %s', $colorValue));
             }
         }
         [$red, $green, $blue] = $colorValue;
