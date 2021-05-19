@@ -38,7 +38,7 @@
     },
     "erp-order-extension": {
       "path": "bundles/erp-order-extension/",
-      "version": "1.0.0"
+      "version": "1.1.0"
     },
     "erp-order-page-search": {
       "path": "bundles/erp-order-page-search/",
