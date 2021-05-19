@@ -66,7 +66,6 @@ class ErpOrderTotalPluginExecutorTest extends Unit
     }
 
     /**
-     *
      * @return void
      */
     public function testExecutePreSavePlugins(): void
