@@ -2,6 +2,7 @@
 
 namespace FondOfOryx\Service\PaymentEpcQrCode;
 
+use Exception;
 use FondOfOryx\Shared\PaymentEpcQrCode\PaymentEpcQrCodeConstants;
 use Spryker\Service\Kernel\AbstractBundleConfig;
 
@@ -17,7 +18,7 @@ class PaymentEpcQrCodeConfig extends AbstractBundleConfig
      */
     public function getFormat(): string
     {
-        return $this->get(PaymentEpcQrCodeConstants::EPC_QR_CODE_QR_CODE_FORMAT, 'pdf');
+        return $this->get(PaymentEpcQrCodeConstants::EPC_QR_CODE_QR_CODE_FORMAT, 'png');
     }
 
     /**
@@ -25,7 +26,12 @@ class PaymentEpcQrCodeConfig extends AbstractBundleConfig
      */
     public function getEncoding(): ?string
     {
-        return $this->get(PaymentEpcQrCodeConstants::EPC_QR_CODE_QR_CODE_ENCODING_OVERRIDE);
+        try {
+            return $this->get(PaymentEpcQrCodeConstants::EPC_QR_CODE_QR_CODE_ENCODING_OVERRIDE);
+        }
+        catch (Exception $exception){
+            return null;
+        }
     }
 
     /**
@@ -33,7 +39,12 @@ class PaymentEpcQrCodeConfig extends AbstractBundleConfig
      */
     public function getErrorCorrectionLevel(): ?int
     {
-        return $this->get(PaymentEpcQrCodeConstants::EPC_QR_CODE_QR_CODE_ERROR_CORRECTION_LEVEL_OVERRIDE);
+        try {
+            return $this->get(PaymentEpcQrCodeConstants::EPC_QR_CODE_QR_CODE_ERROR_CORRECTION_LEVEL_OVERRIDE);
+        }
+        catch (Exception $exception){
+            return null;
+        }
     }
 
     /**
@@ -41,7 +52,12 @@ class PaymentEpcQrCodeConfig extends AbstractBundleConfig
      */
     public function getSize(): ?int
     {
-        return $this->get(PaymentEpcQrCodeConstants::EPC_QR_CODE_QR_CODE_SIZE_OVERRIDE);
+        try {
+            return $this->get(PaymentEpcQrCodeConstants::EPC_QR_CODE_QR_CODE_SIZE_OVERRIDE);
+        }
+        catch (Exception $exception){
+            return null;
+        }
     }
 
     /**
@@ -49,7 +65,12 @@ class PaymentEpcQrCodeConfig extends AbstractBundleConfig
      */
     public function getMargin(): ?int
     {
-        return $this->get(PaymentEpcQrCodeConstants::EPC_QR_CODE_QR_CODE_MARGIN_OVERRIDE);
+        try {
+            return $this->get(PaymentEpcQrCodeConstants::EPC_QR_CODE_QR_CODE_MARGIN_OVERRIDE);
+        }
+        catch (Exception $exception){
+            return null;
+        }
     }
 
     /**
@@ -57,7 +78,12 @@ class PaymentEpcQrCodeConfig extends AbstractBundleConfig
      */
     public function getRoundedBlockSizeMode(): ?int
     {
-        return $this->get(PaymentEpcQrCodeConstants::EPC_QR_CODE_QR_CODE_ROUNDED_BLOCK_SIZE_MODE_OVERRIDE);
+        try {
+            return $this->get(PaymentEpcQrCodeConstants::EPC_QR_CODE_QR_CODE_ROUNDED_BLOCK_SIZE_MODE_OVERRIDE);
+        }
+        catch (Exception $exception){
+            return null;
+        }
     }
 
     /**
@@ -65,7 +91,12 @@ class PaymentEpcQrCodeConfig extends AbstractBundleConfig
      */
     public function getForegroundColor(): ?array
     {
-        return $this->get(PaymentEpcQrCodeConstants::EPC_QR_CODE_QR_CODE_FOREGROUND_COLOR_OVERRIDE);
+        try {
+            return $this->get(PaymentEpcQrCodeConstants::EPC_QR_CODE_QR_CODE_FOREGROUND_COLOR_OVERRIDE);
+        }
+        catch (Exception $exception){
+            return null;
+        }
     }
 
     /**
@@ -73,6 +104,11 @@ class PaymentEpcQrCodeConfig extends AbstractBundleConfig
      */
     public function getBackgroundColor(): ?array
     {
-        return $this->get(PaymentEpcQrCodeConstants::EPC_QR_CODE_QR_CODE_BACKGROUND_COLOR_OVERRIDE);
+        try {
+            return $this->get(PaymentEpcQrCodeConstants::EPC_QR_CODE_QR_CODE_BACKGROUND_COLOR_OVERRIDE);
+        }
+        catch (Exception $exception){
+            return null;
+        }
     }
 }
