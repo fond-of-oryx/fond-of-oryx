@@ -50,14 +50,6 @@ class ReturnLabelConfig extends AbstractBundleConfig
     }
 
     /**
-     * @return string
-     */
-    public function getReceiverId(): string
-    {
-        return $this->get(ReturnLabelConstants::API_RECEIVER_ID, 'deu');
-    }
-
-    /**
      * @return bool
      */
     public function appendReturnForm(): bool

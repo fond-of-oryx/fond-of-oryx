@@ -5,6 +5,7 @@ namespace FondOfOryx\Zed\ReturnLabelsRestApiCompanyUnitAddressConnector\Business
 use Codeception\Test\Unit;
 use FondOfOryx\Zed\ReturnLabelsRestApiCompanyUnitAddressConnector\Business\Expander\ReturnLabelRequestExpander;
 use FondOfOryx\Zed\ReturnLabelsRestApiCompanyUnitAddressConnector\Persistence\ReturnLabelsRestApiCompanyUnitAddressConnectorRepository;
+use FondOfOryx\Zed\ReturnLabelsRestApiCompanyUnitAddressConnector\ReturnLabelsRestApiCompanyUnitAddressConnectorConfig;
 
 class ReturnLabelsRestApiCompanyUnitAddressConnectorBusinessFactoryTest extends Unit
 {
@@ -19,6 +20,11 @@ class ReturnLabelsRestApiCompanyUnitAddressConnectorBusinessFactoryTest extends 
     protected $businessFactory;
 
     /**
+     * @var \FondOfOryx\Zed\ReturnLabelsRestApiCompanyUnitAddressConnector\ReturnLabelsRestApiCompanyUnitAddressConnectorConfig|\PHPUnit\Framework\MockObject\MockObject
+     */
+    protected $configMock;
+
+    /**
      * @return void
      */
     protected function _before(): void
@@ -29,8 +35,13 @@ class ReturnLabelsRestApiCompanyUnitAddressConnectorBusinessFactoryTest extends 
             ->disableOriginalConstructor()
             ->getMock();
 
+        $this->configMock = $this->getMockBuilder(ReturnLabelsRestApiCompanyUnitAddressConnectorConfig::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
         $this->businessFactory = new ReturnLabelsRestApiCompanyUnitAddressConnectorBusinessFactory();
         $this->businessFactory->setRepository($this->repositoryMock);
+        $this->businessFactory->setConfig($this->configMock);
     }
 
     /**
