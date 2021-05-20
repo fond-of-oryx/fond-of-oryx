@@ -4,6 +4,7 @@ namespace FondOfOryx\Zed\ReturnLabelsRestApiCompanyUnitAddressConnector\Business
 
 use FondOfOryx\Zed\ReturnLabelsRestApiCompanyUnitAddressConnector\Business\Mapper\ReturnLabelRequestAddressMapperInterface;
 use FondOfOryx\Zed\ReturnLabelsRestApiCompanyUnitAddressConnector\Business\Reader\CompanyUnitAddressReaderInterface;
+use FondOfOryx\Zed\ReturnLabelsRestApiCompanyUnitAddressConnector\ReturnLabelsRestApiCompanyUnitAddressConnectorConfig;
 use Generated\Shared\Transfer\RestReturnLabelRequestTransfer;
 use Generated\Shared\Transfer\ReturnLabelRequestTransfer;
 
@@ -20,15 +21,23 @@ class ReturnLabelRequestExpander implements ReturnLabelRequestExpanderInterface
     protected $returnLabelRequestAddressMapper;
 
     /**
+     * @var \FondOfOryx\Zed\ReturnLabelsRestApiCompanyUnitAddressConnector\ReturnLabelsRestApiCompanyUnitAddressConnectorConfig
+     */
+    protected $config;
+
+    /**
      * @param \FondOfOryx\Zed\ReturnLabelsRestApiCompanyUnitAddressConnector\Business\Reader\CompanyUnitAddressReaderInterface $companyUnitAddressReader
      * @param \FondOfOryx\Zed\ReturnLabelsRestApiCompanyUnitAddressConnector\Business\Mapper\ReturnLabelRequestAddressMapperInterface $returnLabelRequestAddressMapper
+     * @param \FondOfOryx\Zed\ReturnLabelsRestApiCompanyUnitAddressConnector\ReturnLabelsRestApiCompanyUnitAddressConnectorConfig $config
      */
     public function __construct(
         CompanyUnitAddressReaderInterface $companyUnitAddressReader,
-        ReturnLabelRequestAddressMapperInterface $returnLabelRequestAddressMapper
+        ReturnLabelRequestAddressMapperInterface $returnLabelRequestAddressMapper,
+        ReturnLabelsRestApiCompanyUnitAddressConnectorConfig $config
     ) {
         $this->companyUnitAddressReader = $companyUnitAddressReader;
         $this->returnLabelRequestAddressMapper = $returnLabelRequestAddressMapper;
+        $this->config = $config;
     }
 
     /**
@@ -53,12 +62,17 @@ class ReturnLabelRequestExpander implements ReturnLabelRequestExpanderInterface
             return $returnLabelRequestTransfer;
         }
 
+        if (!array_key_exists($companyUnitAddressTransfer->getIso3code(), $this->config->getReceiver())) {
+            return $returnLabelRequestTransfer;
+        }
+
         $returnLabelRequestAddressTransfer = $this->returnLabelRequestAddressMapper->fromCompanyUnitAddressTransfer(
             $companyUnitAddressTransfer
         );
 
-        $returnLabelRequestTransfer->getCustomer()
-            ->setAddress($returnLabelRequestAddressTransfer);
+        $returnLabelRequestTransfer
+            ->setReceiverId($this->config->getReceiver()[$companyUnitAddressTransfer->getIso3code()])
+            ->getCustomer()->setAddress($returnLabelRequestAddressTransfer);
 
         return $returnLabelRequestTransfer;
     }

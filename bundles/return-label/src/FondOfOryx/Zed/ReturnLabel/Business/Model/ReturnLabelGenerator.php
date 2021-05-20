@@ -45,7 +45,6 @@ class ReturnLabelGenerator implements ReturnLabelGeneratorInterface
             ->setIsSuccessful(false);
 
         $returnLabelRequestTransfer
-            ->setReceiverId($this->config->getReceiverId())
             ->setQrCode($this->config->printQrCodeOnReturnForm())
             ->setReturnForm($this->config->appendReturnForm());
 

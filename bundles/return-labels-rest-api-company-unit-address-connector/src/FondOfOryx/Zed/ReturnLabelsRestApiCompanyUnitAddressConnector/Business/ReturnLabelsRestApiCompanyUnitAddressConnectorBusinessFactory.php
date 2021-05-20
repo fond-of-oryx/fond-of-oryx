@@ -12,6 +12,7 @@ use Spryker\Zed\Kernel\Business\AbstractBusinessFactory;
 
 /**
  * @method \FondOfOryx\Zed\ReturnLabelsRestApiCompanyUnitAddressConnector\Persistence\ReturnLabelsRestApiCompanyUnitAddressConnectorRepositoryInterface getRepository()
+ * @method \FondOfOryx\Zed\ReturnLabelsRestApiCompanyUnitAddressConnector\ReturnLabelsRestApiCompanyUnitAddressConnectorConfig getConfig()
  */
 class ReturnLabelsRestApiCompanyUnitAddressConnectorBusinessFactory extends AbstractBusinessFactory
 {
@@ -22,7 +23,8 @@ class ReturnLabelsRestApiCompanyUnitAddressConnectorBusinessFactory extends Abst
     {
         return new ReturnLabelRequestExpander(
             $this->createCompanyUnitAddressReader(),
-            $this->createReturnLabelRequestAddressMapper()
+            $this->createReturnLabelRequestAddressMapper(),
+            $this->getConfig()
         );
     }
 

@@ -69,19 +69,9 @@ class ReturnLabelGeneratorTest extends Unit
      */
     public function testGenerateSuccess(): void
     {
-        $receiverId = 'foo';
         $qrCode = true;
         $returnForm = true;
         $data = 'Rm9vQmFy';
-
-        $this->configMock->expects(static::atLeastOnce())
-            ->method('getReceiverId')
-            ->willReturn($receiverId);
-
-        $this->returnLabelRequestTransferMock->expects(static::atLeastOnce())
-            ->method('setReceiverId')
-            ->with($receiverId)
-            ->willReturn($this->returnLabelRequestTransferMock);
 
         $this->configMock->expects(static::atLeastOnce())
             ->method('printQrCodeOnReturnForm')
