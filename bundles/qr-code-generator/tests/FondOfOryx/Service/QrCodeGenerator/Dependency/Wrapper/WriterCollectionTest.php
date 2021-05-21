@@ -18,6 +18,9 @@ class WriterCollectionTest extends Unit
      */
     protected $writerCollection;
 
+    /**
+     * @return void
+     */
     public function _before()
     {
         parent::_before();
@@ -65,7 +68,7 @@ class WriterCollectionTest extends Unit
         $exception = null;
         try {
             $this->writerCollection->get('throwExceptionTest');
-        }catch (Exception $e){
+        } catch (Exception $e) {
             $exception = $e;
         }
 

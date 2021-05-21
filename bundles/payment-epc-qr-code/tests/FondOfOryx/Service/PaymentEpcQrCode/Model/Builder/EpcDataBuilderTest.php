@@ -3,6 +3,7 @@
 namespace FondOfOryx\Service\PaymentEpcQrCode\Model\Builder;
 
 use Codeception\Test\Unit;
+use Exception;
 use Generated\Shared\Transfer\PaymentEpcQrCodeRequestTransfer;
 
 class EpcDataBuilderTest extends Unit
@@ -17,6 +18,9 @@ class EpcDataBuilderTest extends Unit
      */
     protected $builder;
 
+    /**
+     * @return void
+     */
     public function _before()
     {
         parent::_before();
@@ -52,7 +56,46 @@ class EpcDataBuilderTest extends Unit
         $this->requestTransferMock->expects(static::once())->method('getAmount')->willReturn('99,95');
 
         $string = $this->builder->fromTransfer($this->requestTransferMock);
+        $compare = 'usage
+002
+1
+SCT
+BIC
+John Doe
+DE00000000000000000000
+99,95
 
-        static::assertSame('', $string);
+
+usage
+';
+        static::assertSame($compare, $string);
+    }
+
+    /**
+     * @return void
+     */
+    public function testFromTransferThrowsException(): void
+    {
+        $this->requestTransferMock->expects(static::once())->method('requireServiceTag')->willReturn($this->requestTransferMock);
+        $this->requestTransferMock->expects(static::once())->method('requireVersion')->willReturn($this->requestTransferMock);
+        $this->requestTransferMock->expects(static::once())->method('requireEncoding')->willReturn($this->requestTransferMock);
+        $this->requestTransferMock->expects(static::once())->method('requireType')->willReturn($this->requestTransferMock);
+        $this->requestTransferMock->expects(static::once())->method('requireBic')->willReturn($this->requestTransferMock);
+        $this->requestTransferMock->expects(static::once())->method('requireReceiverName')->willReturn($this->requestTransferMock);
+        $this->requestTransferMock->expects(static::once())->method('requireIban')->willReturn($this->requestTransferMock);
+        $this->requestTransferMock->expects(static::once())->method('requireAmount')->willReturn($this->requestTransferMock);
+        $this->requestTransferMock->expects(static::exactly(2))->method('getUsage')->willReturn('usage');
+        $this->requestTransferMock->expects(static::exactly(2))->method('getReference')->willReturn('reference');
+        $this->requestTransferMock->expects(static::once())->method('getPurpose');
+
+        $exception = null;
+        try {
+            $this->builder->fromTransfer($this->requestTransferMock);
+        } catch (Exception $e) {
+            $exception = $e;
+        }
+
+        static::assertNotNull($exception);
+        static::assertSame('One of "Reference: (reference)" or "Usage: (usage)" must be null!', $exception->getMessage());
     }
 }

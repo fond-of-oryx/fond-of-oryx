@@ -28,6 +28,9 @@ class QrCodeWriterTest extends Unit
      */
     protected $writer;
 
+    /**
+     * @return void
+     */
     public function _before()
     {
         parent::_before();

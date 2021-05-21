@@ -35,6 +35,9 @@ class QrCodeGeneratorServiceTest extends Unit
      */
     protected $service;
 
+    /**
+     * @return void
+     */
     public function _before()
     {
         parent::_before();
@@ -53,7 +56,7 @@ class QrCodeGeneratorServiceTest extends Unit
             /**
              *  constructor.
              *
-             * @param  \FondOfOryx\Service\QrCodeGenerator\QrCodeGeneratorServiceFactory  $factory
+             * @param \FondOfOryx\Service\QrCodeGenerator\QrCodeGeneratorServiceFactory $factory
              */
             public function __construct(QrCodeGeneratorServiceFactory $factory)
             {
@@ -61,7 +64,7 @@ class QrCodeGeneratorServiceTest extends Unit
             }
 
             /**
-             * @var \FondOfOryx\Service\QrCodeGenerator\QrCodeGeneratorServiceFactory
+             * @return \FondOfOryx\Service\QrCodeGenerator\QrCodeGeneratorServiceFactory
              */
             protected function getFactory()
             {

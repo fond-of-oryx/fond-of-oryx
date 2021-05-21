@@ -17,6 +17,9 @@ class QrCodeTest extends Unit
      */
     protected $qrCode;
 
+    /**
+     * @return void
+     */
     public function _before()
     {
         parent::_before();

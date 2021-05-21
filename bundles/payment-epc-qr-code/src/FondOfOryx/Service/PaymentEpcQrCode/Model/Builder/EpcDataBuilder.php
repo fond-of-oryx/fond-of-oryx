@@ -30,9 +30,9 @@ class EpcDataBuilder implements EpcDataBuilderInterface
         $reference = $paymentEpcQrCodeRequestTransfer->getReference() ?? '';
         $purpose = $paymentEpcQrCodeRequestTransfer->getPurpose() ?? '';
 
-        if (empty($usage) && empty($reference)) {
+        if (empty($usage) === false && empty($reference) === false) {
             throw new Exception(sprintf(
-                'One of "Reference(%s)" or "Purpose(%s)" must be null!',
+                'One of "Reference: (%s)" or "Usage: (%s)" must be null!',
                 $paymentEpcQrCodeRequestTransfer->getReference(),
                 $paymentEpcQrCodeRequestTransfer->getUsage()
             ));

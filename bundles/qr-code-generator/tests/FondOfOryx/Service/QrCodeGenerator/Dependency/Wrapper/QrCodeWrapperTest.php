@@ -47,6 +47,9 @@ class QrCodeWrapperTest extends Unit
      */
     protected $wrapper;
 
+    /**
+     * @return void
+     */
     public function _before()
     {
         parent::_before();
@@ -120,8 +123,7 @@ class QrCodeWrapperTest extends Unit
         $exception = null;
         try {
             $this->wrapper->createQrCode($this->requestTransferMock);
-        }
-        catch (Exception $e){
+        } catch (Exception $e) {
             $exception = $e;
         }
 
@@ -145,8 +147,7 @@ class QrCodeWrapperTest extends Unit
         $exception = null;
         try {
             $this->wrapper->createQrCode($this->requestTransferMock);
-        }
-        catch (Exception $e){
+        } catch (Exception $e) {
             $exception = $e;
         }
 
@@ -169,8 +170,7 @@ class QrCodeWrapperTest extends Unit
         $exception = null;
         try {
             $this->wrapper->createQrCode($this->requestTransferMock);
-        }
-        catch (Exception $e){
+        } catch (Exception $e) {
             $exception = $e;
         }
 
@@ -192,8 +192,7 @@ class QrCodeWrapperTest extends Unit
         $exception = null;
         try {
             $this->wrapper->createQrCode($this->requestTransferMock);
-        }
-        catch (Exception $e){
+        } catch (Exception $e) {
             $exception = $e;
         }
 

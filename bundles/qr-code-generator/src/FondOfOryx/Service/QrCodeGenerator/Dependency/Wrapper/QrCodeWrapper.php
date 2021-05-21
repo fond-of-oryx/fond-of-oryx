@@ -157,10 +157,18 @@ class QrCodeWrapper implements QrCodeWrapperInterface
     protected function initErrorLevel(): void
     {
         $this->errorLevel = [
-            0 => static function(){ return new ErrorCorrectionLevelLow();},
-            1 => static function(){ return new ErrorCorrectionLevelMedium();},
-            2 => static function(){ return new ErrorCorrectionLevelHigh();},
-            3 => static function(){ return new ErrorCorrectionLevelQuartile();},
+            0 => static function () {
+                return new ErrorCorrectionLevelLow();
+            },
+            1 => static function () {
+                return new ErrorCorrectionLevelMedium();
+            },
+            2 => static function () {
+                return new ErrorCorrectionLevelHigh();
+            },
+            3 => static function () {
+                return new ErrorCorrectionLevelQuartile();
+            },
         ];
     }
 
@@ -170,10 +178,18 @@ class QrCodeWrapper implements QrCodeWrapperInterface
     protected function initRoundBlockSizeModes(): void
     {
         $this->roundBlockSizeMode = [
-            0 => static function(){ return new RoundBlockSizeModeNone();},
-            1 => static function(){ return new RoundBlockSizeModeMargin();},
-            2 => static function(){ return new RoundBlockSizeModeEnlarge();},
-            3 => static function(){ return new RoundBlockSizeModeShrink();},
+            0 => static function () {
+                return new RoundBlockSizeModeNone();
+            },
+            1 => static function () {
+                return new RoundBlockSizeModeMargin();
+            },
+            2 => static function () {
+                return new RoundBlockSizeModeEnlarge();
+            },
+            3 => static function () {
+                return new RoundBlockSizeModeShrink();
+            },
         ];
     }
 
