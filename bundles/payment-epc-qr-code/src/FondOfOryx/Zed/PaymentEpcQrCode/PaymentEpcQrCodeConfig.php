@@ -37,7 +37,7 @@ class PaymentEpcQrCodeConfig extends AbstractBundleConfig
      */
     public function getEpcDataVersion(): string
     {
-        return $this->get(PaymentEpcQrCodeConstants::EPC_QR_CODE_DATA_VERSION, '002');
+        return $this->get(PaymentEpcQrCodeConstants::EPC_QR_CODE_DATA_VERSION, PaymentEpcQrCodeConstants::EPC_QR_CODE_DATA_VERSION_DEFAULT);
     }
 
     /**
@@ -45,7 +45,7 @@ class PaymentEpcQrCodeConfig extends AbstractBundleConfig
      */
     public function getEpcDataServiceTag(): string
     {
-        return $this->get(PaymentEpcQrCodeConstants::EPC_QR_CODE_DATA_SERVICE_TAG, 'BCD');
+        return $this->get(PaymentEpcQrCodeConstants::EPC_QR_CODE_DATA_SERVICE_TAG, PaymentEpcQrCodeConstants::EPC_QR_CODE_DATA_SERVICE_TAG_DEFAULT);
     }
 
     /**
@@ -53,7 +53,7 @@ class PaymentEpcQrCodeConfig extends AbstractBundleConfig
      */
     public function getEpcDataEncoding(): string
     {
-        return $this->get(PaymentEpcQrCodeConstants::EPC_QR_CODE_DATA_ENCODING, 'UTF-8');
+        return $this->get(PaymentEpcQrCodeConstants::EPC_QR_CODE_DATA_ENCODING, PaymentEpcQrCodeConstants::EPC_QR_CODE_DATA_ENCODING_DEFAULT);
     }
 
     /**
@@ -61,7 +61,7 @@ class PaymentEpcQrCodeConfig extends AbstractBundleConfig
      */
     public function getEpcDataType(): string
     {
-        return $this->get(PaymentEpcQrCodeConstants::EPC_QR_CODE_DATA_TYPE, 'SCT');
+        return $this->get(PaymentEpcQrCodeConstants::EPC_QR_CODE_DATA_TYPE, PaymentEpcQrCodeConstants::EPC_QR_CODE_DATA_TYPE_DEFAULT);
     }
 
     /**

@@ -8,9 +8,13 @@ interface PaymentEpcQrCodeConstants
 {
     // Values for the data string within the qr code
     public const EPC_QR_CODE_DATA_VERSION = 'EPC_QR_CODE_DATA_VERSION';
+    public const EPC_QR_CODE_DATA_VERSION_DEFAULT = '002';
     public const EPC_QR_CODE_DATA_SERVICE_TAG = 'EPC_QR_CODE_DATA_SERVICE_TAG';
+    public const EPC_QR_CODE_DATA_SERVICE_TAG_DEFAULT = 'BCD';
     public const EPC_QR_CODE_DATA_ENCODING = 'EPC_QR_CODE_DATA_ENCODING';
+    public const EPC_QR_CODE_DATA_ENCODING_DEFAULT = 'UTF-8';
     public const EPC_QR_CODE_DATA_TYPE = 'EPC_QR_CODE_DATA_TYPE';
+    public const EPC_QR_CODE_DATA_TYPE_DEFAULT = 'SCT';
     public const EPC_QR_CODE_DATA_PURPOSE = 'EPC_QR_CODE_DATA_PURPOSE';
 
     // Values for the qr code

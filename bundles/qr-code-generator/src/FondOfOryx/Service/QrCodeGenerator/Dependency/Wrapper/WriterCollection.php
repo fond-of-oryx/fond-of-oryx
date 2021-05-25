@@ -14,6 +14,13 @@ use Exception;
 
 class WriterCollection implements WriterCollectionInterface
 {
+    protected const PNG = 'png';
+    protected const SVG = 'svg';
+    protected const BINARY = 'binary';
+    protected const EPS = 'eps';
+    protected const PDF = 'pdf';
+    protected const DEBUG = 'debug';
+
     /**
      * @var \Endroid\QrCode\Writer\WriterInterface[]|\Closure[]
      */
@@ -36,22 +43,22 @@ class WriterCollection implements WriterCollectionInterface
     {
         $self = $this;
         $this->writer = [
-            'png' => static function () use ($self) {
+            static::PNG => static function () use ($self) {
                 return $self->createPngWriter();
             },
-            'svg' => static function () use ($self) {
+            static::SVG => static function () use ($self) {
                 return $self->createSvgWriter();
             },
-            'binary' => static function () use ($self) {
+            static::BINARY => static function () use ($self) {
                 return $self->createBinaryWriter();
             },
-            'eps' => static function () use ($self) {
+            static::EPS => static function () use ($self) {
                 return $self->createEpsWriter();
             },
-            'pdf' => static function () use ($self) {
+            static::PDF => static function () use ($self) {
                 return $self->createPdfWriter();
             },
-            'debug' => static function () use ($self) {
+            static::DEBUG => static function () use ($self) {
                 return $self->createDebugWriter();
             },
         ];
