@@ -10,11 +10,14 @@ use Spryker\Yves\Kernel\Widget\AbstractWidget;
 class AvailabilityAlertFormWidget extends AbstractWidget
 {
     /**
-     * @param int $idProductAbstract
+     * AvailabilityAlertFormWidget constructor.
+     *
+     * @param  int  $idProductAbstract
+     * @param  int|null  $idProductConcrete
      */
-    public function __construct(int $idProductAbstract)
+    public function __construct(int $idProductAbstract, ?int $idProductConcrete = null)
     {
-        $this->addParameter('availabilityAlertFormWidget', $this->getFactory()->createSubscriptionForm($idProductAbstract)->createView());
+        $this->addParameter('availabilityAlertFormWidget', $this->getFactory()->createSubscriptionForm($idProductAbstract, $idProductConcrete)->createView());
     }
 
     /**

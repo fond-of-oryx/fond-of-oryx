@@ -13,17 +13,18 @@ use Spryker\Yves\Kernel\AbstractFactory;
 class AvailabilityAlertFactory extends AbstractFactory
 {
     /**
-     * @param int $idProductAbstract
+     * @param  int  $idProductAbstract
+     * @param  int|null  $idProductConcrete
      *
      * @return \Symfony\Component\Form\FormInterface
      */
-    public function createSubscriptionForm($idProductAbstract)
+    public function createSubscriptionForm(int $idProductAbstract, ?int $idProductConcrete = null)
     {
         $dataProvider = $this->createSubscriptionFormDataProvider();
 
         $form = $this->getFormFactory()->create(
             $this->getSubscriptionFormType(),
-            $dataProvider->getData($idProductAbstract),
+            $dataProvider->getData($idProductAbstract, $idProductConcrete),
             $dataProvider->getOptions()
         );
 

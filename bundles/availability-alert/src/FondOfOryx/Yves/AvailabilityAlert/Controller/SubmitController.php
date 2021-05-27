@@ -24,9 +24,10 @@ class SubmitController extends AbstractController
     {
         $parentRequest = $this->getParentRequest();
         $idProductAbstract = $request->attributes->get('idProductAbstract');
+        $idProductConcrete = $request->attributes->get('idProductConcrete');
 
         $subscriptionForm = $this->getFactory()
-            ->createSubscriptionForm($idProductAbstract)
+            ->createSubscriptionForm($idProductAbstract, $idProductConcrete)
             ->handleRequest($parentRequest);
 
         $this->processSubscriptionForm($subscriptionForm, $request);

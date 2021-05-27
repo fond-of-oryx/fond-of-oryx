@@ -11,7 +11,8 @@ use Symfony\Component\Validator\Constraints\NotBlank;
 
 class SubscriptionForm extends AbstractType
 {
-    public const FIELD_PRODUCT = AvailabilityAlertSubscriptionRequestTransfer::ID_PRODUCT_ABSTRACT;
+    public const FIELD_PRODUCT_ABSTRACT = AvailabilityAlertSubscriptionRequestTransfer::ID_PRODUCT_ABSTRACT;
+    public const FIELD_PRODUCT_CONCRETE = AvailabilityAlertSubscriptionRequestTransfer::ID_PRODUCT_CONCRETE;
     public const FIELD_EMAIL = AvailabilityAlertSubscriptionRequestTransfer::EMAIL;
 
     /**
@@ -33,7 +34,8 @@ class SubscriptionForm extends AbstractType
         parent::buildForm($builder, $options);
 
         $this->addEmailField($builder)
-            ->addProductField($builder);
+            ->addProductAbstractField($builder)
+            ->addProductConcreteField($builder);
     }
 
     /**
@@ -41,9 +43,9 @@ class SubscriptionForm extends AbstractType
      *
      * @return $this
      */
-    protected function addEmailField(FormBuilderInterface $builder)
+    protected function addEmailField(FormBuilderInterface $builder): SubscriptionForm
     {
-        $builder->add(self::FIELD_EMAIL, EmailType::class, [
+        $builder->add(static::FIELD_EMAIL, EmailType::class, [
             'label' => 'availability_alert.submit.email',
             'required' => true,
             'constraints' => [
@@ -59,13 +61,27 @@ class SubscriptionForm extends AbstractType
      *
      * @return $this
      */
-    protected function addProductField(FormBuilderInterface $builder)
+    protected function addProductAbstractField(FormBuilderInterface $builder): SubscriptionForm
     {
-        $builder->add(static::FIELD_PRODUCT, HiddenType::class, [
+        $builder->add(static::FIELD_PRODUCT_ABSTRACT, HiddenType::class, [
             'required' => true,
             'constraints' => [
                 new NotBlank(),
             ],
+        ]);
+
+        return $this;
+    }
+
+    /**
+     * @param \Symfony\Component\Form\FormBuilderInterface $builder
+     *
+     * @return $this
+     */
+    protected function addProductConcreteField(FormBuilderInterface $builder): SubscriptionForm
+    {
+        $builder->add(static::FIELD_PRODUCT_CONCRETE, HiddenType::class, [
+            'required' => true,
         ]);
 
         return $this;

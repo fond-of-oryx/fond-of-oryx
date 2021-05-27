@@ -36,6 +36,7 @@
 
     <transfer name="AvailabilityAlertSubscriptionRequest">
         <property name="idProductAbstract" type="int" />
+        <property name="idProductConcrete" type="int" />
         <property name="localeName" type="string" />
         <property name="store" type="string" />
         <property name="email" type="string" />

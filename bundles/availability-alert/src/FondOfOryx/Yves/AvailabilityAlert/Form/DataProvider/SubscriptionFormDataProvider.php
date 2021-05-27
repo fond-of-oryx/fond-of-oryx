@@ -7,14 +7,16 @@ use Generated\Shared\Transfer\AvailabilityAlertSubscriptionRequestTransfer;
 class SubscriptionFormDataProvider
 {
     /**
-     * @param int $idProductAbstract
+     * @param $idProductAbstract
+     * @param  int|null  $idProductConcrete
      *
      * @return \Generated\Shared\Transfer\AvailabilityAlertSubscriptionRequestTransfer
      */
-    public function getData($idProductAbstract)
+    public function getData($idProductAbstract, ?int $idProductConcrete = null)
     {
         $availabilityAlertRequestTransfer = new AvailabilityAlertSubscriptionRequestTransfer();
         $availabilityAlertRequestTransfer->setIdProductAbstract($idProductAbstract);
+        $availabilityAlertRequestTransfer->setIdProductConcrete($idProductConcrete);
 
         return $availabilityAlertRequestTransfer;
     }
