@@ -55,6 +55,7 @@ class AvailabilityAlertSubscriptionSubmitMapper implements AvailabilityAlertSubs
         $availabilityAlertSubscriptionTransfer
             ->fromArray($availabilityAlertSubscriptionRequestTransfer->modifiedToArray(), true)
             ->setFkProductAbstract($availabilityAlertSubscriptionRequestTransfer->getIdProductAbstract())
+            ->setFkProduct($availabilityAlertSubscriptionRequestTransfer->getIdProductConcrete())
             ->setFkLocale($this->getIdLocale($availabilityAlertSubscriptionRequestTransfer))
             ->setFkStore($this->getIdStore($availabilityAlertSubscriptionRequestTransfer))
             ->setSubscriber($this->mapSubscriber($availabilityAlertSubscriptionRequestTransfer));

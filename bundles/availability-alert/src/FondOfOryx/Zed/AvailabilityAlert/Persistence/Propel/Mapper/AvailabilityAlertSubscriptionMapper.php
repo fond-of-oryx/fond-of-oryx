@@ -6,9 +6,11 @@ use Generated\Shared\Transfer\AvailabilityAlertSubscriptionTransfer;
 use Generated\Shared\Transfer\FooAvailabilityAlertSubscriptionEntityTransfer;
 use Generated\Shared\Transfer\LocaleTransfer;
 use Generated\Shared\Transfer\ProductAbstractTransfer;
+use Generated\Shared\Transfer\ProductConcreteTransfer;
 use Generated\Shared\Transfer\StoreTransfer;
 use Orm\Zed\AvailabilityAlert\Persistence\FooAvailabilityAlertSubscription;
 use Orm\Zed\Locale\Persistence\SpyLocale;
+use Orm\Zed\Product\Persistence\SpyProduct;
 use Orm\Zed\Product\Persistence\SpyProductAbstract;
 use Orm\Zed\Store\Persistence\SpyStore;
 
@@ -41,6 +43,7 @@ class AvailabilityAlertSubscriptionMapper implements AvailabilityAlertSubscripti
             ->setSubscriber($this->subscriberMapper->fromEntity($availabilityAlertSubscription->getFooAvailabilityAlertSubscriber()))
             ->setLocale($this->mapLocale($availabilityAlertSubscription->getSpyLocale()))
             ->setProductAbstract($this->mapProductAbstract($availabilityAlertSubscription->getSpyProductAbstract()))
+            ->setProductConcrete($this->mapProductConcrete($availabilityAlertSubscription->getSpyProduct()))
             ->setStore($this->mapStore($availabilityAlertSubscription->getSpyStore()))
             ->setFkSubscriber($availabilityAlertSubscription->getFkAvailabilityAlertSubscriber());
     }
@@ -90,6 +93,23 @@ class AvailabilityAlertSubscriptionMapper implements AvailabilityAlertSubscripti
         $productAbstractTransfer->fromArray($spyProductAbstract->toArray(), true);
 
         return $productAbstractTransfer;
+    }
+
+    /**
+     * @param  \Orm\Zed\Product\Persistence\SpyProduct|null  $spyProductConcrete
+     *
+     * @return \Generated\Shared\Transfer\ProductConcreteTransfer|null
+     */
+    protected function mapProductConcrete(?SpyProduct $spyProductConcrete): ?ProductConcreteTransfer
+    {
+        if ($spyProductConcrete === null){
+            return null;
+        }
+
+        $productConcreteTransfer = new ProductConcreteTransfer();
+        $productConcreteTransfer->fromArray($spyProductConcrete->toArray(), true);
+
+        return $productConcreteTransfer;
     }
 
     /**
