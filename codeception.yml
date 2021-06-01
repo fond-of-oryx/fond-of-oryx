@@ -45,6 +45,7 @@ include:
   - bundles/splittable-totals-rest-api-extension
   - bundles/splittable-totals-rest-api-shipment-connector
   - bundles/tax-calculation-connector
+  - bundles/thirty-five-up
   - bundles/util-math-formula
 
 suites:
