@@ -44,7 +44,7 @@ class ErpOrderMapper implements ErpOrderMapperInterface
             );
 
             $this->addRestErpOrderItems($restErpOrder, $erpOrderData[self::ERP_ORDER_DATA_KEY_ERP_ORDER_ITEMS]);
-            $restErpOrder->setTotal($this->mapErpOrderTotalToRestOrderTotal(
+            $restErpOrder->setTotals($this->mapErpOrderTotalToRestOrderTotal(
                 $erpOrderData[static::ERP_ORDER_DATA_KEY_ERP_ORDER_TOTAL]
             ));
 
