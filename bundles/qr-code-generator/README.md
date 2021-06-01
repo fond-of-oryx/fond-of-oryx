@@ -13,7 +13,7 @@ composer require fond-of-oryx/qr-code-generator
 
 ## Usage
 
-Grab the service and use createQrCode(QrCodeGeneratorRequestTransfer $qrCodeGeneratorRequestTransfer) to generate a QR Cpde
+Grab the service and use createQrCode(QrCodeGeneratorRequestTransfer $qrCodeGeneratorRequestTransfer) to generate a QR Code
 
 ## Configuration
 
