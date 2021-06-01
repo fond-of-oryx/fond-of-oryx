@@ -5,6 +5,7 @@ namespace FondOfOryx\Zed\SplittableTotals\Business\Reader;
 use Codeception\Test\Unit;
 use FondOfOryx\Zed\SplittableTotals\Business\Splitter\QuoteSplitterInterface;
 use FondOfOryx\Zed\SplittableTotals\Dependency\Facade\SplittableTotalsToCalculationFacadeInterface;
+use FondOfOryx\Zed\SplittableTotalsExtension\Dependency\Plugin\SplittedQuoteExpanderPluginInterface;
 use Generated\Shared\Transfer\QuoteTransfer;
 use Generated\Shared\Transfer\TotalsTransfer;
 
@@ -19,6 +20,11 @@ class SplittableTotalsReaderTest extends Unit
      * @var \FondOfOryx\Zed\SplittableTotals\Dependency\Facade\SplittableTotalsToCalculationFacadeInterface|\PHPUnit\Framework\MockObject\MockObject
      */
     protected $calculationFacadeMock;
+
+    /**
+     * @var \FondOfOryx\Zed\SplittableTotalsExtension\Dependency\Plugin\SplittedQuoteExpanderPluginInterface[]|\PHPUnit\Framework\MockObject\MockObject[]
+     */
+    protected $splittedQuoteExpanderPluginMocks;
 
     /**
      * @var \Generated\Shared\Transfer\QuoteTransfer|\PHPUnit\Framework\MockObject\MockObject
@@ -50,6 +56,12 @@ class SplittableTotalsReaderTest extends Unit
             ->disableOriginalConstructor()
             ->getMock();
 
+        $this->splittedQuoteExpanderPluginMocks = [
+            $this->getMockBuilder(SplittedQuoteExpanderPluginInterface::class)
+                ->disableOriginalConstructor()
+                ->getMock(),
+        ];
+
         $this->quoteTransferMock = $this->getMockBuilder(QuoteTransfer::class)
             ->disableOriginalConstructor()
             ->getMock();
@@ -60,7 +72,8 @@ class SplittableTotalsReaderTest extends Unit
 
         $this->splittableTotalsReader = new SplittableTotalsReader(
             $this->quoteSplitterMock,
-            $this->calculationFacadeMock
+            $this->calculationFacadeMock,
+            $this->splittedQuoteExpanderPluginMocks
         );
     }
 
@@ -75,6 +88,11 @@ class SplittableTotalsReaderTest extends Unit
             ->method('split')
             ->with($this->quoteTransferMock)
             ->willReturn([$key => $this->quoteTransferMock]);
+
+        $this->splittedQuoteExpanderPluginMocks[0]->expects(static::atLeastOnce())
+            ->method('expand')
+            ->with($this->quoteTransferMock)
+            ->willReturn($this->quoteTransferMock);
 
         $this->calculationFacadeMock->expects(static::atLeastOnce())
             ->method('recalculateQuote')
