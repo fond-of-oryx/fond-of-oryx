@@ -24,7 +24,7 @@ class PaymentEpcQrCodeExpander implements ExpanderInterface
      */
     protected $config;
 
-    protected const ENCODINGS = [
+    protected const MAPPING_ENCODING = [
         'UTF-8' => 1,
         'ISO 8859-1' => 2,
         'ISO 8859-2' => 3,
@@ -116,14 +116,14 @@ class PaymentEpcQrCodeExpander implements ExpanderInterface
      */
     protected function getEncoding(string $encoding): int
     {
-        if (array_key_exists($encoding, static::ENCODINGS)) {
-            return static::ENCODINGS[$encoding];
+        if (array_key_exists($encoding, static::MAPPING_ENCODING)) {
+            return static::MAPPING_ENCODING[$encoding];
         }
 
         throw new Exception(sprintf(
             'Encoding %s not known! Please chose one from %s',
             $encoding,
-            implode(',', array_keys(static::ENCODINGS))
+            implode(',', array_keys(static::MAPPING_ENCODING))
         ));
     }
 

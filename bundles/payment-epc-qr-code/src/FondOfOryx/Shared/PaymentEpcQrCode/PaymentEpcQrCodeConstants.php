@@ -6,7 +6,6 @@ namespace FondOfOryx\Shared\PaymentEpcQrCode;
 
 interface PaymentEpcQrCodeConstants
 {
-    // Values for the data string within the qr code
     public const EPC_QR_CODE_DATA_VERSION = 'EPC_QR_CODE_DATA_VERSION';
     public const EPC_QR_CODE_DATA_VERSION_DEFAULT = '002';
     public const EPC_QR_CODE_DATA_SERVICE_TAG = 'EPC_QR_CODE_DATA_SERVICE_TAG';
@@ -17,7 +16,6 @@ interface PaymentEpcQrCodeConstants
     public const EPC_QR_CODE_DATA_TYPE_DEFAULT = 'SCT';
     public const EPC_QR_CODE_DATA_PURPOSE = 'EPC_QR_CODE_DATA_PURPOSE';
 
-    // Values for the qr code
     public const EPC_QR_CODE_QR_CODE_FORMAT = 'EPC_QR_CODE_QR_CODE_FORMAT';
     public const EPC_QR_CODE_QR_CODE_ENCODING_OVERRIDE = 'EPC_QR_CODE_QR_CODE_ENCODING_OVERRIDE';
     public const EPC_QR_CODE_QR_CODE_ERROR_CORRECTION_LEVEL_OVERRIDE = 'EPC_QR_CODE_QR_CODE_ERROR_CORRECTION_LEVEL_OVERRIDE';

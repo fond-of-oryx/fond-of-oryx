@@ -17,7 +17,7 @@ class QrCodeGeneratorConfig extends AbstractBundleConfig
      */
     public function getFormat(): string
     {
-        return $this->get(QrCodeGeneratorConstants::QR_CODE_FORMAT, 'png');
+        return $this->get(QrCodeGeneratorConstants::QR_CODE_FORMAT, QrCodeGeneratorConstants::QR_CODE_FORMAT_DEFAULT);
     }
 
     /**
@@ -25,7 +25,7 @@ class QrCodeGeneratorConfig extends AbstractBundleConfig
      */
     public function getEncoding(): string
     {
-        return $this->get(QrCodeGeneratorConstants::QR_CODE_ENCODING, 'UTF-8');
+        return $this->get(QrCodeGeneratorConstants::QR_CODE_ENCODING, QrCodeGeneratorConstants::QR_CODE_ENCODING_DEFAULT);
     }
 
     /**
@@ -33,7 +33,7 @@ class QrCodeGeneratorConfig extends AbstractBundleConfig
      */
     public function getErrorCorrectionLevel(): int
     {
-        return $this->get(QrCodeGeneratorConstants::QR_CODE_ERROR_CORRECTION_LEVEL, 1);
+        return $this->get(QrCodeGeneratorConstants::QR_CODE_ERROR_CORRECTION_LEVEL, QrCodeGeneratorConstants::QR_CODE_ERROR_CORRECTION_LEVEL_DEFAULT);
     }
 
     /**
@@ -41,7 +41,7 @@ class QrCodeGeneratorConfig extends AbstractBundleConfig
      */
     public function getSize(): int
     {
-        return $this->get(QrCodeGeneratorConstants::QR_CODE_SIZE, 250);
+        return $this->get(QrCodeGeneratorConstants::QR_CODE_SIZE, QrCodeGeneratorConstants::QR_CODE_SIZE_DEFAULT);
     }
 
     /**
@@ -49,7 +49,7 @@ class QrCodeGeneratorConfig extends AbstractBundleConfig
      */
     public function getMargin(): int
     {
-        return $this->get(QrCodeGeneratorConstants::QR_CODE_MARGIN, 5);
+        return $this->get(QrCodeGeneratorConstants::QR_CODE_MARGIN, QrCodeGeneratorConstants::QR_CODE_MARGIN_DEFAULT);
     }
 
     /**
@@ -57,7 +57,7 @@ class QrCodeGeneratorConfig extends AbstractBundleConfig
      */
     public function getRoundedBlockSizeMode(): int
     {
-        return $this->get(QrCodeGeneratorConstants::QR_CODE_ROUNDED_BLOCK_SIZE_MODE, 1);
+        return $this->get(QrCodeGeneratorConstants::QR_CODE_ROUNDED_BLOCK_SIZE_MODE, QrCodeGeneratorConstants::QR_CODE_ROUNDED_BLOCK_SIZE_MODE_DEFAULT);
     }
 
     /**
@@ -65,7 +65,7 @@ class QrCodeGeneratorConfig extends AbstractBundleConfig
      */
     public function getForegroundColor(): array
     {
-        return $this->get(QrCodeGeneratorConstants::QR_CODE_FOREGROUND_COLOR, [0, 0, 0]);
+        return $this->get(QrCodeGeneratorConstants::QR_CODE_FOREGROUND_COLOR, QrCodeGeneratorConstants::QR_CODE_FOREGROUND_COLOR_DEFAULT);
     }
 
     /**
@@ -73,6 +73,6 @@ class QrCodeGeneratorConfig extends AbstractBundleConfig
      */
     public function getBackgroundColor(): array
     {
-        return $this->get(QrCodeGeneratorConstants::QR_CODE_BACKGROUND_COLOR, [255, 255, 255]);
+        return $this->get(QrCodeGeneratorConstants::QR_CODE_BACKGROUND_COLOR, QrCodeGeneratorConstants::QR_CODE_BACKGROUND_COLOR_DEFAULT);
     }
 }
