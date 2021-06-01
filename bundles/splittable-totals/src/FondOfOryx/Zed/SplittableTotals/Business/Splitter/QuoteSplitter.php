@@ -21,6 +21,7 @@ class QuoteSplitter implements QuoteSplitterInterface
     protected $config;
 
     /**
+     * @param \FondOfOryx\Zed\SplittableTotals\Dependency\Facade\SplittableTotalsToCalculationFacadeInterface $calculationFacade
      * @param \FondOfOryx\Zed\SplittableTotals\SplittableTotalsConfig $config
      */
     public function __construct(
