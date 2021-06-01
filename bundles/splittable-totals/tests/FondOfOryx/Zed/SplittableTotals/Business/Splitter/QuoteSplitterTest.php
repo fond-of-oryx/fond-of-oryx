@@ -4,12 +4,18 @@ namespace FondOfOryx\Zed\SplittableTotals\Business\Splitter;
 
 use ArrayObject;
 use Codeception\Test\Unit;
+use FondOfOryx\Zed\SplittableTotals\Dependency\Facade\SplittableTotalsToCalculationFacadeInterface;
 use FondOfOryx\Zed\SplittableTotals\SplittableTotalsConfig;
 use Generated\Shared\Transfer\ItemTransfer;
 use Generated\Shared\Transfer\QuoteTransfer;
 
 class QuoteSplitterTest extends Unit
 {
+    /**
+     * @var \FondOfOryx\Zed\SplittableTotals\Dependency\Facade\SplittableTotalsToCalculationFacadeInterface|\PHPUnit\Framework\MockObject\MockObject
+     */
+    protected $calculationFacadeMock;
+
     /**
      * @var \FondOfOryx\Zed\SplittableTotals\SplittableTotalsConfig|\PHPUnit\Framework\MockObject\MockObject
      */
@@ -37,6 +43,10 @@ class QuoteSplitterTest extends Unit
     {
         parent::_before();
 
+        $this->calculationFacadeMock = $this->getMockBuilder(SplittableTotalsToCalculationFacadeInterface::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
         $this->configMock = $this->getMockBuilder(SplittableTotalsConfig::class)
             ->disableOriginalConstructor()
             ->getMock();
@@ -51,7 +61,10 @@ class QuoteSplitterTest extends Unit
                 ->getMock(),
         ];
 
-        $this->quoteSplitter = new QuoteSplitter($this->configMock);
+        $this->quoteSplitter = new QuoteSplitter(
+            $this->calculationFacadeMock,
+            $this->configMock
+        );
     }
 
     /**
@@ -77,6 +90,20 @@ class QuoteSplitterTest extends Unit
             ->method('toArray')
             ->willReturn([]);
 
+        $this->calculationFacadeMock->expects(static::atLeastOnce())
+            ->method('recalculateQuote')
+            ->with(
+                static::callback(
+                    static function (QuoteTransfer $quoteTransfer) {
+                        return $quoteTransfer->getIdQuote() === null
+                            && $quoteTransfer->getUuid() === null
+                            && !$quoteTransfer->getIsDefault();
+                    }
+                ),
+                false
+            )
+            ->willReturn($this->quoteTransferMock);
+
         $quoteTransfers = $this->quoteSplitter->split($this->quoteTransferMock);
 
         static::assertCount(1, $quoteTransfers);
@@ -97,6 +124,9 @@ class QuoteSplitterTest extends Unit
 
         $this->quoteTransferMock->expects(static::never())
             ->method('toArray');
+
+        $this->calculationFacadeMock->expects(static::never())
+            ->method('recalculateQuote');
 
         $quoteTransfers = $this->quoteSplitter->split($this->quoteTransferMock);
 
@@ -119,6 +149,9 @@ class QuoteSplitterTest extends Unit
 
         $this->quoteTransferMock->expects(static::never())
             ->method('toArray');
+
+        $this->calculationFacadeMock->expects(static::never())
+            ->method('recalculateQuote');
 
         $quoteTransfers = $this->quoteSplitter->split($this->quoteTransferMock);
 

@@ -32,7 +32,10 @@ class SplittableTotalsBusinessFactory extends AbstractBusinessFactory
      */
     protected function createQuoteSplitter(): QuoteSplitterInterface
     {
-        return new QuoteSplitter($this->getConfig());
+        return new QuoteSplitter(
+            $this->getCalculationFacade(),
+            $this->getConfig()
+        );
     }
 
     /**
