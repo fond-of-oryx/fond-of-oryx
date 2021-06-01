@@ -115,6 +115,7 @@
     "fond-of-oryx/splittable-totals-rest-api-company-unit-address-connector": "*",
     "fond-of-oryx/splittable-totals-rest-api-extension": "*",
     "fond-of-oryx/splittable-totals-rest-api-shipment-connector": "*",
+    "fond-of-oryx/splittable-totals-shipment-connector": "*",
     "fond-of-oryx/tax-calculation-connector": "*",
     "fond-of-oryx/util-math-formula": "*"
   },
