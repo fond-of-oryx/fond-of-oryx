@@ -1,11 +1,11 @@
 <?php
 
-namespace FondOfOryx\Zed\SplittableTotalsRestApiShipmentConnector\Dependency\Facade;
+namespace FondOfOryx\Zed\SplittableTotalsShipmentConnector\Dependency\Facade;
 
 use Generated\Shared\Transfer\QuoteTransfer;
 use Generated\Shared\Transfer\ShipmentMethodTransfer;
 
-interface SplittableTotalsRestApiShipmentConnectorToShipmentFacadeInterface
+interface SplittableTotalsShipmentConnectorToShipmentFacadeInterface
 {
     /**
      * @param int $idShipmentMethod

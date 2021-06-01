@@ -1,12 +1,13 @@
 <?php
 
-namespace FondOfOryx\Zed\SplittableTotalsRestApiShipmentConnector\Dependency\Facade;
+namespace FondOfOryx\Zed\SplittableTotalsShipmentConnector\Dependency\Facade;
 
 use Generated\Shared\Transfer\QuoteTransfer;
 use Generated\Shared\Transfer\ShipmentMethodTransfer;
 use Spryker\Zed\Shipment\Business\ShipmentFacadeInterface;
 
-class SplittableTotalsRestApiShipmentConnectorToShipmentFacadeBridge implements SplittableTotalsRestApiShipmentConnectorToShipmentFacadeInterface
+class SplittableTotalsShipmentConnectorToShipmentFacadeBridge implements
+    SplittableTotalsShipmentConnectorToShipmentFacadeInterface
 {
     /**
      * @var \Spryker\Zed\Shipment\Business\ShipmentFacadeInterface

@@ -66,7 +66,7 @@ class CompanyUnitAddressQuoteExpanderPluginTest extends Unit
 
         static::assertEquals(
             $this->quoteTransferMock,
-            $this->companyUnitAddressQuoteExpanderPlugin->expandQuote(
+            $this->companyUnitAddressQuoteExpanderPlugin->expand(
                 $this->restSplittableTotalsRequestTransferMock,
                 $this->quoteTransferMock
             )

@@ -1,15 +1,15 @@
 <?php
 
-namespace FondOfOryx\Zed\SplittableTotalsRestApiShipmentConnector;
+namespace FondOfOryx\Zed\SplittableTotalsShipmentConnector;
 
 use Codeception\Test\Unit;
-use FondOfOryx\Zed\SplittableTotalsRestApiShipmentConnector\Dependency\Facade\SplittableTotalsRestApiShipmentConnectorToShipmentFacadeBridge;
+use FondOfOryx\Zed\SplittableTotalsShipmentConnector\Dependency\Facade\SplittableTotalsShipmentConnectorToShipmentFacadeBridge;
 use Spryker\Shared\Kernel\BundleProxy;
 use Spryker\Zed\Kernel\Container;
 use Spryker\Zed\Kernel\Locator;
 use Spryker\Zed\Shipment\Business\ShipmentFacadeInterface;
 
-class SplittableTotalsRestApiShipmentConnectorDependencyProviderTest extends Unit
+class SplittableTotalsShipmentConnectorDependencyProviderTest extends Unit
 {
     /**
      * @var \PHPUnit\Framework\MockObject\MockObject|\Spryker\Zed\Kernel\Container
@@ -32,7 +32,7 @@ class SplittableTotalsRestApiShipmentConnectorDependencyProviderTest extends Uni
     protected $shipmentFacadeMock;
 
     /**
-     * @var \FondOfOryx\Zed\SplittableTotalsRestApiShipmentConnector\SplittableTotalsRestApiShipmentConnectorDependencyProvider
+     * @var \FondOfOryx\Zed\SplittableTotalsShipmentConnector\SplittableTotalsShipmentConnectorDependencyProvider
      */
     protected $dependencyProvider;
 
@@ -59,7 +59,7 @@ class SplittableTotalsRestApiShipmentConnectorDependencyProviderTest extends Uni
             ->disableOriginalConstructor()
             ->getMock();
 
-        $this->dependencyProvider = new SplittableTotalsRestApiShipmentConnectorDependencyProvider();
+        $this->dependencyProvider = new SplittableTotalsShipmentConnectorDependencyProvider();
     }
 
     /**
@@ -87,8 +87,8 @@ class SplittableTotalsRestApiShipmentConnectorDependencyProviderTest extends Uni
 
         static::assertEquals($this->containerMock, $container);
         static::assertInstanceOf(
-            SplittableTotalsRestApiShipmentConnectorToShipmentFacadeBridge::class,
-            $container[SplittableTotalsRestApiShipmentConnectorDependencyProvider::FACADE_SHIPMENT]
+            SplittableTotalsShipmentConnectorToShipmentFacadeBridge::class,
+            $container[SplittableTotalsShipmentConnectorDependencyProvider::FACADE_SHIPMENT]
         );
     }
 }
