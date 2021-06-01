@@ -38,7 +38,8 @@
         <property name="shippingAddress" type="RestErpOrderAddress"/>
         <property name="companyBusinessUnit" type="RestCompanyBusinessUnit"/>
         <property name="items" singular="item" type="RestErpOrderItem[]"/>
-        <property name="total" type="RestErpOrderTotal"/>
+        <property name="totals" type="RestErpOrderTotal"/>
+        <property name="currencyIsoCode" type="string"/>
     </transfer>
 
     <transfer name="RestErpOrderAddress">

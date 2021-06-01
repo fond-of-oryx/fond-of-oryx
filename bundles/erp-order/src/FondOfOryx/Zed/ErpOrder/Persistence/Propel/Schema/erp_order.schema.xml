@@ -5,13 +5,13 @@
 
     <table name="foo_erp_order" phpName="ErpOrder" identifierQuoting="true">
         <column name="id_erp_order" required="true" type="INTEGER" autoIncrement="true" primaryKey="true"/>
-
         <column name="fk_billing_address" required="true" type="INTEGER"/>
         <column name="fk_shipping_address" required="true" type="INTEGER"/>
         <column name="fk_company_business_unit" required="true" type="INTEGER"/>
         <column name="external_reference" required="false" size="255" type="VARCHAR"/>
         <column name="reference" required="false" size="255" type="VARCHAR"/>
         <column name="concrete_delivery_date" required="false" type="DATE"/>
+        <column name="currency_iso_code" type="VARCHAR" size="5" required="false"/>
 
         <id-method-parameter value="foo_erp_order_pk_seq"/>
 
