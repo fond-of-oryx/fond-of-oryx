@@ -16,6 +16,7 @@ include:
   - bundles/erp-order-permission
   - bundles/feed
   - bundles/jellyfish-availability-alert
+  - bundles/jellyfish-sales-order-extension
   - bundles/mail-bcc
   - bundles/one-time-password
   - bundles/one-time-password-email-connector
@@ -36,6 +37,8 @@ include:
   - bundles/shipment-table-rate-data-import
   - bundles/splittable-checkout
   - bundles/splittable-totals
+  - bundles/splittable-totals-extension
+  - bundles/splittable-totals-shipment-connector
   - bundles/splittable-totals-rest-api
   - bundles/splittable-totals-rest-api-company-unit-address-connector
   - bundles/splittable-totals-rest-api-extension

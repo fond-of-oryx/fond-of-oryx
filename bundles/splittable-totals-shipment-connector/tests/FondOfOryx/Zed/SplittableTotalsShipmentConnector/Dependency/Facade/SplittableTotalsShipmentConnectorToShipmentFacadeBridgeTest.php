@@ -1,13 +1,13 @@
 <?php
 
-namespace FondOfOryx\Zed\SplittableTotalsRestApiShipmentConnector\Dependency\Facade;
+namespace FondOfOryx\Zed\SplittableTotalsShipmentConnector\Dependency\Facade;
 
 use Codeception\Test\Unit;
 use Generated\Shared\Transfer\QuoteTransfer;
 use Generated\Shared\Transfer\ShipmentMethodTransfer;
 use Spryker\Zed\Shipment\Business\ShipmentFacadeInterface;
 
-class SplittableTotalsRestApiShipmentConnectorToShipmentFacadeBridgeTest extends Unit
+class SplittableTotalsShipmentConnectorToShipmentFacadeBridgeTest extends Unit
 {
     /**
      * @var \PHPUnit\Framework\MockObject\MockObject|\Spryker\Zed\Shipment\Business\ShipmentFacadeInterface
@@ -25,7 +25,7 @@ class SplittableTotalsRestApiShipmentConnectorToShipmentFacadeBridgeTest extends
     protected $shipmentMethodTransferMock;
 
     /**
-     * @var \FondOfOryx\Zed\SplittableTotalsRestApiShipmentConnector\Dependency\Facade\SplittableTotalsRestApiShipmentConnectorToShipmentFacadeBridge
+     * @var \FondOfOryx\Zed\SplittableTotalsShipmentConnector\Dependency\Facade\SplittableTotalsShipmentConnectorToShipmentFacadeBridge
      */
     protected $bridge;
 
@@ -48,7 +48,7 @@ class SplittableTotalsRestApiShipmentConnectorToShipmentFacadeBridgeTest extends
             ->disableOriginalConstructor()
             ->getMock();
 
-        $this->bridge = new SplittableTotalsRestApiShipmentConnectorToShipmentFacadeBridge(
+        $this->bridge = new SplittableTotalsShipmentConnectorToShipmentFacadeBridge(
             $this->shipmentFacadeMock
         );
     }
