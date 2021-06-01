@@ -18,6 +18,7 @@ include:
   - bundles/jellyfish-availability-alert
   - bundles/jellyfish-cross-engage
   - bundles/jellyfish-sales-order-extension
+  - bundles/jellyfish-sales-order-payone
   - bundles/mail-bcc
   - bundles/one-time-password
   - bundles/one-time-password-email-connector
