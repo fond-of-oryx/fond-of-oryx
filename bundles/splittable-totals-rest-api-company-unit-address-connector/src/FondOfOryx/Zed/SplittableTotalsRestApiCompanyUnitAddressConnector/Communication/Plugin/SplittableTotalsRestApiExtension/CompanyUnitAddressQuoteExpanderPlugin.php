@@ -18,7 +18,7 @@ class CompanyUnitAddressQuoteExpanderPlugin extends AbstractPlugin implements Qu
      *
      * @return \Generated\Shared\Transfer\QuoteTransfer
      */
-    public function expandQuote(
+    public function expand(
         RestSplittableTotalsRequestTransfer $restSplittableTotalsRequestTransfer,
         QuoteTransfer $quoteTransfer
     ): QuoteTransfer {
