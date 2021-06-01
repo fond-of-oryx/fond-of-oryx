@@ -64,8 +64,13 @@ class SplittableTotalsBusinessFactoryTest extends Unit
 
         $this->containerMock->expects(static::atLeastOnce())
             ->method('get')
-            ->with(SplittableTotalsDependencyProvider::FACADE_CALCULATION)
-            ->willReturn($this->calculationFacadeMock);
+            ->withConsecutive(
+                [SplittableTotalsDependencyProvider::FACADE_CALCULATION],
+                [SplittableTotalsDependencyProvider::PLUGINS_SPLITTED_QUOTE_EXPANDER]
+            )->willReturnOnConsecutiveCalls(
+                $this->calculationFacadeMock,
+                []
+            );
 
         static::assertInstanceOf(
             SplittableTotalsReader::class,

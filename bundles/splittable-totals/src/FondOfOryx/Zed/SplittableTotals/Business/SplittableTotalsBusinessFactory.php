@@ -22,7 +22,8 @@ class SplittableTotalsBusinessFactory extends AbstractBusinessFactory
     {
         return new SplittableTotalsReader(
             $this->createQuoteSplitter(),
-            $this->getCalculationFacade()
+            $this->getCalculationFacade(),
+            $this->getSplittedQuoteExpanderPlugins()
         );
     }
 
@@ -40,5 +41,13 @@ class SplittableTotalsBusinessFactory extends AbstractBusinessFactory
     protected function getCalculationFacade(): SplittableTotalsToCalculationFacadeInterface
     {
         return $this->getProvidedDependency(SplittableTotalsDependencyProvider::FACADE_CALCULATION);
+    }
+
+    /**
+     * @return \FondOfOryx\Zed\SplittableTotalsExtension\Dependency\Plugin\SplittedQuoteExpanderPluginInterface[]
+     */
+    protected function getSplittedQuoteExpanderPlugins(): array
+    {
+        return $this->getProvidedDependency(SplittableTotalsDependencyProvider::PLUGINS_SPLITTED_QUOTE_EXPANDER);
     }
 }

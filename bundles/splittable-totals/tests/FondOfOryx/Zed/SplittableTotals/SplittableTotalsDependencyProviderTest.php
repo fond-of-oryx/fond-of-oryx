@@ -88,5 +88,9 @@ class SplittableTotalsDependencyProviderTest extends Unit
             SplittableTotalsToCalculationFacadeInterface::class,
             $container[SplittableTotalsDependencyProvider::FACADE_CALCULATION]
         );
+
+        static::assertIsArray(
+            $container[SplittableTotalsDependencyProvider::PLUGINS_SPLITTED_QUOTE_EXPANDER]
+        );
     }
 }
