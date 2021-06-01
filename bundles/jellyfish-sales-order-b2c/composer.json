@@ -10,7 +10,7 @@
   ],
   "require": {
     "php": ">=7.2",
-    "fond-of-spryker/jellyfish-sales-order": "*"
+    "fond-of-oryx/jellyfish-sales-order-extension": "^1.0.0"
   },
   "require-dev": {
     "fond-of-codeception/spryker": "^1.0",
