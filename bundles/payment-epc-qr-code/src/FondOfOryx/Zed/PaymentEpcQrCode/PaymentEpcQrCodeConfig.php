@@ -11,7 +11,7 @@ class PaymentEpcQrCodeConfig extends AbstractBundleConfig
     /**
      * @return string
      */
-    public function getIban(): string
+    public function getEpcDataIban(): string
     {
         return str_replace(' ', '', $this->get(PrepaymentConstants::IBAN));
     }
@@ -19,7 +19,7 @@ class PaymentEpcQrCodeConfig extends AbstractBundleConfig
     /**
      * @return string
      */
-    public function getReceiverName(): string
+    public function getEpcDataReceiverName(): string
     {
         return $this->get(PrepaymentConstants::ACCOUNT_HOLDER);
     }
@@ -27,7 +27,7 @@ class PaymentEpcQrCodeConfig extends AbstractBundleConfig
     /**
      * @return string
      */
-    public function getBic(): string
+    public function getEpcDataBic(): string
     {
         return $this->get(PrepaymentConstants::BIC);
     }
@@ -35,40 +35,40 @@ class PaymentEpcQrCodeConfig extends AbstractBundleConfig
     /**
      * @return string
      */
-    public function getVersion(): string
+    public function getEpcDataVersion(): string
     {
-        return $this->get(PaymentEpcQrCodeConstants::EPC_QR_CODE_VERSION, '002');
+        return $this->get(PaymentEpcQrCodeConstants::EPC_QR_CODE_DATA_VERSION, PaymentEpcQrCodeConstants::EPC_QR_CODE_DATA_VERSION_DEFAULT);
     }
 
     /**
      * @return string
      */
-    public function getServiceTag(): string
+    public function getEpcDataServiceTag(): string
     {
-        return $this->get(PaymentEpcQrCodeConstants::EPC_QR_CODE_SERVICE_TAG, 'BCD');
+        return $this->get(PaymentEpcQrCodeConstants::EPC_QR_CODE_DATA_SERVICE_TAG, PaymentEpcQrCodeConstants::EPC_QR_CODE_DATA_SERVICE_TAG_DEFAULT);
     }
 
     /**
      * @return string
      */
-    public function getEncoding(): string
+    public function getEpcDataEncoding(): string
     {
-        return $this->get(PaymentEpcQrCodeConstants::EPC_QR_CODE_ENCODING, 'UTF-8');
+        return $this->get(PaymentEpcQrCodeConstants::EPC_QR_CODE_DATA_ENCODING, PaymentEpcQrCodeConstants::EPC_QR_CODE_DATA_ENCODING_DEFAULT);
     }
 
     /**
      * @return string
      */
-    public function getType(): string
+    public function getEpcDataType(): string
     {
-        return $this->get(PaymentEpcQrCodeConstants::EPC_QR_CODE_TYPE, 'SCT');
+        return $this->get(PaymentEpcQrCodeConstants::EPC_QR_CODE_DATA_TYPE, PaymentEpcQrCodeConstants::EPC_QR_CODE_DATA_TYPE_DEFAULT);
     }
 
     /**
      * @return string
      */
-    public function getPurpose(): string
+    public function getEpcDataPurpose(): string
     {
-        return $this->get(PaymentEpcQrCodeConstants::EPC_QR_CODE_PURPOSE, '');
+        return $this->get(PaymentEpcQrCodeConstants::EPC_QR_CODE_DATA_PURPOSE, '');
     }
 }

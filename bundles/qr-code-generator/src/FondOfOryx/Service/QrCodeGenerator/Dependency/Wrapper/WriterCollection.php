@@ -2,6 +2,7 @@
 
 namespace FondOfOryx\Service\QrCodeGenerator\Dependency\Wrapper;
 
+use Closure;
 use Endroid\QrCode\Writer\BinaryWriter;
 use Endroid\QrCode\Writer\DebugWriter;
 use Endroid\QrCode\Writer\EpsWriter;
@@ -13,8 +14,15 @@ use Exception;
 
 class WriterCollection implements WriterCollectionInterface
 {
+    protected const PNG = 'png';
+    protected const SVG = 'svg';
+    protected const BINARY = 'binary';
+    protected const EPS = 'eps';
+    protected const PDF = 'pdf';
+    protected const DEBUG = 'debug';
+
     /**
-     * @var \Endroid\QrCode\Writer\WriterInterface[]
+     * @var \Endroid\QrCode\Writer\WriterInterface[]|\Closure[]
      */
     protected $writer = [];
 
@@ -33,13 +41,26 @@ class WriterCollection implements WriterCollectionInterface
      */
     protected function init(array $writerBag): void
     {
+        $self = $this;
         $this->writer = [
-            'png' => $this->createPngWriter(),
-            'svg' => $this->createSvgWriter(),
-            'binary' => $this->createBinaryWriter(),
-            'eps' => $this->createEpsWriter(),
-            'pdf' => $this->createPdfWriter(),
-            'debug' => $this->createDebugWriter(),
+            static::PNG => static function () use ($self) {
+                return $self->createPngWriter();
+            },
+            static::SVG => static function () use ($self) {
+                return $self->createSvgWriter();
+            },
+            static::BINARY => static function () use ($self) {
+                return $self->createBinaryWriter();
+            },
+            static::EPS => static function () use ($self) {
+                return $self->createEpsWriter();
+            },
+            static::PDF => static function () use ($self) {
+                return $self->createPdfWriter();
+            },
+            static::DEBUG => static function () use ($self) {
+                return $self->createDebugWriter();
+            },
         ];
 
         foreach ($writerBag as $name => $writer) {
@@ -80,7 +101,12 @@ class WriterCollection implements WriterCollectionInterface
     public function get(string $name): WriterInterface
     {
         if ($this->has($name)) {
-            return $this->writer[$name];
+            $writer = $this->writer[$name];
+            if ($writer instanceof Closure) {
+                return $writer();
+            }
+
+            return $writer;
         }
 
         throw new Exception(sprintf('Writer with name "%s" not known! Available writer %s', $name, implode(',', array_keys($this->writer))));

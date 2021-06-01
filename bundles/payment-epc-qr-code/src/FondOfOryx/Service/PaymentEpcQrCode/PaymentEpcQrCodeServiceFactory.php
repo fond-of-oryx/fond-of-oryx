@@ -2,11 +2,11 @@
 
 namespace FondOfOryx\Service\PaymentEpcQrCode;
 
-use FondOfOryx\Service\PaymentEpcQrCode\Dependency\Wrapper\QrCodeWrapperInterface;
-use FondOfOryx\Service\PaymentEpcQrCode\Model\QrCode;
-use FondOfOryx\Service\PaymentEpcQrCode\Model\QrCodeInterface;
-use FondOfOryx\Service\PaymentEpcQrCode\Model\QrCodeWriter;
-use FondOfOryx\Service\PaymentEpcQrCode\Model\QrCodeWriterInterface;
+use FondOfOryx\Service\PaymentEpcQrCode\Dependency\Service\PaymentEpcQrCodeToQrCodeGeneratorServiceInterface;
+use FondOfOryx\Service\PaymentEpcQrCode\Model\Builder\EpcDataBuilder;
+use FondOfOryx\Service\PaymentEpcQrCode\Model\Builder\EpcDataBuilderInterface;
+use FondOfOryx\Service\PaymentEpcQrCode\Model\EpcQrCodeGenerator;
+use FondOfOryx\Service\PaymentEpcQrCode\Model\EpcQrCodeGeneratorInterface;
 use Spryker\Service\Kernel\AbstractServiceFactory;
 
 /**
@@ -15,26 +15,26 @@ use Spryker\Service\Kernel\AbstractServiceFactory;
 class PaymentEpcQrCodeServiceFactory extends AbstractServiceFactory
 {
     /**
-     * @return \FondOfOryx\Service\PaymentEpcQrCode\Model\QrCodeWriterInterface
+     * @return \FondOfOryx\Service\PaymentEpcQrCode\Model\EpcQrCodeGeneratorInterface
      */
-    public function createQrCodeWriter(): QrCodeWriterInterface
+    public function createEpcQrCodeGenerator(): EpcQrCodeGeneratorInterface
     {
-        return new QrCodeWriter($this->getQrCodeWrapper(), $this->createQrCode());
+        return new EpcQrCodeGenerator($this->createEpcDataBuilder(), $this->getQrCodeService(), $this->getConfig());
     }
 
     /**
-     * @return \FondOfOryx\Service\PaymentEpcQrCode\Model\QrCodeInterface
+     * @return \FondOfOryx\Service\PaymentEpcQrCode\Model\Builder\EpcDataBuilderInterface
      */
-    protected function createQrCode(): QrCodeInterface
+    protected function createEpcDataBuilder(): EpcDataBuilderInterface
     {
-        return new QrCode();
+        return new EpcDataBuilder();
     }
 
     /**
-     * @return \FondOfOryx\Service\PaymentEpcQrCode\Dependency\Wrapper\QrCodeWrapperInterface
+     * @return \FondOfOryx\Service\PaymentEpcQrCode\Dependency\Service\PaymentEpcQrCodeToQrCodeGeneratorServiceInterface
      */
-    protected function getQrCodeWrapper(): QrCodeWrapperInterface
+    protected function getQrCodeService(): PaymentEpcQrCodeToQrCodeGeneratorServiceInterface
     {
-        return $this->getProvidedDependency(PaymentEpcQrCodeDependencyProvider::WRAPPER_QR_CODE);
+        return $this->getProvidedDependency(PaymentEpcQrCodeDependencyProvider::SERVICE_QR_CODE_GENERATOR);
     }
 }
