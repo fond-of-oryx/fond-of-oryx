@@ -31,7 +31,7 @@ class QuoteExpander implements QuoteExpanderInterface
         QuoteTransfer $quoteTransfer
     ): QuoteTransfer {
         foreach ($this->quoteExpanderPlugins as $quoteExpanderPlugin) {
-            $quoteTransfer = $quoteExpanderPlugin->expandQuote($restSplittableTotalsRequestTransfer, $quoteTransfer);
+            $quoteTransfer = $quoteExpanderPlugin->expand($restSplittableTotalsRequestTransfer, $quoteTransfer);
         }
 
         return $quoteTransfer;
