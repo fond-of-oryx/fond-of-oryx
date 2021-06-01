@@ -16,6 +16,7 @@
         <property name="reference" type="string"/>
         <property name="concreteDeliveryDate" type="string"/>
         <property name="total" type="ErpOrderTotal"/>
+        <property name="currencyIsoCode" type="string"/>
         <property name="createdAt" type="int"/>
         <property name="updatedAt" type="int"/>
     </transfer>
