@@ -2,29 +2,12 @@
 
 namespace FondOfOryx\Zed\SplittableTotalsRestApiShipmentConnector\Business\Expander;
 
-use FondOfOryx\Zed\SplittableTotalsRestApiShipmentConnector\Dependency\Facade\SplittableTotalsRestApiShipmentConnectorToShipmentFacadeInterface;
-use Generated\Shared\Transfer\ExpenseTransfer;
 use Generated\Shared\Transfer\QuoteTransfer;
 use Generated\Shared\Transfer\RestSplittableTotalsRequestTransfer;
 use Generated\Shared\Transfer\ShipmentMethodTransfer;
-use Generated\Shared\Transfer\ShipmentTransfer;
-use Spryker\Shared\Shipment\ShipmentConfig;
 
 class QuoteExpander implements QuoteExpanderInterface
 {
-    /**
-     * @var \FondOfOryx\Zed\SplittableTotalsRestApiShipmentConnector\Dependency\Facade\SplittableTotalsRestApiShipmentConnectorToShipmentFacadeInterface
-     */
-    protected $shipmentFacade;
-
-    /**
-     * @param \FondOfOryx\Zed\SplittableTotalsRestApiShipmentConnector\Dependency\Facade\SplittableTotalsRestApiShipmentConnectorToShipmentFacadeInterface $shipmentFacade
-     */
-    public function __construct(SplittableTotalsRestApiShipmentConnectorToShipmentFacadeInterface $shipmentFacade)
-    {
-        $this->shipmentFacade = $shipmentFacade;
-    }
-
     /**
      * @param \Generated\Shared\Transfer\RestSplittableTotalsRequestTransfer $restSplittableTotalsRequestTransfer
      * @param \Generated\Shared\Transfer\QuoteTransfer $quoteTransfer
@@ -41,45 +24,12 @@ class QuoteExpander implements QuoteExpanderInterface
             return $quoteTransfer;
         }
 
-        $shipmentMethodTransfer = $this->shipmentFacade->findAvailableMethodById(
-            $restShipmentTransfer->getIdShipmentMethod(),
-            $quoteTransfer
-        );
-
-        if ($shipmentMethodTransfer === null) {
-            return $quoteTransfer;
-        }
+        $shipmentMethodTransfer = (new ShipmentMethodTransfer())
+            ->setIdShipmentMethod($restShipmentTransfer->getIdShipmentMethod());
 
         $quoteTransfer = $this->expandWithShipmentMethod($quoteTransfer, $shipmentMethodTransfer);
-        $quoteTransfer = $this->expandItemsWithShipmentMethod($quoteTransfer, $shipmentMethodTransfer);
 
-        return $this->expandWithExpense($quoteTransfer, $shipmentMethodTransfer);
-    }
-
-    /**
-     * @param \Generated\Shared\Transfer\QuoteTransfer $quoteTransfer
-     * @param \Generated\Shared\Transfer\ShipmentMethodTransfer $shipmentMethodTransfer
-     *
-     * @return \Generated\Shared\Transfer\QuoteTransfer
-     */
-    protected function expandWithExpense(
-        QuoteTransfer $quoteTransfer,
-        ShipmentMethodTransfer $shipmentMethodTransfer
-    ): QuoteTransfer {
-        $shipmentTransfer = (new ShipmentTransfer())
-            ->setMethod($shipmentMethodTransfer)
-            ->setShipmentSelection((string)$shipmentMethodTransfer->getIdShipmentMethod())
-            ->setShippingAddress($quoteTransfer->getShippingAddress());
-
-        $expenseTransfer = (new ExpenseTransfer())
-            ->fromArray($shipmentMethodTransfer->toArray(), true)
-            ->setType(ShipmentConfig::SHIPMENT_EXPENSE_TYPE)
-            ->setUnitNetPrice($shipmentMethodTransfer->getStoreCurrencyPrice())
-            ->setUnitGrossPrice($shipmentMethodTransfer->getStoreCurrencyPrice())
-            ->setQuantity(1)
-            ->setShipment($shipmentTransfer);
-
-        return $quoteTransfer->addExpense($expenseTransfer);
+        return $this->expandItemsWithShipmentMethod($quoteTransfer, $shipmentMethodTransfer);
     }
 
     /**

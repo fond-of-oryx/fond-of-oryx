@@ -33,6 +33,11 @@ class ErpOrderMapperTest extends Unit
                     'erp_order_items' => [
                         0 => ['sku' => 'sku'],
                     ],
+                    'erp_order_total' => [
+                        0 => ['subtotal' => 1000],
+                        1 => ['grandTotal' => 1990],
+                        2 => ['taxTotal' => 190],
+                    ],
                     'company_business_unit' => [
                         0 => ['name' => 'Default Unit'],
                     ],

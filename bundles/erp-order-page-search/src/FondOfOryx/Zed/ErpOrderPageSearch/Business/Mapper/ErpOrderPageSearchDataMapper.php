@@ -11,6 +11,7 @@ class ErpOrderPageSearchDataMapper implements ErpOrderPageSearchDataMapperInterf
 {
     public const COMPANY_BUSINESS_UNIT = ErpOrderPageSearchPublisher::COMPANY_BUSINESS_UNIT;
     public const ERP_ORDER_ITEMS = ErpOrderPageSearchPublisher::ERP_ORDER_ITEMS;
+    public const ERP_ORDER_TOTAL = ErpOrderPageSearchPublisher::ERP_ORDER_TOTAL;
     public const BILLING_ADDRESS = ErpOrderPageSearchPublisher::BILLING_ADDRESS;
     public const SHIPPING_ADDRESS = ErpOrderPageSearchPublisher::SHIPPING_ADDRESS;
 
@@ -22,6 +23,7 @@ class ErpOrderPageSearchDataMapper implements ErpOrderPageSearchDataMapperInterf
     public const COMPANY_BUSINESS_UNIT_UUID = 'uuid';
     public const EXTERNAL_REFERENCE = 'external_reference';
     public const REFERENCE = 'reference';
+    public const CURRENCY_ISO_CODE = 'currency_iso_code';
 
     public const SEARCH_RESULT_CONCRETE_DELIVERY_DATE = 'concrete_delivery_date';
     public const SEARCH_RESULT_ID_ERP_ORDER = 'id_erp_order';
@@ -32,9 +34,11 @@ class ErpOrderPageSearchDataMapper implements ErpOrderPageSearchDataMapperInterf
     public const SEARCH_RESULT_EXTERNAL_REFERENCE = 'external_reference';
     public const SEARCH_RESULT_REFERENCE = 'reference';
     public const SEARCH_RESULT_ERP_ORDER_ITEMS = 'erp_order_items';
+    public const SEARCH_RESULT_ERP_ORDER_TOTAL = 'erp_order_total';
     public const SEARCH_RESULT_BILLING_ADDRESS = 'billing_address';
     public const SEARCH_RESULT_SHIPPING_ADDRESS = 'shipping_address';
     public const SEARCH_RESULT_COMPANY_BUSINESS_UNIT = 'company_business_unit';
+    public const SEARCH_RESULT_CURRENCY_ISO_CODE = 'currency_iso_code';
 
     public function __construct()
     {
@@ -78,8 +82,10 @@ class ErpOrderPageSearchDataMapper implements ErpOrderPageSearchDataMapperInterf
             static::SEARCH_RESULT_REFERENCE => $data[static::REFERENCE],
             static::SEARCH_RESULT_COMPANY_BUSINESS_UNIT => $data[static::COMPANY_BUSINESS_UNIT],
             static::SEARCH_RESULT_ERP_ORDER_ITEMS => $data[static::ERP_ORDER_ITEMS],
+            static::SEARCH_RESULT_ERP_ORDER_TOTAL => $data[static::ERP_ORDER_TOTAL],
             static::SEARCH_RESULT_SHIPPING_ADDRESS => $data[static::SHIPPING_ADDRESS],
             static::SEARCH_RESULT_BILLING_ADDRESS => $data[static::BILLING_ADDRESS],
+            static::SEARCH_RESULT_CURRENCY_ISO_CODE => $data[static::CURRENCY_ISO_CODE],
         ];
     }
 

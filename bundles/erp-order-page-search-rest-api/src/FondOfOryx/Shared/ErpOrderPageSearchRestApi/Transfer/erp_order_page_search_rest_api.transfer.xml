@@ -38,6 +38,8 @@
         <property name="shippingAddress" type="RestErpOrderAddress"/>
         <property name="companyBusinessUnit" type="RestCompanyBusinessUnit"/>
         <property name="items" singular="item" type="RestErpOrderItem[]"/>
+        <property name="totals" type="RestErpOrderTotal"/>
+        <property name="currencyIsoCode" type="string"/>
     </transfer>
 
     <transfer name="RestErpOrderAddress">
@@ -61,6 +63,12 @@
         <property name="canceledQuantity" type="int"/>
         <property name="concreteDeliveryDate" type="string"/>
         <property name="status" type="string"/>
+    </transfer>
+
+    <transfer name="RestErpOrderTotal">
+        <property name="subtotal" type="int"/>
+        <property name="grandTotal" type="int"/>
+        <property name="taxTotal" type="int"/>
     </transfer>
 
     <transfer name="RestCompanyBusinessUnit">
