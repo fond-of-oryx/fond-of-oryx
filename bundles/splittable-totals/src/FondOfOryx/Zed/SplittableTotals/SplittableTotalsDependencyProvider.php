@@ -42,6 +42,8 @@ class SplittableTotalsDependencyProvider extends AbstractBundleDependencyProvide
     }
 
     /**
+     * @param \Spryker\Zed\Kernel\Container $container
+     *
      * @return \Spryker\Zed\Kernel\Container
      */
     protected function addSplittedQuoteExpanderPlugins(Container $container): Container
