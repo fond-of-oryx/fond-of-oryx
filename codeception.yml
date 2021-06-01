@@ -16,6 +16,7 @@ include:
   - bundles/erp-order-permission
   - bundles/feed
   - bundles/jellyfish-availability-alert
+  - bundles/jellyfish-cross-engage
   - bundles/jellyfish-sales-order-extension
   - bundles/mail-bcc
   - bundles/one-time-password
