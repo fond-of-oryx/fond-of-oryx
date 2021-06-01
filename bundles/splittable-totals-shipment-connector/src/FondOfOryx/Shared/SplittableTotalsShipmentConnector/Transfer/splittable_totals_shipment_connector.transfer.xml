@@ -20,6 +20,7 @@
     </transfer>
 
     <transfer name="ShipmentMethod">
+        <property name="idShipmentMethod" type="int"/>
         <property name="storeCurrencyPrice" type="int"/>
     </transfer>
 

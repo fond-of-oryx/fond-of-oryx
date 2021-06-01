@@ -10,8 +10,6 @@
     <transfer name="Quote">
         <property name="shipment" type="Shipment"/>
         <property name="items" type="Item[]" singular="item"/>
-        <property name="expenses" type="Expense[]" singular="expense"/>
-        <property name="shippingAddress" type="Address"/>
     </transfer>
 
     <transfer name="Item">
@@ -20,23 +18,11 @@
 
     <transfer name="Shipment">
         <property name="method" type="ShipmentMethod"/>
-        <property name="shipmentSelection" type="string"/>
-        <property name="shippingAddress" type="Address"/>
     </transfer>
 
     <transfer name="ShipmentMethod">
-        <property name="storeCurrencyPrice" type="int"/>
+        <property name="idShipmentMethod" type="int"/>
     </transfer>
-
-    <transfer name="Expense">
-        <property name="type" type="string"/>
-        <property name="unitGrossPrice" type="int"/>
-        <property name="unitNetPrice" type="int"/>
-        <property name="quantity" type="int"/>
-        <property name="shipment" type="Shipment"/>
-    </transfer>
-
-    <transfer name="Address"/>
 
     <transfer name="RestShipment">
         <property name="idShipmentMethod" type="int"/>
