@@ -18,7 +18,7 @@ class ShipmentQuoteExpanderPlugin extends AbstractPlugin implements QuoteExpande
      *
      * @return \Generated\Shared\Transfer\QuoteTransfer
      */
-    public function expandQuote(
+    public function expand(
         RestSplittableTotalsRequestTransfer $restSplittableTotalsRequestTransfer,
         QuoteTransfer $quoteTransfer
     ): QuoteTransfer {

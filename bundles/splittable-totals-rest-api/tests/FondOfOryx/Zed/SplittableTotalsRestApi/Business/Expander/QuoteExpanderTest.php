@@ -59,7 +59,7 @@ class QuoteExpanderTest extends Unit
     public function testExpand(): void
     {
         $this->quoteExpanderPluginMocks[0]->expects(static::atLeastOnce())
-            ->method('expandQuote')
+            ->method('expand')
             ->with($this->restSplittableTotalsRequestTransferMock, $this->quoteTransferMock)
             ->willReturn($this->quoteTransferMock);
 
