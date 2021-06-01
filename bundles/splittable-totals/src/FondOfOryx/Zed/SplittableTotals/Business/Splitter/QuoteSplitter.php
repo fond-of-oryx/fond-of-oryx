@@ -3,6 +3,7 @@
 namespace FondOfOryx\Zed\SplittableTotals\Business\Splitter;
 
 use ArrayObject;
+use FondOfOryx\Zed\SplittableTotals\Dependency\Facade\SplittableTotalsToCalculationFacadeInterface;
 use FondOfOryx\Zed\SplittableTotals\SplittableTotalsConfig;
 use Generated\Shared\Transfer\ItemTransfer;
 use Generated\Shared\Transfer\QuoteTransfer;
@@ -10,15 +11,24 @@ use Generated\Shared\Transfer\QuoteTransfer;
 class QuoteSplitter implements QuoteSplitterInterface
 {
     /**
+     * @var \FondOfOryx\Zed\SplittableTotals\Dependency\Facade\SplittableTotalsToCalculationFacadeInterface
+     */
+    protected $calculationFacade;
+
+    /**
      * @var \FondOfOryx\Zed\SplittableTotals\SplittableTotalsConfig
      */
     protected $config;
 
     /**
+     * @param \FondOfOryx\Zed\SplittableTotals\Dependency\Facade\SplittableTotalsToCalculationFacadeInterface $calculationFacade
      * @param \FondOfOryx\Zed\SplittableTotals\SplittableTotalsConfig $config
      */
-    public function __construct(SplittableTotalsConfig $config)
-    {
+    public function __construct(
+        SplittableTotalsToCalculationFacadeInterface $calculationFacade,
+        SplittableTotalsConfig $config
+    ) {
+        $this->calculationFacade = $calculationFacade;
         $this->config = $config;
     }
 
@@ -47,7 +57,7 @@ class QuoteSplitter implements QuoteSplitterInterface
             $quoteTransfers[$splitItemAttributeValue]->addItem($itemTransfer);
         }
 
-        return $quoteTransfers;
+        return $this->recalculateSplittedQuotes($quoteTransfers);
     }
 
     /**
@@ -62,6 +72,23 @@ class QuoteSplitter implements QuoteSplitterInterface
             ->setUuid(null)
             ->setItems(new ArrayObject())
             ->setIsDefault(false);
+    }
+
+    /**
+     * @param array<string, \Generated\Shared\Transfer\QuoteTransfer> $splittedQuoteTransfers
+     *
+     * @return array<string, \Generated\Shared\Transfer\QuoteTransfer>
+     */
+    protected function recalculateSplittedQuotes(array $splittedQuoteTransfers): array
+    {
+        foreach ($splittedQuoteTransfers as $key => $splittedQuoteTransfer) {
+            $splittedQuoteTransfers[$key] = $this->calculationFacade->recalculateQuote(
+                $splittedQuoteTransfer,
+                false
+            );
+        }
+
+        return $splittedQuoteTransfers;
     }
 
     /**

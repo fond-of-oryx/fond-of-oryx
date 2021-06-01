@@ -66,8 +66,10 @@ class SplittableTotalsBusinessFactoryTest extends Unit
             ->method('get')
             ->withConsecutive(
                 [SplittableTotalsDependencyProvider::FACADE_CALCULATION],
+                [SplittableTotalsDependencyProvider::FACADE_CALCULATION],
                 [SplittableTotalsDependencyProvider::PLUGINS_SPLITTED_QUOTE_EXPANDER]
             )->willReturnOnConsecutiveCalls(
+                $this->calculationFacadeMock,
                 $this->calculationFacadeMock,
                 []
             );
