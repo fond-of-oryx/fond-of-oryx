@@ -1,0 +1,114 @@
+<?xml version="1.0"?>
+<transfers xmlns="spryker:transfer-01"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="spryker:transfer-01 http://static.spryker.com/transfer-01.xsd">
+    <transfer name="CreditMemo">
+        <property name="idCreditMemo" type="int" />
+        <property name="fkSalesOrder" type="int" />
+        <property name="fkSalesPaymentMethodType" type="int" />
+        <property name="orderReference" type="string" />
+        <property name="creditMemoReference" type="string" />
+        <property name="externalReference" type="string" />
+
+        <property name="email" type="string" />
+        <property name="salutation" type="string" />
+        <property name="lastName" type="string" />
+        <property name="firstName" type="string" />
+
+        <property name="items" type="Item[]"  singular="item" />
+
+        <property name="customer" type="Customer" />
+        <property name="fkCustomer" type="int" />
+        <property name="customerReference" type="string" />
+
+        <property name="locale" type="Locale" />
+        <property name="fkLocale" type="int" />
+        <property name="store" type="string" />
+        <property name="salesPaymentMethodType" type="SalesPaymentMethodType" />
+        <property name="processed" type="int" />
+        <property name="processedAt" type="string" />
+        <property name="inProgress" type="bool" />
+        <property name="refundedAmount" type="int" />
+        <property name="refundedTaxAmount" type="int" />
+        <property name="chargeAmount" type="int" />
+        <property name="chargeTaxAmount" type="int" />
+        <property name="totalAmount" type="int" />
+        <property name="totalTaxAmount" type="int" />
+        <property name="wasRefundSuccessful" type="bool" />
+        <property name="state" type="int" />
+        <property name="errorMessage" type="string" />
+        <property name="errorCode" type="int" />
+        <property name="transactionId" type="string" />
+        <property name="jellyfishExportState" type="string" />
+        <property name="taxIncluded" type="bool" />
+
+        <property name="createdAt" type="string" />
+        <property name="updatedAt" type="string" />
+    </transfer>
+
+    <transfer name="Item">
+        <property name="idCreditMemoItem" type="int" />
+        <property name="fkCreditMemo" type="int" />
+        <property name="fkSalesOrderItem" type="int" />
+        <property name="refunded" type="bool" />
+    </transfer>
+
+    <transfer name="CreditMemoResponse">
+        <property name="creditMemoTransfer" type="CreditMemo" />
+        <property name="isSuccess" type="bool" />
+        <property name="errors" type="CreditMemoError[]" singular="error" />
+    </transfer>
+
+    <transfer name="CreditMemoError">
+        <property name="message" type="string" />
+    </transfer>
+
+    <transfer name="CreditMemoProcessorResponseCollection">
+        <property name="count" type="int" />
+        <property name="errorCount" type="int" />
+        <property name="status" type="CreditMemoProcessorStatus[]" />
+    </transfer>
+
+    <transfer name="CreditMemoProcessorStatus">
+        <property name="id" type="int" />
+        <property name="message" type="string" />
+        <property name="success" type="bool" />
+    </transfer>
+
+    <transfer name="CreditMemoCollection">
+        <property name="CreditMemos" singular="CreditMemo" type="CreditMemo[]" />
+    </transfer>
+
+    <transfer name="CreditMemoQueryFilter">
+        <property name="storeName" type="string" />
+        <property name="ids" type="array" />
+        <property name="offset" type="int" />
+        <property name="limit" type="int" />
+    </transfer>
+
+    <transfer name="CreditMemoState">
+        <property name="idCreditMemoState" type="int" />
+        <property name="fkCreditMemo" type="int" />
+        <property name="creditMemoItemStates" singular="creditMemoItemState" type="CreditMemoItemState[]" />
+        <property name="store" type="string" />
+        <property name="state" type="string" />
+        <property name="processedAt" type="int" />
+        <property name="refundedAmount" type="int" />
+        <property name="data" type="string" />
+        <property name="success" type="bool" />
+        <property name="exported" type="bool" />
+        <property name="createdAt" type="string" />
+        <property name="updatedAt" type="string" />
+    </transfer>
+
+    <transfer name="CreditMemoItemState">
+        <property name="idCreditMemoItemState" type="int" />
+        <property name="fkCreditMemoState" type="int" />
+        <property name="fkCreditMemo" type="int" />
+        <property name="fkCreditMemoItem" type="int" />
+        <property name="refunded" type="bool" />
+        <property name="data" type="string" />
+        <property name="createdAt" type="string" />
+        <property name="updatedAt" type="string" />
+    </transfer>
+</transfers>
