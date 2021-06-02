@@ -236,8 +236,8 @@ class CreditMemoProcessor implements Countable, IteratorAggregate, CreditMemoPro
     }
 
     /**
-     * @param \Generated\Shared\Transfer\CreditMemoTransfer $creditMemoTransfer
-     * @param \Exception $exception
+     * @param  \Generated\Shared\Transfer\CreditMemoTransfer  $creditMemoTransfer
+     * @param  \Throwable  $exception
      *
      * @return \Generated\Shared\Transfer\CreditMemoProcessorStatusTransfer
      */

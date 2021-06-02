@@ -8,6 +8,7 @@ use Generated\Shared\Transfer\ItemTransfer;
 use Generated\Shared\Transfer\SalesPaymentMethodTypeTransfer;
 use Generated\Shared\Transfer\StoreTransfer;
 use Orm\Zed\CreditMemo\Persistence\FooCreditMemo;
+use Orm\Zed\Sales\Persistence\SpySalesOrder;
 use Orm\Zed\Sales\Persistence\SpySalesOrderItem;
 use Propel\Runtime\Collection\ObjectCollection;
 
@@ -74,4 +75,11 @@ interface CreditMemoRepositoryInterface
      * @return \Propel\Runtime\Collection\ObjectCollection|null
      */
     public function getSalesOrderItemsByCreditMemo(CreditMemoTransfer $creditMemoTransfer): ?ObjectCollection;
+
+    /**
+     * @param \Generated\Shared\Transfer\CreditMemoTransfer $creditMemoTransfer
+     *
+     * @return \Orm\Zed\Sales\Persistence\SpySalesOrder|null
+     */
+    public function getSalesOrderByCreditMemo(CreditMemoTransfer $creditMemoTransfer): ?SpySalesOrder;
 }
