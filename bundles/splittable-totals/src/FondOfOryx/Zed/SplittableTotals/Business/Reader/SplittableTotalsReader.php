@@ -20,15 +20,23 @@ class SplittableTotalsReader implements SplittableTotalsReaderInterface
     protected $calculationFacade;
 
     /**
+     * @var \FondOfOryx\Zed\SplittableTotalsExtension\Dependency\Plugin\SplittedQuoteExpanderPluginInterface[]
+     */
+    protected $splittedQuoteExpanderPlugins;
+
+    /**
      * @param \FondOfOryx\Zed\SplittableTotals\Business\Splitter\QuoteSplitterInterface $quoteSplitter
      * @param \FondOfOryx\Zed\SplittableTotals\Dependency\Facade\SplittableTotalsToCalculationFacadeInterface $calculationFacade
+     * @param \FondOfOryx\Zed\SplittableTotalsExtension\Dependency\Plugin\SplittedQuoteExpanderPluginInterface[] $splittedQuoteExpanderPlugins
      */
     public function __construct(
         QuoteSplitterInterface $quoteSplitter,
-        SplittableTotalsToCalculationFacadeInterface $calculationFacade
+        SplittableTotalsToCalculationFacadeInterface $calculationFacade,
+        array $splittedQuoteExpanderPlugins = []
     ) {
         $this->quoteSplitter = $quoteSplitter;
         $this->calculationFacade = $calculationFacade;
+        $this->splittedQuoteExpanderPlugins = $splittedQuoteExpanderPlugins;
     }
 
     /**
@@ -43,10 +51,25 @@ class SplittableTotalsReader implements SplittableTotalsReaderInterface
         $splittableTotalsTransfer = (new SplittableTotalsTransfer());
 
         foreach ($splittedQuoteTransfers as $key => $splittedQuoteTransfer) {
+            $splittedQuoteTransfer = $this->expandSplittedQuote($splittedQuoteTransfer);
             $splittedQuoteTransfer = $this->calculationFacade->recalculateQuote($splittedQuoteTransfer, false);
             $splittableTotalsTransfer->addTotals($key, $splittedQuoteTransfer->getTotals());
         }
 
         return $splittableTotalsTransfer;
+    }
+
+    /**
+     * @param \Generated\Shared\Transfer\QuoteTransfer $splittedQuoteTransfer
+     *
+     * @return \Generated\Shared\Transfer\QuoteTransfer
+     */
+    protected function expandSplittedQuote(QuoteTransfer $splittedQuoteTransfer): QuoteTransfer
+    {
+        foreach ($this->splittedQuoteExpanderPlugins as $splittedQuoteExpanderPlugin) {
+            $splittedQuoteExpanderPlugin->expand($splittedQuoteTransfer);
+        }
+
+        return $splittedQuoteTransfer;
     }
 }
