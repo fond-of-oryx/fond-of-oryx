@@ -1,6 +1,7 @@
 # Prepayment Credit Memo Module
-[![PHP from Travis config](https://img.shields.io/travis/php-v/symfony/symfony.svg)](https://php.net/)
-[![license](https://img.shields.io/github/license/mashape/apistatus.svg)](https://packagist.org/packages/fond-of-oryx/prepayment-credit-memo)
+[![Build Status](https://travis-ci.org/fond-of-oryx/prepayment-credit-memo.svg?branch=main)](https://travis-ci.org/fond-of-oryx/prepayment-credit-memo)
+[![PHP from Travis config](https://img.shields.io/travis/php-v/fond-of-oryx/prepayment-credit-memo.svg)](https://php.net/)
+[![license](https://img.shields.io/github/license/fond-of-oryx/prepayment-credit-memo.svg)](https://packagist.org/packages/fond-of-oryx/prepayment-credit-memo)
 
 ## Installation
 ```
