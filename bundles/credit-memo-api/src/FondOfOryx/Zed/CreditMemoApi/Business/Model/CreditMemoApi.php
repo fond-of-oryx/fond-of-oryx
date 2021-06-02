@@ -28,8 +28,6 @@ class CreditMemoApi implements CreditMemoApiInterface
     protected $transferMapper;
 
     /**
-     * CreditMemoApi constructor.
-     *
      * @param \FondOfOryx\Zed\CreditMemoApi\Dependency\QueryContainer\CreditMemoApiToApiQueryContainerInterface $apiQueryContainer
      * @param \FondOfOryx\Zed\CreditMemoApi\Business\Mapper\TransferMapperInterface $transferMapper
      * @param \FondOfOryx\Zed\CreditMemoApi\Dependency\Facade\CreditMemoApiToCreditMemoFacadeInterface $creditMemoFacade

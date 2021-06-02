@@ -12,7 +12,7 @@ use Spryker\Zed\Kernel\Business\AbstractFacade;
 class CreditMemoApiFacade extends AbstractFacade implements CreditMemoApiFacadeInterface
 {
     /**
-     * {@inheritdoc}
+     * {@inheritDoc}
      *
      * @api
      *
@@ -28,7 +28,7 @@ class CreditMemoApiFacade extends AbstractFacade implements CreditMemoApiFacadeI
     }
 
     /**
-     * {@inheritdoc}
+     * {@inheritDoc}
      *
      * @api
      *

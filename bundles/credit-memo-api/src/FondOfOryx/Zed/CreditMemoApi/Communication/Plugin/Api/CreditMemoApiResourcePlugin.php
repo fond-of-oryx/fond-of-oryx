@@ -15,6 +15,7 @@ use Spryker\Zed\Kernel\Communication\AbstractPlugin;
 /**
  * @method \FondOfOryx\Zed\CreditMemoApi\Business\CreditMemoApiFacadeInterface getFacade()
  * @method \FondOfOryx\Zed\CreditMemoApi\Business\CreditMemoApiBusinessFactory getFactory()
+ * @method \FondOfOryx\Zed\CreditMemoApi\CreditMemoApiConfig getConfig()
  */
 class CreditMemoApiResourcePlugin extends AbstractPlugin implements ApiResourcePluginInterface
 {
