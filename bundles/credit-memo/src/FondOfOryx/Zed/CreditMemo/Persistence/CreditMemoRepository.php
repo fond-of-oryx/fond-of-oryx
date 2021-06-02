@@ -61,10 +61,6 @@ class CreditMemoRepository extends AbstractRepository implements CreditMemoRepos
 
         $fooCreditMemos = $this->prepareFindUnprocessedCreditMemoQuery($filter)->find();
 
-        if ($fooCreditMemos->getData() === null) {
-            return null;
-        }
-
         return $this->prepareCreditMemoData($fooCreditMemos);
     }
 
@@ -83,10 +79,6 @@ class CreditMemoRepository extends AbstractRepository implements CreditMemoRepos
         $filter->setIds($ids);
 
         $fooCreditMemos = $this->prepareFindUnprocessedCreditMemoQuery($filter)->find();
-
-        if ($fooCreditMemos->getData() === null) {
-            return null;
-        }
 
         return $this->prepareCreditMemoData($fooCreditMemos);
     }
@@ -108,13 +100,7 @@ class CreditMemoRepository extends AbstractRepository implements CreditMemoRepos
      */
     public function findCreditMemoByFkSalesOrder(int $idSalesOrder): array
     {
-        $creditMemos = $this->getFactory()->createCreditMemoQuery()->filterByFkSalesOrder($idSalesOrder)->find();
-
-        if ($creditMemos === null) {
-            return [];
-        }
-
-        return $creditMemos->getData();
+        return $this->getFactory()->createCreditMemoQuery()->filterByFkSalesOrder($idSalesOrder)->find()->getData();
     }
 
     /**
@@ -147,9 +133,6 @@ class CreditMemoRepository extends AbstractRepository implements CreditMemoRepos
         }
 
         $paymentMethodType = $salesPayment->getSalesPaymentMethodType();
-        if ($paymentMethodType === null) {
-            return null;
-        }
 
         return (new SalesPaymentMethodTypeTransfer())->fromArray($paymentMethodType->toArray(), true);
     }
@@ -166,13 +149,7 @@ class CreditMemoRepository extends AbstractRepository implements CreditMemoRepos
             $itemIds[] = $itemTransfer->getFkSalesOrderItem();
         }
 
-        $salesOrderItems = $this->getFactory()->getSpySalesOrderItemQuery()->filterByIdSalesOrderItem_In($itemIds)->find();
-
-        if ($salesOrderItems === null) {
-            return null;
-        }
-
-        return $salesOrderItems;
+        return $this->getFactory()->getSpySalesOrderItemQuery()->filterByIdSalesOrderItem_In($itemIds)->find();
     }
 
     /**

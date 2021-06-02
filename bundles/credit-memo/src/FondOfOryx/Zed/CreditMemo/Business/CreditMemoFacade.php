@@ -109,7 +109,7 @@ class CreditMemoFacade extends AbstractFacade implements CreditMemoFacadeInterfa
     }
 
     /**
-     * @param \FondOfOryx\Zed\CreditMemoExtension\Dependency\Plugin\CreditMemoProcessorPluginInterface[] $processorPlugins
+     * @param string[] $processorPlugins
      * @param array $ids
      *
      * @return \Generated\Shared\Transfer\CreditMemoProcessorResponseCollectionTransfer

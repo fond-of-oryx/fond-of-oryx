@@ -82,7 +82,7 @@ interface CreditMemoFacadeInterface
     public function createCreditMemoReference(): string;
 
     /**
-     * @param \FondOfOryx\Zed\CreditMemoExtension\Dependency\Plugin\CreditMemoProcessorPluginInterface[] $processorPlugins
+     * @param string[] $processorPlugins
      * @param array $ids
      *
      * @return \Generated\Shared\Transfer\CreditMemoProcessorResponseCollectionTransfer
@@ -125,4 +125,9 @@ interface CreditMemoFacadeInterface
      * @return \Propel\Runtime\Collection\ObjectCollection|null
      */
     public function getSalesOrderItemsByCreditMemo(CreditMemoTransfer $creditMemoTransfer): ?ObjectCollection;
+
+    /**
+     * @return \FondOfOryx\Zed\CreditMemoExtension\Dependency\Plugin\CreditMemoProcessorPluginInterface[]
+     */
+    public function getRegisteredProcessor(): array;
 }

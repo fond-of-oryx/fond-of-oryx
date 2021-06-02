@@ -24,9 +24,9 @@ class CreditMemoConfig extends AbstractBundleConfig
     }
 
     /**
-     * @return string|null
+     * @return int|null
      */
-    public function getReferenceOffset(): ?string
+    public function getReferenceOffset(): ?int
     {
         return $this->get(CreditMemoConstants::REFERENCE_OFFSET, null);
     }

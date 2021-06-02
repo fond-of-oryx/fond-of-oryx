@@ -21,7 +21,7 @@ interface CreditMemoProcessorInterface
     public function get(string $processorName): CreditMemoProcessorPluginInterface;
 
     /**
-     * @param \FondOfOryx\Zed\CreditMemoExtension\Dependency\Plugin\CreditMemoProcessorPluginInterface[] $processorPluginNames
+     * @param string[] $processorPluginNames
      * @param array $ids
      *
      * @return \Generated\Shared\Transfer\CreditMemoProcessorResponseCollectionTransfer

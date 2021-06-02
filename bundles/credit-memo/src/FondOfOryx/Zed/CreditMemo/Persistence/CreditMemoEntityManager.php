@@ -71,7 +71,7 @@ class CreditMemoEntityManager extends AbstractEntityManager implements CreditMem
      */
     public function updateCreditMemoState(
         CreditMemoStateTransfer $creditMemoStateTransfer
-    ): CreditMemoTransfer {
+    ): CreditMemoStateTransfer {
         $creditMemoStateTransfer->requireIdCreditMemoState();
 
         $fooCreditMemoState = $this->getFactory()->createCreditMemoStateQuery()->findOneByIdCreditMemoState($creditMemoStateTransfer->getIdCreditMemoState());
@@ -105,7 +105,7 @@ class CreditMemoEntityManager extends AbstractEntityManager implements CreditMem
      */
     public function updateCreditMemoStateItem(
         CreditMemoItemStateTransfer $creditMemoItemStateTransfer
-    ): CreditMemoTransfer {
+    ): CreditMemoItemStateTransfer {
         $creditMemoItemStateTransfer->requireIdCreditMemoItemState();
 
         $fooCreditMemoItemState = $this->getFactory()->createCreditMemoItemStateQuery()->findOneByIdCreditMemoItemState($creditMemoItemStateTransfer->getIdCreditMemoItemState());
@@ -162,7 +162,7 @@ class CreditMemoEntityManager extends AbstractEntityManager implements CreditMem
     /**
      * @param \Generated\Shared\Transfer\CreditMemoItemStateTransfer $itemStateTransfer
      *
-     * @return \Generated\Shared\Transfer\ItemTransfer
+     * @return \Generated\Shared\Transfer\CreditMemoItemStateTransfer
      */
     public function createCreditMemoItemState(
         CreditMemoItemStateTransfer $itemStateTransfer

@@ -2,6 +2,7 @@
 
 namespace FondOfOryx\Zed\CreditMemo\Business\Model;
 
+use Exception;
 use FondOfOryx\Zed\CreditMemo\Persistence\CreditMemoRepositoryInterface;
 
 class CreditMemoReader implements CreditMemoReaderInterface

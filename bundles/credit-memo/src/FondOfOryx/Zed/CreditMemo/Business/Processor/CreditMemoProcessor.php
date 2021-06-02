@@ -4,7 +4,6 @@ namespace FondOfOryx\Zed\CreditMemo\Business\Processor;
 
 use ArrayIterator;
 use Countable;
-use Exception;
 use FondOfOryx\Zed\CreditMemo\CreditMemoConfig;
 use FondOfOryx\Zed\CreditMemo\Dependency\Facade\CreditMemoToStoreFacadeInterface;
 use FondOfOryx\Zed\CreditMemo\Exception\ProcessorNotFoundException;
@@ -61,7 +60,7 @@ class CreditMemoProcessor implements Countable, IteratorAggregate, CreditMemoPro
     }
 
     /**
-     * @param \FondOfOryx\Zed\CreditMemoExtension\Dependency\Plugin\CreditMemoProcessorPluginInterface[] $processorPluginNames
+     * @param string[] $processorPluginNames
      * @param array $ids
      *
      * @return \Generated\Shared\Transfer\CreditMemoProcessorResponseCollectionTransfer
@@ -113,7 +112,7 @@ class CreditMemoProcessor implements Countable, IteratorAggregate, CreditMemoPro
             return $this->processor[$processorName];
         }
 
-        throw new ProcessorNotFoundException(sprintf('Processor with name %s not found! Please register first!'));
+        throw new ProcessorNotFoundException(sprintf('Processor with name %s not found! Please register first!', $processorName));
     }
 
     /**
@@ -229,8 +228,8 @@ class CreditMemoProcessor implements Countable, IteratorAggregate, CreditMemoPro
             ->setId($creditMemoTransfer->getIdCreditMemo())
             ->setMessage(sprintf(
                 'No credit memo processor available to process order with payment method %s and payment provider %s',
-                $alesPaymentMethodType->getPaymentMethod(),
-                $alesPaymentMethodType->getPaymentProvider()
+                $alesPaymentMethodType->getPaymentMethod()->getName(),
+                $alesPaymentMethodType->getPaymentProvider()->getName()
             ));
 
         return $statusResponse;
@@ -244,7 +243,7 @@ class CreditMemoProcessor implements Countable, IteratorAggregate, CreditMemoPro
      */
     protected function createErrorResponse(
         CreditMemoTransfer $creditMemoTransfer,
-        Exception $exception
+        Throwable $exception
     ): CreditMemoProcessorStatusTransfer {
         return (new CreditMemoProcessorStatusTransfer())
             ->setSuccess(false)
