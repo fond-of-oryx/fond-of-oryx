@@ -1,0 +1,43 @@
+{
+  "name": "fond-of-oryx/credit-memo",
+  "description": "Spryker Credit Memo Module.",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Daniel Rose",
+      "email": "daniel-rose@gmx.de"
+    },
+    {
+      "name": "Jozsef Geng",
+      "email": "gengjozsef86@gmail.com"
+    },
+    {
+      "name": "Julian Zimmermann",
+      "email": "dev@julianzimmermann.dev"
+    }
+  ],
+  "require": {
+    "php": ">=7.1",
+    "fond-of-oryx/credit-memo-extension": "*",
+    "spryker/oms": "^6.0.0 || ^7.0.0 || ^8.0.0 || ^10.0.0 || ^11.0.0",
+    "spryker/sequence-number": "^1.0.0 || ^2.0.0 || ^3.0.0",
+    "spryker/store": "^1.1.0"
+  },
+  "require-dev": {
+    "fond-of-codeception/spryker": "^1.0",
+    "spryker/code-sniffer": "^0.12"
+  },
+  "minimum-stability": "dev",
+  "prefer-stable": true,
+  "autoload": {
+    "psr-4": {
+      "FondOfOryx\\": "src/FondOfOryx/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "FondOfOryx\\": "tests/FondOfOryx/",
+      "Generated\\": "tests/Generated/"
+    }
+  }
+}
