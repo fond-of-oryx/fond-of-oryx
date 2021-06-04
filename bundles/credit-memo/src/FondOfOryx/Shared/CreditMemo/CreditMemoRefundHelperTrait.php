@@ -31,7 +31,7 @@ trait CreditMemoRefundHelperTrait
 
     /**
      * @param \Orm\Zed\CreditMemo\Persistence\FooCreditMemo $creditMemoEntity
-     * @param \Orm\Zed\CreditMemo\Persistence\FooCreditMemo[] $salesOrderItems
+     * @param \Orm\Zed\Sales\Persistence\SpySalesOrderItem[] $salesOrderItems
      *
      * @return array
      */
