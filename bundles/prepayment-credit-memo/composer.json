@@ -1,0 +1,32 @@
+{
+  "name": "fond-of-oryx/prepayment-credit-memo",
+  "description": "n/a",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Julian Zimmermann",
+      "email": "dev@julianzimmermann.dev"
+    }
+  ],
+  "require": {
+    "php": ">=7.3",
+    "fond-of-oryx/credit-memo": "*",
+    "fond-of-oryx/prepayment": "*"
+  },
+  "require-dev": {
+    "fond-of-codeception/spryker": "^1.0",
+    "spryker/code-sniffer": "^0.12"
+  },
+  "minimum-stability": "dev",
+  "prefer-stable": true,
+  "autoload": {
+    "psr-4": {
+      "FondOfOryx\\": "src/FondOfOryx/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "FondOfOryx\\": "tests/FondOfOryx/"
+    }
+  }
+}
