@@ -75,28 +75,24 @@ class Refund implements RefundInterface
     public function refundCreditMemo(CreditMemoTransfer $creditMemoTransfer): bool
     {
         $salesOrderEntity = $this->creditMemoFacade->getSalesOrderByCreditMemo($creditMemoTransfer);
-        if ($salesOrderEntity !== null) {
-            $salesOrderItemEntities = $salesOrderEntity->getItems();
+        $salesOrderItemEntities = $salesOrderEntity->getItems();
 
-            $salesOrderItems = [];
-            foreach ($creditMemoTransfer->getItems() as $itemTransfer) {
-                foreach ($salesOrderItemEntities->getData() as $salesOrderItemEntity) {
-                    if ($salesOrderItemEntity->getIdSalesOrderItem() === $itemTransfer->getFkSalesOrderItem()) {
-                        $salesOrderItems[] = $salesOrderItemEntity;
-                    }
+        $salesOrderItems = [];
+        foreach ($creditMemoTransfer->getItems() as $itemTransfer) {
+            foreach ($salesOrderItemEntities->getData() as $salesOrderItemEntity) {
+                if ($salesOrderItemEntity->getIdSalesOrderItem() === $itemTransfer->getFkSalesOrderItem()) {
+                    $salesOrderItems[] = $salesOrderItemEntity;
                 }
             }
-
-            return $this->refund($salesOrderItems, $salesOrderEntity);
         }
 
-        return false;
+        return $this->refund($salesOrderItems, $salesOrderEntity);
     }
 
     /**
      * @param \Orm\Zed\Sales\Persistence\SpySalesOrderItem[] $salesOrderItems
      * @param \Orm\Zed\Sales\Persistence\SpySalesOrder $salesOrderEntity
-     * @param \Orm\Zed\CreditMemo\Persistence\FosCreditMemo[] $creditMemoEntities
+     * @param \Orm\Zed\CreditMemo\Persistence\FooCreditMemo[] $creditMemoEntities
      *
      * @return mixed
      */
@@ -120,7 +116,7 @@ class Refund implements RefundInterface
             $creditMemoUpdateTransfer = new CreditMemoTransfer();
             $creditMemoUpdateTransfer->setInProgress(false);
             $results[$creditMemoReference] = $creditMemoUpdateTransfer->getInProgress();
-            if (array_key_exists($creditMemoReference, $refundItems)) {
+            if (array_key_exists($creditMemoReference, $refundItems) && is_array($refundItems[$creditMemoReference])) {
                 $itemsToRefund = $this->resolveAndCheckItemsForRefund($refundItems[$creditMemoReference]);
                 $refundTransfer = $this->refundFacade->calculateRefund($itemsToRefund, $salesOrderEntity);
 

@@ -30,14 +30,14 @@ interface PrepaymentCreditMemoToCreditMemoInterface
     /**
      * @param int $idSalesOrder
      *
-     * @return \Orm\Zed\CreditMemo\Persistence\FosCreditMemo[]
+     * @return \Orm\Zed\CreditMemo\Persistence\FooCreditMemo[]
      */
     public function getCreditMemoBySalesOrderId(int $idSalesOrder): array;
 
     /**
      * @param \Orm\Zed\Sales\Persistence\SpySalesOrderItem[] $salesOrderItems
      *
-     * @return \Orm\Zed\CreditMemo\Persistence\FosCreditMemo[]]
+     * @return \Orm\Zed\CreditMemo\Persistence\FooCreditMemo[]]
      */
     public function getCreditMemosBySalesOrderItems(array $salesOrderItems): array;
 

@@ -3,8 +3,8 @@
 namespace FondOfOryx\Zed\PrepaymentCreditMemo\Communication\Plugin\CreditMemoExtension\Processor;
 
 use Exception;
+use FondOfOryx\Zed\CreditMemo\Exception\NoRefundableItemsFoundException;
 use FondOfOryx\Zed\CreditMemoExtension\Dependency\Plugin\CreditMemoProcessorPluginInterface;
-use FondOfOryx\Zed\PayoneCreditMemo\Exception\NoRefundableItemsFoundException;
 use Generated\Shared\Transfer\CreditMemoProcessorStatusTransfer;
 use Generated\Shared\Transfer\CreditMemoTransfer;
 use Propel\Runtime\Collection\ObjectCollection;
@@ -83,7 +83,7 @@ class PrepaymentCreditMemoProcessorPlugin extends AbstractPlugin implements Cred
     /**
      * @param \Generated\Shared\Transfer\CreditMemoTransfer $creditMemoTransfer
      *
-     * @throws \FondOfOryx\Zed\PayoneCreditMemo\Exception\NoRefundableItemsFoundException
+     * @throws \FondOfOryx\Zed\CreditMemo\Exception\NoRefundableItemsFoundException
      *
      * @return \Propel\Runtime\Collection\ObjectCollection
      */
