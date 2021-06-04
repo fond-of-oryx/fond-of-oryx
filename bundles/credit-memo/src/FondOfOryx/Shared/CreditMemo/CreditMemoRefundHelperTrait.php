@@ -33,7 +33,7 @@ trait CreditMemoRefundHelperTrait
      * @param \Orm\Zed\CreditMemo\Persistence\FooCreditMemo $creditMemoEntity
      * @param \Orm\Zed\Sales\Persistence\SpySalesOrderItem[] $salesOrderItems
      *
-     * @return \Orm\Zed\Sales\Persistence\SpySalesOrderItem[]
+     * @return array
      */
     protected function getRefundableItemsByCreditMemo(FooCreditMemo $creditMemoEntity, array $salesOrderItems): array
     {
