@@ -14,7 +14,6 @@
   "require": {
     "php": ">=7.2",
     "fond-of-oryx/credit-memo": "dev-feature/paypal-refund",
-    "spryker/log": "^1.0.0 || ^2.0.0 || ^3.0.0",
     "spryker-eco/payone": "^4.0.0"
   },
   "require-dev": {

@@ -7,12 +7,9 @@ use FondOfOryx\Zed\PrepaymentCreditMemo\Dependency\Facade\PrepaymentCreditMemoTo
 use FondOfOryx\Zed\PrepaymentCreditMemo\Dependency\Facade\PrepaymentCreditMemoToRefundInterface;
 use Generated\Shared\Transfer\CreditMemoTransfer;
 use Orm\Zed\Sales\Persistence\SpySalesOrder;
-use Spryker\Shared\Log\LoggerTrait;
 
 class Refund implements RefundInterface
 {
-    use LoggerTrait;
-
     use CreditMemoRefundHelperTrait;
 
     /**

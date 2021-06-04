@@ -5,9 +5,12 @@ namespace FondOfOryx\Shared\CreditMemo;
 use Generated\Shared\Transfer\CreditMemoTransfer;
 use Generated\Shared\Transfer\RefundTransfer;
 use Orm\Zed\CreditMemo\Persistence\FooCreditMemo;
+use Spryker\Shared\Log\LoggerTrait;
 
 trait CreditMemoRefundHelperTrait
 {
+    use LoggerTrait;
+
     /**
      * @param \Orm\Zed\CreditMemo\Persistence\FooCreditMemo[] $creditMemoEntities
      *
