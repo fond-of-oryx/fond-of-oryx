@@ -37,8 +37,8 @@
         <property name="wasRefundSuccessful" type="bool" />
         <property name="state" type="string" />
         <property name="errorMessage" type="string" />
-        <property name="errorCode" type="int" />
-        <property name="transactionId" type="string" />
+        <property name="errorCode" type="string" />
+        <property name="transactionId" type="int" />
         <property name="jellyfishExportState" type="string" />
         <property name="taxIncluded" type="bool" />
 
