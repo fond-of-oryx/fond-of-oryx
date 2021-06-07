@@ -17,6 +17,7 @@ include:
   - bundles/feed
   - bundles/jellyfish-availability-alert
   - bundles/jellyfish-cross-engage
+  - bundles/jellyfish-sales-order-b2c
   - bundles/jellyfish-sales-order-extension
   - bundles/mail-bcc
   - bundles/one-time-password
