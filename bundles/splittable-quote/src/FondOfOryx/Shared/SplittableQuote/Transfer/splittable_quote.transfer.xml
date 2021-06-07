@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<transfers xmlns="spryker:transfer-01"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="spryker:transfer-01 http://static.spryker.com/transfer-01.xsd">
+    <transfer name="SplittableTotals">
+        <property name="totalsList" type="Totals[]" singular="totals" associative="true" />
+    </transfer>
+
+    <transfer name="Quote">
+        <property name="idQuote" type="int"/>
+        <property name="uuid" type="string"/>
+        <property name="isDefault" type="bool"/>
+        <property name="items" type="Item[]" singular="item"/>
+    </transfer>
+
+    <transfer name="Item">
+        <property name="groupKey" type="string"/>
+    </transfer>
+</transfers>
