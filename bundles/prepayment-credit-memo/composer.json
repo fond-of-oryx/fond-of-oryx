@@ -1,16 +1,8 @@
 {
-  "name": "fond-of-oryx/credit-memo-api",
-  "description": "Credit Memo Api",
+  "name": "fond-of-oryx/prepayment-credit-memo",
+  "description": "n/a",
   "license": "MIT",
   "authors": [
-    {
-      "name": "Daniel Rose",
-      "email": "daniel-rose@gmx.de"
-    },
-    {
-      "name": "Jozsef Geng",
-      "email": "gengjozsef86@gmail.com"
-    },
     {
       "name": "Julian Zimmermann",
       "email": "dev@julianzimmermann.dev"
@@ -19,8 +11,7 @@
   "require": {
     "php": ">=7.3",
     "fond-of-oryx/credit-memo": "*",
-    "spryker/api": "^0.1.0 || ^0.2.0 || ^0.3.0",
-    "spryker/api-query-builder": "^0.1.0"
+    "fond-of-oryx/prepayment": "*"
   },
   "require-dev": {
     "fond-of-codeception/spryker": "^1.0",
@@ -35,8 +26,7 @@
   },
   "autoload-dev": {
     "psr-4": {
-      "FondOfOryx\\": "tests/FondOfOryx/",
-      "Generated\\": "tests/Generated/"
+      "FondOfOryx\\": "tests/FondOfOryx/"
     }
   }
 }
