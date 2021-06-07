@@ -7,6 +7,7 @@ use FondOfOryx\Zed\SplittableCheckout\Business\Workflow\SplittableCheckoutWorkfl
 use FondOfOryx\Zed\SplittableCheckout\Dependency\Facade\SplittableCheckoutToCheckoutFacadeInterface;
 use FondOfOryx\Zed\SplittableCheckout\Dependency\Facade\SplittableCheckoutToPersistentCartFacadeInterface;
 use FondOfOryx\Zed\SplittableCheckout\Dependency\Facade\SplittableCheckoutToQuoteFacadeInterface;
+use FondOfOryx\Zed\SplittableCheckout\Dependency\Facade\SplittableCheckoutToSplittableQuoteFacadeInterface;
 use FondOfOryx\Zed\SplittableCheckout\SplittableCheckoutConfig;
 use FondOfOryx\Zed\SplittableCheckout\SplittableCheckoutDependencyProvider;
 use Spryker\Zed\Kernel\Container;
@@ -34,14 +35,9 @@ class SplittableCheckoutBusinessFactoryTest extends Unit
     protected $splittableCheckoutToCheckoutFacadeMock;
 
     /**
-     * @var \PHPUnit\Framework\MockObject\MockObject|\FondOfOryx\Zed\SplittableCheckout\Dependency\Facade\SplittableCheckoutToQuoteFacadeInterface
+     * @var \PHPUnit\Framework\MockObject\MockObject|\FondOfOryx\Zed\SplittableCheckout\Dependency\Facade\SplittableCheckoutToSplittableQuoteFacadeInterface
      */
-    protected $splittableCheckoutToQuoteFacadeMock;
-
-    /**
-     * @var \PHPUnit\Framework\MockObject\MockObject|\FondOfOryx\Zed\SplittableCheckout\Dependency\Facade\SplittableCheckoutToPersistentCartFacadeInterface
-     */
-    protected $splittableCheckoutToPersistentCartFacadeInterface;
+    protected $splittableCheckoutToSplittableQuoteFacadeMock;
 
     /**
      * @return void
@@ -60,11 +56,7 @@ class SplittableCheckoutBusinessFactoryTest extends Unit
             ->disableOriginalConstructor()
             ->getMock();
 
-        $this->splittableCheckoutToQuoteFacadeMock = $this->getMockBuilder(SplittableCheckoutToQuoteFacadeInterface::class)
-            ->disableOriginalConstructor()
-            ->getMock();
-
-        $this->splittableCheckoutToPersistentCartFacadeMock = $this->getMockBuilder(SplittableCheckoutToPersistentCartFacadeInterface::class)
+        $this->splittableCheckoutToSplittableQuoteFacadeMock = $this->getMockBuilder(SplittableCheckoutToSplittableQuoteFacadeInterface::class)
             ->disableOriginalConstructor()
             ->getMock();
 
@@ -86,12 +78,12 @@ class SplittableCheckoutBusinessFactoryTest extends Unit
             ->method('get')
             ->withConsecutive(
                 [SplittableCheckoutDependencyProvider::FACADE_CHECKOUT],
-                [SplittableCheckoutDependencyProvider::FACADE_QUOTE],
+                [SplittableCheckoutDependencyProvider::FACADE_SPLITTABLE_QUOTE],
                 [SplittableCheckoutDependencyProvider::FACADE_PERSISTENT_CART]
             )
             ->willReturnOnConsecutiveCalls(
                 $this->splittableCheckoutToCheckoutFacadeMock,
-                $this->splittableCheckoutToQuoteFacadeMock,
+                $this->splittableCheckoutToSplittableQuoteFacadeMock,
                 $this->splittableCheckoutToPersistentCartFacadeMock
             );
 

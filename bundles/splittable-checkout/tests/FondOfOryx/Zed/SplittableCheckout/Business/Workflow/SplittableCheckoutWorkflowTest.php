@@ -4,9 +4,9 @@ namespace FondOfOryx\Zed\SplittableCheckout\Business\Workflow;
 
 use ArrayObject;
 use Codeception\Test\Unit;
-use FondOfOryx\Zed\SplittableCheckout\Business\Model\QuoteSplitterInterface;
 use FondOfOryx\Zed\SplittableCheckout\Dependency\Facade\SplittableCheckoutToCheckoutFacadeInterface;
 use FondOfOryx\Zed\SplittableCheckout\Dependency\Facade\SplittableCheckoutToQuoteFacadeInterface;
+use FondOfOryx\Zed\SplittableCheckout\Dependency\Facade\SplittableCheckoutToSplittableQuoteFacadeInterface;
 use Generated\Shared\Transfer\CheckoutResponseTransfer;
 use Generated\Shared\Transfer\QuoteCollectionTransfer;
 use Generated\Shared\Transfer\QuoteResponseTransfer;
@@ -62,9 +62,9 @@ class SplittableCheckoutWorkflowTest extends Unit
     protected $quoteFacadeMock;
 
     /**
-     * @var \PHPUnit\Framework\MockObject\MockObject|\Generated\Shared\Transfer\QuoteTransfer
+     * @var \PHPUnit\Framework\MockObject\MockObject|\FondOfOryx\Zed\SplittableCheckout\Dependency\Facade\SplittableCheckoutToSplittableQuoteFacadeInterface;
      */
-    protected $quoteSplitterMock;
+    protected $splittableQuoteFacadeMock;
 
     /**
      * @return void
@@ -91,7 +91,7 @@ class SplittableCheckoutWorkflowTest extends Unit
             ->disableOriginalConstructor()
             ->getMock();
 
-        $this->quoteSplitterMock = $this->getMockBuilder(QuoteSplitterInterface::class)
+        $this->splittableQuoteFacadeMock = $this->getMockBuilder(SplittableCheckoutToSplittableQuoteFacadeInterface::class)
             ->disableOriginalConstructor()
             ->getMock();
 
@@ -109,8 +109,8 @@ class SplittableCheckoutWorkflowTest extends Unit
 
         $this->splittableCheckoutWorkflow = new SplittableCheckoutWorkflow(
             $this->checkoutFacadeMock,
-            $this->quoteFacadeMock,
-            $this->quoteSplitterMock
+            $this->splittableQuoteFacadeMock,
+            $this->quoteFacadeMock
         );
     }
 
@@ -122,8 +122,8 @@ class SplittableCheckoutWorkflowTest extends Unit
         $quotes = new ArrayObject();
         $quotes->append($this->splittedQuoteTransferMock);
 
-        $this->quoteSplitterMock->expects($this->atLeastOnce())
-            ->method('split')
+        $this->splittableQuoteFacadeMock->expects($this->atLeastOnce())
+            ->method('splitQuote')
             ->with($this->quoteTransferMock)
             ->willReturn($this->quoteCollectionTransferMock);
 
