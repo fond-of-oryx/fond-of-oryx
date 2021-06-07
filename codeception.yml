@@ -38,6 +38,8 @@ include:
   - bundles/shipment-table-rate
   - bundles/shipment-table-rate-data-import
   - bundles/splittable-checkout
+  - bundles/splittable-quote
+  - bundles/splittable-quote-extension
   - bundles/splittable-totals
   - bundles/splittable-totals-extension
   - bundles/splittable-totals-shipment-connector
