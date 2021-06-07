@@ -11,9 +11,9 @@
   "require": {
     "php": ">=7.3",
     "fond-of-oryx/splittable-chekout-extension": "dev-main",
+    "fond-of-oryx/splittable-quote": "dev-main",
     "spryker/checkout": "^6.0.0",
     "spryker/persistent-cart": "^3.0.0",
-    "spryker/quote": "^2.0.0"
   },
   "require-dev": {
     "fond-of-codeception/spryker": "^1.0",
