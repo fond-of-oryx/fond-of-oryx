@@ -2,15 +2,19 @@
 
 namespace FondOfOryx\Zed\OneTimePassword\Business;
 
+use FondOfOryx\Zed\OneTimePassword\Business\Encoder\OneTimePasswordBase64Encoder;
+use FondOfOryx\Zed\OneTimePassword\Business\Encoder\OneTimePasswordEncoderInterface;
 use FondOfOryx\Zed\OneTimePassword\Business\Generator\OneTimePasswordGenerator;
 use FondOfOryx\Zed\OneTimePassword\Business\Generator\OneTimePasswordGeneratorInterface;
+use FondOfOryx\Zed\OneTimePassword\Business\Generator\OneTimePasswordLinkGenerator;
+use FondOfOryx\Zed\OneTimePassword\Business\Generator\OneTimePasswordLinkGeneratorInterface;
 use FondOfOryx\Zed\OneTimePassword\Business\Resetter\OneTimePasswordResetter;
 use FondOfOryx\Zed\OneTimePassword\Business\Resetter\OneTimePasswordResetterInterface;
 use FondOfOryx\Zed\OneTimePassword\Business\Sender\OneTimePasswordSender;
 use FondOfOryx\Zed\OneTimePassword\Business\Sender\OneTimePasswordSenderInterface;
 use FondOfOryx\Zed\OneTimePassword\Dependency\Facade\OneTimePasswordToOneTimePasswordEmailConnectorFacadeInterface;
 use FondOfOryx\Zed\OneTimePassword\OneTimePasswordDependencyProvider;
-use Hackzilla\PasswordGenerator\Generator\HumanPasswordGenerator;
+use Hackzilla\PasswordGenerator\Generator\HybridPasswordGenerator;
 use Spryker\Zed\Kernel\Business\AbstractBusinessFactory;
 
 /**
@@ -36,7 +40,7 @@ class OneTimePasswordBusinessFactory extends AbstractBusinessFactory
     public function createOneTimePasswordGenerator(): OneTimePasswordGeneratorInterface
     {
         return new OneTimePasswordGenerator(
-            $this->createComputerPasswordGenerator(),
+            $this->createHybridPasswordGenerator(),
             $this->getEntityManager(),
             $this->getConfig()
         );
@@ -53,11 +57,31 @@ class OneTimePasswordBusinessFactory extends AbstractBusinessFactory
     }
 
     /**
-     * @return \Hackzilla\PasswordGenerator\Generator\HumanPasswordGenerator
+     * @return \FondOfOryx\Zed\OneTimePassword\Business\Generator\OneTimePasswordLinkGeneratorInterface
      */
-    protected function createComputerPasswordGenerator(): HumanPasswordGenerator
+    public function createOneTimePasswordLinkGenerator(): OneTimePasswordLinkGeneratorInterface
     {
-        return new HumanPasswordGenerator();
+        return new OneTimePasswordLinkGenerator(
+            $this->createOneTimePasswordGenerator(),
+            $this->createOneTimePasswordEncoder(),
+            $this->getConfig()
+        );
+    }
+
+    /**
+     * @return \FondOfOryx\Zed\OneTimePassword\Business\Encoder\OneTimePasswordBase64Encoder
+     */
+    protected function createOneTimePasswordEncoder(): OneTimePasswordEncoderInterface
+    {
+        return new OneTimePasswordBase64Encoder();
+    }
+
+    /**
+     * @return \Hackzilla\PasswordGenerator\Generator\HybridPasswordGenerator
+     */
+    protected function createHybridPasswordGenerator(): HybridPasswordGenerator
+    {
+        return new HybridPasswordGenerator();
     }
 
     /**

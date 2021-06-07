@@ -18,12 +18,14 @@ interface SubscriptionManagerInterface
 
     /**
      * @param \Generated\Shared\Transfer\AvailabilityAlertSubscriptionTransfer $availabilityAlertSubscriptionTransfer
+     * @param bool $preferFromTransfer
      *
-     * @return void
+     * @return \Generated\Shared\Transfer\AvailabilityAlertSubscriptionTransfer
      */
     public function subscribe(
-        AvailabilityAlertSubscriptionTransfer $availabilityAlertSubscriptionTransfer
-    );
+        AvailabilityAlertSubscriptionTransfer $availabilityAlertSubscriptionTransfer,
+        bool $preferFromTransfer
+    ): AvailabilityAlertSubscriptionTransfer;
 
     /**
      * @param \Generated\Shared\Transfer\AvailabilityAlertSubscriptionTransfer $availabilityAlertSubscriptionTransfer

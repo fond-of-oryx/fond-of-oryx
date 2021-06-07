@@ -10,22 +10,26 @@ use Spryker\Zed\Kernel\Persistence\AbstractRepository;
 class SplittableTotalsRestApiCompanyUnitAddressConnectorRepository extends AbstractRepository implements SplittableTotalsRestApiCompanyUnitAddressConnectorRepositoryInterface
 {
     /**
-     * @param int $idCustomer
+     * @param string $customerReference
      * @param string $idCompanyUnitAddress
      *
      * @return bool
      */
-    public function existsCompanyUnitAddress(int $idCustomer, string $idCompanyUnitAddress): bool
+    public function existsCompanyUnitAddress(string $customerReference, string $idCompanyUnitAddress): bool
     {
         $spyCompanyUnitAddressToCompanyBusinessUnitQuery = $this->getFactory()
             ->getCompanyUnitAddressToCompanyBusinessUnitQuery();
 
         return $spyCompanyUnitAddressToCompanyBusinessUnitQuery->useCompanyBusinessUnitQuery()
                 ->useCompanyUserQuery()
-                    ->filterByFkCustomer($idCustomer)
+                    ->useCustomerQuery()
+                        ->filterByCustomerReference($customerReference)
+                    ->endUse()
                 ->endUse()
             ->endUse()
-            ->filterByUuid($idCompanyUnitAddress)
+            ->useCompanyUnitAddressQuery()
+                ->filterByUuid($idCompanyUnitAddress)
+            ->endUse()
             ->exists();
     }
 }

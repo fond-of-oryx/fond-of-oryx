@@ -3,6 +3,7 @@
 namespace FondOfOryx\Zed\AvailabilityAlert\Persistence\Propel\Mapper;
 
 use Generated\Shared\Transfer\AvailabilityAlertSubscriptionTransfer;
+use Generated\Shared\Transfer\FooAvailabilityAlertSubscriptionEntityTransfer;
 use Generated\Shared\Transfer\LocaleTransfer;
 use Generated\Shared\Transfer\ProductAbstractTransfer;
 use Generated\Shared\Transfer\StoreTransfer;
@@ -47,12 +48,12 @@ class AvailabilityAlertSubscriptionMapper implements AvailabilityAlertSubscripti
     /**
      * @param \Generated\Shared\Transfer\AvailabilityAlertSubscriptionTransfer $availabilityAlertSubscriptionTransfer
      *
-     * @return \Orm\Zed\AvailabilityAlert\Persistence\FooAvailabilityAlertSubscription
+     * @return \Generated\Shared\Transfer\FooAvailabilityAlertSubscriptionEntityTransfer
      */
-    public function fromTransfer(AvailabilityAlertSubscriptionTransfer $availabilityAlertSubscriptionTransfer): FooAvailabilityAlertSubscription
+    public function fromTransfer(AvailabilityAlertSubscriptionTransfer $availabilityAlertSubscriptionTransfer): FooAvailabilityAlertSubscriptionEntityTransfer
     {
-        $entity = new FooAvailabilityAlertSubscription();
-        $entity->fromArray($availabilityAlertSubscriptionTransfer->toArray());
+        $entity = new FooAvailabilityAlertSubscriptionEntityTransfer();
+        $entity->fromArray($availabilityAlertSubscriptionTransfer->modifiedToArray(), true);
         $entity->setFkAvailabilityAlertSubscriber($availabilityAlertSubscriptionTransfer->getFkSubscriber());
         if ($availabilityAlertSubscriptionTransfer->getFkSubscriber() !== null) {
             $entity->setFkAvailabilityAlertSubscriber($availabilityAlertSubscriptionTransfer->getFkSubscriber());

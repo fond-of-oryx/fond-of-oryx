@@ -9,7 +9,13 @@
     }
   ],
   "require": {
-    "php": ">=7.3"
+    "php": ">=7.3",
+    "spryker/mail": "^4.0.0"
+  },
+  "require-dev": {
+    "fond-of-codeception/spryker": "^1.0",
+    "spryker/code-sniffer": "*",
+    "spryker-sdk/phpstan-spryker": "*"
   },
   "minimum-stability": "dev",
   "prefer-stable": true,

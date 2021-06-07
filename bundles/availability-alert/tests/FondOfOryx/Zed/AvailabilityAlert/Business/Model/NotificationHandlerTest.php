@@ -25,8 +25,8 @@ class NotificationHandlerTest extends Unit
     {
         parent::_before();
 
-        $this->subscriptionTransferMock = static::getMockBuilder(AvailabilityAlertSubscriptionTransfer::class)->disableOriginalConstructor()->getMock();
-        $this->pluginMock = static::getMockBuilder(NotificationPluginInterface::class)->disableOriginalConstructor()->getMock();
+        $this->subscriptionTransferMock = $this->getMockBuilder(AvailabilityAlertSubscriptionTransfer::class)->disableOriginalConstructor()->getMock();
+        $this->pluginMock = $this->getMockBuilder(NotificationPluginInterface::class)->disableOriginalConstructor()->getMock();
     }
 
     /**

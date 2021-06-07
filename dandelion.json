@@ -1,7 +1,23 @@
 {
   "repositories": {
+    "availability-alert": {
+      "path": "bundles/availability-alert/",
+      "version": "1.0.1"
+    },
+    "availability-alert-cross-engage": {
+      "path": "bundles/availability-alert-cross-engage/",
+      "version": "1.0.1"
+    },
+    "availability-alert-migrator": {
+      "path": "bundles/availability-alert-migrator/",
+      "version": "1.0.1"
+    },
     "catalog-sku-filter": {
       "path": "bundles/catalog-sku-filter/",
+      "version": "1.1.0"
+    },
+    "cross-engage": {
+      "path": "bundles/cross-engage/",
       "version": "1.0.0"
     },
     "customer-statistic": {
@@ -14,7 +30,7 @@
     },
     "erp-order": {
       "path": "bundles/erp-order/",
-      "version": "alpha-0.0.1"
+      "version": "1.2.0"
     },
     "erp-order-api": {
       "path": "bundles/erp-order-api/",
@@ -22,18 +38,26 @@
     },
     "erp-order-extension": {
       "path": "bundles/erp-order-extension/",
-      "version": "1.0.0"
+      "version": "1.1.0"
     },
     "erp-order-page-search": {
       "path": "bundles/erp-order-page-search/",
-      "version": "0.0.1-alpha"
+      "version": "1.2.0"
     },
     "erp-order-page-search-rest-api": {
       "path": "bundles/erp-order-page-search-rest-api/",
-      "version": "0.0.1-alpha"
+      "version": "1.2.0"
     },
     "erp-order-permission": {
       "path": "bundles/erp-order-permission/",
+      "version": "1.0.0"
+    },
+    "feed": {
+      "path": "bundles/feed/",
+      "version": "1.0.0"
+    },
+    "jellyfish-availability-alert": {
+      "path": "bundles/jellyfish-availability-alert/",
       "version": "1.0.0"
     },
     "mail-bcc": {
@@ -42,15 +66,15 @@
     },
     "one-time-password": {
       "path": "bundles/one-time-password/",
-      "version": "1.0.0-beta.0"
+      "version": "1.0.0-beta.1"
     },
     "one-time-password-email-connector": {
       "path": "bundles/one-time-password-email-connector/",
-      "version": "1.0.0-beta.0"
+      "version": "1.0.0-beta.1"
     },
     "one-time-password-rest-api": {
       "path": "bundles/one-time-password-rest-api/",
-      "version": "1.0.0-beta.0"
+      "version": "1.0.0-beta.1"
     },
     "product-country-restriction": {
       "path": "bundles/product-country-restriction/",
@@ -76,6 +100,26 @@
       "path": "bundles/product-locale-restriction-storage/",
       "version": "1.0.0"
     },
+    "return-label": {
+      "path": "bundles/return-label/",
+      "version": "1.0.0"
+    },
+    "return-labels-rest-api": {
+      "path": "bundles/return-labels-rest-api/",
+      "version": "1.0.0"
+    },
+    "return-labels-rest-api-company-unit-address-connector": {
+      "path": "bundles/return-labels-rest-api-company-unit-address-connector/",
+      "version": "1.0.0"
+    },
+    "return-labels-rest-api-customer-connector": {
+      "path": "bundles/return-labels-rest-api-customer-connector/",
+      "version": "1.0.0"
+    },
+    "return-labels-rest-api-extension": {
+      "path": "bundles/return-labels-rest-api-extension/",
+      "version": "1.0.0"
+    },
     "sales-locale-connector": {
       "path": "bundles/sales-locale-connector/",
       "version": "1.0.0"
@@ -88,12 +132,32 @@
       "path": "bundles/shipment-table-rate-data-import/",
       "version": "1.0.0"
     },
-    "splittable-checkout": {
-      "path": "bundles/splittable-checkout/",
+    "splittable-totals": {
+      "path": "bundles/splittable-totals/",
       "version": "1.0.0"
     },
-    "splittable-checkout-rest-api-extension": {
-      "path": "bundles/splittable-checkout-rest-api-extension/",
+    "splittable-totals-extension": {
+      "path": "bundles/splittable-totals-extension/",
+      "version": "1.0.0"
+    },
+    "splittable-totals-shipment-connector": {
+      "path": "bundles/splittable-totals-shipment-connector/",
+      "version": "1.0.0"
+    },
+    "splittable-totals-rest-api": {
+      "path": "bundles/splittable-totals-rest-api/",
+      "version": "1.0.0"
+    },
+    "splittable-totals-rest-api-company-unit-address-connector": {
+      "path": "bundles/splittable-totals-rest-api-company-unit-address-connector/",
+      "version": "1.0.0"
+    },
+    "splittable-totals-rest-api-extension": {
+      "path": "bundles/splittable-totals-rest-api-extension/",
+      "version": "1.0.0"
+    },
+    "splittable-totals-rest-api-shipment-connector": {
+      "path": "bundles/splittable-totals-rest-api-shipment-connector/",
       "version": "1.0.0"
     },
     "tax-calculation-connector": {
@@ -115,4 +179,3 @@
   "pathToTempDirectory": "/home/dandelion/project/tmp/",
   "pathToSplitshLite": "/usr/local/bin/splitsh-lite"
 }
-

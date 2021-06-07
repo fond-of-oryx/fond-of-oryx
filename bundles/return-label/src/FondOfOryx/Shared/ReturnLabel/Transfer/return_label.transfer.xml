@@ -1,0 +1,40 @@
+<?xml version="1.0"?>
+<transfers xmlns="spryker:transfer-01"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="spryker:transfer-01 http://static.spryker.com/transfer-01.xsd">
+    <transfer name="ReturnLabelRequest">
+        <property name="qrCode" type="bool"/>
+        <property name="returnForm" type="bool"/>
+        <property name="receiverId" type="string"/>
+        <property name="customer" type="ReturnLabelRequestCustomer"/>
+    </transfer>
+
+    <transfer name="ReturnLabelRequestCustomer">
+        <property name="reference" type="string"/>
+        <property name="email" type="string"/>
+        <property name="address" type="ReturnLabelRequestAddress"/>
+    </transfer>
+
+    <transfer name="ReturnLabelRequestAddress">
+        <property name="company" type="string"/>
+        <property name="phone" type="string"/>
+        <property name="name1" type="string"/>
+        <property name="name2" type="string"/>
+        <property name="address1" type="string"/>
+        <property name="address2" type="string"/>
+        <property name="address3" type="string"/>
+        <property name="zipCode" type="string"/>
+        <property name="city" type="string"/>
+        <property name="country" type="string"/>
+        <property name="iso3code" type="string"/>
+    </transfer>
+
+    <transfer name="ReturnLabel">
+        <property name="data" type="string" />
+    </transfer>
+
+    <transfer name="ReturnLabelResponse">
+        <property name="isSuccessful" type="bool" />
+        <property name="returnLabel" type="ReturnLabel" />
+    </transfer>
+</transfers>

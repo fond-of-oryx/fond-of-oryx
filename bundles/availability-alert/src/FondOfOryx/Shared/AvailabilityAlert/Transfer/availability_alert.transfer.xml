@@ -27,6 +27,7 @@
         <property name="idAvailabilityAlertSubscriber" type="int" />
         <property name="fkCustomer" type="int" />
         <property name="email" type="string" />
+        <property name="businessUnit" type="string" />
     </transfer>
 
     <transfer name="AvailabilityAlertSubscriptionError">
@@ -41,6 +42,7 @@
     </transfer>
 
     <transfer name="AvailabilityAlertSubscriptionResponse">
+        <property name="subscription" type="AvailabilityAlertSubscription" />
         <property name="isSuccess" type="bool" />
         <property name="errors" type="AvailabilityAlertSubscriptionError[]" singular="error" />
     </transfer>
