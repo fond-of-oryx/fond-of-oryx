@@ -82,6 +82,7 @@
     "fond-of-oryx/credit-memo": "*",
     "fond-of-oryx/credit-memo-api": "*",
     "fond-of-oryx/credit-memo-extension": "*",
+    "fond-of-oryx/credit-memo-migrator": "*",
     "fond-of-oryx/cross-engage": "*",
     "fond-of-oryx/customer-statistic": "*",
     "fond-of-oryx/customer-statistics-rest-api": "*",
