@@ -26,6 +26,16 @@ class SplittableCheckoutToQuoteFacadeBridge implements SplittableCheckoutToQuote
      *
      * @return \Generated\Shared\Transfer\QuoteResponseTransfer
      */
+    public function createQuote(QuoteTransfer $quoteTransfer): QuoteResponseTransfer
+    {
+        return $this->quoteFacade->createQuote($quoteTransfer);
+    }
+
+    /**
+     * @param \Generated\Shared\Transfer\QuoteTransfer $quoteTransfer
+     *
+     * @return \Generated\Shared\Transfer\QuoteResponseTransfer
+     */
     public function deleteQuote(QuoteTransfer $quoteTransfer): QuoteResponseTransfer
     {
         return $this->quoteFacade->deleteQuote($quoteTransfer);

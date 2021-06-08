@@ -2,16 +2,21 @@
 
 namespace FondOfOryx\Zed\SplittableCheckout\Business\Workflow;
 
-use ArrayObject;
-use FondOfOryx\Zed\SplittableCheckout\Business\Model\QuoteSplitterInterface;
+use Exception;
 use FondOfOryx\Zed\SplittableCheckout\Dependency\Facade\SplittableCheckoutToCheckoutFacadeInterface;
 use FondOfOryx\Zed\SplittableCheckout\Dependency\Facade\SplittableCheckoutToQuoteFacadeInterface;
-use Generated\Shared\Transfer\QuoteCollectionTransfer;
+use FondOfOryx\Zed\SplittableCheckout\Dependency\Facade\SplittableCheckoutToSplittableQuoteFacadeInterface;
 use Generated\Shared\Transfer\QuoteTransfer;
+use Generated\Shared\Transfer\SplittableCheckoutErrorTransfer;
 use Generated\Shared\Transfer\SplittableCheckoutResponseTransfer;
+use Spryker\Zed\Kernel\Persistence\EntityManager\TransactionTrait;
 
 class SplittableCheckoutWorkflow implements SplittableCheckoutWorkflowInterface
 {
+    use TransactionTrait;
+
+    protected const ERROR_MESSAGE_ORDER_NOT_PLACED = 'splittable_checkout.error.order_not_placed';
+
     /**
      * @var \FondOfOryx\Zed\SplittableCheckout\Dependency\Facade\SplittableCheckoutToCheckoutFacadeInterface
      */
@@ -23,23 +28,23 @@ class SplittableCheckoutWorkflow implements SplittableCheckoutWorkflowInterface
     protected $quoteFacade;
 
     /**
-     * @var \FondOfOryx\Zed\SplittableCheckout\Business\Model\QuoteSplitterInterface
+     * @var \FondOfOryx\Zed\SplittableCheckout\Dependency\Facade\SplittableCheckoutToSplittableQuoteFacadeInterface
      */
-    protected $quoteSplitter;
+    protected $splittableQuoteFacade;
 
     /**
      * @param \FondOfOryx\Zed\SplittableCheckout\Dependency\Facade\SplittableCheckoutToCheckoutFacadeInterface $checkoutFacade
+     * @param \FondOfOryx\Zed\SplittableCheckout\Dependency\Facade\SplittableCheckoutToSplittableQuoteFacadeInterface $splittableQuoteFacade
      * @param \FondOfOryx\Zed\SplittableCheckout\Dependency\Facade\SplittableCheckoutToQuoteFacadeInterface $quoteFacade
-     * @param \FondOfOryx\Zed\SplittableCheckout\Business\Model\QuoteSplitterInterface $quoteSplitter
      */
     public function __construct(
         SplittableCheckoutToCheckoutFacadeInterface $checkoutFacade,
-        SplittableCheckoutToQuoteFacadeInterface $quoteFacade,
-        QuoteSplitterInterface $quoteSplitter
+        SplittableCheckoutToSplittableQuoteFacadeInterface $splittableQuoteFacade,
+        SplittableCheckoutToQuoteFacadeInterface $quoteFacade
     ) {
         $this->checkoutFacade = $checkoutFacade;
+        $this->splittableQuoteFacade = $splittableQuoteFacade;
         $this->quoteFacade = $quoteFacade;
-        $this->quoteSplitter = $quoteSplitter;
     }
 
     /**
@@ -49,56 +54,97 @@ class SplittableCheckoutWorkflow implements SplittableCheckoutWorkflowInterface
      */
     public function placeOrder(QuoteTransfer $quoteTransfer): SplittableCheckoutResponseTransfer
     {
-        $quoteCollectionTransfer = $this->quoteSplitter->split($quoteTransfer);
+        try {
+            $self = $this;
 
-        if (count($quoteCollectionTransfer->getQuotes()) === 0) {
-            return (new SplittableCheckoutResponseTransfer())->setIsSuccess(true);
+            return $this->getTransactionHandler()->handleTransaction(
+                static function () use ($quoteTransfer, $self) {
+                    return $self->executePlaceOrder($quoteTransfer);
+                }
+            );
+        } catch (Exception $exception) {
+            $splittableCheckoutErrorTransfer = (new SplittableCheckoutErrorTransfer())
+                ->setMessage(static::ERROR_MESSAGE_ORDER_NOT_PLACED);
+
+            return (new SplittableCheckoutResponseTransfer())
+                ->setIsSuccess(false)
+                ->addError($splittableCheckoutErrorTransfer);
         }
-
-        return $this->placeSplitOrders($quoteCollectionTransfer);
     }
 
     /**
-     * @param \Generated\Shared\Transfer\QuoteCollectionTransfer $quoteCollectionTransfer
+     * @param \Generated\Shared\Transfer\QuoteTransfer $quoteTransfer
+     *
+     * @throws \Exception
+     *
+     * @return \Generated\Shared\Transfer\SplittableCheckoutResponseTransfer
+     */
+    protected function executePlaceOrder(QuoteTransfer $quoteTransfer): SplittableCheckoutResponseTransfer
+    {
+        $splittedQuoteTransfers = $this->splittableQuoteFacade->splitQuote($quoteTransfer);
+
+        if (count($splittedQuoteTransfers) === 0) {
+            throw new Exception('Could not split quote.');
+        }
+
+        $splittedQuoteTransfers = $this->createSplittedQuotes($splittedQuoteTransfers);
+
+        return $this->placeSplitOrders($quoteTransfer, $splittedQuoteTransfers);
+    }
+
+    /**
+     * @param \Generated\Shared\Transfer\QuoteTransfer $quoteTransfer
+     * @param array<string, \Generated\Shared\Transfer\QuoteTransfer> $splittedQuoteTransfers
+     *
+     * @throws \Exception
      *
      * @return \Generated\Shared\Transfer\SplittableCheckoutResponseTransfer
      */
     protected function placeSplitOrders(
-        QuoteCollectionTransfer $quoteCollectionTransfer
+        QuoteTransfer $quoteTransfer,
+        array $splittedQuoteTransfers
     ): SplittableCheckoutResponseTransfer {
         $splittableCheckoutResponseTransfer = new SplittableCheckoutResponseTransfer();
-        $checkoutResponseErrors = new ArrayObject();
         $checkoutResponseOrderReferences = [];
-        foreach ($quoteCollectionTransfer->getQuotes() as $quoteTransfer) {
-            $checkoutResponseTransfer = $this->checkoutFacade->placeOrder($quoteTransfer);
 
-            if ($checkoutResponseTransfer->getIsSuccess() === false) {
-                $checkoutResponseErrors->append(
-                    $this->mapCheckoutErrorsToSplittableCheckoutErrors($checkoutResponseTransfer->getErrors())
-                );
+        foreach ($splittedQuoteTransfers as $splittedQuoteTransfer) {
+            $checkoutResponseTransfer = $this->checkoutFacade->placeOrder($splittedQuoteTransfer);
+            $saveOrderTransfer = $checkoutResponseTransfer->getSaveOrder();
 
-                continue;
+            if ($saveOrderTransfer === null || $checkoutResponseTransfer->getIsSuccess() === false) {
+                throw new Exception('Could not place order.');
             }
 
-            $this->quoteFacade->deleteQuote($quoteTransfer);
-            $checkoutResponseOrderReferences[] = $checkoutResponseTransfer->getSaveOrder()->getOrderReference();
+            $checkoutResponseOrderReferences[] = $saveOrderTransfer->getOrderReference();
         }
+
+        $this->quoteFacade->deleteQuote($quoteTransfer);
 
         return $splittableCheckoutResponseTransfer
             ->setIsSuccess(true)
-            ->setErrors($checkoutResponseErrors)
             ->setOrderReferences($checkoutResponseOrderReferences);
     }
 
     /**
-     * @param \ArrayObject $errors
+     * @param array<string, \Generated\Shared\Transfer\QuoteTransfer> $splittedQuoteTransfers
      *
-     * @return \ArrayObject
+     * @throws \Exception
+     *
+     * @return array<string, \Generated\Shared\Transfer\QuoteTransfer>
      */
-    protected function mapCheckoutErrorsToSplittableCheckoutErrors(ArrayObject $errors): ArrayObject
+    protected function createSplittedQuotes(array $splittedQuoteTransfers): array
     {
-        $splittableCheckoutErrors = new ArrayObject();
+        foreach ($splittedQuoteTransfers as $key => $splittedQuoteTransfer) {
+            $quoteResponseTransfer = $this->quoteFacade->createQuote($splittedQuoteTransfer);
+            $quoteTransfer = $quoteResponseTransfer->getQuoteTransfer();
 
-        return $splittableCheckoutErrors;
+            if ($quoteTransfer === null || $quoteResponseTransfer->getIsSuccessful() === false) {
+                throw new Exception('Could not create splitted quote.');
+            }
+
+            $splittedQuoteTransfers[$key] = $quoteTransfer;
+        }
+
+        return $splittedQuoteTransfers;
     }
 }

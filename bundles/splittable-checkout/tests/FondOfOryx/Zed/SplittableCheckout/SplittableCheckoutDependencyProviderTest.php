@@ -3,11 +3,12 @@
 namespace FondOfOryx\Zed\SplittableCheckout;
 
 use Codeception\Test\Unit;
-use FondOfOryx\Zed\SplittableCheckout\Dependency\Facade\SplittableCheckoutToCheckoutFacadeBridge;
-use FondOfOryx\Zed\SplittableCheckout\Dependency\Facade\SplittableCheckoutToQuoteFacadeBridge;
+use FondOfOryx\Zed\SplittableCheckout\Dependency\Facade\SplittableCheckoutToCheckoutFacadeInterface;
+use FondOfOryx\Zed\SplittableCheckout\Dependency\Facade\SplittableCheckoutToQuoteFacadeInterface;
+use FondOfOryx\Zed\SplittableCheckout\Dependency\Facade\SplittableCheckoutToSplittableQuoteFacadeInterface;
+use FondOfOryx\Zed\SplittableQuote\Business\SplittableQuoteFacadeInterface;
 use Spryker\Shared\Kernel\BundleProxy;
 use Spryker\Zed\Checkout\Business\CheckoutFacadeInterface;
-use Spryker\Zed\Customer\Business\CustomerFacadeInterface;
 use Spryker\Zed\Kernel\Container;
 use Spryker\Zed\Kernel\Locator;
 use Spryker\Zed\Quote\Business\QuoteFacadeInterface;
@@ -30,11 +31,6 @@ class SplittableCheckoutDependencyProviderTest extends Unit
     protected $bundleProxyMock;
 
     /**
-     * @var \FondOfOryx\Zed\SplittableCheckout\SplittableCheckoutDependencyProvider
-     */
-    protected $splittableCheckoutDependencyProvider;
-
-    /**
      * @var \PHPUnit\Framework\MockObject\MockObject|\Spryker\Zed\Checkout\Business\CheckoutFacadeInterface;
      */
     protected $checkoutFacadeMock;
@@ -43,6 +39,16 @@ class SplittableCheckoutDependencyProviderTest extends Unit
      * @var \PHPUnit\Framework\MockObject\MockObject|\Spryker\Zed\Quote\Business\QuoteFacadeInterface
      */
     protected $quoteFacadeMock;
+
+    /**
+     * @var \FondOfOryx\Zed\SplittableQuote\Business\SplittableQuoteFacadeInterface|\PHPUnit\Framework\MockObject\MockObject
+     */
+    protected $splittableQuoteFacadeMock;
+
+    /**
+     * @var \FondOfOryx\Zed\SplittableCheckout\SplittableCheckoutDependencyProvider
+     */
+    protected $splittableCheckoutDependencyProvider;
 
     /**
      * @return void
@@ -63,15 +69,15 @@ class SplittableCheckoutDependencyProviderTest extends Unit
             ->disableOriginalConstructor()
             ->getMock();
 
-        $this->customerFacadeMock = $this->getMockBuilder(CustomerFacadeInterface::class)
-            ->disableOriginalConstructor()
-            ->getMock();
-
         $this->checkoutFacadeMock = $this->getMockBuilder(CheckoutFacadeInterface::class)
             ->disableOriginalConstructor()
             ->getMock();
 
         $this->quoteFacadeMock = $this->getMockBuilder(QuoteFacadeInterface::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $this->splittableQuoteFacadeMock = $this->getMockBuilder(SplittableQuoteFacadeInterface::class)
             ->disableOriginalConstructor()
             ->getMock();
 
@@ -83,36 +89,42 @@ class SplittableCheckoutDependencyProviderTest extends Unit
      */
     public function testProvideBusinessLayerDependencies(): void
     {
-        $this->containerMock->expects(self::atLeastOnce())
+        $this->containerMock->expects(static::atLeastOnce())
             ->method('getLocator')
             ->willReturn($this->locatorMock);
 
-        $this->locatorMock->expects(self::atLeastOnce())
+        $this->locatorMock->expects(static::atLeastOnce())
             ->method('__call')
-            ->withConsecutive(['checkout'], ['quote'])
+            ->withConsecutive(['checkout'], ['quote'], ['splittableQuote'])
             ->willReturn($this->bundleProxyMock);
 
-        $this->bundleProxyMock->expects(self::atLeastOnce())
+        $this->bundleProxyMock->expects(static::atLeastOnce())
             ->method('__call')
             ->with('facade')
             ->willReturnOnConsecutiveCalls(
                 $this->checkoutFacadeMock,
-                $this->quoteFacadeMock
+                $this->quoteFacadeMock,
+                $this->splittableQuoteFacadeMock
             );
 
         $container = $this->splittableCheckoutDependencyProvider
             ->provideBusinessLayerDependencies($this->containerMock);
 
-        $this->assertEquals($this->containerMock, $container);
+        static::assertEquals($this->containerMock, $container);
 
-        $this->assertInstanceOf(
-            SplittableCheckoutToCheckoutFacadeBridge::class,
+        static::assertInstanceOf(
+            SplittableCheckoutToCheckoutFacadeInterface::class,
             $this->containerMock[SplittableCheckoutDependencyProvider::FACADE_CHECKOUT]
         );
 
-        $this->assertInstanceOf(
-            SplittableCheckoutToQuoteFacadeBridge::class,
+        static::assertInstanceOf(
+            SplittableCheckoutToQuoteFacadeInterface::class,
             $this->containerMock[SplittableCheckoutDependencyProvider::FACADE_QUOTE]
+        );
+
+        static::assertInstanceOf(
+            SplittableCheckoutToSplittableQuoteFacadeInterface::class,
+            $this->containerMock[SplittableCheckoutDependencyProvider::FACADE_SPLITTABLE_QUOTE]
         );
     }
 }

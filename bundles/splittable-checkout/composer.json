@@ -1,6 +1,6 @@
 {
   "name": "fond-of-oryx/splittable-checkout",
-  "description": "SplittableCheckout Module",
+  "description": "Splittable Checkout Module",
   "license": "MIT",
   "authors": [
     {
@@ -10,9 +10,8 @@
   ],
   "require": {
     "php": ">=7.3",
-    "fond-of-oryx/splittable-chekout-extension": "dev-main",
+    "fond-of-oryx/splittable-quote": "^1.0.0",
     "spryker/checkout": "^6.0.0",
-    "spryker/persistent-cart": "^3.0.0",
     "spryker/quote": "^2.0.0"
   },
   "require-dev": {

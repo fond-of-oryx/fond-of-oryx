@@ -15,9 +15,9 @@ class SplittableCheckoutFacadeTest extends Unit
     protected $splittableCheckoutBusinessFactoryMock;
 
     /**
-     * @var \FondOfOryx\Zed\SplittableCheckout\Business\SplittableCheckoutFacadeInterface
+     * @var \FondOfOryx\Zed\SplittableCheckout\Business\Workflow\SplittableCheckoutWorkflowInterface|\PHPUnit\Framework\MockObject\MockObject
      */
-    protected $splittableCheckoutFacade;
+    protected $splittableCheckoutWorkflowMock;
 
     /**
      * @var \Generated\Shared\Transfer\SplittableCheckoutResponseTransfer|\PHPUnit\Framework\MockObject\MockObject
@@ -25,14 +25,14 @@ class SplittableCheckoutFacadeTest extends Unit
     protected $splittableCheckoutResponseTransferMock;
 
     /**
-     * @var \FondOfOryx\Zed\SplittableCheckout\Business\Workflow\SplittableCheckoutWorkflowInterface|\PHPUnit\Framework\MockObject\MockObject
-     */
-    protected $splittableCheckoutWorkflowMock;
-
-    /**
      * @var \Generated\Shared\Transfer\QuoteTransfer|\PHPUnit\Framework\MockObject\MockObject
      */
     protected $quoteTransferMock;
+
+    /**
+     * @var \FondOfOryx\Zed\SplittableCheckout\Business\SplittableCheckoutFacadeInterface
+     */
+    protected $splittableCheckoutFacade;
 
     /**
      * @return void
@@ -66,19 +66,17 @@ class SplittableCheckoutFacadeTest extends Unit
      */
     public function testPlaceOrder(): void
     {
-        $this->splittableCheckoutBusinessFactoryMock->expects($this->atLeastOnce())
+        $this->splittableCheckoutBusinessFactoryMock->expects(static::atLeastOnce())
             ->method('createSplittableCheckoutWorkflow')
             ->willReturn($this->splittableCheckoutWorkflowMock);
 
-        $this->splittableCheckoutWorkflowMock->expects($this->atLeastOnce())
+        $this->splittableCheckoutWorkflowMock->expects(static::atLeastOnce())
             ->method('placeOrder')
             ->willReturn($this->splittableCheckoutResponseTransferMock);
 
-        $splittableCheckoutResponseTransfer = $this->splittableCheckoutFacade->placeOrder($this->quoteTransferMock);
-
-        $this->assertInstanceOf(
-            SplittableCheckoutResponseTransfer::class,
-            $splittableCheckoutResponseTransfer
+        static::assertEquals(
+            $this->splittableCheckoutResponseTransferMock,
+            $this->splittableCheckoutFacade->placeOrder($this->quoteTransferMock)
         );
     }
 }
