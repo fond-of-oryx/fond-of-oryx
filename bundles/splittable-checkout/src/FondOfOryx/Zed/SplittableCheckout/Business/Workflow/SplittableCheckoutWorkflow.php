@@ -15,6 +15,8 @@ class SplittableCheckoutWorkflow implements SplittableCheckoutWorkflowInterface
 {
     use TransactionTrait;
 
+    protected const ERROR_MESSAGE_ORDER_NOT_PLACED = 'splittable_checkout.error.order_not_placed';
+
     /**
      * @var \FondOfOryx\Zed\SplittableCheckout\Dependency\Facade\SplittableCheckoutToCheckoutFacadeInterface
      */
@@ -62,7 +64,7 @@ class SplittableCheckoutWorkflow implements SplittableCheckoutWorkflowInterface
             );
         } catch (Exception $exception) {
             $splittableCheckoutErrorTransfer = (new SplittableCheckoutErrorTransfer())
-                ->setMessage($exception->getMessage());
+                ->setMessage(static::ERROR_MESSAGE_ORDER_NOT_PLACED);
 
             return (new SplittableCheckoutResponseTransfer())
                 ->setIsSuccess(false)
@@ -82,10 +84,10 @@ class SplittableCheckoutWorkflow implements SplittableCheckoutWorkflowInterface
         $splittedQuoteTransfers = $this->splittableQuoteFacade->splitQuote($quoteTransfer);
 
         if (count($splittedQuoteTransfers) === 0) {
-            throw new Exception('TODO');
+            throw new Exception('Could not split quote.');
         }
 
-        $splittedQuoteTransfers = $this->persistSplittedQuotes($splittedQuoteTransfers);
+        $splittedQuoteTransfers = $this->createSplittedQuotes($splittedQuoteTransfers);
 
         return $this->placeSplitOrders($quoteTransfer, $splittedQuoteTransfers);
     }
@@ -110,7 +112,7 @@ class SplittableCheckoutWorkflow implements SplittableCheckoutWorkflowInterface
             $saveOrderTransfer = $checkoutResponseTransfer->getSaveOrder();
 
             if ($saveOrderTransfer === null || $checkoutResponseTransfer->getIsSuccess() === false) {
-                throw new Exception('#TODO');
+                throw new Exception('Could not place order.');
             }
 
             $checkoutResponseOrderReferences[] = $saveOrderTransfer->getOrderReference();
@@ -130,14 +132,14 @@ class SplittableCheckoutWorkflow implements SplittableCheckoutWorkflowInterface
      *
      * @return array<string, \Generated\Shared\Transfer\QuoteTransfer>
      */
-    protected function persistSplittedQuotes(array $splittedQuoteTransfers): array
+    protected function createSplittedQuotes(array $splittedQuoteTransfers): array
     {
         foreach ($splittedQuoteTransfers as $key => $splittedQuoteTransfer) {
             $quoteResponseTransfer = $this->quoteFacade->createQuote($splittedQuoteTransfer);
             $quoteTransfer = $quoteResponseTransfer->getQuoteTransfer();
 
             if ($quoteTransfer === null || $quoteResponseTransfer->getIsSuccessful() === false) {
-                throw new Exception('#TODO');
+                throw new Exception('Could not create splitted quote.');
             }
 
             $splittedQuoteTransfers[$key] = $quoteTransfer;
