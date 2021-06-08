@@ -16,9 +16,7 @@ class PrepaymentFormDataProvider implements StepEngineFormDataProviderInterface
     public function getData(AbstractTransfer $dataTransfer)
     {
         if (method_exists($dataTransfer, 'getPayment') && method_exists($dataTransfer, 'setPayment') && $dataTransfer->getPayment() === null) {
-            $paymentTransfer = new PaymentTransfer();
-
-            $dataTransfer->setPayment($paymentTransfer);
+            $dataTransfer->setPayment(new PaymentTransfer());
         }
 
         return $dataTransfer;

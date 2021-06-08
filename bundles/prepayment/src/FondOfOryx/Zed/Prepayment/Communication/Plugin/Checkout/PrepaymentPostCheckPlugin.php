@@ -27,13 +27,13 @@ class PrepaymentPostCheckPlugin extends AbstractPlugin implements CheckoutPostCh
     public function execute(QuoteTransfer $quoteTransfer, CheckoutResponseTransfer $checkoutResponseTransfer)
     {
         if (!$this->isAuthorizationApproved($quoteTransfer)) {
-            $checkoutErrorTransfer = new CheckoutErrorTransfer();
-            $checkoutErrorTransfer
+            $checkoutErrorTransfer = (new CheckoutErrorTransfer())
                 ->setErrorCode(static::ERROR_CODE_PAYMENT_FAILED)
                 ->setMessage('Something went wrong with your payment. Try again!');
 
-            $checkoutResponseTransfer->addError($checkoutErrorTransfer);
-            $checkoutResponseTransfer->setIsSuccess(false);
+            $checkoutResponseTransfer
+                ->addError($checkoutErrorTransfer)
+                ->setIsSuccess(false);
         }
 
         return $checkoutResponseTransfer;

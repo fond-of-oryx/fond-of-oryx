@@ -2,6 +2,7 @@
 
 namespace FondOfOryx\Zed\Prepayment;
 
+use Exception;
 use FondOfOryx\Shared\Prepayment\PrepaymentConstants;
 use Spryker\Zed\Kernel\AbstractBundleConfig;
 
@@ -12,7 +13,11 @@ class PrepaymentConfig extends AbstractBundleConfig
      */
     public function getIban(): ?string
     {
-        return $this->get(PrepaymentConstants::IBAN);
+        try {
+            return $this->get(PrepaymentConstants::IBAN);
+        } catch (Exception $exception) {
+            return null;
+        }
     }
 
     /**
@@ -20,7 +25,11 @@ class PrepaymentConfig extends AbstractBundleConfig
      */
     public function getBic(): ?string
     {
-        return $this->get(PrepaymentConstants::BIC);
+        try {
+            return $this->get(PrepaymentConstants::BIC);
+        } catch (Exception $exception) {
+            return null;
+        }
     }
 
     /**
@@ -28,7 +37,11 @@ class PrepaymentConfig extends AbstractBundleConfig
      */
     public function getAccountHolder(): ?string
     {
-        return $this->get(PrepaymentConstants::ACCOUNT_HOLDER);
+        try {
+            return $this->get(PrepaymentConstants::ACCOUNT_HOLDER);
+        } catch (Exception $exception) {
+            return null;
+        }
     }
 
     /**
@@ -36,6 +49,10 @@ class PrepaymentConfig extends AbstractBundleConfig
      */
     public function getBank(): ?string
     {
-        return $this->get(PrepaymentConstants::CUSTOM_TEXT);
+        try {
+            return $this->get(PrepaymentConstants::CUSTOM_TEXT);
+        } catch (Exception $exception) {
+            return null;
+        }
     }
 }

@@ -1,4 +1,4 @@
-namespace: FondOfOryx
+namespace: fond-of-oryx/prepayment
 suites:
   unit:
     path: .
