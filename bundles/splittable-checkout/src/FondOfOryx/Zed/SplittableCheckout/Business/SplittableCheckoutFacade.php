@@ -18,9 +18,6 @@ class SplittableCheckoutFacade extends AbstractFacade implements SplittableCheck
      */
     public function placeOrder(QuoteTransfer $quoteTransfer): SplittableCheckoutResponseTransfer
     {
-        return $this
-            ->getFactory()
-            ->createSplittableCheckoutWorkflow()
-            ->placeOrder($quoteTransfer);
+        return $this->getFactory()->createSplittableCheckoutWorkflow()->placeOrder($quoteTransfer);
     }
 }

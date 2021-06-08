@@ -40,5 +40,4 @@ class SplittableCheckoutToQuoteFacadeBridge implements SplittableCheckoutToQuote
     {
         return $this->quoteFacade->deleteQuote($quoteTransfer);
     }
-
 }

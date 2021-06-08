@@ -2,20 +2,14 @@
 
 namespace FondOfOryx\Zed\SplittableCheckout\Business;
 
-use FondOfOryx\Zed\SplittableCheckout\Business\Model\QuoteSplitter;
-use FondOfOryx\Zed\SplittableCheckout\Business\Model\QuoteSplitterInterface;
 use FondOfOryx\Zed\SplittableCheckout\Business\Workflow\SplittableCheckoutWorkflow;
 use FondOfOryx\Zed\SplittableCheckout\Business\Workflow\SplittableCheckoutWorkflowInterface;
 use FondOfOryx\Zed\SplittableCheckout\Dependency\Facade\SplittableCheckoutToCheckoutFacadeInterface;
-use FondOfOryx\Zed\SplittableCheckout\Dependency\Facade\SplittableCheckoutToPersistentCartFacadeInterface;
 use FondOfOryx\Zed\SplittableCheckout\Dependency\Facade\SplittableCheckoutToQuoteFacadeInterface;
 use FondOfOryx\Zed\SplittableCheckout\Dependency\Facade\SplittableCheckoutToSplittableQuoteFacadeInterface;
 use FondOfOryx\Zed\SplittableCheckout\SplittableCheckoutDependencyProvider;
 use Spryker\Zed\Kernel\Business\AbstractBusinessFactory;
 
-/**
- * @method \FondOfOryx\Zed\SplittableCheckout\SplittableCheckoutConfig getConfig()
- */
 class SplittableCheckoutBusinessFactory extends AbstractBusinessFactory
 {
     /**
@@ -37,7 +31,7 @@ class SplittableCheckoutBusinessFactory extends AbstractBusinessFactory
     {
         return $this->getProvidedDependency(SplittableCheckoutDependencyProvider::FACADE_CHECKOUT);
     }
-    
+
     /**
      * @return \FondOfOryx\Zed\SplittableCheckout\Dependency\Facade\SplittableCheckoutToSplittableQuoteFacadeInterface
      */
