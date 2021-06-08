@@ -2,20 +2,38 @@
 
 namespace FondOfOryx\Zed\SplittableCheckout\Business\Workflow;
 
-use ArrayObject;
 use Codeception\Test\Unit;
-use FondOfOryx\Zed\SplittableCheckout\Business\Model\QuoteSplitterInterface;
 use FondOfOryx\Zed\SplittableCheckout\Dependency\Facade\SplittableCheckoutToCheckoutFacadeInterface;
 use FondOfOryx\Zed\SplittableCheckout\Dependency\Facade\SplittableCheckoutToQuoteFacadeInterface;
+use FondOfOryx\Zed\SplittableCheckout\Dependency\Facade\SplittableCheckoutToSplittableQuoteFacadeInterface;
 use Generated\Shared\Transfer\CheckoutResponseTransfer;
-use Generated\Shared\Transfer\QuoteCollectionTransfer;
 use Generated\Shared\Transfer\QuoteResponseTransfer;
 use Generated\Shared\Transfer\QuoteTransfer;
 use Generated\Shared\Transfer\SaveOrderTransfer;
-use Generated\Shared\Transfer\SplittableCheckoutResponseTransfer;
+use Spryker\Zed\Kernel\Persistence\EntityManager\TransactionHandlerInterface;
 
 class SplittableCheckoutWorkflowTest extends Unit
 {
+    /**
+     * @var \PHPUnit\Framework\MockObject\MockObject|\FondOfOryx\Zed\SplittableCheckout\Dependency\Facade\SplittableCheckoutToCheckoutFacadeInterface
+     */
+    protected $checkoutFacadeMock;
+
+    /**
+     * @var \PHPUnit\Framework\MockObject\MockObject|\FondOfOryx\Zed\SplittableCheckout\Dependency\Facade\SplittableCheckoutToSplittableQuoteFacadeInterface;
+     */
+    protected $splittableQuoteFacadeMock;
+
+    /**
+     * @var \PHPUnit\Framework\MockObject\MockObject|\FondOfOryx\Zed\SplittableCheckout\Dependency\Facade\SplittableCheckoutToQuoteFacadeInterface
+     */
+    protected $quoteFacadeMock;
+
+    /**
+     * @var \PHPUnit\Framework\MockObject\MockObject|\Spryker\Zed\Kernel\Persistence\EntityManager\TransactionHandlerInterface
+     */
+    protected $transactionHandlerMock;
+
     /**
      * @var \PHPUnit\Framework\MockObject\MockObject|\Generated\Shared\Transfer\CheckoutResponseTransfer
      */
@@ -32,9 +50,9 @@ class SplittableCheckoutWorkflowTest extends Unit
     protected $quoteResponseTransferMock;
 
     /**
-     * @var \PHPUnit\Framework\MockObject\MockObject|\Generated\Shared\Transfer\QuoteTransfer
+     * @var \PHPUnit\Framework\MockObject\MockObject|\Generated\Shared\Transfer\SaveOrderTransfer
      */
-    protected $splittedQuoteTransferMock;
+    protected $saveOrderTransferMock;
 
     /**
      * @var \FondOfOryx\Zed\SplittableCheckout\Business\Workflow\SplittableCheckoutWorkflow
@@ -42,36 +60,23 @@ class SplittableCheckoutWorkflowTest extends Unit
     protected $splittableCheckoutWorkflow;
 
     /**
-     * @var \PHPUnit\Framework\MockObject\MockObject|\FondOfOryx\Zed\SplittableCheckout\Dependency\Facade\SplittableCheckoutToCheckoutFacadeInterface
-     */
-    protected $checkoutFacadeMock;
-
-    /**
-     * @var \PHPUnit\Framework\MockObject\MockObject|\Generated\Shared\Transfer\SaveOrderTransfer
-     */
-    protected $saveOrderTransferMock;
-
-    /**
-     * @var \PHPUnit\Framework\MockObject\MockObject|\Generated\Shared\Transfer\QuoteCollectionTransfer
-     */
-    protected $quoteCollectionTransferMock;
-
-    /**
-     * @var \PHPUnit\Framework\MockObject\MockObject|\FondOfOryx\Zed\SplittableCheckout\Dependency\Facade\SplittableCheckoutToQuoteFacadeInterface
-     */
-    protected $quoteFacadeMock;
-
-    /**
-     * @var \PHPUnit\Framework\MockObject\MockObject|\Generated\Shared\Transfer\QuoteTransfer
-     */
-    protected $quoteSplitterMock;
-
-    /**
      * @return void
      */
     protected function _before(): void
     {
         $this->checkoutFacadeMock = $this->getMockBuilder(SplittableCheckoutToCheckoutFacadeInterface::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $this->splittableQuoteFacadeMock = $this->getMockBuilder(SplittableCheckoutToSplittableQuoteFacadeInterface::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $this->quoteFacadeMock = $this->getMockBuilder(SplittableCheckoutToQuoteFacadeInterface::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $this->transactionHandlerMock = $this->getMockBuilder(TransactionHandlerInterface::class)
             ->disableOriginalConstructor()
             ->getMock();
 
@@ -83,22 +88,6 @@ class SplittableCheckoutWorkflowTest extends Unit
             ->disableOriginalConstructor()
             ->getMock();
 
-        $this->splittedQuoteTransferMock = $this->getMockBuilder(QuoteTransfer::class)
-            ->disableOriginalConstructor()
-            ->getMock();
-
-        $this->quoteFacadeMock = $this->getMockBuilder(SplittableCheckoutToQuoteFacadeInterface::class)
-            ->disableOriginalConstructor()
-            ->getMock();
-
-        $this->quoteSplitterMock = $this->getMockBuilder(QuoteSplitterInterface::class)
-            ->disableOriginalConstructor()
-            ->getMock();
-
-        $this->quoteCollectionTransferMock = $this->getMockBuilder(QuoteCollectionTransfer::class)
-            ->disableOriginalConstructor()
-            ->getMock();
-
         $this->quoteResponseTransferMock = $this->getMockBuilder(QuoteResponseTransfer::class)
             ->disableOriginalConstructor()
             ->getMock();
@@ -107,11 +96,41 @@ class SplittableCheckoutWorkflowTest extends Unit
             ->disableOriginalConstructor()
             ->getMock();
 
-        $this->splittableCheckoutWorkflow = new SplittableCheckoutWorkflow(
+        $this->splittableCheckoutWorkflow = new class (
             $this->checkoutFacadeMock,
+            $this->splittableQuoteFacadeMock,
             $this->quoteFacadeMock,
-            $this->quoteSplitterMock
-        );
+            $this->transactionHandlerMock
+        ) extends SplittableCheckoutWorkflow {
+            /**
+             * @var \Spryker\Zed\Kernel\Persistence\EntityManager\TransactionHandlerInterface
+             */
+            protected $transactionHandler;
+
+            /**
+             * @param \FondOfOryx\Zed\SplittableCheckout\Dependency\Facade\SplittableCheckoutToCheckoutFacadeInterface $checkoutFacade
+             * @param \FondOfOryx\Zed\SplittableCheckout\Dependency\Facade\SplittableCheckoutToSplittableQuoteFacadeInterface $splittableQuoteFacade
+             * @param \FondOfOryx\Zed\SplittableCheckout\Dependency\Facade\SplittableCheckoutToQuoteFacadeInterface $quoteFacade
+             * @param \Spryker\Zed\Kernel\Persistence\EntityManager\TransactionHandlerInterface $transactionHandler
+             */
+            public function __construct(
+                SplittableCheckoutToCheckoutFacadeInterface $checkoutFacade,
+                SplittableCheckoutToSplittableQuoteFacadeInterface $splittableQuoteFacade,
+                SplittableCheckoutToQuoteFacadeInterface $quoteFacade,
+                TransactionHandlerInterface $transactionHandler
+            ) {
+                parent::__construct($checkoutFacade, $splittableQuoteFacade, $quoteFacade);
+                $this->transactionHandler = $transactionHandler;
+            }
+
+            /**
+             * @return \Spryker\Zed\Kernel\Persistence\EntityManager\TransactionHandlerInterface
+             */
+            public function getTransactionHandler(): TransactionHandlerInterface
+            {
+                return $this->transactionHandler;
+            }
+        };
     }
 
     /**
@@ -119,46 +138,65 @@ class SplittableCheckoutWorkflowTest extends Unit
      */
     public function testPlaceOrder(): void
     {
-        $quotes = new ArrayObject();
-        $quotes->append($this->splittedQuoteTransferMock);
+        $orderReference = 'FOO-1';
+        $splittedQuoteTransferMocks = ['*' => $this->quoteTransferMock];
 
-        $this->quoteSplitterMock->expects($this->atLeastOnce())
-            ->method('split')
+        $this->transactionHandlerMock->expects(static::atLeastOnce())
+            ->method('handleTransaction')
+            ->willReturnCallback(
+                static function ($closure) {
+                    $result = $closure();
+
+                    if (empty($result)) {
+                        return;
+                    }
+
+                    return $result;
+                }
+            );
+
+        $this->splittableQuoteFacadeMock->expects(static::atLeastOnce())
+            ->method('splitQuote')
             ->with($this->quoteTransferMock)
-            ->willReturn($this->quoteCollectionTransferMock);
+            ->willReturn($splittedQuoteTransferMocks);
 
-        $this->quoteCollectionTransferMock->expects($this->atLeastOnce())
-            ->method('getQuotes')
-            ->willReturn($quotes);
-
-        $this->checkoutFacadeMock->expects($this->atLeastOnce())
-            ->method('placeOrder')
-            ->willReturn($this->checkoutResponseTransferMock);
-
-        $this->checkoutResponseTransferMock->expects($this->atLeastOnce())
-            ->method('getIsSuccess')
-            ->willReturn(true);
-
-        $this->quoteFacadeMock->expects($this->atLeastOnce())
-            ->method('deleteQuote')
+        $this->quoteFacadeMock->expects(static::atLeastOnce())
+            ->method('createQuote')
+            ->with($this->quoteTransferMock)
             ->willReturn($this->quoteResponseTransferMock);
 
-        $this->checkoutResponseTransferMock->expects($this->atLeastOnce())
+        $this->quoteResponseTransferMock->expects(static::atLeastOnce())
+            ->method('getQuoteTransfer')
+            ->willReturn($this->quoteTransferMock);
+
+        $this->quoteResponseTransferMock->expects(static::atLeastOnce())
+            ->method('getIsSuccessful')
+            ->willReturn(true);
+
+        $this->checkoutFacadeMock->expects(static::atLeastOnce())
+            ->method('placeOrder')
+            ->with($this->quoteTransferMock)
+            ->willReturn($this->checkoutResponseTransferMock);
+
+        $this->checkoutResponseTransferMock->expects(static::atLeastOnce())
             ->method('getSaveOrder')
             ->willReturn($this->saveOrderTransferMock);
 
-        $this->saveOrderTransferMock->expects($this->atLeastOnce())
+        $this->checkoutResponseTransferMock->expects(static::atLeastOnce())
+            ->method('getIsSuccess')
+            ->willReturn(true);
+
+        $this->saveOrderTransferMock->expects(static::atLeastOnce())
             ->method('getOrderReference')
-            ->willReturn('SALE---1');
+            ->willReturn($orderReference);
+
+        $this->quoteFacadeMock->expects(static::atLeastOnce())
+            ->method('deleteQuote')
+            ->with($this->quoteTransferMock);
 
         $splittableCheckoutResponseTransfer = $this->splittableCheckoutWorkflow->placeOrder($this->quoteTransferMock);
 
-        $this->assertInstanceOf(
-            SplittableCheckoutResponseTransfer::class,
-            $splittableCheckoutResponseTransfer
-        );
-
-        $this->assertEquals(true, $splittableCheckoutResponseTransfer->getIsSuccess());
-        $this->assertEquals(['SALE---1'], $splittableCheckoutResponseTransfer->getOrderReferences());
+        static::assertEquals(true, $splittableCheckoutResponseTransfer->getIsSuccess());
+        static::assertEquals([$orderReference], $splittableCheckoutResponseTransfer->getOrderReferences());
     }
 }
