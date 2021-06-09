@@ -7,7 +7,6 @@ use FondOfOryx\Zed\SplittableCheckoutRestApi\Business\Reader\QuoteReaderInterfac
 use FondOfOryx\Zed\SplittableCheckoutRestApi\Dependency\Facade\SplittableCheckoutRestApiToSplittableCheckoutFacadeInterface;
 use Generated\Shared\Transfer\QuoteTransfer;
 use Generated\Shared\Transfer\RestSplittableCheckoutRequestTransfer;
-use Generated\Shared\Transfer\RestSplittableCheckoutResponseTransfer;
 use Generated\Shared\Transfer\SplittableCheckoutResponseTransfer;
 
 class PlaceOrderProcessorTest extends Unit
@@ -80,6 +79,8 @@ class PlaceOrderProcessorTest extends Unit
      */
     public function testPlaceOrder(): void
     {
+        $orderReferences = ['FOO-1'];
+
         $this->quoteReaderMock->expects(static::atLeastOnce())
             ->method('getByRestSplittableCheckoutRequest')
             ->with($this->restSplittableCheckoutRequestTransferMock)
@@ -92,15 +93,23 @@ class PlaceOrderProcessorTest extends Unit
 
         $this->splittableCheckoutResponseTransferMock->expects(static::atLeastOnce())
             ->method('getOrderReferences')
-            ->willReturn([]);
+            ->willReturn($orderReferences);
 
         $this->splittableCheckoutResponseTransferMock->expects(static::atLeastOnce())
             ->method('getIsSuccess')
             ->willReturn(true);
 
-        static::assertInstanceOf(
-            RestSplittableCheckoutResponseTransfer::class,
-            $this->placeOrderProcessor->placeOrder($this->restSplittableCheckoutRequestTransferMock)
+        $restSplittableCheckoutResponseTransfer = $this->placeOrderProcessor
+           ->placeOrder($this->restSplittableCheckoutRequestTransferMock);
+
+        static::assertNotEquals(
+            null,
+            $restSplittableCheckoutResponseTransfer->getSplittableCheckout()
+        );
+
+        static::assertEquals(
+            $orderReferences,
+            $restSplittableCheckoutResponseTransfer->getSplittableCheckout()->getOrderReferences()
         );
     }
 }
