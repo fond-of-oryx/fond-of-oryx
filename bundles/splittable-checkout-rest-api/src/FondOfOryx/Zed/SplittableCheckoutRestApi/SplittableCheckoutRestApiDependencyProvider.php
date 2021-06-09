@@ -24,7 +24,7 @@ class SplittableCheckoutRestApiDependencyProvider extends AbstractBundleDependen
         $container = parent::provideBusinessLayerDependencies($container);
 
         $container = $this->addQuoteFacade($container);
-        $container = $this->addSplittableTotalsFacade($container);
+        $container = $this->addSplittableCheckoutFacade($container);
 
         return $this->addQuoteExpanderPlugins($container);
     }
@@ -78,7 +78,7 @@ class SplittableCheckoutRestApiDependencyProvider extends AbstractBundleDependen
     }
 
     /**
-     * @return \FondOfOryx\Zed\SplittableTotalsRestApiExtension\Dependency\Plugin\QuoteExpanderPluginInterface[]
+     * @return \FondOfOryx\Zed\SplittableCheckoutRestApiExtension\Dependency\Plugin\QuoteExpanderPluginInterface[]
      */
     protected function getQuoteExpanderPlugins(): array
     {

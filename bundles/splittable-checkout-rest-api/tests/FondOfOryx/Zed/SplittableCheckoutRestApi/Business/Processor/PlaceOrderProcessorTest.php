@@ -8,6 +8,7 @@ use FondOfOryx\Zed\SplittableCheckoutRestApi\Dependency\Facade\SplittableCheckou
 use Generated\Shared\Transfer\QuoteTransfer;
 use Generated\Shared\Transfer\RestSplittableCheckoutRequestTransfer;
 use Generated\Shared\Transfer\RestSplittableCheckoutResponseTransfer;
+use Generated\Shared\Transfer\SplittableCheckoutResponseTransfer;
 
 class PlaceOrderProcessorTest extends Unit
 {
@@ -24,7 +25,12 @@ class PlaceOrderProcessorTest extends Unit
     /**
      * @var \PHPUnit\Framework\MockObject\MockObject[]|\Generated\Shared\Transfer\RestSplittableCheckoutRequestTransfer
      */
-    protected $restSplittableCheckoutResponseTransferMock;
+    protected $restSplittableCheckoutRequestTransferMock;
+
+    /**
+     * @var \PHPUnit\Framework\MockObject\MockObject[]|\Generated\Shared\Transfer\SplittableCheckoutResponseTransfer
+     */
+    protected $splittableCheckoutResponseTransferMock;
 
     /**
      * @var \FondOfOryx\Zed\SplittableCheckoutRestApi\Business\Reader\QuoteReaderInterface
@@ -55,7 +61,7 @@ class PlaceOrderProcessorTest extends Unit
             ->disableOriginalConstructor()
             ->getMock();
 
-        $this->restSplittableCheckoutResponseTransferMock = $this->getMockBuilder(RestSplittableCheckoutResponseTransfer::class)
+        $this->splittableCheckoutResponseTransferMock = $this->getMockBuilder(SplittableCheckoutResponseTransfer::class)
             ->disableOriginalConstructor()
             ->getMock();
 
@@ -82,15 +88,19 @@ class PlaceOrderProcessorTest extends Unit
         $this->splittableCheckoutFacadeMock->expects(static::atLeastOnce())
             ->method('placeOrder')
             ->with($this->quoteTransferMock)
-            ->willReturn($this->restSplittableCheckoutResponseTransferMock);
+            ->willReturn($this->splittableCheckoutResponseTransferMock);
 
-        $this->restSplittableCheckoutResponseTransferMock->expects(static::atLeastOnce())
+        $this->splittableCheckoutResponseTransferMock->expects(static::atLeastOnce())
             ->method('getOrderReferences')
             ->willReturn([]);
 
-        static::assertEquals(
+        $this->splittableCheckoutResponseTransferMock->expects(static::atLeastOnce())
+            ->method('getIsSuccess')
+            ->willReturn(true);
+
+        static::assertInstanceOf(
             RestSplittableCheckoutResponseTransfer::class,
-            $this->placeOrderProcessor->placeOrder($this->restSplittableCheckoutResponseTransferMock)
+            $this->placeOrderProcessor->placeOrder($this->restSplittableCheckoutRequestTransferMock)
         );
     }
 }

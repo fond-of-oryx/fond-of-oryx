@@ -1,16 +1,12 @@
 <?php
 
-namespace FondOfOryx\Zed\SplittableTotalsRestApi\Business;
+namespace FondOfOryx\Zed\SplittableCheckoutRestApi\Business;
 
 use Codeception\Test\Unit;
-use FondOfOryx\Glue\SplittableCheckoutRestApi\Processor\SplittableCheckout\SplittableCheckoutProcessor;
-use FondOfOryx\Zed\SplittableCheckoutRestApi\Business\SplittableCheckoutRestApiBusinessFactory;
+use FondOfOryx\Zed\SplittableCheckoutRestApi\Business\Processor\PlaceOrderProcessorInterface;
 use FondOfOryx\Zed\SplittableCheckoutRestApi\Dependency\Facade\SplittableCheckoutRestApiToQuoteFacadeInterface;
 use FondOfOryx\Zed\SplittableCheckoutRestApi\Dependency\Facade\SplittableCheckoutRestApiToSplittableCheckoutFacadeInterface;
 use FondOfOryx\Zed\SplittableCheckoutRestApi\SplittableCheckoutRestApiDependencyProvider;
-use FondOfOryx\Zed\SplittableTotalsRestApi\Dependency\Facade\SplittableTotalsRestApiToQuoteFacadeInterface;
-use FondOfOryx\Zed\SplittableTotalsRestApi\Dependency\Facade\SplittableTotalsRestApiToSplittableTotalsFacadeInterface;
-use FondOfOryx\Zed\SplittableTotalsRestApiExtension\Dependency\Plugin\QuoteExpanderPluginInterface;
 use Spryker\Zed\Kernel\Container;
 
 class SplittableCheckoutRestApiBusinessFactoryTest extends Unit
@@ -70,16 +66,18 @@ class SplittableCheckoutRestApiBusinessFactoryTest extends Unit
         $this->containerMock->expects(static::atLeastOnce())
             ->method('get')
             ->withConsecutive(
+                [SplittableCheckoutRestApiDependencyProvider::PLUGINS_QUOTE_EXPANDER],
                 [SplittableCheckoutRestApiDependencyProvider::FACADE_QUOTE],
                 [SplittableCheckoutRestApiDependencyProvider::FACADE_SPLITTABLE_CHECKOUT]
             )
             ->willReturnOnConsecutiveCalls(
+                [],
                 $this->quoteFacadeMock,
                 $this->splittableCheckoutFacadeMock
             );
 
         static::assertInstanceOf(
-            SplittableCheckoutProcessor::class,
+            PlaceOrderProcessorInterface::class,
             $this->businessFactory->createPlaceOrderProcessor()
         );
     }

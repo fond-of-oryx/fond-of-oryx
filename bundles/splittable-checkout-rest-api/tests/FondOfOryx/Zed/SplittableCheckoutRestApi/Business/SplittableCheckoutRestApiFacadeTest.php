@@ -10,7 +10,7 @@ use Generated\Shared\Transfer\RestSplittableCheckoutResponseTransfer;
 class SplittableCheckoutRestApiFacadeTest extends Unit
 {
     /**
-     * @var \FondOfOryx\Zed\SplittableTotalsRestApi\Business\SplittableTotalsRestApiBusinessFactory|\PHPUnit\Framework\MockObject\MockObject
+     * @var \FondOfOryx\Zed\SplittableCheckoutRestApi\Business\SplittableCheckoutRestApiBusinessFactory|\PHPUnit\Framework\MockObject\MockObject
      */
     protected $businessFactoryMock;
 
@@ -28,11 +28,6 @@ class SplittableCheckoutRestApiFacadeTest extends Unit
      * @var \Generated\Shared\Transfer\RestSplittableCheckoutResponseTransfer|\PHPUnit\Framework\MockObject\MockObject
      */
     protected $restSplittableCheckoutResponseTransferMock;
-
-    /**
-     * @var \FondOfOryx\Zed\SplittableTotalsRestApi\Business\Reader\SplittableTotalsReaderInterface|\PHPUnit\Framework\MockObject\MockObject
-     */
-    protected $splittableTotalsReaderMock;
 
     /**
      * @var \FondOfOryx\Zed\SplittableCheckoutRestApi\Business\SplittableCheckoutRestApiFacade

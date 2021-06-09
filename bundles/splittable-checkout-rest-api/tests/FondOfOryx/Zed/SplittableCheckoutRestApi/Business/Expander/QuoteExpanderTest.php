@@ -3,9 +3,9 @@
 namespace FondOfOryx\Zed\SplittableCheckoutRestApi\Business\Expander;
 
 use Codeception\Test\Unit;
-use FondOfOryx\Zed\SplittableTotalsRestApiExtension\Dependency\Plugin\QuoteExpanderPluginInterface;
+use FondOfOryx\Zed\SplittableCheckoutRestApiExtension\Dependency\Plugin\QuoteExpanderPluginInterface;
 use Generated\Shared\Transfer\QuoteTransfer;
-use Generated\Shared\Transfer\RestSplittableTotalsRequestTransfer;
+use Generated\Shared\Transfer\RestSplittableCheckoutRequestTransfer;
 
 class QuoteExpanderTest extends Unit
 {
@@ -20,12 +20,12 @@ class QuoteExpanderTest extends Unit
     protected $quoteTransferMock;
 
     /**
-     * @var \Generated\Shared\Transfer\RestSplittableTotalsRequestTransfer|\PHPUnit\Framework\MockObject\MockObject
+     * @var \Generated\Shared\Transfer\RestSplittableCheckoutRequestTransfer|\PHPUnit\Framework\MockObject\MockObject
      */
-    protected $restSplittableTotalsRequestTransferMock;
+    protected $restSplittableCheckoutRequestTransferMock;
 
     /**
-     * @var \FondOfOryx\Zed\SplittableTotalsRestApi\Business\Expander\QuoteExpander
+     * @var \FondOfOryx\Zed\SplittableCheckoutRestApi\Business\Expander\QuoteExpander
      */
     protected $quoteExpander;
 
@@ -46,7 +46,7 @@ class QuoteExpanderTest extends Unit
             ->disableOriginalConstructor()
             ->getMock();
 
-        $this->restSplittableTotalsRequestTransferMock = $this->getMockBuilder(RestSplittableTotalsRequestTransfer::class)
+        $this->restSplittableCheckoutRequestTransferMock = $this->getMockBuilder(RestSplittableCheckoutRequestTransfer::class)
             ->disableOriginalConstructor()
             ->getMock();
 
@@ -60,12 +60,12 @@ class QuoteExpanderTest extends Unit
     {
         $this->quoteExpanderPluginMocks[0]->expects(static::atLeastOnce())
             ->method('expand')
-            ->with($this->restSplittableTotalsRequestTransferMock, $this->quoteTransferMock)
+            ->with($this->restSplittableCheckoutRequestTransferMock, $this->quoteTransferMock)
             ->willReturn($this->quoteTransferMock);
 
         static::assertEquals(
             $this->quoteTransferMock,
-            $this->quoteExpander->expand($this->restSplittableTotalsRequestTransferMock, $this->quoteTransferMock)
+            $this->quoteExpander->expand($this->restSplittableCheckoutRequestTransferMock, $this->quoteTransferMock)
         );
     }
 }

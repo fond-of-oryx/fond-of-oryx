@@ -3,9 +3,8 @@
 namespace FondOfOryx\Zed\SplittableCheckoutRestApi\Business\Reader;
 
 use Codeception\Test\Unit;
+use FondOfOryx\Zed\SplittableCheckoutRestApi\Business\Expander\QuoteExpanderInterface;
 use FondOfOryx\Zed\SplittableCheckoutRestApi\Dependency\Facade\SplittableCheckoutRestApiToQuoteFacadeInterface;
-use FondOfOryx\Zed\SplittableTotalsRestApi\Business\Expander\QuoteExpanderInterface;
-use FondOfOryx\Zed\SplittableTotalsRestApi\Dependency\Facade\SplittableTotalsRestApiToQuoteFacadeInterface;
 use Generated\Shared\Transfer\QuoteResponseTransfer;
 use Generated\Shared\Transfer\QuoteTransfer;
 use Generated\Shared\Transfer\RestSplittableCheckoutRequestTransfer;
@@ -127,7 +126,7 @@ class QuoteReaderTest extends Unit
     /**
      * @return void
      */
-    public function testGetByRestSplittableTotalsRequestWithoutIdCart(): void
+    public function testGetByRestSplittableCheckoutRequestWithoutIdCart(): void
     {
         $uuid = null;
         $customerReference = 'FOO-1';
@@ -155,7 +154,7 @@ class QuoteReaderTest extends Unit
     /**
      * @return void
      */
-    public function testGetByRestSplittableTotalsRequestWithNonExistingQuote(): void
+    public function testGetByRestSplittableCheckoutRequestWithNonExistingQuote(): void
     {
         $uuid = 'a8f3d230-e76f-4e13-8b2d-19cd1ce263db';
         $customerReference = 'FOO-1';
@@ -197,16 +196,16 @@ class QuoteReaderTest extends Unit
     /**
      * @return void
      */
-    public function testGetByRestSplittableTotalsRequestWithoutPermission(): void
+    public function testGetByRestSplittableCheckoutRequestWithoutPermission(): void
     {
         $uuid = 'a8f3d230-e76f-4e13-8b2d-19cd1ce263db';
         $customerReference = 'FOO-1';
 
-        $this->restSplittableTotalsRequestTransferMock->expects(static::atLeastOnce())
+        $this->restSplittableCheckoutRequestTransferMock->expects(static::atLeastOnce())
             ->method('getIdCart')
             ->willReturn($uuid);
 
-        $this->restSplittableTotalsRequestTransferMock->expects(static::atLeastOnce())
+        $this->restSplittableCheckoutRequestTransferMock->expects(static::atLeastOnce())
             ->method('getCustomerReference')
             ->willReturn($customerReference);
 
@@ -237,7 +236,7 @@ class QuoteReaderTest extends Unit
 
         static::assertEquals(
             null,
-            $this->quoteReader->getByRestSplittableTotalsRequest($this->restSplittableTotalsRequestTransferMock)
+            $this->quoteReader->getByRestSplittableCheckoutRequest($this->restSplittableCheckoutRequestTransferMock)
         );
     }
 }

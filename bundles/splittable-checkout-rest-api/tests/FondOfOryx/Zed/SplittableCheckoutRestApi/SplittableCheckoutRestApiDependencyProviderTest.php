@@ -6,8 +6,6 @@ use Codeception\Test\Unit;
 use FondOfOryx\Zed\SplittableCheckout\Business\SplittableCheckoutFacadeInterface;
 use FondOfOryx\Zed\SplittableCheckoutRestApi\Dependency\Facade\SplittableCheckoutRestApiToQuoteFacadeInterface;
 use FondOfOryx\Zed\SplittableCheckoutRestApi\Dependency\Facade\SplittableCheckoutRestApiToSplittableCheckoutFacadeInterface;
-use FondOfOryx\Zed\SplittableTotalsRestApi\Dependency\Facade\SplittableTotalsRestApiToQuoteFacadeInterface;
-use FondOfOryx\Zed\SplittableTotalsRestApi\Dependency\Facade\SplittableTotalsRestApiToSplittableTotalsFacadeInterface;
 use Spryker\Shared\Kernel\BundleProxy;
 use Spryker\Zed\Kernel\Container;
 use Spryker\Zed\Kernel\Locator;
@@ -41,7 +39,7 @@ class SplittableCheckoutRestApiDependencyProviderTest extends Unit
     protected $splittableCheckoutFacadeMock;
 
     /**
-     * @var \FondOfOryx\Zed\SplittableTotalsRestApi\SplittableTotalsRestApiDependencyProvider
+     * @var \FondOfOryx\Zed\SplittableCheckoutRestApi\SplittableCheckoutRestApiDependencyProvider
      */
     protected $dependencyProvider;
 

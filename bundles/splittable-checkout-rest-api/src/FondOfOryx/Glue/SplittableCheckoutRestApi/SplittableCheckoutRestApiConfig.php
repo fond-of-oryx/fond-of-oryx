@@ -10,7 +10,7 @@ class SplittableCheckoutRestApiConfig extends AbstractBundleConfig
     public const CONTROLLER_SPLITTABLE_CHECKOUT = 'splittable-checkout-resource';
 
     public const RESPONSE_CODE_SPLITTABLE_CHECKOUT_NOT_PLACED = '8000';
-    public const EXCEPTION_MESSAGE_SPLITTABLE_CHECKOUT_NOT_PLACED = 'Can\'t get splittable total by given data.';
+    public const EXCEPTION_MESSAGE_SPLITTABLE_CHECKOUT_NOT_PLACED = 'Can\'t get splittable Quote by given data.';
 
     /**
      * @example

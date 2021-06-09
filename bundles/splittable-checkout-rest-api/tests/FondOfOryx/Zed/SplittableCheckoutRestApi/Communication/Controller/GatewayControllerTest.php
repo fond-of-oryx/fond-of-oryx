@@ -76,7 +76,7 @@ class GatewayControllerTest extends Unit
     /**
      * @return void
      */
-    public function testGetSplittableTotalsAction(): void
+    public function testGetSplittableCheckoutAction(): void
     {
         $this->splittableCheckoutRestApiFacadeMock->expects(static::atLeastOnce())
             ->method('placeOrder')

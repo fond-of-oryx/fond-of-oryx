@@ -1,6 +1,6 @@
 <?php
 
-namespace FondOfOryx\Zed\SplittableTotalsRestApi\Dependency\Facade;
+namespace FondOfOryx\Zed\SplittableCheckoutRestApi\Dependency\Facade;
 
 use Codeception\Test\Unit;
 use FondOfOryx\Zed\SplittableCheckout\Business\SplittableCheckoutFacadeInterface;
@@ -65,7 +65,7 @@ class SplittableCheckoutRestApiToSplittableCheckoutFacadeBridgeTest extends Unit
             ->willReturn($this->splittableCheckoutResponseTransferMock);
 
         static::assertEquals(
-            $this->splittableCheckoutFacadeMock,
+            $this->splittableCheckoutResponseTransferMock,
             $this->bridge->placeOrder($this->quoteTransferMock)
         );
     }

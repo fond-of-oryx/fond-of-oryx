@@ -3,7 +3,7 @@
 namespace FondOfOryx\Glue\SplittableCheckoutRestApi\Plugin\GlueApplicationExtension;
 
 use FondOfOryx\Glue\SplittableCheckoutRestApi\SplittableCheckoutRestApiConfig;
-use Generated\Shared\Transfer\RestSplittableTotalsRequestAttributesTransfer;
+use Generated\Shared\Transfer\RestSplittableCheckoutRequestAttributesTransfer;
 use Spryker\Glue\GlueApplicationExtension\Dependency\Plugin\ResourceRouteCollectionInterface;
 use Spryker\Glue\GlueApplicationExtension\Dependency\Plugin\ResourceRoutePluginInterface;
 use Spryker\Glue\Kernel\AbstractPlugin;
@@ -44,6 +44,6 @@ class SplittableCheckoutRestApiResourceRoutePlugin extends AbstractPlugin implem
      */
     public function getResourceAttributesClassName(): string
     {
-        return RestSplittableTotalsRequestAttributesTransfer::class;
+        return RestSplittableCheckoutRequestAttributesTransfer::class;
     }
 }

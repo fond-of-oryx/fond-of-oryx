@@ -4,7 +4,7 @@ namespace FondOfOryx\Glue\SplittableCheckoutRestApi\Plugin\GlueApplicationExtens
 
 use Codeception\Test\Unit;
 use FondOfOryx\Glue\SplittableCheckoutRestApi\SplittableCheckoutRestApiConfig;
-use Generated\Shared\Transfer\RestSplittableTotalsRequestAttributesTransfer;
+use Generated\Shared\Transfer\RestSplittableCheckoutRequestAttributesTransfer;
 use Spryker\Glue\GlueApplicationExtension\Dependency\Plugin\ResourceRouteCollectionInterface;
 
 class SplittableCheckoutRestApiResourceRoutePluginTest extends Unit
@@ -77,7 +77,7 @@ class SplittableCheckoutRestApiResourceRoutePluginTest extends Unit
     public function testGetResourceAttributesClassName(): void
     {
         static::assertEquals(
-            RestSplittableTotalsRequestAttributesTransfer::class,
+            RestSplittableCheckoutRequestAttributesTransfer::class,
             $this->plugin->getResourceAttributesClassName()
         );
     }
