@@ -9,7 +9,7 @@ interface SplittableCheckoutRestApiFacadeInterface
 {
     /**
      * Specifications:
-     * - TODO: put text here
+     * - Place orders by splitted quotes
      *
      * @api
      *
