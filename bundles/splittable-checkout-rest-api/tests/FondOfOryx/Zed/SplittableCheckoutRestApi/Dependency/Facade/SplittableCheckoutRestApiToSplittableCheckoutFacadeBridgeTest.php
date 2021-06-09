@@ -4,7 +4,6 @@ namespace FondOfOryx\Zed\SplittableCheckoutRestApi\Dependency\Facade;
 
 use Codeception\Test\Unit;
 use FondOfOryx\Zed\SplittableCheckout\Business\SplittableCheckoutFacadeInterface;
-use FondOfOryx\Zed\SplittableCheckoutRestApi\Dependency\Facade\SplittableCheckoutRestApiToSplittableCheckoutFacadeBridge;
 use Generated\Shared\Transfer\QuoteTransfer;
 use Generated\Shared\Transfer\SplittableCheckoutResponseTransfer;
 

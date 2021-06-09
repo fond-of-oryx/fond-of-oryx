@@ -53,7 +53,7 @@ class PlaceOrderProcessor implements PlaceOrderProcessorInterface
 
         $orderReferences = $splittabelCheckoutResponseTransfer->getOrderReferences();
 
-        if (count($orderReferences) === null || $splittabelCheckoutResponseTransfer->getIsSuccess() === false) {
+        if (count($orderReferences) === 0 || $splittabelCheckoutResponseTransfer->getIsSuccess() === false) {
             return $restSplittableCheckoutResponseTransfer;
         }
 
