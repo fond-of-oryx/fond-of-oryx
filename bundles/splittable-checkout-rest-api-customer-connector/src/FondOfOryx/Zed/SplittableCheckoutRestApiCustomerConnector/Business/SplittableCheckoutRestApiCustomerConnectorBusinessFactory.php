@@ -6,6 +6,9 @@ use FondOfOryx\Zed\SplittableCheckoutRestApiCustomerConnector\Business\Expander\
 use FondOfOryx\Zed\SplittableCheckoutRestApiCustomerConnector\Business\Expander\QuoteExpanderInterface;
 use Spryker\Zed\Kernel\Business\AbstractBusinessFactory;
 
+/**
+ * @method \FondOfOryx\Zed\SplittableCheckoutRestApiCustomerConnector\Persistence\SplittableCheckoutRestApiCustomerConnectorRepositoryInterface getRepository()
+ */
 class SplittableCheckoutRestApiCustomerConnectorBusinessFactory extends AbstractBusinessFactory
 {
     /**

@@ -8,6 +8,7 @@ use Spryker\Zed\Kernel\Business\AbstractFacade;
 
 /**
  * @method \FondOfOryx\Zed\SplittableCheckoutRestApiCustomerConnector\Business\SplittableCheckoutRestApiCustomerConnectorBusinessFactory getFactory()
+ * @method \FondOfOryx\Zed\SplittableCheckoutRestApiCustomerConnector\Persistence\SplittableCheckoutRestApiCustomerConnectorRepositoryInterface getRepository()
  */
 class SplittableCheckoutRestApiCustomerConnectorFacade extends AbstractFacade implements SplittableCheckoutRestApiCustomerConnectorFacadeInterface
 {
