@@ -9,7 +9,10 @@ interface SplittableCheckoutRestApiClientInterface
 {
     /**
      * Specifications:
-     * - TODO: Put correct specifications here
+     * - Makes Zed request.
+     * - Provides required data for the checkout process on data passed in RestSplittableCheckoutRequestTransfer.
+     * - Checkout data will include available shipping methods, available payment methods and available customer addresses.
+     * - Recalculates quote.
      *
      * @api
      *
