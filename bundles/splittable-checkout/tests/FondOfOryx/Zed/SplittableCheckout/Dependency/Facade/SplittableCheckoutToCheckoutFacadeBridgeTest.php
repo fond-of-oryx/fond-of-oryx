@@ -20,9 +20,9 @@ class SplittableCheckoutToCheckoutFacadeBridgeTest extends Unit
     protected $quoteTransferMock;
 
     /**
-     * @var \PHPUnit\Framework\MockObject\MockObject|\Generated\Shared\Transfer\QuoteResponseTransfer
+     * @var \Generated\Shared\Transfer\CheckoutResponseTransfer|\PHPUnit\Framework\MockObject\MockObject
      */
-    protected $quoteResponseTransferMock;
+    protected $checkoutResponseTransferMock;
 
     /**
      * @var \FondOfOryx\Zed\SplittableCheckout\Dependency\Facade\SplittableCheckoutToCheckoutFacadeBridge
@@ -58,17 +58,14 @@ class SplittableCheckoutToCheckoutFacadeBridgeTest extends Unit
      */
     public function testPlaceOrder(): void
     {
-        $this->checkoutFacadeMock->expects($this->atLeastOnce())
+        $this->checkoutFacadeMock->expects(static::atLeastOnce())
             ->method('placeOrder')
             ->with($this->quoteTransferMock)
             ->willReturn($this->checkoutResponseTransferMock);
 
-        $checkoutResponseTransfer = $this->splittableCheckoutToCheckoutFacadeBridge
-            ->placeOrder($this->quoteTransferMock);
-
-        $this->assertInstanceOf(
-            CheckoutResponseTransfer::class,
-            $checkoutResponseTransfer
+        static::assertEquals(
+            $this->checkoutResponseTransferMock,
+            $this->splittableCheckoutToCheckoutFacadeBridge->placeOrder($this->quoteTransferMock)
         );
     }
 }
