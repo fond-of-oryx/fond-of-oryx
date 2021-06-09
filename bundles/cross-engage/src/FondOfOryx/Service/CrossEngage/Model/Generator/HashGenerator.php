@@ -70,7 +70,7 @@ class HashGenerator implements HashGeneratorInterface
         if (!array_key_exists($modifier, self::MODIFIER)) {
             throw new ModifierNotFoundException(
                 sprintf(
-                    'Modifier %s not found in available modifier list (%s)',
+                    'Modifier "%s" not found in available modifier list (%s)',
                     $modifier,
                     implode(', ', array_keys(self::MODIFIER))
                 )
