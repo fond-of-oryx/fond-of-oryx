@@ -9,8 +9,11 @@ interface CrossEngageConstants
     public const QUERY_STRING = 'query-string';
     public const BASE_URL_YVES = 'BASE_URL_YVES';
     public const OPT_IN_PATH_PATTERN = 'OPT_IN_PATH_PATTERN';
+    public const OPT_IN_PATH_PATTERN_DEFAULT = '%s/%s/confirm-subscription/%s';
     public const OPT_OUT_PATH_PATTERN = 'OPT_OUT_PATH_PATTERN';
+    public const OPT_OUT_PATH_PATTERN_DEFAULT = '%s/%s/unsubscribe/%s';
     public const CROSSENGAGE_REDIRECT_PATTERN = 'CROSSENGAGE_REDIRECT_PATTERN';
+    public const CROSSENGAGE_REDIRECT_PATTERN_DEFAULT = '%s/%s/%s';
 
     public const ROUTE_CROSSENGAGE_FOOTER = 'ROUTE_CROSSENGAGE_FOOTER';
     public const ROUTE_CROSSENGAGE_SUBMIT_FORM = 'ROUTE_CROSSENGAGE_SUBMIT_FORM';
@@ -31,10 +34,15 @@ interface CrossEngageConstants
 
     // HashAlgo Constants
     public const CROSSENGAGE_HASH_ALGO = 'CROSSENGAGE_HASH_ALGO';
+    public const CROSSENGAGE_HASH_ALGO_DEFAULT = 'sha1';
     public const CROSSENGAGE_MODIFY_IN = 'CROSSENGAGE_MODIFY_IN';
+    public const CROSSENGAGE_MODIFY_IN_DEFAULT = true;
     public const CROSSENGAGE_MODIFY_OUT = 'CROSSENGAGE_MODIFY_OUT';
+    public const CROSSENGAGE_MODIFY_OUT_DEFAULT = false;
     public const CROSSENGAGE_MODIFIER_IN = 'CROSSENGAGE_MODIFIER_IN';
+    public const CROSSENGAGE_MODIFIER_IN_DEFAULT = 'lower';
     public const CROSSENGAGE_MODIFIER_OUT = 'CROSSENGAGE_MODIFIER_OUT';
+    public const CROSSENGAGE_MODIFIER_OUT_DEFAULT = 'lower';
 
     // SprykerUpgradeToDo Check if needed
     public const EDITORIAL_CROSSENGAGE = 'EDITORIAL_CROSSENGAGE';
