@@ -47,9 +47,9 @@ include:
   - bundles/splittable-checkout-rest-api-shipment-connector
   - bundles/splittable-quote
   - bundles/splittable-quote-extension
+  - bundles/splittable-quote-shipment-connector
   - bundles/splittable-totals
   - bundles/splittable-totals-extension
-  - bundles/splittable-totals-shipment-connector
   - bundles/splittable-totals-rest-api
   - bundles/splittable-totals-rest-api-company-unit-address-connector
   - bundles/splittable-totals-rest-api-extension
