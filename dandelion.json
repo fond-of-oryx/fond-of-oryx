@@ -140,10 +140,6 @@
       "path": "bundles/splittable-totals-extension/",
       "version": "1.0.0"
     },
-    "splittable-totals-shipment-connector": {
-      "path": "bundles/splittable-totals-shipment-connector/",
-      "version": "1.0.0"
-    },
     "splittable-totals-rest-api": {
       "path": "bundles/splittable-totals-rest-api/",
       "version": "1.0.0"

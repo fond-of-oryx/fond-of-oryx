@@ -3,7 +3,7 @@
 namespace FondOfOryx\Glue\SplittableCheckoutRestApi\Processor\SplittableCheckout;
 
 use FondOfOryx\Client\SplittableCheckoutRestApi\SplittableCheckoutRestApiClientInterface;
-use FondOfOryx\Glue\SplittableCheckoutRestApi\Processor\Builder\RestResponseBuilderInterface;
+use FondOfOryx\Glue\SplittableCheckoutRestApi\Processor\Builder\SplittableCheckoutRestResponseBuilderInterface;
 use FondOfOryx\Glue\SplittableCheckoutRestApi\Processor\Expander\RestSplittableCheckoutRequestExpanderInterface;
 use FondOfOryx\Glue\SplittableCheckoutRestApi\Processor\Mapper\RestSplittableCheckoutRequestMapperInterface;
 use Generated\Shared\Transfer\RestSplittableCheckoutRequestAttributesTransfer;
@@ -23,7 +23,7 @@ class SplittableCheckoutProcessor implements SplittableCheckoutProcessorInterfac
     protected $restSplittableCheckoutRequestExpander;
 
     /**
-     * @var \FondOfOryx\Glue\SplittableCheckoutRestApi\Processor\Builder\RestResponseBuilderInterface
+     * @var \FondOfOryx\Glue\SplittableCheckoutRestApi\Processor\Builder\SplittableCheckoutRestResponseBuilderInterface
      */
     protected $restResponseBuilder;
 
@@ -33,19 +33,19 @@ class SplittableCheckoutProcessor implements SplittableCheckoutProcessorInterfac
     protected $client;
 
     /**
-     * @param \FondOfOryx\Glue\SplittableCheckoutRestApi\Processor\Expander\RestSplittableCheckoutRequestExpanderInterface $restSplittableCheckoutRequestExpander
      * @param \FondOfOryx\Glue\SplittableCheckoutRestApi\Processor\Mapper\RestSplittableCheckoutRequestMapperInterface $restSplittableCheckoutRequestMapper
-     * @param \FondOfOryx\Glue\SplittableCheckoutRestApi\Processor\Builder\RestResponseBuilderInterface $restResponseBuilder
+     * @param \FondOfOryx\Glue\SplittableCheckoutRestApi\Processor\Expander\RestSplittableCheckoutRequestExpanderInterface $restSplittableCheckoutRequestExpander
+     * @param \FondOfOryx\Glue\SplittableCheckoutRestApi\Processor\Builder\SplittableCheckoutRestResponseBuilderInterface $restResponseBuilder
      * @param \FondOfOryx\Client\SplittableCheckoutRestApi\SplittableCheckoutRestApiClientInterface $client
      */
     public function __construct(
-        RestSplittableCheckoutRequestExpanderInterface $restSplittableCheckoutRequestExpander,
         RestSplittableCheckoutRequestMapperInterface $restSplittableCheckoutRequestMapper,
-        RestResponseBuilderInterface $restResponseBuilder,
+        RestSplittableCheckoutRequestExpanderInterface $restSplittableCheckoutRequestExpander,
+        SplittableCheckoutRestResponseBuilderInterface $restResponseBuilder,
         SplittableCheckoutRestApiClientInterface $client
     ) {
-        $this->restSplittableCheckoutRequestExpander = $restSplittableCheckoutRequestExpander;
         $this->restSplittableCheckoutRequestMapper = $restSplittableCheckoutRequestMapper;
+        $this->restSplittableCheckoutRequestExpander = $restSplittableCheckoutRequestExpander;
         $this->restResponseBuilder = $restResponseBuilder;
         $this->client = $client;
     }

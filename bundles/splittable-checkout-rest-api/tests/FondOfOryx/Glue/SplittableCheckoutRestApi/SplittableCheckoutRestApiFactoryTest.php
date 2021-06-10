@@ -4,6 +4,7 @@ namespace FondOfOryx\Glue\SplittableCheckoutRestApi;
 
 use Codeception\Test\Unit;
 use FondOfOryx\Client\SplittableCheckoutRestApi\SplittableCheckoutRestApiClient;
+use FondOfOryx\Glue\SplittableCheckoutRestApi\Processor\Reader\SplittableTotalsReader;
 use FondOfOryx\Glue\SplittableCheckoutRestApi\Processor\SplittableCheckout\SplittableCheckoutProcessor;
 use Spryker\Client\Kernel\AbstractClient;
 use Spryker\Glue\GlueApplication\Rest\JsonApi\RestResourceBuilderInterface;
@@ -119,6 +120,17 @@ class SplittableCheckoutRestApiFactoryTest extends Unit
         static::assertInstanceOf(
             SplittableCheckoutProcessor::class,
             $this->factory->createSplittableCheckoutProcessor()
+        );
+    }
+
+    /**
+     * @return void
+     */
+    public function testCreateSplittableTotalsReader(): void
+    {
+        static::assertInstanceOf(
+            SplittableTotalsReader::class,
+            $this->factory->createSplittableTotalsReader()
         );
     }
 }

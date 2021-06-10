@@ -4,8 +4,10 @@ namespace FondOfOryx\Zed\SplittableCheckoutRestApi\Business;
 
 use Codeception\Test\Unit;
 use FondOfOryx\Zed\SplittableCheckoutRestApi\Business\Processor\PlaceOrderProcessorInterface;
+use FondOfOryx\Zed\SplittableCheckoutRestApi\Business\Reader\SplittableTotalsReaderInterface;
 use Generated\Shared\Transfer\RestSplittableCheckoutRequestTransfer;
 use Generated\Shared\Transfer\RestSplittableCheckoutResponseTransfer;
+use Generated\Shared\Transfer\RestSplittableTotalsResponseTransfer;
 
 class SplittableCheckoutRestApiFacadeTest extends Unit
 {
@@ -28,6 +30,16 @@ class SplittableCheckoutRestApiFacadeTest extends Unit
      * @var \Generated\Shared\Transfer\RestSplittableCheckoutResponseTransfer|\PHPUnit\Framework\MockObject\MockObject
      */
     protected $restSplittableCheckoutResponseTransferMock;
+
+    /**
+     * @var \FondOfOryx\Zed\SplittableCheckoutRestApi\Business\Reader\SplittableTotalsReaderInterface|\PHPUnit\Framework\MockObject\MockObject
+     */
+    protected $splittableTotalsReaderMock;
+
+    /**
+     * @var \Generated\Shared\Transfer\RestSplittableTotalsResponseTransfer|\PHPUnit\Framework\MockObject\MockObject
+     */
+    protected $restSplittableTotalsResponseTransferMock;
 
     /**
      * @var \FondOfOryx\Zed\SplittableCheckoutRestApi\Business\SplittableCheckoutRestApiFacade
@@ -57,6 +69,14 @@ class SplittableCheckoutRestApiFacadeTest extends Unit
             ->disableOriginalConstructor()
             ->getMock();
 
+        $this->splittableTotalsReaderMock = $this->getMockBuilder(SplittableTotalsReaderInterface::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $this->restSplittableTotalsResponseTransferMock = $this->getMockBuilder(RestSplittableTotalsResponseTransfer::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
         $this->facade = new SplittableCheckoutRestApiFacade();
         $this->facade->setFactory($this->businessFactoryMock);
     }
@@ -78,6 +98,26 @@ class SplittableCheckoutRestApiFacadeTest extends Unit
         static::assertEquals(
             $this->restSplittableCheckoutResponseTransferMock,
             $this->facade->placeOrder($this->restSplittableCheckoutRequestTransferMock)
+        );
+    }
+
+    /**
+     * @return void
+     */
+    public function testGetSplittableTotals(): void
+    {
+        $this->businessFactoryMock->expects(static::atLeastOnce())
+            ->method('createSplittableTotalsReader')
+            ->willReturn($this->splittableTotalsReaderMock);
+
+        $this->splittableTotalsReaderMock->expects(static::atLeastOnce())
+            ->method('getByRestSplittableCheckoutRequest')
+            ->with($this->restSplittableCheckoutRequestTransferMock)
+            ->willReturn($this->restSplittableTotalsResponseTransferMock);
+
+        static::assertEquals(
+            $this->restSplittableTotalsResponseTransferMock,
+            $this->facade->getSplittableTotals($this->restSplittableCheckoutRequestTransferMock)
         );
     }
 }
