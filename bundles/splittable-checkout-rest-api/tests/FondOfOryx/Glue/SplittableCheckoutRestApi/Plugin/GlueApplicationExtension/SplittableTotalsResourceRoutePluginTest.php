@@ -7,7 +7,7 @@ use FondOfOryx\Glue\SplittableCheckoutRestApi\SplittableCheckoutRestApiConfig;
 use Generated\Shared\Transfer\RestSplittableCheckoutRequestAttributesTransfer;
 use Spryker\Glue\GlueApplicationExtension\Dependency\Plugin\ResourceRouteCollectionInterface;
 
-class SplittableCheckoutRestApiResourceRoutePluginTest extends Unit
+class SplittableTotalsResourceRoutePluginTest extends Unit
 {
     /**
      * @var \PHPUnit\Framework\MockObject\MockObject|\Spryker\Glue\GlueApplicationExtension\Dependency\Plugin\ResourceRouteCollectionInterface
@@ -15,7 +15,7 @@ class SplittableCheckoutRestApiResourceRoutePluginTest extends Unit
     protected $resourceRouteCollectionMock;
 
     /**
-     * @var \FondOfOryx\Glue\SplittableCheckoutRestApi\Plugin\GlueApplicationExtension\SplittableCheckoutRestApiResourceRoutePlugin
+     * @var \FondOfOryx\Glue\SplittableCheckoutRestApi\Plugin\GlueApplicationExtension\SplittableTotalsResourceRoutePlugin
      */
     protected $plugin;
 
@@ -30,7 +30,7 @@ class SplittableCheckoutRestApiResourceRoutePluginTest extends Unit
             ->disableOriginalConstructor()
             ->getMock();
 
-        $this->plugin = new SplittableCheckoutRestApiResourceRoutePlugin();
+        $this->plugin = new SplittableTotalsResourceRoutePlugin();
     }
 
     /**
@@ -55,7 +55,7 @@ class SplittableCheckoutRestApiResourceRoutePluginTest extends Unit
     public function testGetResourceTyp(): void
     {
         static::assertEquals(
-            SplittableCheckoutRestApiConfig::RESOURCE_SPLITTABLE_CHECKOUT,
+            SplittableCheckoutRestApiConfig::RESOURCE_SPLITTABLE_TOTALS,
             $this->plugin->getResourceType()
         );
     }
@@ -66,7 +66,7 @@ class SplittableCheckoutRestApiResourceRoutePluginTest extends Unit
     public function testGetController(): void
     {
         static::assertEquals(
-            SplittableCheckoutRestApiConfig::CONTROLLER_SPLITTABLE_CHECKOUT,
+            SplittableCheckoutRestApiConfig::CONTROLLER_SPLITTABLE_TOTALS,
             $this->plugin->getController()
         );
     }

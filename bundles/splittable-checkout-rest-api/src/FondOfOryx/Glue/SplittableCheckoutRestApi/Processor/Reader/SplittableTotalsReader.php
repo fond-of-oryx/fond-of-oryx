@@ -1,16 +1,16 @@
 <?php
 
-namespace FondOfOryx\Glue\SplittableCheckoutRestApi\Processor\SplittableCheckout;
+namespace FondOfOryx\Glue\SplittableCheckoutRestApi\Processor\Reader;
 
 use FondOfOryx\Client\SplittableCheckoutRestApi\SplittableCheckoutRestApiClientInterface;
-use FondOfOryx\Glue\SplittableCheckoutRestApi\Processor\Builder\SplittableCheckoutRestResponseBuilderInterface;
+use FondOfOryx\Glue\SplittableCheckoutRestApi\Processor\Builder\SplittableTotalsRestResponseBuilderInterface;
 use FondOfOryx\Glue\SplittableCheckoutRestApi\Processor\Expander\RestSplittableCheckoutRequestExpanderInterface;
 use FondOfOryx\Glue\SplittableCheckoutRestApi\Processor\Mapper\RestSplittableCheckoutRequestMapperInterface;
 use Generated\Shared\Transfer\RestSplittableCheckoutRequestAttributesTransfer;
 use Spryker\Glue\GlueApplication\Rest\JsonApi\RestResponseInterface;
 use Spryker\Glue\GlueApplication\Rest\Request\Data\RestRequestInterface;
 
-class SplittableCheckoutProcessor implements SplittableCheckoutProcessorInterface
+class SplittableTotalsReader implements SplittableTotalsReaderInterface
 {
     /**
      * @var \FondOfOryx\Glue\SplittableCheckoutRestApi\Processor\Mapper\RestSplittableCheckoutRequestMapperInterface
@@ -23,7 +23,7 @@ class SplittableCheckoutProcessor implements SplittableCheckoutProcessorInterfac
     protected $restSplittableCheckoutRequestExpander;
 
     /**
-     * @var \FondOfOryx\Glue\SplittableCheckoutRestApi\Processor\Builder\SplittableCheckoutRestResponseBuilderInterface
+     * @var \FondOfOryx\Glue\SplittableCheckoutRestApi\Processor\Builder\SplittableTotalsRestResponseBuilderInterface
      */
     protected $restResponseBuilder;
 
@@ -35,13 +35,13 @@ class SplittableCheckoutProcessor implements SplittableCheckoutProcessorInterfac
     /**
      * @param \FondOfOryx\Glue\SplittableCheckoutRestApi\Processor\Mapper\RestSplittableCheckoutRequestMapperInterface $restSplittableCheckoutRequestMapper
      * @param \FondOfOryx\Glue\SplittableCheckoutRestApi\Processor\Expander\RestSplittableCheckoutRequestExpanderInterface $restSplittableCheckoutRequestExpander
-     * @param \FondOfOryx\Glue\SplittableCheckoutRestApi\Processor\Builder\SplittableCheckoutRestResponseBuilderInterface $restResponseBuilder
+     * @param \FondOfOryx\Glue\SplittableCheckoutRestApi\Processor\Builder\SplittableTotalsRestResponseBuilderInterface $restResponseBuilder
      * @param \FondOfOryx\Client\SplittableCheckoutRestApi\SplittableCheckoutRestApiClientInterface $client
      */
     public function __construct(
         RestSplittableCheckoutRequestMapperInterface $restSplittableCheckoutRequestMapper,
         RestSplittableCheckoutRequestExpanderInterface $restSplittableCheckoutRequestExpander,
-        SplittableCheckoutRestResponseBuilderInterface $restResponseBuilder,
+        SplittableTotalsRestResponseBuilderInterface $restResponseBuilder,
         SplittableCheckoutRestApiClientInterface $client
     ) {
         $this->restSplittableCheckoutRequestMapper = $restSplittableCheckoutRequestMapper;
@@ -56,7 +56,7 @@ class SplittableCheckoutProcessor implements SplittableCheckoutProcessorInterfac
      *
      * @return \Spryker\Glue\GlueApplication\Rest\JsonApi\RestResponseInterface
      */
-    public function placeOrder(
+    public function get(
         RestRequestInterface $restRequest,
         RestSplittableCheckoutRequestAttributesTransfer $restSplittableCheckoutRequestAttributesTransfer
     ): RestResponseInterface {
@@ -66,15 +66,15 @@ class SplittableCheckoutProcessor implements SplittableCheckoutProcessorInterfac
         $restSplittableCheckoutRequestTransfer = $this->restSplittableCheckoutRequestExpander
             ->expand($restSplittableCheckoutRequestTransfer, $restRequest);
 
-        $restSplittableCheckoutResponseTransfer = $this->client
-            ->placeOrder($restSplittableCheckoutRequestTransfer);
+        $restSplittableTotalsResponseTransfer = $this->client
+            ->getSplittableTotals($restSplittableCheckoutRequestTransfer);
 
-        $splittableCheckoutTransfer = $restSplittableCheckoutResponseTransfer->getSplittableCheckout();
+        $splittableTotalsTransfer = $restSplittableTotalsResponseTransfer->getSplittableTotals();
 
-        if ($splittableCheckoutTransfer === null || $restSplittableCheckoutResponseTransfer->getIsSuccessful() === false) {
-            return $this->restResponseBuilder->createNotPlacedErrorRestResponse();
+        if ($splittableTotalsTransfer === null || !$restSplittableTotalsResponseTransfer->getIsSuccessful()) {
+            return $this->restResponseBuilder->createNotFoundErrorRestResponse();
         }
 
-        return $this->restResponseBuilder->createRestResponse($splittableCheckoutTransfer);
+        return $this->restResponseBuilder->createRestResponse($splittableTotalsTransfer);
     }
 }

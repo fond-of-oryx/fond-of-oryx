@@ -10,7 +10,7 @@ use Spryker\Glue\GlueApplication\Rest\JsonApi\RestResourceBuilderInterface;
 use Spryker\Glue\GlueApplication\Rest\JsonApi\RestResponseInterface;
 use Symfony\Component\HttpFoundation\Response;
 
-class RestResponseBuilder implements RestResponseBuilderInterface
+class SplittableCheckoutRestResponseBuilder implements SplittableCheckoutRestResponseBuilderInterface
 {
     /**
      * @var \FondOfOryx\Glue\SplittableCheckoutRestApi\Processor\Mapper\RestSplittableCheckoutMapperInterface
