@@ -7,15 +7,8 @@
     </transfer>
 
     <transfer name="Quote">
+        <property name="totals" type="Totals"/>
     </transfer>
 
-    <transfer name="Item">
-        <property name="groupKey" type="string"/>
-    </transfer>
-
-    <transfer name="QuoteResponse">
-        <property name="isSuccessful" type="bool" />
-        <property name="quoteTransfer" type="Quote" />
-    </transfer>
-
+    <transfer name="Totals"/>
 </transfers>
