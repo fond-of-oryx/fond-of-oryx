@@ -1,6 +1,6 @@
 <?php
 
-namespace FondOfOryx\Zed\SplittableCheckoutrestApiCartNotConnector\Business;
+namespace FondOfOryx\Zed\SplittableCheckoutRestApiCartNoteConnector\Business;
 
 use Generated\Shared\Transfer\QuoteTransfer;
 use Generated\Shared\Transfer\RestSplittableCheckoutRequestTransfer;
@@ -25,6 +25,6 @@ class SplittableCheckoutRestApiCartNoteConnectorFacade extends AbstractFacade im
         RestSplittableCheckoutRequestTransfer $restSplittableCheckoutRequestTransfer,
         QuoteTransfer $quoteTransfer
     ): QuoteTransfer {
-        return $quoteTransfer;
+        return $this->getFactory()->createQuoteExpander()->expand($restSplittableCheckoutRequestTransfer, $quoteTransfer);
     }
 }
