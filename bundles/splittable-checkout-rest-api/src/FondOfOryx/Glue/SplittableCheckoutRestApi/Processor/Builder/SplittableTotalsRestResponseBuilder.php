@@ -4,7 +4,6 @@ namespace FondOfOryx\Glue\SplittableCheckoutRestApi\Processor\Builder;
 
 use FondOfOryx\Glue\SplittableCheckoutRestApi\Processor\Mapper\RestSplittableTotalsMapperInterface;
 use FondOfOryx\Glue\SplittableCheckoutRestApi\SplittableCheckoutRestApiConfig;
-use FondOfOryx\Glue\SplittableTotalsRestApi\SplittableTotalsRestApiConfig;
 use Generated\Shared\Transfer\RestErrorMessageTransfer;
 use Generated\Shared\Transfer\SplittableTotalsTransfer;
 use Spryker\Glue\GlueApplication\Rest\JsonApi\RestResourceBuilderInterface;
@@ -60,7 +59,7 @@ class SplittableTotalsRestResponseBuilder implements SplittableTotalsRestRespons
             ->fromSplittableTotals($splittableTotalsTransfer);
 
         $restResource = $this->restResourceBuilder->createRestResource(
-            SplittableTotalsRestApiConfig::RESOURCE_SPLITTABLE_TOTALS,
+            SplittableCheckoutRestApiConfig::RESOURCE_SPLITTABLE_TOTALS,
             null,
             $restSplittableTotalsTransfer
         );
