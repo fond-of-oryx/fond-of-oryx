@@ -6,5 +6,4 @@ use Spryker\Zed\Kernel\Business\AbstractBusinessFactory;
 
 class SplittableCheckoutRestApiCartNoteConnectorBusinessFactory extends AbstractBusinessFactory
 {
-
 }
