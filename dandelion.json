@@ -140,22 +140,6 @@
       "path": "bundles/splittable-totals-extension/",
       "version": "1.0.0"
     },
-    "splittable-totals-rest-api": {
-      "path": "bundles/splittable-totals-rest-api/",
-      "version": "1.0.0"
-    },
-    "splittable-totals-rest-api-company-unit-address-connector": {
-      "path": "bundles/splittable-totals-rest-api-company-unit-address-connector/",
-      "version": "1.0.0"
-    },
-    "splittable-totals-rest-api-extension": {
-      "path": "bundles/splittable-totals-rest-api-extension/",
-      "version": "1.0.0"
-    },
-    "splittable-totals-rest-api-shipment-connector": {
-      "path": "bundles/splittable-totals-rest-api-shipment-connector/",
-      "version": "1.0.0"
-    },
     "tax-calculation-connector": {
       "path": "bundles/tax-calculation-connector/",
       "version": "1.0.0"
