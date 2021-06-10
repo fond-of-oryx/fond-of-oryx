@@ -4,7 +4,6 @@ namespace FondOfOryx\Zed\SplittableCheckoutRestApi\Communication\Controller;
 
 use Generated\Shared\Transfer\RestSplittableCheckoutRequestTransfer;
 use Generated\Shared\Transfer\RestSplittableCheckoutResponseTransfer;
-use Generated\Shared\Transfer\RestSplittableTotalsRequestTransfer;
 use Generated\Shared\Transfer\RestSplittableTotalsResponseTransfer;
 use Spryker\Zed\Kernel\Communication\Controller\AbstractGatewayController;
 
