@@ -8,8 +8,11 @@ use FondOfOryx\Zed\SplittableCheckoutRestApi\Business\Processor\PlaceOrderProces
 use FondOfOryx\Zed\SplittableCheckoutRestApi\Business\Processor\PlaceOrderProcessorInterface;
 use FondOfOryx\Zed\SplittableCheckoutRestApi\Business\Reader\QuoteReader;
 use FondOfOryx\Zed\SplittableCheckoutRestApi\Business\Reader\QuoteReaderInterface;
+use FondOfOryx\Zed\SplittableCheckoutRestApi\Business\Reader\SplittableTotalsReader;
+use FondOfOryx\Zed\SplittableCheckoutRestApi\Business\Reader\SplittableTotalsReaderInterface;
 use FondOfOryx\Zed\SplittableCheckoutRestApi\Dependency\Facade\SplittableCheckoutRestApiToQuoteFacadeInterface;
 use FondOfOryx\Zed\SplittableCheckoutRestApi\Dependency\Facade\SplittableCheckoutRestApiToSplittableCheckoutFacadeInterface;
+use FondOfOryx\Zed\SplittableCheckoutRestApi\Dependency\Facade\SplittableCheckoutRestApiToSplittableTotalsFacadeInterface;
 use FondOfOryx\Zed\SplittableCheckoutRestApi\SplittableCheckoutRestApiDependencyProvider;
 use Spryker\Zed\Kernel\Business\AbstractBusinessFactory;
 
@@ -23,6 +26,17 @@ class SplittableCheckoutRestApiBusinessFactory extends AbstractBusinessFactory
         return new PlaceOrderProcessor(
             $this->createQuoteReader(),
             $this->getSplittableCheckoutFacade()
+        );
+    }
+
+    /**
+     * @return \FondOfOryx\Zed\SplittableCheckoutRestApi\Business\Reader\SplittableTotalsReaderInterface
+     */
+    public function createSplittableTotalsReader(): SplittableTotalsReaderInterface
+    {
+        return new SplittableTotalsReader(
+            $this->createQuoteReader(),
+            $this->getSplittableTotalsFacade()
         );
     }
 
@@ -69,5 +83,13 @@ class SplittableCheckoutRestApiBusinessFactory extends AbstractBusinessFactory
     protected function getSplittableCheckoutFacade(): SplittableCheckoutRestApiToSplittableCheckoutFacadeInterface
     {
         return $this->getProvidedDependency(SplittableCheckoutRestApiDependencyProvider::FACADE_SPLITTABLE_CHECKOUT);
+    }
+
+    /**
+     * @return \FondOfOryx\Zed\SplittableCheckoutRestApi\Dependency\Facade\SplittableCheckoutRestApiToSplittableTotalsFacadeInterface
+     */
+    protected function getSplittableTotalsFacade(): SplittableCheckoutRestApiToSplittableTotalsFacadeInterface
+    {
+        return $this->getProvidedDependency(SplittableCheckoutRestApiDependencyProvider::FACADE_SPLITTABLE_TOTALS);
     }
 }
