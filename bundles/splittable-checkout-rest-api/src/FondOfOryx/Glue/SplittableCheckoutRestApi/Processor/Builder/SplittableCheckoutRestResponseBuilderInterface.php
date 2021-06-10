@@ -5,7 +5,7 @@ namespace FondOfOryx\Glue\SplittableCheckoutRestApi\Processor\Builder;
 use Generated\Shared\Transfer\SplittableCheckoutTransfer;
 use Spryker\Glue\GlueApplication\Rest\JsonApi\RestResponseInterface;
 
-interface RestResponseBuilderInterface
+interface SplittableCheckoutRestResponseBuilderInterface
 {
     /**
      * @return \Spryker\Glue\GlueApplication\Rest\JsonApi\RestResponseInterface

@@ -1,20 +1,20 @@
 <?php
 
-namespace FondOfOryx\Glue\SplittableCheckoutRestApi\Processor\SplittableCheckout;
+namespace FondOfOryx\Glue\SplittableCheckoutRestApi\Processor\Reader;
 
 use Codeception\Test\Unit;
 use FondOfOryx\Client\SplittableCheckoutRestApi\SplittableCheckoutRestApiClientInterface;
-use FondOfOryx\Glue\SplittableCheckoutRestApi\Processor\Builder\SplittableCheckoutRestResponseBuilderInterface;
+use FondOfOryx\Glue\SplittableCheckoutRestApi\Processor\Builder\SplittableTotalsRestResponseBuilderInterface;
 use FondOfOryx\Glue\SplittableCheckoutRestApi\Processor\Expander\RestSplittableCheckoutRequestExpanderInterface;
 use FondOfOryx\Glue\SplittableCheckoutRestApi\Processor\Mapper\RestSplittableCheckoutRequestMapperInterface;
 use Generated\Shared\Transfer\RestSplittableCheckoutRequestAttributesTransfer;
 use Generated\Shared\Transfer\RestSplittableCheckoutRequestTransfer;
-use Generated\Shared\Transfer\RestSplittableCheckoutResponseTransfer;
-use Generated\Shared\Transfer\SplittableCheckoutTransfer;
+use Generated\Shared\Transfer\RestSplittableTotalsResponseTransfer;
+use Generated\Shared\Transfer\SplittableTotalsTransfer;
 use Spryker\Glue\GlueApplication\Rest\JsonApi\RestResponseInterface;
 use Spryker\Glue\GlueApplication\Rest\Request\Data\RestRequestInterface;
 
-class SplittableCheckoutProcessorTest extends Unit
+class RestSplittableTotalsReaderTest extends Unit
 {
     /**
      * @var \FondOfOryx\Glue\SplittableCheckoutRestApi\Processor\Mapper\RestSplittableCheckoutRequestMapperInterface|\PHPUnit\Framework\MockObject\MockObject
@@ -27,7 +27,7 @@ class SplittableCheckoutProcessorTest extends Unit
     protected $restSplittableCheckoutRequestExpanderMock;
 
     /**
-     * @var \FondOfOryx\Glue\SplittableCheckoutRestApi\Processor\Builder\SplittableCheckoutRestResponseBuilderInterface|\PHPUnit\Framework\MockObject\MockObject
+     * @var \FondOfOryx\Glue\SplittableCheckoutRestApi\Processor\Builder\SplittableTotalsRestResponseBuilderInterface|\PHPUnit\Framework\MockObject\MockObject
      */
     protected $restResponseBuilderMock;
 
@@ -52,14 +52,14 @@ class SplittableCheckoutProcessorTest extends Unit
     protected $restSplittableCheckoutRequestTransferMock;
 
     /**
-     * @var \Generated\Shared\Transfer\RestSplittableCheckoutResponseTransfer|\PHPUnit\Framework\MockObject\MockObject
+     * @var \Generated\Shared\Transfer\RestSplittableTotalsResponseTransfer|\PHPUnit\Framework\MockObject\MockObject
      */
-    protected $restSplittableCheckoutResponseTransferMock;
+    protected $restSplittableTotalsResponseTransferMock;
 
     /**
-     * @var \Generated\Shared\Transfer\SplittableCheckoutTransfer|\PHPUnit\Framework\MockObject\MockObject
+     * @var \Generated\Shared\Transfer\SplittableTotalsTransfer|\PHPUnit\Framework\MockObject\MockObject
      */
-    protected $splittableCheckoutTransferMock;
+    protected $splittableTotalsTransferMock;
 
     /**
      * @var \PHPUnit\Framework\MockObject\MockObject|\Spryker\Glue\GlueApplication\Rest\JsonApi\RestResponseInterface
@@ -67,9 +67,9 @@ class SplittableCheckoutProcessorTest extends Unit
     protected $restResponseMock;
 
     /**
-     * @var \FondOfOryx\Glue\SplittableCheckoutRestApi\Processor\SplittableCheckout\SplittableCheckoutProcessor
+     * @var \FondOfOryx\Glue\SplittableCheckoutRestApi\Processor\Reader\SplittableTotalsReader
      */
-    protected $splittableCheckoutProcessor;
+    protected $splittableTotalsReader;
 
     /**
      * @return void
@@ -86,7 +86,7 @@ class SplittableCheckoutProcessorTest extends Unit
             ->disableOriginalConstructor()
             ->getMock();
 
-        $this->restResponseBuilderMock = $this->getMockBuilder(SplittableCheckoutRestResponseBuilderInterface::class)
+        $this->restResponseBuilderMock = $this->getMockBuilder(SplittableTotalsRestResponseBuilderInterface::class)
             ->disableOriginalConstructor()
             ->getMock();
 
@@ -106,11 +106,11 @@ class SplittableCheckoutProcessorTest extends Unit
             ->disableOriginalConstructor()
             ->getMock();
 
-        $this->restSplittableCheckoutResponseTransferMock = $this->getMockBuilder(RestSplittableCheckoutResponseTransfer::class)
+        $this->restSplittableTotalsResponseTransferMock = $this->getMockBuilder(RestSplittableTotalsResponseTransfer::class)
             ->disableOriginalConstructor()
             ->getMock();
 
-        $this->splittableCheckoutTransferMock = $this->getMockBuilder(SplittableCheckoutTransfer::class)
+        $this->splittableTotalsTransferMock = $this->getMockBuilder(SplittableTotalsTransfer::class)
             ->disableOriginalConstructor()
             ->getMock();
 
@@ -118,7 +118,7 @@ class SplittableCheckoutProcessorTest extends Unit
             ->disableOriginalConstructor()
             ->getMock();
 
-        $this->splittableCheckoutProcessor = new SplittableCheckoutProcessor(
+        $this->splittableTotalsReader = new SplittableTotalsReader(
             $this->restSplittableCheckoutRequestMapperMock,
             $this->restSplittableCheckoutRequestExpanderMock,
             $this->restResponseBuilderMock,
@@ -129,7 +129,7 @@ class SplittableCheckoutProcessorTest extends Unit
     /**
      * @return void
      */
-    public function testPlaceOrder(): void
+    public function testGet(): void
     {
         $this->restSplittableCheckoutRequestMapperMock->expects(static::atLeastOnce())
             ->method('fromRestSplittableCheckoutRequestAttributes')
@@ -141,26 +141,26 @@ class SplittableCheckoutProcessorTest extends Unit
             ->willReturn($this->restSplittableCheckoutRequestTransferMock);
 
         $this->clientMock->expects(static::atLeastOnce())
-            ->method('placeOrder')
+            ->method('getSplittableTotals')
             ->with($this->restSplittableCheckoutRequestTransferMock)
-            ->willReturn($this->restSplittableCheckoutResponseTransferMock);
+            ->willReturn($this->restSplittableTotalsResponseTransferMock);
 
-        $this->restSplittableCheckoutResponseTransferMock->expects(static::atLeastOnce())
-            ->method('getSplittableCheckout')
-            ->willReturn($this->splittableCheckoutTransferMock);
+        $this->restSplittableTotalsResponseTransferMock->expects(static::atLeastOnce())
+            ->method('getSplittableTotals')
+            ->willReturn($this->splittableTotalsTransferMock);
 
-        $this->restSplittableCheckoutResponseTransferMock->expects(static::atLeastOnce())
+        $this->restSplittableTotalsResponseTransferMock->expects(static::atLeastOnce())
             ->method('getIsSuccessful')
             ->willReturn(true);
 
         $this->restResponseBuilderMock->expects(static::atLeastOnce())
             ->method('createRestResponse')
-            ->with($this->splittableCheckoutTransferMock)
+            ->with($this->splittableTotalsTransferMock)
             ->willReturn($this->restResponseMock);
 
         static::assertEquals(
             $this->restResponseMock,
-            $this->splittableCheckoutProcessor->placeOrder(
+            $this->splittableTotalsReader->get(
                 $this->restRequestMock,
                 $this->restSplittableCheckoutRequestAttributesTransferMock
             )
@@ -170,7 +170,7 @@ class SplittableCheckoutProcessorTest extends Unit
     /**
      * @return void
      */
-    public function testPlaceOrderWithError(): void
+    public function testGetWithError(): void
     {
         $this->restSplittableCheckoutRequestMapperMock->expects(static::atLeastOnce())
             ->method('fromRestSplittableCheckoutRequestAttributes')
@@ -182,24 +182,24 @@ class SplittableCheckoutProcessorTest extends Unit
             ->willReturn($this->restSplittableCheckoutRequestTransferMock);
 
         $this->clientMock->expects(static::atLeastOnce())
-            ->method('placeOrder')
+            ->method('getSplittableTotals')
             ->with($this->restSplittableCheckoutRequestTransferMock)
-            ->willReturn($this->restSplittableCheckoutResponseTransferMock);
+            ->willReturn($this->restSplittableTotalsResponseTransferMock);
 
-        $this->restSplittableCheckoutResponseTransferMock->expects(static::atLeastOnce())
-            ->method('getSplittableCheckout')
+        $this->restSplittableTotalsResponseTransferMock->expects(static::atLeastOnce())
+            ->method('getSplittableTotals')
             ->willReturn(null);
 
-        $this->restSplittableCheckoutResponseTransferMock->expects(static::never())
+        $this->restSplittableTotalsResponseTransferMock->expects(static::never())
             ->method('getIsSuccessful');
 
         $this->restResponseBuilderMock->expects(static::atLeastOnce())
-            ->method('createNotPlacedErrorRestResponse')
+            ->method('createNotFoundErrorRestResponse')
             ->willReturn($this->restResponseMock);
 
         static::assertEquals(
             $this->restResponseMock,
-            $this->splittableCheckoutProcessor->placeOrder(
+            $this->splittableTotalsReader->get(
                 $this->restRequestMock,
                 $this->restSplittableCheckoutRequestAttributesTransferMock
             )
