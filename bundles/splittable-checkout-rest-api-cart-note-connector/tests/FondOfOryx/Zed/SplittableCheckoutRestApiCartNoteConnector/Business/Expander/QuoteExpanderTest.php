@@ -3,11 +3,17 @@
 namespace FondOfOryx\Zed\SplittableCheckoutRestApiCartNoteConnector\Business\Expander;
 
 use Codeception\Test\Unit;
+use Generated\Shared\Transfer\CartNoteTransfer;
 use Generated\Shared\Transfer\QuoteTransfer;
 use Generated\Shared\Transfer\RestSplittableCheckoutRequestTransfer;
 
 class QuoteExpanderTest extends Unit
 {
+    /**
+     * @var \Generated\Shared\Transfer\CartNoteTransfer|\PHPUnit\Framework\MockObject\MockObject
+     */
+    protected $cartNoteTransferMock;
+
     /**
      * @var \Generated\Shared\Transfer\RestSplittableCheckoutRequestTransfer|\PHPUnit\Framework\MockObject\MockObject
      */
@@ -34,6 +40,10 @@ class QuoteExpanderTest extends Unit
             ->disableOriginalConstructor()
             ->getMock();
 
+        $this->cartNoteTransferMock = $this->getMockBuilder(CartNoteTransfer::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
         $this->quoteTransferMock = $this->getMockBuilder(QuoteTransfer::class)
             ->disableOriginalConstructor()
             ->getMock();
@@ -50,11 +60,19 @@ class QuoteExpanderTest extends Unit
 
         $this->restSplittableCheckoutRequestTransferMock->expects(static::atLeastOnce())
             ->method('getCartNote')
+            ->willReturn($this->cartNoteTransferMock);
+
+        $this->cartNoteTransferMock->expects(static::atLeastOnce())
+            ->method('getMessage')
             ->willReturn($cartNote);
 
         $this->quoteTransferMock->expects(static::atLeastOnce())
             ->method('setCartNote')
             ->willReturn($this->quoteTransferMock);
+
+        $this->quoteTransferMock->expects(static::atLeastOnce())
+            ->method('getCartNote')
+            ->willReturn($cartNote);
 
         $quoteTransfer = $this->quoteExpander
             ->expand($this->restSplittableCheckoutRequestTransferMock, $this->quoteTransferMock);

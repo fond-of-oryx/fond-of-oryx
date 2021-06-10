@@ -19,7 +19,7 @@ class QuoteExpander implements QuoteExpanderInterface
     ): QuoteTransfer {
         $cartNoteTransfer = $restSplittableCheckoutRequestTransfer->getCartNote();
 
-        if ($cartNoteTransfer === null) {
+        if ($cartNoteTransfer === null || $cartNoteTransfer->getMessage() === null) {
             return $quoteTransfer;
         }
 
