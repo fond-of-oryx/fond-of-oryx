@@ -61,6 +61,7 @@ class QuoteExpanderTest extends Unit
             ->expand($this->restSplittableCheckoutRequestTransferMock, $this->quoteTransferMock);
 
         static::assertEquals($this->quoteTransferMock, $quoteTransfer);
+        static::assertEquals($cartNote, $quoteTransfer->getCartNote());
     }
 
     /**

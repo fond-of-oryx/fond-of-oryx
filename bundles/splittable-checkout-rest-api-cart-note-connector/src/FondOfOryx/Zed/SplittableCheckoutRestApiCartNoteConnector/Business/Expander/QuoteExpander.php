@@ -17,12 +17,12 @@ class QuoteExpander implements QuoteExpanderInterface
         RestSplittableCheckoutRequestTransfer $restSplittableCheckoutRequestTransfer,
         QuoteTransfer $quoteTransfer
     ): QuoteTransfer {
-        $cartNote = $restSplittableCheckoutRequestTransfer->getCartNote();
+        $cartNoteTransfer = $restSplittableCheckoutRequestTransfer->getCartNote();
 
-        if ($cartNote === null) {
+        if ($cartNoteTransfer === null) {
             return $quoteTransfer;
         }
 
-        return $quoteTransfer->setCartNote($cartNote);
+        return $quoteTransfer->setCartNote($cartNoteTransfer->getMessage());
     }
 }
