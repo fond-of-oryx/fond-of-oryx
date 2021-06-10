@@ -13,7 +13,7 @@ use Spryker\Glue\GlueApplication\Rest\JsonApi\RestResourceInterface;
 use Spryker\Glue\GlueApplication\Rest\JsonApi\RestResponseInterface;
 use Symfony\Component\HttpFoundation\Response;
 
-class RestResponseBuilderTest extends Unit
+class SplittableCheckoutRestResponseBuilderTest extends Unit
 {
     /**
      * @var \FondOfOryx\Glue\SplittableCheckoutRestApi\Processor\Mapper\RestSplittableCheckoutMapperInterface|\PHPUnit\Framework\MockObject\MockObject
@@ -46,7 +46,7 @@ class RestResponseBuilderTest extends Unit
     protected $restResourceMock;
 
     /**
-     * @var \FondOfOryx\Glue\SplittableCheckoutRestApi\Processor\Builder\RestResponseBuilder
+     * @var \FondOfOryx\Glue\SplittableCheckoutRestApi\Processor\Builder\SplittableCheckoutRestResponseBuilder
      */
     protected $restResponseBuilder;
 
@@ -81,7 +81,7 @@ class RestResponseBuilderTest extends Unit
             ->disableOriginalConstructor()
             ->getMock();
 
-        $this->restResponseBuilder = new RestResponseBuilder(
+        $this->restResponseBuilder = new SplittableCheckoutRestResponseBuilder(
             $this->restSplittableCheckoutMapperMock,
             $this->restResourceBuilderMock
         );
