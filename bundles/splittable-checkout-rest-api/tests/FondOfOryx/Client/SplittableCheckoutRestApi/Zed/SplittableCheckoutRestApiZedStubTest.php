@@ -6,6 +6,7 @@ use Codeception\Test\Unit;
 use FondOfOryx\Client\SplittableCheckoutRestApi\Dependency\Client\SplittableCheckoutRestApiToZedRequestClientInterface;
 use Generated\Shared\Transfer\RestSplittableCheckoutRequestTransfer;
 use Generated\Shared\Transfer\RestSplittableCheckoutResponseTransfer;
+use Generated\Shared\Transfer\RestSplittableTotalsResponseTransfer;
 
 class SplittableCheckoutRestApiZedStubTest extends Unit
 {
@@ -18,6 +19,11 @@ class SplittableCheckoutRestApiZedStubTest extends Unit
      * @var \Generated\Shared\Transfer\RestSplittableCheckoutResponseTransfer|\PHPUnit\Framework\MockObject\MockObject
      */
     protected $restSplittableCheckoutResponseTransfer;
+
+    /**
+     * @var \Generated\Shared\Transfer\RestSplittableTotalsResponseTransfer|\PHPUnit\Framework\MockObject\MockObject
+     */
+    protected $restSplittableTotalsResponseTransfer;
 
     /**
      * @var \FondOfOryx\Client\SplittableCheckoutRestApi\Dependency\Client\SplittableCheckoutRestApiToZedRequestClientInterface|\PHPUnit\Framework\MockObject\MockObject
@@ -41,6 +47,10 @@ class SplittableCheckoutRestApiZedStubTest extends Unit
             ->getMock();
 
         $this->restSplittableCheckoutResponseTransfer = $this->getMockBuilder(RestSplittableCheckoutResponseTransfer::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $this->restSplittableTotalsResponseTransfer = $this->getMockBuilder(RestSplittableTotalsResponseTransfer::class)
             ->disableOriginalConstructor()
             ->getMock();
 
@@ -68,6 +78,24 @@ class SplittableCheckoutRestApiZedStubTest extends Unit
         static::assertEquals(
             $this->restSplittableCheckoutResponseTransfer,
             $this->splittableCheckoutRestApiZedStub->placeOrder($this->restSplittableCheckoutRequestTransferMock)
+        );
+    }
+
+    /**
+     * @return void
+     */
+    public function testGetSplittableTotals(): void
+    {
+        $this->zedRequestClientMock->expects(static::atLeastOnce())
+            ->method('call')
+            ->with(
+                '/splittable-checkout-rest-api/gateway/get-splittable-totals',
+                $this->restSplittableCheckoutRequestTransferMock
+            )->willReturn($this->restSplittableTotalsResponseTransfer);
+
+        static::assertEquals(
+            $this->restSplittableTotalsResponseTransfer,
+            $this->splittableCheckoutRestApiZedStub->getSplittableTotals($this->restSplittableCheckoutRequestTransferMock)
         );
     }
 }

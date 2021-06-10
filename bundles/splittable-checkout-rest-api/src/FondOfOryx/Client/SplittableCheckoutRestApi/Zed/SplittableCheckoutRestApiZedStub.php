@@ -5,6 +5,7 @@ namespace FondOfOryx\Client\SplittableCheckoutRestApi\Zed;
 use FondOfOryx\Client\SplittableCheckoutRestApi\Dependency\Client\SplittableCheckoutRestApiToZedRequestClientInterface;
 use Generated\Shared\Transfer\RestSplittableCheckoutRequestTransfer;
 use Generated\Shared\Transfer\RestSplittableCheckoutResponseTransfer;
+use Generated\Shared\Transfer\RestSplittableTotalsResponseTransfer;
 
 class SplittableCheckoutRestApiZedStub implements SplittableCheckoutRestApiZedStubInterface
 {
@@ -36,5 +37,22 @@ class SplittableCheckoutRestApiZedStub implements SplittableCheckoutRestApiZedSt
         );
 
         return $restSplittableCheckoutResponseTransfer;
+    }
+
+    /**
+     * @param \Generated\Shared\Transfer\RestSplittableCheckoutRequestTransfer $restSplittableCheckoutRequestTransfer
+     *
+     * @return \Generated\Shared\Transfer\RestSplittableTotalsResponseTransfer
+     */
+    public function getSplittableTotals(
+        RestSplittableCheckoutRequestTransfer $restSplittableCheckoutRequestTransfer
+    ): RestSplittableTotalsResponseTransfer {
+        /** @var \Generated\Shared\Transfer\RestSplittableTotalsResponseTransfer $restSplittableTotalsResponseTransfer */
+        $restSplittableTotalsResponseTransfer = $this->zedRequestClient->call(
+            '/splittable-checkout-rest-api/gateway/get-splittable-totals',
+            $restSplittableCheckoutRequestTransfer
+        );
+
+        return $restSplittableTotalsResponseTransfer;
     }
 }
