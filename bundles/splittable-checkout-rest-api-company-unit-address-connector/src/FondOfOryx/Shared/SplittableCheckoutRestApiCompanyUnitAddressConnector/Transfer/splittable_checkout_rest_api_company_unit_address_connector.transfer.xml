@@ -20,6 +20,8 @@
 
     <transfer name="CompanyUnitAddress">
         <property name="uuid" type="string" />
+        <property name="name1" type="string" />
+        <property name="name2" type="string" />
     </transfer>
 
     <transfer name="Quote">
