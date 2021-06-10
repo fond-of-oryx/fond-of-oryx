@@ -47,6 +47,20 @@
         <property name="orderReferences" type="string[]"/>
     </transfer>
 
+    <transfer name="RestSplittableTotalsResponse">
+        <property name="isSuccessful" type="bool" />
+        <property name="splittableTotals" type="SplittableTotals"/>
+    </transfer>
+
+    <transfer name="SplittableTotals">
+        <property name="totalsList" type="Totals[]" singular="totals" associative="true" />
+    </transfer>
+
+    <transfer name="RestSplittableTotals">
+        <property name="splitKeys" type="string[]" singular="splitKey"/>
+        <property name="totalsList" type="RestTotals[]" singular="totals" associative="true"/>
+    </transfer>
+
     <transfer name="RestTotals">
         <property name="expenseTotal" type="int"/>
         <property name="discountTotal" type="int"/>

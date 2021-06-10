@@ -4,6 +4,7 @@ namespace FondOfOryx\Client\SplittableCheckoutRestApi;
 
 use Generated\Shared\Transfer\RestSplittableCheckoutRequestTransfer;
 use Generated\Shared\Transfer\RestSplittableCheckoutResponseTransfer;
+use Generated\Shared\Transfer\RestSplittableTotalsResponseTransfer;
 use Spryker\Client\Kernel\AbstractClient;
 
 /**
@@ -26,5 +27,21 @@ class SplittableCheckoutRestApiClient extends AbstractClient implements Splittab
         return $this->getFactory()
             ->createSplittableCheckoutRestApiZedStub()
             ->placeOrder($restSplittableCheckoutRequestTransfer);
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * @api
+     *
+     * @param \Generated\Shared\Transfer\RestSplittableCheckoutRequestTransfer $restSplittableCheckoutRequestTransfer
+     *
+     * @return \Generated\Shared\Transfer\RestSplittableTotalsResponseTransfer
+     */
+    public function getSplittableTotals(RestSplittableCheckoutRequestTransfer $restSplittableCheckoutRequestTransfer): RestSplittableTotalsResponseTransfer
+    {
+        return $this->getFactory()
+            ->createSplittableCheckoutRestApiZedStub()
+            ->getSplittableTotals($restSplittableCheckoutRequestTransfer);
     }
 }

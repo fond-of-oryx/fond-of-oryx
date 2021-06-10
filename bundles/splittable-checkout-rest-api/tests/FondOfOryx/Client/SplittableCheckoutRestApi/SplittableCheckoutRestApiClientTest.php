@@ -6,6 +6,7 @@ use Codeception\Test\Unit;
 use FondOfOryx\Client\SplittableCheckoutRestApi\Zed\SplittableCheckoutRestApiZedStubInterface;
 use Generated\Shared\Transfer\RestSplittableCheckoutRequestTransfer;
 use Generated\Shared\Transfer\RestSplittableCheckoutResponseTransfer;
+use Generated\Shared\Transfer\RestSplittableTotalsResponseTransfer;
 
 class SplittableCheckoutRestApiClientTest extends Unit
 {
@@ -23,6 +24,11 @@ class SplittableCheckoutRestApiClientTest extends Unit
      * @var \Generated\Shared\Transfer\RestSplittableCheckoutResponseTransfer|\PHPUnit\Framework\MockObject\MockObject
      */
     protected $restSplittableCheckoutResponseTransferMock;
+
+    /**
+     * @var \Generated\Shared\Transfer\RestSplittableTotalsResponseTransfer|\PHPUnit\Framework\MockObject\MockObject
+     */
+    protected $restSplittableTotalsResponseTransferMock;
 
     /**
      * @var \FondOfOryx\Client\SplittableCheckoutRestApi\Zed\SplittableCheckoutRestApiZedStubInterface|\PHPUnit\Framework\MockObject\MockObject
@@ -53,6 +59,10 @@ class SplittableCheckoutRestApiClientTest extends Unit
             ->disableOriginalConstructor()
             ->getMock();
 
+        $this->restSplittableTotalsResponseTransferMock = $this->getMockBuilder(RestSplittableTotalsResponseTransfer::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
         $this->zedStubMock = $this->getMockBuilder(SplittableCheckoutRestApiZedStubInterface::class)
             ->disableOriginalConstructor()
             ->getMock();
@@ -78,6 +88,26 @@ class SplittableCheckoutRestApiClientTest extends Unit
         static::assertEquals(
             $this->restSplittableCheckoutResponseTransferMock,
             $this->client->placeOrder($this->restSplittableCheckoutRequestTransferMock)
+        );
+    }
+
+    /**
+     * @return void
+     */
+    public function testGetSplittableTotals(): void
+    {
+        $this->factoryMock->expects(static::atLeastOnce())
+            ->method('createSplittableCheckoutRestApiZedStub')
+            ->willReturn($this->zedStubMock);
+
+        $this->zedStubMock->expects(static::atLeastOnce())
+            ->method('getSplittableTotals')
+            ->with($this->restSplittableCheckoutRequestTransferMock)
+            ->willReturn($this->restSplittableTotalsResponseTransferMock);
+
+        static::assertEquals(
+            $this->restSplittableTotalsResponseTransferMock,
+            $this->client->getSplittableTotals($this->restSplittableCheckoutRequestTransferMock)
         );
     }
 }
