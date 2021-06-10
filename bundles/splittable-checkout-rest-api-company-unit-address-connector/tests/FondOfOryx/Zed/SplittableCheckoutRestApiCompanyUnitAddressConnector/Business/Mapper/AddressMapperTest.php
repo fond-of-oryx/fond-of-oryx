@@ -3,7 +3,6 @@
 namespace FondOfOryx\Zed\SplittableCheckoutRestApiCompanyUnitAddressConnector\Business\Mapper;
 
 use Codeception\Test\Unit;
-use Generated\Shared\Transfer\AddressTransfer;
 use Generated\Shared\Transfer\CompanyUnitAddressTransfer;
 
 class AddressMapperTest extends Unit
@@ -39,13 +38,31 @@ class AddressMapperTest extends Unit
      */
     public function testFromCompanyUnitAddressTransfer(): void
     {
+        $name1 = 'Foo';
+        $name2 = 'Bar';
+
         $this->companyUnitAddressTransferMock->expects(static::atLeastOnce())
             ->method('toArray')
             ->willReturn([]);
 
-        static::assertInstanceOf(
-            AddressTransfer::class,
-            $this->addressMapper->fromCompanyUnitAddressTransfer($this->companyUnitAddressTransferMock)
+        $this->companyUnitAddressTransferMock->expects(static::atLeastOnce())
+            ->method('getName1')
+            ->willReturn($name1);
+
+        $this->companyUnitAddressTransferMock->expects(static::atLeastOnce())
+            ->method('getName2')
+            ->willReturn($name2);
+
+        $addressTransfer = $this->addressMapper->fromCompanyUnitAddressTransfer($this->companyUnitAddressTransferMock);
+
+        static::assertEquals(
+            $name1,
+            $addressTransfer->getFirstName()
+        );
+
+        static::assertEquals(
+            $name2,
+            $addressTransfer->getLastName()
         );
     }
 }

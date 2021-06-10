@@ -4,7 +4,7 @@ namespace FondOfOryx\Glue\SplittableCheckoutRestApi\Processor\SplittableCheckout
 
 use Codeception\Test\Unit;
 use FondOfOryx\Client\SplittableCheckoutRestApi\SplittableCheckoutRestApiClientInterface;
-use FondOfOryx\Glue\SplittableCheckoutRestApi\Processor\Builder\RestResponseBuilderInterface;
+use FondOfOryx\Glue\SplittableCheckoutRestApi\Processor\Builder\SplittableCheckoutRestResponseBuilderInterface;
 use FondOfOryx\Glue\SplittableCheckoutRestApi\Processor\Expander\RestSplittableCheckoutRequestExpanderInterface;
 use FondOfOryx\Glue\SplittableCheckoutRestApi\Processor\Mapper\RestSplittableCheckoutRequestMapperInterface;
 use Generated\Shared\Transfer\RestSplittableCheckoutRequestAttributesTransfer;
@@ -27,7 +27,7 @@ class SplittableCheckoutProcessorTest extends Unit
     protected $restSplittableCheckoutRequestExpanderMock;
 
     /**
-     * @var \FondOfOryx\Glue\SplittableCheckoutRestApi\Processor\Builder\RestResponseBuilderInterface|\PHPUnit\Framework\MockObject\MockObject
+     * @var \FondOfOryx\Glue\SplittableCheckoutRestApi\Processor\Builder\SplittableCheckoutRestResponseBuilderInterface|\PHPUnit\Framework\MockObject\MockObject
      */
     protected $restResponseBuilderMock;
 
@@ -86,7 +86,7 @@ class SplittableCheckoutProcessorTest extends Unit
             ->disableOriginalConstructor()
             ->getMock();
 
-        $this->restResponseBuilderMock = $this->getMockBuilder(RestResponseBuilderInterface::class)
+        $this->restResponseBuilderMock = $this->getMockBuilder(SplittableCheckoutRestResponseBuilderInterface::class)
             ->disableOriginalConstructor()
             ->getMock();
 
@@ -119,8 +119,8 @@ class SplittableCheckoutProcessorTest extends Unit
             ->getMock();
 
         $this->splittableCheckoutProcessor = new SplittableCheckoutProcessor(
-            $this->restSplittableCheckoutRequestExpanderMock,
             $this->restSplittableCheckoutRequestMapperMock,
+            $this->restSplittableCheckoutRequestExpanderMock,
             $this->restResponseBuilderMock,
             $this->clientMock
         );
