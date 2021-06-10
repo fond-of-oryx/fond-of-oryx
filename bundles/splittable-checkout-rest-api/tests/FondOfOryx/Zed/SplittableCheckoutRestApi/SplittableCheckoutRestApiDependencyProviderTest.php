@@ -6,6 +6,8 @@ use Codeception\Test\Unit;
 use FondOfOryx\Zed\SplittableCheckout\Business\SplittableCheckoutFacadeInterface;
 use FondOfOryx\Zed\SplittableCheckoutRestApi\Dependency\Facade\SplittableCheckoutRestApiToQuoteFacadeInterface;
 use FondOfOryx\Zed\SplittableCheckoutRestApi\Dependency\Facade\SplittableCheckoutRestApiToSplittableCheckoutFacadeInterface;
+use FondOfOryx\Zed\SplittableCheckoutRestApi\Dependency\Facade\SplittableCheckoutRestApiToSplittableTotalsFacadeInterface;
+use FondOfOryx\Zed\SplittableTotals\Business\SplittableTotalsFacadeInterface;
 use Spryker\Shared\Kernel\BundleProxy;
 use Spryker\Zed\Kernel\Container;
 use Spryker\Zed\Kernel\Locator;
@@ -39,6 +41,11 @@ class SplittableCheckoutRestApiDependencyProviderTest extends Unit
     protected $splittableCheckoutFacadeMock;
 
     /**
+     * @var \FondOfOryx\Zed\SplittableTotals\Business\SplittableTotalsFacadeInterface|\PHPUnit\Framework\MockObject\MockObject
+     */
+    protected $splittableTotalsFacadeMock;
+
+    /**
      * @var \FondOfOryx\Zed\SplittableCheckoutRestApi\SplittableCheckoutRestApiDependencyProvider
      */
     protected $dependencyProvider;
@@ -70,6 +77,10 @@ class SplittableCheckoutRestApiDependencyProviderTest extends Unit
             ->disableOriginalConstructor()
             ->getMock();
 
+        $this->splittableTotalsFacadeMock = $this->getMockBuilder(SplittableTotalsFacadeInterface::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
         $this->dependencyProvider = new SplittableCheckoutRestApiDependencyProvider();
     }
 
@@ -84,13 +95,17 @@ class SplittableCheckoutRestApiDependencyProviderTest extends Unit
 
         $this->locatorMock->expects(static::atLeastOnce())
             ->method('__call')
-            ->withConsecutive(['quote'], ['splittableCheckout'])
+            ->withConsecutive(['quote'], ['splittableCheckout'], ['splittableTotals'])
             ->willReturn($this->bundleProxyMock);
 
         $this->bundleProxyMock->expects(static::atLeastOnce())
             ->method('__call')
-            ->withConsecutive(['facade'], ['facade'])
-            ->willReturnOnConsecutiveCalls($this->quoteFacadeMock, $this->splittableCheckoutFacadeMock);
+            ->withConsecutive(['facade'], ['facade'], ['facade'])
+            ->willReturnOnConsecutiveCalls(
+                $this->quoteFacadeMock,
+                $this->splittableCheckoutFacadeMock,
+                $this->splittableTotalsFacadeMock
+            );
 
         $container = $this->dependencyProvider->provideBusinessLayerDependencies($this->containerMock);
 
@@ -104,6 +119,11 @@ class SplittableCheckoutRestApiDependencyProviderTest extends Unit
         static::assertInstanceOf(
             SplittableCheckoutRestApiToSplittableCheckoutFacadeInterface::class,
             $container[SplittableCheckoutRestApiDependencyProvider::FACADE_SPLITTABLE_CHECKOUT]
+        );
+
+        static::assertInstanceOf(
+            SplittableCheckoutRestApiToSplittableTotalsFacadeInterface::class,
+            $container[SplittableCheckoutRestApiDependencyProvider::FACADE_SPLITTABLE_TOTALS]
         );
 
         static::assertIsArray($container[SplittableCheckoutRestApiDependencyProvider::PLUGINS_QUOTE_EXPANDER]);
