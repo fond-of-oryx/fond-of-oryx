@@ -6,6 +6,7 @@ use Codeception\Test\Unit;
 use FondOfOryx\Zed\SplittableCheckoutRestApi\Business\SplittableCheckoutRestApiFacade;
 use Generated\Shared\Transfer\RestSplittableCheckoutRequestTransfer;
 use Generated\Shared\Transfer\RestSplittableCheckoutResponseTransfer;
+use Generated\Shared\Transfer\RestSplittableTotalsResponseTransfer;
 use Spryker\Zed\Kernel\Business\AbstractFacade;
 
 class GatewayControllerTest extends Unit
@@ -24,6 +25,11 @@ class GatewayControllerTest extends Unit
      * @var \Generated\Shared\Transfer\RestSplittableCheckoutResponseTransfer|\PHPUnit\Framework\MockObject\MockObject
      */
     protected $restSplittableCheckoutResponseTransferMock;
+
+    /**
+     * @var \Generated\Shared\Transfer\RestSplittableTotalsResponseTransfer|\PHPUnit\Framework\MockObject\MockObject
+     */
+    protected $restSplittableTotalsResponseTransferMock;
 
     /**
      * @var \FondOfOryx\Zed\SplittableCheckoutRestApi\Communication\Controller\GatewayController
@@ -46,6 +52,10 @@ class GatewayControllerTest extends Unit
             ->getMock();
 
         $this->restSplittableCheckoutResponseTransferMock = $this->getMockBuilder(RestSplittableCheckoutResponseTransfer::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $this->restSplittableTotalsResponseTransferMock = $this->getMockBuilder(RestSplittableTotalsResponseTransfer::class)
             ->disableOriginalConstructor()
             ->getMock();
 
@@ -76,7 +86,7 @@ class GatewayControllerTest extends Unit
     /**
      * @return void
      */
-    public function testGetSplittableCheckoutAction(): void
+    public function testPlaceOrderAction(): void
     {
         $this->splittableCheckoutRestApiFacadeMock->expects(static::atLeastOnce())
             ->method('placeOrder')
@@ -86,6 +96,22 @@ class GatewayControllerTest extends Unit
         static::assertEquals(
             $this->restSplittableCheckoutResponseTransferMock,
             $this->gatewayController->placeOrderAction($this->restSplittableCheckoutRequestTransferMock)
+        );
+    }
+
+    /**
+     * @return void
+     */
+    public function testGetSplittableTotalsAction(): void
+    {
+        $this->splittableCheckoutRestApiFacadeMock->expects(static::atLeastOnce())
+            ->method('getSplittableTotals')
+            ->with($this->restSplittableCheckoutRequestTransferMock)
+            ->willReturn($this->restSplittableTotalsResponseTransferMock);
+
+        static::assertEquals(
+            $this->restSplittableTotalsResponseTransferMock,
+            $this->gatewayController->getSplittableTotalsAction($this->restSplittableCheckoutRequestTransferMock)
         );
     }
 }

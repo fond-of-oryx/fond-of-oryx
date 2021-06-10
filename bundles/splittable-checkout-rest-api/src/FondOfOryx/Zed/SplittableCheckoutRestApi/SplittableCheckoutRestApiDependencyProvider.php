@@ -4,6 +4,7 @@ namespace FondOfOryx\Zed\SplittableCheckoutRestApi;
 
 use FondOfOryx\Zed\SplittableCheckoutRestApi\Dependency\Facade\SplittableCheckoutRestApiToQuoteFacadeBridge;
 use FondOfOryx\Zed\SplittableCheckoutRestApi\Dependency\Facade\SplittableCheckoutRestApiToSplittableCheckoutFacadeBridge;
+use FondOfOryx\Zed\SplittableCheckoutRestApi\Dependency\Facade\SplittableCheckoutRestApiToSplittableTotalsFacadeBridge;
 use Spryker\Zed\Kernel\AbstractBundleDependencyProvider;
 use Spryker\Zed\Kernel\Container;
 
@@ -11,6 +12,7 @@ class SplittableCheckoutRestApiDependencyProvider extends AbstractBundleDependen
 {
     public const FACADE_QUOTE = 'FACADE_QUOTE';
     public const FACADE_SPLITTABLE_CHECKOUT = 'FACADE_SPLITTABLE_CHECKOUT';
+    public const FACADE_SPLITTABLE_TOTALS = 'FACADE_SPLITTABLE_TOTALS';
 
     public const PLUGINS_QUOTE_EXPANDER = 'PLUGINS_QUOTE_EXPANDER';
 
@@ -25,6 +27,7 @@ class SplittableCheckoutRestApiDependencyProvider extends AbstractBundleDependen
 
         $container = $this->addQuoteFacade($container);
         $container = $this->addSplittableCheckoutFacade($container);
+        $container = $this->addSplittableTotalsFacade($container);
 
         return $this->addQuoteExpanderPlugins($container);
     }
@@ -55,6 +58,22 @@ class SplittableCheckoutRestApiDependencyProvider extends AbstractBundleDependen
         $container[static::FACADE_SPLITTABLE_CHECKOUT] = static function (Container $container) {
             return new SplittableCheckoutRestApiToSplittableCheckoutFacadeBridge(
                 $container->getLocator()->splittableCheckout()->facade()
+            );
+        };
+
+        return $container;
+    }
+
+    /**
+     * @param \Spryker\Zed\Kernel\Container $container
+     *
+     * @return \Spryker\Zed\Kernel\Container
+     */
+    protected function addSplittableTotalsFacade(Container $container): Container
+    {
+        $container[static::FACADE_SPLITTABLE_TOTALS] = static function (Container $container) {
+            return new SplittableCheckoutRestApiToSplittableTotalsFacadeBridge(
+                $container->getLocator()->splittableTotals()->facade()
             );
         };
 

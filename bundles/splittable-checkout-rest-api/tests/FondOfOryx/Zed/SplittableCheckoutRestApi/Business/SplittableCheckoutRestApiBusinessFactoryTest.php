@@ -3,9 +3,11 @@
 namespace FondOfOryx\Zed\SplittableCheckoutRestApi\Business;
 
 use Codeception\Test\Unit;
-use FondOfOryx\Zed\SplittableCheckoutRestApi\Business\Processor\PlaceOrderProcessorInterface;
+use FondOfOryx\Zed\SplittableCheckoutRestApi\Business\Processor\PlaceOrderProcessor;
+use FondOfOryx\Zed\SplittableCheckoutRestApi\Business\Reader\SplittableTotalsReader;
 use FondOfOryx\Zed\SplittableCheckoutRestApi\Dependency\Facade\SplittableCheckoutRestApiToQuoteFacadeInterface;
 use FondOfOryx\Zed\SplittableCheckoutRestApi\Dependency\Facade\SplittableCheckoutRestApiToSplittableCheckoutFacadeInterface;
+use FondOfOryx\Zed\SplittableCheckoutRestApi\Dependency\Facade\SplittableCheckoutRestApiToSplittableTotalsFacadeInterface;
 use FondOfOryx\Zed\SplittableCheckoutRestApi\SplittableCheckoutRestApiDependencyProvider;
 use Spryker\Zed\Kernel\Container;
 
@@ -25,6 +27,11 @@ class SplittableCheckoutRestApiBusinessFactoryTest extends Unit
      * @var \FondOfOryx\Zed\SplittableCheckoutRestApi\Dependency\Facade\SplittableCheckoutRestApiToSplittableCheckoutFacadeInterface|\PHPUnit\Framework\MockObject\MockObject
      */
     protected $splittableCheckoutFacadeMock;
+
+    /**
+     * @var \FondOfOryx\Zed\SplittableCheckoutRestApi\Dependency\Facade\SplittableCheckoutRestApiToSplittableTotalsFacadeInterface|\PHPUnit\Framework\MockObject\MockObject
+     */
+    protected $splittableTotalsFacadeMock;
 
     /**
      * @var \FondOfOryx\Zed\SplittableCheckoutRestApi\Business\SplittableCheckoutRestApiBusinessFactory
@@ -47,6 +54,10 @@ class SplittableCheckoutRestApiBusinessFactoryTest extends Unit
             ->getMock();
 
         $this->splittableCheckoutFacadeMock = $this->getMockBuilder(SplittableCheckoutRestApiToSplittableCheckoutFacadeInterface::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $this->splittableTotalsFacadeMock = $this->getMockBuilder(SplittableCheckoutRestApiToSplittableTotalsFacadeInterface::class)
             ->disableOriginalConstructor()
             ->getMock();
 
@@ -77,8 +88,36 @@ class SplittableCheckoutRestApiBusinessFactoryTest extends Unit
             );
 
         static::assertInstanceOf(
-            PlaceOrderProcessorInterface::class,
+            PlaceOrderProcessor::class,
             $this->businessFactory->createPlaceOrderProcessor()
+        );
+    }
+
+    /**
+     * @return void
+     */
+    public function testCreateSplittableTotalsReader(): void
+    {
+        $this->containerMock->expects(static::atLeastOnce())
+            ->method('has')
+            ->willReturn(true);
+
+        $this->containerMock->expects(static::atLeastOnce())
+            ->method('get')
+            ->withConsecutive(
+                [SplittableCheckoutRestApiDependencyProvider::PLUGINS_QUOTE_EXPANDER],
+                [SplittableCheckoutRestApiDependencyProvider::FACADE_QUOTE],
+                [SplittableCheckoutRestApiDependencyProvider::FACADE_SPLITTABLE_TOTALS]
+            )
+            ->willReturnOnConsecutiveCalls(
+                [],
+                $this->quoteFacadeMock,
+                $this->splittableTotalsFacadeMock
+            );
+
+        static::assertInstanceOf(
+            SplittableTotalsReader::class,
+            $this->businessFactory->createSplittableTotalsReader()
         );
     }
 }
