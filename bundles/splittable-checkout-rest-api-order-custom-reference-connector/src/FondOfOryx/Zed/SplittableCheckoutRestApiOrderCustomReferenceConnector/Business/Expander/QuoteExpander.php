@@ -23,8 +23,6 @@ class QuoteExpander implements QuoteExpanderInterface
             return $quoteTransfer;
         }
 
-        $quoteTransfer->setOrderCustomReference($orderCustomReference);
-
         return $quoteTransfer->setOrderCustomReference($orderCustomReference);
     }
 }
