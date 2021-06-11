@@ -1,6 +1,6 @@
 <?php
 
-namespace FondOfOryx\Zed\SplittableCheckoutrestApiCartNotConnector\Business\Expander;
+namespace FondOfOryx\Zed\SplittableCheckoutRestApiCartNoteConnector\Business\Expander;
 
 use Generated\Shared\Transfer\QuoteTransfer;
 use Generated\Shared\Transfer\RestSplittableCheckoutRequestTransfer;
