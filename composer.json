@@ -119,6 +119,8 @@
     "fond-of-oryx/shipment-table-rate": "*",
     "fond-of-oryx/shipment-table-rate-data-import": "*",
     "fond-of-oryx/splittable-checkout": "*",
+    "fond-of-oryx/splittable-checkout-rest-api": "*",
+    "fond-of-oryx/splittable-checkout-rest-api-cart-note-connector": "*",
     "fond-of-oryx/splittable-checkout-rest-api-company-unit-address-connector": "*",
     "fond-of-oryx/splittable-checkout-rest-api-customer-connector": "*",
     "fond-of-oryx/splittable-checkout-rest-api-extension": "*",
