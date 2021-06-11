@@ -8,7 +8,7 @@ use Generated\Shared\Transfer\RestSplittableCheckoutRequestTransfer;
 use Spryker\Zed\Kernel\Communication\AbstractPlugin;
 
 /**
- * @method \FondOfOryx\Zed\SplittableCheckoutRestApiCartNoteConnector\Business\SplittableCheckoutRestApiCartNoteConnectorFacadeInterface getFacade()
+ * @method \FondOfOryx\Zed\SplittableCheckoutRestApiOrderCustomReferenceConnector\Business\SplittableCheckoutRestApiOrderCustomReferenceConnectorFacadeInterface getFacade()
  */
 class OrderCustomReferenceQuoteExpanderPlugin extends AbstractPlugin implements QuoteExpanderPluginInterface
 {
