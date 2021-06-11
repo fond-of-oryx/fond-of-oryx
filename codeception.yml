@@ -50,7 +50,6 @@ include:
   - bundles/splittable-quote-extension
   - bundles/splittable-quote-shipment-connector
   - bundles/splittable-totals
-  - bundles/splittable-totals-extension
   - bundles/tax-calculation-connector
   - bundles/util-math-formula
 
