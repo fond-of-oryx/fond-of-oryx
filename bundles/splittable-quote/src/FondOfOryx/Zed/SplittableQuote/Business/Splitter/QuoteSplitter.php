@@ -113,6 +113,11 @@ class QuoteSplitter implements QuoteSplitterInterface
     protected function expandAndRecalculateSplittedQuotes(array $splittedQuoteTransfers): array
     {
         foreach ($splittedQuoteTransfers as $key => $splittedQuoteTransfer) {
+            $splittedQuoteTransfers[$key] = $this->calculationFacade->recalculateQuote(
+                $splittedQuoteTransfer,
+                false
+            );
+
             foreach ($this->splittedQuoteExpanderPlugins as $splittedQuoteExpanderPlugin) {
                 $splittedQuoteTransfers[$key] = $splittedQuoteExpanderPlugin->expand($splittedQuoteTransfer);
             }
