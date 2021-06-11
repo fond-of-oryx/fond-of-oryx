@@ -19,7 +19,7 @@ class QuoteExpander implements QuoteExpanderInterface
     ): QuoteTransfer {
         $orderCustomReference = $restSplittableCheckoutRequestTransfer->getOrderCustomReference();
 
-        if ($orderCustomReference === null ||  $orderCustomReference === '') {
+        if ($orderCustomReference === null || $orderCustomReference === '') {
             return $quoteTransfer;
         }
 
