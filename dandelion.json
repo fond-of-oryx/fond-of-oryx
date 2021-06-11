@@ -136,10 +136,6 @@
       "path": "bundles/splittable-totals/",
       "version": "1.0.0"
     },
-    "splittable-totals-extension": {
-      "path": "bundles/splittable-totals-extension/",
-      "version": "1.0.0"
-    },
     "tax-calculation-connector": {
       "path": "bundles/tax-calculation-connector/",
       "version": "1.0.0"
