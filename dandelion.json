@@ -132,6 +132,50 @@
       "path": "bundles/shipment-table-rate-data-import/",
       "version": "1.0.0"
     },
+    "splittable-checkout": {
+      "path": "bundles/splittable-checkout/",
+      "version": "1.0.0"
+    },
+    "splittable-checkout-rest-api": {
+      "path": "bundles/splittable-checkout-rest-api/",
+      "version": "1.0.0"
+    },
+    "splittable-checkout-rest-api-cart-note-connector": {
+      "path": "bundles/splittable-checkout-rest-api-cart-note-connector/",
+      "version": "1.0.0"
+    },
+    "splittable-checkout-rest-api-company-unit-address-connector": {
+      "path": "bundles/splittable-checkout-rest-api-company-unit-address-connector/",
+      "version": "1.0.0"
+    },
+    "splittable-checkout-rest-api-customer-connector": {
+      "path": "bundles/splittable-checkout-rest-api-customer-connector/",
+      "version": "1.0.0"
+    },
+    "splittable-checkout-rest-api-extension": {
+      "path": "bundles/splittable-checkout-rest-api-extension/",
+      "version": "1.0.0"
+    },
+    "splittable-checkout-rest-api-payment-connector": {
+      "path": "bundles/splittable-checkout-rest-api-payment-connector/",
+      "version": "1.0.0"
+    },
+    "splittable-checkout-rest-api-shipment-connector": {
+      "path": "bundles/splittable-checkout-rest-api-shipment-connector/",
+      "version": "1.0.0"
+    },
+    "splittable-quote": {
+      "path": "bundles/splittable-quote/",
+      "version": "1.0.0"
+    },
+    "splittable-quote-extension": {
+      "path": "bundles/splittable-quote-extension/",
+      "version": "1.0.0"
+    },
+    "splittable-quote-shipment-connector": {
+      "path": "bundles/splittable-quote-shipment-connector/",
+      "version": "1.0.0"
+    },
     "splittable-totals": {
       "path": "bundles/splittable-totals/",
       "version": "1.0.0"
