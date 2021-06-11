@@ -1,15 +1,15 @@
 <?php
 
-namespace FondOfOryx\Zed\SplittableCheckoutRestApiCartNoteConnector\Business;
+namespace FondOfOryx\Zed\SplittableCheckoutRestApiOrderCustomReferenceConnector\Business;
 
 use Generated\Shared\Transfer\QuoteTransfer;
 use Generated\Shared\Transfer\RestSplittableCheckoutRequestTransfer;
 use Spryker\Zed\Kernel\Business\AbstractFacade;
 
 /**
- * @method \FondOfOryx\Zed\SplittableCheckoutRestApiCartNoteConnector\Business\SplittableCheckoutRestApiCartNoteConnectorBusinessFactory getFactory()
+ * @method \FondOfOryx\Zed\SplittableCheckoutRestApiOrderCustomReferenceConnector\Business\SplittableCheckoutRestApiOrderCustomReferenceConnectorBusinessFactory getFactory()
  */
-class SplittableCheckoutRestApiCartNoteConnectorFacade extends AbstractFacade implements SplittableCheckoutRestApiCartNoteConnectorFacadeInterface
+class SplittableCheckoutRestApiOrderCustomReferenceConnectorFacade extends AbstractFacade implements SplittableCheckoutRestApiOrderCustomReferenceConnectorFacadeInterface
 {
     /**
      * {@inheritDoc}

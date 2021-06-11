@@ -1,6 +1,6 @@
 <?php
 
-namespace FondOfOryx\Zed\SplittableCheckoutRestApiCartNoteConnector\Communication\Plugin\SplittableCheckoutRestApiExtension;
+namespace FondOfOryx\Zed\SplittableCheckoutRestApiOrderCustomReferenceConnector\Communication\Plugin\SplittableCheckoutRestApiExtension;
 
 use FondOfOryx\Zed\SplittableCheckoutRestApiExtension\Dependency\Plugin\QuoteExpanderPluginInterface;
 use Generated\Shared\Transfer\QuoteTransfer;
@@ -10,7 +10,7 @@ use Spryker\Zed\Kernel\Communication\AbstractPlugin;
 /**
  * @method \FondOfOryx\Zed\SplittableCheckoutRestApiCartNoteConnector\Business\SplittableCheckoutRestApiCartNoteConnectorFacadeInterface getFacade()
  */
-class CartNoteQuoteExpanderPlugin extends AbstractPlugin implements QuoteExpanderPluginInterface
+class OrderCustomReferenceQuoteExpanderPlugin extends AbstractPlugin implements QuoteExpanderPluginInterface
 {
     /**
      * @param \Generated\Shared\Transfer\RestSplittableCheckoutRequestTransfer $restSplittableCheckoutRequestTransfer

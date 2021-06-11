@@ -1,12 +1,12 @@
 <?php
 
-namespace FondOfOryx\Zed\SplittableCheckoutRestApiCartNoteConnector\Business;
+namespace FondOfOryx\Zed\SplittableCheckoutRestApiOrderCustomReferenceConnector\Business;
 
 use FondOfOryx\Zed\SplittableCheckoutRestApiCartNoteConnector\Business\Expander\QuoteExpander;
 use FondOfOryx\Zed\SplittableCheckoutRestApiCartNoteConnector\Business\Expander\QuoteExpanderInterface;
 use Spryker\Zed\Kernel\Business\AbstractBusinessFactory;
 
-class SplittableCheckoutRestApiCartNoteConnectorBusinessFactory extends AbstractBusinessFactory
+class SplittableCheckoutRestApiOrderCustomReferenceConnectorBusinessFactory extends AbstractBusinessFactory
 {
     /**
      * @return \FondOfOryx\Zed\SplittableCheckoutRestApiCartNoteConnector\Business\Expander\QuoteExpanderInterface

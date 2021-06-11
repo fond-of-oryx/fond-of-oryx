@@ -1,15 +1,15 @@
 <?php
 
-namespace FondOfOryx\Zed\SplittableCheckoutRestApiCartNoteConnector\Business;
+namespace FondOfOryx\Zed\SplittableCheckoutRestApiOrderCustomReferenceConnector\Business;
 
 use Generated\Shared\Transfer\QuoteTransfer;
 use Generated\Shared\Transfer\RestSplittableCheckoutRequestTransfer;
 
-interface SplittableCheckoutRestApiCartNoteConnectorFacadeInterface
+interface SplittableCheckoutRestApiOrderCustomReferenceConnectorFacadeInterface
 {
     /**
      * Specifications:
-     * - Expands quote with cart note
+     * - Expands quote with order custom reference value
      *
      * @api
      *
