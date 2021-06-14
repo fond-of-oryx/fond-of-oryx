@@ -7,6 +7,10 @@
         <property name="cartNote" type="string"/>
     </transfer>
 
+    <transfer name="RestSplittableCheckoutRequestAttributes">
+        <property name="cartNote" type="CartNote"/>
+    </transfer>
+
     <transfer name="RestSplittableCheckoutRequest">
         <property name="cartNote" type="CartNote"/>
     </transfer>
