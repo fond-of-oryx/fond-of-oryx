@@ -7,6 +7,10 @@
         <property name="orderCustomReference" type="string"/>
     </transfer>
 
+    <transfer name="RestSplittableCheckoutRequestAttributes">
+        <property name="orderCustomReference" type="string"/>
+    </transfer>
+
     <transfer name="RestSplittableCheckoutRequest">
         <property name="orderCustomReference" type="string"/>
     </transfer>
