@@ -124,6 +124,7 @@
     "fond-of-oryx/splittable-checkout-rest-api-company-unit-address-connector": "*",
     "fond-of-oryx/splittable-checkout-rest-api-customer-connector": "*",
     "fond-of-oryx/splittable-checkout-rest-api-extension": "*",
+    "fond-of-oryx/splittable-checkout-rest-api-order-custom-reference-connector": "*",
     "fond-of-oryx/splittable-checkout-rest-api-payment-connector": "*",
     "fond-of-oryx/splittable-checkout-rest-api-shipment-connector": "*",
     "fond-of-oryx/splittable-quote": "*",
