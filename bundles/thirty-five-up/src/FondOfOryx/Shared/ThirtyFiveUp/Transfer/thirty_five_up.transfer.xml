@@ -1,0 +1,49 @@
+<?xml version="1.0"?>
+<transfers xmlns="spryker:transfer-01"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="spryker:transfer-01 http://static.spryker.com/transfer-01.xsd">
+
+    <transfer name="ThirtyFiveUpOrder">
+        <property name="id" type="int"/>
+        <property name="vendorItems" singular="vendorItem" type="ThirtyFiveUpOrderItem[]"/>
+        <property name="idSalesOrder" type="int"/>
+        <property name="orderReference" type="string"/>
+        <property name="store" type="string"/>
+        <property name="paymentStatus" type="string"/>
+        <property name="thirtyFiveUpReference" type="string"/>
+        <property name="createdAt" type="int"/>
+        <property name="updatedAt" type="int"/>
+    </transfer>
+
+    <transfer name="ThirtyFiveUpOrderItem">
+        <property name="id" type="int" />
+        <property name="idThirtyFiveUpOrder" type="int" />
+        <property name="vendor" type="ThirtyFiveUpVendor"/>
+        <property name="sku" type="string"/>
+        <property name="shopSku" type="string"/>
+        <property name="qty" type="int"/>
+        <property name="createdAt" type="int"/>
+        <property name="updatedAt" type="int"/>
+    </transfer>
+
+    <transfer name="ThirtyFiveUpVendor">
+        <property name="id" type="int" />
+        <property name="name" type="string" />
+    </transfer>
+
+    <transfer name="ThirtyFiveUpResponse">
+        <property name="status" type="string"/>
+        <property name="code" type="int"/>
+        <property name="orders" singular="order" type="ThirtyFiveUpOrder[]"/>
+    </transfer>
+
+    <transfer name="Quote">
+        <property name="thirtyFiveUpOrder" type="ThirtyFiveUpOrder"/>
+    </transfer>
+
+    <transfer name="Item">
+        <property name="fkSalesOrderItem" type="int" />
+        <property name="abstractAttributes" singular="abstractAttribute" type="array"/>
+    </transfer>
+
+</transfers>
