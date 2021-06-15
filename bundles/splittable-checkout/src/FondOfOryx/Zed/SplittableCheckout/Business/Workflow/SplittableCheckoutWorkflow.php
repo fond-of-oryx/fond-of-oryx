@@ -115,6 +115,7 @@ class SplittableCheckoutWorkflow implements SplittableCheckoutWorkflowInterface
                 throw new Exception('Could not place order.');
             }
 
+            $this->quoteFacade->deleteQuote($splittedQuoteTransfer);
             $checkoutResponseOrderReferences[] = $saveOrderTransfer->getOrderReference();
         }
 

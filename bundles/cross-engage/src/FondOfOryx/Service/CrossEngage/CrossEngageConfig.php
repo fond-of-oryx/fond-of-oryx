@@ -25,7 +25,7 @@ class CrossEngageConfig extends AbstractBundleConfig
      */
     public function getOptInPathPattern(): string
     {
-        return $this->get(CrossEngageConstants::OPT_IN_PATH_PATTERN, '%s/%s/confirm-subscription/%s');
+        return $this->get(CrossEngageConstants::OPT_IN_PATH_PATTERN, CrossEngageConstants::OPT_IN_PATH_PATTERN_DEFAULT);
     }
 
     /**
@@ -33,7 +33,7 @@ class CrossEngageConfig extends AbstractBundleConfig
      */
     public function getOptoutPathPattern(): string
     {
-        return $this->get(CrossEngageConstants::OPT_OUT_PATH_PATTERN, '%s/%s/unsubscribe/%s');
+        return $this->get(CrossEngageConstants::OPT_OUT_PATH_PATTERN, CrossEngageConstants::OPT_OUT_PATH_PATTERN_DEFAULT);
     }
 
     /**
@@ -41,7 +41,7 @@ class CrossEngageConfig extends AbstractBundleConfig
      */
     public function getCrossEngageRedirectPattern(): string
     {
-        return $this->get(CrossEngageConstants::CROSSENGAGE_REDIRECT_PATTERN, '%s/%s/%s');
+        return $this->get(CrossEngageConstants::CROSSENGAGE_REDIRECT_PATTERN, CrossEngageConstants::CROSSENGAGE_REDIRECT_PATTERN_DEFAULT);
     }
 
     /**
@@ -49,7 +49,7 @@ class CrossEngageConfig extends AbstractBundleConfig
      */
     public function getHashAlgo(): string
     {
-        return $this->get(CrossEngageConstants::CROSSENGAGE_HASH_ALGO, 'sha1');
+        return $this->get(CrossEngageConstants::CROSSENGAGE_HASH_ALGO, CrossEngageConstants::CROSSENGAGE_HASH_ALGO_DEFAULT);
     }
 
     /**
@@ -57,7 +57,7 @@ class CrossEngageConfig extends AbstractBundleConfig
      */
     public function getModifyIn(): bool
     {
-        return $this->get(CrossEngageConstants::CROSSENGAGE_MODIFY_IN, true);
+        return $this->get(CrossEngageConstants::CROSSENGAGE_MODIFY_IN, CrossEngageConstants::CROSSENGAGE_MODIFY_IN_DEFAULT);
     }
 
     /**
@@ -65,7 +65,7 @@ class CrossEngageConfig extends AbstractBundleConfig
      */
     public function getModifyOut(): bool
     {
-        return $this->get(CrossEngageConstants::CROSSENGAGE_MODIFY_OUT, false);
+        return $this->get(CrossEngageConstants::CROSSENGAGE_MODIFY_OUT, CrossEngageConstants::CROSSENGAGE_MODIFY_OUT_DEFAULT);
     }
 
     /**
@@ -73,7 +73,7 @@ class CrossEngageConfig extends AbstractBundleConfig
      */
     public function getModifierIn(): string
     {
-        return $this->get(CrossEngageConstants::CROSSENGAGE_MODIFIER_IN, 'lower');
+        return $this->get(CrossEngageConstants::CROSSENGAGE_MODIFIER_IN, CrossEngageConstants::CROSSENGAGE_MODIFIER_IN_DEFAULT);
     }
 
     /**
@@ -81,6 +81,6 @@ class CrossEngageConfig extends AbstractBundleConfig
      */
     public function getModifierOut(): string
     {
-        return $this->get(CrossEngageConstants::CROSSENGAGE_MODIFIER_OUT, 'lower');
+        return $this->get(CrossEngageConstants::CROSSENGAGE_MODIFIER_OUT, CrossEngageConstants::CROSSENGAGE_MODIFIER_OUT_DEFAULT);
     }
 }
