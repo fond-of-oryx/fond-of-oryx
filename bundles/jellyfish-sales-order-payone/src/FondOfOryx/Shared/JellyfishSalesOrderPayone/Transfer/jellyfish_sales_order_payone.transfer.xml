@@ -12,4 +12,8 @@
         <property name="method" type="string"/>
         <property name="provider" type="string"/>
     </transfer>
+
+    <transfer name="PayonePayment"/>
+
+    <transfer name="SalesPayment"/>
 </transfers>
