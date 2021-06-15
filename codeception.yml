@@ -19,6 +19,7 @@ include:
   - bundles/jellyfish-cross-engage
   - bundles/jellyfish-sales-order-b2c
   - bundles/jellyfish-sales-order-extension
+  - bundles/jellyfish-sales-order-payone
   - bundles/mail-bcc
   - bundles/one-time-password
   - bundles/one-time-password-email-connector
@@ -39,17 +40,20 @@ include:
   - bundles/shipment-table-rate
   - bundles/shipment-table-rate-data-import
   - bundles/splittable-checkout
+  - bundles/splittable-checkout-rest-api
+  - bundles/splittable-checkout-rest-api-cart-note-connector
   - bundles/splittable-checkout-rest-api-company-unit-address-connector
+  - bundles/splittable-checkout-rest-api-customer-connector
+  - bundles/splittable-checkout-rest-api-extension
+  - bundles/splittable-checkout-rest-api-order-custom-reference-connector
+  - bundles/splittable-checkout-rest-api-payment-connector
+  - bundles/splittable-checkout-rest-api-shipment-connector
   - bundles/splittable-quote
   - bundles/splittable-quote-extension
+  - bundles/splittable-quote-shipment-connector
   - bundles/splittable-totals
-  - bundles/splittable-totals-extension
-  - bundles/splittable-totals-shipment-connector
-  - bundles/splittable-totals-rest-api
-  - bundles/splittable-totals-rest-api-company-unit-address-connector
-  - bundles/splittable-totals-rest-api-extension
-  - bundles/splittable-totals-rest-api-shipment-connector
   - bundles/tax-calculation-connector
+  - bundles/thirty-five-up
   - bundles/util-math-formula
 
 suites:
