@@ -3,9 +3,9 @@
 namespace FondOfOryx\Zed\SplittableTotals;
 
 use Codeception\Test\Unit;
-use FondOfOryx\Zed\SplittableTotals\Dependency\Facade\SplittableTotalsToCalculationFacadeInterface;
+use FondOfOryx\Zed\SplittableQuote\Business\SplittableQuoteFacadeInterface;
+use FondOfOryx\Zed\SplittableTotals\Dependency\Facade\SplittableTotalsToSplittableQuoteFacadeInterface;
 use Spryker\Shared\Kernel\BundleProxy;
-use Spryker\Zed\Calculation\Business\CalculationFacadeInterface;
 use Spryker\Zed\Kernel\Container;
 use Spryker\Zed\Kernel\Locator;
 
@@ -29,7 +29,7 @@ class SplittableTotalsDependencyProviderTest extends Unit
     /**
      * @var \PHPUnit\Framework\MockObject\MockObject|\Spryker\Zed\Calculation\Business\CalculationFacadeInterface
      */
-    protected $calculationFacadeMock;
+    protected $splittableQuoteFacadeMock;
 
     /**
      * @var \FondOfOryx\Zed\SplittableTotals\SplittableTotalsDependencyProvider
@@ -55,7 +55,7 @@ class SplittableTotalsDependencyProviderTest extends Unit
             ->disableOriginalConstructor()
             ->getMock();
 
-        $this->calculationFacadeMock = $this->getMockBuilder(CalculationFacadeInterface::class)
+        $this->splittableQuoteFacadeMock = $this->getMockBuilder(SplittableQuoteFacadeInterface::class)
             ->disableOriginalConstructor()
             ->getMock();
 
@@ -73,24 +73,20 @@ class SplittableTotalsDependencyProviderTest extends Unit
 
         $this->locatorMock->expects(static::atLeastOnce())
             ->method('__call')
-            ->with('calculation')
+            ->with('splittableQuote')
             ->willReturn($this->bundleProxyMock);
 
         $this->bundleProxyMock->expects(static::atLeastOnce())
             ->method('__call')
             ->with('facade')
-            ->willReturn($this->calculationFacadeMock);
+            ->willReturn($this->splittableQuoteFacadeMock);
 
         $container = $this->dependencyProvider->provideBusinessLayerDependencies($this->containerMock);
 
         static::assertEquals($this->containerMock, $container);
         static::assertInstanceOf(
-            SplittableTotalsToCalculationFacadeInterface::class,
-            $container[SplittableTotalsDependencyProvider::FACADE_CALCULATION]
-        );
-
-        static::assertIsArray(
-            $container[SplittableTotalsDependencyProvider::PLUGINS_SPLITTED_QUOTE_EXPANDER]
+            SplittableTotalsToSplittableQuoteFacadeInterface::class,
+            $container[SplittableTotalsDependencyProvider::FACADE_SPLITTABLE_QUOTE]
         );
     }
 }
