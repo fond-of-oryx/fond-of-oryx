@@ -56,19 +56,32 @@ class SplittableCheckoutToQuoteFacadeBridgeTest extends Unit
     /**
      * @return void
      */
+    public function testCreateQuote(): void
+    {
+        $this->quoteFacadeMock->expects(static::atLeastOnce())
+            ->method('createQuote')
+            ->with($this->quoteTransferMock)
+            ->willReturn($this->quoteResponseTransferMock);
+
+        static::assertEquals(
+            $this->quoteResponseTransferMock,
+            $this->splittableCheckoutToQuoteFacadeBridge->createQuote($this->quoteTransferMock)
+        );
+    }
+
+    /**
+     * @return void
+     */
     public function testDeleteQuote(): void
     {
-        $this->quoteFacadeMock->expects($this->atLeastOnce())
+        $this->quoteFacadeMock->expects(static::atLeastOnce())
             ->method('deleteQuote')
             ->with($this->quoteTransferMock)
             ->willReturn($this->quoteResponseTransferMock);
 
-        $quoteResponseTransfer = $this->splittableCheckoutToQuoteFacadeBridge
-            ->deleteQuote($this->quoteTransferMock);
-
-        $this->assertInstanceOf(
-            QuoteResponseTransfer::class,
-            $quoteResponseTransfer
+        static::assertEquals(
+            $this->quoteResponseTransferMock,
+            $this->splittableCheckoutToQuoteFacadeBridge->deleteQuote($this->quoteTransferMock)
         );
     }
 }
