@@ -53,6 +53,7 @@ include:
   - bundles/splittable-quote-shipment-connector
   - bundles/splittable-totals
   - bundles/tax-calculation-connector
+  - bundles/thirty-five-up
   - bundles/util-math-formula
 
 suites:
