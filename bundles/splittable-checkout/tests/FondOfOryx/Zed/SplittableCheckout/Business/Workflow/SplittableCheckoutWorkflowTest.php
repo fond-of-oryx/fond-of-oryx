@@ -136,6 +136,158 @@ class SplittableCheckoutWorkflowTest extends Unit
     /**
      * @return void
      */
+    public function testPlaceOrderWithSplittingErrors(): void
+    {
+        $this->transactionHandlerMock->expects(static::atLeastOnce())
+            ->method('handleTransaction')
+            ->willReturnCallback(
+                static function ($closure) {
+                    $result = $closure();
+
+                    if (empty($result)) {
+                        return;
+                    }
+
+                    return $result;
+                }
+            );
+
+        $this->splittableQuoteFacadeMock->expects(static::atLeastOnce())
+            ->method('splitQuote')
+            ->with($this->quoteTransferMock)
+            ->willReturn([]);
+
+        $this->quoteFacadeMock->expects(static::never())
+            ->method('createQuote');
+
+        $this->checkoutFacadeMock->expects(static::never())
+            ->method('placeOrder');
+
+        $this->quoteFacadeMock->expects(static::never())
+            ->method('deleteQuote');
+
+        $splittableCheckoutResponseTransfer = $this->splittableCheckoutWorkflow->placeOrder($this->quoteTransferMock);
+
+        static::assertEquals(false, $splittableCheckoutResponseTransfer->getIsSuccess());
+        static::assertEquals([], $splittableCheckoutResponseTransfer->getOrderReferences());
+        static::assertEquals(1, $splittableCheckoutResponseTransfer->getErrors()->count());
+    }
+
+    /**
+     * @return void
+     */
+    public function testPlaceOrderWithPersistingErrors(): void
+    {
+        $splittedQuoteTransferMocks = ['*' => $this->quoteTransferMock];
+
+        $this->transactionHandlerMock->expects(static::atLeastOnce())
+            ->method('handleTransaction')
+            ->willReturnCallback(
+                static function ($closure) {
+                    $result = $closure();
+
+                    if (empty($result)) {
+                        return;
+                    }
+
+                    return $result;
+                }
+            );
+
+        $this->splittableQuoteFacadeMock->expects(static::atLeastOnce())
+            ->method('splitQuote')
+            ->with($this->quoteTransferMock)
+            ->willReturn($splittedQuoteTransferMocks);
+
+        $this->quoteFacadeMock->expects(static::atLeastOnce())
+            ->method('createQuote')
+            ->with($this->quoteTransferMock)
+            ->willReturn($this->quoteResponseTransferMock);
+
+        $this->quoteResponseTransferMock->expects(static::atLeastOnce())
+            ->method('getQuoteTransfer')
+            ->willReturn(null);
+
+        $this->quoteResponseTransferMock->expects(static::never())
+            ->method('getIsSuccessful');
+
+        $this->checkoutFacadeMock->expects(static::never())
+            ->method('placeOrder');
+
+        $this->quoteFacadeMock->expects(static::never())
+            ->method('deleteQuote');
+
+        $splittableCheckoutResponseTransfer = $this->splittableCheckoutWorkflow->placeOrder($this->quoteTransferMock);
+
+        static::assertEquals(false, $splittableCheckoutResponseTransfer->getIsSuccess());
+        static::assertEquals([], $splittableCheckoutResponseTransfer->getOrderReferences());
+        static::assertEquals(1, $splittableCheckoutResponseTransfer->getErrors()->count());
+    }
+
+    /**
+     * @return void
+     */
+    public function testPlaceOrderWithErrors(): void
+    {
+        $splittedQuoteTransferMocks = ['*' => $this->quoteTransferMock];
+
+        $this->transactionHandlerMock->expects(static::atLeastOnce())
+            ->method('handleTransaction')
+            ->willReturnCallback(
+                static function ($closure) {
+                    $result = $closure();
+
+                    if (empty($result)) {
+                        return;
+                    }
+
+                    return $result;
+                }
+            );
+
+        $this->splittableQuoteFacadeMock->expects(static::atLeastOnce())
+            ->method('splitQuote')
+            ->with($this->quoteTransferMock)
+            ->willReturn($splittedQuoteTransferMocks);
+
+        $this->quoteFacadeMock->expects(static::atLeastOnce())
+            ->method('createQuote')
+            ->with($this->quoteTransferMock)
+            ->willReturn($this->quoteResponseTransferMock);
+
+        $this->quoteResponseTransferMock->expects(static::atLeastOnce())
+            ->method('getQuoteTransfer')
+            ->willReturn($this->quoteTransferMock);
+
+        $this->quoteResponseTransferMock->expects(static::atLeastOnce())
+            ->method('getIsSuccessful')
+            ->willReturn(true);
+
+        $this->checkoutFacadeMock->expects(static::atLeastOnce())
+            ->method('placeOrder')
+            ->with($this->quoteTransferMock)
+            ->willReturn($this->checkoutResponseTransferMock);
+
+        $this->checkoutResponseTransferMock->expects(static::atLeastOnce())
+            ->method('getSaveOrder')
+            ->willReturn(null);
+
+        $this->checkoutResponseTransferMock->expects(static::never())
+            ->method('getIsSuccess');
+
+        $this->quoteFacadeMock->expects(static::never())
+            ->method('deleteQuote');
+
+        $splittableCheckoutResponseTransfer = $this->splittableCheckoutWorkflow->placeOrder($this->quoteTransferMock);
+
+        static::assertEquals(false, $splittableCheckoutResponseTransfer->getIsSuccess());
+        static::assertEquals([], $splittableCheckoutResponseTransfer->getOrderReferences());
+        static::assertEquals(1, $splittableCheckoutResponseTransfer->getErrors()->count());
+    }
+
+    /**
+     * @return void
+     */
     public function testPlaceOrder(): void
     {
         $orderReference = 'FOO-1';
@@ -198,5 +350,6 @@ class SplittableCheckoutWorkflowTest extends Unit
 
         static::assertEquals(true, $splittableCheckoutResponseTransfer->getIsSuccess());
         static::assertEquals([$orderReference], $splittableCheckoutResponseTransfer->getOrderReferences());
+        static::assertEquals(0, $splittableCheckoutResponseTransfer->getErrors()->count());
     }
 }

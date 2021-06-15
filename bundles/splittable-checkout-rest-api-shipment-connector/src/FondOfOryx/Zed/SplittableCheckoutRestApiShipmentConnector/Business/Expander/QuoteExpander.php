@@ -27,9 +27,7 @@ class QuoteExpander implements QuoteExpanderInterface
         $shipmentMethodTransfer = (new ShipmentMethodTransfer())
             ->setIdShipmentMethod($restShipmentTransfer->getIdShipmentMethod());
 
-        $quoteTransfer = $this->expandWithShipmentMethod($quoteTransfer, $shipmentMethodTransfer);
-
-        return $this->expandItemsWithShipmentMethod($quoteTransfer, $shipmentMethodTransfer);
+        return $this->expandWithShipmentMethod($quoteTransfer, $shipmentMethodTransfer);
     }
 
     /**
@@ -49,27 +47,6 @@ class QuoteExpander implements QuoteExpanderInterface
         }
 
         $shipmentTransfer->setMethod($shipmentMethodTransfer);
-
-        return $quoteTransfer;
-    }
-
-    /**
-     * @param \Generated\Shared\Transfer\QuoteTransfer $quoteTransfer
-     * @param \Generated\Shared\Transfer\ShipmentMethodTransfer $shipmentMethodTransfer
-     *
-     * @return \Generated\Shared\Transfer\QuoteTransfer
-     */
-    protected function expandItemsWithShipmentMethod(
-        QuoteTransfer $quoteTransfer,
-        ShipmentMethodTransfer $shipmentMethodTransfer
-    ): QuoteTransfer {
-        foreach ($quoteTransfer->getItems() as $item) {
-            if ($item->getShipment() === null) {
-                continue;
-            }
-
-            $item->getShipment()->setMethod($shipmentMethodTransfer);
-        }
 
         return $quoteTransfer;
     }
