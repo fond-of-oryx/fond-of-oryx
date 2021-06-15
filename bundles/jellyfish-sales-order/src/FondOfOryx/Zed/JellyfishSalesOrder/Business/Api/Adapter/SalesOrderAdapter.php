@@ -75,16 +75,17 @@ class SalesOrderAdapter implements SalesOrderAdapterInterface
      */
     public function sendRequest(JellyfishOrderTransfer $jellyfishOrderTransfer): ?StreamInterface
     {
+        $options = $this->createOptions($jellyfishOrderTransfer);
+        foreach ($this->beforeExportPlugins as $beforeExportPlugin) {
+            $beforeExportPlugin->before($jellyfishOrderTransfer, $options);
+        }
+
         if ($this->config->dryRun()) {
             $this->getLogger()->error($this->utilEncodingService->encodeJson($jellyfishOrderTransfer->toArray(true, true)));
 
             return null;
         }
 
-        $options = $this->createOptions($jellyfishOrderTransfer);
-        foreach ($this->beforeExportPlugins as $beforeExportPlugin) {
-            $beforeExportPlugin->before($jellyfishOrderTransfer, $options);
-        }
         $response = $this->send($options);
 
         $this->handleResponse($response, $jellyfishOrderTransfer);
