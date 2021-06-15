@@ -3,13 +3,11 @@
 namespace FondOfOryx\Zed\SplittableCheckoutRestApiShipmentConnector\Business\Expander;
 
 use Codeception\Test\Unit;
-use Generated\Shared\Transfer\ItemTransfer;
 use Generated\Shared\Transfer\QuoteTransfer;
 use Generated\Shared\Transfer\RestShipmentTransfer;
 use Generated\Shared\Transfer\RestSplittableCheckoutRequestTransfer;
 use Generated\Shared\Transfer\ShipmentMethodTransfer;
 use Generated\Shared\Transfer\ShipmentTransfer;
-use Laminas\Stdlib\ArrayObject;
 
 class QuoteExpanderTest extends Unit
 {
@@ -32,11 +30,6 @@ class QuoteExpanderTest extends Unit
      * @var \FondOfOryx\Zed\SplittableCheckoutRestApiShipmentConnector\Business\Expander\QuoteExpander
      */
     protected $quoteExpander;
-
-    /**
-     * @var \Generated\Shared\Transfer\ItemTransfer[]|\PHPUnit\Framework\MockObject\MockObject[]
-     */
-    protected $itemTransferMocks;
 
     /**
      * @var \Generated\Shared\Transfer\ShipmentTransfer|\PHPUnit\Framework\MockObject\MockObject
@@ -65,12 +58,6 @@ class QuoteExpanderTest extends Unit
         $this->shipmentTransferMock = $this->getMockBuilder(ShipmentTransfer::class)
             ->disableOriginalConstructor()
             ->getMock();
-
-        $this->itemTransferMocks = [
-            $this->getMockBuilder(ItemTransfer::class)
-                ->disableOriginalConstructor()
-                ->getMock(),
-        ];
 
         $this->quoteExpander = new QuoteExpander();
     }
@@ -104,14 +91,6 @@ class QuoteExpanderTest extends Unit
                 )
             )->willReturn($this->shipmentTransferMock);
 
-        $this->quoteTransferMock->expects(static::atLeastOnce())
-            ->method('getItems')
-            ->willReturn(new ArrayObject($this->itemTransferMocks));
-
-        $this->itemTransferMocks[0]->expects(static::atLeastOnce())
-            ->method('getShipment')
-            ->willReturn($this->shipmentTransferMock);
-
         static::assertEquals(
             $this->quoteTransferMock,
             $this->quoteExpander->expand($this->restSplittableCheckoutRequestTransferMock, $this->quoteTransferMock)
@@ -128,12 +107,6 @@ class QuoteExpanderTest extends Unit
             ->willReturn(null);
 
         $this->quoteTransferMock->expects(static::never())
-            ->method('getShipment');
-
-        $this->quoteTransferMock->expects(static::never())
-            ->method('getItems');
-
-        $this->itemTransferMocks[0]->expects(static::never())
             ->method('getShipment');
 
         $this->shipmentTransferMock->expects(static::never())
@@ -161,14 +134,6 @@ class QuoteExpanderTest extends Unit
             ->willReturn($idShipmentMethod);
 
         $this->quoteTransferMock->expects(static::atLeastOnce())
-            ->method('getShipment')
-            ->willReturn(null);
-
-        $this->quoteTransferMock->expects(static::atLeastOnce())
-            ->method('getItems')
-            ->willReturn(new ArrayObject($this->itemTransferMocks));
-
-        $this->itemTransferMocks[0]->expects(static::atLeastOnce())
             ->method('getShipment')
             ->willReturn(null);
 

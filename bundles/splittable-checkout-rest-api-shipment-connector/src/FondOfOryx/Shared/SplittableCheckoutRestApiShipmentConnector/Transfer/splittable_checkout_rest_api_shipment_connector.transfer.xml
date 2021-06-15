@@ -9,11 +9,6 @@
 
     <transfer name="Quote">
         <property name="shipment" type="Shipment"/>
-        <property name="items" type="Item[]" singular="item"/>
-    </transfer>
-
-    <transfer name="Item">
-        <property name="shipment" type="Shipment"/>
     </transfer>
 
     <transfer name="Shipment">
