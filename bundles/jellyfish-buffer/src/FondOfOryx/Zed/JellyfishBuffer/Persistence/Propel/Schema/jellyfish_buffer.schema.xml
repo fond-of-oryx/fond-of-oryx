@@ -3,7 +3,7 @@
           xsi:noNamespaceSchemaLocation="http://static.spryker.com/schema-01.xsd"
           namespace="Orm\Zed\JellyfishBuffer\Persistence" package="src.Orm.Zed.JellyfishBuffer.Persistence">
 
-    <table name="foo_exported_order" phpName="ExportedOrder" identifierQuoting="true">
+    <table name="foo_exported_order" phpName="FooExportedOrder" identifierQuoting="true">
         <column name="id_exported_order" required="true" type="INTEGER" autoIncrement="true" primaryKey="true"/>
 
         <column name="fk_sales_order" required="true" type="INTEGER"/>

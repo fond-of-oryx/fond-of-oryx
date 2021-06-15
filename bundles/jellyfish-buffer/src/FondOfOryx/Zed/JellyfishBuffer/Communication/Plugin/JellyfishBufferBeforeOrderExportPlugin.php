@@ -1,11 +1,15 @@
 <?php
 
-namespace FondOfOryx\Zed\JellyfishBuffer\Dependency\Plugin;
+namespace FondOfOryx\Zed\JellyfishBuffer\Communication\Plugin;
 
 use FondOfOryx\Zed\JellyfishSalesOrderExtension\Dependency\Plugin\JellyfishOrderBeforeExportPluginInterface;
 use Generated\Shared\Transfer\JellyfishOrderTransfer;
+use Spryker\Zed\Kernel\Communication\AbstractPlugin;
 
-class JellyfishBufferBeforeOrderExportPlugin implements JellyfishOrderBeforeExportPluginInterface
+/**
+ * @method \FondOfOryx\Zed\JellyfishBuffer\Business\JellyfishBufferFacade getFacade()
+ */
+class JellyfishBufferBeforeOrderExportPlugin extends AbstractPlugin implements JellyfishOrderBeforeExportPluginInterface
 {
     /**
      * @param \Generated\Shared\Transfer\JellyfishOrderTransfer $jellyfishOrderTransfer
@@ -15,5 +19,6 @@ class JellyfishBufferBeforeOrderExportPlugin implements JellyfishOrderBeforeExpo
      */
     public function before(JellyfishOrderTransfer $jellyfishOrderTransfer, array $options): void
     {
+        $this->getFacade()->bufferOrder($jellyfishOrderTransfer, $options);
     }
 }
