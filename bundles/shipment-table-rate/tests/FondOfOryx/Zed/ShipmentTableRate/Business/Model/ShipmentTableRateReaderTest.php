@@ -6,6 +6,7 @@ use Codeception\Test\Unit;
 use FondOfOryx\Zed\ShipmentTableRate\Dependency\Facade\ShipmentTableRateToCountryFacadeInterface;
 use FondOfOryx\Zed\ShipmentTableRate\Dependency\Facade\ShipmentTableRateToStoreFacadeInterface;
 use FondOfOryx\Zed\ShipmentTableRate\Persistence\ShipmentTableRateRepositoryInterface;
+use FondOfOryx\Zed\ShipmentTableRateExtension\Dependency\Plugin\PriceToPayFilterPluginInterface;
 use Generated\Shared\Transfer\AddressTransfer;
 use Generated\Shared\Transfer\CountryTransfer;
 use Generated\Shared\Transfer\QuoteTransfer;
@@ -35,6 +36,11 @@ class ShipmentTableRateReaderTest extends Unit
      * @var \PHPUnit\Framework\MockObject\MockObject|\FondOfOryx\Zed\ShipmentTableRate\Dependency\Facade\ShipmentTableRateToStoreFacadeInterface
      */
     protected $storeFacadeMock;
+
+    /**
+     * @var \FondOfOryx\Zed\ShipmentTableRateExtension\Dependency\Plugin\PriceToPayFilterPluginInterface|\PHPUnit\Framework\MockObject\MockObject
+     */
+    protected $priceToPayFilterPluginMock;
 
     /**
      * @var \PHPUnit\Framework\MockObject\MockObject|\Generated\Shared\Transfer\CountryTransfer
@@ -132,6 +138,10 @@ class ShipmentTableRateReaderTest extends Unit
             ->disableOriginalConstructor()
             ->getMock();
 
+        $this->priceToPayFilterPluginMock = $this->getMockBuilder(PriceToPayFilterPluginInterface::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
         $this->shipmentTransferMock = $this->getMockBuilder(ShipmentTransfer::class)
             ->disableOriginalConstructor()
             ->getMock();
@@ -172,7 +182,8 @@ class ShipmentTableRateReaderTest extends Unit
             $this->zipCodePatternsGeneratorMock,
             $this->repositoryMock,
             $this->countryFacadeMock,
-            $this->storeFacadeMock
+            $this->storeFacadeMock,
+            $this->priceToPayFilterPluginMock
         );
     }
 
@@ -223,8 +234,9 @@ class ShipmentTableRateReaderTest extends Unit
             ->method('getIdStore')
             ->willReturn($this->idStore);
 
-        $this->totalsTransferMock->expects($this->atLeastOnce())
-            ->method('getPriceToPay')
+        $this->priceToPayFilterPluginMock->expects($this->atLeastOnce())
+            ->method('filter')
+            ->with($this->totalsTransferMock)
             ->willReturn($this->priceToPay);
 
         $this->zipCodePatternsGeneratorMock->expects($this->atLeastOnce())
@@ -282,8 +294,8 @@ class ShipmentTableRateReaderTest extends Unit
         $this->storeTransferMock->expects($this->never())
             ->method('getIdStore');
 
-        $this->totalsTransferMock->expects($this->never())
-            ->method('getPriceToPay');
+        $this->priceToPayFilterPluginMock->expects($this->never())
+            ->method('filter');
 
         $this->zipCodePatternsGeneratorMock->expects($this->never())
             ->method('generateFromZipCode');
@@ -328,8 +340,9 @@ class ShipmentTableRateReaderTest extends Unit
             ->method('getZipCode')
             ->willReturn($this->zipCode);
 
-        $this->totalsTransferMock->expects($this->atLeastOnce())
-            ->method('getPriceToPay')
+        $this->priceToPayFilterPluginMock->expects($this->atLeastOnce())
+            ->method('filter')
+            ->with($this->totalsTransferMock)
             ->willReturn($this->priceToPay);
 
         $this->storeFacadeMock->expects($this->never())
@@ -402,8 +415,9 @@ class ShipmentTableRateReaderTest extends Unit
             ->method('getIdStore')
             ->willReturn($this->idStore);
 
-        $this->totalsTransferMock->expects($this->atLeastOnce())
-            ->method('getPriceToPay')
+        $this->priceToPayFilterPluginMock->expects($this->atLeastOnce())
+            ->method('filter')
+            ->with($this->totalsTransferMock)
             ->willReturn($this->priceToPay);
 
         $this->zipCodePatternsGeneratorMock->expects($this->atLeastOnce())

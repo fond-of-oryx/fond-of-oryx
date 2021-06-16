@@ -39,6 +39,7 @@ include:
   - bundles/sales-locale-connector
   - bundles/shipment-table-rate
   - bundles/shipment-table-rate-data-import
+  - bundles/shipment-table-rate-extension
   - bundles/splittable-checkout
   - bundles/splittable-checkout-rest-api
   - bundles/splittable-checkout-rest-api-cart-note-connector

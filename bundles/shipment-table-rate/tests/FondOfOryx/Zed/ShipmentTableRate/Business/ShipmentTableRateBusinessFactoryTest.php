@@ -10,6 +10,7 @@ use FondOfOryx\Zed\ShipmentTableRate\Dependency\Service\ShipmentTableRateToUtilM
 use FondOfOryx\Zed\ShipmentTableRate\Persistence\ShipmentTableRateRepository;
 use FondOfOryx\Zed\ShipmentTableRate\ShipmentTableRateConfig;
 use FondOfOryx\Zed\ShipmentTableRate\ShipmentTableRateDependencyProvider;
+use FondOfOryx\Zed\ShipmentTableRateExtension\Dependency\Plugin\PriceToPayFilterPluginInterface;
 use Spryker\Zed\Kernel\Container;
 
 class ShipmentTableRateBusinessFactoryTest extends Unit
@@ -45,6 +46,11 @@ class ShipmentTableRateBusinessFactoryTest extends Unit
     protected $utilMathFormulaServiceMock;
 
     /**
+     * @var \FondOfOryx\Zed\ShipmentTableRateExtension\Dependency\Plugin\PriceToPayFilterPluginInterface|\PHPUnit\Framework\MockObject\MockObject
+     */
+    protected $priceToPayFilterPluginMock;
+
+    /**
      * @var \FondOfOryx\Zed\ShipmentTableRate\Business\ShipmentTableRateBusinessFactory
      */
     protected $shipmentTableRateBusinessFactory;
@@ -78,6 +84,10 @@ class ShipmentTableRateBusinessFactoryTest extends Unit
             ->disableOriginalConstructor()
             ->getMock();
 
+        $this->priceToPayFilterPluginMock = $this->getMockBuilder(PriceToPayFilterPluginInterface::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
         $this->shipmentTableRateBusinessFactory = new ShipmentTableRateBusinessFactory();
         $this->shipmentTableRateBusinessFactory->setRepository($this->shipmentTableRateRepositoryMock);
         $this->shipmentTableRateBusinessFactory->setContainer($this->containerMock);
@@ -98,10 +108,12 @@ class ShipmentTableRateBusinessFactoryTest extends Unit
             ->withConsecutive(
                 [ShipmentTableRateDependencyProvider::FACADE_COUNTRY],
                 [ShipmentTableRateDependencyProvider::FACADE_STORE],
-                [ShipmentTableRateDependencyProvider::SERVICE_UTIL_MATH_FORMULA]
+                [ShipmentTableRateDependencyProvider::PLUGIN_PRICE_TO_PAY_FILTER],
+                [ShipmentTableRateDependencyProvider::SERVICE_UTIL_MATH_FORMULA],
             )->willReturnOnConsecutiveCalls(
                 $this->countryFacadeMock,
                 $this->storeFacadeMock,
+                $this->priceToPayFilterPluginMock,
                 $this->utilMathFormulaServiceMock
             );
 
