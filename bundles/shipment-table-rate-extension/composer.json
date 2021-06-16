@@ -1,6 +1,6 @@
 {
-  "name": "fond-of-oryx/shipment-table-rate",
-  "description": "Shipment table rate module",
+  "name": "fond-of-oryx/shipment-table-rate-extension",
+  "description": "Shipment table rate extension module",
   "license": "MIT",
   "authors": [
     {
@@ -9,13 +9,7 @@
     }
   ],
   "require": {
-    "php": ">=7.3",
-    "fond-of-oryx/shipment-table-rate-extension": "^1.0.0",
-    "fond-of-oryx/util-math-formula": "^1.0.0",
-    "spryker/country": "^3.1.0",
-    "spryker/shipment": "^6.0.0 || ^7.0.0 || ^8.0.0",
-    "spryker/shipment-extension": "^1.0.0",
-    "spryker/store": "^1.2.0"
+    "php": ">=7.3"
   },
   "require-dev": {
     "fond-of-codeception/spryker": "^1.0",
