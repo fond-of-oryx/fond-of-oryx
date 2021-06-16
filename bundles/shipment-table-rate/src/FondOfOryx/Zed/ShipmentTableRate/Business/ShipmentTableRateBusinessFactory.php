@@ -14,6 +14,7 @@ use FondOfOryx\Zed\ShipmentTableRate\Dependency\Facade\ShipmentTableRateToCountr
 use FondOfOryx\Zed\ShipmentTableRate\Dependency\Facade\ShipmentTableRateToStoreFacadeInterface;
 use FondOfOryx\Zed\ShipmentTableRate\Dependency\Service\ShipmentTableRateToUtilMathFormulaServiceInterface;
 use FondOfOryx\Zed\ShipmentTableRate\ShipmentTableRateDependencyProvider;
+use FondOfOryx\Zed\ShipmentTableRateExtension\Dependency\Plugin\PriceToPayFilterPluginInterface;
 use Spryker\Zed\Kernel\Business\AbstractBusinessFactory;
 
 /**
@@ -44,7 +45,8 @@ class ShipmentTableRateBusinessFactory extends AbstractBusinessFactory
             $this->createZipCodePatternsGenerator(),
             $this->getRepository(),
             $this->getCountryFacade(),
-            $this->getStoreFacade()
+            $this->getStoreFacade(),
+            $this->getPriceToPayFilterPlugin()
         );
     }
 
@@ -78,6 +80,14 @@ class ShipmentTableRateBusinessFactory extends AbstractBusinessFactory
     protected function getUtilMathFormulaService(): ShipmentTableRateToUtilMathFormulaServiceInterface
     {
         return $this->getProvidedDependency(ShipmentTableRateDependencyProvider::SERVICE_UTIL_MATH_FORMULA);
+    }
+
+    /**
+     * @return \FondOfOryx\Zed\ShipmentTableRateExtension\Dependency\Plugin\PriceToPayFilterPluginInterface
+     */
+    protected function getPriceToPayFilterPlugin(): PriceToPayFilterPluginInterface
+    {
+        return $this->getProvidedDependency(ShipmentTableRateDependencyProvider::PLUGIN_PRICE_TO_PAY_FILTER);
     }
 
     /**
