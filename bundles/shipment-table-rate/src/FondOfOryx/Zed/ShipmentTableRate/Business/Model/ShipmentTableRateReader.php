@@ -46,6 +46,7 @@ class ShipmentTableRateReader implements ShipmentTableRateReaderInterface
      * @param \FondOfOryx\Zed\ShipmentTableRate\Persistence\ShipmentTableRateRepositoryInterface $repository
      * @param \FondOfOryx\Zed\ShipmentTableRate\Dependency\Facade\ShipmentTableRateToCountryFacadeInterface $countryFacade
      * @param \FondOfOryx\Zed\ShipmentTableRate\Dependency\Facade\ShipmentTableRateToStoreFacadeInterface $storeFacade
+     * @param \FondOfOryx\Zed\ShipmentTableRateExtension\Dependency\Plugin\PriceToPayFilterPluginInterface $priceToPayFilterPlugin
      */
     public function __construct(
         ZipCodePatternsGeneratorInterface $zipCodePatternsGenerator,
