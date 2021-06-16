@@ -88,7 +88,7 @@ class ShipmentTableRateDependencyProvider extends AbstractBundleDependencyProvid
     {
         $self = $this;
 
-        $container[static::PLUGIN_PRICE_TO_PAY_FILTER] = static function (Container $container) use ($self) {
+        $container[static::PLUGIN_PRICE_TO_PAY_FILTER] = static function () use ($self) {
             return $self->getPriceToPayFilterPlugin();
         };
 
