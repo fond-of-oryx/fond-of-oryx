@@ -15,9 +15,6 @@
     "fond-of-codeception/spryker": "^1.0",
     "spryker/code-sniffer": "^0.12"
   },
-  "replace": {
-    "fond-of-spryker/shipment-table-rate": "*"
-  },
   "minimum-stability": "dev",
   "prefer-stable": true,
   "autoload": {
