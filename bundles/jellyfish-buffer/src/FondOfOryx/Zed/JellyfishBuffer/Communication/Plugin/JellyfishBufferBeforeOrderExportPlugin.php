@@ -7,7 +7,7 @@ use Generated\Shared\Transfer\JellyfishOrderTransfer;
 use Spryker\Zed\Kernel\Communication\AbstractPlugin;
 
 /**
- * @method \FondOfOryx\Zed\JellyfishBuffer\Business\JellyfishBufferFacade getFacade()
+ * @method \FondOfOryx\Zed\JellyfishBuffer\Business\JellyfishBufferFacadeInterface getFacade()
  */
 class JellyfishBufferBeforeOrderExportPlugin extends AbstractPlugin implements JellyfishOrderBeforeExportPluginInterface
 {

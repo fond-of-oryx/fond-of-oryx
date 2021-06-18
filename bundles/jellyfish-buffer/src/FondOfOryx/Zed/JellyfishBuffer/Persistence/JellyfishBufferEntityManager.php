@@ -22,7 +22,8 @@ class JellyfishBufferEntityManager extends AbstractEntityManager implements Jell
         $jellyfishOrderTransfer->requireId()
             ->requireReference();
 
-        $fooExportedOrder = $this->getFactory()->createJellyfishBufferMapper()
+        $fooExportedOrder = $this->getFactory()
+            ->createJellyfishBufferMapper()
             ->mapTransferAndOptionsToEntity(
                 $jellyfishOrderTransfer,
                 $options,
