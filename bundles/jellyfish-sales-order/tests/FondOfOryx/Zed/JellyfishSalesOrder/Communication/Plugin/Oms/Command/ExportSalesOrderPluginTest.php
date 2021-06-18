@@ -6,6 +6,7 @@ use Codeception\Test\Unit;
 use FondOfOryx\Zed\JellyfishSalesOrder\Business\JellyfishSalesOrderFacade;
 use FondOfOryx\Zed\JellyfishSalesOrder\Business\JellyfishSalesOrderFacadeInterface;
 use Orm\Zed\Sales\Persistence\SpySalesOrder;
+use Spryker\Zed\Kernel\Business\AbstractFacade;
 use Spryker\Zed\Oms\Business\Util\ReadOnlyArrayObject;
 
 class ExportSalesOrderPluginTest extends Unit
@@ -56,8 +57,6 @@ class ExportSalesOrderPluginTest extends Unit
             protected $jellyfishSalesOrderFacade;
 
             /**
-             *  constructor.
-             *
              * @param \FondOfOryx\Zed\JellyfishSalesOrder\Business\JellyfishSalesOrderFacadeInterface $jellyfishSalesOrderFacade
              */
             public function __construct(JellyfishSalesOrderFacadeInterface $jellyfishSalesOrderFacade)
@@ -66,9 +65,9 @@ class ExportSalesOrderPluginTest extends Unit
             }
 
             /**
-             * @return \FondOfOryx\Zed\JellyfishSalesOrder\Business\JellyfishSalesOrderFacade
+             * @return \Spryker\Zed\Kernel\Business\AbstractFacade
              */
-            public function getFacade(): JellyfishSalesOrderFacade
+            public function getFacade(): AbstractFacade
             {
                 return $this->jellyfishSalesOrderFacade;
             }
