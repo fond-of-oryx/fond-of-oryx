@@ -1,0 +1,34 @@
+{
+  "name": "fond-of-oryx/payment-epc-qr-code",
+  "description": "Payment EPC-QR-Code Module.",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Julian Zimmermann",
+      "email": "info@julianzimmermann.dev"
+    }
+  ],
+  "require": {
+    "php": ">=7.3",
+    "fond-of-oryx/qr-code-generator": "^1.0.0",
+    "fond-of-spryker/prepayment": "dev-spryker_upgrade",
+    "spryker/oms-extension": "^1.0.0"
+  },
+  "require-dev": {
+    "fond-of-codeception/spryker": "^1.0",
+    "spryker/code-sniffer": "^0.12"
+  },
+  "minimum-stability": "dev",
+  "prefer-stable": true,
+  "autoload": {
+    "psr-4": {
+      "FondOfOryx\\": "src/FondOfOryx/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "FondOfOryx\\": "tests/FondOfOryx/",
+      "Generated\\": "src/Generated/"
+    }
+  }
+}

@@ -1,4 +1,4 @@
-namespace: fond-of-oryx/credit-memo
+namespace: fond-of-oryx/qr-code-generator
 
 suites:
   unit:

@@ -108,6 +108,10 @@
       "path": "bundles/product-country-restriction/",
       "version": "1.0.0"
     },
+    "payment-epc-qr-code": {
+      "path": "bundles/payment-epc-qr-code/",
+      "version": "1.0.0"
+    },
     "product-country-restriction-checkout-connector": {
       "path": "bundles/product-country-restriction-checkout-connector/",
       "version": "1.0.0"
@@ -126,6 +130,10 @@
     },
     "product-locale-restriction-storage": {
       "path": "bundles/product-locale-restriction-storage/",
+      "version": "1.0.0"
+    },
+    "qr-code-generator": {
+      "path": "bundles/qr-code-generator/",
       "version": "1.0.0"
     },
     "return-label": {
@@ -235,3 +243,4 @@
   "pathToTempDirectory": "/home/dandelion/project/tmp/",
   "pathToSplitshLite": "/usr/local/bin/splitsh-lite"
 }
+

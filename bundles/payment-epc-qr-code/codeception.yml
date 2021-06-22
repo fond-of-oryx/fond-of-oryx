@@ -1,4 +1,4 @@
-namespace: fond-of-oryx/credit-memo
+namespace: fond-of-oryx/payment-epc-qr-code
 
 suites:
   unit:
