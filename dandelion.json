@@ -92,6 +92,10 @@
       "path": "bundles/one-time-password-rest-api/",
       "version": "1.0.0-beta.1"
     },
+    "payment-epc-qr-code": {
+      "path": "bundles/payment-epc-qr-code/",
+      "version": "1.0.0"
+    },
     "payone-credit-memo": {
       "path": "bundles/payone-credit-memo/",
       "version": "1.0.0"

@@ -10,8 +10,8 @@
   ],
   "require": {
     "php": ">=7.3",
+    "fond-of-oryx/prepayment": "^1.0.0",
     "fond-of-oryx/qr-code-generator": "^1.0.0",
-    "fond-of-spryker/prepayment": "dev-spryker_upgrade",
     "spryker/oms-extension": "^1.0.0"
   },
   "require-dev": {
