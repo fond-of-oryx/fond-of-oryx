@@ -86,7 +86,7 @@ class CreditMemoReferenceGenerator implements CreditMemoReferenceGeneratorInterf
         $referenceEnvironmentPrefix = $this->config->getReferenceEnvironmentPrefix();
 
         if ($referenceEnvironmentPrefix !== null && $referenceEnvironmentPrefix !== '') {
-            $sequenceNumberPrefixParts[] = $this->config->getReferenceEnvironmentPrefix();
+            $sequenceNumberPrefixParts[] = $referenceEnvironmentPrefix;
         }
 
         return sprintf(
