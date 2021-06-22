@@ -16,6 +16,22 @@
       "path": "bundles/catalog-sku-filter/",
       "version": "1.1.0"
     },
+    "credit-memo-api": {
+      "path": "bundles/credit-memo-api/",
+      "version": "1.0.0"
+    },
+    "credit-memo-extension": {
+      "path": "bundles/credit-memo-extension/",
+      "version": "1.0.0"
+    },
+    "credit-memo-migrator": {
+      "path": "bundles/credit-memo-migrator/",
+      "version": "1.0.0"
+    },
+    "credit-memo": {
+      "path": "bundles/credit-memo/",
+      "version": "1.0.0"
+    },
     "cross-engage": {
       "path": "bundles/cross-engage/",
       "version": "1.0.0"
@@ -75,6 +91,22 @@
     "one-time-password-rest-api": {
       "path": "bundles/one-time-password-rest-api/",
       "version": "1.0.0-beta.1"
+    },
+    "payment-epc-qr-code": {
+      "path": "bundles/payment-epc-qr-code/",
+      "version": "1.0.0"
+    },
+    "payone-credit-memo": {
+      "path": "bundles/payone-credit-memo/",
+      "version": "1.0.0"
+    },
+    "prepayment-credit-memo": {
+      "path": "bundles/prepayment-credit-memo/",
+      "version": "1.0.0"
+    },
+    "prepayment": {
+      "path": "bundles/prepayment/",
+      "version": "1.0.0"
     },
     "product-country-restriction": {
       "path": "bundles/product-country-restriction/",
