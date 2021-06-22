@@ -2,41 +2,24 @@
 
 namespace FondOfOryx\Zed\SplittableTotals\Business\Reader;
 
-use FondOfOryx\Zed\SplittableTotals\Business\Splitter\QuoteSplitterInterface;
-use FondOfOryx\Zed\SplittableTotals\Dependency\Facade\SplittableTotalsToCalculationFacadeInterface;
+use FondOfOryx\Zed\SplittableTotals\Dependency\Facade\SplittableTotalsToSplittableQuoteFacadeInterface;
 use Generated\Shared\Transfer\QuoteTransfer;
 use Generated\Shared\Transfer\SplittableTotalsTransfer;
 
 class SplittableTotalsReader implements SplittableTotalsReaderInterface
 {
     /**
-     * @var \FondOfOryx\Zed\SplittableTotals\Business\Splitter\QuoteSplitterInterface
+     * @var \FondOfOryx\Zed\SplittableTotals\Dependency\Facade\SplittableTotalsToSplittableQuoteFacadeInterface
      */
-    protected $quoteSplitter;
+    protected $splittableQuoteFacade;
 
     /**
-     * @var \FondOfOryx\Zed\SplittableTotals\Dependency\Facade\SplittableTotalsToCalculationFacadeInterface
-     */
-    protected $calculationFacade;
-
-    /**
-     * @var \FondOfOryx\Zed\SplittableTotalsExtension\Dependency\Plugin\SplittedQuoteExpanderPluginInterface[]
-     */
-    protected $splittedQuoteExpanderPlugins;
-
-    /**
-     * @param \FondOfOryx\Zed\SplittableTotals\Business\Splitter\QuoteSplitterInterface $quoteSplitter
-     * @param \FondOfOryx\Zed\SplittableTotals\Dependency\Facade\SplittableTotalsToCalculationFacadeInterface $calculationFacade
-     * @param \FondOfOryx\Zed\SplittableTotalsExtension\Dependency\Plugin\SplittedQuoteExpanderPluginInterface[] $splittedQuoteExpanderPlugins
+     * @param \FondOfOryx\Zed\SplittableTotals\Dependency\Facade\SplittableTotalsToSplittableQuoteFacadeInterface $splittableQuoteFacade
      */
     public function __construct(
-        QuoteSplitterInterface $quoteSplitter,
-        SplittableTotalsToCalculationFacadeInterface $calculationFacade,
-        array $splittedQuoteExpanderPlugins = []
+        SplittableTotalsToSplittableQuoteFacadeInterface $splittableQuoteFacade
     ) {
-        $this->quoteSplitter = $quoteSplitter;
-        $this->calculationFacade = $calculationFacade;
-        $this->splittedQuoteExpanderPlugins = $splittedQuoteExpanderPlugins;
+        $this->splittableQuoteFacade = $splittableQuoteFacade;
     }
 
     /**
@@ -47,29 +30,13 @@ class SplittableTotalsReader implements SplittableTotalsReaderInterface
     public function getByQuote(
         QuoteTransfer $quoteTransfer
     ): SplittableTotalsTransfer {
-        $splittedQuoteTransfers = $this->quoteSplitter->split($quoteTransfer);
+        $splittedQuoteTransfers = $this->splittableQuoteFacade->splitQuote($quoteTransfer);
         $splittableTotalsTransfer = (new SplittableTotalsTransfer());
 
         foreach ($splittedQuoteTransfers as $key => $splittedQuoteTransfer) {
-            $splittedQuoteTransfer = $this->expandSplittedQuote($splittedQuoteTransfer);
-            $splittedQuoteTransfer = $this->calculationFacade->recalculateQuote($splittedQuoteTransfer, false);
             $splittableTotalsTransfer->addTotals($key, $splittedQuoteTransfer->getTotals());
         }
 
         return $splittableTotalsTransfer;
-    }
-
-    /**
-     * @param \Generated\Shared\Transfer\QuoteTransfer $splittedQuoteTransfer
-     *
-     * @return \Generated\Shared\Transfer\QuoteTransfer
-     */
-    protected function expandSplittedQuote(QuoteTransfer $splittedQuoteTransfer): QuoteTransfer
-    {
-        foreach ($this->splittedQuoteExpanderPlugins as $splittedQuoteExpanderPlugin) {
-            $splittedQuoteExpanderPlugin->expand($splittedQuoteTransfer);
-        }
-
-        return $splittedQuoteTransfer;
     }
 }

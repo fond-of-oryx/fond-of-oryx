@@ -30,7 +30,7 @@
     },
     "erp-order": {
       "path": "bundles/erp-order/",
-      "version": "1.1.1"
+      "version": "1.2.0"
     },
     "erp-order-api": {
       "path": "bundles/erp-order-api/",
@@ -42,11 +42,11 @@
     },
     "erp-order-page-search": {
       "path": "bundles/erp-order-page-search/",
-      "version": "1.1.0"
+      "version": "1.2.0"
     },
     "erp-order-page-search-rest-api": {
       "path": "bundles/erp-order-page-search-rest-api/",
-      "version": "1.1.0"
+      "version": "1.2.0"
     },
     "erp-order-permission": {
       "path": "bundles/erp-order-permission/",
@@ -134,38 +134,66 @@
     },
     "shipment-table-rate": {
       "path": "bundles/shipment-table-rate/",
-      "version": "1.0.0"
+      "version": "1.1.0"
     },
     "shipment-table-rate-data-import": {
       "path": "bundles/shipment-table-rate-data-import/",
       "version": "1.0.0"
     },
+    "shipment-table-rate-extension": {
+      "path": "bundles/shipment-table-rate-extension/",
+      "version": "1.0.0"
+    },
+    "splittable-checkout": {
+      "path": "bundles/splittable-checkout/",
+      "version": "1.0.0"
+    },
+    "splittable-checkout-rest-api": {
+      "path": "bundles/splittable-checkout-rest-api/",
+      "version": "1.0.0"
+    },
+    "splittable-checkout-rest-api-cart-note-connector": {
+      "path": "bundles/splittable-checkout-rest-api-cart-note-connector/",
+      "version": "1.0.0"
+    },
+    "splittable-checkout-rest-api-company-unit-address-connector": {
+      "path": "bundles/splittable-checkout-rest-api-company-unit-address-connector/",
+      "version": "1.0.0"
+    },
+    "splittable-checkout-rest-api-customer-connector": {
+      "path": "bundles/splittable-checkout-rest-api-customer-connector/",
+      "version": "1.0.0"
+    },
+    "splittable-checkout-rest-api-extension": {
+      "path": "bundles/splittable-checkout-rest-api-extension/",
+      "version": "1.0.0"
+    },
+    "splittable-checkout-rest-api-order-custom-reference-connector": {
+      "path": "bundles/splittable-checkout-rest-api-order-custom-reference-connector",
+      "version": "1.0.0"
+    },
+    "splittable-checkout-rest-api-payment-connector": {
+      "path": "bundles/splittable-checkout-rest-api-payment-connector/",
+      "version": "1.0.0"
+    },
+    "splittable-checkout-rest-api-shipment-connector": {
+      "path": "bundles/splittable-checkout-rest-api-shipment-connector/",
+      "version": "1.0.0"
+    },
+    "splittable-quote": {
+      "path": "bundles/splittable-quote/",
+      "version": "1.0.0"
+    },
+    "splittable-quote-extension": {
+      "path": "bundles/splittable-quote-extension/",
+      "version": "1.0.0"
+    },
+    "splittable-quote-shipment-connector": {
+      "path": "bundles/splittable-quote-shipment-connector/",
+      "version": "1.0.0"
+    },
     "splittable-totals": {
       "path": "bundles/splittable-totals/",
-      "version": "1.0.0"
-    },
-    "splittable-totals-extension": {
-      "path": "bundles/splittable-totals-extension/",
-      "version": "1.0.0"
-    },
-    "splittable-totals-shipment-connector": {
-      "path": "bundles/splittable-totals-shipment-connector/",
-      "version": "1.0.0"
-    },
-    "splittable-totals-rest-api": {
-      "path": "bundles/splittable-totals-rest-api/",
-      "version": "1.0.0"
-    },
-    "splittable-totals-rest-api-company-unit-address-connector": {
-      "path": "bundles/splittable-totals-rest-api-company-unit-address-connector/",
-      "version": "1.0.0"
-    },
-    "splittable-totals-rest-api-extension": {
-      "path": "bundles/splittable-totals-rest-api-extension/",
-      "version": "1.0.0"
-    },
-    "splittable-totals-rest-api-shipment-connector": {
-      "path": "bundles/splittable-totals-rest-api-shipment-connector/",
       "version": "1.0.0"
     },
     "tax-calculation-connector": {

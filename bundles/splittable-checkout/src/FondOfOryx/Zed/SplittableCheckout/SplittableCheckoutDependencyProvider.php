@@ -3,32 +3,30 @@
 namespace FondOfOryx\Zed\SplittableCheckout;
 
 use FondOfOryx\Zed\SplittableCheckout\Dependency\Facade\SplittableCheckoutToCheckoutFacadeBridge;
-use FondOfOryx\Zed\SplittableCheckout\Dependency\Facade\SplittableCheckoutToPersistentCartFacadeBridge;
 use FondOfOryx\Zed\SplittableCheckout\Dependency\Facade\SplittableCheckoutToQuoteFacadeBridge;
+use FondOfOryx\Zed\SplittableCheckout\Dependency\Facade\SplittableCheckoutToSplittableQuoteFacadeBridge;
 use Spryker\Zed\Kernel\AbstractBundleDependencyProvider;
 use Spryker\Zed\Kernel\Container;
 
-/**
- * @method \FondOfOryx\Zed\SplittableCheckout\SplittableCheckoutConfig getConfig()
- */
 class SplittableCheckoutDependencyProvider extends AbstractBundleDependencyProvider
 {
     public const FACADE_CHECKOUT = 'FACADE_CHECKOUT';
-    public const FACADE_PERSISTENT_CART = 'FACADE_PERSISTENT_CART';
     public const FACADE_QUOTE = 'FACADE_QUOTE';
+    public const FACADE_SPLITTABLE_QUOTE = 'FACADE_SPLITTABLE_QUOTE';
 
     /**
      * @param \Spryker\Zed\Kernel\Container $container
      *
      * @return \Spryker\Zed\Kernel\Container
      */
-    public function provideBusinessLayerDependencies(Container $container)
+    public function provideBusinessLayerDependencies(Container $container): Container
     {
-        $container = $this->addCheckoutFacade($container);
-        $container = $this->addPersistentCartFacade($container);
-        $container = $this->addQuoteFacade($container);
+        $container = parent::provideBusinessLayerDependencies($container);
 
-        return $container;
+        $container = $this->addCheckoutFacade($container);
+        $container = $this->addSplittableQuoteFacade($container);
+
+        return $this->addQuoteFacade($container);
     }
 
     /**
@@ -36,9 +34,9 @@ class SplittableCheckoutDependencyProvider extends AbstractBundleDependencyProvi
      *
      * @return \Spryker\Zed\Kernel\Container
      */
-    protected function addCheckoutFacade(Container $container)
+    protected function addCheckoutFacade(Container $container): Container
     {
-        $container[static::FACADE_CHECKOUT] = function () use ($container) {
+        $container[static::FACADE_CHECKOUT] = static function () use ($container) {
             return new SplittableCheckoutToCheckoutFacadeBridge($container->getLocator()->checkout()->facade());
         };
 
@@ -50,10 +48,10 @@ class SplittableCheckoutDependencyProvider extends AbstractBundleDependencyProvi
      *
      * @return \Spryker\Zed\Kernel\Container
      */
-    protected function addPersistentCartFacade(Container $container)
+    protected function addQuoteFacade(Container $container): Container
     {
-        $container[static::FACADE_PERSISTENT_CART] = function () use ($container) {
-            return new SplittableCheckoutToPersistentCartFacadeBridge($container->getLocator()->persistentCart()->facade());
+        $container[static::FACADE_QUOTE] = static function () use ($container) {
+            return new SplittableCheckoutToQuoteFacadeBridge($container->getLocator()->quote()->facade());
         };
 
         return $container;
@@ -64,10 +62,12 @@ class SplittableCheckoutDependencyProvider extends AbstractBundleDependencyProvi
      *
      * @return \Spryker\Zed\Kernel\Container
      */
-    protected function addQuoteFacade(Container $container)
+    protected function addSplittableQuoteFacade(Container $container): Container
     {
-        $container[static::FACADE_QUOTE] = function () use ($container) {
-            return new SplittableCheckoutToQuoteFacadeBridge($container->getLocator()->quote()->facade());
+        $container[static::FACADE_SPLITTABLE_QUOTE] = static function () use ($container) {
+            return new SplittableCheckoutToSplittableQuoteFacadeBridge(
+                $container->getLocator()->splittableQuote()->facade()
+            );
         };
 
         return $container;

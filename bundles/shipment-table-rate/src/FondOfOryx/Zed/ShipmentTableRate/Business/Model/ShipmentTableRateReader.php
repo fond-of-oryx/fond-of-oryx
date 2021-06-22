@@ -5,6 +5,7 @@ namespace FondOfOryx\Zed\ShipmentTableRate\Business\Model;
 use FondOfOryx\Zed\ShipmentTableRate\Dependency\Facade\ShipmentTableRateToCountryFacadeInterface;
 use FondOfOryx\Zed\ShipmentTableRate\Dependency\Facade\ShipmentTableRateToStoreFacadeInterface;
 use FondOfOryx\Zed\ShipmentTableRate\Persistence\ShipmentTableRateRepositoryInterface;
+use FondOfOryx\Zed\ShipmentTableRateExtension\Dependency\Plugin\PriceToPayFilterPluginInterface;
 use Generated\Shared\Transfer\AddressTransfer;
 use Generated\Shared\Transfer\QuoteTransfer;
 use Generated\Shared\Transfer\ShipmentTableRateCriteriaFilterTransfer;
@@ -36,21 +37,29 @@ class ShipmentTableRateReader implements ShipmentTableRateReaderInterface
     protected $storeFacade;
 
     /**
+     * @var \FondOfOryx\Zed\ShipmentTableRateExtension\Dependency\Plugin\PriceToPayFilterPluginInterface
+     */
+    protected $priceToPayFilterPlugin;
+
+    /**
      * @param \FondOfOryx\Zed\ShipmentTableRate\Business\Model\ZipCodePatternsGeneratorInterface $zipCodePatternsGenerator
      * @param \FondOfOryx\Zed\ShipmentTableRate\Persistence\ShipmentTableRateRepositoryInterface $repository
      * @param \FondOfOryx\Zed\ShipmentTableRate\Dependency\Facade\ShipmentTableRateToCountryFacadeInterface $countryFacade
      * @param \FondOfOryx\Zed\ShipmentTableRate\Dependency\Facade\ShipmentTableRateToStoreFacadeInterface $storeFacade
+     * @param \FondOfOryx\Zed\ShipmentTableRateExtension\Dependency\Plugin\PriceToPayFilterPluginInterface $priceToPayFilterPlugin
      */
     public function __construct(
         ZipCodePatternsGeneratorInterface $zipCodePatternsGenerator,
         ShipmentTableRateRepositoryInterface $repository,
         ShipmentTableRateToCountryFacadeInterface $countryFacade,
-        ShipmentTableRateToStoreFacadeInterface $storeFacade
+        ShipmentTableRateToStoreFacadeInterface $storeFacade,
+        PriceToPayFilterPluginInterface $priceToPayFilterPlugin
     ) {
         $this->zipCodePatternsGenerator = $zipCodePatternsGenerator;
         $this->countryFacade = $countryFacade;
         $this->storeFacade = $storeFacade;
         $this->repository = $repository;
+        $this->priceToPayFilterPlugin = $priceToPayFilterPlugin;
     }
 
     /**
@@ -99,7 +108,7 @@ class ShipmentTableRateReader implements ShipmentTableRateReaderInterface
         $iso2Code = $shippingAddressTransfer->getIso2Code();
         $storeName = $storeTransfer->getName();
         $zipCode = $shippingAddressTransfer->getZipCode();
-        $priceToPay = $totalsTransfer->getPriceToPay();
+        $priceToPay = $this->priceToPayFilterPlugin->filter($totalsTransfer);
 
         if ($iso2Code === null || $storeName === null || $zipCode === null || $priceToPay === null) {
             return null;
