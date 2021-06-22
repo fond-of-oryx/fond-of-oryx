@@ -56,6 +56,8 @@ include:
   - bundles/tax-calculation-connector
   - bundles/thirty-five-up
   - bundles/util-math-formula
+  - bundles/qr-code-generator
+  - bundles/payment-epc-qr-code
 
 suites:
   unit:
