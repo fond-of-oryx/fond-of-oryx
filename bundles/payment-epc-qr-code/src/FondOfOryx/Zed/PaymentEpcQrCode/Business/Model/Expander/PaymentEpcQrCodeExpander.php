@@ -6,8 +6,8 @@ namespace FondOfOryx\Zed\PaymentEpcQrCode\Business\Model\Expander;
 
 use Exception;
 use FondOfOryx\Service\PaymentEpcQrCode\PaymentEpcQrCodeServiceInterface;
+use FondOfOryx\Shared\Prepayment\PrepaymentConstants;
 use FondOfOryx\Zed\PaymentEpcQrCode\PaymentEpcQrCodeConfig;
-use FondOfSpryker\Shared\Prepayment\PrepaymentConstants;
 use Generated\Shared\Transfer\MailTransfer;
 use Generated\Shared\Transfer\OrderTransfer;
 use Generated\Shared\Transfer\PaymentEpcQrCodeRequestTransfer;

@@ -3,7 +3,7 @@
 namespace FondOfOryx\Zed\PaymentEpcQrCode;
 
 use FondOfOryx\Shared\PaymentEpcQrCode\PaymentEpcQrCodeConstants;
-use FondOfSpryker\Shared\Prepayment\PrepaymentConstants;
+use FondOfOryx\Shared\Prepayment\PrepaymentConstants;
 use Spryker\Zed\Kernel\AbstractBundleConfig;
 
 class PaymentEpcQrCodeConfig extends AbstractBundleConfig
