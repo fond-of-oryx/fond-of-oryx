@@ -1,0 +1,35 @@
+{
+  "name": "fond-of-spryker/thirty-five-up",
+  "description": "Spryker Thirty Five Up Implementation Module.",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Julian Zimmermann",
+      "email": "info@julianzimmermann.dev"
+    }
+  ],
+  "require": {
+    "php": ">=7.3",
+    "spryker/locale": "^1.0.0 || ^2.0.0 || ^3.0.0",
+    "spryker/sales": "^9.0.0 || ^10.0.0 || ^11.0.0",
+    "spryker/store": "^1.1.0"
+  },
+  "require-dev": {
+    "fond-of-codeception/spryker": "^1.0",
+    "spryker/code-sniffer": "*",
+    "spryker-sdk/phpstan-spryker": "*"
+  },
+  "minimum-stability": "dev",
+  "prefer-stable": true,
+  "autoload": {
+    "psr-4": {
+      "FondOfOryx\\": "src/FondOfOryx/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "FondOfOryx\\": "tests/FondOfOryx/",
+      "Generated\\": "src/Generated/"
+    }
+  }
+}

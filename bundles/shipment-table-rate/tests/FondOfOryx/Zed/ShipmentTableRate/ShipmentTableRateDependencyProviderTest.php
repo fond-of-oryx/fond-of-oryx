@@ -4,6 +4,7 @@ namespace FondOfOryx\Zed\ShipmentTableRate;
 
 use Codeception\Test\Unit;
 use FondOfOryx\Service\UtilMathFormula\UtilMathFormulaServiceInterface;
+use FondOfOryx\Zed\ShipmentTableRate\Communication\Plugin\ShipmentTableRateExtension\PriceToPayFilterPlugin;
 use FondOfOryx\Zed\ShipmentTableRate\Dependency\Facade\ShipmentTableRateToCountryFacadeBridge;
 use FondOfOryx\Zed\ShipmentTableRate\Dependency\Facade\ShipmentTableRateToStoreFacadeBridge;
 use FondOfOryx\Zed\ShipmentTableRate\Dependency\Service\ShipmentTableRateToUtilMathFormulaServiceBridge;
@@ -121,6 +122,10 @@ class ShipmentTableRateDependencyProviderTest extends Unit
         static::assertInstanceOf(
             ShipmentTableRateToUtilMathFormulaServiceBridge::class,
             $container[ShipmentTableRateDependencyProvider::SERVICE_UTIL_MATH_FORMULA]
+        );
+        static::assertInstanceOf(
+            PriceToPayFilterPlugin::class,
+            $container[ShipmentTableRateDependencyProvider::PLUGIN_PRICE_TO_PAY_FILTER]
         );
     }
 }

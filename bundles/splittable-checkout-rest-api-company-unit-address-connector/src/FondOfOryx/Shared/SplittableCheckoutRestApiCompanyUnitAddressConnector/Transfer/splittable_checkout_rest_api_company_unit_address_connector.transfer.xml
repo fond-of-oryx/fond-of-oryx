@@ -25,13 +25,8 @@
     </transfer>
 
     <transfer name="Quote">
-        <property name="items" type="Item[]" singular="item" />
-        <property name="shippingAddress" type="Address" deprecated="Use item level shipping addresses (item.shipment.shippingAddress) instead."/>
+        <property name="shippingAddress" type="Address"/>
         <property name="billingAddress" type="Address"/>
-    </transfer>
-
-    <transfer name="Item">
-        <property name="shipment" type="Shipment"/>
     </transfer>
 
     <transfer name="Address"/>
