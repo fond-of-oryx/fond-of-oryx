@@ -1,7 +1,5 @@
 <?xml version="1.0"?>
-<database xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" name="zed"
-          xsi:noNamespaceSchemaLocation="http://static.spryker.com/schema-01.xsd"
-          namespace="Orm\Zed\JellyfishBuffer\Persistence" package="src.Orm.Zed.JellyfishBuffer.Persistence">
+<database xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" name="zed" xsi:noNamespaceSchemaLocation="http://static.spryker.com/schema-01.xsd" namespace="Orm\Zed\JellyfishBuffer\Persistence" package="src.Orm.Zed.JellyfishBuffer.Persistence">
 
     <table name="foo_exported_order" phpName="FooExportedOrder" identifierQuoting="true">
         <column name="id_exported_order" required="true" type="INTEGER" autoIncrement="true" primaryKey="true"/>
@@ -15,5 +13,5 @@
         </foreign-key>
 
         <behavior name="timestampable"/>
-    </table>
+    <id-method-parameter value="foo_exported_order_pk_seq"/></table>
 </database>

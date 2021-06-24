@@ -1,5 +1,5 @@
 {
-  "name": "fond-of-spryker/jellyfish-sales-order",
+  "name": "fond-of-oryx/jellyfish-sales-order",
   "description": "JellyfishSalesOrder module.",
   "license": "MIT",
   "authors": [
@@ -21,12 +21,12 @@
   "prefer-stable": true,
   "autoload": {
     "psr-4": {
-      "FondOfSpryker\\": "src/FondOfSpryker/"
+      "FondOfOryx\\": "src/FondOfOryx/"
     }
   },
   "autoload-dev": {
     "psr-4": {
-      "FondOfSpryker\\": "tests/FondOfSpryker/",
+      "FondOfOryx\\": "tests/FondOfOryx/",
       "Generated\\": "src/Generated/"
     }
   }
