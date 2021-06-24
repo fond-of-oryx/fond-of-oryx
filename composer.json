@@ -266,7 +266,7 @@
       "FondOfOryx\\Zed\\SplittableTotalsExtension\\": "bundles/splittable-totals-extension/src/FondOfOryx/Zed/SplittableTotalsExtension",
       "FondOfOryx\\Zed\\SplittableTotalsShipmentConnector\\": "bundles/splittable-totals-shipment-connector/src/FondOfOryx/Zed/SplittableTotalsShipmentConnector",
       "FondOfOryx\\Zed\\TaxCalculationConnector\\": "bundles/tax-calculation-connector/src/FondOfOryx/Zed/TaxCalculationConnector",
-      "FondOfOryx\\Zed\\ThirtyFiveUp\\": "bundles/thirty-five-up/src/FondOfOryx/Zed/ThirtyFiveUp"
+      "FondOfOryx\\Zed\\ThirtyFiveUp\\": "bundles/thirty-five-up/src/FondOfOryx/Zed/ThirtyFiveUp",
       "FondOfOryx\\Zed\\ThirtyFiveUpApi\\": "bundles/thirty-five-up-api/src/FondOfOryx/Zed/ThirtyFiveUpApi"
     }
   },
