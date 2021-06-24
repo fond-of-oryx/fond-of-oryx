@@ -18,7 +18,7 @@
   ],
   "require": {
     "php": ">=7.3",
-    "fond-of-oryx/credit-memo-extension": "*",
+    "fond-of-oryx/credit-memo-extension": "^1.0.0",
     "spryker/log": "^1.0.0 || ^2.0.0 || ^3.0.0",
     "spryker/oms": "^6.0.0 || ^7.0.0 || ^8.0.0 || ^10.0.0 || ^11.0.0",
     "spryker/sequence-number": "^1.0.0 || ^2.0.0 || ^3.0.0",
