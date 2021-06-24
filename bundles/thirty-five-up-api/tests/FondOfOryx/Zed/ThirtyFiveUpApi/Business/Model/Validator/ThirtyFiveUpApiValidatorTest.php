@@ -5,7 +5,7 @@ namespace FondOfOryx\Zed\ThirtyFiveUpApi\Business\Model\Validator;
 use Codeception\Test\Unit;
 use Generated\Shared\Transfer\ApiDataTransfer;
 
-class ThirtyFiveUpApiFacadeTest extends Unit
+class ThirtyFiveUpApiValidatorTest extends Unit
 {
     /**
      * @var \Generated\Shared\Transfer\ApiDataTransfer|\PHPUnit\Framework\MockObject\MockObject
