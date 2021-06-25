@@ -1,6 +1,6 @@
 {
-  "name": "fond-of-spryker/thirty-five-up",
-  "description": "Spryker Thirty Five Up Implementation Module.",
+  "name": "fond-of-oryx/jellyfish-thirty-five-up",
+  "description": "Jellyfish Thirty Five Up Module Extension",
   "license": "MIT",
   "authors": [
     {
@@ -10,8 +10,8 @@
   ],
   "require": {
     "php": ">=7.3",
-    "spryker/locale": "^1.0.0 || ^2.0.0 || ^3.0.0",
-    "spryker/store": "^1.1.0"
+    "fond-of-oryx/jellyfish-sales-order-extension": "^1.0.0",
+    "fond-of-oryx/thirty-five-up": "^1.0.0"
   },
   "require-dev": {
     "fond-of-codeception/spryker": "^1.0",

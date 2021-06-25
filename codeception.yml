@@ -21,6 +21,7 @@ include:
   - bundles/jellyfish-sales-order-b2c
   - bundles/jellyfish-sales-order-extension
   - bundles/jellyfish-sales-order-payone
+  - bundles/jellyfish-thirty-five-up
   - bundles/mail-bcc
   - bundles/one-time-password
   - bundles/one-time-password-email-connector
