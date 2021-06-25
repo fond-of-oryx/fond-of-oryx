@@ -114,7 +114,7 @@
     },
     "payment-epc-qr-code": {
       "path": "bundles/payment-epc-qr-code/",
-      "version": "1.0.0"
+      "version": "1.0.1"
     },
     "product-country-restriction-checkout-connector": {
       "path": "bundles/product-country-restriction-checkout-connector/",
