@@ -137,6 +137,7 @@
     "fond-of-oryx/splittable-quote-shipment-connector": "*",
     "fond-of-oryx/splittable-totals": "*",
     "fond-of-oryx/tax-calculation-connector": "*",
+    "fond-of-oryx/thirty-five-up": "*",
     "fond-of-oryx/util-math-formula": "*"
   },
   "minimum-stability": "dev",
@@ -202,6 +203,7 @@
       "FondOfOryx\\Shared\\SplittableTotals\\": "bundles/splittable-totals/src/FondOfOryx/Shared/SplittableTotals",
       "FondOfOryx\\Shared\\TaxCalculationConnector\\": "bundles/tax-calculation-connector/src/FondOfOryx/Shared/TaxCalculationConnector",
       "FondOfOryx\\Shared\\ThirtyFiveUp\\": "bundles/thirty-five-up/src/FondOfOryx/Shared/ThirtyFiveUp",
+      "FondOfOryx\\Shared\\ThirtyFiveUpApi\\\\": "bundles/thirty-five-up-api/src/FondOfOryx/Shared/ThirtyFiveUpApi",
       "FondOfOryx\\Yves\\AvailabilityAlertCrossEngage\\": "bundles/availability-alert-cross-engage/src/FondOfOryx/Yves/AvailabilityAlertCrossEngage",
       "FondOfOryx\\Yves\\AvailabilityAlert\\": "bundles/availability-alert/src/FondOfOryx/Yves/AvailabilityAlert",
       "FondOfOryx\\Yves\\Feed\\": "bundles/feed/src/FondOfOryx/Yves/Feed",
@@ -264,7 +266,8 @@
       "FondOfOryx\\Zed\\SplittableTotalsExtension\\": "bundles/splittable-totals-extension/src/FondOfOryx/Zed/SplittableTotalsExtension",
       "FondOfOryx\\Zed\\SplittableTotalsShipmentConnector\\": "bundles/splittable-totals-shipment-connector/src/FondOfOryx/Zed/SplittableTotalsShipmentConnector",
       "FondOfOryx\\Zed\\TaxCalculationConnector\\": "bundles/tax-calculation-connector/src/FondOfOryx/Zed/TaxCalculationConnector",
-      "FondOfOryx\\Zed\\ThirtyFiveUp\\": "bundles/thirty-five-up/src/FondOfOryx/Zed/ThirtyFiveUp"
+      "FondOfOryx\\Zed\\ThirtyFiveUp\\": "bundles/thirty-five-up/src/FondOfOryx/Zed/ThirtyFiveUp",
+      "FondOfOryx\\Zed\\ThirtyFiveUpApi\\": "bundles/thirty-five-up-api/src/FondOfOryx/Zed/ThirtyFiveUpApi"
     }
   },
   "autoload-dev": {
@@ -380,6 +383,7 @@
       "FondOfOryx\\Zed\\SplittableTotals\\": "bundles/splittable-totals/tests/FondOfOryx/Zed/SplittableTotals",
       "FondOfOryx\\Zed\\TaxCalculationConnector\\": "bundles/tax-calculation-connector/tests/FondOfOryx/Zed/TaxCalculationConnector",
       "FondOfOryx\\Zed\\ThirtyFiveUp\\": "bundles/thirty-five-up/tests/FondOfOryx/Zed/ThirtyFiveUp",
+      "FondOfOryx\\Zed\\ThirtyFiveUpApi\\": "bundles/thirty-five-up-api/tests/FondOfOryx/Zed/ThirtyFiveUpApi",
       "Generated\\": "src/Generated/",
       "Orm\\Zed\\": "src/Orm/Zed/"
     }
