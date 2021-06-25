@@ -5,6 +5,7 @@ include:
   - bundles/availability-alert-cross-engage
   - bundles/availability-alert-migrator
   - bundles/catalog-sku-filter
+  - bundles/credit-memo
   - bundles/cross-engage
   - bundles/customer-statistic
   - bundles/customer-statistics-rest-api
@@ -57,6 +58,8 @@ include:
   - bundles/tax-calculation-connector
   - bundles/thirty-five-up
   - bundles/util-math-formula
+  - bundles/qr-code-generator
+  - bundles/payment-epc-qr-code
 
 suites:
   unit:

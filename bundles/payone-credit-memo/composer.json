@@ -13,18 +13,12 @@
 
   "require": {
     "php": ">=7.3",
-    "fond-of-oryx/credit-memo": "dev-feature/paypal-refund",
+    "fond-of-oryx/credit-memo": "^1.0.0",
     "spryker-eco/payone": "^4.0.0"
   },
   "require-dev": {
-    "spryker/code-sniffer": "^0.14.7",
-    "codeception/codeception": "^2.5",
-    "mikey179/vfsstream": "^1.6",
-    "phpro/grumphp": "^0.14",
-    "sebastian/phpcpd": "^4.1",
-    "php-coveralls/php-coveralls": "^2.0",
-    "spryker/kernel": "^3.42.4",
-    "spryker/application": "^3.19.0"
+    "fond-of-codeception/spryker": "^1.0",
+    "spryker/code-sniffer": "^0.12"
   },
   "autoload": {
     "psr-4": {
