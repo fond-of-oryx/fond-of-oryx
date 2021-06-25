@@ -191,7 +191,6 @@ class CreditMemoProcessorTest extends Unit
         $this->configMock->expects(static::never())->method('getProcessSizeMax');
         $this->creditMemoCollectionTransferMock->expects(static::once())->method('getCreditMemos')->willReturn([$this->creditMemoTransferMock]);
         $this->creditMemoTransferMock->expects(static::atLeastOnce())->method('getIdCreditMemo')->willReturn(1);
-        $this->creditMemoTransferMock->expects(static::once())->method('')->willReturn($this->salesPaymentTransferMock);
         $this->processorMock->expects(static::once())->method('canProcess')->willReturn(true);
         $this->processorMock->expects(static::once())->method('process')->willReturn(new CreditMemoProcessorStatusTransfer());
 
