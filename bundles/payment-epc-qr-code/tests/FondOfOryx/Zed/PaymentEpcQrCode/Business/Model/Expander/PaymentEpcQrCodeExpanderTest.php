@@ -85,7 +85,7 @@ class PaymentEpcQrCodeExpanderTest extends Unit
         $this->orderTransferMock->expects(static::once())->method('getCurrencyIsoCode')->willReturn('EUR');
         $this->orderTransferMock->expects(static::once())->method('getOrderReference')->willReturn('Ref');
         $this->orderTransferMock->expects(static::once())->method('setPrepaymentEpcQrData')->willReturn($this->orderTransferMock);
-        $this->totalsTransferMock->expects(static::once())->method('getGrandTotal')->willReturn(3900);
+        $this->totalsTransferMock->expects(static::once())->method('getPriceToPay')->willReturn(3900);
         $this->paymentTransferMock->expects(static::once())->method('getPaymentMethod')->willReturn(PrepaymentConstants::PAYMENT_METHOD_PREPAYMENT);
         $this->mailTransferMock->expects(static::once())->method('getOrder')->willReturn($this->orderTransferMock);
         $this->mailTransferMock->expects(static::once())->method('setOrder')->willReturn($this->mailTransferMock);

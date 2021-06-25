@@ -99,7 +99,7 @@ class PaymentEpcQrCodeExpander implements ExpanderInterface
             ->setReceiverName($this->config->getEpcDataReceiverName())
             ->setIban($this->config->getEpcDataIban())
             ->setAmount($this->getMoneyAmount(
-                $orderTransfer->getTotals()->getGrandTotal(),
+                $orderTransfer->getTotals()->getPriceToPay(),
                 $orderTransfer->getCurrencyIsoCode()
             ))
             ->setPurpose($this->config->getEpcDataPurpose())
