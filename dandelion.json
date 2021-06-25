@@ -30,7 +30,7 @@
     },
     "credit-memo": {
       "path": "bundles/credit-memo/",
-      "version": "1.0.0"
+      "version": "1.0.1"
     },
     "cross-engage": {
       "path": "bundles/cross-engage/",
