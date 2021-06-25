@@ -141,6 +141,7 @@
     "fond-of-oryx/splittable-totals": "*",
     "fond-of-oryx/tax-calculation-connector": "*",
     "fond-of-oryx/thirty-five-up": "*",
+    "fond-of-oryx/thirty-five-up-api": "*",
     "fond-of-oryx/util-math-formula": "*"
   },
   "minimum-stability": "dev",
