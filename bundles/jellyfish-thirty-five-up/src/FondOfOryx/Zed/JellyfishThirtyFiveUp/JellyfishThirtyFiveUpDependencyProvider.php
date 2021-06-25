@@ -15,7 +15,7 @@ class JellyfishThirtyFiveUpDependencyProvider extends AbstractBundleDependencyPr
      *
      * @return \Spryker\Zed\Kernel\Container
      */
-    public function provideCommunicationLayerDependencies(Container $container)
+    public function provideCommunicationLayerDependencies(Container $container): Container
     {
         $container = parent::provideCommunicationLayerDependencies($container);
         $container = $this->addThirtyFiveUpFacade($container);
@@ -30,7 +30,7 @@ class JellyfishThirtyFiveUpDependencyProvider extends AbstractBundleDependencyPr
      */
     public function addThirtyFiveUpFacade(Container $container): Container
     {
-        $container[static::FACADE_THIRTY_FIVE_UP] = function (Container $container) {
+        $container[static::FACADE_THIRTY_FIVE_UP] = static function (Container $container) {
             return new JellyfishThirtyFiveUpToThirtyFiveUpFacadeBridge($container->getLocator()->thirtyFiveUp()->facade());
         };
 
