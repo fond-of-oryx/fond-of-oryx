@@ -151,12 +151,7 @@ class CreditMemoProcessorTest extends Unit
         $this->storeFacadeMock->expects(static::once())->method('getCurrentStore')->willReturn($this->storeTransferMock);
         $this->configMock->expects(static::once())->method('getProcessSizeMax')->willReturn(10);
         $this->creditMemoCollectionTransferMock->expects(static::once())->method('getCreditMemos')->willReturn([$this->creditMemoTransferMock]);
-        $this->creditMemoTransferMock->expects(static::once())->method('getIdCreditMemo')->willReturn(1);
-        $this->creditMemoTransferMock->expects(static::once())->method('getSalesPaymentMethodType')->willReturn($this->salesPaymentTransferMock);
-        $this->salesPaymentTransferMock->expects(static::once())->method('getPaymentMethod')->willReturn($this->paymentMethodTransferMock);
-        $this->salesPaymentTransferMock->expects(static::once())->method('getPaymentProvider')->willReturn($this->paymentProviderTransferMock);
-        $this->paymentMethodTransferMock->expects(static::once())->method('getName')->willReturn('test');
-        $this->paymentProviderTransferMock->expects(static::once())->method('getName')->willReturn('test');
+        $this->creditMemoTransferMock->expects(static::atLeastOnce())->method('getIdCreditMemo')->willReturn(1);
         $this->processorMock->expects(static::once())->method('canProcess')->willReturn(true);
         $this->processorMock->expects(static::once())->method('process')->willReturn(new CreditMemoProcessorStatusTransfer());
 
@@ -175,12 +170,7 @@ class CreditMemoProcessorTest extends Unit
         $this->storeFacadeMock->expects(static::once())->method('getCurrentStore')->willReturn($this->storeTransferMock);
         $this->configMock->expects(static::once())->method('getProcessSizeMax')->willReturn(10);
         $this->creditMemoCollectionTransferMock->expects(static::once())->method('getCreditMemos')->willReturn([$this->creditMemoTransferMock]);
-        $this->creditMemoTransferMock->expects(static::once())->method('getIdCreditMemo')->willReturn(1);
-        $this->creditMemoTransferMock->expects(static::once())->method('getSalesPaymentMethodType')->willReturn($this->salesPaymentTransferMock);
-        $this->salesPaymentTransferMock->expects(static::once())->method('getPaymentMethod')->willReturn($this->paymentMethodTransferMock);
-        $this->salesPaymentTransferMock->expects(static::once())->method('getPaymentProvider')->willReturn($this->paymentProviderTransferMock);
-        $this->paymentMethodTransferMock->expects(static::once())->method('getName')->willReturn('test');
-        $this->paymentProviderTransferMock->expects(static::once())->method('getName')->willReturn('test');
+        $this->creditMemoTransferMock->expects(static::atLeastOnce())->method('getIdCreditMemo')->willReturn(1);
         $this->processorMock->expects(static::once())->method('canProcess')->willReturn(true);
         $this->processorMock->expects(static::once())->method('process')->willReturn(new CreditMemoProcessorStatusTransfer());
 
@@ -200,12 +190,7 @@ class CreditMemoProcessorTest extends Unit
         $this->storeFacadeMock->expects(static::once())->method('getCurrentStore')->willReturn($this->storeTransferMock);
         $this->configMock->expects(static::never())->method('getProcessSizeMax');
         $this->creditMemoCollectionTransferMock->expects(static::once())->method('getCreditMemos')->willReturn([$this->creditMemoTransferMock]);
-        $this->creditMemoTransferMock->expects(static::once())->method('getIdCreditMemo')->willReturn(1);
-        $this->creditMemoTransferMock->expects(static::once())->method('getSalesPaymentMethodType')->willReturn($this->salesPaymentTransferMock);
-        $this->salesPaymentTransferMock->expects(static::once())->method('getPaymentMethod')->willReturn($this->paymentMethodTransferMock);
-        $this->salesPaymentTransferMock->expects(static::once())->method('getPaymentProvider')->willReturn($this->paymentProviderTransferMock);
-        $this->paymentMethodTransferMock->expects(static::once())->method('getName')->willReturn('test');
-        $this->paymentProviderTransferMock->expects(static::once())->method('getName')->willReturn('test');
+        $this->creditMemoTransferMock->expects(static::atLeastOnce())->method('getIdCreditMemo')->willReturn(1);
         $this->processorMock->expects(static::once())->method('canProcess')->willReturn(true);
         $this->processorMock->expects(static::once())->method('process')->willReturn(new CreditMemoProcessorStatusTransfer());
 
@@ -224,12 +209,7 @@ class CreditMemoProcessorTest extends Unit
         $this->storeFacadeMock->expects(static::once())->method('getCurrentStore')->willReturn($this->storeTransferMock);
         $this->configMock->expects(static::once())->method('getProcessSizeMax')->willReturn(10);
         $this->creditMemoCollectionTransferMock->expects(static::once())->method('getCreditMemos')->willReturn([$this->creditMemoTransferMock]);
-        $this->creditMemoTransferMock->expects(static::exactly(2))->method('getIdCreditMemo')->willReturn(1);
-        $this->creditMemoTransferMock->expects(static::once())->method('getSalesPaymentMethodType')->willReturn($this->salesPaymentTransferMock);
-        $this->salesPaymentTransferMock->expects(static::once())->method('getPaymentMethod')->willReturn($this->paymentMethodTransferMock);
-        $this->salesPaymentTransferMock->expects(static::once())->method('getPaymentProvider')->willReturn($this->paymentProviderTransferMock);
-        $this->paymentMethodTransferMock->expects(static::once())->method('getName')->willReturn('test');
-        $this->paymentProviderTransferMock->expects(static::once())->method('getName')->willReturn('test');
+        $this->creditMemoTransferMock->expects(static::atLeastOnce())->method('getIdCreditMemo')->willReturn(1);
         $this->processorMock->expects(static::once())->method('canProcess')->willReturn(true);
         $this->processorMock->expects(static::once())->method('process')->willThrowException(new Exception('fail'));
         $this->loggerMock->expects(static::once())->method('error');

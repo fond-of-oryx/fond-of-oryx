@@ -30,7 +30,7 @@
     },
     "credit-memo": {
       "path": "bundles/credit-memo/",
-      "version": "1.0.0"
+      "version": "1.0.1"
     },
     "cross-engage": {
       "path": "bundles/cross-engage/",
@@ -76,6 +76,10 @@
       "path": "bundles/jellyfish-availability-alert/",
       "version": "1.0.0"
     },
+    "jellyfish-credit-memo": {
+      "path": "bundles/jellyfish-credit-memo/",
+      "version": "1.0.0"
+    },
     "mail-bcc": {
       "path": "bundles/mail-bcc/",
       "version": "1.0.0"
@@ -114,7 +118,7 @@
     },
     "payment-epc-qr-code": {
       "path": "bundles/payment-epc-qr-code/",
-      "version": "1.0.1"
+      "version": "1.0.2"
     },
     "product-country-restriction-checkout-connector": {
       "path": "bundles/product-country-restriction-checkout-connector/",

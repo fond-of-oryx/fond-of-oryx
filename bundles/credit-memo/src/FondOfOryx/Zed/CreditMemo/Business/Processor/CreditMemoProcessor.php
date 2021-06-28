@@ -221,15 +221,12 @@ class CreditMemoProcessor implements Countable, IteratorAggregate, CreditMemoPro
      */
     protected function createDefaultResponse(CreditMemoTransfer $creditMemoTransfer): CreditMemoProcessorStatusTransfer
     {
-        $alesPaymentMethodType = $creditMemoTransfer->getSalesPaymentMethodType();
-
         $statusResponse = (new CreditMemoProcessorStatusTransfer())
             ->setSuccess(false)
             ->setId($creditMemoTransfer->getIdCreditMemo())
             ->setMessage(sprintf(
-                'No credit memo processor available to process order with payment method %s and payment provider %s',
-                $alesPaymentMethodType->getPaymentMethod()->getName(),
-                $alesPaymentMethodType->getPaymentProvider()->getName()
+                'No credit memo processor available to process order with id %s',
+                $creditMemoTransfer->getIdCreditMemo()
             ));
 
         return $statusResponse;
