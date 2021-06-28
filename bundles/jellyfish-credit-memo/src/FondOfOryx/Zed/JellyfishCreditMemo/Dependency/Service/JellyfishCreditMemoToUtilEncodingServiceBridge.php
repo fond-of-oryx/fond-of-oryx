@@ -2,9 +2,7 @@
 
 namespace FondOfOryx\Zed\JellyfishCreditMemo\Dependency\Service;
 
-use FondOfOryx\Zed\Jellyfish\Dependency\Service\JellyfishToUtilEncodingServiceInterface;
-
-class JellyfishCreditMemoToUtilEncodingServiceBridge implements JellyfishToUtilEncodingServiceInterface
+class JellyfishCreditMemoToUtilEncodingServiceBridge implements JellyfishCreditMemoToUtilEncodingServiceInterface
 {
     /**
      * @var \Spryker\Service\UtilEncoding\UtilEncodingServiceInterface

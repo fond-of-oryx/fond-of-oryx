@@ -4,7 +4,7 @@ namespace FondOfOryx\Zed\JellyfishCreditMemo\Business\Model\Exporter;
 
 use Exception;
 use FondOfOryx\Shared\CreditMemo\CreditMemoConstants;
-use FondOfOryx\Zed\Jellyfish\Business\Api\Adapter\AdapterInterface;
+use FondOfOryx\Zed\JellyfishCreditMemo\Business\Api\Adapter\CreditMemoAdapterInterface;
 use FondOfOryx\Zed\JellyfishCreditMemo\Business\Model\Mapper\JellyfishCreditMemoMapperInterface;
 use FondOfOryx\Zed\JellyfishCreditMemo\JellyfishCreditMemoConfig;
 use FondOfOryx\Zed\JellyfishCreditMemo\Persistence\JellyfishCreditMemoEntityManagerInterface;
@@ -26,7 +26,7 @@ class CreditMemoExporter implements CreditMemoExporterInterface
     ];
 
     /**
-     * @var \FondOfOryx\Zed\Jellyfish\Business\Api\Adapter\AdapterInterface
+     * @var \FondOfOryx\Zed\JellyfishCreditMemo\Business\Api\Adapter\CreditMemoAdapterInterface
      */
     protected $adapter;
 
@@ -36,7 +36,7 @@ class CreditMemoExporter implements CreditMemoExporterInterface
     protected $jellyfishCreditMemoEntityManager;
 
     /**
-     * @var \FondOfOryx\Zed\Jellyfish\Business\Model\Mapper\JellyfishCreditMemoMapperInterface
+     * @var \FondOfOryx\Zed\JellyfishCreditMemo\Business\Model\Mapper\JellyfishCreditMemoMapperInterface
      */
     protected $jellyfishCreditMemoMapper;
 
@@ -51,18 +51,20 @@ class CreditMemoExporter implements CreditMemoExporterInterface
     protected $jellyfishCreditMemoConfig;
 
     /**
+     * CreditMemoExporter constructor.
+     *
      * @param \FondOfOryx\Zed\JellyfishCreditMemo\Business\Model\Mapper\JellyfishCreditMemoMapperInterface $jellyfishCreditMemoMapper
      * @param \FondOfOryx\Zed\JellyfishCreditMemo\Persistence\JellyfishCreditMemoRepositoryInterface $jellyfishCreditMemoRepository
      * @param \FondOfOryx\Zed\JellyfishCreditMemo\JellyfishCreditMemoConfig $jellyfishCreditMemoConfig
      * @param \FondOfOryx\Zed\JellyfishCreditMemo\Persistence\JellyfishCreditMemoEntityManagerInterface $jellyfishCreditMemoEntityManager
-     * @param \FondOfOryx\Zed\Jellyfish\Business\Api\Adapter\AdapterInterface $adapter
+     * @param \FondOfOryx\Zed\JellyfishCreditMemo\Business\Api\Adapter\CreditMemoAdapterInterface $adapter
      */
     public function __construct(
         JellyfishCreditMemoMapperInterface $jellyfishCreditMemoMapper,
         JellyfishCreditMemoRepositoryInterface $jellyfishCreditMemoRepository,
         JellyfishCreditMemoConfig $jellyfishCreditMemoConfig,
         JellyfishCreditMemoEntityManagerInterface $jellyfishCreditMemoEntityManager,
-        AdapterInterface $adapter
+        CreditMemoAdapterInterface $adapter
     ) {
         $this->adapter = $adapter;
         $this->jellyfishCreditMemoRepository = $jellyfishCreditMemoRepository;

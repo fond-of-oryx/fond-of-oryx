@@ -2,14 +2,14 @@
 
 namespace FondOfOryx\Zed\JellyfishCreditMemo\Business;
 
-use FondOfOryx\Zed\Jellyfish\Business\Api\Adapter\AdapterInterface;
-use FondOfOryx\Zed\Jellyfish\Dependency\Service\JellyfishToUtilEncodingServiceInterface;
 use FondOfOryx\Zed\JellyfishCreditMemo\Business\Api\Adapter\CreditMemoAdapter;
+use FondOfOryx\Zed\JellyfishCreditMemo\Business\Api\Adapter\CreditMemoAdapterInterface;
 use FondOfOryx\Zed\JellyfishCreditMemo\Business\Model\Exporter\CreditMemoExporter;
 use FondOfOryx\Zed\JellyfishCreditMemo\Business\Model\Exporter\CreditMemoExporterInterface;
 use FondOfOryx\Zed\JellyfishCreditMemo\Business\Model\Mapper\JellyfishCreditMemoMapper;
 use FondOfOryx\Zed\JellyfishCreditMemo\Business\Model\Mapper\JellyfishCreditMemoMapperInterface;
 use FondOfOryx\Zed\JellyfishCreditMemo\Dependency\Facade\JellyfishCreditMemoToSalesFacadeInterface;
+use FondOfOryx\Zed\JellyfishCreditMemo\Dependency\Service\JellyfishCreditMemoToUtilEncodingServiceInterface;
 use FondOfOryx\Zed\JellyfishCreditMemo\JellyfishCreditMemoDependencyProvider;
 use GuzzleHttp\Client as HttpClient;
 use GuzzleHttp\ClientInterface as HttpClientInterface;
@@ -37,9 +37,9 @@ class JellyfishCreditMemoBusinessFactory extends AbstractBusinessFactory
     }
 
     /**
-     * @return \FondOfOryx\Zed\Jellyfish\Business\Api\Adapter\AdapterInterface
+     * @return \FondOfOryx\Zed\JellyfishCreditMemo\Business\Api\Adapter\CreditMemoAdapterInterface
      */
-    protected function createCreditMemoAdapter(): AdapterInterface
+    protected function createCreditMemoAdapter(): CreditMemoAdapterInterface
     {
         return new CreditMemoAdapter(
             $this->getUtilEncodingService(),
@@ -68,9 +68,10 @@ class JellyfishCreditMemoBusinessFactory extends AbstractBusinessFactory
     }
 
     /**
-     * @return \FondOfOryx\Zed\Jellyfish\Dependency\Service\JellyfishToUtilEncodingServiceInterface
+     * @return \FondOfOryx\Zed\JellyfishCreditMemo\Dependency\Service\JellyfishCreditMemoToUtilEncodingServiceInterface
+     * @throws \Spryker\Zed\Kernel\Exception\Container\ContainerKeyNotFoundException
      */
-    protected function getUtilEncodingService(): JellyfishToUtilEncodingServiceInterface
+    protected function getUtilEncodingService(): JellyfishCreditMemoToUtilEncodingServiceInterface
     {
         return $this->getProvidedDependency(JellyfishCreditMemoDependencyProvider::SERVICE_UTIL_ENCODING);
     }
