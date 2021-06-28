@@ -11,7 +11,7 @@ use Spryker\Zed\Kernel\Persistence\AbstractEntityManager;
 class JellyfishCreditMemoEntityManager extends AbstractEntityManager implements JellyfishCreditMemoEntityManagerInterface
 {
     protected const COLUMN_JELLYFISH_EXPORT_STATE = 'JellyfishExportState';
-    
+
     /**
      * @param \Spryker\Zed\CompanyUser\Persistence\JellyfishCreditMemoTransfer $jellyfishCreditMemoTransfer
      *

@@ -23,7 +23,7 @@ class JellyfishCreditMemoPersistenceFactory extends AbstractPersistenceFactory
     {
         return FooCreditMemoQuery::create();
     }
-
+    
     /**
      * @return \Orm\Zed\Sales\Persistence\SpySalesOrderQuery
      */
