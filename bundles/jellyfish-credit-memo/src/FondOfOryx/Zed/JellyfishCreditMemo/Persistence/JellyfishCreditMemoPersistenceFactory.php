@@ -23,7 +23,7 @@ class JellyfishCreditMemoPersistenceFactory extends AbstractPersistenceFactory
     {
         return FooCreditMemoQuery::create();
     }
-    
+
     /**
      * @return \Orm\Zed\Sales\Persistence\SpySalesOrderQuery
      */
@@ -31,7 +31,7 @@ class JellyfishCreditMemoPersistenceFactory extends AbstractPersistenceFactory
     {
         return $this->getProvidedDependency(JellyfishCreditMemoDependencyProvider::PROPEL_QUERY_SALES_ORDER_ITEM);
     }
-    
+
     /**
      * @return \FondOfOryx\Zed\Jellyfish\Business\Model\Mapper\JellyfishCreditMemoMapperInterface
      */

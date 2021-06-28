@@ -8,7 +8,7 @@ use FondOfOryx\Zed\Jellyfish\JellyfishConfig;
 class JellyfishCreditMemoConfig extends JellyfishConfig
 {
     protected const DEFAULT_SALES_ORDER_ITEM_STATE_REFUNDED = 'refunded';
-    
+
     /**
      * @return string
      */

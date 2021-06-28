@@ -24,7 +24,7 @@ class JellyfishCreditMemoDependencyProvider extends AbstractBundleDependencyProv
         $container = parent::provideBusinessLayerDependencies($container);
         $container = $this->addSalesFacade($container);
         $container = $this->addUtilEncodingService($container);
-        
+
         return $container;
     }
 
@@ -37,7 +37,7 @@ class JellyfishCreditMemoDependencyProvider extends AbstractBundleDependencyProv
     {
         $container = parent::providePersistenceLayerDependencies($container);
         $container = $this->addSalesOrderItemPropelQuery($container);
-        
+
         return $container;
     }
 
