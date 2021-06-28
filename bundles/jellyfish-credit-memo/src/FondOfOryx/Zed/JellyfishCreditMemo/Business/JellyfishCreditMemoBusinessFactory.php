@@ -69,7 +69,6 @@ class JellyfishCreditMemoBusinessFactory extends AbstractBusinessFactory
 
     /**
      * @return \FondOfOryx\Zed\JellyfishCreditMemo\Dependency\Service\JellyfishCreditMemoToUtilEncodingServiceInterface
-     * @throws \Spryker\Zed\Kernel\Exception\Container\ContainerKeyNotFoundException
      */
     protected function getUtilEncodingService(): JellyfishCreditMemoToUtilEncodingServiceInterface
     {

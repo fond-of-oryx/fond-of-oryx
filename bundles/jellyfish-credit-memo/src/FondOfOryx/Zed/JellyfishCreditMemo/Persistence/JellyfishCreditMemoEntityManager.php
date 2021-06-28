@@ -16,8 +16,6 @@ class JellyfishCreditMemoEntityManager extends AbstractEntityManager implements 
      * @param \Generated\Shared\Transfer\JellyfishCreditMemoTransfer $jellyfishCreditMemoTransfer
      *
      * @return \Generated\Shared\Transfer\JellyfishCreditMemoTransfer
-     * @throws \Propel\Runtime\Exception\PropelException
-     * @throws \Spryker\Zed\Propel\Business\Exception\AmbiguousComparisonException
      */
     public function updateExportState(
         JellyfishCreditMemoTransfer $jellyfishCreditMemoTransfer

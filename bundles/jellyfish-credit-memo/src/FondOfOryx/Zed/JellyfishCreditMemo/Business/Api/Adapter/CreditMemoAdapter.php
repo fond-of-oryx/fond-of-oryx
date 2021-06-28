@@ -56,8 +56,6 @@ class CreditMemoAdapter implements CreditMemoAdapterInterface
     protected $dryRun;
 
     /**
-     * CreditMemoAdapter constructor.
-     *
      * @param \FondOfOryx\Zed\JellyfishCreditMemo\Dependency\Service\JellyfishCreditMemoToUtilEncodingServiceInterface $utilEncodingService
      * @param \GuzzleHttp\ClientInterface $client
      * @param \FondOfOryx\Zed\JellyfishCreditMemo\JellyfishCreditMemoConfig $config

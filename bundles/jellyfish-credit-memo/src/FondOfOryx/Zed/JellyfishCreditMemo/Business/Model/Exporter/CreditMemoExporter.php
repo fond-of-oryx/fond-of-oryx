@@ -51,8 +51,6 @@ class CreditMemoExporter implements CreditMemoExporterInterface
     protected $jellyfishCreditMemoConfig;
 
     /**
-     * CreditMemoExporter constructor.
-     *
      * @param \FondOfOryx\Zed\JellyfishCreditMemo\Business\Model\Mapper\JellyfishCreditMemoMapperInterface $jellyfishCreditMemoMapper
      * @param \FondOfOryx\Zed\JellyfishCreditMemo\Persistence\JellyfishCreditMemoRepositoryInterface $jellyfishCreditMemoRepository
      * @param \FondOfOryx\Zed\JellyfishCreditMemo\JellyfishCreditMemoConfig $jellyfishCreditMemoConfig
