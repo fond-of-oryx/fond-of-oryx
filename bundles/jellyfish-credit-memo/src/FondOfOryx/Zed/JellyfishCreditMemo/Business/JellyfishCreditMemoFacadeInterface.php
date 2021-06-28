@@ -5,7 +5,9 @@ namespace FondOfOryx\Zed\JellyfishCreditMemo\Business;
 interface JellyfishCreditMemoFacadeInterface
 {
     /**
-     * Export Credit Memos To Jellyfish
+     * @api
+     * Specifications:
+     * - Exports credit memos to jellyfish
      *
      * @return void
      */

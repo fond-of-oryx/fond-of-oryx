@@ -13,7 +13,10 @@
     }
   ],
   "require": {
-    "php": ">=7.3"
+    "php": ">=7.3",
+    "spryker/oms": "^6.0.0 || ^7.0.0 || ^8.0.0 || ^10.0.0 || ^11.0.0",
+    "spryker/sales": "^6.0.0 || ^7.0.0 || ^8.0.0 || ^10.0.0 || ^11.0.0",
+    "spryker/util-encoding": "^1.0.0 || ^2.0.0"
   },
   "require-dev": {
     "fond-of-codeception/spryker": "^1.0",

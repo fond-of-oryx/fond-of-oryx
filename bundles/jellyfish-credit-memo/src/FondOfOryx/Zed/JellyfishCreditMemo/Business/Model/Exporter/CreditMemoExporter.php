@@ -9,6 +9,7 @@ use FondOfOryx\Zed\JellyfishCreditMemo\Business\Model\Mapper\JellyfishCreditMemo
 use FondOfOryx\Zed\JellyfishCreditMemo\JellyfishCreditMemoConfig;
 use FondOfOryx\Zed\JellyfishCreditMemo\Persistence\JellyfishCreditMemoEntityManagerInterface;
 use FondOfOryx\Zed\JellyfishCreditMemo\Persistence\JellyfishCreditMemoRepositoryInterface;
+use Generated\Shared\Transfer\CreditMemoCollectionTransfer;
 use Generated\Shared\Transfer\CreditMemoTransfer;
 use Generated\Shared\Transfer\ItemTransfer;
 use Generated\Shared\Transfer\JellyfishCreditMemoTransfer;
@@ -87,17 +88,7 @@ class CreditMemoExporter implements CreditMemoExporterInterface
                 return;
             }
 
-            foreach ($creditMemoCollectionTransfer->getCreditMemos() as $creditMemoTransfer) {
-                if ($this->isValidForExport($creditMemoTransfer) === false) {
-                    continue;
-                }
-
-                $jellyfishCreditMemo = $this->map($creditMemoTransfer);
-                $this->adapter->sendRequest($jellyfishCreditMemo);
-
-                $jellyfishCreditMemo->setExportState(static::CREDIT_MEMO_EXPORT_STATE_COMPLETE);
-                $this->jellyfishCreditMemoEntityManager->updateExportState($jellyfishCreditMemo);
-            }
+            $this->handle($creditMemoCollectionTransfer);
         } catch (Exception $exception) {
             $this->getLogger()->error(sprintf(
                 'CreditMemo could not expoted to JellyFish! Message: %s',
@@ -201,5 +192,25 @@ class CreditMemoExporter implements CreditMemoExporterInterface
         }
 
         return $state;
+    }
+
+    /**
+     * @param \Generated\Shared\Transfer\CreditMemoCollectionTransfer $creditMemoCollectionTransfer
+     *
+     * @return void
+     */
+    protected function handle(CreditMemoCollectionTransfer $creditMemoCollectionTransfer): void
+    {
+        foreach ($creditMemoCollectionTransfer->getCreditMemos() as $creditMemoTransfer) {
+            if ($this->isValidForExport($creditMemoTransfer) === false) {
+                continue;
+            }
+
+            $jellyfishCreditMemo = $this->map($creditMemoTransfer);
+            $this->adapter->sendRequest($jellyfishCreditMemo);
+
+            $jellyfishCreditMemo->setExportState(static::CREDIT_MEMO_EXPORT_STATE_COMPLETE);
+            $this->jellyfishCreditMemoEntityManager->updateExportState($jellyfishCreditMemo);
+        }
     }
 }
