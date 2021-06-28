@@ -1,0 +1,65 @@
+<?xml version="1.0"?>
+<transfers xmlns="spryker:transfer-01"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="spryker:transfer-01 http://static.spryker.com/transfer-01.xsd">
+
+    <transfer name="JellyfishCreditMemo">
+        <property name="id" type="int"/>
+        <property name="orderReference" type="string"/>
+        <property name="externalReference" type="string"/>
+        <property name="externalOrderReference" type="string"/>
+        <property name="customerReference" type="string"/>
+        <property name="creditMemoReference" type="string"/>
+        <property name="customer" type="JellyfishCreditMemoCustomer" />
+        <property name="email" type="string"/>
+        <property name="firstName" type="string"/>
+        <property name="lastName" type="string"/>
+        <property name="items" type="JellyfishCreditMemoItem[]" singular="item"/>
+        <property name="locale" type="string"/>
+        <property name="store" type="string"/>
+        <property name="exportState" type="string"/>
+        <property name="createdAt" type="string"/>
+        <property name="updatedAt" type="string"/>
+        <property name="systemCode" type="string"/>
+        <property name="salesPaymentMethodType" type="SalesPaymentMethodType" />
+        <property name="processed" type="bool" />
+        <property name="processedAt" type="string" />
+        <property name="inProgress" type="bool" />
+        <property name="refundedTotal" type="JellyfishCreditMemoPrice" />
+        <property name="paidTotal" type="JellyfishCreditMemoPrice" />
+        <property name="chargedTotal" type="JellyfishCreditMemoPrice" />
+        <property name="wasRefundSuccessful" type="bool" />
+        <property name="taxIncluded" type="bool" />
+        <property name="state" type="string" />
+        <property name="errorMessage" type="string" />
+        <property name="errorCode" type="int" />
+        <property name="transactionId" type="int" />
+    </transfer>
+
+    <transfer name="JellyfishCreditMemoItem">
+        <property name="fkSalesOrderItem" type="int" />
+        <property name="name" type="string"/>
+        <property name="quantity" type="int"/>
+        <property name="sku" type="string"/>
+        <property name="refunded" type="bool" />
+    </transfer>
+
+    <transfer name="JellyfishCreditMemoPrice">
+        <property name="amount" type="int" />
+        <property name="taxAmount" type="int" />
+    </transfer>
+
+    <transfer name="JellyfishCreditMemoCustomer">
+        <property name="externalReference" type="string"/>
+        <property name="firstName" type="string"/>
+        <property name="lastName" type="string"/>
+        <property name="email" type="string"/>
+        <property name="salutation" type="string"/>
+        <property name="phone" type="string"/>
+    </transfer>
+
+    <transfer name="CreditMemoCollection">
+        <property name="creditMemos" type="CreditMemo[]"  singular="creditMemo"/>
+    </transfer>
+
+</transfers>
