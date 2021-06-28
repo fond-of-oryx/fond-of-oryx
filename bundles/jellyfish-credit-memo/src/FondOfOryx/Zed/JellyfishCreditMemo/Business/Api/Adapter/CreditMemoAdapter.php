@@ -130,7 +130,7 @@ class CreditMemoAdapter implements CreditMemoAdapterInterface
 
         $this->getLogger()->info($logMessage);
 
-        return $this->client->post($uri, $options);
+        return $this->client->request('POST', $uri, $options);
     }
 
     /**

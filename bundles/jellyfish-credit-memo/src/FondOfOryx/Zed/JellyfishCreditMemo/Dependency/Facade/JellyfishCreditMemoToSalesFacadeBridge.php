@@ -23,7 +23,7 @@ class JellyfishCreditMemoToSalesFacadeBridge implements JellyfishCreditMemoToSal
     /**
      * @param int $idSalesOrder
      *
-     * @return \FondOfOryx\Zed\JellyfishCreditMemo\Dependency\Facade\OrderTransfer|null
+     * @return \Generated\Shared\Transfer\OrderTransfer|null
      */
     public function findOrderByIdSalesOrder(int $idSalesOrder): ?OrderTransfer
     {

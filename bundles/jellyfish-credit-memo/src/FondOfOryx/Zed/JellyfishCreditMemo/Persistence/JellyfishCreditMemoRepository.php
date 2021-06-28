@@ -56,7 +56,7 @@ class JellyfishCreditMemoRepository extends AbstractRepository implements Jellyf
 
         $results = $query->find();
 
-        if ($results === null || $results->getData() === null || $results->getData() === []) {
+        if (empty($results) || empty($results->getData())) {
             return null;
         }
 
@@ -115,7 +115,7 @@ class JellyfishCreditMemoRepository extends AbstractRepository implements Jellyf
             ->leftJoinWithState()
             ->filterByIdSalesOrderItem($itemTransfer->getFkSalesOrderItem());
 
-        /** @var \Generated\Shared\Transfer\SpySalesOrderItemEntityTransfer $salesOrderItemEntityTransfer */
+        /** @var \Generated\Shared\Transfer\SpySalesOrderItemEntityTransfer|null $salesOrderItemEntityTransfer */
         $salesOrderItemEntityTransfer = $this->buildQueryFromCriteria($query)->findOne();
 
         if ($salesOrderItemEntityTransfer === null) {
@@ -126,7 +126,7 @@ class JellyfishCreditMemoRepository extends AbstractRepository implements Jellyf
     }
 
     /**
-     * @param \Generated\Shared\Transfer\FooCreditMemoItemEntityTransfer|array $entityTransferCollection
+     * @param \Orm\Zed\CreditMemo\Persistence\FooCreditMemo[] $entityTransferCollection
      *
      * @return \Generated\Shared\Transfer\CreditMemoCollectionTransfer
      */
@@ -147,7 +147,7 @@ class JellyfishCreditMemoRepository extends AbstractRepository implements Jellyf
     /**
      * @param \Orm\Zed\CreditMemo\Persistence\FooCreditMemoItem[] $creditMemoItemEntityTransferCollection
      *
-     * @return \Generated\Shared\Transfer\FooCreditMemoItemEntityTransfer[]|\ArrayObject
+     * @return \Generated\Shared\Transfer\ItemTransfer[]|\ArrayObject
      */
     protected function getCreditMemoItems(array $creditMemoItemEntityTransferCollection): ArrayObject
     {
@@ -245,18 +245,9 @@ class JellyfishCreditMemoRepository extends AbstractRepository implements Jellyf
 
         $creditMemoTransfer->setLocale($this->mapCreditMemoEntityTransferToLocaleTransfer($creditMemoEntityTransfer));
         $creditMemoTransfer->setItems(
-            $this->getCreditMemoItems($creditMemoEntityTransfer->getFooCreditMemoItems())
+            $this->getCreditMemoItems($creditMemoEntityTransfer->getFooCreditMemoItems()->getData())
         );
 
-//        $virtualPropertiesCollection = $creditMemoEntityTransfer->virtualProperties();
-//
-//        if (isset($virtualPropertiesCollection[static::FIELD_CREATED_AT])) {
-//            $creditMemoTransfer->setCreatedAt($virtualPropertiesCollection[static::FIELD_CREATED_AT]);
-//        }
-//
-//        if (isset($virtualPropertiesCollection[static::FIELD_UPDATED_AT])) {
-//            $creditMemoTransfer->setUpdatedAt($virtualPropertiesCollection[static::FIELD_UPDATED_AT]);
-//        }
         return $creditMemoTransfer;
     }
 }

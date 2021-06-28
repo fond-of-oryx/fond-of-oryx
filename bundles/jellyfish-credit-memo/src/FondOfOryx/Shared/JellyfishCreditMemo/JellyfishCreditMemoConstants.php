@@ -10,4 +10,5 @@ interface JellyfishCreditMemoConstants
     public const USERNAME = 'JELLYFISH_CREDIT_MEMO:USERNAME';
     public const PASSWORD = 'JELLYFISH_CREDIT_MEMO:PASSWORD';
     public const DRY_RUN = 'JELLYFISH_CREDIT_MEMO:DRY_RUN';
+    public const SYSTEM_CODE = 'JELLYFISH_CREDIT_MEMO:SYSTEM_CODE';
 }

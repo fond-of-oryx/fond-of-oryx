@@ -19,11 +19,13 @@ class JellyfishExportCommandPlugin extends AbstractPlugin implements CommandByOr
      * @param \Orm\Zed\Sales\Persistence\SpySalesOrder $orderEntity
      * @param \Spryker\Zed\Oms\Business\Util\ReadOnlyArrayObject $data
      *
-     * @return void
+     * @return array
      */
     public function run(array $salesOrderItems, SpySalesOrder $orderEntity, ReadOnlyArrayObject $data)
     {
         $this->getFacade()->exportCreditMemo($orderEntity->getIdSalesOrder(), $this->getItemIds($salesOrderItems));
+
+        return [];
     }
 
     /**

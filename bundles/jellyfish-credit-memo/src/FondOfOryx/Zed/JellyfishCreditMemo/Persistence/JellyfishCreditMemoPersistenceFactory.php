@@ -23,7 +23,7 @@ class JellyfishCreditMemoPersistenceFactory extends AbstractPersistenceFactory
     }
 
     /**
-     * @return \Orm\Zed\Sales\Persistence\SpySalesOrderQuery
+     * @return \Orm\Zed\Sales\Persistence\SpySalesOrderItemQuery
      */
     public function getSalesOrderItemQuery(): SpySalesOrderItemQuery
     {

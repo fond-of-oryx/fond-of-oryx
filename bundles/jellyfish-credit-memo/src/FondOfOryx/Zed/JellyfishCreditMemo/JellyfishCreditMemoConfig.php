@@ -3,8 +3,9 @@
 namespace FondOfOryx\Zed\JellyfishCreditMemo;
 
 use FondOfOryx\Shared\JellyfishCreditMemo\JellyfishCreditMemoConstants;
+use Spryker\Zed\Kernel\AbstractBundleConfig;
 
-class JellyfishCreditMemoConfig
+class JellyfishCreditMemoConfig extends AbstractBundleConfig
 {
     protected const DEFAULT_SALES_ORDER_ITEM_STATE_REFUNDED = 'refunded';
 

@@ -83,10 +83,7 @@ class CreditMemoExporter implements CreditMemoExporterInterface
         try {
             $creditMemoCollectionTransfer = $this->jellyfishCreditMemoRepository->findPendingCreditMemoCollection();
 
-            if (
-                $creditMemoCollectionTransfer === null
-                || $creditMemoCollectionTransfer->getCreditMemos()->count() === 0
-            ) {
+            if ($creditMemoCollectionTransfer->getCreditMemos()->count() === 0) {
                 return;
             }
 

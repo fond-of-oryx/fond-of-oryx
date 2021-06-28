@@ -55,14 +55,14 @@ class JellyfishCreditMemoMapper implements JellyfishCreditMemoMapperInterface
             ->setUpdatedAt($this->convertDate($creditMemoTransfer->getUpdatedAt()))
             ->setTransactionId($creditMemoTransfer->getTransactionId())
             ->setErrorMessage($creditMemoTransfer->getErrorMessage())
-            ->setErrorCode($creditMemoTransfer->getErrorCode())
+            ->setErrorCode((int)$creditMemoTransfer->getErrorCode())
             ->setInProgress($creditMemoTransfer->getInProgress())
             ->setProcessed($creditMemoTransfer->getProcessed())
             ->setWasRefundSuccessful($creditMemoTransfer->getWasRefundSuccessful())
             ->setRefundedTotal($this->mapTotalRefundAmount($creditMemoTransfer))
             ->setChargedTotal($this->mapTotalChargeAmount($creditMemoTransfer))
             ->setPaidTotal($this->mapTotalPaidAmount($creditMemoTransfer))
-            ->setProcessedAt($this->convertDate($creditMemoTransfer->getProcessedAt()))
+            ->setProcessedAt($this->convertDate((string)$creditMemoTransfer->getProcessedAt()))
             ->setTaxIncluded($creditMemoTransfer->getTaxIncluded())
             ->setState($this->getState($creditMemoTransfer));
 
@@ -112,7 +112,7 @@ class JellyfishCreditMemoMapper implements JellyfishCreditMemoMapperInterface
     /**
      * @param \Generated\Shared\Transfer\ItemTransfer $itemTransfer
      *
-     * @return \Generated\Shared\Transfer\JellyfishCreditMemoTransfer
+     * @return \Generated\Shared\Transfer\JellyfishCreditMemoItemTransfer
      */
     protected function mapItemTransferToJellyfishCreditMemoItem(
         ItemTransfer $itemTransfer
