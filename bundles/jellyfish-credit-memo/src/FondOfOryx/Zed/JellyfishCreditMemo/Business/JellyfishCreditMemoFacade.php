@@ -15,6 +15,8 @@ class JellyfishCreditMemoFacade extends AbstractFacade implements JellyfishCredi
      * @inheritDoc
      *
      * @api
+     *
+     * @retrun void
      */
     public function exportCreditMemos(): void
     {

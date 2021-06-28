@@ -6,6 +6,8 @@ interface CreditMemoExporterInterface
 {
     /**
      * Export credit memos
+     *
+     * @return void
      */
     public function export(): void;
 

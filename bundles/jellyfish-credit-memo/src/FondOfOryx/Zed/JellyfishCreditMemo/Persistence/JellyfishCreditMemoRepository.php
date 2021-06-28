@@ -145,11 +145,11 @@ class JellyfishCreditMemoRepository extends AbstractRepository implements Jellyf
     }
 
     /**
-     * @param $creditMemoItemEntityTransferCollection
+     * @param \Orm\Zed\CreditMemo\Persistence\FooCreditMemoItem[] $creditMemoItemEntityTransferCollection
      *
      * @return \Generated\Shared\Transfer\FooCreditMemoItemEntityTransfer[]|\ArrayObject
      */
-    protected function getCreditMemoItems($creditMemoItemEntityTransferCollection): ArrayObject
+    protected function getCreditMemoItems(array $creditMemoItemEntityTransferCollection): ArrayObject
     {
         $items = new ArrayObject();
         foreach ($creditMemoItemEntityTransferCollection as $creditMemoItemEntityTransfer) {
