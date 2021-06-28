@@ -16,6 +16,10 @@ phpstan:
 codeception:
 	./vendor/bin/codecept run --env standalone --coverage --coverage-xml --coverage-html
 
+.PHONY: codeception-without-coverage
+codeception-without-coverage:
+	./vendor/bin/codecept run --env standalone
+
 .PHONY: prepare-dandelion-config
 prepare-dandelion-config:
 	sed -i "s/<GITHUB_TOKEN>/$(GITHUB_TOKEN)/" $(BASE_DIRECTORY)/dandelion.json
