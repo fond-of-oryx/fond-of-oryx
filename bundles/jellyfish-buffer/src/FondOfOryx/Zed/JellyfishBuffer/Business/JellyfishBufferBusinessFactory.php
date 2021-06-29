@@ -2,8 +2,8 @@
 
 namespace FondOfOryx\Zed\JellyfishBuffer\Business;
 
+use FondOfOryx\Zed\JellyfishBuffer\Business\Buffer\JellyfishBufferInterface;
 use FondOfOryx\Zed\JellyfishBuffer\Business\Buffer\JellyfishBufferOrder;
-use FondOfOryx\Zed\JellyfishBuffer\Business\Buffer\JellyfishBufferOrderInterface;
 use Spryker\Zed\Kernel\Business\AbstractBusinessFactory;
 
 /**
@@ -12,9 +12,9 @@ use Spryker\Zed\Kernel\Business\AbstractBusinessFactory;
 class JellyfishBufferBusinessFactory extends AbstractBusinessFactory
 {
     /**
-     * @return \FondOfOryx\Zed\JellyfishBuffer\Business\Buffer\JellyfishBufferOrderInterface
+     * @return \FondOfOryx\Zed\JellyfishBuffer\Business\Buffer\JellyfishBufferInterface
      */
-    public function createJellyfishBufferOrder(): JellyfishBufferOrderInterface
+    public function createJellyfishBufferOrder(): JellyfishBufferInterface
     {
         return new JellyfishBufferOrder(
             $this->getEntityManager()

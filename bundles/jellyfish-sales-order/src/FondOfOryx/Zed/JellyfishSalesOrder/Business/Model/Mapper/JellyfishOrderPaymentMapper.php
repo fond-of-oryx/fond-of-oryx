@@ -14,12 +14,8 @@ class JellyfishOrderPaymentMapper implements JellyfishOrderPaymentMapperInterfac
      */
     public function fromSalesPayment(SpySalesPayment $salesPayment): JellyfishOrderPaymentTransfer
     {
-        $jellyfishOrderPayment = new JellyfishOrderPaymentTransfer();
-
-        $jellyfishOrderPayment->setAmount($salesPayment->getAmount())
+        return (new JellyfishOrderPaymentTransfer())->setAmount($salesPayment->getAmount())
             ->setMethod($salesPayment->getSalesPaymentMethodType()->getPaymentMethod())
             ->setProvider($salesPayment->getSalesPaymentMethodType()->getPaymentProvider());
-
-        return $jellyfishOrderPayment;
     }
 }

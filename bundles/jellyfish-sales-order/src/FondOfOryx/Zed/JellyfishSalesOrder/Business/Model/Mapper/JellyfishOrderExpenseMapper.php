@@ -14,16 +14,12 @@ class JellyfishOrderExpenseMapper implements JellyfishOrderExpenseMapperInterfac
      */
     public function fromSalesExpense(SpySalesExpense $salesExpense): JellyfishOrderExpenseTransfer
     {
-        $jellyfishOrderExpense = new JellyfishOrderExpenseTransfer();
-
-        $jellyfishOrderExpense->setType($salesExpense->getType())
+        return (new JellyfishOrderExpenseTransfer())->setType($salesExpense->getType())
             ->setName($salesExpense->getName())
             ->setTaxRate((float)$salesExpense->getTaxRate())
             ->setUnitPrice($salesExpense->getPrice())
             ->setUnitTaxAmount($salesExpense->getTaxAmount())
             ->setSumTaxAmount($salesExpense->getTaxAmount())
             ->setSumPrice($salesExpense->getPrice());
-
-        return $jellyfishOrderExpense;
     }
 }

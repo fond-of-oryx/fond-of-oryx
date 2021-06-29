@@ -26,12 +26,10 @@ class JellyfishOrderTotalsMapper implements JellyfishOrderTotalsMapperInterface
             return $jellyfishOrderTotals;
         }
 
-        $jellyfishOrderTotals->setExpenseTotal($lastOrderTotals->getOrderExpenseTotal())
+        return $jellyfishOrderTotals->setExpenseTotal($lastOrderTotals->getOrderExpenseTotal())
             ->setDiscountTotal($lastOrderTotals->getDiscountTotal())
             ->setTaxTotal($lastOrderTotals->getTaxTotal())
             ->setSubTotal($lastOrderTotals->getSubtotal())
             ->setGrandTotal($lastOrderTotals->getGrandTotal());
-
-        return $jellyfishOrderTotals;
     }
 }

@@ -3,8 +3,10 @@
 namespace FondOfOryx\Zed\JellyfishBuffer\Business\Buffer;
 
 use Codeception\Test\Unit;
+use Exception;
 use FondOfOryx\Zed\JellyfishBuffer\Persistence\JellyfishBufferEntityManagerInterface;
 use Generated\Shared\Transfer\JellyfishOrderTransfer;
+use Spryker\Shared\Kernel\Transfer\AbstractTransfer;
 
 class JellyfishBufferOrderTest extends Unit
 {
@@ -24,6 +26,11 @@ class JellyfishBufferOrderTest extends Unit
     protected $jellyfishOrderMock;
 
     /**
+     * @var \Spryker\Shared\Kernel\Transfer\AbstractTransfer|\PHPUnit\Framework\MockObject\MockObject
+     */
+    protected $abstractTransferMock;
+
+    /**
      * @var array
      */
     protected $options;
@@ -41,6 +48,10 @@ class JellyfishBufferOrderTest extends Unit
             ->disableOriginalConstructor()
             ->getMock();
 
+        $this->abstractTransferMock = $this->getMockBuilder(AbstractTransfer::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
         $this->options = [];
 
         $this->jellyfishBufferOrder = new JellyfishBufferOrder(
@@ -53,9 +64,31 @@ class JellyfishBufferOrderTest extends Unit
      */
     public function testBufferOrder(): void
     {
-        $this->jellyfishBufferOrder->bufferOrder(
+        $this->jellyfishBufferEntityManagerMock->expects(static::once())->method('createExportedOrder');
+
+        $this->jellyfishBufferOrder->buffer(
             $this->jellyfishOrderMock,
             $this->options
         );
+    }
+
+    /**
+     * @return void
+     */
+    public function testBufferOrderThrowsException(): void
+    {
+        $this->jellyfishBufferEntityManagerMock->expects(static::never())->method('createExportedOrder');
+
+        $catch = null;
+
+        try {
+            $this->jellyfishBufferOrder->buffer(
+                $this->abstractTransferMock,
+                $this->options
+            );
+        } catch (Exception $exception) {
+            $catch = $exception;
+        }
+        static::assertNotNull($catch);
     }
 }

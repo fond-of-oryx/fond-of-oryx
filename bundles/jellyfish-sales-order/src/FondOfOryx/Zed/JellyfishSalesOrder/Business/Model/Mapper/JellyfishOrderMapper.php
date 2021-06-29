@@ -98,9 +98,7 @@ class JellyfishOrderMapper implements JellyfishOrderMapperInterface
             ->setTotals($this->mapSalesOrderToTotals($salesOrder))
             ->setCreatedAt($salesOrder->getCreatedAt()->format('Y-m-d H:i:s'));
 
-        $jellyfishOrderTransfer = $this->expandOrderTransfer($jellyfishOrderTransfer, $salesOrder);
-
-        return $jellyfishOrderTransfer;
+        return $this->expandOrderTransfer($jellyfishOrderTransfer, $salesOrder);
     }
 
     /**

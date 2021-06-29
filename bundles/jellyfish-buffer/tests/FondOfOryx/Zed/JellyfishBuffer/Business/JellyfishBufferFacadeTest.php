@@ -3,7 +3,7 @@
 namespace FondOfOryx\Zed\JellyfishBuffer\Business;
 
 use Codeception\Test\Unit;
-use FondOfOryx\Zed\JellyfishBuffer\Business\Buffer\JellyfishBufferOrderInterface;
+use FondOfOryx\Zed\JellyfishBuffer\Business\Buffer\JellyfishBufferInterface;
 use Generated\Shared\Transfer\JellyfishOrderTransfer;
 
 class JellyfishBufferFacadeTest extends Unit
@@ -29,7 +29,7 @@ class JellyfishBufferFacadeTest extends Unit
     protected $options;
 
     /**
-     * @var \FondOfOryx\Zed\JellyfishBuffer\Business\Buffer\JellyfishBufferOrderInterface|\PHPUnit\Framework\MockObject\MockObject
+     * @var \FondOfOryx\Zed\JellyfishBuffer\Business\Buffer\JellyfishBufferInterface|\PHPUnit\Framework\MockObject\MockObject
      */
     protected $jellyfishBufferOrderMock;
 
@@ -48,7 +48,7 @@ class JellyfishBufferFacadeTest extends Unit
 
         $this->options = [];
 
-        $this->jellyfishBufferOrderMock = $this->getMockBuilder(JellyfishBufferOrderInterface::class)
+        $this->jellyfishBufferOrderMock = $this->getMockBuilder(JellyfishBufferInterface::class)
             ->disableOriginalConstructor()
             ->getMock();
 
@@ -66,7 +66,7 @@ class JellyfishBufferFacadeTest extends Unit
             ->willReturn($this->jellyfishBufferOrderMock);
 
         $this->jellyfishBufferOrderMock->expects($this->atLeastOnce())
-            ->method('bufferOrder')
+            ->method('buffer')
             ->with(
                 $this->jellyfishOrderTransferMock,
                 $this->options

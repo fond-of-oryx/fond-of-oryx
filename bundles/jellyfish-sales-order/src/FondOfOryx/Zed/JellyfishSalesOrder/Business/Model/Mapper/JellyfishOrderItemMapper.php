@@ -47,9 +47,7 @@ class JellyfishOrderItemMapper implements JellyfishOrderItemMapperInterface
             ->setSumDiscountAmountAggregation($salesOrderItem->getDiscountAmountAggregation())
             ->setSumDiscountAmountFullAggregation($salesOrderItem->getDiscountAmountFullAggregation());
 
-        $jellyfishOrderItemTransfer = $this->expandOrderItemTransfer($jellyfishOrderItemTransfer, $salesOrderItem);
-
-        return $jellyfishOrderItemTransfer;
+        return $this->expandOrderItemTransfer($jellyfishOrderItemTransfer, $salesOrderItem);
     }
 
     /**

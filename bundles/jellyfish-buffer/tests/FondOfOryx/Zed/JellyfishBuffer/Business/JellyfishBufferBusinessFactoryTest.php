@@ -3,7 +3,7 @@
 namespace FondOfOryx\Zed\JellyfishBuffer\Business;
 
 use Codeception\Test\Unit;
-use FondOfOryx\Zed\JellyfishBuffer\Business\Buffer\JellyfishBufferOrderInterface;
+use FondOfOryx\Zed\JellyfishBuffer\Business\Buffer\JellyfishBufferInterface;
 use FondOfOryx\Zed\JellyfishBuffer\Persistence\JellyfishBufferEntityManager;
 
 class JellyfishBufferBusinessFactoryTest extends Unit
@@ -37,7 +37,7 @@ class JellyfishBufferBusinessFactoryTest extends Unit
     public function testCreateJellyfishBufferOrder(): void
     {
         $this->assertInstanceOf(
-            JellyfishBufferOrderInterface::class,
+            JellyfishBufferInterface::class,
             $this->jellyfishBufferBusinessFactory
                 ->createJellyfishBufferOrder()
         );
