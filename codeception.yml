@@ -17,7 +17,9 @@ include:
   - bundles/erp-order-permission
   - bundles/feed
   - bundles/jellyfish-availability-alert
+  - bundles/jellyfish-buffer
   - bundles/jellyfish-cross-engage
+  - bundles/jellyfish-sales-order
   - bundles/jellyfish-sales-order-b2c
   - bundles/jellyfish-sales-order-extension
   - bundles/jellyfish-sales-order-payone
