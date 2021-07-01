@@ -3,7 +3,6 @@
 namespace FondOfOryx\Zed\SplittableCheckoutRestApiCompanyUnitAddressConnector\Business\Expander;
 
 use FondOfOryx\Zed\SplittableCheckoutRestApiCompanyUnitAddressConnector\Business\Reader\CompanyUnitAddressReaderInterface;
-use Generated\Shared\Transfer\AddressTransfer;
 use Generated\Shared\Transfer\QuoteTransfer;
 use Generated\Shared\Transfer\RestSplittableCheckoutRequestTransfer;
 use Generated\Shared\Transfer\ShipmentTransfer;
@@ -84,30 +83,8 @@ class QuoteExpander implements QuoteExpanderInterface
         }
 
         $quoteTransfer->getShipment()->setShippingAddress($addressTransfer);
-        $quoteTransfer->setShippingAddress($addressTransfer);
 
-        return $this->expandItemsWithShippingAddress($quoteTransfer, $addressTransfer);
-    }
-
-    /**
-     * @param \Generated\Shared\Transfer\QuoteTransfer $quoteTransfer
-     * @param \Generated\Shared\Transfer\AddressTransfer $shippingAddressTransfer
-     *
-     * @return \Generated\Shared\Transfer\QuoteTransfer
-     */
-    protected function expandItemsWithShippingAddress(
-        QuoteTransfer $quoteTransfer,
-        AddressTransfer $shippingAddressTransfer
-    ): QuoteTransfer {
-        foreach ($quoteTransfer->getItems() as $item) {
-            if ($item->getShipment() === null) {
-                $item->setShipment(new ShipmentTransfer());
-            }
-
-            $item->getShipment()->setShippingAddress($shippingAddressTransfer);
-        }
-
-        return $quoteTransfer;
+        return $quoteTransfer->setShippingAddress($addressTransfer);
     }
 
     /**

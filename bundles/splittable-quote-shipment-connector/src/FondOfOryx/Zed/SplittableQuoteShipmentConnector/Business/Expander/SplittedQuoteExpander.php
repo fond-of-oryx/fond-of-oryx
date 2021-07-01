@@ -53,7 +53,6 @@ class SplittedQuoteExpander implements SplittedQuoteExpanderInterface
         }
 
         $splittedQuoteTransfer = $this->expandWithShipmentMethod($splittedQuoteTransfer, $shipmentMethodTransfer);
-        $splittedQuoteTransfer = $this->expandItemsWithShipmentMethod($splittedQuoteTransfer, $shipmentMethodTransfer);
 
         return $this->expandWithExpense($splittedQuoteTransfer, $shipmentMethodTransfer);
     }
@@ -117,27 +116,6 @@ class SplittedQuoteExpander implements SplittedQuoteExpanderInterface
         }
 
         $shipmentTransfer->setMethod($shipmentMethodTransfer);
-
-        return $quoteTransfer;
-    }
-
-    /**
-     * @param \Generated\Shared\Transfer\QuoteTransfer $quoteTransfer
-     * @param \Generated\Shared\Transfer\ShipmentMethodTransfer $shipmentMethodTransfer
-     *
-     * @return \Generated\Shared\Transfer\QuoteTransfer
-     */
-    protected function expandItemsWithShipmentMethod(
-        QuoteTransfer $quoteTransfer,
-        ShipmentMethodTransfer $shipmentMethodTransfer
-    ): QuoteTransfer {
-        foreach ($quoteTransfer->getItems() as $item) {
-            if ($item->getShipment() === null) {
-                continue;
-            }
-
-            $item->getShipment()->setMethod($shipmentMethodTransfer);
-        }
 
         return $quoteTransfer;
     }

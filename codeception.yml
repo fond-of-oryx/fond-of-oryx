@@ -5,6 +5,7 @@ include:
   - bundles/availability-alert-cross-engage
   - bundles/availability-alert-migrator
   - bundles/catalog-sku-filter
+  - bundles/credit-memo
   - bundles/cross-engage
   - bundles/customer-statistic
   - bundles/customer-statistics-rest-api
@@ -16,9 +17,13 @@ include:
   - bundles/erp-order-permission
   - bundles/feed
   - bundles/jellyfish-availability-alert
+  - bundles/jellyfish-buffer
   - bundles/jellyfish-cross-engage
+  - bundles/jellyfish-sales-order
   - bundles/jellyfish-sales-order-b2c
   - bundles/jellyfish-sales-order-extension
+  - bundles/jellyfish-sales-order-payone
+  - bundles/jellyfish-thirty-five-up
   - bundles/mail-bcc
   - bundles/one-time-password
   - bundles/one-time-password-email-connector
@@ -38,6 +43,7 @@ include:
   - bundles/sales-locale-connector
   - bundles/shipment-table-rate
   - bundles/shipment-table-rate-data-import
+  - bundles/shipment-table-rate-extension
   - bundles/splittable-checkout
   - bundles/splittable-checkout-rest-api
   - bundles/splittable-checkout-rest-api-cart-note-connector
@@ -52,7 +58,10 @@ include:
   - bundles/splittable-quote-shipment-connector
   - bundles/splittable-totals
   - bundles/tax-calculation-connector
+  - bundles/thirty-five-up
   - bundles/util-math-formula
+  - bundles/qr-code-generator
+  - bundles/payment-epc-qr-code
 
 suites:
   unit:

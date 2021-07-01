@@ -2,11 +2,9 @@
 
 namespace FondOfOryx\Zed\SplittableCheckoutRestApiCompanyUnitAddressConnector\Business\Expander;
 
-use ArrayObject;
 use Codeception\Test\Unit;
 use FondOfOryx\Zed\SplittableCheckoutRestApiCompanyUnitAddressConnector\Business\Reader\CompanyUnitAddressReaderInterface;
 use Generated\Shared\Transfer\AddressTransfer;
-use Generated\Shared\Transfer\ItemTransfer;
 use Generated\Shared\Transfer\QuoteTransfer;
 use Generated\Shared\Transfer\RestSplittableCheckoutRequestTransfer;
 use Generated\Shared\Transfer\ShipmentTransfer;
@@ -27,11 +25,6 @@ class QuoteExpanderTest extends Unit
      * @var \Generated\Shared\Transfer\QuoteTransfer|\PHPUnit\Framework\MockObject\MockObject
      */
     protected $quoteTransferMock;
-
-    /**
-     * @var \Generated\Shared\Transfer\ItemTransfer[]|\PHPUnit\Framework\MockObject\MockObject[]
-     */
-    protected $itemTransferMocks;
 
     /**
      * @var \Generated\Shared\Transfer\ShipmentTransfer|\PHPUnit\Framework\MockObject\MockObject
@@ -66,10 +59,6 @@ class QuoteExpanderTest extends Unit
         $this->quoteTransferMock = $this->getMockBuilder(QuoteTransfer::class)
             ->disableOriginalConstructor()
             ->getMock();
-
-        $this->itemTransferMocks = [$this->getMockBuilder(ItemTransfer::class)
-            ->disableOriginalConstructor()
-            ->getMock()];
 
         $this->shipmentTransferMock = $this->getMockBuilder(ShipmentTransfer::class)
             ->disableOriginalConstructor()
@@ -115,14 +104,6 @@ class QuoteExpanderTest extends Unit
             ->method('setShippingAddress')
             ->with($this->addressTransferMock)
             ->willReturn($this->quoteTransferMock);
-
-        $this->quoteTransferMock->expects(static::atLeastOnce())
-            ->method('getItems')
-            ->willReturn(new ArrayObject($this->itemTransferMocks));
-
-        $this->itemTransferMocks[0]->expects(static::atLeastOnce())
-            ->method('getShipment')
-            ->willReturn($this->shipmentTransferMock);
 
         $this->quoteTransferMock->expects(static::atLeastOnce())
             ->method('getBillingAddress')
@@ -171,12 +152,6 @@ class QuoteExpanderTest extends Unit
         $this->quoteTransferMock->expects(static::never())
             ->method('setShippingAddress');
 
-        $this->quoteTransferMock->expects(static::never())
-            ->method('getItems');
-
-        $this->itemTransferMocks[0]->expects(static::never())
-            ->method('getShipment');
-
         $this->quoteTransferMock->expects(static::atLeastOnce())
             ->method('getBillingAddress')
             ->willReturn(null);
@@ -188,75 +163,6 @@ class QuoteExpanderTest extends Unit
         $this->quoteTransferMock->expects(static::atLeastOnce())
             ->method('setBillingSameAsShipping')
             ->with(false)
-            ->willReturn($this->quoteTransferMock);
-
-        static::assertEquals(
-            $this->quoteTransferMock,
-            $this->quoteExpander->expand($this->restSplittableCheckoutRequestTransferMock, $this->quoteTransferMock)
-        );
-    }
-
-    /**
-     * @return void
-     */
-    public function testExpandWithoutItemShipment(): void
-    {
-        $this->companyUnitAddressReaderMock->expects(static::atLeastOnce())
-            ->method('getBillingAddressByRestSplittableCheckoutRequestTransfer')
-            ->with($this->restSplittableCheckoutRequestTransferMock)
-            ->willReturn($this->addressTransferMock);
-
-        $this->quoteTransferMock->expects(static::atLeastOnce())
-            ->method('setBillingAddress')
-            ->with($this->addressTransferMock)
-            ->willReturn($this->quoteTransferMock);
-
-        $this->companyUnitAddressReaderMock->expects(static::atLeastOnce())
-            ->method('getShippingAddressByRestSplittableCheckoutRequestTransfer')
-            ->with($this->restSplittableCheckoutRequestTransferMock)
-            ->willReturn($this->addressTransferMock);
-
-        $this->quoteTransferMock->expects(static::atLeastOnce())
-            ->method('getShipment')
-            ->willReturnOnConsecutiveCalls(null, $this->shipmentTransferMock);
-
-        $this->quoteTransferMock->expects(static::atLeastOnce())
-            ->method('setShipment')
-            ->willReturn($this->quoteTransferMock);
-
-        $this->shipmentTransferMock->expects(static::atLeastOnce())
-            ->method('setShippingAddress')
-            ->with($this->addressTransferMock)
-            ->willReturn($this->shipmentTransferMock);
-
-        $this->quoteTransferMock->expects(static::atLeastOnce())
-            ->method('setShippingAddress')
-            ->with($this->addressTransferMock)
-            ->willReturn($this->quoteTransferMock);
-
-        $this->quoteTransferMock->expects(static::atLeastOnce())
-            ->method('getItems')
-            ->willReturn(new ArrayObject($this->itemTransferMocks));
-
-        $this->itemTransferMocks[0]->expects(static::atLeastOnce())
-            ->method('getShipment')
-            ->willReturn($this->shipmentTransferMock);
-
-        $this->quoteTransferMock->expects(static::atLeastOnce())
-            ->method('getBillingAddress')
-            ->willReturn($this->addressTransferMock);
-
-        $this->quoteTransferMock->expects(static::atLeastOnce())
-            ->method('getShippingAddress')
-            ->willReturn($this->addressTransferMock);
-
-        $this->addressTransferMock->expects(static::atLeastOnce())
-            ->method('toArray')
-            ->willReturn([]);
-
-        $this->quoteTransferMock->expects(static::atLeastOnce())
-            ->method('setBillingSameAsShipping')
-            ->with(true)
             ->willReturn($this->quoteTransferMock);
 
         static::assertEquals(

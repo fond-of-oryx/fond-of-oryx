@@ -1,0 +1,34 @@
+{
+  "name": "fond-of-oryx/jellyfish-thirty-five-up",
+  "description": "Jellyfish Thirty Five Up Module Extension",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Julian Zimmermann",
+      "email": "info@julianzimmermann.dev"
+    }
+  ],
+  "require": {
+    "php": ">=7.3",
+    "fond-of-oryx/jellyfish-sales-order-extension": "^1.0.0",
+    "fond-of-oryx/thirty-five-up": "^1.0.0"
+  },
+  "require-dev": {
+    "fond-of-codeception/spryker": "^1.0",
+    "spryker/code-sniffer": "*",
+    "spryker-sdk/phpstan-spryker": "*"
+  },
+  "minimum-stability": "dev",
+  "prefer-stable": true,
+  "autoload": {
+    "psr-4": {
+      "FondOfOryx\\": "src/FondOfOryx/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "FondOfOryx\\": "tests/FondOfOryx/",
+      "Generated\\": "src/Generated/"
+    }
+  }
+}
