@@ -8,7 +8,6 @@ use Generated\Shared\Transfer\SpyGiftCardProductAbstractConfigurationEntityTrans
 use Generated\Shared\Transfer\SpyGiftCardProductAbstractConfigurationLinkEntityTransfer;
 use Generated\Shared\Transfer\SpyGiftCardProductConfigurationEntityTransfer;
 use Generated\Shared\Transfer\SpyGiftCardProductConfigurationLinkEntityTransfer;
-use Orm\Zed\GiftCard\Persistence\SpyGiftCardProductAbstractConfigurationLink;
 use Spryker\Zed\Kernel\Persistence\AbstractEntityManager;
 
 /**
@@ -48,9 +47,6 @@ class GiftCardProductConnectorEntityManager extends AbstractEntityManager implem
      * @param \Generated\Shared\Transfer\SpyGiftCardProductAbstractConfigurationEntityTransfer $entityTransfer
      *
      * @return \Generated\Shared\Transfer\SpyGiftCardProductAbstractConfigurationLinkEntityTransfer
-     *
-     * @throws \Propel\Runtime\Exception\PropelException
-     * @throws \Spryker\Zed\Propel\Business\Exception\AmbiguousComparisonException
      */
     protected function createGiftCardProductAbstractConfigurationLink(
         ProductAbstractTransfer $productAbstractTransfer,
@@ -106,9 +102,6 @@ class GiftCardProductConnectorEntityManager extends AbstractEntityManager implem
      * @param \Generated\Shared\Transfer\SpyGiftCardProductConfigurationEntityTransfer $entityTransfer
      *
      * @return \Generated\Shared\Transfer\SpyGiftCardProductConfigurationLinkEntityTransfer
-     *
-     * @throws \Propel\Runtime\Exception\PropelException
-     * @throws \Spryker\Zed\Propel\Business\Exception\AmbiguousComparisonException
      */
     protected function createGiftCardProductConfigurationLink(
         ProductConcreteTransfer $productConcreteTransfer,
