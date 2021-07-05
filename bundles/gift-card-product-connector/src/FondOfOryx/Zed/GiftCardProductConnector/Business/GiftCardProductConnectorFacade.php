@@ -4,8 +4,6 @@ namespace FondOfOryx\Zed\GiftCardProductConnector\Business;
 
 use Generated\Shared\Transfer\ProductAbstractTransfer;
 use Generated\Shared\Transfer\ProductConcreteTransfer;
-use Generated\Shared\Transfer\SpyGiftCardProductAbstractConfigurationEntityTransfer;
-use Generated\Shared\Transfer\SpyGiftCardProductConfigurationEntityTransfer;
 use Spryker\Zed\Kernel\Business\AbstractFacade;
 
 /**
@@ -20,12 +18,12 @@ class GiftCardProductConnectorFacade extends AbstractFacade implements GiftCardP
      *
      * @param \Generated\Shared\Transfer\ProductAbstractTransfer $productAbstractTransfer
      *
-     * @return \Generated\Shared\Transfer\SpyGiftCardProductAbstractConfigurationEntityTransfer|null
+     * @return \Generated\Shared\Transfer\ProductAbstractTransfer
      */
     public function saveGiftCardProductAbstractConfiguration(
         ProductAbstractTransfer $productAbstractTransfer
-    ): ?SpyGiftCardProductAbstractConfigurationEntityTransfer {
-        $this->getFactory()
+    ): ProductAbstractTransfer {
+        return $this->getFactory()
             ->createGiftCardProductAbstractConfigurationWriter()
             ->saveGiftCardProductAbstractConfiguration($productAbstractTransfer);
     }
@@ -37,12 +35,12 @@ class GiftCardProductConnectorFacade extends AbstractFacade implements GiftCardP
      *
      * @param \Generated\Shared\Transfer\ProductConcreteTransfer $productConcreteTransfer
      *
-     * @return \Generated\Shared\Transfer\SpyGiftCardProductConfigurationEntityTransfer|null
+     * @return \Generated\Shared\Transfer\ProductConcreteTransfer
      */
     public function saveGiftCardProductConfiguration(
         ProductConcreteTransfer $productConcreteTransfer
-    ): ?SpyGiftCardProductConfigurationEntityTransfer {
-        $this->getFactory()
+    ): ProductConcreteTransfer {
+        return $this->getFactory()
             ->createGiftCardProductConfigurationWriter()
             ->saveGiftCardProductConfiguration($productConcreteTransfer);
     }

@@ -51,34 +51,37 @@ class GiftCardProductConfigurationWriter implements GiftCardProductConfiguration
     /**
      * @param \Generated\Shared\Transfer\ProductConcreteTransfer $productConcreteTransfer
      *
-     * @return \Generated\Shared\Transfer\SpyGiftCardProductConfigurationEntityTransfer|null
+     * @return \Generated\Shared\Transfer\ProductConcreteTransfer
      */
     public function saveGiftCardProductConfiguration(
         ProductConcreteTransfer $productConcreteTransfer
-    ): ?SpyGiftCardProductConfigurationEntityTransfer {
-        return $this->getTransactionHandler()->handleTransaction(function () use ($productConcreteTransfer): int {
-            return $this->executeSaveGiftCardProductConfigurationTransaction($productConcreteTransfer);
+    ): ProductConcreteTransfer {
+        return $productConcreteTransfer = $this->getTransactionHandler()->handleTransaction(function ()
+            use ($productConcreteTransfer): ProductConcreteTransfer {
+                return $this->executeSaveGiftCardProductConfigurationTransaction($productConcreteTransfer);
         });
     }
 
     /**
-     * @param \Generated\Shared\Transfer\ProductAbstractTransfer $productAbstractTransfer
+     * @param \Generated\Shared\Transfer\ProductConcreteTransfer $productConcreteTransfer
      *
-     * @return \Generated\Shared\Transfer\SpyGiftCardProductAbstractConfigurationEntityTransfer|null
+     * @return \Generated\Shared\Transfer\ProductConcreteTransfer
      */
     protected function executeSaveGiftCardProductConfigurationTransaction(
         ProductConcreteTransfer $productConcreteTransfer
-    ): ?SpyGiftCardProductConfigurationEntityTransfer {
+    ): ProductConcreteTransfer {
 
         if (!$this->isGiftCardProduct($productConcreteTransfer)) {
-            return null;
+            return $productConcreteTransfer;
         }
 
-        return $this->entityManager
+        $this->entityManager
             ->createGiftCardProductConfiguration(
                 $productConcreteTransfer,
                 $this->getValue($productConcreteTransfer)
             );
+
+        return $productConcreteTransfer;
     }
 
     /**

@@ -17,11 +17,11 @@ interface GiftCardProductConnectorFacadeInterface
      *
      * @param \Generated\Shared\Transfer\ProductAbstractTransfer $productAbstractTransfer
      *
-     * @return \Generated\Shared\Transfer\SpyGiftCardProductAbstractConfigurationEntityTransfer|null
+     * @return \Generated\Shared\Transfer\ProductAbstractTransfer
      */
     public function saveGiftCardProductAbstractConfiguration(
         ProductAbstractTransfer $productAbstractTransfer
-    ): ?SpyGiftCardProductAbstractConfigurationEntityTransfer;
+    ): ProductAbstractTransfer;
 
     /**
      * Specifications:
@@ -31,9 +31,9 @@ interface GiftCardProductConnectorFacadeInterface
      *
      * @param \Generated\Shared\Transfer\ProductConcreteTransfer $productConcreteTransfer
      *
-     * @return \Generated\Shared\Transfer\SpyGiftCardProductConfigurationEntityTransfer|null
+     * @return \Generated\Shared\Transfer\ProductConcreteTransfer
      */
     public function saveGiftCardProductConfiguration(
         ProductConcreteTransfer $productConcreteTransfer
-    ): ?SpyGiftCardProductConfigurationEntityTransfer;
+    ): ProductConcreteTransfer;
 }

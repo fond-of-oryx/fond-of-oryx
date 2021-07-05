@@ -7,11 +7,16 @@ use FondOfOryx\Zed\GiftCardProductConnector\Persistence\Propel\Mapper\GiftCardPr
 use FondOfOryx\Zed\GiftCardProductConnector\Persistence\Propel\Mapper\GiftCardProductAbstractConfigurationLinkMapperInterface;
 use FondOfOryx\Zed\GiftCardProductConnector\Persistence\Propel\Mapper\GiftCardProductAbstractConfigurationMapper;
 use FondOfOryx\Zed\GiftCardProductConnector\Persistence\Propel\Mapper\GiftCardProductAbstractConfigurationMapperInterface;
+use FondOfOryx\Zed\GiftCardProductConnector\Persistence\Propel\Mapper\GiftCardProductConfigurationLinkMapper;
+use FondOfOryx\Zed\GiftCardProductConnector\Persistence\Propel\Mapper\GiftCardProductConfigurationLinkMapperInterface;
+use FondOfOryx\Zed\GiftCardProductConnector\Persistence\Propel\Mapper\GiftCardProductConfigurationMapper;
+use FondOfOryx\Zed\GiftCardProductConnector\Persistence\Propel\Mapper\GiftCardProductConfigurationMapperInterface;
 use Orm\Zed\GiftCard\Persistence\SpyGiftCardProductAbstractConfigurationLinkQuery;
 use Orm\Zed\GiftCard\Persistence\SpyGiftCardProductAbstractConfigurationQuery;
 use Orm\Zed\GiftCard\Persistence\SpyGiftCardProductConfigurationLinkQuery;
 use Orm\Zed\GiftCard\Persistence\SpyGiftCardProductConfigurationQuery;
 use Orm\Zed\Product\Persistence\SpyProductAbstractQuery;
+use Orm\Zed\Product\Persistence\SpyProductQuery;
 use Spryker\Zed\Kernel\Persistence\AbstractPersistenceFactory;
 
 /**
@@ -76,6 +81,22 @@ class GiftCardProductConnectorPersistenceFactory extends AbstractPersistenceFact
     }
 
     /**
+     * @return \FondOfOryx\Zed\GiftCardProductConnector\Persistence\Propel\Mapper\GiftCardProductConfigurationMapperInterface
+     */
+    public function createGiftCardProductConfigurationMapper(): GiftCardProductConfigurationMapperInterface
+    {
+        return new GiftCardProductConfigurationMapper();
+    }
+
+    /**
+     * @return \FondOfOryx\Zed\GiftCardProductConnector\Persistence\Propel\Mapper\GiftCardProductConfigurationLinkMapperInterface
+     */
+    public function createGiftCardProductConfigurationLinkMapper(): GiftCardProductConfigurationLinkMapperInterface
+    {
+        return new GiftCardProductConfigurationLinkMapper();
+    }
+
+    /**
      * @return \Orm\Zed\Product\Persistence\SpyProductAbstractQuery
      *
      * @throws \Spryker\Zed\Kernel\Exception\Container\ContainerKeyNotFoundException
@@ -84,6 +105,18 @@ class GiftCardProductConnectorPersistenceFactory extends AbstractPersistenceFact
     {
         return $this->getProvidedDependency(
             GiftCardProductConnectorDependencyProvider::PROPEL_QUERY_PRODUCT_ABSTRACT
+        );
+    }
+
+    /**
+     * @return \Orm\Zed\Product\Persistence\SpyProductQuery
+     *
+     * @throws \Spryker\Zed\Kernel\Exception\Container\ContainerKeyNotFoundException
+     */
+    public function createProductQuery(): SpyProductQuery
+    {
+        return $this->getProvidedDependency(
+            GiftCardProductConnectorDependencyProvider::PROPEL_QUERY_PRODUCT
         );
     }
 }

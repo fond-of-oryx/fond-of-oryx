@@ -7,7 +7,9 @@ use Orm\Zed\CompanyUnitAddress\Persistence\SpyCompanyUnitAddressQuery;
 use Orm\Zed\GiftCard\Persistence\SpyGiftCardProductAbstractConfigurationLinkQuery;
 use Orm\Zed\GiftCard\Persistence\SpyGiftCardProductAbstractConfigurationQuery;
 use Orm\Zed\GiftCard\Persistence\SpyGiftCardProductConfigurationLinkQuery;
+use Orm\Zed\GiftCard\Persistence\SpyGiftCardProductConfigurationQuery;
 use Orm\Zed\Product\Persistence\SpyProductAbstractQuery;
+use Orm\Zed\Product\Persistence\SpyProductQuery;
 use Spryker\Zed\Kernel\AbstractBundleDependencyProvider;
 use Spryker\Zed\Kernel\Container;
 
@@ -20,6 +22,7 @@ class GiftCardProductConnectorDependencyProvider extends AbstractBundleDependenc
     public const PROPEL_QUERY_GIFT_CARD_PRODUCT_ABSTRACT_CONFIGURATION_LINK = 'PROPEL_QUERY_GIFT_CARD_PRODUCT_ABSTRACT_CONFIGURATION_LINK';
     public const PROPEL_QUERY_GIFT_CARD_PRODUCT_CONFIGURATION_LINK = 'PROPEL_QUERY_GIFT_CARD_PRODUCT_CONFIGURATION_LINK';
     public const PROPEL_QUERY_PRODUCT_ABSTRACT = 'PROPEL_QUERY_PRODUCT_ABSTRACT';
+    public const PROPEL_QUERY_PRODUCT = 'PROPEL_QUERY_PRODUCT';
 
 
     /**
@@ -64,6 +67,7 @@ class GiftCardProductConnectorDependencyProvider extends AbstractBundleDependenc
         $container = $this->addGiftCardProductAbstractConfigurationLinkPropelQuery($container);
         $container = $this->addGiftCardProductConfigurationLinkPropelQuery($container);
         $container = $this->addProductAbstractPropelQuery($container);
+        $container = $this->addProductPropelQuery($container);
 
         return $container;
     }
@@ -90,7 +94,7 @@ class GiftCardProductConnectorDependencyProvider extends AbstractBundleDependenc
     protected function addGiftCardProductConfigurationPropelQuery(Container $container): Container
     {
         $container[static::PROPEL_QUERY_GIFT_CARD_PRODUCT_CONFIGURATION] = static function () {
-            return SpyGiftCardProductConfigurationLinkQuery::create();
+            return SpyGiftCardProductConfigurationQuery::create();
         };
 
         return $container;
@@ -133,6 +137,20 @@ class GiftCardProductConnectorDependencyProvider extends AbstractBundleDependenc
     {
         $container[static::PROPEL_QUERY_PRODUCT_ABSTRACT] = static function () {
             return SpyProductAbstractQuery::create();
+        };
+
+        return $container;
+    }
+
+    /**
+     * @param \Spryker\Zed\Kernel\Container $container
+     *
+     * @return \Spryker\Zed\Kernel\Container
+     */
+    protected function addProductPropelQuery(Container $container): Container
+    {
+        $container[static::PROPEL_QUERY_PRODUCT] = static function () {
+            return SpyProductQuery::create();
         };
 
         return $container;

@@ -40,34 +40,37 @@ class GiftCardProductAbstractConfigurationWriter implements GiftCardProductAbstr
     /**
      * @param \Generated\Shared\Transfer\ProductAbstractTransfer $productAbstractTransfer
      *
-     * @return \Generated\Shared\Transfer\SpyGiftCardProductAbstractConfigurationEntityTransfer|null
+     * @return \Generated\Shared\Transfer\ProductAbstractTransfer
      */
     public function saveGiftCardProductAbstractConfiguration(
         ProductAbstractTransfer $productAbstractTransfer
-    ): ?SpyGiftCardProductAbstractConfigurationEntityTransfer {
-        return $this->getTransactionHandler()->handleTransaction(function () use ($productAbstractTransfer): int {
-            return $this->executeSaveGiftCardProductAbstractConfigurationTransaction($productAbstractTransfer);
+    ): ProductAbstractTransfer {
+        return $this->getTransactionHandler()->handleTransaction(function ()
+            use ($productAbstractTransfer): ProductAbstractTransfer {
+                return $this->executeSaveGiftCardProductAbstractConfigurationTransaction($productAbstractTransfer);
         });
     }
 
     /**
      * @param \Generated\Shared\Transfer\ProductAbstractTransfer $productAbstractTransfer
      *
-     * @return \Generated\Shared\Transfer\SpyGiftCardProductAbstractConfigurationEntityTransfer|null
+     * @return \Generated\Shared\Transfer\ProductAbstractTransfer
      */
     protected function executeSaveGiftCardProductAbstractConfigurationTransaction(
         ProductAbstractTransfer $productAbstractTransfer
-    ): ?SpyGiftCardProductAbstractConfigurationEntityTransfer {
+    ): ProductAbstractTransfer {
 
         if (!$this->isGiftCardProduct($productAbstractTransfer)) {
-            return null;
+            return $productAbstractTransfer;
         }
 
-        return $this->entityManager
+        $this->entityManager
             ->createGiftCardProductAbstractConfiguration(
                 $productAbstractTransfer,
                 $this->getPattern($productAbstractTransfer)
             );
+
+        return $productAbstractTransfer;
     }
 
     /**
@@ -108,7 +111,7 @@ class GiftCardProductAbstractConfigurationWriter implements GiftCardProductAbstr
     protected function getGiftCardProductSkuPrefix(ProductAbstractTransfer $productAbstractTransfer): string
     {
         foreach ($this->config->getGiftCardProductSkuPrefixes() as $prefix) {
-            if (strpos('Abstract-' . $productAbstractTransfer->getSku(), $prefix) === 0 ) {
+            if (strpos($productAbstractTransfer->getSku(), 'Abstract-' . $prefix) === 0 ) {
                 return $prefix;
             }
         }

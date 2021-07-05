@@ -2,9 +2,7 @@
 
 namespace FondOfOryx\Zed\GiftCardProductConnector\Persistence\Propel\Mapper;
 
-use Generated\Shared\Transfer\SpyGiftCardProductAbstractConfigurationEntityTransfer;
 use Generated\Shared\Transfer\SpyGiftCardProductAbstractConfigurationLinkEntityTransfer;
-use Orm\Zed\GiftCard\Persistence\SpyGiftCardProductAbstractConfiguration;
 use Orm\Zed\GiftCard\Persistence\SpyGiftCardProductAbstractConfigurationLink;
 
 class GiftCardProductAbstractConfigurationLinkMapper implements GiftCardProductAbstractConfigurationLinkMapperInterface
