@@ -8,10 +8,10 @@ use Orm\Zed\GiftCard\Persistence\SpyGiftCardProductConfiguration;
 class GiftCardProductConfigurationMapper implements GiftCardProductConfigurationMapperInterface
 {
     /**
-     * @param \Orm\Zed\GiftCard\Persistence\SpyGiftCardProductAbstractConfiguration $entity
-     * @param \Generated\Shared\Transfer\SpyGiftCardProductAbstractConfigurationEntityTransfer $transfer
+     * @param \Orm\Zed\GiftCard\Persistence\SpyGiftCardProductConfiguration $entity
+     * @param \Generated\Shared\Transfer\SpyGiftCardProductConfigurationEntityTransfer $transfer
      *
-     * @return \Generated\Shared\Transfer\SpyGiftCardProductAbstractConfigurationEntityTransfer
+     * @return \Generated\Shared\Transfer\SpyGiftCardProductConfigurationEntityTransfer
      */
     public function mapEntityToTransfer(
         SpyGiftCardProductConfiguration $entity,

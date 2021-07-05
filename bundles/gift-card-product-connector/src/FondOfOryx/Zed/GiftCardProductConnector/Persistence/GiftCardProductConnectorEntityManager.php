@@ -34,28 +34,33 @@ class GiftCardProductConnectorEntityManager extends AbstractEntityManager implem
         $entity->save();
 
         $entityTransfer = $this->getFactory()
-            ->createGiftCardProductConfigurationMapper()
+            ->createGiftCardProductAbstractConfigurationMapper()
             ->mapEntityToTransfer($entity, new SpyGiftCardProductAbstractConfigurationEntityTransfer());
 
         return $entityTransfer
             ->addSpyGiftCardProductAbstractConfigurationLinks(
-                $this->createGiftCardProductAbstractConfiguration($productAbstractTransfer)
+                $this->createGiftCardProductAbstractConfigurationLink($productAbstractTransfer, $entityTransfer)
             );
     }
 
     /**
      * @param \Generated\Shared\Transfer\ProductAbstractTransfer $productAbstractTransfer
+     * @param \Generated\Shared\Transfer\SpyGiftCardProductAbstractConfigurationEntityTransfer $entityTransfer
      *
-     * @return \Orm\Zed\GiftCard\Persistence\SpyGiftCardProductAbstractConfigurationLink
+     * @return \Generated\Shared\Transfer\SpyGiftCardProductAbstractConfigurationLinkEntityTransfer
+     *
+     * @throws \Propel\Runtime\Exception\PropelException
+     * @throws \Spryker\Zed\Propel\Business\Exception\AmbiguousComparisonException
      */
     protected function createGiftCardProductAbstractConfigurationLink(
-        ProductAbstractTransfer $productAbstractTransfer
-    ): SpyGiftCardProductAbstractConfigurationLink {
+        ProductAbstractTransfer $productAbstractTransfer,
+        SpyGiftCardProductAbstractConfigurationEntityTransfer $entityTransfer
+    ): SpyGiftCardProductAbstractConfigurationLinkEntityTransfer {
         $productAbstractEntity = $this->getFactory()->createProductAbstractQuery()
             ->findOneBySku($productAbstractTransfer->getSku());
 
         $entity = $this->getFactory()->createSpyGiftCardProductAbstractConfigurationLinkQuery()
-            ->filterByFkGiftCardProductAbstractConfiguration($entity->getIdGiftCardProductAbstractConfiguration())
+            ->filterByFkGiftCardProductAbstractConfiguration($entityTransfer->getIdGiftCardProductAbstractConfiguration())
             ->filterByFkProductAbstract($productAbstractEntity->getIdProductAbstract())
             ->findOneOrCreate();
 
@@ -92,23 +97,28 @@ class GiftCardProductConnectorEntityManager extends AbstractEntityManager implem
 
         return $entityTransfer
             ->addSpyGiftCardProductConfigurationLinks(
-                $this->createGiftCardProductConfigurationLink($productConcreteTransfer)
+                $this->createGiftCardProductConfigurationLink($productConcreteTransfer, $entityTransfer)
             );
     }
 
     /**
      * @param \Generated\Shared\Transfer\ProductConcreteTransfer $productConcreteTransfer
+     * @param \Generated\Shared\Transfer\SpyGiftCardProductConfigurationEntityTransfer $entityTransfer
      *
-     * @return \Generated\Shared\Transfer\SpyGiftCardProductAbstractConfigurationLinkEntityTransfer
+     * @return \Generated\Shared\Transfer\SpyGiftCardProductConfigurationLinkEntityTransfer
+     *
+     * @throws \Propel\Runtime\Exception\PropelException
+     * @throws \Spryker\Zed\Propel\Business\Exception\AmbiguousComparisonException
      */
     protected function createGiftCardProductConfigurationLink(
-        ProductConcreteTransfer $productConcreteTransfer
-    ): SpyGiftCardProductAbstractConfigurationLinkEntityTransfer {
+        ProductConcreteTransfer $productConcreteTransfer,
+        SpyGiftCardProductConfigurationEntityTransfer $entityTransfer
+    ): SpyGiftCardProductConfigurationLinkEntityTransfer {
         $productEntity = $this->getFactory()->createProductQuery()
             ->findOneBySku($productConcreteTransfer->getSku());
 
         $entity = $this->getFactory()->createSpyGiftCardProductConfigurationLinkQuery()
-            ->filterByFkGiftCardProductConfiguration($entity->getIdGiftCardProductConfiguration())
+            ->filterByFkGiftCardProductConfiguration($entityTransfer->getIdGiftCardProductConfiguration())
             ->filterByFkProduct($productEntity->getIdProduct())
             ->findOneOrCreate();
 
