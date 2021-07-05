@@ -9,7 +9,7 @@ interface GiftCardProductConnectorToProductFacadeInterface
     /**
      * @param int $idProductAbstract
      *
-     * @return \FondOfOryx\Zed\GiftCardProductConnector\Dependency\Facade\ProductAbstractTransfer|null
+     * @return \Generated\Shared\Transfer\ProductAbstractTransfer|null
      */
     public function findProductAbstractById(int $idProductAbstract): ?ProductAbstractTransfer;
 }

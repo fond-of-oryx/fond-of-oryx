@@ -11,13 +11,13 @@ use FondOfOryx\Zed\GiftCardProductConnector\GiftCardProductConnectorDependencyPr
 use Spryker\Zed\Kernel\Business\AbstractBusinessFactory;
 
 /**
- * @method \FondOfOryx\Zed\Persistence\GiftCardProductConnectorEntityManagerInterface getEntityManager()
+ * @method \FondOfOryx\Zed\GiftCardProductConnector\Persistence\GiftCardProductConnectorEntityManagerInterface getEntityManager()
  * @method \FondOfOryx\Zed\GiftCardProductConnector\GiftCardProductConnectorConfig getConfig()
  */
 class GiftCardProductConnectorBusinessFactory extends AbstractBusinessFactory
 {
     /**
-     * @return \FondOfOryx\Zed\GiftCardProductConnector\Business\GiftCard\GiftCardProductConfigurationWriterInterface
+     * @return \FondOfOryx\Zed\GiftCardProductConnector\Business\GiftCard\GiftCardProductAbstractConfigurationWriterInterface
      */
     public function createGiftCardProductAbstractConfigurationWriter(): GiftCardProductAbstractConfigurationWriterInterface
     {

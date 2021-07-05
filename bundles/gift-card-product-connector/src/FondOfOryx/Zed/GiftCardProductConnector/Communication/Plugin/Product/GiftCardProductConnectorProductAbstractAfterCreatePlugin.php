@@ -15,7 +15,7 @@ class GiftCardProductConnectorProductAbstractAfterCreatePlugin extends AbstractP
     /**
      * @param \Generated\Shared\Transfer\ProductAbstractTransfer $productAbstractTransfer
      *
-     * @return \Generated\Shared\Transfer\SpyGiftCardProductAbstractConfigurationEntityTransfer
+     * @return \Generated\Shared\Transfer\ProductAbstractTransfer
      */
     public function create(ProductAbstractTransfer $productAbstractTransfer): ProductAbstractTransfer
     {

@@ -122,9 +122,9 @@ class GiftCardProductAbstractConfigurationWriter implements GiftCardProductAbstr
      *
      * @param \Generated\Shared\Transfer\ProductAbstractTransfer $productAbstractTransfer
      *
-     * @return string
+     * @return int
      */
-    protected function getGiftCardPatternSuffix(ProductAbstractTransfer $productAbstractTransfer): string
+    protected function getGiftCardPatternSuffix(ProductAbstractTransfer $productAbstractTransfer): int
     {
         /** @var \Generated\Shared\Transfer\PriceProductTransfer $productAbstractPrice */
         $productAbstractPrice = $productAbstractTransfer->getPrices()->offsetGet(0);
