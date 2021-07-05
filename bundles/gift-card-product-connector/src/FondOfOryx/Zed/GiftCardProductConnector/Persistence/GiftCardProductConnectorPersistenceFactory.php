@@ -21,6 +21,8 @@ use Spryker\Zed\Kernel\Persistence\AbstractPersistenceFactory;
 
 /**
  * @method \FondOfOryx\Zed\GiftCardProductConnector\Persistence\GiftCardProductConnectorRepositoryInterface getRepository()
+ * @method \FondOfOryx\Zed\GiftCardProductConnector\Persistence\GiftCardProductConnectorEntityManagerInterface getEntityManager()
+ * @method \FondOfOryx\Zed\GiftCardProductConnector\GiftCardProductConnectorConfig getConfig()
  */
 class GiftCardProductConnectorPersistenceFactory extends AbstractPersistenceFactory
 {
@@ -98,8 +100,6 @@ class GiftCardProductConnectorPersistenceFactory extends AbstractPersistenceFact
 
     /**
      * @return \Orm\Zed\Product\Persistence\SpyProductAbstractQuery
-     *
-     * @throws \Spryker\Zed\Kernel\Exception\Container\ContainerKeyNotFoundException
      */
     public function createProductAbstractQuery(): SpyProductAbstractQuery
     {
@@ -110,8 +110,6 @@ class GiftCardProductConnectorPersistenceFactory extends AbstractPersistenceFact
 
     /**
      * @return \Orm\Zed\Product\Persistence\SpyProductQuery
-     *
-     * @throws \Spryker\Zed\Kernel\Exception\Container\ContainerKeyNotFoundException
      */
     public function createProductQuery(): SpyProductQuery
     {

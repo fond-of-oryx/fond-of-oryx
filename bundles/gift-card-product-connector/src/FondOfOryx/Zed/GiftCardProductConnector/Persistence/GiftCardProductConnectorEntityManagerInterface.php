@@ -2,7 +2,6 @@
 
 namespace FondOfOryx\Zed\GiftCardProductConnector\Persistence;
 
-use Generated\Shared\Transfer\ProductAbstractCountryRestrictionTransfer;
 use Generated\Shared\Transfer\ProductAbstractTransfer;
 use Generated\Shared\Transfer\ProductConcreteTransfer;
 use Generated\Shared\Transfer\SpyGiftCardProductAbstractConfigurationEntityTransfer;

@@ -16,7 +16,7 @@ class GiftCardProductAbstractConfigurationMapper implements GiftCardProductAbstr
     public function mapEntityToTransfer(
         SpyGiftCardProductAbstractConfiguration $entity,
         SpyGiftCardProductAbstractConfigurationEntityTransfer $transfer
-    ): SpyGiftCardProductAbstractConfigurationEntityTransfer{
+    ): SpyGiftCardProductAbstractConfigurationEntityTransfer {
         return $transfer->fromArray($entity->toArray(), true);
     }
 }

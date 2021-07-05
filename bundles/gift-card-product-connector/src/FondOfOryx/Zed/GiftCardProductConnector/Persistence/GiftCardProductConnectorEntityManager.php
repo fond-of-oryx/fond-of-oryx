@@ -2,14 +2,13 @@
 
 namespace FondOfOryx\Zed\GiftCardProductConnector\Persistence;
 
-use Generated\Shared\Transfer\ProductAbstractCountryRestrictionTransfer;
 use Generated\Shared\Transfer\ProductAbstractTransfer;
 use Generated\Shared\Transfer\ProductConcreteTransfer;
 use Generated\Shared\Transfer\SpyGiftCardProductAbstractConfigurationEntityTransfer;
 use Generated\Shared\Transfer\SpyGiftCardProductAbstractConfigurationLinkEntityTransfer;
 use Generated\Shared\Transfer\SpyGiftCardProductConfigurationEntityTransfer;
 use Generated\Shared\Transfer\SpyGiftCardProductConfigurationLinkEntityTransfer;
-use Orm\Zed\GiftCard\Persistence\SpyGiftCardProductAbstractConfigurationLinkQuery;
+use Orm\Zed\GiftCard\Persistence\SpyGiftCardProductAbstractConfigurationLink;
 use Spryker\Zed\Kernel\Persistence\AbstractEntityManager;
 
 /**
@@ -20,9 +19,8 @@ class GiftCardProductConnectorEntityManager extends AbstractEntityManager implem
     /**
      * @param \Generated\Shared\Transfer\ProductAbstractTransfer $productAbstractTransfer
      * @param string $pattern
+     *
      * @return \Generated\Shared\Transfer\SpyGiftCardProductAbstractConfigurationEntityTransfer
-     * @throws \Propel\Runtime\Exception\PropelException
-     * @throws \Spryker\Zed\Propel\Business\Exception\AmbiguousComparisonException
      */
     public function createGiftCardProductAbstractConfiguration(
         ProductAbstractTransfer $productAbstractTransfer,
@@ -35,40 +33,52 @@ class GiftCardProductConnectorEntityManager extends AbstractEntityManager implem
 
         $entity->save();
 
-        $giftCardProductAbstractConfigurationTransfer = $this->getFactory()
-            ->createGiftCardProductAbstractConfigurationMapper()
+        $entityTransfer = $this->getFactory()
+            ->createGiftCardProductConfigurationMapper()
             ->mapEntityToTransfer($entity, new SpyGiftCardProductAbstractConfigurationEntityTransfer());
 
+        return $entityTransfer
+            ->addSpyGiftCardProductAbstractConfigurationLinks(
+                $this->createGiftCardProductAbstractConfiguration($productAbstractTransfer)
+            );
+    }
+
+    /**
+     * @param \Generated\Shared\Transfer\ProductAbstractTransfer $productAbstractTransfer
+     *
+     * @return \Orm\Zed\GiftCard\Persistence\SpyGiftCardProductAbstractConfigurationLink
+     */
+    protected function createGiftCardProductAbstractConfigurationLink(
+        ProductAbstractTransfer $productAbstractTransfer
+    ): SpyGiftCardProductAbstractConfigurationLink {
         $productAbstractEntity = $this->getFactory()->createProductAbstractQuery()
             ->findOneBySku($productAbstractTransfer->getSku());
 
-        $linkEntity = $this->getFactory()->createSpyGiftCardProductAbstractConfigurationLinkQuery()
+        $entity = $this->getFactory()->createSpyGiftCardProductAbstractConfigurationLinkQuery()
             ->filterByFkGiftCardProductAbstractConfiguration($entity->getIdGiftCardProductAbstractConfiguration())
             ->filterByFkProductAbstract($productAbstractEntity->getIdProductAbstract())
             ->findOneOrCreate();
 
-        $linkEntity->save();
+        $entity->save();
 
-        $giftCardProductAbstractConfigurationLinkTransfer = $this->getFactory()
+        return $this->getFactory()
             ->createGiftCardProductAbstractConfigurationLinkMapper()
             ->mapEntityToTransfer(
-                $linkEntity,
+                $entity,
                 new SpyGiftCardProductAbstractConfigurationLinkEntityTransfer()
             );
-
-        return $giftCardProductAbstractConfigurationTransfer
-            ->addSpyGiftCardProductAbstractConfigurationLinks($giftCardProductAbstractConfigurationLinkTransfer);
     }
 
     /**
      * @param \Generated\Shared\Transfer\ProductConcreteTransfer $productConcreteTransfer
      * @param int $value
+     *
+     * @return \Generated\Shared\Transfer\SpyGiftCardProductConfigurationEntityTransfer
      */
     public function createGiftCardProductConfiguration(
         ProductConcreteTransfer $productConcreteTransfer,
         int $value
     ): SpyGiftCardProductConfigurationEntityTransfer {
-
         $entity = $this->getFactory()
             ->createSpyGiftCardProductConfigurationQuery()
             ->filterByValue($value)
@@ -76,29 +86,39 @@ class GiftCardProductConnectorEntityManager extends AbstractEntityManager implem
 
         $entity->save();
 
-        $giftCardProductConfigurationTransfer = $this->getFactory()
+        $entityTransfer = $this->getFactory()
             ->createGiftCardProductConfigurationMapper()
             ->mapEntityToTransfer($entity, new SpyGiftCardProductConfigurationEntityTransfer());
 
+        return $entityTransfer
+            ->addSpyGiftCardProductConfigurationLinks(
+                $this->createGiftCardProductConfigurationLink($productConcreteTransfer)
+            );
+    }
+
+    /**
+     * @param \Generated\Shared\Transfer\ProductConcreteTransfer $productConcreteTransfer
+     *
+     * @return \Generated\Shared\Transfer\SpyGiftCardProductAbstractConfigurationLinkEntityTransfer
+     */
+    protected function createGiftCardProductConfigurationLink(
+        ProductConcreteTransfer $productConcreteTransfer
+    ): SpyGiftCardProductAbstractConfigurationLinkEntityTransfer {
         $productEntity = $this->getFactory()->createProductQuery()
             ->findOneBySku($productConcreteTransfer->getSku());
 
-        $linkEntity = $this->getFactory()->createSpyGiftCardProductConfigurationLinkQuery()
+        $entity = $this->getFactory()->createSpyGiftCardProductConfigurationLinkQuery()
             ->filterByFkGiftCardProductConfiguration($entity->getIdGiftCardProductConfiguration())
             ->filterByFkProduct($productEntity->getIdProduct())
             ->findOneOrCreate();
 
-        $linkEntity->save();
+        $entity->save();
 
-
-        $giftCardProductConfigurationLinkTransfer = $this->getFactory()
+        return $this->getFactory()
             ->createGiftCardProductConfigurationLinkMapper()
             ->mapEntityToTransfer(
-                $linkEntity,
+                $entity,
                 new SpyGiftCardProductConfigurationLinkEntityTransfer()
             );
-
-        return $giftCardProductConfigurationTransfer
-            ->addSpyGiftCardProductConfigurationLinks($giftCardProductConfigurationLinkTransfer);
     }
 }

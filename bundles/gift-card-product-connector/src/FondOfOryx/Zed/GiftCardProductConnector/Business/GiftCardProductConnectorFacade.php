@@ -8,6 +8,7 @@ use Spryker\Zed\Kernel\Business\AbstractFacade;
 
 /**
  * @method \FondOfOryx\Zed\GiftCardProductConnector\Business\GiftCardProductConnectorBusinessFactory getFactory()
+ * @method \FondOfOryx\Zed\GiftCardProductConnector\Persistence\GiftCardProductConnectorEntityManagerInterface getEntityManager()
  */
 class GiftCardProductConnectorFacade extends AbstractFacade implements GiftCardProductConnectorFacadeInterface
 {
@@ -29,7 +30,7 @@ class GiftCardProductConnectorFacade extends AbstractFacade implements GiftCardP
     }
 
     /**
-     *{@inheritDoc}
+     * {@inheritDoc}
      *
      * @api
      *

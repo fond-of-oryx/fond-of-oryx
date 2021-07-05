@@ -13,8 +13,6 @@ class GiftCardProductConnectorToProductFacadeBridge implements GiftCardProductCo
     protected $productFacade;
 
     /**
-     * GiftCardProductConnectorToProductFacadeBridge constructor.
-     *
      * @param \Spryker\Zed\Product\Business\ProductFacadeInterface $productFacade
      */
     public function __construct(ProductFacadeInterface $productFacade)

@@ -5,11 +5,7 @@ namespace FondOfOryx\Zed\GiftCardProductConnector\Business\GiftCard;
 use FondOfOryx\Zed\GiftCardProductConnector\Dependency\Facade\GiftCardProductConnectorToProductFacadeInterface;
 use FondOfOryx\Zed\GiftCardProductConnector\GiftCardProductConnectorConfig;
 use FondOfOryx\Zed\GiftCardProductConnector\Persistence\GiftCardProductConnectorEntityManagerInterface;
-use Generated\Shared\Transfer\ProductAbstractTransfer;
 use Generated\Shared\Transfer\ProductConcreteTransfer;
-use Generated\Shared\Transfer\SpyGiftCardProductAbstractConfigurationEntityTransfer;
-use Generated\Shared\Transfer\SpyGiftCardProductConfigurationEntityTransfer;
-use Orm\Zed\GiftCard\Persistence\SpyGiftCardProductAbstractConfigurationQuery;
 use Spryker\Zed\Kernel\Persistence\EntityManager\TransactionTrait;
 
 class GiftCardProductConfigurationWriter implements GiftCardProductConfigurationWriterInterface
@@ -32,8 +28,6 @@ class GiftCardProductConfigurationWriter implements GiftCardProductConfiguration
     private $productFacade;
 
     /**
-     * GiftCardProductConfigurationWriter constructor.
-     *
      * @param \FondOfOryx\Zed\GiftCardProductConnector\Dependency\Facade\GiftCardProductConnectorToProductFacadeInterface $productFacade
      * @param \FondOfOryx\Zed\GiftCardProductConnector\Persistence\GiftCardProductConnectorEntityManagerInterface $entityManager
      * @param \FondOfOryx\Zed\GiftCardProductConnector\GiftCardProductConnectorConfig $config
@@ -57,7 +51,7 @@ class GiftCardProductConfigurationWriter implements GiftCardProductConfiguration
         ProductConcreteTransfer $productConcreteTransfer
     ): ProductConcreteTransfer {
         return $productConcreteTransfer = $this->getTransactionHandler()->handleTransaction(function ()
-            use ($productConcreteTransfer): ProductConcreteTransfer {
+ use ($productConcreteTransfer): ProductConcreteTransfer {
                 return $this->executeSaveGiftCardProductConfigurationTransaction($productConcreteTransfer);
         });
     }
@@ -70,7 +64,6 @@ class GiftCardProductConfigurationWriter implements GiftCardProductConfiguration
     protected function executeSaveGiftCardProductConfigurationTransaction(
         ProductConcreteTransfer $productConcreteTransfer
     ): ProductConcreteTransfer {
-
         if (!$this->isGiftCardProduct($productConcreteTransfer)) {
             return $productConcreteTransfer;
         }
@@ -106,7 +99,7 @@ class GiftCardProductConfigurationWriter implements GiftCardProductConfiguration
     protected function getGiftCardProductSkuPrefix(ProductConcreteTransfer $productConcreteTransfer): string
     {
         foreach ($this->config->getGiftCardProductSkuPrefixes() as $prefix) {
-            if (strpos($productConcreteTransfer->getSku(), $prefix) === 0 ) {
+            if (strpos($productConcreteTransfer->getSku(), $prefix) === 0) {
                 return $prefix;
             }
         }

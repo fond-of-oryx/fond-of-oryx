@@ -41,7 +41,6 @@ class GiftCardProductConnectorBusinessFactory extends AbstractBusinessFactory
 
     /**
      * @return \FondOfOryx\Zed\GiftCardProductConnector\Dependency\Facade\GiftCardProductConnectorToProductFacadeInterface
-     * @throws \Spryker\Zed\Kernel\Exception\Container\ContainerKeyNotFoundException
      */
     protected function getProductFacade(): GiftCardProductConnectorToProductFacadeInterface
     {

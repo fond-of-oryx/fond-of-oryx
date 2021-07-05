@@ -8,6 +8,7 @@ use Spryker\Zed\Product\Dependency\Plugin\ProductConcretePluginCreateInterface;
 
 /**
  * @method \FondOfOryx\Zed\GiftCardProductConnector\Business\GiftCardProductConnectorFacadeInterface getFacade()
+ * @method \FondOfOryx\Zed\GiftCardProductConnector\GiftCardProductConnectorConfig getConfig()
  */
 class GiftCardProductConnectorProductConcreteAfterCreatePlugin extends AbstractPlugin implements ProductConcretePluginCreateInterface
 {

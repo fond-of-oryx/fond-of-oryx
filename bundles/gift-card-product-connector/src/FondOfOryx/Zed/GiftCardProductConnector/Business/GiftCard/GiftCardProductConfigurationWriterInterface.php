@@ -2,7 +2,6 @@
 
 namespace FondOfOryx\Zed\GiftCardProductConnector\Business\GiftCard;
 
-
 use Generated\Shared\Transfer\ProductConcreteTransfer;
 
 interface GiftCardProductConfigurationWriterInterface

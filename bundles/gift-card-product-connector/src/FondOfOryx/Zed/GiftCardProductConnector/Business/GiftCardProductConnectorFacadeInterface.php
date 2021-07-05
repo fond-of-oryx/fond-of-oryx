@@ -4,8 +4,6 @@ namespace FondOfOryx\Zed\GiftCardProductConnector\Business;
 
 use Generated\Shared\Transfer\ProductAbstractTransfer;
 use Generated\Shared\Transfer\ProductConcreteTransfer;
-use Generated\Shared\Transfer\SpyGiftCardProductAbstractConfigurationEntityTransfer;
-use Generated\Shared\Transfer\SpyGiftCardProductConfigurationEntityTransfer;
 
 interface GiftCardProductConnectorFacadeInterface
 {

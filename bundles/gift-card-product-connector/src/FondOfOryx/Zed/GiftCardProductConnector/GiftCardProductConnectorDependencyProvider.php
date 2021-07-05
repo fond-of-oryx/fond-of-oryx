@@ -3,7 +3,6 @@
 namespace FondOfOryx\Zed\GiftCardProductConnector;
 
 use FondOfOryx\Zed\GiftCardProductConnector\Dependency\Facade\GiftCardProductConnectorToProductFacadeBridge;
-use Orm\Zed\CompanyUnitAddress\Persistence\SpyCompanyUnitAddressQuery;
 use Orm\Zed\GiftCard\Persistence\SpyGiftCardProductAbstractConfigurationLinkQuery;
 use Orm\Zed\GiftCard\Persistence\SpyGiftCardProductAbstractConfigurationQuery;
 use Orm\Zed\GiftCard\Persistence\SpyGiftCardProductConfigurationLinkQuery;
@@ -23,7 +22,6 @@ class GiftCardProductConnectorDependencyProvider extends AbstractBundleDependenc
     public const PROPEL_QUERY_GIFT_CARD_PRODUCT_CONFIGURATION_LINK = 'PROPEL_QUERY_GIFT_CARD_PRODUCT_CONFIGURATION_LINK';
     public const PROPEL_QUERY_PRODUCT_ABSTRACT = 'PROPEL_QUERY_PRODUCT_ABSTRACT';
     public const PROPEL_QUERY_PRODUCT = 'PROPEL_QUERY_PRODUCT';
-
 
     /**
      * @param \Spryker\Zed\Kernel\Container $container

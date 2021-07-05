@@ -5,13 +5,14 @@ namespace FondOfOryx\Zed\GiftCardProductConnector\Business\GiftCard;
 use FondOfOryx\Zed\GiftCardProductConnector\GiftCardProductConnectorConfig;
 use FondOfOryx\Zed\GiftCardProductConnector\Persistence\GiftCardProductConnectorEntityManagerInterface;
 use Generated\Shared\Transfer\ProductAbstractTransfer;
-use Generated\Shared\Transfer\SpyGiftCardProductAbstractConfigurationEntityTransfer;
-use Orm\Zed\GiftCard\Persistence\SpyGiftCardProductAbstractConfigurationQuery;
 use Spryker\Zed\Kernel\Persistence\EntityManager\TransactionTrait;
 
 class GiftCardProductAbstractConfigurationWriter implements GiftCardProductAbstractConfigurationWriterInterface
 {
     use TransactionTrait;
+
+    private const PATTERN = '{randomPart}';
+    private const PRODUCT_ABSTRACT_SKU_PREFIX = 'Abstract-';
 
     /**
      * @var \FondOfOryx\Zed\GiftCardProductConnector\GiftCardProductConnectorConfig
@@ -24,8 +25,6 @@ class GiftCardProductAbstractConfigurationWriter implements GiftCardProductAbstr
     private $entityManager;
 
     /**
-     * GiftCardProductConfigurationWriter constructor.
-     *
      * @param \FondOfOryx\Zed\GiftCardProductConnector\Persistence\GiftCardProductConnectorEntityManagerInterface $entityManager
      * @param \FondOfOryx\Zed\GiftCardProductConnector\GiftCardProductConnectorConfig $config
      */
@@ -46,7 +45,7 @@ class GiftCardProductAbstractConfigurationWriter implements GiftCardProductAbstr
         ProductAbstractTransfer $productAbstractTransfer
     ): ProductAbstractTransfer {
         return $this->getTransactionHandler()->handleTransaction(function ()
-            use ($productAbstractTransfer): ProductAbstractTransfer {
+ use ($productAbstractTransfer): ProductAbstractTransfer {
                 return $this->executeSaveGiftCardProductAbstractConfigurationTransaction($productAbstractTransfer);
         });
     }
@@ -59,7 +58,6 @@ class GiftCardProductAbstractConfigurationWriter implements GiftCardProductAbstr
     protected function executeSaveGiftCardProductAbstractConfigurationTransaction(
         ProductAbstractTransfer $productAbstractTransfer
     ): ProductAbstractTransfer {
-
         if (!$this->isGiftCardProduct($productAbstractTransfer)) {
             return $productAbstractTransfer;
         }
@@ -100,7 +98,7 @@ class GiftCardProductAbstractConfigurationWriter implements GiftCardProductAbstr
             return '';
         }
 
-        return $skuPrefix . '{randomPart}' . '-' . $this->getGiftCardPatternSuffix($productAbstractTransfer);
+        return $skuPrefix . static::PATTERN . '-' . $this->getGiftCardPatternSuffix($productAbstractTransfer);
     }
 
     /**
@@ -111,7 +109,7 @@ class GiftCardProductAbstractConfigurationWriter implements GiftCardProductAbstr
     protected function getGiftCardProductSkuPrefix(ProductAbstractTransfer $productAbstractTransfer): string
     {
         foreach ($this->config->getGiftCardProductSkuPrefixes() as $prefix) {
-            if (strpos($productAbstractTransfer->getSku(), 'Abstract-' . $prefix) === 0 ) {
+            if (strpos($productAbstractTransfer->getSku(), static::PRODUCT_ABSTRACT_SKU_PREFIX . $prefix) === 0) {
                 return $prefix;
             }
         }
@@ -120,7 +118,7 @@ class GiftCardProductAbstractConfigurationWriter implements GiftCardProductAbstr
     }
 
     /**
-     * @TODO Get Suffix Based on an Attribute because There are different MoneyValues based on different criteria
+     * @TODO Get Suffix Based on an Attribute because there are different MoneyValues based on different criteria
      *
      * @param \Generated\Shared\Transfer\ProductAbstractTransfer $productAbstractTransfer
      *
