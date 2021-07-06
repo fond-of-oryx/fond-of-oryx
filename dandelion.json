@@ -76,8 +76,36 @@
       "path": "bundles/jellyfish-availability-alert/",
       "version": "1.0.0"
     },
+    "jellyfish-buffer": {
+      "path": "bundles/jellyfish-buffer/",
+      "version": "1.0.0"
+    },
     "jellyfish-credit-memo": {
       "path": "bundles/jellyfish-credit-memo/",
+      "version": "1.0.0"
+    },
+    "jellyfish-cross-engage": {
+      "path": "bundles/jellyfish-cross-engage/",
+      "version": "1.0.0"
+    },
+    "jellyfish-sales-order": {
+      "path": "bundles/jellyfish-sales-order/",
+      "version": "1.0.0"
+    },
+    "jellyfish-sales-order-b2c": {
+      "path": "bundles/jellyfish-sales-order-b2c/",
+      "version": "1.0.0"
+    },
+    "jellyfish-sales-order-extension": {
+      "path": "bundles/jellyfish-sales-order-extension/",
+      "version": "1.0.0"
+    },
+    "jellyfish-sales-order-payone": {
+      "path": "bundles/jellyfish-sales-order-payone/",
+      "version": "1.0.0"
+    },
+    "jellyfish-thirty-five-up": {
+      "path": "bundles/jellyfish-thirty-five-up/",
       "version": "1.0.0"
     },
     "mail-bcc": {
@@ -95,10 +123,6 @@
     "one-time-password-rest-api": {
       "path": "bundles/one-time-password-rest-api/",
       "version": "1.0.0-beta.1"
-    },
-    "payment-epc-qr-code": {
-      "path": "bundles/payment-epc-qr-code/",
-      "version": "1.0.0"
     },
     "payone-credit-memo": {
       "path": "bundles/payone-credit-memo/",
@@ -234,6 +258,14 @@
     },
     "tax-calculation-connector": {
       "path": "bundles/tax-calculation-connector/",
+      "version": "1.0.0"
+    },
+    "thirty-five-up-api": {
+      "path": "bundles/thirty-five-up-api/",
+      "version": "1.0.0"
+    },
+    "thirty-five-up": {
+      "path": "bundles/thirty-five-up/",
       "version": "1.0.0"
     },
     "util-math-formula": {
