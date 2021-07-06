@@ -38,6 +38,7 @@
     "spryker/glue-application": "^1.0.0",
     "spryker/glue-application-extension": "^1.0.0",
     "spryker/guzzle": "^2.2.0",
+    "spryker/gift-card": "^1.0.0",
     "spryker/locale": "^2.2.0 || ^3.0.0",
     "spryker/log": "^1.0.0 || ^2.0.0 || ^3.0.0",
     "spryker/mail": "^4.0.0",
