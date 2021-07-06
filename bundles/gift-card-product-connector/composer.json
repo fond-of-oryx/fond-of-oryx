@@ -17,7 +17,7 @@
     "spryker/code-sniffer": "^0.12"
   },
   "minimum-stability": "dev",
-  "prefer-stable": tr
+  "prefer-stable": true,
   "autoload": {
     "psr-4": {
       "FondOfOryx\\": "src/FondOfOryx/"
