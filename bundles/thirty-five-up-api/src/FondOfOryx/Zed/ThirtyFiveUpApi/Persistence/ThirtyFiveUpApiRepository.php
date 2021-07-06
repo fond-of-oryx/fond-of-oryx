@@ -9,7 +9,7 @@ use Generated\Shared\Transfer\ApiItemTransfer;
 use Generated\Shared\Transfer\ApiPaginationTransfer;
 use Generated\Shared\Transfer\ApiQueryBuilderQueryTransfer;
 use Generated\Shared\Transfer\ApiRequestTransfer;
-use Generated\Shared\Transfer\FosThirtyFiveUpOrderEntityTransfer;
+use Generated\Shared\Transfer\FooThirtyFiveUpOrderEntityTransfer;
 use Generated\Shared\Transfer\PropelQueryBuilderColumnSelectionTransfer;
 use Generated\Shared\Transfer\PropelQueryBuilderColumnTransfer;
 use Orm\Zed\ThirtyFiveUp\Persistence\FooThirtyFiveUpOrderQuery;
@@ -58,13 +58,13 @@ class ThirtyFiveUpApiRepository extends AbstractRepository implements ThirtyFive
     }
 
     /**
-     * @param \Generated\Shared\Transfer\FosThirtyFiveUpOrderEntityTransfer $orderEntityTransfer
+     * @param \Generated\Shared\Transfer\FooThirtyFiveUpOrderEntityTransfer $orderEntityTransfer
      *
      * @throws \FondOfOryx\Zed\ThirtyFiveUp\Exception\ThirtyFiveUpOrderNotFoundException
      *
      * @return \Generated\Shared\Transfer\ApiItemTransfer
      */
-    public function convert(FosThirtyFiveUpOrderEntityTransfer $orderEntityTransfer): ApiItemTransfer
+    public function convert(FooThirtyFiveUpOrderEntityTransfer $orderEntityTransfer): ApiItemTransfer
     {
         $orderTransfer = $this->getFactory()->getThirtyFiveUpFacade()->findThirtyFiveUpOrderById($orderEntityTransfer->getIdThirtyFiveUpOrder());
 

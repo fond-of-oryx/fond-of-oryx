@@ -14,7 +14,7 @@ use Generated\Shared\Transfer\ApiDataTransfer;
 use Generated\Shared\Transfer\ApiFilterTransfer;
 use Generated\Shared\Transfer\ApiItemTransfer;
 use Generated\Shared\Transfer\ApiRequestTransfer;
-use Generated\Shared\Transfer\FosThirtyFiveUpOrderEntityTransfer;
+use Generated\Shared\Transfer\FooThirtyFiveUpOrderEntityTransfer;
 use Generated\Shared\Transfer\ThirtyFiveUpOrderTransfer;
 use Orm\Zed\ThirtyFiveUp\Persistence\FooThirtyFiveUpOrderQuery;
 use Propel\Runtime\Collection\ObjectCollection;
@@ -89,7 +89,7 @@ class ThirtyFiveUpApiRepositoryTest extends Unit
     protected $apiFilterTransferMock;
 
     /**
-     * @var \Generated\Shared\Transfer\FosThirtyFiveUpOrderEntityTransfer|\PHPUnit\Framework\MockObject\MockObject
+     * @var \Generated\Shared\Transfer\FooThirtyFiveUpOrderEntityTransfer|\PHPUnit\Framework\MockObject\MockObject
      */
     protected $orderEntityTransferMock;
 
@@ -140,7 +140,7 @@ class ThirtyFiveUpApiRepositoryTest extends Unit
             ->disableOriginalConstructor()
             ->getMock();
 
-        $this->orderEntityTransferMock = $this->getMockBuilder(FosThirtyFiveUpOrderEntityTransfer::class)
+        $this->orderEntityTransferMock = $this->getMockBuilder(FooThirtyFiveUpOrderEntityTransfer::class)
             ->disableOriginalConstructor()
             ->getMock();
 
