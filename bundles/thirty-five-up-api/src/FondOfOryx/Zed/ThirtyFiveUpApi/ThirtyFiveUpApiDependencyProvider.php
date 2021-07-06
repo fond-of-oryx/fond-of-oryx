@@ -8,7 +8,7 @@ use FondOfOryx\Zed\ThirtyFiveUpApi\Dependency\QueryContainer\ThirtyFiveUpApiToAp
 use FondOfOryx\Zed\ThirtyFiveUpApi\Dependency\QueryContainer\ThirtyFiveUpApiToApiQueryBuilderContainerInterface;
 use FondOfOryx\Zed\ThirtyFiveUpApi\Dependency\QueryContainer\ThirtyFiveUpApiToApiQueryContainerBridge;
 use FondOfOryx\Zed\ThirtyFiveUpApi\Dependency\QueryContainer\ThirtyFiveUpApiToApiQueryContainerInterface;
-use Orm\Zed\ThirtyFiveUp\Persistence\ThirtyFiveUpOrderQuery;
+use Orm\Zed\ThirtyFiveUp\Persistence\FooThirtyFiveUpOrderQuery;
 use Spryker\Zed\Kernel\AbstractBundleDependencyProvider;
 use Spryker\Zed\Kernel\Container;
 
@@ -100,7 +100,7 @@ class ThirtyFiveUpApiDependencyProvider extends AbstractBundleDependencyProvider
     protected function addThirtyFiveUpOrderQuery(Container $container): Container
     {
         $self = $this;
-        $container[static::QUERY_THIRTY_FIVE_UP_ORDER] = static function () use ($self): ThirtyFiveUpOrderQuery {
+        $container[static::QUERY_THIRTY_FIVE_UP_ORDER] = static function () use ($self): FooThirtyFiveUpOrderQuery {
             return $self->createThirtyFiveUpOrderQuery();
         };
 
@@ -108,10 +108,10 @@ class ThirtyFiveUpApiDependencyProvider extends AbstractBundleDependencyProvider
     }
 
     /**
-     * @return \Orm\Zed\ThirtyFiveUp\Persistence\ThirtyFiveUpOrderQuery
+     * @return \Orm\Zed\ThirtyFiveUp\Persistence\FooThirtyFiveUpOrderQuery
      */
-    protected function createThirtyFiveUpOrderQuery(): ThirtyFiveUpOrderQuery
+    protected function createThirtyFiveUpOrderQuery(): FooThirtyFiveUpOrderQuery
     {
-        return ThirtyFiveUpOrderQuery::create();
+        return FooThirtyFiveUpOrderQuery::create();
     }
 }

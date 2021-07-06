@@ -96,7 +96,7 @@ class ThirtyFiveUpOrderExpanderPluginTest extends Unit
         $this->facadeMock->expects($this->once())->method('createThirtyFiveUpOrderFromQuote')->willReturn($this->quoteTransferMock);
         $this->quoteTransferMock->expects($this->once())->method('getThirtyFiveUpOrder')->willReturn($this->thirtyFiveUpOrderTransferMock);
         $this->thirtyFiveUpOrderTransferMock->expects($this->once())->method('getId')->willReturn(1);
-        $this->spySalesOrderEntityTransferMock->expects($this->once())->method('setFkThirtyFiveUpOrder');
+        $this->spySalesOrderEntityTransferMock->expects($this->once())->method('setFkFooThirtyFiveUpOrder');
         $this->plugin->expand($this->spySalesOrderEntityTransferMock, $this->quoteTransferMock);
     }
 
@@ -107,7 +107,7 @@ class ThirtyFiveUpOrderExpanderPluginTest extends Unit
     {
         $this->facadeMock->expects($this->once())->method('createThirtyFiveUpOrderFromQuote')->willReturn($this->quoteTransferMock);
         $this->quoteTransferMock->expects($this->once())->method('getThirtyFiveUpOrder');
-        $this->spySalesOrderEntityTransferMock->expects($this->never())->method('setFkThirtyFiveUpOrder');
+        $this->spySalesOrderEntityTransferMock->expects($this->never())->method('setFkFooThirtyFiveUpOrder');
         $this->plugin->expand($this->spySalesOrderEntityTransferMock, $this->quoteTransferMock);
     }
 }

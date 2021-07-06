@@ -3,7 +3,7 @@
 namespace FondOfOryx\Zed\ThirtyFiveUpApi\Persistence\Propel\Mapper;
 
 use Codeception\Test\Unit;
-use Generated\Shared\Transfer\FosThirtyFiveUpOrderEntityTransfer;
+use Generated\Shared\Transfer\FooThirtyFiveUpOrderEntityTransfer;
 
 class TransferMapperTest extends Unit
 {
@@ -28,7 +28,7 @@ class TransferMapperTest extends Unit
     public function testToArray(): void
     {
         $this->assertInstanceOf(
-            FosThirtyFiveUpOrderEntityTransfer::class,
+            FooThirtyFiveUpOrderEntityTransfer::class,
             $this->mapper->toTransfer([])
         );
     }
@@ -42,7 +42,7 @@ class TransferMapperTest extends Unit
         $this->assertIsArray($mapped);
         $this->assertCount(1, $mapped);
         $this->assertInstanceOf(
-            FosThirtyFiveUpOrderEntityTransfer::class,
+            FooThirtyFiveUpOrderEntityTransfer::class,
             $mapped[0]
         );
     }

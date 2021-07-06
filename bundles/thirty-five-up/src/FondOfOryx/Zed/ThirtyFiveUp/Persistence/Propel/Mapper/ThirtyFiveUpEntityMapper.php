@@ -7,17 +7,17 @@ use Exception;
 use Generated\Shared\Transfer\ThirtyFiveUpOrderItemTransfer;
 use Generated\Shared\Transfer\ThirtyFiveUpOrderTransfer;
 use Generated\Shared\Transfer\ThirtyFiveUpVendorTransfer;
-use Orm\Zed\ThirtyFiveUp\Persistence\ThirtyFiveUpOrder;
-use Orm\Zed\ThirtyFiveUp\Persistence\ThirtyFiveUpOrderItem;
+use Orm\Zed\ThirtyFiveUp\Persistence\FooThirtyFiveUpOrder;
+use Orm\Zed\ThirtyFiveUp\Persistence\FooThirtyFiveUpOrderItem;
 
 class ThirtyFiveUpEntityMapper implements ThirtyFiveUpEntityMapperInterface
 {
     /**
-     * @param \Orm\Zed\ThirtyFiveUp\Persistence\ThirtyFiveUpOrder $thirtyFiveUpOrder
+     * @param \Orm\Zed\ThirtyFiveUp\Persistence\FooThirtyFiveUpOrder $thirtyFiveUpOrder
      *
      * @return \Generated\Shared\Transfer\ThirtyFiveUpOrderTransfer
      */
-    public function mapOrderFromEntity(ThirtyFiveUpOrder $thirtyFiveUpOrder): ThirtyFiveUpOrderTransfer
+    public function mapOrderFromEntity(FooThirtyFiveUpOrder $thirtyFiveUpOrder): ThirtyFiveUpOrderTransfer
     {
         $thirtyFiveUpOrderTransfer = new ThirtyFiveUpOrderTransfer();
         $thirtyFiveUpOrderTransfer
@@ -27,7 +27,7 @@ class ThirtyFiveUpEntityMapper implements ThirtyFiveUpEntityMapperInterface
             ->setUpdatedAt($this->convertDateTimeToTimestamp($thirtyFiveUpOrder->getUpdatedAt()))
             ->setIdSalesOrder($thirtyFiveUpOrder->getFkSalesOrder());
 
-        foreach ($thirtyFiveUpOrder->getThirtyFiveUpOrderItems() as $orderItem) {
+        foreach ($thirtyFiveUpOrder->getFooThirtyFiveUpOrderItems() as $orderItem) {
             $thirtyFiveUpOrderTransfer->addVendorItem($this->mapOrderItemFromEntity(
                 $orderItem,
                 $thirtyFiveUpOrderTransfer
@@ -38,29 +38,29 @@ class ThirtyFiveUpEntityMapper implements ThirtyFiveUpEntityMapperInterface
     }
 
     /**
-     * @param \Orm\Zed\ThirtyFiveUp\Persistence\ThirtyFiveUpOrderItem $orderItem
+     * @param \Orm\Zed\ThirtyFiveUp\Persistence\FooThirtyFiveUpOrderItem $orderItem
      *
      * @return \Generated\Shared\Transfer\ThirtyFiveUpVendorTransfer
      */
-    public function mapVendorFromEntity(ThirtyFiveUpOrderItem $orderItem): ThirtyFiveUpVendorTransfer
+    public function mapVendorFromEntity(FooThirtyFiveUpOrderItem $orderItem): ThirtyFiveUpVendorTransfer
     {
         $vendorTransfer = new ThirtyFiveUpVendorTransfer();
-        $vendor = $orderItem->getThirtyFiveUpVendor();
+        $vendor = $orderItem->getFooThirtyFiveUpOrder();
         $vendorTransfer
             ->fromArray($vendor->toArray(), true)
-            ->setId($vendor->getIdThirtyFiveUpVendor());
+            ->setId($vendor->getIdThirtyFiveUpOrder());
 
         return $vendorTransfer;
     }
 
     /**
-     * @param \Orm\Zed\ThirtyFiveUp\Persistence\ThirtyFiveUpOrderItem $orderItem
+     * @param \Orm\Zed\ThirtyFiveUp\Persistence\FooThirtyFiveUpOrderItem $orderItem
      * @param \Generated\Shared\Transfer\ThirtyFiveUpOrderTransfer $thirtyFiveUpOrderTransfer
      *
      * @return \Generated\Shared\Transfer\ThirtyFiveUpOrderItemTransfer
      */
     public function mapOrderItemFromEntity(
-        ThirtyFiveUpOrderItem $orderItem,
+        FooThirtyFiveUpOrderItem $orderItem,
         ThirtyFiveUpOrderTransfer $thirtyFiveUpOrderTransfer
     ): ThirtyFiveUpOrderItemTransfer {
         $orderItemTransfer = new ThirtyFiveUpOrderItemTransfer();

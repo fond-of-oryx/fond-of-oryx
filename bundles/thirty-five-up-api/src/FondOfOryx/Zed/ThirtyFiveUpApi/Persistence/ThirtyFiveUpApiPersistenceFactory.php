@@ -8,7 +8,7 @@ use FondOfOryx\Zed\ThirtyFiveUpApi\Dependency\QueryContainer\ThirtyFiveUpApiToAp
 use FondOfOryx\Zed\ThirtyFiveUpApi\Persistence\Propel\Mapper\TransferMapper;
 use FondOfOryx\Zed\ThirtyFiveUpApi\Persistence\Propel\Mapper\TransferMapperInterface;
 use FondOfOryx\Zed\ThirtyFiveUpApi\ThirtyFiveUpApiDependencyProvider;
-use Orm\Zed\ThirtyFiveUp\Persistence\ThirtyFiveUpOrderQuery;
+use Orm\Zed\ThirtyFiveUp\Persistence\FooThirtyFiveUpOrderQuery;
 use Spryker\Zed\Kernel\Persistence\AbstractPersistenceFactory;
 
 /**
@@ -25,9 +25,9 @@ class ThirtyFiveUpApiPersistenceFactory extends AbstractPersistenceFactory
     }
 
     /**
-     * @return \Orm\Zed\ThirtyFiveUp\Persistence\ThirtyFiveUpOrderQuery
+     * @return \Orm\Zed\ThirtyFiveUp\Persistence\FooThirtyFiveUpOrderQuery
      */
-    public function getThirtyFiveUpOrderQuery(): ThirtyFiveUpOrderQuery
+    public function getThirtyFiveUpOrderQuery(): FooThirtyFiveUpOrderQuery
     {
         return $this->getProvidedDependency(ThirtyFiveUpApiDependencyProvider::QUERY_THIRTY_FIVE_UP_ORDER);
     }
