@@ -44,8 +44,7 @@ class GiftCardProductAbstractConfigurationWriter implements GiftCardProductAbstr
     public function saveGiftCardProductAbstractConfiguration(
         ProductAbstractTransfer $productAbstractTransfer
     ): ProductAbstractTransfer {
-        return $this->getTransactionHandler()->handleTransaction(function ()
- use ($productAbstractTransfer): ProductAbstractTransfer {
+        return $this->getTransactionHandler()->handleTransaction(function () use ($productAbstractTransfer): ProductAbstractTransfer {
                 return $this->executeSaveGiftCardProductAbstractConfigurationTransaction($productAbstractTransfer);
         });
     }
