@@ -118,7 +118,7 @@ class GiftCardProductAbstractConfigurationWriter implements GiftCardProductAbstr
     }
 
     /**
-     * @TODO Get Suffix Based on an Attribute because there are different MoneyValues based on different criteria
+     * @TODO Next Step: Get Suffix Based on an Attribute because there are different MoneyValues based on different criteria
      *
      * @param \Generated\Shared\Transfer\ProductAbstractTransfer $productAbstractTransfer
      *
