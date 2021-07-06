@@ -21,6 +21,7 @@ class JellyfishBufferMapper implements JellyfishBufferMapperInterface
     ): FooExportedOrder {
         return $exportedOrder->setFkSalesOrder($jellyfishOrderTransfer->getId())
             ->setOrderReference($jellyfishOrderTransfer->getReference())
+            ->setStore($jellyfishOrderTransfer->getStore())
             ->setData(json_encode($options));
     }
 }
