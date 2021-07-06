@@ -57,8 +57,6 @@ class ThirtyFiveUpApiBusinessFactoryTest extends Unit
     }
 
     /**
-     * @throws \Exception
-     *
      * @return void
      */
     public function testCreateThirtyFiveUpApi(): void
