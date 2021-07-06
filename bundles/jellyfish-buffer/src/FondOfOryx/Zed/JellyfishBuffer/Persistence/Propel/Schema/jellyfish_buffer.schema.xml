@@ -6,6 +6,7 @@
 
         <column name="fk_sales_order" required="true" type="INTEGER"/>
         <column name="order_reference" required="true" size="255" type="VARCHAR"/>
+        <column name="store" required="true" size="255" type="VARCHAR"/>
         <column name="data" required="true" type="JSON"/>
 
         <foreign-key name="foo_exported_order-spy_sales_order" foreignTable="spy_sales_order" phpName="Order">
