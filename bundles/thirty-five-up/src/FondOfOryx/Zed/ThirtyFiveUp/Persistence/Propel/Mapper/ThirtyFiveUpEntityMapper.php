@@ -45,10 +45,10 @@ class ThirtyFiveUpEntityMapper implements ThirtyFiveUpEntityMapperInterface
     public function mapVendorFromEntity(FooThirtyFiveUpOrderItem $orderItem): ThirtyFiveUpVendorTransfer
     {
         $vendorTransfer = new ThirtyFiveUpVendorTransfer();
-        $vendor = $orderItem->getThirtyFiveUpVendor();
+        $vendor = $orderItem->getFooThirtyFiveUpOrder();
         $vendorTransfer
             ->fromArray($vendor->toArray(), true)
-            ->setId($vendor->getIdThirtyFiveUpVendor());
+            ->setId($vendor->getIdThirtyFiveUpOrder());
 
         return $vendorTransfer;
     }

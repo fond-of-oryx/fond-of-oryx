@@ -13,7 +13,7 @@ use Generated\Shared\Transfer\FooThirtyFiveUpOrderEntityTransfer;
 use Generated\Shared\Transfer\PropelQueryBuilderColumnSelectionTransfer;
 use Generated\Shared\Transfer\PropelQueryBuilderColumnTransfer;
 use Orm\Zed\ThirtyFiveUp\Persistence\FooThirtyFiveUpOrderQuery;
-use Orm\Zed\ThirtyFiveUp\Persistence\Map\ThirtyFiveUpOrderTableMap;
+use Orm\Zed\ThirtyFiveUp\Persistence\Map\FooThirtyFiveUpOrderTableMap;
 use Propel\Runtime\ActiveQuery\ModelCriteria;
 use Propel\Runtime\Map\TableMap;
 use Spryker\Zed\Api\ApiConfig;
@@ -167,11 +167,11 @@ class ThirtyFiveUpApiRepository extends AbstractRepository implements ThirtyFive
     protected function buildColumnSelection(): PropelQueryBuilderColumnSelectionTransfer
     {
         $columnSelectionTransfer = new PropelQueryBuilderColumnSelectionTransfer();
-        $tableColumns = ThirtyFiveUpOrderTableMap::getFieldNames(TableMap::TYPE_FIELDNAME);
+        $tableColumns = FooThirtyFiveUpOrderTableMap::getFieldNames(TableMap::TYPE_FIELDNAME);
 
         foreach ($tableColumns as $columnAlias) {
             $columnTransfer = new PropelQueryBuilderColumnTransfer();
-            $columnTransfer->setName(ThirtyFiveUpOrderTableMap::TABLE_NAME . '.' . $columnAlias);
+            $columnTransfer->setName(FooThirtyFiveUpOrderTableMap::TABLE_NAME . '.' . $columnAlias);
             $columnTransfer->setAlias($columnAlias);
 
             $columnSelectionTransfer->addTableColumn($columnTransfer);
