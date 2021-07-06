@@ -10,7 +10,7 @@
   ],
   "require": {
     "php": ">=7.3",
-    "spryker/gitf-card": "^1.0.0"
+    "spryker/gift-card": "^1.0.0"
   },
   "require-dev": {
     "fond-of-codeception/spryker": "^1.0",
