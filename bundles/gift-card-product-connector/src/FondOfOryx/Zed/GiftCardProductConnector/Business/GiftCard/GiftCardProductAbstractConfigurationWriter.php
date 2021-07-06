@@ -118,7 +118,6 @@ class GiftCardProductAbstractConfigurationWriter implements GiftCardProductAbstr
     }
 
     /**
-     *
      * @param \Generated\Shared\Transfer\ProductAbstractTransfer $productAbstractTransfer
      *
      * @return int

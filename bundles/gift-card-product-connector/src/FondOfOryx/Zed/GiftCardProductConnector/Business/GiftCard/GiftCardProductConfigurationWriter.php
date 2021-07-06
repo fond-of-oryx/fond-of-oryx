@@ -108,7 +108,6 @@ class GiftCardProductConfigurationWriter implements GiftCardProductConfiguration
     }
 
     /**
-     *
      * @param \Generated\Shared\Transfer\ProductConcreteTransfer $productConcreteTransfer
      *
      * @return int
