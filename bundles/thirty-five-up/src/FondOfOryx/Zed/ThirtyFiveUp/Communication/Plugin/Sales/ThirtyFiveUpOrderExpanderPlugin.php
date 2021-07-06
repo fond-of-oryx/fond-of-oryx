@@ -36,7 +36,7 @@ class ThirtyFiveUpOrderExpanderPlugin extends AbstractPlugin implements OrderExp
         $thirtyFiveUpOrder = $quoteTransfer->getThirtyFiveUpOrder();
 
         if ($thirtyFiveUpOrder !== null) {
-            $spySalesOrderEntityTransfer->setFkThirtyFiveUpOrder($thirtyFiveUpOrder->getId());
+            $spySalesOrderEntityTransfer->setFkFooThirtyFiveUpOrder($thirtyFiveUpOrder->getId());
         }
 
         return $spySalesOrderEntityTransfer;

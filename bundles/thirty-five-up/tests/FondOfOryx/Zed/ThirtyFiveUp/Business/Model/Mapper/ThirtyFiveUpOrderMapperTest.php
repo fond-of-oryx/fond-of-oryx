@@ -13,7 +13,7 @@ use Generated\Shared\Transfer\QuoteTransfer;
 use Generated\Shared\Transfer\SaveOrderTransfer;
 use Generated\Shared\Transfer\ThirtyFiveUpOrderItemTransfer;
 use Generated\Shared\Transfer\ThirtyFiveUpOrderTransfer;
-use Orm\Zed\ThirtyFiveUp\Persistence\ThirtyFiveUpOrder;
+use Orm\Zed\ThirtyFiveUp\Persistence\FooThirtyFiveUpOrder;
 
 class ThirtyFiveUpOrderMapperTest extends Unit
 {
@@ -58,7 +58,7 @@ class ThirtyFiveUpOrderMapperTest extends Unit
     protected $thirtyFiveUpOrderItemTransferMock;
 
     /**
-     * @var \Orm\Zed\ThirtyFiveUp\Persistence\ThirtyFiveUpOrder|\PHPUnit\Framework\MockObject\MockObject
+     * @var \Orm\Zed\ThirtyFiveUp\Persistence\FooThirtyFiveUpOrder|\PHPUnit\Framework\MockObject\MockObject
      */
     protected $thirtyFiveUpOrderEntityMock;
 
@@ -115,7 +115,7 @@ class ThirtyFiveUpOrderMapperTest extends Unit
             ->getMock();
 
         $this->thirtyFiveUpOrderEntityMock = $this
-            ->getMockBuilder(ThirtyFiveUpOrder::class)
+            ->getMockBuilder(FooThirtyFiveUpOrder::class)
             ->disableOriginalConstructor()
             ->getMock();
 
