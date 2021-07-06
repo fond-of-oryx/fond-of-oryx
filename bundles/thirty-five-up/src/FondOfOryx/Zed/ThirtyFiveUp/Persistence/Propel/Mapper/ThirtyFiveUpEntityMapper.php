@@ -27,7 +27,7 @@ class ThirtyFiveUpEntityMapper implements ThirtyFiveUpEntityMapperInterface
             ->setUpdatedAt($this->convertDateTimeToTimestamp($thirtyFiveUpOrder->getUpdatedAt()))
             ->setIdSalesOrder($thirtyFiveUpOrder->getFkSalesOrder());
 
-        foreach ($thirtyFiveUpOrder->getThirtyFiveUpOrderItems() as $orderItem) {
+        foreach ($thirtyFiveUpOrder->getFooThirtyFiveUpOrderItems() as $orderItem) {
             $thirtyFiveUpOrderTransfer->addVendorItem($this->mapOrderItemFromEntity(
                 $orderItem,
                 $thirtyFiveUpOrderTransfer

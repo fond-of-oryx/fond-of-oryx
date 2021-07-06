@@ -13,7 +13,7 @@ use Generated\Shared\Transfer\FosThirtyFiveUpOrderEntityTransfer;
 use Generated\Shared\Transfer\PropelQueryBuilderColumnSelectionTransfer;
 use Generated\Shared\Transfer\PropelQueryBuilderColumnTransfer;
 use Orm\Zed\ThirtyFiveUp\Persistence\Map\ThirtyFiveUpOrderTableMap;
-use Orm\Zed\ThirtyFiveUp\Persistence\ThirtyFiveUpOrderQuery;
+use Orm\Zed\ThirtyFiveUp\Persistence\FooThirtyFiveUpOrderQuery;
 use Propel\Runtime\ActiveQuery\ModelCriteria;
 use Propel\Runtime\Map\TableMap;
 use Spryker\Zed\Api\ApiConfig;
@@ -26,7 +26,7 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 class ThirtyFiveUpApiRepository extends AbstractRepository implements ThirtyFiveUpApiRepositoryInterface
 {
     /**
-     * @var \Orm\Zed\ThirtyFiveUp\Persistence\ThirtyFiveUpOrderQuery
+     * @var \Orm\Zed\ThirtyFiveUp\Persistence\FooThirtyFiveUpOrderQuery
      */
     protected $orderQuery;
 
@@ -107,9 +107,9 @@ class ThirtyFiveUpApiRepository extends AbstractRepository implements ThirtyFive
     }
 
     /**
-     * @return \Orm\Zed\ThirtyFiveUp\Persistence\ThirtyFiveUpOrderQuery
+     * @return \Orm\Zed\ThirtyFiveUp\Persistence\FooThirtyFiveUpOrderQuery
      */
-    protected function getOrderQuery(): ThirtyFiveUpOrderQuery
+    protected function getOrderQuery(): FooThirtyFiveUpOrderQuery
     {
         if ($this->orderQuery === null) {
             $this->orderQuery = $this->getFactory()->getThirtyFiveUpOrderQuery();

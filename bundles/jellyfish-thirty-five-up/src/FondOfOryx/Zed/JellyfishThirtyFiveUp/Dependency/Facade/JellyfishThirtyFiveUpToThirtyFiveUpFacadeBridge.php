@@ -4,7 +4,7 @@ namespace FondOfOryx\Zed\JellyfishThirtyFiveUp\Dependency\Facade;
 
 use FondOfOryx\Zed\ThirtyFiveUp\Business\ThirtyFiveUpFacadeInterface;
 use Generated\Shared\Transfer\ThirtyFiveUpOrderTransfer;
-use Orm\Zed\ThirtyFiveUp\Persistence\ThirtyFiveUpOrder;
+use Orm\Zed\ThirtyFiveUp\Persistence\FooThirtyFiveUpOrder;
 
 class JellyfishThirtyFiveUpToThirtyFiveUpFacadeBridge implements JellyfishThirtyFiveUpToThirtyFiveUpFacadeInterface
 {
@@ -22,11 +22,11 @@ class JellyfishThirtyFiveUpToThirtyFiveUpFacadeBridge implements JellyfishThirty
     }
 
     /**
-     * @param \Orm\Zed\ThirtyFiveUp\Persistence\ThirtyFiveUpOrder $thirtyFiveUpOrder
+     * @param \Orm\Zed\ThirtyFiveUp\Persistence\FooThirtyFiveUpOrder $thirtyFiveUpOrder
      *
      * @return \Generated\Shared\Transfer\ThirtyFiveUpOrderTransfer
      */
-    public function convertThirtyFiveUpOrderEntityToTransfer(ThirtyFiveUpOrder $thirtyFiveUpOrder): ThirtyFiveUpOrderTransfer
+    public function convertThirtyFiveUpOrderEntityToTransfer(FooThirtyFiveUpOrder $thirtyFiveUpOrder): ThirtyFiveUpOrderTransfer
     {
         return $this->facade->convertThirtyFiveUpOrderEntityToTransfer($thirtyFiveUpOrder);
     }
