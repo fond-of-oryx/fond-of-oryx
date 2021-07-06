@@ -108,7 +108,6 @@ class GiftCardProductConfigurationWriter implements GiftCardProductConfiguration
     }
 
     /**
-     * @TODO Next Step: Get Suffix Based on an Attribute because There are different MoneyValues based on different criteria
      *
      * @param \Generated\Shared\Transfer\ProductConcreteTransfer $productConcreteTransfer
      *
