@@ -5,7 +5,7 @@ namespace FondOfOryx\Zed\ThirtyFiveUp\Business;
 use Generated\Shared\Transfer\QuoteTransfer;
 use Generated\Shared\Transfer\SaveOrderTransfer;
 use Generated\Shared\Transfer\ThirtyFiveUpOrderTransfer;
-use Orm\Zed\ThirtyFiveUp\Persistence\ThirtyFiveUpOrder;
+use Orm\Zed\ThirtyFiveUp\Persistence\FooThirtyFiveUpOrder;
 use Spryker\Zed\Kernel\Business\AbstractFacade;
 
 /**
@@ -46,11 +46,11 @@ class ThirtyFiveUpFacade extends AbstractFacade implements ThirtyFiveUpFacadeInt
     }
 
     /**
-     * @param \Orm\Zed\ThirtyFiveUp\Persistence\ThirtyFiveUpOrder $thirtyFiveUpOrder
+     * @param \Orm\Zed\ThirtyFiveUp\Persistence\FooThirtyFiveUpOrder $thirtyFiveUpOrder
      *
      * @return \Generated\Shared\Transfer\ThirtyFiveUpOrderTransfer
      */
-    public function convertThirtyFiveUpOrderEntityToTransfer(ThirtyFiveUpOrder $thirtyFiveUpOrder): ThirtyFiveUpOrderTransfer
+    public function convertThirtyFiveUpOrderEntityToTransfer(FooThirtyFiveUpOrder $thirtyFiveUpOrder): ThirtyFiveUpOrderTransfer
     {
         return $this->getFactory()->createThirtyFiveUpOrderMapper()->fromEntity($thirtyFiveUpOrder);
     }

@@ -8,8 +8,8 @@ use FondOfOryx\Zed\ThirtyFiveUp\Exception\ThirtyFiveUpOrderNotFoundException;
 use Generated\Shared\Transfer\ThirtyFiveUpOrderItemTransfer;
 use Generated\Shared\Transfer\ThirtyFiveUpOrderTransfer;
 use Generated\Shared\Transfer\ThirtyFiveUpVendorTransfer;
-use Orm\Zed\ThirtyFiveUp\Persistence\ThirtyFiveUpOrder;
-use Orm\Zed\ThirtyFiveUp\Persistence\ThirtyFiveUpOrderItem;
+use Orm\Zed\ThirtyFiveUp\Persistence\FooThirtyFiveUpOrder;
+use Orm\Zed\ThirtyFiveUp\Persistence\FooThirtyFiveUpOrderItem;
 use Spryker\Zed\Kernel\Persistence\AbstractEntityManager;
 
 /**
@@ -26,7 +26,7 @@ class ThirtyFiveUpEntityManager extends AbstractEntityManager implements ThirtyF
     {
         $thirtyFiveUpOrderTransfer->requireVendorItems();
         $now = new DateTime();
-        $entity = new ThirtyFiveUpOrder();
+        $entity = new FooThirtyFiveUpOrder();
         $entity->fromArray($thirtyFiveUpOrderTransfer->toArray());
         $entity
             ->setFkSalesOrder($thirtyFiveUpOrderTransfer->getIdSalesOrder())
@@ -99,7 +99,7 @@ class ThirtyFiveUpEntityManager extends AbstractEntityManager implements ThirtyF
 
         $vendor = $this->createOrFindThirtyFiveUpVendor($itemTransfer->getVendor());
 
-        $entity = new ThirtyFiveUpOrderItem();
+        $entity = new FooThirtyFiveUpOrderItem();
         $entity->fromArray($itemTransfer->toArray());
         $entity
             ->setFkThirtyFiveUpVendor($vendor->getId())
