@@ -14,12 +14,4 @@ class GiftCardProductConnectorConfig extends AbstractBundleConfig
     {
         return $this->get(GiftCardProductConnectorConstants::PRODUCT_SKU_PREFIXES, []);
     }
-
-    /**
-     * @return string
-     */
-    public function getGiftCardPattern(): string
-    {
-        return $this->get(GiftCardProductConnectorConstants::PATTERN, []);
-    }
 }
