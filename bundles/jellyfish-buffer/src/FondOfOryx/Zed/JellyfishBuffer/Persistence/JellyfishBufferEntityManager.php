@@ -3,7 +3,6 @@
 namespace FondOfOryx\Zed\JellyfishBuffer\Persistence;
 
 use Generated\Shared\Transfer\JellyfishOrderTransfer;
-use Orm\Zed\JellyfishBuffer\Persistence\FooExportedOrder;
 use Spryker\Zed\Kernel\Persistence\AbstractEntityManager;
 
 /**
