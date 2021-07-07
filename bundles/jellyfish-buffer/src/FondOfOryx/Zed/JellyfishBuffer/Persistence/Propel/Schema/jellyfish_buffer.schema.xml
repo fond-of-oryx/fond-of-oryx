@@ -13,6 +13,10 @@
             <reference local="fk_sales_order" foreign="id_sales_order"/>
         </foreign-key>
 
+        <unique name="fk_sales_order_unique_key">
+            <unique-column name="fk_sales_order"/>
+        </unique>
+
         <behavior name="timestampable"/>
     <id-method-parameter value="foo_exported_order_pk_seq"/></table>
 </database>

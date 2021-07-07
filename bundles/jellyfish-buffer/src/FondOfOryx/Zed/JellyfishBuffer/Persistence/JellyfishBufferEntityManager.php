@@ -27,7 +27,7 @@ class JellyfishBufferEntityManager extends AbstractEntityManager implements Jell
             ->mapTransferAndOptionsToEntity(
                 $jellyfishOrderTransfer,
                 $options,
-                new FooExportedOrder()
+                $this->getFactory()->createExportedOrderQuery()->filterByFkSalesOrder($jellyfishOrderTransfer->getId())->findOneOrCreate()
             );
 
         $fooExportedOrder->save();
