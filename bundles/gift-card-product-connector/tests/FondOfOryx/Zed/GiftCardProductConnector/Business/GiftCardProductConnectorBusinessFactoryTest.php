@@ -29,11 +29,6 @@ class GiftCardProductConnectorBusinessFactoryTest extends Unit
     protected $entityManagerMock;
 
     /**
-     * @var \FondOfOryx\Zed\SplittableTotals\Dependency\Facade\SplittableTotalsToSplittableQuoteFacadeInterface|\PHPUnit\Framework\MockObject\MockObject
-     */
-    protected $splittableQuoteFacadeMock;
-
-    /**
      * @var \FondOfOryx\Zed\GiftCardProductConnector\Business\GiftCardProductConnectorBusinessFactory
      */
     protected $businessFactory;
