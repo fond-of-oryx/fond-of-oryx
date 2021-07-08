@@ -11,8 +11,8 @@ class GiftCardProductAbstractConfigurationWriter implements GiftCardProductAbstr
 {
     use TransactionTrait;
 
-    private const PATTERN = '{randomPart}';
-    private const PRODUCT_ABSTRACT_SKU_PREFIX = 'Abstract-';
+    protected const PATTERN = '{randomPart}';
+    protected const PRODUCT_ABSTRACT_SKU_PREFIX = 'Abstract-';
 
     /**
      * @var \FondOfOryx\Zed\GiftCardProductConnector\GiftCardProductConnectorConfig

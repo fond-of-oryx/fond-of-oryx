@@ -50,8 +50,7 @@ class GiftCardProductConfigurationWriter implements GiftCardProductConfiguration
     public function saveGiftCardProductConfiguration(
         ProductConcreteTransfer $productConcreteTransfer
     ): ProductConcreteTransfer {
-        return $productConcreteTransfer = $this->getTransactionHandler()->handleTransaction(function ()
- use ($productConcreteTransfer): ProductConcreteTransfer {
+        return $productConcreteTransfer = $this->getTransactionHandler()->handleTransaction(function () use ($productConcreteTransfer): ProductConcreteTransfer {
                 return $this->executeSaveGiftCardProductConfigurationTransaction($productConcreteTransfer);
         });
     }
