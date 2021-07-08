@@ -6,7 +6,7 @@ use Codeception\Test\Unit;
 use Generated\Shared\Transfer\SpyGiftCardProductConfigurationEntityTransfer;
 use Orm\Zed\GiftCard\Persistence\SpyGiftCardProductConfiguration;
 
-class GiftCardProductConnectorPersistenceFactoryTest extends Unit
+class GiftCardProductConfigurationMapperTest extends Unit
 {
     /**
      * @var \FondOfOryx\Zed\GiftCardProductConnector\Persistence\Propel\Mapper\GiftCardProductConfigurationMapperInterface
