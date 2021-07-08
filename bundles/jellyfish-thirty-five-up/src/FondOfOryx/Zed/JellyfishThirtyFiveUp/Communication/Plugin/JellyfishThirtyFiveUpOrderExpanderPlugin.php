@@ -28,7 +28,7 @@ class JellyfishThirtyFiveUpOrderExpanderPlugin extends AbstractPlugin implements
         JellyfishOrderTransfer $jellyfishOrderTransfer,
         SpySalesOrder $salesOrder
     ): JellyfishOrderTransfer {
-        $thirtyFiveUpOrder = $salesOrder->getThirtyFiveUpOrder();
+        $thirtyFiveUpOrder = $salesOrder->getFooThirtyFiveUpOrder();
 
         if ($thirtyFiveUpOrder !== null) {
             $thirtyFiveUpOrderTransfer = $this->getFactory()->getThirtyFiveUpFacade()->convertThirtyFiveUpOrderEntityToTransfer($thirtyFiveUpOrder);

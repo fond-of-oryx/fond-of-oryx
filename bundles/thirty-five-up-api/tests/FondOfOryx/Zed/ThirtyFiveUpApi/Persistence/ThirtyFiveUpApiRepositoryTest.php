@@ -14,9 +14,9 @@ use Generated\Shared\Transfer\ApiDataTransfer;
 use Generated\Shared\Transfer\ApiFilterTransfer;
 use Generated\Shared\Transfer\ApiItemTransfer;
 use Generated\Shared\Transfer\ApiRequestTransfer;
-use Generated\Shared\Transfer\FosThirtyFiveUpOrderEntityTransfer;
+use Generated\Shared\Transfer\FooThirtyFiveUpOrderEntityTransfer;
 use Generated\Shared\Transfer\ThirtyFiveUpOrderTransfer;
-use Orm\Zed\ThirtyFiveUp\Persistence\ThirtyFiveUpOrderQuery;
+use Orm\Zed\ThirtyFiveUp\Persistence\FooThirtyFiveUpOrderQuery;
 use Propel\Runtime\Collection\ObjectCollection;
 use Spryker\Zed\Kernel\Container;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -49,7 +49,7 @@ class ThirtyFiveUpApiRepositoryTest extends Unit
     protected $thirtyFiveUpQueryContainerMock;
 
     /**
-     * @var \Orm\Zed\ThirtyFiveUp\Persistence\ThirtyFiveUpOrderQuery|\PHPUnit\Framework\MockObject\MockObject
+     * @var \Orm\Zed\ThirtyFiveUp\Persistence\FooThirtyFiveUpOrderQuery|\PHPUnit\Framework\MockObject\MockObject
      */
     protected $orderQueryMock;
 
@@ -89,7 +89,7 @@ class ThirtyFiveUpApiRepositoryTest extends Unit
     protected $apiFilterTransferMock;
 
     /**
-     * @var \Generated\Shared\Transfer\FosThirtyFiveUpOrderEntityTransfer|\PHPUnit\Framework\MockObject\MockObject
+     * @var \Generated\Shared\Transfer\FooThirtyFiveUpOrderEntityTransfer|\PHPUnit\Framework\MockObject\MockObject
      */
     protected $orderEntityTransferMock;
 
@@ -115,7 +115,7 @@ class ThirtyFiveUpApiRepositoryTest extends Unit
         $this->objectCollectionMock = $this->getMockBuilder(ObjectCollection::class)->disableOriginalConstructor()->getMock();
         $this->thirtyFiveUpQueryBuilderContainerMock = $this->getMockBuilder(ThirtyFiveUpApiToApiQueryBuilderContainerBridge::class)->disableOriginalConstructor()->getMock();
         $this->thirtyFiveUpQueryContainerMock = $this->getMockBuilder(ThirtyFiveUpApiToApiQueryContainerBridge::class)->disableOriginalConstructor()->getMock();
-        $this->orderQueryMock = $this->getMockBuilder(ThirtyFiveUpOrderQuery::class)->disableOriginalConstructor()->getMock();
+        $this->orderQueryMock = $this->getMockBuilder(FooThirtyFiveUpOrderQuery::class)->disableOriginalConstructor()->getMock();
         $this->apiItemTransferMock = $this->getMockBuilder(ApiItemTransfer::class)
             ->disableOriginalConstructor()
             ->getMock();
@@ -140,7 +140,7 @@ class ThirtyFiveUpApiRepositoryTest extends Unit
             ->disableOriginalConstructor()
             ->getMock();
 
-        $this->orderEntityTransferMock = $this->getMockBuilder(FosThirtyFiveUpOrderEntityTransfer::class)
+        $this->orderEntityTransferMock = $this->getMockBuilder(FooThirtyFiveUpOrderEntityTransfer::class)
             ->disableOriginalConstructor()
             ->getMock();
 

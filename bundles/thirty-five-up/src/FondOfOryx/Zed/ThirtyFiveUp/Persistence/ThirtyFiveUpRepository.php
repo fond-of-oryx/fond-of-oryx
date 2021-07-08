@@ -4,8 +4,8 @@ namespace FondOfOryx\Zed\ThirtyFiveUp\Persistence;
 
 use FondOfOryx\Zed\ThirtyFiveUp\Persistence\Propel\Mapper\ThirtyFiveUpEntityMapperInterface;
 use Generated\Shared\Transfer\ThirtyFiveUpOrderTransfer;
-use Orm\Zed\ThirtyFiveUp\Persistence\ThirtyFiveUpOrder;
-use Orm\Zed\ThirtyFiveUp\Persistence\ThirtyFiveUpOrderQuery;
+use Orm\Zed\ThirtyFiveUp\Persistence\FooThirtyFiveUpOrder;
+use Orm\Zed\ThirtyFiveUp\Persistence\FooThirtyFiveUpOrderQuery;
 use Spryker\Zed\Kernel\Persistence\AbstractRepository;
 
 /**
@@ -19,7 +19,7 @@ class ThirtyFiveUpRepository extends AbstractRepository implements ThirtyFiveUpR
     protected $mapper;
 
     /**
-     * @var \Orm\Zed\ThirtyFiveUp\Persistence\ThirtyFiveUpOrderQuery
+     * @var \Orm\Zed\ThirtyFiveUp\Persistence\FooThirtyFiveUpOrderQuery
      */
     protected $orderQuery;
 
@@ -72,11 +72,11 @@ class ThirtyFiveUpRepository extends AbstractRepository implements ThirtyFiveUpR
     }
 
     /**
-     * @param \Orm\Zed\ThirtyFiveUp\Persistence\ThirtyFiveUpOrder $thirtyFiveUpOrder
+     * @param \Orm\Zed\ThirtyFiveUp\Persistence\FooThirtyFiveUpOrder $thirtyFiveUpOrder
      *
      * @return \Generated\Shared\Transfer\ThirtyFiveUpOrderTransfer
      */
-    public function convertOrderEntityToTransfer(ThirtyFiveUpOrder $thirtyFiveUpOrder): ThirtyFiveUpOrderTransfer
+    public function convertOrderEntityToTransfer(FooThirtyFiveUpOrder $thirtyFiveUpOrder): ThirtyFiveUpOrderTransfer
     {
         return $this->getMapper()->mapOrderFromEntity($thirtyFiveUpOrder);
     }
@@ -94,9 +94,9 @@ class ThirtyFiveUpRepository extends AbstractRepository implements ThirtyFiveUpR
     }
 
     /**
-     * @return \Orm\Zed\ThirtyFiveUp\Persistence\ThirtyFiveUpOrderQuery
+     * @return \Orm\Zed\ThirtyFiveUp\Persistence\FooThirtyFiveUpOrderQuery
      */
-    protected function getOrderQuery(): ThirtyFiveUpOrderQuery
+    protected function getOrderQuery(): FooThirtyFiveUpOrderQuery
     {
         if ($this->orderQuery === null) {
             $this->orderQuery = $this->getFactory()->createThirtyFiveUpOrderQuery();

@@ -2,10 +2,10 @@
 <database xmlns="spryker:schema-01" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" name="zed" xsi:schemaLocation="spryker:schema-01 https://static.spryker.com/schema-01.xsd" namespace="Orm\Zed\Sales\Persistence" package="src.Orm.Zed.Sales.Persistence">
 
     <table name="spy_sales_order">
-        <column name="fk_thirty_five_up_order" type="INTEGER" required="false"/>
+        <column name="fk_foo_thirty_five_up_order" type="INTEGER" required="false"/>
 
-        <foreign-key name="spy_sales_order-fk_thirty_five_up_order" foreignTable="fos_thirty_five_up_order" phpName="ThirtyFiveUpOrder" refPhpName="SalesOrder">
-            <reference local="fk_thirty_five_up_order" foreign="id_thirty_five_up_order"/>
+        <foreign-key name="spy_sales_order-fk_foo_thirty_five_up_order" foreignTable="foo_thirty_five_up_order">
+            <reference local="fk_foo_thirty_five_up_order" foreign="id_thirty_five_up_order"/>
         </foreign-key>
     </table>
 

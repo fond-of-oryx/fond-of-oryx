@@ -2,18 +2,18 @@
 
 namespace FondOfOryx\Zed\ThirtyFiveUpApi\Persistence\Propel\Mapper;
 
-use Generated\Shared\Transfer\FosThirtyFiveUpOrderEntityTransfer;
+use Generated\Shared\Transfer\FooThirtyFiveUpOrderEntityTransfer;
 
 class TransferMapper implements TransferMapperInterface
 {
     /**
      * @param array $data
      *
-     * @return \Generated\Shared\Transfer\FosThirtyFiveUpOrderEntityTransfer
+     * @return \Generated\Shared\Transfer\FooThirtyFiveUpOrderEntityTransfer
      */
-    public function toTransfer(array $data): FosThirtyFiveUpOrderEntityTransfer
+    public function toTransfer(array $data): FooThirtyFiveUpOrderEntityTransfer
     {
-        $thirtyFiveUpOrderTransfer = new FosThirtyFiveUpOrderEntityTransfer();
+        $thirtyFiveUpOrderTransfer = new FooThirtyFiveUpOrderEntityTransfer();
 
         return $thirtyFiveUpOrderTransfer->fromArray($data, true);
     }
@@ -21,7 +21,7 @@ class TransferMapper implements TransferMapperInterface
     /**
      * @param array $data
      *
-     * @return \Generated\Shared\Transfer\FosThirtyFiveUpOrderEntityTransfer[]
+     * @return \Generated\Shared\Transfer\FooThirtyFiveUpOrderEntityTransfer[]
      */
     public function toTransferCollection(array $data): array
     {

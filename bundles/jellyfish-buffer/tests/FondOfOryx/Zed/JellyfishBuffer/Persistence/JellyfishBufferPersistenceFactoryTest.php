@@ -4,6 +4,7 @@ namespace FondOfOryx\Zed\JellyfishBuffer\Persistence;
 
 use Codeception\Test\Unit;
 use FondOfOryx\Zed\JellyfishBuffer\Persistence\Propel\Mapper\JellyfishBufferMapperInterface;
+use Orm\Zed\JellyfishBuffer\Persistence\FooExportedOrderQuery;
 
 class JellyfishBufferPersistenceFactoryTest extends Unit
 {
@@ -28,6 +29,17 @@ class JellyfishBufferPersistenceFactoryTest extends Unit
         $this->assertInstanceOf(
             JellyfishBufferMapperInterface::class,
             $this->jellyfishBufferPersistenceFactory->createJellyfishBufferMapper()
+        );
+    }
+
+    /**
+     * @return void
+     */
+    public function testCreateExportedOrderQuery(): void
+    {
+        $this->assertInstanceOf(
+            FooExportedOrderQuery::class,
+            $this->jellyfishBufferPersistenceFactory->createExportedOrderQuery()
         );
     }
 }
