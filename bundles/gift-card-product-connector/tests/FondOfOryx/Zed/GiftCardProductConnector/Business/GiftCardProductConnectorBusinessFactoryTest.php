@@ -100,6 +100,4 @@ class GiftCardProductConnectorBusinessFactoryTest extends Unit
             $this->businessFactory->createGiftCardProductConfigurationWriter()
         );
     }
-
-
 }

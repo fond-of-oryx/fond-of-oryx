@@ -270,7 +270,6 @@ class GiftCardProductConnectorEntityManagerTest extends Unit
     }
 
     /**
-     *
      * @return void
      */
     public function testCreateGiftCardProductAbstractConfiguration(): void
@@ -373,7 +372,6 @@ class GiftCardProductConnectorEntityManagerTest extends Unit
     }
 
     /**
-     *
      * @return void
      */
     public function testCreateGiftCardProductConfiguration(): void
@@ -471,7 +469,6 @@ class GiftCardProductConnectorEntityManagerTest extends Unit
             $this->spyGiftCardProductConfigurationEntityTransferMock,
             $entityTransfer
         );
-
 
         $this->assertEquals($entityTransfer->getIdGiftCardProductConfiguration(), 1);
     }

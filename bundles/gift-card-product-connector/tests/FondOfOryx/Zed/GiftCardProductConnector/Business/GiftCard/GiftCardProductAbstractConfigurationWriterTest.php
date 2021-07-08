@@ -178,8 +178,7 @@ class GiftCardProductAbstractConfigurationWriterTest extends Unit
         $this->entityManagerMock->expects(static::atLeastOnce())
             ->method('createGiftCardProductAbstractConfiguration')
             ->with($this->productAbstractTransferMock, 'prefix-{randomPart}-10')
-            ->willReturn($this->giftCardProductAbstractConfigurationEntityTransfer
-            );
+            ->willReturn($this->giftCardProductAbstractConfigurationEntityTransfer);
 
         $productAbstractTransferMock = $this->giftCardProductAbstractConfigurationWriter
             ->saveGiftCardProductAbstractConfiguration($this->productAbstractTransferMock);
