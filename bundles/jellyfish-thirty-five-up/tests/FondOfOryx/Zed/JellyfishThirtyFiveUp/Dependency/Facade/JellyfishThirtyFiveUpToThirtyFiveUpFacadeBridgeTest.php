@@ -5,7 +5,7 @@ namespace FondOfOryx\Zed\JellyfishThirtyFiveUp\Dependency\Facade;
 use Codeception\Test\Unit;
 use FondOfOryx\Zed\ThirtyFiveUp\Business\ThirtyFiveUpFacade;
 use Generated\Shared\Transfer\ThirtyFiveUpOrderTransfer;
-use Orm\Zed\ThirtyFiveUp\Persistence\ThirtyFiveUpOrder;
+use Orm\Zed\ThirtyFiveUp\Persistence\FooThirtyFiveUpOrder;
 
 class JellyfishThirtyFiveUpToThirtyFiveUpFacadeBridgeTest extends Unit
 {
@@ -20,7 +20,7 @@ class JellyfishThirtyFiveUpToThirtyFiveUpFacadeBridgeTest extends Unit
     protected $facadeMock;
 
     /**
-     * @var \Orm\Zed\ThirtyFiveUp\Persistence\ThirtyFiveUpOrder|\PHPUnit\Framework\MockObject\MockObject
+     * @var \Orm\Zed\ThirtyFiveUp\Persistence\FooThirtyFiveUpOrder|\PHPUnit\Framework\MockObject\MockObject
      */
     protected $thirtyFiveUpOrderMock;
 
@@ -38,7 +38,7 @@ class JellyfishThirtyFiveUpToThirtyFiveUpFacadeBridgeTest extends Unit
             ->disableOriginalConstructor()
             ->getMock();
 
-        $this->thirtyFiveUpOrderMock = $this->getMockBuilder(ThirtyFiveUpOrder::class)
+        $this->thirtyFiveUpOrderMock = $this->getMockBuilder(FooThirtyFiveUpOrder::class)
             ->disableOriginalConstructor()
             ->getMock();
 

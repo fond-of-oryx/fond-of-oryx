@@ -11,7 +11,7 @@ use FondOfOryx\Zed\ThirtyFiveUpApi\Dependency\QueryContainer\ThirtyFiveUpApiToAp
 use FondOfOryx\Zed\ThirtyFiveUpApi\Dependency\QueryContainer\ThirtyFiveUpApiToApiQueryContainerInterface;
 use FondOfOryx\Zed\ThirtyFiveUpApi\Persistence\Propel\Mapper\TransferMapperInterface;
 use FondOfOryx\Zed\ThirtyFiveUpApi\ThirtyFiveUpApiDependencyProvider;
-use Orm\Zed\ThirtyFiveUp\Persistence\ThirtyFiveUpOrderQuery;
+use Orm\Zed\ThirtyFiveUp\Persistence\FooThirtyFiveUpOrderQuery;
 use Spryker\Zed\Kernel\Container;
 
 class ThirtyFiveUpApiPersistenceFactoryTest extends Unit
@@ -42,7 +42,7 @@ class ThirtyFiveUpApiPersistenceFactoryTest extends Unit
     protected $thirtyFiveUpFacadeMock;
 
     /**
-     * @var \Orm\Zed\ThirtyFiveUp\Persistence\ThirtyFiveUpOrderQuery|\PHPUnit\Framework\MockObject\MockObject
+     * @var \Orm\Zed\ThirtyFiveUp\Persistence\FooThirtyFiveUpOrderQuery|\PHPUnit\Framework\MockObject\MockObject
      */
     protected $orderQueryMock;
 
@@ -57,7 +57,7 @@ class ThirtyFiveUpApiPersistenceFactoryTest extends Unit
         $this->thirtyFiveUpFacadeMock = $this->getMockBuilder(ThirtyFiveUpApiToThirtyFiveUpFacadeBridge::class)->disableOriginalConstructor()->getMock();
         $this->thirtyFiveUpQueryContainerMock = $this->getMockBuilder(ThirtyFiveUpApiToApiQueryContainerBridge::class)->disableOriginalConstructor()->getMock();
         $this->thirtyFiveUpQueryBuilderContainerMock = $this->getMockBuilder(ThirtyFiveUpApiToApiQueryBuilderContainerBridge::class)->disableOriginalConstructor()->getMock();
-        $this->orderQueryMock = $this->getMockBuilder(ThirtyFiveUpOrderQuery::class)->disableOriginalConstructor()->getMock();
+        $this->orderQueryMock = $this->getMockBuilder(FooThirtyFiveUpOrderQuery::class)->disableOriginalConstructor()->getMock();
 
         $this->factory = new ThirtyFiveUpApiPersistenceFactory();
         $this->factory->setContainer($this->containerMock);
@@ -82,7 +82,7 @@ class ThirtyFiveUpApiPersistenceFactoryTest extends Unit
         $this->containerMock->method('has')->willReturn(true);
         $this->containerMock->method('get')->with(ThirtyFiveUpApiDependencyProvider::QUERY_THIRTY_FIVE_UP_ORDER)->willReturn($this->orderQueryMock);
 
-        $this->assertInstanceOf(ThirtyFiveUpOrderQuery::class, $this->factory->getThirtyFiveUpOrderQuery());
+        $this->assertInstanceOf(FooThirtyFiveUpOrderQuery::class, $this->factory->getThirtyFiveUpOrderQuery());
     }
 
     /**

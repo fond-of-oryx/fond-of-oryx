@@ -8,7 +8,7 @@ use FondOfOryx\Zed\JellyfishThirtyFiveUp\Dependency\Facade\JellyfishThirtyFiveUp
 use Generated\Shared\Transfer\JellyfishOrderTransfer;
 use Generated\Shared\Transfer\ThirtyFiveUpOrderTransfer;
 use Orm\Zed\Sales\Persistence\SpySalesOrder;
-use Orm\Zed\ThirtyFiveUp\Persistence\ThirtyFiveUpOrder;
+use Orm\Zed\ThirtyFiveUp\Persistence\FooThirtyFiveUpOrder;
 use Spryker\Zed\Kernel\Communication\AbstractCommunicationFactory;
 
 class JellyfishThirtyFiveUpOrderExpanderPluginTest extends Unit
@@ -29,7 +29,7 @@ class JellyfishThirtyFiveUpOrderExpanderPluginTest extends Unit
     protected $jellyOrderTransferMock;
 
     /**
-     * @var \Orm\Zed\ThirtyFiveUp\Persistence\ThirtyFiveUpOrder|\PHPUnit\Framework\MockObject\MockObject
+     * @var \Orm\Zed\ThirtyFiveUp\Persistence\FooThirtyFiveUpOrder|\PHPUnit\Framework\MockObject\MockObject
      */
     protected $thirtyFiveUpOrderMock;
 
@@ -61,7 +61,7 @@ class JellyfishThirtyFiveUpOrderExpanderPluginTest extends Unit
             ->disableOriginalConstructor()
             ->getMock();
 
-        $this->thirtyFiveUpOrderMock = $this->getMockBuilder(ThirtyFiveUpOrder::class)
+        $this->thirtyFiveUpOrderMock = $this->getMockBuilder(FooThirtyFiveUpOrder::class)
             ->disableOriginalConstructor()
             ->getMock();
 
@@ -108,7 +108,7 @@ class JellyfishThirtyFiveUpOrderExpanderPluginTest extends Unit
      */
     public function testExpand(): void
     {
-        $this->salesOrderMock->expects($this->once())->method('getThirtyFiveUpOrder')->willReturn($this->thirtyFiveUpOrderMock);
+        $this->salesOrderMock->expects($this->once())->method('getFooThirtyFiveUpOrder')->willReturn($this->thirtyFiveUpOrderMock);
         $this->factoryMock->expects($this->once())->method('getThirtyFiveUpFacade')->willReturn($this->facadeMock);
         $this->facadeMock->expects($this->once())->method('convertThirtyFiveUpOrderEntityToTransfer')->willReturn($this->thirtyFiveUpOrderTransferMock);
         $this->jellyOrderTransferMock->expects($this->once())->method('setThirtyFiveUpOrder');
@@ -121,7 +121,7 @@ class JellyfishThirtyFiveUpOrderExpanderPluginTest extends Unit
      */
     public function testExpandNo35UpOrder(): void
     {
-        $this->salesOrderMock->expects($this->once())->method('getThirtyFiveUpOrder');
+        $this->salesOrderMock->expects($this->once())->method('getFooThirtyFiveUpOrder');
         $this->factoryMock->expects($this->never())->method('getThirtyFiveUpFacade');
         $this->facadeMock->expects($this->never())->method('convertThirtyFiveUpOrderEntityToTransfer');
         $this->jellyOrderTransferMock->expects($this->never())->method('setThirtyFiveUpOrder');
