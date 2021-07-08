@@ -4,9 +4,9 @@ namespace FondOfOryx\Zed\ThirtyFiveUp\Persistence;
 
 use FondOfOryx\Zed\ThirtyFiveUp\Persistence\Propel\Mapper\ThirtyFiveUpEntityMapper;
 use FondOfOryx\Zed\ThirtyFiveUp\Persistence\Propel\Mapper\ThirtyFiveUpEntityMapperInterface;
-use Orm\Zed\ThirtyFiveUp\Persistence\ThirtyFiveUpOrderItemQuery;
-use Orm\Zed\ThirtyFiveUp\Persistence\ThirtyFiveUpOrderQuery;
-use Orm\Zed\ThirtyFiveUp\Persistence\ThirtyFiveUpVendorQuery;
+use Orm\Zed\ThirtyFiveUp\Persistence\FooThirtyFiveUpOrderItemQuery;
+use Orm\Zed\ThirtyFiveUp\Persistence\FooThirtyFiveUpOrderQuery;
+use Orm\Zed\ThirtyFiveUp\Persistence\FooThirtyFiveUpVendorQuery;
 use Spryker\Zed\Kernel\Persistence\AbstractPersistenceFactory;
 
 /**
@@ -25,26 +25,26 @@ class ThirtyFiveUpPersistenceFactory extends AbstractPersistenceFactory
     }
 
     /**
-     * @return \Orm\Zed\ThirtyFiveUp\Persistence\ThirtyFiveUpOrderQuery
+     * @return \Orm\Zed\ThirtyFiveUp\Persistence\FooThirtyFiveUpOrderQuery
      */
-    public function createThirtyFiveUpOrderQuery(): ThirtyFiveUpOrderQuery
+    public function createThirtyFiveUpOrderQuery(): FooThirtyFiveUpOrderQuery
     {
-        return ThirtyFiveUpOrderQuery::create();
+        return FooThirtyFiveUpOrderQuery::create();
     }
 
     /**
-     * @return \Orm\Zed\ThirtyFiveUp\Persistence\ThirtyFiveUpOrderItemQuery
+     * @return \Orm\Zed\ThirtyFiveUp\Persistence\FooThirtyFiveUpOrderItemQuery
      */
-    public function createThirtyFiveUpOrderItemQuery(): ThirtyFiveUpOrderItemQuery
+    public function createThirtyFiveUpOrderItemQuery(): FooThirtyFiveUpOrderItemQuery
     {
-        return ThirtyFiveUpOrderItemQuery::create();
+        return FooThirtyFiveUpOrderItemQuery::create();
     }
 
     /**
-     * @return \Orm\Zed\ThirtyFiveUp\Persistence\ThirtyFiveUpVendorQuery
+     * @return \Orm\Zed\ThirtyFiveUp\Persistence\FooThirtyFiveUpVendorQuery
      */
-    public function createThirtyFiveUpVendorQuery(): ThirtyFiveUpVendorQuery
+    public function createThirtyFiveUpVendorQuery(): FooThirtyFiveUpVendorQuery
     {
-        return ThirtyFiveUpVendorQuery::create();
+        return FooThirtyFiveUpVendorQuery::create();
     }
 }

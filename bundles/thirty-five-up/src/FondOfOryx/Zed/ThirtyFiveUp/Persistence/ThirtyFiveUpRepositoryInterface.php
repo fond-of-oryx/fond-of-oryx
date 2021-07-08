@@ -3,7 +3,7 @@
 namespace FondOfOryx\Zed\ThirtyFiveUp\Persistence;
 
 use Generated\Shared\Transfer\ThirtyFiveUpOrderTransfer;
-use Orm\Zed\ThirtyFiveUp\Persistence\ThirtyFiveUpOrder;
+use Orm\Zed\ThirtyFiveUp\Persistence\FooThirtyFiveUpOrder;
 
 interface ThirtyFiveUpRepositoryInterface
 {
@@ -35,9 +35,9 @@ interface ThirtyFiveUpRepositoryInterface
     public function findThirtyFiveUpOrderById(int $id): ?ThirtyFiveUpOrderTransfer;
 
     /**
-     * @param \Orm\Zed\ThirtyFiveUp\Persistence\ThirtyFiveUpOrder $thirtyFiveUpOrder
+     * @param \Orm\Zed\ThirtyFiveUp\Persistence\FooThirtyFiveUpOrder $thirtyFiveUpOrder
      *
      * @return \Generated\Shared\Transfer\ThirtyFiveUpOrderTransfer
      */
-    public function convertOrderEntityToTransfer(ThirtyFiveUpOrder $thirtyFiveUpOrder): ThirtyFiveUpOrderTransfer;
+    public function convertOrderEntityToTransfer(FooThirtyFiveUpOrder $thirtyFiveUpOrder): ThirtyFiveUpOrderTransfer;
 }

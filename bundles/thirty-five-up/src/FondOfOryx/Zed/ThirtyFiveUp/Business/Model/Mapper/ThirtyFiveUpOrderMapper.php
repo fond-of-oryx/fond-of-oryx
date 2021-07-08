@@ -13,7 +13,7 @@ use Generated\Shared\Transfer\SaveOrderTransfer;
 use Generated\Shared\Transfer\ThirtyFiveUpOrderItemTransfer;
 use Generated\Shared\Transfer\ThirtyFiveUpOrderTransfer;
 use Generated\Shared\Transfer\ThirtyFiveUpVendorTransfer;
-use Orm\Zed\ThirtyFiveUp\Persistence\ThirtyFiveUpOrder;
+use Orm\Zed\ThirtyFiveUp\Persistence\FooThirtyFiveUpOrder;
 
 class ThirtyFiveUpOrderMapper implements ThirtyFiveUpOrderMapperInterface
 {
@@ -98,11 +98,11 @@ class ThirtyFiveUpOrderMapper implements ThirtyFiveUpOrderMapperInterface
     }
 
     /**
-     * @param \Orm\Zed\ThirtyFiveUp\Persistence\ThirtyFiveUpOrder $thirtyFiveUpOrder
+     * @param \Orm\Zed\ThirtyFiveUp\Persistence\FooThirtyFiveUpOrder $thirtyFiveUpOrder
      *
      * @return \Generated\Shared\Transfer\ThirtyFiveUpOrderTransfer
      */
-    public function fromEntity(ThirtyFiveUpOrder $thirtyFiveUpOrder): ThirtyFiveUpOrderTransfer
+    public function fromEntity(FooThirtyFiveUpOrder $thirtyFiveUpOrder): ThirtyFiveUpOrderTransfer
     {
         return $this->repository->convertOrderEntityToTransfer($thirtyFiveUpOrder);
     }

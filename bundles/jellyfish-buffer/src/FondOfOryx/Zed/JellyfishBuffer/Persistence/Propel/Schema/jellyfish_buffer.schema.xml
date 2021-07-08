@@ -6,11 +6,16 @@
 
         <column name="fk_sales_order" required="true" type="INTEGER"/>
         <column name="order_reference" required="true" size="255" type="VARCHAR"/>
-        <column name="data" required="true" type="JSON"/>
+        <column name="store" required="true" size="255" type="VARCHAR"/>
+        <column name="data" required="true" type="LONGVARCHAR" default="{}"/>
 
         <foreign-key name="foo_exported_order-spy_sales_order" foreignTable="spy_sales_order" phpName="Order">
             <reference local="fk_sales_order" foreign="id_sales_order"/>
         </foreign-key>
+
+        <unique name="fk_sales_order_unique_key">
+            <unique-column name="fk_sales_order"/>
+        </unique>
 
         <behavior name="timestampable"/>
     <id-method-parameter value="foo_exported_order_pk_seq"/></table>
