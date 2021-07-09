@@ -3,7 +3,6 @@
 namespace FondOfOryx\Zed\GiftCardProductConnector;
 
 use Codeception\Test\Unit;
-use FondOfOryx\Zed\GiftCardProductConnector\Dependency\Facade\GiftCardProductConnectorToProductFacadeInterface;
 use Orm\Zed\GiftCard\Persistence\SpyGiftCardProductAbstractConfigurationLinkQuery;
 use Orm\Zed\GiftCard\Persistence\SpyGiftCardProductAbstractConfigurationQuery;
 use Orm\Zed\GiftCard\Persistence\SpyGiftCardProductConfigurationLinkQuery;
@@ -33,11 +32,6 @@ class GiftCardProductConnectorDependencyProviderTest extends Unit
     protected $bundleProxyMock;
 
     /**
-     * @var \PHPUnit\Framework\MockObject\MockObject|\Spryker\Zed\Product\Business\ProductFacadeInterface
-     */
-    protected $productFacadeMock;
-
-    /**
      * @var \FondOfOryx\Zed\GiftCardProductConnector\GiftCardProductConnectorDependencyProvider
      */
     protected $giftCardProductConnectorDependencyProvider;
@@ -61,45 +55,8 @@ class GiftCardProductConnectorDependencyProviderTest extends Unit
             ->disableOriginalConstructor()
             ->getMock();
 
-        $this->productFacadeMock = $this->getMockBuilder(ProductFacadeInterface::class)
-            ->disableOriginalConstructor()
-            ->getMock();
-
         $this->giftCardProductConnectorDependencyProvider = new GiftCardProductConnectorDependencyProvider();
     }
-
-    /**
-     * @return void
-     */
-    public function testProvideBusinessLayerDependencies(): void
-    {
-        $this->containerMock->expects(static::atLeastOnce())
-            ->method('getLocator')
-            ->willReturn($this->locatorMock);
-
-        $this->locatorMock->expects(static::atLeastOnce())
-            ->method('__call')
-            ->withConsecutive(['product'])
-            ->willReturn($this->bundleProxyMock);
-
-        $this->bundleProxyMock->expects(static::atLeastOnce())
-            ->method('__call')
-            ->with('facade')
-            ->willReturnOnConsecutiveCalls(
-                $this->productFacadeMock
-            );
-
-        $container = $this->giftCardProductConnectorDependencyProvider
-            ->provideBusinessLayerDependencies($this->containerMock);
-
-        static::assertEquals($this->containerMock, $container);
-
-        static::assertInstanceOf(
-            GiftCardProductConnectorToProductFacadeInterface::class,
-            $this->containerMock[GiftCardProductConnectorDependencyProvider::FACADE_PRODUCT]
-        );
-    }
-
     /**
      * @return void
      */
