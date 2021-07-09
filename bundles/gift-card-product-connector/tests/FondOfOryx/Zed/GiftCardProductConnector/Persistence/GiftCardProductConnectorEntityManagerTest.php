@@ -150,7 +150,6 @@ class GiftCardProductConnectorEntityManagerTest extends Unit
      */
     protected $productConcreteTransferMock;
 
-
     /**
      * @return void
      */

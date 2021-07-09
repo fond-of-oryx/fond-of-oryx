@@ -2,7 +2,6 @@
 
 namespace FondOfOryx\Zed\GiftCardProductConnector\Business\GiftCard;
 
-use FondOfOryx\Zed\GiftCardProductConnector\Dependency\Facade\GiftCardProductConnectorToProductFacadeInterface;
 use FondOfOryx\Zed\GiftCardProductConnector\GiftCardProductConnectorConfig;
 use FondOfOryx\Zed\GiftCardProductConnector\Persistence\GiftCardProductConnectorEntityManagerInterface;
 use Generated\Shared\Transfer\ProductConcreteTransfer;

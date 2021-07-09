@@ -10,7 +10,6 @@ use Generated\Shared\Transfer\SpyGiftCardProductConfigurationEntityTransfer;
 use Generated\Shared\Transfer\SpyGiftCardProductConfigurationLinkEntityTransfer;
 use Orm\Zed\GiftCard\Persistence\Base\SpyGiftCardProductConfigurationLink;
 use Orm\Zed\GiftCard\Persistence\SpyGiftCardProductAbstractConfigurationLink;
-use Orm\Zed\GiftCard\Persistence\SpyGiftCardProductConfigurationLinkQuery;
 use Orm\Zed\Product\Persistence\SpyProduct;
 use Orm\Zed\Product\Persistence\SpyProductAbstract;
 use Spryker\Zed\Kernel\Persistence\AbstractEntityManager;
@@ -62,7 +61,8 @@ class GiftCardProductConnectorEntityManager extends AbstractEntityManager implem
 
         $configurationLink = $this->findGiftCardProductAbstractConfigurationLinkByProductAbstractId($productAbstractEntity);
 
-        if ($configurationLink !== null
+        if (
+            $configurationLink !== null
             && $configurationLink->getFkGiftCardProductAbstractConfiguration() !== $entityTransfer->getIdGiftCardProductAbstractConfiguration()
         ) {
             $this->deleteGiftCardProductAbstractConfigurationLink($configurationLink);
@@ -125,7 +125,8 @@ class GiftCardProductConnectorEntityManager extends AbstractEntityManager implem
 
         $configurationLink = $this->findGiftCardProductConfigurationLinkByProductId($productEntity);
 
-        if ($configurationLink !== null
+        if (
+            $configurationLink !== null
             && $configurationLink->getFkGiftCardProductConfiguration() !== $entityTransfer->getIdGiftCardProductConfiguration()
         ) {
             $this->deleteGiftCardProductConfigurationLink($configurationLink);
@@ -150,8 +151,6 @@ class GiftCardProductConnectorEntityManager extends AbstractEntityManager implem
      * @param \Orm\Zed\Product\Persistence\SpyProductAbstract $productAbstractEntity
      *
      * @return \Orm\Zed\GiftCard\Persistence\SpyGiftCardProductAbstractConfigurationLink|null
-     *
-     * @throws \Spryker\Zed\Propel\Business\Exception\AmbiguousComparisonException
      */
     protected function findGiftCardProductAbstractConfigurationLinkByProductAbstractId(
         SpyProductAbstract $productAbstractEntity
@@ -165,8 +164,6 @@ class GiftCardProductConnectorEntityManager extends AbstractEntityManager implem
      * @param \Orm\Zed\Product\Persistence\SpyProduct $productEntity
      *
      * @return \Orm\Zed\GiftCard\Persistence\Base\SpyGiftCardProductConfigurationLink|null
-     *
-     * @throws \Spryker\Zed\Propel\Business\Exception\AmbiguousComparisonException
      */
     protected function findGiftCardProductConfigurationLinkByProductId(
         SpyProduct $productEntity
@@ -180,33 +177,29 @@ class GiftCardProductConnectorEntityManager extends AbstractEntityManager implem
      * @param \Orm\Zed\GiftCard\Persistence\SpyGiftCardProductAbstractConfigurationLink $configurationLink
      *
      * @return int
-     *
-     * @throws \Propel\Runtime\Exception\PropelException
-     * @throws \Spryker\Zed\Propel\Business\Exception\AmbiguousComparisonException
      */
     protected function deleteGiftCardProductAbstractConfigurationLink(
         SpyGiftCardProductAbstractConfigurationLink $configurationLink
     ): int {
         return $this->getFactory()->createSpyGiftCardProductAbstractConfigurationLinkQuery()
             ->filterByIdGiftCardProductAbstractConfigurationLink(
-                $configurationLink->getIdGiftCardProductAbstractConfigurationLink())
+                $configurationLink->getIdGiftCardProductAbstractConfigurationLink()
+            )
             ->delete();
     }
 
     /**
      * @param \Orm\Zed\GiftCard\Persistence\Base\SpyGiftCardProductConfigurationLink $configurationLink
+     *
      * @return int
-     *
-     * @throws \Propel\Runtime\Exception\PropelException
-     *
-     * @throws \Spryker\Zed\Propel\Business\Exception\AmbiguousComparisonException
      */
     protected function deleteGiftCardProductConfigurationLink(
         SpyGiftCardProductConfigurationLink $configurationLink
     ): int {
         return $this->getFactory()->createSpyGiftCardProductConfigurationLinkQuery()
             ->filterByIdGiftCardProductConfigurationLink(
-                $configurationLink->getIdGiftCardProductConfigurationLink())
+                $configurationLink->getIdGiftCardProductConfigurationLink()
+            )
             ->delete();
     }
 }

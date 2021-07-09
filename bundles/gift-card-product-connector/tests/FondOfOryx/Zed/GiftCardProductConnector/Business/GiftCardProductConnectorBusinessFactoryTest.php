@@ -6,7 +6,6 @@ use Codeception\Test\Unit;
 use FondOfOryx\Zed\GiftCardProductConnector\Business\GiftCard\GiftCardProductAbstractConfigurationWriterInterface;
 use FondOfOryx\Zed\GiftCardProductConnector\Business\GiftCard\GiftCardProductConfigurationWriterInterface;
 use FondOfOryx\Zed\GiftCardProductConnector\GiftCardProductConnectorConfig;
-use FondOfOryx\Zed\GiftCardProductConnector\GiftCardProductConnectorDependencyProvider;
 use FondOfOryx\Zed\GiftCardProductConnector\Persistence\GiftCardProductConnectorEntityManager;
 use Spryker\Zed\Kernel\Container;
 

@@ -2,7 +2,6 @@
 
 namespace FondOfOryx\Zed\GiftCardProductConnector;
 
-use FondOfOryx\Zed\GiftCardProductConnector\Dependency\Facade\GiftCardProductConnectorToProductFacadeBridge;
 use Orm\Zed\GiftCard\Persistence\SpyGiftCardProductAbstractConfigurationLinkQuery;
 use Orm\Zed\GiftCard\Persistence\SpyGiftCardProductAbstractConfigurationQuery;
 use Orm\Zed\GiftCard\Persistence\SpyGiftCardProductConfigurationLinkQuery;

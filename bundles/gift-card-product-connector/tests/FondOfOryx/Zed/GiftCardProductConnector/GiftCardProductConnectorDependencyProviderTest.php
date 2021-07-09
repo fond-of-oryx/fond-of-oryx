@@ -12,7 +12,6 @@ use Orm\Zed\Product\Persistence\SpyProductQuery;
 use Spryker\Shared\Kernel\BundleProxy;
 use Spryker\Zed\Kernel\Container;
 use Spryker\Zed\Kernel\Locator;
-use Spryker\Zed\Product\Business\ProductFacadeInterface;
 
 class GiftCardProductConnectorDependencyProviderTest extends Unit
 {
@@ -57,6 +56,7 @@ class GiftCardProductConnectorDependencyProviderTest extends Unit
 
         $this->giftCardProductConnectorDependencyProvider = new GiftCardProductConnectorDependencyProvider();
     }
+
     /**
      * @return void
      */
