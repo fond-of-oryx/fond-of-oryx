@@ -23,23 +23,15 @@ class GiftCardProductConfigurationWriter implements GiftCardProductConfiguration
     private $entityManager;
 
     /**
-     * @var \FondOfOryx\Zed\GiftCardProductConnector\Dependency\Facade\GiftCardProductConnectorToProductFacadeInterface
-     */
-    private $productFacade;
-
-    /**
-     * @param \FondOfOryx\Zed\GiftCardProductConnector\Dependency\Facade\GiftCardProductConnectorToProductFacadeInterface $productFacade
      * @param \FondOfOryx\Zed\GiftCardProductConnector\Persistence\GiftCardProductConnectorEntityManagerInterface $entityManager
      * @param \FondOfOryx\Zed\GiftCardProductConnector\GiftCardProductConnectorConfig $config
      */
     public function __construct(
-        GiftCardProductConnectorToProductFacadeInterface $productFacade,
         GiftCardProductConnectorEntityManagerInterface $entityManager,
         GiftCardProductConnectorConfig $config
     ) {
         $this->config = $config;
         $this->entityManager = $entityManager;
-        $this->productFacade = $productFacade;
     }
 
     /**
@@ -68,7 +60,7 @@ class GiftCardProductConfigurationWriter implements GiftCardProductConfiguration
         }
 
         $this->entityManager
-            ->createGiftCardProductConfiguration(
+            ->saveGiftCardProductConfiguration(
                 $productConcreteTransfer,
                 $this->getValue($productConcreteTransfer)
             );
@@ -113,11 +105,9 @@ class GiftCardProductConfigurationWriter implements GiftCardProductConfiguration
      */
     protected function getValue(ProductConcreteTransfer $productConcreteTransfer): int
     {
-        $productAbstractTransfer = $this->productFacade->findProductAbstractById($productConcreteTransfer->getFkProductAbstract());
-
         /** @var \Generated\Shared\Transfer\PriceProductTransfer $productAbstractPrice */
-        $productAbstractPrice = $productAbstractTransfer->getPrices()->offsetGet(0);
+        $productConcretePrice = $productConcreteTransfer->getPrices()->offsetGet(0);
 
-        return $productAbstractPrice->getMoneyValue()->getGrossAmount();
+        return $productConcretePrice->getMoneyValue()->getGrossAmount();
     }
 }

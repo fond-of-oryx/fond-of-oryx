@@ -15,7 +15,7 @@ interface GiftCardProductConnectorEntityManagerInterface
      *
      * @return \Generated\Shared\Transfer\SpyGiftCardProductAbstractConfigurationEntityTransfer
      */
-    public function createGiftCardProductAbstractConfiguration(
+    public function saveGiftCardProductAbstractConfiguration(
         ProductAbstractTransfer $productAbstractTransfer,
         string $pattern
     ): SpyGiftCardProductAbstractConfigurationEntityTransfer;
@@ -26,7 +26,7 @@ interface GiftCardProductConnectorEntityManagerInterface
      *
      * @return \Generated\Shared\Transfer\SpyGiftCardProductConfigurationEntityTransfer
      */
-    public function createGiftCardProductConfiguration(
+    public function saveGiftCardProductConfiguration(
         ProductConcreteTransfer $productConcreteTransfer,
         int $value
     ): SpyGiftCardProductConfigurationEntityTransfer;
