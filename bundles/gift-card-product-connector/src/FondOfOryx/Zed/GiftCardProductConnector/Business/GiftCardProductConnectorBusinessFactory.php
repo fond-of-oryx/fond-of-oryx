@@ -6,8 +6,6 @@ use FondOfOryx\Zed\GiftCardProductConnector\Business\GiftCard\GiftCardProductAbs
 use FondOfOryx\Zed\GiftCardProductConnector\Business\GiftCard\GiftCardProductAbstractConfigurationWriterInterface;
 use FondOfOryx\Zed\GiftCardProductConnector\Business\GiftCard\GiftCardProductConfigurationWriter;
 use FondOfOryx\Zed\GiftCardProductConnector\Business\GiftCard\GiftCardProductConfigurationWriterInterface;
-use FondOfOryx\Zed\GiftCardProductConnector\Dependency\Facade\GiftCardProductConnectorToProductFacadeInterface;
-use FondOfOryx\Zed\GiftCardProductConnector\GiftCardProductConnectorDependencyProvider;
 use Spryker\Zed\Kernel\Business\AbstractBusinessFactory;
 
 /**
@@ -33,17 +31,8 @@ class GiftCardProductConnectorBusinessFactory extends AbstractBusinessFactory
     public function createGiftCardProductConfigurationWriter(): GiftCardProductConfigurationWriterInterface
     {
         return new GiftCardProductConfigurationWriter(
-            $this->getProductFacade(),
             $this->getEntityManager(),
             $this->getConfig()
         );
-    }
-
-    /**
-     * @return \FondOfOryx\Zed\GiftCardProductConnector\Dependency\Facade\GiftCardProductConnectorToProductFacadeInterface
-     */
-    protected function getProductFacade(): GiftCardProductConnectorToProductFacadeInterface
-    {
-        return $this->getProvidedDependency(GiftCardProductConnectorDependencyProvider::FACADE_PRODUCT);
     }
 }

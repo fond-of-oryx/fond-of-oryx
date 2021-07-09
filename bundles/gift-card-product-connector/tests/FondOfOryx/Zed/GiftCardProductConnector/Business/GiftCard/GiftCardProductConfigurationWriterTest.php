@@ -5,7 +5,6 @@ namespace FondOfOryx\Zed\GiftCardProductConnector\Business\Model\Writer;
 use ArrayObject;
 use Codeception\Test\Unit;
 use FondOfOryx\Zed\GiftCardProductConnector\Business\GiftCard\GiftCardProductConfigurationWriter;
-use FondOfOryx\Zed\GiftCardProductConnector\Dependency\Facade\GiftCardProductConnectorToProductFacadeInterface;
 use FondOfOryx\Zed\GiftCardProductConnector\GiftCardProductConnectorConfig;
 use FondOfOryx\Zed\GiftCardProductConnector\Persistence\GiftCardProductConnectorEntityManagerInterface;
 use Generated\Shared\Transfer\MoneyValueTransfer;
@@ -48,11 +47,6 @@ class GiftCardProductConfigurationWriterTest extends Unit
     protected $priceProductTransferMock;
 
     /**
-     * @var \FondOfOryx\Zed\GiftCardProductConnector\Dependency\Facade\GiftCardProductConnectorToProductFacadeInterface|\PHPUnit\Framework\MockObject\MockObject
-     */
-    protected $productFacadeMock;
-
-    /**
      * @var \Generated\Shared\Transfer\ProductAbstractTransfer|\PHPUnit\Framework\MockObject\MockObject
      */
     protected $productAbstractTransferMock;
@@ -73,10 +67,6 @@ class GiftCardProductConfigurationWriterTest extends Unit
     protected function _before(): void
     {
         parent::_before();
-
-        $this->productFacadeMock = $this->getMockBuilder(GiftCardProductConnectorToProductFacadeInterface::class)
-            ->disableOriginalConstructor()
-            ->getMock();
 
         $this->entityManagerMock = $this->getMockBuilder(GiftCardProductConnectorEntityManagerInterface::class)
             ->disableOriginalConstructor()
@@ -111,7 +101,6 @@ class GiftCardProductConfigurationWriterTest extends Unit
             ->getMock();
 
         $this->giftCardProductConfigurationWriter = new class (
-            $this->productFacadeMock,
             $this->entityManagerMock,
             $this->configMock,
             $this->transactionHandlerMock
@@ -124,18 +113,16 @@ class GiftCardProductConfigurationWriterTest extends Unit
             /**
              *  constructor.
              *
-             * @param \FondOfOryx\Zed\GiftCardProductConnector\Dependency\Facade\GiftCardProductConnectorToProductFacadeInterface $productFacade
              * @param \FondOfOryx\Zed\GiftCardProductConnector\Persistence\GiftCardProductConnectorEntityManagerInterface $entityManager
              * @param \FondOfOryx\Zed\GiftCardProductConnector\GiftCardProductConnectorConfig $config
              * @param \Spryker\Zed\Kernel\Persistence\EntityManager\TransactionHandlerInterface $transactionHandler
              */
             public function __construct(
-                GiftCardProductConnectorToProductFacadeInterface $productFacade,
                 GiftCardProductConnectorEntityManagerInterface $entityManager,
                 GiftCardProductConnectorConfig $config,
                 TransactionHandlerInterface $transactionHandler
             ) {
-                parent::__construct($productFacade, $entityManager, $config);
+                parent::__construct($entityManager, $config);
                 $this->transactionHandler = $transactionHandler;
             }
 
@@ -182,15 +169,6 @@ class GiftCardProductConfigurationWriterTest extends Unit
             ->willReturn('prefix-sku');
 
         $this->productConcreteTransferMock->expects(static::atLeastOnce())
-            ->method('getFkProductAbstract')
-            ->willReturn($idProductAbstract);
-
-        $this->productFacadeMock->expects(static::atLeastOnce())
-            ->method('findProductAbstractById')
-            ->with($idProductAbstract)
-            ->willReturn($this->productAbstractTransferMock);
-
-        $this->productAbstractTransferMock->expects(static::atLeastOnce())
             ->method('getPrices')
             ->willReturn($prices);
 
@@ -203,7 +181,7 @@ class GiftCardProductConfigurationWriterTest extends Unit
             ->willReturn($grossAmount);
 
         $this->entityManagerMock->expects(static::atLeastOnce())
-            ->method('createGiftCardProductConfiguration')
+            ->method('saveGiftCardProductConfiguration')
             ->with($this->productConcreteTransferMock, $grossAmount)
             ->willReturn($this->giftCardProductConfigurationEntityTransfer);
 
