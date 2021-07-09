@@ -177,16 +177,17 @@ class GiftCardProductConnectorEntityManager extends AbstractEntityManager implem
     }
 
     /**
-     * @param \Generated\Shared\Transfer\SpyGiftCardProductAbstractConfigurationEntityTransfer $entityTransfer
+     * @param \Orm\Zed\GiftCard\Persistence\SpyGiftCardProductAbstractConfigurationLink $configurationLink
+     *
+     * @return int
      *
      * @throws \Propel\Runtime\Exception\PropelException
-     *
      * @throws \Spryker\Zed\Propel\Business\Exception\AmbiguousComparisonException
      */
     protected function deleteGiftCardProductAbstractConfigurationLink(
         SpyGiftCardProductAbstractConfigurationLink $configurationLink
-    ): void {
-        $this->getFactory()->createSpyGiftCardProductAbstractConfigurationLinkQuery()
+    ): int {
+        return $this->getFactory()->createSpyGiftCardProductAbstractConfigurationLinkQuery()
             ->filterByIdGiftCardProductAbstractConfigurationLink(
                 $configurationLink->getIdGiftCardProductAbstractConfigurationLink())
             ->delete();
@@ -194,6 +195,7 @@ class GiftCardProductConnectorEntityManager extends AbstractEntityManager implem
 
     /**
      * @param \Orm\Zed\GiftCard\Persistence\Base\SpyGiftCardProductConfigurationLink $configurationLink
+     * @return int
      *
      * @throws \Propel\Runtime\Exception\PropelException
      *
@@ -201,8 +203,8 @@ class GiftCardProductConnectorEntityManager extends AbstractEntityManager implem
      */
     protected function deleteGiftCardProductConfigurationLink(
         SpyGiftCardProductConfigurationLink $configurationLink
-    ): void {
-        $this->getFactory()->createSpyGiftCardProductConfigurationLinkQuery()
+    ): int {
+        return $this->getFactory()->createSpyGiftCardProductConfigurationLinkQuery()
             ->filterByIdGiftCardProductConfigurationLink(
                 $configurationLink->getIdGiftCardProductConfigurationLink())
             ->delete();
