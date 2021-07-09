@@ -155,15 +155,18 @@ class GiftCardProductConnectorEntityManagerTest extends Unit
      */
     protected function _before(): void
     {
-        $this->giftCardProductProductConnectorPersistenceFactoryMock = $this->getMockBuilder(GiftCardProductConnectorPersistenceFactory::class)
+        $this->giftCardProductProductConnectorPersistenceFactoryMock = $this
+            ->getMockBuilder(GiftCardProductConnectorPersistenceFactory::class)
             ->disableOriginalConstructor()
             ->getMock();
 
-        $this->spyGiftCardProductAbstractConfigurationQueryMock = $this->getMockBuilder(SpyGiftCardProductAbstractConfigurationQuery::class)
+        $this->spyGiftCardProductAbstractConfigurationQueryMock = $this
+            ->getMockBuilder(SpyGiftCardProductAbstractConfigurationQuery::class)
             ->disableOriginalConstructor()
             ->getMock();
 
-        $this->spyGiftCardProductConfigurationQueryMock = $this->getMockBuilder(SpyGiftCardProductConfigurationQuery::class)
+        $this->spyGiftCardProductConfigurationQueryMock = $this
+            ->getMockBuilder(SpyGiftCardProductConfigurationQuery::class)
             ->disableOriginalConstructor()
             ->getMock();
 
@@ -172,7 +175,7 @@ class GiftCardProductConnectorEntityManagerTest extends Unit
             ->disableOriginalConstructor()
             ->getMock();
 
-        $this->giftCardProductonfigurationMapperMock = $this
+        $this->giftCardProductConfigurationMapperMock = $this
             ->getMockBuilder(GiftCardProductConfigurationMapperInterface::class)
             ->disableOriginalConstructor()
             ->getMock();
@@ -272,10 +275,11 @@ class GiftCardProductConnectorEntityManagerTest extends Unit
     /**
      * @return void
      */
-    public function testCreateGiftCardProductAbstractConfiguration(): void
+    public function testsaveGiftCardProductAbstractConfiguration(): void
     {
         $pattern = '{randomPart}';
         $sku = 'sku';
+        $idProductAbstract = 1;
 
         $this->giftCardProductProductConnectorPersistenceFactoryMock->expects(static::atLeastOnce())
             ->method('createSpyGiftCardProductAbstractConfigurationQuery')
@@ -323,6 +327,15 @@ class GiftCardProductConnectorEntityManagerTest extends Unit
             ->method('createSpyGiftCardProductAbstractConfigurationLinkQuery')
             ->willReturn($this->spyGiftCardProductAbstractConfigurationLinkQueryMock);
 
+        $this->spyGiftCardProductAbstractConfigurationLinkQueryMock->expects(static::atLeastOnce())
+            ->method('filterByFkProductAbstract')
+            ->with($idProductAbstract)
+            ->willReturn($this->spyGiftCardProductAbstractConfigurationLinkQueryMock);
+
+        $this->spyGiftCardProductAbstractConfigurationLinkQueryMock->expects(static::atLeastOnce())
+            ->method('findOne')
+            ->willReturn(null);
+
         $this->spyGiftCardProductAbstractConfigurationEntityTransferMock->expects(static::atLeastOnce())
             ->method('getIdGiftCardProductAbstractConfiguration')
             ->willReturn(1);
@@ -357,7 +370,7 @@ class GiftCardProductConnectorEntityManagerTest extends Unit
             ->method('mapEntityToTransfer')
             ->willReturn($this->spyGiftCardProductAbstractConfigurationLinkEntityTransferMock);
 
-        $entityTransfer = $this->giftCardProductConnectorEntityManager->createGiftCardProductAbstractConfiguration(
+        $entityTransfer = $this->giftCardProductConnectorEntityManager->saveGiftCardProductAbstractConfiguration(
             $this->productAbstractTransferMock,
             $pattern
         );
@@ -374,10 +387,135 @@ class GiftCardProductConnectorEntityManagerTest extends Unit
     /**
      * @return void
      */
-    public function testCreateGiftCardProductConfiguration(): void
+    public function testsaveGiftCardProductAbstractConfigurationAndDeleteConfigurationLinks(): void
+    {
+        $pattern = '{randomPart}';
+        $sku = 'sku';
+        $idProductAbstract = 1;
+
+        $this->giftCardProductProductConnectorPersistenceFactoryMock->expects(static::atLeastOnce())
+            ->method('createSpyGiftCardProductAbstractConfigurationQuery')
+            ->willReturn($this->spyGiftCardProductAbstractConfigurationQueryMock);
+
+        $this->spyGiftCardProductAbstractConfigurationQueryMock->expects(static::atLeastOnce())
+            ->method('filterByCodePattern')
+            ->with($pattern)
+            ->willReturn($this->spyGiftCardProductAbstractConfigurationQueryMock);
+
+        $this->spyGiftCardProductAbstractConfigurationQueryMock->expects(static::atLeastOnce())
+            ->method('findOneOrCreate')
+            ->willReturn($this->spyGiftCardProductAbstractConfigurationMock);
+
+        $this->spyGiftCardProductAbstractConfigurationMock->expects(static::atLeastOnce())
+            ->method('save')
+            ->willReturn(1);
+
+        $this->giftCardProductProductConnectorPersistenceFactoryMock->expects(static::atLeastOnce())
+            ->method('createGiftCardProductAbstractConfigurationMapper')
+            ->willReturn($this->giftCardProductAbstractConfigurationMapperMock);
+
+        $this->giftCardProductAbstractConfigurationMapperMock->expects(static::atLeastOnce())
+            ->method('mapEntityToTransfer')
+            ->with($this->spyGiftCardProductAbstractConfigurationMock)
+            ->willReturn($this->spyGiftCardProductAbstractConfigurationEntityTransferMock);
+
+        $this->spyGiftCardProductAbstractConfigurationEntityTransferMock->expects(static::atLeastOnce())
+            ->method('addSpyGiftCardProductAbstractConfigurationLinks')
+            ->willReturn($this->spyGiftCardProductAbstractConfigurationEntityTransferMock);
+
+        $this->productAbstractTransferMock->expects(static::atLeastOnce())
+            ->method('getSku')
+            ->willReturn($sku);
+
+        $this->giftCardProductProductConnectorPersistenceFactoryMock->expects(static::atLeastOnce())
+            ->method('createProductAbstractQuery')
+            ->willReturn($this->productAbstractQueryMock);
+
+        $this->productAbstractQueryMock->expects(static::atLeastOnce())
+            ->method('findOneBySku')
+            ->willReturn($this->productAbstractMock);
+
+        $this->giftCardProductProductConnectorPersistenceFactoryMock->expects(static::atLeastOnce())
+            ->method('createSpyGiftCardProductAbstractConfigurationLinkQuery')
+            ->willReturn($this->spyGiftCardProductAbstractConfigurationLinkQueryMock);
+
+        $this->spyGiftCardProductAbstractConfigurationLinkQueryMock->expects(static::atLeastOnce())
+            ->method('filterByFkProductAbstract')
+            ->with($idProductAbstract)
+            ->willReturn($this->spyGiftCardProductAbstractConfigurationLinkQueryMock);
+
+        $this->spyGiftCardProductAbstractConfigurationLinkQueryMock->expects(static::atLeastOnce())
+            ->method('findOne')
+            ->willReturn($this->spyGiftCardProductAbstractConfigurationLinkMock);
+
+        $this->spyGiftCardProductAbstractConfigurationLinkQueryMock->expects(static::atLeastOnce())
+            ->method('filterByIdGiftCardProductAbstractConfigurationLink')
+            ->willReturn($this->spyGiftCardProductAbstractConfigurationLinkQueryMock);
+
+        $this->spyGiftCardProductAbstractConfigurationLinkMock->expects(static::atLeastOnce())
+            ->method('getIdGiftCardProductAbstractConfigurationLink')
+            ->willReturn(1);
+
+        $this->spyGiftCardProductAbstractConfigurationLinkQueryMock->expects(static::atLeastOnce())
+            ->method('delete')
+            ->willReturn(1);
+
+        $this->spyGiftCardProductAbstractConfigurationEntityTransferMock->expects(static::atLeastOnce())
+            ->method('getIdGiftCardProductAbstractConfiguration')
+            ->willReturn(1);
+
+        $this->productAbstractMock->expects(static::atLeastOnce())
+            ->method('getIdProductAbstract')
+            ->willReturn(1);
+
+        $this->spyGiftCardProductAbstractConfigurationLinkQueryMock->expects(static::atLeastOnce())
+            ->method('filterByFkGiftCardProductAbstractConfiguration')
+            ->with(1)
+            ->willReturn($this->spyGiftCardProductAbstractConfigurationLinkQueryMock);
+
+        $this->spyGiftCardProductAbstractConfigurationLinkQueryMock->expects(static::atLeastOnce())
+            ->method('filterByFkProductAbstract')
+            ->with(1)
+            ->willReturn($this->spyGiftCardProductAbstractConfigurationLinkQueryMock);
+
+        $this->spyGiftCardProductAbstractConfigurationLinkQueryMock->expects(static::atLeastOnce())
+            ->method('findOneOrCreate')
+            ->willReturn($this->spyGiftCardProductAbstractConfigurationLinkMock);
+
+        $this->spyGiftCardProductAbstractConfigurationLinkMock->expects(static::atLeastOnce())
+            ->method('save')
+            ->willReturn(1);
+
+        $this->giftCardProductProductConnectorPersistenceFactoryMock->expects(static::atLeastOnce())
+            ->method('createGiftCardProductAbstractConfigurationLinkMapper')
+            ->willReturn($this->giftCardProductAbstractConfigurationLinkMapperMock);
+
+        $this->giftCardProductAbstractConfigurationLinkMapperMock->expects(static::atLeastOnce())
+            ->method('mapEntityToTransfer')
+            ->willReturn($this->spyGiftCardProductAbstractConfigurationLinkEntityTransferMock);
+
+        $entityTransfer = $this->giftCardProductConnectorEntityManager->saveGiftCardProductAbstractConfiguration(
+            $this->productAbstractTransferMock,
+            $pattern
+        );
+
+        $this->assertInstanceOf(SpyGiftCardProductAbstractConfigurationEntityTransfer::class, $entityTransfer);
+        $this->assertEquals(
+            $this->spyGiftCardProductAbstractConfigurationEntityTransferMock,
+            $entityTransfer
+        );
+
+        $this->assertEquals($entityTransfer->getIdGiftCardProductAbstractConfiguration(), 1);
+    }
+
+    /**
+     * @return void
+     */
+    public function testSaveGiftCardProductConfiguration(): void
     {
         $value = 10;
         $sku = 'sku';
+        $idProduct = 1;
 
         $this->giftCardProductProductConnectorPersistenceFactoryMock->expects(static::atLeastOnce())
             ->method('createSpyGiftCardProductConfigurationQuery')
@@ -398,9 +536,9 @@ class GiftCardProductConnectorEntityManagerTest extends Unit
 
         $this->giftCardProductProductConnectorPersistenceFactoryMock->expects(static::atLeastOnce())
             ->method('createGiftCardProductConfigurationMapper')
-            ->willReturn($this->giftCardProductonfigurationMapperMock);
+            ->willReturn($this->giftCardProductConfigurationMapperMock);
 
-        $this->giftCardProductonfigurationMapperMock->expects(static::atLeastOnce())
+        $this->giftCardProductConfigurationMapperMock->expects(static::atLeastOnce())
             ->method('mapEntityToTransfer')
             ->with($this->spyGiftCardProductConfigurationMock)
             ->willReturn($this->spyGiftCardProductConfigurationEntityTransferMock);
@@ -424,6 +562,15 @@ class GiftCardProductConnectorEntityManagerTest extends Unit
         $this->giftCardProductProductConnectorPersistenceFactoryMock->expects(static::atLeastOnce())
             ->method('createSpyGiftCardProductConfigurationLinkQuery')
             ->willReturn($this->spyGiftCardProductConfigurationLinkQueryMock);
+
+        $this->spyGiftCardProductConfigurationLinkQueryMock->expects(static::atLeastOnce())
+            ->method('filterByFkProduct')
+            ->with($idProduct)
+            ->willReturn($this->spyGiftCardProductConfigurationLinkQueryMock);
+
+        $this->spyGiftCardProductConfigurationLinkQueryMock->expects(static::atLeastOnce())
+            ->method('findOne')
+            ->willReturn(null);
 
         $this->spyGiftCardProductConfigurationEntityTransferMock->expects(static::atLeastOnce())
             ->method('getIdGiftCardProductConfiguration')
@@ -459,7 +606,131 @@ class GiftCardProductConnectorEntityManagerTest extends Unit
             ->method('mapEntityToTransfer')
             ->willReturn($this->spyGiftCardProductConfigurationLinkEntityTransferMock);
 
-        $entityTransfer = $this->giftCardProductConnectorEntityManager->createGiftCardProductConfiguration(
+        $entityTransfer = $this->giftCardProductConnectorEntityManager->saveGiftCardProductConfiguration(
+            $this->productConcreteTransferMock,
+            $value
+        );
+
+        $this->assertInstanceOf(SpyGiftCardProductConfigurationEntityTransfer::class, $entityTransfer);
+        $this->assertEquals(
+            $this->spyGiftCardProductConfigurationEntityTransferMock,
+            $entityTransfer
+        );
+
+        $this->assertEquals($entityTransfer->getIdGiftCardProductConfiguration(), 1);
+    }
+
+    /**
+     * @return void
+     */
+    public function testSaveGiftCardProductConfigurationAndDeleteConfigurationLinks(): void
+    {
+        $value = 10;
+        $sku = 'sku';
+        $idProduct = 1;
+
+        $this->giftCardProductProductConnectorPersistenceFactoryMock->expects(static::atLeastOnce())
+            ->method('createSpyGiftCardProductConfigurationQuery')
+            ->willReturn($this->spyGiftCardProductConfigurationQueryMock);
+
+        $this->spyGiftCardProductConfigurationQueryMock->expects(static::atLeastOnce())
+            ->method('filterByValue')
+            ->with($value)
+            ->willReturn($this->spyGiftCardProductConfigurationQueryMock);
+
+        $this->spyGiftCardProductConfigurationQueryMock->expects(static::atLeastOnce())
+            ->method('findOneOrCreate')
+            ->willReturn($this->spyGiftCardProductConfigurationMock);
+
+        $this->spyGiftCardProductConfigurationMock->expects(static::atLeastOnce())
+            ->method('save')
+            ->willReturn(1);
+
+        $this->giftCardProductProductConnectorPersistenceFactoryMock->expects(static::atLeastOnce())
+            ->method('createGiftCardProductConfigurationMapper')
+            ->willReturn($this->giftCardProductConfigurationMapperMock);
+
+        $this->giftCardProductConfigurationMapperMock->expects(static::atLeastOnce())
+            ->method('mapEntityToTransfer')
+            ->with($this->spyGiftCardProductConfigurationMock)
+            ->willReturn($this->spyGiftCardProductConfigurationEntityTransferMock);
+
+        $this->spyGiftCardProductConfigurationEntityTransferMock->expects(static::atLeastOnce())
+            ->method('addSpyGiftCardProductConfigurationLinks')
+            ->willReturn($this->spyGiftCardProductConfigurationEntityTransferMock);
+
+        $this->productConcreteTransferMock->expects(static::atLeastOnce())
+            ->method('getSku')
+            ->willReturn($sku);
+
+        $this->giftCardProductProductConnectorPersistenceFactoryMock->expects(static::atLeastOnce())
+            ->method('createProductQuery')
+            ->willReturn($this->productQueryMock);
+
+        $this->productQueryMock->expects(static::atLeastOnce())
+            ->method('findOneBySku')
+            ->willReturn($this->productMock);
+
+        $this->giftCardProductProductConnectorPersistenceFactoryMock->expects(static::atLeastOnce())
+            ->method('createSpyGiftCardProductConfigurationLinkQuery')
+            ->willReturn($this->spyGiftCardProductConfigurationLinkQueryMock);
+
+        $this->spyGiftCardProductConfigurationLinkQueryMock->expects(static::atLeastOnce())
+            ->method('filterByFkProduct')
+            ->with($idProduct)
+            ->willReturn($this->spyGiftCardProductConfigurationLinkQueryMock);
+
+        $this->spyGiftCardProductConfigurationLinkQueryMock->expects(static::atLeastOnce())
+            ->method('findOne')
+            ->willReturn($this->spyGiftCardProductConfigurationLinkMock);
+
+        $this->spyGiftCardProductConfigurationLinkQueryMock->expects(static::atLeastOnce())
+            ->method('filterByIdGiftCardProductConfigurationLink')
+            ->willReturn($this->spyGiftCardProductConfigurationLinkQueryMock);
+
+        $this->spyGiftCardProductConfigurationLinkMock->expects(static::atLeastOnce())
+            ->method('getIdGiftCardProductConfigurationLink')
+            ->willReturn(1);
+
+        $this->spyGiftCardProductConfigurationLinkQueryMock->expects(static::atLeastOnce())
+            ->method('delete')
+            ->willReturn(1);
+
+        $this->spyGiftCardProductConfigurationEntityTransferMock->expects(static::atLeastOnce())
+            ->method('getIdGiftCardProductConfiguration')
+            ->willReturn(1);
+
+        $this->productMock->expects(static::atLeastOnce())
+            ->method('getIdProduct')
+            ->willReturn(1);
+
+        $this->spyGiftCardProductConfigurationLinkQueryMock->expects(static::atLeastOnce())
+            ->method('filterByFkGiftCardProductConfiguration')
+            ->with(1)
+            ->willReturn($this->spyGiftCardProductConfigurationLinkQueryMock);
+
+        $this->spyGiftCardProductConfigurationLinkQueryMock->expects(static::atLeastOnce())
+            ->method('filterByFkProduct')
+            ->with(1)
+            ->willReturn($this->spyGiftCardProductConfigurationLinkQueryMock);
+
+        $this->spyGiftCardProductConfigurationLinkQueryMock->expects(static::atLeastOnce())
+            ->method('findOneOrCreate')
+            ->willReturn($this->spyGiftCardProductConfigurationLinkMock);
+
+        $this->spyGiftCardProductConfigurationLinkMock->expects(static::atLeastOnce())
+            ->method('save')
+            ->willReturn(1);
+
+        $this->giftCardProductProductConnectorPersistenceFactoryMock->expects(static::atLeastOnce())
+            ->method('createGiftCardProductConfigurationLinkMapper')
+            ->willReturn($this->giftCardProductConfigurationLinkMapperMock);
+
+        $this->giftCardProductConfigurationLinkMapperMock->expects(static::atLeastOnce())
+            ->method('mapEntityToTransfer')
+            ->willReturn($this->spyGiftCardProductConfigurationLinkEntityTransferMock);
+
+        $entityTransfer = $this->giftCardProductConnectorEntityManager->saveGiftCardProductConfiguration(
             $this->productConcreteTransferMock,
             $value
         );

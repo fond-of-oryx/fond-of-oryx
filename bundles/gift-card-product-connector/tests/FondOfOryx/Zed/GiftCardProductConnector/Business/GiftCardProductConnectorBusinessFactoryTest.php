@@ -5,9 +5,7 @@ namespace FondOfOryx\Zed\GiftCardProductConnector\Business;
 use Codeception\Test\Unit;
 use FondOfOryx\Zed\GiftCardProductConnector\Business\GiftCard\GiftCardProductAbstractConfigurationWriterInterface;
 use FondOfOryx\Zed\GiftCardProductConnector\Business\GiftCard\GiftCardProductConfigurationWriterInterface;
-use FondOfOryx\Zed\GiftCardProductConnector\Dependency\Facade\GiftCardProductConnectorToProductFacadeInterface;
 use FondOfOryx\Zed\GiftCardProductConnector\GiftCardProductConnectorConfig;
-use FondOfOryx\Zed\GiftCardProductConnector\GiftCardProductConnectorDependencyProvider;
 use FondOfOryx\Zed\GiftCardProductConnector\Persistence\GiftCardProductConnectorEntityManager;
 use Spryker\Zed\Kernel\Container;
 
@@ -34,11 +32,6 @@ class GiftCardProductConnectorBusinessFactoryTest extends Unit
     protected $businessFactory;
 
     /**
-     * @var \FondOfOryx\Zed\GiftCardProductConnector\Dependency\Facade\GiftCardProductConnectorToProductFacadeInterface|\PHPUnit\Framework\MockObject\MockObject
-     */
-    protected $productFacadeMock;
-
-    /**
      * @return void
      */
     protected function _before(): void
@@ -52,10 +45,6 @@ class GiftCardProductConnectorBusinessFactoryTest extends Unit
             ->getMock();
 
         $this->configMock = $this->getMockBuilder(GiftCardProductConnectorConfig::class)
-            ->disableOriginalConstructor()
-            ->getMock();
-
-        $this->productFacadeMock = $this->getMockBuilder(GiftCardProductConnectorToProductFacadeInterface::class)
             ->disableOriginalConstructor()
             ->getMock();
 
@@ -81,15 +70,6 @@ class GiftCardProductConnectorBusinessFactoryTest extends Unit
      */
     public function testCreateGiftCardProductConfigurationWriter(): void
     {
-        $this->containerMock->expects(static::atLeastOnce())
-            ->method('has')
-            ->willReturn(true);
-
-        $this->containerMock->expects(static::atLeastOnce())
-            ->method('get')
-            ->with(GiftCardProductConnectorDependencyProvider::FACADE_PRODUCT)
-            ->willReturn($this->productFacadeMock);
-
         static::assertInstanceOf(
             GiftCardProductConfigurationWriterInterface::class,
             $this->businessFactory->createGiftCardProductConfigurationWriter()

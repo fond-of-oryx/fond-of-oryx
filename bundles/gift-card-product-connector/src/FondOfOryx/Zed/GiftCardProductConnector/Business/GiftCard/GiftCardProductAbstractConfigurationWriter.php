@@ -62,7 +62,7 @@ class GiftCardProductAbstractConfigurationWriter implements GiftCardProductAbstr
         }
 
         $this->entityManager
-            ->createGiftCardProductAbstractConfiguration(
+            ->saveGiftCardProductAbstractConfiguration(
                 $productAbstractTransfer,
                 $this->getPattern($productAbstractTransfer)
             );
