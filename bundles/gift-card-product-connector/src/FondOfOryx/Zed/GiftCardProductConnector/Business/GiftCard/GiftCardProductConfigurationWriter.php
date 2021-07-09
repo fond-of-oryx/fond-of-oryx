@@ -104,7 +104,7 @@ class GiftCardProductConfigurationWriter implements GiftCardProductConfiguration
      */
     protected function getValue(ProductConcreteTransfer $productConcreteTransfer): int
     {
-        /** @var \Generated\Shared\Transfer\PriceProductTransfer $productAbstractPrice */
+        /** @var \Generated\Shared\Transfer\PriceProductTransfer $productConcretePrice */
         $productConcretePrice = $productConcreteTransfer->getPrices()->offsetGet(0);
 
         return $productConcretePrice->getMoneyValue()->getGrossAmount();
