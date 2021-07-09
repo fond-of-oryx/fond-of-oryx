@@ -151,8 +151,6 @@ class GiftCardProductConnectorEntityManager extends AbstractEntityManager implem
      * @param \Orm\Zed\Product\Persistence\SpyProductAbstract $productAbstractEntity
      *
      * @return \Orm\Zed\GiftCard\Persistence\SpyGiftCardProductAbstractConfigurationLink|null
-     *
-     * @throws \Spryker\Zed\Propel\Business\Exception\AmbiguousComparisonException
      */
     private function findGiftCardProductAbstractConfigurationLinkByProductAbstractId(
         SpyProductAbstract $productAbstractEntity
@@ -166,8 +164,6 @@ class GiftCardProductConnectorEntityManager extends AbstractEntityManager implem
      * @param \Orm\Zed\Product\Persistence\SpyProduct $productEntity
      *
      * @return \Orm\Zed\GiftCard\Persistence\Base\SpyGiftCardProductConfigurationLink|null
-     *
-     * @throws \Spryker\Zed\Propel\Business\Exception\AmbiguousComparisonException
      */
     private function findGiftCardProductConfigurationLinkByProductId(
         SpyProduct $productEntity
