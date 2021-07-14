@@ -70,7 +70,7 @@ class JellyfishSalesOrderProductTypeFacadeTest extends Unit
 
         $this->jellyfishOrderItemExpanderMock->expects($this->atLeastOnce())
             ->method('expand')
-            ->with($this->jellyfishOrderItemTransferMock,)
+            ->with($this->jellyfishOrderItemTransferMock, $this->spySalesOrderItemMock)
             ->willReturn($this->jellyfishOrderItemTransferMock);
 
         $jellyfishOrderItemTransferMock = $this->facade->expand(
