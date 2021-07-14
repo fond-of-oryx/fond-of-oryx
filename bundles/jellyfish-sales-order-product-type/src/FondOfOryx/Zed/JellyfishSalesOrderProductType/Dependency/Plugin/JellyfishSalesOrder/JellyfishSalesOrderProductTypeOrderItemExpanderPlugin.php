@@ -23,6 +23,5 @@ class JellyfishSalesOrderProductTypeOrderItemExpanderPlugin extends AbstractPlug
         SpySalesOrderItem $salesOrderItem
     ): JellyfishOrderItemTransfer {
         return $this->getFacade()->expand($jellyfishOrderItemTransfer, $salesOrderItem);
-
     }
 }

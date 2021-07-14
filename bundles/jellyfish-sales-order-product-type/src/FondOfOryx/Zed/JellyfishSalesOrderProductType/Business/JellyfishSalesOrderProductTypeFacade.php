@@ -14,6 +14,7 @@ class JellyfishSalesOrderProductTypeFacade extends AbstractFacade implements Jel
     /**
      * @param \Generated\Shared\Transfer\JellyfishOrderItemTransfer $jellyfishOrderItemTransfer
      * @param \Orm\Zed\Sales\Persistence\SpySalesOrderItem $salesOrderItem
+     *
      * @return \Generated\Shared\Transfer\JellyfishOrderItemTransfer
      */
     public function expand(
@@ -24,5 +25,4 @@ class JellyfishSalesOrderProductTypeFacade extends AbstractFacade implements Jel
             ->createJellyfishOrderItemExpander()
             ->expand($jellyfishOrderItemTransfer, $salesOrderItem);
     }
-
 }

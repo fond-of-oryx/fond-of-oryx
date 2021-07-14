@@ -12,8 +12,6 @@ class JellyfishSalesOrderProductTypeToGiftCardFacadeBridge implements JellyfishS
     protected $giftCardFacade;
 
     /**
-     * JellyfishProductTypeToGiftCardFacadeBridge constructor.
-     *
      * @param \Spryker\Zed\GiftCard\Business\GiftCardFacadeInterface $giftCardFacade
      */
     public function __construct(GiftCardFacadeInterface $giftCardFacade)
@@ -30,5 +28,4 @@ class JellyfishSalesOrderProductTypeToGiftCardFacadeBridge implements JellyfishS
     {
         return $this->giftCardFacade->isGiftCardOrderItem($idSalesOrderItem);
     }
-
 }

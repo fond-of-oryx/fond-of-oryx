@@ -48,7 +48,6 @@ class JellyfishOrderItemExpanderTest extends Unit
             ->disableOriginalConstructor()
             ->getMock();
 
-
         $this->expander = new JellyfishOrderItemExpander($this->facadeMock);
     }
 
@@ -57,12 +56,11 @@ class JellyfishOrderItemExpanderTest extends Unit
      */
     public function testExpandWithTypeGiftCard(): void
     {
-
         $this->jellyfishOrderItemTransferMock->expects(static::atLeastOnce())
             ->method('setProductType')
             ->willReturn($this->jellyfishOrderItemTransferMock);
 
-        $this->spySalesOrderItemMock->expects(Static::atLeastOnce())
+        $this->spySalesOrderItemMock->expects(static::atLeastOnce())
             ->method('getIdSalesOrderItem')
             ->willReturn(1);
 
@@ -86,12 +84,11 @@ class JellyfishOrderItemExpanderTest extends Unit
      */
     public function testExpandWithTypeProduct(): void
     {
-
         $this->jellyfishOrderItemTransferMock->expects(static::atLeastOnce())
             ->method('setProductType')
             ->willReturn($this->jellyfishOrderItemTransferMock);
 
-        $this->spySalesOrderItemMock->expects(Static::atLeastOnce())
+        $this->spySalesOrderItemMock->expects(static::atLeastOnce())
             ->method('getIdSalesOrderItem')
             ->willReturn(1);
 

@@ -48,8 +48,6 @@ class JellyfishSalesOrderProductTypeOrderItemExpanderPluginTest extends Unit
             ->disableOriginalConstructor()
             ->getMock();
 
-
-
         $this->plugin = new JellyfishSalesOrderProductTypeOrderItemExpanderPlugin();
         $this->plugin->setFacade($this->facadeMock);
     }

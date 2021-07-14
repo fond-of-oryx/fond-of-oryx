@@ -2,7 +2,6 @@
 
 namespace FondOfOryx\Zed\JellyfishSalesOrderProductType\Business\Expander;
 
-use Generated\Shared\Transfer\CustomerTransfer;
 use Generated\Shared\Transfer\JellyfishOrderItemTransfer;
 use Orm\Zed\Sales\Persistence\SpySalesOrderItem;
 

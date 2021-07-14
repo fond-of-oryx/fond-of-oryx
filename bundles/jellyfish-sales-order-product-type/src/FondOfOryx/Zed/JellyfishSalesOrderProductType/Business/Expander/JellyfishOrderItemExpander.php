@@ -8,8 +8,8 @@ use Orm\Zed\Sales\Persistence\SpySalesOrderItem;
 
 class JellyfishOrderItemExpander implements JellyfishOrderItemExpanderInterface
 {
-    protected const PRODUCT_TYPE_PRODUCT = "product";
-    protected const PRODUCT_TYPE_GIFT_CARD = "gift_card";
+    protected const PRODUCT_TYPE_PRODUCT = 'product';
+    protected const PRODUCT_TYPE_GIFT_CARD = 'gift_card';
 
     /**
      * @var \FondOfOryx\Zed\JellyfishSalesOrderProductType\Dependency\Facade\JellyfishSalesOrderProductTypeToGiftCardFacadeInterface
@@ -17,10 +17,9 @@ class JellyfishOrderItemExpander implements JellyfishOrderItemExpanderInterface
     protected $giftCardFacade;
 
     /**
-     *
      * JellyfishOrderItemExpander constructor.
      *
-     * @param \FondOfOryx\Zed\JellyfishSalesOrderProductType\Dependency\Facade\JellyfishSalesOrderProductTypeToGiftCardFacadeInterface
+     * @param \FondOfOryx\Zed\JellyfishSalesOrderProductType\Dependency\Facade\JellyfishSalesOrderProductTypeToGiftCardFacadeInterface $giftCardFacade
      */
     public function __construct(
         JellyfishSalesOrderProductTypeToGiftCardFacadeInterface $giftCardFacade

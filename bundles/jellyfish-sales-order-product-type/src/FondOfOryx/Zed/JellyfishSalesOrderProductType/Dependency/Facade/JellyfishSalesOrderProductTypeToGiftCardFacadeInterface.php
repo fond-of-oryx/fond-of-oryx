@@ -2,10 +2,6 @@
 
 namespace FondOfOryx\Zed\JellyfishSalesOrderProductType\Dependency\Facade;
 
-use Generated\Shared\Transfer\JellyfishOrderItemTransfer;
-use Generated\Shared\Transfer\ProductAbstractTransfer;
-use Generated\Shared\Transfer\ProductConcreteTransfer;
-
 interface JellyfishSalesOrderProductTypeToGiftCardFacadeInterface
 {
     /**

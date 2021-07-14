@@ -62,5 +62,4 @@ class JellyfishSalesOrderProductTypeBusinessFactoryTest extends Unit
             $this->businessFactory->createJellyfishOrderItemExpander()
         );
     }
-
 }

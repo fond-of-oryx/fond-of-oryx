@@ -3,7 +3,6 @@
 namespace FondOfOryx\Zed\JellyfishSalesOrderProductType;
 
 use FondOfOryx\Zed\JellyfishSalesOrderProductType\Dependency\Facade\JellyfishSalesOrderProductTypeToGiftCardFacadeBridge;
-use FondOfOryx\Zed\JellyfishSalesOrderProductType\Dependency\Facade\JellyfishProductTypeToProductFacadeBridge;
 use Spryker\Zed\Kernel\AbstractBundleDependencyProvider;
 use Spryker\Zed\Kernel\Container;
 
