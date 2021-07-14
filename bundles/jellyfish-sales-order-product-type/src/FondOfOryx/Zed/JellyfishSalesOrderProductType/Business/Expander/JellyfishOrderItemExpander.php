@@ -17,8 +17,6 @@ class JellyfishOrderItemExpander implements JellyfishOrderItemExpanderInterface
     protected $giftCardFacade;
 
     /**
-     * JellyfishOrderItemExpander constructor.
-     *
      * @param \FondOfOryx\Zed\JellyfishSalesOrderProductType\Dependency\Facade\JellyfishSalesOrderProductTypeToGiftCardFacadeInterface $giftCardFacade
      */
     public function __construct(
