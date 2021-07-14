@@ -3,9 +3,7 @@
 namespace FondOfOryx\Zed\JellyfishSalesOrderProductType\Business\Expander;
 
 use FondOfOryx\Zed\JellyfishSalesOrderProductType\Dependency\Facade\JellyfishSalesOrderProductTypeToGiftCardFacadeInterface;
-use FondOfOryx\Zed\JellyfishSalesOrderProductType\Dependency\Facade\JellyfishProductTypeToProductFacadeInterface;
 use Generated\Shared\Transfer\JellyfishOrderItemTransfer;
-use Generated\Shared\Transfer\ProductAbstractTransfer;
 use Orm\Zed\Sales\Persistence\SpySalesOrderItem;
 
 class JellyfishOrderItemExpander implements JellyfishOrderItemExpanderInterface
@@ -13,12 +11,16 @@ class JellyfishOrderItemExpander implements JellyfishOrderItemExpanderInterface
     protected const PRODUCT_TYPE_PRODUCT = "product";
     protected const PRODUCT_TYPE_GIFT_CARD = "gift_card";
 
+    /**
+     * @var \FondOfOryx\Zed\JellyfishSalesOrderProductType\Dependency\Facade\JellyfishSalesOrderProductTypeToGiftCardFacadeInterface
+     */
     protected $giftCardFacade;
 
     /**
      *
      * JellyfishOrderItemExpander constructor.
-     * @param \FondOfOryx\Zed\JellyfishSalesOrderProductType\Dependency\Facade\JellyfishProductTypeToProductFacadeInterface $productFacade
+     *
+     * @param \FondOfOryx\Zed\JellyfishSalesOrderProductType\Dependency\Facade\JellyfishSalesOrderProductTypeToGiftCardFacadeInterface
      */
     public function __construct(
         JellyfishSalesOrderProductTypeToGiftCardFacadeInterface $giftCardFacade

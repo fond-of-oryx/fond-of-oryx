@@ -19,7 +19,7 @@ class JellyfishSalesOrderProductTypeBusinessFactory extends AbstractBusinessFact
      */
     public function createJellyfishOrderItemExpander(): JellyfishOrderItemExpanderInterface
     {
-        return new JellyfishOrderItemExpander($this->getGiftCatdFacade());
+        return new JellyfishOrderItemExpander($this->getGiftCartFacade());
     }
 
     /**
@@ -27,7 +27,7 @@ class JellyfishSalesOrderProductTypeBusinessFactory extends AbstractBusinessFact
      *
      * @throws \Spryker\Zed\Kernel\Exception\Container\ContainerKeyNotFoundException
      */
-    protected function getGiftCatdFacade(): JellyfishSalesOrderProductTypeToGiftCardFacadeInterface
+    protected function getGiftCartFacade(): JellyfishSalesOrderProductTypeToGiftCardFacadeInterface
     {
         return $this->getProvidedDependency(JellyfishSalesOrderProductTypeDependencyProvider::FACADE_GIFT_CARD);
     }
