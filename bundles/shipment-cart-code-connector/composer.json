@@ -1,6 +1,6 @@
 {
   "name": "fond-of-oryx/shipment-cart-code-connector",
-  "description": "Catalog sku filter module.",
+  "description": "Shipment cart connector module.",
   "license": "MIT",
   "authors": [
     {
