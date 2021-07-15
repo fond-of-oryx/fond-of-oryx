@@ -43,6 +43,7 @@ include:
   - bundles/return-labels-rest-api-customer-connector
   - bundles/return-labels-rest-api-extension
   - bundles/sales-locale-connector
+  - bundles/shipment-cart-code-connector
   - bundles/shipment-table-rate
   - bundles/shipment-table-rate-data-import
   - bundles/shipment-table-rate-extension

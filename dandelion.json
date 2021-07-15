@@ -196,6 +196,10 @@
       "path": "bundles/sales-locale-connector/",
       "version": "1.0.0"
     },
+    "shipment-cart-code-connector": {
+      "path": "bundles/shipment-cart-code-connector/",
+      "version": "1.0.0"
+    },
     "shipment-table-rate": {
       "path": "bundles/shipment-table-rate/",
       "version": "1.1.0"
