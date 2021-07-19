@@ -9,7 +9,7 @@ interface CartCodeTypeDataImportFacadeInterface
 {
     /**
      * Specification:
-     * - Imports Shipment Table Rate data.
+     * - Imports Cart Code Type Data
      *
      * @api
      *
