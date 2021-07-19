@@ -8,6 +8,8 @@ use FondOfOryx\Zed\JellyfishSalesOrder\Business\Model\Exporter\SalesOrderExporte
 use FondOfOryx\Zed\JellyfishSalesOrder\Business\Model\Exporter\SalesOrderExporterInterface;
 use FondOfOryx\Zed\JellyfishSalesOrder\Business\Model\Mapper\JellyfishOrderAddressMapper;
 use FondOfOryx\Zed\JellyfishSalesOrder\Business\Model\Mapper\JellyfishOrderAddressMapperInterface;
+use FondOfOryx\Zed\JellyfishSalesOrder\Business\Model\Mapper\JellyfishOrderCouponMapper;
+use FondOfOryx\Zed\JellyfishSalesOrder\Business\Model\Mapper\JellyfishOrderCouponMapperInterface;
 use FondOfOryx\Zed\JellyfishSalesOrder\Business\Model\Mapper\JellyfishOrderDiscountMapper;
 use FondOfOryx\Zed\JellyfishSalesOrder\Business\Model\Mapper\JellyfishOrderDiscountMapperInterface;
 use FondOfOryx\Zed\JellyfishSalesOrder\Business\Model\Mapper\JellyfishOrderExpenseMapper;
@@ -62,6 +64,7 @@ class JellyfishSalesOrderBusinessFactory extends AbstractBusinessFactory
         return new JellyfishOrderMapper(
             $this->createJellyfishOrderAddressMapper(),
             $this->createJellyfishOrderExpenseMapper(),
+            $this->createJellyfishOrderCouponMapper(),
             $this->createJellyfishOrderDiscountMapper(),
             $this->createJellyfishOrderPaymentMapper(),
             $this->createJellyfishOrderTotalsMapper(),
@@ -86,6 +89,14 @@ class JellyfishSalesOrderBusinessFactory extends AbstractBusinessFactory
     protected function createJellyfishOrderExpenseMapper(): JellyfishOrderExpenseMapperInterface
     {
         return new JellyfishOrderExpenseMapper();
+    }
+
+    /**
+     * @return \FondOfOryx\Zed\JellyfishSalesOrder\Business\Model\Mapper\JellyfishOrderCouponMapperInterface
+     */
+    protected function createJellyfishOrderCouponMapper(): JellyfishOrderCouponMapperInterface
+    {
+        return new JellyfishOrderCouponMapper();
     }
 
     /**
