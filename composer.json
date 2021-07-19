@@ -81,6 +81,7 @@
     "fond-of-oryx/availability-alert": "*",
     "fond-of-oryx/availability-alert-cross-engage": "*",
     "fond-of-oryx/availability-alert-migrator": "*",
+    "fond-of-oryx/cart-code-type": "*",
     "fond-of-oryx/catalog-sku-filter": "*",
     "fond-of-oryx/credit-memo-api": "*",
     "fond-of-oryx/credit-memo-extension": "*",
