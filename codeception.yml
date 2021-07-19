@@ -5,6 +5,7 @@ include:
   - bundles/availability-alert-cross-engage
   - bundles/availability-alert-migrator
   - bundles/cart-code-type
+  - bundles/cart-code-type-data-import
   - bundles/catalog-sku-filter
   - bundles/credit-memo
   - bundles/cross-engage
