@@ -6,6 +6,7 @@ function add_all {
     for i in $(ls bundles)
     do
         curl -X POST "https://packagist.org/api/create-package?username=${PACKAGIST_USERNAME}&apiToken=${PACKAGIST_TOKEN}" -d "{\"repository\":{\"url\":\"https://github.com/fond-of-oryx/${i}\"}}"
+        echo ""
     done
 }
 
