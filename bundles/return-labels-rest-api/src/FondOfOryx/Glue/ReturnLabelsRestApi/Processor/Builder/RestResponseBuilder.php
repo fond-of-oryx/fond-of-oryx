@@ -41,7 +41,7 @@ class RestResponseBuilder implements RestResponseBuilderInterface
     {
         $restErrorTransfer = (new RestErrorMessageTransfer())
             ->setCode(ReturnLabelsRestApiConfig::RESPONSE_CODE_NOT_GENERATED)
-            ->setStatus(Response::HTTP_NOT_FOUND)
+            ->setStatus(Response::HTTP_BAD_REQUEST)
             ->setDetail(ReturnLabelsRestApiConfig::RESPONSE_DETAIL_NOT_GENERATED);
 
         return $this->restResourceBuilder->createRestResponse()->addError($restErrorTransfer);
