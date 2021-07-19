@@ -144,6 +144,10 @@
       "path": "bundles/prepayment/",
       "version": "1.0.0"
     },
+    "product-cart-code-type-restriction": {
+      "path": "bundles/product-cart-code-type-restriction/",
+      "version": "1.0.0"
+    },
     "product-country-restriction": {
       "path": "bundles/product-country-restriction/",
       "version": "1.0.0"
