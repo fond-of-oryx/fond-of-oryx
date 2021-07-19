@@ -1,11 +1,9 @@
 namespace: fond-of-oryx/fond-of-oryx
 
 include:
-  - bundles/availability-alert
-  - bundles/availability-alert-cross-engage
-  - bundles/availability-alert-migrator
-  - bundles/cart-code-type
   - bundles/catalog-sku-filter
+  - bundles/cart-code-type
+  - bundles/cart-code-type-data-import
   - bundles/credit-memo
   - bundles/cross-engage
   - bundles/customer-statistic

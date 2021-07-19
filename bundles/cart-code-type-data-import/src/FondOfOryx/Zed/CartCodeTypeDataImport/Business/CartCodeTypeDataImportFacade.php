@@ -22,6 +22,8 @@ class CartCodeTypeDataImportFacade extends AbstractFacade implements CartCodeTyp
      */
     public function import(?DataImporterConfigurationTransfer $dataImporterConfigurationTransfer = null): DataImporterReportTransfer
     {
-        return $this->factory->createCartCodeTypeDataImporter($dataImporterConfigurationTransfer);
+        return $this->getFactory()
+            ->createCartCodeTypeDataImporter()
+            ->import($dataImporterConfigurationTransfer);
     }
 }
