@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<database xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" name="zed"
+          xsi:noNamespaceSchemaLocation="http://static.spryker.com/schema-01.xsd"
+          namespace="Orm\Zed\ProductCartCodeTypeRestriction\Persistence" package="src.Orm.Zed.ProductCartCodeTypeRestriction.Persistence">
+    <table name="foo_product_abstract_cart_code_type_restriction" phpName="FooProductAbstractCartCodeTypeRestriction" identifierQuoting="true">
+        <column name="id_product_abstract_cart_code_type_restriction" required="true" type="INTEGER" autoIncrement="true" primaryKey="true"/>
+
+        <column name="fk_cart_code_type" required="true" type="INTEGER"/>
+        <column name="fk_product_abstract" required="true" type="INTEGER"/>
+
+        <id-method-parameter value="id_product_abstract_cart_code_type_restriction_pk_seq"/>
+
+        <foreign-key name="foo_product_abstract_cart_code_type_restriction-fk_cart_code_type" foreignTable="foo_cart_code_type" phpName="CartCodeType" refPhpName="FooProductAbstractCartCodeTypeRestriction">
+            <reference local="fk_cart_code_type" foreign="id_cart_code_type"/>
+        </foreign-key>
+
+        <foreign-key name="foo_product_abstract_cart_code_type_restriction-fk_product_abstract" foreignTable="spy_product_abstract" phpName="ProductAbstract" refPhpName="FooProductAbstractCartCodeTypeRestriction">
+            <reference local="fk_product_abstract" foreign="id_product_abstract"/>
+        </foreign-key>
+    </table>
+</database>
