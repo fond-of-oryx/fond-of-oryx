@@ -22,7 +22,6 @@ class JellyfishSalesOrderDependencyProvider extends AbstractBundleDependencyProv
     public function provideBusinessLayerDependencies(Container $container): Container
     {
         $container = $this->addUtilEncodingService($container);
-
         $container = $this->addJellyfishOrderAddressExpanderPostMapPlugins($container);
         $container = $this->addJellyfishOrderBeforeExportPlugins($container);
         $container = $this->addJellyfishOrderExpanderPostMapPlugins($container);
