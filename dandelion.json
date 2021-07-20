@@ -80,6 +80,10 @@
       "path": "bundles/gift-card-product-connector/",
       "version": "1.0.0"
     },
+    "gift-card-restriction": {
+      "path": "bundles/gift-card-restriction/",
+      "version": "1.0.0"
+    },
     "jellyfish-availability-alert": {
       "path": "bundles/jellyfish-availability-alert/",
       "version": "1.0.0"

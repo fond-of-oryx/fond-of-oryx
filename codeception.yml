@@ -18,6 +18,7 @@ include:
   - bundles/erp-order-permission
   - bundles/feed
   - bundles/gift-card-product-connector
+  - bundles/gift-card-restriction
   - bundles/jellyfish-availability-alert
   - bundles/jellyfish-buffer
   - bundles/jellyfish-cross-engage
