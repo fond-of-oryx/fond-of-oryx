@@ -10,6 +10,8 @@ use Orm\Zed\Sales\Persistence\SpySalesOrder;
 
 class JellyfishOrderMapper implements JellyfishOrderMapperInterface
 {
+    protected const SALES_PAYMENT_METHOD_GIFT_CARD = 'GiftCard';
+
     /**
      * @var \FondOfOryx\Zed\JellyfishSalesOrder\Business\Model\Mapper\JellyfishOrderAddressMapperInterface
      */
@@ -24,6 +26,11 @@ class JellyfishOrderMapper implements JellyfishOrderMapperInterface
      * @var \FondOfOryx\Zed\JellyfishSalesOrder\Business\Model\Mapper\JellyfishOrderDiscountMapperInterface
      */
     protected $jellyfishOrderDiscountMapper;
+
+    /**
+     * @var \FondOfOryx\Zed\JellyfishSalesOrder\Business\Model\Mapper\JellyfishOrderGiftCardMapperInterface
+     */
+    protected $jellyfishOrderGiftCardMapper;
 
     /**
      * @var \FondOfOryx\Zed\JellyfishSalesOrder\Business\Model\Mapper\JellyfishOrderPaymentMapperInterface
@@ -48,6 +55,7 @@ class JellyfishOrderMapper implements JellyfishOrderMapperInterface
     /**
      * @param \FondOfOryx\Zed\JellyfishSalesOrder\Business\Model\Mapper\JellyfishOrderAddressMapperInterface $jellyfishOrderAddressMapper
      * @param \FondOfOryx\Zed\JellyfishSalesOrder\Business\Model\Mapper\JellyfishOrderExpenseMapperInterface $jellyfishOrderExpenseMapper
+     * @param \FondOfOryx\Zed\JellyfishSalesOrder\Business\Model\Mapper\JellyfishOrderGiftCardMapperInterface $jellyfishOrderGiftCardMapper
      * @param \FondOfOryx\Zed\JellyfishSalesOrder\Business\Model\Mapper\JellyfishOrderDiscountMapperInterface $jellyfishOrderDiscountMapper
      * @param \FondOfOryx\Zed\JellyfishSalesOrder\Business\Model\Mapper\JellyfishOrderPaymentMapperInterface $jellyfishOrderPaymentMapper
      * @param \FondOfOryx\Zed\JellyfishSalesOrder\Business\Model\Mapper\JellyfishOrderTotalsMapperInterface $jellyfishOrderTotalsMapper
@@ -57,6 +65,7 @@ class JellyfishOrderMapper implements JellyfishOrderMapperInterface
     public function __construct(
         JellyfishOrderAddressMapperInterface $jellyfishOrderAddressMapper,
         JellyfishOrderExpenseMapperInterface $jellyfishOrderExpenseMapper,
+        JellyfishOrderGiftCardMapperInterface $jellyfishOrderGiftCardMapper,
         JellyfishOrderDiscountMapperInterface $jellyfishOrderDiscountMapper,
         JellyfishOrderPaymentMapperInterface $jellyfishOrderPaymentMapper,
         JellyfishOrderTotalsMapperInterface $jellyfishOrderTotalsMapper,
@@ -65,6 +74,7 @@ class JellyfishOrderMapper implements JellyfishOrderMapperInterface
     ) {
         $this->jellyfishOrderAddressMapper = $jellyfishOrderAddressMapper;
         $this->jellyfishOrderExpenseMapper = $jellyfishOrderExpenseMapper;
+        $this->jellyfishOrderGiftCardMapper = $jellyfishOrderGiftCardMapper;
         $this->jellyfishOrderDiscountMapper = $jellyfishOrderDiscountMapper;
         $this->jellyfishOrderPaymentMapper = $jellyfishOrderPaymentMapper;
         $this->jellyfishOrderTotalsMapper = $jellyfishOrderTotalsMapper;
@@ -95,6 +105,7 @@ class JellyfishOrderMapper implements JellyfishOrderMapperInterface
             ->setShippingAddress($this->mapSalesOrderToShippingAddress($salesOrder))
             ->setExpenses($this->mapSalesOrderToExpenses($salesOrder))
             ->setDiscounts($this->mapSalesOrderToDiscounts($salesOrder))
+            ->setGiftCards($this->mapSalesOrderToGiftCards($salesOrder))
             ->setTotals($this->mapSalesOrderToTotals($salesOrder))
             ->setCreatedAt($salesOrder->getCreatedAt()->format('Y-m-d H:i:s'));
 
@@ -190,6 +201,46 @@ class JellyfishOrderMapper implements JellyfishOrderMapperInterface
         }
 
         return $jellyfishOrderDiscounts;
+    }
+
+    /**
+     * @param \Orm\Zed\Sales\Persistence\SpySalesOrder $salesOrder
+     *
+     * @return \ArrayObject
+     */
+    protected function mapSalesOrderToGiftCards(SpySalesOrder $salesOrder): ArrayObject
+    {
+        $jellyfishOrderGiftCards = new ArrayObject();
+
+        $jellyfishOrderGiftCards = $this->addGiftCards($salesOrder, $jellyfishOrderGiftCards);
+
+        return $jellyfishOrderGiftCards;
+    }
+
+    /**
+     * @param \Orm\Zed\Sales\Persistence\SpySalesOrder $salesOrder
+     * @param \ArrayObject $jellyfishOrderGiftCards
+     *
+     * @return \ArrayObject
+     */
+    protected function addGiftCards(
+        SpySalesOrder $salesOrder,
+        ArrayObject $jellyfishOrderGiftCards
+    ): ArrayObject {
+        foreach ($salesOrder->getOrdersJoinSalesPaymentMethodType() as $salesPayment) {
+            if (
+                $salesPayment->getSalesPaymentMethodType()->getPaymentMethod()
+                !== static::SALES_PAYMENT_METHOD_GIFT_CARD
+            ) {
+                continue;
+            }
+
+            $jellyfishOrderGiftCards->append(
+                $this->jellyfishOrderGiftCardMapper->fromSalesPayment($salesPayment)
+            );
+        }
+
+        return $jellyfishOrderGiftCards;
     }
 
     /**
