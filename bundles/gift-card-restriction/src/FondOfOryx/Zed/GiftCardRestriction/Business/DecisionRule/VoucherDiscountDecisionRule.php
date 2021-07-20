@@ -1,16 +1,11 @@
 <?php
 
-namespace FondOfOryx\Zed\GiftCardRestriction\Communication\Plugin\GiftCard;
+namespace FondOfOryx\Zed\GiftCardRestriction\Business\DecisionRule;
 
 use Generated\Shared\Transfer\GiftCardTransfer;
 use Generated\Shared\Transfer\QuoteTransfer;
-use Spryker\Zed\GiftCard\Dependency\Plugin\GiftCardDecisionRulePluginInterface;
-use Spryker\Zed\Kernel\Communication\AbstractPlugin;
 
-/**
- * @method \FondOfOryx\Zed\GiftCardRestriction\GiftCardRestrictionConfig getConfig()
- */
-class VoucherIsUsedDecisionRulePlugin extends AbstractPlugin implements GiftCardDecisionRulePluginInterface
+class VoucherDiscountDecisionRule implements VoucherDiscountDecisionRuleInterface
 {
     /**
      * @param \Generated\Shared\Transfer\GiftCardTransfer $giftCardTransfer
@@ -18,7 +13,7 @@ class VoucherIsUsedDecisionRulePlugin extends AbstractPlugin implements GiftCard
      *
      * @return bool
      */
-    public function isApplicable(GiftCardTransfer $giftCardTransfer, QuoteTransfer $quoteTransfer): bool
+    public function isSatisfiedBy(GiftCardTransfer $giftCardTransfer, QuoteTransfer $quoteTransfer): bool
     {
         if ($quoteTransfer->getVoucherDiscounts()->count() === 0) {
             return true;
