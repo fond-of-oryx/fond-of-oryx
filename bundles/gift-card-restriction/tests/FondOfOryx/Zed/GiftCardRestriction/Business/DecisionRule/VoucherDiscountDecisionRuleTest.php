@@ -1,6 +1,6 @@
 <?php
 
-namespace FondOfOryx\Zed\GiftCardRestriction\Communication\Plugin\GiftCard;
+namespace FondOfOryx\Zed\GiftCardRestriction\Business\DecisionRule;
 
 use Codeception\Test\Unit;
 use Generated\Shared\Transfer\DiscountTransfer;
@@ -8,7 +8,7 @@ use Generated\Shared\Transfer\GiftCardTransfer;
 use Generated\Shared\Transfer\QuoteTransfer;
 use Laminas\Stdlib\ArrayObject;
 
-class VoucherIsUsedDecisionRulePluginTest extends Unit
+class VoucherDiscountDecisionRuleTest extends Unit
 {
     /**
      * @var \Generated\Shared\Transfer\QuoteTransfer|\PHPUnit\Framework\MockObject\MockObject
@@ -26,9 +26,9 @@ class VoucherIsUsedDecisionRulePluginTest extends Unit
     protected $voucherDiscountTransferMock;
 
     /**
-     * @var \FondOfOryx\Zed\GiftCardRestriction\Communication\Plugin\GiftCard\VoucherIsUsedDecisionRulePlugin
+     * @var \FondOfOryx\Zed\GiftCardRestriction\Business\DecisionRule\VoucherDiscountDecisionRule
      */
-    protected $plugin;
+    protected $decisionRule;
 
     /**
      * @return void
@@ -49,13 +49,13 @@ class VoucherIsUsedDecisionRulePluginTest extends Unit
             ->disableOriginalConstructor()
             ->getMock();
 
-        $this->plugin = new VoucherIsUsedDecisionRulePlugin();
+        $this->decisionRule = new VoucherDiscountDecisionRule();
     }
 
     /**
      * @return void
      */
-    public function testIsApplicable(): void
+    public function testIsSatisfiedBy(): void
     {
         $code = 'FOO-BAR-1234-5678';
         $voucherDiscountTransferMocks = [$this->voucherDiscountTransferMock];
@@ -72,13 +72,13 @@ class VoucherIsUsedDecisionRulePluginTest extends Unit
             ->method('getCode')
             ->willReturn($code);
 
-        static::assertTrue($this->plugin->isApplicable($this->giftCardTransferMock, $this->quoteTransferMock));
+        static::assertTrue($this->decisionRule->isSatisfiedBy($this->giftCardTransferMock, $this->quoteTransferMock));
     }
 
     /**
      * @return void
      */
-    public function testIsApplicableWithoutVoucherDiscounts(): void
+    public function testIsSatisfiedByWithoutVoucherDiscounts(): void
     {
         $this->quoteTransferMock->expects(static::atLeastOnce())
             ->method('getVoucherDiscounts')
@@ -87,13 +87,13 @@ class VoucherIsUsedDecisionRulePluginTest extends Unit
         $this->giftCardTransferMock->expects(static::never())
             ->method('getCode');
 
-        static::assertTrue($this->plugin->isApplicable($this->giftCardTransferMock, $this->quoteTransferMock));
+        static::assertTrue($this->decisionRule->isSatisfiedBy($this->giftCardTransferMock, $this->quoteTransferMock));
     }
 
     /**
      * @return void
      */
-    public function testIsApplicableWithMultipleVoucherDiscounts(): void
+    public function testIsSatisfiedByWithMultipleVoucherDiscounts(): void
     {
         $voucherDiscountTransferMocks = [
             $this->voucherDiscountTransferMock,
@@ -109,6 +109,6 @@ class VoucherIsUsedDecisionRulePluginTest extends Unit
         $this->giftCardTransferMock->expects(static::never())
             ->method('getCode');
 
-        static::assertFalse($this->plugin->isApplicable($this->giftCardTransferMock, $this->quoteTransferMock));
+        static::assertFalse($this->decisionRule->isSatisfiedBy($this->giftCardTransferMock, $this->quoteTransferMock));
     }
 }
