@@ -2,7 +2,7 @@
 
 namespace FondOfOryx\Zed\CartCodeTypeDataImport\Business\Model;
 
-use FondOfOryx\Zed\CartCodeTypeDataImport\Business\Model\DateSet\CartCodeTypeDataSet;
+use FondOfOryx\Zed\CartCodeTypeDataImport\Business\Model\DataSet\CartCodeTypeDataSet;
 use Orm\Zed\ProductLocaleRestriction\Persistence\FooCartCodeTypeQuery;
 use Spryker\Zed\DataImport\Business\Model\DataImportStep\DataImportStepInterface;
 use Spryker\Zed\DataImport\Business\Model\DataSet\DataSetInterface;
