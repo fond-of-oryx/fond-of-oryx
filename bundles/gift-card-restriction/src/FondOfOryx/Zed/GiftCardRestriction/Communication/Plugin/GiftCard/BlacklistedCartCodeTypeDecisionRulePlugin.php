@@ -11,7 +11,7 @@ use Spryker\Zed\Kernel\Communication\AbstractPlugin;
  * @method \FondOfOryx\Zed\GiftCardRestriction\GiftCardRestrictionConfig getConfig()
  * @method \FondOfOryx\Zed\GiftCardRestriction\Business\GiftCardRestrictionFacadeInterface getFacade()
  */
-class BlacklistedCountryDecisionRulePlugin extends AbstractPlugin implements GiftCardDecisionRulePluginInterface
+class BlacklistedCartCodeTypeDecisionRulePlugin extends AbstractPlugin implements GiftCardDecisionRulePluginInterface
 {
     /**
      * @param \Generated\Shared\Transfer\GiftCardTransfer $giftCardTransfer
@@ -21,6 +21,6 @@ class BlacklistedCountryDecisionRulePlugin extends AbstractPlugin implements Gif
      */
     public function isApplicable(GiftCardTransfer $giftCardTransfer, QuoteTransfer $quoteTransfer): bool
     {
-        return $this->getFacade()->isBlacklistedCountryDecisionRuleSatisfiedBy($giftCardTransfer, $quoteTransfer);
+        return $this->getFacade()->isBlacklistedCartCodeTypeDecisionRuleSatisfiedBy($giftCardTransfer, $quoteTransfer);
     }
 }

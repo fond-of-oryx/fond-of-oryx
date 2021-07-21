@@ -4,10 +4,11 @@ namespace FondOfOryx\Zed\GiftCardRestriction\Business\DecisionRule;
 
 use FondOfOryx\Zed\GiftCardRestriction\GiftCardRestrictionConfig;
 use Generated\Shared\Transfer\AddressTransfer;
+use Generated\Shared\Transfer\GiftCardTransfer;
 use Generated\Shared\Transfer\ItemTransfer;
 use Generated\Shared\Transfer\QuoteTransfer;
 
-class BlacklistedCountryDecisionRule implements BlacklistedCountryDecisionRuleInterface
+class BlacklistedCountryDecisionRule implements DecisionRuleInterface
 {
     /**
      * @var \FondOfOryx\Zed\GiftCardRestriction\GiftCardRestrictionConfig
@@ -23,11 +24,12 @@ class BlacklistedCountryDecisionRule implements BlacklistedCountryDecisionRuleIn
     }
 
     /**
+     * @param \Generated\Shared\Transfer\GiftCardTransfer $giftCardTransfer
      * @param \Generated\Shared\Transfer\QuoteTransfer $quoteTransfer
      *
      * @return bool
      */
-    public function isSatisfiedBy(QuoteTransfer $quoteTransfer): bool
+    public function isSatisfiedBy(GiftCardTransfer $giftCardTransfer, QuoteTransfer $quoteTransfer): bool
     {
         if (count($this->config->getBlacklistedCountries()) === 0) {
             return true;
