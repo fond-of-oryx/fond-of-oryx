@@ -13,11 +13,15 @@ interface GiftCardRestrictionFacadeInterface
      *
      * @api
      *
+     * @param \Generated\Shared\Transfer\GiftCardTransfer $giftCardTransfer
      * @param \Generated\Shared\Transfer\QuoteTransfer $quoteTransfer
      *
      * @return bool
      */
-    public function isBlacklistedCountryDecisionRuleSatisfiedBy(QuoteTransfer $quoteTransfer): bool;
+    public function isBlacklistedCountryDecisionRuleSatisfiedBy(
+        GiftCardTransfer $giftCardTransfer,
+        QuoteTransfer $quoteTransfer
+    ): bool;
 
     /**
      * Specifications:
@@ -31,6 +35,22 @@ interface GiftCardRestrictionFacadeInterface
      * @return bool
      */
     public function isVoucherDiscountDecisionRuleSatisfiedBy(
+        GiftCardTransfer $giftCardTransfer,
+        QuoteTransfer $quoteTransfer
+    ): bool;
+
+    /**
+     * Specifications:
+     * - Checks if all quote items are blacklisted for cart code type "gift card"
+     *
+     * @api
+     *
+     * @param \Generated\Shared\Transfer\GiftCardTransfer $giftCardTransfer
+     * @param \Generated\Shared\Transfer\QuoteTransfer $quoteTransfer
+     *
+     * @return bool
+     */
+    public function isBlacklistedCartCodeTypeDecisionRuleSatisfiedBy(
         GiftCardTransfer $giftCardTransfer,
         QuoteTransfer $quoteTransfer
     ): bool;

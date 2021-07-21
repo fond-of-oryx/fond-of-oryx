@@ -16,18 +16,22 @@ class GiftCardRestrictionFacade extends AbstractFacade implements GiftCardRestri
      *
      * @api
      *
+     * @param \Generated\Shared\Transfer\GiftCardTransfer $giftCardTransfer
      * @param \Generated\Shared\Transfer\QuoteTransfer $quoteTransfer
      *
      * @return bool
      */
-    public function isBlacklistedCountryDecisionRuleSatisfiedBy(QuoteTransfer $quoteTransfer): bool
-    {
-        return $this->getFactory()->createBlacklistedCountryDecisionRule()->isSatisfiedBy($quoteTransfer);
+    public function isBlacklistedCountryDecisionRuleSatisfiedBy(
+        GiftCardTransfer $giftCardTransfer,
+        QuoteTransfer $quoteTransfer
+    ): bool {
+        return $this->getFactory()->createBlacklistedCountryDecisionRule()->isSatisfiedBy(
+            $giftCardTransfer,
+            $quoteTransfer
+        );
     }
 
     /**
-     * {@inheritDoc}
-     *
      * @api
      *
      * @param \Generated\Shared\Transfer\GiftCardTransfer $giftCardTransfer
@@ -40,6 +44,26 @@ class GiftCardRestrictionFacade extends AbstractFacade implements GiftCardRestri
         QuoteTransfer $quoteTransfer
     ): bool {
         return $this->getFactory()->createVoucherDiscountDecisionRule()->isSatisfiedBy(
+            $giftCardTransfer,
+            $quoteTransfer
+        );
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * @api
+     *
+     * @param \Generated\Shared\Transfer\GiftCardTransfer $giftCardTransfer
+     * @param \Generated\Shared\Transfer\QuoteTransfer $quoteTransfer
+     *
+     * @return bool
+     */
+    public function isBlacklistedCartCodeTypeDecisionRuleSatisfiedBy(
+        GiftCardTransfer $giftCardTransfer,
+        QuoteTransfer $quoteTransfer
+    ): bool {
+        return $this->getFactory()->createBlacklistedCartCodeTypeDecisionRule()->isSatisfiedBy(
             $giftCardTransfer,
             $quoteTransfer
         );

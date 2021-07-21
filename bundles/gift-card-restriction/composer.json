@@ -10,6 +10,7 @@
   ],
   "require": {
     "php": ">=7.3",
+    "fond-of-oryx/product-cart-code-type-restriction": "^1.0.0",
     "spryker/gift-card": "^1.0.0"
   },
   "require-dev": {

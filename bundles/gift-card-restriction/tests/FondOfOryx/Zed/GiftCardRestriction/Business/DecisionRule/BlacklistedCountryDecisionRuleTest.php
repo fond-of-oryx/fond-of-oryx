@@ -138,7 +138,7 @@ class BlacklistedCountryDecisionRuleTest extends Unit
             ->method('getIso2Code')
             ->willReturn($currentCountry);
 
-        static::assertTrue($this->decisionRule->isSatisfiedBy($this->quoteTransferMock));
+        static::assertTrue($this->decisionRule->isSatisfiedBy($this->giftCardTransferMock, $this->quoteTransferMock));
     }
 
     /**
@@ -182,7 +182,7 @@ class BlacklistedCountryDecisionRuleTest extends Unit
             ->method('getIso2Code')
             ->willReturn($currentCountry);
 
-        static::assertFalse($this->decisionRule->isSatisfiedBy($this->quoteTransferMock));
+        static::assertFalse($this->decisionRule->isSatisfiedBy($this->giftCardTransferMock, $this->quoteTransferMock));
     }
 
     /**
@@ -203,6 +203,6 @@ class BlacklistedCountryDecisionRuleTest extends Unit
             ->method('getItems')
             ->willReturn(new ArrayObject($this->itemTransferMocks));
 
-        static::assertTrue($this->decisionRule->isSatisfiedBy($this->quoteTransferMock));
+        static::assertTrue($this->decisionRule->isSatisfiedBy($this->giftCardTransferMock, $this->quoteTransferMock));
     }
 }

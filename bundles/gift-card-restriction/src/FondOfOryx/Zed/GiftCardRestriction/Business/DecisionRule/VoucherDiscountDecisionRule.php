@@ -5,7 +5,7 @@ namespace FondOfOryx\Zed\GiftCardRestriction\Business\DecisionRule;
 use Generated\Shared\Transfer\GiftCardTransfer;
 use Generated\Shared\Transfer\QuoteTransfer;
 
-class VoucherDiscountDecisionRule implements VoucherDiscountDecisionRuleInterface
+class VoucherDiscountDecisionRule implements DecisionRuleInterface
 {
     /**
      * @param \Generated\Shared\Transfer\GiftCardTransfer $giftCardTransfer

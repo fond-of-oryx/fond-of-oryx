@@ -8,7 +8,7 @@ use Generated\Shared\Transfer\GiftCardTransfer;
 use Generated\Shared\Transfer\QuoteTransfer;
 use Spryker\Zed\Kernel\Business\AbstractFacade;
 
-class BlacklistedCountryDecisionRulePluginTest extends Unit
+class BlacklistedCartCodeTypeDecisionRulePluginTest extends Unit
 {
     /**
      * @var \Generated\Shared\Transfer\QuoteTransfer|\PHPUnit\Framework\MockObject\MockObject
@@ -26,7 +26,7 @@ class BlacklistedCountryDecisionRulePluginTest extends Unit
     protected $facadeMock;
 
     /**
-     * @var \FondOfOryx\Zed\GiftCardRestriction\Communication\Plugin\GiftCard\BlacklistedCountryDecisionRulePlugin
+     * @var \FondOfOryx\Zed\GiftCardRestriction\Communication\Plugin\GiftCard\BlacklistedCartCodeTypeDecisionRulePlugin
      */
     protected $plugin;
 
@@ -49,7 +49,7 @@ class BlacklistedCountryDecisionRulePluginTest extends Unit
             ->disableOriginalConstructor()
             ->getMock();
 
-        $this->plugin = new class ($this->facadeMock) extends BlacklistedCountryDecisionRulePlugin {
+        $this->plugin = new class ($this->facadeMock) extends BlacklistedCartCodeTypeDecisionRulePlugin {
             /**
              * @var \Spryker\Zed\Kernel\Business\AbstractFacade
              */
@@ -79,10 +79,12 @@ class BlacklistedCountryDecisionRulePluginTest extends Unit
     public function testIsApplicable(): void
     {
         $this->facadeMock->expects(static::atLeastOnce())
-           ->method('isBlacklistedCountryDecisionRuleSatisfiedBy')
-           ->with($this->giftCardTransferMock, $this->quoteTransferMock)
-           ->willReturn(true);
+            ->method('isBlacklistedCartCodeTypeDecisionRuleSatisfiedBy')
+            ->with($this->giftCardTransferMock, $this->quoteTransferMock)
+            ->willReturn(true);
 
-        static::assertTrue($this->plugin->isApplicable($this->giftCardTransferMock, $this->quoteTransferMock));
+        static::assertTrue(
+            $this->plugin->isApplicable($this->giftCardTransferMock, $this->quoteTransferMock)
+        );
     }
 }

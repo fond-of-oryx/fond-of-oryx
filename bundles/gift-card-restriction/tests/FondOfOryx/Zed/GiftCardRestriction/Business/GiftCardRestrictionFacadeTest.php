@@ -3,6 +3,7 @@
 namespace FondOfOryx\Zed\GiftCardRestriction\Business;
 
 use Codeception\Test\Unit;
+use FondOfOryx\Zed\GiftCardRestriction\Business\DecisionRule\BlacklistedCartCodeTypeDecisionRule;
 use FondOfOryx\Zed\GiftCardRestriction\Business\DecisionRule\BlacklistedCountryDecisionRule;
 use FondOfOryx\Zed\GiftCardRestriction\Business\DecisionRule\VoucherDiscountDecisionRule;
 use Generated\Shared\Transfer\GiftCardTransfer;
@@ -24,6 +25,11 @@ class GiftCardRestrictionFacadeTest extends Unit
      * @var \FondOfOryx\Zed\GiftCardRestriction\Business\DecisionRule\VoucherDiscountDecisionRule|\PHPUnit\Framework\MockObject\MockObject
      */
     protected $voucherDiscountDecisionRuleMock;
+
+    /**
+     * @var \FondOfOryx\Zed\GiftCardRestriction\Business\DecisionRule\BlacklistedCartCodeTypeDecisionRule|\PHPUnit\Framework\MockObject\MockObject
+     */
+    protected $blacklistedCartCodeTypeDecisionRuleMock;
 
     /**
      * @var \Generated\Shared\Transfer\QuoteTransfer|\PHPUnit\Framework\MockObject\MockObject
@@ -59,6 +65,10 @@ class GiftCardRestrictionFacadeTest extends Unit
             ->disableOriginalConstructor()
             ->getMock();
 
+        $this->blacklistedCartCodeTypeDecisionRuleMock = $this->getMockBuilder(BlacklistedCartCodeTypeDecisionRule::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
         $this->quoteTransferMock = $this->getMockBuilder(QuoteTransfer::class)
             ->disableOriginalConstructor()
             ->getMock();
@@ -82,10 +92,15 @@ class GiftCardRestrictionFacadeTest extends Unit
 
         $this->blacklistedCountryDecisionRuleMock->expects(static::atLeastOnce())
             ->method('isSatisfiedBy')
-            ->with($this->quoteTransferMock)
+            ->with($this->giftCardTransferMock, $this->quoteTransferMock)
             ->willReturn(true);
 
-        static::assertTrue($this->facade->isBlacklistedCountryDecisionRuleSatisfiedBy($this->quoteTransferMock));
+        static::assertTrue(
+            $this->facade->isBlacklistedCountryDecisionRuleSatisfiedBy(
+                $this->giftCardTransferMock,
+                $this->quoteTransferMock
+            )
+        );
     }
 
     /**
@@ -103,6 +118,26 @@ class GiftCardRestrictionFacadeTest extends Unit
             ->willReturn(true);
 
         static::assertTrue($this->facade->isVoucherDiscountDecisionRuleSatisfiedBy(
+            $this->giftCardTransferMock,
+            $this->quoteTransferMock
+        ));
+    }
+
+    /**
+     * @return void
+     */
+    public function testIsBlacklistedCartCodeTypeDecisionRuleSatisfiedBy(): void
+    {
+        $this->factoryMock->expects(static::atLeastOnce())
+            ->method('createBlacklistedCartCodeTypeDecisionRule')
+            ->willReturn($this->blacklistedCartCodeTypeDecisionRuleMock);
+
+        $this->blacklistedCartCodeTypeDecisionRuleMock->expects(static::atLeastOnce())
+            ->method('isSatisfiedBy')
+            ->with($this->giftCardTransferMock, $this->quoteTransferMock)
+            ->willReturn(true);
+
+        static::assertTrue($this->facade->isBlacklistedCartCodeTypeDecisionRuleSatisfiedBy(
             $this->giftCardTransferMock,
             $this->quoteTransferMock
         ));
