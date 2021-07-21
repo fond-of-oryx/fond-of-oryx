@@ -1,6 +1,6 @@
 <?php
 
-namespace FondOfOryx\Zed\CartCodeTypeDataImport\Business\Model\DateSet;
+namespace FondOfOryx\Zed\CartCodeTypeDataImport\Business\Model\DataSet;
 
 interface CartCodeTypeDataSet
 {
