@@ -8,6 +8,7 @@ use Spryker\Zed\Kernel\Communication\AbstractPlugin;
 
 /**
  * @method \FondOfOryx\Zed\JellyfishBuffer\Business\JellyfishBufferFacadeInterface getFacade()
+ * @method \FondOfOryx\Zed\JellyfishBuffer\JellyfishBufferConfig getConfig()
  */
 class JellyfishBufferBeforeOrderExportPlugin extends AbstractPlugin implements JellyfishOrderBeforeExportPluginInterface
 {

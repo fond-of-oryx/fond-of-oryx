@@ -2,5 +2,28 @@
 <transfers xmlns="spryker:transfer-01"
            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
            xsi:schemaLocation="spryker:transfer-01 http://static.spryker.com/transfer-01.xsd">
-    <transfer name="ExportedOrder"/>
+    <transfer name="ExportedOrder">
+        <property name="idExportedOrder" type="int"/>
+        <property name="fkSalesOrder" type="int"/>
+        <property name="data" type="string"/>
+        <property name="orderReference" type="string"/>
+        <property name="store" type="string"/>
+        <property name="createdAt" type="int"/>
+        <property name="updatedAt" type="int"/>
+    </transfer>
+
+    <transfer name="JellyfishBufferTableFilter">
+        <property name="ids" type="array"/>
+        <property name="rangeFrom" type="int"/>
+        <property name="rangeTo" type="int"/>
+        <property name="store" type="string"/>
+        <property name="systemCode" type="string"/>
+        <property name="dryRun" type="bool"/>
+        <property name="forceReexport" type="bool"/>
+    </transfer>
+
+    <transfer name="ExportedOrderCollection">
+        <property name="orders" singular="order" type="ExportedOrder[]"/>
+        <property name="count" type="int"/>
+    </transfer>
 </transfers>

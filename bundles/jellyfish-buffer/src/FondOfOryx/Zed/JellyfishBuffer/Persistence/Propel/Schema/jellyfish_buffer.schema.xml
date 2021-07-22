@@ -8,6 +8,7 @@
         <column name="order_reference" required="true" size="255" type="VARCHAR"/>
         <column name="store" required="true" size="255" type="VARCHAR"/>
         <column name="data" required="true" type="LONGVARCHAR" default="{}"/>
+        <column name="is_reexported" type="BOOLEAN" default="false" required="true"/>
 
         <foreign-key name="foo_exported_order-spy_sales_order" foreignTable="spy_sales_order" phpName="Order">
             <reference local="fk_sales_order" foreign="id_sales_order"/>

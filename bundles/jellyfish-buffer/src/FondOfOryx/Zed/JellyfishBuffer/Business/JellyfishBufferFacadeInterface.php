@@ -2,6 +2,7 @@
 
 namespace FondOfOryx\Zed\JellyfishBuffer\Business;
 
+use Generated\Shared\Transfer\JellyfishBufferTableFilterTransfer;
 use Generated\Shared\Transfer\JellyfishOrderTransfer;
 
 interface JellyfishBufferFacadeInterface
@@ -21,4 +22,11 @@ interface JellyfishBufferFacadeInterface
         JellyfishOrderTransfer $jellyfishOrderTransfer,
         array $options
     ): void;
+
+    /**
+     * @param \Generated\Shared\Transfer\JellyfishBufferTableFilterTransfer $jellyfishBufferTableFilterTransfer
+     *
+     * @return bool
+     */
+    public function exportFromBufferTable(JellyfishBufferTableFilterTransfer $jellyfishBufferTableFilterTransfer): bool;
 }
