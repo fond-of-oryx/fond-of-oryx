@@ -2,8 +2,8 @@
 
 namespace FondOfOryx\Zed\GiftCardRestriction\Business\DecisionRule;
 
-use ArrayObject;
 use FondOfOryx\Shared\GiftCardRestriction\GiftCardRestrictionConstants;
+use FondOfOryx\Zed\GiftCardRestriction\Business\Filter\SkuFilterInterface;
 use FondOfOryx\Zed\GiftCardRestriction\Dependency\Facade\GiftCardRestrictionToProductCartCodeTypeRestrictionFacadeInterface;
 use Generated\Shared\Transfer\GiftCardTransfer;
 use Generated\Shared\Transfer\QuoteTransfer;
@@ -11,15 +11,24 @@ use Generated\Shared\Transfer\QuoteTransfer;
 class BlacklistedCartCodeTypeDecisionRule implements DecisionRuleInterface
 {
     /**
+     * @var \FondOfOryx\Zed\GiftCardRestriction\Business\Filter\SkuFilterInterface
+     */
+    protected $skuFilter;
+
+    /**
      * @var \FondOfOryx\Zed\GiftCardRestriction\Dependency\Facade\GiftCardRestrictionToProductCartCodeTypeRestrictionFacadeInterface
      */
     protected $productCartCodeTypeRestrictionFacade;
 
     /**
+     * @param \FondOfOryx\Zed\GiftCardRestriction\Business\Filter\SkuFilterInterface $skuFilter
      * @param \FondOfOryx\Zed\GiftCardRestriction\Dependency\Facade\GiftCardRestrictionToProductCartCodeTypeRestrictionFacadeInterface $productCartCodeTypeRestrictionFacade
      */
-    public function __construct(GiftCardRestrictionToProductCartCodeTypeRestrictionFacadeInterface $productCartCodeTypeRestrictionFacade)
-    {
+    public function __construct(
+        SkuFilterInterface $skuFilter,
+        GiftCardRestrictionToProductCartCodeTypeRestrictionFacadeInterface $productCartCodeTypeRestrictionFacade
+    ) {
+        $this->skuFilter = $skuFilter;
         $this->productCartCodeTypeRestrictionFacade = $productCartCodeTypeRestrictionFacade;
     }
 
@@ -31,7 +40,7 @@ class BlacklistedCartCodeTypeDecisionRule implements DecisionRuleInterface
      */
     public function isSatisfiedBy(GiftCardTransfer $giftCardTransfer, QuoteTransfer $quoteTransfer): bool
     {
-        $skus = $this->getSkusByItems($quoteTransfer->getItems());
+        $skus = $this->skuFilter->filterFromItems($quoteTransfer->getItems());
         $blacklistedCartCodeTypesPerSku = $this->productCartCodeTypeRestrictionFacade
             ->getBlacklistedCartCodeTypesByProductConcreteSkus($skus);
 
@@ -42,21 +51,5 @@ class BlacklistedCartCodeTypeDecisionRule implements DecisionRuleInterface
         }
 
         return false;
-    }
-
-    /**
-     * @param \ArrayObject|\Generated\Shared\Transfer\ItemTransfer[] $itemTransfers
-     *
-     * @return string[]
-     */
-    protected function getSkusByItems(ArrayObject $itemTransfers): array
-    {
-        $skus = [];
-
-        foreach ($itemTransfers as $itemTransfer) {
-            $skus[] = $itemTransfer->getSku();
-        }
-
-        return $skus;
     }
 }

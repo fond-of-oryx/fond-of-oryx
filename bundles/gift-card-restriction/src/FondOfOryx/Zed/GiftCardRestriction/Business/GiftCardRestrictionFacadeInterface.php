@@ -2,6 +2,7 @@
 
 namespace FondOfOryx\Zed\GiftCardRestriction\Business;
 
+use Generated\Shared\Transfer\CalculableObjectTransfer;
 use Generated\Shared\Transfer\GiftCardTransfer;
 use Generated\Shared\Transfer\QuoteTransfer;
 
@@ -54,4 +55,17 @@ interface GiftCardRestrictionFacadeInterface
         GiftCardTransfer $giftCardTransfer,
         QuoteTransfer $quoteTransfer
     ): bool;
+
+    /**
+     * Specification:
+     * - Prepares available amount of gift card payment method
+     * - Excludes quote items that are blacklisted for cart code type "gift card"
+     *
+     * @api
+     *
+     * @param \Generated\Shared\Transfer\CalculableObjectTransfer $calculableObjectTransfer
+     *
+     * @return void
+     */
+    public function recalculate(CalculableObjectTransfer $calculableObjectTransfer): void;
 }

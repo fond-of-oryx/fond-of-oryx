@@ -1,5 +1,6 @@
+.DS_Store
+.idea
+codeception-*.yml
 composer.lock
 composer.phar
-.DS_Store
 vendor
-.idea

@@ -19,6 +19,8 @@
 
     <transfer name="Item">
         <property name="shipment" type="Shipment"/>
+        <property name="sku" type="string"/>
+        <property name="sumPriceToPayAggregation" type="int"/>
     </transfer>
 
     <transfer name="Shipment">
@@ -32,5 +34,16 @@
 
     <transfer name="Country">
         <property name="iso2Code" type="string"/>
+    </transfer>
+
+    <transfer name="CalculableObject">
+        <property name="items" type="Item[]" singular="item"/>
+        <property name="payments" type="Payment[]" singular="payment"/>
+    </transfer>
+
+    <transfer name="Payment">
+        <property name="items" type="Item[]" singular="item"/>
+        <property name="paymentProvider" type="string"/>
+        <property name="availableAmount" type="int"/>
     </transfer>
 </transfers>

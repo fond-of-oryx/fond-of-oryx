@@ -4,6 +4,7 @@ namespace FondOfOryx\Zed\GiftCardRestriction\Business\DecisionRule;
 
 use ArrayObject;
 use Codeception\Test\Unit;
+use FondOfOryx\Zed\GiftCardRestriction\Business\Filter\SkuFilterInterface;
 use FondOfOryx\Zed\GiftCardRestriction\Dependency\Facade\GiftCardRestrictionToProductCartCodeTypeRestrictionFacadeInterface;
 use Generated\Shared\Transfer\GiftCardTransfer;
 use Generated\Shared\Transfer\ItemTransfer;
@@ -11,6 +12,11 @@ use Generated\Shared\Transfer\QuoteTransfer;
 
 class BlacklistedCartCodeTypeDecisionRuleTest extends Unit
 {
+    /**
+     * @var \FondOfOryx\Zed\GiftCardRestriction\Business\Filter\SkuFilterInterface|\PHPUnit\Framework\MockObject\MockObject
+     */
+    protected $skuFilterMock;
+
     /**
      * @var \FondOfOryx\Zed\GiftCardRestriction\Dependency\Facade\GiftCardRestrictionToProductCartCodeTypeRestrictionFacadeInterface|\PHPUnit\Framework\MockObject\MockObject
      */
@@ -43,6 +49,10 @@ class BlacklistedCartCodeTypeDecisionRuleTest extends Unit
     {
         parent::_before();
 
+        $this->skuFilterMock = $this->getMockBuilder(SkuFilterInterface::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
         $this->productCartCodeTypeRestrictionFacadeMock = $this->getMockBuilder(GiftCardRestrictionToProductCartCodeTypeRestrictionFacadeInterface::class)
             ->disableOriginalConstructor()
             ->getMock();
@@ -65,6 +75,7 @@ class BlacklistedCartCodeTypeDecisionRuleTest extends Unit
         ];
 
         $this->decisionRule = new BlacklistedCartCodeTypeDecisionRule(
+            $this->skuFilterMock,
             $this->productCartCodeTypeRestrictionFacadeMock
         );
     }
@@ -74,6 +85,7 @@ class BlacklistedCartCodeTypeDecisionRuleTest extends Unit
      */
     public function testIsSatisfiedBy(): void
     {
+        $itemTransferMocks = new ArrayObject($this->itemTransferMocks);
         $skus = ['FOO-123-456', 'FOO-234-567'];
         $blacklistedCartCodeTypesPerSku = [
             $skus[0] => ['gift card'],
@@ -82,15 +94,12 @@ class BlacklistedCartCodeTypeDecisionRuleTest extends Unit
 
         $this->quoteTransferMock->expects(static::atLeastOnce())
             ->method('getItems')
-            ->willReturn(new ArrayObject($this->itemTransferMocks));
+            ->willReturn($itemTransferMocks);
 
-        $this->itemTransferMocks[0]->expects(static::atLeastOnce())
-            ->method('getSku')
-            ->willReturn($skus[0]);
-
-        $this->itemTransferMocks[1]->expects(static::atLeastOnce())
-            ->method('getSku')
-            ->willReturn($skus[1]);
+        $this->skuFilterMock->expects(static::atLeastOnce())
+            ->method('filterFromItems')
+            ->with($itemTransferMocks)
+            ->willReturn($skus);
 
         $this->productCartCodeTypeRestrictionFacadeMock->expects(static::atLeastOnce())
             ->method('getBlacklistedCartCodeTypesByProductConcreteSkus')
@@ -105,6 +114,7 @@ class BlacklistedCartCodeTypeDecisionRuleTest extends Unit
      */
     public function testIsSatisfiedByWithoutRestrictedItems(): void
     {
+        $itemTransferMocks = new ArrayObject($this->itemTransferMocks);
         $skus = ['FOO-123-456', 'FOO-234-567'];
         $blacklistedCartCodeTypesPerSku = [
             $skus[0] => [],
@@ -113,15 +123,12 @@ class BlacklistedCartCodeTypeDecisionRuleTest extends Unit
 
         $this->quoteTransferMock->expects(static::atLeastOnce())
             ->method('getItems')
-            ->willReturn(new ArrayObject($this->itemTransferMocks));
+            ->willReturn($itemTransferMocks);
 
-        $this->itemTransferMocks[0]->expects(static::atLeastOnce())
-            ->method('getSku')
-            ->willReturn($skus[0]);
-
-        $this->itemTransferMocks[1]->expects(static::atLeastOnce())
-            ->method('getSku')
-            ->willReturn($skus[1]);
+        $this->skuFilterMock->expects(static::atLeastOnce())
+            ->method('filterFromItems')
+            ->with($itemTransferMocks)
+            ->willReturn($skus);
 
         $this->productCartCodeTypeRestrictionFacadeMock->expects(static::atLeastOnce())
             ->method('getBlacklistedCartCodeTypesByProductConcreteSkus')

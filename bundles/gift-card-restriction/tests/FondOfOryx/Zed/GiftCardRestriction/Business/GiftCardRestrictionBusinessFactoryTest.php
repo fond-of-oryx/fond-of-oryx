@@ -3,6 +3,7 @@
 namespace FondOfOryx\Zed\GiftCardRestriction\Business;
 
 use Codeception\Test\Unit;
+use FondOfOryx\Zed\GiftCardRestriction\Business\Calculator\GiftCardRestrictionCalculator;
 use FondOfOryx\Zed\GiftCardRestriction\Business\DecisionRule\BlacklistedCartCodeTypeDecisionRule;
 use FondOfOryx\Zed\GiftCardRestriction\Business\DecisionRule\BlacklistedCountryDecisionRule;
 use FondOfOryx\Zed\GiftCardRestriction\Business\DecisionRule\VoucherDiscountDecisionRule;
@@ -82,7 +83,7 @@ class GiftCardRestrictionBusinessFactoryTest extends Unit
     /**
      * @return void
      */
-    public function testBlacklistedCartCodeTypeDecisionRule(): void
+    public function testCreateBlacklistedCartCodeTypeDecisionRule(): void
     {
         $this->containerMock->expects(static::atLeastOnce())
             ->method('has')
@@ -97,6 +98,27 @@ class GiftCardRestrictionBusinessFactoryTest extends Unit
         static::assertInstanceOf(
             BlacklistedCartCodeTypeDecisionRule::class,
             $this->factory->createBlacklistedCartCodeTypeDecisionRule()
+        );
+    }
+
+    /**
+     * @return void
+     */
+    public function testCreateGiftCardRestrictionCalculator(): void
+    {
+        $this->containerMock->expects(static::atLeastOnce())
+            ->method('has')
+            ->with(GiftCardRestrictionDependencyProvider::FACADE_PRODUCT_CART_CODE_TYPE_RESTRICTION)
+            ->willReturn(true);
+
+        $this->containerMock->expects(static::atLeastOnce())
+            ->method('get')
+            ->with(GiftCardRestrictionDependencyProvider::FACADE_PRODUCT_CART_CODE_TYPE_RESTRICTION)
+            ->willReturn($this->productCartCodeTypeRestrictionFacadeMock);
+
+        static::assertInstanceOf(
+            GiftCardRestrictionCalculator::class,
+            $this->factory->createGiftCardRestrictionCalculator()
         );
     }
 }
