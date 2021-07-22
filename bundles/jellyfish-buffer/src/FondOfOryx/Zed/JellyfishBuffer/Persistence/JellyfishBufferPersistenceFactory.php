@@ -10,6 +10,8 @@ use Spryker\Zed\Kernel\Persistence\AbstractPersistenceFactory;
 
 /**
  * @method \FondOfOryx\Zed\JellyfishBuffer\Persistence\JellyfishBufferEntityManagerInterface getEntityManager()
+ * @method \FondOfOryx\Zed\JellyfishBuffer\JellyfishBufferConfig getConfig()
+ * @method \FondOfOryx\Zed\JellyfishBuffer\Persistence\JellyfishBufferRepositoryInterface getRepository()
  */
 class JellyfishBufferPersistenceFactory extends AbstractPersistenceFactory
 {

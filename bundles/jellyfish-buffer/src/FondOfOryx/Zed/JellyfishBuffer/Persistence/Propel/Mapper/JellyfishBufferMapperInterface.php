@@ -2,6 +2,7 @@
 
 namespace FondOfOryx\Zed\JellyfishBuffer\Persistence\Propel\Mapper;
 
+use Generated\Shared\Transfer\ExportedOrderTransfer;
 use Generated\Shared\Transfer\JellyfishOrderTransfer;
 use Orm\Zed\JellyfishBuffer\Persistence\FooExportedOrder;
 
@@ -19,4 +20,11 @@ interface JellyfishBufferMapperInterface
         array $options,
         FooExportedOrder $exportedOrder
     ): FooExportedOrder;
+
+    /**
+     * @param \Orm\Zed\JellyfishBuffer\Persistence\FooExportedOrder $exportedOrder
+     *
+     * @return \Generated\Shared\Transfer\ExportedOrderTransfer
+     */
+    public function fromEntity(FooExportedOrder $exportedOrder): ExportedOrderTransfer;
 }

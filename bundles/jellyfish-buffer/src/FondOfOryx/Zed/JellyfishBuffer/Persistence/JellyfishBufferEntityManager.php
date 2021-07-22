@@ -31,4 +31,15 @@ class JellyfishBufferEntityManager extends AbstractEntityManager implements Jell
 
         $fooExportedOrder->save();
     }
+
+    /**
+     * @param int $fkSalesOrder
+     *
+     * @return void
+     */
+    public function flagAsReexported(int $fkSalesOrder): void
+    {
+        $entity = $this->getFactory()->createExportedOrderQuery()->filterByFkSalesOrder($fkSalesOrder)->findOneOrCreate();
+        $entity->setIsReexported(true)->setUpdatedAt(time())->save();
+    }
 }
