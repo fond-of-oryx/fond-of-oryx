@@ -104,6 +104,10 @@
       "path": "bundles/jellyfish-cross-engage/",
       "version": "1.0.0"
     },
+    "jellyfish-gift-card": {
+      "path": "bundles/jellyfish-gift-card/",
+      "version": "1.0.0"
+    },
     "jellyfish-sales-order": {
       "path": "bundles/jellyfish-sales-order/",
       "version": "1.0.0"
