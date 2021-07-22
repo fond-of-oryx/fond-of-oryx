@@ -23,11 +23,13 @@ class JellyfishBufferRepository extends AbstractRepository implements JellyfishB
         $results = $query->find();
         $collection = new ExportedOrderCollectionTransfer();
         $mapper = $this->getFactory()->createJellyfishBufferMapper();
+        $count = 0;
         foreach ($results->getData() as $entity) {
             $collection->addOrder($mapper->fromEntity($entity));
+            $count++;
         }
 
-        return $collection;
+        return $collection->setCount($count);
     }
 
     /**
@@ -47,7 +49,7 @@ class JellyfishBufferRepository extends AbstractRepository implements JellyfishB
             $query->filterByStore($jellyfishBufferTableFilterTransfer->getStore());
         }
 
-        if (count($jellyfishBufferTableFilterTransfer->getIds()) > 0) {
+        if ($jellyfishBufferTableFilterTransfer->getIds() !== null && count($jellyfishBufferTableFilterTransfer->getIds()) > 0) {
             return $query->filterByFkSalesOrder_In($jellyfishBufferTableFilterTransfer->getIds());
         }
 

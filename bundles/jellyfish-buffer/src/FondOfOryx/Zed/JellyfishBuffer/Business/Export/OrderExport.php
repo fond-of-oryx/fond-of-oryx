@@ -81,7 +81,12 @@ class OrderExport implements DataExportInterface
 
         $collection = $this->repository->findBufferedOrders($jellyfishBufferTableFilterTransfer);
 
-        $message = sprintf('Exporting %s orders from buffer table for store %s with system code override %s', $collection->getCount(), $jellyfishBufferTableFilterTransfer->getStore(), $jellyfishBufferTableFilterTransfer->getSystemCode());
+        $message = sprintf(
+            'Exporting "%s" orders from buffer table for store "%s" with system code override "%s"',
+            $collection->getCount(),
+            $jellyfishBufferTableFilterTransfer->getStore(),
+            $jellyfishBufferTableFilterTransfer->getSystemCode()
+        );
         $this->logger->notice($message);
         echo $message . PHP_EOL;
 
