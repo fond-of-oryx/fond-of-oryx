@@ -3,9 +3,11 @@
 namespace FondOfOryx\Zed\GiftCardRestriction\Business;
 
 use Codeception\Test\Unit;
+use FondOfOryx\Zed\GiftCardRestriction\Business\Calculator\GiftCardRestrictionCalculatorInterface;
 use FondOfOryx\Zed\GiftCardRestriction\Business\DecisionRule\BlacklistedCartCodeTypeDecisionRule;
 use FondOfOryx\Zed\GiftCardRestriction\Business\DecisionRule\BlacklistedCountryDecisionRule;
 use FondOfOryx\Zed\GiftCardRestriction\Business\DecisionRule\VoucherDiscountDecisionRule;
+use Generated\Shared\Transfer\CalculableObjectTransfer;
 use Generated\Shared\Transfer\GiftCardTransfer;
 use Generated\Shared\Transfer\QuoteTransfer;
 
@@ -42,6 +44,16 @@ class GiftCardRestrictionFacadeTest extends Unit
     protected $giftCardTransferMock;
 
     /**
+     * @var \FondOfOryx\Zed\GiftCardRestriction\Business\Calculator\GiftCardRestrictionCalculatorInterface|\PHPUnit\Framework\MockObject\MockObject
+     */
+    protected $giftCardRestrictionCalculatorMock;
+
+    /**
+     * @var \Generated\Shared\Transfer\CalculableObjectTransfer|\PHPUnit\Framework\MockObject\MockObject
+     */
+    protected $calculableObjectTransferMock;
+
+    /**
      * @var \FondOfOryx\Zed\GiftCardRestriction\Business\GiftCardRestrictionFacade
      */
     protected $facade;
@@ -74,6 +86,14 @@ class GiftCardRestrictionFacadeTest extends Unit
             ->getMock();
 
         $this->giftCardTransferMock = $this->getMockBuilder(GiftCardTransfer::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $this->giftCardRestrictionCalculatorMock = $this->getMockBuilder(GiftCardRestrictionCalculatorInterface::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $this->calculableObjectTransferMock = $this->getMockBuilder(CalculableObjectTransfer::class)
             ->disableOriginalConstructor()
             ->getMock();
 
@@ -141,5 +161,21 @@ class GiftCardRestrictionFacadeTest extends Unit
             $this->giftCardTransferMock,
             $this->quoteTransferMock
         ));
+    }
+
+    /**
+     * @return void
+     */
+    public function testRecalculate(): void
+    {
+        $this->factoryMock->expects(static::atLeastOnce())
+            ->method('createGiftCardRestrictionCalculator')
+            ->willReturn($this->giftCardRestrictionCalculatorMock);
+
+        $this->giftCardRestrictionCalculatorMock->expects(static::atLeastOnce())
+            ->method('recalculate')
+            ->with($this->calculableObjectTransferMock);
+
+        $this->facade->recalculate($this->calculableObjectTransferMock);
     }
 }
