@@ -23,6 +23,7 @@ include:
   - bundles/jellyfish-availability-alert
   - bundles/jellyfish-buffer
   - bundles/jellyfish-cross-engage
+  - bundles/jellyfish-gift-card
   - bundles/jellyfish-sales-order
   - bundles/jellyfish-sales-order-product-type
   - bundles/jellyfish-sales-order-b2c
