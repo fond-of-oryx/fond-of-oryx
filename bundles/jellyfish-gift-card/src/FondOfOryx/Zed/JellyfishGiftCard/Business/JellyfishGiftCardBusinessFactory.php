@@ -153,7 +153,7 @@ class JellyfishGiftCardBusinessFactory extends AbstractBusinessFactory
     protected function createRenderer(): RendererInterface
     {
         return new TwigRenderer(
-            $this->getProvidedDependency(JellyfishGiftCardDependencyProvider::SERVICE_TWIG)
+            $this->getProvidedDependency(JellyfishGiftCardDependencyProvider::RENDERER)
         );
     }
 

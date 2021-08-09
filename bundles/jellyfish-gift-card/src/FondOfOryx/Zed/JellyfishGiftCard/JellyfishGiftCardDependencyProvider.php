@@ -18,7 +18,7 @@ class JellyfishGiftCardDependencyProvider extends AbstractBundleDependencyProvid
     public const FACADE_GLOSSARY = 'FACADE_GLOSSARY';
     public const FACADE_SALES = 'FACADE_SALES';
     public const RENDERER = 'RENDERER';
-    public const SERVICE_TWIG = 'SERVICE_TWIG';
+    public const SERVICE_TWIG = 'twig';
     public const SERVICE_UTIL_ENCODING = 'SERVICE_UTIL_ENCODING';
 
     /**
@@ -61,7 +61,7 @@ class JellyfishGiftCardDependencyProvider extends AbstractBundleDependencyProvid
      */
     protected function addGlossaryFacade(Container $container): Container
     {
-        $container[static::FACADE_SALES] = static function (Container $container) {
+        $container[static::FACADE_GLOSSARY] = static function (Container $container) {
             return new JellyfishGiftCardToGlossaryFacadeBridge(
                 $container->getLocator()->glossary()->facade()
             );

@@ -171,13 +171,16 @@ class GiftCardApiAdapterTest extends Unit
                 'Could not export gift card.',
                 static::callback(
                     static function (array $context) use ($body) {
-                        return isset($context['exception'], $context['request']['body'])
-                            && $context['exception'] instanceof Throwable
-                            && $context['request']['body'] === $body;
+                        return isset($context['exception'], $context['trace'], $context['requestBody'])
+                            && $context['requestBody'] === $body;
                     }
                 )
             );
 
-        $this->giftCardApiAdapter->post($this->jellyfishGiftCardDataWrapperTransferMock);
+        try {
+            $this->giftCardApiAdapter->post($this->jellyfishGiftCardDataWrapperTransferMock);
+            static::fail();
+        } catch (Throwable $exception) {
+        }
     }
 }
