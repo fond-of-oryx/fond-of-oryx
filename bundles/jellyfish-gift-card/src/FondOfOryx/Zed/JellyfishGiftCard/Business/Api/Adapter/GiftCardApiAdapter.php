@@ -68,11 +68,12 @@ class GiftCardApiAdapter implements GiftCardApiAdapterInterface
             }
         } catch (Throwable $exception) {
             $this->logger->error(static::ERROR_MESSAGE, [
-                'exception' => $exception,
-                'request' => [
-                    'body' => $body,
-                ],
+                'exception' => $exception->getMessage(),
+                'trace' => $exception->getTraceAsString(),
+                'requestBody' => $body,
             ]);
+
+            throw $exception;
         }
     }
 }
