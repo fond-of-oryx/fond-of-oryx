@@ -28,6 +28,9 @@ class ErpOrderPermissionStub implements ErpOrderPermissionStubInterface
     public function getAccessibleCompanyBusinessUnitUuids(
         ErpOrderPermissionCompanyBusinessUnitUuidRequestTransfer $erpOrderPermissionCompanyBusinessUnitUuidRequestTransfer
     ) {
-        return $this->zedRequestClient->call('/erp-order-permission/gateway/get-company-business-unit-uuids', $erpOrderPermissionCompanyBusinessUnitUuidRequestTransfer);
+        return $this->zedRequestClient->call(
+            '/erp-order-permission/gateway/get-accessible-company-business-unit-uuids-action',
+            $erpOrderPermissionCompanyBusinessUnitUuidRequestTransfer
+        );
     }
 }
