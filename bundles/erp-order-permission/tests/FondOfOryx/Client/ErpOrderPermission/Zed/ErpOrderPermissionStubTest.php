@@ -48,7 +48,13 @@ class ErpOrderPermissionStubTest extends Unit
      */
     public function testGetAccessibleCompanyBusinessUnitUuids(): void
     {
-        $this->zedRequestClientMock->expects(static::once())->method('call')->with('/erp-order-permission/gateway/get-company-business-unit-uuids', $this->erpOrderPermissionCompanyBusinessUnitUuidRequestTransfer)->willReturn($this->companyBusinessUnitUuidCollectionTransferMock);
+        $this->zedRequestClientMock->expects(static::once())
+            ->method('call')
+            ->with(
+                '/erp-order-permission/gateway/get-accessible-company-business-unit-uuids-action',
+                $this->erpOrderPermissionCompanyBusinessUnitUuidRequestTransfer
+            )->willReturn($this->companyBusinessUnitUuidCollectionTransferMock);
+
         $this->stub->getAccessibleCompanyBusinessUnitUuids($this->erpOrderPermissionCompanyBusinessUnitUuidRequestTransfer);
     }
 }
