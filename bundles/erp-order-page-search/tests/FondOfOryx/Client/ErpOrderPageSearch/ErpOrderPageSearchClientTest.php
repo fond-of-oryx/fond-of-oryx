@@ -51,11 +51,15 @@ class ErpOrderPageSearchClientTest extends Unit
             ->getMock();
 
         $this->erpOrderPageSearchClient = new class () extends ErpOrderPageSearchClient {
-
             /**
+             * @uses \Spryker\Client\Permission\PermissionClientInterface
+             *
+             * @param string $permissionKey
+             * @param string|int|array|null $context
+             *
              * @return bool
              */
-            public function canSeeErpOrders(): bool
+            protected function can($permissionKey, $context = null): bool
             {
                 return true;
             }

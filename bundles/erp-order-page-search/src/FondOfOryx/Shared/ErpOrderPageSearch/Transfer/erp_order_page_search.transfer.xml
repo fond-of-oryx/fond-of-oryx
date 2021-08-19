@@ -2,26 +2,6 @@
 <transfers xmlns="spryker:transfer-01"
            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
            xsi:schemaLocation="spryker:transfer-01 http://static.spryker.com/transfer-01.xsd">
-
-    <transfer name="ErpOrderPageSearchRequest">
-        <property name="includes" singular="include" type="array"/>
-        <property name="requestParams" singular="requestParam" type="array"/>
-        <property name="searchString" type="string"/>
-        <property name="filters" singular="filter" type="array"/>
-        <property name="offset" type="int"/>
-        <property name="limit" type="int"/>
-    </transfer>
-
-    <transfer name="ErpOrderPageSearchFilter">
-        <property name="resource" type="string"/>
-        <property name="value" type="string"/>
-        <property name="field" type="string"/>
-    </transfer>
-
-    <transfer name="ErpOrderCollection">
-        <property name="erpOrders" singular="erpOrder" type="ErpOrder[]"/>
-    </transfer>
-
     <transfer name="ErpOrderPageSearch">
         <property name="fkErpOrder" type="int"/>
         <property name="uniqueKeyIdentifier" type="string"/>

@@ -4,10 +4,10 @@ namespace FondOfOryx\Client\ErpOrderPageSearch;
 
 use Codeception\Test\Unit;
 use FondOfOryx\Client\ErpOrderPageSearch\Dependency\Client\ErpOrderPageSearchToCustomerClientBridge;
+use FondOfOryx\Client\ErpOrderPageSearch\Dependency\Client\ErpOrderPageSearchToErpOrderPermissionClientInterface;
 use FondOfOryx\Client\ErpOrderPageSearch\Dependency\Client\ErpOrderPageSearchToSearchClientBridge;
 use FondOfOryx\Client\ErpOrderPageSearch\Plugin\SearchExtension\ErpOrderPageSearchQueryPlugin;
 use Spryker\Client\Kernel\Container;
-use Spryker\Client\Search\Dependency\Plugin\QueryInterface;
 
 class ErpOrderPageSearchFactoryTest extends Unit
 {
@@ -32,6 +32,11 @@ class ErpOrderPageSearchFactoryTest extends Unit
     protected $erpOrderPageSearchToCustomerClientMock;
 
     /**
+     * @var \FondOfOryx\Client\ErpOrderPageSearch\Dependency\Client\ErpOrderPageSearchToErpOrderPermissionClientInterface|mixed|\PHPUnit\Framework\MockObject\MockObject
+     */
+    protected $erpOrderPageSearchToErpOrderPermissionClientMock;
+
+    /**
      * @var \PHPUnit\Framework\MockObject\MockObject|\FondOfOryx\Client\ErpOrderPageSearch\Dependency\Client\ErpOrderPageSearchToSearchClientBridge
      */
     protected $erpOrderPageSearchToSearchClientMock;
@@ -50,6 +55,10 @@ class ErpOrderPageSearchFactoryTest extends Unit
             ->getMock();
 
         $this->erpOrderPageSearchToCustomerClientMock = $this->getMockBuilder(ErpOrderPageSearchToCustomerClientBridge::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $this->erpOrderPageSearchToErpOrderPermissionClientMock = $this->getMockBuilder(ErpOrderPageSearchToErpOrderPermissionClientInterface::class)
             ->disableOriginalConstructor()
             ->getMock();
 
@@ -78,8 +87,8 @@ class ErpOrderPageSearchFactoryTest extends Unit
             ->with(ErpOrderPageSearchDependencyProvider::PLUGIN_SEARCH_QUERY)
             ->willReturn($this->erpOrderPageSearchQueryPluginMock);
 
-        $this->assertInstanceOf(
-            QueryInterface::class,
+        static::assertEquals(
+            $this->erpOrderPageSearchQueryPluginMock,
             $this->erpOrderPageSearchFactory->createSearchQuery($searchString)
         );
     }
@@ -99,9 +108,30 @@ class ErpOrderPageSearchFactoryTest extends Unit
             ->with(ErpOrderPageSearchDependencyProvider::CLIENT_CUSTOMER)
             ->willReturn($this->erpOrderPageSearchToCustomerClientMock);
 
-        $this->assertInstanceOf(
-            ErpOrderPageSearchToCustomerClientBridge::class,
+        static::assertEquals(
+            $this->erpOrderPageSearchToCustomerClientMock,
             $this->erpOrderPageSearchFactory->getCustomerClient()
+        );
+    }
+
+    /**
+     * @return void
+     */
+    public function testGetErpOrderPermissionClient(): void
+    {
+        $this->containerMock->expects(static::atLeastOnce())
+            ->method('has')
+            ->with(ErpOrderPageSearchDependencyProvider::CLIENT_ERP_ORDER_PERMISSION)
+            ->willReturn(true);
+
+        $this->containerMock->expects(static::atLeastOnce())
+            ->method('get')
+            ->with(ErpOrderPageSearchDependencyProvider::CLIENT_ERP_ORDER_PERMISSION)
+            ->willReturn($this->erpOrderPageSearchToErpOrderPermissionClientMock);
+
+        static::assertEquals(
+            $this->erpOrderPageSearchToErpOrderPermissionClientMock,
+            $this->erpOrderPageSearchFactory->getErpOrderPermissionClient()
         );
     }
 

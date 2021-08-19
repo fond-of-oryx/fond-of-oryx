@@ -50,8 +50,8 @@ class ErpOrderPageSearchToCustomerClientBridgeTest extends Unit
             ->method('getCustomer')
             ->willReturn($this->customerTransferMock);
 
-        $this->assertInstanceOf(
-            CustomerTransfer::class,
+        static::assertEquals(
+            $this->customerTransferMock,
             $this->erpOrderPageSearchToCustomerClientBridge->getCustomer()
         );
     }

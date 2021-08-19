@@ -61,7 +61,7 @@ class ErpOrderPageSearchReader implements ErpOrderPageSearchReaderInterface
 
         return $this->createResponse($this->erpOrderPageSearchClient->search(
             $requestTransfer->getSearchString(),
-            $requestTransfer->toArray()
+            $requestTransfer->getRequestParams()
         ));
     }
 

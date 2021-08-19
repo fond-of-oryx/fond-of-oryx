@@ -133,7 +133,7 @@ class ErpOrderPageSearchReaderTest extends Unit
     {
         $this->requestBuilderMock->expects($this->once())->method('create')->willReturn($this->erpOrderPageSearchRequestTransferMock);
         $this->erpOrderPageSearchRequestTransferMock->expects($this->once())->method('getSearchString')->willReturn('');
-        $this->erpOrderPageSearchRequestTransferMock->expects($this->once())->method('toArray')->willReturn([]);
+        $this->erpOrderPageSearchRequestTransferMock->expects($this->once())->method('getRequestParams')->willReturn([]);
         $this->erpOrderPageSearchClient->expects($this->once())->method('search')->willReturn([]);
         $this->restResourceBuilderMock->expects($this->once())->method('createRestResponse')->willReturn($this->restResponseMock);
         $this->restResourceBuilderMock->expects($this->once())->method('createRestResource')->willReturn($this->restResourceMock);

@@ -2,8 +2,8 @@
 
 namespace FondOfOryx\Client\ErpOrderPageSearch;
 
-use FondOfOryx\Client\ErpOrderPageSearch\Dependency\Client\ErpOrderPageSearchToCompanyUserClientInterface;
 use FondOfOryx\Client\ErpOrderPageSearch\Dependency\Client\ErpOrderPageSearchToCustomerClientInterface;
+use FondOfOryx\Client\ErpOrderPageSearch\Dependency\Client\ErpOrderPageSearchToErpOrderPermissionClientInterface;
 use FondOfOryx\Client\ErpOrderPageSearch\Dependency\Client\ErpOrderPageSearchToSearchClientInterface;
 use Spryker\Client\Kernel\AbstractFactory;
 use Spryker\Client\SearchExtension\Dependency\Plugin\QueryInterface;
@@ -43,11 +43,11 @@ class ErpOrderPageSearchFactory extends AbstractFactory
     }
 
     /**
-     * @return \FondOfOryx\Client\ErpOrderPageSearch\Dependency\Client\ErpOrderPageSearchToCompanyUserClientInterface
+     * @return \FondOfOryx\Client\ErpOrderPageSearch\Dependency\Client\ErpOrderPageSearchToErpOrderPermissionClientInterface
      */
-    public function getCompanyUserClient(): ErpOrderPageSearchToCompanyUserClientInterface
+    public function getErpOrderPermissionClient(): ErpOrderPageSearchToErpOrderPermissionClientInterface
     {
-        return $this->getProvidedDependency(ErpOrderPageSearchDependencyProvider::CLIENT_COMPANY_USER);
+        return $this->getProvidedDependency(ErpOrderPageSearchDependencyProvider::CLIENT_ERP_ORDER_PERMISSION);
     }
 
     /**
