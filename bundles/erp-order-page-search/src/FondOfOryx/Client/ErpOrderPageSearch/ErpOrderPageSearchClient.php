@@ -3,7 +3,6 @@
 namespace FondOfOryx\Client\ErpOrderPageSearch;
 
 use FondOfOryx\Client\ErpOrderPermission\Plugin\Permission\SeeErpOrdersPermissionPlugin;
-use Generated\Shared\Transfer\CustomerTransfer;
 use Spryker\Client\Kernel\AbstractClient;
 use Spryker\Client\Kernel\PermissionAwareTrait;
 
@@ -26,7 +25,7 @@ class ErpOrderPageSearchClient extends AbstractClient implements ErpOrderPageSea
      */
     public function search(string $searchString, array $requestParameters = [])
     {
-        if ($this->canSeeErpOrders() === false) {
+        if ($this->can(SeeErpOrdersPermissionPlugin::KEY) === false) {
             return [];
         }
 
@@ -47,30 +46,5 @@ class ErpOrderPageSearchClient extends AbstractClient implements ErpOrderPageSea
             ->getFactory()
             ->getSearchClient()
             ->search($searchQuery, $resultFormatters, $requestParameters);
-    }
-
-    /**
-     * @return bool
-     */
-    protected function canSeeErpOrders(): bool
-    {
-        if ($this->getCustomer()->getCompanyUserTransfer() === null) {
-            return false;
-        }
-
-        return $this->can(
-            SeeErpOrdersPermissionPlugin::KEY,
-            $this->getCustomer()->getCompanyUserTransfer()->getFkCompany()
-        );
-    }
-
-    /**
-     * @return \Generated\Shared\Transfer\CustomerTransfer|null
-     */
-    protected function getCustomer(): ?CustomerTransfer
-    {
-        return $this->getFactory()
-            ->getCustomerClient()
-            ->getCustomer();
     }
 }

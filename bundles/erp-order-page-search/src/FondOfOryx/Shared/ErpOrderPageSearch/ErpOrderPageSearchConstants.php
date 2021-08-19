@@ -27,4 +27,8 @@ interface ErpOrderPageSearchConstants
      * @api
      */
     public const ERP_ORDER_RESOURCE_NAME = 'erp_order';
+
+    public const PARAMETER_COMPANY_BUSINESS_UNIT_UUID = 'company-business-unit-uuid';
+    public const PARAMETER_EXTERNAL_REFERENCE = 'external-reference';
+    public const PARAMETER_REFERENCE = 'reference';
 }

@@ -4,8 +4,10 @@ namespace FondOfOryx\Client\ErpOrderPageSearch;
 
 use Codeception\Test\Unit;
 use FondOfOryx\Client\ErpOrderPageSearch\Dependency\Client\ErpOrderPageSearchToCustomerClientBridge;
+use FondOfOryx\Client\ErpOrderPageSearch\Dependency\Client\ErpOrderPageSearchToErpOrderPermissionClientBridge;
 use FondOfOryx\Client\ErpOrderPageSearch\Dependency\Client\ErpOrderPageSearchToSearchClientBridge;
 use FondOfOryx\Client\ErpOrderPageSearch\Plugin\SearchExtension\ErpOrderPageSearchQueryPlugin;
+use FondOfOryx\Client\ErpOrderPermission\ErpOrderPermissionClientInterface;
 use Spryker\Client\Customer\CustomerClientInterface;
 use Spryker\Client\Kernel\Container;
 use Spryker\Client\Kernel\Locator;
@@ -33,6 +35,11 @@ class ErpOrderPageSearchDependencyProviderTest extends Unit
      * @var \PHPUnit\Framework\MockObject\MockObject|\Spryker\Client\Customer\CustomerClientInterface
      */
     protected $customerClientMock;
+
+    /**
+     * @var \PHPUnit\Framework\MockObject\MockObject|\FondOfOryx\Client\ErpOrderPermission\ErpOrderPermissionClientInterface
+     */
+    protected $erpOrderPermissionClientMock;
 
     /**
      * @var \PHPUnit\Framework\MockObject\MockObject|\Spryker\Client\Search\SearchClientInterface
@@ -76,6 +83,10 @@ class ErpOrderPageSearchDependencyProviderTest extends Unit
             ->disableOriginalConstructor()
             ->getMock();
 
+        $this->erpOrderPermissionClientMock = $this->getMockBuilder(ErpOrderPermissionClientInterface::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
         $this->erpOrderPageSearchDependencyProvider = new ErpOrderPageSearchDependencyProvider();
     }
 
@@ -90,7 +101,7 @@ class ErpOrderPageSearchDependencyProviderTest extends Unit
 
         $this->locatorMock->expects(static::atLeastOnce())
             ->method('__call')
-            ->withConsecutive(['search'], ['customer'])
+            ->withConsecutive(['search'], ['customer'], ['erpOrderPermission'])
             ->willReturn($this->bundleProxyMock);
 
         $this->bundleProxyMock->expects(static::atLeastOnce())
@@ -98,7 +109,8 @@ class ErpOrderPageSearchDependencyProviderTest extends Unit
             ->with('client')
             ->willReturnOnConsecutiveCalls(
                 $this->searchClientMock,
-                $this->customerClientMock
+                $this->customerClientMock,
+                $this->erpOrderPermissionClientMock
             );
 
         $container = $this->erpOrderPageSearchDependencyProvider->provideServiceLayerDependencies($this->containerMock);
@@ -113,6 +125,11 @@ class ErpOrderPageSearchDependencyProviderTest extends Unit
         $this->assertInstanceOf(
             ErpOrderPageSearchToCustomerClientBridge::class,
             $container[ErpOrderPageSearchDependencyProvider::CLIENT_CUSTOMER]
+        );
+
+        $this->assertInstanceOf(
+            ErpOrderPageSearchToErpOrderPermissionClientBridge::class,
+            $container[ErpOrderPageSearchDependencyProvider::CLIENT_ERP_ORDER_PERMISSION]
         );
 
         $this->assertInstanceOf(

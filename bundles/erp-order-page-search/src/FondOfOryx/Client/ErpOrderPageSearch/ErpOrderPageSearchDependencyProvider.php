@@ -2,8 +2,8 @@
 
 namespace FondOfOryx\Client\ErpOrderPageSearch;
 
-use FondOfOryx\Client\ErpOrderPageSearch\Dependency\Client\ErpOrderPageSearchToCompanyUserClientBridge;
 use FondOfOryx\Client\ErpOrderPageSearch\Dependency\Client\ErpOrderPageSearchToCustomerClientBridge;
+use FondOfOryx\Client\ErpOrderPageSearch\Dependency\Client\ErpOrderPageSearchToErpOrderPermissionClientBridge;
 use FondOfOryx\Client\ErpOrderPageSearch\Dependency\Client\ErpOrderPageSearchToSearchClientBridge;
 use FondOfOryx\Client\ErpOrderPageSearch\Plugin\SearchExtension\ErpOrderPageSearchQueryPlugin;
 use Spryker\Client\Kernel\AbstractDependencyProvider;
@@ -18,7 +18,7 @@ class ErpOrderPageSearchDependencyProvider extends AbstractDependencyProvider
 {
     public const CLIENT_SEARCH = 'CLIENT_SEARCH';
     public const CLIENT_CUSTOMER = 'CLIENT_CUSTOMER';
-    public const CLIENT_COMPANY_USER = 'CLIENT_COMPANY_USER';
+    public const CLIENT_ERP_ORDER_PERMISSION = 'CLIENT_ERP_ORDER_PERMISSION';
     public const PLUGIN_SEARCH_QUERY = 'PLUGIN_SEARCH_QUERY';
     public const PLUGINS_SEARCH_RESULT_FORMATTER = 'PLUGINS_SEARCH_RESULT_FORMATTER';
     public const PLUGINS_SEARCH_QUERY_EXPANDER = 'PLUGINS_SEARCH_QUERY_EXPANDER';
@@ -34,7 +34,7 @@ class ErpOrderPageSearchDependencyProvider extends AbstractDependencyProvider
 
         $container = $this->addSearchClient($container);
         $container = $this->addCustomerClient($container);
-        $container = $this->addCompanyUserClient($container);
+        $container = $this->addErpOrderPermissionClient($container);
         $container = $this->addSearchQueryPlugin($container);
         $container = $this->addResultFormatterPlugins($container);
         $container = $this->addQueryExpanderPlugins($container);
@@ -77,10 +77,12 @@ class ErpOrderPageSearchDependencyProvider extends AbstractDependencyProvider
      *
      * @return \Spryker\Client\Kernel\Container
      */
-    protected function addCompanyUserClient(Container $container): Container
+    protected function addErpOrderPermissionClient(Container $container): Container
     {
-        $container[static::CLIENT_COMPANY_USER] = static function (Container $container) {
-            return new ErpOrderPageSearchToCompanyUserClientBridge($container->getLocator()->companyUser()->client());
+        $container[static::CLIENT_ERP_ORDER_PERMISSION] = static function (Container $container) {
+            return new ErpOrderPageSearchToErpOrderPermissionClientBridge(
+                $container->getLocator()->erpOrderPermission()->client()
+            );
         };
 
         return $container;
