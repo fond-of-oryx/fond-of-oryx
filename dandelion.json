@@ -80,6 +80,10 @@
       "path": "bundles/feed/",
       "version": "1.0.0"
     },
+    "gift-card-expiration": {
+      "path": "bundles/gift-card-expiration/",
+      "version": "1.0.0"
+    },
     "gift-card-product-connector": {
       "path": "bundles/gift-card-product-connector/",
       "version": "1.0.0"
