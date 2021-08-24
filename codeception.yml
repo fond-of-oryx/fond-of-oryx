@@ -18,6 +18,7 @@ include:
   - bundles/erp-order-page-search-rest-api
   - bundles/erp-order-permission
   - bundles/feed
+  - bundles/gift-card-expiration
   - bundles/gift-card-product-connector
   - bundles/gift-card-restriction
   - bundles/jellyfish-availability-alert
