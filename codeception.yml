@@ -28,6 +28,7 @@ include:
   - bundles/jellyfish-sales-order
   - bundles/jellyfish-sales-order-product-type
   - bundles/jellyfish-sales-order-b2c
+  - bundles/jellyfish-sales-order-gift-card-connector
   - bundles/jellyfish-sales-order-extension
   - bundles/jellyfish-sales-order-payone
   - bundles/jellyfish-thirty-five-up
