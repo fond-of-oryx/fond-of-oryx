@@ -101,6 +101,7 @@
     "fond-of-oryx/erp-order-page-search-rest-api": "*",
     "fond-of-oryx/erp-order-permission": "*",
     "fond-of-oryx/feed": "*",
+    "fond-of-oryx/gift-card-expiration": "*",
     "fond-of-oryx/gift-card-product-connector": "*",
     "fond-of-oryx/gift-card-restriction": "*",
     "fond-of-oryx/jellyfish-availability-alert": "*",

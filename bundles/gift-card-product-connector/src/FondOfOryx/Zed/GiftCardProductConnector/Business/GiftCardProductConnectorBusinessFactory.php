@@ -2,6 +2,8 @@
 
 namespace FondOfOryx\Zed\GiftCardProductConnector\Business;
 
+use FondOfOryx\Zed\GiftCardProductConnector\Business\Filter\GiftCardAmountFilter;
+use FondOfOryx\Zed\GiftCardProductConnector\Business\Filter\GiftCardAmountFilterInterface;
 use FondOfOryx\Zed\GiftCardProductConnector\Business\GiftCard\GiftCardProductAbstractConfigurationWriter;
 use FondOfOryx\Zed\GiftCardProductConnector\Business\GiftCard\GiftCardProductAbstractConfigurationWriterInterface;
 use FondOfOryx\Zed\GiftCardProductConnector\Business\GiftCard\GiftCardProductConfigurationWriter;
@@ -20,6 +22,7 @@ class GiftCardProductConnectorBusinessFactory extends AbstractBusinessFactory
     public function createGiftCardProductAbstractConfigurationWriter(): GiftCardProductAbstractConfigurationWriterInterface
     {
         return new GiftCardProductAbstractConfigurationWriter(
+            $this->createGiftCardAmountFilter(),
             $this->getEntityManager(),
             $this->getConfig()
         );
@@ -31,8 +34,17 @@ class GiftCardProductConnectorBusinessFactory extends AbstractBusinessFactory
     public function createGiftCardProductConfigurationWriter(): GiftCardProductConfigurationWriterInterface
     {
         return new GiftCardProductConfigurationWriter(
+            $this->createGiftCardAmountFilter(),
             $this->getEntityManager(),
             $this->getConfig()
         );
+    }
+
+    /**
+     * @return \FondOfOryx\Zed\GiftCardProductConnector\Business\Filter\GiftCardAmountFilterInterface
+     */
+    protected function createGiftCardAmountFilter(): GiftCardAmountFilterInterface
+    {
+        return new GiftCardAmountFilter();
     }
 }

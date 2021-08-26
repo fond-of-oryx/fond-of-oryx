@@ -137,4 +137,32 @@ class BlacklistedCartCodeTypeDecisionRuleTest extends Unit
 
         static::assertTrue($this->decisionRule->isSatisfiedBy($this->giftCardTransferMock, $this->quoteTransferMock));
     }
+
+    /**
+     * @return void
+     */
+    public function testIsSatisfiedByWithoutRestrictionDataForOneItem(): void
+    {
+        $itemTransferMocks = new ArrayObject($this->itemTransferMocks);
+        $skus = ['FOO-123-456', 'FOO-234-567'];
+        $blacklistedCartCodeTypesPerSku = [
+            $skus[0] => ['gift card'],
+        ];
+
+        $this->quoteTransferMock->expects(static::atLeastOnce())
+            ->method('getItems')
+            ->willReturn($itemTransferMocks);
+
+        $this->skuFilterMock->expects(static::atLeastOnce())
+            ->method('filterFromItems')
+            ->with($itemTransferMocks)
+            ->willReturn($skus);
+
+        $this->productCartCodeTypeRestrictionFacadeMock->expects(static::atLeastOnce())
+            ->method('getBlacklistedCartCodeTypesByProductConcreteSkus')
+            ->with($skus)
+            ->willReturn($blacklistedCartCodeTypesPerSku);
+
+        static::assertTrue($this->decisionRule->isSatisfiedBy($this->giftCardTransferMock, $this->quoteTransferMock));
+    }
 }

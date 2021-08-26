@@ -2,6 +2,7 @@
 
 namespace FondOfOryx\Zed\GiftCardProductConnector\Business\GiftCard;
 
+use FondOfOryx\Zed\GiftCardProductConnector\Business\Filter\GiftCardAmountFilterInterface;
 use FondOfOryx\Zed\GiftCardProductConnector\GiftCardProductConnectorConfig;
 use FondOfOryx\Zed\GiftCardProductConnector\Persistence\GiftCardProductConnectorEntityManagerInterface;
 use Generated\Shared\Transfer\ProductConcreteTransfer;
@@ -10,6 +11,11 @@ use Spryker\Zed\Kernel\Persistence\EntityManager\TransactionTrait;
 class GiftCardProductConfigurationWriter implements GiftCardProductConfigurationWriterInterface
 {
     use TransactionTrait;
+
+    /**
+     * @var \FondOfOryx\Zed\GiftCardProductConnector\Business\Filter\GiftCardAmountFilterInterface
+     */
+    protected $giftCardAmountFilter;
 
     /**
      * @var \FondOfOryx\Zed\GiftCardProductConnector\GiftCardProductConnectorConfig
@@ -22,13 +28,16 @@ class GiftCardProductConfigurationWriter implements GiftCardProductConfiguration
     private $entityManager;
 
     /**
+     * @param \FondOfOryx\Zed\GiftCardProductConnector\Business\Filter\GiftCardAmountFilterInterface $giftCardAmountFilter
      * @param \FondOfOryx\Zed\GiftCardProductConnector\Persistence\GiftCardProductConnectorEntityManagerInterface $entityManager
      * @param \FondOfOryx\Zed\GiftCardProductConnector\GiftCardProductConnectorConfig $config
      */
     public function __construct(
+        GiftCardAmountFilterInterface $giftCardAmountFilter,
         GiftCardProductConnectorEntityManagerInterface $entityManager,
         GiftCardProductConnectorConfig $config
     ) {
+        $this->giftCardAmountFilter = $giftCardAmountFilter;
         $this->config = $config;
         $this->entityManager = $entityManager;
     }
@@ -41,9 +50,13 @@ class GiftCardProductConfigurationWriter implements GiftCardProductConfiguration
     public function saveGiftCardProductConfiguration(
         ProductConcreteTransfer $productConcreteTransfer
     ): ProductConcreteTransfer {
-        return $productConcreteTransfer = $this->getTransactionHandler()->handleTransaction(function () use ($productConcreteTransfer): ProductConcreteTransfer {
-                return $this->executeSaveGiftCardProductConfigurationTransaction($productConcreteTransfer);
-        });
+        $self = $this;
+
+        return $this->getTransactionHandler()->handleTransaction(
+            static function () use ($self, $productConcreteTransfer): ProductConcreteTransfer {
+                return $self->executeSaveGiftCardProductConfigurationTransaction($productConcreteTransfer);
+            }
+        );
     }
 
     /**
@@ -58,11 +71,10 @@ class GiftCardProductConfigurationWriter implements GiftCardProductConfiguration
             return $productConcreteTransfer;
         }
 
-        $this->entityManager
-            ->saveGiftCardProductConfiguration(
-                $productConcreteTransfer,
-                $this->getValue($productConcreteTransfer)
-            );
+        $this->entityManager->saveGiftCardProductConfiguration(
+            $productConcreteTransfer,
+            $this->giftCardAmountFilter->filterFromPriceProducts($productConcreteTransfer->getPrices())
+        );
 
         return $productConcreteTransfer;
     }
@@ -95,18 +107,5 @@ class GiftCardProductConfigurationWriter implements GiftCardProductConfiguration
         }
 
         return '';
-    }
-
-    /**
-     * @param \Generated\Shared\Transfer\ProductConcreteTransfer $productConcreteTransfer
-     *
-     * @return int
-     */
-    protected function getValue(ProductConcreteTransfer $productConcreteTransfer): int
-    {
-        /** @var \Generated\Shared\Transfer\PriceProductTransfer $productConcretePrice */
-        $productConcretePrice = $productConcreteTransfer->getPrices()->offsetGet(0);
-
-        return $productConcretePrice->getMoneyValue()->getGrossAmount();
     }
 }
