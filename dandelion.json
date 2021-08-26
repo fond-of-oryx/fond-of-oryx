@@ -86,11 +86,11 @@
     },
     "gift-card-product-connector": {
       "path": "bundles/gift-card-product-connector/",
-      "version": "1.0.0"
+      "version": "1.0.1"
     },
     "gift-card-restriction": {
       "path": "bundles/gift-card-restriction/",
-      "version": "1.0.0"
+      "version": "1.0.1"
     },
     "jellyfish-availability-alert": {
       "path": "bundles/jellyfish-availability-alert/",

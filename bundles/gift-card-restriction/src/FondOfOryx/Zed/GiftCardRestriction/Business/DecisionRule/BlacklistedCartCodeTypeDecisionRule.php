@@ -44,6 +44,10 @@ class BlacklistedCartCodeTypeDecisionRule implements DecisionRuleInterface
         $blacklistedCartCodeTypesPerSku = $this->productCartCodeTypeRestrictionFacade
             ->getBlacklistedCartCodeTypesByProductConcreteSkus($skus);
 
+        if (array_keys($blacklistedCartCodeTypesPerSku) != $skus) {
+            return true;
+        }
+
         foreach ($blacklistedCartCodeTypesPerSku as $blacklistedCartCodeTypes) {
             if (!in_array(GiftCardRestrictionConstants::CART_CODE_TYPE_GIFT_CARD, $blacklistedCartCodeTypes, true)) {
                 return true;

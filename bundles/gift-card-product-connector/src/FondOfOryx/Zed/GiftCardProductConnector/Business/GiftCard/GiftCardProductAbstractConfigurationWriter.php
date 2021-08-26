@@ -2,6 +2,7 @@
 
 namespace FondOfOryx\Zed\GiftCardProductConnector\Business\GiftCard;
 
+use FondOfOryx\Zed\GiftCardProductConnector\Business\Filter\GiftCardAmountFilterInterface;
 use FondOfOryx\Zed\GiftCardProductConnector\GiftCardProductConnectorConfig;
 use FondOfOryx\Zed\GiftCardProductConnector\Persistence\GiftCardProductConnectorEntityManagerInterface;
 use Generated\Shared\Transfer\ProductAbstractTransfer;
@@ -15,6 +16,11 @@ class GiftCardProductAbstractConfigurationWriter implements GiftCardProductAbstr
     protected const PRODUCT_ABSTRACT_SKU_PREFIX = 'Abstract-';
 
     /**
+     * @var \FondOfOryx\Zed\GiftCardProductConnector\Business\Filter\GiftCardAmountFilterInterface
+     */
+    protected $giftCardAmountFilter;
+
+    /**
      * @var \FondOfOryx\Zed\GiftCardProductConnector\GiftCardProductConnectorConfig
      */
     private $config;
@@ -25,13 +31,16 @@ class GiftCardProductAbstractConfigurationWriter implements GiftCardProductAbstr
     private $entityManager;
 
     /**
+     * @param \FondOfOryx\Zed\GiftCardProductConnector\Business\Filter\GiftCardAmountFilterInterface $giftCardAmountFilter
      * @param \FondOfOryx\Zed\GiftCardProductConnector\Persistence\GiftCardProductConnectorEntityManagerInterface $entityManager
      * @param \FondOfOryx\Zed\GiftCardProductConnector\GiftCardProductConnectorConfig $config
      */
     public function __construct(
+        GiftCardAmountFilterInterface $giftCardAmountFilter,
         GiftCardProductConnectorEntityManagerInterface $entityManager,
         GiftCardProductConnectorConfig $config
     ) {
+        $this->giftCardAmountFilter = $giftCardAmountFilter;
         $this->config = $config;
         $this->entityManager = $entityManager;
     }
@@ -44,9 +53,13 @@ class GiftCardProductAbstractConfigurationWriter implements GiftCardProductAbstr
     public function saveGiftCardProductAbstractConfiguration(
         ProductAbstractTransfer $productAbstractTransfer
     ): ProductAbstractTransfer {
-        return $this->getTransactionHandler()->handleTransaction(function () use ($productAbstractTransfer): ProductAbstractTransfer {
-                return $this->executeSaveGiftCardProductAbstractConfigurationTransaction($productAbstractTransfer);
-        });
+        $self = $this;
+
+        return $this->getTransactionHandler()->handleTransaction(
+            function () use ($self, $productAbstractTransfer): ProductAbstractTransfer {
+                return $self->executeSaveGiftCardProductAbstractConfigurationTransaction($productAbstractTransfer);
+            }
+        );
     }
 
     /**
@@ -61,11 +74,10 @@ class GiftCardProductAbstractConfigurationWriter implements GiftCardProductAbstr
             return $productAbstractTransfer;
         }
 
-        $this->entityManager
-            ->saveGiftCardProductAbstractConfiguration(
-                $productAbstractTransfer,
-                $this->getPattern($productAbstractTransfer)
-            );
+        $this->entityManager->saveGiftCardProductAbstractConfiguration(
+            $productAbstractTransfer,
+            $this->getPattern($productAbstractTransfer)
+        );
 
         return $productAbstractTransfer;
     }
@@ -97,7 +109,9 @@ class GiftCardProductAbstractConfigurationWriter implements GiftCardProductAbstr
             return '';
         }
 
-        return $skuPrefix . static::PATTERN . '-' . $this->getGiftCardPatternSuffix($productAbstractTransfer);
+        $giftCardAmount = $this->giftCardAmountFilter->filterFromPriceProducts($productAbstractTransfer->getPrices());
+
+        return sprintf('%s%s-%s', $skuPrefix, static::PATTERN, $giftCardAmount);
     }
 
     /**
@@ -114,18 +128,5 @@ class GiftCardProductAbstractConfigurationWriter implements GiftCardProductAbstr
         }
 
         return '';
-    }
-
-    /**
-     * @param \Generated\Shared\Transfer\ProductAbstractTransfer $productAbstractTransfer
-     *
-     * @return int
-     */
-    protected function getGiftCardPatternSuffix(ProductAbstractTransfer $productAbstractTransfer): int
-    {
-        /** @var \Generated\Shared\Transfer\PriceProductTransfer $productAbstractPrice */
-        $productAbstractPrice = $productAbstractTransfer->getPrices()->offsetGet(0);
-
-        return $productAbstractPrice->getMoneyValue()->getGrossAmount();
     }
 }

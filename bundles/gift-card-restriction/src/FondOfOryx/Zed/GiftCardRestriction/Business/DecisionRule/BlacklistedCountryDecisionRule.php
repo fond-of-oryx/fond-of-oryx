@@ -36,10 +36,10 @@ class BlacklistedCountryDecisionRule implements DecisionRuleInterface
         }
 
         if (!method_exists(ItemTransfer::class, 'getShipment')) {
-            return $this->hasBlacklistedCountryOnQuoteLevel($quoteTransfer);
+            return !$this->hasBlacklistedCountryOnQuoteLevel($quoteTransfer);
         }
 
-        return $this->hasBlacklistedCountryOnQuoteItemLevel($quoteTransfer);
+        return !$this->hasBlacklistedCountryOnQuoteItemLevel($quoteTransfer);
     }
 
     /**
@@ -52,10 +52,10 @@ class BlacklistedCountryDecisionRule implements DecisionRuleInterface
         $addressTransfer = $quoteTransfer->getShippingAddress();
 
         if ($addressTransfer === null) {
-            return true;
+            return false;
         }
 
-        return !$this->hasBlacklistedCountry($addressTransfer);
+        return $this->hasBlacklistedCountry($addressTransfer);
     }
 
     /**
@@ -75,11 +75,11 @@ class BlacklistedCountryDecisionRule implements DecisionRuleInterface
             $addressTransfer = $shipmentTransfer->getShippingAddress();
 
             if ($addressTransfer !== null && $this->hasBlacklistedCountry($addressTransfer)) {
-                return false;
+                return true;
             }
         }
 
-        return true;
+        return false;
     }
 
     /**
@@ -96,6 +96,6 @@ class BlacklistedCountryDecisionRule implements DecisionRuleInterface
             $iso2Code = $countryTransfer->getIso2Code();
         }
 
-        return $iso2Code !== null && in_array($iso2Code, $this->config->getBlacklistedCountries());
+        return $iso2Code !== null && in_array($iso2Code, $this->config->getBlacklistedCountries(), true);
     }
 }
