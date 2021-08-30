@@ -2,11 +2,11 @@
 
 namespace FondOfOryx\Glue\SplittableCheckoutRestApi\Processor\Mapper;
 
+use ArrayObject;
 use Codeception\Test\Unit;
 use Generated\Shared\Transfer\SplittableTotalsTransfer;
 use Generated\Shared\Transfer\TaxTotalTransfer;
 use Generated\Shared\Transfer\TotalsTransfer;
-use Laminas\Stdlib\ArrayObject;
 
 class RestSplittableTotalsMapperTest extends Unit
 {

@@ -2,11 +2,11 @@
 
 namespace FondOfOryx\Zed\GiftCardRestriction\Business\DecisionRule;
 
+use ArrayObject;
 use Codeception\Test\Unit;
 use Generated\Shared\Transfer\DiscountTransfer;
 use Generated\Shared\Transfer\GiftCardTransfer;
 use Generated\Shared\Transfer\QuoteTransfer;
-use Laminas\Stdlib\ArrayObject;
 
 class VoucherDiscountDecisionRuleTest extends Unit
 {
