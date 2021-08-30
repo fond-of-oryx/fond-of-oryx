@@ -74,7 +74,7 @@
     },
     "erp-order-permission": {
       "path": "bundles/erp-order-permission/",
-      "version": "1.1.0"
+      "version": "1.1.1"
     },
     "feed": {
       "path": "bundles/feed/",
