@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<database xmlns="spryker:schema-01" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" name="zed"
+          xsi:schemaLocation="spryker:schema-01 https://static.spryker.com/schema-01.xsd"
+          namespace="Orm\Zed\OrderBudget\Persistence"
+          package="src.Orm.Zed.OrderBudget.Persistence">
+
+    <table name="foo_order_budget">
+        <column name="id_order_budget" type="INTEGER" required="true" autoIncrement="true" primaryKey="true"/>
+        <column name="budget" type="INTEGER" required="true"/>
+
+        <id-method-parameter value="foo_order_budget_pk_seq"/>
+
+        <behavior name="timestampable"/>
+    </table>
+
+    <table name="foo_order_budget_history">
+        <column name="id_order_budget_history" type="INTEGER" required="true" autoIncrement="true" primaryKey="true"/>
+        <column name="fk_order_budget" type="INTEGER" required="true"/>
+        <column name="from" type="DATE" required="true"/>
+        <column name="to" type="DATE" required="true"/>
+
+        <id-method-parameter value="foo_order_budget_history_pk_seq"/>
+
+        <foreign-key name="foo_order_budget_history-fk_order_budget" foreignTable="foo_order_budget">
+            <reference local="fk_order_budget" foreign="id_order_budget"/>
+        </foreign-key>
+
+        <behavior name="timestampable"/>
+    </table>
+</database>

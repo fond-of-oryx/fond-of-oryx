@@ -36,6 +36,7 @@ include:
   - bundles/one-time-password
   - bundles/one-time-password-email-connector
   - bundles/one-time-password-rest-api
+  - bundles/order-budget
   - bundles/prepayment
   - bundles/product-cart-code-type-restriction
   - bundles/product-country-restriction

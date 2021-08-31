@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<transfers xmlns="spryker:transfer-01"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="spryker:transfer-01 http://static.spryker.com/transfer-01.xsd">
+
+    <transfer name="OrderBudget">
+        <property name="idOrderBudget" type="int" />
+        <property name="budget" type="int" />
+        <property name="createdAt" type="string" />
+        <property name="updatedAt" type="string" />
+    </transfer>
+
+    <transfer name="OrderBudgetHistory">
+        <property name="idOrderBudgetHistory" type="int" />
+        <property name="fkOrderBudget" type="int" />
+        <property name="budget" type="int" />
+        <property name="from" type="string" />
+        <property name="to" type="string" />
+    </transfer>
+</transfers>
