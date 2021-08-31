@@ -111,6 +111,8 @@
     "fond-of-oryx/jellyfish-cross-engage": "*",
     "fond-of-oryx/jellyfish-gift-card": "*",
     "fond-of-oryx/jellyfish-sales-order": "*",
+    "fond-of-oryx/jellyfish-sales-order-gift-card-connector": "*",
+    "fond-of-oryx/jellyfish-sales-order-product-type": "*",
     "fond-of-oryx/jellyfish-sales-order-b2c": "*",
     "fond-of-oryx/jellyfish-sales-order-extension": "*",
     "fond-of-oryx/jellyfish-sales-order-payone": "*",
