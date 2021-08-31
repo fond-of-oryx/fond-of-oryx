@@ -124,8 +124,16 @@
       "path": "bundles/jellyfish-sales-order-extension/",
       "version": "1.0.0"
     },
+    "jellyfish-sales-order-gift-card-connector": {
+      "path": "bundles/jellyfish-sales-order-gift-card-connector/",
+      "version": "1.0.0"
+    },
     "jellyfish-sales-order-payone": {
       "path": "bundles/jellyfish-sales-order-payone/",
+      "version": "1.0.0"
+    },
+    "jellyfish-sales-order-product-type": {
+      "path": "bundles/jellyfish-sales-order-product-type/",
       "version": "1.0.0"
     },
     "jellyfish-thirty-five-up": {
