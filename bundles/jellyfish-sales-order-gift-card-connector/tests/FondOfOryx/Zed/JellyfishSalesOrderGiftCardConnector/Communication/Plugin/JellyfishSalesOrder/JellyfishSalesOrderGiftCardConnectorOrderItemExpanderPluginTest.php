@@ -1,6 +1,6 @@
 <?php
 
-namespace FondOfOryx\Zed\JellyfishSalesOrderGiftCardConnector\Dependency\Plugin\JellyfishSalesOrder;
+namespace FondOfOryx\Zed\JellyfishSalesOrderGiftCardConnector\Communication\Plugin\JellyfishSalesOrder;
 
 use Codeception\Test\Unit;
 use FondOfOryx\Zed\JellyfishSalesOrderGiftCardConnector\Business\JellyfishSalesOrderGiftCardConnectorFacade;
@@ -20,7 +20,7 @@ class JellyfishSalesOrderGiftCardConnectorOrderItemExpanderPluginTest extends Un
     protected $jellyfishOrderItemTransferMock;
 
     /**
-     * @var \FondOfOryx\Zed\JellyfishSalesOrderGiftCardConnector\Dependency\Plugin\JellyfishSalesOrder\JellyfishSalesOrderGiftCardConnectorOrderItemExpanderPlugin
+     * @var \FondOfOryx\Zed\JellyfishSalesOrderGiftCardConnector\Communication\Plugin\JellyfishSalesOrder\JellyfishSalesOrderGiftCardConnectorOrderItemExpanderPlugin
      */
     protected $plugin;
 
@@ -58,7 +58,7 @@ class JellyfishSalesOrderGiftCardConnectorOrderItemExpanderPluginTest extends Un
     public function testExpand(): void
     {
         $this->facadeMock->expects(static::atLeastOnce())
-            ->method('expand')
+            ->method('expandOrderItem')
             ->with($this->jellyfishOrderItemTransferMock, $this->spySalesOrderItemMock)
             ->willReturn($this->jellyfishOrderItemTransferMock);
 

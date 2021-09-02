@@ -62,7 +62,7 @@ class JellyfishSalesOrderGiftCardConnectorFacadeTest extends Unit
     /**
      * @return void
      */
-    public function testExpand(): void
+    public function testExpandOrderItem(): void
     {
         $this->factoryMock->expects($this->atLeastOnce())
             ->method('createJellyfishOrderItemExpander')
@@ -73,7 +73,7 @@ class JellyfishSalesOrderGiftCardConnectorFacadeTest extends Unit
             ->with($this->jellyfishOrderItemTransferMock, $this->spySalesOrderItemMock)
             ->willReturn($this->jellyfishOrderItemTransferMock);
 
-        $jellyfishOrderItemTransferMock = $this->facade->expand(
+        $jellyfishOrderItemTransferMock = $this->facade->expandOrderItem(
             $this->jellyfishOrderItemTransferMock,
             $this->spySalesOrderItemMock
         );

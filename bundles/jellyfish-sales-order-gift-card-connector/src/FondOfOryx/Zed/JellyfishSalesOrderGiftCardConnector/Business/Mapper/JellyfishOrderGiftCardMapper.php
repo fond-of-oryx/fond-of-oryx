@@ -1,6 +1,6 @@
 <?php
 
-namespace FondOfOryx\Zed\JellyfishSalesOrder\Business\Model\Mapper;
+namespace FondOfOryx\Zed\JellyfishSalesOrderGiftCardConnector\Business\Mapper;
 
 use Generated\Shared\Transfer\JellyfishOrderGiftCardTransfer;
 use Orm\Zed\Payment\Persistence\SpySalesPayment;
