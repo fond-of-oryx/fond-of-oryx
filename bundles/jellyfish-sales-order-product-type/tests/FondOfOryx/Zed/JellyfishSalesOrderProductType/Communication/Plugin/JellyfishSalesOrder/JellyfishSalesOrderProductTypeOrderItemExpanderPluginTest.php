@@ -1,6 +1,6 @@
 <?php
 
-namespace FondOfOryx\Zed\JellyfishSalesOrderProductType\Dependency\Plugin\JellyfishSalesOrder;
+namespace FondOfOryx\Zed\JellyfishSalesOrderProductType\Communication\Plugin\JellyfishSalesOrder;
 
 use Codeception\Test\Unit;
 use FondOfOryx\Zed\JellyfishSalesOrderProductType\Business\JellyfishSalesOrderProductTypeFacade;
