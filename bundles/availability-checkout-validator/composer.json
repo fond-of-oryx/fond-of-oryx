@@ -1,0 +1,32 @@
+{
+  "name": "fond-of-oryx/availability-checkout-validator",
+  "description": "Availability Checkout Validator module",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Julian Haytt",
+      "email": "info@julianzimmermann.dev"
+    }
+  ],
+  "require": {
+    "php": ">=7.3"
+  },
+  "require-dev": {
+    "fond-of-oryx/availability-cart-data-extender": "^1.0.0",
+    "spryker/checkout-extension": "^1.1.0",
+    "spryker/zed-request": "^3.3.0"
+  },
+  "minimum-stability": "dev",
+  "prefer-stable": true,
+  "autoload": {
+    "psr-4": {
+      "FondOfOryx\\": "src/FondOfOryx/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "FondOfOryx\\": "tests/FondOfOryx/",
+      "Generated\\": "src/Generated/"
+    }
+  }
+}
