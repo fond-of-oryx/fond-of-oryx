@@ -1,9 +1,8 @@
 <?php
 
-namespace FondOfOryx\Zed\JellyfishSalesOrder\Communication\Plugin;
+namespace FondOfOryx\Zed\JellyfishSalesOrderGiftCardConnector\Business\Mapper;
 
 use Codeception\Test\Unit;
-use FondOfOryx\Zed\JellyfishSalesOrder\Business\Model\Mapper\JellyfishOrderGiftCardMapper;
 use Generated\Shared\Transfer\JellyfishOrderGiftCardTransfer;
 use Orm\Zed\GiftCard\Persistence\SpyPaymentGiftCard;
 use Orm\Zed\Payment\Persistence\SpySalesPayment;
@@ -12,7 +11,7 @@ use Propel\Runtime\Collection\ObjectCollection;
 class JellyfishOrderGiftCardMapperTest extends Unit
 {
     /**
-     * @var \FondOfOryx\Zed\JellyfishSalesOrder\Business\Model\Mapper\JellyfishOrderGiftCardMapperInterface
+     * @var \FondOfOryx\Zed\JellyfishSalesOrderGiftCardConnector\Business\Mapper\JellyfishOrderGiftCardMapperInterface
      */
     protected $jellyfishOrderGiftCardMapper;
 
@@ -45,7 +44,7 @@ class JellyfishOrderGiftCardMapperTest extends Unit
     /**
      * @return void
      */
-    public function testJellyfishOrderGiftCardMapper(): void
+    public function testFromSalesPayment(): void
     {
         $data = [
             'amount' => '1000',

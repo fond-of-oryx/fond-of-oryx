@@ -1,6 +1,6 @@
 <?php
 
-namespace FondOfOryx\Zed\JellyfishSalesOrderGiftCardConnector\Dependency\Plugin\JellyfishSalesOrder;
+namespace FondOfOryx\Zed\JellyfishSalesOrderGiftCardConnector\Communication\Plugin\JellyfishSalesOrder;
 
 use FondOfOryx\Zed\JellyfishSalesOrderExtension\Dependency\Plugin\JellyfishOrderItemExpanderPostMapPluginInterface;
 use Generated\Shared\Transfer\JellyfishOrderItemTransfer;
@@ -22,6 +22,6 @@ class JellyfishSalesOrderGiftCardConnectorOrderItemExpanderPlugin extends Abstra
         JellyfishOrderItemTransfer $jellyfishOrderItemTransfer,
         SpySalesOrderItem $salesOrderItem
     ): JellyfishOrderItemTransfer {
-        return $this->getFacade()->expand($jellyfishOrderItemTransfer, $salesOrderItem);
+        return $this->getFacade()->expandOrderItem($jellyfishOrderItemTransfer, $salesOrderItem);
     }
 }

@@ -7,11 +7,10 @@ use DateTime;
 use FondOfOryx\Zed\JellyfishSalesOrder\Business\Model\Mapper\JellyfishOrderAddressMapperInterface;
 use FondOfOryx\Zed\JellyfishSalesOrder\Business\Model\Mapper\JellyfishOrderDiscountMapperInterface;
 use FondOfOryx\Zed\JellyfishSalesOrder\Business\Model\Mapper\JellyfishOrderExpenseMapperInterface;
-use FondOfOryx\Zed\JellyfishSalesOrder\Business\Model\Mapper\JellyfishOrderGiftCardMapperInterface;
 use FondOfOryx\Zed\JellyfishSalesOrder\Business\Model\Mapper\JellyfishOrderMapper;
 use FondOfOryx\Zed\JellyfishSalesOrder\Business\Model\Mapper\JellyfishOrderPaymentMapperInterface;
 use FondOfOryx\Zed\JellyfishSalesOrder\Business\Model\Mapper\JellyfishOrderTotalsMapperInterface;
-use Generated\Shared\Transfer\JellyfishOrderGiftCardTransfer;
+use Generated\Shared\Transfer\JellyfishOrderAddressTransfer;
 use Generated\Shared\Transfer\JellyfishOrderTransfer;
 use Orm\Zed\Locale\Persistence\SpyLocale;
 use Orm\Zed\Payment\Persistence\SpySalesPayment;
@@ -36,11 +35,6 @@ class JellyfishOrderMapperTest extends Unit
      * @var \PHPUnit\Framework\MockObject\MockObject|\FondOfOryx\Zed\JellyfishSalesOrder\Business\Model\Mapper\JellyfishOrderAddressMapperInterface
      */
     protected $jellyfishOrderAddressMapperMock;
-
-    /**
-     * @var \PHPUnit\Framework\MockObject\MockObject|\FondOfOryx\Zed\JellyfishSalesOrder\Business\Model\Mapper\JellyfishOrderGiftCardMapperInterface
-     */
-    protected $jellyfishOrderGiftCardMapperMock;
 
     /**
      * @var \PHPUnit\Framework\MockObject\MockObject|\Generated\Shared\Transfer\JellyfishOrderGiftCardTransfer
@@ -125,14 +119,6 @@ class JellyfishOrderMapperTest extends Unit
             ->disableOriginalConstructor()
             ->getMock();
 
-        $this->jellyfishOrderGiftCardMapperMock = $this->getMockBuilder(JellyfishOrderGiftCardMapperInterface::class)
-            ->disableOriginalConstructor()
-            ->getMock();
-
-        $this->jellyfishOrderGiftCardTransferMock = $this->getMockBuilder(JellyfishOrderGiftCardTransfer::class)
-            ->disableOriginalConstructor()
-            ->getMock();
-
         $this->jellyfishOrderExpenseMapperMock = $this->getMockBuilder(JellyfishOrderExpenseMapperInterface::class)
             ->disableOriginalConstructor()
             ->getMock();
@@ -156,7 +142,6 @@ class JellyfishOrderMapperTest extends Unit
         $this->jellyfishOrderMapper = new JellyfishOrderMapper(
             $this->jellyfishOrderAddressMapperMock,
             $this->jellyfishOrderExpenseMapperMock,
-            $this->jellyfishOrderGiftCardMapperMock,
             $this->jellyfishOrderDiscountMapperMock,
             $this->JellyfishOrderPaymentMapperMock,
             $this->jellyfishOrderTotalsMapperMock,
@@ -248,96 +233,5 @@ class JellyfishOrderMapperTest extends Unit
         $this->assertEquals($data['locale'], $jellyfishOrderTransfer->getLocale());
         $this->assertEquals($data['store'], $jellyfishOrderTransfer->getStore());
         $this->assertEquals('default', $jellyfishOrderTransfer->getSystemCode());
-    }
-
-    /**
-     * @return void
-     */
-    public function testFromSalesOrderWithGiftCard(): void
-    {
-        $data = [
-            'id_sales_order' => 1,
-            'order_reference' => '1000000034561',
-            'customer_reference' => 'CUS--1',
-            'email' => 'example@example.com',
-            'price_mode' => 'gross',
-            'currency_iso_code' => 'EUR',
-            'store' => 'default',
-            'locale' => 'en_US',
-            'created_at' => new DateTime(),
-        ];
-
-        $this->spySalesOrderMock->expects($this->atLeastOnce())
-            ->method('getIdSalesOrder')
-            ->willReturn($data['id_sales_order']);
-
-        $this->spySalesOrderMock->expects($this->atLeastOnce())
-            ->method('getOrderReference')
-            ->willReturn($data['order_reference']);
-
-        $this->spySalesOrderMock->expects($this->atLeastOnce())
-            ->method('getCustomerReference')
-            ->willReturn($data['customer_reference']);
-
-        $this->spySalesOrderMock->expects($this->atLeastOnce())
-            ->method('getEmail')
-            ->willReturn($data['email']);
-
-        $this->spySalesOrderMock->expects($this->atLeastOnce())
-            ->method('getPriceMode')
-            ->willReturn($data['price_mode']);
-
-        $this->spySalesOrderMock->expects($this->atLeastOnce())
-            ->method('getStore')
-            ->willReturn($data['store']);
-
-        $this->spySalesOrderMock->expects($this->atLeastOnce())
-            ->method('getCreatedAt')
-            ->willReturn($data['created_at']);
-
-        $this->spySalesOrderMock->expects($this->atLeastOnce())
-            ->method('getBillingAddress')
-            ->willReturn($this->spySalesOrderAddressMock);
-
-        $this->spySalesOrderMock->expects($this->atLeastOnce())
-            ->method('getShippingAddress')
-            ->willReturn($this->spySalesOrderAddressMock);
-
-        $this->spySalesOrderMock->expects($this->atLeastOnce())
-            ->method('getLocale')
-            ->willReturn($this->spyLocaleMock);
-
-        $this->spySalesOrderMock->expects($this->atLeastOnce())
-            ->method('getOrdersJoinSalesPaymentMethodType')
-            ->willReturn(new ObjectCollection([$this->spySalesPaymentMock]));
-
-        $this->spySalesPaymentMock->expects($this->atLeastOnce())
-            ->method('getSalesPaymentMethodType')
-            ->willReturn($this->spySalesPaymentMethodTypeMock);
-
-        $this->spySalesOrderMock->expects($this->atLeastOnce())
-            ->method('getExpenses')
-            ->willReturn(new ObjectCollection());
-
-        $this->spySalesPaymentMethodTypeMock->expects($this->atLeastOnce())
-            ->method('getPaymentMethod')
-            ->willReturn('GiftCard');
-
-        $this->jellyfishOrderGiftCardMapperMock->expects($this->atLeastOnce())
-            ->method('fromSalesPayment')
-            ->willReturn($this->jellyfishOrderGiftCardTransferMock);
-
-        $this->spySalesOrderMock->expects($this->atLeastOnce())
-            ->method('getDiscounts')
-            ->willReturn(new ObjectCollection());
-
-        $this->spyLocaleMock->expects($this->atLeastOnce())
-            ->method('getLocaleName')
-            ->willReturn($data['locale']);
-
-        $jellyfishOrderTransfer = $this->jellyfishOrderMapper->fromSalesOrder($this->spySalesOrderMock);
-
-        $this->assertInstanceOf(JellyfishOrderTransfer::class, $jellyfishOrderTransfer);
-        $this->assertEquals(1, $jellyfishOrderTransfer->getGiftCards()->count());
     }
 }
