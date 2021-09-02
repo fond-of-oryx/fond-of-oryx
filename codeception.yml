@@ -5,6 +5,7 @@ include:
   - bundles/availability-alert-cross-engage
   - bundles/availability-alert-migrator
   - bundles/availability-cart-data-extender
+  - bundles/availability-checkout-validator
   - bundles/cart-code-type
   - bundles/cart-code-type-data-import
   - bundles/catalog-sku-filter
