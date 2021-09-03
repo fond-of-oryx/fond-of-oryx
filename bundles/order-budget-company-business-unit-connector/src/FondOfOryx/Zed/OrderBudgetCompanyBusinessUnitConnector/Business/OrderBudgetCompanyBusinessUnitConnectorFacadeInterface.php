@@ -8,7 +8,8 @@ interface OrderBudgetCompanyBusinessUnitConnectorFacadeInterface
 {
     /**
      * Specifications:
-     * - ...
+     * - Creates order budget for given company business unit
+     * - Skips if already exists
      *
      * @api
      *
