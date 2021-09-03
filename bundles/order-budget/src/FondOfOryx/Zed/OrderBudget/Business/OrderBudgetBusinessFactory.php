@@ -8,6 +8,8 @@ use FondOfOryx\Zed\OrderBudget\Business\Reader\OrderBudgetReader;
 use FondOfOryx\Zed\OrderBudget\Business\Reader\OrderBudgetReaderInterface;
 use FondOfOryx\Zed\OrderBudget\Business\Resetter\OrderBudgetResetter;
 use FondOfOryx\Zed\OrderBudget\Business\Resetter\OrderBudgetResetterInterface;
+use FondOfOryx\Zed\OrderBudget\Business\Writer\OrderBudgetWriter;
+use FondOfOryx\Zed\OrderBudget\Business\Writer\OrderBudgetWriterInterface;
 use FondOfOryx\Zed\OrderBudget\Dependency\Service\OrderBudgetToUtilDateTimeServiceInterface;
 use FondOfOryx\Zed\OrderBudget\OrderBudgetDependencyProvider;
 use Spryker\Zed\Kernel\Business\AbstractBusinessFactory;
@@ -19,6 +21,17 @@ use Spryker\Zed\Kernel\Business\AbstractBusinessFactory;
  */
 class OrderBudgetBusinessFactory extends AbstractBusinessFactory
 {
+    /**
+     * @return \FondOfOryx\Zed\OrderBudget\Business\Writer\OrderBudgetWriterInterface
+     */
+    public function createOrderBudgetWriter(): OrderBudgetWriterInterface
+    {
+        return new OrderBudgetWriter(
+            $this->getEntityManager(),
+            $this->getConfig()
+        );
+    }
+
     /**
      * @return \FondOfOryx\Zed\OrderBudget\Business\Resetter\OrderBudgetResetterInterface
      */

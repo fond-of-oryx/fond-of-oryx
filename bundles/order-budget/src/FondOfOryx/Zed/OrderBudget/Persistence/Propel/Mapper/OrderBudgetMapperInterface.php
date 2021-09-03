@@ -23,4 +23,11 @@ interface OrderBudgetMapperInterface
      * @return \Generated\Shared\Transfer\OrderBudgetTransfer
      */
     public function mapEntityToTransfer(FooOrderBudget $entity): OrderBudgetTransfer;
+
+    /**
+     * @param \Generated\Shared\Transfer\OrderBudgetTransfer $transfer
+     *
+     * @return \Orm\Zed\OrderBudget\Persistence\Base\FooOrderBudget
+     */
+    public function mapTransferToEntity(OrderBudgetTransfer $transfer): FooOrderBudget;
 }
