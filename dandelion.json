@@ -122,7 +122,7 @@
     },
     "jellyfish-sales-order": {
       "path": "bundles/jellyfish-sales-order/",
-      "version": "1.0.0"
+      "version": "1.0.1"
     },
     "jellyfish-sales-order-b2c": {
       "path": "bundles/jellyfish-sales-order-b2c/",
@@ -134,7 +134,7 @@
     },
     "jellyfish-sales-order-gift-card-connector": {
       "path": "bundles/jellyfish-sales-order-gift-card-connector/",
-      "version": "1.0.0"
+      "version": "1.0.1"
     },
     "jellyfish-sales-order-payone": {
       "path": "bundles/jellyfish-sales-order-payone/",
@@ -142,7 +142,7 @@
     },
     "jellyfish-sales-order-product-type": {
       "path": "bundles/jellyfish-sales-order-product-type/",
-      "version": "1.0.0"
+      "version": "1.0.1"
     },
     "jellyfish-thirty-five-up": {
       "path": "bundles/jellyfish-thirty-five-up/",
