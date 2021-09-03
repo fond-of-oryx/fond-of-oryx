@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<database xmlns="spryker:schema-01" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" name="zed"
+          xsi:schemaLocation="spryker:schema-01 https://static.spryker.com/schema-01.xsd"
+          namespace="Orm\Zed\CompanyBusinessUnit\Persistence"
+          package="src.Orm.Zed.CompanyBusinessUnit.Persistence">
+
+    <table name="spy_company_business_unit">
+        <column name="fk_order_budget" type="INTEGER" required="false"/>
+
+        <foreign-key name="spy_company_business_unit-fk_order_budget" foreignTable="foo_order_budget">
+            <reference local="fk_order_budget" foreign="id_order_budget"/>
+        </foreign-key>
+
+        <behavior name="event">
+            <parameter name="spy_company_business_unit_all" column="*"/>
+        </behavior>
+    </table>
+</database>
