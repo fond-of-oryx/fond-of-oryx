@@ -14,6 +14,23 @@ class OrderBudgetEntityManager extends AbstractEntityManager implements OrderBud
     /**
      * @param \Generated\Shared\Transfer\OrderBudgetTransfer $orderBudgetTransfer
      *
+     * @return \Generated\Shared\Transfer\OrderBudgetTransfer
+     */
+    public function createOrderBudget(OrderBudgetTransfer $orderBudgetTransfer): OrderBudgetTransfer
+    {
+        $orderBudgetMapper = $this->getFactory()
+            ->createOrderBudgetMapper();
+
+        $entity = $orderBudgetMapper->mapTransferToEntity($orderBudgetTransfer);
+
+        $entity->save();
+
+        return $orderBudgetMapper->mapEntityToTransfer($entity);
+    }
+
+    /**
+     * @param \Generated\Shared\Transfer\OrderBudgetTransfer $orderBudgetTransfer
+     *
      * @return void
      */
     public function updateOrderBudget(OrderBudgetTransfer $orderBudgetTransfer): void

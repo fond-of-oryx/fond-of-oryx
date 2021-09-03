@@ -10,6 +10,15 @@ interface OrderBudgetEntityManagerInterface
     /**
      * @param \Generated\Shared\Transfer\OrderBudgetTransfer $orderBudgetTransfer
      *
+     * @return \Generated\Shared\Transfer\OrderBudgetTransfer
+     */
+    public function createOrderBudget(
+        OrderBudgetTransfer $orderBudgetTransfer
+    ): OrderBudgetTransfer;
+
+    /**
+     * @param \Generated\Shared\Transfer\OrderBudgetTransfer $orderBudgetTransfer
+     *
      * @return void
      */
     public function updateOrderBudget(OrderBudgetTransfer $orderBudgetTransfer): void;

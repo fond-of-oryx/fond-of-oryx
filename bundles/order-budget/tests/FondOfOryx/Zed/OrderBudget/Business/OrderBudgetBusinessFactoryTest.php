@@ -4,6 +4,7 @@ namespace FondOfOryx\Zed\OrderBudget\Business;
 
 use Codeception\Test\Unit;
 use FondOfOryx\Zed\OrderBudget\Business\Resetter\OrderBudgetResetter;
+use FondOfOryx\Zed\OrderBudget\Business\Writer\OrderBudgetWriter;
 use FondOfOryx\Zed\OrderBudget\Dependency\Service\OrderBudgetToUtilDateTimeServiceInterface;
 use FondOfOryx\Zed\OrderBudget\OrderBudgetConfig;
 use FondOfOryx\Zed\OrderBudget\OrderBudgetDependencyProvider;
@@ -95,6 +96,17 @@ class OrderBudgetBusinessFactoryTest extends Unit
         static::assertInstanceOf(
             OrderBudgetResetter::class,
             $this->businessFactory->createOrderBudgetResetter()
+        );
+    }
+
+    /**
+     * @return void
+     */
+    public function testCreateOrderBudgetWriter(): void
+    {
+        static::assertInstanceOf(
+            OrderBudgetWriter::class,
+            $this->businessFactory->createOrderBudgetWriter()
         );
     }
 }
