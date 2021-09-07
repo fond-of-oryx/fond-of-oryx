@@ -10,6 +10,7 @@ use FondOfOryx\Zed\JellyfishSalesOrder\Business\Model\Mapper\JellyfishOrderExpen
 use FondOfOryx\Zed\JellyfishSalesOrder\Business\Model\Mapper\JellyfishOrderMapper;
 use FondOfOryx\Zed\JellyfishSalesOrder\Business\Model\Mapper\JellyfishOrderPaymentMapperInterface;
 use FondOfOryx\Zed\JellyfishSalesOrder\Business\Model\Mapper\JellyfishOrderTotalsMapperInterface;
+use FondOfOryx\Zed\JellyfishSalesOrder\JellyfishSalesOrderConfig;
 use Generated\Shared\Transfer\JellyfishOrderAddressTransfer;
 use Generated\Shared\Transfer\JellyfishOrderTransfer;
 use Orm\Zed\Locale\Persistence\SpyLocale;
@@ -21,6 +22,11 @@ use Propel\Runtime\Collection\ObjectCollection;
 
 class JellyfishOrderMapperTest extends Unit
 {
+    /**
+     * @var \PHPUnit\Framework\MockObject\MockObject|\Generated\Shared\Transfer\JellyfishOrderAddressTransfer
+     */
+    protected $configMock;
+
     /**
      * @var \PHPUnit\Framework\MockObject\MockObject|\Generated\Shared\Transfer\JellyfishOrderAddressTransfer
      */
@@ -91,6 +97,10 @@ class JellyfishOrderMapperTest extends Unit
      */
     protected function _before(): void
     {
+        $this->configMock = $this->getMockBuilder(JellyfishSalesOrderConfig::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
         $this->spySalesOrderMock = $this->getMockBuilder(SpySalesOrder::class)
             ->disableOriginalConstructor()
             ->getMock();
@@ -145,8 +155,8 @@ class JellyfishOrderMapperTest extends Unit
             $this->jellyfishOrderDiscountMapperMock,
             $this->JellyfishOrderPaymentMapperMock,
             $this->jellyfishOrderTotalsMapperMock,
-            [],
-            'default'
+            $this->configMock,
+            []
         );
     }
 
@@ -190,6 +200,10 @@ class JellyfishOrderMapperTest extends Unit
         $this->spySalesOrderMock->expects($this->atLeastOnce())
             ->method('getStore')
             ->willReturn($data['store']);
+
+        $this->configMock->expects($this->atLeastOnce())
+            ->method('getSystemCode')
+            ->willReturn('default');
 
         $this->spySalesOrderMock->expects($this->atLeastOnce())
             ->method('getCreatedAt')

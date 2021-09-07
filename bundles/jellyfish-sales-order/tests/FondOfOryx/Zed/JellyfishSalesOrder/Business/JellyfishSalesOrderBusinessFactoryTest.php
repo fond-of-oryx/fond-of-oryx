@@ -78,10 +78,6 @@ class JellyfishSalesOrderBusinessFactoryTest extends Unit
                 []
             );
 
-        $this->jellyfishSalesOrderConfigMock->expects($this->atLeastOnce())
-            ->method('getSystemCode')
-            ->willReturn('');
-
         $this->assertInstanceOf(
             SalesOrderExporter::class,
             $this->jellyfishSalesOrderBusinessFactory->createSalesOrderExporter()

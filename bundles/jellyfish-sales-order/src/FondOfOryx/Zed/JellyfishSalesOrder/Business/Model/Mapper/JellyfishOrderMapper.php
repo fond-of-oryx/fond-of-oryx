@@ -3,6 +3,7 @@
 namespace FondOfOryx\Zed\JellyfishSalesOrder\Business\Model\Mapper;
 
 use ArrayObject;
+use FondOfOryx\Zed\JellyfishSalesOrder\JellyfishSalesOrderConfig;
 use Generated\Shared\Transfer\JellyfishOrderAddressTransfer;
 use Generated\Shared\Transfer\JellyfishOrderTotalsTransfer;
 use Generated\Shared\Transfer\JellyfishOrderTransfer;
@@ -10,6 +11,11 @@ use Orm\Zed\Sales\Persistence\SpySalesOrder;
 
 class JellyfishOrderMapper implements JellyfishOrderMapperInterface
 {
+    /**
+     * @var \FondOfOryx\Zed\JellyfishSalesOrder\JellyfishSalesOrderConfig
+     */
+    protected $config;
+
     /**
      * @var \FondOfOryx\Zed\JellyfishSalesOrder\Business\Model\Mapper\JellyfishOrderAddressMapperInterface
      */
@@ -36,11 +42,6 @@ class JellyfishOrderMapper implements JellyfishOrderMapperInterface
     protected $jellyfishOrderTotalsMapper;
 
     /**
-     * @var string
-     */
-    protected $systemCode;
-
-    /**
      * @var \FondOfOryx\Zed\JellyfishSalesOrderExtension\Dependency\Plugin\JellyfishOrderExpanderPostMapPluginInterface[]
      */
     protected $jellyfishOrderExpanderPostMapPlugins;
@@ -51,8 +52,8 @@ class JellyfishOrderMapper implements JellyfishOrderMapperInterface
      * @param \FondOfOryx\Zed\JellyfishSalesOrder\Business\Model\Mapper\JellyfishOrderDiscountMapperInterface $jellyfishOrderDiscountMapper
      * @param \FondOfOryx\Zed\JellyfishSalesOrder\Business\Model\Mapper\JellyfishOrderPaymentMapperInterface $jellyfishOrderPaymentMapper
      * @param \FondOfOryx\Zed\JellyfishSalesOrder\Business\Model\Mapper\JellyfishOrderTotalsMapperInterface $jellyfishOrderTotalsMapper
-     * @param \FondOfOryx\Zed\JellyfishSalesOrderExtension\Dependency\Plugin\JellyfishOrderExpanderPostMapPluginInterface[] $jellyfishOrderExpanderPostMapPlugins
-     * @param string $systemCode
+     * @param \FondOfOryx\Zed\JellyfishSalesOrder\JellyfishSalesOrderConfig $config
+     * @param array $jellyfishOrderExpanderPostMapPlugins
      */
     public function __construct(
         JellyfishOrderAddressMapperInterface $jellyfishOrderAddressMapper,
@@ -60,8 +61,8 @@ class JellyfishOrderMapper implements JellyfishOrderMapperInterface
         JellyfishOrderDiscountMapperInterface $jellyfishOrderDiscountMapper,
         JellyfishOrderPaymentMapperInterface $jellyfishOrderPaymentMapper,
         JellyfishOrderTotalsMapperInterface $jellyfishOrderTotalsMapper,
-        array $jellyfishOrderExpanderPostMapPlugins,
-        string $systemCode
+        JellyfishSalesOrderConfig $config,
+        array $jellyfishOrderExpanderPostMapPlugins
     ) {
         $this->jellyfishOrderAddressMapper = $jellyfishOrderAddressMapper;
         $this->jellyfishOrderExpenseMapper = $jellyfishOrderExpenseMapper;
@@ -69,7 +70,7 @@ class JellyfishOrderMapper implements JellyfishOrderMapperInterface
         $this->jellyfishOrderPaymentMapper = $jellyfishOrderPaymentMapper;
         $this->jellyfishOrderTotalsMapper = $jellyfishOrderTotalsMapper;
         $this->jellyfishOrderExpanderPostMapPlugins = $jellyfishOrderExpanderPostMapPlugins;
-        $this->systemCode = $systemCode;
+        $this->config = $config;
     }
 
     /**
@@ -89,7 +90,7 @@ class JellyfishOrderMapper implements JellyfishOrderMapperInterface
             ->setPriceMode($salesOrder->getPriceMode())
             ->setCurrency($salesOrder->getCurrencyIsoCode())
             ->setStore($salesOrder->getStore())
-            ->setSystemCode($this->systemCode)
+            ->setSystemCode($this->config->getSystemCode())
             ->setPayments($this->mapSalesOrderToPayments($salesOrder))
             ->setBillingAddress($this->mapSalesOrderToBillingAddress($salesOrder))
             ->setShippingAddress($this->mapSalesOrderToShippingAddress($salesOrder))
@@ -128,12 +129,36 @@ class JellyfishOrderMapper implements JellyfishOrderMapperInterface
         $jellyfishOrderPayments = new ArrayObject();
 
         foreach ($salesOrder->getOrdersJoinSalesPaymentMethodType() as $salesPayment) {
+            if (
+                !$this->isValidPaymentMethod(
+                    $salesPayment->getSalesPaymentMethodType()->getPaymentMethod(),
+                    $jellyfishOrderPayments
+                )
+            ) {
+                continue;
+            }
+
             $jellyfishOrderPayment = $this->jellyfishOrderPaymentMapper->fromSalesPayment($salesPayment);
 
             $jellyfishOrderPayments->append($jellyfishOrderPayment);
         }
 
         return $jellyfishOrderPayments;
+    }
+
+    /**
+     * @param string $paymentMethod
+     * @param \ArrayObject $jellyfishOrderPayments
+     *
+     * @return bool
+     */
+    protected function isValidPaymentMethod(string $paymentMethod, ArrayObject $jellyfishOrderPayments): bool
+    {
+        if (in_array($paymentMethod, $this->config->getBlacklistedPaymentMethods())) {
+            return false;
+        }
+
+        return true;
     }
 
     /**

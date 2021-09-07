@@ -54,4 +54,12 @@ class JellyfishSalesOrderConfig extends AbstractBundleConfig
     {
         return $this->get(JellyfishSalesOrderConstants::DRY_RUN, true);
     }
+
+    /**
+     * @return string[]
+     */
+    public function getBlacklistedPaymentMethods(): array
+    {
+        return $this->get(JellyfishSalesOrderConstants::BLACKLISTED_PAYMENT_METHODS, true);
+    }
 }
