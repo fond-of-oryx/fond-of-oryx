@@ -47,6 +47,11 @@ class JellyfishOrderPaymentExpanderPostMapPlugin extends AbstractPlugin implemen
         foreach ($salesOrder->getOrdersJoinSalesPaymentMethodType() as $salesPayment) {
             foreach ($payments as $paymentTransfer) {
                 $paymentMethodType = $salesPayment->getSalesPaymentMethodType();
+
+                if ($this->hasPaymentMethod($paymentTransfer->getMethod(), $updatedPayments)) {
+                    continue;
+                }
+
                 if (
                     $paymentTransfer->getAmount() === $salesPayment->getAmount()
                     && $paymentTransfer->getProvider() === $paymentMethodType->getPaymentProvider()
@@ -60,6 +65,26 @@ class JellyfishOrderPaymentExpanderPostMapPlugin extends AbstractPlugin implemen
         }
 
         return $updatedPayments;
+    }
+
+    /**
+     * @param string $searchedPaymentMethod
+     * @param \ArrayObject $payments
+     *
+     * @return bool
+     */
+    protected function hasPaymentMethod(
+        string $searchedPaymentMethod,
+        ArrayObject $payments
+    ): bool {
+        /** @var \Generated\Shared\Transfer\JellyfishOrderPaymentTransfer $payment */
+        foreach ($payments as $payment) {
+            if ($payment->getMethod() === $searchedPaymentMethod) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     /**

@@ -123,7 +123,7 @@ class JellyfishOrderPaymentExpanderPostMapPluginTest extends Unit
         $this->salesPaymentMethodTypeMock->expects($this->once())->method('getPaymentMethod')->willReturn('paypal');
         $this->jellyfishPaymentTransferMock->expects($this->once())->method('getAmount')->willReturn(100);
         $this->jellyfishPaymentTransferMock->expects($this->once())->method('getProvider')->willReturn('payone');
-        $this->jellyfishPaymentTransferMock->expects($this->once())->method('getMethod')->willReturn('paypal');
+        $this->jellyfishPaymentTransferMock->expects($this->atLeastOnce())->method('getMethod')->willReturn('paypal');
         $this->jellyfishPaymentTransferMock->expects($this->once())->method('setTransactionId');
 
         $result = $this->plugin->expand($this->jellyOrderTransferMock, $this->salesOrderMock);
@@ -146,7 +146,7 @@ class JellyfishOrderPaymentExpanderPostMapPluginTest extends Unit
         $this->salesPaymentMethodTypeMock->expects($this->once())->method('getPaymentMethod')->willReturn('cc');
         $this->jellyfishPaymentTransferMock->expects($this->once())->method('getAmount')->willReturn(100);
         $this->jellyfishPaymentTransferMock->expects($this->once())->method('getProvider')->willReturn('payone');
-        $this->jellyfishPaymentTransferMock->expects($this->once())->method('getMethod')->willReturn('paypal');
+        $this->jellyfishPaymentTransferMock->expects($this->atLeastOnce())->method('getMethod')->willReturn('paypal');
 
         $this->repositoryMock->expects($this->never())->method('findPaymentTransactionIdByIdSalesPayment');
         $this->jellyfishPaymentTransferMock->expects($this->never())->method('setTransactionId');
@@ -183,22 +183,22 @@ class JellyfishOrderPaymentExpanderPostMapPluginTest extends Unit
         $this->salesPaymentMock->expects($this->exactly(2))->method('getSalesPaymentMethodType')->willReturn($this->salesPaymentMethodTypeMock);
         $this->salesPaymentMock->expects($this->once())->method('getIdSalesPayment')->willReturn(1);
 
-        $this->salesPaymentMock->expects($this->exactly(2))->method('getAmount')->willReturn(100);
+        $this->salesPaymentMock->expects($this->exactly(1))->method('getAmount')->willReturn(100);
 
         $alesPaymentClone->expects($this->exactly(2))->method('getSalesPaymentMethodType')->willReturn($this->salesPaymentMethodTypeMock);
         $alesPaymentClone->expects($this->once())->method('getIdSalesPayment')->willReturn(2);
-        $alesPaymentClone->expects($this->exactly(2))->method('getAmount')->willReturn(200);
+        $alesPaymentClone->expects($this->exactly(1))->method('getAmount')->willReturn(200);
 
-        $this->salesPaymentMethodTypeMock->expects($this->exactly(2))->method('getPaymentProvider')->willReturn('payone');
-        $this->salesPaymentMethodTypeMock->expects($this->exactly(2))->method('getPaymentMethod')->willReturn('paypal');
-        $this->jellyfishPaymentTransferMock->expects($this->exactly(2))->method('getAmount')->willReturn(100);
+        $this->salesPaymentMethodTypeMock->expects($this->exactly(1))->method('getPaymentProvider')->willReturn('payone');
+        $this->salesPaymentMethodTypeMock->expects($this->exactly(1))->method('getPaymentMethod')->willReturn('paypal');
+        $this->jellyfishPaymentTransferMock->expects($this->exactly(1))->method('getAmount')->willReturn(100);
         $this->jellyfishPaymentTransferMock->expects($this->once())->method('getProvider')->willReturn('payone');
-        $this->jellyfishPaymentTransferMock->expects($this->once())->method('getMethod')->willReturn('paypal');
+        $this->jellyfishPaymentTransferMock->expects($this->atLeastOnce())->method('getMethod')->willReturn('paypal');
         $this->jellyfishPaymentTransferMock->expects($this->once())->method('setTransactionId');
 
-        $jellyPaymentClone->expects($this->exactly(2))->method('getAmount')->willReturn(200);
+        $jellyPaymentClone->expects($this->exactly(1))->method('getAmount')->willReturn(200);
         $jellyPaymentClone->expects($this->once())->method('getProvider')->willReturn('payone');
-        $jellyPaymentClone->expects($this->once())->method('getMethod')->willReturn('paypal');
+        $jellyPaymentClone->expects($this->atLeastOnce())->method('getMethod')->willReturn('paypal');
         $jellyPaymentClone->expects($this->once())->method('setTransactionId');
 
         $result = $this->plugin->expand($this->jellyOrderTransferMock, $this->salesOrderMock);

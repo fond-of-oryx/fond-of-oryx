@@ -65,8 +65,8 @@ class JellyfishSalesOrderBusinessFactory extends AbstractBusinessFactory
             $this->createJellyfishOrderDiscountMapper(),
             $this->createJellyfishOrderPaymentMapper(),
             $this->createJellyfishOrderTotalsMapper(),
-            $this->getOrderExpanderPostMapPlugins(),
-            $this->getConfig()->getSystemCode()
+            $this->getConfig(),
+            $this->getOrderExpanderPostMapPlugins()
         );
     }
 
