@@ -122,7 +122,7 @@
     },
     "jellyfish-sales-order": {
       "path": "bundles/jellyfish-sales-order/",
-      "version": "1.0.1"
+      "version": "1.0.2"
     },
     "jellyfish-sales-order-b2c": {
       "path": "bundles/jellyfish-sales-order-b2c/",
@@ -138,7 +138,7 @@
     },
     "jellyfish-sales-order-payone": {
       "path": "bundles/jellyfish-sales-order-payone/",
-      "version": "1.0.0"
+      "version": "1.0.1"
     },
     "jellyfish-sales-order-product-type": {
       "path": "bundles/jellyfish-sales-order-product-type/",
