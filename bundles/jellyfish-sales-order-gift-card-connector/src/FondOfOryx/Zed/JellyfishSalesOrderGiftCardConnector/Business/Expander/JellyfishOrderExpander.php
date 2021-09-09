@@ -4,6 +4,7 @@ namespace FondOfOryx\Zed\JellyfishSalesOrderGiftCardConnector\Business\Expander;
 
 use ArrayObject;
 use FondOfOryx\Zed\JellyfishSalesOrderGiftCardConnector\Business\Mapper\JellyfishOrderGiftCardMapperInterface;
+use Generated\Shared\Transfer\JellyfishOrderTotalsTransfer;
 use Generated\Shared\Transfer\JellyfishOrderTransfer;
 use Orm\Zed\Sales\Persistence\SpySalesOrder;
 
@@ -35,31 +36,69 @@ class JellyfishOrderExpander implements JellyfishOrderExpanderInterface
         JellyfishOrderTransfer $jellyfishOrderTransfer,
         SpySalesOrder $salesOrder
     ): JellyfishOrderTransfer {
-        return $jellyfishOrderTransfer->setGiftCards($this->mapSalesOrderToGiftCards($salesOrder));
+        $giftCardPayments = $this->getGiftCardPayments($salesOrder);
+
+        if ($giftCardPayments->count() === 0) {
+            return $jellyfishOrderTransfer;
+        }
+
+        return $jellyfishOrderTransfer
+            ->setGiftCards($this->mapSalesPaymentsToGiftCards($giftCardPayments))
+            ->setTotals($this->recalculateTotals($jellyfishOrderTransfer, $giftCardPayments));
     }
 
     /**
-     * @param \Orm\Zed\Sales\Persistence\SpySalesOrder $salesOrder
+     * @param \ArrayObject $payments
      *
      * @return \ArrayObject
      */
-    protected function mapSalesOrderToGiftCards(SpySalesOrder $salesOrder): ArrayObject
+    protected function mapSalesPaymentsToGiftCards(ArrayObject $payments): ArrayObject
     {
         $jellyfishOrderGiftCards = new ArrayObject();
 
-        return $this->addGiftCards($salesOrder, $jellyfishOrderGiftCards);
+        foreach ($payments as $payment) {
+            $jellyfishOrderGiftCards->append(
+                $this->jellyfishOrderGiftCardMapper->fromSalesPayment($payment)
+            );
+        }
+
+        return $jellyfishOrderGiftCards;
+    }
+
+    /**
+     * @param \Generated\Shared\Transfer\JellyfishOrderTransfer $jellyfishOrderTransfer
+     * @param \ArrayObject $payments
+     *
+     * @return \Generated\Shared\Transfer\JellyfishOrderTotalsTransfer
+     */
+    protected function recalculateTotals(
+        JellyfishOrderTransfer $jellyfishOrderTransfer,
+        ArrayObject $payments
+    ): JellyfishOrderTotalsTransfer {
+        $jellyfishOrderTotalTransfer = $jellyfishOrderTransfer->getTotals();
+        $grandTotal = $jellyfishOrderTotalTransfer->getGrandTotal();
+        $discountTotal = $jellyfishOrderTotalTransfer->getDiscountTotal();
+
+        /** @var \Orm\Zed\Payment\Persistence\SpySalesPayment $payment */
+        foreach ($payments as $payment) {
+            $grandTotal = $grandTotal - $payment->getAmount();
+            $discountTotal = $discountTotal + $payment->getAmount();
+        }
+
+        return $jellyfishOrderTotalTransfer
+            ->setDiscountTotal($discountTotal)
+            ->setGrandTotal($grandTotal);
     }
 
     /**
      * @param \Orm\Zed\Sales\Persistence\SpySalesOrder $salesOrder
-     * @param \ArrayObject $jellyfishOrderGiftCards
      *
      * @return \ArrayObject
      */
-    protected function addGiftCards(
-        SpySalesOrder $salesOrder,
-        ArrayObject $jellyfishOrderGiftCards
-    ): ArrayObject {
+    protected function getGiftCardPayments(SpySalesOrder $salesOrder): ArrayObject
+    {
+        $giftCardPayments = new ArrayObject();
+
         foreach ($salesOrder->getOrdersJoinSalesPaymentMethodType() as $salesPayment) {
             if (
                 $salesPayment->getSalesPaymentMethodType()->getPaymentMethod()
@@ -68,11 +107,9 @@ class JellyfishOrderExpander implements JellyfishOrderExpanderInterface
                 continue;
             }
 
-            $jellyfishOrderGiftCards->append(
-                $this->jellyfishOrderGiftCardMapper->fromSalesPayment($salesPayment)
-            );
+            $giftCardPayments->append($salesPayment);
         }
 
-        return $jellyfishOrderGiftCards;
+        return $giftCardPayments;
     }
 }
