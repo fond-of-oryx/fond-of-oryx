@@ -2,14 +2,15 @@
 
 namespace FondOfOryx\Zed\JellyfishSalesOrderGiftCardConnector\Business\Expander;
 
+use ArrayObject;
 use Codeception\Test\Unit;
 use FondOfOryx\Zed\JellyfishSalesOrderGiftCardConnector\Business\Mapper\JellyfishOrderGiftCardMapperInterface;
 use Generated\Shared\Transfer\JellyfishOrderGiftCardTransfer;
+use Generated\Shared\Transfer\JellyfishOrderTotalsTransfer;
 use Generated\Shared\Transfer\JellyfishOrderTransfer;
 use Orm\Zed\Payment\Persistence\SpySalesPayment;
 use Orm\Zed\Payment\Persistence\SpySalesPaymentMethodType;
 use Orm\Zed\Sales\Persistence\SpySalesOrder;
-use Propel\Runtime\Collection\ObjectCollection;
 
 class JellyfishOrderExpanderTest extends Unit
 {
@@ -32,6 +33,11 @@ class JellyfishOrderExpanderTest extends Unit
      * @var \Generated\Shared\Transfer\JellyfishOrderTransfer|\PHPUnit\Framework\MockObject\MockObject
      */
     protected $jellyfishOrderGiftCardTransferMock;
+
+    /**
+     * @var \Generated\Shared\Transfer\JellyfishOrderTransfer|\PHPUnit\Framework\MockObject\MockObject
+     */
+    protected $jellyfishOrderTotalTransferMock;
 
     /**
      * @var \Orm\Zed\Sales\Persistence\SpySalesOrder|\PHPUnit\Framework\MockObject\MockObject
@@ -79,6 +85,10 @@ class JellyfishOrderExpanderTest extends Unit
             ->disableOriginalConstructor()
             ->getMock();
 
+        $this->jellyfishOrderTotalTransferMock = $this->getMockBuilder(JellyfishOrderTotalsTransfer::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
         $this->expander = new JellyfishOrderExpander($this->jellyfishOrderGiftCardMapperMock);
     }
 
@@ -87,9 +97,18 @@ class JellyfishOrderExpanderTest extends Unit
      */
     public function testExpand(): void
     {
+        $salesPayments = new ArrayObject();
+        $salesPayments->append($this->spySalesPaymentMock);
+        $data = [
+            'paymentMethod' => 'GiftCard',
+            'grandTotal' => 5000,
+            'discountTotal' => 0,
+            'paymentAmount' => 2000,
+        ];
+
         $this->spySalesOrderMock->expects(static::atLeastOnce())
             ->method('getOrdersJoinSalesPaymentMethodType')
-            ->willReturn(new ObjectCollection([$this->spySalesPaymentMock]));
+            ->willReturn($salesPayments);
 
         $this->spySalesPaymentMock->expects(static::atLeastOnce())
             ->method('getSalesPaymentMethodType')
@@ -97,7 +116,7 @@ class JellyfishOrderExpanderTest extends Unit
 
         $this->spySalesPaymentMethodTypeMock->expects($this->atLeastOnce())
             ->method('getPaymentMethod')
-            ->willReturn('GiftCard');
+            ->willReturn($data['paymentMethod']);
 
         $this->jellyfishOrderGiftCardMapperMock->expects(static::atLeastOnce())
             ->method('fromSalesPayment')
@@ -105,6 +124,34 @@ class JellyfishOrderExpanderTest extends Unit
 
         $this->jellyfishOrderTransferMock->expects(static::atLeastOnce())
             ->method('setGiftCards')
+            ->willReturnSelf();
+
+        $this->jellyfishOrderTransferMock->expects(static::atLeastOnce())
+            ->method('getTotals')
+            ->willReturn($this->jellyfishOrderTotalTransferMock);
+
+        $this->jellyfishOrderTotalTransferMock->expects(static::atLeastOnce())
+            ->method('getGrandTotal')
+            ->willReturn($data['grandTotal']);
+
+        $this->jellyfishOrderTotalTransferMock->expects(static::atLeastOnce())
+            ->method('getDiscountTotal')
+            ->willReturn($data['discountTotal']);
+
+        $this->spySalesPaymentMock->expects(static::atLeastOnce())
+            ->method('getAmount')
+            ->willReturn($data['paymentAmount']);
+
+        $this->jellyfishOrderTotalTransferMock->expects(static::atLeastOnce())
+            ->method('setDiscountTotal')
+            ->willReturnSelf();
+
+        $this->jellyfishOrderTotalTransferMock->expects(static::atLeastOnce())
+            ->method('setGrandTotal')
+            ->willReturnSelf();
+
+        $this->jellyfishOrderTransferMock->expects(static::atLeastOnce())
+            ->method('setTotals')
             ->willReturnSelf();
 
         $jellyfishOrderTransfer = $this->expander->expand(

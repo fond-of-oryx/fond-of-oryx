@@ -3,8 +3,11 @@
 namespace FondOfOryx\Zed\JellyfishSalesOrderGiftCardConnector\Business;
 
 use Codeception\Test\Unit;
+use FondOfOryx\Zed\JellyfishSalesOrderGiftCardConnector\Business\Expander\JellyfishOrderExpanderInterface;
 use FondOfOryx\Zed\JellyfishSalesOrderGiftCardConnector\Business\Expander\JellyfishOrderItemExpanderInterface;
 use Generated\Shared\Transfer\JellyfishOrderItemTransfer;
+use Generated\Shared\Transfer\JellyfishOrderTransfer;
+use Orm\Zed\Sales\Persistence\SpySalesOrder;
 use Orm\Zed\Sales\Persistence\SpySalesOrderItem;
 
 class JellyfishSalesOrderGiftCardConnectorFacadeTest extends Unit
@@ -20,9 +23,19 @@ class JellyfishSalesOrderGiftCardConnectorFacadeTest extends Unit
     protected $jellyfishOrderItemExpanderMock;
 
     /**
+     * @var \PHPUnit\Framework\MockObject\MockObject|\FondOfOryx\Zed\JellyfishSalesOrderGiftCardConnector\Business\Expander\JellyfishOrderExpanderInterface
+     */
+    protected $jellyfishOrderExpanderMock;
+
+    /**
      * @var \PHPUnit\Framework\MockObject\MockObject|\Generated\Shared\Transfer\JellyfishOrderItemTransfer
      */
     protected $jellyfishOrderItemTransferMock;
+
+    /**
+     * @var \PHPUnit\Framework\MockObject\MockObject|\Generated\Shared\Transfer\JellyfishOrderTransfer
+     */
+    protected $jellyfishOrderTransferMock;
 
     /**
      * @var \FondOfOryx\Zed\JellyfishSalesOrderGiftCardConnector\Business\JellyfishSalesOrderGiftCardConnectorFacadeInterface
@@ -33,6 +46,11 @@ class JellyfishSalesOrderGiftCardConnectorFacadeTest extends Unit
      * @var \PHPUnit\Framework\MockObject\MockObject|\Orm\Zed\Sales\Persistence\SpySalesOrderItem
      */
     protected $spySalesOrderItemMock;
+
+    /**
+     * @var \PHPUnit\Framework\MockObject\MockObject|\Orm\Zed\Sales\Persistence\SpySalesOrder
+     */
+    protected $spySalesOrderMock;
 
     /**
      * @return void
@@ -47,11 +65,23 @@ class JellyfishSalesOrderGiftCardConnectorFacadeTest extends Unit
             ->disableOriginalConstructor()
             ->getMock();
 
+        $this->jellyfishOrderExpanderMock = $this->getMockBuilder(JellyfishOrderExpanderInterface::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
         $this->jellyfishOrderItemTransferMock = $this->getMockBuilder(JellyfishOrderItemTransfer::class)
             ->disableOriginalConstructor()
             ->getMock();
 
+        $this->jellyfishOrderTransferMock = $this->getMockBuilder(JellyfishOrderTransfer::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
         $this->spySalesOrderItemMock = $this->getMockBuilder(SpySalesOrderItem::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $this->spySalesOrderMock = $this->getMockBuilder(SpySalesOrder::class)
             ->disableOriginalConstructor()
             ->getMock();
 
@@ -80,5 +110,28 @@ class JellyfishSalesOrderGiftCardConnectorFacadeTest extends Unit
 
         $this->assertInstanceOf(JellyfishOrderItemTransfer::class, $jellyfishOrderItemTransferMock);
         $this->assertEquals($this->jellyfishOrderItemTransferMock, $jellyfishOrderItemTransferMock);
+    }
+
+    /**
+     * @return void
+     */
+    public function testExpandOrder(): void
+    {
+        $this->factoryMock->expects($this->atLeastOnce())
+            ->method('createJellyfishOrderExpander')
+            ->willReturn($this->jellyfishOrderExpanderMock);
+
+        $this->jellyfishOrderExpanderMock->expects($this->atLeastOnce())
+            ->method('expand')
+            ->with($this->jellyfishOrderTransferMock, $this->spySalesOrderMock)
+            ->willReturn($this->jellyfishOrderTransferMock);
+
+        $jellyfishOrderTransferMock = $this->facade->expandOrder(
+            $this->jellyfishOrderTransferMock,
+            $this->spySalesOrderMock
+        );
+
+        $this->assertInstanceOf(JellyfishOrderTransfer::class, $jellyfishOrderTransferMock);
+        $this->assertEquals($this->jellyfishOrderTransferMock, $jellyfishOrderTransferMock);
     }
 }
