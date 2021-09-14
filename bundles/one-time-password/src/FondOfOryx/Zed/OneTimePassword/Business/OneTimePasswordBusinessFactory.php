@@ -2,8 +2,8 @@
 
 namespace FondOfOryx\Zed\OneTimePassword\Business;
 
-use FondOfOryx\Zed\OneTimePassword\Business\Encoder\OneTimePasswordBase64Encoder;
 use FondOfOryx\Zed\OneTimePassword\Business\Encoder\OneTimePasswordEncoderInterface;
+use FondOfOryx\Zed\OneTimePassword\Business\Encoder\OneTimePasswordJWTEncoder;
 use FondOfOryx\Zed\OneTimePassword\Business\Generator\OneTimePasswordGenerator;
 use FondOfOryx\Zed\OneTimePassword\Business\Generator\OneTimePasswordGeneratorInterface;
 use FondOfOryx\Zed\OneTimePassword\Business\Generator\OneTimePasswordLinkGenerator;
@@ -12,6 +12,7 @@ use FondOfOryx\Zed\OneTimePassword\Business\Resetter\OneTimePasswordResetter;
 use FondOfOryx\Zed\OneTimePassword\Business\Resetter\OneTimePasswordResetterInterface;
 use FondOfOryx\Zed\OneTimePassword\Business\Sender\OneTimePasswordSender;
 use FondOfOryx\Zed\OneTimePassword\Business\Sender\OneTimePasswordSenderInterface;
+use FondOfOryx\Zed\OneTimePassword\Dependency\Facade\OneTimePasswordToOauthFacadeInterface;
 use FondOfOryx\Zed\OneTimePassword\Dependency\Facade\OneTimePasswordToOneTimePasswordEmailConnectorFacadeInterface;
 use FondOfOryx\Zed\OneTimePassword\OneTimePasswordDependencyProvider;
 use Hackzilla\PasswordGenerator\Generator\HybridPasswordGenerator;
@@ -69,11 +70,13 @@ class OneTimePasswordBusinessFactory extends AbstractBusinessFactory
     }
 
     /**
-     * @return \FondOfOryx\Zed\OneTimePassword\Business\Encoder\OneTimePasswordBase64Encoder
+     * @return \FondOfOryx\Zed\OneTimePassword\Business\Encoder\OneTimePasswordEncoderInterface
      */
     protected function createOneTimePasswordEncoder(): OneTimePasswordEncoderInterface
     {
-        return new OneTimePasswordBase64Encoder();
+        return new OneTimePasswordJWTEncoder(
+            $this->getOauthFacade()
+        );
     }
 
     /**
@@ -90,5 +93,13 @@ class OneTimePasswordBusinessFactory extends AbstractBusinessFactory
     protected function getOneTimePasswordEmailConnectorFacade(): OneTimePasswordToOneTimePasswordEmailConnectorFacadeInterface
     {
         return $this->getProvidedDependency(OneTimePasswordDependencyProvider::FACADE_ONE_TIME_PASSWORD_EMAIL_CONNECTOR);
+    }
+
+    /**
+     * @return \FondOfOryx\Zed\OneTimePassword\Dependency\Facade\OneTimePasswordToOauthFacadeInterface
+     */
+    protected function getOauthFacade(): OneTimePasswordToOauthFacadeInterface
+    {
+        return $this->getProvidedDependency(OneTimePasswordDependencyProvider::FACADE_OAUTH);
     }
 }

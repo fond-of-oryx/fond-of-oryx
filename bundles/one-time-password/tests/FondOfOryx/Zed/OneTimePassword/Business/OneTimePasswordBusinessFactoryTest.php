@@ -6,6 +6,7 @@ use Codeception\Test\Unit;
 use FondOfOryx\Zed\OneTimePassword\Business\Generator\OneTimePasswordLinkGeneratorInterface;
 use FondOfOryx\Zed\OneTimePassword\Business\Resetter\OneTimePasswordResetterInterface;
 use FondOfOryx\Zed\OneTimePassword\Business\Sender\OneTimePasswordSenderInterface;
+use FondOfOryx\Zed\OneTimePassword\Dependency\Facade\OneTimePasswordToOauthFacadeInterface;
 use FondOfOryx\Zed\OneTimePassword\Dependency\Facade\OneTimePasswordToOneTimePasswordEmailConnectorFacadeInterface;
 use FondOfOryx\Zed\OneTimePassword\OneTimePasswordConfig;
 use FondOfOryx\Zed\OneTimePassword\OneTimePasswordDependencyProvider;
@@ -40,6 +41,11 @@ class OneTimePasswordBusinessFactoryTest extends Unit
     protected $oneTimePasswordConfigMock;
 
     /**
+     * @var \FondOfOryx\Zed\OneTimePassword\Dependency\Facade\OneTimePasswordToOauthFacadeInterface|mixed|\PHPUnit\Framework\MockObject\MockObject
+     */
+    protected $oauthFacadeMock;
+
+    /**
      * @return void
      */
     protected function _before(): void
@@ -57,6 +63,10 @@ class OneTimePasswordBusinessFactoryTest extends Unit
             ->getMock();
 
         $this->oneTimePasswordConfigMock = $this->getMockBuilder(OneTimePasswordConfig::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $this->oauthFacadeMock = $this->getMockBuilder(OneTimePasswordToOauthFacadeInterface::class)
             ->disableOriginalConstructor()
             ->getMock();
 
@@ -102,6 +112,15 @@ class OneTimePasswordBusinessFactoryTest extends Unit
      */
     public function testCreateOneTimePasswordLinkGenerator(): void
     {
+        $this->containerMock->expects($this->atLeastOnce())
+            ->method('has')
+            ->willReturn(true);
+
+        $this->containerMock->expects($this->atLeastOnce())
+            ->method('get')
+            ->with(OneTimePasswordDependencyProvider::FACADE_OAUTH)
+            ->willReturn($this->oauthFacadeMock);
+
         $this->assertInstanceOf(
             OneTimePasswordLinkGeneratorInterface::class,
             $this->oneTimePasswordBusinessFactory->createOneTimePasswordLinkGenerator()
