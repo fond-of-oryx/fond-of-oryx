@@ -9,7 +9,7 @@ interface OneTimePasswordEncoderInterface
     /**
      * @param \Generated\Shared\Transfer\OneTimePasswordResponseTransfer $oneTimePasswordResponseTransfer
      *
-     * @return string
+     * @return string|null
      */
-    public function encode(OneTimePasswordResponseTransfer $oneTimePasswordResponseTransfer): string;
+    public function encode(OneTimePasswordResponseTransfer $oneTimePasswordResponseTransfer): ?string;
 }

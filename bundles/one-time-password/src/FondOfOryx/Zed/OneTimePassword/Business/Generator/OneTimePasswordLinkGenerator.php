@@ -24,6 +24,11 @@ class OneTimePasswordLinkGenerator implements OneTimePasswordLinkGeneratorInterf
     protected $oneTimePasswordEncoder;
 
     /**
+     * @var \FondOfOryx\Zed\OneTimePassword\Dependency\Facade\OneTimePasswordToOauthFacadeInterface
+     */
+    protected $oauthFacade;
+
+    /**
      * @var \FondOfOryx\Zed\OneTimePassword\OneTimePasswordConfig
      */
     protected $oneTimePasswordConfig;
@@ -58,6 +63,10 @@ class OneTimePasswordLinkGenerator implements OneTimePasswordLinkGeneratorInterf
         }
 
         $encodedLoginCredentials = $this->oneTimePasswordEncoder->encode($oneTimePasswordResponseTransfer);
+
+        if ($encodedLoginCredentials === null) {
+            return $oneTimePasswordResponseTransfer->setIsSuccess(false);
+        }
 
         $loginLink = sprintf(
             self::LINK_PARAMETER_FORMAT,

@@ -48,6 +48,7 @@
     "spryker/locale": "^2.2.0 || ^3.0.0",
     "spryker/log": "^1.0.0 || ^2.0.0 || ^3.0.0",
     "spryker/mail": "^4.0.0",
+    "spryker/oauth": "^1.0.0 || ^2.0.0",
     "spryker/oms": "^6.0.0 || ^7.0.0 || ^8.0.0 || ^10.0.0 || ^11.0.0",
     "spryker/oms-extension": "^1.0.0",
     "spryker/payment": "^4.3.0 || ^5.0.0",
