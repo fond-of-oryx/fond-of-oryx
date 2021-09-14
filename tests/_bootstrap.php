@@ -7,3 +7,4 @@ if (!file_exists($pathToAutoloader)) {
 }
 
 require_once $pathToAutoloader;
+
