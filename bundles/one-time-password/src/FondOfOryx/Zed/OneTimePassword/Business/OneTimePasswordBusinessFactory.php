@@ -14,8 +14,10 @@ use FondOfOryx\Zed\OneTimePassword\Business\Sender\OneTimePasswordLoginLinkSende
 use FondOfOryx\Zed\OneTimePassword\Business\Sender\OneTimePasswordLoginLinkSenderInterface;
 use FondOfOryx\Zed\OneTimePassword\Business\Sender\OneTimePasswordSender;
 use FondOfOryx\Zed\OneTimePassword\Business\Sender\OneTimePasswordSenderInterface;
+use FondOfOryx\Zed\OneTimePassword\Dependency\Facade\OneTimePasswordToLocaleFacadeInterface;
 use FondOfOryx\Zed\OneTimePassword\Dependency\Facade\OneTimePasswordToOauthFacadeInterface;
 use FondOfOryx\Zed\OneTimePassword\Dependency\Facade\OneTimePasswordToOneTimePasswordEmailConnectorFacadeInterface;
+use FondOfOryx\Zed\OneTimePassword\Dependency\Facade\OneTimePasswordToStoreFacadeInterface;
 use FondOfOryx\Zed\OneTimePassword\OneTimePasswordDependencyProvider;
 use Hackzilla\PasswordGenerator\Generator\HybridPasswordGenerator;
 use Spryker\Zed\Kernel\Business\AbstractBusinessFactory;
@@ -78,6 +80,8 @@ class OneTimePasswordBusinessFactory extends AbstractBusinessFactory
         return new OneTimePasswordLinkGenerator(
             $this->createOneTimePasswordGenerator(),
             $this->createOneTimePasswordEncoder(),
+            $this->getStoreFacade(),
+            $this->getLocaleFacade(),
             $this->getConfig()
         );
     }
@@ -114,5 +118,21 @@ class OneTimePasswordBusinessFactory extends AbstractBusinessFactory
     protected function getOauthFacade(): OneTimePasswordToOauthFacadeInterface
     {
         return $this->getProvidedDependency(OneTimePasswordDependencyProvider::FACADE_OAUTH);
+    }
+
+    /**
+     * @return \FondOfOryx\Zed\OneTimePassword\Dependency\Facade\OneTimePasswordToStoreFacadeInterface
+     */
+    protected function getStoreFacade(): OneTimePasswordToStoreFacadeInterface
+    {
+        return $this->getProvidedDependency(OneTimePasswordDependencyProvider::FACADE_STORE);
+    }
+
+    /**
+     * @return \FondOfOryx\Zed\OneTimePassword\Dependency\Facade\OneTimePasswordToLocaleFacadeInterface
+     */
+    protected function getLocaleFacade(): OneTimePasswordToLocaleFacadeInterface
+    {
+        return $this->getProvidedDependency(OneTimePasswordDependencyProvider::FACADE_LOCALE);
     }
 }

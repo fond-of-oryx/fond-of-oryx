@@ -116,4 +116,15 @@ class OneTimePasswordConfig extends AbstractBundleConfig
             '-'
         );
     }
+
+    /**
+     * @return string
+     */
+    public function getDefaultUrlLocale(): string
+    {
+        return $this->get(
+            OneTimePasswordConstants::ONE_TIME_PASSWORD_DEFAULT_URL_LOCALE,
+            'en'
+        );
+    }
 }

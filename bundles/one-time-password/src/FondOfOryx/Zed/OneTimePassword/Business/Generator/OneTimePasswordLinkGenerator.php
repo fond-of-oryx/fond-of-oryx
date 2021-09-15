@@ -3,6 +3,8 @@
 namespace FondOfOryx\Zed\OneTimePassword\Business\Generator;
 
 use FondOfOryx\Zed\OneTimePassword\Business\Encoder\OneTimePasswordEncoderInterface;
+use FondOfOryx\Zed\OneTimePassword\Dependency\Facade\OneTimePasswordToLocaleFacadeInterface;
+use FondOfOryx\Zed\OneTimePassword\Dependency\Facade\OneTimePasswordToStoreFacadeInterface;
 use FondOfOryx\Zed\OneTimePassword\OneTimePasswordConfig;
 use Generated\Shared\Transfer\CustomerTransfer;
 use Generated\Shared\Transfer\OneTimePasswordResponseTransfer;
@@ -10,6 +12,7 @@ use Generated\Shared\Transfer\OrderTransfer;
 
 class OneTimePasswordLinkGenerator implements OneTimePasswordLinkGeneratorInterface
 {
+    protected const LINK_LOCALE_PLACEHOLDER = '{{locale}}';
     protected const LINK_PARAMETER_FORMAT = '%s?%s=%s';
     protected const LINK_PARAMETER_EXTENSION_FORMAT = '%s&%s=%s';
 
@@ -29,6 +32,16 @@ class OneTimePasswordLinkGenerator implements OneTimePasswordLinkGeneratorInterf
     protected $oauthFacade;
 
     /**
+     * @var \FondOfOryx\Zed\OneTimePassword\Dependency\Facade\OneTimePasswordToStoreFacadeInterface
+     */
+    protected $storeFacade;
+
+    /**
+     * @var \FondOfOryx\Zed\OneTimePassword\Dependency\Facade\OneTimePasswordToLocaleFacadeInterface
+     */
+    protected $localeFacade;
+
+    /**
      * @var \FondOfOryx\Zed\OneTimePassword\OneTimePasswordConfig
      */
     protected $oneTimePasswordConfig;
@@ -36,15 +49,21 @@ class OneTimePasswordLinkGenerator implements OneTimePasswordLinkGeneratorInterf
     /**
      * @param \FondOfOryx\Zed\OneTimePassword\Business\Generator\OneTimePasswordGeneratorInterface $oneTimePasswordGenerator
      * @param \FondOfOryx\Zed\OneTimePassword\Business\Encoder\OneTimePasswordEncoderInterface $oneTimePasswordEncoder
+     * @param \FondOfOryx\Zed\OneTimePassword\Dependency\Facade\OneTimePasswordToStoreFacadeInterface $storeFacade
+     * @param \FondOfOryx\Zed\OneTimePassword\Dependency\Facade\OneTimePasswordToLocaleFacadeInterface $localeFacade
      * @param \FondOfOryx\Zed\OneTimePassword\OneTimePasswordConfig $oneTimePasswordConfig
      */
     public function __construct(
         OneTimePasswordGeneratorInterface $oneTimePasswordGenerator,
         OneTimePasswordEncoderInterface $oneTimePasswordEncoder,
+        OneTimePasswordToStoreFacadeInterface $storeFacade,
+        OneTimePasswordToLocaleFacadeInterface $localeFacade,
         OneTimePasswordConfig $oneTimePasswordConfig
     ) {
         $this->oneTimePasswordGenerator = $oneTimePasswordGenerator;
         $this->oneTimePasswordEncoder = $oneTimePasswordEncoder;
+        $this->storeFacade = $storeFacade;
+        $this->localeFacade = $localeFacade;
         $this->oneTimePasswordConfig = $oneTimePasswordConfig;
     }
 
@@ -68,15 +87,35 @@ class OneTimePasswordLinkGenerator implements OneTimePasswordLinkGeneratorInterf
             return $oneTimePasswordResponseTransfer->setIsSuccess(false);
         }
 
+        $localizedLoginLinkPath = str_replace(static::LINK_LOCALE_PLACEHOLDER, $this->getUrlLocale(), $this->oneTimePasswordConfig->getLoginLinkPath());
+
         $loginLink = sprintf(
             self::LINK_PARAMETER_FORMAT,
-            $this->oneTimePasswordConfig->getLoginLinkPath(),
+            $localizedLoginLinkPath,
             $this->oneTimePasswordConfig->getLoginLinkParameterName(),
             $encodedLoginCredentials
         );
 
         return $oneTimePasswordResponseTransfer
             ->setLoginLink($loginLink);
+    }
+
+    /**
+     * @return string
+     */
+    protected function getUrlLocale(): string
+    {
+        $currentLocale = $this->localeFacade->getCurrentLocaleName();
+
+        $availableLocaleIsoCodes = $this->storeFacade->getCurrentStore()->getAvailableLocaleIsoCodes();
+
+        $urlLocale = array_search($currentLocale, $availableLocaleIsoCodes, true);
+
+        if (!$urlLocale) {
+            return $this->oneTimePasswordConfig->getDefaultUrlLocale();
+        }
+
+        return $urlLocale;
     }
 
     /**
