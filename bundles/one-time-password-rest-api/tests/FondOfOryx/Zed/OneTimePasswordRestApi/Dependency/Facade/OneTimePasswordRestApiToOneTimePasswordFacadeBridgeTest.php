@@ -6,6 +6,7 @@ use Codeception\Test\Unit;
 use FondOfOryx\Zed\OneTimePassword\Business\OneTimePasswordFacadeInterface;
 use Generated\Shared\Transfer\CustomerTransfer;
 use Generated\Shared\Transfer\OneTimePasswordResponseTransfer;
+use Generated\Shared\Transfer\OrderTransfer;
 
 class OneTimePasswordRestApiToOneTimePasswordFacadeBridgeTest extends Unit
 {
@@ -30,6 +31,11 @@ class OneTimePasswordRestApiToOneTimePasswordFacadeBridgeTest extends Unit
     protected $customerTransferMock;
 
     /**
+     * @var \Generated\Shared\Transfer\OrderTransfer|mixed|\PHPUnit\Framework\MockObject\MockObject
+     */
+    protected $orderTransferMock;
+
+    /**
      * @return void
      */
     protected function _before(): void
@@ -43,6 +49,10 @@ class OneTimePasswordRestApiToOneTimePasswordFacadeBridgeTest extends Unit
             ->getMock();
 
         $this->customerTransferMock = $this->getMockBuilder(CustomerTransfer::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $this->orderTransferMock = $this->getMockBuilder(OrderTransfer::class)
             ->disableOriginalConstructor()
             ->getMock();
 
@@ -65,6 +75,42 @@ class OneTimePasswordRestApiToOneTimePasswordFacadeBridgeTest extends Unit
             $this->oneTimePasswordResponseTransferMock,
             $this->oneTimePasswordRestApiToOneTimePasswordFacadeBridge->requestOneTimePassword(
                 $this->customerTransferMock
+            )
+        );
+    }
+
+    /**
+     * @return void
+     */
+    public function testRequestLoginLink(): void
+    {
+        $this->oneTimePasswordFacadeMock->expects($this->atLeastOnce())
+            ->method('requestLoginLink')
+            ->with($this->customerTransferMock)
+            ->willReturn($this->oneTimePasswordResponseTransferMock);
+
+        $this->assertSame(
+            $this->oneTimePasswordResponseTransferMock,
+            $this->oneTimePasswordRestApiToOneTimePasswordFacadeBridge->requestLoginLink(
+                $this->customerTransferMock
+            )
+        );
+    }
+
+    /**
+     * @return void
+     */
+    public function testRequestLoginLinkWithOrderReference(): void
+    {
+        $this->oneTimePasswordFacadeMock->expects($this->atLeastOnce())
+            ->method('requestLoginLinkWithOrderReference')
+            ->with($this->orderTransferMock)
+            ->willReturn($this->oneTimePasswordResponseTransferMock);
+
+        $this->assertSame(
+            $this->oneTimePasswordResponseTransferMock,
+            $this->oneTimePasswordRestApiToOneTimePasswordFacadeBridge->requestLoginLinkWithOrderReference(
+                $this->orderTransferMock
             )
         );
     }

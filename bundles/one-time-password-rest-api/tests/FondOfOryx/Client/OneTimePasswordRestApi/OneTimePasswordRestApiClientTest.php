@@ -4,6 +4,7 @@ namespace FondOfOryx\Client\OneTimePasswordRestApi;
 
 use Codeception\Test\Unit;
 use FondOfOryx\Client\OneTimePasswordRestApi\Zed\OneTimePasswordRestApiStubInterface;
+use Generated\Shared\Transfer\RestOneTimePasswordLoginLinkRequestAttributesTransfer;
 use Generated\Shared\Transfer\RestOneTimePasswordRequestAttributesTransfer;
 use Generated\Shared\Transfer\RestOneTimePasswordResponseTransfer;
 
@@ -35,6 +36,11 @@ class OneTimePasswordRestApiClientTest extends Unit
     protected $restOneTimePasswordResponseTransferMock;
 
     /**
+     * @var \Generated\Shared\Transfer\RestOneTimePasswordLoginLinkRequestAttributesTransfer|mixed|\PHPUnit\Framework\MockObject\MockObject
+     */
+    protected $restOneTimePasswordLoginLinkRequestAttributesTransferMock;
+
+    /**
      * @return void
      */
     protected function _before(): void
@@ -52,6 +58,10 @@ class OneTimePasswordRestApiClientTest extends Unit
             ->getMock();
 
         $this->restOneTimePasswordResponseTransferMock = $this->getMockBuilder(RestOneTimePasswordResponseTransfer::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $this->restOneTimePasswordLoginLinkRequestAttributesTransferMock = $this->getMockBuilder(RestOneTimePasswordLoginLinkRequestAttributesTransfer::class)
             ->disableOriginalConstructor()
             ->getMock();
 
@@ -77,6 +87,28 @@ class OneTimePasswordRestApiClientTest extends Unit
             $this->restOneTimePasswordResponseTransferMock,
             $this->oneTimePasswordRestApiClient->requestOneTimePassword(
                 $this->restOneTimePasswordRequestAttributesTransferMock
+            )
+        );
+    }
+
+    /**
+     * @return void
+     */
+    public function testRequestOneTimePasswordLoginLink(): void
+    {
+        $this->oneTimePasswordRestApiFactoryMock->expects($this->atLeastOnce())
+            ->method('createOneTimePasswordZedStub')
+            ->willReturn($this->oneTimePasswordRestApiStubMock);
+
+        $this->oneTimePasswordRestApiStubMock->expects($this->atLeastOnce())
+            ->method('requestOneTimePasswordLoginLink')
+            ->with($this->restOneTimePasswordLoginLinkRequestAttributesTransferMock)
+            ->willReturn($this->restOneTimePasswordResponseTransferMock);
+
+        $this->assertSame(
+            $this->restOneTimePasswordResponseTransferMock,
+            $this->oneTimePasswordRestApiClient->requestOneTimePasswordLoginLink(
+                $this->restOneTimePasswordLoginLinkRequestAttributesTransferMock
             )
         );
     }

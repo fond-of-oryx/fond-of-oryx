@@ -5,6 +5,7 @@ namespace FondOfOryx\Zed\OneTimePasswordRestApi\Dependency\Facade;
 use FondOfOryx\Zed\OneTimePassword\Business\OneTimePasswordFacadeInterface;
 use Generated\Shared\Transfer\CustomerTransfer;
 use Generated\Shared\Transfer\OneTimePasswordResponseTransfer;
+use Generated\Shared\Transfer\OrderTransfer;
 
 class OneTimePasswordRestApiToOneTimePasswordFacadeBridge implements OneTimePasswordRestApiToOneTimePasswordFacadeInterface
 {
@@ -29,5 +30,25 @@ class OneTimePasswordRestApiToOneTimePasswordFacadeBridge implements OneTimePass
     public function requestOneTimePassword(CustomerTransfer $customerTransfer): OneTimePasswordResponseTransfer
     {
         return $this->oneTimePasswordFacade->requestOneTimePassword($customerTransfer);
+    }
+
+    /**
+     * @param \Generated\Shared\Transfer\CustomerTransfer $customerTransfer
+     *
+     * @return \Generated\Shared\Transfer\OneTimePasswordResponseTransfer
+     */
+    public function requestLoginLink(CustomerTransfer $customerTransfer): OneTimePasswordResponseTransfer
+    {
+        return $this->oneTimePasswordFacade->requestLoginLink($customerTransfer);
+    }
+
+    /**
+     * @param \Generated\Shared\Transfer\OrderTransfer $orderTransfer
+     *
+     * @return \Generated\Shared\Transfer\OneTimePasswordResponseTransfer
+     */
+    public function requestLoginLinkWithOrderReference(OrderTransfer $orderTransfer): OneTimePasswordResponseTransfer
+    {
+        return $this->oneTimePasswordFacade->requestLoginLinkWithOrderReference($orderTransfer);
     }
 }

@@ -10,6 +10,8 @@ use FondOfOryx\Zed\OneTimePassword\Business\Generator\OneTimePasswordLinkGenerat
 use FondOfOryx\Zed\OneTimePassword\Business\Generator\OneTimePasswordLinkGeneratorInterface;
 use FondOfOryx\Zed\OneTimePassword\Business\Resetter\OneTimePasswordResetter;
 use FondOfOryx\Zed\OneTimePassword\Business\Resetter\OneTimePasswordResetterInterface;
+use FondOfOryx\Zed\OneTimePassword\Business\Sender\OneTimePasswordLoginLinkSender;
+use FondOfOryx\Zed\OneTimePassword\Business\Sender\OneTimePasswordLoginLinkSenderInterface;
 use FondOfOryx\Zed\OneTimePassword\Business\Sender\OneTimePasswordSender;
 use FondOfOryx\Zed\OneTimePassword\Business\Sender\OneTimePasswordSenderInterface;
 use FondOfOryx\Zed\OneTimePassword\Dependency\Facade\OneTimePasswordToOauthFacadeInterface;
@@ -31,6 +33,17 @@ class OneTimePasswordBusinessFactory extends AbstractBusinessFactory
     {
         return new OneTimePasswordSender(
             $this->createOneTimePasswordGenerator(),
+            $this->getOneTimePasswordEmailConnectorFacade()
+        );
+    }
+
+    /**
+     * @return \FondOfOryx\Zed\OneTimePassword\Business\Sender\OneTimePasswordLoginLinkSenderInterface
+     */
+    public function createOneTimePasswordLoginLinkSender(): OneTimePasswordLoginLinkSenderInterface
+    {
+        return new OneTimePasswordLoginLinkSender(
+            $this->createOneTimePasswordLinkGenerator(),
             $this->getOneTimePasswordEmailConnectorFacade()
         );
     }

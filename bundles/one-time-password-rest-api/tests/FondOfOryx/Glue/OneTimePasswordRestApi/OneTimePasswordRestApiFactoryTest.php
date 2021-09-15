@@ -4,6 +4,7 @@ namespace FondOfOryx\Glue\OneTimePasswordRestApi;
 
 use Codeception\Test\Unit;
 use FondOfOryx\Client\OneTimePasswordRestApi\OneTimePasswordRestApiClient;
+use FondOfOryx\Glue\OneTimePasswordRestApi\Processor\OneTimePasswordLoginLinkProcessorInterface;
 use FondOfOryx\Glue\OneTimePasswordRestApi\Processor\OneTimePasswordProcessorInterface;
 use Spryker\Glue\GlueApplication\Rest\JsonApi\RestResourceBuilderInterface;
 
@@ -70,6 +71,17 @@ class OneTimePasswordRestApiFactoryTest extends Unit
         $this->assertInstanceOf(
             OneTimePasswordProcessorInterface::class,
             $this->oneTimePasswordRestApiFactory->createOneTimePasswordProcessor()
+        );
+    }
+
+    /**
+     * @return void
+     */
+    public function testCreateOneTimePasswordLoginLinkProcessor(): void
+    {
+        $this->assertInstanceOf(
+            OneTimePasswordLoginLinkProcessorInterface::class,
+            $this->oneTimePasswordRestApiFactory->createOneTimePasswordLoginLinkProcessor()
         );
     }
 }

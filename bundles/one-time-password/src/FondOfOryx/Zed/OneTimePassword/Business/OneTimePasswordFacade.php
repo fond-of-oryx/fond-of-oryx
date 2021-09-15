@@ -39,6 +39,40 @@ class OneTimePasswordFacade extends AbstractFacade implements OneTimePasswordFac
      *
      * @return \Generated\Shared\Transfer\OneTimePasswordResponseTransfer
      */
+    public function requestLoginLink(
+        CustomerTransfer $customerTransfer
+    ): OneTimePasswordResponseTransfer {
+        return $this->getFactory()
+            ->createOneTimePasswordLoginLinkSender()
+            ->requestLoginLink($customerTransfer);
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * @api
+     *
+     * @param \Generated\Shared\Transfer\OrderTransfer $orderTransfer
+     *
+     * @return \Generated\Shared\Transfer\OneTimePasswordResponseTransfer
+     */
+    public function requestLoginLinkWithOrderReference(
+        OrderTransfer $orderTransfer
+    ): OneTimePasswordResponseTransfer {
+        return $this->getFactory()
+            ->createOneTimePasswordLoginLinkSender()
+            ->requestLoginLinkWithOrderReference($orderTransfer);
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * @api
+     *
+     * @param \Generated\Shared\Transfer\CustomerTransfer $customerTransfer
+     *
+     * @return \Generated\Shared\Transfer\OneTimePasswordResponseTransfer
+     */
     public function generateOneTimePassword(
         CustomerTransfer $customerTransfer
     ): OneTimePasswordResponseTransfer {
