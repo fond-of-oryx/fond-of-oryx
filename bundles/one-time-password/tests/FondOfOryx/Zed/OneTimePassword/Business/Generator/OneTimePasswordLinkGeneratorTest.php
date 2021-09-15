@@ -4,10 +4,13 @@ namespace FondOfOryx\Zed\OneTimePassword\Business\Generator;
 
 use Codeception\Test\Unit;
 use FondOfOryx\Zed\OneTimePassword\Business\Encoder\OneTimePasswordEncoderInterface;
+use FondOfOryx\Zed\OneTimePassword\Dependency\Facade\OneTimePasswordToLocaleFacadeInterface;
+use FondOfOryx\Zed\OneTimePassword\Dependency\Facade\OneTimePasswordToStoreFacadeInterface;
 use FondOfOryx\Zed\OneTimePassword\OneTimePasswordConfig;
 use Generated\Shared\Transfer\CustomerTransfer;
 use Generated\Shared\Transfer\OneTimePasswordResponseTransfer;
 use Generated\Shared\Transfer\OrderTransfer;
+use Generated\Shared\Transfer\StoreTransfer;
 
 class OneTimePasswordLinkGeneratorTest extends Unit
 {
@@ -72,6 +75,31 @@ class OneTimePasswordLinkGeneratorTest extends Unit
     protected $orderReference;
 
     /**
+     * @var \FondOfOryx\Zed\OneTimePassword\Dependency\Facade\OneTimePasswordToStoreFacadeInterface|mixed|\PHPUnit\Framework\MockObject\MockObject
+     */
+    protected $storeFacadeMock;
+
+    /**
+     * @var \FondOfOryx\Zed\OneTimePassword\Dependency\Facade\OneTimePasswordToLocaleFacadeInterface|mixed|\PHPUnit\Framework\MockObject\MockObject
+     */
+    protected $localeFacadeMock;
+
+    /**
+     * @var string
+     */
+    protected $currentLocaleName;
+
+    /**
+     * @var \Generated\Shared\Transfer\StoreTransfer|mixed|\PHPUnit\Framework\MockObject\MockObject
+     */
+    protected $storeTransferMock;
+
+    /**
+     * @var string[]
+     */
+    protected $availableLocaleIsoCodes;
+
+    /**
      * @return void
      */
     protected function _before(): void
@@ -110,9 +138,29 @@ class OneTimePasswordLinkGeneratorTest extends Unit
 
         $this->orderReference = 'order-reference';
 
+        $this->storeFacadeMock = $this->getMockBuilder(OneTimePasswordToStoreFacadeInterface::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $this->localeFacadeMock = $this->getMockBuilder(OneTimePasswordToLocaleFacadeInterface::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $this->currentLocaleName = 'current-locale-name';
+
+        $this->storeTransferMock = $this->getMockBuilder(StoreTransfer::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $this->availableLocaleIsoCodes = [
+            'url-locale' => $this->currentLocaleName,
+        ];
+
         $this->oneTimePasswordLinkGenerator = new OneTimePasswordLinkGenerator(
             $this->oneTimePasswordGeneratorMock,
             $this->oneTimePasswordEncoderMock,
+            $this->storeFacadeMock,
+            $this->localeFacadeMock,
             $this->oneTimePasswordConfigMock
         );
     }
@@ -139,6 +187,18 @@ class OneTimePasswordLinkGeneratorTest extends Unit
         $this->oneTimePasswordConfigMock->expects($this->atLeastOnce())
             ->method('getLoginLinkPath')
             ->willReturn($this->loginLinkPath);
+
+        $this->localeFacadeMock->expects($this->atLeastOnce())
+            ->method('getCurrentLocaleName')
+            ->willReturn($this->currentLocaleName);
+
+        $this->storeFacadeMock->expects($this->atLeastOnce())
+            ->method('getCurrentStore')
+            ->willReturn($this->storeTransferMock);
+
+        $this->storeTransferMock->expects($this->atLeastOnce())
+            ->method('getAvailableLocaleIsoCodes')
+            ->willReturn($this->availableLocaleIsoCodes);
 
         $this->oneTimePasswordConfigMock->expects($this->atLeastOnce())
             ->method('getLoginLinkParameterName')
@@ -208,6 +268,18 @@ class OneTimePasswordLinkGeneratorTest extends Unit
         $this->oneTimePasswordConfigMock->expects($this->atLeastOnce())
             ->method('getLoginLinkPath')
             ->willReturn($this->loginLinkPath);
+
+        $this->localeFacadeMock->expects($this->atLeastOnce())
+            ->method('getCurrentLocaleName')
+            ->willReturn($this->currentLocaleName);
+
+        $this->storeFacadeMock->expects($this->atLeastOnce())
+            ->method('getCurrentStore')
+            ->willReturn($this->storeTransferMock);
+
+        $this->storeTransferMock->expects($this->atLeastOnce())
+            ->method('getAvailableLocaleIsoCodes')
+            ->willReturn($this->availableLocaleIsoCodes);
 
         $this->oneTimePasswordConfigMock->expects($this->atLeastOnce())
             ->method('getLoginLinkParameterName')

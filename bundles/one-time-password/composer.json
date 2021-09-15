@@ -14,6 +14,8 @@
     "hackzilla/password-generator": "^1.6",
     "spryker/auth-rest-api-extension": "^1.0.0",
     "spryker/customer": "^1.0.0 || ^2.0.0 || ^3.0.0 || ^4.0.0 || ^5.0.0 || ^6.0.0 || ^7.0.0",
+    "spryker/store": "^1.0.0",
+    "spryker/locale": "^1.0.0 || ^2.0.0 || ^3.0.0",
     "spryker/oauth": "^1.0.0 || ^2.0.0",
     "spryker/oms-extension": "^1.0.0"
   },

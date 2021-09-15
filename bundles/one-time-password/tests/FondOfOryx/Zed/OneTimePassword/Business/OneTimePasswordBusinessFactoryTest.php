@@ -6,8 +6,10 @@ use Codeception\Test\Unit;
 use FondOfOryx\Zed\OneTimePassword\Business\Generator\OneTimePasswordLinkGeneratorInterface;
 use FondOfOryx\Zed\OneTimePassword\Business\Resetter\OneTimePasswordResetterInterface;
 use FondOfOryx\Zed\OneTimePassword\Business\Sender\OneTimePasswordSenderInterface;
+use FondOfOryx\Zed\OneTimePassword\Dependency\Facade\OneTimePasswordToLocaleFacadeInterface;
 use FondOfOryx\Zed\OneTimePassword\Dependency\Facade\OneTimePasswordToOauthFacadeInterface;
 use FondOfOryx\Zed\OneTimePassword\Dependency\Facade\OneTimePasswordToOneTimePasswordEmailConnectorFacadeInterface;
+use FondOfOryx\Zed\OneTimePassword\Dependency\Facade\OneTimePasswordToStoreFacadeInterface;
 use FondOfOryx\Zed\OneTimePassword\OneTimePasswordConfig;
 use FondOfOryx\Zed\OneTimePassword\OneTimePasswordDependencyProvider;
 use FondOfOryx\Zed\OneTimePassword\Persistence\OneTimePasswordEntityManager;
@@ -46,6 +48,16 @@ class OneTimePasswordBusinessFactoryTest extends Unit
     protected $oauthFacadeMock;
 
     /**
+     * @var \FondOfOryx\Zed\OneTimePassword\Dependency\Facade\OneTimePasswordToStoreFacadeInterface|mixed|\PHPUnit\Framework\MockObject\MockObject
+     */
+    protected $storeFacadeMock;
+
+    /**
+     * @var \FondOfOryx\Zed\OneTimePassword\Dependency\Facade\OneTimePasswordToLocaleFacadeInterface|mixed|\PHPUnit\Framework\MockObject\MockObject
+     */
+    protected $localeFacadeMock;
+
+    /**
      * @return void
      */
     protected function _before(): void
@@ -67,6 +79,14 @@ class OneTimePasswordBusinessFactoryTest extends Unit
             ->getMock();
 
         $this->oauthFacadeMock = $this->getMockBuilder(OneTimePasswordToOauthFacadeInterface::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $this->storeFacadeMock = $this->getMockBuilder(OneTimePasswordToStoreFacadeInterface::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $this->localeFacadeMock = $this->getMockBuilder(OneTimePasswordToLocaleFacadeInterface::class)
             ->disableOriginalConstructor()
             ->getMock();
 
@@ -118,8 +138,11 @@ class OneTimePasswordBusinessFactoryTest extends Unit
 
         $this->containerMock->expects($this->atLeastOnce())
             ->method('get')
-            ->with(OneTimePasswordDependencyProvider::FACADE_OAUTH)
-            ->willReturn($this->oauthFacadeMock);
+            ->willReturnOnConsecutiveCalls(
+                $this->oauthFacadeMock,
+                $this->storeFacadeMock,
+                $this->localeFacadeMock
+            );
 
         $this->assertInstanceOf(
             OneTimePasswordLinkGeneratorInterface::class,
