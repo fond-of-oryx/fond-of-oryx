@@ -3,28 +3,35 @@
 namespace FondOfOryx\Zed\CompanyBusinessUnitOrderBudget\Business;
 
 use Codeception\Test\Unit;
+use FondOfOryx\Zed\CompanyBusinessUnitOrderBudget\Business\Expander\QuoteExpander;
 use FondOfOryx\Zed\CompanyBusinessUnitOrderBudget\Business\Writer\OrderBudgetWriter;
 use FondOfOryx\Zed\CompanyBusinessUnitOrderBudget\CompanyBusinessUnitOrderBudgetDependencyProvider;
 use FondOfOryx\Zed\CompanyBusinessUnitOrderBudget\Dependency\Facade\CompanyBusinessUnitOrderBudgetToOrderBudgetFacadeInterface;
+use FondOfOryx\Zed\CompanyBusinessUnitOrderBudget\Dependency\Facade\CompanyBusinessUnitOrderBudgetToPermissionFacadeInterface;
 use FondOfOryx\Zed\CompanyBusinessUnitOrderBudget\Persistence\CompanyBusinessUnitOrderBudgetEntityManager;
 use Spryker\Zed\Kernel\Container;
 
 class CompanyBusinessUnitOrderBudgetBusinessFactoryTest extends Unit
 {
     /**
-     * @var mixed|\PHPUnit\Framework\MockObject\MockObject|\Spryker\Zed\Kernel\Container
+     * @var \PHPUnit\Framework\MockObject\MockObject|\Spryker\Zed\Kernel\Container
      */
     protected $containerMock;
 
     /**
-     * @var \FondOfOryx\Zed\CompanyBusinessUnitOrderBudget\Persistence\CompanyBusinessUnitOrderBudgetEntityManager|mixed|\PHPUnit\Framework\MockObject\MockObject
+     * @var \FondOfOryx\Zed\CompanyBusinessUnitOrderBudget\Persistence\CompanyBusinessUnitOrderBudgetEntityManager|\PHPUnit\Framework\MockObject\MockObject
      */
     protected $entityManagerMock;
 
     /**
-     * @var \FondOfOryx\Zed\CompanyBusinessUnitOrderBudget\Dependency\Facade\CompanyBusinessUnitOrderBudgetToOrderBudgetFacadeInterface|mixed|\PHPUnit\Framework\MockObject\MockObject
+     * @var \FondOfOryx\Zed\CompanyBusinessUnitOrderBudget\Dependency\Facade\CompanyBusinessUnitOrderBudgetToOrderBudgetFacadeInterface|\PHPUnit\Framework\MockObject\MockObject
      */
     protected $orderBudgetFacadeMock;
+
+    /**
+     * @var \FondOfOryx\Zed\CompanyBusinessUnitOrderBudget\Dependency\Facade\CompanyBusinessUnitOrderBudgetToPermissionFacadeInterface|\PHPUnit\Framework\MockObject\MockObject
+     */
+    protected $permissionFacadeMock;
 
     /**
      * @var \FondOfOryx\Zed\CompanyBusinessUnitOrderBudget\Business\CompanyBusinessUnitOrderBudgetBusinessFactory
@@ -47,6 +54,10 @@ class CompanyBusinessUnitOrderBudgetBusinessFactoryTest extends Unit
             ->getMock();
 
         $this->orderBudgetFacadeMock = $this->getMockBuilder(CompanyBusinessUnitOrderBudgetToOrderBudgetFacadeInterface::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $this->permissionFacadeMock = $this->getMockBuilder(CompanyBusinessUnitOrderBudgetToPermissionFacadeInterface::class)
             ->disableOriginalConstructor()
             ->getMock();
 
@@ -73,6 +84,27 @@ class CompanyBusinessUnitOrderBudgetBusinessFactoryTest extends Unit
         static::assertInstanceOf(
             OrderBudgetWriter::class,
             $this->businessFactory->createOrderBudgetWriter()
+        );
+    }
+
+    /**
+     * @return void
+     */
+    public function testCreateQuoteExpander(): void
+    {
+        $this->containerMock->expects(static::atLeastOnce())
+            ->method('has')
+            ->with(CompanyBusinessUnitOrderBudgetDependencyProvider::FACADE_PERMISSION)
+            ->willReturn(true);
+
+        $this->containerMock->expects(static::atLeastOnce())
+            ->method('get')
+            ->with(CompanyBusinessUnitOrderBudgetDependencyProvider::FACADE_PERMISSION)
+            ->willReturn($this->permissionFacadeMock);
+
+        static::assertInstanceOf(
+            QuoteExpander::class,
+            $this->businessFactory->createQuoteExpander()
         );
     }
 }

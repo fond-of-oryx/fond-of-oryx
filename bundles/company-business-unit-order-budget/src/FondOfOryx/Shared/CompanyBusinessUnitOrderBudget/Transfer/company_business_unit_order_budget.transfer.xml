@@ -7,4 +7,15 @@
         <property name="fkOrderBudget" type="int" />
         <property name="orderBudget" type="OrderBudget"/>
     </transfer>
+
+    <transfer name="Quote">
+        <property name="companyUserReference" type="string"/>
+        <property name="companyUser" type="CompanyUser"/>
+        <property name="validationMessages" type="Message[]" singular="validationMessage"/>
+    </transfer>
+
+    <transfer name="Message">
+        <property name="value" type="string"/>
+        <property name="parameters" type="array" singular="parameters"/>
+    </transfer>
 </transfers>

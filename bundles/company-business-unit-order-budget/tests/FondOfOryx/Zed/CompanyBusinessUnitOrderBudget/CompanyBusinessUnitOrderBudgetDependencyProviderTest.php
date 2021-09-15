@@ -4,11 +4,13 @@ namespace FondOfOryx\Zed\CompanyBusinessUnitOrderBudget;
 
 use Codeception\Test\Unit;
 use FondOfOryx\Zed\CompanyBusinessUnitOrderBudget\Dependency\Facade\CompanyBusinessUnitOrderBudgetToOrderBudgetFacadeInterface;
+use FondOfOryx\Zed\CompanyBusinessUnitOrderBudget\Dependency\Facade\CompanyBusinessUnitOrderBudgetToPermissionFacadeInterface;
 use FondOfOryx\Zed\OrderBudget\Business\OrderBudgetFacadeInterface;
 use Orm\Zed\CompanyBusinessUnit\Persistence\Base\SpyCompanyBusinessUnitQuery;
 use Spryker\Shared\Kernel\BundleProxy;
 use Spryker\Zed\Kernel\Container;
 use Spryker\Zed\Kernel\Locator;
+use Spryker\Zed\Permission\Business\PermissionFacadeInterface;
 
 class CompanyBusinessUnitOrderBudgetDependencyProviderTest extends Unit
 {
@@ -31,6 +33,11 @@ class CompanyBusinessUnitOrderBudgetDependencyProviderTest extends Unit
      * @var \FondOfOryx\Zed\OrderBudget\Business\OrderBudgetFacadeInterface|mixed|\PHPUnit\Framework\MockObject\MockObject
      */
     protected $orderBudgetFacadeMock;
+
+    /**
+     * @var \PHPUnit\Framework\MockObject\MockObject|\Spryker\Zed\Permission\Business\PermissionFacadeInterface
+     */
+    protected $permissionFacadeMock;
 
     /**
      * @var \FondOfOryx\Zed\CompanyBusinessUnitOrderBudget\CompanyBusinessUnitOrderBudgetDependencyProvider
@@ -62,6 +69,10 @@ class CompanyBusinessUnitOrderBudgetDependencyProviderTest extends Unit
             ->disableOriginalConstructor()
             ->getMock();
 
+        $this->permissionFacadeMock = $this->getMockBuilder(PermissionFacadeInterface::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
         $this->dependencyProvider = new CompanyBusinessUnitOrderBudgetDependencyProvider();
     }
 
@@ -76,13 +87,18 @@ class CompanyBusinessUnitOrderBudgetDependencyProviderTest extends Unit
 
         $this->locatorMock->expects(static::atLeastOnce())
             ->method('__call')
-            ->with('orderBudget')
-            ->willReturn($this->bundleProxyMock);
+            ->withConsecutive(
+                ['orderBudget'],
+                ['permission'],
+            )->willReturn($this->bundleProxyMock);
 
         $this->bundleProxyMock->expects(static::atLeastOnce())
             ->method('__call')
             ->with('facade')
-            ->willReturn($this->orderBudgetFacadeMock);
+            ->willReturnOnConsecutiveCalls(
+                $this->orderBudgetFacadeMock,
+                $this->permissionFacadeMock
+            );
 
         $container = $this->dependencyProvider->provideBusinessLayerDependencies($this->containerMock);
 
@@ -91,6 +107,11 @@ class CompanyBusinessUnitOrderBudgetDependencyProviderTest extends Unit
         static::assertInstanceOf(
             CompanyBusinessUnitOrderBudgetToOrderBudgetFacadeInterface::class,
             $container[CompanyBusinessUnitOrderBudgetDependencyProvider::FACADE_ORDER_BUDGET]
+        );
+
+        static::assertInstanceOf(
+            CompanyBusinessUnitOrderBudgetToPermissionFacadeInterface::class,
+            $container[CompanyBusinessUnitOrderBudgetDependencyProvider::FACADE_PERMISSION]
         );
     }
 

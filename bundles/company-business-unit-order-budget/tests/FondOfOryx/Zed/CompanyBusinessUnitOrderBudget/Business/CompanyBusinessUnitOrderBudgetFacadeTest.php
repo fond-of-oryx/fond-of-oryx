@@ -3,8 +3,10 @@
 namespace FondOfOryx\Zed\CompanyBusinessUnitOrderBudget\Business;
 
 use Codeception\Test\Unit;
+use FondOfOryx\Zed\CompanyBusinessUnitOrderBudget\Business\Expander\QuoteExpanderInterface;
 use FondOfOryx\Zed\CompanyBusinessUnitOrderBudget\Business\Writer\OrderBudgetWriterInterface;
 use Generated\Shared\Transfer\CompanyBusinessUnitTransfer;
+use Generated\Shared\Transfer\QuoteTransfer;
 
 class CompanyBusinessUnitOrderBudgetFacadeTest extends Unit
 {
@@ -22,6 +24,16 @@ class CompanyBusinessUnitOrderBudgetFacadeTest extends Unit
      * @var \PHPUnit\Framework\MockObject\MockObject|\Generated\Shared\Transfer\CompanyBusinessUnitTransfer
      */
     protected $companyBusinessUnitTransferMock;
+
+    /**
+     * @var \FondOfOryx\Zed\CompanyBusinessUnitOrderBudget\Business\Expander\QuoteExpanderInterface|\PHPUnit\Framework\MockObject\MockObject
+     */
+    protected $quoteExpanderMock;
+
+    /**
+     * @var \Generated\Shared\Transfer\QuoteTransfer|\PHPUnit\Framework\MockObject\MockObject
+     */
+    protected $quoteTransferMock;
 
     /**
      * @var \FondOfOryx\Zed\CompanyBusinessUnitOrderBudget\Business\CompanyBusinessUnitOrderBudgetFacade
@@ -47,6 +59,14 @@ class CompanyBusinessUnitOrderBudgetFacadeTest extends Unit
             ->disableOriginalConstructor()
             ->getMock();
 
+        $this->quoteExpanderMock = $this->getMockBuilder(QuoteExpanderInterface::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $this->quoteTransferMock = $this->getMockBuilder(QuoteTransfer::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
         $this->facade = new CompanyBusinessUnitOrderBudgetFacade();
         $this->facade->setFactory($this->businessFactoryMock);
     }
@@ -65,5 +85,25 @@ class CompanyBusinessUnitOrderBudgetFacadeTest extends Unit
             ->with($this->companyBusinessUnitTransferMock);
 
         $this->facade->createOrderBudgetForCompanyBusinessUnit($this->companyBusinessUnitTransferMock);
+    }
+
+    /**
+     * @return void
+     */
+    public function testExpandQuote(): void
+    {
+        $this->businessFactoryMock->expects(static::atLeastOnce())
+            ->method('createQuoteExpander')
+            ->willReturn($this->quoteExpanderMock);
+
+        $this->quoteExpanderMock->expects(static::atLeastOnce())
+            ->method('expand')
+            ->with($this->quoteTransferMock)
+            ->willReturn($this->quoteTransferMock);
+
+        static::assertEquals(
+            $this->quoteTransferMock,
+            $this->facade->expandQuote($this->quoteTransferMock)
+        );
     }
 }

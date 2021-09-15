@@ -3,6 +3,7 @@
 namespace FondOfOryx\Zed\CompanyBusinessUnitOrderBudget\Business;
 
 use Generated\Shared\Transfer\CompanyBusinessUnitTransfer;
+use Generated\Shared\Transfer\QuoteTransfer;
 use Spryker\Zed\Kernel\Business\AbstractFacade;
 
 /**
@@ -24,5 +25,19 @@ class CompanyBusinessUnitOrderBudgetFacade extends AbstractFacade implements Com
         CompanyBusinessUnitTransfer $companyBusinessUnitTransfer
     ): void {
         $this->getFactory()->createOrderBudgetWriter()->createForCompanyBusinessUnit($companyBusinessUnitTransfer);
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * @api
+     *
+     * @param \Generated\Shared\Transfer\QuoteTransfer $quoteTransfer
+     *
+     * @return \Generated\Shared\Transfer\QuoteTransfer
+     */
+    public function expandQuote(QuoteTransfer $quoteTransfer): QuoteTransfer
+    {
+        return $this->getFactory()->createQuoteExpander()->expand($quoteTransfer);
     }
 }

@@ -2,10 +2,13 @@
 
 namespace FondOfOryx\Zed\CompanyBusinessUnitOrderBudget\Business;
 
+use FondOfOryx\Zed\CompanyBusinessUnitOrderBudget\Business\Expander\QuoteExpander;
+use FondOfOryx\Zed\CompanyBusinessUnitOrderBudget\Business\Expander\QuoteExpanderInterface;
 use FondOfOryx\Zed\CompanyBusinessUnitOrderBudget\Business\Writer\OrderBudgetWriter;
 use FondOfOryx\Zed\CompanyBusinessUnitOrderBudget\Business\Writer\OrderBudgetWriterInterface;
 use FondOfOryx\Zed\CompanyBusinessUnitOrderBudget\CompanyBusinessUnitOrderBudgetDependencyProvider;
 use FondOfOryx\Zed\CompanyBusinessUnitOrderBudget\Dependency\Facade\CompanyBusinessUnitOrderBudgetToOrderBudgetFacadeInterface;
+use FondOfOryx\Zed\CompanyBusinessUnitOrderBudget\Dependency\Facade\CompanyBusinessUnitOrderBudgetToPermissionFacadeInterface;
 use Spryker\Zed\Kernel\Business\AbstractBusinessFactory;
 
 /**
@@ -13,6 +16,16 @@ use Spryker\Zed\Kernel\Business\AbstractBusinessFactory;
  */
 class CompanyBusinessUnitOrderBudgetBusinessFactory extends AbstractBusinessFactory
 {
+    /**
+     * @return \FondOfOryx\Zed\CompanyBusinessUnitOrderBudget\Business\Expander\QuoteExpanderInterface
+     */
+    public function createQuoteExpander(): QuoteExpanderInterface
+    {
+        return new QuoteExpander(
+            $this->getPermissionFacade()
+        );
+    }
+
     /**
      * @return \FondOfOryx\Zed\CompanyBusinessUnitOrderBudget\Business\Writer\OrderBudgetWriterInterface
      */
@@ -31,6 +44,16 @@ class CompanyBusinessUnitOrderBudgetBusinessFactory extends AbstractBusinessFact
     {
         return $this->getProvidedDependency(
             CompanyBusinessUnitOrderBudgetDependencyProvider::FACADE_ORDER_BUDGET
+        );
+    }
+
+    /**
+     * @return \FondOfOryx\Zed\CompanyBusinessUnitOrderBudget\Dependency\Facade\CompanyBusinessUnitOrderBudgetToPermissionFacadeInterface
+     */
+    protected function getPermissionFacade(): CompanyBusinessUnitOrderBudgetToPermissionFacadeInterface
+    {
+        return $this->getProvidedDependency(
+            CompanyBusinessUnitOrderBudgetDependencyProvider::FACADE_PERMISSION
         );
     }
 }
