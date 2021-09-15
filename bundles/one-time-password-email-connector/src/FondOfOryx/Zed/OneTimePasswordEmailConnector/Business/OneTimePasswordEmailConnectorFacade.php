@@ -21,4 +21,16 @@ class OneTimePasswordEmailConnectorFacade extends AbstractFacade implements OneT
             ->createOneTimePasswordEmailConnector()
             ->sendOneTimePasswordMail($oneTimePasswordResponseTransfer);
     }
+
+    /**
+     * @param \Generated\Shared\Transfer\OneTimePasswordResponseTransfer $oneTimePasswordResponseTransfer
+     *
+     * @return void
+     */
+    public function sendLoginLinkMail(OneTimePasswordResponseTransfer $oneTimePasswordResponseTransfer): void
+    {
+        $this->getFactory()
+            ->createOneTimePasswordEmailConnector()
+            ->sendLoginLinkMail($oneTimePasswordResponseTransfer);
+    }
 }
