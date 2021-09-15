@@ -3,6 +3,7 @@
 namespace FondOfOryx\Zed\OneTimePasswordEmailConnector\Business;
 
 use FondOfOryx\Zed\OneTimePasswordEmailConnector\Business\Dependency\Facade\OneTimePasswordEmailConnectorToMailBridge;
+use FondOfOryx\Zed\OneTimePasswordEmailConnector\Communication\Plugin\Mail\OneTimePasswordEmailConnectorLoginLinkMailTypePlugin;
 use FondOfOryx\Zed\OneTimePasswordEmailConnector\Communication\Plugin\Mail\OneTimePasswordEmailConnectorMailTypePlugin;
 use Generated\Shared\Transfer\MailTransfer;
 use Generated\Shared\Transfer\OneTimePasswordResponseTransfer;
@@ -38,6 +39,27 @@ class OneTimePasswordEmailConnector implements OneTimePasswordEmailConnectorInte
             ->setType(OneTimePasswordEmailConnectorMailTypePlugin::MAIL_TYPE)
             ->setCustomer($customerTransfer)
             ->setOneTimePasswordPlain($oneTimePasswordResponseTransfer->getOneTimePasswordPlain())
+            ->setLocale($customerTransfer->getLocale());
+
+        $this->mailFacade->handleMail($mailTransfer);
+    }
+
+    /**
+     * @param \Generated\Shared\Transfer\OneTimePasswordResponseTransfer $oneTimePasswordResponseTransfer
+     *
+     * @return void
+     */
+    public function sendLoginLinkMail(OneTimePasswordResponseTransfer $oneTimePasswordResponseTransfer): void
+    {
+        $customerTransfer = $oneTimePasswordResponseTransfer
+            ->requireLoginLink()
+            ->requireCustomerTransfer()
+            ->getCustomerTransfer();
+
+        $mailTransfer = (new MailTransfer())
+            ->setType(OneTimePasswordEmailConnectorLoginLinkMailTypePlugin::MAIL_TYPE)
+            ->setCustomer($customerTransfer)
+            ->setOneTimePasswordLoginLink($oneTimePasswordResponseTransfer->getLoginLink())
             ->setLocale($customerTransfer->getLocale());
 
         $this->mailFacade->handleMail($mailTransfer);

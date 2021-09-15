@@ -12,4 +12,11 @@ interface OneTimePasswordEmailConnectorFacadeInterface
      * @return void
      */
     public function sendOneTimePasswordMail(OneTimePasswordResponseTransfer $oneTimePasswordResponseTransfer): void;
+
+    /**
+     * @param \Generated\Shared\Transfer\OneTimePasswordResponseTransfer $oneTimePasswordResponseTransfer
+     *
+     * @return void
+     */
+    public function sendLoginLinkMail(OneTimePasswordResponseTransfer $oneTimePasswordResponseTransfer): void;
 }
