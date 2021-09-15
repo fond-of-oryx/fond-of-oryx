@@ -5,6 +5,7 @@ namespace FondOfOryx\Zed\OneTimePasswordRestApi\Communication\Controller;
 use Codeception\Test\Unit;
 use FondOfOryx\Zed\OneTimePasswordRestApi\Business\OneTimePasswordRestApiFacade;
 use FondOfOryx\Zed\OneTimePasswordRestApi\Business\OneTimePasswordRestApiFacadeInterface;
+use Generated\Shared\Transfer\RestOneTimePasswordLoginLinkRequestAttributesTransfer;
 use Generated\Shared\Transfer\RestOneTimePasswordRequestAttributesTransfer;
 use Generated\Shared\Transfer\RestOneTimePasswordResponseTransfer;
 
@@ -31,6 +32,11 @@ class GatewayControllerTest extends Unit
     protected $restOneTimePasswordRequestAttributesTransferMock;
 
     /**
+     * @var \Generated\Shared\Transfer\RestOneTimePasswordLoginLinkRequestAttributesTransfer|mixed|\PHPUnit\Framework\MockObject\MockObject
+     */
+    protected $restOneTimePasswordLoginLinkRequestAttributesTransferMock;
+
+    /**
      * @return void
      */
     protected function _before(): void
@@ -44,6 +50,10 @@ class GatewayControllerTest extends Unit
             ->getMock();
 
         $this->restOneTimePasswordRequestAttributesTransferMock = $this->getMockBuilder(RestOneTimePasswordRequestAttributesTransfer::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $this->restOneTimePasswordLoginLinkRequestAttributesTransferMock = $this->getMockBuilder(RestOneTimePasswordLoginLinkRequestAttributesTransfer::class)
             ->disableOriginalConstructor()
             ->getMock();
 
@@ -85,6 +95,24 @@ class GatewayControllerTest extends Unit
             $this->restOneTimePasswordResponseTransferMock,
             $this->gatewayController->requestOneTimePasswordAction(
                 $this->restOneTimePasswordRequestAttributesTransferMock
+            )
+        );
+    }
+
+    /**
+     * @return void
+     */
+    public function testRequestOneTimePasswordLoginLinkAction(): void
+    {
+        $this->oneTimePasswordRestApiFacadeMock->expects($this->atLeastOnce())
+            ->method('requestLoginLink')
+            ->with($this->restOneTimePasswordLoginLinkRequestAttributesTransferMock)
+            ->willReturn($this->restOneTimePasswordResponseTransferMock);
+
+        $this->assertSame(
+            $this->restOneTimePasswordResponseTransferMock,
+            $this->gatewayController->requestOneTimePasswordLoginLinkAction(
+                $this->restOneTimePasswordLoginLinkRequestAttributesTransferMock
             )
         );
     }

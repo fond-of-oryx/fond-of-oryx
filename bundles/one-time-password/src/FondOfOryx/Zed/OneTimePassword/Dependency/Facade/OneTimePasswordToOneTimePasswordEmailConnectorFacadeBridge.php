@@ -29,4 +29,14 @@ class OneTimePasswordToOneTimePasswordEmailConnectorFacadeBridge implements OneT
     {
         $this->oneTimePasswordEmailConnectorFacade->sendOneTimePasswordMail($oneTimePasswordResponseTransfer);
     }
+
+    /**
+     * @param \Generated\Shared\Transfer\OneTimePasswordResponseTransfer $oneTimePasswordResponseTransfer
+     *
+     * @return void
+     */
+    public function sendLoginLinkMail(OneTimePasswordResponseTransfer $oneTimePasswordResponseTransfer): void
+    {
+        $this->oneTimePasswordEmailConnectorFacade->sendLoginLinkMail($oneTimePasswordResponseTransfer);
+    }
 }

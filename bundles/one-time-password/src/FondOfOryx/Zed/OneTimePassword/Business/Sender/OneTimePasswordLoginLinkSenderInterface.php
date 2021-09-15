@@ -1,20 +1,13 @@
 <?php
 
-namespace FondOfOryx\Zed\OneTimePasswordRestApi\Dependency\Facade;
+namespace FondOfOryx\Zed\OneTimePassword\Business\Sender;
 
 use Generated\Shared\Transfer\CustomerTransfer;
 use Generated\Shared\Transfer\OneTimePasswordResponseTransfer;
 use Generated\Shared\Transfer\OrderTransfer;
 
-interface OneTimePasswordRestApiToOneTimePasswordFacadeInterface
+interface OneTimePasswordLoginLinkSenderInterface
 {
-    /**
-     * @param \Generated\Shared\Transfer\CustomerTransfer $customerTransfer
-     *
-     * @return \Generated\Shared\Transfer\OneTimePasswordResponseTransfer
-     */
-    public function requestOneTimePassword(CustomerTransfer $customerTransfer): OneTimePasswordResponseTransfer;
-
     /**
      * @param \Generated\Shared\Transfer\CustomerTransfer $customerTransfer
      *

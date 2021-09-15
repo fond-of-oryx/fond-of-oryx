@@ -3,12 +3,12 @@
 namespace FondOfOryx\Glue\OneTimePasswordRestApi\Plugin\GlueApplicationExtension;
 
 use FondOfOryx\Glue\OneTimePasswordRestApi\OneTimePasswordRestApiConfig;
-use Generated\Shared\Transfer\RestOneTimePasswordRequestAttributesTransfer;
+use Generated\Shared\Transfer\RestOneTimePasswordLoginLinkRequestAttributesTransfer;
 use Spryker\Glue\GlueApplicationExtension\Dependency\Plugin\ResourceRouteCollectionInterface;
 use Spryker\Glue\GlueApplicationExtension\Dependency\Plugin\ResourceRoutePluginInterface;
 use Spryker\Glue\Kernel\AbstractPlugin;
 
-class OneTimePasswordResourceRoutePlugin extends AbstractPlugin implements ResourceRoutePluginInterface
+class OneTimePasswordLoginLinkResourceRoutePlugin extends AbstractPlugin implements ResourceRoutePluginInterface
 {
     /**
      * @param \Spryker\Glue\GlueApplicationExtension\Dependency\Plugin\ResourceRouteCollectionInterface $resourceRouteCollection
@@ -28,7 +28,7 @@ class OneTimePasswordResourceRoutePlugin extends AbstractPlugin implements Resou
      */
     public function getResourceType(): string
     {
-        return OneTimePasswordRestApiConfig::RESOURCE_ONE_TIME_PASSWORDS;
+        return OneTimePasswordRestApiConfig::RESOURCE_ONE_TIME_PASSWORD_LOGIN_LINKS;
     }
 
     /**
@@ -36,7 +36,7 @@ class OneTimePasswordResourceRoutePlugin extends AbstractPlugin implements Resou
      */
     public function getController(): string
     {
-        return OneTimePasswordRestApiConfig::CONTROLLER_ONE_TIME_PASSWORD;
+        return OneTimePasswordRestApiConfig::CONTROLLER_ONE_TIME_PASSWORD_LOGIN_LINK;
     }
 
     /**
@@ -44,6 +44,6 @@ class OneTimePasswordResourceRoutePlugin extends AbstractPlugin implements Resou
      */
     public function getResourceAttributesClassName(): string
     {
-        return RestOneTimePasswordRequestAttributesTransfer::class;
+        return RestOneTimePasswordLoginLinkRequestAttributesTransfer::class;
     }
 }
