@@ -11,6 +11,7 @@
   "require": {
     "php": ">=7.3",
     "fond-of-oryx/order-budget": "^1.0.0",
+    "spryker/checkout-extension": "^1.2.0",
     "spryker/company-business-unit-extension": "^1.0.0",
     "spryker/quote-extension": "^1.2.0",
     "spryker/permission": "^1.0.0",

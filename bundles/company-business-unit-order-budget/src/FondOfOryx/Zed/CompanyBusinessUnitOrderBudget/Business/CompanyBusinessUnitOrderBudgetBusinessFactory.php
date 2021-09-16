@@ -4,6 +4,8 @@ namespace FondOfOryx\Zed\CompanyBusinessUnitOrderBudget\Business;
 
 use FondOfOryx\Zed\CompanyBusinessUnitOrderBudget\Business\Expander\QuoteExpander;
 use FondOfOryx\Zed\CompanyBusinessUnitOrderBudget\Business\Expander\QuoteExpanderInterface;
+use FondOfOryx\Zed\CompanyBusinessUnitOrderBudget\Business\Validator\QuoteValidator;
+use FondOfOryx\Zed\CompanyBusinessUnitOrderBudget\Business\Validator\QuoteValidatorInterface;
 use FondOfOryx\Zed\CompanyBusinessUnitOrderBudget\Business\Writer\OrderBudgetWriter;
 use FondOfOryx\Zed\CompanyBusinessUnitOrderBudget\Business\Writer\OrderBudgetWriterInterface;
 use FondOfOryx\Zed\CompanyBusinessUnitOrderBudget\CompanyBusinessUnitOrderBudgetDependencyProvider;
@@ -17,12 +19,22 @@ use Spryker\Zed\Kernel\Business\AbstractBusinessFactory;
 class CompanyBusinessUnitOrderBudgetBusinessFactory extends AbstractBusinessFactory
 {
     /**
+     * @return \FondOfOryx\Zed\CompanyBusinessUnitOrderBudget\Business\Validator\QuoteValidatorInterface
+     */
+    public function createQuoteValidator(): QuoteValidatorInterface
+    {
+        return new QuoteValidator(
+            $this->getPermissionFacade()
+        );
+    }
+
+    /**
      * @return \FondOfOryx\Zed\CompanyBusinessUnitOrderBudget\Business\Expander\QuoteExpanderInterface
      */
     public function createQuoteExpander(): QuoteExpanderInterface
     {
         return new QuoteExpander(
-            $this->getPermissionFacade()
+            $this->createQuoteValidator()
         );
     }
 

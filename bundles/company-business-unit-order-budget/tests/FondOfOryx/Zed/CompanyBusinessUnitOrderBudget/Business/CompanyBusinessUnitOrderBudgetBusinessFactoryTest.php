@@ -4,6 +4,7 @@ namespace FondOfOryx\Zed\CompanyBusinessUnitOrderBudget\Business;
 
 use Codeception\Test\Unit;
 use FondOfOryx\Zed\CompanyBusinessUnitOrderBudget\Business\Expander\QuoteExpander;
+use FondOfOryx\Zed\CompanyBusinessUnitOrderBudget\Business\Validator\QuoteValidator;
 use FondOfOryx\Zed\CompanyBusinessUnitOrderBudget\Business\Writer\OrderBudgetWriter;
 use FondOfOryx\Zed\CompanyBusinessUnitOrderBudget\CompanyBusinessUnitOrderBudgetDependencyProvider;
 use FondOfOryx\Zed\CompanyBusinessUnitOrderBudget\Dependency\Facade\CompanyBusinessUnitOrderBudgetToOrderBudgetFacadeInterface;
@@ -105,6 +106,27 @@ class CompanyBusinessUnitOrderBudgetBusinessFactoryTest extends Unit
         static::assertInstanceOf(
             QuoteExpander::class,
             $this->businessFactory->createQuoteExpander()
+        );
+    }
+
+    /**
+     * @return void
+     */
+    public function testCreateQuoteValidator(): void
+    {
+        $this->containerMock->expects(static::atLeastOnce())
+            ->method('has')
+            ->with(CompanyBusinessUnitOrderBudgetDependencyProvider::FACADE_PERMISSION)
+            ->willReturn(true);
+
+        $this->containerMock->expects(static::atLeastOnce())
+            ->method('get')
+            ->with(CompanyBusinessUnitOrderBudgetDependencyProvider::FACADE_PERMISSION)
+            ->willReturn($this->permissionFacadeMock);
+
+        static::assertInstanceOf(
+            QuoteValidator::class,
+            $this->businessFactory->createQuoteValidator()
         );
     }
 }

@@ -4,6 +4,7 @@ namespace FondOfOryx\Zed\CompanyBusinessUnitOrderBudget\Business;
 
 use Codeception\Test\Unit;
 use FondOfOryx\Zed\CompanyBusinessUnitOrderBudget\Business\Expander\QuoteExpanderInterface;
+use FondOfOryx\Zed\CompanyBusinessUnitOrderBudget\Business\Validator\QuoteValidatorInterface;
 use FondOfOryx\Zed\CompanyBusinessUnitOrderBudget\Business\Writer\OrderBudgetWriterInterface;
 use Generated\Shared\Transfer\CompanyBusinessUnitTransfer;
 use Generated\Shared\Transfer\QuoteTransfer;
@@ -36,6 +37,11 @@ class CompanyBusinessUnitOrderBudgetFacadeTest extends Unit
     protected $quoteTransferMock;
 
     /**
+     * @var \FondOfOryx\Zed\CompanyBusinessUnitOrderBudget\Business\Validator\QuoteValidatorInterface|\PHPUnit\Framework\MockObject\MockObject
+     */
+    protected $quoteValidatorMock;
+
+    /**
      * @var \FondOfOryx\Zed\CompanyBusinessUnitOrderBudget\Business\CompanyBusinessUnitOrderBudgetFacade
      */
     protected $facade;
@@ -64,6 +70,10 @@ class CompanyBusinessUnitOrderBudgetFacadeTest extends Unit
             ->getMock();
 
         $this->quoteTransferMock = $this->getMockBuilder(QuoteTransfer::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $this->quoteValidatorMock = $this->getMockBuilder(QuoteValidatorInterface::class)
             ->disableOriginalConstructor()
             ->getMock();
 
@@ -105,5 +115,21 @@ class CompanyBusinessUnitOrderBudgetFacadeTest extends Unit
             $this->quoteTransferMock,
             $this->facade->expandQuote($this->quoteTransferMock)
         );
+    }
+
+    /**
+     * @return void
+     */
+    public function testValidateQuote(): void
+    {
+        $this->businessFactoryMock->expects(static::atLeastOnce())
+            ->method('createQuoteValidator')
+            ->willReturn($this->quoteValidatorMock);
+
+        $this->quoteValidatorMock->expects(static::atLeastOnce())
+            ->method('validate')
+            ->with($this->quoteTransferMock);
+
+        $this->facade->validateQuote($this->quoteTransferMock);
     }
 }
