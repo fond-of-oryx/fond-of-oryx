@@ -35,4 +35,17 @@ interface CompanyBusinessUnitOrderBudgetFacadeInterface
      * @return \Generated\Shared\Transfer\QuoteTransfer
      */
     public function expandQuote(QuoteTransfer $quoteTransfer): QuoteTransfer;
+
+    /**
+     * Specification:
+     * - Checks if company business unit order budget is lower than subtotal
+     * - Throws exception if quote is not valid
+     *
+     * @api
+     *
+     * @param \Generated\Shared\Transfer\QuoteTransfer $quoteTransfer
+     *
+     * @return void
+     */
+    public function validateQuote(QuoteTransfer $quoteTransfer): void;
 }

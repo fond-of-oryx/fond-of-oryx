@@ -40,4 +40,18 @@ class CompanyBusinessUnitOrderBudgetFacade extends AbstractFacade implements Com
     {
         return $this->getFactory()->createQuoteExpander()->expand($quoteTransfer);
     }
+
+    /**
+     * {@inheritDoc}
+     *
+     * @api
+     *
+     * @param \Generated\Shared\Transfer\QuoteTransfer $quoteTransfer
+     *
+     * @return void
+     */
+    public function validateQuote(QuoteTransfer $quoteTransfer): void
+    {
+        $this->getFactory()->createQuoteValidator()->validate($quoteTransfer);
+    }
 }
