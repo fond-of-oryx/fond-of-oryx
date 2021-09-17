@@ -37,4 +37,18 @@ class OrderBudgetFacade extends AbstractFacade implements OrderBudgetFacadeInter
     {
         return $this->getFactory()->createOrderBudgetWriter()->create($budget);
     }
+
+    /**
+     * {@inheritDoc}
+     *
+     * @api
+     *
+     * @param \Generated\Shared\Transfer\OrderBudgetTransfer $orderBudgetTransfer
+     *
+     * @return void
+     */
+    public function updateOrderBudget(OrderBudgetTransfer $orderBudgetTransfer): void
+    {
+        $this->getFactory()->createOrderBudgetWriter()->update($orderBudgetTransfer);
+    }
 }

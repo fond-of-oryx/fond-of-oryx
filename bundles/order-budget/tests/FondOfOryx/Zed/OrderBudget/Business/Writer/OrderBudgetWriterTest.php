@@ -73,4 +73,16 @@ class OrderBudgetWriterTest extends Unit
 
         static::assertEquals($this->orderBudgetTransferMock, $this->orderBudgetWriter->create());
     }
+
+    /**
+     * @return void
+     */
+    public function testUpdate(): void
+    {
+        $this->entityManagerMock->expects(static::atLeastOnce())
+            ->method('updateOrderBudget')
+            ->with($this->orderBudgetTransferMock);
+
+        $this->orderBudgetWriter->update($this->orderBudgetTransferMock);
+    }
 }

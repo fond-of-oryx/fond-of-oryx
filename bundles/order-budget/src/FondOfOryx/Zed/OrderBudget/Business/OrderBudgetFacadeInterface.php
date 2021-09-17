@@ -7,7 +7,7 @@ use Generated\Shared\Transfer\OrderBudgetTransfer;
 interface OrderBudgetFacadeInterface
 {
     /**
-     * Specifications:
+     * Specification:
      * - Resets all order budgets
      * - Saves old data to history
      *
@@ -18,7 +18,7 @@ interface OrderBudgetFacadeInterface
     public function resetOrderBudgets(): void;
 
     /**
-     * Specifications:
+     * Specification:
      * - Creates order budget
      * - If budget is null, initial budget from config will be used
      * - Retrieves saved database entity as a transfer object
@@ -30,4 +30,17 @@ interface OrderBudgetFacadeInterface
      * @return \Generated\Shared\Transfer\OrderBudgetTransfer
      */
     public function createOrderBudget(?int $budget = null): OrderBudgetTransfer;
+
+    /**
+     * Specification:
+     * - Finds an order budget by OrderBudgetTransfer::idOrderBudget in the transfer
+     * - Updates fields in an order budget entity
+     *
+     * @api
+     *
+     * @param \Generated\Shared\Transfer\OrderBudgetTransfer $orderBudgetTransfer
+     *
+     * @return void
+     */
+    public function updateOrderBudget(OrderBudgetTransfer $orderBudgetTransfer): void;
 }

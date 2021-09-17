@@ -95,4 +95,20 @@ class OrderBudgetFacadeTest extends Unit
             $this->facade->createOrderBudget()
         );
     }
+
+    /**
+     * @return void
+     */
+    public function testUpdateOrderBudget(): void
+    {
+        $this->factoryMock->expects(static::atLeastOnce())
+            ->method('createOrderBudgetWriter')
+            ->willReturn($this->orderBudgetWriterMock);
+
+        $this->orderBudgetWriterMock->expects(static::atLeastOnce())
+            ->method('update')
+            ->with($this->orderBudgetTransferMock);
+
+        $this->facade->updateOrderBudget($this->orderBudgetTransferMock);
+    }
 }

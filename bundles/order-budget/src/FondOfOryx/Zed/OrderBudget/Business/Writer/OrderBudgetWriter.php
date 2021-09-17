@@ -45,4 +45,14 @@ class OrderBudgetWriter implements OrderBudgetWriterInterface
 
         return $this->entityManager->createOrderBudget($orderBudgetTransfer);
     }
+
+    /**
+     * @param \Generated\Shared\Transfer\OrderBudgetTransfer $orderBudgetTransfer
+     *
+     * @return void
+     */
+    public function update(OrderBudgetTransfer $orderBudgetTransfer): void
+    {
+        $this->entityManager->updateOrderBudget($orderBudgetTransfer);
+    }
 }
