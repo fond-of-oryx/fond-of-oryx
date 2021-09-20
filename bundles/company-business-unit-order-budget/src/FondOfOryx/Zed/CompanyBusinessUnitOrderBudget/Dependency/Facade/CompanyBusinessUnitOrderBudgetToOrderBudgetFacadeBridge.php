@@ -30,4 +30,14 @@ class CompanyBusinessUnitOrderBudgetToOrderBudgetFacadeBridge implements
     {
         return $this->orderBudgetFacade->createOrderBudget($budget);
     }
+
+    /**
+     * @param \Generated\Shared\Transfer\OrderBudgetTransfer $orderBudgetTransfer
+     *
+     * @return void
+     */
+    public function updateOrderBudget(OrderBudgetTransfer $orderBudgetTransfer): void
+    {
+        $this->orderBudgetFacade->updateOrderBudget($orderBudgetTransfer);
+    }
 }

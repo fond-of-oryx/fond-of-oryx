@@ -4,6 +4,7 @@ namespace FondOfOryx\Zed\CompanyBusinessUnitOrderBudget\Business;
 
 use Codeception\Test\Unit;
 use FondOfOryx\Zed\CompanyBusinessUnitOrderBudget\Business\Expander\QuoteExpanderInterface;
+use FondOfOryx\Zed\CompanyBusinessUnitOrderBudget\Business\Reducer\OrderBudgetReducerInterface;
 use FondOfOryx\Zed\CompanyBusinessUnitOrderBudget\Business\Validator\QuoteValidatorInterface;
 use FondOfOryx\Zed\CompanyBusinessUnitOrderBudget\Business\Writer\OrderBudgetWriterInterface;
 use Generated\Shared\Transfer\CompanyBusinessUnitTransfer;
@@ -42,6 +43,11 @@ class CompanyBusinessUnitOrderBudgetFacadeTest extends Unit
     protected $quoteValidatorMock;
 
     /**
+     * @var \FondOfOryx\Zed\CompanyBusinessUnitOrderBudget\Business\Reducer\OrderBudgetReducerInterface|mixed|\PHPUnit\Framework\MockObject\MockObject
+     */
+    protected $orderBudgetReducerMock;
+
+    /**
      * @var \FondOfOryx\Zed\CompanyBusinessUnitOrderBudget\Business\CompanyBusinessUnitOrderBudgetFacade
      */
     protected $facade;
@@ -74,6 +80,10 @@ class CompanyBusinessUnitOrderBudgetFacadeTest extends Unit
             ->getMock();
 
         $this->quoteValidatorMock = $this->getMockBuilder(QuoteValidatorInterface::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $this->orderBudgetReducerMock = $this->getMockBuilder(OrderBudgetReducerInterface::class)
             ->disableOriginalConstructor()
             ->getMock();
 
@@ -131,5 +141,21 @@ class CompanyBusinessUnitOrderBudgetFacadeTest extends Unit
             ->with($this->quoteTransferMock);
 
         $this->facade->validateQuote($this->quoteTransferMock);
+    }
+
+    /**
+     * @return void
+     */
+    public function testReduceOrderBudgetByQuote(): void
+    {
+        $this->businessFactoryMock->expects(static::atLeastOnce())
+            ->method('createOrderBudgetReducer')
+            ->willReturn($this->orderBudgetReducerMock);
+
+        $this->orderBudgetReducerMock->expects(static::atLeastOnce())
+            ->method('reduceByQuote')
+            ->with($this->quoteTransferMock);
+
+        $this->facade->reduceOrderBudgetByQuote($this->quoteTransferMock);
     }
 }

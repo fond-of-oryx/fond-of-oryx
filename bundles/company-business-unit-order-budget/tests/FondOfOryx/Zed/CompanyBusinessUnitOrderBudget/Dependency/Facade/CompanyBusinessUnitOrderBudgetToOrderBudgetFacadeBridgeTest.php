@@ -58,4 +58,18 @@ class CompanyBusinessUnitOrderBudgetToOrderBudgetFacadeBridgeTest extends Unit
             $this->companyBusinessUnitOrderBudgetToOrderBudgetFacadeBridge->createOrderBudget()
         );
     }
+
+    /**
+     * @return void
+     */
+    public function testUpdateOrderBudget(): void
+    {
+        $this->orderBudgetFacadeMock->expects(static::atLeastOnce())
+            ->method('updateOrderBudget')
+            ->with($this->orderBudgetTransferMock);
+
+        $this->companyBusinessUnitOrderBudgetToOrderBudgetFacadeBridge->updateOrderBudget(
+            $this->orderBudgetTransferMock
+        );
+    }
 }

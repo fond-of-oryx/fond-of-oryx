@@ -4,6 +4,7 @@ namespace FondOfOryx\Zed\CompanyBusinessUnitOrderBudget\Business\Validator;
 
 use Codeception\Test\Unit;
 use Exception;
+use FondOfOryx\Zed\CompanyBusinessUnitOrderBudget\Business\Exception\NotEnoughOrderBudgetException;
 use FondOfOryx\Zed\CompanyBusinessUnitOrderBudget\Communication\Plugin\PermissionExtension\AlterCartWithoutLimitPermissionPlugin;
 use FondOfOryx\Zed\CompanyBusinessUnitOrderBudget\Dependency\Facade\CompanyBusinessUnitOrderBudgetToPermissionFacadeInterface;
 use Generated\Shared\Transfer\CompanyBusinessUnitTransfer;
@@ -11,6 +12,7 @@ use Generated\Shared\Transfer\CompanyUserTransfer;
 use Generated\Shared\Transfer\OrderBudgetTransfer;
 use Generated\Shared\Transfer\QuoteTransfer;
 use Generated\Shared\Transfer\TotalsTransfer;
+use Spryker\Shared\Kernel\Transfer\Exception\RequiredTransferPropertyException;
 
 class QuoteValidatorTest extends Unit
 {
@@ -95,8 +97,16 @@ class QuoteValidatorTest extends Unit
         $subtotal = 500;
 
         $this->quoteTransferMock->expects(static::atLeastOnce())
+            ->method('requireCompanyUser')
+            ->willReturn($this->quoteTransferMock);
+
+        $this->quoteTransferMock->expects(static::atLeastOnce())
             ->method('getCompanyUser')
             ->willReturn($this->companyUserTransferMock);
+
+        $this->companyUserTransferMock->expects(static::atLeastOnce())
+            ->method('requireFkCompany')
+            ->willReturn($this->quoteTransferMock);
 
         $this->companyUserTransferMock->expects(static::atLeastOnce())
             ->method('getFkCompany')
@@ -108,7 +118,15 @@ class QuoteValidatorTest extends Unit
             ->willReturn(false);
 
         $this->companyUserTransferMock->expects(static::atLeastOnce())
+            ->method('requireCompanyBusinessUnit')
+            ->willReturn($this->companyUserTransferMock);
+
+        $this->companyUserTransferMock->expects(static::atLeastOnce())
             ->method('getCompanyBusinessUnit')
+            ->willReturn($this->companyBusinessUnitTransferMock);
+
+        $this->companyBusinessUnitTransferMock->expects(static::atLeastOnce())
+            ->method('requireOrderBudget')
             ->willReturn($this->companyBusinessUnitTransferMock);
 
         $this->companyBusinessUnitTransferMock->expects(static::atLeastOnce())
@@ -116,11 +134,23 @@ class QuoteValidatorTest extends Unit
             ->willReturn($this->orderBudgetTransferMock);
 
         $this->orderBudgetTransferMock->expects(static::atLeastOnce())
+            ->method('requireBudget')
+            ->willReturn($this->orderBudgetTransferMock);
+
+        $this->orderBudgetTransferMock->expects(static::atLeastOnce())
             ->method('getBudget')
             ->willReturn($currentBudget);
 
         $this->quoteTransferMock->expects(static::atLeastOnce())
+            ->method('requireTotals')
+            ->willReturn($this->quoteTransferMock);
+
+        $this->quoteTransferMock->expects(static::atLeastOnce())
             ->method('getTotals')
+            ->willReturn($this->totalsTransferMock);
+
+        $this->totalsTransferMock->expects(static::atLeastOnce())
+            ->method('requireSubtotal')
             ->willReturn($this->totalsTransferMock);
 
         $this->totalsTransferMock->expects(static::atLeastOnce())
@@ -142,7 +172,15 @@ class QuoteValidatorTest extends Unit
         $fkCompany = 1;
 
         $this->quoteTransferMock->expects(static::atLeastOnce())
+            ->method('requireCompanyUser')
+            ->willReturn($this->quoteTransferMock);
+
+        $this->quoteTransferMock->expects(static::atLeastOnce())
             ->method('getCompanyUser')
+            ->willReturn($this->companyUserTransferMock);
+
+        $this->companyUserTransferMock->expects(static::atLeastOnce())
+            ->method('requireFkCompany')
             ->willReturn($this->companyUserTransferMock);
 
         $this->companyUserTransferMock->expects(static::atLeastOnce())
@@ -155,7 +193,13 @@ class QuoteValidatorTest extends Unit
             ->willReturn(true);
 
         $this->companyUserTransferMock->expects(static::never())
+            ->method('requireCompanyBusinessUnit');
+
+        $this->companyUserTransferMock->expects(static::never())
             ->method('getCompanyBusinessUnit');
+
+        $this->quoteTransferMock->expects(static::never())
+            ->method('requireTotals');
 
         $this->quoteTransferMock->expects(static::never())
             ->method('getTotals');
@@ -177,7 +221,15 @@ class QuoteValidatorTest extends Unit
         $subtotal = 500;
 
         $this->quoteTransferMock->expects(static::atLeastOnce())
+            ->method('requireCompanyUser')
+            ->willReturn($this->quoteTransferMock);
+
+        $this->quoteTransferMock->expects(static::atLeastOnce())
             ->method('getCompanyUser')
+            ->willReturn($this->companyUserTransferMock);
+
+        $this->companyUserTransferMock->expects(static::atLeastOnce())
+            ->method('requireFkCompany')
             ->willReturn($this->companyUserTransferMock);
 
         $this->companyUserTransferMock->expects(static::atLeastOnce())
@@ -190,7 +242,15 @@ class QuoteValidatorTest extends Unit
             ->willReturn(false);
 
         $this->companyUserTransferMock->expects(static::atLeastOnce())
+            ->method('requireCompanyBusinessUnit')
+            ->willReturn($this->companyUserTransferMock);
+
+        $this->companyUserTransferMock->expects(static::atLeastOnce())
             ->method('getCompanyBusinessUnit')
+            ->willReturn($this->companyBusinessUnitTransferMock);
+
+        $this->companyBusinessUnitTransferMock->expects(static::atLeastOnce())
+            ->method('requireOrderBudget')
             ->willReturn($this->companyBusinessUnitTransferMock);
 
         $this->companyBusinessUnitTransferMock->expects(static::atLeastOnce())
@@ -198,11 +258,23 @@ class QuoteValidatorTest extends Unit
             ->willReturn($this->orderBudgetTransferMock);
 
         $this->orderBudgetTransferMock->expects(static::atLeastOnce())
+            ->method('requireBudget')
+            ->willReturn($this->orderBudgetTransferMock);
+
+        $this->orderBudgetTransferMock->expects(static::atLeastOnce())
             ->method('getBudget')
             ->willReturn($currentBudget);
 
         $this->quoteTransferMock->expects(static::atLeastOnce())
+            ->method('requireTotals')
+            ->willReturn($this->quoteTransferMock);
+
+        $this->quoteTransferMock->expects(static::atLeastOnce())
             ->method('getTotals')
+            ->willReturn($this->totalsTransferMock);
+
+        $this->totalsTransferMock->expects(static::atLeastOnce())
+            ->method('requireSubtotal')
             ->willReturn($this->totalsTransferMock);
 
         $this->totalsTransferMock->expects(static::atLeastOnce())
@@ -213,7 +285,7 @@ class QuoteValidatorTest extends Unit
             $this->quoteValidator->validate($this->quoteTransferMock);
             static::fail();
         } catch (Exception $exception) {
-            static::assertEquals(QuoteValidator::MESSAGE_NOT_ENOUGH_ORDER_BUDGET, $exception->getMessage());
+            static::assertInstanceOf(NotEnoughOrderBudgetException::class, $exception);
         }
     }
 
@@ -226,7 +298,15 @@ class QuoteValidatorTest extends Unit
         $currentBudget = 100;
 
         $this->quoteTransferMock->expects(static::atLeastOnce())
+            ->method('requireCompanyUser')
+            ->willReturn($this->quoteTransferMock);
+
+        $this->quoteTransferMock->expects(static::atLeastOnce())
             ->method('getCompanyUser')
+            ->willReturn($this->companyUserTransferMock);
+
+        $this->companyUserTransferMock->expects(static::atLeastOnce())
+            ->method('requireFkCompany')
             ->willReturn($this->companyUserTransferMock);
 
         $this->companyUserTransferMock->expects(static::atLeastOnce())
@@ -239,7 +319,15 @@ class QuoteValidatorTest extends Unit
             ->willReturn(false);
 
         $this->companyUserTransferMock->expects(static::atLeastOnce())
+            ->method('requireCompanyBusinessUnit')
+            ->willReturn($this->companyUserTransferMock);
+
+        $this->companyUserTransferMock->expects(static::atLeastOnce())
             ->method('getCompanyBusinessUnit')
+            ->willReturn($this->companyBusinessUnitTransferMock);
+
+        $this->companyBusinessUnitTransferMock->expects(static::atLeastOnce())
+            ->method('requireOrderBudget')
             ->willReturn($this->companyBusinessUnitTransferMock);
 
         $this->companyBusinessUnitTransferMock->expects(static::atLeastOnce())
@@ -247,22 +335,33 @@ class QuoteValidatorTest extends Unit
             ->willReturn($this->orderBudgetTransferMock);
 
         $this->orderBudgetTransferMock->expects(static::atLeastOnce())
+            ->method('requireBudget')
+            ->willReturn($this->orderBudgetTransferMock);
+
+        $this->orderBudgetTransferMock->expects(static::atLeastOnce())
             ->method('getBudget')
             ->willReturn($currentBudget);
+
+        $this->quoteTransferMock->expects(static::atLeastOnce())
+            ->method('requireTotals')
+            ->willReturn($this->quoteTransferMock);
 
         $this->quoteTransferMock->expects(static::atLeastOnce())
             ->method('getTotals')
             ->willReturn($this->totalsTransferMock);
 
         $this->totalsTransferMock->expects(static::atLeastOnce())
-            ->method('getSubtotal')
-            ->willReturn(null);
+            ->method('requireSubtotal')
+            ->willThrowException(new RequiredTransferPropertyException());
+
+        $this->totalsTransferMock->expects(static::never())
+            ->method('getSubtotal');
 
         try {
             $this->quoteValidator->validate($this->quoteTransferMock);
             static::fail();
         } catch (Exception $exception) {
-            static::assertEquals(QuoteValidator::MESSAGE_NO_SUBTOTALS, $exception->getMessage());
+            static::assertInstanceOf(RequiredTransferPropertyException::class, $exception);
         }
     }
 
@@ -274,7 +373,15 @@ class QuoteValidatorTest extends Unit
         $fkCompany = 1;
 
         $this->quoteTransferMock->expects(static::atLeastOnce())
+            ->method('requireCompanyUser')
+            ->willReturn($this->quoteTransferMock);
+
+        $this->quoteTransferMock->expects(static::atLeastOnce())
             ->method('getCompanyUser')
+            ->willReturn($this->companyUserTransferMock);
+
+        $this->companyUserTransferMock->expects(static::atLeastOnce())
+            ->method('requireFkCompany')
             ->willReturn($this->companyUserTransferMock);
 
         $this->companyUserTransferMock->expects(static::atLeastOnce())
@@ -287,12 +394,30 @@ class QuoteValidatorTest extends Unit
             ->willReturn(false);
 
         $this->companyUserTransferMock->expects(static::atLeastOnce())
+            ->method('requireCompanyBusinessUnit')
+            ->willReturn($this->companyUserTransferMock);
+
+        $this->companyUserTransferMock->expects(static::atLeastOnce())
             ->method('getCompanyBusinessUnit')
             ->willReturn($this->companyBusinessUnitTransferMock);
 
         $this->companyBusinessUnitTransferMock->expects(static::atLeastOnce())
+            ->method('requireOrderBudget')
+            ->willReturn($this->companyBusinessUnitTransferMock);
+
+        $this->companyBusinessUnitTransferMock->expects(static::atLeastOnce())
             ->method('getOrderBudget')
-            ->willReturn(null);
+            ->willReturn($this->orderBudgetTransferMock);
+
+        $this->orderBudgetTransferMock->expects(static::atLeastOnce())
+            ->method('requireBudget')
+            ->willThrowException(new RequiredTransferPropertyException());
+
+        $this->orderBudgetTransferMock->expects(static::never())
+            ->method('getBudget');
+
+        $this->quoteTransferMock->expects(static::never())
+            ->method('requireTotals');
 
         $this->quoteTransferMock->expects(static::never())
             ->method('getTotals');
@@ -301,7 +426,7 @@ class QuoteValidatorTest extends Unit
             $this->quoteValidator->validate($this->quoteTransferMock);
             static::fail();
         } catch (Exception $exception) {
-            static::assertEquals(QuoteValidator::MESSAGE_NO_ORDER_BUDGET, $exception->getMessage());
+            static::assertInstanceOf(RequiredTransferPropertyException::class, $exception);
         }
     }
 
@@ -313,7 +438,15 @@ class QuoteValidatorTest extends Unit
         $fkCompany = 1;
 
         $this->quoteTransferMock->expects(static::atLeastOnce())
+            ->method('requireCompanyUser')
+            ->willReturn($this->quoteTransferMock);
+
+        $this->quoteTransferMock->expects(static::atLeastOnce())
             ->method('getCompanyUser')
+            ->willReturn($this->companyUserTransferMock);
+
+        $this->companyUserTransferMock->expects(static::atLeastOnce())
+            ->method('requireFkCompany')
             ->willReturn($this->companyUserTransferMock);
 
         $this->companyUserTransferMock->expects(static::atLeastOnce())
@@ -326,8 +459,14 @@ class QuoteValidatorTest extends Unit
             ->willReturn(false);
 
         $this->companyUserTransferMock->expects(static::atLeastOnce())
-            ->method('getCompanyBusinessUnit')
-            ->willReturn(null);
+            ->method('requireCompanyBusinessUnit')
+            ->willThrowException(new RequiredTransferPropertyException());
+
+        $this->companyUserTransferMock->expects(static::never())
+            ->method('getCompanyBusinessUnit');
+
+        $this->quoteTransferMock->expects(static::never())
+            ->method('requireTotals');
 
         $this->quoteTransferMock->expects(static::never())
             ->method('getTotals');
@@ -336,7 +475,7 @@ class QuoteValidatorTest extends Unit
             $this->quoteValidator->validate($this->quoteTransferMock);
             static::fail();
         } catch (Exception $exception) {
-            static::assertEquals(QuoteValidator::MESSAGE_NOT_ASSIGNED_TO_COMPANY_BUSINESS_UNIT, $exception->getMessage());
+            static::assertInstanceOf(RequiredTransferPropertyException::class, $exception);
         }
     }
 
@@ -346,11 +485,17 @@ class QuoteValidatorTest extends Unit
     public function testExpandWithoutCompanyUser(): void
     {
         $this->quoteTransferMock->expects(static::atLeastOnce())
-            ->method('getCompanyUser')
-            ->willReturn(null);
+            ->method('requireCompanyUser')
+            ->willThrowException(new RequiredTransferPropertyException());
+
+        $this->quoteTransferMock->expects(static::never())
+            ->method('getCompanyUser');
 
         $this->permissionFacadeMock->expects(static::never())
             ->method('can');
+
+        $this->quoteTransferMock->expects(static::never())
+            ->method('requireTotals');
 
         $this->quoteTransferMock->expects(static::never())
             ->method('getTotals');
@@ -359,7 +504,7 @@ class QuoteValidatorTest extends Unit
             $this->quoteValidator->validate($this->quoteTransferMock);
             static::fail();
         } catch (Exception $exception) {
-            static::assertEquals(QuoteValidator::MESSAGE_NOT_OWNED_BY_COMPANY_USER, $exception->getMessage());
+            static::assertInstanceOf(RequiredTransferPropertyException::class, $exception);
         }
     }
 }

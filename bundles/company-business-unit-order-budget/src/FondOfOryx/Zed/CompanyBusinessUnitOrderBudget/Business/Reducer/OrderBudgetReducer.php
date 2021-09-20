@@ -1,36 +1,42 @@
 <?php
 
-namespace FondOfOryx\Zed\CompanyBusinessUnitOrderBudget\Business\Validator;
+namespace FondOfOryx\Zed\CompanyBusinessUnitOrderBudget\Business\Reducer;
 
-use FondOfOryx\Zed\CompanyBusinessUnitOrderBudget\Business\Exception\NotEnoughOrderBudgetException;
 use FondOfOryx\Zed\CompanyBusinessUnitOrderBudget\Communication\Plugin\PermissionExtension\AlterCartWithoutLimitPermissionPlugin;
+use FondOfOryx\Zed\CompanyBusinessUnitOrderBudget\Dependency\Facade\CompanyBusinessUnitOrderBudgetToOrderBudgetFacadeInterface;
 use FondOfOryx\Zed\CompanyBusinessUnitOrderBudget\Dependency\Facade\CompanyBusinessUnitOrderBudgetToPermissionFacadeInterface;
 use Generated\Shared\Transfer\QuoteTransfer;
 
-class QuoteValidator implements QuoteValidatorInterface
+class OrderBudgetReducer implements OrderBudgetReducerInterface
 {
+    /**
+     * @var \FondOfOryx\Zed\CompanyBusinessUnitOrderBudget\Dependency\Facade\CompanyBusinessUnitOrderBudgetToOrderBudgetFacadeInterface
+     */
+    protected $orderBudgetFacade;
+
     /**
      * @var \FondOfOryx\Zed\CompanyBusinessUnitOrderBudget\Dependency\Facade\CompanyBusinessUnitOrderBudgetToPermissionFacadeInterface
      */
     protected $permissionFacade;
 
     /**
+     * @param \FondOfOryx\Zed\CompanyBusinessUnitOrderBudget\Dependency\Facade\CompanyBusinessUnitOrderBudgetToOrderBudgetFacadeInterface $orderBudgetFacade
      * @param \FondOfOryx\Zed\CompanyBusinessUnitOrderBudget\Dependency\Facade\CompanyBusinessUnitOrderBudgetToPermissionFacadeInterface $permissionFacade
      */
     public function __construct(
+        CompanyBusinessUnitOrderBudgetToOrderBudgetFacadeInterface $orderBudgetFacade,
         CompanyBusinessUnitOrderBudgetToPermissionFacadeInterface $permissionFacade
     ) {
+        $this->orderBudgetFacade = $orderBudgetFacade;
         $this->permissionFacade = $permissionFacade;
     }
 
     /**
      * @param \Generated\Shared\Transfer\QuoteTransfer $quoteTransfer
      *
-     * @throws \FondOfOryx\Zed\CompanyBusinessUnitOrderBudget\Business\Exception\NotEnoughOrderBudgetException
-     *
      * @return void
      */
-    public function validate(QuoteTransfer $quoteTransfer): void
+    public function reduceByQuote(QuoteTransfer $quoteTransfer): void
     {
         $companyUserTransfer = $quoteTransfer->requireCompanyUser()
             ->getCompanyUser();
@@ -41,11 +47,12 @@ class QuoteValidator implements QuoteValidatorInterface
             return;
         }
 
-        $budget = $companyUserTransfer->requireCompanyBusinessUnit()
-            ->getCompanyBusinessUnit()
-            ->requireOrderBudget()
-            ->getOrderBudget()
-            ->requireBudget()
+        $orderBudgetTransfer = $companyUserTransfer->requireCompanyBusinessUnit()
+           ->getCompanyBusinessUnit()
+           ->requireOrderBudget()
+           ->getOrderBudget();
+
+        $currentBudget = $orderBudgetTransfer->requireBudget()
             ->getBudget();
 
         $subTotal = $quoteTransfer->requireTotals()
@@ -53,8 +60,8 @@ class QuoteValidator implements QuoteValidatorInterface
             ->requireSubtotal()
             ->getSubtotal();
 
-        if ($budget < $subTotal) {
-            throw new NotEnoughOrderBudgetException('Order budget is lower then subtotal quote.');
-        }
+        $this->orderBudgetFacade->updateOrderBudget(
+            $orderBudgetTransfer->setBudget($currentBudget - $subTotal)
+        );
     }
 }
