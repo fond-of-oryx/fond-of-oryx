@@ -62,7 +62,7 @@
     },
     "erp-order": {
       "path": "bundles/erp-order/",
-      "version": "1.2.0"
+      "version": "1.3.0"
     },
     "erp-order-api": {
       "path": "bundles/erp-order-api/",
@@ -74,7 +74,7 @@
     },
     "erp-order-page-search": {
       "path": "bundles/erp-order-page-search/",
-      "version": "1.3.0"
+      "version": "1.4.0"
     },
     "erp-order-page-search-rest-api": {
       "path": "bundles/erp-order-page-search-rest-api/",

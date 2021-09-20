@@ -22,7 +22,8 @@ class ErpOrderPageSearchFacade extends AbstractFacade implements ErpOrderPageSea
      */
     public function publish(array $erpOrderIds): void
     {
-        $this->getFactory()->createErpOrderPageSearchPublisher()
+        $this->getFactory()
+            ->createErpOrderPageSearchPublisher()
             ->publish($erpOrderIds);
     }
 

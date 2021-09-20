@@ -19,6 +19,7 @@
         <property name="currencyIsoCode" type="string"/>
         <property name="createdAt" type="int"/>
         <property name="updatedAt" type="int"/>
+        <property name="outstandingQuantity" type="int"/>
     </transfer>
 
     <transfer name="ErpOrderItem">
@@ -34,6 +35,7 @@
         <property name="concreteDeliveryDate" type="string"/>
         <property name="createdAt" type="int"/>
         <property name="updatedAt" type="int"/>
+        <property name="outstandingQuantity" type="int"/>
     </transfer>
 
     <transfer name="ErpOrderAddress">

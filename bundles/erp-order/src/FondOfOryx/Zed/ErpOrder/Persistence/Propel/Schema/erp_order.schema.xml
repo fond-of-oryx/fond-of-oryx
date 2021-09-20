@@ -12,6 +12,7 @@
         <column name="reference" required="false" size="255" type="VARCHAR"/>
         <column name="concrete_delivery_date" required="false" type="DATE"/>
         <column name="currency_iso_code" type="VARCHAR" size="5" required="false"/>
+        <column name="outstanding_quantity" required="false" type="INTEGER" default="0"/>
 
         <id-method-parameter value="foo_erp_order_pk_seq"/>
 
@@ -51,6 +52,7 @@
         <column name="ordered_quantity" required="false" type="INTEGER"/>
         <column name="shipped_quantity" required="false" type="INTEGER"/>
         <column name="invoiced_quantity" required="false" type="INTEGER"/>
+        <column name="outstanding_quantity" required="false" type="INTEGER"/>
         <column name="status" required="false" type="INTEGER"/>
         <column name="concrete_delivery_date" required="false" type="DATE"/>
 
