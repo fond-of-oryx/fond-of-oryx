@@ -48,4 +48,18 @@ interface CompanyBusinessUnitOrderBudgetFacadeInterface
      * @return void
      */
     public function validateQuote(QuoteTransfer $quoteTransfer): void;
+
+    /**
+     * Specification:
+     * - Reduces company business unit order budget by quote
+     * - Skips if user has permission to alter cart without limit
+     * - Throws exception if quote is not valid
+     *
+     * @api
+     *
+     * @param \Generated\Shared\Transfer\QuoteTransfer $quoteTransfer
+     *
+     * @return void
+     */
+    public function reduceOrderBudgetByQuote(QuoteTransfer $quoteTransfer): void;
 }

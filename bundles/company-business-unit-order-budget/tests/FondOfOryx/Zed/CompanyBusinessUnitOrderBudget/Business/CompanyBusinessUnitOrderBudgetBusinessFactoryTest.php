@@ -4,6 +4,7 @@ namespace FondOfOryx\Zed\CompanyBusinessUnitOrderBudget\Business;
 
 use Codeception\Test\Unit;
 use FondOfOryx\Zed\CompanyBusinessUnitOrderBudget\Business\Expander\QuoteExpander;
+use FondOfOryx\Zed\CompanyBusinessUnitOrderBudget\Business\Reducer\OrderBudgetReducer;
 use FondOfOryx\Zed\CompanyBusinessUnitOrderBudget\Business\Validator\QuoteValidator;
 use FondOfOryx\Zed\CompanyBusinessUnitOrderBudget\Business\Writer\OrderBudgetWriter;
 use FondOfOryx\Zed\CompanyBusinessUnitOrderBudget\CompanyBusinessUnitOrderBudgetDependencyProvider;
@@ -127,6 +128,34 @@ class CompanyBusinessUnitOrderBudgetBusinessFactoryTest extends Unit
         static::assertInstanceOf(
             QuoteValidator::class,
             $this->businessFactory->createQuoteValidator()
+        );
+    }
+
+    /**
+     * @return void
+     */
+    public function testCreateOrderBudgetReducer(): void
+    {
+        $this->containerMock->expects(static::atLeastOnce())
+            ->method('has')
+            ->withConsecutive(
+                [CompanyBusinessUnitOrderBudgetDependencyProvider::FACADE_ORDER_BUDGET],
+                [CompanyBusinessUnitOrderBudgetDependencyProvider::FACADE_PERMISSION]
+            )->willReturn(true);
+
+        $this->containerMock->expects(static::atLeastOnce())
+            ->method('get')
+            ->withConsecutive(
+                [CompanyBusinessUnitOrderBudgetDependencyProvider::FACADE_ORDER_BUDGET],
+                [CompanyBusinessUnitOrderBudgetDependencyProvider::FACADE_PERMISSION]
+            )->willReturnOnConsecutiveCalls(
+                $this->orderBudgetFacadeMock,
+                $this->permissionFacadeMock
+            );
+
+        static::assertInstanceOf(
+            OrderBudgetReducer::class,
+            $this->businessFactory->createOrderBudgetReducer()
         );
     }
 }

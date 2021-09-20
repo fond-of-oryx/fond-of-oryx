@@ -4,6 +4,7 @@ namespace FondOfOryx\Zed\CompanyBusinessUnitOrderBudget\Business\Expander;
 
 use Codeception\Test\Unit;
 use Exception;
+use FondOfOryx\Zed\CompanyBusinessUnitOrderBudget\Business\Exception\NotEnoughOrderBudgetException;
 use FondOfOryx\Zed\CompanyBusinessUnitOrderBudget\Business\Validator\QuoteValidatorInterface;
 use Generated\Shared\Transfer\MessageTransfer;
 use Generated\Shared\Transfer\QuoteTransfer;
@@ -48,22 +49,47 @@ class QuoteExpanderTest extends Unit
     /**
      * @return void
      */
-    public function testExpandWithValidationErrors(): void
+    public function testExpandWithNotEnoughOrderBudgetException(): void
     {
-        $exceptionMessage = 'foo';
-
         $this->quoteValidatorMock->expects(static::atLeastOnce())
             ->method('validate')
             ->with($this->quoteTransferMock)
-            ->willThrowException(new Exception($exceptionMessage));
+            ->willThrowException(new NotEnoughOrderBudgetException());
 
         $this->quoteTransferMock->expects(static::atLeastOnce())
             ->method('addValidationMessage')
             ->with(
                 static::callback(
-                    static function (MessageTransfer $messageTransfer) use ($exceptionMessage) {
+                    static function (MessageTransfer $messageTransfer) {
                         return $messageTransfer->getType() === QuoteExpander::MESSAGE_TYPE_ERROR
-                            && $messageTransfer->getValue() === $exceptionMessage;
+                            && $messageTransfer->getValue() === QuoteExpander::MESSAGE_NOT_ENOUGH_ORDER_BUDGET;
+                    }
+                )
+            )->willReturn($this->quoteTransferMock);
+
+        static::assertEquals(
+            $this->quoteTransferMock,
+            $this->quoteExpander->expand($this->quoteTransferMock)
+        );
+    }
+
+    /**
+     * @return void
+     */
+    public function testExpandWithAnyException(): void
+    {
+        $this->quoteValidatorMock->expects(static::atLeastOnce())
+            ->method('validate')
+            ->with($this->quoteTransferMock)
+            ->willThrowException(new Exception());
+
+        $this->quoteTransferMock->expects(static::atLeastOnce())
+            ->method('addValidationMessage')
+            ->with(
+                static::callback(
+                    static function (MessageTransfer $messageTransfer) {
+                        return $messageTransfer->getType() === QuoteExpander::MESSAGE_TYPE_ERROR
+                            && $messageTransfer->getValue() === QuoteExpander::MESSAGE_INVALID_QUOTE;
                     }
                 )
             )->willReturn($this->quoteTransferMock);

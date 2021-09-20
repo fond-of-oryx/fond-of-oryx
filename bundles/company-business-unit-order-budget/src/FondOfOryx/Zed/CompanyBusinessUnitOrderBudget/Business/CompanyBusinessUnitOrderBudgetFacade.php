@@ -54,4 +54,18 @@ class CompanyBusinessUnitOrderBudgetFacade extends AbstractFacade implements Com
     {
         $this->getFactory()->createQuoteValidator()->validate($quoteTransfer);
     }
+
+    /**
+     * {@inheritDoc}
+     *
+     * @api
+     *
+     * @param \Generated\Shared\Transfer\QuoteTransfer $quoteTransfer
+     *
+     * @return void
+     */
+    public function reduceOrderBudgetByQuote(QuoteTransfer $quoteTransfer): void
+    {
+        $this->getFactory()->createOrderBudgetReducer()->reduceByQuote($quoteTransfer);
+    }
 }
