@@ -24,6 +24,7 @@ class ErpOrderPageSearchDataMapper implements ErpOrderPageSearchDataMapperInterf
     public const EXTERNAL_REFERENCE = 'external_reference';
     public const REFERENCE = 'reference';
     public const CURRENCY_ISO_CODE = 'currency_iso_code';
+    public const OUTSTANDING_QUANTITY = 'outstanding_quantity';
 
     public const SEARCH_RESULT_CONCRETE_DELIVERY_DATE = 'concrete_delivery_date';
     public const SEARCH_RESULT_ID_ERP_ORDER = 'id_erp_order';
@@ -40,10 +41,6 @@ class ErpOrderPageSearchDataMapper implements ErpOrderPageSearchDataMapperInterf
     public const SEARCH_RESULT_COMPANY_BUSINESS_UNIT = 'company_business_unit';
     public const SEARCH_RESULT_CURRENCY_ISO_CODE = 'currency_iso_code';
 
-    public function __construct()
-    {
-    }
-
     /**
      * @param array $data
      *
@@ -58,6 +55,7 @@ class ErpOrderPageSearchDataMapper implements ErpOrderPageSearchDataMapperInterf
             ErpOrderIndexMap::ID_COMPANY_BUSINESS_UNIT => $data[static::FK_COMPANY_BUSINESS_UNIT],
             ErpOrderIndexMap::COMPANY_BUSINESS_UNIT_UUID => $data[static::COMPANY_BUSINESS_UNIT][static::COMPANY_BUSINESS_UNIT_UUID],
             ErpOrderIndexMap::REFERENCE => $data[static::REFERENCE],
+            ErpOrderIndexMap::OUTSTANDING_QUANTITY => $data[static::OUTSTANDING_QUANTITY],
             ErpOrderIndexMap::SEARCH_RESULT_DATA => $this->mapErpOrderDataToSearchResultData($data),
         ];
 
