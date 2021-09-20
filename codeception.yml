@@ -14,6 +14,7 @@ include:
   - bundles/cross-engage
   - bundles/customer-statistic
   - bundles/customer-statistics-rest-api
+  - bundles/delivery-date-restriction
   - bundles/erp-order
   - bundles/erp-order-api
   - bundles/erp-order-extension
