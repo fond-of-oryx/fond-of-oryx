@@ -62,7 +62,7 @@ class QuoteValidatorTest extends Unit
     public function testValidate(): void
     {
         $fkCompany = 1;
-        $deliveryDates = ['earliest-date'];
+        $deliveryDates = [QuoteValidator::DELIVERY_DATE_EARLIEST];
 
         $this->quoteTransferMock->expects(static::atLeastOnce())
             ->method('requireCompanyUser')
@@ -140,7 +140,7 @@ class QuoteValidatorTest extends Unit
     public function testValidateWithoutPermissionToDefineCustomDeliveryDates(): void
     {
         $fkCompany = 1;
-        $deliveryDates = ['earliest-date', (new DateTime())->format('Y-m-d')];
+        $deliveryDates = [QuoteValidator::DELIVERY_DATE_EARLIEST, (new DateTime())->format('Y-m-d')];
 
         $this->quoteTransferMock->expects(static::atLeastOnce())
             ->method('requireCompanyUser')

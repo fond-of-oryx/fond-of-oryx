@@ -4,6 +4,7 @@ namespace FondOfOryx\Zed\DeliveryDateRestriction\Business\Expander;
 
 use Codeception\Test\Unit;
 use Exception;
+use FondOfOryx\Zed\DeliveryDateRestriction\Business\Exception\CustomDeliveryDatesNotAllowedException;
 use FondOfOryx\Zed\DeliveryDateRestriction\Business\Validator\QuoteValidatorInterface;
 use Generated\Shared\Transfer\MessageTransfer;
 use Generated\Shared\Transfer\QuoteTransfer;
@@ -48,7 +49,36 @@ class QuoteExpanderTest extends Unit
     /**
      * @return void
      */
-    public function testExpandWithValidationErrors(): void
+    public function testExpandWithValidationError(): void
+    {
+        $exceptionMessage = 'foo';
+
+        $this->quoteValidatorMock->expects(static::atLeastOnce())
+            ->method('validate')
+            ->with($this->quoteTransferMock)
+            ->willThrowException(new CustomDeliveryDatesNotAllowedException($exceptionMessage));
+
+        $this->quoteTransferMock->expects(static::atLeastOnce())
+            ->method('addValidationMessage')
+            ->with(
+                static::callback(
+                    static function (MessageTransfer $messageTransfer) {
+                        return $messageTransfer->getType() === QuoteExpander::MESSAGE_TYPE_ERROR
+                            && $messageTransfer->getValue() === QuoteExpander::MESSAGE_CUSTOM_DELIVERY_DATES_NOT_ALLOWED;
+                    }
+                )
+            )->willReturn($this->quoteTransferMock);
+
+        static::assertEquals(
+            $this->quoteTransferMock,
+            $this->quoteExpander->expand($this->quoteTransferMock)
+        );
+    }
+
+    /**
+     * @return void
+     */
+    public function testExpandWithGeneralValidationError(): void
     {
         $exceptionMessage = 'foo';
 
