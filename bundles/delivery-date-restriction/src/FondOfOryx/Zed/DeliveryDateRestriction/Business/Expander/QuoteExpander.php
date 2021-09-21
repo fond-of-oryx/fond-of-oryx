@@ -10,9 +10,18 @@ use Generated\Shared\Transfer\QuoteTransfer;
 
 class QuoteExpander implements QuoteExpanderInterface
 {
+    /**
+     * @var string
+     */
     public const MESSAGE_TYPE_ERROR = 'error';
 
+    /**
+     * @var string
+     */
     public const MESSAGE_INVALID_QUOTE = 'delivery_date_restriction.invalid_quote';
+    /**
+     * @var string
+     */
     public const MESSAGE_CUSTOM_DELIVERY_DATES_NOT_ALLOWED = 'delivery_date_restriction.custom_delivery_dates_not_allowed';
 
     /**
@@ -35,18 +44,14 @@ class QuoteExpander implements QuoteExpanderInterface
      */
     public function expand(QuoteTransfer $quoteTransfer): QuoteTransfer
     {
-        $message = null;
-
         try {
             $this->quoteValidator->validate($quoteTransfer);
+
+            return $quoteTransfer;
         } catch (CustomDeliveryDatesNotAllowedException $exception) {
             $message = static::MESSAGE_CUSTOM_DELIVERY_DATES_NOT_ALLOWED;
         } catch (Exception $exception) {
             $message = static::MESSAGE_INVALID_QUOTE;
-        }
-
-        if ($message === null) {
-            return $quoteTransfer;
         }
 
         $messageTransfer = (new MessageTransfer())->setType(static::MESSAGE_TYPE_ERROR)

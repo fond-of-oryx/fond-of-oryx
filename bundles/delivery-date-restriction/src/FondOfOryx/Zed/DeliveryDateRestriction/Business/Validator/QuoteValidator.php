@@ -10,6 +10,11 @@ use Generated\Shared\Transfer\QuoteTransfer;
 class QuoteValidator implements QuoteValidatorInterface
 {
     /**
+     * @var string
+     */
+    public const DELIVERY_DATE_EARLIEST = 'earliest-date';
+
+    /**
      * @var \FondOfOryx\Zed\DeliveryDateRestriction\Dependency\Facade\DeliveryDateRestrictionToPermissionFacadeInterface
      */
     protected $permissionFacade;
