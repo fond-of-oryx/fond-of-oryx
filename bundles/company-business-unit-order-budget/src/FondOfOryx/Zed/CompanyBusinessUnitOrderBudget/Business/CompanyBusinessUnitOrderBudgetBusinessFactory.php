@@ -2,6 +2,8 @@
 
 namespace FondOfOryx\Zed\CompanyBusinessUnitOrderBudget\Business;
 
+use FondOfOryx\Zed\CompanyBusinessUnitOrderBudget\Business\Expander\CompanyBusinessUnitExpander;
+use FondOfOryx\Zed\CompanyBusinessUnitOrderBudget\Business\Expander\CompanyBusinessUnitExpanderInterface;
 use FondOfOryx\Zed\CompanyBusinessUnitOrderBudget\Business\Expander\QuoteExpander;
 use FondOfOryx\Zed\CompanyBusinessUnitOrderBudget\Business\Expander\QuoteExpanderInterface;
 use FondOfOryx\Zed\CompanyBusinessUnitOrderBudget\Business\Reducer\OrderBudgetReducer;
@@ -59,6 +61,16 @@ class CompanyBusinessUnitOrderBudgetBusinessFactory extends AbstractBusinessFact
         return new OrderBudgetWriter(
             $this->getOrderBudgetFacade(),
             $this->getEntityManager()
+        );
+    }
+
+    /**
+     * @return \FondOfOryx\Zed\CompanyBusinessUnitOrderBudget\Business\Expander\CompanyBusinessUnitExpanderInterface
+     */
+    public function createCompanyBusinessUnitExpander(): CompanyBusinessUnitExpanderInterface
+    {
+        return new CompanyBusinessUnitExpander(
+            $this->getOrderBudgetFacade()
         );
     }
 

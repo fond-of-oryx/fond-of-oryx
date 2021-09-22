@@ -3,6 +3,7 @@
 namespace FondOfOryx\Zed\CompanyBusinessUnitOrderBudget\Business;
 
 use Codeception\Test\Unit;
+use FondOfOryx\Zed\CompanyBusinessUnitOrderBudget\Business\Expander\CompanyBusinessUnitExpander;
 use FondOfOryx\Zed\CompanyBusinessUnitOrderBudget\Business\Expander\QuoteExpander;
 use FondOfOryx\Zed\CompanyBusinessUnitOrderBudget\Business\Reducer\OrderBudgetReducer;
 use FondOfOryx\Zed\CompanyBusinessUnitOrderBudget\Business\Validator\QuoteValidator;
@@ -156,6 +157,29 @@ class CompanyBusinessUnitOrderBudgetBusinessFactoryTest extends Unit
         static::assertInstanceOf(
             OrderBudgetReducer::class,
             $this->businessFactory->createOrderBudgetReducer()
+        );
+    }
+
+    /**
+     * @return void
+     */
+    public function testCreateCompanyBusinessUnitExpander(): void
+    {
+        $this->containerMock->expects(static::atLeastOnce())
+            ->method('has')
+            ->with(CompanyBusinessUnitOrderBudgetDependencyProvider::FACADE_ORDER_BUDGET)
+            ->willReturn(true);
+
+        $this->containerMock->expects(static::atLeastOnce())
+            ->method('get')
+            ->with(CompanyBusinessUnitOrderBudgetDependencyProvider::FACADE_ORDER_BUDGET)
+            ->willReturn(
+                $this->orderBudgetFacadeMock
+            );
+
+        static::assertInstanceOf(
+            CompanyBusinessUnitExpander::class,
+            $this->businessFactory->createCompanyBusinessUnitExpander()
         );
     }
 }

@@ -72,4 +72,24 @@ class CompanyBusinessUnitOrderBudgetToOrderBudgetFacadeBridgeTest extends Unit
             $this->orderBudgetTransferMock
         );
     }
+
+    /**
+     * @return void
+     */
+    public function testFindOrderBudgetByIdOrderBudget(): void
+    {
+        $idOrderBudget = 1;
+
+        $this->orderBudgetFacadeMock->expects(static::atLeastOnce())
+            ->method('findOrderBudgetByIdOrderBudget')
+            ->with($idOrderBudget)
+            ->willReturn($this->orderBudgetTransferMock);
+
+        static::assertEquals(
+            $this->orderBudgetTransferMock,
+            $this->companyBusinessUnitOrderBudgetToOrderBudgetFacadeBridge->findOrderBudgetByIdOrderBudget(
+                $idOrderBudget
+            )
+        );
+    }
 }

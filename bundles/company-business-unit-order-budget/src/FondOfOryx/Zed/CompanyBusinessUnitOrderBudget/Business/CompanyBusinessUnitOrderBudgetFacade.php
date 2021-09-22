@@ -68,4 +68,19 @@ class CompanyBusinessUnitOrderBudgetFacade extends AbstractFacade implements Com
     {
         $this->getFactory()->createOrderBudgetReducer()->reduceByQuote($quoteTransfer);
     }
+
+    /**
+     * {@inheritDoc}
+     *
+     * @api
+     *
+     * @param \Generated\Shared\Transfer\CompanyBusinessUnitTransfer $companyBusinessUnitTransfer
+     *
+     * @return \Generated\Shared\Transfer\CompanyBusinessUnitTransfer
+     */
+    public function expandCompanyBusinessUnit(
+        CompanyBusinessUnitTransfer $companyBusinessUnitTransfer
+    ): CompanyBusinessUnitTransfer {
+        return $this->getFactory()->createCompanyBusinessUnitExpander()->expand($companyBusinessUnitTransfer);
+    }
 }

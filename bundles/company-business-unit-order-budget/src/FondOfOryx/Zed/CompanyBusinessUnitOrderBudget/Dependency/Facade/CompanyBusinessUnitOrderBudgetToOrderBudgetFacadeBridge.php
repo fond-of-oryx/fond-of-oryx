@@ -40,4 +40,14 @@ class CompanyBusinessUnitOrderBudgetToOrderBudgetFacadeBridge implements
     {
         $this->orderBudgetFacade->updateOrderBudget($orderBudgetTransfer);
     }
+
+    /**
+     * @param int $idOrderBudget
+     *
+     * @return \Generated\Shared\Transfer\OrderBudgetTransfer|null
+     */
+    public function findOrderBudgetByIdOrderBudget(int $idOrderBudget): ?OrderBudgetTransfer
+    {
+        return $this->orderBudgetFacade->findOrderBudgetByIdOrderBudget($idOrderBudget);
+    }
 }
