@@ -43,4 +43,17 @@ interface OrderBudgetFacadeInterface
      * @return void
      */
     public function updateOrderBudget(OrderBudgetTransfer $orderBudgetTransfer): void;
+
+    /**
+     * Specification:
+     * - Finds an order budget transfer by id.
+     * - Returns NULL if an order budget does not exist.
+     *
+     * @api
+     *
+     * @param int $idOrderBudget
+     *
+     * @return \Generated\Shared\Transfer\OrderBudgetTransfer|null
+     */
+    public function findOrderBudgetByIdOrderBudget(int $idOrderBudget): ?OrderBudgetTransfer;
 }

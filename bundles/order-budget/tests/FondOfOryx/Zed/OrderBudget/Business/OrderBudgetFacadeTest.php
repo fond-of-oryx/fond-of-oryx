@@ -5,6 +5,7 @@ namespace FondOfOryx\Zed\OrderBudget\Business;
 use Codeception\Test\Unit;
 use FondOfOryx\Zed\OrderBudget\Business\Resetter\OrderBudgetResetterInterface;
 use FondOfOryx\Zed\OrderBudget\Business\Writer\OrderBudgetWriterInterface;
+use FondOfOryx\Zed\OrderBudget\Persistence\OrderBudgetRepository;
 use Generated\Shared\Transfer\OrderBudgetTransfer;
 
 class OrderBudgetFacadeTest extends Unit
@@ -28,6 +29,11 @@ class OrderBudgetFacadeTest extends Unit
      * @var \Generated\Shared\Transfer\OrderBudgetTransfer|mixed|\PHPUnit\Framework\MockObject\MockObject
      */
     protected $orderBudgetTransferMock;
+
+    /**
+     * @var \FondOfOryx\Zed\OrderBudget\Persistence\OrderBudgetRepositoryInterface|mixed|\PHPUnit\Framework\MockObject\MockObject
+     */
+    protected $repositoryMock;
 
     /**
      * @var \FondOfOryx\Zed\OrderBudget\Business\OrderBudgetFacade
@@ -57,8 +63,13 @@ class OrderBudgetFacadeTest extends Unit
             ->disableOriginalConstructor()
             ->getMock();
 
+        $this->repositoryMock = $this->getMockBuilder(OrderBudgetRepository::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
         $this->facade = new OrderBudgetFacade();
         $this->facade->setFactory($this->factoryMock);
+        $this->facade->setRepository($this->repositoryMock);
     }
 
     /**
@@ -110,5 +121,23 @@ class OrderBudgetFacadeTest extends Unit
             ->with($this->orderBudgetTransferMock);
 
         $this->facade->updateOrderBudget($this->orderBudgetTransferMock);
+    }
+
+    /**
+     * @return void
+     */
+    public function testFindOrderBudgetByIdOrderBudget(): void
+    {
+        $idOrderBudget = 1;
+
+        $this->repositoryMock->expects(static::atLeastOnce())
+            ->method('findOrderBudgetByIdOrderBudget')
+            ->with($idOrderBudget)
+            ->willReturn($this->orderBudgetTransferMock);
+
+        static::assertEquals(
+            $this->orderBudgetTransferMock,
+            $this->facade->findOrderBudgetByIdOrderBudget($idOrderBudget)
+        );
     }
 }
