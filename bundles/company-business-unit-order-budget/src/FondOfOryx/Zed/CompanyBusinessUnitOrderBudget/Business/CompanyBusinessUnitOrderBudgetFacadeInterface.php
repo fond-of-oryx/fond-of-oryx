@@ -62,4 +62,19 @@ interface CompanyBusinessUnitOrderBudgetFacadeInterface
      * @return void
      */
     public function reduceOrderBudgetByQuote(QuoteTransfer $quoteTransfer): void;
+
+    /**
+     * Specification:
+     * - Expands company business unit with order budget
+     * - Skips if fkOrderBudget is null
+     *
+     * @api
+     *
+     * @param \Generated\Shared\Transfer\CompanyBusinessUnitTransfer $companyBusinessUnitTransfer
+     *
+     * @return \Generated\Shared\Transfer\CompanyBusinessUnitTransfer
+     */
+    public function expandCompanyBusinessUnit(
+        CompanyBusinessUnitTransfer $companyBusinessUnitTransfer
+    ): CompanyBusinessUnitTransfer;
 }

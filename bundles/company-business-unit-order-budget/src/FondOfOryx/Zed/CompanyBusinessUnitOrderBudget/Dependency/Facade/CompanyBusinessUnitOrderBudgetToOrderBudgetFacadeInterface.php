@@ -19,4 +19,11 @@ interface CompanyBusinessUnitOrderBudgetToOrderBudgetFacadeInterface
      * @return void
      */
     public function updateOrderBudget(OrderBudgetTransfer $orderBudgetTransfer): void;
+
+    /**
+     * @param int $idOrderBudget
+     *
+     * @return \Generated\Shared\Transfer\OrderBudgetTransfer|null
+     */
+    public function findOrderBudgetByIdOrderBudget(int $idOrderBudget): ?OrderBudgetTransfer;
 }

@@ -1,16 +1,16 @@
 <?php
 
-namespace FondOfOryx\Zed\CompanyBusinessUnitOrderBudget\Communication\Plugin\CheckoutExtension;
+namespace FondOfOryx\Zed\CompanyBusinessUnitOrderBudget\Communication\Plugin\Checkout;
 
 use Generated\Shared\Transfer\CheckoutResponseTransfer;
 use Generated\Shared\Transfer\QuoteTransfer;
-use Spryker\Zed\CheckoutExtension\Dependency\Plugin\CheckoutPostSaveInterface;
+use Spryker\Zed\Checkout\Dependency\Plugin\CheckoutPostSaveHookInterface;
 use Spryker\Zed\Kernel\Communication\AbstractPlugin;
 
 /**
  * @method \FondOfOryx\Zed\CompanyBusinessUnitOrderBudget\Business\CompanyBusinessUnitOrderBudgetFacadeInterface getFacade()
  */
-class CompanyBusinessUnitOrderBudgetCheckoutPostSavePlugin extends AbstractPlugin implements CheckoutPostSaveInterface
+class CompanyBusinessUnitOrderBudgetCheckoutPostSavePlugin extends AbstractPlugin implements CheckoutPostSaveHookInterface
 {
     /**
      * @param \Generated\Shared\Transfer\QuoteTransfer $quoteTransfer

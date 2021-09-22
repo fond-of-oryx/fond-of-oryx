@@ -3,6 +3,7 @@
 namespace FondOfOryx\Zed\CompanyBusinessUnitOrderBudget\Business;
 
 use Codeception\Test\Unit;
+use FondOfOryx\Zed\CompanyBusinessUnitOrderBudget\Business\Expander\CompanyBusinessUnitExpanderInterface;
 use FondOfOryx\Zed\CompanyBusinessUnitOrderBudget\Business\Expander\QuoteExpanderInterface;
 use FondOfOryx\Zed\CompanyBusinessUnitOrderBudget\Business\Reducer\OrderBudgetReducerInterface;
 use FondOfOryx\Zed\CompanyBusinessUnitOrderBudget\Business\Validator\QuoteValidatorInterface;
@@ -48,6 +49,11 @@ class CompanyBusinessUnitOrderBudgetFacadeTest extends Unit
     protected $orderBudgetReducerMock;
 
     /**
+     * @var \FondOfOryx\Zed\CompanyBusinessUnitOrderBudget\Business\Expander\CompanyBusinessUnitExpanderInterface|mixed|\PHPUnit\Framework\MockObject\MockObject
+     */
+    protected $companyBusinessUnitExpanderMock;
+
+    /**
      * @var \FondOfOryx\Zed\CompanyBusinessUnitOrderBudget\Business\CompanyBusinessUnitOrderBudgetFacade
      */
     protected $facade;
@@ -84,6 +90,10 @@ class CompanyBusinessUnitOrderBudgetFacadeTest extends Unit
             ->getMock();
 
         $this->orderBudgetReducerMock = $this->getMockBuilder(OrderBudgetReducerInterface::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $this->companyBusinessUnitExpanderMock = $this->getMockBuilder(CompanyBusinessUnitExpanderInterface::class)
             ->disableOriginalConstructor()
             ->getMock();
 
@@ -157,5 +167,25 @@ class CompanyBusinessUnitOrderBudgetFacadeTest extends Unit
             ->with($this->quoteTransferMock);
 
         $this->facade->reduceOrderBudgetByQuote($this->quoteTransferMock);
+    }
+
+    /**
+     * @return void
+     */
+    public function testExpandCompanyBusinessUnit(): void
+    {
+        $this->businessFactoryMock->expects(static::atLeastOnce())
+            ->method('createCompanyBusinessUnitExpander')
+            ->willReturn($this->companyBusinessUnitExpanderMock);
+
+        $this->companyBusinessUnitExpanderMock->expects(static::atLeastOnce())
+            ->method('expand')
+            ->with($this->companyBusinessUnitTransferMock)
+            ->willReturn($this->companyBusinessUnitTransferMock);
+
+        static::assertEquals(
+            $this->companyBusinessUnitTransferMock,
+            $this->facade->expandCompanyBusinessUnit($this->companyBusinessUnitTransferMock)
+        );
     }
 }
