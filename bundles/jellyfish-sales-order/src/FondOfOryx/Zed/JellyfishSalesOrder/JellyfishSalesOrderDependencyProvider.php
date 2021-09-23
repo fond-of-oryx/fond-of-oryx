@@ -12,6 +12,7 @@ class JellyfishSalesOrderDependencyProvider extends AbstractBundleDependencyProv
     public const PLUGINS_JELLYFISH_ORDER_ADDRESS_EXPANDER_POST_MAP = 'PLUGINS_JELLYFISH_ORDER_ADDRESS_EXPANDER_POST_MAP';
     public const PLUGINS_JELLYFISH_ORDER_BEFORE_EXPORT = 'PLUGINS_JELLYFISH_ORDER_BEFORE_EXPORT';
     public const PLUGINS_JELLYFISH_ORDER_EXPANDER_POST_MAP = 'PLUGINS_JELLYFISH_ORDER_EXPANDER_POST_MAP';
+    public const PLUGINS_JELLYFISH_ORDER_POST_MAP = 'PLUGINS_JELLYFISH_ORDER_POST_MAP';
     public const PLUGINS_JELLYFISH_ORDER_ITEM_EXPANDER_POST_MAP = 'PLUGINS_JELLYFISH_ORDER_ITEM_EXPANDER_POST_MAP';
 
     /**
@@ -25,6 +26,7 @@ class JellyfishSalesOrderDependencyProvider extends AbstractBundleDependencyProv
         $container = $this->addJellyfishOrderAddressExpanderPostMapPlugins($container);
         $container = $this->addJellyfishOrderBeforeExportPlugins($container);
         $container = $this->addJellyfishOrderExpanderPostMapPlugins($container);
+        $container = $this->addJellyfishOrderPostMapPlugins($container);
         $container = $this->addJellyfishOrderItemExpanderPostMapPlugins($container);
 
         return $container;
@@ -103,6 +105,20 @@ class JellyfishSalesOrderDependencyProvider extends AbstractBundleDependencyProv
     }
 
     /**
+     * @param \Spryker\Zed\Kernel\Container $container
+     *
+     * @return \Spryker\Zed\Kernel\Container
+     */
+    protected function addJellyfishOrderPostMapPlugins(Container $container): Container
+    {
+        $container[static::PLUGINS_JELLYFISH_ORDER_POST_MAP] = function (Container $container) {
+            return $this->getJellyfishOrderPostMapPlugins();
+        };
+
+        return $container;
+    }
+
+    /**
      * @return \FondOfOryx\Zed\JellyfishSalesOrderExtension\Dependency\Plugin\JellyfishOrderAddressExpanderPostMapPluginInterface[]
      */
     protected function getJellyfishOrderAddressExpanderPostMapPlugins(): array
@@ -130,6 +146,14 @@ class JellyfishSalesOrderDependencyProvider extends AbstractBundleDependencyProv
      * @return \FondOfOryx\Zed\JellyfishSalesOrderExtension\Dependency\Plugin\JellyfishOrderExpanderPostMapPluginInterface[]
      */
     protected function getJellyfishOrderExpanderPostMapPlugins(): array
+    {
+        return [];
+    }
+
+    /**
+     * @return \FondOfOryx\Zed\JellyfishSalesOrderExtension\Dependency\Plugin\JellyfishOrderPostMapPluginInterface[]
+     */
+    protected function getJellyfishOrderPostMapPlugins(): array
     {
         return [];
     }

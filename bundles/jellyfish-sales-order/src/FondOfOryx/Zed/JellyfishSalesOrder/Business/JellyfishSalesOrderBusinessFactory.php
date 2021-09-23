@@ -20,6 +20,8 @@ use FondOfOryx\Zed\JellyfishSalesOrder\Business\Model\Mapper\JellyfishOrderPayme
 use FondOfOryx\Zed\JellyfishSalesOrder\Business\Model\Mapper\JellyfishOrderPaymentMapperInterface;
 use FondOfOryx\Zed\JellyfishSalesOrder\Business\Model\Mapper\JellyfishOrderTotalsMapper;
 use FondOfOryx\Zed\JellyfishSalesOrder\Business\Model\Mapper\JellyfishOrderTotalsMapperInterface;
+use FondOfOryx\Zed\JellyfishSalesOrder\Business\Model\PluginExecutor\JellyfishSalesOrderPluginExecutor;
+use FondOfOryx\Zed\JellyfishSalesOrder\Business\Model\PluginExecutor\JellyfishSalesOrderPluginExecutorInterface;
 use FondOfOryx\Zed\JellyfishSalesOrder\Dependency\Service\JellyfishSalesOrderToUtilEncodingServiceInterface;
 use FondOfOryx\Zed\JellyfishSalesOrder\JellyfishSalesOrderDependencyProvider;
 use GuzzleHttp\Client as HttpClient;
@@ -39,6 +41,7 @@ class JellyfishSalesOrderBusinessFactory extends AbstractBusinessFactory
         return new SalesOrderExporter(
             $this->createJellyfishOrderMapper(),
             $this->createJellyfishOrderItemMapper(),
+            $this->createJellyfishSalesOrderPluginExecutor(),
             $this->createSalesOrderAdapter()
         );
     }
@@ -123,6 +126,14 @@ class JellyfishSalesOrderBusinessFactory extends AbstractBusinessFactory
     }
 
     /**
+     * @return \FondOfOryx\Zed\JellyfishSalesOrder\Business\Model\PluginExecutor\JellyfishSalesOrderPluginExecutorInterface
+     */
+    protected function createJellyfishSalesOrderPluginExecutor(): JellyfishSalesOrderPluginExecutorInterface
+    {
+        return new JellyfishSalesOrderPluginExecutor($this->getJellyfishOrderPostMapPlugins());
+    }
+
+    /**
      * @return \FondOfOryx\Zed\JellyfishSalesOrder\Business\Api\Adapter\SalesOrderAdapterInterface
      */
     protected function createSalesOrderAdapter(): SalesOrderAdapterInterface
@@ -173,5 +184,13 @@ class JellyfishSalesOrderBusinessFactory extends AbstractBusinessFactory
     protected function getOrderItemExpanderPostMapPlugins(): array
     {
         return $this->getProvidedDependency(JellyfishSalesOrderDependencyProvider::PLUGINS_JELLYFISH_ORDER_ITEM_EXPANDER_POST_MAP);
+    }
+
+    /**
+     * @return \FondOfOryx\Zed\JellyfishSalesOrderExtension\Dependency\Plugin\JellyfishOrderPostMapPluginInterface[]
+     */
+    protected function getJellyfishOrderPostMapPlugins(): array
+    {
+        return $this->getProvidedDependency(JellyfishSalesOrderDependencyProvider::PLUGINS_JELLYFISH_ORDER_POST_MAP);
     }
 }
