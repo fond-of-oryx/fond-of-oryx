@@ -2,6 +2,7 @@
 
 namespace FondOfOryx\Zed\OneTimePasswordRestApi\Business\Sender;
 
+use FondOfOryx\Zed\OneTimePasswordRestApi\Dependency\Facade\OneTimePasswordRestApiToCustomerFacadeInterface;
 use FondOfOryx\Zed\OneTimePasswordRestApi\Dependency\Facade\OneTimePasswordRestApiToOneTimePasswordFacadeInterface;
 use Generated\Shared\Transfer\CustomerTransfer;
 use Generated\Shared\Transfer\OneTimePasswordResponseTransfer;
@@ -18,11 +19,20 @@ class OneTimePasswordRestApiSender implements OneTimePasswordRestApiSenderInterf
     protected $oneTimePasswordFacade;
 
     /**
-     * @param \FondOfOryx\Zed\OneTimePasswordRestApi\Dependency\Facade\OneTimePasswordRestApiToOneTimePasswordFacadeInterface $oneTimePasswordFacade
+     * @var \FondOfOryx\Zed\OneTimePasswordRestApi\Dependency\Facade\OneTimePasswordRestApiToCustomerFacadeInterface
      */
-    public function __construct(OneTimePasswordRestApiToOneTimePasswordFacadeInterface $oneTimePasswordFacade)
-    {
+    protected $customerFacade;
+
+    /**
+     * @param \FondOfOryx\Zed\OneTimePasswordRestApi\Dependency\Facade\OneTimePasswordRestApiToOneTimePasswordFacadeInterface $oneTimePasswordFacade
+     * @param \FondOfOryx\Zed\OneTimePasswordRestApi\Dependency\Facade\OneTimePasswordRestApiToCustomerFacadeInterface $customerFacade
+     */
+    public function __construct(
+        OneTimePasswordRestApiToOneTimePasswordFacadeInterface $oneTimePasswordFacade,
+        OneTimePasswordRestApiToCustomerFacadeInterface $customerFacade
+    ) {
         $this->oneTimePasswordFacade = $oneTimePasswordFacade;
+        $this->customerFacade = $customerFacade;
     }
 
     /**
@@ -35,7 +45,7 @@ class OneTimePasswordRestApiSender implements OneTimePasswordRestApiSenderInterf
     ): RestOneTimePasswordResponseTransfer {
         $email = $restOneTimePasswordRequestAttributesTransfer->getEmail();
 
-        $customerTransfer = (new CustomerTransfer())->setEmail($email);
+        $customerTransfer = $this->getCustomerByEmail($email);
 
         $oneTimePasswordResponseTransfer = $this->oneTimePasswordFacade->requestOneTimePassword($customerTransfer);
 
@@ -54,7 +64,7 @@ class OneTimePasswordRestApiSender implements OneTimePasswordRestApiSenderInterf
     ): RestOneTimePasswordResponseTransfer {
         $email = $restOneTimePasswordRequestAttributesTransfer->getEmail();
 
-        $customerTransfer = (new CustomerTransfer())->setEmail($email);
+        $customerTransfer = $this->getCustomerByEmail($email);
 
         if ($restOneTimePasswordRequestAttributesTransfer->getOrderReference()) {
             $orderTransfer = (new OrderTransfer())
@@ -73,6 +83,18 @@ class OneTimePasswordRestApiSender implements OneTimePasswordRestApiSenderInterf
         return $this->createRestOneTimePasswordResponseTransfer(
             $oneTimePasswordResponseTransfer
         );
+    }
+
+    /**
+     * @param string $email
+     *
+     * @return \Generated\Shared\Transfer\CustomerTransfer
+     */
+    protected function getCustomerByEmail(string $email): CustomerTransfer
+    {
+        $customerTransfer = (new CustomerTransfer())->setEmail($email);
+
+        return $this->customerFacade->getCustomer($customerTransfer);
     }
 
     /**
