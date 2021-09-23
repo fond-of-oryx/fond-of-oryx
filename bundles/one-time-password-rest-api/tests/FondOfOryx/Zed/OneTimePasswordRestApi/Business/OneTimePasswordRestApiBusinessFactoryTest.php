@@ -4,8 +4,8 @@ namespace FondOfOryx\Zed\OneTimePasswordRestApi\Business;
 
 use Codeception\Test\Unit;
 use FondOfOryx\Zed\OneTimePasswordRestApi\Business\Sender\OneTimePasswordRestApiSenderInterface;
+use FondOfOryx\Zed\OneTimePasswordRestApi\Dependency\Facade\OneTimePasswordRestApiToCustomerFacadeInterface;
 use FondOfOryx\Zed\OneTimePasswordRestApi\Dependency\Facade\OneTimePasswordRestApiToOneTimePasswordFacadeInterface;
-use FondOfOryx\Zed\OneTimePasswordRestApi\OneTimePasswordRestApiDependencyProvider;
 use Spryker\Zed\Kernel\Container;
 
 class OneTimePasswordRestApiBusinessFactoryTest extends Unit
@@ -26,6 +26,11 @@ class OneTimePasswordRestApiBusinessFactoryTest extends Unit
     protected $oneTimePasswordFacadeMock;
 
     /**
+     * @var \FondOfOryx\Zed\OneTimePasswordRestApi\Dependency\Facade\OneTimePasswordRestApiToCustomerFacadeInterface|mixed|\PHPUnit\Framework\MockObject\MockObject
+     */
+    protected $customerFacadeMock;
+
+    /**
      * @return void
      */
     protected function _before(): void
@@ -35,6 +40,10 @@ class OneTimePasswordRestApiBusinessFactoryTest extends Unit
             ->getMock();
 
         $this->oneTimePasswordFacadeMock = $this->getMockBuilder(OneTimePasswordRestApiToOneTimePasswordFacadeInterface::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $this->customerFacadeMock = $this->getMockBuilder(OneTimePasswordRestApiToCustomerFacadeInterface::class)
             ->disableOriginalConstructor()
             ->getMock();
 
@@ -53,8 +62,10 @@ class OneTimePasswordRestApiBusinessFactoryTest extends Unit
 
         $this->containerMock->expects($this->atLeastOnce())
             ->method('get')
-            ->with(OneTimePasswordRestApiDependencyProvider::FACADE_ONE_TIME_PASSWORD)
-            ->willReturn($this->oneTimePasswordFacadeMock);
+            ->willReturnOnConsecutiveCalls(
+                $this->oneTimePasswordFacadeMock,
+                $this->customerFacadeMock
+            );
 
         $this->assertInstanceOf(
             OneTimePasswordRestApiSenderInterface::class,
