@@ -32,6 +32,10 @@
       "path": "bundles/catalog-sku-filter/",
       "version": "1.1.0"
     },
+    "company-business-unit-order-budget": {
+      "path": "bundles/company-business-unit-order-budget/",
+      "version": "1.0.0"
+    },
     "credit-memo-api": {
       "path": "bundles/credit-memo-api/",
       "version": "1.0.0"
@@ -58,6 +62,10 @@
     },
     "customer-statistics-rest-api": {
       "path": "bundles/customer-statistics-rest-api/",
+      "version": "1.0.0"
+    },
+    "delivery-date-restriction": {
+      "path": "bundles/delivery-date-restriction/",
       "version": "1.0.0"
     },
     "erp-order": {
@@ -163,6 +171,10 @@
     "one-time-password-rest-api": {
       "path": "bundles/one-time-password-rest-api/",
       "version": "1.0.0-beta.1"
+    },
+    "order-budget": {
+      "path": "bundles/order-budget/",
+      "version": "1.0.0"
     },
     "payone-credit-memo": {
       "path": "bundles/payone-credit-memo/",
