@@ -104,5 +104,9 @@ class JellyfishSalesOrderDependencyProviderTest extends Unit
         $this->assertIsArray(
             $this->containerMock[JellyfishSalesOrderDependencyProvider::PLUGINS_JELLYFISH_ORDER_ITEM_EXPANDER_POST_MAP]
         );
+
+        $this->assertIsArray(
+            $this->containerMock[JellyfishSalesOrderDependencyProvider::PLUGINS_JELLYFISH_ORDER_POST_MAP]
+        );
     }
 }

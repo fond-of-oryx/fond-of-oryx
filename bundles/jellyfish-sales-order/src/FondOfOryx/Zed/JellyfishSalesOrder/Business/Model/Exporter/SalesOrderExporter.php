@@ -7,6 +7,7 @@ use Exception;
 use FondOfOryx\Zed\JellyfishSalesOrder\Business\Api\Adapter\SalesOrderAdapterInterface;
 use FondOfOryx\Zed\JellyfishSalesOrder\Business\Model\Mapper\JellyfishOrderItemMapperInterface;
 use FondOfOryx\Zed\JellyfishSalesOrder\Business\Model\Mapper\JellyfishOrderMapperInterface;
+use FondOfOryx\Zed\JellyfishSalesOrder\Business\Model\PluginExecutor\JellyfishSalesOrderPluginExecutorInterface;
 use Generated\Shared\Transfer\JellyfishOrderTransfer;
 use Orm\Zed\Sales\Persistence\SpySalesOrder;
 use Spryker\Shared\Log\LoggerTrait;
@@ -26,6 +27,11 @@ class SalesOrderExporter implements SalesOrderExporterInterface
     protected $jellyfishOrderItemMapper;
 
     /**
+     * @var \FondOfOryx\Zed\JellyfishSalesOrder\Business\Model\PluginExecutor\JellyfishSalesOrderPluginExecutorInterface
+     */
+    protected $jellyfishSalesOrderPluginExecutor;
+
+    /**
      * @var \FondOfOryx\Zed\JellyfishSalesOrder\Business\Api\Adapter\SalesOrderAdapterInterface
      */
     protected $adapter;
@@ -33,15 +39,18 @@ class SalesOrderExporter implements SalesOrderExporterInterface
     /**
      * @param \FondOfOryx\Zed\JellyfishSalesOrder\Business\Model\Mapper\JellyfishOrderMapperInterface $jellyfishOrderMapper
      * @param \FondOfOryx\Zed\JellyfishSalesOrder\Business\Model\Mapper\JellyfishOrderItemMapperInterface $jellyfishOrderItemMapper
+     * @param \FondOfOryx\Zed\JellyfishSalesOrder\Business\Model\PluginExecutor\JellyfishSalesOrderPluginExecutorInterface $jellyfishSalesOrderPluginExecutor
      * @param \FondOfOryx\Zed\JellyfishSalesOrder\Business\Api\Adapter\SalesOrderAdapterInterface $adapter
      */
     public function __construct(
         JellyfishOrderMapperInterface $jellyfishOrderMapper,
         JellyfishOrderItemMapperInterface $jellyfishOrderItemMapper,
+        JellyfishSalesOrderPluginExecutorInterface $jellyfishSalesOrderPluginExecutor,
         SalesOrderAdapterInterface $adapter
     ) {
         $this->jellyfishOrderMapper = $jellyfishOrderMapper;
         $this->jellyfishOrderItemMapper = $jellyfishOrderItemMapper;
+        $this->jellyfishSalesOrderPluginExecutor = $jellyfishSalesOrderPluginExecutor;
         $this->adapter = $adapter;
     }
 
@@ -85,7 +94,8 @@ class SalesOrderExporter implements SalesOrderExporterInterface
 
         $jellyfishOrderTransfer->setItems($jellyfishOrderItems);
 
-        return $jellyfishOrderTransfer;
+        return $this->jellyfishSalesOrderPluginExecutor
+            ->executePostMapPlugins($jellyfishOrderTransfer, $salesOrderEntity);
     }
 
     /**
