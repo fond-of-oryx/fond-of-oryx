@@ -8,6 +8,8 @@ use FondOfOryx\Zed\JellyfishSalesOrderGiftCardConnector\Business\Expander\Jellyf
 use FondOfOryx\Zed\JellyfishSalesOrderGiftCardConnector\Business\Expander\JellyfishOrderItemExpanderInterface;
 use FondOfOryx\Zed\JellyfishSalesOrderGiftCardConnector\Business\Mapper\JellyfishOrderGiftCardMapper;
 use FondOfOryx\Zed\JellyfishSalesOrderGiftCardConnector\Business\Mapper\JellyfishOrderGiftCardMapperInterface;
+use FondOfOryx\Zed\JellyfishSalesOrderGiftCardConnector\Dependency\Facade\JellyfishSalesOrderGiftCardConnectorToProductCardCodeTypeRestrictionFacadeInterface;
+use FondOfOryx\Zed\JellyfishSalesOrderGiftCardConnector\JellyfishSalesOrderGiftCardConnectorDependencyProvider;
 use Spryker\Zed\Kernel\Business\AbstractBusinessFactory;
 
 class JellyfishSalesOrderGiftCardConnectorBusinessFactory extends AbstractBusinessFactory
@@ -25,7 +27,10 @@ class JellyfishSalesOrderGiftCardConnectorBusinessFactory extends AbstractBusine
      */
     public function createJellyfishOrderExpander(): JellyfishOrderExpanderInterface
     {
-        return new JellyfishOrderExpander($this->createGiftCardMapper());
+        return new JellyfishOrderExpander(
+            $this->createGiftCardMapper(),
+            $this->getProductCardCodeTypeRestrictionFacade()
+        );
     }
 
     /**
@@ -34,5 +39,13 @@ class JellyfishSalesOrderGiftCardConnectorBusinessFactory extends AbstractBusine
     protected function createGiftCardMapper(): JellyfishOrderGiftCardMapperInterface
     {
         return new JellyfishOrderGiftCardMapper();
+    }
+
+    /**
+     * @return \FondOfOryx\Zed\JellyfishSalesOrderGiftCardConnector\Dependency\Facade\JellyfishSalesOrderGiftCardConnectorToProductCardCodeTypeRestrictionFacadeInterface
+     */
+    protected function getProductCardCodeTypeRestrictionFacade(): JellyfishSalesOrderGiftCardConnectorToProductCardCodeTypeRestrictionFacadeInterface
+    {
+        return $this->getProvidedDependency(JellyfishSalesOrderGiftCardConnectorDependencyProvider::FACADE_PRODUCT_CART_CODE_TYPE_RESTRICTION);
     }
 }

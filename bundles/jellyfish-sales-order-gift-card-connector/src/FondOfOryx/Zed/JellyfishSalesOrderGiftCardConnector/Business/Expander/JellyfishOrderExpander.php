@@ -4,13 +4,15 @@ namespace FondOfOryx\Zed\JellyfishSalesOrderGiftCardConnector\Business\Expander;
 
 use ArrayObject;
 use FondOfOryx\Zed\JellyfishSalesOrderGiftCardConnector\Business\Mapper\JellyfishOrderGiftCardMapperInterface;
-use Generated\Shared\Transfer\JellyfishOrderTotalsTransfer;
+use FondOfOryx\Zed\JellyfishSalesOrderGiftCardConnector\Dependency\Facade\JellyfishSalesOrderGiftCardConnectorToProductCardCodeTypeRestrictionFacadeInterface;
+use Generated\Shared\Transfer\JellyfishOrderItemTransfer;
 use Generated\Shared\Transfer\JellyfishOrderTransfer;
 use Orm\Zed\Sales\Persistence\SpySalesOrder;
 
 class JellyfishOrderExpander implements JellyfishOrderExpanderInterface
 {
     protected const SALES_PAYMENT_METHOD_GIFT_CARD = 'GiftCard';
+    protected const CART_CODE_TYPE_GIFT_CARD = 'gift card';
 
     /**
      * @var \FondOfOryx\Zed\JellyfishSalesOrderGiftCardConnector\Business\Mapper\JellyfishOrderGiftCardMapperInterface
@@ -18,12 +20,20 @@ class JellyfishOrderExpander implements JellyfishOrderExpanderInterface
     protected $jellyfishOrderGiftCardMapper;
 
     /**
+     * @var \FondOfOryx\Zed\JellyfishSalesOrderGiftCardConnector\Dependency\Facade\JellyfishSalesOrderGiftCardConnectorToProductCardCodeTypeRestrictionFacadeInterface
+     */
+    protected $productCardCodeTypeRestrictionFacade;
+
+    /**
      * @param \FondOfOryx\Zed\JellyfishSalesOrderGiftCardConnector\Business\Mapper\JellyfishOrderGiftCardMapperInterface $jellyfishOrderGiftCardMapper
+     * @param \FondOfOryx\Zed\JellyfishSalesOrderGiftCardConnector\Dependency\Facade\JellyfishSalesOrderGiftCardConnectorToProductCardCodeTypeRestrictionFacadeInterface $productCardCodeTypeRestrictionFacade
      */
     public function __construct(
-        JellyfishOrderGiftCardMapperInterface $jellyfishOrderGiftCardMapper
+        JellyfishOrderGiftCardMapperInterface $jellyfishOrderGiftCardMapper,
+        JellyfishSalesOrderGiftCardConnectorToProductCardCodeTypeRestrictionFacadeInterface $productCardCodeTypeRestrictionFacade
     ) {
         $this->jellyfishOrderGiftCardMapper = $jellyfishOrderGiftCardMapper;
+        $this->productCardCodeTypeRestrictionFacade = $productCardCodeTypeRestrictionFacade;
     }
 
     /**
@@ -43,8 +53,35 @@ class JellyfishOrderExpander implements JellyfishOrderExpanderInterface
         }
 
         return $jellyfishOrderTransfer
-            ->setGiftCards($this->mapSalesPaymentsToGiftCards($giftCardPayments))
-            ->setTotals($this->recalculateTotals($jellyfishOrderTransfer, $giftCardPayments));
+            ->setGiftCards($this->mapSalesPaymentsToGiftCards($giftCardPayments));
+    }
+
+    /**
+     * @param \Generated\Shared\Transfer\JellyfishOrderTransfer $jellyfishOrderTransfer
+     *
+     * @return \Generated\Shared\Transfer\JellyfishOrderTransfer
+     */
+    public function expandOrderItemsWithGiftCardRestrictionFlag(
+        JellyfishOrderTransfer $jellyfishOrderTransfer
+    ): JellyfishOrderTransfer {
+        if ($jellyfishOrderTransfer->getGiftCards()->count() === 0) {
+            return $jellyfishOrderTransfer;
+        }
+
+        $blacklistedItemsForGiftCard = $this->getBlacklistedGiftCardItems(
+            $this->productCardCodeTypeRestrictionFacade
+                ->getBlacklistedCartCodeTypesByProductConcreteSkus(
+                    $this->getProductConcreteSkus($jellyfishOrderTransfer)
+                )
+        );
+
+        foreach ($jellyfishOrderTransfer->getItems() as $jellyfishOrderItemTransfer) {
+            $jellyfishOrderItemTransfer->setIsBlacklistedForGiftCard(
+                $this->isBlacklistedForGiftCard($jellyfishOrderItemTransfer, $blacklistedItemsForGiftCard)
+            );
+        }
+
+        return $jellyfishOrderTransfer;
     }
 
     /**
@@ -63,31 +100,6 @@ class JellyfishOrderExpander implements JellyfishOrderExpanderInterface
         }
 
         return $jellyfishOrderGiftCards;
-    }
-
-    /**
-     * @param \Generated\Shared\Transfer\JellyfishOrderTransfer $jellyfishOrderTransfer
-     * @param \ArrayObject $payments
-     *
-     * @return \Generated\Shared\Transfer\JellyfishOrderTotalsTransfer
-     */
-    protected function recalculateTotals(
-        JellyfishOrderTransfer $jellyfishOrderTransfer,
-        ArrayObject $payments
-    ): JellyfishOrderTotalsTransfer {
-        $jellyfishOrderTotalTransfer = $jellyfishOrderTransfer->getTotals();
-        $grandTotal = $jellyfishOrderTotalTransfer->getGrandTotal();
-        $discountTotal = $jellyfishOrderTotalTransfer->getDiscountTotal();
-
-        /** @var \Orm\Zed\Payment\Persistence\SpySalesPayment $payment */
-        foreach ($payments as $payment) {
-            $grandTotal = $grandTotal - $payment->getAmount();
-            $discountTotal = $discountTotal + $payment->getAmount();
-        }
-
-        return $jellyfishOrderTotalTransfer
-            ->setDiscountTotal($discountTotal)
-            ->setGrandTotal($grandTotal);
     }
 
     /**
@@ -111,5 +123,52 @@ class JellyfishOrderExpander implements JellyfishOrderExpanderInterface
         }
 
         return $giftCardPayments;
+    }
+
+    /**
+     * @param \Generated\Shared\Transfer\JellyfishOrderTransfer $jellyfishOrderTransfer
+     *
+     * @return string[]
+     */
+    protected function getProductConcreteSkus(JellyfishOrderTransfer $jellyfishOrderTransfer): array
+    {
+        $skus = [];
+
+        foreach ($jellyfishOrderTransfer->getItems() as $item) {
+            $skus[] = $item->getSku();
+        }
+
+        return $skus;
+    }
+
+    /**
+     * @param array $blacklistedItems
+     *
+     * @return array
+     */
+    protected function getBlacklistedGiftCardItems(array $blacklistedItems): array
+    {
+        $blacklistedGiftCardItems = [];
+
+        foreach ($blacklistedItems as $sku => $cartCodeTypes) {
+            if (in_array(static::CART_CODE_TYPE_GIFT_CARD, $cartCodeTypes)) {
+                $blacklistedGiftCardItems[] = $sku;
+            }
+        }
+
+        return $blacklistedGiftCardItems;
+    }
+
+    /**
+     * @param \Generated\Shared\Transfer\JellyfishOrderItemTransfer $jellyfishOrderItemTransfer
+     * @param array $blacklistedItemsForGiftCard
+     *
+     * @return bool
+     */
+    protected function isBlacklistedForGiftCard(
+        JellyfishOrderItemTransfer $jellyfishOrderItemTransfer,
+        array $blacklistedItemsForGiftCard
+    ): bool {
+        return in_array($jellyfishOrderItemTransfer->getSku(), $blacklistedItemsForGiftCard);
     }
 }

@@ -42,4 +42,17 @@ class JellyfishSalesOrderGiftCardConnectorFacade extends AbstractFacade implemen
             ->createJellyfishOrderExpander()
             ->expand($jellyfishOrderTransfer, $salesOrder);
     }
+
+    /**
+     * @param \Generated\Shared\Transfer\JellyfishOrderTransfer $jellyfishOrderTransfer
+     *
+     * @return \Generated\Shared\Transfer\JellyfishOrderTransfer
+     */
+    public function expandOrderItemsWithGiftCardRestrictionFlag(
+        JellyfishOrderTransfer $jellyfishOrderTransfer
+    ): JellyfishOrderTransfer {
+        return $this->getFactory()
+            ->createJellyfishOrderExpander()
+            ->expandOrderItemsWithGiftCardRestrictionFlag($jellyfishOrderTransfer);
+    }
 }

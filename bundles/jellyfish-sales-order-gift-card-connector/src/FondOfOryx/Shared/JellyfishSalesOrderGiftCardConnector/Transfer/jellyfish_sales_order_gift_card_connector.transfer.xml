@@ -5,6 +5,8 @@
 
     <transfer name="JellyfishOrderItem">
         <property name="giftCardCode" type="string"/>
+        <property name="productType" type="string"/>
+        <property name="isBlacklistedForGiftCard" type="bool"/>
     </transfer>
 
 </transfers>
