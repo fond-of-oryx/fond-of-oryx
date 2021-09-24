@@ -23,11 +23,11 @@ class OutstandingQuantityErpPageSearchQueryExpanderPlugin extends AbstractPlugin
      */
     public function expandQuery(QueryInterface $searchQuery, array $requestParameters = [])
     {
-        if (!isset($requestParameters[ErpOrderPageSearchConstants::PARAMETER_MIN_OUTSTANDING_QUANTITY])) {
+        if (!isset($requestParameters[ErpOrderPageSearchConstants::PARAMETER_OUTSTANDING_QUANTITY])) {
             return $searchQuery;
         }
 
-        $outstandingQty = $requestParameters[ErpOrderPageSearchConstants::PARAMETER_MIN_OUTSTANDING_QUANTITY];
+        $outstandingQty = $requestParameters[ErpOrderPageSearchConstants::PARAMETER_OUTSTANDING_QUANTITY];
 
         $range = (new Range())->addField(
             ErpOrderIndexMap::OUTSTANDING_QUANTITY,
