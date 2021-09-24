@@ -2,6 +2,7 @@
 
 namespace FondOfOryx\Zed\OneTimePasswordRestApi\Business\Sender;
 
+use Exception;
 use FondOfOryx\Zed\OneTimePasswordRestApi\Dependency\Facade\OneTimePasswordRestApiToCustomerFacadeInterface;
 use FondOfOryx\Zed\OneTimePasswordRestApi\Dependency\Facade\OneTimePasswordRestApiToOneTimePasswordFacadeInterface;
 use Generated\Shared\Transfer\CustomerTransfer;
@@ -45,7 +46,11 @@ class OneTimePasswordRestApiSender implements OneTimePasswordRestApiSenderInterf
     ): RestOneTimePasswordResponseTransfer {
         $email = $restOneTimePasswordRequestAttributesTransfer->getEmail();
 
-        $customerTransfer = $this->getCustomerByEmail($email);
+        try {
+            $customerTransfer = $this->getCustomerByEmail($email);
+        } catch (Exception $customerNotFoundException) {
+            return (new RestOneTimePasswordResponseTransfer())->setSuccess(false);
+        }
 
         $oneTimePasswordResponseTransfer = $this->oneTimePasswordFacade->requestOneTimePassword($customerTransfer);
 
@@ -64,7 +69,11 @@ class OneTimePasswordRestApiSender implements OneTimePasswordRestApiSenderInterf
     ): RestOneTimePasswordResponseTransfer {
         $email = $restOneTimePasswordRequestAttributesTransfer->getEmail();
 
-        $customerTransfer = $this->getCustomerByEmail($email);
+        try {
+            $customerTransfer = $this->getCustomerByEmail($email);
+        } catch (Exception $customerNotFoundException) {
+            return (new RestOneTimePasswordResponseTransfer())->setSuccess(false);
+        }
 
         if ($restOneTimePasswordRequestAttributesTransfer->getOrderReference()) {
             $orderTransfer = (new OrderTransfer())
