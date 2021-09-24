@@ -65,7 +65,7 @@ class OutstandingQuantityErpPageSearchQueryExpanderPluginTest extends Unit
             ->disableOriginalConstructor()
             ->getMock();
 
-        $this->requestParameters = [ErpOrderPageSearchConstants::PARAMETER_MIN_OUTSTANDING_QUANTITY => '1'];
+        $this->requestParameters = [ErpOrderPageSearchConstants::PARAMETER_OUTSTANDING_QUANTITY => '1'];
 
         $this->plugin = new OutstandingQuantityErpPageSearchQueryExpanderPlugin();
     }

@@ -31,5 +31,5 @@ interface ErpOrderPageSearchConstants
     public const PARAMETER_COMPANY_BUSINESS_UNIT_UUID = 'company-business-unit-uuid';
     public const PARAMETER_EXTERNAL_REFERENCE = 'external-reference';
     public const PARAMETER_REFERENCE = 'reference';
-    public const PARAMETER_MIN_OUTSTANDING_QUANTITY = 'min-outstanding-quantity';
+    public const PARAMETER_OUTSTANDING_QUANTITY = 'outstanding-quantity';
 }
