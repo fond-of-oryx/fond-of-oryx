@@ -5,8 +5,9 @@ namespace FondOfOryx\Zed\JellyfishSalesOrderGiftCardConnector\Business\Expander;
 use ArrayObject;
 use Codeception\Test\Unit;
 use FondOfOryx\Zed\JellyfishSalesOrderGiftCardConnector\Business\Mapper\JellyfishOrderGiftCardMapperInterface;
+use FondOfOryx\Zed\JellyfishSalesOrderGiftCardConnector\Dependency\Facade\JellyfishSalesOrderGiftCardConnectorToProductCardCodeTypeRestrictionFacadeInterface;
 use Generated\Shared\Transfer\JellyfishOrderGiftCardTransfer;
-use Generated\Shared\Transfer\JellyfishOrderTotalsTransfer;
+use Generated\Shared\Transfer\JellyfishOrderItemTransfer;
 use Generated\Shared\Transfer\JellyfishOrderTransfer;
 use Orm\Zed\Payment\Persistence\SpySalesPayment;
 use Orm\Zed\Payment\Persistence\SpySalesPaymentMethodType;
@@ -38,6 +39,16 @@ class JellyfishOrderExpanderTest extends Unit
      * @var \Generated\Shared\Transfer\JellyfishOrderTransfer|\PHPUnit\Framework\MockObject\MockObject
      */
     protected $jellyfishOrderTotalTransferMock;
+
+    /**
+     * @var \Generated\Shared\Transfer\JellyfishOrderItemTransfer|\PHPUnit\Framework\MockObject\MockObject
+     */
+    protected $jellyfishOrderItemTransferMock;
+
+    /**
+     * @var \FondOfOryx\Zed\JellyfishSalesOrderGiftCardConnector\Dependency\Facade\JellyfishSalesOrderGiftCardConnectorToProductCardCodeTypeRestrictionFacadeInterface|\PHPUnit\Framework\MockObject\MockObjec
+     */
+    protected $productCardCodeTypeRestrictionFacadeMock;
 
     /**
      * @var \Orm\Zed\Sales\Persistence\SpySalesOrder|\PHPUnit\Framework\MockObject\MockObject
@@ -85,11 +96,19 @@ class JellyfishOrderExpanderTest extends Unit
             ->disableOriginalConstructor()
             ->getMock();
 
-        $this->jellyfishOrderTotalTransferMock = $this->getMockBuilder(JellyfishOrderTotalsTransfer::class)
+        $this->jellyfishOrderItemTransferMock = $this->getMockBuilder(JellyfishOrderItemTransfer::class)
             ->disableOriginalConstructor()
             ->getMock();
 
-        $this->expander = new JellyfishOrderExpander($this->jellyfishOrderGiftCardMapperMock);
+        $this->productCardCodeTypeRestrictionFacadeMock = $this
+            ->getMockBuilder(JellyfishSalesOrderGiftCardConnectorToProductCardCodeTypeRestrictionFacadeInterface::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $this->expander = new JellyfishOrderExpander(
+            $this->jellyfishOrderGiftCardMapperMock,
+            $this->productCardCodeTypeRestrictionFacadeMock
+        );
     }
 
     /**
@@ -101,8 +120,6 @@ class JellyfishOrderExpanderTest extends Unit
         $salesPayments->append($this->spySalesPaymentMock);
         $data = [
             'paymentMethod' => 'GiftCard',
-            'grandTotal' => 5000,
-            'discountTotal' => 0,
             'paymentAmount' => 2000,
         ];
 
@@ -126,37 +143,48 @@ class JellyfishOrderExpanderTest extends Unit
             ->method('setGiftCards')
             ->willReturnSelf();
 
-        $this->jellyfishOrderTransferMock->expects(static::atLeastOnce())
-            ->method('getTotals')
-            ->willReturn($this->jellyfishOrderTotalTransferMock);
-
-        $this->jellyfishOrderTotalTransferMock->expects(static::atLeastOnce())
-            ->method('getGrandTotal')
-            ->willReturn($data['grandTotal']);
-
-        $this->jellyfishOrderTotalTransferMock->expects(static::atLeastOnce())
-            ->method('getDiscountTotal')
-            ->willReturn($data['discountTotal']);
-
-        $this->spySalesPaymentMock->expects(static::atLeastOnce())
-            ->method('getAmount')
-            ->willReturn($data['paymentAmount']);
-
-        $this->jellyfishOrderTotalTransferMock->expects(static::atLeastOnce())
-            ->method('setDiscountTotal')
-            ->willReturnSelf();
-
-        $this->jellyfishOrderTotalTransferMock->expects(static::atLeastOnce())
-            ->method('setGrandTotal')
-            ->willReturnSelf();
-
-        $this->jellyfishOrderTransferMock->expects(static::atLeastOnce())
-            ->method('setTotals')
-            ->willReturnSelf();
-
         $jellyfishOrderTransfer = $this->expander->expand(
             $this->jellyfishOrderTransferMock,
             $this->spySalesOrderMock
+        );
+
+        $this->assertInstanceOf(JellyfishOrderTransfer::class, $this->jellyfishOrderTransferMock);
+
+        $this->assertEquals($jellyfishOrderTransfer, $this->jellyfishOrderTransferMock);
+    }
+
+    /**
+     * @return void
+     */
+    public function testExpandOrderItemsWithGiftCardRestrictionFlag(): void
+    {
+        $giftCards = new ArrayObject();
+        $giftCards->append($this->jellyfishOrderGiftCardTransferMock);
+        $items = new ArrayObject();
+        $items->append($this->jellyfishOrderItemTransferMock);
+        $sku = 'sku';
+        $blacklistedItems = [
+            'sku' => ['0' => 'gift card'],
+        ];
+
+        $this->jellyfishOrderTransferMock->expects(static::atLeastOnce())
+            ->method('getGiftCards')
+            ->willReturn($giftCards);
+
+        $this->productCardCodeTypeRestrictionFacadeMock->expects(static::atLeastOnce())
+            ->method('getBlacklistedCartCodeTypesByProductConcreteSkus')
+            ->willReturn($blacklistedItems);
+
+        $this->jellyfishOrderTransferMock->expects(static::atLeastOnce())
+            ->method('getItems')
+            ->willReturn($items);
+
+        $this->jellyfishOrderItemTransferMock->expects(static::atLeastOnce())
+            ->method('getSku')
+            ->willReturn($sku);
+
+        $jellyfishOrderTransfer = $this->expander->expandOrderItemsWithGiftCardRestrictionFlag(
+            $this->jellyfishOrderTransferMock
         );
 
         $this->assertInstanceOf(JellyfishOrderTransfer::class, $this->jellyfishOrderTransferMock);

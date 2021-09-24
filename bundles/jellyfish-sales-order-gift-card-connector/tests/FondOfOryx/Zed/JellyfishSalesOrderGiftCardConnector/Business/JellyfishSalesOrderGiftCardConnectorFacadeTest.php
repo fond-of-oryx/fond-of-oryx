@@ -134,4 +134,26 @@ class JellyfishSalesOrderGiftCardConnectorFacadeTest extends Unit
         $this->assertInstanceOf(JellyfishOrderTransfer::class, $jellyfishOrderTransferMock);
         $this->assertEquals($this->jellyfishOrderTransferMock, $jellyfishOrderTransferMock);
     }
+
+    /**
+     * @return void
+     */
+    public function testExpandOrderItemsWithGiftCardRestrictionFlag(): void
+    {
+        $this->factoryMock->expects($this->atLeastOnce())
+            ->method('createJellyfishOrderExpander')
+            ->willReturn($this->jellyfishOrderExpanderMock);
+
+        $this->jellyfishOrderExpanderMock->expects($this->atLeastOnce())
+            ->method('expandOrderItemsWithGiftCardRestrictionFlag')
+            ->with($this->jellyfishOrderTransferMock)
+            ->willReturn($this->jellyfishOrderTransferMock);
+
+        $jellyfishOrderTransferMock = $this->facade->expandOrderItemsWithGiftCardRestrictionFlag(
+            $this->jellyfishOrderTransferMock
+        );
+
+        $this->assertInstanceOf(JellyfishOrderTransfer::class, $jellyfishOrderTransferMock);
+        $this->assertEquals($this->jellyfishOrderTransferMock, $jellyfishOrderTransferMock);
+    }
 }

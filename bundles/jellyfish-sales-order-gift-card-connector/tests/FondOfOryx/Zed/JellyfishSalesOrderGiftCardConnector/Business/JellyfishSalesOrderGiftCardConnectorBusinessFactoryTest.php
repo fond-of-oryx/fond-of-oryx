@@ -4,7 +4,8 @@ namespace FondOfOryx\Zed\JellyfishSalesOrderGiftCardConnector\Business;
 
 use Codeception\Test\Unit;
 use FondOfOryx\Zed\JellyfishSalesOrderGiftCardConnector\Business\Expander\JellyfishOrderExpanderInterface;
-use FondOfOryx\Zed\JellyfishSalesOrderGiftCardConnector\Business\Expander\JellyfishOrderItemExpanderInterface;
+use FondOfOryx\Zed\JellyfishSalesOrderGiftCardConnector\Dependency\Facade\JellyfishSalesOrderGiftCardConnectorToProductCardCodeTypeRestrictionFacadeInterface;
+use FondOfOryx\Zed\JellyfishSalesOrderGiftCardConnector\JellyfishSalesOrderGiftCardConnectorDependencyProvider;
 use Spryker\Zed\Kernel\Container;
 
 class JellyfishSalesOrderGiftCardConnectorBusinessFactoryTest extends Unit
@@ -20,6 +21,11 @@ class JellyfishSalesOrderGiftCardConnectorBusinessFactoryTest extends Unit
     protected $businessFactory;
 
     /**
+     * @var \PHPUnit\Framework\MockObject\MockObject|\FondOfOryx\Zed\JellyfishSalesOrderGiftCardConnector\Dependency\Facade\JellyfishSalesOrderGiftCardConnectorToProductCardCodeTypeRestrictionFacadeInterface
+     */
+    protected $productCartCodeTypeRestrictionFacadeMock;
+
+    /**
      * @return void
      */
     protected function _before(): void
@@ -28,18 +34,12 @@ class JellyfishSalesOrderGiftCardConnectorBusinessFactoryTest extends Unit
             ->disableOriginalConstructor()
             ->getMock();
 
-        $this->businessFactory = new JellyfishSalesOrderGiftCardConnectorBusinessFactory();
-    }
+        $this->productCartCodeTypeRestrictionFacadeMock = $this->getMockBuilder(JellyfishSalesOrderGiftCardConnectorToProductCardCodeTypeRestrictionFacadeInterface::class)
+            ->disableOriginalConstructor()
+            ->getMock();
 
-    /**
-     * @return void
-     */
-    public function testCreateJellyfishOrderItemExpander(): void
-    {
-        static::assertInstanceOf(
-            JellyfishOrderItemExpanderInterface::class,
-            $this->businessFactory->createJellyfishOrderItemExpander()
-        );
+        $this->businessFactory = new JellyfishSalesOrderGiftCardConnectorBusinessFactory();
+        $this->businessFactory->setContainer($this->containerMock);
     }
 
     /**
@@ -47,6 +47,18 @@ class JellyfishSalesOrderGiftCardConnectorBusinessFactoryTest extends Unit
      */
     public function testCreateJellyfishOrderExpander(): void
     {
+        $this->containerMock->expects($this->atLeastOnce())
+            ->method('has')
+            ->willReturn(true);
+
+        $this->containerMock->expects($this->atLeastOnce())
+            ->method('get')
+            ->withConsecutive(
+                [JellyfishSalesOrderGiftCardConnectorDependencyProvider::FACADE_PRODUCT_CART_CODE_TYPE_RESTRICTION]
+            )->willReturnOnConsecutiveCalls(
+                $this->productCartCodeTypeRestrictionFacadeMock,
+            );
+
         static::assertInstanceOf(
             JellyfishOrderExpanderInterface::class,
             $this->businessFactory->createJellyfishOrderExpander()

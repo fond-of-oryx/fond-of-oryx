@@ -17,4 +17,13 @@ interface JellyfishOrderExpanderInterface
         JellyfishOrderTransfer $jellyfishOrderTransfer,
         SpySalesOrder $spySalesOrder
     ): JellyfishOrderTransfer;
+
+    /**
+     * @param \Generated\Shared\Transfer\JellyfishOrderTransfer $jellyfishOrderTransfer
+     *
+     * @return \Generated\Shared\Transfer\JellyfishOrderTransfer
+     */
+    public function expandOrderItemsWithGiftCardRestrictionFlag(
+        JellyfishOrderTransfer $jellyfishOrderTransfer
+    ): JellyfishOrderTransfer;
 }
