@@ -71,6 +71,7 @@
         <property name="canceledQuantity" type="int"/>
         <property name="concreteDeliveryDate" type="string"/>
         <property name="status" type="string"/>
+        <property name="outstandingQuantity" type="int"/>
     </transfer>
 
     <transfer name="RestErpOrderTotal">
