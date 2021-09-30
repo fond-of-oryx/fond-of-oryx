@@ -39,7 +39,7 @@ class QuoteAvailabilityValidator implements ValidatorInterface
         $responseTransfer = (new QuoteValidationResponseTransfer())->setIsSuccessful(true);
         $clonedQuote = $this->availabilityCartConnectorFacade->addAvailabilityInformationOnQuoteItems(clone $quoteTransfer);
         foreach ($clonedQuote->getItems() as $itemTransfer) {
-            if ($itemTransfer->getAvailability() <= 0 || $itemTransfer->getIsBuyable() === false) {
+            if ($itemTransfer->getIsNeverOutOfStock() === false && ($itemTransfer->getAvailability() <= 0 || $itemTransfer->getIsBuyable() === false)) {
                 $responseTransfer
                     ->setIsSuccessful(false);
                 $responseTransfer->addErrors($this->createError($itemTransfer));

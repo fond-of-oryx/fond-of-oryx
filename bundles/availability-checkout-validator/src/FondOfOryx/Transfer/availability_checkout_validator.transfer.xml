@@ -6,5 +6,6 @@
     <transfer name="Item">
         <property name="availability" type="int"/>
         <property name="isBuyable" type="bool"/>
+        <property name="isNeverOutOfStock" type="bool"/>
     </transfer>
 </transfers>

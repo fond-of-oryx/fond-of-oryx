@@ -66,6 +66,7 @@ class QuoteAvailabilityValidatorTest extends Unit
         $this->facadeMock->expects(static::once())->method('addAvailabilityInformationOnQuoteItems')->willReturn($this->quoteTransferMock);
         $this->quoteTransferMock->expects(static::once())->method('getItems')->willReturn($items);
         $this->itemTransfer->expects(static::exactly(3))->method('getAvailability')->willReturn(0);
+        $this->itemTransfer->expects(static::atLeast(1))->method('getIsNeverOutOfStock')->willReturn(false);
         $this->itemTransfer->expects(static::once())->method('getSku')->willReturn('sku');
         $this->itemTransfer->expects(static::once())->method('getName')->willReturn('name');
 
@@ -91,6 +92,7 @@ class QuoteAvailabilityValidatorTest extends Unit
         $this->facadeMock->expects(static::once())->method('addAvailabilityInformationOnQuoteItems')->willReturn($this->quoteTransferMock);
         $this->quoteTransferMock->expects(static::once())->method('getItems')->willReturn($items);
         $this->itemTransfer->expects(static::exactly(3))->method('getAvailability')->willReturn(2);
+        $this->itemTransfer->expects(static::atLeast(1))->method('getIsNeverOutOfStock')->willReturn(false);
         $this->itemTransfer->expects(static::once())->method('getSku')->willReturn('sku');
         $this->itemTransfer->expects(static::once())->method('getName')->willReturn('name');
         $this->itemTransfer->expects(static::once())->method('getIsBuyable')->willReturn(false);
