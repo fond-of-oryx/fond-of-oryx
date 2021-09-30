@@ -148,9 +148,11 @@ class CheckCartAvailabilityTest extends Unit
         $this->itemTransferMock->expects(static::once())->method('toArray')->willReturn([]);
         $this->availabilityFacadeMock->expects(static::once())->method('isProductSellableForStore')->willReturn(true);
         $this->itemTransferMock->expects(static::once())->method('setAvailability')->with($decimal->toInt())->willReturnSelf();
+        $this->itemTransferMock->expects(static::once())->method('setIsNeverOutOfStock')->with(false)->willReturnSelf();
         $this->itemTransferMock->expects(static::once())->method('setIsBuyable')->with(true)->willReturnSelf();
         $this->availabilityFacadeMock->expects(static::once())->method('findOrCreateProductConcreteAvailabilityBySkuForStore')->willReturn($this->productConcreteAvailabilityTransferMock);
         $this->productConcreteAvailabilityTransferMock->expects(static::once())->method('getAvailability')->willReturn($decimal);
+        $this->productConcreteAvailabilityTransferMock->expects(static::once())->method('getIsNeverOutOfStock')->willReturn(false);
 
         $this->toTest->addAvailabilityInformationOnQuoteItems($this->quoteTransferMock);
     }

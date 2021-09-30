@@ -7,8 +7,8 @@ use FondOfOryx\Zed\AvailabilityCartDataExtender\Dependency\Facade\AvailabilityCa
 use FondOfOryx\Zed\AvailabilityCartDataExtender\Dependency\Facade\AvailabilityCartDataExtenderToAvailabilityFacadeInterface;
 use Generated\Shared\Transfer\CartChangeTransfer;
 use Generated\Shared\Transfer\CartPreCheckResponseTransfer;
-use Generated\Shared\Transfer\ItemTransfer;
 use Generated\Shared\Transfer\ProductAvailabilityCriteriaTransfer;
+use Generated\Shared\Transfer\ProductConcreteAvailabilityTransfer;
 use Generated\Shared\Transfer\QuoteTransfer;
 use Generated\Shared\Transfer\StoreTransfer;
 use Spryker\DecimalObject\Decimal;
@@ -93,9 +93,12 @@ class CheckCartAvailability implements CheckCartAvailabilityInterface
                 $productAvailabilityCriteriaTransfer
             );
 
+            $productConcreteAvailabilityTransfer = $this->getProductConcreteAvailabilityBySkuForStore($itemTransfer->getSku(), $storeTransfer, $productAvailabilityCriteriaTransfer);
+
             $itemTransfer
-                ->setAvailability($this->findProductConcreteAvailability($itemTransfer, $storeTransfer, $productAvailabilityCriteriaTransfer)->toInt())
-                ->setIsBuyable($isSellable);
+                ->setAvailability($this->getProductConcreteAvailability($productConcreteAvailabilityTransfer)->toInt())
+                ->setIsBuyable($isSellable)
+                ->setIsNeverOutOfStock($this->isProductConcreteNeverOutOfStock($productConcreteAvailabilityTransfer));
 
             $itemsInCart->append($itemTransfer);
         }
@@ -123,24 +126,52 @@ class CheckCartAvailability implements CheckCartAvailabilityInterface
     }
 
     /**
-     * @param \Generated\Shared\Transfer\ItemTransfer $itemTransfer
-     * @param \Generated\Shared\Transfer\StoreTransfer $storeTransfer
-     * @param \Generated\Shared\Transfer\ProductAvailabilityCriteriaTransfer $productAvailabilityCriteriaTransfer
+     * @param \Generated\Shared\Transfer\ProductConcreteAvailabilityTransfer|null $productConcreteAvailabilityTransfer
      *
      * @return \Spryker\DecimalObject\Decimal
      */
-    protected function findProductConcreteAvailability(
-        ItemTransfer $itemTransfer,
-        StoreTransfer $storeTransfer,
-        ProductAvailabilityCriteriaTransfer $productAvailabilityCriteriaTransfer
-    ): Decimal {
-        $productConcreteAvailabilityTransfer = $this->availabilityFacade
-            ->findOrCreateProductConcreteAvailabilityBySkuForStore($itemTransfer->getSku(), $storeTransfer, $productAvailabilityCriteriaTransfer);
-
+    protected function getProductConcreteAvailability(?ProductConcreteAvailabilityTransfer $productConcreteAvailabilityTransfer): Decimal
+    {
         if ($productConcreteAvailabilityTransfer !== null) {
             return $productConcreteAvailabilityTransfer->getAvailability();
         }
 
         return new Decimal(0);
+    }
+
+    /**
+     * @param \Generated\Shared\Transfer\ProductConcreteAvailabilityTransfer|null $productConcreteAvailabilityTransfer
+     *
+     * @return bool
+     */
+    protected function isProductConcreteNeverOutOfStock(?ProductConcreteAvailabilityTransfer $productConcreteAvailabilityTransfer): bool
+    {
+        if ($productConcreteAvailabilityTransfer !== null) {
+            return $productConcreteAvailabilityTransfer->getIsNeverOutOfStock() === true;
+        }
+
+        return false;
+    }
+
+    /**
+     * @param string $sku
+     * @param \Generated\Shared\Transfer\StoreTransfer $storeTransfer
+     * @param \Generated\Shared\Transfer\ProductAvailabilityCriteriaTransfer $productAvailabilityCriteriaTransfer
+     *
+     * @return \Generated\Shared\Transfer\ProductConcreteAvailabilityTransfer|null
+     */
+    protected function getProductConcreteAvailabilityBySkuForStore(
+        string $sku,
+        StoreTransfer $storeTransfer,
+        ProductAvailabilityCriteriaTransfer $productAvailabilityCriteriaTransfer
+    ): ?ProductConcreteAvailabilityTransfer {
+        $productConcreteAvailabilityTransfer = $this->availabilityFacade
+            ->findOrCreateProductConcreteAvailabilityBySkuForStore($sku, $storeTransfer, $productAvailabilityCriteriaTransfer);
+
+        if ($productConcreteAvailabilityTransfer !== null) {
+            return $productConcreteAvailabilityTransfer;
+        }
+
+        return null;
     }
 }
