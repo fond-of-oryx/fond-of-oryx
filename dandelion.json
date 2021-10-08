@@ -38,7 +38,7 @@
     },
     "company-search-rest-api": {
       "path": "bundles/company-search-rest-api/",
-      "version": "1.0.0"
+      "version": "1.0.1"
     },
     "credit-memo-api": {
       "path": "bundles/credit-memo-api/",
