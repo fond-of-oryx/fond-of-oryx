@@ -10,6 +10,7 @@ include:
   - bundles/cart-code-type-data-import
   - bundles/catalog-sku-filter
   - bundles/company-business-unit-order-budget
+  - bundles/company-search-rest-api
   - bundles/credit-memo
   - bundles/cross-engage
   - bundles/customer-statistic
