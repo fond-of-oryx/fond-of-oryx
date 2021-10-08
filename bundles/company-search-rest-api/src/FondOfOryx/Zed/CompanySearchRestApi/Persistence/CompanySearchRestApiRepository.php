@@ -76,7 +76,7 @@ class CompanySearchRestApiRepository extends AbstractRepository implements Compa
             }
 
             $conditionNames[] = $conditionName = uniqid($fulltextSearchField, true);
-            $companyQuery->addCond($conditionName, $columnMap->getFullyQualifiedName(), sprintf('%%%s%%', $query), Criteria::LIKE);
+            $companyQuery->addCond($conditionName, $columnMap->getFullyQualifiedName(), sprintf('%%%s%%', $query), Criteria::ILIKE);
         }
 
         if (count($conditionNames) === 0) {
