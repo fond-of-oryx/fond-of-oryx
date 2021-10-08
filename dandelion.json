@@ -36,6 +36,10 @@
       "path": "bundles/company-business-unit-order-budget/",
       "version": "1.0.0"
     },
+    "company-search-rest-api": {
+      "path": "bundles/company-search-rest-api/",
+      "version": "1.0.0"
+    },
     "credit-memo-api": {
       "path": "bundles/credit-memo-api/",
       "version": "1.0.0"
