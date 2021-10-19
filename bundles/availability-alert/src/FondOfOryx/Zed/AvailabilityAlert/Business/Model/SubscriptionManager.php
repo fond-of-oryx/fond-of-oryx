@@ -15,7 +15,7 @@ use Orm\Zed\AvailabilityAlert\Persistence\Map\FooAvailabilityAlertSubscriptionTa
 class SubscriptionManager implements SubscriptionManagerInterface
 {
     /**
-     * @var \FondOfOryx\Zed\AvailabilityAlert\Persistence\AvailabilityAlertEntityManagerInterface $entityManager
+     * @var \FondOfOryx\Zed\AvailabilityAlert\Persistence\AvailabilityAlertEntityManagerInterface
      */
     protected $entityManager;
 
