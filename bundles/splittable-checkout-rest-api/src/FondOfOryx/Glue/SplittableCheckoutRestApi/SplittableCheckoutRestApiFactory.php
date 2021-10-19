@@ -98,7 +98,7 @@ class SplittableCheckoutRestApiFactory extends AbstractFactory
         return new RestSplittableCheckoutMapper();
     }
 
-    /***
+    /**
      * @return \FondOfOryx\Glue\SplittableCheckoutRestApi\Processor\Mapper\RestSplittableTotalsMapperInterface
      */
     protected function createRestSplittableTotalsMapper(): RestSplittableTotalsMapperInterface

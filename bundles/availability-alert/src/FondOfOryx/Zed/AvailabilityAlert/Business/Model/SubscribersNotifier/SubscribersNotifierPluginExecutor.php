@@ -9,7 +9,7 @@ use Generated\Shared\Transfer\AvailabilityAlertSubscriptionTransfer;
 class SubscribersNotifierPluginExecutor implements SubscribersNotifierPluginExecutorInterface
 {
     /**
-     * @var \FondOfOryx\Zed\AvailabilityAlert\Business\Model\SubscribersNotifier\SubscribersNotifierPreCheckPluginInterface[] $subscribersNotifierPreCheckPlugins
+     * @var \FondOfOryx\Zed\AvailabilityAlert\Business\Model\SubscribersNotifier\SubscribersNotifierPreCheckPluginInterface[]
      */
     protected $subscribersNotifierPreCheckPlugins;
 

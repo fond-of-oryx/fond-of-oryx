@@ -1,6 +1,6 @@
 <?php
 
-namespace FondOfOryx\Glue\CompanySearchRestApi\Processor\Filter;
+namespace FondOfOryx\Glue\CompanyUserSearchRestApi\Processor\Filter;
 
 use Spryker\Glue\GlueApplication\Rest\Request\Data\RestRequestInterface;
 
