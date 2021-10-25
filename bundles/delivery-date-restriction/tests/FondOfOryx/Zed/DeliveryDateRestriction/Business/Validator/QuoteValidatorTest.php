@@ -61,7 +61,7 @@ class QuoteValidatorTest extends Unit
      */
     public function testValidate(): void
     {
-        $fkCompany = 1;
+        $idCompanyUser = 1;
         $deliveryDates = [QuoteValidator::DELIVERY_DATE_EARLIEST];
 
         $this->quoteTransferMock->expects(static::atLeastOnce())
@@ -73,16 +73,16 @@ class QuoteValidatorTest extends Unit
             ->willReturn($this->companyUserTransferMock);
 
         $this->companyUserTransferMock->expects(static::atLeastOnce())
-            ->method('requireFkCompany')
+            ->method('requireIdCompanyUser')
             ->willReturn($this->companyUserTransferMock);
 
         $this->companyUserTransferMock->expects(static::atLeastOnce())
-            ->method('getFkCompany')
-            ->willReturn($fkCompany);
+            ->method('getIdCompanyUser')
+            ->willReturn($idCompanyUser);
 
         $this->permissionFacadeMock->expects(static::atLeastOnce())
             ->method('can')
-            ->with(DefineDeliveryDatePermissionPlugin::KEY, $fkCompany)
+            ->with(DefineDeliveryDatePermissionPlugin::KEY, $idCompanyUser)
             ->willReturn(false);
 
         $this->quoteTransferMock->expects(static::atLeastOnce())
@@ -101,7 +101,7 @@ class QuoteValidatorTest extends Unit
      */
     public function testValidateWithPermissionToDefineCustomDeliveryDates(): void
     {
-        $fkCompany = 1;
+        $idCompanyUser = 1;
 
         $this->quoteTransferMock->expects(static::atLeastOnce())
             ->method('requireCompanyUser')
@@ -112,16 +112,16 @@ class QuoteValidatorTest extends Unit
             ->willReturn($this->companyUserTransferMock);
 
         $this->companyUserTransferMock->expects(static::atLeastOnce())
-            ->method('requireFkCompany')
+            ->method('requireIdCompanyUser')
             ->willReturn($this->companyUserTransferMock);
 
         $this->companyUserTransferMock->expects(static::atLeastOnce())
-            ->method('getFkCompany')
-            ->willReturn($fkCompany);
+            ->method('getIdCompanyUser')
+            ->willReturn($idCompanyUser);
 
         $this->permissionFacadeMock->expects(static::atLeastOnce())
             ->method('can')
-            ->with(DefineDeliveryDatePermissionPlugin::KEY, $fkCompany)
+            ->with(DefineDeliveryDatePermissionPlugin::KEY, $idCompanyUser)
             ->willReturn(true);
 
         $this->quoteTransferMock->expects(static::never())
@@ -139,7 +139,7 @@ class QuoteValidatorTest extends Unit
      */
     public function testValidateWithoutPermissionToDefineCustomDeliveryDates(): void
     {
-        $fkCompany = 1;
+        $idCompanyUser = 1;
         $deliveryDates = [QuoteValidator::DELIVERY_DATE_EARLIEST, (new DateTime())->format('Y-m-d')];
 
         $this->quoteTransferMock->expects(static::atLeastOnce())
@@ -151,16 +151,16 @@ class QuoteValidatorTest extends Unit
             ->willReturn($this->companyUserTransferMock);
 
         $this->companyUserTransferMock->expects(static::atLeastOnce())
-            ->method('requireFkCompany')
+            ->method('requireIdCompanyUser')
             ->willReturn($this->companyUserTransferMock);
 
         $this->companyUserTransferMock->expects(static::atLeastOnce())
-            ->method('getFkCompany')
-            ->willReturn($fkCompany);
+            ->method('getIdCompanyUser')
+            ->willReturn($idCompanyUser);
 
         $this->permissionFacadeMock->expects(static::atLeastOnce())
             ->method('can')
-            ->with(DefineDeliveryDatePermissionPlugin::KEY, $fkCompany)
+            ->with(DefineDeliveryDatePermissionPlugin::KEY, $idCompanyUser)
             ->willReturn(false);
 
         $this->quoteTransferMock->expects(static::atLeastOnce())

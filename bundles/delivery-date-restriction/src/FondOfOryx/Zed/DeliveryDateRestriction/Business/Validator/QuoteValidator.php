@@ -39,9 +39,9 @@ class QuoteValidator implements QuoteValidatorInterface
         $companyUserTransfer = $quoteTransfer->requireCompanyUser()
             ->getCompanyUser();
 
-        $companyUserTransfer->requireFkCompany();
+        $companyUserTransfer->requireIdCompanyUser();
 
-        if ($this->permissionFacade->can(DefineDeliveryDatePermissionPlugin::KEY, $companyUserTransfer->getFkCompany())) {
+        if ($this->permissionFacade->can(DefineDeliveryDatePermissionPlugin::KEY, $companyUserTransfer->getIdCompanyUser())) {
             return;
         }
 

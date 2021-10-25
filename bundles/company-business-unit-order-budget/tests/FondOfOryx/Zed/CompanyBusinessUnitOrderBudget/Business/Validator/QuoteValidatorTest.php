@@ -92,7 +92,7 @@ class QuoteValidatorTest extends Unit
      */
     public function testValidate(): void
     {
-        $fkCompany = 1;
+        $idCompanyUser = 1;
         $currentBudget = 1000;
         $subtotal = 500;
 
@@ -105,16 +105,16 @@ class QuoteValidatorTest extends Unit
             ->willReturn($this->companyUserTransferMock);
 
         $this->companyUserTransferMock->expects(static::atLeastOnce())
-            ->method('requireFkCompany')
+            ->method('requireIdCompanyUser')
             ->willReturn($this->quoteTransferMock);
 
         $this->companyUserTransferMock->expects(static::atLeastOnce())
-            ->method('getFkCompany')
-            ->willReturn($fkCompany);
+            ->method('getIdCompanyUser')
+            ->willReturn($idCompanyUser);
 
         $this->permissionFacadeMock->expects(static::atLeastOnce())
             ->method('can')
-            ->with(AlterCartWithoutLimitPermissionPlugin::KEY, $fkCompany)
+            ->with(AlterCartWithoutLimitPermissionPlugin::KEY, $idCompanyUser)
             ->willReturn(false);
 
         $this->companyUserTransferMock->expects(static::atLeastOnce())
@@ -169,7 +169,7 @@ class QuoteValidatorTest extends Unit
      */
     public function testValidateWithUnlimitedPermission(): void
     {
-        $fkCompany = 1;
+        $idCompanyUser = 1;
 
         $this->quoteTransferMock->expects(static::atLeastOnce())
             ->method('requireCompanyUser')
@@ -180,16 +180,16 @@ class QuoteValidatorTest extends Unit
             ->willReturn($this->companyUserTransferMock);
 
         $this->companyUserTransferMock->expects(static::atLeastOnce())
-            ->method('requireFkCompany')
+            ->method('requireIdCompanyUser')
             ->willReturn($this->companyUserTransferMock);
 
         $this->companyUserTransferMock->expects(static::atLeastOnce())
-            ->method('getFkCompany')
-            ->willReturn($fkCompany);
+            ->method('getIdCompanyUser')
+            ->willReturn($idCompanyUser);
 
         $this->permissionFacadeMock->expects(static::atLeastOnce())
             ->method('can')
-            ->with(AlterCartWithoutLimitPermissionPlugin::KEY, $fkCompany)
+            ->with(AlterCartWithoutLimitPermissionPlugin::KEY, $idCompanyUser)
             ->willReturn(true);
 
         $this->companyUserTransferMock->expects(static::never())
@@ -216,7 +216,7 @@ class QuoteValidatorTest extends Unit
      */
     public function testValidateWithoutSufficient(): void
     {
-        $fkCompany = 1;
+        $idCompanyUser = 1;
         $currentBudget = 100;
         $subtotal = 500;
 
@@ -229,16 +229,16 @@ class QuoteValidatorTest extends Unit
             ->willReturn($this->companyUserTransferMock);
 
         $this->companyUserTransferMock->expects(static::atLeastOnce())
-            ->method('requireFkCompany')
+            ->method('requireIdCompanyUser')
             ->willReturn($this->companyUserTransferMock);
 
         $this->companyUserTransferMock->expects(static::atLeastOnce())
-            ->method('getFkCompany')
-            ->willReturn($fkCompany);
+            ->method('getIdCompanyUser')
+            ->willReturn($idCompanyUser);
 
         $this->permissionFacadeMock->expects(static::atLeastOnce())
             ->method('can')
-            ->with(AlterCartWithoutLimitPermissionPlugin::KEY, $fkCompany)
+            ->with(AlterCartWithoutLimitPermissionPlugin::KEY, $idCompanyUser)
             ->willReturn(false);
 
         $this->companyUserTransferMock->expects(static::atLeastOnce())
@@ -294,7 +294,7 @@ class QuoteValidatorTest extends Unit
      */
     public function testValidateWithoutSubtotals(): void
     {
-        $fkCompany = 1;
+        $idCompanyUser = 1;
         $currentBudget = 100;
 
         $this->quoteTransferMock->expects(static::atLeastOnce())
@@ -306,16 +306,16 @@ class QuoteValidatorTest extends Unit
             ->willReturn($this->companyUserTransferMock);
 
         $this->companyUserTransferMock->expects(static::atLeastOnce())
-            ->method('requireFkCompany')
+            ->method('requireIdCompanyUser')
             ->willReturn($this->companyUserTransferMock);
 
         $this->companyUserTransferMock->expects(static::atLeastOnce())
-            ->method('getFkCompany')
-            ->willReturn($fkCompany);
+            ->method('getIdCompanyUser')
+            ->willReturn($idCompanyUser);
 
         $this->permissionFacadeMock->expects(static::atLeastOnce())
             ->method('can')
-            ->with(AlterCartWithoutLimitPermissionPlugin::KEY, $fkCompany)
+            ->with(AlterCartWithoutLimitPermissionPlugin::KEY, $idCompanyUser)
             ->willReturn(false);
 
         $this->companyUserTransferMock->expects(static::atLeastOnce())
@@ -370,7 +370,7 @@ class QuoteValidatorTest extends Unit
      */
     public function testExpandWithoutOrderBudget(): void
     {
-        $fkCompany = 1;
+        $idCompanyUser = 1;
 
         $this->quoteTransferMock->expects(static::atLeastOnce())
             ->method('requireCompanyUser')
@@ -381,16 +381,16 @@ class QuoteValidatorTest extends Unit
             ->willReturn($this->companyUserTransferMock);
 
         $this->companyUserTransferMock->expects(static::atLeastOnce())
-            ->method('requireFkCompany')
+            ->method('requireIdCompanyUser')
             ->willReturn($this->companyUserTransferMock);
 
         $this->companyUserTransferMock->expects(static::atLeastOnce())
-            ->method('getFkCompany')
-            ->willReturn($fkCompany);
+            ->method('getIdCompanyUser')
+            ->willReturn($idCompanyUser);
 
         $this->permissionFacadeMock->expects(static::atLeastOnce())
             ->method('can')
-            ->with(AlterCartWithoutLimitPermissionPlugin::KEY, $fkCompany)
+            ->with(AlterCartWithoutLimitPermissionPlugin::KEY, $idCompanyUser)
             ->willReturn(false);
 
         $this->companyUserTransferMock->expects(static::atLeastOnce())
@@ -435,7 +435,7 @@ class QuoteValidatorTest extends Unit
      */
     public function testExpandWithoutCompanyBusinessUnit(): void
     {
-        $fkCompany = 1;
+        $idCompanyUser = 1;
 
         $this->quoteTransferMock->expects(static::atLeastOnce())
             ->method('requireCompanyUser')
@@ -446,16 +446,16 @@ class QuoteValidatorTest extends Unit
             ->willReturn($this->companyUserTransferMock);
 
         $this->companyUserTransferMock->expects(static::atLeastOnce())
-            ->method('requireFkCompany')
+            ->method('requireIdCompanyUser')
             ->willReturn($this->companyUserTransferMock);
 
         $this->companyUserTransferMock->expects(static::atLeastOnce())
-            ->method('getFkCompany')
-            ->willReturn($fkCompany);
+            ->method('getIdCompanyUser')
+            ->willReturn($idCompanyUser);
 
         $this->permissionFacadeMock->expects(static::atLeastOnce())
             ->method('can')
-            ->with(AlterCartWithoutLimitPermissionPlugin::KEY, $fkCompany)
+            ->with(AlterCartWithoutLimitPermissionPlugin::KEY, $idCompanyUser)
             ->willReturn(false);
 
         $this->companyUserTransferMock->expects(static::atLeastOnce())

@@ -34,7 +34,7 @@
     },
     "company-business-unit-order-budget": {
       "path": "bundles/company-business-unit-order-budget/",
-      "version": "1.0.0"
+      "version": "1.0.1"
     },
     "company-search-rest-api": {
       "path": "bundles/company-search-rest-api/",
@@ -70,7 +70,7 @@
     },
     "delivery-date-restriction": {
       "path": "bundles/delivery-date-restriction/",
-      "version": "1.0.0"
+      "version": "1.0.1"
     },
     "erp-order": {
       "path": "bundles/erp-order/",
