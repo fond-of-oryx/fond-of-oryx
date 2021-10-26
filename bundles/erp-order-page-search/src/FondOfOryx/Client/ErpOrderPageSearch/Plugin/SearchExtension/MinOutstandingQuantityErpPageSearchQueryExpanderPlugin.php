@@ -12,7 +12,7 @@ use Spryker\Client\Kernel\AbstractPlugin;
 use Spryker\Client\SearchExtension\Dependency\Plugin\QueryExpanderPluginInterface;
 use Spryker\Client\SearchExtension\Dependency\Plugin\QueryInterface;
 
-class OutstandingQuantityErpPageSearchQueryExpanderPlugin extends AbstractPlugin implements
+class MinOutstandingQuantityErpPageSearchQueryExpanderPlugin extends AbstractPlugin implements
     QueryExpanderPluginInterface
 {
     /**
@@ -23,15 +23,15 @@ class OutstandingQuantityErpPageSearchQueryExpanderPlugin extends AbstractPlugin
      */
     public function expandQuery(QueryInterface $searchQuery, array $requestParameters = [])
     {
-        if (!isset($requestParameters[ErpOrderPageSearchConstants::PARAMETER_OUTSTANDING_QUANTITY])) {
+        if (!isset($requestParameters[ErpOrderPageSearchConstants::PARAMETER_MIN_OUTSTANDING_QUANTITY])) {
             return $searchQuery;
         }
 
-        $outstandingQty = $requestParameters[ErpOrderPageSearchConstants::PARAMETER_OUTSTANDING_QUANTITY];
+        $minOutstandingQuantity = $requestParameters[ErpOrderPageSearchConstants::PARAMETER_MIN_OUTSTANDING_QUANTITY];
 
         $range = (new Range())->addField(
             ErpOrderIndexMap::OUTSTANDING_QUANTITY,
-            ['gte' => $outstandingQty]
+            ['gte' => $minOutstandingQuantity]
         );
 
         $this->getBoolQuery($searchQuery->getSearchQuery())

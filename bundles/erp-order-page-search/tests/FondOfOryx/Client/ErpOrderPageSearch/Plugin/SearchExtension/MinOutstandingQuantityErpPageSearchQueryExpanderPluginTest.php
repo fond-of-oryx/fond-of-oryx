@@ -10,7 +10,7 @@ use Exception;
 use FondOfOryx\Shared\ErpOrderPageSearch\ErpOrderPageSearchConstants;
 use Spryker\Client\SearchExtension\Dependency\Plugin\QueryInterface;
 
-class OutstandingQuantityErpPageSearchQueryExpanderPluginTest extends Unit
+class MinOutstandingQuantityErpPageSearchQueryExpanderPluginTest extends Unit
 {
     /**
      * @var \PHPUnit\Framework\MockObject\MockObject|\Spryker\Client\SearchExtension\Dependency\Plugin\QueryInterface
@@ -38,7 +38,7 @@ class OutstandingQuantityErpPageSearchQueryExpanderPluginTest extends Unit
     protected $matchQueryMock;
 
     /**
-     * @var \FondOfOryx\Client\ErpOrderPageSearch\Plugin\SearchExtension\OutstandingQuantityErpPageSearchQueryExpanderPlugin
+     * @var \FondOfOryx\Client\ErpOrderPageSearch\Plugin\SearchExtension\MinOutstandingQuantityErpPageSearchQueryExpanderPlugin
      */
     protected $plugin;
 
@@ -65,9 +65,9 @@ class OutstandingQuantityErpPageSearchQueryExpanderPluginTest extends Unit
             ->disableOriginalConstructor()
             ->getMock();
 
-        $this->requestParameters = [ErpOrderPageSearchConstants::PARAMETER_OUTSTANDING_QUANTITY => '1'];
+        $this->requestParameters = [ErpOrderPageSearchConstants::PARAMETER_MIN_OUTSTANDING_QUANTITY => '1'];
 
-        $this->plugin = new OutstandingQuantityErpPageSearchQueryExpanderPlugin();
+        $this->plugin = new MinOutstandingQuantityErpPageSearchQueryExpanderPlugin();
     }
 
     /**
