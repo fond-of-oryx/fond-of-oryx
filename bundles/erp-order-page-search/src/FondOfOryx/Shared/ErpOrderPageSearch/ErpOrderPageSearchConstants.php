@@ -9,6 +9,8 @@ interface ErpOrderPageSearchConstants
      * - Queue name as used for processing erp order messages
      *
      * @api
+     *
+     * @var string
      */
     public const ERP_ORDER_SYNC_SEARCH_QUEUE = 'sync.search.erp_order';
 
@@ -17,6 +19,8 @@ interface ErpOrderPageSearchConstants
      * - Queue name as used for error erp_order messages
      *
      * @api
+     *
+     * @var string
      */
     public const ERP_ORDER_SYNC_SEARCH_ERROR_QUEUE = 'sync.search.erp_order.error';
 
@@ -25,11 +29,25 @@ interface ErpOrderPageSearchConstants
      * - Resource name, this will use for key generating
      *
      * @api
+     *
+     * @var string
      */
     public const ERP_ORDER_RESOURCE_NAME = 'erp_order';
 
+    /**
+     * @var string
+     */
     public const PARAMETER_COMPANY_BUSINESS_UNIT_UUID = 'company-business-unit-uuid';
+    /**
+     * @var string
+     */
     public const PARAMETER_EXTERNAL_REFERENCE = 'external-reference';
+    /**
+     * @var string
+     */
     public const PARAMETER_REFERENCE = 'reference';
-    public const PARAMETER_OUTSTANDING_QUANTITY = 'outstanding-quantity';
+    /**
+     * @var string
+     */
+    public const PARAMETER_MIN_OUTSTANDING_QUANTITY = 'min-outstanding-quantity';
 }
