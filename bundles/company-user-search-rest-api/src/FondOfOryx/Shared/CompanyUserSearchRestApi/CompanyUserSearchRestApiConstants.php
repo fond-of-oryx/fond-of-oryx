@@ -29,7 +29,7 @@ interface CompanyUserSearchRestApiConstants
     /**
      * @var array
      */
-    public const SORT_FIELDS_DEFAULT = ['name'];
+    public const SORT_FIELDS_DEFAULT = ['company_user_reference'];
 
     /**
      * @var string
@@ -38,5 +38,5 @@ interface CompanyUserSearchRestApiConstants
     /**
      * @var array
      */
-    public const FULLTEXT_SEARCH_FIELDS_DEFAULT = ['name'];
+    public const FULLTEXT_SEARCH_FIELDS_DEFAULT = [];
 }

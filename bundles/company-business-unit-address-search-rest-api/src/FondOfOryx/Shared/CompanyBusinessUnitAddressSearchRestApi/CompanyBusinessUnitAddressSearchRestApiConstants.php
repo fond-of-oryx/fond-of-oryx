@@ -29,7 +29,7 @@ interface CompanyBusinessUnitAddressSearchRestApiConstants
     /**
      * @var array
      */
-    public const SORT_FIELDS_DEFAULT = ['name'];
+    public const SORT_FIELDS_DEFAULT = ['address1', 'address2'];
 
     /**
      * @var string
@@ -38,5 +38,5 @@ interface CompanyBusinessUnitAddressSearchRestApiConstants
     /**
      * @var array
      */
-    public const FULLTEXT_SEARCH_FIELDS_DEFAULT = ['name'];
+    public const FULLTEXT_SEARCH_FIELDS_DEFAULT = [];
 }

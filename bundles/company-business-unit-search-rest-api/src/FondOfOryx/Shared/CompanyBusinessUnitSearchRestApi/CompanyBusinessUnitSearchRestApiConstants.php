@@ -38,5 +38,5 @@ interface CompanyBusinessUnitSearchRestApiConstants
     /**
      * @var array
      */
-    public const FULLTEXT_SEARCH_FIELDS_DEFAULT = ['name'];
+    public const FULLTEXT_SEARCH_FIELDS_DEFAULT = [];
 }
