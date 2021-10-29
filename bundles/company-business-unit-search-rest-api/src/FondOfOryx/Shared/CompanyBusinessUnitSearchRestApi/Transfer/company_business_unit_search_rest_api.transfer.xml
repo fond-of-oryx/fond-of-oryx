@@ -32,7 +32,7 @@
     <transfer name="RestCompanyBusinessUnitSearchResultItem">
         <property name="uuid" type="string"/>
         <property name="externalReference" type="string"/>
-        <property name="companyUuid" type="string"/>
+        <property name="companyId" type="string"/>
         <property name="name" type="string"/>
         <property name="email" type="string"/>
         <property name="phone" type="string"/>

@@ -19,7 +19,7 @@ class RestCompanyUserSearchResultItemMapper implements RestCompanyUserSearchResu
         return (new RestCompanyUserSearchResultItemTransfer())->fromArray(
             $companyUserTransfer->toArray(),
             true
-        )->setCompanyUuid($companyUserTransfer->getCompanyUuid());
+        )->setCompanyId($companyUserTransfer->getCompanyUuid());
     }
 
     /**

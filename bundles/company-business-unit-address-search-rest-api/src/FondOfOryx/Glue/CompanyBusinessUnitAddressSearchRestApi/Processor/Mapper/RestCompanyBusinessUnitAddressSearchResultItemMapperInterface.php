@@ -10,20 +10,20 @@ use Generated\Shared\Transfer\RestCompanyBusinessUnitAddressSearchResultItemTran
 interface RestCompanyBusinessUnitAddressSearchResultItemMapperInterface
 {
     /**
-     * @param \Generated\Shared\Transfer\CompanyBusinessUnitAddressTransfer $companyBusinessUnitAddressListTransfer
+     * @param \Generated\Shared\Transfer\CompanyBusinessUnitAddressTransfer $companyBusinessUnitAddressTransfer
      *
      * @return \Generated\Shared\Transfer\RestCompanyBusinessUnitAddressSearchResultItemTransfer
      */
     public function fromCompanyBusinessUnitAddress(
-        CompanyBusinessUnitAddressTransfer $companyBusinessUnitAddressListTransfer
+        CompanyBusinessUnitAddressTransfer $companyBusinessUnitAddressTransfer
     ): RestCompanyBusinessUnitAddressSearchResultItemTransfer;
 
     /**
-     * @param \Generated\Shared\Transfer\CompanyBusinessUnitAddressTransfer[]|\ArrayObject $companyBusinessUnitAddressListTransfers
+     * @param \Generated\Shared\Transfer\CompanyBusinessUnitAddressTransfer[]|\ArrayObject $companyBusinessUnitAddressTransfers
      *
      * @return \Generated\Shared\Transfer\RestCompanyBusinessUnitAddressSearchResultItemTransfer[]|\ArrayObject
      */
-    public function fromCompanyBusinessUnitAddressCollection(ArrayObject $companyBusinessUnitAddressListTransfers): ArrayObject;
+    public function fromCompanyBusinessUnitAddressCollection(ArrayObject $companyBusinessUnitAddressTransfers): ArrayObject;
 
     /**
      * @param \Generated\Shared\Transfer\CompanyBusinessUnitAddressListTransfer $companyBusinessUnitAddressListTransfer
