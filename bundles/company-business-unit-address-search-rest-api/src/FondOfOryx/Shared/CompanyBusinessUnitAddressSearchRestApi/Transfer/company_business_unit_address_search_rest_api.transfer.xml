@@ -31,7 +31,8 @@
 
     <transfer name="RestCompanyBusinessUnitAddressSearchResultItem">
         <property name="uuid" type="string"/>
-        <property name="companyUuid" type="string"/>
+        <property name="companyId" type="string"/>
+        <property name="companyBusinessUnitId" type="string"/>
         <property name="address1" type="string"/>
         <property name="address2" type="string"/>
         <property name="address3" type="string"/>
@@ -74,6 +75,7 @@
     <transfer name="CompanyBusinessUnitAddress">
         <property name="uuid" type="string"/>
         <property name="companyUuid" type="string"/>
+        <property name="companyBusinessUnitUuid" type="string"/>
         <property name="address1" type="string"/>
         <property name="address2" type="string"/>
         <property name="address3" type="string"/>

@@ -33,7 +33,7 @@
         <property name="companyUserReference" type="string"/>
         <property name="customerReference" type="string"/>
         <property name="isActive" type="bool"/>
-        <property name="companyUuid" type="string"/>
+        <property name="companyId" type="string"/>
     </transfer>
 
     <transfer name="Pagination">

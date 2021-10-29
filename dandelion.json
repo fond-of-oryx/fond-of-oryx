@@ -20,6 +20,18 @@
       "path": "bundles/availability-checkout-validator/",
       "version": "1.1.0"
     },
+    "company-business-unit-address-search-rest-api": {
+      "path": "bundles/company-business-unit-address-search-rest-api/",
+      "version": "1.0.0"
+    },
+    "company-business-unit-search-rest-api": {
+      "path": "bundles/company-business-unit-search-rest-api/",
+      "version": "1.0.0"
+    },
+    "company-user-search-rest-api": {
+      "path": "bundles/company-user-search-rest-api/",
+      "version": "1.0.0"
+    },
     "cart-code-type": {
       "path": "bundles/cart-code-type/",
       "version": "1.0.0"

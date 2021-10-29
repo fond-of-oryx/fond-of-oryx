@@ -19,7 +19,7 @@ class RestCompanyBusinessUnitSearchResultItemMapper implements RestCompanyBusine
         return (new RestCompanyBusinessUnitSearchResultItemTransfer())->fromArray(
             $companyBusinessUnitListTransfer->toArray(),
             true
-        );
+        )->setCompanyId($companyBusinessUnitListTransfer->getCompanyUuid());
     }
 
     /**
