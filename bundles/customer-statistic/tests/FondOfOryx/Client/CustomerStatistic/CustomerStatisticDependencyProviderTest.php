@@ -87,7 +87,7 @@ class CustomerStatisticDependencyProviderTest extends Unit
 
         static::assertInstanceOf(
             CustomerStatisticToZedRequestClientBridge::class,
-            $container[CustomerStatisticDependencyProvider::CLIENT_ZED_REQUEST]
+            $container[CustomerStatisticDependencyProvider::CLIENT_ZED_REQUEST],
         );
     }
 }

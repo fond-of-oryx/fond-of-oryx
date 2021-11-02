@@ -44,7 +44,7 @@ class OneTimePasswordRestApiToZedRequestClientBridgeTest extends Unit
             ->getMock();
 
         $this->oneTimePasswordRestApiToZedRequestClientBridge = new OneTimePasswordRestApiToZedRequestClientBridge(
-            $this->zedRequestClientMock
+            $this->zedRequestClientMock,
         );
     }
 
@@ -62,8 +62,8 @@ class OneTimePasswordRestApiToZedRequestClientBridgeTest extends Unit
             TransferInterface::class,
             $this->oneTimePasswordRestApiToZedRequestClientBridge->call(
                 $this->url,
-                $this->transferMock
-            )
+                $this->transferMock,
+            ),
         );
     }
 }

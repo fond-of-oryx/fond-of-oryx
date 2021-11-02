@@ -37,7 +37,7 @@ class OneTimePasswordResetterTest extends Unit
             ->getMock();
 
         $this->oneTimePasswordResetter = new OneTimePasswordResetter(
-            $this->oneTimePasswordEntityManager
+            $this->oneTimePasswordEntityManager,
         );
     }
 
@@ -51,7 +51,7 @@ class OneTimePasswordResetterTest extends Unit
             ->with($this->customerTransferMock);
 
         $this->oneTimePasswordResetter->resetOneTimePassword(
-            $this->customerTransferMock
+            $this->customerTransferMock,
         );
     }
 }

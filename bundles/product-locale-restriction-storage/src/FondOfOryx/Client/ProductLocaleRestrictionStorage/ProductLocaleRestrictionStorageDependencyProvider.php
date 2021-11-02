@@ -10,9 +10,19 @@ use Spryker\Client\Kernel\Container;
 
 class ProductLocaleRestrictionStorageDependencyProvider extends AbstractDependencyProvider
 {
+    /**
+     * @var string
+     */
     public const CLIENT_LOCALE = 'CLIENT_LOCALE';
+
+    /**
+     * @var string
+     */
     public const CLIENT_STORAGE = 'CLIENT_STORAGE';
 
+    /**
+     * @var string
+     */
     public const SERVICE_SYNCHRONIZATION = 'SERVICE_SYNCHRONIZATION';
 
     /**
@@ -40,7 +50,7 @@ class ProductLocaleRestrictionStorageDependencyProvider extends AbstractDependen
     {
         $container[static::CLIENT_STORAGE] = static function (Container $container) {
             return new ProductLocaleRestrictionStorageToStorageClientBridge(
-                $container->getLocator()->storage()->client()
+                $container->getLocator()->storage()->client(),
             );
         };
 
@@ -56,7 +66,7 @@ class ProductLocaleRestrictionStorageDependencyProvider extends AbstractDependen
     {
         $container[static::CLIENT_LOCALE] = static function (Container $container) {
             return new ProductLocaleRestrictionStorageToLocaleClientBridge(
-                $container->getLocator()->locale()->client()
+                $container->getLocator()->locale()->client(),
             );
         };
 
@@ -72,7 +82,7 @@ class ProductLocaleRestrictionStorageDependencyProvider extends AbstractDependen
     {
         $container[static::SERVICE_SYNCHRONIZATION] = static function (Container $container) {
             return new ProductLocaleRestrictionStorageToSynchronizationServiceBridge(
-                $container->getLocator()->synchronization()->service()
+                $container->getLocator()->synchronization()->service(),
             );
         };
 

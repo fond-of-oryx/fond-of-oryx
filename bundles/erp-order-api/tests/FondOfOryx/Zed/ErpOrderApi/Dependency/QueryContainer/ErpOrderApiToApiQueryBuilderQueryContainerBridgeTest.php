@@ -57,7 +57,7 @@ class ErpOrderApiToApiQueryBuilderQueryContainerBridgeTest extends Unit
             ->getMock();
 
         $this->erpOrderApiToApiQueryBuilderQueryContainerBridge = new ErpOrderApiToApiQueryBuilderQueryContainerBridge(
-            $this->apiQueryBuilderQueryContainerInterfaceMock
+            $this->apiQueryBuilderQueryContainerInterfaceMock,
         );
     }
 
@@ -74,8 +74,8 @@ class ErpOrderApiToApiQueryBuilderQueryContainerBridgeTest extends Unit
         static::assertEquals(
             $this->propelQueryBuilderCriteriaTransferMock,
             $this->erpOrderApiToApiQueryBuilderQueryContainerBridge->toPropelQueryBuilderCriteria(
-                $this->apiQueryBuilderQueryTransferMock
-            )
+                $this->apiQueryBuilderQueryTransferMock,
+            ),
         );
     }
 
@@ -93,8 +93,8 @@ class ErpOrderApiToApiQueryBuilderQueryContainerBridgeTest extends Unit
             $this->modelCriteriaMock,
             $this->erpOrderApiToApiQueryBuilderQueryContainerBridge->buildQueryFromRequest(
                 $this->modelCriteriaMock,
-                $this->apiQueryBuilderQueryTransferMock
-            )
+                $this->apiQueryBuilderQueryTransferMock,
+            ),
         );
     }
 }

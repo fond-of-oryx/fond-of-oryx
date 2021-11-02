@@ -51,7 +51,7 @@ class OneTimePasswordLoginLinkProcessor implements OneTimePasswordLoginLinkProce
 
         //Ignore response success because security reasons (can check for email is in system)
         $restOneTimePasswordResponseTransfer = $this->oneTimePasswordRestApiClient->requestOneTimePasswordLoginLink(
-            $oneTimePasswordLoignLinkRequestTransfer
+            $oneTimePasswordLoignLinkRequestTransfer,
         );
 
         return $this->restResourceBuilder

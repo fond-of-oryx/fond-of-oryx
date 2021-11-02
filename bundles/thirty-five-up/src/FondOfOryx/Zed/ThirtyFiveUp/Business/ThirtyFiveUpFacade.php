@@ -41,7 +41,7 @@ class ThirtyFiveUpFacade extends AbstractFacade implements ThirtyFiveUpFacadeInt
     ): ThirtyFiveUpOrderTransfer {
         return $this->getFactory()->createThirtyFiveUpOrderHandler()->handleFromSavedOrder(
             $saveOrderTransfer,
-            $thirtyFiveUpOrderTransfer
+            $thirtyFiveUpOrderTransfer,
         );
     }
 

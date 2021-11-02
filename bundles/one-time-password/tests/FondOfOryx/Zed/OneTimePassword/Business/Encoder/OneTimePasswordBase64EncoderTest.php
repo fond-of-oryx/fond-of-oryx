@@ -72,8 +72,8 @@ class OneTimePasswordBase64EncoderTest extends Unit
 
         $this->assertIsString(
             $this->oneTimePasswordBase64Encoder->encode(
-                $this->oneTimePasswordResponseTransferMock
-            )
+                $this->oneTimePasswordResponseTransferMock,
+            ),
         );
     }
 }

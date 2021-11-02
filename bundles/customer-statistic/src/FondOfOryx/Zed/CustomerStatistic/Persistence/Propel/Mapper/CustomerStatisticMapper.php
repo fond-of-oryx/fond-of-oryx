@@ -21,7 +21,7 @@ class CustomerStatisticMapper implements CustomerStatisticMapperInterface
         FooCustomerStatistic $fooCustomerStatistic
     ): FooCustomerStatistic {
         $fooCustomerStatistic->fromArray(
-            $customerStatisticTransfer->toArray()
+            $customerStatisticTransfer->toArray(),
         );
 
         return $fooCustomerStatistic;
@@ -39,7 +39,7 @@ class CustomerStatisticMapper implements CustomerStatisticMapperInterface
     ): CustomerStatisticTransfer {
         return $customerStatisticTransfer->fromArray(
             $fooCustomerStatistic->toArray(),
-            true
+            true,
         );
     }
 }

@@ -18,7 +18,7 @@ class RestSplittableCheckoutRequestMapper implements RestSplittableCheckoutReque
         return (new RestSplittableCheckoutRequestTransfer())
             ->fromArray(
                 $restSplittableCheckoutRequestAttributesTransfer->toArray(),
-                false
+                false,
             );
     }
 }

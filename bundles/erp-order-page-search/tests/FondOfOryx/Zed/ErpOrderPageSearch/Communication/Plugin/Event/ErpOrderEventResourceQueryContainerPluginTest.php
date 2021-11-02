@@ -67,7 +67,7 @@ class ErpOrderEventResourceQueryContainerPluginTest extends Unit
     {
         $this->assertEquals(
             ErpOrderPageSearchConstants::ERP_ORDER_RESOURCE_NAME,
-            $this->erpOrderEventResourceQueryContainerPlugin->getResourceName()
+            $this->erpOrderEventResourceQueryContainerPlugin->getResourceName(),
         );
     }
 
@@ -78,7 +78,7 @@ class ErpOrderEventResourceQueryContainerPluginTest extends Unit
     {
         $this->assertEquals(
             ErpOrderEvents::ERP_ORDER_PUBLISH,
-            $this->erpOrderEventResourceQueryContainerPlugin->getEventName()
+            $this->erpOrderEventResourceQueryContainerPlugin->getEventName(),
         );
     }
 
@@ -91,7 +91,7 @@ class ErpOrderEventResourceQueryContainerPluginTest extends Unit
     {
         $this->assertEquals(
             ErpOrderTableMap::COL_ID_ERP_ORDER,
-            $this->erpOrderEventResourceQueryContainerPlugin->getIdColumnName()
+            $this->erpOrderEventResourceQueryContainerPlugin->getIdColumnName(),
         );
     }
 
@@ -115,7 +115,7 @@ class ErpOrderEventResourceQueryContainerPluginTest extends Unit
 
         $this->assertInstanceOf(
             ModelCriteria::class,
-            $modelCriteria
+            $modelCriteria,
         );
     }
 }

@@ -17,7 +17,7 @@ interface ProductLocaleRestrictionEntityManagerInterface
 
     /**
      * @param int $idProductAbstract
-     * @param int[] $localeIds
+     * @param array<int> $localeIds
      *
      * @return void
      */

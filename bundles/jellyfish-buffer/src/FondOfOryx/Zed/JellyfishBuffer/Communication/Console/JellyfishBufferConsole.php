@@ -15,20 +15,74 @@ use Symfony\Component\Console\Output\OutputInterface;
  */
 class JellyfishBufferConsole extends Console
 {
+    /**
+     * @var string
+     */
     private const COMMAND_NAME = 'jellyfish:buffer-table:export';
+
+    /**
+     * @var string
+     */
     private const DESCRIPTION = 'Exports buffered data again';
 
+    /**
+     * @var string
+     */
     public const OPTION_STORE = 'store';
+
+    /**
+     * @var string
+     */
     public const OPTION_STORE_SHORTCUT = 's';
+
+    /**
+     * @var string
+     */
     public const OPTION_IDS = 'ids';
+
+    /**
+     * @var string
+     */
     public const OPTION_IDS_SHORTCUT = 'i';
+
+    /**
+     * @var string
+     */
     public const OPTION_RANGE = 'range';
+
+    /**
+     * @var string
+     */
     public const OPTION_RANGE_SHORTCUT = 'rg';
+
+    /**
+     * @var string
+     */
     public const OPTION_SYSTEM_CODE = 'system_code';
+
+    /**
+     * @var string
+     */
     public const OPTION_SYSTEM_CODE_SHORTCUT = 'sc';
+
+    /**
+     * @var string
+     */
     public const OPTION_DRY_RUN = 'dry_run';
+
+    /**
+     * @var string
+     */
     public const OPTION_DRY_RUN_SHORTCUT = 'dr';
+
+    /**
+     * @var string
+     */
     public const OPTION_FORCE_ALREADY_REEXPORTED = 'force';
+
+    /**
+     * @var string
+     */
     public const OPTION_FORCE_ALREADY_REEXPORTED_SHORTCUT = 'f';
 
     /**
@@ -42,42 +96,42 @@ class JellyfishBufferConsole extends Console
             static::OPTION_IDS,
             static::OPTION_IDS_SHORTCUT,
             InputOption::VALUE_OPTIONAL,
-            'Run command only for given fk_sales_order ids'
+            'Run command only for given fk_sales_order ids',
         );
 
         $this->addOption(
             static::OPTION_STORE,
             static::OPTION_STORE_SHORTCUT,
             InputOption::VALUE_REQUIRED,
-            'Run command only for given store'
+            'Run command only for given store',
         );
 
         $this->addOption(
             static::OPTION_RANGE,
             static::OPTION_RANGE_SHORTCUT,
             InputOption::VALUE_OPTIONAL,
-            'Run command only for given fk_sales_order range. Example -rg|--range 1,20 to run from id 1 to id 20'
+            'Run command only for given fk_sales_order range. Example -rg|--range 1,20 to run from id 1 to id 20',
         );
 
         $this->addOption(
             static::OPTION_SYSTEM_CODE,
             static::OPTION_SYSTEM_CODE_SHORTCUT,
             InputOption::VALUE_OPTIONAL,
-            'Override SystemCode in export data to hit correct target system'
+            'Override SystemCode in export data to hit correct target system',
         );
 
         $this->addOption(
             static::OPTION_DRY_RUN,
             static::OPTION_DRY_RUN_SHORTCUT,
             InputOption::VALUE_NONE,
-            'Print export data to log instead of send data to middleware. Attention: the dry run writes customer data to log!'
+            'Print export data to log instead of send data to middleware. Attention: the dry run writes customer data to log!',
         );
 
         $this->addOption(
             static::OPTION_FORCE_ALREADY_REEXPORTED,
             static::OPTION_FORCE_ALREADY_REEXPORTED_SHORTCUT,
             InputOption::VALUE_NONE,
-            'Force export of already exported orders'
+            'Force export of already exported orders',
         );
 
         $this->setName(static::COMMAND_NAME);

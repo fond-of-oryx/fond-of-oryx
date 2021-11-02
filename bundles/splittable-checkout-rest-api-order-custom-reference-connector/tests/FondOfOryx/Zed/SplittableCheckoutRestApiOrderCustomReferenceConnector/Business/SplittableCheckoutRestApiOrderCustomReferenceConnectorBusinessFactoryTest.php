@@ -31,7 +31,7 @@ class SplittableCheckoutRestApiOrderCustomReferenceConnectorBusinessFactoryTest 
     {
         static::assertInstanceOf(
             QuoteExpanderInterface::class,
-            $this->businessFactory->createQuoteExpander()
+            $this->businessFactory->createQuoteExpander(),
         );
     }
 }

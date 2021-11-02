@@ -14,37 +14,37 @@ use Spryker\Glue\GlueApplication\Rest\Request\Data\RestRequestInterface;
 class CompanyBusinessUnitAddressReaderTest extends Unit
 {
     /**
-     * @var \FondOfOryx\Glue\CompanyBusinessUnitAddressSearchRestApi\Processor\Mapper\CompanyBusinessUnitAddressListMapperInterface|mixed|\PHPUnit\Framework\MockObject\MockObject
+     * @var \FondOfOryx\Glue\CompanyBusinessUnitAddressSearchRestApi\Processor\Mapper\CompanyBusinessUnitAddressListMapperInterface|\PHPUnit\Framework\MockObject\MockObject|mixed
      */
     protected $companyBusinessUnitAddressListMapperMock;
 
     /**
-     * @var \FondOfOryx\Glue\CompanyBusinessUnitAddressSearchRestApi\Processor\Builder\RestResponseBuilderInterface|mixed|\PHPUnit\Framework\MockObject\MockObject
+     * @var \FondOfOryx\Glue\CompanyBusinessUnitAddressSearchRestApi\Processor\Builder\RestResponseBuilderInterface|\PHPUnit\Framework\MockObject\MockObject|mixed
      */
     protected $restResponseBuilderMock;
 
     /**
-     * @var \FondOfOryx\Client\CompanyBusinessUnitAddressSearchRestApi\CompanyBusinessUnitAddressSearchRestApiClientInterface|mixed|\PHPUnit\Framework\MockObject\MockObject
+     * @var \FondOfOryx\Client\CompanyBusinessUnitAddressSearchRestApi\CompanyBusinessUnitAddressSearchRestApiClientInterface|\PHPUnit\Framework\MockObject\MockObject|mixed
      */
     protected $clientMock;
 
     /**
-     * @var mixed|\PHPUnit\Framework\MockObject\MockObject|\Spryker\Glue\GlueApplication\Rest\Request\Data\RestRequestInterface
+     * @var \PHPUnit\Framework\MockObject\MockObject|\Spryker\Glue\GlueApplication\Rest\Request\Data\RestRequestInterface|mixed
      */
     protected $restRequestMock;
 
     /**
-     * @var mixed|\PHPUnit\Framework\MockObject\MockObject|\Spryker\Glue\GlueApplication\Rest\Request\Data\MetadataInterface
+     * @var \PHPUnit\Framework\MockObject\MockObject|\Spryker\Glue\GlueApplication\Rest\Request\Data\MetadataInterface|mixed
      */
     protected $metadataMock;
 
     /**
-     * @var mixed|\PHPUnit\Framework\MockObject\MockObject|\Spryker\Glue\GlueApplication\Rest\JsonApi\RestResponseInterface
+     * @var \PHPUnit\Framework\MockObject\MockObject|\Spryker\Glue\GlueApplication\Rest\JsonApi\RestResponseInterface|mixed
      */
     protected $restResponseMock;
 
     /**
-     * @var \Generated\Shared\Transfer\CompanyBusinessUnitAddressListTransfer|mixed|\PHPUnit\Framework\MockObject\MockObject
+     * @var \Generated\Shared\Transfer\CompanyBusinessUnitAddressListTransfer|\PHPUnit\Framework\MockObject\MockObject|mixed
      */
     protected $companyBusinessUnitAddressListTransferMock;
 
@@ -91,7 +91,7 @@ class CompanyBusinessUnitAddressReaderTest extends Unit
         $this->companyBusinessUnitAddressListReader = new CompanyBusinessUnitAddressReader(
             $this->companyBusinessUnitAddressListMapperMock,
             $this->restResponseBuilderMock,
-            $this->clientMock
+            $this->clientMock,
         );
     }
 
@@ -135,7 +135,7 @@ class CompanyBusinessUnitAddressReaderTest extends Unit
 
         static::assertEquals(
             $this->restResponseMock,
-            $this->companyBusinessUnitAddressListReader->find($this->restRequestMock)
+            $this->companyBusinessUnitAddressListReader->find($this->restRequestMock),
         );
     }
 
@@ -171,7 +171,7 @@ class CompanyBusinessUnitAddressReaderTest extends Unit
 
         static::assertEquals(
             $this->restResponseMock,
-            $this->companyBusinessUnitAddressListReader->find($this->restRequestMock)
+            $this->companyBusinessUnitAddressListReader->find($this->restRequestMock),
         );
     }
 }

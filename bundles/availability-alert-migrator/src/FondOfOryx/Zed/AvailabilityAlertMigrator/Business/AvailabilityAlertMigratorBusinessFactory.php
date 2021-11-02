@@ -26,7 +26,7 @@ class AvailabilityAlertMigratorBusinessFactory extends AbstractBusinessFactory
             $this->getAvailabilityAlertFacade(),
             $this->getRepository(),
             $this->getEntityManager(),
-            $this->getLogger()
+            $this->getLogger(),
         );
     }
 

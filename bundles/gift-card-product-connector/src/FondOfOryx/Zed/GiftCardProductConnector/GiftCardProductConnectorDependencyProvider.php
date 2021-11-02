@@ -13,11 +13,34 @@ use Spryker\Zed\Kernel\Container;
 
 class GiftCardProductConnectorDependencyProvider extends AbstractBundleDependencyProvider
 {
+    /**
+     * @var string
+     */
     public const PROPEL_QUERY_GIFT_CARD_PRODUCT_ABSTRACT_CONFIGURATION = 'PROPEL_QUERY_GIFT_CARD_PRODUCT_ABSTRACT_CONFIGURATION';
+
+    /**
+     * @var string
+     */
     public const PROPEL_QUERY_GIFT_CARD_PRODUCT_CONFIGURATION = 'PROPEL_QUERY_GIFT_CARD_PRODUCT_CONFIGURATION';
+
+    /**
+     * @var string
+     */
     public const PROPEL_QUERY_GIFT_CARD_PRODUCT_ABSTRACT_CONFIGURATION_LINK = 'PROPEL_QUERY_GIFT_CARD_PRODUCT_ABSTRACT_CONFIGURATION_LINK';
+
+    /**
+     * @var string
+     */
     public const PROPEL_QUERY_GIFT_CARD_PRODUCT_CONFIGURATION_LINK = 'PROPEL_QUERY_GIFT_CARD_PRODUCT_CONFIGURATION_LINK';
+
+    /**
+     * @var string
+     */
     public const PROPEL_QUERY_PRODUCT_ABSTRACT = 'PROPEL_QUERY_PRODUCT_ABSTRACT';
+
+    /**
+     * @var string
+     */
     public const PROPEL_QUERY_PRODUCT = 'PROPEL_QUERY_PRODUCT';
 
     /**

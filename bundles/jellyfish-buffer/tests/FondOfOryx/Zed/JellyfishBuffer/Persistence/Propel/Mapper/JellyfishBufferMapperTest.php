@@ -96,8 +96,8 @@ class JellyfishBufferMapperTest extends Unit
             $this->jellyfishBufferMapper->mapTransferAndOptionsToEntity(
                 $this->jellyfishOrderTransferMock,
                 $this->options,
-                $this->fooExportedOrderMock
-            )
+                $this->fooExportedOrderMock,
+            ),
         );
     }
 }

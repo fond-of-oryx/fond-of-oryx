@@ -55,7 +55,7 @@ class CompanyReader implements CompanyReaderInterface
 
         return $this->restResponseBuilder->buildCompanySearchRestResponse(
             $this->client->searchCompanies($companyListTransfer),
-            $restRequest->getMetadata()->getLocale()
+            $restRequest->getMetadata()->getLocale(),
         );
     }
 }

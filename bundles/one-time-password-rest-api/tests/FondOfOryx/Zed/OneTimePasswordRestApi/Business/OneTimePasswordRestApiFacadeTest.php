@@ -36,7 +36,7 @@ class OneTimePasswordRestApiFacadeTest extends Unit
     protected $restOneTimePasswordResponseTransferMock;
 
     /**
-     * @var \Generated\Shared\Transfer\RestOneTimePasswordLoginLinkRequestAttributesTransfer|mixed|\PHPUnit\Framework\MockObject\MockObject
+     * @var \Generated\Shared\Transfer\RestOneTimePasswordLoginLinkRequestAttributesTransfer|\PHPUnit\Framework\MockObject\MockObject|mixed
      */
     protected $restOneTimePasswordLoginLinkRequestAttributesTransferMock;
 
@@ -86,8 +86,8 @@ class OneTimePasswordRestApiFacadeTest extends Unit
         $this->assertSame(
             $this->restOneTimePasswordResponseTransferMock,
             $this->oneTimePasswordRestApiFacade->requestOneTimePassword(
-                $this->restOneTimePasswordRequestAttributesTransferMock
-            )
+                $this->restOneTimePasswordRequestAttributesTransferMock,
+            ),
         );
     }
 
@@ -108,8 +108,8 @@ class OneTimePasswordRestApiFacadeTest extends Unit
         $this->assertSame(
             $this->restOneTimePasswordResponseTransferMock,
             $this->oneTimePasswordRestApiFacade->requestLoginLink(
-                $this->restOneTimePasswordLoginLinkRequestAttributesTransferMock
-            )
+                $this->restOneTimePasswordLoginLinkRequestAttributesTransferMock,
+            ),
         );
     }
 }

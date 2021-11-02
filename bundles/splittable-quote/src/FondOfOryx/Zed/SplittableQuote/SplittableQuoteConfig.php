@@ -14,7 +14,7 @@ class SplittableQuoteConfig extends AbstractBundleConfig
     {
         $splitItemAttribute = $this->get(
             SplittableQuoteConstants::SPLIT_ITEM_ATTRIBUTE,
-            SplittableQuoteConstants::SPLIT_ITEM_ATTRIBUTE_DEFAULT
+            SplittableQuoteConstants::SPLIT_ITEM_ATTRIBUTE_DEFAULT,
         );
 
         if ($splitItemAttribute === '') {

@@ -88,7 +88,7 @@ class SplittableCheckoutRestApiCustomerConnectorDependencyProviderTest extends U
 
         static::assertInstanceOf(
             SplittableCheckoutRestApiCustomerConnectorToCustomerQueryContainerInterface::class,
-            $this->containerMock[SplittableCheckoutRestApiCustomerConnectorDependencyProvider::QUERY_CONTAINER_CUSTOMER]
+            $this->containerMock[SplittableCheckoutRestApiCustomerConnectorDependencyProvider::QUERY_CONTAINER_CUSTOMER],
         );
     }
 }

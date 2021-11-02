@@ -8,6 +8,9 @@ use Spryker\Zed\Kernel\Container;
 
 class CustomerStatisticDependencyProvider extends AbstractBundleDependencyProvider
 {
+    /**
+     * @var string
+     */
     public const QUERY_CONTAINER_CUSTOMER = 'QUERY_CONTAINER_CUSTOMER';
 
     /**
@@ -33,7 +36,7 @@ class CustomerStatisticDependencyProvider extends AbstractBundleDependencyProvid
     {
         $container[static::QUERY_CONTAINER_CUSTOMER] = static function (Container $container) {
             return new CustomerStatisticToCustomerQueryContainerBridge(
-                $container->getLocator()->customer()->queryContainer()
+                $container->getLocator()->customer()->queryContainer(),
             );
         };
 

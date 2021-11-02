@@ -9,8 +9,14 @@ use Spryker\Zed\Kernel\Container;
 
 class TaxCalculationConnectorDependencyProvider extends AbstractBundleDependencyProvider
 {
+    /**
+     * @var string
+     */
     public const FACADE_TAX = 'FACADE_TAX';
 
+    /**
+     * @var string
+     */
     public const QUERY_CONTAINER_PRODUCT_TAX = 'QUERY_CONTAINER_PRODUCT_TAX';
 
     /**
@@ -46,7 +52,7 @@ class TaxCalculationConnectorDependencyProvider extends AbstractBundleDependency
     {
         $container[static::QUERY_CONTAINER_PRODUCT_TAX] = function (Container $container) {
             return new TaxProductConnectorQueryContainerBridge(
-                $container->getLocator()->taxProductConnector()->queryContainer()
+                $container->getLocator()->taxProductConnector()->queryContainer(),
             );
         };
 

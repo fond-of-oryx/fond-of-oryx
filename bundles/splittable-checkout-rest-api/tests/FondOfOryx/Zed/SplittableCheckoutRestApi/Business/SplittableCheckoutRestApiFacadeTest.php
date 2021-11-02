@@ -97,7 +97,7 @@ class SplittableCheckoutRestApiFacadeTest extends Unit
 
         static::assertEquals(
             $this->restSplittableCheckoutResponseTransferMock,
-            $this->facade->placeOrder($this->restSplittableCheckoutRequestTransferMock)
+            $this->facade->placeOrder($this->restSplittableCheckoutRequestTransferMock),
         );
     }
 
@@ -117,7 +117,7 @@ class SplittableCheckoutRestApiFacadeTest extends Unit
 
         static::assertEquals(
             $this->restSplittableTotalsResponseTransferMock,
-            $this->facade->getSplittableTotals($this->restSplittableCheckoutRequestTransferMock)
+            $this->facade->getSplittableTotals($this->restSplittableCheckoutRequestTransferMock),
         );
     }
 }

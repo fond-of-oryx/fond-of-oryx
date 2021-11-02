@@ -45,11 +45,11 @@ class RestCompanySearchAttributesMapper implements RestCompanySearchAttributesMa
     public function fromCompanyList(CompanyListTransfer $companyListTransfer): RestCompanySearchAttributesTransfer
     {
         return (new RestCompanySearchAttributesTransfer())->setCompanies(
-            $this->restCompanySearchResultItemMapper->fromCompanyList($companyListTransfer)
+            $this->restCompanySearchResultItemMapper->fromCompanyList($companyListTransfer),
         )->setSort(
-            $this->restCompanySearchSortMapper->fromCompanyList($companyListTransfer)
+            $this->restCompanySearchSortMapper->fromCompanyList($companyListTransfer),
         )->setPagination(
-            $this->restCompanySearchPaginationMapper->fromCompanyList($companyListTransfer)
+            $this->restCompanySearchPaginationMapper->fromCompanyList($companyListTransfer),
         );
     }
 }

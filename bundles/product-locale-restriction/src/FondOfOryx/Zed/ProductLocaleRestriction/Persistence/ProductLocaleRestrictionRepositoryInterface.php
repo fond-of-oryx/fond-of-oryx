@@ -7,7 +7,7 @@ interface ProductLocaleRestrictionRepositoryInterface
     /**
      * @param int $idProductAbstract
      *
-     * @return \Generated\Shared\Transfer\LocaleTransfer[]
+     * @return array<\Generated\Shared\Transfer\LocaleTransfer>
      */
     public function findBlacklistedLocaleByIdProductAbstract(
         int $idProductAbstract
@@ -16,14 +16,14 @@ interface ProductLocaleRestrictionRepositoryInterface
     /**
      * @param int $idProductAbstract
      *
-     * @return int[]
+     * @return array<int>
      */
     public function findBlacklistedLocaleIdsByIdProductAbstract(
         int $idProductAbstract
     ): array;
 
     /**
-     * @param int[] $idProductAbstracts
+     * @param array<int> $idProductAbstracts
      *
      * @return array
      */
@@ -32,7 +32,7 @@ interface ProductLocaleRestrictionRepositoryInterface
     ): array;
 
     /**
-     * @param string[] $productConcreteSkus
+     * @param array<string> $productConcreteSkus
      *
      * @return array
      */

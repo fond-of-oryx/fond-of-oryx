@@ -39,7 +39,7 @@ class OneTimePasswordRestApiSenderTest extends Unit
     protected $oneTimePasswordResponseTransferMock;
 
     /**
-     * @var \Generated\Shared\Transfer\RestOneTimePasswordLoginLinkRequestAttributesTransfer|mixed|\PHPUnit\Framework\MockObject\MockObject
+     * @var \Generated\Shared\Transfer\RestOneTimePasswordLoginLinkRequestAttributesTransfer|\PHPUnit\Framework\MockObject\MockObject|mixed
      */
     protected $restOneTimePasswordLoginLinkRequestAttributesTransferMock;
 
@@ -49,12 +49,12 @@ class OneTimePasswordRestApiSenderTest extends Unit
     protected $orderReference;
 
     /**
-     * @var \FondOfOryx\Zed\OneTimePasswordRestApi\Dependency\Facade\OneTimePasswordRestApiToCustomerFacadeInterface|mixed|\PHPUnit\Framework\MockObject\MockObject
+     * @var \FondOfOryx\Zed\OneTimePasswordRestApi\Dependency\Facade\OneTimePasswordRestApiToCustomerFacadeInterface|\PHPUnit\Framework\MockObject\MockObject|mixed
      */
     protected $customerFacadeMock;
 
     /**
-     * @var \Generated\Shared\Transfer\CustomerTransfer|mixed|\PHPUnit\Framework\MockObject\MockObject
+     * @var \Generated\Shared\Transfer\CustomerTransfer|\PHPUnit\Framework\MockObject\MockObject|mixed
      */
     protected $customerTransferMock;
 
@@ -93,7 +93,7 @@ class OneTimePasswordRestApiSenderTest extends Unit
 
         $this->oneTimePasswordRestApiSender = new OneTimePasswordRestApiSender(
             $this->oneTimePasswordFacadeMock,
-            $this->customerFacadeMock
+            $this->customerFacadeMock,
         );
     }
 
@@ -121,8 +121,8 @@ class OneTimePasswordRestApiSenderTest extends Unit
         $this->assertInstanceOf(
             RestOneTimePasswordResponseTransfer::class,
             $this->oneTimePasswordRestApiSender->requestOneTimePassword(
-                $this->restOneTimePasswordRequestAttributesTransferMock
-            )
+                $this->restOneTimePasswordRequestAttributesTransferMock,
+            ),
         );
     }
 
@@ -154,8 +154,8 @@ class OneTimePasswordRestApiSenderTest extends Unit
         $this->assertInstanceOf(
             RestOneTimePasswordResponseTransfer::class,
             $this->oneTimePasswordRestApiSender->requestLoginLink(
-                $this->restOneTimePasswordLoginLinkRequestAttributesTransferMock
-            )
+                $this->restOneTimePasswordLoginLinkRequestAttributesTransferMock,
+            ),
         );
     }
 }

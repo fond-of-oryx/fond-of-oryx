@@ -37,7 +37,7 @@ interface ProductLocaleRestrictionFacadeInterface
      *
      * @api
      *
-     * @param int[] $productAbstractIds
+     * @param array<int> $productAbstractIds
      *
      * @return array
      */
@@ -50,7 +50,7 @@ interface ProductLocaleRestrictionFacadeInterface
      *
      * @api
      *
-     * @param string[] $productConcreteSkus
+     * @param array<string> $productConcreteSkus
      *
      * @return array
      */

@@ -12,11 +12,24 @@ use Spryker\Zed\Kernel\Container;
 
 class ShipmentTableRateDependencyProvider extends AbstractBundleDependencyProvider
 {
+    /**
+     * @var string
+     */
     public const FACADE_COUNTRY = 'FACADE_COUNTRY';
+
+    /**
+     * @var string
+     */
     public const FACADE_STORE = 'FACADE_STORE';
 
+    /**
+     * @var string
+     */
     public const PLUGIN_PRICE_TO_PAY_FILTER = 'PLUGIN_PRICE_TO_PAY_FILTER';
 
+    /**
+     * @var string
+     */
     public const SERVICE_UTIL_MATH_FORMULA = 'SERVICE_UTIL_MATH_FORMULA';
 
     /**
@@ -72,7 +85,7 @@ class ShipmentTableRateDependencyProvider extends AbstractBundleDependencyProvid
     {
         $container[static::SERVICE_UTIL_MATH_FORMULA] = static function (Container $container) {
             return new ShipmentTableRateToUtilMathFormulaServiceBridge(
-                $container->getLocator()->utilMathFormula()->service()
+                $container->getLocator()->utilMathFormula()->service(),
             );
         };
 

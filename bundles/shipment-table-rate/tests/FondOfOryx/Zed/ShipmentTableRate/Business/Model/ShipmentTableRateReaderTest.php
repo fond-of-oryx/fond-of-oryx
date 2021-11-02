@@ -103,7 +103,7 @@ class ShipmentTableRateReaderTest extends Unit
     protected $zipCode;
 
     /**
-     * @var string[]
+     * @var array<string>
      */
     protected $zipCodePatterns;
 
@@ -183,7 +183,7 @@ class ShipmentTableRateReaderTest extends Unit
             $this->repositoryMock,
             $this->countryFacadeMock,
             $this->storeFacadeMock,
-            $this->priceToPayFilterPluginMock
+            $this->priceToPayFilterPluginMock,
         );
     }
 
@@ -250,7 +250,7 @@ class ShipmentTableRateReaderTest extends Unit
 
         $shipmentTableRateTransfer = $this->shipmentTableRateReader->getByShipmentAndQuote(
             $this->shipmentTransferMock,
-            $this->quoteTransferMock
+            $this->quoteTransferMock,
         );
 
         $this->assertEquals($this->shipmentTableRateTransferMock, $shipmentTableRateTransfer);
@@ -305,7 +305,7 @@ class ShipmentTableRateReaderTest extends Unit
 
         $shipmentTableRateTransfer = $this->shipmentTableRateReader->getByShipmentAndQuote(
             $this->shipmentTransferMock,
-            $this->quoteTransferMock
+            $this->quoteTransferMock,
         );
 
         $this->assertEquals(null, $shipmentTableRateTransfer);
@@ -362,7 +362,7 @@ class ShipmentTableRateReaderTest extends Unit
 
         $shipmentTableRateTransfer = $this->shipmentTableRateReader->getByShipmentAndQuote(
             $this->shipmentTransferMock,
-            $this->quoteTransferMock
+            $this->quoteTransferMock,
         );
 
         $this->assertEquals(null, $shipmentTableRateTransfer);
@@ -431,7 +431,7 @@ class ShipmentTableRateReaderTest extends Unit
 
         $shipmentTableRateTransfer = $this->shipmentTableRateReader->getByShipmentAndQuote(
             $this->shipmentTransferMock,
-            $this->quoteTransferMock
+            $this->quoteTransferMock,
         );
 
         $this->assertEquals(null, $shipmentTableRateTransfer);

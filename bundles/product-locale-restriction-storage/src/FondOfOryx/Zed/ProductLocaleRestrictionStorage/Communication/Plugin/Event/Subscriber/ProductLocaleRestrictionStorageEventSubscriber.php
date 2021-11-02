@@ -47,7 +47,7 @@ class ProductLocaleRestrictionStorageEventSubscriber extends AbstractPlugin impl
             new ProductAbstractListener(),
             0,
             null,
-            $this->getConfig()->getProductAbstractLocaleRestrictionEventQueueName()
+            $this->getConfig()->getProductAbstractLocaleRestrictionEventQueueName(),
         );
 
         $eventCollection->addListenerQueued(
@@ -55,7 +55,7 @@ class ProductLocaleRestrictionStorageEventSubscriber extends AbstractPlugin impl
             new ProductAbstractListener(),
             0,
             null,
-            $this->getConfig()->getProductAbstractLocaleRestrictionEventQueueName()
+            $this->getConfig()->getProductAbstractLocaleRestrictionEventQueueName(),
         );
 
         $eventCollection->addListenerQueued(
@@ -63,7 +63,7 @@ class ProductLocaleRestrictionStorageEventSubscriber extends AbstractPlugin impl
             new ProductAbstractListener(),
             0,
             null,
-            $this->getConfig()->getProductAbstractLocaleRestrictionEventQueueName()
+            $this->getConfig()->getProductAbstractLocaleRestrictionEventQueueName(),
         );
 
         return $eventCollection;
@@ -82,7 +82,7 @@ class ProductLocaleRestrictionStorageEventSubscriber extends AbstractPlugin impl
             new ProductAbstractLocaleRestrictionListener(),
             0,
             null,
-            $this->getConfig()->getProductAbstractLocaleRestrictionEventQueueName()
+            $this->getConfig()->getProductAbstractLocaleRestrictionEventQueueName(),
         );
 
         $eventCollection->addListenerQueued(
@@ -90,7 +90,7 @@ class ProductLocaleRestrictionStorageEventSubscriber extends AbstractPlugin impl
             new ProductAbstractLocaleRestrictionListener(),
             0,
             null,
-            $this->getConfig()->getProductAbstractLocaleRestrictionEventQueueName()
+            $this->getConfig()->getProductAbstractLocaleRestrictionEventQueueName(),
         );
 
         $eventCollection->addListenerQueued(
@@ -98,7 +98,7 @@ class ProductLocaleRestrictionStorageEventSubscriber extends AbstractPlugin impl
             new ProductAbstractLocaleRestrictionListener(),
             0,
             null,
-            $this->getConfig()->getProductAbstractLocaleRestrictionEventQueueName()
+            $this->getConfig()->getProductAbstractLocaleRestrictionEventQueueName(),
         );
 
         return $eventCollection;

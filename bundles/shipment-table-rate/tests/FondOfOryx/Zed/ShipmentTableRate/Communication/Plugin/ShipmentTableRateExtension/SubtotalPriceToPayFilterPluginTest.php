@@ -44,7 +44,7 @@ class SubtotalPriceToPayFilterPluginTest extends Unit
 
         static::assertEquals(
             $subtotal,
-            $this->priceToPayFilterPlugin->filter($this->totalsTransferMock)
+            $this->priceToPayFilterPlugin->filter($this->totalsTransferMock),
         );
     }
 }

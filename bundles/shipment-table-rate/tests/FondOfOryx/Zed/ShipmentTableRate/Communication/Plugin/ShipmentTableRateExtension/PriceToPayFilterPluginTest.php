@@ -44,7 +44,7 @@ class PriceToPayFilterPluginTest extends Unit
 
         static::assertEquals(
             $priceToPay,
-            $this->priceToPayFilterPlugin->filter($this->totalsTransferMock)
+            $this->priceToPayFilterPlugin->filter($this->totalsTransferMock),
         );
     }
 }

@@ -54,7 +54,7 @@ class ProductAbstractLocaleRestrictionProductAbstractReadPluginTest extends Unit
 
         static::assertEquals(
             $this->productAbstractTransferMock,
-            $this->plugin->read($this->productAbstractTransferMock)
+            $this->plugin->read($this->productAbstractTransferMock),
         );
     }
 }

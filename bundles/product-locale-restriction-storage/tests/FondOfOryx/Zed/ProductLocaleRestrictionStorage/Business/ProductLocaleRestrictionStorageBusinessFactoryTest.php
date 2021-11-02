@@ -87,7 +87,7 @@ class ProductLocaleRestrictionStorageBusinessFactoryTest extends Unit
         static::assertInstanceOf(
             ProductAbstractLocaleRestrictionStorageWriter::class,
             $this->productLocaleRestrictionStorageBusinessFactory
-                ->createProductAbstractLocaleRestrictionStorageWriter()
+                ->createProductAbstractLocaleRestrictionStorageWriter(),
         );
     }
 }

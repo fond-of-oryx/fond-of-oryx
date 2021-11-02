@@ -51,7 +51,7 @@ class ProductAbstractCountryRestrictionsPersisterTest extends Unit
 
         $this->productAbstractCountryRestrictionsPersister = new ProductAbstractCountryRestrictionsPersister(
             $this->repositoryMock,
-            $this->entityManagerMock
+            $this->entityManagerMock,
         );
     }
 
@@ -85,8 +85,8 @@ class ProductAbstractCountryRestrictionsPersisterTest extends Unit
                     static function (array $countryIds) use ($currentCountryIds) {
                         return count($countryIds) === 1
                             && $countryIds[0] === $currentCountryIds[0];
-                    }
-                )
+                    },
+                ),
             );
 
         $this->entityManagerMock->expects(static::atLeastOnce())
@@ -101,8 +101,8 @@ class ProductAbstractCountryRestrictionsPersisterTest extends Unit
                     ) {
                         return $productAbstractCountryRestrictionTransfer->getIdProductAbstract() === $idProductAbstract
                             && $productAbstractCountryRestrictionTransfer->getIdCountry() === $newCountryIds[1];
-                    }
-                )
+                    },
+                ),
             );
 
         $this->productAbstractCountryRestrictionsPersister->persist($this->productAbstractTransferMock);

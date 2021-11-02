@@ -59,7 +59,7 @@ class JellyfishSalesOrderProductTypeBusinessFactoryTest extends Unit
 
         static::assertInstanceOf(
             JellyfishOrderItemExpanderInterface::class,
-            $this->businessFactory->createJellyfishOrderItemExpander()
+            $this->businessFactory->createJellyfishOrderItemExpander(),
         );
     }
 }

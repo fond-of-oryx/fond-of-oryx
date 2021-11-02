@@ -90,7 +90,7 @@ class GatewayControllerTest extends Unit
 
         static::assertEquals(
             $this->quoteValidationResponseTransferMock,
-            $this->gatewayController->validateQuoteAction($this->quoteTransferMock)
+            $this->gatewayController->validateQuoteAction($this->quoteTransferMock),
         );
     }
 }

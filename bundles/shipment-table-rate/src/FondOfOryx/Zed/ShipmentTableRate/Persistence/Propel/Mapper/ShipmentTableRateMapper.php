@@ -18,7 +18,7 @@ class ShipmentTableRateMapper implements ShipmentTableRateMapperInterface
         FooShipmentTableRate $fooShipmentTableRate
     ): FooShipmentTableRate {
         $fooShipmentTableRate->fromArray(
-            $shipmentTableRateTransfer->modifiedToArray(false)
+            $shipmentTableRateTransfer->modifiedToArray(false),
         );
 
         return $fooShipmentTableRate;
@@ -36,7 +36,7 @@ class ShipmentTableRateMapper implements ShipmentTableRateMapperInterface
     ): ShipmentTableRateTransfer {
         return $shipmentTableRateTransfer->fromArray(
             $fooShipmentTableRate->toArray(),
-            true
+            true,
         );
     }
 }

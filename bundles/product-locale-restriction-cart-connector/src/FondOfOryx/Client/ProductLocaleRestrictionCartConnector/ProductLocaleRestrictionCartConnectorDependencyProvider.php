@@ -8,6 +8,9 @@ use Spryker\Client\Kernel\Container;
 
 class ProductLocaleRestrictionCartConnectorDependencyProvider extends AbstractDependencyProvider
 {
+    /**
+     * @var string
+     */
     public const CLIENT_LOCALE = 'CLIENT_LOCALE';
 
     /**
@@ -33,7 +36,7 @@ class ProductLocaleRestrictionCartConnectorDependencyProvider extends AbstractDe
     {
         $container[static::CLIENT_LOCALE] = static function (Container $container) {
             return new ProductLocaleRestrictionCartConnectorToLocaleClientBridge(
-                $container->getLocator()->locale()->client()
+                $container->getLocator()->locale()->client(),
             );
         };
 

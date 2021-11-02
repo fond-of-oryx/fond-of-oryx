@@ -10,8 +10,19 @@ use Spryker\Zed\Kernel\Container;
 
 class PrepaymentCreditMemoDependencyProvider extends AbstractBundleDependencyProvider
 {
+    /**
+     * @var string
+     */
     public const FACADE_REFUND = 'refund facade';
+
+    /**
+     * @var string
+     */
     public const FACADE_CREDIT_MEMO = 'FACADE_CREDIT_MEMO';
+
+    /**
+     * @var string
+     */
     public const FACADE_OMS = 'FACADE_OMS';
 
     /**

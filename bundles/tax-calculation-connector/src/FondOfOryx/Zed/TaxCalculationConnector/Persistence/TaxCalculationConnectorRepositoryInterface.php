@@ -7,9 +7,9 @@ use Generated\Shared\Transfer\TaxCalculationConnectorTransfer;
 interface TaxCalculationConnectorRepositoryInterface
 {
     /**
-     * @param int[] $idProductAbstracts
-     * @param string[] $countryIso2Code
-     * @param int[] $idRegions
+     * @param array<int> $idProductAbstracts
+     * @param array<string> $countryIso2Code
+     * @param array<int> $idRegions
      *
      * @return \Generated\Shared\Transfer\TaxCalculationConnectorTransfer
      */
@@ -20,8 +20,8 @@ interface TaxCalculationConnectorRepositoryInterface
     ): TaxCalculationConnectorTransfer;
 
     /**
-     * @param int[] $idProductAbstracts
-     * @param string[] $countryIso2Code
+     * @param array<int> $idProductAbstracts
+     * @param array<string> $countryIso2Code
      *
      * @return \Generated\Shared\Transfer\TaxCalculationConnectorTransfer
      */

@@ -11,7 +11,14 @@ use Symfony\Component\Console\Output\OutputInterface;
  */
 class ExpireGiftCardConsole extends Console
 {
+    /**
+     * @var string
+     */
     private const COMMAND_NAME = 'gift-card:expire';
+
+    /**
+     * @var string
+     */
     private const DESCRIPTION = 'Expires gift cards.';
 
     /**

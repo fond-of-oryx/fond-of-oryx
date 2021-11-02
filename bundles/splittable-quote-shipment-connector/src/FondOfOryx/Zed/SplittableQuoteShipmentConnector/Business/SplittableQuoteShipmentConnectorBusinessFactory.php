@@ -16,7 +16,7 @@ class SplittableQuoteShipmentConnectorBusinessFactory extends AbstractBusinessFa
     public function createSplittedQuoteExpander(): SplittedQuoteExpanderInterface
     {
         return new SplittedQuoteExpander(
-            $this->getShipmentFacade()
+            $this->getShipmentFacade(),
         );
     }
 
@@ -26,7 +26,7 @@ class SplittableQuoteShipmentConnectorBusinessFactory extends AbstractBusinessFa
     protected function getShipmentFacade(): SplittableQuoteShipmentConnectorToShipmentFacadeInterface
     {
         return $this->getProvidedDependency(
-            SplittableQuoteShipmentConnectorDependencyProvider::FACADE_SHIPMENT
+            SplittableQuoteShipmentConnectorDependencyProvider::FACADE_SHIPMENT,
         );
     }
 }

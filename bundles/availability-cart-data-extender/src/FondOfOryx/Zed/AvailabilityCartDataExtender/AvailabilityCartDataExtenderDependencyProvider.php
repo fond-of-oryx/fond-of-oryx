@@ -9,7 +9,14 @@ use Spryker\Zed\Kernel\Container;
 
 class AvailabilityCartDataExtenderDependencyProvider extends AbstractBundleDependencyProvider
 {
+    /**
+     * @var string
+     */
     public const FACADE_AVAILABILITY = 'FACADE_AVAILABILITY';
+
+    /**
+     * @var string
+     */
     public const FACADE_AVAILABILITY_CART_CONNECTOR = 'FACADE_AVAILABILITY_CART_CONNECTOR';
 
     /**
@@ -36,7 +43,7 @@ class AvailabilityCartDataExtenderDependencyProvider extends AbstractBundleDepen
     {
         $container[static::FACADE_AVAILABILITY_CART_CONNECTOR] = static function (Container $container) {
             return new AvailabilityCartDataExtenderToAvailabilityCartConnectorFacadeBridge(
-                $container->getLocator()->availabilityCartConnector()->facade()
+                $container->getLocator()->availabilityCartConnector()->facade(),
             );
         };
 
@@ -52,7 +59,7 @@ class AvailabilityCartDataExtenderDependencyProvider extends AbstractBundleDepen
     {
         $container[static::FACADE_AVAILABILITY] = static function (Container $container) {
             return new AvailabilityCartDataExtenderToAvailabilityFacadeBridge(
-                $container->getLocator()->availability()->facade()
+                $container->getLocator()->availability()->facade(),
             );
         };
 

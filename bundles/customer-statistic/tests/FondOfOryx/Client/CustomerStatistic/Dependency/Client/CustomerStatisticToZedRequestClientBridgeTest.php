@@ -39,7 +39,7 @@ class CustomerStatisticToZedRequestClientBridgeTest extends Unit
             ->getMock();
 
         $this->customerStatisticToZedRequestClientBridge = new CustomerStatisticToZedRequestClientBridge(
-            $this->zedRequestClientMock
+            $this->zedRequestClientMock,
         );
     }
 
@@ -57,7 +57,7 @@ class CustomerStatisticToZedRequestClientBridgeTest extends Unit
 
         static::assertEquals(
             $this->transferMock,
-            $this->customerStatisticToZedRequestClientBridge->call($url, $this->transferMock, null)
+            $this->customerStatisticToZedRequestClientBridge->call($url, $this->transferMock, null),
         );
     }
 }

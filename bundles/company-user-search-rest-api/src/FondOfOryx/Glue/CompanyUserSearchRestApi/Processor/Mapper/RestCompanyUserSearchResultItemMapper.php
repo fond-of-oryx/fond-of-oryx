@@ -18,14 +18,14 @@ class RestCompanyUserSearchResultItemMapper implements RestCompanyUserSearchResu
     {
         return (new RestCompanyUserSearchResultItemTransfer())->fromArray(
             $companyUserTransfer->toArray(),
-            true
+            true,
         )->setCompanyId($companyUserTransfer->getCompanyUuid());
     }
 
     /**
-     * @param \Generated\Shared\Transfer\CompanyUserTransfer[]|\ArrayObject $companyUserTransfers
+     * @param \ArrayObject<\Generated\Shared\Transfer\CompanyUserTransfer> $companyUserTransfers
      *
-     * @return \Generated\Shared\Transfer\RestCompanyUserSearchResultItemTransfer[]|\ArrayObject
+     * @return \ArrayObject<\Generated\Shared\Transfer\RestCompanyUserSearchResultItemTransfer>
      */
     public function fromCompanyUserCollection(ArrayObject $companyUserTransfers): ArrayObject
     {
@@ -41,7 +41,7 @@ class RestCompanyUserSearchResultItemMapper implements RestCompanyUserSearchResu
     /**
      * @param \Generated\Shared\Transfer\CompanyUserListTransfer $companyUserListTransfer
      *
-     * @return \Generated\Shared\Transfer\RestCompanyUserSearchResultItemTransfer[]|\ArrayObject
+     * @return \ArrayObject<\Generated\Shared\Transfer\RestCompanyUserSearchResultItemTransfer>
      */
     public function fromCompanyUserList(CompanyUserListTransfer $companyUserListTransfer): ArrayObject
     {

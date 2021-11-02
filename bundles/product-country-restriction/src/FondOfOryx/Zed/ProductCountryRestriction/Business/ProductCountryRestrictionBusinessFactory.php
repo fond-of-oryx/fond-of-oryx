@@ -21,7 +21,7 @@ class ProductCountryRestrictionBusinessFactory extends AbstractBusinessFactory
     {
         return new ProductAbstractCountryRestrictionsPersister(
             $this->getRepository(),
-            $this->getEntityManager()
+            $this->getEntityManager(),
         );
     }
 
@@ -31,7 +31,7 @@ class ProductCountryRestrictionBusinessFactory extends AbstractBusinessFactory
     public function createProductAbstractExpander(): ProductAbstractExpanderInterface
     {
         return new ProductAbstractExpander(
-            $this->getRepository()
+            $this->getRepository(),
         );
     }
 }

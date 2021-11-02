@@ -65,7 +65,7 @@ class OrderBudgetEntityManager extends AbstractEntityManager implements OrderBud
         $entity->save();
 
         return $orderBudgetHistoryTransfer->setIdOrderBudgetHistory(
-            $entity->getIdOrderBudgetHistory()
+            $entity->getIdOrderBudgetHistory(),
         );
     }
 }

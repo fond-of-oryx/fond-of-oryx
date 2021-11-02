@@ -117,13 +117,13 @@ class BlacklistedLocalesQueryExpanderPluginTest extends Unit
 
                         return isset($data['term'][PageIndexMap::BLACKLISTED_LOCALES])
                             && $data['term'][PageIndexMap::BLACKLISTED_LOCALES]['value'] === $currentLocale;
-                    }
-                )
+                    },
+                ),
             )->willReturn($this->boolQueryMock);
 
         static::assertEquals(
             $this->queryMock,
-            $this->blacklistedLocalesQueryExpanderPlugin->expandQuery($this->queryMock)
+            $this->blacklistedLocalesQueryExpanderPlugin->expandQuery($this->queryMock),
         );
     }
 

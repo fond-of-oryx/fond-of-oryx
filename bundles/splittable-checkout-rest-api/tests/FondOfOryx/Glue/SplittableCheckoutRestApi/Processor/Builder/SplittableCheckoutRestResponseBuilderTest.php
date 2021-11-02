@@ -83,7 +83,7 @@ class SplittableCheckoutRestResponseBuilderTest extends Unit
 
         $this->restResponseBuilder = new SplittableCheckoutRestResponseBuilder(
             $this->restSplittableCheckoutMapperMock,
-            $this->restResourceBuilderMock
+            $this->restResourceBuilderMock,
         );
     }
 
@@ -104,13 +104,13 @@ class SplittableCheckoutRestResponseBuilderTest extends Unit
                         return $restErrorMessageTransfer->getCode() === SplittableCheckoutRestApiConfig::RESPONSE_CODE_SPLITTABLE_CHECKOUT_NOT_PLACED
                             && $restErrorMessageTransfer->getDetail() === SplittableCheckoutRestApiConfig::EXCEPTION_MESSAGE_SPLITTABLE_CHECKOUT_NOT_PLACED
                             && $restErrorMessageTransfer->getStatus() === Response::HTTP_UNPROCESSABLE_ENTITY;
-                    }
-                )
+                    },
+                ),
             )->willReturn($this->restResponseMock);
 
         static::assertEquals(
             $this->restResponseMock,
-            $this->restResponseBuilder->createNotPlacedErrorRestResponse()
+            $this->restResponseBuilder->createNotPlacedErrorRestResponse(),
         );
     }
 
@@ -129,7 +129,7 @@ class SplittableCheckoutRestResponseBuilderTest extends Unit
             ->with(
                 SplittableCheckoutRestApiConfig::RESOURCE_SPLITTABLE_CHECKOUT,
                 null,
-                $this->restSplittableCheckoutTransferMock
+                $this->restSplittableCheckoutTransferMock,
             )->willReturn($this->restResourceMock);
 
         $this->restResourceMock->expects(static::atLeastOnce())
@@ -153,7 +153,7 @@ class SplittableCheckoutRestResponseBuilderTest extends Unit
 
         static::assertEquals(
             $this->restResponseMock,
-            $this->restResponseBuilder->createRestResponse($this->splittableCheckoutTransferMock)
+            $this->restResponseBuilder->createRestResponse($this->splittableCheckoutTransferMock),
         );
     }
 }

@@ -28,7 +28,7 @@ class OrderBudgetBusinessFactory extends AbstractBusinessFactory
     {
         return new OrderBudgetWriter(
             $this->getEntityManager(),
-            $this->getConfig()
+            $this->getConfig(),
         );
     }
 
@@ -42,7 +42,7 @@ class OrderBudgetBusinessFactory extends AbstractBusinessFactory
             $this->createOrderBudgetHistoryMapper(),
             $this->getUtilDateTimeService(),
             $this->getEntityManager(),
-            $this->getConfig()
+            $this->getConfig(),
         );
     }
 
@@ -52,7 +52,7 @@ class OrderBudgetBusinessFactory extends AbstractBusinessFactory
     protected function createOrderBudgetReader(): OrderBudgetReaderInterface
     {
         return new OrderBudgetReader(
-            $this->getRepository()
+            $this->getRepository(),
         );
     }
 

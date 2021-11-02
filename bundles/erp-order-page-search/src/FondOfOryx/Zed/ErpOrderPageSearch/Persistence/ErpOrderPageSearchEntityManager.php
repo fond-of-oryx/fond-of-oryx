@@ -38,7 +38,7 @@ class ErpOrderPageSearchEntityManager extends AbstractEntityManager implements E
     {
         $fooErpOrderPageSearch = $this->getFactory()->createErpOrderPageSearchMapper()->mapTransferToEntity(
             $erpOrderPageSearchTransfer,
-            new FooErpOrderPageSearch()
+            new FooErpOrderPageSearch(),
         );
 
         $fooErpOrderPageSearch->save();

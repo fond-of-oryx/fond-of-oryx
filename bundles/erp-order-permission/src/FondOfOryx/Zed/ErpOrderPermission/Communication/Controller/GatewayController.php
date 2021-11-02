@@ -22,7 +22,7 @@ class GatewayController extends AbstractGatewayController
         return $this->getRepository()
             ->getAccessibleCompanyBusinessUnitUuidsByPermissionKeyAndCustomerReference(
                 $erpOrderPermissionCompanyBusinessUnitUuidRequestTransfer->getPermissionKey(),
-                $erpOrderPermissionCompanyBusinessUnitUuidRequestTransfer->getCustomerReference()
+                $erpOrderPermissionCompanyBusinessUnitUuidRequestTransfer->getCustomerReference(),
             );
     }
 }

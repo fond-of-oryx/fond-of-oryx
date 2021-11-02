@@ -82,13 +82,13 @@ class SplittableQuoteShipmentConnectorDependencyProviderTest extends Unit
             ->willReturn($this->shipmentFacadeMock);
 
         $container = $this->dependencyProvider->provideBusinessLayerDependencies(
-            $this->containerMock
+            $this->containerMock,
         );
 
         static::assertEquals($this->containerMock, $container);
         static::assertInstanceOf(
             SplittableQuoteShipmentConnectorToShipmentFacadeBridge::class,
-            $container[SplittableQuoteShipmentConnectorDependencyProvider::FACADE_SHIPMENT]
+            $container[SplittableQuoteShipmentConnectorDependencyProvider::FACADE_SHIPMENT],
         );
     }
 }

@@ -79,7 +79,7 @@ class SplittableCheckoutRestApiOrderCustomReferenceConnectorFacadeTest extends U
 
         static::assertEquals(
             $this->quoteTransferMock,
-            $this->facade->expandQuote($this->restSplittableCheckoutRequestTransferMock, $this->quoteTransferMock)
+            $this->facade->expandQuote($this->restSplittableCheckoutRequestTransferMock, $this->quoteTransferMock),
         );
     }
 }

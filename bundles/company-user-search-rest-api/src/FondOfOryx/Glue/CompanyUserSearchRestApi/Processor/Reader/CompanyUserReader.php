@@ -55,7 +55,7 @@ class CompanyUserReader implements CompanyUserReaderInterface
 
         return $this->restResponseBuilder->buildCompanyUserSearchRestResponse(
             $this->client->searchCompanyUser($companyUserListTransfer),
-            $restRequest->getMetadata()->getLocale()
+            $restRequest->getMetadata()->getLocale(),
         );
     }
 }

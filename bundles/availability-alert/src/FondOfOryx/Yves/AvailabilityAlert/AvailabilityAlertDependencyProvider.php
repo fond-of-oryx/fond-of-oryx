@@ -9,9 +9,24 @@ use Spryker\Yves\Kernel\Container;
 
 class AvailabilityAlertDependencyProvider extends AbstractBundleDependencyProvider
 {
+    /**
+     * @var string
+     */
     public const CLIENT_AVAILABILITY_ALERT = 'CLIENT_AVAILABILITY_ALERT';
+
+    /**
+     * @var string
+     */
     public const CLIENT_STORE = 'CLIENT_STORE';
+
+    /**
+     * @var string
+     */
     public const CLIENT_LOCALE = 'CLIENT_LOCALE';
+
+    /**
+     * @var string
+     */
     public const PLUGINS_AVAILABILITY_ALERT_SUBSCRIPTION_REQUEST_EXPANDER = 'PLUGINS_AVAILABILITY_ALERT_SUBSCRIPTION_REQUEST_EXPANDER';
 
     /**
@@ -88,7 +103,7 @@ class AvailabilityAlertDependencyProvider extends AbstractBundleDependencyProvid
     }
 
     /**
-     * @return \FondOfOryx\Yves\AvailabilityAlert\Dependency\Plugin\AvailabilityAlertSubscriptionRequestExpanderPlugin[]
+     * @return array<\FondOfOryx\Yves\AvailabilityAlert\Dependency\Plugin\AvailabilityAlertSubscriptionRequestExpanderPlugin>
      */
     protected function getAvailabilityAlertSubscriptionRequestExpanderPlugins(): array
     {

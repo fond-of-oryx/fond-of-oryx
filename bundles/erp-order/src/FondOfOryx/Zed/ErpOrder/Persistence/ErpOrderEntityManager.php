@@ -117,7 +117,7 @@ class ErpOrderEntityManager extends AbstractEntityManager implements ErpOrderEnt
 
         return $this->getFactory()->createEntityToTransferMapper()->fromEprOrderItemToTransfer(
             $entity,
-            $itemTransfer
+            $itemTransfer,
         );
     }
 
@@ -139,7 +139,7 @@ class ErpOrderEntityManager extends AbstractEntityManager implements ErpOrderEnt
         if ($entity === null) {
             throw new Exception(sprintf(
                 'Erp order with id %s not found',
-                $erpOrderTransfer->getIdErpOrder()
+                $erpOrderTransfer->getIdErpOrder(),
             ));
         }
         $createdAt = $entity->getCreatedAt();
@@ -266,7 +266,7 @@ class ErpOrderEntityManager extends AbstractEntityManager implements ErpOrderEnt
         if ($entity === null) {
             throw new Exception(sprintf(
                 'Erp order address with id %s not found',
-                $erpOrderAddressTransfer->getIdErpOrderAddress()
+                $erpOrderAddressTransfer->getIdErpOrderAddress(),
             ));
         }
         $id = $entity->getIdErpOrderAddress();
@@ -300,7 +300,7 @@ class ErpOrderEntityManager extends AbstractEntityManager implements ErpOrderEnt
         if ($entity === null) {
             throw new Exception(sprintf(
                 'Erp order total with id %s not found',
-                $erpOrderTotalTransfer->getIdErpOrderTotal()
+                $erpOrderTotalTransfer->getIdErpOrderTotal(),
             ));
         }
         $id = $entity->getIdErpOrderTotal();

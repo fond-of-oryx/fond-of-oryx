@@ -21,7 +21,7 @@ class ProductLocaleRestrictionBusinessFactory extends AbstractBusinessFactory
     {
         return new ProductAbstractLocaleRestrictionsPersister(
             $this->getRepository(),
-            $this->getEntityManager()
+            $this->getEntityManager(),
         );
     }
 
@@ -31,7 +31,7 @@ class ProductLocaleRestrictionBusinessFactory extends AbstractBusinessFactory
     public function createProductAbstractExpander(): ProductAbstractExpanderInterface
     {
         return new ProductAbstractExpander(
-            $this->getRepository()
+            $this->getRepository(),
         );
     }
 }

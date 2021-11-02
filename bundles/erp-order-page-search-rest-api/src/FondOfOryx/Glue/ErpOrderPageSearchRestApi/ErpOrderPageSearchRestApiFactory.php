@@ -22,7 +22,7 @@ class ErpOrderPageSearchRestApiFactory extends AbstractFactory
             $this->getErpOrderPageSearchClient(),
             $this->createRequestBuilder(),
             $this->createErpOrderMapper(),
-            $this->getResourceBuilder()
+            $this->getResourceBuilder(),
         );
     }
 

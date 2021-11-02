@@ -31,7 +31,7 @@ class FormulaEvaluator implements FormulaEvaluatorInterface
 
     /**
      * @param string $formula
-     * @param float[] $variables
+     * @param array<float> $variables
      *
      * @throws \FondOfOryx\Service\UtilMathFormula\Exception\FormulaEvaluationException
      *
@@ -47,7 +47,7 @@ class FormulaEvaluator implements FormulaEvaluatorInterface
             return $abstractSyntaxTree->accept($this->evaluator);
         } catch (Exception $exception) {
             throw new FormulaEvaluationException(
-                sprintf('Could not evaluate formula "%s" with given variables %s', $formula, json_encode($variables))
+                sprintf('Could not evaluate formula "%s" with given variables %s', $formula, json_encode($variables)),
             );
         }
     }

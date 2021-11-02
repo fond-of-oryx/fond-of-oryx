@@ -35,7 +35,7 @@ class SplittableCheckoutRestApiFactory extends AbstractFactory
             $this->createRestSplittableCheckoutRequestMapper(),
             $this->createRestSplittableCheckoutRequestExpander(),
             $this->createSplittableCheckoutRestResponseBuilder(),
-            $this->getClient()
+            $this->getClient(),
         );
     }
 
@@ -48,7 +48,7 @@ class SplittableCheckoutRestApiFactory extends AbstractFactory
             $this->createRestSplittableCheckoutRequestMapper(),
             $this->createRestSplittableCheckoutRequestExpander(),
             $this->createSplittableTotalsRestResponseBuilder(),
-            $this->getClient()
+            $this->getClient(),
         );
     }
 
@@ -75,7 +75,7 @@ class SplittableCheckoutRestApiFactory extends AbstractFactory
     {
         return new SplittableCheckoutRestResponseBuilder(
             $this->createRestSplittableCheckoutMapper(),
-            $this->getResourceBuilder()
+            $this->getResourceBuilder(),
         );
     }
 
@@ -86,7 +86,7 @@ class SplittableCheckoutRestApiFactory extends AbstractFactory
     {
         return new SplittableTotalsRestResponseBuilder(
             $this->createRestSplittableTotalsMapper(),
-            $this->getResourceBuilder()
+            $this->getResourceBuilder(),
         );
     }
 

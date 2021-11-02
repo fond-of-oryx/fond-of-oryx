@@ -67,7 +67,7 @@ class PriceCalculator implements PriceCalculatorInterface
 
         $shipmentTableRateTransfer = $this->shipmentTableRateReader->getByShipmentAndQuote(
             $shipmentTransfer,
-            $quoteTransfer
+            $quoteTransfer,
         );
 
         if ($shipmentTableRateTransfer === null || $shipmentTableRateTransfer->getFormula() === null) {
@@ -76,7 +76,7 @@ class PriceCalculator implements PriceCalculatorInterface
 
         return (int)$this->utilMathFormulaService->evaluateFormula(
             $shipmentTableRateTransfer->getFormula(),
-            $this->variableExtractor->extractFromQuote($quoteTransfer)
+            $this->variableExtractor->extractFromQuote($quoteTransfer),
         );
     }
 }

@@ -122,7 +122,7 @@ class ErpOrderPageSearchReaderTest extends Unit
             $this->erpOrderPageSearchClient,
             $this->requestBuilderMock,
             $this->erpOrderMapperMock,
-            $this->restResourceBuilderMock
+            $this->restResourceBuilderMock,
         );
     }
 

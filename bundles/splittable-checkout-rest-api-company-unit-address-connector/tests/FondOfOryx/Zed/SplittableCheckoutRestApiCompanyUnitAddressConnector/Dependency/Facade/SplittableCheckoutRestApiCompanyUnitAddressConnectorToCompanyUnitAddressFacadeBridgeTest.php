@@ -49,7 +49,7 @@ class SplittableCheckoutRestApiCompanyUnitAddressConnectorToCompanyUnitAddressFa
             ->getMock();
 
         $this->facadeBridge = new SplittableCheckoutRestApiCompanyUnitAddressConnectorToCompanyUnitAddressFacadeBridge(
-            $this->companyUnitAddressFacadeMock
+            $this->companyUnitAddressFacadeMock,
         );
     }
 
@@ -65,7 +65,7 @@ class SplittableCheckoutRestApiCompanyUnitAddressConnectorToCompanyUnitAddressFa
 
         static::assertEquals(
             $this->companyUnitAddressResponseTransferMock,
-            $this->facadeBridge->findCompanyBusinessUnitAddressByUuid($this->companyUnitAddressTransferMock)
+            $this->facadeBridge->findCompanyBusinessUnitAddressByUuid($this->companyUnitAddressTransferMock),
         );
     }
 }

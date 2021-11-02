@@ -10,17 +10,17 @@ use Generated\Shared\Transfer\PaginationTransfer;
 class RestCompanySearchPaginationMapperTest extends Unit
 {
     /**
-     * @var \FondOfOryx\Glue\CompanySearchRestApi\CompanySearchRestApiConfig|mixed|\PHPUnit\Framework\MockObject\MockObject
+     * @var \FondOfOryx\Glue\CompanySearchRestApi\CompanySearchRestApiConfig|\PHPUnit\Framework\MockObject\MockObject|mixed
      */
     protected $configMock;
 
     /**
-     * @var \Generated\Shared\Transfer\CompanyListTransfer|mixed|\PHPUnit\Framework\MockObject\MockObject
+     * @var \Generated\Shared\Transfer\CompanyListTransfer|\PHPUnit\Framework\MockObject\MockObject|mixed
      */
     protected $companyListTransferMock;
 
     /**
-     * @var \Generated\Shared\Transfer\PaginationTransfer|mixed|\PHPUnit\Framework\MockObject\MockObject
+     * @var \Generated\Shared\Transfer\PaginationTransfer|\PHPUnit\Framework\MockObject\MockObject|mixed
      */
     protected $paginationTransferMock;
 
@@ -92,7 +92,7 @@ class RestCompanySearchPaginationMapperTest extends Unit
             ->willReturn($validItemsPerPageOptions);
 
         $this->restCompanySearchPaginationMapper->fromCompanyList(
-            $this->companyListTransferMock
+            $this->companyListTransferMock,
         );
     }
 
@@ -112,7 +112,7 @@ class RestCompanySearchPaginationMapperTest extends Unit
             ->method('getValidItemsPerPageOptions');
 
         $this->restCompanySearchPaginationMapper->fromCompanyList(
-            $this->companyListTransferMock
+            $this->companyListTransferMock,
         );
     }
 }

@@ -11,12 +11,12 @@ use Generated\Shared\Transfer\PriceProductTransfer;
 class GiftCardAmountFilterTest extends Unit
 {
     /**
-     * @var \Generated\Shared\Transfer\PriceProductTransfer[]|\PHPUnit\Framework\MockObject\MockObject[]
+     * @var array<\PHPUnit\Framework\MockObject\MockObject>|array<\Generated\Shared\Transfer\PriceProductTransfer>
      */
     protected $priceProductTransferMocks;
 
     /**
-     * @var \Generated\Shared\Transfer\MoneyValueTransfer[]|\PHPUnit\Framework\MockObject\MockObject[]
+     * @var array<\PHPUnit\Framework\MockObject\MockObject>|array<\Generated\Shared\Transfer\MoneyValueTransfer>
      */
     protected $moneyValueTransferMocks;
 
@@ -78,7 +78,7 @@ class GiftCardAmountFilterTest extends Unit
 
         static::assertEquals(
             $giftCardAmount,
-            $this->giftCardAmountFilter->filterFromPriceProducts(new ArrayObject($this->priceProductTransferMocks))
+            $this->giftCardAmountFilter->filterFromPriceProducts(new ArrayObject($this->priceProductTransferMocks)),
         );
     }
 

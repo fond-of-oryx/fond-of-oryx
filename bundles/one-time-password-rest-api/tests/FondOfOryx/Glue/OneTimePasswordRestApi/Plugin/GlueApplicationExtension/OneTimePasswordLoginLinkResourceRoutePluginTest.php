@@ -15,7 +15,7 @@ class OneTimePasswordLoginLinkResourceRoutePluginTest extends Unit
     protected $oneTimePasswordLoginLinkResourceRoutePlugin;
 
     /**
-     * @var mixed|\PHPUnit\Framework\MockObject\MockObject|\Spryker\Glue\GlueApplicationExtension\Dependency\Plugin\ResourceRouteCollectionInterface
+     * @var \PHPUnit\Framework\MockObject\MockObject|\Spryker\Glue\GlueApplicationExtension\Dependency\Plugin\ResourceRouteCollectionInterface|mixed
      */
     protected $resourceRouteCollectionMock;
 
@@ -44,8 +44,8 @@ class OneTimePasswordLoginLinkResourceRoutePluginTest extends Unit
         $this->assertSame(
             $this->resourceRouteCollectionMock,
             $this->oneTimePasswordLoginLinkResourceRoutePlugin->configure(
-                $this->resourceRouteCollectionMock
-            )
+                $this->resourceRouteCollectionMock,
+            ),
         );
     }
 
@@ -56,7 +56,7 @@ class OneTimePasswordLoginLinkResourceRoutePluginTest extends Unit
     {
         $this->assertSame(
             OneTimePasswordRestApiConfig::RESOURCE_ONE_TIME_PASSWORD_LOGIN_LINKS,
-            $this->oneTimePasswordLoginLinkResourceRoutePlugin->getResourceType()
+            $this->oneTimePasswordLoginLinkResourceRoutePlugin->getResourceType(),
         );
     }
 
@@ -67,7 +67,7 @@ class OneTimePasswordLoginLinkResourceRoutePluginTest extends Unit
     {
         $this->assertSame(
             OneTimePasswordRestApiConfig::CONTROLLER_ONE_TIME_PASSWORD_LOGIN_LINK,
-            $this->oneTimePasswordLoginLinkResourceRoutePlugin->getController()
+            $this->oneTimePasswordLoginLinkResourceRoutePlugin->getController(),
         );
     }
 
@@ -78,7 +78,7 @@ class OneTimePasswordLoginLinkResourceRoutePluginTest extends Unit
     {
         $this->assertSame(
             RestOneTimePasswordLoginLinkRequestAttributesTransfer::class,
-            $this->oneTimePasswordLoginLinkResourceRoutePlugin->getResourceAttributesClassName()
+            $this->oneTimePasswordLoginLinkResourceRoutePlugin->getResourceAttributesClassName(),
         );
     }
 }

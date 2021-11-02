@@ -13,6 +13,9 @@ use Spryker\Service\Kernel\Container;
  */
 class QrCodeGeneratorDependencyProvider extends AbstractBundleDependencyProvider
 {
+    /**
+     * @var string
+     */
     public const WRAPPER_QR_CODE = 'WRAPPER_QR_CODE';
 
     /**
@@ -51,7 +54,7 @@ class QrCodeGeneratorDependencyProvider extends AbstractBundleDependencyProvider
     }
 
     /**
-     * @return \Endroid\QrCode\Writer\WriterInterface[]
+     * @return array<\Endroid\QrCode\Writer\WriterInterface>
      */
     protected function getQrCodeWriterWriter(): array
     {

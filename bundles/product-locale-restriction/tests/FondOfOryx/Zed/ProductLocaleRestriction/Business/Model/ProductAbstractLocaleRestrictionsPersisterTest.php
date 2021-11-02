@@ -51,7 +51,7 @@ class ProductAbstractLocaleRestrictionsPersisterTest extends Unit
 
         $this->productAbstractLocaleRestrictionsPersister = new ProductAbstractLocaleRestrictionsPersister(
             $this->repositoryMock,
-            $this->entityManagerMock
+            $this->entityManagerMock,
         );
     }
 
@@ -85,8 +85,8 @@ class ProductAbstractLocaleRestrictionsPersisterTest extends Unit
                     static function (array $idLocales) use ($currentLocaleIds) {
                         return count($idLocales) === 1
                             && $idLocales[0] === $currentLocaleIds[0];
-                    }
-                )
+                    },
+                ),
             );
 
         $this->entityManagerMock->expects(static::atLeastOnce())
@@ -101,8 +101,8 @@ class ProductAbstractLocaleRestrictionsPersisterTest extends Unit
                     ) {
                         return $productAbstractLocaleRestrictionTransfer->getIdProductAbstract() === $idProductAbstract
                             && $productAbstractLocaleRestrictionTransfer->getIdLocale() === $newLocaleIds[1];
-                    }
-                )
+                    },
+                ),
             );
 
         $this->productAbstractLocaleRestrictionsPersister->persist($this->productAbstractTransferMock);

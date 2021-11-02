@@ -37,7 +37,7 @@ class OneTimePasswordEmailConnectorToMailBridgeTest extends Unit
             ->getMock();
 
         $this->oneTimePasswordEmailConnectorToMailBridge = new OneTimePasswordEmailConnectorToMailBridge(
-            $this->mailFacadeMock
+            $this->mailFacadeMock,
         );
     }
 
@@ -47,7 +47,7 @@ class OneTimePasswordEmailConnectorToMailBridgeTest extends Unit
     public function testHandleMail(): void
     {
         $this->oneTimePasswordEmailConnectorToMailBridge->handleMail(
-            $this->mailTransferMock
+            $this->mailTransferMock,
         );
     }
 }

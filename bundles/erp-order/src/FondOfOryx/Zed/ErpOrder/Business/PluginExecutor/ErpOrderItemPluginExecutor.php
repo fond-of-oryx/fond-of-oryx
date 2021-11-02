@@ -7,18 +7,18 @@ use Generated\Shared\Transfer\ErpOrderItemTransfer;
 class ErpOrderItemPluginExecutor implements ErpOrderItemPluginExecutorInterface
 {
     /**
-     * @var \FondOfOryx\Zed\ErpOrderExtension\Dependency\Plugin\ErpOrderItemPreSavePluginInterface[]
+     * @var array<\FondOfOryx\Zed\ErpOrderExtension\Dependency\Plugin\ErpOrderItemPreSavePluginInterface>
      */
     protected $erpOrderItemPreSavePlugins;
 
     /**
-     * @var \FondOfOryx\Zed\ErpOrderExtension\Dependency\Plugin\ErpOrderItemPostSavePluginInterface[]
+     * @var array<\FondOfOryx\Zed\ErpOrderExtension\Dependency\Plugin\ErpOrderItemPostSavePluginInterface>
      */
     protected $erpOrderItemPostSavePlugins;
 
     /**
-     * @param \FondOfOryx\Zed\ErpOrderExtension\Dependency\Plugin\ErpOrderItemPreSavePluginInterface[] $erpOrderItemPreSavePlugins
-     * @param \FondOfOryx\Zed\ErpOrderExtension\Dependency\Plugin\ErpOrderItemPostSavePluginInterface[] $erpOrderItemPostSavePlugins
+     * @param array<\FondOfOryx\Zed\ErpOrderExtension\Dependency\Plugin\ErpOrderItemPreSavePluginInterface> $erpOrderItemPreSavePlugins
+     * @param array<\FondOfOryx\Zed\ErpOrderExtension\Dependency\Plugin\ErpOrderItemPostSavePluginInterface> $erpOrderItemPostSavePlugins
      */
     public function __construct(array $erpOrderItemPreSavePlugins, array $erpOrderItemPostSavePlugins)
     {

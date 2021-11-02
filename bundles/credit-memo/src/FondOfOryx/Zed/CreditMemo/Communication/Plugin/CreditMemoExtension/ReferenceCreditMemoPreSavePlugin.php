@@ -20,7 +20,7 @@ class ReferenceCreditMemoPreSavePlugin extends AbstractPlugin implements CreditM
     public function preSave(CreditMemoTransfer $creditMemoTransfer): CreditMemoTransfer
     {
         return $creditMemoTransfer->setCreditMemoReference(
-            $this->getFacade()->createCreditMemoReference()
+            $this->getFacade()->createCreditMemoReference(),
         );
     }
 }

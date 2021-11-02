@@ -72,7 +72,7 @@ class GatewayControllerTest extends Unit
 
         static::assertEquals(
             $this->restReturnLabelResponseTransferMock,
-            $this->gatewayController->generateReturnLabelAction($this->restReturnLabelRequestTransferMock)
+            $this->gatewayController->generateReturnLabelAction($this->restReturnLabelRequestTransferMock),
         );
     }
 }

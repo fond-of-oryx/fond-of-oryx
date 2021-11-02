@@ -65,7 +65,7 @@ class CartCodeTypeDataImportPluginTest extends Unit
 
         static::assertEquals(
             $this->dataImporterReportTransferMock,
-            $this->cartCodeTypeDataImportPlugin->import($this->dataImporterConfigurationTransferMock)
+            $this->cartCodeTypeDataImportPlugin->import($this->dataImporterConfigurationTransferMock),
         );
     }
 
@@ -76,7 +76,7 @@ class CartCodeTypeDataImportPluginTest extends Unit
     {
         static::assertEquals(
             CartCodeTypeDataImportConfig::IMPORT_TYPE_CART_CODE_TYPE,
-            $this->cartCodeTypeDataImportPlugin->getImportType()
+            $this->cartCodeTypeDataImportPlugin->getImportType(),
         );
     }
 }

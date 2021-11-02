@@ -30,7 +30,7 @@ class ProductLocaleRestrictionStorageToStorageClientBridgeTest extends Unit
             ->getMock();
 
         $this->productLocaleRestrictionStorageToStorageClientBridge = new ProductLocaleRestrictionStorageToStorageClientBridge(
-            $this->storageClientMock
+            $this->storageClientMock,
         );
     }
 
@@ -52,7 +52,7 @@ class ProductLocaleRestrictionStorageToStorageClientBridgeTest extends Unit
 
         static::assertEquals(
             $storageTransferMock,
-            $this->productLocaleRestrictionStorageToStorageClientBridge->get($key)
+            $this->productLocaleRestrictionStorageToStorageClientBridge->get($key),
         );
     }
 
@@ -76,7 +76,7 @@ class ProductLocaleRestrictionStorageToStorageClientBridgeTest extends Unit
 
         static::assertEquals(
             $storageTransferMocks,
-            $this->productLocaleRestrictionStorageToStorageClientBridge->getMulti($keys)
+            $this->productLocaleRestrictionStorageToStorageClientBridge->getMulti($keys),
         );
     }
 }

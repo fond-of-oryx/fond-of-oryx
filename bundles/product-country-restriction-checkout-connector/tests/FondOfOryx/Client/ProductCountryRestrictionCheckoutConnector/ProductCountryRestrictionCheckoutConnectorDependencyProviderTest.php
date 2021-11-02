@@ -82,13 +82,13 @@ class ProductCountryRestrictionCheckoutConnectorDependencyProviderTest extends U
             ->willReturn($this->zedRequestClientMock);
 
         $container = $this->productCountryRestrictionCheckoutConnectorDependencyProvider->provideServiceLayerDependencies(
-            $this->containerMock
+            $this->containerMock,
         );
 
         static::assertEquals($container, $this->containerMock);
         static::assertInstanceOf(
             ProductCountryRestrictionCheckoutConnectorToZedRequestClientInterface::class,
-            $container[ProductCountryRestrictionCheckoutConnectorDependencyProvider::CLIENT_ZED_REQUEST]
+            $container[ProductCountryRestrictionCheckoutConnectorDependencyProvider::CLIENT_ZED_REQUEST],
         );
     }
 }

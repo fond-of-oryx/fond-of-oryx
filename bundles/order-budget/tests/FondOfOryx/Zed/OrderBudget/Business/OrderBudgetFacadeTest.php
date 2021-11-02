@@ -21,17 +21,17 @@ class OrderBudgetFacadeTest extends Unit
     protected $orderBudgetResetterMock;
 
     /**
-     * @var \FondOfOryx\Zed\OrderBudget\Business\Writer\OrderBudgetWriterInterface|mixed|\PHPUnit\Framework\MockObject\MockObject
+     * @var \FondOfOryx\Zed\OrderBudget\Business\Writer\OrderBudgetWriterInterface|\PHPUnit\Framework\MockObject\MockObject|mixed
      */
     protected $orderBudgetWriterMock;
 
     /**
-     * @var \Generated\Shared\Transfer\OrderBudgetTransfer|mixed|\PHPUnit\Framework\MockObject\MockObject
+     * @var \Generated\Shared\Transfer\OrderBudgetTransfer|\PHPUnit\Framework\MockObject\MockObject|mixed
      */
     protected $orderBudgetTransferMock;
 
     /**
-     * @var \FondOfOryx\Zed\OrderBudget\Persistence\OrderBudgetRepositoryInterface|mixed|\PHPUnit\Framework\MockObject\MockObject
+     * @var \FondOfOryx\Zed\OrderBudget\Persistence\OrderBudgetRepositoryInterface|\PHPUnit\Framework\MockObject\MockObject|mixed
      */
     protected $repositoryMock;
 
@@ -103,7 +103,7 @@ class OrderBudgetFacadeTest extends Unit
 
         static::assertEquals(
             $this->orderBudgetTransferMock,
-            $this->facade->createOrderBudget()
+            $this->facade->createOrderBudget(),
         );
     }
 
@@ -137,7 +137,7 @@ class OrderBudgetFacadeTest extends Unit
 
         static::assertEquals(
             $this->orderBudgetTransferMock,
-            $this->facade->findOrderBudgetByIdOrderBudget($idOrderBudget)
+            $this->facade->findOrderBudgetByIdOrderBudget($idOrderBudget),
         );
     }
 }

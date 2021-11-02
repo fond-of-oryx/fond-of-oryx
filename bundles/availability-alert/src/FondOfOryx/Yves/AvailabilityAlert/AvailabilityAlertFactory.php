@@ -24,7 +24,7 @@ class AvailabilityAlertFactory extends AbstractFactory
         $form = $this->getFormFactory()->create(
             $this->getSubscriptionFormType(),
             $dataProvider->getData($idProductAbstract),
-            $dataProvider->getOptions()
+            $dataProvider->getOptions(),
         );
 
         return $form;
@@ -79,7 +79,7 @@ class AvailabilityAlertFactory extends AbstractFactory
     }
 
     /**
-     * @return \FondOfOryx\Yves\AvailabilityAlert\Dependency\Plugin\AvailabilityAlertSubscriptionRequestExpanderPlugin[]
+     * @return array<\FondOfOryx\Yves\AvailabilityAlert\Dependency\Plugin\AvailabilityAlertSubscriptionRequestExpanderPlugin>
      */
     public function getAvailabilityAlertSubscriptionRequestExpanderPlugins(): array
     {

@@ -102,7 +102,7 @@ class GiftCardRestrictionCalculator implements GiftCardRestrictionCalculatorInte
             && in_array(
                 GiftCardRestrictionConstants::CART_CODE_TYPE_GIFT_CARD,
                 $blacklistedCartCodeTypesPerSku[$sku],
-                true
+                true,
             );
     }
 }

@@ -7,12 +7,12 @@ use Generated\Shared\Transfer\AvailabilityAlertSubscriptionTransfer;
 class NotificationHandler implements NotificationHandlerInterface
 {
     /**
-     * @var \FondOfOryx\Zed\AvailabilityAlert\Dependency\Plugin\NotificationPluginInterface[]
+     * @var array<\FondOfOryx\Zed\AvailabilityAlert\Dependency\Plugin\NotificationPluginInterface>
      */
     protected $notificationPlugins;
 
     /**
-     * @param \FondOfOryx\Zed\AvailabilityAlert\Dependency\Plugin\NotificationPluginInterface[] $notificationPlugins
+     * @param array<\FondOfOryx\Zed\AvailabilityAlert\Dependency\Plugin\NotificationPluginInterface> $notificationPlugins
      */
     public function __construct(array $notificationPlugins)
     {

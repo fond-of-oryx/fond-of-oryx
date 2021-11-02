@@ -55,8 +55,8 @@ class ExternalReferenceErpOrderPageSearchQueryExpanderPlugin extends AbstractPlu
                 sprintf(
                     'Query expander available only with %s, got: %s',
                     BoolQuery::class,
-                    get_class($boolQuery)
-                )
+                    get_class($boolQuery),
+                ),
             );
         }
 

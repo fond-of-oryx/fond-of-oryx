@@ -9,7 +9,7 @@ use Generated\Shared\Transfer\CompanyBusinessUnitTransfer;
 class OrderBudgetCompanyBusinessUnitPostSavePluginTest extends Unit
 {
     /**
-     * @var \Generated\Shared\Transfer\CompanyBusinessUnitTransfer|mixed|\PHPUnit\Framework\MockObject\MockObject
+     * @var \Generated\Shared\Transfer\CompanyBusinessUnitTransfer|\PHPUnit\Framework\MockObject\MockObject|mixed
      */
     protected $companyBusinessUnitTransferMock;
 
@@ -53,7 +53,7 @@ class OrderBudgetCompanyBusinessUnitPostSavePluginTest extends Unit
 
         static::assertEquals(
             $this->companyBusinessUnitTransferMock,
-            $this->plugin->postSave($this->companyBusinessUnitTransferMock)
+            $this->plugin->postSave($this->companyBusinessUnitTransferMock),
         );
     }
 }

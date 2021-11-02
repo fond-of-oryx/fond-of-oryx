@@ -14,6 +14,9 @@ use Spryker\Zed\Mail\MailConfig;
  */
 class AvailabilityAlertMailTypePlugin extends AbstractPlugin implements MailTypePluginInterface
 {
+    /**
+     * @var string
+     */
     public const MAIL_TYPE = 'availability alert mail';
 
     /**
@@ -64,7 +67,7 @@ class AvailabilityAlertMailTypePlugin extends AbstractPlugin implements MailType
 
         $mailBuilder->addRecipient(
             $availabilityAlertSubscriptionTransfer->getSubscriber()->getEmail(),
-            ''
+            '',
         );
 
         return $this;

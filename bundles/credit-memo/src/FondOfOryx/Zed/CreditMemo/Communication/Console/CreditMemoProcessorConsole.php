@@ -14,11 +14,34 @@ use Symfony\Component\Console\Output\OutputInterface;
  */
 class CreditMemoProcessorConsole extends Console
 {
+    /**
+     * @var string
+     */
     public const COMMAND_NAME = 'credit-memo:process';
+
+    /**
+     * @var string
+     */
     public const DESCRIPTION = '';
+
+    /**
+     * @var string
+     */
     public const RESOURCE_CREDIT_MEMO_PROCESSOR = 'resource';
+
+    /**
+     * @var string
+     */
     public const RESOURCE_CREDIT_MEMO_PROCESSOR_SHORTCUT = 'r';
+
+    /**
+     * @var string
+     */
     public const CREDIT_MEMO_IDS = 'ids';
+
+    /**
+     * @var string
+     */
     public const CREDIT_MEMO_IDS_SHORTCUT = 'i';
 
     /**
@@ -33,14 +56,14 @@ class CreditMemoProcessorConsole extends Console
             sprintf(
                 'Defines the processor resources to use. Available processor: %s-> %s',
                 PHP_EOL,
-                implode(PHP_EOL . '-> ', array_keys($this->getFacade()->getRegisteredProcessor()))
-            )
+                implode(PHP_EOL . '-> ', array_keys($this->getFacade()->getRegisteredProcessor())),
+            ),
         );
         $this->addOption(
             static::CREDIT_MEMO_IDS,
             static::CREDIT_MEMO_IDS_SHORTCUT,
             InputArgument::OPTIONAL,
-            'Run command only for given credit memo ids'
+            'Run command only for given credit memo ids',
         );
         $this->setName(static::COMMAND_NAME)
             ->setDescription(static::DESCRIPTION)
@@ -78,13 +101,13 @@ class CreditMemoProcessorConsole extends Console
                 'Command %s failt with message: %s%s!',
                 static::COMMAND_NAME,
                 PHP_EOL,
-                $exception->getMessage()
+                $exception->getMessage(),
             ));
         }
 
         $messenger->info(sprintf(
             'You just executed %s!',
-            static::COMMAND_NAME
+            static::COMMAND_NAME,
         ));
 
         return $status;

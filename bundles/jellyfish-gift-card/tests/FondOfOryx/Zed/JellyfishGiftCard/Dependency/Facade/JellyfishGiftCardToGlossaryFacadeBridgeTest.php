@@ -46,7 +46,7 @@ class JellyfishGiftCardToGlossaryFacadeBridgeTest extends Unit
 
         static::assertEquals(
             $translation,
-            $this->bridge->translate($keyName)
+            $this->bridge->translate($keyName),
         );
     }
 }

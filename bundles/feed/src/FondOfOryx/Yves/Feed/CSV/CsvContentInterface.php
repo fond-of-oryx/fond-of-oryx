@@ -5,21 +5,21 @@ namespace FondOfOryx\Yves\Feed\CSV;
 interface CsvContentInterface
 {
     /**
-     * @param string[] $headers
+     * @param array<string> $headers
      *
      * @return void
      */
     public function setHeaders(array $headers): void;
 
     /**
-     * @param string[] $row
+     * @param array<string> $row
      *
      * @return void
      */
     public function addRow(array $row): void;
 
     /**
-     * @return string[]
+     * @return array<string>
      */
     public function getRows(): array;
 

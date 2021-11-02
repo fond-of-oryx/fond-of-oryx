@@ -10,12 +10,12 @@ use Spryker\Client\Kernel\Container;
 class CompanyBusinessUnitAddressSearchRestApiFactoryTest extends Unit
 {
     /**
-     * @var mixed|\PHPUnit\Framework\MockObject\MockObject|\Spryker\Client\Kernel\Container
+     * @var \PHPUnit\Framework\MockObject\MockObject|\Spryker\Client\Kernel\Container|mixed
      */
     protected $containerMock;
 
     /**
-     * @var \FondOfOryx\Client\CompanyBusinessUnitAddressSearchRestApi\Dependency\Client\CompanyBusinessUnitAddressSearchRestApiToZedRequestClientInterface|mixed|\PHPUnit\Framework\MockObject\MockObject
+     * @var \FondOfOryx\Client\CompanyBusinessUnitAddressSearchRestApi\Dependency\Client\CompanyBusinessUnitAddressSearchRestApiToZedRequestClientInterface|\PHPUnit\Framework\MockObject\MockObject|mixed
      */
     protected $zedRequestClientMock;
 
@@ -60,7 +60,7 @@ class CompanyBusinessUnitAddressSearchRestApiFactoryTest extends Unit
         static::assertInstanceOf(
             CompanyBusinessUnitAddressSearchRestApiStub::class,
             $this->factory
-                ->createZedCompanyBusinessUnitAddressSearchRestApiStub()
+                ->createZedCompanyBusinessUnitAddressSearchRestApiStub(),
         );
     }
 }

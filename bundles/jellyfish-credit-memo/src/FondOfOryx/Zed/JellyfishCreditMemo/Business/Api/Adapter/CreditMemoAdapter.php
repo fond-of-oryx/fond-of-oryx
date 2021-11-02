@@ -16,10 +16,19 @@ class CreditMemoAdapter implements CreditMemoAdapterInterface
 {
     use LoggerTrait;
 
+    /**
+     * @var int
+     */
     protected const SUCCESS_CODE = 200;
 
+    /**
+     * @var string
+     */
     protected const CREDIT_MEMOS_URI = 'standard/credit-memos';
 
+    /**
+     * @var array
+     */
     protected const DEFAULT_HEADERS = [
         'Accept' => 'application/json',
         'Content-Type' => 'application/json',

@@ -15,8 +15,14 @@ use Symfony\Component\HttpFoundation\Response;
 
 class OrderExport implements DataExportInterface
 {
+    /**
+     * @var string
+     */
     protected const ORDERS_URI = 'standard/orders';
 
+    /**
+     * @var array
+     */
     protected const VALID_CODES = [
         Response::HTTP_OK,
         Response::HTTP_CREATED,
@@ -85,7 +91,7 @@ class OrderExport implements DataExportInterface
             'Exporting "%s" orders from buffer table for store "%s" with system code override "%s"',
             $collection->getCount(),
             $jellyfishBufferTableFilterTransfer->getStore(),
-            $jellyfishBufferTableFilterTransfer->getSystemCode()
+            $jellyfishBufferTableFilterTransfer->getSystemCode(),
         );
         $this->logger->notice($message);
         echo $message . PHP_EOL;
@@ -100,7 +106,7 @@ class OrderExport implements DataExportInterface
                     $order->getIdExportedOrder(),
                     $order->getOrderReference(),
                     $order->getFkSalesOrder(),
-                    $dataString
+                    $dataString,
                 ));
                 echo $dataString . PHP_EOL;
 
@@ -115,7 +121,7 @@ class OrderExport implements DataExportInterface
                     $response->getStatusCode(),
                     $order->getIdExportedOrder(),
                     $order->getOrderReference(),
-                    $order->getFkSalesOrder()
+                    $order->getFkSalesOrder(),
                 ));
             } else {
                 $this->em->flagAsReexported($order->getFkSalesOrder());

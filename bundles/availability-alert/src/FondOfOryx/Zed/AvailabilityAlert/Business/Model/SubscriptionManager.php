@@ -77,7 +77,7 @@ class SubscriptionManager implements SubscriptionManagerInterface
             ->findSubscriptionByEmailAndIdProductAbstractAndStatus(
                 $subscriber->getEmail(),
                 $availabilityAlertSubscriptionTransfer->getFkProductAbstract(),
-                FooAvailabilityAlertSubscriptionTableMap::COL_STATUS_PENDING
+                FooAvailabilityAlertSubscriptionTableMap::COL_STATUS_PENDING,
             );
 
         return $subscription !== null;

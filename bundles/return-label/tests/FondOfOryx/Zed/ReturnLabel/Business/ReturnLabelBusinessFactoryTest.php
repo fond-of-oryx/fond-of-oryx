@@ -71,7 +71,7 @@ class ReturnLabelBusinessFactoryTest extends Unit
 
         static::assertInstanceOf(
             ReturnLabelGenerator::class,
-            $this->factory->createReturnLabelGenerator()
+            $this->factory->createReturnLabelGenerator(),
         );
     }
 }

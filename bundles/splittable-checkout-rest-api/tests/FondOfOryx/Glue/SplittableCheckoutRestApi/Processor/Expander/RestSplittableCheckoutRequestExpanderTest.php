@@ -32,7 +32,7 @@ class RestSplittableCheckoutRequestExpanderTest extends Unit
     protected $restUserTransferMock;
 
     /**
-     * @var \Generated\Shared\Transfer\RestPaymentTransfer[]|\PHPUnit\Framework\MockObject\MockObject[]
+     * @var array<\PHPUnit\Framework\MockObject\MockObject>|array<\Generated\Shared\Transfer\RestPaymentTransfer>
      */
     protected $restPaymentTransferMocks;
 
@@ -152,8 +152,8 @@ class RestSplittableCheckoutRequestExpanderTest extends Unit
             $this->restSplittableCheckoutRequestTransferMock,
             $this->restSplittableCheckoutRequestExpander->expand(
                 $this->restSplittableCheckoutRequestTransferMock,
-                $this->restRequestMock
-            )
+                $this->restRequestMock,
+            ),
         );
     }
 }

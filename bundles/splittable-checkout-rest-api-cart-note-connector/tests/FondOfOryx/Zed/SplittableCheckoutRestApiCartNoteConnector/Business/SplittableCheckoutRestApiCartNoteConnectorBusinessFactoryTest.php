@@ -31,7 +31,7 @@ class SplittableCheckoutRestApiCartNoteConnectorBusinessFactoryTest extends Unit
     {
         static::assertInstanceOf(
             QuoteExpanderInterface::class,
-            $this->businessFactory->createQuoteExpander()
+            $this->businessFactory->createQuoteExpander(),
         );
     }
 }

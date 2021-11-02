@@ -13,6 +13,10 @@ class CompanyBusinessUnitAddressSearchRestApiDependencyProvider extends Abstract
      * @var string
      */
     public const PROPEL_QUERY_COMPANY_UNIT_ADDRESS = 'PROPEL_QUERY_COMPANY_UNIT_ADDRESS';
+
+    /**
+     * @var string
+     */
     public const PROPEL_QUERY_COMPANY_BUSINESS_UNIT = 'PROPEL_QUERY_COMPANY_BUSINESS_UNIT';
 
     /**

@@ -90,8 +90,8 @@ class LoginLinkOrderMailExpanderPluginTest extends Unit
             $this->mailTransferMock,
             $this->addLoginLinkOmsOrderMailExpanderPlugin->expand(
                 $this->mailTransferMock,
-                $this->orderTransferMock
-            )
+                $this->orderTransferMock,
+            ),
         );
     }
 }

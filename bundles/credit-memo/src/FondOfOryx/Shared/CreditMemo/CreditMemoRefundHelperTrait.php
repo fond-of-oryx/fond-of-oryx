@@ -12,9 +12,9 @@ trait CreditMemoRefundHelperTrait
     use LoggerTrait;
 
     /**
-     * @param \Orm\Zed\CreditMemo\Persistence\FooCreditMemo[] $creditMemoEntities
+     * @param array<\Orm\Zed\CreditMemo\Persistence\FooCreditMemo> $creditMemoEntities
      *
-     * @return \Orm\Zed\CreditMemo\Persistence\FooCreditMemo[]
+     * @return array<\Orm\Zed\CreditMemo\Persistence\FooCreditMemo>
      */
     protected function resolveAndPrepareCreditMemos(array $creditMemoEntities): array
     {
@@ -34,7 +34,7 @@ trait CreditMemoRefundHelperTrait
 
     /**
      * @param \Orm\Zed\CreditMemo\Persistence\FooCreditMemo $creditMemoEntity
-     * @param \Orm\Zed\Sales\Persistence\SpySalesOrderItem[] $salesOrderItems
+     * @param array<\Orm\Zed\Sales\Persistence\SpySalesOrderItem> $salesOrderItems
      *
      * @return array
      */

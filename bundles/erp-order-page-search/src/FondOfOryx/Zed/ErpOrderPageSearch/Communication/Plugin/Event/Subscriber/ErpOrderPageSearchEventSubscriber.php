@@ -43,7 +43,7 @@ class ErpOrderPageSearchEventSubscriber extends AbstractPlugin implements EventS
             new ErpOrderPageSearchListener(),
             0,
             null,
-            $this->getConfig()->getEventQueueName()
+            $this->getConfig()->getEventQueueName(),
         );
     }
 
@@ -59,7 +59,7 @@ class ErpOrderPageSearchEventSubscriber extends AbstractPlugin implements EventS
             new ErpOrderPageSearchListener(),
             0,
             null,
-            $this->getConfig()->getEventQueueName()
+            $this->getConfig()->getEventQueueName(),
         );
     }
 
@@ -76,7 +76,7 @@ class ErpOrderPageSearchEventSubscriber extends AbstractPlugin implements EventS
             new ErpOrderPageSearchListener(),
             0,
             null,
-            $this->getConfig()->getEventQueueName()
+            $this->getConfig()->getEventQueueName(),
         );
     }
 
@@ -93,7 +93,7 @@ class ErpOrderPageSearchEventSubscriber extends AbstractPlugin implements EventS
             new ErpOrderPageSearchListener(),
             0,
             null,
-            $this->getConfig()->getEventQueueName()
+            $this->getConfig()->getEventQueueName(),
         );
     }
 }

@@ -5,7 +5,7 @@ namespace FondOfOryx\Zed\ProductLocaleRestrictionStorage\Business\Model;
 interface ProductAbstractLocaleRestrictionStorageWriterInterface
 {
     /**
-     * @param int[] $productAbstractIds
+     * @param array<int> $productAbstractIds
      *
      * @return void
      */

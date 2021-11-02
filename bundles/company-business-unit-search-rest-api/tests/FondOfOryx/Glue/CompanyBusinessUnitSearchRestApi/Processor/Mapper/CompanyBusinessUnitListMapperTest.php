@@ -12,32 +12,32 @@ use Spryker\Glue\GlueApplication\Rest\Request\Data\RestRequestInterface;
 class CompanyBusinessUnitListMapperTest extends Unit
 {
     /**
-     * @var \FondOfOryx\Glue\CompanyBusinessUnitSearchRestApi\Processor\Mapper\PaginationMapperInterface|mixed|\PHPUnit\Framework\MockObject\MockObject
+     * @var \FondOfOryx\Glue\CompanyBusinessUnitSearchRestApi\Processor\Mapper\PaginationMapperInterface|\PHPUnit\Framework\MockObject\MockObject|mixed
      */
     protected $paginationMapperMock;
 
     /**
-     * @var \FondOfOryx\Glue\CompanyBusinessUnitSearchRestApi\Processor\Filter\RequestParameterFilterInterface|mixed|\PHPUnit\Framework\MockObject\MockObject
+     * @var \FondOfOryx\Glue\CompanyBusinessUnitSearchRestApi\Processor\Filter\RequestParameterFilterInterface|\PHPUnit\Framework\MockObject\MockObject|mixed
      */
     protected $requestParameterFilterMock;
 
     /**
-     * @var \FondOfOryx\Glue\CompanyBusinessUnitSearchRestApi\Processor\Filter\CustomerReferenceFilterInterface|mixed|\PHPUnit\Framework\MockObject\MockObject
+     * @var \FondOfOryx\Glue\CompanyBusinessUnitSearchRestApi\Processor\Filter\CustomerReferenceFilterInterface|\PHPUnit\Framework\MockObject\MockObject|mixed
      */
     protected $customerReferenceFilterMock;
 
     /**
-     * @var \FondOfOryx\Glue\CompanyBusinessUnitSearchRestApi\Processor\Filter\CustomerIdFilterInterface|mixed|\PHPUnit\Framework\MockObject\MockObject
+     * @var \FondOfOryx\Glue\CompanyBusinessUnitSearchRestApi\Processor\Filter\CustomerIdFilterInterface|\PHPUnit\Framework\MockObject\MockObject|mixed
      */
     protected $customerIdFilterMock;
 
     /**
-     * @var mixed|\PHPUnit\Framework\MockObject\MockObject|\Spryker\Glue\GlueApplication\Rest\Request\Data\RestRequestInterface
+     * @var \PHPUnit\Framework\MockObject\MockObject|\Spryker\Glue\GlueApplication\Rest\Request\Data\RestRequestInterface|mixed
      */
     protected $restRequestMock;
 
     /**
-     * @var \Generated\Shared\Transfer\PaginationTransfer|mixed|\PHPUnit\Framework\MockObject\MockObject
+     * @var \Generated\Shared\Transfer\PaginationTransfer|\PHPUnit\Framework\MockObject\MockObject|mixed
      */
     protected $paginationTransferMock;
 
@@ -81,7 +81,7 @@ class CompanyBusinessUnitListMapperTest extends Unit
             $this->paginationMapperMock,
             $this->requestParameterFilterMock,
             $this->customerReferenceFilterMock,
-            $this->customerIdFilterMock
+            $this->customerIdFilterMock,
         );
     }
 
@@ -114,22 +114,22 @@ class CompanyBusinessUnitListMapperTest extends Unit
 
         static::assertEquals(
             $customerReference,
-            $companyBusinessUnitListTransfer->getCustomerReference()
+            $companyBusinessUnitListTransfer->getCustomerReference(),
         );
 
         static::assertEquals(
             $sort,
-            $companyBusinessUnitListTransfer->getSort()
+            $companyBusinessUnitListTransfer->getSort(),
         );
 
         static::assertEquals(
             $comanyUuid,
-            $companyBusinessUnitListTransfer->getCompanyUuid()
+            $companyBusinessUnitListTransfer->getCompanyUuid(),
         );
 
         static::assertEquals(
             $this->paginationTransferMock,
-            $companyBusinessUnitListTransfer->getPagination()
+            $companyBusinessUnitListTransfer->getPagination(),
         );
     }
 }

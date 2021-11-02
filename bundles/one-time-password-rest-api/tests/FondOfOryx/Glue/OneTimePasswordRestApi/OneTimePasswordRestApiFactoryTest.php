@@ -70,7 +70,7 @@ class OneTimePasswordRestApiFactoryTest extends Unit
     {
         $this->assertInstanceOf(
             OneTimePasswordProcessorInterface::class,
-            $this->oneTimePasswordRestApiFactory->createOneTimePasswordProcessor()
+            $this->oneTimePasswordRestApiFactory->createOneTimePasswordProcessor(),
         );
     }
 
@@ -81,7 +81,7 @@ class OneTimePasswordRestApiFactoryTest extends Unit
     {
         $this->assertInstanceOf(
             OneTimePasswordLoginLinkProcessorInterface::class,
-            $this->oneTimePasswordRestApiFactory->createOneTimePasswordLoginLinkProcessor()
+            $this->oneTimePasswordRestApiFactory->createOneTimePasswordLoginLinkProcessor(),
         );
     }
 }

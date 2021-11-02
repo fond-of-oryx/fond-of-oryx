@@ -9,7 +9,7 @@ use Generated\Shared\Transfer\CreditMemoProcessorResponseCollectionTransfer;
 interface CreditMemoProcessorInterface
 {
     /**
-     * @return \FondOfOryx\Zed\CreditMemoExtension\Dependency\Plugin\CreditMemoProcessorPluginInterface[]
+     * @return array<\FondOfOryx\Zed\CreditMemoExtension\Dependency\Plugin\CreditMemoProcessorPluginInterface>
      */
     public function getProcessor(): array;
 
@@ -21,7 +21,7 @@ interface CreditMemoProcessorInterface
     public function get(string $processorName): CreditMemoProcessorPluginInterface;
 
     /**
-     * @param string[] $processorPluginNames
+     * @param array<string> $processorPluginNames
      * @param array $ids
      *
      * @return \Generated\Shared\Transfer\CreditMemoProcessorResponseCollectionTransfer
@@ -29,7 +29,7 @@ interface CreditMemoProcessorInterface
     public function process(array $processorPluginNames, array $ids): CreditMemoProcessorResponseCollectionTransfer;
 
     /**
-     * @param \FondOfOryx\Zed\CreditMemoExtension\Dependency\Plugin\CreditMemoProcessorPluginInterface[] $processor
+     * @param array<\FondOfOryx\Zed\CreditMemoExtension\Dependency\Plugin\CreditMemoProcessorPluginInterface> $processor
      *
      * @return $this
      */

@@ -61,7 +61,7 @@ class TwigRendererTest extends Unit
 
         static::assertEquals(
             $renderedTemplate,
-            $this->twigRender->render($template, $this->localeTransferMock, $options)
+            $this->twigRender->render($template, $this->localeTransferMock, $options),
         );
     }
 }

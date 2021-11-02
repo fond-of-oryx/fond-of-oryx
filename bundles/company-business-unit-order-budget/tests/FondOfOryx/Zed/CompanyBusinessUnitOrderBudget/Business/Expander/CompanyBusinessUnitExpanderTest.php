@@ -20,7 +20,7 @@ class CompanyBusinessUnitExpanderTest extends Unit
     protected $orderBudgetTransferMock;
 
     /**
-     * @var \FondOfOryx\Zed\CompanyBusinessUnitOrderBudget\Dependency\Facade\CompanyBusinessUnitOrderBudgetToOrderBudgetFacadeInterface|mixed|\PHPUnit\Framework\MockObject\MockObject
+     * @var \FondOfOryx\Zed\CompanyBusinessUnitOrderBudget\Dependency\Facade\CompanyBusinessUnitOrderBudgetToOrderBudgetFacadeInterface|\PHPUnit\Framework\MockObject\MockObject|mixed
      */
     protected $orderBudgetFacadeMock;
 
@@ -51,7 +51,7 @@ class CompanyBusinessUnitExpanderTest extends Unit
             ->getMock();
 
         $this->companyBusinessUnitExpander = new CompanyBusinessUnitExpander(
-            $this->orderBudgetFacadeMock
+            $this->orderBudgetFacadeMock,
         );
     }
 
@@ -78,7 +78,7 @@ class CompanyBusinessUnitExpanderTest extends Unit
 
         static::assertEquals(
             $this->companyBusinessUnitTransferMock,
-            $this->companyBusinessUnitExpander->expand($this->companyBusinessUnitTransferMock)
+            $this->companyBusinessUnitExpander->expand($this->companyBusinessUnitTransferMock),
         );
     }
 
@@ -99,7 +99,7 @@ class CompanyBusinessUnitExpanderTest extends Unit
 
         static::assertEquals(
             $this->companyBusinessUnitTransferMock,
-            $this->companyBusinessUnitExpander->expand($this->companyBusinessUnitTransferMock)
+            $this->companyBusinessUnitExpander->expand($this->companyBusinessUnitTransferMock),
         );
     }
 }

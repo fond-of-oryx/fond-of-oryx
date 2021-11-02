@@ -8,6 +8,9 @@ use Spryker\Zed\Kernel\Container;
 
 class ReturnLabelsRestApiCompanyUnitAddressConnectorDependencyProvider extends AbstractBundleDependencyProvider
 {
+    /**
+     * @var string
+     */
     public const PROPEL_QUERY_COMPANY_UNIT_ADDRESS = 'PROPEL_QUERY_COMPANY_UNIT_ADDRESS';
 
     /**

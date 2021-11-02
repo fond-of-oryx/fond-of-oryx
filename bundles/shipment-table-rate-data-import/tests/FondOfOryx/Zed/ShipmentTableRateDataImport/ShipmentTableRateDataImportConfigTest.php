@@ -31,12 +31,12 @@ class ShipmentTableRateDataImportConfigTest extends Unit
 
         static::assertEquals(
             ShipmentTableRateDataImportConfig::IMPORT_TYPE_SHIPMENT_TABLE_RATE,
-            $dataImporterConfigurationTransfer->getImportType()
+            $dataImporterConfigurationTransfer->getImportType(),
         );
 
         static::assertEquals(
             'shipment_table_rate.csv',
-            $dataImporterConfigurationTransfer->getReaderConfiguration()->getFileName()
+            $dataImporterConfigurationTransfer->getReaderConfiguration()->getFileName(),
         );
     }
 }

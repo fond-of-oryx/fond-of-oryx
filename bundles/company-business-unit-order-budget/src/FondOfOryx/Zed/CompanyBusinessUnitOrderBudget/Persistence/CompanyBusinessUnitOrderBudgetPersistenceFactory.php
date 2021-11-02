@@ -17,7 +17,7 @@ class CompanyBusinessUnitOrderBudgetPersistenceFactory extends AbstractPersisten
     public function getCompanyBusinessUnitQuery(): SpyCompanyBusinessUnitQuery
     {
         return $this->getProvidedDependency(
-            CompanyBusinessUnitOrderBudgetDependencyProvider::QUERY_COMPANY_BUSINESS_UNIT
+            CompanyBusinessUnitOrderBudgetDependencyProvider::QUERY_COMPANY_BUSINESS_UNIT,
         );
     }
 }

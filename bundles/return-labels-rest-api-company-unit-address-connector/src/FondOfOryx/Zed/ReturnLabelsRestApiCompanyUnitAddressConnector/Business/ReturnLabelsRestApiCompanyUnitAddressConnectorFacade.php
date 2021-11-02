@@ -29,7 +29,7 @@ class ReturnLabelsRestApiCompanyUnitAddressConnectorFacade extends AbstractFacad
     ): ReturnLabelRequestTransfer {
         return $this->getFactory()->createReturnLabelRequestExpander()->expand(
             $restReturnLabelRequestTransfer,
-            $returnLabelRequestTransfer
+            $returnLabelRequestTransfer,
         );
     }
 }

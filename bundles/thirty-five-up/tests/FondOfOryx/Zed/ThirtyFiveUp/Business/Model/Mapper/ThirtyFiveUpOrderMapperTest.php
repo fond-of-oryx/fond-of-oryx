@@ -133,7 +133,7 @@ class ThirtyFiveUpOrderMapperTest extends Unit
             $this->configMock,
             $this->localeFacadeMock,
             $this->repositoryMock,
-            $this->storeFacadeMock
+            $this->storeFacadeMock,
         );
     }
 

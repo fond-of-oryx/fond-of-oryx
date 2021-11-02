@@ -8,6 +8,9 @@ use Generated\Shared\Transfer\OneTimePasswordResponseTransfer;
 
 class OneTimePasswordJWTEncoder implements OneTimePasswordEncoderInterface
 {
+    /**
+     * @var string
+     */
     protected const GRANT_TYPE_PASSWORD = 'password';
 
     /**

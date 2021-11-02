@@ -93,13 +93,13 @@ class ProductLocaleRestrictionStorageDependencyProviderTest extends Unit
             ->willReturn($this->eventBehaviorFacadeMock);
 
         $container = $this->productLocaleRestrictionStorageDependencyProvider->provideCommunicationLayerDependencies(
-            $this->containerMock
+            $this->containerMock,
         );
 
         static::assertEquals($this->containerMock, $container);
         static::assertInstanceOf(
             ProductLocaleRestrictionStorageToEventBehaviorFacadeInterface::class,
-            $container[ProductLocaleRestrictionStorageDependencyProvider::FACADE_EVENT_BEHAVIOR]
+            $container[ProductLocaleRestrictionStorageDependencyProvider::FACADE_EVENT_BEHAVIOR],
         );
     }
 
@@ -123,13 +123,13 @@ class ProductLocaleRestrictionStorageDependencyProviderTest extends Unit
             ->willReturn($this->productLocaleRestrictionFacadeMock);
 
         $container = $this->productLocaleRestrictionStorageDependencyProvider->provideBusinessLayerDependencies(
-            $this->containerMock
+            $this->containerMock,
         );
 
         static::assertEquals($this->containerMock, $container);
         static::assertInstanceOf(
             ProductLocaleRestrictionStorageToProductLocaleRestrictionFacadeInterface::class,
-            $container[ProductLocaleRestrictionStorageDependencyProvider::FACADE_PRODUCT_LOCALE_RESTRICTION]
+            $container[ProductLocaleRestrictionStorageDependencyProvider::FACADE_PRODUCT_LOCALE_RESTRICTION],
         );
     }
 }

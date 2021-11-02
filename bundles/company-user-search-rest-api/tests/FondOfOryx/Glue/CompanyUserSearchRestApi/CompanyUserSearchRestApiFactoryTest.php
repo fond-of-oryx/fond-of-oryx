@@ -12,17 +12,17 @@ use Spryker\Glue\Kernel\Container;
 class CompanyUserSearchRestApiFactoryTest extends Unit
 {
     /**
-     * @var mixed|\PHPUnit\Framework\MockObject\MockObject|\Spryker\Glue\Kernel\Container
+     * @var \PHPUnit\Framework\MockObject\MockObject|\Spryker\Glue\Kernel\Container|mixed
      */
     protected $containerMock;
 
     /**
-     * @var \FondOfOryx\Client\CompanyUserSearchRestApi\CompanyUserSearchRestApiClient|mixed|\PHPUnit\Framework\MockObject\MockObject
+     * @var \FondOfOryx\Client\CompanyUserSearchRestApi\CompanyUserSearchRestApiClient|\PHPUnit\Framework\MockObject\MockObject|mixed
      */
     protected $clientMock;
 
     /**
-     * @var \FondOfOryx\Glue\CompanyUserSearchRestApi\CompanyUserSearchRestApiConfig|mixed|\PHPUnit\Framework\MockObject\MockObject
+     * @var \FondOfOryx\Glue\CompanyUserSearchRestApi\CompanyUserSearchRestApiConfig|\PHPUnit\Framework\MockObject\MockObject|mixed
      */
     protected $configMock;
 
@@ -32,7 +32,7 @@ class CompanyUserSearchRestApiFactoryTest extends Unit
     protected $restResourceBuilderMock;
 
     /**
-     * @var \FondOfOryx\Glue\CompanyUserSearchRestApi\Dependency\Client\CompanyUserSearchRestApiToGlossaryStorageClientInterface|mixed|\PHPUnit\Framework\MockObject\MockObject
+     * @var \FondOfOryx\Glue\CompanyUserSearchRestApi\Dependency\Client\CompanyUserSearchRestApiToGlossaryStorageClientInterface|\PHPUnit\Framework\MockObject\MockObject|mixed
      */
     protected $glossaryStorageClientMock;
 
@@ -113,7 +113,7 @@ class CompanyUserSearchRestApiFactoryTest extends Unit
 
         static::assertInstanceOf(
             CompanyUserReader::class,
-            $this->factory->createCompanyUserReader()
+            $this->factory->createCompanyUserReader(),
         );
     }
 }

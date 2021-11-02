@@ -34,7 +34,7 @@ class CompanyBusinessUnitSearchRestApiDependencyProvider extends AbstractBundleD
     {
         $container[static::CLIENT_GLOSSARY_STORAGE] = static function (Container $container) {
             return new CompanyBusinessUnitSearchRestApiToGlossaryStorageClientBridge(
-                $container->getLocator()->glossaryStorage()->client()
+                $container->getLocator()->glossaryStorage()->client(),
             );
         };
 

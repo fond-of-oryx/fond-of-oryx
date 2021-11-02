@@ -31,7 +31,7 @@ class ProductLocaleRestrictionStorageToStorageClientBridge implements
     }
 
     /**
-     * @param string[] $keys
+     * @param array<string> $keys
      *
      * @return array
      */

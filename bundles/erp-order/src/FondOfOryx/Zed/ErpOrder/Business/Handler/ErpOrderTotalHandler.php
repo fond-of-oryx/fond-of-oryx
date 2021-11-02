@@ -52,7 +52,7 @@ class ErpOrderTotalHandler implements ErpOrderTotalHandlerInterface
         } else {
             $erpOrderTotalTransfer = $this->update($erpOrderTotalTransfer->fromArray(
                 $erpOrderTransfer->getTotal()->modifiedToArray(),
-                true
+                true,
             ));
         }
 

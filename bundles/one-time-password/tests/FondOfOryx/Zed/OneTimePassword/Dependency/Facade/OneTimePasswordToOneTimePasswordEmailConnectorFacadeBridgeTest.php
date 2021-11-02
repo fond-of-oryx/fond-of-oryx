@@ -37,7 +37,7 @@ class OneTimePasswordToOneTimePasswordEmailConnectorFacadeBridgeTest extends Uni
             ->getMock();
 
         $this->oneTimePasswordEmailConnectorFacadeBridge = new OneTimePasswordToOneTimePasswordEmailConnectorFacadeBridge(
-            $this->oneTimePasswordEmailConnectorFacadeMock
+            $this->oneTimePasswordEmailConnectorFacadeMock,
         );
     }
 
@@ -51,7 +51,7 @@ class OneTimePasswordToOneTimePasswordEmailConnectorFacadeBridgeTest extends Uni
             ->with($this->oneTimePasswordResponseTransferMock);
 
         $this->oneTimePasswordEmailConnectorFacadeBridge->sendOneTimePasswordMail(
-            $this->oneTimePasswordResponseTransferMock
+            $this->oneTimePasswordResponseTransferMock,
         );
     }
 }

@@ -7,6 +7,9 @@ use Generated\Shared\Transfer\CreditMemoTransfer;
 
 interface CreditMemoProcessorPluginInterface
 {
+    /**
+     * @var string
+     */
     public const EVENT_NAME = 'check for refund';
 
     /**

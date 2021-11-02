@@ -11,7 +11,7 @@ interface UtilMathFormulaServiceInterface
      * @api
      *
      * @param string $formula
-     * @param float[] $variables
+     * @param array<float> $variables
      *
      * @return float
      */

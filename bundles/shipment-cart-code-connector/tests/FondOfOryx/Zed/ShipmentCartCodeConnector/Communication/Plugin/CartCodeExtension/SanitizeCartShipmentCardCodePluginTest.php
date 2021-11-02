@@ -54,7 +54,7 @@ class SanitizeCartShipmentCardCodePluginTest extends Unit
 
         static::assertEquals(
             $this->quoteTransferMock,
-            $this->plugin->addCartCode($this->quoteTransferMock, 'foo-bar-001-001')
+            $this->plugin->addCartCode($this->quoteTransferMock, 'foo-bar-001-001'),
         );
     }
 
@@ -70,7 +70,7 @@ class SanitizeCartShipmentCardCodePluginTest extends Unit
 
         static::assertEquals(
             $this->quoteTransferMock,
-            $this->plugin->removeCartCode($this->quoteTransferMock, 'foo-bar-001-001')
+            $this->plugin->removeCartCode($this->quoteTransferMock, 'foo-bar-001-001'),
         );
     }
 
@@ -86,7 +86,7 @@ class SanitizeCartShipmentCardCodePluginTest extends Unit
 
         static::assertEquals(
             $this->quoteTransferMock,
-            $this->plugin->clearCartCodes($this->quoteTransferMock)
+            $this->plugin->clearCartCodes($this->quoteTransferMock),
         );
     }
 
@@ -97,7 +97,7 @@ class SanitizeCartShipmentCardCodePluginTest extends Unit
     {
         static::assertEquals(
             null,
-            $this->plugin->findOperationResponseMessage($this->quoteTransferMock, 'foo-bar-001-001')
+            $this->plugin->findOperationResponseMessage($this->quoteTransferMock, 'foo-bar-001-001'),
         );
     }
 }

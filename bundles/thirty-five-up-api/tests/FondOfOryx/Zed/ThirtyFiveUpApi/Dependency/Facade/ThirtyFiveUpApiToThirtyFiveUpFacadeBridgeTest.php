@@ -37,7 +37,7 @@ class ThirtyFiveUpApiToThirtyFiveUpFacadeBridgeTest extends Unit
             ->getMock();
 
         $this->bridge = new ThirtyFiveUpApiToThirtyFiveUpFacadeBridge(
-            $this->facadeMock
+            $this->facadeMock,
         );
     }
 

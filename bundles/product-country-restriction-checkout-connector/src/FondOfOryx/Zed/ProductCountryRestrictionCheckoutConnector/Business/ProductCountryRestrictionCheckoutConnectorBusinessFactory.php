@@ -16,7 +16,7 @@ class ProductCountryRestrictionCheckoutConnectorBusinessFactory extends Abstract
     public function createQuoteValidator(): QuoteValidatorInterface
     {
         return new QuoteValidator(
-            $this->getProductCountryRestrictionFacade()
+            $this->getProductCountryRestrictionFacade(),
         );
     }
 
@@ -26,7 +26,7 @@ class ProductCountryRestrictionCheckoutConnectorBusinessFactory extends Abstract
     protected function getProductCountryRestrictionFacade(): ProductCountryRestrictionCheckoutConnectorToProductCountryRestrictionFacadeInterface
     {
         return $this->getProvidedDependency(
-            ProductCountryRestrictionCheckoutConnectorDependencyProvider::FACADE_PRODUCT_COUNTRY_RESTRICTION
+            ProductCountryRestrictionCheckoutConnectorDependencyProvider::FACADE_PRODUCT_COUNTRY_RESTRICTION,
         );
     }
 }

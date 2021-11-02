@@ -9,8 +9,19 @@ use Spryker\Zed\Kernel\Container;
 
 class AvailabilityAlertMigratorDependencyProvider extends AbstractBundleDependencyProvider
 {
+    /**
+     * @var string
+     */
     public const FACADE_AVAILABILITY_ALERT = 'FACADE_AVAILABILITY_ALERT';
+
+    /**
+     * @var string
+     */
     public const FACADE_STORE = 'FACADE_STORE';
+
+    /**
+     * @var string
+     */
     public const PLUGINS_AVAILABILITY_ALERT_MIGRATOR_EXPANDER = 'PLUGINS_AVAILABILITY_ALERT_MIGRATOR_EXPANDER';
 
     /**
@@ -84,7 +95,7 @@ class AvailabilityAlertMigratorDependencyProvider extends AbstractBundleDependen
     }
 
     /**
-     * @return \FondOfOryx\Zed\AvailabilityAlertMigrator\Dependency\Plugin\AvailabilityAlertMigratorExpanderPluginInterface[]
+     * @return array<\FondOfOryx\Zed\AvailabilityAlertMigrator\Dependency\Plugin\AvailabilityAlertMigratorExpanderPluginInterface>
      */
     protected function getExpanderPlugins(): array
     {

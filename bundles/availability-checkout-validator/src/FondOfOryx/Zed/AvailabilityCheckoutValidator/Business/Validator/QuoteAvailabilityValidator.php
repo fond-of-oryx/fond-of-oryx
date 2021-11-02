@@ -10,10 +10,29 @@ use Generated\Shared\Transfer\QuoteValidationResponseTransfer;
 
 class QuoteAvailabilityValidator implements ValidatorInterface
 {
+    /**
+     * @var string
+     */
     public const CHECKOUT_VALIDATION_AVAILABILITY_FAILED = 'checkout.validation.availability.failed';
+
+    /**
+     * @var string
+     */
     public const CHECKOUT_VALIDATION_AVAILABILITY_EMPTY = 'checkout.validation.availability.failed.empty';
+
+    /**
+     * @var string
+     */
     public const STOCK_TRANSLATION_PARAMETER = '%stock%';
+
+    /**
+     * @var string
+     */
     public const SKU_TRANSLATION_PARAMETER = '%sku%';
+
+    /**
+     * @var string
+     */
     public const NAME_TRANSLATION_PARAMETER = '%name%';
 
     /**

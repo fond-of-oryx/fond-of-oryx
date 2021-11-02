@@ -80,7 +80,7 @@ class ThirtyFiveUpOrderApiTest extends Unit
         $this->orderApi = new ThirtyFiveUpOrderApi(
             $this->thirtyFiveUpQueryContainerMock,
             $this->thirtyFiveUpApiFacadeMock,
-            $this->repositoryMock
+            $this->repositoryMock,
         );
     }
 

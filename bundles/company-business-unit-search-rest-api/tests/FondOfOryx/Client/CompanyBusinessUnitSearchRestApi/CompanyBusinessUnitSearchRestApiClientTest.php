@@ -9,17 +9,17 @@ use Generated\Shared\Transfer\CompanyBusinessUnitListTransfer;
 class CompanyBusinessUnitSearchRestApiClientTest extends Unit
 {
     /**
-     * @var \FondOfOryx\Client\CompanyBusinessUnitSearchRestApi\CompanyBusinessUnitSearchRestApiFactory|mixed|\PHPUnit\Framework\MockObject\MockObject
+     * @var \FondOfOryx\Client\CompanyBusinessUnitSearchRestApi\CompanyBusinessUnitSearchRestApiFactory|\PHPUnit\Framework\MockObject\MockObject|mixed
      */
     protected $factoryMock;
 
     /**
-     * @var \FondOfOryx\Client\CompanyBusinessUnitSearchRestApi\Zed\CompanyBusinessUnitSearchRestApiStubInterface|mixed|\PHPUnit\Framework\MockObject\MockObject
+     * @var \FondOfOryx\Client\CompanyBusinessUnitSearchRestApi\Zed\CompanyBusinessUnitSearchRestApiStubInterface|\PHPUnit\Framework\MockObject\MockObject|mixed
      */
     protected $zedStubMock;
 
     /**
-     * @var \Generated\Shared\Transfer\CompanyBusinessUnitListTransfer|mixed|\PHPUnit\Framework\MockObject\MockObject
+     * @var \Generated\Shared\Transfer\CompanyBusinessUnitListTransfer|\PHPUnit\Framework\MockObject\MockObject|mixed
      */
     protected $companyBusinessUnitListTransferMock;
 
@@ -67,7 +67,7 @@ class CompanyBusinessUnitSearchRestApiClientTest extends Unit
 
         static::assertEquals(
             $this->companyBusinessUnitListTransferMock,
-            $this->client->searchCompanyBusinessUnit($this->companyBusinessUnitListTransferMock)
+            $this->client->searchCompanyBusinessUnit($this->companyBusinessUnitListTransferMock),
         );
     }
 }

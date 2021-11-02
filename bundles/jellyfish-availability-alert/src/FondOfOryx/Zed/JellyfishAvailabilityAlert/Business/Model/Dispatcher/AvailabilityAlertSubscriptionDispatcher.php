@@ -41,9 +41,9 @@ class AvailabilityAlertSubscriptionDispatcher implements AvailabilityAlertSubscr
                 sprintf(
                     'AvailabilityAlert with id "%s" could not be dispatched to JellyFish! Message: %s',
                     $availabilityAlertSubscriptionTransfer->getIdAvailabilityAlertSubscription(),
-                    $exception->getMessage()
+                    $exception->getMessage(),
                 ),
-                $exception->getTrace()
+                $exception->getTrace(),
             );
 
             throw $exception;

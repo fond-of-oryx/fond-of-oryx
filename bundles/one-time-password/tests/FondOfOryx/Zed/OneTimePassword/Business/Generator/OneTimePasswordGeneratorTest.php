@@ -175,7 +175,7 @@ class OneTimePasswordGeneratorTest extends Unit
         $this->oneTimePasswordGenerator = new OneTimePasswordGenerator(
             $this->hybridPasswordGeneratorMock,
             $this->oneTimePasswordEntityManagerMock,
-            $this->oneTimePasswordConfigMock
+            $this->oneTimePasswordConfigMock,
         );
     }
 
@@ -273,8 +273,8 @@ class OneTimePasswordGeneratorTest extends Unit
         $this->assertInstanceOf(
             OneTimePasswordResponseTransfer::class,
             $this->oneTimePasswordGenerator->generateOneTimePassword(
-                $this->customerTransferMock
-            )
+                $this->customerTransferMock,
+            ),
         );
     }
 }

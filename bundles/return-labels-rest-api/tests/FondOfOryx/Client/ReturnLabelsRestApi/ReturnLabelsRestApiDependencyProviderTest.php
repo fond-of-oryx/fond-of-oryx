@@ -85,7 +85,7 @@ class ReturnLabelsRestApiDependencyProviderTest extends Unit
 
         static::assertInstanceOf(
             ReturnLabelsRestApiToZedRequestClientInterface::class,
-            $container->get(ReturnLabelsRestApiDependencyProvider::CLIENT_ZED_REQUEST)
+            $container->get(ReturnLabelsRestApiDependencyProvider::CLIENT_ZED_REQUEST),
         );
     }
 }

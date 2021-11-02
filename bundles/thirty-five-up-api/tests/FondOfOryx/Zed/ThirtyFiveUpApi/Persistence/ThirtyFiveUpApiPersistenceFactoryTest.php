@@ -70,7 +70,7 @@ class ThirtyFiveUpApiPersistenceFactoryTest extends Unit
     {
         $this->assertInstanceOf(
             TransferMapperInterface::class,
-            $this->factory->createTransferMapper()
+            $this->factory->createTransferMapper(),
         );
     }
 

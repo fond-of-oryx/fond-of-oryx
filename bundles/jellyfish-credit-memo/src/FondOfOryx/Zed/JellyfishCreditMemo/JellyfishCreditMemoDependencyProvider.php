@@ -10,8 +10,19 @@ use Spryker\Zed\Kernel\Container;
 
 class JellyfishCreditMemoDependencyProvider extends AbstractBundleDependencyProvider
 {
+    /**
+     * @var string
+     */
     public const FACADE_SALES = 'FACADE_SALES';
+
+    /**
+     * @var string
+     */
     public const PROPEL_QUERY_SALES_ORDER_ITEM = 'PROPEL_QUERY_SALES_ORDER_ITEM';
+
+    /**
+     * @var string
+     */
     public const SERVICE_UTIL_ENCODING = 'SERVICE_UTIL_ENCODING';
 
     /**
@@ -64,7 +75,7 @@ class JellyfishCreditMemoDependencyProvider extends AbstractBundleDependencyProv
     {
         $container[static::FACADE_SALES] = function (Container $container) {
             return new JellyfishCreditMemoToSalesFacadeBridge(
-                $container->getLocator()->sales()->facade()
+                $container->getLocator()->sales()->facade(),
             );
         };
 
@@ -80,7 +91,7 @@ class JellyfishCreditMemoDependencyProvider extends AbstractBundleDependencyProv
     {
         $container[static::SERVICE_UTIL_ENCODING] = function (Container $container) {
             return new JellyfishCreditMemoToUtilEncodingServiceBridge(
-                $container->getLocator()->utilEncoding()->service()
+                $container->getLocator()->utilEncoding()->service(),
             );
         };
 

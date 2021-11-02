@@ -33,7 +33,7 @@ class CreditMemoEntityManager extends AbstractEntityManager implements CreditMem
         $fooCreditMemo->save();
 
         return $creditMemoTransfer->setIdCreditMemo(
-            $fooCreditMemo->getIdCreditMemo()
+            $fooCreditMemo->getIdCreditMemo(),
         );
     }
 
@@ -136,7 +136,7 @@ class CreditMemoEntityManager extends AbstractEntityManager implements CreditMem
         $fooCreditMemoState->save();
 
         return $creditMemoSateTransfer->setIdCreditMemoState(
-            $fooCreditMemoState->getIdCreditMemoState()
+            $fooCreditMemoState->getIdCreditMemoState(),
         );
     }
 
@@ -155,7 +155,7 @@ class CreditMemoEntityManager extends AbstractEntityManager implements CreditMem
         $fooCreditMemoItem->save();
 
         return $itemTransfer->setIdCreditMemoItem(
-            $fooCreditMemoItem->getIdCreditMemoItem()
+            $fooCreditMemoItem->getIdCreditMemoItem(),
         );
     }
 
@@ -174,7 +174,7 @@ class CreditMemoEntityManager extends AbstractEntityManager implements CreditMem
         $fooCreditMemoItemState->save();
 
         return $itemStateTransfer->setIdCreditMemoItemState(
-            $fooCreditMemoItemState->getIdCreditMemoItemState()
+            $fooCreditMemoItemState->getIdCreditMemoItemState(),
         );
     }
 }

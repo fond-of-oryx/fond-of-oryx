@@ -12,22 +12,22 @@ use Generated\Shared\Transfer\RestCompanySearchSortTransfer;
 class RestCompanySearchAttributesMapperTest extends Unit
 {
     /**
-     * @var \FondOfOryx\Glue\CompanySearchRestApi\Processor\Mapper\RestCompanySearchResultItemMapperInterface|mixed|\PHPUnit\Framework\MockObject\MockObject
+     * @var \FondOfOryx\Glue\CompanySearchRestApi\Processor\Mapper\RestCompanySearchResultItemMapperInterface|\PHPUnit\Framework\MockObject\MockObject|mixed
      */
     protected $restCompanySearchResultItemMapperMock;
 
     /**
-     * @var \FondOfOryx\Glue\CompanySearchRestApi\Processor\Mapper\RestCompanySearchSortMapperInterface|mixed|\PHPUnit\Framework\MockObject\MockObject
+     * @var \FondOfOryx\Glue\CompanySearchRestApi\Processor\Mapper\RestCompanySearchSortMapperInterface|\PHPUnit\Framework\MockObject\MockObject|mixed
      */
     protected $restCompanySearchSortMapperMock;
 
     /**
-     * @var \FondOfOryx\Glue\CompanySearchRestApi\Processor\Mapper\RestCompanySearchPaginationMapperInterface|mixed|\PHPUnit\Framework\MockObject\MockObject
+     * @var \FondOfOryx\Glue\CompanySearchRestApi\Processor\Mapper\RestCompanySearchPaginationMapperInterface|\PHPUnit\Framework\MockObject\MockObject|mixed
      */
     protected $restCompanySearchPaginationMapperMock;
 
     /**
-     * @var \Generated\Shared\Transfer\CompanyListTransfer|mixed|\PHPUnit\Framework\MockObject\MockObject
+     * @var \Generated\Shared\Transfer\CompanyListTransfer|\PHPUnit\Framework\MockObject\MockObject|mixed
      */
     protected $companyListTransferMock;
 
@@ -37,12 +37,12 @@ class RestCompanySearchAttributesMapperTest extends Unit
     protected $restCompanySearchResultItemTransferMocks;
 
     /**
-     * @var \Generated\Shared\Transfer\RestCompanySearchSortTransfer|mixed|\PHPUnit\Framework\MockObject\MockObject
+     * @var \Generated\Shared\Transfer\RestCompanySearchSortTransfer|\PHPUnit\Framework\MockObject\MockObject|mixed
      */
     protected $restCompanySearchSortTransferMock;
 
     /**
-     * @var \Generated\Shared\Transfer\RestCompanySearchPaginationTransfer|mixed|\PHPUnit\Framework\MockObject\MockObject
+     * @var \Generated\Shared\Transfer\RestCompanySearchPaginationTransfer|\PHPUnit\Framework\MockObject\MockObject|mixed
      */
     protected $restCompanySearchPaginationTransferMock;
 
@@ -91,7 +91,7 @@ class RestCompanySearchAttributesMapperTest extends Unit
         $this->restCompanySearchAttributesMapper = new RestCompanySearchAttributesMapper(
             $this->restCompanySearchResultItemMapperMock,
             $this->restCompanySearchSortMapperMock,
-            $this->restCompanySearchPaginationMapperMock
+            $this->restCompanySearchPaginationMapperMock,
         );
     }
 
@@ -118,22 +118,22 @@ class RestCompanySearchAttributesMapperTest extends Unit
             ->willReturn($this->restCompanySearchPaginationTransferMock);
 
         $restCompanySearchAttributesTransfer = $this->restCompanySearchAttributesMapper->fromCompanyList(
-            $this->companyListTransferMock
+            $this->companyListTransferMock,
         );
 
         static::assertEquals(
             $companies,
-            $restCompanySearchAttributesTransfer->getCompanies()
+            $restCompanySearchAttributesTransfer->getCompanies(),
         );
 
         static::assertEquals(
             $this->restCompanySearchSortTransferMock,
-            $restCompanySearchAttributesTransfer->getSort()
+            $restCompanySearchAttributesTransfer->getSort(),
         );
 
         static::assertEquals(
             $this->restCompanySearchPaginationTransferMock,
-            $restCompanySearchAttributesTransfer->getPagination()
+            $restCompanySearchAttributesTransfer->getPagination(),
         );
     }
 }

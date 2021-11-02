@@ -11,6 +11,9 @@ use Spryker\Zed\Kernel\Persistence\AbstractEntityManager;
  */
 class OneTimePasswordEntityManager extends AbstractEntityManager implements OneTimePasswordEntityManagerInterface
 {
+    /**
+     * @var string
+     */
     protected const COLUMN_PASSWORD = 'Password';
 
     /**

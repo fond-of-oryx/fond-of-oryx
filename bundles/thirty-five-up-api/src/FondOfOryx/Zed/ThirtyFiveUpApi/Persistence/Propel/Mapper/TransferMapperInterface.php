@@ -16,7 +16,7 @@ interface TransferMapperInterface
     /**
      * @param array $data
      *
-     * @return \Generated\Shared\Transfer\FooThirtyFiveUpOrderEntityTransfer[]
+     * @return array<\Generated\Shared\Transfer\FooThirtyFiveUpOrderEntityTransfer>
      */
     public function toTransferCollection(array $data): array;
 }

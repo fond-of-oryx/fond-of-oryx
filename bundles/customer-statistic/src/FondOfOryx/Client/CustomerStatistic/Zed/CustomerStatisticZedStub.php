@@ -8,6 +8,9 @@ use Generated\Shared\Transfer\CustomerTransfer;
 
 class CustomerStatisticZedStub implements CustomerStatisticZedStubInterface
 {
+    /**
+     * @var string
+     */
     public const URL_INCREMENT_LOGIN_COUNT = '/customer-statistic/gateway/increment-login-count';
 
     /**
@@ -33,7 +36,7 @@ class CustomerStatisticZedStub implements CustomerStatisticZedStubInterface
         /** @var \Generated\Shared\Transfer\CustomerStatisticResponseTransfer $customerStatisticResponseTransfer */
         $customerStatisticResponseTransfer = $this->zedRequestClient->call(
             static::URL_INCREMENT_LOGIN_COUNT,
-            $customerTransfer
+            $customerTransfer,
         );
 
         return $customerStatisticResponseTransfer;

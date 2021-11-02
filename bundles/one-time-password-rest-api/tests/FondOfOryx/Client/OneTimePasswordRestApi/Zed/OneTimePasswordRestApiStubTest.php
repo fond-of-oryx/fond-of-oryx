@@ -31,7 +31,7 @@ class OneTimePasswordRestApiStubTest extends Unit
     protected $restOneTimePasswordResponseTransferMock;
 
     /**
-     * @var \Generated\Shared\Transfer\RestOneTimePasswordLoginLinkRequestAttributesTransfer|mixed|\PHPUnit\Framework\MockObject\MockObject
+     * @var \Generated\Shared\Transfer\RestOneTimePasswordLoginLinkRequestAttributesTransfer|\PHPUnit\Framework\MockObject\MockObject|mixed
      */
     protected $restOneTimePasswordLoginLinkRequestAttributesTransferMock;
 
@@ -57,7 +57,7 @@ class OneTimePasswordRestApiStubTest extends Unit
             ->getMock();
 
         $this->oneTimePasswordRestApiStub = new OneTimePasswordRestApiStub(
-            $this->zedRequestClientMock
+            $this->zedRequestClientMock,
         );
     }
 
@@ -70,15 +70,15 @@ class OneTimePasswordRestApiStubTest extends Unit
             ->method('call')
             ->with(
                 '/one-time-password-rest-api/gateway/request-one-time-password',
-                $this->restOneTimePasswordRequestAttributesTransferMock
+                $this->restOneTimePasswordRequestAttributesTransferMock,
             )
             ->willReturn($this->restOneTimePasswordResponseTransferMock);
 
         $this->assertSame(
             $this->restOneTimePasswordResponseTransferMock,
             $this->oneTimePasswordRestApiStub->requestOneTimePassword(
-                $this->restOneTimePasswordRequestAttributesTransferMock
-            )
+                $this->restOneTimePasswordRequestAttributesTransferMock,
+            ),
         );
     }
 
@@ -91,15 +91,15 @@ class OneTimePasswordRestApiStubTest extends Unit
             ->method('call')
             ->with(
                 '/one-time-password-rest-api/gateway/request-one-time-password-login-link',
-                $this->restOneTimePasswordLoginLinkRequestAttributesTransferMock
+                $this->restOneTimePasswordLoginLinkRequestAttributesTransferMock,
             )
             ->willReturn($this->restOneTimePasswordResponseTransferMock);
 
         $this->assertSame(
             $this->restOneTimePasswordResponseTransferMock,
             $this->oneTimePasswordRestApiStub->requestOneTimePasswordLoginLink(
-                $this->restOneTimePasswordLoginLinkRequestAttributesTransferMock
-            )
+                $this->restOneTimePasswordLoginLinkRequestAttributesTransferMock,
+            ),
         );
     }
 }

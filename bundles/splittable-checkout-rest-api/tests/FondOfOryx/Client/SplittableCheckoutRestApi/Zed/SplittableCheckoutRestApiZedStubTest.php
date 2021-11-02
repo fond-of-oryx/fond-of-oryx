@@ -59,7 +59,7 @@ class SplittableCheckoutRestApiZedStubTest extends Unit
             ->getMock();
 
         $this->splittableCheckoutRestApiZedStub = new SplittableCheckoutRestApiZedStub(
-            $this->zedRequestClientMock
+            $this->zedRequestClientMock,
         );
     }
 
@@ -72,12 +72,12 @@ class SplittableCheckoutRestApiZedStubTest extends Unit
             ->method('call')
             ->with(
                 '/splittable-checkout-rest-api/gateway/place-order',
-                $this->restSplittableCheckoutRequestTransferMock
+                $this->restSplittableCheckoutRequestTransferMock,
             )->willReturn($this->restSplittableCheckoutResponseTransfer);
 
         static::assertEquals(
             $this->restSplittableCheckoutResponseTransfer,
-            $this->splittableCheckoutRestApiZedStub->placeOrder($this->restSplittableCheckoutRequestTransferMock)
+            $this->splittableCheckoutRestApiZedStub->placeOrder($this->restSplittableCheckoutRequestTransferMock),
         );
     }
 
@@ -90,12 +90,12 @@ class SplittableCheckoutRestApiZedStubTest extends Unit
             ->method('call')
             ->with(
                 '/splittable-checkout-rest-api/gateway/get-splittable-totals',
-                $this->restSplittableCheckoutRequestTransferMock
+                $this->restSplittableCheckoutRequestTransferMock,
             )->willReturn($this->restSplittableTotalsResponseTransfer);
 
         static::assertEquals(
             $this->restSplittableTotalsResponseTransfer,
-            $this->splittableCheckoutRestApiZedStub->getSplittableTotals($this->restSplittableCheckoutRequestTransferMock)
+            $this->splittableCheckoutRestApiZedStub->getSplittableTotals($this->restSplittableCheckoutRequestTransferMock),
         );
     }
 }

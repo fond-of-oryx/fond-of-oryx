@@ -9,7 +9,7 @@ use Spryker\Service\UtilDateTime\UtilDateTimeServiceInterface;
 class OrderBudgetToUtilDateTimeServiceBridgeTest extends Unit
 {
     /**
-     * @var mixed|\PHPUnit\Framework\MockObject\MockObject|\Spryker\Service\UtilDateTime\UtilDateTimeServiceInterface
+     * @var \PHPUnit\Framework\MockObject\MockObject|\Spryker\Service\UtilDateTime\UtilDateTimeServiceInterface|mixed
      */
     protected $utilDateTimeServiceMock;
 
@@ -30,7 +30,7 @@ class OrderBudgetToUtilDateTimeServiceBridgeTest extends Unit
             ->getMock();
 
         $this->orderBudgetToUtilDateTimeServiceBridge = new OrderBudgetToUtilDateTimeServiceBridge(
-            $this->utilDateTimeServiceMock
+            $this->utilDateTimeServiceMock,
         );
     }
 
@@ -49,7 +49,7 @@ class OrderBudgetToUtilDateTimeServiceBridgeTest extends Unit
 
         static::assertEquals(
             $formattedDateTime,
-            $this->orderBudgetToUtilDateTimeServiceBridge->formatDateTime($dateTime)
+            $this->orderBudgetToUtilDateTimeServiceBridge->formatDateTime($dateTime),
         );
     }
 }

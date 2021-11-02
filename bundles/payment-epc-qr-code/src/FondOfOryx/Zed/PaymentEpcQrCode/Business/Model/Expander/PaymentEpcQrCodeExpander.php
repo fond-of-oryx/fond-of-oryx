@@ -24,6 +24,9 @@ class PaymentEpcQrCodeExpander implements ExpanderInterface
      */
     protected $config;
 
+    /**
+     * @var array
+     */
     protected const MAPPING_ENCODING = [
         'UTF-8' => 1,
         'ISO 8859-1' => 2,
@@ -100,7 +103,7 @@ class PaymentEpcQrCodeExpander implements ExpanderInterface
             ->setIban($this->config->getEpcDataIban())
             ->setAmount($this->getMoneyAmount(
                 $orderTransfer->getTotals()->getPriceToPay(),
-                $orderTransfer->getCurrencyIsoCode()
+                $orderTransfer->getCurrencyIsoCode(),
             ))
             ->setPurpose($this->config->getEpcDataPurpose())
             ->setReference(null)
@@ -123,7 +126,7 @@ class PaymentEpcQrCodeExpander implements ExpanderInterface
         throw new Exception(sprintf(
             'Encoding %s not known! Please chose one from %s',
             $encoding,
-            implode(',', array_keys(static::MAPPING_ENCODING))
+            implode(',', array_keys(static::MAPPING_ENCODING)),
         ));
     }
 

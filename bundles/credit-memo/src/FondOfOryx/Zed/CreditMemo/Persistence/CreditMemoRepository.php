@@ -38,7 +38,7 @@ class CreditMemoRepository extends AbstractRepository implements CreditMemoRepos
 
         return $this->getFactory()->createCreditMemoItemMapper()->mapEntityToTransfer(
             $fooCreditMemoItem,
-            new ItemTransfer()
+            new ItemTransfer(),
         );
     }
 
@@ -96,7 +96,7 @@ class CreditMemoRepository extends AbstractRepository implements CreditMemoRepos
     /**
      * @param int $idSalesOrder
      *
-     * @return \Orm\Zed\CreditMemo\Persistence\FooCreditMemo[]
+     * @return array<\Orm\Zed\CreditMemo\Persistence\FooCreditMemo>
      */
     public function findCreditMemoByFkSalesOrder(int $idSalesOrder): array
     {
@@ -226,8 +226,8 @@ class CreditMemoRepository extends AbstractRepository implements CreditMemoRepos
             $creditMemoTransfer->addItem(
                 $this->getFactory()->createCreditMemoItemMapper()->mapEntityToTransfer(
                     $creditMemoItem,
-                    new ItemTransfer()
-                )
+                    new ItemTransfer(),
+                ),
             );
         }
     }
@@ -247,7 +247,7 @@ class CreditMemoRepository extends AbstractRepository implements CreditMemoRepos
         if ($spySalesPaymentMethodType !== null) {
             $salesPaymentMethodTypeTransfer = (new SalesPaymentMethodTypeTransfer())->fromArray(
                 $spySalesPaymentMethodType->toArray(),
-                true
+                true,
             );
             $creditMemoTransfer->setSalesPaymentMethodType($salesPaymentMethodTypeTransfer);
         }

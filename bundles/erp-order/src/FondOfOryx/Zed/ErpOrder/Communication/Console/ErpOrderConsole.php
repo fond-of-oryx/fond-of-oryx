@@ -18,13 +18,28 @@ use Symfony\Component\Console\Output\OutputInterface;
  */
 class ErpOrderConsole extends Console
 {
+    /**
+     * @var string
+     */
     public const COMMAND_NAME = 'erp:order:test';
+
+    /**
+     * @var string
+     */
     public const DESCRIPTION = 'Test ErpOrder Module';
+
+    /**
+     * @var string
+     */
     public const RESOURCE_ERP_ORDER = 'resource';
+
+    /**
+     * @var string
+     */
     public const RESOURCE_ERP_ORDER_SHORTCUT = 'r';
 
     /**
-     * @var string[]
+     * @var array<string>
      */
     protected $resources = [
         'createErpOrder', 'updateErpOrder', 'deleteErpOrderByIdErpOrder', 'findErpOrderByIdErpOrder',
@@ -39,7 +54,7 @@ class ErpOrderConsole extends Console
             static::RESOURCE_ERP_ORDER,
             static::RESOURCE_ERP_ORDER_SHORTCUT,
             InputArgument::OPTIONAL,
-            implode(',', $this->resources)
+            implode(',', $this->resources),
         );
 
         $this->setName(static::COMMAND_NAME)
@@ -72,12 +87,12 @@ class ErpOrderConsole extends Console
                     throw new Exception(sprintf(
                         'Resource %s not available in %s',
                         $resource,
-                        implode(',', $this->resources)
+                        implode(',', $this->resources),
                     ));
                 }
                 $messenger->info(sprintf(
                     'running %s!',
-                    $resource
+                    $resource,
                 ));
 
                 $response = $this->getFacade()->{$resource}($this->getCreateErpOrderData());
@@ -85,13 +100,13 @@ class ErpOrderConsole extends Console
                 if ($response instanceof ErpOrderResponseTransfer) {
                     $messenger->info(sprintf(
                         'Success: %s',
-                        $response->getIsSuccessful() === true ? 'Yes' : 'No'
+                        $response->getIsSuccessful() === true ? 'Yes' : 'No',
                     ));
 
                     if ($response->getIsSuccessful() === true) {
                         $messenger->info(sprintf(
                             'ID: %s',
-                            $response->getErpOrder()->getIdErpOrder()
+                            $response->getErpOrder()->getIdErpOrder(),
                         ));
                     }
                 }
@@ -102,13 +117,13 @@ class ErpOrderConsole extends Console
                 'Command %s failt with message: %s%s!',
                 static::COMMAND_NAME,
                 PHP_EOL,
-                $exception->getMessage()
+                $exception->getMessage(),
             ));
         }
 
         $messenger->info(sprintf(
             'You just executed %s!',
-            static::COMMAND_NAME
+            static::COMMAND_NAME,
         ));
 
         return $status;

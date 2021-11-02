@@ -8,6 +8,9 @@ use Spryker\Client\Kernel\Container;
 
 class ErpOrderPermissionDependencyProvider extends AbstractDependencyProvider
 {
+    /**
+     * @var string
+     */
     public const CLIENT_ZED_REQUEST = 'CLIENT_ZED_REQUEST';
 
     /**

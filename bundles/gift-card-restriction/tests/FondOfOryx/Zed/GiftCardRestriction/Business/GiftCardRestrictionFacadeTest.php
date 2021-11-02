@@ -118,8 +118,8 @@ class GiftCardRestrictionFacadeTest extends Unit
         static::assertTrue(
             $this->facade->isBlacklistedCountryDecisionRuleSatisfiedBy(
                 $this->giftCardTransferMock,
-                $this->quoteTransferMock
-            )
+                $this->quoteTransferMock,
+            ),
         );
     }
 
@@ -139,7 +139,7 @@ class GiftCardRestrictionFacadeTest extends Unit
 
         static::assertTrue($this->facade->isVoucherDiscountDecisionRuleSatisfiedBy(
             $this->giftCardTransferMock,
-            $this->quoteTransferMock
+            $this->quoteTransferMock,
         ));
     }
 
@@ -159,7 +159,7 @@ class GiftCardRestrictionFacadeTest extends Unit
 
         static::assertTrue($this->facade->isBlacklistedCartCodeTypeDecisionRuleSatisfiedBy(
             $this->giftCardTransferMock,
-            $this->quoteTransferMock
+            $this->quoteTransferMock,
         ));
     }
 

@@ -104,7 +104,7 @@ class SplittableCheckoutDependencyProviderTest extends Unit
             ->willReturnOnConsecutiveCalls(
                 $this->checkoutFacadeMock,
                 $this->quoteFacadeMock,
-                $this->splittableQuoteFacadeMock
+                $this->splittableQuoteFacadeMock,
             );
 
         $container = $this->splittableCheckoutDependencyProvider
@@ -114,17 +114,17 @@ class SplittableCheckoutDependencyProviderTest extends Unit
 
         static::assertInstanceOf(
             SplittableCheckoutToCheckoutFacadeInterface::class,
-            $this->containerMock[SplittableCheckoutDependencyProvider::FACADE_CHECKOUT]
+            $this->containerMock[SplittableCheckoutDependencyProvider::FACADE_CHECKOUT],
         );
 
         static::assertInstanceOf(
             SplittableCheckoutToQuoteFacadeInterface::class,
-            $this->containerMock[SplittableCheckoutDependencyProvider::FACADE_QUOTE]
+            $this->containerMock[SplittableCheckoutDependencyProvider::FACADE_QUOTE],
         );
 
         static::assertInstanceOf(
             SplittableCheckoutToSplittableQuoteFacadeInterface::class,
-            $this->containerMock[SplittableCheckoutDependencyProvider::FACADE_SPLITTABLE_QUOTE]
+            $this->containerMock[SplittableCheckoutDependencyProvider::FACADE_SPLITTABLE_QUOTE],
         );
     }
 }

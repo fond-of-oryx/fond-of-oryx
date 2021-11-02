@@ -7,6 +7,9 @@ use Spryker\Zed\Kernel\Container;
 
 class PaymentEpcQrCodeDependencyProvider extends AbstractBundleDependencyProvider
 {
+    /**
+     * @var string
+     */
     public const SERVICE_EPC_QR_CODE = 'SERVICE_EPC_QR_CODE';
 
     /**

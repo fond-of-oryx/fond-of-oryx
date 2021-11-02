@@ -52,7 +52,7 @@ class ErpOrderBusinessFactory extends AbstractBusinessFactory
     {
         return new ErpOrderWriter(
             $this->getEntityManager(),
-            $this->createErpOrderPluginExecutor()
+            $this->createErpOrderPluginExecutor(),
         );
     }
 
@@ -63,7 +63,7 @@ class ErpOrderBusinessFactory extends AbstractBusinessFactory
     {
         return new ErpOrderAddressWriter(
             $this->getEntityManager(),
-            $this->createErpOrderAddressPluginExecutor()
+            $this->createErpOrderAddressPluginExecutor(),
         );
     }
 
@@ -74,7 +74,7 @@ class ErpOrderBusinessFactory extends AbstractBusinessFactory
     {
         return new ErpOrderItemWriter(
             $this->getEntityManager(),
-            $this->createErpOrderItemPluginExecutor()
+            $this->createErpOrderItemPluginExecutor(),
         );
     }
 
@@ -85,7 +85,7 @@ class ErpOrderBusinessFactory extends AbstractBusinessFactory
     {
         return new ErpOrderTotalWriter(
             $this->getEntityManager(),
-            $this->createErpOrderTotalPluginExecutor()
+            $this->createErpOrderTotalPluginExecutor(),
         );
     }
 
@@ -104,7 +104,7 @@ class ErpOrderBusinessFactory extends AbstractBusinessFactory
     {
         return new ErpOrderAddressHandler(
             $this->createErpOrderAddressWriter(),
-            $this->createErpOrderAddressReader()
+            $this->createErpOrderAddressReader(),
         );
     }
 
@@ -115,7 +115,7 @@ class ErpOrderBusinessFactory extends AbstractBusinessFactory
     {
         return new ErpOrderItemHandler(
             $this->createErpOrderItemWriter(),
-            $this->createErpOrderItemReader()
+            $this->createErpOrderItemReader(),
         );
     }
 
@@ -126,7 +126,7 @@ class ErpOrderBusinessFactory extends AbstractBusinessFactory
     {
         return new ErpOrderTotalHandler(
             $this->createErpOrderTotalWriter(),
-            $this->createErpOrderTotalReader()
+            $this->createErpOrderTotalReader(),
         );
     }
 
@@ -161,7 +161,7 @@ class ErpOrderBusinessFactory extends AbstractBusinessFactory
     {
         return new ErpOrderPluginExecutor(
             $this->getErpOrderPreSavePlugin(),
-            $this->getErpOrderPostSavePlugin()
+            $this->getErpOrderPostSavePlugin(),
         );
     }
 
@@ -172,7 +172,7 @@ class ErpOrderBusinessFactory extends AbstractBusinessFactory
     {
         return new ErpOrderItemPluginExecutor(
             $this->getErpOrderItemPreSavePlugin(),
-            $this->getErpOrderItemPostSavePlugin()
+            $this->getErpOrderItemPostSavePlugin(),
         );
     }
 
@@ -183,7 +183,7 @@ class ErpOrderBusinessFactory extends AbstractBusinessFactory
     {
         return new ErpOrderTotalPluginExecutor(
             $this->getErpOrderTotalPreSavePlugin(),
-            $this->getErpOrderTotalPostSavePlugin()
+            $this->getErpOrderTotalPostSavePlugin(),
         );
     }
 
@@ -194,12 +194,12 @@ class ErpOrderBusinessFactory extends AbstractBusinessFactory
     {
         return new ErpOrderAddressPluginExecutor(
             $this->getErpOrderAddressPreSavePlugin(),
-            $this->getErpOrderAddressPostSavePlugin()
+            $this->getErpOrderAddressPostSavePlugin(),
         );
     }
 
     /**
-     * @return \FondOfOryx\Zed\ErpOrderExtension\Dependency\Plugin\ErpOrderPreSavePluginInterface[]
+     * @return array<\FondOfOryx\Zed\ErpOrderExtension\Dependency\Plugin\ErpOrderPreSavePluginInterface>
      */
     public function getErpOrderPreSavePlugin(): array
     {
@@ -207,7 +207,7 @@ class ErpOrderBusinessFactory extends AbstractBusinessFactory
     }
 
     /**
-     * @return \FondOfOryx\Zed\ErpOrderExtension\Dependency\Plugin\ErpOrderPostSavePluginInterface[]
+     * @return array<\FondOfOryx\Zed\ErpOrderExtension\Dependency\Plugin\ErpOrderPostSavePluginInterface>
      */
     public function getErpOrderPostSavePlugin(): array
     {
@@ -215,7 +215,7 @@ class ErpOrderBusinessFactory extends AbstractBusinessFactory
     }
 
     /**
-     * @return \FondOfOryx\Zed\ErpOrderExtension\Dependency\Plugin\ErpOrderItemPreSavePluginInterface[]
+     * @return array<\FondOfOryx\Zed\ErpOrderExtension\Dependency\Plugin\ErpOrderItemPreSavePluginInterface>
      */
     public function getErpOrderItemPreSavePlugin(): array
     {
@@ -223,7 +223,7 @@ class ErpOrderBusinessFactory extends AbstractBusinessFactory
     }
 
     /**
-     * @return \FondOfOryx\Zed\ErpOrderExtension\Dependency\Plugin\ErpOrderItemPostSavePluginInterface[]
+     * @return array<\FondOfOryx\Zed\ErpOrderExtension\Dependency\Plugin\ErpOrderItemPostSavePluginInterface>
      */
     public function getErpOrderItemPostSavePlugin(): array
     {
@@ -231,7 +231,7 @@ class ErpOrderBusinessFactory extends AbstractBusinessFactory
     }
 
     /**
-     * @return \FondOfOryx\Zed\ErpOrderExtension\Dependency\Plugin\ErpOrderAddressPreSavePluginInterface[]
+     * @return array<\FondOfOryx\Zed\ErpOrderExtension\Dependency\Plugin\ErpOrderAddressPreSavePluginInterface>
      */
     public function getErpOrderAddressPreSavePlugin(): array
     {
@@ -239,7 +239,7 @@ class ErpOrderBusinessFactory extends AbstractBusinessFactory
     }
 
     /**
-     * @return \FondOfOryx\Zed\ErpOrderExtension\Dependency\Plugin\ErpOrderAddressPostSavePluginInterface[]
+     * @return array<\FondOfOryx\Zed\ErpOrderExtension\Dependency\Plugin\ErpOrderAddressPostSavePluginInterface>
      */
     public function getErpOrderAddressPostSavePlugin(): array
     {
@@ -247,7 +247,7 @@ class ErpOrderBusinessFactory extends AbstractBusinessFactory
     }
 
     /**
-     * @return \FondOfOryx\Zed\ErpOrderExtension\Dependency\Plugin\ErpOrderTotalPreSavePluginInterface[]
+     * @return array<\FondOfOryx\Zed\ErpOrderExtension\Dependency\Plugin\ErpOrderTotalPreSavePluginInterface>
      */
     public function getErpOrderTotalPreSavePlugin(): array
     {
@@ -255,7 +255,7 @@ class ErpOrderBusinessFactory extends AbstractBusinessFactory
     }
 
     /**
-     * @return \FondOfOryx\Zed\ErpOrderExtension\Dependency\Plugin\ErpOrderTotalPostSavePluginInterface[]
+     * @return array<\FondOfOryx\Zed\ErpOrderExtension\Dependency\Plugin\ErpOrderTotalPostSavePluginInterface>
      */
     public function getErpOrderTotalPostSavePlugin(): array
     {

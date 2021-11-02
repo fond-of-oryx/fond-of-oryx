@@ -77,7 +77,7 @@ class DeliveryDateRestrictionFacadeTest extends Unit
 
         static::assertEquals(
             $this->quoteTransferMock,
-            $this->facade->expandQuote($this->quoteTransferMock)
+            $this->facade->expandQuote($this->quoteTransferMock),
         );
     }
 

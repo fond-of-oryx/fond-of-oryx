@@ -10,7 +10,7 @@ class VariableExtractor implements VariableExtractorInterface
     /**
      * @param \Generated\Shared\Transfer\QuoteTransfer $quoteTransfer
      *
-     * @return float[]
+     * @return array<float>
      */
     public function extractFromQuote(QuoteTransfer $quoteTransfer): array
     {
@@ -28,7 +28,7 @@ class VariableExtractor implements VariableExtractorInterface
     /**
      * @param \Generated\Shared\Transfer\TotalsTransfer $totalsTransfer
      *
-     * @return float[]
+     * @return array<float>
      */
     public function extractFromTotals(TotalsTransfer $totalsTransfer): array
     {

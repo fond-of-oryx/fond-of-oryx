@@ -8,6 +8,9 @@ use Spryker\Glue\Kernel\Container;
 
 class ErpOrderPageSearchRestApiDependencyProvider extends AbstractBundleDependencyProvider
 {
+    /**
+     * @var string
+     */
     public const CLIENT_ERP_ORDER_PAGE_SEARCH = 'CLIENT_ERP_ORDER_PAGE_SEARCH';
 
     /**

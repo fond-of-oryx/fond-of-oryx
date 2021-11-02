@@ -28,7 +28,7 @@ class JellyfishBufferPersistenceFactoryTest extends Unit
     {
         $this->assertInstanceOf(
             JellyfishBufferMapperInterface::class,
-            $this->jellyfishBufferPersistenceFactory->createJellyfishBufferMapper()
+            $this->jellyfishBufferPersistenceFactory->createJellyfishBufferMapper(),
         );
     }
 
@@ -39,7 +39,7 @@ class JellyfishBufferPersistenceFactoryTest extends Unit
     {
         $this->assertInstanceOf(
             FooExportedOrderQuery::class,
-            $this->jellyfishBufferPersistenceFactory->createExportedOrderQuery()
+            $this->jellyfishBufferPersistenceFactory->createExportedOrderQuery(),
         );
     }
 }

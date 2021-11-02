@@ -36,7 +36,7 @@ class ProductLocaleRestrictionStorageConfigTest extends Unit
     {
         static::assertEquals(
             null,
-            $this->productLocaleRestrictionStorageConfig->getProductAbstractLocaleRestrictionSynchronizationPoolName()
+            $this->productLocaleRestrictionStorageConfig->getProductAbstractLocaleRestrictionSynchronizationPoolName(),
         );
     }
 
@@ -47,7 +47,7 @@ class ProductLocaleRestrictionStorageConfigTest extends Unit
     {
         static::assertEquals(
             null,
-            $this->productLocaleRestrictionStorageConfig->getProductAbstractLocaleRestrictionEventQueueName()
+            $this->productLocaleRestrictionStorageConfig->getProductAbstractLocaleRestrictionEventQueueName(),
         );
     }
 }

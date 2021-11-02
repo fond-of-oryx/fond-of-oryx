@@ -61,7 +61,7 @@ class GiftCardProductConnectorBusinessFactoryTest extends Unit
     {
         static::assertInstanceOf(
             GiftCardProductAbstractConfigurationWriterInterface::class,
-            $this->businessFactory->createGiftCardProductAbstractConfigurationWriter()
+            $this->businessFactory->createGiftCardProductAbstractConfigurationWriter(),
         );
     }
 
@@ -72,7 +72,7 @@ class GiftCardProductConnectorBusinessFactoryTest extends Unit
     {
         static::assertInstanceOf(
             GiftCardProductConfigurationWriterInterface::class,
-            $this->businessFactory->createGiftCardProductConfigurationWriter()
+            $this->businessFactory->createGiftCardProductConfigurationWriter(),
         );
     }
 }

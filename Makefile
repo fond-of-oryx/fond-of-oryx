@@ -6,7 +6,11 @@ install:
 
 .PHONY: phpcs
 phpcs:
-	./vendor/bin/phpcs --standard=./vendor/spryker/code-sniffer/Spryker/ruleset.xml --exclude=Spryker.Commenting.DocBlockConst ./bundles/*
+	./vendor/bin/phpcs --standard=./vendor/spryker/code-sniffer/Spryker/ruleset.xml ./bundles/*
+
+.PHONY: phpcbf
+phpcbf:
+	./vendor/bin/phpcbf --standard=./vendor/spryker/code-sniffer/Spryker/ruleset.xml ./bundles/*
 
 .PHONY: phpstan
 phpstan:

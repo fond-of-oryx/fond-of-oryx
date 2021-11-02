@@ -26,7 +26,7 @@ class JellyfishCrossEngageConfigTest extends Unit
     {
         $this->assertSame(
             'en_US',
-            $this->jellyfishCrossEngageConfig->getDefaultLocaleName()
+            $this->jellyfishCrossEngageConfig->getDefaultLocaleName(),
         );
     }
 }

@@ -84,7 +84,7 @@ class ThirtyFiveUpApiBusinessFactoryTest extends Unit
     {
         $this->assertInstanceOf(
             ThirtyFiveUpApiValidatorInterface::class,
-            $this->factory->createThirtyFiveUpApiValidator()
+            $this->factory->createThirtyFiveUpApiValidator(),
         );
     }
 }

@@ -76,7 +76,7 @@ class ReturnLabelFacadeTest extends Unit
 
         static::assertEquals(
             $this->returnLabelResponseTransferMock,
-            $this->facade->generateReturnLabel($this->returnLabelRequestTransferMock)
+            $this->facade->generateReturnLabel($this->returnLabelRequestTransferMock),
         );
     }
 }

@@ -73,7 +73,7 @@ class SplittableCheckoutRestApiCompanyUnitAddressConnectorBusinessFactoryTest ex
 
         static::assertInstanceOf(
             QuoteExpander::class,
-            $this->businessFactory->createQuoteExpander()
+            $this->businessFactory->createQuoteExpander(),
         );
     }
 }

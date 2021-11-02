@@ -40,7 +40,7 @@ class ProductAbstractLocaleRestrictionStorageWriter implements ProductAbstractLo
     }
 
     /**
-     * @param int[] $productAbstractIds
+     * @param array<int> $productAbstractIds
      *
      * @return void
      */
@@ -59,7 +59,7 @@ class ProductAbstractLocaleRestrictionStorageWriter implements ProductAbstractLo
 
     /**
      * @param array $blacklistedLocales
-     * @param \Orm\Zed\ProductLocaleRestrictionStorage\Persistence\FooProductAbstractLocaleRestrictionStorage[] $storageEntities
+     * @param array<\Orm\Zed\ProductLocaleRestrictionStorage\Persistence\FooProductAbstractLocaleRestrictionStorage> $storageEntities
      *
      * @return void
      */

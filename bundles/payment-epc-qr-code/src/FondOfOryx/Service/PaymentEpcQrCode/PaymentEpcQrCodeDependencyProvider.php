@@ -11,6 +11,9 @@ use Spryker\Service\Kernel\Container;
  */
 class PaymentEpcQrCodeDependencyProvider extends AbstractBundleDependencyProvider
 {
+    /**
+     * @var string
+     */
     public const SERVICE_QR_CODE_GENERATOR = 'SERVICE_QR_CODE_GENERATOR';
 
     /**

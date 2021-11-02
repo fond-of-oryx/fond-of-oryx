@@ -49,7 +49,7 @@ class SplittableCheckoutToCheckoutFacadeBridgeTest extends Unit
             ->getMock();
 
         $this->splittableCheckoutToCheckoutFacadeBridge = new SplittableCheckoutToCheckoutFacadeBridge(
-            $this->checkoutFacadeMock
+            $this->checkoutFacadeMock,
         );
     }
 
@@ -65,7 +65,7 @@ class SplittableCheckoutToCheckoutFacadeBridgeTest extends Unit
 
         static::assertEquals(
             $this->checkoutResponseTransferMock,
-            $this->splittableCheckoutToCheckoutFacadeBridge->placeOrder($this->quoteTransferMock)
+            $this->splittableCheckoutToCheckoutFacadeBridge->placeOrder($this->quoteTransferMock),
         );
     }
 }

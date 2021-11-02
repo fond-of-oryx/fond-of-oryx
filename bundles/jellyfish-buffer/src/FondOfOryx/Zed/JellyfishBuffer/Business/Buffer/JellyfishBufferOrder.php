@@ -39,7 +39,7 @@ class JellyfishBufferOrder implements JellyfishBufferInterface
         $this->jellyfishBufferEntityManager
             ->createExportedOrder(
                 $transfer,
-                $options
+                $options,
             );
     }
 }

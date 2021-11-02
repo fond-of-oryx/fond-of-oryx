@@ -28,7 +28,7 @@ class TaxCalculationConnectorBusinessFactory extends AbstractBusinessFactory
     {
         return new ProductItemTaxRateByRegionCalculator(
             $this->getRepository(),
-            $this->getTaxFacade()
+            $this->getTaxFacade(),
         );
     }
 }

@@ -37,7 +37,7 @@ class ErpOrderPageSearchToSearchClientBridgeTest extends Unit
             ->getMock();
 
         $this->erpOrderPageSearchToSearchClientBridge = new ErpOrderPageSearchToSearchClientBridge(
-            $this->searchClientMock
+            $this->searchClientMock,
         );
     }
 
@@ -52,7 +52,7 @@ class ErpOrderPageSearchToSearchClientBridgeTest extends Unit
             ->willReturn([]);
 
         $this->assertIsArray(
-            $this->erpOrderPageSearchToSearchClientBridge->search($this->pluginQueryMock, [], [])
+            $this->erpOrderPageSearchToSearchClientBridge->search($this->pluginQueryMock, [], []),
         );
     }
 
@@ -68,7 +68,7 @@ class ErpOrderPageSearchToSearchClientBridgeTest extends Unit
 
         static::assertEquals(
             $this->pluginQueryMock,
-            $this->erpOrderPageSearchToSearchClientBridge->expandQuery($this->pluginQueryMock, [], [])
+            $this->erpOrderPageSearchToSearchClientBridge->expandQuery($this->pluginQueryMock, [], []),
         );
     }
 }

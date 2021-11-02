@@ -57,7 +57,7 @@ class OneTimePasswordEmailConnectorBusinessFactoryTest extends Unit
 
         $this->assertInstanceOf(
             OneTimePasswordEmailConnectorInterface::class,
-            $this->oneTimePasswordEmailConnectorBusinessFactory->createOneTimePasswordEmailConnector()
+            $this->oneTimePasswordEmailConnectorBusinessFactory->createOneTimePasswordEmailConnector(),
         );
     }
 }

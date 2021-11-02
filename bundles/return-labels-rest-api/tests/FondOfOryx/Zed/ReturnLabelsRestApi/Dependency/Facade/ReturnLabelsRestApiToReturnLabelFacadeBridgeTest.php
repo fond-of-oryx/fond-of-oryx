@@ -63,7 +63,7 @@ class ReturnLabelsRestApiToReturnLabelFacadeBridgeTest extends Unit
 
         static::assertEquals(
             $this->returnLabelResponseTransferMock,
-            $this->returnLabelFacadeMock->generateReturnLabel($this->returnLabelRequestTransferMock)
+            $this->returnLabelFacadeMock->generateReturnLabel($this->returnLabelRequestTransferMock),
         );
     }
 }

@@ -90,7 +90,7 @@ class JellyfishGiftCardMapperTest extends Unit
 
         $this->jellyfishGiftCardMapper = new JellyfishGiftCardMapper(
             $this->jellyfishMailMapperMock,
-            $this->rendererMock
+            $this->rendererMock,
         );
     }
 
@@ -134,7 +134,7 @@ class JellyfishGiftCardMapperTest extends Unit
             ->with(
                 JellyfishGiftCardConstants::LAYOUT_TEMPLATE_GIFT_CARD_HTML,
                 $this->localeTransferMock,
-                $options
+                $options,
             )->willReturn($renderedTemplate);
 
         $jellyfishGiftCardTransfer = $this->jellyfishGiftCardMapper

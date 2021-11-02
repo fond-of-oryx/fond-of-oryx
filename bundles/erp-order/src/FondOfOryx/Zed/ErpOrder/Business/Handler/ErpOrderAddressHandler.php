@@ -11,12 +11,22 @@ use Generated\Shared\Transfer\ErpOrderTransfer;
 
 class ErpOrderAddressHandler implements ErpOrderAddressHandlerInterface
 {
+    /**
+     * @var array
+     */
     public const KNOWN_TYPES = [
         self::BILLING_TYPE,
         self::SHIPPING_TYPE,
     ];
 
+    /**
+     * @var string
+     */
     protected const BILLING_TYPE = 'billingAddress';
+
+    /**
+     * @var string
+     */
     protected const SHIPPING_TYPE = 'shippingAddress';
 
     /**

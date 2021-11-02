@@ -83,7 +83,7 @@ class GiftCardApiAdapterTest extends Unit
         $this->giftCardApiAdapter = new GiftCardApiAdapter(
             $this->httpClientMock,
             $this->utilEncodingServiceMock,
-            $this->loggerMock
+            $this->loggerMock,
         );
     }
 
@@ -112,7 +112,7 @@ class GiftCardApiAdapterTest extends Unit
                 '/',
                 [
                     RequestOptions::BODY => $body,
-                ]
+                ],
             )->willReturn($this->responseMock);
 
         $this->responseMock->expects(static::atLeastOnce())
@@ -154,7 +154,7 @@ class GiftCardApiAdapterTest extends Unit
                 '/',
                 [
                     RequestOptions::BODY => $body,
-                ]
+                ],
             )->willReturn($this->responseMock);
 
         $this->responseMock->expects(static::atLeastOnce())
@@ -173,8 +173,8 @@ class GiftCardApiAdapterTest extends Unit
                     static function (array $context) use ($body) {
                         return isset($context['exception'], $context['trace'], $context['requestBody'])
                             && $context['requestBody'] === $body;
-                    }
-                )
+                    },
+                ),
             );
 
         try {

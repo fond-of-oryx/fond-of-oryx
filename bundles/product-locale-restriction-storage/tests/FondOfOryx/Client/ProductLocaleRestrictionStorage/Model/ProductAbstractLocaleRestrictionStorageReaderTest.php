@@ -52,7 +52,7 @@ class ProductAbstractLocaleRestrictionStorageReaderTest extends Unit
 
         $this->productAbstractLocaleRestrictionStorageReader = new ProductAbstractLocaleRestrictionStorageReader(
             $this->storageClientMock,
-            $this->synchronizationServiceMock
+            $this->synchronizationServiceMock,
         );
     }
 
@@ -79,8 +79,8 @@ class ProductAbstractLocaleRestrictionStorageReaderTest extends Unit
                 static::callback(
                     static function (SynchronizationDataTransfer $synchronizationDataTransfer) use ($idProductAbstract) {
                         return $synchronizationDataTransfer->getReference() === (string)$idProductAbstract;
-                    }
-                )
+                    },
+                ),
             )->willReturn($key);
 
         $this->storageClientMock->expects(static::atLeastOnce())
@@ -93,12 +93,12 @@ class ProductAbstractLocaleRestrictionStorageReaderTest extends Unit
 
         static::assertEquals(
             $data['id_product_abstract'],
-            $productAbstractLocaleRestrictionStorageTransfer->getIdProductAbstract()
+            $productAbstractLocaleRestrictionStorageTransfer->getIdProductAbstract(),
         );
 
         static::assertEquals(
             $data['blacklisted_locales'],
-            $productAbstractLocaleRestrictionStorageTransfer->getBlacklistedLocales()
+            $productAbstractLocaleRestrictionStorageTransfer->getBlacklistedLocales(),
         );
     }
 
@@ -122,8 +122,8 @@ class ProductAbstractLocaleRestrictionStorageReaderTest extends Unit
                 static::callback(
                     static function (SynchronizationDataTransfer $synchronizationDataTransfer) use ($idProductAbstract) {
                         return $synchronizationDataTransfer->getReference() === (string)$idProductAbstract;
-                    }
-                )
+                    },
+                ),
             )->willReturn($key);
 
         $this->storageClientMock->expects(static::atLeastOnce())
@@ -136,7 +136,7 @@ class ProductAbstractLocaleRestrictionStorageReaderTest extends Unit
 
         static::assertEquals(
             null,
-            $productAbstractLocaleRestrictionStorageTransfer
+            $productAbstractLocaleRestrictionStorageTransfer,
         );
     }
 }

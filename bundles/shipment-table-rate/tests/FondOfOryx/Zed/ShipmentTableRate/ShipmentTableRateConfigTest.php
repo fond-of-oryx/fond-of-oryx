@@ -31,12 +31,12 @@ class ShipmentTableRateConfigTest extends Unit
             ->method('get')
             ->with(
                 ShipmentTableRateConstants::FALLBACK_PRICE,
-                ShipmentTableRateConstants::FALLBACK_PRICE_DEFAULT_VALUE
+                ShipmentTableRateConstants::FALLBACK_PRICE_DEFAULT_VALUE,
             )->willReturn(ShipmentTableRateConstants::FALLBACK_PRICE_DEFAULT_VALUE);
 
         $this->assertEquals(
             ShipmentTableRateConstants::FALLBACK_PRICE_DEFAULT_VALUE,
-            $this->shipmentTableRateConfig->getFallbackPrice()
+            $this->shipmentTableRateConfig->getFallbackPrice(),
         );
     }
 
@@ -51,12 +51,12 @@ class ShipmentTableRateConfigTest extends Unit
             ->method('get')
             ->with(
                 ShipmentTableRateConstants::FALLBACK_PRICE,
-                ShipmentTableRateConstants::FALLBACK_PRICE_DEFAULT_VALUE
+                ShipmentTableRateConstants::FALLBACK_PRICE_DEFAULT_VALUE,
             )->willReturn($customFallbackPrice);
 
         $this->assertEquals(
             $customFallbackPrice,
-            $this->shipmentTableRateConfig->getFallbackPrice()
+            $this->shipmentTableRateConfig->getFallbackPrice(),
         );
     }
 }

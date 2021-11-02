@@ -55,7 +55,7 @@ class CompanyBusinessUnitReader implements CompanyBusinessUnitReaderInterface
 
         return $this->restResponseBuilder->buildCompanyBusinessUnitSearchRestResponse(
             $this->client->searchCompanyBusinessUnit($companyBusinessUnitListTransfer),
-            $restRequest->getMetadata()->getLocale()
+            $restRequest->getMetadata()->getLocale(),
         );
     }
 }

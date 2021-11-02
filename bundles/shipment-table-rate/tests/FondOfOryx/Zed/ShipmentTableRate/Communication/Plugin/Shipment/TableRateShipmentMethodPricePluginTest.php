@@ -55,8 +55,8 @@ class TableRateShipmentMethodPricePluginTest extends Unit
         $this->assertEquals(
             $price,
             $this->tableRateShipmentMethodPricePlugin->getPrice(
-                $this->quoteTransferMock
-            )
+                $this->quoteTransferMock,
+            ),
         );
     }
 }

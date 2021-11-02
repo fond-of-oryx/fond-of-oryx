@@ -21,14 +21,14 @@ class ProductCountryRestrictionCheckoutConnectorToProductCountryRestrictionFacad
     }
 
     /**
-     * @param string[] $productConcreteSkus
+     * @param array<string> $productConcreteSkus
      *
      * @return array
      */
     public function getBlacklistedCountriesByProductConcreteSkus(array $productConcreteSkus): array
     {
         return $this->productCountryRestrictionFacade->getBlacklistedCountriesByProductConcreteSkus(
-            $productConcreteSkus
+            $productConcreteSkus,
         );
     }
 }

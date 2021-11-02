@@ -39,7 +39,7 @@ class JellyfishBufferBusinessFactoryTest extends Unit
         $this->assertInstanceOf(
             JellyfishBufferInterface::class,
             $this->jellyfishBufferBusinessFactory
-                ->createJellyfishBufferOrder()
+                ->createJellyfishBufferOrder(),
         );
     }
 }

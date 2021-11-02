@@ -38,14 +38,17 @@ interface ErpOrderPageSearchConstants
      * @var string
      */
     public const PARAMETER_COMPANY_BUSINESS_UNIT_UUID = 'company-business-unit-uuid';
+
     /**
      * @var string
      */
     public const PARAMETER_EXTERNAL_REFERENCE = 'external-reference';
+
     /**
      * @var string
      */
     public const PARAMETER_REFERENCE = 'reference';
+
     /**
      * @var string
      */

@@ -21,7 +21,7 @@ class CartCheckerTest extends Unit
     protected $cartChangeTransferMock;
 
     /**
-     * @var \Generated\Shared\Transfer\ItemTransfer[]|\PHPUnit\Framework\MockObject\MockObject[]
+     * @var array<\PHPUnit\Framework\MockObject\MockObject>|array<\Generated\Shared\Transfer\ItemTransfer>
      */
     protected $itemTransferMocks;
 
@@ -134,8 +134,8 @@ class CartCheckerTest extends Unit
                 static::callback(
                     static function (array $productAbstractIds) {
                         return $productAbstractIds[0] === 'FOO-1' && $productAbstractIds[1] === 'FOO-2';
-                    }
-                )
+                    },
+                ),
             )->willReturn(['FOO-1' => [$currentLocale]]);
 
         $cartPreCheckResponseTransfer = $this->cartChecker->preCheck($this->cartChangeTransferMock);

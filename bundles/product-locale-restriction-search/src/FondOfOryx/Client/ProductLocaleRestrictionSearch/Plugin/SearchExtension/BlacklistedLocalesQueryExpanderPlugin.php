@@ -32,7 +32,7 @@ class BlacklistedLocalesQueryExpanderPlugin extends AbstractPlugin implements Qu
 
         $blacklistedLocalesTerm = (new Term())->setTerm(
             PageIndexMap::BLACKLISTED_LOCALES,
-            $currentLocale
+            $currentLocale,
         );
 
         $this->getBoolQuery($searchQuery->getSearchQuery())
@@ -57,8 +57,8 @@ class BlacklistedLocalesQueryExpanderPlugin extends AbstractPlugin implements Qu
                 sprintf(
                     'Blacklisted locales query expander available only with %s, got: %s',
                     BoolQuery::class,
-                    get_class($boolQuery)
-                )
+                    get_class($boolQuery),
+                ),
             );
         }
 

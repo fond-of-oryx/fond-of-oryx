@@ -79,8 +79,8 @@ class ReturnLabelsRestApiCustomerConnectorFacadeTest extends Unit
             $this->returnLabelRequestTransferMock,
             $this->facade->expandReturnLabelRequest(
                 $this->restReturnLabelRequestTransferMock,
-                $this->returnLabelRequestTransferMock
-            )
+                $this->returnLabelRequestTransferMock,
+            ),
         );
     }
 }

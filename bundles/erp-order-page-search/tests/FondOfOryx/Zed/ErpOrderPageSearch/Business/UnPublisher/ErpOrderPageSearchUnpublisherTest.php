@@ -27,7 +27,7 @@ class ErpOrderPageSearchUnpublisherTest extends Unit
             ->getMock();
 
         $this->erpOrderPageSearchUnpublisher = new ErpOrderPageSearchUnpublisher(
-            $this->erpOrderPageSearchEntityManagerMock
+            $this->erpOrderPageSearchEntityManagerMock,
         );
     }
 

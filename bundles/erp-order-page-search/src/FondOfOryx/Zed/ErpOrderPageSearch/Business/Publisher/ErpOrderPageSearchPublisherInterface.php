@@ -5,7 +5,7 @@ namespace FondOfOryx\Zed\ErpOrderPageSearch\Business\Publisher;
 interface ErpOrderPageSearchPublisherInterface
 {
     /**
-     * @param int[] $erpOrderIds
+     * @param array<int> $erpOrderIds
      *
      * @return void
      */

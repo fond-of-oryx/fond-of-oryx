@@ -7,18 +7,18 @@ use Generated\Shared\Transfer\CreditMemoTransfer;
 class CreditMemoPluginExecutor implements CreditMemoPluginExecutorInterface
 {
     /**
-     * @var array|\FondOfOryx\Zed\CreditMemoExtension\Dependency\Plugin\CreditMemoPreSavePluginInterface[]
+     * @var array<\FondOfOryx\Zed\CreditMemoExtension\Dependency\Plugin\CreditMemoPreSavePluginInterface>
      */
     protected $creditMemoPreSavePlugins;
 
     /**
-     * @var array|\FondOfOryx\Zed\CreditMemoExtension\Dependency\Plugin\CreditMemoPostSavePluginInterface[]
+     * @var array<\FondOfOryx\Zed\CreditMemoExtension\Dependency\Plugin\CreditMemoPostSavePluginInterface>
      */
     protected $creditMemoPostSavePlugins;
 
     /**
-     * @param \FondOfOryx\Zed\CreditMemoExtension\Dependency\Plugin\CreditMemoPreSavePluginInterface[] $creditMemoPreSavePlugins
-     * @param \FondOfOryx\Zed\CreditMemoExtension\Dependency\Plugin\CreditMemoPostSavePluginInterface[] $creditMemoPostSavePlugins
+     * @param array<\FondOfOryx\Zed\CreditMemoExtension\Dependency\Plugin\CreditMemoPreSavePluginInterface> $creditMemoPreSavePlugins
+     * @param array<\FondOfOryx\Zed\CreditMemoExtension\Dependency\Plugin\CreditMemoPostSavePluginInterface> $creditMemoPostSavePlugins
      */
     public function __construct(
         array $creditMemoPreSavePlugins,

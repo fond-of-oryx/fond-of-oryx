@@ -93,7 +93,7 @@ class CompanyUnitAddressReader implements CompanyUnitAddressReaderInterface
             ->setUuid($idCompanyUnitAddress);
 
         $companyUnitAddressResponseTransfer = $this->companyUnitAddressFacade->findCompanyBusinessUnitAddressByUuid(
-            $companyUnitAddressTransfer
+            $companyUnitAddressTransfer,
         );
 
         $companyUnitAddressTransfer = $companyUnitAddressResponseTransfer->getCompanyUnitAddressTransfer();

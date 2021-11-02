@@ -20,7 +20,7 @@ class ProductAbstractListener extends AbstractPlugin implements EventBulkHandler
      *
      * @api
      *
-     * @param \Generated\Shared\Transfer\EventEntityTransfer[] $transfers
+     * @param array<\Generated\Shared\Transfer\EventEntityTransfer> $transfers
      * @param string $eventName
      *
      * @return void
@@ -30,15 +30,15 @@ class ProductAbstractListener extends AbstractPlugin implements EventBulkHandler
         $this->preventTransaction();
 
         $this->getFacade()->publish(
-            $this->getProductAbstractIds($transfers, $eventName)
+            $this->getProductAbstractIds($transfers, $eventName),
         );
     }
 
     /**
-     * @param \Generated\Shared\Transfer\EventEntityTransfer[] $eventTransfers
+     * @param array<\Generated\Shared\Transfer\EventEntityTransfer> $eventTransfers
      * @param string $eventName
      *
-     * @return int[]
+     * @return array<int>
      */
     protected function getProductAbstractIds(array $eventTransfers, string $eventName): array
     {

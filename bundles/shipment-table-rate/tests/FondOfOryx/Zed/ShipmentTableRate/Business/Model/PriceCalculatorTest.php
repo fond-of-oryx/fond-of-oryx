@@ -101,7 +101,7 @@ class PriceCalculatorTest extends Unit
             $this->shipmentTableRateReaderMock,
             $this->shipmentTableRateConfigMock,
             $this->utilMathFormulaServiceMock,
-            $this->variableExtractorMock
+            $this->variableExtractorMock,
         );
     }
 

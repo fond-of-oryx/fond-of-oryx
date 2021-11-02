@@ -22,7 +22,7 @@ class CreditMemoProcessor implements Countable, IteratorAggregate, CreditMemoPro
     use LoggerTrait;
 
     /**
-     * @var \FondOfOryx\Zed\CreditMemoExtension\Dependency\Plugin\CreditMemoProcessorPluginInterface[]
+     * @var array<\FondOfOryx\Zed\CreditMemoExtension\Dependency\Plugin\CreditMemoProcessorPluginInterface>
      */
     protected $processor = [];
 
@@ -60,7 +60,7 @@ class CreditMemoProcessor implements Countable, IteratorAggregate, CreditMemoPro
     }
 
     /**
-     * @param string[] $processorPluginNames
+     * @param array<string> $processorPluginNames
      * @param array $ids
      *
      * @return \Generated\Shared\Transfer\CreditMemoProcessorResponseCollectionTransfer
@@ -92,7 +92,7 @@ class CreditMemoProcessor implements Countable, IteratorAggregate, CreditMemoPro
     }
 
     /**
-     * @return \FondOfOryx\Zed\CreditMemoExtension\Dependency\Plugin\CreditMemoProcessorPluginInterface[]
+     * @return array<\FondOfOryx\Zed\CreditMemoExtension\Dependency\Plugin\CreditMemoProcessorPluginInterface>
      */
     public function getProcessor(): array
     {
@@ -116,7 +116,7 @@ class CreditMemoProcessor implements Countable, IteratorAggregate, CreditMemoPro
     }
 
     /**
-     * @param \FondOfOryx\Zed\CreditMemoExtension\Dependency\Plugin\CreditMemoProcessorPluginInterface[] $processor
+     * @param array<\FondOfOryx\Zed\CreditMemoExtension\Dependency\Plugin\CreditMemoProcessorPluginInterface> $processor
      *
      * @return \FondOfOryx\Zed\CreditMemo\Business\Processor\CreditMemoProcessorInterface
      */
@@ -158,7 +158,7 @@ class CreditMemoProcessor implements Countable, IteratorAggregate, CreditMemoPro
     }
 
     /**
-     * @param \FondOfOryx\Zed\CreditMemoExtension\Dependency\Plugin\CreditMemoProcessorPluginInterface[] $processorPlugins
+     * @param array<\FondOfOryx\Zed\CreditMemoExtension\Dependency\Plugin\CreditMemoProcessorPluginInterface> $processorPlugins
      * @param \Generated\Shared\Transfer\CreditMemoTransfer $creditMemoTransfer
      *
      * @return \Generated\Shared\Transfer\CreditMemoProcessorStatusTransfer
@@ -179,9 +179,9 @@ class CreditMemoProcessor implements Countable, IteratorAggregate, CreditMemoPro
     }
 
     /**
-     * @param string[] $processorPlugins
+     * @param array<string> $processorPlugins
      *
-     * @return \FondOfOryx\Zed\CreditMemoExtension\Dependency\Plugin\CreditMemoProcessorPluginInterface[]
+     * @return array<\FondOfOryx\Zed\CreditMemoExtension\Dependency\Plugin\CreditMemoProcessorPluginInterface>
      */
     protected function prepareProcessorPlugins(array $processorPlugins): array
     {
@@ -210,7 +210,7 @@ class CreditMemoProcessor implements Countable, IteratorAggregate, CreditMemoPro
 
         return $this->creditMemoRepository->findUnprocessedCreditMemoByStoreAndIds(
             $this->store->getCurrentStore(),
-            $ids
+            $ids,
         );
     }
 
@@ -226,7 +226,7 @@ class CreditMemoProcessor implements Countable, IteratorAggregate, CreditMemoPro
             ->setId($creditMemoTransfer->getIdCreditMemo())
             ->setMessage(sprintf(
                 'No credit memo processor available to process order with id %s',
-                $creditMemoTransfer->getIdCreditMemo()
+                $creditMemoTransfer->getIdCreditMemo(),
             ));
 
         return $statusResponse;

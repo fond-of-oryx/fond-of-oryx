@@ -32,7 +32,7 @@ class ShipmentTableRateBusinessFactory extends AbstractBusinessFactory
             $this->createShipmentTableRateReader(),
             $this->getConfig(),
             $this->getUtilMathFormulaService(),
-            $this->createVariableExtractor()
+            $this->createVariableExtractor(),
         );
     }
 
@@ -46,7 +46,7 @@ class ShipmentTableRateBusinessFactory extends AbstractBusinessFactory
             $this->getRepository(),
             $this->getCountryFacade(),
             $this->getStoreFacade(),
-            $this->getPriceToPayFilterPlugin()
+            $this->getPriceToPayFilterPlugin(),
         );
     }
 

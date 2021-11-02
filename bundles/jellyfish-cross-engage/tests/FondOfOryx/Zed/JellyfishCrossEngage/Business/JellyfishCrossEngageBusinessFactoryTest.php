@@ -87,16 +87,16 @@ class JellyfishCrossEngageBusinessFactoryTest extends Unit
             ->withConsecutive(
                 [JellyfishCrossEngageDependencyProvider::PRODUCT_FACADE],
                 [JellyfishCrossEngageDependencyProvider::PRODUCT_CATEGORY_FACADE],
-                [JellyfishCrossEngageDependencyProvider::LOCALE_FACADE]
+                [JellyfishCrossEngageDependencyProvider::LOCALE_FACADE],
             )->willReturnOnConsecutiveCalls(
                 $this->productFacadeMock,
                 $this->productCategoryFacadeMock,
-                $this->localeTransferMock
+                $this->localeTransferMock,
             );
 
         $this->assertInstanceOf(
             JellyfishCrossEngageReaderInterface::class,
-            $this->jellyfishCrossEngageBusinessFactory->createJellyfishCrossEngageReader()
+            $this->jellyfishCrossEngageBusinessFactory->createJellyfishCrossEngageReader(),
         );
     }
 }

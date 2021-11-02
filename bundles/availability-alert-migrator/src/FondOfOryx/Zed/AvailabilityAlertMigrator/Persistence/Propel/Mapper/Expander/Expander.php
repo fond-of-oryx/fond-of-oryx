@@ -8,12 +8,12 @@ use Generated\Shared\Transfer\FosAvailabilityAlertSubscriptionEntityTransfer;
 class Expander implements ExpanderInterface
 {
     /**
-     * @var \FondOfOryx\Zed\AvailabilityAlertMigrator\Dependency\Plugin\AvailabilityAlertMigratorExpanderPluginInterface[]
+     * @var array<\FondOfOryx\Zed\AvailabilityAlertMigrator\Dependency\Plugin\AvailabilityAlertMigratorExpanderPluginInterface>
      */
     protected $plugins;
 
     /**
-     * @param \FondOfOryx\Zed\AvailabilityAlertMigrator\Dependency\Plugin\AvailabilityAlertMigratorExpanderPluginInterface[] $expanderPlugins
+     * @param array<\FondOfOryx\Zed\AvailabilityAlertMigrator\Dependency\Plugin\AvailabilityAlertMigratorExpanderPluginInterface> $expanderPlugins
      */
     public function __construct(array $expanderPlugins)
     {

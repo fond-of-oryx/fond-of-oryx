@@ -29,7 +29,7 @@ class JellyfishGiftCardDataMapper implements JellyfishGiftCardDataMapperInterfac
         JellyfishGiftCardRequestTransfer $jellyfishGiftCardRequestTransfer
     ): ?JellyfishGiftCardDataTransfer {
         $jellyfishGiftCardTransfer = $this->jellyfishGiftCardMapper->fromJellyfishGiftCardRequest(
-            $jellyfishGiftCardRequestTransfer
+            $jellyfishGiftCardRequestTransfer,
         );
 
         if ($jellyfishGiftCardTransfer === null) {

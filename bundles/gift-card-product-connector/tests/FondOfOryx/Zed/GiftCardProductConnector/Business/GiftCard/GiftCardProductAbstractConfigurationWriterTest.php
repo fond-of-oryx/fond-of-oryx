@@ -15,7 +15,7 @@ use Spryker\Zed\Kernel\Persistence\EntityManager\TransactionHandlerInterface;
 class GiftCardProductAbstractConfigurationWriterTest extends Unit
 {
     /**
-     * @var \FondOfOryx\Zed\GiftCardProductConnector\Business\Filter\GiftCardAmountFilterInterface|mixed|\PHPUnit\Framework\MockObject\MockObject
+     * @var \FondOfOryx\Zed\GiftCardProductConnector\Business\Filter\GiftCardAmountFilterInterface|\PHPUnit\Framework\MockObject\MockObject|mixed
      */
     protected $giftCardAmountFilterMock;
 
@@ -40,7 +40,7 @@ class GiftCardProductAbstractConfigurationWriterTest extends Unit
     protected $giftCardProductAbstractConfigurationEntityTransfer;
 
     /**
-     * @var \ArrayObject|\Generated\Shared\Transfer\PriceProductTransfer[]|\PHPUnit\Framework\MockObject\MockObject[]
+     * @var \ArrayObject<\PHPUnit\Framework\MockObject\MockObject>|\ArrayObject<\Generated\Shared\Transfer\PriceProductTransfer>
      */
     protected $priceProductTransferMocks;
 
@@ -82,7 +82,7 @@ class GiftCardProductAbstractConfigurationWriterTest extends Unit
                 $this->getMockBuilder(PriceProductTransfer::class)
                     ->disableOriginalConstructor()
                     ->getMock(),
-            ]
+            ],
         );
 
         $this->productAbstractTransferMock = $this->getMockBuilder(ProductAbstractTransfer::class)
@@ -150,7 +150,7 @@ class GiftCardProductAbstractConfigurationWriterTest extends Unit
                     }
 
                     return $result;
-                }
+                },
             );
 
         $this->configMock->expects(static::atLeastOnce())
@@ -201,7 +201,7 @@ class GiftCardProductAbstractConfigurationWriterTest extends Unit
                     }
 
                     return $result;
-                }
+                },
             );
 
         $this->configMock->expects(static::atLeastOnce())
@@ -238,7 +238,7 @@ class GiftCardProductAbstractConfigurationWriterTest extends Unit
                     }
 
                     return $result;
-                }
+                },
             );
 
         $this->configMock->expects(static::atLeastOnce())

@@ -15,9 +15,9 @@ use Spryker\Zed\Kernel\Persistence\AbstractRepository;
 class TaxCalculationConnectorRepository extends AbstractRepository implements TaxCalculationConnectorRepositoryInterface
 {
     /**
-     * @param int[] $idProductAbstracts
-     * @param string[] $countryIso2Code
-     * @param int[] $idRegions
+     * @param array<int> $idProductAbstracts
+     * @param array<string> $countryIso2Code
+     * @param array<int> $idRegions
      *
      * @return \Generated\Shared\Transfer\TaxCalculationConnectorTransfer
      */
@@ -26,7 +26,7 @@ class TaxCalculationConnectorRepository extends AbstractRepository implements Ta
         array $countryIso2Code,
         array $idRegions
     ): TaxCalculationConnectorTransfer {
-        /** @var iterable|\Propel\Runtime\Collection\ArrayCollection $taxRateEntity */
+        /** @var \Propel\Runtime\Collection\ArrayCollection|iterable $taxRateEntity */
         $taxRateEntity = $this->getFactory()
             ->createTaxSetQuery()
             ->useSpyProductAbstractQuery()
@@ -55,14 +55,14 @@ class TaxCalculationConnectorRepository extends AbstractRepository implements Ta
     }
 
     /**
-     * @param int[] $idProductAbstracts
-     * @param string[] $countryIso2Code
+     * @param array<int> $idProductAbstracts
+     * @param array<string> $countryIso2Code
      *
      * @return \Generated\Shared\Transfer\TaxCalculationConnectorTransfer
      */
     public function getTaxSetByIdProductAbstractAndCountryIso2Codes(array $idProductAbstracts, array $countryIso2Code): TaxCalculationConnectorTransfer
     {
-        /** @var iterable|\Propel\Runtime\Collection\ArrayCollection $taxRateEntity */
+        /** @var \Propel\Runtime\Collection\ArrayCollection|iterable $taxRateEntity */
         $taxRateEntity = $this->getFactory()
             ->getProductTaxQueryContainer()
             ->queryTaxSetByIdProductAbstractAndCountryIso2Codes($idProductAbstracts, $countryIso2Code);

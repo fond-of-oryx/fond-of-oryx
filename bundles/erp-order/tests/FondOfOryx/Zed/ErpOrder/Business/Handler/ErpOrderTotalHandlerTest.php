@@ -60,7 +60,7 @@ class ErpOrderTotalHandlerTest extends Unit
 
         $this->handler = new ErpOrderTotalHandler(
             $this->erpOrderTotalWriterMock,
-            $this->erpOrderTotalReaderMock
+            $this->erpOrderTotalReaderMock,
         );
     }
 

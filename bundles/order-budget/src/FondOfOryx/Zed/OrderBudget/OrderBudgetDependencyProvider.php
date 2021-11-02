@@ -8,6 +8,9 @@ use Spryker\Zed\Kernel\Container;
 
 class OrderBudgetDependencyProvider extends AbstractBundleDependencyProvider
 {
+    /**
+     * @var string
+     */
     public const SERVICE_UTIL_DATETIME = 'SERVICE_UTIL_DATETIME';
 
     /**
@@ -31,7 +34,7 @@ class OrderBudgetDependencyProvider extends AbstractBundleDependencyProvider
     {
         $container[static::SERVICE_UTIL_DATETIME] = static function (Container $container) {
             return new OrderBudgetToUtilDateTimeServiceBridge(
-                $container->getLocator()->utilDateTime()->service()
+                $container->getLocator()->utilDateTime()->service(),
             );
         };
 

@@ -74,14 +74,14 @@ class ProductAbstractLocaleRestrictionStorageReader implements ProductAbstractLo
     ): ProductAbstractLocaleRestrictionStorageTransfer {
         return (new ProductAbstractLocaleRestrictionStorageTransfer())->fromArray(
             $productAbstractLocaleRestrictionStorageData,
-            true
+            true,
         );
     }
 
     /**
-     * @param int[] $productAbstractIds
+     * @param array<int> $productAbstractIds
      *
-     * @return \Generated\Shared\Transfer\ProductAbstractLocaleRestrictionStorageTransfer[]
+     * @return array<\Generated\Shared\Transfer\ProductAbstractLocaleRestrictionStorageTransfer>
      */
     public function getByProductAbstractIds(array $productAbstractIds): array
     {
@@ -92,9 +92,9 @@ class ProductAbstractLocaleRestrictionStorageReader implements ProductAbstractLo
     }
 
     /**
-     * @param int[] $productAbstractIds
+     * @param array<int> $productAbstractIds
      *
-     * @return string[]
+     * @return array<string>
      */
     protected function generateProductAbstractLocaleRestrictionStorageKeys(array $productAbstractIds): array
     {
@@ -110,7 +110,7 @@ class ProductAbstractLocaleRestrictionStorageReader implements ProductAbstractLo
     /**
      * @param array $productAbstractLocaleRestrictionStorageData
      *
-     * @return \Generated\Shared\Transfer\ProductAbstractLocaleRestrictionStorageTransfer[]
+     * @return array<\Generated\Shared\Transfer\ProductAbstractLocaleRestrictionStorageTransfer>
      */
     protected function mapProductAbstractLocaleRestrictionTransfers(array $productAbstractLocaleRestrictionStorageData): array
     {
@@ -122,7 +122,7 @@ class ProductAbstractLocaleRestrictionStorageReader implements ProductAbstractLo
             }
 
             $productAbstractLocaleRestrictionStorageTransfers[] = $this->mapProductAbstractLocaleRestrictionStorage(
-                json_decode($data, true)
+                json_decode($data, true),
             );
         }
 

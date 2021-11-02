@@ -7,7 +7,7 @@ use Orm\Zed\ErpOrder\Persistence\ErpOrderQuery;
 interface ErpOrderPageSearchQueryContainerInterface
 {
     /**
-     * @param int[] $erpOrderIds
+     * @param array<int> $erpOrderIds
      *
      * @throws \Spryker\Zed\Kernel\Exception\Container\ContainerKeyNotFoundException
      *
@@ -18,7 +18,7 @@ interface ErpOrderPageSearchQueryContainerInterface
     ): ErpOrderQuery;
 
     /**
-     * @param int[] $erpOrderIds
+     * @param array<int> $erpOrderIds
      *
      * @throws \Spryker\Zed\Kernel\Exception\Container\ContainerKeyNotFoundException
      *

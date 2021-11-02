@@ -67,7 +67,7 @@ class SubscribersNotifier implements SubscribersNotifierInterface
             if (
                 !$this->canSendNotification(
                     $availabilityAlertSubscriptionTransfer,
-                    $countOfSubscriberPerProductAbstract
+                    $countOfSubscriberPerProductAbstract,
                 )
             ) {
                 continue;
@@ -112,7 +112,7 @@ class SubscribersNotifier implements SubscribersNotifierInterface
     ): bool {
         $percentageDifference = $this->calculatePercentageDifference(
             $availabilityAlertSubscriptionTransfer,
-            $countOfSubscriberPerProductAbstract
+            $countOfSubscriberPerProductAbstract,
         );
 
         return $percentageDifference > $this->minimalPercentageDifference;
@@ -145,7 +145,7 @@ class SubscribersNotifier implements SubscribersNotifierInterface
     ): ?Decimal {
         $productAbstractAvailability = $this->availabilityFacade->getProductAbstractAvailability(
             $availabilityAlertSubscriptionTransfer->getFkProductAbstract(),
-            $availabilityAlertSubscriptionTransfer->getFkLocale()
+            $availabilityAlertSubscriptionTransfer->getFkLocale(),
         );
 
         return $productAbstractAvailability->getAvailability();

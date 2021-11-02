@@ -13,7 +13,14 @@ use Spryker\Shared\Kernel\Transfer\AbstractTransfer;
 
 class ReturnLabelAdapter implements ReturnLabelAdapterInterface
 {
+    /**
+     * @var string
+     */
     protected const POST = 'post';
+
+    /**
+     * @var string
+     */
     protected const RESOURCE_PATH = 'standard/return-labels';
 
     /**
@@ -76,7 +83,7 @@ class ReturnLabelAdapter implements ReturnLabelAdapterInterface
             RequestOptions::HEADERS => $this->config->getApiRequestHeader(),
             RequestOptions::TIMEOUT => $this->config->getApiRequestTimeout(),
             RequestOptions::BODY => $this->utilEncodingService->encodeJson(
-                $transfer->toArray(true, true)
+                $transfer->toArray(true, true),
             ),
         ];
 

@@ -103,7 +103,7 @@ class OneTimePasswordResourceControllerTest extends Unit
             ->method('requestOneTimePasswordEmail')
             ->with(
                 $this->restRequestMock,
-                $this->restOneTimePasswordRequestAttributesTransferMock
+                $this->restOneTimePasswordRequestAttributesTransferMock,
             )
             ->willReturn($this->restResponseMock);
 
@@ -111,8 +111,8 @@ class OneTimePasswordResourceControllerTest extends Unit
             $this->restResponseMock,
             $this->oneTimePasswordResourceController->postAction(
                 $this->restRequestMock,
-                $this->restOneTimePasswordRequestAttributesTransferMock
-            )
+                $this->restOneTimePasswordRequestAttributesTransferMock,
+            ),
         );
     }
 }

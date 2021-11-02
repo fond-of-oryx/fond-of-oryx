@@ -27,7 +27,7 @@ class ProductAbstractLocaleRestrictionListenerTest extends Unit
     protected $eventBehaviorFacadeMock;
 
     /**
-     * @var \Generated\Shared\Transfer\EventEntityTransfer[]|\PHPUnit\Framework\MockObject\MockObject[]
+     * @var array<\PHPUnit\Framework\MockObject\MockObject>|array<\Generated\Shared\Transfer\EventEntityTransfer>
      */
     protected $eventEntityTransferMocks;
 

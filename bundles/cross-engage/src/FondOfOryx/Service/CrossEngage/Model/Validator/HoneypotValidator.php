@@ -7,6 +7,9 @@ use Symfony\Component\Form\FormInterface;
 
 class HoneypotValidator implements FormValidatorInterface
 {
+    /**
+     * @var string
+     */
     public const NAME = 'HoneypotValidator';
 
     /**

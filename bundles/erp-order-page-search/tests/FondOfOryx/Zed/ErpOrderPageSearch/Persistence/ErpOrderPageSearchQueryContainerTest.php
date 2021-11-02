@@ -25,7 +25,7 @@ class ErpOrderPageSearchQueryContainerTest extends Unit
     protected $erpOrderPageSearchQueryContainer;
 
     /**
-     * @var int[]
+     * @var array<int>
      */
     protected $erpOrderIds;
 

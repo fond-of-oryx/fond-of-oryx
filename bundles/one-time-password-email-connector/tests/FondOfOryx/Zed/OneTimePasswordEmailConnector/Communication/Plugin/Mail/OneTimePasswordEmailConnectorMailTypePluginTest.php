@@ -76,7 +76,7 @@ class OneTimePasswordEmailConnectorMailTypePluginTest extends Unit
     public function testGetName(): void
     {
         $this->assertIsString(
-            $this->oneTimePasswordEmailConnectorMailTypePlugin->getName()
+            $this->oneTimePasswordEmailConnectorMailTypePlugin->getName(),
         );
     }
 
@@ -126,7 +126,7 @@ class OneTimePasswordEmailConnectorMailTypePluginTest extends Unit
             ->willReturnSelf();
 
         $this->oneTimePasswordEmailConnectorMailTypePlugin->build(
-            $this->mailBuilderMock
+            $this->mailBuilderMock,
         );
     }
 }

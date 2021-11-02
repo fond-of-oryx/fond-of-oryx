@@ -28,7 +28,7 @@ class ReturnLabelsRestApiCustomerConnectorFacade extends AbstractFacade implemen
     ): ReturnLabelRequestTransfer {
         return $this->getFactory()->createCustomerExpander()->expand(
             $restReturnLabelRequestTransfer,
-            $returnLabelRequestTransfer
+            $returnLabelRequestTransfer,
         );
     }
 }

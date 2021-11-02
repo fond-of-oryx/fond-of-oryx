@@ -20,7 +20,7 @@ class ProductAbstractLocaleRestrictionStorageWriterTest extends Unit
     protected $repositoryMock;
 
     /**
-     * @var \Orm\Zed\ProductLocaleRestrictionStorage\Persistence\FooProductAbstractLocaleRestrictionStorage[]|\PHPUnit\Framework\MockObject\MockObject[]
+     * @var array<\PHPUnit\Framework\MockObject\MockObject>|array<\Orm\Zed\ProductLocaleRestrictionStorage\Persistence\FooProductAbstractLocaleRestrictionStorage>
      */
     protected $storageEntityMocks;
 
@@ -56,7 +56,7 @@ class ProductAbstractLocaleRestrictionStorageWriterTest extends Unit
         $this->productAbstractLocaleRestrictionStorageWriter = new ProductAbstractLocaleRestrictionStorageWriter(
             $this->productLocaleRestrictionFacadeMock,
             $this->repositoryMock,
-            true
+            true,
         );
     }
 
@@ -89,8 +89,8 @@ class ProductAbstractLocaleRestrictionStorageWriterTest extends Unit
                         return isset($data['id_product_abstract'], $data['blacklisted_locales'])
                             && $data['id_product_abstract'] === 1
                             && $data['blacklisted_locales'] === $blacklistedLocales[1];
-                    }
-                )
+                    },
+                ),
             )->willReturn($this->storageEntityMocks[1]);
 
         $this->storageEntityMocks[1]->expects(static::atLeastOnce())
@@ -115,8 +115,8 @@ class ProductAbstractLocaleRestrictionStorageWriterTest extends Unit
                         return isset($data['id_product_abstract'], $data['blacklisted_locales'])
                             && $data['id_product_abstract'] === 3
                             && $data['blacklisted_locales'] === $blacklistedLocales[3];
-                    }
-                )
+                    },
+                ),
             )->willReturn($this->storageEntityMocks[3]);
 
         $this->storageEntityMocks[3]->expects(static::atLeastOnce())

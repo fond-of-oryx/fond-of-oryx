@@ -122,7 +122,7 @@ class RestSplittableTotalsReaderTest extends Unit
             $this->restSplittableCheckoutRequestMapperMock,
             $this->restSplittableCheckoutRequestExpanderMock,
             $this->restResponseBuilderMock,
-            $this->clientMock
+            $this->clientMock,
         );
     }
 
@@ -162,8 +162,8 @@ class RestSplittableTotalsReaderTest extends Unit
             $this->restResponseMock,
             $this->splittableTotalsReader->get(
                 $this->restRequestMock,
-                $this->restSplittableCheckoutRequestAttributesTransferMock
-            )
+                $this->restSplittableCheckoutRequestAttributesTransferMock,
+            ),
         );
     }
 
@@ -201,8 +201,8 @@ class RestSplittableTotalsReaderTest extends Unit
             $this->restResponseMock,
             $this->splittableTotalsReader->get(
                 $this->restRequestMock,
-                $this->restSplittableCheckoutRequestAttributesTransferMock
-            )
+                $this->restSplittableCheckoutRequestAttributesTransferMock,
+            ),
         );
     }
 }

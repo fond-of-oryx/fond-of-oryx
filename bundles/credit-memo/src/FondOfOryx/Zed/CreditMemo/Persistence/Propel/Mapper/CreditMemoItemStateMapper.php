@@ -18,7 +18,7 @@ class CreditMemoItemStateMapper implements CreditMemoItemStateMapperInterface
         FooCreditMemoItemState $fooCreditMemoItemState
     ): FooCreditMemoItemState {
         $fooCreditMemoItemState->fromArray(
-            $itemTransfer->modifiedToArray(false)
+            $itemTransfer->modifiedToArray(false),
         );
 
         return $fooCreditMemoItemState;
@@ -36,7 +36,7 @@ class CreditMemoItemStateMapper implements CreditMemoItemStateMapperInterface
     ): CreditMemoItemStateTransfer {
         return $itemTransfer->fromArray(
             $fooCreditMemoItemState->toArray(),
-            true
+            true,
         );
     }
 }

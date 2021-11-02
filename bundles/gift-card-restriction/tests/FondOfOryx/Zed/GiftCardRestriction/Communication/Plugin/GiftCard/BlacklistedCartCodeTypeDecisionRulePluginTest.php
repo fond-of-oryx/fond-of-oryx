@@ -84,7 +84,7 @@ class BlacklistedCartCodeTypeDecisionRulePluginTest extends Unit
             ->willReturn(true);
 
         static::assertTrue(
-            $this->plugin->isApplicable($this->giftCardTransferMock, $this->quoteTransferMock)
+            $this->plugin->isApplicable($this->giftCardTransferMock, $this->quoteTransferMock),
         );
     }
 }

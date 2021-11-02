@@ -80,13 +80,13 @@ class SalesLocaleConnectorDependencyProviderTest extends Unit
             ->willReturn($this->localeFacadeMock);
 
         $container = $this->salesLocaleConnectorDependencyProvider->provideBusinessLayerDependencies(
-            $this->containerMock
+            $this->containerMock,
         );
 
         $this->assertEquals($this->containerMock, $container);
         $this->assertInstanceOf(
             SalesLocaleConnectorToLocaleFacadeBridge::class,
-            $container[SalesLocaleConnectorDependencyProvider::FACADE_LOCALE]
+            $container[SalesLocaleConnectorDependencyProvider::FACADE_LOCALE],
         );
     }
 }

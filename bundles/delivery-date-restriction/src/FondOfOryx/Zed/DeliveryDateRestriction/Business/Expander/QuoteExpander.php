@@ -19,6 +19,7 @@ class QuoteExpander implements QuoteExpanderInterface
      * @var string
      */
     public const MESSAGE_INVALID_QUOTE = 'delivery_date_restriction.invalid_quote';
+
     /**
      * @var string
      */

@@ -25,7 +25,7 @@ class ProductLocaleRestrictionEntityManager extends AbstractEntityManager implem
         $fooProductAbstractLocaleRestriction = $this->getFactory()->createProductAbstractLocaleRestrictionMapper()
             ->mapTransferToEntity(
                 $productAbstractLocaleRestriction,
-                new FooProductAbstractLocaleRestriction()
+                new FooProductAbstractLocaleRestriction(),
             );
 
         $fooProductAbstractLocaleRestriction->save();
@@ -43,7 +43,7 @@ class ProductLocaleRestrictionEntityManager extends AbstractEntityManager implem
             ->createFooProductAbstractLocaleRestrictionQuery();
 
         $fooProductAbstractLocaleRestrictions = $fooProductAbstractLocaleRestrictionQuery->filterByFkProductAbstract(
-            $idProductAbstract
+            $idProductAbstract,
         )->filterByFkLocale_In($localeIds)
             ->find();
 

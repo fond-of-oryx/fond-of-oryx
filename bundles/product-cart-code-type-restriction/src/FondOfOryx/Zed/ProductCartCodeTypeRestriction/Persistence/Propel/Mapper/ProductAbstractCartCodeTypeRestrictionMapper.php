@@ -12,7 +12,7 @@ class ProductAbstractCartCodeTypeRestrictionMapper implements ProductAbstractCar
     /**
      * @param \Propel\Runtime\Collection\ObjectCollection $entityCollection
      *
-     * @return \Generated\Shared\Transfer\CartCodeTypeTransfer[]
+     * @return array<\Generated\Shared\Transfer\CartCodeTypeTransfer>
      */
     public function mapEntityCollectionToCartCodeTypeTransfers(
         ObjectCollection $entityCollection

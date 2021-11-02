@@ -10,17 +10,17 @@ use Generated\Shared\Transfer\QuoteTransfer;
 class CompanyBusinessUnitOrderBudgetCheckoutPostSavePluginTest extends Unit
 {
     /**
-     * @var \FondOfOryx\Zed\CompanyBusinessUnitOrderBudget\Business\CompanyBusinessUnitOrderBudgetFacade|mixed|\PHPUnit\Framework\MockObject\MockObject
+     * @var \FondOfOryx\Zed\CompanyBusinessUnitOrderBudget\Business\CompanyBusinessUnitOrderBudgetFacade|\PHPUnit\Framework\MockObject\MockObject|mixed
      */
     protected $facadeMock;
 
     /**
-     * @var \Generated\Shared\Transfer\QuoteTransfer|mixed|\PHPUnit\Framework\MockObject\MockObject
+     * @var \Generated\Shared\Transfer\QuoteTransfer|\PHPUnit\Framework\MockObject\MockObject|mixed
      */
     protected $quoteTransferMock;
 
     /**
-     * @var \Generated\Shared\Transfer\CheckoutResponseTransfer|mixed|\PHPUnit\Framework\MockObject\MockObject
+     * @var \Generated\Shared\Transfer\CheckoutResponseTransfer|\PHPUnit\Framework\MockObject\MockObject|mixed
      */
     protected $checkoutResponseTransferMock;
 

@@ -58,7 +58,7 @@ class CustomerStatisticWriterTest extends Unit
 
         static::assertEquals(
             $this->customerStatisticTransferMock,
-            $customerStatisticResponseTransfer->getCustomerStatistic()
+            $customerStatisticResponseTransfer->getCustomerStatistic(),
         );
     }
 }

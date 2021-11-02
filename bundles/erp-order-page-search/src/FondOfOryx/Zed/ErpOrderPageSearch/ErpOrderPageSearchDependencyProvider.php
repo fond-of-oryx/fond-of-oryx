@@ -14,9 +14,24 @@ use Spryker\Zed\Kernel\Container;
  */
 class ErpOrderPageSearchDependencyProvider extends AbstractBundleDependencyProvider
 {
+    /**
+     * @var string
+     */
     public const SERVICE_UTIL_ENCODING = 'SERVICE_UTIL_ENCODING';
+
+    /**
+     * @var string
+     */
     public const QUERY_ERP_ORDER_PAGE_SEARCH = 'QUERY_ERP_ORDER_PAGE_SEARCH';
+
+    /**
+     * @var string
+     */
     public const QUERY_ERP_ORDER = 'QUERY_ERP_ORDER';
+
+    /**
+     * @var string
+     */
     public const FACADE_EVENT_BEHAVIOR = 'FACADE_EVENT_BEHAVIOR';
 
     /**
@@ -71,7 +86,7 @@ class ErpOrderPageSearchDependencyProvider extends AbstractBundleDependencyProvi
     {
         $container[static::SERVICE_UTIL_ENCODING] = static function (Container $container) {
             return new ErpOrderPageSearchToUtilEncodingServiceBridge(
-                $container->getLocator()->utilEncoding()->service()
+                $container->getLocator()->utilEncoding()->service(),
             );
         };
 
@@ -87,7 +102,7 @@ class ErpOrderPageSearchDependencyProvider extends AbstractBundleDependencyProvi
     {
         $container[static::FACADE_EVENT_BEHAVIOR] = static function (Container $container) {
             return new ErpOrderPageSearchToEventBehaviorFacadeBridge(
-                $container->getLocator()->eventBehavior()->facade()
+                $container->getLocator()->eventBehavior()->facade(),
             );
         };
 

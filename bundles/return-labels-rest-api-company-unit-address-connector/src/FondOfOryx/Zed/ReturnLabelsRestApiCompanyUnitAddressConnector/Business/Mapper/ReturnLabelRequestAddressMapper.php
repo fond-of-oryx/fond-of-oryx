@@ -17,7 +17,7 @@ class ReturnLabelRequestAddressMapper implements ReturnLabelRequestAddressMapper
     ): ReturnLabelRequestAddressTransfer {
         return (new ReturnLabelRequestAddressTransfer())->fromArray(
             $companyUnitAddressTransfer->toArray(),
-            true
+            true,
         );
     }
 }

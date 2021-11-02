@@ -31,7 +31,7 @@ class MinOutstandingQuantityErpPageSearchQueryExpanderPlugin extends AbstractPlu
 
         $range = (new Range())->addField(
             ErpOrderIndexMap::OUTSTANDING_QUANTITY,
-            ['gte' => $minOutstandingQuantity]
+            ['gte' => $minOutstandingQuantity],
         );
 
         $this->getBoolQuery($searchQuery->getSearchQuery())
@@ -56,8 +56,8 @@ class MinOutstandingQuantityErpPageSearchQueryExpanderPlugin extends AbstractPlu
                 sprintf(
                     'Query expander available only with %s, got: %s',
                     BoolQuery::class,
-                    get_class($boolQuery)
-                )
+                    get_class($boolQuery),
+                ),
             );
         }
 

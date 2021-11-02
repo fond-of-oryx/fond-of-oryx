@@ -11,7 +11,14 @@ use Orm\Zed\Sales\Persistence\SpySalesOrder;
 
 class JellyfishOrderExpander implements JellyfishOrderExpanderInterface
 {
+    /**
+     * @var string
+     */
     protected const SALES_PAYMENT_METHOD_GIFT_CARD = 'GiftCard';
+
+    /**
+     * @var string
+     */
     protected const CART_CODE_TYPE_GIFT_CARD = 'gift card';
 
     /**
@@ -71,13 +78,13 @@ class JellyfishOrderExpander implements JellyfishOrderExpanderInterface
         $blacklistedItemsForGiftCard = $this->getBlacklistedGiftCardItems(
             $this->productCardCodeTypeRestrictionFacade
                 ->getBlacklistedCartCodeTypesByProductConcreteSkus(
-                    $this->getProductConcreteSkus($jellyfishOrderTransfer)
-                )
+                    $this->getProductConcreteSkus($jellyfishOrderTransfer),
+                ),
         );
 
         foreach ($jellyfishOrderTransfer->getItems() as $jellyfishOrderItemTransfer) {
             $jellyfishOrderItemTransfer->setIsBlacklistedForGiftCard(
-                $this->isBlacklistedForGiftCard($jellyfishOrderItemTransfer, $blacklistedItemsForGiftCard)
+                $this->isBlacklistedForGiftCard($jellyfishOrderItemTransfer, $blacklistedItemsForGiftCard),
             );
         }
 
@@ -95,7 +102,7 @@ class JellyfishOrderExpander implements JellyfishOrderExpanderInterface
 
         foreach ($payments as $payment) {
             $jellyfishOrderGiftCards->append(
-                $this->jellyfishOrderGiftCardMapper->fromSalesPayment($payment)
+                $this->jellyfishOrderGiftCardMapper->fromSalesPayment($payment),
             );
         }
 
@@ -128,7 +135,7 @@ class JellyfishOrderExpander implements JellyfishOrderExpanderInterface
     /**
      * @param \Generated\Shared\Transfer\JellyfishOrderTransfer $jellyfishOrderTransfer
      *
-     * @return string[]
+     * @return array<string>
      */
     protected function getProductConcreteSkus(JellyfishOrderTransfer $jellyfishOrderTransfer): array
     {

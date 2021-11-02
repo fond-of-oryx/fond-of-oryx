@@ -10,17 +10,17 @@ use Generated\Shared\Transfer\RestCompanyUserSearchSortTransfer;
 class RestCompanyUserSearchAttributesTranslatorTest extends Unit
 {
     /**
-     * @var \FondOfOryx\Glue\CompanyUserSearchRestApi\Dependency\Client\CompanyUserSearchRestApiToGlossaryStorageClientInterface|mixed|\PHPUnit\Framework\MockObject\MockObject
+     * @var \FondOfOryx\Glue\CompanyUserSearchRestApi\Dependency\Client\CompanyUserSearchRestApiToGlossaryStorageClientInterface|\PHPUnit\Framework\MockObject\MockObject|mixed
      */
     protected $glossaryStorageClientMock;
 
     /**
-     * @var \Generated\Shared\Transfer\RestCompanyUserSearchAttributesTransfer|mixed|\PHPUnit\Framework\MockObject\MockObject
+     * @var \Generated\Shared\Transfer\RestCompanyUserSearchAttributesTransfer|\PHPUnit\Framework\MockObject\MockObject|mixed
      */
     protected $restCompanyUserSearchAttributesTransferMock;
 
     /**
-     * @var \Generated\Shared\Transfer\RestCompanyUserSearchSortTransfer|mixed|\PHPUnit\Framework\MockObject\MockObject
+     * @var \Generated\Shared\Transfer\RestCompanyUserSearchSortTransfer|\PHPUnit\Framework\MockObject\MockObject|mixed
      */
     protected $restCompanyUserSearchSortTransferMock;
 
@@ -49,7 +49,7 @@ class RestCompanyUserSearchAttributesTranslatorTest extends Unit
             ->getMock();
 
         $this->restCompanyUserSearchAttributesTranslator = new RestCompanyUserSearchAttributesTranslator(
-            $this->glossaryStorageClientMock
+            $this->glossaryStorageClientMock,
         );
     }
 
@@ -87,16 +87,16 @@ class RestCompanyUserSearchAttributesTranslatorTest extends Unit
                 static::callback(
                     static function (array $sortParamLocalizedNames) use ($translated) {
                         return $sortParamLocalizedNames == $translated;
-                    }
-                )
+                    },
+                ),
             )->willReturn($this->restCompanyUserSearchSortTransferMock);
 
         static::assertEquals(
             $this->restCompanyUserSearchAttributesTransferMock,
             $this->restCompanyUserSearchAttributesTranslator->translate(
                 $this->restCompanyUserSearchAttributesTransferMock,
-                $locale
-            )
+                $locale,
+            ),
         );
     }
 
@@ -118,8 +118,8 @@ class RestCompanyUserSearchAttributesTranslatorTest extends Unit
             $this->restCompanyUserSearchAttributesTransferMock,
             $this->restCompanyUserSearchAttributesTranslator->translate(
                 $this->restCompanyUserSearchAttributesTransferMock,
-                $locale
-            )
+                $locale,
+            ),
         );
     }
 }

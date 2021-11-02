@@ -75,7 +75,7 @@ class ErpOrderPageSearchListenerTest extends Unit
 
         $this->erpOrderPageSearchListener->handleBulk(
             $transfers,
-            ErpOrderEvents::ERP_ORDER_PUBLISH
+            ErpOrderEvents::ERP_ORDER_PUBLISH,
         );
     }
 }

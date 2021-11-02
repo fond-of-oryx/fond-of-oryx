@@ -34,7 +34,7 @@ class CompanyBusinessUnitExpander implements CompanyBusinessUnitExpanderInterfac
         }
 
         return $companyBusinessUnitTransfer->setOrderBudget(
-            $this->orderBudgetFacade->findOrderBudgetByIdOrderBudget($fkOrderBudget)
+            $this->orderBudgetFacade->findOrderBudgetByIdOrderBudget($fkOrderBudget),
         );
     }
 }

@@ -67,7 +67,7 @@ class SplittableQuoteShipmentConnectorFacadeTest extends Unit
 
         static::assertEquals(
             $this->quoteTransferMock,
-            $this->facade->expandSplittedQuote($this->quoteTransferMock)
+            $this->facade->expandSplittedQuote($this->quoteTransferMock),
         );
     }
 }

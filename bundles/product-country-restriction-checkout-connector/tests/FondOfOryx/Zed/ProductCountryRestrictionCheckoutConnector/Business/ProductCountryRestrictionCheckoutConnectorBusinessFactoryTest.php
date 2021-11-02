@@ -60,7 +60,7 @@ class ProductCountryRestrictionCheckoutConnectorBusinessFactoryTest extends Unit
 
         static::assertInstanceOf(
             QuoteValidator::class,
-            $this->productCountryRestrictionCheckoutConnectorBusinessFactory->createQuoteValidator()
+            $this->productCountryRestrictionCheckoutConnectorBusinessFactory->createQuoteValidator(),
         );
     }
 }

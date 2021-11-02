@@ -10,8 +10,19 @@ use Generated\Shared\Transfer\ErpOrderTransfer;
 
 class ErpOrderItemHandler implements ErpOrderItemHandlerInterface
 {
+    /**
+     * @var string
+     */
     protected const NEW = 'new';
+
+    /**
+     * @var string
+     */
     protected const UPDATE = 'update';
+
+    /**
+     * @var string
+     */
     protected const DELETE = 'delete';
 
     /**
@@ -104,7 +115,7 @@ class ErpOrderItemHandler implements ErpOrderItemHandlerInterface
     /**
      * @param int $idErpOrder
      *
-     * @return \Generated\Shared\Transfer\ErpOrderItemTransfer[]
+     * @return array<\Generated\Shared\Transfer\ErpOrderItemTransfer>
      */
     protected function getExistingErpOrderItems(int $idErpOrder): array
     {
@@ -120,7 +131,7 @@ class ErpOrderItemHandler implements ErpOrderItemHandlerInterface
     /**
      * @param \Generated\Shared\Transfer\ErpOrderTransfer $erpOrderTransfer
      *
-     * @return \Generated\Shared\Transfer\ErpOrderItemTransfer[][]
+     * @return array<array<\Generated\Shared\Transfer\ErpOrderItemTransfer>>
      */
     protected function prepareItems(ErpOrderTransfer $erpOrderTransfer): array
     {

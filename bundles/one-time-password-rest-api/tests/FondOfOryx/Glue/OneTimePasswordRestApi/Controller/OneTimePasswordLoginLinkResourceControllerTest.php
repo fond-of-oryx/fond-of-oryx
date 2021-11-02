@@ -17,7 +17,7 @@ class OneTimePasswordLoginLinkResourceControllerTest extends Unit
     protected $oneTimePasswordLoginLinkResourceController;
 
     /**
-     * @var \FondOfOryx\Glue\OneTimePasswordRestApi\OneTimePasswordRestApiFactory|mixed|\PHPUnit\Framework\MockObject\MockObject
+     * @var \FondOfOryx\Glue\OneTimePasswordRestApi\OneTimePasswordRestApiFactory|\PHPUnit\Framework\MockObject\MockObject|mixed
      */
     protected $oneTimePasswordRestApiFactoryMock;
 
@@ -27,7 +27,7 @@ class OneTimePasswordLoginLinkResourceControllerTest extends Unit
     protected $restRequestMock;
 
     /**
-     * @var \Generated\Shared\Transfer\RestOneTimePasswordLoginLinkRequestAttributesTransfer|mixed|\PHPUnit\Framework\MockObject\MockObject
+     * @var \Generated\Shared\Transfer\RestOneTimePasswordLoginLinkRequestAttributesTransfer|\PHPUnit\Framework\MockObject\MockObject|mixed
      */
     protected $restOneTimePasswordLoginLinkRequestAttributesTransferMock;
 
@@ -37,7 +37,7 @@ class OneTimePasswordLoginLinkResourceControllerTest extends Unit
     protected $restResponseMock;
 
     /**
-     * @var \FondOfOryx\Glue\OneTimePasswordRestApi\Processor\OneTimePasswordLoginLinkProcessorInterface|mixed|\PHPUnit\Framework\MockObject\MockObject
+     * @var \FondOfOryx\Glue\OneTimePasswordRestApi\Processor\OneTimePasswordLoginLinkProcessorInterface|\PHPUnit\Framework\MockObject\MockObject|mixed
      */
     protected $oneTimePasswordLoginLinkProcessorMock;
 
@@ -104,7 +104,7 @@ class OneTimePasswordLoginLinkResourceControllerTest extends Unit
             ->method('requestOneTimePasswordEmail')
             ->with(
                 $this->restRequestMock,
-                $this->restOneTimePasswordLoginLinkRequestAttributesTransferMock
+                $this->restOneTimePasswordLoginLinkRequestAttributesTransferMock,
             )
             ->willReturn($this->restResponseMock);
 
@@ -112,8 +112,8 @@ class OneTimePasswordLoginLinkResourceControllerTest extends Unit
             $this->restResponseMock,
             $this->oneTimePasswordLoginLinkResourceController->postAction(
                 $this->restRequestMock,
-                $this->restOneTimePasswordLoginLinkRequestAttributesTransferMock
-            )
+                $this->restOneTimePasswordLoginLinkRequestAttributesTransferMock,
+            ),
         );
     }
 }

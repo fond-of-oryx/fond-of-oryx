@@ -170,7 +170,7 @@ class CompanyUserSearchRestApiRepository extends AbstractRepository implements C
 
         $companyUserQuery->orderBy(
             $columnMap->getFullyQualifiedName(),
-            $direction === 'desc' ? Criteria::DESC : Criteria::ASC
+            $direction === 'desc' ? Criteria::DESC : Criteria::ASC,
         );
 
         return $companyUserQuery;

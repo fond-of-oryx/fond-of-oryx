@@ -37,7 +37,7 @@ class CreditMemoBusinessFactory extends AbstractBusinessFactory
     {
         return new CreditMemoWriter(
             $this->getEntityManager(),
-            $this->createCreditMemoPluginExecutor()
+            $this->createCreditMemoPluginExecutor(),
         );
     }
 
@@ -48,7 +48,7 @@ class CreditMemoBusinessFactory extends AbstractBusinessFactory
     {
         return new CreditMemoPluginExecutor(
             $this->getCreditMemoPreSavePlugins(),
-            $this->getCreditMemoPostSavePlugins()
+            $this->getCreditMemoPostSavePlugins(),
         );
     }
 
@@ -84,7 +84,7 @@ class CreditMemoBusinessFactory extends AbstractBusinessFactory
         return new CreditMemoReferenceGenerator(
             $this->getSequenceNumberFacade(),
             $this->getStoreFacade(),
-            $this->getConfig()
+            $this->getConfig(),
         );
     }
 
@@ -105,12 +105,12 @@ class CreditMemoBusinessFactory extends AbstractBusinessFactory
             $this->getCreditMemoProcessorPlugins(),
             $this->getRepository(),
             $this->getStoreFacade(),
-            $this->getConfig()
+            $this->getConfig(),
         );
     }
 
     /**
-     * @return \FondOfOryx\Zed\CreditMemoExtension\Dependency\Plugin\CreditMemoProcessorPluginInterface[]
+     * @return array<\FondOfOryx\Zed\CreditMemoExtension\Dependency\Plugin\CreditMemoProcessorPluginInterface>
      */
     protected function getCreditMemoProcessorPlugins(): array
     {
@@ -118,7 +118,7 @@ class CreditMemoBusinessFactory extends AbstractBusinessFactory
     }
 
     /**
-     * @return \FondOfOryx\Zed\CreditMemoExtension\Dependency\Plugin\CreditMemoPreSavePluginInterface[]
+     * @return array<\FondOfOryx\Zed\CreditMemoExtension\Dependency\Plugin\CreditMemoPreSavePluginInterface>
      */
     protected function getCreditMemoPreSavePlugins(): array
     {
@@ -126,7 +126,7 @@ class CreditMemoBusinessFactory extends AbstractBusinessFactory
     }
 
     /**
-     * @return \FondOfOryx\Zed\CreditMemoExtension\Dependency\Plugin\CreditMemoPostSavePluginInterface[]
+     * @return array<\FondOfOryx\Zed\CreditMemoExtension\Dependency\Plugin\CreditMemoPostSavePluginInterface>
      */
     protected function getCreditMemoPostSavePlugins(): array
     {

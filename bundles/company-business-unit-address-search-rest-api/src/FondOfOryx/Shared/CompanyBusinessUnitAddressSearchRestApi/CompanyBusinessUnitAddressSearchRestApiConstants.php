@@ -8,6 +8,7 @@ interface CompanyBusinessUnitAddressSearchRestApiConstants
      * @var string
      */
     public const VALID_ITEMS_PER_PAGE_OPTIONS = 'FOND_OF_ORYX:COMPANY_BUSINESS_UNIT_ADDRESS_REST_API:VALID_ITEMS_PER_PAGE_OPTIONS';
+
     /**
      * @var array
      */
@@ -17,6 +18,7 @@ interface CompanyBusinessUnitAddressSearchRestApiConstants
      * @var string
      */
     public const ITEMS_PER_PAGE = 'FOND_OF_ORYX:COMPANY_BUSINESS_UNIT_ADDRESS_REST_API:ITEMS_PER_PAGE';
+
     /**
      * @var int
      */
@@ -26,6 +28,7 @@ interface CompanyBusinessUnitAddressSearchRestApiConstants
      * @var string
      */
     public const SORT_FIELDS = 'FOND_OF_ORYX:COMPANY_BUSINESS_UNIT_ADDRESS_REST_API:SORT_FIELDS';
+
     /**
      * @var array
      */
@@ -35,6 +38,7 @@ interface CompanyBusinessUnitAddressSearchRestApiConstants
      * @var string
      */
     public const FULLTEXT_SEARCH_FIELDS = 'FOND_OF_ORYX:COMPANY_BUSINESS_UNIT_ADDRESS_REST_API:FULLTEXT_SEARCH_FIELDS';
+
     /**
      * @var array
      */

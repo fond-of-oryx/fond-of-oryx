@@ -11,9 +11,24 @@ use Spryker\Zed\Kernel\Container;
 
 class ErpOrderApiDependencyProvider extends AbstractBundleDependencyProvider
 {
+    /**
+     * @var string
+     */
     public const FACADE_ERP_ORDER = 'FACADE_ERP_ORDER';
+
+    /**
+     * @var string
+     */
     public const QUERY_CONTAINER_API = 'QUERY_CONTAINER_API';
+
+    /**
+     * @var string
+     */
     public const QUERY_CONTAINER_API_QUERY_BUILDER = 'QUERY_CONTAINER_API_QUERY_BUILDER';
+
+    /**
+     * @var string
+     */
     public const PROPEL_QUERY_ERP_ORDER = 'PROPEL_QUERY_ERP_ORDER';
 
     /**
@@ -40,7 +55,7 @@ class ErpOrderApiDependencyProvider extends AbstractBundleDependencyProvider
     {
         $container[static::FACADE_ERP_ORDER] = static function (Container $container) {
             return new ErpOrderApiToErpOrderFacadeBridge(
-                $container->getLocator()->erpOrder()->facade()
+                $container->getLocator()->erpOrder()->facade(),
             );
         };
 
@@ -56,7 +71,7 @@ class ErpOrderApiDependencyProvider extends AbstractBundleDependencyProvider
     {
         $container[static::QUERY_CONTAINER_API] = static function (Container $container) {
             return new ErpOrderApiToApiQueryContainerBridge(
-                $container->getLocator()->api()->queryContainer()
+                $container->getLocator()->api()->queryContainer(),
             );
         };
 
@@ -108,7 +123,7 @@ class ErpOrderApiDependencyProvider extends AbstractBundleDependencyProvider
     {
         $container[static::QUERY_CONTAINER_API_QUERY_BUILDER] = static function (Container $container) {
             return new ErpOrderApiToApiQueryBuilderQueryContainerBridge(
-                $container->getLocator()->apiQueryBuilder()->queryContainer()
+                $container->getLocator()->apiQueryBuilder()->queryContainer(),
             );
         };
 

@@ -11,12 +11,15 @@ use Spryker\Zed\Kernel\Persistence\AbstractRepository;
  */
 class ProductCountryRestrictionRepository extends AbstractRepository implements ProductCountryRestrictionRepositoryInterface
 {
+    /**
+     * @var string
+     */
     protected const COLUMN_COUNTRY_CODE = 'country_code';
 
     /**
      * @param int $idProductAbstract
      *
-     * @return \Generated\Shared\Transfer\CountryTransfer[]
+     * @return array<\Generated\Shared\Transfer\CountryTransfer>
      */
     public function findBlacklistedCountryByIdProductAbstract(
         int $idProductAbstract
@@ -36,7 +39,7 @@ class ProductCountryRestrictionRepository extends AbstractRepository implements 
     /**
      * @param int $idProductAbstract
      *
-     * @return int[]
+     * @return array<int>
      */
     public function findBlacklistedCountryIdsByIdProductAbstract(
         int $idProductAbstract
@@ -51,7 +54,7 @@ class ProductCountryRestrictionRepository extends AbstractRepository implements 
     }
 
     /**
-     * @param string[] $productConcreteSkus
+     * @param array<string> $productConcreteSkus
      *
      * @return array
      */

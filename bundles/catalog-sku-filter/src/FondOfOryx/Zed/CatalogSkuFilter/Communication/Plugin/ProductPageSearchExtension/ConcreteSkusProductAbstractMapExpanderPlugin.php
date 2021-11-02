@@ -10,6 +10,9 @@ use Spryker\Zed\ProductPageSearchExtension\Dependency\Plugin\ProductAbstractMapE
 
 class ConcreteSkusProductAbstractMapExpanderPlugin extends AbstractPlugin implements ProductAbstractMapExpanderPluginInterface
 {
+    /**
+     * @var string
+     */
     public const KEY_CONCRETE_SKUS = 'concrete_skus';
 
     /**
@@ -31,7 +34,7 @@ class ConcreteSkusProductAbstractMapExpanderPlugin extends AbstractPlugin implem
         }
 
         return $pageMapTransfer->setConcreteSkus(
-            explode(', ', $productData[static::KEY_CONCRETE_SKUS])
+            explode(', ', $productData[static::KEY_CONCRETE_SKUS]),
         );
     }
 }

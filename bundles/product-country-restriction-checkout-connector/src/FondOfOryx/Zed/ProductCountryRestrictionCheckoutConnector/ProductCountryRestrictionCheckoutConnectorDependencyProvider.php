@@ -8,6 +8,9 @@ use Spryker\Zed\Kernel\Container;
 
 class ProductCountryRestrictionCheckoutConnectorDependencyProvider extends AbstractBundleDependencyProvider
 {
+    /**
+     * @var string
+     */
     public const FACADE_PRODUCT_COUNTRY_RESTRICTION = 'FACADE_PRODUCT_COUNTRY_RESTRICTION';
 
     /**
@@ -33,7 +36,7 @@ class ProductCountryRestrictionCheckoutConnectorDependencyProvider extends Abstr
     {
         $container[static::FACADE_PRODUCT_COUNTRY_RESTRICTION] = static function (Container $container) {
             return new ProductCountryRestrictionCheckoutConnectorToProductCountryRestrictionFacadeBridge(
-                $container->getLocator()->productCountryRestriction()->facade()
+                $container->getLocator()->productCountryRestriction()->facade(),
             );
         };
 

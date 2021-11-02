@@ -34,7 +34,7 @@ class BlacklistedLocalesProductPageDataExpanderPlugin extends AbstractPlugin imp
         }
 
         $productAbstractPageSearchTransfer->setBlacklistedLocales(
-            $productPayloadTransfer->getBlacklistedLocales()
+            $productPayloadTransfer->getBlacklistedLocales(),
         );
     }
 

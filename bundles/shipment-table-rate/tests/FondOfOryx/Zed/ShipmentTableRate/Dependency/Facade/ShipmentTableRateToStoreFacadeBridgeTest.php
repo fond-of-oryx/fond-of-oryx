@@ -39,7 +39,7 @@ class ShipmentTableRateToStoreFacadeBridgeTest extends Unit
             ->getMock();
 
         $this->shipmentTableRateToStoreFacadeBridge = new ShipmentTableRateToStoreFacadeBridge(
-            $this->storeFacadeMock
+            $this->storeFacadeMock,
         );
     }
 

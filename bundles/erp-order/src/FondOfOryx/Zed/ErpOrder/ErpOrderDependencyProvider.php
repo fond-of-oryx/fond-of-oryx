@@ -19,15 +19,54 @@ use Spryker\Zed\Kernel\Container;
 
 class ErpOrderDependencyProvider extends AbstractBundleDependencyProvider
 {
+    /**
+     * @var string
+     */
     public const FACADE_COMPANY_BUSINESS_UNIT = 'FACADE_COMPANY_BUSINESS_UNIT';
+
+    /**
+     * @var string
+     */
     public const FACADE_COUNTRY = 'FACADE_COUNTRY';
+
+    /**
+     * @var string
+     */
     public const PLUGIN_ERP_ORDER_PRE_SAVE = 'PLUGIN_ERP_ORDER_PRE_SAVE';
+
+    /**
+     * @var string
+     */
     public const PLUGIN_ERP_ORDER_POST_SAVE = 'PLUGIN_ERP_ORDER_POST_SAVE';
+
+    /**
+     * @var string
+     */
     public const PLUGIN_ERP_ORDER_ITEM_POST_SAVE = 'PLUGIN_ERP_ORDER_ITEM_POST_SAVE';
+
+    /**
+     * @var string
+     */
     public const PLUGIN_ERP_ORDER_ITEM_PRE_SAVE = 'PLUGIN_ERP_ORDER_ITEM_PRE_SAVE';
+
+    /**
+     * @var string
+     */
     public const PLUGIN_ERP_ORDER_ADDRESS_POST_SAVE = 'PLUGIN_ERP_ORDER_ADDRESS_POST_SAVE';
+
+    /**
+     * @var string
+     */
     public const PLUGIN_ERP_ORDER_ADDRESS_PRE_SAVE = 'PLUGIN_ERP_ORDER_ADDRESS_PRE_SAVE';
+
+    /**
+     * @var string
+     */
     public const PLUGIN_ERP_ORDER_TOTAL_POST_SAVE = 'PLUGIN_ERP_ORDER_TOTAL_POST_SAVE';
+
+    /**
+     * @var string
+     */
     public const PLUGIN_ERP_ORDER_TOTAL_PRE_SAVE = 'PLUGIN_ERP_ORDER_TOTAL_PRE_SAVE';
 
     /**
@@ -73,7 +112,7 @@ class ErpOrderDependencyProvider extends AbstractBundleDependencyProvider
     {
         $container[static::FACADE_COMPANY_BUSINESS_UNIT] = function (Container $container) {
             return new ErpOrderToCompanyBusinessUnitFacadeBridge(
-                $container->getLocator()->companyBusinessUnit()->facade()
+                $container->getLocator()->companyBusinessUnit()->facade(),
             );
         };
 
@@ -89,7 +128,7 @@ class ErpOrderDependencyProvider extends AbstractBundleDependencyProvider
     {
         $container[static::FACADE_COUNTRY] = function (Container $container) {
             return new ErpOrderToCountryFacadeBridge(
-                $container->getLocator()->country()->facade()
+                $container->getLocator()->country()->facade(),
             );
         };
 
@@ -247,14 +286,14 @@ class ErpOrderDependencyProvider extends AbstractBundleDependencyProvider
                 throw new WrongInterfaceException(sprintf(
                     'Plugin %s has to implement interface from type %s',
                     get_class($plugin),
-                    $class
+                    $class,
                 ));
             }
         }
     }
 
     /**
-     * @return \FondOfOryx\Zed\ErpOrderExtension\Dependency\Plugin\ErpOrderPostSavePluginInterface[]
+     * @return array<\FondOfOryx\Zed\ErpOrderExtension\Dependency\Plugin\ErpOrderPostSavePluginInterface>
      */
     protected function getErpOrderPostSavePlugin(): array
     {
@@ -262,7 +301,7 @@ class ErpOrderDependencyProvider extends AbstractBundleDependencyProvider
     }
 
     /**
-     * @return \FondOfOryx\Zed\ErpOrderExtension\Dependency\Plugin\ErpOrderPreSavePluginInterface[]
+     * @return array<\FondOfOryx\Zed\ErpOrderExtension\Dependency\Plugin\ErpOrderPreSavePluginInterface>
      */
     protected function getErpOrderPreSavePlugin(): array
     {
@@ -270,7 +309,7 @@ class ErpOrderDependencyProvider extends AbstractBundleDependencyProvider
     }
 
     /**
-     * @return \FondOfOryx\Zed\ErpOrderExtension\Dependency\Plugin\ErpOrderItemPostSavePluginInterface[]
+     * @return array<\FondOfOryx\Zed\ErpOrderExtension\Dependency\Plugin\ErpOrderItemPostSavePluginInterface>
      */
     protected function getErpOrderItemPostSavePlugin(): array
     {
@@ -278,7 +317,7 @@ class ErpOrderDependencyProvider extends AbstractBundleDependencyProvider
     }
 
     /**
-     * @return \FondOfOryx\Zed\ErpOrderExtension\Dependency\Plugin\ErpOrderItemPreSavePluginInterface[]
+     * @return array<\FondOfOryx\Zed\ErpOrderExtension\Dependency\Plugin\ErpOrderItemPreSavePluginInterface>
      */
     protected function getErpOrderItemPreSavePlugin(): array
     {
@@ -286,7 +325,7 @@ class ErpOrderDependencyProvider extends AbstractBundleDependencyProvider
     }
 
     /**
-     * @return \FondOfOryx\Zed\ErpOrderExtension\Dependency\Plugin\ErpOrderAddressPostSavePluginInterface[]
+     * @return array<\FondOfOryx\Zed\ErpOrderExtension\Dependency\Plugin\ErpOrderAddressPostSavePluginInterface>
      */
     protected function getErpOrderAddressPostSavePlugin(): array
     {
@@ -294,7 +333,7 @@ class ErpOrderDependencyProvider extends AbstractBundleDependencyProvider
     }
 
     /**
-     * @return \FondOfOryx\Zed\ErpOrderExtension\Dependency\Plugin\ErpOrderAddressPreSavePluginInterface[]
+     * @return array<\FondOfOryx\Zed\ErpOrderExtension\Dependency\Plugin\ErpOrderAddressPreSavePluginInterface>
      */
     protected function getErpOrderAddressPreSavePlugin(): array
     {
@@ -302,7 +341,7 @@ class ErpOrderDependencyProvider extends AbstractBundleDependencyProvider
     }
 
     /**
-     * @return \FondOfOryx\Zed\ErpOrderExtension\Dependency\Plugin\ErpOrderTotalPostSavePluginInterface[]
+     * @return array<\FondOfOryx\Zed\ErpOrderExtension\Dependency\Plugin\ErpOrderTotalPostSavePluginInterface>
      */
     protected function getErpOrderTotalPostSavePlugin(): array
     {
@@ -310,7 +349,7 @@ class ErpOrderDependencyProvider extends AbstractBundleDependencyProvider
     }
 
     /**
-     * @return \FondOfOryx\Zed\ErpOrderExtension\Dependency\Plugin\ErpOrderTotalPreSavePluginInterface[]
+     * @return array<\FondOfOryx\Zed\ErpOrderExtension\Dependency\Plugin\ErpOrderTotalPreSavePluginInterface>
      */
     protected function getErpOrderTotalPreSavePlugin(): array
     {

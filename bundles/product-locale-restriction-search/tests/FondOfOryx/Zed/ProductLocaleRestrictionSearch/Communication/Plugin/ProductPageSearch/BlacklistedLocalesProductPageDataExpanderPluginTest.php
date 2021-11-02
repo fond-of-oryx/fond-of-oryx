@@ -52,7 +52,7 @@ class BlacklistedLocalesProductPageDataExpanderPluginTest extends Unit
 
         $this->blacklistedLocalesProductPageDataExpanderPlugin->expandProductPageData(
             [],
-            $this->productPageSearchTransferMock
+            $this->productPageSearchTransferMock,
         );
     }
 
@@ -74,7 +74,7 @@ class BlacklistedLocalesProductPageDataExpanderPluginTest extends Unit
 
         $this->blacklistedLocalesProductPageDataExpanderPlugin->expandProductPageData(
             [ProductPageSearchConfig::PRODUCT_ABSTRACT_PAGE_LOAD_DATA => $this->productPayloadTransferMock],
-            $this->productPageSearchTransferMock
+            $this->productPageSearchTransferMock,
         );
     }
 }

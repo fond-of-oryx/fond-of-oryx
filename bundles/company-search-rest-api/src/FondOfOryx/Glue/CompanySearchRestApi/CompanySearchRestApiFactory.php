@@ -40,7 +40,7 @@ class CompanySearchRestApiFactory extends AbstractFactory
         return new CompanyReader(
             $this->createCompanyListMapper(),
             $this->createRestResponseBuilder(),
-            $this->getClient()
+            $this->getClient(),
         );
     }
 
@@ -52,7 +52,7 @@ class CompanySearchRestApiFactory extends AbstractFactory
         return new CompanyListMapper(
             $this->createPaginationMapper(),
             $this->createRequestParameterFilter(),
-            $this->createCustomerReferenceFilter()
+            $this->createCustomerReferenceFilter(),
         );
     }
 
@@ -88,7 +88,7 @@ class CompanySearchRestApiFactory extends AbstractFactory
         return new RestResponseBuilder(
             $this->createRestCompanySearchAttributesTranslator(),
             $this->createRestCompanySearchAttributesMapper(),
-            $this->getResourceBuilder()
+            $this->getResourceBuilder(),
         );
     }
 
@@ -118,7 +118,7 @@ class CompanySearchRestApiFactory extends AbstractFactory
     protected function createRestCompanySearchSortMapper(): RestCompanySearchSortMapperInterface
     {
         return new RestCompanySearchSortMapper(
-            $this->getConfig()
+            $this->getConfig(),
         );
     }
 
@@ -128,7 +128,7 @@ class CompanySearchRestApiFactory extends AbstractFactory
     protected function createRestCompanySearchPaginationMapper(): RestCompanySearchPaginationMapperInterface
     {
         return new RestCompanySearchPaginationMapper(
-            $this->getConfig()
+            $this->getConfig(),
         );
     }
 
@@ -138,7 +138,7 @@ class CompanySearchRestApiFactory extends AbstractFactory
     protected function createRestCompanySearchAttributesTranslator(): RestCompanySearchAttributesTranslatorInterface
     {
         return new RestCompanySearchAttributesTranslator(
-            $this->getGlossaryStorageClient()
+            $this->getGlossaryStorageClient(),
         );
     }
 

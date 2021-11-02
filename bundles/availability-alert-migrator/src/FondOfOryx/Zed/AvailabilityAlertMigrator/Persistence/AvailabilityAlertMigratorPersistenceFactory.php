@@ -50,7 +50,7 @@ class AvailabilityAlertMigratorPersistenceFactory extends AbstractPersistenceFac
     }
 
     /**
-     * @return \FondOfOryx\Zed\AvailabilityAlertMigrator\Dependency\Plugin\AvailabilityAlertMigratorExpanderPluginInterface[]
+     * @return array<\FondOfOryx\Zed\AvailabilityAlertMigrator\Dependency\Plugin\AvailabilityAlertMigratorExpanderPluginInterface>
      */
     protected function getExpanderPlugins(): array
     {

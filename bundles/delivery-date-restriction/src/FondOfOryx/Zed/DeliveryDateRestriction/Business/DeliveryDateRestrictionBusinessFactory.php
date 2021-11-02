@@ -18,7 +18,7 @@ class DeliveryDateRestrictionBusinessFactory extends AbstractBusinessFactory
     public function createQuoteExpander(): QuoteExpanderInterface
     {
         return new QuoteExpander(
-            $this->createQuoteValidator()
+            $this->createQuoteValidator(),
         );
     }
 
@@ -28,7 +28,7 @@ class DeliveryDateRestrictionBusinessFactory extends AbstractBusinessFactory
     public function createQuoteValidator(): QuoteValidatorInterface
     {
         return new QuoteValidator(
-            $this->getPermissionFacade()
+            $this->getPermissionFacade(),
         );
     }
 

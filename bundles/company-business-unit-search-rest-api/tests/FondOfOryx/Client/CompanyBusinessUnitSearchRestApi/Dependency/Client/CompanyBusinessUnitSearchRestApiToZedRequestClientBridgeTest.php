@@ -39,7 +39,7 @@ class CompanyBusinessUnitSearchRestApiToZedRequestClientBridgeTest extends Unit
             ->getMock();
 
         $this->zedRequestClientBridge = new CompanyBusinessUnitSearchRestApiToZedRequestClientBridge(
-            $this->zedRequestClientMock
+            $this->zedRequestClientMock,
         );
     }
 
@@ -57,7 +57,7 @@ class CompanyBusinessUnitSearchRestApiToZedRequestClientBridgeTest extends Unit
 
         static::assertEquals(
             $this->transferMock,
-            $this->zedRequestClientBridge->call($url, $this->transferMock)
+            $this->zedRequestClientBridge->call($url, $this->transferMock),
         );
     }
 }

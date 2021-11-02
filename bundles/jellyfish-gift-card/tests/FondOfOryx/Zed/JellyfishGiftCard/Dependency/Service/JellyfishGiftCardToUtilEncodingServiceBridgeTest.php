@@ -29,7 +29,7 @@ class JellyfishGiftCardToUtilEncodingServiceBridgeTest extends Unit
             ->getMock();
 
         $this->bridge = new JellyfishGiftCardToUtilEncodingServiceBridge(
-            $this->utilEncodingServiceMock
+            $this->utilEncodingServiceMock,
         );
     }
 
@@ -47,7 +47,7 @@ class JellyfishGiftCardToUtilEncodingServiceBridgeTest extends Unit
 
         $this->assertEquals(
             $encodedJson,
-            $this->bridge->encodeJson($value)
+            $this->bridge->encodeJson($value),
         );
     }
 
@@ -65,7 +65,7 @@ class JellyfishGiftCardToUtilEncodingServiceBridgeTest extends Unit
 
         $this->assertEquals(
             $decodedJson,
-            $this->bridge->decodeJson($value)
+            $this->bridge->decodeJson($value),
         );
     }
 }

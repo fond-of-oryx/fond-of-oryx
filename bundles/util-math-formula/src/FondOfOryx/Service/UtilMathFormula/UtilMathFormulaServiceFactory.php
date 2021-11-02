@@ -17,7 +17,7 @@ class UtilMathFormulaServiceFactory extends AbstractServiceFactory
     {
         return new FormulaEvaluator(
             $this->createParser(),
-            $this->createEvaluator()
+            $this->createEvaluator(),
         );
     }
 

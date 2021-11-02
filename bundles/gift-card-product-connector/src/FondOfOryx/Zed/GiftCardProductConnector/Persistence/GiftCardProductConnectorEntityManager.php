@@ -42,7 +42,7 @@ class GiftCardProductConnectorEntityManager extends AbstractEntityManager implem
 
         return $entityTransfer
             ->addSpyGiftCardProductAbstractConfigurationLinks(
-                $this->createGiftCardProductAbstractConfigurationLink($productAbstractTransfer, $entityTransfer)
+                $this->createGiftCardProductAbstractConfigurationLink($productAbstractTransfer, $entityTransfer),
             );
     }
 
@@ -79,7 +79,7 @@ class GiftCardProductConnectorEntityManager extends AbstractEntityManager implem
             ->createGiftCardProductAbstractConfigurationLinkMapper()
             ->mapEntityToTransfer(
                 $entity,
-                new SpyGiftCardProductAbstractConfigurationLinkEntityTransfer()
+                new SpyGiftCardProductAbstractConfigurationLinkEntityTransfer(),
             );
     }
 
@@ -106,7 +106,7 @@ class GiftCardProductConnectorEntityManager extends AbstractEntityManager implem
 
         return $entityTransfer
             ->addSpyGiftCardProductConfigurationLinks(
-                $this->createGiftCardProductConfigurationLink($productConcreteTransfer, $entityTransfer)
+                $this->createGiftCardProductConfigurationLink($productConcreteTransfer, $entityTransfer),
             );
     }
 
@@ -143,7 +143,7 @@ class GiftCardProductConnectorEntityManager extends AbstractEntityManager implem
             ->createGiftCardProductConfigurationLinkMapper()
             ->mapEntityToTransfer(
                 $entity,
-                new SpyGiftCardProductConfigurationLinkEntityTransfer()
+                new SpyGiftCardProductConfigurationLinkEntityTransfer(),
             );
     }
 
@@ -183,7 +183,7 @@ class GiftCardProductConnectorEntityManager extends AbstractEntityManager implem
     ): int {
         return $this->getFactory()->createSpyGiftCardProductAbstractConfigurationLinkQuery()
             ->filterByIdGiftCardProductAbstractConfigurationLink(
-                $configurationLink->getIdGiftCardProductAbstractConfigurationLink()
+                $configurationLink->getIdGiftCardProductAbstractConfigurationLink(),
             )
             ->delete();
     }
@@ -198,7 +198,7 @@ class GiftCardProductConnectorEntityManager extends AbstractEntityManager implem
     ): int {
         return $this->getFactory()->createSpyGiftCardProductConfigurationLinkQuery()
             ->filterByIdGiftCardProductConfigurationLink(
-                $configurationLink->getIdGiftCardProductConfigurationLink()
+                $configurationLink->getIdGiftCardProductConfigurationLink(),
             )
             ->delete();
     }

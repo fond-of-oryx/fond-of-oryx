@@ -12,32 +12,32 @@ use Spryker\Glue\GlueApplication\Rest\Request\Data\RestRequestInterface;
 class CompanyUserListMapperTest extends Unit
 {
     /**
-     * @var \FondOfOryx\Glue\CompanyUserSearchRestApi\Processor\Mapper\PaginationMapperInterface|mixed|\PHPUnit\Framework\MockObject\MockObject
+     * @var \FondOfOryx\Glue\CompanyUserSearchRestApi\Processor\Mapper\PaginationMapperInterface|\PHPUnit\Framework\MockObject\MockObject|mixed
      */
     protected $paginationMapperMock;
 
     /**
-     * @var \FondOfOryx\Glue\CompanyUserSearchRestApi\Processor\Filter\RequestParameterFilterInterface|mixed|\PHPUnit\Framework\MockObject\MockObject
+     * @var \FondOfOryx\Glue\CompanyUserSearchRestApi\Processor\Filter\RequestParameterFilterInterface|\PHPUnit\Framework\MockObject\MockObject|mixed
      */
     protected $requestParameterFilterMock;
 
     /**
-     * @var \FondOfOryx\Glue\CompanyUserSearchRestApi\Processor\Filter\CustomerReferenceFilterInterface|mixed|\PHPUnit\Framework\MockObject\MockObject
+     * @var \FondOfOryx\Glue\CompanyUserSearchRestApi\Processor\Filter\CustomerReferenceFilterInterface|\PHPUnit\Framework\MockObject\MockObject|mixed
      */
     protected $customerReferenceFilterMock;
 
     /**
-     * @var \FondOfOryx\Glue\CompanyUserSearchRestApi\Processor\Filter\CustomerIdFilterInterface|mixed|\PHPUnit\Framework\MockObject\MockObject
+     * @var \FondOfOryx\Glue\CompanyUserSearchRestApi\Processor\Filter\CustomerIdFilterInterface|\PHPUnit\Framework\MockObject\MockObject|mixed
      */
     protected $customerIdFilterMock;
 
     /**
-     * @var mixed|\PHPUnit\Framework\MockObject\MockObject|\Spryker\Glue\GlueApplication\Rest\Request\Data\RestRequestInterface
+     * @var \PHPUnit\Framework\MockObject\MockObject|\Spryker\Glue\GlueApplication\Rest\Request\Data\RestRequestInterface|mixed
      */
     protected $restRequestMock;
 
     /**
-     * @var \Generated\Shared\Transfer\PaginationTransfer|mixed|\PHPUnit\Framework\MockObject\MockObject
+     * @var \Generated\Shared\Transfer\PaginationTransfer|\PHPUnit\Framework\MockObject\MockObject|mixed
      */
     protected $paginationTransferMock;
 
@@ -81,7 +81,7 @@ class CompanyUserListMapperTest extends Unit
             $this->paginationMapperMock,
             $this->requestParameterFilterMock,
             $this->customerReferenceFilterMock,
-            $this->customerIdFilterMock
+            $this->customerIdFilterMock,
         );
     }
 
@@ -114,31 +114,31 @@ class CompanyUserListMapperTest extends Unit
 
         static::assertEquals(
             $customerReference,
-            $companyUserListTransfer->getCustomerReference()
+            $companyUserListTransfer->getCustomerReference(),
         );
 
         static::assertEquals(
             $sort,
-            $companyUserListTransfer->getSort()
+            $companyUserListTransfer->getSort(),
         );
 
         static::assertEquals(
             $comanyUuid,
-            $companyUserListTransfer->getCompanyUuid()
+            $companyUserListTransfer->getCompanyUuid(),
         );
 
         static::assertTrue(
-            $companyUserListTransfer->getShowAll()
+            $companyUserListTransfer->getShowAll(),
         );
 
         static::assertEquals(
             $query,
-            $companyUserListTransfer->getQuery()
+            $companyUserListTransfer->getQuery(),
         );
 
         static::assertEquals(
             $this->paginationTransferMock,
-            $companyUserListTransfer->getPagination()
+            $companyUserListTransfer->getPagination(),
         );
     }
 }

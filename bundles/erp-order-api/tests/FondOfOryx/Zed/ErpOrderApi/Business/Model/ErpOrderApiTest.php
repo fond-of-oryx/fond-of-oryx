@@ -112,7 +112,7 @@ class ErpOrderApiTest extends Unit
         $this->erpOrderApi = new ErpOrderApi(
             $this->apiQueryContainerMock,
             $this->erpOrderFacadeMock,
-            $this->erpOrderApiRepositoryMock
+            $this->erpOrderApiRepositoryMock,
         );
     }
 
@@ -150,7 +150,7 @@ class ErpOrderApiTest extends Unit
 
         static::assertEquals(
             $this->apiItemTransferMock,
-            $this->erpOrderApi->create($this->apiDataTransferMock)
+            $this->erpOrderApi->create($this->apiDataTransferMock),
         );
     }
 
@@ -228,7 +228,7 @@ class ErpOrderApiTest extends Unit
 
         static::assertEquals(
             $this->apiItemTransferMock,
-            $this->erpOrderApi->update($idErpOrder, $this->apiDataTransferMock)
+            $this->erpOrderApi->update($idErpOrder, $this->apiDataTransferMock),
         );
     }
 
@@ -295,7 +295,7 @@ class ErpOrderApiTest extends Unit
 
         static::assertEquals(
             $this->apiItemTransferMock,
-            $this->erpOrderApi->delete($idErpOrder)
+            $this->erpOrderApi->delete($idErpOrder),
         );
     }
 
@@ -318,7 +318,7 @@ class ErpOrderApiTest extends Unit
 
         static::assertEquals(
             $this->apiItemTransferMock,
-            $this->erpOrderApi->get($idErpOrder)
+            $this->erpOrderApi->get($idErpOrder),
         );
     }
 
@@ -385,13 +385,13 @@ class ErpOrderApiTest extends Unit
                             && isset($newData[0]['id_erp_order'], $newData[0]['foo'])
                             && $newData[0]['id_erp_order'] === $data['id_erp_order']
                             && $newData[0]['foo'] === $data['foo'];
-                    }
-                )
+                    },
+                ),
             )->willReturn($this->apiCollectionTransferMock);
 
         static::assertEquals(
             $this->apiCollectionTransferMock,
-            $this->erpOrderApi->find($this->apiRequestTransferMock)
+            $this->erpOrderApi->find($this->apiRequestTransferMock),
         );
     }
 }

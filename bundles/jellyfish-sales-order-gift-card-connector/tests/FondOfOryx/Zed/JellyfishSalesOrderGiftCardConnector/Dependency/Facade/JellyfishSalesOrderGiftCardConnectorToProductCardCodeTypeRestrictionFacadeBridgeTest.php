@@ -29,7 +29,7 @@ class JellyfishSalesOrderGiftCardConnectorToProductCardCodeTypeRestrictionFacade
             ->getMock();
 
         $this->facadeBridge = new JellyfishSalesOrderGiftCardConnectorToProductCardCodeTypeRestrictionFacadeBridge(
-            $this->facadeMock
+            $this->facadeMock,
         );
     }
 
@@ -46,7 +46,7 @@ class JellyfishSalesOrderGiftCardConnectorToProductCardCodeTypeRestrictionFacade
             ->willReturn([]);
 
         static::assertIsArray(
-            $this->facadeBridge->getBlacklistedCartCodeTypesByProductConcreteSkus($productConcreteSkus)
+            $this->facadeBridge->getBlacklistedCartCodeTypesByProductConcreteSkus($productConcreteSkus),
         );
     }
 }

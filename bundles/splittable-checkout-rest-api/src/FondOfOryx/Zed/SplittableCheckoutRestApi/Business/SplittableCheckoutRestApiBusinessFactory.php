@@ -25,7 +25,7 @@ class SplittableCheckoutRestApiBusinessFactory extends AbstractBusinessFactory
     {
         return new PlaceOrderProcessor(
             $this->createQuoteReader(),
-            $this->getSplittableCheckoutFacade()
+            $this->getSplittableCheckoutFacade(),
         );
     }
 
@@ -36,7 +36,7 @@ class SplittableCheckoutRestApiBusinessFactory extends AbstractBusinessFactory
     {
         return new SplittableTotalsReader(
             $this->createQuoteReader(),
-            $this->getSplittableTotalsFacade()
+            $this->getSplittableTotalsFacade(),
         );
     }
 
@@ -47,7 +47,7 @@ class SplittableCheckoutRestApiBusinessFactory extends AbstractBusinessFactory
     {
         return new QuoteReader(
             $this->createQuoteExpander(),
-            $this->getQuoteFacade()
+            $this->getQuoteFacade(),
         );
     }
 
@@ -57,12 +57,12 @@ class SplittableCheckoutRestApiBusinessFactory extends AbstractBusinessFactory
     protected function createQuoteExpander(): QuoteExpanderInterface
     {
         return new QuoteExpander(
-            $this->getQuoteExpanderPlugins()
+            $this->getQuoteExpanderPlugins(),
         );
     }
 
     /**
-     * @return \FondOfOryx\Zed\SplittableCheckoutRestApiExtension\Dependency\Plugin\QuoteExpanderPluginInterface[]
+     * @return array<\FondOfOryx\Zed\SplittableCheckoutRestApiExtension\Dependency\Plugin\QuoteExpanderPluginInterface>
      */
     protected function getQuoteExpanderPlugins(): array
     {

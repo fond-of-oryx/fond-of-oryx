@@ -14,20 +14,43 @@ use Exception;
 
 class WriterCollection implements WriterCollectionInterface
 {
+    /**
+     * @var string
+     */
     protected const PNG = 'png';
+
+    /**
+     * @var string
+     */
     protected const SVG = 'svg';
+
+    /**
+     * @var string
+     */
     protected const BINARY = 'binary';
+
+    /**
+     * @var string
+     */
     protected const EPS = 'eps';
+
+    /**
+     * @var string
+     */
     protected const PDF = 'pdf';
+
+    /**
+     * @var string
+     */
     protected const DEBUG = 'debug';
 
     /**
-     * @var \Endroid\QrCode\Writer\WriterInterface[]|\Closure[]
+     * @var array<\Closure>|array<\Endroid\QrCode\Writer\WriterInterface>
      */
     protected $writer = [];
 
     /**
-     * @param \Endroid\QrCode\Writer\WriterInterface[] $writerBag
+     * @param array<\Endroid\QrCode\Writer\WriterInterface> $writerBag
      */
     public function __construct(array $writerBag)
     {
@@ -35,7 +58,7 @@ class WriterCollection implements WriterCollectionInterface
     }
 
     /**
-     * @param \Endroid\QrCode\Writer\WriterInterface[] $writerBag
+     * @param array<\Endroid\QrCode\Writer\WriterInterface> $writerBag
      *
      * @return void
      */

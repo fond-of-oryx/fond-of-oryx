@@ -7,7 +7,7 @@ interface ProductCountryRestrictionRepositoryInterface
     /**
      * @param int $idProductAbstract
      *
-     * @return \Generated\Shared\Transfer\CountryTransfer[]
+     * @return array<\Generated\Shared\Transfer\CountryTransfer>
      */
     public function findBlacklistedCountryByIdProductAbstract(
         int $idProductAbstract
@@ -16,14 +16,14 @@ interface ProductCountryRestrictionRepositoryInterface
     /**
      * @param int $idProductAbstract
      *
-     * @return int[]
+     * @return array<int>
      */
     public function findBlacklistedCountryIdsByIdProductAbstract(
         int $idProductAbstract
     ): array;
 
     /**
-     * @param string[] $productConcreteSkus
+     * @param array<string> $productConcreteSkus
      *
      * @return array
      */

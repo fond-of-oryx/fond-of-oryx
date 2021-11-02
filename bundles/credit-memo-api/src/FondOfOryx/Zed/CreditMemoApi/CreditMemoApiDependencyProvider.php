@@ -9,7 +9,14 @@ use Spryker\Zed\Kernel\Container;
 
 class CreditMemoApiDependencyProvider extends AbstractBundleDependencyProvider
 {
+    /**
+     * @var string
+     */
     public const QUERY_CONTAINER_API = 'QUERY_CONTAINER_API';
+
+    /**
+     * @var string
+     */
     public const FACADE_CREDIT_MEMO = 'FACADE_CREDIT_MEMO';
 
     /**
@@ -50,7 +57,7 @@ class CreditMemoApiDependencyProvider extends AbstractBundleDependencyProvider
     {
         $container[static::FACADE_CREDIT_MEMO] = static function (Container $container) {
             return new CreditMemoApiToCreditMemoFacadeBridge(
-                $container->getLocator()->creditMemo()->facade()
+                $container->getLocator()->creditMemo()->facade(),
             );
         };
 

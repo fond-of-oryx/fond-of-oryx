@@ -19,8 +19,14 @@ class CreditMemoExporter implements CreditMemoExporterInterface
 {
     use LoggerTrait;
 
+    /**
+     * @var string
+     */
     protected const CREDIT_MEMO_EXPORT_STATE_COMPLETE = 'complete';
 
+    /**
+     * @var array
+     */
     protected const EXPORT_STATES = [
         CreditMemoConstants::STATE_ERROR,
         CreditMemoConstants::STATE_COMPLETE,
@@ -92,7 +98,7 @@ class CreditMemoExporter implements CreditMemoExporterInterface
         } catch (Exception $exception) {
             $this->getLogger()->error(sprintf(
                 'CreditMemo could not expoted to JellyFish! Message: %s',
-                $exception->getMessage()
+                $exception->getMessage(),
             ), $exception->getTrace());
 
             throw $exception;

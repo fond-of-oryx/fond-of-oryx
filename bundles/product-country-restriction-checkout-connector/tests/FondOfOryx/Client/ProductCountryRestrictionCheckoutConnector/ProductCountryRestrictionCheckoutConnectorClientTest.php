@@ -77,7 +77,7 @@ class ProductCountryRestrictionCheckoutConnectorClientTest extends Unit
 
         static::assertEquals(
             $this->quoteValidationResponseTransferMock,
-            $this->productCountryRestrictionCheckoutConnectorClient->validateQuote($this->quoteTransferMock)
+            $this->productCountryRestrictionCheckoutConnectorClient->validateQuote($this->quoteTransferMock),
         );
     }
 }

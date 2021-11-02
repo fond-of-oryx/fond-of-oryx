@@ -46,7 +46,7 @@ class ProductLocaleRestrictionFacade extends AbstractFacade implements ProductLo
      *
      * @api
      *
-     * @param int[] $productAbstractIds
+     * @param array<int> $productAbstractIds
      *
      * @return array
      */
@@ -60,7 +60,7 @@ class ProductLocaleRestrictionFacade extends AbstractFacade implements ProductLo
      *
      * @api
      *
-     * @param string[] $productConcreteSkus
+     * @param array<string> $productConcreteSkus
      *
      * @return array
      */

@@ -58,7 +58,7 @@ class JellyfishOrderItemExpanderTest extends Unit
     public function testExpandWithTypeGiftCard(): void
     {
         $giftCards = new ObjectCollection(
-            [$this->spySalesOrderItemGiftCardMock]
+            [$this->spySalesOrderItemGiftCardMock],
         );
         $giftCardCode = 'xxx-xxx-xxx';
 
@@ -81,7 +81,7 @@ class JellyfishOrderItemExpanderTest extends Unit
 
         $jellyfishOrderItemTransfer = $this->expander->expand(
             $this->jellyfishOrderItemTransferMock,
-            $this->spySalesOrderItemMock
+            $this->spySalesOrderItemMock,
         );
 
         $this->assertInstanceOf(JellyfishOrderItemTransfer::class, $this->jellyfishOrderItemTransferMock);

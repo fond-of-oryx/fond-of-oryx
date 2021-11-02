@@ -61,7 +61,7 @@ class UtilMathFormulaServiceTest extends Unit
 
         static::assertEquals(
             $result,
-            $this->utilMathFormulaService->evaluateFormula($formula, $variables)
+            $this->utilMathFormulaService->evaluateFormula($formula, $variables),
         );
     }
 }

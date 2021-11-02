@@ -24,7 +24,7 @@ class ProductLocaleRestrictionCartConnectorBusinessFactory extends AbstractBusin
     protected function getProductLocaleRestrictionFacade(): ProductLocaleRestrictionCartConnectorToProductLocaleRestrictionFacadeInterface
     {
         return $this->getProvidedDependency(
-            ProductLocaleRestrictionCartConnectorDependencyProvider::FACADE_PRODUCT_LOCALE_RESTRICTION
+            ProductLocaleRestrictionCartConnectorDependencyProvider::FACADE_PRODUCT_LOCALE_RESTRICTION,
         );
     }
 }

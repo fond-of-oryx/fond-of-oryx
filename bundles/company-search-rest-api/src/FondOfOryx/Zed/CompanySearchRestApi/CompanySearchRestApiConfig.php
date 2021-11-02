@@ -8,24 +8,24 @@ use Spryker\Zed\Kernel\AbstractBundleConfig;
 class CompanySearchRestApiConfig extends AbstractBundleConfig
 {
     /**
-     * @return string[]
+     * @return array<string>
      */
     public function getFulltextSearchFields(): array
     {
         return $this->get(
             CompanySearchRestApiConstants::FULLTEXT_SEARCH_FIELDS,
-            CompanySearchRestApiConstants::FULLTEXT_SEARCH_FIELDS_DEFAULT
+            CompanySearchRestApiConstants::FULLTEXT_SEARCH_FIELDS_DEFAULT,
         );
     }
 
     /**
-     * @return string[]
+     * @return array<string>
      */
     public function getSortFields(): array
     {
         return $this->get(
             CompanySearchRestApiConstants::SORT_FIELDS,
-            CompanySearchRestApiConstants::SORT_FIELDS_DEFAULT
+            CompanySearchRestApiConstants::SORT_FIELDS_DEFAULT,
         );
     }
 
@@ -36,18 +36,18 @@ class CompanySearchRestApiConfig extends AbstractBundleConfig
     {
         return $this->get(
             CompanySearchRestApiConstants::ITEMS_PER_PAGE,
-            CompanySearchRestApiConstants::ITEMS_PER_PAGE_DEFAULT
+            CompanySearchRestApiConstants::ITEMS_PER_PAGE_DEFAULT,
         );
     }
 
     /**
-     * @return int[]
+     * @return array<int>
      */
     public function getValidItemsPerPageOptions(): array
     {
         return $this->get(
             CompanySearchRestApiConstants::VALID_ITEMS_PER_PAGE_OPTIONS,
-            CompanySearchRestApiConstants::VALID_ITEMS_PER_PAGE_OPTIONS_DEFAULT
+            CompanySearchRestApiConstants::VALID_ITEMS_PER_PAGE_OPTIONS_DEFAULT,
         );
     }
 }

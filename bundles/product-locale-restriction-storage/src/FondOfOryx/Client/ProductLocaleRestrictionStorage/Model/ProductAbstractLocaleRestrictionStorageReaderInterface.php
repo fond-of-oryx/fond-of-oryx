@@ -14,9 +14,9 @@ interface ProductAbstractLocaleRestrictionStorageReaderInterface
     public function getByIdProductAbstract(int $idProductAbstract): ?ProductAbstractLocaleRestrictionStorageTransfer;
 
     /**
-     * @param int[] $productAbstractIds
+     * @param array<int> $productAbstractIds
      *
-     * @return \Generated\Shared\Transfer\ProductAbstractLocaleRestrictionStorageTransfer[]
+     * @return array<\Generated\Shared\Transfer\ProductAbstractLocaleRestrictionStorageTransfer>
      */
     public function getByProductAbstractIds(array $productAbstractIds): array;
 }

@@ -14,11 +14,34 @@ use Spryker\Zed\Kernel\Container;
 
 class JellyfishGiftCardDependencyProvider extends AbstractBundleDependencyProvider
 {
+    /**
+     * @var string
+     */
     public const FACADE_GIFT_CARD = 'FACADE_GIFT_CARD';
+
+    /**
+     * @var string
+     */
     public const FACADE_GLOSSARY = 'FACADE_GLOSSARY';
+
+    /**
+     * @var string
+     */
     public const FACADE_SALES = 'FACADE_SALES';
+
+    /**
+     * @var string
+     */
     public const RENDERER = 'RENDERER';
+
+    /**
+     * @var string
+     */
     public const SERVICE_TWIG = 'twig';
+
+    /**
+     * @var string
+     */
     public const SERVICE_UTIL_ENCODING = 'SERVICE_UTIL_ENCODING';
 
     /**
@@ -47,7 +70,7 @@ class JellyfishGiftCardDependencyProvider extends AbstractBundleDependencyProvid
     {
         $container[static::FACADE_GIFT_CARD] = static function (Container $container) {
             return new JellyfishGiftCardToGiftCardFacadeBridge(
-                $container->getLocator()->giftCard()->facade()
+                $container->getLocator()->giftCard()->facade(),
             );
         };
 
@@ -63,7 +86,7 @@ class JellyfishGiftCardDependencyProvider extends AbstractBundleDependencyProvid
     {
         $container[static::FACADE_GLOSSARY] = static function (Container $container) {
             return new JellyfishGiftCardToGlossaryFacadeBridge(
-                $container->getLocator()->glossary()->facade()
+                $container->getLocator()->glossary()->facade(),
             );
         };
 
@@ -79,7 +102,7 @@ class JellyfishGiftCardDependencyProvider extends AbstractBundleDependencyProvid
     {
         $container[static::FACADE_SALES] = static function (Container $container) {
             return new JellyfishGiftCardToSalesFacadeBridge(
-                $container->getLocator()->sales()->facade()
+                $container->getLocator()->sales()->facade(),
             );
         };
 
@@ -116,7 +139,7 @@ class JellyfishGiftCardDependencyProvider extends AbstractBundleDependencyProvid
     {
         $container[static::SERVICE_UTIL_ENCODING] = static function (Container $container) {
             return new JellyfishGiftCardToUtilEncodingServiceBridge(
-                $container->getLocator()->utilEncoding()->service()
+                $container->getLocator()->utilEncoding()->service(),
             );
         };
 

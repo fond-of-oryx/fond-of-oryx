@@ -61,15 +61,15 @@ class CompanyUnitAddressQuoteExpanderPluginTest extends Unit
             ->method('expandQuote')
             ->with(
                 $this->restSplittableCheckoutRequestTransferMock,
-                $this->quoteTransferMock
+                $this->quoteTransferMock,
             )->willReturn($this->quoteTransferMock);
 
         static::assertEquals(
             $this->quoteTransferMock,
             $this->companyUnitAddressQuoteExpanderPlugin->expand(
                 $this->restSplittableCheckoutRequestTransferMock,
-                $this->quoteTransferMock
-            )
+                $this->quoteTransferMock,
+            ),
         );
     }
 }

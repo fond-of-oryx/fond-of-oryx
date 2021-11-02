@@ -130,7 +130,7 @@ class ErpOrderPageSearchPublisherTest extends Unit
             $this->erpOrderPageSearchEntityManagerMock,
             $this->erpOrderPageSearchQueryContainerMock,
             $this->erpOrderPageSearchToUtilEncodingServiceMock,
-            $this->erpOrderPageSearchDataMapperMock
+            $this->erpOrderPageSearchDataMapperMock,
         );
     }
 

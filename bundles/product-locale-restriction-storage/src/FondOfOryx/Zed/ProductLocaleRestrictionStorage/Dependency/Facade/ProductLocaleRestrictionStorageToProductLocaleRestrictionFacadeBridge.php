@@ -21,7 +21,7 @@ class ProductLocaleRestrictionStorageToProductLocaleRestrictionFacadeBridge impl
     }
 
     /**
-     * @param int[] $productAbstractIds
+     * @param array<int> $productAbstractIds
      *
      * @return array
      */

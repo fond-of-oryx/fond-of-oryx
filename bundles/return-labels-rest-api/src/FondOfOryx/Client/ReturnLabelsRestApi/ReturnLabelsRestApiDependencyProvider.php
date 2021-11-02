@@ -8,6 +8,9 @@ use Spryker\Client\Kernel\Container;
 
 class ReturnLabelsRestApiDependencyProvider extends AbstractDependencyProvider
 {
+    /**
+     * @var string
+     */
     public const CLIENT_ZED_REQUEST = 'CLIENT_ZED_REQUEST';
 
     /**
@@ -32,7 +35,7 @@ class ReturnLabelsRestApiDependencyProvider extends AbstractDependencyProvider
     {
         $container[static::CLIENT_ZED_REQUEST] = static function (Container $container) {
             return new ReturnLabelsRestApiToZedRequestClientBridge(
-                $container->getLocator()->zedRequest()->client()
+                $container->getLocator()->zedRequest()->client(),
             );
         };
 

@@ -70,8 +70,8 @@ class SplittableQuoteFacadeTest extends Unit
         static::assertEquals(
             $splittedQuoteTransfers,
             $this->facade->splitQuote(
-                $this->quoteTransferMock
-            )
+                $this->quoteTransferMock,
+            ),
         );
     }
 }

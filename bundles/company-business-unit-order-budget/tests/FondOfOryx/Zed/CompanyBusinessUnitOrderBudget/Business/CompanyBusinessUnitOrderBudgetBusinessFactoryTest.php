@@ -86,7 +86,7 @@ class CompanyBusinessUnitOrderBudgetBusinessFactoryTest extends Unit
 
         static::assertInstanceOf(
             OrderBudgetWriter::class,
-            $this->businessFactory->createOrderBudgetWriter()
+            $this->businessFactory->createOrderBudgetWriter(),
         );
     }
 
@@ -107,7 +107,7 @@ class CompanyBusinessUnitOrderBudgetBusinessFactoryTest extends Unit
 
         static::assertInstanceOf(
             QuoteExpander::class,
-            $this->businessFactory->createQuoteExpander()
+            $this->businessFactory->createQuoteExpander(),
         );
     }
 
@@ -128,7 +128,7 @@ class CompanyBusinessUnitOrderBudgetBusinessFactoryTest extends Unit
 
         static::assertInstanceOf(
             QuoteValidator::class,
-            $this->businessFactory->createQuoteValidator()
+            $this->businessFactory->createQuoteValidator(),
         );
     }
 
@@ -141,22 +141,22 @@ class CompanyBusinessUnitOrderBudgetBusinessFactoryTest extends Unit
             ->method('has')
             ->withConsecutive(
                 [CompanyBusinessUnitOrderBudgetDependencyProvider::FACADE_ORDER_BUDGET],
-                [CompanyBusinessUnitOrderBudgetDependencyProvider::FACADE_PERMISSION]
+                [CompanyBusinessUnitOrderBudgetDependencyProvider::FACADE_PERMISSION],
             )->willReturn(true);
 
         $this->containerMock->expects(static::atLeastOnce())
             ->method('get')
             ->withConsecutive(
                 [CompanyBusinessUnitOrderBudgetDependencyProvider::FACADE_ORDER_BUDGET],
-                [CompanyBusinessUnitOrderBudgetDependencyProvider::FACADE_PERMISSION]
+                [CompanyBusinessUnitOrderBudgetDependencyProvider::FACADE_PERMISSION],
             )->willReturnOnConsecutiveCalls(
                 $this->orderBudgetFacadeMock,
-                $this->permissionFacadeMock
+                $this->permissionFacadeMock,
             );
 
         static::assertInstanceOf(
             OrderBudgetReducer::class,
-            $this->businessFactory->createOrderBudgetReducer()
+            $this->businessFactory->createOrderBudgetReducer(),
         );
     }
 
@@ -174,12 +174,12 @@ class CompanyBusinessUnitOrderBudgetBusinessFactoryTest extends Unit
             ->method('get')
             ->with(CompanyBusinessUnitOrderBudgetDependencyProvider::FACADE_ORDER_BUDGET)
             ->willReturn(
-                $this->orderBudgetFacadeMock
+                $this->orderBudgetFacadeMock,
             );
 
         static::assertInstanceOf(
             CompanyBusinessUnitExpander::class,
-            $this->businessFactory->createCompanyBusinessUnitExpander()
+            $this->businessFactory->createCompanyBusinessUnitExpander(),
         );
     }
 }

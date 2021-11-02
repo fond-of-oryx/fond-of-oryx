@@ -25,7 +25,7 @@ class ErpOrderApiBusinessFactory extends AbstractBusinessFactory
         return new ErpOrderApi(
             $this->getApiQueryContainer(),
             $this->getErpOrderFacade(),
-            $this->getRepository()
+            $this->getRepository(),
         );
     }
 

@@ -23,7 +23,7 @@ class CustomerStatisticFactory extends AbstractFactory
     public function createCustomerStatisticZedStub(): CustomerStatisticZedStubInterface
     {
         return new CustomerStatisticZedStub(
-            $this->getZedRequestClient()
+            $this->getZedRequestClient(),
         );
     }
 }

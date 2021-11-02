@@ -51,7 +51,7 @@ class OneTimePasswordProcessor implements OneTimePasswordProcessorInterface
 
         //Ignore response success because security reasons (can check for email is in system)
         $restOneTimePasswordResponseTransfer = $this->oneTimePasswordRestApiClient->requestOneTimePassword(
-            $restOneTimePasswordRequestAttributesTransfer
+            $restOneTimePasswordRequestAttributesTransfer,
         );
 
         return $this->restResourceBuilder

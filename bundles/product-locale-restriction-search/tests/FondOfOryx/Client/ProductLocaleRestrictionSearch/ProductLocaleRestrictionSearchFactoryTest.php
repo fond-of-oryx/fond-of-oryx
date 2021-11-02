@@ -58,7 +58,7 @@ class ProductLocaleRestrictionSearchFactoryTest extends Unit
 
         static::assertEquals(
             $this->localeClientMock,
-            $this->productLocaleRestrictionSearchFactory->getLocaleClient()
+            $this->productLocaleRestrictionSearchFactory->getLocaleClient(),
         );
     }
 }

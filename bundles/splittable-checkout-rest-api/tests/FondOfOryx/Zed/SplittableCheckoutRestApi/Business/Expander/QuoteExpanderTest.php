@@ -10,7 +10,7 @@ use Generated\Shared\Transfer\RestSplittableCheckoutRequestTransfer;
 class QuoteExpanderTest extends Unit
 {
     /**
-     * @var \PHPUnit\Framework\MockObject\MockObject[]|\FondOfOryx\Zed\SplittableCheckoutRestApiExtension\Dependency\Plugin\QuoteExpanderPluginInterface[]
+     * @var array<\FondOfOryx\Zed\SplittableCheckoutRestApiExtension\Dependency\Plugin\QuoteExpanderPluginInterface>|array<\PHPUnit\Framework\MockObject\MockObject>
      */
     protected $quoteExpanderPluginMocks;
 
@@ -65,7 +65,7 @@ class QuoteExpanderTest extends Unit
 
         static::assertEquals(
             $this->quoteTransferMock,
-            $this->quoteExpander->expand($this->restSplittableCheckoutRequestTransferMock, $this->quoteTransferMock)
+            $this->quoteExpander->expand($this->restSplittableCheckoutRequestTransferMock, $this->quoteTransferMock),
         );
     }
 }

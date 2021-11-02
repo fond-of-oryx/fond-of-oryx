@@ -20,7 +20,7 @@ class ProductLocaleRestrictionStorageFactory extends AbstractFactory
     {
         return new ProductAbstractRestrictionReader(
             $this->getLocaleClient(),
-            $this->createProductAbstractLocaleRestrictionStorageReader()
+            $this->createProductAbstractLocaleRestrictionStorageReader(),
         );
     }
 
@@ -31,7 +31,7 @@ class ProductLocaleRestrictionStorageFactory extends AbstractFactory
     {
         return new ProductAbstractLocaleRestrictionStorageReader(
             $this->getStorageClient(),
-            $this->getSynchronizationService()
+            $this->getSynchronizationService(),
         );
     }
 

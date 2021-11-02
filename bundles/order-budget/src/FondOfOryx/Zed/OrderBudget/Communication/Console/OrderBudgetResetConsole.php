@@ -12,7 +12,14 @@ use Symfony\Component\Console\Output\OutputInterface;
  */
 class OrderBudgetResetConsole extends Console
 {
+    /**
+     * @var string
+     */
     public const COMMAND_NAME = 'order-budget:reset';
+
+    /**
+     * @var string
+     */
     public const DESCRIPTION = 'This command will reset all order budgets.';
 
     /**

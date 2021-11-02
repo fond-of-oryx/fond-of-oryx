@@ -81,12 +81,12 @@ class SplittableCheckoutBusinessFactoryTest extends Unit
             ->willReturnOnConsecutiveCalls(
                 $this->splittableCheckoutToCheckoutFacadeMock,
                 $this->splittableCheckoutToSplittableQuoteFacadeMock,
-                $this->splittableCheckoutToQuoteFacadeMock
+                $this->splittableCheckoutToQuoteFacadeMock,
             );
 
         static::assertInstanceOf(
             SplittableCheckoutWorkflow::class,
-            $this->splittableCheckoutBusinessFactory->createSplittableCheckoutWorkflow()
+            $this->splittableCheckoutBusinessFactory->createSplittableCheckoutWorkflow(),
         );
     }
 }

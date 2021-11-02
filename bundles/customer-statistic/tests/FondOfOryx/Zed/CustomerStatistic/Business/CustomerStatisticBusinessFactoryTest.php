@@ -54,7 +54,7 @@ class CustomerStatisticBusinessFactoryTest extends Unit
     {
         static::assertInstanceOf(
             CustomerExpander::class,
-            $this->customerStatisticBusinessFactory->createCustomerExpander()
+            $this->customerStatisticBusinessFactory->createCustomerExpander(),
         );
     }
 
@@ -65,7 +65,7 @@ class CustomerStatisticBusinessFactoryTest extends Unit
     {
         static::assertInstanceOf(
             LoginCountIncrementer::class,
-            $this->customerStatisticBusinessFactory->createLoginCountIncrementer()
+            $this->customerStatisticBusinessFactory->createLoginCountIncrementer(),
         );
     }
 }

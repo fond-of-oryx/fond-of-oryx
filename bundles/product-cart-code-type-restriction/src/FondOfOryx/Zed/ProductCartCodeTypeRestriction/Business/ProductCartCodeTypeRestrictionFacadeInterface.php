@@ -39,7 +39,7 @@ interface ProductCartCodeTypeRestrictionFacadeInterface
      *
      * @api
      *
-     * @param string[] $productConcreteSkus
+     * @param array<string> $productConcreteSkus
      *
      * @return array
      */

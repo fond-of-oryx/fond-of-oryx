@@ -30,7 +30,7 @@ class CompanyBusinessUnitOrderBudgetDependencyProviderTest extends Unit
     protected $bundleProxyMock;
 
     /**
-     * @var \FondOfOryx\Zed\OrderBudget\Business\OrderBudgetFacadeInterface|mixed|\PHPUnit\Framework\MockObject\MockObject
+     * @var \FondOfOryx\Zed\OrderBudget\Business\OrderBudgetFacadeInterface|\PHPUnit\Framework\MockObject\MockObject|mixed
      */
     protected $orderBudgetFacadeMock;
 
@@ -97,7 +97,7 @@ class CompanyBusinessUnitOrderBudgetDependencyProviderTest extends Unit
             ->with('facade')
             ->willReturnOnConsecutiveCalls(
                 $this->orderBudgetFacadeMock,
-                $this->permissionFacadeMock
+                $this->permissionFacadeMock,
             );
 
         $container = $this->dependencyProvider->provideBusinessLayerDependencies($this->containerMock);
@@ -106,12 +106,12 @@ class CompanyBusinessUnitOrderBudgetDependencyProviderTest extends Unit
 
         static::assertInstanceOf(
             CompanyBusinessUnitOrderBudgetToOrderBudgetFacadeInterface::class,
-            $container[CompanyBusinessUnitOrderBudgetDependencyProvider::FACADE_ORDER_BUDGET]
+            $container[CompanyBusinessUnitOrderBudgetDependencyProvider::FACADE_ORDER_BUDGET],
         );
 
         static::assertInstanceOf(
             CompanyBusinessUnitOrderBudgetToPermissionFacadeInterface::class,
-            $container[CompanyBusinessUnitOrderBudgetDependencyProvider::FACADE_PERMISSION]
+            $container[CompanyBusinessUnitOrderBudgetDependencyProvider::FACADE_PERMISSION],
         );
     }
 
@@ -126,7 +126,7 @@ class CompanyBusinessUnitOrderBudgetDependencyProviderTest extends Unit
 
         static::assertInstanceOf(
             SpyCompanyBusinessUnitQuery::class,
-            $container[CompanyBusinessUnitOrderBudgetDependencyProvider::QUERY_COMPANY_BUSINESS_UNIT]
+            $container[CompanyBusinessUnitOrderBudgetDependencyProvider::QUERY_COMPANY_BUSINESS_UNIT],
         );
     }
 }

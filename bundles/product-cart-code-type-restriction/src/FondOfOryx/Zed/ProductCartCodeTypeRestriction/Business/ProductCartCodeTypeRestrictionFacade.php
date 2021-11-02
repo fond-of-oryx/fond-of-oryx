@@ -49,7 +49,7 @@ class ProductCartCodeTypeRestrictionFacade extends AbstractFacade implements Pro
      *
      * @api
      *
-     * @param string[] $productConcreteSkus
+     * @param array<string> $productConcreteSkus
      *
      * @return array
      */

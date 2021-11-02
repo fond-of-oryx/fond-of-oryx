@@ -76,7 +76,7 @@ class ReturnLabelsRestApiFacadeTest extends Unit
 
         $this->assertEquals(
             $this->restReturnLabelResponseTransferMock,
-            $this->returnLabelsRestApiFacade->generateReturnLabel($this->restReturnLabelRequestTransferMock)
+            $this->returnLabelsRestApiFacade->generateReturnLabel($this->restReturnLabelRequestTransferMock),
         );
     }
 }

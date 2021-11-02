@@ -12,7 +12,7 @@ class ProductAbstractLocaleRestrictionMapper implements ProductAbstractLocaleRes
     /**
      * @param \Propel\Runtime\Collection\ObjectCollection|\Orm\Zed\ProductLocaleRestriction\Persistence\FooProductAbstractLocaleRestriction[] $fooProductAbstractLocaleRestrictionCollection
      *
-     * @return \Generated\Shared\Transfer\LocaleTransfer[]
+     * @return array<\Generated\Shared\Transfer\LocaleTransfer>
      */
     public function mapEntityCollectionToLocaleTransfers(
         ObjectCollection $fooProductAbstractLocaleRestrictionCollection

@@ -54,7 +54,7 @@ class ProductAbstractCartCodeTypeRestrictionProductAbstractReadPluginTest extend
 
         static::assertEquals(
             $this->productAbstractTransferMock,
-            $this->plugin->read($this->productAbstractTransferMock)
+            $this->plugin->read($this->productAbstractTransferMock),
         );
     }
 }

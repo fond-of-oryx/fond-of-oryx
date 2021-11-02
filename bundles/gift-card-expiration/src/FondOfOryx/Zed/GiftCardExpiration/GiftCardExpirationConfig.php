@@ -14,7 +14,7 @@ class GiftCardExpirationConfig extends AbstractBundleConfig
     {
         return $this->get(
             GiftCardExpirationConstants::EXPIRATION_PERIOD,
-            GiftCardExpirationConstants::EXPIRATION_PERIOD_DEFAULT
+            GiftCardExpirationConstants::EXPIRATION_PERIOD_DEFAULT,
         );
     }
 }

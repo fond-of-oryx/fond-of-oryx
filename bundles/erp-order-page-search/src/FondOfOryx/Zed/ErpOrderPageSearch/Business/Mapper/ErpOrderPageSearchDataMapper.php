@@ -15,30 +15,124 @@ class ErpOrderPageSearchDataMapper implements ErpOrderPageSearchDataMapperInterf
     public const BILLING_ADDRESS = ErpOrderPageSearchPublisher::BILLING_ADDRESS;
     public const SHIPPING_ADDRESS = ErpOrderPageSearchPublisher::SHIPPING_ADDRESS;
 
+    /**
+     * @var string
+     */
     public const CONCRETE_DELIVERY_DATE = 'concrete_delivery_date';
+
+    /**
+     * @var string
+     */
     public const ID_ERP_ORDER = 'id_erp_order';
+
+    /**
+     * @var string
+     */
     public const FK_BILLING_ADDRESS = 'fk_billing_address';
+
+    /**
+     * @var string
+     */
     public const FK_SHIPPING_ADDRESS = 'fk_shipping_address';
+
+    /**
+     * @var string
+     */
     public const FK_COMPANY_BUSINESS_UNIT = 'fk_company_business_unit';
+
+    /**
+     * @var string
+     */
     public const COMPANY_BUSINESS_UNIT_UUID = 'uuid';
+
+    /**
+     * @var string
+     */
     public const EXTERNAL_REFERENCE = 'external_reference';
+
+    /**
+     * @var string
+     */
     public const REFERENCE = 'reference';
+
+    /**
+     * @var string
+     */
     public const CURRENCY_ISO_CODE = 'currency_iso_code';
+
+    /**
+     * @var string
+     */
     public const OUTSTANDING_QUANTITY = 'outstanding_quantity';
 
+    /**
+     * @var string
+     */
     public const SEARCH_RESULT_CONCRETE_DELIVERY_DATE = 'concrete_delivery_date';
+
+    /**
+     * @var string
+     */
     public const SEARCH_RESULT_ID_ERP_ORDER = 'id_erp_order';
+
+    /**
+     * @var string
+     */
     public const SEARCH_RESULT_FK_BILLING_ADDRESS = 'fk_billing_address';
+
+    /**
+     * @var string
+     */
     public const SEARCH_RESULT_FK_SHIPPING_ADDRESS = 'fk_shipping_address';
+
+    /**
+     * @var string
+     */
     public const SEARCH_RESULT_FK_COMPANY_BUSINESS_UNIT = 'fk_company_business_unit';
+
+    /**
+     * @var string
+     */
     public const SEARCH_RESULT_COMPANY_BUSINESS_UNIT_UUID = 'company_business_unit_uuid';
+
+    /**
+     * @var string
+     */
     public const SEARCH_RESULT_EXTERNAL_REFERENCE = 'external_reference';
+
+    /**
+     * @var string
+     */
     public const SEARCH_RESULT_REFERENCE = 'reference';
+
+    /**
+     * @var string
+     */
     public const SEARCH_RESULT_ERP_ORDER_ITEMS = 'erp_order_items';
+
+    /**
+     * @var string
+     */
     public const SEARCH_RESULT_ERP_ORDER_TOTAL = 'erp_order_total';
+
+    /**
+     * @var string
+     */
     public const SEARCH_RESULT_BILLING_ADDRESS = 'billing_address';
+
+    /**
+     * @var string
+     */
     public const SEARCH_RESULT_SHIPPING_ADDRESS = 'shipping_address';
+
+    /**
+     * @var string
+     */
     public const SEARCH_RESULT_COMPANY_BUSINESS_UNIT = 'company_business_unit';
+
+    /**
+     * @var string
+     */
     public const SEARCH_RESULT_CURRENCY_ISO_CODE = 'currency_iso_code';
 
     /**

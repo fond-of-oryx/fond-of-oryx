@@ -10,12 +10,12 @@ use Generated\Shared\Transfer\CompanyBusinessUnitAddressTransfer;
 class RestCompanyBusinessUnitAddressSearchResultItemMapperTest extends Unit
 {
     /**
-     * @var \Generated\Shared\Transfer\CompanyBusinessUnitAddressListTransfer|mixed|\PHPUnit\Framework\MockObject\MockObject
+     * @var \Generated\Shared\Transfer\CompanyBusinessUnitAddressListTransfer|\PHPUnit\Framework\MockObject\MockObject|mixed
      */
     protected $companyBusinessUnitAddressListTransferMock;
 
     /**
-     * @var \Generated\Shared\Transfer\CompanyBusinessUnitAddressTransfer[]|\PHPUnit\Framework\MockObject\MockObject[]
+     * @var array<\PHPUnit\Framework\MockObject\MockObject>|array<\Generated\Shared\Transfer\CompanyBusinessUnitAddressTransfer>
      */
     protected $companyBusinessUnitAddressListTransferMocks;
 
@@ -60,14 +60,14 @@ class RestCompanyBusinessUnitAddressSearchResultItemMapperTest extends Unit
             ->willReturn(['uuid' => $uuid]);
 
         $restCompanyBusinessUnitAddressSearchResultItemTransfers = $this->restCompanyBusinessUnitAddressSearchResultItemMapper->fromCompanyBusinessUnitAddressList(
-            $this->companyBusinessUnitAddressListTransferMock
+            $this->companyBusinessUnitAddressListTransferMock,
         );
 
         static::assertCount(1, $restCompanyBusinessUnitAddressSearchResultItemTransfers);
 
         static::assertEquals(
             $uuid,
-            $restCompanyBusinessUnitAddressSearchResultItemTransfers->offsetGet(0)->getUuid()
+            $restCompanyBusinessUnitAddressSearchResultItemTransfers->offsetGet(0)->getUuid(),
         );
     }
 }

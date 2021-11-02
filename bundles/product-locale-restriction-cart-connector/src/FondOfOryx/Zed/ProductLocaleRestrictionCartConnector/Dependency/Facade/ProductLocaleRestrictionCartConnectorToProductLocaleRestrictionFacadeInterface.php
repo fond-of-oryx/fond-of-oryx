@@ -5,7 +5,7 @@ namespace FondOfOryx\Zed\ProductLocaleRestrictionCartConnector\Dependency\Facade
 interface ProductLocaleRestrictionCartConnectorToProductLocaleRestrictionFacadeInterface
 {
     /**
-     * @param string[] $productConcreteSkus
+     * @param array<string> $productConcreteSkus
      *
      * @return array
      */

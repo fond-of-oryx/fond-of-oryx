@@ -59,7 +59,7 @@ class ProductLocaleRestrictionStorageCommunicationFactoryTest extends Unit
 
         static::assertEquals(
             $this->eventBehaviorFacadeMock,
-            $this->productLocaleRestrictionStorageCommunicationFactory->getEventBehaviorFacade()
+            $this->productLocaleRestrictionStorageCommunicationFactory->getEventBehaviorFacade(),
         );
     }
 }

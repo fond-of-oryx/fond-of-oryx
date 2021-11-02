@@ -82,14 +82,14 @@ class CustomerStatisticDependencyProviderTest extends Unit
             ->willReturn($this->customerQueryContainerMock);
 
         $container = $this->customerStatisticDependencyProvider->providePersistenceLayerDependencies(
-            $this->containerMock
+            $this->containerMock,
         );
 
         static::assertEquals($this->containerMock, $container);
 
         static::assertInstanceOf(
             CustomerStatisticToCustomerQueryContainerBridge::class,
-            $container[CustomerStatisticDependencyProvider::QUERY_CONTAINER_CUSTOMER]
+            $container[CustomerStatisticDependencyProvider::QUERY_CONTAINER_CUSTOMER],
         );
     }
 }

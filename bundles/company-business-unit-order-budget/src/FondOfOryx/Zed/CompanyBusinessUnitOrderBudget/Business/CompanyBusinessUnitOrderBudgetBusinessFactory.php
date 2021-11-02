@@ -29,7 +29,7 @@ class CompanyBusinessUnitOrderBudgetBusinessFactory extends AbstractBusinessFact
     {
         return new OrderBudgetReducer(
             $this->getOrderBudgetFacade(),
-            $this->getPermissionFacade()
+            $this->getPermissionFacade(),
         );
     }
 
@@ -39,7 +39,7 @@ class CompanyBusinessUnitOrderBudgetBusinessFactory extends AbstractBusinessFact
     public function createQuoteValidator(): QuoteValidatorInterface
     {
         return new QuoteValidator(
-            $this->getPermissionFacade()
+            $this->getPermissionFacade(),
         );
     }
 
@@ -49,7 +49,7 @@ class CompanyBusinessUnitOrderBudgetBusinessFactory extends AbstractBusinessFact
     public function createQuoteExpander(): QuoteExpanderInterface
     {
         return new QuoteExpander(
-            $this->createQuoteValidator()
+            $this->createQuoteValidator(),
         );
     }
 
@@ -60,7 +60,7 @@ class CompanyBusinessUnitOrderBudgetBusinessFactory extends AbstractBusinessFact
     {
         return new OrderBudgetWriter(
             $this->getOrderBudgetFacade(),
-            $this->getEntityManager()
+            $this->getEntityManager(),
         );
     }
 
@@ -70,7 +70,7 @@ class CompanyBusinessUnitOrderBudgetBusinessFactory extends AbstractBusinessFact
     public function createCompanyBusinessUnitExpander(): CompanyBusinessUnitExpanderInterface
     {
         return new CompanyBusinessUnitExpander(
-            $this->getOrderBudgetFacade()
+            $this->getOrderBudgetFacade(),
         );
     }
 
@@ -80,7 +80,7 @@ class CompanyBusinessUnitOrderBudgetBusinessFactory extends AbstractBusinessFact
     protected function getOrderBudgetFacade(): CompanyBusinessUnitOrderBudgetToOrderBudgetFacadeInterface
     {
         return $this->getProvidedDependency(
-            CompanyBusinessUnitOrderBudgetDependencyProvider::FACADE_ORDER_BUDGET
+            CompanyBusinessUnitOrderBudgetDependencyProvider::FACADE_ORDER_BUDGET,
         );
     }
 
@@ -90,7 +90,7 @@ class CompanyBusinessUnitOrderBudgetBusinessFactory extends AbstractBusinessFact
     protected function getPermissionFacade(): CompanyBusinessUnitOrderBudgetToPermissionFacadeInterface
     {
         return $this->getProvidedDependency(
-            CompanyBusinessUnitOrderBudgetDependencyProvider::FACADE_PERMISSION
+            CompanyBusinessUnitOrderBudgetDependencyProvider::FACADE_PERMISSION,
         );
     }
 }

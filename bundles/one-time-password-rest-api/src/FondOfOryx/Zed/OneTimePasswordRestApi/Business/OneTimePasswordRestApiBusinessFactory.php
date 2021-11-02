@@ -18,7 +18,7 @@ class OneTimePasswordRestApiBusinessFactory extends AbstractBusinessFactory
     {
         return new OneTimePasswordRestApiSender(
             $this->getOneTimePasswordFacade(),
-            $this->getCustomerFacade()
+            $this->getCustomerFacade(),
         );
     }
 

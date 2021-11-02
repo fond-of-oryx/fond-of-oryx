@@ -12,7 +12,7 @@ class ProductAbstractCountryRestrictionMapper implements ProductAbstractCountryR
     /**
      * @param \Propel\Runtime\Collection\ObjectCollection $fooProductAbstractCountryRestrictionCollection
      *
-     * @return \Generated\Shared\Transfer\CountryTransfer[]
+     * @return array<\Generated\Shared\Transfer\CountryTransfer>
      */
     public function mapEntityCollectionToCountryTransfers(
         ObjectCollection $fooProductAbstractCountryRestrictionCollection

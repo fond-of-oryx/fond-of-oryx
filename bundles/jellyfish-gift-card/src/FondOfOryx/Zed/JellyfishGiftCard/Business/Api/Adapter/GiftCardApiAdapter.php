@@ -12,9 +12,24 @@ use Throwable;
 
 class GiftCardApiAdapter implements GiftCardApiAdapterInterface
 {
+    /**
+     * @var string
+     */
     protected const URI = '/';
+
+    /**
+     * @var string
+     */
     protected const ERROR_MESSAGE = 'Could not export gift card.';
+
+    /**
+     * @var string
+     */
     protected const METHOD_POST = 'POST';
+
+    /**
+     * @var int
+     */
     protected const STATUS_CODE_NO_CONTENT = 204;
 
     /**

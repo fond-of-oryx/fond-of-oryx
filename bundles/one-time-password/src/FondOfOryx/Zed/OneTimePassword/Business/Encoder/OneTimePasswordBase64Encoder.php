@@ -18,7 +18,7 @@ class OneTimePasswordBase64Encoder implements OneTimePasswordEncoderInterface
         $loginCredentials = sprintf(
             '%s:%s',
             $customerTransfer->getEmail(),
-            $oneTimePasswordResponseTransfer->getOneTimePasswordPlain()
+            $oneTimePasswordResponseTransfer->getOneTimePasswordPlain(),
         );
 
         return base64_encode($loginCredentials);

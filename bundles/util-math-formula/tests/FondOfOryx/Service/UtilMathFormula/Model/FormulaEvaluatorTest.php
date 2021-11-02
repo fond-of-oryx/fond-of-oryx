@@ -24,7 +24,7 @@ class FormulaEvaluatorTest extends Unit
 
         $this->formulaEvaluator = new FormulaEvaluator(
             new StdMathParser(),
-            new Evaluator()
+            new Evaluator(),
         );
     }
 
@@ -35,7 +35,7 @@ class FormulaEvaluatorTest extends Unit
     {
         static::assertEquals(
             4,
-            $this->formulaEvaluator->evaluate('x+1', ['x' => 3])
+            $this->formulaEvaluator->evaluate('x+1', ['x' => 3]),
         );
     }
 

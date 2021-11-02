@@ -8,6 +8,9 @@ use Spryker\Zed\Kernel\Container;
 
 class JellyfishSalesOrderGiftCardConnectorDependencyProvider extends AbstractBundleDependencyProvider
 {
+    /**
+     * @var string
+     */
     public const FACADE_PRODUCT_CART_CODE_TYPE_RESTRICTION = 'FACADE_PRODUCT_CART_CODE_TYPE_RESTRICTION';
 
     /**
@@ -33,7 +36,7 @@ class JellyfishSalesOrderGiftCardConnectorDependencyProvider extends AbstractBun
     {
         $container[static::FACADE_PRODUCT_CART_CODE_TYPE_RESTRICTION] = static function () use ($container) {
             return new JellyfishSalesOrderGiftCardConnectorToProductCardCodeTypeRestrictionFacadeBridge(
-                $container->getLocator()->productCartCodeTypeRestriction()->facade()
+                $container->getLocator()->productCartCodeTypeRestriction()->facade(),
             );
         };
 

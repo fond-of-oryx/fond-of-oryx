@@ -75,7 +75,7 @@ class JellyfishSalesOrderProductTypeFacadeTest extends Unit
 
         $jellyfishOrderItemTransferMock = $this->facade->expand(
             $this->jellyfishOrderItemTransferMock,
-            $this->spySalesOrderItemMock
+            $this->spySalesOrderItemMock,
         );
 
         $this->assertInstanceOf(JellyfishOrderItemTransfer::class, $jellyfishOrderItemTransferMock);

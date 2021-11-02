@@ -8,6 +8,9 @@ use Spryker\Zed\Kernel\Container;
 
 class GiftCardRestrictionDependencyProvider extends AbstractBundleDependencyProvider
 {
+    /**
+     * @var string
+     */
     public const FACADE_PRODUCT_CART_CODE_TYPE_RESTRICTION = 'FACADE_PRODUCT_CART_CODE_TYPE_RESTRICTION';
 
     /**
@@ -31,7 +34,7 @@ class GiftCardRestrictionDependencyProvider extends AbstractBundleDependencyProv
     {
         $container[static::FACADE_PRODUCT_CART_CODE_TYPE_RESTRICTION] = static function (Container $container) {
             return new GiftCardRestrictionToProductCartCodeTypeRestrictionFacadeBridge(
-                $container->getLocator()->productCartCodeTypeRestriction()->facade()
+                $container->getLocator()->productCartCodeTypeRestriction()->facade(),
             );
         };
 

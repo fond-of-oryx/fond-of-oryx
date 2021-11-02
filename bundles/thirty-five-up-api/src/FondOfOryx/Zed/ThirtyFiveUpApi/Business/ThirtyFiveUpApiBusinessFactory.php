@@ -24,7 +24,7 @@ class ThirtyFiveUpApiBusinessFactory extends AbstractBusinessFactory
         return new ThirtyFiveUpOrderApi(
             $this->getApiQueryContainer(),
             $this->getThirtyFiveUpFacade(),
-            $this->getRepository()
+            $this->getRepository(),
         );
     }
 

@@ -65,7 +65,7 @@ class CustomerStatisticReaderTest extends Unit
 
         static::assertEquals(
             $this->customerStatisticTransferMock,
-            $this->customerStatisticReader->getByIdCustomer($idCustomer)
+            $this->customerStatisticReader->getByIdCustomer($idCustomer),
         );
     }
 
@@ -95,7 +95,7 @@ class CustomerStatisticReaderTest extends Unit
         static::assertTrue($customerStatisticResponseTransfer->getIsSuccessful());
         static::assertEquals(
             $this->customerStatisticTransferMock,
-            $customerStatisticResponseTransfer->getCustomerStatistic()
+            $customerStatisticResponseTransfer->getCustomerStatistic(),
         );
     }
 }

@@ -53,7 +53,7 @@ class GiftCardExporter implements GiftCardExporterInterface
     {
         $jellyfishGiftCardRequestTransfer = $this->jellyfishGiftCardRequestMapper->fromSalesOrderItem($orderItem);
         $jellyfishGiftCardDataWrapperTransfer = $this->jellyfishGiftCardDataWrapperMapper->fromJellyfishGiftCardRequest(
-            $jellyfishGiftCardRequestTransfer
+            $jellyfishGiftCardRequestTransfer,
         );
 
         if ($jellyfishGiftCardDataWrapperTransfer === null) {

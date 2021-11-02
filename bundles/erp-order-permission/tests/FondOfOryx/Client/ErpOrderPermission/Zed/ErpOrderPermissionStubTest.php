@@ -52,7 +52,7 @@ class ErpOrderPermissionStubTest extends Unit
             ->method('call')
             ->with(
                 '/erp-order-permission/gateway/get-accessible-company-business-unit-uuids',
-                $this->erpOrderPermissionCompanyBusinessUnitUuidRequestTransfer
+                $this->erpOrderPermissionCompanyBusinessUnitUuidRequestTransfer,
             )->willReturn($this->companyBusinessUnitUuidCollectionTransferMock);
 
         $this->stub->getAccessibleCompanyBusinessUnitUuids($this->erpOrderPermissionCompanyBusinessUnitUuidRequestTransfer);

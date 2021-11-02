@@ -53,7 +53,7 @@ class ProductAbstractCartCodeTypeRestrictionProductAbstractAfterUpdatePluginTest
 
         static::assertEquals(
             $this->productAbstractTransferMock,
-            $this->plugin->update($this->productAbstractTransferMock)
+            $this->plugin->update($this->productAbstractTransferMock),
         );
     }
 }

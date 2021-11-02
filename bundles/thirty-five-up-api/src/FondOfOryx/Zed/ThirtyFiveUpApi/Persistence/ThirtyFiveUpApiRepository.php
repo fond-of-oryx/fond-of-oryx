@@ -45,7 +45,7 @@ class ThirtyFiveUpApiRepository extends AbstractRepository implements ThirtyFive
         $query = $this->buildQuery($apiRequestTransfer);
 
         $collection = $this->getFactory()->createTransferMapper()->toTransferCollection(
-            $query->find()->getData()
+            $query->find()->getData(),
         );
 
         foreach ($collection as $id => $orderTransfer) {
@@ -82,7 +82,7 @@ class ThirtyFiveUpApiRepository extends AbstractRepository implements ThirtyFive
      *
      * @throws \Symfony\Component\HttpKernel\Exception\NotFoundHttpException
      *
-     * @return array|\Generated\Shared\Transfer\ApiCollectionTransfer
+     * @return \Generated\Shared\Transfer\ApiCollectionTransfer|array
      */
     protected function addPagination(ModelCriteria $query, ApiCollectionTransfer $apiCollectionTransfer, ApiRequestTransfer $apiRequestTransfer)
     {

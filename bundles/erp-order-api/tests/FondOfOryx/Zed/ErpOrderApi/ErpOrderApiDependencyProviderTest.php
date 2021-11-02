@@ -92,22 +92,22 @@ class ErpOrderApiDependencyProviderTest extends Unit
             ->withConsecutive(['facade'], ['queryContainer'])
             ->willReturnOnConsecutiveCalls(
                 $this->erpOrderFacadeMock,
-                $this->apiQueryContainerMock
+                $this->apiQueryContainerMock,
             );
 
         $container = $this->erpOrderApiDependencyProvider->provideBusinessLayerDependencies(
-            $this->containerMock
+            $this->containerMock,
         );
 
         static::assertEquals($this->containerMock, $container);
         static::assertInstanceOf(
             ErpOrderApiToErpOrderFacadeBridge::class,
-            $container[ErpOrderApiDependencyProvider::FACADE_ERP_ORDER]
+            $container[ErpOrderApiDependencyProvider::FACADE_ERP_ORDER],
         );
 
         static::assertInstanceOf(
             ErpOrderApiToApiQueryContainerBridge::class,
-            $container[ErpOrderApiDependencyProvider::QUERY_CONTAINER_API]
+            $container[ErpOrderApiDependencyProvider::QUERY_CONTAINER_API],
         );
     }
 }

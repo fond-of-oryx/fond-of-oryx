@@ -26,7 +26,7 @@ class OneTimePasswordRestApiBusinessFactoryTest extends Unit
     protected $oneTimePasswordFacadeMock;
 
     /**
-     * @var \FondOfOryx\Zed\OneTimePasswordRestApi\Dependency\Facade\OneTimePasswordRestApiToCustomerFacadeInterface|mixed|\PHPUnit\Framework\MockObject\MockObject
+     * @var \FondOfOryx\Zed\OneTimePasswordRestApi\Dependency\Facade\OneTimePasswordRestApiToCustomerFacadeInterface|\PHPUnit\Framework\MockObject\MockObject|mixed
      */
     protected $customerFacadeMock;
 
@@ -64,12 +64,12 @@ class OneTimePasswordRestApiBusinessFactoryTest extends Unit
             ->method('get')
             ->willReturnOnConsecutiveCalls(
                 $this->oneTimePasswordFacadeMock,
-                $this->customerFacadeMock
+                $this->customerFacadeMock,
             );
 
         $this->assertInstanceOf(
             OneTimePasswordRestApiSenderInterface::class,
-            $this->oneTimePasswordRestApiBusinessFactory->createOneTimePasswordRestApiSender()
+            $this->oneTimePasswordRestApiBusinessFactory->createOneTimePasswordRestApiSender(),
         );
     }
 }

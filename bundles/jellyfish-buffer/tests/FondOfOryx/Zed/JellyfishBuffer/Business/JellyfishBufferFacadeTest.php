@@ -69,12 +69,12 @@ class JellyfishBufferFacadeTest extends Unit
             ->method('buffer')
             ->with(
                 $this->jellyfishOrderTransferMock,
-                $this->options
+                $this->options,
             );
 
         $this->jellyfishBufferFacade->bufferOrder(
             $this->jellyfishOrderTransferMock,
-            $this->options
+            $this->options,
         );
     }
 }

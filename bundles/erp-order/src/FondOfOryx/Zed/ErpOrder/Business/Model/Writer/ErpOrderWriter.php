@@ -50,7 +50,7 @@ class ErpOrderWriter implements ErpOrderWriterInterface
             $responseTransfer = $this->getTransactionHandler()->handleTransaction(
                 static function () use ($responseTransfer, $self) {
                     return $self->executePersistTransaction($responseTransfer);
-                }
+                },
             );
         } catch (Exception $exception) {
             $responseTransfer->setErpOrder(null)
@@ -75,7 +75,7 @@ class ErpOrderWriter implements ErpOrderWriterInterface
             $responseTransfer = $this->getTransactionHandler()->handleTransaction(
                 static function () use ($responseTransfer, $self) {
                     return $self->executeUpdateTransaction($responseTransfer);
-                }
+                },
             );
         } catch (Exception $exception) {
             $responseTransfer->setErpOrder(null)
@@ -96,7 +96,7 @@ class ErpOrderWriter implements ErpOrderWriterInterface
         $this->getTransactionHandler()->handleTransaction(
             static function () use ($idErpOrder, $self) {
                 $self->executeDeleteTransaction($idErpOrder);
-            }
+            },
         );
     }
 

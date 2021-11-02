@@ -9,7 +9,7 @@ use Generated\Shared\Transfer\TaxCalculationConnectorTransfer;
 class TaxCalculationTaxSetMapper
 {
     /**
-     * @param iterable|\Propel\Runtime\Collection\ArrayCollection $taxRateEntity
+     * @param \Propel\Runtime\Collection\ArrayCollection|iterable $taxRateEntity
      *
      * @return \Generated\Shared\Transfer\TaxCalculationConnectorTransfer
      */
@@ -22,7 +22,7 @@ class TaxCalculationTaxSetMapper
                 (new TaxCalculationConnectorProductTaxSetTransfer())
                     ->setIdAbstractProduct($taxRate[TaxCalculationConnectorConstants::COL_ID_ABSTRACT_PRODUCT])
                     ->setCountryIso2Code($taxRate[TaxCalculationConnectorConstants::COL_COUNTRY_CODE] ?? TaxCalculationConnectorConstants::TAX_EXEMPT_PLACEHOLDER)
-                    ->setMaxTaxRate($taxRate[TaxCalculationConnectorConstants::COL_MAX_TAX_RATE])
+                    ->setMaxTaxRate($taxRate[TaxCalculationConnectorConstants::COL_MAX_TAX_RATE]),
             );
         }
 

@@ -49,7 +49,7 @@ class ErpOrderApiValidatorPluginTest extends Unit
     {
         static::assertSame(
             ErpOrderApiConfig::RESOURCE_ERP_ORDERS,
-            $this->erpOrderApiValidatorPlugin->getResourceName()
+            $this->erpOrderApiValidatorPlugin->getResourceName(),
         );
     }
 
@@ -68,8 +68,8 @@ class ErpOrderApiValidatorPluginTest extends Unit
         static::assertEquals(
             $validationResult,
             $this->erpOrderApiValidatorPlugin->validate(
-                $this->apiDataTransferMock
-            )
+                $this->apiDataTransferMock,
+            ),
         );
     }
 }

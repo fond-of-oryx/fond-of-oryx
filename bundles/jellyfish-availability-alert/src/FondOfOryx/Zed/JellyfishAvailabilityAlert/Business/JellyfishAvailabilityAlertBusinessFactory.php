@@ -47,7 +47,7 @@ class JellyfishAvailabilityAlertBusinessFactory extends AbstractBusinessFactory
             $this->createHttpClient(),
             $this->getConfig(),
             $this->getStoreFacade(),
-            $this->getLocaleFacade()
+            $this->getLocaleFacade(),
         );
     }
 

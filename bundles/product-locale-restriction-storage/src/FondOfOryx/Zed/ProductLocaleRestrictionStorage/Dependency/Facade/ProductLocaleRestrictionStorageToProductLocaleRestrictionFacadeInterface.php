@@ -5,7 +5,7 @@ namespace FondOfOryx\Zed\ProductLocaleRestrictionStorage\Dependency\Facade;
 interface ProductLocaleRestrictionStorageToProductLocaleRestrictionFacadeInterface
 {
     /**
-     * @param int[] $productAbstractIds
+     * @param array<int> $productAbstractIds
      *
      * @return array
      */

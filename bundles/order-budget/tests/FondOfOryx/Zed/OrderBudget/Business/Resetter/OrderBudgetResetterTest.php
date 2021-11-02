@@ -47,12 +47,12 @@ class OrderBudgetResetterTest extends Unit
     protected $transactionHandlerMock;
 
     /**
-     * @var \PHPUnit\Framework\MockObject\MockObject[]|\Generated\Shared\Transfer\OrderBudgetTransfer[]
+     * @var array<\Generated\Shared\Transfer\OrderBudgetTransfer>|array<\PHPUnit\Framework\MockObject\MockObject>
      */
     protected $orderBudgetTransferMocks;
 
     /**
-     * @var \PHPUnit\Framework\MockObject\MockObject[]|\Generated\Shared\Transfer\OrderBudgetHistoryTransfer[]
+     * @var array<\Generated\Shared\Transfer\OrderBudgetHistoryTransfer>|array<\PHPUnit\Framework\MockObject\MockObject>
      */
     protected $orderBudgetHistoryTransferMocks;
 
@@ -138,7 +138,7 @@ class OrderBudgetResetterTest extends Unit
                     $orderBudgetHistoryMapper,
                     $utilDateTimeService,
                     $entityManager,
-                    $config
+                    $config,
                 );
 
                 $this->transactionHandler = $transactionHandler;
@@ -166,7 +166,7 @@ class OrderBudgetResetterTest extends Unit
             ->willReturnCallback(
                 static function ($callable) {
                     $callable();
-                }
+                },
             );
 
         $this->configMock->expects(static::atLeastOnce())

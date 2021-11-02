@@ -12,32 +12,32 @@ use Spryker\Glue\GlueApplication\Rest\Request\Data\RestRequestInterface;
 class CompanyBusinessUnitAddressListMapperTest extends Unit
 {
     /**
-     * @var \FondOfOryx\Glue\CompanyBusinessUnitAddressSearchRestApi\Processor\Mapper\PaginationMapperInterface|mixed|\PHPUnit\Framework\MockObject\MockObject
+     * @var \FondOfOryx\Glue\CompanyBusinessUnitAddressSearchRestApi\Processor\Mapper\PaginationMapperInterface|\PHPUnit\Framework\MockObject\MockObject|mixed
      */
     protected $paginationMapperMock;
 
     /**
-     * @var \FondOfOryx\Glue\CompanyBusinessUnitAddressSearchRestApi\Processor\Filter\RequestParameterFilterInterface|mixed|\PHPUnit\Framework\MockObject\MockObject
+     * @var \FondOfOryx\Glue\CompanyBusinessUnitAddressSearchRestApi\Processor\Filter\RequestParameterFilterInterface|\PHPUnit\Framework\MockObject\MockObject|mixed
      */
     protected $requestParameterFilterMock;
 
     /**
-     * @var \FondOfOryx\Glue\CompanyBusinessUnitAddressSearchRestApi\Processor\Filter\CustomerReferenceFilterInterface|mixed|\PHPUnit\Framework\MockObject\MockObject
+     * @var \FondOfOryx\Glue\CompanyBusinessUnitAddressSearchRestApi\Processor\Filter\CustomerReferenceFilterInterface|\PHPUnit\Framework\MockObject\MockObject|mixed
      */
     protected $customerReferenceFilterMock;
 
     /**
-     * @var \FondOfOryx\Glue\CompanyBusinessUnitAddressSearchRestApi\Processor\Filter\CustomerIdFilterInterface|mixed|\PHPUnit\Framework\MockObject\MockObject
+     * @var \FondOfOryx\Glue\CompanyBusinessUnitAddressSearchRestApi\Processor\Filter\CustomerIdFilterInterface|\PHPUnit\Framework\MockObject\MockObject|mixed
      */
     protected $customerIdFilterMock;
 
     /**
-     * @var mixed|\PHPUnit\Framework\MockObject\MockObject|\Spryker\Glue\GlueApplication\Rest\Request\Data\RestRequestInterface
+     * @var \PHPUnit\Framework\MockObject\MockObject|\Spryker\Glue\GlueApplication\Rest\Request\Data\RestRequestInterface|mixed
      */
     protected $restRequestMock;
 
     /**
-     * @var \Generated\Shared\Transfer\PaginationTransfer|mixed|\PHPUnit\Framework\MockObject\MockObject
+     * @var \Generated\Shared\Transfer\PaginationTransfer|\PHPUnit\Framework\MockObject\MockObject|mixed
      */
     protected $paginationTransferMock;
 
@@ -81,7 +81,7 @@ class CompanyBusinessUnitAddressListMapperTest extends Unit
             $this->paginationMapperMock,
             $this->requestParameterFilterMock,
             $this->customerReferenceFilterMock,
-            $this->customerIdFilterMock
+            $this->customerIdFilterMock,
         );
     }
 
@@ -115,37 +115,37 @@ class CompanyBusinessUnitAddressListMapperTest extends Unit
 
         static::assertEquals(
             $customerReference,
-            $companyBusinessUnitAddressListTransfer->getCustomerReference()
+            $companyBusinessUnitAddressListTransfer->getCustomerReference(),
         );
 
         static::assertEquals(
             $sort,
-            $companyBusinessUnitAddressListTransfer->getSort()
+            $companyBusinessUnitAddressListTransfer->getSort(),
         );
 
         static::assertEquals(
             $comanyUuid,
-            $companyBusinessUnitAddressListTransfer->getCompanyUuid()
+            $companyBusinessUnitAddressListTransfer->getCompanyUuid(),
         );
 
         static::assertEquals(
             $comanyBUUuid,
-            $companyBusinessUnitAddressListTransfer->getCompanyBusinessUnitUuid()
+            $companyBusinessUnitAddressListTransfer->getCompanyBusinessUnitUuid(),
         );
 
         static::assertEquals(
             true,
-            $companyBusinessUnitAddressListTransfer->getDefaultBilling()
+            $companyBusinessUnitAddressListTransfer->getDefaultBilling(),
         );
 
         static::assertEquals(
             true,
-            $companyBusinessUnitAddressListTransfer->getDefaultShipping()
+            $companyBusinessUnitAddressListTransfer->getDefaultShipping(),
         );
 
         static::assertEquals(
             $this->paginationTransferMock,
-            $companyBusinessUnitAddressListTransfer->getPagination()
+            $companyBusinessUnitAddressListTransfer->getPagination(),
         );
     }
 }

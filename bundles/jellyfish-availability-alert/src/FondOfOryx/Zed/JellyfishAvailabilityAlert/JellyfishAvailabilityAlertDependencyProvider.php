@@ -10,8 +10,19 @@ use Spryker\Zed\Kernel\Container;
 
 class JellyfishAvailabilityAlertDependencyProvider extends AbstractBundleDependencyProvider
 {
+    /**
+     * @var string
+     */
     public const SERVICE_UTIL_ENCODING = 'SERVICE_UTIL_ENCODING';
+
+    /**
+     * @var string
+     */
     public const FACADE_STORE = 'FACADE_STORE';
+
+    /**
+     * @var string
+     */
     public const FACADE_LOCALE = 'FACADE_LOCALE';
 
     /**
@@ -37,7 +48,7 @@ class JellyfishAvailabilityAlertDependencyProvider extends AbstractBundleDepende
     {
         $container[static::SERVICE_UTIL_ENCODING] = function (Container $container) {
             return new JellyfishAvailabilityAlertToUtilEncodingServiceBridge(
-                $container->getLocator()->utilEncoding()->service()
+                $container->getLocator()->utilEncoding()->service(),
             );
         };
 
@@ -53,7 +64,7 @@ class JellyfishAvailabilityAlertDependencyProvider extends AbstractBundleDepende
     {
         $container[static::FACADE_STORE] = function (Container $container) {
             return new JellyfishAvailabilityAlertToStoreFacadeBridge(
-                $container->getLocator()->store()->facade()
+                $container->getLocator()->store()->facade(),
             );
         };
 
@@ -69,7 +80,7 @@ class JellyfishAvailabilityAlertDependencyProvider extends AbstractBundleDepende
     {
         $container[static::FACADE_LOCALE] = function (Container $container) {
             return new JellyfishAvailabilityAlertToLocaleFacadeBridge(
-                $container->getLocator()->locale()->facade()
+                $container->getLocator()->locale()->facade(),
             );
         };
 

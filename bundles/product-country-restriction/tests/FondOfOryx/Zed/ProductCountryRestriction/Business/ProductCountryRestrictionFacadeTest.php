@@ -88,7 +88,7 @@ class ProductCountryRestrictionFacadeTest extends Unit
 
         static::assertEquals(
             $this->productAbstractTransferMock,
-            $this->productCountryRestrictionFacade->expandProductAbstract($this->productAbstractTransferMock)
+            $this->productCountryRestrictionFacade->expandProductAbstract($this->productAbstractTransferMock),
         );
     }
 
@@ -106,7 +106,7 @@ class ProductCountryRestrictionFacadeTest extends Unit
             ->with($this->productAbstractTransferMock);
 
         $this->productCountryRestrictionFacade->persistProductAbstractCountryRestrictions(
-            $this->productAbstractTransferMock
+            $this->productAbstractTransferMock,
         );
     }
 
@@ -126,8 +126,8 @@ class ProductCountryRestrictionFacadeTest extends Unit
         static::assertEquals(
             $blacklistedCountries,
             $this->productCountryRestrictionFacade->getBlacklistedCountriesByProductConcreteSkus(
-                $productConcreteSkus
-            )
+                $productConcreteSkus,
+            ),
         );
     }
 }

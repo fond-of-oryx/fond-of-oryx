@@ -54,7 +54,7 @@ class ShipmentSplittedQuoteExpanderPluginTest extends Unit
 
         static::assertEquals(
             $this->quoteTransferMock,
-            $this->shipmentSplittedQuoteExpanderPlugin->expand($this->quoteTransferMock)
+            $this->shipmentSplittedQuoteExpanderPlugin->expand($this->quoteTransferMock),
         );
     }
 }

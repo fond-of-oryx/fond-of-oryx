@@ -64,37 +64,37 @@ class GiftCardProductConnectorDependencyProviderTest extends Unit
     {
         $this->assertEquals(
             $this->containerMock,
-            $this->giftCardProductConnectorDependencyProvider->providePersistenceLayerDependencies($this->containerMock)
+            $this->giftCardProductConnectorDependencyProvider->providePersistenceLayerDependencies($this->containerMock),
         );
 
         $this->assertInstanceOf(
             SpyGiftCardProductAbstractConfigurationQuery::class,
-            $this->containerMock[GiftCardProductConnectorDependencyProvider::PROPEL_QUERY_GIFT_CARD_PRODUCT_ABSTRACT_CONFIGURATION]
+            $this->containerMock[GiftCardProductConnectorDependencyProvider::PROPEL_QUERY_GIFT_CARD_PRODUCT_ABSTRACT_CONFIGURATION],
         );
 
         $this->assertInstanceOf(
             SpyGiftCardProductAbstractConfigurationLinkQuery::class,
-            $this->containerMock[GiftCardProductConnectorDependencyProvider::PROPEL_QUERY_GIFT_CARD_PRODUCT_ABSTRACT_CONFIGURATION_LINK]
+            $this->containerMock[GiftCardProductConnectorDependencyProvider::PROPEL_QUERY_GIFT_CARD_PRODUCT_ABSTRACT_CONFIGURATION_LINK],
         );
 
         $this->assertInstanceOf(
             SpyGiftCardProductConfigurationQuery::class,
-            $this->containerMock[GiftCardProductConnectorDependencyProvider::PROPEL_QUERY_GIFT_CARD_PRODUCT_CONFIGURATION]
+            $this->containerMock[GiftCardProductConnectorDependencyProvider::PROPEL_QUERY_GIFT_CARD_PRODUCT_CONFIGURATION],
         );
 
         $this->assertInstanceOf(
             SpyGiftCardProductConfigurationLinkQuery::class,
-            $this->containerMock[GiftCardProductConnectorDependencyProvider::PROPEL_QUERY_GIFT_CARD_PRODUCT_CONFIGURATION_LINK]
+            $this->containerMock[GiftCardProductConnectorDependencyProvider::PROPEL_QUERY_GIFT_CARD_PRODUCT_CONFIGURATION_LINK],
         );
 
         $this->assertInstanceOf(
             SpyProductAbstractQuery::class,
-            $this->containerMock[GiftCardProductConnectorDependencyProvider::PROPEL_QUERY_PRODUCT_ABSTRACT]
+            $this->containerMock[GiftCardProductConnectorDependencyProvider::PROPEL_QUERY_PRODUCT_ABSTRACT],
         );
 
         $this->assertInstanceOf(
             SpyProductQuery::class,
-            $this->containerMock[GiftCardProductConnectorDependencyProvider::PROPEL_QUERY_PRODUCT]
+            $this->containerMock[GiftCardProductConnectorDependencyProvider::PROPEL_QUERY_PRODUCT],
         );
     }
 }

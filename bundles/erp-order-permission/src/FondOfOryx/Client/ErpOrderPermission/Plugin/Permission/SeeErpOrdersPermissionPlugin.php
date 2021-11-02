@@ -8,6 +8,9 @@ use Spryker\Shared\PermissionExtension\Dependency\Plugin\PermissionPluginInterfa
 
 class SeeErpOrdersPermissionPlugin implements PermissionPluginInterface
 {
+    /**
+     * @var string
+     */
     public const KEY = 'SeeErpOrdersPermissionPlugin';
 
     /**

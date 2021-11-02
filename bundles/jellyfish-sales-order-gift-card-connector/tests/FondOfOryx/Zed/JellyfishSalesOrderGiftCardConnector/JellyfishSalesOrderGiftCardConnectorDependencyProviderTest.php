@@ -82,13 +82,13 @@ class JellyfishSalesOrderGiftCardConnectorDependencyProviderTest extends Unit
             ->willReturnOnConsecutiveCalls($this->productCartCodeTypeRestrictionFacadeMock);
 
         $container = $this->jellyfishSalesOrderGiftCardConnectorDependencyProvider->provideBusinessLayerDependencies(
-            $this->containerMock
+            $this->containerMock,
         );
 
         static::assertEquals($this->containerMock, $container);
         static::assertInstanceOf(
             JellyfishSalesOrderGiftCardConnectorToProductCardCodeTypeRestrictionFacadeBridge::class,
-            $container[JellyfishSalesOrderGiftCardConnectorDependencyProvider::FACADE_PRODUCT_CART_CODE_TYPE_RESTRICTION]
+            $container[JellyfishSalesOrderGiftCardConnectorDependencyProvider::FACADE_PRODUCT_CART_CODE_TYPE_RESTRICTION],
         );
     }
 }

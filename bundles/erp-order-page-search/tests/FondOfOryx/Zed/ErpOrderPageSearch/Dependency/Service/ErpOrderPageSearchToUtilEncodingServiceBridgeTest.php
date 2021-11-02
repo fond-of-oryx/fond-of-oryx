@@ -29,7 +29,7 @@ class ErpOrderPageSearchToUtilEncodingServiceBridgeTest extends Unit
             ->getMock();
 
         $this->erpOrderPageSearchToUtilEncodingServiceBridge = new ErpOrderPageSearchToUtilEncodingServiceBridge(
-            $this->utilEncodingServiceMock
+            $this->utilEncodingServiceMock,
         );
     }
 
@@ -47,7 +47,7 @@ class ErpOrderPageSearchToUtilEncodingServiceBridgeTest extends Unit
 
         $this->assertEquals(
             $encodedJson,
-            $this->erpOrderPageSearchToUtilEncodingServiceBridge->encodeJson($value)
+            $this->erpOrderPageSearchToUtilEncodingServiceBridge->encodeJson($value),
         );
     }
 
@@ -65,7 +65,7 @@ class ErpOrderPageSearchToUtilEncodingServiceBridgeTest extends Unit
 
         $this->assertEquals(
             $decodedJson,
-            $this->erpOrderPageSearchToUtilEncodingServiceBridge->decodeJson($value)
+            $this->erpOrderPageSearchToUtilEncodingServiceBridge->decodeJson($value),
         );
     }
 }

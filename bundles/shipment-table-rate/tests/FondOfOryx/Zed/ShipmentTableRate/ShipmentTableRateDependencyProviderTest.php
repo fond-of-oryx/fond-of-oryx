@@ -103,29 +103,29 @@ class ShipmentTableRateDependencyProviderTest extends Unit
             ->willReturnOnConsecutiveCalls(
                 $this->countryFacadeMock,
                 $this->storeFacadeMock,
-                $this->utilMathFormulaServiceMock
+                $this->utilMathFormulaServiceMock,
             );
 
         $container = $this->shipmentTableRateDependencyProvider->provideBusinessLayerDependencies(
-            $this->containerMock
+            $this->containerMock,
         );
 
         static::assertEquals($this->containerMock, $container);
         static::assertInstanceOf(
             ShipmentTableRateToCountryFacadeBridge::class,
-            $container[ShipmentTableRateDependencyProvider::FACADE_COUNTRY]
+            $container[ShipmentTableRateDependencyProvider::FACADE_COUNTRY],
         );
         static::assertInstanceOf(
             ShipmentTableRateToStoreFacadeBridge::class,
-            $container[ShipmentTableRateDependencyProvider::FACADE_STORE]
+            $container[ShipmentTableRateDependencyProvider::FACADE_STORE],
         );
         static::assertInstanceOf(
             ShipmentTableRateToUtilMathFormulaServiceBridge::class,
-            $container[ShipmentTableRateDependencyProvider::SERVICE_UTIL_MATH_FORMULA]
+            $container[ShipmentTableRateDependencyProvider::SERVICE_UTIL_MATH_FORMULA],
         );
         static::assertInstanceOf(
             PriceToPayFilterPlugin::class,
-            $container[ShipmentTableRateDependencyProvider::PLUGIN_PRICE_TO_PAY_FILTER]
+            $container[ShipmentTableRateDependencyProvider::PLUGIN_PRICE_TO_PAY_FILTER],
         );
     }
 }

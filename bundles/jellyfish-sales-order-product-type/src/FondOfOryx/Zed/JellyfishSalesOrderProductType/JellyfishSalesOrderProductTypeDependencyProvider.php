@@ -8,6 +8,9 @@ use Spryker\Zed\Kernel\Container;
 
 class JellyfishSalesOrderProductTypeDependencyProvider extends AbstractBundleDependencyProvider
 {
+    /**
+     * @var string
+     */
     public const FACADE_GIFT_CARD = 'FACADE_GIFT_CARD';
 
     /**

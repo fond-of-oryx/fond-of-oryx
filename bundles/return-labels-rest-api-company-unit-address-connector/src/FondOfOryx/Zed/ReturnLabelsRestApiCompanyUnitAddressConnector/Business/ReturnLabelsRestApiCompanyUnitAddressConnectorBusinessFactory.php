@@ -24,7 +24,7 @@ class ReturnLabelsRestApiCompanyUnitAddressConnectorBusinessFactory extends Abst
         return new ReturnLabelRequestExpander(
             $this->createCompanyUnitAddressReader(),
             $this->createReturnLabelRequestAddressMapper(),
-            $this->getConfig()
+            $this->getConfig(),
         );
     }
 

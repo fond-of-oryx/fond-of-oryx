@@ -12,11 +12,29 @@ use Spryker\Zed\Kernel\Container;
 
 class OneTimePasswordDependencyProvider extends AbstractBundleDependencyProvider
 {
+    /**
+     * @var string
+     */
     public const QUERY_CONTAINER_CUSTOMER = 'QUERY_CONTAINER_CUSTOMER';
 
+    /**
+     * @var string
+     */
     public const FACADE_ONE_TIME_PASSWORD_EMAIL_CONNECTOR = 'FACADE_ONE_TIME_PASSWORD_EMAIL_CONNECTOR';
+
+    /**
+     * @var string
+     */
     public const FACADE_OAUTH = 'FACADE_OAUTH';
+
+    /**
+     * @var string
+     */
     public const FACADE_STORE = 'FACADE_STORE';
+
+    /**
+     * @var string
+     */
     public const FACADE_LOCALE = 'FACADE_LOCALE';
 
     /**
@@ -45,7 +63,7 @@ class OneTimePasswordDependencyProvider extends AbstractBundleDependencyProvider
     {
         $container[static::FACADE_ONE_TIME_PASSWORD_EMAIL_CONNECTOR] = static function (Container $container) {
             return new OneTimePasswordToOneTimePasswordEmailConnectorFacadeBridge(
-                $container->getLocator()->oneTimePasswordEmailConnector()->facade()
+                $container->getLocator()->oneTimePasswordEmailConnector()->facade(),
             );
         };
 
@@ -61,7 +79,7 @@ class OneTimePasswordDependencyProvider extends AbstractBundleDependencyProvider
     {
         $container[static::FACADE_OAUTH] = static function (Container $container) {
             return new OneTimePasswordToOauthFacadeBridge(
-                $container->getLocator()->oauth()->facade()
+                $container->getLocator()->oauth()->facade(),
             );
         };
 
@@ -77,7 +95,7 @@ class OneTimePasswordDependencyProvider extends AbstractBundleDependencyProvider
     {
         $container[static::FACADE_STORE] = static function (Container $container) {
             return new OneTimePasswordToStoreFacadeBridge(
-                $container->getLocator()->store()->facade()
+                $container->getLocator()->store()->facade(),
             );
         };
 
@@ -93,7 +111,7 @@ class OneTimePasswordDependencyProvider extends AbstractBundleDependencyProvider
     {
         $container[static::FACADE_LOCALE] = static function (Container $container) {
             return new OneTimePasswordToLocaleFacadeBridge(
-                $container->getLocator()->locale()->facade()
+                $container->getLocator()->locale()->facade(),
             );
         };
 
@@ -123,7 +141,7 @@ class OneTimePasswordDependencyProvider extends AbstractBundleDependencyProvider
     {
         $container[static::QUERY_CONTAINER_CUSTOMER] = static function (Container $container) {
             return new OneTimePasswordToCustomerQueryContainerBridge(
-                $container->getLocator()->customer()->queryContainer()
+                $container->getLocator()->customer()->queryContainer(),
             );
         };
 

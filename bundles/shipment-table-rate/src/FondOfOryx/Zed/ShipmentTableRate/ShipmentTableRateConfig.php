@@ -14,7 +14,7 @@ class ShipmentTableRateConfig extends AbstractBundleConfig
     {
         return $this->get(
             ShipmentTableRateConstants::FALLBACK_PRICE,
-            ShipmentTableRateConstants::FALLBACK_PRICE_DEFAULT_VALUE
+            ShipmentTableRateConstants::FALLBACK_PRICE_DEFAULT_VALUE,
         );
     }
 }

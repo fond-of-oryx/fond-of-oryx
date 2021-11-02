@@ -11,7 +11,7 @@ interface ProductAbstractCountryRestrictionMapperInterface
     /**
      * @param \Propel\Runtime\Collection\ObjectCollection|\Orm\Zed\ProductCountryRestriction\Persistence\FooProductAbstractCountryRestriction[] $fooProductAbstractCountryRestrictionCollection
      *
-     * @return \Generated\Shared\Transfer\CountryTransfer[]
+     * @return array<\Generated\Shared\Transfer\CountryTransfer>
      */
     public function mapEntityCollectionToCountryTransfers(
         ObjectCollection $fooProductAbstractCountryRestrictionCollection

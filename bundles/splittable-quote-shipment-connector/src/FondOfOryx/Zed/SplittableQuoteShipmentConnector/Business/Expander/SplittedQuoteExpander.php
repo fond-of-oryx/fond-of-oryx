@@ -45,7 +45,7 @@ class SplittedQuoteExpander implements SplittedQuoteExpanderInterface
 
         $shipmentMethodTransfer = $this->shipmentFacade->findAvailableMethodById(
             $idShipmentMethod,
-            $splittedQuoteTransfer
+            $splittedQuoteTransfer,
         );
 
         if ($shipmentMethodTransfer === null) {

@@ -91,7 +91,7 @@ class JellyfishGiftCardRequestMapperTest extends Unit
         $this->jellyfishGiftCardRequestMapper = new JellyfishGiftCardRequestMapper(
             $this->localeFilterMock,
             $this->giftCardFacadeMock,
-            $this->salesFacadeMock
+            $this->salesFacadeMock,
         );
     }
 

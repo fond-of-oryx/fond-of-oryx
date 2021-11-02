@@ -18,7 +18,7 @@ class MinOutstandingQuantityErpPageSearchQueryExpanderPluginTest extends Unit
     protected $queryMock;
 
     /**
-     * @var string[][]
+     * @var array<array<string>>
      */
     protected $requestParameters;
 
@@ -89,7 +89,7 @@ class MinOutstandingQuantityErpPageSearchQueryExpanderPluginTest extends Unit
 
         $query = $this->plugin->expandQuery(
             $this->queryMock,
-            $this->requestParameters
+            $this->requestParameters,
         );
 
         static::assertEquals($this->queryMock, $query);
@@ -105,12 +105,12 @@ class MinOutstandingQuantityErpPageSearchQueryExpanderPluginTest extends Unit
 
         $query = $this->plugin->expandQuery(
             $this->queryMock,
-            []
+            [],
         );
 
         static::assertEquals(
             $this->queryMock,
-            $query
+            $query,
         );
     }
 
@@ -130,7 +130,7 @@ class MinOutstandingQuantityErpPageSearchQueryExpanderPluginTest extends Unit
         try {
             $this->plugin->expandQuery(
                 $this->queryMock,
-                $this->requestParameters
+                $this->requestParameters,
             );
 
             static::fail();

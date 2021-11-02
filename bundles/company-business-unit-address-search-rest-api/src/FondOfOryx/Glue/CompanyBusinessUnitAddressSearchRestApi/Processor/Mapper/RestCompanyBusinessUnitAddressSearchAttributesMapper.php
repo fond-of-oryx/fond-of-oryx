@@ -46,11 +46,11 @@ class RestCompanyBusinessUnitAddressSearchAttributesMapper implements RestCompan
         CompanyBusinessUnitAddressListTransfer $companyBusinessUnitAddressListTransfer
     ): RestCompanyBusinessUnitAddressSearchAttributesTransfer {
         return (new RestCompanyBusinessUnitAddressSearchAttributesTransfer())->setCompanyBusinessUnitAddresses(
-            $this->restCompanyBusinessUnitAddressSearchResultItemMapper->fromCompanyBusinessUnitAddressList($companyBusinessUnitAddressListTransfer)
+            $this->restCompanyBusinessUnitAddressSearchResultItemMapper->fromCompanyBusinessUnitAddressList($companyBusinessUnitAddressListTransfer),
         )->setSort(
-            $this->restCompanyBusinessUnitAddressSearchSortMapper->fromCompanyBusinessUnitAddressList($companyBusinessUnitAddressListTransfer)
+            $this->restCompanyBusinessUnitAddressSearchSortMapper->fromCompanyBusinessUnitAddressList($companyBusinessUnitAddressListTransfer),
         )->setPagination(
-            $this->restCompanyBusinessUnitAddressSearchPaginationMapper->fromCompanyBusinessUnitAddressList($companyBusinessUnitAddressListTransfer)
+            $this->restCompanyBusinessUnitAddressSearchPaginationMapper->fromCompanyBusinessUnitAddressList($companyBusinessUnitAddressListTransfer),
         );
     }
 }

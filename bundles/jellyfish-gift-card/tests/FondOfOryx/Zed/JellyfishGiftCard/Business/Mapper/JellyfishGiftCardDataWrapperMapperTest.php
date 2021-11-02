@@ -48,7 +48,7 @@ class JellyfishGiftCardDataWrapperMapperTest extends Unit
             ->getMock();
 
         $this->jellyfishGiftCardDataWrapperMapper = new JellyfishGiftCardDataWrapperMapper(
-            $this->jellyfishGiftCardDataMapperMock
+            $this->jellyfishGiftCardDataMapperMock,
         );
     }
 
@@ -67,7 +67,7 @@ class JellyfishGiftCardDataWrapperMapperTest extends Unit
 
         static::assertEquals(
             $this->jellyfishGiftCardDataTransferMock,
-            $jellyfishGiftCardDataWrapperTransfer->getData()
+            $jellyfishGiftCardDataWrapperTransfer->getData(),
         );
     }
 
@@ -84,7 +84,7 @@ class JellyfishGiftCardDataWrapperMapperTest extends Unit
         static::assertEquals(
             null,
             $this->jellyfishGiftCardDataWrapperMapper
-                ->fromJellyfishGiftCardRequest($this->jellyfishGiftCardRequestTransferMock)
+                ->fromJellyfishGiftCardRequest($this->jellyfishGiftCardRequestTransferMock),
         );
     }
 }

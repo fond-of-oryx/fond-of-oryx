@@ -43,7 +43,7 @@ class JellyfishSalesOrderProductTypeToGiftCardFacadeBridgeTest extends Unit
 
         static::assertEquals(
             true,
-            $this->facadeBridge->isGiftCardOrderItem(1)
+            $this->facadeBridge->isGiftCardOrderItem(1),
         );
     }
 }

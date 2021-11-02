@@ -82,7 +82,7 @@ class RestResponseBuilderTest extends Unit
 
         $this->builder = new RestResponseBuilder(
             $this->restReturnLabelMapperMock,
-            $this->restResourceBuilderMock
+            $this->restResourceBuilderMock,
         );
     }
 
@@ -101,7 +101,7 @@ class RestResponseBuilderTest extends Unit
 
         static::assertEquals(
             $this->restResponseMock,
-            $this->builder->createNotGeneratedRestResponse()
+            $this->builder->createNotGeneratedRestResponse(),
         );
     }
 

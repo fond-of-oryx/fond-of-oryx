@@ -81,10 +81,10 @@ class JellyfishMailBodyMapperTest extends Unit
                      JellyfishGiftCardConstants::LAYOUT_TEMPLATE_MAIL_HTML,
                      $this->localeTransferMock,
                      $options,
-                 ]
+                 ],
             )->willReturnOnConsecutiveCalls(
                 $renderedPlainTextTemplate,
-                $renderedHtmlTemplate
+                $renderedHtmlTemplate,
             );
 
         $jellyfishMailBodyTransfer = $this->jellyfishMailBodyMapper
@@ -113,7 +113,7 @@ class JellyfishMailBodyMapperTest extends Unit
         static::assertEquals(
             null,
             $this->jellyfishMailBodyMapper
-                ->fromJellyfishGiftCardRequest($this->jellyfishGiftCardRequestTransferMock)
+                ->fromJellyfishGiftCardRequest($this->jellyfishGiftCardRequestTransferMock),
         );
     }
 }

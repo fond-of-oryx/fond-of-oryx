@@ -29,7 +29,7 @@ class TransferMapperTest extends Unit
     {
         $this->assertInstanceOf(
             FooThirtyFiveUpOrderEntityTransfer::class,
-            $this->mapper->toTransfer([])
+            $this->mapper->toTransfer([]),
         );
     }
 
@@ -43,7 +43,7 @@ class TransferMapperTest extends Unit
         $this->assertCount(1, $mapped);
         $this->assertInstanceOf(
             FooThirtyFiveUpOrderEntityTransfer::class,
-            $mapped[0]
+            $mapped[0],
         );
     }
 }

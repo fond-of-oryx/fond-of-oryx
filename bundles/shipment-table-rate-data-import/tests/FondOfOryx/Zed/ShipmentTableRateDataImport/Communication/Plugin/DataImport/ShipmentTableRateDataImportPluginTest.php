@@ -65,7 +65,7 @@ class ShipmentTableRateDataImportPluginTest extends Unit
 
         static::assertEquals(
             $this->dataImporterReportTransferMock,
-            $this->shipmentTableRateDataImportPlugin->import($this->dataImporterConfigurationTransferMock)
+            $this->shipmentTableRateDataImportPlugin->import($this->dataImporterConfigurationTransferMock),
         );
     }
 
@@ -76,7 +76,7 @@ class ShipmentTableRateDataImportPluginTest extends Unit
     {
         static::assertEquals(
             ShipmentTableRateDataImportConfig::IMPORT_TYPE_SHIPMENT_TABLE_RATE,
-            $this->shipmentTableRateDataImportPlugin->getImportType()
+            $this->shipmentTableRateDataImportPlugin->getImportType(),
         );
     }
 }

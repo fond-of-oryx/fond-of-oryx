@@ -7,7 +7,7 @@ interface ProductCartCodeTypeRestrictionRepositoryInterface
     /**
      * @param int $idProductAbstract
      *
-     * @return \Generated\Shared\Transfer\CartCodeTypeTransfer[]
+     * @return array<\Generated\Shared\Transfer\CartCodeTypeTransfer>
      */
     public function findBlacklistedCartCodeTypeByIdProductAbstract(
         int $idProductAbstract
@@ -16,14 +16,14 @@ interface ProductCartCodeTypeRestrictionRepositoryInterface
     /**
      * @param int $idProductAbstract
      *
-     * @return int[]
+     * @return array<int>
      */
     public function findBlacklistedCartCodeTypeIdsByIdProductAbstract(
         int $idProductAbstract
     ): array;
 
     /**
-     * @param string[] $productConcreteSkus
+     * @param array<string> $productConcreteSkus
      *
      * @return array
      */

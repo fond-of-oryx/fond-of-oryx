@@ -55,7 +55,7 @@ class JellyfishGiftCardToGiftCardFacadeBridgeTest extends Unit
 
         static::assertEquals(
             $this->giftCardTransferMock,
-            $this->bridge->findGiftCardByIdSalesOrderItem($idSalesOrderItem)
+            $this->bridge->findGiftCardByIdSalesOrderItem($idSalesOrderItem),
         );
     }
 }

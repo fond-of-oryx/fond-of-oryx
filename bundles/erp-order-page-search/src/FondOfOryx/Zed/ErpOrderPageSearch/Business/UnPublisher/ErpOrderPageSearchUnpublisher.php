@@ -20,7 +20,7 @@ class ErpOrderPageSearchUnpublisher implements ErpOrderPageSearchUnpublisherInte
     }
 
     /**
-     * @param int[] $erpOrderIds
+     * @param array<int> $erpOrderIds
      *
      * @return void
      */

@@ -12,7 +12,14 @@ class GiftCardProductAbstractConfigurationWriter implements GiftCardProductAbstr
 {
     use TransactionTrait;
 
+    /**
+     * @var string
+     */
     protected const PATTERN = '{randomPart}';
+
+    /**
+     * @var string
+     */
     protected const PRODUCT_ABSTRACT_SKU_PREFIX = 'Abstract-';
 
     /**
@@ -58,7 +65,7 @@ class GiftCardProductAbstractConfigurationWriter implements GiftCardProductAbstr
         return $this->getTransactionHandler()->handleTransaction(
             function () use ($self, $productAbstractTransfer): ProductAbstractTransfer {
                 return $self->executeSaveGiftCardProductAbstractConfigurationTransaction($productAbstractTransfer);
-            }
+            },
         );
     }
 
@@ -76,7 +83,7 @@ class GiftCardProductAbstractConfigurationWriter implements GiftCardProductAbstr
 
         $this->entityManager->saveGiftCardProductAbstractConfiguration(
             $productAbstractTransfer,
-            $this->getPattern($productAbstractTransfer)
+            $this->getPattern($productAbstractTransfer),
         );
 
         return $productAbstractTransfer;

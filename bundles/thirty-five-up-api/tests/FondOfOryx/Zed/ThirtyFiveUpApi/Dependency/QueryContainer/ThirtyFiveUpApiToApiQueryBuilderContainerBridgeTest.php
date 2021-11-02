@@ -47,7 +47,7 @@ class ThirtyFiveUpApiToApiQueryBuilderContainerBridgeTest extends Unit
             ->getMock();
 
         $this->bridge = new ThirtyFiveUpApiToApiQueryBuilderContainerBridge(
-            $this->queryBuilderMock
+            $this->queryBuilderMock,
         );
     }
 

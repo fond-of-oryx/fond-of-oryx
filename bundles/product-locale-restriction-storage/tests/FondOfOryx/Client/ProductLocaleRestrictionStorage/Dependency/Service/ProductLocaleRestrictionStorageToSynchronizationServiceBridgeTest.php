@@ -39,7 +39,7 @@ class ProductLocaleRestrictionStorageToSynchronizationServiceBridgeTest extends 
             ->getMock();
 
         $this->productLocaleRestrictionStorageToSynchronizationServiceBridge = new ProductLocaleRestrictionStorageToSynchronizationServiceBridge(
-            $this->synchronizationServiceMock
+            $this->synchronizationServiceMock,
         );
     }
 
@@ -57,7 +57,7 @@ class ProductLocaleRestrictionStorageToSynchronizationServiceBridgeTest extends 
 
         static::assertEquals(
             $this->synchronizationKeyGeneratorPluginMock,
-            $this->productLocaleRestrictionStorageToSynchronizationServiceBridge->getStorageKeyBuilder($resourceName)
+            $this->productLocaleRestrictionStorageToSynchronizationServiceBridge->getStorageKeyBuilder($resourceName),
         );
     }
 }

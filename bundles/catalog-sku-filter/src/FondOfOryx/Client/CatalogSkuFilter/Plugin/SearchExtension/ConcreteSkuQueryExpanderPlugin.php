@@ -55,7 +55,7 @@ class ConcreteSkuQueryExpanderPlugin extends AbstractPlugin implements QueryExpa
             throw new InvalidArgumentException(sprintf(
                 'Concrete sku query expander available only with %s, got: %s',
                 BoolQuery::class,
-                get_class($boolQuery)
+                get_class($boolQuery),
             ));
         }
 

@@ -82,7 +82,7 @@ class ErpOrderPageSearchBusinessFactoryTest extends Unit
 
         $this->assertInstanceOf(
             ErpOrderPageSearchPublisherInterface::class,
-            $this->erpOrderPageSearchBusinessFactory->createErpOrderPageSearchPublisher()
+            $this->erpOrderPageSearchBusinessFactory->createErpOrderPageSearchPublisher(),
         );
     }
 
@@ -93,7 +93,7 @@ class ErpOrderPageSearchBusinessFactoryTest extends Unit
     {
         $this->assertInstanceOf(
             ErpOrderPageSearchUnpublisherInterface::class,
-            $this->erpOrderPageSearchBusinessFactory->createErpOrderPageSearchUnPublisher()
+            $this->erpOrderPageSearchBusinessFactory->createErpOrderPageSearchUnPublisher(),
         );
     }
 }

@@ -17,13 +17,22 @@ class SalesOrderAdapter implements SalesOrderAdapterInterface
 {
     use LoggerTrait;
 
+    /**
+     * @var array
+     */
     protected const DEFAULT_HEADERS = [
         'Accept' => 'application/json',
         'Content-Type' => 'application/json',
     ];
 
+    /**
+     * @var string
+     */
     protected const ORDERS_URI = 'standard/orders';
 
+    /**
+     * @var array
+     */
     protected const VALID_CODES = [
         Response::HTTP_OK,
         Response::HTTP_CREATED,
@@ -46,7 +55,7 @@ class SalesOrderAdapter implements SalesOrderAdapterInterface
     protected $config;
 
     /**
-     * @var \FondOfOryx\Zed\JellyfishSalesOrderExtension\Dependency\Plugin\JellyfishOrderBeforeExportPluginInterface[]
+     * @var array<\FondOfOryx\Zed\JellyfishSalesOrderExtension\Dependency\Plugin\JellyfishOrderBeforeExportPluginInterface>
      */
     protected $beforeExportPlugins;
 
@@ -54,7 +63,7 @@ class SalesOrderAdapter implements SalesOrderAdapterInterface
      * @param \FondOfOryx\Zed\JellyfishSalesOrder\Dependency\Service\JellyfishSalesOrderToUtilEncodingServiceInterface $utilEncodingService
      * @param \GuzzleHttp\ClientInterface $client
      * @param \FondOfOryx\Zed\JellyfishSalesOrder\JellyfishSalesOrderConfig $config
-     * @param \FondOfOryx\Zed\JellyfishSalesOrderExtension\Dependency\Plugin\JellyfishOrderBeforeExportPluginInterface[] $beforeExportPlugins
+     * @param array<\FondOfOryx\Zed\JellyfishSalesOrderExtension\Dependency\Plugin\JellyfishOrderBeforeExportPluginInterface> $beforeExportPlugins
      */
     public function __construct(
         JellyfishSalesOrderToUtilEncodingServiceInterface $utilEncodingService,
@@ -155,8 +164,8 @@ class SalesOrderAdapter implements SalesOrderAdapterInterface
                     'Order export in store %s for order with id %s and reference %s failed!',
                     $transfer->getStore(),
                     $transfer->getId(),
-                    $transfer->getReference()
-                )
+                    $transfer->getReference(),
+                ),
             );
         }
     }

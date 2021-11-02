@@ -7,6 +7,9 @@ use Spryker\Zed\Kernel\AbstractBundleConfig;
 
 class JellyfishCreditMemoConfig extends AbstractBundleConfig
 {
+    /**
+     * @var string
+     */
     protected const DEFAULT_SALES_ORDER_ITEM_STATE_REFUNDED = 'refunded';
 
     /**
@@ -16,7 +19,7 @@ class JellyfishCreditMemoConfig extends AbstractBundleConfig
     {
         return $this->get(
             JellyfishCreditMemoConstants::SALES_ORDER_ITEM_STATE_REFUNDED,
-            static::DEFAULT_SALES_ORDER_ITEM_STATE_REFUNDED
+            static::DEFAULT_SALES_ORDER_ITEM_STATE_REFUNDED,
         );
     }
 

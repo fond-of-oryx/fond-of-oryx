@@ -10,9 +10,19 @@ use Generated\Shared\Transfer\QuoteTransfer;
 
 class QuoteExpander implements QuoteExpanderInterface
 {
+    /**
+     * @var string
+     */
     public const MESSAGE_TYPE_ERROR = 'error';
 
+    /**
+     * @var string
+     */
     public const MESSAGE_INVALID_QUOTE = 'company_business_unit_order_budget.invalid_quote';
+
+    /**
+     * @var string
+     */
     public const MESSAGE_NOT_ENOUGH_ORDER_BUDGET = 'company_business_unit_order_budget.no_enough_order_budget';
 
     /**

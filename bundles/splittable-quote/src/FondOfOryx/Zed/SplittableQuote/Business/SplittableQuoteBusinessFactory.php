@@ -21,7 +21,7 @@ class SplittableQuoteBusinessFactory extends AbstractBusinessFactory
         return new QuoteSplitter(
             $this->getCalculationFacade(),
             $this->getConfig(),
-            $this->getSplittedQuoteExpanderPlugins()
+            $this->getSplittedQuoteExpanderPlugins(),
         );
     }
 
@@ -34,7 +34,7 @@ class SplittableQuoteBusinessFactory extends AbstractBusinessFactory
     }
 
     /**
-     * @return \FondOfOryx\Zed\SplittableQuoteExtension\Dependency\Plugin\SplittedQuoteExpanderPluginInterface[]
+     * @return array<\FondOfOryx\Zed\SplittableQuoteExtension\Dependency\Plugin\SplittedQuoteExpanderPluginInterface>
      */
     protected function getSplittedQuoteExpanderPlugins(): array
     {

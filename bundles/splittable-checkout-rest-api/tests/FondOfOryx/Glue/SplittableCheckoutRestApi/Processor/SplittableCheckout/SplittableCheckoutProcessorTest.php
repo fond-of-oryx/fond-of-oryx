@@ -122,7 +122,7 @@ class SplittableCheckoutProcessorTest extends Unit
             $this->restSplittableCheckoutRequestMapperMock,
             $this->restSplittableCheckoutRequestExpanderMock,
             $this->restResponseBuilderMock,
-            $this->clientMock
+            $this->clientMock,
         );
     }
 
@@ -162,8 +162,8 @@ class SplittableCheckoutProcessorTest extends Unit
             $this->restResponseMock,
             $this->splittableCheckoutProcessor->placeOrder(
                 $this->restRequestMock,
-                $this->restSplittableCheckoutRequestAttributesTransferMock
-            )
+                $this->restSplittableCheckoutRequestAttributesTransferMock,
+            ),
         );
     }
 
@@ -201,8 +201,8 @@ class SplittableCheckoutProcessorTest extends Unit
             $this->restResponseMock,
             $this->splittableCheckoutProcessor->placeOrder(
                 $this->restRequestMock,
-                $this->restSplittableCheckoutRequestAttributesTransferMock
-            )
+                $this->restSplittableCheckoutRequestAttributesTransferMock,
+            ),
         );
     }
 }

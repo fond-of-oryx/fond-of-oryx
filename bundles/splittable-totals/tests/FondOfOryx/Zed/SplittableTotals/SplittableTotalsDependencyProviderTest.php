@@ -86,7 +86,7 @@ class SplittableTotalsDependencyProviderTest extends Unit
         static::assertEquals($this->containerMock, $container);
         static::assertInstanceOf(
             SplittableTotalsToSplittableQuoteFacadeInterface::class,
-            $container[SplittableTotalsDependencyProvider::FACADE_SPLITTABLE_QUOTE]
+            $container[SplittableTotalsDependencyProvider::FACADE_SPLITTABLE_QUOTE],
         );
     }
 }

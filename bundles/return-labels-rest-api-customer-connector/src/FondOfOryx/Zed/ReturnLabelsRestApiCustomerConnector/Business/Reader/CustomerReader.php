@@ -40,7 +40,7 @@ class CustomerReader implements CustomerReaderInterface
         }
 
         return $this->customerFacade->findCustomerById(
-            (new CustomerTransfer())->setIdCustomer($idCustomer)
+            (new CustomerTransfer())->setIdCustomer($idCustomer),
         );
     }
 }

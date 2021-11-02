@@ -17,16 +17,16 @@ interface RestCompanySearchResultItemMapperInterface
     public function fromCompany(CompanyTransfer $companyTransfer): RestCompanySearchResultItemTransfer;
 
     /**
-     * @param \Generated\Shared\Transfer\CompanyTransfer[]|\ArrayObject $companyTransfers
+     * @param \ArrayObject<\Generated\Shared\Transfer\CompanyTransfer> $companyTransfers
      *
-     * @return \Generated\Shared\Transfer\RestCompanySearchResultItemTransfer[]|\ArrayObject
+     * @return \ArrayObject<\Generated\Shared\Transfer\RestCompanySearchResultItemTransfer>
      */
     public function fromCompanies(ArrayObject $companyTransfers): ArrayObject;
 
     /**
      * @param \Generated\Shared\Transfer\CompanyListTransfer $companyListTransfer
      *
-     * @return \Generated\Shared\Transfer\RestCompanySearchResultItemTransfer[]|\ArrayObject
+     * @return \ArrayObject<\Generated\Shared\Transfer\RestCompanySearchResultItemTransfer>
      */
     public function fromCompanyList(CompanyListTransfer $companyListTransfer): ArrayObject;
 }

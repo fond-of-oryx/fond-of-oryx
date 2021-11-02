@@ -45,11 +45,11 @@ class RestCompanyUserSearchAttributesMapper implements RestCompanyUserSearchAttr
     public function fromCompanyUserList(CompanyUserListTransfer $companyUserListTransfer): RestCompanyUserSearchAttributesTransfer
     {
         return (new RestCompanyUserSearchAttributesTransfer())->setCompanyUser(
-            $this->restCompanyUserSearchResultItemMapper->fromCompanyUserList($companyUserListTransfer)
+            $this->restCompanyUserSearchResultItemMapper->fromCompanyUserList($companyUserListTransfer),
         )->setSort(
-            $this->restCompanyUserSearchSortMapper->fromCompanyUserList($companyUserListTransfer)
+            $this->restCompanyUserSearchSortMapper->fromCompanyUserList($companyUserListTransfer),
         )->setPagination(
-            $this->restCompanyUserSearchPaginationMapper->fromCompanyUserList($companyUserListTransfer)
+            $this->restCompanyUserSearchPaginationMapper->fromCompanyUserList($companyUserListTransfer),
         );
     }
 }

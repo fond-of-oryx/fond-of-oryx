@@ -8,6 +8,9 @@ use Spryker\Zed\Kernel\Container;
 
 class SplittableCheckoutRestApiCustomerConnectorDependencyProvider extends AbstractBundleDependencyProvider
 {
+    /**
+     * @var string
+     */
     public const QUERY_CONTAINER_CUSTOMER = 'QUERY_CONTAINER_CUSTOMER';
 
     /**
@@ -31,7 +34,7 @@ class SplittableCheckoutRestApiCustomerConnectorDependencyProvider extends Abstr
     {
         $container[static::QUERY_CONTAINER_CUSTOMER] = static function (Container $container) {
             return new SplittableCheckoutRestApiCustomerConnectorToCustomerQueryContainerBridge(
-                $container->getLocator()->customer()->queryContainer()
+                $container->getLocator()->customer()->queryContainer(),
             );
         };
 

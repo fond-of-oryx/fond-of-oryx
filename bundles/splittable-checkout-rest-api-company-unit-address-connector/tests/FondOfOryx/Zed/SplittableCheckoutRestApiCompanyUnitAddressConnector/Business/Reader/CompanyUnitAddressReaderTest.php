@@ -101,7 +101,7 @@ class CompanyUnitAddressReaderTest extends Unit
         $this->companyUnitAddressReader = new CompanyUnitAddressReader(
             $this->addressMapperMock,
             $this->repositoryMock,
-            $this->companyUnitAddressFacadeMock
+            $this->companyUnitAddressFacadeMock,
         );
     }
 
@@ -136,8 +136,8 @@ class CompanyUnitAddressReaderTest extends Unit
                 static::callback(
                     static function (CompanyUnitAddressTransfer $companyUnitAddressTransfer) use ($idCompanyUnitAddress) {
                         return $companyUnitAddressTransfer->getUuid() === $idCompanyUnitAddress;
-                    }
-                )
+                    },
+                ),
             )->willReturn($this->companyUnitAddressResponseTransferMock);
 
         $this->companyUnitAddressResponseTransferMock->expects(static::atLeastOnce())
@@ -156,8 +156,8 @@ class CompanyUnitAddressReaderTest extends Unit
         static::assertEquals(
             $this->addressTransferMock,
             $this->companyUnitAddressReader->getBillingAddressByRestSplittableCheckoutRequestTransfer(
-                $this->restSplittableCheckoutRequestTransferMock
-            )
+                $this->restSplittableCheckoutRequestTransferMock,
+            ),
         );
     }
 
@@ -191,8 +191,8 @@ class CompanyUnitAddressReaderTest extends Unit
         static::assertEquals(
             null,
             $this->companyUnitAddressReader->getBillingAddressByRestSplittableCheckoutRequestTransfer(
-                $this->restSplittableCheckoutRequestTransferMock
-            )
+                $this->restSplittableCheckoutRequestTransferMock,
+            ),
         );
     }
 
@@ -230,8 +230,8 @@ class CompanyUnitAddressReaderTest extends Unit
         static::assertEquals(
             null,
             $this->companyUnitAddressReader->getBillingAddressByRestSplittableCheckoutRequestTransfer(
-                $this->restSplittableCheckoutRequestTransferMock
-            )
+                $this->restSplittableCheckoutRequestTransferMock,
+            ),
         );
     }
 
@@ -266,8 +266,8 @@ class CompanyUnitAddressReaderTest extends Unit
                 static::callback(
                     static function (CompanyUnitAddressTransfer $companyUnitAddressTransfer) use ($idCompanyUnitAddress) {
                         return $companyUnitAddressTransfer->getUuid() === $idCompanyUnitAddress;
-                    }
-                )
+                    },
+                ),
             )->willReturn($this->companyUnitAddressResponseTransferMock);
 
         $this->companyUnitAddressResponseTransferMock->expects(static::atLeastOnce())
@@ -286,8 +286,8 @@ class CompanyUnitAddressReaderTest extends Unit
         static::assertEquals(
             $this->addressTransferMock,
             $this->companyUnitAddressReader->getShippingAddressByRestSplittableCheckoutRequestTransfer(
-                $this->restSplittableCheckoutRequestTransferMock
-            )
+                $this->restSplittableCheckoutRequestTransferMock,
+            ),
         );
     }
 
@@ -321,8 +321,8 @@ class CompanyUnitAddressReaderTest extends Unit
         static::assertEquals(
             null,
             $this->companyUnitAddressReader->getShippingAddressByRestSplittableCheckoutRequestTransfer(
-                $this->restSplittableCheckoutRequestTransferMock
-            )
+                $this->restSplittableCheckoutRequestTransferMock,
+            ),
         );
     }
 }

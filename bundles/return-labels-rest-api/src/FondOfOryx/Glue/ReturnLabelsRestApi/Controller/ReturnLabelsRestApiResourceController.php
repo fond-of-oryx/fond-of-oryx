@@ -48,7 +48,7 @@ class ReturnLabelsRestApiResourceController extends AbstractController
             ->createReturnLabelGenerator()
             ->generate(
                 $restRequest,
-                $restReturnLabelRequestAttributesTransfer
+                $restReturnLabelRequestAttributesTransfer,
             );
     }
 }

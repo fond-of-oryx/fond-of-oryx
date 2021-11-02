@@ -8,7 +8,14 @@ use Orm\Zed\Sales\Persistence\SpySalesOrderItem;
 
 class JellyfishOrderItemExpander implements JellyfishOrderItemExpanderInterface
 {
+    /**
+     * @var string
+     */
     protected const PRODUCT_TYPE_PRODUCT = 'product';
+
+    /**
+     * @var string
+     */
     protected const PRODUCT_TYPE_GIFT_CARD = 'gift_card';
 
     /**

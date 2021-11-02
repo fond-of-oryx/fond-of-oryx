@@ -62,7 +62,7 @@ class DeliveryDateRestrictionBusinessFactoryTest extends Unit
 
         static::assertInstanceOf(
             QuoteExpander::class,
-            $this->businessFactory->createQuoteExpander()
+            $this->businessFactory->createQuoteExpander(),
         );
     }
 
@@ -83,7 +83,7 @@ class DeliveryDateRestrictionBusinessFactoryTest extends Unit
 
         static::assertInstanceOf(
             QuoteValidator::class,
-            $this->businessFactory->createQuoteValidator()
+            $this->businessFactory->createQuoteValidator(),
         );
     }
 }

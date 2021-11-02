@@ -12,9 +12,9 @@ class ErpOrderPageSearchRepository extends AbstractRepository implements ErpOrde
 {
     /**
      * @param \Generated\Shared\Transfer\FilterTransfer $filterTransfer
-     * @param int[] $erpOrderIds
+     * @param array<int> $erpOrderIds
      *
-     * @return \Generated\Shared\Transfer\FooErpOrderPageSearchEntityTransfer[]
+     * @return array<\Generated\Shared\Transfer\FooErpOrderPageSearchEntityTransfer>
      */
     public function findFilteredErpOrderPageSearchEntities(
         FilterTransfer $filterTransfer,
@@ -25,13 +25,13 @@ class ErpOrderPageSearchRepository extends AbstractRepository implements ErpOrde
 
         if (!empty($erpOrderIds)) {
             $fooErpOrderPageSearchQuery->filterByFkErpOrder_In(
-                $erpOrderIds
+                $erpOrderIds,
             );
         }
 
         return $this->buildQueryFromCriteria(
             $fooErpOrderPageSearchQuery,
-            $filterTransfer
+            $filterTransfer,
         )->find();
     }
 }

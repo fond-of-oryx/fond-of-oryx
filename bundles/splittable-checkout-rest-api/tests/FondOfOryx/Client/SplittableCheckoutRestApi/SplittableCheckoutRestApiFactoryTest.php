@@ -60,7 +60,7 @@ class SplittableCheckoutRestApiFactoryTest extends Unit
         static::assertInstanceOf(
             SplittableCheckoutRestApiZedStub::class,
             $this->factory
-                ->createSplittableCheckoutRestApiZedStub()
+                ->createSplittableCheckoutRestApiZedStub(),
         );
     }
 }

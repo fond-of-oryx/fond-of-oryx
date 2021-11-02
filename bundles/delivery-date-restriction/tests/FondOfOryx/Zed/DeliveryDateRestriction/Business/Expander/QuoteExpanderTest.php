@@ -42,7 +42,7 @@ class QuoteExpanderTest extends Unit
             ->getMock();
 
         $this->quoteExpander = new QuoteExpander(
-            $this->quoteValidatorMock
+            $this->quoteValidatorMock,
         );
     }
 
@@ -65,13 +65,13 @@ class QuoteExpanderTest extends Unit
                     static function (MessageTransfer $messageTransfer) {
                         return $messageTransfer->getType() === QuoteExpander::MESSAGE_TYPE_ERROR
                             && $messageTransfer->getValue() === QuoteExpander::MESSAGE_CUSTOM_DELIVERY_DATES_NOT_ALLOWED;
-                    }
-                )
+                    },
+                ),
             )->willReturn($this->quoteTransferMock);
 
         static::assertEquals(
             $this->quoteTransferMock,
-            $this->quoteExpander->expand($this->quoteTransferMock)
+            $this->quoteExpander->expand($this->quoteTransferMock),
         );
     }
 
@@ -94,13 +94,13 @@ class QuoteExpanderTest extends Unit
                     static function (MessageTransfer $messageTransfer) {
                         return $messageTransfer->getType() === QuoteExpander::MESSAGE_TYPE_ERROR
                             && $messageTransfer->getValue() === QuoteExpander::MESSAGE_INVALID_QUOTE;
-                    }
-                )
+                    },
+                ),
             )->willReturn($this->quoteTransferMock);
 
         static::assertEquals(
             $this->quoteTransferMock,
-            $this->quoteExpander->expand($this->quoteTransferMock)
+            $this->quoteExpander->expand($this->quoteTransferMock),
         );
     }
 
@@ -118,7 +118,7 @@ class QuoteExpanderTest extends Unit
 
         static::assertEquals(
             $this->quoteTransferMock,
-            $this->quoteExpander->expand($this->quoteTransferMock)
+            $this->quoteExpander->expand($this->quoteTransferMock),
         );
     }
 }

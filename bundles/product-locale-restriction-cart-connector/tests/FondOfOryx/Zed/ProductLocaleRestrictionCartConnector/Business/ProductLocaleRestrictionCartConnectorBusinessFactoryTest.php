@@ -58,7 +58,7 @@ class ProductLocaleRestrictionCartConnectorBusinessFactoryTest extends Unit
 
         static::assertInstanceOf(
             CartChecker::class,
-            $this->productLocaleRestrictionCartConnectorBusinessFactory->createCartChecker()
+            $this->productLocaleRestrictionCartConnectorBusinessFactory->createCartChecker(),
         );
     }
 }

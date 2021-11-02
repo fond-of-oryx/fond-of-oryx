@@ -34,7 +34,7 @@ class DeliveryDateRestrictionDependencyProvider extends AbstractBundleDependency
     {
         $container[static::FACADE_PERMISSION] = static function (Container $container) {
             return new DeliveryDateRestrictionToPermissionFacadeBridge(
-                $container->getLocator()->permission()->facade()
+                $container->getLocator()->permission()->facade(),
             );
         };
 

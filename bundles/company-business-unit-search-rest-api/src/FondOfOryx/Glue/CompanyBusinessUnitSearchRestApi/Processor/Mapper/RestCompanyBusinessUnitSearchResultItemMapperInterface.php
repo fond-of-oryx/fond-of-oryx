@@ -17,16 +17,16 @@ interface RestCompanyBusinessUnitSearchResultItemMapperInterface
     public function fromCompanyBusinessUnit(CompanyBusinessUnitTransfer $companyBusinessUnitListTransfer): RestCompanyBusinessUnitSearchResultItemTransfer;
 
     /**
-     * @param \Generated\Shared\Transfer\CompanyBusinessUnitTransfer[]|\ArrayObject $companyBusinessUnitListTransfers
+     * @param \ArrayObject<\Generated\Shared\Transfer\CompanyBusinessUnitTransfer> $companyBusinessUnitListTransfers
      *
-     * @return \Generated\Shared\Transfer\RestCompanyBusinessUnitSearchResultItemTransfer[]|\ArrayObject
+     * @return \ArrayObject<\Generated\Shared\Transfer\RestCompanyBusinessUnitSearchResultItemTransfer>
      */
     public function fromCompanyBusinessUnitCollection(ArrayObject $companyBusinessUnitListTransfers): ArrayObject;
 
     /**
      * @param \Generated\Shared\Transfer\CompanyBusinessUnitListTransfer $companyBusinessUnitListTransfer
      *
-     * @return \Generated\Shared\Transfer\RestCompanyBusinessUnitSearchResultItemTransfer[]|\ArrayObject
+     * @return \ArrayObject<\Generated\Shared\Transfer\RestCompanyBusinessUnitSearchResultItemTransfer>
      */
     public function fromCompanyBusinessUnitList(CompanyBusinessUnitListTransfer $companyBusinessUnitListTransfer): ArrayObject;
 }

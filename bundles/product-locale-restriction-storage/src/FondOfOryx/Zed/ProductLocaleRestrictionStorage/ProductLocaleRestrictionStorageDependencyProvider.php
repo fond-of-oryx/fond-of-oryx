@@ -9,7 +9,14 @@ use Spryker\Zed\Kernel\Container;
 
 class ProductLocaleRestrictionStorageDependencyProvider extends AbstractBundleDependencyProvider
 {
+    /**
+     * @var string
+     */
     public const FACADE_EVENT_BEHAVIOR = 'FACADE_EVENT_BEHAVIOR';
+
+    /**
+     * @var string
+     */
     public const FACADE_PRODUCT_LOCALE_RESTRICTION = 'FACADE_PRODUCT_LOCALE_RESTRICTION';
 
     /**
@@ -49,7 +56,7 @@ class ProductLocaleRestrictionStorageDependencyProvider extends AbstractBundleDe
     {
         $container[static::FACADE_EVENT_BEHAVIOR] = static function (Container $container) {
             return new ProductLocaleRestrictionStorageToEventBehaviorFacadeBridge(
-                $container->getLocator()->eventBehavior()->facade()
+                $container->getLocator()->eventBehavior()->facade(),
             );
         };
 
@@ -65,7 +72,7 @@ class ProductLocaleRestrictionStorageDependencyProvider extends AbstractBundleDe
     {
         $container[static::FACADE_PRODUCT_LOCALE_RESTRICTION] = static function (Container $container) {
             return new ProductLocaleRestrictionStorageToProductLocaleRestrictionFacadeBridge(
-                $container->getLocator()->productLocaleRestriction()->facade()
+                $container->getLocator()->productLocaleRestriction()->facade(),
             );
         };
 

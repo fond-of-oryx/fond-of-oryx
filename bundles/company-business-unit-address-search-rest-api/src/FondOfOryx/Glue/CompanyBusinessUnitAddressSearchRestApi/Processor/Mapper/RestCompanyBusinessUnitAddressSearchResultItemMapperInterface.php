@@ -19,16 +19,16 @@ interface RestCompanyBusinessUnitAddressSearchResultItemMapperInterface
     ): RestCompanyBusinessUnitAddressSearchResultItemTransfer;
 
     /**
-     * @param \Generated\Shared\Transfer\CompanyBusinessUnitAddressTransfer[]|\ArrayObject $companyBusinessUnitAddressTransfers
+     * @param \ArrayObject<\Generated\Shared\Transfer\CompanyBusinessUnitAddressTransfer> $companyBusinessUnitAddressTransfers
      *
-     * @return \Generated\Shared\Transfer\RestCompanyBusinessUnitAddressSearchResultItemTransfer[]|\ArrayObject
+     * @return \ArrayObject<\Generated\Shared\Transfer\RestCompanyBusinessUnitAddressSearchResultItemTransfer>
      */
     public function fromCompanyBusinessUnitAddressCollection(ArrayObject $companyBusinessUnitAddressTransfers): ArrayObject;
 
     /**
      * @param \Generated\Shared\Transfer\CompanyBusinessUnitAddressListTransfer $companyBusinessUnitAddressListTransfer
      *
-     * @return \Generated\Shared\Transfer\RestCompanyBusinessUnitAddressSearchResultItemTransfer[]|\ArrayObject
+     * @return \ArrayObject<\Generated\Shared\Transfer\RestCompanyBusinessUnitAddressSearchResultItemTransfer>
      */
     public function fromCompanyBusinessUnitAddressList(CompanyBusinessUnitAddressListTransfer $companyBusinessUnitAddressListTransfer): ArrayObject;
 }

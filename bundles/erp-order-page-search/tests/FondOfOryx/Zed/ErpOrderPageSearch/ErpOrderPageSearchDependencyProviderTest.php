@@ -87,7 +87,7 @@ class ErpOrderPageSearchDependencyProviderTest extends Unit
         $this->locatorMock->expects(static::atLeastOnce())
             ->method('__call')
             ->withConsecutive(
-                ['utilEncoding']
+                ['utilEncoding'],
             )
             ->willReturn($this->bundleProxyMock);
 
@@ -95,17 +95,17 @@ class ErpOrderPageSearchDependencyProviderTest extends Unit
             ->method('__call')
             ->with('service')
             ->willReturnOnConsecutiveCalls(
-                $this->utilEncodingServiceMock
+                $this->utilEncodingServiceMock,
             );
 
         $this->assertEquals(
             $this->containerMock,
-            $this->erpOrderPageSearchDependencyProvider->provideBusinessLayerDependencies($this->containerMock)
+            $this->erpOrderPageSearchDependencyProvider->provideBusinessLayerDependencies($this->containerMock),
         );
 
         $this->assertInstanceOf(
             ErpOrderPageSearchToUtilEncodingServiceBridge::class,
-            $this->containerMock[ErpOrderPageSearchDependencyProvider::SERVICE_UTIL_ENCODING]
+            $this->containerMock[ErpOrderPageSearchDependencyProvider::SERVICE_UTIL_ENCODING],
         );
     }
 
@@ -121,7 +121,7 @@ class ErpOrderPageSearchDependencyProviderTest extends Unit
         $this->locatorMock->expects(static::atLeastOnce())
             ->method('__call')
             ->withConsecutive(
-                ['eventBehavior']
+                ['eventBehavior'],
             )
             ->willReturn($this->bundleProxyMock);
 
@@ -129,17 +129,17 @@ class ErpOrderPageSearchDependencyProviderTest extends Unit
             ->method('__call')
             ->with('facade')
             ->willReturnOnConsecutiveCalls(
-                $this->eventBehaviorFacadeMock
+                $this->eventBehaviorFacadeMock,
             );
 
         $this->assertEquals(
             $this->containerMock,
-            $this->erpOrderPageSearchDependencyProvider->provideCommunicationLayerDependencies($this->containerMock)
+            $this->erpOrderPageSearchDependencyProvider->provideCommunicationLayerDependencies($this->containerMock),
         );
 
         $this->assertInstanceOf(
             ErpOrderPageSearchToEventBehaviorFacadeBridge::class,
-            $this->containerMock[ErpOrderPageSearchDependencyProvider::FACADE_EVENT_BEHAVIOR]
+            $this->containerMock[ErpOrderPageSearchDependencyProvider::FACADE_EVENT_BEHAVIOR],
         );
     }
 
@@ -152,17 +152,17 @@ class ErpOrderPageSearchDependencyProviderTest extends Unit
     {
         $this->assertEquals(
             $this->containerMock,
-            $this->erpOrderPageSearchDependencyProvider->providePersistenceLayerDependencies($this->containerMock)
+            $this->erpOrderPageSearchDependencyProvider->providePersistenceLayerDependencies($this->containerMock),
         );
 
         $this->assertInstanceOf(
             ErpOrderQuery::class,
-            $this->containerMock[ErpOrderPageSearchDependencyProvider::QUERY_ERP_ORDER]
+            $this->containerMock[ErpOrderPageSearchDependencyProvider::QUERY_ERP_ORDER],
         );
 
         $this->assertInstanceOf(
             FooErpOrderPageSearchQuery::class,
-            $this->containerMock[ErpOrderPageSearchDependencyProvider::QUERY_ERP_ORDER_PAGE_SEARCH]
+            $this->containerMock[ErpOrderPageSearchDependencyProvider::QUERY_ERP_ORDER_PAGE_SEARCH],
         );
     }
 }

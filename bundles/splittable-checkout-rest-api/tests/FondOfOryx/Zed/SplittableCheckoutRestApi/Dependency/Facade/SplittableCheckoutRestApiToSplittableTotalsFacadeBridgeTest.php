@@ -49,7 +49,7 @@ class SplittableCheckoutRestApiToSplittableTotalsFacadeBridgeTest extends Unit
             ->getMock();
 
         $this->bridge = new SplittableCheckoutRestApiToSplittableTotalsFacadeBridge(
-            $this->splittableTotalsFacadeMock
+            $this->splittableTotalsFacadeMock,
         );
     }
 
@@ -65,7 +65,7 @@ class SplittableCheckoutRestApiToSplittableTotalsFacadeBridgeTest extends Unit
 
         static::assertEquals(
             $this->splittableTotalsTransferMock,
-            $this->bridge->getSplittableTotalsByQuote($this->quoteTransferMock)
+            $this->bridge->getSplittableTotalsByQuote($this->quoteTransferMock),
         );
     }
 }

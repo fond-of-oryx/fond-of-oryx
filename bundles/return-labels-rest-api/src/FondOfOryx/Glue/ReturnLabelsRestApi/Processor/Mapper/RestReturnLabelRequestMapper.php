@@ -18,7 +18,7 @@ class RestReturnLabelRequestMapper implements RestReturnLabelRequestMapperInterf
         return (new RestReturnLabelRequestTransfer())
             ->fromArray(
                 $restReturnLabelRequestAttributesTransfer->toArray(),
-                false
+                false,
             );
     }
 }

@@ -20,7 +20,7 @@ class SkuProductAbstractMapExpanderPluginTest extends Unit
     protected $pageMapBuilderMock;
 
     /**
-     * @var string[]
+     * @var array<string>
      */
     protected $productData;
 
@@ -72,12 +72,12 @@ class SkuProductAbstractMapExpanderPluginTest extends Unit
             $this->pageMapTransferMock,
             $this->pageMapBuilderMock,
             $this->productData,
-            $this->localeTransferMock
+            $this->localeTransferMock,
         );
 
         static::assertEquals(
             $this->pageMapTransferMock,
-            $pageMapTransfer
+            $pageMapTransfer,
         );
     }
 
@@ -93,12 +93,12 @@ class SkuProductAbstractMapExpanderPluginTest extends Unit
             $this->pageMapTransferMock,
             $this->pageMapBuilderMock,
             [],
-            $this->localeTransferMock
+            $this->localeTransferMock,
         );
 
         static::assertEquals(
             $this->pageMapTransferMock,
-            $pageMapTransfer
+            $pageMapTransfer,
         );
     }
 }

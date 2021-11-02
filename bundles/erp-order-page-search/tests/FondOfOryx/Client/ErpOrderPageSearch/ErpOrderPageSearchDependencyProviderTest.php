@@ -110,7 +110,7 @@ class ErpOrderPageSearchDependencyProviderTest extends Unit
             ->willReturnOnConsecutiveCalls(
                 $this->searchClientMock,
                 $this->customerClientMock,
-                $this->erpOrderPermissionClientMock
+                $this->erpOrderPermissionClientMock,
             );
 
         $container = $this->erpOrderPageSearchDependencyProvider->provideServiceLayerDependencies($this->containerMock);
@@ -119,30 +119,30 @@ class ErpOrderPageSearchDependencyProviderTest extends Unit
 
         $this->assertInstanceOf(
             ErpOrderPageSearchToSearchClientBridge::class,
-            $container[ErpOrderPageSearchDependencyProvider::CLIENT_SEARCH]
+            $container[ErpOrderPageSearchDependencyProvider::CLIENT_SEARCH],
         );
 
         $this->assertInstanceOf(
             ErpOrderPageSearchToCustomerClientBridge::class,
-            $container[ErpOrderPageSearchDependencyProvider::CLIENT_CUSTOMER]
+            $container[ErpOrderPageSearchDependencyProvider::CLIENT_CUSTOMER],
         );
 
         $this->assertInstanceOf(
             ErpOrderPageSearchToErpOrderPermissionClientBridge::class,
-            $container[ErpOrderPageSearchDependencyProvider::CLIENT_ERP_ORDER_PERMISSION]
+            $container[ErpOrderPageSearchDependencyProvider::CLIENT_ERP_ORDER_PERMISSION],
         );
 
         $this->assertInstanceOf(
             ErpOrderPageSearchQueryPlugin::class,
-            $container[ErpOrderPageSearchDependencyProvider::PLUGIN_SEARCH_QUERY]
+            $container[ErpOrderPageSearchDependencyProvider::PLUGIN_SEARCH_QUERY],
         );
 
         $this->assertIsArray(
-            $container[ErpOrderPageSearchDependencyProvider::PLUGINS_SEARCH_QUERY_EXPANDER]
+            $container[ErpOrderPageSearchDependencyProvider::PLUGINS_SEARCH_QUERY_EXPANDER],
         );
 
         $this->assertIsArray(
-            $container[ErpOrderPageSearchDependencyProvider::PLUGINS_SEARCH_RESULT_FORMATTER]
+            $container[ErpOrderPageSearchDependencyProvider::PLUGINS_SEARCH_RESULT_FORMATTER],
         );
     }
 }

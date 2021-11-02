@@ -66,7 +66,7 @@ class CrossEngageAvailabilityAlertSubscriptionRequestExpanderPluginTest extends 
                 static::assertSame('IP3', $args);
 
                 return $self->subscriptionRequestMock;
-            }
+            },
         );
 
         $transfer = $this->plugin->expand($this->subscriptionRequestMock, [], $this->requestMock);
@@ -89,7 +89,7 @@ class CrossEngageAvailabilityAlertSubscriptionRequestExpanderPluginTest extends 
                 static::assertSame('IP1', $args);
 
                 return $self->subscriptionRequestMock;
-            }
+            },
         );
 
         $transfer = $this->plugin->expand($this->subscriptionRequestMock, [], $this->requestMock);
@@ -110,7 +110,7 @@ class CrossEngageAvailabilityAlertSubscriptionRequestExpanderPluginTest extends 
                 static::assertSame(null, $args);
 
                 return $self->subscriptionRequestMock;
-            }
+            },
         );
 
         $transfer = $this->plugin->expand($this->subscriptionRequestMock, [], $this->requestMock);

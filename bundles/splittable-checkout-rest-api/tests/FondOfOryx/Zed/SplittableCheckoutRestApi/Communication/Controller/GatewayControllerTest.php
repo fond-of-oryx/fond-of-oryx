@@ -95,7 +95,7 @@ class GatewayControllerTest extends Unit
 
         static::assertEquals(
             $this->restSplittableCheckoutResponseTransferMock,
-            $this->gatewayController->placeOrderAction($this->restSplittableCheckoutRequestTransferMock)
+            $this->gatewayController->placeOrderAction($this->restSplittableCheckoutRequestTransferMock),
         );
     }
 
@@ -111,7 +111,7 @@ class GatewayControllerTest extends Unit
 
         static::assertEquals(
             $this->restSplittableTotalsResponseTransferMock,
-            $this->gatewayController->getSplittableTotalsAction($this->restSplittableCheckoutRequestTransferMock)
+            $this->gatewayController->getSplittableTotalsAction($this->restSplittableCheckoutRequestTransferMock),
         );
     }
 }

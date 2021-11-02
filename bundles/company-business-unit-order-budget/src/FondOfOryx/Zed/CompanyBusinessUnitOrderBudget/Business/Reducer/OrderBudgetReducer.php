@@ -61,7 +61,7 @@ class OrderBudgetReducer implements OrderBudgetReducerInterface
             ->getSubtotal();
 
         $this->orderBudgetFacade->updateOrderBudget(
-            $orderBudgetTransfer->setBudget($currentBudget - $subTotal)
+            $orderBudgetTransfer->setBudget($currentBudget - $subTotal),
         );
     }
 }

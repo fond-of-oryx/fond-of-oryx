@@ -19,11 +19,17 @@ class AvailabilityAlertAdapter implements AvailabilityAlertAdapterInterface
 {
     use LoggerTrait;
 
+    /**
+     * @var array
+     */
     protected const DEFAULT_HEADERS = [
         'Accept' => 'application/json',
         'Content-Type' => 'application/json',
     ];
 
+    /**
+     * @var string
+     */
     protected const URI = 'standard/availability-alert';
 
     /**

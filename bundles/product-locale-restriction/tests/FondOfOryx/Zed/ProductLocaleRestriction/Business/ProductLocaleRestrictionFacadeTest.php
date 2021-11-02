@@ -88,7 +88,7 @@ class ProductLocaleRestrictionFacadeTest extends Unit
 
         static::assertEquals(
             $this->productAbstractTransferMock,
-            $this->productLocaleRestrictionFacade->expandProductAbstract($this->productAbstractTransferMock)
+            $this->productLocaleRestrictionFacade->expandProductAbstract($this->productAbstractTransferMock),
         );
     }
 
@@ -106,7 +106,7 @@ class ProductLocaleRestrictionFacadeTest extends Unit
             ->with($this->productAbstractTransferMock);
 
         $this->productLocaleRestrictionFacade->persistProductAbstractLocaleRestrictions(
-            $this->productAbstractTransferMock
+            $this->productAbstractTransferMock,
         );
     }
 
@@ -126,8 +126,8 @@ class ProductLocaleRestrictionFacadeTest extends Unit
         static::assertEquals(
             $blacklistedLocales,
             $this->productLocaleRestrictionFacade->getBlacklistedLocalesByProductAbstractIds(
-                $productAbstractIds
-            )
+                $productAbstractIds,
+            ),
         );
     }
 
@@ -147,8 +147,8 @@ class ProductLocaleRestrictionFacadeTest extends Unit
         static::assertEquals(
             $blacklistedLocales,
             $this->productLocaleRestrictionFacade->getBlacklistedLocalesByProductConcreteSkus(
-                $productConcreteSkus
-            )
+                $productConcreteSkus,
+            ),
         );
     }
 }

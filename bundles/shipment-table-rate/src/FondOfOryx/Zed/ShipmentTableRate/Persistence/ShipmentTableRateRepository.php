@@ -14,7 +14,14 @@ use Spryker\Zed\Kernel\Persistence\AbstractRepository;
  */
 class ShipmentTableRateRepository extends AbstractRepository implements ShipmentTableRateRepositoryInterface
 {
+    /**
+     * @var string
+     */
     public const CONDITION_IS_MAX_PRICE_TO_PAY_GREATER_THEN_PRICE_TO_PAY = 'isMaxPriceToPayGreaterThenPriceToPay';
+
+    /**
+     * @var string
+     */
     public const CONDITION_IS_MAX_PRICE_TO_PAY_EQUAL_INFINITY = 'isMaxPriceToPayEqualInfinity';
 
     /**
@@ -29,7 +36,7 @@ class ShipmentTableRateRepository extends AbstractRepository implements Shipment
 
         $shipmentTableRateQuery = $this->applyShipmentTableRateCriteriaFilters(
             $shipmentTableRateQuery,
-            $shipmentTableRateCriteriaFilterTransfer
+            $shipmentTableRateCriteriaFilterTransfer,
         );
 
         $shipmentTableRate = $shipmentTableRateQuery->orderByZipCodePattern(Criteria::DESC)
@@ -41,7 +48,7 @@ class ShipmentTableRateRepository extends AbstractRepository implements Shipment
 
         return $this->getFactory()->createShipmentTableRateMapper()->mapEntityToTransfer(
             $shipmentTableRate,
-            new ShipmentTableRateTransfer()
+            new ShipmentTableRateTransfer(),
         );
     }
 
@@ -72,20 +79,20 @@ class ShipmentTableRateRepository extends AbstractRepository implements Shipment
 
             $shipmentTableRateQuery->filterByMinPriceToPay(
                 $priceToPay,
-                Criteria::LESS_EQUAL
+                Criteria::LESS_EQUAL,
             )->condition(
                 static::CONDITION_IS_MAX_PRICE_TO_PAY_GREATER_THEN_PRICE_TO_PAY,
                 FooShipmentTableRateTableMap::COL_MAX_PRICE_TO_PAY . ' > ?',
-                $priceToPay
+                $priceToPay,
             )->condition(
                 static::CONDITION_IS_MAX_PRICE_TO_PAY_EQUAL_INFINITY,
-                FooShipmentTableRateTableMap::COL_MAX_PRICE_TO_PAY . ' IS NULL'
+                FooShipmentTableRateTableMap::COL_MAX_PRICE_TO_PAY . ' IS NULL',
             )->combine(
                 [
                     static::CONDITION_IS_MAX_PRICE_TO_PAY_GREATER_THEN_PRICE_TO_PAY,
                     static::CONDITION_IS_MAX_PRICE_TO_PAY_EQUAL_INFINITY,
                 ],
-                Criteria::LOGICAL_OR
+                Criteria::LOGICAL_OR,
             );
         }
 

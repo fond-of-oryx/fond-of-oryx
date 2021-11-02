@@ -9,7 +9,14 @@ use Spryker\Zed\Kernel\Container;
 
 class OneTimePasswordRestApiDependencyProvider extends AbstractBundleDependencyProvider
 {
+    /**
+     * @var string
+     */
     public const FACADE_ONE_TIME_PASSWORD = 'FACADE_ONE_TIME_PASSWORD';
+
+    /**
+     * @var string
+     */
     public const FACADE_CUSTOMER = 'FACADE_CUSTOMER';
 
     /**
@@ -36,7 +43,7 @@ class OneTimePasswordRestApiDependencyProvider extends AbstractBundleDependencyP
     {
         $container[static::FACADE_ONE_TIME_PASSWORD] = static function (Container $container) {
             return new OneTimePasswordRestApiToOneTimePasswordFacadeBridge(
-                $container->getLocator()->oneTimePassword()->facade()
+                $container->getLocator()->oneTimePassword()->facade(),
             );
         };
 
@@ -52,7 +59,7 @@ class OneTimePasswordRestApiDependencyProvider extends AbstractBundleDependencyP
     {
         $container[static::FACADE_CUSTOMER] = static function (Container $container) {
             return new OneTimePasswordRestApiToCustomerFacadeBridge(
-                $container->getLocator()->customer()->facade()
+                $container->getLocator()->customer()->facade(),
             );
         };
 

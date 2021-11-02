@@ -9,12 +9,12 @@ use Spryker\Glue\GlueApplication\Rest\Request\Data\RestRequestInterface;
 class PaginationMapperTest extends Unit
 {
     /**
-     * @var mixed|\PHPUnit\Framework\MockObject\MockObject|\Spryker\Glue\GlueApplication\Rest\Request\Data\RestRequestInterface
+     * @var \PHPUnit\Framework\MockObject\MockObject|\Spryker\Glue\GlueApplication\Rest\Request\Data\RestRequestInterface|mixed
      */
     protected $restRequestMock;
 
     /**
-     * @var mixed|\PHPUnit\Framework\MockObject\MockObject|\Spryker\Glue\GlueApplication\Rest\Request\Data\PageInterface
+     * @var \PHPUnit\Framework\MockObject\MockObject|\Spryker\Glue\GlueApplication\Rest\Request\Data\PageInterface|mixed
      */
     protected $pageMock;
 
@@ -66,12 +66,12 @@ class PaginationMapperTest extends Unit
 
         static::assertEquals(
             $limit,
-            $paginationTransfer->getMaxPerPage()
+            $paginationTransfer->getMaxPerPage(),
         );
 
         static::assertEquals(
             $currentPage,
-            $paginationTransfer->getPage()
+            $paginationTransfer->getPage(),
         );
     }
 
@@ -88,12 +88,12 @@ class PaginationMapperTest extends Unit
 
         static::assertEquals(
             null,
-            $paginationTransfer->getMaxPerPage()
+            $paginationTransfer->getMaxPerPage(),
         );
 
         static::assertEquals(
             null,
-            $paginationTransfer->getPage()
+            $paginationTransfer->getPage(),
         );
     }
 }

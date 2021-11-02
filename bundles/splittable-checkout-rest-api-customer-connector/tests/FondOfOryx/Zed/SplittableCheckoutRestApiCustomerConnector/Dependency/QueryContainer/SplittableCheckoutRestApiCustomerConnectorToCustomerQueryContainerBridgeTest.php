@@ -39,7 +39,7 @@ class SplittableCheckoutRestApiCustomerConnectorToCustomerQueryContainerBridgeTe
             ->getMock();
 
         $this->bridge = new SplittableCheckoutRestApiCustomerConnectorToCustomerQueryContainerBridge(
-            $this->customerQueryContainerMock
+            $this->customerQueryContainerMock,
         );
     }
 
@@ -57,7 +57,7 @@ class SplittableCheckoutRestApiCustomerConnectorToCustomerQueryContainerBridgeTe
 
         static::assertEquals(
             $this->spyCustomerQueryMock,
-            $this->bridge->queryCustomerByReference($customerReference)
+            $this->bridge->queryCustomerByReference($customerReference),
         );
     }
 }

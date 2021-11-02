@@ -16,6 +16,9 @@ use Spryker\Zed\Api\Business\Exception\EntityNotSavedException;
 
 class ErpOrderApi implements ErpOrderApiInterface
 {
+    /**
+     * @var string
+     */
     protected const KEY_ID_ERP_ORDER = 'id_erp_order';
 
     /**
@@ -64,13 +67,13 @@ class ErpOrderApi implements ErpOrderApiInterface
         if ($erpOrderTransfer === null || !$erpOrderResponseTransfer->getIsSuccessful()) {
             throw new EntityNotSavedException(
                 sprintf('Could not create erp order.'),
-                ApiConfig::HTTP_CODE_INTERNAL_ERROR
+                ApiConfig::HTTP_CODE_INTERNAL_ERROR,
             );
         }
 
         return $this->apiQueryContainer->createApiItem(
             $erpOrderTransfer,
-            $erpOrderTransfer->getIdErpOrder()
+            $erpOrderTransfer->getIdErpOrder(),
         );
     }
 
@@ -96,13 +99,13 @@ class ErpOrderApi implements ErpOrderApiInterface
         if ($erpOrderTransfer === null || !$erpOrderResponseTransfer->getIsSuccessful()) {
             throw new EntityNotSavedException(
                 sprintf('Could not update erp order.'),
-                ApiConfig::HTTP_CODE_INTERNAL_ERROR
+                ApiConfig::HTTP_CODE_INTERNAL_ERROR,
             );
         }
 
         return $this->apiQueryContainer->createApiItem(
             $erpOrderTransfer,
-            $erpOrderTransfer->getIdErpOrder()
+            $erpOrderTransfer->getIdErpOrder(),
         );
     }
 
@@ -169,7 +172,7 @@ class ErpOrderApi implements ErpOrderApiInterface
         if ($erpOrderTransfer === null) {
             throw new EntityNotFoundException(
                 sprintf('Could not found erp order.'),
-                ApiConfig::HTTP_CODE_NOT_FOUND
+                ApiConfig::HTTP_CODE_NOT_FOUND,
             );
         }
 

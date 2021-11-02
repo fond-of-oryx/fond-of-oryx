@@ -70,19 +70,19 @@ class JellyfishSalesOrderBusinessFactoryTest extends Unit
                 [JellyfishSalesOrderDependencyProvider::PLUGINS_JELLYFISH_ORDER_ITEM_EXPANDER_POST_MAP],
                 [JellyfishSalesOrderDependencyProvider::PLUGINS_JELLYFISH_ORDER_POST_MAP],
                 [JellyfishSalesOrderDependencyProvider::SERVICE_UTIL_ENCODING],
-                [JellyfishSalesOrderDependencyProvider::PLUGINS_JELLYFISH_ORDER_BEFORE_EXPORT]
+                [JellyfishSalesOrderDependencyProvider::PLUGINS_JELLYFISH_ORDER_BEFORE_EXPORT],
             )->willReturnOnConsecutiveCalls(
                 [],
                 [],
                 [],
                 [],
                 $this->jellyfishSalesOrderToUtilEncodingServiceMock,
-                []
+                [],
             );
 
         $this->assertInstanceOf(
             SalesOrderExporter::class,
-            $this->jellyfishSalesOrderBusinessFactory->createSalesOrderExporter()
+            $this->jellyfishSalesOrderBusinessFactory->createSalesOrderExporter(),
         );
     }
 }

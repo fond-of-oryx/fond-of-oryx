@@ -84,7 +84,7 @@ class JellyfishGiftCardToRendererBridgeTest extends Unit
 
         static::assertEquals(
             $renderedTemplate,
-            $this->bridge->render($template, $options)
+            $this->bridge->render($template, $options),
         );
     }
 }

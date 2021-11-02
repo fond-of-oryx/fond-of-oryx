@@ -53,7 +53,7 @@ class ReturnLabelsRestApiCustomerConnectorToCustomerFacadeBridgeTest extends Uni
 
         static::assertEquals(
             $this->customerTransferMock,
-            $this->bridge->findCustomerById($this->customerTransferMock)
+            $this->bridge->findCustomerById($this->customerTransferMock),
         );
     }
 }

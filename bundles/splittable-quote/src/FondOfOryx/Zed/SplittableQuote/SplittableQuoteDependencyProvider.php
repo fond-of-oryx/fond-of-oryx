@@ -8,8 +8,14 @@ use Spryker\Zed\Kernel\Container;
 
 class SplittableQuoteDependencyProvider extends AbstractBundleDependencyProvider
 {
+    /**
+     * @var string
+     */
     public const FACADE_CALCULATION = 'FACADE_CALCULATION';
 
+    /**
+     * @var string
+     */
     public const PLUGINS_SPLITTED_QUOTE_EXPANDER = 'PLUGINS_SPLITTED_QUOTE_EXPANDER';
 
     /**
@@ -57,7 +63,7 @@ class SplittableQuoteDependencyProvider extends AbstractBundleDependencyProvider
     }
 
     /**
-     * @return \FondOfOryx\Zed\SplittableQuoteExtension\Dependency\Plugin\SplittedQuoteExpanderPluginInterface[]
+     * @return array<\FondOfOryx\Zed\SplittableQuoteExtension\Dependency\Plugin\SplittedQuoteExpanderPluginInterface>
      */
     protected function getSplittedQuoteExpanderPlugins(): array
     {

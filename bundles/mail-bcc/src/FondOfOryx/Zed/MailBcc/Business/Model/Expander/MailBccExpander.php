@@ -34,7 +34,7 @@ class MailBccExpander implements ExpanderInterface
     {
         foreach ($this->config->getBccEmailAddress() as $mail => $name) {
             $mailTransfer->addRecipientBcc(
-                $this->createMailRecipient($mail, $name)
+                $this->createMailRecipient($mail, $name),
             );
         }
 

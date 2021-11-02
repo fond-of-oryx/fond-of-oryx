@@ -33,7 +33,7 @@ class OneTimePasswordRestApiStub implements OneTimePasswordRestApiStubInterface
         /** @var \Generated\Shared\Transfer\RestOneTimePasswordResponseTransfer $restOneTimePasswordResponseTransfer */
         $restOneTimePasswordResponseTransfer = $this->zedStub->call(
             '/one-time-password-rest-api/gateway/request-one-time-password',
-            $restOneTimePasswordRequestAttributesTransfer
+            $restOneTimePasswordRequestAttributesTransfer,
         );
 
         return $restOneTimePasswordResponseTransfer;
@@ -50,7 +50,7 @@ class OneTimePasswordRestApiStub implements OneTimePasswordRestApiStubInterface
         /** @var \Generated\Shared\Transfer\RestOneTimePasswordResponseTransfer $restOneTimePasswordResponseTransfer */
         $restOneTimePasswordResponseTransfer = $this->zedStub->call(
             '/one-time-password-rest-api/gateway/request-one-time-password-login-link',
-            $oneTimePasswordLoginLinkRequestTransfer
+            $oneTimePasswordLoginLinkRequestTransfer,
         );
 
         return $restOneTimePasswordResponseTransfer;

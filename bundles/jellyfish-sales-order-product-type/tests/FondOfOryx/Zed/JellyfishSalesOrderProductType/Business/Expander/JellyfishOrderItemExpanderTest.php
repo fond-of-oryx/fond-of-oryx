@@ -71,7 +71,7 @@ class JellyfishOrderItemExpanderTest extends Unit
 
         $jellyfishOrderItemTransfer = $this->expander->expand(
             $this->jellyfishOrderItemTransferMock,
-            $this->spySalesOrderItemMock
+            $this->spySalesOrderItemMock,
         );
 
         $this->assertInstanceOf(JellyfishOrderItemTransfer::class, $this->jellyfishOrderItemTransferMock);
@@ -99,7 +99,7 @@ class JellyfishOrderItemExpanderTest extends Unit
 
         $jellyfishOrderItemTransfer = $this->expander->expand(
             $this->jellyfishOrderItemTransferMock,
-            $this->spySalesOrderItemMock
+            $this->spySalesOrderItemMock,
         );
 
         $this->assertInstanceOf(JellyfishOrderItemTransfer::class, $this->jellyfishOrderItemTransferMock);

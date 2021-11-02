@@ -20,6 +20,9 @@ use Spryker\Client\SearchExtension\Dependency\Plugin\QueryInterface;
 class CompanyBusinessUnitUuidErpOrderPageSearchQueryExpanderPlugin extends AbstractPlugin implements
     QueryExpanderPluginInterface
 {
+    /**
+     * @var string
+     */
     protected const NIL_UUID = '00000000-0000-0000-0000-000000000000';
 
     /**
@@ -38,8 +41,8 @@ class CompanyBusinessUnitUuidErpOrderPageSearchQueryExpanderPlugin extends Abstr
         $companyBusinessUnitUuids = array_values(
             array_intersect(
                 $this->getCompanyBusinessUnitUuidsByRequestParameters($requestParameters),
-                $this->getAvailableCompanyBusinessUnitUuids()
-            )
+                $this->getAvailableCompanyBusinessUnitUuids(),
+            ),
         );
 
         if (count($companyBusinessUnitUuids) === 0) {
@@ -55,7 +58,7 @@ class CompanyBusinessUnitUuidErpOrderPageSearchQueryExpanderPlugin extends Abstr
     /**
      * @param array $requestParameters
      *
-     * @return string[]
+     * @return array<string>
      */
     protected function getCompanyBusinessUnitUuidsByRequestParameters(array $requestParameters): array
     {
@@ -73,7 +76,7 @@ class CompanyBusinessUnitUuidErpOrderPageSearchQueryExpanderPlugin extends Abstr
     }
 
     /**
-     * @return string[]
+     * @return array<string>
      */
     protected function getAvailableCompanyBusinessUnitUuids(): array
     {
@@ -95,7 +98,7 @@ class CompanyBusinessUnitUuidErpOrderPageSearchQueryExpanderPlugin extends Abstr
 
         $companyBusinessUnitUuidCollectionTransfer = $this->getFactory()->getErpOrderPermissionClient()
             ->getAccessibleCompanyBusinessUnitUuids(
-                $erpOrderPermissionCompanyBusinessUnitUuidRequestTransfer
+                $erpOrderPermissionCompanyBusinessUnitUuidRequestTransfer,
             );
 
         $this->availableCompanyBusinessUnitUuids = $companyBusinessUnitUuidCollectionTransfer->getCompanyBusinessUnitIds();
@@ -119,8 +122,8 @@ class CompanyBusinessUnitUuidErpOrderPageSearchQueryExpanderPlugin extends Abstr
                 sprintf(
                     'Query expander available only with %s, got: %s',
                     BoolQuery::class,
-                    get_class($boolQuery)
-                )
+                    get_class($boolQuery),
+                ),
             );
         }
 

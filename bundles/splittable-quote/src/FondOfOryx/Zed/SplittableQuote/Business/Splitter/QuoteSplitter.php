@@ -21,14 +21,14 @@ class QuoteSplitter implements QuoteSplitterInterface
     protected $config;
 
     /**
-     * @var \FondOfOryx\Zed\SplittableQuoteExtension\Dependency\Plugin\SplittedQuoteExpanderPluginInterface[]
+     * @var array<\FondOfOryx\Zed\SplittableQuoteExtension\Dependency\Plugin\SplittedQuoteExpanderPluginInterface>
      */
     protected $splittedQuoteExpanderPlugins;
 
     /**
      * @param \FondOfOryx\Zed\SplittableQuote\Dependency\Facade\SplittableQuoteToCalculationFacadeInterface $calculationFacade
      * @param \FondOfOryx\Zed\SplittableQuote\SplittableQuoteConfig $config
-     * @param \FondOfOryx\Zed\SplittableQuoteExtension\Dependency\Plugin\SplittedQuoteExpanderPluginInterface[] $splittedQuoteExpanderPlugins
+     * @param array<\FondOfOryx\Zed\SplittableQuoteExtension\Dependency\Plugin\SplittedQuoteExpanderPluginInterface> $splittedQuoteExpanderPlugins
      */
     public function __construct(
         SplittableQuoteToCalculationFacadeInterface $calculationFacade,
@@ -81,7 +81,7 @@ class QuoteSplitter implements QuoteSplitterInterface
 
         $getterMethod = sprintf(
             'get%s',
-            str_replace(' ', '', ucwords(str_replace('_', ' ', $splitItemAttribute)))
+            str_replace(' ', '', ucwords(str_replace('_', ' ', $splitItemAttribute))),
         );
 
         if (!method_exists(ItemTransfer::class, $getterMethod)) {
@@ -115,7 +115,7 @@ class QuoteSplitter implements QuoteSplitterInterface
         foreach ($splittedQuoteTransfers as $key => $splittedQuoteTransfer) {
             $splittedQuoteTransfers[$key] = $this->calculationFacade->recalculateQuote(
                 $splittedQuoteTransfer,
-                false
+                false,
             );
 
             foreach ($this->splittedQuoteExpanderPlugins as $splittedQuoteExpanderPlugin) {
@@ -124,7 +124,7 @@ class QuoteSplitter implements QuoteSplitterInterface
 
             $splittedQuoteTransfers[$key] = $this->calculationFacade->recalculateQuote(
                 $splittedQuoteTransfer,
-                false
+                false,
             );
         }
 

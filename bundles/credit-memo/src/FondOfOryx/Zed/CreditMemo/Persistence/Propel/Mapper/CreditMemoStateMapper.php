@@ -19,7 +19,7 @@ class CreditMemoStateMapper implements CreditMemoStateMapperInterface
         FooCreditMemoState $fooCreditMemoState
     ): FooCreditMemoState {
         $fooCreditMemoState->fromArray(
-            $creditMemoStateTransfer->modifiedToArray(false)
+            $creditMemoStateTransfer->modifiedToArray(false),
         );
 
         return $fooCreditMemoState;

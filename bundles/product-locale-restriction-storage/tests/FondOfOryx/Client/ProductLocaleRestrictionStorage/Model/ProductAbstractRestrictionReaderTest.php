@@ -49,7 +49,7 @@ class ProductAbstractRestrictionReaderTest extends Unit
 
         $this->productAbstractRestrictionReader = new ProductAbstractRestrictionReader(
             $this->localeClientMock,
-            $this->productAbstractLocaleRestrictionStorageReaderMock
+            $this->productAbstractLocaleRestrictionStorageReaderMock,
         );
     }
 

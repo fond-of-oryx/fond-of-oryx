@@ -44,8 +44,8 @@ class CompanyBusinessUnitAddressSearchResourceRoutePluginTest extends Unit
         static::assertEquals(
             $this->resourceRouteCollectionMock,
             $this->plugin->configure(
-                $this->resourceRouteCollectionMock
-            )
+                $this->resourceRouteCollectionMock,
+            ),
         );
     }
 
@@ -56,7 +56,7 @@ class CompanyBusinessUnitAddressSearchResourceRoutePluginTest extends Unit
     {
         static::assertEquals(
             CompanyBusinessUnitAddressSearchRestApiConfig::RESOURCE_COMPANY_BUSINESS_UNIT_ADDRESS_SEARCH,
-            $this->plugin->getResourceType()
+            $this->plugin->getResourceType(),
         );
     }
 
@@ -67,7 +67,7 @@ class CompanyBusinessUnitAddressSearchResourceRoutePluginTest extends Unit
     {
         static::assertEquals(
             CompanyBusinessUnitAddressSearchRestApiConfig::CONTROLLER_RESOURCE_COMPANY_BUSINESS_UNIT_ADDRESS_SEARCH,
-            $this->plugin->getController()
+            $this->plugin->getController(),
         );
     }
 
@@ -78,7 +78,7 @@ class CompanyBusinessUnitAddressSearchResourceRoutePluginTest extends Unit
     {
         static::assertEquals(
             RestCompanyBusinessUnitAddressSearchAttributesTransfer::class,
-            $this->plugin->getResourceAttributesClassName()
+            $this->plugin->getResourceAttributesClassName(),
         );
     }
 }

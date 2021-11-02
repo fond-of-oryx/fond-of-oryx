@@ -8,12 +8,12 @@ use Orm\Zed\Sales\Persistence\SpySalesOrder;
 class JellyfishSalesOrderPluginExecutor implements JellyfishSalesOrderPluginExecutorInterface
 {
     /**
-     * @var \FondOfOryx\Zed\JellyfishSalesOrderExtension\Dependency\Plugin\JellyfishOrderPostMapPluginInterface[]
+     * @var array<\FondOfOryx\Zed\JellyfishSalesOrderExtension\Dependency\Plugin\JellyfishOrderPostMapPluginInterface>
      */
     protected $jellyfishOrderPostMapPlugins;
 
     /**
-     * @param \FondOfOryx\Zed\JellyfishSalesOrderExtension\Dependency\Plugin\JellyfishOrderPostMapPluginInterface[] $jellyfishOrderPostMapPlugins
+     * @param array<\FondOfOryx\Zed\JellyfishSalesOrderExtension\Dependency\Plugin\JellyfishOrderPostMapPluginInterface> $jellyfishOrderPostMapPlugins
      */
     public function __construct(array $jellyfishOrderPostMapPlugins)
     {

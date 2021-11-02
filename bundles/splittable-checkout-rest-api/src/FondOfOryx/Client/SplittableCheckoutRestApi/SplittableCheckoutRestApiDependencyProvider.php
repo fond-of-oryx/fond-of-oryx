@@ -8,6 +8,9 @@ use Spryker\Client\Kernel\Container;
 
 class SplittableCheckoutRestApiDependencyProvider extends AbstractDependencyProvider
 {
+    /**
+     * @var string
+     */
     public const CLIENT_ZED_REQUEST = 'CLIENT_ZED_REQUEST';
 
     /**
@@ -31,7 +34,7 @@ class SplittableCheckoutRestApiDependencyProvider extends AbstractDependencyProv
     {
         $container[static::CLIENT_ZED_REQUEST] = static function (Container $container) {
             return new SplittableCheckoutRestApiToZedRequestClientBridge(
-                $container->getLocator()->zedRequest()->client()
+                $container->getLocator()->zedRequest()->client(),
             );
         };
 

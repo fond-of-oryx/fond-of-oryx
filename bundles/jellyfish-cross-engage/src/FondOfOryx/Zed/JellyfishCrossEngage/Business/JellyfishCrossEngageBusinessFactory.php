@@ -24,7 +24,7 @@ class JellyfishCrossEngageBusinessFactory extends AbstractBusinessFactory
             $this->getProductFacade(),
             $this->getProductCategoryFacade(),
             $this->getLocaleFacade(),
-            $this->getConfig()
+            $this->getConfig(),
         );
     }
 

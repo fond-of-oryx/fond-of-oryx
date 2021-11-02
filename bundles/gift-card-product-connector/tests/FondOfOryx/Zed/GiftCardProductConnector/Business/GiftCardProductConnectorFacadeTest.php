@@ -84,7 +84,7 @@ class GiftCardProductConnectorFacadeTest extends Unit
             ->willReturn($this->productAbstractTransferMock);
 
         $productAbstractTransferMock = $this->giftCardProductConnectorFacade->saveGiftCardProductAbstractConfiguration(
-            $this->productAbstractTransferMock
+            $this->productAbstractTransferMock,
         );
 
         $this->assertInstanceOf(ProductAbstractTransfer::class, $productAbstractTransferMock);
@@ -106,7 +106,7 @@ class GiftCardProductConnectorFacadeTest extends Unit
             ->willReturn($this->productConcreteTransferMock);
 
         $productConcreteTransferMock = $this->giftCardProductConnectorFacade->saveGiftCardProductConfiguration(
-            $this->productConcreteTransferMock
+            $this->productConcreteTransferMock,
         );
 
         $this->assertInstanceOf(ProductConcreteTransfer::class, $productConcreteTransferMock);

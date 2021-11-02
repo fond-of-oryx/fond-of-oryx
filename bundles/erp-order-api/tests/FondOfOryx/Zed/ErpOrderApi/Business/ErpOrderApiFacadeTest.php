@@ -114,7 +114,7 @@ class ErpOrderApiFacadeTest extends Unit
 
         static::assertEquals(
             $this->apiItemTransferMock,
-            $this->erpOrderApiFacade->createErpOrder($this->apiDataTransferMock)
+            $this->erpOrderApiFacade->createErpOrder($this->apiDataTransferMock),
         );
     }
 
@@ -134,7 +134,7 @@ class ErpOrderApiFacadeTest extends Unit
 
         static::assertEquals(
             $this->apiItemTransferMock,
-            $this->erpOrderApiFacade->updateErpOrder($this->idErpOrder, $this->apiDataTransferMock)
+            $this->erpOrderApiFacade->updateErpOrder($this->idErpOrder, $this->apiDataTransferMock),
         );
     }
 
@@ -154,7 +154,7 @@ class ErpOrderApiFacadeTest extends Unit
 
         static::assertEquals(
             $this->apiItemTransferMock,
-            $this->erpOrderApiFacade->getErpOrder($this->idErpOrder)
+            $this->erpOrderApiFacade->getErpOrder($this->idErpOrder),
         );
     }
 
@@ -174,7 +174,7 @@ class ErpOrderApiFacadeTest extends Unit
 
         static::assertEquals(
             $this->apiCollectionTransferMock,
-            $this->erpOrderApiFacade->findErpOrders($this->apiRequestTransferMock)
+            $this->erpOrderApiFacade->findErpOrders($this->apiRequestTransferMock),
         );
     }
 
@@ -194,7 +194,7 @@ class ErpOrderApiFacadeTest extends Unit
 
         static::assertEquals(
             $this->apiItemTransferMock,
-            $this->erpOrderApiFacade->deleteErpOrder($this->idErpOrder)
+            $this->erpOrderApiFacade->deleteErpOrder($this->idErpOrder),
         );
     }
 
@@ -216,7 +216,7 @@ class ErpOrderApiFacadeTest extends Unit
 
         static::assertEquals(
             $validationResult,
-            $this->erpOrderApiFacade->validateErpOrder($this->apiDataTransferMock)
+            $this->erpOrderApiFacade->validateErpOrder($this->apiDataTransferMock),
         );
     }
 }

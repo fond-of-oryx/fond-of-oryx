@@ -8,12 +8,12 @@ use Generated\Shared\Transfer\RestSplittableCheckoutRequestTransfer;
 class QuoteExpander implements QuoteExpanderInterface
 {
     /**
-     * @var \FondOfOryx\Zed\SplittableCheckoutRestApiExtension\Dependency\Plugin\QuoteExpanderPluginInterface[]
+     * @var array<\FondOfOryx\Zed\SplittableCheckoutRestApiExtension\Dependency\Plugin\QuoteExpanderPluginInterface>
      */
     protected $quoteExpanderPlugins;
 
     /**
-     * @param \FondOfOryx\Zed\SplittableCheckoutRestApiExtension\Dependency\Plugin\QuoteExpanderPluginInterface[] $quoteExpanderPlugins
+     * @param array<\FondOfOryx\Zed\SplittableCheckoutRestApiExtension\Dependency\Plugin\QuoteExpanderPluginInterface> $quoteExpanderPlugins
      */
     public function __construct(array $quoteExpanderPlugins)
     {

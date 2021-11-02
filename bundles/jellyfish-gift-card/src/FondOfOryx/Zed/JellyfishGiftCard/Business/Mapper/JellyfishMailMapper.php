@@ -64,11 +64,11 @@ class JellyfishMailMapper implements JellyfishMailMapperInterface
         }
 
         $jellyfishMailRecipientTransfer = $this->jellyfishMailRecipientMapper->fromJellyfishGiftCardRequest(
-            $jellyfishGiftCardRequestTransfer
+            $jellyfishGiftCardRequestTransfer,
         );
 
         $jellyfishMailBodyTransfer = $this->jellyfishMailBodyMapper->fromJellyfishGiftCardRequest(
-            $jellyfishGiftCardRequestTransfer
+            $jellyfishGiftCardRequestTransfer,
         );
 
         return (new JellyfishMailTransfer())->setRecipient($jellyfishMailRecipientTransfer)

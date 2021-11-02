@@ -20,12 +20,15 @@ class PartialRefundCommandPlugin extends SprykerEcoPartialRefundCommandPlugin
 {
     use CreditMemoRefundHelperTrait;
 
+    /**
+     * @var string
+     */
     public const REFUND_APPROVED = 'APPROVED';
 
     /**
      * @api
      *
-     * @param \Orm\Zed\Sales\Persistence\SpySalesOrderItem[] $orderItems
+     * @param array<\Orm\Zed\Sales\Persistence\SpySalesOrderItem> $orderItems
      * @param \Orm\Zed\Sales\Persistence\SpySalesOrder $orderEntity
      * @param \Spryker\Zed\Oms\Business\Util\ReadOnlyArrayObject $data
      *
@@ -40,7 +43,7 @@ class PartialRefundCommandPlugin extends SprykerEcoPartialRefundCommandPlugin
         foreach ($creditMemos as $creditMemoEntity) {
             $refundItems = array_merge(
                 $refundItems,
-                $this->getRefundableItemsByCreditMemo($creditMemoEntity, $orderItems)
+                $this->getRefundableItemsByCreditMemo($creditMemoEntity, $orderItems),
             );
         }
 

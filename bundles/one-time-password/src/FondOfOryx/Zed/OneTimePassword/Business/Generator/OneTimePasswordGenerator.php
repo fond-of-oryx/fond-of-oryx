@@ -11,7 +11,14 @@ use Symfony\Component\Security\Core\Encoder\NativePasswordEncoder;
 
 class OneTimePasswordGenerator implements OneTimePasswordGeneratorInterface
 {
+    /**
+     * @var int
+     */
     protected const BCRYPT_FACTOR = 12;
+
+    /**
+     * @var string
+     */
     protected const BCRYPT_SALT = '';
 
     /**

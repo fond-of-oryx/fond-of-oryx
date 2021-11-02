@@ -58,7 +58,7 @@ class OneTimePasswordSenderTest extends Unit
 
         $this->oneTimePasswordSender = new OneTimePasswordSender(
             $this->oneTimePasswordGeneratorMock,
-            $this->oneTimePasswordEmailConnectorFacadeMock
+            $this->oneTimePasswordEmailConnectorFacadeMock,
         );
     }
 
@@ -87,8 +87,8 @@ class OneTimePasswordSenderTest extends Unit
         $this->assertSame(
             $this->oneTimePasswordResponseTransferMock,
             $this->oneTimePasswordSender->requestOneTimePassword(
-                $this->customerTransferMock
-            )
+                $this->customerTransferMock,
+            ),
         );
     }
 }

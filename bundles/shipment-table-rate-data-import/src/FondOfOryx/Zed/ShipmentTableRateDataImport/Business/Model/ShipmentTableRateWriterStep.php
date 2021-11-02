@@ -15,12 +15,12 @@ use Spryker\Zed\DataImport\Business\Model\DataSet\DataSetInterface;
 class ShipmentTableRateWriterStep implements DataImportStepInterface
 {
     /**
-     * @var int[]
+     * @var array<int>
      */
     protected static $countryIdsCache = [];
 
     /**
-     * @var int[]
+     * @var array<int>
      */
     protected static $storeIdsCache = [];
 
@@ -42,9 +42,9 @@ class ShipmentTableRateWriterStep implements DataImportStepInterface
         }
 
         $shipmentTableRateEntity->setFkCountry(
-            $this->getCountryIdByIso2Code($dataSet[ShipmentTableRateDataSet::SHIPMENT_TABLE_RATE_COUNTRY])
+            $this->getCountryIdByIso2Code($dataSet[ShipmentTableRateDataSet::SHIPMENT_TABLE_RATE_COUNTRY]),
         )->setFkStore(
-            $this->getStoreIdByName($dataSet[ShipmentTableRateDataSet::SHIPMENT_TABLE_RATE_STORE])
+            $this->getStoreIdByName($dataSet[ShipmentTableRateDataSet::SHIPMENT_TABLE_RATE_STORE]),
         );
 
         $shipmentTableRateEntity->save();

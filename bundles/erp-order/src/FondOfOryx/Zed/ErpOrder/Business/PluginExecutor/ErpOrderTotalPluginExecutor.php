@@ -7,18 +7,18 @@ use Generated\Shared\Transfer\ErpOrderTotalTransfer;
 class ErpOrderTotalPluginExecutor implements ErpOrderTotalPluginExecutorInterface
 {
     /**
-     * @var \FondOfOryx\Zed\ErpOrderExtension\Dependency\Plugin\ErpOrderTotalPreSavePluginInterface[]
+     * @var array<\FondOfOryx\Zed\ErpOrderExtension\Dependency\Plugin\ErpOrderTotalPreSavePluginInterface>
      */
     protected $erpOrderTotalPreSavePlugins;
 
     /**
-     * @var \FondOfOryx\Zed\ErpOrderExtension\Dependency\Plugin\ErpOrderTotalPostSavePluginInterface[]
+     * @var array<\FondOfOryx\Zed\ErpOrderExtension\Dependency\Plugin\ErpOrderTotalPostSavePluginInterface>
      */
     protected $erpOrderTotalPostSavePlugins;
 
     /**
-     * @param \FondOfOryx\Zed\ErpOrderExtension\Dependency\Plugin\ErpOrderTotalPreSavePluginInterface[] $erpOrderTotalPreSavePlugins
-     * @param \FondOfOryx\Zed\ErpOrderExtension\Dependency\Plugin\ErpOrderTotalPostSavePluginInterface[] $erpOrderTotalPostSavePlugins
+     * @param array<\FondOfOryx\Zed\ErpOrderExtension\Dependency\Plugin\ErpOrderTotalPreSavePluginInterface> $erpOrderTotalPreSavePlugins
+     * @param array<\FondOfOryx\Zed\ErpOrderExtension\Dependency\Plugin\ErpOrderTotalPostSavePluginInterface> $erpOrderTotalPostSavePlugins
      */
     public function __construct(array $erpOrderTotalPreSavePlugins, array $erpOrderTotalPostSavePlugins)
     {

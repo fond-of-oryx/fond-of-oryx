@@ -10,6 +10,9 @@ use Spryker\Zed\Kernel\Persistence\AbstractEntityManager;
  */
 class JellyfishCreditMemoEntityManager extends AbstractEntityManager implements JellyfishCreditMemoEntityManagerInterface
 {
+    /**
+     * @var string
+     */
     protected const COLUMN_JELLYFISH_EXPORT_STATE = 'JellyfishExportState';
 
     /**
@@ -23,7 +26,7 @@ class JellyfishCreditMemoEntityManager extends AbstractEntityManager implements 
         $this->getFactory()
             ->createCreditMemoQuery()
             ->filterByIdCreditMemo(
-                $jellyfishCreditMemoTransfer->getId()
+                $jellyfishCreditMemoTransfer->getId(),
             )->update([
                 static::COLUMN_JELLYFISH_EXPORT_STATE => $jellyfishCreditMemoTransfer->getExportState(),
             ]);

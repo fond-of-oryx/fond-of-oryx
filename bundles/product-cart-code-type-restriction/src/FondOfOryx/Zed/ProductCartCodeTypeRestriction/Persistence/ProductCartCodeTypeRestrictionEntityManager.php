@@ -26,7 +26,7 @@ class ProductCartCodeTypeRestrictionEntityManager extends AbstractEntityManager 
             ->createProductAbstractCartCodeTypeRestrictionMapper()
             ->mapTransferToEntity(
                 $productAbstractCartCodeTypeRestriction,
-                new FooProductAbstractCartCodeTypeRestriction()
+                new FooProductAbstractCartCodeTypeRestriction(),
             );
 
         $fooProductAbstractCartCodeTypeRestriction->save();
@@ -34,7 +34,7 @@ class ProductCartCodeTypeRestrictionEntityManager extends AbstractEntityManager 
 
     /**
      * @param int $idProductAbstract
-     * @param int[] $cartCodeTypeIds
+     * @param array<int> $cartCodeTypeIds
      *
      * @return void
      */

@@ -372,13 +372,13 @@ class GiftCardProductConnectorEntityManagerTest extends Unit
 
         $entityTransfer = $this->giftCardProductConnectorEntityManager->saveGiftCardProductAbstractConfiguration(
             $this->productAbstractTransferMock,
-            $pattern
+            $pattern,
         );
 
         $this->assertInstanceOf(SpyGiftCardProductAbstractConfigurationEntityTransfer::class, $entityTransfer);
         $this->assertEquals(
             $this->spyGiftCardProductAbstractConfigurationEntityTransferMock,
-            $entityTransfer
+            $entityTransfer,
         );
 
         $this->assertEquals($entityTransfer->getIdGiftCardProductAbstractConfiguration(), 1);
@@ -496,13 +496,13 @@ class GiftCardProductConnectorEntityManagerTest extends Unit
 
         $entityTransfer = $this->giftCardProductConnectorEntityManager->saveGiftCardProductAbstractConfiguration(
             $this->productAbstractTransferMock,
-            $pattern
+            $pattern,
         );
 
         $this->assertInstanceOf(SpyGiftCardProductAbstractConfigurationEntityTransfer::class, $entityTransfer);
         $this->assertEquals(
             $this->spyGiftCardProductAbstractConfigurationEntityTransferMock,
-            $entityTransfer
+            $entityTransfer,
         );
 
         $this->assertEquals($entityTransfer->getIdGiftCardProductAbstractConfiguration(), 1);
@@ -608,13 +608,13 @@ class GiftCardProductConnectorEntityManagerTest extends Unit
 
         $entityTransfer = $this->giftCardProductConnectorEntityManager->saveGiftCardProductConfiguration(
             $this->productConcreteTransferMock,
-            $value
+            $value,
         );
 
         $this->assertInstanceOf(SpyGiftCardProductConfigurationEntityTransfer::class, $entityTransfer);
         $this->assertEquals(
             $this->spyGiftCardProductConfigurationEntityTransferMock,
-            $entityTransfer
+            $entityTransfer,
         );
 
         $this->assertEquals($entityTransfer->getIdGiftCardProductConfiguration(), 1);
@@ -732,13 +732,13 @@ class GiftCardProductConnectorEntityManagerTest extends Unit
 
         $entityTransfer = $this->giftCardProductConnectorEntityManager->saveGiftCardProductConfiguration(
             $this->productConcreteTransferMock,
-            $value
+            $value,
         );
 
         $this->assertInstanceOf(SpyGiftCardProductConfigurationEntityTransfer::class, $entityTransfer);
         $this->assertEquals(
             $this->spyGiftCardProductConfigurationEntityTransferMock,
-            $entityTransfer
+            $entityTransfer,
         );
 
         $this->assertEquals($entityTransfer->getIdGiftCardProductConfiguration(), 1);

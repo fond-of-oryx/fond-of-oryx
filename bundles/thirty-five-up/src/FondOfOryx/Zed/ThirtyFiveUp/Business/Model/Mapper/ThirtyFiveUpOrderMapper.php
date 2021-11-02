@@ -17,6 +17,9 @@ use Orm\Zed\ThirtyFiveUp\Persistence\FooThirtyFiveUpOrder;
 
 class ThirtyFiveUpOrderMapper implements ThirtyFiveUpOrderMapperInterface
 {
+    /**
+     * @var string
+     */
     protected const FALLBACK_LOCALE = '_';
 
     /**
@@ -110,7 +113,7 @@ class ThirtyFiveUpOrderMapper implements ThirtyFiveUpOrderMapperInterface
     /**
      * @param \Generated\Shared\Transfer\QuoteTransfer $quoteTransfer
      *
-     * @return \Generated\Shared\Transfer\ThirtyFiveUpOrderItemTransfer[]
+     * @return array<\Generated\Shared\Transfer\ThirtyFiveUpOrderItemTransfer>
      */
     protected function resolveThirtyFiveUpItems(QuoteTransfer $quoteTransfer): array
     {
@@ -125,7 +128,7 @@ class ThirtyFiveUpOrderMapper implements ThirtyFiveUpOrderMapperInterface
                     $attributes[$currentLocale],
                     $knownVendor,
                     $thirtyFiveUpItems,
-                    $itemTransfer
+                    $itemTransfer,
                 );
             }
             if (array_key_exists(static::FALLBACK_LOCALE, $attributes)) {
@@ -133,7 +136,7 @@ class ThirtyFiveUpOrderMapper implements ThirtyFiveUpOrderMapperInterface
                     $attributes[static::FALLBACK_LOCALE],
                     $knownVendor,
                     $thirtyFiveUpItems,
-                    $itemTransfer
+                    $itemTransfer,
                 );
             }
         }
@@ -142,13 +145,13 @@ class ThirtyFiveUpOrderMapper implements ThirtyFiveUpOrderMapperInterface
     }
 
     /**
-     * @param \ArrayObject|\Generated\Shared\Transfer\ItemTransfer[] $items
+     * @param \ArrayObject<\Generated\Shared\Transfer\ItemTransfer> $items
      *
-     * @return \Generated\Shared\Transfer\ItemTransfer[]
+     * @return array<\Generated\Shared\Transfer\ItemTransfer>
      */
     protected function groupItems(ArrayObject $items): array
     {
-        /** @var \Generated\Shared\Transfer\ItemTransfer[] $groupedItems */
+        /** @var array<\Generated\Shared\Transfer\ItemTransfer> $groupedItems */
         $groupedItems = [];
         foreach ($items as $itemTransfer) {
             $sku = $itemTransfer->getSku();
@@ -229,11 +232,11 @@ class ThirtyFiveUpOrderMapper implements ThirtyFiveUpOrderMapperInterface
                 empty($attributeValue) === false
                 && $this->stringEndsWith(
                     $attributeName,
-                    $this->config->getAttributeSkuSuffix()
+                    $this->config->getAttributeSkuSuffix(),
                 ) && in_array(
                     str_replace($this->config->getAttributeSkuSuffix(), '', $attributeName),
                     $knownVendor,
-                    true
+                    true,
                 )
             ) {
                 $check = sprintf('%s|%s', $itemTransfer->getFkSalesOrderItem(), $attributeValue);

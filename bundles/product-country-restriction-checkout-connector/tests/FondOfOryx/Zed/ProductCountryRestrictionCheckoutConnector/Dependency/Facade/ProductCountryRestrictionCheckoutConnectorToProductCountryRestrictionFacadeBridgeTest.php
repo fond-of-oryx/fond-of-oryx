@@ -29,7 +29,7 @@ class ProductCountryRestrictionCheckoutConnectorToProductCountryRestrictionFacad
             ->getMock();
 
         $this->productCountryRestrictionCheckoutConnectorToProductCountryRestrictionFacadeBridge = new ProductCountryRestrictionCheckoutConnectorToProductCountryRestrictionFacadeBridge(
-            $this->productCountryRestrictionFacadeMock
+            $this->productCountryRestrictionFacadeMock,
         );
     }
 
@@ -49,7 +49,7 @@ class ProductCountryRestrictionCheckoutConnectorToProductCountryRestrictionFacad
         static::assertEquals(
             $blacklistedCountries,
             $this->productCountryRestrictionCheckoutConnectorToProductCountryRestrictionFacadeBridge
-                ->getBlacklistedCountriesByProductConcreteSkus($productConcreteSkus)
+                ->getBlacklistedCountriesByProductConcreteSkus($productConcreteSkus),
         );
     }
 }

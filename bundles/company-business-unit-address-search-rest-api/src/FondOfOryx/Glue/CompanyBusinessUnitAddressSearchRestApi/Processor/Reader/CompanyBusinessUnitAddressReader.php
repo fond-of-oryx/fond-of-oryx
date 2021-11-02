@@ -55,7 +55,7 @@ class CompanyBusinessUnitAddressReader implements CompanyBusinessUnitAddressRead
 
         return $this->restResponseBuilder->buildCompanyBusinessUnitAddressSearchRestResponse(
             $this->client->searchCompanyBusinessUnitAddress($companyBusinessUnitAddressListTransfer),
-            $restRequest->getMetadata()->getLocale()
+            $restRequest->getMetadata()->getLocale(),
         );
     }
 }

@@ -29,7 +29,7 @@ class ProductLocaleRestrictionSearchToLocaleClientBridgeTest extends Unit
             ->getMock();
 
         $this->productLocaleRestrictionSearchToLocaleClientBridge = new ProductLocaleRestrictionSearchToLocaleClientBridge(
-            $this->localeClientMock
+            $this->localeClientMock,
         );
     }
 
@@ -46,7 +46,7 @@ class ProductLocaleRestrictionSearchToLocaleClientBridgeTest extends Unit
 
         static::assertEquals(
             $currentLocale,
-            $this->productLocaleRestrictionSearchToLocaleClientBridge->getCurrentLocale()
+            $this->productLocaleRestrictionSearchToLocaleClientBridge->getCurrentLocale(),
         );
     }
 }

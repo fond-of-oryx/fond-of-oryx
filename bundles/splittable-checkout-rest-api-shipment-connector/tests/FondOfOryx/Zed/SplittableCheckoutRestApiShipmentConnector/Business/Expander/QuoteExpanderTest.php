@@ -87,13 +87,13 @@ class QuoteExpanderTest extends Unit
                 static::callback(
                     static function (ShipmentMethodTransfer $shipmentMethodTransfer) use ($idShipmentMethod) {
                         return $shipmentMethodTransfer->getIdShipmentMethod() === $idShipmentMethod;
-                    }
-                )
+                    },
+                ),
             )->willReturn($this->shipmentTransferMock);
 
         static::assertEquals(
             $this->quoteTransferMock,
-            $this->quoteExpander->expand($this->restSplittableCheckoutRequestTransferMock, $this->quoteTransferMock)
+            $this->quoteExpander->expand($this->restSplittableCheckoutRequestTransferMock, $this->quoteTransferMock),
         );
     }
 
@@ -114,7 +114,7 @@ class QuoteExpanderTest extends Unit
 
         static::assertEquals(
             $this->quoteTransferMock,
-            $this->quoteExpander->expand($this->restSplittableCheckoutRequestTransferMock, $this->quoteTransferMock)
+            $this->quoteExpander->expand($this->restSplittableCheckoutRequestTransferMock, $this->quoteTransferMock),
         );
     }
 
@@ -139,7 +139,7 @@ class QuoteExpanderTest extends Unit
 
         static::assertEquals(
             $this->quoteTransferMock,
-            $this->quoteExpander->expand($this->restSplittableCheckoutRequestTransferMock, $this->quoteTransferMock)
+            $this->quoteExpander->expand($this->restSplittableCheckoutRequestTransferMock, $this->quoteTransferMock),
         );
     }
 }

@@ -12,22 +12,22 @@ use Generated\Shared\Transfer\RestCompanyBusinessUnitAddressSearchSortTransfer;
 class RestCompanyBusinessUnitAddressSearchAttributesMapperTest extends Unit
 {
     /**
-     * @var \FondOfOryx\Glue\CompanyBusinessUnitAddressSearchRestApi\Processor\Mapper\RestCompanyBusinessUnitAddressSearchResultItemMapperInterface|mixed|\PHPUnit\Framework\MockObject\MockObject
+     * @var \FondOfOryx\Glue\CompanyBusinessUnitAddressSearchRestApi\Processor\Mapper\RestCompanyBusinessUnitAddressSearchResultItemMapperInterface|\PHPUnit\Framework\MockObject\MockObject|mixed
      */
     protected $restCompanyBusinessUnitAddressSearchResultItemMapperMock;
 
     /**
-     * @var \FondOfOryx\Glue\CompanyBusinessUnitAddressSearchRestApi\Processor\Mapper\RestCompanyBusinessUnitAddressSearchSortMapperInterface|mixed|\PHPUnit\Framework\MockObject\MockObject
+     * @var \FondOfOryx\Glue\CompanyBusinessUnitAddressSearchRestApi\Processor\Mapper\RestCompanyBusinessUnitAddressSearchSortMapperInterface|\PHPUnit\Framework\MockObject\MockObject|mixed
      */
     protected $restCompanyBusinessUnitAddressSearchSortMapperMock;
 
     /**
-     * @var \FondOfOryx\Glue\CompanyBusinessUnitAddressSearchRestApi\Processor\Mapper\RestCompanyBusinessUnitAddressSearchPaginationMapperInterface|mixed|\PHPUnit\Framework\MockObject\MockObject
+     * @var \FondOfOryx\Glue\CompanyBusinessUnitAddressSearchRestApi\Processor\Mapper\RestCompanyBusinessUnitAddressSearchPaginationMapperInterface|\PHPUnit\Framework\MockObject\MockObject|mixed
      */
     protected $restCompanyBusinessUnitAddressSearchPaginationMapperMock;
 
     /**
-     * @var \Generated\Shared\Transfer\CompanyBusinessUnitAddressListTransfer|mixed|\PHPUnit\Framework\MockObject\MockObject
+     * @var \Generated\Shared\Transfer\CompanyBusinessUnitAddressListTransfer|\PHPUnit\Framework\MockObject\MockObject|mixed
      */
     protected $companyBusinessUnitAddressListTransferMock;
 
@@ -37,12 +37,12 @@ class RestCompanyBusinessUnitAddressSearchAttributesMapperTest extends Unit
     protected $restCompanyBusinessUnitAddressSearchResultItemTransferMocks;
 
     /**
-     * @var \Generated\Shared\Transfer\RestCompanyBusinessUnitAddressSearchSortTransfer|mixed|\PHPUnit\Framework\MockObject\MockObject
+     * @var \Generated\Shared\Transfer\RestCompanyBusinessUnitAddressSearchSortTransfer|\PHPUnit\Framework\MockObject\MockObject|mixed
      */
     protected $restCompanyBusinessUnitAddressSearchSortTransferMock;
 
     /**
-     * @var \Generated\Shared\Transfer\RestCompanyBusinessUnitAddressSearchPaginationTransfer|mixed|\PHPUnit\Framework\MockObject\MockObject
+     * @var \Generated\Shared\Transfer\RestCompanyBusinessUnitAddressSearchPaginationTransfer|\PHPUnit\Framework\MockObject\MockObject|mixed
      */
     protected $restCompanyBusinessUnitAddressSearchPaginationTransferMock;
 
@@ -91,7 +91,7 @@ class RestCompanyBusinessUnitAddressSearchAttributesMapperTest extends Unit
         $this->restCompanyBusinessUnitAddressSearchAttributesMapper = new RestCompanyBusinessUnitAddressSearchAttributesMapper(
             $this->restCompanyBusinessUnitAddressSearchResultItemMapperMock,
             $this->restCompanyBusinessUnitAddressSearchSortMapperMock,
-            $this->restCompanyBusinessUnitAddressSearchPaginationMapperMock
+            $this->restCompanyBusinessUnitAddressSearchPaginationMapperMock,
         );
     }
 
@@ -118,22 +118,22 @@ class RestCompanyBusinessUnitAddressSearchAttributesMapperTest extends Unit
             ->willReturn($this->restCompanyBusinessUnitAddressSearchPaginationTransferMock);
 
         $restCompanyBusinessUnitAddressSearchAttributesTransfer = $this->restCompanyBusinessUnitAddressSearchAttributesMapper->fromCompanyBusinessUnitAddressList(
-            $this->companyBusinessUnitAddressListTransferMock
+            $this->companyBusinessUnitAddressListTransferMock,
         );
 
         static::assertEquals(
             $companies,
-            $restCompanyBusinessUnitAddressSearchAttributesTransfer->getCompanyBusinessUnitAddresses()
+            $restCompanyBusinessUnitAddressSearchAttributesTransfer->getCompanyBusinessUnitAddresses(),
         );
 
         static::assertEquals(
             $this->restCompanyBusinessUnitAddressSearchSortTransferMock,
-            $restCompanyBusinessUnitAddressSearchAttributesTransfer->getSort()
+            $restCompanyBusinessUnitAddressSearchAttributesTransfer->getSort(),
         );
 
         static::assertEquals(
             $this->restCompanyBusinessUnitAddressSearchPaginationTransferMock,
-            $restCompanyBusinessUnitAddressSearchAttributesTransfer->getPagination()
+            $restCompanyBusinessUnitAddressSearchAttributesTransfer->getPagination(),
         );
     }
 }

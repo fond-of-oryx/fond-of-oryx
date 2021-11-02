@@ -117,7 +117,7 @@ class CompanySearchRestApiRepository extends AbstractRepository implements Compa
 
         $companyQuery->orderBy(
             $columnMap->getFullyQualifiedName(),
-            $direction === 'desc' ? Criteria::DESC : Criteria::ASC
+            $direction === 'desc' ? Criteria::DESC : Criteria::ASC,
         );
 
         return $companyQuery;

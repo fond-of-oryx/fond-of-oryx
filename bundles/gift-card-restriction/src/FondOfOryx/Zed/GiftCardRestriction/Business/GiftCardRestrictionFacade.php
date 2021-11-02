@@ -28,7 +28,7 @@ class GiftCardRestrictionFacade extends AbstractFacade implements GiftCardRestri
     ): bool {
         return $this->getFactory()->createBlacklistedCountryDecisionRule()->isSatisfiedBy(
             $giftCardTransfer,
-            $quoteTransfer
+            $quoteTransfer,
         );
     }
 
@@ -46,7 +46,7 @@ class GiftCardRestrictionFacade extends AbstractFacade implements GiftCardRestri
     ): bool {
         return $this->getFactory()->createVoucherDiscountDecisionRule()->isSatisfiedBy(
             $giftCardTransfer,
-            $quoteTransfer
+            $quoteTransfer,
         );
     }
 
@@ -66,7 +66,7 @@ class GiftCardRestrictionFacade extends AbstractFacade implements GiftCardRestri
     ): bool {
         return $this->getFactory()->createBlacklistedCartCodeTypeDecisionRule()->isSatisfiedBy(
             $giftCardTransfer,
-            $quoteTransfer
+            $quoteTransfer,
         );
     }
 
