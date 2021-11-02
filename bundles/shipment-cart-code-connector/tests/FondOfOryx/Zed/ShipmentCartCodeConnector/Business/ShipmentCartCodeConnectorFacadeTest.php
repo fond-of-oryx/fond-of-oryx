@@ -67,7 +67,7 @@ class ShipmentCartCodeConnectorFacadeTest extends Unit
 
         static::assertEquals(
             $this->quoteTransferMock,
-            $this->facade->sanitizeShipment($this->quoteTransferMock)
+            $this->facade->sanitizeShipment($this->quoteTransferMock),
         );
     }
 }

@@ -150,7 +150,7 @@ class CrossEngageAvailabilityAlertMigratorExpanderPluginTest extends Unit
 
         $this->expander->expand(
             $this->fosAvailabilityAlertSubscriptionEntityTransferMock,
-            $this->subscriptionTransferMock
+            $this->subscriptionTransferMock,
         );
     }
 
@@ -175,7 +175,7 @@ class CrossEngageAvailabilityAlertMigratorExpanderPluginTest extends Unit
         try {
             $this->expander->expand(
                 $this->fosAvailabilityAlertSubscriptionEntityTransferMock,
-                $this->subscriptionTransferMock
+                $this->subscriptionTransferMock,
             );
         } catch (Exception $e) {
             $exception = $e;

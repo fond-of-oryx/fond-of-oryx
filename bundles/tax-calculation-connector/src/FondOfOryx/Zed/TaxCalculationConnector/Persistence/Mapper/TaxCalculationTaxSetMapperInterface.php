@@ -7,7 +7,7 @@ use Generated\Shared\Transfer\TaxCalculationConnectorTransfer;
 interface TaxCalculationTaxSetMapperInterface
 {
     /**
-     * @param iterable|\Propel\Runtime\Collection\ArrayCollection $taxRateEntity
+     * @param \Propel\Runtime\Collection\ArrayCollection|iterable $taxRateEntity
      *
      * @return \Generated\Shared\Transfer\TaxCalculationConnectorTransfer
      */

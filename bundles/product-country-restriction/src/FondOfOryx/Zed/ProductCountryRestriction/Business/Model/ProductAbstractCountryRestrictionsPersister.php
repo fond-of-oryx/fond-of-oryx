@@ -69,7 +69,7 @@ class ProductAbstractCountryRestrictionsPersister implements ProductAbstractCoun
     {
         $this->entityManager->deleteProductAbstractCountryRestrictions(
             $idProductAbstract,
-            $countryIds
+            $countryIds,
         );
     }
 

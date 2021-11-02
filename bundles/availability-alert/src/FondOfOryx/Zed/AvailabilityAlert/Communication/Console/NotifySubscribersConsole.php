@@ -17,7 +17,14 @@ class NotifySubscribersConsole extends Console
 {
     use LoggerTrait;
 
+    /**
+     * @var string
+     */
     public const COMMAND_NAME = 'availability-alert:notify-subscribers';
+
+    /**
+     * @var string
+     */
     public const COMMAND_DESCRIPTION = 'Notify subscribers that products are available again.';
 
     /**

@@ -101,7 +101,7 @@ class JellyfishMailMapperTest extends Unit
             $this->jellyfishMailRecipientMapperMock,
             $this->jellyfishMailBodyMapperMock,
             $this->configMock,
-            $this->glossaryFacadeMock
+            $this->glossaryFacadeMock,
         );
     }
 
@@ -180,7 +180,7 @@ class JellyfishMailMapperTest extends Unit
         static::assertEquals(
             null,
             $this->jellyfishMailMapper
-                ->fromJellyfishGiftCardRequest($this->jellyfishGiftCardRequestTransferMock)
+                ->fromJellyfishGiftCardRequest($this->jellyfishGiftCardRequestTransferMock),
         );
     }
 }

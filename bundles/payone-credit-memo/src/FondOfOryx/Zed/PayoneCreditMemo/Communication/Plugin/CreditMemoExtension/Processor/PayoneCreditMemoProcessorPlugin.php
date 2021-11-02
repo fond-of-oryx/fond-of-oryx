@@ -20,8 +20,19 @@ class PayoneCreditMemoProcessorPlugin extends AbstractPlugin implements CreditMe
 {
     use LoggerTrait;
 
+    /**
+     * @var string
+     */
     public const NAME = 'PayoneCreditMemoProcessorPlugin';
+
+    /**
+     * @var string
+     */
     public const LISTENING_PAYMENT_PROVIDER = 'Payone';
+
+    /**
+     * @var array
+     */
     public const LISTENING_PAYMENT_METHOD = [
         'payment.payone.creditcard',
         'payment.payone.e_wallet',
@@ -43,7 +54,7 @@ class PayoneCreditMemoProcessorPlugin extends AbstractPlugin implements CreditMe
                 $status = $this->getFactory()->getOmsFacade()->triggerEvent(
                     CreditMemoProcessorPluginInterface::EVENT_NAME,
                     $items,
-                    []
+                    [],
                 );
                 $statusResponse->setMessage('internal oms failure');
 
@@ -79,8 +90,10 @@ class PayoneCreditMemoProcessorPlugin extends AbstractPlugin implements CreditMe
         $salesPaymentMethodType = $creditMemoTransfer->getSalesPaymentMethodType();
 
         return $salesPaymentMethodType !== null
-            && $salesPaymentMethodType->getPaymentProvider() === static::LISTENING_PAYMENT_PROVIDER
-            && in_array($salesPaymentMethodType->getPaymentMethod(), static::LISTENING_PAYMENT_METHOD);
+            && $salesPaymentMethodType->getPaymentProvider() !== null
+            && $salesPaymentMethodType->getPaymentProvider()->getName() === static::LISTENING_PAYMENT_PROVIDER
+            && $salesPaymentMethodType->getPaymentMethod() !== null
+            && in_array($salesPaymentMethodType->getPaymentMethod()->getName(), static::LISTENING_PAYMENT_METHOD, true);
     }
 
     /**
@@ -98,7 +111,7 @@ class PayoneCreditMemoProcessorPlugin extends AbstractPlugin implements CreditMe
             throw new NoRefundableItemsFoundException(sprintf(
                 'No refundable items found for CreditMemo with id %s and order reference %s',
                 $creditMemoTransfer->getIdCreditMemo(),
-                $creditMemoTransfer->getOrderReference()
+                $creditMemoTransfer->getOrderReference(),
             ));
         }
 

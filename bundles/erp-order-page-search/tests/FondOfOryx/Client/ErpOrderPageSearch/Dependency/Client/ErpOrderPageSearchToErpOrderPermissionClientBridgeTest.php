@@ -15,17 +15,17 @@ class ErpOrderPageSearchToErpOrderPermissionClientBridgeTest extends Unit
     protected $erpOrderPageSearchToCompanyUserClientBridge;
 
     /**
-     * @var \Generated\Shared\Transfer\ErpOrderPermissionCompanyBusinessUnitUuidRequestTransfer|mixed|\PHPUnit\Framework\MockObject\MockObject
+     * @var \Generated\Shared\Transfer\ErpOrderPermissionCompanyBusinessUnitUuidRequestTransfer|\PHPUnit\Framework\MockObject\MockObject|mixed
      */
     protected $erpOrderPermissionCompanyBusinessUnitUuidRequestTransferMock;
 
     /**
-     * @var \Generated\Shared\Transfer\CompanyBusinessUnitUuidCollectionTransfer|mixed|\PHPUnit\Framework\MockObject\MockObject
+     * @var \Generated\Shared\Transfer\CompanyBusinessUnitUuidCollectionTransfer|\PHPUnit\Framework\MockObject\MockObject|mixed
      */
     protected $companyBusinessUnitUuidCollectionTransferMock;
 
     /**
-     * @var \FondOfOryx\Client\ErpOrderPermission\ErpOrderPermissionClientInterface|mixed|\PHPUnit\Framework\MockObject\MockObject
+     * @var \FondOfOryx\Client\ErpOrderPermission\ErpOrderPermissionClientInterface|\PHPUnit\Framework\MockObject\MockObject|mixed
      */
     protected $erpOrderPermissionClientMock;
 
@@ -47,7 +47,7 @@ class ErpOrderPageSearchToErpOrderPermissionClientBridgeTest extends Unit
             ->getMock();
 
         $this->erpOrderPageSearchToCompanyUserClientBridge = new ErpOrderPageSearchToErpOrderPermissionClientBridge(
-            $this->erpOrderPermissionClientMock
+            $this->erpOrderPermissionClientMock,
         );
     }
 
@@ -64,8 +64,8 @@ class ErpOrderPageSearchToErpOrderPermissionClientBridgeTest extends Unit
         static::assertEquals(
             $this->companyBusinessUnitUuidCollectionTransferMock,
             $this->erpOrderPageSearchToCompanyUserClientBridge->getAccessibleCompanyBusinessUnitUuids(
-                $this->erpOrderPermissionCompanyBusinessUnitUuidRequestTransferMock
-            )
+                $this->erpOrderPermissionCompanyBusinessUnitUuidRequestTransferMock,
+            ),
         );
     }
 }

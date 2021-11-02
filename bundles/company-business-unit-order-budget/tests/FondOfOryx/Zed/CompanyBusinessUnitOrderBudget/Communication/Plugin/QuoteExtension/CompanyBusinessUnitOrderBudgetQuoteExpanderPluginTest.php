@@ -9,7 +9,7 @@ use Generated\Shared\Transfer\QuoteTransfer;
 class CompanyBusinessUnitOrderBudgetQuoteExpanderPluginTest extends Unit
 {
     /**
-     * @var \Generated\Shared\Transfer\QuoteTransfer|mixed|\PHPUnit\Framework\MockObject\MockObject
+     * @var \Generated\Shared\Transfer\QuoteTransfer|\PHPUnit\Framework\MockObject\MockObject|mixed
      */
     protected $quoteTransferMock;
 
@@ -54,7 +54,7 @@ class CompanyBusinessUnitOrderBudgetQuoteExpanderPluginTest extends Unit
 
         static::assertEquals(
             $this->quoteTransferMock,
-            $this->plugin->expand($this->quoteTransferMock)
+            $this->plugin->expand($this->quoteTransferMock),
         );
     }
 }

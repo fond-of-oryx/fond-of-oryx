@@ -17,7 +17,7 @@ class ShipmentTableRateDataImportBusinessFactory extends DataImportBusinessFacto
     public function createShipmentTableRateImporter(): DataImporterInterface
     {
         $dataImporter = $this->getCsvDataImporterFromConfig(
-            $this->getConfig()->getShipmentTableRateDataImporterConfiguration()
+            $this->getConfig()->getShipmentTableRateDataImporterConfiguration(),
         );
 
         $dataSetStepBroker = $this->createTransactionAwareDataSetStepBroker();

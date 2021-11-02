@@ -55,7 +55,7 @@ class OneTimePasswordRestApiSender implements OneTimePasswordRestApiSenderInterf
         $oneTimePasswordResponseTransfer = $this->oneTimePasswordFacade->requestOneTimePassword($customerTransfer);
 
         return $this->createRestOneTimePasswordResponseTransfer(
-            $oneTimePasswordResponseTransfer
+            $oneTimePasswordResponseTransfer,
         );
     }
 
@@ -83,14 +83,14 @@ class OneTimePasswordRestApiSender implements OneTimePasswordRestApiSenderInterf
             $oneTimePasswordResponseTransfer = $this->oneTimePasswordFacade->requestLoginLinkWithOrderReference($orderTransfer);
 
             return $this->createRestOneTimePasswordResponseTransfer(
-                $oneTimePasswordResponseTransfer
+                $oneTimePasswordResponseTransfer,
             );
         }
 
         $oneTimePasswordResponseTransfer = $this->oneTimePasswordFacade->requestLoginLink($customerTransfer);
 
         return $this->createRestOneTimePasswordResponseTransfer(
-            $oneTimePasswordResponseTransfer
+            $oneTimePasswordResponseTransfer,
         );
     }
 

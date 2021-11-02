@@ -42,7 +42,7 @@ class CompanyUnitAddressReader implements CompanyUnitAddressReaderInterface
 
         return $this->repository->getCompanyUnitAddressByUuidAndIdCustomer(
             $restAddressTransfer->getId(),
-            $idCustomer
+            $idCustomer,
         );
     }
 }

@@ -88,7 +88,7 @@ class CustomerExpanderTest extends Unit
 
         $this->expander = new CustomerExpander(
             $this->customerReaderMock,
-            $this->returnLabelRequestCustomerMapperMock
+            $this->returnLabelRequestCustomerMapperMock,
         );
     }
 
@@ -125,8 +125,8 @@ class CustomerExpanderTest extends Unit
             $this->returnLabelRequestTransferMock,
             $this->expander->expand(
                 $this->restReturnLabelRequestTransferMock,
-                $this->returnLabelRequestTransferMock
-            )
+                $this->returnLabelRequestTransferMock,
+            ),
         );
     }
 
@@ -145,7 +145,7 @@ class CustomerExpanderTest extends Unit
 
         $this->expander->expand(
             $this->restReturnLabelRequestTransferMock,
-            $this->returnLabelRequestTransferMock
+            $this->returnLabelRequestTransferMock,
         );
     }
 }

@@ -16,12 +16,12 @@ interface FormValidatorCollectionInterface
     /**
      * @param string $validatorName
      *
-     * @return \FondOfOryx\Service\CrossEngage\Model\Validator\FormValidatorInterface[]
+     * @return array<\FondOfOryx\Service\CrossEngage\Model\Validator\FormValidatorInterface>
      */
     public function getValidator(string $validatorName): array;
 
     /**
-     * @return \FondOfOryx\Service\CrossEngage\Model\Validator\FormValidatorInterface[]
+     * @return array<\FondOfOryx\Service\CrossEngage\Model\Validator\FormValidatorInterface>
      */
     public function getValidators(): array;
 

@@ -10,12 +10,12 @@ use FondOfOryx\Zed\GiftCardExpiration\Persistence\GiftCardExpirationEntityManage
 class GiftCardExpirationBusinessFactoryTest extends Unit
 {
     /**
-     * @var \FondOfOryx\Zed\GiftCardExpiration\Persistence\GiftCardExpirationEntityManager|mixed|\PHPUnit\Framework\MockObject\MockObject
+     * @var \FondOfOryx\Zed\GiftCardExpiration\Persistence\GiftCardExpirationEntityManager|\PHPUnit\Framework\MockObject\MockObject|mixed
      */
     protected $entityManagerMock;
 
     /**
-     * @var \FondOfOryx\Zed\GiftCardExpiration\GiftCardExpirationConfig|mixed|\PHPUnit\Framework\MockObject\MockObject
+     * @var \FondOfOryx\Zed\GiftCardExpiration\GiftCardExpirationConfig|\PHPUnit\Framework\MockObject\MockObject|mixed
      */
     protected $configMock;
 

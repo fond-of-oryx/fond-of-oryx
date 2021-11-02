@@ -45,7 +45,7 @@ class AvailabilityAlertEntityManager extends AbstractEntityManager implements Av
             ->filterByFkProductAbstract($availabilityAlertSubscriptionTransfer->getFkProductAbstract())
             ->findOneOrCreate();
 
-        $createdAt = $entity->getCreatedAt() !== null ? $entity->getCreatedAt() : $availabilityAlertSubscriptionTransfer->getCreatedAt();
+        $createdAt = $entity->getCreatedAt() ?? $availabilityAlertSubscriptionTransfer->getCreatedAt();
 
         $entity->fromArray($mappedEntity->modifiedToArray());
         $entity

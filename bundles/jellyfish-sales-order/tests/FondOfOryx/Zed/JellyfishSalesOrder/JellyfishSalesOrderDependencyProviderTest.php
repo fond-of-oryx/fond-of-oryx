@@ -80,33 +80,33 @@ class JellyfishSalesOrderDependencyProviderTest extends Unit
             ->method('__call')
             ->with('service')
             ->willReturnOnConsecutiveCalls(
-                $this->utilEncodingServiceMock
+                $this->utilEncodingServiceMock,
             );
 
         $this->assertEquals(
             $this->containerMock,
-            $this->jellyfishSalesOrderDependencyProvider->provideBusinessLayerDependencies($this->containerMock)
+            $this->jellyfishSalesOrderDependencyProvider->provideBusinessLayerDependencies($this->containerMock),
         );
 
         $this->assertInstanceOf(
             JellyfishSalesOrderToUtilEncodingServiceBridge::class,
-            $this->containerMock[JellyfishSalesOrderDependencyProvider::SERVICE_UTIL_ENCODING]
+            $this->containerMock[JellyfishSalesOrderDependencyProvider::SERVICE_UTIL_ENCODING],
         );
 
         $this->assertIsArray(
-            $this->containerMock[JellyfishSalesOrderDependencyProvider::PLUGINS_JELLYFISH_ORDER_ADDRESS_EXPANDER_POST_MAP]
+            $this->containerMock[JellyfishSalesOrderDependencyProvider::PLUGINS_JELLYFISH_ORDER_ADDRESS_EXPANDER_POST_MAP],
         );
 
         $this->assertIsArray(
-            $this->containerMock[JellyfishSalesOrderDependencyProvider::PLUGINS_JELLYFISH_ORDER_EXPANDER_POST_MAP]
+            $this->containerMock[JellyfishSalesOrderDependencyProvider::PLUGINS_JELLYFISH_ORDER_EXPANDER_POST_MAP],
         );
 
         $this->assertIsArray(
-            $this->containerMock[JellyfishSalesOrderDependencyProvider::PLUGINS_JELLYFISH_ORDER_ITEM_EXPANDER_POST_MAP]
+            $this->containerMock[JellyfishSalesOrderDependencyProvider::PLUGINS_JELLYFISH_ORDER_ITEM_EXPANDER_POST_MAP],
         );
 
         $this->assertIsArray(
-            $this->containerMock[JellyfishSalesOrderDependencyProvider::PLUGINS_JELLYFISH_ORDER_POST_MAP]
+            $this->containerMock[JellyfishSalesOrderDependencyProvider::PLUGINS_JELLYFISH_ORDER_POST_MAP],
         );
     }
 }

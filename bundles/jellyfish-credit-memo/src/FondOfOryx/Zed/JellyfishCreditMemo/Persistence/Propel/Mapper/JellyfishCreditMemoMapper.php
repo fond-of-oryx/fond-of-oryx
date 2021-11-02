@@ -39,7 +39,7 @@ class JellyfishCreditMemoMapper implements JellyfishCreditMemoMapperInterface
     ): CompanyTransfer {
         return $companyTransfer->fromArray(
             $companyEntity->toArray(),
-            true
+            true,
         );
     }
 }

@@ -54,7 +54,7 @@ class JellyfishCrossEngageToProductCategoryFacadeBridgeTest extends Unit
             ->getMock();
 
         $this->jellyfishCrossEngageToProductCategoryFacadeBridge = new JellyfishCrossEngageToProductCategoryFacadeBridge(
-            $this->productCategoryFacadeMock
+            $this->productCategoryFacadeMock,
         );
     }
 
@@ -67,15 +67,15 @@ class JellyfishCrossEngageToProductCategoryFacadeBridgeTest extends Unit
             ->method('getCategoryTransferCollectionByIdProductAbstract')
             ->with(
                 $this->idProductAbstract,
-                $this->localeTransferMock
+                $this->localeTransferMock,
             )->willReturn($this->categoryCollectionTransferMock);
 
         $this->assertInstanceOf(
             CategoryCollectionTransfer::class,
             $this->jellyfishCrossEngageToProductCategoryFacadeBridge->getCategoryTransferCollectionByIdProductAbstract(
                 $this->idProductAbstract,
-                $this->localeTransferMock
-            )
+                $this->localeTransferMock,
+            ),
         );
     }
 }

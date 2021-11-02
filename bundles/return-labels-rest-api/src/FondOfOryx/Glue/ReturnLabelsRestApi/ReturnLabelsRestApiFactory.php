@@ -28,7 +28,7 @@ class ReturnLabelsRestApiFactory extends AbstractFactory
             $this->createRestReturnLabelRequestMapper(),
             $this->createRestReturnLabelRequestExpander(),
             $this->createRestResponseBuilder(),
-            $this->getClient()
+            $this->getClient(),
         );
     }
 
@@ -55,7 +55,7 @@ class ReturnLabelsRestApiFactory extends AbstractFactory
     {
         return new RestResponseBuilder(
             $this->createRestReturnLabelMapper(),
-            $this->getResourceBuilder()
+            $this->getResourceBuilder(),
         );
     }
 

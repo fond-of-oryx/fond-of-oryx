@@ -11,22 +11,22 @@ use Generated\Shared\Transfer\OrderBudgetTransfer;
 class OrderBudgetWriterTest extends Unit
 {
     /**
-     * @var \FondOfOryx\Zed\CompanyBusinessUnitOrderBudget\Dependency\Facade\CompanyBusinessUnitOrderBudgetToOrderBudgetFacadeInterface|mixed|\PHPUnit\Framework\MockObject\MockObject
+     * @var \FondOfOryx\Zed\CompanyBusinessUnitOrderBudget\Dependency\Facade\CompanyBusinessUnitOrderBudgetToOrderBudgetFacadeInterface|\PHPUnit\Framework\MockObject\MockObject|mixed
      */
     protected $orderBudgetFacadeMock;
 
     /**
-     * @var \FondOfOryx\Zed\CompanyBusinessUnitOrderBudget\Persistence\CompanyBusinessUnitOrderBudgetEntityManagerInterface|mixed|\PHPUnit\Framework\MockObject\MockObject
+     * @var \FondOfOryx\Zed\CompanyBusinessUnitOrderBudget\Persistence\CompanyBusinessUnitOrderBudgetEntityManagerInterface|\PHPUnit\Framework\MockObject\MockObject|mixed
      */
     protected $entityManagerMock;
 
     /**
-     * @var \Generated\Shared\Transfer\CompanyBusinessUnitTransfer|mixed|\PHPUnit\Framework\MockObject\MockObject
+     * @var \Generated\Shared\Transfer\CompanyBusinessUnitTransfer|\PHPUnit\Framework\MockObject\MockObject|mixed
      */
     protected $companyBusinessUnitTransferMock;
 
     /**
-     * @var \Generated\Shared\Transfer\OrderBudgetTransfer|mixed|\PHPUnit\Framework\MockObject\MockObject
+     * @var \Generated\Shared\Transfer\OrderBudgetTransfer|\PHPUnit\Framework\MockObject\MockObject|mixed
      */
     protected $orderBudgetTransferMock;
 
@@ -62,7 +62,7 @@ class OrderBudgetWriterTest extends Unit
 
         $this->orderBudgetWriter = new OrderBudgetWriter(
             $this->orderBudgetFacadeMock,
-            $this->entityManagerMock
+            $this->entityManagerMock,
         );
     }
 

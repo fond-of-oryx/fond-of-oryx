@@ -75,7 +75,7 @@ class JellyfishCrossEngageReader implements JellyfishCrossEngageReaderInterface
 
         $categoryCollectionTransfer = $this->productCategoryFacade->getCategoryTransferCollectionByIdProductAbstract(
             $productConcreteTransfer->getFkProductAbstract(),
-            $localeTransfer
+            $localeTransfer,
         );
 
         return $this->mapCategoryCollectionToString($categoryCollectionTransfer);

@@ -29,7 +29,7 @@ class ReturnLabelsRestApiBusinessFactory extends AbstractBusinessFactory
     protected function createReturnLabelRequestExpander(): ReturnLabelRequestExpanderInterface
     {
         return new ReturnLabelRequestExpander(
-            $this->getReturnLabelRequestExpanderPlugins()
+            $this->getReturnLabelRequestExpanderPlugins(),
         );
     }
 
@@ -42,12 +42,12 @@ class ReturnLabelsRestApiBusinessFactory extends AbstractBusinessFactory
     }
 
     /**
-     * @return \FondOfOryx\Zed\ReturnLabelsRestApiExtension\Dependency\Plugin\ReturnLabelRequestExpanderPluginInterface[]
+     * @return array<\FondOfOryx\Zed\ReturnLabelsRestApiExtension\Dependency\Plugin\ReturnLabelRequestExpanderPluginInterface>
      */
     protected function getReturnLabelRequestExpanderPlugins(): array
     {
         return $this->getProvidedDependency(
-            ReturnLabelsRestApiDependencyProvider::PLUGINS_RETURN_LABEL_REQUEST_EXPANDER
+            ReturnLabelsRestApiDependencyProvider::PLUGINS_RETURN_LABEL_REQUEST_EXPANDER,
         );
     }
 }

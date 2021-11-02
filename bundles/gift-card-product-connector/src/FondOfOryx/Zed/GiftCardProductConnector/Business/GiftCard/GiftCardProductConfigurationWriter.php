@@ -55,7 +55,7 @@ class GiftCardProductConfigurationWriter implements GiftCardProductConfiguration
         return $this->getTransactionHandler()->handleTransaction(
             static function () use ($self, $productConcreteTransfer): ProductConcreteTransfer {
                 return $self->executeSaveGiftCardProductConfigurationTransaction($productConcreteTransfer);
-            }
+            },
         );
     }
 
@@ -73,7 +73,7 @@ class GiftCardProductConfigurationWriter implements GiftCardProductConfiguration
 
         $this->entityManager->saveGiftCardProductConfiguration(
             $productConcreteTransfer,
-            $this->giftCardAmountFilter->filterFromPriceProducts($productConcreteTransfer->getPrices())
+            $this->giftCardAmountFilter->filterFromPriceProducts($productConcreteTransfer->getPrices()),
         );
 
         return $productConcreteTransfer;

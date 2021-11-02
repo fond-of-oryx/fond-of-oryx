@@ -17,16 +17,16 @@ interface RestCompanyUserSearchResultItemMapperInterface
     public function fromCompanyUser(CompanyUserTransfer $companyUserTransfer): RestCompanyUserSearchResultItemTransfer;
 
     /**
-     * @param \Generated\Shared\Transfer\CompanyUserTransfer[]|\ArrayObject $companyUserTransfers
+     * @param \ArrayObject<\Generated\Shared\Transfer\CompanyUserTransfer> $companyUserTransfers
      *
-     * @return \Generated\Shared\Transfer\RestCompanyUserSearchResultItemTransfer[]|\ArrayObject
+     * @return \ArrayObject<\Generated\Shared\Transfer\RestCompanyUserSearchResultItemTransfer>
      */
     public function fromCompanyUserCollection(ArrayObject $companyUserTransfers): ArrayObject;
 
     /**
      * @param \Generated\Shared\Transfer\CompanyUserListTransfer $companyUserListTransfer
      *
-     * @return \Generated\Shared\Transfer\RestCompanyUserSearchResultItemTransfer[]|\ArrayObject
+     * @return \ArrayObject<\Generated\Shared\Transfer\RestCompanyUserSearchResultItemTransfer>
      */
     public function fromCompanyUserList(CompanyUserListTransfer $companyUserListTransfer): ArrayObject;
 }

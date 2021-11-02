@@ -20,7 +20,7 @@ class SplittableCheckoutBusinessFactory extends AbstractBusinessFactory
         return new SplittableCheckoutWorkflow(
             $this->getSplittableCheckoutFacade(),
             $this->getSplittableQuoteFacade(),
-            $this->getQuoteFacade()
+            $this->getQuoteFacade(),
         );
     }
 

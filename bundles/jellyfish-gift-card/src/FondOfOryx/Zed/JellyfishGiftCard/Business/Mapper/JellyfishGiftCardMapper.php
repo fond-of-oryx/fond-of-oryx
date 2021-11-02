@@ -46,7 +46,7 @@ class JellyfishGiftCardMapper implements JellyfishGiftCardMapperInterface
         }
 
         $jellyfishMailTransfer = $this->jellyfishMailMapper->fromJellyfishGiftCardRequest(
-            $jellyfishGiftCardRequestTransfer
+            $jellyfishGiftCardRequestTransfer,
         );
 
         if ($jellyfishMailTransfer === null) {
@@ -76,7 +76,7 @@ class JellyfishGiftCardMapper implements JellyfishGiftCardMapperInterface
         return $this->renderer->render(
             JellyfishGiftCardConstants::LAYOUT_TEMPLATE_GIFT_CARD_HTML,
             $localeTransfer,
-            $jellyfishGiftCardRequestTransfer->toArray(true, false)
+            $jellyfishGiftCardRequestTransfer->toArray(true, false),
         );
     }
 }

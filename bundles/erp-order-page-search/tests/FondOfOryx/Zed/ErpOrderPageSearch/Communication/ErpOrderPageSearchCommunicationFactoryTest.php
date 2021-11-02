@@ -64,7 +64,7 @@ class ErpOrderPageSearchCommunicationFactoryTest extends Unit
 
         $this->assertInstanceOf(
             ErpOrderPageSearchToEventBehaviorFacadeInterface::class,
-            $this->erpOrderPageSearchCommunicationFactory->getEventBehaviorFacade()
+            $this->erpOrderPageSearchCommunicationFactory->getEventBehaviorFacade(),
         );
     }
 }

@@ -5,7 +5,7 @@ namespace FondOfOryx\Zed\ErpOrderPageSearch\Business\UnPublisher;
 interface ErpOrderPageSearchUnpublisherInterface
 {
     /**
-     * @param int[] $erpOrderIds
+     * @param array<int> $erpOrderIds
      *
      * @return void
      */

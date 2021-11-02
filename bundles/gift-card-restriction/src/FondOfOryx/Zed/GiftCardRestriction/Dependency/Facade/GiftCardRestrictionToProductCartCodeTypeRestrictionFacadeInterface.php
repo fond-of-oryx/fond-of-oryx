@@ -5,7 +5,7 @@ namespace FondOfOryx\Zed\GiftCardRestriction\Dependency\Facade;
 interface GiftCardRestrictionToProductCartCodeTypeRestrictionFacadeInterface
 {
     /**
-     * @param string[] $productConcreteSkus
+     * @param array<string> $productConcreteSkus
      *
      * @return array
      */

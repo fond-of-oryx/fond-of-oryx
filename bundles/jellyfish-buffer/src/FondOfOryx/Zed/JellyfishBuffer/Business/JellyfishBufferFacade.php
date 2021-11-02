@@ -31,7 +31,7 @@ class JellyfishBufferFacade extends AbstractFacade implements JellyfishBufferFac
             ->createJellyfishBufferOrder()
             ->buffer(
                 $jellyfishOrderTransfer,
-                $options
+                $options,
             );
     }
 

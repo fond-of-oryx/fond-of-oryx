@@ -11,6 +11,7 @@ class CompanyBusinessUnitSearchRestApiConfig extends AbstractBundleConfig
      * @var string
      */
     public const RESOURCE_COMPANY_BUSINESS_UNIT_SEARCH = 'company-business-unit-search';
+
     /**
      * @var string
      */
@@ -20,19 +21,20 @@ class CompanyBusinessUnitSearchRestApiConfig extends AbstractBundleConfig
      * @var string
      */
     public const RESPONSE_CODE_USER_IS_NOT_SPECIFIED = '1000';
+
     /**
      * @var string
      */
     public const ERROR_MESSAGE_USER_IS_NOT_SPECIFIED = 'Authorization header is required';
 
     /**
-     * @return string[]
+     * @return array<string>
      */
     public function getSortFields(): array
     {
         return $this->get(
             CompanyBusinessUnitSearchRestApiConstants::SORT_FIELDS,
-            CompanyBusinessUnitSearchRestApiConstants::SORT_FIELDS_DEFAULT
+            CompanyBusinessUnitSearchRestApiConstants::SORT_FIELDS_DEFAULT,
         );
     }
 
@@ -43,23 +45,23 @@ class CompanyBusinessUnitSearchRestApiConfig extends AbstractBundleConfig
     {
         return $this->get(
             CompanyBusinessUnitSearchRestApiConstants::ITEMS_PER_PAGE,
-            CompanyBusinessUnitSearchRestApiConstants::ITEMS_PER_PAGE_DEFAULT
+            CompanyBusinessUnitSearchRestApiConstants::ITEMS_PER_PAGE_DEFAULT,
         );
     }
 
     /**
-     * @return int[]
+     * @return array<int>
      */
     public function getValidItemsPerPageOptions(): array
     {
         return $this->get(
             CompanyBusinessUnitSearchRestApiConstants::VALID_ITEMS_PER_PAGE_OPTIONS,
-            CompanyBusinessUnitSearchRestApiConstants::VALID_ITEMS_PER_PAGE_OPTIONS_DEFAULT
+            CompanyBusinessUnitSearchRestApiConstants::VALID_ITEMS_PER_PAGE_OPTIONS_DEFAULT,
         );
     }
 
     /**
-     * @return string[]
+     * @return array<string>
      */
     public function getSortParamNames(): array
     {
@@ -74,7 +76,7 @@ class CompanyBusinessUnitSearchRestApiConfig extends AbstractBundleConfig
     }
 
     /**
-     * @return string[]
+     * @return array<string>
      */
     public function getSortParamLocalizedNames(): array
     {

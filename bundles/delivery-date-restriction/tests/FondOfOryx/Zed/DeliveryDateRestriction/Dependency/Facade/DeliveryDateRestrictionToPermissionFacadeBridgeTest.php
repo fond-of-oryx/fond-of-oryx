@@ -29,7 +29,7 @@ class DeliveryDateRestrictionToPermissionFacadeBridgeTest extends Unit
             ->getMock();
 
         $this->companyBusinessUnitOrderBudgetToPermissionFacadeBridge = new DeliveryDateRestrictionToPermissionFacadeBridge(
-            $this->permissionFacadeMock
+            $this->permissionFacadeMock,
         );
     }
 

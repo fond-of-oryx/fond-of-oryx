@@ -101,7 +101,7 @@ class ReturnLabelRequestExpanderTest extends Unit
         $this->expander = new ReturnLabelRequestExpander(
             $this->companyUnitAddressReaderMock,
             $this->returnLabelRequestAddressMapperMock,
-            $this->configMock
+            $this->configMock,
         );
     }
 
@@ -150,8 +150,8 @@ class ReturnLabelRequestExpanderTest extends Unit
             $this->returnLabelRequestTransferMock,
             $this->expander->expand(
                 $this->restReturnLabelRequestTransferMock,
-                $this->returnLabelRequestTransferMock
-            )
+                $this->returnLabelRequestTransferMock,
+            ),
         );
     }
 
@@ -173,8 +173,8 @@ class ReturnLabelRequestExpanderTest extends Unit
             $this->returnLabelRequestTransferMock,
             $this->expander->expand(
                 $this->restReturnLabelRequestTransferMock,
-                $this->returnLabelRequestTransferMock
-            )
+                $this->returnLabelRequestTransferMock,
+            ),
         );
     }
 
@@ -201,8 +201,8 @@ class ReturnLabelRequestExpanderTest extends Unit
             $this->returnLabelRequestTransferMock,
             $this->expander->expand(
                 $this->restReturnLabelRequestTransferMock,
-                $this->returnLabelRequestTransferMock
-            )
+                $this->returnLabelRequestTransferMock,
+            ),
         );
     }
 
@@ -237,8 +237,8 @@ class ReturnLabelRequestExpanderTest extends Unit
             $this->returnLabelRequestTransferMock,
             $this->expander->expand(
                 $this->restReturnLabelRequestTransferMock,
-                $this->returnLabelRequestTransferMock
-            )
+                $this->returnLabelRequestTransferMock,
+            ),
         );
     }
 }

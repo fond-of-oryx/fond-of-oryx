@@ -7,7 +7,7 @@ use ArrayObject;
 interface GiftCardAmountFilterInterface
 {
     /**
-     * @param \ArrayObject|\Generated\Shared\Transfer\PriceProductTransfer[] $priceProductTransfers
+     * @param \ArrayObject<\Generated\Shared\Transfer\PriceProductTransfer> $priceProductTransfers
      *
      * @return int
      */

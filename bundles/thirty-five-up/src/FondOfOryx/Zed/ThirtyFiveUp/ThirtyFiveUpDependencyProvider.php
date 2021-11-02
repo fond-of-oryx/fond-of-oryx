@@ -9,7 +9,14 @@ use Spryker\Zed\Kernel\Container;
 
 class ThirtyFiveUpDependencyProvider extends AbstractBundleDependencyProvider
 {
+    /**
+     * @var string
+     */
     public const FACADE_LOCALE = '35UP:LOCALE_FACADE';
+
+    /**
+     * @var string
+     */
     public const FACADE_STORE = '35UP:STORE_FACADE';
 
     /**

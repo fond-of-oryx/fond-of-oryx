@@ -85,12 +85,12 @@ class ReturnLabelsRestApiDependencyProviderTest extends Unit
 
         static::assertInstanceOf(
             ReturnLabelsRestApiToReturnLabelFacadeInterface::class,
-            $container->get(ReturnLabelsRestApiDependencyProvider::FACADE_RETURN_LABEL)
+            $container->get(ReturnLabelsRestApiDependencyProvider::FACADE_RETURN_LABEL),
         );
 
         static::assertCount(
             0,
-            $container->get(ReturnLabelsRestApiDependencyProvider::PLUGINS_RETURN_LABEL_REQUEST_EXPANDER)
+            $container->get(ReturnLabelsRestApiDependencyProvider::PLUGINS_RETURN_LABEL_REQUEST_EXPANDER),
         );
     }
 }

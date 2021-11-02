@@ -8,9 +8,9 @@ use Generated\Shared\Transfer\ItemTransfer;
 interface SkuFilterInterface
 {
     /**
-     * @param \ArrayObject|\Generated\Shared\Transfer\ItemTransfer[] $itemTransfers
+     * @param \ArrayObject<\Generated\Shared\Transfer\ItemTransfer> $itemTransfers
      *
-     * @return string[]
+     * @return array<string>
      */
     public function filterFromItems(ArrayObject $itemTransfers): array;
 

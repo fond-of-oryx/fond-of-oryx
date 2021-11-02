@@ -29,7 +29,7 @@ class ErpOrderPageSearchBusinessFactory extends AbstractBusinessFactory
             $this->getEntityManager(),
             $this->getQueryContainer(),
             $this->getUtilEncodingService(),
-            $this->createErpOrderPageSearchDataMapper()
+            $this->createErpOrderPageSearchDataMapper(),
         );
     }
 
@@ -39,7 +39,7 @@ class ErpOrderPageSearchBusinessFactory extends AbstractBusinessFactory
     public function createErpOrderPageSearchUnPublisher(): ErpOrderPageSearchUnpublisherInterface
     {
         return new ErpOrderPageSearchUnpublisher(
-            $this->getEntityManager()
+            $this->getEntityManager(),
         );
     }
 

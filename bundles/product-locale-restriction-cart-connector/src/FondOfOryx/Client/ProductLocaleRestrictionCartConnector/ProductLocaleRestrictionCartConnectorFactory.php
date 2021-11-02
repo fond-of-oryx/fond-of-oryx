@@ -13,7 +13,7 @@ class ProductLocaleRestrictionCartConnectorFactory extends AbstractFactory
     public function getLocaleClient(): ProductLocaleRestrictionCartConnectorToLocaleClientInterface
     {
         return $this->getProvidedDependency(
-            ProductLocaleRestrictionCartConnectorDependencyProvider::CLIENT_LOCALE
+            ProductLocaleRestrictionCartConnectorDependencyProvider::CLIENT_LOCALE,
         );
     }
 }

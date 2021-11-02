@@ -6,7 +6,7 @@ interface ShipmentTableRateToUtilMathFormulaServiceInterface
 {
     /**
      * @param string $formula
-     * @param float[] $variables
+     * @param array<float> $variables
      *
      * @return float
      */

@@ -16,6 +16,9 @@ use Spryker\Zed\Payment\Dependency\Plugin\Checkout\CheckoutPostCheckPluginInterf
  */
 class PrepaymentPostCheckPlugin extends AbstractPlugin implements CheckoutPostCheckPluginInterface
 {
+    /**
+     * @var int
+     */
     public const ERROR_CODE_PAYMENT_FAILED = 500;
 
     /**

@@ -78,8 +78,8 @@ class SplittableTotalsFacadeTest extends Unit
         static::assertEquals(
             $this->splittableTotalsTransferMock,
             $this->facade->getSplittableTotalsByQuote(
-                $this->quoteTransferMock
-            )
+                $this->quoteTransferMock,
+            ),
         );
     }
 }

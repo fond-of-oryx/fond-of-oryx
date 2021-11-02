@@ -61,15 +61,15 @@ class OrderCustomReferenceExpanderPluginTest extends Unit
             ->method('expandQuote')
             ->with(
                 $this->restSplittableCheckoutRequestTransferMock,
-                $this->quoteTransferMock
+                $this->quoteTransferMock,
             )->willReturn($this->quoteTransferMock);
 
         static::assertEquals(
             $this->quoteTransferMock,
             $this->orderCustomReferenceQuoteExpanderPlugin->expand(
                 $this->restSplittableCheckoutRequestTransferMock,
-                $this->quoteTransferMock
-            )
+                $this->quoteTransferMock,
+            ),
         );
     }
 }

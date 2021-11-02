@@ -70,7 +70,7 @@ class ProductAbstractCartCodeTypeRestrictionsPersister implements
     {
         $this->entityManager->deleteProductAbstractCartCodeTypeRestrictions(
             $idProductAbstract,
-            $cartCodeTypeIds
+            $cartCodeTypeIds,
         );
     }
 
@@ -88,7 +88,7 @@ class ProductAbstractCartCodeTypeRestrictionsPersister implements
                 ->setIdProductAbstract($idProductAbstract);
 
             $this->entityManager->createProductAbstractCartCodeTypeRestriction(
-                $productAbstractCartCodeTypeRestrictionTransfer
+                $productAbstractCartCodeTypeRestrictionTransfer,
             );
         }
     }

@@ -8,6 +8,9 @@ use Spryker\Client\Kernel\Container;
 
 class ProductLocaleRestrictionSearchDependencyProvider extends AbstractDependencyProvider
 {
+    /**
+     * @var string
+     */
     public const CLIENT_LOCALE = 'CLIENT_LOCALE';
 
     /**
@@ -33,7 +36,7 @@ class ProductLocaleRestrictionSearchDependencyProvider extends AbstractDependenc
     {
         $container[static::CLIENT_LOCALE] = static function (Container $container) {
             return new ProductLocaleRestrictionSearchToLocaleClientBridge(
-                $container->getLocator()->locale()->client()
+                $container->getLocator()->locale()->client(),
             );
         };
 

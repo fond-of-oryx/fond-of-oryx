@@ -16,7 +16,14 @@ use Spryker\Zed\Kernel\Persistence\AbstractRepository;
  */
 class CompanyBusinessUnitAddressSearchRestApiRepository extends AbstractRepository implements CompanyBusinessUnitAddressSearchRestApiRepositoryInterface
 {
+    /**
+     * @var string
+     */
     public const KEY_DEFAULT_SHIPPING_IDS = 'defaultShippingAddressIds';
+
+    /**
+     * @var string
+     */
     public const KEY_DEFAULT_BILLING_IDS = 'defaultBillingAddressIds';
 
     /**
@@ -77,12 +84,12 @@ class CompanyBusinessUnitAddressSearchRestApiRepository extends AbstractReposito
             ->add(
                 SpyCompanyBusinessUnitTableMap::COL_DEFAULT_SHIPPING_ADDRESS,
                 null,
-                Criteria::ISNOTNULL
+                Criteria::ISNOTNULL,
             )
             ->addOr(
                 SpyCompanyBusinessUnitTableMap::COL_DEFAULT_BILLING_ADDRESS,
                 null,
-                Criteria::ISNOTNULL
+                Criteria::ISNOTNULL,
             );
 
         return $query->select([SpyCompanyBusinessUnitTableMap::COL_DEFAULT_SHIPPING_ADDRESS, SpyCompanyBusinessUnitTableMap::COL_DEFAULT_BILLING_ADDRESS])->find()->getData();
@@ -179,7 +186,7 @@ class CompanyBusinessUnitAddressSearchRestApiRepository extends AbstractReposito
 
         $companyUnitAddressQuery->orderBy(
             $columnMap->getFullyQualifiedName(),
-            $direction === 'desc' ? Criteria::DESC : Criteria::ASC
+            $direction === 'desc' ? Criteria::DESC : Criteria::ASC,
         );
 
         return $companyUnitAddressQuery;
@@ -269,7 +276,7 @@ class CompanyBusinessUnitAddressSearchRestApiRepository extends AbstractReposito
     /**
      * @param \Generated\Shared\Transfer\CompanyBusinessUnitAddressListTransfer $companyBusinessUnitAddressListTransfer
      *
-     * @return int[]
+     * @return array<int>
      */
     protected function getAddressIds(CompanyBusinessUnitAddressListTransfer $companyBusinessUnitAddressListTransfer): array
     {

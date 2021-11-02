@@ -77,16 +77,16 @@ class ProductLocaleRestrictionStorageFactoryTest extends Unit
             ->withConsecutive(
                 [ProductLocaleRestrictionStorageDependencyProvider::CLIENT_LOCALE],
                 [ProductLocaleRestrictionStorageDependencyProvider::CLIENT_STORAGE],
-                [ProductLocaleRestrictionStorageDependencyProvider::SERVICE_SYNCHRONIZATION]
+                [ProductLocaleRestrictionStorageDependencyProvider::SERVICE_SYNCHRONIZATION],
             )->willReturnOnConsecutiveCalls(
                 $this->localeClientMock,
                 $this->storageClientMock,
-                $this->synchronizationServiceMock
+                $this->synchronizationServiceMock,
             );
 
         static::assertInstanceOf(
             ProductAbstractRestrictionReader::class,
-            $this->productLocaleRestrictionStorageFactory->createProductAbstractRestrictionReader()
+            $this->productLocaleRestrictionStorageFactory->createProductAbstractRestrictionReader(),
         );
     }
 }

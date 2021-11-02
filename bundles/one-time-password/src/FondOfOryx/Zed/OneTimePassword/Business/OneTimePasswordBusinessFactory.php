@@ -35,7 +35,7 @@ class OneTimePasswordBusinessFactory extends AbstractBusinessFactory
     {
         return new OneTimePasswordSender(
             $this->createOneTimePasswordGenerator(),
-            $this->getOneTimePasswordEmailConnectorFacade()
+            $this->getOneTimePasswordEmailConnectorFacade(),
         );
     }
 
@@ -46,7 +46,7 @@ class OneTimePasswordBusinessFactory extends AbstractBusinessFactory
     {
         return new OneTimePasswordLoginLinkSender(
             $this->createOneTimePasswordLinkGenerator(),
-            $this->getOneTimePasswordEmailConnectorFacade()
+            $this->getOneTimePasswordEmailConnectorFacade(),
         );
     }
 
@@ -58,7 +58,7 @@ class OneTimePasswordBusinessFactory extends AbstractBusinessFactory
         return new OneTimePasswordGenerator(
             $this->createHybridPasswordGenerator(),
             $this->getEntityManager(),
-            $this->getConfig()
+            $this->getConfig(),
         );
     }
 
@@ -68,7 +68,7 @@ class OneTimePasswordBusinessFactory extends AbstractBusinessFactory
     public function createOneTimePasswordResetter(): OneTimePasswordResetterInterface
     {
         return new OneTimePasswordResetter(
-            $this->getEntityManager()
+            $this->getEntityManager(),
         );
     }
 
@@ -82,7 +82,7 @@ class OneTimePasswordBusinessFactory extends AbstractBusinessFactory
             $this->createOneTimePasswordEncoder(),
             $this->getStoreFacade(),
             $this->getLocaleFacade(),
-            $this->getConfig()
+            $this->getConfig(),
         );
     }
 
@@ -92,7 +92,7 @@ class OneTimePasswordBusinessFactory extends AbstractBusinessFactory
     protected function createOneTimePasswordEncoder(): OneTimePasswordEncoderInterface
     {
         return new OneTimePasswordJWTEncoder(
-            $this->getOauthFacade()
+            $this->getOauthFacade(),
         );
     }
 

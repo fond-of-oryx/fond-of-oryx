@@ -10,8 +10,19 @@ use Spryker\Zed\Kernel\Container;
 
 class JellyfishCrossEngageDependencyProvider extends AbstractBundleDependencyProvider
 {
+    /**
+     * @var string
+     */
     public const PRODUCT_FACADE = 'PRODUCT_FACADE';
+
+    /**
+     * @var string
+     */
     public const PRODUCT_CATEGORY_FACADE = 'PRODUCT_CATEGORY_FACADE';
+
+    /**
+     * @var string
+     */
     public const LOCALE_FACADE = 'LOCALE_FACADE';
 
     /**
@@ -39,7 +50,7 @@ class JellyfishCrossEngageDependencyProvider extends AbstractBundleDependencyPro
     {
         $container[static::PRODUCT_FACADE] = static function (Container $container) {
             return new JellyfishCrossEngageToProductFacadeBridge(
-                $container->getLocator()->product()->facade()
+                $container->getLocator()->product()->facade(),
             );
         };
 
@@ -55,7 +66,7 @@ class JellyfishCrossEngageDependencyProvider extends AbstractBundleDependencyPro
     {
         $container[static::PRODUCT_CATEGORY_FACADE] = static function (Container $container) {
             return new JellyfishCrossEngageToProductCategoryFacadeBridge(
-                $container->getLocator()->productCategory()->facade()
+                $container->getLocator()->productCategory()->facade(),
             );
         };
 
@@ -71,7 +82,7 @@ class JellyfishCrossEngageDependencyProvider extends AbstractBundleDependencyPro
     {
         $container[static::LOCALE_FACADE] = static function (Container $container) {
             return new JellyfishCrossEngageToLocaleFacadeBridge(
-                $container->getLocator()->locale()->facade()
+                $container->getLocator()->locale()->facade(),
             );
         };
 

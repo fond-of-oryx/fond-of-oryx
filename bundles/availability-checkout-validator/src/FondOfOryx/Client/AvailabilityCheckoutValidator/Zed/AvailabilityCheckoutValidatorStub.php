@@ -31,7 +31,7 @@ class AvailabilityCheckoutValidatorStub implements AvailabilityCheckoutValidator
         /** @var \Generated\Shared\Transfer\QuoteValidationResponseTransfer $quoteValidationResponseTransfer */
         $quoteValidationResponseTransfer = $this->zedRequestClient->call(
             '/availability-checkout-validator/gateway/validate-quote',
-            $quoteTransfer
+            $quoteTransfer,
         );
 
         return $quoteValidationResponseTransfer;

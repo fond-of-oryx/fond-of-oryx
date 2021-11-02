@@ -75,12 +75,12 @@ class OneTimePasswordLinkGeneratorTest extends Unit
     protected $orderReference;
 
     /**
-     * @var \FondOfOryx\Zed\OneTimePassword\Dependency\Facade\OneTimePasswordToStoreFacadeInterface|mixed|\PHPUnit\Framework\MockObject\MockObject
+     * @var \FondOfOryx\Zed\OneTimePassword\Dependency\Facade\OneTimePasswordToStoreFacadeInterface|\PHPUnit\Framework\MockObject\MockObject|mixed
      */
     protected $storeFacadeMock;
 
     /**
-     * @var \FondOfOryx\Zed\OneTimePassword\Dependency\Facade\OneTimePasswordToLocaleFacadeInterface|mixed|\PHPUnit\Framework\MockObject\MockObject
+     * @var \FondOfOryx\Zed\OneTimePassword\Dependency\Facade\OneTimePasswordToLocaleFacadeInterface|\PHPUnit\Framework\MockObject\MockObject|mixed
      */
     protected $localeFacadeMock;
 
@@ -90,12 +90,12 @@ class OneTimePasswordLinkGeneratorTest extends Unit
     protected $currentLocaleName;
 
     /**
-     * @var \Generated\Shared\Transfer\StoreTransfer|mixed|\PHPUnit\Framework\MockObject\MockObject
+     * @var \Generated\Shared\Transfer\StoreTransfer|\PHPUnit\Framework\MockObject\MockObject|mixed
      */
     protected $storeTransferMock;
 
     /**
-     * @var string[]
+     * @var array<string>
      */
     protected $availableLocaleIsoCodes;
 
@@ -161,7 +161,7 @@ class OneTimePasswordLinkGeneratorTest extends Unit
             $this->oneTimePasswordEncoderMock,
             $this->storeFacadeMock,
             $this->localeFacadeMock,
-            $this->oneTimePasswordConfigMock
+            $this->oneTimePasswordConfigMock,
         );
     }
 
@@ -211,8 +211,8 @@ class OneTimePasswordLinkGeneratorTest extends Unit
         $this->assertSame(
             $this->oneTimePasswordResponseTransferMock,
             $this->oneTimePasswordLinkGenerator->generateLoginLink(
-                $this->customerTransferMock
-            )
+                $this->customerTransferMock,
+            ),
         );
     }
 
@@ -233,8 +233,8 @@ class OneTimePasswordLinkGeneratorTest extends Unit
         $this->assertSame(
             $this->oneTimePasswordResponseTransferMock,
             $this->oneTimePasswordLinkGenerator->generateLoginLink(
-                $this->customerTransferMock
-            )
+                $this->customerTransferMock,
+            ),
         );
     }
 
@@ -300,8 +300,8 @@ class OneTimePasswordLinkGeneratorTest extends Unit
         $this->assertSame(
             $this->oneTimePasswordResponseTransferMock,
             $this->oneTimePasswordLinkGenerator->generateLoginLinkWithOrderReference(
-                $this->orderTransferMock
-            )
+                $this->orderTransferMock,
+            ),
         );
     }
 
@@ -330,8 +330,8 @@ class OneTimePasswordLinkGeneratorTest extends Unit
         $this->assertSame(
             $this->oneTimePasswordResponseTransferMock,
             $this->oneTimePasswordLinkGenerator->generateLoginLinkWithOrderReference(
-                $this->orderTransferMock
-            )
+                $this->orderTransferMock,
+            ),
         );
     }
 }

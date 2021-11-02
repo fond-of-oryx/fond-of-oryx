@@ -37,7 +37,7 @@ class ErpOrderPageSearchToCustomerClientBridgeTest extends Unit
             ->getMock();
 
         $this->erpOrderPageSearchToCustomerClientBridge = new ErpOrderPageSearchToCustomerClientBridge(
-            $this->customerClientMock
+            $this->customerClientMock,
         );
     }
 
@@ -52,7 +52,7 @@ class ErpOrderPageSearchToCustomerClientBridgeTest extends Unit
 
         static::assertEquals(
             $this->customerTransferMock,
-            $this->erpOrderPageSearchToCustomerClientBridge->getCustomer()
+            $this->erpOrderPageSearchToCustomerClientBridge->getCustomer(),
         );
     }
 }

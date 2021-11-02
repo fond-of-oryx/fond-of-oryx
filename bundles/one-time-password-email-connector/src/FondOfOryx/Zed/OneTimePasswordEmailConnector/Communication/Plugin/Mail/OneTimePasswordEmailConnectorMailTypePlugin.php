@@ -11,6 +11,9 @@ use Spryker\Zed\Mail\Dependency\Plugin\MailTypePluginInterface;
  */
 class OneTimePasswordEmailConnectorMailTypePlugin extends AbstractPlugin implements MailTypePluginInterface
 {
+    /**
+     * @var string
+     */
     public const MAIL_TYPE = 'one time password mail';
 
     /**
@@ -82,7 +85,7 @@ class OneTimePasswordEmailConnectorMailTypePlugin extends AbstractPlugin impleme
 
         $mailBuilder->addRecipient(
             $customerTransfer->getEmail(),
-            $customerTransfer->getFirstName() . ' ' . $customerTransfer->getLastName()
+            $customerTransfer->getFirstName() . ' ' . $customerTransfer->getLastName(),
         );
 
         return $this;

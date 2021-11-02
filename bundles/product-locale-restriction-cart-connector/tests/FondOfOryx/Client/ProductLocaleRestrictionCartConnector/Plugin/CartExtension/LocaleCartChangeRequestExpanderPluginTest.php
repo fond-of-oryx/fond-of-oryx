@@ -50,7 +50,7 @@ class LocaleCartChangeRequestExpanderPluginTest extends Unit
 
         $this->localeCartChangeRequestExpanderPlugin = new LocaleCartChangeRequestExpanderPlugin();
         $this->localeCartChangeRequestExpanderPlugin->setFactory(
-            $this->productLocaleRestrictionCartConnectorFactoryMock
+            $this->productLocaleRestrictionCartConnectorFactoryMock,
         );
     }
 
@@ -76,7 +76,7 @@ class LocaleCartChangeRequestExpanderPluginTest extends Unit
 
         static::assertEquals(
             $this->cartChangeTransferMock,
-            $this->localeCartChangeRequestExpanderPlugin->expand($this->cartChangeTransferMock)
+            $this->localeCartChangeRequestExpanderPlugin->expand($this->cartChangeTransferMock),
         );
     }
 }

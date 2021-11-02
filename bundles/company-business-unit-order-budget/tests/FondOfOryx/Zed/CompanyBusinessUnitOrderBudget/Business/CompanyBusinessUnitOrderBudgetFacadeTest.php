@@ -44,12 +44,12 @@ class CompanyBusinessUnitOrderBudgetFacadeTest extends Unit
     protected $quoteValidatorMock;
 
     /**
-     * @var \FondOfOryx\Zed\CompanyBusinessUnitOrderBudget\Business\Reducer\OrderBudgetReducerInterface|mixed|\PHPUnit\Framework\MockObject\MockObject
+     * @var \FondOfOryx\Zed\CompanyBusinessUnitOrderBudget\Business\Reducer\OrderBudgetReducerInterface|\PHPUnit\Framework\MockObject\MockObject|mixed
      */
     protected $orderBudgetReducerMock;
 
     /**
-     * @var \FondOfOryx\Zed\CompanyBusinessUnitOrderBudget\Business\Expander\CompanyBusinessUnitExpanderInterface|mixed|\PHPUnit\Framework\MockObject\MockObject
+     * @var \FondOfOryx\Zed\CompanyBusinessUnitOrderBudget\Business\Expander\CompanyBusinessUnitExpanderInterface|\PHPUnit\Framework\MockObject\MockObject|mixed
      */
     protected $companyBusinessUnitExpanderMock;
 
@@ -133,7 +133,7 @@ class CompanyBusinessUnitOrderBudgetFacadeTest extends Unit
 
         static::assertEquals(
             $this->quoteTransferMock,
-            $this->facade->expandQuote($this->quoteTransferMock)
+            $this->facade->expandQuote($this->quoteTransferMock),
         );
     }
 
@@ -185,7 +185,7 @@ class CompanyBusinessUnitOrderBudgetFacadeTest extends Unit
 
         static::assertEquals(
             $this->companyBusinessUnitTransferMock,
-            $this->facade->expandCompanyBusinessUnit($this->companyBusinessUnitTransferMock)
+            $this->facade->expandCompanyBusinessUnit($this->companyBusinessUnitTransferMock),
         );
     }
 }

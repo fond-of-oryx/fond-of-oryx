@@ -29,7 +29,7 @@ class JellyfishSalesOrderGiftCardConnectorBusinessFactory extends AbstractBusine
     {
         return new JellyfishOrderExpander(
             $this->createGiftCardMapper(),
-            $this->getProductCardCodeTypeRestrictionFacade()
+            $this->getProductCardCodeTypeRestrictionFacade(),
         );
     }
 

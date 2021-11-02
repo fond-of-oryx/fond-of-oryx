@@ -31,7 +31,7 @@ class CustomerExpander implements CustomerExpanderInterface
         }
 
         $customerStatisticTransfer = $this->customerStatisticReader->getByIdCustomer(
-            $customerTransfer->getIdCustomer()
+            $customerTransfer->getIdCustomer(),
         );
 
         return $customerTransfer->setCustomerStatistic($customerStatisticTransfer);

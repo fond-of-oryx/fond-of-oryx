@@ -20,7 +20,7 @@ class ConcreteSkusProductAbstractMapExpanderPluginTest extends Unit
     protected $pageMapBuilderMock;
 
     /**
-     * @var string[]
+     * @var array<string>
      */
     protected $productData;
 
@@ -70,20 +70,20 @@ class ConcreteSkusProductAbstractMapExpanderPluginTest extends Unit
             ->with(
                 explode(
                     ', ',
-                    $this->productData[ConcreteSkusProductAbstractMapExpanderPlugin::KEY_CONCRETE_SKUS]
-                )
+                    $this->productData[ConcreteSkusProductAbstractMapExpanderPlugin::KEY_CONCRETE_SKUS],
+                ),
             )->willReturn($this->pageMapTransferMock);
 
         $pageMapTransfer = $this->concreteSkusProductAbstractMapExpanderPlugin->expandProductMap(
             $this->pageMapTransferMock,
             $this->pageMapBuilderMock,
             $this->productData,
-            $this->localeTransferMock
+            $this->localeTransferMock,
         );
 
         static::assertEquals(
             $this->pageMapTransferMock,
-            $pageMapTransfer
+            $pageMapTransfer,
         );
     }
 
@@ -99,12 +99,12 @@ class ConcreteSkusProductAbstractMapExpanderPluginTest extends Unit
             $this->pageMapTransferMock,
             $this->pageMapBuilderMock,
             [],
-            $this->localeTransferMock
+            $this->localeTransferMock,
         );
 
         static::assertEquals(
             $this->pageMapTransferMock,
-            $pageMapTransfer
+            $pageMapTransfer,
         );
     }
 }

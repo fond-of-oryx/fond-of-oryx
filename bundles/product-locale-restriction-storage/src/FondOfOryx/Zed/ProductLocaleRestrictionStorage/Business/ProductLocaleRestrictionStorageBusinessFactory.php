@@ -22,7 +22,7 @@ class ProductLocaleRestrictionStorageBusinessFactory extends AbstractBusinessFac
         return new ProductAbstractLocaleRestrictionStorageWriter(
             $this->getProductLocaleRestrictionFacade(),
             $this->getRepository(),
-            $this->getConfig()->isSendingToQueue()
+            $this->getConfig()->isSendingToQueue(),
         );
     }
 
@@ -32,7 +32,7 @@ class ProductLocaleRestrictionStorageBusinessFactory extends AbstractBusinessFac
     protected function getProductLocaleRestrictionFacade(): ProductLocaleRestrictionStorageToProductLocaleRestrictionFacadeInterface
     {
         return $this->getProvidedDependency(
-            ProductLocaleRestrictionStorageDependencyProvider::FACADE_PRODUCT_LOCALE_RESTRICTION
+            ProductLocaleRestrictionStorageDependencyProvider::FACADE_PRODUCT_LOCALE_RESTRICTION,
         );
     }
 }

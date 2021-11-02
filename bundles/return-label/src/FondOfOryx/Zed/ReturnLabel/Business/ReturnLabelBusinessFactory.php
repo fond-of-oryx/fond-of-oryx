@@ -25,7 +25,7 @@ class ReturnLabelBusinessFactory extends AbstractBusinessFactory
     {
         return new ReturnLabelGenerator(
             $this->createReturnLabelAdapter(),
-            $this->getConfig()
+            $this->getConfig(),
         );
     }
 
@@ -37,7 +37,7 @@ class ReturnLabelBusinessFactory extends AbstractBusinessFactory
         return new ReturnLabelAdapter(
             $this->createHttpClient(),
             $this->getConfig(),
-            $this->getUtilEncodingService()
+            $this->getUtilEncodingService(),
         );
     }
 

@@ -53,7 +53,7 @@ class ProductAbstractCountryRestrictionProductAbstractAfterCreatePluginTest exte
 
         static::assertEquals(
             $this->productAbstractTransferMock,
-            $this->plugin->create($this->productAbstractTransferMock)
+            $this->plugin->create($this->productAbstractTransferMock),
         );
     }
 }

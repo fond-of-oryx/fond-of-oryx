@@ -54,14 +54,14 @@ class JellyfishSalesOrderGiftCardConnectorBusinessFactoryTest extends Unit
         $this->containerMock->expects($this->atLeastOnce())
             ->method('get')
             ->withConsecutive(
-                [JellyfishSalesOrderGiftCardConnectorDependencyProvider::FACADE_PRODUCT_CART_CODE_TYPE_RESTRICTION]
+                [JellyfishSalesOrderGiftCardConnectorDependencyProvider::FACADE_PRODUCT_CART_CODE_TYPE_RESTRICTION],
             )->willReturnOnConsecutiveCalls(
                 $this->productCartCodeTypeRestrictionFacadeMock,
             );
 
         static::assertInstanceOf(
             JellyfishOrderExpanderInterface::class,
-            $this->businessFactory->createJellyfishOrderExpander()
+            $this->businessFactory->createJellyfishOrderExpander(),
         );
     }
 }

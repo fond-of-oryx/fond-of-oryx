@@ -142,13 +142,13 @@ class SplittedQuoteExpanderTest extends Unit
                             && $expenseTransfer->getShipment()->getShipmentSelection() === (string)$idShipmentMethod
                             && $expenseTransfer->getShipment()->getMethod() === $self->shipmentMethodTransferMock
                             && $expenseTransfer->getShipment()->getShippingAddress() === $self->addressTransferMock;
-                    }
-                )
+                    },
+                ),
             )->willReturn($this->quoteTransferMock);
 
         static::assertEquals(
             $this->quoteTransferMock,
-            $this->splittedQuoteExpander->expand($this->quoteTransferMock)
+            $this->splittedQuoteExpander->expand($this->quoteTransferMock),
         );
     }
 
@@ -175,7 +175,7 @@ class SplittedQuoteExpanderTest extends Unit
 
         static::assertEquals(
             $this->quoteTransferMock,
-            $this->splittedQuoteExpander->expand($this->quoteTransferMock)
+            $this->splittedQuoteExpander->expand($this->quoteTransferMock),
         );
     }
 
@@ -206,7 +206,7 @@ class SplittedQuoteExpanderTest extends Unit
 
         static::assertEquals(
             $this->quoteTransferMock,
-            $this->splittedQuoteExpander->expand($this->quoteTransferMock)
+            $this->splittedQuoteExpander->expand($this->quoteTransferMock),
         );
     }
 
@@ -245,7 +245,7 @@ class SplittedQuoteExpanderTest extends Unit
 
         static::assertEquals(
             $this->quoteTransferMock,
-            $this->splittedQuoteExpander->expand($this->quoteTransferMock)
+            $this->splittedQuoteExpander->expand($this->quoteTransferMock),
         );
     }
 }

@@ -12,9 +12,9 @@ use Spryker\Zed\Kernel\Persistence\AbstractRepository;
 class ProductLocaleRestrictionStorageRepository extends AbstractRepository implements ProductLocaleRestrictionStorageRepositoryInterface
 {
     /**
-     * @param int[] $productAbstractIds
+     * @param array<int> $productAbstractIds
      *
-     * @return \Orm\Zed\ProductLocaleRestrictionStorage\Persistence\FooProductAbstractLocaleRestrictionStorage[]
+     * @return array<\Orm\Zed\ProductLocaleRestrictionStorage\Persistence\FooProductAbstractLocaleRestrictionStorage>
      */
     public function findProductAbstractLocaleRestrictionStorageEntitiesByProductAbstractIds(
         array $productAbstractIds
@@ -32,9 +32,9 @@ class ProductLocaleRestrictionStorageRepository extends AbstractRepository imple
 
     /**
      * @param \Generated\Shared\Transfer\FilterTransfer $filterTransfer
-     * @param int[] $productAbstractIds
+     * @param array<int> $productAbstractIds
      *
-     * @return \Generated\Shared\Transfer\FooProductAbstractLocaleRestrictionStorageEntityTransfer[]
+     * @return array<\Generated\Shared\Transfer\FooProductAbstractLocaleRestrictionStorageEntityTransfer>
      */
     public function findFilteredProductAbstractLocaleRestrictionStorageEntities(
         FilterTransfer $filterTransfer,

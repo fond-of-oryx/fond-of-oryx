@@ -10,8 +10,19 @@ use Spryker\Zed\Kernel\Container;
 
 class SplittableCheckoutDependencyProvider extends AbstractBundleDependencyProvider
 {
+    /**
+     * @var string
+     */
     public const FACADE_CHECKOUT = 'FACADE_CHECKOUT';
+
+    /**
+     * @var string
+     */
     public const FACADE_QUOTE = 'FACADE_QUOTE';
+
+    /**
+     * @var string
+     */
     public const FACADE_SPLITTABLE_QUOTE = 'FACADE_SPLITTABLE_QUOTE';
 
     /**
@@ -66,7 +77,7 @@ class SplittableCheckoutDependencyProvider extends AbstractBundleDependencyProvi
     {
         $container[static::FACADE_SPLITTABLE_QUOTE] = static function () use ($container) {
             return new SplittableCheckoutToSplittableQuoteFacadeBridge(
-                $container->getLocator()->splittableQuote()->facade()
+                $container->getLocator()->splittableQuote()->facade(),
             );
         };
 

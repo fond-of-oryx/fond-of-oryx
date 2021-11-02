@@ -64,7 +64,7 @@ class CompanyUnitAddressReturnLabelRequestExpanderPluginTest extends Unit
 
         static::assertEquals(
             $this->returnLabelRequestTransferMock,
-            $this->plugin->expand($this->restReturnLabelRequestTransferMock, $this->returnLabelRequestTransferMock)
+            $this->plugin->expand($this->restReturnLabelRequestTransferMock, $this->returnLabelRequestTransferMock),
         );
     }
 }

@@ -19,7 +19,7 @@ class PrepaymentCreditMemoBusinessFactory extends AbstractBusinessFactory
     {
         return new Refund(
             $this->getRefundFacade(),
-            $this->getCreditMemoFacade()
+            $this->getCreditMemoFacade(),
         );
     }
 

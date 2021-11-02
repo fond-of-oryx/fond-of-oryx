@@ -9,12 +9,12 @@ use Generated\Shared\Transfer\CompanyBusinessUnitAddressListTransfer;
 class GatewayControllerTest extends Unit
 {
     /**
-     * @var \FondOfOryx\Zed\CompanyBusinessUnitAddressSearchRestApi\Persistence\CompanyBusinessUnitAddressSearchRestApiRepository|mixed|\PHPUnit\Framework\MockObject\MockObject
+     * @var \FondOfOryx\Zed\CompanyBusinessUnitAddressSearchRestApi\Persistence\CompanyBusinessUnitAddressSearchRestApiRepository|\PHPUnit\Framework\MockObject\MockObject|mixed
      */
     protected $repositoryMock;
 
     /**
-     * @var \Generated\Shared\Transfer\CompanyBusinessUnitAddressListTransfer|mixed|\PHPUnit\Framework\MockObject\MockObject
+     * @var \Generated\Shared\Transfer\CompanyBusinessUnitAddressListTransfer|\PHPUnit\Framework\MockObject\MockObject|mixed
      */
     protected $companyBusinessUnitAddressListTransferMock;
 
@@ -54,7 +54,7 @@ class GatewayControllerTest extends Unit
 
         static::assertEquals(
             $this->companyBusinessUnitAddressListTransferMock,
-            $this->gatewayController->searchCompanyBusinessUnitAddressAction($this->companyBusinessUnitAddressListTransferMock)
+            $this->gatewayController->searchCompanyBusinessUnitAddressAction($this->companyBusinessUnitAddressListTransferMock),
         );
     }
 }

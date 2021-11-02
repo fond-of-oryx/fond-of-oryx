@@ -58,7 +58,7 @@ class ProductLocaleRestrictionStorageClientTest extends Unit
             ->willReturn(true);
 
         static::assertTrue(
-            $this->productLocaleRestrictionStorageClient->isProductAbstractRestricted($idProductAbstract)
+            $this->productLocaleRestrictionStorageClient->isProductAbstractRestricted($idProductAbstract),
         );
     }
 }

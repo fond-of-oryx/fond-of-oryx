@@ -8,12 +8,12 @@ use Orm\Zed\Sales\Persistence\SpySalesOrderItem;
 class JellyfishOrderItemMapper implements JellyfishOrderItemMapperInterface
 {
     /**
-     * @var \FondOfOryx\Zed\JellyfishSalesOrderExtension\Dependency\Plugin\JellyfishOrderItemExpanderPostMapPluginInterface[]
+     * @var array<\FondOfOryx\Zed\JellyfishSalesOrderExtension\Dependency\Plugin\JellyfishOrderItemExpanderPostMapPluginInterface>
      */
     protected $jellyfishOrderItemExpanderPostMapPlugins;
 
     /**
-     * @param \FondOfOryx\Zed\JellyfishSalesOrderExtension\Dependency\Plugin\JellyfishOrderItemExpanderPostMapPluginInterface[] $jellyfishOrderItemExpanderPostMapPlugins
+     * @param array<\FondOfOryx\Zed\JellyfishSalesOrderExtension\Dependency\Plugin\JellyfishOrderItemExpanderPostMapPluginInterface> $jellyfishOrderItemExpanderPostMapPlugins
      */
     public function __construct(array $jellyfishOrderItemExpanderPostMapPlugins)
     {

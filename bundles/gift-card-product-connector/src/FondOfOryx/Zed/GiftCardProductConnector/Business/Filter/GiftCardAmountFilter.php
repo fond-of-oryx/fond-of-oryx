@@ -8,7 +8,7 @@ use Exception;
 class GiftCardAmountFilter implements GiftCardAmountFilterInterface
 {
     /**
-     * @param \ArrayObject|\Generated\Shared\Transfer\PriceProductTransfer[] $priceProductTransfers
+     * @param \ArrayObject<\Generated\Shared\Transfer\PriceProductTransfer> $priceProductTransfers
      *
      * @throws \Exception
      *

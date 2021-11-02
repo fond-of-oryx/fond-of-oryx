@@ -81,7 +81,7 @@ class ReturnLabelAdapterTest extends Unit
         $this->adapter = new ReturnLabelAdapter(
             $this->httpClientMock,
             $this->returnLabelConfigMock,
-            $this->utilEncodingServiceMock
+            $this->utilEncodingServiceMock,
         );
     }
 
@@ -135,7 +135,7 @@ class ReturnLabelAdapterTest extends Unit
 
         static::assertEquals(
             $this->streamMock,
-            $this->adapter->sendRequest($this->returnLabelRequestTransferMock)
+            $this->adapter->sendRequest($this->returnLabelRequestTransferMock),
         );
     }
 }

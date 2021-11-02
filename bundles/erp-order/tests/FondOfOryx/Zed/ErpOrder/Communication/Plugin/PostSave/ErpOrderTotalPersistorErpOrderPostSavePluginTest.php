@@ -56,7 +56,7 @@ class ErpOrderTotalPersistorErpOrderPostSavePluginTest extends Unit
 
         $this->assertInstanceOf(
             ErpOrderTransfer::class,
-            $erpOrderTransfer
+            $erpOrderTransfer,
         );
     }
 }

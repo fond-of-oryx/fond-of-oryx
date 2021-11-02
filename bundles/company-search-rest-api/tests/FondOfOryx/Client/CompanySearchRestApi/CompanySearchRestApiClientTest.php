@@ -9,17 +9,17 @@ use Generated\Shared\Transfer\CompanyListTransfer;
 class CompanySearchRestApiClientTest extends Unit
 {
     /**
-     * @var \FondOfOryx\Client\CompanySearchRestApi\CompanySearchRestApiFactory|mixed|\PHPUnit\Framework\MockObject\MockObject
+     * @var \FondOfOryx\Client\CompanySearchRestApi\CompanySearchRestApiFactory|\PHPUnit\Framework\MockObject\MockObject|mixed
      */
     protected $factoryMock;
 
     /**
-     * @var \FondOfOryx\Client\CompanySearchRestApi\Zed\CompanySearchRestApiStubInterface|mixed|\PHPUnit\Framework\MockObject\MockObject
+     * @var \FondOfOryx\Client\CompanySearchRestApi\Zed\CompanySearchRestApiStubInterface|\PHPUnit\Framework\MockObject\MockObject|mixed
      */
     protected $zedStubMock;
 
     /**
-     * @var \Generated\Shared\Transfer\CompanyListTransfer|mixed|\PHPUnit\Framework\MockObject\MockObject
+     * @var \Generated\Shared\Transfer\CompanyListTransfer|\PHPUnit\Framework\MockObject\MockObject|mixed
      */
     protected $companyListTransferMock;
 
@@ -67,7 +67,7 @@ class CompanySearchRestApiClientTest extends Unit
 
         static::assertEquals(
             $this->companyListTransferMock,
-            $this->client->searchCompanies($this->companyListTransferMock)
+            $this->client->searchCompanies($this->companyListTransferMock),
         );
     }
 }

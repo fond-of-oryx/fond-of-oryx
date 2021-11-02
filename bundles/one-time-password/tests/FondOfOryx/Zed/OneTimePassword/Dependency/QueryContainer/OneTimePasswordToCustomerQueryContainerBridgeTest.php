@@ -51,7 +51,7 @@ class OneTimePasswordToCustomerQueryContainerBridgeTest extends Unit
         $this->customerReference = 'customer-reference';
 
         $this->oneTimePasswordToCustomerQueryContainerBridge = new OneTimePasswordToCustomerQueryContainerBridge(
-            $this->customerQueryContainerMock
+            $this->customerQueryContainerMock,
         );
     }
 
@@ -68,8 +68,8 @@ class OneTimePasswordToCustomerQueryContainerBridgeTest extends Unit
         $this->assertSame(
             $this->spyCustomerQuery,
             $this->oneTimePasswordToCustomerQueryContainerBridge->queryCustomerByEmail(
-                $this->email
-            )
+                $this->email,
+            ),
         );
     }
 
@@ -86,8 +86,8 @@ class OneTimePasswordToCustomerQueryContainerBridgeTest extends Unit
         $this->assertSame(
             $this->spyCustomerQuery,
             $this->oneTimePasswordToCustomerQueryContainerBridge->queryCustomerByReference(
-                $this->customerReference
-            )
+                $this->customerReference,
+            ),
         );
     }
 }

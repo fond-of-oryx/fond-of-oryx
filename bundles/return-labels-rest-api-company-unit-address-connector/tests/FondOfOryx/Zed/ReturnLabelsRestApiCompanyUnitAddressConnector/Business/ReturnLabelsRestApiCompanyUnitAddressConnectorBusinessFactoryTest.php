@@ -51,7 +51,7 @@ class ReturnLabelsRestApiCompanyUnitAddressConnectorBusinessFactoryTest extends 
     {
         static::assertInstanceOf(
             ReturnLabelRequestExpander::class,
-            $this->businessFactory->createReturnLabelRequestExpander()
+            $this->businessFactory->createReturnLabelRequestExpander(),
         );
     }
 }

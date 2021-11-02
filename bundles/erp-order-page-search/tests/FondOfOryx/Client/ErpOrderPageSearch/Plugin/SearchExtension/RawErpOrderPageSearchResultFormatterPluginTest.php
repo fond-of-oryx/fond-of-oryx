@@ -62,7 +62,7 @@ class RawErpOrderPageSearchResultFormatterPluginTest extends Unit
         $this->elasticaResultMock->expects(static::atLeastOnce())
             ->method('getSource')
             ->willReturn(
-                [ErpOrderIndexMap::SEARCH_RESULT_DATA => []]
+                [ErpOrderIndexMap::SEARCH_RESULT_DATA => []],
             );
 
         $rawErpOrders = $this->rawErpOrderPageSearchResultFormatterPlugin

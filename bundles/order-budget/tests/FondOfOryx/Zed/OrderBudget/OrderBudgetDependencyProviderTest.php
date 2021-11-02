@@ -89,7 +89,7 @@ class OrderBudgetDependencyProviderTest extends Unit
 
         static::assertInstanceOf(
             OrderBudgetToUtilDateTimeServiceBridge::class,
-            $container[OrderBudgetDependencyProvider::SERVICE_UTIL_DATETIME]
+            $container[OrderBudgetDependencyProvider::SERVICE_UTIL_DATETIME],
         );
     }
 }

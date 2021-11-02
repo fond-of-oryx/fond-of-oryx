@@ -18,8 +18,19 @@ use Spryker\Zed\Kernel\Persistence\AbstractRepository;
  */
 class JellyfishCreditMemoRepository extends AbstractRepository implements JellyfishCreditMemoRepositoryInterface
 {
+    /**
+     * @var string|null
+     */
     protected const JELLYFISH_PENDING_EXPORT_STATE = null;
+
+    /**
+     * @var string
+     */
     protected const FIELD_CREATED_AT = 'created_at';
+
+    /**
+     * @var string
+     */
     protected const FIELD_UPDATED_AT = 'updated_at';
 
     /**
@@ -126,7 +137,7 @@ class JellyfishCreditMemoRepository extends AbstractRepository implements Jellyf
     }
 
     /**
-     * @param \Orm\Zed\CreditMemo\Persistence\FooCreditMemo[] $entityTransferCollection
+     * @param array<\Orm\Zed\CreditMemo\Persistence\FooCreditMemo> $entityTransferCollection
      *
      * @return \Generated\Shared\Transfer\CreditMemoCollectionTransfer
      */
@@ -145,16 +156,16 @@ class JellyfishCreditMemoRepository extends AbstractRepository implements Jellyf
     }
 
     /**
-     * @param \Orm\Zed\CreditMemo\Persistence\FooCreditMemoItem[] $creditMemoItemEntityTransferCollection
+     * @param array<\Orm\Zed\CreditMemo\Persistence\FooCreditMemoItem> $creditMemoItemEntityTransferCollection
      *
-     * @return \Generated\Shared\Transfer\ItemTransfer[]|\ArrayObject
+     * @return \ArrayObject<\Generated\Shared\Transfer\ItemTransfer>
      */
     protected function getCreditMemoItems(array $creditMemoItemEntityTransferCollection): ArrayObject
     {
         $items = new ArrayObject();
         foreach ($creditMemoItemEntityTransferCollection as $creditMemoItemEntityTransfer) {
             $items->append(
-                $this->mapCreditMemoItemEntityTransferToItemTransfer($creditMemoItemEntityTransfer)
+                $this->mapCreditMemoItemEntityTransferToItemTransfer($creditMemoItemEntityTransfer),
             );
         }
 
@@ -215,9 +226,9 @@ class JellyfishCreditMemoRepository extends AbstractRepository implements Jellyf
     }
 
     /**
-     * @param \Orm\Zed\CreditMemo\Persistence\FooCreditMemoItem[] $creditMemoItems
+     * @param array<\Orm\Zed\CreditMemo\Persistence\FooCreditMemoItem> $creditMemoItems
      *
-     * @return \ArrayObject|\Generated\Shared\Transfer\ItemTransfer[]
+     * @return \ArrayObject<\Generated\Shared\Transfer\ItemTransfer>
      */
     protected function mapCreditMemoItemsToItemTransferCollection(
         array $creditMemoItems
@@ -245,7 +256,7 @@ class JellyfishCreditMemoRepository extends AbstractRepository implements Jellyf
 
         $creditMemoTransfer->setLocale($this->mapCreditMemoEntityTransferToLocaleTransfer($creditMemoEntityTransfer));
         $creditMemoTransfer->setItems(
-            $this->getCreditMemoItems($creditMemoEntityTransfer->getFooCreditMemoItems()->getData())
+            $this->getCreditMemoItems($creditMemoEntityTransfer->getFooCreditMemoItems()->getData()),
         );
 
         return $creditMemoTransfer;

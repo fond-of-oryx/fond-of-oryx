@@ -52,7 +52,7 @@ class LocaleOrderHydrationPluginTest extends Unit
 
         $this->assertEquals(
             $this->orderTransferMock,
-            $this->localeOrderHydrationPlugin->hydrate($this->orderTransferMock)
+            $this->localeOrderHydrationPlugin->hydrate($this->orderTransferMock),
         );
     }
 }

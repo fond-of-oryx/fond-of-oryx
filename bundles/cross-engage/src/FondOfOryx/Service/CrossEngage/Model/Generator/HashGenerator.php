@@ -7,6 +7,9 @@ use FondOfOryx\Service\CrossEngage\Exception\ModifierNotFoundException;
 
 class HashGenerator implements HashGeneratorInterface
 {
+    /**
+     * @var array
+     */
     public const MODIFIER = [
         'lower' => 'strtolower',
         'upper' => 'strtoupper',
@@ -72,8 +75,8 @@ class HashGenerator implements HashGeneratorInterface
                 sprintf(
                     'Modifier "%s" not found in available modifier list (%s)',
                     $modifier,
-                    implode(', ', array_keys(self::MODIFIER))
-                )
+                    implode(', ', array_keys(self::MODIFIER)),
+                ),
             );
         }
 

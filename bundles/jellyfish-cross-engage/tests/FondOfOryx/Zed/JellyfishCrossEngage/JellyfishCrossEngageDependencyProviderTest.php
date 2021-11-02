@@ -37,8 +37,8 @@ class JellyfishCrossEngageDependencyProviderTest extends Unit
         $this->assertInstanceOf(
             Container::class,
             $this->jellyfishCrossEngageDependencyProvider->provideBusinessLayerDependencies(
-                $this->containerMock
-            )
+                $this->containerMock,
+            ),
         );
     }
 }

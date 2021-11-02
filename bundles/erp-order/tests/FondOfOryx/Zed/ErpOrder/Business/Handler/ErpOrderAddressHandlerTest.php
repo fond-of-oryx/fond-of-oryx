@@ -13,7 +13,14 @@ use ReflectionMethod;
 
 class ErpOrderAddressHandlerTest extends Unit
 {
+    /**
+     * @var string
+     */
     protected const BILLING_ADDRESS = 'billingAddress';
+
+    /**
+     * @var string
+     */
     protected const SHIPPING_ADDRESS = 'shippingAddress';
 
     /**
@@ -66,7 +73,7 @@ class ErpOrderAddressHandlerTest extends Unit
 
         $this->handler = new ErpOrderAddressHandler(
             $this->addressWriterMock,
-            $this->addressReaderMock
+            $this->addressReaderMock,
         );
     }
 

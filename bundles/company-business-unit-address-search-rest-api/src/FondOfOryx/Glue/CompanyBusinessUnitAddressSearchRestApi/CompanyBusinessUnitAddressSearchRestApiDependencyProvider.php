@@ -34,7 +34,7 @@ class CompanyBusinessUnitAddressSearchRestApiDependencyProvider extends Abstract
     {
         $container[static::CLIENT_GLOSSARY_STORAGE] = static function (Container $container) {
             return new CompanyBusinessUnitAddressSearchRestApiToGlossaryStorageClientBridge(
-                $container->getLocator()->glossaryStorage()->client()
+                $container->getLocator()->glossaryStorage()->client(),
             );
         };
 

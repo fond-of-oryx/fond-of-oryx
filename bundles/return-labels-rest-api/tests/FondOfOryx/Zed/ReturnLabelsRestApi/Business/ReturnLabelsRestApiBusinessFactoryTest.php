@@ -64,12 +64,12 @@ class ReturnLabelsRestApiBusinessFactoryTest extends Unit
             ->method('get')
             ->withConsecutive(
                 [ReturnLabelsRestApiDependencyProvider::FACADE_RETURN_LABEL],
-                [ReturnLabelsRestApiDependencyProvider::PLUGINS_RETURN_LABEL_REQUEST_EXPANDER]
+                [ReturnLabelsRestApiDependencyProvider::PLUGINS_RETURN_LABEL_REQUEST_EXPANDER],
             )->willReturnOnConsecutiveCalls($this->returnLabelFacadeMock, []);
 
         static::assertInstanceOf(
             ReturnLabelGenerator::class,
-            $this->returnLabelsRestApiBusinessFactory->createReturnLabelGenerator()
+            $this->returnLabelsRestApiBusinessFactory->createReturnLabelGenerator(),
         );
     }
 }

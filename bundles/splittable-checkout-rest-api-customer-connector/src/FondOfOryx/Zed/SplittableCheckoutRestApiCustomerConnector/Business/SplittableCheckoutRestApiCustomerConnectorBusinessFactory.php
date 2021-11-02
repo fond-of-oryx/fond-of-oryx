@@ -17,7 +17,7 @@ class SplittableCheckoutRestApiCustomerConnectorBusinessFactory extends Abstract
     public function createQuoteExpander(): QuoteExpanderInterface
     {
         return new QuoteExpander(
-            $this->getRepository()
+            $this->getRepository(),
         );
     }
 }

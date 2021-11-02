@@ -17,17 +17,17 @@ class CompanySearchResourceControllerTest extends Unit
     protected $factoryMock;
 
     /**
-     * @var \FondOfOryx\Glue\CompanySearchRestApi\Processor\Reader\CompanyReaderInterface|mixed|\PHPUnit\Framework\MockObject\MockObject
+     * @var \FondOfOryx\Glue\CompanySearchRestApi\Processor\Reader\CompanyReaderInterface|\PHPUnit\Framework\MockObject\MockObject|mixed
      */
     protected $companyReaderMock;
 
     /**
-     * @var mixed|\PHPUnit\Framework\MockObject\MockObject|\Spryker\Glue\GlueApplication\Rest\Request\Data\RestRequestInterface
+     * @var \PHPUnit\Framework\MockObject\MockObject|\Spryker\Glue\GlueApplication\Rest\Request\Data\RestRequestInterface|mixed
      */
     protected $restRequestMock;
 
     /**
-     * @var mixed|\PHPUnit\Framework\MockObject\MockObject|\Spryker\Glue\GlueApplication\Rest\JsonApi\RestResponseInterface
+     * @var \PHPUnit\Framework\MockObject\MockObject|\Spryker\Glue\GlueApplication\Rest\JsonApi\RestResponseInterface|mixed
      */
     protected $restResponseMock;
 
@@ -100,8 +100,8 @@ class CompanySearchResourceControllerTest extends Unit
         static::assertEquals(
             $this->restResponseMock,
             $this->controller->getAction(
-                $this->restRequestMock
-            )
+                $this->restRequestMock,
+            ),
         );
     }
 }

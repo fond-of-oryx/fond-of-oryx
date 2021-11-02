@@ -126,8 +126,8 @@ class OneTimePasswordFacadeTest extends Unit
         $this->assertSame(
             $this->oneTimePasswordResponseTransferMock,
             $this->oneTimePasswordFacade->requestOneTimePassword(
-                $this->customerTransferMock
-            )
+                $this->customerTransferMock,
+            ),
         );
     }
 
@@ -148,8 +148,8 @@ class OneTimePasswordFacadeTest extends Unit
         $this->assertSame(
             $this->oneTimePasswordResponseTransferMock,
             $this->oneTimePasswordFacade->generateOneTimePassword(
-                $this->customerTransferMock
-            )
+                $this->customerTransferMock,
+            ),
         );
     }
 
@@ -167,7 +167,7 @@ class OneTimePasswordFacadeTest extends Unit
             ->with($this->customerTransferMock);
 
         $this->oneTimePasswordFacade->resetOneTimePassword(
-            $this->customerTransferMock
+            $this->customerTransferMock,
         );
     }
 
@@ -187,8 +187,8 @@ class OneTimePasswordFacadeTest extends Unit
         $this->assertSame(
             $this->oneTimePasswordResponseTransferMock,
             $this->oneTimePasswordFacade->generateLoginLink(
-                $this->customerTransferMock
-            )
+                $this->customerTransferMock,
+            ),
         );
     }
 
@@ -208,8 +208,8 @@ class OneTimePasswordFacadeTest extends Unit
         $this->assertSame(
             $this->oneTimePasswordResponseTransferMock,
             $this->oneTimePasswordFacade->generateLoginLinkWithOrderReference(
-                $this->orderTransferMock
-            )
+                $this->orderTransferMock,
+            ),
         );
     }
 }

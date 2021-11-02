@@ -29,12 +29,12 @@ class GiftCardRestrictionCalculatorTest extends Unit
     protected $calculableObjectTransferMock;
 
     /**
-     * @var \Generated\Shared\Transfer\PaymentTransfer[]|\PHPUnit\Framework\MockObject\MockObject[]
+     * @var array<\PHPUnit\Framework\MockObject\MockObject>|array<\Generated\Shared\Transfer\PaymentTransfer>
      */
     protected $paymentTransferMocks;
 
     /**
-     * @var \Generated\Shared\Transfer\ItemTransfer[]|\PHPUnit\Framework\MockObject\MockObject[]
+     * @var array<\PHPUnit\Framework\MockObject\MockObject>|array<\Generated\Shared\Transfer\ItemTransfer>
      */
     protected $itemTransferMocks;
 
@@ -82,7 +82,7 @@ class GiftCardRestrictionCalculatorTest extends Unit
 
         $this->giftCardRestrictionCalculator = new GiftCardRestrictionCalculator(
             $this->skuFilterMock,
-            $this->productCartCodeTypeRestrictionFacadeMock
+            $this->productCartCodeTypeRestrictionFacadeMock,
         );
     }
 

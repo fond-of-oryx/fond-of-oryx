@@ -70,7 +70,7 @@ class QuoteReaderTest extends Unit
 
         $this->quoteReader = new QuoteReader(
             $this->quoteExpanderMock,
-            $this->quoteFacadeMock
+            $this->quoteFacadeMock,
         );
     }
 
@@ -96,8 +96,8 @@ class QuoteReaderTest extends Unit
                 static::callback(
                     static function (QuoteTransfer $quoteTransfer) use ($uuid) {
                         return $quoteTransfer->getUuid() === $uuid;
-                    }
-                )
+                    },
+                ),
             )->willReturn($this->quoteResponseTransferMock);
 
         $this->quoteResponseTransferMock->expects(static::atLeastOnce())
@@ -119,7 +119,7 @@ class QuoteReaderTest extends Unit
 
         static::assertEquals(
             $this->quoteTransferMock,
-            $this->quoteReader->getByRestSplittableCheckoutRequest($this->restSplittableCheckoutRequestTransferMock)
+            $this->quoteReader->getByRestSplittableCheckoutRequest($this->restSplittableCheckoutRequestTransferMock),
         );
     }
 
@@ -147,7 +147,7 @@ class QuoteReaderTest extends Unit
 
         static::assertEquals(
             null,
-            $this->quoteReader->getByRestSplittableCheckoutRequest($this->restSplittableCheckoutRequestTransferMock)
+            $this->quoteReader->getByRestSplittableCheckoutRequest($this->restSplittableCheckoutRequestTransferMock),
         );
     }
 
@@ -173,8 +173,8 @@ class QuoteReaderTest extends Unit
                 static::callback(
                     static function (QuoteTransfer $quoteTransfer) use ($uuid) {
                         return $quoteTransfer->getUuid() === $uuid;
-                    }
-                )
+                    },
+                ),
             )->willReturn($this->quoteResponseTransferMock);
 
         $this->quoteResponseTransferMock->expects(static::atLeastOnce())
@@ -189,7 +189,7 @@ class QuoteReaderTest extends Unit
 
         static::assertEquals(
             null,
-            $this->quoteReader->getByRestSplittableCheckoutRequest($this->restSplittableCheckoutRequestTransferMock)
+            $this->quoteReader->getByRestSplittableCheckoutRequest($this->restSplittableCheckoutRequestTransferMock),
         );
     }
 
@@ -215,8 +215,8 @@ class QuoteReaderTest extends Unit
                 static::callback(
                     static function (QuoteTransfer $quoteTransfer) use ($uuid) {
                         return $quoteTransfer->getUuid() === $uuid;
-                    }
-                )
+                    },
+                ),
             )->willReturn($this->quoteResponseTransferMock);
 
         $this->quoteResponseTransferMock->expects(static::atLeastOnce())
@@ -236,7 +236,7 @@ class QuoteReaderTest extends Unit
 
         static::assertEquals(
             null,
-            $this->quoteReader->getByRestSplittableCheckoutRequest($this->restSplittableCheckoutRequestTransferMock)
+            $this->quoteReader->getByRestSplittableCheckoutRequest($this->restSplittableCheckoutRequestTransferMock),
         );
     }
 }

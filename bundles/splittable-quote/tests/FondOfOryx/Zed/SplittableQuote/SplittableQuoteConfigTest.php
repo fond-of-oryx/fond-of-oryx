@@ -31,12 +31,12 @@ class SplittableQuoteConfigTest extends Unit
             ->method('get')
             ->with(
                 SplittableQuoteConstants::SPLIT_ITEM_ATTRIBUTE,
-                SplittableQuoteConstants::SPLIT_ITEM_ATTRIBUTE_DEFAULT
+                SplittableQuoteConstants::SPLIT_ITEM_ATTRIBUTE_DEFAULT,
             )->willReturn(SplittableQuoteConstants::SPLIT_ITEM_ATTRIBUTE_DEFAULT);
 
         static::assertEquals(
             null,
-            $this->splittableQuoteConfig->getSplitItemAttribute()
+            $this->splittableQuoteConfig->getSplitItemAttribute(),
         );
     }
 
@@ -49,12 +49,12 @@ class SplittableQuoteConfigTest extends Unit
             ->method('get')
             ->with(
                 SplittableQuoteConstants::SPLIT_ITEM_ATTRIBUTE,
-                SplittableQuoteConstants::SPLIT_ITEM_ATTRIBUTE_DEFAULT
+                SplittableQuoteConstants::SPLIT_ITEM_ATTRIBUTE_DEFAULT,
             )->willReturn('foo');
 
         static::assertEquals(
             'foo',
-            $this->splittableQuoteConfig->getSplitItemAttribute()
+            $this->splittableQuoteConfig->getSplitItemAttribute(),
         );
     }
 }

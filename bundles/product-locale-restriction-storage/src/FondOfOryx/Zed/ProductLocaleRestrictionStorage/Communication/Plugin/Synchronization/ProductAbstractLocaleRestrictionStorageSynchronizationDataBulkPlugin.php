@@ -24,9 +24,9 @@ class ProductAbstractLocaleRestrictionStorageSynchronizationDataBulkPlugin exten
      *
      * @param int $offset
      * @param int $limit
-     * @param int[] $ids
+     * @param array<int> $ids
      *
-     * @return \Generated\Shared\Transfer\SynchronizationDataTransfer[]
+     * @return array<\Generated\Shared\Transfer\SynchronizationDataTransfer>
      */
     public function getData(int $offset, int $limit, array $ids = []): array
     {
@@ -55,7 +55,7 @@ class ProductAbstractLocaleRestrictionStorageSynchronizationDataBulkPlugin exten
     {
         return (new FilterTransfer())
             ->setOrderBy(
-                FooProductAbstractLocaleRestrictionStorageTableMap::COL_ID_PRODUCT_ABSTRACT_LOCALE_RESTRICTION_STORAGE
+                FooProductAbstractLocaleRestrictionStorageTableMap::COL_ID_PRODUCT_ABSTRACT_LOCALE_RESTRICTION_STORAGE,
             )
             ->setOffset($offset)
             ->setLimit($limit);

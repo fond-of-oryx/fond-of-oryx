@@ -82,13 +82,13 @@ class SplittableCheckoutRestApiCompanyUnitAddressConnectorDependencyProviderTest
             ->willReturn($this->companyUnitAddressFacadeMock);
 
         $container = $this->dependencyProvider->provideBusinessLayerDependencies(
-            $this->containerMock
+            $this->containerMock,
         );
 
         static::assertEquals($this->containerMock, $container);
         static::assertInstanceOf(
             SplittableCheckoutRestApiCompanyUnitAddressConnectorToCompanyUnitAddressFacadeBridge::class,
-            $container[SplittableCheckoutRestApiCompanyUnitAddressConnectorDependencyProvider::FACADE_COMPANY_UNIT_ADDRESS]
+            $container[SplittableCheckoutRestApiCompanyUnitAddressConnectorDependencyProvider::FACADE_COMPANY_UNIT_ADDRESS],
         );
     }
 }

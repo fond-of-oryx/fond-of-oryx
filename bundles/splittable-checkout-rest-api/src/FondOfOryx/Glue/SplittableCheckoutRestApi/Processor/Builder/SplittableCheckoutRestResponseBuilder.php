@@ -60,7 +60,7 @@ class SplittableCheckoutRestResponseBuilder implements SplittableCheckoutRestRes
         $restResource = $this->restResourceBuilder->createRestResource(
             SplittableCheckoutRestApiConfig::RESOURCE_SPLITTABLE_CHECKOUT,
             null,
-            $restSplittableCheckoutTransfer
+            $restSplittableCheckoutTransfer,
         );
 
         $restResource->setPayload($restSplittableCheckoutTransfer);

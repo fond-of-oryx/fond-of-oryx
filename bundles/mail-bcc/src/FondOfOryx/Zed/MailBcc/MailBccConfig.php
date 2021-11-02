@@ -10,7 +10,7 @@ use Spryker\Zed\Kernel\AbstractBundleConfig;
 class MailBccConfig extends AbstractBundleConfig
 {
     /**
-     * @return string[]
+     * @return array<string>
      */
     public function getBccEmailAddress(): array
     {

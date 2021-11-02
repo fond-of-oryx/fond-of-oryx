@@ -8,6 +8,9 @@ use Spryker\Zed\Kernel\Container;
 
 class GiftCardExpirationDependencyProvider extends AbstractBundleDependencyProvider
 {
+    /**
+     * @var string
+     */
     public const QUERY_GIFT_CARD = 'QUERY_GIFT_CARD';
 
     /**

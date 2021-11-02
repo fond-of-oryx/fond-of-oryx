@@ -39,7 +39,7 @@ class ShipmentTableRateToCountryFacadeBridgeTest extends Unit
             ->getMock();
 
         $this->shipmentTableRateToCountryFacadeBridge = new ShipmentTableRateToCountryFacadeBridge(
-            $this->countryFacadeMock
+            $this->countryFacadeMock,
         );
     }
 

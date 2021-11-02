@@ -104,7 +104,7 @@ class SplittableCheckoutRestApiDependencyProviderTest extends Unit
             ->willReturnOnConsecutiveCalls(
                 $this->quoteFacadeMock,
                 $this->splittableCheckoutFacadeMock,
-                $this->splittableTotalsFacadeMock
+                $this->splittableTotalsFacadeMock,
             );
 
         $container = $this->dependencyProvider->provideBusinessLayerDependencies($this->containerMock);
@@ -113,17 +113,17 @@ class SplittableCheckoutRestApiDependencyProviderTest extends Unit
 
         static::assertInstanceOf(
             SplittableCheckoutRestApiToQuoteFacadeInterface::class,
-            $container[SplittableCheckoutRestApiDependencyProvider::FACADE_QUOTE]
+            $container[SplittableCheckoutRestApiDependencyProvider::FACADE_QUOTE],
         );
 
         static::assertInstanceOf(
             SplittableCheckoutRestApiToSplittableCheckoutFacadeInterface::class,
-            $container[SplittableCheckoutRestApiDependencyProvider::FACADE_SPLITTABLE_CHECKOUT]
+            $container[SplittableCheckoutRestApiDependencyProvider::FACADE_SPLITTABLE_CHECKOUT],
         );
 
         static::assertInstanceOf(
             SplittableCheckoutRestApiToSplittableTotalsFacadeInterface::class,
-            $container[SplittableCheckoutRestApiDependencyProvider::FACADE_SPLITTABLE_TOTALS]
+            $container[SplittableCheckoutRestApiDependencyProvider::FACADE_SPLITTABLE_TOTALS],
         );
 
         static::assertIsArray($container[SplittableCheckoutRestApiDependencyProvider::PLUGINS_QUOTE_EXPANDER]);

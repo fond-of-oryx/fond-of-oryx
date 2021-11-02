@@ -13,11 +13,34 @@ use Propel\Runtime\Map\TableMap;
 
 class ErpOrderPageSearchPublisher implements ErpOrderPageSearchPublisherInterface
 {
+    /**
+     * @var string
+     */
     public const COMPANY_BUSINESS_UNIT = 'companyBusinessUnit';
+
+    /**
+     * @var string
+     */
     public const ERP_ORDER_ITEMS = 'erpOrderItems';
+
+    /**
+     * @var string
+     */
     public const ERP_ORDER_TOTAL = 'erpOrderTotal';
+
+    /**
+     * @var string
+     */
     public const BILLING_ADDRESS = 'billingAddress';
+
+    /**
+     * @var string
+     */
     public const SHIPPING_ADDRESS = 'shippingAddress';
+
+    /**
+     * @var string
+     */
     public const FIELD_COUNTRY = 'country';
 
     /**
@@ -59,7 +82,7 @@ class ErpOrderPageSearchPublisher implements ErpOrderPageSearchPublisherInterfac
     }
 
     /**
-     * @param int[] $erpOrderIds
+     * @param array<int> $erpOrderIds
      *
      * @return void
      */
@@ -70,7 +93,7 @@ class ErpOrderPageSearchPublisher implements ErpOrderPageSearchPublisherInterfac
 
         if (count($erpOrderIds) > 0) {
             $this->entityManager->deleteErpOrderSearchPagesByErpOrderIds(
-                $erpOrderIds
+                $erpOrderIds,
             );
         }
 
@@ -78,7 +101,7 @@ class ErpOrderPageSearchPublisher implements ErpOrderPageSearchPublisherInterfac
     }
 
     /**
-     * @param \Orm\Zed\ErpOrder\Persistence\ErpOrder[] $fooErpOrderEntities
+     * @param array<\Orm\Zed\ErpOrder\Persistence\ErpOrder> $fooErpOrderEntities
      *
      * @return void
      */
@@ -143,7 +166,7 @@ class ErpOrderPageSearchPublisher implements ErpOrderPageSearchPublisherInterfac
     ): ErpOrderPageSearchTransfer {
         $data = array_merge(
             $erpOrderPageSearchTransfer->toArray(),
-            $erpOrderPageSearchTransfer->getData()
+            $erpOrderPageSearchTransfer->getData(),
         );
 
         $data = $this->erpOrderPageSearchDataMapper

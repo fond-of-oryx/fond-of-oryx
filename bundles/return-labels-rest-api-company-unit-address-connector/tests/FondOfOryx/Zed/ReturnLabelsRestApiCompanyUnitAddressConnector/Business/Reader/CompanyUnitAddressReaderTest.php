@@ -99,7 +99,7 @@ class CompanyUnitAddressReaderTest extends Unit
 
         static::assertEquals(
             $this->companyUnitAddressTransferMock,
-            $this->reader->getByRestReturnLabelRequest($this->restReturnLabelRequestTransferMock)
+            $this->reader->getByRestReturnLabelRequest($this->restReturnLabelRequestTransferMock),
         );
     }
 

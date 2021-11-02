@@ -20,7 +20,7 @@ class OneTimePasswordRestApiFactory extends AbstractFactory
     {
         return new OneTimePasswordProcessor(
             $this->getResourceBuilder(),
-            $this->getClient()
+            $this->getClient(),
         );
     }
 
@@ -31,7 +31,7 @@ class OneTimePasswordRestApiFactory extends AbstractFactory
     {
         return new OneTimePasswordLoginLinkProcessor(
             $this->getResourceBuilder(),
-            $this->getClient()
+            $this->getClient(),
         );
     }
 }

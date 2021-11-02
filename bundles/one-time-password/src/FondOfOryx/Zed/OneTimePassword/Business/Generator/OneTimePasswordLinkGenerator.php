@@ -12,8 +12,19 @@ use Generated\Shared\Transfer\OrderTransfer;
 
 class OneTimePasswordLinkGenerator implements OneTimePasswordLinkGeneratorInterface
 {
+    /**
+     * @var string
+     */
     protected const LINK_LOCALE_PLACEHOLDER = '{{locale}}';
+
+    /**
+     * @var string
+     */
     protected const LINK_PARAMETER_FORMAT = '%s?%s=%s';
+
+    /**
+     * @var string
+     */
     protected const LINK_PARAMETER_EXTENSION_FORMAT = '%s&%s=%s';
 
     /**
@@ -93,7 +104,7 @@ class OneTimePasswordLinkGenerator implements OneTimePasswordLinkGeneratorInterf
             self::LINK_PARAMETER_FORMAT,
             $localizedLoginLinkPath,
             $this->oneTimePasswordConfig->getLoginLinkParameterName(),
-            $encodedLoginCredentials
+            $encodedLoginCredentials,
         );
 
         return $oneTimePasswordResponseTransfer
@@ -138,7 +149,7 @@ class OneTimePasswordLinkGenerator implements OneTimePasswordLinkGeneratorInterf
             self::LINK_PARAMETER_EXTENSION_FORMAT,
             $oneTimePasswordResponseTransfer->getLoginLink(),
             $this->oneTimePasswordConfig->getLoginLinkOrderReferenceName(),
-            $orderTransfer->getOrderReference()
+            $orderTransfer->getOrderReference(),
         );
 
         return $oneTimePasswordResponseTransfer

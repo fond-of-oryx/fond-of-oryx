@@ -18,7 +18,7 @@ class CreditMemoItemMapper implements CreditMemoItemMapperInterface
         FooCreditMemoItem $fooCreditMemoItem
     ): FooCreditMemoItem {
         $fooCreditMemoItem->fromArray(
-            $itemTransfer->modifiedToArray(false)
+            $itemTransfer->modifiedToArray(false),
         );
 
         return $fooCreditMemoItem;
@@ -36,7 +36,7 @@ class CreditMemoItemMapper implements CreditMemoItemMapperInterface
     ): ItemTransfer {
         return $itemTransfer->fromArray(
             $fooCreditMemoItem->toArray(),
-            true
+            true,
         );
     }
 }

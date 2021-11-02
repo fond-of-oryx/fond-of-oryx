@@ -60,7 +60,7 @@ class ReturnLabelGeneratorTest extends Unit
 
         $this->generator = new ReturnLabelGenerator(
             $this->returnLabelAdapterMock,
-            $this->configMock
+            $this->configMock,
         );
     }
 
@@ -105,7 +105,7 @@ class ReturnLabelGeneratorTest extends Unit
         static::assertTrue($returnLabelResponseTransfer->getIsSuccessful());
         static::assertEquals(
             $data,
-            $returnLabelResponseTransfer->getReturnLabel()->getData()
+            $returnLabelResponseTransfer->getReturnLabel()->getData(),
         );
     }
 }

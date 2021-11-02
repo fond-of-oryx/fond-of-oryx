@@ -47,7 +47,7 @@ class JellyfishThirtyFiveUpToThirtyFiveUpFacadeBridgeTest extends Unit
             ->getMock();
 
         $this->bridge = new JellyfishThirtyFiveUpToThirtyFiveUpFacadeBridge(
-            $this->facadeMock
+            $this->facadeMock,
         );
     }
 

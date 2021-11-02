@@ -23,7 +23,7 @@ class ReturnLabelsRestApiFactory extends AbstractFactory
     public function createReturnLabelZedStub(): ReturnLabelsRestApiZedStubInterface
     {
         return new ReturnLabelsRestApiZedStub(
-            $this->getZedRequestClient()
+            $this->getZedRequestClient(),
         );
     }
 }

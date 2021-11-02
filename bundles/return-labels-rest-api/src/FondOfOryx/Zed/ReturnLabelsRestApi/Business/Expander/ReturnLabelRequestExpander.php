@@ -13,7 +13,7 @@ class ReturnLabelRequestExpander implements ReturnLabelRequestExpanderInterface
     protected $returnLabelRequestExpanderPlugins;
 
     /**
-     * @param \FondOfOryx\Zed\ReturnLabelsRestApiExtension\Dependency\Plugin\ReturnLabelRequestExpanderPluginInterface[] $returnLabelRequestExpanderPlugins
+     * @param array<\FondOfOryx\Zed\ReturnLabelsRestApiExtension\Dependency\Plugin\ReturnLabelRequestExpanderPluginInterface> $returnLabelRequestExpanderPlugins
      */
     public function __construct(array $returnLabelRequestExpanderPlugins)
     {
@@ -33,7 +33,7 @@ class ReturnLabelRequestExpander implements ReturnLabelRequestExpanderInterface
         foreach ($this->returnLabelRequestExpanderPlugins as $returnLabelRequestExpanderPlugin) {
             $returnLabelRequestTransfer = $returnLabelRequestExpanderPlugin->expand(
                 $restReturnLabelRequestTransfer,
-                $returnLabelRequestTransfer
+                $returnLabelRequestTransfer,
             );
         }
 

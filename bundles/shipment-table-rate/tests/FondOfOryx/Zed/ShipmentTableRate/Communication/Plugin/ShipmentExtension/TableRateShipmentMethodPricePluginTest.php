@@ -66,8 +66,8 @@ class TableRateShipmentMethodPricePluginTest extends Unit
             $price,
             $this->tableRateShipmentMethodPricePlugin->getPrice(
                 $this->shipmentGroupTransferMock,
-                $this->quoteTransferMock
-            )
+                $this->quoteTransferMock,
+            ),
         );
     }
 }

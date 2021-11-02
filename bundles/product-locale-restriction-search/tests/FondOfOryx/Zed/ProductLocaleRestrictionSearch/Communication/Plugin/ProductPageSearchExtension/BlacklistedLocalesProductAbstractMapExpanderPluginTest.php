@@ -69,8 +69,8 @@ class BlacklistedLocalesProductAbstractMapExpanderPluginTest extends Unit
                 $this->pageMapTransferMock,
                 $this->pageMapBuilderMock,
                 ['blacklisted_locales' => $blacklistedLocales],
-                $this->localeTransferMock
-            )
+                $this->localeTransferMock,
+            ),
         );
     }
 
@@ -88,8 +88,8 @@ class BlacklistedLocalesProductAbstractMapExpanderPluginTest extends Unit
                 $this->pageMapTransferMock,
                 $this->pageMapBuilderMock,
                 [],
-                $this->localeTransferMock
-            )
+                $this->localeTransferMock,
+            ),
         );
     }
 }

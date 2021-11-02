@@ -49,7 +49,7 @@ class ErpOrderPageSearchEventSubscriberTest extends Unit
     {
         $this->assertInstanceOf(
             EventCollectionInterface::class,
-            $this->erpOrderPageSearchEventSubscriber->getSubscribedEvents($this->eventCollectionMock)
+            $this->erpOrderPageSearchEventSubscriber->getSubscribedEvents($this->eventCollectionMock),
         );
     }
 }

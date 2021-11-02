@@ -8,13 +8,13 @@ use Spryker\Zed\Kernel\AbstractBundleConfig;
 class GiftCardRestrictionConfig extends AbstractBundleConfig
 {
     /**
-     * @return string[]
+     * @return array<string>
      */
     public function getBlacklistedCountries(): array
     {
         return $this->get(
             GiftCardRestrictionConstants::BLACKLISTED_COUNTRIES,
-            GiftCardRestrictionConstants::BLACKLISTED_COUNTRIES_VALUE
+            GiftCardRestrictionConstants::BLACKLISTED_COUNTRIES_VALUE,
         );
     }
 }

@@ -8,6 +8,9 @@ use Spryker\Zed\Kernel\Container;
 
 class SplittableQuoteShipmentConnectorDependencyProvider extends AbstractBundleDependencyProvider
 {
+    /**
+     * @var string
+     */
     public const FACADE_SHIPMENT = 'FACADE_SHIPMENT';
 
     /**
@@ -31,7 +34,7 @@ class SplittableQuoteShipmentConnectorDependencyProvider extends AbstractBundleD
     {
         $container[static::FACADE_SHIPMENT] = static function (Container $container) {
             return new SplittableQuoteShipmentConnectorToShipmentFacadeBridge(
-                $container->getLocator()->shipment()->facade()
+                $container->getLocator()->shipment()->facade(),
             );
         };
 

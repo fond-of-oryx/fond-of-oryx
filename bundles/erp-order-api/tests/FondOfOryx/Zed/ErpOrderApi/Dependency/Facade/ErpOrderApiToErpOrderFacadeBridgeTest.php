@@ -49,7 +49,7 @@ class ErpOrderApiToErpOrderFacadeBridgeTest extends Unit
             ->getMock();
 
         $this->erpOrderApiToErpOrderFacadeBridge = new ErpOrderApiToErpOrderFacadeBridge(
-            $this->erpOrderFacadeMock
+            $this->erpOrderFacadeMock,
         );
     }
 
@@ -65,7 +65,7 @@ class ErpOrderApiToErpOrderFacadeBridgeTest extends Unit
 
         static::assertEquals(
             $this->erpOrderResponseTransferMock,
-            $this->erpOrderApiToErpOrderFacadeBridge->createErpOrder($this->erpOrderTransferMock)
+            $this->erpOrderApiToErpOrderFacadeBridge->createErpOrder($this->erpOrderTransferMock),
         );
     }
 
@@ -81,7 +81,7 @@ class ErpOrderApiToErpOrderFacadeBridgeTest extends Unit
 
         static::assertEquals(
             $this->erpOrderResponseTransferMock,
-            $this->erpOrderApiToErpOrderFacadeBridge->updateErpOrder($this->erpOrderTransferMock)
+            $this->erpOrderApiToErpOrderFacadeBridge->updateErpOrder($this->erpOrderTransferMock),
         );
     }
 
@@ -113,7 +113,7 @@ class ErpOrderApiToErpOrderFacadeBridgeTest extends Unit
 
         static::assertEquals(
             $this->erpOrderTransferMock,
-            $this->erpOrderApiToErpOrderFacadeBridge->findErpOrderByIdErpOrder($idErpOrder)
+            $this->erpOrderApiToErpOrderFacadeBridge->findErpOrderByIdErpOrder($idErpOrder),
         );
     }
 }

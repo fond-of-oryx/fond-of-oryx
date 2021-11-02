@@ -30,7 +30,7 @@ class ThirtyFiveUpEntityMapper implements ThirtyFiveUpEntityMapperInterface
         foreach ($thirtyFiveUpOrder->getFooThirtyFiveUpOrderItems() as $orderItem) {
             $thirtyFiveUpOrderTransfer->addVendorItem($this->mapOrderItemFromEntity(
                 $orderItem,
-                $thirtyFiveUpOrderTransfer
+                $thirtyFiveUpOrderTransfer,
             ));
         }
 
@@ -76,7 +76,7 @@ class ThirtyFiveUpEntityMapper implements ThirtyFiveUpEntityMapperInterface
     }
 
     /**
-     * @param \DateTime|string|mixed|null $dateTime
+     * @param \DateTime|mixed|string|null $dateTime
      *
      * @throws \Exception
      *

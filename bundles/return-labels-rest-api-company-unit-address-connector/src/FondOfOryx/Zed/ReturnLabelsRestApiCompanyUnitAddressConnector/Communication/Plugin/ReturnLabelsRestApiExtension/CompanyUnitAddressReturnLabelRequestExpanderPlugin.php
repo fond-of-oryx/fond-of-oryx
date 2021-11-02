@@ -25,7 +25,7 @@ class CompanyUnitAddressReturnLabelRequestExpanderPlugin extends AbstractPlugin 
     ): ReturnLabelRequestTransfer {
         return $this->getFacade()->expandReturnLabelRequest(
             $restReturnLabelRequestTransfer,
-            $returnLabelRequestTransfer
+            $returnLabelRequestTransfer,
         );
     }
 }

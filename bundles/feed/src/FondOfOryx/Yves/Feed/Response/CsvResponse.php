@@ -10,7 +10,7 @@ class CsvResponse extends Response
     /**
      * @param \FondOfOryx\Yves\Feed\CSV\CsvContentInterface $content
      * @param int $status
-     * @param string[] $headers
+     * @param array<string> $headers
      */
     public function __construct(CsvContentInterface $content, int $status = 200, array $headers = [])
     {

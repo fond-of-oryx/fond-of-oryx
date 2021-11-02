@@ -78,7 +78,7 @@ class ReturnLabelGeneratorTest extends Unit
 
         $this->returnLabelGenerator = new ReturnLabelGenerator(
             $this->returnLabelFacadeMock,
-            $this->returnLabelRequestExpanderMock
+            $this->returnLabelRequestExpanderMock,
         );
 
         parent::_before();
@@ -96,8 +96,8 @@ class ReturnLabelGeneratorTest extends Unit
                 static::callback(
                     static function (ReturnLabelRequestTransfer $returnLabelRequestTransfer) {
                         return $returnLabelRequestTransfer->toArray() == (new ReturnLabelRequestTransfer())->toArray();
-                    }
-                )
+                    },
+                ),
             )->willReturn($this->returnLabelRequestTransferMock);
 
         $this->returnLabelFacadeMock->expects(static::atLeastOnce())
@@ -114,7 +114,7 @@ class ReturnLabelGeneratorTest extends Unit
             ->willReturn($this->returnLabelTransferMock);
 
         $restReturnLabelResponseTransfer = $this->returnLabelGenerator->generate(
-            $this->restReturnLabelRequestTransferMock
+            $this->restReturnLabelRequestTransferMock,
         );
 
         static::assertTrue($restReturnLabelResponseTransfer->getIsSuccessful());

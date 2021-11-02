@@ -56,7 +56,7 @@ class CreditMemoApi implements CreditMemoApiInterface
         $creditMemoTransfer = $this->transferMapper->toTransfer($data);
 
         $creditMemoResponseTransfer = $this->creditMemoFacade->createCreditMemo(
-            $creditMemoTransfer
+            $creditMemoTransfer,
         );
 
         $creditMemoTransfer = $creditMemoResponseTransfer->getCreditMemoTransfer();
@@ -64,13 +64,13 @@ class CreditMemoApi implements CreditMemoApiInterface
         if ($creditMemoTransfer === null || $creditMemoResponseTransfer->getIsSuccess() === false) {
             throw new EntityNotSavedException(
                 'Could not save credit memo.',
-                ApiConfig::HTTP_CODE_INTERNAL_ERROR
+                ApiConfig::HTTP_CODE_INTERNAL_ERROR,
             );
         }
 
         return $this->apiQueryContainer->createApiItem(
             $creditMemoTransfer,
-            $creditMemoTransfer->getIdCreditMemo()
+            $creditMemoTransfer->getIdCreditMemo(),
         );
     }
 }

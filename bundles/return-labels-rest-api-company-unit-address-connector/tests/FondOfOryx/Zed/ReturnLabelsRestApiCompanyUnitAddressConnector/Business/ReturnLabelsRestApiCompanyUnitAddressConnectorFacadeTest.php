@@ -79,7 +79,7 @@ class ReturnLabelsRestApiCompanyUnitAddressConnectorFacadeTest extends Unit
 
         static::assertEquals(
             $this->returnLabelRequestTransferMock,
-            $this->facade->expandReturnLabelRequest($this->restReturnLabelRequestTransferMock, $this->returnLabelRequestTransferMock)
+            $this->facade->expandReturnLabelRequest($this->restReturnLabelRequestTransferMock, $this->returnLabelRequestTransferMock),
         );
     }
 }

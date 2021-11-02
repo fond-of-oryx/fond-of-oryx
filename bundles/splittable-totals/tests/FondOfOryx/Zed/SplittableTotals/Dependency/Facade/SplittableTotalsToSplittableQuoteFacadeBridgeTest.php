@@ -55,7 +55,7 @@ class SplittableTotalsToSplittableQuoteFacadeBridgeTest extends Unit
 
         static::assertEquals(
             $splittedQuoteTransfers,
-            $this->facadeBridge->splitQuote($this->quoteTransferMock)
+            $this->facadeBridge->splitQuote($this->quoteTransferMock),
         );
     }
 }

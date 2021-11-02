@@ -8,6 +8,9 @@ use Spryker\Client\SearchElasticsearch\Plugin\ResultFormatter\AbstractElasticsea
 
 class RawErpOrderPageSearchResultFormatterPlugin extends AbstractElasticsearchResultFormatterPlugin
 {
+    /**
+     * @var string
+     */
     public const NAME = 'erp-orders';
 
     /**

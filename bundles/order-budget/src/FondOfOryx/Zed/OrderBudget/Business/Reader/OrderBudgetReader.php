@@ -20,7 +20,7 @@ class OrderBudgetReader implements OrderBudgetReaderInterface
     }
 
     /**
-     * @return \Generated\Shared\Transfer\OrderBudgetTransfer[]
+     * @return array<\Generated\Shared\Transfer\OrderBudgetTransfer>
      */
     public function getAll(): array
     {

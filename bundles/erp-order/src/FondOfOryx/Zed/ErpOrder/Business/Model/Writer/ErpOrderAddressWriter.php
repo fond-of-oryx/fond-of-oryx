@@ -44,7 +44,7 @@ class ErpOrderAddressWriter implements ErpOrderAddressWriterInterface
         $erpOrderAddressTransfer = $this->getTransactionHandler()->handleTransaction(
             static function () use ($erpOrderAddressTransfer, $self) {
                 return $self->executePersistTransaction($erpOrderAddressTransfer);
-            }
+            },
         );
 
         return $erpOrderAddressTransfer;
@@ -61,7 +61,7 @@ class ErpOrderAddressWriter implements ErpOrderAddressWriterInterface
         $erpOrderAddressTransfer = $this->getTransactionHandler()->handleTransaction(
             static function () use ($erpOrderAddressTransfer, $self) {
                 return $self->executeUpdateTransaction($erpOrderAddressTransfer);
-            }
+            },
         );
 
         return $erpOrderAddressTransfer;
@@ -78,7 +78,7 @@ class ErpOrderAddressWriter implements ErpOrderAddressWriterInterface
         $this->getTransactionHandler()->handleTransaction(
             static function () use ($idErpOrderAddress, $self) {
                 $self->executeDeleteTransaction($idErpOrderAddress);
-            }
+            },
         );
     }
 

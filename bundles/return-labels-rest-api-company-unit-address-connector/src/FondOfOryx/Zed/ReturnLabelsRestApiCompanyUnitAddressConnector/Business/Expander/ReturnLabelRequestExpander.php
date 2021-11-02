@@ -55,7 +55,7 @@ class ReturnLabelRequestExpander implements ReturnLabelRequestExpanderInterface
         }
 
         $companyUnitAddressTransfer = $this->companyUnitAddressReader->getByRestReturnLabelRequest(
-            $restReturnLabelRequestTransfer
+            $restReturnLabelRequestTransfer,
         );
 
         if ($companyUnitAddressTransfer === null) {
@@ -67,7 +67,7 @@ class ReturnLabelRequestExpander implements ReturnLabelRequestExpanderInterface
         }
 
         $returnLabelRequestAddressTransfer = $this->returnLabelRequestAddressMapper->fromCompanyUnitAddressTransfer(
-            $companyUnitAddressTransfer
+            $companyUnitAddressTransfer,
         );
 
         $returnLabelRequestTransfer

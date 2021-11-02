@@ -149,7 +149,7 @@ class SplittableCheckoutWorkflowTest extends Unit
                     }
 
                     return $result;
-                }
+                },
             );
 
         $this->splittableQuoteFacadeMock->expects(static::atLeastOnce())
@@ -191,7 +191,7 @@ class SplittableCheckoutWorkflowTest extends Unit
                     }
 
                     return $result;
-                }
+                },
             );
 
         $this->splittableQuoteFacadeMock->expects(static::atLeastOnce())
@@ -242,7 +242,7 @@ class SplittableCheckoutWorkflowTest extends Unit
                     }
 
                     return $result;
-                }
+                },
             );
 
         $this->splittableQuoteFacadeMock->expects(static::atLeastOnce())
@@ -304,7 +304,7 @@ class SplittableCheckoutWorkflowTest extends Unit
                     }
 
                     return $result;
-                }
+                },
             );
 
         $this->splittableQuoteFacadeMock->expects(static::atLeastOnce())

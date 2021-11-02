@@ -82,7 +82,7 @@ class ErpOrderApiBusinessFactoryTest extends Unit
 
         static::assertInstanceOf(
             ErpOrderApi::class,
-            $this->erpOrderApiBusinessFactory->createErpOrderApi()
+            $this->erpOrderApiBusinessFactory->createErpOrderApi(),
         );
     }
 
@@ -93,7 +93,7 @@ class ErpOrderApiBusinessFactoryTest extends Unit
     {
         static::assertInstanceOf(
             ErpOrderApiValidator::class,
-            $this->erpOrderApiBusinessFactory->createErpOrderApiValidator()
+            $this->erpOrderApiBusinessFactory->createErpOrderApiValidator(),
         );
     }
 }

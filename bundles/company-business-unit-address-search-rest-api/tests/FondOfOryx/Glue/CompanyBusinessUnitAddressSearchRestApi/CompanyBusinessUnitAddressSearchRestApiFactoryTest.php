@@ -12,17 +12,17 @@ use Spryker\Glue\Kernel\Container;
 class CompanyBusinessUnitAddressSearchRestApiFactoryTest extends Unit
 {
     /**
-     * @var mixed|\PHPUnit\Framework\MockObject\MockObject|\Spryker\Glue\Kernel\Container
+     * @var \PHPUnit\Framework\MockObject\MockObject|\Spryker\Glue\Kernel\Container|mixed
      */
     protected $containerMock;
 
     /**
-     * @var \FondOfOryx\Client\CompanyBusinessUnitAddressSearchRestApi\CompanyBusinessUnitAddressSearchRestApiClient|mixed|\PHPUnit\Framework\MockObject\MockObject
+     * @var \FondOfOryx\Client\CompanyBusinessUnitAddressSearchRestApi\CompanyBusinessUnitAddressSearchRestApiClient|\PHPUnit\Framework\MockObject\MockObject|mixed
      */
     protected $clientMock;
 
     /**
-     * @var \FondOfOryx\Glue\CompanyBusinessUnitAddressSearchRestApi\CompanyBusinessUnitAddressSearchRestApiConfig|mixed|\PHPUnit\Framework\MockObject\MockObject
+     * @var \FondOfOryx\Glue\CompanyBusinessUnitAddressSearchRestApi\CompanyBusinessUnitAddressSearchRestApiConfig|\PHPUnit\Framework\MockObject\MockObject|mixed
      */
     protected $configMock;
 
@@ -32,7 +32,7 @@ class CompanyBusinessUnitAddressSearchRestApiFactoryTest extends Unit
     protected $restResourceBuilderMock;
 
     /**
-     * @var \FondOfOryx\Glue\CompanyBusinessUnitAddressSearchRestApi\Dependency\Client\CompanyBusinessUnitAddressSearchRestApiToGlossaryStorageClientInterface|mixed|\PHPUnit\Framework\MockObject\MockObject
+     * @var \FondOfOryx\Glue\CompanyBusinessUnitAddressSearchRestApi\Dependency\Client\CompanyBusinessUnitAddressSearchRestApiToGlossaryStorageClientInterface|\PHPUnit\Framework\MockObject\MockObject|mixed
      */
     protected $glossaryStorageClientMock;
 
@@ -113,7 +113,7 @@ class CompanyBusinessUnitAddressSearchRestApiFactoryTest extends Unit
 
         static::assertInstanceOf(
             CompanyBusinessUnitAddressReader::class,
-            $this->factory->createCompanyBusinessUnitAddressReader()
+            $this->factory->createCompanyBusinessUnitAddressReader(),
         );
     }
 }

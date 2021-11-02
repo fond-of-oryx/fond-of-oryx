@@ -35,12 +35,12 @@ class QrCodeWrapper implements QrCodeWrapperInterface
     protected $writerCollection;
 
     /**
-     * @var \Closure[]
+     * @var array<\Closure>
      */
     protected $errorLevel;
 
     /**
-     * @var \Closure[]
+     * @var array<\Closure>
      */
     protected $roundBlockSizeMode;
 
@@ -126,7 +126,7 @@ class QrCodeWrapper implements QrCodeWrapperInterface
 
         throw new Exception(sprintf(
             'Error level %s not known. Please chose from 0 to 3 (low, medium, high, quartile)',
-            $errorLevelCode
+            $errorLevelCode,
         ));
     }
 
@@ -147,7 +147,7 @@ class QrCodeWrapper implements QrCodeWrapperInterface
 
         throw new Exception(sprintf(
             'Mode %s not known. Please chose from 0 to 3 (none, margin, large, shrink)',
-            $roundedBlockSizeModeCode
+            $roundedBlockSizeModeCode,
         ));
     }
 

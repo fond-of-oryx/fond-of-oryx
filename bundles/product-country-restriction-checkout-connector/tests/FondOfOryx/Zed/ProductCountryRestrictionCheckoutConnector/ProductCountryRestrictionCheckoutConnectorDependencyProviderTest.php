@@ -82,13 +82,13 @@ class ProductCountryRestrictionCheckoutConnectorDependencyProviderTest extends U
             ->willReturn($this->productCountryRestrictionFacadeMock);
 
         $container = $this->productCountryRestrictionCheckoutConnectorDependencyProvider->provideBusinessLayerDependencies(
-            $this->containerMock
+            $this->containerMock,
         );
 
         static::assertEquals($this->containerMock, $container);
         static::assertInstanceOf(
             ProductCountryRestrictionCheckoutConnectorToProductCountryRestrictionFacadeInterface::class,
-            $container[ProductCountryRestrictionCheckoutConnectorDependencyProvider::FACADE_PRODUCT_COUNTRY_RESTRICTION]
+            $container[ProductCountryRestrictionCheckoutConnectorDependencyProvider::FACADE_PRODUCT_COUNTRY_RESTRICTION],
         );
     }
 }

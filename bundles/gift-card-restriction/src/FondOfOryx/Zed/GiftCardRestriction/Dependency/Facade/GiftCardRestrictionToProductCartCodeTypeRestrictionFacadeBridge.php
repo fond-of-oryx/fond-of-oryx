@@ -21,14 +21,14 @@ class GiftCardRestrictionToProductCartCodeTypeRestrictionFacadeBridge implements
     }
 
     /**
-     * @param string[] $productConcreteSkus
+     * @param array<string> $productConcreteSkus
      *
      * @return array
      */
     public function getBlacklistedCartCodeTypesByProductConcreteSkus(array $productConcreteSkus): array
     {
         return $this->productCartCodeTypeRestrictionFacade->getBlacklistedCartCodeTypesByProductConcreteSkus(
-            $productConcreteSkus
+            $productConcreteSkus,
         );
     }
 }

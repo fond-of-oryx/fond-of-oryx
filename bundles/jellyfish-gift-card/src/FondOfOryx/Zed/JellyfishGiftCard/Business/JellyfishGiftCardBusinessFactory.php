@@ -49,7 +49,7 @@ class JellyfishGiftCardBusinessFactory extends AbstractBusinessFactory
         return new GiftCardExporter(
             $this->createJellyfishGiftCardRequestMapper(),
             $this->createJellyfishGiftCardDataWrapperMapper(),
-            $this->createGiftCardApiAdapter()
+            $this->createGiftCardApiAdapter(),
         );
     }
 
@@ -61,7 +61,7 @@ class JellyfishGiftCardBusinessFactory extends AbstractBusinessFactory
         return new JellyfishGiftCardRequestMapper(
             $this->createLocaleFilter(),
             $this->getGiftCardFacade(),
-            $this->getSalesFacade()
+            $this->getSalesFacade(),
         );
     }
 
@@ -112,7 +112,7 @@ class JellyfishGiftCardBusinessFactory extends AbstractBusinessFactory
     {
         return new JellyfishGiftCardMapper(
             $this->createJellyfishMailMapper(),
-            $this->createRenderer()
+            $this->createRenderer(),
         );
     }
 
@@ -125,7 +125,7 @@ class JellyfishGiftCardBusinessFactory extends AbstractBusinessFactory
             $this->createJellyfishMailRecipientMapper(),
             $this->createJellyfishMailBodyMapper(),
             $this->getConfig(),
-            $this->getGlossaryFacade()
+            $this->getGlossaryFacade(),
         );
     }
 
@@ -143,7 +143,7 @@ class JellyfishGiftCardBusinessFactory extends AbstractBusinessFactory
     protected function createJellyfishMailBodyMapper(): JellyfishMailBodyMapperInterface
     {
         return new JellyfishMailBodyMapper(
-            $this->createRenderer()
+            $this->createRenderer(),
         );
     }
 
@@ -153,7 +153,7 @@ class JellyfishGiftCardBusinessFactory extends AbstractBusinessFactory
     protected function createRenderer(): RendererInterface
     {
         return new TwigRenderer(
-            $this->getProvidedDependency(JellyfishGiftCardDependencyProvider::RENDERER)
+            $this->getProvidedDependency(JellyfishGiftCardDependencyProvider::RENDERER),
         );
     }
 
@@ -173,7 +173,7 @@ class JellyfishGiftCardBusinessFactory extends AbstractBusinessFactory
         return new GiftCardApiAdapter(
             $this->createHttpClient(),
             $this->getUtilEncodingService(),
-            $this->getLogger()
+            $this->getLogger(),
         );
     }
 

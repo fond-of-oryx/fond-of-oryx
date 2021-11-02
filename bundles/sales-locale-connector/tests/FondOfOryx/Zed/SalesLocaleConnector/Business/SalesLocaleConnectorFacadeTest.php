@@ -64,7 +64,7 @@ class SalesLocaleConnectorFacadeTest extends Unit
             ->willReturn($this->orderTransferMock);
 
         $orderTransfer = $this->salesLocaleConnectorFacade->expandOrder(
-            $this->orderTransferMock
+            $this->orderTransferMock,
         );
 
         $this->assertEquals($this->orderTransferMock, $orderTransfer);

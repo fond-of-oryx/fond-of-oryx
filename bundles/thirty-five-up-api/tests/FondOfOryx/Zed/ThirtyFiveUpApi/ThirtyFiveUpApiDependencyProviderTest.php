@@ -37,8 +37,8 @@ class ThirtyFiveUpApiDependencyProviderTest extends Unit
         $this->assertInstanceOf(
             Container::class,
             $this->thirtyFiveUpApiDependencyProvider->provideBusinessLayerDependencies(
-                $this->containerMock
-            )
+                $this->containerMock,
+            ),
         );
     }
 
@@ -50,8 +50,8 @@ class ThirtyFiveUpApiDependencyProviderTest extends Unit
         $this->assertInstanceOf(
             Container::class,
             $this->thirtyFiveUpApiDependencyProvider->providePersistenceLayerDependencies(
-                $this->containerMock
-            )
+                $this->containerMock,
+            ),
         );
     }
 }

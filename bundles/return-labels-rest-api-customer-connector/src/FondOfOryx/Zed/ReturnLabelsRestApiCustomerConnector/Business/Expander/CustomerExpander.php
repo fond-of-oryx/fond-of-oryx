@@ -49,11 +49,11 @@ class CustomerExpander implements CustomerExpanderInterface
         }
 
         $returnLabelRequestCustomerTransfer = $this->returnLabelRequestCustomerMapper->fromCustomerTransfer(
-            $customerTransfer
+            $customerTransfer,
         );
 
         $returnLabelRequestCustomerTransfer->setReference(
-            $restReturnLabelRequestTransfer->getCustomer()->getReference()
+            $restReturnLabelRequestTransfer->getCustomer()->getReference(),
         );
 
         $returnLabelRequestTransfer->setCustomer($returnLabelRequestCustomerTransfer);

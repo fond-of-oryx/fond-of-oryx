@@ -15,7 +15,7 @@ interface JellyfishCreditMemoFacadeInterface
 
     /**
      * @param int $salesOderId
-     * @param int[] $salesOrderItemIds
+     * @param array<int> $salesOrderItemIds
      *
      * @return void
      */

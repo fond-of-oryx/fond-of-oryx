@@ -62,7 +62,7 @@ class CustomerStatisticFactoryTest extends Unit
 
         static::assertInstanceOf(
             CustomerStatisticZedStub::class,
-            $this->customerStatisticFactory->createCustomerStatisticZedStub()
+            $this->customerStatisticFactory->createCustomerStatisticZedStub(),
         );
     }
 }

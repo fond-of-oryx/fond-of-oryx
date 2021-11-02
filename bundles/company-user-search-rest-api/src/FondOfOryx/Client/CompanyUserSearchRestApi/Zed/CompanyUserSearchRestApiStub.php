@@ -30,7 +30,7 @@ class CompanyUserSearchRestApiStub implements CompanyUserSearchRestApiStubInterf
         /** @var \Generated\Shared\Transfer\CompanyUserListTransfer $companyUserListTransfer */
         $companyUserListTransfer = $this->zedRequestClient->call(
             '/company-user-search-rest-api/gateway/search-company-user',
-            $companyUserListTransfer
+            $companyUserListTransfer,
         );
 
         return $companyUserListTransfer;

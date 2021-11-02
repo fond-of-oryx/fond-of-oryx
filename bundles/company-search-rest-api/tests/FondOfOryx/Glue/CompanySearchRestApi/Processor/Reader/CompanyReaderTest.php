@@ -14,37 +14,37 @@ use Spryker\Glue\GlueApplication\Rest\Request\Data\RestRequestInterface;
 class CompanyReaderTest extends Unit
 {
     /**
-     * @var \FondOfOryx\Glue\CompanySearchRestApi\Processor\Mapper\CompanyListMapperInterface|mixed|\PHPUnit\Framework\MockObject\MockObject
+     * @var \FondOfOryx\Glue\CompanySearchRestApi\Processor\Mapper\CompanyListMapperInterface|\PHPUnit\Framework\MockObject\MockObject|mixed
      */
     protected $companyListMapperMock;
 
     /**
-     * @var \FondOfOryx\Glue\CompanySearchRestApi\Processor\Builder\RestResponseBuilderInterface|mixed|\PHPUnit\Framework\MockObject\MockObject
+     * @var \FondOfOryx\Glue\CompanySearchRestApi\Processor\Builder\RestResponseBuilderInterface|\PHPUnit\Framework\MockObject\MockObject|mixed
      */
     protected $restResponseBuilderMock;
 
     /**
-     * @var \FondOfOryx\Client\CompanySearchRestApi\CompanySearchRestApiClientInterface|mixed|\PHPUnit\Framework\MockObject\MockObject
+     * @var \FondOfOryx\Client\CompanySearchRestApi\CompanySearchRestApiClientInterface|\PHPUnit\Framework\MockObject\MockObject|mixed
      */
     protected $clientMock;
 
     /**
-     * @var mixed|\PHPUnit\Framework\MockObject\MockObject|\Spryker\Glue\GlueApplication\Rest\Request\Data\RestRequestInterface
+     * @var \PHPUnit\Framework\MockObject\MockObject|\Spryker\Glue\GlueApplication\Rest\Request\Data\RestRequestInterface|mixed
      */
     protected $restRequestMock;
 
     /**
-     * @var mixed|\PHPUnit\Framework\MockObject\MockObject|\Spryker\Glue\GlueApplication\Rest\Request\Data\MetadataInterface
+     * @var \PHPUnit\Framework\MockObject\MockObject|\Spryker\Glue\GlueApplication\Rest\Request\Data\MetadataInterface|mixed
      */
     protected $metadataMock;
 
     /**
-     * @var mixed|\PHPUnit\Framework\MockObject\MockObject|\Spryker\Glue\GlueApplication\Rest\JsonApi\RestResponseInterface
+     * @var \PHPUnit\Framework\MockObject\MockObject|\Spryker\Glue\GlueApplication\Rest\JsonApi\RestResponseInterface|mixed
      */
     protected $restResponseMock;
 
     /**
-     * @var \Generated\Shared\Transfer\CompanyListTransfer|mixed|\PHPUnit\Framework\MockObject\MockObject
+     * @var \Generated\Shared\Transfer\CompanyListTransfer|\PHPUnit\Framework\MockObject\MockObject|mixed
      */
     protected $companyListTransferMock;
 
@@ -91,7 +91,7 @@ class CompanyReaderTest extends Unit
         $this->companyReader = new CompanyReader(
             $this->companyListMapperMock,
             $this->restResponseBuilderMock,
-            $this->clientMock
+            $this->clientMock,
         );
     }
 
@@ -135,7 +135,7 @@ class CompanyReaderTest extends Unit
 
         static::assertEquals(
             $this->restResponseMock,
-            $this->companyReader->find($this->restRequestMock)
+            $this->companyReader->find($this->restRequestMock),
         );
     }
 
@@ -171,7 +171,7 @@ class CompanyReaderTest extends Unit
 
         static::assertEquals(
             $this->restResponseMock,
-            $this->companyReader->find($this->restRequestMock)
+            $this->companyReader->find($this->restRequestMock),
         );
     }
 }

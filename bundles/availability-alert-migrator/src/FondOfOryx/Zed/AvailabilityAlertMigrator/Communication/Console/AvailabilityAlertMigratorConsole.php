@@ -13,7 +13,14 @@ use Symfony\Component\Console\Output\OutputInterface;
  */
 class AvailabilityAlertMigratorConsole extends Console
 {
+    /**
+     * @var string
+     */
     public const COMMAND_NAME = 'availability-alert:migrator:migrate';
+
+    /**
+     * @var string
+     */
     public const DESCRIPTION = 'Migrates old fos_availability_alert_subscription data to new foo_avilability_alert data structure';
 
     /**
@@ -45,13 +52,13 @@ class AvailabilityAlertMigratorConsole extends Console
                 'Command %s failt with message: %s%s!',
                 static::COMMAND_NAME,
                 PHP_EOL,
-                $exception->getMessage()
+                $exception->getMessage(),
             ));
         }
 
         $messenger->info(sprintf(
             'You just executed %s!',
-            static::COMMAND_NAME
+            static::COMMAND_NAME,
         ));
 
         return $status;

@@ -30,7 +30,7 @@ class ErpOrderPermissionStub implements ErpOrderPermissionStubInterface
     ) {
         return $this->zedRequestClient->call(
             '/erp-order-permission/gateway/get-accessible-company-business-unit-uuids',
-            $erpOrderPermissionCompanyBusinessUnitUuidRequestTransfer
+            $erpOrderPermissionCompanyBusinessUnitUuidRequestTransfer,
         );
     }
 }

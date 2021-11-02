@@ -35,7 +35,7 @@ class Refund implements RefundInterface
     }
 
     /**
-     * @param \Orm\Zed\Sales\Persistence\SpySalesOrderItem[] $salesOrderItems
+     * @param array<\Orm\Zed\Sales\Persistence\SpySalesOrderItem> $salesOrderItems
      * @param \Orm\Zed\Sales\Persistence\SpySalesOrder $salesOrderEntity
      *
      * @return bool
@@ -50,7 +50,7 @@ class Refund implements RefundInterface
     }
 
     /**
-     * @param \Orm\Zed\Sales\Persistence\SpySalesOrderItem[] $salesOrderItems
+     * @param array<\Orm\Zed\Sales\Persistence\SpySalesOrderItem> $salesOrderItems
      * @param \Orm\Zed\Sales\Persistence\SpySalesOrder $salesOrderEntity
      *
      * @return bool
@@ -87,9 +87,9 @@ class Refund implements RefundInterface
     }
 
     /**
-     * @param \Orm\Zed\Sales\Persistence\SpySalesOrderItem[] $salesOrderItems
+     * @param array<\Orm\Zed\Sales\Persistence\SpySalesOrderItem> $salesOrderItems
      * @param \Orm\Zed\Sales\Persistence\SpySalesOrder $salesOrderEntity
-     * @param \Orm\Zed\CreditMemo\Persistence\FooCreditMemo[] $creditMemoEntities
+     * @param array<\Orm\Zed\CreditMemo\Persistence\FooCreditMemo> $creditMemoEntities
      *
      * @return mixed
      */
@@ -104,7 +104,7 @@ class Refund implements RefundInterface
         foreach ($creditMemos as $creditMemoEntity) {
             $refundItems = array_merge(
                 $refundItems,
-                $this->getRefundableItemsByCreditMemo($creditMemoEntity, $salesOrderItems)
+                $this->getRefundableItemsByCreditMemo($creditMemoEntity, $salesOrderItems),
             );
         }
 

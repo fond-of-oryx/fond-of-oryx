@@ -24,7 +24,7 @@ class LocaleCartChangeRequestExpanderPlugin extends AbstractPlugin implements Ca
     public function expand(CartChangeTransfer $cartChangeTransfer, array $params = []): CartChangeTransfer
     {
         return $cartChangeTransfer->setCurrentLocale(
-            $this->getFactory()->getLocaleClient()->getCurrentLocale()
+            $this->getFactory()->getLocaleClient()->getCurrentLocale(),
         );
     }
 }

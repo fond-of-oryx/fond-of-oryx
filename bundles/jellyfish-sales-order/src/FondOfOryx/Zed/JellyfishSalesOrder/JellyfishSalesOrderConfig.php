@@ -56,7 +56,7 @@ class JellyfishSalesOrderConfig extends AbstractBundleConfig
     }
 
     /**
-     * @return string[]
+     * @return array<string>
      */
     public function getBlacklistedPaymentMethods(): array
     {

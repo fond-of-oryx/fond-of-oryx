@@ -22,7 +22,7 @@ class CompanyMapper implements CompanyMapperInterface
     /**
      * @param \Propel\Runtime\Collection\ObjectCollection|\Orm\Zed\Company\Persistence\Base\SpyCompany[] $entityCollection
      *
-     * @return \Generated\Shared\Transfer\CompanyTransfer[]
+     * @return array<\Generated\Shared\Transfer\CompanyTransfer>
      */
     public function mapEntityCollectionToTransfers(ObjectCollection $entityCollection): array
     {

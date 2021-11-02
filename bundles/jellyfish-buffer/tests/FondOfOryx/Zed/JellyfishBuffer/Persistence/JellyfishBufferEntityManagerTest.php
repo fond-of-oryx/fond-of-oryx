@@ -114,7 +114,7 @@ class JellyfishBufferEntityManagerTest extends Unit
 
         $this->jellyfishBufferEntityManger->createExportedOrder(
             $this->jellyfishOrderTransferMock,
-            $this->options
+            $this->options,
         );
     }
 }

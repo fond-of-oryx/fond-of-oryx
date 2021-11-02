@@ -13,7 +13,7 @@ interface ErpOrderPageSearchFacadeInterface
      *
      * @api
      *
-     * @param int[] $erpOrderIds
+     * @param array<int> $erpOrderIds
      *
      * @return void
      */
@@ -24,7 +24,7 @@ interface ErpOrderPageSearchFacadeInterface
      * - Finds and deletes erp order search entities based on these ids
      * - Sends delete message to queue based on module config
      *
-     * @param int[] $erpOrderIds
+     * @param array<int> $erpOrderIds
      *
      * @return void
      */

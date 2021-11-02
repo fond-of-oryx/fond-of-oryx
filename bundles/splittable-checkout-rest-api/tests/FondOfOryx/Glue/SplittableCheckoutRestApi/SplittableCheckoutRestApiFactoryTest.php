@@ -119,7 +119,7 @@ class SplittableCheckoutRestApiFactoryTest extends Unit
     {
         static::assertInstanceOf(
             SplittableCheckoutProcessor::class,
-            $this->factory->createSplittableCheckoutProcessor()
+            $this->factory->createSplittableCheckoutProcessor(),
         );
     }
 
@@ -130,7 +130,7 @@ class SplittableCheckoutRestApiFactoryTest extends Unit
     {
         static::assertInstanceOf(
             SplittableTotalsReader::class,
-            $this->factory->createSplittableTotalsReader()
+            $this->factory->createSplittableTotalsReader(),
         );
     }
 }

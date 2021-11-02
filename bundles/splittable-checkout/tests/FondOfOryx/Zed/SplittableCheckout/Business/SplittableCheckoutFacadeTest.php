@@ -76,7 +76,7 @@ class SplittableCheckoutFacadeTest extends Unit
 
         static::assertEquals(
             $this->splittableCheckoutResponseTransferMock,
-            $this->splittableCheckoutFacade->placeOrder($this->quoteTransferMock)
+            $this->splittableCheckoutFacade->placeOrder($this->quoteTransferMock),
         );
     }
 }

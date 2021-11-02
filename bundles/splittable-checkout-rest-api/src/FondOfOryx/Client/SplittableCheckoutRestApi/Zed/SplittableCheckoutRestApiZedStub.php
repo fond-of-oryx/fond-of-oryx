@@ -33,7 +33,7 @@ class SplittableCheckoutRestApiZedStub implements SplittableCheckoutRestApiZedSt
         /** @var \Generated\Shared\Transfer\RestSplittableCheckoutResponseTransfer $restSplittableCheckoutResponseTransfer */
         $restSplittableCheckoutResponseTransfer = $this->zedRequestClient->call(
             '/splittable-checkout-rest-api/gateway/place-order',
-            $restSplittableCheckoutRequestTransfer
+            $restSplittableCheckoutRequestTransfer,
         );
 
         return $restSplittableCheckoutResponseTransfer;
@@ -50,7 +50,7 @@ class SplittableCheckoutRestApiZedStub implements SplittableCheckoutRestApiZedSt
         /** @var \Generated\Shared\Transfer\RestSplittableTotalsResponseTransfer $restSplittableTotalsResponseTransfer */
         $restSplittableTotalsResponseTransfer = $this->zedRequestClient->call(
             '/splittable-checkout-rest-api/gateway/get-splittable-totals',
-            $restSplittableCheckoutRequestTransfer
+            $restSplittableCheckoutRequestTransfer,
         );
 
         return $restSplittableTotalsResponseTransfer;

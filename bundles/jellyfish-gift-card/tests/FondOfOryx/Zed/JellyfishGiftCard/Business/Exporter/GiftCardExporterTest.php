@@ -92,7 +92,7 @@ class GiftCardExporterTest extends Unit
         $this->giftCardExporter = new GiftCardExporter(
             $this->jellyfishGiftCardRequestMapperMock,
             $this->jellyfishGiftCardDataWrapperMapperMock,
-            $this->giftCardApiAdapterMock
+            $this->giftCardApiAdapterMock,
         );
     }
 

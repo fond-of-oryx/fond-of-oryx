@@ -37,7 +37,7 @@ class ErpOrderPageSearchQueryPluginTest extends Unit
     {
         $this->assertInstanceOf(
             Query::class,
-            $this->erpOrderPageSearchQueryPlugin->getSearchQuery()
+            $this->erpOrderPageSearchQueryPlugin->getSearchQuery(),
         );
     }
 
@@ -48,7 +48,7 @@ class ErpOrderPageSearchQueryPluginTest extends Unit
     {
         $this->assertInstanceOf(
             SearchContextTransfer::class,
-            $this->erpOrderPageSearchQueryPlugin->getSearchContext()
+            $this->erpOrderPageSearchQueryPlugin->getSearchContext(),
         );
     }
 
@@ -69,7 +69,7 @@ class ErpOrderPageSearchQueryPluginTest extends Unit
 
         $this->assertEquals(
             $this->searchContextTransfer,
-            $this->erpOrderPageSearchQueryPlugin->getSearchContext()
+            $this->erpOrderPageSearchQueryPlugin->getSearchContext(),
         );
     }
 
@@ -80,12 +80,12 @@ class ErpOrderPageSearchQueryPluginTest extends Unit
     {
         $searchString = 'searchString';
         $this->erpOrderPageSearchQueryPlugin->setSearchString(
-            $searchString
+            $searchString,
         );
 
         $this->assertEquals(
             $searchString,
-            $this->erpOrderPageSearchQueryPlugin->getSearchString()
+            $this->erpOrderPageSearchQueryPlugin->getSearchString(),
         );
     }
 }

@@ -18,7 +18,7 @@ class RestSplittableCheckoutMapper implements RestSplittableCheckoutMapperInterf
         return (new RestSplittableCheckoutTransfer())
             ->fromArray(
                 $splittableCheckoutTransfer->toArray(),
-                true
+                true,
             );
     }
 }

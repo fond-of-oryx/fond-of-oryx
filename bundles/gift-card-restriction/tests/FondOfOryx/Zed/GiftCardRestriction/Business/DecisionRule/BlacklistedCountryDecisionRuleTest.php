@@ -30,7 +30,7 @@ class BlacklistedCountryDecisionRuleTest extends Unit
     protected $giftCardTransferMock;
 
     /**
-     * @var \Generated\Shared\Transfer\ItemTransfer[]|\PHPUnit\Framework\MockObject\MockObject[]
+     * @var array<\PHPUnit\Framework\MockObject\MockObject>|array<\Generated\Shared\Transfer\ItemTransfer>
      */
     protected $itemTransferMocks;
 

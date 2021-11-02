@@ -9,17 +9,17 @@ use Generated\Shared\Transfer\CompanyUserListTransfer;
 class CompanyUserSearchRestApiClientTest extends Unit
 {
     /**
-     * @var \FondOfOryx\Client\CompanyUserSearchRestApi\CompanyUserSearchRestApiFactory|mixed|\PHPUnit\Framework\MockObject\MockObject
+     * @var \FondOfOryx\Client\CompanyUserSearchRestApi\CompanyUserSearchRestApiFactory|\PHPUnit\Framework\MockObject\MockObject|mixed
      */
     protected $factoryMock;
 
     /**
-     * @var \FondOfOryx\Client\CompanyUserSearchRestApi\Zed\CompanyUserSearchRestApiStubInterface|mixed|\PHPUnit\Framework\MockObject\MockObject
+     * @var \FondOfOryx\Client\CompanyUserSearchRestApi\Zed\CompanyUserSearchRestApiStubInterface|\PHPUnit\Framework\MockObject\MockObject|mixed
      */
     protected $zedStubMock;
 
     /**
-     * @var \Generated\Shared\Transfer\CompanyUserListTransfer|mixed|\PHPUnit\Framework\MockObject\MockObject
+     * @var \Generated\Shared\Transfer\CompanyUserListTransfer|\PHPUnit\Framework\MockObject\MockObject|mixed
      */
     protected $companyUserListTransferMock;
 
@@ -67,7 +67,7 @@ class CompanyUserSearchRestApiClientTest extends Unit
 
         static::assertEquals(
             $this->companyUserListTransferMock,
-            $this->client->searchCompanyUser($this->companyUserListTransferMock)
+            $this->client->searchCompanyUser($this->companyUserListTransferMock),
         );
     }
 }

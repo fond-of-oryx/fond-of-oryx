@@ -20,7 +20,7 @@ class ReturnLabelsRestApiCompanyUnitAddressConnectorPersistenceFactory extends A
     public function getCompanyUnitAddressQuery(): SpyCompanyUnitAddressQuery
     {
         return $this->getProvidedDependency(
-            ReturnLabelsRestApiCompanyUnitAddressConnectorDependencyProvider::PROPEL_QUERY_COMPANY_UNIT_ADDRESS
+            ReturnLabelsRestApiCompanyUnitAddressConnectorDependencyProvider::PROPEL_QUERY_COMPANY_UNIT_ADDRESS,
         );
     }
 

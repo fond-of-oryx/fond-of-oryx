@@ -87,7 +87,7 @@ class SplittableCheckoutRestApiClientTest extends Unit
 
         static::assertEquals(
             $this->restSplittableCheckoutResponseTransferMock,
-            $this->client->placeOrder($this->restSplittableCheckoutRequestTransferMock)
+            $this->client->placeOrder($this->restSplittableCheckoutRequestTransferMock),
         );
     }
 
@@ -107,7 +107,7 @@ class SplittableCheckoutRestApiClientTest extends Unit
 
         static::assertEquals(
             $this->restSplittableTotalsResponseTransferMock,
-            $this->client->getSplittableTotals($this->restSplittableCheckoutRequestTransferMock)
+            $this->client->getSplittableTotals($this->restSplittableCheckoutRequestTransferMock),
         );
     }
 }

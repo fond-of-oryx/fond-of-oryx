@@ -86,11 +86,11 @@ class SplittableQuoteDependencyProviderTest extends Unit
         static::assertEquals($this->containerMock, $container);
         static::assertInstanceOf(
             SplittableQuoteToCalculationFacadeInterface::class,
-            $container[SplittableQuoteDependencyProvider::FACADE_CALCULATION]
+            $container[SplittableQuoteDependencyProvider::FACADE_CALCULATION],
         );
 
         static::assertIsArray(
-            $container[SplittableQuoteDependencyProvider::PLUGINS_SPLITTED_QUOTE_EXPANDER]
+            $container[SplittableQuoteDependencyProvider::PLUGINS_SPLITTED_QUOTE_EXPANDER],
         );
     }
 }

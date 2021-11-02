@@ -64,13 +64,13 @@ class ThirtyFiveUpOrderApi implements ThirtyFiveUpOrderApiInterface
             throw new EntityNotSavedException(
                 sprintf('Could not update thirty five up order with id %s', $idThirtyFiveUpOrder),
                 ApiConfig::HTTP_CODE_INTERNAL_ERROR,
-                $exception
+                $exception,
             );
         }
 
         return $this->apiQueryContainer->createApiItem(
             $thirtyFiveUpOrderTransfer,
-            $thirtyFiveUpOrderTransfer->getId()
+            $thirtyFiveUpOrderTransfer->getId(),
         );
     }
 

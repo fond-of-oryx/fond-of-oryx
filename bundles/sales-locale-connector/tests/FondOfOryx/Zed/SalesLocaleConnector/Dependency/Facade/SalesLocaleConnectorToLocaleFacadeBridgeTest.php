@@ -37,7 +37,7 @@ class SalesLocaleConnectorToLocaleFacadeBridgeTest extends Unit
             ->getMock();
 
         $this->salesLocaleConnectorToLocaleFacadeBridge = new SalesLocaleConnectorToLocaleFacadeBridge(
-            $this->localeFacadeMock
+            $this->localeFacadeMock,
         );
     }
 
@@ -55,7 +55,7 @@ class SalesLocaleConnectorToLocaleFacadeBridgeTest extends Unit
 
         $this->assertEquals(
             $this->localeTransferMock,
-            $this->salesLocaleConnectorToLocaleFacadeBridge->getLocaleById($idLocale)
+            $this->salesLocaleConnectorToLocaleFacadeBridge->getLocaleById($idLocale),
         );
     }
 }

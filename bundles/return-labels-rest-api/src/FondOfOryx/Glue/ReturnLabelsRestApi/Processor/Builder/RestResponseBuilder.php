@@ -58,7 +58,7 @@ class RestResponseBuilder implements RestResponseBuilderInterface
         $restResource = $this->restResourceBuilder->createRestResource(
             ReturnLabelsRestApiConfig::RESOURCE_RETURN_LABELS,
             null,
-            $restReturnLabelTransfer
+            $restReturnLabelTransfer,
         );
 
         $restResource->setPayload($restReturnLabelTransfer);

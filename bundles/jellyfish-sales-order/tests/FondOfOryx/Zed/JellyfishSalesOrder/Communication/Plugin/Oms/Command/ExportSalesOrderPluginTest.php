@@ -83,8 +83,8 @@ class ExportSalesOrderPluginTest extends Unit
             $this->exportSalesOrderPlugin->run(
                 [],
                 $this->spySalesOrderMock,
-                $this->readOnlyArrayObjectMock
-            )
+                $this->readOnlyArrayObjectMock,
+            ),
         );
     }
 }

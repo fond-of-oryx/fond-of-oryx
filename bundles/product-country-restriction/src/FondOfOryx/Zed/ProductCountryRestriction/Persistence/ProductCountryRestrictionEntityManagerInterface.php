@@ -17,7 +17,7 @@ interface ProductCountryRestrictionEntityManagerInterface
 
     /**
      * @param int $idProductAbstract
-     * @param int[] $countryIds
+     * @param array<int> $countryIds
      *
      * @return void
      */

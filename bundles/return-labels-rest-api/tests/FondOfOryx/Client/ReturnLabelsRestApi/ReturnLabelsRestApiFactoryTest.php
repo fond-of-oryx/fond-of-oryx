@@ -69,7 +69,7 @@ class ReturnLabelsRestApiFactoryTest extends Unit
 
         static::assertInstanceOf(
             ReturnLabelsRestApiZedStubInterface::class,
-            $this->factory->createReturnLabelZedStub()
+            $this->factory->createReturnLabelZedStub(),
         );
     }
 }

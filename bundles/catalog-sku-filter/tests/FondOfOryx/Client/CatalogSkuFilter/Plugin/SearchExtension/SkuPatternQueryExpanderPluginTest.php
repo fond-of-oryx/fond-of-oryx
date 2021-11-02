@@ -20,7 +20,7 @@ class SkuPatternQueryExpanderPluginTest extends Unit
     protected $queryMock;
 
     /**
-     * @var string[]
+     * @var array<string>
      */
     protected $requestParameters;
 
@@ -98,18 +98,18 @@ class SkuPatternQueryExpanderPluginTest extends Unit
 
                         return isset($data['wildcard'][PageIndexMap::SKU]['value'])
                             && $data['wildcard'][PageIndexMap::SKU]['value'] === $self->requestParameters[CatalogSkuFilterConstants::PARAMETER_SKU_PATTERN];
-                    }
-                )
+                    },
+                ),
             )->willReturn($this->boolQueryMock);
 
         $query = $this->skuPatternQueryExpanderPlugin->expandQuery(
             $this->queryMock,
-            $this->requestParameters
+            $this->requestParameters,
         );
 
         static::assertEquals(
             $this->queryMock,
-            $query
+            $query,
         );
     }
 
@@ -123,12 +123,12 @@ class SkuPatternQueryExpanderPluginTest extends Unit
 
         $query = $this->skuPatternQueryExpanderPlugin->expandQuery(
             $this->queryMock,
-            []
+            [],
         );
 
         static::assertEquals(
             $this->queryMock,
-            $query
+            $query,
         );
     }
 
@@ -144,12 +144,12 @@ class SkuPatternQueryExpanderPluginTest extends Unit
             $this->queryMock,
             [
                 CatalogSkuFilterConstants::PARAMETER_SKU_PATTERN => '',
-            ]
+            ],
         );
 
         static::assertEquals(
             $this->queryMock,
-            $query
+            $query,
         );
     }
 
@@ -169,7 +169,7 @@ class SkuPatternQueryExpanderPluginTest extends Unit
         try {
             $this->skuPatternQueryExpanderPlugin->expandQuery(
                 $this->queryMock,
-                $this->requestParameters
+                $this->requestParameters,
             );
 
             static::fail();

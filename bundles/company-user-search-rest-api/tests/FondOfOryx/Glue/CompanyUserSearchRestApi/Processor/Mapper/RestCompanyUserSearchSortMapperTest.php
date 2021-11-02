@@ -9,12 +9,12 @@ use Generated\Shared\Transfer\CompanyUserListTransfer;
 class RestCompanyUserSearchSortMapperTest extends Unit
 {
     /**
-     * @var \FondOfOryx\Glue\CompanyUserSearchRestApi\CompanyUserSearchRestApiConfig|mixed|\PHPUnit\Framework\MockObject\MockObject
+     * @var \FondOfOryx\Glue\CompanyUserSearchRestApi\CompanyUserSearchRestApiConfig|\PHPUnit\Framework\MockObject\MockObject|mixed
      */
     protected $configMock;
 
     /**
-     * @var \Generated\Shared\Transfer\CompanyUserListTransfer|mixed|\PHPUnit\Framework\MockObject\MockObject
+     * @var \Generated\Shared\Transfer\CompanyUserListTransfer|\PHPUnit\Framework\MockObject\MockObject|mixed
      */
     protected $companyUserListTransferMock;
 
@@ -67,7 +67,7 @@ class RestCompanyUserSearchSortMapperTest extends Unit
             ->willReturn($sortFields);
 
         $restCompanyUserSearchSortTransfer = $this->restCompanyUserSearchSortMapper->fromCompanyUserList(
-            $this->companyUserListTransferMock
+            $this->companyUserListTransferMock,
         );
 
         static::assertEquals('asc', $restCompanyUserSearchSortTransfer->getCurrentSortOrder());

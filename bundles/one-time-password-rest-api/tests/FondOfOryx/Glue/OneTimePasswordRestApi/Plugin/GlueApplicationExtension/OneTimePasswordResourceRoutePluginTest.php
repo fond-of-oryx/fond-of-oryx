@@ -42,8 +42,8 @@ class OneTimePasswordResourceRoutePluginTest extends Unit
         $this->assertSame(
             $this->resourceRouteCollectionMock,
             $this->oneTimePasswordResourceRoutePlugin->configure(
-                $this->resourceRouteCollectionMock
-            )
+                $this->resourceRouteCollectionMock,
+            ),
         );
     }
 
@@ -53,7 +53,7 @@ class OneTimePasswordResourceRoutePluginTest extends Unit
     public function testGetResourceType(): void
     {
         $this->assertIsString(
-            $this->oneTimePasswordResourceRoutePlugin->getResourceType()
+            $this->oneTimePasswordResourceRoutePlugin->getResourceType(),
         );
     }
 
@@ -63,7 +63,7 @@ class OneTimePasswordResourceRoutePluginTest extends Unit
     public function testGetController(): void
     {
         $this->assertIsString(
-            $this->oneTimePasswordResourceRoutePlugin->getController()
+            $this->oneTimePasswordResourceRoutePlugin->getController(),
         );
     }
 
@@ -73,7 +73,7 @@ class OneTimePasswordResourceRoutePluginTest extends Unit
     public function testGetResourceAttributesClassName(): void
     {
         $this->assertIsString(
-            $this->oneTimePasswordResourceRoutePlugin->getResourceAttributesClassName()
+            $this->oneTimePasswordResourceRoutePlugin->getResourceAttributesClassName(),
         );
     }
 }

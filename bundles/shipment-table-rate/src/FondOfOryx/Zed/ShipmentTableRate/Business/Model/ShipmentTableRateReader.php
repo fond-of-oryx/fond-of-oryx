@@ -83,7 +83,7 @@ class ShipmentTableRateReader implements ShipmentTableRateReaderInterface
         $shipmentTableRateCriteriaFilter = $this->createShipmentTableRateCriteriaFilter(
             $shippingAddressTransfer,
             $totalsTransfer,
-            $storeTransfer
+            $storeTransfer,
         );
 
         if ($shipmentTableRateCriteriaFilter === null) {

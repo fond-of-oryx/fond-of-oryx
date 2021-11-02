@@ -12,7 +12,7 @@ interface ProductLocaleRestrictionStorageToStorageClientInterface
     public function get(string $key);
 
     /**
-     * @param string[] $keys
+     * @param array<string> $keys
      *
      * @return array
      */

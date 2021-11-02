@@ -15,6 +15,9 @@ class SplittableCheckoutWorkflow implements SplittableCheckoutWorkflowInterface
 {
     use TransactionTrait;
 
+    /**
+     * @var string
+     */
     protected const ERROR_MESSAGE_ORDER_NOT_PLACED = 'splittable_checkout.error.order_not_placed';
 
     /**
@@ -60,7 +63,7 @@ class SplittableCheckoutWorkflow implements SplittableCheckoutWorkflowInterface
             return $this->getTransactionHandler()->handleTransaction(
                 static function () use ($quoteTransfer, $self) {
                     return $self->executePlaceOrder($quoteTransfer);
-                }
+                },
             );
         } catch (Exception $exception) {
             $splittableCheckoutErrorTransfer = (new SplittableCheckoutErrorTransfer())

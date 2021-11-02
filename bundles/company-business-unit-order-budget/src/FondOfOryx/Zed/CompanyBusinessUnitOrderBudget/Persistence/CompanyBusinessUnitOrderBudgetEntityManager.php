@@ -31,7 +31,7 @@ class CompanyBusinessUnitOrderBudgetEntityManager extends AbstractEntityManager 
             ->update(
                 [
                     ucfirst(SpyCompanyBusinessUnitEntityTransfer::FK_ORDER_BUDGET) => $fkOrderBudget,
-                ]
+                ],
             );
     }
 }

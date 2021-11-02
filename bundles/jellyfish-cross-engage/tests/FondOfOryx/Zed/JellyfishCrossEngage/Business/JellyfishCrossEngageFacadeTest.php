@@ -34,7 +34,7 @@ class JellyfishCrossEngageFacadeTest extends Unit
     protected $jellyfishCrossEngageReaderMock;
 
     /**
-     * @var \ArrayObject|\string[][]
+     * @var \ArrayObject<array<\string>>
      */
     protected $categories;
 
@@ -80,8 +80,8 @@ class JellyfishCrossEngageFacadeTest extends Unit
         $this->assertSame(
             $this->gender,
             $this->jellyfishCrossEngageFacade->getGender(
-                $this->jellyfishOrderItemTransferMock
-            )
+                $this->jellyfishOrderItemTransferMock,
+            ),
         );
     }
 
@@ -102,8 +102,8 @@ class JellyfishCrossEngageFacadeTest extends Unit
         $this->assertSame(
             $this->categories,
             $this->jellyfishCrossEngageFacade->getCategories(
-                $this->jellyfishOrderItemTransferMock
-            )
+                $this->jellyfishOrderItemTransferMock,
+            ),
         );
     }
 }

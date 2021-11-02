@@ -127,7 +127,7 @@ class PaymentEpcQrCodeExpanderTest extends Unit
         static::assertNotNull($exception);
         static::assertSame(
             'Encoding fail not known! Please chose one from UTF-8,ISO 8859-1,ISO 8859-2,ISO 8859-4,ISO 8859-5,ISO 8859-7,ISO 8859-10,ISO 8859-15',
-            $exception->getMessage()
+            $exception->getMessage(),
         );
     }
 

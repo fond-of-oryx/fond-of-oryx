@@ -31,7 +31,7 @@ class ProductCountryRestrictionCheckoutConnectorStub implements ProductCountryRe
         /** @var \Generated\Shared\Transfer\QuoteValidationResponseTransfer $quoteValidationResponseTransfer */
         $quoteValidationResponseTransfer = $this->zedRequestClient->call(
             '/product-country-restriction-checkout-connector/gateway/validate-quote',
-            $quoteTransfer
+            $quoteTransfer,
         );
 
         return $quoteValidationResponseTransfer;

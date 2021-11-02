@@ -32,7 +32,7 @@ class GatewayControllerTest extends Unit
     protected $restOneTimePasswordRequestAttributesTransferMock;
 
     /**
-     * @var \Generated\Shared\Transfer\RestOneTimePasswordLoginLinkRequestAttributesTransfer|mixed|\PHPUnit\Framework\MockObject\MockObject
+     * @var \Generated\Shared\Transfer\RestOneTimePasswordLoginLinkRequestAttributesTransfer|\PHPUnit\Framework\MockObject\MockObject|mixed
      */
     protected $restOneTimePasswordLoginLinkRequestAttributesTransferMock;
 
@@ -94,8 +94,8 @@ class GatewayControllerTest extends Unit
         $this->assertSame(
             $this->restOneTimePasswordResponseTransferMock,
             $this->gatewayController->requestOneTimePasswordAction(
-                $this->restOneTimePasswordRequestAttributesTransferMock
-            )
+                $this->restOneTimePasswordRequestAttributesTransferMock,
+            ),
         );
     }
 
@@ -112,8 +112,8 @@ class GatewayControllerTest extends Unit
         $this->assertSame(
             $this->restOneTimePasswordResponseTransferMock,
             $this->gatewayController->requestOneTimePasswordLoginLinkAction(
-                $this->restOneTimePasswordLoginLinkRequestAttributesTransferMock
-            )
+                $this->restOneTimePasswordLoginLinkRequestAttributesTransferMock,
+            ),
         );
     }
 }

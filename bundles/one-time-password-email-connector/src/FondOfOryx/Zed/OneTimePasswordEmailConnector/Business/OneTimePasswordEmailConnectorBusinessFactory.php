@@ -14,7 +14,7 @@ class OneTimePasswordEmailConnectorBusinessFactory extends AbstractBusinessFacto
     public function createOneTimePasswordEmailConnector(): OneTimePasswordEmailConnectorInterface
     {
         return new OneTimePasswordEmailConnector(
-            $this->getMailFacade()
+            $this->getMailFacade(),
         );
     }
 

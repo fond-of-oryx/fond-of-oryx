@@ -14,7 +14,7 @@ class OneTimePasswordConfig extends AbstractBundleConfig
     {
         return $this->get(
             OneTimePasswordConstants::ONE_TIME_PASSWORD_LOGIN_LINK_PATH,
-            '/login'
+            '/login',
         );
     }
 
@@ -25,7 +25,7 @@ class OneTimePasswordConfig extends AbstractBundleConfig
     {
         return $this->get(
             OneTimePasswordConstants::ONE_TIME_PASSWORD_LOGIN_LINK_PARAMETER_NAME,
-            'signature'
+            'signature',
         );
     }
 
@@ -36,7 +36,7 @@ class OneTimePasswordConfig extends AbstractBundleConfig
     {
         return $this->get(
             OneTimePasswordConstants::ONE_TIME_PASSWORD_LOGIN_LINK_ORDER_REFERENCE_NAME,
-            'orderReference'
+            'orderReference',
         );
     }
 
@@ -47,7 +47,7 @@ class OneTimePasswordConfig extends AbstractBundleConfig
     {
         return $this->get(
             OneTimePasswordConstants::ONE_TIME_PASSWORD_GENERATE_PASSWORD_UPPERCASE,
-            true
+            true,
         );
     }
 
@@ -58,7 +58,7 @@ class OneTimePasswordConfig extends AbstractBundleConfig
     {
         return $this->get(
             OneTimePasswordConstants::ONE_TIME_PASSWORD_GENERATE_PASSWORD_LOWERCASE,
-            true
+            true,
         );
     }
 
@@ -69,7 +69,7 @@ class OneTimePasswordConfig extends AbstractBundleConfig
     {
         return $this->get(
             OneTimePasswordConstants::ONE_TIME_PASSWORD_GENERATE_PASSWORD_NUMBERS,
-            true
+            true,
         );
     }
 
@@ -80,7 +80,7 @@ class OneTimePasswordConfig extends AbstractBundleConfig
     {
         return $this->get(
             OneTimePasswordConstants::ONE_TIME_PASSWORD_GENERATE_PASSWORD_SYMBOLS,
-            true
+            true,
         );
     }
 
@@ -91,7 +91,7 @@ class OneTimePasswordConfig extends AbstractBundleConfig
     {
         return $this->get(
             OneTimePasswordConstants::ONE_TIME_PASSWORD_GENERATE_PASSWORD_SEGMENT_LENGTH,
-            3
+            3,
         );
     }
 
@@ -102,7 +102,7 @@ class OneTimePasswordConfig extends AbstractBundleConfig
     {
         return $this->get(
             OneTimePasswordConstants::ONE_TIME_PASSWORD_GENERATE_PASSWORD_SEGMENT_COUNT,
-            4
+            4,
         );
     }
 
@@ -113,7 +113,7 @@ class OneTimePasswordConfig extends AbstractBundleConfig
     {
         return $this->get(
             OneTimePasswordConstants::ONE_TIME_PASSWORD_GENERATE_PASSWORD_SEGMENT_SEPARATOR,
-            '-'
+            '-',
         );
     }
 
@@ -124,7 +124,7 @@ class OneTimePasswordConfig extends AbstractBundleConfig
     {
         return $this->get(
             OneTimePasswordConstants::ONE_TIME_PASSWORD_DEFAULT_URL_LOCALE,
-            'en'
+            'en',
         );
     }
 }

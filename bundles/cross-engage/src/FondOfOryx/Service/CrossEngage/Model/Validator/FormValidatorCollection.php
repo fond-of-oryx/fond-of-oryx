@@ -12,12 +12,12 @@ use Symfony\Component\Form\FormInterface;
 class FormValidatorCollection implements Countable, IteratorAggregate, FormValidatorCollectionInterface
 {
     /**
-     * @var \FondOfOryx\Service\CrossEngage\Model\Validator\FormValidatorInterface[]
+     * @var array<\FondOfOryx\Service\CrossEngage\Model\Validator\FormValidatorInterface>
      */
     protected $validatorCollection;
 
     /**
-     * @param \FondOfOryx\Service\CrossEngage\Model\Validator\FormValidatorInterface[] $formValidator
+     * @param array<\FondOfOryx\Service\CrossEngage\Model\Validator\FormValidatorInterface> $formValidator
      */
     public function __construct(array $formValidator)
     {
@@ -41,7 +41,7 @@ class FormValidatorCollection implements Countable, IteratorAggregate, FormValid
      *
      * @throws \FondOfOryx\Service\CrossEngage\Exception\FormValidatorNotFoundException
      *
-     * @return \FondOfOryx\Service\CrossEngage\Model\Validator\FormValidatorInterface[]
+     * @return array<\FondOfOryx\Service\CrossEngage\Model\Validator\FormValidatorInterface>
      */
     public function getValidator(string $validatorName): array
     {
@@ -73,7 +73,7 @@ class FormValidatorCollection implements Countable, IteratorAggregate, FormValid
     }
 
     /**
-     * @return \FondOfOryx\Service\CrossEngage\Model\Validator\FormValidatorInterface[]
+     * @return array<\FondOfOryx\Service\CrossEngage\Model\Validator\FormValidatorInterface>
      */
     public function getValidators(): array
     {

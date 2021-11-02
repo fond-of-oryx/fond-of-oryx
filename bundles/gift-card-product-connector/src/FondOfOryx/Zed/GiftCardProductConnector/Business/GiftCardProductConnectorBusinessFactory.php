@@ -24,7 +24,7 @@ class GiftCardProductConnectorBusinessFactory extends AbstractBusinessFactory
         return new GiftCardProductAbstractConfigurationWriter(
             $this->createGiftCardAmountFilter(),
             $this->getEntityManager(),
-            $this->getConfig()
+            $this->getConfig(),
         );
     }
 
@@ -36,7 +36,7 @@ class GiftCardProductConnectorBusinessFactory extends AbstractBusinessFactory
         return new GiftCardProductConfigurationWriter(
             $this->createGiftCardAmountFilter(),
             $this->getEntityManager(),
-            $this->getConfig()
+            $this->getConfig(),
         );
     }
 

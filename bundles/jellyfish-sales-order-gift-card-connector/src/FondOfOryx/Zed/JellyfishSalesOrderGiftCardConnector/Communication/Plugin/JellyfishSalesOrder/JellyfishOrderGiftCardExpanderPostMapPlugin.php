@@ -12,6 +12,9 @@ use Spryker\Zed\Kernel\Communication\AbstractPlugin;
  */
 class JellyfishOrderGiftCardExpanderPostMapPlugin extends AbstractPlugin implements JellyfishOrderExpanderPostMapPluginInterface
 {
+    /**
+     * @var string
+     */
     protected const SALES_PAYMENT_METHOD_GIFT_CARD = 'GiftCard';
 
     /**

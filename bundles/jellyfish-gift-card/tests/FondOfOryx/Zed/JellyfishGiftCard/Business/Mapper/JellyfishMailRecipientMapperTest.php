@@ -87,7 +87,7 @@ class JellyfishMailRecipientMapperTest extends Unit
         static::assertEquals(
             null,
             $this->jellyfishMailRecipientMapper
-                ->fromJellyfishGiftCardRequest($this->jellyfishGiftCardRequestTransferMock)
+                ->fromJellyfishGiftCardRequest($this->jellyfishGiftCardRequestTransferMock),
         );
     }
 }

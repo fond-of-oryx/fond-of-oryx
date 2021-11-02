@@ -39,7 +39,7 @@ class ProductCountryRestrictionCheckoutConnectorToZedRequestClientBridgeTest ext
             ->getMock();
 
         $this->productCountryRestrictionCheckoutConnectorToZedRequestClientBridge = new ProductCountryRestrictionCheckoutConnectorToZedRequestClientBridge(
-            $this->zedRequestClientMock
+            $this->zedRequestClientMock,
         );
     }
 
@@ -57,7 +57,7 @@ class ProductCountryRestrictionCheckoutConnectorToZedRequestClientBridgeTest ext
 
         static::assertEquals(
             $this->transferMock,
-            $this->productCountryRestrictionCheckoutConnectorToZedRequestClientBridge->call($url, $this->transferMock)
+            $this->productCountryRestrictionCheckoutConnectorToZedRequestClientBridge->call($url, $this->transferMock),
         );
     }
 }

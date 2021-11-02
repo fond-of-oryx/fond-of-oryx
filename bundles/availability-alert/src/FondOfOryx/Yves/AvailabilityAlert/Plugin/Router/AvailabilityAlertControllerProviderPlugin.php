@@ -7,8 +7,19 @@ use Spryker\Yves\Router\Route\RouteCollection;
 
 class AvailabilityAlertControllerProviderPlugin extends AbstractRouteProviderPlugin
 {
+    /**
+     * @var string
+     */
     public const ROUTE_AVAILABILITY_ALERT_SUBMIT = 'availability-alert/submit';
+
+    /**
+     * @var string
+     */
     public const ROUTE_AVAILABILITY_ALERT_WIDGET_SUBMIT = 'availability-alert/widget/submit';
+
+    /**
+     * @var string
+     */
     public const ID_ABSTRACT_PRODUCT_REGEX = '[1-9][0-9]*';
 
     /**

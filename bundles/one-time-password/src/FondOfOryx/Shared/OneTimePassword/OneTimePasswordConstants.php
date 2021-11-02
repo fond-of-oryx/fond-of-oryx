@@ -4,17 +4,58 @@ namespace FondOfOryx\Shared\OneTimePassword;
 
 interface OneTimePasswordConstants
 {
+    /**
+     * @var string
+     */
     public const ONE_TIME_PASSWORD_LOGIN_LINK_PATH = 'ONE_TIME_PASSWORD:LOGIN_LINK_PATH';
+
+    /**
+     * @var string
+     */
     public const ONE_TIME_PASSWORD_LOGIN_LINK_PARAMETER_NAME = 'ONE_TIME_PASSWORD:LOGIN_LINK_PARAMETER_NAME';
+
+    /**
+     * @var string
+     */
     public const ONE_TIME_PASSWORD_LOGIN_LINK_ORDER_REFERENCE_NAME = 'ONE_TIME_PASSWORD:LOGIN_LINK_ORDER_REFERENCE_NAME';
 
+    /**
+     * @var string
+     */
     public const ONE_TIME_PASSWORD_GENERATE_PASSWORD_UPPERCASE = 'ONE_TIME_PASSWORD:GENERATE_PASSWORD_UPPERCASE';
+
+    /**
+     * @var string
+     */
     public const ONE_TIME_PASSWORD_GENERATE_PASSWORD_LOWERCASE = 'ONE_TIME_PASSWORD:GENERATE_PASSWORD_LOWERCASE';
+
+    /**
+     * @var string
+     */
     public const ONE_TIME_PASSWORD_GENERATE_PASSWORD_NUMBERS = 'ONE_TIME_PASSWORD:GENERATE_PASSWORD_NUMBERS';
+
+    /**
+     * @var string
+     */
     public const ONE_TIME_PASSWORD_GENERATE_PASSWORD_SYMBOLS = 'ONE_TIME_PASSWORD:GENERATE_PASSWORD_SYMBOLS';
+
+    /**
+     * @var string
+     */
     public const ONE_TIME_PASSWORD_GENERATE_PASSWORD_SEGMENT_LENGTH = 'ONE_TIME_PASSWORD:GENERATE_PASSWORD_SEGMENT_LENGTH';
+
+    /**
+     * @var string
+     */
     public const ONE_TIME_PASSWORD_GENERATE_PASSWORD_SEGMENT_COUNT = 'ONE_TIME_PASSWORD:GENERATE_PASSWORD_SEGMENT_COUNT';
+
+    /**
+     * @var string
+     */
     public const ONE_TIME_PASSWORD_GENERATE_PASSWORD_SEGMENT_SEPARATOR = 'ONE_TIME_PASSWORD:GENERATE_PASSWORD_SEGMENT_SEPARATOR';
 
+    /**
+     * @var string
+     */
     public const ONE_TIME_PASSWORD_DEFAULT_URL_LOCALE = 'ONE_TIME_PASSWORD:DEFAULT_URL_LOCALE';
 }

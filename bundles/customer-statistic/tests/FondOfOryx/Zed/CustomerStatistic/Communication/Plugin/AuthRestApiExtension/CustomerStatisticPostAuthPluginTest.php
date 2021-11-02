@@ -88,8 +88,8 @@ class CustomerStatisticPostAuthPluginTest extends Unit
                 static::callback(
                     static function (CustomerTransfer $customerTransfer) use ($idCustomer) {
                         return $customerTransfer->getIdCustomer() === $idCustomer;
-                    }
-                )
+                    },
+                ),
             )->willReturn($this->customerStatisticResponseTransfer);
 
         $this->customerStatisticPostAuthPlugin->postAuth($this->oauthResponseTransferMock);

@@ -32,7 +32,7 @@ class ErpOrderPageSearchFactoryTest extends Unit
     protected $erpOrderPageSearchToCustomerClientMock;
 
     /**
-     * @var \FondOfOryx\Client\ErpOrderPageSearch\Dependency\Client\ErpOrderPageSearchToErpOrderPermissionClientInterface|mixed|\PHPUnit\Framework\MockObject\MockObject
+     * @var \FondOfOryx\Client\ErpOrderPageSearch\Dependency\Client\ErpOrderPageSearchToErpOrderPermissionClientInterface|\PHPUnit\Framework\MockObject\MockObject|mixed
      */
     protected $erpOrderPageSearchToErpOrderPermissionClientMock;
 
@@ -89,7 +89,7 @@ class ErpOrderPageSearchFactoryTest extends Unit
 
         static::assertEquals(
             $this->erpOrderPageSearchQueryPluginMock,
-            $this->erpOrderPageSearchFactory->createSearchQuery($searchString)
+            $this->erpOrderPageSearchFactory->createSearchQuery($searchString),
         );
     }
 
@@ -110,7 +110,7 @@ class ErpOrderPageSearchFactoryTest extends Unit
 
         static::assertEquals(
             $this->erpOrderPageSearchToCustomerClientMock,
-            $this->erpOrderPageSearchFactory->getCustomerClient()
+            $this->erpOrderPageSearchFactory->getCustomerClient(),
         );
     }
 
@@ -131,7 +131,7 @@ class ErpOrderPageSearchFactoryTest extends Unit
 
         static::assertEquals(
             $this->erpOrderPageSearchToErpOrderPermissionClientMock,
-            $this->erpOrderPageSearchFactory->getErpOrderPermissionClient()
+            $this->erpOrderPageSearchFactory->getErpOrderPermissionClient(),
         );
     }
 
@@ -152,7 +152,7 @@ class ErpOrderPageSearchFactoryTest extends Unit
 
         $this->assertInstanceOf(
             ErpOrderPageSearchToSearchClientBridge::class,
-            $this->erpOrderPageSearchFactory->getSearchClient()
+            $this->erpOrderPageSearchFactory->getSearchClient(),
         );
     }
 

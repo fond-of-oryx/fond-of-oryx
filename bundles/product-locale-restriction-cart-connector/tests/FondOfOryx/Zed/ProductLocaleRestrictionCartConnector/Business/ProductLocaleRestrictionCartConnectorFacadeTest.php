@@ -77,7 +77,7 @@ class ProductLocaleRestrictionCartConnectorFacadeTest extends Unit
 
         static::assertEquals(
             $this->cartPreCheckResponseTransferMock,
-            $this->productLocaleRestrictionFacade->preCheckCart($this->cartChangeTransferMock)
+            $this->productLocaleRestrictionFacade->preCheckCart($this->cartChangeTransferMock),
         );
     }
 }

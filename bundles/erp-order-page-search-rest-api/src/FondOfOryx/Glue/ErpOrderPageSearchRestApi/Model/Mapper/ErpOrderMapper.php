@@ -12,9 +12,24 @@ use Generated\Shared\Transfer\RestErpOrderTransfer;
 
 class ErpOrderMapper implements ErpOrderMapperInterface
 {
+    /**
+     * @var string
+     */
     protected const SEARCH_RESULT_KEY_ERP_ORDERS = 'erp-orders';
+
+    /**
+     * @var string
+     */
     protected const ERP_ORDER_DATA_KEY_ERP_ORDER_ITEMS = 'erp_order_items';
+
+    /**
+     * @var string
+     */
     protected const ERP_ORDER_DATA_KEY_COMPANY_BUSINESS_UNIT = 'company_business_unit';
+
+    /**
+     * @var string
+     */
     protected const ERP_ORDER_DATA_KEY_ERP_ORDER_TOTAL = 'erp_order_total';
 
     /**
@@ -39,13 +54,13 @@ class ErpOrderMapper implements ErpOrderMapperInterface
             $restErpOrder->fromArray($erpOrderData, true);
             $restErpOrder->setCompanyBusinessUnit(
                 $this->mapCompanyBusinessUnitToRestCompanyBusinessUnit(
-                    $erpOrderData[static::ERP_ORDER_DATA_KEY_COMPANY_BUSINESS_UNIT]
-                )
+                    $erpOrderData[static::ERP_ORDER_DATA_KEY_COMPANY_BUSINESS_UNIT],
+                ),
             );
 
             $this->addRestErpOrderItems($restErpOrder, $erpOrderData[self::ERP_ORDER_DATA_KEY_ERP_ORDER_ITEMS]);
             $restErpOrder->setTotals($this->mapErpOrderTotalToRestOrderTotal(
-                $erpOrderData[static::ERP_ORDER_DATA_KEY_ERP_ORDER_TOTAL]
+                $erpOrderData[static::ERP_ORDER_DATA_KEY_ERP_ORDER_TOTAL],
             ));
 
             $responseTransfer->addErpOrder($restErpOrder);

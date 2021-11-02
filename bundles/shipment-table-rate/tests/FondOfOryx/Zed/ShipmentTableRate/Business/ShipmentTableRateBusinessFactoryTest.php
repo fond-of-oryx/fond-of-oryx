@@ -114,12 +114,12 @@ class ShipmentTableRateBusinessFactoryTest extends Unit
                 $this->countryFacadeMock,
                 $this->storeFacadeMock,
                 $this->priceToPayFilterPluginMock,
-                $this->utilMathFormulaServiceMock
+                $this->utilMathFormulaServiceMock,
             );
 
         static::assertInstanceOf(
             PriceCalculator::class,
-            $this->shipmentTableRateBusinessFactory->createPriceCalculator()
+            $this->shipmentTableRateBusinessFactory->createPriceCalculator(),
         );
     }
 }

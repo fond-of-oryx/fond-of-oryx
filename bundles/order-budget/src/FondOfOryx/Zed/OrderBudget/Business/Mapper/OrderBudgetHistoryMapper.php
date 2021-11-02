@@ -16,7 +16,7 @@ class OrderBudgetHistoryMapper implements OrderBudgetHistoryMapperInterface
     {
         $orderBudgetHistoryTransfer = (new OrderBudgetHistoryTransfer())->fromArray(
             $orderBudgetTransfer->toArray(),
-            true
+            true,
         );
 
         return $orderBudgetHistoryTransfer

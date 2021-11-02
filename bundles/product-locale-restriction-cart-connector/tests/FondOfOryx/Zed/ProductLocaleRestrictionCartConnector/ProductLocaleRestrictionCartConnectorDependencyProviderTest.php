@@ -82,13 +82,13 @@ class ProductLocaleRestrictionCartConnectorDependencyProviderTest extends Unit
             ->willReturn($this->productLocaleRestrictionFacadeMock);
 
         $container = $this->productLocaleRestrictionCartConnectorDependencyProvider->provideBusinessLayerDependencies(
-            $this->containerMock
+            $this->containerMock,
         );
 
         static::assertEquals($this->containerMock, $container);
         static::assertInstanceOf(
             ProductLocaleRestrictionCartConnectorToProductLocaleRestrictionFacadeInterface::class,
-            $container[ProductLocaleRestrictionCartConnectorDependencyProvider::FACADE_PRODUCT_LOCALE_RESTRICTION]
+            $container[ProductLocaleRestrictionCartConnectorDependencyProvider::FACADE_PRODUCT_LOCALE_RESTRICTION],
         );
     }
 }

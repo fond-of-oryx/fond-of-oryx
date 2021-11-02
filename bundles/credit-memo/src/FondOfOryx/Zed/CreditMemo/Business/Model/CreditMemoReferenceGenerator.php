@@ -10,6 +10,9 @@ use Generated\Shared\Transfer\SequenceNumberSettingsTransfer;
 
 class CreditMemoReferenceGenerator implements CreditMemoReferenceGeneratorInterface
 {
+    /**
+     * @var string
+     */
     protected const UNIQUE_IDENTIFIER_SEPARATOR = '-';
 
     /**
@@ -92,7 +95,7 @@ class CreditMemoReferenceGenerator implements CreditMemoReferenceGeneratorInterf
         return sprintf(
             '%s%s',
             implode($this->getUniqueIdentifierSeparator(), $sequenceNumberPrefixParts),
-            $this->getUniqueIdentifierSeparator()
+            $this->getUniqueIdentifierSeparator(),
         );
     }
 

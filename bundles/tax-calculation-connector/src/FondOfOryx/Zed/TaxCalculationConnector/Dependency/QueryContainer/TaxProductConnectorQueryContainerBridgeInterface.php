@@ -11,8 +11,8 @@ interface TaxProductConnectorQueryContainerBridgeInterface
      *
      * @module Country
      *
-     * @param int[] $allIdProductAbstracts
-     * @param string[] $countryIso2Codes
+     * @param array<int> $allIdProductAbstracts
+     * @param array<string> $countryIso2Codes
      *
      * @return \Orm\Zed\Tax\Persistence\SpyTaxSetQuery
      */

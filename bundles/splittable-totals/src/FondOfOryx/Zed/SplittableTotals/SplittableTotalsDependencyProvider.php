@@ -8,6 +8,9 @@ use Spryker\Zed\Kernel\Container;
 
 class SplittableTotalsDependencyProvider extends AbstractBundleDependencyProvider
 {
+    /**
+     * @var string
+     */
     public const FACADE_SPLITTABLE_QUOTE = 'FACADE_SPLITTABLE_QUOTE';
 
     /**
@@ -31,7 +34,7 @@ class SplittableTotalsDependencyProvider extends AbstractBundleDependencyProvide
     {
         $container[static::FACADE_SPLITTABLE_QUOTE] = static function (Container $container) {
             return new SplittableTotalsToSplittableQuoteFacadeBridge(
-                $container->getLocator()->splittableQuote()->facade()
+                $container->getLocator()->splittableQuote()->facade(),
             );
         };
 

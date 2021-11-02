@@ -48,7 +48,7 @@ class SplittableTotalsReaderTest extends Unit
     protected $splittableTotalsReader;
 
     /**
-     * @var \ArrayObject|\PHPUnit\Framework\MockObject\MockObject
+     * @var \PHPUnit\Framework\MockObject\MockObject|\ArrayObject
      */
     protected $totalsListMock;
 
@@ -89,7 +89,7 @@ class SplittableTotalsReaderTest extends Unit
 
         $this->splittableTotalsReader = new SplittableTotalsReader(
             $this->quoteReaderMock,
-            $this->splittableTotalsFacadeMock
+            $this->splittableTotalsFacadeMock,
         );
     }
 
@@ -117,16 +117,16 @@ class SplittableTotalsReaderTest extends Unit
             ->willReturn(3);
 
         $restSplittableTotalsResponseTransfer = $this->splittableTotalsReader->getByRestSplittableCheckoutRequest(
-            $this->restSplittableCheckoutRequestTransferMock
+            $this->restSplittableCheckoutRequestTransferMock,
         );
 
         static::assertTrue(
-            $restSplittableTotalsResponseTransfer->getIsSuccessful()
+            $restSplittableTotalsResponseTransfer->getIsSuccessful(),
         );
 
         static::assertEquals(
             $this->splittableTotalsTransferMock,
-            $restSplittableTotalsResponseTransfer->getSplittableTotals()
+            $restSplittableTotalsResponseTransfer->getSplittableTotals(),
         );
     }
 
@@ -144,16 +144,16 @@ class SplittableTotalsReaderTest extends Unit
             ->method('getSplittableTotalsByQuote');
 
         $restSplittableTotalsResponseTransfer = $this->splittableTotalsReader->getByRestSplittableCheckoutRequest(
-            $this->restSplittableCheckoutRequestTransferMock
+            $this->restSplittableCheckoutRequestTransferMock,
         );
 
         static::assertFalse(
-            $restSplittableTotalsResponseTransfer->getIsSuccessful()
+            $restSplittableTotalsResponseTransfer->getIsSuccessful(),
         );
 
         static::assertEquals(
             null,
-            $restSplittableTotalsResponseTransfer->getSplittableTotals()
+            $restSplittableTotalsResponseTransfer->getSplittableTotals(),
         );
     }
 
@@ -181,16 +181,16 @@ class SplittableTotalsReaderTest extends Unit
             ->willReturn(0);
 
         $restSplittableTotalsResponseTransfer = $this->splittableTotalsReader->getByRestSplittableCheckoutRequest(
-            $this->restSplittableCheckoutRequestTransferMock
+            $this->restSplittableCheckoutRequestTransferMock,
         );
 
         static::assertFalse(
-            $restSplittableTotalsResponseTransfer->getIsSuccessful()
+            $restSplittableTotalsResponseTransfer->getIsSuccessful(),
         );
 
         static::assertEquals(
             null,
-            $restSplittableTotalsResponseTransfer->getSplittableTotals()
+            $restSplittableTotalsResponseTransfer->getSplittableTotals(),
         );
     }
 }

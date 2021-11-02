@@ -90,7 +90,7 @@ class ProductCountryRestrictionCheckoutPreCheckPluginTest extends Unit
 
         static::assertEquals(
             $this->quoteValidationResponseTransferMock,
-            $this->productCountryRestrictionCheckoutPreCheckPlugin->isValid($this->quoteTransferMock)
+            $this->productCountryRestrictionCheckoutPreCheckPlugin->isValid($this->quoteTransferMock),
         );
     }
 }

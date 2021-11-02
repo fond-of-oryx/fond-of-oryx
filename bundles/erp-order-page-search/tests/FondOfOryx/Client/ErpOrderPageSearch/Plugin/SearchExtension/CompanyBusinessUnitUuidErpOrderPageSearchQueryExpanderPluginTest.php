@@ -27,7 +27,7 @@ class CompanyBusinessUnitUuidErpOrderPageSearchQueryExpanderPluginTest extends U
     protected $queryMock;
 
     /**
-     * @var string[][]
+     * @var array<array<string>>
      */
     protected $requestParameters;
 
@@ -47,27 +47,27 @@ class CompanyBusinessUnitUuidErpOrderPageSearchQueryExpanderPluginTest extends U
     protected $matchQueryMock;
 
     /**
-     * @var \FondOfOryx\Client\ErpOrderPageSearch\Dependency\Client\ErpOrderPageSearchToCustomerClientInterface|mixed|\PHPUnit\Framework\MockObject\MockObject
+     * @var \FondOfOryx\Client\ErpOrderPageSearch\Dependency\Client\ErpOrderPageSearchToCustomerClientInterface|\PHPUnit\Framework\MockObject\MockObject|mixed
      */
     protected $customerClientMock;
 
     /**
-     * @var \FondOfOryx\Client\ErpOrderPageSearch\Dependency\Client\ErpOrderPageSearchToErpOrderPermissionClientInterface|mixed|\PHPUnit\Framework\MockObject\MockObject
+     * @var \FondOfOryx\Client\ErpOrderPageSearch\Dependency\Client\ErpOrderPageSearchToErpOrderPermissionClientInterface|\PHPUnit\Framework\MockObject\MockObject|mixed
      */
     protected $erpOrderPermissionClientMock;
 
     /**
-     * @var \Generated\Shared\Transfer\CustomerTransfer|mixed|\PHPUnit\Framework\MockObject\MockObject
+     * @var \Generated\Shared\Transfer\CustomerTransfer|\PHPUnit\Framework\MockObject\MockObject|mixed
      */
     protected $customerTransferMock;
 
     /**
-     * @var \Generated\Shared\Transfer\CompanyBusinessUnitUuidCollectionTransfer|mixed|\PHPUnit\Framework\MockObject\MockObject
+     * @var \Generated\Shared\Transfer\CompanyBusinessUnitUuidCollectionTransfer|\PHPUnit\Framework\MockObject\MockObject|mixed
      */
     protected $companyBusinessUnitUuidCollectionTransferMock;
 
     /**
-     * @var \FondOfOryx\Client\ErpOrderPageSearch\ErpOrderPageSearchFactory|mixed|\PHPUnit\Framework\MockObject\MockObject
+     * @var \FondOfOryx\Client\ErpOrderPageSearch\ErpOrderPageSearchFactory|\PHPUnit\Framework\MockObject\MockObject|mixed
      */
     protected $factoryMock;
 
@@ -163,8 +163,8 @@ class CompanyBusinessUnitUuidErpOrderPageSearchQueryExpanderPluginTest extends U
                     static function (ErpOrderPermissionCompanyBusinessUnitUuidRequestTransfer $erpOrderPermissionCompanyBusinessUnitUuidRequestTransfer) use ($customerReference) {
                         return $erpOrderPermissionCompanyBusinessUnitUuidRequestTransfer->getCustomerReference() === $customerReference
                             && $erpOrderPermissionCompanyBusinessUnitUuidRequestTransfer->getPermissionKey() === SeeErpOrdersPermissionPlugin::KEY;
-                    }
-                )
+                    },
+                ),
             )->willReturn($this->companyBusinessUnitUuidCollectionTransferMock);
 
         $this->companyBusinessUnitUuidCollectionTransferMock->expects(static::atLeastOnce())
@@ -188,18 +188,18 @@ class CompanyBusinessUnitUuidErpOrderPageSearchQueryExpanderPluginTest extends U
 
                         return isset($data['terms'][ErpOrderIndexMap::COMPANY_BUSINESS_UNIT_UUID])
                             && $data['terms'][ErpOrderIndexMap::COMPANY_BUSINESS_UNIT_UUID] === $companyBusinessUnitUuids;
-                    }
-                )
+                    },
+                ),
             )->willReturn($this->boolQueryMock);
 
         $query = $this->plugin->expandQuery(
             $this->queryMock,
-            $this->requestParameters
+            $this->requestParameters,
         );
 
         static::assertEquals(
             $this->queryMock,
-            $query
+            $query,
         );
     }
 
@@ -234,8 +234,8 @@ class CompanyBusinessUnitUuidErpOrderPageSearchQueryExpanderPluginTest extends U
                     static function (ErpOrderPermissionCompanyBusinessUnitUuidRequestTransfer $erpOrderPermissionCompanyBusinessUnitUuidRequestTransfer) use ($customerReference) {
                         return $erpOrderPermissionCompanyBusinessUnitUuidRequestTransfer->getCustomerReference() === $customerReference
                             && $erpOrderPermissionCompanyBusinessUnitUuidRequestTransfer->getPermissionKey() === SeeErpOrdersPermissionPlugin::KEY;
-                    }
-                )
+                    },
+                ),
             )->willReturn($this->companyBusinessUnitUuidCollectionTransferMock);
 
         $this->companyBusinessUnitUuidCollectionTransferMock->expects(static::atLeastOnce())
@@ -259,18 +259,18 @@ class CompanyBusinessUnitUuidErpOrderPageSearchQueryExpanderPluginTest extends U
 
                         return isset($data['terms'][ErpOrderIndexMap::COMPANY_BUSINESS_UNIT_UUID])
                             && $data['terms'][ErpOrderIndexMap::COMPANY_BUSINESS_UNIT_UUID] === $companyBusinessUnitUuids;
-                    }
-                )
+                    },
+                ),
             )->willReturn($this->boolQueryMock);
 
         $query = $this->plugin->expandQuery(
             $this->queryMock,
-            []
+            [],
         );
 
         static::assertEquals(
             $this->queryMock,
-            $query
+            $query,
         );
     }
 
@@ -307,8 +307,8 @@ class CompanyBusinessUnitUuidErpOrderPageSearchQueryExpanderPluginTest extends U
                     static function (ErpOrderPermissionCompanyBusinessUnitUuidRequestTransfer $erpOrderPermissionCompanyBusinessUnitUuidRequestTransfer) use ($customerReference) {
                         return $erpOrderPermissionCompanyBusinessUnitUuidRequestTransfer->getCustomerReference() === $customerReference
                             && $erpOrderPermissionCompanyBusinessUnitUuidRequestTransfer->getPermissionKey() === SeeErpOrdersPermissionPlugin::KEY;
-                    }
-                )
+                    },
+                ),
             )->willReturn($this->companyBusinessUnitUuidCollectionTransferMock);
 
         $this->companyBusinessUnitUuidCollectionTransferMock->expects(static::atLeastOnce())
@@ -333,18 +333,18 @@ class CompanyBusinessUnitUuidErpOrderPageSearchQueryExpanderPluginTest extends U
                         return isset($data['terms'][ErpOrderIndexMap::COMPANY_BUSINESS_UNIT_UUID])
                             && count($data['terms'][ErpOrderIndexMap::COMPANY_BUSINESS_UNIT_UUID]) === 1
                             && $data['terms'][ErpOrderIndexMap::COMPANY_BUSINESS_UNIT_UUID][0] === '00000000-0000-0000-0000-000000000000';
-                    }
-                )
+                    },
+                ),
             )->willReturn($this->boolQueryMock);
 
         $query = $this->plugin->expandQuery(
             $this->queryMock,
-            $this->requestParameters
+            $this->requestParameters,
         );
 
         static::assertEquals(
             $this->queryMock,
-            $query
+            $query,
         );
     }
 
@@ -381,8 +381,8 @@ class CompanyBusinessUnitUuidErpOrderPageSearchQueryExpanderPluginTest extends U
                     static function (ErpOrderPermissionCompanyBusinessUnitUuidRequestTransfer $erpOrderPermissionCompanyBusinessUnitUuidRequestTransfer) use ($customerReference) {
                         return $erpOrderPermissionCompanyBusinessUnitUuidRequestTransfer->getCustomerReference() === $customerReference
                             && $erpOrderPermissionCompanyBusinessUnitUuidRequestTransfer->getPermissionKey() === SeeErpOrdersPermissionPlugin::KEY;
-                    }
-                )
+                    },
+                ),
             )->willReturn($this->companyBusinessUnitUuidCollectionTransferMock);
 
         $this->companyBusinessUnitUuidCollectionTransferMock->expects(static::atLeastOnce())
@@ -406,20 +406,20 @@ class CompanyBusinessUnitUuidErpOrderPageSearchQueryExpanderPluginTest extends U
 
                         return isset($data['terms'][ErpOrderIndexMap::COMPANY_BUSINESS_UNIT_UUID])
                             && $data['terms'][ErpOrderIndexMap::COMPANY_BUSINESS_UNIT_UUID] === $companyBusinessUnitUuids;
-                    }
-                )
+                    },
+                ),
             )->willReturn($this->boolQueryMock);
 
         $query = $this->plugin->expandQuery(
             $this->queryMock,
             [
                 ErpOrderPageSearchConstants::PARAMETER_COMPANY_BUSINESS_UNIT_UUID => '',
-            ]
+            ],
         );
 
         static::assertEquals(
             $this->queryMock,
-            $query
+            $query,
         );
     }
 
@@ -454,8 +454,8 @@ class CompanyBusinessUnitUuidErpOrderPageSearchQueryExpanderPluginTest extends U
                     static function (ErpOrderPermissionCompanyBusinessUnitUuidRequestTransfer $erpOrderPermissionCompanyBusinessUnitUuidRequestTransfer) use ($customerReference) {
                         return $erpOrderPermissionCompanyBusinessUnitUuidRequestTransfer->getCustomerReference() === $customerReference
                             && $erpOrderPermissionCompanyBusinessUnitUuidRequestTransfer->getPermissionKey() === SeeErpOrdersPermissionPlugin::KEY;
-                    }
-                )
+                    },
+                ),
             )->willReturn($this->companyBusinessUnitUuidCollectionTransferMock);
 
         $this->companyBusinessUnitUuidCollectionTransferMock->expects(static::atLeastOnce())
@@ -473,7 +473,7 @@ class CompanyBusinessUnitUuidErpOrderPageSearchQueryExpanderPluginTest extends U
         try {
             $this->plugin->expandQuery(
                 $this->queryMock,
-                $this->requestParameters
+                $this->requestParameters,
             );
 
             static::fail();
@@ -518,18 +518,18 @@ class CompanyBusinessUnitUuidErpOrderPageSearchQueryExpanderPluginTest extends U
                         return isset($data['terms'][ErpOrderIndexMap::COMPANY_BUSINESS_UNIT_UUID])
                             && count($data['terms'][ErpOrderIndexMap::COMPANY_BUSINESS_UNIT_UUID]) === 1
                             && $data['terms'][ErpOrderIndexMap::COMPANY_BUSINESS_UNIT_UUID][0] === '00000000-0000-0000-0000-000000000000';
-                    }
-                )
+                    },
+                ),
             )->willReturn($this->boolQueryMock);
 
         $query = $this->plugin->expandQuery(
             $this->queryMock,
-            $this->requestParameters
+            $this->requestParameters,
         );
 
         static::assertEquals(
             $this->queryMock,
-            $query
+            $query,
         );
     }
 }

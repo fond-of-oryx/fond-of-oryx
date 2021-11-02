@@ -14,7 +14,7 @@ class ProductCartCodeTypeRestrictionRepository extends AbstractRepository implem
     /**
      * @param int $idProductAbstract
      *
-     * @return \Generated\Shared\Transfer\CartCodeTypeTransfer[]
+     * @return array<\Generated\Shared\Transfer\CartCodeTypeTransfer>
      */
     public function findBlacklistedCartCodeTypeByIdProductAbstract(
         int $idProductAbstract
@@ -34,7 +34,7 @@ class ProductCartCodeTypeRestrictionRepository extends AbstractRepository implem
     /**
      * @param int $idProductAbstract
      *
-     * @return int[]
+     * @return array<int>
      */
     public function findBlacklistedCartCodeTypeIdsByIdProductAbstract(
         int $idProductAbstract
@@ -49,7 +49,7 @@ class ProductCartCodeTypeRestrictionRepository extends AbstractRepository implem
     }
 
     /**
-     * @param string[] $productConcreteSkus
+     * @param array<string> $productConcreteSkus
      *
      * @return array
      */
@@ -70,7 +70,7 @@ class ProductCartCodeTypeRestrictionRepository extends AbstractRepository implem
         return $this->getFactory()->createProductAbstractCartCodeTypeRestrictionMapper()
             ->mapEntityCollectionToGroupedCartCodeTypeNames(
                 $fooProductAbstractCartCodeTypeRestrictionQuery->find(),
-                'sku'
+                'sku',
             );
     }
 }

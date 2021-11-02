@@ -8,6 +8,9 @@ use Spryker\Zed\Kernel\Container;
 
 class AvailabilityCheckoutValidatorDependencyProvider extends AbstractBundleDependencyProvider
 {
+    /**
+     * @var string
+     */
     public const FACADE_AVAILABILITY_CART_CONNECTOR = 'FACADE_AVAILABILITY_CART_CONNECTOR';
 
     /**
@@ -33,7 +36,7 @@ class AvailabilityCheckoutValidatorDependencyProvider extends AbstractBundleDepe
     {
         $container[static::FACADE_AVAILABILITY_CART_CONNECTOR] = static function (Container $container) {
             return new AvailabilityCheckoutValidatorToAvailabilityCartDataExtenderFacadeBridge(
-                $container->getLocator()->availabilityCartDataExtender()->facade()
+                $container->getLocator()->availabilityCartDataExtender()->facade(),
             );
         };
 

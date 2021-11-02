@@ -25,7 +25,7 @@ class ProductCountryRestrictionEntityManager extends AbstractEntityManager imple
         $fooProductAbstractCountryRestriction = $this->getFactory()->createProductAbstractCountryRestrictionMapper()
             ->mapTransferToEntity(
                 $productAbstractCountryRestriction,
-                new FooProductAbstractCountryRestriction()
+                new FooProductAbstractCountryRestriction(),
             );
 
         $fooProductAbstractCountryRestriction->save();
@@ -33,7 +33,7 @@ class ProductCountryRestrictionEntityManager extends AbstractEntityManager imple
 
     /**
      * @param int $idProductAbstract
-     * @param int[] $countryIds
+     * @param array<int> $countryIds
      *
      * @return void
      */
@@ -43,7 +43,7 @@ class ProductCountryRestrictionEntityManager extends AbstractEntityManager imple
             ->createFooProductAbstractCountryRestrictionQuery();
 
         $fooProductAbstractCountryRestrictions = $fooProductAbstractCountryRestrictionQuery->filterByFkProductAbstract(
-            $idProductAbstract
+            $idProductAbstract,
         )->filterByFkCountry_In($countryIds)
             ->find();
 

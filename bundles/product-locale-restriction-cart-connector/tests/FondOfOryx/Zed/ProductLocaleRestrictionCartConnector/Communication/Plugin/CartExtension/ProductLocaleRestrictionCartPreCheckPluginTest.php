@@ -72,7 +72,7 @@ class ProductLocaleRestrictionCartPreCheckPluginTest extends Unit
 
         static::assertEquals(
             $this->cartPreCheckResponseTransferMock,
-            $this->productLocaleRestrictionCartPreCheckPlugin->check($this->cartChangeTransferMock)
+            $this->productLocaleRestrictionCartPreCheckPlugin->check($this->cartChangeTransferMock),
         );
     }
 }

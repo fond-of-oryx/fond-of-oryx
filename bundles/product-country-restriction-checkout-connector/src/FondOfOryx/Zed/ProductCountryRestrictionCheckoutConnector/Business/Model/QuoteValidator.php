@@ -12,8 +12,19 @@ use Generated\Shared\Transfer\QuoteValidationResponseTransfer;
 
 class QuoteValidator implements QuoteValidatorInterface
 {
+    /**
+     * @var string
+     */
     protected const MESSAGE_ERROR_ITEM_IS_RESTRICTED = 'product_country_restriction_checkout_connector.error.item_is_restricted';
+
+    /**
+     * @var string
+     */
     protected const MESSAGE_PARAM_SKU = '%sku%';
+
+    /**
+     * @var string
+     */
     protected const MESSAGE_PARAM_BLACKLISTED_COUNTRY_CODES = '%blacklisted_country_codes%';
 
     /**
@@ -110,7 +121,7 @@ class QuoteValidator implements QuoteValidatorInterface
         }, $quoteTransfer->getItems()->getArrayCopy());
 
         return $this->productCountryRestrictionFacade->getBlacklistedCountriesByProductConcreteSkus(
-            $productConcreteSkus
+            $productConcreteSkus,
         );
     }
 
@@ -162,7 +173,7 @@ class QuoteValidator implements QuoteValidatorInterface
             $blacklistedCountryCodes = sprintf(
                 '%s & %s',
                 implode(', ', $blacklistedCountryCodeList),
-                $blacklistedCountryCodes
+                $blacklistedCountryCodes,
             );
         }
 

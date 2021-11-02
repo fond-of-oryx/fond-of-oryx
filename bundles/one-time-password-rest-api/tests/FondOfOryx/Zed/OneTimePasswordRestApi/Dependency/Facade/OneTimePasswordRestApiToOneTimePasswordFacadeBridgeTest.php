@@ -31,7 +31,7 @@ class OneTimePasswordRestApiToOneTimePasswordFacadeBridgeTest extends Unit
     protected $customerTransferMock;
 
     /**
-     * @var \Generated\Shared\Transfer\OrderTransfer|mixed|\PHPUnit\Framework\MockObject\MockObject
+     * @var \Generated\Shared\Transfer\OrderTransfer|\PHPUnit\Framework\MockObject\MockObject|mixed
      */
     protected $orderTransferMock;
 
@@ -57,7 +57,7 @@ class OneTimePasswordRestApiToOneTimePasswordFacadeBridgeTest extends Unit
             ->getMock();
 
         $this->oneTimePasswordRestApiToOneTimePasswordFacadeBridge = new OneTimePasswordRestApiToOneTimePasswordFacadeBridge(
-            $this->oneTimePasswordFacadeMock
+            $this->oneTimePasswordFacadeMock,
         );
     }
 
@@ -74,8 +74,8 @@ class OneTimePasswordRestApiToOneTimePasswordFacadeBridgeTest extends Unit
         $this->assertSame(
             $this->oneTimePasswordResponseTransferMock,
             $this->oneTimePasswordRestApiToOneTimePasswordFacadeBridge->requestOneTimePassword(
-                $this->customerTransferMock
-            )
+                $this->customerTransferMock,
+            ),
         );
     }
 
@@ -92,8 +92,8 @@ class OneTimePasswordRestApiToOneTimePasswordFacadeBridgeTest extends Unit
         $this->assertSame(
             $this->oneTimePasswordResponseTransferMock,
             $this->oneTimePasswordRestApiToOneTimePasswordFacadeBridge->requestLoginLink(
-                $this->customerTransferMock
-            )
+                $this->customerTransferMock,
+            ),
         );
     }
 
@@ -110,8 +110,8 @@ class OneTimePasswordRestApiToOneTimePasswordFacadeBridgeTest extends Unit
         $this->assertSame(
             $this->oneTimePasswordResponseTransferMock,
             $this->oneTimePasswordRestApiToOneTimePasswordFacadeBridge->requestLoginLinkWithOrderReference(
-                $this->orderTransferMock
-            )
+                $this->orderTransferMock,
+            ),
         );
     }
 }

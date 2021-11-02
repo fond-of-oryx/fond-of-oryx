@@ -10,8 +10,19 @@ use Spryker\Zed\Kernel\Container;
 
 class CompanyBusinessUnitOrderBudgetDependencyProvider extends AbstractBundleDependencyProvider
 {
+    /**
+     * @var string
+     */
     public const QUERY_COMPANY_BUSINESS_UNIT = 'QUERY_COMPANY_BUSINESS_UNIT';
+
+    /**
+     * @var string
+     */
     public const FACADE_ORDER_BUDGET = 'FACADE_ORDER_BUDGET';
+
+    /**
+     * @var string
+     */
     public const FACADE_PERMISSION = 'FACADE_PERMISSION';
 
     /**
@@ -37,7 +48,7 @@ class CompanyBusinessUnitOrderBudgetDependencyProvider extends AbstractBundleDep
     {
         $container[static::FACADE_ORDER_BUDGET] = static function (Container $container) {
             return new CompanyBusinessUnitOrderBudgetToOrderBudgetFacadeBridge(
-                $container->getLocator()->orderBudget()->facade()
+                $container->getLocator()->orderBudget()->facade(),
             );
         };
 
@@ -53,7 +64,7 @@ class CompanyBusinessUnitOrderBudgetDependencyProvider extends AbstractBundleDep
     {
         $container[static::FACADE_PERMISSION] = static function (Container $container) {
             return new CompanyBusinessUnitOrderBudgetToPermissionFacadeBridge(
-                $container->getLocator()->permission()->facade()
+                $container->getLocator()->permission()->facade(),
             );
         };
 

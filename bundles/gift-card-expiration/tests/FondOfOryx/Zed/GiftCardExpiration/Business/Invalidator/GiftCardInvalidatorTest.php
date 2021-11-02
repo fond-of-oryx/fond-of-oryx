@@ -11,12 +11,12 @@ use FondOfOryx\Zed\GiftCardExpiration\Persistence\GiftCardExpirationEntityManage
 class GiftCardInvalidatorTest extends Unit
 {
     /**
-     * @var \FondOfOryx\Zed\GiftCardExpiration\GiftCardExpirationConfig|mixed|\PHPUnit\Framework\MockObject\MockObject
+     * @var \FondOfOryx\Zed\GiftCardExpiration\GiftCardExpirationConfig|\PHPUnit\Framework\MockObject\MockObject|mixed
      */
     protected $configMock;
 
     /**
-     * @var \FondOfOryx\Zed\GiftCardExpiration\Persistence\GiftCardExpirationEntityManagerInterface|mixed|\PHPUnit\Framework\MockObject\MockObject
+     * @var \FondOfOryx\Zed\GiftCardExpiration\Persistence\GiftCardExpirationEntityManagerInterface|\PHPUnit\Framework\MockObject\MockObject|mixed
      */
     protected $entityManagerMock;
 
@@ -42,7 +42,7 @@ class GiftCardInvalidatorTest extends Unit
 
         $this->giftCardInvalidator = new GiftCardInvalidator(
             $this->entityManagerMock,
-            $this->configMock
+            $this->configMock,
         );
     }
 
@@ -61,12 +61,12 @@ class GiftCardInvalidatorTest extends Unit
                 static::callback(static function (DateTime $createdAt) {
                     $expectedCreatedAt = new DateTime();
                     $expectedCreatedAt->modify(
-                        sprintf('-%s days', GiftCardExpirationConstants::EXPIRATION_PERIOD_DEFAULT)
+                        sprintf('-%s days', GiftCardExpirationConstants::EXPIRATION_PERIOD_DEFAULT),
                     );
                     $expectedCreatedAt->setTime(0, 0);
 
                     return $createdAt == $expectedCreatedAt;
-                })
+                }),
             );
 
         $this->giftCardInvalidator->invalidate();

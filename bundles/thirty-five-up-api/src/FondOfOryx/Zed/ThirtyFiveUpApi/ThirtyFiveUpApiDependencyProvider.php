@@ -14,9 +14,24 @@ use Spryker\Zed\Kernel\Container;
 
 class ThirtyFiveUpApiDependencyProvider extends AbstractBundleDependencyProvider
 {
+    /**
+     * @var string
+     */
     public const QUERY_CONTAINER_API = '35UP:QUERY_CONTAINER_API';
+
+    /**
+     * @var string
+     */
     public const QUERY_BUILDER_CONTAINER_API = '35UP:QUERY_BUILDER_CONTAINER_API';
+
+    /**
+     * @var string
+     */
     public const FACADE_THIRTY_FIVE_UP = '35UP:FACADE_THIRTY_FIVE_UP';
+
+    /**
+     * @var string
+     */
     public const QUERY_THIRTY_FIVE_UP_ORDER = '35UP:QUERY_THIRTY_FIVE_UP_ORDER';
 
     /**

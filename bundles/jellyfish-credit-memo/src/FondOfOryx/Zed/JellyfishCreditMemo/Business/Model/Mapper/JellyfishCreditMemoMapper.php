@@ -90,9 +90,9 @@ class JellyfishCreditMemoMapper implements JellyfishCreditMemoMapperInterface
     }
 
     /**
-     * @param \ArrayObject|\Generated\Shared\Transfer\ItemTransfer[] $items
+     * @param \ArrayObject<\Generated\Shared\Transfer\ItemTransfer> $items
      *
-     * @return \ArrayObject|\Generated\Shared\Transfer\JellyfishCreditMemoItemTransfer[]
+     * @return \ArrayObject<\Generated\Shared\Transfer\JellyfishCreditMemoItemTransfer>
      */
     protected function getJellyfishCreditMemoItems(ArrayObject $items): ArrayObject
     {

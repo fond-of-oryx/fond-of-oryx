@@ -26,7 +26,7 @@ class BlacklistedLocalesProductPageDataLoaderPluginTest extends Unit
     protected $productPageLoadTransferMock;
 
     /**
-     * @var \Generated\Shared\Transfer\ProductPayloadTransfer[]|\PHPUnit\Framework\MockObject\MockObject[]
+     * @var array<\PHPUnit\Framework\MockObject\MockObject>|array<\Generated\Shared\Transfer\ProductPayloadTransfer>
      */
     protected $productPayloadTransferMocks;
 
@@ -111,8 +111,8 @@ class BlacklistedLocalesProductPageDataLoaderPluginTest extends Unit
         static::assertEquals(
             $this->productPageLoadTransferMock,
             $this->blacklistedLocalesProductPageDataLoaderPlugin->expandProductPageDataTransfer(
-                $this->productPageLoadTransferMock
-            )
+                $this->productPageLoadTransferMock,
+            ),
         );
     }
 }

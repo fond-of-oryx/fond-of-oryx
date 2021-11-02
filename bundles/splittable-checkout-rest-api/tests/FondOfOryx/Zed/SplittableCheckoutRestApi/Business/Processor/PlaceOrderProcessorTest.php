@@ -70,7 +70,7 @@ class PlaceOrderProcessorTest extends Unit
 
         $this->placeOrderProcessor = new PlaceOrderProcessor(
             $this->quoteReaderMock,
-            $this->splittableCheckoutFacadeMock
+            $this->splittableCheckoutFacadeMock,
         );
     }
 
@@ -104,12 +104,12 @@ class PlaceOrderProcessorTest extends Unit
 
         static::assertNotEquals(
             null,
-            $restSplittableCheckoutResponseTransfer->getSplittableCheckout()
+            $restSplittableCheckoutResponseTransfer->getSplittableCheckout(),
         );
 
         static::assertEquals(
             $orderReferences,
-            $restSplittableCheckoutResponseTransfer->getSplittableCheckout()->getOrderReferences()
+            $restSplittableCheckoutResponseTransfer->getSplittableCheckout()->getOrderReferences(),
         );
     }
 }

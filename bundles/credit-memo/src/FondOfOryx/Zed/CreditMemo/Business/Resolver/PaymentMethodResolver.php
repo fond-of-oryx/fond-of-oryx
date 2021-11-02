@@ -53,7 +53,7 @@ class PaymentMethodResolver implements ResolverInterface
 
         throw new SalesPaymentMethodTypeNotFoundException(sprintf(
             'Sales payment method type not found for order with id %s',
-            $idSalesOrder
+            $idSalesOrder,
         ));
     }
 }

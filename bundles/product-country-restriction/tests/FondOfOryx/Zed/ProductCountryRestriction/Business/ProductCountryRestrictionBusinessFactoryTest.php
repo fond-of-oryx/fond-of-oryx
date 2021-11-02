@@ -52,7 +52,7 @@ class ProductCountryRestrictionBusinessFactoryTest extends Unit
     {
         static::assertInstanceOf(
             ProductAbstractExpander::class,
-            $this->productCountryRestrictionBusinessFactory->createProductAbstractExpander()
+            $this->productCountryRestrictionBusinessFactory->createProductAbstractExpander(),
         );
     }
 
@@ -63,7 +63,7 @@ class ProductCountryRestrictionBusinessFactoryTest extends Unit
     {
         static::assertInstanceOf(
             ProductAbstractCountryRestrictionsPersister::class,
-            $this->productCountryRestrictionBusinessFactory->createProductAbstractCountryRestrictionsPersister()
+            $this->productCountryRestrictionBusinessFactory->createProductAbstractCountryRestrictionsPersister(),
         );
     }
 }

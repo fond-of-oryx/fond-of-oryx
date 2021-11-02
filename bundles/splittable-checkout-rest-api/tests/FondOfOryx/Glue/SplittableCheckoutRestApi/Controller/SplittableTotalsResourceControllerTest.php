@@ -111,8 +111,8 @@ class SplittableTotalsResourceControllerTest extends Unit
             $this->restResponseMock,
             $this->splittableTotalsResourceController->postAction(
                 $this->restRequestMock,
-                $this->restSplittableCheckoutRequestAttributesTransferMock
-            )
+                $this->restSplittableCheckoutRequestAttributesTransferMock,
+            ),
         );
     }
 }

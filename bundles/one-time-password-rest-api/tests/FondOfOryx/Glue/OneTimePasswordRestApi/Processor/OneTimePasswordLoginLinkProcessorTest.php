@@ -24,22 +24,22 @@ class OneTimePasswordLoginLinkProcessorTest extends Unit
     protected $restResourceBuilderMock;
 
     /**
-     * @var \FondOfOryx\Client\OneTimePasswordRestApi\OneTimePasswordRestApiClientInterface|mixed|\PHPUnit\Framework\MockObject\MockObject
+     * @var \FondOfOryx\Client\OneTimePasswordRestApi\OneTimePasswordRestApiClientInterface|\PHPUnit\Framework\MockObject\MockObject|mixed
      */
     protected $oneTimePasswordRestApiClientMock;
 
     /**
-     * @var mixed|\PHPUnit\Framework\MockObject\MockObject|\Spryker\Glue\GlueApplication\Rest\Request\Data\RestRequestInterface
+     * @var \PHPUnit\Framework\MockObject\MockObject|\Spryker\Glue\GlueApplication\Rest\Request\Data\RestRequestInterface|mixed
      */
     protected $restRequestMock;
 
     /**
-     * @var mixed|\PHPUnit\Framework\MockObject\MockObject|\Spryker\Glue\GlueApplication\Rest\JsonApi\RestResponseInterface
+     * @var \PHPUnit\Framework\MockObject\MockObject|\Spryker\Glue\GlueApplication\Rest\JsonApi\RestResponseInterface|mixed
      */
     protected $restResponseMock;
 
     /**
-     * @var \Generated\Shared\Transfer\RestOneTimePasswordLoginLinkRequestAttributesTransfer|mixed|\PHPUnit\Framework\MockObject\MockObject
+     * @var \Generated\Shared\Transfer\RestOneTimePasswordLoginLinkRequestAttributesTransfer|\PHPUnit\Framework\MockObject\MockObject|mixed
      */
     protected $restOneTimePasswordLoginLinkRequestAttributesTransferMock;
 
@@ -49,7 +49,7 @@ class OneTimePasswordLoginLinkProcessorTest extends Unit
     protected $email;
 
     /**
-     * @var \Generated\Shared\Transfer\OneTimePasswordResponseTransfer|mixed|\PHPUnit\Framework\MockObject\MockObject
+     * @var \Generated\Shared\Transfer\OneTimePasswordResponseTransfer|\PHPUnit\Framework\MockObject\MockObject|mixed
      */
     protected $restOneTimePasswordResponseTransferMock;
 
@@ -86,7 +86,7 @@ class OneTimePasswordLoginLinkProcessorTest extends Unit
 
         $this->oneTimePasswordLoginLinkProcessor = new OneTimePasswordLoginLinkProcessor(
             $this->restResourceBuilderMock,
-            $this->oneTimePasswordRestApiClientMock
+            $this->oneTimePasswordRestApiClientMock,
         );
     }
 
@@ -116,8 +116,8 @@ class OneTimePasswordLoginLinkProcessorTest extends Unit
             $this->restResponseMock,
             $this->oneTimePasswordLoginLinkProcessor->requestOneTimePasswordEmail(
                 $this->restRequestMock,
-                $this->restOneTimePasswordLoginLinkRequestAttributesTransferMock
-            )
+                $this->restOneTimePasswordLoginLinkRequestAttributesTransferMock,
+            ),
         );
     }
 
@@ -142,8 +142,8 @@ class OneTimePasswordLoginLinkProcessorTest extends Unit
             $this->restResponseMock,
             $this->oneTimePasswordLoginLinkProcessor->requestOneTimePasswordEmail(
                 $this->restRequestMock,
-                $this->restOneTimePasswordLoginLinkRequestAttributesTransferMock
-            )
+                $this->restOneTimePasswordLoginLinkRequestAttributesTransferMock,
+            ),
         );
     }
 }

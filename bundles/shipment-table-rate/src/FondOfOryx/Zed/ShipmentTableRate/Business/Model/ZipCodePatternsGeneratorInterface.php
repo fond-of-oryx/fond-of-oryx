@@ -7,7 +7,7 @@ interface ZipCodePatternsGeneratorInterface
     /**
      * @param string $zipCode
      *
-     * @return string[]
+     * @return array<string>
      */
     public function generateFromZipCode(string $zipCode): array;
 }

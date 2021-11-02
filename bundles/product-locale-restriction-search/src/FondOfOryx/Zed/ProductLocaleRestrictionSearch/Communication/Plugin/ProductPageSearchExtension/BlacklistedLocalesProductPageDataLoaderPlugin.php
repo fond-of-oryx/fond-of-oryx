@@ -32,10 +32,10 @@ class BlacklistedLocalesProductPageDataLoaderPlugin extends AbstractPlugin imple
     }
 
     /**
-     * @param \Generated\Shared\Transfer\ProductPayloadTransfer[] $payloadTransfers
+     * @param array<\Generated\Shared\Transfer\ProductPayloadTransfer> $payloadTransfers
      * @param array $blacklistedLocaleIds
      *
-     * @return \Generated\Shared\Transfer\ProductPayloadTransfer[]
+     * @return array<\Generated\Shared\Transfer\ProductPayloadTransfer>
      */
     protected function updatePayloadTransfers(array $payloadTransfers, array $blacklistedLocaleIds): array
     {

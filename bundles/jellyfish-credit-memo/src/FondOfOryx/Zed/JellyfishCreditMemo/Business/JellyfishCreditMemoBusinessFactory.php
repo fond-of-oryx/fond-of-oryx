@@ -32,7 +32,7 @@ class JellyfishCreditMemoBusinessFactory extends AbstractBusinessFactory
             $this->getRepository(),
             $this->getConfig(),
             $this->getEntityManager(),
-            $this->createCreditMemoAdapter()
+            $this->createCreditMemoAdapter(),
         );
     }
 
@@ -44,7 +44,7 @@ class JellyfishCreditMemoBusinessFactory extends AbstractBusinessFactory
         return new CreditMemoAdapter(
             $this->getUtilEncodingService(),
             $this->createHttpClient(),
-            $this->getConfig()
+            $this->getConfig(),
         );
     }
 

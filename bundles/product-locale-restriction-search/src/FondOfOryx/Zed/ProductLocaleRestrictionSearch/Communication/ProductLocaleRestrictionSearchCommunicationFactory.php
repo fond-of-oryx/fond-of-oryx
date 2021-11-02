@@ -14,7 +14,7 @@ class ProductLocaleRestrictionSearchCommunicationFactory extends AbstractCommuni
     public function getProductLocaleRestrictionFacade(): ProductLocaleRestrictionSearchToProductLocaleRestrictionFacadeInterface
     {
         return $this->getProvidedDependency(
-            ProductLocaleRestrictionSearchDependencyProvider::FACADE_PRODUCT_LOCALE_RESTRICTION
+            ProductLocaleRestrictionSearchDependencyProvider::FACADE_PRODUCT_LOCALE_RESTRICTION,
         );
     }
 }

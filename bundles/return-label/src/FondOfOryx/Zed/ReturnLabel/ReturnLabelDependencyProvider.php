@@ -11,10 +11,24 @@ use Spryker\Zed\Kernel\Container;
 
 class ReturnLabelDependencyProvider extends AbstractBundleDependencyProvider
 {
+    /**
+     * @var string
+     */
     public const PROPEL_QUERY_COMPANY_UNIT_ADDRESS = 'PROPEL_QUERY_COMPANY_UNIT_ADDRESS';
+
+    /**
+     * @var string
+     */
     public const PROPEL_QUERY_COMPANY_BUSINESS_UNIT = 'PROPEL_QUERY_COMPANY_BUSINESS_UNIT';
+
+    /**
+     * @var string
+     */
     public const PROPEL_QUERY_COMPANY = 'PROPEL_QUERY_COMPANY';
 
+    /**
+     * @var string
+     */
     public const SERVICE_UTIL_ENCODING = 'SERVICE_UTIL_ENCODING';
 
     /**
@@ -54,7 +68,7 @@ class ReturnLabelDependencyProvider extends AbstractBundleDependencyProvider
     {
         $container->set(static::SERVICE_UTIL_ENCODING, static function (Container $container) {
             return new ReturnLabelToUtilEncodingServiceBridge(
-                $container->getLocator()->utilEncoding()->service()
+                $container->getLocator()->utilEncoding()->service(),
             );
         });
 
@@ -72,7 +86,7 @@ class ReturnLabelDependencyProvider extends AbstractBundleDependencyProvider
             static::PROPEL_QUERY_COMPANY_UNIT_ADDRESS,
             static function () {
                 return SpyCompanyUnitAddressQuery::create();
-            }
+            },
         );
 
         return $container;
@@ -89,7 +103,7 @@ class ReturnLabelDependencyProvider extends AbstractBundleDependencyProvider
             static::PROPEL_QUERY_COMPANY_BUSINESS_UNIT,
             static function () {
                 return SpyCompanyBusinessUnitQuery::create();
-            }
+            },
         );
 
         return $container;
@@ -106,7 +120,7 @@ class ReturnLabelDependencyProvider extends AbstractBundleDependencyProvider
             static::PROPEL_QUERY_COMPANY,
             static function () {
                 return SpyCompanyQuery::create();
-            }
+            },
         );
 
         return $container;

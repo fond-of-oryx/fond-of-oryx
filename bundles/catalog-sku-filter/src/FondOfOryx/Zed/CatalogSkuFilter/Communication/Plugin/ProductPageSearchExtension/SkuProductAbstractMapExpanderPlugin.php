@@ -10,6 +10,9 @@ use Spryker\Zed\ProductPageSearchExtension\Dependency\Plugin\ProductAbstractMapE
 
 class SkuProductAbstractMapExpanderPlugin extends AbstractPlugin implements ProductAbstractMapExpanderPluginInterface
 {
+    /**
+     * @var string
+     */
     public const KEY_SKU = 'sku';
 
     /**

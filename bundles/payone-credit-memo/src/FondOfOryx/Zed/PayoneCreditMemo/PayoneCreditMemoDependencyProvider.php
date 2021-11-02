@@ -12,10 +12,29 @@ use Spryker\Zed\Kernel\Container;
 
 class PayoneCreditMemoDependencyProvider extends AbstractBundleDependencyProvider
 {
+    /**
+     * @var string
+     */
     public const FACADE_CREDIT_MEMO = 'FACADE_CREDIT_MEMO';
+
+    /**
+     * @var string
+     */
     public const FACADE_REFUND = 'FACADE_REFUND';
+
+    /**
+     * @var string
+     */
     public const FACADE_PAYONE = 'FACADE_PAYONE';
+
+    /**
+     * @var string
+     */
     public const FACADE_SALES = 'FACADE_SALES';
+
+    /**
+     * @var string
+     */
     public const FACADE_OMS = 'FACADE_OMS';
 
     /**

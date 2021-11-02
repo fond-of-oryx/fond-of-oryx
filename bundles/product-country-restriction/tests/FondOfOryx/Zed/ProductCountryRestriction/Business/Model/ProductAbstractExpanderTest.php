@@ -21,7 +21,7 @@ class ProductAbstractExpanderTest extends Unit
     protected $productAbstractTransferMock;
 
     /**
-     * @var \Generated\Shared\Transfer\CountryTransfer[]|\PHPUnit\Framework\MockObject\MockObject[]
+     * @var array<\PHPUnit\Framework\MockObject\MockObject>|array<\Generated\Shared\Transfer\CountryTransfer>
      */
     protected $countryTransferMocks;
 
@@ -82,8 +82,8 @@ class ProductAbstractExpanderTest extends Unit
                     static function (ArrayObject $blacklistedCountries) use ($idCountry) {
                         return $blacklistedCountries->count() === 1
                             && $blacklistedCountries->offsetGet(0)->getIdCountry() === $idCountry;
-                    }
-                )
+                    },
+                ),
             )->willReturn($this->productAbstractTransferMock);
 
         $this->productAbstractTransferMock->expects(static::atLeastOnce())
@@ -92,7 +92,7 @@ class ProductAbstractExpanderTest extends Unit
 
         static::assertEquals(
             $this->productAbstractTransferMock,
-            $this->productAbstractExpander->expand($this->productAbstractTransferMock)
+            $this->productAbstractExpander->expand($this->productAbstractTransferMock),
         );
     }
 
@@ -118,7 +118,7 @@ class ProductAbstractExpanderTest extends Unit
 
         static::assertEquals(
             $this->productAbstractTransferMock,
-            $this->productAbstractExpander->expand($this->productAbstractTransferMock)
+            $this->productAbstractExpander->expand($this->productAbstractTransferMock),
         );
     }
 }

@@ -11,7 +11,7 @@ interface OrderBudgetMapperInterface
     /**
      * @param \Propel\Runtime\Collection\ObjectCollection $entityCollection
      *
-     * @return \Generated\Shared\Transfer\OrderBudgetTransfer[]
+     * @return array<\Generated\Shared\Transfer\OrderBudgetTransfer>
      */
     public function mapEntityCollectionToTransfers(
         ObjectCollection $entityCollection

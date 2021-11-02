@@ -8,6 +8,9 @@ use Spryker\Zed\Kernel\Container;
 
 class ProductLocaleRestrictionSearchDependencyProvider extends AbstractBundleDependencyProvider
 {
+    /**
+     * @var string
+     */
     public const FACADE_PRODUCT_LOCALE_RESTRICTION = 'FACADE_PRODUCT_LOCALE_RESTRICTION';
 
     /**
@@ -33,7 +36,7 @@ class ProductLocaleRestrictionSearchDependencyProvider extends AbstractBundleDep
     {
         $container[static::FACADE_PRODUCT_LOCALE_RESTRICTION] = static function (Container $container) {
             return new ProductLocaleRestrictionSearchToProductLocaleRestrictionFacadeBridge(
-                $container->getLocator()->productLocaleRestriction()->facade()
+                $container->getLocator()->productLocaleRestriction()->facade(),
             );
         };
 

@@ -10,7 +10,14 @@ use Generated\Shared\Transfer\MessageTransfer;
 
 class CartChecker implements CartCheckerInterface
 {
+    /**
+     * @var string
+     */
     protected const MESSAGE_PARAM_SKU = '%sku%';
+
+    /**
+     * @var string
+     */
     protected const MESSAGE_INFO_RESTRICTED_PRODUCT_REMOVED = 'product-cart.info.restricted-product.removed';
 
     /**
@@ -63,7 +70,7 @@ class CartChecker implements CartCheckerInterface
     }
 
     /**
-     * @param \Generated\Shared\Transfer\ItemTransfer[] $itemTransfers
+     * @param array<\Generated\Shared\Transfer\ItemTransfer> $itemTransfers
      *
      * @return array
      */
@@ -78,7 +85,7 @@ class CartChecker implements CartCheckerInterface
         }
 
         return $this->productLocaleRestrictionFacade->getBlacklistedLocalesByProductConcreteSkus(
-            $productConcreteSkus
+            $productConcreteSkus,
         );
     }
 

@@ -57,8 +57,8 @@ class OneTimePasswordDependencyProviderTest extends Unit
         $this->assertSame(
             $this->containerMock,
             $this->oneTimePasswordDependencyProvider->provideBusinessLayerDependencies(
-                $this->containerMock
-            )
+                $this->containerMock,
+            ),
         );
     }
 
@@ -70,8 +70,8 @@ class OneTimePasswordDependencyProviderTest extends Unit
         $this->assertSame(
             $this->containerMock,
             $this->oneTimePasswordDependencyProvider->providePersistenceLayerDependencies(
-                $this->containerMock
-            )
+                $this->containerMock,
+            ),
         );
     }
 }

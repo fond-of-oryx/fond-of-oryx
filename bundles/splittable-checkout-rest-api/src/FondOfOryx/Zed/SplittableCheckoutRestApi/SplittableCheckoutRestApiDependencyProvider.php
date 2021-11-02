@@ -10,10 +10,24 @@ use Spryker\Zed\Kernel\Container;
 
 class SplittableCheckoutRestApiDependencyProvider extends AbstractBundleDependencyProvider
 {
+    /**
+     * @var string
+     */
     public const FACADE_QUOTE = 'FACADE_QUOTE';
+
+    /**
+     * @var string
+     */
     public const FACADE_SPLITTABLE_CHECKOUT = 'FACADE_SPLITTABLE_CHECKOUT';
+
+    /**
+     * @var string
+     */
     public const FACADE_SPLITTABLE_TOTALS = 'FACADE_SPLITTABLE_TOTALS';
 
+    /**
+     * @var string
+     */
     public const PLUGINS_QUOTE_EXPANDER = 'PLUGINS_QUOTE_EXPANDER';
 
     /**
@@ -41,7 +55,7 @@ class SplittableCheckoutRestApiDependencyProvider extends AbstractBundleDependen
     {
         $container[static::FACADE_QUOTE] = static function (Container $container) {
             return new SplittableCheckoutRestApiToQuoteFacadeBridge(
-                $container->getLocator()->quote()->facade()
+                $container->getLocator()->quote()->facade(),
             );
         };
 
@@ -57,7 +71,7 @@ class SplittableCheckoutRestApiDependencyProvider extends AbstractBundleDependen
     {
         $container[static::FACADE_SPLITTABLE_CHECKOUT] = static function (Container $container) {
             return new SplittableCheckoutRestApiToSplittableCheckoutFacadeBridge(
-                $container->getLocator()->splittableCheckout()->facade()
+                $container->getLocator()->splittableCheckout()->facade(),
             );
         };
 
@@ -73,7 +87,7 @@ class SplittableCheckoutRestApiDependencyProvider extends AbstractBundleDependen
     {
         $container[static::FACADE_SPLITTABLE_TOTALS] = static function (Container $container) {
             return new SplittableCheckoutRestApiToSplittableTotalsFacadeBridge(
-                $container->getLocator()->splittableTotals()->facade()
+                $container->getLocator()->splittableTotals()->facade(),
             );
         };
 
@@ -97,7 +111,7 @@ class SplittableCheckoutRestApiDependencyProvider extends AbstractBundleDependen
     }
 
     /**
-     * @return \FondOfOryx\Zed\SplittableCheckoutRestApiExtension\Dependency\Plugin\QuoteExpanderPluginInterface[]
+     * @return array<\FondOfOryx\Zed\SplittableCheckoutRestApiExtension\Dependency\Plugin\QuoteExpanderPluginInterface>
      */
     protected function getQuoteExpanderPlugins(): array
     {

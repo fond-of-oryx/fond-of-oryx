@@ -11,9 +11,24 @@ use Spryker\Zed\Kernel\Container;
 
 class FeedDependencyProvider extends AbstractBundleDependencyProvider
 {
+    /**
+     * @var string
+     */
     public const PROPEL_AVAILABILITY_QUERY = 'PROPEL_AVAILABILITY_QUERY';
+
+    /**
+     * @var string
+     */
     public const PROPEL_AVAILABILITY_ALERT_SUBSCRIPTION_QUERY = 'PROPEL_AVAILABILITY_ALERT_SUBSCRIPTION_QUERY';
+
+    /**
+     * @var string
+     */
     public const PRODUCT_FACADE = 'PRODUCT_FACADE';
+
+    /**
+     * @var string
+     */
     public const FACADE_STORE = 'FACADE_STORE';
 
     /**

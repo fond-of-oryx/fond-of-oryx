@@ -14,7 +14,7 @@ class ProductLocaleRestrictionStorageToEventBehaviorFacadeBridgeTest extends Uni
     protected $eventBehaviorFacadeMock;
 
     /**
-     * @var \Generated\Shared\Transfer\EventEntityTransfer[]|\PHPUnit\Framework\MockObject\MockObject[]
+     * @var array<\PHPUnit\Framework\MockObject\MockObject>|array<\Generated\Shared\Transfer\EventEntityTransfer>
      */
     protected $eventEntityTransferMocks;
 
@@ -41,7 +41,7 @@ class ProductLocaleRestrictionStorageToEventBehaviorFacadeBridgeTest extends Uni
         ];
 
         $this->productLocaleRestrictionStorageToEventBehaviorFacadeBridge = new ProductLocaleRestrictionStorageToEventBehaviorFacadeBridge(
-            $this->eventBehaviorFacadeMock
+            $this->eventBehaviorFacadeMock,
         );
     }
 
@@ -60,8 +60,8 @@ class ProductLocaleRestrictionStorageToEventBehaviorFacadeBridgeTest extends Uni
         static::assertEquals(
             $eventTransferIds,
             $this->productLocaleRestrictionStorageToEventBehaviorFacadeBridge->getEventTransferIds(
-                $this->eventEntityTransferMocks
-            )
+                $this->eventEntityTransferMocks,
+            ),
         );
     }
 
@@ -82,8 +82,8 @@ class ProductLocaleRestrictionStorageToEventBehaviorFacadeBridgeTest extends Uni
             $eventTransferForeignKeys,
             $this->productLocaleRestrictionStorageToEventBehaviorFacadeBridge->getEventTransferForeignKeys(
                 $this->eventEntityTransferMocks,
-                $foreignKeyColumnName
-            )
+                $foreignKeyColumnName,
+            ),
         );
     }
 }

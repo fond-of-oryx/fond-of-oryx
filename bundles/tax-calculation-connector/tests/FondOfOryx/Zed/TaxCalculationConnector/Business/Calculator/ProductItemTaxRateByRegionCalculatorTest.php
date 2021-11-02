@@ -42,7 +42,7 @@ class ProductItemTaxRateByRegionCalculatorTest extends Unit
                 [
                 'getTaxSetByIdProductAbstractAndCountryIso2CodesAndIdRegions',
                 'getTaxSetByIdProductAbstractAndCountryIso2Codes',
-                ]
+                ],
             )
             ->disableOriginalConstructor()
             ->getMock();
@@ -63,7 +63,7 @@ class ProductItemTaxRateByRegionCalculatorTest extends Unit
             (new TaxCalculationConnectorProductTaxSetTransfer())
                 ->setCountryIso2Code($country)
                 ->setIdAbstractProduct($idProductAbstract)
-                ->setMaxTaxRate(19.00)
+                ->setMaxTaxRate(19.00),
         );
 
         $this->repositoryMock
@@ -93,7 +93,7 @@ class ProductItemTaxRateByRegionCalculatorTest extends Unit
             (new TaxCalculationConnectorProductTaxSetTransfer())
                 ->setCountryIso2Code($country)
                 ->setIdAbstractProduct($idProductAbstract)
-                ->setMaxTaxRate(16.00)
+                ->setMaxTaxRate(16.00),
         );
 
         $this->repositoryMock

@@ -20,7 +20,7 @@ class OrderBudgetBusinessFactoryTest extends Unit
     protected $configMock;
 
     /**
-     * @var mixed|\PHPUnit\Framework\MockObject\MockObject|\Spryker\Zed\Kernel\Container
+     * @var \PHPUnit\Framework\MockObject\MockObject|\Spryker\Zed\Kernel\Container|mixed
      */
     protected $containerMock;
 
@@ -95,7 +95,7 @@ class OrderBudgetBusinessFactoryTest extends Unit
 
         static::assertInstanceOf(
             OrderBudgetResetter::class,
-            $this->businessFactory->createOrderBudgetResetter()
+            $this->businessFactory->createOrderBudgetResetter(),
         );
     }
 
@@ -106,7 +106,7 @@ class OrderBudgetBusinessFactoryTest extends Unit
     {
         static::assertInstanceOf(
             OrderBudgetWriter::class,
-            $this->businessFactory->createOrderBudgetWriter()
+            $this->businessFactory->createOrderBudgetWriter(),
         );
     }
 }

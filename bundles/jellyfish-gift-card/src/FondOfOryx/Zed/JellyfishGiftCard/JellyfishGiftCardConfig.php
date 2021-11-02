@@ -38,7 +38,7 @@ class JellyfishGiftCardConfig extends AbstractBundleConfig
     {
         return $this->get(
             JellyfishGiftCardConstants::FALLBACK_LOCALE_NAME,
-            JellyfishGiftCardConstants::FALLBACK_LOCALE_NAME_DEFAULT
+            JellyfishGiftCardConstants::FALLBACK_LOCALE_NAME_DEFAULT,
         );
     }
 }

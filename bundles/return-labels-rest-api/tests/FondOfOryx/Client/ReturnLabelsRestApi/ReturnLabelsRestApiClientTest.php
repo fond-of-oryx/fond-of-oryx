@@ -76,7 +76,7 @@ class ReturnLabelsRestApiClientTest extends Unit
 
         static::assertInstanceOf(
             RestReturnLabelResponseTransfer::class,
-            $response
+            $response,
         );
     }
 }

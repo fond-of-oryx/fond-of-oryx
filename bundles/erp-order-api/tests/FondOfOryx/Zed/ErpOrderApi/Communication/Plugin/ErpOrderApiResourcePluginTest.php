@@ -86,7 +86,7 @@ class ErpOrderApiResourcePluginTest extends Unit
     {
         static::assertSame(
             ErpOrderApiConfig::RESOURCE_ERP_ORDERS,
-            $this->erpOrderApiResourcePlugin->getResourceName()
+            $this->erpOrderApiResourcePlugin->getResourceName(),
         );
     }
 
@@ -103,8 +103,8 @@ class ErpOrderApiResourcePluginTest extends Unit
         static::assertEquals(
             $this->apiItemTransferMock,
             $this->erpOrderApiResourcePlugin->add(
-                $this->apiDataTransferMock
-            )
+                $this->apiDataTransferMock,
+            ),
         );
     }
 
@@ -121,8 +121,8 @@ class ErpOrderApiResourcePluginTest extends Unit
         static::assertEquals(
             $this->apiItemTransferMock,
             $this->erpOrderApiResourcePlugin->get(
-                $this->id
-            )
+                $this->id,
+            ),
         );
     }
 
@@ -140,8 +140,8 @@ class ErpOrderApiResourcePluginTest extends Unit
             $this->apiItemTransferMock,
             $this->erpOrderApiResourcePlugin->update(
                 $this->id,
-                $this->apiDataTransferMock
-            )
+                $this->apiDataTransferMock,
+            ),
         );
     }
 
@@ -158,8 +158,8 @@ class ErpOrderApiResourcePluginTest extends Unit
         static::assertEquals(
             $this->apiItemTransferMock,
             $this->erpOrderApiResourcePlugin->remove(
-                $this->id
-            )
+                $this->id,
+            ),
         );
     }
 
@@ -176,8 +176,8 @@ class ErpOrderApiResourcePluginTest extends Unit
         static::assertEquals(
             $this->apiCollectionTransferMock,
             $this->erpOrderApiResourcePlugin->find(
-                $this->apiRequestTransferMock
-            )
+                $this->apiRequestTransferMock,
+            ),
         );
     }
 }

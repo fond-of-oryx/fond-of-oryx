@@ -24,7 +24,7 @@ class CustomerStatisticBusinessFactory extends AbstractBusinessFactory
     protected function createCustomerStatisticWriter(): CustomerStatisticWriterInterface
     {
         return new CustomerStatisticWriter(
-            $this->getEntityManager()
+            $this->getEntityManager(),
         );
     }
 
@@ -34,7 +34,7 @@ class CustomerStatisticBusinessFactory extends AbstractBusinessFactory
     protected function createCustomerStatisticReader(): CustomerStatisticReaderInterface
     {
         return new CustomerStatisticReader(
-            $this->getRepository()
+            $this->getRepository(),
         );
     }
 
@@ -45,7 +45,7 @@ class CustomerStatisticBusinessFactory extends AbstractBusinessFactory
     {
         return new LoginCountIncrementer(
             $this->createCustomerStatisticReader(),
-            $this->createCustomerStatisticWriter()
+            $this->createCustomerStatisticWriter(),
         );
     }
 
@@ -55,7 +55,7 @@ class CustomerStatisticBusinessFactory extends AbstractBusinessFactory
     public function createCustomerExpander(): CustomerExpanderInterface
     {
         return new CustomerExpander(
-            $this->createCustomerStatisticReader()
+            $this->createCustomerStatisticReader(),
         );
     }
 }

@@ -65,7 +65,7 @@ class GiftCardRestrictionBusinessFactoryTest extends Unit
     {
         static::assertInstanceOf(
             BlacklistedCountryDecisionRule::class,
-            $this->factory->createBlacklistedCountryDecisionRule()
+            $this->factory->createBlacklistedCountryDecisionRule(),
         );
     }
 
@@ -76,7 +76,7 @@ class GiftCardRestrictionBusinessFactoryTest extends Unit
     {
         static::assertInstanceOf(
             VoucherDiscountDecisionRule::class,
-            $this->factory->createVoucherDiscountDecisionRule()
+            $this->factory->createVoucherDiscountDecisionRule(),
         );
     }
 
@@ -97,7 +97,7 @@ class GiftCardRestrictionBusinessFactoryTest extends Unit
 
         static::assertInstanceOf(
             BlacklistedCartCodeTypeDecisionRule::class,
-            $this->factory->createBlacklistedCartCodeTypeDecisionRule()
+            $this->factory->createBlacklistedCartCodeTypeDecisionRule(),
         );
     }
 
@@ -118,7 +118,7 @@ class GiftCardRestrictionBusinessFactoryTest extends Unit
 
         static::assertInstanceOf(
             GiftCardRestrictionCalculator::class,
-            $this->factory->createGiftCardRestrictionCalculator()
+            $this->factory->createGiftCardRestrictionCalculator(),
         );
     }
 }

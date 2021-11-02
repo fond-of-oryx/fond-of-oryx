@@ -9,12 +9,12 @@ use Spryker\Glue\GlueApplication\Rest\Request\Data\RestRequestInterface;
 class CustomerReferenceFilterTest extends Unit
 {
     /**
-     * @var mixed|\PHPUnit\Framework\MockObject\MockObject|\Spryker\Glue\GlueApplication\Rest\Request\Data\RestRequestInterface
+     * @var \PHPUnit\Framework\MockObject\MockObject|\Spryker\Glue\GlueApplication\Rest\Request\Data\RestRequestInterface|mixed
      */
     protected $restRequestMock;
 
     /**
-     * @var \Generated\Shared\Transfer\RestUserTransfer|mixed|\PHPUnit\Framework\MockObject\MockObject
+     * @var \Generated\Shared\Transfer\RestUserTransfer|\PHPUnit\Framework\MockObject\MockObject|mixed
      */
     protected $restUserTransferMock;
 
@@ -58,7 +58,7 @@ class CustomerReferenceFilterTest extends Unit
 
         static::assertEquals(
             $customerReference,
-            $this->customerReferenceFilter->filterFromRestRequest($this->restRequestMock)
+            $this->customerReferenceFilter->filterFromRestRequest($this->restRequestMock),
         );
     }
 }

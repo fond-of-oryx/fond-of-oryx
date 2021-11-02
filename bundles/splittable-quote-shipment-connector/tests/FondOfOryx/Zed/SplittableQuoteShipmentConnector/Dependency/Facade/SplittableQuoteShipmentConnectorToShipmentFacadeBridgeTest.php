@@ -49,7 +49,7 @@ class SplittableQuoteShipmentConnectorToShipmentFacadeBridgeTest extends Unit
             ->getMock();
 
         $this->bridge = new SplittableQuoteShipmentConnectorToShipmentFacadeBridge(
-            $this->shipmentFacadeMock
+            $this->shipmentFacadeMock,
         );
     }
 
@@ -67,7 +67,7 @@ class SplittableQuoteShipmentConnectorToShipmentFacadeBridgeTest extends Unit
 
         static::assertEquals(
             $this->shipmentMethodTransferMock,
-            $this->bridge->findAvailableMethodById($idShipmentMethod, $this->quoteTransferMock)
+            $this->bridge->findAvailableMethodById($idShipmentMethod, $this->quoteTransferMock),
         );
     }
 }

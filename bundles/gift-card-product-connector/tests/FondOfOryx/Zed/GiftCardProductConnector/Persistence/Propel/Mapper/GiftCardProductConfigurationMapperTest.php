@@ -55,17 +55,17 @@ class GiftCardProductConfigurationMapperTest extends Unit
 
         $entityTransfer = $this->giftCardProductConfigurationMapper->mapEntityToTransfer(
             $this->spyGiftCardProductConfigurationMock,
-            $this->spyGiftCardProductConfigurationTransferMock
+            $this->spyGiftCardProductConfigurationTransferMock,
         );
 
         $this->assertEquals(
             $this->spyGiftCardProductConfigurationTransferMock,
-            $entityTransfer
+            $entityTransfer,
         );
 
         $this->assertInstanceOf(
             SpyGiftCardProductConfigurationEntityTransfer::class,
-            $entityTransfer
+            $entityTransfer,
         );
     }
 }

@@ -66,7 +66,7 @@ class AvailabilityAlertMigratorTest extends Unit
             $this->availabilityAlertFacadeMock,
             $this->repositoryMock,
             $this->entityManagerMock,
-            $this->loggerMock
+            $this->loggerMock,
         );
     }
 

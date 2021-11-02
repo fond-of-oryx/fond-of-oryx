@@ -82,7 +82,7 @@ class CustomerReaderTest extends Unit
 
         static::assertEquals(
             $this->customerTransferMock,
-            $this->reader->getByRestReturnLabelRequest($this->restReturnLabelRequestTransferMock)
+            $this->reader->getByRestReturnLabelRequest($this->restReturnLabelRequestTransferMock),
         );
     }
 

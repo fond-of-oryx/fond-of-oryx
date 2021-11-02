@@ -107,7 +107,7 @@ class CompanyBusinessUnitSearchRestApiRepository extends AbstractRepository impl
 
         $companyBusinessUnitQuery->orderBy(
             $columnMap->getFullyQualifiedName(),
-            $direction === 'desc' ? Criteria::DESC : Criteria::ASC
+            $direction === 'desc' ? Criteria::DESC : Criteria::ASC,
         );
 
         return $companyBusinessUnitQuery;

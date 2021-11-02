@@ -43,17 +43,17 @@ class OneTimePasswordBusinessFactoryTest extends Unit
     protected $oneTimePasswordConfigMock;
 
     /**
-     * @var \FondOfOryx\Zed\OneTimePassword\Dependency\Facade\OneTimePasswordToOauthFacadeInterface|mixed|\PHPUnit\Framework\MockObject\MockObject
+     * @var \FondOfOryx\Zed\OneTimePassword\Dependency\Facade\OneTimePasswordToOauthFacadeInterface|\PHPUnit\Framework\MockObject\MockObject|mixed
      */
     protected $oauthFacadeMock;
 
     /**
-     * @var \FondOfOryx\Zed\OneTimePassword\Dependency\Facade\OneTimePasswordToStoreFacadeInterface|mixed|\PHPUnit\Framework\MockObject\MockObject
+     * @var \FondOfOryx\Zed\OneTimePassword\Dependency\Facade\OneTimePasswordToStoreFacadeInterface|\PHPUnit\Framework\MockObject\MockObject|mixed
      */
     protected $storeFacadeMock;
 
     /**
-     * @var \FondOfOryx\Zed\OneTimePassword\Dependency\Facade\OneTimePasswordToLocaleFacadeInterface|mixed|\PHPUnit\Framework\MockObject\MockObject
+     * @var \FondOfOryx\Zed\OneTimePassword\Dependency\Facade\OneTimePasswordToLocaleFacadeInterface|\PHPUnit\Framework\MockObject\MockObject|mixed
      */
     protected $localeFacadeMock;
 
@@ -112,7 +112,7 @@ class OneTimePasswordBusinessFactoryTest extends Unit
 
         $this->assertInstanceOf(
             OneTimePasswordSenderInterface::class,
-            $this->oneTimePasswordBusinessFactory->createOneTimePasswordSender()
+            $this->oneTimePasswordBusinessFactory->createOneTimePasswordSender(),
         );
     }
 
@@ -123,7 +123,7 @@ class OneTimePasswordBusinessFactoryTest extends Unit
     {
         $this->assertInstanceOf(
             OneTimePasswordResetterInterface::class,
-            $this->oneTimePasswordBusinessFactory->createOneTimePasswordResetter()
+            $this->oneTimePasswordBusinessFactory->createOneTimePasswordResetter(),
         );
     }
 
@@ -141,12 +141,12 @@ class OneTimePasswordBusinessFactoryTest extends Unit
             ->willReturnOnConsecutiveCalls(
                 $this->oauthFacadeMock,
                 $this->storeFacadeMock,
-                $this->localeFacadeMock
+                $this->localeFacadeMock,
             );
 
         $this->assertInstanceOf(
             OneTimePasswordLinkGeneratorInterface::class,
-            $this->oneTimePasswordBusinessFactory->createOneTimePasswordLinkGenerator()
+            $this->oneTimePasswordBusinessFactory->createOneTimePasswordLinkGenerator(),
         );
     }
 }

@@ -77,7 +77,7 @@ class ShipmentTableRateDataImportFacadeTest extends Unit
 
         static::assertEquals(
             $this->dataImporterReportTransferMock,
-            $this->shipmentTableRateDataImportFacade->import($this->dataImporterConfigurationTransferMock)
+            $this->shipmentTableRateDataImportFacade->import($this->dataImporterConfigurationTransferMock),
         );
     }
 }

@@ -11,17 +11,17 @@ use Generated\Shared\Transfer\OrderBudgetTransfer;
 class OrderBudgetWriterTest extends Unit
 {
     /**
-     * @var \FondOfOryx\Zed\OrderBudget\Persistence\OrderBudgetEntityManagerInterface|mixed|\PHPUnit\Framework\MockObject\MockObject
+     * @var \FondOfOryx\Zed\OrderBudget\Persistence\OrderBudgetEntityManagerInterface|\PHPUnit\Framework\MockObject\MockObject|mixed
      */
     protected $entityManagerMock;
 
     /**
-     * @var \FondOfOryx\Zed\OrderBudget\OrderBudgetConfig|mixed|\PHPUnit\Framework\MockObject\MockObject
+     * @var \FondOfOryx\Zed\OrderBudget\OrderBudgetConfig|\PHPUnit\Framework\MockObject\MockObject|mixed
      */
     protected $configMock;
 
     /**
-     * @var \Generated\Shared\Transfer\OrderBudgetTransfer|mixed|\PHPUnit\Framework\MockObject\MockObject
+     * @var \Generated\Shared\Transfer\OrderBudgetTransfer|\PHPUnit\Framework\MockObject\MockObject|mixed
      */
     protected $orderBudgetTransferMock;
 
@@ -67,8 +67,8 @@ class OrderBudgetWriterTest extends Unit
                 static::callback(
                     static function (OrderBudgetTransfer $orderBudgetTransfer) {
                         return $orderBudgetTransfer->getBudget() === OrderBudgetConstants::INITIAL_BUDGET_DEFAULT;
-                    }
-                )
+                    },
+                ),
             )->willReturn($this->orderBudgetTransferMock);
 
         static::assertEquals($this->orderBudgetTransferMock, $this->orderBudgetWriter->create());

@@ -37,8 +37,8 @@ class OneTimePasswordEmailConnectorDependencyProviderTest extends Unit
         $this->assertSame(
             $this->containerMock,
             $this->oneTimePasswordEmailConnectorDependencyProvider->provideBusinessLayerDependencies(
-                $this->containerMock
-            )
+                $this->containerMock,
+            ),
         );
     }
 }

@@ -52,7 +52,7 @@ class CreditMemoWriter implements CreditMemoWriterInterface
             $creditMemoTransfer = $this->getTransactionHandler()->handleTransaction(
                 function () use ($creditMemoTransfer) {
                     return $this->executeCreateTransaction($creditMemoTransfer);
-                }
+                },
             );
 
             $creditMemoResponseTransfer->setIsSuccess(true)
@@ -84,7 +84,7 @@ class CreditMemoWriter implements CreditMemoWriterInterface
             $creditMemoTransfer = $this->getTransactionHandler()->handleTransaction(
                 function () use ($creditMemoTransfer) {
                     return $this->executeUpdateTransaction($creditMemoTransfer);
-                }
+                },
             );
 
             $creditMemoResponseTransfer->setIsSuccess(true)

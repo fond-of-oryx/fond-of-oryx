@@ -69,7 +69,7 @@ class ProductAbstractLocaleRestrictionsPersister implements ProductAbstractLocal
     {
         $this->entityManager->deleteProductAbstractLocaleRestrictions(
             $idProductAbstract,
-            $idLocales
+            $idLocales,
         );
     }
 

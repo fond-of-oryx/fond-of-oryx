@@ -9,7 +9,7 @@ interface AvailabilityAlertMigratorRepositoryInterface
     /**
      * @param \Generated\Shared\Transfer\AvailabilityAlertMigratorFilterTransfer $filterTransfer
      *
-     * @return \Generated\Shared\Transfer\AvailabilityAlertSubscriptionTransfer[]
+     * @return array<\Generated\Shared\Transfer\AvailabilityAlertSubscriptionTransfer>
      */
     public function getAllSubscriptions(AvailabilityAlertMigratorFilterTransfer $filterTransfer): array;
 

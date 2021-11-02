@@ -28,7 +28,7 @@ class QuoteValidatorTest extends Unit
     protected $quoteTransferMock;
 
     /**
-     * @var \Generated\Shared\Transfer\ItemTransfer[]|\PHPUnit\Framework\MockObject\MockObject[]
+     * @var array<\PHPUnit\Framework\MockObject\MockObject>|array<\Generated\Shared\Transfer\ItemTransfer>
      */
     protected $itemTransferMocks;
 
@@ -78,7 +78,7 @@ class QuoteValidatorTest extends Unit
             ->getMock();
 
         $this->quoteValidator = new QuoteValidator(
-            $this->productCountryRestrictionFacadeMock
+            $this->productCountryRestrictionFacadeMock,
         );
     }
 
@@ -117,8 +117,8 @@ class QuoteValidatorTest extends Unit
                             && $concreteSkus[0] === 'FOO-1'
                             && $concreteSkus[1] === 'FOO-2'
                             && $concreteSkus[2] === 'FOO-3';
-                    }
-                )
+                    },
+                ),
             )->willReturn($blacklistedCountries);
 
         $this->itemTransferMocks[0]->expects(static::atLeastOnce())
@@ -175,8 +175,8 @@ class QuoteValidatorTest extends Unit
                             && $concreteSkus[0] === 'FOO-1'
                             && $concreteSkus[1] === 'FOO-2'
                             && $concreteSkus[2] === 'FOO-3';
-                    }
-                )
+                    },
+                ),
             )->willReturn([]);
 
         $this->itemTransferMocks[0]->expects(static::never())

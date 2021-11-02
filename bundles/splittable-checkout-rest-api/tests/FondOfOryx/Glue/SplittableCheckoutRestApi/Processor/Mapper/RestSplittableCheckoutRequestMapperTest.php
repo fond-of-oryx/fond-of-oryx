@@ -44,8 +44,8 @@ class RestSplittableCheckoutRequestMapperTest extends Unit
         static::assertInstanceOf(
             RestSplittableCheckoutRequestTransfer::class,
             $this->restSplittableCheckoutRequestMapper->fromRestSplittableCheckoutRequestAttributes(
-                $this->restSplittableCheckoutRequestAttributesTransferMock
-            )
+                $this->restSplittableCheckoutRequestAttributesTransferMock,
+            ),
         );
     }
 }

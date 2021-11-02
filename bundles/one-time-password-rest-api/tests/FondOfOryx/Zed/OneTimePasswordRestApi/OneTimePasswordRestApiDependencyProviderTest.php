@@ -37,8 +37,8 @@ class OneTimePasswordRestApiDependencyProviderTest extends Unit
         $this->assertSame(
             $this->containerMock,
             $this->oneTimePasswordRestApiDependencyProvider->provideBusinessLayerDependencies(
-                $this->containerMock
-            )
+                $this->containerMock,
+            ),
         );
     }
 }

@@ -15,37 +15,37 @@ use Generated\Shared\Transfer\TotalsTransfer;
 class OrderBudgetReducerTest extends Unit
 {
     /**
-     * @var \Generated\Shared\Transfer\QuoteTransfer|mixed|\PHPUnit\Framework\MockObject\MockObject
+     * @var \Generated\Shared\Transfer\QuoteTransfer|\PHPUnit\Framework\MockObject\MockObject|mixed
      */
     protected $quoteTransferMock;
 
     /**
-     * @var \Generated\Shared\Transfer\CompanyUserTransfer|mixed|\PHPUnit\Framework\MockObject\MockObject
+     * @var \Generated\Shared\Transfer\CompanyUserTransfer|\PHPUnit\Framework\MockObject\MockObject|mixed
      */
     protected $companyUserTransferMock;
 
     /**
-     * @var \Generated\Shared\Transfer\CompanyBusinessUnitTransfer|mixed|\PHPUnit\Framework\MockObject\MockObject
+     * @var \Generated\Shared\Transfer\CompanyBusinessUnitTransfer|\PHPUnit\Framework\MockObject\MockObject|mixed
      */
     protected $companyBusinessUnitTransferMock;
 
     /**
-     * @var \Generated\Shared\Transfer\OrderBudgetTransfer|mixed|\PHPUnit\Framework\MockObject\MockObject
+     * @var \Generated\Shared\Transfer\OrderBudgetTransfer|\PHPUnit\Framework\MockObject\MockObject|mixed
      */
     protected $orderBudgetTransferMock;
 
     /**
-     * @var \Generated\Shared\Transfer\TotalsTransfer|mixed|\PHPUnit\Framework\MockObject\MockObject
+     * @var \Generated\Shared\Transfer\TotalsTransfer|\PHPUnit\Framework\MockObject\MockObject|mixed
      */
     protected $totalsTransferMock;
 
     /**
-     * @var \FondOfOryx\Zed\CompanyBusinessUnitOrderBudget\Dependency\Facade\CompanyBusinessUnitOrderBudgetToOrderBudgetFacadeInterface|mixed|\PHPUnit\Framework\MockObject\MockObject
+     * @var \FondOfOryx\Zed\CompanyBusinessUnitOrderBudget\Dependency\Facade\CompanyBusinessUnitOrderBudgetToOrderBudgetFacadeInterface|\PHPUnit\Framework\MockObject\MockObject|mixed
      */
     protected $orderBudgetFacadeMock;
 
     /**
-     * @var \FondOfOryx\Zed\CompanyBusinessUnitOrderBudget\Dependency\Facade\CompanyBusinessUnitOrderBudgetToPermissionFacadeInterface|mixed|\PHPUnit\Framework\MockObject\MockObject
+     * @var \FondOfOryx\Zed\CompanyBusinessUnitOrderBudget\Dependency\Facade\CompanyBusinessUnitOrderBudgetToPermissionFacadeInterface|\PHPUnit\Framework\MockObject\MockObject|mixed
      */
     protected $permissionFacadeMock;
 
@@ -91,7 +91,7 @@ class OrderBudgetReducerTest extends Unit
 
         $this->orderBudgetReducer = new OrderBudgetReducer(
             $this->orderBudgetFacadeMock,
-            $this->permissionFacadeMock
+            $this->permissionFacadeMock,
         );
     }
 

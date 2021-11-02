@@ -29,7 +29,7 @@ class ProductLocaleRestrictionSearchToProductLocaleRestrictionFacadeBridgeTest e
             ->getMock();
 
         $this->productLocaleRestrictionSearchToProductLocaleRestrictionFacadeBridge = new ProductLocaleRestrictionSearchToProductLocaleRestrictionFacadeBridge(
-            $this->productLocaleRestrictionFacadeMock
+            $this->productLocaleRestrictionFacadeMock,
         );
     }
 
@@ -49,7 +49,7 @@ class ProductLocaleRestrictionSearchToProductLocaleRestrictionFacadeBridgeTest e
          static::assertEquals(
              $blacklistedLocales,
              $this->productLocaleRestrictionSearchToProductLocaleRestrictionFacadeBridge
-                 ->getBlacklistedLocalesByProductAbstractIds($productAbstractIds)
+                 ->getBlacklistedLocalesByProductAbstractIds($productAbstractIds),
          );
     }
 }

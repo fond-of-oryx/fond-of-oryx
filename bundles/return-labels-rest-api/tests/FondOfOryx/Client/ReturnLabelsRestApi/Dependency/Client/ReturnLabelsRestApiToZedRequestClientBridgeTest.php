@@ -60,12 +60,12 @@ class ReturnLabelsRestApiToZedRequestClientBridgeTest extends Unit
 
         $response = $this->bridge->call(
             '/return-labels-rest-api/gateway/generate-return-label',
-            $this->restReturnLabelRequestTransferMock
+            $this->restReturnLabelRequestTransferMock,
         );
 
         static::assertInstanceOf(
             RestReturnLabelResponseTransfer::class,
-            $response
+            $response,
         );
     }
 }

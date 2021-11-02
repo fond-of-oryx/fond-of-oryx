@@ -101,7 +101,7 @@ class CreditMemoFacade extends AbstractFacade implements CreditMemoFacadeInterfa
     }
 
     /**
-     * @return \FondOfOryx\Zed\CreditMemoExtension\Dependency\Plugin\CreditMemoProcessorPluginInterface[]
+     * @return array<\FondOfOryx\Zed\CreditMemoExtension\Dependency\Plugin\CreditMemoProcessorPluginInterface>
      */
     public function getRegisteredProcessor(): array
     {
@@ -109,7 +109,7 @@ class CreditMemoFacade extends AbstractFacade implements CreditMemoFacadeInterfa
     }
 
     /**
-     * @param string[] $processorPlugins
+     * @param array<string> $processorPlugins
      * @param array $ids
      *
      * @return \Generated\Shared\Transfer\CreditMemoProcessorResponseCollectionTransfer
@@ -134,7 +134,7 @@ class CreditMemoFacade extends AbstractFacade implements CreditMemoFacadeInterfa
     /**
      * @param int $idSalesOrder
      *
-     * @return \Orm\Zed\CreditMemo\Persistence\FooCreditMemo[]
+     * @return array<\Orm\Zed\CreditMemo\Persistence\FooCreditMemo>
      */
     public function getCreditMemoBySalesOrderId(int $idSalesOrder): array
     {
@@ -152,9 +152,9 @@ class CreditMemoFacade extends AbstractFacade implements CreditMemoFacadeInterfa
     }
 
     /**
-     * @param \Orm\Zed\Sales\Persistence\SpySalesOrderItem[] $spySalesOrderItems
+     * @param array<\Orm\Zed\Sales\Persistence\SpySalesOrderItem> $spySalesOrderItems
      *
-     * @return \Orm\Zed\CreditMemo\Persistence\FooCreditMemo[]
+     * @return array<\Orm\Zed\CreditMemo\Persistence\FooCreditMemo>
      */
     public function getCreditMemosBySalesOrderItems(array $spySalesOrderItems): array
     {

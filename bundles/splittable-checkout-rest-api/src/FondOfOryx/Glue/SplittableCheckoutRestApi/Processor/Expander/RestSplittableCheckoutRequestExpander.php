@@ -33,7 +33,7 @@ class RestSplittableCheckoutRequestExpander implements RestSplittableCheckoutReq
     ): RestSplittableCheckoutRequestTransfer {
         $restSplittableCheckoutRequestTransfer = $this->expandWithCustomer(
             $restSplittableCheckoutRequestTransfer,
-            $restRequest
+            $restRequest,
         );
 
         return $this->expandWithPaymentSelection($restSplittableCheckoutRequestTransfer);
@@ -63,7 +63,7 @@ class RestSplittableCheckoutRequestExpander implements RestSplittableCheckoutReq
         $restUser = $restRequest->$getUserMethod();
 
         return $restSplittableCheckoutRequestTransfer->setCustomerReference(
-            $restUser->getNaturalIdentifier()
+            $restUser->getNaturalIdentifier(),
         );
     }
 
@@ -91,7 +91,7 @@ class RestSplittableCheckoutRequestExpander implements RestSplittableCheckoutReq
             }
 
             $restPaymentTransfer->setPaymentSelection(
-                $paymentProviderMethodToStateMachineMapping[$paymentProviderName][$paymentMethodName]
+                $paymentProviderMethodToStateMachineMapping[$paymentProviderName][$paymentMethodName],
             );
         }
 

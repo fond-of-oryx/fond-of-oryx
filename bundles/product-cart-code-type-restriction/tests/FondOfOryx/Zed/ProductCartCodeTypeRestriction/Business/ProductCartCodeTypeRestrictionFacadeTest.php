@@ -88,7 +88,7 @@ class ProductCartCodeTypeRestrictionFacadeTest extends Unit
 
         static::assertEquals(
             $this->productAbstractTransferMock,
-            $this->productCartCodeTypeRestrictionFacade->expandProductAbstract($this->productAbstractTransferMock)
+            $this->productCartCodeTypeRestrictionFacade->expandProductAbstract($this->productAbstractTransferMock),
         );
     }
 
@@ -106,7 +106,7 @@ class ProductCartCodeTypeRestrictionFacadeTest extends Unit
             ->with($this->productAbstractTransferMock);
 
         $this->productCartCodeTypeRestrictionFacade->persistProductAbstractCartCodeTypeRestrictions(
-            $this->productAbstractTransferMock
+            $this->productAbstractTransferMock,
         );
     }
 
@@ -126,8 +126,8 @@ class ProductCartCodeTypeRestrictionFacadeTest extends Unit
         static::assertEquals(
             $blacklistedCartCodeTypes,
             $this->productCartCodeTypeRestrictionFacade->getBlacklistedCartCodeTypesByProductConcreteSkus(
-                $productConcreteSkus
-            )
+                $productConcreteSkus,
+            ),
         );
     }
 }

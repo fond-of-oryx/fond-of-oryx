@@ -34,8 +34,8 @@ class CreditMemoItemsWriter implements CreditMemoItemsWriterInterface
         foreach ($creditMemoTransfer->getItems() as $creditMemoItemTransfer) {
             $this->entityManager->createCreditMemoItem(
                 $creditMemoItemTransfer->setFkCreditMemo(
-                    $creditMemoTransfer->getIdCreditMemo()
-                )
+                    $creditMemoTransfer->getIdCreditMemo(),
+                ),
             );
         }
 

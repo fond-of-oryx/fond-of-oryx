@@ -9,7 +9,7 @@ use Generated\Shared\Transfer\CompanyBusinessUnitListTransfer;
 class CompanyBusinessUnitSearchRestApiStubTest extends Unit
 {
     /**
-     * @var \Generated\Shared\Transfer\CompanyBusinessUnitListTransfer|mixed|\PHPUnit\Framework\MockObject\MockObject
+     * @var \Generated\Shared\Transfer\CompanyBusinessUnitListTransfer|\PHPUnit\Framework\MockObject\MockObject|mixed
      */
     protected $companyBusinessUnitListTransferMock;
 
@@ -39,7 +39,7 @@ class CompanyBusinessUnitSearchRestApiStubTest extends Unit
             ->getMock();
 
         $this->companySearchRestApiStub = new CompanyBusinessUnitSearchRestApiStub(
-            $this->zedRequestClientMock
+            $this->zedRequestClientMock,
         );
     }
 
@@ -52,12 +52,12 @@ class CompanyBusinessUnitSearchRestApiStubTest extends Unit
             ->method('call')
             ->with(
                 '/company-business-unit-search-rest-api/gateway/search-company-business-unit',
-                $this->companyBusinessUnitListTransferMock
+                $this->companyBusinessUnitListTransferMock,
             )->willReturn($this->companyBusinessUnitListTransferMock);
 
         static::assertEquals(
             $this->companyBusinessUnitListTransferMock,
-            $this->companySearchRestApiStub->searchCompanyBusinessUnit($this->companyBusinessUnitListTransferMock)
+            $this->companySearchRestApiStub->searchCompanyBusinessUnit($this->companyBusinessUnitListTransferMock),
         );
     }
 }

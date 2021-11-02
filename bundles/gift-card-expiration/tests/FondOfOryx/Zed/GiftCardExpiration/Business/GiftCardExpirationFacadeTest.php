@@ -8,12 +8,12 @@ use FondOfOryx\Zed\GiftCardExpiration\Business\Invalidator\GiftCardInvalidatorIn
 class GiftCardExpirationFacadeTest extends Unit
 {
     /**
-     * @var \FondOfOryx\Zed\GiftCardExpiration\Business\GiftCardExpirationBusinessFactory|mixed|\PHPUnit\Framework\MockObject\MockObject
+     * @var \FondOfOryx\Zed\GiftCardExpiration\Business\GiftCardExpirationBusinessFactory|\PHPUnit\Framework\MockObject\MockObject|mixed
      */
     protected $factoryMock;
 
     /**
-     * @var \FondOfOryx\Zed\GiftCardExpiration\Business\Invalidator\GiftCardInvalidatorInterface|mixed|\PHPUnit\Framework\MockObject\MockObject
+     * @var \FondOfOryx\Zed\GiftCardExpiration\Business\Invalidator\GiftCardInvalidatorInterface|\PHPUnit\Framework\MockObject\MockObject|mixed
      */
     protected $giftCardInvalidatorMock;
 

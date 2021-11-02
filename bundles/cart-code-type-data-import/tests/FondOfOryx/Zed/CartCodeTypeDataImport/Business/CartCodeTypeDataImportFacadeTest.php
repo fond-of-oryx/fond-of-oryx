@@ -77,7 +77,7 @@ class CartCodeTypeDataImportFacadeTest extends Unit
 
         static::assertEquals(
             $this->dataImporterReportTransferMock,
-            $this->cartCodeTypeDataImportFacade->import($this->dataImporterConfigurationTransferMock)
+            $this->cartCodeTypeDataImportFacade->import($this->dataImporterConfigurationTransferMock),
         );
     }
 }

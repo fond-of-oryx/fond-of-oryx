@@ -12,17 +12,17 @@ use Generated\Shared\Transfer\QuoteTransfer;
 class DeliveryDateRestrictionCheckoutPreConditionPluginTest extends Unit
 {
     /**
-     * @var \FondOfOryx\Zed\DeliveryDateRestriction\Business\DeliveryDateRestrictionFacade|mixed|\PHPUnit\Framework\MockObject\MockObject
+     * @var \FondOfOryx\Zed\DeliveryDateRestriction\Business\DeliveryDateRestrictionFacade|\PHPUnit\Framework\MockObject\MockObject|mixed
      */
     protected $facadeMock;
 
     /**
-     * @var \Generated\Shared\Transfer\QuoteTransfer|mixed|\PHPUnit\Framework\MockObject\MockObject
+     * @var \Generated\Shared\Transfer\QuoteTransfer|\PHPUnit\Framework\MockObject\MockObject|mixed
      */
     protected $quoteTransferMock;
 
     /**
-     * @var \Generated\Shared\Transfer\CheckoutResponseTransfer|mixed|\PHPUnit\Framework\MockObject\MockObject
+     * @var \Generated\Shared\Transfer\CheckoutResponseTransfer|\PHPUnit\Framework\MockObject\MockObject|mixed
      */
     protected $checkoutResponseTransferMock;
 
@@ -70,7 +70,7 @@ class DeliveryDateRestrictionCheckoutPreConditionPluginTest extends Unit
             ->method('addError');
 
         static::assertTrue(
-            $this->plugin->checkCondition($this->quoteTransferMock, $this->checkoutResponseTransferMock)
+            $this->plugin->checkCondition($this->quoteTransferMock, $this->checkoutResponseTransferMock),
         );
     }
 
@@ -97,12 +97,12 @@ class DeliveryDateRestrictionCheckoutPreConditionPluginTest extends Unit
                 static::callback(
                     static function (CheckoutErrorTransfer $checkoutErrorTransfer) use ($exceptionMessage) {
                         return $checkoutErrorTransfer->getMessage() === $exceptionMessage;
-                    }
-                )
+                    },
+                ),
             )->willReturn($this->checkoutResponseTransferMock);
 
         static::assertFalse(
-            $this->plugin->checkCondition($this->quoteTransferMock, $this->checkoutResponseTransferMock)
+            $this->plugin->checkCondition($this->quoteTransferMock, $this->checkoutResponseTransferMock),
         );
     }
 }

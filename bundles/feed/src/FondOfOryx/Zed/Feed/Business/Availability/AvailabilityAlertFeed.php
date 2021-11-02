@@ -16,6 +16,9 @@ use Spryker\Zed\Kernel\Communication\AbstractPlugin;
  */
 class AvailabilityAlertFeed extends AbstractPlugin
 {
+    /**
+     * @var int
+     */
     private const STATUS_WAITING = 0;
 
     /**
@@ -58,7 +61,7 @@ class AvailabilityAlertFeed extends AbstractPlugin
         $data = [];
         $subscribers = $this->feedRepository->findSubscriptionsByIdStoreAndStatus(
             $this->storeFacade->getCurrentStore()->getIdStore(),
-            static::STATUS_WAITING
+            static::STATUS_WAITING,
         );
 
         foreach ($subscribers as $subscriber) {

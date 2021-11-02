@@ -5,7 +5,7 @@ namespace FondOfOryx\Zed\ProductLocaleRestrictionSearch\Dependency\Facade;
 interface ProductLocaleRestrictionSearchToProductLocaleRestrictionFacadeInterface
 {
     /**
-     * @param int[] $productAbstractIds
+     * @param array<int> $productAbstractIds
      *
      * @return array
      */

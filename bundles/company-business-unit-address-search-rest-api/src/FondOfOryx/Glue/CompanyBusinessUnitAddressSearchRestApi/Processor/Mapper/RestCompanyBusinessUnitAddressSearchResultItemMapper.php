@@ -19,16 +19,16 @@ class RestCompanyBusinessUnitAddressSearchResultItemMapper implements RestCompan
     ): RestCompanyBusinessUnitAddressSearchResultItemTransfer {
         return (new RestCompanyBusinessUnitAddressSearchResultItemTransfer())->fromArray(
             $companyBusinessUnitAddressTransfer->toArray(),
-            true
+            true,
         )
             ->setCompanyId($companyBusinessUnitAddressTransfer->getCompanyUuid())
             ->setCompanyBusinessUnitId($companyBusinessUnitAddressTransfer->getCompanyBusinessUnitUuid());
     }
 
     /**
-     * @param \Generated\Shared\Transfer\CompanyBusinessUnitAddressTransfer[]|\ArrayObject $companyBusinessUnitAddressTransfers
+     * @param \ArrayObject<\Generated\Shared\Transfer\CompanyBusinessUnitAddressTransfer> $companyBusinessUnitAddressTransfers
      *
-     * @return \Generated\Shared\Transfer\RestCompanyBusinessUnitAddressSearchResultItemTransfer[]|\ArrayObject
+     * @return \ArrayObject<\Generated\Shared\Transfer\RestCompanyBusinessUnitAddressSearchResultItemTransfer>
      */
     public function fromCompanyBusinessUnitAddressCollection(ArrayObject $companyBusinessUnitAddressTransfers): ArrayObject
     {
@@ -44,7 +44,7 @@ class RestCompanyBusinessUnitAddressSearchResultItemMapper implements RestCompan
     /**
      * @param \Generated\Shared\Transfer\CompanyBusinessUnitAddressListTransfer $companyBusinessUnitAddressListTransfer
      *
-     * @return \Generated\Shared\Transfer\RestCompanyBusinessUnitAddressSearchResultItemTransfer[]|\ArrayObject
+     * @return \ArrayObject<\Generated\Shared\Transfer\RestCompanyBusinessUnitAddressSearchResultItemTransfer>
      */
     public function fromCompanyBusinessUnitAddressList(CompanyBusinessUnitAddressListTransfer $companyBusinessUnitAddressListTransfer): ArrayObject
     {

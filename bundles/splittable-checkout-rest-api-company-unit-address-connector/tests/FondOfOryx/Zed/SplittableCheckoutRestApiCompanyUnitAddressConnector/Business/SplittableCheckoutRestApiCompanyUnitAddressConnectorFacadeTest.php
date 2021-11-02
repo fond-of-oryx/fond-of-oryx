@@ -79,7 +79,7 @@ class SplittableCheckoutRestApiCompanyUnitAddressConnectorFacadeTest extends Uni
 
         static::assertEquals(
             $this->quoteTransferMock,
-            $this->facade->expandQuote($this->restSplittableCheckoutRequestTransferMock, $this->quoteTransferMock)
+            $this->facade->expandQuote($this->restSplittableCheckoutRequestTransferMock, $this->quoteTransferMock),
         );
     }
 }

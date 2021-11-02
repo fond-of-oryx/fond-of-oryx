@@ -114,7 +114,7 @@ class OrderExportTest extends Unit
             $this->entityManagerMock,
             $this->loggerMock,
             $this->guzzleClientMock,
-            $this->configMock
+            $this->configMock,
         );
     }
 

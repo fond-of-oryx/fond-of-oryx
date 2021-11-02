@@ -61,7 +61,7 @@ class ErpOrderPageSearchReader implements ErpOrderPageSearchReaderInterface
 
         return $this->createResponse($this->erpOrderPageSearchClient->search(
             $requestTransfer->getSearchString(),
-            $requestTransfer->getRequestParams()
+            $requestTransfer->getRequestParams(),
         ));
     }
 
@@ -78,7 +78,7 @@ class ErpOrderPageSearchReader implements ErpOrderPageSearchReaderInterface
         $resource = $this->restResourceBuilder->createRestResource(
             ErpOrderPageSearchRestApiConfig::RESOURCE_ERP_ORDERS,
             null,
-            $collection
+            $collection,
         );
 
         $restResponse->addResource($resource);

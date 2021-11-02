@@ -32,7 +32,7 @@ class CrossEngageAvailabilityAlertMigratorExpanderPlugin extends AbstractPlugin 
         if ($subscriber === null) {
             throw new Exception(sprintf(
                 'Subscriber for subscription with id %s must not be null!',
-                $availabilityAlertSubscriptionTransfer->getIdAvailabilityAlertSubscription()
+                $availabilityAlertSubscriptionTransfer->getIdAvailabilityAlertSubscription(),
             ));
         }
 

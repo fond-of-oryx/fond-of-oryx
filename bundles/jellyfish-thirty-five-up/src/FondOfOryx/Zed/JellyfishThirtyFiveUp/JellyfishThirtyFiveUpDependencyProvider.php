@@ -8,6 +8,9 @@ use Spryker\Zed\Kernel\Container;
 
 class JellyfishThirtyFiveUpDependencyProvider extends AbstractBundleDependencyProvider
 {
+    /**
+     * @var string
+     */
     public const FACADE_THIRTY_FIVE_UP = 'JELLYFISH_THIRTY_FIVE_UP:FACADE_THIRTY_FIVE_UP';
 
     /**

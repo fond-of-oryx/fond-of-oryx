@@ -40,7 +40,7 @@ interface CreditMemoRepositoryInterface
     /**
      * @param int $idSalesOrder
      *
-     * @return \Orm\Zed\CreditMemo\Persistence\FooCreditMemo[]
+     * @return array<\Orm\Zed\CreditMemo\Persistence\FooCreditMemo>
      */
     public function findCreditMemoByFkSalesOrder(int $idSalesOrder): array;
 

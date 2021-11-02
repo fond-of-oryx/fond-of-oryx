@@ -11,7 +11,7 @@ interface ProductAbstractCartCodeTypeRestrictionMapperInterface
     /**
      * @param \Propel\Runtime\Collection\ObjectCollection|\Orm\Zed\ProductCartCodeTypeRestriction\Persistence\FooProductAbstractCartCodeTypeRestriction[] $entityCollection
      *
-     * @return \Generated\Shared\Transfer\CartCodeTypeTransfer[]
+     * @return array<\Generated\Shared\Transfer\CartCodeTypeTransfer>
      */
     public function mapEntityCollectionToCartCodeTypeTransfers(
         ObjectCollection $entityCollection

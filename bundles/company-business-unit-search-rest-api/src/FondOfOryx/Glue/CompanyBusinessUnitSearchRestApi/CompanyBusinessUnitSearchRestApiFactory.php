@@ -42,7 +42,7 @@ class CompanyBusinessUnitSearchRestApiFactory extends AbstractFactory
         return new CompanyBusinessUnitReader(
             $this->createCompanyBusinessUnitListMapper(),
             $this->createRestResponseBuilder(),
-            $this->getClient()
+            $this->getClient(),
         );
     }
 
@@ -55,7 +55,7 @@ class CompanyBusinessUnitSearchRestApiFactory extends AbstractFactory
             $this->createPaginationMapper(),
             $this->createRequestParameterFilter(),
             $this->createCustomerReferenceFilter(),
-            $this->createCustomerIdFilter()
+            $this->createCustomerIdFilter(),
         );
     }
 
@@ -99,7 +99,7 @@ class CompanyBusinessUnitSearchRestApiFactory extends AbstractFactory
         return new RestResponseBuilder(
             $this->createRestCompanyBusinessUnitSearchAttributesTranslator(),
             $this->createRestCompanyBusinessUnitSearchAttributesMapper(),
-            $this->getResourceBuilder()
+            $this->getResourceBuilder(),
         );
     }
 
@@ -111,7 +111,7 @@ class CompanyBusinessUnitSearchRestApiFactory extends AbstractFactory
         return new RestCompanyBusinessUnitSearchAttributesMapper(
             $this->createRestCompanyBusinessUnitSearchResultItemMapper(),
             $this->createRestCompanyBusinessUnitSearchSortMapper(),
-            $this->createRestCompanyBusinessUnitSearchPaginationMapper()
+            $this->createRestCompanyBusinessUnitSearchPaginationMapper(),
         );
     }
 
@@ -129,7 +129,7 @@ class CompanyBusinessUnitSearchRestApiFactory extends AbstractFactory
     protected function createRestCompanyBusinessUnitSearchSortMapper(): RestCompanyBusinessUnitSearchSortMapperInterface
     {
         return new RestCompanyBusinessUnitSearchSortMapper(
-            $this->getConfig()
+            $this->getConfig(),
         );
     }
 
@@ -139,7 +139,7 @@ class CompanyBusinessUnitSearchRestApiFactory extends AbstractFactory
     protected function createRestCompanyBusinessUnitSearchPaginationMapper(): RestCompanyBusinessUnitSearchPaginationMapperInterface
     {
         return new RestCompanyBusinessUnitSearchPaginationMapper(
-            $this->getConfig()
+            $this->getConfig(),
         );
     }
 
@@ -149,7 +149,7 @@ class CompanyBusinessUnitSearchRestApiFactory extends AbstractFactory
     protected function createRestCompanyBusinessUnitSearchAttributesTranslator(): RestCompanyBusinessUnitSearchAttributesTranslatorInterface
     {
         return new RestCompanyBusinessUnitSearchAttributesTranslator(
-            $this->getGlossaryStorageClient()
+            $this->getGlossaryStorageClient(),
         );
     }
 

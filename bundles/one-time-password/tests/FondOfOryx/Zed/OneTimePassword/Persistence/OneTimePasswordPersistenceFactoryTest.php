@@ -57,7 +57,7 @@ class OneTimePasswordPersistenceFactoryTest extends Unit
 
         $this->assertSame(
             $this->customerQueryContainerMock,
-            $this->oneTimePasswordPersistenceFactory->getCustomerQueryContainer()
+            $this->oneTimePasswordPersistenceFactory->getCustomerQueryContainer(),
         );
     }
 }

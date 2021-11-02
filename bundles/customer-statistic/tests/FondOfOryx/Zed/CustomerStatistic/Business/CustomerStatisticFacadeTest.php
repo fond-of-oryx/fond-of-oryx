@@ -87,7 +87,7 @@ class CustomerStatisticFacadeTest extends Unit
 
         static::assertEquals(
             $this->customerStatisticResponseTransferMock,
-            $this->customerStatisticFacade->incrementLoginCount($this->customerTransferMock)
+            $this->customerStatisticFacade->incrementLoginCount($this->customerTransferMock),
         );
     }
 
@@ -107,7 +107,7 @@ class CustomerStatisticFacadeTest extends Unit
 
         static::assertEquals(
             $this->customerTransferMock,
-            $this->customerStatisticFacade->expandCustomer($this->customerTransferMock)
+            $this->customerStatisticFacade->expandCustomer($this->customerTransferMock),
         );
     }
 }

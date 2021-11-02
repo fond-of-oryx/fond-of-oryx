@@ -60,7 +60,7 @@ class SplittableQuoteShipmentConnectorBusinessFactoryTest extends Unit
 
         static::assertInstanceOf(
             SplittedQuoteExpander::class,
-            $this->businessFactory->createSplittedQuoteExpander()
+            $this->businessFactory->createSplittedQuoteExpander(),
         );
     }
 }

@@ -16,11 +16,34 @@ use Spryker\Client\Kernel\Container;
  */
 class ErpOrderPageSearchDependencyProvider extends AbstractDependencyProvider
 {
+    /**
+     * @var string
+     */
     public const CLIENT_SEARCH = 'CLIENT_SEARCH';
+
+    /**
+     * @var string
+     */
     public const CLIENT_CUSTOMER = 'CLIENT_CUSTOMER';
+
+    /**
+     * @var string
+     */
     public const CLIENT_ERP_ORDER_PERMISSION = 'CLIENT_ERP_ORDER_PERMISSION';
+
+    /**
+     * @var string
+     */
     public const PLUGIN_SEARCH_QUERY = 'PLUGIN_SEARCH_QUERY';
+
+    /**
+     * @var string
+     */
     public const PLUGINS_SEARCH_RESULT_FORMATTER = 'PLUGINS_SEARCH_RESULT_FORMATTER';
+
+    /**
+     * @var string
+     */
     public const PLUGINS_SEARCH_QUERY_EXPANDER = 'PLUGINS_SEARCH_QUERY_EXPANDER';
 
     /**
@@ -51,7 +74,7 @@ class ErpOrderPageSearchDependencyProvider extends AbstractDependencyProvider
     {
         $container[static::CLIENT_SEARCH] = static function (Container $container) {
             return new ErpOrderPageSearchToSearchClientBridge(
-                $container->getLocator()->search()->client()
+                $container->getLocator()->search()->client(),
             );
         };
 
@@ -81,7 +104,7 @@ class ErpOrderPageSearchDependencyProvider extends AbstractDependencyProvider
     {
         $container[static::CLIENT_ERP_ORDER_PERMISSION] = static function (Container $container) {
             return new ErpOrderPageSearchToErpOrderPermissionClientBridge(
-                $container->getLocator()->erpOrderPermission()->client()
+                $container->getLocator()->erpOrderPermission()->client(),
             );
         };
 
@@ -119,7 +142,7 @@ class ErpOrderPageSearchDependencyProvider extends AbstractDependencyProvider
     }
 
     /**
-     * @return \Spryker\Client\Search\Dependency\Plugin\ResultFormatterPluginInterface[]
+     * @return array<\Spryker\Client\Search\Dependency\Plugin\ResultFormatterPluginInterface>
      */
     protected function getResultFormatterPlugins(): array
     {
@@ -143,7 +166,7 @@ class ErpOrderPageSearchDependencyProvider extends AbstractDependencyProvider
     }
 
     /**
-     * @return \Spryker\Client\Search\Dependency\Plugin\QueryExpanderPluginInterface[]
+     * @return array<\Spryker\Client\Search\Dependency\Plugin\QueryExpanderPluginInterface>
      */
     protected function getQueryExpanderPlugins(): array
     {

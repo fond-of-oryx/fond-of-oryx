@@ -58,7 +58,7 @@ class SplittableTotalsBusinessFactoryTest extends Unit
 
         static::assertInstanceOf(
             SplittableTotalsReader::class,
-            $this->businessFactory->createSplittableTotalsReader()
+            $this->businessFactory->createSplittableTotalsReader(),
         );
     }
 }

@@ -17,6 +17,9 @@ use Spryker\Client\SearchExtension\Dependency\Plugin\SearchStringSetterInterface
 
 class ErpOrderPageSearchQueryPlugin extends AbstractPlugin implements QueryInterface, SearchContextAwareQueryInterface, SearchStringSetterInterface, SearchStringGetterInterface
 {
+    /**
+     * @var string
+     */
     protected const SOURCE_IDENTIFIER = 'erp-order';
 
     /**

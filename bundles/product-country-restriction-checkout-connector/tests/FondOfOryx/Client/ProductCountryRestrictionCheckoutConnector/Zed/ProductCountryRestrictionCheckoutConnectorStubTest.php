@@ -49,7 +49,7 @@ class ProductCountryRestrictionCheckoutConnectorStubTest extends Unit
             ->getMock();
 
         $this->productCountryRestrictionCheckoutConnectorStub = new ProductCountryRestrictionCheckoutConnectorStub(
-            $this->zedRequestClientMock
+            $this->zedRequestClientMock,
         );
     }
 
@@ -62,12 +62,12 @@ class ProductCountryRestrictionCheckoutConnectorStubTest extends Unit
             ->method('call')
             ->with(
                 '/product-country-restriction-checkout-connector/gateway/validate-quote',
-                $this->quoteTransferMock
+                $this->quoteTransferMock,
             )->willReturn($this->quoteValidationResponseTransferMock);
 
         static::assertEquals(
             $this->quoteValidationResponseTransferMock,
-            $this->productCountryRestrictionCheckoutConnectorStub->validateQuote($this->quoteTransferMock)
+            $this->productCountryRestrictionCheckoutConnectorStub->validateQuote($this->quoteTransferMock),
         );
     }
 }

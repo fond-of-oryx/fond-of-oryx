@@ -42,7 +42,7 @@ class ErpOrderEventResourceQueryContainerPlugin extends AbstractPlugin implement
     }
 
     /**
-     * @param int[] $ids
+     * @param array<int> $ids
      *
      * @return \Propel\Runtime\ActiveQuery\ModelCriteria|null
      */

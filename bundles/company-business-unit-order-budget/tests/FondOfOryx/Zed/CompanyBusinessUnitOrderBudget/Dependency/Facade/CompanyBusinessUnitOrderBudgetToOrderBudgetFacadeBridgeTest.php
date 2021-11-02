@@ -39,7 +39,7 @@ class CompanyBusinessUnitOrderBudgetToOrderBudgetFacadeBridgeTest extends Unit
             ->getMock();
 
         $this->companyBusinessUnitOrderBudgetToOrderBudgetFacadeBridge = new CompanyBusinessUnitOrderBudgetToOrderBudgetFacadeBridge(
-            $this->orderBudgetFacadeMock
+            $this->orderBudgetFacadeMock,
         );
     }
 
@@ -55,7 +55,7 @@ class CompanyBusinessUnitOrderBudgetToOrderBudgetFacadeBridgeTest extends Unit
 
         static::assertEquals(
             $this->orderBudgetTransferMock,
-            $this->companyBusinessUnitOrderBudgetToOrderBudgetFacadeBridge->createOrderBudget()
+            $this->companyBusinessUnitOrderBudgetToOrderBudgetFacadeBridge->createOrderBudget(),
         );
     }
 
@@ -69,7 +69,7 @@ class CompanyBusinessUnitOrderBudgetToOrderBudgetFacadeBridgeTest extends Unit
             ->with($this->orderBudgetTransferMock);
 
         $this->companyBusinessUnitOrderBudgetToOrderBudgetFacadeBridge->updateOrderBudget(
-            $this->orderBudgetTransferMock
+            $this->orderBudgetTransferMock,
         );
     }
 
@@ -88,8 +88,8 @@ class CompanyBusinessUnitOrderBudgetToOrderBudgetFacadeBridgeTest extends Unit
         static::assertEquals(
             $this->orderBudgetTransferMock,
             $this->companyBusinessUnitOrderBudgetToOrderBudgetFacadeBridge->findOrderBudgetByIdOrderBudget(
-                $idOrderBudget
-            )
+                $idOrderBudget,
+            ),
         );
     }
 }

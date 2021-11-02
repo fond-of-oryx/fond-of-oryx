@@ -21,7 +21,7 @@ class ReturnLabelsRestApiCustomerConnectorBusinessFactory extends AbstractBusine
     {
         return new CustomerExpander(
             $this->createCustomerReader(),
-            $this->createReturnLabelRequestCustomerMapper()
+            $this->createReturnLabelRequestCustomerMapper(),
         );
     }
 

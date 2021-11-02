@@ -54,22 +54,22 @@ class RestResponseBuilder implements RestResponseBuilderInterface
         string $locale
     ): RestResponseInterface {
         $restCompanyBusinessUnitAddressSearchAttributesTransfer = $this->restCompanyBusinessUnitAddressSearchAttributesMapper->fromCompanyBusinessUnitAddressList(
-            $companyBusinessUnitAddressListTransfer
+            $companyBusinessUnitAddressListTransfer,
         );
 
         $restCompanyBusinessUnitAddressSearchAttributesTransfer = $this->restCompanyBusinessUnitAddressSearchAttributesTranslator->translate(
             $restCompanyBusinessUnitAddressSearchAttributesTransfer,
-            $locale
+            $locale,
         );
 
         $restResponse = $this->restResourceBuilder->createRestResponse(
-            $restCompanyBusinessUnitAddressSearchAttributesTransfer->getPagination()->getNumFound()
+            $restCompanyBusinessUnitAddressSearchAttributesTransfer->getPagination()->getNumFound(),
         );
 
         $restResource = $this->restResourceBuilder->createRestResource(
             CompanyBusinessUnitAddressSearchRestApiConfig::RESOURCE_COMPANY_BUSINESS_UNIT_ADDRESS_SEARCH,
             null,
-            $restCompanyBusinessUnitAddressSearchAttributesTransfer
+            $restCompanyBusinessUnitAddressSearchAttributesTransfer,
         );
 
         return $restResponse->addResource($restResource);

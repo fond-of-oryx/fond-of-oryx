@@ -29,7 +29,7 @@ class JellyfishCrossEngageToProductFacadeBridgeTest extends Unit
     protected $productConcreteTransferMock;
 
     /**
-     * @var \string[][]
+     * @var array<array<\string>>
      */
     protected $attributes;
 
@@ -53,7 +53,7 @@ class JellyfishCrossEngageToProductFacadeBridgeTest extends Unit
         ];
 
         $this->jellyfishCrossEngageToProductFacadeBridge = new JellyfishCrossEngageToProductFacadeBridge(
-            $this->productFacadeMock
+            $this->productFacadeMock,
         );
     }
 
@@ -70,8 +70,8 @@ class JellyfishCrossEngageToProductFacadeBridgeTest extends Unit
         $this->assertInstanceOf(
             ProductConcreteTransfer::class,
             $this->jellyfishCrossEngageToProductFacadeBridge->getProductConcrete(
-                $this->sku
-            )
+                $this->sku,
+            ),
         );
     }
 
@@ -88,8 +88,8 @@ class JellyfishCrossEngageToProductFacadeBridgeTest extends Unit
         $this->assertSame(
             $this->attributes,
             $this->jellyfishCrossEngageToProductFacadeBridge->getCombinedConcreteAttributes(
-                $this->productConcreteTransferMock
-            )
+                $this->productConcreteTransferMock,
+            ),
         );
     }
 }

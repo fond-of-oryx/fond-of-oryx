@@ -51,7 +51,7 @@ class ProductAbstractCartCodeTypeRestrictionsPersisterTest extends Unit
 
         $this->productAbstractCartCodeTypeRestrictionsPersister = new ProductAbstractCartCodeTypeRestrictionsPersister(
             $this->repositoryMock,
-            $this->entityManagerMock
+            $this->entityManagerMock,
         );
     }
 
@@ -85,8 +85,8 @@ class ProductAbstractCartCodeTypeRestrictionsPersisterTest extends Unit
                     static function (array $cartCodeTypeIds) use ($currentCartCodeTypeIds) {
                         return count($cartCodeTypeIds) === 1
                             && $cartCodeTypeIds[0] === $currentCartCodeTypeIds[0];
-                    }
-                )
+                    },
+                ),
             );
 
         $this->entityManagerMock->expects(static::atLeastOnce())
@@ -101,8 +101,8 @@ class ProductAbstractCartCodeTypeRestrictionsPersisterTest extends Unit
                     ) {
                         return $productAbstractCartCodeTypeRestrictionTransfer->getIdProductAbstract() === $idProductAbstract
                             && $productAbstractCartCodeTypeRestrictionTransfer->getIdCartCodeType() === $newCartCodeTypeIds[1];
-                    }
-                )
+                    },
+                ),
             );
 
         $this->productAbstractCartCodeTypeRestrictionsPersister->persist($this->productAbstractTransferMock);

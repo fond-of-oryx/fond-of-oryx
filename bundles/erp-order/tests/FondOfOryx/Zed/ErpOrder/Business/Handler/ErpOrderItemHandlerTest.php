@@ -12,8 +12,19 @@ use Generated\Shared\Transfer\ErpOrderTransfer;
 
 class ErpOrderItemHandlerTest extends Unit
 {
+    /**
+     * @var string
+     */
     protected const NEW = 'new';
+
+    /**
+     * @var string
+     */
     protected const UPDATE = 'update';
+
+    /**
+     * @var string
+     */
     protected const DELETE = 'delete';
 
     /**
@@ -75,7 +86,7 @@ class ErpOrderItemHandlerTest extends Unit
 
         $this->handler = new ErpOrderItemHandler(
             $this->itemWriterMock,
-            $this->itemReaderMock
+            $this->itemReaderMock,
         );
     }
 

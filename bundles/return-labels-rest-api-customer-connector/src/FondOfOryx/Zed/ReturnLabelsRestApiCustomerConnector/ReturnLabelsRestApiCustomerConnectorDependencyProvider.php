@@ -8,6 +8,9 @@ use Spryker\Zed\Kernel\Container;
 
 class ReturnLabelsRestApiCustomerConnectorDependencyProvider extends AbstractBundleDependencyProvider
 {
+    /**
+     * @var string
+     */
     public const FACADE_CUSTOMER = 'FACADE_CUSTOMER';
 
     /**
@@ -32,7 +35,7 @@ class ReturnLabelsRestApiCustomerConnectorDependencyProvider extends AbstractBun
     {
         $container[static::FACADE_CUSTOMER] = static function (Container $container) {
             return new ReturnLabelsRestApiCustomerConnectorToCustomerFacadeBridge(
-                $container->getLocator()->customer()->facade()
+                $container->getLocator()->customer()->facade(),
             );
         };
 

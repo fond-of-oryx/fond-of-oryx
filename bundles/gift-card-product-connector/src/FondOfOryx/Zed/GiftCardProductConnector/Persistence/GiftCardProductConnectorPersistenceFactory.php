@@ -32,7 +32,7 @@ class GiftCardProductConnectorPersistenceFactory extends AbstractPersistenceFact
     public function createSpyGiftCardProductAbstractConfigurationQuery(): SpyGiftCardProductAbstractConfigurationQuery
     {
         return $this->getProvidedDependency(
-            GiftCardProductConnectorDependencyProvider::PROPEL_QUERY_GIFT_CARD_PRODUCT_ABSTRACT_CONFIGURATION
+            GiftCardProductConnectorDependencyProvider::PROPEL_QUERY_GIFT_CARD_PRODUCT_ABSTRACT_CONFIGURATION,
         );
     }
 
@@ -42,7 +42,7 @@ class GiftCardProductConnectorPersistenceFactory extends AbstractPersistenceFact
     public function createSpyGiftCardProductAbstractConfigurationLinkQuery(): SpyGiftCardProductAbstractConfigurationLinkQuery
     {
         return $this->getProvidedDependency(
-            GiftCardProductConnectorDependencyProvider::PROPEL_QUERY_GIFT_CARD_PRODUCT_ABSTRACT_CONFIGURATION_LINK
+            GiftCardProductConnectorDependencyProvider::PROPEL_QUERY_GIFT_CARD_PRODUCT_ABSTRACT_CONFIGURATION_LINK,
         );
     }
 
@@ -52,7 +52,7 @@ class GiftCardProductConnectorPersistenceFactory extends AbstractPersistenceFact
     public function createSpyGiftCardProductConfigurationQuery(): SpyGiftCardProductConfigurationQuery
     {
         return $this->getProvidedDependency(
-            GiftCardProductConnectorDependencyProvider::PROPEL_QUERY_GIFT_CARD_PRODUCT_CONFIGURATION
+            GiftCardProductConnectorDependencyProvider::PROPEL_QUERY_GIFT_CARD_PRODUCT_CONFIGURATION,
         );
     }
 
@@ -62,7 +62,7 @@ class GiftCardProductConnectorPersistenceFactory extends AbstractPersistenceFact
     public function createSpyGiftCardProductConfigurationLinkQuery(): SpyGiftCardProductConfigurationLinkQuery
     {
         return $this->getProvidedDependency(
-            GiftCardProductConnectorDependencyProvider::PROPEL_QUERY_GIFT_CARD_PRODUCT_CONFIGURATION_LINK
+            GiftCardProductConnectorDependencyProvider::PROPEL_QUERY_GIFT_CARD_PRODUCT_CONFIGURATION_LINK,
         );
     }
 
@@ -104,7 +104,7 @@ class GiftCardProductConnectorPersistenceFactory extends AbstractPersistenceFact
     public function createProductAbstractQuery(): SpyProductAbstractQuery
     {
         return $this->getProvidedDependency(
-            GiftCardProductConnectorDependencyProvider::PROPEL_QUERY_PRODUCT_ABSTRACT
+            GiftCardProductConnectorDependencyProvider::PROPEL_QUERY_PRODUCT_ABSTRACT,
         );
     }
 
@@ -114,7 +114,7 @@ class GiftCardProductConnectorPersistenceFactory extends AbstractPersistenceFact
     public function createProductQuery(): SpyProductQuery
     {
         return $this->getProvidedDependency(
-            GiftCardProductConnectorDependencyProvider::PROPEL_QUERY_PRODUCT
+            GiftCardProductConnectorDependencyProvider::PROPEL_QUERY_PRODUCT,
         );
     }
 }

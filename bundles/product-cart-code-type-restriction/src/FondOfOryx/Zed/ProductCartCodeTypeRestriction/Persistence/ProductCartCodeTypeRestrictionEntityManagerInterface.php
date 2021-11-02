@@ -17,7 +17,7 @@ interface ProductCartCodeTypeRestrictionEntityManagerInterface
 
     /**
      * @param int $idProductAbstract
-     * @param int[] $cartCodeTypeIds
+     * @param array<int> $cartCodeTypeIds
      *
      * @return void
      */

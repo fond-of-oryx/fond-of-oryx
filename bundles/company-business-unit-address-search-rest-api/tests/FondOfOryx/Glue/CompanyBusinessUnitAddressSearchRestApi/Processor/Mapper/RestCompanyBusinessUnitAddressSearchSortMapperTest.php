@@ -9,12 +9,12 @@ use Generated\Shared\Transfer\CompanyBusinessUnitAddressListTransfer;
 class RestCompanyBusinessUnitAddressSearchSortMapperTest extends Unit
 {
     /**
-     * @var \FondOfOryx\Glue\CompanyBusinessUnitAddressSearchRestApi\CompanyBusinessUnitAddressSearchRestApiConfig|mixed|\PHPUnit\Framework\MockObject\MockObject
+     * @var \FondOfOryx\Glue\CompanyBusinessUnitAddressSearchRestApi\CompanyBusinessUnitAddressSearchRestApiConfig|\PHPUnit\Framework\MockObject\MockObject|mixed
      */
     protected $configMock;
 
     /**
-     * @var \Generated\Shared\Transfer\CompanyBusinessUnitAddressListTransfer|mixed|\PHPUnit\Framework\MockObject\MockObject
+     * @var \Generated\Shared\Transfer\CompanyBusinessUnitAddressListTransfer|\PHPUnit\Framework\MockObject\MockObject|mixed
      */
     protected $companyBusinessUnitAddressListTransferMock;
 
@@ -67,7 +67,7 @@ class RestCompanyBusinessUnitAddressSearchSortMapperTest extends Unit
             ->willReturn($sortFields);
 
         $restCompanyBusinessUnitAddressSearchSortTransfer = $this->restCompanyBusinessUnitAddressSearchSortMapper->fromCompanyBusinessUnitAddressList(
-            $this->companyBusinessUnitAddressListTransferMock
+            $this->companyBusinessUnitAddressListTransferMock,
         );
 
         static::assertEquals('asc', $restCompanyBusinessUnitAddressSearchSortTransfer->getCurrentSortOrder());

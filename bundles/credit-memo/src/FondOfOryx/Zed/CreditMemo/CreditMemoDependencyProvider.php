@@ -20,15 +20,49 @@ use Spryker\Zed\Kernel\Container;
  */
 class CreditMemoDependencyProvider extends AbstractBundleDependencyProvider
 {
+    /**
+     * @var string
+     */
     public const FACADE_SEQUENCE_NUMBER = 'FACADE_SEQUENCE_NUMBER';
+
+    /**
+     * @var string
+     */
     public const FACADE_STORE = 'FACADE_STORE';
+
+    /**
+     * @var string
+     */
     public const FACADE_LOCALE = 'FACADE_LOCALE';
 
+    /**
+     * @var string
+     */
     public const PLUGINS_POST_SAVE = 'PLUGINS_POST_SAVE';
+
+    /**
+     * @var string
+     */
     public const PLUGINS_PRE_SAVE = 'PLUGINS_PRE_SAVE';
+
+    /**
+     * @var string
+     */
     public const PLUGINS_PROCESSOR = 'PLUGINS_PROCESSOR';
+
+    /**
+     * @var string
+     */
     public const QUERY_SALES_PAYMENT = 'QUERY_SALES_PAYMENT';
+
+    /**
+     * @var string
+     */
     public const QUERY_SALES_ORDER = 'QUERY_SALES_ORDER';
+
+    /**
+     * @var string
+     */
     public const QUERY_SALES_ORDER_ITEM = 'QUERY_SALES_ORDER_ITEM';
 
     /**
@@ -74,7 +108,7 @@ class CreditMemoDependencyProvider extends AbstractBundleDependencyProvider
     {
         $container[static::FACADE_SEQUENCE_NUMBER] = static function (Container $container) {
             return new CreditMemoToSequenceNumberFacadeBridge(
-                $container->getLocator()->sequenceNumber()->facade()
+                $container->getLocator()->sequenceNumber()->facade(),
             );
         };
 
@@ -90,7 +124,7 @@ class CreditMemoDependencyProvider extends AbstractBundleDependencyProvider
     {
         $container[static::FACADE_STORE] = static function (Container $container) {
             return new CreditMemoToStoreFacadeBridge(
-                $container->getLocator()->store()->facade()
+                $container->getLocator()->store()->facade(),
             );
         };
 
@@ -106,7 +140,7 @@ class CreditMemoDependencyProvider extends AbstractBundleDependencyProvider
     {
         $container[static::FACADE_LOCALE] = static function (Container $container) {
             return new CreditMemoToLocaleFacadeBridge(
-                $container->getLocator()->locale()->facade()
+                $container->getLocator()->locale()->facade(),
             );
         };
 
@@ -130,7 +164,7 @@ class CreditMemoDependencyProvider extends AbstractBundleDependencyProvider
     }
 
     /**
-     * @return \FondOfOryx\Zed\CreditMemoExtension\Dependency\Plugin\CreditMemoPreSavePluginInterface[]
+     * @return array<\FondOfOryx\Zed\CreditMemoExtension\Dependency\Plugin\CreditMemoPreSavePluginInterface>
      */
     protected function getCreditMemoPreSavePlugins(): array
     {
@@ -174,7 +208,7 @@ class CreditMemoDependencyProvider extends AbstractBundleDependencyProvider
     }
 
     /**
-     * @return \FondOfOryx\Zed\CreditMemoExtension\Dependency\Plugin\CreditMemoPostSavePluginInterface[]
+     * @return array<\FondOfOryx\Zed\CreditMemoExtension\Dependency\Plugin\CreditMemoPostSavePluginInterface>
      */
     protected function getCreditMemoPostSavePlugins(): array
     {
@@ -184,7 +218,7 @@ class CreditMemoDependencyProvider extends AbstractBundleDependencyProvider
     }
 
     /**
-     * @return \FondOfOryx\Zed\CreditMemoExtension\Dependency\Plugin\CreditMemoProcessorPluginInterface[]
+     * @return array<\FondOfOryx\Zed\CreditMemoExtension\Dependency\Plugin\CreditMemoProcessorPluginInterface>
      */
     protected function getCreditMemoProcessorPlugins(): array
     {

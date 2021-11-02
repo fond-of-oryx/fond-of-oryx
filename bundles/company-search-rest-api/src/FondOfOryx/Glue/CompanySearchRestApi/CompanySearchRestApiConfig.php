@@ -11,6 +11,7 @@ class CompanySearchRestApiConfig extends AbstractBundleConfig
      * @var string
      */
     public const RESOURCE_COMPANY_SEARCH = 'company-search';
+
     /**
      * @var string
      */
@@ -20,19 +21,20 @@ class CompanySearchRestApiConfig extends AbstractBundleConfig
      * @var string
      */
     public const RESPONSE_CODE_USER_IS_NOT_SPECIFIED = '1000';
+
     /**
      * @var string
      */
     public const ERROR_MESSAGE_USER_IS_NOT_SPECIFIED = 'Authorization header is required';
 
     /**
-     * @return string[]
+     * @return array<string>
      */
     public function getSortFields(): array
     {
         return $this->get(
             CompanySearchRestApiConstants::SORT_FIELDS,
-            CompanySearchRestApiConstants::SORT_FIELDS_DEFAULT
+            CompanySearchRestApiConstants::SORT_FIELDS_DEFAULT,
         );
     }
 
@@ -43,23 +45,23 @@ class CompanySearchRestApiConfig extends AbstractBundleConfig
     {
         return $this->get(
             CompanySearchRestApiConstants::ITEMS_PER_PAGE,
-            CompanySearchRestApiConstants::ITEMS_PER_PAGE_DEFAULT
+            CompanySearchRestApiConstants::ITEMS_PER_PAGE_DEFAULT,
         );
     }
 
     /**
-     * @return int[]
+     * @return array<int>
      */
     public function getValidItemsPerPageOptions(): array
     {
         return $this->get(
             CompanySearchRestApiConstants::VALID_ITEMS_PER_PAGE_OPTIONS,
-            CompanySearchRestApiConstants::VALID_ITEMS_PER_PAGE_OPTIONS_DEFAULT
+            CompanySearchRestApiConstants::VALID_ITEMS_PER_PAGE_OPTIONS_DEFAULT,
         );
     }
 
     /**
-     * @return string[]
+     * @return array<string>
      */
     public function getSortParamNames(): array
     {
@@ -74,7 +76,7 @@ class CompanySearchRestApiConfig extends AbstractBundleConfig
     }
 
     /**
-     * @return string[]
+     * @return array<string>
      */
     public function getSortParamLocalizedNames(): array
     {

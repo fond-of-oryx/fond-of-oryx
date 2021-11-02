@@ -21,7 +21,7 @@ class ProductAbstractExpanderTest extends Unit
     protected $productAbstractTransferMock;
 
     /**
-     * @var \Generated\Shared\Transfer\CartCodeTypeTransfer[]|\PHPUnit\Framework\MockObject\MockObject[]
+     * @var array<\PHPUnit\Framework\MockObject\MockObject>|array<\Generated\Shared\Transfer\CartCodeTypeTransfer>
      */
     protected $cartCodeTypeMocks;
 
@@ -82,8 +82,8 @@ class ProductAbstractExpanderTest extends Unit
                     static function (ArrayObject $blacklistedCartCodeTypes) use ($idCartCodeType) {
                         return $blacklistedCartCodeTypes->count() === 1
                             && $blacklistedCartCodeTypes->offsetGet(0)->getIdCartCodeType() === $idCartCodeType;
-                    }
-                )
+                    },
+                ),
             )->willReturn($this->productAbstractTransferMock);
 
         $this->productAbstractTransferMock->expects(static::atLeastOnce())
@@ -92,7 +92,7 @@ class ProductAbstractExpanderTest extends Unit
 
         static::assertEquals(
             $this->productAbstractTransferMock,
-            $this->productAbstractExpander->expand($this->productAbstractTransferMock)
+            $this->productAbstractExpander->expand($this->productAbstractTransferMock),
         );
     }
 
@@ -118,7 +118,7 @@ class ProductAbstractExpanderTest extends Unit
 
         static::assertEquals(
             $this->productAbstractTransferMock,
-            $this->productAbstractExpander->expand($this->productAbstractTransferMock)
+            $this->productAbstractExpander->expand($this->productAbstractTransferMock),
         );
     }
 }

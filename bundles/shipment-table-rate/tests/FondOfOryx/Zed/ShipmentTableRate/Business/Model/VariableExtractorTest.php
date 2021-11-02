@@ -72,7 +72,7 @@ class VariableExtractorTest extends Unit
                 's' => (float)$subtotal,
                 'd' => (float)$discountTotal,
             ],
-            $this->variableExtractor->extractFromQuote($this->quoteTransferMock)
+            $this->variableExtractor->extractFromQuote($this->quoteTransferMock),
         );
     }
 
@@ -103,7 +103,7 @@ class VariableExtractorTest extends Unit
                 's' => (float)$subtotal,
                 'd' => (float)$discountTotal,
             ],
-            $this->variableExtractor->extractFromTotals($this->totalsTransferMock)
+            $this->variableExtractor->extractFromTotals($this->totalsTransferMock),
         );
     }
 }

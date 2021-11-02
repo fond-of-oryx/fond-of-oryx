@@ -34,7 +34,7 @@ class EpcDataBuilder implements EpcDataBuilderInterface
             throw new Exception(sprintf(
                 'One of "Reference: (%s)" or "Usage: (%s)" must be null!',
                 $paymentEpcQrCodeRequestTransfer->getReference(),
-                $paymentEpcQrCodeRequestTransfer->getUsage()
+                $paymentEpcQrCodeRequestTransfer->getUsage(),
             ));
         }
 

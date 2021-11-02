@@ -86,7 +86,7 @@ class OneTimePasswordProcessorTest extends Unit
 
         $this->oneTimePasswordProcessor = new OneTimePasswordProcessor(
             $this->restResourceBuilderMock,
-            $this->oneTimePasswordRestApiClientMock
+            $this->oneTimePasswordRestApiClientMock,
         );
     }
 
@@ -117,8 +117,8 @@ class OneTimePasswordProcessorTest extends Unit
             $this->restResponseMock,
             $this->oneTimePasswordProcessor->requestOneTimePasswordEmail(
                 $this->restRequestMock,
-                $this->restOneTimePasswordRequestAttributesTransferMock
-            )
+                $this->restOneTimePasswordRequestAttributesTransferMock,
+            ),
         );
     }
 
@@ -143,8 +143,8 @@ class OneTimePasswordProcessorTest extends Unit
             $this->restResponseMock,
             $this->oneTimePasswordProcessor->requestOneTimePasswordEmail(
                 $this->restRequestMock,
-                $this->restOneTimePasswordRequestAttributesTransferMock
-            )
+                $this->restOneTimePasswordRequestAttributesTransferMock,
+            ),
         );
     }
 }

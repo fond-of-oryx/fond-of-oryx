@@ -44,7 +44,7 @@ class ErpOrderItemWriter implements ErpOrderItemWriterInterface
         $erpOrderItemTransfer = $this->getTransactionHandler()->handleTransaction(
             static function () use ($erpOrderItemTransfer, $self) {
                 return $self->executePersistTransaction($erpOrderItemTransfer);
-            }
+            },
         );
 
         return $erpOrderItemTransfer;
@@ -65,7 +65,7 @@ class ErpOrderItemWriter implements ErpOrderItemWriterInterface
         $erpOrderItemTransfer = $this->getTransactionHandler()->handleTransaction(
             static function () use ($erpOrderItemTransfer, $self) {
                 return $self->executeUpdateTransaction($erpOrderItemTransfer);
-            }
+            },
         );
 
         return $erpOrderItemTransfer;
@@ -82,7 +82,7 @@ class ErpOrderItemWriter implements ErpOrderItemWriterInterface
         $this->getTransactionHandler()->handleTransaction(
             static function () use ($idErpOrderItem, $self) {
                 $self->executeDeleteTransaction($idErpOrderItem);
-            }
+            },
         );
     }
 

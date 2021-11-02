@@ -8,6 +8,9 @@ use Spryker\Zed\Kernel\Container;
 
 class SalesLocaleConnectorDependencyProvider extends AbstractBundleDependencyProvider
 {
+    /**
+     * @var string
+     */
     public const FACADE_LOCALE = 'FACADE_LOCALE';
 
     /**

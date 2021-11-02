@@ -30,7 +30,7 @@ class CompanyBusinessUnitSearchRestApiStub implements CompanyBusinessUnitSearchR
         /** @var \Generated\Shared\Transfer\CompanyBusinessUnitListTransfer $companyBusinessUnitListTransfer */
         $companyBusinessUnitListTransfer = $this->zedRequestClient->call(
             '/company-business-unit-search-rest-api/gateway/search-company-business-unit',
-            $companyBusinessUnitListTransfer
+            $companyBusinessUnitListTransfer,
         );
 
         return $companyBusinessUnitListTransfer;

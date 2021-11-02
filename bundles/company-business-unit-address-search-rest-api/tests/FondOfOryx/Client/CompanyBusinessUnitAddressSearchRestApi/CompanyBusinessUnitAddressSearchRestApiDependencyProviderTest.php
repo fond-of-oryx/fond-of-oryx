@@ -82,13 +82,13 @@ class CompanyBusinessUnitAddressSearchRestApiDependencyProviderTest extends Unit
             ->willReturn($this->zedRequestClientMock);
 
         $container = $this->dependencyProvider->provideServiceLayerDependencies(
-            $this->containerMock
+            $this->containerMock,
         );
 
         static::assertEquals($container, $this->containerMock);
         static::assertInstanceOf(
             CompanyBusinessUnitAddressSearchRestApiToZedRequestClientInterface::class,
-            $container[CompanyBusinessUnitAddressSearchRestApiDependencyProvider::CLIENT_ZED_REQUEST]
+            $container[CompanyBusinessUnitAddressSearchRestApiDependencyProvider::CLIENT_ZED_REQUEST],
         );
     }
 }

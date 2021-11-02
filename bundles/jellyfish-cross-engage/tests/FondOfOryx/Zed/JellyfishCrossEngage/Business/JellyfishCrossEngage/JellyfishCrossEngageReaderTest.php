@@ -59,7 +59,7 @@ class JellyfishCrossEngageReaderTest extends Unit
     protected $productConcreteTransferMock;
 
     /**
-     * @var string[]
+     * @var array<string>
      */
     protected $attributes;
 
@@ -94,7 +94,7 @@ class JellyfishCrossEngageReaderTest extends Unit
     protected $categoryTransferMock;
 
     /**
-     * @var \ArrayObject|\Generated\Shared\Transfer\CategoryTransfer[]
+     * @var \ArrayObject<\Generated\Shared\Transfer\CategoryTransfer>
      */
     protected $categoryTransferMocks;
 
@@ -109,7 +109,7 @@ class JellyfishCrossEngageReaderTest extends Unit
     protected $categoryLocalizedAttributesTransferMock;
 
     /**
-     * @var \ArrayObject|\Generated\Shared\Transfer\CategoryLocalizedAttributesTransfer[]
+     * @var \ArrayObject<\Generated\Shared\Transfer\CategoryLocalizedAttributesTransfer>
      */
     protected $categoryLocalizedAttributesTransferMocks;
 
@@ -192,7 +192,7 @@ class JellyfishCrossEngageReaderTest extends Unit
             $this->productFacade,
             $this->productCategoryFacade,
             $this->localeFacade,
-            $this->configMock
+            $this->configMock,
         );
     }
 
@@ -222,8 +222,8 @@ class JellyfishCrossEngageReaderTest extends Unit
         $this->assertSame(
             $this->gender,
             $this->jellyfishCrossEngageReader->getGender(
-                $this->jellyfishOrderItemTransferMock
-            )
+                $this->jellyfishOrderItemTransferMock,
+            ),
         );
     }
 
@@ -283,14 +283,14 @@ class JellyfishCrossEngageReaderTest extends Unit
             ->method('getName')
             ->willReturnOnConsecutiveCalls(
                 $this->categoryName,
-                $this->categoryName2
+                $this->categoryName2,
             );
 
         $this->assertSame(
             $this->categoryName . ', ' . $this->categoryName2,
             $this->jellyfishCrossEngageReader->getCategories(
-                $this->jellyfishOrderItemTransferMock
-            )
+                $this->jellyfishOrderItemTransferMock,
+            ),
         );
     }
 
@@ -332,8 +332,8 @@ class JellyfishCrossEngageReaderTest extends Unit
 
         $this->assertNull(
             $this->jellyfishCrossEngageReader->getCategories(
-                $this->jellyfishOrderItemTransferMock
-            )
+                $this->jellyfishOrderItemTransferMock,
+            ),
         );
     }
 }

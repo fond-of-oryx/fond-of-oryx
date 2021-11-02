@@ -20,7 +20,7 @@ class ConcreteSkuPatternQueryExpanderPluginTest extends Unit
     protected $queryMock;
 
     /**
-     * @var string[]
+     * @var array<string>
      */
     protected $requestParameters;
 
@@ -98,18 +98,18 @@ class ConcreteSkuPatternQueryExpanderPluginTest extends Unit
 
                         return isset($data['wildcard'][PageIndexMap::CONCRETE_SKUS]['value'])
                             && $data['wildcard'][PageIndexMap::CONCRETE_SKUS]['value'] === $self->requestParameters[CatalogSkuFilterConstants::PARAMETER_CONCRETE_SKU_PATTERN];
-                    }
-                )
+                    },
+                ),
             )->willReturn($this->boolQueryMock);
 
         $query = $this->concreteSkuPatternQueryExpanderPlugin->expandQuery(
             $this->queryMock,
-            $this->requestParameters
+            $this->requestParameters,
         );
 
         static::assertEquals(
             $this->queryMock,
-            $query
+            $query,
         );
     }
 
@@ -123,12 +123,12 @@ class ConcreteSkuPatternQueryExpanderPluginTest extends Unit
 
         $query = $this->concreteSkuPatternQueryExpanderPlugin->expandQuery(
             $this->queryMock,
-            []
+            [],
         );
 
         static::assertEquals(
             $this->queryMock,
-            $query
+            $query,
         );
     }
 
@@ -144,12 +144,12 @@ class ConcreteSkuPatternQueryExpanderPluginTest extends Unit
             $this->queryMock,
             [
                 CatalogSkuFilterConstants::PARAMETER_CONCRETE_SKU_PATTERN => '',
-            ]
+            ],
         );
 
         static::assertEquals(
             $this->queryMock,
-            $query
+            $query,
         );
     }
 
@@ -169,7 +169,7 @@ class ConcreteSkuPatternQueryExpanderPluginTest extends Unit
         try {
             $this->concreteSkuPatternQueryExpanderPlugin->expandQuery(
                 $this->queryMock,
-                $this->requestParameters
+                $this->requestParameters,
             );
 
             static::fail();

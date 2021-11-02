@@ -17,7 +17,7 @@ class CartCodeTypeDataImportBusinessFactory extends DataImportBusinessFactory
     public function createCartCodeTypeDataImporter(): DataImporterInterface
     {
         $dataImporter = $this->getCsvDataImporterFromConfig(
-            $this->getConfig()->getCartCodeTypeDataImporterConfiguration()
+            $this->getConfig()->getCartCodeTypeDataImporterConfiguration(),
         );
 
         $dataSetStepBroker = $this->createTransactionAwareDataSetStepBroker();

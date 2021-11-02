@@ -9,7 +9,14 @@ use Spryker\Zed\Kernel\Container;
 
 class SplittableCheckoutRestApiCompanyUnitAddressConnectorDependencyProvider extends AbstractBundleDependencyProvider
 {
+    /**
+     * @var string
+     */
     public const FACADE_COMPANY_UNIT_ADDRESS = 'FACADE_COMPANY_UNIT_ADDRESS';
+
+    /**
+     * @var string
+     */
     public const PROPEL_QUERY_COMPANY_UNIT_ADDRESS_TO_COMPANY_BUSINESS_UNIT = 'PROPEL_QUERY_COMPANY_UNIT_ADDRESS_TO_COMPANY_BUSINESS_UNIT';
 
     /**
@@ -33,7 +40,7 @@ class SplittableCheckoutRestApiCompanyUnitAddressConnectorDependencyProvider ext
     {
         $container[static::FACADE_COMPANY_UNIT_ADDRESS] = static function (Container $container) {
             return new SplittableCheckoutRestApiCompanyUnitAddressConnectorToCompanyUnitAddressFacadeBridge(
-                $container->getLocator()->companyUnitAddress()->facade()
+                $container->getLocator()->companyUnitAddress()->facade(),
             );
         };
 

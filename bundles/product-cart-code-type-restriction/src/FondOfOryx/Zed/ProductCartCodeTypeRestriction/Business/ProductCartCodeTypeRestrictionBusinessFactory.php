@@ -21,7 +21,7 @@ class ProductCartCodeTypeRestrictionBusinessFactory extends AbstractBusinessFact
     {
         return new ProductAbstractCartCodeTypeRestrictionsPersister(
             $this->getRepository(),
-            $this->getEntityManager()
+            $this->getEntityManager(),
         );
     }
 
@@ -31,7 +31,7 @@ class ProductCartCodeTypeRestrictionBusinessFactory extends AbstractBusinessFact
     public function createProductAbstractExpander(): ProductAbstractExpanderInterface
     {
         return new ProductAbstractExpander(
-            $this->getRepository()
+            $this->getRepository(),
         );
     }
 }

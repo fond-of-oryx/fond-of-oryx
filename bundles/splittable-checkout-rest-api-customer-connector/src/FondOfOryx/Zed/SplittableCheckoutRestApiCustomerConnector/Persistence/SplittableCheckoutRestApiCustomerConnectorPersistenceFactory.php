@@ -17,7 +17,7 @@ class SplittableCheckoutRestApiCustomerConnectorPersistenceFactory extends Abstr
     public function getCustomerQueryContainer(): SplittableCheckoutRestApiCustomerConnectorToCustomerQueryContainerInterface
     {
         return $this->getProvidedDependency(
-            SplittableCheckoutRestApiCustomerConnectorDependencyProvider::QUERY_CONTAINER_CUSTOMER
+            SplittableCheckoutRestApiCustomerConnectorDependencyProvider::QUERY_CONTAINER_CUSTOMER,
         );
     }
 }

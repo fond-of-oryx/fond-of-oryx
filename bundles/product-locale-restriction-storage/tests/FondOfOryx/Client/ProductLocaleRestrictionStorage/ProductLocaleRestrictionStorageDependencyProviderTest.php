@@ -107,31 +107,31 @@ class ProductLocaleRestrictionStorageDependencyProviderTest extends Unit
             ->withConsecutive(
                 ['client'],
                 ['client'],
-                ['service']
+                ['service'],
             )
             ->willReturnOnConsecutiveCalls(
                 $this->localeClientMock,
                 $this->storageClientMock,
-                $this->synchronizationServiceMock
+                $this->synchronizationServiceMock,
             );
 
         $container = $this->productLocaleRestrictionStorageDependencyProvider->provideServiceLayerDependencies(
-            $this->containerMock
+            $this->containerMock,
         );
 
         static::assertInstanceOf(
             ProductLocaleRestrictionStorageToLocaleClientInterface::class,
-            $container[ProductLocaleRestrictionStorageDependencyProvider::CLIENT_LOCALE]
+            $container[ProductLocaleRestrictionStorageDependencyProvider::CLIENT_LOCALE],
         );
 
         static::assertInstanceOf(
             ProductLocaleRestrictionStorageToStorageClientInterface::class,
-            $container[ProductLocaleRestrictionStorageDependencyProvider::CLIENT_STORAGE]
+            $container[ProductLocaleRestrictionStorageDependencyProvider::CLIENT_STORAGE],
         );
 
         static::assertInstanceOf(
             ProductLocaleRestrictionStorageToSynchronizationServiceInterface::class,
-            $container[ProductLocaleRestrictionStorageDependencyProvider::SERVICE_SYNCHRONIZATION]
+            $container[ProductLocaleRestrictionStorageDependencyProvider::SERVICE_SYNCHRONIZATION],
         );
 
         static::assertEquals($container, $this->containerMock);

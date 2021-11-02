@@ -8,11 +8,34 @@ use Spryker\Zed\Kernel\Container;
 
 class JellyfishSalesOrderDependencyProvider extends AbstractBundleDependencyProvider
 {
+    /**
+     * @var string
+     */
     public const SERVICE_UTIL_ENCODING = 'SERVICE_UTIL_ENCODING';
+
+    /**
+     * @var string
+     */
     public const PLUGINS_JELLYFISH_ORDER_ADDRESS_EXPANDER_POST_MAP = 'PLUGINS_JELLYFISH_ORDER_ADDRESS_EXPANDER_POST_MAP';
+
+    /**
+     * @var string
+     */
     public const PLUGINS_JELLYFISH_ORDER_BEFORE_EXPORT = 'PLUGINS_JELLYFISH_ORDER_BEFORE_EXPORT';
+
+    /**
+     * @var string
+     */
     public const PLUGINS_JELLYFISH_ORDER_EXPANDER_POST_MAP = 'PLUGINS_JELLYFISH_ORDER_EXPANDER_POST_MAP';
+
+    /**
+     * @var string
+     */
     public const PLUGINS_JELLYFISH_ORDER_POST_MAP = 'PLUGINS_JELLYFISH_ORDER_POST_MAP';
+
+    /**
+     * @var string
+     */
     public const PLUGINS_JELLYFISH_ORDER_ITEM_EXPANDER_POST_MAP = 'PLUGINS_JELLYFISH_ORDER_ITEM_EXPANDER_POST_MAP';
 
     /**
@@ -41,7 +64,7 @@ class JellyfishSalesOrderDependencyProvider extends AbstractBundleDependencyProv
     {
         $container[static::SERVICE_UTIL_ENCODING] = function (Container $container) {
             return new JellyfishSalesOrderToUtilEncodingServiceBridge(
-                $container->getLocator()->utilEncoding()->service()
+                $container->getLocator()->utilEncoding()->service(),
             );
         };
 
@@ -119,7 +142,7 @@ class JellyfishSalesOrderDependencyProvider extends AbstractBundleDependencyProv
     }
 
     /**
-     * @return \FondOfOryx\Zed\JellyfishSalesOrderExtension\Dependency\Plugin\JellyfishOrderAddressExpanderPostMapPluginInterface[]
+     * @return array<\FondOfOryx\Zed\JellyfishSalesOrderExtension\Dependency\Plugin\JellyfishOrderItemExpanderPostMapPluginInterface>
      */
     protected function getJellyfishOrderAddressExpanderPostMapPlugins(): array
     {
@@ -127,7 +150,7 @@ class JellyfishSalesOrderDependencyProvider extends AbstractBundleDependencyProv
     }
 
     /**
-     * @return \FondOfOryx\Zed\JellyfishSalesOrderExtension\Dependency\Plugin\JellyfishOrderBeforeExportPluginInterface[]
+     * @return array<\FondOfOryx\Zed\JellyfishSalesOrderExtension\Dependency\Plugin\JellyfishOrderExpanderPostMapPluginInterface>
      */
     protected function getJellyfishOrderBeforeExportPlugins(): array
     {
@@ -135,7 +158,7 @@ class JellyfishSalesOrderDependencyProvider extends AbstractBundleDependencyProv
     }
 
     /**
-     * @return \FondOfOryx\Zed\JellyfishSalesOrderExtension\Dependency\Plugin\JellyfishOrderItemExpanderPostMapPluginInterface[]
+     * @return array<\FondOfOryx\Zed\JellyfishSalesOrderExtension\Dependency\Plugin\JellyfishOrderPostMapPluginInterface>
      */
     protected function getJellyfishOrderItemExpanderPostMapPlugins(): array
     {
@@ -143,7 +166,7 @@ class JellyfishSalesOrderDependencyProvider extends AbstractBundleDependencyProv
     }
 
     /**
-     * @return \FondOfOryx\Zed\JellyfishSalesOrderExtension\Dependency\Plugin\JellyfishOrderExpanderPostMapPluginInterface[]
+     * @return array<\FondOfOryx\Zed\JellyfishSalesOrderExtension\Dependency\Plugin\JellyfishOrderExpanderPostMapPluginInterface>
      */
     protected function getJellyfishOrderExpanderPostMapPlugins(): array
     {
@@ -151,7 +174,7 @@ class JellyfishSalesOrderDependencyProvider extends AbstractBundleDependencyProv
     }
 
     /**
-     * @return \FondOfOryx\Zed\JellyfishSalesOrderExtension\Dependency\Plugin\JellyfishOrderPostMapPluginInterface[]
+     * @return array<\FondOfOryx\Zed\JellyfishSalesOrderExtension\Dependency\Plugin\JellyfishOrderPostMapPluginInterface>
      */
     protected function getJellyfishOrderPostMapPlugins(): array
     {

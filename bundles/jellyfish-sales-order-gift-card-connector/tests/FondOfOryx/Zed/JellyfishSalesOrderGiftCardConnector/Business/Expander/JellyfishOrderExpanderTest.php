@@ -107,7 +107,7 @@ class JellyfishOrderExpanderTest extends Unit
 
         $this->expander = new JellyfishOrderExpander(
             $this->jellyfishOrderGiftCardMapperMock,
-            $this->productCardCodeTypeRestrictionFacadeMock
+            $this->productCardCodeTypeRestrictionFacadeMock,
         );
     }
 
@@ -145,7 +145,7 @@ class JellyfishOrderExpanderTest extends Unit
 
         $jellyfishOrderTransfer = $this->expander->expand(
             $this->jellyfishOrderTransferMock,
-            $this->spySalesOrderMock
+            $this->spySalesOrderMock,
         );
 
         $this->assertInstanceOf(JellyfishOrderTransfer::class, $this->jellyfishOrderTransferMock);
@@ -184,7 +184,7 @@ class JellyfishOrderExpanderTest extends Unit
             ->willReturn($sku);
 
         $jellyfishOrderTransfer = $this->expander->expandOrderItemsWithGiftCardRestrictionFlag(
-            $this->jellyfishOrderTransferMock
+            $this->jellyfishOrderTransferMock,
         );
 
         $this->assertInstanceOf(JellyfishOrderTransfer::class, $this->jellyfishOrderTransferMock);

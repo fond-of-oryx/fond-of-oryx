@@ -42,7 +42,7 @@ class GiftCardRestrictionBusinessFactory extends AbstractBusinessFactory
     {
         return new BlacklistedCartCodeTypeDecisionRule(
             $this->createSkuFilter(),
-            $this->getProductCartCodeTypeRestrictionFacade()
+            $this->getProductCartCodeTypeRestrictionFacade(),
         );
     }
 
@@ -53,7 +53,7 @@ class GiftCardRestrictionBusinessFactory extends AbstractBusinessFactory
     {
         return new GiftCardRestrictionCalculator(
             $this->createSkuFilter(),
-            $this->getProductCartCodeTypeRestrictionFacade()
+            $this->getProductCartCodeTypeRestrictionFacade(),
         );
     }
 
@@ -63,7 +63,7 @@ class GiftCardRestrictionBusinessFactory extends AbstractBusinessFactory
     protected function getProductCartCodeTypeRestrictionFacade(): GiftCardRestrictionToProductCartCodeTypeRestrictionFacadeInterface
     {
         return $this->getProvidedDependency(
-            GiftCardRestrictionDependencyProvider::FACADE_PRODUCT_CART_CODE_TYPE_RESTRICTION
+            GiftCardRestrictionDependencyProvider::FACADE_PRODUCT_CART_CODE_TYPE_RESTRICTION,
         );
     }
 

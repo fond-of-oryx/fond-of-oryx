@@ -10,17 +10,17 @@ use Generated\Shared\Transfer\PaginationTransfer;
 class RestCompanyBusinessUnitAddressSearchPaginationMapperTest extends Unit
 {
     /**
-     * @var \FondOfOryx\Glue\CompanyBusinessUnitAddressSearchRestApi\CompanyBusinessUnitAddressSearchRestApiConfig|mixed|\PHPUnit\Framework\MockObject\MockObject
+     * @var \FondOfOryx\Glue\CompanyBusinessUnitAddressSearchRestApi\CompanyBusinessUnitAddressSearchRestApiConfig|\PHPUnit\Framework\MockObject\MockObject|mixed
      */
     protected $configMock;
 
     /**
-     * @var \Generated\Shared\Transfer\CompanyBusinessUnitAddressListTransfer|mixed|\PHPUnit\Framework\MockObject\MockObject
+     * @var \Generated\Shared\Transfer\CompanyBusinessUnitAddressListTransfer|\PHPUnit\Framework\MockObject\MockObject|mixed
      */
     protected $companyBusinessUnitAddressListTransferMock;
 
     /**
-     * @var \Generated\Shared\Transfer\PaginationTransfer|mixed|\PHPUnit\Framework\MockObject\MockObject
+     * @var \Generated\Shared\Transfer\PaginationTransfer|\PHPUnit\Framework\MockObject\MockObject|mixed
      */
     protected $paginationTransferMock;
 
@@ -92,7 +92,7 @@ class RestCompanyBusinessUnitAddressSearchPaginationMapperTest extends Unit
             ->willReturn($validItemsPerPageOptions);
 
         $this->restCompanyBusinessUnitAddressSearchPaginationMapper->fromCompanyBusinessUnitAddressList(
-            $this->companyBusinessUnitAddressListTransferMock
+            $this->companyBusinessUnitAddressListTransferMock,
         );
     }
 
@@ -112,7 +112,7 @@ class RestCompanyBusinessUnitAddressSearchPaginationMapperTest extends Unit
             ->method('getValidItemsPerPageOptions');
 
         $this->restCompanyBusinessUnitAddressSearchPaginationMapper->fromCompanyBusinessUnitAddressList(
-            $this->companyBusinessUnitAddressListTransferMock
+            $this->companyBusinessUnitAddressListTransferMock,
         );
     }
 }

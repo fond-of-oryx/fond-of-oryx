@@ -25,7 +25,7 @@ class CreditMemoApiValidatorPlugin extends AbstractPlugin implements ApiValidato
     /**
      * @param \Generated\Shared\Transfer\ApiDataTransfer $apiDataTransfer
      *
-     * @return \Generated\Shared\Transfer\ApiValidationErrorTransfer[]
+     * @return array<\Generated\Shared\Transfer\ApiValidationErrorTransfer>
      */
     public function validate(ApiDataTransfer $apiDataTransfer): array
     {

@@ -42,7 +42,7 @@ class CompanyUserSearchRestApiFactory extends AbstractFactory
         return new CompanyUserReader(
             $this->createCompanyUserListMapper(),
             $this->createRestResponseBuilder(),
-            $this->getClient()
+            $this->getClient(),
         );
     }
 
@@ -55,7 +55,7 @@ class CompanyUserSearchRestApiFactory extends AbstractFactory
             $this->createPaginationMapper(),
             $this->createRequestParameterFilter(),
             $this->createCustomerReferenceFilter(),
-            $this->createCustomerIdFilter()
+            $this->createCustomerIdFilter(),
         );
     }
 
@@ -99,7 +99,7 @@ class CompanyUserSearchRestApiFactory extends AbstractFactory
         return new RestResponseBuilder(
             $this->createRestCompanyUserSearchAttributesTranslator(),
             $this->createRestCompanyUserSearchAttributesMapper(),
-            $this->getResourceBuilder()
+            $this->getResourceBuilder(),
         );
     }
 
@@ -111,7 +111,7 @@ class CompanyUserSearchRestApiFactory extends AbstractFactory
         return new RestCompanyUserSearchAttributesMapper(
             $this->createRestCompanyUserSearchResultItemMapper(),
             $this->createRestCompanyUserSearchSortMapper(),
-            $this->createRestCompanyUserSearchPaginationMapper()
+            $this->createRestCompanyUserSearchPaginationMapper(),
         );
     }
 
@@ -129,7 +129,7 @@ class CompanyUserSearchRestApiFactory extends AbstractFactory
     protected function createRestCompanyUserSearchSortMapper(): RestCompanyUserSearchSortMapperInterface
     {
         return new RestCompanyUserSearchSortMapper(
-            $this->getConfig()
+            $this->getConfig(),
         );
     }
 
@@ -139,7 +139,7 @@ class CompanyUserSearchRestApiFactory extends AbstractFactory
     protected function createRestCompanyUserSearchPaginationMapper(): RestCompanyUserSearchPaginationMapperInterface
     {
         return new RestCompanyUserSearchPaginationMapper(
-            $this->getConfig()
+            $this->getConfig(),
         );
     }
 
@@ -149,7 +149,7 @@ class CompanyUserSearchRestApiFactory extends AbstractFactory
     protected function createRestCompanyUserSearchAttributesTranslator(): RestCompanyUserSearchAttributesTranslatorInterface
     {
         return new RestCompanyUserSearchAttributesTranslator(
-            $this->getGlossaryStorageClient()
+            $this->getGlossaryStorageClient(),
         );
     }
 

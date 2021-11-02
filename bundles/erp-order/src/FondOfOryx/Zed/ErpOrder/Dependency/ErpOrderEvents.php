@@ -9,6 +9,8 @@ interface ErpOrderEvents
      * - This event will be used for foo_erp_order entity creation
      *
      * @api
+     *
+     * @var string
      */
     public const ENTITY_FOO_ERP_ORDER_CREATE = 'Entity.foo_erp_order.create';
 
@@ -17,6 +19,8 @@ interface ErpOrderEvents
      * - This event will be used for foo_erp_order entity update
      *
      * @api
+     *
+     * @var string
      */
     public const ENTITY_FOO_ERP_ORDER_UPDATE = 'Entity.foo_erp_order.update';
 
@@ -25,6 +29,8 @@ interface ErpOrderEvents
      * - This event will be used for foo_erp_order entity delete
      *
      * @api
+     *
+     * @var string
      */
     public const ENTITY_FOO_ERP_ORDER_DELETE = 'Entity.foo_erp_order.delete';
 
@@ -33,6 +39,8 @@ interface ErpOrderEvents
      * - This events will be used for erp_order publishing
      *
      * @api
+     *
+     * @var string
      */
     public const ERP_ORDER_PUBLISH = 'ErpOrder.erp_order.publish';
 
@@ -41,6 +49,8 @@ interface ErpOrderEvents
      * - This events will be used for erp_order un-publishing
      *
      * @api
+     *
+     * @var string
      */
     public const ERP_ORDER_UNPUBLISH = 'ErpOrder.erp_order.unpublish';
 }

@@ -7,6 +7,9 @@ use Spryker\Zed\DataImport\DataImportConfig;
 
 class CartCodeTypeDataImportConfig extends DataImportConfig
 {
+    /**
+     * @var string
+     */
     public const IMPORT_TYPE_CART_CODE_TYPE = 'cart-code-type';
 
     /**
@@ -16,7 +19,7 @@ class CartCodeTypeDataImportConfig extends DataImportConfig
     {
         return $this->buildImporterConfiguration(
             'cart_code_type.csv',
-            static::IMPORT_TYPE_CART_CODE_TYPE
+            static::IMPORT_TYPE_CART_CODE_TYPE,
         );
     }
 }

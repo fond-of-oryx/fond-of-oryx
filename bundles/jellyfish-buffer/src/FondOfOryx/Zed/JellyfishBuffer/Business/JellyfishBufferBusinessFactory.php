@@ -26,7 +26,7 @@ class JellyfishBufferBusinessFactory extends AbstractBusinessFactory
     public function createJellyfishBufferOrder(): JellyfishBufferInterface
     {
         return new JellyfishBufferOrder(
-            $this->getEntityManager()
+            $this->getEntityManager(),
         );
     }
 
@@ -40,7 +40,7 @@ class JellyfishBufferBusinessFactory extends AbstractBusinessFactory
             $this->getEntityManager(),
             $this->getLogger(),
             $this->createHttpClient(),
-            $this->getConfig()
+            $this->getConfig(),
         );
     }
 

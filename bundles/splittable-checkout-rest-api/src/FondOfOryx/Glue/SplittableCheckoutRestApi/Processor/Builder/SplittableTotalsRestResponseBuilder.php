@@ -61,7 +61,7 @@ class SplittableTotalsRestResponseBuilder implements SplittableTotalsRestRespons
         $restResource = $this->restResourceBuilder->createRestResource(
             SplittableCheckoutRestApiConfig::RESOURCE_SPLITTABLE_TOTALS,
             null,
-            $restSplittableTotalsTransfer
+            $restSplittableTotalsTransfer,
         );
 
         $restResource->setPayload($restSplittableTotalsTransfer);

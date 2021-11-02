@@ -11,7 +11,7 @@ use Spryker\Zed\Kernel\Persistence\AbstractQueryContainer;
 class ErpOrderPageSearchQueryContainer extends AbstractQueryContainer implements ErpOrderPageSearchQueryContainerInterface
 {
     /**
-     * @param int[] $erpOrderIds
+     * @param array<int> $erpOrderIds
      *
      * @return \Orm\Zed\ErpOrder\Persistence\ErpOrderQuery
      */
@@ -25,12 +25,12 @@ class ErpOrderPageSearchQueryContainer extends AbstractQueryContainer implements
         }
 
         return $erpOrderQuery->filterByIdErpOrder_In(
-            $erpOrderIds
+            $erpOrderIds,
         );
     }
 
     /**
-     * @param int[] $erpOrderIds
+     * @param array<int> $erpOrderIds
      *
      * @return \Orm\Zed\ErpOrder\Persistence\ErpOrderQuery
      */

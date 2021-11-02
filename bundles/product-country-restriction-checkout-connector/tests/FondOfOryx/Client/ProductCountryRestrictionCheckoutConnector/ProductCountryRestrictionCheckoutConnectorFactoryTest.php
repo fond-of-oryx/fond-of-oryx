@@ -60,7 +60,7 @@ class ProductCountryRestrictionCheckoutConnectorFactoryTest extends Unit
         static::assertInstanceOf(
             ProductCountryRestrictionCheckoutConnectorStub::class,
             $this->productCountryRestrictionCheckoutConnectorFactory
-                ->createProductCountryRestrictionCheckoutConnectorZedStub()
+                ->createProductCountryRestrictionCheckoutConnectorZedStub(),
         );
     }
 }

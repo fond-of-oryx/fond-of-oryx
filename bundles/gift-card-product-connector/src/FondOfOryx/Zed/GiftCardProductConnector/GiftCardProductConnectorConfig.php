@@ -8,7 +8,7 @@ use Spryker\Zed\Kernel\AbstractBundleConfig;
 class GiftCardProductConnectorConfig extends AbstractBundleConfig
 {
     /**
-     * @return string[]
+     * @return array<string>
      */
     public function getGiftCardProductSkuPrefixes(): array
     {

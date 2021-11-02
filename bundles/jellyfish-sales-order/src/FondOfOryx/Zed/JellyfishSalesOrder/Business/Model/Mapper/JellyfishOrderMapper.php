@@ -42,7 +42,7 @@ class JellyfishOrderMapper implements JellyfishOrderMapperInterface
     protected $jellyfishOrderTotalsMapper;
 
     /**
-     * @var \FondOfOryx\Zed\JellyfishSalesOrderExtension\Dependency\Plugin\JellyfishOrderExpanderPostMapPluginInterface[]
+     * @var array<\FondOfOryx\Zed\JellyfishSalesOrderExtension\Dependency\Plugin\JellyfishOrderExpanderPostMapPluginInterface>
      */
     protected $jellyfishOrderExpanderPostMapPlugins;
 
@@ -132,7 +132,7 @@ class JellyfishOrderMapper implements JellyfishOrderMapperInterface
             if (
                 !$this->isValidPaymentMethod(
                     $salesPayment->getSalesPaymentMethodType()->getPaymentMethod(),
-                    $jellyfishOrderPayments
+                    $jellyfishOrderPayments,
                 )
             ) {
                 continue;

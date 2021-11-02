@@ -83,7 +83,7 @@ class SplittableTotalsRestResponseBuilderTest extends Unit
 
         $this->restResponseBuilder = new SplittableTotalsRestResponseBuilder(
             $this->restSplittableTotalsMapperMock,
-            $this->restResourceBuilderMock
+            $this->restResourceBuilderMock,
         );
     }
 
@@ -104,13 +104,13 @@ class SplittableTotalsRestResponseBuilderTest extends Unit
                         return $restErrorMessageTransfer->getCode() === SplittableCheckoutRestApiConfig::RESPONSE_CODE_SPLITTABLE_TOTALS_NOT_FOUND
                             && $restErrorMessageTransfer->getDetail() === SplittableCheckoutRestApiConfig::EXCEPTION_MESSAGE_SPLITTABLE_TOTALS_NOT_FOUND
                             && $restErrorMessageTransfer->getStatus() === Response::HTTP_UNPROCESSABLE_ENTITY;
-                    }
-                )
+                    },
+                ),
             )->willReturn($this->restResponseMock);
 
         static::assertEquals(
             $this->restResponseMock,
-            $this->restResponseBuilder->createNotFoundErrorRestResponse()
+            $this->restResponseBuilder->createNotFoundErrorRestResponse(),
         );
     }
 
@@ -129,7 +129,7 @@ class SplittableTotalsRestResponseBuilderTest extends Unit
             ->with(
                 SplittableCheckoutRestApiConfig::RESOURCE_SPLITTABLE_TOTALS,
                 null,
-                $this->restSplittableTotalsTransferMock
+                $this->restSplittableTotalsTransferMock,
             )->willReturn($this->restResourceMock);
 
         $this->restResourceMock->expects(static::atLeastOnce())
@@ -153,7 +153,7 @@ class SplittableTotalsRestResponseBuilderTest extends Unit
 
         static::assertEquals(
             $this->restResponseMock,
-            $this->restResponseBuilder->createRestResponse($this->splittableTotalsTransferMock)
+            $this->restResponseBuilder->createRestResponse($this->splittableTotalsTransferMock),
         );
     }
 }

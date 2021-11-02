@@ -50,7 +50,7 @@ class QuoteExpander implements QuoteExpanderInterface
         QuoteTransfer $quoteTransfer
     ): QuoteTransfer {
         $addressTransfer = $this->companyUnitAddressReader->getBillingAddressByRestSplittableCheckoutRequestTransfer(
-            $restSplittableCheckoutRequestTransfer
+            $restSplittableCheckoutRequestTransfer,
         );
 
         if ($addressTransfer === null) {
@@ -71,7 +71,7 @@ class QuoteExpander implements QuoteExpanderInterface
         QuoteTransfer $quoteTransfer
     ): QuoteTransfer {
         $addressTransfer = $this->companyUnitAddressReader->getShippingAddressByRestSplittableCheckoutRequestTransfer(
-            $restSplittableCheckoutRequestTransfer
+            $restSplittableCheckoutRequestTransfer,
         );
 
         if ($addressTransfer === null) {
@@ -102,7 +102,7 @@ class QuoteExpander implements QuoteExpanderInterface
         }
 
         return $quoteTransfer->setBillingSameAsShipping(
-            $billingAddressTransfer->toArray() == $shippingAddressTransfer->toArray()
+            $billingAddressTransfer->toArray() == $shippingAddressTransfer->toArray(),
         );
     }
 }

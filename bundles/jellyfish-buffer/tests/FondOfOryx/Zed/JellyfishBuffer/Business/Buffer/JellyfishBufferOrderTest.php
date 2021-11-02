@@ -55,7 +55,7 @@ class JellyfishBufferOrderTest extends Unit
         $this->options = [];
 
         $this->jellyfishBufferOrder = new JellyfishBufferOrder(
-            $this->jellyfishBufferEntityManagerMock
+            $this->jellyfishBufferEntityManagerMock,
         );
     }
 
@@ -68,7 +68,7 @@ class JellyfishBufferOrderTest extends Unit
 
         $this->jellyfishBufferOrder->buffer(
             $this->jellyfishOrderMock,
-            $this->options
+            $this->options,
         );
     }
 
@@ -84,7 +84,7 @@ class JellyfishBufferOrderTest extends Unit
         try {
             $this->jellyfishBufferOrder->buffer(
                 $this->abstractTransferMock,
-                $this->options
+                $this->options,
             );
         } catch (Exception $exception) {
             $catch = $exception;

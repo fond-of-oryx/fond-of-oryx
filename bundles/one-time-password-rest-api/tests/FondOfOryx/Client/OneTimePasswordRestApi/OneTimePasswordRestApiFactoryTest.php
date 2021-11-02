@@ -57,7 +57,7 @@ class OneTimePasswordRestApiFactoryTest extends Unit
 
         $this->assertInstanceOf(
             OneTimePasswordRestApiStubInterface::class,
-            $this->oneTimePasswordRestApiFactory->createOneTimePasswordZedStub()
+            $this->oneTimePasswordRestApiFactory->createOneTimePasswordZedStub(),
         );
     }
 }

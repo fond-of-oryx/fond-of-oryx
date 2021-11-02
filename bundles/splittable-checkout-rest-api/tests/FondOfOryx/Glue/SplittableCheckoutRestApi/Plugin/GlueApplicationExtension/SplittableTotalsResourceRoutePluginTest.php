@@ -45,7 +45,7 @@ class SplittableTotalsResourceRoutePluginTest extends Unit
 
         static::assertEquals(
             $this->resourceRouteCollectionMock,
-            $this->plugin->configure($this->resourceRouteCollectionMock)
+            $this->plugin->configure($this->resourceRouteCollectionMock),
         );
     }
 
@@ -56,7 +56,7 @@ class SplittableTotalsResourceRoutePluginTest extends Unit
     {
         static::assertEquals(
             SplittableCheckoutRestApiConfig::RESOURCE_SPLITTABLE_TOTALS,
-            $this->plugin->getResourceType()
+            $this->plugin->getResourceType(),
         );
     }
 
@@ -67,7 +67,7 @@ class SplittableTotalsResourceRoutePluginTest extends Unit
     {
         static::assertEquals(
             SplittableCheckoutRestApiConfig::CONTROLLER_SPLITTABLE_TOTALS,
-            $this->plugin->getController()
+            $this->plugin->getController(),
         );
     }
 
@@ -78,7 +78,7 @@ class SplittableTotalsResourceRoutePluginTest extends Unit
     {
         static::assertEquals(
             RestSplittableCheckoutRequestAttributesTransfer::class,
-            $this->plugin->getResourceAttributesClassName()
+            $this->plugin->getResourceAttributesClassName(),
         );
     }
 }

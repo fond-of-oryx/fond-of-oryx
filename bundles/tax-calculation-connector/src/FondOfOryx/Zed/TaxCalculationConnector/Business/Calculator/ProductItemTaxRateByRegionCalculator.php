@@ -64,9 +64,9 @@ class ProductItemTaxRateByRegionCalculator implements CalculatorInterface
     }
 
     /**
-     * @param \ArrayObject|\Generated\Shared\Transfer\ItemTransfer[] $itemTransfers
+     * @param \ArrayObject<\Generated\Shared\Transfer\ItemTransfer> $itemTransfers
      *
-     * @return \ArrayObject|\Generated\Shared\Transfer\ItemTransfer[]
+     * @return \ArrayObject<\Generated\Shared\Transfer\ItemTransfer>
      */
     protected function recalculateWithItemTransfers(ArrayObject $itemTransfers): ArrayObject
     {
@@ -76,7 +76,7 @@ class ProductItemTaxRateByRegionCalculator implements CalculatorInterface
             $taxRate = $this->getEffectiveTaxRate(
                 $taxRatesByIdProductAbstract->getProductTaxSets(),
                 $itemTransfer->getIdProductAbstract(),
-                $this->getShippingCountryIso2CodeByItem($itemTransfer)
+                $this->getShippingCountryIso2CodeByItem($itemTransfer),
             );
             $itemTransfer->setTaxRate($taxRate);
         }
@@ -99,7 +99,7 @@ class ProductItemTaxRateByRegionCalculator implements CalculatorInterface
             return $this->repository
                 ->getTaxSetByIdProductAbstractAndCountryIso2Codes(
                     $idProductAbstracts,
-                    $countryIso2Code
+                    $countryIso2Code,
                 );
         }
 
@@ -107,14 +107,14 @@ class ProductItemTaxRateByRegionCalculator implements CalculatorInterface
             ->getTaxSetByIdProductAbstractAndCountryIso2CodesAndIdRegions(
                 $idProductAbstracts,
                 $countryIso2Code,
-                $idRegions
+                $idRegions,
             );
     }
 
     /**
-     * @param \ArrayObject|\Generated\Shared\Transfer\ItemTransfer[] $itemTransfers
+     * @param \ArrayObject<\Generated\Shared\Transfer\ItemTransfer> $itemTransfers
      *
-     * @return string[]
+     * @return array<string>
      */
     protected function getCountryIso2Codes(iterable $itemTransfers): array
     {
@@ -127,9 +127,9 @@ class ProductItemTaxRateByRegionCalculator implements CalculatorInterface
     }
 
     /**
-     * @param \ArrayObject|\Generated\Shared\Transfer\ItemTransfer[] $itemTransfers
+     * @param \ArrayObject<\Generated\Shared\Transfer\ItemTransfer> $itemTransfers
      *
-     * @return int[]
+     * @return array<int>
      */
     protected function getIdProductAbstract(iterable $itemTransfers): array
     {
@@ -180,7 +180,7 @@ class ProductItemTaxRateByRegionCalculator implements CalculatorInterface
     }
 
     /**
-     * @param \ArrayObject|\Generated\Shared\Transfer\TaxCalculationConnectorProductTaxSetTransfer[] $taxSets
+     * @param \ArrayObject<\Generated\Shared\Transfer\TaxCalculationConnectorProductTaxSetTransfer> $taxSets
      * @param int $idProductAbstract
      * @param string $countryIso2Code
      *
@@ -241,9 +241,9 @@ class ProductItemTaxRateByRegionCalculator implements CalculatorInterface
     }
 
     /**
-     * @param \ArrayObject|\Generated\Shared\Transfer\ItemTransfer[] $itemTransfers
+     * @param \ArrayObject<\Generated\Shared\Transfer\ItemTransfer> $itemTransfers
      *
-     * @return int[]
+     * @return array<int>
      */
     protected function getRegionIds(iterable $itemTransfers): array
     {

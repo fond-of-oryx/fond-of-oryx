@@ -11,12 +11,15 @@ use Spryker\Zed\Kernel\Persistence\AbstractRepository;
  */
 class ProductLocaleRestrictionRepository extends AbstractRepository implements ProductLocaleRestrictionRepositoryInterface
 {
+    /**
+     * @var string
+     */
     protected const COLUMN_LOCALE_CODE = 'locale_code';
 
     /**
      * @param int $idProductAbstract
      *
-     * @return \Generated\Shared\Transfer\LocaleTransfer[]
+     * @return array<\Generated\Shared\Transfer\LocaleTransfer>
      */
     public function findBlacklistedLocaleByIdProductAbstract(int $idProductAbstract): array
     {
@@ -35,7 +38,7 @@ class ProductLocaleRestrictionRepository extends AbstractRepository implements P
     /**
      * @param int $idProductAbstract
      *
-     * @return int[]
+     * @return array<int>
      */
     public function findBlacklistedLocaleIdsByIdProductAbstract(int $idProductAbstract): array
     {
@@ -49,7 +52,7 @@ class ProductLocaleRestrictionRepository extends AbstractRepository implements P
     }
 
     /**
-     * @param int[] $idProductAbstracts
+     * @param array<int> $idProductAbstracts
      *
      * @return array
      */
@@ -68,7 +71,7 @@ class ProductLocaleRestrictionRepository extends AbstractRepository implements P
     }
 
     /**
-     * @param string[] $productConcreteSkus
+     * @param array<string> $productConcreteSkus
      *
      * @return array
      */

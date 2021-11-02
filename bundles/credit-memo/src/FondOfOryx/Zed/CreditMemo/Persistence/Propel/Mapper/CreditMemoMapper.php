@@ -18,7 +18,7 @@ class CreditMemoMapper implements CreditMemoMapperInterface
         FooCreditMemo $fooCreditMemo
     ): FooCreditMemo {
         $fooCreditMemo->fromArray(
-            $creditMemoTransfer->modifiedToArray(false)
+            $creditMemoTransfer->modifiedToArray(false),
         );
 
         if ($creditMemoTransfer->getLocale() !== null) {

@@ -41,7 +41,7 @@ class RestCompanySearchAttributesTranslator implements RestCompanySearchAttribut
         foreach ($restCompanySearchSortTransfer->getSortParamLocalizedNames() as $sortParamNames => $sortParamLocalizedName) {
             $sortParamLocalizedNames[$sortParamNames] = $this->glossaryStorageClient->translate(
                 $sortParamLocalizedName,
-                $locale
+                $locale,
             );
         }
 

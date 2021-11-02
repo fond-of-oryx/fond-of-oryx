@@ -66,15 +66,15 @@ class SplittableQuoteBusinessFactoryTest extends Unit
             ->method('get')
             ->withConsecutive(
                 [SplittableQuoteDependencyProvider::FACADE_CALCULATION],
-                [SplittableQuoteDependencyProvider::PLUGINS_SPLITTED_QUOTE_EXPANDER]
+                [SplittableQuoteDependencyProvider::PLUGINS_SPLITTED_QUOTE_EXPANDER],
             )->willReturnOnConsecutiveCalls(
                 $this->calculationFacadeMock,
-                []
+                [],
             );
 
         static::assertInstanceOf(
             QuoteSplitter::class,
-            $this->businessFactory->createQuoteSplitter()
+            $this->businessFactory->createQuoteSplitter(),
         );
     }
 }

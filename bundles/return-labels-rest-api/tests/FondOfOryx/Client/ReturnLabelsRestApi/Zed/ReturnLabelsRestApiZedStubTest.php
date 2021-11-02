@@ -60,7 +60,7 @@ class ReturnLabelsRestApiZedStubTest extends Unit
 
         static::assertInstanceOf(
             RestReturnLabelResponseTransfer::class,
-            $this->returnLabelsRestApiZedStub->generateReturnLabel($this->restReturnLabelRequestTransferMock)
+            $this->returnLabelsRestApiZedStub->generateReturnLabel($this->restReturnLabelRequestTransferMock),
         );
     }
 }

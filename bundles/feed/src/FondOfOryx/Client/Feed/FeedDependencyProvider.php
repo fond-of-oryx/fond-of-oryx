@@ -7,6 +7,9 @@ use Spryker\Client\Kernel\Container;
 
 class FeedDependencyProvider extends AbstractDependencyProvider
 {
+    /**
+     * @var string
+     */
     public const ZED_CLIENT = 'ZED_CLIENT';
 
     /**

@@ -29,7 +29,7 @@ class CompanyBusinessUnitOrderBudgetToPermissionFacadeBridgeTest extends Unit
             ->getMock();
 
         $this->companyBusinessUnitOrderBudgetToPermissionFacadeBridge = new CompanyBusinessUnitOrderBudgetToPermissionFacadeBridge(
-            $this->permissionFacadeMock
+            $this->permissionFacadeMock,
         );
     }
 

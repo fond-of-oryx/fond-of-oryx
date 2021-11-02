@@ -37,8 +37,8 @@ class ErpOrderPageSearchRestApiDependencyProviderTest extends Unit
         $this->assertInstanceOf(
             Container::class,
             $this->ErpOrderPageSearchRestApiDependencyProvider->provideDependencies(
-                $this->containerMock
-            )
+                $this->containerMock,
+            ),
         );
     }
 }

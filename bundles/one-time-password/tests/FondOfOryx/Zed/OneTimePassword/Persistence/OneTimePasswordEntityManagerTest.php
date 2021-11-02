@@ -138,8 +138,8 @@ class OneTimePasswordEntityManagerTest extends Unit
         $this->assertInstanceOf(
             CustomerResponseTransfer::class,
             $this->oneTimePasswordEntityManager->updateCustomerPassword(
-                $this->customerTransferMock
-            )
+                $this->customerTransferMock,
+            ),
         );
     }
 

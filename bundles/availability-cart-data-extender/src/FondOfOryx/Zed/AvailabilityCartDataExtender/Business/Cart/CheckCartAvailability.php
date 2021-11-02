@@ -15,7 +15,14 @@ use Spryker\DecimalObject\Decimal;
 
 class CheckCartAvailability implements CheckCartAvailabilityInterface
 {
+    /**
+     * @var string
+     */
     public const NAME_TRANSLATION_PARAMETER = '%name%';
+
+    /**
+     * @var string
+     */
     public const SKU_TRANSLATION_PARAMETER = '%sku%';
 
     /**
@@ -80,7 +87,7 @@ class CheckCartAvailability implements CheckCartAvailabilityInterface
 
             $currentItemQuantity = $this->calculateCurrentCartQuantityForGivenSku(
                 $itemsInCart,
-                $itemTransfer->getSku()
+                $itemTransfer->getSku(),
             );
 
             $productAvailabilityCriteriaTransfer = (new ProductAvailabilityCriteriaTransfer())
@@ -90,7 +97,7 @@ class CheckCartAvailability implements CheckCartAvailabilityInterface
                 $itemTransfer->getSku(),
                 new Decimal($currentItemQuantity),
                 $storeTransfer,
-                $productAvailabilityCriteriaTransfer
+                $productAvailabilityCriteriaTransfer,
             );
 
             $productConcreteAvailabilityTransfer = $this->getProductConcreteAvailabilityBySkuForStore($itemTransfer->getSku(), $storeTransfer, $productAvailabilityCriteriaTransfer);
@@ -107,7 +114,7 @@ class CheckCartAvailability implements CheckCartAvailabilityInterface
     }
 
     /**
-     * @param \ArrayObject|\Generated\Shared\Transfer\ItemTransfer[] $items
+     * @param \ArrayObject<\Generated\Shared\Transfer\ItemTransfer> $items
      * @param string $sku
      *
      * @return int

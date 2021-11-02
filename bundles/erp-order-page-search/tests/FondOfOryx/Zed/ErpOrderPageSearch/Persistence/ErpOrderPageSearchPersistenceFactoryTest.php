@@ -61,7 +61,7 @@ class ErpOrderPageSearchPersistenceFactoryTest extends Unit
     {
         $this->assertInstanceOf(
             ErpOrderPageSearchMapperInterface::class,
-            $this->erpOrderPageSearchPersistenceFactory->createErpOrderPageSearchMapper()
+            $this->erpOrderPageSearchPersistenceFactory->createErpOrderPageSearchMapper(),
         );
     }
 
@@ -106,7 +106,7 @@ class ErpOrderPageSearchPersistenceFactoryTest extends Unit
 
         $this->assertInstanceOf(
             ErpOrderQuery::class,
-            $this->erpOrderPageSearchPersistenceFactory->getErpOrderQuery()
+            $this->erpOrderPageSearchPersistenceFactory->getErpOrderQuery(),
         );
     }
 }

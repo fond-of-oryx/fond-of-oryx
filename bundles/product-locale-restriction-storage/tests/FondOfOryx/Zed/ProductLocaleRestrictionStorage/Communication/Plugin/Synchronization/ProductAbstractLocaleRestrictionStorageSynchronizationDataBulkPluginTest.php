@@ -24,7 +24,7 @@ class ProductAbstractLocaleRestrictionStorageSynchronizationDataBulkPluginTest e
     protected $configMock;
 
     /**
-     * @var \Generated\Shared\Transfer\FooProductAbstractLocaleRestrictionStorageEntityTransfer[]|\PHPUnit\Framework\MockObject\MockObject[]
+     * @var array<\PHPUnit\Framework\MockObject\MockObject>|array<\Generated\Shared\Transfer\FooProductAbstractLocaleRestrictionStorageEntityTransfer>
      */
     protected $fooProductAbstractLocaleRestrictionStorageEntityTransferMocks;
 
@@ -83,7 +83,7 @@ class ProductAbstractLocaleRestrictionStorageSynchronizationDataBulkPluginTest e
         }
 
         $this->productAbstractLocaleRestrictionStorageSynchronizationDataBulkPlugin->setRepository(
-            $this->repositoryMock
+            $this->repositoryMock,
         );
     }
 
@@ -115,11 +115,11 @@ class ProductAbstractLocaleRestrictionStorageSynchronizationDataBulkPluginTest e
                         return $filterTransfer->getOrderBy() === FooProductAbstractLocaleRestrictionStorageTableMap::COL_ID_PRODUCT_ABSTRACT_LOCALE_RESTRICTION_STORAGE
                             && $filterTransfer->getOffset() === $offset
                             && $filterTransfer->getLimit() === $limit;
-                    }
+                    },
                 ),
-                $ids
+                $ids,
             )->willReturn(
-                $this->fooProductAbstractLocaleRestrictionStorageEntityTransferMocks
+                $this->fooProductAbstractLocaleRestrictionStorageEntityTransferMocks,
             );
 
         $synchronizationDataTransfers = $this->productAbstractLocaleRestrictionStorageSynchronizationDataBulkPlugin
@@ -137,7 +137,7 @@ class ProductAbstractLocaleRestrictionStorageSynchronizationDataBulkPluginTest e
     {
         static::assertEquals(
             SharedProductLocaleRestrictionStorageConfig::PRODUCT_ABSTRACT_LOCALE_RESTRICTION_RESOURCE_NAME,
-            $this->productAbstractLocaleRestrictionStorageSynchronizationDataBulkPlugin->getResourceName()
+            $this->productAbstractLocaleRestrictionStorageSynchronizationDataBulkPlugin->getResourceName(),
         );
     }
 
@@ -147,7 +147,7 @@ class ProductAbstractLocaleRestrictionStorageSynchronizationDataBulkPluginTest e
     public function testHasStore(): void
     {
         static::assertFalse(
-            $this->productAbstractLocaleRestrictionStorageSynchronizationDataBulkPlugin->hasStore()
+            $this->productAbstractLocaleRestrictionStorageSynchronizationDataBulkPlugin->hasStore(),
         );
     }
 
@@ -158,7 +158,7 @@ class ProductAbstractLocaleRestrictionStorageSynchronizationDataBulkPluginTest e
     {
         static::assertCount(
             0,
-            $this->productAbstractLocaleRestrictionStorageSynchronizationDataBulkPlugin->getParams()
+            $this->productAbstractLocaleRestrictionStorageSynchronizationDataBulkPlugin->getParams(),
         );
     }
 
@@ -169,7 +169,7 @@ class ProductAbstractLocaleRestrictionStorageSynchronizationDataBulkPluginTest e
     {
         static::assertEquals(
             SharedProductLocaleRestrictionStorageConfig::PRODUCT_ABSTRACT_LOCALE_RESTRICTION_SYNC_STORAGE_QUEUE,
-            $this->productAbstractLocaleRestrictionStorageSynchronizationDataBulkPlugin->getQueueName()
+            $this->productAbstractLocaleRestrictionStorageSynchronizationDataBulkPlugin->getQueueName(),
         );
     }
 
@@ -184,7 +184,7 @@ class ProductAbstractLocaleRestrictionStorageSynchronizationDataBulkPluginTest e
 
         static::assertEquals(
             null,
-            $this->productAbstractLocaleRestrictionStorageSynchronizationDataBulkPlugin->getSynchronizationQueuePoolName()
+            $this->productAbstractLocaleRestrictionStorageSynchronizationDataBulkPlugin->getSynchronizationQueuePoolName(),
         );
     }
 }

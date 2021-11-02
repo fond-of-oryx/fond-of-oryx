@@ -8,8 +8,14 @@ use Spryker\Zed\Kernel\Container;
 
 class ReturnLabelsRestApiDependencyProvider extends AbstractBundleDependencyProvider
 {
+    /**
+     * @var string
+     */
     public const FACADE_RETURN_LABEL = 'FACADE_RETURN_LABEL';
 
+    /**
+     * @var string
+     */
     public const PLUGINS_RETURN_LABEL_REQUEST_EXPANDER = 'PLUGINS_RETURN_LABEL_REQUEST_EXPANDER';
 
     /**
@@ -35,7 +41,7 @@ class ReturnLabelsRestApiDependencyProvider extends AbstractBundleDependencyProv
     {
         $container[static::FACADE_RETURN_LABEL] = static function (Container $container) {
             return new ReturnLabelsRestApiToReturnLabelFacadeBridge(
-                $container->getLocator()->returnLabel()->facade()
+                $container->getLocator()->returnLabel()->facade(),
             );
         };
 
@@ -59,7 +65,7 @@ class ReturnLabelsRestApiDependencyProvider extends AbstractBundleDependencyProv
     }
 
     /**
-     * @return \FondOfOryx\Zed\ReturnLabelsRestApiExtension\Dependency\Plugin\ReturnLabelRequestExpanderPluginInterface[]
+     * @return array<\FondOfOryx\Zed\ReturnLabelsRestApiExtension\Dependency\Plugin\ReturnLabelRequestExpanderPluginInterface>
      */
     protected function getReturnLabelRequestExpanderPlugins(): array
     {

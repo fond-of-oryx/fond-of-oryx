@@ -104,7 +104,7 @@ class ErpOrderSynchronizationDataBulkRepositoryPluginTest extends Unit
     {
         $this->assertEquals(
             ErpOrderPageSearchConstants::ERP_ORDER_RESOURCE_NAME,
-            $this->erpOrderSynchronizationDataBulkRepositoryPlugin->getResourceName()
+            $this->erpOrderSynchronizationDataBulkRepositoryPlugin->getResourceName(),
         );
     }
 
@@ -132,7 +132,7 @@ class ErpOrderSynchronizationDataBulkRepositoryPluginTest extends Unit
     {
         $this->assertEquals(
             ErpOrderPageSearchConstants::ERP_ORDER_SYNC_SEARCH_QUEUE,
-            $this->erpOrderSynchronizationDataBulkRepositoryPlugin->getQueueName()
+            $this->erpOrderSynchronizationDataBulkRepositoryPlugin->getQueueName(),
         );
     }
 
@@ -149,7 +149,7 @@ class ErpOrderSynchronizationDataBulkRepositoryPluginTest extends Unit
         $this->assertIsString($this->erpOrderSynchronizationDataBulkRepositoryPlugin->getSynchronizationQueuePoolName());
         $this->assertEquals(
             $synchronizationPoolName,
-            $this->erpOrderSynchronizationDataBulkRepositoryPlugin->getSynchronizationQueuePoolName()
+            $this->erpOrderSynchronizationDataBulkRepositoryPlugin->getSynchronizationQueuePoolName(),
         );
     }
 }

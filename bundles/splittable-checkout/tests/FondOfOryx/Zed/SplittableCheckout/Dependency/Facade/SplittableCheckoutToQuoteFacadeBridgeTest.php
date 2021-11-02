@@ -49,7 +49,7 @@ class SplittableCheckoutToQuoteFacadeBridgeTest extends Unit
             ->getMock();
 
         $this->splittableCheckoutToQuoteFacadeBridge = new SplittableCheckoutToQuoteFacadeBridge(
-            $this->quoteFacadeMock
+            $this->quoteFacadeMock,
         );
     }
 
@@ -65,7 +65,7 @@ class SplittableCheckoutToQuoteFacadeBridgeTest extends Unit
 
         static::assertEquals(
             $this->quoteResponseTransferMock,
-            $this->splittableCheckoutToQuoteFacadeBridge->createQuote($this->quoteTransferMock)
+            $this->splittableCheckoutToQuoteFacadeBridge->createQuote($this->quoteTransferMock),
         );
     }
 
@@ -81,7 +81,7 @@ class SplittableCheckoutToQuoteFacadeBridgeTest extends Unit
 
         static::assertEquals(
             $this->quoteResponseTransferMock,
-            $this->splittableCheckoutToQuoteFacadeBridge->deleteQuote($this->quoteTransferMock)
+            $this->splittableCheckoutToQuoteFacadeBridge->deleteQuote($this->quoteTransferMock),
         );
     }
 }

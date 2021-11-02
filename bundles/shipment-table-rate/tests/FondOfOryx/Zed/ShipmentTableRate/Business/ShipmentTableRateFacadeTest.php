@@ -74,15 +74,15 @@ class ShipmentTableRateFacadeTest extends Unit
             ->method('calculate')
             ->with(
                 $this->quoteTransferMock,
-                $this->shipmentGroupTransferMock
+                $this->shipmentGroupTransferMock,
             )->willReturn($price);
 
         $this->assertEquals(
             $price,
             $this->shipmentTableRateFacade->calculatePrice(
                 $this->quoteTransferMock,
-                $this->shipmentGroupTransferMock
-            )
+                $this->shipmentGroupTransferMock,
+            ),
         );
     }
 }

@@ -14,7 +14,7 @@ class OrderReaderTest extends Unit
     protected $repositoryMock;
 
     /**
-     * @var \Generated\Shared\Transfer\OrderBudgetTransfer[]|\PHPUnit\Framework\MockObject\MockObject[]
+     * @var array<\PHPUnit\Framework\MockObject\MockObject>|array<\Generated\Shared\Transfer\OrderBudgetTransfer>
      */
     protected $orderBudgetTransferMocks;
 
@@ -54,7 +54,7 @@ class OrderReaderTest extends Unit
 
         static::assertEquals(
             $this->orderBudgetTransferMocks,
-            $this->orderReader->getAll()
+            $this->orderReader->getAll(),
         );
     }
 }

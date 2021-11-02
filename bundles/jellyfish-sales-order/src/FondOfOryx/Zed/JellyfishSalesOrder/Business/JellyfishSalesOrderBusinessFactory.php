@@ -42,7 +42,7 @@ class JellyfishSalesOrderBusinessFactory extends AbstractBusinessFactory
             $this->createJellyfishOrderMapper(),
             $this->createJellyfishOrderItemMapper(),
             $this->createJellyfishSalesOrderPluginExecutor(),
-            $this->createSalesOrderAdapter()
+            $this->createSalesOrderAdapter(),
         );
     }
 
@@ -69,7 +69,7 @@ class JellyfishSalesOrderBusinessFactory extends AbstractBusinessFactory
             $this->createJellyfishOrderPaymentMapper(),
             $this->createJellyfishOrderTotalsMapper(),
             $this->getConfig(),
-            $this->getOrderExpanderPostMapPlugins()
+            $this->getOrderExpanderPostMapPlugins(),
         );
     }
 
@@ -79,7 +79,7 @@ class JellyfishSalesOrderBusinessFactory extends AbstractBusinessFactory
     protected function createJellyfishOrderAddressMapper(): JellyfishOrderAddressMapperInterface
     {
         return new JellyfishOrderAddressMapper(
-            $this->getOrderAddressExpanderPostMapPlugins()
+            $this->getOrderAddressExpanderPostMapPlugins(),
         );
     }
 
@@ -121,7 +121,7 @@ class JellyfishSalesOrderBusinessFactory extends AbstractBusinessFactory
     protected function createJellyfishOrderItemMapper(): JellyfishOrderItemMapperInterface
     {
         return new JellyfishOrderItemMapper(
-            $this->getOrderItemExpanderPostMapPlugins()
+            $this->getOrderItemExpanderPostMapPlugins(),
         );
     }
 
@@ -142,7 +142,7 @@ class JellyfishSalesOrderBusinessFactory extends AbstractBusinessFactory
             $this->getUtilEncodingService(),
             $this->createHttpClient(),
             $this->getConfig(),
-            $this->getOrderBeforeExportPlugins()
+            $this->getOrderBeforeExportPlugins(),
         );
     }
 
@@ -155,7 +155,7 @@ class JellyfishSalesOrderBusinessFactory extends AbstractBusinessFactory
     }
 
     /**
-     * @return \FondOfOryx\Zed\JellyfishSalesOrderExtension\Dependency\Plugin\JellyfishOrderAddressExpanderPostMapPluginInterface[]
+     * @return array<\FondOfOryx\Zed\JellyfishSalesOrderExtension\Dependency\Plugin\JellyfishOrderAddressExpanderPostMapPluginInterface>
      */
     protected function getOrderAddressExpanderPostMapPlugins(): array
     {
@@ -163,7 +163,7 @@ class JellyfishSalesOrderBusinessFactory extends AbstractBusinessFactory
     }
 
     /**
-     * @return \FondOfOryx\Zed\JellyfishSalesOrderExtension\Dependency\Plugin\JellyfishOrderBeforeExportPluginInterface[]
+     * @return array<\FondOfOryx\Zed\JellyfishSalesOrderExtension\Dependency\Plugin\JellyfishOrderBeforeExportPluginInterface>
      */
     protected function getOrderBeforeExportPlugins(): array
     {
@@ -171,7 +171,7 @@ class JellyfishSalesOrderBusinessFactory extends AbstractBusinessFactory
     }
 
     /**
-     * @return \FondOfOryx\Zed\JellyfishSalesOrderExtension\Dependency\Plugin\JellyfishOrderExpanderPostMapPluginInterface[]
+     * @return array<\FondOfOryx\Zed\JellyfishSalesOrderExtension\Dependency\Plugin\JellyfishOrderExpanderPostMapPluginInterface>
      */
     protected function getOrderExpanderPostMapPlugins(): array
     {
@@ -179,7 +179,7 @@ class JellyfishSalesOrderBusinessFactory extends AbstractBusinessFactory
     }
 
     /**
-     * @return \FondOfOryx\Zed\JellyfishSalesOrderExtension\Dependency\Plugin\JellyfishOrderItemExpanderPostMapPluginInterface[]
+     * @return array<\FondOfOryx\Zed\JellyfishSalesOrderExtension\Dependency\Plugin\JellyfishOrderItemExpanderPostMapPluginInterface>
      */
     protected function getOrderItemExpanderPostMapPlugins(): array
     {
@@ -187,7 +187,7 @@ class JellyfishSalesOrderBusinessFactory extends AbstractBusinessFactory
     }
 
     /**
-     * @return \FondOfOryx\Zed\JellyfishSalesOrderExtension\Dependency\Plugin\JellyfishOrderPostMapPluginInterface[]
+     * @return array<\FondOfOryx\Zed\JellyfishSalesOrderExtension\Dependency\Plugin\JellyfishOrderPostMapPluginInterface>
      */
     protected function getJellyfishOrderPostMapPlugins(): array
     {

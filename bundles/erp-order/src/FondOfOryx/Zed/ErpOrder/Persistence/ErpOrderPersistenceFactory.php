@@ -27,7 +27,7 @@ class ErpOrderPersistenceFactory extends AbstractPersistenceFactory
     {
         return new EntityToTransferMapper(
             $this->getCompanyBusinessUnitFacade(),
-            $this->getCountryFacade()
+            $this->getCountryFacade(),
         );
     }
 

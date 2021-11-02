@@ -9,7 +9,7 @@ use Generated\Shared\Transfer\CompanyBusinessUnitAddressListTransfer;
 class CompanyBusinessUnitAddressSearchRestApiStubTest extends Unit
 {
     /**
-     * @var \Generated\Shared\Transfer\CompanyBusinessUnitAddressListTransfer|mixed|\PHPUnit\Framework\MockObject\MockObject
+     * @var \Generated\Shared\Transfer\CompanyBusinessUnitAddressListTransfer|\PHPUnit\Framework\MockObject\MockObject|mixed
      */
     protected $companyBusinessUnitAddressListTransferMock;
 
@@ -39,7 +39,7 @@ class CompanyBusinessUnitAddressSearchRestApiStubTest extends Unit
             ->getMock();
 
         $this->companySearchRestApiStub = new CompanyBusinessUnitAddressSearchRestApiStub(
-            $this->zedRequestClientMock
+            $this->zedRequestClientMock,
         );
     }
 
@@ -52,12 +52,12 @@ class CompanyBusinessUnitAddressSearchRestApiStubTest extends Unit
             ->method('call')
             ->with(
                 '/company-business-unit-address-search-rest-api/gateway/search-company-business-unit-address',
-                $this->companyBusinessUnitAddressListTransferMock
+                $this->companyBusinessUnitAddressListTransferMock,
             )->willReturn($this->companyBusinessUnitAddressListTransferMock);
 
         static::assertEquals(
             $this->companyBusinessUnitAddressListTransferMock,
-            $this->companySearchRestApiStub->searchCompanyBusinessUnitAddress($this->companyBusinessUnitAddressListTransferMock)
+            $this->companySearchRestApiStub->searchCompanyBusinessUnitAddress($this->companyBusinessUnitAddressListTransferMock),
         );
     }
 }

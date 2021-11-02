@@ -9,7 +9,14 @@ use Spryker\Shared\Kernel\Store;
 
 class CrossEngageDependencyProvider extends AbstractBundleDependencyProvider
 {
+    /**
+     * @var string
+     */
     public const CROSSENGAGE_FORM_VALIDATOR = 'CROSSENGAGE_FORM_VALIDATOR';
+
+    /**
+     * @var string
+     */
     public const INSTANCE_STORE = 'INSTANCE_STORE';
 
     /**
@@ -54,7 +61,7 @@ class CrossEngageDependencyProvider extends AbstractBundleDependencyProvider
     }
 
     /**
-     * @return \FondOfOryx\Service\CrossEngage\Model\Validator\HoneypotValidator[]
+     * @return array<\FondOfOryx\Service\CrossEngage\Model\Validator\HoneypotValidator>
      */
     protected function registerFormValidator(): array
     {

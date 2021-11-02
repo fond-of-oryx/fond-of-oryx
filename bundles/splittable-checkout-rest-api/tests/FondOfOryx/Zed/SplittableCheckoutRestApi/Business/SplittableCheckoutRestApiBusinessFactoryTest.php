@@ -79,17 +79,17 @@ class SplittableCheckoutRestApiBusinessFactoryTest extends Unit
             ->withConsecutive(
                 [SplittableCheckoutRestApiDependencyProvider::PLUGINS_QUOTE_EXPANDER],
                 [SplittableCheckoutRestApiDependencyProvider::FACADE_QUOTE],
-                [SplittableCheckoutRestApiDependencyProvider::FACADE_SPLITTABLE_CHECKOUT]
+                [SplittableCheckoutRestApiDependencyProvider::FACADE_SPLITTABLE_CHECKOUT],
             )
             ->willReturnOnConsecutiveCalls(
                 [],
                 $this->quoteFacadeMock,
-                $this->splittableCheckoutFacadeMock
+                $this->splittableCheckoutFacadeMock,
             );
 
         static::assertInstanceOf(
             PlaceOrderProcessor::class,
-            $this->businessFactory->createPlaceOrderProcessor()
+            $this->businessFactory->createPlaceOrderProcessor(),
         );
     }
 
@@ -107,17 +107,17 @@ class SplittableCheckoutRestApiBusinessFactoryTest extends Unit
             ->withConsecutive(
                 [SplittableCheckoutRestApiDependencyProvider::PLUGINS_QUOTE_EXPANDER],
                 [SplittableCheckoutRestApiDependencyProvider::FACADE_QUOTE],
-                [SplittableCheckoutRestApiDependencyProvider::FACADE_SPLITTABLE_TOTALS]
+                [SplittableCheckoutRestApiDependencyProvider::FACADE_SPLITTABLE_TOTALS],
             )
             ->willReturnOnConsecutiveCalls(
                 [],
                 $this->quoteFacadeMock,
-                $this->splittableTotalsFacadeMock
+                $this->splittableTotalsFacadeMock,
             );
 
         static::assertInstanceOf(
             SplittableTotalsReader::class,
-            $this->businessFactory->createSplittableTotalsReader()
+            $this->businessFactory->createSplittableTotalsReader(),
         );
     }
 }

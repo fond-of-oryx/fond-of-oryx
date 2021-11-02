@@ -29,7 +29,7 @@ class UtilMathFormulaServiceFactoryTest extends Unit
     {
         static::assertInstanceOf(
             FormulaEvaluator::class,
-            $this->utilMathServiceFactory->createFormulaEvaluator()
+            $this->utilMathServiceFactory->createFormulaEvaluator(),
         );
     }
 }

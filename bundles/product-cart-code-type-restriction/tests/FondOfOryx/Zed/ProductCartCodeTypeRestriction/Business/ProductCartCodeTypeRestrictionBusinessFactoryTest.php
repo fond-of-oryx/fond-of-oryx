@@ -52,7 +52,7 @@ class ProductCartCodeTypeRestrictionBusinessFactoryTest extends Unit
     {
         static::assertInstanceOf(
             ProductAbstractExpander::class,
-            $this->productCartCodeTypeRestrictionBusinessFactory->createProductAbstractExpander()
+            $this->productCartCodeTypeRestrictionBusinessFactory->createProductAbstractExpander(),
         );
     }
 
@@ -63,7 +63,7 @@ class ProductCartCodeTypeRestrictionBusinessFactoryTest extends Unit
     {
         static::assertInstanceOf(
             ProductAbstractCartCodeTypeRestrictionsPersister::class,
-            $this->productCartCodeTypeRestrictionBusinessFactory->createProductAbstractCartCodeTypeRestrictionsPersister()
+            $this->productCartCodeTypeRestrictionBusinessFactory->createProductAbstractCartCodeTypeRestrictionsPersister(),
         );
     }
 }

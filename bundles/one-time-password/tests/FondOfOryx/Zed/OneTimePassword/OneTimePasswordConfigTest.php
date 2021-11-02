@@ -25,7 +25,7 @@ class OneTimePasswordConfigTest extends Unit
     public function testGetAutoLoginPath(): void
     {
         $this->assertIsString(
-            $this->oneTimePasswordConfig->getLoginLinkPath()
+            $this->oneTimePasswordConfig->getLoginLinkPath(),
         );
     }
 
@@ -35,7 +35,7 @@ class OneTimePasswordConfigTest extends Unit
     public function testGetAutoLoginParameterName(): void
     {
         $this->assertIsString(
-            $this->oneTimePasswordConfig->getLoginLinkParameterName()
+            $this->oneTimePasswordConfig->getLoginLinkParameterName(),
         );
     }
 
@@ -45,7 +45,7 @@ class OneTimePasswordConfigTest extends Unit
     public function testAutoLoginOrderReferenceName(): void
     {
         $this->assertIsString(
-            $this->oneTimePasswordConfig->getLoginLinkOrderReferenceName()
+            $this->oneTimePasswordConfig->getLoginLinkOrderReferenceName(),
         );
     }
 
@@ -55,7 +55,7 @@ class OneTimePasswordConfigTest extends Unit
     public function testGetPasswordGeneratorUppercase(): void
     {
         $this->assertIsBool(
-            $this->oneTimePasswordConfig->getPasswordGeneratorUppercase()
+            $this->oneTimePasswordConfig->getPasswordGeneratorUppercase(),
         );
     }
 
@@ -65,7 +65,7 @@ class OneTimePasswordConfigTest extends Unit
     public function testGetPasswordGeneratorLowercase(): void
     {
         $this->assertIsBool(
-            $this->oneTimePasswordConfig->getPasswordGeneratorLowercase()
+            $this->oneTimePasswordConfig->getPasswordGeneratorLowercase(),
         );
     }
 
@@ -75,7 +75,7 @@ class OneTimePasswordConfigTest extends Unit
     public function testGetPasswordGeneratorNumbers(): void
     {
         $this->assertIsBool(
-            $this->oneTimePasswordConfig->getPasswordGeneratorNumbers()
+            $this->oneTimePasswordConfig->getPasswordGeneratorNumbers(),
         );
     }
 
@@ -85,7 +85,7 @@ class OneTimePasswordConfigTest extends Unit
     public function testGetPasswordGeneratorSymbols(): void
     {
         $this->assertIsBool(
-            $this->oneTimePasswordConfig->getPasswordGeneratorSymbols()
+            $this->oneTimePasswordConfig->getPasswordGeneratorSymbols(),
         );
     }
 
@@ -95,7 +95,7 @@ class OneTimePasswordConfigTest extends Unit
     public function testGetPasswordGeneratorSegmentLength(): void
     {
         $this->assertIsInt(
-            $this->oneTimePasswordConfig->getPasswordGeneratorSegmentLength()
+            $this->oneTimePasswordConfig->getPasswordGeneratorSegmentLength(),
         );
     }
 
@@ -105,7 +105,7 @@ class OneTimePasswordConfigTest extends Unit
     public function testGetPasswordGeneratorSegmentCount(): void
     {
         $this->assertIsInt(
-            $this->oneTimePasswordConfig->getPasswordGeneratorSegmentCount()
+            $this->oneTimePasswordConfig->getPasswordGeneratorSegmentCount(),
         );
     }
 
@@ -115,7 +115,7 @@ class OneTimePasswordConfigTest extends Unit
     public function testGetPasswordGeneratorSegmentSeparator(): void
     {
         $this->assertIsString(
-            $this->oneTimePasswordConfig->getPasswordGeneratorSegmentSeparator()
+            $this->oneTimePasswordConfig->getPasswordGeneratorSegmentSeparator(),
         );
     }
 }

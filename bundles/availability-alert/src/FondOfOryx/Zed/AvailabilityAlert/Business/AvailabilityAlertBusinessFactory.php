@@ -41,7 +41,7 @@ class AvailabilityAlertBusinessFactory extends AbstractBusinessFactory
     public function createSubscriptionRequestHandler(): SubscriptionRequestHandlerInterface
     {
         return new SubscriptionRequestHandler(
-            $this->createSubscriptionManager()
+            $this->createSubscriptionManager(),
         );
     }
 
@@ -55,7 +55,7 @@ class AvailabilityAlertBusinessFactory extends AbstractBusinessFactory
             $this->getRepository(),
             $this->getStoreFacade(),
             $this->createAvailabilityAlertSubscriptionPluginExecutor(),
-            $this->createAvailabilityAlertSubscriberPluginExecutor()
+            $this->createAvailabilityAlertSubscriberPluginExecutor(),
         );
     }
 
@@ -69,7 +69,7 @@ class AvailabilityAlertBusinessFactory extends AbstractBusinessFactory
             $this->createNotificationHandler(),
             $this->createSubscriptionManager(),
             $this->getConfig()->getMinimalPercentageDifference(),
-            $this->createSubscribersNotifierPluginExecutor()
+            $this->createSubscribersNotifierPluginExecutor(),
         );
     }
 
@@ -81,7 +81,7 @@ class AvailabilityAlertBusinessFactory extends AbstractBusinessFactory
         return new MailNotificationHandler(
             $this->getMailFacade(),
             $this->getProductFacade(),
-            $this->getConfig()->getBaseUrlSslYves()
+            $this->getConfig()->getBaseUrlSslYves(),
         );
     }
 
@@ -99,7 +99,7 @@ class AvailabilityAlertBusinessFactory extends AbstractBusinessFactory
     protected function createSubscribersNotifierPluginExecutor(): SubscribersNotifierPluginExecutorInterface
     {
         return new SubscribersNotifierPluginExecutor(
-            $this->getSubscribersNotifierPreCheckPlugins()
+            $this->getSubscribersNotifierPreCheckPlugins(),
         );
     }
 
@@ -110,7 +110,7 @@ class AvailabilityAlertBusinessFactory extends AbstractBusinessFactory
     {
         return new AvailabilityAlertSubscriberPluginExecutor(
             $this->getSubscriberPreSavePlugins(),
-            $this->getSubscriberPostSavePlugins()
+            $this->getSubscriberPostSavePlugins(),
         );
     }
 
@@ -121,7 +121,7 @@ class AvailabilityAlertBusinessFactory extends AbstractBusinessFactory
     {
         return new AvailabilityAlertSubscriptionPluginExecutor(
             $this->getSubscriptionPreSavePlugins(),
-            $this->getSubscriptionPostSavePlugins()
+            $this->getSubscriptionPostSavePlugins(),
         );
     }
 
@@ -131,7 +131,7 @@ class AvailabilityAlertBusinessFactory extends AbstractBusinessFactory
     public function createSubscribersNotifierHasProductAssignedStoresCheck(): SubscribersNotifierHasProductAssignedStoresCheckInterface
     {
         return new SubscribersNotifierHasProductAssignedStoresCheck(
-            $this->getProductFacade()
+            $this->getProductFacade(),
         );
     }
 
@@ -141,7 +141,7 @@ class AvailabilityAlertBusinessFactory extends AbstractBusinessFactory
     public function createSubscribersNotifierProductAttributeReleaseDateInPastOrIsEmptyCheck(): SubscribersNotifierProductAttributeReleaseDateInPastOrIsEmptyCheckInterface
     {
         return new SubscribersNotifierProductAttributeReleaseDateInPastOrIsEmptyCheck(
-            $this->getProductFacade()
+            $this->getProductFacade(),
         );
     }
 
@@ -154,7 +154,7 @@ class AvailabilityAlertBusinessFactory extends AbstractBusinessFactory
     }
 
     /**
-     * @return \FondOfOryx\Zed\AvailabilityAlert\Business\Model\SubscribersNotifier\SubscribersNotifierPreCheckPluginInterface[]
+     * @return array<\FondOfOryx\Zed\AvailabilityAlert\Business\Model\SubscribersNotifier\SubscribersNotifierPreCheckPluginInterface>
      */
     protected function getSubscribersNotifierPreCheckPlugins(): array
     {
@@ -186,7 +186,7 @@ class AvailabilityAlertBusinessFactory extends AbstractBusinessFactory
     }
 
     /**
-     * @return \FondOfOryx\Zed\AvailabilityAlert\Dependency\Plugin\AvailabilityAlertSubscriberPostSavePluginInterface[]
+     * @return array<\FondOfOryx\Zed\AvailabilityAlert\Dependency\Plugin\AvailabilityAlertSubscriberPostSavePluginInterface>
      */
     protected function getSubscriberPostSavePlugins(): array
     {
@@ -194,7 +194,7 @@ class AvailabilityAlertBusinessFactory extends AbstractBusinessFactory
     }
 
     /**
-     * @return \FondOfOryx\Zed\AvailabilityAlert\Dependency\Plugin\AvailabilityAlertSubscriberPreSavePluginInterface[]
+     * @return array<\FondOfOryx\Zed\AvailabilityAlert\Dependency\Plugin\AvailabilityAlertSubscriberPreSavePluginInterface>
      */
     protected function getSubscriberPreSavePlugins(): array
     {
@@ -202,7 +202,7 @@ class AvailabilityAlertBusinessFactory extends AbstractBusinessFactory
     }
 
     /**
-     * @return \FondOfOryx\Zed\AvailabilityAlert\Dependency\Plugin\AvailabilityAlertSubscriptionPostSavePluginInterface[]
+     * @return array<\FondOfOryx\Zed\AvailabilityAlert\Dependency\Plugin\AvailabilityAlertSubscriptionPostSavePluginInterface>
      */
     protected function getSubscriptionPostSavePlugins(): array
     {
@@ -210,7 +210,7 @@ class AvailabilityAlertBusinessFactory extends AbstractBusinessFactory
     }
 
     /**
-     * @return \FondOfOryx\Zed\AvailabilityAlert\Dependency\Plugin\AvailabilityAlertSubscriptionPreSavePluginInterface[]
+     * @return array<\FondOfOryx\Zed\AvailabilityAlert\Dependency\Plugin\AvailabilityAlertSubscriptionPreSavePluginInterface>
      */
     protected function getSubscriptionPreSavePlugins(): array
     {
@@ -218,7 +218,7 @@ class AvailabilityAlertBusinessFactory extends AbstractBusinessFactory
     }
 
     /**
-     * @return \FondOfOryx\Zed\AvailabilityAlert\Dependency\Plugin\NotificationPluginInterface[]
+     * @return array<\FondOfOryx\Zed\AvailabilityAlert\Dependency\Plugin\NotificationPluginInterface>
      */
     protected function getNotificationHandlerPlugins(): array
     {

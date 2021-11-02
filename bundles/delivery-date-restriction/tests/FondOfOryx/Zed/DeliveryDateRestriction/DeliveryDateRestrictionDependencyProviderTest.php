@@ -28,7 +28,7 @@ class DeliveryDateRestrictionDependencyProviderTest extends Unit
     protected $bundleProxyMock;
 
     /**
-     * @var \FondOfOryx\Zed\OrderBudget\Business\OrderBudgetFacadeInterface|mixed|\PHPUnit\Framework\MockObject\MockObject
+     * @var \FondOfOryx\Zed\OrderBudget\Business\OrderBudgetFacadeInterface|\PHPUnit\Framework\MockObject\MockObject|mixed
      */
     protected $orderBudgetFacadeMock;
 
@@ -97,7 +97,7 @@ class DeliveryDateRestrictionDependencyProviderTest extends Unit
 
         static::assertInstanceOf(
             DeliveryDateRestrictionToPermissionFacadeInterface::class,
-            $container[DeliveryDateRestrictionDependencyProvider::FACADE_PERMISSION]
+            $container[DeliveryDateRestrictionDependencyProvider::FACADE_PERMISSION],
         );
     }
 }

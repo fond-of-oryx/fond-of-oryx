@@ -56,7 +56,7 @@ class OrderBudgetHistoryMapperTest extends Unit
     public function testFromOrderBudget(): void
     {
         $orderBudgetHistoryTransfer = $this->orderBudgetHistoryMapper->fromOrderBudget(
-            (new OrderBudgetTransfer())->fromArray($this->orderBudgetData, true)
+            (new OrderBudgetTransfer())->fromArray($this->orderBudgetData, true),
         );
 
         static::assertEquals($this->orderBudgetHistoryData, $orderBudgetHistoryTransfer->toArray(true));

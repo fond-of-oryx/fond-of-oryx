@@ -10,17 +10,17 @@ use Generated\Shared\Transfer\RestCompanyBusinessUnitAddressSearchSortTransfer;
 class RestCompanyBusinessUnitAddressSearchAttributesTranslatorTest extends Unit
 {
     /**
-     * @var \FondOfOryx\Glue\CompanyBusinessUnitAddressSearchRestApi\Dependency\Client\CompanyBusinessUnitAddressSearchRestApiToGlossaryStorageClientInterface|mixed|\PHPUnit\Framework\MockObject\MockObject
+     * @var \FondOfOryx\Glue\CompanyBusinessUnitAddressSearchRestApi\Dependency\Client\CompanyBusinessUnitAddressSearchRestApiToGlossaryStorageClientInterface|\PHPUnit\Framework\MockObject\MockObject|mixed
      */
     protected $glossaryStorageClientMock;
 
     /**
-     * @var \Generated\Shared\Transfer\RestCompanyBusinessUnitAddressSearchAttributesTransfer|mixed|\PHPUnit\Framework\MockObject\MockObject
+     * @var \Generated\Shared\Transfer\RestCompanyBusinessUnitAddressSearchAttributesTransfer|\PHPUnit\Framework\MockObject\MockObject|mixed
      */
     protected $restCompanyBusinessUnitAddressSearchAttributesTransferMock;
 
     /**
-     * @var \Generated\Shared\Transfer\RestCompanyBusinessUnitAddressSearchSortTransfer|mixed|\PHPUnit\Framework\MockObject\MockObject
+     * @var \Generated\Shared\Transfer\RestCompanyBusinessUnitAddressSearchSortTransfer|\PHPUnit\Framework\MockObject\MockObject|mixed
      */
     protected $restCompanyBusinessUnitAddressSearchSortTransferMock;
 
@@ -49,7 +49,7 @@ class RestCompanyBusinessUnitAddressSearchAttributesTranslatorTest extends Unit
             ->getMock();
 
         $this->restCompanyBusinessUnitAddressSearchAttributesTranslator = new RestCompanyBusinessUnitAddressSearchAttributesTranslator(
-            $this->glossaryStorageClientMock
+            $this->glossaryStorageClientMock,
         );
     }
 
@@ -87,16 +87,16 @@ class RestCompanyBusinessUnitAddressSearchAttributesTranslatorTest extends Unit
                 static::callback(
                     static function (array $sortParamLocalizedNames) use ($translated) {
                         return $sortParamLocalizedNames == $translated;
-                    }
-                )
+                    },
+                ),
             )->willReturn($this->restCompanyBusinessUnitAddressSearchSortTransferMock);
 
         static::assertEquals(
             $this->restCompanyBusinessUnitAddressSearchAttributesTransferMock,
             $this->restCompanyBusinessUnitAddressSearchAttributesTranslator->translate(
                 $this->restCompanyBusinessUnitAddressSearchAttributesTransferMock,
-                $locale
-            )
+                $locale,
+            ),
         );
     }
 
@@ -118,8 +118,8 @@ class RestCompanyBusinessUnitAddressSearchAttributesTranslatorTest extends Unit
             $this->restCompanyBusinessUnitAddressSearchAttributesTransferMock,
             $this->restCompanyBusinessUnitAddressSearchAttributesTranslator->translate(
                 $this->restCompanyBusinessUnitAddressSearchAttributesTransferMock,
-                $locale
-            )
+                $locale,
+            ),
         );
     }
 }

@@ -16,7 +16,7 @@ class OneTimePasswordJWTEncoderTest extends Unit
     protected $oneTimePasswordJWTEncoder;
 
     /**
-     * @var \FondOfOryx\Zed\OneTimePassword\Dependency\Facade\OneTimePasswordToOauthFacadeInterface|mixed|\PHPUnit\Framework\MockObject\MockObject
+     * @var \FondOfOryx\Zed\OneTimePassword\Dependency\Facade\OneTimePasswordToOauthFacadeInterface|\PHPUnit\Framework\MockObject\MockObject|mixed
      */
     protected $oauthFacadeMock;
 
@@ -26,12 +26,12 @@ class OneTimePasswordJWTEncoderTest extends Unit
     protected $accessToken;
 
     /**
-     * @var \Generated\Shared\Transfer\OneTimePasswordResponseTransfer|mixed|\PHPUnit\Framework\MockObject\MockObject
+     * @var \Generated\Shared\Transfer\OneTimePasswordResponseTransfer|\PHPUnit\Framework\MockObject\MockObject|mixed
      */
     protected $oneTimePasswordResponseTransferMock;
 
     /**
-     * @var \Generated\Shared\Transfer\CustomerTransfer|mixed|\PHPUnit\Framework\MockObject\MockObject
+     * @var \Generated\Shared\Transfer\CustomerTransfer|\PHPUnit\Framework\MockObject\MockObject|mixed
      */
     protected $customerTransferMock;
 
@@ -46,7 +46,7 @@ class OneTimePasswordJWTEncoderTest extends Unit
     protected $oneTimePasswordPlain;
 
     /**
-     * @var \Generated\Shared\Transfer\OauthResponseTransfer|mixed|\PHPUnit\Framework\MockObject\MockObject
+     * @var \Generated\Shared\Transfer\OauthResponseTransfer|\PHPUnit\Framework\MockObject\MockObject|mixed
      */
     protected $oauthResponseTransferMock;
 
@@ -78,7 +78,7 @@ class OneTimePasswordJWTEncoderTest extends Unit
             ->getMock();
 
         $this->oneTimePasswordJWTEncoder = new OneTimePasswordJWTEncoder(
-            $this->oauthFacadeMock
+            $this->oauthFacadeMock,
         );
     }
 
@@ -114,8 +114,8 @@ class OneTimePasswordJWTEncoderTest extends Unit
         $this->assertSame(
             $this->accessToken,
             $this->oneTimePasswordJWTEncoder->encode(
-                $this->oneTimePasswordResponseTransferMock
-            )
+                $this->oneTimePasswordResponseTransferMock,
+            ),
         );
     }
 }

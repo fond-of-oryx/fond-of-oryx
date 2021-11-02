@@ -13,6 +13,9 @@ use function array_key_exists;
 
 class SubscribersNotifierProductAttributeReleaseDateInPastOrIsEmptyCheck implements SubscribersNotifierProductAttributeReleaseDateInPastOrIsEmptyCheckInterface
 {
+    /**
+     * @var string
+     */
     protected const PRODUCT_ATTRIBUTE_RELEASE_DATE = 'release_date';
 
     /**

@@ -56,12 +56,12 @@ class JellyfishBufferBeforeOrderExportPluginTest extends Unit
             ->method('bufferOrder')
             ->with(
                 $this->jellyfishOrderTransferMock,
-                $this->options
+                $this->options,
             );
 
         $this->jellyfishBufferBeforeOrderExportPlugin->before(
             $this->jellyfishOrderTransferMock,
-            $this->options
+            $this->options,
         );
     }
 }

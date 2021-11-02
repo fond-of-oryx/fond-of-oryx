@@ -57,12 +57,12 @@ class AddressMapperTest extends Unit
 
         static::assertEquals(
             $name1,
-            $addressTransfer->getFirstName()
+            $addressTransfer->getFirstName(),
         );
 
         static::assertEquals(
             $name2,
-            $addressTransfer->getLastName()
+            $addressTransfer->getLastName(),
         );
     }
 }

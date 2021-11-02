@@ -88,7 +88,7 @@ class ProductLocaleRestrictionStorageEventSubscriberTest extends Unit
                     static::callback(
                         static function (EventBaseHandlerInterface $eventHandler) {
                             return $eventHandler instanceof ProductAbstractListener;
-                        }
+                        },
                     ),
                     0,
                     null,
@@ -99,7 +99,7 @@ class ProductLocaleRestrictionStorageEventSubscriberTest extends Unit
                     static::callback(
                         static function (EventBaseHandlerInterface $eventHandler) {
                             return $eventHandler instanceof ProductAbstractListener;
-                        }
+                        },
                     ),
                     0,
                     null,
@@ -110,7 +110,7 @@ class ProductLocaleRestrictionStorageEventSubscriberTest extends Unit
                     static::callback(
                         static function (EventBaseHandlerInterface $eventHandler) {
                             return $eventHandler instanceof ProductAbstractListener;
-                        }
+                        },
                     ),
                     0,
                     null,
@@ -121,7 +121,7 @@ class ProductLocaleRestrictionStorageEventSubscriberTest extends Unit
                     static::callback(
                         static function (EventBaseHandlerInterface $eventHandler) {
                             return $eventHandler instanceof ProductAbstractLocaleRestrictionListener;
-                        }
+                        },
                     ),
                     0,
                     null,
@@ -132,7 +132,7 @@ class ProductLocaleRestrictionStorageEventSubscriberTest extends Unit
                     static::callback(
                         static function (EventBaseHandlerInterface $eventHandler) {
                             return $eventHandler instanceof ProductAbstractLocaleRestrictionListener;
-                        }
+                        },
                     ),
                     0,
                     null,
@@ -143,7 +143,7 @@ class ProductLocaleRestrictionStorageEventSubscriberTest extends Unit
                     static::callback(
                         static function (EventBaseHandlerInterface $eventHandler) {
                             return $eventHandler instanceof ProductAbstractLocaleRestrictionListener;
-                        }
+                        },
                     ),
                     0,
                     null,
@@ -158,8 +158,8 @@ class ProductLocaleRestrictionStorageEventSubscriberTest extends Unit
         static::assertEquals(
             $this->eventCollectionMock,
             $this->productLocaleRestrictionStorageEventSubscriber->getSubscribedEvents(
-                $this->eventCollectionMock
-            )
+                $this->eventCollectionMock,
+            ),
         );
     }
 }

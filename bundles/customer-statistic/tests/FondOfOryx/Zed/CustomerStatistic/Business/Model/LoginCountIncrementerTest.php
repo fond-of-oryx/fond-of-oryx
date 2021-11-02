@@ -68,7 +68,7 @@ class LoginCountIncrementerTest extends Unit
 
         $this->loginCountIncrementer = new LoginCountIncrementer(
             $this->customerStatisticReaderMock,
-            $this->customerStatisticWriterMock
+            $this->customerStatisticWriterMock,
         );
     }
 
@@ -91,11 +91,11 @@ class LoginCountIncrementerTest extends Unit
 
         static::assertEquals(
             null,
-            $customerStatisticResponseTransfer->getCustomerStatistic()
+            $customerStatisticResponseTransfer->getCustomerStatistic(),
         );
 
         static::assertFalse(
-            $customerStatisticResponseTransfer->getIsSuccessful()
+            $customerStatisticResponseTransfer->getIsSuccessful(),
         );
     }
 
@@ -131,7 +131,7 @@ class LoginCountIncrementerTest extends Unit
 
         static::assertEquals(
             $this->customerStatisticResponseTransferMock,
-            $this->loginCountIncrementer->increment($this->customerTransferMock)
+            $this->loginCountIncrementer->increment($this->customerTransferMock),
         );
     }
 
@@ -158,13 +158,13 @@ class LoginCountIncrementerTest extends Unit
                     static function (CustomerStatisticTransfer $customerStatisticTransfer) use ($idCustomer) {
                         return $customerStatisticTransfer->getFkCustomer() === $idCustomer
                             && $customerStatisticTransfer->getLoginCount() === 1;
-                    }
-                )
+                    },
+                ),
             )->willReturn($this->customerStatisticResponseTransferMock);
 
         static::assertEquals(
             $this->customerStatisticResponseTransferMock,
-            $this->loginCountIncrementer->increment($this->customerTransferMock)
+            $this->loginCountIncrementer->increment($this->customerTransferMock),
         );
     }
 }

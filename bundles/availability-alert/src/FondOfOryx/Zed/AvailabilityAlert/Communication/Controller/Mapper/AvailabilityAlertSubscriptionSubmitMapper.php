@@ -72,7 +72,7 @@ class AvailabilityAlertSubscriptionSubmitMapper implements AvailabilityAlertSubs
     ): AvailabilityAlertSubscriberTransfer {
         return (new AvailabilityAlertSubscriberTransfer())->fromArray(
             $availabilityAlertSubscriptionRequestTransfer->toArray(),
-            true
+            true,
         );
     }
 

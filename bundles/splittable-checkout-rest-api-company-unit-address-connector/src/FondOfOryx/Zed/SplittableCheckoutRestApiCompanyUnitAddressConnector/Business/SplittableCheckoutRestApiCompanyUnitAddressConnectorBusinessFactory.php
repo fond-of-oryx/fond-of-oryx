@@ -23,7 +23,7 @@ class SplittableCheckoutRestApiCompanyUnitAddressConnectorBusinessFactory extend
     public function createQuoteExpander(): QuoteExpanderInterface
     {
         return new QuoteExpander(
-            $this->createCompanyUnitAddressReader()
+            $this->createCompanyUnitAddressReader(),
         );
     }
 
@@ -35,7 +35,7 @@ class SplittableCheckoutRestApiCompanyUnitAddressConnectorBusinessFactory extend
         return new CompanyUnitAddressReader(
             $this->createAddressMapper(),
             $this->getRepository(),
-            $this->getCompanyUnitAddressFacade()
+            $this->getCompanyUnitAddressFacade(),
         );
     }
 
@@ -53,7 +53,7 @@ class SplittableCheckoutRestApiCompanyUnitAddressConnectorBusinessFactory extend
     protected function getCompanyUnitAddressFacade(): SplittableCheckoutRestApiCompanyUnitAddressConnectorToCompanyUnitAddressFacadeInterface
     {
         return $this->getProvidedDependency(
-            SplittableCheckoutRestApiCompanyUnitAddressConnectorDependencyProvider::FACADE_COMPANY_UNIT_ADDRESS
+            SplittableCheckoutRestApiCompanyUnitAddressConnectorDependencyProvider::FACADE_COMPANY_UNIT_ADDRESS,
         );
     }
 }

@@ -64,7 +64,7 @@ class GiftCardRestrictionJellyfishOrderPostMapPluginTest extends Unit
 
         $jellyfishOrderTransfer = $this->plugin->postMap(
             $this->jellyfishOrderTransferMock,
-            $this->spySalesOrderMock
+            $this->spySalesOrderMock,
         );
 
         static::assertInstanceOf(JellyfishOrderTransfer::class, $jellyfishOrderTransfer);

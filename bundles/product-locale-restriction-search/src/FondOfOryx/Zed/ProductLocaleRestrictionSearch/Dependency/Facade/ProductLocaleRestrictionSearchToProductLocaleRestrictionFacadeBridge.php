@@ -21,14 +21,14 @@ class ProductLocaleRestrictionSearchToProductLocaleRestrictionFacadeBridge imple
     }
 
     /**
-     * @param int[] $productAbstractIds
+     * @param array<int> $productAbstractIds
      *
      * @return array
      */
     public function getBlacklistedLocalesByProductAbstractIds(array $productAbstractIds): array
     {
         return $this->productLocaleRestrictionFacade->getBlacklistedLocalesByProductAbstractIds(
-            $productAbstractIds
+            $productAbstractIds,
         );
     }
 }

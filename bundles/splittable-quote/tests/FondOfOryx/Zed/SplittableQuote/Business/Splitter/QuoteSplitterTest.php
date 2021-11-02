@@ -23,7 +23,7 @@ class QuoteSplitterTest extends Unit
     protected $configMock;
 
     /**
-     * @var \FondOfOryx\Zed\SplittableQuoteExtension\Dependency\Plugin\SplittedQuoteExpanderPluginInterface[]|\PHPUnit\Framework\MockObject\MockObject[]
+     * @var array<\PHPUnit\Framework\MockObject\MockObject>|array<\FondOfOryx\Zed\SplittableQuoteExtension\Dependency\Plugin\SplittedQuoteExpanderPluginInterface>
      */
     protected $splittedQuoteExpanderPluginMocks;
 
@@ -33,7 +33,7 @@ class QuoteSplitterTest extends Unit
     protected $quoteTransferMock;
 
     /**
-     * @var \Generated\Shared\Transfer\ItemTransfer[]|\PHPUnit\Framework\MockObject\MockObject[]
+     * @var array<\PHPUnit\Framework\MockObject\MockObject>|array<\Generated\Shared\Transfer\ItemTransfer>
      */
     protected $itemTransferMocks;
 
@@ -76,7 +76,7 @@ class QuoteSplitterTest extends Unit
         $this->quoteSplitter = new QuoteSplitter(
             $this->calculationFacadeMock,
             $this->configMock,
-            $this->splittedQuoteExpanderPluginMocks
+            $this->splittedQuoteExpanderPluginMocks,
         );
     }
 
@@ -111,8 +111,8 @@ class QuoteSplitterTest extends Unit
                         return $quoteTransfer->getIdQuote() === null
                             && $quoteTransfer->getUuid() === null
                             && !$quoteTransfer->getIsDefault();
-                    }
-                )
+                    },
+                ),
             )
             ->willReturn($this->quoteTransferMock);
 
@@ -124,9 +124,9 @@ class QuoteSplitterTest extends Unit
                         return $quoteTransfer->getIdQuote() === null
                             && $quoteTransfer->getUuid() === null
                             && !$quoteTransfer->getIsDefault();
-                    }
+                    },
                 ),
-                false
+                false,
             )
             ->willReturn($this->quoteTransferMock);
 

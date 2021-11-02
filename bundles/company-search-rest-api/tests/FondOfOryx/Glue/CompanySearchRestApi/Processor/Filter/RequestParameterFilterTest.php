@@ -10,12 +10,12 @@ use Symfony\Component\HttpFoundation\Request;
 class RequestParameterFilterTest extends Unit
 {
     /**
-     * @var mixed|\PHPUnit\Framework\MockObject\MockObject|\Spryker\Glue\GlueApplication\Rest\Request\Data\RestRequestInterface
+     * @var \PHPUnit\Framework\MockObject\MockObject|\Spryker\Glue\GlueApplication\Rest\Request\Data\RestRequestInterface|mixed
      */
     protected $restRequestMock;
 
     /**
-     * @var mixed|\PHPUnit\Framework\MockObject\MockObject|\Symfony\Component\HttpFoundation\Request
+     * @var \PHPUnit\Framework\MockObject\MockObject|\Symfony\Component\HttpFoundation\Request|mixed
      */
     protected $httpRequestMock;
 
@@ -60,7 +60,7 @@ class RequestParameterFilterTest extends Unit
 
         static::assertEquals(
             'bar',
-            $this->requestParameterFilter->getRequestParameter($this->restRequestMock, 'foo')
+            $this->requestParameterFilter->getRequestParameter($this->restRequestMock, 'foo'),
         );
     }
 
@@ -75,7 +75,7 @@ class RequestParameterFilterTest extends Unit
 
         static::assertEquals(
             null,
-            $this->requestParameterFilter->getRequestParameter($this->restRequestMock, 'bar')
+            $this->requestParameterFilter->getRequestParameter($this->restRequestMock, 'bar'),
         );
     }
 }

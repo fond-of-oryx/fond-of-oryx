@@ -44,7 +44,7 @@ class ErpOrderTotalWriter implements ErpOrderTotalWriterInterface
         $erpOrderTotalTransfer = $this->getTransactionHandler()->handleTransaction(
             static function () use ($erpOrderTotalTransfer, $self) {
                 return $self->executePersistTransaction($erpOrderTotalTransfer);
-            }
+            },
         );
 
         return $erpOrderTotalTransfer;
@@ -61,7 +61,7 @@ class ErpOrderTotalWriter implements ErpOrderTotalWriterInterface
         $erpOrderTotalTransfer = $this->getTransactionHandler()->handleTransaction(
             static function () use ($erpOrderTotalTransfer, $self) {
                 return $self->executeUpdateTransaction($erpOrderTotalTransfer);
-            }
+            },
         );
 
         return $erpOrderTotalTransfer;

@@ -11,7 +11,7 @@ use Spryker\Zed\Kernel\Persistence\AbstractRepository;
 class OrderBudgetRepository extends AbstractRepository implements OrderBudgetRepositoryInterface
 {
     /**
-     * @return \Generated\Shared\Transfer\OrderBudgetTransfer[]
+     * @return array<\Generated\Shared\Transfer\OrderBudgetTransfer>
      */
     public function findAllOrderBudgets(): array
     {
@@ -21,7 +21,7 @@ class OrderBudgetRepository extends AbstractRepository implements OrderBudgetRep
         return $this->getFactory()
             ->createOrderBudgetMapper()
             ->mapEntityCollectionToTransfers(
-                $query->find()
+                $query->find(),
             );
     }
 
@@ -44,7 +44,7 @@ class OrderBudgetRepository extends AbstractRepository implements OrderBudgetRep
         return $this->getFactory()
             ->createOrderBudgetMapper()
             ->mapEntityToTransfer(
-                $entity
+                $entity,
             );
     }
 }

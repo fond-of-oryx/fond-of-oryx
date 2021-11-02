@@ -29,7 +29,7 @@ class ShipmentTableRateToUtilMathFormulaServiceBridgeTest extends Unit
             ->getMock();
 
         $this->shipmentTableRateToUtilMathFormulaServiceBridge = new ShipmentTableRateToUtilMathFormulaServiceBridge(
-            $this->utilMathFormulaServiceMock
+            $this->utilMathFormulaServiceMock,
         );
     }
 
@@ -51,7 +51,7 @@ class ShipmentTableRateToUtilMathFormulaServiceBridgeTest extends Unit
 
         static::assertEquals(
             $result,
-            $this->shipmentTableRateToUtilMathFormulaServiceBridge->evaluateFormula($formula, $variables)
+            $this->shipmentTableRateToUtilMathFormulaServiceBridge->evaluateFormula($formula, $variables),
         );
     }
 }

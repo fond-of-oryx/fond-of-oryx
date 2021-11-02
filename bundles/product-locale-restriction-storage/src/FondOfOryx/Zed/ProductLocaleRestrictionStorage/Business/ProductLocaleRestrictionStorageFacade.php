@@ -15,7 +15,7 @@ class ProductLocaleRestrictionStorageFacade extends AbstractFacade implements Pr
      *
      * @api
      *
-     * @param int[] $productAbstractIds
+     * @param array<int> $productAbstractIds
      *
      * @return void
      */

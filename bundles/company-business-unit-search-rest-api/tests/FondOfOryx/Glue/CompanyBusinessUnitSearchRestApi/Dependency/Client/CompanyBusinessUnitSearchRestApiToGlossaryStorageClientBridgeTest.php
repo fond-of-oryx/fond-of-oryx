@@ -8,7 +8,7 @@ use Spryker\Client\GlossaryStorage\GlossaryStorageClientInterface;
 class CompanyBusinessUnitSearchRestApiToGlossaryStorageClientBridgeTest extends Unit
 {
     /**
-     * @var mixed|\PHPUnit\Framework\MockObject\MockObject|\Spryker\Client\GlossaryStorage\GlossaryStorageClientInterface
+     * @var \PHPUnit\Framework\MockObject\MockObject|\Spryker\Client\GlossaryStorage\GlossaryStorageClientInterface|mixed
      */
     protected $glossaryStorageClientMock;
 
@@ -48,7 +48,7 @@ class CompanyBusinessUnitSearchRestApiToGlossaryStorageClientBridgeTest extends 
 
         static::assertEquals(
             $translated,
-            $this->bridge->translate($untranslated, $locale, $parameters)
+            $this->bridge->translate($untranslated, $locale, $parameters),
         );
     }
 }

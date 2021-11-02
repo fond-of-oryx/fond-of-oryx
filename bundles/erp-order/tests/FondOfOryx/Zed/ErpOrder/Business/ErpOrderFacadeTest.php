@@ -218,7 +218,7 @@ class ErpOrderFacadeTest extends Unit
 
         $this->assertInstanceOf(
             ErpOrderTransfer::class,
-            $erpOrderTransfer
+            $erpOrderTransfer,
         );
     }
 }

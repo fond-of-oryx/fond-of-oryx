@@ -20,7 +20,7 @@ class ConcreteSkuQueryExpanderPluginTest extends Unit
     protected $queryMock;
 
     /**
-     * @var \string[][]
+     * @var array<array<\string>>
      */
     protected $requestParameters;
 
@@ -101,18 +101,18 @@ class ConcreteSkuQueryExpanderPluginTest extends Unit
 
                         return isset($data['terms'][PageIndexMap::CONCRETE_SKUS])
                             && $data['terms'][PageIndexMap::CONCRETE_SKUS] === $self->requestParameters[CatalogSkuFilterConstants::PARAMETER_CONCRETE_SKU];
-                    }
-                )
+                    },
+                ),
             )->willReturn($this->boolQueryMock);
 
         $query = $this->concreteSkuQueryExpanderPlugin->expandQuery(
             $this->queryMock,
-            $this->requestParameters
+            $this->requestParameters,
         );
 
         static::assertEquals(
             $this->queryMock,
-            $query
+            $query,
         );
     }
 
@@ -126,12 +126,12 @@ class ConcreteSkuQueryExpanderPluginTest extends Unit
 
         $query = $this->concreteSkuQueryExpanderPlugin->expandQuery(
             $this->queryMock,
-            []
+            [],
         );
 
         static::assertEquals(
             $this->queryMock,
-            $query
+            $query,
         );
     }
 
@@ -147,12 +147,12 @@ class ConcreteSkuQueryExpanderPluginTest extends Unit
             $this->queryMock,
             [
                 CatalogSkuFilterConstants::PARAMETER_CONCRETE_SKU => '',
-            ]
+            ],
         );
 
         static::assertEquals(
             $this->queryMock,
-            $query
+            $query,
         );
     }
 
@@ -172,7 +172,7 @@ class ConcreteSkuQueryExpanderPluginTest extends Unit
         try {
             $this->concreteSkuQueryExpanderPlugin->expandQuery(
                 $this->queryMock,
-                $this->requestParameters
+                $this->requestParameters,
             );
 
             static::fail();

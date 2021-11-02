@@ -5,7 +5,7 @@ namespace FondOfOryx\Yves\Feed\CSV;
 class CsvContent implements CsvContentInterface
 {
     /**
-     * @var string[]
+     * @var array<string>
      */
     private $headers;
 
@@ -15,7 +15,7 @@ class CsvContent implements CsvContentInterface
     private $values = [];
 
     /**
-     * @param string[] $headers
+     * @param array<string> $headers
      */
     public function __construct(array $headers)
     {
@@ -23,7 +23,7 @@ class CsvContent implements CsvContentInterface
     }
 
     /**
-     * @param string[] $headers
+     * @param array<string> $headers
      *
      * @return void
      */
@@ -33,7 +33,7 @@ class CsvContent implements CsvContentInterface
     }
 
     /**
-     * @param string[] $row
+     * @param array<string> $row
      *
      * @return void
      */
@@ -43,7 +43,7 @@ class CsvContent implements CsvContentInterface
     }
 
     /**
-     * @return string[]
+     * @return array<string>
      */
     public function getRows(): array
     {
@@ -51,7 +51,7 @@ class CsvContent implements CsvContentInterface
     }
 
     /**
-     * @param string[] $row
+     * @param array<string> $row
      *
      * @return string
      */
@@ -61,9 +61,9 @@ class CsvContent implements CsvContentInterface
     }
 
     /**
-     * @param string[] $row
+     * @param array<string> $row
      *
-     * @return string[]
+     * @return array<string>
      */
     protected function escape(array $row): array
     {

@@ -9,7 +9,14 @@ use Spryker\Zed\Kernel\Container;
 
 class AvailabilityAlertCrossEngageDependencyProvider extends AbstractBundleDependencyProvider
 {
+    /**
+     * @var string
+     */
     public const SERVICE_CROSS_ENGAGE = 'SERVICE_CROSS_ENGAGE';
+
+    /**
+     * @var string
+     */
     public const FACADE_JELLYFISH_AVAILABILITY_ALERT = 'FACADE_JELLYFISH_AVAILABILITY_ALERT';
 
     /**

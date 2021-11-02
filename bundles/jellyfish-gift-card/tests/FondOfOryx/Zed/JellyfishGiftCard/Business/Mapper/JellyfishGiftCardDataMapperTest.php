@@ -65,7 +65,7 @@ class JellyfishGiftCardDataMapperTest extends Unit
 
         static::assertEquals(
             $this->jellyfishGiftCardTransferMock,
-            $jellyfishGiftCardDataTransfer->getAttributes()
+            $jellyfishGiftCardDataTransfer->getAttributes(),
         );
     }
 
@@ -82,7 +82,7 @@ class JellyfishGiftCardDataMapperTest extends Unit
         static::assertEquals(
             null,
             $this->jellyfishGiftCardDataMapper
-                ->fromJellyfishGiftCardRequest($this->jellyfishGiftCardRequestTransferMock)
+                ->fromJellyfishGiftCardRequest($this->jellyfishGiftCardRequestTransferMock),
         );
     }
 }

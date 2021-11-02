@@ -90,7 +90,7 @@ class GatewayControllerTest extends Unit
 
         static::assertEquals(
             $this->customerStatisticResponseTransferMock,
-            $this->gatewayController->incrementLoginCountAction($this->customerTransferMock)
+            $this->gatewayController->incrementLoginCountAction($this->customerTransferMock),
         );
     }
 }

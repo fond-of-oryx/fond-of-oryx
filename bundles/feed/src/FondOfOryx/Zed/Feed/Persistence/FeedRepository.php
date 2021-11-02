@@ -13,7 +13,7 @@ class FeedRepository extends AbstractRepository implements FeedRepositoryInterfa
      * @param int $idStore
      * @param int $status
      *
-     * @return \Orm\Zed\AvailabilityAlert\Persistence\FooAvailabilityAlertSubscription[]
+     * @return array<\Orm\Zed\AvailabilityAlert\Persistence\FooAvailabilityAlertSubscription>
      */
     public function findSubscriptionsByIdStoreAndStatus(int $idStore, int $status): array
     {

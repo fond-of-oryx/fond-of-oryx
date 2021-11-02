@@ -19,7 +19,7 @@ class GiftCardExpirationBusinessFactory extends AbstractBusinessFactory
     {
         return new GiftCardInvalidator(
             $this->getEntityManager(),
-            $this->getConfig()
+            $this->getConfig(),
         );
     }
 }

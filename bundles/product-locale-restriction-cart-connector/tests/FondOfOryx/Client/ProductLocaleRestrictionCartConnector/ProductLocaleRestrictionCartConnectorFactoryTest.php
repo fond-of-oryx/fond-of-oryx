@@ -58,7 +58,7 @@ class ProductLocaleRestrictionCartConnectorFactoryTest extends Unit
 
         static::assertEquals(
             $this->localeClientMock,
-            $this->productLocaleRestrictionCartConnectorFactory->getLocaleClient()
+            $this->productLocaleRestrictionCartConnectorFactory->getLocaleClient(),
         );
     }
 }

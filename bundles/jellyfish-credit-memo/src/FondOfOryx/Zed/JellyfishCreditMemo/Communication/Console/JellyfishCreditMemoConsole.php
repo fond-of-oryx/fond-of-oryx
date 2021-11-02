@@ -13,7 +13,14 @@ use Symfony\Component\Console\Output\OutputInterface;
  */
 class JellyfishCreditMemoConsole extends Console
 {
+    /**
+     * @var string
+     */
     private const COMMAND_NAME = 'jellyfish:credit-memo:export';
+
+    /**
+     * @var string
+     */
     private const DESCRIPTION = 'Exports credit memo entries to jellyfish';
 
     /**

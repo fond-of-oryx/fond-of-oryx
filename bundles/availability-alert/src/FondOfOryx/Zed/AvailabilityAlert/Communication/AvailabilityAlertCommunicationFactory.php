@@ -26,7 +26,7 @@ class AvailabilityAlertCommunicationFactory extends AbstractCommunicationFactory
         return new AvailabilityAlertSubscriptionSubmitMapper(
             $this->getLocaleFacade(),
             $this->getStoreFacade(),
-            $this->createAvailabilityAlertSubscriptionTransferExpander()
+            $this->createAvailabilityAlertSubscriptionTransferExpander(),
         );
     }
 
@@ -55,7 +55,7 @@ class AvailabilityAlertCommunicationFactory extends AbstractCommunicationFactory
     }
 
     /**
-     * @return \FondOfOryx\Zed\AvailabilityAlert\Dependency\Plugin\AvailabilityAlertSubscriptionTransferExpanderPluginInterface[]
+     * @return array<\FondOfOryx\Zed\AvailabilityAlert\Dependency\Plugin\AvailabilityAlertSubscriptionTransferExpanderPluginInterface>
      */
     protected function getAvailabilityAlertSubscriptionExpanderPlugins(): array
     {

@@ -79,8 +79,8 @@ class SplittableCheckoutRestApiCustomerConnectorFacadeTest extends Unit
             $this->quoteTransferMock,
             $this->facade->expandQuote(
                 $this->restSplittableCheckoutRequestTransferMock,
-                $this->quoteTransferMock
-            )
+                $this->quoteTransferMock,
+            ),
         );
     }
 }

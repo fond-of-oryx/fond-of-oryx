@@ -72,9 +72,9 @@ class SalesOrderExporter implements SalesOrderExporterInterface
                 sprintf(
                     'Order %s could not be exported to JellyFish! Message: %s',
                     $salesOrderEntity->getIdSalesOrder(),
-                    $exception->getMessage()
+                    $exception->getMessage(),
                 ),
-                $exception->getTrace()
+                $exception->getTrace(),
             );
 
             throw $exception;
@@ -83,7 +83,7 @@ class SalesOrderExporter implements SalesOrderExporterInterface
 
     /**
      * @param \Orm\Zed\Sales\Persistence\SpySalesOrder $salesOrderEntity
-     * @param \Orm\Zed\Sales\Persistence\SpySalesOrderItem[] $salesOrderItems
+     * @param array<\Orm\Zed\Sales\Persistence\SpySalesOrderItem> $salesOrderItems
      *
      * @return \Generated\Shared\Transfer\JellyfishOrderTransfer
      */
@@ -99,7 +99,7 @@ class SalesOrderExporter implements SalesOrderExporterInterface
     }
 
     /**
-     * @param \Orm\Zed\Sales\Persistence\SpySalesOrderItem[] $salesOrderItems
+     * @param array<\Orm\Zed\Sales\Persistence\SpySalesOrderItem> $salesOrderItems
      *
      * @return \ArrayObject
      */

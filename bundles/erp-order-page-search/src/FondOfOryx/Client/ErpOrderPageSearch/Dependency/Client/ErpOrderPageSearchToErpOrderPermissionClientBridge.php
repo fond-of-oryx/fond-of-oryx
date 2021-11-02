@@ -32,7 +32,7 @@ class ErpOrderPageSearchToErpOrderPermissionClientBridge implements
         ErpOrderPermissionCompanyBusinessUnitUuidRequestTransfer $erpOrderPermissionCompanyBusinessUnitUuidRequestTransfer
     ): CompanyBusinessUnitUuidCollectionTransfer {
         return $this->erpOrderPermissionClient->getAccessibleCompanyBusinessUnitUuids(
-            $erpOrderPermissionCompanyBusinessUnitUuidRequestTransfer
+            $erpOrderPermissionCompanyBusinessUnitUuidRequestTransfer,
         );
     }
 }

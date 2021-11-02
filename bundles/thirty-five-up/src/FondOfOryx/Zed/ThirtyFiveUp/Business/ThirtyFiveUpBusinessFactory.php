@@ -33,7 +33,7 @@ class ThirtyFiveUpBusinessFactory extends AbstractBusinessFactory
     {
         return new ThirtyFiveUpOrderHandler(
             $this->createThirtyFiveUpOrderMapper(),
-            $this->createThirtyFiveUpOrderWriter()
+            $this->createThirtyFiveUpOrderWriter(),
         );
     }
 

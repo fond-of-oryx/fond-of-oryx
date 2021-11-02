@@ -26,7 +26,7 @@ class CreditMemoApiBusinessFactory extends AbstractBusinessFactory
         return new CreditMemoApi(
             $this->getApiQueryContainer(),
             $this->createTransferMapper(),
-            $this->getCreditMemoFacade()
+            $this->getCreditMemoFacade(),
         );
     }
 

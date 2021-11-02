@@ -75,7 +75,7 @@ class ThirtyFiveUpOrderHandlerTest extends Unit
 
         $this->handler = new ThirtyFiveUpOrderHandler(
             $this->orderMapperMock,
-            $this->orderWriterMock
+            $this->orderWriterMock,
         );
     }
 

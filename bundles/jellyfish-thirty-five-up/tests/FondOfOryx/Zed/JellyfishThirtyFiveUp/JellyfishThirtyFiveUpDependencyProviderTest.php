@@ -57,8 +57,8 @@ class JellyfishThirtyFiveUpDependencyProviderTest extends Unit
         $this->assertInstanceOf(
             Container::class,
             $this->jellyfishThirtyFiveUpDependencyProvider->provideCommunicationLayerDependencies(
-                $this->containerMock
-            )
+                $this->containerMock,
+            ),
         );
     }
 

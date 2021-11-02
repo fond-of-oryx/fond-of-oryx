@@ -18,42 +18,42 @@ use Symfony\Component\HttpFoundation\Response;
 class RestResponseBuilderTest extends Unit
 {
     /**
-     * @var \FondOfOryx\Glue\CompanyBusinessUnitSearchRestApi\Processor\Mapper\RestCompanyBusinessUnitSearchAttributesMapperInterface|mixed|\PHPUnit\Framework\MockObject\MockObject
+     * @var \FondOfOryx\Glue\CompanyBusinessUnitSearchRestApi\Processor\Mapper\RestCompanyBusinessUnitSearchAttributesMapperInterface|\PHPUnit\Framework\MockObject\MockObject|mixed
      */
     protected $restCompanyBusinessUnitSearchAttributesMapperMock;
 
     /**
-     * @var mixed|\PHPUnit\Framework\MockObject\MockObject|\Spryker\Glue\GlueApplication\Rest\JsonApi\RestResourceBuilderInterface
+     * @var \PHPUnit\Framework\MockObject\MockObject|\Spryker\Glue\GlueApplication\Rest\JsonApi\RestResourceBuilderInterface|mixed
      */
     protected $restResourceBuilderMock;
 
     /**
-     * @var \Generated\Shared\Transfer\CompanyBusinessUnitListTransfer|mixed|\PHPUnit\Framework\MockObject\MockObject
+     * @var \Generated\Shared\Transfer\CompanyBusinessUnitListTransfer|\PHPUnit\Framework\MockObject\MockObject|mixed
      */
     protected $companyBusinessUnitListTransferMock;
 
     /**
-     * @var \Generated\Shared\Transfer\RestCompanyBusinessUnitSearchAttributesTransfer|mixed|\PHPUnit\Framework\MockObject\MockObject
+     * @var \Generated\Shared\Transfer\RestCompanyBusinessUnitSearchAttributesTransfer|\PHPUnit\Framework\MockObject\MockObject|mixed
      */
     protected $restCompanyBusinessUnitSearchAttributesTransferMock;
 
     /**
-     * @var \Generated\Shared\Transfer\RestCompanyBusinessUnitSearchPaginationTransfer|mixed|\PHPUnit\Framework\MockObject\MockObject
+     * @var \Generated\Shared\Transfer\RestCompanyBusinessUnitSearchPaginationTransfer|\PHPUnit\Framework\MockObject\MockObject|mixed
      */
     protected $restCompanyBusinessUnitSearchPaginationTransferMock;
 
     /**
-     * @var mixed|\PHPUnit\Framework\MockObject\MockObject|\Spryker\Glue\GlueApplication\Rest\JsonApi\RestResourceInterface
+     * @var \PHPUnit\Framework\MockObject\MockObject|\Spryker\Glue\GlueApplication\Rest\JsonApi\RestResourceInterface|mixed
      */
     protected $restResourceMock;
 
     /**
-     * @var mixed|\PHPUnit\Framework\MockObject\MockObject|\Spryker\Glue\GlueApplication\Rest\JsonApi\RestResourceInterface
+     * @var \PHPUnit\Framework\MockObject\MockObject|\Spryker\Glue\GlueApplication\Rest\JsonApi\RestResourceInterface|mixed
      */
     protected $restResponseMock;
 
     /**
-     * @var \FondOfOryx\Glue\CompanyBusinessUnitSearchRestApi\Processor\Translator\RestCompanyBusinessUnitSearchAttributesTranslatorInterface|mixed|\PHPUnit\Framework\MockObject\MockObject
+     * @var \FondOfOryx\Glue\CompanyBusinessUnitSearchRestApi\Processor\Translator\RestCompanyBusinessUnitSearchAttributesTranslatorInterface|\PHPUnit\Framework\MockObject\MockObject|mixed
      */
     protected $restCompanyBusinessUnitSearchAttributesTranslatorMock;
 
@@ -104,7 +104,7 @@ class RestResponseBuilderTest extends Unit
         $this->restResponseBuilder = new RestResponseBuilder(
             $this->restCompanyBusinessUnitSearchAttributesTranslatorMock,
             $this->restCompanyBusinessUnitSearchAttributesMapperMock,
-            $this->restResourceBuilderMock
+            $this->restResourceBuilderMock,
         );
     }
 
@@ -144,7 +144,7 @@ class RestResponseBuilderTest extends Unit
             ->with(
                 CompanyBusinessUnitSearchRestApiConfig::RESOURCE_COMPANY_BUSINESS_UNIT_SEARCH,
                 null,
-                $this->restCompanyBusinessUnitSearchAttributesTransferMock
+                $this->restCompanyBusinessUnitSearchAttributesTransferMock,
             )->willReturn($this->restResourceMock);
 
         $this->restResponseMock->expects(static::atLeastOnce())
@@ -156,8 +156,8 @@ class RestResponseBuilderTest extends Unit
             $this->restResponseMock,
             $this->restResponseBuilder->buildCompanyBusinessUnitSearchRestResponse(
                 $this->companyBusinessUnitListTransferMock,
-                $locale
-            )
+                $locale,
+            ),
         );
     }
 
@@ -178,13 +178,13 @@ class RestResponseBuilderTest extends Unit
                         return $restErrorMessageTransfer->getCode() === CompanyBusinessUnitSearchRestApiConfig::RESPONSE_CODE_USER_IS_NOT_SPECIFIED
                             && $restErrorMessageTransfer->getDetail() === CompanyBusinessUnitSearchRestApiConfig::ERROR_MESSAGE_USER_IS_NOT_SPECIFIED
                             && $restErrorMessageTransfer->getStatus() === Response::HTTP_FORBIDDEN;
-                    }
-                )
+                    },
+                ),
             )->willReturn($this->restResponseMock);
 
         static::assertEquals(
             $this->restResponseMock,
-            $this->restResponseBuilder->buildUseIsNotSpecifiedRestResponse()
+            $this->restResponseBuilder->buildUseIsNotSpecifiedRestResponse(),
         );
     }
 }

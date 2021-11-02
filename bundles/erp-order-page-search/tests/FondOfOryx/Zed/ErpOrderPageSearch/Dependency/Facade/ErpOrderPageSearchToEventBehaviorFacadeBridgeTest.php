@@ -29,7 +29,7 @@ class ErpOrderPageSearchToEventBehaviorFacadeBridgeTest extends Unit
             ->getMock();
 
         $this->erpOrderPageSearchToEventBehaviorFacadeBridge = new ErpOrderPageSearchToEventBehaviorFacadeBridge(
-            $this->eventBehaviorFacadeMock
+            $this->eventBehaviorFacadeMock,
         );
     }
 
@@ -45,7 +45,7 @@ class ErpOrderPageSearchToEventBehaviorFacadeBridgeTest extends Unit
             ->willReturn([]);
 
         $this->assertIsArray(
-            $this->erpOrderPageSearchToEventBehaviorFacadeBridge->getEventTransferIds($eventTransfers)
+            $this->erpOrderPageSearchToEventBehaviorFacadeBridge->getEventTransferIds($eventTransfers),
         );
     }
 }

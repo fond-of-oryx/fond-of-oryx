@@ -55,7 +55,7 @@ class ConcreteSkuPatternQueryExpanderPlugin extends AbstractPlugin implements Qu
             throw new InvalidArgumentException(sprintf(
                 'Sku pattern query expander available only with %s, got: %s',
                 BoolQuery::class,
-                get_class($boolQuery)
+                get_class($boolQuery),
             ));
         }
 

@@ -15,17 +15,17 @@ class OneTimePasswordEmailConnectorLoginLinkMailTypePluginTest extends Unit
     protected $oneTimePasswordEmailConnectorLoginLinkMailTypePlugin;
 
     /**
-     * @var mixed|\PHPUnit\Framework\MockObject\MockObject|\Spryker\Zed\Mail\Business\Model\Mail\Builder\MailBuilderInterface
+     * @var \PHPUnit\Framework\MockObject\MockObject|\Spryker\Zed\Mail\Business\Model\Mail\Builder\MailBuilderInterface|mixed
      */
     protected $mailBuilderMock;
 
     /**
-     * @var \Generated\Shared\Transfer\MailTransfer|mixed|\PHPUnit\Framework\MockObject\MockObject
+     * @var \Generated\Shared\Transfer\MailTransfer|\PHPUnit\Framework\MockObject\MockObject|mixed
      */
     protected $mailTransferMock;
 
     /**
-     * @var \Generated\Shared\Transfer\CustomerTransfer|mixed|\PHPUnit\Framework\MockObject\MockObject
+     * @var \Generated\Shared\Transfer\CustomerTransfer|\PHPUnit\Framework\MockObject\MockObject|mixed
      */
     protected $customerTransferMock;
 
@@ -76,7 +76,7 @@ class OneTimePasswordEmailConnectorLoginLinkMailTypePluginTest extends Unit
     public function testGetName(): void
     {
         $this->assertIsString(
-            $this->oneTimePasswordEmailConnectorLoginLinkMailTypePlugin->getName()
+            $this->oneTimePasswordEmailConnectorLoginLinkMailTypePlugin->getName(),
         );
     }
 
@@ -126,7 +126,7 @@ class OneTimePasswordEmailConnectorLoginLinkMailTypePluginTest extends Unit
             ->willReturnSelf();
 
         $this->oneTimePasswordEmailConnectorLoginLinkMailTypePlugin->build(
-            $this->mailBuilderMock
+            $this->mailBuilderMock,
         );
     }
 }

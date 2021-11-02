@@ -17,17 +17,17 @@ class ShipmentSanitizerTest extends Unit
     protected $quoteTransferMock;
 
     /**
-     * @var \Generated\Shared\Transfer\ItemTransfer[]|\PHPUnit\Framework\MockObject\MockObject[]
+     * @var array<\PHPUnit\Framework\MockObject\MockObject>|array<\Generated\Shared\Transfer\ItemTransfer>
      */
     protected $itemTransferMocks;
 
     /**
-     * @var \Generated\Shared\Transfer\ExpenseTransfer[]|\PHPUnit\Framework\MockObject\MockObject[]
+     * @var array<\PHPUnit\Framework\MockObject\MockObject>|array<\Generated\Shared\Transfer\ExpenseTransfer>
      */
     protected $expenseTransferMocks;
 
     /**
-     * @var \Generated\Shared\Transfer\ShipmentTransfer[]|\PHPUnit\Framework\MockObject\MockObject[]
+     * @var array<\PHPUnit\Framework\MockObject\MockObject>|array<\Generated\Shared\Transfer\ShipmentTransfer>
      */
     protected $shipmentTransferMocks;
 
@@ -134,13 +134,13 @@ class ShipmentSanitizerTest extends Unit
                     static function (ArrayObject $expenseTransfers) use ($expenseTransferMock) {
                         return $expenseTransfers->count() === 1
                             && $expenseTransfers->offsetGet(0) === $expenseTransferMock;
-                    }
-                )
+                    },
+                ),
             )->willReturn($this->quoteTransferMock);
 
         static::assertEquals(
             $this->quoteTransferMock,
-            $this->shipmentSanitizer->sanitize($this->quoteTransferMock)
+            $this->shipmentSanitizer->sanitize($this->quoteTransferMock),
         );
     }
 }

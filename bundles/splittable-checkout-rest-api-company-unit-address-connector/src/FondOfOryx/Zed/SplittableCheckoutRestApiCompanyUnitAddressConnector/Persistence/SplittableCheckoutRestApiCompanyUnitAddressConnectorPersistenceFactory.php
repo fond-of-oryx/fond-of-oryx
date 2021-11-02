@@ -17,7 +17,7 @@ class SplittableCheckoutRestApiCompanyUnitAddressConnectorPersistenceFactory ext
     public function getCompanyUnitAddressToCompanyBusinessUnitQuery(): SpyCompanyUnitAddressToCompanyBusinessUnitQuery
     {
         return $this->getProvidedDependency(
-            SplittableCheckoutRestApiCompanyUnitAddressConnectorDependencyProvider::PROPEL_QUERY_COMPANY_UNIT_ADDRESS_TO_COMPANY_BUSINESS_UNIT
+            SplittableCheckoutRestApiCompanyUnitAddressConnectorDependencyProvider::PROPEL_QUERY_COMPANY_UNIT_ADDRESS_TO_COMPANY_BUSINESS_UNIT,
         );
     }
 }

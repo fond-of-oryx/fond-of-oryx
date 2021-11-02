@@ -24,7 +24,7 @@ class CustomerReturnLabelRequestExpanderPlugin extends AbstractPlugin implements
     ): ReturnLabelRequestTransfer {
         return $this->getFacade()->expandReturnLabelRequest(
             $restReturnLabelRequestTransfer,
-            $returnLabelRequestTransfer
+            $returnLabelRequestTransfer,
         );
     }
 }

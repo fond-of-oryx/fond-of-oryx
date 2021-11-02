@@ -52,7 +52,7 @@ class SubmitController extends AbstractController
         return $this->jsonResponse(
             [
                 'success' => $subscribed === false ? $subscribed : $subscribed->getIsSuccess(),
-            ]
+            ],
         );
     }
 
@@ -76,7 +76,7 @@ class SubmitController extends AbstractController
         $availabilityAlertSubscriptionRequestTransfer = $this->expandForm(
             $availabilityAlertSubscriptionRequestTransfer,
             $request,
-            $formData
+            $formData,
         );
 
         return $availabilityAlertSubscriptionRequestTransfer;
@@ -95,7 +95,7 @@ class SubmitController extends AbstractController
         return $this->getFactory()
             ->getAvailabilityAlertClient()
             ->subscribe(
-                $this->createSubscriptionRequest($formData, $request)
+                $this->createSubscriptionRequest($formData, $request),
             );
     }
 
@@ -118,7 +118,7 @@ class SubmitController extends AbstractController
         $availabilityAlertSubscriptionResponseTransfer = $this->getFactory()
             ->getAvailabilityAlertClient()
             ->subscribe(
-                $formTransfer
+                $formTransfer,
             );
 
         if ($availabilityAlertSubscriptionResponseTransfer->getIsSuccess() && method_exists($request->getSession(), 'getFlashBag')) {
@@ -170,7 +170,7 @@ class SubmitController extends AbstractController
             $availabilityAlertSubscriptionRequestTransfer = $plugin->expand(
                 $availabilityAlertSubscriptionRequestTransfer,
                 $formData,
-                $request
+                $request,
             );
         }
 

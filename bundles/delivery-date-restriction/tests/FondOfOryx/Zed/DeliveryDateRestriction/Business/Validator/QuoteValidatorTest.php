@@ -52,7 +52,7 @@ class QuoteValidatorTest extends Unit
             ->getMock();
 
         $this->quoteValidator = new QuoteValidator(
-            $this->permissionFacadeMock
+            $this->permissionFacadeMock,
         );
     }
 

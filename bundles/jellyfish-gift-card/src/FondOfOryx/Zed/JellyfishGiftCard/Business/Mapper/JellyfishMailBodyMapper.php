@@ -39,13 +39,13 @@ class JellyfishMailBodyMapper implements JellyfishMailBodyMapperInterface
         $plainText = $this->renderer->render(
             JellyfishGiftCardConstants::LAYOUT_TEMPLATE_MAIL_TEXT,
             $localeTransfer,
-            $jellyfishGiftCardRequestTransfer->toArray()
+            $jellyfishGiftCardRequestTransfer->toArray(),
         );
 
         $html = $this->renderer->render(
             JellyfishGiftCardConstants::LAYOUT_TEMPLATE_MAIL_HTML,
             $localeTransfer,
-            $jellyfishGiftCardRequestTransfer->toArray()
+            $jellyfishGiftCardRequestTransfer->toArray(),
         );
 
         return (new JellyfishMailBodyTransfer())->setPlainText($plainText)

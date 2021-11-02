@@ -7,7 +7,7 @@ use Generated\Shared\Transfer\OrderBudgetTransfer;
 interface OrderBudgetRepositoryInterface
 {
     /**
-     * @return \Generated\Shared\Transfer\OrderBudgetTransfer[]
+     * @return array<\Generated\Shared\Transfer\OrderBudgetTransfer>
      */
     public function findAllOrderBudgets(): array;
 

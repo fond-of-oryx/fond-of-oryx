@@ -64,7 +64,7 @@ class CustomerStatisticZedStubTest extends Unit
 
         static::assertEquals(
             $this->customerStatisticResponseTransferMock,
-            $this->customerStatisticZedStub->incrementLoginCount($this->customerTransferMock)
+            $this->customerStatisticZedStub->incrementLoginCount($this->customerTransferMock),
         );
     }
 }

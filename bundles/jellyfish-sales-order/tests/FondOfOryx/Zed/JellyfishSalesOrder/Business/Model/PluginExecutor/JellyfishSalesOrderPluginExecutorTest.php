@@ -48,8 +48,8 @@ class JellyfishSalesOrderPluginExecutorTest extends Unit
             JellyfishOrderTransfer::class,
             $this->jellyfishSalesOrderPluginExecutor->executePostMapPlugins(
                 $this->jellyfishOrderTransferMock,
-                $this->spySalesOrderMock
-            )
+                $this->spySalesOrderMock,
+            ),
         );
     }
 }

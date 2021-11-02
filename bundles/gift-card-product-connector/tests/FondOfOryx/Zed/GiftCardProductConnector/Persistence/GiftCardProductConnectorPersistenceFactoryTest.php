@@ -117,7 +117,7 @@ class GiftCardProductConnectorPersistenceFactoryTest extends Unit
 
         $this->assertInstanceOf(
             SpyGiftCardProductAbstractConfigurationQuery::class,
-            $this->giftCardProductConnectorPersistenceFactory->createSpyGiftCardProductAbstractConfigurationQuery()
+            $this->giftCardProductConnectorPersistenceFactory->createSpyGiftCardProductAbstractConfigurationQuery(),
         );
     }
 
@@ -138,7 +138,7 @@ class GiftCardProductConnectorPersistenceFactoryTest extends Unit
 
         $this->assertInstanceOf(
             SpyGiftCardProductConfigurationQuery::class,
-            $this->giftCardProductConnectorPersistenceFactory->createSpyGiftCardProductConfigurationQuery()
+            $this->giftCardProductConnectorPersistenceFactory->createSpyGiftCardProductConfigurationQuery(),
         );
     }
 
@@ -159,7 +159,7 @@ class GiftCardProductConnectorPersistenceFactoryTest extends Unit
 
         $this->assertInstanceOf(
             SpyGiftCardProductAbstractConfigurationLinkQuery::class,
-            $this->giftCardProductConnectorPersistenceFactory->createSpyGiftCardProductAbstractConfigurationLinkQuery()
+            $this->giftCardProductConnectorPersistenceFactory->createSpyGiftCardProductAbstractConfigurationLinkQuery(),
         );
     }
 
@@ -180,7 +180,7 @@ class GiftCardProductConnectorPersistenceFactoryTest extends Unit
 
         $this->assertInstanceOf(
             SpyGiftCardProductConfigurationLinkQuery::class,
-            $this->giftCardProductConnectorPersistenceFactory->createSpyGiftCardProductConfigurationLinkQuery()
+            $this->giftCardProductConnectorPersistenceFactory->createSpyGiftCardProductConfigurationLinkQuery(),
         );
     }
 
@@ -191,7 +191,7 @@ class GiftCardProductConnectorPersistenceFactoryTest extends Unit
     {
         $this->assertInstanceOf(
             GiftCardProductAbstractConfigurationMapperInterface::class,
-            $this->giftCardProductConnectorPersistenceFactory->createGiftCardProductAbstractConfigurationMapper()
+            $this->giftCardProductConnectorPersistenceFactory->createGiftCardProductAbstractConfigurationMapper(),
         );
     }
 
@@ -202,7 +202,7 @@ class GiftCardProductConnectorPersistenceFactoryTest extends Unit
     {
         $this->assertInstanceOf(
             GiftCardProductAbstractConfigurationLinkMapperInterface::class,
-            $this->giftCardProductConnectorPersistenceFactory->createGiftCardProductAbstractConfigurationLinkMapper()
+            $this->giftCardProductConnectorPersistenceFactory->createGiftCardProductAbstractConfigurationLinkMapper(),
         );
     }
 
@@ -213,7 +213,7 @@ class GiftCardProductConnectorPersistenceFactoryTest extends Unit
     {
         $this->assertInstanceOf(
             GiftCardProductConfigurationMapperInterface::class,
-            $this->giftCardProductConnectorPersistenceFactory->createGiftCardProductConfigurationMapper()
+            $this->giftCardProductConnectorPersistenceFactory->createGiftCardProductConfigurationMapper(),
         );
     }
 
@@ -224,7 +224,7 @@ class GiftCardProductConnectorPersistenceFactoryTest extends Unit
     {
         $this->assertInstanceOf(
             GiftCardProductConfigurationLinkMapperInterface::class,
-            $this->giftCardProductConnectorPersistenceFactory->createGiftCardProductConfigurationLinkMapper()
+            $this->giftCardProductConnectorPersistenceFactory->createGiftCardProductConfigurationLinkMapper(),
         );
     }
 
@@ -245,7 +245,7 @@ class GiftCardProductConnectorPersistenceFactoryTest extends Unit
 
         $this->assertInstanceOf(
             SpyProductAbstractQuery::class,
-            $this->giftCardProductConnectorPersistenceFactory->createProductAbstractQuery()
+            $this->giftCardProductConnectorPersistenceFactory->createProductAbstractQuery(),
         );
     }
 
@@ -266,7 +266,7 @@ class GiftCardProductConnectorPersistenceFactoryTest extends Unit
 
         $this->assertInstanceOf(
             SpyProductQuery::class,
-            $this->giftCardProductConnectorPersistenceFactory->createProductQuery()
+            $this->giftCardProductConnectorPersistenceFactory->createProductQuery(),
         );
     }
 }

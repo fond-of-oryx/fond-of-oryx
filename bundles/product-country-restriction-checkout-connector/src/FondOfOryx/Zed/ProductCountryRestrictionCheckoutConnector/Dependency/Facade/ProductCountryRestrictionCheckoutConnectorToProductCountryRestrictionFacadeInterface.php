@@ -5,7 +5,7 @@ namespace FondOfOryx\Zed\ProductCountryRestrictionCheckoutConnector\Dependency\F
 interface ProductCountryRestrictionCheckoutConnectorToProductCountryRestrictionFacadeInterface
 {
     /**
-     * @param string[] $productConcreteSkus
+     * @param array<string> $productConcreteSkus
      *
      * @return array
      */

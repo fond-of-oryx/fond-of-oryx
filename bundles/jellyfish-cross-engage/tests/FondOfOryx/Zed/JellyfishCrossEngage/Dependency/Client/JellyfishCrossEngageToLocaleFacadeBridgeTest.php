@@ -44,7 +44,7 @@ class JellyfishCrossEngageToLocaleFacadeBridgeTest extends Unit
             ->getMock();
 
         $this->jellyfishCrossEngageToLocaleFacadeBridge = new JellyfishCrossEngageToLocaleFacadeBridge(
-            $this->localeFacadeMock
+            $this->localeFacadeMock,
         );
     }
 
@@ -61,8 +61,8 @@ class JellyfishCrossEngageToLocaleFacadeBridgeTest extends Unit
         $this->assertInstanceOf(
             LocaleTransfer::class,
             $this->jellyfishCrossEngageToLocaleFacadeBridge->getLocale(
-                $this->localeName
-            )
+                $this->localeName,
+            ),
         );
     }
 }

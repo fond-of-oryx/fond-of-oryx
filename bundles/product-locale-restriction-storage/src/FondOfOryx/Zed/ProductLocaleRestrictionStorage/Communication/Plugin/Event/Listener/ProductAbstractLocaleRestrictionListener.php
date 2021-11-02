@@ -21,7 +21,7 @@ class ProductAbstractLocaleRestrictionListener extends AbstractPlugin implements
      *
      * @api
      *
-     * @param \Generated\Shared\Transfer\EventEntityTransfer[] $transfers
+     * @param array<\Generated\Shared\Transfer\EventEntityTransfer> $transfers
      * @param string $eventName
      *
      * @return void
@@ -31,15 +31,15 @@ class ProductAbstractLocaleRestrictionListener extends AbstractPlugin implements
         $this->preventTransaction();
 
         $this->getFacade()->publish(
-            $this->getProductAbstractIds($transfers, $eventName)
+            $this->getProductAbstractIds($transfers, $eventName),
         );
     }
 
     /**
-     * @param \Generated\Shared\Transfer\EventEntityTransfer[] $eventTransfers
+     * @param array<\Generated\Shared\Transfer\EventEntityTransfer> $eventTransfers
      * @param string $eventName
      *
-     * @return int[]
+     * @return array<int>
      */
     protected function getProductAbstractIds(array $eventTransfers, string $eventName): array
     {
@@ -47,7 +47,7 @@ class ProductAbstractLocaleRestrictionListener extends AbstractPlugin implements
             ->getEventBehaviorFacade()
             ->getEventTransferForeignKeys(
                 $eventTransfers,
-                FooProductAbstractLocaleRestrictionTableMap::COL_FK_PRODUCT_ABSTRACT
+                FooProductAbstractLocaleRestrictionTableMap::COL_FK_PRODUCT_ABSTRACT,
             );
     }
 }

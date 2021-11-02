@@ -129,7 +129,7 @@ class OneTimePasswordFacade extends AbstractFacade implements OneTimePasswordFac
         return $this->getFactory()
             ->createOneTimePasswordLinkGenerator()
             ->generateLoginLinkWithOrderReference(
-                $orderTransfer
+                $orderTransfer,
             );
     }
 }

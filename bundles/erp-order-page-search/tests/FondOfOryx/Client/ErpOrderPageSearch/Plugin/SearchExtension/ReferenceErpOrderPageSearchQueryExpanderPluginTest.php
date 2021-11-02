@@ -20,7 +20,7 @@ class ReferenceErpOrderPageSearchQueryExpanderPluginTest extends Unit
     protected $queryMock;
 
     /**
-     * @var string[][]
+     * @var array<array<string>>
      */
     protected $requestParameters;
 
@@ -100,18 +100,18 @@ class ReferenceErpOrderPageSearchQueryExpanderPluginTest extends Unit
 
                         return isset($data['terms'][ErpOrderIndexMap::REFERENCE])
                             && $data['terms'][ErpOrderIndexMap::REFERENCE] === $self->requestParameters[ErpOrderPageSearchConstants::PARAMETER_REFERENCE];
-                    }
-                )
+                    },
+                ),
             )->willReturn($this->boolQueryMock);
 
         $query = $this->plugin->expandQuery(
             $this->queryMock,
-            $this->requestParameters
+            $this->requestParameters,
         );
 
         static::assertEquals(
             $this->queryMock,
-            $query
+            $query,
         );
     }
 
@@ -125,12 +125,12 @@ class ReferenceErpOrderPageSearchQueryExpanderPluginTest extends Unit
 
         $query = $this->plugin->expandQuery(
             $this->queryMock,
-            []
+            [],
         );
 
         static::assertEquals(
             $this->queryMock,
-            $query
+            $query,
         );
     }
 
@@ -146,12 +146,12 @@ class ReferenceErpOrderPageSearchQueryExpanderPluginTest extends Unit
             $this->queryMock,
             [
                 ErpOrderPageSearchConstants::PARAMETER_REFERENCE => '',
-            ]
+            ],
         );
 
         static::assertEquals(
             $this->queryMock,
-            $query
+            $query,
         );
     }
 
@@ -171,7 +171,7 @@ class ReferenceErpOrderPageSearchQueryExpanderPluginTest extends Unit
         try {
             $this->plugin->expandQuery(
                 $this->queryMock,
-                $this->requestParameters
+                $this->requestParameters,
             );
 
             static::fail();

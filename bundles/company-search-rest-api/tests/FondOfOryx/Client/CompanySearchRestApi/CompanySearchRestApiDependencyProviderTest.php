@@ -82,13 +82,13 @@ class CompanySearchRestApiDependencyProviderTest extends Unit
             ->willReturn($this->zedRequestClientMock);
 
         $container = $this->dependencyProvider->provideServiceLayerDependencies(
-            $this->containerMock
+            $this->containerMock,
         );
 
         static::assertEquals($container, $this->containerMock);
         static::assertInstanceOf(
             CompanySearchRestApiToZedRequestClientInterface::class,
-            $container[CompanySearchRestApiDependencyProvider::CLIENT_ZED_REQUEST]
+            $container[CompanySearchRestApiDependencyProvider::CLIENT_ZED_REQUEST],
         );
     }
 }
