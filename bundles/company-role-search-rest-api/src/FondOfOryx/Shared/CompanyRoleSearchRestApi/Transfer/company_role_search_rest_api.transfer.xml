@@ -1,0 +1,66 @@
+<?xml version="1.0"?>
+<transfers xmlns="spryker:transfer-01" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="spryker:transfer-01 http://static.spryker.com/transfer-01.xsd">
+
+    <transfer name="RestCompanyRoleSearchAttributes">
+        <property name="sort" type="RestCompanyRoleSearchSort"/>
+        <property name="pagination" type="RestCompanyRoleSearchPagination"/>
+        <property name="companyRole" type="RestCompanyRoleSearchResultItem[]" singular="companyRole"/>
+    </transfer>
+
+    <transfer name="RestCompanyRoleSearchSort">
+        <property name="sortParamNames" type="array" singular="sortParamNames"/>
+        <property name="sortParamLocalizedNames" type="array" singular="sortParamLocalizedNames"/>
+        <property name="currentSortParam" type="string"/>
+        <property name="currentSortOrder" type="string"/>
+    </transfer>
+
+    <transfer name="RestCompanyRoleSearchPagination">
+        <property name="numFound" type="int"/>
+        <property name="currentPage" type="int"/>
+        <property name="maxPage" type="int"/>
+        <property name="currentItemsPerPage" type="int"/>
+        <property name="config" type="RestCompanyRoleSearchPaginationConfig"/>
+    </transfer>
+
+    <transfer name="RestCompanyRoleSearchPaginationConfig">
+        <property name="parameterName" type="string"/>
+        <property name="itemsPerPageParameterName" type="string"/>
+        <property name="defaultItemsPerPage" type="int"/>
+        <property name="validItemsPerPageOptions" type="array" singular="validItemsPerPageOptions"/>
+    </transfer>
+
+    <transfer name="RestCompanyRoleSearchResultItem">
+        <property name="name" type="string"/>
+        <property name="uuid" type="string"/>
+        <property name="companyUuid" type="string"/>
+    </transfer>
+
+    <transfer name="Pagination">
+        <property name="page" type="int"/>
+        <property name="maxPerPage" type="int"/>
+        <property name="nbResults" type="int"/>
+        <property name="previousPage" type="int"/>
+        <property name="nextPage" type="int"/>
+        <property name="firstIndex" type="int"/>
+        <property name="lastIndex" type="int"/>
+        <property name="firstPage" type="int"/>
+        <property name="lastPage" type="int"/>
+    </transfer>
+
+    <transfer name="CompanyRoleList">
+        <property name="companyUuid" type="string"/>
+        <property name="customerReference" type="string"/>
+        <property name="customerId" type="int"/>
+        <property name="companyRole" singular="companyRole" type="CompanyRole[]"/>
+        <property name="showAll" type="bool"/>
+        <property name="query" type="string"/>
+        <property name="sort" type="string"/>
+        <property name="pagination" type="Pagination"/>
+    </transfer>
+
+    <transfer name="CompanyRole">
+        <property name="name" type="string"/>
+        <property name="uuid" type="string"/>
+        <property name="companyUuid" type="string"/>
+    </transfer>
+</transfers>
