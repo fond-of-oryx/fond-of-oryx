@@ -1,6 +1,6 @@
 <?php
 
-namespace FondOfOryx\Glue\PriceListExtension\Dependency\Plugin;
+namespace FondOfOryx\Glue\PriceListsRestApiExtension\Dependency\Plugin;
 
 use Generated\Shared\Transfer\PriceListListTransfer;
 use Spryker\Glue\GlueApplication\Rest\Request\Data\RestRequestInterface;
