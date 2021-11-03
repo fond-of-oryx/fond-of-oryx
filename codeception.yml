@@ -43,6 +43,8 @@ include:
   - bundles/one-time-password-rest-api
   - bundles/order-budget
   - bundles/prepayment
+  - bundles/price-list-extension
+  - bundles/price-lists-rest-api-extension
   - bundles/product-cart-code-type-restriction
   - bundles/product-country-restriction
   - bundles/product-country-restriction-checkout-connector
