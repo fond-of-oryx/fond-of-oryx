@@ -6,6 +6,7 @@ use ArrayObject;
 use Codeception\Test\Unit;
 use FondOfOryx\Glue\CompanyPriceListsRestApi\CompanyPriceListsRestApiConfig;
 use FondOfOryx\Shared\CompanyPriceListsRestApi\CompanyPriceListsRestApiConstants;
+use Spryker\Glue\GlueApplication\Rest\JsonApi\RestResourceInterface;
 use Spryker\Glue\GlueApplication\Rest\Request\Data\RestRequestInterface;
 use Symfony\Component\HttpFoundation\InputBag;
 use Symfony\Component\HttpFoundation\Request;
@@ -16,6 +17,11 @@ class CompanyFilterFieldsExpanderPluginTest extends Unit
      * @var \PHPUnit\Framework\MockObject\MockObject|\Spryker\Glue\GlueApplication\Rest\Request\Data\RestRequestInterface|mixed
      */
     protected $restRequestMock;
+
+    /**
+     * @var \PHPUnit\Framework\MockObject\MockObject|\Spryker\Glue\GlueApplication\Rest\JsonApi\RestResourceInterface|mixed
+     */
+    protected $restResourceMock;
 
     /**
      * @var \PHPUnit\Framework\MockObject\MockObject|\Symfony\Component\HttpFoundation\Request|mixed
@@ -43,6 +49,10 @@ class CompanyFilterFieldsExpanderPluginTest extends Unit
             ->disableOriginalConstructor()
             ->getMock();
 
+        $this->restResourceMock = $this->getMockBuilder(RestResourceInterface::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
         $this->httpRequestMock = $this->getMockBuilder(Request::class)
             ->disableOriginalConstructor()
             ->getMock();
@@ -66,6 +76,14 @@ class CompanyFilterFieldsExpanderPluginTest extends Unit
         );
 
         $this->restRequestMock->expects(static::atLeastOnce())
+            ->method('getResource')
+            ->willReturn($this->restResourceMock);
+
+        $this->restResourceMock->expects(static::atLeastOnce())
+            ->method('getId')
+            ->willReturn(null);
+
+        $this->restRequestMock->expects(static::atLeastOnce())
             ->method('getHttpRequest')
             ->willReturn($this->httpRequestMock);
 
@@ -87,8 +105,39 @@ class CompanyFilterFieldsExpanderPluginTest extends Unit
         $this->httpRequestMock->query = new InputBag([]);
 
         $this->restRequestMock->expects(static::atLeastOnce())
+            ->method('getResource')
+            ->willReturn($this->restResourceMock);
+
+        $this->restResourceMock->expects(static::atLeastOnce())
+            ->method('getId')
+            ->willReturn(null);
+
+        $this->restRequestMock->expects(static::atLeastOnce())
             ->method('getHttpRequest')
             ->willReturn($this->httpRequestMock);
+
+        $filterFieldTransfers = $this->plugin->expand($this->restRequestMock, $this->filterFieldTransfers);
+
+        static::assertCount(0, $filterFieldTransfers);
+    }
+
+    /**
+     * @return void
+     */
+    public function testExpandWithRestResourceId(): void
+    {
+        $restResourceId = 'cb3eb2e7-3c15-438d-870f-5206d594879b';
+
+        $this->restRequestMock->expects(static::atLeastOnce())
+            ->method('getResource')
+            ->willReturn($this->restResourceMock);
+
+        $this->restResourceMock->expects(static::atLeastOnce())
+            ->method('getId')
+            ->willReturn($restResourceId);
+
+        $this->restRequestMock->expects(static::never())
+            ->method('getHttpRequest');
 
         $filterFieldTransfers = $this->plugin->expand($this->restRequestMock, $this->filterFieldTransfers);
 
