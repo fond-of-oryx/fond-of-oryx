@@ -22,7 +22,7 @@
     },
     "company-business-unit-address-search-rest-api": {
       "path": "bundles/company-business-unit-address-search-rest-api/",
-      "version": "1.0.0"
+      "version": "1.0.1"
     },
     "company-business-unit-search-rest-api": {
       "path": "bundles/company-business-unit-search-rest-api/",

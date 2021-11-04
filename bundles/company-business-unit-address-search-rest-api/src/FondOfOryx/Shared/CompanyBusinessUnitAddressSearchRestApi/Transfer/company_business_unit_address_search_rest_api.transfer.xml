@@ -44,6 +44,7 @@
         <property name="email" type="string"/>
         <property name="phone" type="string"/>
         <property name="zipCode" type="string"/>
+        <property name="country" type="Country"/>
         <property name="isDefaultShippingAddress" type="bool"/>
         <property name="isDefaultBillingAddress" type="bool"/>
     </transfer>
@@ -87,6 +88,7 @@
         <property name="email" type="string"/>
         <property name="phone" type="string"/>
         <property name="zipCode" type="string"/>
+        <property name="country" type="Country"/>
         <property name="isDefaultShippingAddress" type="bool"/>
         <property name="isDefaultBillingAddress" type="bool"/>
     </transfer>
