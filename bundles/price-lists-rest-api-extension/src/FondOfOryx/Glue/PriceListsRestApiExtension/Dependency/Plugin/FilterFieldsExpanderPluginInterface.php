@@ -2,19 +2,19 @@
 
 namespace FondOfOryx\Glue\PriceListsRestApiExtension\Dependency\Plugin;
 
-use Generated\Shared\Transfer\PriceListListTransfer;
+use ArrayObject;
 use Spryker\Glue\GlueApplication\Rest\Request\Data\RestRequestInterface;
 
-interface PriceListListExpanderPluginInterface
+interface FilterFieldsExpanderPluginInterface
 {
     /**
      * @param \Spryker\Glue\GlueApplication\Rest\Request\Data\RestRequestInterface $restRequest
-     * @param \Generated\Shared\Transfer\PriceListListTransfer $priceListListTransfer
+     * @param \ArrayObject<\Generated\Shared\Transfer\FilterFieldTransfer> $filterFieldTransfers
      *
-     * @return \Generated\Shared\Transfer\PriceListListTransfer
+     * @return \ArrayObject<\Generated\Shared\Transfer\FilterFieldTransfer>
      */
     public function expand(
         RestRequestInterface $restRequest,
-        PriceListListTransfer $priceListListTransfer
-    ): PriceListListTransfer;
+        ArrayObject $filterFieldTransfers
+    ): ArrayObject;
 }

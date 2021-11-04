@@ -71,7 +71,7 @@ class RestCompanyUserSearchResultItemMapperTest extends Unit
 
         static::assertEquals(
             $uuid,
-            $restCompanyUserSearchResultItemTransfers->offsetGet(0)->getCompanyUuid(),
+            $restCompanyUserSearchResultItemTransfers->offsetGet(0)->getCompanyId(),
         );
     }
 }
