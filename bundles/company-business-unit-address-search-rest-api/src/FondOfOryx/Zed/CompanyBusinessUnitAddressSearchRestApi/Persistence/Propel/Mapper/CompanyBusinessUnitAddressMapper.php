@@ -4,6 +4,7 @@ namespace FondOfOryx\Zed\CompanyBusinessUnitAddressSearchRestApi\Persistence\Pro
 
 use FondOfOryx\Zed\CompanyBusinessUnitAddressSearchRestApi\Persistence\CompanyBusinessUnitAddressSearchRestApiRepository;
 use Generated\Shared\Transfer\CompanyBusinessUnitAddressTransfer;
+use Generated\Shared\Transfer\CountryTransfer;
 use Orm\Zed\CompanyUnitAddress\Persistence\SpyCompanyUnitAddress;
 use Propel\Runtime\Collection\ObjectCollection;
 
@@ -21,6 +22,7 @@ class CompanyBusinessUnitAddressMapper implements CompanyBusinessUnitAddressMapp
             ->fromArray($entity->toArray(), true)
             ->setIsDefaultShippingAddress(array_key_exists(CompanyBusinessUnitAddressSearchRestApiRepository::KEY_DEFAULT_SHIPPING_IDS, $ids) ? $this->isDefaultId($entity->getIdCompanyUnitAddress(), $ids[CompanyBusinessUnitAddressSearchRestApiRepository::KEY_DEFAULT_SHIPPING_IDS]) : false)
             ->setIsDefaultBillingAddress(array_key_exists(CompanyBusinessUnitAddressSearchRestApiRepository::KEY_DEFAULT_BILLING_IDS, $ids) ? $this->isDefaultId($entity->getIdCompanyUnitAddress(), $ids[CompanyBusinessUnitAddressSearchRestApiRepository::KEY_DEFAULT_BILLING_IDS]) : false)
+            ->setCountry((new CountryTransfer())->fromArray($entity->getCountry()->toArray()))
             ->setCompanyUuid($entity->getCompany()->getUuid());
     }
 
