@@ -9,8 +9,12 @@ include:
   - bundles/cart-code-type
   - bundles/cart-code-type-data-import
   - bundles/catalog-sku-filter
+  - bundles/company-business-unit-address-search-rest-api
   - bundles/company-business-unit-order-budget
+  - bundles/company-business-unit-search-rest-api
+  - bundles/company-price-lists-rest-api
   - bundles/company-search-rest-api
+  - bundles/company-user-search-rest-api
   - bundles/credit-memo
   - bundles/cross-engage
   - bundles/customer-statistic
