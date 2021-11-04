@@ -20,6 +20,10 @@ class CompanyFilterFieldsExpanderPlugin extends AbstractPlugin implements Filter
      */
     public function expand(RestRequestInterface $restRequest, ArrayObject $filterFieldTransfers): ArrayObject
     {
+        if ($restRequest->getResource()->getId() !== null) {
+            return $filterFieldTransfers;
+        }
+
         $companyUuid = $restRequest->getHttpRequest()->query->get(
             CompanyPriceListsRestApiConfig::PARAMETER_NAME_COMPANY_ID,
         );
