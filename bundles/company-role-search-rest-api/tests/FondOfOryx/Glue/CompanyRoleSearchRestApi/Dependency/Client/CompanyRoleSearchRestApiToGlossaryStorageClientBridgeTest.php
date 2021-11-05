@@ -13,7 +13,7 @@ class CompanyRoleSearchRestApiToGlossaryStorageClientBridgeTest extends Unit
     protected $glossaryStorageClientMock;
 
     /**
-     * @var \FondOfOryx\Glue\CompanyUserSearchRestApi\Dependency\Client\CompanyUserSearchRestApiToGlossaryStorageClientBridge
+     * @var \FondOfOryx\Glue\CompanyRoleSearchRestApi\Dependency\Client\CompanyRoleSearchRestApiToGlossaryStorageClientBridge
      */
     protected $bridge;
 

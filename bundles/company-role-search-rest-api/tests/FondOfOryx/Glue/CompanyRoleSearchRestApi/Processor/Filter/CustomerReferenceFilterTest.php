@@ -19,7 +19,7 @@ class CustomerReferenceFilterTest extends Unit
     protected $restUserTransferMock;
 
     /**
-     * @var \FondOfOryx\Glue\CompanyUserSearchRestApi\Processor\Filter\CustomerReferenceFilter
+     * @var \FondOfOryx\Glue\CompanyRoleSearchRestApi\Processor\Filter\CustomerReferenceFilter
      */
     protected $customerReferenceFilter;
 

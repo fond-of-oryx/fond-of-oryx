@@ -1,6 +1,6 @@
 <?php
 
-namespace FondOfOryx\Glue\CompanyUserSearchRestApi\Processor\Mapper;
+namespace FondOfOryx\Glue\CompanyRoleSearchRestApi\Processor\Mapper;
 
 use Codeception\Test\Unit;
 use Spryker\Glue\GlueApplication\Rest\Request\Data\PageInterface;
@@ -19,7 +19,7 @@ class PaginationMapperTest extends Unit
     protected $pageMock;
 
     /**
-     * @var \FondOfOryx\Glue\CompanyUserSearchRestApi\Processor\Mapper\PaginationMapper
+     * @var \FondOfOryx\Glue\CompanyRoleSearchRestApi\Processor\Mapper\PaginationMapper
      */
     protected $paginationMapper;
 

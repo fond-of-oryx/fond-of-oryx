@@ -19,7 +19,7 @@ class CompanyRoleSearchRestApiToZedRequestClientBridgeTest extends Unit
     protected $transferMock;
 
     /**
-     * @var \FondOfOryx\Client\CompanyUserSearchRestApi\Dependency\Client\CompanyUserSearchRestApiToZedRequestClientBridge
+     * @var \FondOfOryx\Client\CompanyRoleSearchRestApi\Dependency\Client\CompanyRoleSearchRestApiToZedRequestClientBridge
      */
     protected $zedRequestClientBridge;
 

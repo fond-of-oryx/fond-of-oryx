@@ -25,7 +25,7 @@ class RequestParameterFilterTest extends Unit
     protected $inputBag;
 
     /**
-     * @var \FondOfOryx\Glue\CompanyUserSearchRestApi\Processor\Filter\RequestParameterFilter
+     * @var \FondOfOryx\Glue\CompanyRoleSearchRestApi\Processor\Filter\RequestParameterFilter
      */
     protected $requestParameterFilter;
 
