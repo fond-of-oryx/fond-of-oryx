@@ -15,7 +15,7 @@ class CompanyRoleSearchResourceRoutePluginTest extends Unit
     protected $resourceRouteCollectionMock;
 
     /**
-     * @var \FondOfOryx\Glue\CompanyUserSearchRestApi\Plugin\GlueApplicationExtension\CompanyUserSearchResourceRoutePlugin
+     * @var \FondOfOryx\Glue\CompanyRoleSearchRestApi\Plugin\GlueApplicationExtension\CompanyUserSearchResourceRoutePlugin
      */
     protected $plugin;
 
