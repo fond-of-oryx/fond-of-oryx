@@ -112,7 +112,7 @@ class ProductItemTaxRateByRegionCalculator implements CalculatorInterface
     }
 
     /**
-     * @param \ArrayObject<\Generated\Shared\Transfer\ItemTransfer> $itemTransfers
+     * @param \ArrayObject<\Generated\Shared\Transfer\ItemTransfer>|iterable $itemTransfers
      *
      * @return array<string>
      */
@@ -127,7 +127,7 @@ class ProductItemTaxRateByRegionCalculator implements CalculatorInterface
     }
 
     /**
-     * @param \ArrayObject<\Generated\Shared\Transfer\ItemTransfer> $itemTransfers
+     * @param \ArrayObject<\Generated\Shared\Transfer\ItemTransfer>|iterable $itemTransfers
      *
      * @return array<int>
      */
@@ -241,7 +241,7 @@ class ProductItemTaxRateByRegionCalculator implements CalculatorInterface
     }
 
     /**
-     * @param \ArrayObject<\Generated\Shared\Transfer\ItemTransfer> $itemTransfers
+     * @param \ArrayObject<\Generated\Shared\Transfer\ItemTransfer>|iterable $itemTransfers
      *
      * @return array<int>
      */
