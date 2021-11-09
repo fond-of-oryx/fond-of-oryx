@@ -212,6 +212,10 @@
       "path": "bundles/prepayment/",
       "version": "1.0.0"
     },
+    "price-list-extension": {
+      "path": "bundles/price-list-extension/",
+      "version": "1.0.0"
+    },
     "product-cart-code-type-restriction": {
       "path": "bundles/product-cart-code-type-restriction/",
       "version": "1.0.0"
