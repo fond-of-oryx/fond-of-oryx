@@ -83,6 +83,7 @@ include:
   - bundles/splittable-totals
   - bundles/tax-calculation-connector
   - bundles/thirty-five-up
+  - bundles/thirty-five-up-payment-connector
   - bundles/util-math-formula
   - bundles/qr-code-generator
   - bundles/payment-epc-qr-code

@@ -359,6 +359,10 @@
     "thirty-five-up": {
       "path": "bundles/thirty-five-up/",
       "version": "1.0.0"
+    },,
+    "thirty-five-up-payment-connector": {
+      "path": "bundles/thirty-five-up-payment-connector/",
+      "version": "1.0.0"
     },
     "util-math-formula": {
       "path": "bundles/util-math-formula/",
