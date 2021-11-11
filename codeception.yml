@@ -6,9 +6,11 @@ include:
   - bundles/availability-alert-migrator
   - bundles/availability-cart-data-extender
   - bundles/availability-checkout-validator
+  - bundles/brands-rest-api-extension
   - bundles/cart-code-type
   - bundles/cart-code-type-data-import
   - bundles/catalog-sku-filter
+  - bundles/company-brands-rest-api
   - bundles/company-business-unit-address-search-rest-api
   - bundles/company-business-unit-order-budget
   - bundles/company-business-unit-search-rest-api
