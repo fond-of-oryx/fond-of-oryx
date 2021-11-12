@@ -33,6 +33,7 @@
         <property name="name" type="string"/>
         <property name="uuid" type="string"/>
         <property name="companyUuid" type="string"/>
+        <property name="isDefault" type="bool"/>
     </transfer>
 
     <transfer name="Pagination">
@@ -62,5 +63,6 @@
         <property name="name" type="string"/>
         <property name="uuid" type="string"/>
         <property name="companyUuid" type="string"/>
+        <property name="isDefault" type="bool"/>
     </transfer>
 </transfers>
