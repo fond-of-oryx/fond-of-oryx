@@ -22,6 +22,10 @@ use FondOfOryx\Zed\JellyfishSalesOrder\Business\Model\Mapper\JellyfishOrderTotal
 use FondOfOryx\Zed\JellyfishSalesOrder\Business\Model\Mapper\JellyfishOrderTotalsMapperInterface;
 use FondOfOryx\Zed\JellyfishSalesOrder\Business\Model\PluginExecutor\JellyfishSalesOrderPluginExecutor;
 use FondOfOryx\Zed\JellyfishSalesOrder\Business\Model\PluginExecutor\JellyfishSalesOrderPluginExecutorInterface;
+use FondOfOryx\Zed\JellyfishSalesOrder\Business\Trigger\SalesOrderExportTrigger;
+use FondOfOryx\Zed\JellyfishSalesOrder\Business\Trigger\SalesOrderExportTriggerInterface;
+use FondOfOryx\Zed\JellyfishSalesOrder\Dependency\Facade\JellyfishSalesOrderToOmsFacadeInterface;
+use FondOfOryx\Zed\JellyfishSalesOrder\Dependency\Facade\JellyfishSalesOrderToStoreFacadeInterface;
 use FondOfOryx\Zed\JellyfishSalesOrder\Dependency\Service\JellyfishSalesOrderToUtilEncodingServiceInterface;
 use FondOfOryx\Zed\JellyfishSalesOrder\JellyfishSalesOrderDependencyProvider;
 use GuzzleHttp\Client as HttpClient;
@@ -30,6 +34,8 @@ use Spryker\Zed\Kernel\Business\AbstractBusinessFactory;
 
 /**
  * @method \FondOfOryx\Zed\JellyfishSalesOrder\JellyfishSalesOrderConfig getConfig()
+ * @method \FondOfOryx\Zed\JellyfishSalesOrder\Persistence\JellyfishSalesOrderQueryContainerInterface getQueryContainer()
+ * @method \FondOfOryx\Zed\JellyfishSalesOrder\Persistence\JellyfishSalesOrderRepositoryInterface getRepository()
  */
 class JellyfishSalesOrderBusinessFactory extends AbstractBusinessFactory
 {
@@ -192,5 +198,35 @@ class JellyfishSalesOrderBusinessFactory extends AbstractBusinessFactory
     protected function getJellyfishOrderPostMapPlugins(): array
     {
         return $this->getProvidedDependency(JellyfishSalesOrderDependencyProvider::PLUGINS_JELLYFISH_ORDER_POST_MAP);
+    }
+
+    /**
+     * @return \FondOfOryx\Zed\JellyfishSalesOrder\Business\Trigger\SalesOrderExportTriggerInterface
+     */
+    public function createSalesOrderExportTrigger(): SalesOrderExportTriggerInterface
+    {
+        return new SalesOrderExportTrigger(
+            $this->getOmsFacade(),
+            $this->getStoreFacade(),
+            $this->getConfig(),
+            $this->getQueryContainer(),
+            $this->getRepository(),
+        );
+    }
+
+    /**
+     * @return \FondOfOryx\Zed\JellyfishSalesOrder\Dependency\Facade\JellyfishSalesOrderToOmsFacadeInterface
+     */
+    protected function getOmsFacade(): JellyfishSalesOrderToOmsFacadeInterface
+    {
+        return $this->getProvidedDependency(JellyfishSalesOrderDependencyProvider::FACADE_OMS);
+    }
+
+    /**
+     * @return \FondOfOryx\Zed\JellyfishSalesOrder\Dependency\Facade\JellyfishSalesOrderToStoreFacadeInterface
+     */
+    protected function getStoreFacade(): JellyfishSalesOrderToStoreFacadeInterface
+    {
+        return $this->getProvidedDependency(JellyfishSalesOrderDependencyProvider::FACADE_STORE);
     }
 }

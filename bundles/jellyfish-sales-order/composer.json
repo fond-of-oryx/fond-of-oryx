@@ -11,6 +11,9 @@
   "require": {
     "php": ">=7.3",
     "fond-of-oryx/jellyfish-sales-order-extension": "^1.0.0",
+    "spryker/log": "^1.0.0 || ^2.0.0 || ^3.0.0",
+    "spryker/oms": "^6.0.0 || ^7.0.0 || ^8.0.0 || ^10.0.0 || ^11.0.0",
+    "spryker/store": "^1.2.0",
     "spryker/util-encoding": "^1.0.0 || ^2.0.0"
   },
   "require-dev": {
