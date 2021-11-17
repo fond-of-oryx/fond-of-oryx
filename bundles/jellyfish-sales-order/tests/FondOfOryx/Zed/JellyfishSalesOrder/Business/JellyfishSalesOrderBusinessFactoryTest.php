@@ -4,9 +4,14 @@ namespace FondOfOryx\Zed\JellyfishSalesOrder\Business;
 
 use Codeception\Test\Unit;
 use FondOfOryx\Zed\JellyfishSalesOrder\Business\Model\Exporter\SalesOrderExporter;
+use FondOfOryx\Zed\JellyfishSalesOrder\Business\Trigger\SalesOrderExportTrigger;
+use FondOfOryx\Zed\JellyfishSalesOrder\Dependency\Facade\JellyfishSalesOrderToOmsFacadeInterface;
+use FondOfOryx\Zed\JellyfishSalesOrder\Dependency\Facade\JellyfishSalesOrderToStoreFacadeInterface;
 use FondOfOryx\Zed\JellyfishSalesOrder\Dependency\Service\JellyfishSalesOrderToUtilEncodingServiceInterface;
 use FondOfOryx\Zed\JellyfishSalesOrder\JellyfishSalesOrderConfig;
 use FondOfOryx\Zed\JellyfishSalesOrder\JellyfishSalesOrderDependencyProvider;
+use FondOfOryx\Zed\JellyfishSalesOrder\Persistence\JellyfishSalesOrderQueryContainer;
+use FondOfOryx\Zed\JellyfishSalesOrder\Persistence\JellyfishSalesOrderRepository;
 use Spryker\Zed\Kernel\Container;
 
 class JellyfishSalesOrderBusinessFactoryTest extends Unit
@@ -17,19 +22,39 @@ class JellyfishSalesOrderBusinessFactoryTest extends Unit
     protected $containerMock;
 
     /**
-     * @var \FondOfOryx\Zed\JellyfishSalesOrder\Business\JellyfishSalesOrderBusinessFactory
-     */
-    protected $jellyfishSalesOrderBusinessFactory;
-
-    /**
      * @var \PHPUnit\Framework\MockObject\MockObject|\FondOfOryx\Zed\JellyfishSalesOrder\JellyfishSalesOrderConfig
      */
-    protected $jellyfishSalesOrderConfigMock;
+    protected $configMock;
+
+    /**
+     * @var \FondOfOryx\Zed\JellyfishSalesOrder\Persistence\JellyfishSalesOrderQueryContainer|\PHPUnit\Framework\MockObject\MockObject|mixed
+     */
+    protected $queryContainerMock;
+
+    /**
+     * @var \FondOfOryx\Zed\JellyfishSalesOrder\Persistence\JellyfishSalesOrderRepository|\PHPUnit\Framework\MockObject\MockObject|mixed
+     */
+    protected $repositoryMock;
 
     /**
      * @var \PHPUnit\Framework\MockObject\MockObject|\FondOfOryx\Zed\JellyfishSalesOrder\Dependency\Service\JellyfishSalesOrderToUtilEncodingServiceInterface
      */
-    protected $jellyfishSalesOrderToUtilEncodingServiceMock;
+    protected $utilEncodingServiceMock;
+
+    /**
+     * @var \FondOfOryx\Zed\JellyfishSalesOrder\Dependency\Facade\JellyfishSalesOrderToOmsFacadeInterface|\PHPUnit\Framework\MockObject\MockObject|mixed
+     */
+    protected $omsFacadeMock;
+
+    /**
+     * @var \FondOfOryx\Zed\JellyfishSalesOrder\Dependency\Facade\JellyfishSalesOrderToStoreFacadeInterface|\PHPUnit\Framework\MockObject\MockObject|mixed
+     */
+    protected $storeFacadeMock;
+
+    /**
+     * @var \FondOfOryx\Zed\JellyfishSalesOrder\Business\JellyfishSalesOrderBusinessFactory
+     */
+    protected $businessFactory;
 
     /**
      * @return void
@@ -40,17 +65,35 @@ class JellyfishSalesOrderBusinessFactoryTest extends Unit
             ->disableOriginalConstructor()
             ->getMock();
 
-        $this->jellyfishSalesOrderToUtilEncodingServiceMock = $this->getMockBuilder(JellyfishSalesOrderToUtilEncodingServiceInterface::class)
+        $this->configMock = $this->getMockBuilder(JellyfishSalesOrderConfig::class)
             ->disableOriginalConstructor()
             ->getMock();
 
-        $this->jellyfishSalesOrderConfigMock = $this->getMockBuilder(JellyfishSalesOrderConfig::class)
+        $this->queryContainerMock = $this->getMockBuilder(JellyfishSalesOrderQueryContainer::class)
             ->disableOriginalConstructor()
             ->getMock();
 
-        $this->jellyfishSalesOrderBusinessFactory = new JellyfishSalesOrderBusinessFactory();
-        $this->jellyfishSalesOrderBusinessFactory->setConfig($this->jellyfishSalesOrderConfigMock);
-        $this->jellyfishSalesOrderBusinessFactory->setContainer($this->containerMock);
+        $this->repositoryMock = $this->getMockBuilder(JellyfishSalesOrderRepository::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $this->utilEncodingServiceMock = $this->getMockBuilder(JellyfishSalesOrderToUtilEncodingServiceInterface::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $this->omsFacadeMock = $this->getMockBuilder(JellyfishSalesOrderToOmsFacadeInterface::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $this->storeFacadeMock = $this->getMockBuilder(JellyfishSalesOrderToStoreFacadeInterface::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $this->businessFactory = new JellyfishSalesOrderBusinessFactory();
+        $this->businessFactory->setConfig($this->configMock);
+        $this->businessFactory->setContainer($this->containerMock);
+        $this->businessFactory->setQueryContainer($this->queryContainerMock);
+        $this->businessFactory->setRepository($this->repositoryMock);
     }
 
     /**
@@ -58,11 +101,11 @@ class JellyfishSalesOrderBusinessFactoryTest extends Unit
      */
     public function testCreateSalesOrderExporter(): void
     {
-        $this->containerMock->expects($this->atLeastOnce())
+        $this->containerMock->expects(static::atLeastOnce())
             ->method('has')
             ->willReturn(true);
 
-        $this->containerMock->expects($this->atLeastOnce())
+        $this->containerMock->expects(static::atLeastOnce())
             ->method('get')
             ->withConsecutive(
                 [JellyfishSalesOrderDependencyProvider::PLUGINS_JELLYFISH_ORDER_ADDRESS_EXPANDER_POST_MAP],
@@ -76,13 +119,38 @@ class JellyfishSalesOrderBusinessFactoryTest extends Unit
                 [],
                 [],
                 [],
-                $this->jellyfishSalesOrderToUtilEncodingServiceMock,
+                $this->utilEncodingServiceMock,
                 [],
             );
 
-        $this->assertInstanceOf(
+        static::assertInstanceOf(
             SalesOrderExporter::class,
-            $this->jellyfishSalesOrderBusinessFactory->createSalesOrderExporter(),
+            $this->businessFactory->createSalesOrderExporter(),
+        );
+    }
+
+    /**
+     * @return void
+     */
+    public function testCreateSalesOrderExportTrigger(): void
+    {
+        $this->containerMock->expects(static::atLeastOnce())
+            ->method('has')
+            ->willReturn(true);
+
+        $this->containerMock->expects(static::atLeastOnce())
+            ->method('get')
+            ->withConsecutive(
+                [JellyfishSalesOrderDependencyProvider::FACADE_OMS],
+                [JellyfishSalesOrderDependencyProvider::FACADE_STORE],
+            )->willReturnOnConsecutiveCalls(
+                $this->omsFacadeMock,
+                $this->storeFacadeMock,
+            );
+
+        static::assertInstanceOf(
+            SalesOrderExportTrigger::class,
+            $this->businessFactory->createSalesOrderExportTrigger(),
         );
     }
 }

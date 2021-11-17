@@ -13,4 +13,9 @@ interface JellyfishSalesOrderFacadeInterface
      * @return void
      */
     public function exportSalesOrder(SpySalesOrder $salesOrderEntity, array $salesOrderItems): void;
+
+    /**
+     * @return void
+     */
+    public function triggerSalesOrderExport(): void;
 }

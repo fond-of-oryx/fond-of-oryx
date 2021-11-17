@@ -3,19 +3,18 @@
 namespace FondOfOryx\Zed\JellyfishSalesOrder;
 
 use Codeception\Test\Unit;
+use FondOfOryx\Zed\JellyfishSalesOrder\Dependency\Facade\JellyfishSalesOrderToOmsFacadeBridge;
+use FondOfOryx\Zed\JellyfishSalesOrder\Dependency\Facade\JellyfishSalesOrderToStoreFacadeBridge;
 use FondOfOryx\Zed\JellyfishSalesOrder\Dependency\Service\JellyfishSalesOrderToUtilEncodingServiceBridge;
 use Spryker\Service\UtilEncoding\UtilEncodingServiceInterface;
 use Spryker\Shared\Kernel\BundleProxy;
 use Spryker\Zed\Kernel\Container;
 use Spryker\Zed\Kernel\Locator;
+use Spryker\Zed\Oms\Business\OmsFacadeInterface;
+use Spryker\Zed\Store\Business\StoreFacadeInterface;
 
 class JellyfishSalesOrderDependencyProviderTest extends Unit
 {
-    /**
-     * @var \FondOfOryx\Zed\JellyfishSalesOrder\JellyfishSalesOrderDependencyProvider
-     */
-    protected $jellyfishSalesOrderDependencyProvider;
-
     /**
      * @var \PHPUnit\Framework\MockObject\MockObject|\Spryker\Zed\Kernel\Container
      */
@@ -32,9 +31,24 @@ class JellyfishSalesOrderDependencyProviderTest extends Unit
     protected $bundleProxyMock;
 
     /**
+     * @var \PHPUnit\Framework\MockObject\MockObject|\Spryker\Zed\Oms\Business\OmsFacadeInterface|mixed
+     */
+    protected $omsFacadeMock;
+
+    /**
+     * @var \PHPUnit\Framework\MockObject\MockObject|\Spryker\Zed\Store\Business\StoreFacadeInterface|mixed
+     */
+    protected $storeFacadeMock;
+
+    /**
      * @var \PHPUnit\Framework\MockObject\MockObject|\Spryker\Service\UtilEncoding\UtilEncodingServiceInterface
      */
     protected $utilEncodingServiceMock;
+
+    /**
+     * @var \FondOfOryx\Zed\JellyfishSalesOrder\JellyfishSalesOrderDependencyProvider
+     */
+    protected $dependencyProvider;
 
     /**
      * @return void
@@ -55,11 +69,19 @@ class JellyfishSalesOrderDependencyProviderTest extends Unit
             ->disableOriginalConstructor()
             ->getMock();
 
+        $this->omsFacadeMock = $this->getMockBuilder(OmsFacadeInterface::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $this->storeFacadeMock = $this->getMockBuilder(StoreFacadeInterface::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
         $this->utilEncodingServiceMock = $this->getMockBuilder(UtilEncodingServiceInterface::class)
             ->disableOriginalConstructor()
             ->getMock();
 
-        $this->jellyfishSalesOrderDependencyProvider = new JellyfishSalesOrderDependencyProvider();
+        $this->dependencyProvider = new JellyfishSalesOrderDependencyProvider();
     }
 
     /**
@@ -67,46 +89,62 @@ class JellyfishSalesOrderDependencyProviderTest extends Unit
      */
     public function testProvideBusinessLayerDependencies(): void
     {
-        $this->containerMock->expects($this->atLeastOnce())
+        $this->containerMock->expects(static::atLeastOnce())
             ->method('getLocator')
             ->willReturn($this->locatorMock);
 
-        $this->locatorMock->expects($this->atLeastOnce())
+        $this->locatorMock->expects(static::atLeastOnce())
             ->method('__call')
-            ->withConsecutive(['utilEncoding'])
+            ->withConsecutive(['oms'], ['store'], ['utilEncoding'])
             ->willReturn($this->bundleProxyMock);
 
-        $this->bundleProxyMock->expects($this->atLeastOnce())
+        $this->bundleProxyMock->expects(static::atLeastOnce())
             ->method('__call')
-            ->with('service')
+            ->withConsecutive(['facade'], ['facade'], ['service'])
             ->willReturnOnConsecutiveCalls(
+                $this->omsFacadeMock,
+                $this->storeFacadeMock,
                 $this->utilEncodingServiceMock,
             );
 
-        $this->assertEquals(
+        static::assertEquals(
             $this->containerMock,
-            $this->jellyfishSalesOrderDependencyProvider->provideBusinessLayerDependencies($this->containerMock),
+            $this->dependencyProvider->provideBusinessLayerDependencies($this->containerMock),
         );
 
-        $this->assertInstanceOf(
+        static::assertInstanceOf(
+            JellyfishSalesOrderToOmsFacadeBridge::class,
+            $this->containerMock[JellyfishSalesOrderDependencyProvider::FACADE_OMS],
+        );
+
+        static::assertInstanceOf(
+            JellyfishSalesOrderToStoreFacadeBridge::class,
+            $this->containerMock[JellyfishSalesOrderDependencyProvider::FACADE_STORE],
+        );
+
+        static::assertInstanceOf(
             JellyfishSalesOrderToUtilEncodingServiceBridge::class,
             $this->containerMock[JellyfishSalesOrderDependencyProvider::SERVICE_UTIL_ENCODING],
         );
 
-        $this->assertIsArray(
+        static::assertIsArray(
             $this->containerMock[JellyfishSalesOrderDependencyProvider::PLUGINS_JELLYFISH_ORDER_ADDRESS_EXPANDER_POST_MAP],
         );
 
-        $this->assertIsArray(
+        static::assertIsArray(
             $this->containerMock[JellyfishSalesOrderDependencyProvider::PLUGINS_JELLYFISH_ORDER_EXPANDER_POST_MAP],
         );
 
-        $this->assertIsArray(
+        static::assertIsArray(
             $this->containerMock[JellyfishSalesOrderDependencyProvider::PLUGINS_JELLYFISH_ORDER_ITEM_EXPANDER_POST_MAP],
         );
 
-        $this->assertIsArray(
+        static::assertIsArray(
             $this->containerMock[JellyfishSalesOrderDependencyProvider::PLUGINS_JELLYFISH_ORDER_POST_MAP],
+        );
+
+        static::assertIsArray(
+            $this->containerMock[JellyfishSalesOrderDependencyProvider::PLUGINS_JELLYFISH_ORDER_BEFORE_EXPORT],
         );
     }
 }

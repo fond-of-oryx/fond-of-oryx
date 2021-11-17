@@ -7,6 +7,7 @@ use Spryker\Zed\Kernel\Business\AbstractFacade;
 
 /**
  * @method \FondOfOryx\Zed\JellyfishSalesOrder\Business\JellyfishSalesOrderBusinessFactory getFactory()
+ * @method \FondOfOryx\Zed\JellyfishSalesOrder\Persistence\JellyfishSalesOrderRepositoryInterface getRepository()
  */
 class JellyfishSalesOrderFacade extends AbstractFacade implements JellyfishSalesOrderFacadeInterface
 {
@@ -19,5 +20,13 @@ class JellyfishSalesOrderFacade extends AbstractFacade implements JellyfishSales
     public function exportSalesOrder(SpySalesOrder $salesOrderEntity, array $salesOrderItems): void
     {
         $this->getFactory()->createSalesOrderExporter()->export($salesOrderEntity, $salesOrderItems);
+    }
+
+    /**
+     * @return void
+     */
+    public function triggerSalesOrderExport(): void
+    {
+        $this->getFactory()->createSalesOrderExportTrigger()->trigger();
     }
 }
