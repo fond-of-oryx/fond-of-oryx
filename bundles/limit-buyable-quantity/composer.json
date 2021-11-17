@@ -1,0 +1,32 @@
+{
+  "name": "fond-of-oryx/limit-buyable-quantity",
+  "description": "Limit buyable quantity module.",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Daniel Rose",
+      "email": "daniel-rose@gmx.de"
+    }
+  ],
+  "require": {
+    "php": ">=7.3",
+    "spryker/cart-extension": "^1.5.0 || ^2.0.0 || ^3.0.0 || ^4.0.0"
+  },
+  "require-dev": {
+    "fond-of-codeception/spryker": "^1.0",
+    "spryker/code-sniffer": "^0.12"
+  },
+  "minimum-stability": "dev",
+  "prefer-stable": true,
+  "autoload": {
+    "psr-4": {
+      "FondOfOryx\\": "src/FondOfOryx/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "FondOfOryx\\": "tests/FondOfOryx/",
+      "Generated\\": "src/Generated/"
+    }
+  }
+}

@@ -192,6 +192,10 @@
       "path": "bundles/jellyfish-thirty-five-up/",
       "version": "1.0.0"
     },
+    "limit-buyable-quantity": {
+      "path": "bundles/limit-buyable-quantity/",
+      "version": "1.0.0"
+    },
     "mail-bcc": {
       "path": "bundles/mail-bcc/",
       "version": "1.0.0"
