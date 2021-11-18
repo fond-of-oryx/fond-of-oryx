@@ -3,8 +3,10 @@
 namespace FondOfOryx\Zed\SplittableCheckout;
 
 use FondOfOryx\Zed\SplittableCheckout\Dependency\Facade\SplittableCheckoutToCheckoutFacadeBridge;
+use FondOfOryx\Zed\SplittableCheckout\Dependency\Facade\SplittableCheckoutToPermissionFacadeBridge;
 use FondOfOryx\Zed\SplittableCheckout\Dependency\Facade\SplittableCheckoutToQuoteFacadeBridge;
 use FondOfOryx\Zed\SplittableCheckout\Dependency\Facade\SplittableCheckoutToSplittableQuoteFacadeBridge;
+use FondOfOryx\Zed\SplittableCheckoutExtension\Dependency\Plugin\IdentifierExtractorPluginInterface;
 use Spryker\Zed\Kernel\AbstractBundleDependencyProvider;
 use Spryker\Zed\Kernel\Container;
 
@@ -18,12 +20,22 @@ class SplittableCheckoutDependencyProvider extends AbstractBundleDependencyProvi
     /**
      * @var string
      */
+    public const FACADE_PERMISSION = 'FACADE_PERMISSION';
+
+    /**
+     * @var string
+     */
     public const FACADE_QUOTE = 'FACADE_QUOTE';
 
     /**
      * @var string
      */
     public const FACADE_SPLITTABLE_QUOTE = 'FACADE_SPLITTABLE_QUOTE';
+
+    /**
+     * @var string
+     */
+    public const PLUGIN_IDENTIFIER_EXTRACTOR = 'PLUGIN_IDENTIFIER_EXTRACTOR';
 
     /**
      * @param \Spryker\Zed\Kernel\Container $container
@@ -36,8 +48,10 @@ class SplittableCheckoutDependencyProvider extends AbstractBundleDependencyProvi
 
         $container = $this->addCheckoutFacade($container);
         $container = $this->addSplittableQuoteFacade($container);
+        $container = $this->addQuoteFacade($container);
+        $container = $this->addPermissionFacade($container);
 
-        return $this->addQuoteFacade($container);
+        return $this->addIdentifierExtractorPlugin($container);
     }
 
     /**
@@ -82,5 +96,45 @@ class SplittableCheckoutDependencyProvider extends AbstractBundleDependencyProvi
         };
 
         return $container;
+    }
+
+    /**
+     * @param \Spryker\Zed\Kernel\Container $container
+     *
+     * @return \Spryker\Zed\Kernel\Container
+     */
+    protected function addPermissionFacade(Container $container): Container
+    {
+        $container[static::FACADE_PERMISSION] = static function () use ($container) {
+            return new SplittableCheckoutToPermissionFacadeBridge(
+                $container->getLocator()->permission()->facade(),
+            );
+        };
+
+        return $container;
+    }
+
+    /**
+     * @param \Spryker\Zed\Kernel\Container $container
+     *
+     * @return \Spryker\Zed\Kernel\Container
+     */
+    protected function addIdentifierExtractorPlugin(Container $container): Container
+    {
+        $self = $this;
+
+        $container[static::PLUGIN_IDENTIFIER_EXTRACTOR] = static function () use ($self) {
+            return $self->getIdentifierExtractorPlugin();
+        };
+
+        return $container;
+    }
+
+    /**
+     * @return \FondOfOryx\Zed\SplittableCheckoutExtension\Dependency\Plugin\IdentifierExtractorPluginInterface|null
+     */
+    protected function getIdentifierExtractorPlugin(): ?IdentifierExtractorPluginInterface
+    {
+        return null;
     }
 }
