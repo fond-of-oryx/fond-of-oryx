@@ -1,0 +1,123 @@
+<?xml version="1.0"?>
+<database xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" name="zed"
+          xsi:noNamespaceSchemaLocation="http://static.spryker.com/schema-01.xsd"
+          namespace="Orm\Zed\ErpInvoice\Persistence" package="src.Orm.Zed.ErpInvoice.Persistence">
+
+    <table name="foo_erp_invoice" phpName="FooErpInvoice" identifierQuoting="true">
+        <column name="id_erp_invoice" required="true" type="INTEGER" autoIncrement="true" primaryKey="true"/>
+        <column name="fk_erp_order" required="true" type="INTEGER"/>
+        <column name="fk_billing_address" required="true" type="INTEGER"/>
+        <column name="fk_shipping_address" required="true" type="INTEGER"/>
+        <column name="fk_company_business_unit" required="true" type="INTEGER"/>
+        <column name="fk_total_amount" required="true" type="INTEGER"/>
+        <column name="external_reference" required="true" size="255" type="VARCHAR"/>
+        <column name="document_number" required="false" size="255" type="VARCHAR"/>
+        <column name="reference" required="false" size="255" type="VARCHAR"/>
+        <column name="invoice_date" required="false" type="DATE"/>
+        <column name="currency_iso_code" type="VARCHAR" size="5" required="false"/>
+
+        <id-method-parameter value="foo_erp_invoice_pk_seq"/>
+
+        <index name="foo_erp_invoice-index-reference">
+            <index-column name="reference"/>
+        </index>
+
+        <unique name="foo_erp_invoice-external_reference">
+            <unique-column name="external_reference"/>
+        </unique>
+
+        <foreign-key name="foo_erp_invoice-foo_erp_order" foreignTable="foo_erp_order" phpName="FooErpInvoiceOrder">
+            <reference local="fk_erp_order" foreign="id_erp_order"/>
+        </foreign-key>
+
+        <foreign-key name="foo_erp_invoice-foo_erp_invoice_billing_address" foreignTable="foo_erp_invoice_address"
+                     phpName="FooErpInvoiceBillingAddress">
+            <reference local="fk_billing_address" foreign="id_erp_invoice_address"/>
+        </foreign-key>
+
+        <foreign-key name="foo_erp_invoice-foo_erp_invoice_shipping_address" foreignTable="foo_erp_invoice_address"
+                     phpName="FooErpInvoiceShippingAddress">
+            <reference local="fk_shipping_address" foreign="id_erp_invoice_address"/>
+        </foreign-key>
+
+        <foreign-key name="foo_erp_invoice-spy_company_business_unit" foreignTable="spy_company_business_unit"
+                     phpName="SpyCompanyBusinessUnit">
+            <reference local="fk_company_business_unit" foreign="id_company_business_unit"/>
+        </foreign-key>
+
+        <foreign-key name="foo_erp_invoice-foo_erp_invoice_total_amount" foreignTable="foo_erp_invoice_amount"
+                     phpName="FooErpInvoiceAmountToal">
+            <reference local="fk_total_amount" foreign="id_erp_invoice_amount"/>
+        </foreign-key>
+
+        <behavior name="event">
+            <parameter name="foo_erp_invoice_all" column="*"/>
+        </behavior>
+
+        <behavior name="timestampable"/>
+    </table>
+
+    <table name="foo_erp_invoice_item" phpName="FooErpInvoiceItem" idMethod="native" identifierQuoting="true"
+           allowPkInsert="true">
+        <column name="id_erp_invoice_item" required="true" type="INTEGER" autoIncrement="true" primaryKey="true"/>
+        <column name="fk_erp_invoice" required="true" type="INTEGER"/>
+        <column name="fk_amount" required="true" type="INTEGER"/>
+        <column name="fk_unit_price_amount" required="true" type="INTEGER"/>
+        <column name="sku" required="true" size="255" type="VARCHAR"/>
+        <column name="name" required="true" size="255" type="VARCHAR"/>
+        <column name="quantity" required="true" type="INTEGER"/>
+        <column name="discount" required="true" type="INTEGER"/>
+        <column name="discount_type" required="true" size="50" type="VARCHAR"/>
+
+        <behavior name="timestampable"/>
+
+        <id-method-parameter value="foo_erp_invoice_item_pk_seq"/>
+
+        <foreign-key name="foo_erp_invoice_item-fk_erp_invoice" foreignTable="foo_erp_invoice" phpName="FooErpInvoice"
+                     refPhpName="FooErpInvoiceItem">
+            <reference local="fk_erp_invoice" foreign="id_erp_invoice"/>
+        </foreign-key>
+
+        <foreign-key name="foo_erp_invoice_item-foo_erp_invoice_amount" foreignTable="foo_erp_invoice_amount"
+                     phpName="FooErpInvoiceAmount">
+            <reference local="fk_amount" foreign="id_erp_invoice_amount"/>
+        </foreign-key>
+
+        <foreign-key name="foo_erp_invoice-foo_erp_invoice_unit_price_amount" foreignTable="foo_erp_invoice_amount"
+                     phpName="FooErpInvoiceAmountUnitPrice">
+            <reference local="fk_unit_price_amount" foreign="id_erp_invoice_amount"/>
+        </foreign-key>
+    </table>
+
+    <table name="foo_erp_invoice_address" phpName="FooErpInvoiceAddress" identifierQuoting="true">
+        <column name="id_erp_invoice_address" required="true" type="INTEGER" autoIncrement="true" primaryKey="true"/>
+
+        <column name="fk_country" required="true" type="INTEGER"/>
+
+        <column name="name1" required="true" size="255" type="VARCHAR"/>
+        <column name="name2" required="true" size="255" type="VARCHAR"/>
+        <column name="address1" required="true" size="255" type="VARCHAR"/>
+        <column name="address2" required="false" size="255" type="VARCHAR"/>
+        <column name="address3" required="false" size="255" type="VARCHAR"/>
+        <column name="city" required="true" size="255" type="VARCHAR"/>
+        <column name="zip_code" required="true" size="15" type="VARCHAR"/>
+
+        <behavior name="timestampable"/>
+
+        <id-method-parameter value="foo_erp_invoice_address_pk_seq"/>
+
+        <foreign-key name="foo_erp_invoice_address-fk_country" foreignTable="spy_country" phpName="SpyCountry"
+                     refPhpName="FooErpInvoiceAddress">
+            <reference local="fk_country" foreign="id_country"/>
+        </foreign-key>
+    </table>
+
+    <table name="foo_erp_invoice_amount" phpName="FooErpInvoiceAmount" identifierQuoting="true">
+        <column name="id_erp_invoice_amount" required="true" type="INTEGER" autoIncrement="true" primaryKey="true"/>
+        <column name="value" type="INTEGER" required="false" default="0"/>
+        <column name="tax" type="INTEGER" required="false" default="0"/>
+
+        <id-method-parameter value="foo_erp_invoice_amount_pk_seq"/>
+    </table>
+
+</database>
