@@ -26,6 +26,7 @@ include:
   - bundles/erp-invoice
   - bundles/erp-invoice-api
   - bundles/erp-invoice-extension
+  - bundles/erp-invoice-permission
   - bundles/erp-order
   - bundles/erp-order-api
   - bundles/erp-order-extension
