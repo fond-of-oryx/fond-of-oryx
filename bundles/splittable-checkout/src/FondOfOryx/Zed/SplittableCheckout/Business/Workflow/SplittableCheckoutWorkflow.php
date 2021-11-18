@@ -3,9 +3,13 @@
 namespace FondOfOryx\Zed\SplittableCheckout\Business\Workflow;
 
 use Exception;
+use FondOfOryx\Zed\SplittableCheckout\Business\Exception\PermissionDeniedException;
+use FondOfOryx\Zed\SplittableCheckout\Communication\Plugin\PermissionExtension\PlaceOrderPermissionPlugin;
 use FondOfOryx\Zed\SplittableCheckout\Dependency\Facade\SplittableCheckoutToCheckoutFacadeInterface;
+use FondOfOryx\Zed\SplittableCheckout\Dependency\Facade\SplittableCheckoutToPermissionFacadeInterface;
 use FondOfOryx\Zed\SplittableCheckout\Dependency\Facade\SplittableCheckoutToQuoteFacadeInterface;
 use FondOfOryx\Zed\SplittableCheckout\Dependency\Facade\SplittableCheckoutToSplittableQuoteFacadeInterface;
+use FondOfOryx\Zed\SplittableCheckoutExtension\Dependency\Plugin\IdentifierExtractorPluginInterface;
 use Generated\Shared\Transfer\QuoteTransfer;
 use Generated\Shared\Transfer\SplittableCheckoutErrorTransfer;
 use Generated\Shared\Transfer\SplittableCheckoutResponseTransfer;
@@ -19,6 +23,11 @@ class SplittableCheckoutWorkflow implements SplittableCheckoutWorkflowInterface
      * @var string
      */
     protected const ERROR_MESSAGE_ORDER_NOT_PLACED = 'splittable_checkout.error.order_not_placed';
+
+    /**
+     * @var string
+     */
+    protected const ERROR_MESSAGE_PERMISSION_DENIED = 'splittable_checkout.error.permission_denied';
 
     /**
      * @var \FondOfOryx\Zed\SplittableCheckout\Dependency\Facade\SplittableCheckoutToCheckoutFacadeInterface
@@ -36,22 +45,40 @@ class SplittableCheckoutWorkflow implements SplittableCheckoutWorkflowInterface
     protected $splittableQuoteFacade;
 
     /**
+     * @var \FondOfOryx\Zed\SplittableCheckout\Dependency\Facade\SplittableCheckoutToPermissionFacadeInterface
+     */
+    protected $permissionFacade;
+
+    /**
+     * @var \FondOfOryx\Zed\SplittableCheckoutExtension\Dependency\Plugin\IdentifierExtractorPluginInterface|null
+     */
+    protected $identifierExtractorPlugin;
+
+    /**
      * @param \FondOfOryx\Zed\SplittableCheckout\Dependency\Facade\SplittableCheckoutToCheckoutFacadeInterface $checkoutFacade
      * @param \FondOfOryx\Zed\SplittableCheckout\Dependency\Facade\SplittableCheckoutToSplittableQuoteFacadeInterface $splittableQuoteFacade
      * @param \FondOfOryx\Zed\SplittableCheckout\Dependency\Facade\SplittableCheckoutToQuoteFacadeInterface $quoteFacade
+     * @param \FondOfOryx\Zed\SplittableCheckout\Dependency\Facade\SplittableCheckoutToPermissionFacadeInterface $permissionFacade
+     * @param \FondOfOryx\Zed\SplittableCheckoutExtension\Dependency\Plugin\IdentifierExtractorPluginInterface|null $identifierExtractorPlugin
      */
     public function __construct(
         SplittableCheckoutToCheckoutFacadeInterface $checkoutFacade,
         SplittableCheckoutToSplittableQuoteFacadeInterface $splittableQuoteFacade,
-        SplittableCheckoutToQuoteFacadeInterface $quoteFacade
+        SplittableCheckoutToQuoteFacadeInterface $quoteFacade,
+        SplittableCheckoutToPermissionFacadeInterface $permissionFacade,
+        ?IdentifierExtractorPluginInterface $identifierExtractorPlugin
     ) {
         $this->checkoutFacade = $checkoutFacade;
         $this->splittableQuoteFacade = $splittableQuoteFacade;
         $this->quoteFacade = $quoteFacade;
+        $this->permissionFacade = $permissionFacade;
+        $this->identifierExtractorPlugin = $identifierExtractorPlugin;
     }
 
     /**
      * @param \Generated\Shared\Transfer\QuoteTransfer $quoteTransfer
+     *
+     * @throws \FondOfOryx\Zed\SplittableCheckout\Business\Exception\PermissionDeniedException
      *
      * @return \Generated\Shared\Transfer\SplittableCheckoutResponseTransfer
      */
@@ -60,19 +87,46 @@ class SplittableCheckoutWorkflow implements SplittableCheckoutWorkflowInterface
         try {
             $self = $this;
 
+            if (!$this->canPlaceOrder($quoteTransfer)) {
+                throw new PermissionDeniedException();
+            }
+
             return $this->getTransactionHandler()->handleTransaction(
                 static function () use ($quoteTransfer, $self) {
                     return $self->executePlaceOrder($quoteTransfer);
                 },
             );
+        } catch (PermissionDeniedException $exception) {
+            $splittableCheckoutErrorTransfer = (new SplittableCheckoutErrorTransfer())
+                ->setMessage(static::ERROR_MESSAGE_PERMISSION_DENIED);
         } catch (Exception $exception) {
             $splittableCheckoutErrorTransfer = (new SplittableCheckoutErrorTransfer())
                 ->setMessage(static::ERROR_MESSAGE_ORDER_NOT_PLACED);
-
-            return (new SplittableCheckoutResponseTransfer())
-                ->setIsSuccess(false)
-                ->addError($splittableCheckoutErrorTransfer);
         }
+
+        return (new SplittableCheckoutResponseTransfer())
+            ->setIsSuccess(false)
+            ->addError($splittableCheckoutErrorTransfer);
+    }
+
+    /**
+     * @param \Generated\Shared\Transfer\QuoteTransfer $quoteTransfer
+     *
+     * @return bool
+     */
+    protected function canPlaceOrder(QuoteTransfer $quoteTransfer): bool
+    {
+        if ($this->identifierExtractorPlugin === null) {
+            return true;
+        }
+
+        $identifier = $this->identifierExtractorPlugin->extract($quoteTransfer);
+
+        if ($identifier === null) {
+            return false;
+        }
+
+        return $this->permissionFacade->can(PlaceOrderPermissionPlugin::KEY, $identifier);
     }
 
     /**

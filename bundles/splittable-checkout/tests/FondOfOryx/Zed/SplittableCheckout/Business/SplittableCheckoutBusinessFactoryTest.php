@@ -5,6 +5,7 @@ namespace FondOfOryx\Zed\SplittableCheckout\Business;
 use Codeception\Test\Unit;
 use FondOfOryx\Zed\SplittableCheckout\Business\Workflow\SplittableCheckoutWorkflow;
 use FondOfOryx\Zed\SplittableCheckout\Dependency\Facade\SplittableCheckoutToCheckoutFacadeInterface;
+use FondOfOryx\Zed\SplittableCheckout\Dependency\Facade\SplittableCheckoutToPermissionFacadeInterface;
 use FondOfOryx\Zed\SplittableCheckout\Dependency\Facade\SplittableCheckoutToQuoteFacadeInterface;
 use FondOfOryx\Zed\SplittableCheckout\Dependency\Facade\SplittableCheckoutToSplittableQuoteFacadeInterface;
 use FondOfOryx\Zed\SplittableCheckout\SplittableCheckoutDependencyProvider;
@@ -33,6 +34,11 @@ class SplittableCheckoutBusinessFactoryTest extends Unit
     protected $splittableCheckoutToSplittableQuoteFacadeMock;
 
     /**
+     * @var \FondOfOryx\Zed\SplittableCheckout\Dependency\Facade\SplittableCheckoutToPermissionFacadeInterface|\PHPUnit\Framework\MockObject\MockObject|mixed
+     */
+    protected $splittableCheckoutToPermissionFacadeMock;
+
+    /**
      * @var \FondOfOryx\Zed\SplittableCheckout\Business\SplittableCheckoutBusinessFactory
      */
     protected $splittableCheckoutBusinessFactory;
@@ -58,6 +64,10 @@ class SplittableCheckoutBusinessFactoryTest extends Unit
             ->disableOriginalConstructor()
             ->getMock();
 
+        $this->splittableCheckoutToPermissionFacadeMock = $this->getMockBuilder(SplittableCheckoutToPermissionFacadeInterface::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
         $this->splittableCheckoutBusinessFactory = new SplittableCheckoutBusinessFactory();
         $this->splittableCheckoutBusinessFactory->setContainer($this->containerMock);
     }
@@ -77,11 +87,15 @@ class SplittableCheckoutBusinessFactoryTest extends Unit
                 [SplittableCheckoutDependencyProvider::FACADE_CHECKOUT],
                 [SplittableCheckoutDependencyProvider::FACADE_SPLITTABLE_QUOTE],
                 [SplittableCheckoutDependencyProvider::FACADE_QUOTE],
+                [SplittableCheckoutDependencyProvider::FACADE_PERMISSION],
+                [SplittableCheckoutDependencyProvider::PLUGIN_IDENTIFIER_EXTRACTOR],
             )
             ->willReturnOnConsecutiveCalls(
                 $this->splittableCheckoutToCheckoutFacadeMock,
                 $this->splittableCheckoutToSplittableQuoteFacadeMock,
                 $this->splittableCheckoutToQuoteFacadeMock,
+                $this->splittableCheckoutToPermissionFacadeMock,
+                null,
             );
 
         static::assertInstanceOf(

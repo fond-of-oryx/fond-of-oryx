@@ -1,24 +1,15 @@
 {
-  "name": "fond-of-oryx/splittable-checkout",
-  "description": "Splittable Checkout Module",
+  "name": "fond-of-oryx/splittable-checkout-extension",
+  "description": "Splittable Checkout Extension Module",
   "license": "MIT",
   "authors": [
-    {
-      "name": "József Geng",
-      "email": "gengjozsef86@gmail.com"
-    },
     {
       "name": "Daniel Rose",
       "email": "daniel-rose@gmx.de"
     }
   ],
   "require": {
-    "php": ">=7.3",
-    "fond-of-oryx/splittable-checkout-extension": "^1.0.0",
-    "fond-of-oryx/splittable-quote": "^1.0.0",
-    "spryker/checkout": "^6.0.0",
-    "spryker/permission": "^1.0.0",
-    "spryker/quote": "^2.0.0"
+    "php": ">=7.3"
   },
   "require-dev": {
     "fond-of-codeception/spryker": "^1.0",
