@@ -8,6 +8,8 @@ use FondOfOryx\Zed\JellyfishSalesOrderGiftCardConnector\Business\Expander\Jellyf
 use FondOfOryx\Zed\JellyfishSalesOrderGiftCardConnector\Business\Expander\JellyfishOrderItemExpanderInterface;
 use FondOfOryx\Zed\JellyfishSalesOrderGiftCardConnector\Business\Mapper\JellyfishOrderGiftCardMapper;
 use FondOfOryx\Zed\JellyfishSalesOrderGiftCardConnector\Business\Mapper\JellyfishOrderGiftCardMapperInterface;
+use FondOfOryx\Zed\JellyfishSalesOrderGiftCardConnector\Business\Splitter\JellyfishOrderItemsSplitter;
+use FondOfOryx\Zed\JellyfishSalesOrderGiftCardConnector\Business\Splitter\JellyfishOrderItemsSplitterInterface;
 use FondOfOryx\Zed\JellyfishSalesOrderGiftCardConnector\Dependency\Facade\JellyfishSalesOrderGiftCardConnectorToProductCardCodeTypeRestrictionFacadeInterface;
 use FondOfOryx\Zed\JellyfishSalesOrderGiftCardConnector\JellyfishSalesOrderGiftCardConnectorDependencyProvider;
 use Spryker\Zed\Kernel\Business\AbstractBusinessFactory;
@@ -31,6 +33,14 @@ class JellyfishSalesOrderGiftCardConnectorBusinessFactory extends AbstractBusine
             $this->createGiftCardMapper(),
             $this->getProductCardCodeTypeRestrictionFacade(),
         );
+    }
+
+    /**
+     * @return \FondOfOryx\Zed\JellyfishSalesOrderGiftCardConnector\Business\Splitter\JellyfishOrderItemsSplitterInterface
+     */
+    public function createJellyfishOrderItemsSplitter(): JellyfishOrderItemsSplitterInterface
+    {
+        return new JellyfishOrderItemsSplitter();
     }
 
     /**

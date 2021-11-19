@@ -55,4 +55,19 @@ class JellyfishSalesOrderGiftCardConnectorFacade extends AbstractFacade implemen
             ->createJellyfishOrderExpander()
             ->expandOrderItemsWithGiftCardRestrictionFlag($jellyfishOrderTransfer);
     }
+
+    /**
+     * @param \Generated\Shared\Transfer\JellyfishOrderTransfer $jellyfishOrderTransfer
+     * @param \Orm\Zed\Sales\Persistence\SpySalesOrder $salesOrder
+     *
+     * @return \Generated\Shared\Transfer\JellyfishOrderTransfer
+     */
+    public function splitGiftCardOrderItems(
+        JellyfishOrderTransfer $jellyfishOrderTransfer,
+        SpySalesOrder $salesOrder
+    ): JellyfishOrderTransfer {
+        return $this->getFactory()
+            ->createJellyfishOrderItemsSplitter()
+            ->splitGiftCardOrderItems($jellyfishOrderTransfer, $salesOrder);
+    }
 }
