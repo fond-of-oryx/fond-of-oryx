@@ -39,4 +39,16 @@ interface JellyfishSalesOrderGiftCardConnectorFacadeInterface
     public function expandOrderItemsWithGiftCardRestrictionFlag(
         JellyfishOrderTransfer $jellyfishOrderTransfer
     ): JellyfishOrderTransfer;
+
+    /**
+     * @param \Generated\Shared\Transfer\JellyfishOrderTransfer $jellyfishOrderTransfer
+     * @param \Orm\Zed\Sales\Persistence\SpySalesOrder $salesOrder
+     * ååå
+     *
+     * @return \Generated\Shared\Transfer\JellyfishOrderTransfer
+     */
+    public function splitGiftCardOrderItems(
+        JellyfishOrderTransfer $jellyfishOrderTransfer,
+        SpySalesOrder $salesOrder
+    ): JellyfishOrderTransfer;
 }

@@ -4,6 +4,7 @@ namespace FondOfOryx\Zed\JellyfishSalesOrderGiftCardConnector\Business;
 
 use Codeception\Test\Unit;
 use FondOfOryx\Zed\JellyfishSalesOrderGiftCardConnector\Business\Expander\JellyfishOrderExpanderInterface;
+use FondOfOryx\Zed\JellyfishSalesOrderGiftCardConnector\Business\Splitter\JellyfishOrderItemsSplitterInterface;
 use FondOfOryx\Zed\JellyfishSalesOrderGiftCardConnector\Dependency\Facade\JellyfishSalesOrderGiftCardConnectorToProductCardCodeTypeRestrictionFacadeInterface;
 use FondOfOryx\Zed\JellyfishSalesOrderGiftCardConnector\JellyfishSalesOrderGiftCardConnectorDependencyProvider;
 use Spryker\Zed\Kernel\Container;
@@ -62,6 +63,17 @@ class JellyfishSalesOrderGiftCardConnectorBusinessFactoryTest extends Unit
         static::assertInstanceOf(
             JellyfishOrderExpanderInterface::class,
             $this->businessFactory->createJellyfishOrderExpander(),
+        );
+    }
+
+    /**
+     * @return void
+     */
+    public function testCreateJellyfishOrderItemsSplitter(): void
+    {
+        static::assertInstanceOf(
+            JellyfishOrderItemsSplitterInterface::class,
+            $this->businessFactory->createJellyfishOrderItemsSplitter(),
         );
     }
 }

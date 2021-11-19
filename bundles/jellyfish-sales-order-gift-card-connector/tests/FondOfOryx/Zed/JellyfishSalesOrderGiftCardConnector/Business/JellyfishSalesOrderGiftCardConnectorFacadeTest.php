@@ -5,6 +5,7 @@ namespace FondOfOryx\Zed\JellyfishSalesOrderGiftCardConnector\Business;
 use Codeception\Test\Unit;
 use FondOfOryx\Zed\JellyfishSalesOrderGiftCardConnector\Business\Expander\JellyfishOrderExpanderInterface;
 use FondOfOryx\Zed\JellyfishSalesOrderGiftCardConnector\Business\Expander\JellyfishOrderItemExpanderInterface;
+use FondOfOryx\Zed\JellyfishSalesOrderGiftCardConnector\Business\Splitter\JellyfishOrderItemsSplitterInterface;
 use Generated\Shared\Transfer\JellyfishOrderItemTransfer;
 use Generated\Shared\Transfer\JellyfishOrderTransfer;
 use Orm\Zed\Sales\Persistence\SpySalesOrder;
@@ -31,6 +32,11 @@ class JellyfishSalesOrderGiftCardConnectorFacadeTest extends Unit
      * @var \PHPUnit\Framework\MockObject\MockObject|\Generated\Shared\Transfer\JellyfishOrderItemTransfer
      */
     protected $jellyfishOrderItemTransferMock;
+
+    /**
+     * @var \PHPUnit\Framework\MockObject\MockObject|\FondOfOryx\Zed\JellyfishSalesOrderGiftCardConnector\Business\FondOfOryx\Zed\JellyfishSalesOrderGiftCardConnector\Business\Splitter\JellyfishOrderItemsSplitterInterface
+     */
+    protected $jellyfishOrderItemsSplitterMock;
 
     /**
      * @var \PHPUnit\Framework\MockObject\MockObject|\Generated\Shared\Transfer\JellyfishOrderTransfer
@@ -74,6 +80,10 @@ class JellyfishSalesOrderGiftCardConnectorFacadeTest extends Unit
             ->getMock();
 
         $this->jellyfishOrderTransferMock = $this->getMockBuilder(JellyfishOrderTransfer::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $this->jellyfishOrderItemsSplitterMock = $this->getMockBuilder(JellyfishOrderItemsSplitterInterface::class)
             ->disableOriginalConstructor()
             ->getMock();
 
@@ -151,6 +161,29 @@ class JellyfishSalesOrderGiftCardConnectorFacadeTest extends Unit
 
         $jellyfishOrderTransferMock = $this->facade->expandOrderItemsWithGiftCardRestrictionFlag(
             $this->jellyfishOrderTransferMock,
+        );
+
+        $this->assertInstanceOf(JellyfishOrderTransfer::class, $jellyfishOrderTransferMock);
+        $this->assertEquals($this->jellyfishOrderTransferMock, $jellyfishOrderTransferMock);
+    }
+
+    /**
+     * @return void
+     */
+    public function testSplitGiftCardOrderItems(): void
+    {
+        $this->factoryMock->expects($this->atLeastOnce())
+            ->method('createJellyfishOrderItemsSplitter')
+            ->willReturn($this->jellyfishOrderItemsSplitterMock);
+
+        $this->jellyfishOrderItemsSplitterMock->expects($this->atLeastOnce())
+            ->method('splitGiftCardOrderItems')
+            ->with($this->jellyfishOrderTransferMock, $this->spySalesOrderMock)
+            ->willReturn($this->jellyfishOrderTransferMock);
+
+        $jellyfishOrderTransferMock = $this->facade->splitGiftCardOrderItems(
+            $this->jellyfishOrderTransferMock,
+            $this->spySalesOrderMock,
         );
 
         $this->assertInstanceOf(JellyfishOrderTransfer::class, $jellyfishOrderTransferMock);
