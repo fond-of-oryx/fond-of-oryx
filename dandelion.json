@@ -178,7 +178,7 @@
     },
     "jellyfish-sales-order-gift-card-connector": {
       "path": "bundles/jellyfish-sales-order-gift-card-connector/",
-      "version": "1.1.0"
+      "version": "1.2.0"
     },
     "jellyfish-sales-order-payone": {
       "path": "bundles/jellyfish-sales-order-payone/",
