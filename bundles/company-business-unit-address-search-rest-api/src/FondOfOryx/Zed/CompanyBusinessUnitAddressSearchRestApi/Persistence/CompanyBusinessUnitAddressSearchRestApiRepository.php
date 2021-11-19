@@ -176,7 +176,7 @@ class CompanyBusinessUnitAddressSearchRestApiRepository extends AbstractReposito
         $tableMap = SpyCompanyUnitAddressTableMap::getTableMap();
         $sortFields = $this->getFactory()->getConfig()->getSortFields();
 
-        [$sortField, $direction] = explode(' ', preg_replace('/(([a-z]+)(_[a-z]+)*)_(asc|desc)/', '$1 $4', $sort));
+        [$sortField, $direction] = explode(' ', preg_replace('/(([a-z0-9]+)(_[a-z0-9]+)*)_(asc|desc)/', '$1 $4', $sort));
 
         if (!in_array($sortField, $sortFields, true) || !$tableMap->hasColumn($sortField)) {
             return $companyUnitAddressQuery;
