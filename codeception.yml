@@ -76,6 +76,8 @@ include:
   - bundles/shipment-table-rate-data-import
   - bundles/shipment-table-rate-extension
   - bundles/splittable-checkout
+  - bundles/splittable-checkout-company-user-connector
+  - bundles/splittable-checkout-extension
   - bundles/splittable-checkout-rest-api
   - bundles/splittable-checkout-rest-api-cart-note-connector
   - bundles/splittable-checkout-rest-api-company-unit-address-connector
