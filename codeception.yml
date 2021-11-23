@@ -26,6 +26,7 @@ include:
   - bundles/erp-invoice
   - bundles/erp-invoice-api
   - bundles/erp-invoice-extension
+  - bundles/erp-invoice-page-search
   - bundles/erp-invoice-permission
   - bundles/erp-order
   - bundles/erp-order-api
@@ -134,5 +135,6 @@ env:
           generate_map_classes: true
           generate_propel_classes: true
           supported_source_identifiers:
+            - erp-invoice
             - erp-order
             - page
