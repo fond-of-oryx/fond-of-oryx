@@ -1,0 +1,86 @@
+<?xml version="1.0"?>
+<transfers xmlns="spryker:transfer-01"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="spryker:transfer-01 http://static.spryker.com/transfer-01.xsd">
+    <transfer name="ErpInvoicePageSearchRequest">
+        <property name="includes" singular="include" type="array"/>
+        <property name="requestParams" singular="requestParam" type="array"/>
+        <property name="searchString" type="string"/>
+        <property name="filters" singular="filter" type="array"/>
+        <property name="offset" type="int"/>
+        <property name="limit" type="int"/>
+    </transfer>
+
+    <transfer name="RestErpInvoicePageSearchRequestAttributes">
+        <property name="companyBusinessUnitId" type="string" />
+        <property name="externalReference" type="string" />
+    </transfer>
+
+    <transfer name="RestErpInvoicePageSearchCollectionResponse">
+        <property name="erpInvoices" singular="erpInvoice" type="RestErpInvoice[]"/>
+        <property name="pagination" type="RestErpInvoicePageSearchPagination"/>
+        <property name="sort" type="RestErpInvoicePageSearchPaginationSort"/>
+    </transfer>
+
+    <transfer name="RestErpInvoicePageSearchPagination">
+        <property name="numFound" type="int" />
+        <property name="currentPage" type="int" />
+        <property name="maxPage" type="int" />
+        <property name="currentItemsPerPage" type="int" />
+    </transfer>
+
+    <transfer name="RestErpInvoicePageSearchPaginationSort">
+        <property name="sortParamNames" type="array" singular="sortParamNames"/>
+        <property name="sortParamLocalizedNames" type="array" singular="sortParamLocalizedNames"/>
+        <property name="currentSortParam" type="string"/>
+        <property name="currentSortOrder" type="string"/>
+    </transfer>
+
+    <transfer name="RestErpInvoice">
+        <property name="externalReference" type="string" />
+        <property name="reference" type="string" />
+        <property name="invoiceDate" type="string" />
+        <property name="documentNumber" type="string" />
+        <property name="createdAt" type="string" />
+        <property name="updatedAt" type="string" />
+        <property name="billingAddress" type="RestErpInvoiceAddress"/>
+        <property name="shippingAddress" type="RestErpInvoiceAddress"/>
+        <property name="companyBusinessUnit" type="RestCompanyBusinessUnit"/>
+        <property name="items" singular="item" type="RestErpInvoiceItem[]"/>
+        <property name="totals" type="RestErpInvoiceAmount"/>
+        <property name="currencyIsoCode" type="string"/>
+    </transfer>
+
+    <transfer name="RestErpInvoiceAddress">
+        <property name="name1" type="string"/>
+        <property name="name2" type="string"/>
+        <property name="address1" type="string"/>
+        <property name="address2" type="string"/>
+        <property name="address3" type="string"/>
+        <property name="country" type="string"/>
+        <property name="city" type="string"/>
+        <property name="zipCode" type="string"/>
+        <property name="phone" type="string"/>
+    </transfer>
+
+    <transfer name="RestErpInvoiceItem">
+        <property name="sku" type="string"/>
+        <property name="name" type="string"/>
+        <property name="quantity" type="int"/>
+        <property name="discount" type="int"/>
+        <property name="discountType" type="string"/>
+        <property name="amount" type="RestErpInvoiceAmount"/>
+        <property name="unitPrice" type="RestErpInvoiceAmount"/>
+    </transfer>
+
+    <transfer name="RestErpInvoiceAmount">
+        <property name="value" type="int"/>
+        <property name="tax" type="int"/>
+    </transfer>
+
+    <transfer name="RestCompanyBusinessUnit">
+        <property name="name" type="string"/>
+        <property name="uuid" type="string"/>
+    </transfer>
+
+</transfers>

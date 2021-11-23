@@ -1,6 +1,6 @@
 {
-  "name": "fond-of-oryx/erp-invoice-page-search",
-  "description": "ERP Invoice Page Search module",
+  "name": "fond-of-oryx/erp-invoice-page-search-rest-api",
+  "description": "ERP Invoice Page Search Rest Api module",
   "license": "MIT",
   "authors": [
     {
@@ -10,13 +10,9 @@
   ],
   "require": {
     "php": ">=7.3",
-    "fond-of-oryx/erp-invoice": "^1.0.0",
-    "fond-of-oryx/erp-invoice-permission": "^1.0.0",
-    "spryker/customer": "^7.0.0",
-    "spryker/event-behavior": "^1.0.0",
-    "spryker/search": "^8.0.0",
-    "spryker/search-elasticsearch": "^1.0.0",
-    "spryker/synchronization-extension": "^1.0.0"
+    "fond-of-oryx/erp-invoice-page-search": "^1.0.0",
+    "spryker/glue-application": "^1.0.0",
+    "spryker/glue-application-extension": "^1.0.0"
   },
   "require-dev": {
     "fond-of-codeception/spryker": "^1.0",
@@ -32,7 +28,7 @@
   "autoload-dev": {
     "psr-4": {
       "FondOfOryx\\": "tests/FondOfOryx/",
-      "Generated\\": "src/Generated/"
+      "Generated\\": "tests/Generated/"
     }
   }
 }
