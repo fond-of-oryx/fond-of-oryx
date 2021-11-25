@@ -89,7 +89,7 @@
       "version": "1.0.0"
     },
     "company-unit-address-vat-id": {
-      "path": "bundles/company-unit-address-vat-id/",
+      "path": "bundles/-unit-address-vat-id/",
       "version": "1.0.0"
     },
     "customer-statistic": {
@@ -206,7 +206,7 @@
     },
     "jellyfish-sales-order-gift-card-connector": {
       "path": "bundles/jellyfish-sales-order-gift-card-connector/",
-      "version": "1.2.0"
+      "version": "1.2.1"
     },
     "jellyfish-sales-order-payone": {
       "path": "bundles/jellyfish-sales-order-payone/",

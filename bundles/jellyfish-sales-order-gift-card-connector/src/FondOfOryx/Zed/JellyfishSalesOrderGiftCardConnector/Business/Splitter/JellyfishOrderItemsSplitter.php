@@ -2,7 +2,6 @@
 
 namespace FondOfOryx\Zed\JellyfishSalesOrderGiftCardConnector\Business\Splitter;
 
-use ArrayObject;
 use Generated\Shared\Transfer\JellyfishOrderItemTransfer;
 use Generated\Shared\Transfer\JellyfishOrderTransfer;
 use Orm\Zed\Sales\Persistence\SpySalesOrder;
@@ -35,7 +34,7 @@ class JellyfishOrderItemsSplitter implements JellyfishOrderItemsSplitterInterfac
 
             $giftCardItems = array_merge(
                 $giftCardItems,
-                $this->getSplittedGiftCardOrderItems($items, $item, $salesOrder),
+                $this->getSplittedGiftCardOrderItems($item, $salesOrder),
             );
         }
 
@@ -58,14 +57,12 @@ class JellyfishOrderItemsSplitter implements JellyfishOrderItemsSplitterInterfac
     }
 
     /**
-     * @param \ArrayObject $jellyfishOrderItems
      * @param \Generated\Shared\Transfer\JellyfishOrderItemTransfer $jellyfishOrderItemTransfer
      * @param \Orm\Zed\Sales\Persistence\SpySalesOrder $salesOrder
      *
      * @return array<\Generated\Shared\Transfer\JellyfishOrderItemTransfer>
      */
     protected function getSplittedGiftCardOrderItems(
-        ArrayObject $jellyfishOrderItems,
         JellyfishOrderItemTransfer $jellyfishOrderItemTransfer,
         SpySalesOrder $salesOrder
     ): array {
@@ -83,25 +80,19 @@ class JellyfishOrderItemsSplitter implements JellyfishOrderItemsSplitterInterfac
                 continue;
             }
 
-            $splittedGiftCardItems[] = $this->getSplittedGiftCardItem(
-                $jellyfishOrderItems,
-                $jellyfishOrderItemTransfer,
-                $item,
-            );
+            $splittedGiftCardItems[] = $this->getSplittedGiftCardItem($jellyfishOrderItemTransfer, $item);
         }
 
         return $splittedGiftCardItems;
     }
 
     /**
-     * @param \ArrayObject $jellyfishOrderItems
      * @param \Generated\Shared\Transfer\JellyfishOrderItemTransfer $jellyfishOrderItemTransfer
      * @param \Orm\Zed\Sales\Persistence\SpySalesOrderItem $salesOrderItem
      *
      * @return \Generated\Shared\Transfer\JellyfishOrderItemTransfer
      */
     protected function getSplittedGiftCardItem(
-        ArrayObject $jellyfishOrderItems,
         JellyfishOrderItemTransfer $jellyfishOrderItemTransfer,
         SpySalesOrderItem $salesOrderItem
     ): JellyfishOrderItemTransfer {
@@ -126,9 +117,25 @@ class JellyfishOrderItemsSplitter implements JellyfishOrderItemsSplitterInterfac
     ): JellyfishOrderItemTransfer {
         return $jellyfishOrderItemTransfer
             ->setId($salesOrderItem->getIdSalesOrderItem())
+            ->setGiftCardCode($this->getGiftCardCode($salesOrderItem))
             ->setQuantity(1)
             ->setSumPrice($salesOrderItem->getPrice())
             ->setSumPriceToPayAggregation($salesOrderItem->getPriceToPayAggregation())
             ->setSumTaxAmount($salesOrderItem->getTaxAmount());
+    }
+
+    /**
+     * @param \Orm\Zed\Sales\Persistence\SpySalesOrderItem $salesOrderItem
+     *
+     * @return string
+     */
+    protected function getGiftCardCode(SpySalesOrderItem $salesOrderItem): string
+    {
+        /** @var \Orm\Zed\Sales\Persistence\SpySalesOrderItemGiftCard $giftCard */
+        $giftCard = $salesOrderItem
+            ->getSpySalesOrderItemGiftCards()
+            ->getFirst();
+
+        return $giftCard->getCode();
     }
 }
