@@ -6,6 +6,7 @@ namespace FondOfOryx\Glue\ErpInvoicePageSearchRestApi\Model\Mapper;
 
 use Generated\Shared\Transfer\RestCompanyBusinessUnitTransfer;
 use Generated\Shared\Transfer\RestErpInvoiceAmountTransfer;
+use Generated\Shared\Transfer\RestErpInvoiceExpenseTransfer;
 use Generated\Shared\Transfer\RestErpInvoiceItemTransfer;
 use Generated\Shared\Transfer\RestErpInvoicePageSearchCollectionResponseTransfer;
 use Generated\Shared\Transfer\RestErpInvoiceTransfer;
@@ -21,6 +22,11 @@ class ErpInvoiceMapper implements ErpInvoiceMapperInterface
      * @var string
      */
     protected const ERP_INVOICE_DATA_KEY_ERP_INVOICE_ITEMS = 'erp_invoice_items';
+
+    /**
+     * @var string
+     */
+    protected const ERP_INVOICE_DATA_KEY_ERP_INVOICE_EXPENSES = 'erp_invoice_expenses';
 
     /**
      * @var string
@@ -59,6 +65,7 @@ class ErpInvoiceMapper implements ErpInvoiceMapperInterface
             );
 
             $this->addRestErpInvoiceItems($restErpInvoice, $erpInvoiceData[self::ERP_INVOICE_DATA_KEY_ERP_INVOICE_ITEMS]);
+            $this->addRestErpInvoiceExpenses($restErpInvoice, $erpInvoiceData[self::ERP_INVOICE_DATA_KEY_ERP_INVOICE_EXPENSES]);
             $restErpInvoice->setTotals($this->mapErpInvoiceTotalToRestOrderTotal(
                 $erpInvoiceData[static::ERP_INVOICE_DATA_KEY_ERP_INVOICE_TOTAL],
             ));
@@ -104,6 +111,24 @@ class ErpInvoiceMapper implements ErpInvoiceMapperInterface
         foreach ($erpInvoiceItems as $erpInvoiceItemData) {
             $restErpInvoiceItemTransfer = (new RestErpInvoiceItemTransfer())->fromArray($erpInvoiceItemData, true);
             $restErpInvoiceTransfer->addItem($restErpInvoiceItemTransfer);
+        }
+
+        return $restErpInvoiceTransfer;
+    }
+
+    /**
+     * @param \Generated\Shared\Transfer\RestErpInvoiceTransfer $restErpInvoiceTransfer
+     * @param array $erpInvoiceExpenses
+     *
+     * @return \Generated\Shared\Transfer\RestErpInvoiceTransfer
+     */
+    protected function addRestErpInvoiceExpenses(
+        RestErpInvoiceTransfer $restErpInvoiceTransfer,
+        array $erpInvoiceExpenses
+    ): RestErpInvoiceTransfer {
+        foreach ($erpInvoiceExpenses as $erpInvoiceExpenseData) {
+            $restErpInvoiceItemTransfer = (new RestErpInvoiceExpenseTransfer())->fromArray($erpInvoiceExpenseData, true);
+            $restErpInvoiceTransfer->addExpense($restErpInvoiceItemTransfer);
         }
 
         return $restErpInvoiceTransfer;

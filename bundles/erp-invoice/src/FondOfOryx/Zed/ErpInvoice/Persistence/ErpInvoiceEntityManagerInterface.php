@@ -4,6 +4,7 @@ namespace FondOfOryx\Zed\ErpInvoice\Persistence;
 
 use Generated\Shared\Transfer\ErpInvoiceAddressTransfer;
 use Generated\Shared\Transfer\ErpInvoiceAmountTransfer;
+use Generated\Shared\Transfer\ErpInvoiceExpenseTransfer;
 use Generated\Shared\Transfer\ErpInvoiceItemTransfer;
 use Generated\Shared\Transfer\ErpInvoiceTransfer;
 
@@ -44,6 +45,13 @@ interface ErpInvoiceEntityManagerInterface
     public function createErpInvoiceItem(ErpInvoiceItemTransfer $itemTransfer): ErpInvoiceItemTransfer;
 
     /**
+     * @param \Generated\Shared\Transfer\ErpInvoiceExpenseTransfer $itemTransfer
+     *
+     * @return \Generated\Shared\Transfer\ErpInvoiceExpenseTransfer
+     */
+    public function createErpInvoiceExpense(ErpInvoiceExpenseTransfer $itemTransfer): ErpInvoiceExpenseTransfer;
+
+    /**
      * @param \Generated\Shared\Transfer\ErpInvoiceTransfer $erpInvoiceTransfer
      *
      * @throws \Exception
@@ -61,6 +69,13 @@ interface ErpInvoiceEntityManagerInterface
      * @return \Generated\Shared\Transfer\ErpInvoiceItemTransfer
      */
     public function updateErpInvoiceItem(ErpInvoiceItemTransfer $invoiceItemTransfer): ErpInvoiceItemTransfer;
+
+    /**
+     * @param \Generated\Shared\Transfer\ErpInvoiceExpenseTransfer $invoiceExpenseTransfer
+     *
+     * @return \Generated\Shared\Transfer\ErpInvoiceExpenseTransfer
+     */
+    public function updateErpInvoiceExpense(ErpInvoiceExpenseTransfer $invoiceExpenseTransfer): ErpInvoiceExpenseTransfer;
 
     /**
      * @param \Generated\Shared\Transfer\ErpInvoiceAddressTransfer $erpInvoiceAddressTransfer
@@ -91,6 +106,13 @@ interface ErpInvoiceEntityManagerInterface
      * @return void
      */
     public function deleteErpInvoiceItemByIdErpInvoiceItem(int $idErpInvoiceItem): void;
+
+    /**
+     * @param int $idErpInvoiceExpense
+     *
+     * @return void
+     */
+    public function deleteErpInvoiceExpenseByIdErpInvoiceExpense(int $idErpInvoiceExpense): void;
 
     /**
      * @param int $idErpInvoiceAddress

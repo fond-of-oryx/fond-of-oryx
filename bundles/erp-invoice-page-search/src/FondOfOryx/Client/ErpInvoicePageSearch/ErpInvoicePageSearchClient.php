@@ -2,7 +2,6 @@
 
 namespace FondOfOryx\Client\ErpInvoicePageSearch;
 
-use FondOfOryx\Client\ErpInvoicePermission\Plugin\Permission\SeeErpInvoicesPermissionPlugin;
 use Spryker\Client\Kernel\AbstractClient;
 use Spryker\Client\Kernel\PermissionAwareTrait;
 
@@ -25,10 +24,6 @@ class ErpInvoicePageSearchClient extends AbstractClient implements ErpInvoicePag
      */
     public function search(string $searchString, array $requestParameters = [])
     {
-        if ($this->can(SeeErpInvoicesPermissionPlugin::KEY) === false) {
-            return [];
-        }
-
         $searchQuery = $this
             ->getFactory()
             ->createSearchQuery($searchString);

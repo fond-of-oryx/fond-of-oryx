@@ -26,6 +26,9 @@ class ErpInvoicePageSearchDataMapperTest extends Unit
     {
         $data = [
             ErpInvoicePageSearchDataMapper::INVOICE_DATE => 'now',
+            ErpInvoicePageSearchDataMapper::CREATED_AT => 'now',
+            ErpInvoicePageSearchDataMapper::UPDATED_AT => 'now',
+            ErpInvoicePageSearchDataMapper::DOCUMENT_NUMBER => '',
             ErpInvoicePageSearchDataMapper::EXTERNAL_REFERENCE => '',
             ErpInvoicePageSearchDataMapper::FK_COMPANY_BUSINESS_UNIT => '',
             ErpInvoicePageSearchDataMapper::COMPANY_BUSINESS_UNIT => [
@@ -36,6 +39,7 @@ class ErpInvoicePageSearchDataMapperTest extends Unit
             ErpInvoicePageSearchDataMapper::FK_BILLING_ADDRESS => '',
             ErpInvoicePageSearchDataMapper::FK_SHIPPING_ADDRESS => '',
             ErpInvoicePageSearchDataMapper::ERP_INVOICE_ITEMS => [],
+            ErpInvoicePageSearchDataMapper::ERP_INVOICE_EXPENSES => [],
             ErpInvoicePageSearchDataMapper::ERP_INVOICE_TOTAL => null,
             ErpInvoicePageSearchDataMapper::SHIPPING_ADDRESS => null,
             ErpInvoicePageSearchDataMapper::BILLING_ADDRESS => null,

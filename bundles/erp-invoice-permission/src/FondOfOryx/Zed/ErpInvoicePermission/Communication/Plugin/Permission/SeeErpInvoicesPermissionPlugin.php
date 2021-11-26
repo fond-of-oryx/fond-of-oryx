@@ -2,7 +2,7 @@
 
 declare(strict_types = 1);
 
-namespace FondOfOryx\Client\ErpInvoicePermission\Plugin\Permission;
+namespace FondOfOryx\Zed\ErpInvoicePermission\Communication\Plugin\Permission;
 
 use Spryker\Shared\PermissionExtension\Dependency\Plugin\PermissionPluginInterface;
 

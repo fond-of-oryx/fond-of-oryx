@@ -4,11 +4,14 @@ namespace FondOfOryx\Zed\ErpInvoice\Persistence;
 
 use Generated\Shared\Transfer\ErpInvoiceAddressTransfer;
 use Generated\Shared\Transfer\ErpInvoiceAmountTransfer;
+use Generated\Shared\Transfer\ErpInvoiceExpenseCollectionTransfer;
+use Generated\Shared\Transfer\ErpInvoiceExpenseTransfer;
 use Generated\Shared\Transfer\ErpInvoiceItemCollectionTransfer;
 use Generated\Shared\Transfer\ErpInvoiceItemTransfer;
 use Generated\Shared\Transfer\ErpInvoiceTransfer;
 use Orm\Zed\ErpInvoice\Persistence\FooErpInvoiceAddressQuery;
 use Orm\Zed\ErpInvoice\Persistence\FooErpInvoiceAmountQuery;
+use Orm\Zed\ErpInvoice\Persistence\FooErpInvoiceExpenseQuery;
 use Orm\Zed\ErpInvoice\Persistence\FooErpInvoiceItemQuery;
 use Orm\Zed\ErpInvoice\Persistence\FooErpInvoiceQuery;
 use Spryker\Zed\Kernel\Persistence\AbstractRepository;
@@ -92,6 +95,45 @@ class ErpInvoiceRepository extends AbstractRepository implements ErpInvoiceRepos
     }
 
     /**
+     * @param int $idErpInvoice
+     *
+     * @return \Generated\Shared\Transfer\ErpInvoiceExpenseCollectionTransfer
+     */
+    public function findErpInvoiceExpensesByIdErpInvoice(int $idErpInvoice): ErpInvoiceExpenseCollectionTransfer
+    {
+        $query = $this->getErpInvoiceExpenseQuery();
+        $items = $query->findByFkErpInvoice($idErpInvoice);
+        $itemCollectionTransfer = new ErpInvoiceExpenseCollectionTransfer();
+
+        if (empty($items) || empty($items->getData())) {
+            return $itemCollectionTransfer;
+        }
+
+        foreach ($items->getData() as $item) {
+            $itemCollectionTransfer->addExpense($this->getFactory()->createEntityToTransferMapper()->fromEprInvoiceExpenseToTransfer($item));
+        }
+
+        return $itemCollectionTransfer;
+    }
+
+    /**
+     * @param int $idErpInvoiceExpense
+     *
+     * @return \Generated\Shared\Transfer\ErpInvoiceExpenseTransfer|null
+     */
+    public function findErpInvoiceExpenseByIdErpInvoiceExpense(int $idErpInvoiceExpense): ?ErpInvoiceExpenseTransfer
+    {
+        $query = $this->getErpInvoiceExpenseQuery();
+        $item = $query->findOneByIdErpInvoiceExpense($idErpInvoiceExpense);
+
+        if ($item === null) {
+            return null;
+        }
+
+        return $this->getFactory()->createEntityToTransferMapper()->fromEprInvoiceExpenseToTransfer($item);
+    }
+
+    /**
      * @param int $idErpInvoiceAddress
      *
      * @return \Generated\Shared\Transfer\ErpInvoiceAddressTransfer|null
@@ -139,6 +181,14 @@ class ErpInvoiceRepository extends AbstractRepository implements ErpInvoiceRepos
     protected function getErpInvoiceItemQuery(): FooErpInvoiceItemQuery
     {
         return $this->getFactory()->createErpInvoiceItemQuery();
+    }
+
+    /**
+     * @return \Orm\Zed\ErpInvoice\Persistence\FooErpInvoiceExpenseQuery
+     */
+    protected function getErpInvoiceExpenseQuery(): FooErpInvoiceExpenseQuery
+    {
+        return $this->getFactory()->createErpInvoiceExpenseQuery();
     }
 
     /**

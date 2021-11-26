@@ -2,6 +2,7 @@
 
 namespace FondOfOryx\Zed\ErpInvoice\Business;
 
+use Generated\Shared\Transfer\ErpInvoiceExpenseTransfer;
 use Generated\Shared\Transfer\ErpInvoiceItemTransfer;
 use Generated\Shared\Transfer\ErpInvoiceResponseTransfer;
 use Generated\Shared\Transfer\ErpInvoiceTransfer;
@@ -66,6 +67,17 @@ interface ErpInvoiceFacadeInterface
      *
      * @return \Generated\Shared\Transfer\ErpInvoiceTransfer
      */
+    public function persistErpInvoiceExpense(
+        ErpInvoiceTransfer $erpInvoiceTransfer,
+        ?ErpInvoiceTransfer $existingErpInvoiceTransfer = null
+    ): ErpInvoiceTransfer;
+
+    /**
+     * @param \Generated\Shared\Transfer\ErpInvoiceTransfer $erpInvoiceTransfer
+     * @param \Generated\Shared\Transfer\ErpInvoiceTransfer|null $existingErpInvoiceTransfer
+     *
+     * @return \Generated\Shared\Transfer\ErpInvoiceTransfer
+     */
     public function persistErpInvoiceAmount(ErpInvoiceTransfer $erpInvoiceTransfer, ?ErpInvoiceTransfer $existingErpInvoiceTransfer = null): ErpInvoiceTransfer;
 
     /**
@@ -78,4 +90,15 @@ interface ErpInvoiceFacadeInterface
         ErpInvoiceItemTransfer $erpInvoiceItemTransfer,
         ?ErpInvoiceTransfer $existingErpInvoiceTransfer = null
     ): ErpInvoiceItemTransfer;
+
+    /**
+     * @param \Generated\Shared\Transfer\ErpInvoiceExpenseTransfer $erpInvoiceExpenseTransfer
+     * @param \Generated\Shared\Transfer\ErpInvoiceTransfer|null $existingErpInvoiceTransfer
+     *
+     * @return \Generated\Shared\Transfer\ErpInvoiceExpenseTransfer
+     */
+    public function persistErpInvoiceExpenseAmounts(
+        ErpInvoiceExpenseTransfer $erpInvoiceExpenseTransfer,
+        ?ErpInvoiceTransfer $existingErpInvoiceTransfer = null
+    ): ErpInvoiceExpenseTransfer;
 }

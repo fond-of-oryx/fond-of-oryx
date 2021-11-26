@@ -33,6 +33,9 @@ class ErpInvoiceMapperTest extends Unit
                     'erp_invoice_items' => [
                         0 => ['sku' => 'sku'],
                     ],
+                    'erp_invoice_expenses' => [
+                        0 => ['name' => 'name'],
+                    ],
                     'erp_invoice_total' => [
                         0 => ['value' => 1000],
                         2 => ['tax' => 190],

@@ -10,6 +10,7 @@
         <property name="fkShippingAddress" type="int"/>
         <property name="fkCompanyBusinessUnit" type="int"/>
         <property name="invoiceItems" singular="invoiceItem" type="ErpInvoiceItem[]"/>
+        <property name="expenses" singular="expense" type="ErpInvoiceExpense[]"/>
         <property name="reference" type="string"/>
         <property name="externalReference" type="string"/>
         <property name="documentNumber" type="string"/>
@@ -30,6 +31,21 @@
         <property name="fkAmount" type="int"/>
         <property name="fkUnitPriceAmount" type="int"/>
         <property name="sku" type="string"/>
+        <property name="name" type="string"/>
+        <property name="quantity" type="int"/>
+        <property name="discount" type="int"/>
+        <property name="discountType" type="string"/>
+        <property name="unitPrice" type="ErpInvoiceAmount"/>
+        <property name="amount" type="ErpInvoiceAmount"/>
+        <property name="createdAt" type="int"/>
+        <property name="updatedAt" type="int"/>
+    </transfer>
+
+    <transfer name="ErpInvoiceExpense">
+        <property name="idErpInvoiceExpense" type="int" />
+        <property name="fkErpInvoice" type="int" />
+        <property name="fkAmount" type="int"/>
+        <property name="fkUnitPriceAmount" type="int"/>
         <property name="name" type="string"/>
         <property name="quantity" type="int"/>
         <property name="discount" type="int"/>
@@ -64,6 +80,10 @@
 
     <transfer name="ErpInvoiceItemCollection">
         <property name="items" singular="item" type="ErpInvoiceItem[]" />
+    </transfer>
+
+    <transfer name="ErpInvoiceExpenseCollection">
+        <property name="expenses" singular="expense" type="ErpInvoiceExpense[]" />
     </transfer>
 
     <transfer name="ErpInvoiceResponse">

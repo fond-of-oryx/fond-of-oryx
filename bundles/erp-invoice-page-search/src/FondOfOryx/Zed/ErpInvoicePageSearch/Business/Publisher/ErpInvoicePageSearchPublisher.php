@@ -9,6 +9,7 @@ use FondOfOryx\Zed\ErpInvoicePageSearch\Persistence\ErpInvoicePageSearchQueryCon
 use Generated\Shared\Transfer\ErpInvoicePageSearchTransfer;
 use Orm\Zed\ErpInvoice\Persistence\FooErpInvoice;
 use Orm\Zed\ErpInvoice\Persistence\FooErpInvoiceAddress;
+use Propel\Runtime\Collection\ObjectCollection;
 
 class ErpInvoicePageSearchPublisher implements ErpInvoicePageSearchPublisherInterface
 {
@@ -21,6 +22,11 @@ class ErpInvoicePageSearchPublisher implements ErpInvoicePageSearchPublisherInte
      * @var string
      */
     public const ERP_INVOICE_ITEMS = 'erpInvoiceItems';
+
+    /**
+     * @var string
+     */
+    public const ERP_INVOICE_EXPENSES = 'erpInvoiceExpenses';
 
     /**
      * @var string
@@ -121,21 +127,15 @@ class ErpInvoicePageSearchPublisher implements ErpInvoicePageSearchPublisherInte
         $erpInvoiceData = $fooErpInvoiceEntity->toArray();
         $companyBusinessUnit = $fooErpInvoiceEntity->getSpyCompanyBusinessUnit();
         $orderItemEntities = $fooErpInvoiceEntity->getFooErpInvoiceItems();
-
-        $items = [];
-        foreach ($orderItemEntities as $orderItemEntity) {
-            $item = $orderItemEntity->toArray();
-            $item['amount'] = $orderItemEntity->getFooErpInvoiceAmount()->toArray();
-            $item['unit_price'] = $orderItemEntity->getFooErpInvoiceAmountUnitPrice()->toArray();
-            $items[] = $item;
-        }
+        $orderExpenseEntities = $fooErpInvoiceEntity->getFooErpInvoiceExpenses();
 
         $orderTotal = $fooErpInvoiceEntity->getFooErpInvoiceAmountToal();
         $billingAddress = $fooErpInvoiceEntity->getFooErpInvoiceBillingAddress();
         $shippingAddress = $fooErpInvoiceEntity->getFooErpInvoiceShippingAddress();
 
         $erpInvoiceData[static::COMPANY_BUSINESS_UNIT] = $companyBusinessUnit->toArray();
-        $erpInvoiceData[static::ERP_INVOICE_ITEMS] = $items;
+        $erpInvoiceData[static::ERP_INVOICE_ITEMS] = $this->getItems($orderItemEntities);
+        $erpInvoiceData[static::ERP_INVOICE_EXPENSES] = $this->getExpenses($orderExpenseEntities);
         $erpInvoiceData[static::BILLING_ADDRESS] = $this->getAddress($billingAddress);
         $erpInvoiceData[static::SHIPPING_ADDRESS] = $this->getAddress($shippingAddress);
         $erpInvoiceData[static::ERP_INVOICE_TOTAL] = $orderTotal->toArray();
@@ -201,5 +201,41 @@ class ErpInvoicePageSearchPublisher implements ErpInvoicePageSearchPublisherInte
         $uki = sprintf('%s-%s', $fooErpInvoiceEntity->getIdErpInvoice(), $hash);
 
         return $erpInvoicePageSearchTransfer->setUniqueKeyIdentifier($uki);
+    }
+
+    /**
+     * @param \Propel\Runtime\Collection\ObjectCollection|\Orm\Zed\ErpInvoice\Persistence\FooErpInvoiceExpense[] $orderExpenseEntities
+     *
+     * @return array
+     */
+    protected function getExpenses(ObjectCollection $orderExpenseEntities): array
+    {
+        $expenses = [];
+        foreach ($orderExpenseEntities as $orderExpenseEntity) {
+            $expense = $orderExpenseEntity->toArray();
+            $expense['amount'] = $orderExpenseEntity->getFooErpInvoiceAmount()->toArray();
+            $expense['unit_price'] = $orderExpenseEntity->getFooErpInvoiceAmountUnitPrice()->toArray();
+            $expenses[] = $expense;
+        }
+
+        return $expenses;
+    }
+
+    /**
+     * @param \Propel\Runtime\Collection\ObjectCollection|\Orm\Zed\ErpInvoice\Persistence\FooErpInvoiceItem[] $orderItemEntities
+     *
+     * @return array
+     */
+    protected function getItems(ObjectCollection $orderItemEntities): array
+    {
+        $items = [];
+        foreach ($orderItemEntities as $orderItemEntity) {
+            $item = $orderItemEntity->toArray();
+            $item['amount'] = $orderItemEntity->getFooErpInvoiceAmount()->toArray();
+            $item['unit_price'] = $orderItemEntity->getFooErpInvoiceAmountUnitPrice()->toArray();
+            $items[] = $item;
+        }
+
+        return $items;
     }
 }

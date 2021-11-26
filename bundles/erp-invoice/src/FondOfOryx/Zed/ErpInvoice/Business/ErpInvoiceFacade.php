@@ -3,6 +3,7 @@
 namespace FondOfOryx\Zed\ErpInvoice\Business;
 
 use FondOfOryx\Zed\ErpInvoice\Business\Handler\ErpInvoiceAddressHandler;
+use Generated\Shared\Transfer\ErpInvoiceExpenseTransfer;
 use Generated\Shared\Transfer\ErpInvoiceItemTransfer;
 use Generated\Shared\Transfer\ErpInvoiceResponseTransfer;
 use Generated\Shared\Transfer\ErpInvoiceTransfer;
@@ -98,6 +99,17 @@ class ErpInvoiceFacade extends AbstractFacade implements ErpInvoiceFacadeInterfa
      *
      * @return \Generated\Shared\Transfer\ErpInvoiceTransfer
      */
+    public function persistErpInvoiceExpense(ErpInvoiceTransfer $erpInvoiceTransfer, ?ErpInvoiceTransfer $existingErpInvoiceTransfer = null): ErpInvoiceTransfer
+    {
+        return $this->getFactory()->createErpInvoiceExpenseHandler()->handle($erpInvoiceTransfer, $existingErpInvoiceTransfer);
+    }
+
+    /**
+     * @param \Generated\Shared\Transfer\ErpInvoiceTransfer $erpInvoiceTransfer
+     * @param \Generated\Shared\Transfer\ErpInvoiceTransfer|null $existingErpInvoiceTransfer
+     *
+     * @return \Generated\Shared\Transfer\ErpInvoiceTransfer
+     */
     public function persistErpInvoiceAmount(ErpInvoiceTransfer $erpInvoiceTransfer, ?ErpInvoiceTransfer $existingErpInvoiceTransfer = null): ErpInvoiceTransfer
     {
         return $this->getFactory()->createErpInvoiceAmountHandler()->handle($erpInvoiceTransfer, $existingErpInvoiceTransfer);
@@ -114,5 +126,18 @@ class ErpInvoiceFacade extends AbstractFacade implements ErpInvoiceFacadeInterfa
         ?ErpInvoiceTransfer $existingErpInvoiceTransfer = null
     ): ErpInvoiceItemTransfer {
         return $this->getFactory()->createErpInvoiceItemAmountHandler()->handle($erpInvoiceItemTransfer, $existingErpInvoiceTransfer);
+    }
+
+    /**
+     * @param \Generated\Shared\Transfer\ErpInvoiceExpenseTransfer $erpInvoiceExpenseTransfer
+     * @param \Generated\Shared\Transfer\ErpInvoiceTransfer|null $existingErpInvoiceTransfer
+     *
+     * @return \Generated\Shared\Transfer\ErpInvoiceExpenseTransfer
+     */
+    public function persistErpInvoiceExpenseAmounts(
+        ErpInvoiceExpenseTransfer $erpInvoiceExpenseTransfer,
+        ?ErpInvoiceTransfer $existingErpInvoiceTransfer = null
+    ): ErpInvoiceExpenseTransfer {
+        return $this->getFactory()->createErpInvoiceExpenseAmountHandler()->handle($erpInvoiceExpenseTransfer, $existingErpInvoiceTransfer);
     }
 }

@@ -3,6 +3,7 @@
 namespace FondOfOryx\Client\ErpInvoicePermission\Plugin\Permission;
 
 use Codeception\Test\Unit;
+use FondOfOryx\Zed\ErpInvoicePermission\Communication\Plugin\Permission\SeeErpInvoicesPermissionPlugin;
 
 class SeeErpInvoicePermissionPluginTest extends Unit
 {
