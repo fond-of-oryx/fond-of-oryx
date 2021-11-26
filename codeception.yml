@@ -52,6 +52,7 @@ include:
   - bundles/jellyfish-sales-order-payone
   - bundles/jellyfish-thirty-five-up
   - bundles/limit-buyable-quantity
+  - bundles/log-io
   - bundles/mail-bcc
   - bundles/one-time-password
   - bundles/one-time-password-email-connector
