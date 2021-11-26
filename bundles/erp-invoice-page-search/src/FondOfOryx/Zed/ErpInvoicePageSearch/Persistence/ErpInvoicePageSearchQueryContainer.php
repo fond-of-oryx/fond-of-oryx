@@ -37,8 +37,6 @@ class ErpInvoicePageSearchQueryContainer extends AbstractQueryContainer implemen
     public function queryErpInvoiceWithAddressesAndCompanyBusinessUnitByErpInvoiceIds(
         array $erpInvoiceIds
     ): FooErpInvoiceQuery {
-        $fooErpInvoiceQuery = $this->queryErpInvoicesByErpInvoiceIds($erpInvoiceIds);
-
-        return $fooErpInvoiceQuery;
+        return $this->queryErpInvoicesByErpInvoiceIds($erpInvoiceIds);
     }
 }

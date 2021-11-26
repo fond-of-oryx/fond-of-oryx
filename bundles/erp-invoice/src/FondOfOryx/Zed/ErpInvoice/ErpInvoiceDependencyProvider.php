@@ -10,6 +10,8 @@ use FondOfOryx\Zed\ErpInvoiceExtension\Dependency\Plugin\ErpInvoiceAddressPostSa
 use FondOfOryx\Zed\ErpInvoiceExtension\Dependency\Plugin\ErpInvoiceAddressPreSavePluginInterface;
 use FondOfOryx\Zed\ErpInvoiceExtension\Dependency\Plugin\ErpInvoiceAmountPostSavePluginInterface;
 use FondOfOryx\Zed\ErpInvoiceExtension\Dependency\Plugin\ErpInvoiceAmountPreSavePluginInterface;
+use FondOfOryx\Zed\ErpInvoiceExtension\Dependency\Plugin\ErpInvoiceExpensePostSavePluginInterface;
+use FondOfOryx\Zed\ErpInvoiceExtension\Dependency\Plugin\ErpInvoiceExpensePreSavePluginInterface;
 use FondOfOryx\Zed\ErpInvoiceExtension\Dependency\Plugin\ErpInvoiceItemPostSavePluginInterface;
 use FondOfOryx\Zed\ErpInvoiceExtension\Dependency\Plugin\ErpInvoiceItemPreSavePluginInterface;
 use FondOfOryx\Zed\ErpInvoiceExtension\Dependency\Plugin\ErpInvoicePostSavePluginInterface;
@@ -48,6 +50,16 @@ class ErpInvoiceDependencyProvider extends AbstractBundleDependencyProvider
      * @var string
      */
     public const PLUGIN_ERP_INVOICE_ITEM_PRE_SAVE = 'PLUGIN_ERP_INVOICE_ITEM_PRE_SAVE';
+
+    /**
+     * @var string
+     */
+    public const PLUGIN_ERP_INVOICE_EXPENSE_POST_SAVE = 'PLUGIN_ERP_INVOICE_EXPENSE_POST_SAVE';
+
+    /**
+     * @var string
+     */
+    public const PLUGIN_ERP_INVOICE_EXPENSE_PRE_SAVE = 'PLUGIN_ERP_INVOICE_EXPENSE_PRE_SAVE';
 
     /**
      * @var string
@@ -95,6 +107,8 @@ class ErpInvoiceDependencyProvider extends AbstractBundleDependencyProvider
         $container = $this->addErpInvoicePostSavePlugin($container);
         $container = $this->addErpInvoiceItemPreSavePlugin($container);
         $container = $this->addErpInvoiceItemPostSavePlugin($container);
+        $container = $this->addErpInvoiceExpensePreSavePlugin($container);
+        $container = $this->addErpInvoiceExpensePostSavePlugin($container);
         $container = $this->addErpInvoiceAddressPreSavePlugin($container);
         $container = $this->addErpInvoiceAddressPostSavePlugin($container);
         $container = $this->addErpInvoiceAmountPreSavePlugin($container);
@@ -196,6 +210,40 @@ class ErpInvoiceDependencyProvider extends AbstractBundleDependencyProvider
         $container[static::PLUGIN_ERP_INVOICE_ITEM_PRE_SAVE] = function (Container $container) {
             $plugins = $this->getErpInvoiceItemPreSavePlugin();
             $this->validatePlugin($plugins, ErpInvoiceItemPreSavePluginInterface::class);
+
+            return new ArrayObject($plugins);
+        };
+
+        return $container;
+    }
+
+    /**
+     * @param \Spryker\Zed\Kernel\Container $container
+     *
+     * @return \Spryker\Zed\Kernel\Container
+     */
+    public function addErpInvoiceExpensePostSavePlugin(Container $container): Container
+    {
+        $container[static::PLUGIN_ERP_INVOICE_EXPENSE_POST_SAVE] = function (Container $container) {
+            $plugins = $this->getErpInvoiceExpensePostSavePlugin();
+            $this->validatePlugin($plugins, ErpInvoiceExpensePostSavePluginInterface::class);
+
+            return new ArrayObject($plugins);
+        };
+
+        return $container;
+    }
+
+    /**
+     * @param \Spryker\Zed\Kernel\Container $container
+     *
+     * @return \Spryker\Zed\Kernel\Container
+     */
+    public function addErpInvoiceExpensePreSavePlugin(Container $container): Container
+    {
+        $container[static::PLUGIN_ERP_INVOICE_EXPENSE_PRE_SAVE] = function (Container $container) {
+            $plugins = $this->getErpInvoiceExpensePreSavePlugin();
+            $this->validatePlugin($plugins, ErpInvoiceExpensePreSavePluginInterface::class);
 
             return new ArrayObject($plugins);
         };
@@ -317,9 +365,25 @@ class ErpInvoiceDependencyProvider extends AbstractBundleDependencyProvider
     }
 
     /**
+     * @return array<\FondOfOryx\Zed\ErpInvoiceExtension\Dependency\Plugin\ErpInvoiceExpensePostSavePluginInterface>
+     */
+    protected function getErpInvoiceExpensePostSavePlugin(): array
+    {
+        return [];
+    }
+
+    /**
      * @return array<\FondOfOryx\Zed\ErpInvoiceExtension\Dependency\Plugin\ErpInvoiceItemPreSavePluginInterface>
      */
     protected function getErpInvoiceItemPreSavePlugin(): array
+    {
+        return [];
+    }
+
+    /**
+     * @return array<\FondOfOryx\Zed\ErpInvoiceExtension\Dependency\Plugin\ErpInvoiceExpensePreSavePluginInterface>
+     */
+    protected function getErpInvoiceExpensePreSavePlugin(): array
     {
         return [];
     }

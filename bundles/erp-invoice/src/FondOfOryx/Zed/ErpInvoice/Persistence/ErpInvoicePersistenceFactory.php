@@ -9,6 +9,7 @@ use FondOfOryx\Zed\ErpInvoice\Persistence\Propel\Mapper\EntityToTransferMapper;
 use FondOfOryx\Zed\ErpInvoice\Persistence\Propel\Mapper\EntityToTransferMapperInterface;
 use Orm\Zed\ErpInvoice\Persistence\FooErpInvoiceAddressQuery;
 use Orm\Zed\ErpInvoice\Persistence\FooErpInvoiceAmountQuery;
+use Orm\Zed\ErpInvoice\Persistence\FooErpInvoiceExpenseQuery;
 use Orm\Zed\ErpInvoice\Persistence\FooErpInvoiceItemQuery;
 use Orm\Zed\ErpInvoice\Persistence\FooErpInvoiceQuery;
 use Spryker\Zed\Kernel\Persistence\AbstractPersistenceFactory;
@@ -61,6 +62,14 @@ class ErpInvoicePersistenceFactory extends AbstractPersistenceFactory
     public function createErpInvoiceItemQuery(): FooErpInvoiceItemQuery
     {
         return FooErpInvoiceItemQuery::create();
+    }
+
+    /**
+     * @return \Orm\Zed\ErpInvoice\Persistence\FooErpInvoiceExpenseQuery
+     */
+    public function createErpInvoiceExpenseQuery(): FooErpInvoiceExpenseQuery
+    {
+        return FooErpInvoiceExpenseQuery::create();
     }
 
     /**

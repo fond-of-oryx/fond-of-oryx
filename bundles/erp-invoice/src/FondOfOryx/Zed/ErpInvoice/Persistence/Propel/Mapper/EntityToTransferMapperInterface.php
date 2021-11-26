@@ -4,11 +4,13 @@ namespace FondOfOryx\Zed\ErpInvoice\Persistence\Propel\Mapper;
 
 use Generated\Shared\Transfer\ErpInvoiceAddressTransfer;
 use Generated\Shared\Transfer\ErpInvoiceAmountTransfer;
+use Generated\Shared\Transfer\ErpInvoiceExpenseTransfer;
 use Generated\Shared\Transfer\ErpInvoiceItemTransfer;
 use Generated\Shared\Transfer\ErpInvoiceTransfer;
 use Orm\Zed\ErpInvoice\Persistence\FooErpInvoice;
 use Orm\Zed\ErpInvoice\Persistence\FooErpInvoiceAddress;
 use Orm\Zed\ErpInvoice\Persistence\FooErpInvoiceAmount;
+use Orm\Zed\ErpInvoice\Persistence\FooErpInvoiceExpense;
 use Orm\Zed\ErpInvoice\Persistence\FooErpInvoiceItem;
 
 interface EntityToTransferMapperInterface
@@ -23,6 +25,19 @@ interface EntityToTransferMapperInterface
         FooErpInvoiceItem $invoiceItem,
         ?ErpInvoiceItemTransfer $invoiceItemTransfer = null
     ): ErpInvoiceItemTransfer;
+
+    /**
+     * @param \Orm\Zed\ErpInvoice\Persistence\FooErpInvoiceExpense $invoiceExpense
+     * @param \Generated\Shared\Transfer\ErpInvoiceExpenseTransfer|null $invoiceExpenseTransfer
+     *
+     * @throws \Propel\Runtime\Exception\PropelException
+     *
+     * @return \Generated\Shared\Transfer\ErpInvoiceExpenseTransfer
+     */
+    public function fromEprInvoiceExpenseToTransfer(
+        FooErpInvoiceExpense $invoiceExpense,
+        ?ErpInvoiceExpenseTransfer $invoiceExpenseTransfer = null
+    ): ErpInvoiceExpenseTransfer;
 
     /**
      * @param \Orm\Zed\ErpInvoice\Persistence\FooErpInvoice $erpInvoice

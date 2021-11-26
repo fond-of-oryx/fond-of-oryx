@@ -9,11 +9,13 @@ use FondOfOryx\Zed\ErpInvoice\Dependency\Facade\ErpInvoiceToCountryFacadeInterfa
 use Generated\Shared\Transfer\CompanyBusinessUnitTransfer;
 use Generated\Shared\Transfer\ErpInvoiceAddressTransfer;
 use Generated\Shared\Transfer\ErpInvoiceAmountTransfer;
+use Generated\Shared\Transfer\ErpInvoiceExpenseTransfer;
 use Generated\Shared\Transfer\ErpInvoiceItemTransfer;
 use Generated\Shared\Transfer\ErpInvoiceTransfer;
 use Orm\Zed\ErpInvoice\Persistence\FooErpInvoice;
 use Orm\Zed\ErpInvoice\Persistence\FooErpInvoiceAddress;
 use Orm\Zed\ErpInvoice\Persistence\FooErpInvoiceAmount;
+use Orm\Zed\ErpInvoice\Persistence\FooErpInvoiceExpense;
 use Orm\Zed\ErpInvoice\Persistence\FooErpInvoiceItem;
 
 class EntityToTransferMapper implements EntityToTransferMapperInterface
@@ -60,6 +62,28 @@ class EntityToTransferMapper implements EntityToTransferMapperInterface
             ->setUnitPrice((new ErpInvoiceAmountTransfer())->fromArray($invoiceItem->getFooErpInvoiceAmountUnitPrice()->toArray(), true))
             ->setCreatedAt($this->convertDateTimeToTimestamp($invoiceItem->getCreatedAt()))
             ->setUpdatedAt($this->convertDateTimeToTimestamp($invoiceItem->getUpdatedAt()));
+    }
+
+    /**
+     * @param \Orm\Zed\ErpInvoice\Persistence\FooErpInvoiceExpense $invoiceExpense
+     * @param \Generated\Shared\Transfer\ErpInvoiceExpenseTransfer|null $invoiceExpenseTransfer
+     *
+     * @return \Generated\Shared\Transfer\ErpInvoiceExpenseTransfer
+     */
+    public function fromEprInvoiceExpenseToTransfer(
+        FooErpInvoiceExpense $invoiceExpense,
+        ?ErpInvoiceExpenseTransfer $invoiceExpenseTransfer = null
+    ): ErpInvoiceExpenseTransfer {
+        if ($invoiceExpenseTransfer === null) {
+            $invoiceExpenseTransfer = new ErpInvoiceExpenseTransfer();
+        }
+        $invoiceExpenseTransfer->fromArray($invoiceExpense->toArray(), true);
+
+        return $invoiceExpenseTransfer
+            ->setAmount((new ErpInvoiceAmountTransfer())->fromArray($invoiceExpense->getFooErpInvoiceAmount()->toArray(), true))
+            ->setUnitPrice((new ErpInvoiceAmountTransfer())->fromArray($invoiceExpense->getFooErpInvoiceAmountUnitPrice()->toArray(), true))
+            ->setCreatedAt($this->convertDateTimeToTimestamp($invoiceExpense->getCreatedAt()))
+            ->setUpdatedAt($this->convertDateTimeToTimestamp($invoiceExpense->getUpdatedAt()));
     }
 
     /**

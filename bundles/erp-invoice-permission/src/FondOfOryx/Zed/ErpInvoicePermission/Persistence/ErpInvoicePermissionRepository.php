@@ -2,7 +2,7 @@
 
 namespace FondOfOryx\Zed\ErpInvoicePermission\Persistence;
 
-use FondOfOryx\Client\ErpInvoicePermission\Plugin\Permission\SeeErpInvoicesPermissionPlugin;
+use FondOfOryx\Zed\ErpInvoicePermission\Communication\Plugin\Permission\SeeErpInvoicesPermissionPlugin;
 use Generated\Shared\Transfer\CompanyBusinessUnitUuidCollectionTransfer;
 use Orm\Zed\CompanyBusinessUnit\Persistence\Map\SpyCompanyBusinessUnitTableMap;
 use Orm\Zed\CompanyRole\Persistence\SpyCompanyRoleToPermissionQuery;

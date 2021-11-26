@@ -89,6 +89,37 @@
         </foreign-key>
     </table>
 
+    <table name="foo_erp_invoice_expense" phpName="FooErpInvoiceExpense" idMethod="native" identifierQuoting="true"
+           allowPkInsert="true">
+        <column name="id_erp_invoice_expense" required="true" type="INTEGER" autoIncrement="true" primaryKey="true"/>
+        <column name="fk_erp_invoice" required="true" type="INTEGER"/>
+        <column name="fk_amount" required="true" type="INTEGER"/>
+        <column name="fk_unit_price_amount" required="true" type="INTEGER"/>
+        <column name="name" required="true" size="255" type="VARCHAR"/>
+        <column name="quantity" required="true" type="INTEGER"/>
+        <column name="discount" required="false" type="INTEGER"/>
+        <column name="discount_type" required="true" size="50" type="VARCHAR"/>
+
+        <behavior name="timestampable"/>
+
+        <id-method-parameter value="foo_erp_invoice_expense_pk_seq"/>
+
+        <foreign-key name="foo_erp_invoice_expense-fk_erp_invoice" foreignTable="foo_erp_invoice" phpName="FooErpInvoice"
+                     refPhpName="FooErpInvoiceExpense">
+            <reference local="fk_erp_invoice" foreign="id_erp_invoice"/>
+        </foreign-key>
+
+        <foreign-key name="foo_erp_invoice_expense-foo_erp_invoice_amount" foreignTable="foo_erp_invoice_amount"
+                     phpName="FooErpInvoiceAmount">
+            <reference local="fk_amount" foreign="id_erp_invoice_amount"/>
+        </foreign-key>
+
+        <foreign-key name="foo_erp_invoice-foo_erp_invoice_unit_price_amount" foreignTable="foo_erp_invoice_amount"
+                     phpName="FooErpInvoiceAmountUnitPrice">
+            <reference local="fk_unit_price_amount" foreign="id_erp_invoice_amount"/>
+        </foreign-key>
+    </table>
+
     <table name="foo_erp_invoice_address" phpName="FooErpInvoiceAddress" identifierQuoting="true">
         <column name="id_erp_invoice_address" required="true" type="INTEGER" autoIncrement="true" primaryKey="true"/>
 

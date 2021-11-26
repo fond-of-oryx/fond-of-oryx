@@ -6,11 +6,13 @@ use DateTime;
 use Exception;
 use Generated\Shared\Transfer\ErpInvoiceAddressTransfer;
 use Generated\Shared\Transfer\ErpInvoiceAmountTransfer;
+use Generated\Shared\Transfer\ErpInvoiceExpenseTransfer;
 use Generated\Shared\Transfer\ErpInvoiceItemTransfer;
 use Generated\Shared\Transfer\ErpInvoiceTransfer;
 use Orm\Zed\ErpInvoice\Persistence\FooErpInvoice;
 use Orm\Zed\ErpInvoice\Persistence\FooErpInvoiceAddress;
 use Orm\Zed\ErpInvoice\Persistence\FooErpInvoiceAmount;
+use Orm\Zed\ErpInvoice\Persistence\FooErpInvoiceExpense;
 use Orm\Zed\ErpInvoice\Persistence\FooErpInvoiceItem;
 use Spryker\Zed\Kernel\Persistence\AbstractEntityManager;
 
@@ -118,6 +120,32 @@ class ErpInvoiceEntityManager extends AbstractEntityManager implements ErpInvoic
     }
 
     /**
+     * @param \Generated\Shared\Transfer\ErpInvoiceExpenseTransfer $itemTransfer
+     *
+     * @return \Generated\Shared\Transfer\ErpInvoiceExpenseTransfer
+     */
+    public function createErpInvoiceExpense(ErpInvoiceExpenseTransfer $itemTransfer): ErpInvoiceExpenseTransfer
+    {
+        $itemTransfer
+            ->requireFkErpInvoice()
+            ->requireName();
+
+        $now = new DateTime();
+
+        $entity = new FooErpInvoiceExpense();
+        $entity->fromArray($itemTransfer->toArray());
+        $entity
+            ->setCreatedAt($now)
+            ->setUpdatedAt($now)
+            ->save();
+
+        return $this->getFactory()->createEntityToTransferMapper()->fromEprInvoiceExpenseToTransfer(
+            $entity,
+            $itemTransfer,
+        );
+    }
+
+    /**
      * @param \Generated\Shared\Transfer\ErpInvoiceTransfer $erpInvoiceTransfer
      *
      * @throws \Exception
@@ -180,6 +208,31 @@ class ErpInvoiceEntityManager extends AbstractEntityManager implements ErpInvoic
     }
 
     /**
+     * @param \Generated\Shared\Transfer\ErpInvoiceExpenseTransfer $invoiceExpenseTransfer
+     *
+     * @return \Generated\Shared\Transfer\ErpInvoiceExpenseTransfer
+     */
+    public function updateErpInvoiceExpense(ErpInvoiceExpenseTransfer $invoiceExpenseTransfer): ErpInvoiceExpenseTransfer
+    {
+        $invoiceExpenseTransfer
+            ->requireIdErpInvoiceExpense()
+            ->requireFkErpInvoice()
+            ->requireName();
+
+        $entity = $this->findOrCreateErpInvoiceExpense($invoiceExpenseTransfer->getFkErpInvoice(), $invoiceExpenseTransfer->getName());
+        $createdAt = $entity->getCreatedAt();
+        $updatedAt = new DateTime();
+        $entity->fromArray($invoiceExpenseTransfer->modifiedToArray());
+
+        $entity
+            ->setCreatedAt($createdAt)
+            ->setUpdatedAt($updatedAt)
+            ->save();
+
+        return $this->getFactory()->createEntityToTransferMapper()->fromEprInvoiceExpenseToTransfer($entity);
+    }
+
+    /**
      * @param int $idErpInvoice
      *
      * @return void
@@ -226,6 +279,20 @@ class ErpInvoiceEntityManager extends AbstractEntityManager implements ErpInvoic
             return;
         }
         $invoiceItem->delete();
+    }
+
+    /**
+     * @param int $idErpInvoiceExpense
+     *
+     * @return void
+     */
+    public function deleteErpInvoiceExpenseByIdErpInvoiceExpense(int $idErpInvoiceExpense): void
+    {
+        $invoiceExpense = $this->getFactory()->createErpInvoiceExpenseQuery()->findOneByIdErpInvoiceExpense($idErpInvoiceExpense);
+        if ($invoiceExpense === null) {
+            return;
+        }
+        $invoiceExpense->delete();
     }
 
     /**
@@ -321,16 +388,16 @@ class ErpInvoiceEntityManager extends AbstractEntityManager implements ErpInvoic
     }
 
     /**
-     * @param string|null $deliveryDate
+     * @param int $idErpInvoice
+     * @param string $name
      *
-     * @return \DateTime|null
+     * @return \Orm\Zed\ErpInvoice\Persistence\FooErpInvoiceExpense
      */
-    protected function getConcreteDeliveryDate(?string $deliveryDate): ?DateTime
+    protected function findOrCreateErpInvoiceExpense(int $idErpInvoice, string $name): FooErpInvoiceExpense
     {
-        if ($deliveryDate !== null) {
-            $deliveryDate = new DateTime($deliveryDate);
-        }
-
-        return $deliveryDate;
+        return $this->getFactory()->createErpInvoiceExpenseQuery()
+            ->filterByFkErpInvoice($idErpInvoice)
+            ->filterByName($name)
+            ->findOneOrCreate();
     }
 }

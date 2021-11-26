@@ -47,6 +47,7 @@
         <property name="shippingAddress" type="RestErpInvoiceAddress"/>
         <property name="companyBusinessUnit" type="RestCompanyBusinessUnit"/>
         <property name="items" singular="item" type="RestErpInvoiceItem[]"/>
+        <property name="expenses" singular="expense" type="RestErpInvoiceExpense[]"/>
         <property name="totals" type="RestErpInvoiceAmount"/>
         <property name="currencyIsoCode" type="string"/>
     </transfer>
@@ -65,6 +66,15 @@
 
     <transfer name="RestErpInvoiceItem">
         <property name="sku" type="string"/>
+        <property name="name" type="string"/>
+        <property name="quantity" type="int"/>
+        <property name="discount" type="int"/>
+        <property name="discountType" type="string"/>
+        <property name="amount" type="RestErpInvoiceAmount"/>
+        <property name="unitPrice" type="RestErpInvoiceAmount"/>
+    </transfer>
+
+    <transfer name="RestErpInvoiceExpense">
         <property name="name" type="string"/>
         <property name="quantity" type="int"/>
         <property name="discount" type="int"/>

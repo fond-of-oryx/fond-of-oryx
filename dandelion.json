@@ -106,7 +106,7 @@
     },
     "erp-invoice": {
       "path": "bundles/erp-invoice/",
-      "version": "1.0.0"
+      "version": "1.1.0"
     },
     "erp-invoice-api": {
       "path": "bundles/erp-invoice-api/",
@@ -114,19 +114,19 @@
     },
     "erp-invoice-extension": {
       "path": "bundles/erp-invoice-extension/",
-      "version": "1.0.0"
+      "version": "1.1.0"
     },
     "erp-invoice-page-search": {
       "path": "bundles/erp-invoice-page-search/",
-      "version": "1.0.0"
+      "version": "1.1.0"
     },
     "erp-invoice-page-search-rest-api": {
       "path": "bundles/erp-invoice-page-search-rest-api/",
-      "version": "1.0.0"
+      "version": "1.1.0"
     },
     "erp-invoice-permission": {
       "path": "bundles/erp-invoice-permission/",
-      "version": "1.0.0"
+      "version": "1.1.0"
     },
     "erp-order": {
       "path": "bundles/erp-order/",

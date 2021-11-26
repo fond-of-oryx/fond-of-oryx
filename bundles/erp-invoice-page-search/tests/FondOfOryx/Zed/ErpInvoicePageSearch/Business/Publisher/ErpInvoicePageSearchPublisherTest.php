@@ -13,6 +13,7 @@ use Orm\Zed\Country\Persistence\SpyCountry;
 use Orm\Zed\ErpInvoice\Persistence\FooErpInvoice;
 use Orm\Zed\ErpInvoice\Persistence\FooErpInvoiceAddress;
 use Orm\Zed\ErpInvoice\Persistence\FooErpInvoiceAmount;
+use Orm\Zed\ErpInvoice\Persistence\FooErpInvoiceExpense;
 use Orm\Zed\ErpInvoice\Persistence\FooErpInvoiceItem;
 use Orm\Zed\ErpInvoice\Persistence\FooErpInvoiceQuery;
 use Propel\Runtime\Collection\ObjectCollection;
@@ -60,14 +61,14 @@ class ErpInvoicePageSearchPublisherTest extends Unit
     protected $erpInvoiceItemMock;
 
     /**
+     * @var \PHPUnit\Framework\MockObject\MockObject|\Orm\Zed\ErpInvoice\Persistence\FooErpInvoiceExpense
+     */
+    protected $erpInvoiceExpenseMock;
+
+    /**
      * @var \PHPUnit\Framework\MockObject\MockObject|\Orm\Zed\Country\Persistence\SpyCountry
      */
     protected $countryMock;
-
-    /**
-     * @var \PHPUnit\Framework\MockObject\MockObject|\Propel\Runtime\Collection\ObjectCollection
-     */
-    protected $erpInvoiceItemObjectCollectionMock;
 
     /**
      * @var \PHPUnit\Framework\MockObject\MockObject|\Orm\Zed\ErpInvoice\Persistence\FooErpInvoiceQuery
@@ -118,10 +119,6 @@ class ErpInvoicePageSearchPublisherTest extends Unit
             ->disableOriginalConstructor()
             ->getMock();
 
-        $this->erpInvoiceItemObjectCollectionMock = $this->getMockBuilder(ObjectCollection::class)
-            ->disableOriginalConstructor()
-            ->getMock();
-
         $this->erpInvoiceMock = $this->getMockBuilder(FooErpInvoice::class)
             ->disableOriginalConstructor()
             ->getMock();
@@ -135,6 +132,10 @@ class ErpInvoicePageSearchPublisherTest extends Unit
             ->getMock();
 
         $this->erpInvoiceItemMock = $this->getMockBuilder(FooErpInvoiceItem::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $this->erpInvoiceExpenseMock = $this->getMockBuilder(FooErpInvoiceExpense::class)
             ->disableOriginalConstructor()
             ->getMock();
 
@@ -164,6 +165,8 @@ class ErpInvoicePageSearchPublisherTest extends Unit
         $orderEntities = [
             $this->erpInvoiceMock,
         ];
+        $itemObjectCollection = new ObjectCollection([$this->erpInvoiceItemMock]);
+        $expenseObjectCollection = new ObjectCollection([$this->erpInvoiceExpenseMock]);
 
         $updatedAt = new DateTime('NOW');
 
@@ -190,13 +193,25 @@ class ErpInvoicePageSearchPublisherTest extends Unit
 
         $this->erpInvoiceMock->expects(static::atLeastOnce())
             ->method('getFooErpInvoiceItems')
-            ->willReturn([$this->erpInvoiceItemMock]);
+            ->willReturn($itemObjectCollection);
+
+        $this->erpInvoiceMock->expects(static::atLeastOnce())
+            ->method('getFooErpInvoiceExpenses')
+            ->willReturn($expenseObjectCollection);
 
         $this->erpInvoiceItemMock->expects(static::atLeastOnce())
             ->method('getFooErpInvoiceAmount')
             ->willReturn($this->amountMock);
 
         $this->erpInvoiceItemMock->expects(static::atLeastOnce())
+            ->method('getFooErpInvoiceAmountUnitPrice')
+            ->willReturn($this->amountMock);
+
+        $this->erpInvoiceExpenseMock->expects(static::atLeastOnce())
+            ->method('getFooErpInvoiceAmount')
+            ->willReturn($this->amountMock);
+
+        $this->erpInvoiceExpenseMock->expects(static::atLeastOnce())
             ->method('getFooErpInvoiceAmountUnitPrice')
             ->willReturn($this->amountMock);
 

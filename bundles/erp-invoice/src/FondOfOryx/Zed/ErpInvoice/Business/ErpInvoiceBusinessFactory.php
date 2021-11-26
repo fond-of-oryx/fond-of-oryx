@@ -6,6 +6,10 @@ use FondOfOryx\Zed\ErpInvoice\Business\Handler\ErpInvoiceAddressHandler;
 use FondOfOryx\Zed\ErpInvoice\Business\Handler\ErpInvoiceAddressHandlerInterface;
 use FondOfOryx\Zed\ErpInvoice\Business\Handler\ErpInvoiceAmountHandler;
 use FondOfOryx\Zed\ErpInvoice\Business\Handler\ErpInvoiceAmountHandlerInterface;
+use FondOfOryx\Zed\ErpInvoice\Business\Handler\ErpInvoiceExpenseAmountHandler;
+use FondOfOryx\Zed\ErpInvoice\Business\Handler\ErpInvoiceExpenseAmountHandlerInterface;
+use FondOfOryx\Zed\ErpInvoice\Business\Handler\ErpInvoiceExpenseHandler;
+use FondOfOryx\Zed\ErpInvoice\Business\Handler\ErpInvoiceExpenseHandlerInterface;
 use FondOfOryx\Zed\ErpInvoice\Business\Handler\ErpInvoiceItemAmountHandler;
 use FondOfOryx\Zed\ErpInvoice\Business\Handler\ErpInvoiceItemAmountHandlerInterface;
 use FondOfOryx\Zed\ErpInvoice\Business\Handler\ErpInvoiceItemHandler;
@@ -14,6 +18,8 @@ use FondOfOryx\Zed\ErpInvoice\Business\Model\Reader\ErpInvoiceAddressReader;
 use FondOfOryx\Zed\ErpInvoice\Business\Model\Reader\ErpInvoiceAddressReaderInterface;
 use FondOfOryx\Zed\ErpInvoice\Business\Model\Reader\ErpInvoiceAmountReader;
 use FondOfOryx\Zed\ErpInvoice\Business\Model\Reader\ErpInvoiceAmountReaderInterface;
+use FondOfOryx\Zed\ErpInvoice\Business\Model\Reader\ErpInvoiceExpenseReader;
+use FondOfOryx\Zed\ErpInvoice\Business\Model\Reader\ErpInvoiceExpenseReaderInterface;
 use FondOfOryx\Zed\ErpInvoice\Business\Model\Reader\ErpInvoiceItemReader;
 use FondOfOryx\Zed\ErpInvoice\Business\Model\Reader\ErpInvoiceItemReaderInterface;
 use FondOfOryx\Zed\ErpInvoice\Business\Model\Reader\ErpInvoiceReader;
@@ -22,6 +28,8 @@ use FondOfOryx\Zed\ErpInvoice\Business\Model\Writer\ErpInvoiceAddressWriter;
 use FondOfOryx\Zed\ErpInvoice\Business\Model\Writer\ErpInvoiceAddressWriterInterface;
 use FondOfOryx\Zed\ErpInvoice\Business\Model\Writer\ErpInvoiceAmountWriter;
 use FondOfOryx\Zed\ErpInvoice\Business\Model\Writer\ErpInvoiceAmountWriterInterface;
+use FondOfOryx\Zed\ErpInvoice\Business\Model\Writer\ErpInvoiceExpenseWriter;
+use FondOfOryx\Zed\ErpInvoice\Business\Model\Writer\ErpInvoiceExpenseWriterInterface;
 use FondOfOryx\Zed\ErpInvoice\Business\Model\Writer\ErpInvoiceItemWriter;
 use FondOfOryx\Zed\ErpInvoice\Business\Model\Writer\ErpInvoiceItemWriterInterface;
 use FondOfOryx\Zed\ErpInvoice\Business\Model\Writer\ErpInvoiceWriter;
@@ -30,6 +38,8 @@ use FondOfOryx\Zed\ErpInvoice\Business\PluginExecutor\ErpInvoiceAddressPluginExe
 use FondOfOryx\Zed\ErpInvoice\Business\PluginExecutor\ErpInvoiceAddressPluginExecutorInterface;
 use FondOfOryx\Zed\ErpInvoice\Business\PluginExecutor\ErpInvoiceAmountPluginExecutor;
 use FondOfOryx\Zed\ErpInvoice\Business\PluginExecutor\ErpInvoiceAmountPluginExecutorInterface;
+use FondOfOryx\Zed\ErpInvoice\Business\PluginExecutor\ErpInvoiceExpensePluginExecutor;
+use FondOfOryx\Zed\ErpInvoice\Business\PluginExecutor\ErpInvoiceExpensePluginExecutorInterface;
 use FondOfOryx\Zed\ErpInvoice\Business\PluginExecutor\ErpInvoiceItemPluginExecutor;
 use FondOfOryx\Zed\ErpInvoice\Business\PluginExecutor\ErpInvoiceItemPluginExecutorInterface;
 use FondOfOryx\Zed\ErpInvoice\Business\PluginExecutor\ErpInvoicePluginExecutor;
@@ -82,6 +92,17 @@ class ErpInvoiceBusinessFactory extends AbstractBusinessFactory
     }
 
     /**
+     * @return \FondOfOryx\Zed\ErpInvoice\Business\Model\Writer\ErpInvoiceExpenseWriterInterface
+     */
+    public function createErpInvoiceExpenseWriter(): ErpInvoiceExpenseWriterInterface
+    {
+        return new ErpInvoiceExpenseWriter(
+            $this->getEntityManager(),
+            $this->createErpInvoiceExpensePluginExecutor(),
+        );
+    }
+
+    /**
      * @return \FondOfOryx\Zed\ErpInvoice\Business\Model\Writer\ErpInvoiceAmountWriterInterface
      */
     public function createErpInvoiceAmountWriter(): ErpInvoiceAmountWriterInterface
@@ -123,6 +144,17 @@ class ErpInvoiceBusinessFactory extends AbstractBusinessFactory
     }
 
     /**
+     * @return \FondOfOryx\Zed\ErpInvoice\Business\Handler\ErpInvoiceExpenseHandlerInterface
+     */
+    public function createErpInvoiceExpenseHandler(): ErpInvoiceExpenseHandlerInterface
+    {
+        return new ErpInvoiceExpenseHandler(
+            $this->createErpInvoiceExpenseWriter(),
+            $this->createErpInvoiceExpenseReader(),
+        );
+    }
+
+    /**
      * @return \FondOfOryx\Zed\ErpInvoice\Business\Handler\ErpInvoiceAmountHandlerInterface
      */
     public function createErpInvoiceAmountHandler(): ErpInvoiceAmountHandlerInterface
@@ -145,6 +177,17 @@ class ErpInvoiceBusinessFactory extends AbstractBusinessFactory
     }
 
     /**
+     * @return \FondOfOryx\Zed\ErpInvoice\Business\Handler\ErpInvoiceExpenseAmountHandlerInterface
+     */
+    public function createErpInvoiceExpenseAmountHandler(): ErpInvoiceExpenseAmountHandlerInterface
+    {
+        return new ErpInvoiceExpenseAmountHandler(
+            $this->createErpInvoiceAmountWriter(),
+            $this->createErpInvoiceReader(),
+        );
+    }
+
+    /**
      * @return \FondOfOryx\Zed\ErpInvoice\Business\Model\Reader\ErpInvoiceReaderInterface
      */
     public function createErpInvoiceReader(): ErpInvoiceReaderInterface
@@ -158,6 +201,14 @@ class ErpInvoiceBusinessFactory extends AbstractBusinessFactory
     public function createErpInvoiceItemReader(): ErpInvoiceItemReaderInterface
     {
         return new ErpInvoiceItemReader($this->getRepository());
+    }
+
+    /**
+     * @return \FondOfOryx\Zed\ErpInvoice\Business\Model\Reader\ErpInvoiceExpenseReaderInterface
+     */
+    public function createErpInvoiceExpenseReader(): ErpInvoiceExpenseReaderInterface
+    {
+        return new ErpInvoiceExpenseReader($this->getRepository());
     }
 
     /**
@@ -187,6 +238,17 @@ class ErpInvoiceBusinessFactory extends AbstractBusinessFactory
         return new ErpInvoiceItemPluginExecutor(
             $this->getErpInvoiceItemPreSavePlugin(),
             $this->getErpInvoiceItemPostSavePlugin(),
+        );
+    }
+
+    /**
+     * @return \FondOfOryx\Zed\ErpInvoice\Business\PluginExecutor\ErpInvoiceExpensePluginExecutorInterface
+     */
+    protected function createErpInvoiceExpensePluginExecutor(): ErpInvoiceExpensePluginExecutorInterface
+    {
+        return new ErpInvoiceExpensePluginExecutor(
+            $this->getErpInvoiceExpensePreSavePlugin(),
+            $this->getErpInvoiceExpensePostSavePlugin(),
         );
     }
 
@@ -242,6 +304,22 @@ class ErpInvoiceBusinessFactory extends AbstractBusinessFactory
     public function getErpInvoiceItemPostSavePlugin(): array
     {
         return $this->getProvidedDependency(ErpInvoiceDependencyProvider::PLUGIN_ERP_INVOICE_ITEM_POST_SAVE)->getArrayCopy();
+    }
+
+    /**
+     * @return array<\FondOfOryx\Zed\ErpInvoiceExtension\Dependency\Plugin\ErpInvoiceExpensePreSavePluginInterface>
+     */
+    public function getErpInvoiceExpensePreSavePlugin(): array
+    {
+        return $this->getProvidedDependency(ErpInvoiceDependencyProvider::PLUGIN_ERP_INVOICE_EXPENSE_PRE_SAVE)->getArrayCopy();
+    }
+
+    /**
+     * @return array<\FondOfOryx\Zed\ErpInvoiceExtension\Dependency\Plugin\ErpInvoiceExpensePostSavePluginInterface>
+     */
+    public function getErpInvoiceExpensePostSavePlugin(): array
+    {
+        return $this->getProvidedDependency(ErpInvoiceDependencyProvider::PLUGIN_ERP_INVOICE_EXPENSE_POST_SAVE)->getArrayCopy();
     }
 
     /**
