@@ -1,8 +1,6 @@
 <?php
 
-declare(strict_types = 1);
-
-namespace FondOfOryx\Client\ErpOrderPermission\Plugin\Permission;
+namespace FondOfOryx\Zed\ErpOrderPermission\Communication\Plugin\Permission;
 
 use Spryker\Shared\PermissionExtension\Dependency\Plugin\PermissionPluginInterface;
 

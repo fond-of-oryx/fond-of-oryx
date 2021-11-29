@@ -32,7 +32,7 @@ class ErpOrderPermissionDependencyProvider extends AbstractDependencyProvider
      */
     protected function addZedRequestClient(Container $container)
     {
-        $container[static::CLIENT_ZED_REQUEST] = function (Container $container) {
+        $container[static::CLIENT_ZED_REQUEST] = static function (Container $container) {
             return new ErpOrderPermissionToZedRequestBridge($container->getLocator()->zedRequest()->client());
         };
 
