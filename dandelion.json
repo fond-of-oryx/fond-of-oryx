@@ -126,7 +126,7 @@
     },
     "erp-invoice-permission": {
       "path": "bundles/erp-invoice-permission/",
-      "version": "1.1.0"
+      "version": "1.1.1"
     },
     "erp-order": {
       "path": "bundles/erp-order/",
@@ -142,7 +142,7 @@
     },
     "erp-order-page-search": {
       "path": "bundles/erp-order-page-search/",
-      "version": "1.4.3"
+      "version": "1.5.0"
     },
     "erp-order-page-search-rest-api": {
       "path": "bundles/erp-order-page-search-rest-api/",
@@ -150,7 +150,7 @@
     },
     "erp-order-permission": {
       "path": "bundles/erp-order-permission/",
-      "version": "1.1.1"
+      "version": "1.2.0"
     },
     "feed": {
       "path": "bundles/feed/",

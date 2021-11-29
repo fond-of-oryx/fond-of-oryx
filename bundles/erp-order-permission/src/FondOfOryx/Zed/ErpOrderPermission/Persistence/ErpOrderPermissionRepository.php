@@ -2,7 +2,6 @@
 
 namespace FondOfOryx\Zed\ErpOrderPermission\Persistence;
 
-use FondOfOryx\Client\ErpOrderPermission\Plugin\Permission\SeeErpOrdersPermissionPlugin;
 use Generated\Shared\Transfer\CompanyBusinessUnitUuidCollectionTransfer;
 use Orm\Zed\CompanyBusinessUnit\Persistence\Map\SpyCompanyBusinessUnitTableMap;
 use Orm\Zed\CompanyRole\Persistence\SpyCompanyRoleToPermissionQuery;
@@ -23,7 +22,7 @@ class ErpOrderPermissionRepository extends AbstractRepository implements ErpOrde
         $spyCompanyRoleToPermissionQuery = SpyCompanyRoleToPermissionQuery::create();
 
         $ids = $spyCompanyRoleToPermissionQuery->usePermissionQuery()
-                ->filterByKey(SeeErpOrdersPermissionPlugin::KEY)
+                ->filterByKey($permissionKey)
             ->endUse()
             ->useCompanyRoleQuery()
                 ->useSpyCompanyRoleToCompanyUserQuery()

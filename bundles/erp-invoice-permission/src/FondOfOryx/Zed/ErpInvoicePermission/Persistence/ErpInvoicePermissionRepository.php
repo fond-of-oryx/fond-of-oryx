@@ -2,7 +2,6 @@
 
 namespace FondOfOryx\Zed\ErpInvoicePermission\Persistence;
 
-use FondOfOryx\Zed\ErpInvoicePermission\Communication\Plugin\Permission\SeeErpInvoicesPermissionPlugin;
 use Generated\Shared\Transfer\CompanyBusinessUnitUuidCollectionTransfer;
 use Orm\Zed\CompanyBusinessUnit\Persistence\Map\SpyCompanyBusinessUnitTableMap;
 use Orm\Zed\CompanyRole\Persistence\SpyCompanyRoleToPermissionQuery;
@@ -23,7 +22,7 @@ class ErpInvoicePermissionRepository extends AbstractRepository implements ErpIn
         $spyCompanyRoleToPermissionQuery = SpyCompanyRoleToPermissionQuery::create();
 
         $ids = $spyCompanyRoleToPermissionQuery->usePermissionQuery()
-                ->filterByKey(SeeErpInvoicesPermissionPlugin::KEY)
+                ->filterByKey($permissionKey)
             ->endUse()
             ->useCompanyRoleQuery()
                 ->useSpyCompanyRoleToCompanyUserQuery()
