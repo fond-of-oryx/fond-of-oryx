@@ -109,6 +109,7 @@
     "fond-of-oryx/company-role-search-rest-api": "*",
     "fond-of-oryx/company-search-rest-api": "*",
     "fond-of-oryx/company-user-search-rest-api": "*",
+    "fond-of-oryx/company-unit-address-vat-id": "*",
     "fond-of-oryx/credit-memo-api": "*",
     "fond-of-oryx/credit-memo-extension": "*",
     "fond-of-oryx/credit-memo-migrator": "*",
