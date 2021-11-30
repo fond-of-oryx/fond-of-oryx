@@ -14,6 +14,7 @@ include:
   - bundles/company-business-unit-address-search-rest-api
   - bundles/company-business-unit-order-budget
   - bundles/company-business-unit-search-rest-api
+  - bundles/company-company-user-gui
   - bundles/company-price-lists-rest-api
   - bundles/company-role-search-rest-api
   - bundles/company-search-rest-api
