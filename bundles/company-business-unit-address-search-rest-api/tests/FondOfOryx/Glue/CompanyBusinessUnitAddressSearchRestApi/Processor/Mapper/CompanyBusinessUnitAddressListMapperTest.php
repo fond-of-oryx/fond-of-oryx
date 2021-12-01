@@ -91,7 +91,6 @@ class CompanyBusinessUnitAddressListMapperTest extends Unit
     public function testFromRestRequest(): void
     {
         $customerReference = 'FOO-C--1';
-        $query = 'foo';
         $sort = 'foo_asc';
         $comanyUuid = 'foo company uuid';
         $comanyBUUuid = 'foo company bu uuid';
@@ -103,8 +102,16 @@ class CompanyBusinessUnitAddressListMapperTest extends Unit
 
         $this->requestParameterFilterMock->expects(static::atLeastOnce())
             ->method('getRequestParameter')
-            ->withConsecutive([$this->restRequestMock, 'company-id'], [$this->restRequestMock, 'company-business-unit-id'], [$this->restRequestMock, 'default-billing'], [$this->restRequestMock, 'default-shipping'], [$this->restRequestMock, 'sort'])
-            ->willReturnOnConsecutiveCalls($comanyUuid, $comanyBUUuid, 'true', 'true', $sort);
+            ->withConsecutive(
+                [$this->restRequestMock, 'company-id'],
+                [$this->restRequestMock, 'company-business-unit-id'],
+                [$this->restRequestMock, 'default-billing'],
+                [$this->restRequestMock, 'default-billing'],
+                [$this->restRequestMock, 'default-shipping'],
+                [$this->restRequestMock, 'default-shipping'],
+                [$this->restRequestMock, 'sort'],
+            )
+            ->willReturnOnConsecutiveCalls($comanyUuid, $comanyBUUuid, 'true', 'true', 'true', 'true', $sort);
 
         $this->customerReferenceFilterMock->expects(static::atLeastOnce())
             ->method('filterFromRestRequest')
