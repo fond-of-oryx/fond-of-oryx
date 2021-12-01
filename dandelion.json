@@ -36,6 +36,10 @@
       "path": "bundles/company-business-unit-search-rest-api/",
       "version": "1.0.1"
     },
+    "company-company-user-gui": {
+      "path": "bundles/company-company-user-gui/",
+      "version": "1.0.0"
+    },
     "company-price-lists-rest-api": {
       "path": "bundles/company-price-lists-rest-api/",
       "version": "1.0.0"
