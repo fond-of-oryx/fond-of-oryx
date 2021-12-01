@@ -78,8 +78,8 @@ class CompanyBusinessUnitAddressSearchRestApiRepository extends AbstractReposito
             ->getCompanyBusinessUnitQuery()
             ->clear()
             ->useCompanyUserQuery()
-            ->filterByIsActive(true)
-            ->filterByFkCustomer($companyBusinessUnitAddressListTransfer->getCustomerId())
+                ->filterByIsActive(true)
+                ->filterByFkCustomer($companyBusinessUnitAddressListTransfer->getCustomerId())
             ->endUse()
             ->add(
                 SpyCompanyBusinessUnitTableMap::COL_DEFAULT_SHIPPING_ADDRESS,
@@ -141,8 +141,8 @@ class CompanyBusinessUnitAddressSearchRestApiRepository extends AbstractReposito
                         ->filterByFkCustomer($companyBusinessUnitAddressListTransfer->getCustomerId())
                         ->filterByIsActive(true)
                     ->endUse()
-                        ->filterByUuid($companyBusinessUnitAddressListTransfer->getCompanyUuid())
-                        ->filterByIsActive(true)
+                    ->filterByUuid($companyBusinessUnitAddressListTransfer->getCompanyUuid())
+                    ->filterByIsActive(true)
                 ->endUse();
         }
 
@@ -263,45 +263,97 @@ class CompanyBusinessUnitAddressSearchRestApiRepository extends AbstractReposito
         SpyCompanyUnitAddressQuery $companyUnitAddressQuery,
         CompanyBusinessUnitAddressListTransfer $companyBusinessUnitAddressListTransfer
     ): SpyCompanyUnitAddressQuery {
-        if ($companyBusinessUnitAddressListTransfer->getDefaultShipping() === false && $companyBusinessUnitAddressListTransfer->getDefaultBilling() === false) {
+        if (
+            $companyBusinessUnitAddressListTransfer->getDefaultShipping() === null &&
+            $companyBusinessUnitAddressListTransfer->getDefaultBilling() === null
+        ) {
             return $companyUnitAddressQuery;
         }
 
-        return $companyUnitAddressQuery
-            ->useSpyCompanyUnitAddressToCompanyBusinessUnitQuery()
-            ->filterByFkCompanyUnitAddress_In($this->getAddressIds($companyBusinessUnitAddressListTransfer))
-            ->endUse();
+        return $this->addDefaultCompanyUnitAddressFilterQuery(
+            $companyUnitAddressQuery,
+            $companyBusinessUnitAddressListTransfer,
+        );
     }
 
     /**
+     * @param \Orm\Zed\CompanyUnitAddress\Persistence\SpyCompanyUnitAddressQuery $companyUnitAddressQuery
      * @param \Generated\Shared\Transfer\CompanyBusinessUnitAddressListTransfer $companyBusinessUnitAddressListTransfer
      *
-     * @return array<int>
+     * @return \Orm\Zed\CompanyUnitAddress\Persistence\SpyCompanyUnitAddressQuery
      */
-    protected function getAddressIds(CompanyBusinessUnitAddressListTransfer $companyBusinessUnitAddressListTransfer): array
-    {
-        if (
-            $companyBusinessUnitAddressListTransfer->getDefaultShipping() === true
-            && $companyBusinessUnitAddressListTransfer->getDefaultBilling() === true
-            && array_key_exists(static::KEY_DEFAULT_SHIPPING_IDS, $this->defaultBillingAndShippingIds)
-            && array_key_exists(static::KEY_DEFAULT_BILLING_IDS, $this->defaultBillingAndShippingIds)
-        ) {
-            return array_merge($this->defaultBillingAndShippingIds[static::KEY_DEFAULT_SHIPPING_IDS], $this->defaultBillingAndShippingIds[static::KEY_DEFAULT_BILLING_IDS]);
+    protected function addDefaultCompanyUnitAddressFilterQuery(
+        SpyCompanyUnitAddressQuery $companyUnitAddressQuery,
+        CompanyBusinessUnitAddressListTransfer $companyBusinessUnitAddressListTransfer
+    ): SpyCompanyUnitAddressQuery {
+        $includeCompanyUnitAddressIds = [];
+        $excludeCompanyUnitAddressIds = [];
+
+        if (array_key_exists(static::KEY_DEFAULT_BILLING_IDS, $this->defaultBillingAndShippingIds)) {
+            foreach ($this->defaultBillingAndShippingIds[static::KEY_DEFAULT_BILLING_IDS] as $defaultBillingId) {
+                if ($companyBusinessUnitAddressListTransfer->getDefaultBilling() === true) {
+                    $includeCompanyUnitAddressIds[] = $defaultBillingId;
+                }
+
+                if ($companyBusinessUnitAddressListTransfer->getDefaultBilling() === false) {
+                    $excludeCompanyUnitAddressIds[] = $defaultBillingId;
+                }
+            }
         }
 
-        if (
-            $companyBusinessUnitAddressListTransfer->getDefaultShipping() === true
-            && array_key_exists(static::KEY_DEFAULT_SHIPPING_IDS, $this->defaultBillingAndShippingIds)
-        ) {
-            return $this->defaultBillingAndShippingIds[static::KEY_DEFAULT_SHIPPING_IDS];
-        }
-        if (
-            $companyBusinessUnitAddressListTransfer->getDefaultBilling() === true
-            && array_key_exists(static::KEY_DEFAULT_BILLING_IDS, $this->defaultBillingAndShippingIds)
-        ) {
-            return $this->defaultBillingAndShippingIds[static::KEY_DEFAULT_BILLING_IDS];
+        if (array_key_exists(static::KEY_DEFAULT_SHIPPING_IDS, $this->defaultBillingAndShippingIds)) {
+            foreach ($this->defaultBillingAndShippingIds[static::KEY_DEFAULT_SHIPPING_IDS] as $defaultShippingId) {
+                if ($companyBusinessUnitAddressListTransfer->getDefaultShipping() === true) {
+                    $includeCompanyUnitAddressIds[] = $defaultShippingId;
+                }
+
+                if ($companyBusinessUnitAddressListTransfer->getDefaultShipping() === false) {
+                    $excludeCompanyUnitAddressIds[] = $defaultShippingId;
+                }
+            }
         }
 
-        return [];
+        return $this->prepareCompanyUnitAddressFilter(
+            $companyUnitAddressQuery,
+            $includeCompanyUnitAddressIds,
+            $excludeCompanyUnitAddressIds,
+        );
+    }
+
+    /**
+     * @param \Orm\Zed\CompanyUnitAddress\Persistence\SpyCompanyUnitAddressQuery $companyUnitAddressQuery
+     * @param array<int> $includeCompanyUnitAddressIds
+     * @param array<int> $excludeCompanyUnitAddressIds
+     *
+     * @return \Orm\Zed\CompanyUnitAddress\Persistence\SpyCompanyUnitAddressQuery
+     */
+    protected function prepareCompanyUnitAddressFilter(
+        SpyCompanyUnitAddressQuery $companyUnitAddressQuery,
+        array $includeCompanyUnitAddressIds,
+        array $excludeCompanyUnitAddressIds
+    ): SpyCompanyUnitAddressQuery {
+        $query = $companyUnitAddressQuery->useSpyCompanyUnitAddressToCompanyBusinessUnitQuery();
+
+        if (count($includeCompanyUnitAddressIds) > 0 && count($excludeCompanyUnitAddressIds) > 0) {
+            return $query
+                ->filterByFkCompanyUnitAddress_In($includeCompanyUnitAddressIds)
+                ->_or()
+                ->filterByFkCompanyUnitAddress($excludeCompanyUnitAddressIds, Criteria::NOT_IN)
+                ->endUse();
+        }
+
+        if (count($includeCompanyUnitAddressIds) > 0) {
+            return $query
+                ->filterByFkCompanyUnitAddress_In($includeCompanyUnitAddressIds)
+                ->endUse();
+        }
+
+        if (count($excludeCompanyUnitAddressIds) > 0) {
+            return $query
+                ->filterByFkCompanyUnitAddress($excludeCompanyUnitAddressIds, Criteria::NOT_IN)
+                ->endUse();
+        }
+
+        return $query->endUse();
     }
 }
