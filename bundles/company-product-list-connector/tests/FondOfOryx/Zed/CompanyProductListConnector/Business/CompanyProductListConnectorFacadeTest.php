@@ -4,6 +4,7 @@ namespace FondOfOryx\Zed\CompanyProductListConnector\Business;
 
 use Codeception\Test\Unit;
 use FondOfOryx\Zed\CompanyProductListConnector\Business\Persister\CompanyProductListRelationPersisterInterface;
+use FondOfOryx\Zed\CompanyProductListConnector\Business\Reader\ProductListReaderInterface;
 use Generated\Shared\Transfer\CompanyProductListRelationTransfer;
 
 class CompanyProductListConnectorFacadeTest extends Unit
@@ -22,6 +23,11 @@ class CompanyProductListConnectorFacadeTest extends Unit
      * @var \Generated\Shared\Transfer\CompanyProductListRelationTransfer|\PHPUnit\Framework\MockObject\MockObject|mixed
      */
     protected $companyProductListRelationTransferMock;
+
+    /**
+     * @var \FondOfOryx\Zed\CompanyProductListConnector\Business\Reader\ProductListReaderInterface|\PHPUnit\Framework\MockObject\MockObject
+     */
+    protected $productListReaderMock;
 
     /**
      * @var \FondOfOryx\Zed\CompanyProductListConnector\Business\CompanyProductListConnectorFacade
@@ -47,6 +53,10 @@ class CompanyProductListConnectorFacadeTest extends Unit
             ->disableOriginalConstructor()
             ->getMock();
 
+        $this->productListReaderMock = $this->getMockBuilder(ProductListReaderInterface::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
         $this->facade = new CompanyProductListConnectorFacade();
         $this->facade->setFactory($this->factoryMock);
     }
@@ -65,5 +75,28 @@ class CompanyProductListConnectorFacadeTest extends Unit
             ->with($this->companyProductListRelationTransferMock);
 
         $this->facade->persistCompanyProductListRelation($this->companyProductListRelationTransferMock);
+    }
+
+    /**
+     * @return void
+     */
+    public function testGetAssignedProductListIdsByIdCompany(): void
+    {
+        $idCompany = 1;
+        $productListIds = [1, 2, 3, 4];
+
+        $this->factoryMock->expects(static::atLeastOnce())
+            ->method('createProductListReader')
+            ->willReturn($this->productListReaderMock);
+
+        $this->productListReaderMock->expects(static::atLeastOnce())
+            ->method('getIdsByIdCompany')
+            ->with($idCompany)
+            ->willReturn($productListIds);
+
+        static::assertEquals(
+            $productListIds,
+            $this->facade->getAssignedProductListIdsByIdCompany($idCompany),
+        );
     }
 }

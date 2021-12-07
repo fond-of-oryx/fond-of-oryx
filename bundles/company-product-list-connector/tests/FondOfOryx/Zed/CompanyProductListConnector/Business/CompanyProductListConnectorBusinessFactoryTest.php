@@ -4,6 +4,7 @@ namespace FondOfOryx\Zed\CompanyProductListConnector\Business;
 
 use Codeception\Test\Unit;
 use FondOfOryx\Zed\CompanyProductListConnector\Business\Persister\CompanyProductListRelationPersister;
+use FondOfOryx\Zed\CompanyProductListConnector\Business\Reader\ProductListReader;
 use FondOfOryx\Zed\CompanyProductListConnector\Persistence\CompanyProductListConnectorEntityManager;
 use FondOfOryx\Zed\CompanyProductListConnector\Persistence\CompanyProductListConnectorRepository;
 
@@ -54,6 +55,17 @@ class CompanyProductListConnectorBusinessFactoryTest extends Unit
         static::assertInstanceOf(
             CompanyProductListRelationPersister::class,
             $this->factory->createCompanyProductListRelationPersister(),
+        );
+    }
+
+    /**
+     * @return void
+     */
+    public function testCreateProductListReader(): void
+    {
+        static::assertInstanceOf(
+            ProductListReader::class,
+            $this->factory->createProductListReader(),
         );
     }
 }

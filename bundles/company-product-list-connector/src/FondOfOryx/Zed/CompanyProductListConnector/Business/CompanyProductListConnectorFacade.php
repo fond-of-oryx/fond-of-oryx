@@ -28,4 +28,19 @@ class CompanyProductListConnectorFacade extends AbstractFacade implements Compan
             $companyProductListRelationTransfer,
         );
     }
+
+    /**
+     * Specifications:
+     * - Retrieves assigned product list ids by company id
+     *
+     * @api
+     *
+     * @param int $idCompany
+     *
+     * @return array<int>
+     */
+    public function getAssignedProductListIdsByIdCompany(int $idCompany): array
+    {
+        return $this->getFactory()->createProductListReader()->getIdsByIdCompany($idCompany);
+    }
 }
