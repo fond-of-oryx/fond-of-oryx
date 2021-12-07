@@ -21,4 +21,16 @@ interface CompanyProductListConnectorFacadeInterface
     public function persistCompanyProductListRelation(
         CompanyProductListRelationTransfer $companyProductListRelationTransfer
     ): void;
+
+    /**
+     * Specifications:
+     * - Retrieves assigned product list ids by company id
+     *
+     * @api
+     *
+     * @param int $idCompany
+     *
+     * @return array<int>
+     */
+    public function getAssignedProductListIdsByIdCompany(int $idCompany): array;
 }

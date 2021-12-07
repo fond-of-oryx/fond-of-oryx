@@ -28,7 +28,7 @@ class CompanyProductListConnectorBusinessFactory extends AbstractBusinessFactory
     /**
      * @return \FondOfOryx\Zed\CompanyProductListConnector\Business\Reader\ProductListReaderInterface
      */
-    protected function createProductListReader(): ProductListReaderInterface
+    public function createProductListReader(): ProductListReaderInterface
     {
         return new ProductListReader(
             $this->getRepository(),
