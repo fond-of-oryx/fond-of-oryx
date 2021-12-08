@@ -6,7 +6,7 @@
     },
     "availability-alert-cross-engage": {
       "path": "bundles/availability-alert-cross-engage/",
-      "version": "1.0.1"
+      "version": "1.1.0"
     },
     "availability-alert-migrator": {
       "path": "bundles/availability-alert-migrator/",
@@ -182,7 +182,7 @@
     },
     "jellyfish-availability-alert": {
       "path": "bundles/jellyfish-availability-alert/",
-      "version": "1.0.0"
+      "version": "1.1.0"
     },
     "jellyfish-buffer": {
       "path": "bundles/jellyfish-buffer/",

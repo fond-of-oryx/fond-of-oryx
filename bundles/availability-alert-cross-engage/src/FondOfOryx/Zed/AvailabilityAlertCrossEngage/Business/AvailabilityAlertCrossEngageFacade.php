@@ -2,6 +2,7 @@
 
 namespace FondOfOryx\Zed\AvailabilityAlertCrossEngage\Business;
 
+use Generated\Shared\Transfer\AvailabilityAlertCrossEngageDispatchSubscriptionResponseTransfer;
 use Generated\Shared\Transfer\AvailabilityAlertCrossEngageSubscriberRegistrationResponseTransfer;
 use Generated\Shared\Transfer\AvailabilityAlertSubscriberTransfer;
 use Generated\Shared\Transfer\AvailabilityAlertSubscriptionTransfer;
@@ -21,6 +22,17 @@ class AvailabilityAlertCrossEngageFacade extends AbstractFacade implements Avail
         AvailabilityAlertSubscriberTransfer $subscriberTransfer
     ): AvailabilityAlertCrossEngageSubscriberRegistrationResponseTransfer {
         return $this->getFactory()->createRegisterSubscriberHandler()->registerSubscriber($subscriberTransfer);
+    }
+
+    /**
+     * @param \Generated\Shared\Transfer\AvailabilityAlertSubscriptionTransfer $availabilityAlertSubscriberTransfer
+     *
+     * @return \Generated\Shared\Transfer\AvailabilityAlertCrossEngageDispatchSubscriptionResponseTransfer
+     */
+    public function sendSubscribedToBackInStockEvent(
+        AvailabilityAlertSubscriptionTransfer $availabilityAlertSubscriberTransfer
+    ): AvailabilityAlertCrossEngageDispatchSubscriptionResponseTransfer {
+        return $this->getFactory()->createSubscribeToBackInStockHandler()->sendSubscribeToBackInStockEvent($availabilityAlertSubscriberTransfer);
     }
 
     /**

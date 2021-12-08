@@ -9,6 +9,8 @@ use FondOfOryx\Zed\AvailabilityAlertCrossEngage\Business\Handler\NotificationHan
 use FondOfOryx\Zed\AvailabilityAlertCrossEngage\Business\Handler\NotificationHandlerInterface;
 use FondOfOryx\Zed\AvailabilityAlertCrossEngage\Business\Handler\RegisterSubscriberHandler;
 use FondOfOryx\Zed\AvailabilityAlertCrossEngage\Business\Handler\RegisterSubscriberHandlerInterface;
+use FondOfOryx\Zed\AvailabilityAlertCrossEngage\Business\Handler\SubscribeToBackInStockHandler;
+use FondOfOryx\Zed\AvailabilityAlertCrossEngage\Business\Handler\SubscribeToBackInStockHandlerInterface;
 use FondOfOryx\Zed\AvailabilityAlertCrossEngage\Dependency\Facade\AvailabilityAlertCrossEngageToJellyfishAvailabilityAlertFacadeInterface;
 use Spryker\Zed\Kernel\Business\AbstractBusinessFactory;
 
@@ -23,6 +25,14 @@ class AvailabilityAlertCrossEngageBusinessFactory extends AbstractBusinessFactor
     public function createRegisterSubscriberHandler(): RegisterSubscriberHandlerInterface
     {
         return new RegisterSubscriberHandler($this->getJellyfishAvailabilityAlertFacade());
+    }
+
+    /**
+     * @return \FondOfOryx\Zed\AvailabilityAlertCrossEngage\Business\Handler\SubscribeToBackInStockHandlerInterface
+     */
+    public function createSubscribeToBackInStockHandler(): SubscribeToBackInStockHandlerInterface
+    {
+        return new SubscribeToBackInStockHandler($this->getJellyfishAvailabilityAlertFacade());
     }
 
     /**

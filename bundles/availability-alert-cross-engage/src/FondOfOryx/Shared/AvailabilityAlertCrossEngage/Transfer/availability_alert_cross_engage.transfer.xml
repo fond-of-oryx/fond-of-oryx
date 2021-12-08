@@ -25,5 +25,9 @@
         <property name="status" type="bool" />
     </transfer>
 
+    <transfer name="AvailabilityAlertSubscription">
+        <property name="eventType" type="string" />
+    </transfer>
+
 </transfers>
 
