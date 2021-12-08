@@ -2,6 +2,7 @@
 
 namespace FondOfOryx\Zed\AvailabilityAlertCrossEngage\Business;
 
+use Generated\Shared\Transfer\AvailabilityAlertCrossEngageDispatchSubscriptionResponseTransfer;
 use Generated\Shared\Transfer\AvailabilityAlertCrossEngageSubscriberRegistrationResponseTransfer;
 use Generated\Shared\Transfer\AvailabilityAlertSubscriberTransfer;
 use Generated\Shared\Transfer\AvailabilityAlertSubscriptionTransfer;
@@ -16,6 +17,15 @@ interface AvailabilityAlertCrossEngageFacadeInterface
     public function registerSubscriber(
         AvailabilityAlertSubscriberTransfer $subscriberTransfer
     ): AvailabilityAlertCrossEngageSubscriberRegistrationResponseTransfer;
+
+    /**
+     * @param \Generated\Shared\Transfer\AvailabilityAlertSubscriptionTransfer $availabilityAlertSubscriberTransfer
+     *
+     * @return \Generated\Shared\Transfer\AvailabilityAlertCrossEngageDispatchSubscriptionResponseTransfer
+     */
+    public function sendSubscribedToBackInStockEvent(
+        AvailabilityAlertSubscriptionTransfer $availabilityAlertSubscriberTransfer
+    ): AvailabilityAlertCrossEngageDispatchSubscriptionResponseTransfer;
 
     /**
      * @param string $string

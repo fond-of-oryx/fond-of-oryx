@@ -13,6 +13,11 @@
         <property name="storeName" type="string" />
         <property name="localeName" type="string" />
         <property name="path" type="string" />
+        <property name="eventType" type="string" />
+    </transfer>
+
+    <transfer name="AvailabilityAlertSubscription">
+        <property name="eventType" type="string" />
     </transfer>
 </transfers>
 
