@@ -12,7 +12,7 @@
     "php": ">=7.3",
     "fond-of-oryx/availability-alert": "^1.0.0",
     "fond-of-oryx/cross-engage": "^1.0.0",
-    "fond-of-oryx/jellyfish-availability-alert": "^1.0.0"
+    "fond-of-oryx/jellyfish-availability-alert": "^1.1.0"
   },
   "require-dev": {
     "fond-of-codeception/spryker": "^1.0",
