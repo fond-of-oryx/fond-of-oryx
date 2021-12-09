@@ -20,6 +20,10 @@ class CrossEngageSubscribedToBackInStockEventPostSavePlugin extends AbstractPlug
      */
     public function postSave(AvailabilityAlertSubscriptionTransfer $subscriptionTransfer): AvailabilityAlertSubscriptionTransfer
     {
+        if ($subscriptionTransfer->getStatus() !== 'pending') {
+            return $subscriptionTransfer;
+        }
+
         return $this->getFacade()->sendSubscribedToBackInStockEvent($subscriptionTransfer)->getSubscription();
     }
 }

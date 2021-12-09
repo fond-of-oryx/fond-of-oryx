@@ -80,6 +80,19 @@ class CrossEngageSubscribedToBackInStockEventPostSavePluginTest extends Unit
     {
         $this->facadeMock->expects(static::once())->method('sendSubscribedToBackInStockEvent')->willReturn($this->responseTransferMock);
         $this->responseTransferMock->expects(static::once())->method('getSubscription')->willReturn($this->subscriptionTransferMock);
+        $this->subscriptionTransferMock->expects(static::once())->method('getStatus')->willReturn('pending');
+        $response = $this->plugin->postSave($this->subscriptionTransferMock);
+
+        static::assertInstanceOf(AvailabilityAlertSubscriptionTransfer::class, $response);
+    }
+
+    /**
+     * @return void
+     */
+    public function testExpandWillDoNothing(): void
+    {
+        $this->facadeMock->expects(static::never())->method('sendSubscribedToBackInStockEvent');
+        $this->subscriptionTransferMock->expects(static::once())->method('getStatus')->willReturn('notified');
         $response = $this->plugin->postSave($this->subscriptionTransferMock);
 
         static::assertInstanceOf(AvailabilityAlertSubscriptionTransfer::class, $response);
