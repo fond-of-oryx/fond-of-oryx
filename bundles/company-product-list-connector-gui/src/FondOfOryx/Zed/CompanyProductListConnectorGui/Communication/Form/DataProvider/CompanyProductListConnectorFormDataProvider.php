@@ -4,7 +4,6 @@ namespace FondOfOryx\Zed\CompanyProductListConnectorGui\Communication\Form\DataP
 
 use FondOfOryx\Zed\CompanyProductListConnectorGui\Dependency\Facade\CompanyProductListConnectorGuiToCompanyProductListConnectorFacadeInterface;
 use Generated\Shared\Transfer\CompanyProductListConnectorFormTransfer;
-use Generated\Shared\Transfer\CompanyProductListRelationTransfer;
 
 class CompanyProductListConnectorFormDataProvider implements CompanyProductListConnectorFormDataProviderInterface
 {
@@ -28,7 +27,7 @@ class CompanyProductListConnectorFormDataProvider implements CompanyProductListC
     public function getOptions(): array
     {
         return [
-            'data_class' => CompanyProductListRelationTransfer::class,
+            'data_class' => CompanyProductListConnectorFormTransfer::class,
         ];
     }
 

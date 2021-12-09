@@ -3,10 +3,8 @@
 namespace FondOfOryx\Zed\CompanyProductListConnectorGui\Communication\Table;
 
 use FondOfOryx\Zed\CompanyProductListConnectorGui\Communication\Controller\EditController;
-use Orm\Zed\ProductList\Persistence\Base\SpyProductList;
 use Orm\Zed\ProductList\Persistence\Map\SpyProductListCompanyTableMap;
 use Orm\Zed\ProductList\Persistence\Map\SpyProductListTableMap;
-use Propel\Runtime\ActiveQuery\Criteria;
 use Propel\Runtime\ActiveQuery\ModelCriteria;
 use Spryker\Zed\Gui\Communication\Table\TableConfiguration;
 
@@ -47,49 +45,17 @@ class AvailableProductListTable extends AbstractProductListTable
     protected function prepareQuery(): ModelCriteria
     {
         return $this->spyProductListQuery->clear()
-            ->add(
-                SpyProductListTableMap::COL_ID_PRODUCT_LIST,
+            ->where(
                 sprintf(
-                    '%s NOT IN (SELECT %s FROM %s WHERE %s != %s)',
+                    '%s NOT IN (SELECT %s FROM %s WHERE %s = ?)',
                     SpyProductListTableMap::COL_ID_PRODUCT_LIST,
                     SpyProductListCompanyTableMap::COL_FK_PRODUCT_LIST,
                     SpyProductListCompanyTableMap::TABLE_NAME,
                     SpyProductListCompanyTableMap::COL_FK_COMPANY,
-                    $this->companyTransfer->getIdCompany(),
                 ),
-                Criteria::CUSTOM,
-            )
-            ->withColumn(SpyProductListTableMap::COL_ID_PRODUCT_LIST, static::COL_ID)
+                $this->companyTransfer->getIdCompany(),
+            )->withColumn(SpyProductListTableMap::COL_ID_PRODUCT_LIST, static::COL_ID)
             ->withColumn(SpyProductListTableMap::COL_TITLE, static::COL_NAME);
-    }
-
-    /**
-     * @param \Orm\Zed\ProductList\Persistence\Base\SpyProductList $productListEntity
-     *
-     * @return string
-     */
-    protected function getAssignedCompanyColumn(SpyProductList $productListEntity): string
-    {
-        return sprintf(
-            '<a href="%s" onclick="return confirm(\'%s\')">%s</a>',
-            $this->getEditCompanyProductListConnectionsUrl($this->companyTransfer->getIdCompany()),
-            static::REDIRECT_WARNING,
-            $this->companyTransfer->getName(),
-        );
-    }
-
-    /**
-     * @param int $idCompany
-     *
-     * @return string
-     */
-    protected function getEditCompanyProductListConnectionsUrl(int $idCompany): string
-    {
-        return sprintf(
-            EditController::PAGE_EDIT_WITH_PARAMS,
-            EditController::PARAM_ID_COMPANY,
-            $idCompany,
-        );
     }
 
     /**
