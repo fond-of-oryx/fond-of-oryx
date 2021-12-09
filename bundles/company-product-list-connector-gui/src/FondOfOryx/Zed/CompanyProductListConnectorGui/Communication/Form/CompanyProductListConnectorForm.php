@@ -16,6 +16,11 @@ class CompanyProductListConnectorForm extends AbstractType
     /**
      * @var string
      */
+    public const BLOCK_PREFIX = 'companyProductListConnectorGui';
+
+    /**
+     * @var string
+     */
     public const FIELD_ID_COMPANY = CompanyProductListConnectorFormTransfer::ID_COMPANY;
 
     /**
@@ -146,7 +151,7 @@ class CompanyProductListConnectorForm extends AbstractType
      */
     public function getBlockPrefix(): string
     {
-        return 'companyProductListConnectorGui';
+        return static::BLOCK_PREFIX;
     }
 
     /**
