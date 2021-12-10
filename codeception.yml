@@ -24,6 +24,7 @@ include:
   - bundles/credit-memo
   - bundles/cross-engage
   - bundles/customer-product-list-connector
+  - bundles/customer-product-list-connector-gui
   - bundles/customer-statistic
   - bundles/customer-statistics-rest-api
   - bundles/delivery-date-restriction

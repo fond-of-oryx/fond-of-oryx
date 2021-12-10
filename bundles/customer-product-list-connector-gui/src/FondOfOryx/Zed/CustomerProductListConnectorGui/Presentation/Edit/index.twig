@@ -1,0 +1,38 @@
+{% extends '@Gui/Layout/layout.twig' %}
+
+{% block section_title %}
+    {{ 'Assign product lists to Customer:' | trans ~ ' ' ~ customerTransfer.name }}
+{% endblock %}
+
+{% block action %}
+    {{ backActionButton('/customer', 'List companies' | trans) }}
+{% endblock %}
+
+{% block content %}
+
+    {% embed '@Gui/Partials/widget.twig' with {'widget_title' : 'List of product lists'} %}
+
+        {% block widget_content %}
+            {{ form_start(form) }}
+
+            {{ form_widget(form) }}
+
+            {% include '@CustomerProductListConnectorGui/Edit/Partial/available-product-lists.twig' with {'availableProductLists': availableProductLists} only %}
+            {% include '@CustomerProductListConnectorGui/Edit/Partial/assigned-product-lists.twig' with {'assignedProductLists': assignedProductLists} only %}
+
+            <input type="hidden" id="remove-link-text" value="{{ 'Remove' | trans }}" />
+            <input type="submit" class="btn btn-primary" value="{{ 'Save' | trans }}" />
+
+            {{ form_end(form) }}
+
+
+        {% endblock %}
+
+    {% endembed %}
+
+{% endblock %}
+
+{% block footer_js %}
+    {{ parent() }}
+    <script src="{{ assetsPath('js/fond-of-oryx-zed-customer-product-list-connector-gui.js') }}"></script>
+{% endblock %}
