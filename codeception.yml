@@ -23,6 +23,7 @@ include:
   - bundles/company-user-search-rest-api
   - bundles/credit-memo
   - bundles/cross-engage
+  - bundles/customer-product-list-connector
   - bundles/customer-statistic
   - bundles/customer-statistics-rest-api
   - bundles/delivery-date-restriction
