@@ -104,6 +104,14 @@
       "path": "bundles/-unit-address-vat-id/",
       "version": "1.0.0"
     },
+    "customer-product-list-connector": {
+      "path": "bundles/customer-product-list-connector/",
+      "version": "1.0.0"
+    },
+    "customer-product-list-connector-gui": {
+      "path": "bundles/customer-product-list-connector-gui/",
+      "version": "1.0.0"
+    },
     "customer-statistic": {
       "path": "bundles/customer-statistic/",
       "version": "1.0.0"

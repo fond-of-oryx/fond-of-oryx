@@ -10,16 +10,16 @@ $(document).ready(function () {
         '#to-be-assigned-tab-table',
         '#available-tab table.table .js-product-list-checkbox',
         'a[href="#to-be-assigned-tab"]',
-        '#companyProductListConnectorGui_productListIdsToAssign'
+        '#customerProductListConnectorGui_productListIdsToAssign'
     );
 
     var assignedCompaniesTable = new SelectProductListTableApi();
 
     assignedCompaniesTable.init(
         '#assigned-tab table.table',
-        '#deassigned-tab-table',
+        '#to-be-de-assigned-tab-table',
         '#assigned-tab table.table .js-product-list-checkbox',
-        'a[href="#deassigned-tab"]',
-        '#companyProductListConnectorGui_productListIdsToDeAssign'
+        'a[href="#to-be-de-assigned-tab"]',
+        '#customerProductListConnectorGui_productListIdsToDeAssign'
     );
 });

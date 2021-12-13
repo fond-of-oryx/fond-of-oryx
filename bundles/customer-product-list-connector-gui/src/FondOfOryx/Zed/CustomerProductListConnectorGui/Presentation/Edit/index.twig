@@ -1,11 +1,11 @@
 {% extends '@Gui/Layout/layout.twig' %}
 
 {% block section_title %}
-    {{ 'Assign product lists to Customer:' | trans ~ ' ' ~ customerTransfer.name }}
+    {{ 'Assign product lists to customer:' | trans ~ ' ' ~ customerTransfer.firstName ~ ' ' ~ customerTransfer.lastName ~ ' (' ~ customerTransfer.email ~ ')' }}
 {% endblock %}
 
 {% block action %}
-    {{ backActionButton('/customer', 'List companies' | trans) }}
+    {{ backActionButton('/customer', 'List customers' | trans) }}
 {% endblock %}
 
 {% block content %}
