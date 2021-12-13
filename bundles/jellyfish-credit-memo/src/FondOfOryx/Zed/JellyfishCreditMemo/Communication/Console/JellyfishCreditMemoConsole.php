@@ -16,12 +16,12 @@ class JellyfishCreditMemoConsole extends Console
     /**
      * @var string
      */
-    private const COMMAND_NAME = 'jellyfish:credit-memo:export';
+    protected const COMMAND_NAME = 'jellyfish:credit-memo:export';
 
     /**
      * @var string
      */
-    private const DESCRIPTION = 'Exports credit memo entries to jellyfish';
+    protected const DESCRIPTION = 'Exports credit memo entries to jellyfish';
 
     /**
      * @return void

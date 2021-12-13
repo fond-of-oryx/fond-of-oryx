@@ -83,7 +83,7 @@ class JellyfishOrderDiscountExpanderPostMapPlugin implements JellyfishOrderExpan
             return $jellyfishDiscount->getName();
         }
 
-        return $salesDiscount->getDisplayName() ?? '';
+        return $salesDiscount->getDisplayName();
     }
 
     /**

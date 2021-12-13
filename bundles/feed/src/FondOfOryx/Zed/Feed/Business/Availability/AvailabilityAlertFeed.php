@@ -19,7 +19,7 @@ class AvailabilityAlertFeed extends AbstractPlugin
     /**
      * @var int
      */
-    private const STATUS_WAITING = 0;
+    protected const STATUS_WAITING = 0;
 
     /**
      * @var \FondOfOryx\Zed\Feed\Persistence\FeedRepositoryInterface

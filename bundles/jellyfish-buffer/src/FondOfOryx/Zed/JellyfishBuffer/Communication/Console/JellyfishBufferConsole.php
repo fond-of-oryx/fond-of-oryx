@@ -18,12 +18,12 @@ class JellyfishBufferConsole extends Console
     /**
      * @var string
      */
-    private const COMMAND_NAME = 'jellyfish:buffer-table:export';
+    protected const COMMAND_NAME = 'jellyfish:buffer-table:export';
 
     /**
      * @var string
      */
-    private const DESCRIPTION = 'Exports buffered data again';
+    protected const DESCRIPTION = 'Exports buffered data again';
 
     /**
      * @var string

@@ -99,7 +99,6 @@ class GiftCardProductAbstractConfigurationWriterTest extends Unit
             $this->configMock,
             $this->transactionHandlerMock
         ) extends GiftCardProductAbstractConfigurationWriter {
-
             /**
              * @var \Spryker\Zed\Kernel\Persistence\EntityManager\TransactionHandlerInterface
              */

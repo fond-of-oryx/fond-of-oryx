@@ -14,12 +14,12 @@ class ExpireGiftCardConsole extends Console
     /**
      * @var string
      */
-    private const COMMAND_NAME = 'gift-card:expire';
+    protected const COMMAND_NAME = 'gift-card:expire';
 
     /**
      * @var string
      */
-    private const DESCRIPTION = 'Expires gift cards.';
+    protected const DESCRIPTION = 'Expires gift cards.';
 
     /**
      * @return void
