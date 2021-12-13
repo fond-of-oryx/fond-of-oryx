@@ -67,7 +67,7 @@ class JellyfishCreditMemoRepository extends AbstractRepository implements Jellyf
 
         $results = $query->find();
 
-        if (empty($results) || empty($results->getData())) {
+        if (empty($results->getData())) {
             return null;
         }
 

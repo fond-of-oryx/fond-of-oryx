@@ -31,7 +31,7 @@ class ErpInvoiceRepository extends AbstractRepository implements ErpInvoiceRepos
         $query = $this->getErpInvoiceQuery();
         $invoice = $query->findOneByIdErpInvoice($idErpInvoice);
 
-        if (empty($invoice) || empty($invoice->getIdErpInvoice())) {
+        if ($invoice === null) {
             return null;
         }
 
@@ -48,7 +48,7 @@ class ErpInvoiceRepository extends AbstractRepository implements ErpInvoiceRepos
         $query = $this->getErpInvoiceQuery();
         $invoice = $query->findOneByExternalReference($erpInvoiceExternalReference);
 
-        if (empty($invoice) || empty($invoice->getIdErpInvoice())) {
+        if ($invoice === null) {
             return null;
         }
 
@@ -66,7 +66,7 @@ class ErpInvoiceRepository extends AbstractRepository implements ErpInvoiceRepos
         $items = $query->findByFkErpInvoice($idErpInvoice);
         $itemCollectionTransfer = new ErpInvoiceItemCollectionTransfer();
 
-        if (empty($items) || empty($items->getData())) {
+        if (empty($items->getData())) {
             return $itemCollectionTransfer;
         }
 
@@ -105,7 +105,7 @@ class ErpInvoiceRepository extends AbstractRepository implements ErpInvoiceRepos
         $items = $query->findByFkErpInvoice($idErpInvoice);
         $itemCollectionTransfer = new ErpInvoiceExpenseCollectionTransfer();
 
-        if (empty($items) || empty($items->getData())) {
+        if (empty($items->getData())) {
             return $itemCollectionTransfer;
         }
 
@@ -143,7 +143,7 @@ class ErpInvoiceRepository extends AbstractRepository implements ErpInvoiceRepos
         $query = $this->getErpInvoiceAddressQuery();
         $address = $query->findOneByIdErpInvoiceAddress($idErpInvoiceAddress);
 
-        if (empty($address) || !is_int($address->getIdErpInvoiceAddress())) {
+        if ($address === null) {
             return null;
         }
 
@@ -160,7 +160,7 @@ class ErpInvoiceRepository extends AbstractRepository implements ErpInvoiceRepos
         $query = $this->getErpInvoiceAmountQuery();
         $total = $query->findOneByIdErpInvoiceAmount($idErpInvoiceAmount);
 
-        if (empty($total) || !is_int($total->getIdErpInvoiceAmount())) {
+        if ($total === null) {
             return null;
         }
 

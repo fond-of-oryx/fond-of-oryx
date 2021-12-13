@@ -17,9 +17,9 @@ $(document).ready(function () {
 
     assignedCompaniesTable.init(
         '#assigned-tab table.table',
-        '#deassigned-tab-table',
+        '#to-be-de-assigned-tab-table',
         '#assigned-tab table.table .js-product-list-checkbox',
-        'a[href="#deassigned-tab"]',
+        'a[href="#to-be-de-assigned-tab"]',
         '#companyProductListConnectorGui_productListIdsToDeAssign'
     );
 });

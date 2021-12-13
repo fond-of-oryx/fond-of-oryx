@@ -28,7 +28,7 @@ class ErpOrderRepository extends AbstractRepository implements ErpOrderRepositor
         $query = $this->getErpOrderQuery();
         $order = $query->findOneByIdErpOrder($idErpOrder);
 
-        if (empty($order) || empty($order->getIdErpOrder())) {
+        if ($order === null) {
             return null;
         }
 
@@ -46,7 +46,7 @@ class ErpOrderRepository extends AbstractRepository implements ErpOrderRepositor
         $items = $query->findByFkErpOrder($idErpOrder);
         $itemCollectionTransfer = new ErpOrderItemCollectionTransfer();
 
-        if (empty($items) || empty($items->getData())) {
+        if (empty($items->getData())) {
             return $itemCollectionTransfer;
         }
 
@@ -84,7 +84,7 @@ class ErpOrderRepository extends AbstractRepository implements ErpOrderRepositor
         $query = $this->getErpOrderAddressQuery();
         $address = $query->findOneByIdErpOrderAddress($idErpOrderAddress);
 
-        if (!is_int($address->getIdErpOrderAddress()) || empty($address)) {
+        if ($address === null) {
             return null;
         }
 
@@ -101,7 +101,7 @@ class ErpOrderRepository extends AbstractRepository implements ErpOrderRepositor
         $query = $this->getErpOrderTotalQuery();
         $total = $query->findOneByIdErpOrderTotal($idErpOrderTotal);
 
-        if (!is_int($total->getIdErpOrderTotal()) || empty($total)) {
+        if ($total === null) {
             return null;
         }
 
@@ -118,7 +118,7 @@ class ErpOrderRepository extends AbstractRepository implements ErpOrderRepositor
         $query = $this->getErpOrderTotalQuery();
         $total = $query->findOneByFkErpOrder($idErpOrder);
 
-        if ($total === null || !is_int($total->getIdErpOrderTotal()) || empty($total)) {
+        if ($total === null) {
             return null;
         }
 
