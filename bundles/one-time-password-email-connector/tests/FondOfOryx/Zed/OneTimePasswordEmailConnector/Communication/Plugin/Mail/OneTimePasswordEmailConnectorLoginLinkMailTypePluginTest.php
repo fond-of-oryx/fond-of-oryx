@@ -6,6 +6,7 @@ use Codeception\Test\Unit;
 use Generated\Shared\Transfer\CustomerTransfer;
 use Generated\Shared\Transfer\MailTransfer;
 use Spryker\Zed\Mail\Business\Model\Mail\Builder\MailBuilderInterface;
+use Spryker\Zed\Mail\MailConfig;
 
 class OneTimePasswordEmailConnectorLoginLinkMailTypePluginTest extends Unit
 {
@@ -45,6 +46,11 @@ class OneTimePasswordEmailConnectorLoginLinkMailTypePluginTest extends Unit
     protected $lastName;
 
     /**
+     * @var \PHPUnit\Framework\MockObject\MockObject|\Spryker\Zed\Mail\MailConfig
+     */
+    protected $mailConfigMock;
+
+    /**
      * @return void
      */
     protected function _before(): void
@@ -67,7 +73,13 @@ class OneTimePasswordEmailConnectorLoginLinkMailTypePluginTest extends Unit
 
         $this->lastName = 'last-name';
 
-        $this->oneTimePasswordEmailConnectorLoginLinkMailTypePlugin = new OneTimePasswordEmailConnectorLoginLinkMailTypePlugin();
+        $this->mailConfigMock = $this->getMockBuilder(MailConfig::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $this->oneTimePasswordEmailConnectorLoginLinkMailTypePlugin = new OneTimePasswordEmailConnectorLoginLinkMailTypePlugin(
+            $this->mailConfigMock,
+        );
     }
 
     /**
@@ -120,6 +132,14 @@ class OneTimePasswordEmailConnectorLoginLinkMailTypePluginTest extends Unit
         $this->customerTransferMock->expects($this->atLeastOnce())
             ->method('getLastName')
             ->willReturn($this->lastName);
+
+        $this->mailConfigMock->expects($this->atLeastOnce())
+            ->method('getSenderEmail')
+            ->willReturn($this->email);
+
+        $this->mailConfigMock->expects($this->atLeastOnce())
+            ->method('getSenderName')
+            ->willReturn($this->firstName);
 
         $this->mailBuilderMock->expects($this->atLeastOnce())
             ->method('setSender')
