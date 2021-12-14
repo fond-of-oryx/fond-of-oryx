@@ -258,7 +258,7 @@
     },
     "one-time-password-email-connector": {
       "path": "bundles/one-time-password-email-connector/",
-      "version": "1.0.0"
+      "version": "1.0.1"
     },
     "one-time-password-rest-api": {
       "path": "bundles/one-time-password-rest-api/",
