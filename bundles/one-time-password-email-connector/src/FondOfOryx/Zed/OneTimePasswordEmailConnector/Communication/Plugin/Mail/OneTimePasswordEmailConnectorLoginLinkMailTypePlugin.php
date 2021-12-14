@@ -5,6 +5,7 @@ namespace FondOfOryx\Zed\OneTimePasswordEmailConnector\Communication\Plugin\Mail
 use Spryker\Zed\Kernel\Communication\AbstractPlugin;
 use Spryker\Zed\Mail\Business\Model\Mail\Builder\MailBuilderInterface;
 use Spryker\Zed\Mail\Dependency\Plugin\MailTypePluginInterface;
+use Spryker\Zed\Mail\MailConfig;
 
 /**
  * @method \FondOfOryx\Zed\OneTimePasswordEmailConnector\Business\OneTimePasswordEmailConnectorFacadeInterface getFacade()
@@ -15,6 +16,19 @@ class OneTimePasswordEmailConnectorLoginLinkMailTypePlugin extends AbstractPlugi
      * @var string
      */
     public const MAIL_TYPE = 'one time password login link mail';
+
+    /**
+     * @var \Spryker\Zed\Mail\MailConfig
+     */
+    protected $config;
+
+    /**
+     * @param \Spryker\Zed\Mail\MailConfig $config
+     */
+    public function __construct(MailConfig $config)
+    {
+        $this->config = $config;
+    }
 
     /**
      * @return string
@@ -102,7 +116,7 @@ class OneTimePasswordEmailConnectorLoginLinkMailTypePlugin extends AbstractPlugi
      */
     protected function setSender(MailBuilderInterface $mailBuilder)
     {
-        $mailBuilder->setSender('mail.sender.email', 'mail.sender.sender');
+        $mailBuilder->setSender($this->config->getSenderEmail(), $this->config->getSenderName());
 
         return $this;
     }
