@@ -23,6 +23,11 @@ class ErpOrderPageSearchDataMapper implements ErpOrderPageSearchDataMapperInterf
     /**
      * @var string
      */
+    public const CREATED_AT = 'created_at';
+
+    /**
+     * @var string
+     */
     public const ID_ERP_ORDER = 'id_erp_order';
 
     /**
@@ -69,6 +74,11 @@ class ErpOrderPageSearchDataMapper implements ErpOrderPageSearchDataMapperInterf
      * @var string
      */
     public const SEARCH_RESULT_CONCRETE_DELIVERY_DATE = 'concrete_delivery_date';
+
+    /**
+     * @var string
+     */
+    public const SEARCH_RESULT_CREATED_AT = 'created_at';
 
     /**
      * @var string
@@ -144,7 +154,7 @@ class ErpOrderPageSearchDataMapper implements ErpOrderPageSearchDataMapperInterf
     {
         $searchData = [
             ErpOrderIndexMap::LOCALE => null,
-            ErpOrderIndexMap::CONCRETE_DELIVERY_DATE => $this->getConcreteDeliveryDate($data[static::CONCRETE_DELIVERY_DATE]),
+            ErpOrderIndexMap::CONCRETE_DELIVERY_DATE => $this->formatDate($data[static::CONCRETE_DELIVERY_DATE]),
             ErpOrderIndexMap::EXTERNAL_REFERENCE => $data[static::EXTERNAL_REFERENCE],
             ErpOrderIndexMap::ID_COMPANY_BUSINESS_UNIT => $data[static::FK_COMPANY_BUSINESS_UNIT],
             ErpOrderIndexMap::COMPANY_BUSINESS_UNIT_UUID => $data[static::COMPANY_BUSINESS_UNIT][static::COMPANY_BUSINESS_UNIT_UUID],
@@ -164,7 +174,8 @@ class ErpOrderPageSearchDataMapper implements ErpOrderPageSearchDataMapperInterf
     protected function mapErpOrderDataToSearchResultData(array $data): array
     {
         return [
-            static::SEARCH_RESULT_CONCRETE_DELIVERY_DATE => $this->getConcreteDeliveryDate($data[static::CONCRETE_DELIVERY_DATE]),
+            static::SEARCH_RESULT_CONCRETE_DELIVERY_DATE => $this->formatDate($data[static::CONCRETE_DELIVERY_DATE]),
+            static::SEARCH_RESULT_CREATED_AT => $this->formatDate($data[static::CREATED_AT]),
             static::SEARCH_RESULT_ID_ERP_ORDER => $data[static::ID_ERP_ORDER],
             static::SEARCH_RESULT_FK_BILLING_ADDRESS => $data[static::FK_BILLING_ADDRESS],
             static::SEARCH_RESULT_FK_SHIPPING_ADDRESS => $data[static::FK_SHIPPING_ADDRESS],
@@ -182,17 +193,17 @@ class ErpOrderPageSearchDataMapper implements ErpOrderPageSearchDataMapperInterf
     }
 
     /**
-     * @param string|null $deliveryDate
+     * @param string|null $date
      *
      * @return string|null
      */
-    protected function getConcreteDeliveryDate(?string $deliveryDate): ?string
+    protected function formatDate(?string $date): ?string
     {
-        if ($deliveryDate !== null) {
-            $deliveryDate = new DateTime($deliveryDate);
-            $deliveryDate = $deliveryDate->format(ErpOrderConstants::CONCRETE_DELIVERY_DATE_FORMAT);
+        if ($date !== null) {
+            $date = new DateTime($date);
+            $date = $date->format(ErpOrderConstants::DATE_FORMAT);
         }
 
-        return $deliveryDate;
+        return $date;
     }
 }
