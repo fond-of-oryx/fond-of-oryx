@@ -3,6 +3,7 @@
 namespace FondOfOryx\Zed\CompanyUserSearchRestApi\Persistence\Propel\Mapper;
 
 use Generated\Shared\Transfer\CompanyUserTransfer;
+use Generated\Shared\Transfer\CustomerTransfer;
 use Orm\Zed\CompanyUser\Persistence\SpyCompanyUser;
 use Propel\Runtime\Collection\ObjectCollection;
 
@@ -15,10 +16,16 @@ class CompanyUserMapper implements CompanyUserMapperInterface
      */
     public function mapEntityToTransfer(SpyCompanyUser $entity): CompanyUserTransfer
     {
+        $customerEntity = $entity->getCustomer();
+
+        $customerTransfer = (new CustomerTransfer())
+            ->fromArray($customerEntity->toArray(), true);
+
         return (new CompanyUserTransfer())
             ->fromArray($entity->toArray(), true)
-            ->setCustomerReference($entity->getCustomer()->getCustomerReference())
-            ->setCompanyUuid($entity->getCompany()->getUuid());
+            ->setCustomerReference($customerEntity->getCustomerReference())
+            ->setCompanyUuid($entity->getCompany()->getUuid())
+            ->setCustomer($customerTransfer);
     }
 
     /**

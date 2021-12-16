@@ -32,8 +32,20 @@
     <transfer name="RestCompanyUserSearchResultItem">
         <property name="companyUserReference" type="string"/>
         <property name="customerReference" type="string"/>
+        <property name="customer" type="RestCompanyUserSearchCustomer"/>
         <property name="isActive" type="bool"/>
         <property name="companyId" type="string"/>
+    </transfer>
+
+    <transfer name="RestCompanyUserSearchCustomer">
+        <property name="firstName" type="string"/>
+        <property name="lastName" type="string"/>
+        <property name="email" type="string"/>
+        <property name="gender" type="string"/>
+        <property name="dateOfBirth" type="string"/>
+        <property name="salutation" type="string"/>
+        <property name="createdAt" type="string"/>
+        <property name="updatedAt" type="string"/>
     </transfer>
 
     <transfer name="Pagination">
