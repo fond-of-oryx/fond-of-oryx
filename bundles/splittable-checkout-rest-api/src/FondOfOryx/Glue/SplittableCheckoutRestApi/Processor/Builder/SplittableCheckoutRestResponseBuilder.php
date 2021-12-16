@@ -23,15 +23,23 @@ class SplittableCheckoutRestResponseBuilder implements SplittableCheckoutRestRes
     protected $restResourceBuilder;
 
     /**
+     * @var array<\FondOfOryx\Glue\SplittableCheckoutRestApiExtension\Dependency\Plugin\RestSplittableCheckoutExpanderPluginInterface>
+     */
+    protected $restSplittableCheckoutExpanderPlugins;
+
+    /**
      * @param \FondOfOryx\Glue\SplittableCheckoutRestApi\Processor\Mapper\RestSplittableCheckoutMapperInterface $restSplittableCheckoutMapper
      * @param \Spryker\Glue\GlueApplication\Rest\JsonApi\RestResourceBuilderInterface $restResourceBuilder
+     * @param array<\FondOfOryx\Glue\SplittableCheckoutRestApiExtension\Dependency\Plugin\RestSplittableCheckoutExpanderPluginInterface> $restSplittableCheckoutExpanderPlugins
      */
     public function __construct(
         RestSplittableCheckoutMapperInterface $restSplittableCheckoutMapper,
-        RestResourceBuilderInterface $restResourceBuilder
+        RestResourceBuilderInterface $restResourceBuilder,
+        array $restSplittableCheckoutExpanderPlugins = []
     ) {
         $this->restSplittableCheckoutMapper = $restSplittableCheckoutMapper;
         $this->restResourceBuilder = $restResourceBuilder;
+        $this->restSplittableCheckoutExpanderPlugins = $restSplittableCheckoutExpanderPlugins;
     }
 
     /**
@@ -56,6 +64,13 @@ class SplittableCheckoutRestResponseBuilder implements SplittableCheckoutRestRes
     {
         $restSplittableCheckoutTransfer = $this->restSplittableCheckoutMapper
             ->fromSplittableCheckout($splittableCheckoutTransfer);
+
+        foreach ($this->restSplittableCheckoutExpanderPlugins as $restSplittableCheckoutExpanderPlugin) {
+            $restSplittableCheckoutTransfer = $restSplittableCheckoutExpanderPlugin->expand(
+                $splittableCheckoutTransfer,
+                $restSplittableCheckoutTransfer,
+            );
+        }
 
         $restResource = $this->restResourceBuilder->createRestResource(
             SplittableCheckoutRestApiConfig::RESOURCE_SPLITTABLE_CHECKOUT,

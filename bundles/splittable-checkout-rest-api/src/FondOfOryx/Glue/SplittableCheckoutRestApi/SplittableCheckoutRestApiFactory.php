@@ -8,12 +8,16 @@ use FondOfOryx\Glue\SplittableCheckoutRestApi\Processor\Builder\SplittableTotals
 use FondOfOryx\Glue\SplittableCheckoutRestApi\Processor\Builder\SplittableTotalsRestResponseBuilderInterface;
 use FondOfOryx\Glue\SplittableCheckoutRestApi\Processor\Expander\RestSplittableCheckoutRequestExpander;
 use FondOfOryx\Glue\SplittableCheckoutRestApi\Processor\Expander\RestSplittableCheckoutRequestExpanderInterface;
+use FondOfOryx\Glue\SplittableCheckoutRestApi\Processor\Mapper\RestAddressMapper;
+use FondOfOryx\Glue\SplittableCheckoutRestApi\Processor\Mapper\RestAddressMapperInterface;
 use FondOfOryx\Glue\SplittableCheckoutRestApi\Processor\Mapper\RestSplittableCheckoutMapper;
 use FondOfOryx\Glue\SplittableCheckoutRestApi\Processor\Mapper\RestSplittableCheckoutMapperInterface;
 use FondOfOryx\Glue\SplittableCheckoutRestApi\Processor\Mapper\RestSplittableCheckoutRequestMapper;
 use FondOfOryx\Glue\SplittableCheckoutRestApi\Processor\Mapper\RestSplittableCheckoutRequestMapperInterface;
 use FondOfOryx\Glue\SplittableCheckoutRestApi\Processor\Mapper\RestSplittableTotalsMapper;
 use FondOfOryx\Glue\SplittableCheckoutRestApi\Processor\Mapper\RestSplittableTotalsMapperInterface;
+use FondOfOryx\Glue\SplittableCheckoutRestApi\Processor\Mapper\RestTotalsMapper;
+use FondOfOryx\Glue\SplittableCheckoutRestApi\Processor\Mapper\RestTotalsMapperInterface;
 use FondOfOryx\Glue\SplittableCheckoutRestApi\Processor\Reader\SplittableTotalsReader;
 use FondOfOryx\Glue\SplittableCheckoutRestApi\Processor\Reader\SplittableTotalsReaderInterface;
 use FondOfOryx\Glue\SplittableCheckoutRestApi\Processor\SplittableCheckout\SplittableCheckoutProcessor;
@@ -76,6 +80,7 @@ class SplittableCheckoutRestApiFactory extends AbstractFactory
         return new SplittableCheckoutRestResponseBuilder(
             $this->createRestSplittableCheckoutMapper(),
             $this->getResourceBuilder(),
+            $this->getRestSplittableCheckoutExpanderPlugins(),
         );
     }
 
@@ -95,7 +100,10 @@ class SplittableCheckoutRestApiFactory extends AbstractFactory
      */
     protected function createRestSplittableCheckoutMapper(): RestSplittableCheckoutMapperInterface
     {
-        return new RestSplittableCheckoutMapper();
+        return new RestSplittableCheckoutMapper(
+            $this->createRestTotalsMapper(),
+            $this->createRestAddressMapper(),
+        );
     }
 
     /**
@@ -104,5 +112,31 @@ class SplittableCheckoutRestApiFactory extends AbstractFactory
     protected function createRestSplittableTotalsMapper(): RestSplittableTotalsMapperInterface
     {
         return new RestSplittableTotalsMapper();
+    }
+
+    /**
+     * @return \FondOfOryx\Glue\SplittableCheckoutRestApi\Processor\Mapper\RestTotalsMapperInterface
+     */
+    protected function createRestTotalsMapper(): RestTotalsMapperInterface
+    {
+        return new RestTotalsMapper();
+    }
+
+    /**
+     * @return \FondOfOryx\Glue\SplittableCheckoutRestApi\Processor\Mapper\RestAddressMapperInterface
+     */
+    protected function createRestAddressMapper(): RestAddressMapperInterface
+    {
+        return new RestAddressMapper();
+    }
+
+    /**
+     * @return array<\FondOfOryx\Glue\SplittableCheckoutRestApiExtension\Dependency\Plugin\RestSplittableCheckoutExpanderPluginInterface>
+     */
+    protected function getRestSplittableCheckoutExpanderPlugins(): array
+    {
+        return $this->getProvidedDependency(
+            SplittableCheckoutRestApiDependencyProvider::PLUGINS_REST_SPLITTABLE_CHECKOUT_EXPANDER,
+        );
     }
 }
