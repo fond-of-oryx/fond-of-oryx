@@ -14,7 +14,6 @@
   ],
   "require": {
     "php": ">=7.3",
-    "fond-of-spryker/companies-rest-api": "dev-spryker_upgrade",
     "spryker/company-user": "^2.0.0",
     "spryker/glossary-storage": "^1.5.0"
   },
