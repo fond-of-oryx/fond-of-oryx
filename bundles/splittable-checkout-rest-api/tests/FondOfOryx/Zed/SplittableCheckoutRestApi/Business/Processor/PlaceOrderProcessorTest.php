@@ -2,6 +2,7 @@
 
 namespace FondOfOryx\Zed\SplittableCheckoutRestApi\Business\Processor;
 
+use ArrayObject;
 use Codeception\Test\Unit;
 use FondOfOryx\Zed\SplittableCheckoutRestApi\Business\Reader\QuoteReaderInterface;
 use FondOfOryx\Zed\SplittableCheckoutRestApi\Dependency\Facade\SplittableCheckoutRestApiToSplittableCheckoutFacadeInterface;
@@ -11,11 +12,6 @@ use Generated\Shared\Transfer\SplittableCheckoutResponseTransfer;
 
 class PlaceOrderProcessorTest extends Unit
 {
-    /**
-     * @var \FondOfOryx\Zed\SplittableCheckoutRestApi\Business\Processor\PlaceOrderProcessor
-     */
-    protected $placeOrderProcessor;
-
     /**
      * @var \PHPUnit\Framework\MockObject\MockObject[]|\FondOfOryx\Zed\SplittableCheckoutRestApi\Dependency\Facade\SplittableCheckoutRestApiToSplittableCheckoutFacadeInterface
      */
@@ -40,6 +36,16 @@ class PlaceOrderProcessorTest extends Unit
      * @var \PHPUnit\Framework\MockObject\MockObject[]|\Generated\Shared\Transfer\QuoteTransfer
      */
     protected $quoteTransferMock;
+
+    /**
+     * @var \Generated\Shared\Transfer\QuoteTransfer|\PHPUnit\Framework\MockObject\MockObject
+     */
+    protected $splittedQuoteTransferMock;
+
+    /**
+     * @var \FondOfOryx\Zed\SplittableCheckoutRestApi\Business\Processor\PlaceOrderProcessor
+     */
+    protected $placeOrderProcessor;
 
     /**
      * @return void
@@ -68,6 +74,10 @@ class PlaceOrderProcessorTest extends Unit
             ->disableOriginalConstructor()
             ->getMock();
 
+        $this->splittedQuoteTransferMock = $this->getMockBuilder(QuoteTransfer::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
         $this->placeOrderProcessor = new PlaceOrderProcessor(
             $this->quoteReaderMock,
             $this->splittableCheckoutFacadeMock,
@@ -79,7 +89,7 @@ class PlaceOrderProcessorTest extends Unit
      */
     public function testPlaceOrder(): void
     {
-        $orderReferences = ['FOO-1'];
+        $plittedQuoteTransfers = new ArrayObject(['*' => $this->splittedQuoteTransferMock]);
 
         $this->quoteReaderMock->expects(static::atLeastOnce())
             ->method('getByRestSplittableCheckoutRequest')
@@ -92,8 +102,8 @@ class PlaceOrderProcessorTest extends Unit
             ->willReturn($this->splittableCheckoutResponseTransferMock);
 
         $this->splittableCheckoutResponseTransferMock->expects(static::atLeastOnce())
-            ->method('getOrderReferences')
-            ->willReturn($orderReferences);
+            ->method('getSplittedQuotes')
+            ->willReturn($plittedQuoteTransfers);
 
         $this->splittableCheckoutResponseTransferMock->expects(static::atLeastOnce())
             ->method('getIsSuccess')
@@ -107,9 +117,14 @@ class PlaceOrderProcessorTest extends Unit
             $restSplittableCheckoutResponseTransfer->getSplittableCheckout(),
         );
 
+        static::assertCount(
+            1,
+            $restSplittableCheckoutResponseTransfer->getSplittableCheckout()->getSplittedQuotes(),
+        );
+
         static::assertEquals(
-            $orderReferences,
-            $restSplittableCheckoutResponseTransfer->getSplittableCheckout()->getOrderReferences(),
+            $this->splittedQuoteTransferMock,
+            $restSplittableCheckoutResponseTransfer->getSplittableCheckout()->getSplittedQuotes()->offsetGet('*'),
         );
     }
 }

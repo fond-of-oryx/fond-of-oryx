@@ -13,6 +13,8 @@ use Generated\Shared\Transfer\CheckoutResponseTransfer;
 use Generated\Shared\Transfer\QuoteResponseTransfer;
 use Generated\Shared\Transfer\QuoteTransfer;
 use Generated\Shared\Transfer\SaveOrderTransfer;
+use Psr\Log\LoggerInterface;
+use Psr\Log\NullLogger;
 use Spryker\Zed\Kernel\Persistence\EntityManager\TransactionHandlerInterface;
 
 class SplittableCheckoutWorkflowTest extends Unit
@@ -151,6 +153,7 @@ class SplittableCheckoutWorkflowTest extends Unit
                     $splittableQuoteFacade,
                     $quoteFacade,
                     $permissionFacade,
+                    new NullLogger(),
                     $identifierExtractorPlugin,
                 );
                 $this->transactionHandler = $transactionHandler;
@@ -214,7 +217,7 @@ class SplittableCheckoutWorkflowTest extends Unit
         $splittableCheckoutResponseTransfer = $this->splittableCheckoutWorkflow->placeOrder($this->quoteTransferMock);
 
         static::assertEquals(false, $splittableCheckoutResponseTransfer->getIsSuccess());
-        static::assertEquals([], $splittableCheckoutResponseTransfer->getOrderReferences());
+        static::assertCount(0, $splittableCheckoutResponseTransfer->getSplittedQuotes());
         static::assertEquals(1, $splittableCheckoutResponseTransfer->getErrors()->count());
     }
 
@@ -276,7 +279,7 @@ class SplittableCheckoutWorkflowTest extends Unit
         $splittableCheckoutResponseTransfer = $this->splittableCheckoutWorkflow->placeOrder($this->quoteTransferMock);
 
         static::assertEquals(false, $splittableCheckoutResponseTransfer->getIsSuccess());
-        static::assertEquals([], $splittableCheckoutResponseTransfer->getOrderReferences());
+        static::assertCount(0, $splittableCheckoutResponseTransfer->getSplittedQuotes());
         static::assertEquals(1, $splittableCheckoutResponseTransfer->getErrors()->count());
     }
 
@@ -348,7 +351,7 @@ class SplittableCheckoutWorkflowTest extends Unit
         $splittableCheckoutResponseTransfer = $this->splittableCheckoutWorkflow->placeOrder($this->quoteTransferMock);
 
         static::assertEquals(false, $splittableCheckoutResponseTransfer->getIsSuccess());
-        static::assertEquals([], $splittableCheckoutResponseTransfer->getOrderReferences());
+        static::assertCount(0, $splittableCheckoutResponseTransfer->getSplittedQuotes());
         static::assertEquals(1, $splittableCheckoutResponseTransfer->getErrors()->count());
     }
 
@@ -420,6 +423,11 @@ class SplittableCheckoutWorkflowTest extends Unit
             ->method('getOrderReference')
             ->willReturn($orderReference);
 
+        $this->quoteTransferMock->expects(static::atLeastOnce())
+            ->method('setOrderReference')
+            ->with($orderReference)
+            ->willReturn($this->quoteTransferMock);
+
         $this->quoteFacadeMock->expects(static::atLeastOnce())
             ->method('deleteQuote')
             ->with($this->quoteTransferMock);
@@ -427,7 +435,11 @@ class SplittableCheckoutWorkflowTest extends Unit
         $splittableCheckoutResponseTransfer = $this->splittableCheckoutWorkflow->placeOrder($this->quoteTransferMock);
 
         static::assertEquals(true, $splittableCheckoutResponseTransfer->getIsSuccess());
-        static::assertEquals([$orderReference], $splittableCheckoutResponseTransfer->getOrderReferences());
+        static::assertCount(1, $splittableCheckoutResponseTransfer->getSplittedQuotes());
+        static::assertEquals(
+            $this->quoteTransferMock,
+            $splittableCheckoutResponseTransfer->getSplittedQuotes()->offsetGet('*'),
+        );
         static::assertEquals(0, $splittableCheckoutResponseTransfer->getErrors()->count());
     }
 
@@ -443,6 +455,7 @@ class SplittableCheckoutWorkflowTest extends Unit
             $this->splittableQuoteFacadeMock,
             $this->quoteFacadeMock,
             $this->permissionFacadeMock,
+            new NullLogger(),
             null,
             $this->transactionHandlerMock
         ) extends SplittableCheckoutWorkflow {
@@ -456,6 +469,7 @@ class SplittableCheckoutWorkflowTest extends Unit
              * @param \FondOfOryx\Zed\SplittableCheckout\Dependency\Facade\SplittableCheckoutToSplittableQuoteFacadeInterface $splittableQuoteFacade
              * @param \FondOfOryx\Zed\SplittableCheckout\Dependency\Facade\SplittableCheckoutToQuoteFacadeInterface $quoteFacade
              * @param \FondOfOryx\Zed\SplittableCheckout\Dependency\Facade\SplittableCheckoutToPermissionFacadeInterface $permissionFacade
+             * @param \Psr\Log\LoggerInterface $logger
              * @param \FondOfOryx\Zed\SplittableCheckoutExtension\Dependency\Plugin\IdentifierExtractorPluginInterface|null $identifierExtractorPlugin
              * @param \Spryker\Zed\Kernel\Persistence\EntityManager\TransactionHandlerInterface $transactionHandler
              */
@@ -464,6 +478,7 @@ class SplittableCheckoutWorkflowTest extends Unit
                 SplittableCheckoutToSplittableQuoteFacadeInterface $splittableQuoteFacade,
                 SplittableCheckoutToQuoteFacadeInterface $quoteFacade,
                 SplittableCheckoutToPermissionFacadeInterface $permissionFacade,
+                LoggerInterface $logger,
                 ?IdentifierExtractorPluginInterface $identifierExtractorPlugin,
                 TransactionHandlerInterface $transactionHandler
             ) {
@@ -472,6 +487,7 @@ class SplittableCheckoutWorkflowTest extends Unit
                     $splittableQuoteFacade,
                     $quoteFacade,
                     $permissionFacade,
+                    $logger,
                     $identifierExtractorPlugin,
                 );
                 $this->transactionHandler = $transactionHandler;
@@ -538,6 +554,11 @@ class SplittableCheckoutWorkflowTest extends Unit
             ->method('getOrderReference')
             ->willReturn($orderReference);
 
+        $this->quoteTransferMock->expects(static::atLeastOnce())
+            ->method('setOrderReference')
+            ->with($orderReference)
+            ->willReturn($this->quoteTransferMock);
+
         $this->quoteFacadeMock->expects(static::atLeastOnce())
             ->method('deleteQuote')
             ->with($this->quoteTransferMock);
@@ -545,7 +566,11 @@ class SplittableCheckoutWorkflowTest extends Unit
         $splittableCheckoutResponseTransfer = $splittableCheckoutWorkflow->placeOrder($this->quoteTransferMock);
 
         static::assertEquals(true, $splittableCheckoutResponseTransfer->getIsSuccess());
-        static::assertEquals([$orderReference], $splittableCheckoutResponseTransfer->getOrderReferences());
+        static::assertCount(1, $splittableCheckoutResponseTransfer->getSplittedQuotes());
+        static::assertEquals(
+            $this->quoteTransferMock,
+            $splittableCheckoutResponseTransfer->getSplittedQuotes()->offsetGet('*'),
+        );
         static::assertEquals(0, $splittableCheckoutResponseTransfer->getErrors()->count());
     }
 
@@ -554,7 +579,6 @@ class SplittableCheckoutWorkflowTest extends Unit
      */
     public function testPlaceOrderWithNullableIdentifier(): void
     {
-        $splittedQuoteTransferMocks = ['*' => $this->quoteTransferMock];
         $identifier = null;
 
         $this->identifierExtractorPluginMock->expects(static::atLeastOnce())
@@ -583,7 +607,7 @@ class SplittableCheckoutWorkflowTest extends Unit
         $splittableCheckoutResponseTransfer = $this->splittableCheckoutWorkflow->placeOrder($this->quoteTransferMock);
 
         static::assertEquals(false, $splittableCheckoutResponseTransfer->getIsSuccess());
-        static::assertEquals([], $splittableCheckoutResponseTransfer->getOrderReferences());
+        static::assertCount(0, $splittableCheckoutResponseTransfer->getSplittedQuotes());
         static::assertEquals(1, $splittableCheckoutResponseTransfer->getErrors()->count());
     }
 }

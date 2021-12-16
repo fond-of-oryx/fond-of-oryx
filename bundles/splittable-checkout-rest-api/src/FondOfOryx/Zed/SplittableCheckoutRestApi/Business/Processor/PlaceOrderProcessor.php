@@ -51,13 +51,13 @@ class PlaceOrderProcessor implements PlaceOrderProcessorInterface
 
         $splittabelCheckoutResponseTransfer = $this->splittabelCheckoutFacade->placeOrder($quoteTransfer);
 
-        $orderReferences = $splittabelCheckoutResponseTransfer->getOrderReferences();
+        $splittedQuoteTransfers = $splittabelCheckoutResponseTransfer->getSplittedQuotes();
 
-        if (count($orderReferences) === 0 || $splittabelCheckoutResponseTransfer->getIsSuccess() === false) {
+        if ($splittedQuoteTransfers->count() === 0 || $splittabelCheckoutResponseTransfer->getIsSuccess() === false) {
             return $restSplittableCheckoutResponseTransfer;
         }
 
         return $restSplittableCheckoutResponseTransfer->setIsSuccessful(true)
-            ->setSplittableCheckout((new SplittableCheckoutTransfer())->setOrderReferences($orderReferences));
+            ->setSplittableCheckout((new SplittableCheckoutTransfer())->setSplittedQuotes($splittedQuoteTransfers));
     }
 }

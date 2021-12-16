@@ -15,7 +15,7 @@
     <transfer name="SplittableCheckoutResponse">
         <property name="isSuccess" type="bool" />
         <property name="errors" type="SplittableCheckoutError[]" singular="error" />
-        <property name="orderReferences" type="array" singular="orderReference" />
+        <property name="splittedQuotes" type="Quote[]" singular="splittedQuote" />
     </transfer>
 
     <transfer name="SplittableCheckoutError">

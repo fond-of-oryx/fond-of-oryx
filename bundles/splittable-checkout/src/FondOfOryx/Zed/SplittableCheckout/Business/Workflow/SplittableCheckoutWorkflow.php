@@ -2,6 +2,7 @@
 
 namespace FondOfOryx\Zed\SplittableCheckout\Business\Workflow;
 
+use ArrayObject;
 use Exception;
 use FondOfOryx\Zed\SplittableCheckout\Business\Exception\PermissionDeniedException;
 use FondOfOryx\Zed\SplittableCheckout\Communication\Plugin\PermissionExtension\PlaceOrderPermissionPlugin;
@@ -13,6 +14,7 @@ use FondOfOryx\Zed\SplittableCheckoutExtension\Dependency\Plugin\IdentifierExtra
 use Generated\Shared\Transfer\QuoteTransfer;
 use Generated\Shared\Transfer\SplittableCheckoutErrorTransfer;
 use Generated\Shared\Transfer\SplittableCheckoutResponseTransfer;
+use Psr\Log\LoggerInterface;
 use Spryker\Zed\Kernel\Persistence\EntityManager\TransactionTrait;
 
 class SplittableCheckoutWorkflow implements SplittableCheckoutWorkflowInterface
@@ -50,6 +52,11 @@ class SplittableCheckoutWorkflow implements SplittableCheckoutWorkflowInterface
     protected $permissionFacade;
 
     /**
+     * @var \Psr\Log\LoggerInterface
+     */
+    protected $logger;
+
+    /**
      * @var \FondOfOryx\Zed\SplittableCheckoutExtension\Dependency\Plugin\IdentifierExtractorPluginInterface|null
      */
     protected $identifierExtractorPlugin;
@@ -59,6 +66,7 @@ class SplittableCheckoutWorkflow implements SplittableCheckoutWorkflowInterface
      * @param \FondOfOryx\Zed\SplittableCheckout\Dependency\Facade\SplittableCheckoutToSplittableQuoteFacadeInterface $splittableQuoteFacade
      * @param \FondOfOryx\Zed\SplittableCheckout\Dependency\Facade\SplittableCheckoutToQuoteFacadeInterface $quoteFacade
      * @param \FondOfOryx\Zed\SplittableCheckout\Dependency\Facade\SplittableCheckoutToPermissionFacadeInterface $permissionFacade
+     * @param \Psr\Log\LoggerInterface $logger
      * @param \FondOfOryx\Zed\SplittableCheckoutExtension\Dependency\Plugin\IdentifierExtractorPluginInterface|null $identifierExtractorPlugin
      */
     public function __construct(
@@ -66,6 +74,7 @@ class SplittableCheckoutWorkflow implements SplittableCheckoutWorkflowInterface
         SplittableCheckoutToSplittableQuoteFacadeInterface $splittableQuoteFacade,
         SplittableCheckoutToQuoteFacadeInterface $quoteFacade,
         SplittableCheckoutToPermissionFacadeInterface $permissionFacade,
+        LoggerInterface $logger,
         ?IdentifierExtractorPluginInterface $identifierExtractorPlugin
     ) {
         $this->checkoutFacade = $checkoutFacade;
@@ -73,6 +82,7 @@ class SplittableCheckoutWorkflow implements SplittableCheckoutWorkflowInterface
         $this->quoteFacade = $quoteFacade;
         $this->permissionFacade = $permissionFacade;
         $this->identifierExtractorPlugin = $identifierExtractorPlugin;
+        $this->logger = $logger;
     }
 
     /**
@@ -97,9 +107,11 @@ class SplittableCheckoutWorkflow implements SplittableCheckoutWorkflowInterface
                 },
             );
         } catch (PermissionDeniedException $exception) {
+            $this->logger->error($exception->getMessage(), ['trace' => $exception->getTraceAsString()]);
             $splittableCheckoutErrorTransfer = (new SplittableCheckoutErrorTransfer())
                 ->setMessage(static::ERROR_MESSAGE_PERMISSION_DENIED);
         } catch (Exception $exception) {
+            $this->logger->error($exception->getMessage(), ['trace' => $exception->getTraceAsString()]);
             $splittableCheckoutErrorTransfer = (new SplittableCheckoutErrorTransfer())
                 ->setMessage(static::ERROR_MESSAGE_ORDER_NOT_PLACED);
         }
@@ -162,7 +174,6 @@ class SplittableCheckoutWorkflow implements SplittableCheckoutWorkflowInterface
         array $splittedQuoteTransfers
     ): SplittableCheckoutResponseTransfer {
         $splittableCheckoutResponseTransfer = new SplittableCheckoutResponseTransfer();
-        $checkoutResponseOrderReferences = [];
 
         foreach ($splittedQuoteTransfers as $splittedQuoteTransfer) {
             $checkoutResponseTransfer = $this->checkoutFacade->placeOrder($splittedQuoteTransfer);
@@ -172,15 +183,15 @@ class SplittableCheckoutWorkflow implements SplittableCheckoutWorkflowInterface
                 throw new Exception('Could not place order.');
             }
 
+            $splittedQuoteTransfer->setOrderReference($saveOrderTransfer->getOrderReference());
             $this->quoteFacade->deleteQuote($splittedQuoteTransfer);
-            $checkoutResponseOrderReferences[] = $saveOrderTransfer->getOrderReference();
         }
 
         $this->quoteFacade->deleteQuote($quoteTransfer);
 
         return $splittableCheckoutResponseTransfer
             ->setIsSuccess(true)
-            ->setOrderReferences($checkoutResponseOrderReferences);
+            ->setSplittedQuotes(new ArrayObject($splittedQuoteTransfers));
     }
 
     /**

@@ -9,6 +9,7 @@ use FondOfOryx\Glue\SplittableCheckoutRestApi\Processor\SplittableCheckout\Split
 use Spryker\Client\Kernel\AbstractClient;
 use Spryker\Glue\GlueApplication\Rest\JsonApi\RestResourceBuilderInterface;
 use Spryker\Glue\Kernel\AbstractBundleConfig;
+use Spryker\Glue\Kernel\Container;
 
 class SplittableCheckoutRestApiFactoryTest extends Unit
 {
@@ -33,6 +34,11 @@ class SplittableCheckoutRestApiFactoryTest extends Unit
     protected $factory;
 
     /**
+     * @var \PHPUnit\Framework\MockObject\MockObject|\Spryker\Glue\Kernel\Container
+     */
+    protected $containerMock;
+
+    /**
      * @return void
      */
     protected function _before(): void
@@ -51,10 +57,15 @@ class SplittableCheckoutRestApiFactoryTest extends Unit
             ->disableOriginalConstructor()
             ->getMock();
 
+        $this->containerMock = $this->getMockBuilder(Container::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
         $this->factory = new class (
             $this->configMock,
             $this->clientMock,
-            $this->restResourceBuilderMock
+            $this->restResourceBuilderMock,
+            $this->containerMock,
         ) extends SplittableCheckoutRestApiFactory {
             /**
              * @var \Spryker\Glue\Kernel\AbstractBundleConfig
@@ -72,18 +83,26 @@ class SplittableCheckoutRestApiFactoryTest extends Unit
             protected $restResourceBuilder;
 
             /**
+             * @var \Spryker\Glue\Kernel\Container
+             */
+            protected $container;
+
+            /**
              * @param \Spryker\Glue\Kernel\AbstractBundleConfig $abstractBundleConfig
              * @param \Spryker\Client\Kernel\AbstractClient $abstractClient
              * @param \Spryker\Glue\GlueApplication\Rest\JsonApi\RestResourceBuilderInterface $restResourceBuilder
+             * @param \Spryker\Glue\Kernel\Container $container
              */
             public function __construct(
                 AbstractBundleConfig $abstractBundleConfig,
                 AbstractClient $abstractClient,
-                RestResourceBuilderInterface $restResourceBuilder
+                RestResourceBuilderInterface $restResourceBuilder,
+                Container $container
             ) {
                 $this->restResourceBuilder = $restResourceBuilder;
                 $this->abstractBundleConfig = $abstractBundleConfig;
                 $this->abstractClient = $abstractClient;
+                $this->container = $container;
             }
 
             /**
@@ -109,6 +128,14 @@ class SplittableCheckoutRestApiFactoryTest extends Unit
             {
                 return $this->abstractBundleConfig;
             }
+
+            /**
+             * @return \Spryker\Glue\Kernel\Container
+             */
+            protected function getContainer(): Container
+            {
+                return $this->container;
+            }
         };
     }
 
@@ -117,6 +144,16 @@ class SplittableCheckoutRestApiFactoryTest extends Unit
      */
     public function testCreateSplittableCheckoutProcessor(): void
     {
+        $this->containerMock->expects(static::atLeastOnce())
+            ->method('has')
+            ->with(SplittableCheckoutRestApiDependencyProvider::PLUGINS_REST_SPLITTABLE_CHECKOUT_EXPANDER)
+            ->willReturn(true);
+
+        $this->containerMock->expects(static::atLeastOnce())
+            ->method('get')
+            ->with(SplittableCheckoutRestApiDependencyProvider::PLUGINS_REST_SPLITTABLE_CHECKOUT_EXPANDER)
+            ->willReturn([]);
+
         static::assertInstanceOf(
             SplittableCheckoutProcessor::class,
             $this->factory->createSplittableCheckoutProcessor(),

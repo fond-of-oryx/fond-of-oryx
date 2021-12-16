@@ -34,26 +34,43 @@
         <property name="id" type="string"/>
     </transfer>
 
+    <transfer name="Quote"/>
+
     <transfer name="RestSplittableCheckoutResponse">
-        <property name="isSuccessful" type="bool" />
+        <property name="isSuccessful" type="bool"/>
         <property name="splittableCheckout" type="SplittableCheckout"/>
     </transfer>
 
     <transfer name="SplittableCheckout">
-        <property name="orderReferences" type="string[]"/>
+        <property name="splittedQuotes" type="Quote[]" singular="splittedQuote"/>
+    </transfer>
+
+    <transfer name="SplittableCheckoutResponse">
+        <property name="isSuccess" type="bool"/>
+        <property name="errors" type="SplittableCheckoutError[]" singular="error"/>
+        <property name="splittedQuotes" type="Quote[]" singular="splittedQuote"/>
+    </transfer>
+
+    <transfer name="SplittableCheckoutError">
+        <property name="errorCode" type="int"/>
+        <property name="message" type="string"/>
     </transfer>
 
     <transfer name="RestSplittableCheckout">
-        <property name="orderReferences" type="string[]"/>
+        <property name="splitKeys" type="string[]" singular="splitKey"/>
+        <property name="orderReferences" type="string[]" singular="orderReference"/>
+        <property name="billingAddress" type="RestAddress"/>
+        <property name="shippingAddress" type="RestAddress"/>
+        <property name="totalsList" type="RestTotals[]"/>
     </transfer>
 
     <transfer name="RestSplittableTotalsResponse">
-        <property name="isSuccessful" type="bool" />
+        <property name="isSuccessful" type="bool"/>
         <property name="splittableTotals" type="SplittableTotals"/>
     </transfer>
 
     <transfer name="SplittableTotals">
-        <property name="totalsList" type="Totals[]" singular="totals" associative="true" />
+        <property name="totalsList" type="Totals[]" singular="totals" associative="true"/>
     </transfer>
 
     <transfer name="RestSplittableTotals">
@@ -78,5 +95,37 @@
 
     <transfer name="RestUser">
         <property name="surrogateIdentifier" type="int"/>
+    </transfer>
+
+    <transfer name="Address">
+        <property name="id" type="string"/>
+        <property name="salutation" type="string"/>
+        <property name="firstName" type="string"/>
+        <property name="lastName" type="string"/>
+        <property name="address1" type="string"/>
+        <property name="address2" type="string"/>
+        <property name="address3" type="string"/>
+        <property name="zipCode" type="string"/>
+        <property name="city" type="string"/>
+        <property name="country" type="Country"/>
+        <property name="iso2Code" type="string"/>
+        <property name="company" type="string"/>
+        <property name="phone" type="string"/>
+    </transfer>
+
+    <transfer name="RestAddress">
+        <property name="id" type="string"/>
+        <property name="salutation" type="string"/>
+        <property name="firstName" type="string"/>
+        <property name="lastName" type="string"/>
+        <property name="address1" type="string"/>
+        <property name="address2" type="string"/>
+        <property name="address3" type="string"/>
+        <property name="zipCode" type="string"/>
+        <property name="city" type="string"/>
+        <property name="country" type="string"/>
+        <property name="iso2Code" type="string"/>
+        <property name="company" type="string"/>
+        <property name="phone" type="string"/>
     </transfer>
 </transfers>

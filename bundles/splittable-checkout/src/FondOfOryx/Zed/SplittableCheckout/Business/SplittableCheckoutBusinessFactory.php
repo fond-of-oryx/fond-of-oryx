@@ -10,10 +10,13 @@ use FondOfOryx\Zed\SplittableCheckout\Dependency\Facade\SplittableCheckoutToQuot
 use FondOfOryx\Zed\SplittableCheckout\Dependency\Facade\SplittableCheckoutToSplittableQuoteFacadeInterface;
 use FondOfOryx\Zed\SplittableCheckout\SplittableCheckoutDependencyProvider;
 use FondOfOryx\Zed\SplittableCheckoutExtension\Dependency\Plugin\IdentifierExtractorPluginInterface;
+use Spryker\Shared\Log\LoggerTrait;
 use Spryker\Zed\Kernel\Business\AbstractBusinessFactory;
 
 class SplittableCheckoutBusinessFactory extends AbstractBusinessFactory
 {
+    use LoggerTrait;
+
     /**
      * @return \FondOfOryx\Zed\SplittableCheckout\Business\Workflow\SplittableCheckoutWorkflowInterface
      */
@@ -24,6 +27,7 @@ class SplittableCheckoutBusinessFactory extends AbstractBusinessFactory
             $this->getSplittableQuoteFacade(),
             $this->getQuoteFacade(),
             $this->getPermissionFacade(),
+            $this->getLogger(),
             $this->getIdentifierExtractorPlugin(),
         );
     }
