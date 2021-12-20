@@ -1,6 +1,7 @@
 namespace: fond-of-oryx/fond-of-oryx
 
 include:
+  - bundles/api-auth
   - bundles/availability-alert
   - bundles/availability-alert-cross-engage
   - bundles/availability-alert-migrator
