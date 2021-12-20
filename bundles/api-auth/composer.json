@@ -1,5 +1,5 @@
 {
-  "name": "fond-of-spryker/api-auth",
+  "name": "fond-of-oryx/api-auth",
   "description": "Zed api auth module.",
   "license": "MIT",
   "authors": [
@@ -23,12 +23,12 @@
   "prefer-stable": true,
   "autoload": {
     "psr-4": {
-      "FondOfSpryker\\": "src/FondOfSpryker/"
+      "FondOfOryx\\": "src/FondOfOryx/"
     }
   },
   "autoload-dev": {
     "psr-4": {
-      "FondOfSpryker\\": "tests/FondOfSpryker/"
+      "FondOfOryx\\": "tests/FondOfOryx/"
     }
   }
 }
