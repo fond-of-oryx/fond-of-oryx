@@ -11,6 +11,7 @@ include:
   - bundles/cart-code-type
   - bundles/cart-code-type-data-import
   - bundles/catalog-sku-filter
+  - bundles/company-api
   - bundles/company-brands-rest-api
   - bundles/company-business-unit-address-search-rest-api
   - bundles/company-business-unit-order-budget
