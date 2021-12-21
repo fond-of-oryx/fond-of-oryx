@@ -133,8 +133,8 @@ class RestSplittableCheckoutMapperTest extends Unit
         static::assertCount(1, $restSplittableCheckoutTransfer->getSplitKeys());
         static::assertEquals('*', $restSplittableCheckoutTransfer->getSplitKeys()[0]);
         static::assertCount(1, $restSplittableCheckoutTransfer->getTotalsList());
-        static::assertEquals($this->restTotalsTransferMock, $restSplittableCheckoutTransfer->getTotalsList()[0]);
+        static::assertEquals($this->restTotalsTransferMock, $restSplittableCheckoutTransfer->getTotalsList()['*']);
         static::assertCount(1, $restSplittableCheckoutTransfer->getOrderReferences());
-        static::assertEquals($orderReference, $restSplittableCheckoutTransfer->getOrderReferences()[0]);
+        static::assertEquals($orderReference, $restSplittableCheckoutTransfer->getOrderReferences()['*']);
     }
 }
