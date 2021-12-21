@@ -45,12 +45,12 @@ class RestSplittableCheckoutMapper implements RestSplittableCheckoutMapperInterf
         $shippingRestAddressTransfer = null;
 
         foreach ($splittableCheckoutTransfer->getSplittedQuotes() as $key => $splittedQuoteTransfer) {
-            $orderReferences[] = $splittedQuoteTransfer->getOrderReference();
+            $orderReferences[$key] = $splittedQuoteTransfer->getOrderReference();
             $splitKeys[] = $key;
             $restTotalsTransfer = $this->restTotalsMapper->fromQuote($splittedQuoteTransfer);
 
             if ($restTotalsTransfer !== null) {
-                $restTotalsList->append($restTotalsTransfer);
+                $restTotalsList->offsetSet($key, $restTotalsTransfer);
             }
 
             $billingAddressTransfer = $splittedQuoteTransfer->getBillingAddress();
