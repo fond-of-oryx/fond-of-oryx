@@ -5,7 +5,7 @@ namespace FondOfOryx\Zed\Invoice\Persistence\Propel\Mapper;
 use Generated\Shared\Transfer\AddressTransfer;
 use Orm\Zed\Invoice\Persistence\FooInvoiceAddress;
 
-interface InvoiceAddressMapperInterface
+class InvoiceAddressMapper implements InvoiceAddressMapperInterface
 {
     /**
      * @param \Generated\Shared\Transfer\AddressTransfer $addressTransfer
@@ -16,5 +16,11 @@ interface InvoiceAddressMapperInterface
     public function mapTransferToEntity(
         AddressTransfer $addressTransfer,
         FooInvoiceAddress $fooInvoiceAddress
-    ): FooInvoiceAddress;
+    ): FooInvoiceAddress {
+        $fooInvoiceAddress->fromArray(
+            $addressTransfer->modifiedToArray(false),
+        );
+
+        return $fooInvoiceAddress;
+    }
 }

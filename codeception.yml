@@ -47,6 +47,7 @@ include:
   - bundles/gift-card-payment-connector
   - bundles/gift-card-product-connector
   - bundles/gift-card-restriction
+  - bundles/invoice
   - bundles/jellyfish-availability-alert
   - bundles/jellyfish-buffer
   - bundles/jellyfish-cross-engage
