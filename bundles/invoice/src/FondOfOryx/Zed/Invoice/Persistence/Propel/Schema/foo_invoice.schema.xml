@@ -3,7 +3,7 @@
           xsi:noNamespaceSchemaLocation="http://static.spryker.com/schema-01.xsd"
           namespace="Orm\Zed\Invoice\Persistence" package="src.Orm.Zed.Invoice.Persistence">
 
-    <table name="fos_invoice" phpName="FosInvoice" identifierQuoting="true">
+    <table name="foo_invoice" phpName="FooInvoice" identifierQuoting="true">
         <column name="id_invoice" required="true" type="INTEGER" autoIncrement="true" primaryKey="true"/>
 
         <column name="fk_sales_order" required="true" type="INTEGER"/>
@@ -21,25 +21,25 @@
 
         <column name="store" type="VARCHAR" size="255" required="false"/>
 
-        <foreign-key name="fos_invoice-fk_sales_order" foreignTable="spy_sales_order">
+        <foreign-key name="foo_invoice-fk_sales_order" foreignTable="spy_sales_order">
             <reference local="fk_sales_order" foreign="id_sales_order"/>
         </foreign-key>
 
-        <foreign-key name="fos_invoice-fk_invoice_address" foreignTable="fos_invoice_address"
+        <foreign-key name="foo_invoice-fk_invoice_address" foreignTable="foo_invoice_address"
                      phpName="Address">
             <reference local="fk_invoice_address" foreign="id_invoice_address"/>
         </foreign-key>
 
-        <foreign-key name="fos_invoice-fk_locale" foreignTable="spy_locale">
+        <foreign-key name="foo_invoice-fk_locale" foreignTable="spy_locale">
             <reference local="fk_locale" foreign="id_locale"/>
         </foreign-key>
 
-        <id-method-parameter value="fos_invoice_pk_seq"/>
+        <id-method-parameter value="foo_invoice_pk_seq"/>
 
         <behavior name="timestampable"/>
     </table>
 
-    <table name="fos_invoice_item" phpName="FosInvoiceItem" identifierQuoting="true">
+    <table name="foo_invoice_item" phpName="FooInvoiceItem" identifierQuoting="true">
         <column name="id_invoice_item" required="true" type="INTEGER" autoIncrement="true" primaryKey="true"/>
 
         <column name="fk_invoice" type="INTEGER" required="true"/>
@@ -49,17 +49,17 @@
         <column name="name" required="true" size="255" type="VARCHAR"/>
         <column name="quantity" type="INTEGER" unsigned="true" default="1" required="true"/>
 
-        <foreign-key name="fos_invoice_item-fk_invoice" foreignTable="fos_invoice">
+        <foreign-key name="foo_invoice_item-fk_invoice" foreignTable="foo_invoice">
             <reference local="fk_invoice" foreign="id_invoice"/>
         </foreign-key>
-        <foreign-key name="fos_invoice_item-fk_sales_order_item" foreignTable="spy_sales_order_item">
+        <foreign-key name="foo_invoice_item-fk_sales_order_item" foreignTable="spy_sales_order_item">
             <reference local="fk_sales_order_item" foreign="id_sales_order_item"/>
         </foreign-key>
 
-        <id-method-parameter value="fos_invoice_item_pk_seq"/>
+        <id-method-parameter value="foo_invoice_item_pk_seq"/>
     </table>
 
-    <table name="fos_invoice_address" phpName="FosInvoiceAddress" identifierQuoting="true">
+    <table name="foo_invoice_address" phpName="FooInvoiceAddress" identifierQuoting="true">
         <column name="id_invoice_address" required="true" type="INTEGER" autoIncrement="true" primaryKey="true"/>
         <column name="fk_country" type="INTEGER" required="true"/>
         <column name="fk_region" type="INTEGER"/>
@@ -80,13 +80,13 @@
         <column name="salutation" type="ENUM" valueSet="Mr, Mrs, Dr, Ms, Diverse"/>
         <column name="zip_code" size="15" type="VARCHAR" required="true"/>
 
-        <foreign-key name="fos_invoice_address-fk_country" foreignTable="spy_country">
+        <foreign-key name="foo_invoice_address-fk_country" foreignTable="spy_country">
             <reference local="fk_country" foreign="id_country"/>
         </foreign-key>
-        <foreign-key name="fos_invoice_address-fk_region" foreignTable="spy_region">
+        <foreign-key name="foo_invoice_address-fk_region" foreignTable="spy_region">
             <reference local="fk_region" foreign="id_region"/>
         </foreign-key>
 
-        <id-method-parameter value="fos_invoice_address_pk_seq"/>
+        <id-method-parameter value="foo_invoice_address_pk_seq"/>
     </table>
 </database>
