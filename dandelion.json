@@ -58,7 +58,7 @@
     },
     "company-role-search-rest-api": {
       "path": "bundles/company-role-search-rest-api/",
-      "version": "1.0.1"
+      "version": "1.0.2"
     },
     "cart-code-type": {
       "path": "bundles/cart-code-type/",

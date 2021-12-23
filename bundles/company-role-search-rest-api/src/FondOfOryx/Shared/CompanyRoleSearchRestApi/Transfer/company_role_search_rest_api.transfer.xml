@@ -31,8 +31,8 @@
 
     <transfer name="RestCompanyRoleSearchResultItem">
         <property name="name" type="string"/>
-        <property name="uuid" type="string"/>
-        <property name="companyUuid" type="string"/>
+        <property name="id" type="string"/>
+        <property name="companyId" type="string"/>
         <property name="isDefault" type="bool"/>
     </transfer>
 

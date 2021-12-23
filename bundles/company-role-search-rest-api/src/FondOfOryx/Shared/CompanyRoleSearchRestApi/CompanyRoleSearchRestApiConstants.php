@@ -43,4 +43,34 @@ interface CompanyRoleSearchRestApiConstants
      * @var array
      */
     public const FULLTEXT_SEARCH_FIELDS_DEFAULT = ['name'];
+
+    /**
+     * @var string
+     */
+    public const USE_WHITELIST_PERMISSIONS = 'FOND_OF_ORYX:COMPANY_ROLE_SEARCH_REST_API:USE_WHITELIST_PERMISSIONS';
+
+    /**
+     * @var bool
+     */
+    public const USE_WHITELIST_PERMISSIONS_DEFAULT = false;
+
+    /**
+     * @var string
+     */
+    public const WHITELIST_PERMISSION_PREFIX = 'FOND_OF_ORYX:COMPANY_ROLE_SEARCH_REST_API:WHITELIST_PERMISSION_PREFIX';
+
+    /**
+     * @var string
+     */
+    public const WHITELIST_PERMISSION_PREFIX_DEFAULT = 'Assign';
+
+    /**
+     * @var string
+     */
+    public const WHITELIST_PERMISSION_SUFFIX = 'FOND_OF_ORYX:COMPANY_ROLE_SEARCH_REST_API:WHITELIST_PERMISSION_SUFFIX';
+
+    /**
+     * @var string
+     */
+    public const WHITELIST_PERMISSION_SUFFIX_DEFAULT = 'RolePermission';
 }

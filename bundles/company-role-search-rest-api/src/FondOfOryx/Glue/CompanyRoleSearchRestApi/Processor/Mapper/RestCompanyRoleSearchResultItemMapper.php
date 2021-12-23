@@ -16,10 +16,10 @@ class RestCompanyRoleSearchResultItemMapper implements RestCompanyRoleSearchResu
      */
     public function fromCompanyRole(CompanyRoleTransfer $companyRoleTransfer): RestCompanyRoleSearchResultItemTransfer
     {
-        return (new RestCompanyRoleSearchResultItemTransfer())->fromArray(
-            $companyRoleTransfer->toArray(),
-            true,
-        )->setCompanyUuid($companyRoleTransfer->getCompanyUuid());
+        return (new RestCompanyRoleSearchResultItemTransfer())
+            ->fromArray($companyRoleTransfer->toArray(), true)
+            ->setCompanyId($companyRoleTransfer->getCompanyUuid())
+            ->setId($companyRoleTransfer->getUuid());
     }
 
     /**

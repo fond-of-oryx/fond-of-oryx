@@ -35,9 +35,11 @@ class RestCompanyRoleSearchResultItemMapperTest extends Unit
             ->disableOriginalConstructor()
             ->getMock();
 
-        $this->companyRoleTransferMock = $this->getMockBuilder(CompanyRoleTransfer::class)
+        $this->companyRoleTransferMocks = [
+            $this->getMockBuilder(CompanyRoleTransfer::class)
                 ->disableOriginalConstructor()
-                ->getMock();
+                ->getMock(),
+        ];
 
         $this->restCompanyRoleSearchResultItemMapper = new RestCompanyRoleSearchResultItemMapper();
     }
@@ -47,20 +49,19 @@ class RestCompanyRoleSearchResultItemMapperTest extends Unit
      */
     public function testFromCompanyRoleList(): void
     {
-        $uuid = 'fd06fbea-7435-4838-8f0b-e8bee1efd0a5';
-        $companyRoleTransferMocks = [$this->companyRoleTransferMock];
+        $companyUuid = 'fd06fbea-7435-4838-8f0b-e8bee1efd0a5';
 
         $this->companyRoleListTransferMock->expects(static::atLeastOnce())
             ->method('getCompanyRole')
-            ->willReturn(new ArrayObject($companyRoleTransferMocks));
+            ->willReturn(new ArrayObject($this->companyRoleTransferMocks));
 
-        $companyRoleTransferMocks[0]->expects(static::atLeastOnce())
+        $this->companyRoleTransferMocks[0]->expects(static::atLeastOnce())
             ->method('toArray')
             ->willReturn([]);
 
-        $companyRoleTransferMocks[0]->expects(static::atLeastOnce())
+        $this->companyRoleTransferMocks[0]->expects(static::atLeastOnce())
             ->method('getCompanyUuid')
-            ->willReturn($uuid);
+            ->willReturn($companyUuid);
 
         $restCompanyRoleSearchResultItemTransfers = $this->restCompanyRoleSearchResultItemMapper->fromCompanyRoleList(
             $this->companyRoleListTransferMock,
@@ -69,8 +70,8 @@ class RestCompanyRoleSearchResultItemMapperTest extends Unit
         static::assertCount(1, $restCompanyRoleSearchResultItemTransfers);
 
         static::assertEquals(
-            $uuid,
-            $restCompanyRoleSearchResultItemTransfers->offsetGet(0)->getCompanyUuid(),
+            $companyUuid,
+            $restCompanyRoleSearchResultItemTransfers->offsetGet(0)->getCompanyId(),
         );
     }
 }
