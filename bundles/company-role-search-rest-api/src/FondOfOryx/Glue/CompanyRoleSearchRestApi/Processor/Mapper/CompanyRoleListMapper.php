@@ -58,7 +58,7 @@ class CompanyRoleListMapper implements CompanyRoleListMapperInterface
         return (new CompanyRoleListTransfer())
             ->setPagination($this->paginationMapper->fromRestRequest($restRequest))
             ->setQuery($this->requestParameterFilter->getRequestParameter($restRequest, 'q'))
-            ->setShowAll($this->requestParameterFilter->getRequestParameter($restRequest, 'show-all') === 'true' ? true : false)
+            ->setShowAll($this->requestParameterFilter->getRequestParameter($restRequest, 'show-all') === 'true')
             ->setCompanyUuid($this->requestParameterFilter->getRequestParameter($restRequest, 'company-id'))
             ->setSort($this->requestParameterFilter->getRequestParameter($restRequest, 'sort'))
             ->setCustomerId($this->customerIdFilter->filterFromRestRequest($restRequest))

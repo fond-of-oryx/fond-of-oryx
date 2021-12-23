@@ -1,9 +1,8 @@
 <?php
 
-namespace FondOfOryx\Zed\CompanyRoleSearchRestApi;
+namespace FondOfOryx\Zed\CompanyRoleSearchRestApi\Persistence\Propel\Mapper;
 
 use Codeception\Test\Unit;
-use FondOfOryx\Zed\CompanyRoleSearchRestApi\Persistence\Propel\Mapper\CompanyRoleMapper;
 use Generated\Shared\Transfer\CompanyRoleTransfer;
 use Orm\Zed\Company\Persistence\SpyCompany;
 use Orm\Zed\CompanyRole\Persistence\SpyCompanyRole;
@@ -47,7 +46,7 @@ class CompanyRoleMapperTest extends Unit
     /**
      * @return void
      */
-    public function testMapEntityToTransfer()
+    public function testMapEntityToTransfer(): void
     {
         $this->spyCompanyRole->expects(static::atLeastOnce())
             ->method('toArray')
@@ -61,7 +60,7 @@ class CompanyRoleMapperTest extends Unit
             ->method('getUuid')
             ->willReturn('uuid');
 
-        $this->assertInstanceOf(
+        static::assertInstanceOf(
             CompanyRoleTransfer::class,
             $this->mapper->mapEntityToTransfer($this->spyCompanyRole),
         );
@@ -72,6 +71,6 @@ class CompanyRoleMapperTest extends Unit
      */
     public function testMapEntityCollectionToTransfers()
     {
-        $this->assertIsArray($this->mapper->mapEntityCollectionToTransfers(new ObjectCollection()));
+        static::assertIsArray($this->mapper->mapEntityCollectionToTransfers(new ObjectCollection()));
     }
 }

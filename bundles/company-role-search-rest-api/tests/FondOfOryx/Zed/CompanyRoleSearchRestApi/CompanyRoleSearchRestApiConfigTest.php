@@ -3,20 +3,23 @@
 namespace FondOfOryx\Zed\CompanyRoleSearchRestApi;
 
 use Codeception\Test\Unit;
+use FondOfOryx\Shared\CompanyRoleSearchRestApi\CompanyRoleSearchRestApiConstants;
 
 class CompanyRoleSearchRestApiConfigTest extends Unit
 {
     /**
      * @var \PHPUnit\Framework\MockObject\MockObject|\FondOfOryx\Zed\CompanyRoleSearchRestApi\CompanyRoleSearchRestApiConfig
      */
-    protected $companyRoleSearchRestApiConfig;
+    protected $config;
 
     /**
      * @return void
      */
     protected function _before(): void
     {
-        $this->companyRoleSearchRestApiConfig = new CompanyRoleSearchRestApiConfig();
+        $this->config = $this->getMockBuilder(CompanyRoleSearchRestApiConfig::class)
+            ->onlyMethods(['get'])
+            ->getMock();
     }
 
     /**
@@ -24,8 +27,19 @@ class CompanyRoleSearchRestApiConfigTest extends Unit
      */
     public function testGetFulltextSearchFields(): void
     {
-        $expected = ['0' => 'name'];
-        $this->assertEquals($expected, $this->companyRoleSearchRestApiConfig->getFulltextSearchFields());
+        $this->config->expects(static::atLeastOnce())
+            ->method('get')
+            ->with(
+                CompanyRoleSearchRestApiConstants::FULLTEXT_SEARCH_FIELDS,
+                CompanyRoleSearchRestApiConstants::FULLTEXT_SEARCH_FIELDS_DEFAULT,
+            )->willReturn(
+                CompanyRoleSearchRestApiConstants::FULLTEXT_SEARCH_FIELDS_DEFAULT,
+            );
+
+        static::assertEquals(
+            CompanyRoleSearchRestApiConstants::FULLTEXT_SEARCH_FIELDS_DEFAULT,
+            $this->config->getFulltextSearchFields(),
+        );
     }
 
     /**
@@ -33,9 +47,19 @@ class CompanyRoleSearchRestApiConfigTest extends Unit
      */
     public function testGetSortFields(): void
     {
-        $expected = ['0' => 'name'];
+        $this->config->expects(static::atLeastOnce())
+            ->method('get')
+            ->with(
+                CompanyRoleSearchRestApiConstants::SORT_FIELDS,
+                CompanyRoleSearchRestApiConstants::SORT_FIELDS_DEFAULT,
+            )->willReturn(
+                CompanyRoleSearchRestApiConstants::SORT_FIELDS_DEFAULT,
+            );
 
-        $this->assertEquals($expected, $this->companyRoleSearchRestApiConfig->getSortFields());
+        static::assertEquals(
+            CompanyRoleSearchRestApiConstants::SORT_FIELDS_DEFAULT,
+            $this->config->getSortFields(),
+        );
     }
 
     /**
@@ -43,7 +67,19 @@ class CompanyRoleSearchRestApiConfigTest extends Unit
      */
     public function testGetItemsPerPage(): void
     {
-        $this->assertEquals(12, $this->companyRoleSearchRestApiConfig->getItemsPerPage());
+        $this->config->expects(static::atLeastOnce())
+            ->method('get')
+            ->with(
+                CompanyRoleSearchRestApiConstants::ITEMS_PER_PAGE,
+                CompanyRoleSearchRestApiConstants::ITEMS_PER_PAGE_DEFAULT,
+            )->willReturn(
+                CompanyRoleSearchRestApiConstants::ITEMS_PER_PAGE_DEFAULT,
+            );
+
+        static::assertEquals(
+            CompanyRoleSearchRestApiConstants::ITEMS_PER_PAGE_DEFAULT,
+            $this->config->getItemsPerPage(),
+        );
     }
 
     /**
@@ -51,12 +87,118 @@ class CompanyRoleSearchRestApiConfigTest extends Unit
      */
     public function testGetValidItemsPerPageOptions(): void
     {
-        $expected = [
-            '0' => '12',
-            '1' => '24',
-            '2' => '36',
-        ];
+        $this->config->expects(static::atLeastOnce())
+            ->method('get')
+            ->with(
+                CompanyRoleSearchRestApiConstants::VALID_ITEMS_PER_PAGE_OPTIONS,
+                CompanyRoleSearchRestApiConstants::VALID_ITEMS_PER_PAGE_OPTIONS_DEFAULT,
+            )->willReturn(
+                CompanyRoleSearchRestApiConstants::VALID_ITEMS_PER_PAGE_OPTIONS_DEFAULT,
+            );
 
-        $this->assertEquals($expected, $this->companyRoleSearchRestApiConfig->getValidItemsPerPageOptions());
+        static::assertEquals(
+            CompanyRoleSearchRestApiConstants::VALID_ITEMS_PER_PAGE_OPTIONS_DEFAULT,
+            $this->config->getValidItemsPerPageOptions(),
+        );
+    }
+
+    /**
+     * @return void
+     */
+    public function testUseWhitelistPermissions(): void
+    {
+        $this->config->expects(static::atLeastOnce())
+            ->method('get')
+            ->with(
+                CompanyRoleSearchRestApiConstants::USE_WHITELIST_PERMISSIONS,
+                CompanyRoleSearchRestApiConstants::USE_WHITELIST_PERMISSIONS_DEFAULT,
+            )->willReturn(
+                CompanyRoleSearchRestApiConstants::USE_WHITELIST_PERMISSIONS_DEFAULT,
+            );
+
+        static::assertEquals(
+            CompanyRoleSearchRestApiConstants::USE_WHITELIST_PERMISSIONS_DEFAULT,
+            $this->config->useWhitelistPermissions(),
+        );
+    }
+
+    /**
+     * @return void
+     */
+    public function testGetPascalCasedWhitelistPermissionPrefix(): void
+    {
+        $this->config->expects(static::atLeastOnce())
+            ->method('get')
+            ->with(
+                CompanyRoleSearchRestApiConstants::WHITELIST_PERMISSION_PREFIX,
+                CompanyRoleSearchRestApiConstants::WHITELIST_PERMISSION_PREFIX_DEFAULT,
+            )->willReturn(
+                CompanyRoleSearchRestApiConstants::WHITELIST_PERMISSION_PREFIX_DEFAULT,
+            );
+
+        static::assertEquals(
+            CompanyRoleSearchRestApiConstants::WHITELIST_PERMISSION_PREFIX_DEFAULT,
+            $this->config->getPascalCasedWhitelistPermissionPrefix(),
+        );
+    }
+
+    /**
+     * @return void
+     */
+    public function testGetPascalCasedWhitelistPermissionSuffix(): void
+    {
+        $this->config->expects(static::atLeastOnce())
+            ->method('get')
+            ->with(
+                CompanyRoleSearchRestApiConstants::WHITELIST_PERMISSION_SUFFIX,
+                CompanyRoleSearchRestApiConstants::WHITELIST_PERMISSION_SUFFIX_DEFAULT,
+            )->willReturn(
+                CompanyRoleSearchRestApiConstants::WHITELIST_PERMISSION_SUFFIX_DEFAULT,
+            );
+
+        static::assertEquals(
+            CompanyRoleSearchRestApiConstants::WHITELIST_PERMISSION_SUFFIX_DEFAULT,
+            $this->config->getPascalCasedWhitelistPermissionSuffix(),
+        );
+    }
+
+    /**
+     * @return void
+     */
+    public function testGetSnakeCasedWhitelistPermissionPrefix(): void
+    {
+        $this->config->expects(static::atLeastOnce())
+            ->method('get')
+            ->with(
+                CompanyRoleSearchRestApiConstants::WHITELIST_PERMISSION_PREFIX,
+                CompanyRoleSearchRestApiConstants::WHITELIST_PERMISSION_PREFIX_DEFAULT,
+            )->willReturn(
+                'FooBar',
+            );
+
+        static::assertEquals(
+            'foo_bar',
+            $this->config->getSnakeCasedWhitelistPermissionPrefix(),
+        );
+    }
+
+    /**
+     * @return void
+     */
+    public function testGetSnakeCasedWhitelistPermissionSuffix(): void
+    {
+        $this->config->expects(static::atLeastOnce())
+            ->method('get')
+            ->with(
+                CompanyRoleSearchRestApiConstants::WHITELIST_PERMISSION_SUFFIX,
+                CompanyRoleSearchRestApiConstants::WHITELIST_PERMISSION_SUFFIX_DEFAULT,
+            )->willReturn(
+                'FooBar',
+            );
+
+        static::assertEquals(
+            'foo_bar',
+            $this->config->getSnakeCasedWhitelistPermissionSuffix(),
+        );
     }
 }

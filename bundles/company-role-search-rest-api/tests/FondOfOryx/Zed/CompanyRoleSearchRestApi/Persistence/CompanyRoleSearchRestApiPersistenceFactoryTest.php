@@ -1,10 +1,10 @@
 <?php
 
-namespace FondOfOryx\Zed\CompanyRoleSearchRestApi;
+namespace FondOfOryx\Zed\CompanyRoleSearchRestApi\Persistence;
 
 use Codeception\Test\Unit;
-use FondOfOryx\Zed\CompanyRoleSearchRestApi\Persistence\CompanyRoleSearchRestApiPersistenceFactory;
-use FondOfOryx\Zed\CompanyRoleSearchRestApi\Persistence\Propel\Mapper\CompanyRoleMapperInterface;
+use FondOfOryx\Zed\CompanyRoleSearchRestApi\CompanyRoleSearchRestApiDependencyProvider;
+use FondOfOryx\Zed\CompanyRoleSearchRestApi\Persistence\Propel\Mapper\CompanyRoleMapper;
 use Orm\Zed\CompanyRole\Persistence\SpyCompanyRoleQuery;
 use Spryker\Zed\Kernel\Container;
 
@@ -52,10 +52,10 @@ class CompanyRoleSearchRestApiPersistenceFactoryTest extends Unit
     /**
      * @return void
      */
-    public function testCreateCompanyRoleMapper()
+    public function testCreateCompanyRoleMapper(): void
     {
-        $this->assertInstanceOf(
-            CompanyRoleMapperInterface::class,
+        static::assertInstanceOf(
+            CompanyRoleMapper::class,
             $this->companyRoleSearchRestApiPersistenceFactory->createCompanyRoleMapper(),
         );
     }
@@ -63,7 +63,7 @@ class CompanyRoleSearchRestApiPersistenceFactoryTest extends Unit
     /**
      * @return void
      */
-    public function testGetCompanyRoleQuery()
+    public function testGetCompanyRoleQuery(): void
     {
         $this->containerMock->expects(static::atLeastOnce())
             ->method('has')
@@ -75,7 +75,7 @@ class CompanyRoleSearchRestApiPersistenceFactoryTest extends Unit
             ->with(CompanyRoleSearchRestApiDependencyProvider::PROPEL_QUERY_COMPANY_ROLE)
             ->willReturn($this->spyCompanyRoleQuery);
 
-        $this->assertInstanceOf(
+        static::assertInstanceOf(
             SpyCompanyRoleQuery::class,
             $this->companyRoleSearchRestApiPersistenceFactory->getCompanyRoleQuery(),
         );
