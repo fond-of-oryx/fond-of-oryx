@@ -111,11 +111,12 @@ class CompanyRoleSearchRestApiRepository extends AbstractRepository implements C
         }
 
         return $companyRoleQuery
-            ->useSpyCompanyRoleToCompanyUserQuery()
+            ->useCompanyQuery()
                 ->useCompanyUserQuery()
                     ->filterByFkCustomer($companyRoleListTransfer->getCustomerId())
                     ->filterByIsActive(true)
                 ->endUse()
+                ->filterByIsActive(true)
             ->endUse();
     }
 
