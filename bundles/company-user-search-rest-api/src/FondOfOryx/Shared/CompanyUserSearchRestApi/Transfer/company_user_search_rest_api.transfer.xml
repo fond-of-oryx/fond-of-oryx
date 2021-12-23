@@ -31,13 +31,20 @@
 
     <transfer name="RestCompanyUserSearchResultItem">
         <property name="companyUserReference" type="string"/>
-        <property name="customerReference" type="string"/>
         <property name="customer" type="RestCompanyUserSearchCustomer"/>
         <property name="isActive" type="bool"/>
         <property name="companyId" type="string"/>
+        <property name="companyRoles" type="RestCompanyUserSearchCompanyRole[]" singular="companyRole"/>
+    </transfer>
+
+    <transfer name="RestCompanyUserSearchCompanyRole">
+        <property name="id" type="string"/>
+        <property name="name" type="string"/>
+        <property name="isDefault" type="bool"/>
     </transfer>
 
     <transfer name="RestCompanyUserSearchCustomer">
+        <property name="customerReference" type="string"/>
         <property name="firstName" type="string"/>
         <property name="lastName" type="string"/>
         <property name="email" type="string"/>

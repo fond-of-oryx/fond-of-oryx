@@ -22,15 +22,8 @@ class CompanyUserSearchRestApiRepository extends AbstractRepository implements C
      */
     public function searchCompanyUser(CompanyUserListTransfer $companyUserListTransfer): CompanyUserListTransfer
     {
-        $companyIds = [];
-        if ($companyUserListTransfer->getShowAll() === true) {
-            $query = $this->getBaseQuery($companyUserListTransfer);
-            $companyIds = $query->select(str_replace(sprintf('%s.', SpyCompanyUserTableMap::TABLE_NAME), '', SpyCompanyUserTableMap::COL_FK_COMPANY))->find()->getData();
-        }
-
-        $companyUserQuery = $this->getBaseQuery($companyUserListTransfer, $companyIds);
+        $companyUserQuery = $this->getBaseQuery($companyUserListTransfer);
         $companyUserQuery = $this->addCompanyQuery($companyUserQuery, $companyUserListTransfer);
-        $companyUserQuery = $this->addCustomerQuery($companyUserQuery, $companyUserListTransfer);
 
         $companyUserQuery = $this->addFulltextSearchFields($companyUserQuery, $companyUserListTransfer);
         $companyUserQuery = $this->addSort($companyUserQuery, $companyUserListTransfer);
@@ -45,22 +38,33 @@ class CompanyUserSearchRestApiRepository extends AbstractRepository implements C
 
     /**
      * @param \Generated\Shared\Transfer\CompanyUserListTransfer $companyUserListTransfer
-     * @param array $companyIds
      *
      * @return \Orm\Zed\CompanyUser\Persistence\SpyCompanyUserQuery
      */
-    protected function getBaseQuery(CompanyUserListTransfer $companyUserListTransfer, array $companyIds = []): SpyCompanyUserQuery
+    protected function getBaseQuery(CompanyUserListTransfer $companyUserListTransfer): SpyCompanyUserQuery
     {
         $query = $this->getFactory()
             ->getCompanyUserQuery()
             ->clear()
+            ->innerJoinCustomer()
+            ->innerJoinSpyCompanyRoleToCompanyUser()
             ->filterByIsActive(true);
 
-        if (count($companyIds) > 0) {
-            return $query->filterByFkCompany_In($companyIds);
+        if ($companyUserListTransfer->getShowAll() !== true) {
+            return $query->filterByFkCustomer($companyUserListTransfer->getCustomerId());
         }
 
-        return $query->filterByFkCustomer($companyUserListTransfer->getCustomerId());
+        return $query->where(
+            sprintf(
+                '%s IN (SELECT %s FROM %s WHERE %s = true AND %s = ?)',
+                SpyCompanyUserTableMap::COL_FK_COMPANY,
+                SpyCompanyUserTableMap::COL_FK_COMPANY,
+                SpyCompanyUserTableMap::TABLE_NAME,
+                SpyCompanyUserTableMap::COL_IS_ACTIVE,
+                SpyCompanyUserTableMap::COL_FK_CUSTOMER,
+            ),
+            $companyUserListTransfer->getCustomerId(),
+        );
     }
 
     /**
@@ -72,6 +76,7 @@ class CompanyUserSearchRestApiRepository extends AbstractRepository implements C
     protected function addCompanyQuery(SpyCompanyUserQuery $companyUserQuery, CompanyUserListTransfer $companyUserListTransfer): SpyCompanyUserQuery
     {
         $companyUuid = $companyUserListTransfer->getCompanyUuid();
+
         if ($companyUuid !== null) {
             return $companyUserQuery
                 ->useCompanyQuery()
@@ -84,17 +89,6 @@ class CompanyUserSearchRestApiRepository extends AbstractRepository implements C
             ->useCompanyQuery()
             ->filterByIsActive(true)
             ->endUse();
-    }
-
-    /**
-     * @param \Orm\Zed\CompanyUser\Persistence\SpyCompanyUserQuery $companyUserQuery
-     * @param \Generated\Shared\Transfer\CompanyUserListTransfer $companyUserListTransfer
-     *
-     * @return \Orm\Zed\CompanyUser\Persistence\SpyCompanyUserQuery
-     */
-    protected function addCustomerQuery(SpyCompanyUserQuery $companyUserQuery, CompanyUserListTransfer $companyUserListTransfer): SpyCompanyUserQuery
-    {
-        return $companyUserQuery->joinWithCustomer(Criteria::LEFT_JOIN);
     }
 
     /**
