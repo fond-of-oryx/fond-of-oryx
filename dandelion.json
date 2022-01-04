@@ -178,7 +178,7 @@
     },
     "feed": {
       "path": "bundles/feed/",
-      "version": "1.0.0"
+      "version": "1.0.1"
     },
     "gift-card-expiration": {
       "path": "bundles/gift-card-expiration/",
