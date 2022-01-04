@@ -14,7 +14,7 @@
     },
     "availability-alert-migrator": {
       "path": "bundles/availability-alert-migrator/",
-      "version": "1.0.1"
+      "version": "1.0.2"
     },
     "availability-cart-data-extender": {
       "path": "bundles/availability-cart-data-extender/",
