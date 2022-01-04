@@ -3,7 +3,7 @@
 namespace FondOfOryx\Zed\AvailabilityAlert\Communication\Controller\Mapper;
 
 use Codeception\Test\Unit;
-use FondOfOryx\Zed\AvailabilityAlert\Dependency\Plugin\AvailabilityAlertSubscriptionTransferExpanderPluginInterface;
+use FondOfOryx\Zed\AvailabilityAlertExtension\Dependency\Plugin\Expander\AvailabilityAlertSubscriptionTransferExpanderPluginInterface;
 use Generated\Shared\Transfer\AvailabilityAlertSubscriptionRequestTransfer;
 use Generated\Shared\Transfer\AvailabilityAlertSubscriptionTransfer;
 
@@ -20,7 +20,7 @@ class AvailabilityAlertSubscriptionTransferExpanderTest extends Unit
     protected $subscriptionRequestTransferMock;
 
     /**
-     * @var \FondOfOryx\Zed\AvailabilityAlert\Dependency\Plugin\AvailabilityAlertSubscriptionTransferExpanderPluginInterface|\PHPUnit\Framework\MockObject\MockObject
+     * @var \FondOfOryx\Zed\AvailabilityAlertExtension\Dependency\Plugin\Expander\AvailabilityAlertSubscriptionTransferExpanderPluginInterface|\PHPUnit\Framework\MockObject\MockObject
      */
     protected $pluginMock;
 

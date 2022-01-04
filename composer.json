@@ -103,6 +103,7 @@
     "fond-of-oryx/api-auth": "*",
     "fond-of-oryx/availability-alert": "*",
     "fond-of-oryx/availability-alert-cross-engage": "*",
+    "fond-of-oryx/availability-alert-extension": "*",
     "fond-of-oryx/availability-alert-migrator": "*",
     "fond-of-oryx/availability-cart-data-extender": "*",
     "fond-of-oryx/availability-checkout-validator": "*",
@@ -224,6 +225,7 @@
   "autoload": {
     "psr-4": {
       "FondOfOryx\\Client\\AvailabilityAlert\\": "bundles/availability-alert/src/FondOfOryx/Client/AvailabilityAlert",
+      "FondOfOryx\\Client\\AvailabilityAlertExtension\\": "bundles/availability-alert-extension/src/FondOfOryx/Client/AvailabilityAlertExtension",
       "FondOfOryx\\Client\\AvailabilityCheckoutValidator\\": "bundles/availability-checkout-validator/src/FondOfOryx/Client/AvailabilityCheckoutValidator",
       "FondOfOryx\\Client\\CatalogSkuFilter\\": "bundles/catalog-sku-filter/src/FondOfOryx/Client/CatalogSkuFilter",
       "FondOfOryx\\Client\\CompanyBusinessUnitAddressSearchRestApi\\": "bundles/company-business-unit-address-search-rest-api/src/FondOfOryx/Client/CompanyBusinessUnitAddressSearchRestApi",
@@ -344,14 +346,16 @@
       "FondOfOryx\\Shared\\ThirtyFiveUpApi\\": "bundles/thirty-five-up-api/src/FondOfOryx/Shared/ThirtyFiveUpApi",
       "FondOfOryx\\Shared\\ThirtyFiveUpPaymentConnector\\": "bundles/thirty-five-up-payment-connector/src/FondOfOryx/Shared/ThirtyFiveUpPaymentConnector",
       "FondOfOryx\\Shared\\Trbo\\": "bundles/trbo/src/FondOfOryx/Shared/Trbo",
-      "FondOfOryx\\Yves\\AvailabilityAlertCrossEngage\\": "bundles/availability-alert-cross-engage/src/FondOfOryx/Yves/AvailabilityAlertCrossEngage",
       "FondOfOryx\\Yves\\AvailabilityAlert\\": "bundles/availability-alert/src/FondOfOryx/Yves/AvailabilityAlert",
+      "FondOfOryx\\Yves\\AvailabilityAlertCrossEngage\\": "bundles/availability-alert-cross-engage/src/FondOfOryx/Yves/AvailabilityAlertCrossEngage",
+      "FondOfOryx\\Yves\\AvailabilityAlertExtension\\": "bundles/availability-alert-extension/src/FondOfOryx/Yves/AvailabilityAlertExtension",
       "FondOfOryx\\Yves\\Feed\\": "bundles/feed/src/FondOfOryx/Yves/Feed",
       "FondOfOryx\\Yves\\LogIo\\": "bundles/log-io/src/FondOfOryx/Yves/LogIo",
       "FondOfOryx\\Yves\\Prepayment\\": "bundles/prepayment/src/FondOfOryx/Yves/Prepayment",
       "FondOfOryx\\Zed\\ApiAuth\\": "bundles/api-auth/src/FondOfOryx/Zed/ApiAuth",
       "FondOfOryx\\Zed\\AvailabilityAlert\\": "bundles/availability-alert/src/FondOfOryx/Zed/AvailabilityAlert",
       "FondOfOryx\\Zed\\AvailabilityAlertCrossEngage\\": "bundles/availability-alert-cross-engage/src/FondOfOryx/Zed/AvailabilityAlertCrossEngage",
+      "FondOfOryx\\Zed\\AvailabilityAlertExtension\\": "bundles/availability-alert-extension/src/FondOfOryx/Zed/AvailabilityAlertExtension",
       "FondOfOryx\\Zed\\AvailabilityAlertMigrator\\": "bundles/availability-alert-migrator/src/FondOfOryx/Zed/AvailabilityAlertMigrator",
       "FondOfOryx\\Zed\\AvailabilityCartDataExtender\\": "bundles/availability-cart-data-extender/src/FondOfOryx/Zed/AvailabilityCartDataExtender",
       "FondOfOryx\\Zed\\AvailabilityCheckoutValidator\\": "bundles/availability-checkout-validator/src/FondOfOryx/Zed/AvailabilityCheckoutValidator",
@@ -462,6 +466,7 @@
   "autoload-dev": {
     "psr-4": {
       "FondOfOryx\\Client\\AvailabilityAlert\\": "bundles/availability-alert/tests/FondOfOryx/Client/AvailabilityAlert",
+      "FondOfOryx\\Client\\AvailabilityAlertExtension\\": "bundles/availability-alert-extension/tests/FondOfOryx/Client/AvailabilityAlertExtension",
       "FondOfOryx\\Client\\AvailabilityCheckoutValidator\\": "bundles/availability-checkout-validator/tests/FondOfOryx/Client/AvailabilityCheckoutValidator",
       "FondOfOryx\\Client\\CatalogSkuFilter\\": "bundles/catalog-sku-filter/tests/FondOfOryx/Client/CatalogSkuFilter",
       "FondOfOryx\\Client\\CompanyBusinessUnitAddressSearchRestApi\\": "bundles/company-business-unit-address-search-rest-api/tests/FondOfOryx/Client/CompanyBusinessUnitAddressSearchRestApi",

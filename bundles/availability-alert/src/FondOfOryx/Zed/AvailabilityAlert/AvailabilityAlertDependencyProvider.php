@@ -2,7 +2,6 @@
 
 namespace FondOfOryx\Zed\AvailabilityAlert;
 
-use FondOfOryx\Zed\AvailabilityAlert\Communication\Plugin\NotificationPlugins\MailNotificationPlugin;
 use FondOfOryx\Zed\AvailabilityAlert\Communication\Plugin\SubscribersNotifier\SubscribersNotifierHasProductAssignedStoresPreCheckPlugin;
 use FondOfOryx\Zed\AvailabilityAlert\Communication\Plugin\SubscribersNotifier\SubscribersNotifierProductAttributeReleaseDateInPastOrIsEmptyPreCheckPlugin;
 use FondOfOryx\Zed\AvailabilityAlert\Dependency\Facade\AvailabilityAlertToAvailabilityFacadeBridge;
@@ -76,6 +75,11 @@ class AvailabilityAlertDependencyProvider extends AbstractBundleDependencyProvid
     public const PLUGINS_AVAILABILITY_ALERT_NOTIFICATION = 'PLUGINS_AVAILABILITY_ALERT_NOTIFICATION';
 
     /**
+     * @var string
+     */
+    public const PLUGINS_AVAILABILITY_ALERT_VALIDATION = 'PLUGINS_AVAILABILITY_ALERT_VALIDATION';
+
+    /**
      * @param \Spryker\Zed\Kernel\Container $container
      *
      * @return \Spryker\Zed\Kernel\Container
@@ -92,6 +96,7 @@ class AvailabilityAlertDependencyProvider extends AbstractBundleDependencyProvid
         $container = $this->addSubscriptionPreSavePlugins($container);
         $container = $this->addSubscriptionPostSavePlugins($container);
         $container = $this->addAvailabilityAlertNotificationPlugins($container);
+        $container = $this->addAvailabilityAlertValidationPlugins($container);
 
         return $container;
     }
@@ -220,7 +225,7 @@ class AvailabilityAlertDependencyProvider extends AbstractBundleDependencyProvid
     }
 
     /**
-     * @return array<\FondOfOryx\Zed\AvailabilityAlert\Dependency\Plugin\AvailabilityAlertSubscriberPreSavePluginInterface>
+     * @return array<\FondOfOryx\Zed\AvailabilityAlertExtension\Dependency\Plugin\PreSave\AvailabilityAlertSubscriberPreSavePluginInterface>
      */
     protected function getAvailabilityAlertSubscriberPreSavePlugins(): array
     {
@@ -242,7 +247,7 @@ class AvailabilityAlertDependencyProvider extends AbstractBundleDependencyProvid
     }
 
     /**
-     * @return array<\FondOfOryx\Zed\AvailabilityAlert\Dependency\Plugin\AvailabilityAlertSubscriptionPreSavePluginInterface>
+     * @return array<\FondOfOryx\Zed\AvailabilityAlertExtension\Dependency\Plugin\PreSave\AvailabilityAlertSubscriptionPreSavePluginInterface>
      */
     protected function getAvailabilityAlertSubscriptionPreSavePlugins(): array
     {
@@ -264,7 +269,7 @@ class AvailabilityAlertDependencyProvider extends AbstractBundleDependencyProvid
     }
 
     /**
-     * @return array<\FondOfOryx\Zed\AvailabilityAlert\Dependency\Plugin\AvailabilityAlertSubscriptionPostSavePluginInterface>
+     * @return array<\FondOfOryx\Zed\AvailabilityAlertExtension\Dependency\Plugin\PostSave\AvailabilityAlertSubscriptionPostSavePluginInterface>
      */
     protected function getAvailabilityAlertSubscriptionPostSavePlugins(): array
     {
@@ -286,7 +291,7 @@ class AvailabilityAlertDependencyProvider extends AbstractBundleDependencyProvid
     }
 
     /**
-     * @return array<\FondOfOryx\Zed\AvailabilityAlert\Dependency\Plugin\AvailabilityAlertSubscriberPostSavePluginInterface>
+     * @return array<\FondOfOryx\Zed\AvailabilityAlertExtension\Dependency\Plugin\PostSave\AvailabilityAlertSubscriberPostSavePluginInterface>
      */
     protected function getAvailabilityAlertSubscriberPostSavePlugins(): array
     {
@@ -308,7 +313,7 @@ class AvailabilityAlertDependencyProvider extends AbstractBundleDependencyProvid
     }
 
     /**
-     * @return array<\FondOfOryx\Zed\AvailabilityAlert\Dependency\Plugin\AvailabilityAlertSubscriberPostSavePluginInterface>
+     * @return array<\FondOfOryx\Zed\AvailabilityAlertExtension\Dependency\Plugin\PostSave\AvailabilityAlertSubscriberPostSavePluginInterface>
      */
     protected function getAvailabilityAlertSubscriptionTransferExpanderPlugins(): array
     {
@@ -330,12 +335,32 @@ class AvailabilityAlertDependencyProvider extends AbstractBundleDependencyProvid
     }
 
     /**
-     * @return array<\FondOfOryx\Zed\AvailabilityAlert\Dependency\Plugin\NotificationPluginInterface>
+     * @param \Spryker\Zed\Kernel\Container $container
+     *
+     * @return \Spryker\Zed\Kernel\Container
+     */
+    protected function addAvailabilityAlertValidationPlugins(Container $container): Container
+    {
+        $container[static::PLUGINS_AVAILABILITY_ALERT_VALIDATION] = function () {
+            return $this->getAvailabilityAlertValidationPlugins();
+        };
+
+        return $container;
+    }
+
+    /**
+     * @return array<\FondOfOryx\Zed\AvailabilityAlertExtension\Dependency\Plugin\Notification\NotificationPluginInterface>
      */
     protected function getAvailabilityAlertNotificationPlugins(): array
     {
-        return [
-            new MailNotificationPlugin(),
-        ];
+        return [];
+    }
+
+    /**
+     * @return array<\FondOfOryx\Zed\AvailabilityAlertExtension\Dependency\Plugin\Validation\ValidationPluginInterface>
+     */
+    protected function getAvailabilityAlertValidationPlugins(): array
+    {
+        return [];
     }
 }

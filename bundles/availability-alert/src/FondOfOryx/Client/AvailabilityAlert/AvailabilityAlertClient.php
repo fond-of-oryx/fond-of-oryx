@@ -3,6 +3,7 @@
 namespace FondOfOryx\Client\AvailabilityAlert;
 
 use Exception;
+use Generated\Shared\Transfer\AvailabilityAlertSubscriptionErrorTransfer;
 use Generated\Shared\Transfer\AvailabilityAlertSubscriptionRequestTransfer;
 use Generated\Shared\Transfer\AvailabilityAlertSubscriptionResponseTransfer;
 use Spryker\Client\Kernel\AbstractClient;
@@ -23,6 +24,14 @@ class AvailabilityAlertClient extends AbstractClient implements AvailabilityAler
      */
     public function subscribe(AvailabilityAlertSubscriptionRequestTransfer $availabilityAlertRequestTransfer): AvailabilityAlertSubscriptionResponseTransfer
     {
+        try {
+            $this->getFactory()->createValidationPluginExecutor()->validate($availabilityAlertRequestTransfer);
+        } catch (Exception $exception) {
+            return (new AvailabilityAlertSubscriptionResponseTransfer())
+                ->setIsSuccess(false)
+                ->addError((new AvailabilityAlertSubscriptionErrorTransfer())->setMessage($exception->getMessage()));
+        }
+
         $transfer = $this->getFactory()
             ->createAvailabilityAlertStub()
             ->subscribe($availabilityAlertRequestTransfer);

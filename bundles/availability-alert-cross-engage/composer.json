@@ -4,13 +4,13 @@
   "license": "MIT",
   "authors": [
     {
-      "name": "Julian Zimmermann",
+      "name": "Julian Hyatt",
       "email": "info@julianzimmermann.dev"
     }
   ],
   "require": {
     "php": ">=7.3",
-    "fond-of-oryx/availability-alert": "^1.0.0",
+    "fond-of-oryx/availability-alert": "^2.0.0",
     "fond-of-oryx/cross-engage": "^1.0.0",
     "fond-of-oryx/jellyfish-availability-alert": "^1.1.0"
   },

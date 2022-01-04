@@ -103,7 +103,7 @@ class AvailabilityAlertDependencyProvider extends AbstractBundleDependencyProvid
     }
 
     /**
-     * @return array<\FondOfOryx\Yves\AvailabilityAlert\Dependency\Plugin\AvailabilityAlertSubscriptionRequestExpanderPlugin>
+     * @return array<\FondOfOryx\Yves\AvailabilityAlertExtension\Dependency\Plugin\AvailabilityAlertSubscriptionRequestExpanderPlugin>
      */
     protected function getAvailabilityAlertSubscriptionRequestExpanderPlugins(): array
     {

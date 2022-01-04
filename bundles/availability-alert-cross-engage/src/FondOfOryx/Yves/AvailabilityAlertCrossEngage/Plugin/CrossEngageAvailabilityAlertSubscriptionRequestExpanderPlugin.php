@@ -2,7 +2,7 @@
 
 namespace FondOfOryx\Yves\AvailabilityAlertCrossEngage\Plugin;
 
-use FondOfOryx\Yves\AvailabilityAlert\Dependency\Plugin\AvailabilityAlertSubscriptionRequestExpanderPlugin;
+use FondOfOryx\Yves\AvailabilityAlertExtension\Dependency\Plugin\AvailabilityAlertSubscriptionRequestExpanderPlugin;
 use Generated\Shared\Transfer\AvailabilityAlertSubscriptionRequestTransfer;
 use Symfony\Component\HttpFoundation\Request;
 

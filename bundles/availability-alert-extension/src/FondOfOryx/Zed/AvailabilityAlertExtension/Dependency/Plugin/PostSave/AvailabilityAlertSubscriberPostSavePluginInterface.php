@@ -1,20 +1,20 @@
 <?php
 
-namespace FondOfOryx\Zed\AvailabilityAlert\Dependency\Plugin;
+namespace FondOfOryx\Zed\AvailabilityAlertExtension\Dependency\Plugin\PostSave;
 
 use Generated\Shared\Transfer\AvailabilityAlertSubscriberTransfer;
 use Generated\Shared\Transfer\AvailabilityAlertSubscriptionTransfer;
 
-interface AvailabilityAlertSubscriberPreSavePluginInterface
+interface AvailabilityAlertSubscriberPostSavePluginInterface
 {
     /**
      * @param \Generated\Shared\Transfer\AvailabilityAlertSubscriberTransfer $subscriberTransfer
-     * @param \Generated\Shared\Transfer\AvailabilityAlertSubscriptionTransfer $availabilityAlertSubscriptionTransfer
+     * @param \Generated\Shared\Transfer\AvailabilityAlertSubscriptionTransfer $availabilityAlertSubscriberTransfer
      *
      * @return \Generated\Shared\Transfer\AvailabilityAlertSubscriberTransfer
      */
-    public function preSave(
+    public function postSave(
         AvailabilityAlertSubscriberTransfer $subscriberTransfer,
-        AvailabilityAlertSubscriptionTransfer $availabilityAlertSubscriptionTransfer
+        AvailabilityAlertSubscriptionTransfer $availabilityAlertSubscriberTransfer
     ): AvailabilityAlertSubscriberTransfer;
 }

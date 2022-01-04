@@ -2,7 +2,7 @@
 
 namespace FondOfOryx\Zed\AvailabilityAlertCrossEngage\Communication\Plugin\PostSave;
 
-use FondOfOryx\Zed\AvailabilityAlert\Dependency\Plugin\AvailabilityAlertSubscriptionPostSavePluginInterface;
+use FondOfOryx\Zed\AvailabilityAlertExtension\Dependency\Plugin\PostSave\AvailabilityAlertSubscriptionPostSavePluginInterface;
 use Generated\Shared\Transfer\AvailabilityAlertSubscriptionTransfer;
 use Spryker\Zed\Kernel\Communication\AbstractPlugin;
 
