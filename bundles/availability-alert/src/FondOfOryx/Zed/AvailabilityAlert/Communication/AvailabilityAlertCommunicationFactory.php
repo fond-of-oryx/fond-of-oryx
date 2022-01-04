@@ -55,7 +55,7 @@ class AvailabilityAlertCommunicationFactory extends AbstractCommunicationFactory
     }
 
     /**
-     * @return array<\FondOfOryx\Zed\AvailabilityAlert\Dependency\Plugin\AvailabilityAlertSubscriptionTransferExpanderPluginInterface>
+     * @return array<int, \FondOfOryx\Zed\AvailabilityAlertExtension\Dependency\Plugin\Expander\AvailabilityAlertSubscriptionTransferExpanderPluginInterface>
      */
     protected function getAvailabilityAlertSubscriptionExpanderPlugins(): array
     {

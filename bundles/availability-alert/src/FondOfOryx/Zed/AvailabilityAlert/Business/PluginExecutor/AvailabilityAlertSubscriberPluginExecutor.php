@@ -8,18 +8,18 @@ use Generated\Shared\Transfer\AvailabilityAlertSubscriptionTransfer;
 class AvailabilityAlertSubscriberPluginExecutor implements AvailabilityAlertSubscriberPluginExecutorInterface
 {
     /**
-     * @var array<\FondOfOryx\Zed\AvailabilityAlert\Dependency\Plugin\AvailabilityAlertSubscriberPreSavePluginInterface>
+     * @var array<\FondOfOryx\Zed\AvailabilityAlertExtension\Dependency\Plugin\PreSave\AvailabilityAlertSubscriberPreSavePluginInterface>
      */
     protected $preSavePlugins;
 
     /**
-     * @var array<\FondOfOryx\Zed\AvailabilityAlert\Dependency\Plugin\AvailabilityAlertSubscriberPostSavePluginInterface>
+     * @var array<\FondOfOryx\Zed\AvailabilityAlertExtension\Dependency\Plugin\PostSave\AvailabilityAlertSubscriberPostSavePluginInterface>
      */
     protected $postSavePlugins;
 
     /**
-     * @param array<\FondOfOryx\Zed\AvailabilityAlert\Dependency\Plugin\AvailabilityAlertSubscriberPreSavePluginInterface> $preSavePlugins
-     * @param array<\FondOfOryx\Zed\AvailabilityAlert\Dependency\Plugin\AvailabilityAlertSubscriberPostSavePluginInterface> $postSavePlugins
+     * @param array<\FondOfOryx\Zed\AvailabilityAlertExtension\Dependency\Plugin\PreSave\AvailabilityAlertSubscriberPreSavePluginInterface> $preSavePlugins
+     * @param array<\FondOfOryx\Zed\AvailabilityAlertExtension\Dependency\Plugin\PostSave\AvailabilityAlertSubscriberPostSavePluginInterface> $postSavePlugins
      */
     public function __construct(array $preSavePlugins, array $postSavePlugins)
     {

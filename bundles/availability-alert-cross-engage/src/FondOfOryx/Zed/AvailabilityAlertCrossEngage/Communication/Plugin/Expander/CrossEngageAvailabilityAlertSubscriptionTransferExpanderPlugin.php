@@ -2,7 +2,7 @@
 
 namespace FondOfOryx\Zed\AvailabilityAlertCrossEngage\Communication\Plugin\Expander;
 
-use FondOfOryx\Zed\AvailabilityAlert\Dependency\Plugin\AvailabilityAlertSubscriptionTransferExpanderPluginInterface;
+use FondOfOryx\Zed\AvailabilityAlertExtension\Dependency\Plugin\Expander\AvailabilityAlertSubscriptionTransferExpanderPluginInterface;
 use Generated\Shared\Transfer\AvailabilityAlertSubscriptionRequestTransfer;
 use Generated\Shared\Transfer\AvailabilityAlertSubscriptionTransfer;
 use Spryker\Zed\Kernel\Communication\AbstractPlugin;

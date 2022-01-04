@@ -8,12 +8,13 @@
       "email": "daniel-rose@gmx.de"
     },
     {
-      "name": "Julian Zimmermann",
+      "name": "Julian Hyatt",
       "email": "info@julianzimmermann.dev"
     }
   ],
   "require": {
     "php": ">=7.3",
+    "fond-of-oryx/availability-alert-extension": "^1.0.0",
     "spryker/availability": "^6.0.0 || ^7.0.0 || ^8.0.0 || ^9.0.0",
     "spryker/locale": "^2.2.0 || ^3.0.0",
     "spryker/mail": "^4.0.0",

@@ -1,6 +1,6 @@
 <?php
 
-namespace FondOfOryx\Zed\AvailabilityAlert\Dependency\Plugin;
+namespace FondOfOryx\Zed\AvailabilityAlertExtension\Dependency\Plugin\Expander;
 
 use Generated\Shared\Transfer\AvailabilityAlertSubscriptionRequestTransfer;
 use Generated\Shared\Transfer\AvailabilityAlertSubscriptionTransfer;

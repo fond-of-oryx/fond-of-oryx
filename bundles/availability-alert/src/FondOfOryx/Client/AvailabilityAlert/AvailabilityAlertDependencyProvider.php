@@ -11,7 +11,13 @@ class AvailabilityAlertDependencyProvider extends AbstractDependencyProvider
     /**
      * @var string
      */
+
     public const CLIENT_ZED_REQUEST = 'CLIENT_ZED_REQUEST';
+
+    /**
+     * @var string
+     */
+    public const PLUGINS_VALIDATION = 'PLUGINS_VALIDATION';
 
     /**
      * @param \Spryker\Client\Kernel\Container $container
@@ -21,6 +27,7 @@ class AvailabilityAlertDependencyProvider extends AbstractDependencyProvider
     public function provideServiceLayerDependencies(Container $container)
     {
         $container = $this->addZedRequestClient($container);
+        $container = $this->addAvailabilityAlertValidationPlugins($container);
 
         return $container;
     }
@@ -37,5 +44,27 @@ class AvailabilityAlertDependencyProvider extends AbstractDependencyProvider
         };
 
         return $container;
+    }
+
+    /**
+     * @param \Spryker\Client\Kernel\Container $container
+     *
+     * @return \Spryker\Client\Kernel\Container
+     */
+    protected function addAvailabilityAlertValidationPlugins(Container $container): Container
+    {
+        $container[static::PLUGINS_VALIDATION] = function () {
+            return $this->getValidationPlugins();
+        };
+
+        return $container;
+    }
+
+    /**
+     * @return array<int, \FondOfOryx\Client\AvailabilityAlertExtension\Dependency\Plugin\ValidationPluginInterface>
+     */
+    protected function getValidationPlugins(): array
+    {
+        return [];
     }
 }

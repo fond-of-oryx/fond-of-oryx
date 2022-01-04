@@ -8,12 +8,12 @@ use Generated\Shared\Transfer\AvailabilityAlertSubscriptionTransfer;
 class AvailabilityAlertSubscriptionTransferExpander implements AvailabilityAlertSubscriptionTransferExpanderInterface
 {
     /**
-     * @var array<\FondOfOryx\Zed\AvailabilityAlert\Dependency\Plugin\AvailabilityAlertSubscriptionTransferExpanderPluginInterface>
+     * @var array<\FondOfOryx\Zed\AvailabilityAlertExtension\Dependency\Plugin\Expander\AvailabilityAlertSubscriptionTransferExpanderPluginInterface>
      */
     protected $expanderPlugins;
 
     /**
-     * @param array<\FondOfOryx\Zed\AvailabilityAlert\Dependency\Plugin\AvailabilityAlertSubscriptionTransferExpanderPluginInterface> $expanderPlugins
+     * @param array<\FondOfOryx\Zed\AvailabilityAlertExtension\Dependency\Plugin\Expander\AvailabilityAlertSubscriptionTransferExpanderPluginInterface> $expanderPlugins
      */
     public function __construct(array $expanderPlugins)
     {

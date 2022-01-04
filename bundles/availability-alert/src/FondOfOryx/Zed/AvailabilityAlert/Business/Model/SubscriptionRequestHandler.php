@@ -3,6 +3,7 @@
 namespace FondOfOryx\Zed\AvailabilityAlert\Business\Model;
 
 use Exception;
+use FondOfOryx\Zed\AvailabilityAlert\Business\Model\Validation\ValidationPluginExecutorInterface;
 use Generated\Shared\Transfer\AvailabilityAlertSubscriptionErrorTransfer;
 use Generated\Shared\Transfer\AvailabilityAlertSubscriptionResponseTransfer;
 use Generated\Shared\Transfer\AvailabilityAlertSubscriptionTransfer;
@@ -15,12 +16,20 @@ class SubscriptionRequestHandler implements SubscriptionRequestHandlerInterface
     protected $subscriptionManager;
 
     /**
+     * @var \FondOfOryx\Zed\AvailabilityAlert\Business\Model\Validation\ValidationPluginExecutorInterface
+     */
+    protected $validationPluginExecutor;
+
+    /**
      * @param \FondOfOryx\Zed\AvailabilityAlert\Business\Model\SubscriptionManagerInterface $subscriptionManager
+     * @param \FondOfOryx\Zed\AvailabilityAlert\Business\Model\Validation\ValidationPluginExecutorInterface $validationPluginExecutor
      */
     public function __construct(
-        SubscriptionManagerInterface $subscriptionManager
+        SubscriptionManagerInterface $subscriptionManager,
+        ValidationPluginExecutorInterface $validationPluginExecutor
     ) {
         $this->subscriptionManager = $subscriptionManager;
+        $this->validationPluginExecutor = $validationPluginExecutor;
     }
 
     /**
@@ -38,6 +47,8 @@ class SubscriptionRequestHandler implements SubscriptionRequestHandlerInterface
         $subscriptionResponse->setIsSuccess(true);
 
         try {
+            $this->validationPluginExecutor->validate($availabilityAlertSubscriptionTransfer);
+
             if (!$this->subscriptionManager->isAlreadySubscribed($availabilityAlertSubscriptionTransfer)) {
                 $subscription = $this->subscriptionManager->subscribe($availabilityAlertSubscriptionTransfer, $preferFromTransfer);
                 $subscriptionResponse->setSubscription($subscription);

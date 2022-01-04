@@ -3,7 +3,7 @@
 namespace FondOfOryx\Zed\AvailabilityAlert\Business\Model;
 
 use Codeception\Test\Unit;
-use FondOfOryx\Zed\AvailabilityAlert\Dependency\Plugin\NotificationPluginInterface;
+use FondOfOryx\Zed\AvailabilityAlertExtension\Dependency\Plugin\Notification\NotificationPluginInterface;
 use Generated\Shared\Transfer\AvailabilityAlertSubscriptionTransfer;
 
 class NotificationHandlerTest extends Unit
@@ -14,7 +14,7 @@ class NotificationHandlerTest extends Unit
     protected $subscriptionTransferMock;
 
     /**
-     * @var \FondOfOryx\Zed\AvailabilityAlert\Dependency\Plugin\NotificationPluginInterface|\PHPUnit\Framework\MockObject\MockObject
+     * @var \FondOfOryx\Zed\AvailabilityAlertExtension\Dependency\Plugin\Notification\NotificationPluginInterface|\PHPUnit\Framework\MockObject\MockObject
      */
     protected $pluginMock;
 

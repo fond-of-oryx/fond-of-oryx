@@ -3,8 +3,8 @@
 namespace FondOfOryx\Zed\AvailabilityAlert\Business\PluginExecutor;
 
 use Codeception\Test\Unit;
-use FondOfOryx\Zed\AvailabilityAlert\Dependency\Plugin\AvailabilityAlertSubscriberPostSavePluginInterface;
-use FondOfOryx\Zed\AvailabilityAlert\Dependency\Plugin\AvailabilityAlertSubscriberPreSavePluginInterface;
+use FondOfOryx\Zed\AvailabilityAlertExtension\Dependency\Plugin\PostSave\AvailabilityAlertSubscriberPostSavePluginInterface;
+use FondOfOryx\Zed\AvailabilityAlertExtension\Dependency\Plugin\PreSave\AvailabilityAlertSubscriberPreSavePluginInterface;
 use Generated\Shared\Transfer\AvailabilityAlertSubscriberTransfer;
 use Generated\Shared\Transfer\AvailabilityAlertSubscriptionTransfer;
 
@@ -21,12 +21,12 @@ class AvailabilityAlertSubscriberPluginExecutorTest extends Unit
     protected $subscriptionTransfer;
 
     /**
-     * @var \FondOfOryx\Zed\AvailabilityAlert\Dependency\Plugin\AvailabilityAlertSubscriberPostSavePluginInterface|\PHPUnit\Framework\MockObject\MockObject
+     * @var \FondOfOryx\Zed\AvailabilityAlertExtension\Dependency\Plugin\PostSave\AvailabilityAlertSubscriberPostSavePluginInterface|\PHPUnit\Framework\MockObject\MockObject
      */
     protected $postSavePluginMock;
 
     /**
-     * @var \FondOfOryx\Zed\AvailabilityAlert\Dependency\Plugin\AvailabilityAlertSubscriberPreSavePluginInterface|\PHPUnit\Framework\MockObject\MockObject
+     * @var \FondOfOryx\Zed\AvailabilityAlertExtension\Dependency\Plugin\PreSave\AvailabilityAlertSubscriberPreSavePluginInterface|\PHPUnit\Framework\MockObject\MockObject
      */
     protected $preSavePluginMock;
 

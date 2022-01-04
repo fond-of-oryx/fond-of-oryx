@@ -79,7 +79,7 @@ class AvailabilityAlertFactory extends AbstractFactory
     }
 
     /**
-     * @return array<\FondOfOryx\Yves\AvailabilityAlert\Dependency\Plugin\AvailabilityAlertSubscriptionRequestExpanderPlugin>
+     * @return array<\FondOfOryx\Yves\AvailabilityAlertExtension\Dependency\Plugin\AvailabilityAlertSubscriptionRequestExpanderPlugin>
      */
     public function getAvailabilityAlertSubscriptionRequestExpanderPlugins(): array
     {

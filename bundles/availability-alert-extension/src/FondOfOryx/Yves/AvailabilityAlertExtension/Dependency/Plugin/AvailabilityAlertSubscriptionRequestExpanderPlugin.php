@@ -1,6 +1,6 @@
 <?php
 
-namespace FondOfOryx\Yves\AvailabilityAlert\Dependency\Plugin;
+namespace FondOfOryx\Yves\AvailabilityAlertExtension\Dependency\Plugin;
 
 use Generated\Shared\Transfer\AvailabilityAlertSubscriptionRequestTransfer;
 use Symfony\Component\HttpFoundation\Request;

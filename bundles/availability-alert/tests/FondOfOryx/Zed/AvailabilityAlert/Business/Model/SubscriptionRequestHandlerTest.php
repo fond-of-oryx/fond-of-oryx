@@ -4,6 +4,7 @@ namespace FondOfOryx\Zed\AvailabilityAlert\Business\Model;
 
 use Codeception\Test\Unit;
 use Exception;
+use FondOfOryx\Zed\AvailabilityAlert\Business\Model\Validation\ValidationPluginExecutor;
 use Generated\Shared\Transfer\AvailabilityAlertSubscriptionResponseTransfer;
 use Generated\Shared\Transfer\AvailabilityAlertSubscriptionTransfer;
 
@@ -20,6 +21,11 @@ class SubscriptionRequestHandlerTest extends Unit
     protected $subscriptionManagerMock;
 
     /**
+     * @var \FondOfOryx\Zed\AvailabilityAlert\Business\Model\Validation\ValidationPluginExecutorInterface|\PHPUnit\Framework\MockObject\MockObject
+     */
+    protected $validatorMock;
+
+    /**
      * @var \FondOfOryx\Zed\AvailabilityAlert\Business\Model\SubscriptionRequestHandlerInterface
      */
     protected $handler;
@@ -33,8 +39,9 @@ class SubscriptionRequestHandlerTest extends Unit
 
         $this->subscriptionTransferMock = $this->getMockBuilder(AvailabilityAlertSubscriptionTransfer::class)->disableOriginalConstructor()->getMock();
         $this->subscriptionManagerMock = $this->getMockBuilder(SubscriptionManager::class)->disableOriginalConstructor()->getMock();
+        $this->validatorMock = $this->getMockBuilder(ValidationPluginExecutor::class)->disableOriginalConstructor()->getMock();
 
-        $this->handler = new SubscriptionRequestHandler($this->subscriptionManagerMock);
+        $this->handler = new SubscriptionRequestHandler($this->subscriptionManagerMock, $this->validatorMock);
     }
 
     /**
@@ -44,6 +51,7 @@ class SubscriptionRequestHandlerTest extends Unit
     {
         $this->subscriptionManagerMock->expects(static::once())->method('isAlreadySubscribed')->willReturn(false);
         $this->subscriptionManagerMock->expects(static::once())->method('subscribe');
+        $this->validatorMock->expects(static::once())->method('validate');
 
         $response = $this->handler->processAvailabilityAlertSubscription($this->subscriptionTransferMock);
         static::assertInstanceOf(AvailabilityAlertSubscriptionResponseTransfer::class, $response);
@@ -57,6 +65,7 @@ class SubscriptionRequestHandlerTest extends Unit
     {
         $this->subscriptionManagerMock->expects(static::once())->method('isAlreadySubscribed')->willReturn(true);
         $this->subscriptionManagerMock->expects(static::never())->method('subscribe');
+        $this->validatorMock->expects(static::once())->method('validate');
 
         $response = $this->handler->processAvailabilityAlertSubscription($this->subscriptionTransferMock);
         static::assertInstanceOf(AvailabilityAlertSubscriptionResponseTransfer::class, $response);
@@ -70,6 +79,7 @@ class SubscriptionRequestHandlerTest extends Unit
     {
         $this->subscriptionManagerMock->expects(static::once())->method('isAlreadySubscribed')->willReturn(false);
         $this->subscriptionManagerMock->expects(static::once())->method('subscribe')->willThrowException(new Exception('Error'));
+        $this->validatorMock->expects(static::once())->method('validate');
 
         $response = $this->handler->processAvailabilityAlertSubscription($this->subscriptionTransferMock);
         static::assertInstanceOf(AvailabilityAlertSubscriptionResponseTransfer::class, $response);
