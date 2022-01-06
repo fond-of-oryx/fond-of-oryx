@@ -36,6 +36,16 @@ class ErpInvoicePageSearchPublisher implements ErpInvoicePageSearchPublisherInte
     /**
      * @var string
      */
+    public const ERP_ORDER_REFERENCE = 'erpOrderReference';
+
+    /**
+     * @var string
+     */
+    public const ERP_ORDER_DELIVERY_DATE = 'erpOrderDeliveryDate';
+
+    /**
+     * @var string
+     */
     public const BILLING_ADDRESS = 'billingAddress';
 
     /**
@@ -139,6 +149,8 @@ class ErpInvoicePageSearchPublisher implements ErpInvoicePageSearchPublisherInte
         $erpInvoiceData[static::BILLING_ADDRESS] = $this->getAddress($billingAddress);
         $erpInvoiceData[static::SHIPPING_ADDRESS] = $this->getAddress($shippingAddress);
         $erpInvoiceData[static::ERP_INVOICE_TOTAL] = $orderTotal->toArray();
+        $erpInvoiceData[static::ERP_ORDER_REFERENCE] = $fooErpInvoiceEntity->getFooErpInvoiceOrder()->getReference();
+        $erpInvoiceData[static::ERP_ORDER_DELIVERY_DATE] = $fooErpInvoiceEntity->getFooErpInvoiceOrder()->getConcreteDeliveryDate();
 
         $erpInvoicePageSearchTransfer = (new ErpInvoicePageSearchTransfer())
             ->fromArray($erpInvoiceData, true)

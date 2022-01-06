@@ -16,6 +16,7 @@ use Orm\Zed\ErpInvoice\Persistence\FooErpInvoiceAmount;
 use Orm\Zed\ErpInvoice\Persistence\FooErpInvoiceExpense;
 use Orm\Zed\ErpInvoice\Persistence\FooErpInvoiceItem;
 use Orm\Zed\ErpInvoice\Persistence\FooErpInvoiceQuery;
+use Orm\Zed\ErpOrder\Persistence\ErpOrder;
 use Propel\Runtime\Collection\ObjectCollection;
 
 class ErpInvoicePageSearchPublisherTest extends Unit
@@ -91,6 +92,11 @@ class ErpInvoicePageSearchPublisherTest extends Unit
     protected $objectCollectionMock;
 
     /**
+     * @var \Orm\Zed\ErpOrder\Persistence\ErpOrder|\PHPUnit\Framework\MockObject\MockObject
+     */
+    protected $erpInvoiceOrder;
+
+    /**
      * @return void
      */
     protected function _before(): void
@@ -144,6 +150,10 @@ class ErpInvoicePageSearchPublisherTest extends Unit
             ->getMock();
 
         $this->erpInvoiceAddressMock = $this->getMockBuilder(FooErpInvoiceAddress::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $this->erpInvoiceOrder = $this->getMockBuilder(ErpOrder::class)
             ->disableOriginalConstructor()
             ->getMock();
 
@@ -242,6 +252,18 @@ class ErpInvoicePageSearchPublisherTest extends Unit
         $this->amountMock->expects(static::atLeastOnce())
             ->method('toArray')
             ->willReturn([]);
+
+        $this->erpInvoiceMock->expects(static::atLeastOnce())
+            ->method('getFooErpInvoiceOrder')
+            ->willReturn($this->erpInvoiceOrder);
+
+        $this->erpInvoiceOrder->expects(static::atLeastOnce())
+            ->method('getReference')
+            ->willReturn('');
+
+        $this->erpInvoiceOrder->expects(static::atLeastOnce())
+            ->method('getConcreteDeliveryDate')
+            ->willReturn(new DateTime());
 
         $this->erpInvoiceAddressMock->expects(static::atLeastOnce())
             ->method('toArray')

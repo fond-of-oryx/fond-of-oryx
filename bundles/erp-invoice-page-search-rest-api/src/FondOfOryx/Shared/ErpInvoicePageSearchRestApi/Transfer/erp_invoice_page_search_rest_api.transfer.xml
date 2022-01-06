@@ -50,6 +50,8 @@
         <property name="expenses" singular="expense" type="RestErpInvoiceExpense[]"/>
         <property name="totals" type="RestErpInvoiceAmount"/>
         <property name="currencyIsoCode" type="string"/>
+        <property name="erpOrderReference" type="string"/>
+        <property name="erpOrderDeliveryDate" type="string"/>
     </transfer>
 
     <transfer name="RestErpInvoiceAddress">

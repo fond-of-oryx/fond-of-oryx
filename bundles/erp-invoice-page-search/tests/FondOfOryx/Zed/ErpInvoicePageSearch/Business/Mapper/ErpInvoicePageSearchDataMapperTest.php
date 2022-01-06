@@ -3,6 +3,7 @@
 namespace FondOfOryx\Zed\ErpInvoicePageSearch\Business\Mapper;
 
 use Codeception\Test\Unit;
+use DateTime;
 
 class ErpInvoicePageSearchDataMapperTest extends Unit
 {
@@ -44,6 +45,8 @@ class ErpInvoicePageSearchDataMapperTest extends Unit
             ErpInvoicePageSearchDataMapper::SHIPPING_ADDRESS => null,
             ErpInvoicePageSearchDataMapper::BILLING_ADDRESS => null,
             ErpInvoicePageSearchDataMapper::CURRENCY_ISO_CODE => '',
+            ErpInvoicePageSearchDataMapper::ERP_ORDER_DELIVERY_DATE => new DateTime(),
+            ErpInvoicePageSearchDataMapper::ERP_ORDER_REFERENCE => '',
         ];
 
         $searchData = $this->erpInvoicePageSearchDataMapper->mapErpInvoiceDataToSearchData($data);
