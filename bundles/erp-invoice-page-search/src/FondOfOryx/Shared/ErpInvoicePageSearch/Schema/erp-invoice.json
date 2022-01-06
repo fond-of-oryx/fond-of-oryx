@@ -24,6 +24,9 @@
         "external-reference": {
           "type": "keyword"
         },
+        "order-reference": {
+          "type": "keyword"
+        },
         "reference": {
           "type": "keyword"
         },
