@@ -13,6 +13,8 @@ class ErpInvoicePageSearchDataMapper implements ErpInvoicePageSearchDataMapperIn
     public const ERP_INVOICE_ITEMS = ErpInvoicePageSearchPublisher::ERP_INVOICE_ITEMS;
     public const ERP_INVOICE_EXPENSES = ErpInvoicePageSearchPublisher::ERP_INVOICE_EXPENSES;
     public const ERP_INVOICE_TOTAL = ErpInvoicePageSearchPublisher::ERP_INVOICE_TOTAL;
+    public const ERP_ORDER_REFERENCE = ErpInvoicePageSearchPublisher::ERP_ORDER_REFERENCE;
+    public const ERP_ORDER_DELIVERY_DATE = ErpInvoicePageSearchPublisher::ERP_ORDER_DELIVERY_DATE;
     public const BILLING_ADDRESS = ErpInvoicePageSearchPublisher::BILLING_ADDRESS;
     public const SHIPPING_ADDRESS = ErpInvoicePageSearchPublisher::SHIPPING_ADDRESS;
 
@@ -167,6 +169,16 @@ class ErpInvoicePageSearchDataMapper implements ErpInvoicePageSearchDataMapperIn
     public const SEARCH_RESULT_CURRENCY_ISO_CODE = 'currency_iso_code';
 
     /**
+     * @var string
+     */
+    public const SEARCH_RESULT_ERP_ORDER_REFERENCE = 'erp_order_reference';
+
+    /**
+     * @var string
+     */
+    public const SEARCH_RESULT_ERP_ORDER_DELIVERY_DATE = 'erp_order_delivery_date';
+
+    /**
      * @param array $data
      *
      * @return array
@@ -215,6 +227,8 @@ class ErpInvoicePageSearchDataMapper implements ErpInvoicePageSearchDataMapperIn
             static::SEARCH_RESULT_SHIPPING_ADDRESS => $data[static::SHIPPING_ADDRESS],
             static::SEARCH_RESULT_BILLING_ADDRESS => $data[static::BILLING_ADDRESS],
             static::SEARCH_RESULT_CURRENCY_ISO_CODE => $data[static::CURRENCY_ISO_CODE],
+            static::SEARCH_RESULT_ERP_ORDER_REFERENCE => $data[static::ERP_ORDER_REFERENCE],
+            static::SEARCH_RESULT_ERP_ORDER_DELIVERY_DATE => $this->dateToString($data[static::ERP_ORDER_DELIVERY_DATE]),
         ];
     }
 
@@ -226,10 +240,19 @@ class ErpInvoicePageSearchDataMapper implements ErpInvoicePageSearchDataMapperIn
     protected function convertDate(?string $dateString): ?string
     {
         if ($dateString !== null) {
-            $dateString = new DateTime($dateString);
-            $dateString = $dateString->format(ErpInvoiceConstants::INVOICE_DATE_FORMAT);
+            return $this->dateToString(new DateTime($dateString));
         }
 
         return $dateString;
+    }
+
+    /**
+     * @param \DateTime|null $dateTime
+     *
+     * @return string|null
+     */
+    protected function dateToString(?DateTime $dateTime): ?string
+    {
+        return $dateTime->format(ErpInvoiceConstants::INVOICE_DATE_FORMAT);
     }
 }
