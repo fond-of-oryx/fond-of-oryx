@@ -195,6 +195,7 @@ class ErpInvoicePageSearchDataMapper implements ErpInvoicePageSearchDataMapperIn
             ErpInvoiceIndexMap::ID_COMPANY_BUSINESS_UNIT => $data[static::FK_COMPANY_BUSINESS_UNIT],
             ErpInvoiceIndexMap::COMPANY_BUSINESS_UNIT_UUID => $data[static::COMPANY_BUSINESS_UNIT][static::COMPANY_BUSINESS_UNIT_UUID],
             ErpInvoiceIndexMap::REFERENCE => $data[static::REFERENCE],
+            ErpInvoiceIndexMap::ORDER_REFERENCE => $data[static::ERP_ORDER_REFERENCE],
             ErpInvoiceIndexMap::SEARCH_RESULT_DATA => $this->mapErpInvoiceDataToSearchResultData($data),
         ];
 
