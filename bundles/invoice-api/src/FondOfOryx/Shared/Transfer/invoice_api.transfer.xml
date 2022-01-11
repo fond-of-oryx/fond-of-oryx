@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<transfers xmlns="spryker:transfer-01"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="spryker:transfer-01 http://static.spryker.com/transfer-01.xsd">
+
+    <transfer name="ApiData"/>
+
+    <transfer name="Invoice">
+        <property name="idInvoice" type="int"/>
+    </transfer>
+    <transfer name="InvoiceItem"/>
+
+    <transfer name="InvoiceResponse">
+        <property name="invoice" type="Invoice"/>
+        <property name="errors" singular="error" type="Error[]"/>
+    </transfer>
+
+    <transfer name="Error"/>
+</transfers>
