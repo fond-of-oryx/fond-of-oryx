@@ -19,8 +19,6 @@ class ReferenceInvoicePreSavePlugin extends AbstractPlugin implements InvoicePre
      */
     public function preSave(InvoiceTransfer $invoiceTransfer): InvoiceTransfer
     {
-        return $invoiceTransfer->setInvoiceReference(
-            $this->getFacade()->createInvoiceReference(),
-        );
+        return $invoiceTransfer->setInvoiceReference($this->getFacade()->createInvoiceReference());
     }
 }

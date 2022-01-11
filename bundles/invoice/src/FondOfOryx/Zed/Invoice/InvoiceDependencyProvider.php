@@ -61,9 +61,7 @@ class InvoiceDependencyProvider extends AbstractBundleDependencyProvider
     protected function addSequenceNumberFacade(Container $container): Container
     {
         $container[static::FACADE_SEQUENCE_NUMBER] = static function (Container $container) {
-            return new InvoiceToSequenceNumberFacadeBridge(
-                $container->getLocator()->sequenceNumber()->facade(),
-            );
+            return new InvoiceToSequenceNumberFacadeBridge($container->getLocator()->sequenceNumber()->facade());
         };
 
         return $container;
@@ -77,9 +75,7 @@ class InvoiceDependencyProvider extends AbstractBundleDependencyProvider
     protected function addStoreFacade(Container $container): Container
     {
         $container[static::FACADE_STORE] = static function (Container $container) {
-            return new InvoiceToStoreFacadeBridge(
-                $container->getLocator()->store()->facade(),
-            );
+            return new InvoiceToStoreFacadeBridge($container->getLocator()->store()->facade());
         };
 
         return $container;
