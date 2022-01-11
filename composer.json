@@ -18,6 +18,7 @@
     "endroid/qr-code": "^4.1.0",
     "fond-of-spryker/brand-company": "dev-master",
     "fond-of-spryker/brand-extension": "dev-master",
+    "fond-of-spryker/brand-product": "dev-spryker_upgrade",
     "fond-of-spryker/company-price-list": "dev-master",
     "fond-of-spryker/company-unit-address-default-shipping": "dev-master",
     "fond-of-spryker/country": "dev-spryker_upgrade || dev-feature/paypal-refund",
@@ -361,6 +362,7 @@
       "FondOfOryx\\Zed\\AvailabilityAlertMigrator\\": "bundles/availability-alert-migrator/src/FondOfOryx/Zed/AvailabilityAlertMigrator",
       "FondOfOryx\\Zed\\AvailabilityCartDataExtender\\": "bundles/availability-cart-data-extender/src/FondOfOryx/Zed/AvailabilityCartDataExtender",
       "FondOfOryx\\Zed\\AvailabilityCheckoutValidator\\": "bundles/availability-checkout-validator/src/FondOfOryx/Zed/AvailabilityCheckoutValidator",
+      "FondOfOryx\\Zed\\BrandProductListConnector\\": "bundles/brand-product-list-connector/src/FondOfOryx/Zed/BrandProductListConnector",
       "FondOfOryx\\Zed\\CartCodeTypeDataImport\\": "bundles/cart-code-type-data-import/src/FondOfOryx/Zed/CartCodeTypeDataImport",
       "FondOfOryx\\Zed\\CatalogSkuFilter\\": "bundles/catalog-sku-filter/src/FondOfOryx/Zed/CatalogSkuFilter",
       "FondOfOryx\\Zed\\CompanyApi\\": "bundles/company-api/src/FondOfOryx/Zed/CompanyApi",
@@ -585,6 +587,7 @@
       "FondOfOryx\\Zed\\AvailabilityAlertMigrator\\": "bundles/availability-alert-migrator/tests/FondOfOryx/Zed/AvailabilityAlertMigrator",
       "FondOfOryx\\Zed\\AvailabilityCartDataExtender\\": "bundles/availability-cart-data-extender/tests/FondOfOryx/Zed/AvailabilityCartDataExtender",
       "FondOfOryx\\Zed\\AvailabilityCheckoutValidator\\": "bundles/availability-checkout-validator/tests/FondOfOryx/Zed/AvailabilityCheckoutValidator",
+      "FondOfOryx\\Zed\\BrandProductListConnector\\": "bundles/brand-product-list-connector/tests/FondOfOryx/Zed/BrandProductListConnector",
       "FondOfOryx\\Zed\\CatalogSkuFilter\\": "bundles/catalog-sku-filter/tests/FondOfOryx/Zed/CatalogSkuFilter",
       "FondOfOryx\\Zed\\CreditMemo\\": "bundles/credit-memo/tests/FondOfOryx/Zed/CreditMemo",
       "FondOfOryx\\Zed\\CartCodeTypeDataImport\\": "bundles/cart-code-type-data-import/tests/FondOfOryx/Zed/CartCodeTypeDataImport",
@@ -684,6 +687,11 @@
       "FondOfOryx\\Zed\\ThirtyFiveUpPaymentConnector\\": "bundles/thirty-five-up-payment-connector/tests/FondOfOryx/Zed/ThirtyFiveUpPaymentConnector",
       "Generated\\": "src/Generated/",
       "Orm\\Zed\\": "src/Orm/Zed/"
+    }
+  },
+  "config": {
+    "allow-plugins": {
+      "dealerdirect/phpcodesniffer-composer-installer": true
     }
   }
 }
