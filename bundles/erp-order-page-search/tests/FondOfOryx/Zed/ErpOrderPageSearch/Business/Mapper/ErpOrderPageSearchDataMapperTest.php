@@ -42,6 +42,8 @@ class ErpOrderPageSearchDataMapperTest extends Unit
             ErpOrderPageSearchDataMapper::BILLING_ADDRESS => null,
             ErpOrderPageSearchDataMapper::CURRENCY_ISO_CODE => '',
             ErpOrderPageSearchDataMapper::OUTSTANDING_QUANTITY => 1,
+            ErpOrderPageSearchDataMapper::ERP_INVOICES => [],
+            ErpOrderPageSearchDataMapper::CART_NOTE => '',
         ];
 
         $searchData = $this->erpOrderPageSearchDataMapper->mapErpOrderDataToSearchData($data);

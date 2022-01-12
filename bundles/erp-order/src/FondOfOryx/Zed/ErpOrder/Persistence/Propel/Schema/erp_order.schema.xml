@@ -20,6 +20,10 @@
             <unique-column name="reference"/>
         </unique>
 
+        <foreign-key name="foo_erp_order-spy_sales_order" foreignTable="spy_sales_order" phpName="SalesOrder" skipSql="true">
+            <reference local="reference" foreign="order_reference"/>
+        </foreign-key>
+
         <index name="foo_erp_order-index-reference">
             <index-column name="reference"/>
         </index>
