@@ -31,6 +31,11 @@ class ErpOrderPageSearchPublisher implements ErpOrderPageSearchPublisherInterfac
     /**
      * @var string
      */
+    public const ERP_INVOICES = 'erpInvoices';
+
+    /**
+     * @var string
+     */
     public const BILLING_ADDRESS = 'billingAddress';
 
     /**
@@ -42,6 +47,11 @@ class ErpOrderPageSearchPublisher implements ErpOrderPageSearchPublisherInterfac
      * @var string
      */
     public const FIELD_COUNTRY = 'country';
+
+    /**
+     * @var string
+     */
+    public const CART_NOTE = 'cartNote';
 
     /**
      * @var \FondOfOryx\Zed\ErpOrderPageSearch\Persistence\ErpOrderPageSearchEntityManagerInterface
@@ -125,12 +135,16 @@ class ErpOrderPageSearchPublisher implements ErpOrderPageSearchPublisherInterfac
         $orderTotal = $fooErpOrderEntity->getErpOrderTotals()->offsetGet(0);
         $billingAddress = $fooErpOrderEntity->getErpOrderBillingAddress();
         $shippingAddress = $fooErpOrderEntity->getErpOrderShippingAddress();
+        $invoices = $fooErpOrderEntity->getFooErpInvoices();
+        $salesOrder = $fooErpOrderEntity->getSalesOrder();
 
         $erpOrderData[static::COMPANY_BUSINESS_UNIT] = $companyBusinessUnit->toArray();
         $erpOrderData[static::ERP_ORDER_ITEMS] = $orderItems->toArray(null, false, TableMap::TYPE_FIELDNAME);
         $erpOrderData[static::BILLING_ADDRESS] = $this->getAddress($billingAddress);
         $erpOrderData[static::SHIPPING_ADDRESS] = $this->getAddress($shippingAddress);
         $erpOrderData[static::ERP_ORDER_TOTAL] = $orderTotal->toArray();
+        $erpOrderData[static::ERP_INVOICES] = $invoices->toArray();
+        $erpOrderData[static::CART_NOTE] = $salesOrder ? $salesOrder->getCartNote() : null;
 
         $erpOrderPageSearchTransfer = (new ErpOrderPageSearchTransfer())
             ->fromArray($erpOrderData, true)

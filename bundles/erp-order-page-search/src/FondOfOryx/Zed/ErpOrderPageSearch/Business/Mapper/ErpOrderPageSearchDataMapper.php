@@ -14,6 +14,8 @@ class ErpOrderPageSearchDataMapper implements ErpOrderPageSearchDataMapperInterf
     public const ERP_ORDER_TOTAL = ErpOrderPageSearchPublisher::ERP_ORDER_TOTAL;
     public const BILLING_ADDRESS = ErpOrderPageSearchPublisher::BILLING_ADDRESS;
     public const SHIPPING_ADDRESS = ErpOrderPageSearchPublisher::SHIPPING_ADDRESS;
+    public const ERP_INVOICES = ErpOrderPageSearchPublisher::ERP_INVOICES;
+    public const CART_NOTE = ErpOrderPageSearchPublisher::CART_NOTE;
 
     /**
      * @var string
@@ -146,6 +148,16 @@ class ErpOrderPageSearchDataMapper implements ErpOrderPageSearchDataMapperInterf
     public const SEARCH_RESULT_CURRENCY_ISO_CODE = 'currency_iso_code';
 
     /**
+     * @var string
+     */
+    public const SEARCH_RESULT_ERP_INVOICES = 'erp_invoices';
+
+    /**
+     * @var string
+     */
+    public const SEARCH_RESULT_CART_NOTE = 'cart_note';
+
+    /**
      * @param array $data
      *
      * @return array
@@ -189,6 +201,8 @@ class ErpOrderPageSearchDataMapper implements ErpOrderPageSearchDataMapperInterf
             static::SEARCH_RESULT_SHIPPING_ADDRESS => $data[static::SHIPPING_ADDRESS],
             static::SEARCH_RESULT_BILLING_ADDRESS => $data[static::BILLING_ADDRESS],
             static::SEARCH_RESULT_CURRENCY_ISO_CODE => $data[static::CURRENCY_ISO_CODE],
+            static::SEARCH_RESULT_ERP_INVOICES => $data[static::ERP_INVOICES],
+            static::SEARCH_RESULT_CART_NOTE => $data[static::CART_NOTE],
         ];
     }
 
