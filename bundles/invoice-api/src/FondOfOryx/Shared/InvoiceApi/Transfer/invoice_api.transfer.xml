@@ -12,8 +12,8 @@
 
     <transfer name="InvoiceResponse">
         <property name="invoice" type="Invoice"/>
-        <property name="errors" singular="error" type="Error[]"/>
+        <property name="errors" type="InvoiceError[]" singular="error" />
     </transfer>
 
-    <transfer name="Error"/>
+    <transfer name="InvoiceError"/>
 </transfers>
