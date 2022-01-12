@@ -10,9 +10,9 @@ interface BrandProductListConnectorFacadeInterface
      *
      * @api
      *
-     * @param array<int> $brandIds
+     * @param array<int> $productListIds
      *
      * @return array<int>
      */
-    public function getBrandIdsByProductListIds(array $brandIds): array;
+    public function getBrandIdsByProductListIds(array $productListIds): array;
 }
