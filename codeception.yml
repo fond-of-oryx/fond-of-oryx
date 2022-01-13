@@ -22,6 +22,7 @@ include:
   - bundles/company-company-user-gui
   - bundles/company-price-lists-rest-api
   - bundles/company-product-list-connector
+  - bundles/company-product-list-connector-extension
   - bundles/company-product-list-connector-gui
   - bundles/company-role-api
   - bundles/company-role-search-rest-api
