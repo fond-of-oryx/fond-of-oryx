@@ -1,0 +1,35 @@
+{
+  "name": "fond-of-oryx/stock-product-api",
+  "description": "The StockProductApi module provides a REST API for simple product stock updates.",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Julian Hyatt",
+      "email": "info@julianzimmermann.dev"
+    }
+  ],
+  "require": {
+    "php": ">=7.3",
+    "spryker/api": "^0.3",
+    "spryker/api-query-builder": "^0.1",
+    "spryker/kernel": "^3.42.4",
+    "spryker/stock": "^8.0.0"
+  },
+  "require-dev": {
+    "fond-of-codeception/spryker": "^1.0",
+    "spryker/code-sniffer": "^0.12"
+  },
+  "minimum-stability": "dev",
+  "prefer-stable": true,
+  "autoload": {
+    "psr-4": {
+      "FondOfOryx\\": "src/FondOfOryx/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "FondOfOryx\\": "tests/FondOfOryx/",
+      "Generated\\": "tests/Generated/"
+    }
+  }
+}
