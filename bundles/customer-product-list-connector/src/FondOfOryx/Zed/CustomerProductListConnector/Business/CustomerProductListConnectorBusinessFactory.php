@@ -6,6 +6,8 @@ use FondOfOryx\Zed\CustomerProductListConnector\Business\Persister\CustomerProdu
 use FondOfOryx\Zed\CustomerProductListConnector\Business\Persister\CustomerProductListRelationPersisterInterface;
 use FondOfOryx\Zed\CustomerProductListConnector\Business\Reader\ProductListReader;
 use FondOfOryx\Zed\CustomerProductListConnector\Business\Reader\ProductListReaderInterface;
+use FondOfOryx\Zed\CustomerProductListConnector\CustomerProductListConnectorDependencyProvider;
+use Spryker\Shared\Log\LoggerTrait;
 use Spryker\Zed\Kernel\Business\AbstractBusinessFactory;
 
 /**
@@ -14,6 +16,8 @@ use Spryker\Zed\Kernel\Business\AbstractBusinessFactory;
  */
 class CustomerProductListConnectorBusinessFactory extends AbstractBusinessFactory
 {
+    use LoggerTrait;
+
     /**
      * @return \FondOfOryx\Zed\CustomerProductListConnector\Business\Persister\CustomerProductListRelationPersisterInterface
      */
@@ -22,6 +26,8 @@ class CustomerProductListConnectorBusinessFactory extends AbstractBusinessFactor
         return new CustomerProductListRelationPersister(
             $this->createProductListReader(),
             $this->getEntityManager(),
+            $this->getLogger(),
+            $this->getCustomerProductListRelationPostPersistPlugins(),
         );
     }
 
@@ -32,6 +38,16 @@ class CustomerProductListConnectorBusinessFactory extends AbstractBusinessFactor
     {
         return new ProductListReader(
             $this->getRepository(),
+        );
+    }
+
+    /**
+     * @return array<\FondOfOryx\Zed\CustomerProductListConnectorExtension\Dependency\Plugin\CustomerProductListRelationPostPersistPluginInterface>
+     */
+    protected function getCustomerProductListRelationPostPersistPlugins(): array
+    {
+        return $this->getProvidedDependency(
+            CustomerProductListConnectorDependencyProvider::PLUGINS_CUSTOMER_PRODUCT_LIST_RELATION_POST_PERSIST,
         );
     }
 }
