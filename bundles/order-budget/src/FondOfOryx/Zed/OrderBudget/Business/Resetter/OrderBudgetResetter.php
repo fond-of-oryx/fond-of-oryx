@@ -81,7 +81,7 @@ class OrderBudgetResetter implements OrderBudgetResetterInterface
         $orderBudgetTransfers = $this->orderBudgetReader->getAll();
 
         foreach ($orderBudgetTransfers as $orderBudgetTransfer) {
-            $now = $this->utilDateTimeService->formatDateTime(new DateTime());
+            $now = $this->utilDateTimeService->formatDate(new DateTime());
 
             $orderBudgetHistoryTransfer = $this->orderBudgetHistoryMapper->fromOrderBudget($orderBudgetTransfer)
                 ->setTo($now);

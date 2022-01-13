@@ -2,14 +2,12 @@
 
 namespace FondOfOryx\Zed\OrderBudget\Dependency\Service;
 
-use DateTime;
-
 interface OrderBudgetToUtilDateTimeServiceInterface
 {
     /**
-     * @param \DateTime $dateTime
+     * @param \DateTime|string $date
      *
      * @return string
      */
-    public function formatDateTime(DateTime $dateTime): string;
+    public function formatDate($date): string;
 }

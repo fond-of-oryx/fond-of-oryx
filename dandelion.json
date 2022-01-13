@@ -274,7 +274,7 @@
     },
     "order-budget": {
       "path": "bundles/order-budget/",
-      "version": "1.0.0"
+      "version": "1.0.1"
     },
     "payone-credit-memo": {
       "path": "bundles/payone-credit-memo/",
