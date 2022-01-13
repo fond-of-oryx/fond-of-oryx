@@ -159,7 +159,7 @@ class OrderBudgetResetterTest extends Unit
      */
     public function testResetAll(): void
     {
-        $now = (new DateTime())->format('Y-m-d H:i:s');
+        $now = (new DateTime())->format('Y-m-d');
 
         $this->transactionHandlerMock->expects(static::atLeastOnce())
             ->method('handleTransaction')
@@ -178,7 +178,7 @@ class OrderBudgetResetterTest extends Unit
             ->willReturn($this->orderBudgetTransferMocks);
 
         $this->utilDateTimeServiceMock->expects(static::atLeastOnce())
-            ->method('formatDateTime')
+            ->method('formatDate')
             ->willReturn($now);
 
         $this->orderBudgetHistoryMapperMock->expects(static::atLeastOnce())

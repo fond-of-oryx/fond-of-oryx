@@ -3,11 +3,16 @@
 namespace FondOfOryx\Zed\OrderBudget\Business\Mapper;
 
 use Codeception\Test\Unit;
-use DateTime;
+use FondOfOryx\Zed\OrderBudget\Dependency\Service\OrderBudgetToUtilDateTimeServiceInterface;
 use Generated\Shared\Transfer\OrderBudgetTransfer;
 
 class OrderBudgetHistoryMapperTest extends Unit
 {
+    /**
+     * @var \FondOfOryx\Zed\OrderBudget\Dependency\Service\OrderBudgetToUtilDateTimeServiceInterface|\PHPUnit\Framework\MockObject\MockObject
+     */
+    protected $utilDateTimeServiceMock;
+
     /**
      * @var array
      */
@@ -30,24 +35,28 @@ class OrderBudgetHistoryMapperTest extends Unit
     {
         parent::_before();
 
-        $now = (new DateTime())->format('Y-m-d H:i:s');
+        $this->utilDateTimeServiceMock = $this->getMockBuilder(OrderBudgetToUtilDateTimeServiceInterface::class)
+            ->disableOriginalConstructor()
+            ->getMock();
 
         $this->orderBudgetData = [
             'id_order_budget' => 1,
             'budget' => 20000,
-            'created_at' => $now,
-            'updated_at' => $now,
+            'created_at' => '2022-01-01 02:00:00',
+            'updated_at' => '2022-01-01 02:00:00',
         ];
 
         $this->orderBudgetHistoryData = [
             'id_order_budget_history' => null,
             'fk_order_budget' => 1,
             'budget' => 20000,
-            'from' => $now,
+            'from' => '2022-01-01',
             'to' => null,
         ];
 
-        $this->orderBudgetHistoryMapper = new OrderBudgetHistoryMapper();
+        $this->orderBudgetHistoryMapper = new OrderBudgetHistoryMapper(
+            $this->utilDateTimeServiceMock,
+        );
     }
 
     /**
@@ -55,6 +64,11 @@ class OrderBudgetHistoryMapperTest extends Unit
      */
     public function testFromOrderBudget(): void
     {
+        $this->utilDateTimeServiceMock->expects(static::atLeastOnce())
+            ->method('formatDate')
+            ->with($this->orderBudgetData['updated_at'])
+            ->willReturn($this->orderBudgetHistoryData['from']);
+
         $orderBudgetHistoryTransfer = $this->orderBudgetHistoryMapper->fromOrderBudget(
             (new OrderBudgetTransfer())->fromArray($this->orderBudgetData, true),
         );

@@ -61,7 +61,9 @@ class OrderBudgetBusinessFactory extends AbstractBusinessFactory
      */
     protected function createOrderBudgetHistoryMapper(): OrderBudgetHistoryMapperInterface
     {
-        return new OrderBudgetHistoryMapper();
+        return new OrderBudgetHistoryMapper(
+            $this->getUtilDateTimeService(),
+        );
     }
 
     /**

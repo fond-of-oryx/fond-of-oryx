@@ -2,7 +2,6 @@
 
 namespace FondOfOryx\Zed\OrderBudget\Dependency\Service;
 
-use DateTime;
 use Spryker\Service\UtilDateTime\UtilDateTimeServiceInterface;
 
 class OrderBudgetToUtilDateTimeServiceBridge implements OrderBudgetToUtilDateTimeServiceInterface
@@ -21,12 +20,12 @@ class OrderBudgetToUtilDateTimeServiceBridge implements OrderBudgetToUtilDateTim
     }
 
     /**
-     * @param \DateTime $dateTime
+     * @param \DateTime|string $date
      *
      * @return string
      */
-    public function formatDateTime(DateTime $dateTime): string
+    public function formatDate($date): string
     {
-        return $this->utilDateTimeService->formatDateTime($dateTime);
+        return $this->utilDateTimeService->formatDate($date);
     }
 }

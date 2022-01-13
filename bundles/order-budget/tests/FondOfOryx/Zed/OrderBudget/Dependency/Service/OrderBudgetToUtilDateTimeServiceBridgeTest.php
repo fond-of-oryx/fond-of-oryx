@@ -3,7 +3,6 @@
 namespace FondOfOryx\Zed\OrderBudget\Dependency\Service;
 
 use Codeception\Test\Unit;
-use DateTime;
 use Spryker\Service\UtilDateTime\UtilDateTimeServiceInterface;
 
 class OrderBudgetToUtilDateTimeServiceBridgeTest extends Unit
@@ -37,19 +36,19 @@ class OrderBudgetToUtilDateTimeServiceBridgeTest extends Unit
     /**
      * @return void
      */
-    public function testFormatDateTime(): void
+    public function testFormatDate(): void
     {
-        $dateTime = new DateTime();
-        $formattedDateTime = $dateTime->format('Y-m-d H:i:s');
+        $dateTime = '2022-01-01 02:00:00';
+        $date = '2022-01-01';
 
         $this->utilDateTimeServiceMock->expects(static::atLeastOnce())
-            ->method('formatDateTime')
+            ->method('formatDate')
             ->with($dateTime)
-            ->willReturn($formattedDateTime);
+            ->willReturn($date);
 
         static::assertEquals(
-            $formattedDateTime,
-            $this->orderBudgetToUtilDateTimeServiceBridge->formatDateTime($dateTime),
+            $date,
+            $this->orderBudgetToUtilDateTimeServiceBridge->formatDate($dateTime),
         );
     }
 }
