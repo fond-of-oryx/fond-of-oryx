@@ -30,6 +30,7 @@ include:
   - bundles/company-user-search-rest-api
   - bundles/credit-memo
   - bundles/cross-engage
+  - bundles/customer-brand-product-list-connector
   - bundles/customer-product-list-connector
   - bundles/customer-product-list-connector-extension
   - bundles/customer-product-list-connector-gui

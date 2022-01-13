@@ -1,0 +1,35 @@
+{
+  "name": "fond-of-oryx/customer-brand-product-list-connector",
+  "description": "Company brand product list connector bundle.",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Daniel Rose",
+      "email": "daniel-rose@gmx.de"
+    }
+  ],
+  "require": {
+    "php": ">=7.3",
+    "fond-of-oryx/brand-product-list-connector": "^1.0.0",
+    "fond-of-oryx/customer-product-list-connector-extension": "^1.0.0",
+    "fond-of-spryker/brand-customer": "dev-spryker_upgrade"
+  },
+  "require-dev": {
+    "fond-of-codeception/spryker": "^1.0",
+    "spryker/code-sniffer": "*",
+    "spryker-sdk/phpstan-spryker": "*"
+  },
+  "minimum-stability": "dev",
+  "prefer-stable": true,
+  "autoload": {
+    "psr-4": {
+      "FondOfOryx\\": "src/FondOfOryx/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "FondOfOryx\\": "tests/FondOfOryx/",
+      "Generated\\": "src/Generated/"
+    }
+  }
+}
