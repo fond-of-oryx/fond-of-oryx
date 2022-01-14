@@ -20,12 +20,6 @@
         <property name="options" type="array" singular="options"/>
     </transfer>
 
-    <transfer name="ApiCollectionTransfer">
-        <property name="data" type="array" singular="data"/>
-        <property name="pagination" type="ApiPagination"/>
-        <property name="options" type="array" singular="options"/>
-    </transfer>
-
     <transfer name="ApiPagination">
         <property name="page" type="int"/>
         <property name="pageTotal" type="int"/>

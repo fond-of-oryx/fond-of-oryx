@@ -1,8 +1,8 @@
 <?php
 
-namespace FondOfOryx\Zed\StockProductApi\Communication\Plugin\Api;
+namespace FondOfOryx\Zed\StockApi\Communication\Plugin\Api;
 
-use FondOfOryx\Zed\StockProductApi\StockProductApiConfig;
+use FondOfOryx\Zed\StockApi\StockApiConfig;
 use Generated\Shared\Transfer\ApiCollectionTransfer;
 use Generated\Shared\Transfer\ApiDataTransfer;
 use Generated\Shared\Transfer\ApiItemTransfer;
@@ -13,11 +13,11 @@ use Spryker\Zed\Api\Dependency\Plugin\ApiResourcePluginInterface;
 use Spryker\Zed\Kernel\Communication\AbstractPlugin;
 
 /**
- * @method \FondOfOryx\Zed\StockProductApi\Business\StockProductApiFacadeInterface getFacade()
- * @method \FondOfOryx\Zed\StockProductApi\StockProductApiConfig getConfig()
- * @method \FondOfOryx\Zed\StockProductApi\Persistence\StockProductApiQueryContainerInterface getQueryContainer()
+ * @method \FondOfOryx\Zed\StockApi\Business\StockApiFacadeInterface getFacade()
+ * @method \FondOfOryx\Zed\StockApi\StockApiConfig getConfig()
+ * @method \FondOfOryx\Zed\StockApi\Persistence\StockApiQueryContainerInterface getQueryContainer()
  */
-class StockProductApiResourcePlugin extends AbstractPlugin implements ApiResourcePluginInterface
+class StockApiResourcePlugin extends AbstractPlugin implements ApiResourcePluginInterface
 {
     /**
      * @param int $id
@@ -26,28 +26,32 @@ class StockProductApiResourcePlugin extends AbstractPlugin implements ApiResourc
      */
     public function get($id): ApiItemTransfer
     {
-        return $this->getFacade()->getStockProductById($id);
+        return $this->getFacade()->getStockById($id);
     }
 
     /**
-     * @param int $idStockProduct
+     * @param int $idStock
      * @param \Generated\Shared\Transfer\ApiDataTransfer $apiDataTransfer
+     *
+     * @throws \RuntimeException
      *
      * @return \Generated\Shared\Transfer\ApiItemTransfer
      */
-    public function update($idStockProduct, ApiDataTransfer $apiDataTransfer): ApiItemTransfer
+    public function update($idStock, ApiDataTransfer $apiDataTransfer): ApiItemTransfer
     {
-        return $this->getFacade()->updateStockProduct($idStockProduct, $apiDataTransfer);
+        throw new RuntimeException('update action not implemented on core level', ApiConfig::HTTP_CODE_NOT_FOUND);
     }
 
     /**
      * @param \Generated\Shared\Transfer\ApiDataTransfer $apiDataTransfer
+     *
+     * @throws \RuntimeException
      *
      * @return \Generated\Shared\Transfer\ApiItemTransfer
      */
     public function add(ApiDataTransfer $apiDataTransfer)
     {
-        return $this->getFacade()->createStockProduct($apiDataTransfer);
+        throw new RuntimeException('Add action not implemented on core level', ApiConfig::HTTP_CODE_NOT_FOUND);
     }
 
     /**
@@ -69,7 +73,7 @@ class StockProductApiResourcePlugin extends AbstractPlugin implements ApiResourc
      */
     public function find(ApiRequestTransfer $apiRequestTransfer): ApiCollectionTransfer
     {
-        return $this->getFacade()->findStockProduct($apiRequestTransfer);
+        return $this->getFacade()->findStock($apiRequestTransfer);
     }
 
     /**
@@ -79,6 +83,6 @@ class StockProductApiResourcePlugin extends AbstractPlugin implements ApiResourc
      */
     public function getResourceName()
     {
-        return StockProductApiConfig::RESOURCE_STOCK_PRODUCT;
+        return StockApiConfig::RESOURCE_STOCK;
     }
 }
