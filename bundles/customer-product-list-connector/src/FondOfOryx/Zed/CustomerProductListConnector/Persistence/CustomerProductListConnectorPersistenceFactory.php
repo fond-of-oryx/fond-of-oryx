@@ -8,6 +8,8 @@ use Orm\Zed\ProductList\Persistence\Base\SpyProductListQuery;
 use Spryker\Zed\Kernel\Persistence\AbstractPersistenceFactory;
 
 /**
+ * @codeCoverageIgnore
+ *
  * @method \FondOfOryx\Zed\CustomerProductListConnector\Persistence\CustomerProductListConnectorEntityManagerInterface getEntityManager()
  * @method \FondOfOryx\Zed\CustomerProductListConnector\Persistence\CustomerProductListConnectorRepositoryInterface getRepository()
  */

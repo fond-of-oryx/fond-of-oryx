@@ -6,6 +6,8 @@ use Orm\Zed\ProductList\Persistence\Map\SpyProductListTableMap;
 use Spryker\Zed\Kernel\Persistence\AbstractRepository;
 
 /**
+ * @codeCoverageIgnore
+ *
  * @method \FondOfOryx\Zed\CompanyProductListConnector\Persistence\CompanyProductListConnectorPersistenceFactory getFactory()
  */
 class CompanyProductListConnectorRepository extends AbstractRepository implements CompanyProductListConnectorRepositoryInterface

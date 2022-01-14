@@ -6,6 +6,8 @@ use Orm\Zed\ProductList\Persistence\SpyProductListCompany;
 use Spryker\Zed\Kernel\Persistence\AbstractEntityManager;
 
 /**
+ * @codeCoverageIgnore
+ *
  * @method \FondOfOryx\Zed\CompanyProductListConnector\Persistence\CompanyProductListConnectorPersistenceFactory getFactory()
  */
 class CompanyProductListConnectorEntityManager extends AbstractEntityManager implements CompanyProductListConnectorEntityManagerInterface
