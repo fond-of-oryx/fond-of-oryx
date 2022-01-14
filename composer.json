@@ -110,6 +110,7 @@
     "fond-of-oryx/availability-alert-migrator": "*",
     "fond-of-oryx/availability-cart-data-extender": "*",
     "fond-of-oryx/availability-checkout-validator": "*",
+    "fond-of-oryx/brand-product-list-connector": "*",
     "fond-of-oryx/brands-rest-api-extension": "*",
     "fond-of-oryx/cart-code-type": "*",
     "fond-of-oryx/cart-code-type-data-import": "*",
