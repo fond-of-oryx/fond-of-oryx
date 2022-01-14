@@ -108,6 +108,8 @@ include:
   - bundles/splittable-quote-extension
   - bundles/splittable-quote-shipment-connector
   - bundles/splittable-totals
+  - bundles/stock-api
+  - bundles/stock-product-api
   - bundles/tax-calculation-connector
   - bundles/thirty-five-up
   - bundles/thirty-five-up-payment-connector
