@@ -18,7 +18,7 @@
         <property name="data" type="array" singular="data"/>
     </transfer>
 
-    <transfer name="ApiCollectionTransfer">
+    <transfer name="ApiCollection">
         <property name="data" type="array" singular="data"/>
         <property name="pagination" type="ApiPagination"/>
     </transfer>

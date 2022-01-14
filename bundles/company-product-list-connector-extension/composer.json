@@ -13,7 +13,8 @@
   },
   "require-dev": {
     "fond-of-codeception/spryker": "^1.0",
-    "spryker/code-sniffer": "^0.12"
+    "spryker/code-sniffer": "^0.12",
+    "spryker-sdk/phpstan-spryker": "*"
   },
   "minimum-stability": "dev",
   "prefer-stable": true,
