@@ -7,6 +7,8 @@ use Generated\Shared\Transfer\SpyCompanyBusinessUnitEntityTransfer;
 use Spryker\Zed\Kernel\Persistence\AbstractEntityManager;
 
 /**
+ * @codeCoverageIgnore
+ *
  * @method \FondOfOryx\Zed\CompanyBusinessUnitOrderBudget\Persistence\CompanyBusinessUnitOrderBudgetPersistenceFactory getFactory()
  */
 class CompanyBusinessUnitOrderBudgetEntityManager extends AbstractEntityManager implements

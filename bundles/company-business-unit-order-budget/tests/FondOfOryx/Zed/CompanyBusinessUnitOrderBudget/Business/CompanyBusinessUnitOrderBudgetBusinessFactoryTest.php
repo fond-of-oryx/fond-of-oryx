@@ -12,6 +12,9 @@ use FondOfOryx\Zed\CompanyBusinessUnitOrderBudget\CompanyBusinessUnitOrderBudget
 use FondOfOryx\Zed\CompanyBusinessUnitOrderBudget\Dependency\Facade\CompanyBusinessUnitOrderBudgetToOrderBudgetFacadeInterface;
 use FondOfOryx\Zed\CompanyBusinessUnitOrderBudget\Dependency\Facade\CompanyBusinessUnitOrderBudgetToPermissionFacadeInterface;
 use FondOfOryx\Zed\CompanyBusinessUnitOrderBudget\Persistence\CompanyBusinessUnitOrderBudgetEntityManager;
+use FondOfOryx\Zed\CompanyBusinessUnitOrderBudget\Persistence\CompanyBusinessUnitOrderBudgetRepository;
+use Psr\Log\LoggerInterface;
+use Spryker\Shared\Log\Config\LoggerConfigInterface;
 use Spryker\Zed\Kernel\Container;
 
 class CompanyBusinessUnitOrderBudgetBusinessFactoryTest extends Unit
@@ -27,6 +30,11 @@ class CompanyBusinessUnitOrderBudgetBusinessFactoryTest extends Unit
     protected $entityManagerMock;
 
     /**
+     * @var \FondOfOryx\Zed\CompanyBusinessUnitOrderBudget\Persistence\CompanyBusinessUnitOrderBudgetRepository|\PHPUnit\Framework\MockObject\MockObject
+     */
+    protected $repositoryMock;
+
+    /**
      * @var \FondOfOryx\Zed\CompanyBusinessUnitOrderBudget\Dependency\Facade\CompanyBusinessUnitOrderBudgetToOrderBudgetFacadeInterface|\PHPUnit\Framework\MockObject\MockObject
      */
     protected $orderBudgetFacadeMock;
@@ -35,6 +43,11 @@ class CompanyBusinessUnitOrderBudgetBusinessFactoryTest extends Unit
      * @var \FondOfOryx\Zed\CompanyBusinessUnitOrderBudget\Dependency\Facade\CompanyBusinessUnitOrderBudgetToPermissionFacadeInterface|\PHPUnit\Framework\MockObject\MockObject
      */
     protected $permissionFacadeMock;
+
+    /**
+     * @var \PHPUnit\Framework\MockObject\MockObject|\Psr\Log\LoggerInterface
+     */
+    protected $loggerMock;
 
     /**
      * @var \FondOfOryx\Zed\CompanyBusinessUnitOrderBudget\Business\CompanyBusinessUnitOrderBudgetBusinessFactory
@@ -56,6 +69,10 @@ class CompanyBusinessUnitOrderBudgetBusinessFactoryTest extends Unit
             ->disableOriginalConstructor()
             ->getMock();
 
+        $this->repositoryMock = $this->getMockBuilder(CompanyBusinessUnitOrderBudgetRepository::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
         $this->orderBudgetFacadeMock = $this->getMockBuilder(CompanyBusinessUnitOrderBudgetToOrderBudgetFacadeInterface::class)
             ->disableOriginalConstructor()
             ->getMock();
@@ -64,9 +81,37 @@ class CompanyBusinessUnitOrderBudgetBusinessFactoryTest extends Unit
             ->disableOriginalConstructor()
             ->getMock();
 
-        $this->businessFactory = new CompanyBusinessUnitOrderBudgetBusinessFactory();
+        $this->loggerMock = $this->getMockBuilder(LoggerInterface::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $this->businessFactory = new class ($this->loggerMock) extends CompanyBusinessUnitOrderBudgetBusinessFactory {
+            /**
+             * @var \Psr\Log\LoggerInterface
+             */
+            protected $logger;
+
+            /**
+             * @param \Psr\Log\LoggerInterface $logger
+             */
+            public function __construct(LoggerInterface $logger)
+            {
+                $this->logger = $logger;
+            }
+
+            /**
+             * @param \Spryker\Shared\Log\Config\LoggerConfigInterface|null $loggerConfig
+             *
+             * @return \Psr\Log\LoggerInterface
+             */
+            protected function getLogger(?LoggerConfigInterface $loggerConfig = null)
+            {
+                return $this->logger;
+            }
+        };
         $this->businessFactory->setContainer($this->containerMock);
         $this->businessFactory->setEntityManager($this->entityManagerMock);
+        $this->businessFactory->setRepository($this->repositoryMock);
     }
 
     /**

@@ -9,6 +9,7 @@ use Spryker\Zed\Kernel\Business\AbstractFacade;
 /**
  * @method \FondOfOryx\Zed\CompanyBusinessUnitOrderBudget\Persistence\CompanyBusinessUnitOrderBudgetEntityManagerInterface getEntityManager()
  * @method \FondOfOryx\Zed\CompanyBusinessUnitOrderBudget\Business\CompanyBusinessUnitOrderBudgetBusinessFactory getFactory()
+ * @method \FondOfOryx\Zed\CompanyBusinessUnitOrderBudget\Persistence\CompanyBusinessUnitOrderBudgetRepositoryInterface getRepository()
  */
 class CompanyBusinessUnitOrderBudgetFacade extends AbstractFacade implements CompanyBusinessUnitOrderBudgetFacadeInterface
 {
@@ -25,6 +26,18 @@ class CompanyBusinessUnitOrderBudgetFacade extends AbstractFacade implements Com
         CompanyBusinessUnitTransfer $companyBusinessUnitTransfer
     ): void {
         $this->getFactory()->createOrderBudgetWriter()->createForCompanyBusinessUnit($companyBusinessUnitTransfer);
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * @api
+     *
+     * @return void
+     */
+    public function createMissingOrderBudgets(): void
+    {
+        $this->getFactory()->createOrderBudgetWriter()->createMissing();
     }
 
     /**

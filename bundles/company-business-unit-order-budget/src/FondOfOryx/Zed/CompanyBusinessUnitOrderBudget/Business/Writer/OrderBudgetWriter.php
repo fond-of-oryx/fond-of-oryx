@@ -2,12 +2,18 @@
 
 namespace FondOfOryx\Zed\CompanyBusinessUnitOrderBudget\Business\Writer;
 
+use Exception;
 use FondOfOryx\Zed\CompanyBusinessUnitOrderBudget\Dependency\Facade\CompanyBusinessUnitOrderBudgetToOrderBudgetFacadeInterface;
 use FondOfOryx\Zed\CompanyBusinessUnitOrderBudget\Persistence\CompanyBusinessUnitOrderBudgetEntityManagerInterface;
+use FondOfOryx\Zed\CompanyBusinessUnitOrderBudget\Persistence\CompanyBusinessUnitOrderBudgetRepositoryInterface;
 use Generated\Shared\Transfer\CompanyBusinessUnitTransfer;
+use Psr\Log\LoggerInterface;
+use Spryker\Zed\Kernel\Persistence\EntityManager\TransactionTrait;
 
 class OrderBudgetWriter implements OrderBudgetWriterInterface
 {
+    use TransactionTrait;
+
     /**
      * @var \FondOfOryx\Zed\CompanyBusinessUnitOrderBudget\Dependency\Facade\CompanyBusinessUnitOrderBudgetToOrderBudgetFacadeInterface
      */
@@ -19,15 +25,31 @@ class OrderBudgetWriter implements OrderBudgetWriterInterface
     protected $entityManager;
 
     /**
+     * @var \FondOfOryx\Zed\CompanyBusinessUnitOrderBudget\Persistence\CompanyBusinessUnitOrderBudgetRepositoryInterface
+     */
+    protected $repository;
+
+    /**
+     * @var \Psr\Log\LoggerInterface
+     */
+    protected $logger;
+
+    /**
      * @param \FondOfOryx\Zed\CompanyBusinessUnitOrderBudget\Dependency\Facade\CompanyBusinessUnitOrderBudgetToOrderBudgetFacadeInterface $orderBudgetFacade
      * @param \FondOfOryx\Zed\CompanyBusinessUnitOrderBudget\Persistence\CompanyBusinessUnitOrderBudgetEntityManagerInterface $entityManager
+     * @param \FondOfOryx\Zed\CompanyBusinessUnitOrderBudget\Persistence\CompanyBusinessUnitOrderBudgetRepositoryInterface $repository
+     * @param \Psr\Log\LoggerInterface $logger
      */
     public function __construct(
         CompanyBusinessUnitOrderBudgetToOrderBudgetFacadeInterface $orderBudgetFacade,
-        CompanyBusinessUnitOrderBudgetEntityManagerInterface $entityManager
+        CompanyBusinessUnitOrderBudgetEntityManagerInterface $entityManager,
+        CompanyBusinessUnitOrderBudgetRepositoryInterface $repository,
+        LoggerInterface $logger
     ) {
         $this->orderBudgetFacade = $orderBudgetFacade;
         $this->entityManager = $entityManager;
+        $this->repository = $repository;
+        $this->logger = $logger;
     }
 
     /**
@@ -36,6 +58,29 @@ class OrderBudgetWriter implements OrderBudgetWriterInterface
      * @return void
      */
     public function createForCompanyBusinessUnit(CompanyBusinessUnitTransfer $companyBusinessUnitTransfer): void
+    {
+        $self = $this;
+
+        try {
+            $this->getTransactionHandler()
+                ->handleTransaction(static function () use ($self, $companyBusinessUnitTransfer) {
+                        $self->doCreateForCompanyBusinessUnit($companyBusinessUnitTransfer);
+                });
+        } catch (Exception $exception) {
+            $this->logger->error('Could not create order budget for given company business unit.', [
+                'exception' => $exception->getMessage(),
+                'trace' => $exception->getTraceAsString(),
+                'data' => $companyBusinessUnitTransfer->serialize(),
+            ]);
+        }
+    }
+
+    /**
+     * @param \Generated\Shared\Transfer\CompanyBusinessUnitTransfer $companyBusinessUnitTransfer
+     *
+     * @return void
+     */
+    protected function doCreateForCompanyBusinessUnit(CompanyBusinessUnitTransfer $companyBusinessUnitTransfer): void
     {
         if ($companyBusinessUnitTransfer->getFkOrderBudget() !== null) {
             return;
@@ -47,5 +92,20 @@ class OrderBudgetWriter implements OrderBudgetWriterInterface
             ->setOrderBudget($orderBudgetTransfer);
 
         $this->entityManager->assignOrderBudgetToCompanyBusinessUnit($companyBusinessUnitTransfer);
+    }
+
+    /**
+     * @return void
+     */
+    public function createMissing(): void
+    {
+        $companyBusinessUnitIds = $this->repository->getCompanyBusinessUnitIdsWithoutOrderBudget();
+
+        foreach ($companyBusinessUnitIds as $idCompanyBusinessUnitId) {
+            $companyBusinessUnitTransfer = (new CompanyBusinessUnitTransfer())
+                ->setIdCompanyBusinessUnit($idCompanyBusinessUnitId);
+
+            $this->createForCompanyBusinessUnit($companyBusinessUnitTransfer);
+        }
     }
 }
