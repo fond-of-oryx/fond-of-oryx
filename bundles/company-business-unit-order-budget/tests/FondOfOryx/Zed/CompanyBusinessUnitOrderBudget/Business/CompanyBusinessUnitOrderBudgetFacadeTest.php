@@ -120,6 +120,22 @@ class CompanyBusinessUnitOrderBudgetFacadeTest extends Unit
     /**
      * @return void
      */
+    public function testCreateMissingOrderBudgets(): void
+    {
+        $this->businessFactoryMock->expects(static::atLeastOnce())
+            ->method('createOrderBudgetWriter')
+            ->willReturn($this->orderBudgetWriterMock);
+
+        $this->orderBudgetWriterMock->expects(static::atLeastOnce())
+            ->method('createMissing')
+            ->with();
+
+        $this->facade->createMissingOrderBudgets();
+    }
+
+    /**
+     * @return void
+     */
     public function testExpandQuote(): void
     {
         $this->businessFactoryMock->expects(static::atLeastOnce())

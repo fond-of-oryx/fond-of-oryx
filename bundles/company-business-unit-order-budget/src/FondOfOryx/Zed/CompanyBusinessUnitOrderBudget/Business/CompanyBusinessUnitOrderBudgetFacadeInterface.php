@@ -24,6 +24,16 @@ interface CompanyBusinessUnitOrderBudgetFacadeInterface
 
     /**
      * Specification:
+     * - Creates missing company business unit order budgets
+     *
+     * @api
+     *
+     * @return void
+     */
+    public function createMissingOrderBudgets(): void;
+
+    /**
+     * Specification:
      * - Expands quote with validation message
      * - Skips if user has permission to alter cart without limit
      * - Adds error message if company business unit order budget is lower then subtotal

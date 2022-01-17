@@ -12,4 +12,9 @@ interface OrderBudgetWriterInterface
      * @return void
      */
     public function createForCompanyBusinessUnit(CompanyBusinessUnitTransfer $companyBusinessUnitTransfer): void;
+
+    /**
+     * @return void
+     */
+    public function createMissing(): void;
 }
