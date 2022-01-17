@@ -50,8 +50,8 @@ class OrderBudgetHistoryMapperTest extends Unit
             'id_order_budget_history' => null,
             'fk_order_budget' => 1,
             'budget' => 20000,
-            'from' => '2022-01-01',
-            'to' => null,
+            'valid_from' => '2022-01-01',
+            'valid_to' => null,
         ];
 
         $this->orderBudgetHistoryMapper = new OrderBudgetHistoryMapper(
@@ -67,7 +67,7 @@ class OrderBudgetHistoryMapperTest extends Unit
         $this->utilDateTimeServiceMock->expects(static::atLeastOnce())
             ->method('formatDate')
             ->with($this->orderBudgetData['updated_at'])
-            ->willReturn($this->orderBudgetHistoryData['from']);
+            ->willReturn($this->orderBudgetHistoryData['valid_from']);
 
         $orderBudgetHistoryTransfer = $this->orderBudgetHistoryMapper->fromOrderBudget(
             (new OrderBudgetTransfer())->fromArray($this->orderBudgetData, true),

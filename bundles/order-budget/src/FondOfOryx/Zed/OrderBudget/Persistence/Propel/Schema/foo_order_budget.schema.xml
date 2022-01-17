@@ -16,8 +16,8 @@
     <table name="foo_order_budget_history">
         <column name="id_order_budget_history" type="INTEGER" required="true" autoIncrement="true" primaryKey="true"/>
         <column name="fk_order_budget" type="INTEGER" required="true"/>
-        <column name="from" type="DATE" required="true"/>
-        <column name="to" type="DATE" required="true"/>
+        <column name="valid_from" type="DATE" required="true"/>
+        <column name="valid_to" type="DATE" required="true"/>
 
         <id-method-parameter value="foo_order_budget_history_pk_seq"/>
 

@@ -187,7 +187,7 @@ class OrderBudgetResetterTest extends Unit
             ->willReturn($this->orderBudgetHistoryTransferMocks[0]);
 
         $this->orderBudgetHistoryTransferMocks[0]->expects(static::atLeastOnce())
-            ->method('setTo')
+            ->method('setValidTo')
             ->with($now)
             ->willReturn($this->orderBudgetHistoryTransferMocks[0]);
 

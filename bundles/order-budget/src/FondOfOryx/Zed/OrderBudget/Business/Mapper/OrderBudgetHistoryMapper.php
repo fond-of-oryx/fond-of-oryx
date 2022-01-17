@@ -33,10 +33,10 @@ class OrderBudgetHistoryMapper implements OrderBudgetHistoryMapperInterface
             true,
         );
 
-        $from = $this->utilDateTimeService->formatDate($orderBudgetTransfer->getUpdatedAt());
+        $validFrom = $this->utilDateTimeService->formatDate($orderBudgetTransfer->getUpdatedAt());
 
         return $orderBudgetHistoryTransfer
             ->setFkOrderBudget($orderBudgetTransfer->getIdOrderBudget())
-            ->setFrom($from);
+            ->setValidFrom($validFrom);
     }
 }
