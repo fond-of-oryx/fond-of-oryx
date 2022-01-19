@@ -94,6 +94,7 @@ class CompanyUserListMapperTest extends Unit
         $query = 'foo';
         $sort = 'foo_asc';
         $comanyUuid = 'foo company uuid';
+        $comanyUserReference = 'FOO-CU--1';
 
         $this->paginationMapperMock->expects(static::atLeastOnce())
             ->method('fromRestRequest')
@@ -102,8 +103,19 @@ class CompanyUserListMapperTest extends Unit
 
         $this->requestParameterFilterMock->expects(static::atLeastOnce())
             ->method('getRequestParameter')
-            ->withConsecutive([$this->restRequestMock, 'q'], [$this->restRequestMock, 'show-all'], [$this->restRequestMock, 'company-id'], [$this->restRequestMock, 'sort'])
-            ->willReturnOnConsecutiveCalls($query, 'true', $comanyUuid, $sort);
+            ->withConsecutive(
+                [$this->restRequestMock, 'q'],
+                [$this->restRequestMock, 'show-all'],
+                [$this->restRequestMock, 'company-id'],
+                [$this->restRequestMock, 'company-user-reference'],
+                [$this->restRequestMock, 'sort'],
+            )->willReturnOnConsecutiveCalls(
+                $query,
+                'true',
+                $comanyUuid,
+                $comanyUserReference,
+                $sort,
+            );
 
         $this->customerReferenceFilterMock->expects(static::atLeastOnce())
             ->method('filterFromRestRequest')

@@ -50,6 +50,10 @@ class CompanyUserSearchRestApiRepository extends AbstractRepository implements C
             ->innerJoinSpyCompanyRoleToCompanyUser()
             ->filterByIsActive(true);
 
+        if ($companyUserListTransfer->getCompanyUserReference() !== null) {
+            $query->filterByCompanyUserReference();
+        }
+
         if ($companyUserListTransfer->getShowAll() !== true) {
             return $query->filterByFkCustomer($companyUserListTransfer->getCustomerId());
         }
