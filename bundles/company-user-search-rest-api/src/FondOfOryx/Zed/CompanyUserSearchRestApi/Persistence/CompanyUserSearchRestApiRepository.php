@@ -51,7 +51,7 @@ class CompanyUserSearchRestApiRepository extends AbstractRepository implements C
             ->filterByIsActive(true);
 
         if ($companyUserListTransfer->getCompanyUserReference() !== null) {
-            $query->filterByCompanyUserReference();
+            $query->filterByCompanyUserReference($companyUserListTransfer->getCompanyUserReference());
         }
 
         if ($companyUserListTransfer->getShowAll() !== true) {
