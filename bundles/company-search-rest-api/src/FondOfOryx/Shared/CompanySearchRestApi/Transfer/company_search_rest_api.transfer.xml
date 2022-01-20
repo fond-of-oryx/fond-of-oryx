@@ -49,6 +49,7 @@
     </transfer>
 
     <transfer name="CompanyList">
+        <property name="companyUuid" type="string"/>
         <property name="customerReference" type="string"/>
         <property name="query" type="string"/>
         <property name="companies" type="Company[]" singular="company"/>

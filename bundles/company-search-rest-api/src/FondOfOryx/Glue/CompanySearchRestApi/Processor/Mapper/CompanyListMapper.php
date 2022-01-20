@@ -50,6 +50,7 @@ class CompanyListMapper implements CompanyListMapperInterface
             ->setPagination($this->paginationMapper->fromRestRequest($restRequest))
             ->setQuery($this->requestParameterFilter->getRequestParameter($restRequest, 'q'))
             ->setSort($this->requestParameterFilter->getRequestParameter($restRequest, 'sort'))
-            ->setCustomerReference($this->customerReferenceFilter->filterFromRestRequest($restRequest));
+            ->setCustomerReference($this->customerReferenceFilter->filterFromRestRequest($restRequest))
+            ->setCompanyUuid($this->requestParameterFilter->getRequestParameter($restRequest, 'id'));
     }
 }
