@@ -33,6 +33,10 @@ class CompanySearchRestApiRepository extends AbstractRepository implements Compa
                 ->filterByIsActive(true)
             ->endUse();
 
+        if ($companyListTransfer->getCompanyUuid() !== null) {
+            $companyQuery->filterByUuid($companyListTransfer->getCompanyUuid());
+        }
+
         $companyQuery = $this->addFulltextSearchFields($companyQuery, $companyListTransfer);
         $companyQuery = $this->addSort($companyQuery, $companyListTransfer);
         $companyQuery = $this->preparePagination($companyQuery, $companyListTransfer);

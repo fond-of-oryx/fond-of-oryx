@@ -79,6 +79,7 @@ class CompanyListMapperTest extends Unit
      */
     public function testFromRestRequest(): void
     {
+        $companyUuid = 'e5046482-92ba-4c21-a239-db9ce1bc3c60';
         $customerReference = 'FOO-C--1';
         $query = 'foo';
         $sort = 'foo_asc';
@@ -90,8 +91,15 @@ class CompanyListMapperTest extends Unit
 
         $this->requestParameterFilterMock->expects(static::atLeastOnce())
             ->method('getRequestParameter')
-            ->withConsecutive([$this->restRequestMock, 'q'], [$this->restRequestMock, 'sort'])
-            ->willReturnOnConsecutiveCalls($query, $sort);
+            ->withConsecutive(
+                [$this->restRequestMock, 'q'],
+                [$this->restRequestMock, 'sort'],
+                [$this->restRequestMock, 'id'],
+            )->willReturnOnConsecutiveCalls(
+                $query,
+                $sort,
+                $companyUuid,
+            );
 
         $this->customerReferenceFilterMock->expects(static::atLeastOnce())
             ->method('filterFromRestRequest')
