@@ -46,7 +46,9 @@ class CompanyUserSearchRestApiRepository extends AbstractRepository implements C
         $query = $this->getFactory()
             ->getCompanyUserQuery()
             ->clear()
-            ->innerJoinCustomer()
+            ->useCustomerQuery()
+                ->filterByAnonymizedAt(null, Criteria::ISNULL)
+            ->endUse()
             ->innerJoinSpyCompanyRoleToCompanyUser()
             ->filterByIsActive(true);
 
