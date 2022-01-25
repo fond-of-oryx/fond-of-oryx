@@ -114,7 +114,7 @@ class CreditMemoAdapter implements CreditMemoAdapterInterface
         $options = [];
 
         $options[RequestOptions::HEADERS] = static::DEFAULT_HEADERS;
-        if (!empty($this->username) && !empty($this->password)) {
+        if ($this->username !== '' && $this->password !== '') {
             $options[RequestOptions::AUTH] = [
                 $this->username,
                 $this->password,

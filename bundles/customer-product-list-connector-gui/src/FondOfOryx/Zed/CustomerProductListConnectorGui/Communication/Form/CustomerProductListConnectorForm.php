@@ -137,7 +137,7 @@ class CustomerProductListConnectorForm extends AbstractType
                     return implode(',', $idsAsArray);
                 },
                 function ($idsAsCsvString) {
-                    if (empty($idsAsCsvString)) {
+                    if ($idsAsCsvString === null) {
                         return [];
                     }
 

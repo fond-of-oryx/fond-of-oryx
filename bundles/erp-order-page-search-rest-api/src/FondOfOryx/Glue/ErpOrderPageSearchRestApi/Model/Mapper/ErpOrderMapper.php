@@ -43,8 +43,8 @@ class ErpOrderMapper implements ErpOrderMapperInterface
         $responseTransfer = (new RestErpOrderPageSearchCollectionResponseTransfer())->fromArray($searchResults, true);
 
         if (
-            empty($searchResults)
-            || !array_key_exists(static::SEARCH_RESULT_KEY_ERP_ORDERS, $searchResults)
+            !array_key_exists(static::SEARCH_RESULT_KEY_ERP_ORDERS, $searchResults)
+            || !is_array($searchResults[static::SEARCH_RESULT_KEY_ERP_ORDERS])
         ) {
             return $responseTransfer;
         }

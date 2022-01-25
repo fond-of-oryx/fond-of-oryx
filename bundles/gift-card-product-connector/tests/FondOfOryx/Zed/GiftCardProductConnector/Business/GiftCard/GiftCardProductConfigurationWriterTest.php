@@ -1,11 +1,10 @@
 <?php
 
-namespace FondOfOryx\Zed\GiftCardProductConnector\Business\Model\GiftCard;
+namespace FondOfOryx\Zed\GiftCardProductConnector\Business\GiftCard;
 
 use ArrayObject;
 use Codeception\Test\Unit;
 use FondOfOryx\Zed\GiftCardProductConnector\Business\Filter\GiftCardAmountFilterInterface;
-use FondOfOryx\Zed\GiftCardProductConnector\Business\GiftCard\GiftCardProductConfigurationWriter;
 use FondOfOryx\Zed\GiftCardProductConnector\GiftCardProductConnectorConfig;
 use FondOfOryx\Zed\GiftCardProductConnector\Persistence\GiftCardProductConnectorEntityManagerInterface;
 use Generated\Shared\Transfer\PriceProductTransfer;
@@ -153,13 +152,7 @@ class GiftCardProductConfigurationWriterTest extends Unit
             ->method('handleTransaction')
             ->willReturnCallback(
                 static function ($closure) {
-                    $result = $closure();
-
-                    if (empty($result)) {
-                        return;
-                    }
-
-                    return $result;
+                    return $closure();
                 },
             );
 
@@ -204,13 +197,7 @@ class GiftCardProductConfigurationWriterTest extends Unit
             ->method('handleTransaction')
             ->willReturnCallback(
                 static function ($closure) {
-                    $result = $closure();
-
-                    if (empty($result)) {
-                        return;
-                    }
-
-                    return $result;
+                    return $closure();
                 },
             );
 
@@ -241,13 +228,7 @@ class GiftCardProductConfigurationWriterTest extends Unit
             ->method('handleTransaction')
             ->willReturnCallback(
                 static function ($closure) {
-                    $result = $closure();
-
-                    if (empty($result)) {
-                        return;
-                    }
-
-                    return $result;
+                    return $closure();
                 },
             );
 
