@@ -2,6 +2,7 @@
 
 namespace FondOfOryx\Zed\JellyfishBuffer\Persistence;
 
+use Generated\Shared\Transfer\ExportedOrderHistoryTransfer;
 use Generated\Shared\Transfer\JellyfishOrderTransfer;
 
 interface JellyfishBufferEntityManagerInterface
@@ -23,4 +24,13 @@ interface JellyfishBufferEntityManagerInterface
      * @return void
      */
     public function flagAsReexported(int $fkSalesOrder): void;
+
+    /**
+     * @param \Generated\Shared\Transfer\ExportedOrderHistoryTransfer $exportedOrderHistoryTransfer
+     *
+     * @throws \Propel\Runtime\Exception\PropelException
+     *
+     * @return void
+     */
+    public function createHistoryEntry(ExportedOrderHistoryTransfer $exportedOrderHistoryTransfer): void;
 }

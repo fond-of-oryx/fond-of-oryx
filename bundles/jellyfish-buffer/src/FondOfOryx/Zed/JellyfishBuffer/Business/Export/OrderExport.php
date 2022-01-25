@@ -6,8 +6,11 @@ use Exception;
 use FondOfOryx\Zed\JellyfishBuffer\JellyfishBufferConfig;
 use FondOfOryx\Zed\JellyfishBuffer\Persistence\JellyfishBufferEntityManagerInterface;
 use FondOfOryx\Zed\JellyfishBuffer\Persistence\JellyfishBufferRepositoryInterface;
+use Generated\Shared\Transfer\ExportedOrderConfigTransfer;
+use Generated\Shared\Transfer\ExportedOrderHistoryTransfer;
 use Generated\Shared\Transfer\ExportedOrderTransfer;
 use Generated\Shared\Transfer\JellyfishBufferTableFilterTransfer;
+use Generated\Shared\Transfer\UserTransfer;
 use GuzzleHttp\ClientInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Log\LoggerInterface;
@@ -76,12 +79,14 @@ class OrderExport implements DataExportInterface
     }
 
     /**
-     * @param \Generated\Shared\Transfer\JellyfishBufferTableFilterTransfer $jellyfishBufferTableFilterTransfer
+     * @param \Generated\Shared\Transfer\ExportedOrderConfigTransfer $configTransfer
      *
      * @return bool
      */
-    public function export(JellyfishBufferTableFilterTransfer $jellyfishBufferTableFilterTransfer): bool
+    public function exportByFilter(ExportedOrderConfigTransfer $configTransfer): bool
     {
+        $configTransfer->requireFilter();
+        $jellyfishBufferTableFilterTransfer = $configTransfer->getFilter();
         $errors = false;
         $this->validateFilter($jellyfishBufferTableFilterTransfer);
 
@@ -97,38 +102,90 @@ class OrderExport implements DataExportInterface
         echo $message . PHP_EOL;
 
         foreach ($collection->getOrders() as $order) {
-            $data = $this->prepareOverride($order, $jellyfishBufferTableFilterTransfer);
-            if ($jellyfishBufferTableFilterTransfer->getDryRun() === true) {
-                //Attention: this writes customer data to log!
-                $dataString = json_encode($data);
-                $this->logger->notice(sprintf(
-                    'ID: %s, OrderRef %s, SalesOrderId: %s, Data: %s',
-                    $order->getIdExportedOrder(),
-                    $order->getOrderReference(),
-                    $order->getFkSalesOrder(),
-                    $dataString,
-                ));
-                echo $dataString . PHP_EOL;
-
-                continue;
-            }
-            $response = $this->send($this->getUri(), $data);
-
-            if (in_array($response->getStatusCode(), static::VALID_CODES, true) === false) {
+            $order = $this->prepareOverride($order, $jellyfishBufferTableFilterTransfer);
+            if ($this->export($order, $configTransfer) === false) {
                 $errors = true;
-                $this->logger->error(sprintf(
-                    'Export error with error code "%s" for order data ID: %s, OrderRef: %s, SalesOrderId: %s',
-                    $response->getStatusCode(),
-                    $order->getIdExportedOrder(),
-                    $order->getOrderReference(),
-                    $order->getFkSalesOrder(),
-                ));
-            } else {
-                $this->em->flagAsReexported($order->getFkSalesOrder());
             }
         }
 
         return $errors;
+    }
+
+    /**
+     * @param \Generated\Shared\Transfer\ExportedOrderTransfer $exportedOrderTransfer
+     * @param \Generated\Shared\Transfer\ExportedOrderConfigTransfer $configTransfer
+     *
+     * @return bool
+     */
+    public function export(ExportedOrderTransfer $exportedOrderTransfer, ExportedOrderConfigTransfer $configTransfer): bool
+    {
+        $this->em->createHistoryEntry($this->createHistoryEntryTransfer($exportedOrderTransfer, $configTransfer));
+
+        if ($this->config->getDryRun() === true || $this->isDryRunByFilter($configTransfer->getFilter()) === true) {
+            //Attention: this writes customer data to log!
+            $this->logger->notice(sprintf(
+                'ID: %s, OrderRef %s, SalesOrderId: %s, Data: %s',
+                $exportedOrderTransfer->getIdExportedOrder(),
+                $exportedOrderTransfer->getOrderReference(),
+                $exportedOrderTransfer->getFkSalesOrder(),
+                $exportedOrderTransfer->getData(),
+            ));
+
+            return true;
+        }
+        $response = $this->send($this->getUri(), json_decode($exportedOrderTransfer->getData(), true));
+
+        if (in_array($response->getStatusCode(), static::VALID_CODES, true) === false) {
+            $this->logger->error(sprintf(
+                'Export error with error code "%s" for order data ID: %s, OrderRef: %s, SalesOrderId: %s',
+                $response->getStatusCode(),
+                $exportedOrderTransfer->getIdExportedOrder(),
+                $exportedOrderTransfer->getOrderReference(),
+                $exportedOrderTransfer->getFkSalesOrder(),
+            ));
+
+            return false;
+        }
+
+        $this->em->flagAsReexported($exportedOrderTransfer->getFkSalesOrder());
+
+        return true;
+    }
+
+    /**
+     * @param \Generated\Shared\Transfer\JellyfishBufferTableFilterTransfer|null $jellyfishBufferTableFilterTransfer
+     *
+     * @return bool
+     */
+    protected function isDryRunByFilter(?JellyfishBufferTableFilterTransfer $jellyfishBufferTableFilterTransfer): bool
+    {
+        if ($jellyfishBufferTableFilterTransfer === null) {
+            return false;
+        }
+
+        return $jellyfishBufferTableFilterTransfer->getDryRun() === true;
+    }
+
+    /**
+     * @param \Generated\Shared\Transfer\ExportedOrderTransfer $exportedOrderTransfer
+     * @param \Generated\Shared\Transfer\ExportedOrderConfigTransfer $configTransfer
+     *
+     * @return \Generated\Shared\Transfer\ExportedOrderHistoryTransfer
+     */
+    protected function createHistoryEntryTransfer(
+        ExportedOrderTransfer $exportedOrderTransfer,
+        ExportedOrderConfigTransfer $configTransfer
+    ): ExportedOrderHistoryTransfer {
+        $configTransfer->requireUser();
+
+        $exportedOrderHistoryTransfer = (new ExportedOrderHistoryTransfer())->fromArray($exportedOrderTransfer->toArray(), true);
+        $exportedOrderHistoryTransfer
+            ->setFkExportedOrder($exportedOrderTransfer->getIdExportedOrder())
+            ->setFkUser($configTransfer->getUser()->getIdUser());
+        $configTransfer->setUser((new UserTransfer())->setIdUser($configTransfer->getUser()->getIdUser()));
+        $exportedOrderHistoryTransfer->setConfig(json_encode($configTransfer->toArray()));
+
+        return $exportedOrderHistoryTransfer;
     }
 
     /**
@@ -155,18 +212,18 @@ class OrderExport implements DataExportInterface
      * @param \Generated\Shared\Transfer\ExportedOrderTransfer $exportedOrderTransfer
      * @param \Generated\Shared\Transfer\JellyfishBufferTableFilterTransfer $jellyfishBufferTableFilterTransfer
      *
-     * @return array
+     * @return \Generated\Shared\Transfer\ExportedOrderTransfer
      */
     protected function prepareOverride(
         ExportedOrderTransfer $exportedOrderTransfer,
         JellyfishBufferTableFilterTransfer $jellyfishBufferTableFilterTransfer
-    ): array {
+    ): ExportedOrderTransfer {
         $data = json_decode($exportedOrderTransfer->getData(), true);
         if (empty($jellyfishBufferTableFilterTransfer->getSystemCode()) === true) {
-            return $data;
+            return $exportedOrderTransfer;
         }
 
-        return $this->overrideSystemCode($data, $jellyfishBufferTableFilterTransfer);
+        return $exportedOrderTransfer->setData(json_encode($this->overrideSystemCode($data, $jellyfishBufferTableFilterTransfer)));
     }
 
     /**

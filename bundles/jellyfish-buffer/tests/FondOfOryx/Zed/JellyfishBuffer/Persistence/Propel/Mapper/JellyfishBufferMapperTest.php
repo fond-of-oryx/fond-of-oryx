@@ -91,6 +91,10 @@ class JellyfishBufferMapperTest extends Unit
             ->method('setStore')
             ->willReturnSelf();
 
+        $this->fooExportedOrderMock->expects($this->atLeastOnce())
+            ->method('setUpdatedAt')
+            ->willReturnSelf();
+
         $this->assertSame(
             $this->fooExportedOrderMock,
             $this->jellyfishBufferMapper->mapTransferAndOptionsToEntity(

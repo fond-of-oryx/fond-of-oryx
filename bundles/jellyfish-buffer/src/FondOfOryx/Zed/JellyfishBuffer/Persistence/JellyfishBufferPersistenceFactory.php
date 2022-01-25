@@ -5,6 +5,7 @@ namespace FondOfOryx\Zed\JellyfishBuffer\Persistence;
 use FondOfOryx\Zed\JellyfishBuffer\Persistence\Propel\Mapper\JellyfishBufferMapper;
 use FondOfOryx\Zed\JellyfishBuffer\Persistence\Propel\Mapper\JellyfishBufferMapperInterface;
 use Orm\Zed\JellyfishBuffer\Persistence\Base\FooExportedOrderQuery as OrmFooExportedOrderQuery;
+use Orm\Zed\JellyfishBuffer\Persistence\FooExportedOrderHistoryQuery;
 use Orm\Zed\JellyfishBuffer\Persistence\FooExportedOrderQuery;
 use Spryker\Zed\Kernel\Persistence\AbstractPersistenceFactory;
 
@@ -29,5 +30,13 @@ class JellyfishBufferPersistenceFactory extends AbstractPersistenceFactory
     public function createExportedOrderQuery(): OrmFooExportedOrderQuery
     {
         return new FooExportedOrderQuery();
+    }
+
+    /**
+     * @return \Orm\Zed\JellyfishBuffer\Persistence\FooExportedOrderHistoryQuery
+     */
+    public function createExportedOrderHistoryQuery(): FooExportedOrderHistoryQuery
+    {
+        return new FooExportedOrderHistoryQuery();
     }
 }

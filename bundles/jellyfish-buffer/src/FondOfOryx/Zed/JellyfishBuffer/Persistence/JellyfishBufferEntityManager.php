@@ -2,7 +2,9 @@
 
 namespace FondOfOryx\Zed\JellyfishBuffer\Persistence;
 
+use Generated\Shared\Transfer\ExportedOrderHistoryTransfer;
 use Generated\Shared\Transfer\JellyfishOrderTransfer;
+use Orm\Zed\JellyfishBuffer\Persistence\FooExportedOrderHistory;
 use Spryker\Zed\Kernel\Persistence\AbstractEntityManager;
 
 /**
@@ -41,5 +43,19 @@ class JellyfishBufferEntityManager extends AbstractEntityManager implements Jell
     {
         $entity = $this->getFactory()->createExportedOrderQuery()->filterByFkSalesOrder($fkSalesOrder)->findOneOrCreate();
         $entity->setIsReexported(true)->setUpdatedAt(time())->save();
+    }
+
+    /**
+     * @param \Generated\Shared\Transfer\ExportedOrderHistoryTransfer $exportedOrderHistoryTransfer
+     *
+     * @return void
+     */
+    public function createHistoryEntry(ExportedOrderHistoryTransfer $exportedOrderHistoryTransfer): void
+    {
+        $exportedOrderHistoryTransfer->requireFkExportedOrder()->requireFkUser()->requireData();
+
+        $fooExportedOrderHistory = new FooExportedOrderHistory();
+        $fooExportedOrderHistory->fromArray($exportedOrderHistoryTransfer->toArray());
+        $fooExportedOrderHistory->save();
     }
 }

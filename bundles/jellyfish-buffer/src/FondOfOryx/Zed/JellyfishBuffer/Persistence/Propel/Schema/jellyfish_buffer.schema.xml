@@ -20,4 +20,20 @@
 
         <behavior name="timestampable"/>
     <id-method-parameter value="foo_exported_order_pk_seq"/></table>
+
+    <table name="foo_exported_order_history" identifierQuoting="true">
+        <column name="fk_exported_order" required="true" type="INTEGER" primaryKey="true"/>
+        <column name="fk_user" required="true" type="INTEGER" primaryKey="true"/>
+        <column name="data" required="true" type="LONGVARCHAR" default="{}"/>
+        <column name="config" required="true" type="LONGVARCHAR" default="{}"/>
+        <column name="exported_at" required="true" type="TIMESTAMP" defaultExpr="CURRENT_TIMESTAMP" primaryKey="true"/>
+
+        <foreign-key name="foo_exported_order_history-foo_exported_order" foreignTable="foo_exported_order">
+            <reference local="fk_exported_order" foreign="id_exported_order"/>
+        </foreign-key>
+
+        <foreign-key name="foo_exported_order_history-spy_user" foreignTable="spy_user">
+            <reference local="fk_user" foreign="id_user"/>
+        </foreign-key>
+    </table>
 </database>
