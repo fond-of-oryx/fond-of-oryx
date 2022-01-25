@@ -80,7 +80,7 @@ class EpcQrCodeGenerator implements EpcQrCodeGeneratorInterface
      */
     protected function createColorConfigTransfer(?array $colorData): ?QrCodeColorConfigurationTransfer
     {
-        if (empty($colorData) || count($colorData) !== 3) {
+        if ($colorData === null || count($colorData) !== 3) {
             return null;
         }
         [$red, $green, $blue] = $colorData;

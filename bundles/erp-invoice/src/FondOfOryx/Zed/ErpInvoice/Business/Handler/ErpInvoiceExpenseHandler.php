@@ -141,7 +141,7 @@ class ErpInvoiceExpenseHandler implements ErpInvoiceExpenseHandlerInterface
             $existingExpenses = $this->prepareExistingExpenses((new ErpInvoiceExpenseCollectionTransfer())->setExpenses($existingErpInvoiceTransfer->getExpenses()));
         }
 
-        if (empty($existingExpenses)) {
+        if (count($existingExpenses) === 0) {
             $existingExpenses = $this->getExistingErpInvoiceExpenses($erpInvoiceTransfer->getIdErpInvoice());
         }
 

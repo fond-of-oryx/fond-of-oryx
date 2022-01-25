@@ -23,7 +23,7 @@ class ErpOrderPageSearchRepository extends AbstractRepository implements ErpOrde
         $fooErpOrderPageSearchQuery = $this->getFactory()
             ->getErpOrderPageSearchQuery();
 
-        if (!empty($erpOrderIds)) {
+        if (count($erpOrderIds) > 0) {
             $fooErpOrderPageSearchQuery->filterByFkErpOrder_In(
                 $erpOrderIds,
             );

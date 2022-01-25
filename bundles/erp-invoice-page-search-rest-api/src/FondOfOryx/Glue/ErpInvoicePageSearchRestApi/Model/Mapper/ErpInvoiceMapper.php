@@ -49,8 +49,8 @@ class ErpInvoiceMapper implements ErpInvoiceMapperInterface
         $responseTransfer = (new RestErpInvoicePageSearchCollectionResponseTransfer())->fromArray($searchResults, true);
 
         if (
-            empty($searchResults)
-            || !array_key_exists(static::SEARCH_RESULT_KEY_ERP_INVOICES, $searchResults)
+            !array_key_exists(static::SEARCH_RESULT_KEY_ERP_INVOICES, $searchResults)
+            || !is_array($searchResults[static::SEARCH_RESULT_KEY_ERP_INVOICES])
         ) {
             return $responseTransfer;
         }

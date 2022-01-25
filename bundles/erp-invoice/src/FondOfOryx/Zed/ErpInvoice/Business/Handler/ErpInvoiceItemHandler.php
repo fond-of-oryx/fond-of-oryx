@@ -141,7 +141,7 @@ class ErpInvoiceItemHandler implements ErpInvoiceItemHandlerInterface
             $existingItems = $this->prepareExistingItems((new ErpInvoiceItemCollectionTransfer())->setItems($existingErpInvoiceTransfer->getInvoiceItems()));
         }
 
-        if (empty($existingItems)) {
+        if (count($existingItems) === 0) {
             $existingItems = $this->getExistingErpInvoiceItems($erpInvoiceTransfer->getIdErpInvoice());
         }
 

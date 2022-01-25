@@ -142,13 +142,7 @@ class GiftCardProductAbstractConfigurationWriterTest extends Unit
             ->method('handleTransaction')
             ->willReturnCallback(
                 static function ($closure) {
-                    $result = $closure();
-
-                    if (empty($result)) {
-                        return;
-                    }
-
-                    return $result;
+                    return $closure();
                 },
             );
 
@@ -193,13 +187,7 @@ class GiftCardProductAbstractConfigurationWriterTest extends Unit
             ->method('handleTransaction')
             ->willReturnCallback(
                 static function ($closure) {
-                    $result = $closure();
-
-                    if (empty($result)) {
-                        return;
-                    }
-
-                    return $result;
+                    return $closure();
                 },
             );
 
@@ -230,13 +218,7 @@ class GiftCardProductAbstractConfigurationWriterTest extends Unit
             ->method('handleTransaction')
             ->willReturnCallback(
                 static function ($closure) {
-                    $result = $closure();
-
-                    if (empty($result)) {
-                        return;
-                    }
-
-                    return $result;
+                    return $closure();
                 },
             );
 

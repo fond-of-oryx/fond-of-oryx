@@ -8,6 +8,7 @@ use Exception;
 use FondOfOryx\Service\CrossEngage\Exception\FormValidatorNotFoundException;
 use IteratorAggregate;
 use Symfony\Component\Form\FormInterface;
+use Traversable;
 
 class FormValidatorCollection implements Countable, IteratorAggregate, FormValidatorCollectionInterface
 {
@@ -81,9 +82,9 @@ class FormValidatorCollection implements Countable, IteratorAggregate, FormValid
     }
 
     /**
-     * @return \ArrayIterator|\Traversable
+     * @return \Traversable
      */
-    public function getIterator()
+    public function getIterator(): Traversable
     {
         return new ArrayIterator($this->validatorCollection);
     }

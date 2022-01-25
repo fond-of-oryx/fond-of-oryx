@@ -80,7 +80,7 @@ class CartChecker implements CartCheckerInterface
             return $itemTransfer->getSku();
         }, $itemTransfers);
 
-        if (empty($productConcreteSkus)) {
+        if (count($productConcreteSkus) === 0) {
             return [];
         }
 

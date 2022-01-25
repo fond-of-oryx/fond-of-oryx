@@ -93,7 +93,7 @@ class CrossEngageUrlBuilder implements CrossEngageUrlBuilderInterface
      */
     protected function appendQueryString(string $path, ?string $queryString = null): string
     {
-        if (empty($queryString) === true) {
+        if ($queryString === null || $queryString === '') {
             return $path;
         }
 

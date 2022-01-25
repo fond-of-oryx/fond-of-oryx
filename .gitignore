@@ -6,4 +6,6 @@ codeception-*.yml
 composer.lock
 composer.phar
 
+phpcs.cache
+
 vendor

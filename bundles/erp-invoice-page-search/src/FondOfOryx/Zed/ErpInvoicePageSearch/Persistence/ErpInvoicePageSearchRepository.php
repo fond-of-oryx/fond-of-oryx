@@ -23,7 +23,7 @@ class ErpInvoicePageSearchRepository extends AbstractRepository implements ErpIn
         $fooErpInvoicePageSearchQuery = $this->getFactory()
             ->getErpInvoicePageSearchQuery();
 
-        if (!empty($erpInvoiceIds)) {
+        if (count($erpInvoiceIds) > 0) {
             $fooErpInvoicePageSearchQuery->filterByFkErpInvoice_In(
                 $erpInvoiceIds,
             );

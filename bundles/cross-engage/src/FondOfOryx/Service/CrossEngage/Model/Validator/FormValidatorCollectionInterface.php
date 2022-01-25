@@ -3,6 +3,7 @@
 namespace FondOfOryx\Service\CrossEngage\Model\Validator;
 
 use Symfony\Component\Form\FormInterface;
+use Traversable;
 
 interface FormValidatorCollectionInterface
 {
@@ -26,9 +27,9 @@ interface FormValidatorCollectionInterface
     public function getValidators(): array;
 
     /**
-     * @return \ArrayIterator|\Traversable
+     * @return \Traversable
      */
-    public function getIterator();
+    public function getIterator(): Traversable;
 
     /**
      * @return int

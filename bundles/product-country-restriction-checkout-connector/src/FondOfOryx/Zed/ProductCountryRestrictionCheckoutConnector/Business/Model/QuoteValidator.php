@@ -53,7 +53,7 @@ class QuoteValidator implements QuoteValidatorInterface
 
         $blackListedCountries = $this->getBlacklistedCountriesByQuote($quoteTransfer);
 
-        if (empty($blackListedCountries)) {
+        if (count($blackListedCountries) === 0) {
             return $quoteValidationResponseTransfer;
         }
 
@@ -163,13 +163,13 @@ class QuoteValidator implements QuoteValidatorInterface
         $sku = $itemTransfer->getSku();
         $blacklistedCountryCodeList = [];
 
-        if (!empty($blacklistedCountries[$sku]) && is_array($blacklistedCountries[$sku])) {
+        if (isset($blacklistedCountries[$sku]) && is_array($blacklistedCountries[$sku])) {
             $blacklistedCountryCodeList = $blacklistedCountries[$sku];
         }
 
         $blacklistedCountryCodes = array_pop($blacklistedCountryCodeList);
 
-        if (!empty($blacklistedCountryCodeList)) {
+        if (is_array($blacklistedCountryCodeList) && count($blacklistedCountryCodeList) > 0) {
             $blacklistedCountryCodes = sprintf(
                 '%s & %s',
                 implode(', ', $blacklistedCountryCodeList),

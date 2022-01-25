@@ -72,16 +72,13 @@ class ErpOrderTotalWriterTest extends Unit
             ->disableOriginalConstructor()
             ->getMock();
 
-        $this->handlerMock->expects($this->atLeastOnce())->method('handleTransaction')->will($this->returnCallback(static function (
-            $closure
-        ) {
-            $result = $closure();
-            if (empty($result)) {
-                return;
-            }
-
-            return $result;
-        }));
+        $this->handlerMock->expects($this->atLeastOnce())
+            ->method('handleTransaction')
+            ->willReturnCallback(
+                static function ($closure) {
+                    return $closure();
+                },
+            );
 
         $this->transactionHandlerFactoryMock->method('createHandler')->willReturn($this->handlerMock);
 

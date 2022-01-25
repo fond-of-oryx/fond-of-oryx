@@ -20,7 +20,7 @@ class ErpOrderPageSearchQueryContainer extends AbstractQueryContainer implements
     ): ErpOrderQuery {
         $erpOrderQuery = $this->getFactory()->getErpOrderQuery()->clear();
 
-        if (empty($erpOrderIds)) {
+        if (count($erpOrderIds) === 0) {
             return $erpOrderQuery;
         }
 

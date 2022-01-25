@@ -20,7 +20,7 @@ class ErpInvoicePageSearchQueryContainer extends AbstractQueryContainer implemen
     ): FooErpInvoiceQuery {
         $erpInvoiceQuery = $this->getFactory()->getErpInvoiceQuery()->clear();
 
-        if (empty($erpInvoiceIds)) {
+        if (count($erpInvoiceIds) === 0) {
             return $erpInvoiceQuery;
         }
 
