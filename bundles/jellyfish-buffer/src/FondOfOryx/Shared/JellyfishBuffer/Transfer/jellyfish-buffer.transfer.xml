@@ -5,11 +5,13 @@
     <transfer name="ExportedOrder">
         <property name="idExportedOrder" type="int"/>
         <property name="fkSalesOrder" type="int"/>
+        <property name="order" type="Order"/>
         <property name="data" type="string"/>
         <property name="orderReference" type="string"/>
         <property name="store" type="string"/>
         <property name="createdAt" type="int"/>
         <property name="updatedAt" type="int"/>
+        <property name="isReexported" type="bool"/>
     </transfer>
 
     <transfer name="JellyfishBufferTableFilter">
@@ -25,5 +27,23 @@
     <transfer name="ExportedOrderCollection">
         <property name="orders" singular="order" type="ExportedOrder[]"/>
         <property name="count" type="int"/>
+    </transfer>
+
+    <transfer name="ExportedOrderHistoryCollection">
+        <property name="orderHistory" singular="orderHistory" type="ExportedOrderHistory[]"/>
+    </transfer>
+
+    <transfer name="ExportedOrderHistory">
+        <property name="fkExportedOrder" type="int"/>
+        <property name="fkUser" type="int"/>
+        <property name="user" type="User"/>
+        <property name="data" type="string"/>
+        <property name="config" type="string"/>
+        <property name="exportedAt" type="int"/>
+    </transfer>
+
+    <transfer name="ExportedOrderConfig">
+        <property name="user" type="User"/>
+        <property name="filter" type="JellyfishBufferTableFilter"/>
     </transfer>
 </transfers>

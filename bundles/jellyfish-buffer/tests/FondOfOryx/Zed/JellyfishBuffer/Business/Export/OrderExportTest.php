@@ -9,8 +9,10 @@ use FondOfOryx\Zed\JellyfishBuffer\JellyfishBufferConfig;
 use FondOfOryx\Zed\JellyfishBuffer\Persistence\JellyfishBufferEntityManager;
 use FondOfOryx\Zed\JellyfishBuffer\Persistence\JellyfishBufferRepository;
 use Generated\Shared\Transfer\ExportedOrderCollectionTransfer;
+use Generated\Shared\Transfer\ExportedOrderConfigTransfer;
 use Generated\Shared\Transfer\ExportedOrderTransfer;
 use Generated\Shared\Transfer\JellyfishBufferTableFilterTransfer;
+use Generated\Shared\Transfer\UserTransfer;
 use GuzzleHttp\Client;
 use Monolog\Logger;
 use Psr\Http\Message\ResponseInterface;
@@ -54,9 +56,19 @@ class OrderExportTest extends Unit
     protected $collectionTransferMock;
 
     /**
+     * @var \Generated\Shared\Transfer\UserTransfer|\PHPUnit\Framework\MockObject\MockObject
+     */
+    protected $userTransferMock;
+
+    /**
      * @var \Generated\Shared\Transfer\ExportedOrderTransfer|\PHPUnit\Framework\MockObject\MockObject
      */
     protected $exportedOrderTransferMock;
+
+    /**
+     * @var \Generated\Shared\Transfer\ExportedOrderConfigTransfer|\PHPUnit\Framework\MockObject\MockObject
+     */
+    protected $exportedOrderConfigTransferMock;
 
     /**
      * @var \Psr\Http\Message\ResponseInterface|\PHPUnit\Framework\MockObject\MockObject
@@ -105,6 +117,14 @@ class OrderExportTest extends Unit
             ->disableOriginalConstructor()
             ->getMock();
 
+        $this->userTransferMock = $this->getMockBuilder(UserTransfer::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $this->exportedOrderConfigTransferMock = $this->getMockBuilder(ExportedOrderConfigTransfer::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
         $this->responseMock = $this->getMockBuilder(ResponseInterface::class)
             ->disableOriginalConstructor()
             ->getMock();
@@ -123,11 +143,12 @@ class OrderExportTest extends Unit
      */
     public function testExportFilterValidationStoreMissingException(): void
     {
+        $this->exportedOrderConfigTransferMock->expects(static::atLeastOnce())->method('getFilter')->willReturn($this->filterTransferMock);
         $this->filterTransferMock->expects(static::once())->method('getStore');
 
         $catch = null;
         try {
-            $this->exporter->export($this->filterTransferMock);
+            $this->exporter->exportByFilter($this->exportedOrderConfigTransferMock);
         } catch (Exception $exception) {
             $catch = $exception;
         }
@@ -141,6 +162,7 @@ class OrderExportTest extends Unit
      */
     public function testExportFilterValidationNoIdsNorRangeGivenException(): void
     {
+        $this->exportedOrderConfigTransferMock->expects(static::atLeastOnce())->method('getFilter')->willReturn($this->filterTransferMock);
         $this->filterTransferMock->expects(static::once())->method('getStore')->willReturn('test');
         $this->filterTransferMock->expects(static::once())->method('getIds');
         $this->filterTransferMock->expects(static::once())->method('getRangeTo')->willReturn(1);
@@ -148,7 +170,7 @@ class OrderExportTest extends Unit
 
         $catch = null;
         try {
-            $this->exporter->export($this->filterTransferMock);
+            $this->exporter->exportByFilter($this->exportedOrderConfigTransferMock);
         } catch (Exception $exception) {
             $catch = $exception;
         }
@@ -160,75 +182,78 @@ class OrderExportTest extends Unit
     /**
      * @return void
      */
-    public function testExportWithoutEntries(): void
+    public function testExportByFilterWithoutEntries(): void
     {
+        $this->exportedOrderConfigTransferMock->expects(static::atLeastOnce())->method('getFilter')->willReturn($this->filterTransferMock);
         $this->filterTransferMock->expects(static::atLeastOnce())->method('getStore')->willReturn('testStore');
         $this->filterTransferMock->expects(static::atLeastOnce())->method('getSystemCode')->willReturn('test');
         $this->filterTransferMock->expects(static::atLeastOnce())->method('getIds')->willReturn([1]);
-        $this->filterTransferMock->expects(static::atLeastOnce())->method('getSystemCode')->willReturn('test');
         $this->repositoryMock->expects(static::once())->method('findBufferedOrders')->willReturn($this->collectionTransferMock);
         $this->loggerMock->expects(static::once())->method('notice')->with('Exporting "0" orders from buffer table for store "testStore" with system code override "test"');
         $this->collectionTransferMock->expects(static::once())->method('getCount')->willReturn(0);
         $this->collectionTransferMock->expects(static::once())->method('getOrders')->willReturn(new ArrayObject());
 
-        $this->exporter->export($this->filterTransferMock);
+        $this->exporter->exportByFilter($this->exportedOrderConfigTransferMock);
     }
 
     /**
      * @return void
      */
-    public function testExportWithDryRun(): void
+    public function testExportByFilterWithDryRun(): void
     {
         $collection = new ArrayObject();
         $collection->append($this->exportedOrderTransferMock);
 
+        $this->exportedOrderConfigTransferMock->expects(static::atLeastOnce())->method('getFilter')->willReturn($this->filterTransferMock);
+        $this->exportedOrderConfigTransferMock->expects(static::atLeastOnce())->method('getUser')->willReturn($this->userTransferMock);
         $this->filterTransferMock->expects(static::atLeastOnce())->method('getStore')->willReturn('testStore');
         $this->filterTransferMock->expects(static::atLeastOnce())->method('getSystemCode')->willReturn('test');
         $this->filterTransferMock->expects(static::atLeastOnce())->method('getIds')->willReturn([1]);
-        $this->filterTransferMock->expects(static::atLeastOnce())->method('getSystemCode')->willReturn('test');
         $this->filterTransferMock->expects(static::atLeastOnce())->method('getDryRun')->willReturn(true);
         $this->repositoryMock->expects(static::once())->method('findBufferedOrders')->willReturn($this->collectionTransferMock);
         $this->loggerMock->expects(static::exactly(2))->method('notice');
         $this->collectionTransferMock->expects(static::once())->method('getCount')->willReturn(1);
         $this->collectionTransferMock->expects(static::once())->method('getOrders')->willReturn($collection);
-        $this->exportedOrderTransferMock->expects(static::once())->method('getData')->willReturn(json_encode(['body' => json_encode([])]));
+        $this->exportedOrderTransferMock->expects(static::atLeastOnce())->method('getData')->willReturn(json_encode(['body' => json_encode([])]));
+        $this->exportedOrderTransferMock->expects(static::once())->method('setData')->with('{"body":"{\"systemCode\":\"test\"}"}')->willReturnSelf();
+        $this->exportedOrderTransferMock->expects(static::once())->method('toArray')->willReturn([]);
         $this->guzzleClientMock->expects(static::never())->method('request');
 
-        $this->exporter->export($this->filterTransferMock);
+        $this->exporter->exportByFilter($this->exportedOrderConfigTransferMock);
     }
 
     /**
      * @return void
      */
-    public function testExport(): void
+    public function testExportByFilter(): void
     {
         $collection = new ArrayObject();
         $collection->append($this->exportedOrderTransferMock);
         $self = $this;
 
+        $this->exportedOrderConfigTransferMock->expects(static::atLeastOnce())->method('getFilter')->willReturn($this->filterTransferMock);
+        $this->exportedOrderConfigTransferMock->expects(static::atLeastOnce())->method('getUser')->willReturn($this->userTransferMock);
         $this->filterTransferMock->expects(static::atLeastOnce())->method('getStore')->willReturn('testStore');
         $this->filterTransferMock->expects(static::atLeastOnce())->method('getSystemCode')->willReturn('test');
         $this->filterTransferMock->expects(static::atLeastOnce())->method('getIds')->willReturn([1]);
-        $this->filterTransferMock->expects(static::atLeastOnce())->method('getSystemCode')->willReturn('test');
         $this->repositoryMock->expects(static::once())->method('findBufferedOrders')->willReturn($this->collectionTransferMock);
         $this->entityManagerMock->expects(static::once())->method('flagAsReexported');
         $this->loggerMock->expects(static::once())->method('notice');
         $this->collectionTransferMock->expects(static::once())->method('getCount')->willReturn(1);
         $this->collectionTransferMock->expects(static::once())->method('getOrders')->willReturn($collection);
-        $this->exportedOrderTransferMock->expects(static::once())->method('getData')->willReturn(json_encode(['body' => json_encode([])]));
+        $this->exportedOrderTransferMock->expects(static::atLeastOnce())->method('getData')->willReturn(json_encode(['body' => json_encode([])]));
+        $this->exportedOrderTransferMock->expects(static::once())->method('setData')->with('{"body":"{\"systemCode\":\"test\"}"}')->willReturnSelf();
+        $this->exportedOrderTransferMock->expects(static::once())->method('toArray')->willReturn([]);
         $this->exportedOrderTransferMock->expects(static::once())->method('getFkSalesOrder')->willReturn(1);
         $this->responseMock->expects(static::once())->method('getStatusCode')->willReturn(Response::HTTP_OK);
         $this->guzzleClientMock->expects(static::once())->method('request')->willReturnCallback(static function ($type, $uri, $options) use ($self) {
             static::assertIsArray($options);
             static::assertArrayHasKey('body', $options);
-            $body = json_decode($options['body'], true);
-            static::assertArrayHasKey('systemCode', $body);
-            static::assertSame('test', $body['systemCode']);
 
             return $self->responseMock;
         });
 
-        static::assertFalse($this->exporter->export($this->filterTransferMock));
+        static::assertFalse($this->exporter->exportByFilter($this->exportedOrderConfigTransferMock));
     }
 
     /**
@@ -240,29 +265,29 @@ class OrderExportTest extends Unit
         $collection->append($this->exportedOrderTransferMock);
         $self = $this;
 
+        $this->exportedOrderConfigTransferMock->expects(static::atLeastOnce())->method('getFilter')->willReturn($this->filterTransferMock);
+        $this->exportedOrderConfigTransferMock->expects(static::atLeastOnce())->method('getUser')->willReturn($this->userTransferMock);
         $this->filterTransferMock->expects(static::atLeastOnce())->method('getStore')->willReturn('testStore');
         $this->filterTransferMock->expects(static::atLeastOnce())->method('getSystemCode')->willReturn('test');
         $this->filterTransferMock->expects(static::atLeastOnce())->method('getIds')->willReturn([1]);
-        $this->filterTransferMock->expects(static::atLeastOnce())->method('getSystemCode')->willReturn('test');
         $this->repositoryMock->expects(static::once())->method('findBufferedOrders')->willReturn($this->collectionTransferMock);
         $this->entityManagerMock->expects(static::never())->method('flagAsReexported');
         $this->loggerMock->expects(static::once())->method('notice');
         $this->loggerMock->expects(static::once())->method('error');
         $this->collectionTransferMock->expects(static::once())->method('getCount')->willReturn(1);
         $this->collectionTransferMock->expects(static::once())->method('getOrders')->willReturn($collection);
-        $this->exportedOrderTransferMock->expects(static::once())->method('getData')->willReturn(json_encode(['body' => json_encode([])]));
+        $this->exportedOrderTransferMock->expects(static::atLeastOnce())->method('getData')->willReturn(json_encode(['body' => json_encode([])]));
+        $this->exportedOrderTransferMock->expects(static::once())->method('setData')->with('{"body":"{\"systemCode\":\"test\"}"}')->willReturnSelf();
         $this->exportedOrderTransferMock->expects(static::once())->method('getFkSalesOrder')->willReturn(1);
+        $this->exportedOrderTransferMock->expects(static::once())->method('toArray')->willReturn([]);
         $this->responseMock->expects(static::exactly(2))->method('getStatusCode')->willReturn(Response::HTTP_BAD_GATEWAY);
         $this->guzzleClientMock->expects(static::once())->method('request')->willReturnCallback(static function ($type, $uri, $options) use ($self) {
             static::assertIsArray($options);
             static::assertArrayHasKey('body', $options);
-            $body = json_decode($options['body'], true);
-            static::assertArrayHasKey('systemCode', $body);
-            static::assertSame('test', $body['systemCode']);
 
             return $self->responseMock;
         });
 
-        static::assertTrue($this->exporter->export($this->filterTransferMock));
+        static::assertTrue($this->exporter->exportByFilter($this->exportedOrderConfigTransferMock));
     }
 }

@@ -3,7 +3,9 @@
 namespace FondOfOryx\Zed\JellyfishBuffer\Communication\Console;
 
 use Exception;
+use Generated\Shared\Transfer\ExportedOrderConfigTransfer;
 use Generated\Shared\Transfer\JellyfishBufferTableFilterTransfer;
+use Generated\Shared\Transfer\UserTransfer;
 use Spryker\Zed\Kernel\Communication\Console\Console;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
@@ -12,6 +14,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 /**
  * @method \FondOfOryx\Zed\JellyfishBuffer\Business\JellyfishBufferFacadeInterface getFacade()
  * @method \FondOfOryx\Zed\JellyfishBuffer\Persistence\JellyfishBufferRepositoryInterface getRepository()
+ * @method \FondOfOryx\Zed\JellyfishBuffer\Communication\JellyfishBufferCommunicationFactory getFactory()
  */
 class JellyfishBufferConsole extends Console
 {
@@ -176,6 +179,18 @@ class JellyfishBufferConsole extends Console
         $filterTransfer->setDryRun($input->getOption(static::OPTION_DRY_RUN));
         $filterTransfer->setForceReexport($input->getOption(static::OPTION_FORCE_ALREADY_REEXPORTED));
 
-        return (int)$this->getFacade()->exportFromBufferTable($filterTransfer);
+        return (int)$this->getFacade()->exportFromBufferTable($this->createConfig($filterTransfer));
+    }
+
+    /**
+     * @param \Generated\Shared\Transfer\JellyfishBufferTableFilterTransfer $filterTransfer
+     *
+     * @return \Generated\Shared\Transfer\ExportedOrderConfigTransfer
+     */
+    protected function createConfig(JellyfishBufferTableFilterTransfer $filterTransfer): ExportedOrderConfigTransfer
+    {
+        return (new ExportedOrderConfigTransfer())
+            ->setFilter($filterTransfer)
+            ->setUser((new UserTransfer())->setIdUser($this->getFactory()->getConfig()->getDefaultExportUserId()));
     }
 }
