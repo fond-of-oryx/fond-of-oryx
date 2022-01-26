@@ -13,7 +13,7 @@
     "fond-of-oryx/jellyfish-sales-order": "^1.0.0",
     "fond-of-oryx/jellyfish-sales-order-extension": "^1.0.0",
     "spryker/guzzle": "^2.2.0",
-    "symfony/http-foundation": "v5.0.0"
+    "symfony/http-foundation": "^v5.0.0"
   },
   "require-dev": {
     "fond-of-codeception/spryker": "^1.0",
