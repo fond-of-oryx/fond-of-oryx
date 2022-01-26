@@ -60,7 +60,7 @@ class ErpOrderApi implements ErpOrderApiInterface
      */
     public function create(ApiDataTransfer $apiDataTransfer): ApiItemTransfer
     {
-        $erpOrderTransfer = (new ErpOrderTransfer())->fromArray($apiDataTransfer->getData());
+        $erpOrderTransfer = (new ErpOrderTransfer())->fromArray($apiDataTransfer->getData(), true);
         $erpOrderResponseTransfer = $this->erpOrderFacade->createErpOrder($erpOrderTransfer);
         $erpOrderTransfer = $erpOrderResponseTransfer->getErpOrder();
 
