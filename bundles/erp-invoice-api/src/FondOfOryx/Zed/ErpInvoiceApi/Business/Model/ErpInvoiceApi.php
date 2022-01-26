@@ -60,7 +60,7 @@ class ErpInvoiceApi implements ErpInvoiceApiInterface
      */
     public function create(ApiDataTransfer $apiDataTransfer): ApiItemTransfer
     {
-        $erpInvoiceTransfer = (new ErpInvoiceTransfer())->fromArray($apiDataTransfer->getData());
+        $erpInvoiceTransfer = (new ErpInvoiceTransfer())->fromArray($apiDataTransfer->getData(), true);
         $erpInvoiceResponseTransfer = $this->erpInvoiceFacade->createErpInvoice($erpInvoiceTransfer);
         $erpInvoiceTransfer = $erpInvoiceResponseTransfer->getErpInvoice();
 
