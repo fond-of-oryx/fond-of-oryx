@@ -46,4 +46,12 @@ class TrboConfig extends AbstractBundleConfig
     {
         return $this->get(TrboConstants::TRBO_API_TIMEOUT, TrboConstants::TRBO_API_FALLBACK_TIMEOUT);
     }
+
+    /**
+     * @return bool
+     */
+    public function isHttpErrorsEnabled(): bool
+    {
+        return $this->get(TrboConstants::TRBO_API_HTTP_ERRORS, false);
+    }
 }

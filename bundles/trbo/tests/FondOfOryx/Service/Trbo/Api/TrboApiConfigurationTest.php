@@ -86,6 +86,10 @@ class TrboApiConfigurationTest extends Unit
             ->method('getTrboApiKey')
             ->willReturn('API_KEY');
 
+        $this->configMock->expects(static::atLeastOnce())
+            ->method('isHttpErrorsEnabled')
+            ->willReturn(false);
+
         $this->requestHeaderMock->expects(static::atLeastOnce())
             ->method('get')
             ->with('referer')
@@ -101,6 +105,7 @@ class TrboApiConfigurationTest extends Unit
         static::assertArrayHasKey('headers', $response);
         static::assertArrayHasKey('timeout', $response);
         static::assertArrayHasKey('json', $response);
+        static::assertArrayHasKey('http_errors', $response);
     }
 
     /**
@@ -124,6 +129,10 @@ class TrboApiConfigurationTest extends Unit
             ->method('getTrboApiKey')
             ->willReturn('API_KEY');
 
+        $this->configMock->expects(static::atLeastOnce())
+            ->method('isHttpErrorsEnabled')
+            ->willReturn(false);
+
         $this->requestHeaderMock->expects(static::atLeastOnce())
             ->method('get')
             ->with('referer')
@@ -142,6 +151,7 @@ class TrboApiConfigurationTest extends Unit
         static::assertArrayHasKey('headers', $response);
         static::assertArrayHasKey('timeout', $response);
         static::assertArrayHasKey('json', $response);
+        static::assertArrayHasKey('http_errors', $response);
     }
 
     /**

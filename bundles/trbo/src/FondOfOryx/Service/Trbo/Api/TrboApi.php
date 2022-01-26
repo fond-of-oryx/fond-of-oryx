@@ -14,7 +14,7 @@ class TrboApi implements TrboApiInterface
     /**
      * @var string
      */
-    public const METHOD = 'post';
+    public const HTTP_METHOD = 'post';
 
     /**
      * @var \GuzzleHttp\ClientInterface
@@ -62,7 +62,11 @@ class TrboApi implements TrboApiInterface
     public function requestData(Request $request): ?TrboDataTransfer
     {
         try {
-            $result = $this->client->request(static::METHOD, $this->trboApiConfiguration->getApiUrl(), $this->trboApiConfiguration->getConfiguration($request));
+            $result = $this->client->request(
+                static::HTTP_METHOD,
+                $this->trboApiConfiguration->getApiUrl(),
+                $this->trboApiConfiguration->getConfiguration($request),
+            );
 
             $data = json_decode($result->getBody()->getContents(), true, 512, JSON_THROW_ON_ERROR);
 
