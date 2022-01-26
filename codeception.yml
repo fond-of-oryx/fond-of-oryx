@@ -57,6 +57,7 @@ include:
   - bundles/invoice
   - bundles/jellyfish-availability-alert
   - bundles/jellyfish-buffer
+  - bundles/jellyfish-buffer-gui
   - bundles/jellyfish-cross-engage
   - bundles/jellyfish-gift-card
   - bundles/jellyfish-sales-order

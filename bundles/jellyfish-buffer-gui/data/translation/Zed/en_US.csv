@@ -1,0 +1,13 @@
+jellyfish_buffer_gui.exported_at, Exported At
+jellyfish_buffer_gui.last_modified, Last Modified At
+jellyfish_buffer_gui.is_reexported, Was ReExported?
+jellyfish_buffer_gui.exported_order_history, History of re exports
+jellyfish_buffer_gui.exported_by, Exported By
+jellyfish_buffer_gui.exported_order_data, Exported Order Data
+jellyfish_buffer_gui.exported_order_list, List of exported orders
+jellyfish_buffer_gui.exported_order_overview, Exported orders overview
+jellyfish_buffer_gui.export_state, Export state
+jellyfish_buffer_gui.back_to_order, Back to order
+jellyfish_buffer_gui.run_reexport, Run ReExport
+jellyfish_buffer_gui.export_state.success, The order was re exported successfully!
+jellyfish_buffer_gui.export_state.failure, The order could not not be re exported!
