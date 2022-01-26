@@ -38,14 +38,14 @@ class IndexController extends AbstractController
     {
         $idStore = $this->extractStoreId($request);
 
-        $availabilityAbstractTable = $this->getExportedOrderTable($idStore);
+        $exportedOrderTable = $this->getExportedOrderTable($idStore);
 
         $storeTransfer = $this->getFactory()->getStoreFacade()->getCurrentStore();
         $stores = $this->getFactory()->getStoreFacade()->getStoresWithSharedPersistence($storeTransfer);
         $stores[] = $storeTransfer;
 
         return [
-            'indexTable' => $availabilityAbstractTable->render(),
+            'indexTable' => $exportedOrderTable->render(),
             'stores' => $stores,
             'idStore' => $idStore,
         ];
@@ -60,10 +60,10 @@ class IndexController extends AbstractController
     {
         $idStore = $this->extractStoreId($request);
 
-        $availabilityAbstractTable = $this->getExportedOrderTable($idStore);
+        $exportedOrderTable = $this->getExportedOrderTable($idStore);
 
         return $this->jsonResponse(
-            $availabilityAbstractTable->fetchData(),
+            $exportedOrderTable->fetchData(),
         );
     }
 
@@ -76,10 +76,10 @@ class IndexController extends AbstractController
     {
         $idExportedOrder = $this->castId($request->query->getInt(ExportedOrderTable::URL_PARAM_ID_EXPORTED_ORDER));
         $exportedOrder = $this->getFactory()->getJellyfishBufferFacade()->getExportedOrderById($idExportedOrder);
-        $availabilityAbstractTable = $this->getExportedOrderHistoryTable($exportedOrder);
+        $exportedOrderTable = $this->getExportedOrderHistoryTable($exportedOrder);
 
         return $this->jsonResponse(
-            $availabilityAbstractTable->fetchData(),
+            $exportedOrderTable->fetchData(),
         );
     }
 
@@ -98,7 +98,7 @@ class IndexController extends AbstractController
 
         return [
             'indexTable' => $exportedOrderHistory->render(),
-            'exportedOrder' => $exportedOrder,
+            'exportedOrder' => $this->anonymizeData($exportedOrder),
             'idStore' => $idStore,
             'idExportedOrder' => $idExportedOrder,
             'exportState' => $status ?? '',
@@ -148,5 +148,23 @@ class IndexController extends AbstractController
     protected function extractExportStatus(Request $request): ?int
     {
         return $request->query->get(static::URL_PARAM_STATUS);
+    }
+
+    /**
+     * @param \Generated\Shared\Transfer\ExportedOrderTransfer $exportedOrderTransfer
+     *
+     * @return \Generated\Shared\Transfer\ExportedOrderTransfer
+     */
+    protected function anonymizeData(ExportedOrderTransfer $exportedOrderTransfer): ExportedOrderTransfer
+    {
+        $data = json_decode($exportedOrderTransfer->getData(), true);
+
+        foreach ($this->getFactory()->getConfig()->getAnonymizationData() as $key => $replacement) {
+            if (array_key_exists($key, $data)) {
+                $data[$key] = $replacement;
+            }
+        }
+
+        return $exportedOrderTransfer->setData(json_encode($data));
     }
 }

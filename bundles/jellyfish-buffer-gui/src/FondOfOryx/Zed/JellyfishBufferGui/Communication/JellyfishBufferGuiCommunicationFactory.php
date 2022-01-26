@@ -40,6 +40,7 @@ class JellyfishBufferGuiCommunicationFactory extends AbstractCommunicationFactor
         return new ExportedOrderHistoryTable(
             $this->getJellyfishBufferFacade(),
             $this->getQueryContainer(),
+            $this->getConfig(),
             $exportedOrderTransfer,
         );
     }
