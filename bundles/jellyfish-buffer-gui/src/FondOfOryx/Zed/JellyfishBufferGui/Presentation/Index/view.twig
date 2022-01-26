@@ -30,7 +30,7 @@
     {% embed '@Gui/Partials/widget.twig' with { widget_title: 'jellyfish_buffer_gui.exported_order_data' } %}
         {% block widget_content %}
             <div class="row">
-                {{ exportedOrder.data }}
+                {{ exportedOrder.data|raw }}
             </div>
             <div class="row">
                 {{ backActionButton('/sales/detail?id-sales-order='~exportedOrder.fkSalesOrder, 'jellyfish_buffer_gui.back_to_order' | trans) }}

@@ -3,6 +3,7 @@
 namespace FondOfOryx\Zed\JellyfishBufferGui\Communication\Table;
 
 use FondOfOryx\Zed\JellyfishBufferGui\Dependency\Facade\JellyfishBufferGuiToJellyfishBufferInterface;
+use FondOfOryx\Zed\JellyfishBufferGui\JellyfishBufferGuiConfig;
 use FondOfOryx\Zed\JellyfishBufferGui\Persistence\JellyfishBufferGuiQueryContainerInterface;
 use Generated\Shared\Transfer\ExportedOrderTransfer;
 use Orm\Zed\JellyfishBuffer\Persistence\Map\FooExportedOrderHistoryTableMap;
@@ -41,17 +42,25 @@ class ExportedOrderHistoryTable extends AbstractTable
     protected $exportedOrderTransfer;
 
     /**
+     * @var \FondOfOryx\Zed\JellyfishBufferGui\JellyfishBufferGuiConfig
+     */
+    protected $bundleConfig;
+
+    /**
      * @param \FondOfOryx\Zed\JellyfishBufferGui\Dependency\Facade\JellyfishBufferGuiToJellyfishBufferInterface $jellyfishBufferFacade
      * @param \FondOfOryx\Zed\JellyfishBufferGui\Persistence\JellyfishBufferGuiQueryContainerInterface $queryContainer
+     * @param \FondOfOryx\Zed\JellyfishBufferGui\JellyfishBufferGuiConfig $bundleConfig
      * @param \Generated\Shared\Transfer\ExportedOrderTransfer $exportedOrderTransfer
      */
     public function __construct(
         JellyfishBufferGuiToJellyfishBufferInterface $jellyfishBufferFacade,
         JellyfishBufferGuiQueryContainerInterface $queryContainer,
+        JellyfishBufferGuiConfig $bundleConfig,
         ExportedOrderTransfer $exportedOrderTransfer
     ) {
         $this->jellyfishBufferFacade = $jellyfishBufferFacade;
         $this->queryContainer = $queryContainer;
+        $this->bundleConfig = $bundleConfig;
         $this->exportedOrderTransfer = $exportedOrderTransfer;
     }
 
@@ -65,7 +74,7 @@ class ExportedOrderHistoryTable extends AbstractTable
         $url = Url::generate(
             '/jellyfish-buffer-history-table',
             [
-               static::URL_PARAM_ID_EXPORTED_ORDER => $this->exportedOrderTransfer->getIdExportedOrder(),
+                static::URL_PARAM_ID_EXPORTED_ORDER => $this->exportedOrderTransfer->getIdExportedOrder(),
             ],
         );
 
@@ -120,12 +129,30 @@ class ExportedOrderHistoryTable extends AbstractTable
                 FooExportedOrderTableMap::COL_ID_EXPORTED_ORDER => $exportedOrderHistoryEntity->getFkExportedOrder(),
                 SpySalesOrderTableMap::COL_ORDER_REFERENCE => $order->getOrderReference(),
                 FooExportedOrderHistoryTableMap::COL_CONFIG => $exportedOrderHistoryEntity->getConfig(),
-                FooExportedOrderHistoryTableMap::COL_DATA => $exportedOrderHistoryEntity->getData(),
+                FooExportedOrderHistoryTableMap::COL_DATA => $this->anonymizeData($exportedOrderHistoryEntity->getData()),
                 sprintf('%s %s', SpyUserTableMap::COL_FIRST_NAME, SpyUserTableMap::COL_LAST_NAME) => sprintf('%s %s', $user->getFirstName(), $user->getLastName()),
                 FooExportedOrderHistoryTableMap::COL_EXPORTED_AT => $exportedOrderHistoryEntity->getExportedAt()->format('Y-m-d H:i:s.u'),
             ];
         }
 
         return $result;
+    }
+
+    /**
+     * @param string $jsonString
+     *
+     * @return string
+     */
+    protected function anonymizeData(string $jsonString): string
+    {
+        $data = json_decode($jsonString, true);
+
+        foreach ($this->bundleConfig->getAnonymizationData() as $key => $replacement) {
+            if (array_key_exists($key, $data)) {
+                $data[$key] = $replacement;
+            }
+        }
+
+        return json_encode($data);
     }
 }
