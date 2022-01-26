@@ -1,0 +1,13 @@
+jellyfish_buffer_gui.exported_at, Exportiert am
+jellyfish_buffer_gui.last_modified, Zuletzt verändert
+jellyfish_buffer_gui.is_reexported, Wurde bereits neuexportiert?
+jellyfish_buffer_gui.exported_order_history, Übersicht über manuelle Exporte
+jellyfish_buffer_gui.exported_by, Exportiert durch
+jellyfish_buffer_gui.exported_order_data, Exportierte Bestelldaten
+jellyfish_buffer_gui.exported_order_list, Übersicht über exportierte Bestellungen
+jellyfish_buffer_gui.exported_order_overview, Übersicht über Exportierte Bestellungen
+jellyfish_buffer_gui.export_state, Export Status
+jellyfish_buffer_gui.back_to_order, Zurück zur Bestellung
+jellyfish_buffer_gui.run_reexport, Starte (Neu-)Export
+jellyfish_buffer_gui.export_state.success, Die Bestellung wurde erfolgreich exportiert!
+jellyfish_buffer_gui.export_state.failure, Die Bestellung konnte nicht exportiert werden!

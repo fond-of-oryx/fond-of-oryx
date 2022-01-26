@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+    <export>
+        <label>Export</label>
+        <title>Export</title>
+        <icon>fa-files-o</icon>
+        <pages>
+            <JellyfishBufferGui>
+                <label>Order Export</label>
+                <title>Order Export</title>
+                <icon>fa-money</icon>
+                <bundle>jellyfish-buffer-gui</bundle>
+                <controller>index</controller>
+                <action>index</action>
+            </JellyfishBufferGui>
+        </pages>
+    </export>
+</config>

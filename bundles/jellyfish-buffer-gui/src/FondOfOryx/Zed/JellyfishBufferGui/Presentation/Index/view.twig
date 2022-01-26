@@ -1,0 +1,59 @@
+
+{% extends '@Gui/Layout/layout.twig' %}
+
+{% block section_title %}
+    <span>{{ 'jellyfish_buffer_gui.exported_order_history' | trans }} {{ backActionButton('/sales/detail?id-sales-order='~exportedOrder.fkSalesOrder, 'jellyfish_buffer_gui.back_to_order' | trans) }}</span>
+{% endblock %}
+
+{% block action %}
+    {{ backActionButton('/jellyfish-buffer-gui', 'jellyfish_buffer_gui.exported_order_list' | trans) }}
+
+{% endblock %}
+
+{% block content %}
+
+
+    {% if exportState is not empty %}
+        {% embed '@Gui/Partials/widget.twig' with { widget_title: 'jellyfish_buffer_gui.export_state' } %}
+            {% block widget_content %}
+                <div class="row">
+                    {% if exportState == 1 %}
+                        <div class="alert alert-success text-center">{{ 'jellyfish_buffer_gui.export_state.success' | trans }} {{ viewActionButton('/sales/detail?id-sales-order='~exportedOrder.fkSalesOrder, 'jellyfish_buffer_gui.back_to_order' | trans) }}</div>
+                    {% else %}
+                        <div class="alert alert-danger text-center">{{ 'jellyfish_buffer_gui.export_state.failure' | trans }} {{ viewActionButton('/sales/detail?id-sales-order='~exportedOrder.fkSalesOrder, 'jellyfish_buffer_gui.back_to_order' | trans) }}</div>
+                    {% endif %}
+                </div>
+            {% endblock %}
+        {% endembed %}
+    {% endif %}
+
+    {% embed '@Gui/Partials/widget.twig' with { widget_title: 'jellyfish_buffer_gui.exported_order_data' } %}
+        {% block widget_content %}
+            <div class="row">
+                {{ exportedOrder.data }}
+            </div>
+            <div class="row">
+                {{ backActionButton('/sales/detail?id-sales-order='~exportedOrder.fkSalesOrder, 'jellyfish_buffer_gui.back_to_order' | trans) }}
+                {{ createActionButton('/jellyfish-buffer-gui/export/do?id-exported-order='~idExportedOrder~'&id-store='~idStore, 'jellyfish_buffer_gui.run_reexport' | trans) }}
+            </div>
+
+        {% endblock %}
+    {% endembed %}
+
+    {% embed '@Gui/Partials/widget.twig' with { widget_title: 'jellyfish_buffer_gui.exported_order_history' | trans } %}
+
+        {% block widget_content %}
+                {{ indexTable | raw }}
+        {% endblock %}
+
+    {% endembed %}
+
+{% endblock %}
+
+{% block footer_js %}
+    {{ parent() }}
+    <script src="{{ assetsPath('js/spryker-zed-jellyfish-buffer-gui-main.js') }}"></script>
+{% endblock %}
+
+
+
