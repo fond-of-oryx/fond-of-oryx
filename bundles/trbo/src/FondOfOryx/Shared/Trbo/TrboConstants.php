@@ -53,4 +53,9 @@ interface TrboConstants
      * @var string
      */
     public const TRBO_API_FALLBACK_TIMEOUT = '0.3';
+
+    /**
+     * @var string
+     */
+    public const TRBO_API_HTTP_ERRORS = 'TRBO_API_HTTP_ERRORS';
 }

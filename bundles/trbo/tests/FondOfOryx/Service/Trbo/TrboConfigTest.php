@@ -88,4 +88,30 @@ class TrboConfigTest extends Unit
 
         static::assertEquals(TrboConstants::TRBO_API_FALLBACK_TIMEOUT, $this->config->getTrboApiTimeout());
     }
+
+    /**
+     * @return void
+     */
+    public function testIsHttpErrorsEnabledReturnFalse(): void
+    {
+        $this->config->expects(static::atLeastOnce())
+            ->method('get')
+            ->with(TrboConstants::TRBO_API_HTTP_ERRORS, false)
+            ->willReturn(false);
+
+        static::assertFalse($this->config->isHttpErrorsEnabled());
+    }
+
+    /**
+     * @return void
+     */
+    public function testIsHttpErrorsEnabledReturnTrue(): void
+    {
+        $this->config->expects(static::atLeastOnce())
+            ->method('get')
+            ->with(TrboConstants::TRBO_API_HTTP_ERRORS, false)
+            ->willReturn(true);
+
+        static::assertTrue($this->config->isHttpErrorsEnabled());
+    }
 }

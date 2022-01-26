@@ -28,7 +28,12 @@ class TrboApiConfiguration implements TrboApiConfigurationInterface
      */
     public function getConfiguration(Request $request): array
     {
-        return array_merge($this->getTimeout(), $this->getHeaderData(), $this->getBodyData($request));
+        return array_merge(
+            $this->getTimeout(),
+            $this->getHttpErrors(),
+            $this->getHeaderData(),
+            $this->getBodyData($request),
+        );
     }
 
     /**
@@ -81,6 +86,14 @@ class TrboApiConfiguration implements TrboApiConfigurationInterface
     protected function getTimeout(): array
     {
         return ['timeout' => $this->config->getTrboApiTimeout()];
+    }
+
+    /**
+     * @return array
+     */
+    protected function getHttpErrors(): array
+    {
+        return ['http_errors' => $this->config->isHttpErrorsEnabled()];
     }
 
     /**
