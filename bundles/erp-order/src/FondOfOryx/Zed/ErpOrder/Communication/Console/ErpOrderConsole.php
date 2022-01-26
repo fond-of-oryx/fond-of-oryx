@@ -135,14 +135,12 @@ class ErpOrderConsole extends Console
     protected function getCreateErpOrderData(): ErpOrderTransfer
     {
         $externalRef = md5((string)time());
-        $ref = md5($externalRef);
         $erpOrderTransfer = new ErpOrderTransfer();
 
         $erpOrderTransfer
             ->setFkCompanyBusinessUnit(2)
             ->setBillingAddress($this->createAddress())
             ->setShippingAddress($this->createAddress())
-            ->setReference($ref)
             ->setConcreteDeliveryDate(date('Y-m-d', strtotime('+ 10 days')))
             ->setExternalReference('06aae44d-b33c-4d6a-8bd8-85c61a921f18');
 

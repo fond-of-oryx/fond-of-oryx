@@ -64,8 +64,7 @@ class ErpInvoicePageSearchQueryPlugin extends AbstractPlugin implements QueryInt
             return new MatchAll();
         }
 
-        return (new MultiMatch())->setFields([ErpInvoiceIndexMap::REFERENCE])
-            ->setQuery($this->searchString)
+        return (new MultiMatch())->setQuery($this->searchString)
             ->setType(MultiMatch::TYPE_CROSS_FIELDS);
     }
 

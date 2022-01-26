@@ -36,16 +36,8 @@
         <property name="currentSortOrder" type="string"/>
     </transfer>
 
-    <transfer name="RestErpOrderErpInvoice">
-        <property name="externalReference" type="string"/>
-        <property name="reference" type="string"/>
-        <property name="invoiceDate" type="string"/>
-        <property name="documentNumber" type="string"/>
-    </transfer>
-
     <transfer name="RestErpOrder">
         <property name="externalReference" type="string" />
-        <property name="reference" type="string" />
         <property name="concreteDeliveryDate" type="string" />
         <property name="createdAt" type="string" />
         <property name="updatedAt" type="string" />
@@ -55,8 +47,6 @@
         <property name="items" singular="item" type="RestErpOrderItem[]"/>
         <property name="totals" type="RestErpOrderTotal"/>
         <property name="currencyIsoCode" type="string"/>
-        <property name="erpInvoices" type="RestErpOrderErpInvoice[]"/>
-        <property name="cartNote" type="string"/>
     </transfer>
 
     <transfer name="RestErpOrderAddress">

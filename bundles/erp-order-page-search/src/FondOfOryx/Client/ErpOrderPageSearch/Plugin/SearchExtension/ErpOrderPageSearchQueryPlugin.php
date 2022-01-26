@@ -64,7 +64,7 @@ class ErpOrderPageSearchQueryPlugin extends AbstractPlugin implements QueryInter
             return new MatchAll();
         }
 
-        return (new MultiMatch())->setFields([ErpOrderIndexMap::REFERENCE])
+        return (new MultiMatch())
             ->setQuery($this->searchString)
             ->setType(MultiMatch::TYPE_CROSS_FIELDS);
     }

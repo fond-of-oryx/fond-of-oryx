@@ -13,8 +13,6 @@ class ErpInvoicePageSearchDataMapper implements ErpInvoicePageSearchDataMapperIn
     public const ERP_INVOICE_ITEMS = ErpInvoicePageSearchPublisher::ERP_INVOICE_ITEMS;
     public const ERP_INVOICE_EXPENSES = ErpInvoicePageSearchPublisher::ERP_INVOICE_EXPENSES;
     public const ERP_INVOICE_TOTAL = ErpInvoicePageSearchPublisher::ERP_INVOICE_TOTAL;
-    public const ERP_ORDER_REFERENCE = ErpInvoicePageSearchPublisher::ERP_ORDER_REFERENCE;
-    public const ERP_ORDER_DELIVERY_DATE = ErpInvoicePageSearchPublisher::ERP_ORDER_DELIVERY_DATE;
     public const BILLING_ADDRESS = ErpInvoicePageSearchPublisher::BILLING_ADDRESS;
     public const SHIPPING_ADDRESS = ErpInvoicePageSearchPublisher::SHIPPING_ADDRESS;
 
@@ -47,11 +45,6 @@ class ErpInvoicePageSearchDataMapper implements ErpInvoicePageSearchDataMapperIn
      * @var string
      */
     public const EXTERNAL_REFERENCE = 'external_reference';
-
-    /**
-     * @var string
-     */
-    public const REFERENCE = 'reference';
 
     /**
      * @var string
@@ -131,11 +124,6 @@ class ErpInvoicePageSearchDataMapper implements ErpInvoicePageSearchDataMapperIn
     /**
      * @var string
      */
-    public const SEARCH_RESULT_REFERENCE = 'reference';
-
-    /**
-     * @var string
-     */
     public const SEARCH_RESULT_ERP_INVOICE_ITEMS = 'erp_invoice_items';
 
     /**
@@ -169,16 +157,6 @@ class ErpInvoicePageSearchDataMapper implements ErpInvoicePageSearchDataMapperIn
     public const SEARCH_RESULT_CURRENCY_ISO_CODE = 'currency_iso_code';
 
     /**
-     * @var string
-     */
-    public const SEARCH_RESULT_ERP_ORDER_REFERENCE = 'erp_order_reference';
-
-    /**
-     * @var string
-     */
-    public const SEARCH_RESULT_ERP_ORDER_DELIVERY_DATE = 'erp_order_delivery_date';
-
-    /**
      * @param array $data
      *
      * @return array
@@ -194,8 +172,6 @@ class ErpInvoicePageSearchDataMapper implements ErpInvoicePageSearchDataMapperIn
             ErpInvoiceIndexMap::EXTERNAL_REFERENCE => $data[static::EXTERNAL_REFERENCE],
             ErpInvoiceIndexMap::ID_COMPANY_BUSINESS_UNIT => $data[static::FK_COMPANY_BUSINESS_UNIT],
             ErpInvoiceIndexMap::COMPANY_BUSINESS_UNIT_UUID => $data[static::COMPANY_BUSINESS_UNIT][static::COMPANY_BUSINESS_UNIT_UUID],
-            ErpInvoiceIndexMap::REFERENCE => $data[static::REFERENCE],
-            ErpInvoiceIndexMap::ORDER_REFERENCE => $data[static::ERP_ORDER_REFERENCE],
             ErpInvoiceIndexMap::SEARCH_RESULT_DATA => $this->mapErpInvoiceDataToSearchResultData($data),
         ];
 
@@ -220,7 +196,6 @@ class ErpInvoicePageSearchDataMapper implements ErpInvoicePageSearchDataMapperIn
             static::SEARCH_RESULT_FK_COMPANY_BUSINESS_UNIT => $data[static::FK_COMPANY_BUSINESS_UNIT],
             static::SEARCH_RESULT_COMPANY_BUSINESS_UNIT_UUID => $data[static::COMPANY_BUSINESS_UNIT][static::COMPANY_BUSINESS_UNIT_UUID],
             static::SEARCH_RESULT_EXTERNAL_REFERENCE => $data[static::EXTERNAL_REFERENCE],
-            static::SEARCH_RESULT_REFERENCE => $data[static::REFERENCE],
             static::SEARCH_RESULT_COMPANY_BUSINESS_UNIT => $data[static::COMPANY_BUSINESS_UNIT],
             static::SEARCH_RESULT_ERP_INVOICE_ITEMS => $data[static::ERP_INVOICE_ITEMS],
             static::SEARCH_RESULT_ERP_INVOICE_EXPENSES => $data[static::ERP_INVOICE_EXPENSES],
@@ -228,8 +203,6 @@ class ErpInvoicePageSearchDataMapper implements ErpInvoicePageSearchDataMapperIn
             static::SEARCH_RESULT_SHIPPING_ADDRESS => $data[static::SHIPPING_ADDRESS],
             static::SEARCH_RESULT_BILLING_ADDRESS => $data[static::BILLING_ADDRESS],
             static::SEARCH_RESULT_CURRENCY_ISO_CODE => $data[static::CURRENCY_ISO_CODE],
-            static::SEARCH_RESULT_ERP_ORDER_REFERENCE => $data[static::ERP_ORDER_REFERENCE],
-            static::SEARCH_RESULT_ERP_ORDER_DELIVERY_DATE => $this->dateToString($data[static::ERP_ORDER_DELIVERY_DATE]),
         ];
     }
 

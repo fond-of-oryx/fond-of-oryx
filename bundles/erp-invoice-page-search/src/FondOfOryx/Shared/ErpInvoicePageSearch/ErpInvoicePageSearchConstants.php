@@ -43,14 +43,4 @@ interface ErpInvoicePageSearchConstants
      * @var string
      */
     public const PARAMETER_EXTERNAL_REFERENCE = 'external-reference';
-
-    /**
-     * @var string
-     */
-    public const PARAMETER_ORDER_REFERENCE = 'order-reference';
-
-    /**
-     * @var string
-     */
-    public const PARAMETER_REFERENCE = 'reference';
 }

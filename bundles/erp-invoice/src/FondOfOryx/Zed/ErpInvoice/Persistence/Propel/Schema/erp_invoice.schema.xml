@@ -5,30 +5,20 @@
 
     <table name="foo_erp_invoice" phpName="FooErpInvoice" identifierQuoting="true">
         <column name="id_erp_invoice" required="true" type="INTEGER" autoIncrement="true" primaryKey="true"/>
-        <column name="fk_erp_order" required="true" type="INTEGER"/>
         <column name="fk_billing_address" required="true" type="INTEGER"/>
         <column name="fk_shipping_address" required="true" type="INTEGER"/>
         <column name="fk_company_business_unit" required="true" type="INTEGER"/>
         <column name="fk_total_amount" required="true" type="INTEGER"/>
         <column name="external_reference" required="true" size="255" type="VARCHAR"/>
         <column name="document_number" required="false" size="255" type="VARCHAR"/>
-        <column name="reference" required="false" size="255" type="VARCHAR"/>
         <column name="invoice_date" required="false" type="DATE"/>
         <column name="currency_iso_code" type="VARCHAR" size="5" required="false"/>
 
         <id-method-parameter value="foo_erp_invoice_pk_seq"/>
 
-        <index name="foo_erp_invoice-index-reference">
-            <index-column name="reference"/>
-        </index>
-
         <unique name="foo_erp_invoice-external_reference">
             <unique-column name="external_reference"/>
         </unique>
-
-        <foreign-key name="foo_erp_invoice-foo_erp_order" foreignTable="foo_erp_order" phpName="FooErpInvoiceOrder">
-            <reference local="fk_erp_order" foreign="id_erp_order"/>
-        </foreign-key>
 
         <foreign-key name="foo_erp_invoice-foo_erp_invoice_billing_address" foreignTable="foo_erp_invoice_address"
                      phpName="FooErpInvoiceBillingAddress">
