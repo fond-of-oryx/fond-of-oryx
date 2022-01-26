@@ -24,9 +24,6 @@
         "external-reference": {
           "type": "keyword"
         },
-        "reference": {
-          "type": "keyword"
-        },
         "id-company-business-unit": {
           "type": "integer"
         },

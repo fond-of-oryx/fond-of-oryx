@@ -5,13 +5,11 @@
 
     <transfer name="ErpInvoice">
         <property name="idErpInvoice" type="int"/>
-        <property name="fkErpOrder" type="int"/>
         <property name="fkBillingAddress" type="int"/>
         <property name="fkShippingAddress" type="int"/>
         <property name="fkCompanyBusinessUnit" type="int"/>
         <property name="invoiceItems" singular="invoiceItem" type="ErpInvoiceItem[]"/>
         <property name="expenses" singular="expense" type="ErpInvoiceExpense[]"/>
-        <property name="reference" type="string"/>
         <property name="externalReference" type="string"/>
         <property name="documentNumber" type="string"/>
         <property name="billingAddress" type="ErpInvoiceAddress"/>

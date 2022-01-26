@@ -9,24 +9,11 @@
         <column name="fk_shipping_address" required="true" type="INTEGER"/>
         <column name="fk_company_business_unit" required="true" type="INTEGER"/>
         <column name="external_reference" required="false" size="255" type="VARCHAR"/>
-        <column name="reference" required="false" size="255" type="VARCHAR"/>
         <column name="concrete_delivery_date" required="false" type="DATE"/>
         <column name="currency_iso_code" type="VARCHAR" size="5" required="false"/>
         <column name="outstanding_quantity" required="false" type="INTEGER" default="0"/>
 
         <id-method-parameter value="foo_erp_order_pk_seq"/>
-
-        <unique name="foo_erp_order-reference">
-            <unique-column name="reference"/>
-        </unique>
-
-        <foreign-key name="foo_erp_order-spy_sales_order" foreignTable="spy_sales_order" phpName="SalesOrder" skipSql="true">
-            <reference local="reference" foreign="order_reference"/>
-        </foreign-key>
-
-        <index name="foo_erp_order-index-reference">
-            <index-column name="reference"/>
-        </index>
 
         <foreign-key name="foo_erp_order-foo_erp_order_billing_address" foreignTable="foo_erp_order_address" phpName="ErpOrderBillingAddress">
             <reference local="fk_billing_address" foreign="id_erp_order_address"/>

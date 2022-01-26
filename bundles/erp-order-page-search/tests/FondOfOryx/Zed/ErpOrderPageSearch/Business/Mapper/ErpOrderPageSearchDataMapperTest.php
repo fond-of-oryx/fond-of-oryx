@@ -32,7 +32,6 @@ class ErpOrderPageSearchDataMapperTest extends Unit
             ErpOrderPageSearchDataMapper::COMPANY_BUSINESS_UNIT => [
                 ErpOrderPageSearchDataMapper::COMPANY_BUSINESS_UNIT_UUID => '',
             ],
-            ErpOrderPageSearchDataMapper::REFERENCE => '',
             ErpOrderPageSearchDataMapper::ID_ERP_ORDER => '',
             ErpOrderPageSearchDataMapper::FK_BILLING_ADDRESS => '',
             ErpOrderPageSearchDataMapper::FK_SHIPPING_ADDRESS => '',
@@ -42,8 +41,6 @@ class ErpOrderPageSearchDataMapperTest extends Unit
             ErpOrderPageSearchDataMapper::BILLING_ADDRESS => null,
             ErpOrderPageSearchDataMapper::CURRENCY_ISO_CODE => '',
             ErpOrderPageSearchDataMapper::OUTSTANDING_QUANTITY => 1,
-            ErpOrderPageSearchDataMapper::ERP_INVOICES => [],
-            ErpOrderPageSearchDataMapper::CART_NOTE => '',
         ];
 
         $searchData = $this->erpOrderPageSearchDataMapper->mapErpOrderDataToSearchData($data);

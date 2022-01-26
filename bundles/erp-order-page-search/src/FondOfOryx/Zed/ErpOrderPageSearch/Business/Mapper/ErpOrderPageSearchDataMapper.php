@@ -14,8 +14,6 @@ class ErpOrderPageSearchDataMapper implements ErpOrderPageSearchDataMapperInterf
     public const ERP_ORDER_TOTAL = ErpOrderPageSearchPublisher::ERP_ORDER_TOTAL;
     public const BILLING_ADDRESS = ErpOrderPageSearchPublisher::BILLING_ADDRESS;
     public const SHIPPING_ADDRESS = ErpOrderPageSearchPublisher::SHIPPING_ADDRESS;
-    public const ERP_INVOICES = ErpOrderPageSearchPublisher::ERP_INVOICES;
-    public const CART_NOTE = ErpOrderPageSearchPublisher::CART_NOTE;
 
     /**
      * @var string
@@ -56,11 +54,6 @@ class ErpOrderPageSearchDataMapper implements ErpOrderPageSearchDataMapperInterf
      * @var string
      */
     public const EXTERNAL_REFERENCE = 'external_reference';
-
-    /**
-     * @var string
-     */
-    public const REFERENCE = 'reference';
 
     /**
      * @var string
@@ -115,11 +108,6 @@ class ErpOrderPageSearchDataMapper implements ErpOrderPageSearchDataMapperInterf
     /**
      * @var string
      */
-    public const SEARCH_RESULT_REFERENCE = 'reference';
-
-    /**
-     * @var string
-     */
     public const SEARCH_RESULT_ERP_ORDER_ITEMS = 'erp_order_items';
 
     /**
@@ -148,16 +136,6 @@ class ErpOrderPageSearchDataMapper implements ErpOrderPageSearchDataMapperInterf
     public const SEARCH_RESULT_CURRENCY_ISO_CODE = 'currency_iso_code';
 
     /**
-     * @var string
-     */
-    public const SEARCH_RESULT_ERP_INVOICES = 'erp_invoices';
-
-    /**
-     * @var string
-     */
-    public const SEARCH_RESULT_CART_NOTE = 'cart_note';
-
-    /**
      * @param array $data
      *
      * @return array
@@ -170,7 +148,6 @@ class ErpOrderPageSearchDataMapper implements ErpOrderPageSearchDataMapperInterf
             ErpOrderIndexMap::EXTERNAL_REFERENCE => $data[static::EXTERNAL_REFERENCE],
             ErpOrderIndexMap::ID_COMPANY_BUSINESS_UNIT => $data[static::FK_COMPANY_BUSINESS_UNIT],
             ErpOrderIndexMap::COMPANY_BUSINESS_UNIT_UUID => $data[static::COMPANY_BUSINESS_UNIT][static::COMPANY_BUSINESS_UNIT_UUID],
-            ErpOrderIndexMap::REFERENCE => $data[static::REFERENCE],
             ErpOrderIndexMap::OUTSTANDING_QUANTITY => $data[static::OUTSTANDING_QUANTITY],
             ErpOrderIndexMap::SEARCH_RESULT_DATA => $this->mapErpOrderDataToSearchResultData($data),
         ];
@@ -194,15 +171,12 @@ class ErpOrderPageSearchDataMapper implements ErpOrderPageSearchDataMapperInterf
             static::SEARCH_RESULT_FK_COMPANY_BUSINESS_UNIT => $data[static::FK_COMPANY_BUSINESS_UNIT],
             static::SEARCH_RESULT_COMPANY_BUSINESS_UNIT_UUID => $data[static::COMPANY_BUSINESS_UNIT][static::COMPANY_BUSINESS_UNIT_UUID],
             static::SEARCH_RESULT_EXTERNAL_REFERENCE => $data[static::EXTERNAL_REFERENCE],
-            static::SEARCH_RESULT_REFERENCE => $data[static::REFERENCE],
             static::SEARCH_RESULT_COMPANY_BUSINESS_UNIT => $data[static::COMPANY_BUSINESS_UNIT],
             static::SEARCH_RESULT_ERP_ORDER_ITEMS => $data[static::ERP_ORDER_ITEMS],
             static::SEARCH_RESULT_ERP_ORDER_TOTAL => $data[static::ERP_ORDER_TOTAL],
             static::SEARCH_RESULT_SHIPPING_ADDRESS => $data[static::SHIPPING_ADDRESS],
             static::SEARCH_RESULT_BILLING_ADDRESS => $data[static::BILLING_ADDRESS],
             static::SEARCH_RESULT_CURRENCY_ISO_CODE => $data[static::CURRENCY_ISO_CODE],
-            static::SEARCH_RESULT_ERP_INVOICES => $data[static::ERP_INVOICES],
-            static::SEARCH_RESULT_CART_NOTE => $data[static::CART_NOTE],
         ];
     }
 
