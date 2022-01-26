@@ -226,7 +226,7 @@
     },
     "jellyfish-buffer": {
       "path": "bundles/jellyfish-buffer/",
-      "version": "1.1.0"
+      "version": "1.1.1"
     },
     "jellyfish-buffer-gui": {
       "path": "bundles/jellyfish-buffer-gui/",
