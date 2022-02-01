@@ -216,6 +216,14 @@
       "path": "bundles/gift-card-restriction/",
       "version": "1.0.2"
     },
+    "invoice": {
+      "path": "bundles/invoice/",
+      "version": "1.0.0"
+    },
+    "invoice-api": {
+      "path": "bundles/invoice-api/",
+      "version": "1.0.0"
+    },
     "invoice-extension": {
       "path": "bundles/invoice-extension/",
       "version": "1.0.0"
