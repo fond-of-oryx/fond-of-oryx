@@ -102,8 +102,13 @@ class CompanyRoleListMapperTest extends Unit
 
         $this->requestParameterFilterMock->expects(static::atLeastOnce())
             ->method('getRequestParameter')
-            ->withConsecutive([$this->restRequestMock, 'q'], [$this->restRequestMock, 'show-all'], [$this->restRequestMock, 'company-id'], [$this->restRequestMock, 'sort'])
-            ->willReturnOnConsecutiveCalls($query, 'true', $comanyUuid, $sort);
+            ->withConsecutive(
+                [$this->restRequestMock, 'q'],
+                [$this->restRequestMock, 'show-all'],
+                [$this->restRequestMock, 'only-one-per-name'],
+                [$this->restRequestMock, 'company-id'],
+                [$this->restRequestMock, 'sort'],
+            )->willReturnOnConsecutiveCalls($query, 'true', 'true', $comanyUuid, $sort);
 
         $this->customerReferenceFilterMock->expects(static::atLeastOnce())
             ->method('filterFromRestRequest')
@@ -129,6 +134,10 @@ class CompanyRoleListMapperTest extends Unit
 
         static::assertTrue(
             $companyRoleListTransfer->getShowAll(),
+        );
+
+        static::assertTrue(
+            $companyRoleListTransfer->getOnlyOnePerName(),
         );
 
         static::assertEquals(

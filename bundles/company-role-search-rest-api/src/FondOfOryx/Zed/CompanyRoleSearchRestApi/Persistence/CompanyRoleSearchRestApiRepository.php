@@ -20,6 +20,11 @@ use Spryker\Zed\Kernel\Persistence\AbstractRepository;
 class CompanyRoleSearchRestApiRepository extends AbstractRepository implements CompanyRoleSearchRestApiRepositoryInterface
 {
     /**
+     * @var string
+     */
+    protected const COL_FIRST_COMPANY_ROLE_ID = 'firstCompanyRoleId';
+
+    /**
      * @param \Generated\Shared\Transfer\CompanyRoleListTransfer $companyRoleListTransfer
      *
      * @return \Generated\Shared\Transfer\CompanyRoleListTransfer
@@ -30,13 +35,8 @@ class CompanyRoleSearchRestApiRepository extends AbstractRepository implements C
             ->getCompanyRoleQuery()
             ->clear();
 
-        if ($companyRoleListTransfer->getShowAll() === true) {
-            $companyRoleQuery = $this->addAssignableFilter($companyRoleQuery, $companyRoleListTransfer);
-            $companyRoleQuery = $this->addWhitelistFilter($companyRoleQuery, $companyRoleListTransfer);
-        } else {
-            $companyRoleQuery = $this->addAssignedFilter($companyRoleQuery, $companyRoleListTransfer);
-        }
-
+        $companyRoleQuery = $this->addShowAllFilter($companyRoleQuery, $companyRoleListTransfer);
+        $companyRoleQuery = $this->addOnlyOnePerNameFilter($companyRoleQuery, $companyRoleListTransfer);
         $companyRoleQuery = $this->addFulltextSearchFields($companyRoleQuery, $companyRoleListTransfer);
         $companyRoleQuery = $this->addSort($companyRoleQuery, $companyRoleListTransfer);
         $companyRoleQuery = $this->preparePagination($companyRoleQuery, $companyRoleListTransfer);
@@ -46,6 +46,25 @@ class CompanyRoleSearchRestApiRepository extends AbstractRepository implements C
             ->mapEntityCollectionToTransfers($companyRoleQuery->find());
 
         return $companyRoleListTransfer->setCompanyRole(new ArrayObject($companyRole));
+    }
+
+    /**
+     * @param \Orm\Zed\CompanyRole\Persistence\SpyCompanyRoleQuery $companyRoleQuery
+     * @param \Generated\Shared\Transfer\CompanyRoleListTransfer $companyRoleListTransfer
+     *
+     * @return \Orm\Zed\CompanyRole\Persistence\SpyCompanyRoleQuery
+     */
+    protected function addShowAllFilter(
+        SpyCompanyRoleQuery $companyRoleQuery,
+        CompanyRoleListTransfer $companyRoleListTransfer
+    ): SpyCompanyRoleQuery {
+        if ($companyRoleListTransfer->getShowAll() === false) {
+            return $this->addAssignedFilter($companyRoleQuery, $companyRoleListTransfer);
+        }
+
+        $companyRoleQuery = $this->addAssignableFilter($companyRoleQuery, $companyRoleListTransfer);
+
+        return $this->addWhitelistFilter($companyRoleQuery, $companyRoleListTransfer);
     }
 
     /**
@@ -299,5 +318,31 @@ class CompanyRoleSearchRestApiRepository extends AbstractRepository implements C
             ->setPreviousPage($propelModelPager->getPreviousPage());
 
         return $propelModelPager->getQuery();
+    }
+
+    /**
+     * @param \Orm\Zed\CompanyRole\Persistence\SpyCompanyRoleQuery $companyRoleQuery
+     * @param \Generated\Shared\Transfer\CompanyRoleListTransfer $companyRoleListTransfer
+     *
+     * @return \Orm\Zed\CompanyRole\Persistence\SpyCompanyRoleQuery
+     */
+    protected function addOnlyOnePerNameFilter(
+        SpyCompanyRoleQuery $companyRoleQuery,
+        CompanyRoleListTransfer $companyRoleListTransfer
+    ): SpyCompanyRoleQuery {
+        if ($companyRoleListTransfer->getOnlyOnePerName() === false) {
+            return $companyRoleQuery;
+        }
+
+        $clonedCompanyRoleQuery = clone $companyRoleQuery;
+
+        $companyRoleIds = $companyRoleQuery->withColumn(sprintf('MIN(%s)', SpyCompanyRoleTableMap::COL_ID_COMPANY_ROLE), static::COL_FIRST_COMPANY_ROLE_ID)
+            ->select([static::COL_FIRST_COMPANY_ROLE_ID])
+            ->groupByName()
+            ->find()
+            ->toArray();
+
+        return $clonedCompanyRoleQuery->clear()
+            ->filterByIdCompanyRole_In($companyRoleIds);
     }
 }

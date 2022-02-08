@@ -54,6 +54,7 @@
         <property name="customerId" type="int"/>
         <property name="companyRole" singular="companyRole" type="CompanyRole[]"/>
         <property name="showAll" type="bool"/>
+        <property name="onlyOnePerName" type="bool"/>
         <property name="query" type="string"/>
         <property name="sort" type="string"/>
         <property name="pagination" type="Pagination"/>
