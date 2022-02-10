@@ -117,7 +117,7 @@
       "version": "1.0.0"
     },
     "company-unit-address-vat-id": {
-      "path": "bundles/-unit-address-vat-id/",
+      "path": "bundles/company-unit-address-vat-id/",
       "version": "1.0.0"
     },
     "customer-brand-product-list-connector": {
