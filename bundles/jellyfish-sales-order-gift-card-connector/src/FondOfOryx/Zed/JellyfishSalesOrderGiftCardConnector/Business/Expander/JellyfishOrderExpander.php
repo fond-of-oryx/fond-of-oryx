@@ -158,7 +158,7 @@ class JellyfishOrderExpander implements JellyfishOrderExpanderInterface
         $blacklistedGiftCardItems = [];
 
         foreach ($blacklistedItems as $sku => $cartCodeTypes) {
-            if (in_array(static::CART_CODE_TYPE_GIFT_CARD, $cartCodeTypes)) {
+            if (in_array(static::CART_CODE_TYPE_GIFT_CARD, $cartCodeTypes, true)) {
                 $blacklistedGiftCardItems[] = $sku;
             }
         }
@@ -176,6 +176,6 @@ class JellyfishOrderExpander implements JellyfishOrderExpanderInterface
         JellyfishOrderItemTransfer $jellyfishOrderItemTransfer,
         array $blacklistedItemsForGiftCard
     ): bool {
-        return in_array($jellyfishOrderItemTransfer->getSku(), $blacklistedItemsForGiftCard);
+        return in_array($jellyfishOrderItemTransfer->getSku(), $blacklistedItemsForGiftCard, true);
     }
 }

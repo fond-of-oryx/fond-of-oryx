@@ -21,7 +21,7 @@ class JellyfishSalesOrderGiftCardConnectorToProductCardCodeTypeRestrictionFacade
     }
 
     /**
-     * @param array $productConcreteSkus
+     * @param array<string> $productConcreteSkus
      *
      * @return array
      */

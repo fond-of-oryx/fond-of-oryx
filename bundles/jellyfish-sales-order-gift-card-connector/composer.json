@@ -1,6 +1,6 @@
 {
   "name": "fond-of-oryx/jellyfish-sales-order-gift-card-connector",
-  "description": "Expand sales order gift card item with  gift card code.",
+  "description": "Jellyfish sales order gift card connector bundle",
   "license": "MIT",
   "authors": [
     {
@@ -10,14 +10,13 @@
   ],
   "require": {
     "php": ">=7.3",
-    "fond-of-oryx/jellyfish-sales-order": "^1.0.0",
     "fond-of-oryx/jellyfish-sales-order-extension": "^1.0.0",
-    "fond-of-oryx/jellyfish-sales-order-product-type": "^1.0.0",
-    "spryker/gift-card": "^1.0.0"
+    "fond-of-oryx/product-cart-code-type-restriction": "^1.0.0"
   },
   "require-dev": {
-    "fond-of-codeception/spryker": "^1.0",
-    "spryker/code-sniffer": "^0.12"
+    "spryker/code-sniffer": "*",
+    "spryker-sdk/phpstan-spryker": "*",
+    "spryker/sales": "*"
   },
   "minimum-stability": "dev",
   "prefer-stable": true,
