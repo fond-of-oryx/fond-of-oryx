@@ -10,11 +10,14 @@
   ],
   "require": {
     "php": ">=7.3",
-    "fond-of-oryx/jellyfish-sales-order": "^1.0.0"
+    "fond-of-oryx/jellyfish-sales-order-extension": "^1.0.0",
+    "spryker/gift-card": "^1.0.0"
   },
   "require-dev": {
     "fond-of-codeception/spryker": "^1.0",
-    "spryker/code-sniffer": "^0.12"
+    "spryker/code-sniffer": "*",
+    "spryker-sdk/phpstan-spryker": "*",
+    "spryker/sales": "*"
   },
   "minimum-stability": "dev",
   "prefer-stable": true,

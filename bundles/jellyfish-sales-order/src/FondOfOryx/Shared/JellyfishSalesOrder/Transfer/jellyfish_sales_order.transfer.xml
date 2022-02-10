@@ -17,7 +17,6 @@
         <property name="payments" type="JellyfishOrderPayment[]" singular="payment"/>
         <property name="expenses" type="JellyfishOrderExpense[]" singular="expense"/>
         <property name="discounts" type="JellyfishOrderDiscount[]" singular="discount"/>
-        <property name="giftCards" type="JellyfishOrderGiftCard[]" singular="giftCard"/>
         <property name="totals" type="JellyfishOrderTotals"/>
         <property name="systemCode" type="string"/>
         <property name="signupNewsletter" type="bool"/>
@@ -80,11 +79,6 @@
         <property name="unitAmount" type="int"/>
         <property name="sumAmount" type="int"/>
         <property name="quantity" type="int"/>
-    </transfer>
-
-    <transfer name="JellyfishOrderGiftCard">
-        <property name="code" type="string"/>
-        <property name="amount" type="int"/>
     </transfer>
 
     <transfer name="JellyfishOrderExpense">

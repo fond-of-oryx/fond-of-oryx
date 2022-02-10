@@ -5,7 +5,7 @@ namespace FondOfOryx\Zed\JellyfishSalesOrderGiftCardConnector\Dependency\Facade;
 interface JellyfishSalesOrderGiftCardConnectorToProductCardCodeTypeRestrictionFacadeInterface
 {
     /**
-     * @param array $productConcreteSkus
+     * @param array<string> $productConcreteSkus
      *
      * @return array
      */

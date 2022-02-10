@@ -14,16 +14,11 @@ class JellyfishOrderGiftCardMapper implements JellyfishOrderGiftCardMapperInterf
      */
     public function fromSalesPayment(SpySalesPayment $salesPayment): JellyfishOrderGiftCardTransfer
     {
-        $jellyfishGiftCard = new JellyfishOrderGiftCardTransfer();
-
-        return $jellyfishGiftCard
-            ->setCode($this->getCode($salesPayment))
+        return (new JellyfishOrderGiftCardTransfer())->setCode($this->getCode($salesPayment))
             ->setAmount($salesPayment->getAmount());
     }
 
     /**
-     * @TODO use all of the codes nut just from index 0 if it is neccessary in the Future
-     *
      * @param \Orm\Zed\Payment\Persistence\SpySalesPayment $salesPayment
      *
      * @return string

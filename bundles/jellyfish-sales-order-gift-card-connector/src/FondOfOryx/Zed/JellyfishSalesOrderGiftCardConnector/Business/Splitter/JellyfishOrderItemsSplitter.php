@@ -99,10 +99,7 @@ class JellyfishOrderItemsSplitter implements JellyfishOrderItemsSplitterInterfac
         $splitJellyfishOrderItemTransfer = (new JellyfishOrderItemTransfer())
             ->fromArray($jellyfishOrderItemTransfer->toArray(), true);
 
-        $splitJellyfishOrderItemTransfer = $this
-            ->mapJellyfishOrderItemTransferFromSalesOrder($splitJellyfishOrderItemTransfer, $salesOrderItem);
-
-        return $splitJellyfishOrderItemTransfer;
+        return $this->mapJellyfishOrderItemTransferFromSalesOrder($splitJellyfishOrderItemTransfer, $salesOrderItem);
     }
 
     /**
