@@ -4,11 +4,11 @@ install:
 
 .PHONY: phpcs
 phpcs:
-	./vendor/bin/phpcs --standard=./vendor/spryker/code-sniffer/Spryker/ruleset.xml ./bundles/*
+	./vendor/bin/phpcs --standard=./vendor/spryker/code-sniffer/Spryker/ruleset.xml ./
 
 .PHONY: phpstan
 phpstan:
-	./vendor/bin/phpstan --memory-limit=-1 analyse ./bundles/*/src/
+	./vendor/bin/phpstan --memory-limit=-1 analyse ./src/
 
 .PHONY: codeception
 codeception:
