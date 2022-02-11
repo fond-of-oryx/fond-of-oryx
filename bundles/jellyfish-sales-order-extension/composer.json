@@ -27,7 +27,8 @@
   "autoload-dev": {
     "psr-4": {
       "FondOfOryx\\": "tests/FondOfOryx/",
-      "Generated\\": "src/Generated/"
+      "Generated\\": "src/Generated/",
+      "Orm\\Zed\\": "src/Orm/Zed/"
     }
   }
 }

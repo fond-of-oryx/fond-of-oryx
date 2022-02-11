@@ -148,7 +148,7 @@ modules:
       generate_propel_classes: false
 
 env:
-  standalone:
+  monorepo:
     modules:
       config:
         \FondOfCodeception\Module\Spryker:

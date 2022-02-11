@@ -22,11 +22,11 @@ phpstan:
 
 .PHONY: codeception
 codeception:
-	./vendor/bin/codecept run --env standalone --coverage --coverage-xml --coverage-html
+	./vendor/bin/codecept run --env monorepo --coverage --coverage-xml --coverage-html
 
 .PHONY: codeception-without-coverage
 codeception-without-coverage:
-	./vendor/bin/codecept run --env standalone
+	./vendor/bin/codecept run --env monorepo
 
 .PHONY: prepare-dandelion-config
 prepare-dandelion-config:
