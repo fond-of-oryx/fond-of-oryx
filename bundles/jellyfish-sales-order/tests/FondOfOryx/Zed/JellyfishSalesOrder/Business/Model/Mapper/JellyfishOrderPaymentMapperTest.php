@@ -11,7 +11,7 @@ use Orm\Zed\Payment\Persistence\SpySalesPaymentMethodType;
 class JellyfishOrderPaymentMapperTest extends Unit
 {
     /**
-     * @var \FondOfOryx\Zed\Jellyfish\Business\Model\Mapper\JellyfishOrderPaymentMapper
+     * @var \FondOfOryx\Zed\JellyfishSalesOrder\Business\Model\Mapper\JellyfishOrderPaymentMapper
      */
     protected $jellyfishOrderPaymentMapper;
 

@@ -20,7 +20,7 @@ class JellyfishOrderTotalsMapperTest extends Unit
     protected $spySalesOrderMock;
 
     /**
-     * @var \Orm\Zed\Sales\Persistence\SpySalesOrderTotals
+     * @var \Orm\Zed\Sales\Persistence\SpySalesOrderTotals|\PHPUnit\Framework\MockObject\MockObject
      */
     protected $spySalesOrderTotalsMock;
 
