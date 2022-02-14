@@ -20,12 +20,12 @@ class GiftCardItemsSplitJellyfishOrderPostMapPluginTest extends Unit
     protected $jellyfishOrderTransferMock;
 
     /**
-     * @var \FondOfOryx\Zed\JellyfishSalesOrderGiftCardConnector\Communication\Plugin\JellyfishSalesOrder\GiftCardRestrictionJellyfishOrderPostMapPlugin
+     * @var \FondOfOryx\Zed\JellyfishSalesOrderGiftCardConnector\Communication\Plugin\JellyfishSalesOrder\GiftCardItemsSplitJellyfishOrderPostMapPlugin
      */
     protected $plugin;
 
     /**
-     * @var \Generated\Shared\Transfer\JellyfishOrderTransfer|\PHPUnit\Framework\MockObject\MockObject
+     * @var \Orm\Zed\Sales\Persistence\SpySalesOrder|\PHPUnit\Framework\MockObject\MockObject
      */
     protected $spySalesOrderMock;
 

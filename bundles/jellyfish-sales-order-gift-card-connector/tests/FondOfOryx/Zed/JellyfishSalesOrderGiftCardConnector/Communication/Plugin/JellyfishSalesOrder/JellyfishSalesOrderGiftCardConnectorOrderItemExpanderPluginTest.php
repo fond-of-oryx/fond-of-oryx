@@ -25,7 +25,7 @@ class JellyfishSalesOrderGiftCardConnectorOrderItemExpanderPluginTest extends Un
     protected $plugin;
 
     /**
-     * @var \Generated\Shared\Transfer\JellyfishOrderItemTransfer|\PHPUnit\Framework\MockObject\MockObject
+     * @var \Orm\Zed\Sales\Persistence\SpySalesOrderItem|\PHPUnit\Framework\MockObject\MockObject
      */
     protected $spySalesOrderItemMock;
 

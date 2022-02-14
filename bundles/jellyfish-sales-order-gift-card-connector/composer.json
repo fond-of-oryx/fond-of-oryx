@@ -10,6 +10,7 @@
   ],
   "require": {
     "php": ">=7.3",
+    "fond-of-oryx/gift-card-product-connector": "^1.0.0",
     "fond-of-oryx/jellyfish-sales-order-extension": "^1.0.0",
     "fond-of-oryx/product-cart-code-type-restriction": "^1.0.0"
   },
@@ -17,6 +18,8 @@
     "fond-of-codeception/spryker": "^1.0",
     "spryker/code-sniffer": "*",
     "spryker-sdk/phpstan-spryker": "*",
+    "spryker/gift-card": "*",
+    "spryker/payment": "*",
     "spryker/sales": "*"
   },
   "minimum-stability": "dev",
