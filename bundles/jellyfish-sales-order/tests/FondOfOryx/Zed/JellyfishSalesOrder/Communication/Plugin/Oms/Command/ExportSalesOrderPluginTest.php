@@ -17,7 +17,7 @@ class ExportSalesOrderPluginTest extends Unit
     protected $exportSalesOrderPlugin;
 
     /**
-     * @var \PHPUnit\Framework\MockObject\MockObject|\FondOfOryx\Zed\JellyfishSalesOrder\Business\JellyfishSalesOrderFacadeInterface
+     * @var \PHPUnit\Framework\MockObject\MockObject|\FondOfOryx\Zed\JellyfishSalesOrder\Business\JellyfishSalesOrderFacadeInterface|\Spryker\Zed\Kernel\Business\AbstractFacade
      */
     protected $jellyfishSalesOrderFacadeMock;
 
@@ -52,7 +52,7 @@ class ExportSalesOrderPluginTest extends Unit
             $this->jellyfishSalesOrderFacadeMock
         ) extends ExportSalesOrderPlugin {
             /**
-             * @var \FondOfOryx\Zed\JellyfishSalesOrder\Business\JellyfishSalesOrderFacadeInterface
+             * @var \FondOfOryx\Zed\JellyfishSalesOrder\Business\JellyfishSalesOrderFacadeInterface|\Spryker\Zed\Kernel\Business\AbstractFacade
              */
             protected $jellyfishSalesOrderFacade;
 
@@ -67,7 +67,7 @@ class ExportSalesOrderPluginTest extends Unit
             /**
              * @return \Spryker\Zed\Kernel\Business\AbstractFacade
              */
-            public function getFacade(): AbstractFacade
+            protected function getFacade(): AbstractFacade
             {
                 return $this->jellyfishSalesOrderFacade;
             }

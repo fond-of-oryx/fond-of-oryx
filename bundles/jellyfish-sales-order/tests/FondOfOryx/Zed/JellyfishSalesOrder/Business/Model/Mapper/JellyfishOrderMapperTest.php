@@ -43,11 +43,6 @@ class JellyfishOrderMapperTest extends Unit
     protected $jellyfishOrderAddressMapperMock;
 
     /**
-     * @var \PHPUnit\Framework\MockObject\MockObject|\Generated\Shared\Transfer\JellyfishOrderGiftCardTransfer
-     */
-    protected $jellyfishOrderGiftCardTransferMock;
-
-    /**
      * @var \PHPUnit\Framework\MockObject\MockObject|\FondOfOryx\Zed\JellyfishSalesOrder\Business\Model\Mapper\JellyfishOrderExpenseMapperInterface
      */
     protected $jellyfishOrderExpenseMapperMock;
@@ -91,6 +86,11 @@ class JellyfishOrderMapperTest extends Unit
      * @var \PHPUnit\Framework\MockObject\MockObject|\Orm\Zed\Sales\Persistence\SpySalesOrderAddress
      */
     protected $spySalesOrderAddressMock;
+
+    /**
+     * @var \PHPUnit\Framework\MockObject\MockObject|\FondOfOryx\Zed\JellyfishSalesOrder\Business\Model\Mapper\JellyfishOrderTotalsMapperInterface
+     */
+    protected $jellyfishOrderTotalsMapperMock;
 
     /**
      * @return void
@@ -137,7 +137,7 @@ class JellyfishOrderMapperTest extends Unit
             ->disableOriginalConstructor()
             ->getMock();
 
-        $this->JellyfishOrderPaymentMapperMock = $this->getMockBuilder(JellyfishOrderPaymentMapperInterface::class)
+        $this->jellyfishOrderPaymentMapperMock = $this->getMockBuilder(JellyfishOrderPaymentMapperInterface::class)
             ->disableOriginalConstructor()
             ->getMock();
 
@@ -153,7 +153,7 @@ class JellyfishOrderMapperTest extends Unit
             $this->jellyfishOrderAddressMapperMock,
             $this->jellyfishOrderExpenseMapperMock,
             $this->jellyfishOrderDiscountMapperMock,
-            $this->JellyfishOrderPaymentMapperMock,
+            $this->jellyfishOrderPaymentMapperMock,
             $this->jellyfishOrderTotalsMapperMock,
             $this->configMock,
             [],
