@@ -10,7 +10,7 @@ use Orm\Zed\Sales\Persistence\SpySalesOrderItem;
 class JellyfishSalesOrderProductTypeFacadeTest extends Unit
 {
     /**
-     * @var \PHPUnit\Framework\MockObject\MockObject|\FondOfOryx\Zed\GiftCardProductConnector\Business\GiftCardProductConnectorBusinessFactory
+     * @var \PHPUnit\Framework\MockObject\MockObject|\FondOfOryx\Zed\JellyfishSalesOrderProductType\Business\JellyfishSalesOrderProductTypeBusinessFactory
      */
     protected $factoryMock;
 

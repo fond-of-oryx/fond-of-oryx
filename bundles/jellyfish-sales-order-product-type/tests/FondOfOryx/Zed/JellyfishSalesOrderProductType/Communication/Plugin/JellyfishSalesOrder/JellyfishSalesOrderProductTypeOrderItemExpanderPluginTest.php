@@ -20,12 +20,12 @@ class JellyfishSalesOrderProductTypeOrderItemExpanderPluginTest extends Unit
     protected $jellyfishOrderItemTransferMock;
 
     /**
-     * @var \FondOfOryx\Zed\JellyfishSalesOrderProductType\Dependency\Plugin\JellyfishSalesOrder\JellyfishSalesOrderProductTypeOrderItemExpanderPlugin
+     * @var \FondOfOryx\Zed\JellyfishSalesOrderProductType\Communication\Plugin\JellyfishSalesOrder\JellyfishSalesOrderProductTypeOrderItemExpanderPlugin
      */
     protected $plugin;
 
     /**
-     * @var \Generated\Shared\Transfer\JellyfishOrderItemTransfer|\PHPUnit\Framework\MockObject\MockObject
+     * @var \Orm\Zed\Sales\Persistence\SpySalesOrderItem|\PHPUnit\Framework\MockObject\MockObject
      */
     protected $spySalesOrderItemMock;
 
