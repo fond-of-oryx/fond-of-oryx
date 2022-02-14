@@ -46,7 +46,7 @@ class JellyfishOrderExpanderTest extends Unit
     protected $jellyfishOrderItemTransferMock;
 
     /**
-     * @var \FondOfOryx\Zed\JellyfishSalesOrderGiftCardConnector\Dependency\Facade\JellyfishSalesOrderGiftCardConnectorToProductCardCodeTypeRestrictionFacadeInterface|\PHPUnit\Framework\MockObject\MockObjec
+     * @var \FondOfOryx\Zed\JellyfishSalesOrderGiftCardConnector\Dependency\Facade\JellyfishSalesOrderGiftCardConnectorToProductCardCodeTypeRestrictionFacadeInterface|\PHPUnit\Framework\MockObject\MockObject
      */
     protected $productCardCodeTypeRestrictionFacadeMock;
 

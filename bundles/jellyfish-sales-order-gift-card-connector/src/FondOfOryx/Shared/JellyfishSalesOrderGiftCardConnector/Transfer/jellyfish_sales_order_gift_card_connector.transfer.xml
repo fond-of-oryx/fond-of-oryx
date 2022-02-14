@@ -14,6 +14,9 @@
         <property name="productType" type="string"/>
         <property name="isBlacklistedForGiftCard" type="bool"/>
         <property name="quantity" type="int"/>
+        <property name="sumPrice" type="int"/>
+        <property name="sumPriceToPayAggregation" type="int" />
+        <property name="sumTaxAmount" type="int"/>
     </transfer>
 
     <transfer name="JellyfishOrderGiftCard">
