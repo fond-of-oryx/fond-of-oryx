@@ -1,4 +1,4 @@
-namespace: fond-of-oryx/erp-delivery-note-extension
+namespace: fond-of-oryx/erp-delivery-note-permission
 
 suites:
   unit:
