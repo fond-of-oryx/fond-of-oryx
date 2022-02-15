@@ -1,0 +1,75 @@
+<?xml version="1.0"?>
+<transfers xmlns="spryker:transfer-01"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="spryker:transfer-01 http://static.spryker.com/transfer-01.xsd">
+
+    <transfer name="ErpDeliveryNote">
+        <property name="idErpDeliveryNote" type="int"/>
+        <property name="fkBillingAddress" type="int"/>
+        <property name="fkShippingAddress" type="int"/>
+        <property name="fkCompanyBusinessUnit" type="int"/>
+        <property name="deliveryNoteItems" singular="deliveryNoteItem" type="ErpDeliveryNoteItem[]"/>
+        <property name="expenses" singular="expense" type="ErpDeliveryNoteExpense[]"/>
+        <property name="externalReference" type="string"/>
+        <property name="documentNumber" type="string"/>
+        <property name="billingAddress" type="ErpDeliveryNoteAddress"/>
+        <property name="shippingAddress" type="ErpDeliveryNoteAddress"/>
+        <property name="companyBusinessUnit" type="CompanyBusinessUnit"/>
+        <property name="currencyIsoCode" type="string"/>
+        <property name="orderDate" type="int"/>
+        <property name="createdAt" type="int"/>
+        <property name="updatedAt" type="int"/>
+    </transfer>
+
+    <transfer name="ErpDeliveryNoteItem">
+        <property name="idErpDeliveryNoteItem" type="int" />
+        <property name="fkErpDeliveryNote" type="int" />
+        <property name="sku" type="string"/>
+        <property name="name" type="string"/>
+        <property name="quantity" type="int"/>
+        <property name="externalReference" type="string"/>
+        <property name="createdAt" type="int"/>
+        <property name="updatedAt" type="int"/>
+    </transfer>
+
+    <transfer name="ErpDeliveryNoteExpense">
+        <property name="idErpDeliveryNoteExpense" type="int" />
+        <property name="fkErpDeliveryNote" type="int" />
+        <property name="name" type="string"/>
+        <property name="quantity" type="int"/>
+        <property name="externalReference" type="string"/>
+        <property name="createdAt" type="int"/>
+        <property name="updatedAt" type="int"/>
+    </transfer>
+
+    <transfer name="ErpDeliveryNoteAddress">
+        <property name="idErpDeliveryNoteAddress" type="int" />
+        <property name="fkCountry" type="int" />
+        <property name="country" type="Country" />
+        <property name="name1" type="string" />
+        <property name="name2" type="string" />
+        <property name="address1" type="string" />
+        <property name="address2" type="string" />
+        <property name="address3" type="string" />
+        <property name="city" type="string" />
+        <property name="zipCode" type="string" />
+        <property name="phone" type="string" />
+        <property name="createdAt" type="int"/>
+        <property name="updatedAt" type="int"/>
+    </transfer>
+
+    <transfer name="ErpDeliveryNoteItemCollection">
+        <property name="items" singular="item" type="ErpDeliveryNoteItem[]" />
+    </transfer>
+
+    <transfer name="ErpDeliveryNoteExpenseCollection">
+        <property name="expenses" singular="expense" type="ErpDeliveryNoteExpense[]" />
+    </transfer>
+
+    <transfer name="ErpDeliveryNoteResponse">
+        <property name="erpDeliveryNote" type="ErpDeliveryNote" />
+        <property name="isSuccessful" type="bool" />
+        <property name="message" type="string" />
+    </transfer>
+
+</transfers>
