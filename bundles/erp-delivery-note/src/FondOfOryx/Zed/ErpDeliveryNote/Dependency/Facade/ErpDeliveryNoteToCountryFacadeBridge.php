@@ -2,8 +2,8 @@
 
 namespace FondOfOryx\Zed\ErpDeliveryNote\Dependency\Facade;
 
-use FondOfSpryker\Zed\Country\Business\CountryFacade;
 use Generated\Shared\Transfer\CountryTransfer;
+use Spryker\Zed\Country\Business\CountryFacadeInterface;
 
 class ErpDeliveryNoteToCountryFacadeBridge implements ErpDeliveryNoteToCountryFacadeInterface
 {
@@ -15,7 +15,7 @@ class ErpDeliveryNoteToCountryFacadeBridge implements ErpDeliveryNoteToCountryFa
     /**
      * @param \FondOfSpryker\Zed\Country\Business\CountryFacade $facade
      */
-    public function __construct(CountryFacade $facade)
+    public function __construct(CountryFacadeInterface $facade)
     {
         $this->facade = $facade;
     }
