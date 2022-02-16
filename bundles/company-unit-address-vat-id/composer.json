@@ -10,7 +10,8 @@
   ],
   "require": {
     "php": ">=7.3",
-    "spryker/company-unit-address": "^1.0.0"
+    "spryker/company-unit-address": "^1.0.0",
+    "spryker/sales": "^8.0.0 || ^10.0.0 || ^11.0.0"
   },
   "require-dev": {
     "fond-of-codeception/spryker": "^1.0",
