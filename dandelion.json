@@ -118,7 +118,7 @@
     },
     "company-unit-address-vat-id": {
       "path": "bundles/company-unit-address-vat-id/",
-      "version": "1.0.0"
+      "version": "1.1.0"
     },
     "customer-brand-product-list-connector": {
       "path": "bundles/customer-brand-product-list-connector/",
