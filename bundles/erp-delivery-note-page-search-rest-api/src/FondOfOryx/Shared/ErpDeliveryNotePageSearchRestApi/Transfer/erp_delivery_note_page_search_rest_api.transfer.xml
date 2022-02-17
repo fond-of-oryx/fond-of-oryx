@@ -1,0 +1,82 @@
+<?xml version="1.0"?>
+<transfers xmlns="spryker:transfer-01"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="spryker:transfer-01 http://static.spryker.com/transfer-01.xsd">
+    <transfer name="ErpDeliveryNotePageSearchRequest">
+        <property name="includes" singular="include" type="array"/>
+        <property name="requestParams" singular="requestParam" type="array"/>
+        <property name="searchString" type="string"/>
+        <property name="filters" singular="filter" type="array"/>
+        <property name="offset" type="int"/>
+        <property name="limit" type="int"/>
+    </transfer>
+
+    <transfer name="RestErpDeliveryNotePageSearchRequestAttributes">
+        <property name="companyBusinessUnitId" type="string" />
+        <property name="externalReference" type="string" />
+    </transfer>
+
+    <transfer name="RestErpDeliveryNotePageSearchCollectionResponse">
+        <property name="erpDeliveryNotes" singular="erpDeliveryNote" type="RestErpDeliveryNote[]"/>
+        <property name="pagination" type="RestErpDeliveryNotePageSearchPagination"/>
+        <property name="sort" type="RestErpDeliveryNotePageSearchPaginationSort"/>
+    </transfer>
+
+    <transfer name="RestErpDeliveryNotePageSearchPagination">
+        <property name="numFound" type="int" />
+        <property name="currentPage" type="int" />
+        <property name="maxPage" type="int" />
+        <property name="currentItemsPerPage" type="int" />
+    </transfer>
+
+    <transfer name="RestErpDeliveryNotePageSearchPaginationSort">
+        <property name="sortParamNames" type="array" singular="sortParamNames"/>
+        <property name="sortParamLocalizedNames" type="array" singular="sortParamLocalizedNames"/>
+        <property name="currentSortParam" type="string"/>
+        <property name="currentSortOrder" type="string"/>
+    </transfer>
+
+    <transfer name="RestErpDeliveryNote">
+        <property name="externalReference" type="string" />
+        <property name="orderDate" type="string" />
+        <property name="documentNumber" type="string" />
+        <property name="createdAt" type="string" />
+        <property name="updatedAt" type="string" />
+        <property name="billingAddress" type="RestErpDeliveryNoteAddress"/>
+        <property name="shippingAddress" type="RestErpDeliveryNoteAddress"/>
+        <property name="companyBusinessUnit" type="RestCompanyBusinessUnit"/>
+        <property name="items" singular="item" type="RestErpDeliveryNoteItem[]"/>
+        <property name="expenses" singular="expense" type="RestErpDeliveryNoteExpense[]"/>
+        <property name="currencyIsoCode" type="string"/>
+    </transfer>
+
+    <transfer name="RestErpDeliveryNoteAddress">
+        <property name="name1" type="string"/>
+        <property name="name2" type="string"/>
+        <property name="address1" type="string"/>
+        <property name="address2" type="string"/>
+        <property name="address3" type="string"/>
+        <property name="country" type="string"/>
+        <property name="city" type="string"/>
+        <property name="zipCode" type="string"/>
+        <property name="phone" type="string"/>
+    </transfer>
+
+    <transfer name="RestErpDeliveryNoteItem">
+        <property name="sku" type="string"/>
+        <property name="name" type="string"/>
+        <property name="quantity" type="int"/>
+        <property name="externalReference" type="string" />
+    </transfer>
+
+    <transfer name="RestErpDeliveryNoteExpense">
+        <property name="name" type="string"/>
+        <property name="quantity" type="int"/>
+    </transfer>
+
+    <transfer name="RestCompanyBusinessUnit">
+        <property name="name" type="string"/>
+        <property name="uuid" type="string"/>
+    </transfer>
+
+</transfers>
