@@ -40,6 +40,7 @@ include:
   - bundles/erp-delivery-note
   - bundles/erp-delivery-note-api
   - bundles/erp-delivery-note-extension
+  - bundles/erp-delivery-note-page-search
   - bundles/erp-invoice
   - bundles/erp-invoice-api
   - bundles/erp-invoice-extension
@@ -159,6 +160,7 @@ env:
           generate_map_classes: true
           generate_propel_classes: true
           supported_source_identifiers:
+            - erp-delivery-note
             - erp-invoice
             - erp-order
             - page
