@@ -11,5 +11,5 @@ interface TrboMapperInterface
      *
      * @return \Generated\Shared\Transfer\TrboDataTransfer
      */
-    public function mapDataToTransfer(array $data): TrboDataTransfer;
+    public function mapApiResponseToTransfer(array $data): TrboDataTransfer;
 }

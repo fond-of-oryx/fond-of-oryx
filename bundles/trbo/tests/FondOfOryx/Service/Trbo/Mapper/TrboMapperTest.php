@@ -46,9 +46,14 @@ class TrboMapperTest extends Unit
      */
     public function testMapDataToTransfer(): void
     {
-        $trboDataTransfer = $this->mapper->mapDataToTransfer($this->data);
+        $trboDataTransfer = $this->mapper->mapApiResponseToTransfer($this->data);
 
-        static::assertCount(1, $trboDataTransfer->getContentfulEntries());
-        static::assertCount(1, $trboDataTransfer->getTrboTracking());
+        static::assertCount(1, $trboDataTransfer->getData());
+
+        foreach ($trboDataTransfer->getData() as $data) {
+            static::assertArrayHasKey('contentfulEntry', $data);
+            static::assertArrayHasKey('module_id', $data);
+            static::assertArrayHasKey('campaign_id', $data);
+        }
     }
 }

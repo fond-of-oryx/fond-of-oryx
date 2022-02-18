@@ -146,7 +146,7 @@ class TrboApiTest extends Unit
             ->willReturn($jsonResponse);
 
         $this->trboMapperMock->expects(static::atLeastOnce())
-            ->method('mapDataToTransfer')
+            ->method('mapApiResponseToTransfer')
             ->willReturn($this->trboDataTransferMock);
 
         $this->loggerMock->expects(static::never())
