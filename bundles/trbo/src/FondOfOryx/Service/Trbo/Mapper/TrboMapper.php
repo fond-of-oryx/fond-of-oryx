@@ -3,7 +3,6 @@
 namespace FondOfOryx\Service\Trbo\Mapper;
 
 use Generated\Shared\Transfer\TrboDataTransfer;
-use Generated\Shared\Transfer\TrboTrackingTransfer;
 
 class TrboMapper implements TrboMapperInterface
 {
@@ -22,13 +21,15 @@ class TrboMapper implements TrboMapperInterface
      *
      * @return \Generated\Shared\Transfer\TrboDataTransfer
      */
-    public function mapDataToTransfer(array $data): TrboDataTransfer
+    public function mapApiResponseToTransfer(array $data): TrboDataTransfer
     {
         $trboDataTransfer = new TrboDataTransfer();
-        $trboDataTransfer = $this->addContentfulEntries($trboDataTransfer, $data);
-        $trboDataTransfer = $this->addTrboTracking($trboDataTransfer, $data);
 
-        return $trboDataTransfer;
+        if (!isset($data[static::DATA])) {
+            return $trboDataTransfer;
+        }
+
+        return $this->mergeDataAndTracking($trboDataTransfer, $data);
     }
 
     /**
@@ -37,31 +38,20 @@ class TrboMapper implements TrboMapperInterface
      *
      * @return \Generated\Shared\Transfer\TrboDataTransfer
      */
-    protected function addContentfulEntries(TrboDataTransfer $trboDataTransfer, array $data): TrboDataTransfer
+    protected function mergeDataAndTracking(TrboDataTransfer $trboDataTransfer, array $data): TrboDataTransfer
     {
-        if (isset($data[static::DATA])) {
-            foreach ($data[static::DATA] as $contentfulEntry) {
-                $trboDataTransfer->addContentfulEntry($contentfulEntry);
+        $trboData = [];
+
+        foreach ($data[static::DATA] as $index => $item) {
+            if (isset($data[static::TRACKING][$index])) {
+                $trboData[] = (array_merge($item, $data[static::TRACKING][$index]));
+
+                continue;
             }
+
+            $trboData[] = $item;
         }
 
-        return $trboDataTransfer;
-    }
-
-    /**
-     * @param \Generated\Shared\Transfer\TrboDataTransfer $trboDataTransfer
-     * @param array $data
-     *
-     * @return \Generated\Shared\Transfer\TrboDataTransfer
-     */
-    protected function addTrboTracking(TrboDataTransfer $trboDataTransfer, array $data): TrboDataTransfer
-    {
-        if (isset($data[static::TRACKING])) {
-            foreach ($data[static::TRACKING] as $tracking) {
-                $trboDataTransfer->addTrboTracking((new TrboTrackingTransfer())->fromArray($tracking, true));
-            }
-        }
-
-        return $trboDataTransfer;
+        return $trboDataTransfer->setData($trboData);
     }
 }

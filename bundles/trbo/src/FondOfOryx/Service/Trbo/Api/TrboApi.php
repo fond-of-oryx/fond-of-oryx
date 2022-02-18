@@ -70,7 +70,7 @@ class TrboApi implements TrboApiInterface
 
             $data = json_decode($result->getBody()->getContents(), true, 512, JSON_THROW_ON_ERROR);
 
-            return $this->trboMapper->mapDataToTransfer($data);
+            return $this->trboMapper->mapApiResponseToTransfer($data);
         } catch (ClientException $exception) {
             $this->logger->alert($exception->getMessage(), $exception->getTrace());
         }
