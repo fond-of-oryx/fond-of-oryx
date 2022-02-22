@@ -66,11 +66,12 @@ include:
   - bundles/jellyfish-cross-engage
   - bundles/jellyfish-gift-card
   - bundles/jellyfish-sales-order
-  - bundles/jellyfish-sales-order-product-type
   - bundles/jellyfish-sales-order-b2c
-  - bundles/jellyfish-sales-order-gift-card-connector
+  - bundles/jellyfish-sales-order-conditional-availability
   - bundles/jellyfish-sales-order-extension
+  - bundles/jellyfish-sales-order-gift-card-connector
   - bundles/jellyfish-sales-order-payone
+  - bundles/jellyfish-sales-order-product-type
   - bundles/jellyfish-thirty-five-up
   - bundles/limit-buyable-quantity
   - bundles/log-io
