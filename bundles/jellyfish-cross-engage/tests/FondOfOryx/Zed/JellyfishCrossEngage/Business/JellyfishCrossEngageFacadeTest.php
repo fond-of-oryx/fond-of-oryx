@@ -34,7 +34,7 @@ class JellyfishCrossEngageFacadeTest extends Unit
     protected $jellyfishCrossEngageReaderMock;
 
     /**
-     * @var \ArrayObject<array<\string>>
+     * @var string
      */
     protected $categories;
 

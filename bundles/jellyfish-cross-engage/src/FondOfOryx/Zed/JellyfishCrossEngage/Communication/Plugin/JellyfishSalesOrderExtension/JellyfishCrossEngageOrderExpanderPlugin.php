@@ -1,6 +1,6 @@
 <?php
 
-namespace FondOfOryx\Zed\JellyfishCrossEngage\Dependency\Plugin;
+namespace FondOfOryx\Zed\JellyfishCrossEngage\Communication\Plugin\JellyfishSalesOrderExtension;
 
 use FondOfOryx\Zed\JellyfishSalesOrderExtension\Dependency\Plugin\JellyfishOrderExpanderPostMapPluginInterface;
 use Generated\Shared\Transfer\JellyfishOrderTransfer;

@@ -29,7 +29,7 @@ class JellyfishCrossEngageToProductFacadeBridgeTest extends Unit
     protected $productConcreteTransferMock;
 
     /**
-     * @var array<array<\string>>
+     * @var array<array<string>>
      */
     protected $attributes;
 
