@@ -260,6 +260,10 @@
       "path": "bundles/jellyfish-sales-order-b2c/",
       "version": "1.0.0"
     },
+    "jellyfish-sales-order-conditional-availability": {
+      "path": "bundles/jellyfish-sales-order-conditional-availability/",
+      "version": "1.0.0"
+    },
     "jellyfish-sales-order-extension": {
       "path": "bundles/jellyfish-sales-order-extension/",
       "version": "1.1.0"
