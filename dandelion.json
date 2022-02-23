@@ -280,6 +280,10 @@
       "path": "bundles/jellyfish-sales-order-gift-card-connector/",
       "version": "1.2.1"
     },
+    "jellyfish-sales-order-order-custom-reference": {
+      "path": "bundles/jellyfish-sales-order-order-custom-reference/",
+      "version": "1.0.0"
+    },
     "jellyfish-sales-order-payone": {
       "path": "bundles/jellyfish-sales-order-payone/",
       "version": "1.0.1"
