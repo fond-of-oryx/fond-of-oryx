@@ -68,6 +68,7 @@ include:
   - bundles/jellyfish-gift-card
   - bundles/jellyfish-sales-order
   - bundles/jellyfish-sales-order-b2c
+  - bundles/jellyfish-sales-order-company
   - bundles/jellyfish-sales-order-conditional-availability
   - bundles/jellyfish-sales-order-extension
   - bundles/jellyfish-sales-order-gift-card-connector
