@@ -272,6 +272,14 @@
       "path": "bundles/jellyfish-sales-order-conditional-availability/",
       "version": "1.0.0"
     },
+    "jellyfish-sales-order-company": {
+      "path": "bundles/jellyfish-sales-order-company/",
+      "version": "1.0.0"
+    },
+    "jellyfish-sales-order-company-business-unit": {
+      "path": "bundles/jellyfish-sales-order-company-business-unit/",
+      "version": "1.0.0"
+    },
     "jellyfish-sales-order-extension": {
       "path": "bundles/jellyfish-sales-order-extension/",
       "version": "1.1.0"
