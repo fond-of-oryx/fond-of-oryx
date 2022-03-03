@@ -40,3 +40,4 @@ env:
           generate_propel_classes: true
           supported_source_identifiers:
             - erp-delivery-note
+  monorepo:

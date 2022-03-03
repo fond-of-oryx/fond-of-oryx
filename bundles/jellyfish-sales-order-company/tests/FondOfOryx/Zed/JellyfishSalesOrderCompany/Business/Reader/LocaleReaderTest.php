@@ -58,6 +58,7 @@ class LocaleReaderTest extends Unit
     public function testGetNameByCompany(): void
     {
         $idLocale = 1;
+        $localeName = 'de_DE';
 
         $this->companyTransferMock->expects(static::atLeastOnce())
             ->method('getFkLocale')
@@ -68,8 +69,12 @@ class LocaleReaderTest extends Unit
             ->with($idLocale)
             ->willReturn($this->localeTransferMock);
 
+        $this->localeTransferMock->expects(static::atLeastOnce())
+            ->method('getLocaleName')
+            ->willReturn($localeName);
+
         static::assertEquals(
-            $this->localeTransferMock,
+            $localeName,
             $this->localeReader->getNameByCompany($this->companyTransferMock),
         );
     }

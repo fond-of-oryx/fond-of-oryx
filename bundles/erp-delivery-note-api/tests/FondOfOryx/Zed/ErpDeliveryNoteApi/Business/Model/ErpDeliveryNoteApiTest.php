@@ -159,8 +159,6 @@ class ErpDeliveryNoteApiTest extends Unit
      */
     public function testCreateWithError(): void
     {
-        $idErpDeliveryNote = 1;
-
         $this->apiDataTransferMock->expects(static::atLeastOnce())
             ->method('getData')
             ->willReturn([]);
@@ -195,6 +193,7 @@ class ErpDeliveryNoteApiTest extends Unit
     public function testUpdate(): void
     {
         $idErpDeliveryNote = 1;
+        $data = [];
 
         $this->erpDeliveryNoteFacadeMock->expects(static::atLeastOnce())
             ->method('findErpDeliveryNoteByIdErpDeliveryNote')
@@ -203,7 +202,12 @@ class ErpDeliveryNoteApiTest extends Unit
 
         $this->apiDataTransferMock->expects(static::atLeastOnce())
             ->method('getData')
-            ->willReturn([]);
+            ->willReturn($data);
+
+        $this->erpDeliveryNoteTransferMock->expects(static::atLeastOnce())
+            ->method('fromArray')
+            ->with($data, true)
+            ->willReturn($this->erpDeliveryNoteTransferMock);
 
         $this->erpDeliveryNoteFacadeMock->expects(static::atLeastOnce())
             ->method('updateErpDeliveryNote')
@@ -238,6 +242,7 @@ class ErpDeliveryNoteApiTest extends Unit
     public function testUpdateWithError(): void
     {
         $idErpDeliveryNote = 1;
+        $data = [];
 
         $this->erpDeliveryNoteFacadeMock->expects(static::atLeastOnce())
             ->method('findErpDeliveryNoteByIdErpDeliveryNote')
@@ -246,7 +251,12 @@ class ErpDeliveryNoteApiTest extends Unit
 
         $this->apiDataTransferMock->expects(static::atLeastOnce())
             ->method('getData')
-            ->willReturn([]);
+            ->willReturn($data);
+
+        $this->erpDeliveryNoteTransferMock->expects(static::atLeastOnce())
+            ->method('fromArray')
+            ->with($data, true)
+            ->willReturn($this->erpDeliveryNoteTransferMock);
 
         $this->erpDeliveryNoteFacadeMock->expects(static::atLeastOnce())
             ->method('updateErpDeliveryNote')
