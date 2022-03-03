@@ -3,10 +3,10 @@
 namespace FondOfOryx\Zed\JellyfishSalesOrderCompany\Business;
 
 use Codeception\Test\Unit;
+use FondOfOryx\Zed\JellyfishSalesOrderCompany\Business\Expander\JellyfishOrderExpander;
 use FondOfOryx\Zed\JellyfishSalesOrderCompany\Dependency\Facade\JellyfishSalesOrderCompanyToCompanyUserReferenceFacadeInterface;
 use FondOfOryx\Zed\JellyfishSalesOrderCompany\Dependency\Facade\JellyfishSalesOrderCompanyToLocaleFacadeInterface;
 use FondOfOryx\Zed\JellyfishSalesOrderCompany\JellyfishSalesOrderCompanyDependencyProvider;
-use Generated\Shared\Transfer\JellyfishOrderTransfer;
 use Spryker\Zed\Kernel\Container;
 
 class JellyfishSalesOrderCompanyBusinessFactoryTest extends Unit
@@ -72,7 +72,7 @@ class JellyfishSalesOrderCompanyBusinessFactoryTest extends Unit
             );
 
         static::assertInstanceOf(
-            JellyfishOrderTransfer::class,
+            JellyfishOrderExpander::class,
             $this->factory->createJellyfishOrderExpander(),
         );
     }

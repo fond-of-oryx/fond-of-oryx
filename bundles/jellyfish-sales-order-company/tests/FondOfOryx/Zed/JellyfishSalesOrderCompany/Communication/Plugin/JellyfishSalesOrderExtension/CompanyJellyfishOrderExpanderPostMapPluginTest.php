@@ -49,6 +49,7 @@ class CompanyJellyfishOrderExpanderPostMapPluginTest extends Unit
             ->getMock();
 
         $this->plugin = new CompanyJellyfishOrderExpanderPostMapPlugin();
+        $this->plugin->setFacade($this->facadeMock);
     }
 
     /**
