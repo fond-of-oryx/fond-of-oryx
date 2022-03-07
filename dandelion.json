@@ -268,16 +268,20 @@
       "path": "bundles/jellyfish-sales-order-cart-note/",
       "version": "1.0.0"
     },
-    "jellyfish-sales-order-conditional-availability": {
-      "path": "bundles/jellyfish-sales-order-conditional-availability/",
-      "version": "1.0.0"
-    },
     "jellyfish-sales-order-company": {
       "path": "bundles/jellyfish-sales-order-company/",
       "version": "1.0.0"
     },
     "jellyfish-sales-order-company-business-unit": {
       "path": "bundles/jellyfish-sales-order-company-business-unit/",
+      "version": "1.0.0"
+    },
+    "jellyfish-sales-order-company-unit-address": {
+      "path": "bundles/jellyfish-sales-order-company-unit-address/",
+      "version": "1.0.0"
+    },
+    "jellyfish-sales-order-conditional-availability": {
+      "path": "bundles/jellyfish-sales-order-conditional-availability/",
       "version": "1.0.0"
     },
     "jellyfish-sales-order-extension": {
