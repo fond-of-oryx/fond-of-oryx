@@ -308,6 +308,10 @@
       "path": "bundles/jellyfish-sales-order-product-type/",
       "version": "1.0.1"
     },
+    "jellyfish-sales-order-vat-id": {
+      "path": "bundles/jellyfish-sales-order-vat-id/",
+      "version": "1.0.0"
+    },
     "jellyfish-thirty-five-up": {
       "path": "bundles/jellyfish-thirty-five-up/",
       "version": "1.0.0"

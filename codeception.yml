@@ -77,6 +77,7 @@ include:
   - bundles/jellyfish-sales-order-gift-card-connector
   - bundles/jellyfish-sales-order-payone
   - bundles/jellyfish-sales-order-product-type
+  - bundles/jellyfish-sales-order-vat-id
   - bundles/jellyfish-thirty-five-up
   - bundles/limit-buyable-quantity
   - bundles/log-io
