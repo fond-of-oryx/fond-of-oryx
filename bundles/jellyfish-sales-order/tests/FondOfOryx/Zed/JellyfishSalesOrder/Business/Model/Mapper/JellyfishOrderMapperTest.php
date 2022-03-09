@@ -12,7 +12,6 @@ use FondOfOryx\Zed\JellyfishSalesOrder\Business\Model\Mapper\JellyfishOrderPayme
 use FondOfOryx\Zed\JellyfishSalesOrder\Business\Model\Mapper\JellyfishOrderTotalsMapperInterface;
 use FondOfOryx\Zed\JellyfishSalesOrder\JellyfishSalesOrderConfig;
 use Generated\Shared\Transfer\JellyfishOrderAddressTransfer;
-use Generated\Shared\Transfer\JellyfishOrderTransfer;
 use Orm\Zed\Locale\Persistence\SpyLocale;
 use Orm\Zed\Payment\Persistence\SpySalesPayment;
 use Orm\Zed\Payment\Persistence\SpySalesPaymentMethodType;
@@ -173,9 +172,15 @@ class JellyfishOrderMapperTest extends Unit
             'price_mode' => 'gross',
             'currency_iso_code' => 'EUR',
             'store' => 'default',
-            'locale' => 'en_US',
+            'locale' => [
+                'locale_name' => 'en_US',
+            ],
             'created_at' => new DateTime(),
         ];
+
+        $this->spySalesOrderMock->expects($this->atLeastOnce())
+            ->method('toArray')
+            ->willReturn($data);
 
         $this->spySalesOrderMock->expects($this->atLeastOnce())
             ->method('getIdSalesOrder')
@@ -184,22 +189,6 @@ class JellyfishOrderMapperTest extends Unit
         $this->spySalesOrderMock->expects($this->atLeastOnce())
             ->method('getOrderReference')
             ->willReturn($data['order_reference']);
-
-        $this->spySalesOrderMock->expects($this->atLeastOnce())
-            ->method('getCustomerReference')
-            ->willReturn($data['customer_reference']);
-
-        $this->spySalesOrderMock->expects($this->atLeastOnce())
-            ->method('getEmail')
-            ->willReturn($data['email']);
-
-        $this->spySalesOrderMock->expects($this->atLeastOnce())
-            ->method('getPriceMode')
-            ->willReturn($data['price_mode']);
-
-        $this->spySalesOrderMock->expects($this->atLeastOnce())
-            ->method('getStore')
-            ->willReturn($data['store']);
 
         $this->configMock->expects($this->atLeastOnce())
             ->method('getSystemCode')
@@ -235,17 +224,16 @@ class JellyfishOrderMapperTest extends Unit
 
         $this->spyLocaleMock->expects($this->atLeastOnce())
             ->method('getLocaleName')
-            ->willReturn($data['locale']);
+            ->willReturn($data['locale']['locale_name']);
 
         $jellyfishOrderTransfer = $this->jellyfishOrderMapper->fromSalesOrder($this->spySalesOrderMock);
 
-        $this->assertInstanceOf(JellyfishOrderTransfer::class, $jellyfishOrderTransfer);
-        $this->assertEquals($data['id_sales_order'], $jellyfishOrderTransfer->getId());
-        $this->assertEquals($data['order_reference'], $jellyfishOrderTransfer->getReference());
-        $this->assertEquals($data['customer_reference'], $jellyfishOrderTransfer->getCustomerReference());
-        $this->assertEquals($data['email'], $jellyfishOrderTransfer->getEmail());
-        $this->assertEquals($data['locale'], $jellyfishOrderTransfer->getLocale());
-        $this->assertEquals($data['store'], $jellyfishOrderTransfer->getStore());
-        $this->assertEquals('default', $jellyfishOrderTransfer->getSystemCode());
+        static::assertEquals($data['id_sales_order'], $jellyfishOrderTransfer->getId());
+        static::assertEquals($data['order_reference'], $jellyfishOrderTransfer->getReference());
+        static::assertEquals($data['customer_reference'], $jellyfishOrderTransfer->getCustomerReference());
+        static::assertEquals($data['email'], $jellyfishOrderTransfer->getEmail());
+        static::assertEquals($data['locale']['locale_name'], $jellyfishOrderTransfer->getLocale());
+        static::assertEquals($data['store'], $jellyfishOrderTransfer->getStore());
+        static::assertEquals('default', $jellyfishOrderTransfer->getSystemCode());
     }
 }
