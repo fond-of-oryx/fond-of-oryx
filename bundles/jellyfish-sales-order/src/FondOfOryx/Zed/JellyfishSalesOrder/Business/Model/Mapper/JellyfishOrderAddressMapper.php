@@ -27,22 +27,15 @@ class JellyfishOrderAddressMapper implements JellyfishOrderAddressMapperInterfac
      */
     public function fromSalesOrderAddress(SpySalesOrderAddress $salesOrderAddress): JellyfishOrderAddressTransfer
     {
-        $jellyfishOrderAddressTransfer = new JellyfishOrderAddressTransfer();
+        $jellyfishOrderAddressTransfer = (new JellyfishOrderAddressTransfer())
+            ->fromArray($salesOrderAddress->toArray(), true);
 
         $jellyfishOrderAddressTransfer->setId($salesOrderAddress->getIdSalesOrderAddress())
             ->setName1($salesOrderAddress->getFirstName())
             ->setName2($salesOrderAddress->getLastName())
-            ->setAddress1($salesOrderAddress->getAddress1())
-            ->setAddress2($salesOrderAddress->getAddress2())
-            ->setAddress3($salesOrderAddress->getAddress3())
-            ->setCity($salesOrderAddress->getCity())
-            ->setZipCode($salesOrderAddress->getZipCode())
-            ->setCountry($salesOrderAddress->getCountry()->getIso2Code())
-            ->setPhone($salesOrderAddress->getPhone());
+            ->setCountry($salesOrderAddress->getCountry()->getIso2Code());
 
-        $jellyfishOrderAddressTransfer = $this->expandOrderAddressTransfer($jellyfishOrderAddressTransfer, $salesOrderAddress);
-
-        return $jellyfishOrderAddressTransfer;
+        return $this->expandOrderAddressTransfer($jellyfishOrderAddressTransfer, $salesOrderAddress);
     }
 
     /**

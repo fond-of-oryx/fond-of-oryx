@@ -4,7 +4,6 @@ namespace FondOfOryx\Zed\JellyfishSalesOrder\Communication\Plugin;
 
 use Codeception\Test\Unit;
 use FondOfOryx\Zed\JellyfishSalesOrder\Business\Model\Mapper\JellyfishOrderAddressMapper;
-use Generated\Shared\Transfer\JellyfishOrderAddressTransfer;
 use Orm\Zed\Country\Persistence\SpyCountry;
 use Orm\Zed\Sales\Persistence\SpySalesOrderAddress;
 
@@ -48,16 +47,22 @@ class JellyfishOrderAddressMapperTest extends Unit
     {
         $data = [
             'id_sales_order_address' => 1,
-            'firstname' => 'Max',
-            'lastname' => 'Mustermann',
+            'first_name' => 'Max',
+            'last_name' => 'Mustermann',
             'address1' => 'strasse 12',
             'address2' => '',
             'address3' => '',
             'city' => 'Berlin',
-            'zipcode' => '10119',
+            'zip_code' => '10119',
             'phone' => '555-55551',
-            'country' => 'DE',
+            'country' => [
+                'iso2_code' => 'DE',
+            ],
         ];
+
+        $this->spySalesOrderAddressMock->expects($this->atLeastOnce())
+            ->method('toArray')
+            ->willReturn($data);
 
         $this->spySalesOrderAddressMock->expects($this->atLeastOnce())
             ->method('getIdSalesOrderAddress')
@@ -65,35 +70,11 @@ class JellyfishOrderAddressMapperTest extends Unit
 
         $this->spySalesOrderAddressMock->expects($this->atLeastOnce())
             ->method('getFirstName')
-            ->willReturn($data['firstname']);
+            ->willReturn($data['first_name']);
 
         $this->spySalesOrderAddressMock->expects($this->atLeastOnce())
             ->method('getLastName')
-            ->willReturn($data['lastname']);
-
-        $this->spySalesOrderAddressMock->expects($this->atLeastOnce())
-            ->method('getAddress1')
-            ->willReturn($data['address1']);
-
-        $this->spySalesOrderAddressMock->expects($this->atLeastOnce())
-            ->method('getAddress2')
-            ->willReturn($data['address2']);
-
-        $this->spySalesOrderAddressMock->expects($this->atLeastOnce())
-            ->method('getAddress3')
-            ->willReturn($data['address3']);
-
-        $this->spySalesOrderAddressMock->expects($this->atLeastOnce())
-            ->method('getCity')
-            ->willReturn($data['city']);
-
-        $this->spySalesOrderAddressMock->expects($this->atLeastOnce())
-            ->method('getZipCode')
-            ->willReturn($data['zipcode']);
-
-        $this->spySalesOrderAddressMock->expects($this->atLeastOnce())
-            ->method('getPhone')
-            ->willReturn($data['phone']);
+            ->willReturn($data['last_name']);
 
         $this->spySalesOrderAddressMock->expects($this->atLeastOnce())
             ->method('getCountry')
@@ -101,20 +82,19 @@ class JellyfishOrderAddressMapperTest extends Unit
 
         $this->spyCountryMock->expects($this->atLeastOnce())
             ->method('getIso2Code')
-            ->willReturn($data['country']);
+            ->willReturn($data['country']['iso2_code']);
 
         $jellyfishOrderAddressTransfer = $this->jellyfishOrderAddressMapper->fromSalesOrderAddress($this->spySalesOrderAddressMock);
 
-        $this->assertInstanceOf(JellyfishOrderAddressTransfer::class, $jellyfishOrderAddressTransfer);
-        $this->assertEquals($data['id_sales_order_address'], $jellyfishOrderAddressTransfer->getId());
-        $this->assertEquals($data['firstname'], $jellyfishOrderAddressTransfer->getName1());
-        $this->assertEquals($data['lastname'], $jellyfishOrderAddressTransfer->getName2());
-        $this->assertEquals($data['address1'], $jellyfishOrderAddressTransfer->getAddress1());
-        $this->assertEquals($data['address2'], $jellyfishOrderAddressTransfer->getAddress2());
-        $this->assertEquals($data['address3'], $jellyfishOrderAddressTransfer->getAddress3());
-        $this->assertEquals($data['city'], $jellyfishOrderAddressTransfer->getCity());
-        $this->assertEquals($data['zipcode'], $jellyfishOrderAddressTransfer->getZipCode());
-        $this->assertEquals($data['phone'], $jellyfishOrderAddressTransfer->getPhone());
-        $this->assertEquals($data['country'], $jellyfishOrderAddressTransfer->getCountry());
+        static::assertEquals($data['id_sales_order_address'], $jellyfishOrderAddressTransfer->getId());
+        static::assertEquals($data['first_name'], $jellyfishOrderAddressTransfer->getName1());
+        static::assertEquals($data['last_name'], $jellyfishOrderAddressTransfer->getName2());
+        static::assertEquals($data['address1'], $jellyfishOrderAddressTransfer->getAddress1());
+        static::assertEquals($data['address2'], $jellyfishOrderAddressTransfer->getAddress2());
+        static::assertEquals($data['address3'], $jellyfishOrderAddressTransfer->getAddress3());
+        static::assertEquals($data['city'], $jellyfishOrderAddressTransfer->getCity());
+        static::assertEquals($data['zip_code'], $jellyfishOrderAddressTransfer->getZipCode());
+        static::assertEquals($data['phone'], $jellyfishOrderAddressTransfer->getPhone());
+        static::assertEquals($data['country']['iso2_code'], $jellyfishOrderAddressTransfer->getCountry());
     }
 }

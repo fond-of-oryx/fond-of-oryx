@@ -80,16 +80,13 @@ class JellyfishOrderMapper implements JellyfishOrderMapperInterface
      */
     public function fromSalesOrder(SpySalesOrder $salesOrder): JellyfishOrderTransfer
     {
-        $jellyfishOrderTransfer = new JellyfishOrderTransfer();
+        $jellyfishOrderTransfer = (new JellyfishOrderTransfer())
+            ->fromArray($salesOrder->toArray(), true);
 
         $jellyfishOrderTransfer->setId($salesOrder->getIdSalesOrder())
             ->setReference($salesOrder->getOrderReference())
-            ->setCustomerReference($salesOrder->getCustomerReference())
-            ->setEmail($salesOrder->getEmail())
             ->setLocale($salesOrder->getLocale()->getLocaleName())
-            ->setPriceMode($salesOrder->getPriceMode())
             ->setCurrency($salesOrder->getCurrencyIsoCode())
-            ->setStore($salesOrder->getStore())
             ->setSystemCode($this->config->getSystemCode())
             ->setPayments($this->mapSalesOrderToPayments($salesOrder))
             ->setBillingAddress($this->mapSalesOrderToBillingAddress($salesOrder))
