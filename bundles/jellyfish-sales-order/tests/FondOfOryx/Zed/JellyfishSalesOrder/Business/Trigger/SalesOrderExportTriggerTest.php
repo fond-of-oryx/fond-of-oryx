@@ -167,7 +167,7 @@ class SalesOrderExportTriggerTest extends Unit
              *
              * @return \Psr\Log\LoggerInterface
              */
-            protected function getLogger(?LoggerConfigInterface $loggerConfig = null)
+            protected function getLogger(?LoggerConfigInterface $loggerConfig = null): LoggerInterface
             {
                 return $this->logger;
             }
