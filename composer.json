@@ -60,7 +60,7 @@
     "spryker/glue-application": "^1.0.0",
     "spryker/glue-application-extension": "^1.0.0",
     "spryker/gui": "^3.15.0",
-    "spryker/guzzle": "^2.0.0",
+    "spryker/guzzle": "^2.2.0",
     "spryker/gift-card": "^1.0.0",
     "spryker/locale": "^2.2.0 || ^3.0.0",
     "spryker/log": ">=3.9.0 <3.13.0",

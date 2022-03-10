@@ -14,7 +14,6 @@ use Generated\Shared\Transfer\UserTransfer;
 use GuzzleHttp\ClientInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Log\LoggerInterface;
-use Symfony\Component\HttpFoundation\Response;
 
 class OrderExport implements DataExportInterface
 {
@@ -27,9 +26,9 @@ class OrderExport implements DataExportInterface
      * @var array
      */
     protected const VALID_CODES = [
-        Response::HTTP_OK,
-        Response::HTTP_CREATED,
-        Response::HTTP_ACCEPTED,
+        200,
+        201,
+        202,
     ];
 
     /**
