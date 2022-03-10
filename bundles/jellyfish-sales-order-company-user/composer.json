@@ -1,0 +1,42 @@
+{
+  "name": "fond-of-oryx/jellyfish-sales-order-company-user",
+  "description": "Jellyfish sales order company user bundle",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "József Geng",
+      "email": "gengjozsef86@gmail.com"
+    }
+  ],
+  "require": {
+    "php": ">=7.3",
+    "fond-of-oryx/company-user-reference-sales-connector": "^1.0.0",
+    "fond-of-oryx/jellyfish-sales-order-extension": "^1.0.0",
+    "fond-of-spryker/company-user-reference": "dev-master"
+  },
+  "require-dev": {
+    "fond-of-codeception/spryker": "^1.0",
+    "spryker/code-sniffer": "*",
+    "spryker-sdk/phpstan-spryker": "*",
+    "spryker/sales": "*"
+  },
+  "minimum-stability": "dev",
+  "prefer-stable": true,
+  "autoload": {
+    "psr-4": {
+      "FondOfOryx\\": "src/FondOfOryx/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "FondOfOryx\\": "tests/FondOfOryx/",
+      "Generated\\": "src/Generated/",
+      "Orm\\Zed\\": "src/Orm/Zed/"
+    }
+  },
+  "config": {
+    "allow-plugins": {
+      "dealerdirect/phpcodesniffer-composer-installer": true
+    }
+  }
+}

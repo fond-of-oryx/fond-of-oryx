@@ -188,6 +188,7 @@
     "fond-of-oryx/jellyfish-sales-order-company": "*",
     "fond-of-oryx/jellyfish-sales-order-company-business-unit": "*",
     "fond-of-oryx/jellyfish-sales-order-company-unit-address": "*",
+    "fond-of-oryx/jellyfish-sales-order-company-user": "*",
     "fond-of-oryx/jellyfish-sales-order-conditional-availability": "*",
     "fond-of-oryx/jellyfish-sales-order-customer-address": "*",
     "fond-of-oryx/jellyfish-sales-order-extension": "*",
