@@ -280,6 +280,10 @@
       "path": "bundles/jellyfish-sales-order-company-unit-address/",
       "version": "1.0.0"
     },
+    "jellyfish-sales-order-company-user": {
+      "path": "bundles/jellyfish-sales-order-company-user/",
+      "version": "1.0.0"
+    },
     "jellyfish-sales-order-conditional-availability": {
       "path": "bundles/jellyfish-sales-order-conditional-availability/",
       "version": "1.0.0"
