@@ -31,6 +31,8 @@ class JellyfishOrderAddressMapper implements JellyfishOrderAddressMapperInterfac
             ->fromArray($salesOrderAddress->toArray(), true);
 
         $jellyfishOrderAddressTransfer->setId($salesOrderAddress->getIdSalesOrderAddress())
+            ->setFirstName(null)
+            ->setLastName(null)
             ->setName1($salesOrderAddress->getFirstName())
             ->setName2($salesOrderAddress->getLastName())
             ->setCountry($salesOrderAddress->getCountry()->getIso2Code());
