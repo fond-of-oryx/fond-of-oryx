@@ -16,7 +16,6 @@ use Generated\Shared\Transfer\UserTransfer;
 use GuzzleHttp\Client;
 use Monolog\Logger;
 use Psr\Http\Message\ResponseInterface;
-use Symfony\Component\HttpFoundation\Response;
 
 class OrderExportTest extends Unit
 {
@@ -245,7 +244,7 @@ class OrderExportTest extends Unit
         $this->exportedOrderTransferMock->expects(static::once())->method('setData')->with('{"body":"{\"systemCode\":\"test\"}"}')->willReturnSelf();
         $this->exportedOrderTransferMock->expects(static::once())->method('toArray')->willReturn([]);
         $this->exportedOrderTransferMock->expects(static::once())->method('getFkSalesOrder')->willReturn(1);
-        $this->responseMock->expects(static::once())->method('getStatusCode')->willReturn(Response::HTTP_OK);
+        $this->responseMock->expects(static::once())->method('getStatusCode')->willReturn(200);
         $this->guzzleClientMock->expects(static::once())->method('request')->willReturnCallback(static function ($type, $uri, $options) use ($self) {
             static::assertIsArray($options);
             static::assertArrayHasKey('body', $options);
@@ -280,7 +279,7 @@ class OrderExportTest extends Unit
         $this->exportedOrderTransferMock->expects(static::once())->method('setData')->with('{"body":"{\"systemCode\":\"test\"}"}')->willReturnSelf();
         $this->exportedOrderTransferMock->expects(static::once())->method('getFkSalesOrder')->willReturn(1);
         $this->exportedOrderTransferMock->expects(static::once())->method('toArray')->willReturn([]);
-        $this->responseMock->expects(static::exactly(2))->method('getStatusCode')->willReturn(Response::HTTP_BAD_GATEWAY);
+        $this->responseMock->expects(static::exactly(2))->method('getStatusCode')->willReturn(502);
         $this->guzzleClientMock->expects(static::once())->method('request')->willReturnCallback(static function ($type, $uri, $options) use ($self) {
             static::assertIsArray($options);
             static::assertArrayHasKey('body', $options);
