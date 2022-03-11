@@ -87,8 +87,6 @@ class JellyfishOrderAddressMapperTest extends Unit
         $jellyfishOrderAddressTransfer = $this->jellyfishOrderAddressMapper->fromSalesOrderAddress($this->spySalesOrderAddressMock);
 
         static::assertEquals($data['id_sales_order_address'], $jellyfishOrderAddressTransfer->getId());
-        static::assertEquals(null, $jellyfishOrderAddressTransfer->getFirstName());
-        static::assertEquals(null, $jellyfishOrderAddressTransfer->getLastName());
         static::assertEquals($data['first_name'], $jellyfishOrderAddressTransfer->getName1());
         static::assertEquals($data['last_name'], $jellyfishOrderAddressTransfer->getName2());
         static::assertEquals($data['address1'], $jellyfishOrderAddressTransfer->getAddress1());
