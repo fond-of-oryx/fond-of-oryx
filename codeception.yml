@@ -20,6 +20,7 @@ include:
   - bundles/company-business-unit-order-budget
   - bundles/company-business-unit-search-rest-api
   - bundles/company-company-user-gui
+  - bundles/company-oms-mail-connector
   - bundles/company-price-lists-rest-api
   - bundles/company-product-list-connector
   - bundles/company-product-list-connector-extension
