@@ -1,6 +1,6 @@
 <?php
 
-namespace FondOfOryx\Zed\PaymentCountryRestriction\Communication;
+namespace FondOfOryx\Zed\PaymentAddressRestriction\Communication;
 
 use Generated\Shared\Transfer\PaymentMethodsTransfer;
 use Generated\Shared\Transfer\QuoteTransfer;
@@ -8,9 +8,10 @@ use Spryker\Zed\Kernel\Communication\AbstractPlugin;
 use Spryker\Zed\PaymentExtension\Dependency\Plugin\PaymentMethodFilterPluginInterface;
 
 /**
- * @method \FondOfOryx\Zed\PaymentCountryRestriction\Business\PaymentCountryRestrictionFacadeInterface getFacade()
+ * @method \FondOfOryx\Zed\PaymentAddressRestriction\Business\PaymentAddressRestrictionFacadeInterface getFacade()
+ * @method \FondOfOryx\Zed\PaymentAddressRestriction\PaymentAddressRestrictionConfig getConfig()
  */
-class PaymentCountryRestrictionPaymentMethodFilterPlugin extends AbstractPlugin implements PaymentMethodFilterPluginInterface
+class CountryRestrictionPaymentMethodFilterPlugin extends AbstractPlugin implements PaymentMethodFilterPluginInterface
 {
     /**
      * @param \Generated\Shared\Transfer\PaymentMethodsTransfer $paymentMethodsTransfer

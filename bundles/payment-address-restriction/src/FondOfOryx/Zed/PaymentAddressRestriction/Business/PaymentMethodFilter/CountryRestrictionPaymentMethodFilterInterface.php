@@ -1,11 +1,11 @@
 <?php
 
-namespace FondOfOryx\Zed\PaymentCountryRestriction\Business\PaymentMethodFilter;
+namespace FondOfOryx\Zed\PaymentAddressRestriction\Business\PaymentMethodFilter;
 
 use Generated\Shared\Transfer\PaymentMethodsTransfer;
 use Generated\Shared\Transfer\QuoteTransfer;
 
-interface PaymentCountryRestrictionPaymentMethodFilterInterface
+interface CountryRestrictionPaymentMethodFilterInterface
 {
     /**
      * @param \Generated\Shared\Transfer\PaymentMethodsTransfer $paymentMethodsTransfer

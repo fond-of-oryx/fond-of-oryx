@@ -1,15 +1,15 @@
 <?php
 
-namespace FondOfOryx\Zed\PaymentCountryRestriction\Business;
+namespace FondOfOryx\Zed\PaymentAddressRestriction\Business;
 
 use Generated\Shared\Transfer\PaymentMethodsTransfer;
 use Generated\Shared\Transfer\QuoteTransfer;
 use Spryker\Zed\Kernel\Business\AbstractFacade;
 
 /**
- * @method \FondOfOryx\Zed\PaymentCountryRestriction\Business\PaymentCountryRestrictionBusinessFactory getFactory()
+ * @method \FondOfOryx\Zed\PaymentAddressRestriction\Business\PaymentAddressRestrictionBusinessFactory getFactory()
  */
-class PaymentCountryRestrictionFacade extends AbstractFacade implements PaymentCountryRestrictionFacadeInterface
+class PaymentAddressRestrictionFacade extends AbstractFacade implements PaymentAddressRestrictionFacadeInterface
 {
     /**
      * @param \Generated\Shared\Transfer\PaymentMethodsTransfer $paymentMethodsTransfer
@@ -21,6 +21,8 @@ class PaymentCountryRestrictionFacade extends AbstractFacade implements PaymentC
         PaymentMethodsTransfer $paymentMethodsTransfer,
         QuoteTransfer $quoteTransfer
     ): PaymentMethodsTransfer {
-        return $paymentMethodsTransfer;
+        return $this->getFactory()
+            ->createCountryRestrictionPaymentMethodFilter()
+            ->filterPaymentMethods($paymentMethodsTransfer, $quoteTransfer);
     }
 }
