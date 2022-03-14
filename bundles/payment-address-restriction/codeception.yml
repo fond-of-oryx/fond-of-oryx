@@ -1,4 +1,4 @@
-namespace: fond-of-oryx/payment-country-restriction
+namespace: fond-of-oryx/payment-address-restriction
 
 suites:
   unit:

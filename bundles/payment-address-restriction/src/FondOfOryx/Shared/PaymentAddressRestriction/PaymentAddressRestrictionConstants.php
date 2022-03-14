@@ -1,8 +1,8 @@
 <?php
 
-namespace FondOfOryx\Shared\PaymentCountryRestriction;
+namespace FondOfOryx\Shared\PaymentAddressRestriction;
 
-interface PaymentCountryRestrictionConstants
+interface PaymentAddressRestrictionConstants
 {
     /**
      * @var string

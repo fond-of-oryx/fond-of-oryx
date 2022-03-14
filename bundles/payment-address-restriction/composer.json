@@ -1,5 +1,5 @@
 {
-    "name": "fond-of-oryx/payment-country-restriction",
+    "name": "fond-of-oryx/payment-address-restrictions",
     "description": "",
     "license": "MIT",
     "authors": [
@@ -30,6 +30,11 @@
             "FondOfOryx\\": "tests/FondOfOryx/",
             "Generated\\": "src/Generated/",
             "Oms\\": "src/Oms/"
+        }
+    },
+    "config": {
+        "allow-plugins": {
+            "dealerdirect/phpcodesniffer-composer-installer": true
         }
     }
 }
