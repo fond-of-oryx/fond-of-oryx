@@ -29,4 +29,12 @@ class CompanyOmsMailConnectorToLocaleFacadeBridge implements CompanyOmsMailConne
     {
         return $this->facade->getLocaleById($fkLocale);
     }
+
+    /**
+     * @return array<string>
+     */
+    public function getAvailableLocales(): array
+    {
+        return $this->facade->getAvailableLocales();
+    }
 }

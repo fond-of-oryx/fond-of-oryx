@@ -54,7 +54,7 @@
     },
     "company-oms-mail-connector": {
       "path": "bundles/company-oms-mail-connector/",
-      "version": "1.0.0"
+      "version": "1.1.0"
     },
     "company-price-lists-rest-api": {
       "path": "bundles/company-price-lists-rest-api/",

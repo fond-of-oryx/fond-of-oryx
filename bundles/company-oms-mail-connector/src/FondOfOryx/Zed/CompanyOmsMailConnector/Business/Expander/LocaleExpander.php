@@ -6,6 +6,7 @@ use Exception;
 use FondOfOryx\Zed\CompanyOmsMailConnector\Dependency\Facade\CompanyOmsMailConnectorToCompanyUserReferenceFacadeInterface;
 use FondOfOryx\Zed\CompanyOmsMailConnector\Dependency\Facade\CompanyOmsMailConnectorToLocaleFacadeInterface;
 use Generated\Shared\Transfer\CompanyUserTransfer;
+use Generated\Shared\Transfer\LocaleTransfer;
 use Generated\Shared\Transfer\MailTransfer;
 use Generated\Shared\Transfer\OrderTransfer;
 
@@ -43,7 +44,22 @@ class LocaleExpander implements ExpanderInterface
     {
         $companyUser = $this->getCompanyUser($mailTransfer, $orderTransfer);
 
-        return $mailTransfer->setLocale($this->localeFacade->getLocaleById($companyUser->getCompany()->getFkLocale()));
+        return $mailTransfer->setLocale($this->getLocale($companyUser->getCompany()->getFkLocale()));
+    }
+
+    /**
+     * @param int $fkLocale
+     *
+     * @return \Generated\Shared\Transfer\LocaleTransfer
+     */
+    protected function getLocale(int $fkLocale): LocaleTransfer
+    {
+        $availableLocale = $this->localeFacade->getAvailableLocales();
+        if (array_key_exists($fkLocale, $availableLocale) === false) {
+            $fkLocale = array_key_first($availableLocale);
+        }
+
+        return $this->localeFacade->getLocaleById($fkLocale);
     }
 
     /**
