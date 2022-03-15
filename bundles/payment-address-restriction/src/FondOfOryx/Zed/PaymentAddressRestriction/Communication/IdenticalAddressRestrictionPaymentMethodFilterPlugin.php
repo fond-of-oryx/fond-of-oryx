@@ -11,7 +11,7 @@ use Spryker\Zed\PaymentExtension\Dependency\Plugin\PaymentMethodFilterPluginInte
  * @method \FondOfOryx\Zed\PaymentAddressRestriction\Business\PaymentAddressRestrictionFacadeInterface getFacade()
  * @method \FondOfOryx\Zed\PaymentAddressRestriction\PaymentAddressRestrictionConfig getConfig()
  */
-class CountryRestrictionPaymentMethodFilterPlugin extends AbstractPlugin implements PaymentMethodFilterPluginInterface
+class IdenticalAddressRestrictionPaymentMethodFilterPlugin extends AbstractPlugin implements PaymentMethodFilterPluginInterface
 {
     /**
      * @param \Generated\Shared\Transfer\PaymentMethodsTransfer $paymentMethodsTransfer
@@ -21,6 +21,6 @@ class CountryRestrictionPaymentMethodFilterPlugin extends AbstractPlugin impleme
      */
     public function filterPaymentMethods(PaymentMethodsTransfer $paymentMethodsTransfer, QuoteTransfer $quoteTransfer)
     {
-        return $this->getFacade()->countryRestrictionPaymentMethodFilter($paymentMethodsTransfer, $quoteTransfer);
+        return $this->getFacade()->identicalAddressRestrictionPaymentMethodFilter($paymentMethodsTransfer, $quoteTransfer);
     }
 }

@@ -4,6 +4,7 @@ namespace FondOfOryx\Zed\PaymentAddressRestriction\Business;
 
 use Codeception\Test\Unit;
 use FondOfOryx\Zed\PaymentAddressRestriction\Business\PaymentMethodFilter\CountryRestrictionRestrictionPaymentMethodFilter;
+use FondOfOryx\Zed\PaymentAddressRestriction\Business\PaymentMethodFilter\IdenticalAddressRestrictionPaymentMethodFilter;
 use Generated\Shared\Transfer\PaymentMethodsTransfer;
 use Generated\Shared\Transfer\QuoteTransfer;
 
@@ -27,7 +28,12 @@ class PaymentAddressRestrictionFacadeTest extends Unit
     /**
      * @var \PHPUnit\Framework\MockObject\MockObject|\FondOfOryx\Zed\PaymentAddressRestriction\Business\PaymentMethodFilter\CountryRestrictionRestrictionPaymentMethodFilter
      */
-    protected $paymentCountryRestrictionPaymentMethodFilterMock;
+    protected $countryRestrictionPaymentMethodFilterMock;
+
+    /**
+     * @var \PHPUnit\Framework\MockObject\MockObject|\FondOfOryx\Zed\PaymentAddressRestriction\Business\PaymentMethodFilter\IdenticalAddressRestrictionPaymentMethodFilter
+     */
+    protected $identicalAddressRestrictionPaymentMethodFilterMock;
 
     /**
      * @var \FondOfOryx\Zed\PaymentAddressRestriction\Business\PaymentAddressRestrictionFacade
@@ -45,7 +51,11 @@ class PaymentAddressRestrictionFacadeTest extends Unit
             ->disableOriginalConstructor()
             ->getMock();
 
-        $this->paymentCountryRestrictionPaymentMethodFilterMock = $this->getMockBuilder(CountryRestrictionRestrictionPaymentMethodFilter::class)
+        $this->countryRestrictionPaymentMethodFilterMock = $this->getMockBuilder(CountryRestrictionRestrictionPaymentMethodFilter::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $this->identicalAddressRestrictionPaymentMethodFilterMock = $this->getMockBuilder(IdenticalAddressRestrictionPaymentMethodFilter::class)
             ->disableOriginalConstructor()
             ->getMock();
 
@@ -68,20 +78,40 @@ class PaymentAddressRestrictionFacadeTest extends Unit
     /**
      * @return void
      */
-    public function testFilterPaymentMethods(): void
+    public function testCountryRestrictionPaymentMethodFilter(): void
     {
         $this->businessFactoryMock->expects(static::atLeastOnce())
             ->method('createCountryRestrictionPaymentMethodFilter')
-            ->willReturn($this->paymentCountryRestrictionPaymentMethodFilterMock);
+            ->willReturn($this->countryRestrictionPaymentMethodFilterMock);
 
-        $this->paymentCountryRestrictionPaymentMethodFilterMock->expects(static::atLeastOnce())
+        $this->countryRestrictionPaymentMethodFilterMock->expects(static::atLeastOnce())
             ->method('filterPaymentMethods')
             ->with($this->paymentMethodsTransferMock, $this->quoteTransferMock)
             ->willReturn($this->paymentMethodsTransferMock);
 
         static::assertEquals(
             $this->paymentMethodsTransferMock,
-            $this->facade->filterPaymentMethods($this->paymentMethodsTransferMock, $this->quoteTransferMock),
+            $this->facade->countryRestrictionPaymentMethodFilter($this->paymentMethodsTransferMock, $this->quoteTransferMock),
+        );
+    }
+
+    /**
+     * @return void
+     */
+    public function testIdenticalAddressRestrictionPaymentMethodFilter(): void
+    {
+        $this->businessFactoryMock->expects(static::atLeastOnce())
+            ->method('createIdenticalAddressRestrictionPaymentMethodFilter')
+            ->willReturn($this->countryRestrictionPaymentMethodFilterMock);
+
+        $this->countryRestrictionPaymentMethodFilterMock->expects(static::atLeastOnce())
+            ->method('filterPaymentMethods')
+            ->with($this->paymentMethodsTransferMock, $this->quoteTransferMock)
+            ->willReturn($this->paymentMethodsTransferMock);
+
+        static::assertEquals(
+            $this->paymentMethodsTransferMock,
+            $this->facade->identicalAddressRestrictionPaymentMethodFilter($this->paymentMethodsTransferMock, $this->quoteTransferMock),
         );
     }
 }

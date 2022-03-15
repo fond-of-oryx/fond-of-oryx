@@ -7,7 +7,7 @@ use FondOfOryx\Zed\PaymentAddressRestriction\PaymentAddressRestrictionConfig;
 use Generated\Shared\Transfer\PaymentMethodsTransfer;
 use Generated\Shared\Transfer\QuoteTransfer;
 
-class CountryRestrictionRestrictionPaymentMethodFilter implements PaymentMethodFilterInterface
+class IdenticalAddressRestrictionPaymentMethodFilter implements PaymentMethodFilterInterface
 {
     /**
      * @var \FondOfOryx\Zed\PaymentAddressRestriction\PaymentAddressRestrictionConfig
@@ -46,11 +46,9 @@ class CountryRestrictionRestrictionPaymentMethodFilter implements PaymentMethodF
      */
     protected function hasRestrictedPaymentMethods(PaymentMethodsTransfer $paymentMethodsTransfer): bool
     {
-        foreach ($this->config->getBlackListedPaymentCountryCombinations() as $paymentMethodName => $iso2Countries) {
-            foreach ($paymentMethodsTransfer->getMethods() as $paymentMethodTransfer) {
-                if ($paymentMethodTransfer->getMethodName() === $paymentMethodName) {
-                    return true;
-                }
+        foreach ($paymentMethodsTransfer->getMethods() as $paymentMethodTransfer) {
+            if (in_array($paymentMethodTransfer->getMethodName(), $this->config->getBlackListedPaymentIdenticalAddressRequired(), true)) {
+                return true;
             }
         }
 
@@ -69,17 +67,15 @@ class CountryRestrictionRestrictionPaymentMethodFilter implements PaymentMethodF
     ): PaymentMethodsTransfer {
         $filteredPaymentMethods = new ArrayObject();
 
-        foreach ($this->config->getBlackListedPaymentCountryCombinations() as $paymentMethodName => $iso2Countries) {
-            foreach ($paymentMethodsTransfer->getMethods() as $paymentMethodTransfer) {
-                if ($paymentMethodTransfer->getMethodName() !== $paymentMethodName) {
-                    $filteredPaymentMethods->append($paymentMethodTransfer);
+        foreach ($paymentMethodsTransfer->getMethods() as $paymentMethodTransfer) {
+            if (!in_array($paymentMethodTransfer->getMethodName(), $this->config->getBlackListedPaymentIdenticalAddressRequired(), true)) {
+                $filteredPaymentMethods->append($paymentMethodTransfer);
 
-                    continue;
-                }
+                continue;
+            }
 
-                if (in_array($quoteTransfer->getBillingAddress()->getIso2Code(), $iso2Countries, true)) {
-                    $filteredPaymentMethods->append($paymentMethodTransfer);
-                }
+            if ($quoteTransfer->getBillingSameAsShipping() === true) {
+                $filteredPaymentMethods->append($paymentMethodTransfer);
             }
         }
 

@@ -8,7 +8,7 @@ use FondOfOryx\Zed\PaymentAddressRestriction\PaymentAddressRestrictionConfig;
 use Generated\Shared\Transfer\PaymentMethodsTransfer;
 use Generated\Shared\Transfer\QuoteTransfer;
 
-class CountryRestrictionPaymentMethodFilterPluginTest extends Unit
+class IdenticalAddressRestrictionPaymentMethodFilterPluginTest extends Unit
 {
     /**
      * @var \PHPUnit\Framework\MockObject\MockObject|\Generated\Shared\Transfer\PaymentMethodsTransfer
@@ -63,7 +63,7 @@ class CountryRestrictionPaymentMethodFilterPluginTest extends Unit
             ->disableOriginalConstructor()
             ->getMock();
 
-        $this->plugin = new CountryRestrictionPaymentMethodFilterPlugin();
+        $this->plugin = new IdenticalAddressRestrictionPaymentMethodFilterPlugin();
         $this->plugin->setFacade($this->paymentCountryRestrictionFacadeMock);
         $this->plugin->setConfig($this->configMock);
     }
@@ -71,10 +71,10 @@ class CountryRestrictionPaymentMethodFilterPluginTest extends Unit
     /**
      * @return void
      */
-    public function testFilterPaymentMethodsTest(): void
+    public function testFilterPaymentMethods(): void
     {
         $this->paymentCountryRestrictionFacadeMock->expects(static::atLeastOnce())
-            ->method('countryRestrictionPaymentMethodFilter')
+            ->method('identicalAddressRestrictionPaymentMethodFilter')
             ->with($this->paymentMethodsTransferMock, $this->quoteTransferMock)
             ->willReturn($this->paymentMethodsTransferMock);
 
