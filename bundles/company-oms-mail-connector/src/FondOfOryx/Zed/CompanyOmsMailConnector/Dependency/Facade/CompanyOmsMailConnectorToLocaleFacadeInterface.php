@@ -14,4 +14,9 @@ interface CompanyOmsMailConnectorToLocaleFacadeInterface
      * @return \Generated\Shared\Transfer\LocaleTransfer
      */
     public function getLocaleById(int $fkLocale): LocaleTransfer;
+
+    /**
+     * @return array<string>
+     */
+    public function getAvailableLocales();
 }
