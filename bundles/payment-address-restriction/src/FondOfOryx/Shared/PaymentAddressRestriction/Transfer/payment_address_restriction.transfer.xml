@@ -5,6 +5,7 @@
 
     <transfer name="Quote">
         <property name="billingAddress" type="Address"/>
+        <property name="billingSameAsShipping" type="bool"/>
     </transfer>
 
     <transfer name="PaymentMethods">
