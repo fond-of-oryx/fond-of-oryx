@@ -30,6 +30,7 @@ include:
   - bundles/company-search-rest-api
   - bundles/company-user-reference-sales-connector
   - bundles/company-user-search-rest-api
+  - bundles/country-oms-mail-connector
   - bundles/credit-memo
   - bundles/cross-engage
   - bundles/customer-brand-product-list-connector
