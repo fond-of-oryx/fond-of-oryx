@@ -1,4 +1,5 @@
-# ERPOrderPageSearch
+# ERP Delivery Note Page Search
+[![CI](https://github.com/fond-of-oryx/erp-delivery-note-page-search/actions/workflows/main.yml/badge.svg)](https://github.com/fond-of-oryx/erp-delivery-note-page-search/actions/workflows/main.yml)
 [![license](https://img.shields.io/github/license/fond-of-oryx/erp-delivery-note-page-search.svg)](https://packagist.org/packages/fond-of-oryx/erp-delivery-note-page-search)
 
 ## Installation
