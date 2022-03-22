@@ -1,9 +1,8 @@
 <?php
 
-namespace FondOfOryx\Glue\ErpDeliveryNote\Model\Dependency\Facade;
+namespace FondOfOryx\Zed\ErpDeliveryNote\Dependency\Facade;
 
 use Codeception\Test\Unit;
-use FondOfOryx\Zed\ErpDeliveryNote\Dependency\Facade\ErpDeliveryNoteToCountryFacadeBridge;
 use FondOfSpryker\Zed\Country\Business\CountryFacade;
 use Generated\Shared\Transfer\CountryTransfer;
 
