@@ -160,6 +160,30 @@
       "path": "bundles/delivery-date-restriction/",
       "version": "1.0.1"
     },
+    "erp-delivery-note": {
+      "path": "bundles/erp-delivery-note/",
+      "version": "1.0.0"
+    },
+    "erp-delivery-note-api": {
+      "path": "bundles/erp-delivery-note-api/",
+      "version": "1.0.0"
+    },
+    "erp-delivery-note-extension": {
+      "path": "bundles/erp-delivery-note-extension/",
+      "version": "1.0.0"
+    },
+    "erp-delivery-note-page-search": {
+      "path": "bundles/erp-delivery-note-page-search/",
+      "version": "1.0.0"
+    },
+    "erp-delivery-note-page-search-rest-api": {
+      "path": "bundles/erp-delivery-note-page-search-rest-api/",
+      "version": "1.0.0"
+    },
+    "erp-delivery-note-permission": {
+      "path": "bundles/erp-delivery-note-permission/",
+      "version": "1.0.0"
+    },
     "erp-invoice": {
       "path": "bundles/erp-invoice/",
       "version": "2.0.0"
