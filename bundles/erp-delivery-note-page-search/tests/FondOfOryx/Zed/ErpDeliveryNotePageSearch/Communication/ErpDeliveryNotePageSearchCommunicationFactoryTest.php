@@ -39,10 +39,6 @@ class ErpDeliveryNotePageSearchCommunicationFactoryTest extends Unit
             ->disableOriginalConstructor()
             ->getMock();
 
-        $this->erpDeliveryNoteQueryMock = $this->getMockBuilder(ErpDeliveryNoteQuery::class)
-            ->disableOriginalConstructor()
-            ->getMock();
-
         $this->erpDeliveryNotePageSearchCommunicationFactory = new ErpDeliveryNotePageSearchCommunicationFactory();
         $this->erpDeliveryNotePageSearchCommunicationFactory->setContainer($this->containerMock);
     }
