@@ -8,7 +8,7 @@ use FondOfOryx\Zed\ErpDeliveryNotePermission\Communication\Plugin\Permission\See
 class SeeErpDeliveryNotePermissionPluginTest extends Unit
 {
     /**
-     * @var \Spryker\Shared\PermissionExtension\Dependency\Plugin\ExecutablePermissionPluginInterface
+     * @var \FondOfOryx\Zed\ErpDeliveryNotePermission\Communication\Plugin\Permission\SeeErpDeliveryNotesPermissionPlugin
      */
     protected $plugin;
 

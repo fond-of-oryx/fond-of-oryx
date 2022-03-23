@@ -19,7 +19,7 @@ class ErpDeliveryNotePageSearchClientTest extends Unit
     protected $erpDeliveryNotePageSearchFactoryMock;
 
     /**
-     * @var \PHPUnit\Framework\MockObject\MockObject|\FondOfOryx\Client\ErporderPageSearch\Dependency\Client\ErpDeliveryNotePageSearchToSearchClientInterface
+     * @var \PHPUnit\Framework\MockObject\MockObject|\FondOfOryx\Client\ErpDeliveryNotePageSearch\Dependency\Client\ErpDeliveryNotePageSearchToSearchClientInterface
      */
     protected $erpDeliveryNotePageSearchToSearchClientMock;
 
@@ -27,11 +27,6 @@ class ErpDeliveryNotePageSearchClientTest extends Unit
      * @var \PHPUnit\Framework\MockObject\MockObject|\Spryker\Client\SearchExtension\Dependency\Plugin\QueryInterface
      */
     protected $pluginQueryMock;
-
-    /**
-     * @var \PHPUnit\Framework\MockObject\MockObject|\Spryker\Client\Kernel\PermissionAwareTrait
-     */
-    protected $permissionAwareTraitMock;
 
     /**
      * @return void
