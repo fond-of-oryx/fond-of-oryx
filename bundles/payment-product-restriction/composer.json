@@ -1,0 +1,44 @@
+{
+    "name": "fond-of-oryx/payment-product-restriction",
+    "description": "",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Pascal Fischer",
+            "email": "p-fischer@gmx.net"
+        }
+    ],
+    "require": {
+        "php": ">=7.4",
+        "spryker/payment-extension": "^1.0.0"
+    },
+    "require-dev": {
+        "roave/security-advisories": "dev-latest",
+        "fond-of-codeception/spryker": "^1.0",
+        "spryker/code-sniffer": "*",
+        "spryker-sdk/phpstan-spryker": "*"
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "autoload": {
+        "psr-4": {
+            "FondOfOryx\\": "src/FondOfOryx/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "FondOfOryx\\": "tests/FondOfOryx/",
+            "Generated\\": "src/Generated/"
+        }
+    },
+    "config": {
+        "allow-plugins": {
+            "dealerdirect/phpcodesniffer-composer-installer": true
+        }
+    },
+    "config": {
+        "allow-plugins": {
+            "dealerdirect/phpcodesniffer-composer-installer": true
+        }
+    }
+}
