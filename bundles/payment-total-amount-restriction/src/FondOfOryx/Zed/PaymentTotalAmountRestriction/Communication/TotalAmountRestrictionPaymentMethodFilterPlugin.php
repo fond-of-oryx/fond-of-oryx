@@ -18,8 +18,10 @@ class TotalAmountRestrictionPaymentMethodFilterPlugin extends AbstractPlugin imp
      *
      * @return \Generated\Shared\Transfer\PaymentMethodsTransfer
      */
-    public function filterPaymentMethods(PaymentMethodsTransfer $paymentMethodsTransfer, QuoteTransfer $quoteTransfer)
-    {
-        return $paymentMethodsTransfer;
+    public function filterPaymentMethods(
+        PaymentMethodsTransfer $paymentMethodsTransfer,
+        QuoteTransfer $quoteTransfer
+    ): PaymentMethodsTransfer {
+        return $this->getFacade()->totalAmountRestrictionPaymentMethodFilter($paymentMethodsTransfer, $quoteTransfer);
     }
 }
