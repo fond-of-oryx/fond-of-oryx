@@ -412,6 +412,10 @@
       "path": "bundles/payment-address-restriction/",
       "version": "1.0.0"
     },
+    "payment-total-amount-restriction": {
+      "path": "bundles/payment-total-amount-restriction/",
+      "version": "1.0.0"
+    },
     "payment-epc-qr-code": {
       "path": "bundles/payment-epc-qr-code/",
       "version": "1.0.2"
