@@ -51,22 +51,4 @@ class TotalAmountRestrictionPaymentMethodFilterPluginTest extends Unit
         $this->plugin = new TotalAmountRestrictionPaymentMethodFilterPlugin();
         $this->plugin->setFacade($this->facadeMock);
     }
-
-    /**
-     * @return void
-     */
-    public function testFilterPaymentMethods(): void
-    {
-        $this->facadeMock->expects(static::atLeastOnce())
-            ->method('totalAmountRestrictionPaymentMethodFilter')
-            ->with($this->paymentMethodsTransferMock, $this->quoteTransferMock)
-            ->willReturn($this->paymentMethodsTransferMock);
-
-        $paymentMethodsTransfer = $this->plugin->filterPaymentMethods(
-            $this->paymentMethodsTransferMock,
-            $this->quoteTransferMock,
-        );
-
-        static::assertEquals($paymentMethodsTransfer, $this->paymentMethodsTransferMock);
-    }
 }

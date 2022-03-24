@@ -2,18 +2,18 @@
 
 namespace FondOfOryx\Zed\PaymentProductRestriction;
 
-use FondOfOryx\Shared\PaymentTotalAmountRestriction\PaymentTotalAmountRestrictionConstants;
+use FondOfOryx\Shared\PaymentProductRestriction\PaymentProductRestrictionConstants;
 use Spryker\Zed\Kernel\AbstractBundleConfig;
 
 class PaymentProductRestrictionConfig extends AbstractBundleConfig
 {
     /**
-     * @example ['payment-method-name' => 'SKU-XXX-XXX']
+     * @example ['payment-method-name' => ['SKU-XXX-XX1', 'SKU-XXX-XX2']]
      *
-     * @return array<string, string>
+     * @return array<string, array<int, string>>
      */
     public function getBlacklistedProductSkuPaymentMethodCombinations(): array
     {
-        return $this->get(PaymentTotalAmountRestrictionConstants::TOTAL_AMOUNT_RESTRICTED_PAYMENT_METHOD_COMBINATIONS, []);
+        return $this->get(PaymentProductRestrictionConstants::BLACKLISTED_PRODUCT_SKU_PAYMENT_METHOD_COMBINATIONS, []);
     }
 }
