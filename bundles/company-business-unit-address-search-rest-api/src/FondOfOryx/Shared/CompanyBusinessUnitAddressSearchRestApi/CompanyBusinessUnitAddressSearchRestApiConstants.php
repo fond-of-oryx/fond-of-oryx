@@ -42,5 +42,5 @@ interface CompanyBusinessUnitAddressSearchRestApiConstants
     /**
      * @var array
      */
-    public const FULLTEXT_SEARCH_FIELDS_DEFAULT = [];
+    public const FULLTEXT_SEARCH_FIELDS_DEFAULT = ['address1', 'address2', 'address3', 'city', 'zip_code'];
 }

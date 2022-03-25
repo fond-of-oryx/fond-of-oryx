@@ -94,6 +94,7 @@ class CompanyBusinessUnitAddressListMapperTest extends Unit
         $sort = 'foo_asc';
         $comanyUuid = 'foo company uuid';
         $comanyBUUuid = 'foo company bu uuid';
+        $q = 'foo';
 
         $this->paginationMapperMock->expects(static::atLeastOnce())
             ->method('fromRestRequest')
@@ -110,8 +111,9 @@ class CompanyBusinessUnitAddressListMapperTest extends Unit
                 [$this->restRequestMock, 'default-shipping'],
                 [$this->restRequestMock, 'default-shipping'],
                 [$this->restRequestMock, 'sort'],
+                [$this->restRequestMock, 'q'],
             )
-            ->willReturnOnConsecutiveCalls($comanyUuid, $comanyBUUuid, 'true', 'true', 'true', 'true', $sort);
+            ->willReturnOnConsecutiveCalls($comanyUuid, $comanyBUUuid, 'true', 'true', 'true', 'true', $sort, $q);
 
         $this->customerReferenceFilterMock->expects(static::atLeastOnce())
             ->method('filterFromRestRequest')
@@ -128,6 +130,11 @@ class CompanyBusinessUnitAddressListMapperTest extends Unit
         static::assertEquals(
             $sort,
             $companyBusinessUnitAddressListTransfer->getSort(),
+        );
+
+        static::assertEquals(
+            $q,
+            $companyBusinessUnitAddressListTransfer->getQuery(),
         );
 
         static::assertEquals(

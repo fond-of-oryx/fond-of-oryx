@@ -70,6 +70,7 @@
         <property name="defaultShipping" type="bool"/>
         <property name="companyBusinessUnitAddresses" singular="companyBusinessUnitAddress" type="CompanyBusinessUnitAddress[]"/>
         <property name="sort" type="string"/>
+        <property name="query" type="string"/>
         <property name="pagination" type="Pagination"/>
     </transfer>
 

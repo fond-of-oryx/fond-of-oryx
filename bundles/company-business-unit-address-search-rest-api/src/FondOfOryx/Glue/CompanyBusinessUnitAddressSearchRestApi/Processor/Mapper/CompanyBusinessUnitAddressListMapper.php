@@ -64,6 +64,7 @@ class CompanyBusinessUnitAddressListMapper implements CompanyBusinessUnitAddress
             ->setDefaultShipping($this->requestParameterFilter->getRequestParameter($restRequest, 'default-shipping') !== null ?
                 filter_var($this->requestParameterFilter->getRequestParameter($restRequest, 'default-shipping'), FILTER_VALIDATE_BOOLEAN) : null)
             ->setSort($this->requestParameterFilter->getRequestParameter($restRequest, 'sort'))
+            ->setQuery($this->requestParameterFilter->getRequestParameter($restRequest, 'q'))
             ->setCustomerId($this->customerIdFilter->filterFromRestRequest($restRequest))
             ->setCustomerReference($this->customerReferenceFilter->filterFromRestRequest($restRequest));
     }

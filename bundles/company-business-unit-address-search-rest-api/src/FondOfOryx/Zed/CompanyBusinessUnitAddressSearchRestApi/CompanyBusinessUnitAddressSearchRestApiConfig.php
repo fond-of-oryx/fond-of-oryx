@@ -39,4 +39,15 @@ class CompanyBusinessUnitAddressSearchRestApiConfig extends AbstractBundleConfig
             CompanyBusinessUnitAddressSearchRestApiConstants::VALID_ITEMS_PER_PAGE_OPTIONS_DEFAULT,
         );
     }
+
+    /**
+     * @return array<string>
+     */
+    public function getFulltextSearchFields(): array
+    {
+        return $this->get(
+            CompanyBusinessUnitAddressSearchRestApiConstants::FULLTEXT_SEARCH_FIELDS,
+            CompanyBusinessUnitAddressSearchRestApiConstants::FULLTEXT_SEARCH_FIELDS_DEFAULT,
+        );
+    }
 }
