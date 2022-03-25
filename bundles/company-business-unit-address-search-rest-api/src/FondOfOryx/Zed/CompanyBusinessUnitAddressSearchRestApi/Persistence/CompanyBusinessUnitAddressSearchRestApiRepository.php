@@ -45,6 +45,7 @@ class CompanyBusinessUnitAddressSearchRestApiRepository extends AbstractReposito
         $companyUnitAddressQuery = $this->addCompanyQuery($companyUnitAddressQuery, $companyBusinessUnitAddressListTransfer);
         $companyUnitAddressQuery = $this->addAddressFilter($companyUnitAddressQuery, $companyBusinessUnitAddressListTransfer);
 
+        $companyUnitAddressQuery = $this->addFulltextSearchFields($companyUnitAddressQuery, $companyBusinessUnitAddressListTransfer);
         $companyUnitAddressQuery = $this->addSort($companyUnitAddressQuery, $companyBusinessUnitAddressListTransfer);
         $companyUnitAddressQuery = $this->preparePagination($companyUnitAddressQuery, $companyBusinessUnitAddressListTransfer);
 
@@ -188,6 +189,50 @@ class CompanyBusinessUnitAddressSearchRestApiRepository extends AbstractReposito
             $columnMap->getFullyQualifiedName(),
             $direction === 'desc' ? Criteria::DESC : Criteria::ASC,
         );
+
+        return $companyUnitAddressQuery;
+    }
+
+    /**
+     * @param \Orm\Zed\CompanyUnitAddress\Persistence\SpyCompanyUnitAddressQuery $companyUnitAddressQuery
+     * @param \Generated\Shared\Transfer\CompanyBusinessUnitAddressListTransfer $companyBusinessUnitAddressListTransfer
+     *
+     * @return \Orm\Zed\CompanyUnitAddress\Persistence\SpyCompanyUnitAddressQuery
+     */
+    protected function addFulltextSearchFields(
+        SpyCompanyUnitAddressQuery $companyUnitAddressQuery,
+        CompanyBusinessUnitAddressListTransfer $companyBusinessUnitAddressListTransfer
+    ): SpyCompanyUnitAddressQuery {
+        $query = $companyBusinessUnitAddressListTransfer->getQuery();
+
+        if ($query === null) {
+            return $companyUnitAddressQuery;
+        }
+
+        $conditionNames = [];
+        $tableMap = SpyCompanyUnitAddressTableMap::getTableMap();
+        $fulltextSearchFields = $this->getFactory()->getConfig()->getFulltextSearchFields();
+
+        foreach ($fulltextSearchFields as $fulltextSearchField) {
+            if (!$tableMap->hasColumn($fulltextSearchField)) {
+                continue;
+            }
+
+            $columnMap = $tableMap->getColumn($fulltextSearchField);
+
+            if (!$columnMap->isText()) {
+                continue;
+            }
+
+            $conditionNames[] = $conditionName = uniqid($fulltextSearchField, true);
+            $companyUnitAddressQuery->addCond($conditionName, $columnMap->getFullyQualifiedName(), sprintf('%%%s%%', $query), Criteria::ILIKE);
+        }
+
+        if (count($conditionNames) === 0) {
+            return $companyUnitAddressQuery;
+        }
+
+        $companyUnitAddressQuery->combine($conditionNames, Criteria::LOGICAL_OR);
 
         return $companyUnitAddressQuery;
     }
