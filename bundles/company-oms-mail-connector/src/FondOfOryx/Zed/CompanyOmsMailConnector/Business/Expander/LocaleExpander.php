@@ -106,7 +106,7 @@ class LocaleExpander implements ExpanderInterface
             $company = $this->companyFacade->findCompanyById($companyUser->getFkCompany());
         }
 
-        if ($company !== null) {
+        if ($company !== null && $company->getFkLocale() !== null) {
             $companyUser->setCompany($company);
             $mailTransfer->setCompanyUser($companyUser);
 
