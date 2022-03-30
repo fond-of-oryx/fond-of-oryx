@@ -2,6 +2,7 @@
 
 namespace FondOfOryx\Zed\CompanyOmsMailConnector;
 
+use FondOfOryx\Zed\CompanyOmsMailConnector\Dependency\Facade\CompanyOmsMailConnectorToCompanyFacadeBridge;
 use FondOfOryx\Zed\CompanyOmsMailConnector\Dependency\Facade\CompanyOmsMailConnectorToCompanyUserReferenceFacadeBridge;
 use FondOfOryx\Zed\CompanyOmsMailConnector\Dependency\Facade\CompanyOmsMailConnectorToLocaleFacadeBridge;
 use Spryker\Zed\Kernel\AbstractBundleDependencyProvider;
@@ -20,6 +21,11 @@ class CompanyOmsMailConnectorDependencyProvider extends AbstractBundleDependency
     public const FACADE_LOCALE = 'FACADE_LOCALE';
 
     /**
+     * @var string
+     */
+    public const FACADE_COMPANY = 'FACADE_COMPANY';
+
+    /**
      * @param \Spryker\Zed\Kernel\Container $container
      *
      * @return \Spryker\Zed\Kernel\Container
@@ -29,6 +35,7 @@ class CompanyOmsMailConnectorDependencyProvider extends AbstractBundleDependency
         $container = parent::provideBusinessLayerDependencies($container);
         $container = $this->addCompanyUserReferenceFacade($container);
         $container = $this->addLocaleFacade($container);
+        $container = $this->addCompanyFacade($container);
 
         return $container;
     }
@@ -56,6 +63,20 @@ class CompanyOmsMailConnectorDependencyProvider extends AbstractBundleDependency
     {
         $container[static::FACADE_LOCALE] = static function (Container $container) {
             return new CompanyOmsMailConnectorToLocaleFacadeBridge($container->getLocator()->locale()->facade());
+        };
+
+        return $container;
+    }
+
+    /**
+     * @param \Spryker\Zed\Kernel\Container $container
+     *
+     * @return \Spryker\Zed\Kernel\Container
+     */
+    public function addCompanyFacade(Container $container): Container
+    {
+        $container[static::FACADE_COMPANY] = static function (Container $container) {
+            return new CompanyOmsMailConnectorToCompanyFacadeBridge($container->getLocator()->company()->facade());
         };
 
         return $container;
