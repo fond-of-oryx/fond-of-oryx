@@ -3,6 +3,7 @@
 namespace FondOfOryx\Zed\CompanyOmsMailConnector\Business\Expander;
 
 use Codeception\Test\Unit;
+use FondOfOryx\Zed\CompanyOmsMailConnector\Dependency\Facade\CompanyOmsMailConnectorToCompanyFacadeInterface;
 use FondOfOryx\Zed\CompanyOmsMailConnector\Dependency\Facade\CompanyOmsMailConnectorToCompanyUserReferenceFacadeInterface;
 use FondOfOryx\Zed\CompanyOmsMailConnector\Dependency\Facade\CompanyOmsMailConnectorToLocaleFacadeInterface;
 use Generated\Shared\Transfer\CompanyTransfer;
@@ -50,6 +51,11 @@ class LocaleExpanderTest extends Unit
     protected $companyUserReferenceFacadeMock;
 
     /**
+     * @var \FondOfOryx\Zed\CompanyOmsMailConnector\Dependency\Facade\CompanyOmsMailConnectorToCompanyFacadeInterface|\PHPUnit\Framework\MockObject\MockObject
+     */
+    protected $companyFacadeMock;
+
+    /**
      * @var \FondOfOryx\Zed\CompanyOmsMailConnector\Dependency\Facade\CompanyOmsMailConnectorToLocaleFacadeInterface|\PHPUnit\Framework\MockObject\MockObject
      */
     protected $localeFacadeMock;
@@ -73,9 +79,10 @@ class LocaleExpanderTest extends Unit
         $this->companyUserResponseTransferMock = $this->getMockBuilder(CompanyUserResponseTransfer::class)->disableOriginalConstructor()->getMock();
         $this->companyTransferMock = $this->getMockBuilder(CompanyTransfer::class)->disableOriginalConstructor()->getMock();
         $this->companyUserReferenceFacadeMock = $this->getMockBuilder(CompanyOmsMailConnectorToCompanyUserReferenceFacadeInterface::class)->disableOriginalConstructor()->getMock();
+        $this->companyFacadeMock = $this->getMockBuilder(CompanyOmsMailConnectorToCompanyFacadeInterface::class)->disableOriginalConstructor()->getMock();
         $this->localeFacadeMock = $this->getMockBuilder(CompanyOmsMailConnectorToLocaleFacadeInterface::class)->disableOriginalConstructor()->getMock();
 
-        $this->expander = new LocaleExpander($this->companyUserReferenceFacadeMock, $this->localeFacadeMock);
+        $this->expander = new LocaleExpander($this->companyUserReferenceFacadeMock, $this->localeFacadeMock, $this->companyFacadeMock);
     }
 
     /**
@@ -87,14 +94,16 @@ class LocaleExpanderTest extends Unit
         $this->orderTransferMock->expects(static::once())->method('getCompanyUserReference')->willReturn('companyUserReference');
         $this->companyUserTransferMock->expects(static::never())->method('getCompanyUserReference');
         $this->companyUserTransferMock->expects(static::once())->method('getCompany')->willReturn($this->companyTransferMock);
-        $this->companyTransferMock->expects(static::once())->method('getFkLocale')->willReturn(1);
-        $this->mailTransferMock->expects(static::once())->method('setCompanyUser')->with($this->companyUserTransferMock)->willReturnSelf();
+        $this->companyTransferMock->expects(static::atLeastOnce())->method('getFkLocale')->willReturn(1);
+        $this->companyUserTransferMock->expects(static::never())->method('getFkCompany');
+        $this->mailTransferMock->expects(static::exactly(2))->method('setCompanyUser')->with($this->companyUserTransferMock)->willReturnSelf();
         $this->mailTransferMock->expects(static::once())->method('setLocale')->with($this->localeTransferMock)->willReturnSelf();
         $this->companyUserReferenceFacadeMock->expects(static::once())->method('findCompanyUserByCompanyUserReference')->willReturn($this->companyUserResponseTransferMock);
         $this->companyUserResponseTransferMock->expects(static::once())->method('getIsSuccessful')->willReturn(true);
         $this->companyUserResponseTransferMock->expects(static::once())->method('getCompanyUser')->willReturn($this->companyUserTransferMock);
         $this->localeFacadeMock->expects(static::once())->method('getLocaleById')->willReturn($this->localeTransferMock);
         $this->localeFacadeMock->expects(static::once())->method('getAvailableLocales')->willReturn([1 => 'de_DE']);
+        $this->companyFacadeMock->expects(static::never())->method('findCompanyById');
 
         $this->expander->expand($this->mailTransferMock, $this->orderTransferMock);
     }
@@ -108,14 +117,16 @@ class LocaleExpanderTest extends Unit
         $this->orderTransferMock->expects(static::once())->method('getCompanyUserReference')->willReturn('companyUserReference');
         $this->companyUserTransferMock->expects(static::never())->method('getCompanyUserReference');
         $this->companyUserTransferMock->expects(static::once())->method('getCompany')->willReturn($this->companyTransferMock);
-        $this->companyTransferMock->expects(static::once())->method('getFkLocale')->willReturn(45);
-        $this->mailTransferMock->expects(static::once())->method('setCompanyUser')->with($this->companyUserTransferMock)->willReturnSelf();
+        $this->companyTransferMock->expects(static::atLeastOnce())->method('getFkLocale')->willReturn(45);
+        $this->mailTransferMock->expects(static::exactly(2))->method('setCompanyUser')->with($this->companyUserTransferMock)->willReturnSelf();
         $this->mailTransferMock->expects(static::once())->method('setLocale')->with($this->localeTransferMock)->willReturnSelf();
         $this->companyUserReferenceFacadeMock->expects(static::once())->method('findCompanyUserByCompanyUserReference')->willReturn($this->companyUserResponseTransferMock);
         $this->companyUserResponseTransferMock->expects(static::once())->method('getIsSuccessful')->willReturn(true);
         $this->companyUserResponseTransferMock->expects(static::once())->method('getCompanyUser')->willReturn($this->companyUserTransferMock);
         $this->localeFacadeMock->expects(static::once())->method('getLocaleById')->withConsecutive([1])->willReturn($this->localeTransferMock);
         $this->localeFacadeMock->expects(static::once())->method('getAvailableLocales')->willReturn([1 => 'de_DE']);
+        $this->companyFacadeMock->expects(static::never())->method('findCompanyById');
+        $this->companyUserTransferMock->expects(static::never())->method('getFkCompany');
 
         $this->expander->expand($this->mailTransferMock, $this->orderTransferMock);
     }

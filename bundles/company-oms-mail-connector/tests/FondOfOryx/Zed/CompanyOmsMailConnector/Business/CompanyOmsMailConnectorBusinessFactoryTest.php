@@ -6,6 +6,7 @@ use Codeception\Test\Unit;
 use FondOfOryx\Zed\CompanyOmsMailConnector\Business\Expander\LocaleExpander;
 use FondOfOryx\Zed\CompanyOmsMailConnector\Business\Expander\MailExpander;
 use FondOfOryx\Zed\CompanyOmsMailConnector\CompanyOmsMailConnectorDependencyProvider;
+use FondOfOryx\Zed\CompanyOmsMailConnector\Dependency\Facade\CompanyOmsMailConnectorToCompanyFacadeInterface;
 use FondOfOryx\Zed\CompanyOmsMailConnector\Dependency\Facade\CompanyOmsMailConnectorToCompanyUserReferenceFacadeInterface;
 use FondOfOryx\Zed\CompanyOmsMailConnector\Dependency\Facade\CompanyOmsMailConnectorToLocaleFacadeInterface;
 use Spryker\Zed\Kernel\Container;
@@ -26,6 +27,11 @@ class CompanyOmsMailConnectorBusinessFactoryTest extends Unit
      * @var \PHPUnit\Framework\MockObject\MockObject|\FondOfOryx\Zed\CompanyOmsMailConnector\Dependency\Facade\CompanyOmsMailConnectorToCompanyUserReferenceFacadeInterface
      */
     protected $companyUserReferenceFacadeMock;
+
+    /**
+     * @var \PHPUnit\Framework\MockObject\MockObject|\FondOfOryx\Zed\CompanyOmsMailConnector\Dependency\Facade\CompanyOmsMailConnectorToCompanyFacadeInterface
+     */
+    protected $companyFacadeMock;
 
     /**
      * @var \FondOfOryx\Zed\CompanyOmsMailConnector\Business\CompanyOmsMailConnectorBusinessFactory
@@ -51,6 +57,10 @@ class CompanyOmsMailConnectorBusinessFactoryTest extends Unit
             ->disableOriginalConstructor()
             ->getMock();
 
+        $this->companyFacadeMock = $this->getMockBuilder(CompanyOmsMailConnectorToCompanyFacadeInterface::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
         $this->businessFactory = new CompanyOmsMailConnectorBusinessFactory();
 
         $this->businessFactory->setContainer($this->containerMock);
@@ -66,6 +76,7 @@ class CompanyOmsMailConnectorBusinessFactoryTest extends Unit
             ->withConsecutive(
                 [CompanyOmsMailConnectorDependencyProvider::FACADE_COMPANY_USER_REFERENCE],
                 [CompanyOmsMailConnectorDependencyProvider::FACADE_LOCALE],
+                [CompanyOmsMailConnectorDependencyProvider::FACADE_COMPANY],
             )->willReturn(true);
 
         $this->containerMock->expects(static::atLeastOnce())
@@ -73,10 +84,12 @@ class CompanyOmsMailConnectorBusinessFactoryTest extends Unit
             ->withConsecutive(
                 [CompanyOmsMailConnectorDependencyProvider::FACADE_COMPANY_USER_REFERENCE],
                 [CompanyOmsMailConnectorDependencyProvider::FACADE_LOCALE],
+                [CompanyOmsMailConnectorDependencyProvider::FACADE_COMPANY],
             )
             ->willReturnOnConsecutiveCalls(
                 $this->companyUserReferenceFacadeMock,
                 $this->localeFacadeMock,
+                $this->companyFacadeMock,
             );
 
         static::assertInstanceOf(

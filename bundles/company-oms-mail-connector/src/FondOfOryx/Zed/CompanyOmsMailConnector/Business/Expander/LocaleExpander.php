@@ -3,6 +3,7 @@
 namespace FondOfOryx\Zed\CompanyOmsMailConnector\Business\Expander;
 
 use Exception;
+use FondOfOryx\Zed\CompanyOmsMailConnector\Dependency\Facade\CompanyOmsMailConnectorToCompanyFacadeInterface;
 use FondOfOryx\Zed\CompanyOmsMailConnector\Dependency\Facade\CompanyOmsMailConnectorToCompanyUserReferenceFacadeInterface;
 use FondOfOryx\Zed\CompanyOmsMailConnector\Dependency\Facade\CompanyOmsMailConnectorToLocaleFacadeInterface;
 use Generated\Shared\Transfer\CompanyUserTransfer;
@@ -23,15 +24,28 @@ class LocaleExpander implements ExpanderInterface
     protected $localeFacade;
 
     /**
+     * @var \FondOfOryx\Zed\CompanyOmsMailConnector\Dependency\Facade\CompanyOmsMailConnectorToCompanyFacadeInterface
+     */
+    protected $companyFacade;
+
+    /**
+     * @var array<int, string>
+     */
+    protected $availabileLocale = [];
+
+    /**
      * @param \FondOfOryx\Zed\CompanyOmsMailConnector\Dependency\Facade\CompanyOmsMailConnectorToCompanyUserReferenceFacadeInterface $companyUserReferenceFacade
      * @param \FondOfOryx\Zed\CompanyOmsMailConnector\Dependency\Facade\CompanyOmsMailConnectorToLocaleFacadeInterface $localeFacade
+     * @param \FondOfOryx\Zed\CompanyOmsMailConnector\Dependency\Facade\CompanyOmsMailConnectorToCompanyFacadeInterface $companyFacade
      */
     public function __construct(
         CompanyOmsMailConnectorToCompanyUserReferenceFacadeInterface $companyUserReferenceFacade,
-        CompanyOmsMailConnectorToLocaleFacadeInterface $localeFacade
+        CompanyOmsMailConnectorToLocaleFacadeInterface $localeFacade,
+        CompanyOmsMailConnectorToCompanyFacadeInterface $companyFacade
     ) {
         $this->companyUserReferenceFacade = $companyUserReferenceFacade;
         $this->localeFacade = $localeFacade;
+        $this->companyFacade = $companyFacade;
     }
 
     /**
@@ -44,7 +58,7 @@ class LocaleExpander implements ExpanderInterface
     {
         $companyUser = $this->getCompanyUser($mailTransfer, $orderTransfer);
 
-        return $mailTransfer->setLocale($this->getLocale($companyUser->getCompany()->getFkLocale()));
+        return $mailTransfer->setLocale($this->getLocale($this->getCompanyLocaleId($mailTransfer, $companyUser)));
     }
 
     /**
@@ -54,7 +68,7 @@ class LocaleExpander implements ExpanderInterface
      */
     protected function getLocale(int $fkLocale): LocaleTransfer
     {
-        $availableLocale = $this->localeFacade->getAvailableLocales();
+        $availableLocale = $this->getAvailabileLocale();
         if (array_key_exists($fkLocale, $availableLocale) === false) {
             $fkLocale = array_key_first($availableLocale);
         }
@@ -77,6 +91,49 @@ class LocaleExpander implements ExpanderInterface
         }
 
         return $companyUser;
+    }
+
+    /**
+     * @param \Generated\Shared\Transfer\MailTransfer $mailTransfer
+     * @param \Generated\Shared\Transfer\CompanyUserTransfer $companyUser
+     *
+     * @return int
+     */
+    protected function getCompanyLocaleId(MailTransfer $mailTransfer, CompanyUserTransfer $companyUser): int
+    {
+        $company = $companyUser->getCompany();
+        if ($company === null || $company->getFkLocale() === null) {
+            $company = $this->companyFacade->findCompanyById($companyUser->getFkCompany());
+        }
+
+        if ($company !== null) {
+            $companyUser->setCompany($company);
+            $mailTransfer->setCompanyUser($companyUser);
+
+            return $company->getFkLocale();
+        }
+
+        return $this->getFallbackLocaleId();
+    }
+
+    /**
+     * @return int
+     */
+    protected function getFallbackLocaleId(): int
+    {
+        return array_key_first($this->getAvailabileLocale());
+    }
+
+    /**
+     * @return array<int, string>
+     */
+    protected function getAvailabileLocale(): array
+    {
+        if (count($this->availabileLocale) === 0) {
+            $this->availabileLocale = $this->localeFacade->getAvailableLocales();
+        }
+
+        return $this->availabileLocale;
     }
 
     /**
