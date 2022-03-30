@@ -130,4 +130,51 @@ class LocaleExpanderTest extends Unit
 
         $this->expander->expand($this->mailTransferMock, $this->orderTransferMock);
     }
+
+    /**
+     * @return void
+     */
+    public function testExpandWithFallbackLocale2(): void
+    {
+        $this->mailTransferMock->expects(static::once())->method('getCompanyUser')->willReturn(null);
+        $this->orderTransferMock->expects(static::once())->method('getCompanyUserReference')->willReturn('companyUserReference');
+        $this->companyUserTransferMock->expects(static::never())->method('getCompanyUserReference');
+        $this->companyUserTransferMock->expects(static::once())->method('getCompany');
+        $this->companyTransferMock->expects(static::never())->method('getFkLocale');
+        $this->mailTransferMock->expects(static::once())->method('setCompanyUser')->with($this->companyUserTransferMock)->willReturnSelf();
+        $this->mailTransferMock->expects(static::once())->method('setLocale')->with($this->localeTransferMock)->willReturnSelf();
+        $this->companyUserReferenceFacadeMock->expects(static::once())->method('findCompanyUserByCompanyUserReference')->willReturn($this->companyUserResponseTransferMock);
+        $this->companyUserResponseTransferMock->expects(static::once())->method('getIsSuccessful')->willReturn(true);
+        $this->companyUserResponseTransferMock->expects(static::once())->method('getCompanyUser')->willReturn($this->companyUserTransferMock);
+        $this->localeFacadeMock->expects(static::once())->method('getLocaleById')->withConsecutive([1])->willReturn($this->localeTransferMock);
+        $this->localeFacadeMock->expects(static::once())->method('getAvailableLocales')->willReturn([1 => 'de_DE']);
+        $this->companyFacadeMock->expects(static::once())->method('findCompanyById');
+        $this->companyUserTransferMock->expects(static::once())->method('getFkCompany')->willReturn(1);
+
+        $this->expander->expand($this->mailTransferMock, $this->orderTransferMock);
+    }
+
+    /**
+     * @return void
+     */
+    public function testExpandWithFetchedCompanyLocale(): void
+    {
+        $this->mailTransferMock->expects(static::once())->method('getCompanyUser')->willReturn(null);
+        $this->orderTransferMock->expects(static::once())->method('getCompanyUserReference')->willReturn('companyUserReference');
+        $this->companyUserTransferMock->expects(static::never())->method('getCompanyUserReference');
+        $this->companyUserTransferMock->expects(static::once())->method('getCompany');
+        $this->companyTransferMock->expects(static::atLeastOnce())->method('getFkLocale')->willReturn(1);
+        $this->companyUserTransferMock->expects(static::once())->method('setCompany');
+        $this->mailTransferMock->expects(static::exactly(2))->method('setCompanyUser')->with($this->companyUserTransferMock)->willReturnSelf();
+        $this->mailTransferMock->expects(static::once())->method('setLocale')->with($this->localeTransferMock)->willReturnSelf();
+        $this->companyUserReferenceFacadeMock->expects(static::once())->method('findCompanyUserByCompanyUserReference')->willReturn($this->companyUserResponseTransferMock);
+        $this->companyUserResponseTransferMock->expects(static::once())->method('getIsSuccessful')->willReturn(true);
+        $this->companyUserResponseTransferMock->expects(static::once())->method('getCompanyUser')->willReturn($this->companyUserTransferMock);
+        $this->localeFacadeMock->expects(static::once())->method('getLocaleById')->withConsecutive([1])->willReturn($this->localeTransferMock);
+        $this->localeFacadeMock->expects(static::once())->method('getAvailableLocales')->willReturn([1 => 'de_DE']);
+        $this->companyFacadeMock->expects(static::once())->method('findCompanyById')->willReturn($this->companyTransferMock);
+        $this->companyUserTransferMock->expects(static::once())->method('getFkCompany')->willReturn(1);
+
+        $this->expander->expand($this->mailTransferMock, $this->orderTransferMock);
+    }
 }
