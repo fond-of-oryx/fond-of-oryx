@@ -17,7 +17,7 @@ class PaymentProductRestrictionFacade extends AbstractFacade implements PaymentP
      *
      * @return \Generated\Shared\Transfer\PaymentMethodsTransfer
      */
-    public function productRestrictionPaymentMethodFilter(
+    public function paymentProductRestrictionPaymentMethodFilter(
         PaymentMethodsTransfer $paymentMethodsTransfer,
         QuoteTransfer $quoteTransfer
     ): PaymentMethodsTransfer {

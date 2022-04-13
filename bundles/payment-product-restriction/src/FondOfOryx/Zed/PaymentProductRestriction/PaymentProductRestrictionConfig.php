@@ -8,12 +8,24 @@ use Spryker\Zed\Kernel\AbstractBundleConfig;
 class PaymentProductRestrictionConfig extends AbstractBundleConfig
 {
     /**
-     * @example ['payment-method-name' => ['SKU-XXX-XX1', 'SKU-XXX-XX2']]
+     * @description product attribute where blacklisted payment-methods stored
      *
-     * @return array<string, array<int, string>>
+     * @return string
      */
-    public function getBlacklistedProductSkuPaymentMethodCombinations(): array
+    public function getProductAttributeBlacklistedPaymentMethods(): string
     {
-        return $this->get(PaymentProductRestrictionConstants::BLACKLISTED_PRODUCT_SKU_PAYMENT_METHOD_COMBINATIONS, []);
+        return $this->get(PaymentProductRestrictionConstants::BLACKLISTED_PAYMENT_METHODS_PRODUCT_ATTRIBUTE, '');
+    }
+
+    /**
+     * @description array-key is the key that comes from the middleware, value the concrete payment method
+     *
+     * @example ['invoice' => 'payoneSecurityInvoice']
+     *
+     * @return array<string, string>
+     */
+    public function getMappingBlacklistedPaymentMethods(): array
+    {
+        return $this->get(PaymentProductRestrictionConstants::MAPPING_BLACKLISTED_PAYMENT_METHODS, []);
     }
 }

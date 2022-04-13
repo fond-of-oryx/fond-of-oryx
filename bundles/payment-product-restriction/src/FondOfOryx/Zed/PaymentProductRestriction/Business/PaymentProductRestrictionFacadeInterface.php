@@ -13,7 +13,7 @@ interface PaymentProductRestrictionFacadeInterface
      *
      * @return \Generated\Shared\Transfer\PaymentMethodsTransfer
      */
-    public function productRestrictionPaymentMethodFilter(
+    public function paymentProductRestrictionPaymentMethodFilter(
         PaymentMethodsTransfer $paymentMethodsTransfer,
         QuoteTransfer $quoteTransfer
     ): PaymentMethodsTransfer;

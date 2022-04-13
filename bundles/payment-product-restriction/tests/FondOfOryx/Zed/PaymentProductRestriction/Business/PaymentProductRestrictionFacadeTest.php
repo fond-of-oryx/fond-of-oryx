@@ -76,7 +76,7 @@ class PaymentProductRestrictionFacadeTest extends Unit
             ->with($this->paymentMethodsTransferMock, $this->quoteTransferMock)
             ->willReturn($this->paymentMethodsTransferMock);
 
-        $paymentMethodsTransfer = $this->facade->productRestrictionPaymentMethodFilter(
+        $paymentMethodsTransfer = $this->facade->paymentProductRestrictionPaymentMethodFilter(
             $this->paymentMethodsTransferMock,
             $this->quoteTransferMock,
         );

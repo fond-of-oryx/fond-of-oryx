@@ -2,7 +2,7 @@
 
 namespace FondOfOryx\Zed\PaymentProductRestriction\Business\PaymentMethodFilter;
 
-use ArrayObject;
+use FondOfOryx\Shared\PaymentProductRestriction\PaymentProductRestrictionConstants;
 use FondOfOryx\Zed\PaymentProductRestriction\PaymentProductRestrictionConfig;
 use Generated\Shared\Transfer\PaymentMethodsTransfer;
 use Generated\Shared\Transfer\QuoteTransfer;
@@ -49,18 +49,25 @@ class PaymentProductRestrictionPaymentMethodFilter implements PaymentProductRest
         PaymentMethodsTransfer $paymentMethodsTransfer,
         QuoteTransfer $quoteTransfer
     ): bool {
-        foreach ($this->config->getBlacklistedProductSkuPaymentMethodCombinations() as $paymentMethodName => $backlistedSkus) {
-            foreach ($paymentMethodsTransfer->getMethods() as $paymentMethodTransfer) {
-                if ($paymentMethodTransfer->getMethodName() !== $paymentMethodName) {
-                    continue;
-                }
+        if (!$this->config->getProductAttributeBlacklistedPaymentMethods() || count($this->config->getMappingBlacklistedPaymentMethods()) === 0) {
+            return false;
+        }
 
-                foreach ($quoteTransfer->getItems() as $itemTransfer) {
-                    foreach ($backlistedSkus as $sku) {
-                        if (strpos($itemTransfer->getSku(), $sku) !== false) {
-                            return true;
-                        }
-                    }
+        $productAttributeBlacklistedPaymentMethods = $this->config->getProductAttributeBlacklistedPaymentMethods();
+
+        foreach ($quoteTransfer->getItems() as $itemTransfer) {
+            if (
+                !array_key_exists(PaymentProductRestrictionConstants::UNLOCALIZED_PRODUCHT_ATTRIBUTES, $itemTransfer->getAbstractAttributes()) ||
+                !array_key_exists($productAttributeBlacklistedPaymentMethods, $itemTransfer->getAbstractAttributes()[PaymentProductRestrictionConstants::UNLOCALIZED_PRODUCHT_ATTRIBUTES])
+            ) {
+                continue;
+            }
+
+            $blacklistedPaymentMethodsByProduct = $itemTransfer->getAbstractAttributes()[PaymentProductRestrictionConstants::UNLOCALIZED_PRODUCHT_ATTRIBUTES][$productAttributeBlacklistedPaymentMethods];
+
+            foreach ($paymentMethodsTransfer->getMethods() as $paymentMethodTransfer) {
+                if (in_array($paymentMethodTransfer->getMethodName(), $blacklistedPaymentMethodsByProduct, true)) {
+                    return true;
                 }
             }
         }
@@ -78,42 +85,28 @@ class PaymentProductRestrictionPaymentMethodFilter implements PaymentProductRest
         PaymentMethodsTransfer $paymentMethodsTransfer,
         QuoteTransfer $quoteTransfer
     ): PaymentMethodsTransfer {
-        $filteredPaymentMethods = new ArrayObject();
+        $productAttributeBlacklistedPaymentMethods = $this->config->getProductAttributeBlacklistedPaymentMethods();
+        $filteredPaymentMethodsTransfer = new PaymentMethodsTransfer();
 
         foreach ($paymentMethodsTransfer->getMethods() as $paymentMethodTransfer) {
-            foreach ($this->config->getBlacklistedProductSkuPaymentMethodCombinations() as $paymentMethodName => $backlistedSkus) {
-                if ($paymentMethodTransfer->getMethodName() !== $paymentMethodName) {
-                    $filteredPaymentMethods->append($paymentMethodTransfer);
+            foreach ($quoteTransfer->getItems() as $itemTransfer) {
+                $blacklistedPaymentMethodsByProduct = $itemTransfer->getAbstractAttributes()[PaymentProductRestrictionConstants::UNLOCALIZED_PRODUCHT_ATTRIBUTES][$productAttributeBlacklistedPaymentMethods];
+
+                if (
+                    !array_key_exists(PaymentProductRestrictionConstants::UNLOCALIZED_PRODUCHT_ATTRIBUTES, $itemTransfer->getAbstractAttributes()) ||
+                    !array_key_exists($productAttributeBlacklistedPaymentMethods, $itemTransfer->getAbstractAttributes()[PaymentProductRestrictionConstants::UNLOCALIZED_PRODUCHT_ATTRIBUTES])
+                ) {
+                    $filteredPaymentMethodsTransfer->addMethod($paymentMethodTransfer);
 
                     continue;
                 }
 
-                if ($this->hasRestrictedItems($quoteTransfer) === false) {
-                    $filteredPaymentMethods->append($paymentMethodTransfer);
+                if (!in_array($paymentMethodTransfer->getMethodName(), $blacklistedPaymentMethodsByProduct, true)) {
+                    $filteredPaymentMethodsTransfer->addMethod($paymentMethodTransfer);
                 }
             }
         }
 
-        return $paymentMethodsTransfer->setMethods($filteredPaymentMethods);
-    }
-
-    /**
-     * @param \Generated\Shared\Transfer\QuoteTransfer $quoteTransfer
-     *
-     * @return bool
-     */
-    protected function hasRestrictedItems(QuoteTransfer $quoteTransfer): bool
-    {
-        foreach ($this->config->getBlacklistedProductSkuPaymentMethodCombinations() as $backlistedSkus) {
-            foreach ($quoteTransfer->getItems() as $itemTransfer) {
-                foreach ($backlistedSkus as $sku) {
-                    if (strpos($itemTransfer->getSku(), $sku) !== false) {
-                        return true;
-                    }
-                }
-            }
-        }
-
-        return false;
+        return $filteredPaymentMethodsTransfer;
     }
 }

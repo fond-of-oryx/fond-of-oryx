@@ -58,7 +58,7 @@ class PaymentProductRestrictionPaymentMethodFilterPluginTest extends Unit
     public function testFilterPaymentMethods(): void
     {
         $this->facadeMock->expects(static::atLeastOnce())
-            ->method('productRestrictionPaymentMethodFilter')
+            ->method('paymentProductRestrictionPaymentMethodFilter')
             ->with($this->paymentMethodsTransferMock, $this->quoteTransferMock)
             ->willReturn($this->paymentMethodsTransferMock);
 
