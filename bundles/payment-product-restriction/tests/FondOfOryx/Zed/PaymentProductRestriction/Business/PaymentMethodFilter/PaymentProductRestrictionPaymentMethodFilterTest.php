@@ -3,6 +3,7 @@
 namespace FondOfOryx\Zed\PaymentProductRestriction\Business\PaymentMethodFilter;
 
 use Codeception\Test\Unit;
+use FondOfOryx\Shared\PaymentProductRestriction\PaymentProductRestrictionConstants;
 use FondOfOryx\Zed\PaymentProductRestriction\PaymentProductRestrictionConfig;
 use Generated\Shared\Transfer\ItemTransfer;
 use Generated\Shared\Transfer\PaymentMethodsTransfer;
@@ -19,7 +20,17 @@ class PaymentProductRestrictionPaymentMethodFilterTest extends Unit
     /**
      * @var \PHPUnit\Framework\MockObject\MockObject|\Generated\Shared\Transfer\PaymentMethodTransfer
      */
-    protected $paymentMethodTransferMock;
+    protected $paymentMethodTransferMock1;
+
+    /**
+     * @var \PHPUnit\Framework\MockObject\MockObject|\Generated\Shared\Transfer\PaymentMethodTransfer
+     */
+    protected $paymentMethodTransferMock2;
+
+    /**
+     * @var \PHPUnit\Framework\MockObject\MockObject|\Generated\Shared\Transfer\PaymentMethodTransfer
+     */
+    protected $paymentMethodTransferMock3;
 
     /**
      * @var \PHPUnit\Framework\MockObject\MockObject|\Generated\Shared\Transfer\QuoteTransfer
@@ -37,7 +48,7 @@ class PaymentProductRestrictionPaymentMethodFilterTest extends Unit
     protected $configMock;
 
     /**
-     * @var \FondOfOryx\Zed\PaymentProductRestriction\Business\PaymentMethodFilter\PaymentProductRestrictionPaymentMethodFilter
+     * @var \FondOfOryx\Zed\PaymentProductRestriction\Business\PaymentMethodFilter\PaymentProductRestrictionBySkuPaymentMethodFilter
      */
     protected $paymentProductRestrictionPaymentMethodFilter;
 
@@ -52,7 +63,15 @@ class PaymentProductRestrictionPaymentMethodFilterTest extends Unit
             ->disableOriginalConstructor()
             ->getMock();
 
-        $this->paymentMethodTransferMock = $this->getMockBuilder(PaymentMethodTransfer::class)
+        $this->paymentMethodTransferMock1 = $this->getMockBuilder(PaymentMethodTransfer::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $this->paymentMethodTransferMock2 = $this->getMockBuilder(PaymentMethodTransfer::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $this->paymentMethodTransferMock3 = $this->getMockBuilder(PaymentMethodTransfer::class)
             ->disableOriginalConstructor()
             ->getMock();
 
@@ -77,34 +96,47 @@ class PaymentProductRestrictionPaymentMethodFilterTest extends Unit
     public function testFilterPaymentMethods(): void
     {
         $this->configMock->expects(static::atLeastOnce())
-            ->method('getBlacklistedProductSkuPaymentMethodCombinations')
-            ->willReturn(['payment-method-to-remove' => ['SKU-000', 'SKU-001', 'SKU-002']]);
+            ->method('getMappingBlacklistedPaymentMethods')
+            ->willReturn(['payment-method-to-remove' => ['invoice' => 'payment_provider_invoice']]);
 
-        $this->paymentMethodsTransferMock->expects(static::atLeastOnce())
-            ->method('getMethods')
-            ->willReturn([$this->paymentMethodTransferMock]);
-
-        $this->paymentMethodTransferMock->expects(static::atLeastOnce())
-            ->method('getMethodName')
-            ->willReturn('payment-method-to-remove');
+        $this->configMock->expects(static::atLeastOnce())
+            ->method('getProductAttributeBlacklistedPaymentMethods')
+            ->willReturn('blacklisted_payment_methods');
 
         $this->quoteTransferMock->expects(static::atLeastOnce())
             ->method('getItems')
             ->willReturn([$this->itemTransferMock]);
 
         $this->itemTransferMock->expects(static::atLeastOnce())
-            ->method('getSku')
-            ->willReturn('SKU-000-XXX-XXX');
+            ->method('getAbstractAttributes')
+            ->willReturn([
+        PaymentProductRestrictionConstants::UNLOCALIZED_PRODUCHT_ATTRIBUTES => [
+                'blacklisted_payment_methods' => [
+                    'payment_provider_invoice',
+                ],
+            ]]);
+
+        $this->paymentMethodTransferMock1->expects(static::atLeastOnce())
+            ->method('getMethodName')
+            ->willReturn('payment_provider_invoice');
+
+        $this->paymentMethodTransferMock2->expects(static::atLeastOnce())
+            ->method('getMethodName')
+            ->willReturn('payment_provider_paypal');
+
+        $this->paymentMethodTransferMock3->expects(static::atLeastOnce())
+            ->method('getMethodName')
+            ->willReturn('payment_provider_credit-card');
 
         $this->paymentMethodsTransferMock->expects(static::atLeastOnce())
-            ->method('setMethods')
-            ->willReturnSelf();
+            ->method('getMethods')
+            ->willReturn([$this->paymentMethodTransferMock1, $this->paymentMethodTransferMock2, $this->paymentMethodTransferMock3]);
 
         $paymentMethodsTransfer = $this->paymentProductRestrictionPaymentMethodFilter->filterPaymentMethods(
             $this->paymentMethodsTransferMock,
             $this->quoteTransferMock,
         );
 
-        static::assertCount(1, $paymentMethodsTransfer->getMethods());
+        static::assertCount(2, $paymentMethodsTransfer->getMethods());
     }
 }

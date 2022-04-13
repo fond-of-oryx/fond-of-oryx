@@ -24,8 +24,16 @@ class PaymentProductRestrictionConfigTest extends Unit
     /**
      * @return void
      */
-    public function testGetBlacklistedProductSkuPaymentMethodCombinations(): void
+    public function testGetProductAttributeBlacklistedPaymentMethods(): void
     {
-        static::assertEquals([], $this->config->getBlacklistedProductSkuPaymentMethodCombinations());
+        static::assertEquals('', $this->config->getProductAttributeBlacklistedPaymentMethods());
+    }
+
+    /**
+     * @return void
+     */
+    public function testGetMappingBlacklistedPaymentMethods(): void
+    {
+        static::assertEquals([], $this->config->getMappingBlacklistedPaymentMethods());
     }
 }

@@ -32,10 +32,19 @@ protected function getPaymentMethodFilterPlugins(): array
 
 add the following configuration to your config-file
 
+first, configure the product attribute where the blacklisted payment methods are stored
+
 ```
-$config[PaymentProductRestrictionConstants::BLACKLISTED_PRODUCT_SKU_PAYMENT_METHOD_COMBINATIONS] = [
-    payment-method-name => [
-        'SKU-ABC-001-002', // must only contain part of the sku
-    ]
+$config[PaymentProductRestrictionConstants::BLACKLISTED_PAYMENT_METHODS_PRODUCT_ATTRIBUTE] = 'blacklisted_payment_methods';
+```
+
+Next, you need a mapping from the product-attribute to the concrete payment-method in your store
+
+```
+
+$config[PaymentProductRestrictionConstants::MAPPING_BLACKLISTED_PAYMENT_METHODS] = [
+    'invoice' => 'payoneSecurityInvoice'
 ];
 ```
+
+Array key invoice is the attribute from your product, array value the concrete payment-method
