@@ -382,7 +382,7 @@
     },
     "payone-credit-memo": {
       "path": "bundles/payone-credit-memo/",
-      "version": "1.0.0"
+      "version": "1.0.1"
     },
     "prepayment-credit-memo": {
       "path": "bundles/prepayment-credit-memo/",
