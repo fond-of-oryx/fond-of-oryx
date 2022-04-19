@@ -31,14 +31,6 @@ class PayoneCreditMemoProcessorPlugin extends AbstractPlugin implements CreditMe
     public const LISTENING_PAYMENT_PROVIDER = 'Payone';
 
     /**
-     * @var array
-     */
-    public const LISTENING_PAYMENT_METHOD = [
-        'payment.payone.creditcard',
-        'payment.payone.e_wallet',
-    ];
-
-    /**
      * @param \Generated\Shared\Transfer\CreditMemoTransfer $creditMemoTransfer
      * @param \Generated\Shared\Transfer\CreditMemoProcessorStatusTransfer $statusResponse
      *
@@ -93,7 +85,7 @@ class PayoneCreditMemoProcessorPlugin extends AbstractPlugin implements CreditMe
             && $salesPaymentMethodType->getPaymentProvider() !== null
             && $salesPaymentMethodType->getPaymentProvider()->getName() === static::LISTENING_PAYMENT_PROVIDER
             && $salesPaymentMethodType->getPaymentMethod() !== null
-            && in_array($salesPaymentMethodType->getPaymentMethod()->getName(), static::LISTENING_PAYMENT_METHOD, true);
+            && in_array($salesPaymentMethodType->getPaymentMethod()->getName(), $this->getConfig()->getListeningPaymentMethods(), true);
     }
 
     /**
