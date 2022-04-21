@@ -384,6 +384,10 @@
       "path": "bundles/payone-credit-memo/",
       "version": "1.0.1"
     },
+    "payone-credit-memo-extension": {
+      "path": "bundles/payone-credit-memo-extension/",
+      "version": "1.0.0"
+    },
     "prepayment-credit-memo": {
       "path": "bundles/prepayment-credit-memo/",
       "version": "1.0.0"
