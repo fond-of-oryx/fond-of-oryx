@@ -6,6 +6,8 @@ use Generated\Shared\Transfer\CreditMemoCollectionTransfer;
 use Generated\Shared\Transfer\CreditMemoQueryFilterTransfer;
 use Generated\Shared\Transfer\CreditMemoTransfer;
 use Generated\Shared\Transfer\ItemTransfer;
+use Generated\Shared\Transfer\PaymentMethodTransfer;
+use Generated\Shared\Transfer\PaymentProviderTransfer;
 use Generated\Shared\Transfer\SalesPaymentMethodTypeTransfer;
 use Generated\Shared\Transfer\StoreTransfer;
 use Orm\Zed\CreditMemo\Persistence\FooCreditMemo;
@@ -245,10 +247,9 @@ class CreditMemoRepository extends AbstractRepository implements CreditMemoRepos
         $spySalesPaymentMethodType = $creditMemo->getSpySalesPaymentMethodType();
 
         if ($spySalesPaymentMethodType !== null) {
-            $salesPaymentMethodTypeTransfer = (new SalesPaymentMethodTypeTransfer())->fromArray(
-                $spySalesPaymentMethodType->toArray(),
-                true,
-            );
+            $paymentProvider = (new PaymentProviderTransfer())->setName($spySalesPaymentMethodType->getPaymentProvider());
+            $paymentMehtod = (new PaymentMethodTransfer())->setName($spySalesPaymentMethodType->getPaymentMethod());
+            $salesPaymentMethodTypeTransfer = (new SalesPaymentMethodTypeTransfer())->setPaymentMethod($paymentMehtod)->setPaymentProvider($paymentProvider);
             $creditMemoTransfer->setSalesPaymentMethodType($salesPaymentMethodTypeTransfer);
         }
     }
