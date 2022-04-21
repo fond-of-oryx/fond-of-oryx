@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<database xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" name="zed"
+          xsi:noNamespaceSchemaLocation="http://static.spryker.com/schema-01.xsd"
+          namespace="Orm\Zed\CreditMemo\Persistence" package="src.Orm.Zed.CreditMemo.Persistence">
+
+    <table name="foo_credit_memo" phpName="FooCreditMemo" identifierQuoting="true">
+        <column name="id_credit_memo" required="true" type="INTEGER" autoIncrement="true" primaryKey="true"/>
+    </table>
+</database>
