@@ -88,7 +88,7 @@ class CreditMemoPersistenceFactory extends AbstractPersistenceFactory
      */
     public function createCreditMemoMapper(): CreditMemoMapperInterface
     {
-        return new CreditMemoMapper();
+        return new CreditMemoMapper($this->getCreditMemoMapperExpanderPlugins());
     }
 
     /**
@@ -113,5 +113,13 @@ class CreditMemoPersistenceFactory extends AbstractPersistenceFactory
     public function createCreditMemoItemStateMapper(): CreditMemoItemStateMapperInterface
     {
         return new CreditMemoItemStateMapper();
+    }
+
+    /**
+     * @return array<\FondOfOryx\Zed\CreditMemoExtension\Persistence\Dependency\Plugin\CreditMemoMapperExpanderPluginInterface>
+     */
+    public function getCreditMemoMapperExpanderPlugins(): array
+    {
+        return $this->getProvidedDependency(CreditMemoDependencyProvider::PLUGINS_MAPPER_EXPANDER);
     }
 }

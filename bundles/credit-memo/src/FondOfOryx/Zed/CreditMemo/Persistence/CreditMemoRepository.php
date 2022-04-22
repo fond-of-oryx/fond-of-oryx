@@ -267,6 +267,21 @@ class CreditMemoRepository extends AbstractRepository implements CreditMemoRepos
         $this->prepareCreditMemoItems($creditMemo, $creditMemoTransfer);
         $this->prepareSalesPaymentMethodType($creditMemo, $creditMemoTransfer);
 
+        return $this->handleExpanderPlugins($creditMemo, $creditMemoTransfer);
+    }
+
+    /**
+     * @param \Orm\Zed\CreditMemo\Persistence\FooCreditMemo $fooCreditMemo
+     * @param \Generated\Shared\Transfer\CreditMemoTransfer $creditMemoTransfer
+     *
+     * @return \Generated\Shared\Transfer\CreditMemoTransfer
+     */
+    protected function handleExpanderPlugins(FooCreditMemo $fooCreditMemo, CreditMemoTransfer $creditMemoTransfer): CreditMemoTransfer
+    {
+        foreach ($this->getFactory()->getCreditMemoMapperExpanderPlugins() as $mapperExpanderPlugin) {
+            $creditMemoTransfer = $mapperExpanderPlugin->expand($fooCreditMemo, $creditMemoTransfer);
+        }
+
         return $creditMemoTransfer;
     }
 

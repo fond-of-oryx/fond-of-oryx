@@ -8,6 +8,19 @@ use Orm\Zed\CreditMemo\Persistence\FooCreditMemo;
 class CreditMemoMapper implements CreditMemoMapperInterface
 {
     /**
+     * @var array<\FondOfOryx\Zed\CreditMemoExtension\Persistence\Dependency\Plugin\CreditMemoMapperExpanderPluginInterface>
+     */
+    protected $creditMemoMapperExpanderPlugins;
+
+    /**
+     * @param array<\FondOfOryx\Zed\CreditMemoExtension\Persistence\Dependency\Plugin\CreditMemoMapperExpanderPluginInterface> $creditMemoMapperExpanderPlugins
+     */
+    public function __construct(array $creditMemoMapperExpanderPlugins)
+    {
+        $this->creditMemoMapperExpanderPlugins = $creditMemoMapperExpanderPlugins;
+    }
+
+    /**
      * @param \Generated\Shared\Transfer\CreditMemoTransfer $creditMemoTransfer
      * @param \Orm\Zed\CreditMemo\Persistence\FooCreditMemo $fooCreditMemo
      *
@@ -38,6 +51,23 @@ class CreditMemoMapper implements CreditMemoMapperInterface
         FooCreditMemo $fooCreditMemo,
         CreditMemoTransfer $creditMemoTransfer
     ): CreditMemoTransfer {
-        return $creditMemoTransfer->fromArray($fooCreditMemo->toArray(), true);
+        $creditMemoTransfer->fromArray($fooCreditMemo->toArray(), true);
+
+        return $this->expandCreditMemoTransferMapping($fooCreditMemo, $creditMemoTransfer);
+    }
+
+    /**
+     * @param \Orm\Zed\CreditMemo\Persistence\FooCreditMemo $fooCreditMemo
+     * @param \Generated\Shared\Transfer\CreditMemoTransfer $creditMemoTransfer
+     *
+     * @return \Generated\Shared\Transfer\CreditMemoTransfer
+     */
+    protected function expandCreditMemoTransferMapping(FooCreditMemo $fooCreditMemo, CreditMemoTransfer $creditMemoTransfer): CreditMemoTransfer
+    {
+        foreach ($this->creditMemoMapperExpanderPlugins as $expanderPlugin) {
+            $creditMemoTransfer = $expanderPlugin->expand($fooCreditMemo, $creditMemoTransfer);
+        }
+
+        return $creditMemoTransfer;
     }
 }

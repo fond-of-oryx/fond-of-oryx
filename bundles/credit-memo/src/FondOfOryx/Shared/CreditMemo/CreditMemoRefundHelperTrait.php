@@ -112,7 +112,7 @@ trait CreditMemoRefundHelperTrait
     /**
      * @param array $refundItems
      *
-     * @return array
+     * @return array<\Orm\Zed\Sales\Persistence\SpySalesOrderItem>
      */
     protected function resolveAndCheckItemsForRefund(array $refundItems): array
     {

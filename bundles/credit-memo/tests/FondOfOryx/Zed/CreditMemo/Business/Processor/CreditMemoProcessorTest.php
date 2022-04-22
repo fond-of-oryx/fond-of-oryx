@@ -6,10 +6,8 @@ use Codeception\Test\Unit;
 use Exception;
 use FondOfOryx\Zed\CreditMemo\CreditMemoConfig;
 use FondOfOryx\Zed\CreditMemo\Dependency\Facade\CreditMemoToStoreFacadeBridge;
-use FondOfOryx\Zed\CreditMemo\Dependency\Facade\CreditMemoToStoreFacadeInterface;
 use FondOfOryx\Zed\CreditMemo\Exception\ProcessorNotFoundException;
 use FondOfOryx\Zed\CreditMemo\Persistence\CreditMemoRepository;
-use FondOfOryx\Zed\CreditMemo\Persistence\CreditMemoRepositoryInterface;
 use FondOfOryx\Zed\CreditMemoExtension\Dependency\Plugin\CreditMemoProcessorPluginInterface;
 use Generated\Shared\Transfer\CreditMemoCollectionTransfer;
 use Generated\Shared\Transfer\CreditMemoProcessorStatusTransfer;
@@ -19,7 +17,6 @@ use Generated\Shared\Transfer\PaymentProviderTransfer;
 use Generated\Shared\Transfer\SalesPaymentMethodTypeTransfer;
 use Generated\Shared\Transfer\StoreTransfer;
 use Psr\Log\LoggerInterface;
-use Spryker\Shared\Log\Config\LoggerConfigInterface;
 
 class CreditMemoProcessorTest extends Unit
 {
@@ -104,42 +101,7 @@ class CreditMemoProcessorTest extends Unit
 
         $this->processorMock->expects(static::atLeastOnce())->method('getName')->willReturn('testProcessor');
 
-        $this->processor = new class ([$this->processorMock], $this->repositoryMock, $this->storeFacadeMock, $this->configMock, $this->loggerMock) extends CreditMemoProcessor{
-            /**
-             * @var \Psr\Log\LoggerInterface
-             */
-            protected $loggerMock;
-
-            /**
-             *  constructor.
-             *
-             * @param array $processor
-             * @param \FondOfOryx\Zed\CreditMemo\Persistence\CreditMemoRepositoryInterface $creditMemoRepository
-             * @param \FondOfOryx\Zed\CreditMemo\Dependency\Facade\CreditMemoToStoreFacadeInterface $store
-             * @param \FondOfOryx\Zed\CreditMemo\CreditMemoConfig $config
-             * @param \Psr\Log\LoggerInterface $logger
-             */
-            public function __construct(
-                array $processor,
-                CreditMemoRepositoryInterface $creditMemoRepository,
-                CreditMemoToStoreFacadeInterface $store,
-                CreditMemoConfig $config,
-                LoggerInterface $logger
-            ) {
-                parent::__construct($processor, $creditMemoRepository, $store, $config);
-                $this->loggerMock = $logger;
-            }
-
-            /**
-             * @param \Spryker\Shared\Log\Config\LoggerConfigInterface|null $loggerConfig
-             *
-             * @return \Psr\Log\LoggerInterface
-             */
-            protected function getLogger(?LoggerConfigInterface $loggerConfig = null)
-            {
-                return $this->loggerMock;
-            }
-        };
+        $this->processor = new CreditMemoProcessor([$this->processorMock], $this->repositoryMock, $this->storeFacadeMock, $this->configMock, $this->loggerMock);
     }
 
     /**
