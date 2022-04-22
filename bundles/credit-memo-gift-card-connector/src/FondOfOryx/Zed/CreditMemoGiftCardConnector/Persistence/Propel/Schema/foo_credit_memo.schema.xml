@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+<database xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" name="zed"
+          xsi:noNamespaceSchemaLocation="http://static.spryker.com/schema-01.xsd"
+          namespace="Orm\Zed\CreditMemo\Persistence" package="src.Orm.Zed.CreditMemo.Persistence">
+
+    <table name="foo_credit_memo" phpName="FooCreditMemo" identifierQuoting="true">
+        <column name="has_gift_cards" type="BOOLEAN" defaultValue="false" required="false"/>
+    </table>
+
+    <table name="foo_credit_memo_item" phpName="FooCreditMemoItem" identifierQuoting="true">
+        <column name="coupon_amount" type="INTEGER" required="false"/>
+    </table>
+
+    <table name="foo_credit_memo_gift_card" phpName="FooCreditMemoGiftCard" identifierQuoting="true">
+        <column name="fk_credit_memo" type="INTEGER" required="true"/>
+        <column name="fk_gift_card" type="INTEGER" required="true"/>
+        <column name="code" size="255" type="VARCHAR" required="true"/>
+        <column name="amount" type="INTEGER" required="true"/>
+        <column name="refund" type="INTEGER" required="true"/>
+
+        <foreign-key name="foo_credit_memo_gift_card-fk_gift_card" foreignTable="spy_gift_card">
+            <reference local="fk_gift_card" foreign="id_gift_card"/>
+        </foreign-key>
+
+        <foreign-key name="foo_credit_memo_gift_card-fk_credit_memo" foreignTable="foo_credit_memo">
+            <reference local="fk_credit_memo" foreign="id_credit_memo"/>
+        </foreign-key>
+
+        <unique name="foo_credit_memo_gift_card-fk_credit_memo-fk_gift_card">
+            <unique-column name="fk_credit_memo"/>
+            <unique-column name="fk_gift_card"/>
+        </unique>
+    </table>
+</database>

@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<transfers xmlns="spryker:transfer-01"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="spryker:transfer-01 http://static.spryker.com/transfer-01.xsd">
+    <transfer name="CreditMemo">
+        <property name="hasGiftCards" type="bool" />
+        <property name="giftCards" singular="giftCard" type="CreditMemoGiftCard[]" />
+    </transfer>
+
+    <transfer name="Item">
+        <property name="couponAmount" type="int" />
+    </transfer>
+
+    <transfer name="CreditMemoGiftCard">
+        <property name="fkCreditMemo" type="int" />
+        <property name="fkGiftCard" type="int" />
+        <property name="amount" type="int" />
+        <property name="refund" type="int" />
+        <property name="code" type="string" />
+    </transfer>
+
+    <transfer name="CreditMemoGiftCardResponse">
+        <property name="giftCard" type="CreditMemoGiftCard" />
+        <property name="isSuccess" type="bool" />
+        <property name="errors" type="CreditMemoError[]" singular="error" />
+    </transfer>
+
+    <transfer name="CreditMemoGiftCardResponseCollection">
+        <property name="responses" singular="response" type="CreditMemoGiftCardResponse[]" />
+        <property name="overAllStatus" type="bool" />
+    </transfer>
+</transfers>
