@@ -21,6 +21,7 @@ use FondOfOryx\Zed\CreditMemo\CreditMemoDependencyProvider;
 use FondOfOryx\Zed\CreditMemo\Dependency\Facade\CreditMemoToLocaleFacadeInterface;
 use FondOfOryx\Zed\CreditMemo\Dependency\Facade\CreditMemoToSequenceNumberFacadeInterface;
 use FondOfOryx\Zed\CreditMemo\Dependency\Facade\CreditMemoToStoreFacadeInterface;
+use Spryker\Shared\Log\LoggerTrait;
 use Spryker\Zed\Kernel\Business\AbstractBusinessFactory;
 
 /**
@@ -30,6 +31,8 @@ use Spryker\Zed\Kernel\Business\AbstractBusinessFactory;
  */
 class CreditMemoBusinessFactory extends AbstractBusinessFactory
 {
+    use LoggerTrait;
+
     /**
      * @return \FondOfOryx\Zed\CreditMemo\Business\Model\CreditMemoWriterInterface
      */
@@ -106,6 +109,7 @@ class CreditMemoBusinessFactory extends AbstractBusinessFactory
             $this->getRepository(),
             $this->getStoreFacade(),
             $this->getConfig(),
+            $this->getLogger(),
         );
     }
 

@@ -14,13 +14,11 @@ use Generated\Shared\Transfer\CreditMemoProcessorResponseCollectionTransfer;
 use Generated\Shared\Transfer\CreditMemoProcessorStatusTransfer;
 use Generated\Shared\Transfer\CreditMemoTransfer;
 use IteratorAggregate;
-use Spryker\Shared\Log\LoggerTrait;
+use Psr\Log\LoggerInterface;
 use Throwable;
 
 class CreditMemoProcessor implements Countable, IteratorAggregate, CreditMemoProcessorInterface
 {
-    use LoggerTrait;
-
     /**
      * @var array<\FondOfOryx\Zed\CreditMemoExtension\Dependency\Plugin\CreditMemoProcessorPluginInterface>
      */
@@ -42,21 +40,29 @@ class CreditMemoProcessor implements Countable, IteratorAggregate, CreditMemoPro
     protected $config;
 
     /**
+     * @var \Psr\Log\LoggerInterface
+     */
+    protected $logger;
+
+    /**
      * @param array $processor
      * @param \FondOfOryx\Zed\CreditMemo\Persistence\CreditMemoRepositoryInterface $creditMemoRepository
      * @param \FondOfOryx\Zed\CreditMemo\Dependency\Facade\CreditMemoToStoreFacadeInterface $store
      * @param \FondOfOryx\Zed\CreditMemo\CreditMemoConfig $config
+     * @param \Psr\Log\LoggerInterface $logger
      */
     public function __construct(
         array $processor,
         CreditMemoRepositoryInterface $creditMemoRepository,
         CreditMemoToStoreFacadeInterface $store,
-        CreditMemoConfig $config
+        CreditMemoConfig $config,
+        LoggerInterface $logger
     ) {
         $this->setProcessor($processor);
         $this->creditMemoRepository = $creditMemoRepository;
         $this->store = $store;
         $this->config = $config;
+        $this->logger = $logger;
     }
 
     /**
@@ -80,7 +86,7 @@ class CreditMemoProcessor implements Countable, IteratorAggregate, CreditMemoPro
             } catch (Throwable $exception) {
                 $response = $this->createErrorResponse($creditMemoTransfer, $exception);
                 $errorCount++;
-                $this->getLogger()->error($exception->getMessage(), $exception->getTrace());
+                $this->logger->error($exception->getMessage(), $exception->getTrace());
             }
             $count++;
             $responseCollection->addStatus($response);

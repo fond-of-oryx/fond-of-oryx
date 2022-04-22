@@ -53,6 +53,11 @@ class CreditMemoDependencyProvider extends AbstractBundleDependencyProvider
     /**
      * @var string
      */
+    public const PLUGINS_MAPPER_EXPANDER = 'PLUGINS_MAPPER_EXPANDER';
+
+    /**
+     * @var string
+     */
     public const QUERY_SALES_PAYMENT = 'QUERY_SALES_PAYMENT';
 
     /**
@@ -95,6 +100,7 @@ class CreditMemoDependencyProvider extends AbstractBundleDependencyProvider
         $container = $this->addSpySalesPaymentQuery($container);
         $container = $this->addSpySalesOrderQuery($container);
         $container = $this->addSpySalesOrderItemQuery($container);
+        $container = $this->addCreditMemoMapperExpanderPlugins($container);
 
         return $container;
     }
@@ -208,6 +214,22 @@ class CreditMemoDependencyProvider extends AbstractBundleDependencyProvider
     }
 
     /**
+     * @param \Spryker\Zed\Kernel\Container $container
+     *
+     * @return \Spryker\Zed\Kernel\Container
+     */
+    protected function addCreditMemoMapperExpanderPlugins(Container $container): Container
+    {
+        $self = $this;
+
+        $container[static::PLUGINS_MAPPER_EXPANDER] = static function () use ($self) {
+            return $self->getCreditMemoMapperExpanderPlugins();
+        };
+
+        return $container;
+    }
+
+    /**
      * @return array<\FondOfOryx\Zed\CreditMemoExtension\Dependency\Plugin\CreditMemoPostSavePluginInterface>
      */
     protected function getCreditMemoPostSavePlugins(): array
@@ -221,6 +243,14 @@ class CreditMemoDependencyProvider extends AbstractBundleDependencyProvider
      * @return array<\FondOfOryx\Zed\CreditMemoExtension\Dependency\Plugin\CreditMemoProcessorPluginInterface>
      */
     protected function getCreditMemoProcessorPlugins(): array
+    {
+        return [];
+    }
+
+    /**
+     * @return array<\FondOfOryx\Zed\CreditMemoExtension\Persistence\Dependency\Plugin\CreditMemoMapperExpanderPluginInterface>
+     */
+    protected function getCreditMemoMapperExpanderPlugins(): array
     {
         return [];
     }
