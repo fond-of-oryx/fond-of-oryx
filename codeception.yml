@@ -91,6 +91,9 @@ include:
   - bundles/one-time-password-email-connector
   - bundles/one-time-password-rest-api
   - bundles/order-budget
+  - bundles/payone-credit-memo
+  - bundles/payone-credit-memo-extension
+  - bundles/payone-credit-memo-gift-card-connector
   - bundles/prepayment
   - bundles/price-list-extension
   - bundles/price-lists-rest-api-extension
