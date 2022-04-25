@@ -38,6 +38,11 @@ class PayoneCreditMemoDependencyProvider extends AbstractBundleDependencyProvide
     public const FACADE_OMS = 'FACADE_OMS';
 
     /**
+     * @var string
+     */
+    public const PLUGINS_PRE_REFUND = 'PLUGINS_PRE_REFUND';
+
+    /**
      * @param \Spryker\Zed\Kernel\Container $container
      *
      * @return \Spryker\Zed\Kernel\Container
@@ -47,6 +52,9 @@ class PayoneCreditMemoDependencyProvider extends AbstractBundleDependencyProvide
         $container = parent::provideBusinessLayerDependencies($container);
         $container = $this->addRefundFacade($container);
         $container = $this->addCreditMemoFacade($container);
+        $container = $this->addPayoneCreditMemoPreRefundPlugins($container);
+        $container = $this->addSalesFacade($container);
+        $container = $this->addPayoneFacade($container);
 
         return $container;
     }
@@ -60,8 +68,6 @@ class PayoneCreditMemoDependencyProvider extends AbstractBundleDependencyProvide
     {
         $container = parent::provideCommunicationLayerDependencies($container);
         $container = $this->addCreditMemoFacade($container);
-        $container = $this->addRefundFacade($container);
-        $container = $this->addPayoneFacade($container);
         $container = $this->addSalesFacade($container);
         $container = $this->addOmsFacade($container);
 
@@ -136,5 +142,29 @@ class PayoneCreditMemoDependencyProvider extends AbstractBundleDependencyProvide
         });
 
         return $container;
+    }
+
+    /**
+     * @param \Spryker\Zed\Kernel\Container $container
+     *
+     * @return \Spryker\Zed\Kernel\Container
+     */
+    protected function addPayoneCreditMemoPreRefundPlugins(Container $container): Container
+    {
+        $self = $this;
+
+        $container[static::PLUGINS_PRE_REFUND] = static function () use ($self) {
+            return $self->getPayoneCreditMemoPreRefundPlugins();
+        };
+
+        return $container;
+    }
+
+    /**
+     * @return array<\FondOfOryx\Zed\PayoneCreditMemoExtension\Dependency\Plugin\PayoneCreditMemoPreRefundPluginInterface>
+     */
+    protected function getPayoneCreditMemoPreRefundPlugins(): array
+    {
+        return [];
     }
 }

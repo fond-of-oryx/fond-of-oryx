@@ -4,22 +4,23 @@
   "license": "MIT",
   "authors": [
     {
-      "name": "Julian Zimmermann",
+      "name": "Julian Hyatt",
       "email": "dev@julianzimmermann.dev"
     }
   ],
-  "minimum-stability": "dev",
-  "prefer-stable": true,
-
   "require": {
     "php": ">=7.3",
     "fond-of-oryx/credit-memo": "^1.0.0",
+    "fond-of-oryx/payone-credit-memo-extension": "^1.1.0",
     "spryker-eco/payone": "^4.0.0"
   },
   "require-dev": {
     "fond-of-codeception/spryker": "^1.0",
-    "spryker/code-sniffer": "^0.12"
+    "spryker/code-sniffer": "*",
+    "spryker-sdk/phpstan-spryker": "*"
   },
+  "minimum-stability": "dev",
+  "prefer-stable": true,
   "autoload": {
     "psr-4": {
       "FondOfOryx\\": "src/FondOfOryx/"
@@ -28,7 +29,8 @@
   "autoload-dev": {
     "psr-4": {
       "FondOfOryx\\": "tests/FondOfOryx/",
-      "Generated\\": "tests/Generated/"
+      "Generated\\": "src/Generated/",
+      "Orm\\Zed\\": "src/Orm/Zed/"
     }
   }
 }
