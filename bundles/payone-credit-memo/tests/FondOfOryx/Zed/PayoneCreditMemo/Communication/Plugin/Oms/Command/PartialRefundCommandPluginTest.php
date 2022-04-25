@@ -3,6 +3,7 @@
 namespace FondOfOryx\Zed\PayoneCreditMemo\Communication\Plugin\Oms\Command;
 
 use Codeception\Test\Unit;
+use FondOfOryx\Zed\PayoneCreditMemo\Business\PayoneCreditMemoFacade;
 use FondOfOryx\Zed\PayoneCreditMemo\Communication\PayoneCreditMemoCommunicationFactory;
 use FondOfOryx\Zed\PayoneCreditMemo\Dependency\Facade\PayoneCreditMemoToCreditMemoBridge;
 use Orm\Zed\Sales\Persistence\SpySalesOrder;
@@ -37,6 +38,16 @@ class PartialRefundCommandPluginTest extends Unit
     protected $creditMemoFacadeMock;
 
     /**
+     * @var \PHPUnit\Framework\MockObject\MockObject|\FondOfOryx\Zed\PayoneCreditMemo\Business\PayoneCreditMemoFacadeInterface
+     */
+    protected $payoneCreditMemoFacadeMock;
+
+    /**
+     * @var \PHPUnit\Framework\MockObject\MockObject|\Orm\Zed\Sales\Persistence\SpySalesOrderItem
+     */
+    protected $spySalesOrderItemMock;
+
+    /**
      * @var \Spryker\Zed\Oms\Dependency\Plugin\Command\CommandByOrderInterface
      */
     protected $plugin;
@@ -68,8 +79,13 @@ class PartialRefundCommandPluginTest extends Unit
             ->disableOriginalConstructor()
             ->getMock();
 
+        $this->payoneCreditMemoFacadeMock = $this->getMockBuilder(PayoneCreditMemoFacade::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
         $this->plugin = new PartialRefundCommandPlugin();
         $this->plugin->setFactory($this->communicationFactoryMock);
+        $this->plugin->setFacade($this->payoneCreditMemoFacadeMock);
     }
 
     /**

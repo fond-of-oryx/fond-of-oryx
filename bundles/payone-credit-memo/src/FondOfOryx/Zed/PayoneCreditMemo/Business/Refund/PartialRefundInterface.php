@@ -1,11 +1,11 @@
 <?php
 
-namespace FondOfOryx\Zed\PayoneCreditMemo\Business;
+namespace FondOfOryx\Zed\PayoneCreditMemo\Business\Refund;
 
 use Orm\Zed\Sales\Persistence\SpySalesOrder;
 use Spryker\Zed\Oms\Business\Util\ReadOnlyArrayObject;
 
-interface PayoneCreditMemoFacadeInterface
+interface PartialRefundInterface
 {
     /**
      * @api

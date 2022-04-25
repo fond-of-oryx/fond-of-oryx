@@ -117,15 +117,17 @@ class PayoneCreditMemoDependencyProviderTest extends Unit
 
         $this->locatorMock->expects(static::atLeastOnce())
             ->method('__call')
-            ->withConsecutive(['refund'], ['creditMemo'])
+            ->withConsecutive(['refund'], ['creditMemo'], ['payone'], ['sales'])
             ->willReturn($this->bundleProxyMock);
 
         $this->bundleProxyMock->expects(static::atLeastOnce())
             ->method('__call')
-            ->withConsecutive(['facade'], ['facade'])
+            ->withConsecutive(['facade'], ['facade'], ['facade'], ['facade'])
             ->willReturnOnConsecutiveCalls(
                 $this->refundFacadeMock,
                 $this->creditMemoFacadeMock,
+                $this->payoneFacadeMock,
+                $this->salesFacadeMock,
             );
 
         $container = $this->dependencyProvider->provideBusinessLayerDependencies($this->containerMock);
@@ -138,6 +140,10 @@ class PayoneCreditMemoDependencyProviderTest extends Unit
         static::assertInstanceOf(
             PayoneCreditMemoToCreditMemoInterface::class,
             $container[PayoneCreditMemoDependencyProvider::FACADE_CREDIT_MEMO],
+        );
+        static::assertInstanceOf(
+            PayoneCreditMemoToPayoneInterface::class,
+            $container[PayoneCreditMemoDependencyProvider::FACADE_PAYONE],
         );
     }
 
@@ -152,16 +158,14 @@ class PayoneCreditMemoDependencyProviderTest extends Unit
 
         $this->locatorMock->expects(static::atLeastOnce())
             ->method('__call')
-            ->withConsecutive(['creditMemo'], ['refund'], ['payone'], ['sales'], ['oms'])
+            ->withConsecutive(['creditMemo'], ['sales'], ['oms'])
             ->willReturn($this->bundleProxyMock);
 
         $this->bundleProxyMock->expects(static::atLeastOnce())
             ->method('__call')
-            ->withConsecutive(['facade'], ['facade'], ['facade'], ['facade'], ['facade'])
+            ->withConsecutive(['facade'], ['facade'], ['facade'])
             ->willReturnOnConsecutiveCalls(
                 $this->creditMemoFacadeMock,
-                $this->refundFacadeMock,
-                $this->payoneFacadeMock,
                 $this->salesFacadeMock,
                 $this->omsFacadeMock,
             );
@@ -172,14 +176,6 @@ class PayoneCreditMemoDependencyProviderTest extends Unit
         static::assertInstanceOf(
             PayoneCreditMemoToCreditMemoInterface::class,
             $container[PayoneCreditMemoDependencyProvider::FACADE_CREDIT_MEMO],
-        );
-        static::assertInstanceOf(
-            PayoneCreditMemoToRefundInterface::class,
-            $container[PayoneCreditMemoDependencyProvider::FACADE_REFUND],
-        );
-        static::assertInstanceOf(
-            PayoneCreditMemoToPayoneInterface::class,
-            $container[PayoneCreditMemoDependencyProvider::FACADE_PAYONE],
         );
         static::assertInstanceOf(
             PayoneCreditMemoToSalesInterface::class,
