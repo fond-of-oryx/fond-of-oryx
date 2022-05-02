@@ -10,7 +10,7 @@ use Propel\Runtime\Collection\ObjectCollection;
 class ProductAbstractLocaleRestrictionMapper implements ProductAbstractLocaleRestrictionMapperInterface
 {
     /**
-     * @param \Propel\Runtime\Collection\ObjectCollection|\Orm\Zed\ProductLocaleRestriction\Persistence\FooProductAbstractLocaleRestriction[] $fooProductAbstractLocaleRestrictionCollection
+     * @param \Propel\Runtime\Collection\ObjectCollection<\Orm\Zed\ProductLocaleRestriction\Persistence\FooProductAbstractLocaleRestriction> $fooProductAbstractLocaleRestrictionCollection
      *
      * @return array<\Generated\Shared\Transfer\LocaleTransfer>
      */
@@ -28,7 +28,7 @@ class ProductAbstractLocaleRestrictionMapper implements ProductAbstractLocaleRes
     }
 
     /**
-     * @param \Propel\Runtime\Collection\ObjectCollection|\Orm\Zed\ProductLocaleRestriction\Persistence\FooProductAbstractLocaleRestriction[] $fooProductAbstractLocaleRestrictionCollection
+     * @param \Propel\Runtime\Collection\ObjectCollection<\Orm\Zed\ProductLocaleRestriction\Persistence\FooProductAbstractLocaleRestriction> $fooProductAbstractLocaleRestrictionCollection
      * @param string|null $virtualColumnForGrouping
      *
      * @return array

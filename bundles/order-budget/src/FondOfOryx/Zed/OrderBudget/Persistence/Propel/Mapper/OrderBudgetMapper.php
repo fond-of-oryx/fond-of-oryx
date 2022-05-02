@@ -10,7 +10,7 @@ use Propel\Runtime\Collection\ObjectCollection;
 class OrderBudgetMapper implements OrderBudgetMapperInterface
 {
     /**
-     * @param \Propel\Runtime\Collection\ObjectCollection|\Orm\Zed\OrderBudget\Persistence\Base\FooOrderBudget[] $entityCollection
+     * @param \Propel\Runtime\Collection\ObjectCollection<\Orm\Zed\OrderBudget\Persistence\Base\FooOrderBudget> $entityCollection
      *
      * @return array
      */

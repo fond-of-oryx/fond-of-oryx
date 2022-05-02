@@ -43,7 +43,7 @@ class ThirtyFiveUpApiPersistenceFactory extends AbstractPersistenceFactory
     /**
      * @return \FondOfOryx\Zed\ThirtyFiveUpApi\Dependency\QueryContainer\ThirtyFiveUpApiToApiQueryContainerInterface
      */
-    public function getQueryContainer(): ThirtyFiveUpApiToApiQueryContainerInterface
+    public function getApiQueryContainer(): ThirtyFiveUpApiToApiQueryContainerInterface
     {
         return $this->getProvidedDependency(ThirtyFiveUpApiDependencyProvider::QUERY_CONTAINER_API);
     }

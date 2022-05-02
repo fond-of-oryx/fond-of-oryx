@@ -44,7 +44,7 @@ class ProductAbstractCountryRestrictionMapper implements ProductAbstractCountryR
     }
 
     /**
-     * @param \Propel\Runtime\Collection\ObjectCollection|\Orm\Zed\ProductCountryRestriction\Persistence\FooProductAbstractCountryRestriction[] $fooProductAbstractCountryRestrictionCollection
+     * @param \Propel\Runtime\Collection\ObjectCollection<\Orm\Zed\ProductCountryRestriction\Persistence\FooProductAbstractCountryRestriction> $fooProductAbstractCountryRestrictionCollection
      * @param string|null $virtualColumnForGrouping
      *
      * @return array

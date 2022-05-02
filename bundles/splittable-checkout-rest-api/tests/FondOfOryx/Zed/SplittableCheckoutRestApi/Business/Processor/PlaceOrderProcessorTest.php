@@ -13,17 +13,17 @@ use Generated\Shared\Transfer\SplittableCheckoutResponseTransfer;
 class PlaceOrderProcessorTest extends Unit
 {
     /**
-     * @var \PHPUnit\Framework\MockObject\MockObject[]|\FondOfOryx\Zed\SplittableCheckoutRestApi\Dependency\Facade\SplittableCheckoutRestApiToSplittableCheckoutFacadeInterface
+     * @var \PHPUnit\Framework\MockObject\MockObject|\FondOfOryx\Zed\SplittableCheckoutRestApi\Dependency\Facade\SplittableCheckoutRestApiToSplittableCheckoutFacadeInterface
      */
     protected $splittableCheckoutFacadeMock;
 
     /**
-     * @var \PHPUnit\Framework\MockObject\MockObject[]|\Generated\Shared\Transfer\RestSplittableCheckoutRequestTransfer
+     * @var \PHPUnit\Framework\MockObject\MockObject|\Generated\Shared\Transfer\RestSplittableCheckoutRequestTransfer
      */
     protected $restSplittableCheckoutRequestTransferMock;
 
     /**
-     * @var \PHPUnit\Framework\MockObject\MockObject[]|\Generated\Shared\Transfer\SplittableCheckoutResponseTransfer
+     * @var \PHPUnit\Framework\MockObject\MockObject|\Generated\Shared\Transfer\SplittableCheckoutResponseTransfer
      */
     protected $splittableCheckoutResponseTransferMock;
 
@@ -33,7 +33,7 @@ class PlaceOrderProcessorTest extends Unit
     protected $quoteReaderMock;
 
     /**
-     * @var \PHPUnit\Framework\MockObject\MockObject[]|\Generated\Shared\Transfer\QuoteTransfer
+     * @var \PHPUnit\Framework\MockObject\MockObject|\Generated\Shared\Transfer\QuoteTransfer
      */
     protected $quoteTransferMock;
 

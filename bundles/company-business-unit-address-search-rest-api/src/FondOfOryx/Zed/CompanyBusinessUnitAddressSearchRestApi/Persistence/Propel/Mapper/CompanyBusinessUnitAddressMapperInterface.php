@@ -19,7 +19,7 @@ interface CompanyBusinessUnitAddressMapperInterface
     public function mapEntityToTransfer(SpyCompanyUnitAddress $entity, array $ids = []): CompanyBusinessUnitAddressTransfer;
 
     /**
-     * @param \Propel\Runtime\Collection\ObjectCollection|\Orm\Zed\CompanyUnitAddress\Persistence\SpyCompanyUnitAddress[] $entityCollection
+     * @param \Propel\Runtime\Collection\ObjectCollection<\Orm\Zed\CompanyUnitAddress\Persistence\SpyCompanyUnitAddress> $entityCollection
      * @param array $ids
      *
      * @throws \Propel\Runtime\Exception\PropelException

@@ -21,7 +21,7 @@ class CompanyBusinessUnitMapper implements CompanyBusinessUnitMapperInterface
     }
 
     /**
-     * @param \Propel\Runtime\Collection\ObjectCollection|\Orm\Zed\CompanyBusinessUnit\Persistence\SpyCompanyBusinessUnit[] $entityCollection
+     * @param \Propel\Runtime\Collection\ObjectCollection<\Orm\Zed\CompanyBusinessUnit\Persistence\SpyCompanyBusinessUnit> $entityCollection
      *
      * @return array<\Generated\Shared\Transfer\CompanyBusinessUnitTransfer>
      */

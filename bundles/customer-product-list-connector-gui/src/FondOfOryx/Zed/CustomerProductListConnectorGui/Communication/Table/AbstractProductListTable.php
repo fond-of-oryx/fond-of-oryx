@@ -118,7 +118,7 @@ abstract class AbstractProductListTable extends AbstractTable
     }
 
     /**
-     * @param \Propel\Runtime\Collection\ObjectCollection|\Orm\Zed\ProductList\Persistence\Base\SpyProductList[] $productListEntities
+     * @param \Propel\Runtime\Collection\ObjectCollection<\Orm\Zed\ProductList\Persistence\Base\SpyProductList> $productListEntities
      *
      * @return array
      */

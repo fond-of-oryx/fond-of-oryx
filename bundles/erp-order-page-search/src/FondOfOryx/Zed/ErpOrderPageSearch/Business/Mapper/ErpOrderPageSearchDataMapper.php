@@ -9,10 +9,29 @@ use Generated\Shared\Search\ErpOrderIndexMap;
 
 class ErpOrderPageSearchDataMapper implements ErpOrderPageSearchDataMapperInterface
 {
+    /**
+     * @var string
+     */
     public const COMPANY_BUSINESS_UNIT = ErpOrderPageSearchPublisher::COMPANY_BUSINESS_UNIT;
+
+    /**
+     * @var string
+     */
     public const ERP_ORDER_ITEMS = ErpOrderPageSearchPublisher::ERP_ORDER_ITEMS;
+
+    /**
+     * @var string
+     */
     public const ERP_ORDER_TOTAL = ErpOrderPageSearchPublisher::ERP_ORDER_TOTAL;
+
+    /**
+     * @var string
+     */
     public const BILLING_ADDRESS = ErpOrderPageSearchPublisher::BILLING_ADDRESS;
+
+    /**
+     * @var string
+     */
     public const SHIPPING_ADDRESS = ErpOrderPageSearchPublisher::SHIPPING_ADDRESS;
 
     /**

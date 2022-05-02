@@ -197,7 +197,7 @@ class ErpDeliveryNotePageSearchPublisher implements ErpDeliveryNotePageSearchPub
     }
 
     /**
-     * @param \Propel\Runtime\Collection\ObjectCollection|\Orm\Zed\ErpDeliveryNote\Persistence\FooErpDeliveryNoteExpense[] $orderExpenseEntities
+     * @param \Propel\Runtime\Collection\ObjectCollection<\Orm\Zed\ErpDeliveryNote\Persistence\FooErpDeliveryNoteExpense> $orderExpenseEntities
      *
      * @return array
      */
@@ -213,7 +213,7 @@ class ErpDeliveryNotePageSearchPublisher implements ErpDeliveryNotePageSearchPub
     }
 
     /**
-     * @param \Propel\Runtime\Collection\ObjectCollection|\Orm\Zed\ErpDeliveryNote\Persistence\FooErpDeliveryNoteItem[] $orderItemEntities
+     * @param \Propel\Runtime\Collection\ObjectCollection<\Orm\Zed\ErpDeliveryNote\Persistence\FooErpDeliveryNoteItem> $orderItemEntities
      *
      * @return array
      */

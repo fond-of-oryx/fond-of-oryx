@@ -9,7 +9,7 @@ use Propel\Runtime\Collection\ObjectCollection;
 interface ProductAbstractCartCodeTypeRestrictionMapperInterface
 {
     /**
-     * @param \Propel\Runtime\Collection\ObjectCollection|\Orm\Zed\ProductCartCodeTypeRestriction\Persistence\FooProductAbstractCartCodeTypeRestriction[] $entityCollection
+     * @param \Propel\Runtime\Collection\ObjectCollection<\Orm\Zed\ProductCartCodeTypeRestriction\Persistence\FooProductAbstractCartCodeTypeRestriction> $entityCollection
      *
      * @return array<\Generated\Shared\Transfer\CartCodeTypeTransfer>
      */
@@ -29,7 +29,7 @@ interface ProductAbstractCartCodeTypeRestrictionMapperInterface
     ): FooProductAbstractCartCodeTypeRestriction;
 
     /**
-     * @param \Propel\Runtime\Collection\ObjectCollection|\Orm\Zed\ProductCartCodeTypeRestriction\Persistence\FooProductAbstractCartCodeTypeRestriction[] $entityCollection
+     * @param \Propel\Runtime\Collection\ObjectCollection<\Orm\Zed\ProductCartCodeTypeRestriction\Persistence\FooProductAbstractCartCodeTypeRestriction> $entityCollection
      * @param string|null $virtualColumnForGrouping
      *
      * @return array
