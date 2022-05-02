@@ -204,7 +204,7 @@ class ErpInvoicePageSearchPublisher implements ErpInvoicePageSearchPublisherInte
     }
 
     /**
-     * @param \Propel\Runtime\Collection\ObjectCollection|\Orm\Zed\ErpInvoice\Persistence\FooErpInvoiceExpense[] $orderExpenseEntities
+     * @param \Propel\Runtime\Collection\ObjectCollection<\Orm\Zed\ErpInvoice\Persistence\FooErpInvoiceExpense> $orderExpenseEntities
      *
      * @return array
      */
@@ -222,7 +222,7 @@ class ErpInvoicePageSearchPublisher implements ErpInvoicePageSearchPublisherInte
     }
 
     /**
-     * @param \Propel\Runtime\Collection\ObjectCollection|\Orm\Zed\ErpInvoice\Persistence\FooErpInvoiceItem[] $orderItemEntities
+     * @param \Propel\Runtime\Collection\ObjectCollection<\Orm\Zed\ErpInvoice\Persistence\FooErpInvoiceItem> $orderItemEntities
      *
      * @return array
      */

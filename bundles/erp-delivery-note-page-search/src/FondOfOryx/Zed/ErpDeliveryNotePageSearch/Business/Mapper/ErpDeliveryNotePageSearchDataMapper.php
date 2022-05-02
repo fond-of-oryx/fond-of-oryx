@@ -9,10 +9,29 @@ use Generated\Shared\Search\ErpDeliveryNoteIndexMap;
 
 class ErpDeliveryNotePageSearchDataMapper implements ErpDeliveryNotePageSearchDataMapperInterface
 {
+    /**
+     * @var string
+     */
     public const COMPANY_BUSINESS_UNIT = ErpDeliveryNotePageSearchPublisher::COMPANY_BUSINESS_UNIT;
+
+    /**
+     * @var string
+     */
     public const ERP_DELIVERY_NOTE_ITEMS = ErpDeliveryNotePageSearchPublisher::ERP_DELIVERY_NOTE_ITEMS;
+
+    /**
+     * @var string
+     */
     public const ERP_DELIVERY_NOTE_EXPENSES = ErpDeliveryNotePageSearchPublisher::ERP_DELIVERY_NOTE_EXPENSES;
+
+    /**
+     * @var string
+     */
     public const BILLING_ADDRESS = ErpDeliveryNotePageSearchPublisher::BILLING_ADDRESS;
+
+    /**
+     * @var string
+     */
     public const SHIPPING_ADDRESS = ErpDeliveryNotePageSearchPublisher::SHIPPING_ADDRESS;
 
     /**

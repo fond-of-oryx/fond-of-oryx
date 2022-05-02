@@ -117,7 +117,7 @@ class ExportedOrderTable extends AbstractTable
     {
         $result = [];
         $query = $this->queryContainer->getExportedOrderQuery($this->storeFacade->getStoreById($this->idStore)->getName());
-        /** @var \Orm\Zed\JellyfishBuffer\Persistence\FooExportedOrder[]|\Propel\Runtime\Collection\ObjectCollection $exportedOrderEntities */
+        /** @var \Propel\Runtime\Collection\ObjectCollection $exportedOrderEntities|array<\Orm\Zed\JellyfishBuffer\Persistence\FooExportedOrder> */
         $exportedOrderEntities = $this->runQuery($query, $config, true);
 
         foreach ($exportedOrderEntities as $exportedOrderEntity) {

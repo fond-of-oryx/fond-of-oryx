@@ -9,11 +9,34 @@ use Generated\Shared\Search\ErpInvoiceIndexMap;
 
 class ErpInvoicePageSearchDataMapper implements ErpInvoicePageSearchDataMapperInterface
 {
+    /**
+     * @var string
+     */
     public const COMPANY_BUSINESS_UNIT = ErpInvoicePageSearchPublisher::COMPANY_BUSINESS_UNIT;
+
+    /**
+     * @var string
+     */
     public const ERP_INVOICE_ITEMS = ErpInvoicePageSearchPublisher::ERP_INVOICE_ITEMS;
+
+    /**
+     * @var string
+     */
     public const ERP_INVOICE_EXPENSES = ErpInvoicePageSearchPublisher::ERP_INVOICE_EXPENSES;
+
+    /**
+     * @var string
+     */
     public const ERP_INVOICE_TOTAL = ErpInvoicePageSearchPublisher::ERP_INVOICE_TOTAL;
+
+    /**
+     * @var string
+     */
     public const BILLING_ADDRESS = ErpInvoicePageSearchPublisher::BILLING_ADDRESS;
+
+    /**
+     * @var string
+     */
     public const SHIPPING_ADDRESS = ErpInvoicePageSearchPublisher::SHIPPING_ADDRESS;
 
     /**

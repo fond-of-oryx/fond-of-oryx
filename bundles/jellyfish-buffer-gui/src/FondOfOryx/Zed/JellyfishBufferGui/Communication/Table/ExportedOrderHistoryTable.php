@@ -119,7 +119,7 @@ class ExportedOrderHistoryTable extends AbstractTable
 
         $query->filterByFkExportedOrder($exportedOrder->getIdExportedOrder());
 
-        /** @var \Orm\Zed\JellyfishBuffer\Persistence\FooExportedOrderHistory[]|\Propel\Runtime\Collection\ObjectCollection $exportedOrderHistoryEntities */
+        /** @var \Propel\Runtime\Collection\ObjectCollection<\Orm\Zed\JellyfishBuffer\Persistence\FooExportedOrderHistory> $exportedOrderHistoryEntities */
         $exportedOrderHistoryEntities = $this->runQuery($query, $config, true);
 
         foreach ($exportedOrderHistoryEntities as $exportedOrderHistoryEntity) {

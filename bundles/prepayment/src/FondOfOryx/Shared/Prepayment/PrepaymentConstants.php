@@ -18,6 +18,10 @@ interface PrepaymentConstants
      * @var string
      */
     public const PAYMENT_METHOD_PREPAYMENT = 'prepayment';
+
+    /**
+     * @var string
+     */
     public const PREPAYMENT_PROPERTY_PATH = self::PAYMENT_METHOD_PREPAYMENT . self::PROVIDER_NAME;
 
     /**

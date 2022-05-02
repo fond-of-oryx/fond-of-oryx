@@ -11,7 +11,14 @@ use Symfony\Component\Validator\Constraints\NotBlank;
 
 class SubscriptionForm extends AbstractType
 {
+    /**
+     * @var string
+     */
     public const FIELD_PRODUCT = AvailabilityAlertSubscriptionRequestTransfer::ID_PRODUCT_ABSTRACT;
+
+    /**
+     * @var string
+     */
     public const FIELD_EMAIL = AvailabilityAlertSubscriptionRequestTransfer::EMAIL;
 
     /**

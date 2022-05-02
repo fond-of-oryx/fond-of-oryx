@@ -9,7 +9,7 @@ use Propel\Runtime\Collection\ObjectCollection;
 interface ProductAbstractCountryRestrictionMapperInterface
 {
     /**
-     * @param \Propel\Runtime\Collection\ObjectCollection|\Orm\Zed\ProductCountryRestriction\Persistence\FooProductAbstractCountryRestriction[] $fooProductAbstractCountryRestrictionCollection
+     * @param \Propel\Runtime\Collection\ObjectCollection<\Orm\Zed\ProductCountryRestriction\Persistence\FooProductAbstractCountryRestriction> $fooProductAbstractCountryRestrictionCollection
      *
      * @return array<\Generated\Shared\Transfer\CountryTransfer>
      */
@@ -29,7 +29,7 @@ interface ProductAbstractCountryRestrictionMapperInterface
     ): FooProductAbstractCountryRestriction;
 
     /**
-     * @param \Propel\Runtime\Collection\ObjectCollection|\Orm\Zed\ProductCountryRestriction\Persistence\FooProductAbstractCountryRestriction[] $fooProductAbstractCountryRestrictionCollection
+     * @param \Propel\Runtime\Collection\ObjectCollection<\Orm\Zed\ProductCountryRestriction\Persistence\FooProductAbstractCountryRestriction> $fooProductAbstractCountryRestrictionCollection
      * @param string|null $virtualColumnForGrouping
      *
      * @return array

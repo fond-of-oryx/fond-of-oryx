@@ -44,7 +44,7 @@ class ProductAbstractCartCodeTypeRestrictionMapper implements ProductAbstractCar
     }
 
     /**
-     * @param \Propel\Runtime\Collection\ObjectCollection|\Orm\Zed\ProductCartCodeTypeRestriction\Persistence\FooProductAbstractCartCodeTypeRestriction[] $entityCollection
+     * @param \Propel\Runtime\Collection\ObjectCollection<\Orm\Zed\ProductCartCodeTypeRestriction\Persistence\FooProductAbstractCartCodeTypeRestriction> $entityCollection
      * @param string|null $virtualColumnForGrouping
      *
      * @return array

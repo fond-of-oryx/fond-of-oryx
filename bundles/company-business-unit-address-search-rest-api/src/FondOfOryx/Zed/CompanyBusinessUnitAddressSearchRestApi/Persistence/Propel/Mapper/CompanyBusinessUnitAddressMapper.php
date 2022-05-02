@@ -27,7 +27,7 @@ class CompanyBusinessUnitAddressMapper implements CompanyBusinessUnitAddressMapp
     }
 
     /**
-     * @param \Propel\Runtime\Collection\ObjectCollection|\Orm\Zed\CompanyUnitAddress\Persistence\SpyCompanyUnitAddress[] $entityCollection
+     * @param \Propel\Runtime\Collection\ObjectCollection<\Orm\Zed\CompanyUnitAddress\Persistence\SpyCompanyUnitAddress> $entityCollection
      * @param array $ids
      *
      * @return array

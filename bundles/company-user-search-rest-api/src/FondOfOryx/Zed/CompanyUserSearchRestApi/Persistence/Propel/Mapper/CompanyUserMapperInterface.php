@@ -16,7 +16,7 @@ interface CompanyUserMapperInterface
     public function mapEntityToTransfer(SpyCompanyUser $entity): CompanyUserTransfer;
 
     /**
-     * @param \Propel\Runtime\Collection\ObjectCollection|\Orm\Zed\CompanyUser\Persistence\SpyCompanyUser[] $entityCollection
+     * @param \Propel\Runtime\Collection\ObjectCollection<\Orm\Zed\CompanyUser\Persistence\SpyCompanyUser> $entityCollection
      *
      * @return array<\Generated\Shared\Transfer\CompanyUserTransfer>
      */

@@ -15,6 +15,10 @@ interface CreditMemoConstants
      * @var string
      */
     public const REFERENCE_PREFIX = 'CREDIT_MEMO:REFERENCE_PREFIX';
+
+    /**
+     * @var string
+     */
     public const REFERENCE_ENVIRONMENT_PREFIX = SequenceNumberConstants::ENVIRONMENT_PREFIX;
 
     /**
@@ -48,7 +52,7 @@ interface CreditMemoConstants
     public const PROCESS_SIZE_MAX = 'CREDIT_MEMO:PROCESS_SIZE_MAX';
 
     /**
-     * @var array
+     * @var array<string, int>
      */
     public const STATE_MAPPING = [
         self::STATE_NEW => 0,
