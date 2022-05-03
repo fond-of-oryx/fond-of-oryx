@@ -418,7 +418,7 @@
     },
     "payment-product-restriction": {
       "path": "bundles/payment-product-restriction/",
-      "version": "1.0.1"
+      "version": "1.0.2"
     },
     "payment-total-amount-restriction": {
       "path": "bundles/payment-total-amount-restriction/",

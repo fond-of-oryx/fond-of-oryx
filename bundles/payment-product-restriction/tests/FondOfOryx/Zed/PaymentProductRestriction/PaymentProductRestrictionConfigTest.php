@@ -26,14 +26,9 @@ class PaymentProductRestrictionConfigTest extends Unit
      */
     public function testGetProductAttributeBlacklistedPaymentMethods(): void
     {
-        static::assertEquals('', $this->config->getProductAttributeBlacklistedPaymentMethods());
-    }
-
-    /**
-     * @return void
-     */
-    public function testGetMappingBlacklistedPaymentMethods(): void
-    {
-        static::assertEquals([], $this->config->getMappingBlacklistedPaymentMethods());
+        static::assertEquals(
+            'blacklisted_payment_methods',
+            $this->config->getProductAttributeBlacklistedPaymentMethods(),
+        );
     }
 }
