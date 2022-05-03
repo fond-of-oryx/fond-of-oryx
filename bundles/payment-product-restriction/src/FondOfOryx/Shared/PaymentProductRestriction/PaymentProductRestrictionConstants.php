@@ -12,10 +12,5 @@ interface PaymentProductRestrictionConstants
     /**
      * @var string
      */
-    public const MAPPING_BLACKLISTED_PAYMENT_METHODS = 'PaymentProductRestrictionConstants:MAPPING_BLACKLISTED_PAYMENT_METHODS';
-
-    /**
-     * @var string
-     */
-    public const UNLOCALIZED_PRODUCHT_ATTRIBUTES = '_';
+    public const UNLOCALIZED_PRODUCT_ATTRIBUTES = '_';
 }
