@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<transfers xmlns="spryker:transfer-01"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="spryker:transfer-01 https://static.spryker.com/transfer-01.xsd">
+
+    <transfer name="CompanyUser">
+        <property name="companyRole" type="CompanyRole"/>
+    </transfer>
+
+    <transfer name="CompanyRole">
+        <property name="uuid" type="string"/>
+    </transfer>
+
+    <transfer name="RestCompanyRole">
+        <property name="uuid" type="string" />
+    </transfer>
+
+    <transfer name="RestCompanyUsersRequestAttributes">
+        <property name="companyRole" type="RestCompanyRole" />
+    </transfer>
+
+    <transfer name="CompanyRoleCollection" />
+
+    <transfer name="CompanyRoleResponse">
+        <property name="companyRoleTransfer" type="CompanyRole"/>
+    </transfer>
+
+</transfers>
