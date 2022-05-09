@@ -160,6 +160,10 @@
       "path": "bundles/delivery-date-restriction/",
       "version": "1.0.1"
     },
+    "erp-customer": {
+      "path": "bundles/erp-customer/",
+      "version": "1.0.0"
+    },
     "erp-delivery-note": {
       "path": "bundles/erp-delivery-note/",
       "version": "1.0.0"

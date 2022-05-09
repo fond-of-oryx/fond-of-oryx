@@ -42,6 +42,7 @@ include:
   - bundles/customer-statistic
   - bundles/customer-statistics-rest-api
   - bundles/delivery-date-restriction
+  - bundles/erp-customer
   - bundles/erp-delivery-note
   - bundles/erp-delivery-note-api
   - bundles/erp-delivery-note-extension
