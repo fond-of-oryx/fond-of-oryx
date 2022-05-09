@@ -153,6 +153,7 @@
     "fond-of-oryx/customer-statistic": "*",
     "fond-of-oryx/customer-statistics-rest-api": "*",
     "fond-of-oryx/delivery-date-restriction": "*",
+    "fond-of-oryx/erp-customer": "*",
     "fond-of-oryx/erp-delivery-note": "*",
     "fond-of-oryx/erp-delivery-note-api": "*",
     "fond-of-oryx/erp-delivery-note-extension": "*",
