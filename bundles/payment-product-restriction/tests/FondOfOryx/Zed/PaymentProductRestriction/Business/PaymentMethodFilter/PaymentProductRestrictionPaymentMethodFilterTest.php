@@ -105,23 +105,21 @@ class PaymentProductRestrictionPaymentMethodFilterTest extends Unit
             ->method('getAbstractAttributes')
             ->willReturn([
         PaymentProductRestrictionConstants::UNLOCALIZED_PRODUCT_ATTRIBUTES => [
-                'blacklisted_payment_methods' => [
-                    'payment_provider_invoice',
-                ],
-            ]]);
+            'blacklisted_payment_methods' => 'payment_provider_invoice',
+        ]]);
 
         $this->itemTransferMocks[1]->expects(static::atLeastOnce())
             ->method('getAbstractAttributes')
             ->willReturn([
                 PaymentProductRestrictionConstants::UNLOCALIZED_PRODUCT_ATTRIBUTES => [
-                    'blacklisted_payment_methods' => [],
+                    'blacklisted_payment_methods' => '',
                 ]]);
 
         $this->itemTransferMocks[2]->expects(static::atLeastOnce())
             ->method('getAbstractAttributes')
             ->willReturn([
                 PaymentProductRestrictionConstants::UNLOCALIZED_PRODUCT_ATTRIBUTES => [
-                    'blacklisted_payment_methods' => [],
+                    'blacklisted_payment_methods' => '',
                 ]]);
 
         $this->paymentMethodTransferMocks[0]->expects(static::atLeastOnce())
@@ -174,25 +172,21 @@ class PaymentProductRestrictionPaymentMethodFilterTest extends Unit
             ->method('getAbstractAttributes')
             ->willReturn([
                 PaymentProductRestrictionConstants::UNLOCALIZED_PRODUCT_ATTRIBUTES => [
-                    'blacklisted_payment_methods' => [
-                        'payment_provider_invoice',
-                    ],
+                    'blacklisted_payment_methods' => 'payment_provider_invoice',
                 ]]);
 
         $this->itemTransferMocks[1]->expects(static::atLeastOnce())
             ->method('getAbstractAttributes')
             ->willReturn([
                 PaymentProductRestrictionConstants::UNLOCALIZED_PRODUCT_ATTRIBUTES => [
-                    'blacklisted_payment_methods' => [
-                        'payment_provider_credit-card',
-                    ],
+                    'blacklisted_payment_methods' => 'payment_provider_credit-card',
                 ]]);
 
         $this->itemTransferMocks[2]->expects(static::atLeastOnce())
             ->method('getAbstractAttributes')
             ->willReturn([
                 PaymentProductRestrictionConstants::UNLOCALIZED_PRODUCT_ATTRIBUTES => [
-                    'blacklisted_payment_methods' => [],
+                    'blacklisted_payment_methods' => '',
                 ]]);
 
         $this->paymentMethodTransferMocks[0]->expects(static::atLeastOnce())
@@ -245,21 +239,21 @@ class PaymentProductRestrictionPaymentMethodFilterTest extends Unit
             ->method('getAbstractAttributes')
             ->willReturn([
                 PaymentProductRestrictionConstants::UNLOCALIZED_PRODUCT_ATTRIBUTES => [
-                    'blacklisted_payment_methods' => [],
+                    'blacklisted_payment_methods' => '',
                 ]]);
 
         $this->itemTransferMocks[1]->expects(static::atLeastOnce())
             ->method('getAbstractAttributes')
             ->willReturn([
                 PaymentProductRestrictionConstants::UNLOCALIZED_PRODUCT_ATTRIBUTES => [
-                    'blacklisted_payment_methods' => [],
+                    'blacklisted_payment_methods' => '',
                 ]]);
 
         $this->itemTransferMocks[2]->expects(static::atLeastOnce())
             ->method('getAbstractAttributes')
             ->willReturn([
                 PaymentProductRestrictionConstants::UNLOCALIZED_PRODUCT_ATTRIBUTES => [
-                    'blacklisted_payment_methods' => [],
+                    'blacklisted_payment_methods' => '',
                 ]]);
 
         $this->paymentMethodTransferMocks[0]->expects(static::atLeastOnce())

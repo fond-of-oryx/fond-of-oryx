@@ -62,7 +62,7 @@ class PaymentProductRestrictionPaymentMethodFilter implements PaymentProductRest
                 continue;
             }
 
-            $blacklistedPaymentMethodsByProduct = $itemTransfer->getAbstractAttributes()[PaymentProductRestrictionConstants::UNLOCALIZED_PRODUCT_ATTRIBUTES][$productAttributeBlacklistedPaymentMethods];
+            $blacklistedPaymentMethodsByProduct = explode(',', $itemTransfer->getAbstractAttributes()[PaymentProductRestrictionConstants::UNLOCALIZED_PRODUCT_ATTRIBUTES][$productAttributeBlacklistedPaymentMethods]);
 
             foreach ($paymentMethodsTransfer->getMethods() as $paymentMethodTransfer) {
                 if (in_array($paymentMethodTransfer->getMethodName(), $blacklistedPaymentMethodsByProduct, true)) {
@@ -97,7 +97,7 @@ class PaymentProductRestrictionPaymentMethodFilter implements PaymentProductRest
                 continue;
             }
 
-            $blacklistedPaymentMethodsByProduct = $itemTransfer->getAbstractAttributes()[PaymentProductRestrictionConstants::UNLOCALIZED_PRODUCT_ATTRIBUTES][$productAttributeBlacklistedPaymentMethods];
+            $blacklistedPaymentMethodsByProduct = explode(',', $itemTransfer->getAbstractAttributes()[PaymentProductRestrictionConstants::UNLOCALIZED_PRODUCT_ATTRIBUTES][$productAttributeBlacklistedPaymentMethods]);
 
             foreach ($blacklistedPaymentMethodsByProduct as $method) {
                 if (!array_key_exists($method, $paymentMethods)) {
