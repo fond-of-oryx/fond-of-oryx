@@ -364,8 +364,8 @@
       "path": "bundles/log-aws-cloud-watch-connector/",
       "version": "1.0.0"
     },
-    "log-io": {
-      "path": "bundles/log-io/",
+    "log-log-io-connector": {
+      "path": "bundles/log-log-io-connector/",
       "version": "1.0.0"
     },
     "log-slack-connector": {

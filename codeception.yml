@@ -87,7 +87,7 @@ include:
   - bundles/jellyfish-thirty-five-up
   - bundles/limit-buyable-quantity
   - bundles/log-aws-cloud-watch-connector
-  - bundles/log-io
+  - bundles/log-log-io-connector
   - bundles/log-slack-connector
   - bundles/mail-bcc
   - bundles/one-time-password
