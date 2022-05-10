@@ -206,7 +206,7 @@
     "fond-of-oryx/jellyfish-thirty-five-up": "*",
     "fond-of-oryx/limit-buyable-quantity": "*",
     "fond-of-oryx/log-aws-cloud-watch-connector": "*",
-    "fond-of-oryx/log-log-io-connector-connector": "*",
+    "fond-of-oryx/log-log-io-connector": "*",
     "fond-of-oryx/log-slack-connector": "*",
     "fond-of-oryx/mail-bcc": "*",
     "fond-of-oryx/one-time-password": "*",
