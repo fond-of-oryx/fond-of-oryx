@@ -81,9 +81,9 @@ class CustomerProductListConnectorBusinessFactoryTest extends Unit
             /**
              * @param \Spryker\Shared\Log\Config\LoggerConfigInterface|null $loggerConfig
              *
-             * @return \Psr\Log\LoggerInterface|null
+             * @return \Psr\Log\LoggerInterface
              */
-            protected function getLogger(?LoggerConfigInterface $loggerConfig = null)
+            protected function getLogger(?LoggerConfigInterface $loggerConfig = null): LoggerInterface
             {
                 return $this->logger;
             }

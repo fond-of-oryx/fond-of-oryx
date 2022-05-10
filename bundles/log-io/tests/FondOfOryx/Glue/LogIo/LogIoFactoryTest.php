@@ -34,7 +34,7 @@ class LogIoFactoryTest extends Unit
     /**
      * @return void
      */
-    public function testCreateGelfHandler(): void
+    public function testCreateLogIoHandler(): void
     {
         $this->configMock->expects(static::atLeastOnce())
             ->method('getLogLevel')

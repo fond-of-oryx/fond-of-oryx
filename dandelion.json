@@ -360,8 +360,16 @@
       "path": "bundles/limit-buyable-quantity/",
       "version": "1.0.0"
     },
+    "log-aws-cloud-watch-connector": {
+      "path": "bundles/log-aws-cloud-watch-connector/",
+      "version": "1.0.0"
+    },
     "log-io": {
       "path": "bundles/log-io/",
+      "version": "1.0.0"
+    },
+    "log-slack-connector": {
+      "path": "bundles/log-slack-connector/",
       "version": "1.0.0"
     },
     "mail-bcc": {

@@ -14,7 +14,7 @@ phpcs-with-cache:
 
 .PHONY: phpcbf
 phpcbf:
-	./vendor/bin/phpcbf -d memory_limit=-1 --standard=./vendor/spryker/code-sniffer/Spryker/ruleset.xml./bundles/*
+	./vendor/bin/phpcbf -d memory_limit=-1 --standard=./vendor/spryker/code-sniffer/Spryker/ruleset.xml ./bundles/*
 
 .PHONY: phpstan
 phpstan:

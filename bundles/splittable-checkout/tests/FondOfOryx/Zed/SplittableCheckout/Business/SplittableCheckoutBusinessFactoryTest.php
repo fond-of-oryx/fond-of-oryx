@@ -9,6 +9,7 @@ use FondOfOryx\Zed\SplittableCheckout\Dependency\Facade\SplittableCheckoutToPerm
 use FondOfOryx\Zed\SplittableCheckout\Dependency\Facade\SplittableCheckoutToQuoteFacadeInterface;
 use FondOfOryx\Zed\SplittableCheckout\Dependency\Facade\SplittableCheckoutToSplittableQuoteFacadeInterface;
 use FondOfOryx\Zed\SplittableCheckout\SplittableCheckoutDependencyProvider;
+use Psr\Log\LoggerInterface;
 use Psr\Log\NullLogger;
 use Spryker\Shared\Log\Config\LoggerConfigInterface;
 use Spryker\Zed\Kernel\Container;
@@ -74,9 +75,9 @@ class SplittableCheckoutBusinessFactoryTest extends Unit
             /**
              * @param \Spryker\Shared\Log\Config\LoggerConfigInterface|null $loggerConfig
              *
-             * @return \Psr\Log\LoggerInterface|null
+             * @return \Psr\Log\LoggerInterface
              */
-            protected function getLogger(?LoggerConfigInterface $loggerConfig = null)
+            protected function getLogger(?LoggerConfigInterface $loggerConfig = null): LoggerInterface
             {
                 return new NullLogger();
             }
