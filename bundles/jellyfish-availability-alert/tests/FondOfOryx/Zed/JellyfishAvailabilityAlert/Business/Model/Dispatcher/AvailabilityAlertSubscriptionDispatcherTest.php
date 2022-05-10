@@ -7,7 +7,7 @@ use Exception;
 use FondOfOryx\Zed\JellyfishAvailabilityAlert\Business\Api\Adapter\AvailabilityAlertAdapter;
 use FondOfOryx\Zed\JellyfishAvailabilityAlert\Business\Api\Adapter\AvailabilityAlertAdapterInterface;
 use Generated\Shared\Transfer\AvailabilityAlertSubscriptionTransfer;
-use Monolog\Logger;
+use Psr\Log\LoggerInterface;
 use Spryker\Shared\Log\Config\LoggerConfigInterface;
 
 class AvailabilityAlertSubscriptionDispatcherTest extends Unit
@@ -40,13 +40,13 @@ class AvailabilityAlertSubscriptionDispatcherTest extends Unit
         parent::_before();
 
         $this->adapterMock = $this->getMockBuilder(AvailabilityAlertAdapter::class)->disableOriginalConstructor()->getMock();
-        $this->loggerMock = $this->getMockBuilder(Logger::class)->disableOriginalConstructor()->getMock();
+        $this->loggerMock = $this->getMockBuilder(LoggerInterface::class)->disableOriginalConstructor()->getMock();
         $this->subscriptionTransferMock = $this->getMockBuilder(AvailabilityAlertSubscriptionTransfer::class)->disableOriginalConstructor()->getMock();
 
         $this->dispatcher = new class ($this->adapterMock, $this->loggerMock) extends AvailabilityAlertSubscriptionDispatcher
         {
             /**
-             * @var \Monolog\Logger
+             * @var \Psr\Log\LoggerInterface
              */
             protected $logger;
 
@@ -54,9 +54,9 @@ class AvailabilityAlertSubscriptionDispatcherTest extends Unit
              *  constructor.
              *
              * @param \FondOfOryx\Zed\JellyfishAvailabilityAlert\Business\Api\Adapter\AvailabilityAlertAdapterInterface $adapter
-             * @param \Monolog\Logger $logger
+             * @param \Psr\Log\LoggerInterface $logger
              */
-            public function __construct(AvailabilityAlertAdapterInterface $adapter, Logger $logger)
+            public function __construct(AvailabilityAlertAdapterInterface $adapter, LoggerInterface $logger)
             {
                 parent::__construct($adapter);
                 $this->logger = $logger;
@@ -65,9 +65,9 @@ class AvailabilityAlertSubscriptionDispatcherTest extends Unit
             /**
              * @param \Spryker\Shared\Log\Config\LoggerConfigInterface|null $loggerConfig
              *
-             * @return \Monolog\Logger
+             * @return \Psr\Log\LoggerInterface
              */
-            public function getLogger(?LoggerConfigInterface $loggerConfig = null)
+            public function getLogger(?LoggerConfigInterface $loggerConfig = null): LoggerInterface
             {
                 return $this->logger;
             }
