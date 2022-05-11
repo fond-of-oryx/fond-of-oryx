@@ -344,6 +344,10 @@
       "path": "bundles/jellyfish-sales-order-payone/",
       "version": "1.0.1"
     },
+    "jellyfish-sales-order-payone-gift-card-connector": {
+      "path": "bundles/jellyfish-sales-order-payone-gift-card-connector/",
+      "version": "1.0.0-alpha.1"
+    },
     "jellyfish-sales-order-product-type": {
       "path": "bundles/jellyfish-sales-order-product-type/",
       "version": "1.0.1"

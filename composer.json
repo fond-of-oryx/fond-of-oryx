@@ -12,6 +12,12 @@
       "email": "gengjozsef86@gmail.com"
     }
   ],
+  "repositories": [
+    {
+      "type": "vcs",
+      "url": "https://github.com/fond-of/payone"
+    }
+  ],
   "require": {
     "php": ">=7.3",
     "ext-json": "*",
@@ -99,7 +105,7 @@
     "spryker/util-encoding": "^1.0.0 || ^2.0.0",
     "spryker/uuid-behavior": "^1.0.0",
     "spryker/zed-request": "^3.3.0",
-    "spryker-eco/payone": "^4.0.0"
+    "spryker-eco/payone": "dev-feature/add-service as 4.4.2"
   },
   "require-dev": {
     "fond-of-codeception/spryker": "^1.0",
@@ -175,6 +181,7 @@
     "fond-of-oryx/erp-order-permission": "*",
     "fond-of-oryx/feed": "*",
     "fond-of-oryx/gift-card-api": "*",
+    "fond-of-oryx/gift-card-credit-memo": "*",
     "fond-of-oryx/gift-card-expiration": "*",
     "fond-of-oryx/gift-card-product-connector": "*",
     "fond-of-oryx/gift-card-restriction": "*",
@@ -201,6 +208,7 @@
     "fond-of-oryx/jellyfish-sales-order-gift-card-connector": "*",
     "fond-of-oryx/jellyfish-sales-order-order-custom-reference": "*",
     "fond-of-oryx/jellyfish-sales-order-payone": "*",
+    "fond-of-oryx/jellyfish-sales-order-payone-gift-card-connector": "*",
     "fond-of-oryx/jellyfish-sales-order-product-type": "*",
     "fond-of-oryx/jellyfish-sales-order-vat-id": "*",
     "fond-of-oryx/jellyfish-thirty-five-up": "*",
@@ -219,7 +227,6 @@
     "fond-of-oryx/payment-epc-qr-code": "*",
     "fond-of-oryx/payone-credit-memo": "*",
     "fond-of-oryx/payone-credit-memo-extension": "*",
-    "fond-of-oryx/payone-credit-memo-gift-card-connector": "*",
     "fond-of-oryx/prepayment": "*",
     "fond-of-oryx/prepayment-credit-memo": "*",
     "fond-of-oryx/gift-card-payment-connector": "*",
@@ -507,6 +514,7 @@
       "FondOfOryx\\Zed\\JellyfishSalesOrderExtension\\": "bundles/jellyfish-sales-order-extension/src/FondOfOryx/Zed/JellyfishSalesOrderExtension",
       "FondOfOryx\\Zed\\JellyfishSalesOrderOrderCustomReference\\": "bundles/jellyfish-sales-order-order-custom-reference/src/FondOfOryx/Zed/JellyfishSalesOrderOrderCustomReference",
       "FondOfOryx\\Zed\\JellyfishSalesOrderPayone\\": "bundles/jellyfish-sales-order-payone/src/FondOfOryx/Zed/JellyfishSalesOrderPayone",
+      "FondOfOryx\\Zed\\JellyfishSalesOrderPayoneGiftCardConnector\\": "bundles/jellyfish-sales-order-payone-gift-card-connector/src/FondOfOryx/Zed/JellyfishSalesOrderPayoneGiftCardConnector",
       "FondOfOryx\\Zed\\JellyfishSalesOrderProductType\\": "bundles/jellyfish-sales-order-product-type/src/FondOfOryx/Zed/JellyfishSalesOrderProductType",
       "FondOfOryx\\Zed\\JellyfishSalesOrderVatId\\": "bundles/jellyfish-sales-order-vat-id/src/FondOfOryx/Zed/JellyfishSalesOrderVatId",
       "FondOfOryx\\Zed\\JellyfishThirtyFiveUp\\": "bundles/jellyfish-thirty-five-up/src/FondOfOryx/Zed/JellyfishThirtyFiveUp",
@@ -524,7 +532,6 @@
       "FondOfOryx\\Zed\\PaymentProductRestriction\\": "bundles/payment-product-restriction/src/FondOfOryx/Zed/PaymentProductRestriction",
       "FondOfOryx\\Zed\\PayoneCreditMemo\\": "bundles/payone-credit-memo/src/FondOfOryx/Zed/PayoneCreditMemo",
       "FondOfOryx\\Zed\\PayoneCreditMemoExtension\\": "bundles/payone-credit-memo-extension/src/FondOfOryx/Zed/PayoneCreditMemoExtension",
-      "FondOfOryx\\Zed\\PayoneCreditMemoGiftCardConnector\\": "bundles/payone-credit-memo-gift-card-connector/src/FondOfOryx/Zed/PayoneCreditMemoGiftCardConnector",
       "FondOfOryx\\Zed\\Prepayment\\": "bundles/prepayment/src/FondOfOryx/Zed/Prepayment",
       "FondOfOryx\\Zed\\PrepaymentCreditMemo\\": "bundles/prepayment-credit-memo/src/FondOfOryx/Zed/PrepaymentCreditMemo",
       "FondOfOryx\\Zed\\PriceListExtension\\": "bundles/price-list-extension/src/FondOfOryx/Zed/PriceListExtension",
@@ -783,6 +790,7 @@
       "FondOfOryx\\Zed\\JellyfishSalesOrderGiftCardConnector\\": "bundles/jellyfish-sales-order-gift-card-connector/tests/FondOfOryx/Zed/JellyfishSalesOrderGiftCardConnector",
       "FondOfOryx\\Zed\\JellyfishSalesOrderOrderCustomReference\\": "bundles/jellyfish-sales-order-order-custom-reference/tests/FondOfOryx/Zed/JellyfishSalesOrderOrderCustomReference",
       "FondOfOryx\\Zed\\JellyfishSalesOrderPayone\\": "bundles/jellyfish-sales-order-payone/tests/FondOfOryx/Zed/JellyfishSalesOrderPayone",
+      "FondOfOryx\\Zed\\JellyfishSalesOrderPayoneGiftCardConnector\\": "bundles/jellyfish-sales-order-payone-gift-card-connector/tests/FondOfOryx/Zed/JellyfishSalesOrderPayoneGiftCardConnector",
       "FondOfOryx\\Zed\\JellyfishSalesOrderProductType\\": "bundles/jellyfish-sales-order-product-type/tests/FondOfOryx/Zed/JellyfishSalesOrderProductType",
       "FondOfOryx\\Zed\\JellyfishSalesOrderVatId\\": "bundles/jellyfish-sales-order-vat-id/tests/FondOfOryx/Zed/JellyfishSalesOrderVatId",
       "FondOfOryx\\Zed\\JellyfishThirtyFiveUp\\": "bundles/jellyfish-thirty-five-up/tests/FondOfOryx/Zed/JellyfishThirtyFiveUp",
@@ -800,7 +808,6 @@
       "FondOfOryx\\Zed\\PaymentProductRestriction\\": "bundles/payment-product-restriction/tests/FondOfOryx/Zed/PaymentProductRestriction",
       "FondOfOryx\\Zed\\PaymentEpcQrCode\\": "bundles/payment-epc-qr-code/tests/FondOfOryx/Zed/PaymentEpcQrCode",
       "FondOfOryx\\Zed\\PayoneCreditMemo\\": "bundles/payone-credit-memo/tests/FondOfOryx/Zed/PayoneCreditMemo",
-      "FondOfOryx\\Zed\\PayoneCreditMemoGiftCardConnector\\": "bundles/payone-credit-memo-gift-card-connector/tests/FondOfOryx/Zed/PayoneCreditMemoGiftCardConnector",
       "FondOfOryx\\Zed\\PayoneCreditMemoExtension\\": "bundles/payone-credit-memo-extension/tests/FondOfOryx/Zed/PayoneCreditMemoExtension",
       "FondOfOryx\\Zed\\PrepaymentCreditMemo\\": "bundles/prepayment-credit-memo/tests/FondOfOryx/Zed/PrepaymentCreditMemo",
       "FondOfOryx\\Zed\\ProductCountryRestrictionCheckoutConnector\\": "bundles/product-country-restriction-checkout-connector/tests/FondOfOryx/Zed/ProductCountryRestrictionCheckoutConnector",
