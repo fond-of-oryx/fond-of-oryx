@@ -4,8 +4,12 @@ namespace FondOfOryx\Zed\JellyfishSalesOrderPayoneGiftCardConnector\Business;
 
 use FondOfOryx\Zed\JellyfishSalesOrderPayoneGiftCardConnector\Business\Calculator\ProportionalGiftCardAmountCalculator;
 use FondOfOryx\Zed\JellyfishSalesOrderPayoneGiftCardConnector\Business\Calculator\ProportionalGiftCardAmountCalculatorInterface;
+use FondOfOryx\Zed\JellyfishSalesOrderPayoneGiftCardConnector\Business\Expander\OrderItemsExpander;
+use FondOfOryx\Zed\JellyfishSalesOrderPayoneGiftCardConnector\Business\Expander\OrderItemsExpanderInterface;
 use FondOfOryx\Zed\JellyfishSalesOrderPayoneGiftCardConnector\Business\Manager\ProportionalGiftCardValueManager;
 use FondOfOryx\Zed\JellyfishSalesOrderPayoneGiftCardConnector\Business\Manager\ProportionalGiftCardValueManagerInterface;
+use FondOfOryx\Zed\JellyfishSalesOrderPayoneGiftCardConnector\Business\Reader\GiftCardAmountReader;
+use FondOfOryx\Zed\JellyfishSalesOrderPayoneGiftCardConnector\Business\Reader\GiftCardAmountReaderInterface;
 use FondOfOryx\Zed\JellyfishSalesOrderPayoneGiftCardConnector\Dependency\Facade\JellyfishSalesOrderPayoneGiftCardConnectorToSalesFacadeInterface;
 use FondOfOryx\Zed\JellyfishSalesOrderPayoneGiftCardConnector\Dependency\Service\JellyfishSalesOrderPayoneGiftCardConnectorToPayoneServiceInterface;
 use FondOfOryx\Zed\JellyfishSalesOrderPayoneGiftCardConnector\JellyfishSalesOrderPayoneGiftCardConnectorDependencyProvider;
@@ -13,6 +17,7 @@ use Spryker\Zed\Kernel\Business\AbstractBusinessFactory;
 
 /**
  * @method \FondOfOryx\Zed\JellyfishSalesOrderPayoneGiftCardConnector\Persistence\JellyfishSalesOrderPayoneGiftCardConnectorEntityManagerInterface getEntityManager()
+ * @method \FondOfOryx\Zed\JellyfishSalesOrderPayoneGiftCardConnector\Persistence\JellyfishSalesOrderPayoneGiftCardConnectorRepositoryInterface getRepository()
  */
 class JellyfishSalesOrderPayoneGiftCardConnectorBusinessFactory extends AbstractBusinessFactory
 {
@@ -46,5 +51,21 @@ class JellyfishSalesOrderPayoneGiftCardConnectorBusinessFactory extends Abstract
     protected function getPayoneService(): JellyfishSalesOrderPayoneGiftCardConnectorToPayoneServiceInterface
     {
         return $this->getProvidedDependency(JellyfishSalesOrderPayoneGiftCardConnectorDependencyProvider::SERVICE_PAYONE);
+    }
+
+    /**
+     * @return \FondOfOryx\Zed\JellyfishSalesOrderPayoneGiftCardConnector\Business\Expander\OrderItemsExpanderInterface
+     */
+    public function createOrderItemsExpander(): OrderItemsExpanderInterface
+    {
+        return new OrderItemsExpander($this->createGiftCardAmountReader());
+    }
+
+    /**
+     * @return \FondOfOryx\Zed\JellyfishSalesOrderPayoneGiftCardConnector\Business\Reader\GiftCardAmountReaderInterface
+     */
+    protected function createGiftCardAmountReader(): GiftCardAmountReaderInterface
+    {
+        return new GiftCardAmountReader($this->getRepository());
     }
 }

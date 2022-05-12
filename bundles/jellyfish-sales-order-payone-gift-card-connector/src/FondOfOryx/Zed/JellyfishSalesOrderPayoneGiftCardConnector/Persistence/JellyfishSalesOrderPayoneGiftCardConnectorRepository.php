@@ -3,6 +3,7 @@
 namespace FondOfOryx\Zed\JellyfishSalesOrderPayoneGiftCardConnector\Persistence;
 
 use Generated\Shared\Transfer\ProportionalGiftCardValueTransfer;
+use Orm\Zed\JellyfishSalesOrderPayoneGiftCardConnector\Persistence\Map\FooProportionalGiftCardValueTableMap;
 use Spryker\Zed\Kernel\Persistence\AbstractRepository;
 
 /**
@@ -28,5 +29,24 @@ class JellyfishSalesOrderPayoneGiftCardConnectorRepository extends AbstractRepos
         $result = $query->findOne();
 
         return $result === null ? null : $this->getFactory()->createProportionalGiftCardValueMapper()->mapEntityToTransfer($result);
+    }
+
+    /**
+     * @param int $idSalesOrderItem
+     *
+     * @return int|null
+     */
+    public function findGiftCardAmountByIdSalesOrderItem(int $idSalesOrderItem): ?int
+    {
+        $query = $this->getFactory()
+            ->createProportionalGiftCardValueQuery();
+
+        /** @var int|null $giftCardAmount */
+        $giftCardAmount = $query->clear()
+            ->select([FooProportionalGiftCardValueTableMap::COL_VALUE])
+            ->filterByFkSalesOrderItem($idSalesOrderItem)
+            ->findOne();
+
+        return $giftCardAmount;
     }
 }

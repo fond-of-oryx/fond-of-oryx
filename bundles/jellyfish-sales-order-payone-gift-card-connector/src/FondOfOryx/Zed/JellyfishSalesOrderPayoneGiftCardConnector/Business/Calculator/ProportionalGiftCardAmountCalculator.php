@@ -56,6 +56,7 @@ class ProportionalGiftCardAmountCalculator implements ProportionalGiftCardAmount
         $giftCardBalances = $this->getJellyfishGiftCardBalances($recalculatedOrderTransfer, $orderTransfer);
 
         $usedBalances = [];
+
         foreach ($giftCardBalances as $balance) {
             $usedBalances = $this->handleItems($jellyfishOrderTransfer, $balance, $usedBalances);
             $usedBalances = $this->handleExpenses($jellyfishOrderTransfer, $balance, $usedBalances);
@@ -87,21 +88,26 @@ class ProportionalGiftCardAmountCalculator implements ProportionalGiftCardAmount
     protected function prepareItems(OrderTransfer $recalculatedOrderTransfer, OrderTransfer $orderTransfer): array
     {
         $collection = [];
-        $idSalesOrder = $orderTransfer->getIdSalesOrder();
-        $orderReference = $orderTransfer->getOrderReference();
-        foreach ($recalculatedOrderTransfer->getItems() as $recalculatedOrderItemTransfer) {
-            foreach ($orderTransfer->getItems() as $orderItemTransfer) {
-                $idSaledOrderItem = $orderItemTransfer->getIdSalesOrderItem();
-                if (array_key_exists($idSaledOrderItem, $collection) === false && $recalculatedOrderItemTransfer->getIdSalesOrderItem() === $idSaledOrderItem) {
-                    $proportionalValue = $orderItemTransfer->getUnitPriceToPayAggregation() - $recalculatedOrderItemTransfer->getUnitPriceToPayAggregation();
-                    $itemBalance = (new ProportionalGiftCardValueTransfer())
-                        ->setValue($proportionalValue)
-                        ->setFkSalesOrderItem($idSaledOrderItem)
-                        ->setFkSalesOrder($idSalesOrder)
-                        ->setOrderReference($orderReference)
-                        ->setSku($orderItemTransfer->getSku());
-                    $collection[] = $itemBalance;
+
+        foreach ($recalculatedOrderTransfer->getItems() as $recalculatedItemTransfer) {
+            foreach ($orderTransfer->getItems() as $itemTransfer) {
+                $idSalesOrderItem = $itemTransfer->getIdSalesOrderItem();
+                $recalculatedIdSalesOrderItem = $recalculatedItemTransfer->getIdSalesOrderItem();
+
+                if (isset($collection[$idSalesOrderItem]) || $idSalesOrderItem !== $recalculatedIdSalesOrderItem) {
+                    continue;
                 }
+
+                $itemBalance = (new ProportionalGiftCardValueTransfer())
+                    ->setValue(
+                        $itemTransfer->getUnitPriceToPayAggregation() - $recalculatedItemTransfer->getUnitPriceToPayAggregation(),
+                    )
+                    ->setFkSalesOrderItem($idSalesOrderItem)
+                    ->setFkSalesOrder($orderTransfer->getIdSalesOrder())
+                    ->setOrderReference($orderTransfer->getOrderReference())
+                    ->setSku($itemTransfer->getSku());
+
+                $collection[$idSalesOrderItem] = $itemBalance;
             }
         }
 
@@ -117,21 +123,30 @@ class ProportionalGiftCardAmountCalculator implements ProportionalGiftCardAmount
     protected function prepareExpenses(OrderTransfer $recalculatedOrderTransfer, OrderTransfer $orderTransfer): array
     {
         $collection = [];
-        $idSalesOrder = $orderTransfer->getIdSalesOrder();
-        $orderReference = $orderTransfer->getOrderReference();
-        foreach ($recalculatedOrderTransfer->getExpenses() as $recalculatedExpenses) {
-            foreach ($orderTransfer->getExpenses() as $orderExpenseTransfer) {
-                $idSalesExpense = $orderExpenseTransfer->getIdSalesExpense();
-                if (array_key_exists($idSalesExpense, $collection) === false && $recalculatedExpenses->getIdSalesExpense() === $idSalesExpense) {
-                    $proportionalValue = $orderExpenseTransfer->getSumGrossPrice() - $recalculatedExpenses->getSumGrossPrice();
-                    $itemBalance = (new ProportionalGiftCardValueTransfer())
-                        ->setValue($proportionalValue)
-                        ->setFkSalesExpense($idSalesExpense)
-                        ->setFkSalesOrder($idSalesOrder)
-                        ->setOrderReference($orderReference)
-                        ->setSku(static::EXPENSE_MAPPING[$orderExpenseTransfer->getType()]);
-                    $collection[] = $itemBalance;
+
+        foreach ($recalculatedOrderTransfer->getExpenses() as $recalculatedExpenseTransfer) {
+            foreach ($orderTransfer->getExpenses() as $expenseTransfer) {
+                $idSalesExpense = $expenseTransfer->getIdSalesExpense();
+                $recalculatedIdSalesExpense = $recalculatedExpenseTransfer->getIdSalesExpense();
+                $expenseType = $expenseTransfer->getType();
+
+                if (
+                    !isset(static::EXPENSE_MAPPING[$expenseType]) || isset($collection[$idSalesExpense])
+                    || $idSalesExpense !== $recalculatedIdSalesExpense
+                ) {
+                    continue;
                 }
+
+                $itemBalance = (new ProportionalGiftCardValueTransfer())
+                    ->setValue(
+                        $expenseTransfer->getSumGrossPrice() - $recalculatedExpenseTransfer->getSumGrossPrice(),
+                    )
+                    ->setFkSalesExpense($idSalesExpense)
+                    ->setFkSalesOrder($orderTransfer->getIdSalesOrder())
+                    ->setOrderReference($orderTransfer->getOrderReference())
+                    ->setSku(static::EXPENSE_MAPPING[$expenseType]);
+
+                $collection[$idSalesExpense] = $itemBalance;
             }
         }
 
@@ -149,16 +164,22 @@ class ProportionalGiftCardAmountCalculator implements ProportionalGiftCardAmount
     {
         foreach ($jellyfishOrderTransfer->getItems() as $item) {
             $idSalesOrderItem = $balance->getFkSalesOrderItem();
+
             if ($idSalesOrderItem === null) {
                 continue;
             }
-            if (array_key_exists($idSalesOrderItem, $usedBalances) === false && $item->getSku() === $balance->getSku()) {
-                $usedBalances[$idSalesOrderItem] = $balance;
-                $proportionalCouponValue = (new JellyfishProportionalCouponValueTransfer())
-                    ->setAmount($balance->getValue())
-                    ->setIdSalesOrderItem($idSalesOrderItem);
-                $item->addProportionalCouponValue($proportionalCouponValue);
+
+            if (isset($usedBalances[$idSalesOrderItem]) || $item->getSku() !== $balance->getSku()) {
+                continue;
             }
+
+            $usedBalances[$idSalesOrderItem] = $balance;
+
+            $proportionalCouponValue = (new JellyfishProportionalCouponValueTransfer())
+                ->setAmount($balance->getValue())
+                ->setIdSalesOrderItem($idSalesOrderItem);
+
+            $item->addProportionalCouponValue($proportionalCouponValue);
         }
 
         return $usedBalances;
@@ -175,16 +196,24 @@ class ProportionalGiftCardAmountCalculator implements ProportionalGiftCardAmount
     {
         foreach ($jellyfishOrderTransfer->getExpenses() as $expense) {
             $idSalesExpense = $balance->getFkSalesExpense();
+
             if ($idSalesExpense === null) {
                 continue;
             }
-            $identifier = $idSalesExpense . $expense->getType();
-            if (array_key_exists($identifier, $usedBalances) === false && array_key_exists($expense->getType(), static::EXPENSE_MAPPING) && static::EXPENSE_MAPPING[$expense->getType()] === $balance->getSku()) {
-                $usedBalances[$identifier] = $balance;
-                $proportionalCouponValue = (new JellyfishProportionalCouponValueTransfer())
-                    ->setAmount($balance->getValue());
-                $expense->addProportionalCouponValue($proportionalCouponValue);
+
+            $expenseType = $expense->getType();
+            $identifier = $idSalesExpense . $expenseType;
+
+            if (isset($usedBalances[$identifier]) || !isset(static::EXPENSE_MAPPING[$expenseType]) || static::EXPENSE_MAPPING[$expenseType] !== $balance->getSku()) {
+                continue;
             }
+
+            $usedBalances[$identifier] = $balance;
+
+            $proportionalCouponValue = (new JellyfishProportionalCouponValueTransfer())
+                ->setAmount($balance->getValue());
+
+            $expense->addProportionalCouponValue($proportionalCouponValue);
         }
 
         return $usedBalances;
