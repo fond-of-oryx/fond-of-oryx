@@ -119,7 +119,7 @@
     "credit-memo-gift-card-connector": {
       "path": "bundles/credit-memo-gift-card-connector/",
       "version": "0.0.1-alpha"
-    },,
+    },
     "credit-memo-migrator": {
       "path": "bundles/credit-memo-migrator/",
       "version": "1.0.0"
