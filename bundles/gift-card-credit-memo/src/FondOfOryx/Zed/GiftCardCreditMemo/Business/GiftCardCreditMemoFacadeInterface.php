@@ -1,0 +1,25 @@
+<?php
+
+namespace FondOfOryx\Zed\GiftCardCreditMemo\Business;
+
+use Orm\Zed\Sales\Persistence\SpySalesOrder;
+use Spryker\Zed\Oms\Business\Util\ReadOnlyArrayObject;
+
+interface GiftCardCreditMemoFacadeInterface
+{
+    /**
+     * @param int $idSalesOrderItem
+     *
+     * @return bool
+     */
+    public function hasGiftCardRefund(int $idSalesOrderItem): bool;
+
+    /**
+     * @param array $orderItems
+     * @param \Orm\Zed\Sales\Persistence\SpySalesOrder $orderEntity
+     * @param \Spryker\Zed\Oms\Business\Util\ReadOnlyArrayObject $data
+     *
+     * @return array
+     */
+    public function executePartialGiftCardRefund(array $orderItems, SpySalesOrder $orderEntity, ReadOnlyArrayObject $data): array;
+}
