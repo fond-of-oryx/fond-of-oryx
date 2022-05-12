@@ -58,4 +58,42 @@ class CreditMemoGiftCardConnectorRepository extends AbstractRepository implement
 
         return $giftCards;
     }
+
+    /**
+     * @param int $idSalesOrderItem
+     *
+     * @return array<\Generated\Shared\Transfer\CreditMemoGiftCardTransfer>
+     */
+    public function findCreditMemoGiftCardsByIdSalesOrderItem(int $idSalesOrderItem): array
+    {
+        $fooCreditMemos = $this->getFactory()->getCreditMemoQuery()
+            ->joinFooCreditMemoItem()
+                ->useFooCreditMemoItemQuery()
+                    ->filterByFkSalesOrderItem($idSalesOrderItem)
+                ->endUse()
+            ->joinWithFooCreditMemoGiftCard()
+            ->find();
+
+        $giftCards = [];
+
+        if (count($fooCreditMemos->getData()) === 0) {
+            return $giftCards;
+        }
+
+        /** @var \Orm\Zed\CreditMemo\Persistence\FooCreditMemo $fooCreditMemo */
+        foreach ($fooCreditMemos->getData() as $fooCreditMemo) {
+            if ($fooCreditMemo->hasGiftCards() === false) {
+                continue;
+            }
+            $fooGiftCards = $fooCreditMemo->getFooCreditMemoGiftCards();
+            foreach ($fooGiftCards as $giftCard) {
+                $giftCards[] = $this->getFactory()->createCreditMemoGiftCardMapper()->mapEntityToTransfer(
+                    $giftCard,
+                    new CreditMemoGiftCardTransfer(),
+                );
+            }
+        }
+
+        return $giftCards;
+    }
 }

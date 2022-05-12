@@ -19,4 +19,11 @@ interface CreditMemoGiftCardConnectorRepositoryInterface
      * @return array<\Generated\Shared\Transfer\CreditMemoGiftCardTransfer>
      */
     public function findCreditMemoGiftCardsByFkCreditMemo(int $fkCreditMemo): array;
+
+    /**
+     * @param int $idSalesOrderItem
+     *
+     * @return array<\Generated\Shared\Transfer\CreditMemoGiftCardTransfer>
+     */
+    public function findCreditMemoGiftCardsByIdSalesOrderItem(int $idSalesOrderItem): array;
 }

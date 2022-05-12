@@ -25,4 +25,18 @@ class CreditMemoGiftCardConnectorFacade extends AbstractFacade implements Credit
     {
         return $this->getFactory()->createCreditMemoGiftCardsWriter()->create($creditMemoTransfer);
     }
+
+    /**
+     * {@inheritDoc}
+     *
+     * @api
+     *
+     * @param int $idSalesOrderItem
+     *
+     * @return array
+     */
+    public function findCreditMemoGiftCardsByIdSalesOrderItem(int $idSalesOrderItem): array
+    {
+        return $this->getRepository()->findCreditMemoGiftCardsByIdSalesOrderItem($idSalesOrderItem);
+    }
 }
