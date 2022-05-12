@@ -417,7 +417,7 @@
       "version": "1.1.0"
     },
     "payone-credit-memo-gift-card-connector": {
-      "path": "bundles/prepayment-credit-memo-gift-card-connector/",
+      "path": "bundles/payone-credit-memo-gift-card-connector/",
       "version": "0.0.1-alpha"
     },
     "prepayment-credit-memo": {
