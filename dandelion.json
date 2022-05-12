@@ -410,7 +410,7 @@
     },
     "payone-credit-memo": {
       "path": "bundles/payone-credit-memo/",
-      "version": "1.1.0-pre"
+      "version": "1.1.0-alpha"
     },
     "payone-credit-memo-extension": {
       "path": "bundles/payone-credit-memo-extension/",
