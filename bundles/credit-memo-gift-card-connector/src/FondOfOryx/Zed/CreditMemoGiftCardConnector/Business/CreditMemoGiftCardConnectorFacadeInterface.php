@@ -17,4 +17,15 @@ interface CreditMemoGiftCardConnectorFacadeInterface
      * @return \Generated\Shared\Transfer\CreditMemoTransfer
      */
     public function createCreditMemoGiftCards(CreditMemoTransfer $creditMemoTransfer): CreditMemoTransfer;
+
+    /**
+     * {@inheritDoc}
+     *
+     * @api
+     *
+     * @param int $idSalesOrderItem
+     *
+     * @return array
+     */
+    public function findCreditMemoGiftCardsByIdSalesOrderItem(int $idSalesOrderItem): array;
 }

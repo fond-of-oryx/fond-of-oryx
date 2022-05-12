@@ -2,9 +2,11 @@
 
 namespace FondOfOryx\Zed\CreditMemoGiftCardConnector\Persistence;
 
+use FondOfOryx\Zed\CreditMemoGiftCardConnector\CreditMemoGiftCardConnectorDependencyProvider;
 use FondOfOryx\Zed\CreditMemoGiftCardConnector\Persistence\Propel\Mapper\CreditMemoGiftCardMapper;
 use FondOfOryx\Zed\CreditMemoGiftCardConnector\Persistence\Propel\Mapper\CreditMemoGiftCardMapperInterface;
 use Orm\Zed\CreditMemo\Persistence\FooCreditMemoGiftCardQuery;
+use Orm\Zed\CreditMemo\Persistence\FooCreditMemoQuery;
 use Spryker\Zed\Kernel\Persistence\AbstractPersistenceFactory;
 
 /**
@@ -20,6 +22,14 @@ class CreditMemoGiftCardConnectorPersistenceFactory extends AbstractPersistenceF
     public function createCreditMemoGiftCardQuery(): FooCreditMemoGiftCardQuery
     {
         return FooCreditMemoGiftCardQuery::create();
+    }
+
+    /**
+     * @return \Orm\Zed\CreditMemo\Persistence\FooCreditMemoQuery
+     */
+    public function getCreditMemoQuery(): FooCreditMemoQuery
+    {
+        return $this->getProvidedDependency(CreditMemoGiftCardConnectorDependencyProvider::QUERY_FOO_CREDIT_MEMO);
     }
 
     /**
