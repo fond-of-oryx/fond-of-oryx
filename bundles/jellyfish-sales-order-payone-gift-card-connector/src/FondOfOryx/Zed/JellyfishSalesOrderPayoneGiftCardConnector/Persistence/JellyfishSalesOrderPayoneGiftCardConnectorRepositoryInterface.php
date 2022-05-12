@@ -14,4 +14,11 @@ interface JellyfishSalesOrderPayoneGiftCardConnectorRepositoryInterface
      * @return \Generated\Shared\Transfer\ProportionalGiftCardValueTransfer|null
      */
     public function findProportionalGiftCardValue(ProportionalGiftCardValueTransfer $proportionalGiftCardValueTransfer): ?ProportionalGiftCardValueTransfer;
+
+    /**
+     * @param int $idSalesOrderItem
+     *
+     * @return int|null
+     */
+    public function findGiftCardAmountByIdSalesOrderItem(int $idSalesOrderItem): ?int;
 }

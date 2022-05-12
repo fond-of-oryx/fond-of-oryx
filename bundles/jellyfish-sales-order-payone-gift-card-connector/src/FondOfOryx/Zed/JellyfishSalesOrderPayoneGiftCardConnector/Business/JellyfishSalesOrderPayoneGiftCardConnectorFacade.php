@@ -33,4 +33,14 @@ class JellyfishSalesOrderPayoneGiftCardConnectorFacade extends AbstractFacade im
     ): void {
         $this->getFactory()->createProportionalGiftCardValueManager()->persistProportionalGiftCardValuesFromExport($jellyfishOrderTransfer);
     }
+
+    /**
+     * @param array<\Generated\Shared\Transfer\ItemTransfer> $itemTransfers
+     *
+     * @return array<\Generated\Shared\Transfer\ItemTransfer>
+     */
+    public function expandOrderItems(array $itemTransfers): array
+    {
+        return $this->getFactory()->createOrderItemsExpander()->expand($itemTransfers);
+    }
 }

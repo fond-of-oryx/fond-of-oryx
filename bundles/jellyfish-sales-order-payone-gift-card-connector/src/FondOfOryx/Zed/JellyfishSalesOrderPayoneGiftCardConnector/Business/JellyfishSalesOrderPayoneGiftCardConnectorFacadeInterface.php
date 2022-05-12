@@ -25,4 +25,11 @@ interface JellyfishSalesOrderPayoneGiftCardConnectorFacadeInterface
     public function persistProportionalCouponValues(
         JellyfishOrderTransfer $jellyfishOrderTransfer
     ): void;
+
+    /**
+     * @param array<\Generated\Shared\Transfer\ItemTransfer> $itemTransfers
+     *
+     * @return array<\Generated\Shared\Transfer\ItemTransfer>
+     */
+    public function expandOrderItems(array $itemTransfers): array;
 }
