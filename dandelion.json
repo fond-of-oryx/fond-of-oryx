@@ -250,7 +250,7 @@
     },
     "gift-card-credit-memo": {
       "path": "bundles/gift-card-credit-memo/",
-      "version": "0.0.1-alpha"
+      "version": "0.1.0-alpha"
     },
     "gift-card-expiration": {
       "path": "bundles/gift-card-expiration/",
