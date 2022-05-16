@@ -3,14 +3,14 @@
 namespace FondOfOryx\Zed\JellyfishGiftCard\Business\Filter;
 
 use Generated\Shared\Transfer\LocaleTransfer;
-use Generated\Shared\Transfer\OrderTransfer;
+use Orm\Zed\Sales\Persistence\SpySalesOrderItem;
 
 interface LocaleFilterInterface
 {
     /**
-     * @param \Generated\Shared\Transfer\OrderTransfer $orderTransfer
+     * @param \Orm\Zed\Sales\Persistence\SpySalesOrderItem $spySalesOrderItem
      *
      * @return \Generated\Shared\Transfer\LocaleTransfer
      */
-    public function fromOrder(OrderTransfer $orderTransfer): LocaleTransfer;
+    public function fromSpySalesOrderItem(SpySalesOrderItem $spySalesOrderItem): LocaleTransfer;
 }

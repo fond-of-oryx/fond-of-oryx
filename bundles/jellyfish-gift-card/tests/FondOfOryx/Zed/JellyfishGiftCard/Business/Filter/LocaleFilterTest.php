@@ -4,8 +4,9 @@ namespace FondOfOryx\Zed\JellyfishGiftCard\Business\Filter;
 
 use Codeception\Test\Unit;
 use FondOfOryx\Zed\JellyfishGiftCard\JellyfishGiftCardConfig;
-use Generated\Shared\Transfer\LocaleTransfer;
-use Generated\Shared\Transfer\OrderTransfer;
+use Orm\Zed\Locale\Persistence\SpyLocale;
+use Orm\Zed\Sales\Persistence\SpySalesOrder;
+use Orm\Zed\Sales\Persistence\SpySalesOrderItem;
 
 class LocaleFilterTest extends Unit
 {
@@ -15,19 +16,34 @@ class LocaleFilterTest extends Unit
     protected $configMock;
 
     /**
-     * @var \Generated\Shared\Transfer\OrderTransfer|\PHPUnit\Framework\MockObject\MockObject
+     * @var \Orm\Zed\Sales\Persistence\SpySalesOrderItem|\PHPUnit\Framework\MockObject\MockObject
      */
-    protected $orderTransferMock;
-
-    /**
-     * @var \Generated\Shared\Transfer\LocaleTransfer|\PHPUnit\Framework\MockObject\MockObject
-     */
-    protected $localeTransferMock;
+    protected $salesOrderItemEntityMock;
 
     /**
      * @var \FondOfOryx\Zed\JellyfishGiftCard\Business\Filter\LocaleFilter
      */
     protected $localeFilter;
+
+    /**
+     * @var \Orm\Zed\Sales\Persistence\SpySalesOrder|\PHPUnit\Framework\MockObject\MockObject
+     */
+    protected $salesOrderEntityMock;
+
+    /**
+     * @var \Orm\Zed\Locale\Persistence\SpyLocale|\PHPUnit\Framework\MockObject\MockObject
+     */
+    protected $localeEntityMock;
+
+    /**
+     * @var array
+     */
+    protected $localeArray;
+
+    /**
+     * @var string
+     */
+    protected $locale;
 
     /**
      * @return void
@@ -40,13 +56,23 @@ class LocaleFilterTest extends Unit
             ->disableOriginalConstructor()
             ->getMock();
 
-        $this->orderTransferMock = $this->getMockBuilder(OrderTransfer::class)
+        $this->salesOrderItemEntityMock = $this->getMockBuilder(SpySalesOrderItem::class)
             ->disableOriginalConstructor()
             ->getMock();
 
-        $this->localeTransferMock = $this->getMockBuilder(LocaleTransfer::class)
+        $this->salesOrderEntityMock = $this->getMockBuilder(SpySalesOrder::class)
             ->disableOriginalConstructor()
             ->getMock();
+
+        $this->localeEntityMock = $this->getMockBuilder(SpyLocale::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $this->locale = 'de_DE';
+
+        $this->localeArray = [
+            'locale_name' => $this->locale,
+        ];
 
         $this->localeFilter = new LocaleFilter($this->configMock);
     }
@@ -54,32 +80,40 @@ class LocaleFilterTest extends Unit
     /**
      * @return void
      */
-    public function testFromOrder(): void
+    public function testFromSpySalesOrderItem(): void
     {
-        $localeName = 'en_US';
+        $this->salesOrderItemEntityMock->expects(static::atLeastOnce())
+            ->method('getOrder')
+            ->willReturn($this->salesOrderEntityMock);
 
-        $this->orderTransferMock->expects(static::atLeastOnce())
+        $this->salesOrderEntityMock->expects(static::atLeastOnce())
             ->method('getLocale')
-            ->willReturn($this->localeTransferMock);
+            ->willReturn($this->localeEntityMock);
 
-        $this->localeTransferMock->expects(static::atLeastOnce())
-            ->method('getLocaleName')
-            ->willReturn($localeName);
+        $this->localeEntityMock->expects(static::atLeastOnce())
+            ->method('toArray')
+            ->willReturn($this->localeArray);
 
         $this->configMock->expects(static::never())
             ->method('getFallbackLocaleName');
 
-        static::assertEquals($this->localeTransferMock, $this->localeFilter->fromOrder($this->orderTransferMock));
+        $localeTransfer = $this->localeFilter->fromSpySalesOrderItem($this->salesOrderItemEntityMock);
+
+        static::assertEquals($localeTransfer->getLocaleName(), $this->locale);
     }
 
     /**
      * @return void
      */
-    public function testFromOrderWithFallback(): void
+    public function testFromSpySalesOrderItemWithFallback(): void
     {
         $fallbackLocaleName = 'en_US';
 
-        $this->orderTransferMock->expects(static::atLeastOnce())
+        $this->salesOrderItemEntityMock->expects(static::atLeastOnce())
+            ->method('getOrder')
+            ->willReturn($this->salesOrderEntityMock);
+
+        $this->salesOrderEntityMock->expects(static::atLeastOnce())
             ->method('getLocale')
             ->willReturn(null);
 
@@ -87,7 +121,7 @@ class LocaleFilterTest extends Unit
             ->method('getFallbackLocaleName')
             ->willReturn($fallbackLocaleName);
 
-        $localeTransfer = $this->localeFilter->fromOrder($this->orderTransferMock);
+        $localeTransfer = $this->localeFilter->fromSpySalesOrderItem($this->salesOrderItemEntityMock);
 
         static::assertEquals($fallbackLocaleName, $localeTransfer->getLocaleName());
     }

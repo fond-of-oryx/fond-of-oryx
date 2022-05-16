@@ -58,7 +58,7 @@ class JellyfishGiftCardRequestMapper implements JellyfishGiftCardRequestMapperIn
             return $jellyfishGiftCardRequestTransfer;
         }
 
-        $localeTransfer = $this->localeFilter->fromOrder($jellyfishGiftCardRequestTransfer->getOrder());
+        $localeTransfer = $this->localeFilter->fromSpySalesOrderItem($spySalesOrderItem);
 
         return $jellyfishGiftCardRequestTransfer->setLocale($localeTransfer);
     }
