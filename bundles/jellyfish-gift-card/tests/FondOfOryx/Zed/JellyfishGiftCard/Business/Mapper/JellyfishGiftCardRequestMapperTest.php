@@ -117,8 +117,8 @@ class JellyfishGiftCardRequestMapperTest extends Unit
             ->willReturn($this->orderTransferMock);
 
         $this->localeFilterMock->expects(static::atLeastOnce())
-            ->method('fromOrder')
-            ->with($this->orderTransferMock)
+            ->method('fromSpySalesOrderItem')
+            ->with($this->salesOrderItemEntityMock)
             ->willReturn($this->localeTransferMock);
 
         $jellyfishGiftCardRequestTransfer = $this->jellyfishGiftCardRequestMapper
@@ -149,7 +149,7 @@ class JellyfishGiftCardRequestMapperTest extends Unit
             ->willReturn(null);
 
         $this->localeFilterMock->expects(static::never())
-            ->method('fromOrder');
+            ->method('fromSpySalesOrderItem');
 
         $jellyfishGiftCardRequestTransfer = $this->jellyfishGiftCardRequestMapper
             ->fromSalesOrderItem($this->salesOrderItemEntityMock);
