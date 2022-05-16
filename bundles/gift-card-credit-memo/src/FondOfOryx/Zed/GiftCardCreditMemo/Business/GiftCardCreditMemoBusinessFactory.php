@@ -9,12 +9,15 @@ use FondOfOryx\Zed\GiftCardCreditMemo\Business\Refund\PartialGiftCardRefundInter
 use FondOfOryx\Zed\GiftCardCreditMemo\Dependency\Facade\GiftCardCreditMemoToCreditMemoGiftCardConnectorInterface;
 use FondOfOryx\Zed\GiftCardCreditMemo\GiftCardCreditMemoDependencyProvider;
 use Spryker\Zed\Kernel\Business\AbstractBusinessFactory;
+use Spryker\Zed\Kernel\Persistence\EntityManager\TransactionTrait;
 
 /**
  * @method \FondOfOryx\Zed\GiftCardCreditMemo\GiftCardCreditMemoConfig getConfig()
  */
 class GiftCardCreditMemoBusinessFactory extends AbstractBusinessFactory
 {
+    use TransactionTrait;
+
     /**
      * @return \FondOfOryx\Zed\GiftCardCreditMemo\Business\Check\HasGiftCardRefundCheckInterface
      */
@@ -30,7 +33,7 @@ class GiftCardCreditMemoBusinessFactory extends AbstractBusinessFactory
      */
     public function createPartialGiftCardRefund(): PartialGiftCardRefundInterface
     {
-        return new PartialGiftCardRefund();
+        return new PartialGiftCardRefund($this->getTransactionHandler());
     }
 
     /**

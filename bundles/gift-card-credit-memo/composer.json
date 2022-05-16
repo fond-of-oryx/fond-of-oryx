@@ -8,11 +8,20 @@
       "email": "dev@julianzimmermann.dev"
     }
   ],
+  "repositories": [
+    {
+      "type": "vcs",
+      "url": "https://github.com/fond-of/payone"
+    }
+  ],
   "require": {
     "php": ">=7.3",
     "fond-of-oryx/credit-memo": "^1.0.0",
     "fond-of-oryx/credit-memo-gift-card-connector": "*",
-    "spryker-eco/payone": "^4.0.0"
+    "fond-of-oryx/jellyfish-sales-order-payone-gift-card-connector": "*",
+    "spryker-eco/payone": "dev-feature/add-service as 4.4.2",
+    "spryker/gift-card": "^1.0.0",
+    "spryker/gift-card-balance": "^1.0.0"
   },
   "require-dev": {
     "fond-of-codeception/spryker": "^1.0",
