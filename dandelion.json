@@ -250,7 +250,7 @@
     },
     "gift-card-credit-memo": {
       "path": "bundles/gift-card-credit-memo/",
-      "version": "0.1.0-alpha"
+      "version": "0.1.1-alpha"
     },
     "gift-card-expiration": {
       "path": "bundles/gift-card-expiration/",
@@ -418,7 +418,7 @@
     },
     "payone-credit-memo-gift-card-connector": {
       "path": "bundles/payone-credit-memo-gift-card-connector/",
-      "version": "0.0.1-alpha"
+      "version": "0.0.2-alpha"
     },
     "prepayment-credit-memo": {
       "path": "bundles/prepayment-credit-memo/",

@@ -176,10 +176,10 @@ class PartialGiftCardRefundTest extends Unit
             ->method('getValue')
             ->willReturn($balance);
 
-        $this->spySalesOrderMock->expects(static::once())
+        $this->spySalesOrderMock->expects(static::atLeastOnce())
             ->method('getFooCreditMemos')->willReturn([$this->fooCreditMemoMock]);
 
-        $this->spySalesOrderMock->expects(static::once())
+        $this->spySalesOrderMock->expects(static::atLeastOnce())
             ->method('getFooProportionalGiftCardValues')->willReturn([$this->fooProportionalGiftCardValueMock]);
 
         $this->fooCreditMemoMock->expects(static::once())
