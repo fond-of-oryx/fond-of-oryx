@@ -2,7 +2,9 @@
 
 namespace FondOfOryx\Zed\PayoneCreditMemoGiftCardConnector\Business\Refund;
 
+use Generated\Shared\Transfer\OrderTransfer;
 use Generated\Shared\Transfer\PayonePartialOperationRequestTransfer;
+use Generated\Shared\Transfer\RefundTransfer;
 use Orm\Zed\CreditMemo\Persistence\FooCreditMemo;
 
 class GiftCardRefundRecalculator implements GiftCardRefundRecalculatorInterface
@@ -31,20 +33,8 @@ class GiftCardRefundRecalculator implements GiftCardRefundRecalculatorInterface
     protected function updateOrderAmounts(PayonePartialOperationRequestTransfer $partialOperationRequestTransfer, FooCreditMemo $creditMemoEntity)
     {
         $order = $partialOperationRequestTransfer->getOrder();
-        $totalGiftCardRefundAmount = 0;
-        foreach ($creditMemoEntity->getFooCreditMemoItems() as $fooCreditMemoItem) {
-            foreach ($order->getItems() as $orderItem) {
-                if ($orderItem->getIdSalesOrderItem() === $fooCreditMemoItem->getFkSalesOrderItem()) {
-                    $giftCardRefundAmount = $fooCreditMemoItem->getCouponAmount();
-                    $price = $orderItem->getUnitPriceToPayAggregation() - $giftCardRefundAmount;
-                    $orderItem->setUnitPriceToPayAggregation($price);
-                    $orderItem->setSumPriceToPayAggregation($price);
-                    $orderItem->setUnitGrossPrice($price);
-                    $orderItem->setRefundableAmount($price);
-                    $totalGiftCardRefundAmount += $giftCardRefundAmount;
-                }
-            }
-        }
+        $totalGiftCardRefundAmount = $this->updateItemAmounts($creditMemoEntity, $order, 0);
+        $totalGiftCardRefundAmount = $this->updateExpenseAmountsOrder($creditMemoEntity, $order, $totalGiftCardRefundAmount);
 
         $totals = $order->getTotals();
         $totals->setGrandTotal($totals->getGrandTotal() - $totalGiftCardRefundAmount);
@@ -76,8 +66,110 @@ class GiftCardRefundRecalculator implements GiftCardRefundRecalculatorInterface
             }
         }
 
+        $totalGiftCardRefundAmount = $this->updateExpenseAmountsRefund($creditMemoEntity, $refund, $totalGiftCardRefundAmount);
+
         $refund->setAmount($refund->getAmount() - $totalGiftCardRefundAmount);
 
         return $partialOperationRequestTransfer->setRefund($refund);
+    }
+
+    /**
+     * @param \Orm\Zed\CreditMemo\Persistence\FooCreditMemo $creditMemoEntity
+     * @param \Generated\Shared\Transfer\OrderTransfer $order
+     * @param int|null $totalGiftCardRefundAmount
+     *
+     * @return int|null
+     */
+    protected function updateItemAmounts(FooCreditMemo $creditMemoEntity, OrderTransfer $order, ?int $totalGiftCardRefundAmount): ?int
+    {
+        foreach ($creditMemoEntity->getFooCreditMemoItems() as $fooCreditMemoItem) {
+            foreach ($order->getItems() as $orderItem) {
+                if ($orderItem->getIdSalesOrderItem() === $fooCreditMemoItem->getFkSalesOrderItem()) {
+                    $giftCardRefundAmount = $fooCreditMemoItem->getCouponAmount();
+                    $price = $orderItem->getUnitPriceToPayAggregation() - $giftCardRefundAmount;
+                    $orderItem->setUnitPriceToPayAggregation($price);
+                    $orderItem->setSumPriceToPayAggregation($price);
+                    $orderItem->setUnitGrossPrice($price);
+                    $orderItem->setRefundableAmount($price);
+                    $totalGiftCardRefundAmount += $giftCardRefundAmount;
+                }
+            }
+        }
+
+        return $totalGiftCardRefundAmount;
+    }
+
+    /**
+     * @param \Orm\Zed\CreditMemo\Persistence\FooCreditMemo $creditMemoEntity
+     * @param \Generated\Shared\Transfer\OrderTransfer $order
+     * @param int $totalGiftCardRefundAmount
+     *
+     * @return int|null
+     */
+    protected function updateExpenseAmountsOrder(FooCreditMemo $creditMemoEntity, OrderTransfer $order, int $totalGiftCardRefundAmount): ?int
+    {
+        if ($creditMemoEntity->getChargeAmount() === null) {
+            return $totalGiftCardRefundAmount;
+        }
+
+        $orderEntity = $creditMemoEntity->getSpySalesOrder();
+        $proportionalGiftCardValues = $orderEntity->getFooProportionalGiftCardValues();
+
+        foreach ($order->getExpenses() as $expenseTransfer) {
+            foreach ($proportionalGiftCardValues as $proportionalGiftCardValue) {
+                if (
+                    $proportionalGiftCardValue->isRefund() === true
+                    || $expenseTransfer->getIdSalesExpense() !== $proportionalGiftCardValue->getFkSalesExpense()
+                ) {
+                    continue;
+                }
+                $giftCardRefundAmount = $proportionalGiftCardValue->getValue();
+                $price = $expenseTransfer->getUnitPriceToPayAggregation() - $giftCardRefundAmount;
+                $expenseTransfer->setUnitPriceToPayAggregation($price);
+                $expenseTransfer->setSumPriceToPayAggregation($price);
+                $expenseTransfer->setUnitGrossPrice($price);
+                $expenseTransfer->setRefundableAmount($price);
+                $totalGiftCardRefundAmount += $giftCardRefundAmount;
+            }
+        }
+
+        return $totalGiftCardRefundAmount;
+    }
+
+    /**
+     * @param \Orm\Zed\CreditMemo\Persistence\FooCreditMemo $creditMemoEntity
+     * @param \Generated\Shared\Transfer\RefundTransfer $refund
+     * @param int $totalGiftCardRefundAmount
+     *
+     * @return int|null
+     */
+    protected function updateExpenseAmountsRefund(FooCreditMemo $creditMemoEntity, RefundTransfer $refund, int $totalGiftCardRefundAmount): ?int
+    {
+        if ($creditMemoEntity->getChargeAmount() === null) {
+            return $totalGiftCardRefundAmount;
+        }
+
+        $refundEntity = $creditMemoEntity->getSpySalesOrder();
+        $proportionalGiftCardValues = $refundEntity->getFooProportionalGiftCardValues();
+
+        foreach ($refund->getExpenses() as $expenseTransfer) {
+            foreach ($proportionalGiftCardValues as $proportionalGiftCardValue) {
+                if (
+                    $proportionalGiftCardValue->isRefund() === true
+                    || $expenseTransfer->getIdSalesExpense() !== $proportionalGiftCardValue->getFkSalesExpense()
+                ) {
+                    continue;
+                }
+                $giftCardRefundAmount = $proportionalGiftCardValue->getValue();
+                $price = $expenseTransfer->getUnitPriceToPayAggregation() - $giftCardRefundAmount;
+                $expenseTransfer->setUnitPriceToPayAggregation($price);
+                $expenseTransfer->setSumPriceToPayAggregation($price);
+                $expenseTransfer->setUnitGrossPrice($price);
+                $expenseTransfer->setRefundableAmount($price);
+                $totalGiftCardRefundAmount += $giftCardRefundAmount;
+            }
+        }
+
+        return $totalGiftCardRefundAmount;
     }
 }

@@ -37,13 +37,13 @@ class PartialGiftCardRefund implements PartialGiftCardRefundInterface
      */
     public function executePartialRefund(array $orderItems, SpySalesOrder $orderEntity, ReadOnlyArrayObject $data): array
     {
-        $persists = [];
+        $this->persists = [];
 
         foreach ($orderEntity->getSpyGiftCardBalanceLogs() as $balanceLog) {
-            $persists = $this->calculateBalance($orderEntity, $orderItems, $balanceLog, $persists);
+            $this->persists = $this->calculateBalance($orderEntity, $orderItems, $balanceLog);
         }
 
-        $this->persistEntities($persists);
+        $this->persistEntities($this->persists);
 
         return [];
     }
@@ -115,11 +115,10 @@ class PartialGiftCardRefund implements PartialGiftCardRefundInterface
      * @param \Orm\Zed\Sales\Persistence\SpySalesOrder $orderEntity
      * @param array<\Orm\Zed\Sales\Persistence\SpySalesOrderItem> $orderItems
      * @param \Orm\Zed\GiftCardBalance\Persistence\SpyGiftCardBalanceLog $balanceLog
-     * @param array<\Propel\Runtime\ActiveRecord\ActiveRecordInterface> $persists
      *
      * @return array<\Propel\Runtime\ActiveRecord\ActiveRecordInterface>
      */
-    protected function calculateBalance(SpySalesOrder $orderEntity, array $orderItems, SpyGiftCardBalanceLog $balanceLog, array $persists): array
+    protected function calculateBalance(SpySalesOrder $orderEntity, array $orderItems, SpyGiftCardBalanceLog $balanceLog): array
     {
         $balanceLogValue = $balanceLog->getValue();
 
@@ -135,17 +134,52 @@ class PartialGiftCardRefund implements PartialGiftCardRefundInterface
                     if (
                         $creditMemoItemCouponAmount !== $proportionalAmount
                         || $proportionalGiftCardValue->getFkSalesOrder() !== $fkSalesOrder
-                        || isset($persists[$hash]) === true
+                        || isset($this->persists[$hash]) === true
                     ) {
                         continue;
                     }
                     $balanceLogValue -= $proportionalAmount;
-                    $persists[$hash] = $proportionalGiftCardValue->setIsRefund(true);
+                    $this->persists[$hash] = $proportionalGiftCardValue->setIsRefund(true);
                 }
             }
         }
-        $persists[sprintf('balanceid%s', $balanceLog->getIdGiftCardBalanceLog())] = $balanceLog->setValue($balanceLogValue);
+        $balanceLogValue = $this->handleExpenses($orderEntity, $balanceLogValue);
+        $this->persists[sprintf('balanceid%s', $balanceLog->getIdGiftCardBalanceLog())] = $balanceLog->setValue($balanceLogValue);
 
-        return $persists;
+        return $this->persists;
+    }
+
+    /**
+     * @param \Orm\Zed\Sales\Persistence\SpySalesOrder $spySalesOrder
+     * @param int $balanceLogValue
+     *
+     * @return int
+     */
+    protected function handleExpenses(SpySalesOrder $spySalesOrder, int $balanceLogValue): int
+    {
+        $creditMemos = $spySalesOrder->getFooCreditMemos();
+        $proportionalAmounts = $spySalesOrder->getFooProportionalGiftCardValues();
+        foreach ($creditMemos as $creditMemo) {
+            if ($creditMemo->getChargeAmount() === null) {
+                continue;
+            }
+
+            foreach ($proportionalAmounts as $proportionalAmount) {
+                if ($proportionalAmount->getFkSalesExpense() === null) {
+                    continue;
+                }
+                $hash = sprintf('expenseid%s', $proportionalAmount->getFkSalesExpense());
+                if (
+                    isset($this->persists[$hash])
+                    || $proportionalAmount->getFkSalesOrder() !== $creditMemo->getFkSalesOrder()
+                ) {
+                    continue;
+                }
+                $balanceLogValue -= $proportionalAmount->getValue();
+                $this->persists[$hash] = $proportionalAmount->setIsRefund(true);
+            }
+        }
+
+        return $balanceLogValue;
     }
 }
