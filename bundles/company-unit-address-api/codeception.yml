@@ -19,7 +19,7 @@ paths:
 coverage:
   enabled: true
   include:
-    - src/*.php
+    - src/FondOfOryx/*.php
 
 modules:
   enabled:
