@@ -3,6 +3,7 @@
 namespace FondOfOryx\Zed\CompanyUnitAddressApi\Business\Model;
 
 use Codeception\Test\Unit;
+use Exception;
 use FondOfOryx\Zed\CompanyUnitAddressApi\Dependency\Facade\CompanyUnitAddressApiToCompanyUnitAddressFacadeInterface;
 use FondOfOryx\Zed\CompanyUnitAddressApi\Dependency\QueryContainer\CompanyUnitAddressApiToApiQueryContainerInterface;
 use FondOfOryx\Zed\CompanyUnitAddressApi\Persistence\CompanyUnitAddressApiRepositoryInterface;
@@ -13,8 +14,6 @@ use Generated\Shared\Transfer\ApiRequestTransfer;
 use Generated\Shared\Transfer\CompanyUnitAddressResponseTransfer;
 use Generated\Shared\Transfer\CompanyUnitAddressTransfer;
 use Generated\Shared\Transfer\ResponseMessageTransfer;
-use Spryker\Zed\Api\Business\Exception\EntityNotFoundException;
-use Spryker\Zed\Api\Business\Exception\EntityNotSavedException;
 
 class CompanyUnitAddressApiTest extends Unit
 {
@@ -208,7 +207,7 @@ class CompanyUnitAddressApiTest extends Unit
         try {
             $this->companyUnitAddressApi->add($this->apiDataTransferMock);
             static::fail();
-        } catch (EntityNotSavedException $e) {
+        } catch (Exception $e) {
         }
     }
 
@@ -273,7 +272,7 @@ class CompanyUnitAddressApiTest extends Unit
         try {
             $this->companyUnitAddressApi->get($idCompanyUnitAddress);
             static::fail();
-        } catch (EntityNotFoundException $e) {
+        } catch (Exception $e) {
         }
     }
 
@@ -375,7 +374,7 @@ class CompanyUnitAddressApiTest extends Unit
                 $this->apiDataTransferMock,
             );
             static::fail();
-        } catch (EntityNotFoundException $e) {
+        } catch (Exception $e) {
         }
     }
 
@@ -433,7 +432,7 @@ class CompanyUnitAddressApiTest extends Unit
                 $this->apiDataTransferMock,
             );
             static::fail();
-        } catch (EntityNotSavedException $e) {
+        } catch (Exception $e) {
         }
     }
 

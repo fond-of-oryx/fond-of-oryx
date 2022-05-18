@@ -4,15 +4,15 @@ install:
 
 .PHONY: phpcs
 phpcs:
-	./vendor/bin/phpcs --standard=./vendor/spryker/code-sniffer/Spryker/ruleset.xml ./src/FondOfOryx/* ./tests/*
+	./vendor/bin/phpcs --standard=./vendor/spryker/code-sniffer/Spryker/ruleset.xml ./src/FondOfOryx/* ./tests/FondOfOryx/*
 
 .PHONY: phpcbf
 phpcbf:
-	./vendor/bin/phpcbf --standard=./vendor/spryker/code-sniffer/Spryker/ruleset.xml ./src/FondOfOryx/* ./tests/*
+	./vendor/bin/phpcbf --standard=./vendor/spryker/code-sniffer/Spryker/ruleset.xml ./src/FondOfOryx/* ./tests/FondOfOryx/*
 
 .PHONY: phpstan
 phpstan:
-	./vendor/bin/phpstan --memory-limit=-1 analyse ./src/FondOfOryx ./tests
+	./vendor/bin/phpstan --memory-limit=-1 analyse ./src/FondOfOryx ./tests/FondOfOryx
 
 .PHONY: codeception
 codeception:
