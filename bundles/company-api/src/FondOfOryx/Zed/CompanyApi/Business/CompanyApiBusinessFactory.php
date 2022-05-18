@@ -13,7 +13,6 @@ use Spryker\Zed\Kernel\Business\AbstractBusinessFactory;
 
 /**
  * @method \FondOfOryx\Zed\CompanyApi\CompanyApiConfig getConfig()
- * @method \FondOfOryx\Zed\CompanyApi\Persistence\CompanyApiQueryContainerInterface getQueryContainer()
  * @method \FondOfOryx\Zed\CompanyApi\Persistence\CompanyApiRepositoryInterface getRepository()
  */
 class CompanyApiBusinessFactory extends AbstractBusinessFactory

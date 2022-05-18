@@ -29,7 +29,13 @@
   "autoload-dev": {
     "psr-4": {
       "FondOfOryx\\": "tests/FondOfOryx/",
-      "Generated\\":"src/Generated/"
+      "Generated\\":"src/Generated/",
+      "Orm\\":"src/Orm/"
+    }
+  },
+  "config": {
+    "allow-plugins": {
+      "dealerdirect/phpcodesniffer-composer-installer": true
     }
   }
 }
