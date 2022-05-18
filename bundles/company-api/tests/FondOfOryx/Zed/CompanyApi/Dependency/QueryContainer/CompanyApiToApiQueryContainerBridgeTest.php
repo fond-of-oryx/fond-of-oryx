@@ -16,7 +16,7 @@ class CompanyApiToApiQueryContainerBridgeTest extends Unit
     protected $companyApiToApiQueryContainerBridge;
 
     /**
-     * @var \PHPUnit\Framework\MockObject\MockBuilder|\Spryker\Zed\Api\Persistence\ApiQueryContainer
+     * @var \PHPUnit\Framework\MockObject\MockObject|\Spryker\Zed\Api\Persistence\ApiQueryContainer
      */
     protected $apiQueryContainerMock;
 

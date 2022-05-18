@@ -32,6 +32,10 @@
       "path": "bundles/brands-rest-api-extension/",
       "version": "1.0.0"
     },
+    "company-api": {
+      "path": "bundles/company-api/",
+      "version": "1.0.0"
+    },
     "company-brand-product-list-connector": {
       "path": "bundles/company-brand-product-list-connector/",
       "version": "1.0.0"

@@ -10,7 +10,6 @@ use FondOfOryx\Zed\CompanyApi\CompanyApiConfig;
 use FondOfOryx\Zed\CompanyApi\CompanyApiDependencyProvider;
 use FondOfOryx\Zed\CompanyApi\Dependency\Facade\CompanyApiToCompanyFacadeInterface;
 use FondOfOryx\Zed\CompanyApi\Dependency\QueryContainer\CompanyApiToApiQueryContainerInterface;
-use FondOfOryx\Zed\CompanyApi\Persistence\CompanyApiQueryContainer;
 use FondOfOryx\Zed\CompanyApi\Persistence\CompanyApiRepository;
 use Spryker\Zed\Kernel\Container;
 
@@ -25,11 +24,6 @@ class CompanyApiBusinessFactoryTest extends Unit
      * @var \PHPUnit\Framework\MockObject\MockObject|\Spryker\Zed\Kernel\Container
      */
     protected $containerMock;
-
-    /**
-     * @var \PHPUnit\Framework\MockObject\MockObject|\FondOfOryx\Zed\CompanyApi\Persistence\CompanyApiQueryContainer
-     */
-    protected $queryContainerMock;
 
     /**
      * @var \FondOfOryx\Zed\CompanyApi\Persistence\CompanyApiRepository|\PHPUnit\Framework\MockObject\MockObject
@@ -56,10 +50,6 @@ class CompanyApiBusinessFactoryTest extends Unit
             ->disableOriginalConstructor()
             ->getMock();
 
-        $this->queryContainerMock = $this->getMockBuilder(CompanyApiQueryContainer::class)
-            ->disableOriginalConstructor()
-            ->getMock();
-
         $this->repositoryMock = $this->getMockBuilder(CompanyApiRepository::class)
             ->disableOriginalConstructor()
             ->getMock();
@@ -67,7 +57,6 @@ class CompanyApiBusinessFactoryTest extends Unit
         $this->companyApiBusinessFactory = new CompanyApiBusinessFactory();
 
         $this->companyApiBusinessFactory->setConfig($this->companyApiConfigMock);
-        $this->companyApiBusinessFactory->setQueryContainer($this->queryContainerMock);
         $this->companyApiBusinessFactory->setContainer($this->containerMock);
         $this->companyApiBusinessFactory->setRepository($this->repositoryMock);
     }

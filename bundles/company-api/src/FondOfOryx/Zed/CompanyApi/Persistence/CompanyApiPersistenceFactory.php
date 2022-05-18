@@ -12,7 +12,6 @@ use Spryker\Zed\Kernel\Persistence\AbstractPersistenceFactory;
  * @codeCoverageIgnore
  *
  * @method \FondOfOryx\Zed\CompanyApi\CompanyApiConfig getConfig()
- * @method \FondOfOryx\Zed\CompanyApi\Persistence\CompanyApiQueryContainerInterface getQueryContainer()
  * @method \FondOfOryx\Zed\CompanyApi\Persistence\CompanyApiRepositoryInterface getRepository()
  */
 class CompanyApiPersistenceFactory extends AbstractPersistenceFactory
