@@ -12,7 +12,6 @@ use Spryker\Zed\Kernel\Persistence\AbstractPersistenceFactory;
  * @codeCoverageIgnore
  *
  * @method \FondOfOryx\Zed\CompanyBusinessUnitApi\CompanyBusinessUnitApiConfig getConfig()
- * @method \FondOfOryx\Zed\CompanyBusinessUnitApi\Persistence\CompanyBusinessUnitApiQueryContainerInterface getQueryContainer()
  * @method \FondOfOryx\Zed\CompanyBusinessUnitApi\Persistence\CompanyBusinessUnitApiRepositoryInterface getRepository()
  */
 class CompanyBusinessUnitApiPersistenceFactory extends AbstractPersistenceFactory

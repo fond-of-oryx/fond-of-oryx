@@ -1,16 +1,67 @@
 <?xml version="1.0"?>
 <transfers xmlns="spryker:transfer-01"
            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-           xsi:schemaLocation="spryker:transfer-01 http://static.spryker.com/transfer-01.xsd">
+           xsi:schemaLocation="spryker:transfer-01 https://static.spryker.com/transfer-01.xsd">
 
-    <transfer name="CompanyBusinessUnitApi">
-        <property name="idCompanyBusinessUnit" type="int" />
+    <transfer name="CompanyBusinessUnitResponse">
+        <property name="companyBusinessUnitTransfer" type="CompanyBusinessUnit"/>
+        <property name="isSuccessful" type="bool"/>
+    </transfer>
+
+    <transfer name="CompanyBusinessUnit">
+        <property name="idCompanyBusinessUnit" type="int"/>
+    </transfer>
+
+    <transfer name="PropelQueryBuilderColumn">
         <property name="name" type="string"/>
-        <property name="email" type="string"/>
-        <property name="phone" type="string"/>
-        <property name="externalUrl" type="string"/>
-        <property name="iban" type="string"/>
-        <property name="bic" type="string"/>
-        <property name="fkCompany" type="int"/>
+        <property name="alias" type="string"/>
+    </transfer>
+
+    <transfer name="PropelQueryBuilderColumnSelection">
+        <property name="tableColumns" type="PropelQueryBuilderColumn[]" singular="tableColumn"/>
+    </transfer>
+
+    <transfer name="ApiData">
+        <property name="data" type="array" singular="data"/>
+    </transfer>
+
+    <transfer name="ApiItem">
+        <property name="data" type="array" singular="data"/>
+        <property name="statusCode" type="int"/>
+        <property name="validationErrors" type="ApiValidationError[]" singular="validationError"/>
+    </transfer>
+
+    <transfer name="ApiRequest">
+        <property name="filter" type="ApiFilter"/>
+        <property name="apiData" type="ApiData"/>
+    </transfer>
+
+    <transfer name="ApiPagination">
+        <property name="itemsPerPage" type="int"/>
+        <property name="page" type="int"/>
+        <property name="total" type="int"/>
+        <property name="pageTotal" type="int"/>
+    </transfer>
+
+    <transfer name="ApiCollection">
+        <property name="pagination" type="ApiPagination"/>
+    </transfer>
+
+    <transfer name="ApiQueryBuilderQuery">
+        <property name="apiRequest" type="ApiRequest"/>
+        <property name="columnSelection" type="PropelQueryBuilderColumnSelection"/>
+    </transfer>
+
+    <transfer name="ApiFilter">
+        <property name="limit" type="int"/>
+        <property name="offset" type="int"/>
+    </transfer>
+
+    <transfer name="ApiValidationError">
+        <property name="field" type="string"/>
+        <property name="messages" type="array" singular="messages"/>
+    </transfer>
+
+    <transfer name="PropelQueryBuilderCriteria">
     </transfer>
 </transfers>
