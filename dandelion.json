@@ -84,6 +84,10 @@
       "path": "bundles/company-unit-address-api/",
       "version": "1.0.0"
     },
+    "company-user-api": {
+      "path": "bundles/company-user-api/",
+      "version": "1.0.0"
+    },
     "company-user-reference-sales-connector": {
       "path": "bundles/company-user-reference-sales-connector/",
       "version": "1.0.0"
