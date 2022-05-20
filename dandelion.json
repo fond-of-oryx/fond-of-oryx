@@ -124,6 +124,10 @@
       "path": "bundles/country-oms-mail-connector/",
       "version": "1.0.0"
     },
+    "concrete-product-api": {
+      "path": "bundles/concrete-product-api/",
+      "version": "1.0.0"
+    },
     "credit-memo-api": {
       "path": "bundles/credit-memo-api/",
       "version": "1.0.0"
