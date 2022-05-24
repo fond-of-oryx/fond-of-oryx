@@ -464,6 +464,10 @@
       "path": "bundles/product-country-restriction/",
       "version": "1.0.0"
     },
+    "product-default-category-assigner": {
+      "path": "bundles/product-default-category-assigner/",
+      "version": "1.0.0"
+    },
     "payment-address-restriction": {
       "path": "bundles/payment-address-restriction/",
       "version": "1.0.0-beta.0"

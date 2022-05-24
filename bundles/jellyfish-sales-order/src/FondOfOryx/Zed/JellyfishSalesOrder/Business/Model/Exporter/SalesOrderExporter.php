@@ -105,7 +105,9 @@ class SalesOrderExporter implements SalesOrderExporterInterface
      */
     protected function mapOrderItems(array $salesOrderItems): ArrayObject
     {
+        /** @var \ArrayObject<int, \Generated\Shared\Transfer\JellyfishOrderItemTransfer> $jellyfishOrderItems */
         $jellyfishOrderItems = new ArrayObject();
+        /** @var \ArrayObject<string, int> $groupKeyIndexMapping */
         $groupKeyIndexMapping = new ArrayObject();
 
         foreach ($salesOrderItems as $salesOrderItem) {
@@ -127,6 +129,10 @@ class SalesOrderExporter implements SalesOrderExporterInterface
 
             $index = $groupKeyIndexMapping->offsetGet($groupKey);
             $currentJellyfishOrderItem = $jellyfishOrderItems->offsetGet($index);
+
+            if (!$jellyfishOrderItems->offsetExists($index)) {
+                continue;
+            }
 
             $currentJellyfishOrderItem->setQuantity($currentJellyfishOrderItem->getQuantity() + $jellyfishOrderItemTransfer->getQuantity())
                 ->setSumTaxAmount($currentJellyfishOrderItem->getSumTaxAmount() + $jellyfishOrderItemTransfer->getSumTaxAmount())
