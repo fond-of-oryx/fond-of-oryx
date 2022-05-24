@@ -4,9 +4,5 @@
           namespace="Orm\Zed\Customer\Persistence" package="src.Orm.Zed.Customer.Persistence">
     <table name="spy_customer" phpName="SpyCustomer">
         <column name="external_reference" type="VARCHAR" size="255" required="false"/>
-
-        <unique name="spy_customer-unique-external_reference">
-            <unique-column name="external_reference"/>
-        </unique>
     </table>
 </database>
