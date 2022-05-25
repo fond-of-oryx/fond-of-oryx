@@ -25,8 +25,8 @@ class CompanyUserMailConnectorToMailFacadeBridge implements CompanyUserMailConne
      *
      * @return void
      */
-    public function sendMail(MailTransfer $mailTransfer): void
+    public function handleMail(MailTransfer $mailTransfer): void
     {
-        $this->mailFacade->sendMail($mailTransfer);
+        $this->mailFacade->handleMail($mailTransfer);
     }
 }
