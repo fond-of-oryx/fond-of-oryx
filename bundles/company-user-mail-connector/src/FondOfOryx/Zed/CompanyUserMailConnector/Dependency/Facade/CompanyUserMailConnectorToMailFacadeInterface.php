@@ -11,5 +11,5 @@ interface CompanyUserMailConnectorToMailFacadeInterface
      *
      * @return void
      */
-    public function sendMail(MailTransfer $mailTransfer): void;
+    public function handleMail(MailTransfer $mailTransfer): void;
 }
