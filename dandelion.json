@@ -90,7 +90,7 @@
     },
     "company-user-company-role-connector": {
       "path": "bundles/company-user-company-role-connector/",
-      "version": "1.0.0"
+      "version": "1.0.1"
     },
     "company-user-reference-sales-connector": {
       "path": "bundles/company-user-reference-sales-connector/",
@@ -98,7 +98,7 @@
     },
     "company-user-mail-connector": {
       "path": "bundles/company-user-mail-connector/",
-      "version": "1.0.0"
+      "version": "1.0.1"
     },
     "company-users-rest-api-extension": {
       "path": "bundles/company-users-rest-api-extension/",
