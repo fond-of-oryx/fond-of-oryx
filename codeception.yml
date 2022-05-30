@@ -11,6 +11,7 @@ include:
   - bundles/brands-rest-api-extension
   - bundles/cart-code-type
   - bundles/cart-code-type-data-import
+  - bundles/cart-search-rest-api-extension
   - bundles/catalog-sku-filter
   - bundles/company-api
   - bundles/company-brand-product-list-connector
