@@ -70,6 +70,7 @@ include:
   - bundles/gift-card-expiration
   - bundles/gift-card-payment-connector
   - bundles/gift-card-product-connector
+  - bundles/gift-card-proportional-value
   - bundles/gift-card-restriction
   - bundles/invoice
   - bundles/jellyfish-availability-alert

@@ -2,22 +2,23 @@
 
 namespace FondOfOryx\Zed\JellyfishSalesOrderPayoneGiftCardConnector\Business\Manager;
 
-use FondOfOryx\Zed\JellyfishSalesOrderPayoneGiftCardConnector\Persistence\JellyfishSalesOrderPayoneGiftCardConnectorEntityManagerInterface;
+use FondOfOryx\Zed\JellyfishSalesOrderPayoneGiftCardConnector\Dependency\Facade\JellyfishSalesOrderPayoneGiftCardConnectorToGiftCardProportionalValueFacadeInterface;
 use Generated\Shared\Transfer\JellyfishOrderTransfer;
 
 class ProportionalGiftCardValueManager implements ProportionalGiftCardValueManagerInterface
 {
     /**
-     * @var \FondOfOryx\Zed\JellyfishSalesOrderPayoneGiftCardConnector\Persistence\JellyfishSalesOrderPayoneGiftCardConnectorEntityManagerInterface
+     * @var \FondOfOryx\Zed\JellyfishSalesOrderPayoneGiftCardConnector\Dependency\Facade\JellyfishSalesOrderPayoneGiftCardConnectorToGiftCardProportionalValueFacadeInterface
      */
-    protected $entityManager;
+    protected $giftCardConnectorToGiftCardProportionalValueFacade;
 
     /**
-     * @param \FondOfOryx\Zed\JellyfishSalesOrderPayoneGiftCardConnector\Persistence\JellyfishSalesOrderPayoneGiftCardConnectorEntityManagerInterface $entityManager
+     * @param \FondOfOryx\Zed\JellyfishSalesOrderPayoneGiftCardConnector\Dependency\Facade\JellyfishSalesOrderPayoneGiftCardConnectorToGiftCardProportionalValueFacadeInterface $giftCardConnectorToGiftCardProportionalValueFacade
      */
-    public function __construct(JellyfishSalesOrderPayoneGiftCardConnectorEntityManagerInterface $entityManager)
-    {
-        $this->entityManager = $entityManager;
+    public function __construct(
+        JellyfishSalesOrderPayoneGiftCardConnectorToGiftCardProportionalValueFacadeInterface $giftCardConnectorToGiftCardProportionalValueFacade
+    ) {
+        $this->giftCardConnectorToGiftCardProportionalValueFacade = $giftCardConnectorToGiftCardProportionalValueFacade;
     }
 
     /**
@@ -28,7 +29,7 @@ class ProportionalGiftCardValueManager implements ProportionalGiftCardValueManag
     public function persistProportionalGiftCardValuesFromExport(JellyfishOrderTransfer $jellyfishOrderTransfer): void
     {
         foreach ($jellyfishOrderTransfer->getGiftCardBalances() as $balance) {
-            $this->entityManager->findOrCreateProportionalGiftCardValue($balance);
+            $this->giftCardConnectorToGiftCardProportionalValueFacade->findOrCreateProportionalGiftCardValue($balance);
         }
     }
 }

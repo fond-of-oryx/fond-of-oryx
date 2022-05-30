@@ -7,7 +7,7 @@ use Codeception\Test\Unit;
 use Orm\Zed\CreditMemo\Persistence\FooCreditMemo;
 use Orm\Zed\CreditMemo\Persistence\FooCreditMemoItem;
 use Orm\Zed\GiftCardBalance\Persistence\SpyGiftCardBalanceLog;
-use Orm\Zed\JellyfishSalesOrderPayoneGiftCardConnector\Persistence\FooProportionalGiftCardValue;
+use Orm\Zed\GiftCardProportionalValue\Persistence\FooProportionalGiftCardValue;
 use Orm\Zed\Sales\Persistence\SpySalesOrder;
 use Orm\Zed\Sales\Persistence\SpySalesOrderItem;
 use Propel\Runtime\ActiveRecord\ActiveRecordInterface;
@@ -57,7 +57,7 @@ class PartialGiftCardRefundTest extends Unit
     protected $spyGiftCardBalanceLogMock;
 
     /**
-     * @var \Orm\Zed\JellyfishSalesOrderPayoneGiftCardConnector\Persistence\FooProportionalGiftCardValue|\PHPUnit\Framework\MockObject\MockObject
+     * @var \Orm\Zed\GiftCardProportionalValue\Persistence\FooProportionalGiftCardValue|\PHPUnit\Framework\MockObject\MockObject
      */
     protected $fooProportionalGiftCardValueMock;
 
