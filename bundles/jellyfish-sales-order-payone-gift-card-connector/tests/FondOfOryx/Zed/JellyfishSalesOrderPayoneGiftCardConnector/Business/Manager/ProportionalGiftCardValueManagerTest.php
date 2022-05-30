@@ -4,7 +4,7 @@ namespace FondOfOryx\Zed\JellyfishSalesOrderPayoneGiftCardConnector\Business\Man
 
 use ArrayObject;
 use Codeception\Test\Unit;
-use FondOfOryx\Zed\JellyfishSalesOrderPayoneGiftCardConnector\Persistence\JellyfishSalesOrderPayoneGiftCardConnectorEntityManagerInterface;
+use FondOfOryx\Zed\JellyfishSalesOrderPayoneGiftCardConnector\Dependency\Facade\JellyfishSalesOrderPayoneGiftCardConnectorToGiftCardProportionalValueFacadeInterface;
 use Generated\Shared\Transfer\JellyfishOrderTransfer;
 use Generated\Shared\Transfer\ProportionalGiftCardValueTransfer;
 
@@ -21,9 +21,9 @@ class ProportionalGiftCardValueManagerTest extends Unit
     protected $jellyfishOrderTransferMock;
 
     /**
-     * @var \FondOfOryx\Zed\JellyfishSalesOrderPayoneGiftCardConnector\Persistence\JellyfishSalesOrderPayoneGiftCardConnectorEntityManagerInterface|\PHPUnit\Framework\MockObject\MockObject|null
+     * @var \FondOfOryx\Zed\JellyfishSalesOrderPayoneGiftCardConnector\Dependency\Facade\JellyfishSalesOrderPayoneGiftCardConnectorToGiftCardProportionalValueFacadeInterface|\PHPUnit\Framework\MockObject\MockObject|null
      */
-    protected $entityManagerMock;
+    protected $proportionalValueConnectorFacadeMock;
 
     /**
      * @var \Generated\Shared\Transfer\ProportionalGiftCardValueTransfer|\PHPUnit\Framework\MockObject\MockObject|null
@@ -42,8 +42,8 @@ class ProportionalGiftCardValueManagerTest extends Unit
             ->disableOriginalConstructor()
             ->getMock();
 
-        $this->entityManagerMock = $this
-            ->getMockBuilder(JellyfishSalesOrderPayoneGiftCardConnectorEntityManagerInterface::class)
+        $this->proportionalValueConnectorFacadeMock = $this
+            ->getMockBuilder(JellyfishSalesOrderPayoneGiftCardConnectorToGiftCardProportionalValueFacadeInterface::class)
             ->disableOriginalConstructor()
             ->getMock();
 
@@ -52,7 +52,7 @@ class ProportionalGiftCardValueManagerTest extends Unit
             ->disableOriginalConstructor()
             ->getMock();
 
-        $this->manager = new ProportionalGiftCardValueManager($this->entityManagerMock);
+        $this->manager = new ProportionalGiftCardValueManager($this->proportionalValueConnectorFacadeMock);
     }
 
     /**
@@ -67,7 +67,7 @@ class ProportionalGiftCardValueManagerTest extends Unit
             ->method('getGiftCardBalances')
             ->willReturn($giftCardBalances);
 
-        $this->entityManagerMock->expects(static::atLeastOnce())
+        $this->proportionalValueConnectorFacadeMock->expects(static::atLeastOnce())
             ->method('findOrCreateProportionalGiftCardValue')
             ->with($this->proportionalGiftCardValueTransferMock)
             ->willReturn($this->proportionalGiftCardValueTransferMock);

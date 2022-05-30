@@ -2,23 +2,23 @@
 
 namespace FondOfOryx\Zed\JellyfishSalesOrderPayoneGiftCardConnector\Business\Reader;
 
-use FondOfOryx\Zed\JellyfishSalesOrderPayoneGiftCardConnector\Persistence\JellyfishSalesOrderPayoneGiftCardConnectorRepositoryInterface;
+use FondOfOryx\Zed\JellyfishSalesOrderPayoneGiftCardConnector\Dependency\Facade\JellyfishSalesOrderPayoneGiftCardConnectorToGiftCardProportionalValueFacadeInterface;
 use Generated\Shared\Transfer\ItemTransfer;
 
 class GiftCardAmountReader implements GiftCardAmountReaderInterface
 {
     /**
-     * @var \FondOfOryx\Zed\JellyfishSalesOrderPayoneGiftCardConnector\Persistence\JellyfishSalesOrderPayoneGiftCardConnectorRepositoryInterface
+     * @var \FondOfOryx\Zed\JellyfishSalesOrderPayoneGiftCardConnector\Dependency\Facade\JellyfishSalesOrderPayoneGiftCardConnectorToGiftCardProportionalValueFacadeInterface
      */
-    protected $repository;
+    protected $giftCardConnectorToGiftCardProportionalValueFacade;
 
     /**
-     * @param \FondOfOryx\Zed\JellyfishSalesOrderPayoneGiftCardConnector\Persistence\JellyfishSalesOrderPayoneGiftCardConnectorRepositoryInterface $repository
+     * @param \FondOfOryx\Zed\JellyfishSalesOrderPayoneGiftCardConnector\Dependency\Facade\JellyfishSalesOrderPayoneGiftCardConnectorToGiftCardProportionalValueFacadeInterface $giftCardConnectorToGiftCardProportionalValueFacade
      */
     public function __construct(
-        JellyfishSalesOrderPayoneGiftCardConnectorRepositoryInterface $repository
+        JellyfishSalesOrderPayoneGiftCardConnectorToGiftCardProportionalValueFacadeInterface $giftCardConnectorToGiftCardProportionalValueFacade
     ) {
-        $this->repository = $repository;
+        $this->giftCardConnectorToGiftCardProportionalValueFacade = $giftCardConnectorToGiftCardProportionalValueFacade;
     }
 
     /**
@@ -34,6 +34,6 @@ class GiftCardAmountReader implements GiftCardAmountReaderInterface
             return null;
         }
 
-        return $this->repository->findGiftCardAmountByIdSalesOrderItem($idSalesOrderItem);
+        return $this->giftCardConnectorToGiftCardProportionalValueFacade->findGiftCardAmountByIdSalesOrderItem($idSalesOrderItem);
     }
 }

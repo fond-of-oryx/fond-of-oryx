@@ -2,6 +2,7 @@
 
 namespace FondOfOryx\Zed\JellyfishSalesOrderPayoneGiftCardConnector;
 
+use FondOfOryx\Zed\JellyfishSalesOrderPayoneGiftCardConnector\Dependency\Facade\JellyfishSalesOrderPayoneGiftCardConnectorToGiftCardProportionalValueFacadeBridge;
 use FondOfOryx\Zed\JellyfishSalesOrderPayoneGiftCardConnector\Dependency\Facade\JellyfishSalesOrderPayoneGiftCardConnectorToSalesFacadeBridge;
 use FondOfOryx\Zed\JellyfishSalesOrderPayoneGiftCardConnector\Dependency\Service\JellyfishSalesOrderPayoneGiftCardConnectorToPayoneService;
 use Spryker\Zed\Kernel\AbstractBundleDependencyProvider;
@@ -23,6 +24,11 @@ class JellyfishSalesOrderPayoneGiftCardConnectorDependencyProvider extends Abstr
     public const FACADE_SALES = 'FACADE_SALES';
 
     /**
+     * @var string
+     */
+    public const FACADE_GIFT_CARD_PROPORTIONAL_VALUE_CONNECTOR = 'FACADE_GIFT_CARD_PROPORTIONAL_VALUE_CONNECTOR';
+
+    /**
      * @param \Spryker\Zed\Kernel\Container $container
      *
      * @return \Spryker\Zed\Kernel\Container
@@ -32,6 +38,7 @@ class JellyfishSalesOrderPayoneGiftCardConnectorDependencyProvider extends Abstr
         $container = parent::provideBusinessLayerDependencies($container);
         $container = $this->addSalesFacade($container);
         $container = $this->addPayoneService($container);
+        $container = $this->addGiftCardProportionalValueFacade($container);
 
         return $container;
     }
@@ -45,6 +52,20 @@ class JellyfishSalesOrderPayoneGiftCardConnectorDependencyProvider extends Abstr
     {
         $container[static::FACADE_SALES] = function (Container $container) {
             return new JellyfishSalesOrderPayoneGiftCardConnectorToSalesFacadeBridge($container->getLocator()->sales()->facade());
+        };
+
+        return $container;
+    }
+
+    /**
+     * @param \Spryker\Zed\Kernel\Container $container
+     *
+     * @return \Spryker\Zed\Kernel\Container
+     */
+    protected function addGiftCardProportionalValueFacade(Container $container)
+    {
+        $container[static::FACADE_GIFT_CARD_PROPORTIONAL_VALUE_CONNECTOR] = function (Container $container) {
+            return new JellyfishSalesOrderPayoneGiftCardConnectorToGiftCardProportionalValueFacadeBridge($container->getLocator()->giftCardProportionalValue()->facade());
         };
 
         return $container;

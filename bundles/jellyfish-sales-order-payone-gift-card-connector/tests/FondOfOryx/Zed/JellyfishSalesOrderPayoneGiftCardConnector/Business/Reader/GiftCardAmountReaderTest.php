@@ -3,15 +3,15 @@
 namespace FondOfOryx\Zed\JellyfishSalesOrderPayoneGiftCardConnector\Business\Reader;
 
 use Codeception\Test\Unit;
-use FondOfOryx\Zed\JellyfishSalesOrderPayoneGiftCardConnector\Persistence\JellyfishSalesOrderPayoneGiftCardConnectorRepositoryInterface;
+use FondOfOryx\Zed\JellyfishSalesOrderPayoneGiftCardConnector\Dependency\Facade\JellyfishSalesOrderPayoneGiftCardConnectorToGiftCardProportionalValueFacadeInterface;
 use Generated\Shared\Transfer\ItemTransfer;
 
 class GiftCardAmountReaderTest extends Unit
 {
     /**
-     * @var \FondOfOryx\Zed\JellyfishSalesOrderPayoneGiftCardConnector\Persistence\JellyfishSalesOrderPayoneGiftCardConnectorRepositoryInterface|\PHPUnit\Framework\MockObject\MockObject
+     * @var \FondOfOryx\Zed\JellyfishSalesOrderPayoneGiftCardConnector\Dependency\Facade\JellyfishSalesOrderPayoneGiftCardConnectorToGiftCardProportionalValueFacadeInterface|\PHPUnit\Framework\MockObject\MockObject
      */
-    protected $repositoryMock;
+    protected $proportionalValueConnectorFacade;
 
     /**
      * @var \Generated\Shared\Transfer\ItemTransfer|\PHPUnit\Framework\MockObject\MockObject
@@ -30,7 +30,7 @@ class GiftCardAmountReaderTest extends Unit
     {
         parent::_before();
 
-        $this->repositoryMock = $this->getMockBuilder(JellyfishSalesOrderPayoneGiftCardConnectorRepositoryInterface::class)
+        $this->proportionalValueConnectorFacade = $this->getMockBuilder(JellyfishSalesOrderPayoneGiftCardConnectorToGiftCardProportionalValueFacadeInterface::class)
             ->disableOriginalConstructor()
             ->getMock();
 
@@ -38,7 +38,7 @@ class GiftCardAmountReaderTest extends Unit
             ->disableOriginalConstructor()
             ->getMock();
 
-        $this->giftCardAmountReader = new GiftCardAmountReader($this->repositoryMock);
+        $this->giftCardAmountReader = new GiftCardAmountReader($this->proportionalValueConnectorFacade);
     }
 
     /**
@@ -50,7 +50,7 @@ class GiftCardAmountReaderTest extends Unit
             ->method('getIdSalesOrderItem')
             ->willReturn(null);
 
-        $this->repositoryMock->expects(static::never())
+        $this->proportionalValueConnectorFacade->expects(static::never())
             ->method('findGiftCardAmountByIdSalesOrderItem');
 
         static::assertEquals(
@@ -71,7 +71,7 @@ class GiftCardAmountReaderTest extends Unit
             ->method('getIdSalesOrderItem')
             ->willReturn($idSalesOrderItem);
 
-        $this->repositoryMock->expects(static::atLeastOnce())
+        $this->proportionalValueConnectorFacade->expects(static::atLeastOnce())
             ->method('findGiftCardAmountByIdSalesOrderItem')
             ->with($idSalesOrderItem)
             ->willReturn($giftCardAmount);

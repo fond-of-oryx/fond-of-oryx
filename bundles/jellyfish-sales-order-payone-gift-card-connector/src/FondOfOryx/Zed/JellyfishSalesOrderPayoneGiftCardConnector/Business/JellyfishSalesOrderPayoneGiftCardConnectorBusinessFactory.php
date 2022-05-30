@@ -10,15 +10,12 @@ use FondOfOryx\Zed\JellyfishSalesOrderPayoneGiftCardConnector\Business\Manager\P
 use FondOfOryx\Zed\JellyfishSalesOrderPayoneGiftCardConnector\Business\Manager\ProportionalGiftCardValueManagerInterface;
 use FondOfOryx\Zed\JellyfishSalesOrderPayoneGiftCardConnector\Business\Reader\GiftCardAmountReader;
 use FondOfOryx\Zed\JellyfishSalesOrderPayoneGiftCardConnector\Business\Reader\GiftCardAmountReaderInterface;
+use FondOfOryx\Zed\JellyfishSalesOrderPayoneGiftCardConnector\Dependency\Facade\JellyfishSalesOrderPayoneGiftCardConnectorToGiftCardProportionalValueFacadeInterface;
 use FondOfOryx\Zed\JellyfishSalesOrderPayoneGiftCardConnector\Dependency\Facade\JellyfishSalesOrderPayoneGiftCardConnectorToSalesFacadeInterface;
 use FondOfOryx\Zed\JellyfishSalesOrderPayoneGiftCardConnector\Dependency\Service\JellyfishSalesOrderPayoneGiftCardConnectorToPayoneServiceInterface;
 use FondOfOryx\Zed\JellyfishSalesOrderPayoneGiftCardConnector\JellyfishSalesOrderPayoneGiftCardConnectorDependencyProvider;
 use Spryker\Zed\Kernel\Business\AbstractBusinessFactory;
 
-/**
- * @method \FondOfOryx\Zed\JellyfishSalesOrderPayoneGiftCardConnector\Persistence\JellyfishSalesOrderPayoneGiftCardConnectorEntityManagerInterface getEntityManager()
- * @method \FondOfOryx\Zed\JellyfishSalesOrderPayoneGiftCardConnector\Persistence\JellyfishSalesOrderPayoneGiftCardConnectorRepositoryInterface getRepository()
- */
 class JellyfishSalesOrderPayoneGiftCardConnectorBusinessFactory extends AbstractBusinessFactory
 {
     /**
@@ -34,7 +31,7 @@ class JellyfishSalesOrderPayoneGiftCardConnectorBusinessFactory extends Abstract
      */
     public function createProportionalGiftCardValueManager(): ProportionalGiftCardValueManagerInterface
     {
-        return new ProportionalGiftCardValueManager($this->getEntityManager());
+        return new ProportionalGiftCardValueManager($this->getGiftCardProportionalValueFacade());
     }
 
     /**
@@ -66,6 +63,14 @@ class JellyfishSalesOrderPayoneGiftCardConnectorBusinessFactory extends Abstract
      */
     protected function createGiftCardAmountReader(): GiftCardAmountReaderInterface
     {
-        return new GiftCardAmountReader($this->getRepository());
+        return new GiftCardAmountReader($this->getGiftCardProportionalValueFacade());
+    }
+
+    /**
+     * @return \FondOfOryx\Zed\JellyfishSalesOrderPayoneGiftCardConnector\Dependency\Facade\JellyfishSalesOrderPayoneGiftCardConnectorToGiftCardProportionalValueFacadeInterface
+     */
+    protected function getGiftCardProportionalValueFacade(): JellyfishSalesOrderPayoneGiftCardConnectorToGiftCardProportionalValueFacadeInterface
+    {
+        return $this->getProvidedDependency(JellyfishSalesOrderPayoneGiftCardConnectorDependencyProvider::FACADE_GIFT_CARD_PROPORTIONAL_VALUE_CONNECTOR);
     }
 }

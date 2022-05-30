@@ -3,6 +3,8 @@
 namespace FondOfOryx\Zed\JellyfishSalesOrderPayoneGiftCardConnector;
 
 use Codeception\Test\Unit;
+use FondOfOryx\Zed\GiftCardProportionalValue\Business\GiftCardProportionalValueFacadeInterface;
+use FondOfOryx\Zed\JellyfishSalesOrderPayoneGiftCardConnector\Dependency\Facade\JellyfishSalesOrderPayoneGiftCardConnectorToGiftCardProportionalValueFacadeInterface;
 use FondOfOryx\Zed\JellyfishSalesOrderPayoneGiftCardConnector\Dependency\Facade\JellyfishSalesOrderPayoneGiftCardConnectorToSalesFacadeInterface;
 use FondOfOryx\Zed\JellyfishSalesOrderPayoneGiftCardConnector\Dependency\Service\JellyfishSalesOrderPayoneGiftCardConnectorToPayoneServiceInterface;
 use Spryker\Shared\Kernel\BundleProxy;
@@ -32,6 +34,11 @@ class JellyfishSalesOrderPayoneGiftCardConnectorDependencyProviderTest extends U
      * @var \Spryker\Zed\Sales\Business\SalesFacadeInterface|\PHPUnit\Framework\MockObject\MockObject|null
      */
     protected $salesFacadeMock;
+
+    /**
+     * @var \FondOfOryx\Zed\GiftCardProportionalValue\Business\GiftCardProportionalValueFacadeInterface|\PHPUnit\Framework\MockObject\MockObject|null
+     */
+    protected $proportionalValueConnectorFacadeMock;
 
     /**
      * @var \Spryker\Zed\Sales\Business\SalesFacadeInterface|\PHPUnit\Framework\MockObject\MockObject|null
@@ -72,6 +79,11 @@ class JellyfishSalesOrderPayoneGiftCardConnectorDependencyProviderTest extends U
             ->disableOriginalConstructor()
             ->getMock();
 
+        $this->proportionalValueConnectorFacadeMock = $this
+            ->getMockBuilder(GiftCardProportionalValueFacadeInterface::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
         $this->dependencyProvider =
             new JellyfishSalesOrderPayoneGiftCardConnectorDependencyProvider();
     }
@@ -90,6 +102,7 @@ class JellyfishSalesOrderPayoneGiftCardConnectorDependencyProviderTest extends U
             ->withConsecutive(
                 ['sales'],
                 ['payone'],
+                ['giftCardProportionalValue'],
             )->willReturn($this->bundleProxyMock);
 
         $this->bundleProxyMock->expects(static::atLeastOnce())
@@ -97,10 +110,12 @@ class JellyfishSalesOrderPayoneGiftCardConnectorDependencyProviderTest extends U
             ->withConsecutive(
                 ['facade'],
                 ['service'],
+                ['facade'],
             )
             ->willReturnOnConsecutiveCalls(
                 $this->salesFacadeMock,
                 $this->payoneServiceMock,
+                $this->proportionalValueConnectorFacadeMock,
             );
 
         $container = $this->dependencyProvider
@@ -116,6 +131,11 @@ class JellyfishSalesOrderPayoneGiftCardConnectorDependencyProviderTest extends U
         static::assertInstanceOf(
             JellyfishSalesOrderPayoneGiftCardConnectorToPayoneServiceInterface::class,
             $container[JellyfishSalesOrderPayoneGiftCardConnectorDependencyProvider::SERVICE_PAYONE],
+        );
+
+        static::assertInstanceOf(
+            JellyfishSalesOrderPayoneGiftCardConnectorToGiftCardProportionalValueFacadeInterface::class,
+            $container[JellyfishSalesOrderPayoneGiftCardConnectorDependencyProvider::FACADE_GIFT_CARD_PROPORTIONAL_VALUE_CONNECTOR],
         );
     }
 }
