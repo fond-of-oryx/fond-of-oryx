@@ -18,7 +18,7 @@
     "php": ">=7.3",
     "fond-of-oryx/credit-memo": "^1.0.0",
     "fond-of-oryx/credit-memo-gift-card-connector": "*",
-    "fond-of-oryx/jellyfish-sales-order-payone-gift-card-connector": "*",
+    "fond-of-oryx/gift-card-proportional-value": "^1.0.0",
     "spryker-eco/payone": "dev-feature/add-service as 4.4.2",
     "spryker/gift-card": "^1.0.0",
     "spryker/gift-card-balance": "^1.0.0"
