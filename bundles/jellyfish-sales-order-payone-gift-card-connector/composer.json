@@ -16,6 +16,7 @@
   ],
   "require": {
     "php": ">=7.3",
+    "fond-of-oryx/gift-card-proportional-value": "^1.0.0",
     "fond-of-oryx/jellyfish-sales-order": "^1.0.0",
     "fond-of-oryx/jellyfish-sales-order-extension": "^1.0.0",
     "fond-of-oryx/jellyfish-sales-order-gift-card-connector": "^1.0.0",
