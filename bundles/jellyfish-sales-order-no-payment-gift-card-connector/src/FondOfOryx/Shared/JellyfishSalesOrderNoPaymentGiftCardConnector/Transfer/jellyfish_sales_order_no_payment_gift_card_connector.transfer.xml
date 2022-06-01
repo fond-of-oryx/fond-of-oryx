@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+<transfers xmlns="spryker:transfer-01"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="spryker:transfer-01 https://static.spryker.com/transfer-01.xsd">
+    <transfer name="JellyfishOrder">
+        <property name="giftCardBalances" singular="giftCardBalances" type="ProportionalGiftCardValue[]"/>
+        <property name="giftCards" singular="giftCard" type="JellyfishOrderGiftCard[]"/>
+    </transfer>
+
+    <transfer name="JellyfishOrderItem">
+        <property name="proportionalCouponValues" singular="proportionalCouponValue" type="JellyfishProportionalCouponValue[]"/>
+    </transfer>
+
+    <transfer name="JellyfishOrderExpense">
+        <property name="proportionalCouponValues" singular="proportionalCouponValue" type="JellyfishProportionalCouponValue[]"/>
+    </transfer>
+
+    <transfer name="JellyfishProportionalCouponValue">
+        <property name="idSalesOrderItem" type="int"/>
+        <property name="amount" type="int"/>
+    </transfer>
+
+    <transfer name="ProportionalGiftCardValue">
+        <property name="fkSalesOrderItem" type="int"/>
+        <property name="fkSalesOrder" type="int"/>
+        <property name="fkSalesExpense" type="int"/>
+        <property name="sku" type="string"/>
+        <property name="orderReference" type="string"/>
+        <property name="value" type="int"/>
+        <property name="isRefund" type="bool"/>
+    </transfer>
+
+    <transfer name="Item">
+        <property name="giftCardAmount" type="int"/>
+    </transfer>
+
+    <transfer name="JellyfishOrderGiftCard" />
+</transfers>
