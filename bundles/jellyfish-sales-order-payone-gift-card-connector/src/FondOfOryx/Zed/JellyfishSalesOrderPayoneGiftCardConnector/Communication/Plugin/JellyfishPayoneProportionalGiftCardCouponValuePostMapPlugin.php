@@ -27,7 +27,7 @@ class JellyfishPayoneProportionalGiftCardCouponValuePostMapPlugin extends Abstra
         JellyfishOrderTransfer $jellyfishOrderTransfer,
         SpySalesOrder $salesOrder
     ): JellyfishOrderTransfer {
-        if (count($jellyfishOrderTransfer->getGiftCards()) === 0) {
+        if ($this->getFacade()->isPayonePayment($jellyfishOrderTransfer) === false) {
             return $jellyfishOrderTransfer;
         }
 

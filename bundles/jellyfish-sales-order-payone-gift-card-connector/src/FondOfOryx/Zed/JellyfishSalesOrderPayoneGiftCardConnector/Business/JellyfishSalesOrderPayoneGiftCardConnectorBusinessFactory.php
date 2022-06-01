@@ -10,12 +10,17 @@ use FondOfOryx\Zed\JellyfishSalesOrderPayoneGiftCardConnector\Business\Manager\P
 use FondOfOryx\Zed\JellyfishSalesOrderPayoneGiftCardConnector\Business\Manager\ProportionalGiftCardValueManagerInterface;
 use FondOfOryx\Zed\JellyfishSalesOrderPayoneGiftCardConnector\Business\Reader\GiftCardAmountReader;
 use FondOfOryx\Zed\JellyfishSalesOrderPayoneGiftCardConnector\Business\Reader\GiftCardAmountReaderInterface;
+use FondOfOryx\Zed\JellyfishSalesOrderPayoneGiftCardConnector\Business\Validator\IsPayonePaymentValidator;
+use FondOfOryx\Zed\JellyfishSalesOrderPayoneGiftCardConnector\Business\Validator\IsPayonePaymentValidatorInterface;
 use FondOfOryx\Zed\JellyfishSalesOrderPayoneGiftCardConnector\Dependency\Facade\JellyfishSalesOrderPayoneGiftCardConnectorToGiftCardProportionalValueFacadeInterface;
 use FondOfOryx\Zed\JellyfishSalesOrderPayoneGiftCardConnector\Dependency\Facade\JellyfishSalesOrderPayoneGiftCardConnectorToSalesFacadeInterface;
 use FondOfOryx\Zed\JellyfishSalesOrderPayoneGiftCardConnector\Dependency\Service\JellyfishSalesOrderPayoneGiftCardConnectorToPayoneServiceInterface;
 use FondOfOryx\Zed\JellyfishSalesOrderPayoneGiftCardConnector\JellyfishSalesOrderPayoneGiftCardConnectorDependencyProvider;
 use Spryker\Zed\Kernel\Business\AbstractBusinessFactory;
 
+/**
+ * @method \FondOfOryx\Zed\JellyfishSalesOrderPayoneGiftCardConnector\JellyfishSalesOrderPayoneGiftCardConnectorConfig getConfig()
+ */
 class JellyfishSalesOrderPayoneGiftCardConnectorBusinessFactory extends AbstractBusinessFactory
 {
     /**
@@ -32,6 +37,14 @@ class JellyfishSalesOrderPayoneGiftCardConnectorBusinessFactory extends Abstract
     public function createProportionalGiftCardValueManager(): ProportionalGiftCardValueManagerInterface
     {
         return new ProportionalGiftCardValueManager($this->getGiftCardProportionalValueFacade());
+    }
+
+    /**
+     * @return \FondOfOryx\Zed\JellyfishSalesOrderPayoneGiftCardConnector\Business\Validator\IsPayonePaymentValidatorInterface
+     */
+    public function createIsPayonePaymentValidator(): IsPayonePaymentValidatorInterface
+    {
+        return new IsPayonePaymentValidator($this->getConfig());
     }
 
     /**

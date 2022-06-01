@@ -43,4 +43,14 @@ class JellyfishSalesOrderPayoneGiftCardConnectorFacade extends AbstractFacade im
     {
         return $this->getFactory()->createOrderItemsExpander()->expand($itemTransfers);
     }
+
+    /**
+     * @param \Generated\Shared\Transfer\JellyfishOrderTransfer $jellyfishOrderTransfer
+     *
+     * @return bool
+     */
+    public function isPayonePayment(JellyfishOrderTransfer $jellyfishOrderTransfer): bool
+    {
+        return $this->getFactory()->createIsPayonePaymentValidator()->isPayonePayment($jellyfishOrderTransfer);
+    }
 }

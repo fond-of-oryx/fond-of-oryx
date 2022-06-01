@@ -2,7 +2,6 @@
 
 namespace FondOfOryx\Zed\JellyfishSalesOrderPayoneGiftCardConnector\Communication\Plugin;
 
-use ArrayObject;
 use Codeception\Test\Unit;
 use FondOfOryx\Zed\JellyfishSalesOrderPayoneGiftCardConnector\Business\JellyfishSalesOrderPayoneGiftCardConnectorFacade;
 use Generated\Shared\Transfer\JellyfishOrderGiftCardTransfer;
@@ -61,12 +60,9 @@ class JellyfishPayoneProportionalGiftCardCouponValuePersistenceBeforeOrderExport
      */
     public function testBefore(): void
     {
-        $giftCards = new ArrayObject();
-        $giftCards->append($this->jellyfishOrderTransferMock);
-
-        $this->jellyfishOrderTransferMock->expects(static::atLeastOnce())
-            ->method('getGiftCards')
-            ->willReturn($giftCards);
+        $this->facadeMock->expects(static::atLeastOnce())
+            ->method('isPayonePayment')
+            ->willReturn(true);
 
         $this->facadeMock->expects(static::atLeastOnce())
             ->method('persistProportionalCouponValues')
