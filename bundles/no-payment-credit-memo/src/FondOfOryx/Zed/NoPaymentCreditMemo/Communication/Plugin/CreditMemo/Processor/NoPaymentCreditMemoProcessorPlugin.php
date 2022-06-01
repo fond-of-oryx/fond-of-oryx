@@ -26,16 +26,6 @@ class NoPaymentCreditMemoProcessorPlugin extends AbstractPlugin implements Credi
     public const NAME = 'NoPaymentCreditMemoProcessorPlugin';
 
     /**
-     * @var string
-     */
-    public const LISTENING_PAYMENT_PROVIDER = 'Nopayment';
-
-    /**
-     * @var string
-     */
-    public const LISTENING_PAYMENT_METHOD = 'nopayment';
-
-    /**
      * @param \Generated\Shared\Transfer\CreditMemoTransfer $creditMemoTransfer
      * @param \Generated\Shared\Transfer\CreditMemoProcessorStatusTransfer $statusResponse
      *
@@ -88,9 +78,7 @@ class NoPaymentCreditMemoProcessorPlugin extends AbstractPlugin implements Credi
 
         return $salesPaymentMethodType !== null
             && $salesPaymentMethodType->getPaymentMethod() !== null
-            && $salesPaymentMethodType->getPaymentMethod()->getName() === static::LISTENING_PAYMENT_METHOD
-            && $salesPaymentMethodType->getPaymentProvider() !== null
-            && $salesPaymentMethodType->getPaymentProvider()->getName() === static::LISTENING_PAYMENT_PROVIDER;
+            && in_array($salesPaymentMethodType->getPaymentMethod()->getName(), $this->getConfig()->getNoPaymentMethods(), true);
     }
 
     /**

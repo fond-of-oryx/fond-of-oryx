@@ -11,7 +11,8 @@
   "require": {
     "php": ">=7.3",
     "fond-of-oryx/credit-memo": "^1.0.0",
-    "fond-of-oryx/gift-card-proportional-value": "^1.0.0"
+    "fond-of-oryx/gift-card-proportional-value": "^1.0.0",
+    "spryker/nopayment": "^4.0.0"
   },
   "require-dev": {
     "fond-of-codeception/spryker": "^1.0",
