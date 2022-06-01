@@ -20,6 +20,7 @@
     "fond-of-oryx/jellyfish-sales-order": "^1.0.0",
     "fond-of-oryx/jellyfish-sales-order-extension": "^1.0.0",
     "fond-of-oryx/jellyfish-sales-order-gift-card-connector": "^1.0.0",
+    "fond-of-oryx/payone-credit-memo": "^1.0.0",
     "spryker-eco/payone": "dev-feature/add-service as 4.4.2",
     "spryker/sales": "^8.0.0 || ^10.0.0 || ^11.0.0"
   },

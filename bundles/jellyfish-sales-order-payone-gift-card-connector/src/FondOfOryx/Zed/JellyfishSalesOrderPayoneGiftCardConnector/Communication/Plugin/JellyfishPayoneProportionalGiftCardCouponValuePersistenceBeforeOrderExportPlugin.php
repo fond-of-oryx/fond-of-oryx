@@ -19,7 +19,7 @@ class JellyfishPayoneProportionalGiftCardCouponValuePersistenceBeforeOrderExport
      */
     public function before(JellyfishOrderTransfer $jellyfishOrderTransfer, array $options): void
     {
-        if (count($jellyfishOrderTransfer->getGiftCards()) === 0) {
+        if ($this->getFacade()->isPayonePayment($jellyfishOrderTransfer) === false) {
             return;
         }
 

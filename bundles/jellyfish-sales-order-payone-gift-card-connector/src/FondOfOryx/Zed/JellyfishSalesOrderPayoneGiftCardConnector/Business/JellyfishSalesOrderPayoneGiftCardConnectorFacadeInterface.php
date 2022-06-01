@@ -32,4 +32,11 @@ interface JellyfishSalesOrderPayoneGiftCardConnectorFacadeInterface
      * @return array<\Generated\Shared\Transfer\ItemTransfer>
      */
     public function expandOrderItems(array $itemTransfers): array;
+
+    /**
+     * @param \Generated\Shared\Transfer\JellyfishOrderTransfer $jellyfishOrderTransfer
+     *
+     * @return bool
+     */
+    public function isPayonePayment(JellyfishOrderTransfer $jellyfishOrderTransfer): bool;
 }

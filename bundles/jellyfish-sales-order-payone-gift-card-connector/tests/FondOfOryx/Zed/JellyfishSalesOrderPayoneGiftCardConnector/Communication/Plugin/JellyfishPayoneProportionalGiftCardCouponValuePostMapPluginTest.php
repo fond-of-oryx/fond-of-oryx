@@ -2,7 +2,6 @@
 
 namespace FondOfOryx\Zed\JellyfishSalesOrderPayoneGiftCardConnector\Communication\Plugin;
 
-use ArrayObject;
 use Codeception\Test\Unit;
 use FondOfOryx\Zed\JellyfishSalesOrderPayoneGiftCardConnector\Business\JellyfishSalesOrderPayoneGiftCardConnectorFacade;
 use Generated\Shared\Transfer\JellyfishOrderGiftCardTransfer;
@@ -70,15 +69,10 @@ class JellyfishPayoneProportionalGiftCardCouponValuePostMapPluginTest extends Un
      */
     public function testPostMap(): void
     {
-        parent::_before();
-
         $idSalesOrder = 1;
-        $giftCards = new ArrayObject();
-        $giftCards->append($this->jellyfishOrderTransferMock);
-
-        $this->jellyfishOrderTransferMock->expects(static::atLeastOnce())
-            ->method('getGiftCards')
-            ->willReturn($giftCards);
+        $this->facadeMock->expects(static::atLeastOnce())
+            ->method('isPayonePayment')
+            ->willReturn(true);
 
         $this->facadeMock->expects(static::atLeastOnce())
             ->method('calculateProportionalGiftCardValues')
@@ -103,9 +97,9 @@ class JellyfishPayoneProportionalGiftCardCouponValuePostMapPluginTest extends Un
      */
     public function testPostMapWitNoGiftCards(): void
     {
-        $this->jellyfishOrderTransferMock->expects(static::atLeastOnce())
-            ->method('getGiftCards')
-            ->willReturn([]);
+        $this->facadeMock->expects(static::atLeastOnce())
+            ->method('isPayonePayment')
+            ->willReturn(false);
 
         static::assertInstanceOf(
             JellyfishOrderTransfer::class,
