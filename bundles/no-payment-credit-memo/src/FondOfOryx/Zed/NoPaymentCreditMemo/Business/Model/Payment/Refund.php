@@ -6,8 +6,6 @@ use FondOfOryx\Shared\CreditMemo\CreditMemoRefundHelperTrait;
 use FondOfOryx\Zed\NoPaymentCreditMemo\Dependency\Facade\NoPaymentCreditMemoToGiftCardProportionalValueInterface;
 use FondOfOryx\Zed\NoPaymentCreditMemo\Dependency\Facade\NoPaymentCreditMemoToRefundInterface;
 use Generated\Shared\Transfer\CreditMemoTransfer;
-use Generated\Shared\Transfer\ProportionalGiftCardValueTransfer;
-use Generated\Shared\Transfer\RefundTransfer;
 use Orm\Zed\Sales\Persistence\SpySalesOrder;
 
 class Refund implements RefundInterface
@@ -81,7 +79,7 @@ class Refund implements RefundInterface
 
                 if ($this->isRefundableAmount($refundTransfer)) {
                     $results[$creditMemoReference] = $this->refundFacade->saveRefund($refundTransfer);
-                    $this->createProportionalGiftCardValues($refundTransfer);
+                    $this->updateProportionalGiftCardValues($itemsToRefund);
                     $creditMemoUpdateTransfer->setProcessed(true);
                     $creditMemoUpdateTransfer->setProcessedAt(time());
                     $creditMemoUpdateTransfer->setRefundedAmount($refundTransfer->getAmount());
@@ -94,22 +92,20 @@ class Refund implements RefundInterface
     }
 
     /**
-     * @param \Generated\Shared\Transfer\RefundTransfer $refundTransfer
+     * @param array<\Orm\Zed\Sales\Persistence\SpySalesOrderItem> $spySalesOrderItems
      *
      * @return void
      */
-    protected function createProportionalGiftCardValues(RefundTransfer $refundTransfer)
+    protected function updateProportionalGiftCardValues(array $spySalesOrderItems)
     {
-        foreach ($refundTransfer->getItems() as $item) {
-            $transfer = new ProportionalGiftCardValueTransfer();
-            $transfer
-                ->setValue($item->getRefundableAmount())
-                ->setOrderReference($item->getOrderReference())
-                ->setSku($item->getSku())
-                ->setFkSalesOrderItem($item->getIdSalesOrderItem())
-                ->setFkSalesOrder($item->getFkSalesOrder());
-
-            $this->giftCardProportionalValue->findOrCreateProportionalGiftCardValue($transfer);
+        foreach ($spySalesOrderItems as $item) {
+            $proportionalGiftCardValues = $item->getFooProportionalGiftCardValues();
+            foreach ($proportionalGiftCardValues as $proportionalGiftCardValue) {
+                if ($proportionalGiftCardValue->getFkSalesOrderItem() === $item->getIdSalesOrderItem()) {
+                    $proportionalGiftCardValue->setIsRefund(true);
+                    $proportionalGiftCardValue->save();
+                }
+            }
         }
     }
 }
