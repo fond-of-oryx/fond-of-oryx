@@ -104,6 +104,8 @@ include:
   - bundles/one-time-password-email-connector
   - bundles/one-time-password-rest-api
   - bundles/order-budget
+  - bundles/payment-cart-connector
+  - bundles/payment-epc-qr-code
   - bundles/payone-credit-memo
   - bundles/payone-credit-memo-extension
   - bundles/payone-secure-invoice
@@ -117,6 +119,7 @@ include:
   - bundles/product-locale-restriction-cart-connector
   - bundles/product-locale-restriction-search
   - bundles/product-locale-restriction-storage
+  - bundles/qr-code-generator
   - bundles/return-label
   - bundles/return-labels-rest-api
   - bundles/return-labels-rest-api-company-unit-address-connector
@@ -149,8 +152,6 @@ include:
   - bundles/thirty-five-up-payment-connector
   - bundles/trbo
   - bundles/util-math-formula
-  - bundles/qr-code-generator
-  - bundles/payment-epc-qr-code
 
 suites:
   unit:
