@@ -14,6 +14,7 @@
   ],
   "require": {
     "php": ">=7.3",
+    "fond-of-oryx/credit-memo": "^1.0.0",
     "spryker/oms": "^6.0.0 || ^7.0.0 || ^8.0.0 || ^10.0.0 || ^11.0.0",
     "spryker/sales": "^6.0.0 || ^7.0.0 || ^8.0.0 || ^10.0.0 || ^11.0.0",
     "spryker/util-encoding": "^1.0.0 || ^2.0.0"
@@ -33,7 +34,9 @@
   "autoload-dev": {
     "psr-4": {
       "FondOfOryx\\": "tests/FondOfOryx/",
-      "Generated\\": "src/Generated/"
+      "Generated\\": "src/Generated/",
+      "Orm\\Zed\\": "src/Orm/Zed/"
     }
   }
 }
+
