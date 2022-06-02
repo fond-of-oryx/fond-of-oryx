@@ -177,10 +177,17 @@ class JellyfishCreditMemoMapper implements JellyfishCreditMemoMapperInterface
      */
     protected function mapTotalRefundAmount(CreditMemoTransfer $creditMemoTransfer): JellyfishCreditMemoPriceTransfer
     {
+        $amount = $creditMemoTransfer->getRefundedAmount();
+        $taxAmount = $creditMemoTransfer->getRefundedTaxAmount();
+
+        if ($creditMemoTransfer->getHasGiftCards()) {
+            $amount = $creditMemoTransfer->getTotalAmount();
+            $taxAmount = $creditMemoTransfer->getTotalTaxAmount();
+        }
         $priceTransfer = new JellyfishCreditMemoPriceTransfer();
         $priceTransfer
-            ->setAmount($creditMemoTransfer->getRefundedAmount())
-            ->setTaxAmount($creditMemoTransfer->getRefundedTaxAmount());
+            ->setAmount($amount)
+            ->setTaxAmount($taxAmount);
 
         return $priceTransfer;
     }

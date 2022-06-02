@@ -62,4 +62,8 @@
         <property name="creditMemos" type="CreditMemo[]"  singular="creditMemo"/>
     </transfer>
 
+    <transfer name="CreditMemo">
+        <property name="hasGiftCards" type="bool" />
+        <property name="giftCards" singular="giftCard" type="CreditMemoGiftCard[]" />
+    </transfer>
 </transfers>
