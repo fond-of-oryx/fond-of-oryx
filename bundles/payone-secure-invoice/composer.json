@@ -1,0 +1,34 @@
+{
+  "name": "fond-of-oryx/payone-secure-invoice",
+  "description": "Implements necessary business logic to use Payone Secure Invoice with Spryker.",
+  "license": "MIT",
+  "repositories": [
+    {
+      "type": "vcs",
+      "url": "https://github.com/fond-of/payone"
+    }
+  ],
+  "require": {
+    "php": ">=7.3",
+    "spryker-eco/payone": "dev-feature/dedicated-invoice-credentials as 4.4.2"
+  },
+  "require-dev": {
+    "fond-of-codeception/spryker": "^1.0",
+    "spryker/code-sniffer": "*",
+    "spryker-sdk/phpstan-spryker": "*"
+  },
+  "minimum-stability": "dev",
+  "prefer-stable": true,
+  "autoload": {
+    "psr-4": {
+      "FondOfOryx\\": "src/FondOfOryx/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "FondOfOryx\\": "tests/FondOfOryx/",
+      "Generated\\": "src/Generated/",
+      "Orm\\Zed\\": "src/Orm/Zed/"
+    }
+  }
+}
