@@ -11,7 +11,7 @@ class ClearingTypeMapper implements ClearingTypeMapperInterface
 {
     /**
      * @param \SprykerEco\Zed\Payone\Business\Api\Request\Container\Authorization\AbstractAuthorizationContainer $requestContainer
-     * @param array $credentials
+     * @param array<string, string> $credentials
      *
      * @return \SprykerEco\Zed\Payone\Business\Api\Request\Container\ContainerInterface
      */

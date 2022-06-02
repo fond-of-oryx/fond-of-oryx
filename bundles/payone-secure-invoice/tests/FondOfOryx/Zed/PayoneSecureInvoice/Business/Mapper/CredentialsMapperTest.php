@@ -4,8 +4,10 @@ namespace FondOfOryx\Zed\PayoneSecureInvoice\Business\Mapper;
 
 use Codeception\Test\Unit;
 use FondOfOryx\Shared\PayoneSecureInvoice\PayoneSecureInvoiceConstants;
+use FondOfOryx\Zed\PayoneSecureInvoice\PayoneSecureInvoiceConfig;
 use Psr\Log\LoggerInterface;
 use SprykerEco\Shared\Payone\PayoneApiConstants;
+use SprykerEco\Zed\Payone\Business\Api\Request\Container\AddressCheckContainer;
 use SprykerEco\Zed\Payone\Business\Api\Request\Container\AuthorizationContainer;
 use SprykerEco\Zed\Payone\Business\Api\Request\Container\CaptureContainer;
 
@@ -42,11 +44,29 @@ class CredentialsMapperTest extends Unit
     protected $clearingTypeMapperMock;
 
     /**
+     * @var \FondOfOryx\Zed\PayoneSecureInvoice\Business\Mapper\TransactionIdMapper|\PHPUnit\Framework\MockObject\MockObject
+     */
+    protected $transactionIdMapperMock;
+
+    /**
+     * @var \FondOfOryx\Zed\PayoneSecureInvoice\PayoneSecureInvoiceConfig|\PHPUnit\Framework\MockObject\MockObject
+     */
+    protected $configMock;
+
+    /**
      * @return void
      */
     protected function _before()
     {
         $this->clearingTypeMapperMock = $this->getMockBuilder(ClearingTypeMapper::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $this->transactionIdMapperMock = $this->getMockBuilder(TransactionIdMapper::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $this->configMock = $this->getMockBuilder(PayoneSecureInvoiceConfig::class)
             ->disableOriginalConstructor()
             ->getMock();
 
@@ -63,7 +83,7 @@ class CredentialsMapperTest extends Unit
     /**
      * @return void
      */
-    public function testIsPluginApplicable(): void
+    public function testClearingTypeRequest(): void
     {
         $testCreds = [
             PayoneSecureInvoiceConstants::PAYONE_CREDENTIALS_AID => '12345',
@@ -71,7 +91,14 @@ class CredentialsMapperTest extends Unit
             PayoneSecureInvoiceConstants::PAYONE_CREDENTIALS_KEY => 'abc123',
         ];
 
-        $credentialsMapper = $this->createCredentialsMapper($testCreds);
+        $this->configMock->method('getCredentials')->willReturn($testCreds);
+
+        $credentialsMapper = new CredentialsMapper(
+            $this->clearingTypeMapperMock,
+            $this->transactionIdMapperMock,
+            $this->configMock,
+            $this->logger,
+        );
 
         $authorizationContainer = new AuthorizationContainer();
         $this->clearingTypeMapperMock->expects(static::once())->method('map');
@@ -82,7 +109,7 @@ class CredentialsMapperTest extends Unit
     /**
      * @return void
      */
-    public function testIsPluginNotApplicable(): void
+    public function testTransactionIdRequest(): void
     {
         $testCreds = [
             PayoneSecureInvoiceConstants::PAYONE_CREDENTIALS_AID => '12345',
@@ -90,9 +117,43 @@ class CredentialsMapperTest extends Unit
             PayoneSecureInvoiceConstants::PAYONE_CREDENTIALS_KEY => 'abc123',
         ];
 
-        $credentialsMapper = $this->createCredentialsMapper($testCreds);
+        $this->configMock->method('getCredentials')->willReturn($testCreds);
+
+        $credentialsMapper = new CredentialsMapper(
+            $this->clearingTypeMapperMock,
+            $this->transactionIdMapperMock,
+            $this->configMock,
+            $this->logger,
+        );
 
         $captureContainer = new CaptureContainer();
+        $this->transactionIdMapperMock->expects(static::once())->method('map');
+
+        $credentialsMapper->map($captureContainer);
+    }
+
+    /**
+     * @return void
+     */
+    public function testIsNotApplicable()
+    {
+        $testCreds = [
+            PayoneSecureInvoiceConstants::PAYONE_CREDENTIALS_AID => '12345',
+            PayoneSecureInvoiceConstants::PAYONE_CREDENTIALS_PORTAL_ID => '54321',
+            PayoneSecureInvoiceConstants::PAYONE_CREDENTIALS_KEY => 'abc123',
+        ];
+
+        $this->configMock->method('getCredentials')->willReturn($testCreds);
+
+        $credentialsMapper = new CredentialsMapper(
+            $this->clearingTypeMapperMock,
+            $this->transactionIdMapperMock,
+            $this->configMock,
+            $this->logger,
+        );
+
+        $captureContainer = new AddressCheckContainer();
+        $this->transactionIdMapperMock->expects(static::never())->method('map');
         $this->clearingTypeMapperMock->expects(static::never())->method('map');
 
         $credentialsMapper->map($captureContainer);
@@ -107,7 +168,14 @@ class CredentialsMapperTest extends Unit
     {
         $testCreds = [];
 
-        $credentialsMapper = $this->createCredentialsMapper($testCreds);
+        $this->configMock->method('getCredentials')->willReturn($testCreds);
+
+        $credentialsMapper = new CredentialsMapper(
+            $this->clearingTypeMapperMock,
+            $this->transactionIdMapperMock,
+            $this->configMock,
+            $this->logger,
+        );
         $mappedContainer = $credentialsMapper->map($this->payoneRequestContainer);
 
         $expectedCreds = [
@@ -140,7 +208,14 @@ class CredentialsMapperTest extends Unit
 
         $this->logger->expects(static::once())->method('warning');
 
-        $credentialsMapper = $this->createCredentialsMapper($testCreds);
+        $this->configMock->method('getCredentials')->willReturn($testCreds);
+
+        $credentialsMapper = new CredentialsMapper(
+            $this->clearingTypeMapperMock,
+            $this->transactionIdMapperMock,
+            $this->configMock,
+            $this->logger,
+        );
         $mappedContainer = $credentialsMapper->map($this->payoneRequestContainer);
 
         $expectedCreds = [
@@ -173,7 +248,14 @@ class CredentialsMapperTest extends Unit
 
         $this->logger->expects(static::once())->method('warning');
 
-        $credentialsMapper = $this->createCredentialsMapper($testCreds);
+        $this->configMock->method('getCredentials')->willReturn($testCreds);
+
+        $credentialsMapper = new CredentialsMapper(
+            $this->clearingTypeMapperMock,
+            $this->transactionIdMapperMock,
+            $this->configMock,
+            $this->logger,
+        );
         $mappedContainer = $credentialsMapper->map($this->payoneRequestContainer);
 
         $expectedCreds = [
@@ -189,19 +271,5 @@ class CredentialsMapperTest extends Unit
         ];
 
         $this->assertSame($expectedCreds, $actualCreds);
-    }
-
-    /**
-     * @param array $testCreds
-     *
-     * @return \FondOfOryx\Zed\PayoneSecureInvoice\Business\Mapper\CredentialsMapperInterface
-     */
-    protected function createCredentialsMapper(array $testCreds): CredentialsMapperInterface
-    {
-        return new CredentialsMapper(
-            $testCreds,
-            $this->logger,
-            $this->clearingTypeMapperMock,
-        );
     }
 }
