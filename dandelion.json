@@ -500,6 +500,10 @@
       "path": "bundles/payment-address-restriction/",
       "version": "1.0.0-beta.0"
     },
+    "payment-cart-connector": {
+      "path": "bundles/payment-cart-connector/",
+      "version": "1.0.0"
+    },
     "payment-product-restriction": {
       "path": "bundles/payment-product-restriction/",
       "version": "1.0.0-beta.0"
