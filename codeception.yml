@@ -106,6 +106,7 @@ include:
   - bundles/order-budget
   - bundles/payone-credit-memo
   - bundles/payone-credit-memo-extension
+  - bundles/payone-secure-invoice
   - bundles/prepayment
   - bundles/price-list-extension
   - bundles/price-lists-rest-api-extension
