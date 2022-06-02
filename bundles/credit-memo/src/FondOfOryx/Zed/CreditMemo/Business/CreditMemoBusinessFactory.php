@@ -41,6 +41,7 @@ class CreditMemoBusinessFactory extends AbstractBusinessFactory
         return new CreditMemoWriter(
             $this->getEntityManager(),
             $this->createCreditMemoPluginExecutor(),
+            $this->getLogger(),
         );
     }
 

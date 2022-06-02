@@ -8,6 +8,7 @@ use FondOfOryx\Zed\CreditMemo\Persistence\CreditMemoEntityManagerInterface;
 use Generated\Shared\Transfer\CreditMemoErrorTransfer;
 use Generated\Shared\Transfer\CreditMemoResponseTransfer;
 use Generated\Shared\Transfer\CreditMemoTransfer;
+use Psr\Log\LoggerInterface;
 use Spryker\Zed\Kernel\Persistence\EntityManager\TransactionTrait;
 
 class CreditMemoWriter implements CreditMemoWriterInterface
@@ -25,15 +26,23 @@ class CreditMemoWriter implements CreditMemoWriterInterface
     protected $creditMemoPluginExecutor;
 
     /**
+     * @var \Psr\Log\LoggerInterface
+     */
+    protected $logger;
+
+    /**
      * @param \FondOfOryx\Zed\CreditMemo\Persistence\CreditMemoEntityManagerInterface $entityManager
      * @param \FondOfOryx\Zed\CreditMemo\Business\Model\CreditMemoPluginExecutorInterface $creditMemoPluginExecutor
+     * @param \Psr\Log\LoggerInterface $logger
      */
     public function __construct(
         CreditMemoEntityManagerInterface $entityManager,
-        CreditMemoPluginExecutorInterface $creditMemoPluginExecutor
+        CreditMemoPluginExecutorInterface $creditMemoPluginExecutor,
+        LoggerInterface $logger
     ) {
         $this->entityManager = $entityManager;
         $this->creditMemoPluginExecutor = $creditMemoPluginExecutor;
+        $this->logger = $logger;
     }
 
     /**
@@ -58,6 +67,8 @@ class CreditMemoWriter implements CreditMemoWriterInterface
             $creditMemoResponseTransfer->setIsSuccess(true)
                 ->setCreditMemoTransfer($creditMemoTransfer);
         } catch (Exception $exception) {
+            $this->logger->error($exception->getMessage(), $exception->getTrace());
+
             $errorTransferList = new ArrayObject();
 
             $errorTransferList->append((new CreditMemoErrorTransfer())->setMessage($exception->getMessage()));
@@ -90,6 +101,7 @@ class CreditMemoWriter implements CreditMemoWriterInterface
             $creditMemoResponseTransfer->setIsSuccess(true)
                 ->setCreditMemoTransfer($creditMemoTransfer);
         } catch (Exception $exception) {
+            $this->logger->error($exception->getMessage(), $exception->getTrace());
             $errorTransferList = new ArrayObject();
 
             $errorTransferList->append((new CreditMemoErrorTransfer())->setMessage($exception->getMessage()));

@@ -9,6 +9,7 @@ use FondOfOryx\Zed\CreditMemo\Persistence\CreditMemoEntityManagerInterface;
 use Generated\Shared\Transfer\CreditMemoErrorTransfer;
 use Generated\Shared\Transfer\CreditMemoResponseTransfer;
 use Generated\Shared\Transfer\CreditMemoTransfer;
+use Psr\Log\LoggerInterface;
 use Spryker\Zed\Kernel\Persistence\EntityManager\TransactionHandlerInterface;
 
 class CreditMemoWriterTest extends Unit
@@ -34,6 +35,11 @@ class CreditMemoWriterTest extends Unit
     protected $creditMemoTransferMock;
 
     /**
+     * @var \Psr\Log\LoggerInterface|\PHPUnit\Framework\MockObject\MockObject
+     */
+    protected $loggerMock;
+
+    /**
      * @var \FondOfOryx\Zed\CreditMemo\Business\Model\CreditMemoWriterInterface
      */
     protected $model;
@@ -49,26 +55,27 @@ class CreditMemoWriterTest extends Unit
         $this->pluginExecutorMock = $this->getMockBuilder(CreditMemoPluginExecutorInterface::class)->disableOriginalConstructor()->getMock();
         $this->creditMemoTransferMock = $this->getMockBuilder(CreditMemoTransfer::class)->disableOriginalConstructor()->getMock();
         $this->transactionHandlerMock = $this->getMockBuilder(TransactionHandlerInterface::class)->disableOriginalConstructor()->getMock();
+        $this->loggerMock = $this->getMockBuilder(LoggerInterface::class)->disableOriginalConstructor()->getMock();
 
-        $this->model = new class ($this->entityManagerMock, $this->pluginExecutorMock, $this->transactionHandlerMock) extends CreditMemoWriter {
+        $this->model = new class ($this->entityManagerMock, $this->pluginExecutorMock, $this->transactionHandlerMock, $this->loggerMock) extends CreditMemoWriter {
             /**
              * @var \Spryker\Zed\Kernel\Persistence\EntityManager\TransactionHandlerInterface
              */
             protected $transactionHandlerMock;
 
             /**
-             *  constructor.
-             *
              * @param \FondOfOryx\Zed\CreditMemo\Persistence\CreditMemoEntityManagerInterface $entityManager
              * @param \FondOfOryx\Zed\CreditMemo\Business\Model\CreditMemoPluginExecutorInterface $creditMemoPluginExecutor
              * @param \Spryker\Zed\Kernel\Persistence\EntityManager\TransactionHandlerInterface $transactionHandler
+             * @param \Psr\Log\LoggerInterface $logger
              */
             public function __construct(
                 CreditMemoEntityManagerInterface $entityManager,
                 CreditMemoPluginExecutorInterface $creditMemoPluginExecutor,
-                TransactionHandlerInterface $transactionHandler
+                TransactionHandlerInterface $transactionHandler,
+                LoggerInterface $logger
             ) {
-                parent::__construct($entityManager, $creditMemoPluginExecutor);
+                parent::__construct($entityManager, $creditMemoPluginExecutor, $logger);
                 $this->transactionHandlerMock = $transactionHandler;
             }
 
