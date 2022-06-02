@@ -286,7 +286,7 @@
     },
     "gift-card-credit-memo": {
       "path": "bundles/gift-card-credit-memo/",
-      "version": "0.1.2-alpha"
+      "version": "0.1.3-alpha"
     },
     "gift-card-expiration": {
       "path": "bundles/gift-card-expiration/",
@@ -402,7 +402,7 @@
     },
     "jellyfish-sales-order-payone-gift-card-connector": {
       "path": "bundles/jellyfish-sales-order-payone-gift-card-connector/",
-      "version": "0.0.3-alpha"
+      "version": "0.0.4-alpha"
     },
     "jellyfish-sales-order-product-type": {
       "path": "bundles/jellyfish-sales-order-product-type/",
@@ -466,7 +466,7 @@
     },
     "payone-credit-memo-gift-card-connector": {
       "path": "bundles/payone-credit-memo-gift-card-connector/",
-      "version": "0.0.2-alpha"
+      "version": "0.0.3-alpha"
     },
     "prepayment-credit-memo": {
       "path": "bundles/prepayment-credit-memo/",

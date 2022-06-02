@@ -20,7 +20,7 @@
     "fond-of-oryx/jellyfish-sales-order-payone-gift-card-connector": "*",
     "fond-of-oryx/payone-credit-memo": "^1.0.0",
     "fond-of-oryx/payone-credit-memo-extension": "^1.1.0",
-    "spryker-eco/payone": "dev-feature/add-service as 4.4.2"
+    "spryker-eco/payone": "dev-master-fondof as 4.4.2"
   },
   "require-dev": {
     "fond-of-codeception/spryker": "^1.0",
