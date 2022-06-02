@@ -7,6 +7,7 @@ use SprykerEco\Zed\Payone\Business\Api\Request\Container\ContainerInterface;
 
 /**
  * @method \FondOfOryx\Zed\PayoneSecureInvoice\Business\PayoneSecureInvoiceBusinessFactory getFactory()
+ * @method \FondOfOryx\Zed\PayoneSecureInvoice\Persistence\PayoneSecureInvoiceRepositoryInterface getRepository()
  */
 class PayoneSecureInvoiceFacade extends AbstractFacade implements PayoneSecureInvoiceFacadeInterface
 {
