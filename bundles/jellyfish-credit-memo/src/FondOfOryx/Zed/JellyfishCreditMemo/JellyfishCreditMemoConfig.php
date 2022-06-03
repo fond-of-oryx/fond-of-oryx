@@ -36,7 +36,7 @@ class JellyfishCreditMemoConfig extends AbstractBundleConfig
      */
     public function getTimeout(): float
     {
-        return $this->get(JellyfishCreditMemoConstants::TIMEOUT, 2.0);
+        return $this->get(JellyfishCreditMemoConstants::TIMEOUT, 10.0);
     }
 
     /**

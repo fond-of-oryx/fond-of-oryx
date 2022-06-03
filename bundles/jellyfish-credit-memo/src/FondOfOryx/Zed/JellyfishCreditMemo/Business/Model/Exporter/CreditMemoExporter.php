@@ -13,12 +13,10 @@ use Generated\Shared\Transfer\CreditMemoCollectionTransfer;
 use Generated\Shared\Transfer\CreditMemoTransfer;
 use Generated\Shared\Transfer\ItemTransfer;
 use Generated\Shared\Transfer\JellyfishCreditMemoTransfer;
-use Spryker\Shared\Log\LoggerTrait;
+use Psr\Log\LoggerInterface;
 
 class CreditMemoExporter implements CreditMemoExporterInterface
 {
-    use LoggerTrait;
-
     /**
      * @var string
      */
@@ -58,24 +56,32 @@ class CreditMemoExporter implements CreditMemoExporterInterface
     protected $jellyfishCreditMemoConfig;
 
     /**
+     * @var \Psr\Log\LoggerInterface
+     */
+    protected $logger;
+
+    /**
      * @param \FondOfOryx\Zed\JellyfishCreditMemo\Business\Model\Mapper\JellyfishCreditMemoMapperInterface $jellyfishCreditMemoMapper
      * @param \FondOfOryx\Zed\JellyfishCreditMemo\Persistence\JellyfishCreditMemoRepositoryInterface $jellyfishCreditMemoRepository
      * @param \FondOfOryx\Zed\JellyfishCreditMemo\JellyfishCreditMemoConfig $jellyfishCreditMemoConfig
      * @param \FondOfOryx\Zed\JellyfishCreditMemo\Persistence\JellyfishCreditMemoEntityManagerInterface $jellyfishCreditMemoEntityManager
      * @param \FondOfOryx\Zed\JellyfishCreditMemo\Business\Api\Adapter\CreditMemoAdapterInterface $adapter
+     * @param \Psr\Log\LoggerInterface $logger
      */
     public function __construct(
         JellyfishCreditMemoMapperInterface $jellyfishCreditMemoMapper,
         JellyfishCreditMemoRepositoryInterface $jellyfishCreditMemoRepository,
         JellyfishCreditMemoConfig $jellyfishCreditMemoConfig,
         JellyfishCreditMemoEntityManagerInterface $jellyfishCreditMemoEntityManager,
-        CreditMemoAdapterInterface $adapter
+        CreditMemoAdapterInterface $adapter,
+        LoggerInterface $logger
     ) {
         $this->adapter = $adapter;
         $this->jellyfishCreditMemoRepository = $jellyfishCreditMemoRepository;
         $this->jellyfishCreditMemoMapper = $jellyfishCreditMemoMapper;
         $this->jellyfishCreditMemoConfig = $jellyfishCreditMemoConfig;
         $this->jellyfishCreditMemoEntityManager = $jellyfishCreditMemoEntityManager;
+        $this->logger = $logger;
     }
 
     /**
@@ -96,8 +102,8 @@ class CreditMemoExporter implements CreditMemoExporterInterface
 
             $this->handle($creditMemoCollectionTransfer);
         } catch (Exception $exception) {
-            $this->getLogger()->error(sprintf(
-                'CreditMemo could not expoted to JellyFish! Message: %s',
+            $this->logger->error(sprintf(
+                'CreditMemo could not be exported to JellyFish! Message: %s',
                 $exception->getMessage(),
             ), $exception->getTrace());
 

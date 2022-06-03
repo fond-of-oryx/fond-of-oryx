@@ -13,6 +13,7 @@ use FondOfOryx\Zed\JellyfishCreditMemo\Dependency\Service\JellyfishCreditMemoToU
 use FondOfOryx\Zed\JellyfishCreditMemo\JellyfishCreditMemoDependencyProvider;
 use GuzzleHttp\Client as HttpClient;
 use GuzzleHttp\ClientInterface as HttpClientInterface;
+use Spryker\Shared\Log\LoggerTrait;
 use Spryker\Zed\Kernel\Business\AbstractBusinessFactory;
 
 /**
@@ -22,6 +23,8 @@ use Spryker\Zed\Kernel\Business\AbstractBusinessFactory;
  */
 class JellyfishCreditMemoBusinessFactory extends AbstractBusinessFactory
 {
+    use LoggerTrait;
+
     /**
      * @return \FondOfOryx\Zed\JellyfishCreditMemo\Business\Model\Exporter\CreditMemoExporterInterface
      */
@@ -33,6 +36,7 @@ class JellyfishCreditMemoBusinessFactory extends AbstractBusinessFactory
             $this->getConfig(),
             $this->getEntityManager(),
             $this->createCreditMemoAdapter(),
+            $this->getLogger(),
         );
     }
 
@@ -45,6 +49,7 @@ class JellyfishCreditMemoBusinessFactory extends AbstractBusinessFactory
             $this->getUtilEncodingService(),
             $this->createHttpClient(),
             $this->getConfig(),
+            $this->getLogger(),
         );
     }
 

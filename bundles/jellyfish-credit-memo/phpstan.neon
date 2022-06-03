@@ -6,3 +6,7 @@ parameters:
     ignoreErrors:
         - '#.* on an unknown class Generated\\(Client|Glue|Service|Yves|Zed)\\.*#'
         - '#Dead catch - Exception is never thrown in the try block.#'
+        -
+            message: '#Unreachable statement - code above always terminates.#'
+            paths:
+                - tests/FondOfOryx/Zed/JellyfishCreditMemo/Persistence/JellyfishCreditMemoRepositoryTest.php
