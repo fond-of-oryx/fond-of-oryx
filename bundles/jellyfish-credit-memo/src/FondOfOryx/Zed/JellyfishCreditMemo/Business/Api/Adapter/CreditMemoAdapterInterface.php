@@ -2,15 +2,17 @@
 
 namespace FondOfOryx\Zed\JellyfishCreditMemo\Business\Api\Adapter;
 
+use Generated\Shared\Transfer\JellyfishCreditMemoTransfer;
 use Psr\Http\Message\StreamInterface;
-use Spryker\Shared\Kernel\Transfer\AbstractTransfer;
 
 interface CreditMemoAdapterInterface
 {
     /**
-     * @param \Spryker\Shared\Kernel\Transfer\AbstractTransfer $transfer
+     * @param \Generated\Shared\Transfer\JellyfishCreditMemoTransfer $jellyfishCreditMemoTransfer
+     *
+     * @throws \FondOfOryx\Zed\JellyfishCreditMemo\Exception\ResponseErrorException
      *
      * @return \Psr\Http\Message\StreamInterface|null
      */
-    public function sendRequest(AbstractTransfer $transfer): ?StreamInterface;
+    public function sendRequest(JellyfishCreditMemoTransfer $jellyfishCreditMemoTransfer): ?StreamInterface;
 }

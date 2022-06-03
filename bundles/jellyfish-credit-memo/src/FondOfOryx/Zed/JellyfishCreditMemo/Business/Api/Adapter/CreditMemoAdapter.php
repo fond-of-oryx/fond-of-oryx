@@ -5,17 +5,15 @@ namespace FondOfOryx\Zed\JellyfishCreditMemo\Business\Api\Adapter;
 use FondOfOryx\Zed\JellyfishCreditMemo\Dependency\Service\JellyfishCreditMemoToUtilEncodingServiceInterface;
 use FondOfOryx\Zed\JellyfishCreditMemo\Exception\ResponseErrorException;
 use FondOfOryx\Zed\JellyfishCreditMemo\JellyfishCreditMemoConfig;
+use Generated\Shared\Transfer\JellyfishCreditMemoTransfer;
 use GuzzleHttp\ClientInterface;
 use GuzzleHttp\RequestOptions;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\StreamInterface;
-use Spryker\Shared\Kernel\Transfer\AbstractTransfer;
-use Spryker\Shared\Log\LoggerTrait;
+use Psr\Log\LoggerInterface;
 
 class CreditMemoAdapter implements CreditMemoAdapterInterface
 {
-    use LoggerTrait;
-
     /**
      * @var int
      */
@@ -50,78 +48,69 @@ class CreditMemoAdapter implements CreditMemoAdapterInterface
     protected $utilEncodingService;
 
     /**
-     * @var string
+     * @var \Psr\Log\LoggerInterface
      */
-    protected $username;
-
-    /**
-     * @var string
-     */
-    protected $password;
-
-    /**
-     * @var bool
-     */
-    protected $dryRun;
+    protected $logger;
 
     /**
      * @param \FondOfOryx\Zed\JellyfishCreditMemo\Dependency\Service\JellyfishCreditMemoToUtilEncodingServiceInterface $utilEncodingService
      * @param \GuzzleHttp\ClientInterface $client
      * @param \FondOfOryx\Zed\JellyfishCreditMemo\JellyfishCreditMemoConfig $config
+     * @param \Psr\Log\LoggerInterface $logger
      */
     public function __construct(
         JellyfishCreditMemoToUtilEncodingServiceInterface $utilEncodingService,
         ClientInterface $client,
-        JellyfishCreditMemoConfig $config
+        JellyfishCreditMemoConfig $config,
+        LoggerInterface $logger
     ) {
         $this->utilEncodingService = $utilEncodingService;
         $this->client = $client;
-
         $this->config = $config;
-        $this->username = $config->getUsername();
-        $this->password = $config->getPassword();
-        $this->dryRun = $config->dryRun();
+        $this->logger = $logger;
     }
 
     /**
-     * @param \Spryker\Shared\Kernel\Transfer\AbstractTransfer $transfer
+     * @param \Generated\Shared\Transfer\JellyfishCreditMemoTransfer $jellyfishCreditMemoTransfer
      *
      * @return \Psr\Http\Message\StreamInterface|null
      */
-    public function sendRequest(AbstractTransfer $transfer): ?StreamInterface
+    public function sendRequest(JellyfishCreditMemoTransfer $jellyfishCreditMemoTransfer): ?StreamInterface
     {
-        if ($this->dryRun === true) {
-            $this->getLogger()->error($this->utilEncodingService->encodeJson($transfer->toArray(true, true)));
+        if ($this->config->dryRun() === true) {
+            $this->logger->error($this->utilEncodingService->encodeJson($jellyfishCreditMemoTransfer->toArray(true, true)));
 
             return null;
         }
 
-        $options = $this->createOptions($transfer);
+        $options = $this->createOptions($jellyfishCreditMemoTransfer);
         $response = $this->send($options);
 
-        $this->handleResponse($response, $transfer);
+        $this->handleResponse($response, $jellyfishCreditMemoTransfer);
 
         return $response->getBody();
     }
 
     /**
-     * @param \Spryker\Shared\Kernel\Transfer\AbstractTransfer $transfer
+     * @param \Generated\Shared\Transfer\JellyfishCreditMemoTransfer $jellyfishCreditMemoTransfer
      *
      * @return array
      */
-    protected function createOptions(AbstractTransfer $transfer): array
+    protected function createOptions(JellyfishCreditMemoTransfer $jellyfishCreditMemoTransfer): array
     {
         $options = [];
+        $username = $this->config->getUsername();
+        $password = $this->config->getPassword();
 
         $options[RequestOptions::HEADERS] = static::DEFAULT_HEADERS;
-        if ($this->username !== '' && $this->password !== '') {
+        if ($username !== '' && $password !== '') {
             $options[RequestOptions::AUTH] = [
-                $this->username,
-                $this->password,
+                $username,
+                $password,
             ];
         }
         $options['timeout'] = 4;
-        $options[RequestOptions::BODY] = $this->utilEncodingService->encodeJson($transfer->toArray(true, true));
+        $options[RequestOptions::BODY] = $this->utilEncodingService->encodeJson($jellyfishCreditMemoTransfer->toArray(true, true));
 
         return $options;
     }
@@ -137,7 +126,7 @@ class CreditMemoAdapter implements CreditMemoAdapterInterface
         $optionsAsJson = $this->utilEncodingService->encodeJson($options);
         $logMessage = sprintf('API request [%s]: %s', $uri, $optionsAsJson);
 
-        $this->getLogger()->info($logMessage);
+        $this->logger->info($logMessage);
 
         return $this->client->request('POST', $uri, $options);
     }
@@ -152,13 +141,13 @@ class CreditMemoAdapter implements CreditMemoAdapterInterface
 
     /**
      * @param \Psr\Http\Message\ResponseInterface $response
-     * @param \Spryker\Shared\Kernel\Transfer\AbstractTransfer $transfer
+     * @param \Generated\Shared\Transfer\JellyfishCreditMemoTransfer $jellyfishCreditMemoTransfer
      *
      * @throws \FondOfOryx\Zed\JellyfishCreditMemo\Exception\ResponseErrorException
      *
      * @return void
      */
-    protected function handleResponse(ResponseInterface $response, AbstractTransfer $transfer): void
+    protected function handleResponse(ResponseInterface $response, JellyfishCreditMemoTransfer $jellyfishCreditMemoTransfer): void
     {
         if ($response->getStatusCode() !== static::SUCCESS_CODE) {
             throw new ResponseErrorException('Could not send refund response to jelly');

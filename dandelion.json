@@ -334,7 +334,7 @@
     },
     "jellyfish-credit-memo": {
       "path": "bundles/jellyfish-credit-memo/",
-      "version": "1.1.0"
+      "version": "1.2.0"
     },
     "jellyfish-cross-engage": {
       "path": "bundles/jellyfish-cross-engage/",

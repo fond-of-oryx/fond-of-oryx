@@ -153,11 +153,12 @@ class JellyfishCreditMemoMapper implements JellyfishCreditMemoMapperInterface
      */
     protected function getSystemCode(CreditMemoTransfer $creditMemoTransfer): string
     {
-        if ($creditMemoTransfer->getStore() === null) {
+        $store = $creditMemoTransfer->getStore();
+        if ($store === null) {
             return '';
         }
 
-        return substr($creditMemoTransfer->getStore(), 0, strpos($creditMemoTransfer->getStore(), '_'));
+        return substr($store, 0, strpos($store, '_'));
     }
 
     /**
