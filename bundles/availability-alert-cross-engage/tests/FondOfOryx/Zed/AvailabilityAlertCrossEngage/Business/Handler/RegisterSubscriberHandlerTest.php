@@ -7,6 +7,7 @@ use Exception;
 use FondOfOryx\Zed\AvailabilityAlertCrossEngage\Dependency\Facade\AvailabilityAlertCrossEngageToJellyfishAvailabilityAlertFacadeBridge;
 use Generated\Shared\Transfer\AvailabilityAlertCrossEngageSubscriberRegistrationResponseTransfer;
 use Generated\Shared\Transfer\AvailabilityAlertSubscriberTransfer;
+use Monolog\Logger;
 
 class RegisterSubscriberHandlerTest extends Unit
 {
@@ -21,6 +22,11 @@ class RegisterSubscriberHandlerTest extends Unit
     protected $subscriberTransferMock;
 
     /**
+     * @var \Monolog\Logger|\PHPUnit\Framework\MockObject\MockObject
+     */
+    protected $loggerMock;
+
+    /**
      * @var \FondOfOryx\Zed\AvailabilityAlertCrossEngage\Business\Handler\RegisterSubscriberHandler
      */
     protected $handler;
@@ -33,9 +39,10 @@ class RegisterSubscriberHandlerTest extends Unit
         parent::_before();
 
         $this->facadeMock = $this->getMockBuilder(AvailabilityAlertCrossEngageToJellyfishAvailabilityAlertFacadeBridge::class)->disableOriginalConstructor()->getMock();
+        $this->loggerMock = $this->getMockBuilder(Logger::class)->disableOriginalConstructor()->getMock();
         $this->subscriberTransferMock = $this->getMockBuilder(AvailabilityAlertSubscriberTransfer::class)->disableOriginalConstructor()->getMock();
 
-        $this->handler = new RegisterSubscriberHandler($this->facadeMock);
+        $this->handler = new RegisterSubscriberHandler($this->facadeMock, $this->loggerMock);
     }
 
     /**
@@ -44,6 +51,7 @@ class RegisterSubscriberHandlerTest extends Unit
     public function testRegisterSubscriber(): void
     {
         $this->facadeMock->expects(static::once())->method('dispatchSubscriber');
+        $this->loggerMock->expects(static::never())->method('error');
 
         $transfer = $this->handler->registerSubscriber($this->subscriberTransferMock);
 
@@ -57,6 +65,7 @@ class RegisterSubscriberHandlerTest extends Unit
     public function testRegisterSubscriberWillFail(): void
     {
         $this->facadeMock->expects(static::once())->method('dispatchSubscriber')->willThrowException(new Exception('test'));
+        $this->loggerMock->expects(static::once())->method('error');
 
         $transfer = $this->handler->registerSubscriber($this->subscriberTransferMock);
 

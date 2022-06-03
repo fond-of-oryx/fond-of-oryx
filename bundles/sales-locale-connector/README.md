@@ -1,5 +1,5 @@
 # Sales Locale Connector Module
-[![license](https://img.shields.io/github/license/fond-of/spryker-sales-locale-connector.svg)](https://packagist.org/packages/fond-of-oryx/sales-locale-connector)
+[![license](https://img.shields.io/github/license/fond-of-oryx/sales-locale-connector.svg)](https://packagist.org/packages/fond-of-oryx/sales-locale-connector)
 
 ## Installation
 
