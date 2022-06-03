@@ -176,6 +176,10 @@ class CredentialsMapperTest extends Unit
             $this->configMock,
             $this->logger,
         );
+
+        /**
+         * @var \SprykerEco\Zed\Payone\Business\Api\Request\Container\AuthorizationContainer $mappedContainer
+         */
         $mappedContainer = $credentialsMapper->map($this->payoneRequestContainer);
 
         $expectedCreds = [
@@ -216,6 +220,10 @@ class CredentialsMapperTest extends Unit
             $this->configMock,
             $this->logger,
         );
+
+        /**
+         * @var \SprykerEco\Zed\Payone\Business\Api\Request\Container\AuthorizationContainer $mappedContainer
+         */
         $mappedContainer = $credentialsMapper->map($this->payoneRequestContainer);
 
         $expectedCreds = [
@@ -256,6 +264,10 @@ class CredentialsMapperTest extends Unit
             $this->configMock,
             $this->logger,
         );
+
+        /**
+         * @var \SprykerEco\Zed\Payone\Business\Api\Request\Container\AuthorizationContainer $mappedContainer
+         */
         $mappedContainer = $credentialsMapper->map($this->payoneRequestContainer);
 
         $expectedCreds = [

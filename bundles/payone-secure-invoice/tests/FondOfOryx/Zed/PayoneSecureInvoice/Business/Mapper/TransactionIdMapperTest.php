@@ -21,7 +21,7 @@ class TransactionIdMapperTest extends Unit
     protected $mapper;
 
     /**
-     * @var \SprykerEco\Zed\Payone\Business\Api\Request\Container\AuthorizationContainer
+     * @var \SprykerEco\Zed\Payone\Business\Api\Request\Container\CaptureContainer
      */
     protected $payoneRequestContainer;
 
@@ -76,6 +76,9 @@ class TransactionIdMapperTest extends Unit
 
         $this->repositoryMock->method('getPaymentMethodByTxId')->willReturn('payment.payone.security_invoice');
 
+        /**
+         * @var \SprykerEco\Zed\Payone\Business\Api\Request\Container\CaptureContainer $mappedContainer
+         */
         $mappedContainer = $this->mapper->map($this->payoneRequestContainer, $testCreds);
 
         $actualCreds = [
@@ -100,6 +103,9 @@ class TransactionIdMapperTest extends Unit
             PayoneSecureInvoiceConstants::PAYONE_CREDENTIALS_KEY => 'abc123',
         ];
 
+        /**
+         * @var \SprykerEco\Zed\Payone\Business\Api\Request\Container\CaptureContainer $mappedContainer
+         */
         $mappedContainer = $this->mapper->map($this->payoneRequestContainer, $testCreds);
 
         $expectedCreds = [
