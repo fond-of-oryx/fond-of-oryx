@@ -10,7 +10,7 @@
   ],
   "require": {
     "php": ">=7.3",
-    "spryker-eco/payone": "dev-feature/dedicated-invoice-credentials as 4.4.2"
+    "spryker-eco/payone": "dev-master-fondof as 4.4.2"
   },
   "require-dev": {
     "fond-of-codeception/spryker": "^1.0",
