@@ -56,6 +56,9 @@ class ClearingTypeMapperTest extends Unit
         ];
 
         $credentialsMapper = $this->createClearingTypeMapper();
+        /**
+         * @var \SprykerEco\Zed\Payone\Business\Api\Request\Container\AuthorizationContainer $mappedContainer
+         */
         $mappedContainer = $credentialsMapper->map($this->payoneRequestContainer, $testCreds);
 
         $actualCreds = [
@@ -84,6 +87,9 @@ class ClearingTypeMapperTest extends Unit
         $this->payoneRequestContainer->setClearingsubtype('');
 
         $credentialsMapper = $this->createClearingTypeMapper();
+        /**
+         * @var \SprykerEco\Zed\Payone\Business\Api\Request\Container\AuthorizationContainer $mappedContainer
+         */
         $mappedContainer = $credentialsMapper->map($this->payoneRequestContainer, $testCreds);
 
         $expectedCreds = [
