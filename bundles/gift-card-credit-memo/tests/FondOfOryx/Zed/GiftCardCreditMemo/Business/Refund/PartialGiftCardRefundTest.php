@@ -164,7 +164,6 @@ class PartialGiftCardRefundTest extends Unit
         $balance = 2000;
         $idSalesOrderItem = 99;
         $idSalesOrder = 55;
-        $idProportionalGiftCardValue = 11;
         $idGiftCardBalanceLog = 22;
         $proportionalCouponAmount = 10;
 
@@ -188,7 +187,7 @@ class PartialGiftCardRefundTest extends Unit
         $this->fooCreditMemoMock->expects(static::once())
             ->method('getFkSalesOrder')->willReturn($idSalesOrder);
 
-        $this->fooCreditMemoItemMock->expects(static::once())
+        $this->fooCreditMemoItemMock->expects(static::atLeastOnce())
             ->method('getFkSalesOrderItem')->willReturn($idSalesOrderItem);
 
         $this->fooCreditMemoItemMock->expects(static::once())
@@ -199,9 +198,6 @@ class PartialGiftCardRefundTest extends Unit
 
         $this->fooProportionalGiftCardValueMock->expects(static::once())
             ->method('getFkSalesOrder')->willReturn($idSalesOrder);
-
-        $this->fooProportionalGiftCardValueMock->expects(static::once())
-            ->method('getIdProportionalGiftCardValue')->willReturn($idProportionalGiftCardValue);
 
         $this->fooProportionalGiftCardValueMock->expects(static::once())
             ->method('setIsRefund')->with(true)->willReturnSelf();

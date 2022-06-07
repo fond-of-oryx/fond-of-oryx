@@ -130,7 +130,7 @@ class PartialGiftCardRefund implements PartialGiftCardRefundInterface
                 foreach ($orderEntity->getFooProportionalGiftCardValues() as $proportionalGiftCardValue) {
                     $creditMemoItemCouponAmount = $fooCreditMemoItem->getCouponAmount();
                     $proportionalAmount = $proportionalGiftCardValue->getValue();
-                    $hash = sprintf('%s.%s', $proportionalGiftCardValue->getIdProportionalGiftCardValue(), $fkSalesOrder);
+                    $hash = sprintf('%s.%s', $fooCreditMemoItem->getFkSalesOrderItem(), $fkSalesOrder);
                     if (
                         $creditMemoItemCouponAmount !== $proportionalAmount
                         || $proportionalGiftCardValue->getFkSalesOrder() !== $fkSalesOrder
