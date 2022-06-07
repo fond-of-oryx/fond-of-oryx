@@ -6,6 +6,7 @@ use FondOfOryx\Shared\PayoneSecureInvoice\PayoneSecureInvoiceConstants;
 use FondOfOryx\Zed\PayoneSecureInvoice\Persistence\PayoneSecureInvoiceRepositoryInterface;
 use SprykerEco\Shared\Payone\PayoneApiConstants;
 use SprykerEco\Zed\Payone\Business\Api\Request\Container\ContainerInterface;
+use SprykerEco\Zed\Payone\Business\Key\HashGeneratorInterface;
 
 class TransactionIdMapper implements TransactionIdMapperInterface
 {
@@ -23,11 +24,18 @@ class TransactionIdMapper implements TransactionIdMapperInterface
     protected $repository;
 
     /**
-     * @param \FondOfOryx\Zed\PayoneSecureInvoice\Persistence\PayoneSecureInvoiceRepositoryInterface $repository
+     * @var \SprykerEco\Zed\Payone\Business\Key\HashGeneratorInterface
      */
-    public function __construct(PayoneSecureInvoiceRepositoryInterface $repository)
+    protected $hashGenerator;
+
+    /**
+     * @param \FondOfOryx\Zed\PayoneSecureInvoice\Persistence\PayoneSecureInvoiceRepositoryInterface $repository
+     * @param \SprykerEco\Zed\Payone\Business\Key\HashGeneratorInterface $hashGenerator
+     */
+    public function __construct(PayoneSecureInvoiceRepositoryInterface $repository, HashGeneratorInterface $hashGenerator)
     {
         $this->repository = $repository;
+        $this->hashGenerator = $hashGenerator;
     }
 
     /**
@@ -55,7 +63,7 @@ class TransactionIdMapper implements TransactionIdMapperInterface
 
         $requestContainer->setAid($credentials[PayoneSecureInvoiceConstants::PAYONE_CREDENTIALS_AID]);
         $requestContainer->setPortalid($credentials[PayoneSecureInvoiceConstants::PAYONE_CREDENTIALS_PORTAL_ID]);
-        $requestContainer->setKey($credentials[PayoneSecureInvoiceConstants::PAYONE_CREDENTIALS_KEY]);
+        $requestContainer->setKey($this->hashGenerator->hash($credentials[PayoneSecureInvoiceConstants::PAYONE_CREDENTIALS_KEY]));
 
         return $requestContainer;
     }
