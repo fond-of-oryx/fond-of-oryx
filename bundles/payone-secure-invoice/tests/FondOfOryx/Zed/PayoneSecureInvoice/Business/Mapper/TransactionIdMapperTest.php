@@ -7,6 +7,8 @@ use FondOfOryx\Shared\PayoneSecureInvoice\PayoneSecureInvoiceConstants;
 use FondOfOryx\Zed\PayoneSecureInvoice\Business\Mapper\TransactionIdMapper;
 use FondOfOryx\Zed\PayoneSecureInvoice\Persistence\PayoneSecureInvoiceRepository;
 use SprykerEco\Zed\Payone\Business\Api\Request\Container\CaptureContainer;
+use SprykerEco\Zed\Payone\Business\Key\HashGenerator;
+use SprykerEco\Zed\Payone\Business\Key\HashProvider;
 
 class TransactionIdMapperTest extends Unit
 {
@@ -46,10 +48,19 @@ class TransactionIdMapperTest extends Unit
     protected const TXID = '123456789';
 
     /**
+     * @var \SprykerEco\Zed\Payone\Business\Key\HashGenerator
+     */
+    protected $hashGenerator;
+
+    /**
      * @return void
      */
     protected function _before(): void
     {
+        $this->hashGenerator = new HashGenerator(
+            new HashProvider(),
+        );
+
         $this->payoneRequestContainer = new CaptureContainer();
         $this->payoneRequestContainer->setAid(static::AID);
         $this->payoneRequestContainer->setPortalid(static::PID);
@@ -60,7 +71,10 @@ class TransactionIdMapperTest extends Unit
             ->disableOriginalConstructor()
             ->getMock();
 
-        $this->mapper = new TransactionIdMapper($this->repositoryMock);
+        $this->mapper = new TransactionIdMapper(
+            $this->repositoryMock,
+            $this->hashGenerator,
+        );
     }
 
     /**
@@ -81,13 +95,19 @@ class TransactionIdMapperTest extends Unit
          */
         $mappedContainer = $this->mapper->map($this->payoneRequestContainer, $testCreds);
 
+        $expectedCreds = [
+            PayoneSecureInvoiceConstants::PAYONE_CREDENTIALS_AID => '12345',
+            PayoneSecureInvoiceConstants::PAYONE_CREDENTIALS_PORTAL_ID => '54321',
+            PayoneSecureInvoiceConstants::PAYONE_CREDENTIALS_KEY => $this->hashGenerator->hash('abc123'),
+        ];
+
         $actualCreds = [
             PayoneSecureInvoiceConstants::PAYONE_CREDENTIALS_AID => $mappedContainer->getAid(),
             PayoneSecureInvoiceConstants::PAYONE_CREDENTIALS_PORTAL_ID => $mappedContainer->getPortalid(),
             PayoneSecureInvoiceConstants::PAYONE_CREDENTIALS_KEY => $mappedContainer->getKey(),
         ];
 
-        $this->assertSame($testCreds, $actualCreds);
+        $this->assertSame($expectedCreds, $actualCreds);
     }
 
     /**

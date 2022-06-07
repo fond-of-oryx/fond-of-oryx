@@ -6,6 +6,8 @@ use Codeception\Test\Unit;
 use FondOfOryx\Shared\PayoneSecureInvoice\PayoneSecureInvoiceConstants;
 use SprykerEco\Shared\Payone\PayoneApiConstants;
 use SprykerEco\Zed\Payone\Business\Api\Request\Container\AuthorizationContainer;
+use SprykerEco\Zed\Payone\Business\Key\HashGenerator;
+use SprykerEco\Zed\Payone\Business\Key\HashProvider;
 
 class ClearingTypeMapperTest extends Unit
 {
@@ -30,10 +32,19 @@ class ClearingTypeMapperTest extends Unit
     protected const KEY = '123abc';
 
     /**
+     * @var \SprykerEco\Zed\Payone\Business\Key\HashGenerator
+     */
+    protected $hashGenerator;
+
+    /**
      * @return void
      */
     protected function _before()
     {
+        $this->hashGenerator = new HashGenerator(
+            new HashProvider(),
+        );
+
         $this->payoneRequestContainer = new AuthorizationContainer();
         $this->payoneRequestContainer->setClearingType(PayoneApiConstants::CLEARING_TYPE_SECURITY_INVOICE);
         $this->payoneRequestContainer->setClearingsubtype(PayoneApiConstants::CLEARING_SUBTYPE_SECURITY_INVOICE);
@@ -61,13 +72,19 @@ class ClearingTypeMapperTest extends Unit
          */
         $mappedContainer = $credentialsMapper->map($this->payoneRequestContainer, $testCreds);
 
+        $expectedCreds = [
+            PayoneSecureInvoiceConstants::PAYONE_CREDENTIALS_AID => '12345',
+            PayoneSecureInvoiceConstants::PAYONE_CREDENTIALS_PORTAL_ID => '54321',
+            PayoneSecureInvoiceConstants::PAYONE_CREDENTIALS_KEY => $this->hashGenerator->hash('abc123'),
+        ];
+
         $actualCreds = [
             PayoneSecureInvoiceConstants::PAYONE_CREDENTIALS_AID => $mappedContainer->getAid(),
             PayoneSecureInvoiceConstants::PAYONE_CREDENTIALS_PORTAL_ID => $mappedContainer->getPortalid(),
             PayoneSecureInvoiceConstants::PAYONE_CREDENTIALS_KEY => $mappedContainer->getKey(),
         ];
 
-        $this->assertSame($testCreds, $actualCreds);
+        $this->assertSame($expectedCreds, $actualCreds);
     }
 
     /**
@@ -112,6 +129,8 @@ class ClearingTypeMapperTest extends Unit
      */
     protected function createClearingTypeMapper(): ClearingTypeMapperInterface
     {
-        return new ClearingTypeMapper();
+        return new ClearingTypeMapper(
+            $this->hashGenerator,
+        );
     }
 }

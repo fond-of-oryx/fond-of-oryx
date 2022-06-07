@@ -10,6 +10,10 @@ use FondOfOryx\Zed\PayoneSecureInvoice\Business\Mapper\TransactionIdMapper;
 use FondOfOryx\Zed\PayoneSecureInvoice\Business\Mapper\TransactionIdMapperInterface;
 use Spryker\Shared\Log\LoggerTrait;
 use Spryker\Zed\Kernel\Business\AbstractBusinessFactory;
+use SprykerEco\Shared\Payone\Dependency\HashInterface;
+use SprykerEco\Zed\Payone\Business\Key\HashGenerator;
+use SprykerEco\Zed\Payone\Business\Key\HashGeneratorInterface;
+use SprykerEco\Zed\Payone\Business\Key\HashProvider;
 
 /**
  * @method \FondOfOryx\Zed\PayoneSecureInvoice\PayoneSecureInvoiceConfig getConfig()
@@ -37,7 +41,9 @@ class PayoneSecureInvoiceBusinessFactory extends AbstractBusinessFactory
      */
     protected function createClearingTypeMapper(): ClearingTypeMapperInterface
     {
-        return new ClearingTypeMapper();
+        return new ClearingTypeMapper(
+            $this->createHashGenerator(),
+        );
     }
 
     /**
@@ -47,6 +53,25 @@ class PayoneSecureInvoiceBusinessFactory extends AbstractBusinessFactory
     {
         return new TransactionIdMapper(
             $this->getRepository(),
+            $this->createHashGenerator(),
+        );
+    }
+
+    /**
+     * @return \SprykerEco\Shared\Payone\Dependency\HashInterface
+     */
+    protected function createHashProvider(): HashInterface
+    {
+        return new HashProvider();
+    }
+
+    /**
+     * @return \SprykerEco\Zed\Payone\Business\Key\HashGeneratorInterface
+     */
+    protected function createHashGenerator(): HashGeneratorInterface
+    {
+        return new HashGenerator(
+            $this->createHashProvider(),
         );
     }
 }

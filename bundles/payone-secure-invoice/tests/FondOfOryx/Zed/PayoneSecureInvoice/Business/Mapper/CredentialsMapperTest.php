@@ -10,6 +10,8 @@ use SprykerEco\Shared\Payone\PayoneApiConstants;
 use SprykerEco\Zed\Payone\Business\Api\Request\Container\AddressCheckContainer;
 use SprykerEco\Zed\Payone\Business\Api\Request\Container\AuthorizationContainer;
 use SprykerEco\Zed\Payone\Business\Api\Request\Container\CaptureContainer;
+use SprykerEco\Zed\Payone\Business\Key\HashGenerator;
+use SprykerEco\Zed\Payone\Business\Key\HashProvider;
 
 class CredentialsMapperTest extends Unit
 {
@@ -54,10 +56,19 @@ class CredentialsMapperTest extends Unit
     protected $configMock;
 
     /**
+     * @var \SprykerEco\Zed\Payone\Business\Key\HashGenerator
+     */
+    protected $hashGenerator;
+
+    /**
      * @return void
      */
     protected function _before()
     {
+        $this->hashGenerator = new HashGenerator(
+            new HashProvider(),
+        );
+
         $this->clearingTypeMapperMock = $this->getMockBuilder(ClearingTypeMapper::class)
             ->disableOriginalConstructor()
             ->getMock();
