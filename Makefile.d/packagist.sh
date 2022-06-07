@@ -5,8 +5,12 @@ function add_all {
 
     for i in $(ls bundles)
     do
-        curl -X POST "https://packagist.org/api/create-package?username=${PACKAGIST_USERNAME}&apiToken=${PACKAGIST_TOKEN}" -d "{\"repository\":{\"url\":\"https://github.com/fond-of-oryx/${i}\"}}"
-        echo ""
+        status_code=$(curl --write-out %{http_code} --silent --output /dev/null https://repo.packagist.org/p2/fond-of-oryx/${i}.json)
+        if [[ "${status_code}" -eq 404 ]]
+        then
+            curl -X POST "https://packagist.org/api/create-package?username=${PACKAGIST_USERNAME}&apiToken=${PACKAGIST_TOKEN}" -d "{\"repository\":{\"url\":\"https://github.com/fond-of-oryx/${i}\"}}"
+            echo ""
+        fi
     done
 }
 
