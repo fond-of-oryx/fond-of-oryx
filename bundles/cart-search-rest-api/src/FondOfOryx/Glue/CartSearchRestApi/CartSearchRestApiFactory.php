@@ -87,7 +87,10 @@ class CartSearchRestApiFactory extends AbstractFactory
     {
         return [
             new AllFilterFieldMapper($this->createRequestParameterFilter()),
-            new OrderByFilterFieldMapper($this->createRequestParameterFilter()),
+            new OrderByFilterFieldMapper(
+                $this->createRequestParameterFilter(),
+                $this->getConfig(),
+            ),
         ];
     }
 

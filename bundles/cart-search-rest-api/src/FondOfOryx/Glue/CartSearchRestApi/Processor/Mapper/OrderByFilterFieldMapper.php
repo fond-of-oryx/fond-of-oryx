@@ -2,6 +2,7 @@
 
 namespace FondOfOryx\Glue\CartSearchRestApi\Processor\Mapper;
 
+use FondOfOryx\Glue\CartSearchRestApi\CartSearchRestApiConfig;
 use FondOfOryx\Glue\CartSearchRestApi\Processor\Filter\RequestParameterFilterInterface;
 use Generated\Shared\Transfer\FilterFieldTransfer;
 use Spryker\Glue\GlueApplication\Rest\Request\Data\RestRequestInterface;
@@ -19,11 +20,20 @@ class OrderByFilterFieldMapper implements FilterFieldMapperInterface
     protected $requestParameterFilter;
 
     /**
-     * @param \FondOfOryx\Glue\CartSearchRestApi\Processor\Filter\RequestParameterFilterInterface $requestParameterFilter
+     * @var \FondOfOryx\Glue\CartSearchRestApi\CartSearchRestApiConfig
      */
-    public function __construct(RequestParameterFilterInterface $requestParameterFilter)
-    {
+    protected $config;
+
+    /**
+     * @param \FondOfOryx\Glue\CartSearchRestApi\Processor\Filter\RequestParameterFilterInterface $requestParameterFilter
+     * @param \FondOfOryx\Glue\CartSearchRestApi\CartSearchRestApiConfig $config
+     */
+    public function __construct(
+        RequestParameterFilterInterface $requestParameterFilter,
+        CartSearchRestApiConfig $config
+    ) {
         $this->requestParameterFilter = $requestParameterFilter;
+        $this->config = $config;
     }
 
     /**
@@ -39,7 +49,16 @@ class OrderByFilterFieldMapper implements FilterFieldMapperInterface
             return null;
         }
 
+        $sortFields = $this->config->getSortFields();
+        $sortField = preg_replace(static::PATTERN_PARAMETER_VALUE, '$1', $parameterValue);
+
+        if (!in_array($sortField, $sortFields, true)) {
+            return null;
+        }
+
+        $sortDirection = preg_replace(static::PATTERN_PARAMETER_VALUE, '$3', $parameterValue);
+
         return (new FilterFieldTransfer())->setType('orderBy')
-            ->setValue(preg_replace(static::PATTERN_PARAMETER_VALUE, '$1::$3', $parameterValue));
+            ->setValue(sprintf('%s::%s', $sortField, $sortDirection));
     }
 }
