@@ -6,6 +6,7 @@ use Closure;
 use Codeception\Test\Unit;
 use Orm\Zed\CreditMemo\Persistence\FooCreditMemo;
 use Orm\Zed\CreditMemo\Persistence\FooCreditMemoItem;
+use Orm\Zed\CreditMemo\Persistence\Map\FooCreditMemoTableMap;
 use Orm\Zed\GiftCardBalance\Persistence\SpyGiftCardBalanceLog;
 use Orm\Zed\GiftCardProportionalValue\Persistence\FooProportionalGiftCardValue;
 use Orm\Zed\Sales\Persistence\SpySalesOrder;
@@ -187,6 +188,15 @@ class PartialGiftCardRefundTest extends Unit
         $this->fooCreditMemoMock->expects(static::once())
             ->method('getFkSalesOrder')->willReturn($idSalesOrder);
 
+        $this->fooCreditMemoMock->expects(static::once())
+            ->method('getIdCreditMemo')->willReturn(1);
+
+        $this->fooCreditMemoMock->expects(static::atLeastOnce())
+            ->method('getState')->willReturn(FooCreditMemoTableMap::COL_STATE_IN_PROGRESS);
+
+        $this->fooCreditMemoMock->expects(static::atLeastOnce())
+            ->method('setState')->willReturnSelf();
+
         $this->fooCreditMemoItemMock->expects(static::atLeastOnce())
             ->method('getFkSalesOrderItem')->willReturn($idSalesOrderItem);
 
@@ -217,11 +227,14 @@ class PartialGiftCardRefundTest extends Unit
         $this->fooProportionalGiftCardValueMock->expects(static::once())
             ->method('save')->willReturnSelf();
 
+        $this->fooCreditMemoMock->expects(static::once())
+            ->method('save')->willReturnSelf();
+
         $this->spySalesOrderItemMock->expects(static::once())
             ->method('getIdSalesOrderItem')->willReturn($idSalesOrderItem);
 
         $self = $this;
-        $this->transactionHandlerMock->expects(static::once())
+        $this->transactionHandlerMock->expects(static::atLeastOnce())
             ->method('handleTransaction')->willReturnCallback(static function (Closure $closure) use ($self) {
                 $result = call_user_func($closure);
                 $self->assertTrue($result);
