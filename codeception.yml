@@ -120,6 +120,7 @@ include:
   - bundles/product-locale-restriction-cart-connector
   - bundles/product-locale-restriction-search
   - bundles/product-locale-restriction-storage
+  - bundles/product-payment-restriction
   - bundles/qr-code-generator
   - bundles/return-label
   - bundles/return-labels-rest-api
