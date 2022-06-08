@@ -3,6 +3,7 @@
 namespace FondOfOryx\Zed\GiftCardCreditMemo\Business\Refund;
 
 use Exception;
+use Orm\Zed\CreditMemo\Persistence\Map\FooCreditMemoTableMap;
 use Orm\Zed\GiftCardBalance\Persistence\SpyGiftCardBalanceLog;
 use Orm\Zed\Sales\Persistence\SpySalesOrder;
 use Spryker\Zed\Kernel\Persistence\EntityManager\TransactionHandlerInterface;
@@ -10,6 +11,14 @@ use Spryker\Zed\Oms\Business\Util\ReadOnlyArrayObject;
 
 class PartialGiftCardRefund implements PartialGiftCardRefundInterface
 {
+    /**
+     * @var array<string>
+     */
+    protected const CREDIT_MEMO_STATES = [
+        FooCreditMemoTableMap::COL_STATE_COMPLETE,
+        FooCreditMemoTableMap::COL_STATE_ERROR,
+    ];
+
     /**
      * @var \Spryker\Zed\Kernel\Persistence\EntityManager\TransactionHandlerInterface
      */
@@ -100,10 +109,14 @@ class PartialGiftCardRefund implements PartialGiftCardRefundInterface
 
         $refundCreditMemoItems = [];
         foreach ($creditMemos as $creditMemo) {
+            $creditMemoHash = sprintf('CreditMemo%s', $creditMemo->getIdCreditMemo());
             foreach ($creditMemo->getFooCreditMemoItems() as $fooCreditMemoItem) {
                 $creditMemoFkSalesOrderId = $fooCreditMemoItem->getFkSalesOrderItem();
                 if (in_array($creditMemoFkSalesOrderId, $refundItemsIds, true)) {
                     $refundCreditMemoItems[$creditMemo->getFkSalesOrder()][$creditMemoFkSalesOrderId] = $fooCreditMemoItem;
+                    if (isset($this->persists[$creditMemoHash]) === false && in_array($creditMemo->getState(), static::CREDIT_MEMO_STATES, true) === false) {
+                        $this->persists[$creditMemoHash] = $creditMemo->setState(FooCreditMemoTableMap::COL_STATE_COMPLETE);
+                    }
                 }
             }
         }

@@ -286,7 +286,7 @@
     },
     "gift-card-credit-memo": {
       "path": "bundles/gift-card-credit-memo/",
-      "version": "0.1.4-alpha"
+      "version": "0.1.5-alpha"
     },
     "gift-card-expiration": {
       "path": "bundles/gift-card-expiration/",
@@ -334,7 +334,7 @@
     },
     "jellyfish-credit-memo": {
       "path": "bundles/jellyfish-credit-memo/",
-      "version": "1.2.0"
+      "version": "1.2.1"
     },
     "jellyfish-cross-engage": {
       "path": "bundles/jellyfish-cross-engage/",

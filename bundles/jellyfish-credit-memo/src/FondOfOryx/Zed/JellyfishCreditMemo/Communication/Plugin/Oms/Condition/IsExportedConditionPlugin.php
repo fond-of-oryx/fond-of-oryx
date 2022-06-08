@@ -2,6 +2,7 @@
 
 namespace FondOfOryx\Zed\JellyfishCreditMemo\Communication\Plugin\Oms\Condition;
 
+use Orm\Zed\CreditMemo\Persistence\Map\FooCreditMemoTableMap;
 use Orm\Zed\Sales\Persistence\SpySalesOrderItem;
 use Spryker\Zed\Kernel\Communication\AbstractPlugin;
 use Spryker\Zed\Oms\Dependency\Plugin\Condition\ConditionInterface;
@@ -20,8 +21,14 @@ class IsExportedConditionPlugin extends AbstractPlugin implements ConditionInter
      */
     public function check(SpySalesOrderItem $orderItem)
     {
-        $this->getFactory();
+        $exported = true;
+        foreach ($orderItem->getFooCreditMemoItems() as $fooCreditMemoItem) {
+            $fooCreditMemo = $fooCreditMemoItem->getFooCreditMemo();
+            if ($fooCreditMemo->getJellyfishExportState() !== FooCreditMemoTableMap::COL_STATE_COMPLETE) {
+                $exported = false;
+            }
+        }
 
-        return true;
+        return $exported;
     }
 }
