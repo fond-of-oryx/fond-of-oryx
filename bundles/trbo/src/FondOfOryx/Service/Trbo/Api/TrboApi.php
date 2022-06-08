@@ -5,9 +5,9 @@ namespace FondOfOryx\Service\Trbo\Api;
 use FondOfOryx\Service\Trbo\Mapper\TrboMapperInterface;
 use Generated\Shared\Transfer\TrboDataTransfer;
 use GuzzleHttp\ClientInterface;
-use GuzzleHttp\Exception\GuzzleException;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\HttpFoundation\Request;
+use Throwable;
 
 class TrboApi implements TrboApiInterface
 {
@@ -71,7 +71,7 @@ class TrboApi implements TrboApiInterface
             $data = json_decode($result->getBody()->getContents(), true, 512, JSON_THROW_ON_ERROR);
 
             return $this->trboMapper->mapApiResponseToTransfer($data);
-        } catch (GuzzleException $exception) {
+        } catch (Throwable $exception) {
             $this->logger->alert($exception->getMessage(), $exception->getTrace());
         }
 

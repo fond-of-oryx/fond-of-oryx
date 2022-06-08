@@ -8,6 +8,7 @@ use FondOfOryx\Shared\Trbo\TrboConstants;
 use Symfony\Component\HttpFoundation\HeaderBag;
 use Symfony\Component\HttpFoundation\ParameterBag;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Session\Session;
 
 class TrboApiConfigurationTest extends Unit
 {
@@ -37,6 +38,11 @@ class TrboApiConfigurationTest extends Unit
     protected $trboApiConfiguration;
 
     /**
+     * @var \PHPUnit\Framework\MockObject\MockObject|\Symfony\Component\HttpFoundation\Session\Session
+     */
+    protected $requestSessionMock;
+
+    /**
      * @return void
      */
     protected function _before(): void
@@ -55,8 +61,13 @@ class TrboApiConfigurationTest extends Unit
             ->disableOriginalConstructor()
             ->getMock();
 
+        $this->requestSessionMock = $this->getMockBuilder(Session::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
         $this->requestMock->cookies = $this->requestCookieMock;
         $this->requestMock->headers = $this->requestHeaderMock;
+        $this->requestMock->method('getSession')->willReturn($this->requestSessionMock);
 
         $this->configMock = $this->getMockBuilder(TrboConfig::class)
             ->disableOriginalConstructor()
@@ -143,7 +154,7 @@ class TrboApiConfigurationTest extends Unit
             ->with(TrboConstants::TRBO_COOKIE_USERID)
             ->willReturn(null);
 
-        $this->requestCookieMock->expects(static::atLeastOnce())
+        $this->requestSessionMock->expects(static::atLeastOnce())
             ->method('set');
 
         $response = $this->trboApiConfiguration->getConfiguration($this->requestMock);
