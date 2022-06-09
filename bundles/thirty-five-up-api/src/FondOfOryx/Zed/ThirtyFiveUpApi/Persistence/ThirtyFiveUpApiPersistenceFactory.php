@@ -17,7 +17,7 @@ use Spryker\Zed\Kernel\Persistence\AbstractPersistenceFactory;
 class ThirtyFiveUpApiPersistenceFactory extends AbstractPersistenceFactory
 {
     /**
-     * @return \FondOfOryx\Zed\ThirtyFiveUpApi\Persistence\Propel\Mapper\TransferMapperInterface]
+     * @return \FondOfOryx\Zed\ThirtyFiveUpApi\Persistence\Propel\Mapper\TransferMapperInterface
      */
     public function createTransferMapper(): TransferMapperInterface
     {

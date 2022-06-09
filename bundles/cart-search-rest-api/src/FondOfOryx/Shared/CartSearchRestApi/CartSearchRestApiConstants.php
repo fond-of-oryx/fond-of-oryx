@@ -33,4 +33,24 @@ interface CartSearchRestApiConstants
      * @var array<string, string>
      */
     public const FILTER_FIELD_TYPE_MAPPING_DEFAULT = [];
+
+    /**
+     * @var string
+     */
+    public const FILTER_FIELD_TYPE_ALL = 'all';
+
+    /**
+     * @var string
+     */
+    public const FILTER_FIELD_TYPE_ORDER_BY = 'orderBy';
+
+    /**
+     * @var string
+     */
+    public const DELIMITER_ORDER_BY = '::';
+
+    /**
+     * @var string
+     */
+    public const DELIMITER_SORT = '_';
 }

@@ -2,6 +2,7 @@
 
 namespace FondOfOryx\Zed\CartSearchRestApi\Persistence\Propel\QueryBuilder;
 
+use FondOfOryx\Shared\CartSearchRestApi\CartSearchRestApiConstants;
 use FondOfOryx\Zed\CartSearchRestApi\CartSearchRestApiConfig;
 use Generated\Shared\Transfer\FilterFieldTransfer;
 use Generated\Shared\Transfer\QuoteListTransfer;
@@ -16,12 +17,7 @@ class QuoteSearchFilterFieldQueryBuilder implements QuoteSearchFilterFieldQueryB
     /**
      * @var string
      */
-    protected const FILTER_FIELD_TYPE_ORDER_BY = 'orderBy';
-
-    /**
-     * @var string
-     */
-    protected const DELIMITER_ORDER_BY = '::';
+    public const CONDITION_GROUP_ALL = 'CONDITION_GROUP_ALL';
 
     /**
      * @var \FondOfOryx\Zed\CartSearchRestApi\CartSearchRestApiConfig
@@ -63,15 +59,19 @@ class QuoteSearchFilterFieldQueryBuilder implements QuoteSearchFilterFieldQueryB
     ): SpyQuoteQuery {
         $filterFieldType = $filterFieldTransfer->getType();
 
+        if ($filterFieldType === CartSearchRestApiConstants::FILTER_FIELD_TYPE_ALL) {
+            return $this->addAllSearchTypeFilter($query, $filterFieldTransfer);
+        }
+
         if (isset($this->config->getFilterFieldTypeMapping()[$filterFieldType])) {
-            $query->add(
+            return $query->add(
                 $this->config->getFilterFieldTypeMapping()[$filterFieldType],
                 $filterFieldTransfer->getValue(),
                 Criteria::EQUAL,
             );
         }
 
-        if ($filterFieldType === static::FILTER_FIELD_TYPE_ORDER_BY) {
+        if ($filterFieldType === CartSearchRestApiConstants::FILTER_FIELD_TYPE_ORDER_BY) {
             return $this->addOrderByFilter(
                 $query,
                 $filterFieldTransfer,
@@ -87,11 +87,55 @@ class QuoteSearchFilterFieldQueryBuilder implements QuoteSearchFilterFieldQueryB
      *
      * @return \Orm\Zed\Quote\Persistence\Base\SpyQuoteQuery
      */
+    protected function addAllSearchTypeFilter(
+        SpyQuoteQuery $query,
+        FilterFieldTransfer $filterFieldTransfer
+    ): SpyQuoteQuery {
+        $conditions = [];
+
+        foreach ($this->config->getFilterFieldTypeMapping() as $column) {
+            $conditionName = uniqid($column, true);
+
+            $query->addCond(
+                $conditionName,
+                $column,
+                $this->generateLikePattern($filterFieldTransfer->getValue()),
+                Criteria::ILIKE,
+            );
+
+            $conditions[] = $conditionName;
+        }
+
+        $query->combine(
+            $conditions,
+            Criteria::LOGICAL_OR,
+            static::CONDITION_GROUP_ALL,
+        );
+
+        return $query;
+    }
+
+    /**
+     * @param string $value
+     *
+     * @return string
+     */
+    protected function generateLikePattern(string $value): string
+    {
+        return sprintf('%%%s%%', $value);
+    }
+
+    /**
+     * @param \Orm\Zed\Quote\Persistence\Base\SpyQuoteQuery $query
+     * @param \Generated\Shared\Transfer\FilterFieldTransfer $filterFieldTransfer
+     *
+     * @return \Orm\Zed\Quote\Persistence\Base\SpyQuoteQuery
+     */
     protected function addOrderByFilter(
         SpyQuoteQuery $query,
         FilterFieldTransfer $filterFieldTransfer
     ): SpyQuoteQuery {
-        [$orderColumn, $orderDirection] = explode(static::DELIMITER_ORDER_BY, $filterFieldTransfer->getValue());
+        [$orderColumn, $orderDirection] = explode(CartSearchRestApiConstants::DELIMITER_ORDER_BY, $filterFieldTransfer->getValue());
 
         if ($orderColumn) {
             $query->orderBy($orderColumn, $orderDirection);

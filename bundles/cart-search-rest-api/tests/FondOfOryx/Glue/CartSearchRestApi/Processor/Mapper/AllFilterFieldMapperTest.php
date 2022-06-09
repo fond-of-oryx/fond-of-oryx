@@ -4,6 +4,7 @@ namespace FondOfOryx\Glue\CartSearchRestApi\Processor\Mapper;
 
 use Codeception\Test\Unit;
 use FondOfOryx\Glue\CartSearchRestApi\Processor\Filter\RequestParameterFilterInterface;
+use FondOfOryx\Shared\CartSearchRestApi\CartSearchRestApiConstants;
 use Spryker\Glue\GlueApplication\Rest\Request\Data\RestRequestInterface;
 
 class AllFilterFieldMapperTest extends Unit
@@ -55,7 +56,7 @@ class AllFilterFieldMapperTest extends Unit
 
         $filterFieldTransfer = $this->allFilterFieldMapper->fromRestRequest($this->restRequestMock);
 
-        static::assertEquals('all', $filterFieldTransfer->getType());
+        static::assertEquals(CartSearchRestApiConstants::FILTER_FIELD_TYPE_ALL, $filterFieldTransfer->getType());
         static::assertEquals('foo', $filterFieldTransfer->getValue());
     }
 }
