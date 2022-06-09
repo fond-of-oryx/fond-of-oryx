@@ -18,4 +18,15 @@
     <transfer name="PaymentMethod">
         <property name="methodName" type="string"/>
     </transfer>
+
+    <transfer name="ProductAbstract">
+        <property name="idProductAbstract" type="int" />
+        <property name="blacklistedPaymentMethodIds" type="int[]" singular="blacklistedPaymentMethodId" />
+        <property name="blacklistedPaymentMethods" type="PaymentMethod[]" singular="blacklistedPaymentMethod" />
+    </transfer>
+
+    <transfer name="ProductAbstractPaymentRestriction">
+        <property name="idProductAbstract" type="int" />
+        <property name="idPaymentMethod" type="int"/>
+    </transfer>
 </transfers>
