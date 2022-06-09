@@ -9,7 +9,7 @@ use Spryker\Glue\GlueApplication\Rest\Request\Data\RestRequestInterface;
 class RequestBuilder implements RequestBuilderInterface
 {
     /**
-     * @var \Generated\Shared\Transfer\ErpInvoicePageSearchRequestTransfer;
+     * @var \Generated\Shared\Transfer\ErpInvoicePageSearchRequestTransfer
      */
     protected $requestTransfer;
 

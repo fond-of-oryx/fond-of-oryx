@@ -3,6 +3,7 @@
 namespace FondOfOryx\Glue\CartSearchRestApi\Processor\Mapper;
 
 use FondOfOryx\Glue\CartSearchRestApi\Processor\Filter\RequestParameterFilterInterface;
+use FondOfOryx\Shared\CartSearchRestApi\CartSearchRestApiConstants;
 use Generated\Shared\Transfer\FilterFieldTransfer;
 use Spryker\Glue\GlueApplication\Rest\Request\Data\RestRequestInterface;
 
@@ -34,7 +35,7 @@ class AllFilterFieldMapper implements FilterFieldMapperInterface
             return null;
         }
 
-        return (new FilterFieldTransfer())->setType('all')
+        return (new FilterFieldTransfer())->setType(CartSearchRestApiConstants::FILTER_FIELD_TYPE_ALL)
             ->setValue($parameterValue);
     }
 }

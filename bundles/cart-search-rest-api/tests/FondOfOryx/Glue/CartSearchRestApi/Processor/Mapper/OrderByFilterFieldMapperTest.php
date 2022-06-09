@@ -5,6 +5,7 @@ namespace FondOfOryx\Glue\CartSearchRestApi\Processor\Mapper;
 use Codeception\Test\Unit;
 use FondOfOryx\Glue\CartSearchRestApi\CartSearchRestApiConfig;
 use FondOfOryx\Glue\CartSearchRestApi\Processor\Filter\RequestParameterFilterInterface;
+use FondOfOryx\Shared\CartSearchRestApi\CartSearchRestApiConstants;
 use Spryker\Glue\GlueApplication\Rest\Request\Data\RestRequestInterface;
 
 class OrderByFilterFieldMapperTest extends Unit
@@ -72,7 +73,7 @@ class OrderByFilterFieldMapperTest extends Unit
 
         $filterFieldTransfer = $this->orderByFilterFieldMapper->fromRestRequest($this->restRequestMock);
 
-        static::assertEquals('orderBy', $filterFieldTransfer->getType());
+        static::assertEquals(CartSearchRestApiConstants::FILTER_FIELD_TYPE_ORDER_BY, $filterFieldTransfer->getType());
         static::assertEquals('foo::asc', $filterFieldTransfer->getValue());
     }
 

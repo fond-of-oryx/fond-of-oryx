@@ -5,6 +5,7 @@ namespace FondOfOryx\Glue\CartSearchRestApi\Processor\Mapper;
 use ArrayObject;
 use Codeception\Test\Unit;
 use FondOfOryx\Glue\CartSearchRestApi\CartSearchRestApiConfig;
+use FondOfOryx\Shared\CartSearchRestApi\CartSearchRestApiConstants;
 use Generated\Shared\Transfer\FilterFieldTransfer;
 use Generated\Shared\Transfer\QuoteListTransfer;
 
@@ -87,7 +88,7 @@ class RestCartSearchSortMapperTest extends Unit
 
         $this->filterFieldTransferMocks[1]->expects(static::atLeastOnce())
             ->method('getType')
-            ->willReturn('orderBy');
+            ->willReturn(CartSearchRestApiConstants::FILTER_FIELD_TYPE_ORDER_BY);
 
         $this->filterFieldTransferMocks[1]->expects(static::atLeastOnce())
             ->method('getValue')

@@ -3,6 +3,7 @@
 namespace FondOfOryx\Glue\CartSearchRestApi\Processor\Mapper;
 
 use FondOfOryx\Glue\CartSearchRestApi\CartSearchRestApiConfig;
+use FondOfOryx\Shared\CartSearchRestApi\CartSearchRestApiConstants;
 use Generated\Shared\Transfer\QuoteListTransfer;
 use Generated\Shared\Transfer\RestCartSearchSortTransfer;
 
@@ -60,7 +61,7 @@ class RestCartSearchSortMapper implements RestCartSearchSortMapperInterface
 
         $sortDirection = preg_replace(static::PATTERN_ORDER_BY, '$2', $sort);
 
-        return $restCartSearchSortTransfer->setCurrentSortParam(sprintf('%s_%s', $sortField, $sortDirection))
+        return $restCartSearchSortTransfer->setCurrentSortParam(sprintf('%s%s%s', $sortField, CartSearchRestApiConstants::DELIMITER_SORT, $sortDirection))
             ->setCurrentSortOrder($sortDirection);
     }
 }

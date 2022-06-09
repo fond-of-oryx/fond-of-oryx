@@ -4,6 +4,7 @@ namespace FondOfOryx\Glue\CartSearchRestApi\Processor\Mapper;
 
 use FondOfOryx\Glue\CartSearchRestApi\CartSearchRestApiConfig;
 use FondOfOryx\Glue\CartSearchRestApi\Processor\Filter\RequestParameterFilterInterface;
+use FondOfOryx\Shared\CartSearchRestApi\CartSearchRestApiConstants;
 use Generated\Shared\Transfer\FilterFieldTransfer;
 use Spryker\Glue\GlueApplication\Rest\Request\Data\RestRequestInterface;
 
@@ -58,7 +59,7 @@ class OrderByFilterFieldMapper implements FilterFieldMapperInterface
 
         $sortDirection = preg_replace(static::PATTERN_PARAMETER_VALUE, '$3', $parameterValue);
 
-        return (new FilterFieldTransfer())->setType('orderBy')
-            ->setValue(sprintf('%s::%s', $sortField, $sortDirection));
+        return (new FilterFieldTransfer())->setType(CartSearchRestApiConstants::FILTER_FIELD_TYPE_ORDER_BY)
+            ->setValue(sprintf('%s%s%s', $sortField, CartSearchRestApiConstants::DELIMITER_ORDER_BY, $sortDirection));
     }
 }

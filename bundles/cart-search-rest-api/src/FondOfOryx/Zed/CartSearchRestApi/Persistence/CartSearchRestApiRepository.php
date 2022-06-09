@@ -3,6 +3,8 @@
 namespace FondOfOryx\Zed\CartSearchRestApi\Persistence;
 
 use ArrayObject;
+use FondOfOryx\Shared\CartSearchRestApi\CartSearchRestApiConstants;
+use FondOfOryx\Zed\CartSearchRestApi\Persistence\Propel\QueryBuilder\QuoteSearchFilterFieldQueryBuilder;
 use Generated\Shared\Transfer\QuoteListTransfer;
 use Orm\Zed\Quote\Persistence\Base\SpyQuoteQuery;
 use Orm\Zed\Quote\Persistence\Map\SpyQuoteTableMap;
@@ -41,6 +43,10 @@ class CartSearchRestApiRepository extends AbstractRepository implements CartSear
                 ->addQueryFilters($query, $queryJoinCollectionTransfer);
         }
 
+        if ($this->isSearchByAllFilterFieldSet($quoteListTransfer)) {
+            $query->where([QuoteSearchFilterFieldQueryBuilder::CONDITION_GROUP_ALL]);
+        }
+
         $ids = $this->preparePagination($query, $quoteListTransfer)
             ->select([SpyQuoteTableMap::COL_ID_QUOTE])
             ->find()
@@ -51,6 +57,22 @@ class CartSearchRestApiRepository extends AbstractRepository implements CartSear
             ->mapIdsToTransfers($ids);
 
         return $quoteListTransfer->setQuotes(new ArrayObject($quoteTransfers));
+    }
+
+    /**
+     * @param \Generated\Shared\Transfer\QuoteListTransfer $quoteListTransfer
+     *
+     * @return bool
+     */
+    protected function isSearchByAllFilterFieldSet(QuoteListTransfer $quoteListTransfer): bool
+    {
+        foreach ($quoteListTransfer->getFilterFields() as $filterFieldTransfer) {
+            if ($filterFieldTransfer->getType() === CartSearchRestApiConstants::FILTER_FIELD_TYPE_ALL) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     /**
