@@ -5,6 +5,7 @@ namespace FondOfOryx\Zed\CartSearchRestApi\Persistence;
 use ArrayObject;
 use Generated\Shared\Transfer\QuoteListTransfer;
 use Orm\Zed\Quote\Persistence\Base\SpyQuoteQuery;
+use Orm\Zed\Quote\Persistence\Map\SpyQuoteTableMap;
 use Propel\Runtime\ActiveQuery\ModelCriteria;
 use Spryker\Zed\Kernel\Persistence\AbstractRepository;
 
@@ -40,11 +41,14 @@ class CartSearchRestApiRepository extends AbstractRepository implements CartSear
                 ->addQueryFilters($query, $queryJoinCollectionTransfer);
         }
 
-        $query = $this->preparePagination($query, $quoteListTransfer);
+        $ids = $this->preparePagination($query, $quoteListTransfer)
+            ->select([SpyQuoteTableMap::COL_ID_QUOTE])
+            ->find()
+            ->toArray();
 
         $quoteTransfers = $this->getFactory()
             ->createQuoteMapper()
-            ->mapEntityCollectionToTransfers($query->find());
+            ->mapIdsToTransfers($ids);
 
         return $quoteListTransfer->setQuotes(new ArrayObject($quoteTransfers));
     }

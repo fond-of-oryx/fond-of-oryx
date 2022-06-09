@@ -4,14 +4,23 @@ namespace FondOfOryx\Zed\CartSearchRestApi\Business\Reader;
 
 use ArrayObject;
 use Codeception\Test\Unit;
+use FondOfOryx\Zed\CartSearchRestApi\Dependency\Facade\CartSearchRestApiToQuoteFacadeInterface;
 use FondOfOryx\Zed\CartSearchRestApi\Persistence\CartSearchRestApiRepositoryInterface;
 use FondOfOryx\Zed\CartSearchRestApiExtension\Dependency\Plugin\SearchQuoteQueryExpanderPluginInterface;
 use Generated\Shared\Transfer\FilterFieldTransfer;
 use Generated\Shared\Transfer\QueryJoinCollectionTransfer;
+use Generated\Shared\Transfer\QuoteCollectionTransfer;
+use Generated\Shared\Transfer\QuoteCriteriaFilterTransfer;
 use Generated\Shared\Transfer\QuoteListTransfer;
+use Generated\Shared\Transfer\QuoteTransfer;
 
 class QuoteReaderTest extends Unit
 {
+    /**
+     * @var \FondOfOryx\Zed\CartSearchRestApi\Dependency\Facade\CartSearchRestApiToQuoteFacadeInterface|\PHPUnit\Framework\MockObject\MockObject
+     */
+    protected $quoteFacadeMock;
+
     /**
      * @var \FondOfOryx\Zed\CartSearchRestApi\Persistence\CartSearchRestApiRepositoryInterface|\PHPUnit\Framework\MockObject\MockObject
      */
@@ -38,6 +47,16 @@ class QuoteReaderTest extends Unit
     protected $queryJoinCollectionTransferMock;
 
     /**
+     * @var array<\Generated\Shared\Transfer\QuoteTransfer|\PHPUnit\Framework\MockObject\MockObject>
+     */
+    protected $quoteTransferMocks;
+
+    /**
+     * @var \Generated\Shared\Transfer\QuoteCollectionTransfer|\PHPUnit\Framework\MockObject\MockObject
+     */
+    protected $quoteCollectionTransferMock;
+
+    /**
      * @var \FondOfOryx\Zed\CartSearchRestApi\Business\Reader\QuoteReader
      */
     protected $quoteReader;
@@ -48,6 +67,10 @@ class QuoteReaderTest extends Unit
     protected function _before(): void
     {
         parent::_before();
+
+        $this->quoteFacadeMock = $this->getMockBuilder(CartSearchRestApiToQuoteFacadeInterface::class)
+            ->disableOriginalConstructor()
+            ->getMock();
 
         $this->repositoryMock = $this->getMockBuilder(CartSearchRestApiRepositoryInterface::class)
             ->disableOriginalConstructor()
@@ -74,7 +97,21 @@ class QuoteReaderTest extends Unit
             ->disableOriginalConstructor()
             ->getMock();
 
+        $this->quoteTransferMocks = [
+            $this->getMockBuilder(QuoteTransfer::class)
+                ->disableOriginalConstructor()
+                ->getMock(),
+            $this->getMockBuilder(QuoteTransfer::class)
+                ->disableOriginalConstructor()
+                ->getMock(),
+            ];
+
+        $this->quoteCollectionTransferMock = $this->getMockBuilder(QuoteCollectionTransfer::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
         $this->quoteReader = new QuoteReader(
+            $this->quoteFacadeMock,
             $this->repositoryMock,
             $this->searchQuoteQueryExpanderPluginMocks,
         );
@@ -85,6 +122,7 @@ class QuoteReaderTest extends Unit
      */
     public function testFindQuoteList(): void
     {
+        $idQuote = 10;
         $filterFieldTransferMocks = [
             $this->filterFieldTransferMock,
         ];
@@ -126,6 +164,32 @@ class QuoteReaderTest extends Unit
             ->method('findQuotes')
             ->with($this->quoteListTransferMock)
             ->willReturn($this->quoteListTransferMock);
+
+        $this->quoteListTransferMock->expects(static::atLeastOnce())
+            ->method('getQuotes')
+            ->willReturn(new ArrayObject([$this->quoteTransferMocks[0]]));
+
+        $this->quoteTransferMocks[0]->expects(static::atLeastOnce())
+            ->method('getIdQuote')
+            ->willReturn($idQuote);
+
+        $this->quoteFacadeMock->expects(static::atLeastOnce())
+            ->method('getQuoteCollection')
+            ->with(
+                static::callback(
+                    static function (QuoteCriteriaFilterTransfer $quoteCriteriaFilterTransfer) use ($idQuote) {
+                        return $quoteCriteriaFilterTransfer->getQuoteIds() == [$idQuote];
+                    },
+                ),
+            )->willReturn($this->quoteCollectionTransferMock);
+
+        $this->quoteCollectionTransferMock->expects(static::atLeastOnce())
+            ->method('getQuotes')
+            ->willReturn(new ArrayObject([$this->quoteTransferMocks[1]]));
+
+        $this->quoteTransferMocks[1]->expects(static::atLeastOnce())
+            ->method('getIdQuote')
+            ->willReturn($idQuote);
 
         static::assertEquals(
             $this->quoteListTransferMock,

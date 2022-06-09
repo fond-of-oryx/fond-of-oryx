@@ -3,22 +3,20 @@
 namespace FondOfOryx\Zed\CartSearchRestApi\Persistence\Propel\Mapper;
 
 use Generated\Shared\Transfer\QuoteTransfer;
-use Orm\Zed\Quote\Persistence\Base\SpyQuote;
-use Propel\Runtime\Collection\ObjectCollection;
 
 interface QuoteMapperInterface
 {
     /**
-     * @param \Orm\Zed\Quote\Persistence\Base\SpyQuote $entity
+     * @param int $id
      *
      * @return \Generated\Shared\Transfer\QuoteTransfer
      */
-    public function mapEntityToTransfer(SpyQuote $entity): QuoteTransfer;
+    public function mapIdToTransfer(int $id): QuoteTransfer;
 
     /**
-     * @param \Propel\Runtime\Collection\ObjectCollection<\Orm\Zed\Quote\Persistence\Base\SpyQuote> $entityCollection
+     * @param array<int> $ids
      *
      * @return array<\Generated\Shared\Transfer\QuoteTransfer>
      */
-    public function mapEntityCollectionToTransfers(ObjectCollection $entityCollection): array;
+    public function mapIdsToTransfers(array $ids): array;
 }

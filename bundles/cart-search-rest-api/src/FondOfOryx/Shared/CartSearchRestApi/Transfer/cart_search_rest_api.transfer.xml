@@ -60,7 +60,12 @@
         <property name="pagination" type="Pagination"/>
     </transfer>
 
+    <transfer name="QuoteCollection">
+        <property name="quotes" type="Quote[]" singular="quote" />
+    </transfer>
+
     <transfer name="Quote">
+        <property name="idQuote" type="int"/>
         <property name="priceMode" type="string"/>
         <property name="voucherDiscounts" type="Discount[]" singular="voucherDiscount"/>
         <property name="cartRuleDiscounts" type="Discount[]" singular="cartRuleDiscount"/>
