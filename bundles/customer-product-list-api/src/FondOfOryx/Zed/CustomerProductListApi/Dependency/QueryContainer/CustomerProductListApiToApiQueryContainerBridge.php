@@ -2,7 +2,6 @@
 
 namespace FondOfOryx\Zed\CustomerProductListApi\Dependency\QueryContainer;
 
-use FondOfOryx\Zed\CustomerProductListApi\Dependency\QueryContainer\CustomerProductListApiToApiQueryContainerInterface;
 use Generated\Shared\Transfer\ApiItemTransfer;
 use Spryker\Zed\Api\Persistence\ApiQueryContainerInterface;
 
@@ -22,7 +21,7 @@ class CustomerProductListApiToApiQueryContainerBridge implements CustomerProduct
     }
 
     /**
-     * @param array|\Spryker\Shared\Kernel\Transfer\AbstractTransfer $data
+     * @param \Spryker\Shared\Kernel\Transfer\AbstractTransfer|array $data
      * @param int|null $id
      *
      * @return \Generated\Shared\Transfer\ApiItemTransfer

@@ -6,5 +6,8 @@ use Spryker\Zed\Kernel\AbstractBundleConfig;
 
 class CustomerProductListApiConfig extends AbstractBundleConfig
 {
-    const RESOURCE_CUSTOMER_PRODUCT_LIST = 'customer-product-lists';
+    /**
+     * @var string
+     */
+    public const RESOURCE_CUSTOMER_PRODUCT_LIST = 'customer-product-lists';
 }

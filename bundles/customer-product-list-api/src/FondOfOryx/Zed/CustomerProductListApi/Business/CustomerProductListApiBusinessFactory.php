@@ -5,7 +5,6 @@ namespace FondOfOryx\Zed\CustomerProductListApi\Business;
 use FondOfOryx\Zed\CustomerProductListApi\Business\Model\CustomerProductListApi;
 use FondOfOryx\Zed\CustomerProductListApi\Business\Model\CustomerProductListApiInterface;
 use FondOfOryx\Zed\CustomerProductListApi\CustomerProductListApiDependencyProvider;
-use FondOfOryx\Zed\CustomerProductListApi\Dependency\Facade\CustomerProductListApiToApiFacadeInterface;
 use FondOfOryx\Zed\CustomerProductListApi\Dependency\Facade\CustomerProductListApiToCustomerProductListConnectorFacadeInterface;
 use FondOfOryx\Zed\CustomerProductListApi\Dependency\QueryContainer\CustomerProductListApiToApiQueryContainerInterface;
 use Spryker\Zed\Kernel\Business\AbstractBusinessFactory;
@@ -22,14 +21,12 @@ class CustomerProductListApiBusinessFactory extends AbstractBusinessFactory
     {
         return new CustomerProductListApi(
             $this->getCustomerProductListConnnectorFacade(),
-            $this->getApiQueryContainer()
+            $this->getApiQueryContainer(),
         );
     }
 
     /**
      * @return \FondOfOryx\Zed\CustomerProductListApi\Dependency\Facade\CustomerProductListApiToCustomerProductListConnectorFacadeInterface
-     *
-     * @throws \Spryker\Zed\Kernel\Exception\Container\ContainerKeyNotFoundException
      */
     protected function getCustomerProductListConnnectorFacade(): CustomerProductListApiToCustomerProductListConnectorFacadeInterface
     {
@@ -38,8 +35,6 @@ class CustomerProductListApiBusinessFactory extends AbstractBusinessFactory
 
     /**
      * @return \FondOfOryx\Zed\CustomerProductListApi\Dependency\QueryContainer\CustomerProductListApiToApiQueryContainerInterface
-     *
-     * @throws \Spryker\Zed\Kernel\Exception\Container\ContainerKeyNotFoundException
      */
     protected function getApiQueryContainer(): CustomerProductListApiToApiQueryContainerInterface
     {

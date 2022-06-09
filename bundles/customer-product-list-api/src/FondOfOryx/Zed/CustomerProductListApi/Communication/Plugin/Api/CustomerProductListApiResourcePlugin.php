@@ -3,10 +3,11 @@
 namespace FondOfOryx\Zed\CustomerProductListApi\Communication\Plugin\Api;
 
 use FondOfOryx\Zed\CustomerProductListApi\CustomerProductListApiConfig;
-use Generated\Shared\Transfer\ApiItemTransfer;
-use \RuntimeException;
+use Generated\Shared\Transfer\ApiCollectionTransfer;
 use Generated\Shared\Transfer\ApiDataTransfer;
+use Generated\Shared\Transfer\ApiItemTransfer;
 use Generated\Shared\Transfer\ApiRequestTransfer;
+use RuntimeException;
 use Spryker\Zed\Api\ApiConfig;
 use Spryker\Zed\Api\Dependency\Plugin\ApiResourcePluginInterface;
 use Spryker\Zed\Kernel\Communication\AbstractPlugin;
@@ -21,9 +22,9 @@ class CustomerProductListApiResourcePlugin extends AbstractPlugin implements Api
      *
      * @throws \RuntimeException
      *
-     * @return void
+     * @return \Generated\Shared\Transfer\ApiItemTransfer
      */
-    public function get($idCustomer)
+    public function get($idCustomer): ApiItemTransfer
     {
         throw new RuntimeException('Add action not implemented on core level', ApiConfig::HTTP_CODE_NOT_FOUND);
     }
@@ -31,6 +32,8 @@ class CustomerProductListApiResourcePlugin extends AbstractPlugin implements Api
     /**
      * @param int $idCustomer
      * @param \Generated\Shared\Transfer\ApiDataTransfer $apiDataTransfer
+     *
+     * @throws \RuntimeException
      *
      * @return \Generated\Shared\Transfer\ApiItemTransfer
      */
@@ -42,9 +45,7 @@ class CustomerProductListApiResourcePlugin extends AbstractPlugin implements Api
     /**
      * @param \Generated\Shared\Transfer\ApiDataTransfer $apiDataTransfer
      *
-     * @throws \RuntimeException
-     *
-     * @return void
+     * @return \Generated\Shared\Transfer\ApiItemTransfer
      */
     public function add(ApiDataTransfer $apiDataTransfer): ApiItemTransfer
     {
@@ -56,9 +57,9 @@ class CustomerProductListApiResourcePlugin extends AbstractPlugin implements Api
      *
      * @throws \RuntimeException
      *
-     * @return void
+     * @return \Generated\Shared\Transfer\ApiItemTransfer
      */
-    public function remove($idCustomer)
+    public function remove($idCustomer): ApiItemTransfer
     {
         throw new RuntimeException('Remove action not implemented on core level', ApiConfig::HTTP_CODE_NOT_FOUND);
     }
@@ -68,9 +69,9 @@ class CustomerProductListApiResourcePlugin extends AbstractPlugin implements Api
      *
      * @throws \RuntimeException
      *
-     * @return void
+     * @return \Generated\Shared\Transfer\ApiCollectionTransfer
      */
-    public function find(ApiRequestTransfer $apiRequestTransfer)
+    public function find(ApiRequestTransfer $apiRequestTransfer): ApiCollectionTransfer
     {
         throw new RuntimeException('Find action not implemented on core level', ApiConfig::HTTP_CODE_NOT_FOUND);
     }
