@@ -13,4 +13,3 @@ interface CustomerProductListApiInterface
      */
     public function add(ApiDataTransfer $apiDataTransfer);
 }
-

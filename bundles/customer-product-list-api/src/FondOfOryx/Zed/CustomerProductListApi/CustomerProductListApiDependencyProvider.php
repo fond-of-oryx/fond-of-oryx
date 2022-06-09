@@ -9,7 +9,14 @@ use Spryker\Zed\Kernel\Container;
 
 class CustomerProductListApiDependencyProvider extends AbstractBundleDependencyProvider
 {
+    /**
+     * @var string
+     */
     public const FACADE_CUSTOMER_PRODUCT_LIST_CONNECTOR = 'FACADE_CUSTOMER_PRODUCT_LIST_CONNECTOR';
+
+    /**
+     * @var string
+     */
     public const QUERY_CONTAINER_API = 'QUERY_CONTAINER_API';
 
     /**
@@ -36,8 +43,10 @@ class CustomerProductListApiDependencyProvider extends AbstractBundleDependencyP
     {
         $container[static::FACADE_CUSTOMER_PRODUCT_LIST_CONNECTOR] = function (Container $container) {
             return new CustomerProductListApiToCustomerProductListConnectorFacadeBridge(
-                $container->getLocator()->customerProductListConnector()->facade());
+                $container->getLocator()->customerProductListConnector()->facade(),
+            );
         };
+
         return $container;
     }
 
@@ -54,6 +63,4 @@ class CustomerProductListApiDependencyProvider extends AbstractBundleDependencyP
 
         return $container;
     }
-
 }
-

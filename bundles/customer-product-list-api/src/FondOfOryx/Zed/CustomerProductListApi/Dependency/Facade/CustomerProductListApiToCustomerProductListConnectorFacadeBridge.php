@@ -30,5 +30,4 @@ class CustomerProductListApiToCustomerProductListConnectorFacadeBridge implement
     ): void {
         $this->customerProductListConnectorFacade->persistCustomerProductListRelation($customerProductListRelationTransfer);
     }
-
 }

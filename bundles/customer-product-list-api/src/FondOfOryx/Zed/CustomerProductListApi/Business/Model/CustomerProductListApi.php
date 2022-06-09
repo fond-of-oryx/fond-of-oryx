@@ -8,9 +8,11 @@ use Generated\Shared\Transfer\ApiDataTransfer;
 use Generated\Shared\Transfer\ApiItemTransfer;
 use Generated\Shared\Transfer\CustomerProductListRelationTransfer;
 
-
 class CustomerProductListApi implements CustomerProductListApiInterface
 {
+    /**
+     * @var string
+     */
     public const DATA_KEY_FK_CUSTOMER = 'fk_customer';
 
     /**
@@ -53,5 +55,4 @@ class CustomerProductListApi implements CustomerProductListApiInterface
 
         return $this->apiQueryContainer->createApiItem($customerProductListRelationTransfer);
     }
-
 }
