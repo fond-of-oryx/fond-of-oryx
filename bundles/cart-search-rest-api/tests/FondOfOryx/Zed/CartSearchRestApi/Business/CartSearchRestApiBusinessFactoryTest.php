@@ -5,6 +5,7 @@ namespace FondOfOryx\Zed\CartSearchRestApi\Business;
 use Codeception\Test\Unit;
 use FondOfOryx\Zed\CartSearchRestApi\Business\Reader\QuoteReader;
 use FondOfOryx\Zed\CartSearchRestApi\CartSearchRestApiDependencyProvider;
+use FondOfOryx\Zed\CartSearchRestApi\Dependency\Facade\CartSearchRestApiToQuoteFacadeInterface;
 use FondOfOryx\Zed\CartSearchRestApi\Persistence\CartSearchRestApiRepository;
 use FondOfOryx\Zed\CartSearchRestApiExtension\Dependency\Plugin\SearchQuoteQueryExpanderPluginInterface;
 use Spryker\Zed\Kernel\Container;
@@ -20,6 +21,11 @@ class CartSearchRestApiBusinessFactoryTest extends Unit
      * @var \FondOfOryx\Zed\CartSearchRestApi\Persistence\CartSearchRestApiRepository|\PHPUnit\Framework\MockObject\MockObject
      */
     protected $repositoryMock;
+
+    /**
+     * @var \FondOfOryx\Zed\CartSearchRestApi\Dependency\Facade\CartSearchRestApiToQuoteFacadeInterface|\PHPUnit\Framework\MockObject\MockObject
+     */
+    protected $quoteFacadeMock;
 
     /**
      * @var \FondOfOryx\Zed\CartSearchRestApiExtension\Dependency\Plugin\SearchQuoteQueryExpanderPluginInterface|\PHPUnit\Framework\MockObject\MockObject
@@ -46,6 +52,10 @@ class CartSearchRestApiBusinessFactoryTest extends Unit
             ->disableOriginalConstructor()
             ->getMock();
 
+        $this->quoteFacadeMock = $this->getMockBuilder(CartSearchRestApiToQuoteFacadeInterface::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
         $this->searchQuoteQueryExpanderPluginMock = $this->getMockBuilder(SearchQuoteQueryExpanderPluginInterface::class)
             ->disableOriginalConstructor()
             ->getMock();
@@ -66,8 +76,11 @@ class CartSearchRestApiBusinessFactoryTest extends Unit
 
         $this->containerMock->expects(static::atLeastOnce())
             ->method('get')
-            ->with(CartSearchRestApiDependencyProvider::PLUGINS_SEARCH_QUOTE_QUERY_EXPANDER)
-            ->willReturn(
+            ->withConsecutive(
+                [CartSearchRestApiDependencyProvider::FACADE_QUOTE],
+                [CartSearchRestApiDependencyProvider::PLUGINS_SEARCH_QUOTE_QUERY_EXPANDER],
+            )->willReturnOnConsecutiveCalls(
+                $this->quoteFacadeMock,
                 [
                     $this->searchQuoteQueryExpanderPluginMock,
                 ],

@@ -3,8 +3,6 @@
 namespace FondOfOryx\Zed\CartSearchRestApi\Persistence\Propel\Mapper;
 
 use Generated\Shared\Transfer\QuoteTransfer;
-use Orm\Zed\Quote\Persistence\Base\SpyQuote;
-use Propel\Runtime\Collection\ObjectCollection;
 
 /**
  * @codeCoverageIgnore
@@ -12,27 +10,27 @@ use Propel\Runtime\Collection\ObjectCollection;
 class QuoteMapper implements QuoteMapperInterface
 {
     /**
-     * @param \Orm\Zed\Quote\Persistence\Base\SpyQuote $entity
+     * @param int $id
      *
      * @return \Generated\Shared\Transfer\QuoteTransfer
      */
-    public function mapEntityToTransfer(SpyQuote $entity): QuoteTransfer
+    public function mapIdToTransfer(int $id): QuoteTransfer
     {
         return (new QuoteTransfer())
-            ->fromArray($entity->toArray(), true);
+            ->setIdQuote($id);
     }
 
     /**
-     * @param \Propel\Runtime\Collection\ObjectCollection<\Orm\Zed\Quote\Persistence\Base\SpyQuote> $entityCollection
+     * @param array<int> $ids
      *
      * @return array<\Generated\Shared\Transfer\QuoteTransfer>
      */
-    public function mapEntityCollectionToTransfers(ObjectCollection $entityCollection): array
+    public function mapIdsToTransfers(array $ids): array
     {
         $transfers = [];
 
-        foreach ($entityCollection as $entity) {
-            $transfers[] = $this->mapEntityToTransfer($entity);
+        foreach ($ids as $id) {
+            $transfers[] = $this->mapIdToTransfer($id);
         }
 
         return $transfers;
