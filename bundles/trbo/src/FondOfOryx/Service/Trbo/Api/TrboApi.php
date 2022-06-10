@@ -3,7 +3,7 @@
 namespace FondOfOryx\Service\Trbo\Api;
 
 use FondOfOryx\Service\Trbo\Mapper\TrboMapperInterface;
-use Generated\Shared\Transfer\TrboDataTransfer;
+use Generated\Shared\Transfer\TrboTransfer;
 use GuzzleHttp\ClientInterface;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -57,9 +57,9 @@ class TrboApi implements TrboApiInterface
     /**
      * @param \Symfony\Component\HttpFoundation\Request $request
      *
-     * @return \Generated\Shared\Transfer\TrboDataTransfer|null
+     * @return \Generated\Shared\Transfer\TrboTransfer|null
      */
-    public function requestData(Request $request): ?TrboDataTransfer
+    public function requestData(Request $request): ?TrboTransfer
     {
         try {
             $result = $this->client->request(

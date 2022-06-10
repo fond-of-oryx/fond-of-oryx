@@ -4,7 +4,7 @@ namespace FondOfOryx\Service\Trbo;
 
 use Codeception\Test\Unit;
 use FondOfOryx\Service\Trbo\Api\TrboApi;
-use Generated\Shared\Transfer\TrboDataTransfer;
+use Generated\Shared\Transfer\TrboTransfer;
 use Symfony\Component\HttpFoundation\Request;
 
 class TrboServiceTest extends Unit
@@ -20,9 +20,9 @@ class TrboServiceTest extends Unit
     protected $factoryMock;
 
     /**
-     * @var \Generated\Shared\Transfer\TrboDataTransfer|\PHPUnit\Framework\MockObject\MockObject
+     * @var \Generated\Shared\Transfer\TrboTransfer|\PHPUnit\Framework\MockObject\MockObject
      */
-    protected $trboDataTransferMock;
+    protected $trboTransferMock;
 
     /**
      * @var \FondOfOryx\Service\Trbo\Api\TrboApi|\PHPUnit\Framework\MockObject\MockObject
@@ -45,7 +45,7 @@ class TrboServiceTest extends Unit
             ->disableOriginalConstructor()
             ->getMock();
 
-        $this->trboDataTransferMock = $this->getMockBuilder(TrboDataTransfer::class)
+        $this->TrboTransferMock = $this->getMockBuilder(TrboTransfer::class)
             ->disableOriginalConstructor()
             ->getMock();
 
@@ -72,9 +72,9 @@ class TrboServiceTest extends Unit
 
         $this->trboApiMock->expects(static::atLeastOnce())
             ->method('requestData')
-            ->willReturn($this->trboDataTransferMock);
+            ->willReturn($this->TrboTransferMock);
 
-        static::assertEquals($this->trboDataTransferMock, $this->service->requestData($this->requestMock));
+        static::assertEquals($this->TrboTransferMock, $this->service->requestData($this->requestMock));
     }
 
     /**

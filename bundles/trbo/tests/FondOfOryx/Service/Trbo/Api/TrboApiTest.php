@@ -4,7 +4,7 @@ namespace FondOfOryx\Service\Trbo\Api;
 
 use Codeception\Test\Unit;
 use FondOfOryx\Service\Trbo\Mapper\TrboMapper;
-use Generated\Shared\Transfer\TrboDataTransfer;
+use Generated\Shared\Transfer\TrboTransfer;
 use GuzzleHttp\Client;
 use GuzzleHttp\Psr7\Response;
 use GuzzleHttp\Psr7\Stream;
@@ -49,9 +49,9 @@ class TrboApiTest extends Unit
     protected $streamMock;
 
     /**
-     * @var \Generated\Shared\Transfer\TrboDataTransfer|\PHPUnit\Framework\MockObject\MockObject
+     * @var \Generated\Shared\Transfer\TrboTransfer|\PHPUnit\Framework\MockObject\MockObject
      */
-    protected $trboDataTransferMock;
+    protected $trboTransferMock;
 
     /**
      * @var \FondOfOryx\Service\Trbo\Api\TrboApi
@@ -93,7 +93,7 @@ class TrboApiTest extends Unit
             ->disableOriginalConstructor()
             ->getMock();
 
-        $this->trboDataTransferMock = $this->getMockBuilder(TrboDataTransfer::class)
+        $this->TrboTransferMock = $this->getMockBuilder(TrboTransfer::class)
             ->disableOriginalConstructor()
             ->getMock();
 
@@ -147,13 +147,13 @@ class TrboApiTest extends Unit
 
         $this->trboMapperMock->expects(static::atLeastOnce())
             ->method('mapApiResponseToTransfer')
-            ->willReturn($this->trboDataTransferMock);
+            ->willReturn($this->TrboTransferMock);
 
         $this->loggerMock->expects(static::never())
             ->method('alert');
 
-        $trboDataTransfer = $this->trboApi->requestData($this->requestMock);
+        $trboTransfer = $this->trboApi->requestData($this->requestMock);
 
-        static::assertEquals($trboDataTransfer, $this->trboDataTransferMock);
+        static::assertEquals($trboTransfer, $this->TrboTransferMock);
     }
 }

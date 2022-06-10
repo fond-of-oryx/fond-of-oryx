@@ -2,7 +2,7 @@
 
 namespace FondOfOryx\Service\Trbo\Mapper;
 
-use Generated\Shared\Transfer\TrboDataTransfer;
+use Generated\Shared\Transfer\TrboTransfer;
 
 class TrboMapper implements TrboMapperInterface
 {
@@ -19,26 +19,26 @@ class TrboMapper implements TrboMapperInterface
     /**
      * @param array $data
      *
-     * @return \Generated\Shared\Transfer\TrboDataTransfer
+     * @return \Generated\Shared\Transfer\TrboTransfer
      */
-    public function mapApiResponseToTransfer(array $data): TrboDataTransfer
+    public function mapApiResponseToTransfer(array $data): TrboTransfer
     {
-        $trboDataTransfer = new TrboDataTransfer();
+        $trboTransfer = new TrboTransfer();
 
         if (!isset($data[static::DATA])) {
-            return $trboDataTransfer;
+            return $trboTransfer;
         }
 
-        return $this->mergeDataAndTracking($trboDataTransfer, $data);
+        return $this->mergeDataAndTracking($trboTransfer, $data);
     }
 
     /**
-     * @param \Generated\Shared\Transfer\TrboDataTransfer $trboDataTransfer
+     * @param \Generated\Shared\Transfer\TrboTransfer $trboTransfer
      * @param array $data
      *
-     * @return \Generated\Shared\Transfer\TrboDataTransfer
+     * @return \Generated\Shared\Transfer\TrboTransfer
      */
-    protected function mergeDataAndTracking(TrboDataTransfer $trboDataTransfer, array $data): TrboDataTransfer
+    protected function mergeDataAndTracking(TrboTransfer $trboTransfer, array $data): TrboTransfer
     {
         $trboData = [];
 
@@ -52,6 +52,6 @@ class TrboMapper implements TrboMapperInterface
             $trboData[] = $item;
         }
 
-        return $trboDataTransfer->setData($trboData);
+        return $trboTransfer->setData($trboData);
     }
 }
