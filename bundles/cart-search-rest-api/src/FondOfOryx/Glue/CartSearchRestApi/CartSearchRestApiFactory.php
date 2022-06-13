@@ -5,6 +5,8 @@ namespace FondOfOryx\Glue\CartSearchRestApi;
 use FondOfOryx\Glue\CartSearchRestApi\Dependency\Client\CartSearchRestApiToGlossaryStorageClientInterface;
 use FondOfOryx\Glue\CartSearchRestApi\Processor\Builder\RestResponseBuilder;
 use FondOfOryx\Glue\CartSearchRestApi\Processor\Builder\RestResponseBuilderInterface;
+use FondOfOryx\Glue\CartSearchRestApi\Processor\Expander\FilterFieldsExpander;
+use FondOfOryx\Glue\CartSearchRestApi\Processor\Expander\FilterFieldsExpanderInterface;
 use FondOfOryx\Glue\CartSearchRestApi\Processor\Filter\CustomerReferenceFilter;
 use FondOfOryx\Glue\CartSearchRestApi\Processor\Filter\CustomerReferenceFilterInterface;
 use FondOfOryx\Glue\CartSearchRestApi\Processor\Filter\RequestParameterFilter;
@@ -77,7 +79,10 @@ class CartSearchRestApiFactory extends AbstractFactory
      */
     protected function createFilterFieldsMapper(): FilterFieldsMapperInterface
     {
-        return new FilterFieldsMapper($this->createFilterFieldMappers());
+        return new FilterFieldsMapper(
+            $this->createFilterFieldMappers(),
+            $this->createFilterFieldsExpander(),
+        );
     }
 
     /**
@@ -194,6 +199,26 @@ class CartSearchRestApiFactory extends AbstractFactory
     {
         return new RestCartSearchPaginationMapper(
             $this->getConfig(),
+        );
+    }
+
+    /**
+     * @return \FondOfOryx\Glue\CartSearchRestApi\Processor\Expander\FilterFieldsExpanderInterface
+     */
+    protected function createFilterFieldsExpander(): FilterFieldsExpanderInterface
+    {
+        return new FilterFieldsExpander(
+            $this->getFilterFieldsExpanderPlugins(),
+        );
+    }
+
+    /**
+     * @return array<\FondOfOryx\Glue\CartSearchRestApiExtension\Dependency\Plugin\FilterFieldsExpanderPluginInterface>
+     */
+    protected function getFilterFieldsExpanderPlugins(): array
+    {
+        return $this->getProvidedDependency(
+            CartSearchRestApiDependencyProvider::PLUGINS_FILTER_FIELDS_EXPANDER,
         );
     }
 }

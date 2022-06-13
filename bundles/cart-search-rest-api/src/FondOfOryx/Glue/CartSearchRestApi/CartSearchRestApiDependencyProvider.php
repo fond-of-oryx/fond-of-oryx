@@ -14,6 +14,11 @@ class CartSearchRestApiDependencyProvider extends AbstractBundleDependencyProvid
  /**
   * @var string
   */
+    public const PLUGINS_FILTER_FIELDS_EXPANDER = 'PLUGINS_FILTER_FIELDS_EXPANDER';
+
+     /**
+      * @var string
+      */
     public const CLIENT_GLOSSARY_STORAGE = 'CLIENT_GLOSSARY_STORAGE';
 
     /**
@@ -25,7 +30,9 @@ class CartSearchRestApiDependencyProvider extends AbstractBundleDependencyProvid
     {
         $container = parent::provideDependencies($container);
 
-        return $this->addGlossaryStorageClient($container);
+        $container = $this->addGlossaryStorageClient($container);
+
+        return $this->addFilterFieldsExpanderPlugins($container);
     }
 
     /**
@@ -42,5 +49,29 @@ class CartSearchRestApiDependencyProvider extends AbstractBundleDependencyProvid
         };
 
         return $container;
+    }
+
+    /**
+     * @param \Spryker\Glue\Kernel\Container $container
+     *
+     * @return \Spryker\Glue\Kernel\Container
+     */
+    protected function addFilterFieldsExpanderPlugins(Container $container): Container
+    {
+        $self = $this;
+
+        $container[static::PLUGINS_FILTER_FIELDS_EXPANDER] = static function () use ($self) {
+            return $self->getFilterFieldsExpanderPlugins();
+        };
+
+        return $container;
+    }
+
+    /**
+     * @return array<\FondOfOryx\Glue\CartSearchRestApiExtension\Dependency\Plugin\FilterFieldsExpanderPluginInterface>
+     */
+    protected function getFilterFieldsExpanderPlugins(): array
+    {
+        return [];
     }
 }

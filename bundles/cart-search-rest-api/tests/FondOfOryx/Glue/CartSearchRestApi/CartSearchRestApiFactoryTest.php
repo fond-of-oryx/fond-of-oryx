@@ -6,6 +6,7 @@ use Codeception\Test\Unit;
 use FondOfOryx\Client\CartSearchRestApi\CartSearchRestApiClient;
 use FondOfOryx\Glue\CartSearchRestApi\Dependency\Client\CartSearchRestApiToGlossaryStorageClientInterface;
 use FondOfOryx\Glue\CartSearchRestApi\Processor\Reader\CartReader;
+use FondOfOryx\Glue\CartSearchRestApiExtension\Dependency\Plugin\FilterFieldsExpanderPluginInterface;
 use Spryker\Glue\GlueApplication\Rest\JsonApi\RestResourceBuilderInterface;
 use Spryker\Glue\Kernel\Container;
 
@@ -35,6 +36,11 @@ class CartSearchRestApiFactoryTest extends Unit
      * @var \FondOfOryx\Glue\CartSearchRestApi\Dependency\Client\CartSearchRestApiToGlossaryStorageClientInterface|\PHPUnit\Framework\MockObject\MockObject|mixed
      */
     protected $glossaryStorageClientMock;
+
+    /**
+     * @var array<\FondOfOryx\Glue\CartSearchRestApiExtension\Dependency\Plugin\FilterFieldsExpanderPluginInterface|\PHPUnit\Framework\MockObject\MockObject>
+     */
+    protected $filterFieldsExpanderPluginMocks;
 
     /**
      * @var \FondOfOryx\Glue\CartSearchRestApi\CartSearchRestApiFactory
@@ -67,6 +73,12 @@ class CartSearchRestApiFactoryTest extends Unit
         $this->glossaryStorageClientMock = $this->getMockBuilder(CartSearchRestApiToGlossaryStorageClientInterface::class)
             ->disableOriginalConstructor()
             ->getMock();
+
+        $this->filterFieldsExpanderPluginMocks = [
+            $this->getMockBuilder(FilterFieldsExpanderPluginInterface::class)
+                ->disableOriginalConstructor()
+                ->getMock(),
+        ];
 
         $this->factory = new class ($this->restResourceBuilderMock) extends CartSearchRestApiFactory {
             /**
@@ -103,13 +115,20 @@ class CartSearchRestApiFactoryTest extends Unit
     {
         $this->containerMock->expects(static::atLeastOnce())
             ->method('has')
-            ->with(CartSearchRestApiDependencyProvider::CLIENT_GLOSSARY_STORAGE)
-            ->willReturn(true);
+            ->withConsecutive(
+                [CartSearchRestApiDependencyProvider::PLUGINS_FILTER_FIELDS_EXPANDER],
+                [CartSearchRestApiDependencyProvider::CLIENT_GLOSSARY_STORAGE],
+            )->willReturn(true);
 
         $this->containerMock->expects(static::atLeastOnce())
             ->method('get')
-            ->with(CartSearchRestApiDependencyProvider::CLIENT_GLOSSARY_STORAGE)
-            ->willReturn($this->glossaryStorageClientMock);
+            ->withConsecutive(
+                [CartSearchRestApiDependencyProvider::PLUGINS_FILTER_FIELDS_EXPANDER],
+                [CartSearchRestApiDependencyProvider::CLIENT_GLOSSARY_STORAGE],
+            )->willReturnOnConsecutiveCalls(
+                $this->filterFieldsExpanderPluginMocks,
+                $this->glossaryStorageClientMock,
+            );
 
         static::assertInstanceOf(
             CartReader::class,

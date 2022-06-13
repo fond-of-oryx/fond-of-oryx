@@ -2,7 +2,9 @@
 
 namespace FondOfOryx\Glue\CartSearchRestApi\Processor\Mapper;
 
+use ArrayObject;
 use Codeception\Test\Unit;
+use FondOfOryx\Glue\CartSearchRestApi\Processor\Expander\FilterFieldsExpanderInterface;
 use Generated\Shared\Transfer\FilterFieldTransfer;
 use Spryker\Glue\GlueApplication\Rest\Request\Data\RestRequestInterface;
 
@@ -12,6 +14,11 @@ class FilterFieldsMapperTest extends Unit
      * @var array<\FondOfOryx\Glue\CartSearchRestApi\Processor\Mapper\FilterFieldMapperInterface|\PHPUnit\Framework\MockObject\MockObject>
      */
     protected $filterFieldMapperMocks;
+
+    /**
+     * @var \FondOfOryx\Glue\CartSearchRestApi\Processor\Expander\FilterFieldsExpanderInterface|\PHPUnit\Framework\MockObject\MockObject
+     */
+    protected $filterFieldsExpanderMocks;
 
     /**
      * @var \PHPUnit\Framework\MockObject\MockObject|\Spryker\Glue\GlueApplication\Rest\Request\Data\RestRequestInterface
@@ -44,6 +51,10 @@ class FilterFieldsMapperTest extends Unit
                 ->getMock(),
             ];
 
+        $this->filterFieldsExpanderMocks = $this->getMockBuilder(FilterFieldsExpanderInterface::class)
+                ->disableOriginalConstructor()
+                ->getMock();
+
         $this->restRequestMock = $this->getMockBuilder(RestRequestInterface::class)
             ->disableOriginalConstructor()
             ->getMock();
@@ -54,6 +65,7 @@ class FilterFieldsMapperTest extends Unit
 
         $this->filterFieldsMapper = new FilterFieldsMapper(
             $this->filterFieldMapperMocks,
+            $this->filterFieldsExpanderMocks,
         );
     }
 
@@ -62,6 +74,9 @@ class FilterFieldsMapperTest extends Unit
      */
     public function testFromRestRequest(): void
     {
+        $filterFieldTransferMock = $this->filterFieldTransferMock;
+        $filterFieldTransferMocks = new ArrayObject([$filterFieldTransferMock]);
+
         $this->filterFieldMapperMocks[0]->expects(static::atLeastOnce())
             ->method('fromRestRequest')
             ->with($this->restRequestMock)
@@ -72,9 +87,18 @@ class FilterFieldsMapperTest extends Unit
             ->with($this->restRequestMock)
             ->willReturn(null);
 
-        $filterFieldTransfers = $this->filterFieldsMapper->fromRestRequest($this->restRequestMock);
+        $this->filterFieldsExpanderMocks->expects(static::atLeastOnce())
+            ->method('expand')
+            ->with($this->restRequestMock, static::callback(
+                static function (ArrayObject $filterFieldTransfers) use ($filterFieldTransferMock) {
+                    return $filterFieldTransfers->count() === 1
+                        && $filterFieldTransfers->offsetGet(0) === $filterFieldTransferMock;
+                },
+            ))->willReturn($filterFieldTransferMocks);
 
-        static::assertCount(1, $filterFieldTransfers);
-        static::assertContains($this->filterFieldTransferMock, $filterFieldTransfers);
+        static::assertEquals(
+            $filterFieldTransferMocks,
+            $this->filterFieldsMapper->fromRestRequest($this->restRequestMock),
+        );
     }
 }
