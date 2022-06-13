@@ -3,6 +3,9 @@
 namespace FondOfOryx\Zed\GiftCardProportionalValue\Business;
 
 use Generated\Shared\Transfer\ProportionalGiftCardValueTransfer;
+use Orm\Zed\Sales\Persistence\SpySalesOrder;
+use Orm\Zed\Sales\Persistence\SpySalesOrderItem;
+use Spryker\Zed\Oms\Business\Util\ReadOnlyArrayObject;
 
 interface GiftCardProportionalValueFacadeInterface
 {
@@ -30,4 +33,20 @@ interface GiftCardProportionalValueFacadeInterface
      * @return int|null
      */
     public function findGiftCardAmountByIdSalesOrderItem(int $idSalesOrderItem): ?int;
+
+    /**
+     * @param \Orm\Zed\Sales\Persistence\SpySalesOrderItem $orderItem
+     *
+     * @return bool
+     */
+    public function hasRedeemedGiftCards(SpySalesOrderItem $orderItem): bool;
+
+    /**
+     * @param array<\Orm\Zed\Sales\Persistence\SpySalesOrderItem> $orderItems
+     * @param \Orm\Zed\Sales\Persistence\SpySalesOrder $orderEntity
+     * @param \Spryker\Zed\Oms\Business\Util\ReadOnlyArrayObject $data
+     *
+     * @return array<\Orm\Zed\Sales\Persistence\SpySalesOrderItem>
+     */
+    public function createProportionalValues(array $orderItems, SpySalesOrder $orderEntity, ReadOnlyArrayObject $data): array;
 }
