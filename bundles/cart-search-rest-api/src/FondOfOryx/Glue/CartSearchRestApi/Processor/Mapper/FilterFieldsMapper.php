@@ -3,6 +3,7 @@
 namespace FondOfOryx\Glue\CartSearchRestApi\Processor\Mapper;
 
 use ArrayObject;
+use FondOfOryx\Glue\CartSearchRestApi\Processor\Expander\FilterFieldsExpanderInterface;
 use Spryker\Glue\GlueApplication\Rest\Request\Data\RestRequestInterface;
 
 class FilterFieldsMapper implements FilterFieldsMapperInterface
@@ -13,11 +14,20 @@ class FilterFieldsMapper implements FilterFieldsMapperInterface
     protected $filterFieldMappers;
 
     /**
-     * @param array<\FondOfOryx\Glue\CartSearchRestApi\Processor\Mapper\FilterFieldMapperInterface> $filterFieldMappers
+     * @var \FondOfOryx\Glue\CartSearchRestApi\Processor\Expander\FilterFieldsExpanderInterface
      */
-    public function __construct(array $filterFieldMappers)
-    {
+    protected $filterFieldsExpander;
+
+    /**
+     * @param array<\FondOfOryx\Glue\CartSearchRestApi\Processor\Mapper\FilterFieldMapperInterface> $filterFieldMappers
+     * @param \FondOfOryx\Glue\CartSearchRestApi\Processor\Expander\FilterFieldsExpanderInterface $filterFieldsExpander
+     */
+    public function __construct(
+        array $filterFieldMappers,
+        FilterFieldsExpanderInterface $filterFieldsExpander
+    ) {
         $this->filterFieldMappers = $filterFieldMappers;
+        $this->filterFieldsExpander = $filterFieldsExpander;
     }
 
     /**
@@ -39,6 +49,6 @@ class FilterFieldsMapper implements FilterFieldsMapperInterface
             $filterFieldTransfers->append($filterFieldTransfer);
         }
 
-        return $filterFieldTransfers;
+        return $this->filterFieldsExpander->expand($restRequest, $filterFieldTransfers);
     }
 }

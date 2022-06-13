@@ -325,6 +325,7 @@
       "FondOfOryx\\Client\\SplittableCheckoutRestApi\\": "bundles/splittable-checkout-rest-api/src/FondOfOryx/Client/SplittableCheckoutRestApi",
       "FondOfOryx\\Glue\\BrandsRestApiExtension\\": "bundles/brands-rest-api-extension/src/FondOfOryx/Glue/BrandsRestApiExtension",
       "FondOfOryx\\Glue\\CartSearchRestApi\\": "bundles/cart-search-rest-api/src/FondOfOryx/Glue/CartSearchRestApi",
+      "FondOfOryx\\Glue\\CartSearchRestApiExtension\\": "bundles/cart-search-rest-api-extension/src/FondOfOryx/Glue/CartSearchRestApiExtension",
       "FondOfOryx\\Glue\\CompanyBrandsRestApi\\": "bundles/company-brands-rest-api/src/FondOfOryx/Glue/CompanyBrandsRestApi",
       "FondOfOryx\\Glue\\CompanyBusinessUnitAddressSearchRestApi\\": "bundles/company-business-unit-address-search-rest-api/src/FondOfOryx/Glue/CompanyBusinessUnitAddressSearchRestApi",
       "FondOfOryx\\Glue\\CompanyBusinessUnitSearchRestApi\\": "bundles/company-business-unit-search-rest-api/src/FondOfOryx/Glue/CompanyBusinessUnitSearchRestApi",
