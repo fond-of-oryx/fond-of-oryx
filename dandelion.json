@@ -658,7 +658,7 @@
     },
     "thirty-five-up-payment-connector": {
       "path": "bundles/thirty-five-up-payment-connector/",
-      "version": "1.0.1"
+      "version": "1.0.2"
     },
     "trbo": {
       "path": "bundles/trbo/",
