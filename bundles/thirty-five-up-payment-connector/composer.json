@@ -11,8 +11,7 @@
     "require": {
         "php": ">=7.3",
         "spryker/payment-extension": "^1.0.0",
-        "fond-of-oryx/prepayment": "^1.0.0",
-        "codeception/module-asserts": "^1.0.0"
+        "fond-of-oryx/prepayment": "^1.0.0"
     },
     "require-dev": {
         "fond-of-codeception/spryker": "^1.0",
