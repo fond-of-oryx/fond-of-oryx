@@ -72,7 +72,7 @@ class TrboApi implements TrboApiInterface
 
             return $this->trboMapper->mapApiResponseToTransfer($data);
         } catch (Throwable $exception) {
-            $this->logger->alert($exception->getMessage(), $exception->getTrace());
+            $this->logger->info($exception->getMessage(), $exception->getTrace());
         }
 
         return null;
