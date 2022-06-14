@@ -2,7 +2,7 @@
 
 namespace FondOfOryx\Glue\CartSearchRestApi;
 
-use FondOfOryx\Shared\CartSearchRestApi\CartSearchRestApiConstants;
+use FondOfOryx\Shared\CompanySearchRestApi\CompanySearchRestApiConstants;
 use Spryker\Glue\Kernel\AbstractBundleConfig;
 
 /**
@@ -10,10 +10,20 @@ use Spryker\Glue\Kernel\AbstractBundleConfig;
  */
 class CartSearchRestApiConfig extends AbstractBundleConfig
 {
-     /**
-      * @var string
-      */
+    /**
+     * @var string
+     */
     public const RESOURCE_CART_SEARCH = 'cart-search';
+
+    /**
+     * @var string
+     */
+    public const RESOURCE_CART_ITEMS = 'items';
+
+    /**
+     * @var string
+     */
+    public const RESOURCE_CARTS = 'carts';
 
     /**
      * @var string
@@ -36,8 +46,8 @@ class CartSearchRestApiConfig extends AbstractBundleConfig
     public function getSortFields(): array
     {
         return $this->get(
-            CartSearchRestApiConstants::SORT_FIELDS,
-            CartSearchRestApiConstants::SORT_FIELDS_DEFAULT,
+            CompanySearchRestApiConstants::SORT_FIELDS,
+            CompanySearchRestApiConstants::SORT_FIELDS_DEFAULT,
         );
     }
 
@@ -47,8 +57,8 @@ class CartSearchRestApiConfig extends AbstractBundleConfig
     public function getItemsPerPage(): int
     {
         return $this->get(
-            CartSearchRestApiConstants::ITEMS_PER_PAGE,
-            CartSearchRestApiConstants::ITEMS_PER_PAGE_DEFAULT,
+            CompanySearchRestApiConstants::ITEMS_PER_PAGE,
+            CompanySearchRestApiConstants::ITEMS_PER_PAGE_DEFAULT,
         );
     }
 
@@ -58,8 +68,8 @@ class CartSearchRestApiConfig extends AbstractBundleConfig
     public function getValidItemsPerPageOptions(): array
     {
         return $this->get(
-            CartSearchRestApiConstants::VALID_ITEMS_PER_PAGE_OPTIONS,
-            CartSearchRestApiConstants::VALID_ITEMS_PER_PAGE_OPTIONS_DEFAULT,
+            CompanySearchRestApiConstants::VALID_ITEMS_PER_PAGE_OPTIONS,
+            CompanySearchRestApiConstants::VALID_ITEMS_PER_PAGE_OPTIONS_DEFAULT,
         );
     }
 
