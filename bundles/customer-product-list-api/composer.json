@@ -1,6 +1,6 @@
 {
-  "name": "fond-of-oryx/product-list-api",
-  "description": "The ProductListAPI module provides a REST API for product list CRUD.",
+  "name": "fond-of-oryx/customer-product-list-api",
+  "description": "The CusomerProductListAPI module provides a REST API for customer product list relation CRUD.",
   "license": "MIT",
   "authors": [
     {
@@ -10,9 +10,9 @@
   ],
   "require": {
     "php": ">=7.3",
+    "fond-of-oryx/customer-product-list-connector": "^1.0.0",
     "spryker/api": "^0.3",
-    "spryker/api-query-builder": "^0.1",
-    "spryker/product-list": "^1.0.0"
+    "spryker/api-query-builder": "^0.1"
   },
   "require-dev": {
     "fond-of-codeception/spryker": "^1.0",
