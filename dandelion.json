@@ -302,7 +302,7 @@
     },
     "gift-card-proportional-value": {
       "path": "bundles/gift-card-proportional-value/",
-      "version": "1.0.0"
+      "version": "1.1.0"
     },
     "gift-card-proportional-value-extension": {
       "path": "bundles/gift-card-proportional-value-extension/",
