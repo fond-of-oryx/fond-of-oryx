@@ -2,7 +2,7 @@
 
 namespace FondOfOryx\Glue\CartSearchRestApi;
 
-use FondOfOryx\Shared\CompanySearchRestApi\CompanySearchRestApiConstants;
+use FondOfOryx\Shared\CartSearchRestApi\CartSearchRestApiConstants;
 use Spryker\Glue\Kernel\AbstractBundleConfig;
 
 /**
@@ -10,9 +10,9 @@ use Spryker\Glue\Kernel\AbstractBundleConfig;
  */
 class CartSearchRestApiConfig extends AbstractBundleConfig
 {
- /**
-  * @var string
-  */
+     /**
+      * @var string
+      */
     public const RESOURCE_CART_SEARCH = 'cart-search';
 
     /**
@@ -36,8 +36,8 @@ class CartSearchRestApiConfig extends AbstractBundleConfig
     public function getSortFields(): array
     {
         return $this->get(
-            CompanySearchRestApiConstants::SORT_FIELDS,
-            CompanySearchRestApiConstants::SORT_FIELDS_DEFAULT,
+            CartSearchRestApiConstants::SORT_FIELDS,
+            CartSearchRestApiConstants::SORT_FIELDS_DEFAULT,
         );
     }
 
@@ -47,8 +47,8 @@ class CartSearchRestApiConfig extends AbstractBundleConfig
     public function getItemsPerPage(): int
     {
         return $this->get(
-            CompanySearchRestApiConstants::ITEMS_PER_PAGE,
-            CompanySearchRestApiConstants::ITEMS_PER_PAGE_DEFAULT,
+            CartSearchRestApiConstants::ITEMS_PER_PAGE,
+            CartSearchRestApiConstants::ITEMS_PER_PAGE_DEFAULT,
         );
     }
 
@@ -58,8 +58,8 @@ class CartSearchRestApiConfig extends AbstractBundleConfig
     public function getValidItemsPerPageOptions(): array
     {
         return $this->get(
-            CompanySearchRestApiConstants::VALID_ITEMS_PER_PAGE_OPTIONS,
-            CompanySearchRestApiConstants::VALID_ITEMS_PER_PAGE_OPTIONS_DEFAULT,
+            CartSearchRestApiConstants::VALID_ITEMS_PER_PAGE_OPTIONS,
+            CartSearchRestApiConstants::VALID_ITEMS_PER_PAGE_OPTIONS_DEFAULT,
         );
     }
 

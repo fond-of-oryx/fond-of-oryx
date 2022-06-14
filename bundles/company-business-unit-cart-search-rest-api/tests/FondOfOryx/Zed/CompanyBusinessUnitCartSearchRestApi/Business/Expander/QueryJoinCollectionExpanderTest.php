@@ -80,10 +80,20 @@ class QueryJoinCollectionExpanderTest extends Unit
                 [
                     static::callback(
                         static function (QueryJoinTransfer $queryJoinTransfer) {
-                            return $queryJoinTransfer->getLeft() == [SpyQuoteTableMap::COL_CUSTOMER_REFERENCE]
-                                && $queryJoinTransfer->getRight() == [SpyCustomerTableMap::COL_CUSTOMER_REFERENCE]
+                            return $queryJoinTransfer->getLeft() == [SpyQuoteTableMap::COL_COMPANY_USER_REFERENCE]
+                                && $queryJoinTransfer->getRight() == [SpyCompanyUserTableMap::COL_COMPANY_USER_REFERENCE]
                                 && $queryJoinTransfer->getJoinType() === Criteria::INNER_JOIN
                                 && $queryJoinTransfer->getWhereConditions()->count() === 0;
+                        },
+                    ),
+                ],
+                [
+                    static::callback(
+                        static function (QueryJoinTransfer $queryJoinTransfer) {
+                            return $queryJoinTransfer->getLeft() == [SpyCompanyUserTableMap::COL_FK_CUSTOMER]
+                                && $queryJoinTransfer->getRight() == [SpyCustomerTableMap::COL_ID_CUSTOMER]
+                                && $queryJoinTransfer->getJoinType() === Criteria::INNER_JOIN
+                                && $queryJoinTransfer->getWhereConditions()->count() === 1;
                         },
                     ),
                 ],
@@ -135,10 +145,20 @@ class QueryJoinCollectionExpanderTest extends Unit
                 [
                     static::callback(
                         static function (QueryJoinTransfer $queryJoinTransfer) {
-                            return $queryJoinTransfer->getLeft() == [SpyQuoteTableMap::COL_CUSTOMER_REFERENCE]
-                                && $queryJoinTransfer->getRight() == [SpyCustomerTableMap::COL_CUSTOMER_REFERENCE]
+                            return $queryJoinTransfer->getLeft() == [SpyQuoteTableMap::COL_COMPANY_USER_REFERENCE]
+                                && $queryJoinTransfer->getRight() == [SpyCompanyUserTableMap::COL_COMPANY_USER_REFERENCE]
                                 && $queryJoinTransfer->getJoinType() === Criteria::INNER_JOIN
                                 && $queryJoinTransfer->getWhereConditions()->count() === 0;
+                        },
+                    ),
+                ],
+                [
+                    static::callback(
+                        static function (QueryJoinTransfer $queryJoinTransfer) {
+                            return $queryJoinTransfer->getLeft() == [SpyCompanyUserTableMap::COL_FK_CUSTOMER]
+                                && $queryJoinTransfer->getRight() == [SpyCustomerTableMap::COL_ID_CUSTOMER]
+                                && $queryJoinTransfer->getJoinType() === Criteria::INNER_JOIN
+                                && $queryJoinTransfer->getWhereConditions()->count() === 1;
                         },
                     ),
                 ],
