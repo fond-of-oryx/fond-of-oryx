@@ -2,8 +2,8 @@
 
 namespace FondOfOryx\Zed\ProductPaymentRestriction\Persistence;
 
-use FondOfOryx\Zed\ProductPaymentRestriction\Persistence\Propel\Mapper\ProductPaymentRestrictionMapper;
-use FondOfOryx\Zed\ProductPaymentRestriction\Persistence\Propel\Mapper\ProductPaymentRestrictionMapperInterface;
+use FondOfOryx\Zed\ProductPaymentRestriction\Persistence\Mapper\ProductPaymentRestrictionMapper;
+use FondOfOryx\Zed\ProductPaymentRestriction\Persistence\Mapper\ProductPaymentRestrictionMapperInterface;
 use Orm\Zed\Payment\Persistence\SpyPaymentMethodQuery;
 use Orm\Zed\ProductPaymentRestriction\Persistence\FooProductAbstractPaymentRestrictionQuery;
 use Spryker\Zed\Kernel\Persistence\AbstractPersistenceFactory;
@@ -31,7 +31,7 @@ class ProductPaymentRestrictionPersistenceFactory extends AbstractPersistenceFac
     }
 
     /**
-     * @return \FondOfOryx\Zed\ProductPaymentRestriction\Persistence\Propel\Mapper\ProductPaymentRestrictionMapperInterface
+     * @return \FondOfOryx\Zed\ProductPaymentRestriction\Persistence\Mapper\ProductPaymentRestrictionMapperInterface
      */
     public function createProductAbstractPaymentRestrictionMapper(): ProductPaymentRestrictionMapperInterface
     {
