@@ -1,0 +1,36 @@
+{
+  "name": "fond-of-oryx/gift-card-proportional-value-no-payment-connector",
+  "description": "GiftCardProportionalValueNoPaymentConnector module.",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Julian Hyatt",
+      "email": "info@julianzimmermann.dev"
+    }
+  ],
+  "require": {
+    "php": ">=7.3",
+    "fond-of-oryx/gift-card-proportional-value": "^1.1.0",
+    "fond-of-oryx/gift-card-proportional-value-extension": "^1.0.0",
+    "spryker/nopayment": "^4.0"
+  },
+  "require-dev": {
+    "fond-of-codeception/spryker": "^1.0",
+    "spryker/code-sniffer": "*",
+    "spryker-sdk/phpstan-spryker": "*"
+  },
+  "minimum-stability": "dev",
+  "prefer-stable": true,
+  "autoload": {
+    "psr-4": {
+      "FondOfOryx\\": "src/FondOfOryx/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "FondOfOryx\\": "tests/FondOfOryx/",
+      "Generated\\": "src/Generated/",
+      "Orm\\Zed\\": "src/Orm/Zed/"
+    }
+  }
+}
