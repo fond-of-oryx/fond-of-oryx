@@ -77,8 +77,13 @@ class CustomerSearchQuoteQueryExpanderPlugin extends AbstractPlugin implements S
         return $queryJoinCollectionTransfer->addQueryJoin(
             (new QueryJoinTransfer())
                 ->setJoinType(Criteria::INNER_JOIN)
-                ->setLeft([SpyQuoteTableMap::COL_CUSTOMER_REFERENCE])
-                ->setRight([SpyCustomerTableMap::COL_CUSTOMER_REFERENCE])
+                ->setLeft([SpyQuoteTableMap::COL_COMPANY_USER_REFERENCE])
+                ->setRight([SpyCompanyUserTableMap::COL_COMPANY_USER_REFERENCE]),
+        )->addQueryJoin(
+            (new QueryJoinTransfer())
+                ->setJoinType(Criteria::INNER_JOIN)
+                ->setLeft([SpyCompanyUserTableMap::COL_FK_CUSTOMER])
+                ->setRight([SpyCustomerTableMap::COL_ID_CUSTOMER])
                 ->addQueryWhereCondition($whereCondition),
         )->addQueryJoin(
             (new QueryJoinTransfer())

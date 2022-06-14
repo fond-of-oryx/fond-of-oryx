@@ -10,7 +10,7 @@ interface CartSearchRestApiConstants
     public const VALID_ITEMS_PER_PAGE_OPTIONS = 'FOND_OF_ORYX:CART_SEARCH_REST_API:VALID_ITEMS_PER_PAGE_OPTIONS';
 
     /**
-     * @var array
+     * @var array<int>
      */
     public const VALID_ITEMS_PER_PAGE_OPTIONS_DEFAULT = [12, 24, 36];
 
@@ -58,4 +58,14 @@ interface CartSearchRestApiConstants
      * @var string
      */
     public const DELIMITER_SORT = '_';
+
+    /**
+     * @var string
+     */
+    public const SORT_FIELDS = 'FOND_OF_ORYX:CART_SEARCH_REST_API:SORT_FIELDS';
+
+    /**
+     * @var array<string>
+     */
+    public const SORT_FIELDS_DEFAULT = [];
 }
