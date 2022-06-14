@@ -1,9 +1,7 @@
 # Customer Product List API Module
 [![license](https://img.shields.io/github/license/mashape/apistatus.svg)](https://packagist.org/packages/fond-of-oryx/stock-product-api)
 
-The StockProductApi module provides a REST API for simple product stock updates.
-
-Package ported from `fond-of-spryker/stock-api`
+The CustomerProductListApi module provides a REST API for customer product list create/updates.
 
 ## Installation
 
