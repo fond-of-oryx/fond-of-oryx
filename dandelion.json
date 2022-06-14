@@ -118,7 +118,7 @@
     },
     "customer-product-list-api": {
       "path": "bundles/customer-product-list-api/",
-      "version": "1.0.0"
+      "version": "1.0.1"
     },
     "cart-code-type": {
       "path": "bundles/cart-code-type/",
