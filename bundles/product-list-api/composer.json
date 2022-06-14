@@ -1,0 +1,34 @@
+{
+  "name": "fond-of-oryx/product-list-api",
+  "description": "The ProductListApi module provides a REST API for product list CRUD.",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "József Geng",
+      "email": "gengjozsef86@gmail.com"
+    }
+  ],
+  "require": {
+    "php": ">=7.3",
+    "spryker/api": "^0.3",
+    "spryker/api-query-builder": "^0.1",
+    "spryker/product-list": "^1.0.0"
+  },
+  "require-dev": {
+    "fond-of-codeception/spryker": "^1.0",
+    "spryker/code-sniffer": "^0.12"
+  },
+  "minimum-stability": "dev",
+  "prefer-stable": true,
+  "autoload": {
+    "psr-4": {
+      "FondOfOryx\\": "src/FondOfOryx/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "FondOfOryx\\": "tests/FondOfOryx/",
+      "Generated\\": "tests/Generated/"
+    }
+  }
+}
