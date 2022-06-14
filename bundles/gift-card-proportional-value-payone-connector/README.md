@@ -59,3 +59,14 @@ class GiftCardProportionalValueDependencyProvider extends FooGiftCardProportiona
 
 }
 ```
+You must allow in config some payone payment methods (by default empty)
+```
+$config[GiftCardProportionalValuePayoneConnectorConstants::LISTENING_PAYMENT_METHODS] = [
+    PayoneApiConstants::PAYMENT_METHOD_CREDITCARD,
+    PayoneApiConstants::PAYMENT_METHOD_E_WALLET,
+];
+```
+or listen to every payone payment method. It is set to `false` by default
+```
+$config[GiftCardProportionalValuePayoneConnectorConstants::LISTENING_TO_ALL_PAYONE_METHODS] = true;
+```
