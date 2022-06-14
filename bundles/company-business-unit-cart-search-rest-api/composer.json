@@ -13,7 +13,9 @@
     "fond-of-oryx/cart-search-rest-api-extension": "^1.0.0",
     "spryker/company-business-unit": "^1.0.0 || ^2.0.0",
     "spryker/company-role": "^1.0.0",
-    "spryker/permission-extension": "^1.0.0"
+    "spryker/glue-application": "^1.0.0",
+    "spryker/permission-extension": "^1.0.0",
+    "spryker/uuid-behavior": "^1.0.0"
   },
   "require-dev": {
     "fond-of-codeception/spryker": "^1.0",

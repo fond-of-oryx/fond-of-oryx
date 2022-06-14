@@ -14,7 +14,7 @@ class CompanyBusinessUnitUuidFilterTest extends Unit
     protected $filterFieldTransferMock;
 
     /**
-     * @var \FondOfOryx\Zed\CompanyBusinessUnitCartSearchRestApi\Business\Filter\IdCustomerFilter
+     * @var \FondOfOryx\Zed\CompanyBusinessUnitCartSearchRestApi\Business\Filter\CompanyBusinessUnitUuidFilter
      */
     protected $companyBusinessUnitUuidFilter;
 
