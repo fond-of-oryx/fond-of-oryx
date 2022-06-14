@@ -38,8 +38,9 @@ class ProportionalGiftCardCalculator implements ProportionalGiftCardCalculatorIn
 
         foreach ($orderEntity->getItems() as $itemEntity) {
             $idSalesOrderItem = $itemEntity->getIdSalesOrderItem();
+            $identifier = sprintf('item%s', $idSalesOrderItem);
 
-            if (isset($collection[$idSalesOrderItem])) {
+            if (isset($collection[$identifier])) {
                 continue;
             }
 
@@ -52,7 +53,7 @@ class ProportionalGiftCardCalculator implements ProportionalGiftCardCalculatorIn
                 ->setOrderReference($orderEntity->getOrderReference())
                 ->setSku($itemEntity->getSku());
 
-            $collection[$idSalesOrderItem] = $itemBalance;
+            $collection[$identifier] = $itemBalance;
         }
 
         return $collection;
@@ -70,9 +71,10 @@ class ProportionalGiftCardCalculator implements ProportionalGiftCardCalculatorIn
         foreach ($orderEntity->getExpenses() as $expenseEntity) {
             $idSalesExpense = $expenseEntity->getIdSalesExpense();
             $expenseType = $expenseEntity->getType();
+            $identifier = sprintf('expense%s', $idSalesExpense);
 
             if (
-                !isset(static::EXPENSE_MAPPING[$expenseType]) || isset($collection[$idSalesExpense])
+                !isset(static::EXPENSE_MAPPING[$expenseType]) || isset($collection[$identifier])
             ) {
                 continue;
             }
@@ -86,7 +88,7 @@ class ProportionalGiftCardCalculator implements ProportionalGiftCardCalculatorIn
                 ->setOrderReference($orderEntity->getOrderReference())
                 ->setSku(static::EXPENSE_MAPPING[$expenseType]);
 
-            $collection[$idSalesExpense] = $itemBalance;
+            $collection[$identifier] = $itemBalance;
         }
 
         return $collection;

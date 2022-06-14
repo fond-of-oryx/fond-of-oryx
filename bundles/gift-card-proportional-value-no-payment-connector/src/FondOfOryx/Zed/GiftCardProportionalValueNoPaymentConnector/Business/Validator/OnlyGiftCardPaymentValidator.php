@@ -28,7 +28,7 @@ class OnlyGiftCardPaymentValidator implements OnlyGiftCardPaymentValidatorInterf
     public function validate(SpySalesOrder $spySalesOrder): bool
     {
         $payments = $spySalesOrder->getOrdersJoinSalesPaymentMethodType();
-        if (count($spySalesOrder->getOrdersJoinSalesPaymentMethodType()) === 0) {
+        if (count($payments) === 0) {
             return false;
         }
 
