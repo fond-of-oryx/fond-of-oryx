@@ -53,6 +53,12 @@
         <property name="priceToPay" type="int"/>
     </transfer>
 
+    <transfer name="RestItemsAttributes">
+        <property name="calculations" type="RestCartItemCalculations"/>
+    </transfer>
+
+    <transfer name="RestCartItemCalculations"/>
+
     <transfer name="QuoteList">
         <property name="quotes" type="Quote[]" singular="quote" />
         <property name="filterFields" type="FilterField[]" singular="filterField"/>

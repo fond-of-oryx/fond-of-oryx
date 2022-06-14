@@ -7,6 +7,8 @@ use FondOfOryx\Glue\CartSearchRestApi\Processor\Builder\RestResponseBuilder;
 use FondOfOryx\Glue\CartSearchRestApi\Processor\Builder\RestResponseBuilderInterface;
 use FondOfOryx\Glue\CartSearchRestApi\Processor\Expander\FilterFieldsExpander;
 use FondOfOryx\Glue\CartSearchRestApi\Processor\Expander\FilterFieldsExpanderInterface;
+use FondOfOryx\Glue\CartSearchRestApi\Processor\Expander\QuoteResourceRelationshipExpander;
+use FondOfOryx\Glue\CartSearchRestApi\Processor\Expander\QuoteResourceRelationshipExpanderInterface;
 use FondOfOryx\Glue\CartSearchRestApi\Processor\Filter\CustomerReferenceFilter;
 use FondOfOryx\Glue\CartSearchRestApi\Processor\Filter\CustomerReferenceFilterInterface;
 use FondOfOryx\Glue\CartSearchRestApi\Processor\Filter\RequestParameterFilter;
@@ -30,6 +32,10 @@ use FondOfOryx\Glue\CartSearchRestApi\Processor\Mapper\RestCartSearchSortMapper;
 use FondOfOryx\Glue\CartSearchRestApi\Processor\Mapper\RestCartSearchSortMapperInterface;
 use FondOfOryx\Glue\CartSearchRestApi\Processor\Mapper\RestCartsTotalsMapper;
 use FondOfOryx\Glue\CartSearchRestApi\Processor\Mapper\RestCartsTotalsMapperInterface;
+use FondOfOryx\Glue\CartSearchRestApi\Processor\Mapper\RestItemsAttributesMapper;
+use FondOfOryx\Glue\CartSearchRestApi\Processor\Mapper\RestItemsAttributesMapperInterface;
+use FondOfOryx\Glue\CartSearchRestApi\Processor\Mapper\RestResourceMapper;
+use FondOfOryx\Glue\CartSearchRestApi\Processor\Mapper\RestResourceMapperInterface;
 use FondOfOryx\Glue\CartSearchRestApi\Processor\Reader\CartReader;
 use FondOfOryx\Glue\CartSearchRestApi\Processor\Reader\CartReaderInterface;
 use FondOfOryx\Glue\CartSearchRestApi\Processor\Translator\RestCartSearchAttributesTranslator;
@@ -220,5 +226,34 @@ class CartSearchRestApiFactory extends AbstractFactory
         return $this->getProvidedDependency(
             CartSearchRestApiDependencyProvider::PLUGINS_FILTER_FIELDS_EXPANDER,
         );
+    }
+
+    /**
+     * @return \FondOfOryx\Glue\CartSearchRestApi\Processor\Expander\QuoteResourceRelationshipExpanderInterface
+     */
+    public function createQuoteResourceRelationshipExpander(): QuoteResourceRelationshipExpanderInterface
+    {
+        return new QuoteResourceRelationshipExpander(
+            $this->createRestResourceMapper(),
+        );
+    }
+
+    /**
+     * @return \FondOfOryx\Glue\CartSearchRestApi\Processor\Mapper\RestResourceMapperInterface
+     */
+    protected function createRestResourceMapper(): RestResourceMapperInterface
+    {
+        return new RestResourceMapper(
+            $this->createRestItemsAttributesMapper(),
+            $this->getResourceBuilder(),
+        );
+    }
+
+    /**
+     * @return \FondOfOryx\Glue\CartSearchRestApi\Processor\Mapper\RestItemsAttributesMapperInterface
+     */
+    protected function createRestItemsAttributesMapper(): RestItemsAttributesMapperInterface
+    {
+        return new RestItemsAttributesMapper();
     }
 }
