@@ -3,7 +3,7 @@
 namespace FondOfOryx\Zed\CartSearchRestApi\Communication\Plugin\CartSearchRestApiExtension;
 
 use Codeception\Test\Unit;
-use FondOfOryx\Shared\CompanyBusinessUnitCartSearchRestApi\CompanyBusinessUnitCartSearchRestApiConstants;
+use FondOfOryx\Shared\CartSearchRestApi\CartSearchRestApiConstants;
 use Generated\Shared\Transfer\FilterFieldTransfer;
 use Generated\Shared\Transfer\QueryJoinCollectionTransfer;
 use Generated\Shared\Transfer\QueryJoinTransfer;
@@ -24,7 +24,7 @@ class CustomerSearchQuoteQueryExpanderPluginTest extends Unit
     protected $queryJoinCollectionTransferMock;
 
     /**
-     * @var \FondOfOryx\Zed\CompanyBusinessUnitCartSearchRestApi\Communication\Plugin\CartSearchRestApiExtension\CustomerSearchQuoteQueryExpanderPlugin
+     * @var \FondOfOryx\Zed\CartSearchRestApi\Communication\Plugin\CartSearchRestApiExtension\CustomerSearchQuoteQueryExpanderPlugin
      */
     protected $plugin;
 
@@ -62,7 +62,7 @@ class CustomerSearchQuoteQueryExpanderPluginTest extends Unit
 
         $this->filterFieldTransferMocks[1]->expects(static::atLeastOnce())
             ->method('getType')
-            ->willReturn(CompanyBusinessUnitCartSearchRestApiConstants::FILTER_FIELD_TYPE_ID_CUSTOMER);
+            ->willReturn(CartSearchRestApiConstants::FILTER_FIELD_TYPE_ID_CUSTOMER);
 
         static::assertTrue($this->plugin->isApplicable($this->filterFieldTransferMocks));
     }
@@ -96,7 +96,7 @@ class CustomerSearchQuoteQueryExpanderPluginTest extends Unit
 
         $this->filterFieldTransferMocks[1]->expects(static::atLeastOnce())
             ->method('getType')
-            ->willReturn(CompanyBusinessUnitCartSearchRestApiConstants::FILTER_FIELD_TYPE_ID_CUSTOMER);
+            ->willReturn(CartSearchRestApiConstants::FILTER_FIELD_TYPE_ID_CUSTOMER);
 
         $this->filterFieldTransferMocks[1]->expects(static::atLeastOnce())
             ->method('getValue')

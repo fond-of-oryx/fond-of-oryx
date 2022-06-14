@@ -2,7 +2,7 @@
 
 namespace FondOfOryx\Zed\CartSearchRestApi\Communication\Plugin\CartSearchRestApiExtension;
 
-use FondOfOryx\Shared\CompanyBusinessUnitCartSearchRestApi\CompanyBusinessUnitCartSearchRestApiConstants;
+use FondOfOryx\Shared\CartSearchRestApi\CartSearchRestApiConstants;
 use FondOfOryx\Zed\CartSearchRestApiExtension\Dependency\Plugin\SearchQuoteQueryExpanderPluginInterface;
 use Generated\Shared\Transfer\QueryJoinCollectionTransfer;
 use Generated\Shared\Transfer\QueryJoinTransfer;
@@ -16,7 +16,7 @@ class CustomerSearchQuoteQueryExpanderPlugin implements SearchQuoteQueryExpander
     /**
      * @var string
      */
-    protected const REQUIRED_FILTER_FIELD_TYPE = CompanyBusinessUnitCartSearchRestApiConstants::FILTER_FIELD_TYPE_ID_CUSTOMER;
+    protected const REQUIRED_FILTER_FIELD_TYPE = CartSearchRestApiConstants::FILTER_FIELD_TYPE_ID_CUSTOMER;
 
     /**
      * @param array<\Generated\Shared\Transfer\FilterFieldTransfer> $filterFieldTransfers

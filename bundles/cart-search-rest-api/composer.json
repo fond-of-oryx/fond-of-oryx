@@ -11,6 +11,9 @@
   "require": {
     "php": ">=7.3",
     "fond-of-oryx/cart-search-rest-api-extension": "^1.0.0",
+    "spryker/glossary-storage": "^1.5.0",
+    "spryker/glue-application": "^1.0.0",
+    "spryker/glue-application-extension": "^1.0.0",
     "spryker/quote": "^1.0.0 || ^2.0.0"
   },
   "require-dev": {

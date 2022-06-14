@@ -43,6 +43,7 @@ class RestCartsAttributesMapper implements RestCartsAttributesMapperInterface
 
         return (new RestCartsAttributesTransfer())
             ->fromArray($quoteTransfer->toArray(), true)
+            ->setId($quoteTransfer->getUuid())
             ->setDiscounts($this->restCartsDiscountsMapper->fromQuote($quoteTransfer))
             ->setTotals($this->restCartsTotalsMapper->fromQuote($quoteTransfer))
             ->setStore($storeTransfer !== null ? $storeTransfer->getName() : null)

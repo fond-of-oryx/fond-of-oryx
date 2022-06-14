@@ -109,6 +109,7 @@ class RestCartsAttributesMapperTest extends Unit
     public function testFromQuoteList(): void
     {
         $data = [];
+        $uuid = '48981b6c-d230-4400-8e2e-ba7fe0005e4e';
         $currencyCode = 'EUR';
         $storeName = 'FOO';
         $quoteTransferMocks = new ArrayObject([$this->quoteTransferMock]);
@@ -117,6 +118,10 @@ class RestCartsAttributesMapperTest extends Unit
         $this->quoteListTransferMock->expects(static::atLeastOnce())
             ->method('getQuotes')
             ->willReturn($quoteTransferMocks);
+
+        $this->quoteTransferMock->expects(static::atLeastOnce())
+            ->method('getUuid')
+            ->willReturn($uuid);
 
         $this->quoteTransferMock->expects(static::atLeastOnce())
             ->method('getCurrency')
