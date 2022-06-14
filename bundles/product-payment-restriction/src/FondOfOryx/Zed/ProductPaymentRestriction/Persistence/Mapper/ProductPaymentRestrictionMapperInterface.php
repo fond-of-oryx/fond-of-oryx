@@ -1,6 +1,6 @@
 <?php
 
-namespace FondOfOryx\Zed\ProductPaymentRestriction\Persistence\Propel\Mapper;
+namespace FondOfOryx\Zed\ProductPaymentRestriction\Persistence\Mapper;
 
 use Generated\Shared\Transfer\ProductAbstractPaymentRestrictionTransfer;
 use Orm\Zed\ProductPaymentRestriction\Persistence\FooProductAbstractPaymentRestriction;
