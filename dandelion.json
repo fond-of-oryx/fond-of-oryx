@@ -60,6 +60,10 @@
       "path": "bundles/company-business-unit-api/",
       "version": "1.0.0"
     },
+    "company-business-unit-cart-search-rest-api": {
+      "path": "bundles/company-business-unit-cart-search-rest-api/",
+      "version": "1.0.0"
+    },
     "company-business-unit-search-rest-api": {
       "path": "bundles/company-business-unit-search-rest-api/",
       "version": "1.0.1"
