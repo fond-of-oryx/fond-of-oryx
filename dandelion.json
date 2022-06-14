@@ -324,6 +324,10 @@
       "path": "bundles/gift-card-proportional-value-no-payment-connector/",
       "version": "1.0.0"
     },
+    "gift-card-proportional-value-payone-connector": {
+      "path": "bundles/gift-card-proportional-value-payone-connector/",
+      "version": "1.0.0"
+    },
     "gift-card-restriction": {
       "path": "bundles/gift-card-restriction/",
       "version": "1.0.2"
