@@ -31,6 +31,7 @@
     </transfer>
 
     <transfer name="RestCartsAttributes">
+        <property name="id" type="string"/>
         <property name="priceMode" type="string" restRequestParameter="required"/>
         <property name="currency" type="string" restRequestParameter="required"/>
         <property name="store" type="string" restRequestParameter="required"/>
@@ -72,6 +73,7 @@
 
     <transfer name="Quote">
         <property name="idQuote" type="int"/>
+        <property name="uuid" type="string"/>
         <property name="priceMode" type="string"/>
         <property name="voucherDiscounts" type="Discount[]" singular="voucherDiscount"/>
         <property name="cartRuleDiscounts" type="Discount[]" singular="cartRuleDiscount"/>
@@ -89,7 +91,9 @@
         <property name="code" type="string"/>
     </transfer>
 
-    <transfer name="Item"/>
+    <transfer name="Item">
+        <property name="groupKey" type="string"/>
+    </transfer>
 
     <transfer name="Totals">
         <property name="taxTotal" type="TaxTotal"/>

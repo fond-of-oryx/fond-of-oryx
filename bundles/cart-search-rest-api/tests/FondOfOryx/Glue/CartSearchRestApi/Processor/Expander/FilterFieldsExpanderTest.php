@@ -61,6 +61,7 @@ class FilterFieldsExpanderTest extends Unit
      */
     public function testExpand(): void
     {
+        /** @var \ArrayObject<\Generated\Shared\Transfer\FilterFieldTransfer> $filterFieldTransferMocks */
         $filterFieldTransferMocks = new ArrayObject($this->filterFieldTransferMocks);
 
         $this->filterFieldsExpanderPluginMock->expects(static::atLeastOnce())
