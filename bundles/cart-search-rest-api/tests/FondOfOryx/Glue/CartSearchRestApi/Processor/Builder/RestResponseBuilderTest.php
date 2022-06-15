@@ -147,6 +147,11 @@ class RestResponseBuilderTest extends Unit
                 $this->restCartSearchAttributesTransferMock,
             )->willReturn($this->restResourceMock);
 
+        $this->restResourceMock->expects(static::atLeastOnce())
+            ->method('setPayload')
+            ->with($this->quoteListTransferMock)
+            ->willReturn($this->restResourceMock);
+
         $this->restResponseMock->expects(static::atLeastOnce())
             ->method('addResource')
             ->with($this->restResourceMock)

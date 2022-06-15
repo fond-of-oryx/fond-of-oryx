@@ -7,6 +7,7 @@ use Codeception\Test\Unit;
 use FondOfOryx\Glue\CartSearchRestApi\CartSearchRestApiConfig;
 use FondOfOryx\Glue\CartSearchRestApi\Processor\Mapper\RestResourceMapperInterface;
 use Generated\Shared\Transfer\ItemTransfer;
+use Generated\Shared\Transfer\QuoteListTransfer;
 use Generated\Shared\Transfer\QuoteTransfer;
 use Spryker\Glue\GlueApplication\Rest\JsonApi\RestLinkInterface;
 use Spryker\Glue\GlueApplication\Rest\JsonApi\RestResourceInterface;
@@ -29,6 +30,11 @@ class QuoteResourceRelationshipExpanderTest extends Unit
      * @var \PHPUnit\Framework\MockObject\MockObject|\Spryker\Glue\GlueApplication\Rest\Request\Data\RestRequestInterface
      */
     protected $restRequestMock;
+
+    /**
+     * @var \Generated\Shared\Transfer\QuoteListTransfer|\PHPUnit\Framework\MockObject\MockObject
+     */
+    protected $quoteListTransferMock;
 
     /**
      * @var \Generated\Shared\Transfer\QuoteTransfer|\PHPUnit\Framework\MockObject\MockObject
@@ -79,6 +85,10 @@ class QuoteResourceRelationshipExpanderTest extends Unit
             ->disableOriginalConstructor()
             ->getMock();
 
+        $this->quoteListTransferMock = $this->getMockBuilder(QuoteListTransfer::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
         $this->quoteTransferMock = $this->getMockBuilder(QuoteTransfer::class)
             ->disableOriginalConstructor()
             ->getMock();
@@ -114,7 +124,11 @@ class QuoteResourceRelationshipExpanderTest extends Unit
 
         $this->restResourceMocks[1]->expects(static::atLeastOnce())
             ->method('getPayload')
-            ->willReturn($this->quoteTransferMock);
+            ->willReturn($this->quoteListTransferMock);
+
+        $this->quoteListTransferMock->expects(static::atLeastOnce())
+            ->method('getQuotes')
+            ->willReturn(new ArrayObject([$this->quoteTransferMock]));
 
         $this->quoteTransferMock->expects(static::atLeastOnce())
             ->method('getItems')

@@ -70,7 +70,7 @@ class RestResponseBuilder implements RestResponseBuilderInterface
             CartSearchRestApiConfig::RESOURCE_CART_SEARCH,
             null,
             $restCartSearchAttributesTransfer,
-        );
+        )->setPayload($quoteListTransfer);
 
         return $restResponse->addResource($restResource);
     }
