@@ -5,7 +5,6 @@ namespace FondOfOryx\Glue\CartSearchRestApi;
 use Codeception\Test\Unit;
 use FondOfOryx\Client\CartSearchRestApi\CartSearchRestApiClient;
 use FondOfOryx\Glue\CartSearchRestApi\Dependency\Client\CartSearchRestApiToGlossaryStorageClientInterface;
-use FondOfOryx\Glue\CartSearchRestApi\Processor\Expander\QuoteResourceRelationshipExpander;
 use FondOfOryx\Glue\CartSearchRestApi\Processor\Reader\CartReader;
 use FondOfOryx\Glue\CartSearchRestApiExtension\Dependency\Plugin\FilterFieldsExpanderPluginInterface;
 use Spryker\Glue\GlueApplication\Rest\JsonApi\RestResourceBuilderInterface;
@@ -134,17 +133,6 @@ class CartSearchRestApiFactoryTest extends Unit
         static::assertInstanceOf(
             CartReader::class,
             $this->factory->createCartReader(),
-        );
-    }
-
-    /**
-     * @return void
-     */
-    public function testQuoteResourceRelationshipExpander(): void
-    {
-        static::assertInstanceOf(
-            QuoteResourceRelationshipExpander::class,
-            $this->factory->createQuoteResourceRelationshipExpander(),
         );
     }
 }

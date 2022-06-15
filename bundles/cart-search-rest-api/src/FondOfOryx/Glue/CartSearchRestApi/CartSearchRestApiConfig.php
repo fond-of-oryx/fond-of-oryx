@@ -18,16 +18,6 @@ class CartSearchRestApiConfig extends AbstractBundleConfig
     /**
      * @var string
      */
-    public const RESOURCE_CART_ITEMS = 'items';
-
-    /**
-     * @var string
-     */
-    public const RESOURCE_CARTS = 'carts';
-
-    /**
-     * @var string
-     */
     public const CONTROLLER_RESOURCE_CART_SEARCH = 'cart-search-resource';
 
     /**
