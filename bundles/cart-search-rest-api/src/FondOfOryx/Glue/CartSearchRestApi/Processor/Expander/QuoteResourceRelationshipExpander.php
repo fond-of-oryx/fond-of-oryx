@@ -4,7 +4,7 @@ namespace FondOfOryx\Glue\CartSearchRestApi\Processor\Expander;
 
 use FondOfOryx\Glue\CartSearchRestApi\CartSearchRestApiConfig;
 use FondOfOryx\Glue\CartSearchRestApi\Processor\Mapper\RestResourceMapperInterface;
-use Generated\Shared\Transfer\QuoteTransfer;
+use Generated\Shared\Transfer\QuoteListTransfer;
 use Spryker\Glue\GlueApplication\Rest\JsonApi\RestLinkInterface;
 use Spryker\Glue\GlueApplication\Rest\Request\Data\RestRequestInterface;
 
@@ -37,24 +37,26 @@ class QuoteResourceRelationshipExpander implements QuoteResourceRelationshipExpa
              */
             $payload = $resource->getPayload();
 
-            if (!$payload instanceof QuoteTransfer) {
+            if (!$payload instanceof QuoteListTransfer) {
                 continue;
             }
 
-            foreach ($payload->getItems() as $itemTransfer) {
-                $restResource = $this->restResourceMapper->fromItem($itemTransfer)
-                    ->addLink(
-                        RestLinkInterface::LINK_SELF,
-                        sprintf(
-                            '%s/%s/%s/%s',
-                            CartSearchRestApiConfig::RESOURCE_CARTS,
-                            $payload->getUuid(),
-                            CartSearchRestApiConfig::RESOURCE_CART_ITEMS,
-                            $itemTransfer->getGroupKey(),
-                        ),
-                    );
+            foreach ($payload->getQuotes() as $quoteTransfer) {
+                foreach ($quoteTransfer->getItems() as $itemTransfer) {
+                    $restResource = $this->restResourceMapper->fromItem($itemTransfer)
+                        ->addLink(
+                            RestLinkInterface::LINK_SELF,
+                            sprintf(
+                                '%s/%s/%s/%s',
+                                CartSearchRestApiConfig::RESOURCE_CARTS,
+                                $quoteTransfer->getUuid(),
+                                CartSearchRestApiConfig::RESOURCE_CART_ITEMS,
+                                $itemTransfer->getGroupKey(),
+                            ),
+                        );
 
-                $resource->addRelationship($restResource);
+                    $resource->addRelationship($restResource);
+                }
             }
         }
     }
