@@ -4,7 +4,7 @@ namespace FondOfOryx\Glue\CartSearchRestApi\Processor\Filter;
 
 use Codeception\Test\Unit;
 use Spryker\Glue\GlueApplication\Rest\Request\Data\RestRequestInterface;
-use Symfony\Component\HttpFoundation\InputBag;
+use Symfony\Component\HttpFoundation\ParameterBag;
 use Symfony\Component\HttpFoundation\Request;
 
 class RequestParameterFilterTest extends Unit
@@ -44,7 +44,7 @@ class RequestParameterFilterTest extends Unit
             ->disableOriginalConstructor()
             ->getMock();
 
-        $this->httpRequestMock->query = new InputBag(['foo' => 'bar']);
+        $this->httpRequestMock->query = new ParameterBag(['foo' => 'bar']);
 
         $this->requestParameterFilter = new RequestParameterFilter();
     }

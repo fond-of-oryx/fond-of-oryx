@@ -8,7 +8,7 @@ use FondOfOryx\Glue\CompanyBusinessUnitCartSearchRestApi\CompanyBusinessUnitCart
 use FondOfOryx\Shared\CompanyBusinessUnitCartSearchRestApi\CompanyBusinessUnitCartSearchRestApiConstants;
 use Spryker\Glue\GlueApplication\Rest\JsonApi\RestResourceInterface;
 use Spryker\Glue\GlueApplication\Rest\Request\Data\RestRequestInterface;
-use Symfony\Component\HttpFoundation\InputBag;
+use Symfony\Component\HttpFoundation\ParameterBag;
 use Symfony\Component\HttpFoundation\Request;
 
 class CompanyBusinessUnitFilterFieldsExpanderPluginTest extends Unit
@@ -69,7 +69,7 @@ class CompanyBusinessUnitFilterFieldsExpanderPluginTest extends Unit
     {
         $companyUuid = 'cb3eb2e7-3c15-438d-870f-5206d594879b';
 
-        $this->httpRequestMock->query = new InputBag(
+        $this->httpRequestMock->query = new ParameterBag(
             [
                 CompanyBusinessUnitCartSearchRestApiConfig::PARAMETER_NAME_COMPANY_BUSINESS_UNIT_ID => $companyUuid,
             ],
@@ -102,7 +102,7 @@ class CompanyBusinessUnitFilterFieldsExpanderPluginTest extends Unit
      */
     public function testExpandWithoutRequiredParam(): void
     {
-        $this->httpRequestMock->query = new InputBag([]);
+        $this->httpRequestMock->query = new ParameterBag([]);
 
         $this->restRequestMock->expects(static::atLeastOnce())
             ->method('getResource')
