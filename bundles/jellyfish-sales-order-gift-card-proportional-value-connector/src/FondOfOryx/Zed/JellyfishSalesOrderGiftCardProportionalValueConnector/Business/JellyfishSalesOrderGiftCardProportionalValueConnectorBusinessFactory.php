@@ -16,6 +16,6 @@ class JellyfishSalesOrderGiftCardProportionalValueConnectorBusinessFactory exten
      */
     public function createGiftCardProportionalValueMapper(): ProportionalValueMapperInterface
     {
-        return new GiftCardProportionalValueMapper();
+        return new GiftCardProportionalValueMapper($this->getConfig());
     }
 }
