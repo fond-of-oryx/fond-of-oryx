@@ -143,6 +143,7 @@
     "fond-of-oryx/company-company-user-gui": "*",
     "fond-of-oryx/company-oms-mail-connector": "*",
     "fond-of-oryx/company-price-lists-rest-api": "*",
+    "fond-of-oryx/company-product-list-api": "*",
     "fond-of-oryx/company-product-list-connector": "*",
     "fond-of-oryx/company-product-list-connector-extension": "*",
     "fond-of-oryx/company-product-list-connector-gui": "*",
