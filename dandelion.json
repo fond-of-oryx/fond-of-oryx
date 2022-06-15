@@ -416,6 +416,10 @@
       "path": "bundles/jellyfish-sales-order-gift-card-connector/",
       "version": "1.2.1"
     },
+    "jellyfish-sales-order-gift-card-proportional-value-connector": {
+      "path": "bundles/jellyfish-sales-order-gift-card-proportional-value-connector/",
+      "version": "1.0.0"
+    },
     "jellyfish-sales-order-no-payment-gift-card-connector": {
       "path": "bundles/jellyfish-sales-order-no-payment-gift-card-connector/",
       "version": "0.0.1-alpha"

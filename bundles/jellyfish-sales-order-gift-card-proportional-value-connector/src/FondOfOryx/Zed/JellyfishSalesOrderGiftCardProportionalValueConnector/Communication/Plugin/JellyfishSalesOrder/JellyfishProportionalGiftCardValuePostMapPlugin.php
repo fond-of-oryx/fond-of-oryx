@@ -10,7 +10,7 @@ use Spryker\Zed\Kernel\Communication\AbstractPlugin;
 /**
  * @method \FondOfOryx\Zed\JellyfishSalesOrderGiftCardProportionalValueConnector\Business\JellyfishSalesOrderGiftCardProportionalValueConnectorFacadeInterface getFacade()
  */
-class JellyfishNoPaymentProportionalGiftCardCouponValuePostMapPlugin extends AbstractPlugin implements JellyfishOrderPostMapPluginInterface
+class JellyfishProportionalGiftCardValuePostMapPlugin extends AbstractPlugin implements JellyfishOrderPostMapPluginInterface
 {
     /**
      * Specification:

@@ -5,4 +5,17 @@
     <transfer name="JellyfishOrder">
         <property name="giftCardBalances" singular="giftCardBalance" type="ProportionalGiftCardValue[]"/>
     </transfer>
+
+    <transfer name="JellyfishOrderItem">
+        <property name="proportionalCouponValues" singular="proportionalCouponValue" type="JellyfishProportionalCouponValue[]"/>
+    </transfer>
+
+    <transfer name="JellyfishOrderExpense">
+        <property name="proportionalCouponValues" singular="proportionalCouponValue" type="JellyfishProportionalCouponValue[]"/>
+    </transfer>
+
+    <transfer name="JellyfishProportionalCouponValue">
+        <property name="idSalesOrderItem" type="int"/>
+        <property name="amount" type="int"/>
+    </transfer>
 </transfers>
