@@ -200,6 +200,7 @@
     "fond-of-oryx/gift-card-proportional-value": "*",
     "fond-of-oryx/gift-card-proportional-value-extension": "*",
     "fond-of-oryx/gift-card-proportional-value-no-payment-connector": "*",
+    "fond-of-oryx/gift-card-proportional-value-payone-connector": "*",
     "fond-of-oryx/gift-card-restriction": "*",
     "fond-of-oryx/invoice": "*",
     "fond-of-oryx/invoice-api": "*",
