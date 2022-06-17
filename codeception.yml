@@ -68,6 +68,7 @@ include:
   - bundles/erp-order-page-search
   - bundles/erp-order-page-search-rest-api
   - bundles/erp-order-permission
+  - bundles/fallback-product-list
   - bundles/feed
   - bundles/gift-card-credit-memo
   - bundles/gift-card-expiration

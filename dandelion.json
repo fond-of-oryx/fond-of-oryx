@@ -292,6 +292,10 @@
       "path": "bundles/erp-order-permission/",
       "version": "1.2.0"
     },
+    "fallback-product-list": {
+      "path": "bundles/fallback-product-list/",
+      "version": "1.0.1"
+    },
     "feed": {
       "path": "bundles/feed/",
       "version": "1.0.1"
