@@ -294,7 +294,7 @@
     },
     "fallback-product-list": {
       "path": "bundles/fallback-product-list/",
-      "version": "1.0.1"
+      "version": "1.0.0"
     },
     "feed": {
       "path": "bundles/feed/",
