@@ -8,6 +8,8 @@ use FondOfOryx\Zed\PayoneSecureInvoice\Business\Mapper\CredentialsMapper;
 use FondOfOryx\Zed\PayoneSecureInvoice\Business\Mapper\CredentialsMapperInterface;
 use FondOfOryx\Zed\PayoneSecureInvoice\Business\Mapper\TransactionIdMapper;
 use FondOfOryx\Zed\PayoneSecureInvoice\Business\Mapper\TransactionIdMapperInterface;
+use FondOfOryx\Zed\PayoneSecureInvoice\Business\TransactionStatus\ValidationStrategy;
+use FondOfOryx\Zed\PayoneSecureInvoice\Business\TransactionStatus\ValidationStrategyInterface;
 use Spryker\Shared\Log\LoggerTrait;
 use Spryker\Zed\Kernel\Business\AbstractBusinessFactory;
 use SprykerEco\Shared\Payone\Dependency\HashInterface;
@@ -33,6 +35,17 @@ class PayoneSecureInvoiceBusinessFactory extends AbstractBusinessFactory
             $this->createTransactionIdMapper(),
             $this->getConfig(),
             $this->getLogger(),
+        );
+    }
+
+    /**
+     * @return \FondOfOryx\Zed\PayoneSecureInvoice\Business\TransactionStatus\ValidationStrategyInterface
+     */
+    public function createTransactionStatusValidationStrategy(): ValidationStrategyInterface
+    {
+        return new ValidationStrategy(
+            $this->createHashGenerator(),
+            $this->getConfig(),
         );
     }
 
