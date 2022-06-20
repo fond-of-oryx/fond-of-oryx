@@ -8,12 +8,6 @@
       "email": "info@julianzimmermann.dev"
     }
   ],
-  "repositories": [
-    {
-      "type": "vcs",
-      "url": "https://github.com/fond-of/payone"
-    }
-  ],
   "require": {
     "php": ">=7.3",
     "fond-of-oryx/gift-card-proportional-value-extension": "^1.0.0",
