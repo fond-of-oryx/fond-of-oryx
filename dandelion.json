@@ -506,7 +506,7 @@
     },
     "payone-secure-invoice": {
       "path": "bundles/payone-secure-invoice/",
-      "version": "1.0.0"
+      "version": "1.0.1"
     },
     "prepayment-credit-memo": {
       "path": "bundles/prepayment-credit-memo/",
