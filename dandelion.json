@@ -304,10 +304,6 @@
       "path": "bundles/gift-card-api/",
       "version": "0.0.1-alpha"
     },
-    "gift-card-credit-memo": {
-      "path": "bundles/gift-card-credit-memo/",
-      "version": "0.1.5-alpha"
-    },
     "gift-card-expiration": {
       "path": "bundles/gift-card-expiration/",
       "version": "1.0.1"
@@ -475,6 +471,10 @@
     "no-payment-credit-memo": {
       "path": "bundles/no-payment-credit-memo/",
       "version": "0.0.1-alpha"
+    },
+    "oms-credit-memo-gift-card-connector": {
+      "path": "bundles/oms-credit-memo-gift-card-connector/",
+      "version": "1.0.0"
     },
     "one-time-password": {
       "path": "bundles/one-time-password/",
