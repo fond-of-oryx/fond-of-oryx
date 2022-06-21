@@ -1,0 +1,45 @@
+{
+  "name": "fond-of-oryx/oms-credit-memo-gift-card-connector",
+  "description": "n/a",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Julian Hyatt",
+      "email": "dev@julianzimmermann.dev"
+    }
+  ],
+  "repositories": [
+    {
+      "type": "vcs",
+      "url": "https://github.com/fond-of/payone"
+    }
+  ],
+  "require": {
+    "php": ">=7.3",
+    "fond-of-oryx/credit-memo": "^1.0.0",
+    "fond-of-oryx/credit-memo-gift-card-connector": "*",
+    "fond-of-oryx/gift-card-proportional-value": "^1.0.0",
+    "spryker-eco/payone": "dev-master-fondof as 4.4.2",
+    "spryker/gift-card": "^1.0.0",
+    "spryker/gift-card-balance": "^1.0.0"
+  },
+  "require-dev": {
+    "fond-of-codeception/spryker": "^1.0",
+    "spryker/code-sniffer": "*",
+    "spryker-sdk/phpstan-spryker": "*"
+  },
+  "minimum-stability": "dev",
+  "prefer-stable": true,
+  "autoload": {
+    "psr-4": {
+      "FondOfOryx\\": "src/FondOfOryx/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "FondOfOryx\\": "tests/FondOfOryx/",
+      "Generated\\": "src/Generated/",
+      "Orm\\Zed\\": "src/Orm/Zed/"
+    }
+  }
+}

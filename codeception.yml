@@ -70,7 +70,6 @@ include:
   - bundles/erp-order-permission
   - bundles/fallback-product-list
   - bundles/feed
-  - bundles/gift-card-credit-memo
   - bundles/gift-card-expiration
   - bundles/gift-card-payment-connector
   - bundles/gift-card-product-connector
@@ -105,6 +104,7 @@ include:
   - bundles/log-log-io-connector
   - bundles/log-slack-connector
   - bundles/mail-bcc
+  - bundles/oms-credit-memo-gift-card-connector
   - bundles/one-time-password
   - bundles/one-time-password-email-connector
   - bundles/one-time-password-rest-api
