@@ -90,8 +90,8 @@ class ValidationStrategyTest extends Unit
         $this->configMock->method('getCredentials')->willReturn($testCreds);
 
         $this->transactionStatusRequest->setKey($this->hashGenerator->hash('abc123'));
-        $this->transactionStatusRequest->setAid('12345');
-        $this->transactionStatusRequest->setPortalid('54321');
+        $this->transactionStatusRequest->setAid((int)'12345');
+        $this->transactionStatusRequest->setPortalid((int)'54321');
         $this->transactionStatusRequest->setClearingtype(PayoneApiConstants::CLEARING_TYPE_INVOICE);
 
         $result = $this->validationStrategy->validate($this->transactionStatusRequest, $this->standardParameter);
@@ -104,8 +104,8 @@ class ValidationStrategyTest extends Unit
     public function testDefaultCredentials(): void
     {
         $this->transactionStatusRequest->setKey($this->hashGenerator->hash(static::KEY));
-        $this->transactionStatusRequest->setAid(static::AID);
-        $this->transactionStatusRequest->setPortalid(static::PID);
+        $this->transactionStatusRequest->setAid((int)static::AID);
+        $this->transactionStatusRequest->setPortalid((int)static::PID);
         $this->transactionStatusRequest->setClearingtype(PayoneApiConstants::CLEARING_TYPE_E_WALLET);
 
         $result = $this->validationStrategy->validate($this->transactionStatusRequest, $this->standardParameter);
@@ -119,8 +119,8 @@ class ValidationStrategyTest extends Unit
     public function testInvalidCredentials(): void
     {
         $this->transactionStatusRequest->setKey('0000');
-        $this->transactionStatusRequest->setAid('0000');
-        $this->transactionStatusRequest->setPortalid('0000');
+        $this->transactionStatusRequest->setAid((int)'0000');
+        $this->transactionStatusRequest->setPortalid((int)'0000');
         $this->transactionStatusRequest->setClearingtype(PayoneApiConstants::CLEARING_TYPE_E_WALLET);
 
         $result = $this->validationStrategy->validate($this->transactionStatusRequest, $this->standardParameter);
