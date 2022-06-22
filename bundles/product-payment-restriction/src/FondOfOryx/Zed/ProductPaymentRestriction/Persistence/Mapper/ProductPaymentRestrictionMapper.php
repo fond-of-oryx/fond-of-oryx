@@ -2,6 +2,7 @@
 
 namespace FondOfOryx\Zed\ProductPaymentRestriction\Persistence\Mapper;
 
+use Generated\Shared\Transfer\PaymentMethodTransfer;
 use Generated\Shared\Transfer\ProductAbstractPaymentRestrictionTransfer;
 use Orm\Zed\ProductPaymentRestriction\Persistence\FooProductAbstractPaymentRestriction;
 use Propel\Runtime\Collection\ObjectCollection;
@@ -9,27 +10,21 @@ use Propel\Runtime\Collection\ObjectCollection;
 class ProductPaymentRestrictionMapper implements ProductPaymentRestrictionMapperInterface
 {
     /**
-     * @param \Propel\Runtime\Collection\ObjectCollection<\Orm\Zed\ProductPaymentRestriction\Persistence\FooProductAbstractPaymentRestriction> $fooProductAbstractPaymentRestrictionCollection
+     * @param \Propel\Runtime\Collection\ObjectCollection<int, \Orm\Zed\ProductPaymentRestriction\Persistence\FooProductAbstractPaymentRestriction> $fooProductAbstractPaymentRestrictionCollection
      *
-     * @return array
+     * @return array<\Generated\Shared\Transfer\PaymentMethodTransfer>
      */
-    public function mapEntityCollectionToGroupedPaymentNames(
+    public function mapEntityCollectionToPaymentMethodTransfers(
         ObjectCollection $fooProductAbstractPaymentRestrictionCollection
     ): array {
-        $groupedPaymentIds = [];
+        $paymentMethodTransfers = [];
 
         foreach ($fooProductAbstractPaymentRestrictionCollection as $fooProductAbstractPaymentRestriction) {
-            $key = $fooProductAbstractPaymentRestriction->getFkProductAbstract();
-            $paymentMethod = $fooProductAbstractPaymentRestriction->getPaymentMethod();
-
-            if (!isset($groupedPaymentIds[$key])) {
-                $groupedPaymentIds[$key] = [];
-            }
-
-            $groupedPaymentIds[$key][] = $paymentMethod->getPaymentMethodKey();
+            $spyPaymentMethod = $fooProductAbstractPaymentRestriction->getPaymentMethod();
+            $paymentMethodTransfers[] = (new PaymentMethodTransfer())->fromArray($spyPaymentMethod->toArray(), true);
         }
 
-        return $groupedPaymentIds;
+        return $paymentMethodTransfers;
     }
 
     /**

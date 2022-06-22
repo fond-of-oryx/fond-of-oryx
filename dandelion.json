@@ -578,7 +578,7 @@
     },
     "product-payment-restriction": {
       "path": "bundles/product-payment-restriction/",
-      "version": "1.0.0-beta.0"
+      "version": "1.0.0-beta.2"
     },
     "qr-code-generator": {
       "path": "bundles/qr-code-generator/",

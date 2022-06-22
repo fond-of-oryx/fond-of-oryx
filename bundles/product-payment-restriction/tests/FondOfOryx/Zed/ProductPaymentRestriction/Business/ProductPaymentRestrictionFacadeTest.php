@@ -3,8 +3,10 @@
 namespace FondOfOryx\Zed\ProductPaymentRestriction\Business;
 
 use Codeception\Test\Unit;
+use FondOfOryx\Zed\ProductPaymentRestriction\Business\Model\ProductAbstractExpander;
 use FondOfOryx\Zed\ProductPaymentRestriction\Business\PaymentMethodFilter\ProductPaymentRestrictionPaymentMethodFilter;
 use Generated\Shared\Transfer\PaymentMethodsTransfer;
+use Generated\Shared\Transfer\ProductAbstractTransfer;
 use Generated\Shared\Transfer\QuoteTransfer;
 
 class ProductPaymentRestrictionFacadeTest extends Unit
@@ -27,7 +29,17 @@ class ProductPaymentRestrictionFacadeTest extends Unit
     /**
      * @var \PHPUnit\Framework\MockObject\MockObject|\FondOfOryx\Zed\ProductPaymentRestriction\Business\PaymentMethodFilter\ProductPaymentRestrictionPaymentMethodFilter
      */
-    protected $ProductPaymentRestrictionPaymentMethodFilterMock;
+    protected $productPaymentRestrictionPaymentMethodFilterMock;
+
+    /**
+     * @var \PHPUnit\Framework\MockObject\MockObject|\FondOfOryx\Zed\ProductPaymentRestriction\Business\ProductAbstractExpander
+     */
+    protected $productAbstractExpanderMock;
+
+    /**
+     * @var \PHPUnit\Framework\MockObject\MockObject|\Generated\Shared\Transfer\ProductAbstractTransfer
+     */
+    protected $productAbstractTransferMock;
 
     /**
      * @var \FondOfOryx\Zed\ProductPaymentRestriction\Business\ProductPaymentRestrictionFacade
@@ -53,7 +65,15 @@ class ProductPaymentRestrictionFacadeTest extends Unit
             ->disableOriginalConstructor()
             ->getMock();
 
-        $this->ProductPaymentRestrictionPaymentMethodFilterMock = $this
+        $this->productAbstractTransferMock = $this->getMockBuilder(ProductAbstractTransfer::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $this->productAbstractExpanderMock = $this->getMockBuilder(ProductAbstractExpander::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $this->productPaymentRestrictionPaymentMethodFilterMock = $this
             ->getMockBuilder(ProductPaymentRestrictionPaymentMethodFilter::class)
             ->disableOriginalConstructor()
             ->getMock();
@@ -65,22 +85,39 @@ class ProductPaymentRestrictionFacadeTest extends Unit
     /**
      * @return void
      */
-    public function testProductRestrictionPaymentMethodFilter(): void
+    public function testProductPaymentRestrictionPaymentMethodFilter(): void
     {
         $this->businessFactoryMock->expects(static::atLeastOnce())
             ->method('createProductPaymentRestrictionPaymentMethodFilter')
-            ->willReturn($this->ProductPaymentRestrictionPaymentMethodFilterMock);
+            ->willReturn($this->productPaymentRestrictionPaymentMethodFilterMock);
 
-        $this->ProductPaymentRestrictionPaymentMethodFilterMock->expects(static::atLeastOnce())
+        $this->productPaymentRestrictionPaymentMethodFilterMock->expects(static::atLeastOnce())
             ->method('filterPaymentMethods')
             ->with($this->paymentMethodsTransferMock, $this->quoteTransferMock)
             ->willReturn($this->paymentMethodsTransferMock);
 
-        $paymentMethodsTransfer = $this->facade->ProductPaymentRestrictionPaymentMethodFilter(
+        static::assertEquals($this->paymentMethodsTransferMock, $this->facade->productPaymentRestrictionPaymentMethodFilter(
             $this->paymentMethodsTransferMock,
             $this->quoteTransferMock,
-        );
+        ));
+    }
 
-        static::assertEquals($paymentMethodsTransfer, $this->paymentMethodsTransferMock);
+    /**
+     * @return void
+     */
+    public function testExpandProductAbstract(): void
+    {
+        $this->businessFactoryMock->expects(static::atLeastOnce())
+            ->method('createProductAbstractExpander')
+            ->willReturn($this->productAbstractExpanderMock);
+
+        $this->productAbstractExpanderMock->expects(static::atLeastOnce())
+            ->method('expand')
+            ->with($this->productAbstractTransferMock)
+            ->willReturn($this->productAbstractTransferMock);
+
+        static::assertEquals($this->productAbstractTransferMock, $this->facade->expandProductAbstract(
+            $this->productAbstractTransferMock,
+        ));
     }
 }
