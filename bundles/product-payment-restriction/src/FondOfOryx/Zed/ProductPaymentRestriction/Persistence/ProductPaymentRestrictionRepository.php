@@ -2,6 +2,7 @@
 
 namespace FondOfOryx\Zed\ProductPaymentRestriction\Persistence;
 
+use Orm\Zed\ProductPaymentRestriction\Persistence\Map\FooProductAbstractPaymentRestrictionTableMap;
 use Spryker\Zed\Kernel\Persistence\AbstractRepository;
 
 /**
@@ -12,7 +13,7 @@ class ProductPaymentRestrictionRepository extends AbstractRepository implements 
     /**
      * @param array<int> $idProductAbstracts
      *
-     * @return array
+     * @return array<\Generated\Shared\Transfer\PaymentMethodTransfer>
      */
     public function findBlacklistedPaymentMethodsByIdsProductAbstract(array $idProductAbstracts): array
     {
@@ -25,6 +26,22 @@ class ProductPaymentRestrictionRepository extends AbstractRepository implements 
             ->find();
 
         return $this->getFactory()->createProductAbstractPaymentRestrictionMapper()
-            ->mapEntityCollectionToGroupedPaymentNames($fooProductAbstractPaymentRestrictionCollection);
+            ->mapEntityCollectionToPaymentMethodTransfers($fooProductAbstractPaymentRestrictionCollection);
+    }
+
+    /**
+     * @param int $idProductAbstract
+     *
+     * @return array<int>
+     */
+    public function findBlacklistedPaymentMethodIdsByIdProductAbstract(int $idProductAbstract): array
+    {
+        $fooProductAbstractPaymentRestrictionQuery = $this->getFactory()
+            ->createFooProductAbstractPaymentRestrictionQuery();
+
+        return $fooProductAbstractPaymentRestrictionQuery
+            ->select(FooProductAbstractPaymentRestrictionTableMap::COL_FK_PAYMENT_METHOD)
+            ->findByFkProductAbstract($idProductAbstract)
+            ->toArray();
     }
 }

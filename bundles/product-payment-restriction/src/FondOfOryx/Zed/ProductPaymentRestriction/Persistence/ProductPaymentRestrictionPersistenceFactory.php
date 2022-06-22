@@ -2,8 +2,11 @@
 
 namespace FondOfOryx\Zed\ProductPaymentRestriction\Persistence;
 
+use FondOfOryx\Zed\ProductPaymentRestriction\Persistence\Mapper\PaymentMethodMapper;
+use FondOfOryx\Zed\ProductPaymentRestriction\Persistence\Mapper\PaymentMethodMapperInterface;
 use FondOfOryx\Zed\ProductPaymentRestriction\Persistence\Mapper\ProductPaymentRestrictionMapper;
 use FondOfOryx\Zed\ProductPaymentRestriction\Persistence\Mapper\ProductPaymentRestrictionMapperInterface;
+use FondOfOryx\Zed\ProductPaymentRestriction\ProductPaymentRestrictionDependencyProvider;
 use Orm\Zed\Payment\Persistence\SpyPaymentMethodQuery;
 use Orm\Zed\ProductPaymentRestriction\Persistence\FooProductAbstractPaymentRestrictionQuery;
 use Spryker\Zed\Kernel\Persistence\AbstractPersistenceFactory;
@@ -25,9 +28,9 @@ class ProductPaymentRestrictionPersistenceFactory extends AbstractPersistenceFac
     /**
      * @return \Orm\Zed\Payment\Persistence\SpyPaymentMethodQuery
      */
-    public function createSpyPaymentMethodQuery(): SpyPaymentMethodQuery
+    public function getSpyPaymentMethodQuery(): SpyPaymentMethodQuery
     {
-        return SpyPaymentMethodQuery::create();
+        return $this->getProvidedDependency(ProductPaymentRestrictionDependencyProvider::PROPEL_QUERY_PAYMENT_METHOD);
     }
 
     /**
@@ -36,5 +39,13 @@ class ProductPaymentRestrictionPersistenceFactory extends AbstractPersistenceFac
     public function createProductAbstractPaymentRestrictionMapper(): ProductPaymentRestrictionMapperInterface
     {
         return new ProductPaymentRestrictionMapper();
+    }
+
+    /**
+     * @return \FondOfOryx\Zed\ProductPaymentRestriction\Persistence\Mapper\PaymentMethodMapperInterface
+     */
+    public function createPaymentMethodMapper(): PaymentMethodMapperInterface
+    {
+        return new PaymentMethodMapper();
     }
 }

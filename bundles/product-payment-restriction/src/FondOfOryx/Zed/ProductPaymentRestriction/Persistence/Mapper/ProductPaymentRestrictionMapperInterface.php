@@ -11,9 +11,9 @@ interface ProductPaymentRestrictionMapperInterface
     /**
      * @param \Propel\Runtime\Collection\ObjectCollection<\Orm\Zed\ProductPaymentRestriction\Persistence\FooProductAbstractPaymentRestriction> $fooProductAbstractPaymentRestrictionCollection
      *
-     * @return array
+     * @return array<\Generated\Shared\Transfer\PaymentMethodTransfer>
      */
-    public function mapEntityCollectionToGroupedPaymentNames(
+    public function mapEntityCollectionToPaymentMethodTransfers(
         ObjectCollection $fooProductAbstractPaymentRestrictionCollection
     ): array;
 
