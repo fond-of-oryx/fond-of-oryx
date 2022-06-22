@@ -10,7 +10,8 @@
     ],
     "require": {
         "php": ">=7.4",
-        "spryker/payment-extension": "^1.0.0"
+        "spryker/payment-extension": "^1.0.0",
+        "spryker/product": "^5.0.0 || ^6.0.0"
     },
     "require-dev": {
       "fond-of-codeception/spryker": "^1.0",
