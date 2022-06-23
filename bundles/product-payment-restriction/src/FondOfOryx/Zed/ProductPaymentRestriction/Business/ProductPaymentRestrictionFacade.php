@@ -9,7 +9,7 @@ use Spryker\Zed\Kernel\Business\AbstractFacade;
 
 /**
  * @method \FondOfOryx\Zed\ProductPaymentRestriction\Business\ProductPaymentRestrictionBusinessFactory getFactory()
- * @method \FondOfOryx\Zed\ProductPaymentRestriction\Persistence\ProductPaymentRestrictionRepository getRepository()()
+ * @method \FondOfOryx\Zed\ProductPaymentRestriction\Persistence\ProductPaymentRestrictionRepository getRepository()
  */
 class ProductPaymentRestrictionFacade extends AbstractFacade implements ProductPaymentRestrictionFacadeInterface
 {
@@ -48,21 +48,6 @@ class ProductPaymentRestrictionFacade extends AbstractFacade implements ProductP
      */
     public function persistProductAbstractPaymentRestrictions(ProductAbstractTransfer $productAbstractTransfer): ProductAbstractTransfer
     {
-        $this->getFactory()
-            ->createProductAbstractPaymentRestrictionsPersister()
-            ->persist($productAbstractTransfer);
-
-        return $productAbstractTransfer;
-    }
-
-    /**
-     * @param \Generated\Shared\Transfer\ProductAbstractTransfer $productAbstractTransfer
-     *
-     * @return \Generated\Shared\Transfer\ProductAbstractTransfer
-     */
-    public function createProductAbstractPaymentRestrictions(
-        ProductAbstractTransfer $productAbstractTransfer
-    ): ProductAbstractTransfer {
         $this->getFactory()
             ->createProductAbstractPaymentRestrictionsPersister()
             ->persist($productAbstractTransfer);

@@ -36,13 +36,4 @@ interface ProductPaymentRestrictionFacadeInterface
     public function persistProductAbstractPaymentRestrictions(
         ProductAbstractTransfer $productAbstractTransfer
     ): ProductAbstractTransfer;
-
-    /**
-     * @param \Generated\Shared\Transfer\ProductAbstractTransfer $productAbstractTransfer
-     *
-     * @return \Generated\Shared\Transfer\ProductAbstractTransfer
-     */
-    public function createProductAbstractPaymentRestrictions(
-        ProductAbstractTransfer $productAbstractTransfer
-    ): ProductAbstractTransfer;
 }
