@@ -33,6 +33,9 @@
         "document-number": {
           "type": "keyword"
         },
+        "delivery-note-number": {
+          "type": "keyword"
+        },
         "order-date": {
           "type": "date",
           "format": "yyyy-MM-dd HH:mm:ss.SSSSSS||yyyy-MM-dd HH:mm:ss||yyyy-MM-dd HH:mm:ss.SSSSSSZ"

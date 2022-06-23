@@ -40,6 +40,7 @@
         <property name="externalReference" type="string" />
         <property name="orderDate" type="string" />
         <property name="documentNumber" type="string" />
+        <property name="deliveryNoteNumber" type="string" />
         <property name="createdAt" type="string" />
         <property name="updatedAt" type="string" />
         <property name="billingAddress" type="RestErpDeliveryNoteAddress"/>
