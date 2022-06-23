@@ -1,6 +1,7 @@
 namespace: fond-of-oryx/fond-of-oryx
 
 include:
+  - bundles/api-auth
   - bundles/availability-alert
   - bundles/availability-alert-cross-engage
   - bundles/availability-alert-migrator
@@ -77,6 +78,7 @@ include:
   - bundles/gift-card-proportional-value-no-payment-connector
   - bundles/gift-card-proportional-value-payone-connector
   - bundles/gift-card-restriction
+  - bundles/glue-application-acl
   - bundles/invoice
   - bundles/jellyfish-availability-alert
   - bundles/jellyfish-buffer
