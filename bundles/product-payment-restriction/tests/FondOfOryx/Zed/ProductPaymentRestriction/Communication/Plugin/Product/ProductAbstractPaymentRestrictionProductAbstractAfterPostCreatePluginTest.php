@@ -6,7 +6,7 @@ use Codeception\Test\Unit;
 use FondOfOryx\Zed\ProductPaymentRestriction\Business\ProductPaymentRestrictionFacade;
 use Generated\Shared\Transfer\ProductAbstractTransfer;
 
-class ProductAbstractPaymentRestrictionProductAbstractAfterCreatePluginTest extends Unit
+class ProductAbstractPaymentRestrictionProductAbstractAfterPostCreatePluginTest extends Unit
 {
     /**
      * @var \PHPUnit\Framework\MockObject\MockObject|\FondOfOryx\Zed\ProductPaymentRestriction\Business\ProductPaymentRestrictionFacade
@@ -19,7 +19,7 @@ class ProductAbstractPaymentRestrictionProductAbstractAfterCreatePluginTest exte
     protected $productAbstractTransferMock;
 
     /**
-     * @var \FondOfOryx\Zed\ProductPaymentRestriction\Communication\Plugin\Product\ProductAbstractPaymentRestrictionProductAbstractAfterCreatePlugin
+     * @var \FondOfOryx\Zed\ProductPaymentRestriction\Communication\Plugin\Product\ProductAbstractPaymentRestrictionProductAbstractAfterPostCreatePlugin
      */
     protected $plugin;
 
@@ -38,7 +38,7 @@ class ProductAbstractPaymentRestrictionProductAbstractAfterCreatePluginTest exte
             ->disableOriginalConstructor()
             ->getMock();
 
-        $this->plugin = new ProductAbstractPaymentRestrictionProductAbstractAfterCreatePlugin();
+        $this->plugin = new ProductAbstractPaymentRestrictionProductAbstractAfterPostCreatePlugin();
         $this->plugin->setFacade($this->facadeMock);
     }
 
@@ -51,6 +51,6 @@ class ProductAbstractPaymentRestrictionProductAbstractAfterCreatePluginTest exte
             ->method('persistProductAbstractPaymentRestrictions')
             ->willReturn($this->productAbstractTransferMock);
 
-        static::assertEquals($this->productAbstractTransferMock, $this->plugin->create($this->productAbstractTransferMock));
+        static::assertEquals($this->productAbstractTransferMock, $this->plugin->postCreate($this->productAbstractTransferMock));
     }
 }

@@ -1,9 +1,10 @@
 <?php
 
-namespace FondOfOryx\Zed\ProductPaymentRestriction\Communication;
+namespace FondOfOryx\Zed\ProductPaymentRestriction\Communication\Plugin\Payment;
 
 use Codeception\Test\Unit;
 use FondOfOryx\Zed\ProductPaymentRestriction\Business\ProductPaymentRestrictionFacade;
+use FondOfOryx\Zed\ProductPaymentRestriction\Communication\ProductPaymentRestrictionPaymentMethodFilterPlugin;
 use Generated\Shared\Transfer\PaymentMethodsTransfer;
 use Generated\Shared\Transfer\QuoteTransfer;
 
