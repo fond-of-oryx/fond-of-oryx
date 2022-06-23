@@ -1,7 +1,7 @@
 {
   "repositories": {
     "api-auth": {
-      "path": "api-auth",
+      "path": "bundles/api-auth",
       "version": "1.0.0"
     },
     "availability-alert": {
