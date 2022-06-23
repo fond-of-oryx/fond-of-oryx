@@ -12,6 +12,7 @@
         <column name="document_number" required="false" size="255" type="VARCHAR"/>
         <column name="order_date" required="false" type="DATE"/>
         <column name="currency_iso_code" type="VARCHAR" size="5" required="false"/>
+        <column name="delivery_note_number" type="VARCHAR" size="255" required="false"/>
 
         <id-method-parameter value="foo_erp_delivery_note_pk_seq"/>
 

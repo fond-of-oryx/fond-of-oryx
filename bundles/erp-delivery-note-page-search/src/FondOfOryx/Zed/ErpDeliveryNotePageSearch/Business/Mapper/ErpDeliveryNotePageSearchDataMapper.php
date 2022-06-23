@@ -82,6 +82,11 @@ class ErpDeliveryNotePageSearchDataMapper implements ErpDeliveryNotePageSearchDa
     /**
      * @var string
      */
+    public const DELIVERY_NOTE_NUMBER = 'delivery_note_number';
+
+    /**
+     * @var string
+     */
     public const DOCUMENT_NUMBER = 'document_number';
 
     /**
@@ -108,6 +113,11 @@ class ErpDeliveryNotePageSearchDataMapper implements ErpDeliveryNotePageSearchDa
      * @var string
      */
     public const SEARCH_RESULT_DOCUMENT_NUMBER = 'document_number';
+
+    /**
+     * @var string
+     */
+    public const SEARCH_RESULT_DELIVERY_NOTE_NUMBER = 'delivery_note_number';
 
     /**
      * @var string
@@ -182,6 +192,7 @@ class ErpDeliveryNotePageSearchDataMapper implements ErpDeliveryNotePageSearchDa
             ErpDeliveryNoteIndexMap::CREATED_AT => $this->convertDate($data[static::CREATED_AT]),
             ErpDeliveryNoteIndexMap::UPDATED_AT => $this->convertDate($data[static::UPDATED_AT]),
             ErpDeliveryNoteIndexMap::DOCUMENT_NUMBER => $data[static::DOCUMENT_NUMBER],
+            ErpDeliveryNoteIndexMap::DELIVERY_NOTE_NUMBER => $data[static::DELIVERY_NOTE_NUMBER],
             ErpDeliveryNoteIndexMap::EXTERNAL_REFERENCE => $data[static::EXTERNAL_REFERENCE],
             ErpDeliveryNoteIndexMap::ID_COMPANY_BUSINESS_UNIT => $data[static::FK_COMPANY_BUSINESS_UNIT],
             ErpDeliveryNoteIndexMap::COMPANY_BUSINESS_UNIT_UUID => $data[static::COMPANY_BUSINESS_UNIT][static::COMPANY_BUSINESS_UNIT_UUID],
@@ -203,6 +214,7 @@ class ErpDeliveryNotePageSearchDataMapper implements ErpDeliveryNotePageSearchDa
             static::SEARCH_RESULT_CREATED_AT => $this->convertDate($data[static::CREATED_AT]),
             static::SEARCH_RESULT_UPDATED_AT => $this->convertDate($data[static::UPDATED_AT]),
             static::SEARCH_RESULT_DOCUMENT_NUMBER => $data[static::DOCUMENT_NUMBER],
+            static::SEARCH_RESULT_DELIVERY_NOTE_NUMBER => $data[static::DELIVERY_NOTE_NUMBER],
             static::SEARCH_RESULT_ID_ERP_DELIVERY_NOTE => $data[static::ID_ERP_DELIVERY_NOTE],
             static::SEARCH_RESULT_FK_BILLING_ADDRESS => $data[static::FK_BILLING_ADDRESS],
             static::SEARCH_RESULT_FK_SHIPPING_ADDRESS => $data[static::FK_SHIPPING_ADDRESS],

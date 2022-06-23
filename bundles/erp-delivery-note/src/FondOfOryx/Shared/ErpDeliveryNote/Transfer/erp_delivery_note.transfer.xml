@@ -17,6 +17,7 @@
         <property name="companyBusinessUnit" type="CompanyBusinessUnit"/>
         <property name="currencyIsoCode" type="string"/>
         <property name="orderDate" type="int"/>
+        <property name="deliveryNoteNumber" type="string"/>
         <property name="createdAt" type="int"/>
         <property name="updatedAt" type="int"/>
     </transfer>

@@ -29,6 +29,7 @@ class ErpDeliveryNotePageSearchDataMapperTest extends Unit
             ErpDeliveryNotePageSearchDataMapper::CREATED_AT => 'now',
             ErpDeliveryNotePageSearchDataMapper::UPDATED_AT => 'now',
             ErpDeliveryNotePageSearchDataMapper::DOCUMENT_NUMBER => '',
+            ErpDeliveryNotePageSearchDataMapper::DELIVERY_NOTE_NUMBER => '',
             ErpDeliveryNotePageSearchDataMapper::EXTERNAL_REFERENCE => '',
             ErpDeliveryNotePageSearchDataMapper::FK_COMPANY_BUSINESS_UNIT => '',
             ErpDeliveryNotePageSearchDataMapper::COMPANY_BUSINESS_UNIT => [
