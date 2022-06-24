@@ -21,4 +21,14 @@ class JellyfishSalesOrderGiftCardProportionalValueConnectorFacade extends Abstra
     {
         return $this->getFactory()->createGiftCardProportionalValueMapper()->fromSalesOrderToJellyfishOrder($jellyfishOrderTransfer, $spySalesOrder);
     }
+
+    /**
+     * @param array<\Generated\Shared\Transfer\ItemTransfer> $itemTransfers
+     *
+     * @return array<\Generated\Shared\Transfer\ItemTransfer>
+     */
+    public function expandOrderItems(array $itemTransfers): array
+    {
+        return $this->getFactory()->createOrderItemsExpander()->expand($itemTransfers);
+    }
 }
