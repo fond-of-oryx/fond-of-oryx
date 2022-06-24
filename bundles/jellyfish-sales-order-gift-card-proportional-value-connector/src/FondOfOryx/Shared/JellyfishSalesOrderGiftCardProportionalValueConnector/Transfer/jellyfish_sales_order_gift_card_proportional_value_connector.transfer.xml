@@ -18,4 +18,8 @@
         <property name="idSalesOrderItem" type="int"/>
         <property name="amount" type="int"/>
     </transfer>
+
+    <transfer name="Item">
+        <property name="giftCardAmount" type="int"/>
+    </transfer>
 </transfers>

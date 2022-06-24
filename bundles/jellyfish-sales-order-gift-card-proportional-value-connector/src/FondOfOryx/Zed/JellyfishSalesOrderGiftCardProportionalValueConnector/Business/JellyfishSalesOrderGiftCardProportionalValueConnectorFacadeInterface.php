@@ -14,4 +14,11 @@ interface JellyfishSalesOrderGiftCardProportionalValueConnectorFacadeInterface
      * @return \Generated\Shared\Transfer\JellyfishOrderTransfer
      */
     public function mapProportionalGiftCardValues(JellyfishOrderTransfer $jellyfishOrderTransfer, SpySalesOrder $spySalesOrder): JellyfishOrderTransfer;
+
+    /**
+     * @param array<\Generated\Shared\Transfer\ItemTransfer> $itemTransfers
+     *
+     * @return array<\Generated\Shared\Transfer\ItemTransfer>
+     */
+    public function expandOrderItems(array $itemTransfers): array;
 }
