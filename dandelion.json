@@ -340,6 +340,10 @@
       "path": "bundles/gift-card-restriction/",
       "version": "1.0.2"
     },
+    "glue-application-acl": {
+      "path": "bundles/glue-application-acl/",
+      "version": "1.0.0"
+    },
     "invoice": {
       "path": "bundles/invoice/",
       "version": "1.0.0"
