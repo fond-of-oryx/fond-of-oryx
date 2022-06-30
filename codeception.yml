@@ -33,6 +33,7 @@ include:
   - bundles/company-role-search-rest-api
   - bundles/company-search-rest-api
   - bundles/company-unit-address-api
+  - bundles/company-unit-address-sales-connector
   - bundles/company-user-api
   - bundles/company-user-company-role-connector
   - bundles/company-user-reference-sales-connector
