@@ -44,6 +44,7 @@ include:
   - bundles/credit-memo-extension
   - bundles/credit-memo-gift-card-connector
   - bundles/cross-engage
+  - bundles/customer-address-sales-connector
   - bundles/customer-brand-product-list-connector
   - bundles/customer-product-list-api
   - bundles/customer-product-list-connector
