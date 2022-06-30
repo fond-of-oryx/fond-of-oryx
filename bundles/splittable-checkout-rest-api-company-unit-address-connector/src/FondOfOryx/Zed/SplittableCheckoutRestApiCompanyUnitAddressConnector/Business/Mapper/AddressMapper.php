@@ -15,8 +15,14 @@ class AddressMapper implements AddressMapperInterface
     public function fromCompanyUnitAddressTransfer(
         CompanyUnitAddressTransfer $companyUnitAddressTransfer
     ): AddressTransfer {
+        $data = $companyUnitAddressTransfer->toArray();
+
+        if (isset($data['company'])) {
+            unset($data['company']);
+        }
+
         return (new AddressTransfer())
-            ->fromArray($companyUnitAddressTransfer->toArray(), true)
+            ->fromArray($data, true)
             ->setFirstName($companyUnitAddressTransfer->getName1())
             ->setLastName($companyUnitAddressTransfer->getName2() ?? '');
     }
