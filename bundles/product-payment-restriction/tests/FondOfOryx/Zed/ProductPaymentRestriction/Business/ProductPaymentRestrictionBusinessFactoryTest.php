@@ -4,14 +4,14 @@ namespace FondOfOryx\Zed\ProductPaymentRestriction\Business;
 
 use Codeception\Test\Unit;
 use FondOfOryx\Zed\ProductPaymentRestriction\Business\PaymentMethodFilter\ProductPaymentRestrictionPaymentMethodFilter;
-use FondOfOryx\Zed\ProductPaymentRestriction\ProductPaymentRestrictionConfig;
+use FondOfOryx\Zed\ProductPaymentRestriction\Persistence\ProductPaymentRestrictionRepository;
 
 class ProductPaymentRestrictionBusinessFactoryTest extends Unit
 {
     /**
-     * @var \PHPUnit\Framework\MockObject\MockObject|\FondOfOryx\Zed\ProductPaymentRestriction\ProductPaymentRestrictionConfig
+     * @var \PHPUnit\Framework\MockObject\MockObject|\FondOfOryx\Zed\ProductPaymentRestriction\Persistence\ProductPaymentRestrictionRepository
      */
-    protected $configMock;
+    protected $repositoryMock;
 
     /**
      * @var \FondOfOryx\Zed\ProductPaymentRestriction\Business\ProductPaymentRestrictionBusinessFactory
@@ -25,12 +25,12 @@ class ProductPaymentRestrictionBusinessFactoryTest extends Unit
     {
         parent::_before();
 
-        $this->configMock = $this->getMockBuilder(ProductPaymentRestrictionConfig::class)
+        $this->repositoryMock = $this->getMockBuilder(ProductPaymentRestrictionRepository::class)
             ->disableOriginalConstructor()
             ->getMock();
 
         $this->businessFactory = new ProductPaymentRestrictionBusinessFactory();
-        $this->businessFactory->setConfig($this->configMock);
+        $this->businessFactory->setRepository($this->repositoryMock);
     }
 
     /**

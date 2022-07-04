@@ -9,6 +9,7 @@
 
     <transfer name="Item">
         <property name="sku" type="string"/>
+        <property name="idProductAbstract" type="int"/>
     </transfer>
 
     <transfer name="PaymentMethods">
@@ -17,6 +18,7 @@
 
     <transfer name="PaymentMethod">
         <property name="methodName" type="string"/>
+        <property name="idPaymentMethod" type="int"/>
     </transfer>
 
     <transfer name="ProductAbstract">

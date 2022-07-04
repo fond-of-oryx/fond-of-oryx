@@ -22,7 +22,7 @@ class ProductPaymentRestrictionBusinessFactory extends AbstractBusinessFactory
      */
     public function createProductPaymentRestrictionPaymentMethodFilter(): ProductPaymentRestrictionPaymentMethodFilterInterface
     {
-        return new ProductPaymentRestrictionPaymentMethodFilter($this->getConfig());
+        return new ProductPaymentRestrictionPaymentMethodFilter($this->getRepository());
     }
 
     /**
