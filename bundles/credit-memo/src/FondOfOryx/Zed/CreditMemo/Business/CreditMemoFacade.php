@@ -5,6 +5,7 @@ namespace FondOfOryx\Zed\CreditMemo\Business;
 use Generated\Shared\Transfer\CreditMemoProcessorResponseCollectionTransfer;
 use Generated\Shared\Transfer\CreditMemoResponseTransfer;
 use Generated\Shared\Transfer\CreditMemoTransfer;
+use Generated\Shared\Transfer\ItemTransfer;
 use Orm\Zed\CreditMemo\Persistence\FooCreditMemo;
 use Orm\Zed\Sales\Persistence\SpySalesOrder;
 use Orm\Zed\Sales\Persistence\SpySalesOrderItem;
@@ -169,5 +170,15 @@ class CreditMemoFacade extends AbstractFacade implements CreditMemoFacadeInterfa
     public function getSalesOrderItemsByCreditMemo(CreditMemoTransfer $creditMemoTransfer): ?ObjectCollection
     {
         return $this->getRepository()->getSalesOrderItemsByCreditMemo($creditMemoTransfer);
+    }
+
+    /**
+     * @param int $idSalesOrderItem
+     *
+     * @return \Generated\Shared\Transfer\ItemTransfer|null
+     */
+    public function findCreditMemoItemByIdSalesOrderItem(int $idSalesOrderItem): ?ItemTransfer
+    {
+        return $this->getRepository()->findCreditMemoItemByIdSalesOrderItem($idSalesOrderItem);
     }
 }

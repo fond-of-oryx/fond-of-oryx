@@ -2,6 +2,7 @@
 
 namespace FondOfOryx\Zed\CreditMemoPayoneDebitConnector;
 
+use FondOfOryx\Zed\CreditMemoPayoneDebitConnector\Dependency\Facade\CreditMemoPayoneDebitConnectorToCreditMemoBridge;
 use FondOfOryx\Zed\CreditMemoPayoneDebitConnector\Dependency\Facade\CreditMemoPayoneDebitConnectorToSalesFacadeBridge;
 use Spryker\Zed\Kernel\AbstractBundleDependencyProvider;
 use Spryker\Zed\Kernel\Container;
@@ -14,6 +15,11 @@ class CreditMemoPayoneDebitConnectorDependencyProvider extends AbstractBundleDep
     public const FACADE_SALES = 'FACADE_SALES';
 
     /**
+     * @var string
+     */
+    public const FACADE_CREDIT_MEMO = 'FACADE_CREDIT_MEMO';
+
+    /**
      * @param \Spryker\Zed\Kernel\Container $container
      *
      * @return \Spryker\Zed\Kernel\Container
@@ -23,6 +29,7 @@ class CreditMemoPayoneDebitConnectorDependencyProvider extends AbstractBundleDep
         $container = parent::provideBusinessLayerDependencies($container);
 
         $container = $this->addSalesFacade($container);
+        $container = $this->addCreditMemoFacade($container);
 
         return $container;
     }
@@ -37,6 +44,22 @@ class CreditMemoPayoneDebitConnectorDependencyProvider extends AbstractBundleDep
         $container[static::FACADE_SALES] = static function (Container $container) {
             return new CreditMemoPayoneDebitConnectorToSalesFacadeBridge(
                 $container->getLocator()->sales()->facade(),
+            );
+        };
+
+        return $container;
+    }
+
+    /**
+     * @param \Spryker\Zed\Kernel\Container $container
+     *
+     * @return \Spryker\Zed\Kernel\Container
+     */
+    protected function addCreditMemoFacade(Container $container): Container
+    {
+        $container[static::FACADE_SALES] = static function (Container $container) {
+            return new CreditMemoPayoneDebitConnectorToCreditMemoBridge(
+                $container->getLocator()->creditMemo()->facade(),
             );
         };
 
