@@ -1,0 +1,36 @@
+{
+  "name": "fond-of-oryx/credit-memo-payone-debit-connector",
+  "description": "Spryker Credit Memo Debit Connector Module.",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Daniel Kemna",
+      "email": "danielkemna@t-online.de"
+    },
+  ],
+  "require": {
+    "php": ">=7.3",
+    "fond-of-oryx/credit-memo-extension": "^1.1.0",
+    "spryker/sales": "^8.0.0 || ^10.0.0 || ^11.0.0",
+    "spryker-eco/payone": "^4.0.0"
+  },
+  "require-dev": {
+    "fond-of-codeception/spryker": "^1.0",
+    "spryker/code-sniffer": "*",
+    "spryker-sdk/phpstan-spryker": "*"
+  },
+  "minimum-stability": "dev",
+  "prefer-stable": true,
+  "autoload": {
+    "psr-4": {
+      "FondOfOryx\\": "src/FondOfOryx/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "FondOfOryx\\": "tests/FondOfOryx/",
+      "Generated\\": "src/Generated/",
+      "Orm\\Zed\\": "src/Orm/Zed/"
+    }
+  }
+}

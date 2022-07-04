@@ -9,6 +9,8 @@ use FondOfOryx\Zed\CreditMemo\Persistence\Propel\Mapper\CreditMemoItemStateMappe
 use FondOfOryx\Zed\CreditMemo\Persistence\Propel\Mapper\CreditMemoItemStateMapperInterface;
 use FondOfOryx\Zed\CreditMemo\Persistence\Propel\Mapper\CreditMemoMapper;
 use FondOfOryx\Zed\CreditMemo\Persistence\Propel\Mapper\CreditMemoMapperInterface;
+use FondOfOryx\Zed\CreditMemo\Persistence\Propel\Mapper\CreditMemoSalesPaymentMethodTypeMapper;
+use FondOfOryx\Zed\CreditMemo\Persistence\Propel\Mapper\CreditMemoSalesPaymentMethodTypeMapperInterface;
 use FondOfOryx\Zed\CreditMemo\Persistence\Propel\Mapper\CreditMemoStateMapper;
 use FondOfOryx\Zed\CreditMemo\Persistence\Propel\Mapper\CreditMemoStateMapperInterface;
 use Orm\Zed\CreditMemo\Persistence\FooCreditMemoItemQuery;
@@ -113,6 +115,14 @@ class CreditMemoPersistenceFactory extends AbstractPersistenceFactory
     public function createCreditMemoItemStateMapper(): CreditMemoItemStateMapperInterface
     {
         return new CreditMemoItemStateMapper();
+    }
+
+    /**
+     * @return \FondOfOryx\Zed\CreditMemo\Persistence\Propel\Mapper\CreditMemoSalesPaymentMethodTypeMapperInterface
+     */
+    public function createCreditMemoSalesPaymentMethodTypeMapper(): CreditMemoSalesPaymentMethodTypeMapperInterface
+    {
+        return new CreditMemoSalesPaymentMethodTypeMapper();
     }
 
     /**

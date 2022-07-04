@@ -6,8 +6,6 @@ use Generated\Shared\Transfer\CreditMemoCollectionTransfer;
 use Generated\Shared\Transfer\CreditMemoQueryFilterTransfer;
 use Generated\Shared\Transfer\CreditMemoTransfer;
 use Generated\Shared\Transfer\ItemTransfer;
-use Generated\Shared\Transfer\PaymentMethodTransfer;
-use Generated\Shared\Transfer\PaymentProviderTransfer;
 use Generated\Shared\Transfer\SalesPaymentMethodTypeTransfer;
 use Generated\Shared\Transfer\StoreTransfer;
 use Orm\Zed\CreditMemo\Persistence\FooCreditMemo;
@@ -134,9 +132,9 @@ class CreditMemoRepository extends AbstractRepository implements CreditMemoRepos
             return null;
         }
 
-        $paymentMethodType = $salesPayment->getSalesPaymentMethodType();
-
-        return (new SalesPaymentMethodTypeTransfer())->fromArray($paymentMethodType->toArray(), true);
+        return $this->getFactory()
+            ->createCreditMemoSalesPaymentMethodTypeMapper()
+            ->mapEntityToTransfer($salesPayment->getSalesPaymentMethodType(), new SalesPaymentMethodTypeTransfer());
     }
 
     /**
@@ -247,9 +245,9 @@ class CreditMemoRepository extends AbstractRepository implements CreditMemoRepos
         $spySalesPaymentMethodType = $creditMemo->getSpySalesPaymentMethodType();
 
         if ($spySalesPaymentMethodType !== null) {
-            $paymentProvider = (new PaymentProviderTransfer())->setName($spySalesPaymentMethodType->getPaymentProvider());
-            $paymentMehtod = (new PaymentMethodTransfer())->setName($spySalesPaymentMethodType->getPaymentMethod());
-            $salesPaymentMethodTypeTransfer = (new SalesPaymentMethodTypeTransfer())->setPaymentMethod($paymentMehtod)->setPaymentProvider($paymentProvider);
+            $salesPaymentMethodTypeTransfer = $this->getFactory()
+                ->createCreditMemoSalesPaymentMethodTypeMapper()
+                ->mapEntityToTransfer($spySalesPaymentMethodType, new SalesPaymentMethodTypeTransfer());
             $creditMemoTransfer->setSalesPaymentMethodType($salesPaymentMethodTypeTransfer);
         }
     }
