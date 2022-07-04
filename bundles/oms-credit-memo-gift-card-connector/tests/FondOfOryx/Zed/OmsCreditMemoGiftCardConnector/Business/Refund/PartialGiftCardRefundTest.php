@@ -123,6 +123,16 @@ class PartialGiftCardRefundTest extends Unit
             {
                 return $this;
             }
+
+            /**
+             * Returns true if the primary key for this object is null.
+             *
+             * @return bool
+             */
+            public function isPrimaryKeyNull(): bool
+            {
+                return false;
+            }
         };
 
         $this->refund = new PartialGiftCardRefund(

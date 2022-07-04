@@ -86,6 +86,7 @@
     "spryker/product-page-search": "^3.2.0",
     "spryker/product-page-search-extension": "^1.0.0",
     "spryker/product-storage-extension": "^1.0.0",
+    "spryker/propel-orm": "<1.16.0",
     "spryker/quote": "^2.0.0",
     "spryker/quote-extension": "^1.2.0",
     "spryker/router": "^1.1.0",
