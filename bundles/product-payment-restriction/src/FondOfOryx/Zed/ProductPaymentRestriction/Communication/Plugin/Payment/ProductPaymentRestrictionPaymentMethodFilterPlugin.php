@@ -23,6 +23,6 @@ class ProductPaymentRestrictionPaymentMethodFilterPlugin extends AbstractPlugin 
         QuoteTransfer $quoteTransfer
     ): PaymentMethodsTransfer {
         return $this->getFacade()
-            ->ProductPaymentRestrictionPaymentMethodFilter($paymentMethodsTransfer, $quoteTransfer);
+            ->productPaymentRestrictionPaymentMethodFilter($paymentMethodsTransfer, $quoteTransfer);
     }
 }
