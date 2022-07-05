@@ -9,6 +9,8 @@ use FondOfOryx\Zed\ErpOrderPageSearch\Persistence\ErpOrderPageSearchQueryContain
 use Generated\Shared\Transfer\ErpOrderPageSearchTransfer;
 use Orm\Zed\ErpOrder\Persistence\ErpOrder;
 use Orm\Zed\ErpOrder\Persistence\ErpOrderAddress;
+use Orm\Zed\ErpOrder\Persistence\Map\ErpOrderItemTableMap;
+use Propel\Runtime\ActiveQuery\Criteria;
 use Propel\Runtime\Map\TableMap;
 
 class ErpOrderPageSearchPublisher implements ErpOrderPageSearchPublisherInterface
@@ -121,7 +123,9 @@ class ErpOrderPageSearchPublisher implements ErpOrderPageSearchPublisherInterfac
     {
         $erpOrderData = $fooErpOrderEntity->toArray();
         $companyBusinessUnit = $fooErpOrderEntity->getCompanyBusinessUnit();
-        $orderItems = $fooErpOrderEntity->getErpOrderItems();
+        $orderItems = $fooErpOrderEntity->getErpOrderItems(
+            (new Criteria())->addAscendingOrderByColumn(ErpOrderItemTableMap::COL_POSITION),
+        );
         $orderTotal = $fooErpOrderEntity->getErpOrderTotals()->offsetGet(0);
         $billingAddress = $fooErpOrderEntity->getErpOrderBillingAddress();
         $shippingAddress = $fooErpOrderEntity->getErpOrderShippingAddress();
