@@ -2,6 +2,7 @@
 
 namespace FondOfOryx\Zed\PayoneCreditMemo\Dependency\Facade;
 
+use Generated\Shared\Transfer\DebitResponseTransfer;
 use Generated\Shared\Transfer\PayonePartialOperationRequestTransfer;
 use Generated\Shared\Transfer\RefundResponseTransfer;
 use SprykerEco\Zed\Payone\Business\PayoneFacadeInterface;
@@ -33,5 +34,19 @@ class PayoneCreditMemoToPayoneBridge implements PayoneCreditMemoToPayoneInterfac
     public function executePartialRefund(PayonePartialOperationRequestTransfer $payonePartialOperationRequestTransfer): RefundResponseTransfer
     {
         return $this->payoneFacade->executePartialRefund($payonePartialOperationRequestTransfer);
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * @api
+     *
+     * @param \Generated\Shared\Transfer\PayonePartialOperationRequestTransfer $payonePartialOperationRequestTransfer
+     *
+     * @return \Generated\Shared\Transfer\DebitResponseTransfer
+     */
+    public function executePartialDebit(PayonePartialOperationRequestTransfer $payonePartialOperationRequestTransfer): DebitResponseTransfer
+    {
+        return $this->payoneFacade->executePartialDebit($payonePartialOperationRequestTransfer);
     }
 }

@@ -8,7 +8,7 @@ use Spryker\Zed\Oms\Dependency\Plugin\Condition\ConditionInterface;
 
 /**
  * @method \FondOfOryx\Zed\CreditMemoPayoneDebitConnector\Business\CreditMemoPayoneDebitConnectorFacadeInterface getFacade()
- * @method \FondOfOryx\Zed\CreditMemoPayoneDebitConnector\Business\CreditMemoPayoneDebitConnectorBusinessFactory getFactory()
+ * @method \FondOfOryx\Zed\CreditMemoPayoneDebitConnector\Communication\CreditMemoPayoneDebitConnectorCommunicationFactory getFactory()
  */
 class IsRefundedConditionPlugin extends AbstractPlugin implements ConditionInterface
 {
