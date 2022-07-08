@@ -29,7 +29,6 @@ class CreditMemoPayoneDebitConnectorDependencyProvider extends AbstractBundleDep
         $container = parent::provideBusinessLayerDependencies($container);
 
         $container = $this->addSalesFacade($container);
-        $container = $this->addCreditMemoFacade($container);
 
         return $container;
     }
@@ -55,9 +54,23 @@ class CreditMemoPayoneDebitConnectorDependencyProvider extends AbstractBundleDep
      *
      * @return \Spryker\Zed\Kernel\Container
      */
+    public function provideCommunicationLayerDependencies(Container $container): Container
+    {
+        $container = parent::provideCommunicationLayerDependencies($container);
+
+        $container = $this->addCreditMemoFacade($container);
+
+        return $container;
+    }
+
+    /**
+     * @param \Spryker\Zed\Kernel\Container $container
+     *
+     * @return \Spryker\Zed\Kernel\Container
+     */
     protected function addCreditMemoFacade(Container $container): Container
     {
-        $container[static::FACADE_SALES] = static function (Container $container) {
+        $container[static::FACADE_CREDIT_MEMO] = static function (Container $container) {
             return new CreditMemoPayoneDebitConnectorToCreditMemoBridge(
                 $container->getLocator()->creditMemo()->facade(),
             );

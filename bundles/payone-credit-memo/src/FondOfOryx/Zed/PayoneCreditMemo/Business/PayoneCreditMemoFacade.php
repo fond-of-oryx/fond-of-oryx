@@ -24,4 +24,18 @@ class PayoneCreditMemoFacade extends AbstractFacade implements PayoneCreditMemoF
     {
         return $this->getFactory()->createPartialRefund()->executePartialRefund($orderItems, $orderEntity, $data);
     }
+
+    /**
+     * @api
+     *
+     * @param array<\Orm\Zed\Sales\Persistence\SpySalesOrderItem> $orderItems
+     * @param \Orm\Zed\Sales\Persistence\SpySalesOrder $orderEntity
+     * @param \Spryker\Zed\Oms\Business\Util\ReadOnlyArrayObject $data
+     *
+     * @return array
+     */
+    public function executePartialDebit(array $orderItems, SpySalesOrder $orderEntity, ReadOnlyArrayObject $data): array
+    {
+        return $this->getFactory()->createPartialDebit()->executePartialDebit($orderItems, $orderEntity, $data);
+    }
 }

@@ -2,6 +2,8 @@
 
 namespace FondOfOryx\Zed\PayoneCreditMemo\Business;
 
+use FondOfOryx\Zed\PayoneCreditMemo\Business\Debit\PartialDebit;
+use FondOfOryx\Zed\PayoneCreditMemo\Business\Debit\PartialDebitInterface;
 use FondOfOryx\Zed\PayoneCreditMemo\Business\Refund\PartialRefund;
 use FondOfOryx\Zed\PayoneCreditMemo\Business\Refund\PartialRefundInterface;
 use FondOfOryx\Zed\PayoneCreditMemo\Dependency\Facade\PayoneCreditMemoToCreditMemoInterface;
@@ -22,6 +24,20 @@ class PayoneCreditMemoBusinessFactory extends AbstractBusinessFactory
     public function createPartialRefund(): PartialRefundInterface
     {
         return new PartialRefund(
+            $this->getCreditMemoFacade(),
+            $this->getRefundFacade(),
+            $this->getSalesFacade(),
+            $this->getPayoneFacadeFacade(),
+            $this->getPreRefundPlugins(),
+        );
+    }
+
+    /**
+     * @return \FondOfOryx\Zed\PayoneCreditMemo\Business\Debit\PartialDebitInterface
+     */
+    public function createPartialDebit(): PartialDebitInterface
+    {
+        return new PartialDebit(
             $this->getCreditMemoFacade(),
             $this->getRefundFacade(),
             $this->getSalesFacade(),
