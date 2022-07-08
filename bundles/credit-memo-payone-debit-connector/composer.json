@@ -6,7 +6,7 @@
     {
       "name": "Daniel Kemna",
       "email": "danielkemna@t-online.de"
-    },
+    }
   ],
   "require": {
     "php": ">=7.3",
