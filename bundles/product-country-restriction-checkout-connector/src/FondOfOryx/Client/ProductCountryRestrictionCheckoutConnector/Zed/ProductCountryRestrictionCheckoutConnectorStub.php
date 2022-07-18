@@ -3,6 +3,7 @@
 namespace FondOfOryx\Client\ProductCountryRestrictionCheckoutConnector\Zed;
 
 use FondOfOryx\Client\ProductCountryRestrictionCheckoutConnector\Dependency\Client\ProductCountryRestrictionCheckoutConnectorToZedRequestClientInterface;
+use Generated\Shared\Transfer\BlacklistedCountryTransfer;
 use Generated\Shared\Transfer\QuoteTransfer;
 use Generated\Shared\Transfer\QuoteValidationResponseTransfer;
 
@@ -35,5 +36,21 @@ class ProductCountryRestrictionCheckoutConnectorStub implements ProductCountryRe
         );
 
         return $quoteValidationResponseTransfer;
+    }
+
+    /**
+     * @param \Generated\Shared\Transfer\QuoteTransfer $quoteTransfer
+     *
+     * @return \Generated\Shared\Transfer\BlacklistedCountryTransfer
+     */
+    public function getBlacklistedCountriesAction(QuoteTransfer $quoteTransfer): BlacklistedCountryTransfer
+    {
+        /** @var \Generated\Shared\Transfer\BlacklistedCountryTransfer $BlacklistedCountryTransfer */
+        $BlacklistedCountryTransfer = $this->zedRequestClient->call(
+            '/product-country-restriction-checkout-connector/gateway/get-blacklisted-countries',
+            $quoteTransfer,
+        );
+
+        return $BlacklistedCountryTransfer;
     }
 }

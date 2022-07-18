@@ -17,6 +17,10 @@
         <property name="items" type="Item[]" singular="item" />
     </transfer>
 
+    <transfer name="BlacklistedCountry">
+        <property name="iso2codes" singular="iso2code" type="string[]" />
+    </transfer>
+
     <transfer name="Item">
         <property name="shipment" type="Shipment" />
     </transfer>
