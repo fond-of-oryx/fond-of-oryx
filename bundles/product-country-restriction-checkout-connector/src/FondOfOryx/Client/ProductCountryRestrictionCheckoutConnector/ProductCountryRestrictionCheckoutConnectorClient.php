@@ -2,6 +2,7 @@
 
 namespace FondOfOryx\Client\ProductCountryRestrictionCheckoutConnector;
 
+use Generated\Shared\Transfer\BlacklistedCountryTransfer;
 use Generated\Shared\Transfer\QuoteTransfer;
 use Generated\Shared\Transfer\QuoteValidationResponseTransfer;
 use Spryker\Client\Kernel\AbstractClient;
@@ -26,5 +27,17 @@ class ProductCountryRestrictionCheckoutConnectorClient extends AbstractClient im
         return $this->getFactory()
             ->createProductCountryRestrictionCheckoutConnectorZedStub()
             ->validateQuote($quoteTransfer);
+    }
+
+    /**
+     * @param \Generated\Shared\Transfer\QuoteTransfer $quoteTransfer
+     *
+     * @return \Generated\Shared\Transfer\BlacklistedCountryTransfer
+     */
+    public function getBlacklistedCountries(QuoteTransfer $quoteTransfer): BlacklistedCountryTransfer
+    {
+        return $this->getFactory()
+            ->createProductCountryRestrictionCheckoutConnectorZedStub()
+            ->getBlacklistedCountriesAction($quoteTransfer);
     }
 }

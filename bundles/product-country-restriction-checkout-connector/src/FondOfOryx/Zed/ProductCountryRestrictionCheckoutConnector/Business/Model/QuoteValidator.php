@@ -4,6 +4,7 @@ namespace FondOfOryx\Zed\ProductCountryRestrictionCheckoutConnector\Business\Mod
 
 use FondOfOryx\Zed\ProductCountryRestrictionCheckoutConnector\Dependency\Facade\ProductCountryRestrictionCheckoutConnectorToProductCountryRestrictionFacadeInterface;
 use Generated\Shared\Transfer\AddressTransfer;
+use Generated\Shared\Transfer\BlacklistedCountryTransfer;
 use Generated\Shared\Transfer\ItemTransfer;
 use Generated\Shared\Transfer\MessageTransfer;
 use Generated\Shared\Transfer\QuoteErrorTransfer;
@@ -68,6 +69,23 @@ class QuoteValidator implements QuoteValidatorInterface
         }
 
         return $quoteValidationResponseTransfer;
+    }
+
+    /**
+     * @param \Generated\Shared\Transfer\QuoteTransfer $quoteTransfer
+     *
+     * @return \Generated\Shared\Transfer\BlacklistedCountryTransfer
+     */
+    public function getBlacklistedCountries(QuoteTransfer $quoteTransfer): BlacklistedCountryTransfer
+    {
+        $blacklistedCountriesByQuote = $this->getBlacklistedCountriesByQuote($quoteTransfer);
+        $iso2Codes = [];
+
+        foreach ($blacklistedCountriesByQuote as $blacklistedIso2CodesBySku) {
+            $iso2Codes = array_unique(array_merge($blacklistedIso2CodesBySku, $iso2Codes), SORT_REGULAR);
+        }
+
+        return (new BlacklistedCountryTransfer())->setIso2codes($iso2Codes);
     }
 
     /**
