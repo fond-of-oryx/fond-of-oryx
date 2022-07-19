@@ -4,6 +4,7 @@ namespace FondOfOryx\Client\ProductCountryRestrictionCheckoutConnector;
 
 use Codeception\Test\Unit;
 use FondOfOryx\Client\ProductCountryRestrictionCheckoutConnector\Zed\ProductCountryRestrictionCheckoutConnectorStubInterface;
+use Generated\Shared\Transfer\BlacklistedCountryTransfer;
 use Generated\Shared\Transfer\QuoteTransfer;
 use Generated\Shared\Transfer\QuoteValidationResponseTransfer;
 
@@ -18,6 +19,11 @@ class ProductCountryRestrictionCheckoutConnectorClientTest extends Unit
      * @var \Generated\Shared\Transfer\QuoteTransfer|\PHPUnit\Framework\MockObject\MockObject
      */
     protected $quoteTransferMock;
+
+    /**
+     * @var \Generated\Shared\Transfer\BlacklistedCountryTransfer
+     */
+    protected $blacklistedCountryTransferMock;
 
     /**
      * @var \Generated\Shared\Transfer\QuoteValidationResponseTransfer|\PHPUnit\Framework\MockObject\MockObject
@@ -53,6 +59,10 @@ class ProductCountryRestrictionCheckoutConnectorClientTest extends Unit
             ->disableOriginalConstructor()
             ->getMock();
 
+        $this->blacklistedCountryTransferMock = $this->getMockBuilder(BlacklistedCountryTransfer::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
         $this->productCountryRestrictionCheckoutConnectorZedStubMock = $this->getMockBuilder(ProductCountryRestrictionCheckoutConnectorStubInterface::class)
             ->disableOriginalConstructor()
             ->getMock();
@@ -78,6 +88,26 @@ class ProductCountryRestrictionCheckoutConnectorClientTest extends Unit
         static::assertEquals(
             $this->quoteValidationResponseTransferMock,
             $this->productCountryRestrictionCheckoutConnectorClient->validateQuote($this->quoteTransferMock),
+        );
+    }
+
+    /**
+     * @return void
+     */
+    public function testGetBlacklistedCountries(): void
+    {
+        $this->factoryMock->expects(static::atLeastOnce())
+            ->method('createProductCountryRestrictionCheckoutConnectorZedStub')
+            ->willReturn($this->productCountryRestrictionCheckoutConnectorZedStubMock);
+
+        $this->productCountryRestrictionCheckoutConnectorZedStubMock->expects(static::atLeastOnce())
+            ->method('getBlacklistedCountriesAction')
+            ->with($this->quoteTransferMock)
+            ->willReturn($this->blacklistedCountryTransferMock);
+
+        static::assertEquals(
+            $this->blacklistedCountryTransferMock,
+            $this->productCountryRestrictionCheckoutConnectorClient->getBlacklistedCountries($this->quoteTransferMock),
         );
     }
 }

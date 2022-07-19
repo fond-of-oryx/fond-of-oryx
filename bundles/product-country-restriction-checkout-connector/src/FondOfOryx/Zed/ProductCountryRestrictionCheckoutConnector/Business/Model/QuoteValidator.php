@@ -66,6 +66,9 @@ class QuoteValidator implements QuoteValidatorInterface
             $quoteValidationResponseTransfer->setIsSuccessful(false)
                 ->addMessage($this->createErrorMessage($itemTransfer, $blackListedCountries))
                 ->addErrors($this->createQuoteError($itemTransfer, $blackListedCountries));
+
+            $quoteTransfer->setShippingAddress(null)
+                ->setBillingAddress(null);
         }
 
         return $quoteValidationResponseTransfer;
