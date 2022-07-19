@@ -96,6 +96,14 @@ class QuoteValidatorTest extends Unit
             ->method('getItems')
             ->willReturn(new ArrayObject($this->itemTransferMocks));
 
+        $this->quoteTransferMock->expects(static::atLeastOnce())
+            ->method('setShippingAddress')
+            ->willReturnSelf();
+
+        $this->quoteTransferMock->expects(static::atLeastOnce())
+            ->method('setBillingAddress')
+            ->willReturnSelf();
+
         $this->itemTransferMocks[0]->expects(static::atLeastOnce())
             ->method('getSku')
             ->willReturn('FOO-1');
