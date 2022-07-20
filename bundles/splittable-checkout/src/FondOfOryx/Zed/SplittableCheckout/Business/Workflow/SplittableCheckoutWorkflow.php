@@ -180,6 +180,10 @@ class SplittableCheckoutWorkflow implements SplittableCheckoutWorkflowInterface
             $saveOrderTransfer = $checkoutResponseTransfer->getSaveOrder();
 
             if ($saveOrderTransfer === null || $checkoutResponseTransfer->getIsSuccess() === false) {
+                foreach ($checkoutResponseTransfer->getErrors() as $checkoutErrorTransfer) {
+                    $this->logger->error($checkoutErrorTransfer->getMessage());
+                }
+
                 throw new Exception('Could not place order.');
             }
 
