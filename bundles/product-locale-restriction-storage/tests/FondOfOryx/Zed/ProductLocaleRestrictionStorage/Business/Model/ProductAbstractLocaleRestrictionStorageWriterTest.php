@@ -105,7 +105,7 @@ class ProductAbstractLocaleRestrictionStorageWriterTest extends Unit
 
         $this->storageEntityMocks[1]->expects(static::atLeastOnce())
             ->method('save')
-            ->willReturn($this->storageEntityMocks[1]);
+            ->willReturn(1);
 
         $this->storageEntityMocks[3]->expects(static::atLeastOnce())
             ->method('setData')
@@ -131,7 +131,7 @@ class ProductAbstractLocaleRestrictionStorageWriterTest extends Unit
 
         $this->storageEntityMocks[3]->expects(static::atLeastOnce())
             ->method('save')
-            ->willReturn($this->storageEntityMocks[3]);
+            ->willReturn(2);
 
         $this->productAbstractLocaleRestrictionStorageWriter->publish($productAbstractIds);
     }

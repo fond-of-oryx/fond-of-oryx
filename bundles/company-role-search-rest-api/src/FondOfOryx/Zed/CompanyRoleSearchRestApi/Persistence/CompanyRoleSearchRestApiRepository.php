@@ -155,9 +155,8 @@ class CompanyRoleSearchRestApiRepository extends AbstractRepository implements C
             return $companyRoleQuery;
         }
 
-        return $companyRoleQuery->where(
-            sprintf(
-                <<<EOD
+        $clause = sprintf(
+            <<<EOD
                 %s IN (
                     SELECT temp.id_company_role FROM (
                         SELECT *, CONCAT(%s, '-', %s) AS whitelist_key FROM %s
@@ -180,29 +179,32 @@ class CompanyRoleSearchRestApiRepository extends AbstractRepository implements C
                     )
                 )
                 EOD,
-                SpyCompanyRoleTableMap::COL_ID_COMPANY_ROLE,
-                SpyCompanyRoleTableMap::COL_NAME,
-                SpyCompanyRoleTableMap::COL_FK_COMPANY,
-                SpyCompanyRoleTableMap::TABLE_NAME,
-                SpyPermissionTableMap::COL_KEY,
-                $config->getSnakeCasedWhitelistPermissionPrefix(),
-                $config->getSnakeCasedWhitelistPermissionSuffix(),
-                SpyCompanyUserTableMap::COL_FK_COMPANY,
-                SpyCompanyRoleToPermissionTableMap::TABLE_NAME,
-                SpyCompanyRoleToCompanyUserTableMap::TABLE_NAME,
-                SpyCompanyRoleToCompanyUserTableMap::COL_FK_COMPANY_ROLE,
-                SpyCompanyRoleToPermissionTableMap::COL_FK_COMPANY_ROLE,
-                SpyCompanyUserTableMap::TABLE_NAME,
-                SpyCompanyUserTableMap::COL_ID_COMPANY_USER,
-                SpyCompanyRoleToCompanyUserTableMap::COL_FK_COMPANY_USER,
-                SpyPermissionTableMap::TABLE_NAME,
-                SpyPermissionTableMap::COL_ID_PERMISSION,
-                SpyCompanyRoleToPermissionTableMap::COL_FK_PERMISSION,
-                SpyCompanyUserTableMap::COL_FK_CUSTOMER,
-                SpyPermissionTableMap::COL_KEY,
-                $config->getPascalCasedWhitelistPermissionPrefix(),
-                $config->getPascalCasedWhitelistPermissionSuffix(),
-            ),
+            SpyCompanyRoleTableMap::COL_ID_COMPANY_ROLE,
+            SpyCompanyRoleTableMap::COL_NAME,
+            SpyCompanyRoleTableMap::COL_FK_COMPANY,
+            SpyCompanyRoleTableMap::TABLE_NAME,
+            SpyPermissionTableMap::COL_KEY,
+            $config->getSnakeCasedWhitelistPermissionPrefix(),
+            $config->getSnakeCasedWhitelistPermissionSuffix(),
+            SpyCompanyUserTableMap::COL_FK_COMPANY,
+            SpyCompanyRoleToPermissionTableMap::TABLE_NAME,
+            SpyCompanyRoleToCompanyUserTableMap::TABLE_NAME,
+            SpyCompanyRoleToCompanyUserTableMap::COL_FK_COMPANY_ROLE,
+            SpyCompanyRoleToPermissionTableMap::COL_FK_COMPANY_ROLE,
+            SpyCompanyUserTableMap::TABLE_NAME,
+            SpyCompanyUserTableMap::COL_ID_COMPANY_USER,
+            SpyCompanyRoleToCompanyUserTableMap::COL_FK_COMPANY_USER,
+            SpyPermissionTableMap::TABLE_NAME,
+            SpyPermissionTableMap::COL_ID_PERMISSION,
+            SpyCompanyRoleToPermissionTableMap::COL_FK_PERMISSION,
+            SpyCompanyUserTableMap::COL_FK_CUSTOMER,
+            SpyPermissionTableMap::COL_KEY,
+            $config->getPascalCasedWhitelistPermissionPrefix(),
+            $config->getPascalCasedWhitelistPermissionSuffix(),
+        );
+
+        return $companyRoleQuery->where(
+            $clause, /* @phpstan-ignore-line */
             $companyRoleListTransfer->getCustomerId(),
         );
     }

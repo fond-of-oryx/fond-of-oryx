@@ -13,6 +13,7 @@ use Generated\Shared\Transfer\StoreTransfer;
 use Orm\Zed\Sales\Persistence\Base\SpySalesOrder;
 use Orm\Zed\Sales\Persistence\Base\SpySalesOrderItem;
 use Orm\Zed\Sales\Persistence\Base\SpySalesOrderQuery;
+use Propel\Runtime\Collection\CollectionIterator;
 use Propel\Runtime\Collection\ObjectCollection;
 use Psr\Log\LoggerInterface;
 use Spryker\Shared\Log\Config\LoggerConfigInterface;
@@ -65,9 +66,29 @@ class SalesOrderExportTriggerTest extends Unit
     protected $salesOrderEntityMocks;
 
     /**
+     * @var \PHPUnit\Framework\MockObject\MockObject|\Propel\Runtime\Collection\ObjectCollection
+     */
+    protected $salesOrderCollectionMock;
+
+    /**
+     * @var \PHPUnit\Framework\MockObject\MockObject|\Propel\Runtime\Collection\CollectionIterator
+     */
+    protected $salesOrderIteratorMock;
+
+    /**
      * @var array<mixed>|array<\PHPUnit\Framework\MockObject\MockObject>|array<\Orm\Zed\Sales\Persistence\Base\SpySalesOrderItem>
      */
     protected $salesOrderItemEntityMocks;
+
+    /**
+     * @var \PHPUnit\Framework\MockObject\MockObject|\Propel\Runtime\Collection\ObjectCollection
+     */
+    protected $salesOrderItemCollectionMock;
+
+    /**
+     * @var \PHPUnit\Framework\MockObject\MockObject|\Propel\Runtime\Collection\CollectionIterator
+     */
+    protected $salesOrderItemIteratorMock;
 
     /**
      * @var \FondOfOryx\Zed\JellyfishSalesOrder\Business\Trigger\SalesOrderExportTrigger
@@ -113,11 +134,27 @@ class SalesOrderExportTriggerTest extends Unit
             ->disableOriginalConstructor()
             ->getMock();
 
+        $this->salesOrderCollectionMock = $this->getMockBuilder(ObjectCollection::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $this->salesOrderIteratorMock = $this->getMockBuilder(CollectionIterator::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
         $this->salesOrderEntityMocks = [
             $this->getMockBuilder(SpySalesOrder::class)
                 ->disableOriginalConstructor()
                 ->getMock(),
         ];
+
+        $this->salesOrderItemCollectionMock = $this->getMockBuilder(ObjectCollection::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $this->salesOrderItemIteratorMock = $this->getMockBuilder(CollectionIterator::class)
+            ->disableOriginalConstructor()
+            ->getMock();
 
         $this->salesOrderItemEntityMocks = [
             $this->getMockBuilder(SpySalesOrderItem::class)
@@ -181,7 +218,6 @@ class SalesOrderExportTriggerTest extends Unit
     {
         $idOmsOrderItemState = 1;
         $storeName = 'FOO';
-        $salesOrderItemEntityCollection = new ObjectCollection($this->salesOrderItemEntityMocks);
         $data = [];
 
         $this->configMock->expects(static::atLeastOnce())
@@ -208,11 +244,47 @@ class SalesOrderExportTriggerTest extends Unit
 
         $this->salesOrderQueryMock->expects(static::atLeastOnce())
             ->method('find')
-            ->willReturn(new ObjectCollection($this->salesOrderEntityMocks));
+            ->willReturn($this->salesOrderCollectionMock);
+
+        $this->salesOrderCollectionMock->expects(static::atLeastOnce())
+            ->method('getIterator')
+            ->willReturn($this->salesOrderIteratorMock);
+
+        $this->salesOrderIteratorMock->expects(static::atLeastOnce())
+            ->method('rewind');
+
+        $this->salesOrderIteratorMock->expects(static::atLeastOnce())
+            ->method('valid')
+            ->willReturnOnConsecutiveCalls(true, false);
+
+        $this->salesOrderIteratorMock->expects(static::atLeastOnce())
+            ->method('current')
+            ->willReturn($this->salesOrderEntityMocks[0]);
+
+        $this->salesOrderIteratorMock->expects(static::atLeastOnce())
+            ->method('next');
 
         $this->salesOrderEntityMocks[0]->expects(static::atLeastOnce())
             ->method('getItems')
-            ->willReturn($salesOrderItemEntityCollection);
+            ->willReturn($this->salesOrderItemCollectionMock);
+
+        $this->salesOrderItemCollectionMock->expects(static::atLeastOnce())
+            ->method('getIterator')
+            ->willReturn($this->salesOrderItemIteratorMock);
+
+        $this->salesOrderItemIteratorMock->expects(static::atLeastOnce())
+            ->method('rewind');
+
+        $this->salesOrderItemIteratorMock->expects(static::atLeastOnce())
+            ->method('valid')
+            ->willReturnOnConsecutiveCalls(true, true, false);
+
+        $this->salesOrderItemIteratorMock->expects(static::atLeastOnce())
+            ->method('current')
+            ->willReturnOnConsecutiveCalls($this->salesOrderItemEntityMocks[0], $this->salesOrderItemEntityMocks[1]);
+
+        $this->salesOrderItemIteratorMock->expects(static::atLeastOnce())
+            ->method('next');
 
         $this->salesOrderItemEntityMocks[0]->expects(static::atLeastOnce())
             ->method('getFkOmsOrderItemState')
@@ -230,7 +302,7 @@ class SalesOrderExportTriggerTest extends Unit
             ->method('triggerEvent')
             ->with(
                 JellyfishSalesOrderConstants::EXPORT_EVENT_NAME_DEFAULT,
-                $salesOrderItemEntityCollection,
+                $this->salesOrderItemCollectionMock,
                 static::callback(
                     static function (array $logContext) {
                         return count($logContext) === 0;
@@ -326,8 +398,6 @@ class SalesOrderExportTriggerTest extends Unit
     {
         $idOmsOrderItemState = 1;
         $storeName = 'FOO';
-        $salesOrderItemEntityCollection = new ObjectCollection($this->salesOrderItemEntityMocks);
-        $data = [];
 
         $this->configMock->expects(static::atLeastOnce())
             ->method('getExportPendingStateName')
@@ -353,11 +423,47 @@ class SalesOrderExportTriggerTest extends Unit
 
         $this->salesOrderQueryMock->expects(static::atLeastOnce())
             ->method('find')
-            ->willReturn(new ObjectCollection($this->salesOrderEntityMocks));
+            ->willReturn($this->salesOrderCollectionMock);
+
+        $this->salesOrderCollectionMock->expects(static::atLeastOnce())
+            ->method('getIterator')
+            ->willReturn($this->salesOrderIteratorMock);
+
+        $this->salesOrderIteratorMock->expects(static::atLeastOnce())
+            ->method('rewind');
+
+        $this->salesOrderIteratorMock->expects(static::atLeastOnce())
+            ->method('valid')
+            ->willReturnOnConsecutiveCalls(true, false);
+
+        $this->salesOrderIteratorMock->expects(static::atLeastOnce())
+            ->method('current')
+            ->willReturn($this->salesOrderEntityMocks[0]);
+
+        $this->salesOrderIteratorMock->expects(static::atLeastOnce())
+            ->method('next');
 
         $this->salesOrderEntityMocks[0]->expects(static::atLeastOnce())
             ->method('getItems')
-            ->willReturn($salesOrderItemEntityCollection);
+            ->willReturn($this->salesOrderItemCollectionMock);
+
+        $this->salesOrderItemCollectionMock->expects(static::atLeastOnce())
+            ->method('getIterator')
+            ->willReturn($this->salesOrderItemIteratorMock);
+
+        $this->salesOrderItemIteratorMock->expects(static::atLeastOnce())
+            ->method('rewind');
+
+        $this->salesOrderItemIteratorMock->expects(static::atLeastOnce())
+            ->method('valid')
+            ->willReturnOnConsecutiveCalls(true, true, false);
+
+        $this->salesOrderItemIteratorMock->expects(static::atLeastOnce())
+            ->method('current')
+            ->willReturnOnConsecutiveCalls($this->salesOrderItemEntityMocks[0], $this->salesOrderItemEntityMocks[1]);
+
+        $this->salesOrderItemIteratorMock->expects(static::atLeastOnce())
+            ->method('next');
 
         $this->salesOrderItemEntityMocks[0]->expects(static::atLeastOnce())
             ->method('getFkOmsOrderItemState')
@@ -386,7 +492,6 @@ class SalesOrderExportTriggerTest extends Unit
     {
         $idOmsOrderItemState = 1;
         $storeName = 'FOO';
-        $salesOrderItemEntityCollection = new ObjectCollection($this->salesOrderItemEntityMocks);
         $data = null;
 
         $this->configMock->expects(static::atLeastOnce())
@@ -413,11 +518,47 @@ class SalesOrderExportTriggerTest extends Unit
 
         $this->salesOrderQueryMock->expects(static::atLeastOnce())
             ->method('find')
-            ->willReturn(new ObjectCollection($this->salesOrderEntityMocks));
+            ->willReturn($this->salesOrderCollectionMock);
+
+        $this->salesOrderCollectionMock->expects(static::atLeastOnce())
+            ->method('getIterator')
+            ->willReturn($this->salesOrderIteratorMock);
+
+        $this->salesOrderIteratorMock->expects(static::atLeastOnce())
+            ->method('rewind');
+
+        $this->salesOrderIteratorMock->expects(static::atLeastOnce())
+            ->method('valid')
+            ->willReturnOnConsecutiveCalls(true, false);
+
+        $this->salesOrderIteratorMock->expects(static::atLeastOnce())
+            ->method('current')
+            ->willReturn($this->salesOrderEntityMocks[0]);
+
+        $this->salesOrderIteratorMock->expects(static::atLeastOnce())
+            ->method('next');
 
         $this->salesOrderEntityMocks[0]->expects(static::atLeastOnce())
             ->method('getItems')
-            ->willReturn($salesOrderItemEntityCollection);
+            ->willReturn($this->salesOrderItemCollectionMock);
+
+        $this->salesOrderItemCollectionMock->expects(static::atLeastOnce())
+            ->method('getIterator')
+            ->willReturn($this->salesOrderItemIteratorMock);
+
+        $this->salesOrderItemIteratorMock->expects(static::atLeastOnce())
+            ->method('rewind');
+
+        $this->salesOrderItemIteratorMock->expects(static::atLeastOnce())
+            ->method('valid')
+            ->willReturnOnConsecutiveCalls(true, true, false);
+
+        $this->salesOrderItemIteratorMock->expects(static::atLeastOnce())
+            ->method('current')
+            ->willReturnOnConsecutiveCalls($this->salesOrderItemEntityMocks[0], $this->salesOrderItemEntityMocks[1]);
+
+        $this->salesOrderItemIteratorMock->expects(static::atLeastOnce())
+            ->method('next');
 
         $this->salesOrderItemEntityMocks[0]->expects(static::atLeastOnce())
             ->method('getFkOmsOrderItemState')
@@ -435,7 +576,7 @@ class SalesOrderExportTriggerTest extends Unit
             ->method('triggerEvent')
             ->with(
                 JellyfishSalesOrderConstants::EXPORT_EVENT_NAME_DEFAULT,
-                $salesOrderItemEntityCollection,
+                $this->salesOrderItemCollectionMock,
                 static::callback(
                     static function (array $logContext) {
                         return count($logContext) === 0;

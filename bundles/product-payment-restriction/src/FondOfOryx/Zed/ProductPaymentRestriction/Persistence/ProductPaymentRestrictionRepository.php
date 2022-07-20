@@ -41,7 +41,8 @@ class ProductPaymentRestrictionRepository extends AbstractRepository implements 
 
         return $fooProductAbstractPaymentRestrictionQuery
             ->select(FooProductAbstractPaymentRestrictionTableMap::COL_FK_PAYMENT_METHOD)
-            ->findByFkProductAbstract($idProductAbstract)
+            ->filterByFkProductAbstract($idProductAbstract)
+            ->find()
             ->toArray();
     }
 }

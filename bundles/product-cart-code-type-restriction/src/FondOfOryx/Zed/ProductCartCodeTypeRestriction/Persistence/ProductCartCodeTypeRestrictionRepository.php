@@ -44,7 +44,8 @@ class ProductCartCodeTypeRestrictionRepository extends AbstractRepository implem
 
         return $fooProductAbstractCartCodeTypeRestrictionQuery
             ->select(FooProductAbstractCartCodeTypeRestrictionTableMap::COL_FK_CART_CODE_TYPE)
-            ->findByFkProductAbstract($idProductAbstract)
+            ->filterByFkProductAbstract($idProductAbstract)
+            ->find()
             ->toArray();
     }
 

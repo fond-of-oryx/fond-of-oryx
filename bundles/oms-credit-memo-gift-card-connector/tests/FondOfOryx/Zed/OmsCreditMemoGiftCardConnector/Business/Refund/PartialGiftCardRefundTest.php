@@ -232,13 +232,13 @@ class PartialGiftCardRefundTest extends Unit
             ->method('setValue')->with($balance - $proportionalCouponAmount)->willReturnSelf();
 
         $this->spyGiftCardBalanceLogMock->expects(static::once())
-            ->method('save')->willReturnSelf();
+            ->method('save')->willReturn(1);
 
         $this->fooProportionalGiftCardValueMock->expects(static::once())
-            ->method('save')->willReturnSelf();
+            ->method('save')->willReturn(1);
 
         $this->fooCreditMemoMock->expects(static::once())
-            ->method('save')->willReturnSelf();
+            ->method('save')->willReturn(1);
 
         $this->spySalesOrderItemMock->expects(static::once())
             ->method('getIdSalesOrderItem')->willReturn($idSalesOrderItem);

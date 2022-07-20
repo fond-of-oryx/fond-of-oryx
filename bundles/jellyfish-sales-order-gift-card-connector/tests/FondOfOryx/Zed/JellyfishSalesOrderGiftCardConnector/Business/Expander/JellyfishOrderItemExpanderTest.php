@@ -23,12 +23,17 @@ class JellyfishOrderItemExpanderTest extends Unit
     /**
      * @var \Orm\Zed\Sales\Persistence\SpySalesOrderItem|\PHPUnit\Framework\MockObject\MockObject
      */
-    protected $spySalesOrderItemMock;
+    protected $salesOrderItemMock;
 
     /**
      * @var \Orm\Zed\Sales\Persistence\SpySalesOrderItemGiftCard|\PHPUnit\Framework\MockObject\MockObject
      */
-    protected $spySalesOrderItemGiftCardMock;
+    protected $salesOrderItemGiftCardMock;
+
+    /**
+     * @var \PHPUnit\Framework\MockObject\MockObject|\Propel\Runtime\Collection\ObjectCollection
+     */
+    protected $salesOrderItemGiftCardCollectionMock;
 
     /**
      * @return void
@@ -41,11 +46,15 @@ class JellyfishOrderItemExpanderTest extends Unit
             ->disableOriginalConstructor()
             ->getMock();
 
-        $this->spySalesOrderItemMock = $this->getMockBuilder(SpySalesOrderItem::class)
+        $this->salesOrderItemMock = $this->getMockBuilder(SpySalesOrderItem::class)
             ->disableOriginalConstructor()
             ->getMock();
 
-        $this->spySalesOrderItemGiftCardMock = $this->getMockBuilder(SpySalesOrderItemGiftCard::class)
+        $this->salesOrderItemGiftCardMock = $this->getMockBuilder(SpySalesOrderItemGiftCard::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $this->salesOrderItemGiftCardCollectionMock = $this->getMockBuilder(ObjectCollection::class)
             ->disableOriginalConstructor()
             ->getMock();
 
@@ -57,20 +66,25 @@ class JellyfishOrderItemExpanderTest extends Unit
      */
     public function testExpandWithTypeGiftCard(): void
     {
-        $giftCards = new ObjectCollection(
-            [$this->spySalesOrderItemGiftCardMock],
-        );
         $giftCardCode = 'xxx-xxx-xxx';
 
         $this->jellyfishOrderItemTransferMock->expects(static::atLeastOnce())
             ->method('getProductType')
             ->willReturn('gift_card');
 
-        $this->spySalesOrderItemMock->expects(static::atLeastOnce())
+        $this->salesOrderItemMock->expects(static::atLeastOnce())
             ->method('getSpySalesOrderItemGiftCards')
-            ->willReturn($giftCards);
+            ->willReturn($this->salesOrderItemGiftCardCollectionMock);
 
-        $this->spySalesOrderItemGiftCardMock->expects(static::atLeastOnce())
+        $this->salesOrderItemGiftCardCollectionMock->expects(static::atLeastOnce())
+            ->method('count')
+            ->willReturn(1);
+
+        $this->salesOrderItemGiftCardCollectionMock->expects(static::atLeastOnce())
+            ->method('getFirst')
+            ->willReturn($this->salesOrderItemGiftCardMock);
+
+        $this->salesOrderItemGiftCardMock->expects(static::atLeastOnce())
             ->method('getCode')
             ->willReturn($giftCardCode);
 
@@ -81,11 +95,11 @@ class JellyfishOrderItemExpanderTest extends Unit
 
         $jellyfishOrderItemTransfer = $this->expander->expand(
             $this->jellyfishOrderItemTransferMock,
-            $this->spySalesOrderItemMock,
+            $this->salesOrderItemMock,
         );
 
-        $this->assertInstanceOf(JellyfishOrderItemTransfer::class, $this->jellyfishOrderItemTransferMock);
+        static::assertInstanceOf(JellyfishOrderItemTransfer::class, $this->jellyfishOrderItemTransferMock);
 
-        $this->assertEquals($jellyfishOrderItemTransfer, $this->jellyfishOrderItemTransferMock);
+        static::assertEquals($jellyfishOrderItemTransfer, $this->jellyfishOrderItemTransferMock);
     }
 }

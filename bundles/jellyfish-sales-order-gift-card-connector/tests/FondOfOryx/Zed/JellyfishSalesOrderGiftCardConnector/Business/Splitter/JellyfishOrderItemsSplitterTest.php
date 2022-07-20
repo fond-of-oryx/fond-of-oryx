@@ -9,6 +9,7 @@ use Generated\Shared\Transfer\JellyfishOrderTransfer;
 use Orm\Zed\Sales\Persistence\SpySalesOrder;
 use Orm\Zed\Sales\Persistence\SpySalesOrderItem;
 use Orm\Zed\Sales\Persistence\SpySalesOrderItemGiftCard;
+use Propel\Runtime\Collection\CollectionIterator;
 use Propel\Runtime\Collection\ObjectCollection;
 
 class JellyfishOrderItemsSplitterTest extends Unit
@@ -31,17 +32,32 @@ class JellyfishOrderItemsSplitterTest extends Unit
     /**
      * @var \PHPUnit\Framework\MockObject\MockObject|\Orm\Zed\Sales\Persistence\SpySalesOrder
      */
-    protected $spySalesOrderMock;
+    protected $salesOrderMock;
 
     /**
-     * @var \PHPUnit\Framework\MockObject\MockObject|\Orm\Zed\Sales\Persistence\SpySalesOrderItem
+     * @var \PHPUnit\Framework\MockObject\MockObject|\Propel\Runtime\Collection\ObjectCollection
      */
-    protected $spySalesOrderItemMock;
+    protected $salesOrderItemCollectionMock;
 
     /**
-     * @var \PHPUnit\Framework\MockObject\MockObject|\Orm\Zed\Sales\Persistence\SpySalesOrderItemGiftCard
+     * @var \PHPUnit\Framework\MockObject\MockObject|\Propel\Runtime\Collection\CollectionIterator
      */
-    protected $spySalesOrderItemGiftCardMock;
+    protected $salesOrderItemIteratorMock;
+
+    /**
+     * @var array<\PHPUnit\Framework\MockObject\MockObject|\Orm\Zed\Sales\Persistence\SpySalesOrderItem>
+     */
+    protected $salesOrderItemMocks;
+
+    /**
+     * @var array<\PHPUnit\Framework\MockObject\MockObject|\Propel\Runtime\Collection\ObjectCollection>
+     */
+    protected $salesOrderItemGiftCardCollectionMocks;
+
+    /**
+     * @var array<\PHPUnit\Framework\MockObject\MockObject|\Orm\Zed\Sales\Persistence\SpySalesOrderItemGiftCard>
+     */
+    protected $salesOrderItemGiftCardMocks;
 
     /**
      * @return void
@@ -56,17 +72,44 @@ class JellyfishOrderItemsSplitterTest extends Unit
             ->disableOriginalConstructor()
             ->getMock();
 
-        $this->spySalesOrderMock = $this->getMockBuilder(SpySalesOrder::class)
+        $this->salesOrderMock = $this->getMockBuilder(SpySalesOrder::class)
             ->disableOriginalConstructor()
             ->getMock();
 
-        $this->spySalesOrderItemMock = $this->getMockBuilder(SpySalesOrderItem::class)
+        $this->salesOrderItemCollectionMock = $this->getMockBuilder(ObjectCollection::class)
             ->disableOriginalConstructor()
             ->getMock();
 
-        $this->spySalesOrderItemGiftCardMock = $this->getMockBuilder(SpySalesOrderItemGiftCard::class)
+        $this->salesOrderItemIteratorMock = $this->getMockBuilder(CollectionIterator::class)
             ->disableOriginalConstructor()
             ->getMock();
+
+        $this->salesOrderItemMocks = [
+            $this->getMockBuilder(SpySalesOrderItem::class)
+                ->disableOriginalConstructor()
+                ->getMock(),
+            $this->getMockBuilder(SpySalesOrderItem::class)
+                ->disableOriginalConstructor()
+                ->getMock(),
+        ];
+
+        $this->salesOrderItemGiftCardCollectionMocks = [
+            $this->getMockBuilder(ObjectCollection::class)
+                ->disableOriginalConstructor()
+                ->getMock(),
+            $this->getMockBuilder(ObjectCollection::class)
+                ->disableOriginalConstructor()
+                ->getMock(),
+        ];
+
+        $this->salesOrderItemGiftCardMocks = [
+            $this->getMockBuilder(SpySalesOrderItemGiftCard::class)
+                ->disableOriginalConstructor()
+                ->getMock(),
+            $this->getMockBuilder(SpySalesOrderItemGiftCard::class)
+                ->disableOriginalConstructor()
+                ->getMock(),
+        ];
 
         $this->jellyfishOrderItemsSplitter = new JellyfishOrderItemsSplitter();
     }
@@ -78,22 +121,6 @@ class JellyfishOrderItemsSplitterTest extends Unit
     {
         $jellyfishOrderItems = new ArrayObject();
         $jellyfishOrderItems->append($this->jellyfishOrderItemTransferMock);
-
-        $spySalesOrderItem1Mock = clone $this->spySalesOrderItemMock;
-        $spySalesOrderItem2Mock = clone $this->spySalesOrderItemMock;
-
-        $salesOrderItems = new ObjectCollection();
-        $salesOrderItems->append($spySalesOrderItem1Mock);
-        $salesOrderItems->append($spySalesOrderItem2Mock);
-
-        $spySalesOrderItemGiftCard1Mock = clone $this->spySalesOrderItemGiftCardMock;
-        $spySalesOrderItemGiftCard2Mock = clone $this->spySalesOrderItemGiftCardMock;
-
-        $salesOrderItem1GiftCards = new ObjectCollection();
-        $salesOrderItem1GiftCards->append($spySalesOrderItemGiftCard1Mock);
-
-        $salesOrderItem2GiftCards = new ObjectCollection();
-        $salesOrderItem2GiftCards->append($spySalesOrderItemGiftCard2Mock);
 
         $this->jellyfishOrderTransferMock->expects(static::atLeastOnce())
             ->method('getItems')
@@ -107,19 +134,37 @@ class JellyfishOrderItemsSplitterTest extends Unit
             ->method('getQuantity')
             ->willReturn(2);
 
-        $this->spySalesOrderMock->expects(static::atLeastOnce())
+        $this->salesOrderMock->expects(static::atLeastOnce())
             ->method('getItems')
-            ->willReturn($salesOrderItems);
+            ->willReturn($this->salesOrderItemCollectionMock);
+
+        $this->salesOrderItemCollectionMock->expects(static::atLeastOnce())
+            ->method('getIterator')
+            ->willReturn($this->salesOrderItemIteratorMock);
+
+        $this->salesOrderItemIteratorMock->expects(static::atLeastOnce())
+            ->method('rewind');
+
+        $this->salesOrderItemIteratorMock->expects(static::atLeastOnce())
+            ->method('valid')
+            ->willReturnOnConsecutiveCalls(true, true, false);
+
+        $this->salesOrderItemIteratorMock->expects(static::atLeastOnce())
+            ->method('current')
+            ->willReturnOnConsecutiveCalls($this->salesOrderItemMocks[0], $this->salesOrderItemMocks[1]);
+
+        $this->salesOrderItemIteratorMock->expects(static::atLeastOnce())
+            ->method('next');
 
         $this->jellyfishOrderItemTransferMock->expects(static::atLeastOnce())
             ->method('getSku')
             ->willReturn('sku');
 
-        $spySalesOrderItem1Mock->expects(static::atLeastOnce())
+        $this->salesOrderItemMocks[0]->expects(static::atLeastOnce())
             ->method('getSku')
             ->willReturn('sku');
 
-        $spySalesOrderItem2Mock->expects(static::atLeastOnce())
+        $this->salesOrderItemMocks[1]->expects(static::atLeastOnce())
             ->method('getSku')
             ->willReturn('sku');
 
@@ -151,59 +196,67 @@ class JellyfishOrderItemsSplitterTest extends Unit
             ->method('setGiftCardCode')
             ->willReturnSelf();
 
-        $spySalesOrderItem1Mock->expects(static::atLeastOnce())
+        $this->salesOrderItemMocks[0]->expects(static::atLeastOnce())
             ->method('getIdSalesOrderItem')
             ->willReturn(1);
 
-        $spySalesOrderItem2Mock->expects(static::atLeastOnce())
+        $this->salesOrderItemMocks[1]->expects(static::atLeastOnce())
             ->method('getIdSalesOrderItem')
             ->willReturn(2);
 
-        $spySalesOrderItem1Mock->expects(static::atLeastOnce())
+        $this->salesOrderItemMocks[0]->expects(static::atLeastOnce())
             ->method('getPrice')
             ->willReturn(1000);
 
-        $spySalesOrderItem2Mock->expects(static::atLeastOnce())
+        $this->salesOrderItemMocks[1]->expects(static::atLeastOnce())
             ->method('getPrice')
             ->willReturn(1000);
 
-        $spySalesOrderItem1Mock->expects(static::atLeastOnce())
+        $this->salesOrderItemMocks[0]->expects(static::atLeastOnce())
             ->method('getPrice')
             ->willReturn(1000);
 
-        $spySalesOrderItem2Mock->expects(static::atLeastOnce())
+        $this->salesOrderItemMocks[1]->expects(static::atLeastOnce())
             ->method('getPrice')
             ->willReturn(1000);
 
-        $spySalesOrderItem1Mock->expects(static::atLeastOnce())
+        $this->salesOrderItemMocks[0]->expects(static::atLeastOnce())
             ->method('getPriceToPayAggregation')
             ->willReturn(1000);
 
-        $spySalesOrderItem2Mock->expects(static::atLeastOnce())
+        $this->salesOrderItemMocks[1]->expects(static::atLeastOnce())
             ->method('getPriceToPayAggregation')
             ->willReturn(1000);
 
-        $spySalesOrderItem1Mock->expects(static::atLeastOnce())
+        $this->salesOrderItemMocks[0]->expects(static::atLeastOnce())
             ->method('getTaxAmount')
             ->willReturn(100);
 
-        $spySalesOrderItem2Mock->expects(static::atLeastOnce())
+        $this->salesOrderItemMocks[1]->expects(static::atLeastOnce())
             ->method('getTaxAmount')
             ->willReturn(100);
 
-        $spySalesOrderItem1Mock->expects(static::atLeastOnce())
+        $this->salesOrderItemMocks[0]->expects(static::atLeastOnce())
             ->method('getSpySalesOrderItemGiftCards')
-            ->willReturn($salesOrderItem1GiftCards);
+            ->willReturn($this->salesOrderItemGiftCardCollectionMocks[0]);
 
-        $spySalesOrderItem2Mock->expects(static::atLeastOnce())
+        $this->salesOrderItemMocks[1]->expects(static::atLeastOnce())
             ->method('getSpySalesOrderItemGiftCards')
-            ->willReturn($salesOrderItem2GiftCards);
+            ->willReturn($this->salesOrderItemGiftCardCollectionMocks[1]);
 
-        $spySalesOrderItemGiftCard1Mock->expects(static::atLeastOnce())
+        $this->salesOrderItemGiftCardCollectionMocks[0]->expects(static::atLeastOnce())
+            ->method('getFirst')
+            ->willReturn($this->salesOrderItemGiftCardMocks[0]);
+
+        $this->salesOrderItemGiftCardCollectionMocks[1]->expects(static::atLeastOnce())
+            ->method('getFirst')
+            ->willReturn($this->salesOrderItemGiftCardMocks[1]);
+
+        $this->salesOrderItemGiftCardMocks[0]->expects(static::atLeastOnce())
             ->method('getCode')
             ->willReturn('code1');
 
-        $spySalesOrderItemGiftCard2Mock->expects(static::atLeastOnce())
+        $this->salesOrderItemGiftCardMocks[1]->expects(static::atLeastOnce())
             ->method('getCode')
             ->willReturn('code2');
 
@@ -211,12 +264,8 @@ class JellyfishOrderItemsSplitterTest extends Unit
            ->method('toArray')
            ->willReturn([]);
 
-        $this->jellyfishOrderItemTransferMock->expects(static::atLeastOnce())
-            ->method('toArray')
-            ->willReturn([]);
-
         $jellyfishOrderTransfer = $this->jellyfishOrderItemsSplitter
-            ->splitGiftCardOrderItems($this->jellyfishOrderTransferMock, $this->spySalesOrderMock);
+            ->splitGiftCardOrderItems($this->jellyfishOrderTransferMock, $this->salesOrderMock);
 
         $this->assertInstanceOf(JellyfishOrderTransfer::class, $jellyfishOrderTransfer);
         $this->assertEquals(2, count($jellyfishOrderTransfer->getItems()));
