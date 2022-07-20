@@ -2,6 +2,7 @@
 
 namespace FondOfOryx\Zed\SplittableCheckout\Business\Workflow;
 
+use ArrayObject;
 use Codeception\Test\Unit;
 use FondOfOryx\Zed\SplittableCheckout\Communication\Plugin\PermissionExtension\PlaceOrderPermissionPlugin;
 use FondOfOryx\Zed\SplittableCheckout\Dependency\Facade\SplittableCheckoutToCheckoutFacadeInterface;
@@ -9,6 +10,7 @@ use FondOfOryx\Zed\SplittableCheckout\Dependency\Facade\SplittableCheckoutToPerm
 use FondOfOryx\Zed\SplittableCheckout\Dependency\Facade\SplittableCheckoutToQuoteFacadeInterface;
 use FondOfOryx\Zed\SplittableCheckout\Dependency\Facade\SplittableCheckoutToSplittableQuoteFacadeInterface;
 use FondOfOryx\Zed\SplittableCheckoutExtension\Dependency\Plugin\IdentifierExtractorPluginInterface;
+use Generated\Shared\Transfer\CheckoutErrorTransfer;
 use Generated\Shared\Transfer\CheckoutResponseTransfer;
 use Generated\Shared\Transfer\QuoteResponseTransfer;
 use Generated\Shared\Transfer\QuoteTransfer;
@@ -70,6 +72,11 @@ class SplittableCheckoutWorkflowTest extends Unit
     protected $saveOrderTransferMock;
 
     /**
+     * @var \Generated\Shared\Transfer\CheckoutErrorTransfer|\PHPUnit\Framework\MockObject\MockObject
+     */
+    protected $checkoutErrorTransferMock;
+
+    /**
      * @var \FondOfOryx\Zed\SplittableCheckout\Business\Workflow\SplittableCheckoutWorkflow
      */
     protected $splittableCheckoutWorkflow;
@@ -116,6 +123,10 @@ class SplittableCheckoutWorkflowTest extends Unit
             ->getMock();
 
         $this->checkoutResponseTransferMock = $this->getMockBuilder(CheckoutResponseTransfer::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $this->checkoutErrorTransferMock = $this->getMockBuilder(CheckoutErrorTransfer::class)
             ->disableOriginalConstructor()
             ->getMock();
 
@@ -324,6 +335,14 @@ class SplittableCheckoutWorkflowTest extends Unit
             ->method('getSaveOrder')
             ->willReturn(null);
 
+        $this->checkoutResponseTransferMock->expects(static::atLeastOnce())
+            ->method('getErrors')
+            ->willReturn(new ArrayObject([$this->checkoutErrorTransferMock]));
+
+        $this->checkoutErrorTransferMock->expects(static::atLeastOnce())
+            ->method('getMessage')
+            ->willReturn('foo');
+
         $this->checkoutResponseTransferMock->expects(static::never())
             ->method('getIsSuccess');
 
@@ -394,6 +413,9 @@ class SplittableCheckoutWorkflowTest extends Unit
         $this->checkoutResponseTransferMock->expects(static::atLeastOnce())
             ->method('getIsSuccess')
             ->willReturn(true);
+
+        $this->checkoutResponseTransferMock->expects(static::never())
+            ->method('getErrors');
 
         $this->saveOrderTransferMock->expects(static::atLeastOnce())
             ->method('getOrderReference')
@@ -519,6 +541,9 @@ class SplittableCheckoutWorkflowTest extends Unit
         $this->checkoutResponseTransferMock->expects(static::atLeastOnce())
             ->method('getIsSuccess')
             ->willReturn(true);
+
+        $this->checkoutResponseTransferMock->expects(static::never())
+            ->method('getErrors');
 
         $this->saveOrderTransferMock->expects(static::atLeastOnce())
             ->method('getOrderReference')

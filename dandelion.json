@@ -648,7 +648,7 @@
     },
     "splittable-checkout": {
       "path": "bundles/splittable-checkout/",
-      "version": "1.3.0"
+      "version": "1.4.0"
     },
     "splittable-checkout-company-user-connector": {
       "path": "bundles/splittable-checkout-company-user-connector/",
