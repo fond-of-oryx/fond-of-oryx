@@ -16,6 +16,7 @@ use Orm\Zed\ErpInvoice\Persistence\FooErpInvoiceAmount;
 use Orm\Zed\ErpInvoice\Persistence\FooErpInvoiceExpense;
 use Orm\Zed\ErpInvoice\Persistence\FooErpInvoiceItem;
 use Orm\Zed\ErpInvoice\Persistence\FooErpInvoiceQuery;
+use Propel\Runtime\Collection\CollectionIterator;
 use Propel\Runtime\Collection\ObjectCollection;
 
 class ErpInvoicePageSearchPublisherTest extends Unit
@@ -91,6 +92,26 @@ class ErpInvoicePageSearchPublisherTest extends Unit
     protected $objectCollectionMock;
 
     /**
+     * @var \PHPUnit\Framework\MockObject\MockObject|\Propel\Runtime\Collection\ObjectCollection
+     */
+    protected $erpInvoiceItemCollectionMock;
+
+    /**
+     * @var \PHPUnit\Framework\MockObject\MockObject|\Propel\Runtime\Collection\CollectionIterator
+     */
+    protected $erpInvoiceItemIteratorMock;
+
+    /**
+     * @var \PHPUnit\Framework\MockObject\MockObject|\Propel\Runtime\Collection\ObjectCollection
+     */
+    protected $erpInvoiceExpenseCollectionMock;
+
+    /**
+     * @var \PHPUnit\Framework\MockObject\MockObject|\Propel\Runtime\Collection\CollectionIterator
+     */
+    protected $erpInvoiceExpenseIteratorMock;
+
+    /**
      * @return void
      */
     protected function _before(): void
@@ -131,11 +152,27 @@ class ErpInvoicePageSearchPublisherTest extends Unit
             ->disableOriginalConstructor()
             ->getMock();
 
+        $this->erpInvoiceItemCollectionMock = $this->getMockBuilder(ObjectCollection::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $this->erpInvoiceItemIteratorMock = $this->getMockBuilder(CollectionIterator::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
         $this->erpInvoiceItemMock = $this->getMockBuilder(FooErpInvoiceItem::class)
             ->disableOriginalConstructor()
             ->getMock();
 
         $this->erpInvoiceExpenseMock = $this->getMockBuilder(FooErpInvoiceExpense::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $this->erpInvoiceExpenseCollectionMock = $this->getMockBuilder(ObjectCollection::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $this->erpInvoiceExpenseIteratorMock = $this->getMockBuilder(CollectionIterator::class)
             ->disableOriginalConstructor()
             ->getMock();
 
@@ -162,11 +199,9 @@ class ErpInvoicePageSearchPublisherTest extends Unit
     {
         $erpInvoiceIds = [];
 
-        $orderEntities = [
+        $erpInvoiceMocks = [
             $this->erpInvoiceMock,
         ];
-        $itemObjectCollection = new ObjectCollection([$this->erpInvoiceItemMock]);
-        $expenseObjectCollection = new ObjectCollection([$this->erpInvoiceExpenseMock]);
 
         $updatedAt = new DateTime('NOW');
 
@@ -181,7 +216,7 @@ class ErpInvoicePageSearchPublisherTest extends Unit
 
         $this->objectCollectionMock->expects(static::atLeastOnce())
             ->method('getData')
-            ->willReturn($orderEntities);
+            ->willReturn($erpInvoiceMocks);
 
         $this->erpInvoiceMock->expects(static::atLeastOnce())
             ->method('toArray')
@@ -193,19 +228,63 @@ class ErpInvoicePageSearchPublisherTest extends Unit
 
         $this->erpInvoiceMock->expects(static::atLeastOnce())
             ->method('getFooErpInvoiceItems')
-            ->willReturn($itemObjectCollection);
+            ->willReturn($this->erpInvoiceItemCollectionMock);
 
-        $this->erpInvoiceMock->expects(static::atLeastOnce())
-            ->method('getFooErpInvoiceExpenses')
-            ->willReturn($expenseObjectCollection);
+        $this->erpInvoiceItemCollectionMock->expects(static::atLeastOnce())
+            ->method('getIterator')
+            ->willReturn($this->erpInvoiceItemIteratorMock);
+
+        $this->erpInvoiceItemIteratorMock->expects(static::atLeastOnce())
+            ->method('rewind');
+
+        $this->erpInvoiceItemIteratorMock->expects(static::atLeastOnce())
+            ->method('valid')
+            ->willReturnOnConsecutiveCalls(true, false);
+
+        $this->erpInvoiceItemIteratorMock->expects(static::atLeastOnce())
+            ->method('current')
+            ->willReturn($this->erpInvoiceItemMock);
+
+        $this->erpInvoiceItemIteratorMock->expects(static::atLeastOnce())
+            ->method('next');
 
         $this->erpInvoiceItemMock->expects(static::atLeastOnce())
             ->method('getFooErpInvoiceAmount')
             ->willReturn($this->amountMock);
 
+        $this->amountMock->expects(static::atLeastOnce())
+            ->method('toArray')
+            ->willReturn([]);
+
         $this->erpInvoiceItemMock->expects(static::atLeastOnce())
             ->method('getFooErpInvoiceAmountUnitPrice')
             ->willReturn($this->amountMock);
+
+        $this->erpInvoiceItemMock->expects(static::atLeastOnce())
+            ->method('toArray')
+            ->willReturn([]);
+
+        $this->erpInvoiceMock->expects(static::atLeastOnce())
+            ->method('getFooErpInvoiceExpenses')
+            ->willReturn($this->erpInvoiceExpenseCollectionMock);
+
+        $this->erpInvoiceExpenseCollectionMock->expects(static::atLeastOnce())
+            ->method('getIterator')
+            ->willReturn($this->erpInvoiceExpenseIteratorMock);
+
+        $this->erpInvoiceExpenseIteratorMock->expects(static::atLeastOnce())
+            ->method('rewind');
+
+        $this->erpInvoiceExpenseIteratorMock->expects(static::atLeastOnce())
+            ->method('valid')
+            ->willReturnOnConsecutiveCalls(true, false);
+
+        $this->erpInvoiceExpenseIteratorMock->expects(static::atLeastOnce())
+            ->method('current')
+            ->willReturn($this->erpInvoiceExpenseMock);
+
+        $this->erpInvoiceExpenseIteratorMock->expects(static::atLeastOnce())
+            ->method('next');
 
         $this->erpInvoiceExpenseMock->expects(static::atLeastOnce())
             ->method('getFooErpInvoiceAmount')

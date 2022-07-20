@@ -6,6 +6,7 @@ use Codeception\Test\Unit;
 use FondOfOryx\Zed\GiftCardProportionalValuePayoneConnector\GiftCardProportionalValuePayoneConnectorConfig;
 use Orm\Zed\Payone\Persistence\SpyPaymentPayone;
 use Orm\Zed\Sales\Persistence\SpySalesOrder;
+use Propel\Runtime\Collection\CollectionIterator;
 use Propel\Runtime\Collection\ObjectCollection;
 
 class IsPayonePaymentValidatorTest extends Unit
@@ -29,6 +30,11 @@ class IsPayonePaymentValidatorTest extends Unit
      * @var \Propel\Runtime\Collection\ObjectCollection|\PHPUnit\Framework\MockObject\MockObject
      */
     protected $objectCollectionMock;
+
+    /**
+     * @var \PHPUnit\Framework\MockObject\MockObject|\Propel\Runtime\Collection\CollectionIterator
+     */
+    protected $iteratorMock;
 
     /**
      * @var \FondOfOryx\Zed\GiftCardProportionalValuePayoneConnector\Business\Validator\IsPayonePaymentValidatorInterface
@@ -62,6 +68,11 @@ class IsPayonePaymentValidatorTest extends Unit
                 ->disableOriginalConstructor()
                 ->getMock();
 
+        $this->iteratorMock =
+            $this->getMockBuilder(CollectionIterator::class)
+                ->disableOriginalConstructor()
+                ->getMock();
+
         $this->validator = new IsPayonePaymentValidator($this->configMock);
     }
 
@@ -70,10 +81,28 @@ class IsPayonePaymentValidatorTest extends Unit
      */
     public function testValidateTrue(): void
     {
-        $collection = new ObjectCollection([$this->spyPaymentPayoneMock]);
         $this->spySalesOrderMock->expects(static::atLeastOnce())
             ->method('getSpyPaymentPayones')
-            ->willReturn($collection);
+            ->willReturn($this->objectCollectionMock);
+
+        $this->objectCollectionMock->expects(static::atLeastOnce())
+            ->method('count')
+            ->willReturn(1);
+
+        $this->objectCollectionMock->expects(static::atLeastOnce())
+            ->method('getIterator')
+            ->willReturn($this->iteratorMock);
+
+        $this->iteratorMock->expects(static::atLeastOnce())
+            ->method('rewind');
+
+        $this->iteratorMock->expects(static::atLeastOnce())
+            ->method('valid')
+            ->willReturnOnConsecutiveCalls(true, false);
+
+        $this->iteratorMock->expects(static::atLeastOnce())
+            ->method('current')
+            ->willReturn($this->spyPaymentPayoneMock);
 
         $this->spyPaymentPayoneMock->expects(static::atLeastOnce())
             ->method('getPaymentMethod')
@@ -115,10 +144,31 @@ class IsPayonePaymentValidatorTest extends Unit
      */
     public function testValidateTrueAcceptAllPayoneMethods(): void
     {
-        $collection = new ObjectCollection([$this->spyPaymentPayoneMock]);
         $this->spySalesOrderMock->expects(static::atLeastOnce())
             ->method('getSpyPaymentPayones')
-            ->willReturn($collection);
+            ->willReturn($this->objectCollectionMock);
+
+        $this->objectCollectionMock->expects(static::atLeastOnce())
+            ->method('count')
+            ->willReturn(1);
+
+        $this->objectCollectionMock->expects(static::atLeastOnce())
+            ->method('getIterator')
+            ->willReturn($this->iteratorMock);
+
+        $this->iteratorMock->expects(static::atLeastOnce())
+            ->method('rewind');
+
+        $this->iteratorMock->expects(static::atLeastOnce())
+            ->method('valid')
+            ->willReturnOnConsecutiveCalls(true, false);
+
+        $this->iteratorMock->expects(static::atLeastOnce())
+            ->method('current')
+            ->willReturn($this->spyPaymentPayoneMock);
+
+        $this->iteratorMock->expects(static::atLeastOnce())
+            ->method('next');
 
         $this->spyPaymentPayoneMock->expects(static::atLeastOnce())
             ->method('getPaymentMethod')

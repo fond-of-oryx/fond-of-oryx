@@ -88,7 +88,9 @@ class ErpDeliveryNotePageSearchPublisher implements ErpDeliveryNotePageSearchPub
      */
     public function publish(array $erpDeliveryNoteIds): void
     {
-        $fooErpDeliveryNoteEntities = $this->queryContainer->queryErpDeliveryNoteWithAddressesAndCompanyBusinessUnitByErpDeliveryNoteIds($erpDeliveryNoteIds)->find()
+        $fooErpDeliveryNoteEntities = $this->queryContainer
+            ->queryErpDeliveryNoteWithAddressesAndCompanyBusinessUnitByErpDeliveryNoteIds($erpDeliveryNoteIds)
+            ->find()
             ->getData();
 
         if (count($erpDeliveryNoteIds) > 0) {

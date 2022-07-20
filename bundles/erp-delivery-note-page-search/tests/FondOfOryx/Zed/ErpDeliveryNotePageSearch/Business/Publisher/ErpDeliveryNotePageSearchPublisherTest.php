@@ -15,6 +15,7 @@ use Orm\Zed\ErpDeliveryNote\Persistence\FooErpDeliveryNoteAddress;
 use Orm\Zed\ErpDeliveryNote\Persistence\FooErpDeliveryNoteExpense;
 use Orm\Zed\ErpDeliveryNote\Persistence\FooErpDeliveryNoteItem;
 use Orm\Zed\ErpDeliveryNote\Persistence\FooErpDeliveryNoteQuery;
+use Propel\Runtime\Collection\CollectionIterator;
 use Propel\Runtime\Collection\ObjectCollection;
 
 class ErpDeliveryNotePageSearchPublisherTest extends Unit
@@ -82,7 +83,27 @@ class ErpDeliveryNotePageSearchPublisherTest extends Unit
     /**
      * @var \PHPUnit\Framework\MockObject\MockObject|\Propel\Runtime\Collection\ObjectCollection
      */
-    protected $objectCollectionMock;
+    protected $erpDeliveryNoteCollectionMock;
+
+    /**
+     * @var \PHPUnit\Framework\MockObject\MockObject|\Propel\Runtime\Collection\ObjectCollection
+     */
+    protected $erpDeliveryNoteItemCollectionMock;
+
+    /**
+     * @var \PHPUnit\Framework\MockObject\MockObject|\Propel\Runtime\Collection\ObjectCollection
+     */
+    protected $erpDeliveryNoteExpenseCollectionMock;
+
+    /**
+     * @var \PHPUnit\Framework\MockObject\MockObject|\Propel\Runtime\Collection\CollectionIterator
+     */
+    protected $erpDeliveryNoteExpenseIteratorMock;
+
+    /**
+     * @var \PHPUnit\Framework\MockObject\MockObject|\Propel\Runtime\Collection\CollectionIterator
+     */
+    protected $erpDeliveryNoteItemIteratorMock;
 
     /**
      * @return void
@@ -109,7 +130,7 @@ class ErpDeliveryNotePageSearchPublisherTest extends Unit
             ->disableOriginalConstructor()
             ->getMock();
 
-        $this->objectCollectionMock = $this->getMockBuilder(ObjectCollection::class)
+        $this->erpDeliveryNoteCollectionMock = $this->getMockBuilder(ObjectCollection::class)
             ->disableOriginalConstructor()
             ->getMock();
 
@@ -121,7 +142,23 @@ class ErpDeliveryNotePageSearchPublisherTest extends Unit
             ->disableOriginalConstructor()
             ->getMock();
 
+        $this->erpDeliveryNoteItemCollectionMock = $this->getMockBuilder(ObjectCollection::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $this->erpDeliveryNoteItemIteratorMock = $this->getMockBuilder(CollectionIterator::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
         $this->erpDeliveryNoteItemMock = $this->getMockBuilder(FooErpDeliveryNoteItem::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $this->erpDeliveryNoteExpenseCollectionMock = $this->getMockBuilder(ObjectCollection::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $this->erpDeliveryNoteExpenseIteratorMock = $this->getMockBuilder(CollectionIterator::class)
             ->disableOriginalConstructor()
             ->getMock();
 
@@ -152,11 +189,9 @@ class ErpDeliveryNotePageSearchPublisherTest extends Unit
     {
         $erpDeliveryNoteIds = [];
 
-        $orderEntities = [
+        $erpDeliveryNoteMocks = [
             $this->erpDeliveryNoteMock,
         ];
-        $itemObjectCollection = new ObjectCollection([$this->erpDeliveryNoteItemMock]);
-        $expenseObjectCollection = new ObjectCollection([$this->erpDeliveryNoteExpenseMock]);
 
         $updatedAt = new DateTime('NOW');
 
@@ -167,11 +202,11 @@ class ErpDeliveryNotePageSearchPublisherTest extends Unit
 
         $this->erpDeliveryNoteQueryMock->expects(static::atLeastOnce())
             ->method('find')
-            ->willReturn($this->objectCollectionMock);
+            ->willReturn($this->erpDeliveryNoteCollectionMock);
 
-        $this->objectCollectionMock->expects(static::atLeastOnce())
+        $this->erpDeliveryNoteCollectionMock->expects(static::atLeastOnce())
             ->method('getData')
-            ->willReturn($orderEntities);
+            ->willReturn($erpDeliveryNoteMocks);
 
         $this->erpDeliveryNoteMock->expects(static::atLeastOnce())
             ->method('toArray')
@@ -183,11 +218,55 @@ class ErpDeliveryNotePageSearchPublisherTest extends Unit
 
         $this->erpDeliveryNoteMock->expects(static::atLeastOnce())
             ->method('getFooErpDeliveryNoteItems')
-            ->willReturn($itemObjectCollection);
+            ->willReturn($this->erpDeliveryNoteItemCollectionMock);
+
+        $this->erpDeliveryNoteItemCollectionMock->expects(static::atLeastOnce())
+            ->method('getIterator')
+            ->willReturn($this->erpDeliveryNoteItemIteratorMock);
+
+        $this->erpDeliveryNoteItemIteratorMock->expects(static::atLeastOnce())
+            ->method('rewind');
+
+        $this->erpDeliveryNoteItemIteratorMock->expects(static::atLeastOnce())
+            ->method('valid')
+            ->willReturnOnConsecutiveCalls(true, false);
+
+        $this->erpDeliveryNoteItemIteratorMock->expects(static::atLeastOnce())
+            ->method('current')
+            ->willReturn($this->erpDeliveryNoteItemMock);
+
+        $this->erpDeliveryNoteItemIteratorMock->expects(static::atLeastOnce())
+            ->method('next');
+
+        $this->erpDeliveryNoteItemMock->expects(static::atLeastOnce())
+            ->method('toArray')
+            ->willReturn([]);
 
         $this->erpDeliveryNoteMock->expects(static::atLeastOnce())
             ->method('getFooErpDeliveryNoteExpenses')
-            ->willReturn($expenseObjectCollection);
+            ->willReturn($this->erpDeliveryNoteExpenseCollectionMock);
+
+        $this->erpDeliveryNoteExpenseCollectionMock->expects(static::atLeastOnce())
+            ->method('getIterator')
+            ->willReturn($this->erpDeliveryNoteExpenseIteratorMock);
+
+        $this->erpDeliveryNoteExpenseIteratorMock->expects(static::atLeastOnce())
+            ->method('rewind');
+
+        $this->erpDeliveryNoteExpenseIteratorMock->expects(static::atLeastOnce())
+            ->method('valid')
+            ->willReturnOnConsecutiveCalls(true, false);
+
+        $this->erpDeliveryNoteExpenseIteratorMock->expects(static::atLeastOnce())
+            ->method('current')
+            ->willReturn($this->erpDeliveryNoteExpenseMock);
+
+        $this->erpDeliveryNoteExpenseIteratorMock->expects(static::atLeastOnce())
+            ->method('next');
+
+        $this->erpDeliveryNoteExpenseMock->expects(static::atLeastOnce())
+            ->method('toArray')
+            ->willReturn([]);
 
         $this->erpDeliveryNoteMock->expects(static::atLeastOnce())
             ->method('getFooErpDeliveryNoteBillingAddress')

@@ -47,7 +47,8 @@ class ProductLocaleRestrictionRepository extends AbstractRepository implements P
 
         return $fooProductAbstractLocaleRestrictionQuery
             ->select(FooProductAbstractLocaleRestrictionTableMap::COL_FK_LOCALE)
-            ->findByFkProductAbstract($idProductAbstract)
+            ->filterByFkProductAbstract($idProductAbstract)
+            ->find()
             ->toArray();
     }
 

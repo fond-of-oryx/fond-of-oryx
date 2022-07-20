@@ -11,11 +11,6 @@ use Propel\Runtime\Collection\ObjectCollection;
 class GiftCardCreditMemoMapperExpanderPluginTest extends Unit
 {
     /**
-     * @var \FondOfOryx\Zed\CreditMemoGiftCardConnector\Communication\Plugin\CreditMemoExtension\GiftCardCreditMemoMapperExpanderPlugin
-     */
-    protected $plugin;
-
-    /**
      * @var \Generated\Shared\Transfer\CreditMemoTransfer|\PHPUnit\Framework\MockObject\MockObject|null
      */
     protected $creditMemoTransferMock;
@@ -26,9 +21,19 @@ class GiftCardCreditMemoMapperExpanderPluginTest extends Unit
     protected $creditMemoEntityMock;
 
     /**
+     * @var \PHPUnit\Framework\MockObject\MockObject|\Propel\Runtime\Collection\ObjectCollection
+     */
+    protected $creditMemoGiftCardEntityCollectionMock;
+
+    /**
      * @var \Orm\Zed\CreditMemo\Persistence\FooCreditMemoGiftCard|\PHPUnit\Framework\MockObject\MockObject|null
      */
     protected $creditMemoGiftCardEntityMock;
+
+    /**
+     * @var \FondOfOryx\Zed\CreditMemoGiftCardConnector\Communication\Plugin\CreditMemoExtension\GiftCardCreditMemoMapperExpanderPlugin
+     */
+    protected $plugin;
 
     /**
      * @return void
@@ -45,6 +50,11 @@ class GiftCardCreditMemoMapperExpanderPluginTest extends Unit
             ->disableOriginalConstructor()
             ->getMock();
 
+        $this->creditMemoGiftCardEntityCollectionMock = $this
+            ->getMockBuilder(ObjectCollection::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
         $this->creditMemoGiftCardEntityMock = $this
             ->getMockBuilder(FooCreditMemoGiftCard::class)
             ->disableOriginalConstructor()
@@ -58,16 +68,17 @@ class GiftCardCreditMemoMapperExpanderPluginTest extends Unit
      */
     public function testExpand(): void
     {
-        $creditMemoGiftCards = new ObjectCollection();
-        $creditMemoGiftCards->append($this->creditMemoGiftCardEntityMock);
-
         $this->creditMemoEntityMock->expects(static::atLeastOnce())
             ->method('hasGiftCards')
             ->willReturn(true);
 
         $this->creditMemoEntityMock->expects(static::atLeastOnce())
             ->method('getFooCreditMemoGiftCards')
-            ->willReturn($creditMemoGiftCards);
+            ->willReturn($this->creditMemoGiftCardEntityCollectionMock);
+
+        $this->creditMemoGiftCardEntityCollectionMock->expects(static::atLeastOnce())
+            ->method('getData')
+            ->willReturn([$this->creditMemoGiftCardEntityMock]);
 
         $this->creditMemoGiftCardEntityMock->expects(static::atLeastOnce())
             ->method('toArray')

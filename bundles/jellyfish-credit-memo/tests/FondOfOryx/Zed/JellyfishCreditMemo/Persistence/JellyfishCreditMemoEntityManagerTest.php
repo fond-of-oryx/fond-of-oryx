@@ -72,7 +72,7 @@ class JellyfishCreditMemoEntityManagerTest extends Unit
     {
         $this->factoryMock->expects(static::once())->method('createCreditMemoQuery')->willReturn($this->fooCreditMemoQueryMock);
         $this->fooCreditMemoQueryMock->expects(static::once())->method('filterByIdCreditMemo')->willReturnSelf();
-        $this->fooCreditMemoQueryMock->expects(static::once())->method('update')->willReturnSelf();
+        $this->fooCreditMemoQueryMock->expects(static::once())->method('update')->willReturn(1);
         $this->jellyfishCreditMemoTransferMock->expects(static::once())->method('getId')->willReturn(1);
 
         $this->em->updateExportState($this->jellyfishCreditMemoTransferMock);

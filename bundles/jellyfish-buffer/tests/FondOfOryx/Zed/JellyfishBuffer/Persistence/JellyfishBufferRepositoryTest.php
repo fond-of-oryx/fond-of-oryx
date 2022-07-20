@@ -54,6 +54,11 @@ class JellyfishBufferRepositoryTest extends Unit
     protected $jellyfishBufferMapperMock;
 
     /**
+     * @var \PHPUnit\Framework\MockObject\MockObject|\Propel\Runtime\Collection\ObjectCollection
+     */
+    protected $objectCollectionMock;
+
+    /**
      * @return void
      */
     protected function _before(): void
@@ -82,6 +87,10 @@ class JellyfishBufferRepositoryTest extends Unit
             ->disableOriginalConstructor()
             ->getMock();
 
+        $this->objectCollectionMock = $this->getMockBuilder(ObjectCollection::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
         $this->entityMock = $this->getMockBuilder(FooExportedOrder::class)
             ->disableOriginalConstructor()
             ->getMock();
@@ -95,17 +104,19 @@ class JellyfishBufferRepositoryTest extends Unit
      */
     public function testFindBufferedOrders(): void
     {
-        $this->jellyfishBufferPersistenceFactoryMock->expects($this->atLeastOnce())->method('createExportedOrderQuery')->willReturn($this->exportedOrderQueryMock);
-        $this->jellyfishBufferPersistenceFactoryMock->expects($this->once())->method('createJellyfishBufferMapper')->willReturn($this->jellyfishBufferMapperMock);
-        $this->filterTransferMock->expects($this->atLeastOnce())->method('getForceReexport')->willReturn(false);
-        $this->filterTransferMock->expects($this->atLeastOnce())->method('getStore')->willReturn('testStore');
-        $this->filterTransferMock->expects($this->atLeastOnce())->method('getIds')->willReturn([1]);
-        $this->exportedOrderQueryMock->expects($this->once())->method('filterByIsReexported')->with(false);
-        $this->exportedOrderQueryMock->expects($this->atLeastOnce())->method('filterByStore');
-        $this->exportedOrderQueryMock->expects($this->atLeastOnce())->method('filterByFkSalesOrder_In')->willReturnSelf();
-        $this->exportedOrderQueryMock->expects($this->never())->method('filterByFkSalesOrder_Between');
-        $this->exportedOrderQueryMock->expects($this->once())->method('find')->willReturn(new ObjectCollection([$this->entityMock]));
-        $this->jellyfishBufferMapperMock->expects($this->once())->method('fromEntity')->willReturn($this->exportedOrderTransferMock);
+        $this->jellyfishBufferPersistenceFactoryMock->expects(static::atLeastOnce())->method('createExportedOrderQuery')->willReturn($this->exportedOrderQueryMock);
+        $this->jellyfishBufferPersistenceFactoryMock->expects(static::once())->method('createJellyfishBufferMapper')->willReturn($this->jellyfishBufferMapperMock);
+        $this->filterTransferMock->expects(static::atLeastOnce())->method('getForceReexport')->willReturn(false);
+        $this->filterTransferMock->expects(static::atLeastOnce())->method('getStore')->willReturn('testStore');
+        $this->filterTransferMock->expects(static::atLeastOnce())->method('getIds')->willReturn([1]);
+        $this->exportedOrderQueryMock->expects(static::once())->method('filterByIsReexported')->with(false);
+        $this->exportedOrderQueryMock->expects(static::atLeastOnce())->method('filterByStore');
+        $this->exportedOrderQueryMock->expects(static::atLeastOnce())->method('filterByFkSalesOrder_In')->willReturnSelf();
+        $this->exportedOrderQueryMock->expects(static::never())->method('filterByFkSalesOrder_Between');
+        $this->exportedOrderQueryMock->expects(static::once())->method('find')->willReturn($this->objectCollectionMock);
+        $this->objectCollectionMock->expects(static::atLeastOnce())->method('getData')->willReturn([$this->entityMock]);
+
+        $this->jellyfishBufferMapperMock->expects(static::once())->method('fromEntity')->willReturn($this->exportedOrderTransferMock);
 
         $collection = $this->repository->findBufferedOrders($this->filterTransferMock);
 
@@ -117,19 +128,20 @@ class JellyfishBufferRepositoryTest extends Unit
      */
     public function testFindBufferedOrdersWithRange(): void
     {
-        $this->jellyfishBufferPersistenceFactoryMock->expects($this->atLeastOnce())->method('createExportedOrderQuery')->willReturn($this->exportedOrderQueryMock);
-        $this->jellyfishBufferPersistenceFactoryMock->expects($this->once())->method('createJellyfishBufferMapper')->willReturn($this->jellyfishBufferMapperMock);
-        $this->filterTransferMock->expects($this->atLeastOnce())->method('getForceReexport')->willReturn(false);
-        $this->filterTransferMock->expects($this->atLeastOnce())->method('getStore')->willReturn('testStore');
-        $this->filterTransferMock->expects($this->once())->method('getIds');
-        $this->filterTransferMock->expects($this->once())->method('getRangeFrom')->willReturn(1);
-        $this->filterTransferMock->expects($this->once())->method('getRangeTo')->willReturn(10);
-        $this->exportedOrderQueryMock->expects($this->once())->method('filterByIsReexported')->with(false);
-        $this->exportedOrderQueryMock->expects($this->atLeastOnce())->method('filterByStore');
-        $this->exportedOrderQueryMock->expects($this->never())->method('filterByFkSalesOrder_In');
-        $this->exportedOrderQueryMock->expects($this->once())->method('filterByFkSalesOrder_Between')->willReturnSelf();
-        $this->exportedOrderQueryMock->expects($this->once())->method('find')->willReturn(new ObjectCollection([$this->entityMock]));
-        $this->jellyfishBufferMapperMock->expects($this->once())->method('fromEntity')->willReturn($this->exportedOrderTransferMock);
+        $this->jellyfishBufferPersistenceFactoryMock->expects(static::atLeastOnce())->method('createExportedOrderQuery')->willReturn($this->exportedOrderQueryMock);
+        $this->jellyfishBufferPersistenceFactoryMock->expects(static::once())->method('createJellyfishBufferMapper')->willReturn($this->jellyfishBufferMapperMock);
+        $this->filterTransferMock->expects(static::atLeastOnce())->method('getForceReexport')->willReturn(false);
+        $this->filterTransferMock->expects(static::atLeastOnce())->method('getStore')->willReturn('testStore');
+        $this->filterTransferMock->expects(static::once())->method('getIds');
+        $this->filterTransferMock->expects(static::once())->method('getRangeFrom')->willReturn(1);
+        $this->filterTransferMock->expects(static::once())->method('getRangeTo')->willReturn(10);
+        $this->exportedOrderQueryMock->expects(static::once())->method('filterByIsReexported')->with(false);
+        $this->exportedOrderQueryMock->expects(static::atLeastOnce())->method('filterByStore');
+        $this->exportedOrderQueryMock->expects(static::never())->method('filterByFkSalesOrder_In');
+        $this->exportedOrderQueryMock->expects(static::once())->method('filterByFkSalesOrder_Between')->willReturnSelf();
+        $this->exportedOrderQueryMock->expects(static::once())->method('find')->willReturn($this->objectCollectionMock);
+        $this->objectCollectionMock->expects(static::atLeastOnce())->method('getData')->willReturn([$this->entityMock]);
+        $this->jellyfishBufferMapperMock->expects(static::once())->method('fromEntity')->willReturn($this->exportedOrderTransferMock);
 
         $collection = $this->repository->findBufferedOrders($this->filterTransferMock);
 

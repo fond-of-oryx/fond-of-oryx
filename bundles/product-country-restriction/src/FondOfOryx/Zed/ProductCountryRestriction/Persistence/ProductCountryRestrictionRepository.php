@@ -49,7 +49,8 @@ class ProductCountryRestrictionRepository extends AbstractRepository implements 
 
         return $fooProductAbstractCountryRestrictionQuery
             ->select(FooProductAbstractCountryRestrictionTableMap::COL_FK_COUNTRY)
-            ->findByFkProductAbstract($idProductAbstract)
+            ->filterByFkProductAbstract($idProductAbstract)
+            ->find()
             ->toArray();
     }
 

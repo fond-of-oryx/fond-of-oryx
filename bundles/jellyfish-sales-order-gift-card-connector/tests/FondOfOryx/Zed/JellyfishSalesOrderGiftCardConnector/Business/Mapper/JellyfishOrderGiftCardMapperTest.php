@@ -10,31 +10,40 @@ use Propel\Runtime\Collection\ObjectCollection;
 
 class JellyfishOrderGiftCardMapperTest extends Unit
 {
+ /**
+  * @var \PHPUnit\Framework\MockObject\MockObject|\Orm\Zed\Payment\Persistence\SpySalesPayment
+  */
+    protected $salesPaymentMock;
+
+    /**
+     * @var \PHPUnit\Framework\MockObject\MockObject|\Orm\Zed\GiftCard\Persistence\SpyPaymentGiftCard
+     */
+    protected $paymentGiftCardMock;
+
+    /**
+     * @var \PHPUnit\Framework\MockObject\MockObject|\Propel\Runtime\Collection\ObjectCollection
+     */
+    protected $paymentGiftCardCollectionMock;
+
     /**
      * @var \FondOfOryx\Zed\JellyfishSalesOrderGiftCardConnector\Business\Mapper\JellyfishOrderGiftCardMapperInterface
      */
     protected $jellyfishOrderGiftCardMapper;
 
     /**
-     * @var \PHPUnit\Framework\MockObject\MockObject|\Orm\Zed\Payment\Persistence\SpySalesPayment
-     */
-    protected $spySalesPaymentMock;
-
-    /**
-     * @var \PHPUnit\Framework\MockObject\MockObject|\Orm\Zed\GiftCard\Persistence\SpyPaymentGiftCard
-     */
-    protected $spyPaymentGiftCardMock;
-
-    /**
      * @return void
      */
     protected function _before(): void
     {
-        $this->spySalesPaymentMock = $this->getMockBuilder(SpySalesPayment::class)
+        $this->salesPaymentMock = $this->getMockBuilder(SpySalesPayment::class)
             ->disableOriginalConstructor()
             ->getMock();
 
-        $this->spyPaymentGiftCardMock = $this->getMockBuilder(SpyPaymentGiftCard::class)
+        $this->paymentGiftCardMock = $this->getMockBuilder(SpyPaymentGiftCard::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $this->paymentGiftCardCollectionMock = $this->getMockBuilder(ObjectCollection::class)
             ->disableOriginalConstructor()
             ->getMock();
 
@@ -48,27 +57,32 @@ class JellyfishOrderGiftCardMapperTest extends Unit
     {
         $data = [
             'amount' => '1000',
-            'giftCardPayments' => new ObjectCollection([$this->spyPaymentGiftCardMock]),
+            'giftCardPayments' => $this->paymentGiftCardCollectionMock,
             'code' => 'code',
         ];
 
-        $this->spySalesPaymentMock->expects($this->atLeastOnce())
+        $this->salesPaymentMock->expects(static::atLeastOnce())
             ->method('getAmount')
             ->willReturn($data['amount']);
 
-        $this->spySalesPaymentMock->expects($this->atLeastOnce())
+        $this->salesPaymentMock->expects(static::atLeastOnce())
             ->method('getSpyGiftCardPayments')
             ->willReturn($data['giftCardPayments']);
 
-        $this->spyPaymentGiftCardMock->expects($this->atLeastOnce())
+        $this->paymentGiftCardCollectionMock->expects(static::atLeastOnce())
+            ->method('offsetGet')
+            ->with(0)
+            ->willReturn($this->paymentGiftCardMock);
+
+        $this->paymentGiftCardMock->expects(static::atLeastOnce())
             ->method('getCode')
             ->willReturn($data['code']);
 
         $jellyfishOrderGiftCardTransfer = $this->jellyfishOrderGiftCardMapper
-            ->fromSalesPayment($this->spySalesPaymentMock);
+            ->fromSalesPayment($this->salesPaymentMock);
 
-        $this->assertInstanceOf(JellyfishOrderGiftCardTransfer::class, $jellyfishOrderGiftCardTransfer);
-        $this->assertEquals($data['amount'], $jellyfishOrderGiftCardTransfer->getAmount());
-        $this->assertEquals($data['code'], $jellyfishOrderGiftCardTransfer->getCode());
+        static::assertInstanceOf(JellyfishOrderGiftCardTransfer::class, $jellyfishOrderGiftCardTransfer);
+        static::assertEquals($data['amount'], $jellyfishOrderGiftCardTransfer->getAmount());
+        static::assertEquals($data['code'], $jellyfishOrderGiftCardTransfer->getCode());
     }
 }
