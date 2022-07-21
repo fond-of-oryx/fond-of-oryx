@@ -155,6 +155,7 @@ include:
   - bundles/splittable-checkout-rest-api-shipment-connector
   - bundles/splittable-quote
   - bundles/splittable-quote-extension
+  - bundles/splittable-quote-nopayment-connector
   - bundles/splittable-quote-shipment-connector
   - bundles/splittable-totals
   - bundles/stock-api
