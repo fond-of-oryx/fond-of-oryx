@@ -2,8 +2,10 @@
 
 namespace FondOfOryx\Zed\ProductCountryRestrictionCheckoutConnector\Business;
 
-use FondOfOryx\Zed\ProductCountryRestrictionCheckoutConnector\Business\Model\QuoteValidator;
-use FondOfOryx\Zed\ProductCountryRestrictionCheckoutConnector\Business\Model\QuoteValidatorInterface;
+use FondOfOryx\Zed\ProductCountryRestrictionCheckoutConnector\Business\Reader\BlacklistedCountryReader;
+use FondOfOryx\Zed\ProductCountryRestrictionCheckoutConnector\Business\Reader\BlacklistedCountryReaderInterface;
+use FondOfOryx\Zed\ProductCountryRestrictionCheckoutConnector\Business\Validator\QuoteValidator;
+use FondOfOryx\Zed\ProductCountryRestrictionCheckoutConnector\Business\Validator\QuoteValidatorInterface;
 use FondOfOryx\Zed\ProductCountryRestrictionCheckoutConnector\Dependency\Facade\ProductCountryRestrictionCheckoutConnectorToProductCountryRestrictionFacadeInterface;
 use FondOfOryx\Zed\ProductCountryRestrictionCheckoutConnector\ProductCountryRestrictionCheckoutConnectorDependencyProvider;
 use Spryker\Zed\Kernel\Business\AbstractBusinessFactory;
@@ -11,13 +13,19 @@ use Spryker\Zed\Kernel\Business\AbstractBusinessFactory;
 class ProductCountryRestrictionCheckoutConnectorBusinessFactory extends AbstractBusinessFactory
 {
     /**
-     * @return \FondOfOryx\Zed\ProductCountryRestrictionCheckoutConnector\Business\Model\QuoteValidatorInterface
+     * @return \FondOfOryx\Zed\ProductCountryRestrictionCheckoutConnector\Business\Validator\QuoteValidatorInterface
      */
     public function createQuoteValidator(): QuoteValidatorInterface
     {
-        return new QuoteValidator(
-            $this->getProductCountryRestrictionFacade(),
-        );
+        return new QuoteValidator($this->createCountryReader());
+    }
+
+    /**
+     * @return \FondOfOryx\Zed\ProductCountryRestrictionCheckoutConnector\Business\Reader\BlacklistedCountryReaderInterface
+     */
+    public function createCountryReader(): BlacklistedCountryReaderInterface
+    {
+        return new BlacklistedCountryReader($this->getProductCountryRestrictionFacade());
     }
 
     /**

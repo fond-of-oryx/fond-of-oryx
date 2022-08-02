@@ -2,7 +2,7 @@
 
 namespace FondOfOryx\Zed\ProductCountryRestrictionCheckoutConnector\Communication\Controller;
 
-use Generated\Shared\Transfer\BlacklistedCountryTransfer;
+use Generated\Shared\Transfer\BlacklistedCountryCollectionTransfer;
 use Generated\Shared\Transfer\QuoteTransfer;
 use Generated\Shared\Transfer\QuoteValidationResponseTransfer;
 use Spryker\Zed\Kernel\Communication\Controller\AbstractGatewayController;
@@ -26,10 +26,11 @@ class GatewayController extends AbstractGatewayController
     /**
      * @param \Generated\Shared\Transfer\QuoteTransfer $quoteTransfer
      *
-     * @return \Generated\Shared\Transfer\BlacklistedCountryTransfer
+     * @return \Generated\Shared\Transfer\BlacklistedCountryCollectionTransfer
      */
-    public function getBlacklistedCountriesAction(QuoteTransfer $quoteTransfer): BlacklistedCountryTransfer
-    {
-        return $this->getFacade()->getBlacklistedCountries($quoteTransfer);
+    public function getBlacklistedCountryCollectionByQuoteAction(
+        QuoteTransfer $quoteTransfer
+    ): BlacklistedCountryCollectionTransfer {
+        return $this->getFacade()->getBlacklistedCountryCollectionByQuote($quoteTransfer);
     }
 }

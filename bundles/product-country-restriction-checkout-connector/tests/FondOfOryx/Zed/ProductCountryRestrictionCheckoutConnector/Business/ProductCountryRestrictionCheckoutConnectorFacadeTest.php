@@ -3,7 +3,7 @@
 namespace FondOfOryx\Zed\ProductCountryRestrictionCheckoutConnector\Business;
 
 use Codeception\Test\Unit;
-use FondOfOryx\Zed\ProductCountryRestrictionCheckoutConnector\Business\Model\QuoteValidatorInterface;
+use FondOfOryx\Zed\ProductCountryRestrictionCheckoutConnector\Business\Validator\QuoteValidatorInterface;
 use Generated\Shared\Transfer\QuoteTransfer;
 use Generated\Shared\Transfer\QuoteValidationResponseTransfer;
 
@@ -15,7 +15,7 @@ class ProductCountryRestrictionCheckoutConnectorFacadeTest extends Unit
     protected $factoryMock;
 
     /**
-     * @var \FondOfOryx\Zed\ProductCountryRestrictionCheckoutConnector\Business\Model\QuoteValidatorInterface|\PHPUnit\Framework\MockObject\MockObject
+     * @var \FondOfOryx\Zed\ProductCountryRestrictionCheckoutConnector\Business\Validator\QuoteValidatorInterface|\PHPUnit\Framework\MockObject\MockObject
      */
     protected $quoteValidatorMock;
 

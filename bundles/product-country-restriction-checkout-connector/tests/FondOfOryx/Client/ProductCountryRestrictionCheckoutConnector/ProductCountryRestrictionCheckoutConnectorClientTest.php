@@ -4,7 +4,7 @@ namespace FondOfOryx\Client\ProductCountryRestrictionCheckoutConnector;
 
 use Codeception\Test\Unit;
 use FondOfOryx\Client\ProductCountryRestrictionCheckoutConnector\Zed\ProductCountryRestrictionCheckoutConnectorStubInterface;
-use Generated\Shared\Transfer\BlacklistedCountryTransfer;
+use Generated\Shared\Transfer\BlacklistedCountryCollectionTransfer;
 use Generated\Shared\Transfer\QuoteTransfer;
 use Generated\Shared\Transfer\QuoteValidationResponseTransfer;
 
@@ -21,14 +21,14 @@ class ProductCountryRestrictionCheckoutConnectorClientTest extends Unit
     protected $quoteTransferMock;
 
     /**
-     * @var \Generated\Shared\Transfer\BlacklistedCountryTransfer
-     */
-    protected $blacklistedCountryTransferMock;
-
-    /**
      * @var \Generated\Shared\Transfer\QuoteValidationResponseTransfer|\PHPUnit\Framework\MockObject\MockObject
      */
     protected $quoteValidationResponseTransferMock;
+
+    /**
+     * @var \Generated\Shared\Transfer\BlacklistedCountryCollectionTransfer|\PHPUnit\Framework\MockObject\MockObject
+     */
+    protected $blacklistedCountryCollectionTransferMock;
 
     /**
      * @var \FondOfOryx\Client\ProductCountryRestrictionCheckoutConnector\Zed\ProductCountryRestrictionCheckoutConnectorStubInterface|\PHPUnit\Framework\MockObject\MockObject
@@ -59,7 +59,7 @@ class ProductCountryRestrictionCheckoutConnectorClientTest extends Unit
             ->disableOriginalConstructor()
             ->getMock();
 
-        $this->blacklistedCountryTransferMock = $this->getMockBuilder(BlacklistedCountryTransfer::class)
+        $this->blacklistedCountryCollectionTransferMock = $this->getMockBuilder(BlacklistedCountryCollectionTransfer::class)
             ->disableOriginalConstructor()
             ->getMock();
 
@@ -101,13 +101,13 @@ class ProductCountryRestrictionCheckoutConnectorClientTest extends Unit
             ->willReturn($this->productCountryRestrictionCheckoutConnectorZedStubMock);
 
         $this->productCountryRestrictionCheckoutConnectorZedStubMock->expects(static::atLeastOnce())
-            ->method('getBlacklistedCountriesAction')
+            ->method('getBlacklistedCountryCollectionByQuote')
             ->with($this->quoteTransferMock)
-            ->willReturn($this->blacklistedCountryTransferMock);
+            ->willReturn($this->blacklistedCountryCollectionTransferMock);
 
         static::assertEquals(
-            $this->blacklistedCountryTransferMock,
-            $this->productCountryRestrictionCheckoutConnectorClient->getBlacklistedCountries($this->quoteTransferMock),
+            $this->blacklistedCountryCollectionTransferMock,
+            $this->productCountryRestrictionCheckoutConnectorClient->getBlacklistedCountryCollectionByQuote($this->quoteTransferMock),
         );
     }
 }

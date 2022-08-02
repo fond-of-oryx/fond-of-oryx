@@ -1,10 +1,9 @@
 <?php
 
-namespace FondOfOryx\Zed\ProductCountryRestrictionCheckoutConnector\Business\Model;
+namespace FondOfOryx\Zed\ProductCountryRestrictionCheckoutConnector\Business\Validator;
 
-use FondOfOryx\Zed\ProductCountryRestrictionCheckoutConnector\Dependency\Facade\ProductCountryRestrictionCheckoutConnectorToProductCountryRestrictionFacadeInterface;
+use FondOfOryx\Zed\ProductCountryRestrictionCheckoutConnector\Business\Reader\BlacklistedCountryReaderInterface;
 use Generated\Shared\Transfer\AddressTransfer;
-use Generated\Shared\Transfer\BlacklistedCountryTransfer;
 use Generated\Shared\Transfer\ItemTransfer;
 use Generated\Shared\Transfer\MessageTransfer;
 use Generated\Shared\Transfer\QuoteErrorTransfer;
@@ -29,17 +28,21 @@ class QuoteValidator implements QuoteValidatorInterface
     protected const MESSAGE_PARAM_BLACKLISTED_COUNTRY_CODES = '%blacklisted_country_codes%';
 
     /**
-     * @var \FondOfOryx\Zed\ProductCountryRestrictionCheckoutConnector\Dependency\Facade\ProductCountryRestrictionCheckoutConnectorToProductCountryRestrictionFacadeInterface
+     * @var \Generated\Shared\Transfer\AddressTransfer
      */
-    protected $productCountryRestrictionFacade;
+    protected $cachedBillingAddressTransfer;
 
     /**
-     * @param \FondOfOryx\Zed\ProductCountryRestrictionCheckoutConnector\Dependency\Facade\ProductCountryRestrictionCheckoutConnectorToProductCountryRestrictionFacadeInterface $productCountryRestrictionFacade
+     * @var \FondOfOryx\Zed\ProductCountryRestrictionCheckoutConnector\Business\Reader\BlacklistedCountryReaderInterface
      */
-    public function __construct(
-        ProductCountryRestrictionCheckoutConnectorToProductCountryRestrictionFacadeInterface $productCountryRestrictionFacade
-    ) {
-        $this->productCountryRestrictionFacade = $productCountryRestrictionFacade;
+    private $countryReader;
+
+    /**
+     * @param \FondOfOryx\Zed\ProductCountryRestrictionCheckoutConnector\Business\Reader\BlacklistedCountryReaderInterface $countryReader
+     */
+    public function __construct(BlacklistedCountryReaderInterface $countryReader)
+    {
+        $this->countryReader = $countryReader;
     }
 
     /**
@@ -52,11 +55,13 @@ class QuoteValidator implements QuoteValidatorInterface
         $quoteValidationResponseTransfer = (new QuoteValidationResponseTransfer())
             ->setIsSuccessful(true);
 
-        $blackListedCountries = $this->getBlacklistedCountriesByQuote($quoteTransfer);
+        $blackListedCountries = $this->countryReader->getGroupedByQuote($quoteTransfer);
 
-        if (count($blackListedCountries) === 0) {
+        if (!$blackListedCountries) {
             return $quoteValidationResponseTransfer;
         }
+
+        $this->cachedBillingAddressTransfer = $quoteTransfer->getBillingAddress();
 
         foreach ($quoteTransfer->getItems() as $itemTransfer) {
             if (!$this->isItemRestricted($itemTransfer, $blackListedCountries)) {
@@ -66,29 +71,9 @@ class QuoteValidator implements QuoteValidatorInterface
             $quoteValidationResponseTransfer->setIsSuccessful(false)
                 ->addMessage($this->createErrorMessage($itemTransfer, $blackListedCountries))
                 ->addErrors($this->createQuoteError($itemTransfer, $blackListedCountries));
-
-            $quoteTransfer->setShippingAddress(null)
-                ->setBillingAddress(null);
         }
 
         return $quoteValidationResponseTransfer;
-    }
-
-    /**
-     * @param \Generated\Shared\Transfer\QuoteTransfer $quoteTransfer
-     *
-     * @return \Generated\Shared\Transfer\BlacklistedCountryTransfer
-     */
-    public function getBlacklistedCountries(QuoteTransfer $quoteTransfer): BlacklistedCountryTransfer
-    {
-        $blacklistedCountriesByQuote = $this->getBlacklistedCountriesByQuote($quoteTransfer);
-        $iso2Codes = [];
-
-        foreach ($blacklistedCountriesByQuote as $blacklistedIso2CodesBySku) {
-            $iso2Codes = array_unique(array_merge($blacklistedIso2CodesBySku, $iso2Codes), SORT_REGULAR);
-        }
-
-        return (new BlacklistedCountryTransfer())->setIso2codes($iso2Codes);
     }
 
     /**
@@ -101,17 +86,38 @@ class QuoteValidator implements QuoteValidatorInterface
     {
         $sku = $itemTransfer->getSku();
 
-        if (empty($blacklistedCountries[$sku]) || !is_array($blacklistedCountries[$sku])) {
+        if (!isset($blacklistedCountries[$sku]) || !is_array($blacklistedCountries[$sku])) {
             return false;
+        }
+
+        if (
+            $this->cachedBillingAddressTransfer !== null
+            && $this->hasAddressBlacklistedCountry($this->cachedBillingAddressTransfer, $blacklistedCountries[$sku])
+        ) {
+            return true;
         }
 
         $shippingAddressTransfer = $this->getShippingAddressByItem($itemTransfer);
 
-        if ($shippingAddressTransfer === null || $shippingAddressTransfer->getIso2Code() === null) {
+        return $shippingAddressTransfer !== null
+            && $this->hasAddressBlacklistedCountry($shippingAddressTransfer, $blacklistedCountries[$sku]);
+    }
+
+    /**
+     * @param \Generated\Shared\Transfer\AddressTransfer $addressTransfer
+     * @param array<string> $blacklistedCountries
+     *
+     * @return bool
+     */
+    protected function hasAddressBlacklistedCountry(
+        AddressTransfer $addressTransfer,
+        array $blacklistedCountries
+    ): bool {
+        if ($addressTransfer->getIso2Code() === null) {
             return false;
         }
 
-        return in_array($shippingAddressTransfer->getIso2Code(), $blacklistedCountries[$sku], true);
+        return in_array($addressTransfer->getIso2Code(), $blacklistedCountries, true);
     }
 
     /**
@@ -128,22 +134,6 @@ class QuoteValidator implements QuoteValidatorInterface
         }
 
         return $shipmentTransfer->getShippingAddress();
-    }
-
-    /**
-     * @param \Generated\Shared\Transfer\QuoteTransfer $quoteTransfer
-     *
-     * @return array
-     */
-    protected function getBlacklistedCountriesByQuote(QuoteTransfer $quoteTransfer): array
-    {
-        $productConcreteSkus = array_map(static function (ItemTransfer $itemTransfer) {
-            return $itemTransfer->getSku();
-        }, $quoteTransfer->getItems()->getArrayCopy());
-
-        return $this->productCountryRestrictionFacade->getBlacklistedCountriesByProductConcreteSkus(
-            $productConcreteSkus,
-        );
     }
 
     /**
@@ -184,13 +174,13 @@ class QuoteValidator implements QuoteValidatorInterface
         $sku = $itemTransfer->getSku();
         $blacklistedCountryCodeList = [];
 
-        if (isset($blacklistedCountries[$sku]) && is_array($blacklistedCountries[$sku])) {
+        if (!empty($blacklistedCountries[$sku]) && is_array($blacklistedCountries[$sku])) {
             $blacklistedCountryCodeList = $blacklistedCountries[$sku];
         }
 
         $blacklistedCountryCodes = array_pop($blacklistedCountryCodeList);
 
-        if (is_array($blacklistedCountryCodeList) && count($blacklistedCountryCodeList) > 0) {
+        if ($blacklistedCountryCodeList) {
             $blacklistedCountryCodes = sprintf(
                 '%s & %s',
                 implode(', ', $blacklistedCountryCodeList),
