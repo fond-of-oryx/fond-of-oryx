@@ -2,7 +2,7 @@
 
 namespace FondOfOryx\Client\ProductCountryRestrictionCheckoutConnector\Zed;
 
-use Generated\Shared\Transfer\BlacklistedCountryTransfer;
+use Generated\Shared\Transfer\BlacklistedCountryCollectionTransfer;
 use Generated\Shared\Transfer\QuoteTransfer;
 use Generated\Shared\Transfer\QuoteValidationResponseTransfer;
 
@@ -18,7 +18,7 @@ interface ProductCountryRestrictionCheckoutConnectorStubInterface
     /**
      * @param \Generated\Shared\Transfer\QuoteTransfer $quoteTransfer
      *
-     * @return \Generated\Shared\Transfer\BlacklistedCountryTransfer
+     * @return \Generated\Shared\Transfer\BlacklistedCountryCollectionTransfer
      */
-    public function getBlacklistedCountriesAction(QuoteTransfer $quoteTransfer): BlacklistedCountryTransfer;
+    public function getBlacklistedCountryCollectionByQuote(QuoteTransfer $quoteTransfer): BlacklistedCountryCollectionTransfer;
 }

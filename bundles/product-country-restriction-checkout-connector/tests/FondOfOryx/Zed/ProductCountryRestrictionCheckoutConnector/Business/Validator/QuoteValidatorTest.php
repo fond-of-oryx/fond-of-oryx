@@ -1,9 +1,10 @@
 <?php
 
-namespace FondOfOryx\Zed\ProductCountryRestrictionCheckoutConnector\Business\Model;
+namespace FondOfOryx\Zed\ProductCountryRestrictionCheckoutConnector\Business\Validator;
 
 use ArrayObject;
 use Codeception\Test\Unit;
+use FondOfOryx\Zed\ProductCountryRestrictionCheckoutConnector\Business\Reader\BlacklistedCountryReader;
 use FondOfOryx\Zed\ProductCountryRestrictionCheckoutConnector\Dependency\Facade\ProductCountryRestrictionCheckoutConnectorToProductCountryRestrictionFacadeInterface;
 use Generated\Shared\Transfer\AddressTransfer;
 use Generated\Shared\Transfer\ItemTransfer;
@@ -18,7 +19,7 @@ class QuoteValidatorTest extends Unit
     protected $productCountryRestrictionFacadeMock;
 
     /**
-     * @var \FondOfOryx\Zed\ProductCountryRestrictionCheckoutConnector\Business\Model\QuoteValidator
+     * @var \FondOfOryx\Zed\ProductCountryRestrictionCheckoutConnector\Business\Validator\QuoteValidator
      */
     protected $quoteValidator;
 
@@ -41,6 +42,11 @@ class QuoteValidatorTest extends Unit
      * @var \Generated\Shared\Transfer\AddressTransfer|\PHPUnit\Framework\MockObject\MockObject
      */
     protected $addressTransferMock;
+
+    /**
+     * @var \FondOfOryx\Zed\ProductCountryRestrictionCheckoutConnector\Business\Reader\BlacklistedCountryReaderInterface|\PHPUnit\Framework\MockObject\MockObject
+     */
+    protected $countryreaderMock;
 
     /**
      * @return void
@@ -77,8 +83,12 @@ class QuoteValidatorTest extends Unit
             ->disableOriginalConstructor()
             ->getMock();
 
+        $this->countryreaderMock = $this->getMockBuilder(BlacklistedCountryReader::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
         $this->quoteValidator = new QuoteValidator(
-            $this->productCountryRestrictionFacadeMock,
+            $this->countryreaderMock,
         );
     }
 
@@ -96,14 +106,6 @@ class QuoteValidatorTest extends Unit
             ->method('getItems')
             ->willReturn(new ArrayObject($this->itemTransferMocks));
 
-        $this->quoteTransferMock->expects(static::atLeastOnce())
-            ->method('setShippingAddress')
-            ->willReturnSelf();
-
-        $this->quoteTransferMock->expects(static::atLeastOnce())
-            ->method('setBillingAddress')
-            ->willReturnSelf();
-
         $this->itemTransferMocks[0]->expects(static::atLeastOnce())
             ->method('getSku')
             ->willReturn('FOO-1');
@@ -116,18 +118,10 @@ class QuoteValidatorTest extends Unit
             ->method('getSku')
             ->willReturn('FOO-3');
 
-        $this->productCountryRestrictionFacadeMock->expects(static::atLeastOnce())
-            ->method('getBlacklistedCountriesByProductConcreteSkus')
-            ->with(
-                static::callback(
-                    static function (array $concreteSkus) {
-                        return count($concreteSkus) === 3
-                            && $concreteSkus[0] === 'FOO-1'
-                            && $concreteSkus[1] === 'FOO-2'
-                            && $concreteSkus[2] === 'FOO-3';
-                    },
-                ),
-            )->willReturn($blacklistedCountries);
+        $this->countryreaderMock->expects(static::atLeastOnce())
+            ->method('getGroupedByQuote')
+            ->with($this->quoteTransferMock)
+            ->willReturn($blacklistedCountries);
 
         $this->itemTransferMocks[0]->expects(static::atLeastOnce())
             ->method('getShipment')
@@ -158,43 +152,13 @@ class QuoteValidatorTest extends Unit
      */
     public function testValidateWithoutBlacklistedCountries(): void
     {
-        $this->quoteTransferMock->expects(static::atLeastOnce())
-            ->method('getItems')
-            ->willReturn(new ArrayObject($this->itemTransferMocks));
+        $this->countryreaderMock->expects(static::atLeastOnce())
+            ->method('getGroupedByQuote')
+            ->with($this->quoteTransferMock)
+            ->willReturn([]);
 
-        $this->itemTransferMocks[0]->expects(static::atLeastOnce())
-            ->method('getSku')
-            ->willReturn('FOO-1');
-
-        $this->itemTransferMocks[1]->expects(static::atLeastOnce())
-            ->method('getSku')
-            ->willReturn('FOO-2');
-
-        $this->itemTransferMocks[2]->expects(static::atLeastOnce())
-            ->method('getSku')
-            ->willReturn('FOO-3');
-
-        $this->productCountryRestrictionFacadeMock->expects(static::atLeastOnce())
-            ->method('getBlacklistedCountriesByProductConcreteSkus')
-            ->with(
-                static::callback(
-                    static function (array $concreteSkus) {
-                        return count($concreteSkus) === 3
-                            && $concreteSkus[0] === 'FOO-1'
-                            && $concreteSkus[1] === 'FOO-2'
-                            && $concreteSkus[2] === 'FOO-3';
-                    },
-                ),
-            )->willReturn([]);
-
-        $this->itemTransferMocks[0]->expects(static::never())
-            ->method('getShipment');
-
-        $this->itemTransferMocks[1]->expects(static::never())
-            ->method('getShipment');
-
-        $this->itemTransferMocks[2]->expects(static::never())
-            ->method('getShipment');
+        $this->quoteTransferMock->expects(static::never())
+            ->method('getBillingAddress');
 
         $quoteValidationResponseTransfer = $this->quoteValidator->validate($this->quoteTransferMock);
 

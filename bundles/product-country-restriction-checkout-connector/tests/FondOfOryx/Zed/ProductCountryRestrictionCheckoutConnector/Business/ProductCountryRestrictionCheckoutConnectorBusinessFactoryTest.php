@@ -3,7 +3,7 @@
 namespace FondOfOryx\Zed\ProductCountryRestrictionCheckoutConnector\Business;
 
 use Codeception\Test\Unit;
-use FondOfOryx\Zed\ProductCountryRestrictionCheckoutConnector\Business\Model\QuoteValidator;
+use FondOfOryx\Zed\ProductCountryRestrictionCheckoutConnector\Business\Validator\QuoteValidator;
 use FondOfOryx\Zed\ProductCountryRestrictionCheckoutConnector\Dependency\Facade\ProductCountryRestrictionCheckoutConnectorToProductCountryRestrictionFacadeInterface;
 use FondOfOryx\Zed\ProductCountryRestrictionCheckoutConnector\ProductCountryRestrictionCheckoutConnectorDependencyProvider;
 use Spryker\Zed\Kernel\Container;

@@ -2,7 +2,7 @@
 
 namespace FondOfOryx\Client\ProductCountryRestrictionCheckoutConnector;
 
-use Generated\Shared\Transfer\BlacklistedCountryTransfer;
+use Generated\Shared\Transfer\BlacklistedCountryCollectionTransfer;
 use Generated\Shared\Transfer\QuoteTransfer;
 use Generated\Shared\Transfer\QuoteValidationResponseTransfer;
 
@@ -23,7 +23,7 @@ interface ProductCountryRestrictionCheckoutConnectorClientInterface
     /**
      * @param \Generated\Shared\Transfer\QuoteTransfer $quoteTransfer
      *
-     * @return \Generated\Shared\Transfer\BlacklistedCountryTransfer
+     * @return \Generated\Shared\Transfer\BlacklistedCountryCollectionTransfer
      */
-    public function getBlacklistedCountries(QuoteTransfer $quoteTransfer): BlacklistedCountryTransfer;
+    public function getBlacklistedCountryCollectionByQuote(QuoteTransfer $quoteTransfer): BlacklistedCountryCollectionTransfer;
 }
