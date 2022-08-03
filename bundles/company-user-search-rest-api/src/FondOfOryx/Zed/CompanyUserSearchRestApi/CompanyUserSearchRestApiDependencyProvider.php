@@ -6,6 +6,9 @@ use Orm\Zed\CompanyUser\Persistence\SpyCompanyUserQuery;
 use Spryker\Zed\Kernel\AbstractBundleDependencyProvider;
 use Spryker\Zed\Kernel\Container;
 
+/**
+ * @codeCoverageIgnore
+ */
 class CompanyUserSearchRestApiDependencyProvider extends AbstractBundleDependencyProvider
 {
     /**

@@ -6,6 +6,9 @@ use FondOfOryx\Glue\CompanyUserSearchRestApi\Dependency\Client\CompanyUserSearch
 use Spryker\Glue\Kernel\AbstractBundleDependencyProvider;
 use Spryker\Glue\Kernel\Container;
 
+/**
+ * @codeCoverageIgnore
+ */
 class CompanyUserSearchRestApiDependencyProvider extends AbstractBundleDependencyProvider
 {
     /**

@@ -5,6 +5,9 @@ namespace FondOfOryx\Glue\CompanyUserSearchRestApi;
 use FondOfOryx\Shared\CompanyUserSearchRestApi\CompanyUserSearchRestApiConstants;
 use Spryker\Glue\Kernel\AbstractBundleConfig;
 
+/**
+ * @codeCoverageIgnore
+ */
 class CompanyUserSearchRestApiConfig extends AbstractBundleConfig
 {
     /**

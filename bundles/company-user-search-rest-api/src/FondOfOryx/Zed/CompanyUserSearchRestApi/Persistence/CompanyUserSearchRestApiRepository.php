@@ -11,6 +11,8 @@ use Propel\Runtime\ActiveQuery\ModelCriteria;
 use Spryker\Zed\Kernel\Persistence\AbstractRepository;
 
 /**
+ * @codeCoverageIgnore
+ *
  * @method \FondOfOryx\Zed\CompanyUserSearchRestApi\Persistence\CompanyUserSearchRestApiPersistenceFactory getFactory()
  */
 class CompanyUserSearchRestApiRepository extends AbstractRepository implements CompanyUserSearchRestApiRepositoryInterface
@@ -49,8 +51,17 @@ class CompanyUserSearchRestApiRepository extends AbstractRepository implements C
             ->useCustomerQuery()
                 ->filterByAnonymizedAt(null, Criteria::ISNULL)
             ->endUse()
-            ->innerJoinSpyCompanyRoleToCompanyUser()
             ->filterByIsActive(true);
+
+        if (count($companyUserListTransfer->getCompanyRoleNames()) > 0) {
+            $query = $query->useSpyCompanyRoleToCompanyUserQuery()
+                    ->useCompanyRoleQuery()
+                        ->filterByName_In($companyUserListTransfer->getCompanyRoleNames())
+                    ->endUse()
+                ->endUse();
+        } else {
+            $query = $query->innerJoinSpyCompanyRoleToCompanyUser();
+        }
 
         if ($companyUserListTransfer->getCompanyUserReference() !== null) {
             $query->filterByCompanyUserReference($companyUserListTransfer->getCompanyUserReference());

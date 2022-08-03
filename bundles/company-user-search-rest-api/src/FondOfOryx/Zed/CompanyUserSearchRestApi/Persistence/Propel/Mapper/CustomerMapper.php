@@ -6,6 +6,9 @@ use Generated\Shared\Transfer\CustomerTransfer;
 use Orm\Zed\CompanyUser\Persistence\SpyCompanyUser;
 use Orm\Zed\Customer\Persistence\SpyCustomer;
 
+/**
+ * @codeCoverageIgnore
+ */
 class CustomerMapper implements CustomerMapperInterface
 {
     /**

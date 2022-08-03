@@ -8,6 +8,9 @@ use Generated\Shared\Transfer\CompanyUserTransfer;
 use Orm\Zed\CompanyUser\Persistence\SpyCompanyUser;
 use Propel\Runtime\Collection\ObjectCollection;
 
+/**
+ * @codeCoverageIgnore
+ */
 class CompanyUserMapper implements CompanyUserMapperInterface
 {
     /**

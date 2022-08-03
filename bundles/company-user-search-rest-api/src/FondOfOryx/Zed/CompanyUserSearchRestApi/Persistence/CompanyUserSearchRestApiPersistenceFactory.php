@@ -13,6 +13,8 @@ use Orm\Zed\CompanyUser\Persistence\SpyCompanyUserQuery;
 use Spryker\Zed\Kernel\Persistence\AbstractPersistenceFactory;
 
 /**
+ * @codeCoverageIgnore
+ *
  * @method \FondOfOryx\Zed\CompanyUserSearchRestApi\Persistence\CompanyUserSearchRestApiRepositoryInterface getRepository()
  * @method \FondOfOryx\Zed\CompanyUserSearchRestApi\CompanyUserSearchRestApiConfig getConfig()
  */
