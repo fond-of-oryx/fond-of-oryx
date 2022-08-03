@@ -5,6 +5,8 @@ namespace FondOfOryx\Glue\CompanyUserSearchRestApi;
 use FondOfOryx\Glue\CompanyUserSearchRestApi\Dependency\Client\CompanyUserSearchRestApiToGlossaryStorageClientInterface;
 use FondOfOryx\Glue\CompanyUserSearchRestApi\Processor\Builder\RestResponseBuilder;
 use FondOfOryx\Glue\CompanyUserSearchRestApi\Processor\Builder\RestResponseBuilderInterface;
+use FondOfOryx\Glue\CompanyUserSearchRestApi\Processor\Filter\CompanyRoleNameFilter;
+use FondOfOryx\Glue\CompanyUserSearchRestApi\Processor\Filter\CompanyRoleNameFilterInterface;
 use FondOfOryx\Glue\CompanyUserSearchRestApi\Processor\Filter\CustomerIdFilter;
 use FondOfOryx\Glue\CompanyUserSearchRestApi\Processor\Filter\CustomerIdFilterInterface;
 use FondOfOryx\Glue\CompanyUserSearchRestApi\Processor\Filter\CustomerReferenceFilter;
@@ -56,6 +58,7 @@ class CompanyUserSearchRestApiFactory extends AbstractFactory
             $this->createRequestParameterFilter(),
             $this->createCustomerReferenceFilter(),
             $this->createCustomerIdFilter(),
+            $this->createCompanyRoleNameFilter(),
         );
     }
 
@@ -159,5 +162,13 @@ class CompanyUserSearchRestApiFactory extends AbstractFactory
     protected function getGlossaryStorageClient(): CompanyUserSearchRestApiToGlossaryStorageClientInterface
     {
         return $this->getProvidedDependency(CompanyUserSearchRestApiDependencyProvider::CLIENT_GLOSSARY_STORAGE);
+    }
+
+    /**
+     * @return \FondOfOryx\Glue\CompanyUserSearchRestApi\Processor\Filter\CompanyRoleNameFilterInterface
+     */
+    protected function createCompanyRoleNameFilter(): CompanyRoleNameFilterInterface
+    {
+        return new CompanyRoleNameFilter();
     }
 }

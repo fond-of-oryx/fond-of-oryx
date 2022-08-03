@@ -72,6 +72,7 @@
         <property name="companyUuid" type="string"/>
         <property name="companyUserReference" type="string"/>
         <property name="customerReference" type="string"/>
+        <property name="companyRoleNames" type="string[]"/>
         <property name="customerId" type="int"/>
         <property name="companyUser" singular="companyUser" type="CompanyUser[]"/>
         <property name="showAll" type="bool"/>

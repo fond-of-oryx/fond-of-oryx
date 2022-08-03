@@ -6,6 +6,9 @@ use Generated\Shared\Transfer\CompanyRoleTransfer;
 use Orm\Zed\CompanyRole\Persistence\SpyCompanyRole;
 use Orm\Zed\CompanyUser\Persistence\SpyCompanyUser;
 
+/**
+ * @codeCoverageIgnore
+ */
 class CompanyRoleMapper implements CompanyRoleMapperInterface
 {
     /**

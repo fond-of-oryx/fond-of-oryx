@@ -3,6 +3,7 @@
 namespace FondOfOryx\Glue\CompanyUserSearchRestApi\Processor\Mapper;
 
 use Codeception\Test\Unit;
+use FondOfOryx\Glue\CompanyUserSearchRestApi\Processor\Filter\CompanyRoleNameFilterInterface;
 use FondOfOryx\Glue\CompanyUserSearchRestApi\Processor\Filter\CustomerIdFilterInterface;
 use FondOfOryx\Glue\CompanyUserSearchRestApi\Processor\Filter\CustomerReferenceFilterInterface;
 use FondOfOryx\Glue\CompanyUserSearchRestApi\Processor\Filter\RequestParameterFilterInterface;
@@ -30,6 +31,11 @@ class CompanyUserListMapperTest extends Unit
      * @var \FondOfOryx\Glue\CompanyUserSearchRestApi\Processor\Filter\CustomerIdFilterInterface|\PHPUnit\Framework\MockObject\MockObject|mixed
      */
     protected $customerIdFilterMock;
+
+    /**
+     * @var \FondOfOryx\Glue\CompanyUserSearchRestApi\Processor\Filter\CompanyRoleNameFilterInterface&\PHPUnit\Framework\MockObject\MockObject|\PHPUnit\Framework\MockObject\MockObject
+     */
+    protected $companyRoleNameFilterMock;
 
     /**
      * @var \PHPUnit\Framework\MockObject\MockObject|\Spryker\Glue\GlueApplication\Rest\Request\Data\RestRequestInterface|mixed
@@ -69,6 +75,10 @@ class CompanyUserListMapperTest extends Unit
             ->disableOriginalConstructor()
             ->getMock();
 
+        $this->companyRoleNameFilterMock = $this->getMockBuilder(CompanyRoleNameFilterInterface::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
         $this->restRequestMock = $this->getMockBuilder(RestRequestInterface::class)
             ->disableOriginalConstructor()
             ->getMock();
@@ -82,6 +92,7 @@ class CompanyUserListMapperTest extends Unit
             $this->requestParameterFilterMock,
             $this->customerReferenceFilterMock,
             $this->customerIdFilterMock,
+            $this->companyRoleNameFilterMock,
         );
     }
 
@@ -93,8 +104,9 @@ class CompanyUserListMapperTest extends Unit
         $customerReference = 'FOO-C--1';
         $query = 'foo';
         $sort = 'foo_asc';
-        $comanyUuid = 'foo company uuid';
-        $comanyUserReference = 'FOO-CU--1';
+        $companyUuid = 'foo company uuid';
+        $companyUserReference = 'FOO-CU--1';
+        $companyRoleNames = ['foo', 'bar'];
 
         $this->paginationMapperMock->expects(static::atLeastOnce())
             ->method('fromRestRequest')
@@ -112,8 +124,8 @@ class CompanyUserListMapperTest extends Unit
             )->willReturnOnConsecutiveCalls(
                 $query,
                 'true',
-                $comanyUuid,
-                $comanyUserReference,
+                $companyUuid,
+                $companyUserReference,
                 $sort,
             );
 
@@ -121,6 +133,11 @@ class CompanyUserListMapperTest extends Unit
             ->method('filterFromRestRequest')
             ->with($this->restRequestMock)
             ->willReturn($customerReference);
+
+        $this->companyRoleNameFilterMock->expects(static::atLeastOnce())
+            ->method('filterFromRestRequest')
+            ->with($this->restRequestMock)
+            ->willReturn($companyRoleNames);
 
         $companyUserListTransfer = $this->companyUserListMapper->fromRestRequest($this->restRequestMock);
 
@@ -135,7 +152,7 @@ class CompanyUserListMapperTest extends Unit
         );
 
         static::assertEquals(
-            $comanyUuid,
+            $companyUuid,
             $companyUserListTransfer->getCompanyUuid(),
         );
 
@@ -151,6 +168,11 @@ class CompanyUserListMapperTest extends Unit
         static::assertEquals(
             $this->paginationTransferMock,
             $companyUserListTransfer->getPagination(),
+        );
+
+        static::assertEquals(
+            $companyRoleNames,
+            $companyUserListTransfer->getCompanyRoleNames(),
         );
     }
 }

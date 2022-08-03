@@ -2,6 +2,7 @@
 
 namespace FondOfOryx\Glue\CompanyUserSearchRestApi\Processor\Mapper;
 
+use FondOfOryx\Glue\CompanyUserSearchRestApi\Processor\Filter\CompanyRoleNameFilterInterface;
 use FondOfOryx\Glue\CompanyUserSearchRestApi\Processor\Filter\CustomerIdFilterInterface;
 use FondOfOryx\Glue\CompanyUserSearchRestApi\Processor\Filter\CustomerReferenceFilterInterface;
 use FondOfOryx\Glue\CompanyUserSearchRestApi\Processor\Filter\RequestParameterFilterInterface;
@@ -31,21 +32,29 @@ class CompanyUserListMapper implements CompanyUserListMapperInterface
     protected $customerIdFilter;
 
     /**
+     * @var \FondOfOryx\Glue\CompanyUserSearchRestApi\Processor\Filter\CompanyRoleNameFilterInterface
+     */
+    protected $companyRoleNameFilter;
+
+    /**
      * @param \FondOfOryx\Glue\CompanyUserSearchRestApi\Processor\Mapper\PaginationMapperInterface $paginationMapper
      * @param \FondOfOryx\Glue\CompanyUserSearchRestApi\Processor\Filter\RequestParameterFilterInterface $requestParameterFilter
      * @param \FondOfOryx\Glue\CompanyUserSearchRestApi\Processor\Filter\CustomerReferenceFilterInterface $customerReferenceFilter
      * @param \FondOfOryx\Glue\CompanyUserSearchRestApi\Processor\Filter\CustomerIdFilterInterface $customerIdFilter
+     * @param \FondOfOryx\Glue\CompanyUserSearchRestApi\Processor\Filter\CompanyRoleNameFilterInterface $companyRoleNameFilter
      */
     public function __construct(
         PaginationMapperInterface $paginationMapper,
         RequestParameterFilterInterface $requestParameterFilter,
         CustomerReferenceFilterInterface $customerReferenceFilter,
-        CustomerIdFilterInterface $customerIdFilter
+        CustomerIdFilterInterface $customerIdFilter,
+        CompanyRoleNameFilterInterface $companyRoleNameFilter
     ) {
         $this->paginationMapper = $paginationMapper;
         $this->requestParameterFilter = $requestParameterFilter;
         $this->customerReferenceFilter = $customerReferenceFilter;
         $this->customerIdFilter = $customerIdFilter;
+        $this->companyRoleNameFilter = $companyRoleNameFilter;
     }
 
     /**
@@ -63,6 +72,7 @@ class CompanyUserListMapper implements CompanyUserListMapperInterface
             ->setCompanyUserReference($this->requestParameterFilter->getRequestParameter($restRequest, 'company-user-reference'))
             ->setSort($this->requestParameterFilter->getRequestParameter($restRequest, 'sort'))
             ->setCustomerId($this->customerIdFilter->filterFromRestRequest($restRequest))
-            ->setCustomerReference($this->customerReferenceFilter->filterFromRestRequest($restRequest));
+            ->setCustomerReference($this->customerReferenceFilter->filterFromRestRequest($restRequest))
+            ->setCompanyRoleNames($this->companyRoleNameFilter->filterFromRestRequest($restRequest));
     }
 }

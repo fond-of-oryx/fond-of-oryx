@@ -5,6 +5,9 @@ namespace FondOfOryx\Zed\CompanyUserSearchRestApi;
 use FondOfOryx\Shared\CompanyUserSearchRestApi\CompanyUserSearchRestApiConstants;
 use Spryker\Zed\Kernel\AbstractBundleConfig;
 
+/**
+ * @codeCoverageIgnore
+ */
 class CompanyUserSearchRestApiConfig extends AbstractBundleConfig
 {
     /**
