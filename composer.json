@@ -30,6 +30,7 @@
     "fond-of-spryker/company-unit-address-default-shipping": "dev-master",
     "fond-of-spryker/company-user-reference": "dev-master",
     "fond-of-spryker/country": "dev-spryker_upgrade || dev-feature/paypal-refund",
+    "fond-of-spryker/price-product-price-list": "dev-master",
     "fond-of-spryker/product-list-company": "dev-spryker_upgrade",
     "fond-of-spryker/product-list-customer": "dev-spryker_upgrade",
     "hackzilla/password-generator": "^1.6.0",
@@ -302,7 +303,8 @@
     "fond-of-oryx/thirty-five-up-api": "*",
     "fond-of-oryx/thirty-five-up-payment-connector": "*",
     "fond-of-oryx/trbo": "*",
-    "fond-of-oryx/util-math-formula": "*"
+    "fond-of-oryx/util-math-formula": "*",
+    "fond-of-oryx/vertigo-price-product-price-list": "*"
   },
   "minimum-stability": "dev",
   "prefer-stable": true,
@@ -468,6 +470,7 @@
       "FondOfOryx\\Shared\\ThirtyFiveUpApi\\": "bundles/thirty-five-up-api/src/FondOfOryx/Shared/ThirtyFiveUpApi",
       "FondOfOryx\\Shared\\ThirtyFiveUpPaymentConnector\\": "bundles/thirty-five-up-payment-connector/src/FondOfOryx/Shared/ThirtyFiveUpPaymentConnector",
       "FondOfOryx\\Shared\\Trbo\\": "bundles/trbo/src/FondOfOryx/Shared/Trbo",
+      "FondOfOryx\\Shared\\VertigoPriceProductPriceList\\": "bundles/vertigo-price-product-price-list/src/FondOfOryx/Shared/VertigoPriceProductPriceList",
       "FondOfOryx\\Yves\\AvailabilityAlert\\": "bundles/availability-alert/src/FondOfOryx/Yves/AvailabilityAlert",
       "FondOfOryx\\Yves\\AvailabilityAlertCrossEngage\\": "bundles/availability-alert-cross-engage/src/FondOfOryx/Yves/AvailabilityAlertCrossEngage",
       "FondOfOryx\\Yves\\AvailabilityAlertExtension\\": "bundles/availability-alert-extension/src/FondOfOryx/Yves/AvailabilityAlertExtension",
@@ -648,7 +651,8 @@
       "FondOfOryx\\Zed\\TaxCalculationConnector\\": "bundles/tax-calculation-connector/src/FondOfOryx/Zed/TaxCalculationConnector",
       "FondOfOryx\\Zed\\ThirtyFiveUp\\": "bundles/thirty-five-up/src/FondOfOryx/Zed/ThirtyFiveUp",
       "FondOfOryx\\Zed\\ThirtyFiveUpApi\\": "bundles/thirty-five-up-api/src/FondOfOryx/Zed/ThirtyFiveUpApi",
-      "FondOfOryx\\Zed\\ThirtyFiveUpPaymentConnector\\": "bundles/thirty-five-up-payment-connector/src/FondOfOryx/Zed/ThirtyFiveUpPaymentConnector"
+      "FondOfOryx\\Zed\\ThirtyFiveUpPaymentConnector\\": "bundles/thirty-five-up-payment-connector/src/FondOfOryx/Zed/ThirtyFiveUpPaymentConnector",
+      "FondOfOryx\\Zed\\VertigoPriceProductPriceList\\": "bundles/vertigo-price-product-price-list/src/FondOfOryx/Zed/VertigoPriceProductPriceList"
     }
   },
   "autoload-dev": {
@@ -952,6 +956,7 @@
       "FondOfOryx\\Zed\\ThirtyFiveUp\\": "bundles/thirty-five-up/tests/FondOfOryx/Zed/ThirtyFiveUp",
       "FondOfOryx\\Zed\\ThirtyFiveUpApi\\": "bundles/thirty-five-up-api/tests/FondOfOryx/Zed/ThirtyFiveUpApi",
       "FondOfOryx\\Zed\\ThirtyFiveUpPaymentConnector\\": "bundles/thirty-five-up-payment-connector/tests/FondOfOryx/Zed/ThirtyFiveUpPaymentConnector",
+      "FondOfOryx\\Zed\\VertigoPriceProductPriceList\\": "bundles/vertigo-price-product-price-list/tests/FondOfOryx/Zed/VertigoPriceProductPriceList",
       "Generated\\": "src/Generated/",
       "Orm\\Zed\\": "src/Orm/Zed/"
     }
