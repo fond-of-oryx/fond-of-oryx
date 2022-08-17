@@ -165,6 +165,7 @@ include:
   - bundles/thirty-five-up-payment-connector
   - bundles/trbo
   - bundles/util-math-formula
+  - bundles/vertigo-price-product-price-list
 
 suites:
   unit:
