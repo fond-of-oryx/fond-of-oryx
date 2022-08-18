@@ -55,4 +55,22 @@ class VertigoPriceProductPriceListFacadeTest extends Unit
 
         $this->facade->requestMissingPriceProductPriceList();
     }
+
+    /**
+     * @return void
+     */
+    public function testRequestPriceProductPriceListBySku(): void
+    {
+        $sku = 'foo-bar-1';
+
+        $this->factoryMock->expects(static::atLeastOnce())
+            ->method('createPriceProductPriceListRequester')
+            ->willReturn($this->priceProductPriceListRequesterMock);
+
+        $this->priceProductPriceListRequesterMock->expects(static::atLeastOnce())
+            ->method('requestBySku')
+            ->with($sku);
+
+        $this->facade->requestPriceProductPriceListBySku($sku);
+    }
 }

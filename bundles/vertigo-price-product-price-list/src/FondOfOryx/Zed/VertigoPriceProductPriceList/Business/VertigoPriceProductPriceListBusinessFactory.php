@@ -8,6 +8,8 @@ use FondOfOryx\Zed\VertigoPriceProductPriceList\Business\Api\Mapper\VertigoPrice
 use FondOfOryx\Zed\VertigoPriceProductPriceList\Business\Api\Mapper\VertigoPriceApiResponseMapperInterface;
 use FondOfOryx\Zed\VertigoPriceProductPriceList\Business\Requester\PriceProductPriceListRequester;
 use FondOfOryx\Zed\VertigoPriceProductPriceList\Business\Requester\PriceProductPriceListRequesterInterface;
+use FondOfOryx\Zed\VertigoPriceProductPriceList\Dependency\Facade\VertigoPriceProductPriceListToProductFacadeInterface;
+use FondOfOryx\Zed\VertigoPriceProductPriceList\VertigoPriceProductPriceListDependencyProvider;
 use GuzzleHttp\Client;
 use GuzzleHttp\ClientInterface as HttpClientInterface;
 use Spryker\Shared\Log\LoggerTrait;
@@ -29,6 +31,7 @@ class VertigoPriceProductPriceListBusinessFactory extends AbstractBusinessFactor
         return new PriceProductPriceListRequester(
             $this->createVertigoPriceApiAdapter(),
             $this->getRepository(),
+            $this->getProductFacade(),
         );
     }
 
@@ -58,5 +61,13 @@ class VertigoPriceProductPriceListBusinessFactory extends AbstractBusinessFactor
     protected function createVertigoPriceApiResponseMapper(): VertigoPriceApiResponseMapperInterface
     {
         return new VertigoPriceApiResponseMapper();
+    }
+
+    /**
+     * @return \FondOfOryx\Zed\VertigoPriceProductPriceList\Dependency\Facade\VertigoPriceProductPriceListToProductFacadeInterface
+     */
+    protected function getProductFacade(): VertigoPriceProductPriceListToProductFacadeInterface
+    {
+        return $this->getProvidedDependency(VertigoPriceProductPriceListDependencyProvider::FACADE_PRODUCT);
     }
 }
