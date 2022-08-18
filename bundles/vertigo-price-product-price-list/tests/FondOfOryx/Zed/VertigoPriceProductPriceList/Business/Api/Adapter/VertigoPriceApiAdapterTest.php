@@ -39,7 +39,7 @@ class VertigoPriceApiAdapterTest extends Unit
     protected $vertigoPriceApiResponseTransferMock;
 
     /**
-     * @var \PHPUnit\Framework\MockObject\MockObject|\Psr\Http\Message\ResponseInterface&\PHPUnit\Framework\MockObject\MockObject
+     * @var \PHPUnit\Framework\MockObject\MockObject|\Psr\Http\Message\ResponseInterface
      */
     protected $responseMock;
 

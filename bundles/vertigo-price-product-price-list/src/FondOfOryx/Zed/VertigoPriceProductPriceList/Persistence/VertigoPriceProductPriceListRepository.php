@@ -34,4 +34,28 @@ class VertigoPriceProductPriceListRepository extends AbstractRepository implemen
             )->find()
             ->toArray();
     }
+
+    /**
+     * @param string $sku
+     *
+     * @return bool
+     */
+    public function hasPriceProductPriceList(string $sku): bool
+    {
+         return $this->getFactory()
+             ->getProductQuery()
+             ->clear()
+             ->filterBySku($sku)
+             ->where(
+                 sprintf(
+                     '%s IN (SELECT %s FROM %s WHERE %s IS NOT NULL GROUP BY %s)',
+                     SpyProductTableMap::COL_ID_PRODUCT,
+                     FosPriceProductPriceListTableMap::COL_FK_PRODUCT,
+                     FosPriceProductPriceListTableMap::TABLE_NAME,
+                     FosPriceProductPriceListTableMap::COL_FK_PRODUCT,
+                     FosPriceProductPriceListTableMap::COL_FK_PRODUCT,
+                 ),
+             )->find()
+             ->count() > 0;
+    }
 }
