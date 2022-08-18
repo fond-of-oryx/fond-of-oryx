@@ -4,9 +4,11 @@ namespace FondOfOryx\Zed\VertigoPriceProductPriceList\Business\Requester;
 
 use Codeception\Test\Unit;
 use FondOfOryx\Zed\VertigoPriceProductPriceList\Business\Api\Adapter\VertigoPriceApiAdapterInterface;
+use FondOfOryx\Zed\VertigoPriceProductPriceList\Dependency\Facade\VertigoPriceProductPriceListToProductFacadeInterface;
 use FondOfOryx\Zed\VertigoPriceProductPriceList\Persistence\VertigoPriceProductPriceListRepositoryInterface;
 use Generated\Shared\Transfer\VertigoPriceApiRequestTransfer;
 use Generated\Shared\Transfer\VertigoPriceApiResponseTransfer;
+use Throwable;
 
 class PriceProductPriceListRequesterTest extends Unit
 {
@@ -19,6 +21,11 @@ class PriceProductPriceListRequesterTest extends Unit
      * @var \FondOfOryx\Zed\VertigoPriceProductPriceList\Persistence\VertigoPriceProductPriceListRepositoryInterface&\PHPUnit\Framework\MockObject\MockObject|\PHPUnit\Framework\MockObject\MockObject
      */
     protected $repositoryMock;
+
+    /**
+     * @var \FondOfOryx\Zed\VertigoPriceProductPriceList\Dependency\Facade\VertigoPriceProductPriceListToProductFacadeInterface&\PHPUnit\Framework\MockObject\MockObject|\PHPUnit\Framework\MockObject\MockObject
+     */
+    protected $productFacadeMock;
 
     /**
      * @var \Generated\Shared\Transfer\VertigoPriceApiResponseTransfer|\PHPUnit\Framework\MockObject\MockObject
@@ -45,6 +52,10 @@ class PriceProductPriceListRequesterTest extends Unit
             ->disableOriginalConstructor()
             ->getMock();
 
+        $this->productFacadeMock = $this->getMockBuilder(VertigoPriceProductPriceListToProductFacadeInterface::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
         $this->vertigoPriceApiResponseTransferMock = $this->getMockBuilder(VertigoPriceApiResponseTransfer::class)
             ->disableOriginalConstructor()
             ->getMock();
@@ -52,6 +63,7 @@ class PriceProductPriceListRequesterTest extends Unit
         $this->priceProductPriceListRequester = new PriceProductPriceListRequester(
             $this->vertigoPriceApiAdapterMock,
             $this->repositoryMock,
+            $this->productFacadeMock,
         );
     }
 
@@ -94,5 +106,52 @@ class PriceProductPriceListRequesterTest extends Unit
             ->method('sendRequest');
 
         $this->priceProductPriceListRequester->requestAllMissing();
+    }
+
+    /**
+     * @return void
+     */
+    public function testRequestBySku(): void
+    {
+        $sku = 'foo-bar-1';
+
+        $this->productFacadeMock->expects(static::atLeastOnce())
+            ->method('hasProductConcrete')
+            ->with($sku)
+            ->willReturn(true);
+
+        $this->vertigoPriceApiAdapterMock->expects(static::atLeastOnce())
+            ->method('sendRequest')
+            ->with(
+                static::callback(
+                    static function (VertigoPriceApiRequestTransfer $vertigoPriceApiRequestTransfer) use ($sku) {
+                        return in_array($sku, $vertigoPriceApiRequestTransfer->getBody()['skus'], true);
+                    },
+                ),
+            )->willReturn($this->vertigoPriceApiResponseTransferMock);
+
+        $this->priceProductPriceListRequester->requestBySku($sku);
+    }
+
+    /**
+     * @return void
+     */
+    public function testRequestBySkuWithNonExistingSku(): void
+    {
+        $sku = 'foo-bar-1';
+
+        $this->productFacadeMock->expects(static::atLeastOnce())
+            ->method('hasProductConcrete')
+            ->with($sku)
+            ->willReturn(false);
+
+        $this->vertigoPriceApiAdapterMock->expects(static::never())
+            ->method('sendRequest');
+
+        try {
+            $this->priceProductPriceListRequester->requestBySku($sku);
+            static::fail();
+        } catch (Throwable $exception) {
+        }
     }
 }

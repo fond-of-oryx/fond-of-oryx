@@ -18,4 +18,16 @@ class VertigoPriceProductPriceListFacade extends AbstractFacade implements Verti
             ->createPriceProductPriceListRequester()
             ->requestAllMissing();
     }
+
+    /**
+     * @param string $sku
+     *
+     * @return void
+     */
+    public function requestPriceProductPriceListBySku(string $sku): void
+    {
+        $this->getFactory()
+            ->createPriceProductPriceListRequester()
+            ->requestBySku($sku);
+    }
 }

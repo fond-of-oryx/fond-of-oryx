@@ -10,7 +10,8 @@
   ],
   "require": {
     "php": ">=7.3",
-    "fond-of-spryker/price-product-price-list": "dev-master"
+    "fond-of-spryker/price-product-price-list": "dev-master",
+    "spryker/product": "^5.0.0 || ^6.0.0"
   },
   "require-dev": {
     "fond-of-codeception/spryker": "^1.0",
