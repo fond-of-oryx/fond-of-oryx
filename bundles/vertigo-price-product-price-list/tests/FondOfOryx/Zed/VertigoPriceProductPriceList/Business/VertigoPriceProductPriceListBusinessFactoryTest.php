@@ -15,12 +15,12 @@ use Spryker\Zed\Kernel\Container;
 class VertigoPriceProductPriceListBusinessFactoryTest extends Unit
 {
     /**
-     * @var \FondOfOryx\Zed\VertigoPriceProductPriceList\Persistence\VertigoPriceProductPriceListRepository&\PHPUnit\Framework\MockObject\MockObject|\PHPUnit\Framework\MockObject\MockObject
+     * @var \FondOfOryx\Zed\VertigoPriceProductPriceList\Persistence\VertigoPriceProductPriceListRepository|\PHPUnit\Framework\MockObject\MockObject
      */
     protected $repositoryMock;
 
     /**
-     * @var \FondOfOryx\Zed\VertigoPriceProductPriceList\VertigoPriceProductPriceListConfig&\PHPUnit\Framework\MockObject\MockObject|\PHPUnit\Framework\MockObject\MockObject
+     * @var \FondOfOryx\Zed\VertigoPriceProductPriceList\VertigoPriceProductPriceListConfig|\PHPUnit\Framework\MockObject\MockObject
      */
     protected $configMock;
 

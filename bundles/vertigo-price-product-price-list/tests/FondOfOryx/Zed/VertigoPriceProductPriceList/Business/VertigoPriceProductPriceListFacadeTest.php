@@ -4,6 +4,7 @@ namespace FondOfOryx\Zed\VertigoPriceProductPriceList\Business;
 
 use Codeception\Test\Unit;
 use FondOfOryx\Zed\VertigoPriceProductPriceList\Business\Requester\PriceProductPriceListRequesterInterface;
+use Generated\Shared\Transfer\ProductConcreteTransfer;
 
 class VertigoPriceProductPriceListFacadeTest extends Unit
 {
@@ -16,6 +17,11 @@ class VertigoPriceProductPriceListFacadeTest extends Unit
      * @var \FondOfOryx\Zed\VertigoPriceProductPriceList\Business\Requester\PriceProductPriceListRequesterInterface|\PHPUnit\Framework\MockObject\MockObject
      */
     protected $priceProductPriceListRequesterMock;
+
+    /**
+     * @var \Generated\Shared\Transfer\ProductConcreteTransfer|\PHPUnit\Framework\MockObject\MockObject
+     */
+    protected $productConcreteTransferMock;
 
     /**
      * @var \FondOfOryx\Zed\VertigoPriceProductPriceList\Business\VertigoPriceProductPriceListFacade
@@ -34,6 +40,10 @@ class VertigoPriceProductPriceListFacadeTest extends Unit
             ->getMock();
 
         $this->priceProductPriceListRequesterMock = $this->getMockBuilder(PriceProductPriceListRequesterInterface::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $this->productConcreteTransferMock = $this->getMockBuilder(ProductConcreteTransfer::class)
             ->disableOriginalConstructor()
             ->getMock();
 
@@ -72,5 +82,21 @@ class VertigoPriceProductPriceListFacadeTest extends Unit
             ->with($sku);
 
         $this->facade->requestPriceProductPriceListBySku($sku);
+    }
+
+    /**
+     * @return void
+     */
+    public function testRequestPriceProductPriceListBySkuX(): void
+    {
+        $this->factoryMock->expects(static::atLeastOnce())
+            ->method('createPriceProductPriceListRequester')
+            ->willReturn($this->priceProductPriceListRequesterMock);
+
+        $this->priceProductPriceListRequesterMock->expects(static::atLeastOnce())
+            ->method('requestMissingByProductConcrete')
+            ->with($this->productConcreteTransferMock);
+
+        $this->facade->requestMissingPriceProductPriceListByProductConcrete($this->productConcreteTransferMock);
     }
 }
