@@ -2,14 +2,16 @@
 
 namespace FondOfOryx\Zed\CompanyUserArchive\Business;
 
-use Generated\Shared\Transfer\CompanyUserTransfer;
+use Generated\Shared\Transfer\CompanyUserArchiveTransfer;
 
 interface CompanyUserArchiveFacadeInterface
 {
     /**
-     * @param \Generated\Shared\Transfer\CompanyUserTransfer $companyUserTransfer
+     * @param \Generated\Shared\Transfer\CompanyUserArchiveTransfer $companyUserArchiveTransfer
      *
-     * @return \Generated\Shared\Transfer\CompanyUserTransfer
+     * @return \Generated\Shared\Transfer\CompanyUserArchiveTransfer
      */
-    public function createCompanyUserArchive(CompanyUserTransfer $companyUserTransfer): CompanyUserTransfer;
+    public function createCompanyUserArchive(
+        CompanyUserArchiveTransfer $companyUserArchiveTransfer
+    ): CompanyUserArchiveTransfer;
 }

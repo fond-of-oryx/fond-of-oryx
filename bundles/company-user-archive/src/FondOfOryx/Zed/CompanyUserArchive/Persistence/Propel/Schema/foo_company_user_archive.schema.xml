@@ -6,12 +6,12 @@
           package="src.Orm.Zed.CompanyUserArchive.Persistence">
 
     <table name="foo_company_user_archive" phpName="FooCompanyUserArchive">
-        <column name="id_company_user" required="true" type="INTEGER" autoIncrement="true" primaryKey="true"/>
+        <column name="id_company_user" required="true" type="INTEGER" primaryKey="true"/>
         <column name="fk_company" type="INTEGER" required="true"/>
         <column name="fk_company_business_unit" type="INTEGER"/>
         <column name="fk_customer" type="INTEGER" required="true"/>
         <column name="company_user_reference" required="true" default="" size="255" type="VARCHAR"/>
-        <column name="external_reference" required="true" default="" size="255" type="VARCHAR"/>
+        <column name="external_reference" default="" size="255" type="VARCHAR"/>
 
         <foreign-key name="foo_company_user_archive-fk_company" foreignTable="spy_company" phpName="Company" refPhpName="CompanyUserArchive">
             <reference local="fk_company" foreign="id_company"/>
