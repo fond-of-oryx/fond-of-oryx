@@ -84,7 +84,7 @@
     },
     "company-business-unit-order-budget": {
       "path": "bundles/company-business-unit-order-budget/",
-      "version": "1.1.0"
+      "version": "1.2.0"
     },
     "company-business-unit-search-rest-api": {
       "path": "bundles/company-business-unit-search-rest-api/",
@@ -108,7 +108,7 @@
     },
     "company-product-list-connector": {
       "path": "bundles/company-product-list-connector/",
-      "version": "1.1.0"
+      "version": "1.2.0"
     },
     "company-product-list-connector-extension": {
       "path": "bundles/company-product-list-connector-extension/",
@@ -212,7 +212,7 @@
     },
     "customer-product-list-connector": {
       "path": "bundles/customer-product-list-connector/",
-      "version": "1.1.0"
+      "version": "1.2.0"
     },
     "customer-product-list-connector-extension": {
       "path": "bundles/customer-product-list-connector-extension/",
