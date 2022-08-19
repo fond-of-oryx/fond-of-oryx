@@ -5,6 +5,7 @@ namespace FondOfOryx\Zed\VertigoPriceProductPriceList\Business\Api\Adapter;
 use Codeception\Test\Unit;
 use Exception;
 use FondOfOryx\Zed\VertigoPriceProductPriceList\Business\Api\Mapper\VertigoPriceApiResponseMapperInterface;
+use FondOfOryx\Zed\VertigoPriceProductPriceList\Dependency\Service\VertigoPriceProductPriceListToUtilEncodingServiceInterface;
 use Generated\Shared\Transfer\VertigoPriceApiRequestTransfer;
 use Generated\Shared\Transfer\VertigoPriceApiResponseTransfer;
 use GuzzleHttp\ClientInterface;
@@ -22,6 +23,11 @@ class VertigoPriceApiAdapterTest extends Unit
      * @var \FondOfOryx\Zed\VertigoPriceProductPriceList\Business\Api\Mapper\VertigoPriceApiResponseMapperInterface|\PHPUnit\Framework\MockObject\MockObject
      */
     protected $vertigoPriceApiResponseMapperMock;
+
+    /**
+     * @var \FondOfOryx\Zed\VertigoPriceProductPriceList\Dependency\Service\VertigoPriceProductPriceListToUtilEncodingServiceInterface|\PHPUnit\Framework\MockObject\MockObject
+     */
+    protected $utilEncodingServiceMock;
 
     /**
      * @var \PHPUnit\Framework\MockObject\MockObject|\Psr\Log\LoggerInterface
@@ -65,6 +71,10 @@ class VertigoPriceApiAdapterTest extends Unit
             ->disableOriginalConstructor()
             ->getMock();
 
+        $this->utilEncodingServiceMock = $this->getMockBuilder(VertigoPriceProductPriceListToUtilEncodingServiceInterface::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
         $this->loggerMock = $this->getMockBuilder(LoggerInterface::class)
             ->disableOriginalConstructor()
             ->getMock();
@@ -84,6 +94,7 @@ class VertigoPriceApiAdapterTest extends Unit
         $this->vertigoPriceApiAdapter = new VertigoPriceApiAdapter(
             $this->clientMock,
             $this->vertigoPriceApiResponseMapperMock,
+            $this->utilEncodingServiceMock,
             $this->loggerMock,
         );
     }
@@ -97,15 +108,22 @@ class VertigoPriceApiAdapterTest extends Unit
             'skus' => ['foo-bar-1', 'foo-bar-2'],
         ];
 
+        $bodyAsJson = json_encode($body, JSON_THROW_ON_ERROR);
+
         $this->vertigoPriceApiRequestTransferMock->expects(static::atLeastOnce())
             ->method('getBody')
             ->willReturn($body);
 
+        $this->utilEncodingServiceMock->expects(static::atLeastOnce())
+            ->method('encodeJson')
+            ->with($body)
+            ->willReturn($bodyAsJson);
+
         $this->clientMock->expects(static::atLeastOnce())
             ->method('request')
             ->with('POST', '/prices-to-shop/cache/prices', static::callback(
-                static function (array $options) use ($body) {
-                    return $options['body'] === $body;
+                static function (array $options) use ($bodyAsJson) {
+                    return $options['body'] === $bodyAsJson;
                 },
             ))->willReturn($this->responseMock);
 
@@ -131,17 +149,25 @@ class VertigoPriceApiAdapterTest extends Unit
         $body = [
             'skus' => ['foo-bar-1', 'foo-bar-2'],
         ];
+
+        $bodyAsJson = json_encode($body, JSON_THROW_ON_ERROR);
+
         $exception = new Exception('foo');
 
         $this->vertigoPriceApiRequestTransferMock->expects(static::atLeastOnce())
             ->method('getBody')
             ->willReturn($body);
 
+        $this->utilEncodingServiceMock->expects(static::atLeastOnce())
+            ->method('encodeJson')
+            ->with($body)
+            ->willReturn($bodyAsJson);
+
         $this->clientMock->expects(static::atLeastOnce())
             ->method('request')
             ->with('POST', '/prices-to-shop/cache/prices', static::callback(
-                static function (array $options) use ($body) {
-                    return $options['body'] === $body;
+                static function (array $options) use ($bodyAsJson) {
+                    return $options['body'] === $bodyAsJson;
                 },
             ))->willThrowException($exception);
 
