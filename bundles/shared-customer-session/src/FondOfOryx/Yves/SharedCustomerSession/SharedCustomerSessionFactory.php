@@ -6,7 +6,7 @@ use FondOfOryx\Shared\SharedCustomerSession\SharedCustomerSessionConfig;
 use FondOfOryx\Yves\SharedCustomerSession\Authenticator\CustomerAuthenticator;
 use FondOfOryx\Yves\SharedCustomerSession\Authenticator\CustomerAuthenticatorInterface;
 use FondOfOryx\Yves\SharedCustomerSession\Dependency\Client\SharedCustomerSessionToCustomerClientInterface;
-use FondOfOryx\Yves\SharedCustomerSession\Plugin\Security\CustomerSessionControllerSecurityPlugin;
+use FondOfOryx\Yves\SharedCustomerSession\Plugin\Security\SharedCustomerSessionSecurityPlugin;
 use FondOfOryx\Yves\SharedCustomerSession\Security\Customer;
 use Generated\Shared\Transfer\CustomerTransfer;
 use Spryker\Yves\Kernel\AbstractFactory;
@@ -37,7 +37,7 @@ class SharedCustomerSessionFactory extends AbstractFactory
             $user,
             $user->getPassword(),
             SharedCustomerSessionConfig::SECURITY_FIREWALL_NAME,
-            [CustomerSessionControllerSecurityPlugin::ROLE_USER],
+            [SharedCustomerSessionSecurityPlugin::ROLE_USER],
         );
     }
 
@@ -52,7 +52,7 @@ class SharedCustomerSessionFactory extends AbstractFactory
             $customerTransfer,
             $customerTransfer->getEmail(),
             $customerTransfer->getPassword(),
-            [CustomerSessionControllerSecurityPlugin::ROLE_USER],
+            [SharedCustomerSessionSecurityPlugin::ROLE_USER],
         );
     }
 

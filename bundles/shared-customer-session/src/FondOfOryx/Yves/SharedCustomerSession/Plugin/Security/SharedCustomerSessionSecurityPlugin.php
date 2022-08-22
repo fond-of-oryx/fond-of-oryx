@@ -7,7 +7,7 @@ use Spryker\Shared\SecurityExtension\Configuration\SecurityBuilderInterface;
 use Spryker\Shared\SecurityExtension\Dependency\Plugin\SecurityPluginInterface;
 use Spryker\Yves\Kernel\AbstractPlugin;
 
-class CustomerSessionControllerSecurityPlugin extends AbstractPlugin implements SecurityPluginInterface
+class SharedCustomerSessionSecurityPlugin extends AbstractPlugin implements SecurityPluginInterface
 {
     /**
      * @var string
