@@ -13,4 +13,12 @@
         <property name="email" type="string"/>
         <property name="password" type="string"/>
     </transfer>
+
+    <transfer name="OauthAccessTokenValidationRequest">
+        <property name="accessToken" type="string"/>
+    </transfer>
+
+    <transfer name="OauthAccessTokenValidationResponse">
+        <property name="isValid" type="bool"/>
+    </transfer>
 </transfers>
