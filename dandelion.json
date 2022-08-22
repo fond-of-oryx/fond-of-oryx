@@ -728,7 +728,7 @@
     },
     "trbo": {
       "path": "bundles/trbo/",
-      "version": "1.0.6"
+      "version": "1.0.7"
     },
     "util-math-formula": {
       "path": "bundles/util-math-formula/",

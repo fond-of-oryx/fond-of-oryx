@@ -154,9 +154,6 @@ class TrboApiConfigurationTest extends Unit
             ->with(TrboConstants::TRBO_COOKIE_USERID)
             ->willReturn(null);
 
-        $this->requestSessionMock->expects(static::atLeastOnce())
-            ->method('set');
-
         $response = $this->trboApiConfiguration->getConfiguration($this->requestMock);
 
         static::assertArrayHasKey('headers', $response);
