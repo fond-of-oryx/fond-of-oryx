@@ -152,6 +152,7 @@
     "fond-of-oryx/company-role-search-rest-api": "*",
     "fond-of-oryx/company-search-rest-api": "*",
     "fond-of-oryx/company-user-api": "*",
+    "fond-of-oryx/company-user-archive": "*",
     "fond-of-oryx/company-user-company-role-connector": "*",
     "fond-of-oryx/company-user-mail-connector": "*",
     "fond-of-oryx/company-user-reference-sales-connector": "*",
