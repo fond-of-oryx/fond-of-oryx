@@ -4,6 +4,7 @@ namespace FondOfOryx\Zed\SplittableCheckoutRestApi\Business\Processor;
 
 use FondOfOryx\Zed\SplittableCheckoutRestApi\Business\Reader\QuoteReaderInterface;
 use FondOfOryx\Zed\SplittableCheckoutRestApi\Dependency\Facade\SplittableCheckoutRestApiToSplittableCheckoutFacadeInterface;
+use Generated\Shared\Transfer\RestSplittableCheckoutErrorTransfer;
 use Generated\Shared\Transfer\RestSplittableCheckoutRequestTransfer;
 use Generated\Shared\Transfer\RestSplittableCheckoutResponseTransfer;
 use Generated\Shared\Transfer\SplittableCheckoutTransfer;
@@ -49,15 +50,22 @@ class PlaceOrderProcessor implements PlaceOrderProcessorInterface
             return $restSplittableCheckoutResponseTransfer;
         }
 
-        $splittabelCheckoutResponseTransfer = $this->splittabelCheckoutFacade->placeOrder($quoteTransfer);
+        $splittableCheckoutResponseTransfer = $this->splittabelCheckoutFacade->placeOrder($quoteTransfer);
 
-        $splittedQuoteTransfers = $splittabelCheckoutResponseTransfer->getSplittedQuotes();
+        $splittedQuoteTransfers = $splittableCheckoutResponseTransfer->getSplittedQuotes();
 
-        if ($splittedQuoteTransfers->count() === 0 || $splittabelCheckoutResponseTransfer->getIsSuccess() === false) {
-            return $restSplittableCheckoutResponseTransfer;
+        if ($splittedQuoteTransfers->count() > 0 && $splittableCheckoutResponseTransfer->getIsSuccess()) {
+            return $restSplittableCheckoutResponseTransfer->setIsSuccessful(true)
+                ->setSplittableCheckout((new SplittableCheckoutTransfer())->setSplittedQuotes($splittedQuoteTransfers));
         }
 
-        return $restSplittableCheckoutResponseTransfer->setIsSuccessful(true)
-            ->setSplittableCheckout((new SplittableCheckoutTransfer())->setSplittedQuotes($splittedQuoteTransfers));
+        foreach ($splittableCheckoutResponseTransfer->getErrors() as $splittableCheckoutErrorTransfer) {
+            $restSplittableCheckoutErrorTransfer = (new RestSplittableCheckoutErrorTransfer())
+                ->fromArray($splittableCheckoutErrorTransfer->toArray(), true);
+
+            $restSplittableCheckoutResponseTransfer->addError($restSplittableCheckoutErrorTransfer);
+        }
+
+        return $restSplittableCheckoutResponseTransfer;
     }
 }

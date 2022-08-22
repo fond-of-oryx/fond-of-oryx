@@ -2,6 +2,7 @@
 
 namespace FondOfOryx\Glue\SplittableCheckoutRestApi\Processor\SplittableCheckout;
 
+use ArrayObject;
 use Codeception\Test\Unit;
 use FondOfOryx\Client\SplittableCheckoutRestApi\SplittableCheckoutRestApiClientInterface;
 use FondOfOryx\Glue\SplittableCheckoutRestApi\Processor\Builder\SplittableCheckoutRestResponseBuilderInterface;
@@ -153,6 +154,9 @@ class SplittableCheckoutProcessorTest extends Unit
             ->method('getIsSuccessful')
             ->willReturn(true);
 
+        $this->restSplittableCheckoutResponseTransferMock->expects(static::never())
+            ->method('getErrors');
+
         $this->restResponseBuilderMock->expects(static::atLeastOnce())
             ->method('createRestResponse')
             ->with($this->splittableCheckoutTransferMock)
@@ -172,6 +176,8 @@ class SplittableCheckoutProcessorTest extends Unit
      */
     public function testPlaceOrderWithError(): void
     {
+        $restSplittableCheckoutErrorTransfers = new ArrayObject();
+
         $this->restSplittableCheckoutRequestMapperMock->expects(static::atLeastOnce())
             ->method('fromRestSplittableCheckoutRequestAttributes')
             ->willReturn($this->restSplittableCheckoutRequestTransferMock);
@@ -193,8 +199,13 @@ class SplittableCheckoutProcessorTest extends Unit
         $this->restSplittableCheckoutResponseTransferMock->expects(static::never())
             ->method('getIsSuccessful');
 
+        $this->restSplittableCheckoutResponseTransferMock->expects(static::atLeastOnce())
+            ->method('getErrors')
+            ->willReturn($restSplittableCheckoutErrorTransfers);
+
         $this->restResponseBuilderMock->expects(static::atLeastOnce())
             ->method('createNotPlacedErrorRestResponse')
+            ->with($restSplittableCheckoutErrorTransfers, $this->restRequestMock)
             ->willReturn($this->restResponseMock);
 
         static::assertEquals(
