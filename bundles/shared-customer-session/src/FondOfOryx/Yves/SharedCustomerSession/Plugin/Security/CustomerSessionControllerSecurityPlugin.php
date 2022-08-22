@@ -1,6 +1,6 @@
 <?php
 
-namespace FondOfOryx\Yves\CustomerSessionController\Plugin\Security;
+namespace FondOfOryx\Yves\SharedCustomerSession\Plugin\Security;
 
 use Spryker\Service\Container\ContainerInterface;
 use Spryker\Shared\SecurityExtension\Configuration\SecurityBuilderInterface;

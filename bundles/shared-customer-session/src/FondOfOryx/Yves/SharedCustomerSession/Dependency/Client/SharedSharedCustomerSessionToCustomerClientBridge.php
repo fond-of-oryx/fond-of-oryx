@@ -1,15 +1,12 @@
 <?php
 
-namespace FondOfOryx\Yves\CustomerSessionController\Dependency\Client;
+namespace FondOfOryx\Yves\SharedCustomerSession\Dependency\Client;
 
 use Generated\Shared\Transfer\CustomerResponseTransfer;
 use Generated\Shared\Transfer\CustomerTransfer;
 use Spryker\Client\Customer\CustomerClientInterface;
 
-/**
- * @method
- */
-class CustomerSessionControllerToCustomerClientBridge implements CustomerSessionControllerToCustomerClientInterface
+class SharedSharedCustomerSessionToCustomerClientBridge implements SharedCustomerSessionToCustomerClientInterface
 {
     /**
      * @var \Spryker\Client\Customer\CustomerClientInterface

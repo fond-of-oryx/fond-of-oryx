@@ -1,13 +1,13 @@
 <?php
 
-namespace FondOfOryx\Yves\CustomerSessionController;
+namespace FondOfOryx\Yves\SharedCustomerSession;
 
-use FondOfOryx\Yves\CustomerSessionController\Dependency\Client\CustomerSessionControllerToCustomerClientBridge;
+use FondOfOryx\Yves\SharedCustomerSession\Dependency\Client\SharedSharedCustomerSessionToCustomerClientBridge;
 use Spryker\Yves\Kernel\AbstractBundleDependencyProvider;
 use Spryker\Yves\Kernel\Container;
 use Spryker\Yves\Kernel\Plugin\Pimple;
 
-class CustomerSessionControllerDependencyProvider extends AbstractBundleDependencyProvider
+class SharedCustomerSessionDependencyProvider extends AbstractBundleDependencyProvider
 {
     /**
      * @var string
@@ -40,7 +40,7 @@ class CustomerSessionControllerDependencyProvider extends AbstractBundleDependen
     protected function addCustomerClient(Container $container): Container
     {
         $container->set(static::CLIENT_CUSTOMER, function (Container $container) {
-            return new CustomerSessionControllerToCustomerClientBridge($container->getLocator()->customer()->client());
+            return new SharedSharedCustomerSessionToCustomerClientBridge($container->getLocator()->customer()->client());
         });
 
         return $container;

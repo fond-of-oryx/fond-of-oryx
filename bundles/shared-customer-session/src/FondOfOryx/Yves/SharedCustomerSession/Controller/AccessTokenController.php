@@ -1,8 +1,8 @@
 <?php
 
-namespace FondOfOryx\Yves\CustomerSessionController\Controller;
+namespace FondOfOryx\Yves\SharedCustomerSession\Controller;
 
-use FondOfOryx\Shared\CustomerSessionController\CustomerSessionControllerConstants;
+use FondOfOryx\Shared\SharedCustomerSession\SharedCustomerSessionConstants;
 use Spryker\Client\Kernel\AbstractClient;
 use Spryker\Yves\Kernel\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -10,7 +10,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 
 /**
- * @method \FondOfOryx\Yves\CustomerSessionController\CustomerSessionControllerFactory getFactory()
+ * @method \FondOfOryx\Yves\SharedCustomerSession\SharedCustomerSessionFactory getFactory()
  */
 class AccessTokenController extends AbstractController
 {
@@ -34,9 +34,9 @@ class AccessTokenController extends AbstractController
     protected function executeTokenManagerAction(string $token): RedirectResponse
     {
         if ($this->isLoggedInCustomer()) {
-            $this->addErrorMessage(CustomerSessionControllerConstants::GLOSSARY_KEY_CUSTOMER_ALREADY_LOGGED_IN);
+            $this->addErrorMessage(SharedCustomerSessionConstants::GLOSSARY_KEY_CUSTOMER_ALREADY_LOGGED_IN);
 
-            return $this->redirectResponseInternal(CustomerSessionControllerConstants::ROUTE_CUSTOMER_OVERVIEW);
+            return $this->redirectResponseInternal(SharedCustomerSessionConstants::ROUTE_CUSTOMER_OVERVIEW);
         }
 
         $customerResponseTransfer = $this->getFactory()
@@ -44,7 +44,7 @@ class AccessTokenController extends AbstractController
             ->getCustomerByAccessToken($token);
 
         if (!$customerResponseTransfer->getIsSuccess()) {
-            $this->addErrorMessage(CustomerSessionControllerConstants::GLOSSARY_KEY_INVALID_ACCESS_TOKEN);
+            $this->addErrorMessage(SharedCustomerSessionConstants::GLOSSARY_KEY_INVALID_ACCESS_TOKEN);
 
             throw new AccessDeniedHttpException();
         }
@@ -56,7 +56,7 @@ class AccessTokenController extends AbstractController
             ->createCustomerAuthenticator()
             ->authenticateCustomer($customerTransfer, $token);
 
-        return $this->redirectResponseInternal(CustomerSessionControllerConstants::ROUTE_CUSTOMER_OVERVIEW);
+        return $this->redirectResponseInternal(SharedCustomerSessionConstants::ROUTE_CUSTOMER_OVERVIEW);
     }
 
     /**

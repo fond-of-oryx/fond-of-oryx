@@ -1,8 +1,8 @@
 <?php
 
-namespace FondOfOryx\Shared\CustomerSessionController;
+namespace FondOfOryx\Shared\SharedCustomerSession;
 
-interface CustomerSessionControllerConstants
+interface SharedCustomerSessionConstants
 {
     /**
      * @var string

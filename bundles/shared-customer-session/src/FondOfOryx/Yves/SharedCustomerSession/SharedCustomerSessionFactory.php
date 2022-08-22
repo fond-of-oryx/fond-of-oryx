@@ -1,27 +1,27 @@
 <?php
 
-namespace FondOfOryx\Yves\CustomerSessionController;
+namespace FondOfOryx\Yves\SharedCustomerSession;
 
-use FondOfOryx\Shared\CustomerSessionController\CustomerSessionControllerConfig;
-use FondOfOryx\Yves\CustomerSessionController\Authenticator\CustomerAuthenticator;
-use FondOfOryx\Yves\CustomerSessionController\Authenticator\CustomerAuthenticatorInterface;
-use FondOfOryx\Yves\CustomerSessionController\Dependency\Client\CustomerSessionControllerToCustomerClientInterface;
-use FondOfOryx\Yves\CustomerSessionController\Plugin\Security\CustomerSessionControllerSecurityPlugin;
-use FondOfOryx\Yves\CustomerSessionController\Security\Customer;
+use FondOfOryx\Shared\SharedCustomerSession\SharedCustomerSessionConfig;
+use FondOfOryx\Yves\SharedCustomerSession\Authenticator\CustomerAuthenticator;
+use FondOfOryx\Yves\SharedCustomerSession\Authenticator\CustomerAuthenticatorInterface;
+use FondOfOryx\Yves\SharedCustomerSession\Dependency\Client\SharedCustomerSessionToCustomerClientInterface;
+use FondOfOryx\Yves\SharedCustomerSession\Plugin\Security\CustomerSessionControllerSecurityPlugin;
+use FondOfOryx\Yves\SharedCustomerSession\Security\Customer;
 use Generated\Shared\Transfer\CustomerTransfer;
 use Spryker\Yves\Kernel\AbstractFactory;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 use Symfony\Component\Security\Core\User\UserInterface;
 
-class CustomerSessionControllerFactory extends AbstractFactory
+class SharedCustomerSessionFactory extends AbstractFactory
 {
     /**
-     * @return \FondOfOryx\Yves\CustomerSessionController\Dependency\Client\CustomerSessionControllerToCustomerClientInterface
+     * @return \FondOfOryx\Yves\SharedCustomerSession\Dependency\Client\SharedCustomerSessionToCustomerClientInterface
      */
-    public function getCustomerClient(): CustomerSessionControllerToCustomerClientInterface
+    public function getCustomerClient(): SharedCustomerSessionToCustomerClientInterface
     {
-        return $this->getProvidedDependency(CustomerSessionControllerDependencyProvider::CLIENT_CUSTOMER);
+        return $this->getProvidedDependency(SharedCustomerSessionDependencyProvider::CLIENT_CUSTOMER);
     }
 
     /**
@@ -36,7 +36,7 @@ class CustomerSessionControllerFactory extends AbstractFactory
         return new UsernamePasswordToken(
             $user,
             $user->getPassword(),
-            CustomerSessionControllerConfig::SECURITY_FIREWALL_NAME,
+            SharedCustomerSessionConfig::SECURITY_FIREWALL_NAME,
             [CustomerSessionControllerSecurityPlugin::ROLE_USER],
         );
     }
@@ -57,7 +57,7 @@ class CustomerSessionControllerFactory extends AbstractFactory
     }
 
     /**
-     * @return \FondOfOryx\Yves\CustomerSessionController\Authenticator\CustomerAuthenticatorInterface
+     * @return \FondOfOryx\Yves\SharedCustomerSession\Authenticator\CustomerAuthenticatorInterface
      */
     public function createCustomerAuthenticator(): CustomerAuthenticatorInterface
     {
@@ -82,6 +82,6 @@ class CustomerSessionControllerFactory extends AbstractFactory
      */
     public function getApplication()
     {
-        return $this->getProvidedDependency(CustomerSessionControllerDependencyProvider::PLUGIN_APPLICATION);
+        return $this->getProvidedDependency(SharedCustomerSessionDependencyProvider::PLUGIN_APPLICATION);
     }
 }

@@ -1,6 +1,6 @@
 <?php
 
-namespace FondOfOryx\Yves\CustomerSessionController\Security;
+namespace FondOfOryx\Yves\SharedCustomerSession\Security;
 
 use Generated\Shared\Transfer\CustomerTransfer;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -42,7 +42,7 @@ class Customer implements UserInterface
     }
 
     /**
-     * @return array<\Symfony\Component\Security\Core\Role\Role>
+     * @return array<string>
      */
     public function getRoles()
     {

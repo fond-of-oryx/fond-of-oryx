@@ -1,8 +1,8 @@
 <?php
 
-namespace FondOfOryx\Yves\CustomerSessionController\Authenticator;
+namespace FondOfOryx\Yves\SharedCustomerSession\Authenticator;
 
-use FondOfOryx\Yves\CustomerSessionController\Dependency\Client\CustomerSessionControllerToCustomerClientInterface;
+use FondOfOryx\Yves\SharedCustomerSession\Dependency\Client\SharedCustomerSessionToCustomerClientInterface;
 use Generated\Shared\Transfer\CustomerTransfer;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
@@ -10,7 +10,7 @@ use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 class CustomerAuthenticator implements CustomerAuthenticatorInterface
 {
     /**
-     * @var \SprykerShop\Yves\CustomerPage\Dependency\Client\CustomerPageToCustomerClientInterface
+     * @var \FondOfOryx\Yves\SharedCustomerSession\Dependency\Client\SharedCustomerSessionToCustomerClientInterface
      */
     protected $customerClient;
 
@@ -20,11 +20,11 @@ class CustomerAuthenticator implements CustomerAuthenticatorInterface
     protected $tokenStorage;
 
     /**
-     * @param \FondOfOryx\Yves\CustomerSessionController\Dependency\Client\CustomerSessionControllerToCustomerClientInterface $customerClient
+     * @param \FondOfOryx\Yves\SharedCustomerSession\Dependency\Client\SharedCustomerSessionToCustomerClientInterface $customerClient
      * @param \Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface $tokenStorage
      */
     public function __construct(
-        CustomerSessionControllerToCustomerClientInterface $customerClient,
+        SharedCustomerSessionToCustomerClientInterface $customerClient,
         TokenStorageInterface $tokenStorage
     ) {
         $this->customerClient = $customerClient;

@@ -1,10 +1,10 @@
 <?php
 
-namespace FondOfOryx\Yves\CustomerSessionController\Dependency\Client;
+namespace FondOfOryx\Yves\SharedCustomerSession\Dependency\Client;
 
 use Generated\Shared\Transfer\CustomerResponseTransfer;
 
-interface CustomerSessionControllerToCustomerClientInterface
+interface SharedCustomerSessionToCustomerClientInterface
 {
     /**
      * @return bool

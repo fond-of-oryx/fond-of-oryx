@@ -1,6 +1,6 @@
 <?php
 
-namespace FondOfOryx\Yves\CustomerSessionController\Authenticator;
+namespace FondOfOryx\Yves\SharedCustomerSession\Authenticator;
 
 use Generated\Shared\Transfer\CustomerTransfer;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;

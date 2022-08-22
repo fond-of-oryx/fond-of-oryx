@@ -1,10 +1,10 @@
 <?php
 
-namespace FondOfOryx\Shared\CustomerSessionController;
+namespace FondOfOryx\Shared\SharedCustomerSession;
 
 use Spryker\Shared\Kernel\AbstractSharedConfig;
 
-class CustomerSessionControllerConfig extends AbstractSharedConfig
+class SharedCustomerSessionConfig extends AbstractSharedConfig
 {
     /**
      * @var string
