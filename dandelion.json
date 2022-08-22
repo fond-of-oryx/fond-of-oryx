@@ -142,6 +142,10 @@
       "path": "bundles/company-user-api/",
       "version": "1.0.0"
     },
+    "company-user-archive": {
+      "path": "bundles/company-user-archive/",
+      "version": "1.0.0"
+    },
     "company-user-company-role-connector": {
       "path": "bundles/company-user-company-role-connector/",
       "version": "1.0.1"
