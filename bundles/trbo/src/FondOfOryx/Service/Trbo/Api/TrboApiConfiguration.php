@@ -107,7 +107,6 @@ class TrboApiConfiguration implements TrboApiConfigurationInterface
 
         if ($trboUserId === null) {
             $trboUserId = md5(uniqid('trbo', false));
-            $request->getSession()->set(TrboConstants::TRBO_COOKIE_USERID, $trboUserId);
         }
 
         return $trboUserId;
