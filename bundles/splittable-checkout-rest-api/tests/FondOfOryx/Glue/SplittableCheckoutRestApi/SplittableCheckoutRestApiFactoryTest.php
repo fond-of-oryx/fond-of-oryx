@@ -4,6 +4,7 @@ namespace FondOfOryx\Glue\SplittableCheckoutRestApi;
 
 use Codeception\Test\Unit;
 use FondOfOryx\Client\SplittableCheckoutRestApi\SplittableCheckoutRestApiClient;
+use FondOfOryx\Glue\SplittableCheckoutRestApi\Dependency\Client\SplittableCheckoutRestApiToGlossaryStorageClientInterface;
 use FondOfOryx\Glue\SplittableCheckoutRestApi\Processor\Reader\SplittableTotalsReader;
 use FondOfOryx\Glue\SplittableCheckoutRestApi\Processor\SplittableCheckout\SplittableCheckoutProcessor;
 use Spryker\Client\Kernel\AbstractClient;
@@ -29,14 +30,19 @@ class SplittableCheckoutRestApiFactoryTest extends Unit
     protected $restResourceBuilderMock;
 
     /**
-     * @var \FondOfOryx\Glue\SplittableCheckoutRestApi\SplittableCheckoutRestApiFactory
-     */
-    protected $factory;
-
-    /**
      * @var \PHPUnit\Framework\MockObject\MockObject|\Spryker\Glue\Kernel\Container
      */
     protected $containerMock;
+
+    /**
+     * @var \FondOfOryx\Glue\SplittableCheckoutRestApi\Dependency\Client\SplittableCheckoutRestApiToGlossaryStorageClientInterface|\PHPUnit\Framework\MockObject\MockObject
+     */
+    protected $glossaryStorageClientMock;
+
+    /**
+     * @var \FondOfOryx\Glue\SplittableCheckoutRestApi\SplittableCheckoutRestApiFactory
+     */
+    protected $factory;
 
     /**
      * @return void
@@ -58,6 +64,10 @@ class SplittableCheckoutRestApiFactoryTest extends Unit
             ->getMock();
 
         $this->containerMock = $this->getMockBuilder(Container::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $this->glossaryStorageClientMock = $this->getMockBuilder(SplittableCheckoutRestApiToGlossaryStorageClientInterface::class)
             ->disableOriginalConstructor()
             ->getMock();
 
@@ -146,13 +156,17 @@ class SplittableCheckoutRestApiFactoryTest extends Unit
     {
         $this->containerMock->expects(static::atLeastOnce())
             ->method('has')
-            ->with(SplittableCheckoutRestApiDependencyProvider::PLUGINS_REST_SPLITTABLE_CHECKOUT_EXPANDER)
-            ->willReturn(true);
+            ->withConsecutive(
+                [SplittableCheckoutRestApiDependencyProvider::CLIENT_GLOSSARY_STORAGE],
+                [SplittableCheckoutRestApiDependencyProvider::PLUGINS_REST_SPLITTABLE_CHECKOUT_EXPANDER],
+            )->willReturn(true);
 
         $this->containerMock->expects(static::atLeastOnce())
             ->method('get')
-            ->with(SplittableCheckoutRestApiDependencyProvider::PLUGINS_REST_SPLITTABLE_CHECKOUT_EXPANDER)
-            ->willReturn([]);
+            ->withConsecutive(
+                [SplittableCheckoutRestApiDependencyProvider::CLIENT_GLOSSARY_STORAGE],
+                [SplittableCheckoutRestApiDependencyProvider::PLUGINS_REST_SPLITTABLE_CHECKOUT_EXPANDER],
+            )->willReturn($this->glossaryStorageClientMock, []);
 
         static::assertInstanceOf(
             SplittableCheckoutProcessor::class,

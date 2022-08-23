@@ -2,11 +2,17 @@
 
 namespace FondOfOryx\Glue\SplittableCheckoutRestApi;
 
+use FondOfOryx\Glue\SplittableCheckoutRestApi\Dependency\Client\SplittableCheckoutRestApiToGlossaryStorageClientBridge;
 use Spryker\Glue\Kernel\AbstractBundleDependencyProvider;
 use Spryker\Glue\Kernel\Container;
 
 class SplittableCheckoutRestApiDependencyProvider extends AbstractBundleDependencyProvider
 {
+    /**
+     * @var string
+     */
+    public const CLIENT_GLOSSARY_STORAGE = 'CLIENT_GLOSSARY_STORAGE';
+
     /**
      * @var string
      */
@@ -21,7 +27,25 @@ class SplittableCheckoutRestApiDependencyProvider extends AbstractBundleDependen
     {
         $container = parent::provideDependencies($container);
 
+        $container = $this->addGlossaryStorageClient($container);
+
         return $this->addRestSplittableCheckoutExpanderPlugins($container);
+    }
+
+    /**
+     * @param \Spryker\Glue\Kernel\Container $container
+     *
+     * @return \Spryker\Glue\Kernel\Container
+     */
+    protected function addGlossaryStorageClient(Container $container): Container
+    {
+        $container[static::CLIENT_GLOSSARY_STORAGE] = static function (Container $container) {
+            return new SplittableCheckoutRestApiToGlossaryStorageClientBridge(
+                $container->getLocator()->glossaryStorage()->client(),
+            );
+        };
+
+        return $container;
     }
 
     /**

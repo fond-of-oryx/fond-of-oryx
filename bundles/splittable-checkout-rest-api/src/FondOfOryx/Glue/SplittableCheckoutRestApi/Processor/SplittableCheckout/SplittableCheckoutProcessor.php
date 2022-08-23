@@ -72,7 +72,10 @@ class SplittableCheckoutProcessor implements SplittableCheckoutProcessorInterfac
         $splittableCheckoutTransfer = $restSplittableCheckoutResponseTransfer->getSplittableCheckout();
 
         if ($splittableCheckoutTransfer === null || $restSplittableCheckoutResponseTransfer->getIsSuccessful() === false) {
-            return $this->restResponseBuilder->createNotPlacedErrorRestResponse();
+            return $this->restResponseBuilder->createNotPlacedErrorRestResponse(
+                $restSplittableCheckoutResponseTransfer->getErrors(),
+                $restRequest,
+            );
         }
 
         return $this->restResponseBuilder->createRestResponse($splittableCheckoutTransfer);

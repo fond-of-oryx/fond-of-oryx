@@ -39,6 +39,7 @@
     <transfer name="RestSplittableCheckoutResponse">
         <property name="isSuccessful" type="bool"/>
         <property name="splittableCheckout" type="SplittableCheckout"/>
+        <property name="errors" type="RestSplittableCheckoutError[]" singular="error"/>
     </transfer>
 
     <transfer name="SplittableCheckout">
@@ -51,9 +52,16 @@
         <property name="splittedQuotes" type="Quote[]" singular="splittedQuote" associative="true"/>
     </transfer>
 
+    <transfer name="RestSplittableCheckoutError">
+        <property name="errorCode" type="int"/>
+        <property name="message" type="string"/>
+        <property name="parameters" type="array" singular="parameters"/>
+    </transfer>
+
     <transfer name="SplittableCheckoutError">
         <property name="errorCode" type="int"/>
         <property name="message" type="string"/>
+        <property name="parameters" type="array" singular="parameters"/>
     </transfer>
 
     <transfer name="RestSplittableCheckout">
