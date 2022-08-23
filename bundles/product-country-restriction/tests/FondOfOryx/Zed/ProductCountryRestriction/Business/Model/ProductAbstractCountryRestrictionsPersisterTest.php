@@ -97,7 +97,7 @@ class ProductAbstractCountryRestrictionsPersisterTest extends Unit
                         ProductAbstractCountryRestrictionTransfer $productAbstractCountryRestrictionTransfer
                     ) use (
                         $idProductAbstract,
-                        $newCountryIds
+                        $newCountryIds,
                     ) {
                         return $productAbstractCountryRestrictionTransfer->getIdProductAbstract() === $idProductAbstract
                             && $productAbstractCountryRestrictionTransfer->getIdCountry() === $newCountryIds[1];

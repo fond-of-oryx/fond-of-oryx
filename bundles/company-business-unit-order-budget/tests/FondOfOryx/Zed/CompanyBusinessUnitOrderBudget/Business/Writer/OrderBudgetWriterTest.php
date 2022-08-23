@@ -243,7 +243,7 @@ class OrderBudgetWriterTest extends Unit
                         CompanyBusinessUnitTransfer $companyBusinessUnitTransfer
                     ) use (
                         $idCompanyBusinessUnit,
-                        $idOrderBudget
+                        $idOrderBudget,
                     ) {
                         return $companyBusinessUnitTransfer->getIdCompanyBusinessUnit() === $idCompanyBusinessUnit
                             && $companyBusinessUnitTransfer->getFkOrderBudget() === $idOrderBudget;

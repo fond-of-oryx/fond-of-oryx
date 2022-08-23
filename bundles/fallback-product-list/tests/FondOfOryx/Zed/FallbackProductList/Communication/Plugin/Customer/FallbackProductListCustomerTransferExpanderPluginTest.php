@@ -125,7 +125,7 @@ class FallbackProductListCustomerTransferExpanderPluginTest extends Unit
                         CustomerProductListCollectionTransfer $customerProductListCollectionTransfer
                     ) use (
                         $fallbackWhitelistIds,
-                        $fallbackBlacklistIds
+                        $fallbackBlacklistIds,
                     ) {
                         return $customerProductListCollectionTransfer->getBlacklistIds() === $fallbackBlacklistIds
                             && $customerProductListCollectionTransfer->getWhitelistIds() === $fallbackWhitelistIds;

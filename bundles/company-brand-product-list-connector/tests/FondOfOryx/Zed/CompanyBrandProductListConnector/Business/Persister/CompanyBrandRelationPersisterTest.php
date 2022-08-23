@@ -80,7 +80,7 @@ class CompanyBrandRelationPersisterTest extends Unit
                         CompanyBrandRelationTransfer $companyBrandRelationTransfer
                     ) use (
                         $idCompany,
-                        $brandIds
+                        $brandIds,
                     ) {
                         return $companyBrandRelationTransfer->getIdCompany() === $idCompany
                             && $companyBrandRelationTransfer->getIdBrands() === $brandIds;

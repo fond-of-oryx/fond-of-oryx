@@ -97,7 +97,7 @@ class ProductAbstractLocaleRestrictionsPersisterTest extends Unit
                         ProductAbstractLocaleRestrictionTransfer $productAbstractLocaleRestrictionTransfer
                     ) use (
                         $idProductAbstract,
-                        $newLocaleIds
+                        $newLocaleIds,
                     ) {
                         return $productAbstractLocaleRestrictionTransfer->getIdProductAbstract() === $idProductAbstract
                             && $productAbstractLocaleRestrictionTransfer->getIdLocale() === $newLocaleIds[1];

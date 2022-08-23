@@ -306,7 +306,7 @@ class ProportionalGiftCardAmountCalculatorTest extends Unit
                     ) use (
                         $unitPriceToPayAggregations,
                         $recalculatedUnitPriceToPayAggregations,
-                        $salesOrderItemIds
+                        $salesOrderItemIds,
                     ) {
                         $amount = $unitPriceToPayAggregations[0] - $recalculatedUnitPriceToPayAggregations[0];
 
@@ -329,7 +329,7 @@ class ProportionalGiftCardAmountCalculatorTest extends Unit
                     ) use (
                         $unitPriceToPayAggregations,
                         $recalculatedUnitPriceToPayAggregations,
-                        $salesOrderItemIds
+                        $salesOrderItemIds,
                     ) {
                         $amount = $unitPriceToPayAggregations[1] - $recalculatedUnitPriceToPayAggregations[1];
 
@@ -355,7 +355,7 @@ class ProportionalGiftCardAmountCalculatorTest extends Unit
                         JellyfishProportionalCouponValueTransfer $jellyfishProportionalCouponValueTransfer
                     ) use (
                         $sumGrossPrices,
-                        $recalculatedSumGrossPrices
+                        $recalculatedSumGrossPrices,
                     ) {
                         $amount = $sumGrossPrices[0] - $recalculatedSumGrossPrices[0];
 
