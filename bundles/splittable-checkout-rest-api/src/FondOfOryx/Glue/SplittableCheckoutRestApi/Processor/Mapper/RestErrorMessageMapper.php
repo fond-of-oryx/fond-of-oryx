@@ -39,7 +39,7 @@ class RestErrorMessageMapper implements RestErrorMessageMapperInterface
         );
 
         return (new RestErrorMessageTransfer())->setDetail($detail)
-            ->setCode($restSplittableCheckoutErrorTransfer->getErrorCode())
+            ->setCode((string)$restSplittableCheckoutErrorTransfer->getErrorCode())
             ->setStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
     }
 }

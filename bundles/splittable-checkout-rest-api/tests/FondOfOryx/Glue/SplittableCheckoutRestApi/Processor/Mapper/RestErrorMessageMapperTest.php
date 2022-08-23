@@ -77,6 +77,6 @@ class RestErrorMessageMapperTest extends Unit
 
         static::assertEquals($translated, $restErrorMessageTransfer->getDetail());
         static::assertEquals(Response::HTTP_UNPROCESSABLE_ENTITY, $restErrorMessageTransfer->getStatus());
-        static::assertEquals($errorCode, $restErrorMessageTransfer->getCode());
+        static::assertEquals((string)$errorCode, $restErrorMessageTransfer->getCode());
     }
 }
