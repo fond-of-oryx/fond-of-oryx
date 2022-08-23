@@ -4,7 +4,7 @@ namespace FondOfOryx\Zed\SplittableCheckout\Business\Workflow;
 
 use ArrayObject;
 use Exception;
-use FondOfOryx\Zed\SplittableCheckout\Business\Exception\PermissionDeniedException;
+use FondOfOryx\Zed\SplittableCheckout\Business\Exception\OrderNotPlacedException;
 use FondOfOryx\Zed\SplittableCheckout\Communication\Plugin\PermissionExtension\PlaceOrderPermissionPlugin;
 use FondOfOryx\Zed\SplittableCheckout\Dependency\Facade\SplittableCheckoutToCheckoutFacadeInterface;
 use FondOfOryx\Zed\SplittableCheckout\Dependency\Facade\SplittableCheckoutToPermissionFacadeInterface;
@@ -16,15 +16,11 @@ use Generated\Shared\Transfer\SplittableCheckoutErrorTransfer;
 use Generated\Shared\Transfer\SplittableCheckoutResponseTransfer;
 use Psr\Log\LoggerInterface;
 use Spryker\Zed\Kernel\Persistence\EntityManager\TransactionTrait;
+use Throwable;
 
 class SplittableCheckoutWorkflow implements SplittableCheckoutWorkflowInterface
 {
     use TransactionTrait;
-
-    /**
-     * @var string
-     */
-    protected const ERROR_MESSAGE_ORDER_NOT_PLACED = 'splittable_checkout.error.order_not_placed';
 
     /**
      * @var string
@@ -88,37 +84,48 @@ class SplittableCheckoutWorkflow implements SplittableCheckoutWorkflowInterface
     /**
      * @param \Generated\Shared\Transfer\QuoteTransfer $quoteTransfer
      *
-     * @throws \FondOfOryx\Zed\SplittableCheckout\Business\Exception\PermissionDeniedException
+     * @throws \FondOfOryx\Zed\SplittableCheckout\Business\Exception\OrderNotPlacedException
+     * @throws \Throwable
      *
      * @return \Generated\Shared\Transfer\SplittableCheckoutResponseTransfer
      */
     public function placeOrder(QuoteTransfer $quoteTransfer): SplittableCheckoutResponseTransfer
     {
-        try {
-            $self = $this;
+        $self = $this;
+        $splittableCheckoutResponseTransfer = (new SplittableCheckoutResponseTransfer())
+            ->setIsSuccess(false);
 
+        try {
             if (!$this->canPlaceOrder($quoteTransfer)) {
-                throw new PermissionDeniedException();
+                $splittableCheckoutErrorTransfer = (new SplittableCheckoutErrorTransfer())
+                    ->setMessage(static::ERROR_MESSAGE_PERMISSION_DENIED);
+
+                return $splittableCheckoutResponseTransfer->addError($splittableCheckoutErrorTransfer);
             }
 
-            return $this->getTransactionHandler()->handleTransaction(
-                static function () use ($quoteTransfer, $self) {
-                    return $self->executePlaceOrder($quoteTransfer);
+            $this->getTransactionHandler()->handleTransaction(
+                static function () use ($quoteTransfer, &$splittableCheckoutResponseTransfer, $self) {
+                    $splittableCheckoutResponseTransfer = $self->executePlaceOrder($quoteTransfer);
+
+                    if ($splittableCheckoutResponseTransfer->getIsSuccess()) {
+                        return;
+                    }
+
+                    throw new OrderNotPlacedException('Order could not be placed.');
                 },
             );
-        } catch (PermissionDeniedException $exception) {
-            $this->logger->error($exception->getMessage(), ['trace' => $exception->getTraceAsString()]);
-            $splittableCheckoutErrorTransfer = (new SplittableCheckoutErrorTransfer())
-                ->setMessage(static::ERROR_MESSAGE_PERMISSION_DENIED);
-        } catch (Exception $exception) {
-            $this->logger->error($exception->getMessage(), ['trace' => $exception->getTraceAsString()]);
-            $splittableCheckoutErrorTransfer = (new SplittableCheckoutErrorTransfer())
-                ->setMessage(static::ERROR_MESSAGE_ORDER_NOT_PLACED);
+        } catch (OrderNotPlacedException $exception) {
+        } catch (Throwable $exception) {
+            $this->logger->error($exception->getMessage(), [
+                    'exception' => $exception->getMessage(),
+                    'trace' => $exception->getTraceAsString(),
+                    'data' => $quoteTransfer->serialize(),
+                ]);
+
+            throw $exception;
         }
 
-        return (new SplittableCheckoutResponseTransfer())
-            ->setIsSuccess(false)
-            ->addError($splittableCheckoutErrorTransfer);
+        return $splittableCheckoutResponseTransfer;
     }
 
     /**
@@ -165,15 +172,14 @@ class SplittableCheckoutWorkflow implements SplittableCheckoutWorkflowInterface
      * @param \Generated\Shared\Transfer\QuoteTransfer $quoteTransfer
      * @param array<string, \Generated\Shared\Transfer\QuoteTransfer> $splittedQuoteTransfers
      *
-     * @throws \Exception
-     *
      * @return \Generated\Shared\Transfer\SplittableCheckoutResponseTransfer
      */
     protected function placeSplitOrders(
         QuoteTransfer $quoteTransfer,
         array $splittedQuoteTransfers
     ): SplittableCheckoutResponseTransfer {
-        $splittableCheckoutResponseTransfer = new SplittableCheckoutResponseTransfer();
+        $splittableCheckoutResponseTransfer = (new SplittableCheckoutResponseTransfer())
+            ->setIsSuccess(false);
 
         foreach ($splittedQuoteTransfers as $splittedQuoteTransfer) {
             $checkoutResponseTransfer = $this->checkoutFacade->placeOrder($splittedQuoteTransfer);
@@ -181,10 +187,13 @@ class SplittableCheckoutWorkflow implements SplittableCheckoutWorkflowInterface
 
             if ($saveOrderTransfer === null || $checkoutResponseTransfer->getIsSuccess() === false) {
                 foreach ($checkoutResponseTransfer->getErrors() as $checkoutErrorTransfer) {
-                    $this->logger->error($checkoutErrorTransfer->getMessage());
+                    $splittableCheckoutErrorTransfer = (new SplittableCheckoutErrorTransfer())
+                        ->fromArray($checkoutErrorTransfer->toArray(), true);
+
+                    $splittableCheckoutResponseTransfer->addError($splittableCheckoutErrorTransfer);
                 }
 
-                throw new Exception('Could not place order.');
+                return $splittableCheckoutResponseTransfer;
             }
 
             $splittedQuoteTransfer->setOrderReference($saveOrderTransfer->getOrderReference());
