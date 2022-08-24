@@ -53,8 +53,16 @@ class AccessTokenController extends AbstractController
         $token = $this->getFactory()->createUsernamePasswordToken($customerTransfer);
 
         $this->getFactory()
+            ->getTokenStorage()
+            ->setToken($token);
+
+        $this->getFactory()
             ->createCustomerAuthenticator()
             ->authenticateCustomer($customerTransfer, $token);
+
+        $this->getFactory()
+            ->getCustomerClient()
+            ->setCustomer($customerTransfer);
 
         return $this->redirectResponseInternal(SharedCustomerSessionConstants::ROUTE_CUSTOMER_OVERVIEW);
     }

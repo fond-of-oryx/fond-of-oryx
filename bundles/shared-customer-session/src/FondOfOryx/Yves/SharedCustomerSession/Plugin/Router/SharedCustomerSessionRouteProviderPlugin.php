@@ -13,6 +13,11 @@ class SharedCustomerSessionRouteProviderPlugin extends AbstractRouteProviderPlug
     public const ROUTE_TOKEN_MANAGER = 'token-manager';
 
     /**
+     * @var string
+     */
+    protected const TOKEN_PATTERN = '[a-zA-Z0-9-_\.]+';
+
+    /**
      * @param \Spryker\Yves\Router\Route\RouteCollection $routeCollection
      *
      * @return \Spryker\Yves\Router\Route\RouteCollection
@@ -31,7 +36,8 @@ class SharedCustomerSessionRouteProviderPlugin extends AbstractRouteProviderPlug
      */
     protected function addTokenManagerRoute(RouteCollection $routeCollection): RouteCollection
     {
-        $route = $this->buildRoute('/token-manager', 'SharedCustomerSession', 'AccessToken', 'tokenManagerAction');
+        $route = $this->buildRoute('/token-manager/{oauth_token}', 'SharedCustomerSession', 'AccessToken', 'tokenManagerAction');
+        $route = $route->setRequirement('oauth_token', static::TOKEN_PATTERN);
         $routeCollection->add(static::ROUTE_TOKEN_MANAGER, $route);
 
         return $routeCollection;
