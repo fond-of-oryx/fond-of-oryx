@@ -11,6 +11,7 @@ use FondOfOryx\Yves\SharedCustomerSession\Security\Customer;
 use Generated\Shared\Transfer\CustomerTransfer;
 use Spryker\Yves\Kernel\AbstractFactory;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
+use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 use Symfony\Component\Security\Core\User\UserInterface;
 
@@ -29,13 +30,10 @@ class SharedCustomerSessionFactory extends AbstractFactory
      *
      * @return \Symfony\Component\Security\Core\Authentication\Token\TokenInterface
      */
-    public function createUsernamePasswordToken(CustomerTransfer $customerTransfer)
+    public function createUsernamePasswordToken(CustomerTransfer $customerTransfer): TokenInterface
     {
-        $user = $this->createSecurityUser($customerTransfer);
-
         return new UsernamePasswordToken(
-            $user,
-            $user->getPassword(),
+            $this->createSecurityUser($customerTransfer),
             SharedCustomerSessionConfig::SECURITY_FIREWALL_NAME,
             [SharedCustomerSessionSecurityPlugin::ROLE_USER],
         );
