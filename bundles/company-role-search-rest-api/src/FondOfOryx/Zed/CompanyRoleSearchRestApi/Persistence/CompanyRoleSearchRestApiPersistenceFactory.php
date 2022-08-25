@@ -6,6 +6,7 @@ use FondOfOryx\Zed\CompanyRoleSearchRestApi\CompanyRoleSearchRestApiDependencyPr
 use FondOfOryx\Zed\CompanyRoleSearchRestApi\Persistence\Propel\Mapper\CompanyRoleMapper;
 use FondOfOryx\Zed\CompanyRoleSearchRestApi\Persistence\Propel\Mapper\CompanyRoleMapperInterface;
 use Orm\Zed\CompanyRole\Persistence\SpyCompanyRoleQuery;
+use Orm\Zed\CompanyUser\Persistence\SpyCompanyUserQuery;
 use Spryker\Zed\Kernel\Persistence\AbstractPersistenceFactory;
 
 /**
@@ -28,5 +29,13 @@ class CompanyRoleSearchRestApiPersistenceFactory extends AbstractPersistenceFact
     public function createCompanyRoleMapper(): CompanyRoleMapperInterface
     {
         return new CompanyRoleMapper();
+    }
+
+    /**
+     * @return \Orm\Zed\CompanyUser\Persistence\SpyCompanyUserQuery
+     */
+    public function getCompanyUserQuery(): SpyCompanyUserQuery
+    {
+        return $this->getProvidedDependency(CompanyRoleSearchRestApiDependencyProvider::PROPEL_QUERY_COMPANY_USER);
     }
 }
