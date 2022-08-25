@@ -44,7 +44,7 @@ class ErpOrderEntityManager extends AbstractEntityManager implements ErpOrderEnt
             ->setFkCompanyBusinessUnit($erpOrderTransfer->getFkCompanyBusinessUnit() ?: $erpOrderTransfer->getCompanyBusinessUnit()->getIdCompanyBusinessUnit())
             ->setCreatedAt($erpOrderTransfer->getCreatedAt())
             ->setUpdatedAt($now)
-            ->setConcreteDeliveryDate($this->getConcreteDeliveryDate($erpOrderTransfer->getConcreteDeliveryDate()))
+            ->setConcreteDeliveryDate($this->getDate($erpOrderTransfer->getConcreteDeliveryDate()))
             ->save();
 
         return $this->getFactory()
@@ -152,7 +152,7 @@ class ErpOrderEntityManager extends AbstractEntityManager implements ErpOrderEnt
             ->setIdErpOrder($entity->getIdErpOrder())
             ->setCreatedAt($createdAt)
             ->setUpdatedAt(new DateTime())
-            ->setConcreteDeliveryDate($this->getConcreteDeliveryDate($erpOrderTransfer->getConcreteDeliveryDate()))
+            ->setConcreteDeliveryDate($this->getDate($erpOrderTransfer->getConcreteDeliveryDate()))
             ->save();
 
         return $this->getFactory()
@@ -179,7 +179,7 @@ class ErpOrderEntityManager extends AbstractEntityManager implements ErpOrderEnt
         $entity->fromArray($orderItemTransfer->modifiedToArray());
 
         $entity
-            ->setConcreteDeliveryDate($this->getConcreteDeliveryDate($orderItemTransfer->getConcreteDeliveryDate()))
+            ->setConcreteDeliveryDate($this->getDate($orderItemTransfer->getConcreteDeliveryDate()))
             ->setCreatedAt($createdAt)
             ->setUpdatedAt($updatedAt)
             ->save();
