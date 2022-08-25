@@ -644,7 +644,7 @@
     },
     "shipment-table-rate-data-import": {
       "path": "bundles/shipment-table-rate-data-import/",
-      "version": "1.0.0"
+      "version": "1.0.1"
     },
     "shipment-table-rate-extension": {
       "path": "bundles/shipment-table-rate-extension/",
