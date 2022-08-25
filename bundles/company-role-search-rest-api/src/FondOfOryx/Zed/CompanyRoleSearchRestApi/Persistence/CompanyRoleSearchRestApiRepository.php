@@ -155,6 +155,14 @@ class CompanyRoleSearchRestApiRepository extends AbstractRepository implements C
             return $companyRoleQuery;
         }
 
+        $dynamicColumn = SpyCompanyUserTableMap::COL_ID_COMPANY_USER;
+        $dynamicValue = $this->getIdCompanyUserByCompanyRoleList($companyRoleListTransfer);
+
+        if ($dynamicValue === null) {
+            $dynamicValue = $companyRoleListTransfer->getCustomerId();
+            $dynamicColumn = SpyCompanyUserTableMap::COL_FK_CUSTOMER;
+        }
+
         $clause = sprintf(
             <<<EOD
                 %s IN (
@@ -197,7 +205,7 @@ class CompanyRoleSearchRestApiRepository extends AbstractRepository implements C
             SpyPermissionTableMap::TABLE_NAME,
             SpyPermissionTableMap::COL_ID_PERMISSION,
             SpyCompanyRoleToPermissionTableMap::COL_FK_PERMISSION,
-            SpyCompanyUserTableMap::COL_FK_CUSTOMER,
+            $dynamicColumn,
             SpyPermissionTableMap::COL_KEY,
             $config->getPascalCasedWhitelistPermissionPrefix(),
             $config->getPascalCasedWhitelistPermissionSuffix(),
@@ -205,7 +213,7 @@ class CompanyRoleSearchRestApiRepository extends AbstractRepository implements C
 
         return $companyRoleQuery->where(
             $clause, /* @phpstan-ignore-line */
-            $companyRoleListTransfer->getCustomerId(),
+            $dynamicValue,
         );
     }
 
@@ -346,5 +354,31 @@ class CompanyRoleSearchRestApiRepository extends AbstractRepository implements C
 
         return $clonedCompanyRoleQuery->clear()
             ->filterByIdCompanyRole_In($companyRoleIds);
+    }
+
+    /**
+     * @param \Generated\Shared\Transfer\CompanyRoleListTransfer $companyRoleListTransfer
+     *
+     * @return int|null
+     */
+    public function getIdCompanyUserByCompanyRoleList(CompanyRoleListTransfer $companyRoleListTransfer): ?int
+    {
+        $idCustomer = $companyRoleListTransfer->getCustomerId();
+        $companyUuid = $companyRoleListTransfer->getCompanyUuid();
+
+        if ($idCustomer === null || $companyUuid === null) {
+            return null;
+        }
+
+        /** @var int|null $idCompanyUserId */
+        $idCompanyUserId = $this->getFactory()->getCompanyUserQuery()
+            ->useCompanyQuery()
+                ->filterByUuid($companyUuid)
+            ->endUse()
+            ->filterByFkCustomer($idCustomer)
+            ->select(SpyCompanyUserTableMap::COL_ID_COMPANY_USER)
+            ->findOne();
+
+        return $idCompanyUserId;
     }
 }
