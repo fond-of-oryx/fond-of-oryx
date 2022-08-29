@@ -36,6 +36,8 @@
         <property name="updatedAt" type="int"/>
         <property name="outstandingQuantity" type="int"/>
         <property name="position" type="int"/>
+        <property name="expectedDeliveryDate" type="string"/>
+        <property name="goodsIssueDate" type="string"/>
     </transfer>
 
     <transfer name="ErpOrderAddress">
