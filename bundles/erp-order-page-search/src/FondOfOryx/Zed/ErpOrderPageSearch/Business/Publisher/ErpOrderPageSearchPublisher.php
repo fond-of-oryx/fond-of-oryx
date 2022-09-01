@@ -146,7 +146,6 @@ class ErpOrderPageSearchPublisher implements ErpOrderPageSearchPublisherInterfac
             $erpOrderData[static::ERP_ORDER_TOTALS] = $totals->toArray();
         }
 
-
         $erpOrderPageSearchTransfer = (new ErpOrderPageSearchTransfer())
             ->fromArray($erpOrderData, true)
             ->setData($erpOrderData)

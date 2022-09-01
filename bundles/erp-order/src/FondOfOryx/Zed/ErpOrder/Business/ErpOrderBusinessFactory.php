@@ -289,6 +289,9 @@ class ErpOrderBusinessFactory extends AbstractBusinessFactory
         return new ErpOrderTotalsReader($this->getRepository());
     }
 
+    /**
+     * @return \FondOfOryx\Zed\ErpOrder\Business\Model\Writer\ErpOrderTotalsWriterInterface
+     */
     protected function createErpOrderTotalsWriter(): ErpOrderTotalsWriterInterface
     {
         return new ErpOrderTotalsWriter(
@@ -297,6 +300,9 @@ class ErpOrderBusinessFactory extends AbstractBusinessFactory
         );
     }
 
+    /**
+     * @return \FondOfOryx\Zed\ErpOrder\Business\PluginExecutor\ErpOrderTotalsPluginExecutorInterface
+     */
     protected function createErpOrderTotalsPluginExecutor(): ErpOrderTotalsPluginExecutorInterface
     {
         return new ErpOrderTotalsPluginExecutor(
