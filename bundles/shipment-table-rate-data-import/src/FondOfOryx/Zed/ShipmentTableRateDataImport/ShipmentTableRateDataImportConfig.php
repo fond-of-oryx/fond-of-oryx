@@ -5,6 +5,9 @@ namespace FondOfOryx\Zed\ShipmentTableRateDataImport;
 use Generated\Shared\Transfer\DataImporterConfigurationTransfer;
 use Spryker\Zed\DataImport\DataImportConfig;
 
+/**
+ * @codeCoverageIgnore
+ */
 class ShipmentTableRateDataImportConfig extends DataImportConfig
 {
     /**
