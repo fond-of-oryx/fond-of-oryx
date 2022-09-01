@@ -11,10 +11,12 @@ use Orm\Zed\ErpOrder\Persistence\ErpOrderAddressQuery;
 use Orm\Zed\ErpOrder\Persistence\ErpOrderItemQuery;
 use Orm\Zed\ErpOrder\Persistence\ErpOrderQuery;
 use Orm\Zed\ErpOrder\Persistence\ErpOrderTotalQuery;
+use Orm\Zed\ErpOrder\Persistence\ErpOrderTotalsQuery;
 use Spryker\Zed\Kernel\Persistence\AbstractPersistenceFactory;
 
 /**
- * @method \FondOfOryx\Zed\ErpOrder\ErpOrderConfig getConfig()
+ * @codeCoverageIgnore
+ *
  * @method \FondOfOryx\Zed\ErpOrder\Persistence\ErpOrderEntityManagerInterface getEntityManager()
  * @method \FondOfOryx\Zed\ErpOrder\Persistence\ErpOrderRepositoryInterface getRepository()
  */
@@ -77,5 +79,13 @@ class ErpOrderPersistenceFactory extends AbstractPersistenceFactory
     public function createErpOrderTotalQuery(): ErpOrderTotalQuery
     {
         return ErpOrderTotalQuery::create();
+    }
+
+    /**
+     * @return \Orm\Zed\ErpOrder\Persistence\ErpOrderTotalsQuery
+     */
+    public function createErpOrderTotalsQuery(): ErpOrderTotalsQuery
+    {
+        return ErpOrderTotalsQuery::create();
     }
 }

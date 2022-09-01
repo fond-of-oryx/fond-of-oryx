@@ -128,8 +128,8 @@ class ErpOrderFacadeTest extends Unit
      */
     public function testCreateErpOrder(): void
     {
-        $this->erpOrderBusinessFactoryMock->expects($this->once())->method('createErpOrderWriter')->willReturn($this->erpOrderWriterMock);
-        $this->erpOrderWriterMock->expects($this->once())->method('create')->willReturn($this->erpOrderResponseTransferMock);
+        $this->erpOrderBusinessFactoryMock->expects(static::atLeastOnce())->method('createErpOrderWriter')->willReturn($this->erpOrderWriterMock);
+        $this->erpOrderWriterMock->expects(static::atLeastOnce())->method('create')->willReturn($this->erpOrderResponseTransferMock);
 
         $this->erpOrderFacade->createErpOrder($this->erpOrderTransferMock);
     }
@@ -139,8 +139,8 @@ class ErpOrderFacadeTest extends Unit
      */
     public function testUpdateErpOrder(): void
     {
-        $this->erpOrderBusinessFactoryMock->expects($this->once())->method('createErpOrderWriter')->willReturn($this->erpOrderWriterMock);
-        $this->erpOrderWriterMock->expects($this->once())->method('update')->willReturn($this->erpOrderResponseTransferMock);
+        $this->erpOrderBusinessFactoryMock->expects(static::atLeastOnce())->method('createErpOrderWriter')->willReturn($this->erpOrderWriterMock);
+        $this->erpOrderWriterMock->expects(static::atLeastOnce())->method('update')->willReturn($this->erpOrderResponseTransferMock);
 
         $this->erpOrderFacade->updateErpOrder($this->erpOrderTransferMock);
     }
@@ -150,8 +150,8 @@ class ErpOrderFacadeTest extends Unit
      */
     public function testDeleteErpOrderByIdErpOrder(): void
     {
-        $this->erpOrderBusinessFactoryMock->expects($this->once())->method('createErpOrderWriter')->willReturn($this->erpOrderWriterMock);
-        $this->erpOrderWriterMock->expects($this->once())->method('delete');
+        $this->erpOrderBusinessFactoryMock->expects(static::atLeastOnce())->method('createErpOrderWriter')->willReturn($this->erpOrderWriterMock);
+        $this->erpOrderWriterMock->expects(static::atLeastOnce())->method('delete');
 
         $this->erpOrderFacade->deleteErpOrderByIdErpOrder(1);
     }
@@ -161,8 +161,8 @@ class ErpOrderFacadeTest extends Unit
      */
     public function testFindErpOrderByIdErpOrder(): void
     {
-        $this->erpOrderBusinessFactoryMock->expects($this->once())->method('createErpOrderReader')->willReturn($this->erpOrderReaderMock);
-        $this->erpOrderReaderMock->expects($this->once())->method('findErpOrderByIdErpOrder');
+        $this->erpOrderBusinessFactoryMock->expects(static::atLeastOnce())->method('createErpOrderReader')->willReturn($this->erpOrderReaderMock);
+        $this->erpOrderReaderMock->expects(static::atLeastOnce())->method('findErpOrderByIdErpOrder');
 
         $this->erpOrderFacade->findErpOrderByIdErpOrder(1);
     }
@@ -173,8 +173,8 @@ class ErpOrderFacadeTest extends Unit
     public function testPersistBillingAddress(): void
     {
         $self = $this;
-        $this->erpOrderBusinessFactoryMock->expects($this->once())->method('createErpOrderAddressHandler')->willReturn($this->erpOrderAddressHandlerMock);
-        $this->erpOrderAddressHandlerMock->expects($this->once())->method('handle')->will($this->returnCallback(static function ($a, $b) use ($self) {
+        $this->erpOrderBusinessFactoryMock->expects(static::atLeastOnce())->method('createErpOrderAddressHandler')->willReturn($this->erpOrderAddressHandlerMock);
+        $this->erpOrderAddressHandlerMock->expects(static::atLeastOnce())->method('handle')->will($this->returnCallback(static function ($a, $b) use ($self) {
             $self->assertSame('billingAddress', $b);
 
             return $a;
@@ -189,8 +189,8 @@ class ErpOrderFacadeTest extends Unit
     public function testPersistShippingAddress(): void
     {
         $self = $this;
-        $this->erpOrderBusinessFactoryMock->expects($this->once())->method('createErpOrderAddressHandler')->willReturn($this->erpOrderAddressHandlerMock);
-        $this->erpOrderAddressHandlerMock->expects($this->once())->method('handle')->will($this->returnCallback(static function ($a, $b) use ($self) {
+        $this->erpOrderBusinessFactoryMock->expects(static::atLeastOnce())->method('createErpOrderAddressHandler')->willReturn($this->erpOrderAddressHandlerMock);
+        $this->erpOrderAddressHandlerMock->expects(static::atLeastOnce())->method('handle')->will($this->returnCallback(static function ($a, $b) use ($self) {
             $self->assertSame('shippingAddress', $b);
 
             return $a;
@@ -205,11 +205,11 @@ class ErpOrderFacadeTest extends Unit
     public function testPersistErpOrderTotal(): void
     {
         $self = $this;
-        $this->erpOrderBusinessFactoryMock->expects($this->once())
+        $this->erpOrderBusinessFactoryMock->expects(static::atLeastOnce())
             ->method('createErpOrderTotalHandler')
             ->willReturn($this->erpOrderTotalHandlerMock);
 
-        $this->erpOrderTotalHandlerMock->expects($this->once())
+        $this->erpOrderTotalHandlerMock->expects(static::atLeastOnce())
             ->method('handle')
             ->with($this->erpOrderTransferMock)
             ->willReturn($this->erpOrderTransferMock);

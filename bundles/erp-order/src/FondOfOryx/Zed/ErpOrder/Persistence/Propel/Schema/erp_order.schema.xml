@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <database xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" name="zed"
-          xsi:noNamespaceSchemaLocation="http://static.spryker.com/schema-01.xsd"
+          xsi:noNamespaceSchemaLocation="https://static.spryker.com/schema-01.xsd"
           namespace="Orm\Zed\ErpOrder\Persistence" package="src.Orm.Zed.ErpOrder.Persistence">
 
     <table name="foo_erp_order" phpName="ErpOrder" identifierQuoting="true">
@@ -8,6 +8,7 @@
         <column name="fk_billing_address" required="true" type="INTEGER"/>
         <column name="fk_shipping_address" required="true" type="INTEGER"/>
         <column name="fk_company_business_unit" required="true" type="INTEGER"/>
+        <column name="fk_totals" required="false" type="INTEGER"/>
         <column name="external_reference" required="false" size="255" type="VARCHAR"/>
         <column name="concrete_delivery_date" required="false" type="DATE"/>
         <column name="currency_iso_code" type="VARCHAR" size="5" required="false"/>
@@ -21,6 +22,10 @@
 
         <foreign-key name="foo_erp_order-foo_erp_order_shipping_address" foreignTable="foo_erp_order_address" phpName="ErpOrderShippingAddress" >
             <reference local="fk_shipping_address" foreign="id_erp_order_address"/>
+        </foreign-key>
+
+        <foreign-key name="foo_erp_order-foo_erp_order_totals" foreignTable="foo_erp_order_totals" phpName="ErpOrderTotals" >
+            <reference local="fk_totals" foreign="id_erp_order_totals"/>
         </foreign-key>
 
         <foreign-key name="foo_erp_order-spy_company_business_unit" foreignTable="spy_company_business_unit" phpName="CompanyBusinessUnit">
@@ -86,17 +91,27 @@
         </foreign-key>
     </table>
 
-    <table name="foo_erp_order_total" phpName="ErpOrderTotal" identifierQuoting="true">
+    <table name="foo_erp_order_total" phpName="OldErpOrderTotal" identifierQuoting="true">
         <column name="id_erp_order_total" required="true" type="INTEGER" autoIncrement="true" primaryKey="true"/>
-        <column name="fk_erp_order" required="true" type="INTEGER"/>
+        <column name="fk_erp_order" required="false" type="INTEGER"/>
         <column name="subtotal" type="INTEGER" required="false" default="0"/>
         <column name="grand_total" type="INTEGER" required="false" default="0"/>
         <column name="tax_total" type="INTEGER" required="false" default="0"/>
 
-        <foreign-key name="foo_erp_order_total-fk_erp_order" foreignTable="foo_erp_order" phpName="ErpOrder" refPhpName="ErpOrderTotal">
+        <foreign-key name="foo_erp_order_total-fk_erp_order" foreignTable="foo_erp_order" phpName="ErpOrder" refPhpName="OldErpOrderTotal">
             <reference local="fk_erp_order" foreign="id_erp_order"/>
         </foreign-key>
 
-    <id-method-parameter value="foo_erp_order_total_pk_seq"/></table>
+        <id-method-parameter value="foo_erp_order_total_pk_seq"/>
+    </table>
+
+    <table name="foo_erp_order_totals" phpName="ErpOrderTotals" identifierQuoting="true">
+        <column name="id_erp_order_totals" required="true" type="INTEGER" autoIncrement="true" primaryKey="true"/>
+        <column name="subtotal" type="INTEGER" required="false" default="0"/>
+        <column name="grand_total" type="INTEGER" required="false" default="0"/>
+        <column name="tax_total" type="INTEGER" required="false" default="0"/>
+
+        <id-method-parameter value="foo_erp_order_totals_pk_seq"/>
+    </table>
 
 </database>
