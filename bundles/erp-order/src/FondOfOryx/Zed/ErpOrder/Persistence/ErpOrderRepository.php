@@ -11,7 +11,7 @@ use Generated\Shared\Transfer\ErpOrderTransfer;
 use Orm\Zed\ErpOrder\Persistence\ErpOrderAddressQuery;
 use Orm\Zed\ErpOrder\Persistence\ErpOrderItemQuery;
 use Orm\Zed\ErpOrder\Persistence\ErpOrderQuery;
-use Orm\Zed\ErpOrder\Persistence\ErpOrderTotalQuery;
+use Orm\Zed\ErpOrder\Persistence\OldErpOrderTotalQuery;
 use Spryker\Zed\Kernel\Persistence\AbstractRepository;
 
 /**
@@ -101,14 +101,14 @@ class ErpOrderRepository extends AbstractRepository implements ErpOrderRepositor
      */
     public function findErpOrderTotalByIdErpOrderTotal(int $idErpOrderTotal): ?ErpOrderTotalTransfer
     {
-        $query = $this->getErpOrderTotalQuery();
+        $query = $this->getOldErpOrderTotalQuery();
         $total = $query->findOneByIdErpOrderTotal($idErpOrderTotal);
 
         if ($total === null) {
             return null;
         }
 
-        return $this->getFactory()->createEntityToTransferMapper()->fromErpOrderTotalToTransfer($total);
+        return $this->getFactory()->createEntityToTransferMapper()->fromOldErpOrderTotalToTransfer($total);
     }
 
     /**
@@ -118,14 +118,14 @@ class ErpOrderRepository extends AbstractRepository implements ErpOrderRepositor
      */
     public function findErpOrderTotalByIdErpOrder(int $idErpOrder): ?ErpOrderTotalTransfer
     {
-        $query = $this->getErpOrderTotalQuery();
+        $query = $this->getOldErpOrderTotalQuery();
         $total = $query->findOneByFkErpOrder($idErpOrder);
 
         if ($total === null) {
             return null;
         }
 
-        return $this->getFactory()->createEntityToTransferMapper()->fromErpOrderTotalToTransfer($total);
+        return $this->getFactory()->createEntityToTransferMapper()->fromOldErpOrderTotalToTransfer($total);
     }
 
     /**
@@ -153,11 +153,11 @@ class ErpOrderRepository extends AbstractRepository implements ErpOrderRepositor
     }
 
     /**
-     * @return \Orm\Zed\ErpOrder\Persistence\ErpOrderTotalQuery
+     * @return \Orm\Zed\ErpOrder\Persistence\OldErpOrderTotalQuery
      */
-    protected function getErpOrderTotalQuery(): ErpOrderTotalQuery
+    protected function getOldErpOrderTotalQuery(): OldErpOrderTotalQuery
     {
-        return $this->getFactory()->createErpOrderTotalQuery();
+        return $this->getFactory()->createOldErpOrderTotalQuery();
     }
 
     /**

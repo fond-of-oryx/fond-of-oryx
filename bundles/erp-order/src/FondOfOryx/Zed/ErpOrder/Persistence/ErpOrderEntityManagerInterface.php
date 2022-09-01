@@ -33,7 +33,7 @@ interface ErpOrderEntityManagerInterface
      *
      * @return \Generated\Shared\Transfer\ErpOrderTotalTransfer
      */
-    public function createErpOrderTotal(ErpOrderTotalTransfer $orderTotalTransfer): ErpOrderTotalTransfer;
+    public function createOldErpOrderTotal(ErpOrderTotalTransfer $orderTotalTransfer): ErpOrderTotalTransfer;
 
     /**
      * @param \Generated\Shared\Transfer\ErpOrderItemTransfer $itemTransfer

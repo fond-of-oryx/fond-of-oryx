@@ -10,8 +10,8 @@ use Generated\Shared\Transfer\ErpOrderTransfer;
 use Orm\Zed\ErpOrder\Persistence\ErpOrder;
 use Orm\Zed\ErpOrder\Persistence\ErpOrderAddress;
 use Orm\Zed\ErpOrder\Persistence\ErpOrderItem;
-use Orm\Zed\ErpOrder\Persistence\ErpOrderTotal;
 use Orm\Zed\ErpOrder\Persistence\ErpOrderTotals;
+use Orm\Zed\ErpOrder\Persistence\OldErpOrderTotal;
 
 interface EntityToTransferMapperInterface
 {
@@ -51,13 +51,13 @@ interface EntityToTransferMapperInterface
     ): ErpOrderAddressTransfer;
 
     /**
-     * @param \Orm\Zed\ErpOrder\Persistence\ErpOrderTotal $erpOrderTotal
+     * @param \Orm\Zed\ErpOrder\Persistence\OldErpOrderTotal $erpOrderTotal
      * @param \Generated\Shared\Transfer\ErpOrderTotalTransfer|null $erpOrderTotalTransfer
      *
      * @return \Generated\Shared\Transfer\ErpOrderTotalTransfer
      */
-    public function fromErpOrderTotalToTransfer(
-        ErpOrderTotal $erpOrderTotal,
+    public function fromOldErpOrderTotalToTransfer(
+        OldErpOrderTotal $erpOrderTotal,
         ?ErpOrderTotalTransfer $erpOrderTotalTransfer = null
     ): ErpOrderTotalTransfer;
 

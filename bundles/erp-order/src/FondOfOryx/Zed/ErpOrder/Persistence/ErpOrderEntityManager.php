@@ -12,8 +12,8 @@ use Generated\Shared\Transfer\ErpOrderTransfer;
 use Orm\Zed\ErpOrder\Persistence\ErpOrder;
 use Orm\Zed\ErpOrder\Persistence\ErpOrderAddress;
 use Orm\Zed\ErpOrder\Persistence\ErpOrderItem;
-use Orm\Zed\ErpOrder\Persistence\ErpOrderTotal;
 use Orm\Zed\ErpOrder\Persistence\ErpOrderTotals;
+use Orm\Zed\ErpOrder\Persistence\OldErpOrderTotal;
 use Spryker\Zed\Kernel\Persistence\AbstractEntityManager;
 
 /**
@@ -82,7 +82,7 @@ class ErpOrderEntityManager extends AbstractEntityManager implements ErpOrderEnt
      *
      * @return \Generated\Shared\Transfer\ErpOrderTotalTransfer
      */
-    public function createErpOrderTotal(ErpOrderTotalTransfer $orderTotalTransfer): ErpOrderTotalTransfer
+    public function createOldErpOrderTotal(ErpOrderTotalTransfer $orderTotalTransfer): ErpOrderTotalTransfer
     {
         $orderTotalTransfer
             ->requireFkErpOrder()
@@ -90,11 +90,11 @@ class ErpOrderEntityManager extends AbstractEntityManager implements ErpOrderEnt
             ->requireGrandTotal()
             ->requireTaxTotal();
 
-        $entity = new ErpOrderTotal();
+        $entity = new OldErpOrderTotal();
         $entity->fromArray($orderTotalTransfer->toArray());
         $entity->save();
 
-        return $this->getFactory()->createEntityToTransferMapper()->fromErpOrderTotalToTransfer($entity);
+        return $this->getFactory()->createEntityToTransferMapper()->fromOldErpOrderTotalToTransfer($entity);
     }
 
     /**
@@ -307,7 +307,7 @@ class ErpOrderEntityManager extends AbstractEntityManager implements ErpOrderEnt
     {
         $erpOrderTotalTransfer->requireIdErpOrderTotal();
 
-        $query = $this->getFactory()->createErpOrderTotalQuery();
+        $query = $this->getFactory()->createOldErpOrderTotalQuery();
 
         $entity = $query->findOneByIdErpOrderTotal($erpOrderTotalTransfer->getIdErpOrderTotal());
 
@@ -323,7 +323,7 @@ class ErpOrderEntityManager extends AbstractEntityManager implements ErpOrderEnt
             ->setIdErpOrderTotal($id)
             ->save();
 
-        return $this->getFactory()->createEntityToTransferMapper()->fromErpOrderTotalToTransfer($entity);
+        return $this->getFactory()->createEntityToTransferMapper()->fromOldErpOrderTotalToTransfer($entity);
     }
 
     /**
