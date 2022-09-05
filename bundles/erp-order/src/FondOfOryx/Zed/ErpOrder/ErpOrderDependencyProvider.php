@@ -84,13 +84,13 @@ class ErpOrderDependencyProvider extends AbstractBundleDependencyProvider
      *
      * @return \Spryker\Zed\Kernel\Container
      */
-    public function providePersistenceLayerDependencies(Container $container)
+    public function providePersistenceLayerDependencies(Container $container): Container
     {
         $container = parent::providePersistenceLayerDependencies($container);
-        $container = $this->addCompanyBusinessUnitFacade($container);
-        $container = $this->addCountryFacade($container);
 
-        return $container;
+        $container = $this->addCompanyBusinessUnitFacade($container);
+
+        return $this->addCountryFacade($container);
     }
 
     /**
@@ -98,9 +98,10 @@ class ErpOrderDependencyProvider extends AbstractBundleDependencyProvider
      *
      * @return \Spryker\Zed\Kernel\Container
      */
-    public function provideBusinessLayerDependencies(Container $container)
+    public function provideBusinessLayerDependencies(Container $container): Container
     {
         $container = parent::providePersistenceLayerDependencies($container);
+
         $container = $this->addErpOrderPreSavePlugin($container);
         $container = $this->addErpOrderPostSavePlugin($container);
         $container = $this->addErpOrderItemPreSavePlugin($container);
@@ -121,7 +122,7 @@ class ErpOrderDependencyProvider extends AbstractBundleDependencyProvider
      */
     public function addCompanyBusinessUnitFacade(Container $container): Container
     {
-        $container[static::FACADE_COMPANY_BUSINESS_UNIT] = function (Container $container) {
+        $container[static::FACADE_COMPANY_BUSINESS_UNIT] = static function (Container $container) {
             return new ErpOrderToCompanyBusinessUnitFacadeBridge(
                 $container->getLocator()->companyBusinessUnit()->facade(),
             );
@@ -137,7 +138,7 @@ class ErpOrderDependencyProvider extends AbstractBundleDependencyProvider
      */
     public function addCountryFacade(Container $container): Container
     {
-        $container[static::FACADE_COUNTRY] = function (Container $container) {
+        $container[static::FACADE_COUNTRY] = static function (Container $container) {
             return new ErpOrderToCountryFacadeBridge(
                 $container->getLocator()->country()->facade(),
             );
@@ -153,7 +154,7 @@ class ErpOrderDependencyProvider extends AbstractBundleDependencyProvider
      */
     public function addErpOrderPostSavePlugin(Container $container): Container
     {
-        $container[static::PLUGIN_ERP_ORDER_POST_SAVE] = function (Container $container) {
+        $container[static::PLUGIN_ERP_ORDER_POST_SAVE] = function () {
             $plugins = $this->getErpOrderPostSavePlugin();
             $this->validatePlugin($plugins, ErpOrderPostSavePluginInterface::class);
 
@@ -170,7 +171,7 @@ class ErpOrderDependencyProvider extends AbstractBundleDependencyProvider
      */
     public function addErpOrderPreSavePlugin(Container $container): Container
     {
-        $container[static::PLUGIN_ERP_ORDER_PRE_SAVE] = function (Container $container) {
+        $container[static::PLUGIN_ERP_ORDER_PRE_SAVE] = function () {
             $plugins = $this->getErpOrderPreSavePlugin();
             $this->validatePlugin($plugins, ErpOrderPreSavePluginInterface::class);
 
@@ -187,7 +188,7 @@ class ErpOrderDependencyProvider extends AbstractBundleDependencyProvider
      */
     public function addErpOrderItemPostSavePlugin(Container $container): Container
     {
-        $container[static::PLUGIN_ERP_ORDER_ITEM_POST_SAVE] = function (Container $container) {
+        $container[static::PLUGIN_ERP_ORDER_ITEM_POST_SAVE] = function () {
             $plugins = $this->getErpOrderItemPostSavePlugin();
             $this->validatePlugin($plugins, ErpOrderItemPostSavePluginInterface::class);
 
@@ -204,7 +205,7 @@ class ErpOrderDependencyProvider extends AbstractBundleDependencyProvider
      */
     public function addErpOrderItemPreSavePlugin(Container $container): Container
     {
-        $container[static::PLUGIN_ERP_ORDER_ITEM_PRE_SAVE] = function (Container $container) {
+        $container[static::PLUGIN_ERP_ORDER_ITEM_PRE_SAVE] = function () {
             $plugins = $this->getErpOrderItemPreSavePlugin();
             $this->validatePlugin($plugins, ErpOrderItemPreSavePluginInterface::class);
 
@@ -221,7 +222,7 @@ class ErpOrderDependencyProvider extends AbstractBundleDependencyProvider
      */
     public function addErpOrderAddressPostSavePlugin(Container $container): Container
     {
-        $container[static::PLUGIN_ERP_ORDER_ADDRESS_POST_SAVE] = function (Container $container) {
+        $container[static::PLUGIN_ERP_ORDER_ADDRESS_POST_SAVE] = function () {
             $plugins = $this->getErpOrderAddressPostSavePlugin();
             $this->validatePlugin($plugins, ErpOrderAddressPostSavePluginInterface::class);
 
@@ -238,7 +239,7 @@ class ErpOrderDependencyProvider extends AbstractBundleDependencyProvider
      */
     public function addErpOrderAddressPreSavePlugin(Container $container): Container
     {
-        $container[static::PLUGIN_ERP_ORDER_ADDRESS_PRE_SAVE] = function (Container $container) {
+        $container[static::PLUGIN_ERP_ORDER_ADDRESS_PRE_SAVE] = function () {
             $plugins = $this->getErpOrderAddressPreSavePlugin();
             $this->validatePlugin($plugins, ErpOrderAddressPreSavePluginInterface::class);
 
@@ -255,7 +256,7 @@ class ErpOrderDependencyProvider extends AbstractBundleDependencyProvider
      */
     public function addErpOrderTotalPostSavePlugin(Container $container): Container
     {
-        $container[static::PLUGIN_ERP_ORDER_TOTAL_POST_SAVE] = function (Container $container) {
+        $container[static::PLUGIN_ERP_ORDER_TOTAL_POST_SAVE] = function () {
             $plugins = $this->getErpOrderTotalPostSavePlugin();
             $this->validatePlugin($plugins, ErpOrderTotalPostSavePluginInterface::class);
 
@@ -272,7 +273,7 @@ class ErpOrderDependencyProvider extends AbstractBundleDependencyProvider
      */
     public function addErpOrderTotalPreSavePlugin(Container $container): Container
     {
-        $container[static::PLUGIN_ERP_ORDER_TOTAL_PRE_SAVE] = function (Container $container) {
+        $container[static::PLUGIN_ERP_ORDER_TOTAL_PRE_SAVE] = function () {
             $plugins = $this->getErpOrderTotalPreSavePlugin();
             $this->validatePlugin($plugins, ErpOrderTotalPreSavePluginInterface::class);
 
@@ -377,9 +378,7 @@ class ErpOrderDependencyProvider extends AbstractBundleDependencyProvider
         $self = $this;
 
         $container[static::PLUGIN_ERP_ORDER_TOTALS_PRE_SAVE] = static function () use ($self) {
-            $plugins = $self->getErpOrderTotalsPreSavePlugin();
-
-            return new $plugins();
+            return $self->getErpOrderTotalsPreSavePlugin();
         };
 
         return $container;
@@ -403,9 +402,7 @@ class ErpOrderDependencyProvider extends AbstractBundleDependencyProvider
         $self = $this;
 
         $container[static::PLUGIN_ERP_ORDER_TOTALS_POST_SAVE] = static function () use ($self) {
-            $plugins = $self->getErpOrderTotalsPostSavePlugin();
-
-            return new $plugins();
+            return $self->getErpOrderTotalsPostSavePlugin();
         };
 
         return $container;
