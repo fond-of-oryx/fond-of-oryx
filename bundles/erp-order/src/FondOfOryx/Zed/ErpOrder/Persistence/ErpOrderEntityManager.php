@@ -204,14 +204,21 @@ class ErpOrderEntityManager extends AbstractEntityManager implements ErpOrderEnt
         foreach ($items as $item) {
             $item->delete();
         }
+
+        $idTotals = $order->getFkTotals();
         $addressIds = [
             $order->getFkBillingAddress(),
             $order->getFkShippingAddress(),
         ];
 
         $order->getOldErpOrderTotals()->delete();
-
         $order->delete();
+
+        if ($idTotals !== null) {
+            $this->getFactory()->createErpOrderTotalsQuery()
+                ->findOneByIdErpOrderTotals($idTotals)
+                ->delete();
+        }
 
         $ordersWithBilling = $this->getFactory()->createErpOrderQuery()->filterByFkBillingAddress_In($addressIds)->find();
         if (count($ordersWithBilling) === 0 || empty($ordersWithBilling->getData()) === true) {
@@ -225,12 +232,6 @@ class ErpOrderEntityManager extends AbstractEntityManager implements ErpOrderEnt
             $this->getFactory()->createErpOrderAddressQuery()
                 ->findOneByIdErpOrderAddress($addressIds[1])
                 ->delete();
-        }
-
-        $totals = $order->getErpOrderTotals();
-
-        if ($totals !== null) {
-            $totals->delete();
         }
     }
 
