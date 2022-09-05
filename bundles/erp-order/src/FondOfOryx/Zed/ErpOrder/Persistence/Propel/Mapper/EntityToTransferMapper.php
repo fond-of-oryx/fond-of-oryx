@@ -12,11 +12,11 @@ use Generated\Shared\Transfer\ErpOrderItemTransfer;
 use Generated\Shared\Transfer\ErpOrderTotalsTransfer;
 use Generated\Shared\Transfer\ErpOrderTotalTransfer;
 use Generated\Shared\Transfer\ErpOrderTransfer;
-use Orm\Zed\ErpOrder\Persistence\Base\OldErpOrderTotal;
 use Orm\Zed\ErpOrder\Persistence\ErpOrder;
 use Orm\Zed\ErpOrder\Persistence\ErpOrderAddress;
 use Orm\Zed\ErpOrder\Persistence\ErpOrderItem;
 use Orm\Zed\ErpOrder\Persistence\ErpOrderTotals;
+use Orm\Zed\ErpOrder\Persistence\OldErpOrderTotal;
 
 /**
  * @codeCoverageIgnore
