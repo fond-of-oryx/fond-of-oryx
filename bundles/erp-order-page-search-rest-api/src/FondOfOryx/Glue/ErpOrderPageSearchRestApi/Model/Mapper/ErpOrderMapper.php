@@ -20,7 +20,7 @@ class ErpOrderMapper implements ErpOrderMapperInterface
     /**
      * @var string
      */
-    protected const ERP_ORDER_DATA_KEY_ERP_ORDER_ITEMS = 'erp_order_items';
+    protected const ERP_ORDER_DATA_KEY_ITEMS = 'items';
 
     /**
      * @var string
@@ -30,7 +30,7 @@ class ErpOrderMapper implements ErpOrderMapperInterface
     /**
      * @var string
      */
-    protected const ERP_ORDER_DATA_KEY_ERP_ORDER_TOTAL = 'erp_order_total';
+    protected const ERP_ORDER_DATA_KEY_TOTALS = 'totals';
 
     /**
      * @param array $searchResults
@@ -58,9 +58,9 @@ class ErpOrderMapper implements ErpOrderMapperInterface
                 ),
             );
 
-            $this->addRestErpOrderItems($restErpOrder, $erpOrderData[self::ERP_ORDER_DATA_KEY_ERP_ORDER_ITEMS]);
+            $this->addRestErpOrderItems($restErpOrder, $erpOrderData[self::ERP_ORDER_DATA_KEY_ITEMS]);
             $restErpOrder->setTotals($this->mapErpOrderTotalToRestOrderTotal(
-                $erpOrderData[static::ERP_ORDER_DATA_KEY_ERP_ORDER_TOTAL],
+                $erpOrderData[static::ERP_ORDER_DATA_KEY_TOTALS],
             ));
 
             $responseTransfer->addErpOrder($restErpOrder);
