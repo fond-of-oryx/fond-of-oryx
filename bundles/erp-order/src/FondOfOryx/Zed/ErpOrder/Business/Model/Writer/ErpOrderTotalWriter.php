@@ -76,7 +76,7 @@ class ErpOrderTotalWriter implements ErpOrderTotalWriterInterface
         ErpOrderTotalTransfer $erpOrderTotalTransfer
     ): ErpOrderTotalTransfer {
         $erpOrderTotalTransfer = $this->erpOrderTotalPluginExecutor->executePreSavePlugins($erpOrderTotalTransfer);
-        $erpOrderTotalTransfer = $this->entityManager->createErpOrderTotal($erpOrderTotalTransfer);
+        $erpOrderTotalTransfer = $this->entityManager->createOldErpOrderTotal($erpOrderTotalTransfer);
         $erpOrderTotalTransfer = $this->erpOrderTotalPluginExecutor->executePostSavePlugins($erpOrderTotalTransfer);
 
         return $erpOrderTotalTransfer;

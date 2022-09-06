@@ -23,12 +23,17 @@ class ErpOrderPageSearchPublisher implements ErpOrderPageSearchPublisherInterfac
     /**
      * @var string
      */
-    public const ERP_ORDER_ITEMS = 'erpOrderItems';
+    public const ITEMS = 'items';
 
     /**
      * @var string
      */
     public const ERP_ORDER_TOTAL = 'erpOrderTotal';
+
+    /**
+     * @var string
+     */
+    public const TOTALS = 'totals';
 
     /**
      * @var string
@@ -126,15 +131,20 @@ class ErpOrderPageSearchPublisher implements ErpOrderPageSearchPublisherInterfac
         $orderItems = $fooErpOrderEntity->getErpOrderItems(
             (new Criteria())->addAscendingOrderByColumn(ErpOrderItemTableMap::COL_POSITION),
         );
-        $orderTotal = $fooErpOrderEntity->getErpOrderTotals()->offsetGet(0);
+        $orderTotal = $fooErpOrderEntity->getOldErpOrderTotals()->offsetGet(0);
+        $totals = $fooErpOrderEntity->getErpOrderTotals();
         $billingAddress = $fooErpOrderEntity->getErpOrderBillingAddress();
         $shippingAddress = $fooErpOrderEntity->getErpOrderShippingAddress();
 
         $erpOrderData[static::COMPANY_BUSINESS_UNIT] = $companyBusinessUnit->toArray();
-        $erpOrderData[static::ERP_ORDER_ITEMS] = $orderItems->toArray(null, false, TableMap::TYPE_FIELDNAME);
+        $erpOrderData[static::ITEMS] = $orderItems->toArray(null, false, TableMap::TYPE_FIELDNAME);
         $erpOrderData[static::BILLING_ADDRESS] = $this->getAddress($billingAddress);
         $erpOrderData[static::SHIPPING_ADDRESS] = $this->getAddress($shippingAddress);
         $erpOrderData[static::ERP_ORDER_TOTAL] = $orderTotal->toArray();
+
+        if ($totals !== null) {
+            $erpOrderData[static::TOTALS] = $totals->toArray();
+        }
 
         $erpOrderPageSearchTransfer = (new ErpOrderPageSearchTransfer())
             ->fromArray($erpOrderData, true)

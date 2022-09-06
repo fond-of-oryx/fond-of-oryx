@@ -6,15 +6,19 @@ use DateTime;
 use Exception;
 use Generated\Shared\Transfer\ErpOrderAddressTransfer;
 use Generated\Shared\Transfer\ErpOrderItemTransfer;
+use Generated\Shared\Transfer\ErpOrderTotalsTransfer;
 use Generated\Shared\Transfer\ErpOrderTotalTransfer;
 use Generated\Shared\Transfer\ErpOrderTransfer;
 use Orm\Zed\ErpOrder\Persistence\ErpOrder;
 use Orm\Zed\ErpOrder\Persistence\ErpOrderAddress;
 use Orm\Zed\ErpOrder\Persistence\ErpOrderItem;
-use Orm\Zed\ErpOrder\Persistence\ErpOrderTotal;
+use Orm\Zed\ErpOrder\Persistence\ErpOrderTotals;
+use Orm\Zed\ErpOrder\Persistence\OldErpOrderTotal;
 use Spryker\Zed\Kernel\Persistence\AbstractEntityManager;
 
 /**
+ * @codeCoverageIgnore
+ *
  * @method \FondOfOryx\Zed\ErpOrder\Persistence\ErpOrderPersistenceFactory getFactory()
  */
 class ErpOrderEntityManager extends AbstractEntityManager implements ErpOrderEntityManagerInterface
@@ -78,7 +82,7 @@ class ErpOrderEntityManager extends AbstractEntityManager implements ErpOrderEnt
      *
      * @return \Generated\Shared\Transfer\ErpOrderTotalTransfer
      */
-    public function createErpOrderTotal(ErpOrderTotalTransfer $orderTotalTransfer): ErpOrderTotalTransfer
+    public function createOldErpOrderTotal(ErpOrderTotalTransfer $orderTotalTransfer): ErpOrderTotalTransfer
     {
         $orderTotalTransfer
             ->requireFkErpOrder()
@@ -86,11 +90,11 @@ class ErpOrderEntityManager extends AbstractEntityManager implements ErpOrderEnt
             ->requireGrandTotal()
             ->requireTaxTotal();
 
-        $entity = new ErpOrderTotal();
+        $entity = new OldErpOrderTotal();
         $entity->fromArray($orderTotalTransfer->toArray());
         $entity->save();
 
-        return $this->getFactory()->createEntityToTransferMapper()->fromErpOrderTotalToTransfer($entity);
+        return $this->getFactory()->createEntityToTransferMapper()->fromOldErpOrderTotalToTransfer($entity);
     }
 
     /**
@@ -200,12 +204,21 @@ class ErpOrderEntityManager extends AbstractEntityManager implements ErpOrderEnt
         foreach ($items as $item) {
             $item->delete();
         }
+
+        $idTotals = $order->getFkTotals();
         $addressIds = [
             $order->getFkBillingAddress(),
             $order->getFkShippingAddress(),
         ];
 
+        $order->getOldErpOrderTotals()->delete();
         $order->delete();
+
+        if ($idTotals !== null) {
+            $this->getFactory()->createErpOrderTotalsQuery()
+                ->findOneByIdErpOrderTotals($idTotals)
+                ->delete();
+        }
 
         $ordersWithBilling = $this->getFactory()->createErpOrderQuery()->filterByFkBillingAddress_In($addressIds)->find();
         if (count($ordersWithBilling) === 0 || empty($ordersWithBilling->getData()) === true) {
@@ -295,7 +308,7 @@ class ErpOrderEntityManager extends AbstractEntityManager implements ErpOrderEnt
     {
         $erpOrderTotalTransfer->requireIdErpOrderTotal();
 
-        $query = $this->getFactory()->createErpOrderTotalQuery();
+        $query = $this->getFactory()->createOldErpOrderTotalQuery();
 
         $entity = $query->findOneByIdErpOrderTotal($erpOrderTotalTransfer->getIdErpOrderTotal());
 
@@ -311,7 +324,7 @@ class ErpOrderEntityManager extends AbstractEntityManager implements ErpOrderEnt
             ->setIdErpOrderTotal($id)
             ->save();
 
-        return $this->getFactory()->createEntityToTransferMapper()->fromErpOrderTotalToTransfer($entity);
+        return $this->getFactory()->createEntityToTransferMapper()->fromOldErpOrderTotalToTransfer($entity);
     }
 
     /**
@@ -340,5 +353,72 @@ class ErpOrderEntityManager extends AbstractEntityManager implements ErpOrderEnt
         }
 
         return $date;
+    }
+
+    /**
+     * @param \Generated\Shared\Transfer\ErpOrderTotalsTransfer $erpOrderTotalsTransfer
+     *
+     * @return \Generated\Shared\Transfer\ErpOrderTotalsTransfer
+     */
+    public function createErpOrderTotals(ErpOrderTotalsTransfer $erpOrderTotalsTransfer): ErpOrderTotalsTransfer
+    {
+        $erpOrderTotalsTransfer
+            ->requireSubtotal()
+            ->requireGrandTotal()
+            ->requireTaxTotal();
+
+        $entity = new ErpOrderTotals();
+        $entity->fromArray($erpOrderTotalsTransfer->toArray());
+        $entity->save();
+
+        return $this->getFactory()->createEntityToTransferMapper()->fromErpOrderTotalsToTransfer($entity);
+    }
+
+    /**
+     * @param \Generated\Shared\Transfer\ErpOrderTotalsTransfer $erpOrderTotalsTransfer
+     *
+     * @throws \Exception
+     *
+     * @return \Generated\Shared\Transfer\ErpOrderTotalsTransfer
+     */
+    public function updateErpOrderTotals(ErpOrderTotalsTransfer $erpOrderTotalsTransfer): ErpOrderTotalsTransfer
+    {
+        $erpOrderTotalsTransfer->requireIdErpOrderTotals();
+
+        $query = $this->getFactory()->createErpOrderTotalsQuery();
+
+        $entity = $query->findOneByIdErpOrderTotals($erpOrderTotalsTransfer->getIdErpOrderTotals());
+
+        if ($entity === null) {
+            throw new Exception(sprintf(
+                'Erp order total with id %s not found',
+                $erpOrderTotalsTransfer->getIdErpOrderTotals(),
+            ));
+        }
+
+        $id = $entity->getIdErpOrderTotals();
+
+        $entity->fromArray($erpOrderTotalsTransfer->toArray());
+        $entity->setIdErpOrderTotals($id)
+            ->save();
+
+        return $this->getFactory()->createEntityToTransferMapper()->fromErpOrderTotalsToTransfer($entity);
+    }
+
+    /**
+     * @param int $idErpOrderTotals
+     *
+     * @return void
+     */
+    public function deleteErpOrderTotalsByIdErpOrderTotals(int $idErpOrderTotals): void
+    {
+        $erpOrderTotals = $this->getFactory()->createErpOrderTotalsQuery()
+            ->findOneByIdErpOrderTotals($idErpOrderTotals);
+
+        if ($erpOrderTotals === null) {
+            return;
+        }
+
+        $erpOrderTotals->delete();
     }
 }

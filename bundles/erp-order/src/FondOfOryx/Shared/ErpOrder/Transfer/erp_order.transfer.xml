@@ -8,6 +8,7 @@
         <property name="fkBillingAddress" type="int"/>
         <property name="fkShippingAddress" type="int"/>
         <property name="fkCompanyBusinessUnit" type="int"/>
+        <property name="fkTotals" type="int" />
         <property name="orderItems" singular="orderItem" type="ErpOrderItem[]"/>
         <property name="billingAddress" type="ErpOrderAddress"/>
         <property name="shippingAddress" type="ErpOrderAddress"/>
@@ -15,6 +16,7 @@
         <property name="externalReference" type="string"/>
         <property name="concreteDeliveryDate" type="string"/>
         <property name="total" type="ErpOrderTotal"/>
+        <property name="totals" type="ErpOrderTotals"/>
         <property name="currencyIsoCode" type="string"/>
         <property name="createdAt" type="int"/>
         <property name="updatedAt" type="int"/>
@@ -60,6 +62,13 @@
     <transfer name="ErpOrderTotal">
         <property name="idErpOrderTotal" type="int" />
         <property name="fkErpOrder" type="int" />
+        <property name="subtotal" type="int"/>
+        <property name="grandTotal" type="int"/>
+        <property name="taxTotal" type="int"/>
+    </transfer>
+
+    <transfer name="ErpOrderTotals">
+        <property name="idErpOrderTotals" type="int" />
         <property name="subtotal" type="int"/>
         <property name="grandTotal" type="int"/>
         <property name="taxTotal" type="int"/>

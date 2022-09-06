@@ -62,4 +62,11 @@ interface ErpOrderFacadeInterface
      * @return \Generated\Shared\Transfer\ErpOrderTransfer
      */
     public function persistErpOrderTotal(ErpOrderTransfer $erpOrderTransfer): ErpOrderTransfer;
+
+    /**
+     * @param \Generated\Shared\Transfer\ErpOrderTransfer $erpOrderTransfer
+     *
+     * @return \Generated\Shared\Transfer\ErpOrderTransfer
+     */
+    public function persistErpOrderTotals(ErpOrderTransfer $erpOrderTransfer): ErpOrderTransfer;
 }
