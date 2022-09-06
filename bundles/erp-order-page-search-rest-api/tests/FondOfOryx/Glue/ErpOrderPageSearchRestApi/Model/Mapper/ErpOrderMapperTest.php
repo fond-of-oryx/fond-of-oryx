@@ -3,7 +3,6 @@
 namespace FondOfOryx\Glue\ErpOrderPageSearchRestApi\Model\Mapper;
 
 use Codeception\Test\Unit;
-use Generated\Shared\Transfer\RestErpOrderPageSearchCollectionResponseTransfer;
 
 class ErpOrderMapperTest extends Unit
 {
@@ -15,7 +14,7 @@ class ErpOrderMapperTest extends Unit
     /**
      * @return void
      */
-    protected function _before()
+    protected function _before(): void
     {
         parent::_before();
 
@@ -51,7 +50,7 @@ class ErpOrderMapperTest extends Unit
         ];
         $transfer = $this->erpOrderMapper->mapErpOrderResource($data);
 
-        $this->assertInstanceOf(RestErpOrderPageSearchCollectionResponseTransfer::class, $transfer);
-        $this->assertEquals('sku', $transfer->getErpOrders()[0]->getItems()[0]->getSku());
+        static::assertEquals('sku', $transfer->getErpOrders()[0]->getItems()[0]->getSku());
+        static::assertCount(count($data['erp-orders'][0]['items']), $transfer->getErpOrders()[0]->getItems());
     }
 }
