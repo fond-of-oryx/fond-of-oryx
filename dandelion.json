@@ -84,7 +84,7 @@
     },
     "company-business-unit-order-budget": {
       "path": "bundles/company-business-unit-order-budget/",
-      "version": "1.1.0"
+      "version": "1.2.0"
     },
     "company-business-unit-search-rest-api": {
       "path": "bundles/company-business-unit-search-rest-api/",
@@ -108,7 +108,7 @@
     },
     "company-product-list-connector": {
       "path": "bundles/company-product-list-connector/",
-      "version": "1.1.0"
+      "version": "1.2.0"
     },
     "company-product-list-connector-extension": {
       "path": "bundles/company-product-list-connector-extension/",
@@ -120,7 +120,7 @@
     },
     "company-role-search-rest-api": {
       "path": "bundles/company-role-search-rest-api/",
-      "version": "1.1.0"
+      "version": "1.2.0"
     },
     "company-search-rest-api": {
       "path": "bundles/company-search-rest-api/",
@@ -142,6 +142,10 @@
       "path": "bundles/company-user-api/",
       "version": "1.0.0"
     },
+    "company-user-archive": {
+      "path": "bundles/company-user-archive/",
+      "version": "1.0.0"
+    },
     "company-user-company-role-connector": {
       "path": "bundles/company-user-company-role-connector/",
       "version": "1.0.1"
@@ -156,7 +160,7 @@
     },
     "company-user-search-rest-api": {
       "path": "bundles/company-user-search-rest-api/",
-      "version": "1.4.0"
+      "version": "1.5.0"
     },
     "company-users-rest-api-extension": {
       "path": "bundles/company-users-rest-api-extension/",
@@ -212,7 +216,7 @@
     },
     "customer-product-list-connector": {
       "path": "bundles/customer-product-list-connector/",
-      "version": "1.1.0"
+      "version": "1.2.0"
     },
     "customer-product-list-connector-extension": {
       "path": "bundles/customer-product-list-connector-extension/",
@@ -252,7 +256,7 @@
     },
     "erp-delivery-note-page-search": {
       "path": "bundles/erp-delivery-note-page-search/",
-      "version": "1.1.0"
+      "version": "1.2.0"
     },
     "erp-delivery-note-page-search-rest-api": {
       "path": "bundles/erp-delivery-note-page-search-rest-api/",
@@ -276,7 +280,7 @@
     },
     "erp-invoice-page-search": {
       "path": "bundles/erp-invoice-page-search/",
-      "version": "2.0.1"
+      "version": "2.1.0"
     },
     "erp-invoice-page-search-rest-api": {
       "path": "bundles/erp-invoice-page-search-rest-api/",
@@ -288,7 +292,7 @@
     },
     "erp-order": {
       "path": "bundles/erp-order/",
-      "version": "2.1.0"
+      "version": "2.3.0"
     },
     "erp-order-api": {
       "path": "bundles/erp-order-api/",
@@ -296,15 +300,15 @@
     },
     "erp-order-extension": {
       "path": "bundles/erp-order-extension/",
-      "version": "1.1.0"
+      "version": "1.2.0"
     },
     "erp-order-page-search": {
       "path": "bundles/erp-order-page-search/",
-      "version": "2.1.0"
+      "version": "2.2.0"
     },
     "erp-order-page-search-rest-api": {
       "path": "bundles/erp-order-page-search-rest-api/",
-      "version": "1.5.0"
+      "version": "1.7.0"
     },
     "erp-order-permission": {
       "path": "bundles/erp-order-permission/",
@@ -376,7 +380,7 @@
     },
     "jellyfish-buffer": {
       "path": "bundles/jellyfish-buffer/",
-      "version": "1.2.0"
+      "version": "1.3.0"
     },
     "jellyfish-buffer-gui": {
       "path": "bundles/jellyfish-buffer-gui/",
@@ -396,7 +400,7 @@
     },
     "jellyfish-sales-order": {
       "path": "bundles/jellyfish-sales-order/",
-      "version": "1.3.0"
+      "version": "1.4.0"
     },
     "jellyfish-sales-order-b2c": {
       "path": "bundles/jellyfish-sales-order-b2c/",
@@ -636,11 +640,11 @@
     },
     "shipment-table-rate": {
       "path": "bundles/shipment-table-rate/",
-      "version": "1.1.0"
+      "version": "1.1.1"
     },
     "shipment-table-rate-data-import": {
       "path": "bundles/shipment-table-rate-data-import/",
-      "version": "1.0.0"
+      "version": "1.1.0"
     },
     "shipment-table-rate-extension": {
       "path": "bundles/shipment-table-rate-extension/",
@@ -648,7 +652,7 @@
     },
     "splittable-checkout": {
       "path": "bundles/splittable-checkout/",
-      "version": "1.4.0"
+      "version": "1.5.0"
     },
     "splittable-checkout-company-user-connector": {
       "path": "bundles/splittable-checkout-company-user-connector/",
@@ -660,7 +664,7 @@
     },
     "splittable-checkout-rest-api": {
       "path": "bundles/splittable-checkout-rest-api/",
-      "version": "1.2.0"
+      "version": "1.3.0"
     },
     "splittable-checkout-rest-api-cart-note-connector": {
       "path": "bundles/splittable-checkout-rest-api-cart-note-connector/",
@@ -728,7 +732,7 @@
     },
     "trbo": {
       "path": "bundles/trbo/",
-      "version": "1.0.6"
+      "version": "1.0.7"
     },
     "util-math-formula": {
       "path": "bundles/util-math-formula/",

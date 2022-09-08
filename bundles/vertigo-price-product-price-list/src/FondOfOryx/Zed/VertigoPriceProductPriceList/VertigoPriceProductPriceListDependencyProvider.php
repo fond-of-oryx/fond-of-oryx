@@ -3,6 +3,7 @@
 namespace FondOfOryx\Zed\VertigoPriceProductPriceList;
 
 use FondOfOryx\Zed\VertigoPriceProductPriceList\Dependency\Facade\VertigoPriceProductPriceListToProductFacadeBridge;
+use FondOfOryx\Zed\VertigoPriceProductPriceList\Dependency\Service\VertigoPriceProductPriceListToUtilEncodingServiceBridge;
 use Orm\Zed\Product\Persistence\Base\SpyProductQuery;
 use Spryker\Zed\Kernel\AbstractBundleDependencyProvider;
 use Spryker\Zed\Kernel\Container;
@@ -23,6 +24,11 @@ class VertigoPriceProductPriceListDependencyProvider extends AbstractBundleDepen
     public const PROPEL_QUERY_PRODUCT = 'PROPEL_QUERY_PRODUCT';
 
     /**
+     * @var string
+     */
+    public const SERVICE_UTIL_ENCODING = 'SERVICE_UTIL_ENCODING';
+
+    /**
      * @param \Spryker\Zed\Kernel\Container $container
      *
      * @return \Spryker\Zed\Kernel\Container
@@ -31,7 +37,9 @@ class VertigoPriceProductPriceListDependencyProvider extends AbstractBundleDepen
     {
         $container = parent::provideBusinessLayerDependencies($container);
 
-        return $this->addProductFacade($container);
+        $container = $this->addProductFacade($container);
+
+        return $this->addUtilEncodingService($container);
     }
 
     /**
@@ -44,6 +52,22 @@ class VertigoPriceProductPriceListDependencyProvider extends AbstractBundleDepen
         $container[static::FACADE_PRODUCT] = static function (Container $container) {
             return new VertigoPriceProductPriceListToProductFacadeBridge(
                 $container->getLocator()->product()->facade(),
+            );
+        };
+
+        return $container;
+    }
+
+    /**
+     * @param \Spryker\Zed\Kernel\Container $container
+     *
+     * @return \Spryker\Zed\Kernel\Container
+     */
+    protected function addUtilEncodingService(Container $container): Container
+    {
+        $container[static::SERVICE_UTIL_ENCODING] = static function (Container $container) {
+            return new VertigoPriceProductPriceListToUtilEncodingServiceBridge(
+                $container->getLocator()->utilEncoding()->service(),
             );
         };
 

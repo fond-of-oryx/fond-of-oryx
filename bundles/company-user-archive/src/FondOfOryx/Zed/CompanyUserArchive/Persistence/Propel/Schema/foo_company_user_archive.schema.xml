@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+<database xmlns="spryker:schema-01" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          name="zed"
+          xsi:schemaLocation="spryker:schema-01 https://static.spryker.com/schema-01.xsd"
+          namespace="Orm\Zed\CompanyUserArchive\Persistence"
+          package="src.Orm.Zed.CompanyUserArchive.Persistence">
+
+    <table name="foo_company_user_archive" phpName="FooCompanyUserArchive">
+        <column name="id_company_user" required="true" type="INTEGER" primaryKey="true"/>
+        <column name="fk_company" type="INTEGER" required="true"/>
+        <column name="fk_company_business_unit" type="INTEGER"/>
+        <column name="fk_customer" type="INTEGER" required="true"/>
+        <column name="company_user_reference" required="true" default="" size="255" type="VARCHAR"/>
+        <column name="external_reference" default="" size="255" type="VARCHAR"/>
+
+        <foreign-key name="foo_company_user_archive-fk_company" foreignTable="spy_company" phpName="Company" refPhpName="CompanyUserArchive">
+            <reference local="fk_company" foreign="id_company"/>
+        </foreign-key>
+
+        <foreign-key name="foo_company_user_archive-fk_company_business_unit" foreignTable="spy_company_business_unit" phpName="CompanyBusinessUnit" refPhpName="CompanyUserArchive" onDelete="SETNULL">
+            <reference local="fk_company_business_unit" foreign="id_company_business_unit"/>
+        </foreign-key>
+
+        <foreign-key name="foo_company_user_archive-fk_customer" foreignTable="spy_customer" phpName="Customer" refPhpName="CompanyUserArchive">
+            <reference local="fk_customer" foreign="id_customer"/>
+        </foreign-key>
+
+        <behavior name="timestampable"/>
+    </table>
+</database>
+
+
+
+

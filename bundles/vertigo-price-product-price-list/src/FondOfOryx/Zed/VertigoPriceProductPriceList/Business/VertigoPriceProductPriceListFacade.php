@@ -2,6 +2,7 @@
 
 namespace FondOfOryx\Zed\VertigoPriceProductPriceList\Business;
 
+use Generated\Shared\Transfer\ProductConcreteTransfer;
 use Spryker\Zed\Kernel\Business\AbstractFacade;
 
 /**
@@ -29,5 +30,18 @@ class VertigoPriceProductPriceListFacade extends AbstractFacade implements Verti
         $this->getFactory()
             ->createPriceProductPriceListRequester()
             ->requestBySku($sku);
+    }
+
+    /**
+     * @param \Generated\Shared\Transfer\ProductConcreteTransfer $productConcreteTransfer
+     *
+     * @return void
+     */
+    public function requestMissingPriceProductPriceListByProductConcrete(
+        ProductConcreteTransfer $productConcreteTransfer
+    ): void {
+        $this->getFactory()
+            ->createPriceProductPriceListRequester()
+            ->requestMissingByProductConcrete($productConcreteTransfer);
     }
 }

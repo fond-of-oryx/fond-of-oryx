@@ -6,6 +6,7 @@ use FondOfOryx\Zed\VertigoPriceProductPriceList\Business\Api\Adapter\VertigoPric
 use FondOfOryx\Zed\VertigoPriceProductPriceList\Business\Exception\SkuNotExistsException;
 use FondOfOryx\Zed\VertigoPriceProductPriceList\Dependency\Facade\VertigoPriceProductPriceListToProductFacadeInterface;
 use FondOfOryx\Zed\VertigoPriceProductPriceList\Persistence\VertigoPriceProductPriceListRepositoryInterface;
+use Generated\Shared\Transfer\ProductConcreteTransfer;
 use Generated\Shared\Transfer\VertigoPriceApiRequestTransfer;
 
 class PriceProductPriceListRequester implements PriceProductPriceListRequesterInterface
@@ -74,5 +75,21 @@ class PriceProductPriceListRequester implements PriceProductPriceListRequesterIn
             ->setBody(['skus' => [$sku]]);
 
         $this->vertigoPriceApiAdapter->sendRequest($vertigoPriceApiRequestTransfer);
+    }
+
+    /**
+     * @param \Generated\Shared\Transfer\ProductConcreteTransfer $productConcreteTransfer
+     *
+     * @return void
+     */
+    public function requestMissingByProductConcrete(ProductConcreteTransfer $productConcreteTransfer): void
+    {
+        $sku = $productConcreteTransfer->getSku();
+
+        if ($sku === null || $this->repository->hasPriceProductPriceList($sku)) {
+            return;
+        }
+
+        $this->requestBySku($sku);
     }
 }

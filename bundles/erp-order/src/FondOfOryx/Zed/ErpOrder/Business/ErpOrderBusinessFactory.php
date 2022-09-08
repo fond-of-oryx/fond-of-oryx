@@ -8,6 +8,8 @@ use FondOfOryx\Zed\ErpOrder\Business\Handler\ErpOrderItemHandler;
 use FondOfOryx\Zed\ErpOrder\Business\Handler\ErpOrderItemHandlerInterface;
 use FondOfOryx\Zed\ErpOrder\Business\Handler\ErpOrderTotalHandler;
 use FondOfOryx\Zed\ErpOrder\Business\Handler\ErpOrderTotalHandlerInterface;
+use FondOfOryx\Zed\ErpOrder\Business\Handler\ErpOrderTotalsHandler;
+use FondOfOryx\Zed\ErpOrder\Business\Handler\ErpOrderTotalsHandlerInterface;
 use FondOfOryx\Zed\ErpOrder\Business\Model\Reader\ErpOrderAddressReader;
 use FondOfOryx\Zed\ErpOrder\Business\Model\Reader\ErpOrderAddressReaderInterface;
 use FondOfOryx\Zed\ErpOrder\Business\Model\Reader\ErpOrderItemReader;
@@ -15,11 +17,15 @@ use FondOfOryx\Zed\ErpOrder\Business\Model\Reader\ErpOrderItemReaderInterface;
 use FondOfOryx\Zed\ErpOrder\Business\Model\Reader\ErpOrderReader;
 use FondOfOryx\Zed\ErpOrder\Business\Model\Reader\ErpOrderTotalReader;
 use FondOfOryx\Zed\ErpOrder\Business\Model\Reader\ErpOrderTotalReaderInterface;
+use FondOfOryx\Zed\ErpOrder\Business\Model\Reader\ErpOrderTotalsReader;
+use FondOfOryx\Zed\ErpOrder\Business\Model\Reader\ErpOrderTotalsReaderInterface;
 use FondOfOryx\Zed\ErpOrder\Business\Model\Reader\ReaderInterface;
 use FondOfOryx\Zed\ErpOrder\Business\Model\Writer\ErpOrderAddressWriter;
 use FondOfOryx\Zed\ErpOrder\Business\Model\Writer\ErpOrderAddressWriterInterface;
 use FondOfOryx\Zed\ErpOrder\Business\Model\Writer\ErpOrderItemWriter;
 use FondOfOryx\Zed\ErpOrder\Business\Model\Writer\ErpOrderItemWriterInterface;
+use FondOfOryx\Zed\ErpOrder\Business\Model\Writer\ErpOrderTotalsWriter;
+use FondOfOryx\Zed\ErpOrder\Business\Model\Writer\ErpOrderTotalsWriterInterface;
 use FondOfOryx\Zed\ErpOrder\Business\Model\Writer\ErpOrderTotalWriter;
 use FondOfOryx\Zed\ErpOrder\Business\Model\Writer\ErpOrderTotalWriterInterface;
 use FondOfOryx\Zed\ErpOrder\Business\Model\Writer\ErpOrderWriter;
@@ -32,6 +38,8 @@ use FondOfOryx\Zed\ErpOrder\Business\PluginExecutor\ErpOrderPluginExecutor;
 use FondOfOryx\Zed\ErpOrder\Business\PluginExecutor\ErpOrderPluginExecutorInterface;
 use FondOfOryx\Zed\ErpOrder\Business\PluginExecutor\ErpOrderTotalPluginExecutor;
 use FondOfOryx\Zed\ErpOrder\Business\PluginExecutor\ErpOrderTotalPluginExecutorInterface;
+use FondOfOryx\Zed\ErpOrder\Business\PluginExecutor\ErpOrderTotalsPluginExecutor;
+use FondOfOryx\Zed\ErpOrder\Business\PluginExecutor\ErpOrderTotalsPluginExecutorInterface;
 use FondOfOryx\Zed\ErpOrder\ErpOrderDependencyProvider;
 use Spryker\Zed\Kernel\Business\AbstractBusinessFactory;
 
@@ -260,5 +268,62 @@ class ErpOrderBusinessFactory extends AbstractBusinessFactory
     public function getErpOrderTotalPostSavePlugin(): array
     {
         return $this->getProvidedDependency(ErpOrderDependencyProvider::PLUGIN_ERP_ORDER_ITEM_POST_SAVE)->getArrayCopy();
+    }
+
+    /**
+     * @return \FondOfOryx\Zed\ErpOrder\Business\Handler\ErpOrderTotalsHandlerInterface
+     */
+    public function createErpOrderTotalsHandler(): ErpOrderTotalsHandlerInterface
+    {
+        return new ErpOrderTotalsHandler(
+            $this->createErpOrderTotalsReader(),
+            $this->createErpOrderTotalsWriter(),
+        );
+    }
+
+    /**
+     * @return \FondOfOryx\Zed\ErpOrder\Business\Model\Reader\ErpOrderTotalsReaderInterface
+     */
+    protected function createErpOrderTotalsReader(): ErpOrderTotalsReaderInterface
+    {
+        return new ErpOrderTotalsReader($this->getRepository());
+    }
+
+    /**
+     * @return \FondOfOryx\Zed\ErpOrder\Business\Model\Writer\ErpOrderTotalsWriterInterface
+     */
+    protected function createErpOrderTotalsWriter(): ErpOrderTotalsWriterInterface
+    {
+        return new ErpOrderTotalsWriter(
+            $this->getEntityManager(),
+            $this->createErpOrderTotalsPluginExecutor(),
+        );
+    }
+
+    /**
+     * @return \FondOfOryx\Zed\ErpOrder\Business\PluginExecutor\ErpOrderTotalsPluginExecutorInterface
+     */
+    protected function createErpOrderTotalsPluginExecutor(): ErpOrderTotalsPluginExecutorInterface
+    {
+        return new ErpOrderTotalsPluginExecutor(
+            $this->getErpOrderTotalsPreSavePlugins(),
+            $this->getErpOrderTotalsPostSavePlugins(),
+        );
+    }
+
+    /**
+     * @return array<\FondOfOryx\Zed\ErpOrderExtension\Dependency\Plugin\ErpOrderTotalsPreSavePluginInterface>
+     */
+    protected function getErpOrderTotalsPreSavePlugins(): array
+    {
+        return $this->getProvidedDependency(ErpOrderDependencyProvider::PLUGIN_ERP_ORDER_TOTALS_PRE_SAVE);
+    }
+
+    /**
+     * @return array<\FondOfOryx\Zed\ErpOrderExtension\Dependency\Plugin\ErpOrderTotalsPostSavePluginInterface>
+     */
+    protected function getErpOrderTotalsPostSavePlugins(): array
+    {
+        return $this->getProvidedDependency(ErpOrderDependencyProvider::PLUGIN_ERP_ORDER_TOTALS_POST_SAVE);
     }
 }

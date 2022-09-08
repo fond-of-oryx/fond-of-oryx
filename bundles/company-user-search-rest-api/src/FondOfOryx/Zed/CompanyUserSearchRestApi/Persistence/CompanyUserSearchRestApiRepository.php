@@ -6,6 +6,7 @@ use ArrayObject;
 use Generated\Shared\Transfer\CompanyUserListTransfer;
 use Orm\Zed\CompanyUser\Persistence\Map\SpyCompanyUserTableMap;
 use Orm\Zed\CompanyUser\Persistence\SpyCompanyUserQuery;
+use Orm\Zed\Customer\Persistence\Map\SpyCustomerTableMap;
 use Propel\Runtime\ActiveQuery\Criteria;
 use Propel\Runtime\ActiveQuery\ModelCriteria;
 use Spryker\Zed\Kernel\Persistence\AbstractRepository;
@@ -124,23 +125,30 @@ class CompanyUserSearchRestApiRepository extends AbstractRepository implements C
             return $companyUserQuery;
         }
 
-        $conditionNames = [];
-        $tableMap = SpyCompanyUserTableMap::getTableMap();
         $fulltextSearchFields = $this->getFactory()->getConfig()->getFulltextSearchFields();
+        $conditionNames = [];
+        $tableMaps = [
+            SpyCompanyUserTableMap::getTableMap(),
+            SpyCustomerTableMap::getTableMap(),
+        ];
 
         foreach ($fulltextSearchFields as $fulltextSearchField) {
-            if (!$tableMap->hasColumn($fulltextSearchField)) {
-                continue;
+            foreach ($tableMaps as $tableMap) {
+                if (!$tableMap->hasColumn($fulltextSearchField)) {
+                    continue;
+                }
+
+                $columnMap = $tableMap->getColumn($fulltextSearchField);
+
+                if (!$columnMap->isText()) {
+                    continue;
+                }
+
+                $conditionNames[] = $conditionName = uniqid($fulltextSearchField, true);
+                $companyUserQuery->addCond($conditionName, $columnMap->getFullyQualifiedName(), sprintf('%%%s%%', $query), Criteria::ILIKE);
+
+                break;
             }
-
-            $columnMap = $tableMap->getColumn($fulltextSearchField);
-
-            if (!$columnMap->isText()) {
-                continue;
-            }
-
-            $conditionNames[] = $conditionName = uniqid($fulltextSearchField, true);
-            $companyUserQuery->addCond($conditionName, $columnMap->getFullyQualifiedName(), sprintf('%%%s%%', $query), Criteria::ILIKE);
         }
 
         if (count($conditionNames) === 0) {
@@ -168,21 +176,26 @@ class CompanyUserSearchRestApiRepository extends AbstractRepository implements C
             return $companyUserQuery;
         }
 
-        $tableMap = SpyCompanyUserTableMap::getTableMap();
         $sortFields = $this->getFactory()->getConfig()->getSortFields();
+        $tableMaps = [
+            SpyCompanyUserTableMap::getTableMap(),
+            SpyCustomerTableMap::getTableMap(),
+        ];
 
         [$sortField, $direction] = explode(' ', preg_replace('/(([a-z0-9]+)(_[a-z0-9]+)*)_(asc|desc)/', '$1 $4', $sort));
 
-        if (!in_array($sortField, $sortFields, true) || !$tableMap->hasColumn($sortField)) {
-            return $companyUserQuery;
+        foreach ($tableMaps as $tableMap) {
+            if (!in_array($sortField, $sortFields, true) || !$tableMap->hasColumn($sortField)) {
+                continue;
+            }
+
+            $columnMap = $tableMap->getColumn($sortField);
+
+            return $companyUserQuery->orderBy(
+                $columnMap->getFullyQualifiedName(),
+                $direction === 'desc' ? Criteria::DESC : Criteria::ASC,
+            );
         }
-
-        $columnMap = $tableMap->getColumn($sortField);
-
-        $companyUserQuery->orderBy(
-            $columnMap->getFullyQualifiedName(),
-            $direction === 'desc' ? Criteria::DESC : Criteria::ASC,
-        );
 
         return $companyUserQuery;
     }

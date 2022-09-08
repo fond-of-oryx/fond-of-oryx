@@ -5,7 +5,6 @@ declare(strict_types = 1);
 namespace FondOfOryx\Glue\ErpOrderPageSearchRestApi\Model\Mapper;
 
 use Generated\Shared\Transfer\RestCompanyBusinessUnitTransfer;
-use Generated\Shared\Transfer\RestErpOrderItemTransfer;
 use Generated\Shared\Transfer\RestErpOrderPageSearchCollectionResponseTransfer;
 use Generated\Shared\Transfer\RestErpOrderTotalTransfer;
 use Generated\Shared\Transfer\RestErpOrderTransfer;
@@ -20,17 +19,12 @@ class ErpOrderMapper implements ErpOrderMapperInterface
     /**
      * @var string
      */
-    protected const ERP_ORDER_DATA_KEY_ERP_ORDER_ITEMS = 'erp_order_items';
-
-    /**
-     * @var string
-     */
     protected const ERP_ORDER_DATA_KEY_COMPANY_BUSINESS_UNIT = 'company_business_unit';
 
     /**
      * @var string
      */
-    protected const ERP_ORDER_DATA_KEY_ERP_ORDER_TOTAL = 'erp_order_total';
+    protected const ERP_ORDER_DATA_KEY_TOTALS = 'totals';
 
     /**
      * @param array $searchResults
@@ -58,9 +52,8 @@ class ErpOrderMapper implements ErpOrderMapperInterface
                 ),
             );
 
-            $this->addRestErpOrderItems($restErpOrder, $erpOrderData[self::ERP_ORDER_DATA_KEY_ERP_ORDER_ITEMS]);
             $restErpOrder->setTotals($this->mapErpOrderTotalToRestOrderTotal(
-                $erpOrderData[static::ERP_ORDER_DATA_KEY_ERP_ORDER_TOTAL],
+                $erpOrderData[static::ERP_ORDER_DATA_KEY_TOTALS],
             ));
 
             $responseTransfer->addErpOrder($restErpOrder);
@@ -89,23 +82,5 @@ class ErpOrderMapper implements ErpOrderMapperInterface
         array $erpOrderTotal
     ): RestErpOrderTotalTransfer {
         return (new RestErpOrderTotalTransfer())->fromArray($erpOrderTotal, true);
-    }
-
-    /**
-     * @param \Generated\Shared\Transfer\RestErpOrderTransfer $restErpOrderTransfer
-     * @param array $erpOrderItems
-     *
-     * @return \Generated\Shared\Transfer\RestErpOrderTransfer
-     */
-    protected function addRestErpOrderItems(
-        RestErpOrderTransfer $restErpOrderTransfer,
-        array $erpOrderItems
-    ): RestErpOrderTransfer {
-        foreach ($erpOrderItems as $erpOrderItemData) {
-            $restErpOrderItemTransfer = (new RestErpOrderItemTransfer())->fromArray($erpOrderItemData, true);
-            $restErpOrderTransfer->addItem($restErpOrderItemTransfer);
-        }
-
-        return $restErpOrderTransfer;
     }
 }

@@ -119,7 +119,7 @@ class ErpOrderTotalWriterTest extends Unit
      */
     public function testCreate(): void
     {
-        $this->entityManagerMock->expects($this->once())->method('createErpOrderTotal')->willReturn($this->erpOrderTotalTransfer);
+        $this->entityManagerMock->expects($this->once())->method('createOldErpOrderTotal')->willReturn($this->erpOrderTotalTransfer);
         $this->pluginExecutorMock->expects($this->once())->method('executePreSavePlugins')->willReturn($this->erpOrderTotalTransfer);
         $this->pluginExecutorMock->expects($this->once())->method('executePostSavePlugins')->willReturn($this->erpOrderTotalTransfer);
 
@@ -133,7 +133,7 @@ class ErpOrderTotalWriterTest extends Unit
      */
     public function testCreateNotSuccesful(): void
     {
-        $this->entityManagerMock->expects($this->once())->method('createErpOrderTotal')->will($this->returnCallback(static function () {
+        $this->entityManagerMock->expects($this->once())->method('createOldErpOrderTotal')->will($this->returnCallback(static function () {
             throw new Exception('test');
         }));
         $this->pluginExecutorMock->expects($this->once())->method('executePreSavePlugins')->willReturn($this->erpOrderTotalTransfer);

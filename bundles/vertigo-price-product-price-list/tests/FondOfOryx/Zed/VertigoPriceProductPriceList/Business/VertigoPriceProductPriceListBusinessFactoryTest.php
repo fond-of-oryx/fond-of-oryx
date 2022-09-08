@@ -5,6 +5,7 @@ namespace FondOfOryx\Zed\VertigoPriceProductPriceList\Business;
 use Codeception\Test\Unit;
 use FondOfOryx\Zed\VertigoPriceProductPriceList\Business\Requester\PriceProductPriceListRequester;
 use FondOfOryx\Zed\VertigoPriceProductPriceList\Dependency\Facade\VertigoPriceProductPriceListToProductFacadeInterface;
+use FondOfOryx\Zed\VertigoPriceProductPriceList\Dependency\Service\VertigoPriceProductPriceListToUtilEncodingServiceInterface;
 use FondOfOryx\Zed\VertigoPriceProductPriceList\Persistence\VertigoPriceProductPriceListRepository;
 use FondOfOryx\Zed\VertigoPriceProductPriceList\VertigoPriceProductPriceListConfig;
 use FondOfOryx\Zed\VertigoPriceProductPriceList\VertigoPriceProductPriceListDependencyProvider;
@@ -15,12 +16,12 @@ use Spryker\Zed\Kernel\Container;
 class VertigoPriceProductPriceListBusinessFactoryTest extends Unit
 {
     /**
-     * @var \FondOfOryx\Zed\VertigoPriceProductPriceList\Persistence\VertigoPriceProductPriceListRepository&\PHPUnit\Framework\MockObject\MockObject|\PHPUnit\Framework\MockObject\MockObject
+     * @var \FondOfOryx\Zed\VertigoPriceProductPriceList\Persistence\VertigoPriceProductPriceListRepository|\PHPUnit\Framework\MockObject\MockObject
      */
     protected $repositoryMock;
 
     /**
-     * @var \FondOfOryx\Zed\VertigoPriceProductPriceList\VertigoPriceProductPriceListConfig&\PHPUnit\Framework\MockObject\MockObject|\PHPUnit\Framework\MockObject\MockObject
+     * @var \FondOfOryx\Zed\VertigoPriceProductPriceList\VertigoPriceProductPriceListConfig|\PHPUnit\Framework\MockObject\MockObject
      */
     protected $configMock;
 
@@ -38,6 +39,11 @@ class VertigoPriceProductPriceListBusinessFactoryTest extends Unit
      * @var \FondOfOryx\Zed\VertigoPriceProductPriceList\Dependency\Facade\VertigoPriceProductPriceListToProductFacadeInterface|\PHPUnit\Framework\MockObject\MockObject
      */
     protected $productFacadeMock;
+
+    /**
+     * @var \FondOfOryx\Zed\VertigoPriceProductPriceList\Dependency\Service\VertigoPriceProductPriceListToUtilEncodingServiceInterface|\PHPUnit\Framework\MockObject\MockObject
+     */
+    protected $utilEncodingServiceMock;
 
     /**
      * @var \FondOfOryx\Zed\VertigoPriceProductPriceList\Business\VertigoPriceProductPriceListBusinessFactory
@@ -68,6 +74,10 @@ class VertigoPriceProductPriceListBusinessFactoryTest extends Unit
             ->getMock();
 
         $this->productFacadeMock = $this->getMockBuilder(VertigoPriceProductPriceListToProductFacadeInterface::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $this->utilEncodingServiceMock = $this->getMockBuilder(VertigoPriceProductPriceListToUtilEncodingServiceInterface::class)
             ->disableOriginalConstructor()
             ->getMock();
 
@@ -108,13 +118,20 @@ class VertigoPriceProductPriceListBusinessFactoryTest extends Unit
     {
         $this->containerMock->expects(static::atLeastOnce())
             ->method('has')
-            ->with(VertigoPriceProductPriceListDependencyProvider::FACADE_PRODUCT)
-            ->willReturn(true);
+            ->withConsecutive(
+                [VertigoPriceProductPriceListDependencyProvider::SERVICE_UTIL_ENCODING],
+                [VertigoPriceProductPriceListDependencyProvider::FACADE_PRODUCT],
+            )->willReturn(true);
 
         $this->containerMock->expects(static::atLeastOnce())
             ->method('get')
-            ->with(VertigoPriceProductPriceListDependencyProvider::FACADE_PRODUCT)
-            ->willReturn($this->productFacadeMock);
+            ->withConsecutive(
+                [VertigoPriceProductPriceListDependencyProvider::SERVICE_UTIL_ENCODING],
+                [VertigoPriceProductPriceListDependencyProvider::FACADE_PRODUCT],
+            )->willReturnOnConsecutiveCalls(
+                $this->utilEncodingServiceMock,
+                $this->productFacadeMock,
+            );
 
         static::assertInstanceOf(
             PriceProductPriceListRequester::class,

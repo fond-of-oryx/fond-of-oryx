@@ -4,6 +4,6 @@ namespace FondOfOryx\Zed\SplittableCheckout\Business\Exception;
 
 use Exception;
 
-class PermissionDeniedException extends Exception
+class OrderNotPlacedException extends Exception
 {
 }

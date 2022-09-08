@@ -9,6 +9,7 @@ use FondOfOryx\Zed\VertigoPriceProductPriceList\Business\Api\Mapper\VertigoPrice
 use FondOfOryx\Zed\VertigoPriceProductPriceList\Business\Requester\PriceProductPriceListRequester;
 use FondOfOryx\Zed\VertigoPriceProductPriceList\Business\Requester\PriceProductPriceListRequesterInterface;
 use FondOfOryx\Zed\VertigoPriceProductPriceList\Dependency\Facade\VertigoPriceProductPriceListToProductFacadeInterface;
+use FondOfOryx\Zed\VertigoPriceProductPriceList\Dependency\Service\VertigoPriceProductPriceListToUtilEncodingServiceInterface;
 use FondOfOryx\Zed\VertigoPriceProductPriceList\VertigoPriceProductPriceListDependencyProvider;
 use GuzzleHttp\Client;
 use GuzzleHttp\ClientInterface as HttpClientInterface;
@@ -43,6 +44,7 @@ class VertigoPriceProductPriceListBusinessFactory extends AbstractBusinessFactor
         return new VertigoPriceApiAdapter(
             $this->createHttpClient(),
             $this->createVertigoPriceApiResponseMapper(),
+            $this->getUtilEncodingService(),
             $this->getLogger(),
         );
     }
@@ -69,5 +71,13 @@ class VertigoPriceProductPriceListBusinessFactory extends AbstractBusinessFactor
     protected function getProductFacade(): VertigoPriceProductPriceListToProductFacadeInterface
     {
         return $this->getProvidedDependency(VertigoPriceProductPriceListDependencyProvider::FACADE_PRODUCT);
+    }
+
+    /**
+     * @return \FondOfOryx\Zed\VertigoPriceProductPriceList\Dependency\Service\VertigoPriceProductPriceListToUtilEncodingServiceInterface
+     */
+    protected function getUtilEncodingService(): VertigoPriceProductPriceListToUtilEncodingServiceInterface
+    {
+        return $this->getProvidedDependency(VertigoPriceProductPriceListDependencyProvider::SERVICE_UTIL_ENCODING);
     }
 }

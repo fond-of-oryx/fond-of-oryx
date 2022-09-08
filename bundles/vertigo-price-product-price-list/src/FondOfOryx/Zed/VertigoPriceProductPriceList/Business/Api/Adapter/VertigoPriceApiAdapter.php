@@ -3,6 +3,7 @@
 namespace FondOfOryx\Zed\VertigoPriceProductPriceList\Business\Api\Adapter;
 
 use FondOfOryx\Zed\VertigoPriceProductPriceList\Business\Api\Mapper\VertigoPriceApiResponseMapperInterface;
+use FondOfOryx\Zed\VertigoPriceProductPriceList\Dependency\Service\VertigoPriceProductPriceListToUtilEncodingServiceInterface;
 use Generated\Shared\Transfer\VertigoPriceApiRequestTransfer;
 use Generated\Shared\Transfer\VertigoPriceApiResponseTransfer;
 use GuzzleHttp\ClientInterface;
@@ -22,6 +23,11 @@ class VertigoPriceApiAdapter implements VertigoPriceApiAdapterInterface
     protected $vertigoPriceApiResponseMapper;
 
     /**
+     * @var \FondOfOryx\Zed\VertigoPriceProductPriceList\Dependency\Service\VertigoPriceProductPriceListToUtilEncodingServiceInterface
+     */
+    protected $utilEncodingService;
+
+    /**
      * @var \Psr\Log\LoggerInterface
      */
     protected $logger;
@@ -29,15 +35,18 @@ class VertigoPriceApiAdapter implements VertigoPriceApiAdapterInterface
     /**
      * @param \GuzzleHttp\ClientInterface $client
      * @param \FondOfOryx\Zed\VertigoPriceProductPriceList\Business\Api\Mapper\VertigoPriceApiResponseMapperInterface $vertigoPriceApiResponseMapper
+     * @param \FondOfOryx\Zed\VertigoPriceProductPriceList\Dependency\Service\VertigoPriceProductPriceListToUtilEncodingServiceInterface $utilEncodingService
      * @param \Psr\Log\LoggerInterface $logger
      */
     public function __construct(
         ClientInterface $client,
         VertigoPriceApiResponseMapperInterface $vertigoPriceApiResponseMapper,
+        VertigoPriceProductPriceListToUtilEncodingServiceInterface $utilEncodingService,
         LoggerInterface $logger
     ) {
         $this->client = $client;
         $this->vertigoPriceApiResponseMapper = $vertigoPriceApiResponseMapper;
+        $this->utilEncodingService = $utilEncodingService;
         $this->logger = $logger;
     }
 
@@ -56,7 +65,7 @@ class VertigoPriceApiAdapter implements VertigoPriceApiAdapterInterface
                 [
                     'headers' => [
                         'Content-Type' => 'application/json',
-                    ], 'body' => $vertigoPriceApiRequestTransfer->getBody(),
+                    ], 'body' => $this->utilEncodingService->encodeJson($vertigoPriceApiRequestTransfer->getBody()),
                 ],
             );
 
