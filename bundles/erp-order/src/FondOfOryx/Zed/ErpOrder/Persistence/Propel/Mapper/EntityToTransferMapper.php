@@ -92,6 +92,7 @@ class EntityToTransferMapper implements EntityToTransferMapperInterface
             ->setCompanyBusinessUnit($this->companyBusinessUnitFacade->getCompanyBusinessUnitById((new CompanyBusinessUnitTransfer())->setIdCompanyBusinessUnit($erpOrder->getFkCompanyBusinessUnit())))
             ->setShippingAddress($this->fromErpOrderAddressToTransfer($erpOrder->getErpOrderShippingAddress()))
             ->setBillingAddress($this->fromErpOrderAddressToTransfer($erpOrder->getErpOrderBillingAddress()))
+            ->setTotals($this->fromErpOrderTotalsToTransfer($erpOrder->getErpOrderTotals()))
             ->setCreatedAt($this->convertDateTimeToTimestamp($erpOrder->getCreatedAt()))
             ->setUpdatedAt($this->convertDateTimeToTimestamp($erpOrder->getUpdatedAt()));
     }
