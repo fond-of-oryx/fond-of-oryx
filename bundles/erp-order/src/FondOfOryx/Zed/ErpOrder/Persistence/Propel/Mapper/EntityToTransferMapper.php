@@ -10,13 +10,11 @@ use Generated\Shared\Transfer\CompanyBusinessUnitTransfer;
 use Generated\Shared\Transfer\ErpOrderAddressTransfer;
 use Generated\Shared\Transfer\ErpOrderItemTransfer;
 use Generated\Shared\Transfer\ErpOrderTotalsTransfer;
-use Generated\Shared\Transfer\ErpOrderTotalTransfer;
 use Generated\Shared\Transfer\ErpOrderTransfer;
 use Orm\Zed\ErpOrder\Persistence\ErpOrder;
 use Orm\Zed\ErpOrder\Persistence\ErpOrderAddress;
 use Orm\Zed\ErpOrder\Persistence\ErpOrderItem;
 use Orm\Zed\ErpOrder\Persistence\ErpOrderTotals;
-use Orm\Zed\ErpOrder\Persistence\OldErpOrderTotal;
 
 /**
  * @codeCoverageIgnore
@@ -119,27 +117,6 @@ class EntityToTransferMapper implements EntityToTransferMapperInterface
             ->setCountry($this->countryFacade->getCountryByIdCountry($erpOrderAddress->getFkCountry()))
             ->setCreatedAt($this->convertDateTimeToTimestamp($erpOrderAddress->getCreatedAt()))
             ->setUpdatedAt($this->convertDateTimeToTimestamp($erpOrderAddress->getUpdatedAt()));
-    }
-
-    /**
-     * @param \Orm\Zed\ErpOrder\Persistence\OldErpOrderTotal $erpOrderTotal
-     * @param \Generated\Shared\Transfer\ErpOrderTotalTransfer|null $erpOrderTotalTransfer
-     *
-     * @return \Generated\Shared\Transfer\ErpOrderTotalTransfer
-     */
-    public function fromOldErpOrderTotalToTransfer(
-        OldErpOrderTotal $erpOrderTotal,
-        ?ErpOrderTotalTransfer $erpOrderTotalTransfer = null
-    ): ErpOrderTotalTransfer {
-        if ($erpOrderTotalTransfer === null) {
-            $erpOrderTotalTransfer = new ErpOrderTotalTransfer();
-        }
-
-        $erpOrderTotalTransfer->fromArray($erpOrderTotal->toArray(), true);
-
-        return $erpOrderTotalTransfer
-            ->setGrandTotal($erpOrderTotal->getGrandTotal())
-            ->setTaxTotal($erpOrderTotal->getTaxTotal());
     }
 
     /**

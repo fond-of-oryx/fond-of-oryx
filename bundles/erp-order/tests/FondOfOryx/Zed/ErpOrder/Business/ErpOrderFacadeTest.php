@@ -5,7 +5,6 @@ namespace FondOfOryx\Zed\ErpOrder\Business;
 use Codeception\Test\Unit;
 use FondOfOryx\Zed\ErpOrder\Business\Handler\ErpOrderAddressHandler;
 use FondOfOryx\Zed\ErpOrder\Business\Handler\ErpOrderItemHandler;
-use FondOfOryx\Zed\ErpOrder\Business\Handler\ErpOrderTotalHandler;
 use FondOfOryx\Zed\ErpOrder\Business\Model\Reader\ErpOrderReader;
 use FondOfOryx\Zed\ErpOrder\Business\Model\Writer\ErpOrderWriter;
 use FondOfOryx\Zed\ErpOrder\Persistence\ErpOrderEntityManager;
@@ -49,11 +48,6 @@ class ErpOrderFacadeTest extends Unit
      * @var \FondOfOryx\Zed\ErpOrder\Business\Handler\ErpOrderAddressHandlerInterface|\PHPUnit\Framework\MockObject\MockObject
      */
     protected $erpOrderAddressHandlerMock;
-
-    /**
-     * @var \FondOfOryx\Zed\ErpOrder\Business\Handler\ErpOrderTotalHandlerInterface|\PHPUnit\Framework\MockObject\MockObject
-     */
-    protected $erpOrderTotalHandlerMock;
 
     /**
      * @var \FondOfOryx\Zed\ErpOrder\Business\Handler\ErpOrderItemHandlerInterface|\PHPUnit\Framework\MockObject\MockObject
@@ -102,10 +96,6 @@ class ErpOrderFacadeTest extends Unit
             ->getMock();
 
         $this->erpOrderAddressHandlerMock = $this->getMockBuilder(ErpOrderAddressHandler::class)
-            ->disableOriginalConstructor()
-            ->getMock();
-
-        $this->erpOrderTotalHandlerMock = $this->getMockBuilder(ErpOrderTotalHandler::class)
             ->disableOriginalConstructor()
             ->getMock();
 
@@ -197,28 +187,5 @@ class ErpOrderFacadeTest extends Unit
         }));
 
         $this->erpOrderFacade->persistShippingAddress($this->erpOrderTransferMock);
-    }
-
-    /**
-     * @return void
-     */
-    public function testPersistErpOrderTotal(): void
-    {
-        $self = $this;
-        $this->erpOrderBusinessFactoryMock->expects(static::atLeastOnce())
-            ->method('createErpOrderTotalHandler')
-            ->willReturn($this->erpOrderTotalHandlerMock);
-
-        $this->erpOrderTotalHandlerMock->expects(static::atLeastOnce())
-            ->method('handle')
-            ->with($this->erpOrderTransferMock)
-            ->willReturn($this->erpOrderTransferMock);
-
-        $erpOrderTransfer = $this->erpOrderFacade->persistErpOrderTotal($this->erpOrderTransferMock);
-
-        $this->assertInstanceOf(
-            ErpOrderTransfer::class,
-            $erpOrderTransfer,
-        );
     }
 }
