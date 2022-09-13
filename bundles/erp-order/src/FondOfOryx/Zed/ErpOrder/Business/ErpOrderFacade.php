@@ -7,10 +7,6 @@ use Generated\Shared\Transfer\ErpOrderTransfer;
 use Spryker\Zed\Kernel\Business\AbstractFacade;
 
 /**
- * Class ErpOrderFacade
- *
- * @package FondOfOryx\Zed\ErpOrder\Business
- *
  * @method \FondOfOryx\Zed\ErpOrder\Business\ErpOrderBusinessFactory getFactory()
  * @method \FondOfOryx\Zed\ErpOrder\Persistence\ErpOrderEntityManagerInterface getEntityManager()
  * @method \FondOfOryx\Zed\ErpOrder\Persistence\ErpOrderRepositoryInterface getRepository()
@@ -85,16 +81,6 @@ class ErpOrderFacade extends AbstractFacade implements ErpOrderFacadeInterface
     public function persistErpOrderItem(ErpOrderTransfer $erpOrderTransfer): ErpOrderTransfer
     {
         return $this->getFactory()->createErpOrderItemHandler()->handle($erpOrderTransfer);
-    }
-
-    /**
-     * @param \Generated\Shared\Transfer\ErpOrderTransfer $erpOrderTransfer
-     *
-     * @return \Generated\Shared\Transfer\ErpOrderTransfer
-     */
-    public function persistErpOrderTotal(ErpOrderTransfer $erpOrderTransfer): ErpOrderTransfer
-    {
-        return $this->getFactory()->createErpOrderTotalHandler()->handle($erpOrderTransfer);
     }
 
     /**

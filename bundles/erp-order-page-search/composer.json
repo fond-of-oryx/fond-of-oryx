@@ -14,7 +14,7 @@
   ],
   "require": {
     "php": ">=7.3",
-    "fond-of-oryx/erp-order": "^2.3.0",
+    "fond-of-oryx/erp-order": "^2.4.0",
     "fond-of-oryx/erp-order-permission": "^1.0.0",
     "spryker/customer": "^7.0.0",
     "spryker/event-behavior": "^1.0.0",

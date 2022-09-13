@@ -37,7 +37,6 @@ class ErpOrderPageSearchDataMapperTest extends Unit
             ErpOrderPageSearchDataMapper::FK_SHIPPING_ADDRESS => '',
             ErpOrderPageSearchDataMapper::FK_TOTALS => '',
             ErpOrderPageSearchDataMapper::ITEMS => [],
-            ErpOrderPageSearchDataMapper::ERP_ORDER_TOTAL => null,
             ErpOrderPageSearchDataMapper::TOTALS => null,
             ErpOrderPageSearchDataMapper::SHIPPING_ADDRESS => null,
             ErpOrderPageSearchDataMapper::BILLING_ADDRESS => null,
