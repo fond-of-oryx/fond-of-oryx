@@ -6,15 +6,21 @@
         <property name="companyId" type="int"/>
         <property name="companyUuid" type="string"/>
         <property name="companyLocale" type="string"/>
+        <property name="companyCurrency" type="string"/>
     </transfer>
 
     <transfer name="Company">
         <property name="idCompany" type="int"/>
         <property name="uuid" type="string"/>
         <property name="fkLocale" type="int"/>
+        <property name="fkCurrency" type="int"/>
     </transfer>
 
     <transfer name="Locale">
         <property name="name" type="string"/>
+    </transfer>
+
+    <transfer name="Currency">
+        <property name="code" type="string"/>
     </transfer>
 </transfers>

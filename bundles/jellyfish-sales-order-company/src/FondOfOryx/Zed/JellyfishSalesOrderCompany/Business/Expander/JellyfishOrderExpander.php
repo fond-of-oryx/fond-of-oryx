@@ -2,6 +2,7 @@
 
 namespace FondOfOryx\Zed\JellyfishSalesOrderCompany\Business\Expander;
 
+use FondOfOryx\Zed\JellyfishSalesOrderCompany\Business\Reader\CurrencyReaderInterface;
 use FondOfOryx\Zed\JellyfishSalesOrderCompany\Business\Reader\LocaleReaderInterface;
 use FondOfOryx\Zed\JellyfishSalesOrderCompany\Dependency\Facade\JellyfishSalesOrderCompanyToCompanyUserReferenceFacadeInterface;
 use Generated\Shared\Transfer\JellyfishOrderTransfer;
@@ -15,19 +16,27 @@ class JellyfishOrderExpander implements JellyfishOrderExpanderInterface
     protected $localeReader;
 
     /**
+     * @var \FondOfOryx\Zed\JellyfishSalesOrderCompany\Business\Reader\CurrencyReaderInterface
+     */
+    protected $currencyReader;
+
+    /**
      * @var \FondOfOryx\Zed\JellyfishSalesOrderCompany\Dependency\Facade\JellyfishSalesOrderCompanyToCompanyUserReferenceFacadeInterface
      */
     protected $companyUserReferenceFacade;
 
     /**
      * @param \FondOfOryx\Zed\JellyfishSalesOrderCompany\Business\Reader\LocaleReaderInterface $localeReader
+     * @param \FondOfOryx\Zed\JellyfishSalesOrderCompany\Business\Reader\CurrencyReaderInterface $currencyReader
      * @param \FondOfOryx\Zed\JellyfishSalesOrderCompany\Dependency\Facade\JellyfishSalesOrderCompanyToCompanyUserReferenceFacadeInterface $companyUserReferenceFacade
      */
     public function __construct(
         LocaleReaderInterface $localeReader,
+        CurrencyReaderInterface $currencyReader,
         JellyfishSalesOrderCompanyToCompanyUserReferenceFacadeInterface $companyUserReferenceFacade
     ) {
         $this->localeReader = $localeReader;
+        $this->currencyReader = $currencyReader;
         $this->companyUserReferenceFacade = $companyUserReferenceFacade;
     }
 
@@ -55,6 +64,7 @@ class JellyfishOrderExpander implements JellyfishOrderExpanderInterface
 
         return $jellyfishOrderTransfer->setCompanyUuid($companyTransfer->getUuid())
             ->setCompanyId($companyTransfer->getIdCompany())
-            ->setCompanyLocale($this->localeReader->getNameByCompany($companyTransfer));
+            ->setCompanyLocale($this->localeReader->getNameByCompany($companyTransfer))
+            ->setCompanyCurrency($this->currencyReader->getCodeByCompany($companyTransfer));
     }
 }
