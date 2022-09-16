@@ -3,6 +3,7 @@
 namespace FondOfOryx\Zed\JellyfishSalesOrderCompany;
 
 use FondOfOryx\Zed\JellyfishSalesOrderCompany\Dependency\Facade\JellyfishSalesOrderCompanyToCompanyUserReferenceFacadeBridge;
+use FondOfOryx\Zed\JellyfishSalesOrderCompany\Dependency\Facade\JellyfishSalesOrderCompanyToCurrencyFacadeBridge;
 use FondOfOryx\Zed\JellyfishSalesOrderCompany\Dependency\Facade\JellyfishSalesOrderCompanyToLocaleFacadeBridge;
 use Spryker\Zed\Kernel\AbstractBundleDependencyProvider;
 use Spryker\Zed\Kernel\Container;
@@ -13,6 +14,11 @@ class JellyfishSalesOrderCompanyDependencyProvider extends AbstractBundleDepende
      * @var string
      */
     public const FACADE_COMPANY_USER_REFERENCE = 'FACADE_COMPANY_USER_REFERENCE';
+
+    /**
+     * @var string
+     */
+    public const FACADE_CURRENCY = 'FACADE_CURRENCY';
 
     /**
      * @var string
@@ -29,6 +35,7 @@ class JellyfishSalesOrderCompanyDependencyProvider extends AbstractBundleDepende
         $container = parent::provideBusinessLayerDependencies($container);
 
         $container = $this->addCompanyUserReferenceFacade($container);
+        $container = $this->addCurrencyFacade($container);
 
         return $this->addLocaleFacade($container);
     }
@@ -59,6 +66,22 @@ class JellyfishSalesOrderCompanyDependencyProvider extends AbstractBundleDepende
         $container[static::FACADE_LOCALE] = static function (Container $container) {
             return new JellyfishSalesOrderCompanyToLocaleFacadeBridge(
                 $container->getLocator()->locale()->facade(),
+            );
+        };
+
+        return $container;
+    }
+
+    /**
+     * @param \Spryker\Zed\Kernel\Container $container
+     *
+     * @return \Spryker\Zed\Kernel\Container
+     */
+    protected function addCurrencyFacade(Container $container): Container
+    {
+        $container[static::FACADE_CURRENCY] = static function (Container $container) {
+            return new JellyfishSalesOrderCompanyToCurrencyFacadeBridge(
+                $container->getLocator()->currency()->facade(),
             );
         };
 

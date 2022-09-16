@@ -3,6 +3,7 @@
 namespace FondOfOryx\Zed\JellyfishSalesOrderCompany\Business\Expander;
 
 use Codeception\Test\Unit;
+use FondOfOryx\Zed\JellyfishSalesOrderCompany\Business\Reader\CurrencyReaderInterface;
 use FondOfOryx\Zed\JellyfishSalesOrderCompany\Business\Reader\LocaleReaderInterface;
 use FondOfOryx\Zed\JellyfishSalesOrderCompany\Dependency\Facade\JellyfishSalesOrderCompanyToCompanyUserReferenceFacadeInterface;
 use Generated\Shared\Transfer\CompanyTransfer;
@@ -15,6 +16,11 @@ class JellyfishOrderExpanderTest extends Unit
      * @var \FondOfOryx\Zed\JellyfishSalesOrderCompany\Business\Reader\LocaleReaderInterface|\PHPUnit\Framework\MockObject\MockObject
      */
     protected $localeReaderMock;
+
+    /**
+     * @var \FondOfOryx\Zed\JellyfishSalesOrderCompany\Business\Reader\CurrencyReaderInterface|\PHPUnit\Framework\MockObject\MockObject
+     */
+    protected $currencyReaderMock;
 
     /**
      * @var \FondOfOryx\Zed\JellyfishSalesOrderCompany\Dependency\Facade\JellyfishSalesOrderCompanyToCompanyUserReferenceFacadeInterface|\PHPUnit\Framework\MockObject\MockObject
@@ -52,6 +58,10 @@ class JellyfishOrderExpanderTest extends Unit
             ->disableOriginalConstructor()
             ->getMock();
 
+        $this->currencyReaderMock = $this->getMockBuilder(CurrencyReaderInterface::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
         $this->companyUserReferenceFacadeMock = $this->getMockBuilder(JellyfishSalesOrderCompanyToCompanyUserReferenceFacadeInterface::class)
             ->disableOriginalConstructor()
             ->getMock();
@@ -70,6 +80,7 @@ class JellyfishOrderExpanderTest extends Unit
 
         $this->jellyfishOrderExpander = new JellyfishOrderExpander(
             $this->localeReaderMock,
+            $this->currencyReaderMock,
             $this->companyUserReferenceFacadeMock,
         );
     }
@@ -83,6 +94,7 @@ class JellyfishOrderExpanderTest extends Unit
         $companyUuid = 'b7c08ca5-24b7-4d37-98c9-95c8c862948e';
         $companyUserReference = 'FOO--CU-1';
         $locale = 'de_DE';
+        $currency = 'EUR';
 
         $this->spySalesOrderMock->expects(static::atLeastOnce())
             ->method('getCompanyUserReference')
@@ -119,6 +131,16 @@ class JellyfishOrderExpanderTest extends Unit
         $this->jellyfishOrderTransferMock->expects(static::atLeastOnce())
             ->method('setCompanyLocale')
             ->with($locale)
+            ->willReturn($this->jellyfishOrderTransferMock);
+
+        $this->currencyReaderMock->expects(static::atLeastOnce())
+            ->method('getCodeByCompany')
+            ->with($this->companyTransferMock)
+            ->willReturn($currency);
+
+        $this->jellyfishOrderTransferMock->expects(static::atLeastOnce())
+            ->method('setCompanyCurrency')
+            ->with($currency)
             ->willReturn($this->jellyfishOrderTransferMock);
 
         static::assertEquals(
