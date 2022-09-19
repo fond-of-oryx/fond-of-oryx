@@ -6,7 +6,6 @@ use Generated\Shared\Transfer\ProductListTransfer;
 use Orm\Zed\ProductList\Persistence\SpyProductList;
 use Propel\Runtime\Collection\ObjectCollection;
 
-
 interface ProductListMapperInterface
 {
     /**

@@ -8,6 +8,7 @@ interface ProductListSearchRestApiStubInterface
 {
     /**
      * @param \Generated\Shared\Transfer\ProductListCollectionTransfer $productListCollectionTransfer
+     *
      * @return \Generated\Shared\Transfer\ProductListCollectionTransfer
      */
     public function searchProductList(
