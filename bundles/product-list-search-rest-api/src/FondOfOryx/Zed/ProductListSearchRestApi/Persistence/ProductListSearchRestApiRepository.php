@@ -45,24 +45,12 @@ class ProductListSearchRestApiRepository extends AbstractRepository implements P
      */
     protected function getBaseQuery(ProductListCollectionTransfer $productListCollectionTransfer): SpyProductListQuery
     {
-        $query = $this->getFactory()->getProductListQuery();
-
-        return $query;
-
-        /*return $query->where(
-            sprintf(
-                '%s IN (SELECT %s FROM %s WHERE %s = true AND %s = ?)',
-                SpyProductListTableMap::COL_ID_PRODUCT_LIST,
-                SpyProductListTableMap::TABLE_NAME,
-                SpyProductListTableMap::COL_TITLE
-            ),
-            $productListCollectionTransfer->getProductLists()
-        );*/
+        return $this->getFactory()->getProductListQuery();
     }
 
     /**
      * @param \Orm\Zed\ProductList\Persistence\SpyProductListQuery $productListQuery
-     * @param \Generated\Shared\Transfer\ProductListTransfer $productListTransfer
+     * @param \Generated\Shared\Transfer\ProductListCollectionTransfer $productListCollectionTransfer
      *
      * @return \Orm\Zed\ProductList\Persistence\SpyProductListQuery
      */
