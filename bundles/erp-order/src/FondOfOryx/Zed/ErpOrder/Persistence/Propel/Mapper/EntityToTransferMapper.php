@@ -9,13 +9,16 @@ use FondOfOryx\Zed\ErpOrder\Dependency\Facade\ErpOrderToCountryFacadeInterface;
 use Generated\Shared\Transfer\CompanyBusinessUnitTransfer;
 use Generated\Shared\Transfer\ErpOrderAddressTransfer;
 use Generated\Shared\Transfer\ErpOrderItemTransfer;
-use Generated\Shared\Transfer\ErpOrderTotalTransfer;
+use Generated\Shared\Transfer\ErpOrderTotalsTransfer;
 use Generated\Shared\Transfer\ErpOrderTransfer;
 use Orm\Zed\ErpOrder\Persistence\ErpOrder;
 use Orm\Zed\ErpOrder\Persistence\ErpOrderAddress;
 use Orm\Zed\ErpOrder\Persistence\ErpOrderItem;
-use Orm\Zed\ErpOrder\Persistence\ErpOrderTotal;
+use Orm\Zed\ErpOrder\Persistence\ErpOrderTotals;
 
+/**
+ * @codeCoverageIgnore
+ */
 class EntityToTransferMapper implements EntityToTransferMapperInterface
 {
     /**
@@ -89,6 +92,7 @@ class EntityToTransferMapper implements EntityToTransferMapperInterface
             ->setCompanyBusinessUnit($this->companyBusinessUnitFacade->getCompanyBusinessUnitById((new CompanyBusinessUnitTransfer())->setIdCompanyBusinessUnit($erpOrder->getFkCompanyBusinessUnit())))
             ->setShippingAddress($this->fromErpOrderAddressToTransfer($erpOrder->getErpOrderShippingAddress()))
             ->setBillingAddress($this->fromErpOrderAddressToTransfer($erpOrder->getErpOrderBillingAddress()))
+            ->setTotals($this->fromErpOrderTotalsToTransfer($erpOrder->getErpOrderTotals()))
             ->setCreatedAt($this->convertDateTimeToTimestamp($erpOrder->getCreatedAt()))
             ->setUpdatedAt($this->convertDateTimeToTimestamp($erpOrder->getUpdatedAt()));
     }
@@ -117,27 +121,6 @@ class EntityToTransferMapper implements EntityToTransferMapperInterface
     }
 
     /**
-     * @param \Orm\Zed\ErpOrder\Persistence\ErpOrderTotal $erpOrderTotal
-     * @param \Generated\Shared\Transfer\ErpOrderTotalTransfer|null $erpOrderTotalTransfer
-     *
-     * @return \Generated\Shared\Transfer\ErpOrderTotalTransfer
-     */
-    public function fromErpOrderTotalToTransfer(
-        ErpOrderTotal $erpOrderTotal,
-        ?ErpOrderTotalTransfer $erpOrderTotalTransfer = null
-    ): ErpOrderTotalTransfer {
-        if ($erpOrderTotalTransfer === null) {
-            $erpOrderTotalTransfer = new ErpOrderTotalTransfer();
-        }
-
-        $erpOrderTotalTransfer->fromArray($erpOrderTotal->toArray(), true);
-
-        return $erpOrderTotalTransfer
-            ->setGrandTotal($erpOrderTotal->getGrandTotal())
-            ->setTaxTotal($erpOrderTotal->getTaxTotal());
-    }
-
-    /**
      * @param mixed $dateTime
      *
      * @throws \Exception
@@ -159,5 +142,26 @@ class EntityToTransferMapper implements EntityToTransferMapperInterface
         }
 
         throw new Exception('Could not convert DateTime to timestamp');
+    }
+
+    /**
+     * @param \Orm\Zed\ErpOrder\Persistence\ErpOrderTotals $erpOrderTotals
+     * @param \Generated\Shared\Transfer\ErpOrderTotalsTransfer|null $erpOrderTotalsTransfer
+     *
+     * @return \Generated\Shared\Transfer\ErpOrderTotalsTransfer
+     */
+    public function fromErpOrderTotalsToTransfer(
+        ErpOrderTotals $erpOrderTotals,
+        ?ErpOrderTotalsTransfer $erpOrderTotalsTransfer = null
+    ): ErpOrderTotalsTransfer {
+        if ($erpOrderTotalsTransfer === null) {
+            $erpOrderTotalsTransfer = new ErpOrderTotalsTransfer();
+        }
+
+        $erpOrderTotalsTransfer->fromArray($erpOrderTotals->toArray(), true);
+
+        return $erpOrderTotalsTransfer
+            ->setGrandTotal($erpOrderTotals->getGrandTotal())
+            ->setTaxTotal($erpOrderTotals->getTaxTotal());
     }
 }

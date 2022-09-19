@@ -69,6 +69,8 @@
         <property name="shippedQuantity" type="int"/>
         <property name="canceledQuantity" type="int"/>
         <property name="concreteDeliveryDate" type="string"/>
+        <property name="expectedDeliveryDate" type="string"/>
+        <property name="goodsIssueDate" type="string"/>
         <property name="status" type="string"/>
         <property name="outstandingQuantity" type="int"/>
         <property name="position" type="int"/>

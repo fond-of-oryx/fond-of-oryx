@@ -4,9 +4,12 @@ namespace FondOfOryx\Zed\JellyfishSalesOrderCompany\Business;
 
 use FondOfOryx\Zed\JellyfishSalesOrderCompany\Business\Expander\JellyfishOrderExpander;
 use FondOfOryx\Zed\JellyfishSalesOrderCompany\Business\Expander\JellyfishOrderExpanderInterface;
+use FondOfOryx\Zed\JellyfishSalesOrderCompany\Business\Reader\CurrencyReader;
+use FondOfOryx\Zed\JellyfishSalesOrderCompany\Business\Reader\CurrencyReaderInterface;
 use FondOfOryx\Zed\JellyfishSalesOrderCompany\Business\Reader\LocaleReader;
 use FondOfOryx\Zed\JellyfishSalesOrderCompany\Business\Reader\LocaleReaderInterface;
 use FondOfOryx\Zed\JellyfishSalesOrderCompany\Dependency\Facade\JellyfishSalesOrderCompanyToCompanyUserReferenceFacadeInterface;
+use FondOfOryx\Zed\JellyfishSalesOrderCompany\Dependency\Facade\JellyfishSalesOrderCompanyToCurrencyFacadeInterface;
 use FondOfOryx\Zed\JellyfishSalesOrderCompany\Dependency\Facade\JellyfishSalesOrderCompanyToLocaleFacadeInterface;
 use FondOfOryx\Zed\JellyfishSalesOrderCompany\JellyfishSalesOrderCompanyDependencyProvider;
 use Spryker\Zed\Kernel\Business\AbstractBusinessFactory;
@@ -20,6 +23,7 @@ class JellyfishSalesOrderCompanyBusinessFactory extends AbstractBusinessFactory
     {
         return new JellyfishOrderExpander(
             $this->createLocaleReader(),
+            $this->createCurrencyReader(),
             $this->getCompanyUserReferenceFacade(),
         );
     }
@@ -31,6 +35,16 @@ class JellyfishSalesOrderCompanyBusinessFactory extends AbstractBusinessFactory
     {
         return new LocaleReader(
             $this->getLocaleFacade(),
+        );
+    }
+
+    /**
+     * @return \FondOfOryx\Zed\JellyfishSalesOrderCompany\Business\Reader\CurrencyReaderInterface
+     */
+    protected function createCurrencyReader(): CurrencyReaderInterface
+    {
+        return new CurrencyReader(
+            $this->getCurrencyFacade(),
         );
     }
 
@@ -50,5 +64,13 @@ class JellyfishSalesOrderCompanyBusinessFactory extends AbstractBusinessFactory
     protected function getLocaleFacade(): JellyfishSalesOrderCompanyToLocaleFacadeInterface
     {
         return $this->getProvidedDependency(JellyfishSalesOrderCompanyDependencyProvider::FACADE_LOCALE);
+    }
+
+    /**
+     * @return \FondOfOryx\Zed\JellyfishSalesOrderCompany\Dependency\Facade\JellyfishSalesOrderCompanyToCurrencyFacadeInterface
+     */
+    protected function getCurrencyFacade(): JellyfishSalesOrderCompanyToCurrencyFacadeInterface
+    {
+        return $this->getProvidedDependency(JellyfishSalesOrderCompanyDependencyProvider::FACADE_CURRENCY);
     }
 }

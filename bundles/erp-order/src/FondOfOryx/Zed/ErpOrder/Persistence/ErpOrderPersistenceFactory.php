@@ -10,11 +10,12 @@ use FondOfOryx\Zed\ErpOrder\Persistence\Propel\Mapper\EntityToTransferMapperInte
 use Orm\Zed\ErpOrder\Persistence\ErpOrderAddressQuery;
 use Orm\Zed\ErpOrder\Persistence\ErpOrderItemQuery;
 use Orm\Zed\ErpOrder\Persistence\ErpOrderQuery;
-use Orm\Zed\ErpOrder\Persistence\ErpOrderTotalQuery;
+use Orm\Zed\ErpOrder\Persistence\ErpOrderTotalsQuery;
 use Spryker\Zed\Kernel\Persistence\AbstractPersistenceFactory;
 
 /**
- * @method \FondOfOryx\Zed\ErpOrder\ErpOrderConfig getConfig()
+ * @codeCoverageIgnore
+ *
  * @method \FondOfOryx\Zed\ErpOrder\Persistence\ErpOrderEntityManagerInterface getEntityManager()
  * @method \FondOfOryx\Zed\ErpOrder\Persistence\ErpOrderRepositoryInterface getRepository()
  */
@@ -72,10 +73,10 @@ class ErpOrderPersistenceFactory extends AbstractPersistenceFactory
     }
 
     /**
-     * @return \Orm\Zed\ErpOrder\Persistence\ErpOrderTotalQuery
+     * @return \Orm\Zed\ErpOrder\Persistence\ErpOrderTotalsQuery
      */
-    public function createErpOrderTotalQuery(): ErpOrderTotalQuery
+    public function createErpOrderTotalsQuery(): ErpOrderTotalsQuery
     {
-        return ErpOrderTotalQuery::create();
+        return ErpOrderTotalsQuery::create();
     }
 }

@@ -31,7 +31,7 @@ class MailHandler implements MailHandlerInterface
     {
         $customerTransfer = $companyUserTransfer->getCustomer();
 
-        if ($customerTransfer->getIsNew() === false) {
+        if ($customerTransfer->getIsNew() !== true) {
             return $companyUserTransfer;
         }
 

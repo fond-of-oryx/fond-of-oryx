@@ -4,7 +4,7 @@ namespace FondOfOryx\Zed\ErpOrder\Persistence;
 
 use Generated\Shared\Transfer\ErpOrderAddressTransfer;
 use Generated\Shared\Transfer\ErpOrderItemTransfer;
-use Generated\Shared\Transfer\ErpOrderTotalTransfer;
+use Generated\Shared\Transfer\ErpOrderTotalsTransfer;
 use Generated\Shared\Transfer\ErpOrderTransfer;
 
 interface ErpOrderEntityManagerInterface
@@ -26,13 +26,6 @@ interface ErpOrderEntityManagerInterface
      * @return \Generated\Shared\Transfer\ErpOrderAddressTransfer
      */
     public function createErpOrderAddress(ErpOrderAddressTransfer $orderAddressTransfer): ErpOrderAddressTransfer;
-
-    /**
-     * @param \Generated\Shared\Transfer\ErpOrderTotalTransfer $orderTotalTransfer
-     *
-     * @return \Generated\Shared\Transfer\ErpOrderTotalTransfer
-     */
-    public function createErpOrderTotal(ErpOrderTotalTransfer $orderTotalTransfer): ErpOrderTotalTransfer;
 
     /**
      * @param \Generated\Shared\Transfer\ErpOrderItemTransfer $itemTransfer
@@ -70,13 +63,6 @@ interface ErpOrderEntityManagerInterface
     public function updateErpOrderAddress(ErpOrderAddressTransfer $erpOrderAddressTransfer): ErpOrderAddressTransfer;
 
     /**
-     * @param \Generated\Shared\Transfer\ErpOrderTotalTransfer $erpOrderTotalTransfer
-     *
-     * @return \Generated\Shared\Transfer\ErpOrderTotalTransfer
-     */
-    public function updateErpOrderTotal(ErpOrderTotalTransfer $erpOrderTotalTransfer): ErpOrderTotalTransfer;
-
-    /**
      * @param int $idErpOrder
      *
      * @return void
@@ -96,4 +82,25 @@ interface ErpOrderEntityManagerInterface
      * @return void
      */
     public function deleteErpOrderAddressByIdErpOrderAddress(int $idErpOrderAddress): void;
+
+    /**
+     * @param \Generated\Shared\Transfer\ErpOrderTotalsTransfer $erpOrderTotalsTransfer
+     *
+     * @return \Generated\Shared\Transfer\ErpOrderTotalsTransfer
+     */
+    public function createErpOrderTotals(ErpOrderTotalsTransfer $erpOrderTotalsTransfer): ErpOrderTotalsTransfer;
+
+    /**
+     * @param \Generated\Shared\Transfer\ErpOrderTotalsTransfer $erpOrderTotalsTransfer
+     *
+     * @return \Generated\Shared\Transfer\ErpOrderTotalsTransfer
+     */
+    public function updateErpOrderTotals(ErpOrderTotalsTransfer $erpOrderTotalsTransfer): ErpOrderTotalsTransfer;
+
+    /**
+     * @param int $idErpOrderTotals
+     *
+     * @return void
+     */
+    public function deleteErpOrderTotalsByIdErpOrderTotals(int $idErpOrderTotals): void;
 }

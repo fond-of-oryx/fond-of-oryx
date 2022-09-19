@@ -5,15 +5,16 @@ namespace FondOfOryx\Zed\ErpOrder\Persistence;
 use Generated\Shared\Transfer\ErpOrderAddressTransfer;
 use Generated\Shared\Transfer\ErpOrderItemCollectionTransfer;
 use Generated\Shared\Transfer\ErpOrderItemTransfer;
-use Generated\Shared\Transfer\ErpOrderTotalTransfer;
+use Generated\Shared\Transfer\ErpOrderTotalsTransfer;
 use Generated\Shared\Transfer\ErpOrderTransfer;
 use Orm\Zed\ErpOrder\Persistence\ErpOrderAddressQuery;
 use Orm\Zed\ErpOrder\Persistence\ErpOrderItemQuery;
 use Orm\Zed\ErpOrder\Persistence\ErpOrderQuery;
-use Orm\Zed\ErpOrder\Persistence\ErpOrderTotalQuery;
 use Spryker\Zed\Kernel\Persistence\AbstractRepository;
 
 /**
+ * @codeCoverageIgnore
+ *
  * @method \FondOfOryx\Zed\ErpOrder\Persistence\ErpOrderPersistenceFactory getFactory()
  */
 class ErpOrderRepository extends AbstractRepository implements ErpOrderRepositoryInterface
@@ -92,40 +93,6 @@ class ErpOrderRepository extends AbstractRepository implements ErpOrderRepositor
     }
 
     /**
-     * @param int $idErpOrderTotal
-     *
-     * @return \Generated\Shared\Transfer\ErpOrderTotalTransfer|null
-     */
-    public function findErpOrderTotalByIdErpOrderTotal(int $idErpOrderTotal): ?ErpOrderTotalTransfer
-    {
-        $query = $this->getErpOrderTotalQuery();
-        $total = $query->findOneByIdErpOrderTotal($idErpOrderTotal);
-
-        if ($total === null) {
-            return null;
-        }
-
-        return $this->getFactory()->createEntityToTransferMapper()->fromErpOrderTotalToTransfer($total);
-    }
-
-    /**
-     * @param int $idErpOrder
-     *
-     * @return \Generated\Shared\Transfer\ErpOrderTotalTransfer|null
-     */
-    public function findErpOrderTotalByIdErpOrder(int $idErpOrder): ?ErpOrderTotalTransfer
-    {
-        $query = $this->getErpOrderTotalQuery();
-        $total = $query->findOneByFkErpOrder($idErpOrder);
-
-        if ($total === null) {
-            return null;
-        }
-
-        return $this->getFactory()->createEntityToTransferMapper()->fromErpOrderTotalToTransfer($total);
-    }
-
-    /**
      * @return \Orm\Zed\ErpOrder\Persistence\ErpOrderQuery
      */
     protected function getErpOrderQuery(): ErpOrderQuery
@@ -150,10 +117,19 @@ class ErpOrderRepository extends AbstractRepository implements ErpOrderRepositor
     }
 
     /**
-     * @return \Orm\Zed\ErpOrder\Persistence\ErpOrderTotalQuery
+     * @param int $idErpOrderTotals
+     *
+     * @return \Generated\Shared\Transfer\ErpOrderTotalsTransfer|null
      */
-    protected function getErpOrderTotalQuery(): ErpOrderTotalQuery
+    public function findErpOrderTotalsByIdErpOrderTotals(int $idErpOrderTotals): ?ErpOrderTotalsTransfer
     {
-        return $this->getFactory()->createErpOrderTotalQuery();
+        $query = $this->getFactory()->createErpOrderTotalsQuery();
+        $erpOrderTotals = $query->findOneByIdErpOrderTotals($idErpOrderTotals);
+
+        if ($erpOrderTotals === null) {
+            return null;
+        }
+
+        return $this->getFactory()->createEntityToTransferMapper()->fromErpOrderTotalsToTransfer($erpOrderTotals);
     }
 }

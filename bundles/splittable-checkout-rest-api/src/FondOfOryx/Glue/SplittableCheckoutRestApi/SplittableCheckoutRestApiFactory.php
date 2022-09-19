@@ -2,6 +2,7 @@
 
 namespace FondOfOryx\Glue\SplittableCheckoutRestApi;
 
+use FondOfOryx\Glue\SplittableCheckoutRestApi\Dependency\Client\SplittableCheckoutRestApiToGlossaryStorageClientInterface;
 use FondOfOryx\Glue\SplittableCheckoutRestApi\Processor\Builder\SplittableCheckoutRestResponseBuilder;
 use FondOfOryx\Glue\SplittableCheckoutRestApi\Processor\Builder\SplittableCheckoutRestResponseBuilderInterface;
 use FondOfOryx\Glue\SplittableCheckoutRestApi\Processor\Builder\SplittableTotalsRestResponseBuilder;
@@ -10,6 +11,8 @@ use FondOfOryx\Glue\SplittableCheckoutRestApi\Processor\Expander\RestSplittableC
 use FondOfOryx\Glue\SplittableCheckoutRestApi\Processor\Expander\RestSplittableCheckoutRequestExpanderInterface;
 use FondOfOryx\Glue\SplittableCheckoutRestApi\Processor\Mapper\RestAddressMapper;
 use FondOfOryx\Glue\SplittableCheckoutRestApi\Processor\Mapper\RestAddressMapperInterface;
+use FondOfOryx\Glue\SplittableCheckoutRestApi\Processor\Mapper\RestErrorMessageMapper;
+use FondOfOryx\Glue\SplittableCheckoutRestApi\Processor\Mapper\RestErrorMessageMapperInterface;
 use FondOfOryx\Glue\SplittableCheckoutRestApi\Processor\Mapper\RestSplittableCheckoutMapper;
 use FondOfOryx\Glue\SplittableCheckoutRestApi\Processor\Mapper\RestSplittableCheckoutMapperInterface;
 use FondOfOryx\Glue\SplittableCheckoutRestApi\Processor\Mapper\RestSplittableCheckoutRequestMapper;
@@ -79,6 +82,7 @@ class SplittableCheckoutRestApiFactory extends AbstractFactory
     {
         return new SplittableCheckoutRestResponseBuilder(
             $this->createRestSplittableCheckoutMapper(),
+            $this->createRestErrorMessageMapper(),
             $this->getResourceBuilder(),
             $this->getRestSplittableCheckoutExpanderPlugins(),
         );
@@ -138,5 +142,21 @@ class SplittableCheckoutRestApiFactory extends AbstractFactory
         return $this->getProvidedDependency(
             SplittableCheckoutRestApiDependencyProvider::PLUGINS_REST_SPLITTABLE_CHECKOUT_EXPANDER,
         );
+    }
+
+    /**
+     * @return \FondOfOryx\Glue\SplittableCheckoutRestApi\Processor\Mapper\RestErrorMessageMapperInterface
+     */
+    protected function createRestErrorMessageMapper(): RestErrorMessageMapperInterface
+    {
+        return new RestErrorMessageMapper($this->getGlossaryStorageClient());
+    }
+
+    /**
+     * @return \FondOfOryx\Glue\SplittableCheckoutRestApi\Dependency\Client\SplittableCheckoutRestApiToGlossaryStorageClientInterface
+     */
+    protected function getGlossaryStorageClient(): SplittableCheckoutRestApiToGlossaryStorageClientInterface
+    {
+        return $this->getProvidedDependency(SplittableCheckoutRestApiDependencyProvider::CLIENT_GLOSSARY_STORAGE);
     }
 }
