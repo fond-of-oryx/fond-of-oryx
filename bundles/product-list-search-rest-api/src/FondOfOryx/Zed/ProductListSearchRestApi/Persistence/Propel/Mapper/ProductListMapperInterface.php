@@ -16,7 +16,7 @@ interface ProductListMapperInterface
     public function mapEntityToTransfer(SpyProductList $entity): ProductListTransfer;
 
     /**
-     * @param \Propel\Runtime\Collection\ObjectCollection<\Orm\Zed\ProductList\Persistence\SpyCompanyUser> $entityCollection
+     * @param \Propel\Runtime\Collection\ObjectCollection<\Orm\Zed\ProductList\Persistence\SpyProductList> $entityCollection
      *
      * @return array<\Generated\Shared\Transfer\ProductListTransfer>
      */
