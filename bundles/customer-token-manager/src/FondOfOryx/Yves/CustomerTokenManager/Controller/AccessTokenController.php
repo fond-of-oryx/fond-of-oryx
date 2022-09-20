@@ -6,6 +6,7 @@ use FondOfOryx\Shared\CustomerTokenManager\CustomerTokenManagerConstants;
 use Spryker\Client\Kernel\AbstractClient;
 use Spryker\Yves\Kernel\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 
@@ -15,12 +16,19 @@ use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 class AccessTokenController extends AbstractController
 {
     /**
+     * @var null|string
+     */
+    private $callback_url = null;
+
+    /**
      * @param string $token
      *
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function tokenManagerAction(string $token): Response
+    public function tokenManagerAction(Request $request, string $token): Response
     {
+        $this->callback_url = $request->query->get('callback_url');
+
         return $this->executeTokenManagerAction($token);
     }
 
@@ -36,7 +44,10 @@ class AccessTokenController extends AbstractController
         if ($this->isLoggedInCustomer()) {
             $this->addErrorMessage(CustomerTokenManagerConstants::GLOSSARY_KEY_CUSTOMER_ALREADY_LOGGED_IN);
 
-            return $this->redirectResponseInternal(CustomerTokenManagerConstants::ROUTE_CUSTOMER_OVERVIEW);
+            return $this->redirectResponseInternal(
+                $this->callback_url ?? $this->getFactory()->getRedirectUrlAfterLogin(),
+                ['query' => ['signature' => $token]]
+            );
         }
 
         $customerResponseTransfer = $this->getFactory()
@@ -64,7 +75,10 @@ class AccessTokenController extends AbstractController
             ->getCustomerClient()
             ->setCustomer($customerTransfer);
 
-        return $this->redirectResponseInternal(CustomerTokenManagerConstants::ROUTE_CUSTOMER_OVERVIEW);
+        return $this->redirectResponseInternal(
+            $this->callback_url ?? $this->getFactory()->getRedirectUrlAfterLogin(),
+            ['query' => ['signature' => $token]]
+        );
     }
 
     /**

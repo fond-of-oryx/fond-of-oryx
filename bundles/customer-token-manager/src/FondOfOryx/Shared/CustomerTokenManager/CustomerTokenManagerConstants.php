@@ -7,7 +7,12 @@ interface CustomerTokenManagerConstants
     /**
      * @var string
      */
-    public const ROUTE_CUSTOMER_OVERVIEW = 'customer/overview';
+    public const REDIRECT_URL_AFTER_LOGIN_DEFAULT = 'home';
+
+    /**
+     * @var string
+     */
+    public const REDIRECT_URL_AFTER_LOGIN = 'REDIRECT_URL_AFTER_LOGIN';
 
     /**
      * @var string

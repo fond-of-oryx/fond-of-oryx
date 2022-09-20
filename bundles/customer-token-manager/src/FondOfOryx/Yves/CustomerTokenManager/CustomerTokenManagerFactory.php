@@ -15,6 +15,9 @@ use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 use Symfony\Component\Security\Core\User\UserInterface;
 
+/**
+ * @method \FondOfOryx\Yves\CustomerTokenManager\CustomerTokenManagerConfig getConfig()
+ */
 class CustomerTokenManagerFactory extends AbstractFactory
 {
     /**
@@ -71,5 +74,13 @@ class CustomerTokenManagerFactory extends AbstractFactory
     public function getTokenStorage(): TokenStorageInterface
     {
         return $this->getProvidedDependency(CustomerTokenManagerDependencyProvider::SERVICE_SECURITY_TOKEN_STORAGE);
+    }
+
+    /**
+     * @return string
+     */
+    public function getRedirectUrlAfterLogin(): string
+    {
+        return $this->getConfig()->getRedirectUrlAfterLogin();
     }
 }
