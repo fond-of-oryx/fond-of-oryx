@@ -56,5 +56,10 @@
         <property name="sort" type="string"/>
         <property name="pagination" type="Pagination"/>
     </transfer>
-    
+
+    <transfer name="ProductList">
+        <property name="uuid" type="string"/>
+    </transfer>
+
+
 </transfers>
