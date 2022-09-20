@@ -14,7 +14,7 @@ class CustomerTokenManagerConfig extends AbstractBundleConfig
     {
         return $this->get(
             CustomerTokenManagerConstants::REDIRECT_URL_AFTER_LOGIN,
-            CustomerTokenManagerConstants::REDIRECT_URL_AFTER_LOGIN_DEFAULT
+            CustomerTokenManagerConstants::REDIRECT_URL_AFTER_LOGIN_DEFAULT,
         );
     }
 }

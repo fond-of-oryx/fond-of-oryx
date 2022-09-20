@@ -16,11 +16,12 @@ use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 class AccessTokenController extends AbstractController
 {
     /**
-     * @var null|string
+     * @var string|null
      */
-    private $callback_url = null;
+    private $callback_url;
 
     /**
+     * @param \Symfony\Component\HttpFoundation\Request $request
      * @param string $token
      *
      * @return \Symfony\Component\HttpFoundation\Response
@@ -46,7 +47,7 @@ class AccessTokenController extends AbstractController
 
             return $this->redirectResponseInternal(
                 $this->callback_url ?? $this->getFactory()->getRedirectUrlAfterLogin(),
-                ['query' => ['signature' => $token]]
+                ['query' => ['signature' => $token]],
             );
         }
 
@@ -77,7 +78,7 @@ class AccessTokenController extends AbstractController
 
         return $this->redirectResponseInternal(
             $this->callback_url ?? $this->getFactory()->getRedirectUrlAfterLogin(),
-            ['query' => ['signature' => $token]]
+            ['query' => ['signature' => $token]],
         );
     }
 
