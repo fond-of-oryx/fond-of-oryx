@@ -68,6 +68,7 @@ class CompanyUserListMapper implements CompanyUserListMapperInterface
             ->setPagination($this->paginationMapper->fromRestRequest($restRequest))
             ->setQuery($this->requestParameterFilter->getRequestParameter($restRequest, 'q'))
             ->setShowAll($this->requestParameterFilter->getRequestParameter($restRequest, 'show-all') === 'true')
+            ->setOnlyOnePerCustomer($this->requestParameterFilter->getRequestParameter($restRequest, 'only-one-per-customer') === 'true')
             ->setCompanyUuid($this->requestParameterFilter->getRequestParameter($restRequest, 'company-id'))
             ->setCompanyUserReference($this->requestParameterFilter->getRequestParameter($restRequest, 'company-user-reference'))
             ->setSort($this->requestParameterFilter->getRequestParameter($restRequest, 'sort'))
