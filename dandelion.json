@@ -234,6 +234,10 @@
       "path": "bundles/customer-statistics-rest-api/",
       "version": "1.0.0"
     },
+    "customer-token-manager": {
+      "path": "bundles/customer-token-manager/",
+      "version": "1.0.0-beta.0"
+    },
     "delivery-date-restriction": {
       "path": "bundles/delivery-date-restriction/",
       "version": "1.0.1"
@@ -741,10 +745,6 @@
     "vertigo-price-product-price-list": {
       "path": "bundles/vertigo-price-product-price-list/",
       "version": "1.0.0"
-    },
-    "shared-customer-session": {
-      "path": "bundles/shared-customer-session/",
-      "version": "1.0.0-beta.0"
     }
   },
   "vcs": {
