@@ -25,7 +25,7 @@ class ProductListSearchRestApiRepository extends AbstractRepository implements P
     public function searchProductList(
         ProductListCollectionTransfer $productListCollectionTransfer
     ): ProductListCollectionTransfer {
-        $productListQuery = $this->getBaseQuery($productListCollectionTransfer);
+        $productListQuery = $this->getBaseQuery();
 
         $productListQuery = $this->addFulltextSearchFields($productListQuery, $productListCollectionTransfer);
         $productListQuery = $this->addSort($productListQuery, $productListCollectionTransfer);
@@ -39,11 +39,9 @@ class ProductListSearchRestApiRepository extends AbstractRepository implements P
     }
 
     /**
-     * @param \Generated\Shared\Transfer\ProductListCollectionTransfer $productListCollectionTransfer
-     *
      * @return \Orm\Zed\ProductList\Persistence\SpyProductListQuery
      */
-    protected function getBaseQuery(ProductListCollectionTransfer $productListCollectionTransfer): SpyProductListQuery
+    protected function getBaseQuery(): SpyProductListQuery
     {
         return $this->getFactory()->getProductListQuery();
     }
