@@ -1,0 +1,37 @@
+{
+  "name": "fond-of-oryx/customer-token-manager",
+  "description": "n/a",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Pascal Fischer",
+      "email": "p-fischer@gmx.net"
+    }
+  ],
+  "require": {
+    "php": ">=7.3",
+    "spryker/router": "^1.6.1",
+    "spryker/security-extension": "^1.0.0",
+    "spryker/customer-extension": "^1.4.0",
+    "spryker/customer": "^7.22.0",
+    "spryker/symfony": "^3.1.0",
+    "symfony/security-core": "^4.4"
+  },
+  "require-dev": {
+    "fond-of-codeception/spryker": "^1.0",
+    "spryker/code-sniffer": "^0.12"
+  },
+  "minimum-stability": "dev",
+  "prefer-stable": true,
+  "autoload": {
+    "psr-4": {
+      "FondOfOryx\\": "src/FondOfOryx/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "FondOfOryx\\": "tests/FondOfOryx/",
+      "Generated\\": "src/Generated/"
+    }
+  }
+}
