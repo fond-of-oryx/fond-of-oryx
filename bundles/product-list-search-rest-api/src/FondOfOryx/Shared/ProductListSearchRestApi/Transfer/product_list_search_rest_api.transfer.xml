@@ -5,7 +5,7 @@
     <transfer name="RestProductListSearchAttributes">
         <property name="sort" type="RestProductListSearchSort"/>
         <property name="pagination" type="RestProductListSearchPagination"/>
-        <property name="productList" type="RestProductListSearchResultItem[]" singular="productList"/>
+        <property name="productLists" type="RestProductListSearchResultItem[]" singular="productList"/>
     </transfer>
 
     <transfer name="RestProductListSearchSort">
