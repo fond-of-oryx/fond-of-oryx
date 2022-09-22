@@ -45,7 +45,7 @@ class RestProductListSearchAttributesMapper implements RestProductListSearchAttr
     public function fromProductListCollection(
         ProductListCollectionTransfer $productListCollectionTransfer
     ): RestProductListSearchAttributesTransfer {
-        return (new RestProductListSearchAttributesTransfer())->setProductList(
+        return (new RestProductListSearchAttributesTransfer())->setProductLists(
             $this->restProductListSearchResultItemMapper->fromProductListCollection($productListCollectionTransfer),
         )->setSort(
             $this->restProductListSearchSortMapper->fromProductListCollection($productListCollectionTransfer),
