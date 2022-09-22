@@ -46,7 +46,7 @@ class ProductListSearchRestApiFactoryTest extends Unit
     /**
      * @return void
      */
-    public function testCreateZedCompanyUserSearchRestApiStub(): void
+    public function testCreateZedProductListSearchRestApiStub(): void
     {
         $this->containerMock->expects(static::atLeastOnce())
             ->method('has')

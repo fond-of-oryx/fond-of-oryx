@@ -14,7 +14,7 @@ class ProductListSearchRestApiStubTest extends Unit
     protected $productListCollectionTransferMock;
 
     /**
-     * @var \FondOfOryx\Client\CompanyUserSearchRestApi\Dependency\Client\ProductListSearchRestApiToZedRequestClientInterface|\PHPUnit\Framework\MockObject\MockObject
+     * @var \FondOfOryx\Client\ProductListSearchRestApi\Dependency\Client\ProductListSearchRestApiToZedRequestClientInterface|\PHPUnit\Framework\MockObject\MockObject
      */
     protected $zedRequestClientMock;
 
