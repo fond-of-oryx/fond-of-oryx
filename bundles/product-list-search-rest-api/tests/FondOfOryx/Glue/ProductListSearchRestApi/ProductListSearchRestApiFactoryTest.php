@@ -4,7 +4,6 @@ namespace FondOfOryx\Glue\ProductListSearchRestApi;
 
 use Codeception\Test\Unit;
 use FondOfOryx\Client\ProductListSearchRestApi\ProductListSearchRestApiClient;
-use FondOfOryx\Glue\ProductListSearchRestApi\Dependency\Client\ProductListSearchRestApiToGlossaryStorageClientInterface;
 use FondOfOryx\Glue\ProductListSearchRestApi\Processor\Reader\ProductListReaderInterface;
 use Spryker\Glue\GlueApplication\Rest\JsonApi\RestResourceBuilderInterface;
 use Spryker\Glue\Kernel\Container;

@@ -4,8 +4,8 @@ namespace FondOfOryx\Glue\ProductListSearchRestApi\Processor\Mapper;
 
 use Codeception\Test\Unit;
 use FondOfOryx\Glue\ProductListSearchRestApi\ProductListSearchRestApiConfig;
-use Generated\Shared\Transfer\ProductListCollectionTransfer;
 use Generated\Shared\Transfer\PaginationTransfer;
+use Generated\Shared\Transfer\ProductListCollectionTransfer;
 
 class RestProductListSearchPaginationMapperTest extends Unit
 {

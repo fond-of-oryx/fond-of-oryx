@@ -3,8 +3,8 @@
 namespace FondOfOryx\Zed\ProductListSearchRestApi;
 
 use Codeception\Test\Unit;
-use Spryker\Zed\Kernel\Container;
 use Orm\Zed\ProductList\Persistence\SpyProductListQuery;
+use Spryker\Zed\Kernel\Container;
 
 class ProductListSearchRestApiDependencyProviderTest extends Unit
 {

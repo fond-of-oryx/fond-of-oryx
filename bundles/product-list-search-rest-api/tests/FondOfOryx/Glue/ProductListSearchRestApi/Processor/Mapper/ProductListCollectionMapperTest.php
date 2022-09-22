@@ -59,7 +59,7 @@ class ProductListCollectionMapperTest extends Unit
 
         $this->productListCollectionMapper = new ProductListCollectionMapper(
             $this->paginationMapperMock,
-            $this->requestParameterFilterMock
+            $this->requestParameterFilterMock,
         );
     }
 
@@ -108,6 +108,5 @@ class ProductListCollectionMapperTest extends Unit
             $this->paginationTransferMock,
             $productListCollectionTransfer->getPagination(),
         );
-
     }
 }

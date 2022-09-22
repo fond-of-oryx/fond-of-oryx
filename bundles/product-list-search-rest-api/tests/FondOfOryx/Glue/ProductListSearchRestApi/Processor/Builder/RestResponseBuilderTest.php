@@ -3,12 +3,12 @@
 namespace FondOfOryx\Glue\ProductListSearchRestApi\Processor\Builder;
 
 use Codeception\Test\Unit;
-use FondOfOryx\Glue\ProductListSearchRestApi\ProductListSearchRestApiConfig;
 use FondOfOryx\Glue\ProductListSearchRestApi\Processor\Mapper\RestProductListSearchAttributesMapperInterface;
+use FondOfOryx\Glue\ProductListSearchRestApi\ProductListSearchRestApiConfig;
 use Generated\Shared\Transfer\ProductListCollectionTransfer;
+use Generated\Shared\Transfer\RestErrorMessageTransfer;
 use Generated\Shared\Transfer\RestProductListSearchAttributesTransfer;
 use Generated\Shared\Transfer\RestProductListSearchPaginationTransfer;
-use Generated\Shared\Transfer\RestErrorMessageTransfer;
 use Spryker\Glue\GlueApplication\Rest\JsonApi\RestResourceBuilderInterface;
 use Spryker\Glue\GlueApplication\Rest\JsonApi\RestResourceInterface;
 use Spryker\Glue\GlueApplication\Rest\JsonApi\RestResponseInterface;
@@ -142,7 +142,7 @@ class RestResponseBuilderTest extends Unit
         static::assertEquals(
             $this->restResponseMock,
             $this->restResponseBuilder->buildProductListSearchRestResponse(
-                $this->productListCollectionTransferMock
+                $this->productListCollectionTransferMock,
             ),
         );
     }

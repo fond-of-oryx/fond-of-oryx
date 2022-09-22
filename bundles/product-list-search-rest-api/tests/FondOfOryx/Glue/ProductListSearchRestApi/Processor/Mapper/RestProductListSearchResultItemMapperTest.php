@@ -49,7 +49,7 @@ class RestProductListSearchResultItemMapperTest extends Unit
      */
     public function testFromProductList(): void
     {
-        $uuid = "uuid";
+        $uuid = 'uuid';
 
         $this->productListCollectionTransferMock->expects(static::atLeastOnce())
             ->method('getProductLists')
@@ -73,5 +73,4 @@ class RestProductListSearchResultItemMapperTest extends Unit
             $restProductListSearchResultItemTransfers->offsetGet(0)->getProductListId(),
         );
     }
-
 }

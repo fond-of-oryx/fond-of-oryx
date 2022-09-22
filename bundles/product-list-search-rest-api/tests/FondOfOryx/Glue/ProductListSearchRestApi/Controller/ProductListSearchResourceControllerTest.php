@@ -3,8 +3,8 @@
 namespace FondOfOryx\Glue\ProductListSearchRestApi\Controller;
 
 use Codeception\Test\Unit;
-use FondOfOryx\Glue\ProductListSearchRestApi\ProductListSearchRestApiFactory;
 use FondOfOryx\Glue\ProductListSearchRestApi\Processor\Reader\ProductListReaderInterface;
+use FondOfOryx\Glue\ProductListSearchRestApi\ProductListSearchRestApiFactory;
 use Spryker\Glue\GlueApplication\Rest\JsonApi\RestResponseInterface;
 use Spryker\Glue\GlueApplication\Rest\Request\Data\RestRequestInterface;
 use Spryker\Glue\Kernel\AbstractFactory;

@@ -4,7 +4,6 @@ namespace FondOfOryx\Glue\ProductListSearchRestApi\Processor\Mapper;
 
 use ArrayObject;
 use Codeception\Test\Unit;
-use FondOfOryx\Glue\ProductListSearchRestApi\Processor\Mapper\RestProductListSearchPaginationMapperInterface;
 use Generated\Shared\Transfer\ProductListCollectionTransfer;
 use Generated\Shared\Transfer\RestProductListSearchPaginationTransfer;
 use Generated\Shared\Transfer\RestProductListSearchResultItemTransfer;
