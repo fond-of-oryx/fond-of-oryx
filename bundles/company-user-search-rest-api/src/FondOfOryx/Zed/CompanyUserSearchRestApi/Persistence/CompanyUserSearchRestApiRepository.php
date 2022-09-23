@@ -221,10 +221,16 @@ class CompanyUserSearchRestApiRepository extends AbstractRepository implements C
 
             $columnMap = $tableMap->getColumn($sortField);
 
-            return $companyUserQuery->orderBy(
+            $companyUserQuery->orderBy(
                 $columnMap->getFullyQualifiedName(),
                 $direction === 'desc' ? Criteria::DESC : Criteria::ASC,
             );
+
+            if ($companyUserListTransfer->getOnlyOnePerCustomer() !== true) {
+                return $companyUserQuery;
+            }
+
+            return $companyUserQuery->addAscendingOrderByColumn(SpyCompanyUserTableMap::COL_ID_COMPANY_USER);
         }
 
         return $companyUserQuery;
