@@ -128,6 +128,7 @@ include:
   - bundles/product-country-restriction-checkout-connector
   - bundles/product-list-api
   - bundles/product-lists-rest-api
+  - bundles/product-list-search-rest-api
   - bundles/product-locale-restriction
   - bundles/product-locale-restriction-cart-connector
   - bundles/product-locale-restriction-search
