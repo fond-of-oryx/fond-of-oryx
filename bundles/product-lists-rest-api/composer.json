@@ -10,6 +10,7 @@
   ],
   "require": {
     "php": ">=7.3",
+    "fond-of-oryx/product-lists-reat-api-extension": "^1.0.0",
     "spryker/product-list": "^1.0.0"
   },
   "require-dev": {
