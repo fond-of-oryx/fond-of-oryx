@@ -267,6 +267,7 @@
     "fond-of-oryx/product-country-restriction-checkout-connector": "*",
     "fond-of-oryx/product-default-category-assigner": "*",
     "fond-of-oryx/product-list-api": "*",
+    "fond-of-oryx/product-list-search-rest-api": "*",
     "fond-of-oryx/product-lists-rest-api": "*",
     "fond-of-oryx/product-lists-rest-api-extension": "*",
     "fond-of-oryx/product-locale-restriction": "*",
