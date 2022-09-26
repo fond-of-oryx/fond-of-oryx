@@ -77,7 +77,7 @@ class ProductListsRestApiBusinessFactory extends AbstractBusinessFactory
     }
 
     /**
-     * @return array<\FondOfOryx\Zed\ProductListsRestApiExtension\Dependency\Plugin\ProductListUpdatePreCheckPluginInterface> $productListUpdatePreCheckPlugins
+     * @return array<\FondOfOryx\Zed\ProductListsRestApiExtension\Dependency\Plugin\ProductListUpdatePreCheckPluginInterface>
      */
     protected function getProductListUpdatePreCheckPlugins(): array
     {
