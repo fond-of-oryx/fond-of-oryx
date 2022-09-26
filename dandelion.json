@@ -590,6 +590,10 @@
       "path": "bundles/product-list-api/",
       "version": "1.0.0"
     },
+    "product-list-search-rest-api": {
+      "path": "bundles/product-list-search-rest-api/",
+      "version": "1.0.0-beta"
+    },
     "product-locale-restriction": {
       "path": "bundles/product-locale-restriction/",
       "version": "1.0.0"
