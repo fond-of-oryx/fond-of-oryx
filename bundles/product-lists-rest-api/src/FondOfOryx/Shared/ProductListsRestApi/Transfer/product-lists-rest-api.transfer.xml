@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+<transfers xmlns="spryker:transfer-01"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="spryker:transfer-01 https://static.spryker.com/transfer-01.xsd">
+
+    <transfer name="RestProductListsRequestAttributes">
+        <property name="type" type="string"/>
+        <property name="title" type="string"/>
+    </transfer>
+
+    <transfer name="RestProductListUpdateRequest">
+        <property name="productListId" type="string"/>
+        <property name="productList" type="RestProductList"/>
+    </transfer>
+
+    <transfer name="RestProductList">
+        <property name="type" type="string"/>
+        <property name="title" type="string"/>
+    </transfer>
+
+    <transfer name="RestProductListUpdateResponse">
+        <property name="isSuccessful" type="bool"/>
+        <property name="productList" type="RestProductList"/>
+    </transfer>
+
+    <transfer name="ProductList">
+        <property name="idProductList" type="int"/>
+        <property name="type" type="string"/>
+        <property name="title" type="string"/>
+    </transfer>
+
+    <transfer name="ProductListResponse">
+        <property name="productList" type="ProductList"/>
+        <property name="isSuccessful" type="bool"/>
+        <property name="messages" type="Message[]" singular="message"/>
+    </transfer>
+</transfers>
