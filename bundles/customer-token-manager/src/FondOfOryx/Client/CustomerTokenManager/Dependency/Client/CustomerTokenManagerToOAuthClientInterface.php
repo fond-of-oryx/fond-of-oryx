@@ -5,7 +5,7 @@ namespace FondOfOryx\Client\CustomerTokenManager\Dependency\Client;
 use Generated\Shared\Transfer\OauthAccessTokenValidationRequestTransfer;
 use Generated\Shared\Transfer\OauthAccessTokenValidationResponseTransfer;
 
-interface CustomerTokenManagerToOAuthClientInterface
+interface CustomerTokenManagerToOauthClientInterface
 {
     /**
      * @param \Generated\Shared\Transfer\OauthAccessTokenValidationRequestTransfer $authAccessTokenValidationRequestTransfer

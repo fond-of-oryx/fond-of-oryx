@@ -3,6 +3,7 @@
 namespace FondOfOryx\Client\CustomerTokenManager\Plugin;
 
 use Generated\Shared\Transfer\CustomerResponseTransfer;
+use Generated\Shared\Transfer\CustomerTransfer;
 use Generated\Shared\Transfer\OauthAccessTokenValidationRequestTransfer;
 use Spryker\Client\CustomerExtension\Dependency\Plugin\AccessTokenAuthenticationHandlerPluginInterface;
 use Spryker\Client\Kernel\AbstractPlugin;
@@ -25,15 +26,21 @@ class ReceiveCustomerAccessTokenAuthenticationHandlerPlugin extends AbstractPlug
             ->setAccessToken($accessToken);
 
         $authAccessTokenValidationResponseTransfer = $this->getFactory()
-            ->getOAuthCLient()
+            ->getOauthCLient()
             ->validateOauthAccessToken($authAccessTokenValidationRequestTransfer);
 
         if ($authAccessTokenValidationResponseTransfer->getIsValid() === false) {
             return (new CustomerResponseTransfer())->setIsSuccess(false);
         }
 
+        $tokenData = $this->getFactory()->getOauthService()->extractAccessTokenData($accessToken);
+        $identifier = json_decode($tokenData->getOauthUserId(), true);
+        $reference = $identifier['customer_reference'];
+
+        $customerTransfer = (new CustomerTransfer())->setCustomerReference($reference);
+
         return $this->getFactory()
             ->getCustomerClient()
-            ->getCustomerByAccessToken($accessToken);
+            ->findCustomerByReference($customerTransfer);
     }
 }

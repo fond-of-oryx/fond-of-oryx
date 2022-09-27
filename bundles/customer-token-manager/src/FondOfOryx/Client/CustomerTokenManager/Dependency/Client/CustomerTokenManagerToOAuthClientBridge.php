@@ -6,7 +6,7 @@ use Generated\Shared\Transfer\OauthAccessTokenValidationRequestTransfer;
 use Generated\Shared\Transfer\OauthAccessTokenValidationResponseTransfer;
 use Spryker\Client\Oauth\OauthClientInterface;
 
-class CustomerTokenManagerToOAuthClientBridge implements CustomerTokenManagerToOAuthClientInterface
+class CustomerTokenManagerToOauthClientBridge implements CustomerTokenManagerToOauthClientInterface
 {
     /**
      * @var \Spryker\Client\Oauth\OauthClientInterface

@@ -36,8 +36,8 @@ class CustomerTokenManagerRouteProviderPlugin extends AbstractRouteProviderPlugi
      */
     protected function addTokenManagerRoute(RouteCollection $routeCollection): RouteCollection
     {
-        $route = $this->buildRoute('/token-manager/{oauth_token}', 'CustomerTokenManager', 'AccessToken', 'tokenManagerAction');
-        $route = $route->setRequirement('oauth_token', static::TOKEN_PATTERN);
+        $route = $this->buildRoute('/token-manager/{token}', 'CustomerTokenManager', 'AccessToken', 'tokenManagerAction');
+        $route = $route->setRequirement('token', static::TOKEN_PATTERN);
         $routeCollection->add(static::ROUTE_TOKEN_MANAGER, $route);
 
         return $routeCollection;

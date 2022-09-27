@@ -3,17 +3,26 @@
 namespace FondOfOryx\Client\CustomerTokenManager;
 
 use FondOfOryx\Client\CustomerTokenManager\Dependency\Client\CustomerTokenManagerToCustomerClientInterface;
-use FondOfOryx\Client\CustomerTokenManager\Dependency\Client\CustomerTokenManagerToOAuthClientInterface;
+use FondOfOryx\Client\CustomerTokenManager\Dependency\Client\CustomerTokenManagerToOauthClientInterface;
+use FondOfOryx\Client\CustomerTokenManager\Dependency\Client\CustomerTokenManagerToOauthServiceBridgeInterface;
 use Spryker\Client\Kernel\AbstractFactory;
 
 class CustomerTokenManagerFactory extends AbstractFactory
 {
     /**
-     * @return \FondOfOryx\Client\CustomerTokenManager\Dependency\Client\CustomerTokenManagerToOAuthClientInterface
+     * @return \FondOfOryx\Client\CustomerTokenManager\Dependency\Client\CustomerTokenManagerToOauthClientInterface
      */
-    public function getOAuthCLient(): CustomerTokenManagerToOAuthClientInterface
+    public function getOauthCLient(): CustomerTokenManagerToOauthClientInterface
     {
         return $this->getProvidedDependency(CustomerTokenManagerDependencyProvider::CLIENT_OAUTH);
+    }
+
+    /**
+     * @return \FondOfOryx\Client\CustomerTokenManager\Dependency\Client\CustomerTokenManagerToOauthServiceBridgeInterface
+     */
+    public function getOauthService(): CustomerTokenManagerToOauthServiceBridgeInterface
+    {
+        return $this->getProvidedDependency(CustomerTokenManagerDependencyProvider::SERVICE_OAUTH);
     }
 
     /**
