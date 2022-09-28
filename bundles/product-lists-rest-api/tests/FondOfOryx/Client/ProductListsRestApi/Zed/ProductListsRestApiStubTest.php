@@ -68,7 +68,7 @@ class ProductListsRestApiStubTest extends Unit
         static::assertEquals(
             $this->restProductListUpdateResponseTransferMock,
             $this->productListsRestApiStub->updateProductListByRestProductListUpdateRequest(
-                $this->restProductListUpdateRequestTransferMock
+                $this->restProductListUpdateRequestTransferMock,
             ),
         );
     }
