@@ -9,7 +9,7 @@ interface CustomerTokenManagerToOauthServiceBridgeInterface
     /**
      * @param string $token
      *
-     * @return \Generated\Shared\Transfer\OauthAccessTokenDataTransfer;
+     * @return \Generated\Shared\Transfer\OauthAccessTokenDataTransfer
      */
     public function extractAccessTokenData(string $token): OauthAccessTokenDataTransfer;
 }
