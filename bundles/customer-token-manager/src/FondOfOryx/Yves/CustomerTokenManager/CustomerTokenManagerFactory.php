@@ -36,6 +36,7 @@ class CustomerTokenManagerFactory extends AbstractFactory
     public function createUsernamePasswordToken(CustomerTransfer $customerTransfer): TokenInterface
     {
         $user = $this->createSecurityUser($customerTransfer);
+        
         return new UsernamePasswordToken(
             $user,
             $user->getPassword(),
