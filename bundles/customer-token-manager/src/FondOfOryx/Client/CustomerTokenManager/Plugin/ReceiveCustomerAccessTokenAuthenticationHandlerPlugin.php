@@ -14,6 +14,11 @@ use Spryker\Client\Kernel\AbstractPlugin;
 class ReceiveCustomerAccessTokenAuthenticationHandlerPlugin extends AbstractPlugin implements AccessTokenAuthenticationHandlerPluginInterface
 {
     /**
+     * @var string
+     */
+    protected const CUSTOMER_REFERENCE = 'customer_reference';
+
+    /**
      * @inheriDoc
      *
      * @param string $accessToken
@@ -35,7 +40,7 @@ class ReceiveCustomerAccessTokenAuthenticationHandlerPlugin extends AbstractPlug
 
         $tokenData = $this->getFactory()->getOauthService()->extractAccessTokenData($accessToken);
         $identifier = json_decode($tokenData->getOauthUserId(), true);
-        $reference = $identifier['customer_reference'];
+        $reference = $identifier[static::CUSTOMER_REFERENCE];
 
         $customerTransfer = (new CustomerTransfer())->setCustomerReference($reference);
 
