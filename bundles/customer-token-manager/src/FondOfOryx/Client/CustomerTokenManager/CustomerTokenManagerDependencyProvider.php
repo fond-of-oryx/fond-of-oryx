@@ -62,7 +62,7 @@ class CustomerTokenManagerDependencyProvider extends AbstractDependencyProvider
      */
     protected function addOAuthService(Container $container): Container
     {
-        $container->set(static::SERVICE_OAUTH, function(Container $container) {
+        $container->set(static::SERVICE_OAUTH, function (Container $container) {
             return new CustomerTokenManagerToOauthServiceBridge($container->getLocator()->oauth()->service());
         });
 

@@ -9,6 +9,7 @@ interface CustomerTokenManagerToCustomerClientInterface
 {
     /**
      * @param \Generated\Shared\Transfer\CustomerTransfer $customerTransfer
+     *
      * @return \Generated\Shared\Transfer\CustomerResponseTransfer
      */
     public function findCustomerByReference(CustomerTransfer $customerTransfer): CustomerResponseTransfer;
