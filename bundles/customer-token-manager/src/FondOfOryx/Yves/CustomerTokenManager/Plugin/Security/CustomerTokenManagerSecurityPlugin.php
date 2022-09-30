@@ -34,7 +34,6 @@ class CustomerTokenManagerSecurityPlugin extends AbstractPlugin implements Secur
         SecurityBuilderInterface $securityBuilder,
         ContainerInterface $container
     ): SecurityBuilderInterface {
-
         $securityBuilder = $this->addFirewalls($securityBuilder);
         $securityBuilder = $this->addAuthenticationSuccessHandler($securityBuilder);
 
