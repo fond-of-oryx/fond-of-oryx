@@ -19,7 +19,7 @@ class CustomerUserProvider extends AbstractPlugin implements UserProviderInterfa
      *
      * @return \Symfony\Component\Security\Core\User\UserInterface
      */
-    public function loadUserByUsername($username)
+    public function loadUserByUsername($username): UserInterface
     {
         $customerTransfer = $this->loadCustomerByEmail($username);
 
@@ -31,7 +31,7 @@ class CustomerUserProvider extends AbstractPlugin implements UserProviderInterfa
      *
      * @return \Symfony\Component\Security\Core\User\UserInterface
      */
-    public function refreshUser(UserInterface $user)
+    public function refreshUser(UserInterface $user): UserInterface
     {
         if (!$user instanceof Customer) {
             return $user;
@@ -47,7 +47,7 @@ class CustomerUserProvider extends AbstractPlugin implements UserProviderInterfa
      *
      * @return \Generated\Shared\Transfer\CustomerTransfer
      */
-    protected function getCustomerTransfer(UserInterface $user)
+    protected function getCustomerTransfer(UserInterface $user): CustomerTransfer
     {
         if ($this->getFactory()->getCustomerClient()->isLoggedIn() === false) {
             $customerTransfer = $this->loadCustomerByEmail($user->getUsername());
@@ -72,7 +72,7 @@ class CustomerUserProvider extends AbstractPlugin implements UserProviderInterfa
      *
      * @return bool
      */
-    public function supportsClass($class)
+    public function supportsClass($class): bool
     {
         return is_a($class, Customer::class, true);
     }
@@ -84,7 +84,7 @@ class CustomerUserProvider extends AbstractPlugin implements UserProviderInterfa
      *
      * @return \Generated\Shared\Transfer\CustomerTransfer
      */
-    protected function loadCustomerByEmail($email)
+    protected function loadCustomerByEmail($email): CustomerTransfer
     {
         $customerTransfer = new CustomerTransfer();
         $customerTransfer->setEmail($email);
@@ -105,7 +105,7 @@ class CustomerUserProvider extends AbstractPlugin implements UserProviderInterfa
      *
      * @return \Generated\Shared\Transfer\CustomerTransfer
      */
-    protected function updateUser(UserInterface $user)
+    protected function updateUser(UserInterface $user): CustomerTransfer
     {
         $customerTransfer = $this->loadCustomerByEmail($user->getUsername());
         $this->getFactory()

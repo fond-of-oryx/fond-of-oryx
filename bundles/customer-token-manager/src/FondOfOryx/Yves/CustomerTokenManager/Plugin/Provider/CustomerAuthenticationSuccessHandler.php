@@ -32,11 +32,7 @@ class CustomerAuthenticationSuccessHandler extends AbstractPlugin implements Aut
         $customer = $token->getUser();
         $this->setCustomerSession($customer->getCustomerTransfer());
 
-        $response = $this->createRedirectResponse($request);
-
-        $this->executeAfterPlugins();
-
-        return $response;
+        return $this->createRedirectResponse($request);
     }
 
     /**
@@ -77,17 +73,5 @@ class CustomerAuthenticationSuccessHandler extends AbstractPlugin implements Aut
         }
 
         return static::ROUTE_HOME;
-    }
-
-    /**
-     * @return void
-     */
-    protected function executeAfterPlugins(): void
-    {
-        $afterCustomerAuthenticationSuccessPlugins = $this->getFactory()->getAfterCustomerAuthenticationSuccessPlugins();
-
-        foreach ($afterCustomerAuthenticationSuccessPlugins as $afterCustomerAuthenticationSuccessPlugin) {
-            $afterCustomerAuthenticationSuccessPlugin->execute();
-        }
     }
 }
