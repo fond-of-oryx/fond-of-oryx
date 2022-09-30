@@ -48,4 +48,12 @@ class CustomerTokenManagerToCustomerClientBridge implements CustomerTokenManager
     {
         return $this->customerClient->setCustomer($customerTransfer);
     }
+
+    /**
+     * @return string
+     */
+    public function getCustomerSecuredPattern(): string
+    {
+        return $this->customerClient->getCustomerSecuredPattern();
+    }
 }

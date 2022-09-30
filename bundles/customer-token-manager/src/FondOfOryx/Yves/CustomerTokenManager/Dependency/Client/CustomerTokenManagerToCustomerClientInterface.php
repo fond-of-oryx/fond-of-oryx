@@ -25,4 +25,9 @@ interface CustomerTokenManagerToCustomerClientInterface
      * @return \Generated\Shared\Transfer\CustomerTransfer
      */
     public function setCustomer(CustomerTransfer $customerTransfer);
+
+    /**
+     * @return string
+     */
+    public function getCustomerSecuredPattern(): string;
 }

@@ -17,4 +17,15 @@ class CustomerTokenManagerConfig extends AbstractBundleConfig
             CustomerTokenManagerConstants::REDIRECT_URL_AFTER_LOGIN_DEFAULT,
         );
     }
+
+    /**
+     * @return string
+     */
+    public function getAnonymousPattern(): string
+    {
+        return $this->get(
+            CustomerTokenManagerConstants::CUSTOMER_ANONYMOUS_PATTERN,
+            CustomerTokenManagerConstants::CUSTOMER_ANONYMOUS_PATTERN_DEFAULT,
+        );
+    }
 }
