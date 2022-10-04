@@ -109,10 +109,13 @@ class AccessTokenController extends AbstractController
      */
     protected function createRedirectResponse(string $token): RedirectResponse
     {
-        return $this->redirectResponseExternal(sprintf('%s?%s=%s',
-            $this->determineTargetUrl(),
-            $this->getFactory()->getSignatureParameterName(),
-            $token,
-        ));
+        return $this->redirectResponseExternal(
+                sprintf(
+                    '%s?%s=%s',
+                    $this->determineTargetUrl(),
+                    $this->getFactory()->getSignatureParameterName(),
+                    $token,
+            )
+        );
     }
 }
