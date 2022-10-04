@@ -3,7 +3,6 @@
 namespace FondOfOryx\Yves\CustomerTokenManager\Controller;
 
 use FondOfOryx\Shared\CustomerTokenManager\CustomerTokenManagerConstants;
-use Spryker\Client\Kernel\AbstractClient;
 use Spryker\Yves\Kernel\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -42,13 +41,13 @@ class AccessTokenController extends AbstractController
      */
     protected function executeTokenManagerAction(string $token): RedirectResponse
     {
-        if ($this->isLoggedInCustomer()) {
-            $this->addErrorMessage(CustomerTokenManagerConstants::GLOSSARY_KEY_CUSTOMER_ALREADY_LOGGED_IN);
+        // This is necessary to include the token in the redirect
+        $accessToken = $token;
 
-            return $this->redirectResponseInternal(
-                $this->callback_url ?? $this->getFactory()->getRedirectUrlAfterLogin(),
-                ['query' => ['signature' => $token]],
-            );
+        if ($this->isLoggedInCustomer()) {
+            $this->addSuccessMessage(CustomerTokenManagerConstants::GLOSSARY_KEY_CUSTOMER_LOGGED_IN);
+
+            return $this->createRedirectResponse($accessToken);
         }
 
         $customerResponseTransfer = $this->getFactory()
@@ -76,10 +75,9 @@ class AccessTokenController extends AbstractController
             ->getCustomerClient()
             ->setCustomer($customerTransfer);
 
-        return $this->redirectResponseInternal(
-            $this->callback_url ?? $this->getFactory()->getRedirectUrlAfterLogin(),
-            ['query' => ['signature' => $token]],
-        );
+        $this->addSuccessMessage(CustomerTokenManagerConstants::GLOSSARY_KEY_CUSTOMER_LOGGED_IN);
+
+        return $this->createRedirectResponse($accessToken);
     }
 
     /**
@@ -91,10 +89,35 @@ class AccessTokenController extends AbstractController
     }
 
     /**
-     * @return \Spryker\Client\Kernel\AbstractClient
+     * Todo: Evaluate if callback URL could be a full URL and validated by
+     *      Sprykers whitelist domain logic
+     *
+     * @return string
      */
-    public function getClient(): AbstractClient
+    protected function determineTargetUrl(): string
     {
-        return $this->client;
+        $baseUrl = $this->getFactory()->getYvesBaseUrl();
+        if ($this->callback_url) {
+            return sprintf('%s%s', $baseUrl, $this->callback_url);
+        }
+
+        return sprintf('%s%s', $baseUrl, $this->getFactory()->getRedirectPathAfterLogin());
+    }
+
+    /**
+     * @param string $token
+     *
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     */
+    protected function createRedirectResponse(string $token): RedirectResponse
+    {
+        return $this->redirectResponseExternal(
+            sprintf(
+                '%s?%s=%s',
+                $this->determineTargetUrl(),
+                $this->getFactory()->getSignatureParameterName(),
+                $token,
+            ),
+        );
     }
 }

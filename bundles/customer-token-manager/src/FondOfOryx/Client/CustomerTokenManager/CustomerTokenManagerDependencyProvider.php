@@ -3,7 +3,8 @@
 namespace FondOfOryx\Client\CustomerTokenManager;
 
 use FondOfOryx\Client\CustomerTokenManager\Dependency\Client\CustomerTokenManagerToCustomerClientBridge;
-use FondOfOryx\Client\CustomerTokenManager\Dependency\Client\CustomerTokenManagerToOAuthClientBridge;
+use FondOfOryx\Client\CustomerTokenManager\Dependency\Client\CustomerTokenManagerToOauthClientBridge;
+use FondOfOryx\Client\CustomerTokenManager\Dependency\Client\CustomerTokenManagerToOauthServiceBridge;
 use Spryker\Client\Kernel\AbstractDependencyProvider;
 use Spryker\Client\Kernel\Container;
 
@@ -13,6 +14,11 @@ class CustomerTokenManagerDependencyProvider extends AbstractDependencyProvider
      * @var string
      */
     public const CLIENT_OAUTH = 'CLIENT_OAUTH';
+
+    /**
+     * @var string
+     */
+    public const SERVICE_OAUTH = 'SERVICE_OAUTH';
 
     /**
      * @var string
@@ -28,7 +34,8 @@ class CustomerTokenManagerDependencyProvider extends AbstractDependencyProvider
     {
         $container = parent::provideServiceLayerDependencies($container);
 
-        $this->addOAuthClient($container);
+        $this->addOauthClient($container);
+        $this->addOauthService($container);
         $this->addCustomerClient($container);
 
         return $container;
@@ -39,10 +46,24 @@ class CustomerTokenManagerDependencyProvider extends AbstractDependencyProvider
      *
      * @return \Spryker\Client\Kernel\Container
      */
-    protected function addOAuthClient(Container $container): Container
+    protected function addOauthClient(Container $container): Container
     {
         $container->set(static::CLIENT_OAUTH, function (Container $container) {
-            return new CustomerTokenManagerToOAuthClientBridge($container->getLocator()->oauth()->client());
+            return new CustomerTokenManagerToOauthClientBridge($container->getLocator()->oauth()->client());
+        });
+
+        return $container;
+    }
+
+    /**
+     * @param \Spryker\Client\Kernel\Container $container
+     *
+     * @return \Spryker\Client\Kernel\Container
+     */
+    protected function addOAuthService(Container $container): Container
+    {
+        $container->set(static::SERVICE_OAUTH, function (Container $container) {
+            return new CustomerTokenManagerToOauthServiceBridge($container->getLocator()->oauth()->service());
         });
 
         return $container;

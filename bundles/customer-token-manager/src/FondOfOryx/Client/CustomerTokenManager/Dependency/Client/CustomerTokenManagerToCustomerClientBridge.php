@@ -3,6 +3,7 @@
 namespace FondOfOryx\Client\CustomerTokenManager\Dependency\Client;
 
 use Generated\Shared\Transfer\CustomerResponseTransfer;
+use Generated\Shared\Transfer\CustomerTransfer;
 use Spryker\Client\Customer\CustomerClientInterface;
 
 class CustomerTokenManagerToCustomerClientBridge implements CustomerTokenManagerToCustomerClientInterface
@@ -21,12 +22,12 @@ class CustomerTokenManagerToCustomerClientBridge implements CustomerTokenManager
     }
 
     /**
-     * @param string $accessToken
+     * @param \Generated\Shared\Transfer\CustomerTransfer $customerTransfer
      *
      * @return \Generated\Shared\Transfer\CustomerResponseTransfer
      */
-    public function getCustomerByAccessToken(string $accessToken): CustomerResponseTransfer
+    public function findCustomerByReference(CustomerTransfer $customerTransfer): CustomerResponseTransfer
     {
-        return $this->client->getCustomerByAccessToken($accessToken);
+        return $this->client->findCustomerByReference($customerTransfer);
     }
 }

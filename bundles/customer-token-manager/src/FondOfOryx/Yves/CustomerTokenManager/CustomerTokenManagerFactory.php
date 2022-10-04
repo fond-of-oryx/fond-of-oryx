@@ -6,14 +6,18 @@ use FondOfOryx\Shared\CustomerTokenManager\CustomerTokenManagerConfig;
 use FondOfOryx\Yves\CustomerTokenManager\Authenticator\CustomerAuthenticator;
 use FondOfOryx\Yves\CustomerTokenManager\Authenticator\CustomerAuthenticatorInterface;
 use FondOfOryx\Yves\CustomerTokenManager\Dependency\Client\CustomerTokenManagerToCustomerClientInterface;
+use FondOfOryx\Yves\CustomerTokenManager\Plugin\Provider\CustomerAuthenticationSuccessHandler;
+use FondOfOryx\Yves\CustomerTokenManager\Plugin\Provider\CustomerUserProvider;
 use FondOfOryx\Yves\CustomerTokenManager\Plugin\Security\CustomerTokenManagerSecurityPlugin;
 use FondOfOryx\Yves\CustomerTokenManager\Security\Customer;
 use Generated\Shared\Transfer\CustomerTransfer;
 use Spryker\Yves\Kernel\AbstractFactory;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Security\Core\User\UserProviderInterface;
 
 /**
  * @method \FondOfOryx\Yves\CustomerTokenManager\CustomerTokenManagerConfig getConfig()
@@ -35,8 +39,11 @@ class CustomerTokenManagerFactory extends AbstractFactory
      */
     public function createUsernamePasswordToken(CustomerTransfer $customerTransfer): TokenInterface
     {
+        $user = $this->createSecurityUser($customerTransfer);
+
         return new UsernamePasswordToken(
-            $this->createSecurityUser($customerTransfer),
+            $user,
+            $user->getPassword(),
             CustomerTokenManagerConfig::SECURITY_FIREWALL_NAME,
             [CustomerTokenManagerSecurityPlugin::ROLE_USER],
         );
@@ -69,6 +76,32 @@ class CustomerTokenManagerFactory extends AbstractFactory
     }
 
     /**
+     * @return \FondOfOryx\Yves\CustomerTokenManager\Plugin\Provider\CustomerAuthenticationSuccessHandler
+     */
+    public function createCustomerAuthenticationSuccessHandler(): CustomerAuthenticationSuccessHandler
+    {
+        return new CustomerAuthenticationSuccessHandler();
+    }
+
+    /**
+     * @return \Symfony\Component\Security\Core\User\UserProviderInterface
+     */
+    public function createCustomerUserProvider(): UserProviderInterface
+    {
+        return new CustomerUserProvider();
+    }
+
+    /**
+     * @param string $targetUrl
+     *
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     */
+    public function createRedirectResponse($targetUrl): RedirectResponse
+    {
+        return new RedirectResponse($targetUrl);
+    }
+
+    /**
      * @return \Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface
      */
     public function getTokenStorage(): TokenStorageInterface
@@ -79,8 +112,24 @@ class CustomerTokenManagerFactory extends AbstractFactory
     /**
      * @return string
      */
-    public function getRedirectUrlAfterLogin(): string
+    public function getRedirectPathAfterLogin(): string
     {
-        return $this->getConfig()->getRedirectUrlAfterLogin();
+        return $this->getConfig()->getRedirectPathAfterLogin();
+    }
+
+    /**
+     * @return string
+     */
+    public function getYvesBaseUrl(): string
+    {
+        return $this->getConfig()->getYvesBaseUrl();
+    }
+
+    /**
+     * @return string
+     */
+    public function getSignatureParameterName(): string
+    {
+        return $this->getConfig()->getSignatureParameterName();
     }
 }

@@ -236,7 +236,7 @@
     },
     "customer-token-manager": {
       "path": "bundles/customer-token-manager/",
-      "version": "1.0.0-beta.0"
+      "version": "1.0.0-beta.1"
     },
     "delivery-date-restriction": {
       "path": "bundles/delivery-date-restriction/",

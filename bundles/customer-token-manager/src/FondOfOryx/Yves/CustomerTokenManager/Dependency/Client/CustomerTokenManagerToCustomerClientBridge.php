@@ -44,8 +44,34 @@ class CustomerTokenManagerToCustomerClientBridge implements CustomerTokenManager
      *
      * @return \Generated\Shared\Transfer\CustomerTransfer
      */
+    public function getCustomerByEmail(CustomerTransfer $customerTransfer): CustomerTransfer
+    {
+        return $this->customerClient->getCustomerByEmail($customerTransfer);
+    }
+
+    /**
+     * @return \Generated\Shared\Transfer\CustomerTransfer
+     */
+    public function getCustomer(): CustomerTransfer
+    {
+        return $this->customerClient->getCustomer();
+    }
+
+    /**
+     * @param \Generated\Shared\Transfer\CustomerTransfer $customerTransfer
+     *
+     * @return \Generated\Shared\Transfer\CustomerTransfer
+     */
     public function setCustomer(CustomerTransfer $customerTransfer): CustomerTransfer
     {
         return $this->customerClient->setCustomer($customerTransfer);
+    }
+
+    /**
+     * @return string
+     */
+    public function getCustomerSecuredPattern(): string
+    {
+        return $this->customerClient->getCustomerSecuredPattern();
     }
 }
