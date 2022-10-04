@@ -3,7 +3,6 @@
 namespace FondOfOryx\Yves\CustomerTokenManager\Controller;
 
 use FondOfOryx\Shared\CustomerTokenManager\CustomerTokenManagerConstants;
-use Spryker\Client\Kernel\AbstractClient;
 use Spryker\Yves\Kernel\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
