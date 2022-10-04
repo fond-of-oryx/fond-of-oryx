@@ -32,7 +32,7 @@ interface CustomerTokenManagerConstants
     /**
      * @var string
      */
-    public const GLOSSARY_KEY_CUSTOMER_ALREADY_LOGGED_IN = 'customer_token_manager.error.customer_already_logged_in';
+    public const GLOSSARY_KEY_CUSTOMER_LOGGED_IN = 'customer_token_manager.success.customer_logged_in';
 
     /**
      * @var string

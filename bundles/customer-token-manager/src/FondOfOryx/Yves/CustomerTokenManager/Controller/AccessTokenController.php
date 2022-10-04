@@ -45,7 +45,7 @@ class AccessTokenController extends AbstractController
         $accessToken = $token;
 
         if ($this->isLoggedInCustomer()) {
-            $this->addErrorMessage(CustomerTokenManagerConstants::GLOSSARY_KEY_CUSTOMER_ALREADY_LOGGED_IN);
+            $this->addSuccessMessage(CustomerTokenManagerConstants::GLOSSARY_KEY_CUSTOMER_LOGGED_IN);
 
             return $this->createRedirectResponse($accessToken);
         }
@@ -74,6 +74,8 @@ class AccessTokenController extends AbstractController
         $this->getFactory()
             ->getCustomerClient()
             ->setCustomer($customerTransfer);
+
+        $this->addSuccessMessage(CustomerTokenManagerConstants::GLOSSARY_KEY_CUSTOMER_LOGGED_IN);
 
         return $this->createRedirectResponse($accessToken);
     }
