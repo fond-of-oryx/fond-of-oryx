@@ -17,6 +17,11 @@ interface CustomerTokenManagerConstants
     /**
      * @var string
      */
+    public const SIGNATURE_PARAMETER = 'SIGNATURE_PARAMETER';
+
+    /**
+     * @var string
+     */
     public const CUSTOMER_ANONYMOUS_PATTERN_DEFAULT = '^/.*';
 
     /**

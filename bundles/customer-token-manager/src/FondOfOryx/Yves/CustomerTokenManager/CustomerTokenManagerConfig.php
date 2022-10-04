@@ -33,6 +33,17 @@ class CustomerTokenManagerConfig extends AbstractBundleConfig
     /**
      * @return string
      */
+    public function getSignatureParameterName(): string
+    {
+        return $this->get(
+            CustomerTokenManagerConstants::SIGNATURE_PARAMETER,
+            'signature',
+        );
+    }
+
+    /**
+     * @return string
+     */
     public function getAnonymousPattern(): string
     {
         return $this->get(

@@ -47,10 +47,7 @@ class AccessTokenController extends AbstractController
         if ($this->isLoggedInCustomer()) {
             $this->addErrorMessage(CustomerTokenManagerConstants::GLOSSARY_KEY_CUSTOMER_ALREADY_LOGGED_IN);
 
-            return $this->redirectResponseExternal(
-                $this->determineTargetUrl(),
-                ['signature' => $accessToken],
-            );
+            return $this->createRedirectResponse($accessToken);
         }
 
         $customerResponseTransfer = $this->getFactory()
@@ -78,10 +75,7 @@ class AccessTokenController extends AbstractController
             ->getCustomerClient()
             ->setCustomer($customerTransfer);
 
-        return $this->redirectResponseExternal(
-            $this->determineTargetUrl(),
-            ['signature' => $accessToken],
-        );
+        return $this->createRedirectResponse($accessToken);
     }
 
     /**
@@ -106,5 +100,19 @@ class AccessTokenController extends AbstractController
         }
 
         return sprintf('%s%s', $baseUrl, $this->getFactory()->getRedirectPathAfterLogin());
+    }
+
+    /**
+     * @param string $token
+     *
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     */
+    protected function createRedirectResponse(string $token): RedirectResponse
+    {
+        return $this->redirectResponseExternal(sprintf('%s?%s=%s',
+            $this->determineTargetUrl(),
+            $this->getFactory()->getSignatureParameterName(),
+            $token,
+        ));
     }
 }

@@ -124,4 +124,12 @@ class CustomerTokenManagerFactory extends AbstractFactory
     {
         return $this->getConfig()->getYvesBaseUrl();
     }
+
+    /**
+     * @return string
+     */
+    public function getSignatureParameterName(): string
+    {
+        return $this->getConfig()->getSignatureParameterName();
+    }
 }
