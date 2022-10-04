@@ -3,6 +3,7 @@
 namespace FondOfOryx\Yves\CustomerTokenManager;
 
 use FondOfOryx\Shared\CustomerTokenManager\CustomerTokenManagerConstants;
+use Spryker\Shared\Application\ApplicationConstants;
 use Spryker\Yves\Kernel\AbstractBundleConfig;
 
 class CustomerTokenManagerConfig extends AbstractBundleConfig
@@ -10,11 +11,22 @@ class CustomerTokenManagerConfig extends AbstractBundleConfig
     /**
      * @return string
      */
-    public function getRedirectUrlAfterLogin(): string
+    public function getRedirectPathAfterLogin(): string
     {
         return $this->get(
-            CustomerTokenManagerConstants::REDIRECT_URL_AFTER_LOGIN,
-            CustomerTokenManagerConstants::REDIRECT_URL_AFTER_LOGIN_DEFAULT,
+            CustomerTokenManagerConstants::REDIRECT_PATH_AFTER_LOGIN,
+            CustomerTokenManagerConstants::REDIRECT_PATH_AFTER_LOGIN_DEFAULT,
+        );
+    }
+
+    /**
+     * @return string
+     */
+    public function getYvesBaseUrl(): string
+    {
+        return $this->get(
+            ApplicationConstants::BASE_URL_YVES,
+            '',
         );
     }
 

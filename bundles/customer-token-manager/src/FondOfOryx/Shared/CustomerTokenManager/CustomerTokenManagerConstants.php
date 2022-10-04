@@ -7,12 +7,12 @@ interface CustomerTokenManagerConstants
     /**
      * @var string
      */
-    public const REDIRECT_URL_AFTER_LOGIN_DEFAULT = 'home';
+    public const REDIRECT_PATH_AFTER_LOGIN_DEFAULT = '/home';
 
     /**
      * @var string
      */
-    public const REDIRECT_URL_AFTER_LOGIN = 'REDIRECT_URL_AFTER_LOGIN';
+    public const REDIRECT_PATH_AFTER_LOGIN = 'REDIRECT_PATH_AFTER_LOGIN';
 
     /**
      * @var string

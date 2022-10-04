@@ -42,12 +42,15 @@ class AccessTokenController extends AbstractController
      */
     protected function executeTokenManagerAction(string $token): RedirectResponse
     {
+        // This is necessary to include the token in the redirect
+        $accessToken = $token;
+
         if ($this->isLoggedInCustomer()) {
             $this->addErrorMessage(CustomerTokenManagerConstants::GLOSSARY_KEY_CUSTOMER_ALREADY_LOGGED_IN);
 
-            return $this->redirectResponseInternal(
-                $this->callback_url ?? $this->getFactory()->getRedirectUrlAfterLogin(),
-                ['query' => ['signature' => $token]],
+            return $this->redirectResponseExternal(
+                $this->determineTargetUrl(),
+                ['signature' => $accessToken],
             );
         }
 
@@ -76,9 +79,9 @@ class AccessTokenController extends AbstractController
             ->getCustomerClient()
             ->setCustomer($customerTransfer);
 
-        return $this->redirectResponseInternal(
-            $this->callback_url ?? $this->getFactory()->getRedirectUrlAfterLogin(),
-            ['query' => ['signature' => $token]],
+        return $this->redirectResponseExternal(
+            $this->determineTargetUrl(),
+            ['signature' => $accessToken],
         );
     }
 
@@ -91,10 +94,18 @@ class AccessTokenController extends AbstractController
     }
 
     /**
-     * @return \Spryker\Client\Kernel\AbstractClient
+     * Todo: Evaluate if callback URL could be a full URL and validated by
+     *      Sprykers whitelist domain logic
+     *
+     * @return string
      */
-    public function getClient(): AbstractClient
+    protected function determineTargetUrl(): string
     {
-        return $this->client;
+        $baseUrl = $this->getFactory()->getYvesBaseUrl();
+        if ($this->callback_url) {
+            return sprintf('%s%s', $baseUrl, $this->$this->callback_url);
+        }
+
+        return sprintf('%s%s', $baseUrl, $this->getFactory()->getRedirectPathAfterLogin());
     }
 }

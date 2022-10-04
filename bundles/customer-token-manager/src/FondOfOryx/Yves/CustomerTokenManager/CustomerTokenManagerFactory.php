@@ -112,8 +112,16 @@ class CustomerTokenManagerFactory extends AbstractFactory
     /**
      * @return string
      */
-    public function getRedirectUrlAfterLogin(): string
+    public function getRedirectPathAfterLogin(): string
     {
-        return $this->getConfig()->getRedirectUrlAfterLogin();
+        return $this->getConfig()->getRedirectPathAfterLogin();
+    }
+
+    /**
+     * @return string
+     */
+    public function getYvesBaseUrl(): string
+    {
+        return $this->getConfig()->getYvesBaseUrl();
     }
 }
