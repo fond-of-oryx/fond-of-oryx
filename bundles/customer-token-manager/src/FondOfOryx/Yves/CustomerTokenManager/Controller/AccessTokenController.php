@@ -96,7 +96,7 @@ class AccessTokenController extends AbstractController
     {
         $baseUrl = $this->getFactory()->getYvesBaseUrl();
         if ($this->callback_url) {
-            return sprintf('%s%s', $baseUrl, $this->$this->callback_url);
+            return sprintf('%s%s', $baseUrl, $this->callback_url);
         }
 
         return sprintf('%s%s', $baseUrl, $this->getFactory()->getRedirectPathAfterLogin());
