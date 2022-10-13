@@ -12,7 +12,10 @@ use Spryker\Yves\Kernel\AbstractFactory;
 use Spryker\Yves\Kernel\Application;
 use Spryker\Yves\Router\Router\ChainRouter;
 use Symfony\Cmf\Component\Routing\ChainRouterInterface;
+use Symfony\Component\HttpFoundation\InputBag;
+use Symfony\Component\HttpFoundation\ParameterBag;
 use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorage;
 use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
@@ -70,6 +73,16 @@ class AccessTokenControllerTest extends Unit
     protected $chainRouterMock;
 
     /**
+     * @var \PHPUnit\Framework\MockObject\MockObject|\Symfony\Component\HttpFoundation\Request
+     */
+    protected $requestMock;
+
+    /**
+     * @var \PHPUnit\Framework\MockObject\MockObject|\Symfony\Component\HttpFoundation\ParameterBag
+     */
+    protected $parameterBagMock;
+
+    /**
      * @var \PHPUnit\Framework\MockObject\MockObject|\Symfony\Component\HttpFoundation\RedirectResponse
      */
     protected $redirectResponseMock;
@@ -123,6 +136,17 @@ class AccessTokenControllerTest extends Unit
         $this->usernamePasswordTokenMock = $this->getMockBuilder(UsernamePasswordToken::class)
             ->disableOriginalConstructor()
             ->getMock();
+
+        $this->requestMock = $this->getMockBuilder(Request::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $this->parameterBagMock = $this->getMockBuilder(ParameterBag::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $this->requestMock->attributes = $this->parameterBagMock;
+        $this->requestMock->query = new InputBag(['callback_url' => 'test']);
 
         $this->accessTokenController = new class (
             $this->customerTokenManagerFactoryMock,
@@ -234,9 +258,16 @@ class AccessTokenControllerTest extends Unit
             ->method('setCustomer')
             ->with($this->customerTransferMock);
 
+        $this->parameterBagMock->expects(static::atLeastOnce())
+            ->method('get')
+            ->withConsecutive(['language'])
+            ->willReturnOnConsecutiveCalls(
+                'de',
+            );
+
         static::assertInstanceOf(
             RedirectResponse::class,
-            $this->accessTokenController->tokenManagerAction($token),
+            $this->accessTokenController->tokenManagerAction($this->requestMock, $token),
         );
     }
 
@@ -260,9 +291,16 @@ class AccessTokenControllerTest extends Unit
             ->with($token)
             ->willReturn($this->customerResponseTransferMock);
 
+        $this->parameterBagMock->expects(static::atLeastOnce())
+            ->method('get')
+            ->withConsecutive(['language'])
+            ->willReturnOnConsecutiveCalls(
+                'de',
+            );
+
         static::assertInstanceOf(
             RedirectResponse::class,
-            $this->accessTokenController->tokenManagerAction($token),
+            $this->accessTokenController->tokenManagerAction($this->requestMock, $token),
         );
     }
 
@@ -290,8 +328,15 @@ class AccessTokenControllerTest extends Unit
             ->method('getIsSuccess')
             ->willReturn(false);
 
+        $this->parameterBagMock->expects(static::atLeastOnce())
+            ->method('get')
+            ->withConsecutive(['language'])
+            ->willReturnOnConsecutiveCalls(
+                'de',
+            );
+
         static::expectException(AccessDeniedHttpException::class);
 
-        $this->accessTokenController->tokenManagerAction($token);
+        $this->accessTokenController->tokenManagerAction($this->requestMock, $token);
     }
 }

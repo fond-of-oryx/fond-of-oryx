@@ -41,9 +41,9 @@ class AccessTokenController extends AbstractController
     /**
      * @param string $token
      *
-     * @return \Symfony\Component\HttpFoundation\RedirectResponse
      * @throws \Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException
      *
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
      */
     protected function executeTokenManagerAction(string $token): RedirectResponse
     {
@@ -138,11 +138,16 @@ class AccessTokenController extends AbstractController
     }
 
     /**
-     * @param string $string
-     * @return string
+     * @param string|null $string
+     *
+     * @return string|null
      */
-    protected function cleanSlashes(string $string): string
+    protected function cleanSlashes(?string $string): ?string
     {
+        if ($string === null) {
+            return null;
+        }
+
         return ltrim(rtrim($string, '/'), '/');
     }
 }

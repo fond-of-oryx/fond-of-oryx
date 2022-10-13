@@ -42,7 +42,7 @@ class Customer implements UserInterface
     }
 
     /**
-     * @return array<string>
+     * @return array<(\Symfony\Component\Security\Core\Role\Role|string)>
      */
     public function getRoles()
     {
