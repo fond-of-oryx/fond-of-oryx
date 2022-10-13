@@ -17,7 +17,12 @@ class AccessTokenController extends AbstractController
     /**
      * @var string|null
      */
-    private $callback_url;
+    protected $callback_url;
+
+    /**
+     * @var string|null
+     */
+    protected $language;
 
     /**
      * @param \Symfony\Component\HttpFoundation\Request $request
@@ -27,7 +32,8 @@ class AccessTokenController extends AbstractController
      */
     public function tokenManagerAction(Request $request, string $token): Response
     {
-        $this->callback_url = $request->query->get('callback_url');
+        $this->callback_url = $this->cleanSlashes($request->query->get('callback_url'));
+        $this->language = $this->cleanSlashes($request->attributes->get('language'));
 
         return $this->executeTokenManagerAction($token);
     }
@@ -35,9 +41,9 @@ class AccessTokenController extends AbstractController
     /**
      * @param string $token
      *
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
      * @throws \Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException
      *
-     * @return \Symfony\Component\HttpFoundation\RedirectResponse
      */
     protected function executeTokenManagerAction(string $token): RedirectResponse
     {
@@ -96,12 +102,22 @@ class AccessTokenController extends AbstractController
      */
     protected function determineTargetUrl(): string
     {
-        $baseUrl = $this->getFactory()->getYvesBaseUrl();
-        if ($this->callback_url) {
-            return sprintf('%s%s', $baseUrl, $this->callback_url);
+        $baseUrl = $this->cleanSlashes($this->getFactory()->getYvesBaseUrl());
+        if ($this->callback_url && $this->language) {
+            return sprintf('%s/%s/%s', $baseUrl, $this->language, $this->callback_url);
         }
 
-        return sprintf('%s%s', $baseUrl, $this->getFactory()->getRedirectPathAfterLogin());
+        if ($this->callback_url) {
+            return sprintf('%s/%s', $baseUrl, $this->callback_url);
+        }
+
+        $default = $this->cleanSlashes($this->getFactory()->getRedirectPathAfterLogin());
+
+        if ($this->language) {
+            return sprintf('%s/%s/%s', $baseUrl, $this->language, $default);
+        }
+
+        return sprintf('%s/%s', $baseUrl, $default);
     }
 
     /**
@@ -119,5 +135,14 @@ class AccessTokenController extends AbstractController
                 $token,
             ),
         );
+    }
+
+    /**
+     * @param string $string
+     * @return string
+     */
+    protected function cleanSlashes(string $string): string
+    {
+        return ltrim(rtrim($string, '/'), '/');
     }
 }
