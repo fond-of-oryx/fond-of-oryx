@@ -6,6 +6,7 @@ use FondOfOryx\Zed\OneTimePassword\Business\Encoder\OneTimePasswordEncoderInterf
 use FondOfOryx\Zed\OneTimePassword\Dependency\Facade\OneTimePasswordToLocaleFacadeInterface;
 use FondOfOryx\Zed\OneTimePassword\Dependency\Facade\OneTimePasswordToStoreFacadeInterface;
 use FondOfOryx\Zed\OneTimePassword\OneTimePasswordConfig;
+use FondOfOryx\Zed\OneTimePasswordExtension\Dependency\Plugin\UrlFormatterPluginInterface;
 use Generated\Shared\Transfer\CustomerTransfer;
 use Generated\Shared\Transfer\OneTimePasswordResponseTransfer;
 use Generated\Shared\Transfer\OrderTransfer;
@@ -38,9 +39,9 @@ class OneTimePasswordLinkGenerator implements OneTimePasswordLinkGeneratorInterf
     protected $oneTimePasswordEncoder;
 
     /**
-     * @var \FondOfOryx\Zed\OneTimePassword\Dependency\Facade\OneTimePasswordToOauthFacadeInterface
+     * @var \FondOfOryx\Zed\OneTimePasswordExtension\Dependency\Plugin\UrlFormatterPluginInterface[]
      */
-    protected $oauthFacade;
+    protected $urlFormatterPlugins;
 
     /**
      * @var \FondOfOryx\Zed\OneTimePassword\Dependency\Facade\OneTimePasswordToStoreFacadeInterface
@@ -63,19 +64,22 @@ class OneTimePasswordLinkGenerator implements OneTimePasswordLinkGeneratorInterf
      * @param \FondOfOryx\Zed\OneTimePassword\Dependency\Facade\OneTimePasswordToStoreFacadeInterface $storeFacade
      * @param \FondOfOryx\Zed\OneTimePassword\Dependency\Facade\OneTimePasswordToLocaleFacadeInterface $localeFacade
      * @param \FondOfOryx\Zed\OneTimePassword\OneTimePasswordConfig $oneTimePasswordConfig
+     * @param array<\FondOfOryx\Zed\OneTimePasswordExtension\Dependency\Plugin\UrlFormatterPluginInterface> $urlFormatterPlugins
      */
     public function __construct(
         OneTimePasswordGeneratorInterface $oneTimePasswordGenerator,
         OneTimePasswordEncoderInterface $oneTimePasswordEncoder,
         OneTimePasswordToStoreFacadeInterface $storeFacade,
         OneTimePasswordToLocaleFacadeInterface $localeFacade,
-        OneTimePasswordConfig $oneTimePasswordConfig
+        OneTimePasswordConfig $oneTimePasswordConfig,
+        array $urlFormatterPlugins
     ) {
         $this->oneTimePasswordGenerator = $oneTimePasswordGenerator;
         $this->oneTimePasswordEncoder = $oneTimePasswordEncoder;
         $this->storeFacade = $storeFacade;
         $this->localeFacade = $localeFacade;
         $this->oneTimePasswordConfig = $oneTimePasswordConfig;
+        $this->urlFormatterPlugins = $urlFormatterPlugins;
     }
 
     /**
@@ -98,17 +102,8 @@ class OneTimePasswordLinkGenerator implements OneTimePasswordLinkGeneratorInterf
             return $oneTimePasswordResponseTransfer->setIsSuccess(false);
         }
 
-        $localizedLoginLinkPath = str_replace(static::LINK_LOCALE_PLACEHOLDER, $this->getUrlLocale(), $this->oneTimePasswordConfig->getLoginLinkPath());
-
-        $loginLink = sprintf(
-            self::LINK_PARAMETER_FORMAT,
-            $localizedLoginLinkPath,
-            $this->oneTimePasswordConfig->getLoginLinkParameterName(),
-            $encodedLoginCredentials,
-        );
-
         return $oneTimePasswordResponseTransfer
-            ->setLoginLink($loginLink);
+            ->setLoginLink($this->formatLoginLink(str_replace(static::LINK_LOCALE_PLACEHOLDER, $this->getUrlLocale(), $this->oneTimePasswordConfig->getLoginLinkPath()), $encodedLoginCredentials));
     }
 
     /**
@@ -154,5 +149,26 @@ class OneTimePasswordLinkGenerator implements OneTimePasswordLinkGeneratorInterf
 
         return $oneTimePasswordResponseTransfer
             ->setLoginLink($loginLink);
+    }
+
+    /**
+     * @param string $localizedLoginLinkPath
+     * @param string $encodedLoginCredentials
+     * @return string
+     */
+    protected function formatLoginLink(string $localizedLoginLinkPath, string $encodedLoginCredentials): string
+    {
+        if (count($this->urlFormatterPlugins) > 0){
+            foreach ($this->urlFormatterPlugins as $urlFormatterPlugin){
+                $localizedLoginLinkPath = $urlFormatterPlugin->formatUrl($localizedLoginLinkPath, $encodedLoginCredentials);
+            }
+            return $localizedLoginLinkPath;
+        }
+        return sprintf(
+            static::LINK_PARAMETER_FORMAT,
+            $localizedLoginLinkPath,
+            $this->oneTimePasswordConfig->getLoginLinkParameterName(),
+            $encodedLoginCredentials,
+        );
     }
 }
