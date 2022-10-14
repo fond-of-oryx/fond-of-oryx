@@ -15,7 +15,10 @@ interface OneTimePasswordLoginLinkSenderInterface
      *
      * @return \Generated\Shared\Transfer\OneTimePasswordResponseTransfer
      */
-    public function requestLoginLink(CustomerTransfer $customerTransfer, OneTimePasswordAttributesTransfer $attributesTransfer): OneTimePasswordResponseTransfer;
+    public function requestLoginLink(
+        CustomerTransfer $customerTransfer,
+        OneTimePasswordAttributesTransfer $attributesTransfer
+    ): OneTimePasswordResponseTransfer;
 
     /**
      * @param \Generated\Shared\Transfer\OrderTransfer $orderTransfer
@@ -23,5 +26,8 @@ interface OneTimePasswordLoginLinkSenderInterface
      *
      * @return \Generated\Shared\Transfer\OneTimePasswordResponseTransfer
      */
-    public function requestLoginLinkWithOrderReference(OrderTransfer $orderTransfer, OneTimePasswordAttributesTransfer $attributesTransfer): OneTimePasswordResponseTransfer;
+    public function requestLoginLinkWithOrderReference(
+        OrderTransfer $orderTransfer,
+        OneTimePasswordAttributesTransfer $attributesTransfer
+    ): OneTimePasswordResponseTransfer;
 }

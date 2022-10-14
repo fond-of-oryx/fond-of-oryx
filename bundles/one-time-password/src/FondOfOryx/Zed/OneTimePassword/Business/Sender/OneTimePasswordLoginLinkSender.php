@@ -45,7 +45,7 @@ class OneTimePasswordLoginLinkSender implements OneTimePasswordLoginLinkSenderIn
 
         $oneTimePasswordResponseTransfer = $this->oneTimePasswordLinkGenerator->generateLoginLink(
             $customerTransfer,
-            $attributesTransfer
+            $attributesTransfer,
         );
 
         if ($oneTimePasswordResponseTransfer->getIsSuccess()) {
@@ -61,11 +61,13 @@ class OneTimePasswordLoginLinkSender implements OneTimePasswordLoginLinkSenderIn
      *
      * @return \Generated\Shared\Transfer\OneTimePasswordResponseTransfer
      */
-    public function requestLoginLinkWithOrderReference(OrderTransfer $orderTransfer, OneTimePasswordAttributesTransfer $attributesTransfer): OneTimePasswordResponseTransfer
-    {
+    public function requestLoginLinkWithOrderReference(
+        OrderTransfer $orderTransfer,
+        OneTimePasswordAttributesTransfer $attributesTransfer
+    ): OneTimePasswordResponseTransfer {
         $oneTimePasswordResponseTransfer = $this->oneTimePasswordLinkGenerator->generateLoginLinkWithOrderReference(
             $orderTransfer,
-            $attributesTransfer
+            $attributesTransfer,
         );
 
         if ($oneTimePasswordResponseTransfer->getIsSuccess()) {

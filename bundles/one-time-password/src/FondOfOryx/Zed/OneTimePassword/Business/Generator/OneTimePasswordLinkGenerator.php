@@ -6,7 +6,6 @@ use FondOfOryx\Zed\OneTimePassword\Business\Encoder\OneTimePasswordEncoderInterf
 use FondOfOryx\Zed\OneTimePassword\Dependency\Facade\OneTimePasswordToLocaleFacadeInterface;
 use FondOfOryx\Zed\OneTimePassword\Dependency\Facade\OneTimePasswordToStoreFacadeInterface;
 use FondOfOryx\Zed\OneTimePassword\OneTimePasswordConfig;
-use FondOfOryx\Zed\OneTimePasswordExtension\Dependency\Plugin\UrlFormatterPluginInterface;
 use Generated\Shared\Transfer\CustomerTransfer;
 use Generated\Shared\Transfer\OneTimePasswordAttributesTransfer;
 use Generated\Shared\Transfer\OneTimePasswordResponseTransfer;
@@ -40,7 +39,7 @@ class OneTimePasswordLinkGenerator implements OneTimePasswordLinkGeneratorInterf
     protected $oneTimePasswordEncoder;
 
     /**
-     * @var \FondOfOryx\Zed\OneTimePasswordExtension\Dependency\Plugin\UrlFormatterPluginInterface[]
+     * @var array<\FondOfOryx\Zed\OneTimePasswordExtension\Dependency\Plugin\UrlFormatterPluginInterface>
      */
     protected $urlFormatterPlugins;
 
@@ -165,16 +164,23 @@ class OneTimePasswordLinkGenerator implements OneTimePasswordLinkGeneratorInterf
     /**
      * @param string $localizedLoginLinkPath
      * @param string $encodedLoginCredentials
+     * @param \Generated\Shared\Transfer\OneTimePasswordAttributesTransfer $attributesTransfer
+     *
      * @return string
      */
-    protected function formatLoginLink(string $localizedLoginLinkPath, string $encodedLoginCredentials, OneTimePasswordAttributesTransfer $attributesTransfer): string
-    {
-        if (count($this->urlFormatterPlugins) > 0){
-            foreach ($this->urlFormatterPlugins as $urlFormatterPlugin){
+    protected function formatLoginLink(
+        string $localizedLoginLinkPath,
+        string $encodedLoginCredentials,
+        OneTimePasswordAttributesTransfer $attributesTransfer
+    ): string {
+        if (count($this->urlFormatterPlugins) > 0) {
+            foreach ($this->urlFormatterPlugins as $urlFormatterPlugin) {
                 $localizedLoginLinkPath = $urlFormatterPlugin->formatUrl($localizedLoginLinkPath, $encodedLoginCredentials, $attributesTransfer);
             }
+
             return $localizedLoginLinkPath;
         }
+
         return sprintf(
             static::LINK_PARAMETER_FORMAT,
             $localizedLoginLinkPath,

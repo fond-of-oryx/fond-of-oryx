@@ -170,7 +170,7 @@ class OneTimePasswordDependencyProvider extends AbstractBundleDependencyProvider
     }
 
     /**
-     * @return \FondOfOryx\Zed\OneTimePasswordExtension\Dependency\Plugin\UrlFormatterPluginInterface[]
+     * @return array<\FondOfOryx\Zed\OneTimePasswordExtension\Dependency\Plugin\UrlFormatterPluginInterface>
      */
     protected function getUrlFormatterPlugins(): array
     {

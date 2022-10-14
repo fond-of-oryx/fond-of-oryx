@@ -83,7 +83,7 @@ class OneTimePasswordBusinessFactory extends AbstractBusinessFactory
             $this->getStoreFacade(),
             $this->getLocaleFacade(),
             $this->getConfig(),
-            $this->getUrlFormatterPlugins()
+            $this->getUrlFormatterPlugins(),
         );
     }
 
@@ -138,7 +138,7 @@ class OneTimePasswordBusinessFactory extends AbstractBusinessFactory
     }
 
     /**
-     * @return \FondOfOryx\Zed\OneTimePasswordExtension\Dependency\Plugin\UrlFormatterPluginInterface[]
+     * @return array<\FondOfOryx\Zed\OneTimePasswordExtension\Dependency\Plugin\UrlFormatterPluginInterface>
      */
     protected function getUrlFormatterPlugins(): array
     {
