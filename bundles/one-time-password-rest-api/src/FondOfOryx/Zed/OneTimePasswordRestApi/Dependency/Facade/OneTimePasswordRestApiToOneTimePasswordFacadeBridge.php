@@ -50,8 +50,10 @@ class OneTimePasswordRestApiToOneTimePasswordFacadeBridge implements OneTimePass
      *
      * @return \Generated\Shared\Transfer\OneTimePasswordResponseTransfer
      */
-    public function requestLoginLinkWithOrderReference(OrderTransfer $orderTransfer, OneTimePasswordAttributesTransfer $attributesTransfer): OneTimePasswordResponseTransfer
-    {
+    public function requestLoginLinkWithOrderReference(
+        OrderTransfer $orderTransfer,
+        OneTimePasswordAttributesTransfer $attributesTransfer
+    ): OneTimePasswordResponseTransfer {
         return $this->oneTimePasswordFacade->requestLoginLinkWithOrderReference($orderTransfer, $attributesTransfer);
     }
 }

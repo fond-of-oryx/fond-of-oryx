@@ -9,10 +9,12 @@ class AttributesMapper implements AttributesMapperInterface
 {
     /**
      * @param \Generated\Shared\Transfer\RestOneTimePasswordLoginLinkRequestAttributesTransfer $restOneTimePasswordRequestAttributesTransfer
+     *
      * @return \Generated\Shared\Transfer\OneTimePasswordAttributesTransfer
      */
-    public function mapRequestAttributesToTransfer(RestOneTimePasswordLoginLinkRequestAttributesTransfer $restOneTimePasswordRequestAttributesTransfer): OneTimePasswordAttributesTransfer
-    {
+    public function mapRequestAttributesToTransfer(
+        RestOneTimePasswordLoginLinkRequestAttributesTransfer $restOneTimePasswordRequestAttributesTransfer
+    ): OneTimePasswordAttributesTransfer {
         return (new OneTimePasswordAttributesTransfer())->fromArray($restOneTimePasswordRequestAttributesTransfer->toArray(), true);
     }
 }

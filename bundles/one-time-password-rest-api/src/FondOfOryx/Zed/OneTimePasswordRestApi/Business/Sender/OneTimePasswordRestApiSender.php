@@ -33,6 +33,7 @@ class OneTimePasswordRestApiSender implements OneTimePasswordRestApiSenderInterf
     /**
      * @param \FondOfOryx\Zed\OneTimePasswordRestApi\Dependency\Facade\OneTimePasswordRestApiToOneTimePasswordFacadeInterface $oneTimePasswordFacade
      * @param \FondOfOryx\Zed\OneTimePasswordRestApi\Dependency\Facade\OneTimePasswordRestApiToCustomerFacadeInterface $customerFacade
+     * @param \FondOfOryx\Zed\OneTimePasswordRestApi\Business\Mapper\AttributesMapperInterface $attributesMapper
      */
     public function __construct(
         OneTimePasswordRestApiToOneTimePasswordFacadeInterface $oneTimePasswordFacade,
