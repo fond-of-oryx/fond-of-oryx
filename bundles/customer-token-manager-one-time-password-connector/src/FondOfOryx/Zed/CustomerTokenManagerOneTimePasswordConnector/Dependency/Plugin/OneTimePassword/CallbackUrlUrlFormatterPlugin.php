@@ -5,12 +5,12 @@ namespace FondOfOryx\Zed\CustomerTokenManagerOneTimePasswordConnector\Dependency
 use FondOfOryx\Zed\OneTimePasswordExtension\Dependency\Plugin\UrlFormatterPluginInterface;
 use Generated\Shared\Transfer\OneTimePasswordAttributesTransfer;
 
-class CustomerTokenManagerUrlFormatterPlugin implements UrlFormatterPluginInterface
+class CallbackUrlUrlFormatterPlugin implements UrlFormatterPluginInterface
 {
     /**
      * @var string
      */
-    protected $pattern = '{{token}}';
+    protected $callbackUrlPrefix = 'callback_url';
 
     /**
      * @param string $path
@@ -20,6 +20,13 @@ class CustomerTokenManagerUrlFormatterPlugin implements UrlFormatterPluginInterf
      */
     public function formatUrl(string $path, string $encodedCredentials, OneTimePasswordAttributesTransfer $attributesTransfer): string
     {
-        return str_replace($this->pattern, $encodedCredentials, $path);
+        if ($attributesTransfer->getCallbackUrl() === null) {
+            return $path;
+        }
+
+        if (parse_url($path, PHP_URL_QUERY)) {
+            return sprintf('%s&%s=%s', $path, $this->callbackUrlPrefix, $attributesTransfer->getCallbackUrl());
+        }
+        return sprintf('%s?%s=%s', $path, $this->callbackUrlPrefix, $attributesTransfer->getCallbackUrl());
     }
 }
