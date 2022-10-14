@@ -16,6 +16,7 @@ class CallbackUrlUrlFormatterPlugin implements UrlFormatterPluginInterface
      * @param string $path
      * @param string $encodedCredentials
      * @param \Generated\Shared\Transfer\OneTimePasswordAttributesTransfer $attributesTransfer
+     *
      * @return string
      */
     public function formatUrl(string $path, string $encodedCredentials, OneTimePasswordAttributesTransfer $attributesTransfer): string
@@ -27,6 +28,7 @@ class CallbackUrlUrlFormatterPlugin implements UrlFormatterPluginInterface
         if (parse_url($path, PHP_URL_QUERY)) {
             return sprintf('%s&%s=%s', $path, $this->callbackUrlPrefix, $attributesTransfer->getCallbackUrl());
         }
+
         return sprintf('%s?%s=%s', $path, $this->callbackUrlPrefix, $attributesTransfer->getCallbackUrl());
     }
 }
