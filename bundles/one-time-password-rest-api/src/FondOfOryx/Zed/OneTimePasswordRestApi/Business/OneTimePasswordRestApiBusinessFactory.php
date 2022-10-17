@@ -2,6 +2,8 @@
 
 namespace FondOfOryx\Zed\OneTimePasswordRestApi\Business;
 
+use FondOfOryx\Zed\OneTimePasswordRestApi\Business\Mapper\AttributesMapper;
+use FondOfOryx\Zed\OneTimePasswordRestApi\Business\Mapper\AttributesMapperInterface;
 use FondOfOryx\Zed\OneTimePasswordRestApi\Business\Sender\OneTimePasswordRestApiSender;
 use FondOfOryx\Zed\OneTimePasswordRestApi\Business\Sender\OneTimePasswordRestApiSenderInterface;
 use FondOfOryx\Zed\OneTimePasswordRestApi\Dependency\Facade\OneTimePasswordRestApiToCustomerFacadeInterface;
@@ -19,7 +21,16 @@ class OneTimePasswordRestApiBusinessFactory extends AbstractBusinessFactory
         return new OneTimePasswordRestApiSender(
             $this->getOneTimePasswordFacade(),
             $this->getCustomerFacade(),
+            $this->createAttributesMapper(),
         );
+    }
+
+    /**
+     * @return \FondOfOryx\Zed\OneTimePasswordRestApi\Business\Mapper\AttributesMapperInterface
+     */
+    public function createAttributesMapper(): AttributesMapperInterface
+    {
+        return new AttributesMapper();
     }
 
     /**
