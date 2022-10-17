@@ -142,6 +142,7 @@ class OneTimePasswordBusinessFactoryTest extends Unit
                 $this->oauthFacadeMock,
                 $this->storeFacadeMock,
                 $this->localeFacadeMock,
+                [],
             );
 
         $this->assertInstanceOf(
