@@ -35,12 +35,14 @@ class OneTimePasswordLoginLinkSender implements OneTimePasswordLoginLinkSenderIn
 
     /**
      * @param \Generated\Shared\Transfer\CustomerTransfer $customerTransfer
-     * @param null|\Generated\Shared\Transfer\OneTimePasswordAttributesTransfer $attributesTransfer
+     * @param \Generated\Shared\Transfer\OneTimePasswordAttributesTransfer|null $attributesTransfer
      *
      * @return \Generated\Shared\Transfer\OneTimePasswordResponseTransfer
      */
-    public function requestLoginLink(CustomerTransfer $customerTransfer, ?OneTimePasswordAttributesTransfer $attributesTransfer = null): OneTimePasswordResponseTransfer
-    {
+    public function requestLoginLink(
+        CustomerTransfer $customerTransfer,
+        ?OneTimePasswordAttributesTransfer $attributesTransfer = null
+    ): OneTimePasswordResponseTransfer {
         $customerTransfer->requireEmail();
 
         $oneTimePasswordResponseTransfer = $this->oneTimePasswordLinkGenerator->generateLoginLink(
@@ -57,7 +59,7 @@ class OneTimePasswordLoginLinkSender implements OneTimePasswordLoginLinkSenderIn
 
     /**
      * @param \Generated\Shared\Transfer\OrderTransfer $orderTransfer
-     * @param null|\Generated\Shared\Transfer\OneTimePasswordAttributesTransfer $attributesTransfer
+     * @param \Generated\Shared\Transfer\OneTimePasswordAttributesTransfer|null $attributesTransfer
      *
      * @return \Generated\Shared\Transfer\OneTimePasswordResponseTransfer
      */

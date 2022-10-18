@@ -37,7 +37,7 @@ class OneTimePasswordFacade extends AbstractFacade implements OneTimePasswordFac
      * @api
      *
      * @param \Generated\Shared\Transfer\CustomerTransfer $customerTransfer
-     * @param null|\Generated\Shared\Transfer\OneTimePasswordAttributesTransfer $attributesTransfer
+     * @param \Generated\Shared\Transfer\OneTimePasswordAttributesTransfer|null $attributesTransfer
      *
      * @return \Generated\Shared\Transfer\OneTimePasswordResponseTransfer
      */
@@ -59,7 +59,7 @@ class OneTimePasswordFacade extends AbstractFacade implements OneTimePasswordFac
      * @api
      *
      * @param \Generated\Shared\Transfer\OrderTransfer $orderTransfer
-     * @param null|\Generated\Shared\Transfer\OneTimePasswordAttributesTransfer $attributesTransfer
+     * @param \Generated\Shared\Transfer\OneTimePasswordAttributesTransfer|null $attributesTransfer
      *
      * @return \Generated\Shared\Transfer\OneTimePasswordResponseTransfer
      */
@@ -114,7 +114,7 @@ class OneTimePasswordFacade extends AbstractFacade implements OneTimePasswordFac
      * @api
      *
      * @param \Generated\Shared\Transfer\CustomerTransfer $customerTransfer
-     * @param null|\Generated\Shared\Transfer\OneTimePasswordAttributesTransfer $attributesTransfer
+     * @param \Generated\Shared\Transfer\OneTimePasswordAttributesTransfer|null $attributesTransfer
      *
      * @return \Generated\Shared\Transfer\OneTimePasswordResponseTransfer
      */
@@ -136,7 +136,7 @@ class OneTimePasswordFacade extends AbstractFacade implements OneTimePasswordFac
      * @api
      *
      * @param \Generated\Shared\Transfer\OrderTransfer $orderTransfer
-     * @param null|\Generated\Shared\Transfer\OneTimePasswordAttributesTransfer $attributesTransfer
+     * @param \Generated\Shared\Transfer\OneTimePasswordAttributesTransfer|null $attributesTransfer
      *
      * @return \Generated\Shared\Transfer\OneTimePasswordResponseTransfer
      */
