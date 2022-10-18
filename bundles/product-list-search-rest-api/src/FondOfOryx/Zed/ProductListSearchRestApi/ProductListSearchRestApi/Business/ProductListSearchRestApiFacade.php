@@ -14,12 +14,12 @@ class ProductListSearchRestApiFacade  extends AbstractFacade implements ProductL
      * {@inheritDoc}
      *
      * @api
-     * 
+     *
      * @param \Generated\Shared\Transfer\ProductListCollectionTransfer $productListCollectionTransfer
      *
      * @return \Generated\Shared\Transfer\ProductListCollectionTransfer
      */
-    public function findProductLists(
+    public function findProductList(
         ProductListCollectionTransfer $productListCollectionTransfer
     ): ProductListCollectionTransfer {
         return $this->getFactory()

@@ -35,7 +35,7 @@ class ProductListReader implements ProductListReaderInterface
      *
      * @return \Generated\Shared\Transfer\ProductListCollectionTransfer
      */
-    public function findProductLists(ProductListCollectionTransfer $productListCollectionTransfer): ProductListCollectionTransfer
+    public function findProductList(ProductListCollectionTransfer $productListCollectionTransfer): ProductListCollectionTransfer
     {
         $productListCollectionTransfer = $this->executeSearchQuoteQueryExpanderPlugins($productListCollectionTransfer);
 
