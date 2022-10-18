@@ -8,7 +8,7 @@ use Spryker\Zed\Kernel\Business\AbstractFacade;
 /**
  * @method \FondOfOryx\Zed\ProductListSearchRestApi\Business\ProductListSearchRestApiBusinessFactory getFactory()
  */
-class ProductListSearchRestApiFacade  extends AbstractFacade implements ProductListSearchRestApiFacadeInterface
+class ProductListSearchRestApiFacade extends AbstractFacade implements ProductListSearchRestApiFacadeInterface
 {
     /**
      * {@inheritDoc}

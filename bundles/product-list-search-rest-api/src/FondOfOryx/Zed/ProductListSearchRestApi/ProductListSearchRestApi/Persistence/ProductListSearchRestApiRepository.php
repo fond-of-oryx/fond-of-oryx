@@ -8,7 +8,6 @@ use Orm\Zed\ProductList\Persistence\Map\SpyProductListTableMap;
 use Orm\Zed\ProductList\Persistence\SpyProductListQuery;
 use Propel\Runtime\ActiveQuery\Criteria;
 use Propel\Runtime\ActiveQuery\ModelCriteria;
-use Psr\Log\LoggerInterface;
 use Spryker\Zed\Kernel\Persistence\AbstractRepository;
 
 /**

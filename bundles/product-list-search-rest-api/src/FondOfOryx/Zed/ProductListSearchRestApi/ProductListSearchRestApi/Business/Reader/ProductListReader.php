@@ -19,8 +19,9 @@ class ProductListReader implements ProductListReaderInterface
     protected $searchQuoteQueryExpanderPlugins;
 
     /**
-     * @param \FondOfOryx\Zed\ProductListSearchRestApi\Persistence\ProductListSearchRestApiRepositoryInterface $repository
      * @pram array<\FondOfOryx\Zed\ProductListSearchRestApiExtension\Dependency\Plugin\SearchQuoteQueryExpanderPluginInterface> $searchQuoteQueryExpanderPlugins
+     *
+     * @param \FondOfOryx\Zed\ProductListSearchRestApi\Persistence\ProductListSearchRestApiRepositoryInterface $repository
      */
     public function __construct(
         ProductListSearchRestApiRepositoryInterface $repository,

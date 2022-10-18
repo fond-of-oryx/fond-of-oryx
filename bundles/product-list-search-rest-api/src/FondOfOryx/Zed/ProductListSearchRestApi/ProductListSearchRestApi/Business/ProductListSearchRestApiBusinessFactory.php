@@ -16,7 +16,7 @@ class ProductListSearchRestApiBusinessFactory extends AbstractBusinessFactory
     {
         return new ProductListReader(
             $this->getRepository(),
-            $this->getSearchQuoteQueryExpanderPlugins()
+            $this->getSearchQuoteQueryExpanderPlugins(),
         );
     }
 

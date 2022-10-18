@@ -134,7 +134,7 @@ class QuoteQueryJoinQueryBuilder implements QuoteQueryJoinQueryBuilderInterface
         return $productListQuery;
     }
 
-    /***
+    /**
      * @param \Orm\Zed\ProductList\Persistence\SpyProductListQuery $spyProductListQuery
      * @param \Generated\Shared\Transfer\QueryJoinTransfer $queryJoinTransfer
      *
@@ -190,7 +190,6 @@ class QuoteQueryJoinQueryBuilder implements QuoteQueryJoinQueryBuilderInterface
 
     /**
      * @param \Orm\Zed\ProductList\Persistence\SpyProductListQuery $productListQuery
-     *
      * @param \ArrayObject<int, \Generated\Shared\Transfer\QueryWhereConditionTransfer> $queryWhereConditionTransfers
      *
      * @return array<string>
