@@ -24,6 +24,6 @@ class ProductListSearchRestApiFacade extends AbstractFacade implements ProductLi
     ): ProductListCollectionTransfer {
         return $this->getFactory()
             ->createProductListReader()
-            ->findProductLists($productListCollectionTransfer);
+            ->findProductList($productListCollectionTransfer);
     }
 }

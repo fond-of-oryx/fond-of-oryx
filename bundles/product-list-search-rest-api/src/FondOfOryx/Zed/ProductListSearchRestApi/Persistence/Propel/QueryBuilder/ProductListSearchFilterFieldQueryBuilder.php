@@ -44,23 +44,23 @@ class ProductListSearchFilterFieldQueryBuilder implements ProductListSearchFilte
     }
 
     /**
-     * @param \Orm\Zed\ProductList\Persistence\SpyProductListQuery $query
+     * @param \Orm\Zed\ProductList\Persistence\SpyProductListQuery $productListQuery
      * @param \Generated\Shared\Transfer\FilterFieldTransfer $filterFieldTransfer
      *
-     * @return \Orm\Zed\Quote\Persistence\Base\SpyQuoteQuery
+     * @return \Orm\Zed\ProductList\Persistence\SpyProductListQuery
      */
     protected function addQueryFilter(
-        SpyProductListQuery $query,
+        SpyProductListQuery $productListQuery,
         FilterFieldTransfer $filterFieldTransfer
     ): SpyProductListQuery {
         if (
             !$this->config->getFilterFieldTypeMapping()
             || !in_array($filterFieldTransfer->getType(), $this->config->getFilterFieldTypeMapping())
         ) {
-            return $query;
+            return $productListQuery;
         }
 
-        return $query->add(
+        return $productListQuery->add(
             $this->config->getFilterFieldTypeMapping()[$filterFieldTransfer->getType()],
             $filterFieldTransfer->getValue(),
             Criteria::EQUAL,

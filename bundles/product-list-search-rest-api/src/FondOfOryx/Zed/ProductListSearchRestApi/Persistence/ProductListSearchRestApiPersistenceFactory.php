@@ -44,7 +44,7 @@ class ProductListSearchRestApiPersistenceFactory extends AbstractPersistenceFact
     }
 
     /**
-     * @return \FondOfOryx\Zed\CartSearchRestApi\Persistence\Propel\QueryBuilder\QuoteQueryJoinQueryBuilderInterface
+     * @return \FondOfOryx\Zed\ProductListSearchRestApi\Persistence\Propel\QueryBuilder\QuoteQueryJoinQueryBuilderInterface
      */
     public function createQuoteQueryJoinQueryBuilder(): QuoteQueryJoinQueryBuilderInterface
     {

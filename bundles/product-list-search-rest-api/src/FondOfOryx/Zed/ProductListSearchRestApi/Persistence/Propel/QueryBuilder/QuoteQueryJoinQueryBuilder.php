@@ -25,7 +25,7 @@ class QuoteQueryJoinQueryBuilder implements QuoteQueryJoinQueryBuilderInterface
      * @param \Orm\Zed\ProductList\Persistence\SpyProductListQuery $productListQuery
      * @param \Generated\Shared\Transfer\QueryJoinCollectionTransfer $queryJoinCollectionTransfer
      *
-     * @return \Orm\Zed\Quote\Persistence\Base\SpyQuoteQuery
+     * @return \Orm\Zed\ProductList\Persistence\SpyProductListQuery
      */
     public function addQueryFilters(
         SpyProductListQuery $productListQuery,
@@ -138,12 +138,12 @@ class QuoteQueryJoinQueryBuilder implements QuoteQueryJoinQueryBuilderInterface
      * @param \Orm\Zed\ProductList\Persistence\SpyProductListQuery $productListQuery
      * @param \Generated\Shared\Transfer\QueryJoinTransfer $queryJoinTransfer
      *
-     * @return \Orm\Zed\Quote\Persistence\Base\SpyQuoteQuery
+     * @return \Orm\Zed\ProductList\Persistence\SpyProductListQuery
      */
     protected function addRelationJoin(
         SpyProductListQuery $productListQuery,
         QueryJoinTransfer $queryJoinTransfer
-    ): SpyQuoteQuery {
+    ): SpyProductListQuery {
         $productListQuery->join(
             $queryJoinTransfer->getRelation(),
             $queryJoinTransfer->getJoinType() ?? Criteria::LEFT_JOIN,

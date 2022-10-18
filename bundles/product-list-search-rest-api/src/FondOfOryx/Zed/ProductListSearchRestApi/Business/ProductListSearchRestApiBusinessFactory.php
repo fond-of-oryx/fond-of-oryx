@@ -7,6 +7,9 @@ use FondOfOryx\Zed\ProductListSearchRestApi\Business\Reader\ProductListReaderInt
 use FondOfOryx\Zed\ProductListSearchRestApi\ProductListSearchRestApiDependencyProvider;
 use Spryker\Zed\Kernel\Business\AbstractBusinessFactory;
 
+/**
+ * @method \FondOfOryx\Zed\ProductListSearchRestApi\Persistence\ProductListSearchRestApiRepositoryInterface getRepository()
+ */
 class ProductListSearchRestApiBusinessFactory extends AbstractBusinessFactory
 {
     /**
