@@ -36,24 +36,42 @@ class MailExpander implements ExpanderInterface
         $companyBusinessUnitTransfer = $this->getCompanyBusinessUnit($this->getCompanyUser($mailTransfer, $orderTransfer));
         $recipientMailAddress = $companyBusinessUnitTransfer->getEmail();
 
-        if ($recipientMailAddress !== null && $this->isRecipient($recipientMailAddress, $mailTransfer) === false) {
+        if ($recipientMailAddress === null) {
+            return $mailTransfer;
+        }
+
+        if ($this->isRecipient($recipientMailAddress, $mailTransfer) === false) {
             $recipientTransfer = (new MailRecipientTransfer())->setEmail($recipientMailAddress)->setName($companyBusinessUnitTransfer->getName());
             $mailTransfer->addRecipient($recipientTransfer);
         }
 
+        return $this->addRecipientBcc($mailTransfer, $orderTransfer, $recipientMailAddress);
+    }
+
+    /**
+     * @param \Generated\Shared\Transfer\MailTransfer $mailTransfer
+     * @param \Generated\Shared\Transfer\OrderTransfer $orderTransfer
+     * @param string $recipientMailAddress
+     *
+     * @return \Generated\Shared\Transfer\MailTransfer
+     */
+    protected function addRecipientBcc(
+        MailTransfer $mailTransfer,
+        OrderTransfer $orderTransfer,
+        string $recipientMailAddress
+    ): MailTransfer {
         if (
-            $recipientMailAddress !== null &&
-            $orderTransfer->getEmail() !== $recipientMailAddress &&
-            $this->isRecipient($orderTransfer->getEmail(), $mailTransfer) === false
+            $orderTransfer->getEmail() === $recipientMailAddress ||
+            $this->isRecipient($orderTransfer->getEmail(), $mailTransfer) === true
         ) {
-            $mailTransfer->addRecipientBcc(
-                (new MailRecipientTransfer())
-                    ->setEmail($orderTransfer->getEmail())
-                    ->setName($orderTransfer->getFirstName() . ' ' . $orderTransfer->getLastName()),
-            );
+            return $mailTransfer;
         }
 
-        return $mailTransfer;
+        return $mailTransfer->addRecipientBcc(
+            (new MailRecipientTransfer())
+                ->setEmail($orderTransfer->getEmail())
+                ->setName($orderTransfer->getFirstName() . ' ' . $orderTransfer->getLastName()),
+        );
     }
 
     /**
