@@ -67,13 +67,11 @@ class MailExpander implements ExpanderInterface
             return $mailTransfer;
         }
 
-        $mailTransfer->addRecipientBcc(
+        return $mailTransfer->addRecipientBcc(
             (new MailRecipientTransfer())
                 ->setEmail($orderTransfer->getEmail())
                 ->setName($orderTransfer->getFirstName() . ' ' . $orderTransfer->getLastName()),
         );
-
-        return $mailTransfer;
     }
 
     /**
