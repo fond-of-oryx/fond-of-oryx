@@ -38,6 +38,11 @@ class OneTimePasswordDependencyProvider extends AbstractBundleDependencyProvider
     public const FACADE_LOCALE = 'FACADE_LOCALE';
 
     /**
+     * @var string
+     */
+    public const PLUGINS_URL_FORMATTER = 'PLUGINS_URL_FORMATTER';
+
+    /**
      * @param \Spryker\Zed\Kernel\Container $container
      *
      * @return \Spryker\Zed\Kernel\Container
@@ -50,6 +55,7 @@ class OneTimePasswordDependencyProvider extends AbstractBundleDependencyProvider
         $container = $this->addOauthFacade($container);
         $container = $this->addStoreFacade($container);
         $container = $this->addLocaleFacade($container);
+        $container = $this->addUrlFormatterPlugins($container);
 
         return $container;
     }
@@ -146,5 +152,28 @@ class OneTimePasswordDependencyProvider extends AbstractBundleDependencyProvider
         };
 
         return $container;
+    }
+
+    /**
+     * @param \Spryker\Zed\Kernel\Container $container
+     *
+     * @return \Spryker\Zed\Kernel\Container
+     */
+    protected function addUrlFormatterPlugins(Container $container): Container
+    {
+        $self = $this;
+        $container[static::PLUGINS_URL_FORMATTER] = static function (Container $container) use ($self) {
+            return $self->getUrlFormatterPlugins();
+        };
+
+        return $container;
+    }
+
+    /**
+     * @return array<\FondOfOryx\Zed\OneTimePasswordExtension\Dependency\Plugin\UrlFormatterPluginInterface>
+     */
+    protected function getUrlFormatterPlugins(): array
+    {
+        return [];
     }
 }
