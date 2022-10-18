@@ -508,7 +508,7 @@
     },
     "one-time-password": {
       "path": "bundles/one-time-password/",
-      "version": "2.0.0-rc.1"
+      "version": "1.1.0"
     },
     "one-time-password-email-connector": {
       "path": "bundles/one-time-password-email-connector/",
