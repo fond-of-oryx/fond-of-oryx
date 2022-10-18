@@ -3,9 +3,11 @@
 namespace FondOfOryx\Zed\OneTimePasswordRestApi\Business\Sender;
 
 use Codeception\Test\Unit;
+use FondOfOryx\Zed\OneTimePasswordRestApi\Business\Mapper\AttributesMapperInterface;
 use FondOfOryx\Zed\OneTimePasswordRestApi\Dependency\Facade\OneTimePasswordRestApiToCustomerFacadeInterface;
 use FondOfOryx\Zed\OneTimePasswordRestApi\Dependency\Facade\OneTimePasswordRestApiToOneTimePasswordFacadeInterface;
 use Generated\Shared\Transfer\CustomerTransfer;
+use Generated\Shared\Transfer\OneTimePasswordAttributesTransfer;
 use Generated\Shared\Transfer\OneTimePasswordResponseTransfer;
 use Generated\Shared\Transfer\RestOneTimePasswordLoginLinkRequestAttributesTransfer;
 use Generated\Shared\Transfer\RestOneTimePasswordRequestAttributesTransfer;
@@ -59,6 +61,16 @@ class OneTimePasswordRestApiSenderTest extends Unit
     protected $customerTransferMock;
 
     /**
+     * @var \Generated\Shared\Transfer\OneTimePasswordAttributesTransfer|\PHPUnit\Framework\MockObject\MockObject|mixed
+     */
+    protected $oneTimePasswordAttributesTransferMock;
+
+    /**
+     * @var \FondOfOryx\Zed\OneTimePasswordRestApi\Business\Mapper\AttributesMapperInterface|\PHPUnit\Framework\MockObject\MockObject|mixed
+     */
+    protected $attributesMapperMock;
+
+    /**
      * @return void
      */
     protected function _before(): void
@@ -91,9 +103,18 @@ class OneTimePasswordRestApiSenderTest extends Unit
             ->disableOriginalConstructor()
             ->getMock();
 
+        $this->oneTimePasswordAttributesTransferMock = $this->getMockBuilder(OneTimePasswordAttributesTransfer::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $this->attributesMapperMock = $this->getMockBuilder(AttributesMapperInterface::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
         $this->oneTimePasswordRestApiSender = new OneTimePasswordRestApiSender(
             $this->oneTimePasswordFacadeMock,
             $this->customerFacadeMock,
+            $this->attributesMapperMock,
         );
     }
 
@@ -150,6 +171,10 @@ class OneTimePasswordRestApiSenderTest extends Unit
         $this->oneTimePasswordResponseTransferMock->expects($this->atLeastOnce())
             ->method('getIsSuccess')
             ->willReturn(true);
+
+        $this->attributesMapperMock->expects($this->atLeastOnce())
+            ->method('mapRequestAttributesToTransfer')
+            ->willReturn($this->oneTimePasswordAttributesTransferMock);
 
         $this->assertInstanceOf(
             RestOneTimePasswordResponseTransfer::class,

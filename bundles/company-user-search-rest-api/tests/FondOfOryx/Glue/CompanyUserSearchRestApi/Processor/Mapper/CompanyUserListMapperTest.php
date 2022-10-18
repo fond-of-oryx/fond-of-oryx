@@ -118,11 +118,13 @@ class CompanyUserListMapperTest extends Unit
             ->withConsecutive(
                 [$this->restRequestMock, 'q'],
                 [$this->restRequestMock, 'show-all'],
+                [$this->restRequestMock, 'only-one-per-customer'],
                 [$this->restRequestMock, 'company-id'],
                 [$this->restRequestMock, 'company-user-reference'],
                 [$this->restRequestMock, 'sort'],
             )->willReturnOnConsecutiveCalls(
                 $query,
+                'true',
                 'true',
                 $companyUuid,
                 $companyUserReference,
@@ -158,6 +160,10 @@ class CompanyUserListMapperTest extends Unit
 
         static::assertTrue(
             $companyUserListTransfer->getShowAll(),
+        );
+
+        static::assertTrue(
+            $companyUserListTransfer->getOnlyOnePerCustomer(),
         );
 
         static::assertEquals(

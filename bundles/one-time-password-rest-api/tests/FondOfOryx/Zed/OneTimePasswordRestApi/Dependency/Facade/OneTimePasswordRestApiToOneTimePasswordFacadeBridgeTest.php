@@ -5,6 +5,7 @@ namespace FondOfOryx\Zed\OneTimePasswordRestApi\Dependency\Facade;
 use Codeception\Test\Unit;
 use FondOfOryx\Zed\OneTimePassword\Business\OneTimePasswordFacadeInterface;
 use Generated\Shared\Transfer\CustomerTransfer;
+use Generated\Shared\Transfer\OneTimePasswordAttributesTransfer;
 use Generated\Shared\Transfer\OneTimePasswordResponseTransfer;
 use Generated\Shared\Transfer\OrderTransfer;
 
@@ -36,6 +37,11 @@ class OneTimePasswordRestApiToOneTimePasswordFacadeBridgeTest extends Unit
     protected $orderTransferMock;
 
     /**
+     * @var \Generated\Shared\Transfer\OneTimePasswordAttributesTransfer|\PHPUnit\Framework\MockObject\MockObject|mixed
+     */
+    protected $oneTimePasswordAttributesTransferMock;
+
+    /**
      * @return void
      */
     protected function _before(): void
@@ -53,6 +59,10 @@ class OneTimePasswordRestApiToOneTimePasswordFacadeBridgeTest extends Unit
             ->getMock();
 
         $this->orderTransferMock = $this->getMockBuilder(OrderTransfer::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $this->oneTimePasswordAttributesTransferMock = $this->getMockBuilder(OneTimePasswordAttributesTransfer::class)
             ->disableOriginalConstructor()
             ->getMock();
 
@@ -93,6 +103,7 @@ class OneTimePasswordRestApiToOneTimePasswordFacadeBridgeTest extends Unit
             $this->oneTimePasswordResponseTransferMock,
             $this->oneTimePasswordRestApiToOneTimePasswordFacadeBridge->requestLoginLink(
                 $this->customerTransferMock,
+                $this->oneTimePasswordAttributesTransferMock,
             ),
         );
     }
@@ -111,6 +122,7 @@ class OneTimePasswordRestApiToOneTimePasswordFacadeBridgeTest extends Unit
             $this->oneTimePasswordResponseTransferMock,
             $this->oneTimePasswordRestApiToOneTimePasswordFacadeBridge->requestLoginLinkWithOrderReference(
                 $this->orderTransferMock,
+                $this->oneTimePasswordAttributesTransferMock,
             ),
         );
     }

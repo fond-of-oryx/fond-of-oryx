@@ -19,6 +19,11 @@ use Spryker\Zed\Kernel\Persistence\AbstractRepository;
 class CompanyUserSearchRestApiRepository extends AbstractRepository implements CompanyUserSearchRestApiRepositoryInterface
 {
     /**
+     * @var string
+     */
+    public const COL_FIRST_COMPANY_USER_ID = 'firstCompanyUserId';
+
+    /**
      * @param \Generated\Shared\Transfer\CompanyUserListTransfer $companyUserListTransfer
      *
      * @return \Generated\Shared\Transfer\CompanyUserListTransfer
@@ -27,8 +32,8 @@ class CompanyUserSearchRestApiRepository extends AbstractRepository implements C
     {
         $companyUserQuery = $this->getBaseQuery($companyUserListTransfer);
         $companyUserQuery = $this->addCompanyQuery($companyUserQuery, $companyUserListTransfer);
-
         $companyUserQuery = $this->addFulltextSearchFields($companyUserQuery, $companyUserListTransfer);
+        $companyUserQuery = $this->addOnlyOnePerCustomerFilter($companyUserQuery, $companyUserListTransfer);
         $companyUserQuery = $this->addSort($companyUserQuery, $companyUserListTransfer);
         $companyUserQuery = $this->preparePagination($companyUserQuery, $companyUserListTransfer);
 
@@ -166,6 +171,31 @@ class CompanyUserSearchRestApiRepository extends AbstractRepository implements C
      *
      * @return \Orm\Zed\CompanyUser\Persistence\SpyCompanyUserQuery
      */
+    protected function addOnlyOnePerCustomerFilter(
+        SpyCompanyUserQuery $companyUserQuery,
+        CompanyUserListTransfer $companyUserListTransfer
+    ): SpyCompanyUserQuery {
+        if ($companyUserListTransfer->getOnlyOnePerCustomer() !== true) {
+            return $companyUserQuery;
+        }
+
+        $clonedCompanyUserQuery = clone $companyUserQuery;
+
+        $companyUserIds = $companyUserQuery->withColumn(sprintf('MIN(%s)', SpyCompanyUserTableMap::COL_ID_COMPANY_USER), static::COL_FIRST_COMPANY_USER_ID)
+            ->select([static::COL_FIRST_COMPANY_USER_ID])
+            ->groupByFkCustomer()
+            ->find()
+            ->toArray();
+
+        return $clonedCompanyUserQuery->filterByIdCompanyUser_In($companyUserIds);
+    }
+
+    /**
+     * @param \Orm\Zed\CompanyUser\Persistence\SpyCompanyUserQuery $companyUserQuery
+     * @param \Generated\Shared\Transfer\CompanyUserListTransfer $companyUserListTransfer
+     *
+     * @return \Orm\Zed\CompanyUser\Persistence\SpyCompanyUserQuery
+     */
     protected function addSort(
         SpyCompanyUserQuery $companyUserQuery,
         CompanyUserListTransfer $companyUserListTransfer
@@ -191,10 +221,16 @@ class CompanyUserSearchRestApiRepository extends AbstractRepository implements C
 
             $columnMap = $tableMap->getColumn($sortField);
 
-            return $companyUserQuery->orderBy(
+            $companyUserQuery->orderBy(
                 $columnMap->getFullyQualifiedName(),
                 $direction === 'desc' ? Criteria::DESC : Criteria::ASC,
             );
+
+            if ($companyUserListTransfer->getOnlyOnePerCustomer() !== true) {
+                return $companyUserQuery;
+            }
+
+            return $companyUserQuery->addAscendingOrderByColumn(SpyCompanyUserTableMap::COL_ID_COMPANY_USER);
         }
 
         return $companyUserQuery;

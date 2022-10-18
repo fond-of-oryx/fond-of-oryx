@@ -3,6 +3,7 @@
 namespace FondOfOryx\Zed\OneTimePassword\Communication\Plugin;
 
 use Generated\Shared\Transfer\MailTransfer;
+use Generated\Shared\Transfer\OneTimePasswordAttributesTransfer;
 use Generated\Shared\Transfer\OrderTransfer;
 use Spryker\Zed\Kernel\Communication\AbstractPlugin;
 use Spryker\Zed\OmsExtension\Dependency\Plugin\OmsOrderMailExpanderPluginInterface;
@@ -21,7 +22,7 @@ class LoginLinkOrderMailExpanderPlugin extends AbstractPlugin implements OmsOrde
      */
     public function expand(MailTransfer $mailTransfer, OrderTransfer $orderTransfer): MailTransfer
     {
-        $oneTimePasswordResponseTransfer = $this->getFacade()->generateLoginLinkWithOrderReference($orderTransfer);
+        $oneTimePasswordResponseTransfer = $this->getFacade()->generateLoginLinkWithOrderReference($orderTransfer, new OneTimePasswordAttributesTransfer());
 
         $mailTransfer->setOneTimePasswordLoginLink($oneTimePasswordResponseTransfer->getLoginLink());
 

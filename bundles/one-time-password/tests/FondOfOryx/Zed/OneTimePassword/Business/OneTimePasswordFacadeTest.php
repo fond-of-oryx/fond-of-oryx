@@ -9,6 +9,7 @@ use FondOfOryx\Zed\OneTimePassword\Business\Generator\OneTimePasswordLinkGenerat
 use FondOfOryx\Zed\OneTimePassword\Business\Resetter\OneTimePasswordResetterInterface;
 use FondOfOryx\Zed\OneTimePassword\Business\Sender\OneTimePasswordSenderInterface;
 use Generated\Shared\Transfer\CustomerTransfer;
+use Generated\Shared\Transfer\OneTimePasswordAttributesTransfer;
 use Generated\Shared\Transfer\OneTimePasswordResponseTransfer;
 use Generated\Shared\Transfer\OrderTransfer;
 
@@ -65,6 +66,11 @@ class OneTimePasswordFacadeTest extends Unit
     protected $orderTransferMock;
 
     /**
+     * @var \Generated\Shared\Transfer\OneTimePasswordAttributesTransfer|\PHPUnit\Framework\MockObject\MockObject|mixed
+     */
+    protected $oneTimePasswordAttributesTransferMock;
+
+    /**
      * @return void
      */
     protected function _before(): void
@@ -102,6 +108,10 @@ class OneTimePasswordFacadeTest extends Unit
             ->getMock();
 
         $this->orderTransferMock = $this->getMockBuilder(OrderTransfer::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $this->oneTimePasswordAttributesTransferMock = $this->getMockBuilder(OneTimePasswordAttributesTransfer::class)
             ->disableOriginalConstructor()
             ->getMock();
 
@@ -188,6 +198,7 @@ class OneTimePasswordFacadeTest extends Unit
             $this->oneTimePasswordResponseTransferMock,
             $this->oneTimePasswordFacade->generateLoginLink(
                 $this->customerTransferMock,
+                $this->oneTimePasswordAttributesTransferMock,
             ),
         );
     }
@@ -209,6 +220,7 @@ class OneTimePasswordFacadeTest extends Unit
             $this->oneTimePasswordResponseTransferMock,
             $this->oneTimePasswordFacade->generateLoginLinkWithOrderReference(
                 $this->orderTransferMock,
+                $this->oneTimePasswordAttributesTransferMock,
             ),
         );
     }

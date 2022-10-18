@@ -113,7 +113,7 @@ include:
   - bundles/oms-credit-memo-gift-card-connector
   - bundles/one-time-password
   - bundles/one-time-password-email-connector
-  - bundles/one-time-password-rest-api
+#  - bundles/one-time-password-rest-api
   - bundles/order-budget
   - bundles/payment-cart-connector
   - bundles/payment-epc-qr-code
@@ -127,6 +127,8 @@ include:
   - bundles/product-country-restriction
   - bundles/product-country-restriction-checkout-connector
   - bundles/product-list-api
+  - bundles/product-lists-rest-api-extension
+  - bundles/product-list-search-rest-api
   - bundles/product-locale-restriction
   - bundles/product-locale-restriction-cart-connector
   - bundles/product-locale-restriction-search
