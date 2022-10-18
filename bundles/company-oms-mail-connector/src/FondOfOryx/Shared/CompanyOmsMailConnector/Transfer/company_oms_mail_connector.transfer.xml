@@ -5,10 +5,14 @@
 
     <transfer name="Order">
         <property name="companyUserReference" type="string"/>
+        <property name="email" type="string"/>
+        <property name="firstName" type="string"/>
+        <property name="lastName" type="string"/>
     </transfer>
 
     <transfer name="Mail">
         <property name="companyUser" type="CompanyUser"/>
+        <property name="order" type="Order"/>
     </transfer>
 
     <transfer name="Company">

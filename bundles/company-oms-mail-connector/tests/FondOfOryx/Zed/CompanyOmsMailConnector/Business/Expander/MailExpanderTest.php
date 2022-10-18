@@ -82,7 +82,7 @@ class MailExpanderTest extends Unit
         $this->companyUserTransferTransferMock->expects(static::never())->method('getCompanyUserReference');
         $this->companyUserTransferTransferMock->expects(static::once())->method('getCompanyBusinessUnit')->willReturn($this->companyBusinessUnitTransferTransferMock);
         $this->mailTransferMock->expects(static::once())->method('setCompanyUser')->with($this->companyUserTransferTransferMock)->willReturnSelf();
-        $this->mailTransferMock->expects(static::once())->method('getRecipients')->willReturn(new ArrayObject());
+        $this->mailTransferMock->expects(static::atLeastOnce())->method('getRecipients')->willReturn(new ArrayObject());
         $this->mailTransferMock->expects(static::once())->method('addRecipient')->willReturnCallback(static function (MailRecipientTransfer $recipientTransfer) {
             static::assertSame($recipientTransfer->getName(), 'FOO Company GmbH');
             static::assertSame($recipientTransfer->getEmail(), 'unit@codeception.test');
@@ -92,6 +92,7 @@ class MailExpanderTest extends Unit
         $this->companyUserResponseTransferMock->expects(static::once())->method('getCompanyUser')->willReturn($this->companyUserTransferTransferMock);
         $this->companyBusinessUnitTransferTransferMock->expects(static::once())->method('getEmail')->willReturn('unit@codeception.test');
         $this->companyBusinessUnitTransferTransferMock->expects(static::once())->method('getName')->willReturn('FOO Company GmbH');
+        $this->orderTransferMock->expects(static::atLeastOnce())->method('getEmail')->willReturn('order@codeception.test');
 
         $this->expander->expand($this->mailTransferMock, $this->orderTransferMock);
     }
@@ -106,13 +107,14 @@ class MailExpanderTest extends Unit
         $this->companyUserTransferTransferMock->expects(static::never())->method('getCompanyUserReference');
         $this->companyUserTransferTransferMock->expects(static::once())->method('getCompanyBusinessUnit')->willReturn($this->companyBusinessUnitTransferTransferMock);
         $this->mailTransferMock->expects(static::once())->method('setCompanyUser')->with($this->companyUserTransferTransferMock)->willReturnSelf();
-        $this->mailTransferMock->expects(static::once())->method('getRecipients')->willReturn(new ArrayObject([$this->mailRecipientTransferMock]));
+        $this->mailTransferMock->expects(static::atLeastOnce())->method('getRecipients')->willReturn(new ArrayObject([$this->mailRecipientTransferMock]));
         $this->mailTransferMock->expects(static::never())->method('addRecipient');
         $this->companyUserReferenceFacadeMock->expects(static::once())->method('findCompanyUserByCompanyUserReference')->willReturn($this->companyUserResponseTransferMock);
         $this->companyUserResponseTransferMock->expects(static::once())->method('getIsSuccessful')->willReturn(true);
         $this->companyUserResponseTransferMock->expects(static::once())->method('getCompanyUser')->willReturn($this->companyUserTransferTransferMock);
         $this->companyBusinessUnitTransferTransferMock->expects(static::once())->method('getEmail')->willReturn('unit@codeception.test');
-        $this->mailRecipientTransferMock->expects(static::once())->method('getEmail')->willReturn('unit@codeception.test');
+        $this->mailRecipientTransferMock->expects(static::atLeastOnce())->method('getEmail')->willReturn('unit@codeception.test');
+        $this->orderTransferMock->expects(static::atLeastOnce())->method('getEmail')->willReturn('order@codeception.test');
 
         $this->expander->expand($this->mailTransferMock, $this->orderTransferMock);
     }
@@ -127,7 +129,7 @@ class MailExpanderTest extends Unit
         $this->companyUserTransferTransferMock->expects(static::once())->method('getCompanyUserReference')->willReturn('companyUserReference');
         $this->companyUserTransferTransferMock->expects(static::once())->method('getCompanyBusinessUnit')->willReturn($this->companyBusinessUnitTransferTransferMock);
         $this->mailTransferMock->expects(static::never())->method('setCompanyUser');
-        $this->mailTransferMock->expects(static::once())->method('getRecipients')->willReturn(new ArrayObject());
+        $this->mailTransferMock->expects(static::atLeastOnce())->method('getRecipients')->willReturn(new ArrayObject());
         $this->mailTransferMock->expects(static::once())->method('addRecipient')->willReturnCallback(static function (MailRecipientTransfer $recipientTransfer) {
             static::assertSame($recipientTransfer->getName(), 'FOO Company GmbH');
             static::assertSame($recipientTransfer->getEmail(), 'unit@codeception.test');
@@ -137,6 +139,7 @@ class MailExpanderTest extends Unit
         $this->companyUserResponseTransferMock->expects(static::never())->method('getCompanyUser');
         $this->companyBusinessUnitTransferTransferMock->expects(static::once())->method('getEmail')->willReturn('unit@codeception.test');
         $this->companyBusinessUnitTransferTransferMock->expects(static::once())->method('getName')->willReturn('FOO Company GmbH');
+        $this->orderTransferMock->expects(static::atLeastOnce())->method('getEmail')->willReturn('order@codeception.test');
 
         $this->expander->expand($this->mailTransferMock, $this->orderTransferMock);
     }

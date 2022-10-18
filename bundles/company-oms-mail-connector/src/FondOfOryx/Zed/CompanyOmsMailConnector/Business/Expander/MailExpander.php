@@ -34,10 +34,23 @@ class MailExpander implements ExpanderInterface
     public function expand(MailTransfer $mailTransfer, OrderTransfer $orderTransfer): MailTransfer
     {
         $companyBusinessUnitTransfer = $this->getCompanyBusinessUnit($this->getCompanyUser($mailTransfer, $orderTransfer));
-        $recipientMailAdress = $companyBusinessUnitTransfer->getEmail();
-        if ($recipientMailAdress !== null && $this->isRecipient($recipientMailAdress, $mailTransfer) === false) {
-            $recipientTransfer = (new MailRecipientTransfer())->setEmail($recipientMailAdress)->setName($companyBusinessUnitTransfer->getName());
+        $recipientMailAddress = $companyBusinessUnitTransfer->getEmail();
+
+        if ($recipientMailAddress !== null && $this->isRecipient($recipientMailAddress, $mailTransfer) === false) {
+            $recipientTransfer = (new MailRecipientTransfer())->setEmail($recipientMailAddress)->setName($companyBusinessUnitTransfer->getName());
             $mailTransfer->addRecipient($recipientTransfer);
+        }
+
+        if (
+            $recipientMailAddress !== null &&
+            $orderTransfer->getEmail() !== $recipientMailAddress &&
+            $this->isRecipient($orderTransfer->getEmail(), $mailTransfer) === false
+        ) {
+            $mailTransfer->addRecipientBcc(
+                (new MailRecipientTransfer())
+                    ->setEmail($orderTransfer->getEmail())
+                    ->setName($orderTransfer->getFirstName() . ' ' . $orderTransfer->getLastName()),
+            );
         }
 
         return $mailTransfer;
@@ -86,6 +99,7 @@ class MailExpander implements ExpanderInterface
     protected function getCompanyUser(MailTransfer $mailTransfer, OrderTransfer $orderTransfer): CompanyUserTransfer
     {
         $companyUser = $mailTransfer->getCompanyUser();
+
         if ($companyUser === null || $companyUser->getCompanyUserReference() !== $orderTransfer->getCompanyUserReference()) {
             $companyUser = $this->getCompanyUserByReference($orderTransfer->getCompanyUserReference());
             $mailTransfer->setCompanyUser($companyUser);
