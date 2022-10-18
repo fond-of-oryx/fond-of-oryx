@@ -113,7 +113,7 @@ include:
   - bundles/oms-credit-memo-gift-card-connector
   - bundles/one-time-password
   - bundles/one-time-password-email-connector
-  - bundles/one-time-password-rest-api
+#  - bundles/one-time-password-rest-api
   - bundles/order-budget
   - bundles/payment-cart-connector
   - bundles/payment-epc-qr-code
