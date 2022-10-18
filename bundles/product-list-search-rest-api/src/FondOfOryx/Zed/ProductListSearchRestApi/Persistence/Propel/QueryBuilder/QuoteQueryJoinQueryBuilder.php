@@ -7,7 +7,6 @@ use Generated\Shared\Transfer\QueryJoinCollectionTransfer;
 use Generated\Shared\Transfer\QueryJoinTransfer;
 use Generated\Shared\Transfer\QueryWhereConditionTransfer;
 use Orm\Zed\ProductList\Persistence\SpyProductListQuery;
-use Orm\Zed\Quote\Persistence\Base\SpyQuoteQuery;
 use Propel\Runtime\ActiveQuery\Criteria;
 use Propel\Runtime\ActiveQuery\Criterion\CustomCriterion;
 
