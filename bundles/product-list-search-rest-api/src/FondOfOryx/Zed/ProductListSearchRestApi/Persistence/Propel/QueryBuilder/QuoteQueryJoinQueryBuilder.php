@@ -107,7 +107,7 @@ class QuoteQueryJoinQueryBuilder implements QuoteQueryJoinQueryBuilderInterface
     }
 
     /**
-     * @param \Orm\Zed\ProductList\Persistence\SpyProductListQuery $spyProductListQuery
+     * @param \Orm\Zed\ProductList\Persistence\SpyProductListQuery $productListQuery
      * @param \Generated\Shared\Transfer\QueryJoinTransfer $queryJoinTransfer
      *
      * @return \Orm\Zed\ProductList\Persistence\SpyProductListQuery
@@ -135,7 +135,7 @@ class QuoteQueryJoinQueryBuilder implements QuoteQueryJoinQueryBuilderInterface
     }
 
     /**
-     * @param \Orm\Zed\ProductList\Persistence\SpyProductListQuery $spyProductListQuery
+     * @param \Orm\Zed\ProductList\Persistence\SpyProductListQuery $productListQuery
      * @param \Generated\Shared\Transfer\QueryJoinTransfer $queryJoinTransfer
      *
      * @return \Orm\Zed\Quote\Persistence\Base\SpyQuoteQuery
