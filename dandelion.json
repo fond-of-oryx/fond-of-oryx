@@ -520,7 +520,7 @@
     },
     "one-time-password-rest-api": {
       "path": "bundles/one-time-password-rest-api/",
-      "version": "1.0.0"
+      "version": "1.1.0"
     },
     "order-budget": {
       "path": "bundles/order-budget/",

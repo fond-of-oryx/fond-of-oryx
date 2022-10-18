@@ -10,7 +10,7 @@
   ],
   "require": {
     "php": ">=7.3",
-    "fond-of-oryx/one-time-password": "^1.0.0",
+    "fond-of-oryx/one-time-password": "^1.1.0",
     "spryker/customer": "^6.0.0 || ^7.0.0",
     "spryker/glue-application-extension": "^1.0.0",
     "spryker/zed-request": "^3.3.0"
