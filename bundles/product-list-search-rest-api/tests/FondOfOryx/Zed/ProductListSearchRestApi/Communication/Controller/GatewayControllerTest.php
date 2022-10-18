@@ -48,7 +48,7 @@ class GatewayControllerTest extends Unit
     public function testSearchProductListAction(): void
     {
         $this->repositoryMock->expects(static::atLeastOnce())
-            ->method('searchProductList')
+            ->method('findProductList')
             ->with($this->productListCollectionTransferMock)
             ->willReturn($this->productListCollectionTransferMock);
 
