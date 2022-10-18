@@ -11,23 +11,23 @@ interface OneTimePasswordLinkGeneratorInterface
 {
     /**
      * @param \Generated\Shared\Transfer\CustomerTransfer $customerTransfer
-     * @param \Generated\Shared\Transfer\OneTimePasswordAttributesTransfer $attributesTransfer
+     * @param null|\Generated\Shared\Transfer\OneTimePasswordAttributesTransfer $attributesTransfer
      *
      * @return \Generated\Shared\Transfer\OneTimePasswordResponseTransfer
      */
     public function generateLoginLink(
         CustomerTransfer $customerTransfer,
-        OneTimePasswordAttributesTransfer $attributesTransfer
+        ?OneTimePasswordAttributesTransfer $attributesTransfer = null
     ): OneTimePasswordResponseTransfer;
 
     /**
      * @param \Generated\Shared\Transfer\OrderTransfer $orderTransfer
-     * @param \Generated\Shared\Transfer\OneTimePasswordAttributesTransfer $attributesTransfer
+     * @param null|\Generated\Shared\Transfer\OneTimePasswordAttributesTransfer $attributesTransfer
      *
      * @return \Generated\Shared\Transfer\OneTimePasswordResponseTransfer
      */
     public function generateLoginLinkWithOrderReference(
         OrderTransfer $orderTransfer,
-        OneTimePasswordAttributesTransfer $attributesTransfer
+        ?OneTimePasswordAttributesTransfer $attributesTransfer = null
     ): OneTimePasswordResponseTransfer;
 }

@@ -67,13 +67,14 @@ class OneTimePasswordLinkGenerator implements OneTimePasswordLinkGeneratorInterf
      * @param array<\FondOfOryx\Zed\OneTimePasswordExtension\Dependency\Plugin\UrlFormatterPluginInterface> $urlFormatterPlugins
      */
     public function __construct(
-        OneTimePasswordGeneratorInterface $oneTimePasswordGenerator,
-        OneTimePasswordEncoderInterface $oneTimePasswordEncoder,
-        OneTimePasswordToStoreFacadeInterface $storeFacade,
+        OneTimePasswordGeneratorInterface      $oneTimePasswordGenerator,
+        OneTimePasswordEncoderInterface        $oneTimePasswordEncoder,
+        OneTimePasswordToStoreFacadeInterface  $storeFacade,
         OneTimePasswordToLocaleFacadeInterface $localeFacade,
-        OneTimePasswordConfig $oneTimePasswordConfig,
-        array $urlFormatterPlugins
-    ) {
+        OneTimePasswordConfig                  $oneTimePasswordConfig,
+        array                                  $urlFormatterPlugins
+    )
+    {
         $this->oneTimePasswordGenerator = $oneTimePasswordGenerator;
         $this->oneTimePasswordEncoder = $oneTimePasswordEncoder;
         $this->storeFacade = $storeFacade;
@@ -84,14 +85,18 @@ class OneTimePasswordLinkGenerator implements OneTimePasswordLinkGeneratorInterf
 
     /**
      * @param \Generated\Shared\Transfer\CustomerTransfer $customerTransfer
-     * @param \Generated\Shared\Transfer\OneTimePasswordAttributesTransfer $attributesTransfer
+     * @param null|\Generated\Shared\Transfer\OneTimePasswordAttributesTransfer $attributesTransfer
      *
      * @return \Generated\Shared\Transfer\OneTimePasswordResponseTransfer
      */
     public function generateLoginLink(
-        CustomerTransfer $customerTransfer,
-        OneTimePasswordAttributesTransfer $attributesTransfer
-    ): OneTimePasswordResponseTransfer {
+        CustomerTransfer                   $customerTransfer,
+        ?OneTimePasswordAttributesTransfer $attributesTransfer = null
+    ): OneTimePasswordResponseTransfer
+    {
+        if ($attributesTransfer === null){
+            $attributesTransfer = $this->createEmptyAttributesTransfer();
+        }
         $oneTimePasswordResponseTransfer = $this->oneTimePasswordGenerator->generateOneTimePassword($customerTransfer);
 
         if (!$oneTimePasswordResponseTransfer->getIsSuccess()) {
@@ -128,14 +133,18 @@ class OneTimePasswordLinkGenerator implements OneTimePasswordLinkGeneratorInterf
 
     /**
      * @param \Generated\Shared\Transfer\OrderTransfer $orderTransfer
-     * @param \Generated\Shared\Transfer\OneTimePasswordAttributesTransfer $attributesTransfer
+     * @param null|\Generated\Shared\Transfer\OneTimePasswordAttributesTransfer $attributesTransfer
      *
      * @return \Generated\Shared\Transfer\OneTimePasswordResponseTransfer
      */
     public function generateLoginLinkWithOrderReference(
-        OrderTransfer $orderTransfer,
-        OneTimePasswordAttributesTransfer $attributesTransfer
-    ): OneTimePasswordResponseTransfer {
+        OrderTransfer                      $orderTransfer,
+        ?OneTimePasswordAttributesTransfer $attributesTransfer = null
+    ): OneTimePasswordResponseTransfer
+    {
+        if ($attributesTransfer === null){
+            $attributesTransfer = $this->createEmptyAttributesTransfer();
+        }
         $customerTransfer = $orderTransfer->requireCustomer()->getCustomer();
 
         $oneTimePasswordResponseTransfer = $this->generateLoginLink($customerTransfer, $attributesTransfer);
@@ -169,10 +178,11 @@ class OneTimePasswordLinkGenerator implements OneTimePasswordLinkGeneratorInterf
      * @return string
      */
     protected function formatLoginLink(
-        string $localizedLoginLinkPath,
-        string $encodedLoginCredentials,
+        string                            $localizedLoginLinkPath,
+        string                            $encodedLoginCredentials,
         OneTimePasswordAttributesTransfer $attributesTransfer
-    ): string {
+    ): string
+    {
         if (count($this->urlFormatterPlugins) > 0) {
             foreach ($this->urlFormatterPlugins as $urlFormatterPlugin) {
                 $localizedLoginLinkPath = $urlFormatterPlugin->formatUrl($localizedLoginLinkPath, $encodedLoginCredentials, $attributesTransfer);
@@ -187,5 +197,13 @@ class OneTimePasswordLinkGenerator implements OneTimePasswordLinkGeneratorInterf
             $this->oneTimePasswordConfig->getLoginLinkParameterName(),
             $encodedLoginCredentials,
         );
+    }
+
+    /**
+     * @return \Generated\Shared\Transfer\OneTimePasswordAttributesTransfer
+     */
+    protected function createEmptyAttributesTransfer(): OneTimePasswordAttributesTransfer
+    {
+        return new OneTimePasswordAttributesTransfer();
     }
 }
