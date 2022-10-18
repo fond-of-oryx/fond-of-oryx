@@ -238,7 +238,7 @@
       "path": "bundles/customer-token-manager/",
       "version": "1.0.0-beta.2"
     },
-    "customer-token-manager": {
+    "customer-token-manager-one-time-password-connector": {
       "path": "bundles/customer-token-manager-one-time-password-connector/",
       "version": "1.0.0-beta.1"
     },
