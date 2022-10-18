@@ -15,11 +15,11 @@ class ProductListSearchRestApiClient extends AbstractClient implements ProductLi
      *
      * @return \Generated\Shared\Transfer\ProductListCollectionTransfer
      */
-    public function searchProductList(
+    public function findProductList(
         ProductListCollectionTransfer $productListCollectionTransfer
     ): ProductListCollectionTransfer {
         return $this->getFactory()
             ->createZedProductListSearchRestApiStub()
-            ->searchProductList($productListCollectionTransfer);
+            ->findProductList($productListCollectionTransfer);
     }
 }

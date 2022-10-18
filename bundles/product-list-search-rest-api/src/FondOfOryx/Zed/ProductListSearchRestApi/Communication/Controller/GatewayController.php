@@ -15,7 +15,7 @@ class GatewayController extends AbstractGatewayController
      *
      * @return \Generated\Shared\Transfer\ProductListCollectionTransfer
      */
-    public function searchProductListAction(
+    public function findProductListAction(
         ProductListCollectionTransfer $productListCollectionTransfer
     ): ProductListCollectionTransfer {
         return $this->getFacade()->findProductList($productListCollectionTransfer);

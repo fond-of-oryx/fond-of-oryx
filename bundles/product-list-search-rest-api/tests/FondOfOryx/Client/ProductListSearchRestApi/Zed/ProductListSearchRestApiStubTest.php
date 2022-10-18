@@ -46,18 +46,18 @@ class ProductListSearchRestApiStubTest extends Unit
     /**
      * @return void
      */
-    public function testSearchProductList(): void
+    public function testFindProductList(): void
     {
         $this->zedRequestClientMock->expects(static::atLeastOnce())
             ->method('call')
             ->with(
-                '/product-list-search-rest-api/gateway/search-product-list',
+                '/product-list-search-rest-api/gateway/find-product-list',
                 $this->productListCollectionTransferMock,
             )->willReturn($this->productListCollectionTransferMock);
 
         static::assertEquals(
             $this->productListCollectionTransferMock,
-            $this->productListSearchRestApiStub->searchProductList($this->productListCollectionTransferMock),
+            $this->productListSearchRestApiStub->findProductList($this->productListCollectionTransferMock),
         );
     }
 }

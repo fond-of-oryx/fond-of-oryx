@@ -50,7 +50,7 @@ class ProductListReader implements ProductListReaderInterface
         $productListCollectionTransfer = $this->productListCollectionMapper->fromRestRequest($restRequest);
 
         return $this->restResponseBuilder->buildProductListSearchRestResponse(
-            $this->client->searchProductList($productListCollectionTransfer),
+            $this->client->findProductList($productListCollectionTransfer),
         );
     }
 }
