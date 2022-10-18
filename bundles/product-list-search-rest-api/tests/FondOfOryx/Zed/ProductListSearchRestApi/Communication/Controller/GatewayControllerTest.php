@@ -61,7 +61,6 @@ class GatewayControllerTest extends Unit
                 return $this->productListSearchRestApiFacade;
             }
         };
-
     }
 
     /**
