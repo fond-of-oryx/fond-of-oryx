@@ -9,6 +9,11 @@ use Spryker\Glue\GlueApplication\Rest\Request\Data\RestRequestInterface;
 class ProductListCollectionMapper implements ProductListCollectionMapperInterface
 {
     /**
+     * @var \FondOfOryx\Glue\ProductListSearchRestApi\Processor\Mapper\FilterFieldsMapperInterface
+     */
+    protected $filterFieldsMapper;
+
+    /**
      * @var \FondOfOryx\Glue\ProductListSearchRestApi\Processor\Mapper\PaginationMapperInterface
      */
     protected $paginationMapper;
@@ -21,11 +26,14 @@ class ProductListCollectionMapper implements ProductListCollectionMapperInterfac
     /**
      * @param \FondOfOryx\Glue\ProductListSearchRestApi\Processor\Mapper\PaginationMapperInterface $paginationMapper
      * @param \FondOfOryx\Glue\ProductListSearchRestApi\Processor\Filter\RequestParameterFilterInterface $requestParameterFilter
+     * @param \FondOfOryx\Glue\ProductListSearchRestApi\Processor\Mapper\FilterFieldsMapperInterface $filterFieldsMapper
      */
     public function __construct(
         PaginationMapperInterface $paginationMapper,
-        RequestParameterFilterInterface $requestParameterFilter
+        RequestParameterFilterInterface $requestParameterFilter,
+        FilterFieldsMapperInterface $filterFieldsMapper
     ) {
+        $this->filterFieldsMapper = $filterFieldsMapper;
         $this->paginationMapper = $paginationMapper;
         $this->requestParameterFilter = $requestParameterFilter;
     }
@@ -38,6 +46,7 @@ class ProductListCollectionMapper implements ProductListCollectionMapperInterfac
     public function fromRestRequest(RestRequestInterface $restRequest): ProductListCollectionTransfer
     {
         return (new ProductListCollectionTransfer())
+            ->setFilterFields($this->filterFieldsMapper->fromRestRequest($restRequest))
             ->setPagination($this->paginationMapper->fromRestRequest($restRequest))
             ->setQuery($this->requestParameterFilter->getRequestParameter($restRequest, 'q'))
             ->setShowAll($this->requestParameterFilter->getRequestParameter($restRequest, 'show-all') === 'true')
