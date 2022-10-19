@@ -10,7 +10,7 @@
   ],
   "require": {
     "php": ">=7.3",
-    "fond-of-oryx/product-list-search-rest-api": "*"
+    "fond-of-oryx/product-list-search-rest-api-extension": "*"
   },
   "require-dev": {
     "fond-of-codeception/spryker": "^1.0",

@@ -17,7 +17,8 @@ class CustomerFilterFieldsExpanderPlugin extends AbstractPlugin implements Filte
      *
      * @return \ArrayObject<\Generated\Shared\Transfer\FilterFieldTransfer>
      */
-    public function expand(RestRequestInterface $restRequest, ArrayObject $filterFieldTransfers): ArrayObject {
+    public function expand(RestRequestInterface $restRequest, ArrayObject $filterFieldTransfers): ArrayObject
+    {
         $getUserMethod = method_exists($restRequest, 'getRestUser') ? 'getRestUser' : 'getUser';
 
         /** @var \Generated\Shared\Transfer\RestUserTransfer|\Spryker\Glue\GlueApplication\Rest\Request\Data\UserInterface|null $restUser */

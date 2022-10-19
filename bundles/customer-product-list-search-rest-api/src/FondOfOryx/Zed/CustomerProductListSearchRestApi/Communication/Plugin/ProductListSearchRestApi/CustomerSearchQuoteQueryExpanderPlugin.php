@@ -27,8 +27,10 @@ class CustomerSearchQuoteQueryExpanderPlugin extends AbstractPlugin implements S
         $idCustomer = null;
 
         foreach ($filterFieldTransfers as $filterFieldTransfer) {
-            if ($filterFieldTransfer->getType()
-                !== CustomerProductListSearchRestApiConstants::FILTER_FIELD_TYPE_ID_CUSTOMER) {
+            if (
+                $filterFieldTransfer->getType()
+                !== CustomerProductListSearchRestApiConstants::FILTER_FIELD_TYPE_ID_CUSTOMER
+            ) {
                 continue;
             }
 
@@ -45,8 +47,7 @@ class CustomerSearchQuoteQueryExpanderPlugin extends AbstractPlugin implements S
                 ->setJoinType(Criteria::INNER_JOIN)
                 ->setLeft([SpyProductListTableMap::COL_ID_PRODUCT_LIST])
                 ->setRight([SpyProductListCustomerTableMap::COL_FK_PRODUCT_LIST])
-                ->addQueryWhereCondition($whereCondition)
+                ->addQueryWhereCondition($whereCondition),
         );
-
     }
 }
