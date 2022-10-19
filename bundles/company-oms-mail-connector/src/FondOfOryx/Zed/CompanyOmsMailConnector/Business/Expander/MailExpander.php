@@ -34,13 +34,44 @@ class MailExpander implements ExpanderInterface
     public function expand(MailTransfer $mailTransfer, OrderTransfer $orderTransfer): MailTransfer
     {
         $companyBusinessUnitTransfer = $this->getCompanyBusinessUnit($this->getCompanyUser($mailTransfer, $orderTransfer));
-        $recipientMailAdress = $companyBusinessUnitTransfer->getEmail();
-        if ($recipientMailAdress !== null && $this->isRecipient($recipientMailAdress, $mailTransfer) === false) {
-            $recipientTransfer = (new MailRecipientTransfer())->setEmail($recipientMailAdress)->setName($companyBusinessUnitTransfer->getName());
+        $recipientMailAddress = $companyBusinessUnitTransfer->getEmail();
+
+        if ($recipientMailAddress === null) {
+            return $mailTransfer;
+        }
+
+        if ($this->isRecipient($recipientMailAddress, $mailTransfer) === false) {
+            $recipientTransfer = (new MailRecipientTransfer())->setEmail($recipientMailAddress)->setName($companyBusinessUnitTransfer->getName());
             $mailTransfer->addRecipient($recipientTransfer);
         }
 
-        return $mailTransfer;
+        return $this->addRecipientBcc($mailTransfer, $orderTransfer, $recipientMailAddress);
+    }
+
+    /**
+     * @param \Generated\Shared\Transfer\MailTransfer $mailTransfer
+     * @param \Generated\Shared\Transfer\OrderTransfer $orderTransfer
+     * @param string $recipientMailAddress
+     *
+     * @return \Generated\Shared\Transfer\MailTransfer
+     */
+    protected function addRecipientBcc(
+        MailTransfer $mailTransfer,
+        OrderTransfer $orderTransfer,
+        string $recipientMailAddress
+    ): MailTransfer {
+        if (
+            $orderTransfer->getEmail() === $recipientMailAddress ||
+            $this->isRecipient($orderTransfer->getEmail(), $mailTransfer) === true
+        ) {
+            return $mailTransfer;
+        }
+
+        return $mailTransfer->addRecipientBcc(
+            (new MailRecipientTransfer())
+                ->setEmail($orderTransfer->getEmail())
+                ->setName($orderTransfer->getFirstName() . ' ' . $orderTransfer->getLastName()),
+        );
     }
 
     /**
@@ -86,6 +117,7 @@ class MailExpander implements ExpanderInterface
     protected function getCompanyUser(MailTransfer $mailTransfer, OrderTransfer $orderTransfer): CompanyUserTransfer
     {
         $companyUser = $mailTransfer->getCompanyUser();
+
         if ($companyUser === null || $companyUser->getCompanyUserReference() !== $orderTransfer->getCompanyUserReference()) {
             $companyUser = $this->getCompanyUserByReference($orderTransfer->getCompanyUserReference());
             $mailTransfer->setCompanyUser($companyUser);
