@@ -4,8 +4,12 @@ namespace FondOfOryx\Glue\ProductListSearchRestApi;
 
 use FondOfOryx\Glue\ProductListSearchRestApi\Processor\Builder\RestResponseBuilder;
 use FondOfOryx\Glue\ProductListSearchRestApi\Processor\Builder\RestResponseBuilderInterface;
+use FondOfOryx\Glue\ProductListSearchRestApi\Processor\Expander\FilterFieldsExpander;
+use FondOfOryx\Glue\ProductListSearchRestApi\Processor\Expander\FilterFieldsExpanderInterface;
 use FondOfOryx\Glue\ProductListSearchRestApi\Processor\Filter\RequestParameterFilter;
 use FondOfOryx\Glue\ProductListSearchRestApi\Processor\Filter\RequestParameterFilterInterface;
+use FondOfOryx\Glue\ProductListSearchRestApi\Processor\Mapper\FilterFieldsMapper;
+use FondOfOryx\Glue\ProductListSearchRestApi\Processor\Mapper\FilterFieldsMapperInterface;
 use FondOfOryx\Glue\ProductListSearchRestApi\Processor\Mapper\PaginationMapper;
 use FondOfOryx\Glue\ProductListSearchRestApi\Processor\Mapper\PaginationMapperInterface;
 use FondOfOryx\Glue\ProductListSearchRestApi\Processor\Mapper\ProductListCollectionMapper;
@@ -48,6 +52,17 @@ class ProductListSearchRestApiFactory extends AbstractFactory
         return new ProductListCollectionMapper(
             $this->createPaginationMapper(),
             $this->createRequestParameterFilter(),
+            $this->createFilterFieldsMapper(),
+        );
+    }
+
+    /**
+     * @return \FondOfOryx\Glue\ProductListSearchRestApi\Processor\Mapper\FilterFieldsMapperInterface
+     */
+    protected function createFilterFieldsMapper(): FilterFieldsMapperInterface
+    {
+        return new FilterFieldsMapper(
+            $this->createFilterFieldsExpander(),
         );
     }
 
@@ -112,5 +127,23 @@ class ProductListSearchRestApiFactory extends AbstractFactory
     protected function createRestProductListSearchPaginationMapper(): RestProductListSearchPaginationMapperInterface
     {
         return new RestProductListSearchPaginationMapper($this->getConfig());
+    }
+
+    /**
+     * @return \FondOfOryx\Glue\ProductListSearchRestApi\Processor\Expander\FilterFieldsExpanderInterface
+     */
+    protected function createFilterFieldsExpander(): FilterFieldsExpanderInterface
+    {
+        return new FilterFieldsExpander($this->getFilterFieldsExpanderPlugins());
+    }
+
+    /**
+     * @return array<\FondOfOryx\Glue\ProductListSearchRestApiExtension\Dependency\Plugin\FilterFieldsExpanderPluginInterface>
+     */
+    protected function getFilterFieldsExpanderPlugins(): array
+    {
+        return $this->getProvidedDependency(
+            ProductListSearchRestApiDependencyProvider::PLUGINS_FILTER_FIELDS_EXPANDER,
+        );
     }
 }

@@ -11,7 +11,7 @@ interface ProductListSearchRestApiStubInterface
      *
      * @return \Generated\Shared\Transfer\ProductListCollectionTransfer
      */
-    public function findProductList(
+    public function searchProductList(
         ProductListCollectionTransfer $productListCollectionTransfer
     ): ProductListCollectionTransfer;
 }
