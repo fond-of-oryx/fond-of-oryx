@@ -3,15 +3,16 @@
 namespace FondOfOryx\Zed\ProductListSearchRestApi\Communication\Controller;
 
 use Codeception\Test\Unit;
-use FondOfOryx\Zed\ProductListSearchRestApi\Persistence\ProductListSearchRestApiRepository;
+use FondOfOryx\Zed\ProductListSearchRestApi\Business\ProductListSearchRestApiFacade;
 use Generated\Shared\Transfer\ProductListCollectionTransfer;
+use Spryker\Zed\Kernel\Business\AbstractFacade;
 
 class GatewayControllerTest extends Unit
 {
     /**
-     * @var \FondOfOryx\Zed\ProductListSearchRestApi\Persistence\ProductListSearchRestApiRepository|\PHPUnit\Framework\MockObject\MockObject|mixed
+     * @var \FondOfOryx\Zed\ProductListSearchRestApi\Business\ProductListSearchRestApiFacade|\PHPUnit\Framework\MockObject\MockObject|mixed
      */
-    protected $repositoryMock;
+    protected $facadeMock;
 
     /**
      * @var \Generated\Shared\Transfer\ProductListCollectionTransfer|\PHPUnit\Framework\MockObject\MockObject|mixed
@@ -30,7 +31,7 @@ class GatewayControllerTest extends Unit
     {
         parent::_before();
 
-        $this->repositoryMock = $this->getMockBuilder(ProductListSearchRestApiRepository::class)
+        $this->facadeMock = $this->getMockBuilder(ProductListSearchRestApiFacade::class)
             ->disableOriginalConstructor()
             ->getMock();
 
@@ -38,23 +39,43 @@ class GatewayControllerTest extends Unit
             ->disableOriginalConstructor()
             ->getMock();
 
-        $this->gatewayController = new GatewayController();
-        $this->gatewayController->setRepository($this->repositoryMock);
+        $this->gatewayController = new class ($this->facadeMock) extends GatewayController {
+            /**
+             * @var \Spryker\Zed\Kernel\Business\AbstractFacade
+             */
+            protected $productListSearchRestApiFacade;
+
+            /**
+             * @param \Spryker\Zed\Kernel\Business\AbstractFacade $facade
+             */
+            public function __construct(AbstractFacade $facade)
+            {
+                $this->productListSearchRestApiFacade = $facade;
+            }
+
+            /**
+             * @return \Spryker\Zed\Kernel\Business\AbstractFacade
+             */
+            protected function getFacade(): AbstractFacade
+            {
+                return $this->productListSearchRestApiFacade;
+            }
+        };
     }
 
     /**
      * @return void
      */
-    public function testSearchProductListAction(): void
+    public function testFindProductListAction(): void
     {
-        $this->repositoryMock->expects(static::atLeastOnce())
-            ->method('searchProductList')
+        $this->facadeMock->expects(static::atLeastOnce())
+            ->method('findProductList')
             ->with($this->productListCollectionTransferMock)
             ->willReturn($this->productListCollectionTransferMock);
 
         static::assertEquals(
             $this->productListCollectionTransferMock,
-            $this->gatewayController->searchProductListAction($this->productListCollectionTransferMock),
+            $this->gatewayController->findProductListAction($this->productListCollectionTransferMock),
         );
     }
 }
