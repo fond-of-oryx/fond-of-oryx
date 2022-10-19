@@ -3,7 +3,7 @@
 namespace FondOfOryx\Glue\CustomerProductListSearchRestApi\Communication\Plugin\ProductListSearchRestApi;
 
 use ArrayObject;
-use FondOfOryx\Glue\CartSearchRestApiExtension\Dependency\Plugin\FilterFieldsExpanderPluginInterface;
+use FondOfOryx\Glue\ProductListSearchRestApiExtension\Dependency\Plugin\FilterFieldsExpanderPluginInterface;
 use FondOfOryx\Shared\CustomerProductListSearchRestApi\CustomerProductListSearchRestApiConstants;
 use Generated\Shared\Transfer\FilterFieldTransfer;
 use Spryker\Glue\GlueApplication\Rest\Request\Data\RestRequestInterface;
