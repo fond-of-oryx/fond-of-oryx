@@ -9,7 +9,7 @@ use Spryker\Glue\GlueApplication\Rest\Request\Data\RestRequestInterface;
 class ProductListCollectionMapper implements ProductListCollectionMapperInterface
 {
     /**
-     * @var \FondOfOryx\Glue\ProductListSearchRestApi\Processor\Mapper\FilterFieldsMapper
+     * @var \FondOfOryx\Glue\ProductListSearchRestApi\Processor\Mapper\FilterFieldsMapperInterface
      */
     protected $filterFieldsMapper;
 
@@ -26,12 +26,12 @@ class ProductListCollectionMapper implements ProductListCollectionMapperInterfac
     /**
      * @param \FondOfOryx\Glue\ProductListSearchRestApi\Processor\Mapper\PaginationMapperInterface $paginationMapper
      * @param \FondOfOryx\Glue\ProductListSearchRestApi\Processor\Filter\RequestParameterFilterInterface $requestParameterFilter
-     * @param \FondOfOryx\Glue\ProductListSearchRestApi\Processor\Mapper\FilterFieldsMapper $filterFieldsMapper
+     * @param \FondOfOryx\Glue\ProductListSearchRestApi\Processor\Mapper\FilterFieldsMapperInterface $filterFieldsMapper
      */
     public function __construct(
         PaginationMapperInterface $paginationMapper,
         RequestParameterFilterInterface $requestParameterFilter,
-        FilterFieldsMapper $filterFieldsMapper
+        FilterFieldsMapperInterface $filterFieldsMapper
     ) {
         $this->filterFieldsMapper = $filterFieldsMapper;
         $this->paginationMapper = $paginationMapper;
