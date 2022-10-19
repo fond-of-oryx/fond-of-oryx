@@ -25,7 +25,7 @@ class ProductListSearchRestApiStub implements ProductListSearchRestApiStubInterf
      *
      * @return \Generated\Shared\Transfer\ProductListCollectionTransfer
      */
-    public function searchProductList(
+    public function findProductList(
         ProductListCollectionTransfer $productListCollectionTransfer
     ): ProductListCollectionTransfer {
         /** @var \Generated\Shared\Transfer\ProductListCollectionTransfer $productListCollectionTransfer */

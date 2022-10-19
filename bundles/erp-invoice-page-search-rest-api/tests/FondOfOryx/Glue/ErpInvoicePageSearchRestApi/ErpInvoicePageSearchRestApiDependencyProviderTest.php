@@ -34,6 +34,7 @@ class ErpInvoicePageSearchRestApiDependencyProviderTest extends Unit
      */
     public function testProvideDependencies(): void
     {
+        
         $this->assertInstanceOf(
             Container::class,
             $this->ErpInvoicePageSearchRestApiDependencyProvider->provideDependencies(

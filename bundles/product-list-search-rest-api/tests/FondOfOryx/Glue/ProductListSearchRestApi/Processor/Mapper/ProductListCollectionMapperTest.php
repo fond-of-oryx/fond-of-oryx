@@ -12,6 +12,11 @@ class ProductListCollectionMapperTest extends Unit
     /**
      * @var \FondOfOryx\Glue\ProductListSearchRestApi\Processor\Mapper\PaginationMapperInterface|\PHPUnit\Framework\MockObject\MockObject|mixed
      */
+    protected $filterFieldsMapperMock;
+
+    /**
+     * @var \FondOfOryx\Glue\ProductListSearchRestApi\Processor\Mapper\PaginationMapperInterface|\PHPUnit\Framework\MockObject\MockObject|mixed
+     */
     protected $paginationMapperMock;
 
     /**
@@ -41,6 +46,10 @@ class ProductListCollectionMapperTest extends Unit
     {
         parent::_before();
 
+        $this->filterFieldsMapperMock = $this->getMockBuilder(FilterFieldsMapperInterface::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
         $this->paginationMapperMock = $this->getMockBuilder(PaginationMapperInterface::class)
             ->disableOriginalConstructor()
             ->getMock();
@@ -60,6 +69,7 @@ class ProductListCollectionMapperTest extends Unit
         $this->productListCollectionMapper = new ProductListCollectionMapper(
             $this->paginationMapperMock,
             $this->requestParameterFilterMock,
+            $this->filterFieldsMapperMock,
         );
     }
 
@@ -70,6 +80,11 @@ class ProductListCollectionMapperTest extends Unit
     {
         $query = 'foo';
         $sort = 'foo_asc';
+
+        $this->filterFieldsMapperMock->expects(static::atLeastOnce())
+            ->method('fromRestRequest')
+            ->with($this->restRequestMock)
+            ->willReturn(new \ArrayObject());
 
         $this->paginationMapperMock->expects(static::atLeastOnce())
             ->method('fromRestRequest')
