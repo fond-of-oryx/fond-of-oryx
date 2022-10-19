@@ -2,6 +2,7 @@
 
 namespace FondOfOryx\Glue\ProductListSearchRestApi\Processor\Mapper;
 
+use ArrayObject;
 use Codeception\Test\Unit;
 use FondOfOryx\Glue\ProductListSearchRestApi\Processor\Filter\RequestParameterFilterInterface;
 use Generated\Shared\Transfer\PaginationTransfer;
@@ -84,7 +85,7 @@ class ProductListCollectionMapperTest extends Unit
         $this->filterFieldsMapperMock->expects(static::atLeastOnce())
             ->method('fromRestRequest')
             ->with($this->restRequestMock)
-            ->willReturn(new \ArrayObject());
+            ->willReturn(new ArrayObject());
 
         $this->paginationMapperMock->expects(static::atLeastOnce())
             ->method('fromRestRequest')

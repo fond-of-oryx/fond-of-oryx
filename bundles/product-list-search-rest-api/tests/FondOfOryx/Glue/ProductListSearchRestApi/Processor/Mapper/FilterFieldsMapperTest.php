@@ -61,7 +61,7 @@ class FilterFieldsMapperTest extends Unit
 
         static::assertInstanceOf(
             ArrayObject::class,
-            $this->filterFieldsMapper->fromRestRequest($this->restRequestMock)
+            $this->filterFieldsMapper->fromRestRequest($this->restRequestMock),
         );
     }
 }

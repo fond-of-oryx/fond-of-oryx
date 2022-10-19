@@ -70,7 +70,7 @@ class FilterFieldsExpanderTest extends Unit
             $this->expander->expand(
                 $this->restRequestMock,
                 $filterFieldTransfers,
-            )
+            ),
         );
 
         static::assertEquals(

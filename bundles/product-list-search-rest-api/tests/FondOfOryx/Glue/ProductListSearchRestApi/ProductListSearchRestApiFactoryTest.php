@@ -100,7 +100,7 @@ class ProductListSearchRestApiFactoryTest extends Unit
             ->method('get')
             ->with(ProductListSearchRestApiDependencyProvider::PLUGINS_FILTER_FIELDS_EXPANDER)
             ->willReturn([]);
-        
+
         static::assertInstanceOf(
             ProductListReaderInterface::class,
             $this->factory->createProductListReader(),
