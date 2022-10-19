@@ -6,11 +6,6 @@ use Codeception\Test\Unit;
 use FondOfOryx\Shared\CustomerProductListSearchRestApi\CustomerProductListSearchRestApiConstants;
 use Generated\Shared\Transfer\FilterFieldTransfer;
 use Generated\Shared\Transfer\QueryJoinCollectionTransfer;
-use Generated\Shared\Transfer\QueryJoinTransfer;
-use Orm\Zed\ProductList\Persistence\Map\SpyProductListCustomerTableMap;
-use Orm\Zed\ProductList\Persistence\Map\SpyProductListTableMap;
-use Orm\Zed\Quote\Persistence\Map\SpyQuoteTableMap;
-use Propel\Runtime\ActiveQuery\Criteria;
 
 class CustomerSearchQuoteQueryExpanderPluginTest extends Unit
 {
@@ -39,7 +34,7 @@ class CustomerSearchQuoteQueryExpanderPluginTest extends Unit
         $this->filterFieldTransferMocks = [
             $this->getMockBuilder(FilterFieldTransfer::class)
                 ->disableOriginalConstructor()
-                ->getMock()
+                ->getMock(),
         ];
 
         $this->queryJoinCollectionTransferMock = $this->getMockBuilder(QueryJoinCollectionTransfer::class)
@@ -71,7 +66,7 @@ class CustomerSearchQuoteQueryExpanderPluginTest extends Unit
             $this->plugin->expand(
                 $this->filterFieldTransferMocks,
                 $this->queryJoinCollectionTransferMock,
-            )
+            ),
         );
     }
 }
