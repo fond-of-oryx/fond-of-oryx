@@ -25,12 +25,12 @@ class ProductListSearchRestApiStub implements ProductListSearchRestApiStubInterf
      *
      * @return \Generated\Shared\Transfer\ProductListCollectionTransfer
      */
-    public function searchProductList(
+    public function findProductList(
         ProductListCollectionTransfer $productListCollectionTransfer
     ): ProductListCollectionTransfer {
         /** @var \Generated\Shared\Transfer\ProductListCollectionTransfer $productListCollectionTransfer */
         $productListCollectionTransfer = $this->zedRequestClient->call(
-            '/product-list-search-rest-api/gateway/search-product-list',
+            '/product-list-search-rest-api/gateway/find-product-list',
             $productListCollectionTransfer,
         );
 

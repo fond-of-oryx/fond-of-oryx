@@ -61,13 +61,13 @@ class ProductListSearchRestApiClientTest extends Unit
             ->willReturn($this->zedStubMock);
 
         $this->zedStubMock->expects(static::atLeastOnce())
-            ->method('searchProductList')
+            ->method('findProductList')
             ->with($this->productListCollectionTransferMock)
             ->willReturn($this->productListCollectionTransferMock);
 
         static::assertEquals(
             $this->productListCollectionTransferMock,
-            $this->client->searchProductList($this->productListCollectionTransferMock),
+            $this->client->findProductList($this->productListCollectionTransferMock),
         );
     }
 }

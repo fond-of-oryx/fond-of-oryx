@@ -1,16 +1,20 @@
 <?php
 
-namespace FondOfOryx\Client\ProductListSearchRestApi;
+namespace FondOfOryx\Zed\ProductListSearchRestApi\Business;
 
 use Generated\Shared\Transfer\ProductListCollectionTransfer;
-use Spryker\Client\Kernel\AbstractClient;
+use Spryker\Zed\Kernel\Business\AbstractFacade;
 
 /**
- * @method \FondOfOryx\Client\ProductListSearchRestApi\ProductListSearchRestApiFactory getFactory()
+ * @method \FondOfOryx\Zed\ProductListSearchRestApi\Business\ProductListSearchRestApiBusinessFactory getFactory()
  */
-class ProductListSearchRestApiClient extends AbstractClient implements ProductListSearchRestApiClientInterface
+class ProductListSearchRestApiFacade extends AbstractFacade implements ProductListSearchRestApiFacadeInterface
 {
     /**
+     * {@inheritDoc}
+     *
+     * @api
+     *
      * @param \Generated\Shared\Transfer\ProductListCollectionTransfer $productListCollectionTransfer
      *
      * @return \Generated\Shared\Transfer\ProductListCollectionTransfer
@@ -19,7 +23,7 @@ class ProductListSearchRestApiClient extends AbstractClient implements ProductLi
         ProductListCollectionTransfer $productListCollectionTransfer
     ): ProductListCollectionTransfer {
         return $this->getFactory()
-            ->createZedProductListSearchRestApiStub()
+            ->createProductListReader()
             ->findProductList($productListCollectionTransfer);
     }
 }

@@ -1,12 +1,17 @@
 <?php
 
-namespace FondOfOryx\Client\ProductListSearchRestApi\Zed;
+namespace FondOfOryx\Zed\ProductListSearchRestApi\Business;
 
 use Generated\Shared\Transfer\ProductListCollectionTransfer;
 
-interface ProductListSearchRestApiStubInterface
+interface ProductListSearchRestApiFacadeInterface
 {
     /**
+     * Specification:
+     * - Finds product lists
+     *
+     * @api
+     *
      * @param \Generated\Shared\Transfer\ProductListCollectionTransfer $productListCollectionTransfer
      *
      * @return \Generated\Shared\Transfer\ProductListCollectionTransfer
