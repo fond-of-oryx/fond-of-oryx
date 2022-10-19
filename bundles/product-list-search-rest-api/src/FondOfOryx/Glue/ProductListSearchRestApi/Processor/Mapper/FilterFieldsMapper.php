@@ -9,7 +9,7 @@ use Spryker\Glue\GlueApplication\Rest\Request\Data\RestRequestInterface;
 class FilterFieldsMapper implements FilterFieldsMapperInterface
 {
     /**
-     * @var \FondOfOryx\Glue\ProductListSearchRestApi\Processor\Expander\FilterFieldsExpanderInterface 
+     * @var \FondOfOryx\Glue\ProductListSearchRestApi\Processor\Expander\FilterFieldsExpanderInterface
      */
     protected $filterFieldsExpander;
 

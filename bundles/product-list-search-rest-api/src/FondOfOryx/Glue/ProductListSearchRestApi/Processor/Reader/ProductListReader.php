@@ -48,7 +48,7 @@ class ProductListReader implements ProductListReaderInterface
     public function find(RestRequestInterface $restRequest): RestResponseInterface
     {
         $productListCollectionTransfer = $this->productListCollectionMapper->fromRestRequest($restRequest);
-        
+
         return $this->restResponseBuilder->buildProductListSearchRestResponse(
             $this->client->searchProductList($productListCollectionTransfer),
         );

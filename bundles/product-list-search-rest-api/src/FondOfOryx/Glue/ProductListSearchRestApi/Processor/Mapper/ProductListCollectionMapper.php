@@ -33,7 +33,7 @@ class ProductListCollectionMapper implements ProductListCollectionMapperInterfac
         RequestParameterFilterInterface $requestParameterFilter,
         FilterFieldsMapper $filterFieldsMapper
     ) {
-        $this->filterFieldsMapper =  $filterFieldsMapper;
+        $this->filterFieldsMapper = $filterFieldsMapper;
         $this->paginationMapper = $paginationMapper;
         $this->requestParameterFilter = $requestParameterFilter;
     }
