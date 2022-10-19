@@ -22,20 +22,31 @@ class ProductListSearchRestApiRepository extends AbstractRepository implements P
      *
      * @return \Generated\Shared\Transfer\ProductListCollectionTransfer
      */
-    public function searchProductList(
+    public function findProductList(
         ProductListCollectionTransfer $productListCollectionTransfer
     ): ProductListCollectionTransfer {
         $productListQuery = $this->getBaseQuery();
 
-        $productListQuery = $this->addFulltextSearchFields($productListQuery, $productListCollectionTransfer);
+        $productListQuery = $this->getFactory()
+            ->createProductListSearchFilterFieldQueryBuilder()
+            ->addQueryFilters($productListQuery, $productListCollectionTransfer);
+
+        $queryJoinCollectionTransfer = $productListCollectionTransfer->getQueryJoins();
+
+        if ($queryJoinCollectionTransfer !== null && $queryJoinCollectionTransfer->getQueryJoins()->count() > 0) {
+            $productListQuery = $this->getFactory()
+                ->createQuoteQueryJoinQueryBuilder()
+                ->addQueryFilters($productListQuery, $queryJoinCollectionTransfer);
+        }
+
         $productListQuery = $this->addSort($productListQuery, $productListCollectionTransfer);
         $productListQuery = $this->preparePagination($productListQuery, $productListCollectionTransfer);
 
-        $productList = $this->getFactory()
+        $productListCollection = $this->getFactory()
             ->createProductListMapper()
             ->mapEntityCollectionToTransfers($productListQuery->find());
 
-        return $productListCollectionTransfer->setProductLists(new ArrayObject($productList));
+        return $productListCollectionTransfer->setProductLists(new ArrayObject($productListCollection));
     }
 
     /**

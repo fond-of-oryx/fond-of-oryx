@@ -53,4 +53,15 @@ class ProductListSearchRestApiConfig extends AbstractBundleConfig
             ProductListSearchRestApiConstants::VALID_ITEMS_PER_PAGE_OPTIONS_DEFAULT,
         );
     }
+
+    /**
+     * @return array<string, string>
+     */
+    public function getFilterFieldTypeMapping(): array
+    {
+        return $this->get(
+            ProductListSearchRestApiConstants::FILTER_FIELD_TYPE_MAPPING,
+            ProductListSearchRestApiConstants::FILTER_FIELD_TYPE_MAPPING_DEFAULT,
+        );
+    }
 }

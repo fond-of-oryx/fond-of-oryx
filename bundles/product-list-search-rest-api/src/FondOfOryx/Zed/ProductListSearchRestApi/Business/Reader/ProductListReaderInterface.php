@@ -1,10 +1,10 @@
 <?php
 
-namespace FondOfOryx\Client\ProductListSearchRestApi\Zed;
+namespace FondOfOryx\Zed\ProductListSearchRestApi\Business\Reader;
 
 use Generated\Shared\Transfer\ProductListCollectionTransfer;
 
-interface ProductListSearchRestApiStubInterface
+interface ProductListReaderInterface
 {
     /**
      * @param \Generated\Shared\Transfer\ProductListCollectionTransfer $productListCollectionTransfer

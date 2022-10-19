@@ -106,7 +106,7 @@ class ProductListReaderTest extends Unit
             ->willReturn($this->productListCollectionTransferMock);
 
         $this->clientMock->expects(static::atLeastOnce())
-            ->method('searchProductList')
+            ->method('findProductList')
             ->with($this->productListCollectionTransferMock)
             ->willReturn($this->productListCollectionTransferMock);
 
