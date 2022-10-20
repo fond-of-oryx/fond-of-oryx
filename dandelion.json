@@ -226,6 +226,10 @@
       "path": "bundles/customer-product-list-connector-gui/",
       "version": "1.0.0"
     },
+    "customer-product-list-search-rest-api": {
+      "path": "bundles/customer-product-list-search-rest-api/",
+      "version": "1.0.0"
+    },
     "customer-statistic": {
       "path": "bundles/customer-statistic/",
       "version": "1.0.0"
@@ -600,7 +604,11 @@
     },
     "product-list-search-rest-api": {
       "path": "bundles/product-list-search-rest-api/",
-      "version": "1.0.0-beta"
+      "version": "1.0.0"
+    },
+    "product-list-search-rest-api-extension": {
+      "path": "bundles/product-list-search-rest-api-extension/",
+      "version": "1.0.0"
     },
     "product-locale-restriction": {
       "path": "bundles/product-locale-restriction/",
