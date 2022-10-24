@@ -4,7 +4,6 @@ namespace FondOfOryx\Zed\ProductListsRestApi\Business\Updater;
 
 use FondOfOryx\Zed\ProductListsRestApi\Business\Executor\ProductListPluginExecutorInterface;
 use FondOfOryx\Zed\ProductListsRestApi\Business\Expander\ProductListExpanderInterface;
-use FondOfOryx\Zed\ProductListsRestApi\Business\Mapper\RestProductListMapperInterface;
 use FondOfOryx\Zed\ProductListsRestApi\Business\Reader\ProductListReaderInterface;
 use FondOfOryx\Zed\ProductListsRestApi\Dependency\Facade\ProductListsRestApiToProductListFacadeInterface;
 use Generated\Shared\Transfer\RestProductListUpdateRequestTransfer;
@@ -33,28 +32,20 @@ class ProductListUpdater implements ProductListUpdaterInterface
     protected $productListFacade;
 
     /**
-     * @var \FondOfOryx\Zed\ProductListsRestApi\Business\Mapper\RestProductListMapperInterface
-     */
-    protected $restProductListMapper;
-
-    /**
      * @param \FondOfOryx\Zed\ProductListsRestApi\Business\Reader\ProductListReaderInterface $productListReader
      * @param \FondOfOryx\Zed\ProductListsRestApi\Business\Expander\ProductListExpanderInterface $productListExpander
      * @param \FondOfOryx\Zed\ProductListsRestApi\Business\Executor\ProductListPluginExecutorInterface $productListPluginExecutor
-     * @param \FondOfOryx\Zed\ProductListsRestApi\Business\Mapper\RestProductListMapperInterface $restProductListMapper
      * @param \FondOfOryx\Zed\ProductListsRestApi\Dependency\Facade\ProductListsRestApiToProductListFacadeInterface $productListFacade
      */
     public function __construct(
         ProductListReaderInterface $productListReader,
         ProductListExpanderInterface $productListExpander,
         ProductListPluginExecutorInterface $productListPluginExecutor,
-        RestProductListMapperInterface $restProductListMapper,
         ProductListsRestApiToProductListFacadeInterface $productListFacade
     ) {
         $this->productListReader = $productListReader;
         $this->productListExpander = $productListExpander;
         $this->productListPluginExecutor = $productListPluginExecutor;
-        $this->restProductListMapper = $restProductListMapper;
         $this->productListFacade = $productListFacade;
     }
 
@@ -103,6 +94,6 @@ class ProductListUpdater implements ProductListUpdaterInterface
         );
 
         return $restProductListUpdateResponseTransfer->setIsSuccessful(true)
-            ->setProductList($this->restProductListMapper->fromProductList($productListTransfer));
+            ->setProductList($productListTransfer);
     }
 }

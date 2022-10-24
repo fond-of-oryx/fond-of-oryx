@@ -5,12 +5,10 @@ namespace FondOfOryx\Zed\ProductListsRestApi\Business\Updater;
 use Codeception\Test\Unit;
 use FondOfOryx\Zed\ProductListsRestApi\Business\Executor\ProductListPluginExecutorInterface;
 use FondOfOryx\Zed\ProductListsRestApi\Business\Expander\ProductListExpanderInterface;
-use FondOfOryx\Zed\ProductListsRestApi\Business\Mapper\RestProductListMapperInterface;
 use FondOfOryx\Zed\ProductListsRestApi\Business\Reader\ProductListReaderInterface;
 use FondOfOryx\Zed\ProductListsRestApi\Dependency\Facade\ProductListsRestApiToProductListFacadeInterface;
 use Generated\Shared\Transfer\ProductListResponseTransfer;
 use Generated\Shared\Transfer\ProductListTransfer;
-use Generated\Shared\Transfer\RestProductListTransfer;
 use Generated\Shared\Transfer\RestProductListUpdateRequestTransfer;
 use Generated\Shared\Transfer\RestProductListUpdateResponseTransfer;
 
@@ -30,11 +28,6 @@ class ProductListUpdaterTest extends Unit
      * @var \FondOfOryx\Zed\ProductListsRestApi\Business\Executor\ProductListPluginExecutorInterface|\PHPUnit\Framework\MockObject\MockObject
      */
     protected $productListPluginExecutorMock;
-
-    /**
-     * @var \FondOfOryx\Zed\ProductListsRestApi\Business\Mapper\RestProductListMapperInterface|\PHPUnit\Framework\MockObject\MockObject
-     */
-    protected $restProductListMapperMock;
 
     /**
      * @var \FondOfOryx\Zed\ProductListsRestApi\Dependency\Facade\ProductListsRestApiToProductListFacadeInterface|\PHPUnit\Framework\MockObject\MockObject
@@ -62,11 +55,6 @@ class ProductListUpdaterTest extends Unit
     protected $productListResponseTransferMock;
 
     /**
-     * @var \Generated\Shared\Transfer\RestProductListTransfer|\PHPUnit\Framework\MockObject\MockObject
-     */
-    protected $restProductListTransferMock;
-
-    /**
      * @var \FondOfOryx\Zed\ProductListsRestApi\Business\Updater\ProductListUpdater
      */
     protected $productListUpdater;
@@ -90,10 +78,6 @@ class ProductListUpdaterTest extends Unit
             ->disableOriginalConstructor()
             ->getMock();
 
-        $this->restProductListMapperMock = $this->getMockBuilder(RestProductListMapperInterface::class)
-            ->disableOriginalConstructor()
-            ->getMock();
-
         $this->productListFacadeMock = $this->getMockBuilder(ProductListsRestApiToProductListFacadeInterface::class)
             ->disableOriginalConstructor()
             ->getMock();
@@ -114,15 +98,10 @@ class ProductListUpdaterTest extends Unit
             ->disableOriginalConstructor()
             ->getMock();
 
-        $this->restProductListTransferMock = $this->getMockBuilder(RestProductListTransfer::class)
-            ->disableOriginalConstructor()
-            ->getMock();
-
         $this->productListUpdater = new ProductListUpdater(
             $this->productListReaderMock,
             $this->productListExpanderMock,
             $this->productListPluginExecutorMock,
-            $this->restProductListMapperMock,
             $this->productListFacadeMock,
         );
     }
@@ -171,17 +150,12 @@ class ProductListUpdaterTest extends Unit
                 $this->productListTransferMock,
             );
 
-        $this->restProductListMapperMock->expects(static::atLeastOnce())
-            ->method('fromProductList')
-            ->with($this->productListTransferMock)
-            ->willReturn($this->restProductListTransferMock);
-
         $restProductListUpdateResponseTransfer = $this->productListUpdater->update(
             $this->restProductListUpdateRequestTransferMock,
         );
 
         static::assertEquals(
-            $this->restProductListTransferMock,
+            $this->productListTransferMock,
             $restProductListUpdateResponseTransfer->getProductList(),
         );
 
@@ -212,9 +186,6 @@ class ProductListUpdaterTest extends Unit
 
         $this->productListPluginExecutorMock->expects(static::never())
             ->method('executePostUpdatePlugins');
-
-        $this->restProductListMapperMock->expects(static::never())
-            ->method('fromProductList');
 
         $restProductListUpdateResponseTransfer = $this->productListUpdater->update(
             $this->restProductListUpdateRequestTransferMock,
@@ -256,9 +227,6 @@ class ProductListUpdaterTest extends Unit
 
         $this->productListPluginExecutorMock->expects(static::never())
             ->method('executePostUpdatePlugins');
-
-        $this->restProductListMapperMock->expects(static::never())
-            ->method('fromProductList');
 
         $restProductListUpdateResponseTransfer = $this->productListUpdater->update(
             $this->restProductListUpdateRequestTransferMock,
@@ -312,9 +280,6 @@ class ProductListUpdaterTest extends Unit
 
         $this->productListPluginExecutorMock->expects(static::never())
             ->method('executePostUpdatePlugins');
-
-        $this->restProductListMapperMock->expects(static::never())
-            ->method('fromProductList');
 
         $restProductListUpdateResponseTransfer = $this->productListUpdater->update(
             $this->restProductListUpdateRequestTransferMock,
