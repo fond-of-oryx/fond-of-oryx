@@ -20,6 +20,7 @@
 
     <transfer name="ProductList">
         <property name="idProductList" type="int"/>
+        <property name="uuid" type="string"/>
         <property name="type" type="string"/>
         <property name="title" type="string"/>
     </transfer>
@@ -28,5 +29,11 @@
         <property name="productList" type="ProductList"/>
         <property name="isSuccessful" type="bool"/>
         <property name="messages" type="Message[]" singular="message"/>
+    </transfer>
+
+    <transfer name="RestErrorMessage">
+        <property name="code" type="string" />
+        <property name="status" type="int" />
+        <property name="detail" type="string" />
     </transfer>
 </transfers>
