@@ -5,7 +5,7 @@ namespace FondOfOryx\Zed\ProductListsRestApi\Business\Expander;
 use Codeception\Test\Unit;
 use FondOfOryx\Zed\ProductListsRestApi\ProductListsRestApiConfig;
 use Generated\Shared\Transfer\ProductListTransfer;
-use Generated\Shared\Transfer\RestProductListTransfer;
+use Generated\Shared\Transfer\RestProductListsAttributesTransfer;
 use Generated\Shared\Transfer\RestProductListUpdateRequestTransfer;
 
 class ProductListExpanderTest extends Unit
@@ -21,7 +21,7 @@ class ProductListExpanderTest extends Unit
     protected $restProductListUpdateRequestTransferMock;
 
     /**
-     * @var \Generated\Shared\Transfer\RestProductListTransfer|\PHPUnit\Framework\MockObject\MockObject
+     * @var \Generated\Shared\Transfer\RestProductListsAttributesTransfer|\PHPUnit\Framework\MockObject\MockObject
      */
     protected $restProductListTransferMock;
 
@@ -50,7 +50,7 @@ class ProductListExpanderTest extends Unit
             ->disableOriginalConstructor()
             ->getMock();
 
-        $this->restProductListTransferMock = $this->getMockBuilder(RestProductListTransfer::class)
+        $this->restProductListTransferMock = $this->getMockBuilder(RestProductListsAttributesTransfer::class)
             ->disableOriginalConstructor()
             ->getMock();
 
