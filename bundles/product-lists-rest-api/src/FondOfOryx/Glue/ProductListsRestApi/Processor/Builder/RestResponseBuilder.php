@@ -2,7 +2,6 @@
 
 namespace FondOfOryx\Glue\ProductListsRestApi\Processor\Builder;
 
-use FondOfOryx\Glue\ProductListsRestApi\Processor\Mapper\RestProductListsAttributesMapper;
 use FondOfOryx\Glue\ProductListsRestApi\Processor\Mapper\RestProductListsAttributesMapperInterface;
 use FondOfOryx\Glue\ProductListsRestApi\ProductListsRestApiConfig;
 use Generated\Shared\Transfer\ProductListTransfer;
@@ -24,6 +23,7 @@ class RestResponseBuilder implements RestResponseBuilderInterface
     protected $restResourceBuilder;
 
     /**
+     * @param \FondOfOryx\Glue\ProductListsRestApi\Processor\Mapper\RestProductListsAttributesMapperInterface $restProductListsAttributesMapper
      * @param \Spryker\Glue\GlueApplication\Rest\JsonApi\RestResourceBuilderInterface $restResourceBuilder
      */
     public function __construct(
