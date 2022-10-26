@@ -47,8 +47,8 @@ class AssignableCustomerIdsFilter implements CustomerIdsFilterInterface
         return array_values(
             array_diff(
                 $customerIdsToAssign,
-                $assignedCustomerIds
-            )
+                $assignedCustomerIds,
+            ),
         );
     }
 }

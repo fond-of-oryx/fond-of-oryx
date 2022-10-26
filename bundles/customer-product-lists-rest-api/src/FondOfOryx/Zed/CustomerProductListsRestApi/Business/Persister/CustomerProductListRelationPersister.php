@@ -65,6 +65,8 @@ class CustomerProductListRelationPersister implements CustomerProductListRelatio
      * @param \Generated\Shared\Transfer\RestProductListUpdateRequestTransfer $restProductListUpdateRequestTransfer
      * @param \Generated\Shared\Transfer\ProductListTransfer $productListTransfer
      *
+     * @throws \Throwable
+     *
      * @return void
      */
     public function persist(
