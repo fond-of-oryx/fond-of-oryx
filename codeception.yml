@@ -52,6 +52,7 @@ include:
   - bundles/customer-product-list-connector
   - bundles/customer-product-list-connector-extension
   - bundles/customer-product-list-connector-gui
+  - bundles/customer-product-lists-rest-api
   - bundles/customer-product-list-search-rest-api
   - bundles/customer-statistic
   - bundles/customer-statistics-rest-api
