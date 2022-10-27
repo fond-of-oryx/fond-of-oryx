@@ -2,7 +2,6 @@
 
 namespace FondOfOryx\Zed\CompanyProductListsRestApi\Business\Filter;
 
-use Generated\Shared\Transfer\RestProductListsAttributesTransfer;
 use Generated\Shared\Transfer\RestProductListUpdateRequestTransfer;
 
 interface CompanyIdsFilterInterface
