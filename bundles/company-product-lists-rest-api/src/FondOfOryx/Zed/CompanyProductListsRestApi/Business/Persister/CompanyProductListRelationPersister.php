@@ -83,8 +83,8 @@ class CompanyProductListRelationPersister implements CompanyProductListRelationP
                     },
                 );
         } catch (Throwable $exception) {
-echo $exception->getMessage();
             $this->logger->error('Could not persist company product list relation.');
+
             throw $exception;
         }
     }
