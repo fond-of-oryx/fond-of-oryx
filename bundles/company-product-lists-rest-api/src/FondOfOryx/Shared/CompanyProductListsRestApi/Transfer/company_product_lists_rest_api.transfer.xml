@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<transfers xmlns="spryker:transfer-01"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="spryker:transfer-01 https://static.spryker.com/transfer-01.xsd">
+
+    <transfer name="RestProductListsAttributes">
+        <property name="companyIdsToAssign" type="string[]"/>
+        <property name="companyIdsToDeassign" type="string[]"/>
+    </transfer>
+
+    <transfer name="RestProductListUpdateRequest">
+        <property name="productListId" type="string"/>
+        <property name="idCustomer" type="int"/>
+        <property name="customerReference" type="string"/>
+    </transfer>
+</transfers>
