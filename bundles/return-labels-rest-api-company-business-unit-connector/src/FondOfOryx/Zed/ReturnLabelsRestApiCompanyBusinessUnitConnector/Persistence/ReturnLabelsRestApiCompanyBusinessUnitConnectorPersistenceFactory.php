@@ -2,7 +2,7 @@
 
 namespace FondOfOryx\Zed\ReturnLabelsRestApiCompanyBusinessUnitConnector\Persistence;
 
-use FondOfOryx\Zed\ReturnLabelsRestApiCompanyBusinessUnitConnector\Persistence\Propel\Mapper\CompanyBusinessUnitBusinessUnitMapper;
+use FondOfOryx\Zed\ReturnLabelsRestApiCompanyBusinessUnitConnector\Persistence\Propel\Mapper\CompanyBusinessUnitMapper;
 use FondOfOryx\Zed\ReturnLabelsRestApiCompanyBusinessUnitConnector\Persistence\Propel\Mapper\CompanyBusinessUnitMapperInterface;
 use FondOfOryx\Zed\ReturnLabelsRestApiCompanyBusinessUnitConnector\ReturnLabelsRestApiCompanyBusinessUnitConnectorDependencyProvider;
 use Orm\Zed\CompanyBusinessUnit\Persistence\SpyCompanyBusinessUnitQuery;
@@ -23,6 +23,6 @@ class ReturnLabelsRestApiCompanyBusinessUnitConnectorPersistenceFactory extends 
      */
     public function createCompanyBusinessUnitMapper(): CompanyBusinessUnitMapperInterface
     {
-        return new CompanyBusinessUnitBusinessUnitMapper();
+        return new CompanyBusinessUnitMapper();
     }
 }

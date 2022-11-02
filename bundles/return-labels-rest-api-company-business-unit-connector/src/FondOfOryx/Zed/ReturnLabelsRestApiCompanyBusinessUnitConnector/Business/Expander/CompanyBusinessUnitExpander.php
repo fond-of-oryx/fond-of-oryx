@@ -6,7 +6,7 @@ use FondOfOryx\Zed\ReturnLabelsRestApiCompanyBusinessUnitConnector\Business\Read
 use Generated\Shared\Transfer\RestReturnLabelRequestTransfer;
 use Generated\Shared\Transfer\ReturnLabelRequestTransfer;
 
-class CompanyBusinessUnitBusinessUnitExpander implements CompanyBusinessUnitExpanderInterface
+class CompanyBusinessUnitExpander implements CompanyBusinessUnitExpanderInterface
 {
     /**
      * @var \FondOfOryx\Zed\ReturnLabelsRestApiCompanyBusinessUnitConnector\Business\Reader\CompanyBusinessUnitReaderInterface
@@ -37,7 +37,7 @@ class CompanyBusinessUnitBusinessUnitExpander implements CompanyBusinessUnitExpa
             return $returnLabelRequestTransfer;
         }
 
-        $returnLabelRequestTransfer->getCustomer()->setEmail($companyBusinessUnitTransfer->getName());
+        $returnLabelRequestTransfer->getCustomer()->setEmail($companyBusinessUnitTransfer->getEmail());
 
         return $returnLabelRequestTransfer;
     }

@@ -3,11 +3,12 @@
 namespace FondOfOryx\Zed\ReturnLabelsRestApiCompanyBusinessUnitConnector\Persistence;
 
 use Generated\Shared\Transfer\CompanyBusinessUnitTransfer;
+use Spryker\Zed\Kernel\Persistence\AbstractRepository;
 
 /**
  * @method \FondOfOryx\Zed\ReturnLabelsRestApiCompanyBusinessUnitConnector\Persistence\ReturnLabelsRestApiCompanyBusinessUnitConnectorPersistenceFactory getFactory()
  */
-class ReturnLabelsRestApiCompanyBusinessUnitConnectorRepository implements ReturnLabelsRestApiCompanyBusinessUnitConnectorRepositoryInterface
+class ReturnLabelsRestApiCompanyBusinessUnitConnectorRepository extends AbstractRepository implements ReturnLabelsRestApiCompanyBusinessUnitConnectorRepositoryInterface
 {
     /**
      * @param int $idCustomer

@@ -5,7 +5,7 @@ namespace FondOfOryx\Zed\ReturnLabelsRestApiCompanyBusinessUnitConnector\Persist
 use Generated\Shared\Transfer\CompanyBusinessUnitTransfer;
 use Orm\Zed\CompanyBusinessUnit\Persistence\SpyCompanyBusinessUnit;
 
-class CompanyBusinessUnitBusinessUnitMapper implements CompanyBusinessUnitMapperInterface
+class CompanyBusinessUnitMapper implements CompanyBusinessUnitMapperInterface
 {
     /**
      * @param \Orm\Zed\CompanyBusinessUnit\Persistence\SpyCompanyBusinessUnit $entity

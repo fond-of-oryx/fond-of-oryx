@@ -6,7 +6,7 @@ use FondOfOryx\Zed\ReturnLabelsRestApiCompanyBusinessUnitConnector\Persistence\R
 use Generated\Shared\Transfer\CompanyBusinessUnitTransfer;
 use Generated\Shared\Transfer\RestReturnLabelRequestTransfer;
 
-class CompanyBusinessUnitBusinessUnitReader implements CompanyBusinessUnitReaderInterface
+class CompanyBusinessUnitReader implements CompanyBusinessUnitReaderInterface
 {
     /**
      * @var \FondOfOryx\Zed\ReturnLabelsRestApiCompanyBusinessUnitConnector\Persistence\ReturnLabelsRestApiCompanyBusinessUnitConnectorRepositoryInterface
