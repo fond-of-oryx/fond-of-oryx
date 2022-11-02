@@ -4,6 +4,8 @@ namespace FondOfOryx\Glue\ProductListsRestApi;
 
 use FondOfOryx\Glue\ProductListsRestApi\Processor\Builder\RestResponseBuilder;
 use FondOfOryx\Glue\ProductListsRestApi\Processor\Builder\RestResponseBuilderInterface;
+use FondOfOryx\Glue\ProductListsRestApi\Processor\Filter\IdCustomerFilter;
+use FondOfOryx\Glue\ProductListsRestApi\Processor\Filter\IdCustomerFilterInterface;
 use FondOfOryx\Glue\ProductListsRestApi\Processor\Filter\IdProductListFilter;
 use FondOfOryx\Glue\ProductListsRestApi\Processor\Filter\IdProductListFilterInterface;
 use FondOfOryx\Glue\ProductListsRestApi\Processor\Mapper\RestProductListsAttributesMapper;
@@ -49,6 +51,7 @@ class ProductListsRestApiFactory extends AbstractFactory
     {
         return new RestProductListUpdateRequestMapper(
             $this->createIdProductListFilter(),
+            $this->createIdCustomerFilter(),
         );
     }
 
@@ -66,5 +69,13 @@ class ProductListsRestApiFactory extends AbstractFactory
     protected function createRestProductListsAttributesMapper(): RestProductListsAttributesMapperInterface
     {
         return new RestProductListsAttributesMapper();
+    }
+
+    /**
+     * @return \FondOfOryx\Glue\ProductListsRestApi\Processor\Filter\IdCustomerFilterInterface
+     */
+    protected function createIdCustomerFilter(): IdCustomerFilterInterface
+    {
+        return new IdCustomerFilter();
     }
 }
