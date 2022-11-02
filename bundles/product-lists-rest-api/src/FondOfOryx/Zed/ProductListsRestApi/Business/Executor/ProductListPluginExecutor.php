@@ -18,15 +18,23 @@ class ProductListPluginExecutor implements ProductListPluginExecutorInterface
     protected $productListPostUpdatePlugins;
 
     /**
+     * @var array<\FondOfOryx\Zed\ProductListsRestApiExtension\Dependency\Plugin\RestProductListUpdateRequestExpanderPluginInterface>
+     */
+    protected $restProductListUpdateRequestExpanderPlugins;
+
+    /**
      * @param array<\FondOfOryx\Zed\ProductListsRestApiExtension\Dependency\Plugin\ProductListUpdatePreCheckPluginInterface> $productListUpdatePreCheckPlugins
      * @param array<\FondOfOryx\Zed\ProductListsRestApiExtension\Dependency\Plugin\ProductListPostUpdatePluginInterface> $productListPostUpdatePlugins
+     * @param array<\FondOfOryx\Zed\ProductListsRestApiExtension\Dependency\Plugin\RestProductListUpdateRequestExpanderPluginInterface> $restProductListUpdateRequestExpanderPlugins
      */
     public function __construct(
         array $productListUpdatePreCheckPlugins,
-        array $productListPostUpdatePlugins
+        array $productListPostUpdatePlugins,
+        array $restProductListUpdateRequestExpanderPlugins
     ) {
         $this->productListUpdatePreCheckPlugins = $productListUpdatePreCheckPlugins;
         $this->productListPostUpdatePlugins = $productListPostUpdatePlugins;
+        $this->restProductListUpdateRequestExpanderPlugins = $restProductListUpdateRequestExpanderPlugins;
     }
 
     /**
@@ -35,7 +43,7 @@ class ProductListPluginExecutor implements ProductListPluginExecutorInterface
      *
      * @return bool
      */
-    public function executeUpdatePreCheckPlugins(
+    public function executeProductListUpdatePreCheckPlugins(
         RestProductListUpdateRequestTransfer $restProductListUpdateRequestTransfer,
         ProductListTransfer $productListTransfer
     ): bool {
@@ -59,7 +67,7 @@ class ProductListPluginExecutor implements ProductListPluginExecutorInterface
      *
      * @return \Generated\Shared\Transfer\ProductListTransfer
      */
-    public function executePostUpdatePlugins(
+    public function executeProductListPostUpdatePlugins(
         RestProductListUpdateRequestTransfer $restProductListUpdateRequestTransfer,
         ProductListTransfer $productListTransfer
     ): ProductListTransfer {
@@ -71,5 +79,22 @@ class ProductListPluginExecutor implements ProductListPluginExecutorInterface
         }
 
         return $productListTransfer;
+    }
+
+    /**
+     * @param \Generated\Shared\Transfer\RestProductListUpdateRequestTransfer $restProductListUpdateRequestTransfer
+     *
+     * @return \Generated\Shared\Transfer\RestProductListUpdateRequestTransfer
+     */
+    public function executeRestProductListUpdateRequestExpanderPlugins(
+        RestProductListUpdateRequestTransfer $restProductListUpdateRequestTransfer
+    ): RestProductListUpdateRequestTransfer {
+        foreach ($this->restProductListUpdateRequestExpanderPlugins as $restProductListUpdateRequestExpanderPlugin) {
+            $restProductListUpdateRequestTransfer = $restProductListUpdateRequestExpanderPlugin->expand(
+                $restProductListUpdateRequestTransfer,
+            );
+        }
+
+        return $restProductListUpdateRequestTransfer;
     }
 }

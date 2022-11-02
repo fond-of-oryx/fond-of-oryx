@@ -70,6 +70,7 @@ class ProductListsRestApiBusinessFactory extends AbstractBusinessFactory
         return new ProductListPluginExecutor(
             $this->getProductListUpdatePreCheckPlugins(),
             $this->getProductListPostUpdatePlugins(),
+            $this->getRestProductListUpdateRequestExpanderPlugins(),
         );
     }
 
@@ -87,5 +88,15 @@ class ProductListsRestApiBusinessFactory extends AbstractBusinessFactory
     protected function getProductListPostUpdatePlugins(): array
     {
         return $this->getProvidedDependency(ProductListsRestApiDependencyProvider::PLUGINS_PRODUCT_LIST_POST_UPDATE);
+    }
+
+    /**
+     * @return array<\FondOfOryx\Zed\ProductListsRestApiExtension\Dependency\Plugin\RestProductListUpdateRequestExpanderPluginInterface>
+     */
+    protected function getRestProductListUpdateRequestExpanderPlugins(): array
+    {
+        return $this->getProvidedDependency(
+            ProductListsRestApiDependencyProvider::PLUGINS_REST_PRODUCT_LIST_UPDATE_REQUEST_EXPANDER,
+        );
     }
 }
