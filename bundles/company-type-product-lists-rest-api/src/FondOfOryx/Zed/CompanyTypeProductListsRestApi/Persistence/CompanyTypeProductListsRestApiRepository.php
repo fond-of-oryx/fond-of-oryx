@@ -56,7 +56,8 @@ class CompanyTypeProductListsRestApiRepository extends AbstractRepository implem
             ->endUse()
             ->select([SpyCompanyUserTableMap::COL_ID_COMPANY_USER])
             ->find()
-            ->toArray();    }
+            ->toArray();
+    }
 
     /**
      * @param array<int> $companyUserIds
