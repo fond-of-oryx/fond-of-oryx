@@ -11,6 +11,7 @@
     <transfer name="RestProductListUpdateRequest">
         <property name="productListId" type="string"/>
         <property name="productList" type="RestProductListsAttributes"/>
+        <property name="idCustomer" type="int"/>
     </transfer>
 
     <transfer name="RestProductListUpdateResponse">

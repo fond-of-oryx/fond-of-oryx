@@ -2,6 +2,7 @@
 
 namespace FondOfOryx\Glue\ProductListsRestApi\Processor\Mapper;
 
+use FondOfOryx\Glue\ProductListsRestApi\Processor\Filter\IdCustomerFilterInterface;
 use FondOfOryx\Glue\ProductListsRestApi\Processor\Filter\IdProductListFilterInterface;
 use Generated\Shared\Transfer\RestProductListUpdateRequestTransfer;
 use Spryker\Glue\GlueApplication\Rest\Request\Data\RestRequestInterface;
@@ -14,11 +15,20 @@ class RestProductListUpdateRequestMapper implements RestProductListUpdateRequest
     protected $idProductListFilter;
 
     /**
-     * @param \FondOfOryx\Glue\ProductListsRestApi\Processor\Filter\IdProductListFilterInterface $idProductListFilter
+     * @var \FondOfOryx\Glue\ProductListsRestApi\Processor\Filter\IdCustomerFilterInterface
      */
-    public function __construct(IdProductListFilterInterface $idProductListFilter)
-    {
+    protected $idCustomerFilter;
+
+    /**
+     * @param \FondOfOryx\Glue\ProductListsRestApi\Processor\Filter\IdProductListFilterInterface $idProductListFilter
+     * @param \FondOfOryx\Glue\ProductListsRestApi\Processor\Filter\IdCustomerFilterInterface $idCustomerFilter
+     */
+    public function __construct(
+        IdProductListFilterInterface $idProductListFilter,
+        IdCustomerFilterInterface $idCustomerFilter
+    ) {
         $this->idProductListFilter = $idProductListFilter;
+        $this->idCustomerFilter = $idCustomerFilter;
     }
 
     /**
@@ -30,6 +40,7 @@ class RestProductListUpdateRequestMapper implements RestProductListUpdateRequest
         RestRequestInterface $restRequest
     ): RestProductListUpdateRequestTransfer {
         return (new RestProductListUpdateRequestTransfer())
-            ->setProductListId($this->idProductListFilter->filterFromRestRequest($restRequest));
+            ->setProductListId($this->idProductListFilter->filterFromRestRequest($restRequest))
+            ->setIdCustomer($this->idCustomerFilter->filterFromRestRequest($restRequest));
     }
 }
