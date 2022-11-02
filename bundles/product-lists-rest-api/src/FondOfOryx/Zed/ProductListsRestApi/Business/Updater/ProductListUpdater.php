@@ -60,6 +60,10 @@ class ProductListUpdater implements ProductListUpdaterInterface
         $restProductListUpdateResponseTransfer = (new RestProductListUpdateResponseTransfer())
             ->setIsSuccessful(false);
 
+        $restProductListUpdateRequestTransfer = $this->productListPluginExecutor->executeRestProductListUpdateRequestExpanderPlugins(
+            $restProductListUpdateRequestTransfer,
+        );
+
         $productListTransfer = $this->productListReader->getByRestProductListUpdateRequest(
             $restProductListUpdateRequestTransfer,
         );
@@ -68,7 +72,7 @@ class ProductListUpdater implements ProductListUpdaterInterface
             return $restProductListUpdateResponseTransfer;
         }
 
-        $canUpdate = $this->productListPluginExecutor->executeUpdatePreCheckPlugins(
+        $canUpdate = $this->productListPluginExecutor->executeProductListUpdatePreCheckPlugins(
             $restProductListUpdateRequestTransfer,
             $productListTransfer,
         );
@@ -88,7 +92,7 @@ class ProductListUpdater implements ProductListUpdaterInterface
             return $restProductListUpdateResponseTransfer;
         }
 
-        $productListTransfer = $this->productListPluginExecutor->executePostUpdatePlugins(
+        $productListTransfer = $this->productListPluginExecutor->executeProductListPostUpdatePlugins(
             $restProductListUpdateRequestTransfer,
             $productListTransfer,
         );

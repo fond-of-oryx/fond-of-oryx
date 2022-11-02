@@ -111,13 +111,18 @@ class ProductListUpdaterTest extends Unit
      */
     public function testUpdate(): void
     {
+        $this->productListPluginExecutorMock->expects(static::atLeastOnce())
+            ->method('executeRestProductListUpdateRequestExpanderPlugins')
+            ->with($this->restProductListUpdateRequestTransferMock)
+            ->willReturn($this->restProductListUpdateRequestTransferMock);
+
         $this->productListReaderMock->expects(static::atLeastOnce())
             ->method('getByRestProductListUpdateRequest')
             ->with($this->restProductListUpdateRequestTransferMock)
             ->willReturn($this->productListTransferMock);
 
         $this->productListPluginExecutorMock->expects(static::atLeastOnce())
-            ->method('executeUpdatePreCheckPlugins')
+            ->method('executeProductListUpdatePreCheckPlugins')
             ->with(
                 $this->restProductListUpdateRequestTransferMock,
                 $this->productListTransferMock,
@@ -142,7 +147,7 @@ class ProductListUpdaterTest extends Unit
             ->willReturn(true);
 
         $this->productListPluginExecutorMock->expects(static::atLeastOnce())
-            ->method('executePostUpdatePlugins')
+            ->method('executeProductListPostUpdatePlugins')
             ->with(
                 $this->restProductListUpdateRequestTransferMock,
                 $this->productListTransferMock,
@@ -170,13 +175,18 @@ class ProductListUpdaterTest extends Unit
      */
     public function testUpdateWithoutExistingProductList(): void
     {
+        $this->productListPluginExecutorMock->expects(static::atLeastOnce())
+            ->method('executeRestProductListUpdateRequestExpanderPlugins')
+            ->with($this->restProductListUpdateRequestTransferMock)
+            ->willReturn($this->restProductListUpdateRequestTransferMock);
+
         $this->productListReaderMock->expects(static::atLeastOnce())
             ->method('getByRestProductListUpdateRequest')
             ->with($this->restProductListUpdateRequestTransferMock)
             ->willReturn(null);
 
         $this->productListPluginExecutorMock->expects(static::never())
-            ->method('executeUpdatePreCheckPlugins');
+            ->method('executeProductListUpdatePreCheckPlugins');
 
         $this->productListExpanderMock->expects(static::never())
             ->method('expand');
@@ -185,7 +195,7 @@ class ProductListUpdaterTest extends Unit
             ->method('updateProductList');
 
         $this->productListPluginExecutorMock->expects(static::never())
-            ->method('executePostUpdatePlugins');
+            ->method('executeProductListPostUpdatePlugins');
 
         $restProductListUpdateResponseTransfer = $this->productListUpdater->update(
             $this->restProductListUpdateRequestTransferMock,
@@ -207,13 +217,18 @@ class ProductListUpdaterTest extends Unit
      */
     public function testUpdateWithInvalidRestProductList(): void
     {
+        $this->productListPluginExecutorMock->expects(static::atLeastOnce())
+            ->method('executeRestProductListUpdateRequestExpanderPlugins')
+            ->with($this->restProductListUpdateRequestTransferMock)
+            ->willReturn($this->restProductListUpdateRequestTransferMock);
+
         $this->productListReaderMock->expects(static::atLeastOnce())
             ->method('getByRestProductListUpdateRequest')
             ->with($this->restProductListUpdateRequestTransferMock)
             ->willReturn($this->productListTransferMock);
 
         $this->productListPluginExecutorMock->expects(static::atLeastOnce())
-            ->method('executeUpdatePreCheckPlugins')
+            ->method('executeProductListUpdatePreCheckPlugins')
             ->with(
                 $this->restProductListUpdateRequestTransferMock,
                 $this->productListTransferMock,
@@ -226,7 +241,7 @@ class ProductListUpdaterTest extends Unit
             ->method('updateProductList');
 
         $this->productListPluginExecutorMock->expects(static::never())
-            ->method('executePostUpdatePlugins');
+            ->method('executeProductListPostUpdatePlugins');
 
         $restProductListUpdateResponseTransfer = $this->productListUpdater->update(
             $this->restProductListUpdateRequestTransferMock,
@@ -248,13 +263,18 @@ class ProductListUpdaterTest extends Unit
      */
     public function testUpdateWithError(): void
     {
+        $this->productListPluginExecutorMock->expects(static::atLeastOnce())
+            ->method('executeRestProductListUpdateRequestExpanderPlugins')
+            ->with($this->restProductListUpdateRequestTransferMock)
+            ->willReturn($this->restProductListUpdateRequestTransferMock);
+
         $this->productListReaderMock->expects(static::atLeastOnce())
             ->method('getByRestProductListUpdateRequest')
             ->with($this->restProductListUpdateRequestTransferMock)
             ->willReturn($this->productListTransferMock);
 
         $this->productListPluginExecutorMock->expects(static::atLeastOnce())
-            ->method('executeUpdatePreCheckPlugins')
+            ->method('executeProductListUpdatePreCheckPlugins')
             ->with(
                 $this->restProductListUpdateRequestTransferMock,
                 $this->productListTransferMock,
@@ -279,7 +299,7 @@ class ProductListUpdaterTest extends Unit
             ->willReturn(false);
 
         $this->productListPluginExecutorMock->expects(static::never())
-            ->method('executePostUpdatePlugins');
+            ->method('executeProductListPostUpdatePlugins');
 
         $restProductListUpdateResponseTransfer = $this->productListUpdater->update(
             $this->restProductListUpdateRequestTransferMock,
