@@ -13,6 +13,9 @@ class CompanyReader implements CompanyReaderInterface
      */
     protected $repository;
 
+    /**
+     * @param \FondOfOryx\Zed\ReturnLabelsRestApiCompanyConnector\Persistence\ReturnLabelsRestApiCompanyConnectorRepositoryInterface $repository
+     */
     public function __construct(ReturnLabelsRestApiCompanyConnectorRepositoryInterface $repository)
     {
         $this->repository = $repository;
