@@ -34,6 +34,7 @@ include:
   - bundles/company-role-api
   - bundles/company-role-search-rest-api
   - bundles/company-search-rest-api
+  - bundles/company-type-product-lists-rest-api
   - bundles/company-unit-address-api
   - bundles/company-unit-address-sales-connector
   - bundles/company-user-api
@@ -130,6 +131,7 @@ include:
   - bundles/product-country-restriction
   - bundles/product-country-restriction-checkout-connector
   - bundles/product-list-api
+  - bundles/product-lists-rest-api
   - bundles/product-lists-rest-api-extension
   - bundles/product-list-search-rest-api
   - bundles/product-locale-restriction
