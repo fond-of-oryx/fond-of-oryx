@@ -20,7 +20,7 @@ class ReturnLabelsRestApiCompanyBusinessUnitConnectorFacadeTest extends Unit
     protected $returnLabelRequestTransferMock;
 
     /**
-     * @var \FondOfOryx\Zed\ReturnLabelsRestApiCompanyBusinessUnitConnector\Business\ReturnLabelsRestApiCompanyBusinessUnitConnectorFactory|\PHPUnit\Framework\MockObject\MockObject
+     * @var \FondOfOryx\Zed\ReturnLabelsRestApiCompanyBusinessUnitConnector\Business\ReturnLabelsRestApiCompanyBusinessUnitConnectorBusinessFactory|\PHPUnit\Framework\MockObject\MockObject
      */
     protected $factoryMock;
 
@@ -53,7 +53,7 @@ class ReturnLabelsRestApiCompanyBusinessUnitConnectorFacadeTest extends Unit
             ->disableOriginalConstructor()
             ->getMock();
 
-        $this->factoryMock = $this->getMockBuilder(ReturnLabelsRestApiCompanyBusinessUnitConnectorFactory::class)
+        $this->factoryMock = $this->getMockBuilder(ReturnLabelsRestApiCompanyBusinessUnitConnectorBusinessFactory::class)
             ->disableOriginalConstructor()
             ->getMock();
 

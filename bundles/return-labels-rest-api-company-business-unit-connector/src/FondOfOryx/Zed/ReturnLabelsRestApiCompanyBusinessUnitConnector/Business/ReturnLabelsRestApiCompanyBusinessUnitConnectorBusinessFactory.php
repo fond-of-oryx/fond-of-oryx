@@ -11,7 +11,7 @@ use Spryker\Zed\Kernel\Business\AbstractBusinessFactory;
 /**
  * @method \FondOfOryx\Zed\ReturnLabelsRestApiCompanyBusinessUnitConnector\Persistence\ReturnLabelsRestApiCompanyBusinessUnitConnectorRepositoryInterface getRepository()
  */
-class ReturnLabelsRestApiCompanyBusinessUnitConnectorFactory extends AbstractBusinessFactory
+class ReturnLabelsRestApiCompanyBusinessUnitConnectorBusinessFactory extends AbstractBusinessFactory
 {
     /**
      * @return \FondOfOryx\Zed\ReturnLabelsRestApiCompanyBusinessUnitConnector\Business\Expander\CompanyBusinessUnitExpanderInterface

@@ -14,7 +14,7 @@ class ReturnLabelsRestApiCompanyBusinessUnitConnectorFactoryTest extends Unit
     protected $repositoryMock;
 
     /**
-     * @var \FondOfOryx\Zed\ReturnLabelsRestApiCompanyBusinessUnitConnector\Business\ReturnLabelsRestApiCompanyBusinessUnitConnectorFactory
+     * @var \FondOfOryx\Zed\ReturnLabelsRestApiCompanyBusinessUnitConnector\Business\ReturnLabelsRestApiCompanyBusinessUnitConnectorBusinessFactory
      */
     protected $factory;
 
@@ -30,7 +30,7 @@ class ReturnLabelsRestApiCompanyBusinessUnitConnectorFactoryTest extends Unit
             ->disableOriginalConstructor()
             ->getMock();
 
-        $this->factory = new ReturnLabelsRestApiCompanyBusinessUnitConnectorFactory();
+        $this->factory = new ReturnLabelsRestApiCompanyBusinessUnitConnectorBusinessFactory();
         $this->factory->setRepository($this->repositoryMock);
     }
 

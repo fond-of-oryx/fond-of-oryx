@@ -7,7 +7,7 @@ use Generated\Shared\Transfer\ReturnLabelRequestTransfer;
 use Spryker\Zed\Kernel\Business\AbstractFacade;
 
 /**
- * @method \FondOfOryx\Zed\ReturnLabelsRestApiCompanyBusinessUnitConnector\Business\ReturnLabelsRestApiCompanyBusinessUnitConnectorFactory getFactory()
+ * @method \FondOfOryx\Zed\ReturnLabelsRestApiCompanyBusinessUnitConnector\Business\ReturnLabelsRestApiCompanyBusinessUnitConnectorBusinessFactory getFactory()
  */
 class ReturnLabelsRestApiCompanyBusinessUnitConnectorFacade extends AbstractFacade implements ReturnLabelsRestApiCompanyBusinessUnitConnectorFacadeInterface
 {
