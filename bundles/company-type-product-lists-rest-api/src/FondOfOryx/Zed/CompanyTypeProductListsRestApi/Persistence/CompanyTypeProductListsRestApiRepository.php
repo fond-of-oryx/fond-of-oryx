@@ -18,6 +18,16 @@ use Spryker\Zed\Kernel\Persistence\AbstractRepository;
 class CompanyTypeProductListsRestApiRepository extends AbstractRepository implements CompanyTypeProductListsRestApiRepositoryInterface
 {
     /**
+     * @var string
+     */
+    public const RELATION_ALIAS_TEMP_COMPANY_USER = 'temp_company_user';
+
+    /**
+     * @var string
+     */
+    public const RELATION_ALIAS_TEMP_CUSTOMER = 'temp_customer';
+
+    /**
      * @param int $currentIdCustomer
      * @param array<string> $customerReferences
      *
@@ -27,6 +37,10 @@ class CompanyTypeProductListsRestApiRepository extends AbstractRepository implem
         int $currentIdCustomer,
         array $customerReferences
     ): array {
+        $fkCompanyType = $this->getFactory()
+            ->getConfig()
+            ->getIdCompanyTypeForManufacturer();
+
         return $this->getFactory()
             ->getCompanyUserQuery()
             ->clear()
@@ -44,15 +58,15 @@ class CompanyTypeProductListsRestApiRepository extends AbstractRepository implem
                 ->endUse()
             ->endUse()
             ->useCompanyQuery()
-                ->useCompanyUserQuery('xxx')
-                    ->useCustomerQuery('yyy')
+                ->useCompanyUserQuery(static::RELATION_ALIAS_TEMP_COMPANY_USER)
+                    ->useCustomerQuery(static::RELATION_ALIAS_TEMP_CUSTOMER)
                         ->filterByAnonymizedAt(null, Criteria::ISNULL)
                         ->filterByCustomerReference_In($customerReferences)
                     ->endUse()
                     ->filterByIsActive(true)
                 ->endUse()
                 ->filterByIsActive(true)
-                ->filterByFkCompanyType(2)
+                ->filterByFkCompanyType($fkCompanyType)
             ->endUse()
             ->select([SpyCompanyUserTableMap::COL_ID_COMPANY_USER])
             ->find()
@@ -66,14 +80,18 @@ class CompanyTypeProductListsRestApiRepository extends AbstractRepository implem
      */
     public function getWhitelistedCustomerReferencesByCompanyUserIds(array $companyUserIds): array
     {
+        $fkCompanyType = $this->getFactory()
+            ->getConfig()
+            ->getIdCompanyTypeForManufacturer();
+
         return $this->getFactory()
             ->getCustomerQuery()
             ->clear()
             ->useCompanyUserQuery()
                 ->useCompanyQuery()
                     ->filterByIsActive(true)
-                    ->filterByFkCompanyType(2)
-                    ->useCompanyUserQuery('xxx')
+                    ->filterByFkCompanyType($fkCompanyType)
+                    ->useCompanyUserQuery(static::RELATION_ALIAS_TEMP_COMPANY_USER)
                         ->filterByIdCompanyUser_In($companyUserIds)
                     ->endUse()
                 ->endUse()
@@ -128,6 +146,10 @@ class CompanyTypeProductListsRestApiRepository extends AbstractRepository implem
      */
     public function getWhitelistedCompanyUuidsByCompanyUserIds(array $companyUserIds): array
     {
+        $fkCompanyType = $this->getFactory()
+            ->getConfig()
+            ->getIdCompanyTypeForManufacturer();
+
         return $this->getFactory()
             ->getCompanyQuery()
             ->clear()
@@ -135,7 +157,7 @@ class CompanyTypeProductListsRestApiRepository extends AbstractRepository implem
                 ->filterByIdCompanyUser_In($companyUserIds)
             ->endUse()
             ->filterByIsActive(true)
-            ->filterByFkCompanyType(2, Criteria::NOT_EQUAL)
+            ->filterByFkCompanyType($fkCompanyType, Criteria::NOT_EQUAL)
             ->select([SpyCompanyTableMap::COL_UUID])
             ->find()
             ->toArray();

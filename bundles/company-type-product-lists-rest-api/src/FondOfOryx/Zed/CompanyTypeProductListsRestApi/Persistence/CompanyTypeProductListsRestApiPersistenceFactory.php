@@ -10,6 +10,8 @@ use Spryker\Zed\Kernel\Persistence\AbstractPersistenceFactory;
 
 /**
  * @codeCoverageIgnore
+ *
+ * @method \FondOfOryx\Zed\CompanyTypeProductListsRestApi\CompanyTypeProductListsRestApiConfig getConfig()
  */
 class CompanyTypeProductListsRestApiPersistenceFactory extends AbstractPersistenceFactory
 {
