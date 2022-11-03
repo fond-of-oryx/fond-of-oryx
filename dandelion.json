@@ -646,6 +646,10 @@
       "path": "bundles/return-labels-rest-api-company-connector/",
       "version": "1.0.0"
     },
+    "return-labels-rest-api-company-business-unit-connector": {
+      "path": "bundles/return-labels-rest-api-company-business-unit-connector/",
+      "version": "1.0.0"
+    },
     "return-labels-rest-api-company-unit-address-connector": {
       "path": "bundles/return-labels-rest-api-company-unit-address-connector/",
       "version": "1.0.0"
