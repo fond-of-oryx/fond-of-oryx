@@ -8,6 +8,11 @@
         <property name="title" type="string"/>
     </transfer>
 
+    <transfer name="RestProductListResponseAttributes">
+        <property name="type" type="string"/>
+        <property name="title" type="string"/>
+    </transfer>
+
     <transfer name="RestProductListUpdateRequest">
         <property name="productListId" type="string"/>
         <property name="productList" type="RestProductListsAttributes"/>

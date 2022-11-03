@@ -2,7 +2,7 @@
 
 namespace FondOfOryx\Glue\ProductListsRestApi\Processor\Builder;
 
-use FondOfOryx\Glue\ProductListsRestApi\Processor\Mapper\RestProductListsAttributesMapperInterface;
+use FondOfOryx\Glue\ProductListsRestApi\Processor\Mapper\RestProductListResponseAttributesMapperInterface;
 use FondOfOryx\Glue\ProductListsRestApi\ProductListsRestApiConfig;
 use Generated\Shared\Transfer\ProductListTransfer;
 use Generated\Shared\Transfer\RestErrorMessageTransfer;
@@ -13,7 +13,7 @@ use Symfony\Component\HttpFoundation\Response;
 class RestResponseBuilder implements RestResponseBuilderInterface
 {
     /**
-     * @var \FondOfOryx\Glue\ProductListsRestApi\Processor\Mapper\RestProductListsAttributesMapperInterface
+     * @var \FondOfOryx\Glue\ProductListsRestApi\Processor\Mapper\RestProductListResponseAttributesMapperInterface
      */
     protected $restProductListsAttributesMapper;
 
@@ -23,11 +23,11 @@ class RestResponseBuilder implements RestResponseBuilderInterface
     protected $restResourceBuilder;
 
     /**
-     * @param \FondOfOryx\Glue\ProductListsRestApi\Processor\Mapper\RestProductListsAttributesMapperInterface $restProductListsAttributesMapper
+     * @param \FondOfOryx\Glue\ProductListsRestApi\Processor\Mapper\RestProductListResponseAttributesMapperInterface $restProductListsAttributesMapper
      * @param \Spryker\Glue\GlueApplication\Rest\JsonApi\RestResourceBuilderInterface $restResourceBuilder
      */
     public function __construct(
-        RestProductListsAttributesMapperInterface $restProductListsAttributesMapper,
+        RestProductListResponseAttributesMapperInterface $restProductListsAttributesMapper,
         RestResourceBuilderInterface $restResourceBuilder
     ) {
         $this->restProductListsAttributesMapper = $restProductListsAttributesMapper;
