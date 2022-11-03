@@ -22,6 +22,9 @@ class CompanyReturnLabelRequestExpanderPlugin extends AbstractPlugin implements 
         RestReturnLabelRequestTransfer $restReturnLabelRequestTransfer,
         ReturnLabelRequestTransfer $returnLabelRequestTransfer
     ): ReturnLabelRequestTransfer {
-        return $returnLabelRequestTransfer;
+        return $this->getFacade()->expandReturnLabelRequest(
+            $restReturnLabelRequestTransfer,
+            $returnLabelRequestTransfer,
+        );
     }
 }
