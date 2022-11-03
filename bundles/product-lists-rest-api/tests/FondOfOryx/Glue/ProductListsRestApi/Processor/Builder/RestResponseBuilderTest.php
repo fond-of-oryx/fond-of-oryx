@@ -3,11 +3,11 @@
 namespace FondOfOryx\Glue\ProductListsRestApi\Processor\Builder;
 
 use Codeception\Test\Unit;
-use FondOfOryx\Glue\ProductListsRestApi\Processor\Mapper\RestProductListsAttributesMapperInterface;
+use FondOfOryx\Glue\ProductListsRestApi\Processor\Mapper\RestProductListResponseAttributesMapperInterface;
 use FondOfOryx\Glue\ProductListsRestApi\ProductListsRestApiConfig;
 use Generated\Shared\Transfer\ProductListTransfer;
 use Generated\Shared\Transfer\RestErrorMessageTransfer;
-use Generated\Shared\Transfer\RestProductListsAttributesTransfer;
+use Generated\Shared\Transfer\RestProductListResponseAttributesTransfer;
 use Spryker\Glue\GlueApplication\Rest\JsonApi\RestResourceBuilderInterface;
 use Spryker\Glue\GlueApplication\Rest\JsonApi\RestResourceInterface;
 use Spryker\Glue\GlueApplication\Rest\JsonApi\RestResponseInterface;
@@ -16,7 +16,7 @@ use Symfony\Component\HttpFoundation\Response;
 class RestResponseBuilderTest extends Unit
 {
     /**
-     * @var \FondOfOryx\Glue\ProductListsRestApi\Processor\Mapper\RestProductListsAttributesMapperInterface|\PHPUnit\Framework\MockObject\MockObject
+     * @var \FondOfOryx\Glue\ProductListsRestApi\Processor\Mapper\RestProductListResponseAttributesMapperInterface|\PHPUnit\Framework\MockObject\MockObject
      */
     protected $restProductListsAttributesMapperMock;
 
@@ -43,7 +43,7 @@ class RestResponseBuilderTest extends Unit
     /**
      * @var \Generated\Shared\Transfer\RestProductListsAttributesTransfer|\PHPUnit\Framework\MockObject\MockObject
      */
-    protected $restProductListsAttributesTransferMock;
+    protected $restProductListResponseAttributesTransferMock;
 
     /**
      * @var \FondOfOryx\Glue\ProductListsRestApi\Processor\Builder\RestResponseBuilder
@@ -57,7 +57,7 @@ class RestResponseBuilderTest extends Unit
     {
         parent::_before();
 
-        $this->restProductListsAttributesMapperMock = $this->getMockBuilder(RestProductListsAttributesMapperInterface::class)
+        $this->restProductListsAttributesMapperMock = $this->getMockBuilder(RestProductListResponseAttributesMapperInterface::class)
             ->disableOriginalConstructor()
             ->getMock();
 
@@ -77,7 +77,7 @@ class RestResponseBuilderTest extends Unit
             ->disableOriginalConstructor()
             ->getMock();
 
-        $this->restProductListsAttributesTransferMock = $this->getMockBuilder(RestProductListsAttributesTransfer::class)
+        $this->restProductListResponseAttributesTransferMock = $this->getMockBuilder(RestProductListResponseAttributesTransfer::class)
             ->disableOriginalConstructor()
             ->getMock();
 
@@ -151,7 +151,7 @@ class RestResponseBuilderTest extends Unit
         $this->restProductListsAttributesMapperMock->expects(static::atLeastOnce())
             ->method('fromProductList')
             ->with($this->productListTransferMock)
-            ->willReturn($this->restProductListsAttributesTransferMock);
+            ->willReturn($this->restProductListResponseAttributesTransferMock);
 
         $this->productListTransferMock->expects(static::atLeastOnce())
             ->method('getUuid')
@@ -162,7 +162,7 @@ class RestResponseBuilderTest extends Unit
             ->with(
                 ProductListsRestApiConfig::RESOURCE_PRODUCT_LISTS,
                 $uuid,
-                $this->restProductListsAttributesTransferMock,
+                $this->restProductListResponseAttributesTransferMock,
             )->willReturn($this->restResourceMock);
 
         $this->restResourceMock->expects(static::atLeastOnce())

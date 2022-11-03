@@ -13,9 +13,9 @@ class RestProductListsAttributesMapperTest extends Unit
     protected $productListTransferMock;
 
     /**
-     * @var \FondOfOryx\Glue\ProductListsRestApi\Processor\Mapper\RestProductListsAttributesMapper
+     * @var \FondOfOryx\Glue\ProductListsRestApi\Processor\Mapper\RestProductListResponseAttributesMapper
      */
-    protected $restProductListsAttributesMapper;
+    protected $restProductListResponseAttributesMapper;
 
     /**
      * @return void
@@ -28,7 +28,7 @@ class RestProductListsAttributesMapperTest extends Unit
             ->disableOriginalConstructor()
             ->getMock();
 
-        $this->restProductListsAttributesMapper = new RestProductListsAttributesMapper();
+        $this->restProductListResponseAttributesMapper = new RestProductListResponseAttributesMapper();
     }
 
     /**
@@ -45,11 +45,11 @@ class RestProductListsAttributesMapperTest extends Unit
             ->method('toArray')
             ->willReturn($data);
 
-        $restProductListsAttributesTransfer = $this->restProductListsAttributesMapper->fromProductList(
+        $restProductListResponseAttributesTransfer = $this->restProductListResponseAttributesMapper->fromProductList(
             $this->productListTransferMock,
         );
 
-        static::assertEquals($data['title'], $restProductListsAttributesTransfer->getTitle());
-        static::assertEquals($data['type'], $restProductListsAttributesTransfer->getType());
+        static::assertEquals($data['title'], $restProductListResponseAttributesTransfer->getTitle());
+        static::assertEquals($data['type'], $restProductListResponseAttributesTransfer->getType());
     }
 }

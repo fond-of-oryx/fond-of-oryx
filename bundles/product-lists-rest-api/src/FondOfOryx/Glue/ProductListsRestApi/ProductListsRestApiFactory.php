@@ -8,8 +8,8 @@ use FondOfOryx\Glue\ProductListsRestApi\Processor\Filter\IdCustomerFilter;
 use FondOfOryx\Glue\ProductListsRestApi\Processor\Filter\IdCustomerFilterInterface;
 use FondOfOryx\Glue\ProductListsRestApi\Processor\Filter\IdProductListFilter;
 use FondOfOryx\Glue\ProductListsRestApi\Processor\Filter\IdProductListFilterInterface;
-use FondOfOryx\Glue\ProductListsRestApi\Processor\Mapper\RestProductListsAttributesMapper;
-use FondOfOryx\Glue\ProductListsRestApi\Processor\Mapper\RestProductListsAttributesMapperInterface;
+use FondOfOryx\Glue\ProductListsRestApi\Processor\Mapper\RestProductListResponseAttributesMapper;
+use FondOfOryx\Glue\ProductListsRestApi\Processor\Mapper\RestProductListResponseAttributesMapperInterface;
 use FondOfOryx\Glue\ProductListsRestApi\Processor\Mapper\RestProductListUpdateRequestMapper;
 use FondOfOryx\Glue\ProductListsRestApi\Processor\Mapper\RestProductListUpdateRequestMapperInterface;
 use FondOfOryx\Glue\ProductListsRestApi\Processor\Updater\ProductListUpdater;
@@ -64,11 +64,11 @@ class ProductListsRestApiFactory extends AbstractFactory
     }
 
     /**
-     * @return \FondOfOryx\Glue\ProductListsRestApi\Processor\Mapper\RestProductListsAttributesMapperInterface
+     * @return \FondOfOryx\Glue\ProductListsRestApi\Processor\Mapper\RestProductListResponseAttributesMapperInterface
      */
-    protected function createRestProductListsAttributesMapper(): RestProductListsAttributesMapperInterface
+    protected function createRestProductListsAttributesMapper(): RestProductListResponseAttributesMapperInterface
     {
-        return new RestProductListsAttributesMapper();
+        return new RestProductListResponseAttributesMapper();
     }
 
     /**
