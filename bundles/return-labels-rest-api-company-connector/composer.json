@@ -1,6 +1,6 @@
 {
   "name": "fond-of-oryx/return-labels-rest-api-company-connector",
-  "description": "Return Labels Rest Api Extension Module",
+  "description": "Return Labels Rest Api Expander Module, expands reference with company debtor number",
   "license": "MIT",
   "authors": [
     {
