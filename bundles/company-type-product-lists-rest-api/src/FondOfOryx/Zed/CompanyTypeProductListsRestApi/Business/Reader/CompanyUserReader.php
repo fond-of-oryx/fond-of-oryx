@@ -61,7 +61,7 @@ class CompanyUserReader implements CompanyUserReaderInterface
             $activeIds,
             $this->repository->getAuthorizedCompanyUserIdsByCurrentIdCustomerAndCompanyUuids(
                 $idCustomer,
-                $customerReferences,
+                $companyUuids,
             ),
         );
     }
