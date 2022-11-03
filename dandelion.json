@@ -118,6 +118,10 @@
       "path": "bundles/company-product-list-connector-gui/",
       "version": "1.0.0"
     },
+    "company-product-lists-rest-api": {
+      "path": "bundles/company-product-lists-rest-api/",
+      "version": "1.0.0"
+    },
     "company-role-search-rest-api": {
       "path": "bundles/company-role-search-rest-api/",
       "version": "1.2.0"
@@ -125,6 +129,10 @@
     "company-search-rest-api": {
       "path": "bundles/company-search-rest-api/",
       "version": "1.1.0"
+    },
+    "company-type-product-lists-rest-api": {
+      "path": "bundles/company-type-product-lists-rest-api/",
+      "version": "1.0.0"
     },
     "company-unit-address-api": {
       "path": "bundles/company-unit-address-api/",
@@ -228,6 +236,10 @@
     },
     "customer-product-list-search-rest-api": {
       "path": "bundles/customer-product-list-search-rest-api/",
+      "version": "1.0.0"
+    },
+    "customer-product-lists-rest-api": {
+      "path": "bundles/customer-product-lists-rest-api/",
       "version": "1.0.0"
     },
     "customer-statistic": {
@@ -608,6 +620,14 @@
     },
     "product-list-search-rest-api-extension": {
       "path": "bundles/product-list-search-rest-api-extension/",
+      "version": "1.0.0"
+    },
+    "product-lists-rest-api": {
+      "path": "bundles/product-lists-rest-api/",
+      "version": "1.0.0"
+    },
+    "product-lists-rest-api-extension": {
+      "path": "bundles/product-lists-rest-api-extension/",
       "version": "1.0.0"
     },
     "product-locale-restriction": {
