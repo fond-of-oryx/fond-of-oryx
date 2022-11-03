@@ -21,9 +21,9 @@ class CompanyBusinessUnitReaderTest extends Unit
     protected $companyBusinessUnitTransferMock;
 
     /**
-     * @var \Generated\Shared\Transfer\CustomerTransfer|\PHPUnit\Framework\MockObject\MockObject
+     * @var \Generated\Shared\Transfer\RestCustomerTransfer|\PHPUnit\Framework\MockObject\MockObject
      */
-    protected $customerTransferMock;
+    protected $restCustomerTransferMock;
 
     /**
      * @var \FondOfOryx\Zed\ReturnLabelsRestApiCompanyBusinessUnitConnector\Persistence\ReturnLabelsRestApiCompanyBusinessUnitConnectorRepository|\PHPUnit\Framework\MockObject\MockObject
@@ -46,7 +46,7 @@ class CompanyBusinessUnitReaderTest extends Unit
             ->disableOriginalConstructor()
             ->getMock();
 
-        $this->customerTransferMock = $this->getMockBuilder(CustomerTransfer::class)
+        $this->restCustomerTransferMock = $this->getMockBuilder(CustomerTransfer::class)
             ->disableOriginalConstructor()
             ->getMock();
 
@@ -69,9 +69,9 @@ class CompanyBusinessUnitReaderTest extends Unit
     {
         $this->restReturnLabelRequestTransferMock->expects(static::atLeastOnce())
             ->method('getCustomer')
-            ->willReturn($this->customerTransferMock);
+            ->willReturn($this->restCustomerTransferMock);
 
-        $this->customerTransferMock->expects(static::atLeastOnce())
+        $this->restCustomerTransferMock->expects(static::atLeastOnce())
             ->method('getIdCustomer')
             ->willReturn(666);
 
@@ -113,9 +113,9 @@ class CompanyBusinessUnitReaderTest extends Unit
     {
         $this->restReturnLabelRequestTransferMock->expects(static::atLeastOnce())
             ->method('getCustomer')
-            ->willReturn($this->customerTransferMock);
+            ->willReturn($this->restCustomerTransferMock);
 
-        $this->customerTransferMock->expects(static::atLeastOnce())
+        $this->restCustomerTransferMock->expects(static::atLeastOnce())
             ->method('getIdCustomer')
             ->willReturn(null);
 

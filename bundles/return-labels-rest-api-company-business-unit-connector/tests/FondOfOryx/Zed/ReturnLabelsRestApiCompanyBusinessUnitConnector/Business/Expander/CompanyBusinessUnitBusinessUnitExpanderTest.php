@@ -27,9 +27,9 @@ class CompanyBusinessUnitBusinessUnitExpanderTest extends Unit
     protected $returnLabelRequestTransferMock;
 
     /**
-     * @var \Generated\Shared\Transfer\CustomerTransfer|\PHPUnit\Framework\MockObject\MockObject
+     * @var \Generated\Shared\Transfer\ReturnLabelRequestCustomerTransfer|\PHPUnit\Framework\MockObject\MockObject
      */
-    protected $customerTransferMock;
+    protected $returnLabelRequestCustomerTransferMock;
 
     /**
      * @var \Generated\Shared\Transfer\CompanyBusinessUnitTransfer|\PHPUnit\Framework\MockObject\MockObject
@@ -60,7 +60,7 @@ class CompanyBusinessUnitBusinessUnitExpanderTest extends Unit
             ->disableOriginalConstructor()
             ->getMock();
 
-        $this->customerTransferMock = $this->getMockBuilder(CustomerTransfer::class)
+        $this->returnLabelRequestCustomerTransferMock = $this->getMockBuilder(CustomerTransfer::class)
             ->disableOriginalConstructor()
             ->getMock();
 
@@ -89,9 +89,9 @@ class CompanyBusinessUnitBusinessUnitExpanderTest extends Unit
 
         $this->returnLabelRequestTransferMock->expects(static::atLeastOnce())
             ->method('getCustomer')
-            ->willReturn($this->customerTransferMock);
+            ->willReturn($this->returnLabelRequestCustomerTransferMock);
 
-        $this->customerTransferMock->expects(static::atLeastOnce())
+        $this->returnLabelRequestCustomerTransferMock->expects(static::atLeastOnce())
             ->method('setEmail')
             ->willReturnSelf();
 

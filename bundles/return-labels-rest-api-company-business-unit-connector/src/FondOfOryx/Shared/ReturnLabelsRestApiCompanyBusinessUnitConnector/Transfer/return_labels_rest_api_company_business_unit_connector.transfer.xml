@@ -4,15 +4,18 @@
            xsi:schemaLocation="spryker:transfer-01 http://static.spryker.com/transfer-01.xsd">
 
     <transfer name="RestReturnLabelRequest">
-        <property name="customer" type="Customer"/>
+        <property name="customer" type="RestCustomer"/>
     </transfer>
 
-    <transfer name="Customer">
+    <transfer name="RestCustomer">
         <property name="idCustomer" type="int"/>
     </transfer>
 
     <transfer name="ReturnLabelRequest">
-        <property name="customer" type="Customer"/>
+        <property name="customer" type="ReturnLabelRequestCustomer"/>
+    </transfer>
+
+    <transfer name="ReturnLabelRequestCustomer">
         <property name="email" type="string"/>
     </transfer>
 
