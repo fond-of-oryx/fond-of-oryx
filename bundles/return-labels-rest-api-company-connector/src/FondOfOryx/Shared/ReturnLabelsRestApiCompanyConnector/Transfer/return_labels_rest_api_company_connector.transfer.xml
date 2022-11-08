@@ -14,7 +14,6 @@
 
     <transfer name="ReturnLabelRequest">
         <property name="customer" type="ReturnLabelRequestCustomer"/>
-        <property name="reference" type="string"/>
     </transfer>
 
     <transfer name="ReturnLabelRequestCustomer"/>
