@@ -9,8 +9,8 @@
 
     <transfer name="RestCustomer">
         <property name="idCustomer" type="int" />
+        <property name="reference" type="string" />
     </transfer>
-
 
     <transfer name="ReturnLabelRequest">
         <property name="customer" type="ReturnLabelRequestCustomer"/>
