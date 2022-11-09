@@ -5,7 +5,7 @@ namespace FondOfOryx\Zed\ReturnLabelsRestApiCompanyBusinessUnitConnector\Busines
 use Codeception\Test\Unit;
 use FondOfOryx\Zed\ReturnLabelsRestApiCompanyBusinessUnitConnector\Persistence\ReturnLabelsRestApiCompanyBusinessUnitConnectorRepository;
 use Generated\Shared\Transfer\CompanyBusinessUnitTransfer;
-use Generated\Shared\Transfer\CustomerTransfer;
+use Generated\Shared\Transfer\RestCustomerTransfer;
 use Generated\Shared\Transfer\RestReturnLabelRequestTransfer;
 
 class CompanyBusinessUnitReaderTest extends Unit
@@ -46,7 +46,7 @@ class CompanyBusinessUnitReaderTest extends Unit
             ->disableOriginalConstructor()
             ->getMock();
 
-        $this->restCustomerTransferMock = $this->getMockBuilder(CustomerTransfer::class)
+        $this->restCustomerTransferMock = $this->getMockBuilder(RestCustomerTransfer::class)
             ->disableOriginalConstructor()
             ->getMock();
 
@@ -75,9 +75,13 @@ class CompanyBusinessUnitReaderTest extends Unit
             ->method('getIdCustomer')
             ->willReturn(666);
 
+        $this->restCustomerTransferMock->expects(static::atLeastOnce())
+            ->method('getReference')
+            ->willReturn('companyUserReference');
+
         $this->repositoryMock->expects(static::atLeastOnce())
-            ->method('getCompanyBusinessUnitByIdCustomer')
-            ->with(666)
+            ->method('getCompanyBusinessUnitByCompanyUserReferenceAndIdCustomer')
+            ->with('companyUserReference', 666)
             ->willReturn($this->companyBusinessUnitTransferMock);
 
         $companyBusinessUnitTransfer = $this->companyBusinessUnitReader->getByRestReturnLabelRequest(
@@ -97,7 +101,7 @@ class CompanyBusinessUnitReaderTest extends Unit
             ->willReturn(null);
 
         $this->repositoryMock->expects(static::never())
-            ->method('getCompanyBusinessUnitByIdCustomer');
+            ->method('getCompanyBusinessUnitByCompanyUserReferenceAndIdCustomer');
 
         $companyBusinessUnitTransfer = $this->companyBusinessUnitReader->getByRestReturnLabelRequest(
             $this->restReturnLabelRequestTransferMock,
@@ -119,8 +123,12 @@ class CompanyBusinessUnitReaderTest extends Unit
             ->method('getIdCustomer')
             ->willReturn(null);
 
+        $this->restCustomerTransferMock->expects(static::atLeastOnce())
+            ->method('getReference')
+            ->willReturn('companyUserReference');
+
         $this->repositoryMock->expects(static::never())
-            ->method('getCompanyBusinessUnitByIdCustomer');
+            ->method('getCompanyBusinessUnitByCompanyUserReferenceAndIdCustomer');
 
         $companyBusinessUnitTransfer = $this->companyBusinessUnitReader->getByRestReturnLabelRequest(
             $this->restReturnLabelRequestTransferMock,

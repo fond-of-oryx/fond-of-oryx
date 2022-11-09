@@ -72,12 +72,16 @@ class CompanyReaderTest extends Unit
             ->willReturn($this->restCustomerTransferMock);
 
         $this->restCustomerTransferMock->expects(static::atLeastOnce())
+            ->method('getReference')
+            ->willReturn('companyUserReference');
+
+        $this->restCustomerTransferMock->expects(static::atLeastOnce())
             ->method('getIdCustomer')
             ->willReturn(666);
 
         $this->returnLabelsRestApiCompanyConnectorRepositoryMock->expects(static::atLeastOnce())
-            ->method('getCompanyByIdCustomer')
-            ->with(666)
+            ->method('getCompanyByCompanyUserReferenceAndIdCustomer')
+            ->with('companyUserReference', 666)
             ->willReturn($this->companyTransferMock);
 
         static::assertInstanceOf(CompanyTransfer::class, $this->companyReader->getByRestReturnLabelRequest(
@@ -112,9 +116,13 @@ class CompanyReaderTest extends Unit
             ->method('getIdCustomer')
             ->willReturn(666);
 
+        $this->restCustomerTransferMock->expects(static::atLeastOnce())
+            ->method('getReference')
+            ->willReturn('companyUserReference');
+
         $this->returnLabelsRestApiCompanyConnectorRepositoryMock->expects(static::atLeastOnce())
-            ->method('getCompanyByIdCustomer')
-            ->with(666)
+            ->method('getCompanyByCompanyUserReferenceAndIdCustomer')
+            ->with('companyUserReference', 666)
             ->willReturn(null);
 
         static::assertNull($this->companyReader->getByRestReturnLabelRequest(

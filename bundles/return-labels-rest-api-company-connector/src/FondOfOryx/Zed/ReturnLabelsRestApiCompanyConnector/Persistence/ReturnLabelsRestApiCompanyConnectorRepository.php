@@ -11,18 +11,22 @@ use Spryker\Zed\Kernel\Persistence\AbstractRepository;
 class ReturnLabelsRestApiCompanyConnectorRepository extends AbstractRepository implements ReturnLabelsRestApiCompanyConnectorRepositoryInterface
 {
     /**
+     * @param string $companyUserReference
      * @param int $idCustomer
      *
      * @return \Generated\Shared\Transfer\CompanyTransfer|null
      */
-    public function getCompanyByIdCustomer(int $idCustomer): ?CompanyTransfer
-    {
+    public function getCompanyByCompanyUserReferenceAndIdCustomer(
+        string $companyUserReference,
+        int $idCustomer
+    ): ?CompanyTransfer {
         $spyCompanyQuery = $this->getFactory()
             ->getCompanyQuery()
             ->clear();
 
         $spyCompanyEntity = $spyCompanyQuery
             ->useCompanyUserQuery()
+                ->filterByCompanyUserReference($companyUserReference)
                 ->useCustomerQuery()
                     ->filterByIdCustomer($idCustomer)
                 ->endUse()

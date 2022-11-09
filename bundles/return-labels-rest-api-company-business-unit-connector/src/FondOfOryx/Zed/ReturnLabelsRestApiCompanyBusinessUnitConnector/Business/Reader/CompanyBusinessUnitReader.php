@@ -33,12 +33,16 @@ class CompanyBusinessUnitReader implements CompanyBusinessUnitReaderInterface
             return null;
         }
 
+        $companyUserReference = $restReturnLabelRequestTransfer->getCustomer()->getReference();
         $idCustomer = $restReturnLabelRequestTransfer->getCustomer()->getIdCustomer();
 
-        if ($idCustomer === null) {
+        if ($companyUserReference === null || $idCustomer === null) {
             return null;
         }
 
-        return $this->repository->getCompanyBusinessUnitByIdCustomer($idCustomer);
+        return $this->repository->getCompanyBusinessUnitByCompanyUserReferenceAndIdCustomer(
+            $companyUserReference,
+            $idCustomer,
+        );
     }
 }

@@ -33,12 +33,13 @@ class CompanyReader implements CompanyReaderInterface
             return null;
         }
 
+        $companyUserReference = $restReturnLabelRequestTransfer->getCustomer()->getReference();
         $idCustomer = $restReturnLabelRequestTransfer->getCustomer()->getIdCustomer();
 
-        if ($idCustomer === null) {
+        if ($companyUserReference === null || $idCustomer === null) {
             return null;
         }
 
-        return $this->repository->getCompanyByIdCustomer($idCustomer);
+        return $this->repository->getCompanyByCompanyUserReferenceAndIdCustomer($companyUserReference, $idCustomer);
     }
 }
