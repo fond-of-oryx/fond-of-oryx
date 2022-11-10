@@ -33,7 +33,7 @@ class CompanyRoleReader implements CompanyRoleReaderInterface
         if ($restCompanyRoleTransfer === null || $restCompanyRoleTransfer->getUuid() === null) {
             return null;
         }
-
+        
         $companyRoleTransfer = (new CompanyRoleTransfer())
             ->setUuid($restCompanyRoleTransfer->getUuid());
 
