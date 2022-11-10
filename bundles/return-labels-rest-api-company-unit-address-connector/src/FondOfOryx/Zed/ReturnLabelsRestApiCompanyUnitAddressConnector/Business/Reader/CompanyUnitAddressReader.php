@@ -33,16 +33,12 @@ class CompanyUnitAddressReader implements CompanyUnitAddressReaderInterface
             return null;
         }
 
-        $idCustomer = $restReturnLabelRequestTransfer->getCustomer()->getIdCustomer();
         $restAddressTransfer = $restReturnLabelRequestTransfer->getAddress();
 
-        if ($idCustomer === null || $restAddressTransfer === null || $restAddressTransfer->getId() === null) {
+        if ($restAddressTransfer === null || $restAddressTransfer->getId() === null) {
             return null;
         }
 
-        return $this->repository->getCompanyUnitAddressByUuidAndIdCustomer(
-            $restAddressTransfer->getId(),
-            $idCustomer,
-        );
+        return $this->repository->getCompanyUnitAddressByUuid($restAddressTransfer->getId());
     }
 }

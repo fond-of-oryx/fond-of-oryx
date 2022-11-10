@@ -74,15 +74,11 @@ class CompanyUnitAddressReaderTest extends Unit
     /**
      * @return void
      */
-    public function testGetByRestReturnLabelRequest(): void
+    public function testGetByRestReturnLabelRequestSuccess(): void
     {
         $this->restReturnLabelRequestTransferMock->expects(static::atLeastOnce())
             ->method('getCustomer')
             ->willReturn($this->restCustomerTransferMock);
-
-        $this->restCustomerTransferMock->expects(static::atLeastOnce())
-            ->method('getIdCustomer')
-            ->willReturn(99);
 
         $this->restReturnLabelRequestTransferMock->expects(static::atLeastOnce())
             ->method('getAddress')
@@ -93,8 +89,8 @@ class CompanyUnitAddressReaderTest extends Unit
             ->willReturn(5);
 
         $this->repositoryMock->expects(static::atLeastOnce())
-            ->method('getCompanyUnitAddressByUuidAndIdCustomer')
-            ->with($this->restAddressTransferMock->getId(), $this->restCustomerTransferMock->getIdCustomer())
+            ->method('getCompanyUnitAddressByUuid')
+            ->with($this->restAddressTransferMock->getId())
             ->willReturn($this->companyUnitAddressTransferMock);
 
         static::assertEquals(
@@ -106,7 +102,7 @@ class CompanyUnitAddressReaderTest extends Unit
     /**
      * @return void
      */
-    public function testGetByRestReturnLabelRequestCustomerNull(): void
+    public function testGetByRestReturnLabelRequestFailedCustomerNull(): void
     {
         $this->restReturnLabelRequestTransferMock->expects(static::atLeastOnce())
             ->method('getCustomer')
@@ -118,34 +114,14 @@ class CompanyUnitAddressReaderTest extends Unit
     /**
      * @return void
      */
-    public function testGetByRestReturnLabelRequestRestAddressNull(): void
+    public function testGetByRestReturnLabelRequestFailedRestAddressNull(): void
     {
         $this->restReturnLabelRequestTransferMock->expects(static::atLeastOnce())
             ->method('getCustomer')
             ->willReturn($this->restCustomerTransferMock);
-
-        $this->restCustomerTransferMock->expects(static::atLeastOnce())
-            ->method('getIdCustomer')
-            ->willReturn(99);
 
         $this->restReturnLabelRequestTransferMock->expects(static::atLeastOnce())
             ->method('getAddress')
-            ->willReturn(null);
-
-        static::assertNull($this->reader->getByRestReturnLabelRequest($this->restReturnLabelRequestTransferMock));
-    }
-
-    /**
-     * @return void
-     */
-    public function testGetByRestReturnLabelRequestIdCustomerNull(): void
-    {
-        $this->restReturnLabelRequestTransferMock->expects(static::atLeastOnce())
-            ->method('getCustomer')
-            ->willReturn($this->restCustomerTransferMock);
-
-        $this->restCustomerTransferMock->expects(static::atLeastOnce())
-            ->method('getIdCustomer')
             ->willReturn(null);
 
         static::assertNull($this->reader->getByRestReturnLabelRequest($this->restReturnLabelRequestTransferMock));

@@ -8,12 +8,8 @@ interface ReturnLabelsRestApiCompanyUnitAddressConnectorRepositoryInterface
 {
     /**
      * @param string $uuid
-     * @param int $idCustomer
      *
      * @return \Generated\Shared\Transfer\CompanyUnitAddressTransfer|null
      */
-    public function getCompanyUnitAddressByUuidAndIdCustomer(
-        string $uuid,
-        int $idCustomer
-    ): ?CompanyUnitAddressTransfer;
+    public function getCompanyUnitAddressByUuid(string $uuid): ?CompanyUnitAddressTransfer;
 }
