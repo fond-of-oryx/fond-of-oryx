@@ -5,6 +5,7 @@ namespace FondOfOryx\Zed\CompanUserCompanyRoleConnector\Business;
 use Codeception\Test\Unit;
 use FondOfOryx\Zed\CompanyUserCompanyRoleConnector\Business\CompanyUserCompanyRoleConnectorBusinessFactory;
 use FondOfOryx\Zed\CompanyUserCompanyRoleConnector\Business\CompanyUserCompanyRoleConnectorFacade;
+use FondOfOryx\Zed\CompanyUserCompanyRoleConnector\Business\Expander\CompanyUserExpanderInterface;
 use FondOfOryx\Zed\CompanyUserCompanyRoleConnector\Business\Writer\CompanyUserCompanyRoleWriterInterface;
 use Generated\Shared\Transfer\CompanyUserTransfer;
 use Generated\Shared\Transfer\RestCompanyUsersRequestAttributesTransfer;
@@ -20,6 +21,11 @@ class CompanyUserCompanyRoleConnectorFacadeTest extends Unit
      * @var \PHPUnit\Framework\MockObject\MockObject|\FondOfOryx\Zed\CompanyBusinessUnitOrderBudget\Business\CompanyBusinessUnitOrderBudgetBusinessFactory
      */
     protected $companyUserCompanyRoleWriterMock;
+
+    /**
+     * @var \PHPUnit\Framework\MockObject\MockObject|\FondOfOryx\Zed\CompanyUserCompanyRoleConnector\Business\Expander\CompanyUserExpanderInterface
+     */
+    protected $companyUserExpanderMock;
 
     /**
      * @var \PHPUnit\Framework\MockObject\MockObject|\Generated\Shared\Transfer\CompanyUserTransfer
@@ -57,6 +63,10 @@ class CompanyUserCompanyRoleConnectorFacadeTest extends Unit
             ->disableOriginalConstructor()
             ->getMock();
 
+        $this->companyUserExpanderMock = $this->getMockBuilder(CompanyUserExpanderInterface::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
         $this->restCompanyUsersRequestAttributesTransfer = $this
             ->getMockBuilder(RestCompanyUsersRequestAttributesTransfer::class)
             ->disableOriginalConstructor()
@@ -83,6 +93,29 @@ class CompanyUserCompanyRoleConnectorFacadeTest extends Unit
         static::assertInstanceOf(
             CompanyUserTransfer::class,
             $this->facade->saveCompanyUserCompanyRole(
+                $this->companyUserTransferMock,
+                $this->restCompanyUsersRequestAttributesTransfer,
+            ),
+        );
+    }
+
+    /**
+     * @return void
+     */
+    public function testExpandCompanyUserWithCompanyRole(): void
+    {
+        $this->businessFactoryMock->expects(static::atLeastOnce())
+            ->method('createCompanyUserExpander')
+            ->willReturn($this->companyUserExpanderMock);
+
+        $this->companyUserExpanderMock->expects(static::atLeastOnce())
+            ->method('expand')
+            ->with($this->companyUserTransferMock, $this->restCompanyUsersRequestAttributesTransfer)
+            ->willReturn($this->companyUserTransferMock);
+
+        static::assertInstanceOf(
+            CompanyUserTransfer::class,
+            $this->facade->expandCompanyUserWithCompanyRole(
                 $this->companyUserTransferMock,
                 $this->restCompanyUsersRequestAttributesTransfer,
             ),

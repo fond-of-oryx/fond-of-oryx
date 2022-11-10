@@ -2,11 +2,12 @@
 
 namespace FondOfOryx\Zed\CompanyUserCompanyRolConnector\Business\Writer;
 
+use ArrayObject;
 use Codeception\Test\Unit;
+use FondOfOryx\Zed\CompanyUserCompanyRoleConnector\Business\Expander\CompanyUserExpanderInterface;
 use FondOfOryx\Zed\CompanyUserCompanyRoleConnector\Business\Writer\CompanyUserCompanyRoleWriter;
 use FondOfOryx\Zed\CompanyUserCompanyRoleConnector\Dependency\Facade\CompanyUserCompanyRoleConnectorToCompanyRoleFacadeInterface;
-use FondOfOryx\Zed\CompanyUserCompanyRoleConnector\Exception\CompanyIdMismatchException;
-use FondOfOryx\Zed\CompanyUserCompanyRoleConnector\Exception\CompanyRoleNotFoundException;
+use Generated\Shared\Transfer\CompanyRoleCollectionTransfer;
 use Generated\Shared\Transfer\CompanyRoleResponseTransfer;
 use Generated\Shared\Transfer\CompanyRoleTransfer;
 use Generated\Shared\Transfer\CompanyUserTransfer;
@@ -29,6 +30,11 @@ class CompanyUserCompanyRoleWriterTest extends Unit
      * @var \Generated\Shared\Transfer\CompanyRoleResponseTransfer|\PHPUnit\Framework\MockObject\MockObject|mixed
      */
     protected $companyRoleResponseTransferMock;
+
+    /**
+     * @var \FondOfOryx\Zed\CompanyUserCompanyRoleConnector\Business\Expander\CompanyUserExpanderInterface|\PHPUnit\Framework\MockObject\MockObject|mixed
+     */
+    protected $companyUserExpanderMock;
 
     /**
      * @var \Generated\Shared\Transfer\CompanyUserTransfer|\PHPUnit\Framework\MockObject\MockObject|mixed
@@ -62,11 +68,20 @@ class CompanyUserCompanyRoleWriterTest extends Unit
             ->disableOriginalConstructor()
             ->getMock();
 
+        $this->companyUserExpanderMock = $this
+            ->getMockBuilder(CompanyUserExpanderInterface::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
         $this->companyUserTransferMock = $this->getMockBuilder(CompanyUserTransfer::class)
             ->disableOriginalConstructor()
             ->getMock();
 
         $this->companyRoleTransferMock = $this->getMockBuilder(CompanyRoleTransfer::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $this->companyRoleCollectionTransferMock = $this->getMockBuilder(CompanyRoleCollectionTransfer::class)
             ->disableOriginalConstructor()
             ->getMock();
 
@@ -83,7 +98,10 @@ class CompanyUserCompanyRoleWriterTest extends Unit
             ->disableOriginalConstructor()
             ->getMock();
 
-        $this->companyUserCompanyRoleWriter = new CompanyUserCompanyRoleWriter($this->companyRoleFacadeMock);
+        $this->companyUserCompanyRoleWriter = new CompanyUserCompanyRoleWriter(
+            $this->companyUserExpanderMock,
+            $this->companyRoleFacadeMock,
+        );
     }
 
     /**
@@ -91,40 +109,25 @@ class CompanyUserCompanyRoleWriterTest extends Unit
      */
     public function testSaveCompanyUserCompanyRole(): void
     {
-        $this->companyUsersRequestAttributesTransferMock->expects(static::atLeastOnce())
-            ->method('getCompanyRole')
-            ->willReturn($this->restCompanyRoleTransferMock);
+        $roles = new ArrayObject();
+        $roles->append($this->companyRoleTransferMock);
 
-        $this->restCompanyRoleTransferMock->expects(static::atLeastOnce())
-            ->method('getUuid')
-            ->willReturn(1);
-
-        $this->companyRoleFacadeMock->expects(static::atLeastOnce())
-            ->method('findCompanyRoleByUuid')
-            ->willReturn($this->companyRoleResponseTransferMock);
-
-        $this->companyRoleResponseTransferMock->expects(static::atLeastOnce())
-            ->method('getIsSuccessful')
-            ->willReturn(true);
+        $this->companyUserExpanderMock->expects(static::atLeastOnce())
+            ->method('expand')
+            ->with($this->companyUserTransferMock, $this->companyUsersRequestAttributesTransferMock)
+            ->willReturn($this->companyUserTransferMock);
 
         $this->companyUserTransferMock->expects(static::atLeastOnce())
-            ->method('getFkCompany')
-            ->willReturn(1);
+            ->method('getCompanyRoleCollection')
+            ->willReturn($this->companyRoleCollectionTransferMock);
 
-        $this->companyRoleResponseTransferMock->expects(static::atLeastOnce())
-            ->method('getCompanyRoleTransfer')
-            ->willReturn($this->companyRoleTransferMock);
-
-        $this->companyRoleTransferMock->expects(static::atLeastOnce())
-            ->method('getFkCompany')
-            ->willReturn(1);
-
-        $this->companyUserTransferMock->expects(static::atLeastOnce())
-            ->method('setCompanyRoleCollection')
-            ->willReturnSelf();
+        $this->companyRoleCollectionTransferMock->expects(static::atLeastOnce())
+            ->method('getRoles')
+            ->willReturn($roles);
 
         $this->companyRoleFacadeMock->expects(static::atLeastOnce())
-            ->method('saveCompanyUser');
+            ->method('saveCompanyUser')
+            ->with($this->companyUserTransferMock);
 
         static::assertInstanceOf(
             CompanyUserTransfer::class,
@@ -138,10 +141,15 @@ class CompanyUserCompanyRoleWriterTest extends Unit
     /**
      * @return void
      */
-    public function testSaveCompanyUserCompanyRoleWithMissingCompanyRoleInRequest(): void
+    public function testSaveCompanyUserCompanyRoleWithMissingCompanyRoleCollection(): void
     {
-        $this->companyUsersRequestAttributesTransferMock->expects(static::atLeastOnce())
-            ->method('getCompanyRole')
+        $this->companyUserExpanderMock->expects(static::atLeastOnce())
+            ->method('expand')
+            ->with($this->companyUserTransferMock, $this->companyUsersRequestAttributesTransferMock)
+            ->willReturn($this->companyUserTransferMock);
+
+        $this->companyUserTransferMock->expects(static::atLeastOnce())
+            ->method('getCompanyRoleCollection')
             ->willReturn(null);
 
         static::assertInstanceOf(
@@ -156,70 +164,27 @@ class CompanyUserCompanyRoleWriterTest extends Unit
     /**
      * @return void
      */
-    public function testSaveCompanyUserCompanyRoleMissingRompanyRole(): void
+    public function testSaveCompanyUserCompanyRoleMissingRompanyRoles(): void
     {
-        $this->companyUsersRequestAttributesTransferMock->expects(static::atLeastOnce())
-            ->method('getCompanyRole')
-            ->willReturn($this->restCompanyRoleTransferMock);
-
-        $this->restCompanyRoleTransferMock->expects(static::atLeastOnce())
-            ->method('getUuid')
-            ->willReturn(1);
-
-        $this->companyRoleFacadeMock->expects(static::atLeastOnce())
-            ->method('findCompanyRoleByUuid')
-            ->willReturn($this->companyRoleResponseTransferMock);
-
-        $this->companyRoleResponseTransferMock->expects(static::atLeastOnce())
-            ->method('getIsSuccessful')
-            ->willReturn(false);
-
-        $this->expectException(CompanyRoleNotFoundException::class);
-
-        $this->companyUserCompanyRoleWriter->saveCompanyUserCompanyRole(
-            $this->companyUserTransferMock,
-            $this->companyUsersRequestAttributesTransferMock,
-        );
-    }
-
-    /**
-     * @return void
-     */
-    public function testSaveCompanyUserCompanyRoleWithIdMissmatch(): void
-    {
-        $this->companyUsersRequestAttributesTransferMock->expects(static::atLeastOnce())
-            ->method('getCompanyRole')
-            ->willReturn($this->restCompanyRoleTransferMock);
-
-        $this->restCompanyRoleTransferMock->expects(static::atLeastOnce())
-            ->method('getUuid')
-            ->willReturn(1);
-
-        $this->companyRoleFacadeMock->expects(static::atLeastOnce())
-            ->method('findCompanyRoleByUuid')
-            ->willReturn($this->companyRoleResponseTransferMock);
-
-        $this->companyRoleResponseTransferMock->expects(static::atLeastOnce())
-            ->method('getIsSuccessful')
-            ->willReturn(true);
+        $this->companyUserExpanderMock->expects(static::atLeastOnce())
+            ->method('expand')
+            ->with($this->companyUserTransferMock, $this->companyUsersRequestAttributesTransferMock)
+            ->willReturn($this->companyUserTransferMock);
 
         $this->companyUserTransferMock->expects(static::atLeastOnce())
-            ->method('getFkCompany')
-            ->willReturn(1);
+            ->method('getCompanyRoleCollection')
+            ->willReturn($this->companyRoleCollectionTransferMock);
 
-        $this->companyRoleResponseTransferMock->expects(static::atLeastOnce())
-            ->method('getCompanyRoleTransfer')
-            ->willReturn($this->companyRoleTransferMock);
+        $this->companyRoleCollectionTransferMock->expects(static::atLeastOnce())
+            ->method('getRoles')
+            ->willReturn(new ArrayObject());
 
-        $this->companyRoleTransferMock->expects(static::atLeastOnce())
-            ->method('getFkCompany')
-            ->willReturn(2);
-
-        $this->expectException(CompanyIdMismatchException::class);
-
-        $this->companyUserCompanyRoleWriter->saveCompanyUserCompanyRole(
-            $this->companyUserTransferMock,
-            $this->companyUsersRequestAttributesTransferMock,
+        static::assertInstanceOf(
+            CompanyUserTransfer::class,
+            $this->companyUserCompanyRoleWriter->saveCompanyUserCompanyRole(
+                $this->companyUserTransferMock,
+                $this->companyUsersRequestAttributesTransferMock,
+            ),
         );
     }
 }
