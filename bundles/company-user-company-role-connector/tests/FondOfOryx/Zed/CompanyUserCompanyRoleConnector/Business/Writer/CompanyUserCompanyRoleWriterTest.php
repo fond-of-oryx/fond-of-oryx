@@ -2,16 +2,14 @@
 
 namespace FondOfOryx\Zed\CompanyUserCompanyRolConnector\Business\Writer;
 
-use \ArrayObject;
+use ArrayObject;
 use Codeception\Test\Unit;
 use FondOfOryx\Zed\CompanyUserCompanyRoleConnector\Business\Expander\CompanyUserExpanderInterface;
 use FondOfOryx\Zed\CompanyUserCompanyRoleConnector\Business\Writer\CompanyUserCompanyRoleWriter;
 use FondOfOryx\Zed\CompanyUserCompanyRoleConnector\Dependency\Facade\CompanyUserCompanyRoleConnectorToCompanyRoleFacadeInterface;
-use FondOfOryx\Zed\CompanyUserCompanyRoleConnector\Exception\CompanyIdMismatchException;
-use FondOfOryx\Zed\CompanyUserCompanyRoleConnector\Exception\CompanyRoleNotFoundException;
+use Generated\Shared\Transfer\CompanyRoleCollectionTransfer;
 use Generated\Shared\Transfer\CompanyRoleResponseTransfer;
 use Generated\Shared\Transfer\CompanyRoleTransfer;
-use Generated\Shared\Transfer\CompanyRoleCollectionTransfer;
 use Generated\Shared\Transfer\CompanyUserTransfer;
 use Generated\Shared\Transfer\RestCompanyRoleTransfer;
 use Generated\Shared\Transfer\RestCompanyUsersRequestAttributesTransfer;
@@ -102,7 +100,7 @@ class CompanyUserCompanyRoleWriterTest extends Unit
 
         $this->companyUserCompanyRoleWriter = new CompanyUserCompanyRoleWriter(
             $this->companyUserExpanderMock,
-            $this->companyRoleFacadeMock
+            $this->companyRoleFacadeMock,
         );
     }
 

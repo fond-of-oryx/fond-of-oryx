@@ -74,7 +74,7 @@ class CompanyRoleReaderTest extends Unit
             ->getMock();
 
         $this->reader = new CompanyRoleReader(
-            $this->companyRoleFacadeMock
+            $this->companyRoleFacadeMock,
         );
     }
 
@@ -106,7 +106,7 @@ class CompanyRoleReaderTest extends Unit
         static::assertInstanceOf(
             CompanyRoleTransfer::class,
             $this->reader->getByRestCompanyUsersRequestAttributes(
-                $this->restCompanyUsersRequestAttributesTransferMock
+                $this->restCompanyUsersRequestAttributesTransferMock,
             ),
         );
     }
@@ -122,8 +122,8 @@ class CompanyRoleReaderTest extends Unit
 
         static::assertNull(
             $this->reader->getByRestCompanyUsersRequestAttributes(
-                $this->restCompanyUsersRequestAttributesTransferMock
-            )
+                $this->restCompanyUsersRequestAttributesTransferMock,
+            ),
         );
     }
 
@@ -131,7 +131,8 @@ class CompanyRoleReaderTest extends Unit
      * @return void
      */
     public function testGetByRestCompanyUsersRequestAttributesWithNullCompanyRoleTransfer(): void
-    { $this->restCompanyUsersRequestAttributesTransferMock->expects(static::atLeastOnce())
+    {
+        $this->restCompanyUsersRequestAttributesTransferMock->expects(static::atLeastOnce())
         ->method('getCompanyRole')
         ->willReturn($this->restCompanyRoleTransferMock);
 
@@ -149,8 +150,8 @@ class CompanyRoleReaderTest extends Unit
 
         static::assertNull(
             $this->reader->getByRestCompanyUsersRequestAttributes(
-                $this->restCompanyUsersRequestAttributesTransferMock
-            )
+                $this->restCompanyUsersRequestAttributesTransferMock,
+            ),
         );
     }
 }

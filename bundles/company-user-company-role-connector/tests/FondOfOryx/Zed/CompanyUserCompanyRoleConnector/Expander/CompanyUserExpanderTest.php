@@ -65,7 +65,7 @@ class CompanyUserExpanderTest extends Unit
             ->getMock();
 
         $this->expander = new CompanyUserExpander(
-            $this->companyRoleReaderMock
+            $this->companyRoleReaderMock,
         );
     }
 
