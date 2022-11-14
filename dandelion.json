@@ -156,7 +156,7 @@
     },
     "company-user-company-role-connector": {
       "path": "bundles/company-user-company-role-connector/",
-      "version": "1.0.1"
+      "version": "1.1.0"
     },
     "company-user-mail-connector": {
       "path": "bundles/company-user-mail-connector/",
@@ -172,7 +172,7 @@
     },
     "company-users-rest-api-extension": {
       "path": "bundles/company-users-rest-api-extension/",
-      "version": "1.0.0"
+      "version": "1.1.0"
     },
     "concrete-product-api": {
       "path": "bundles/concrete-product-api/",
