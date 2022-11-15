@@ -33,6 +33,7 @@ use FondOfOryx\Zed\ErpOrder\Business\PluginExecutor\ErpOrderPluginExecutorInterf
 use FondOfOryx\Zed\ErpOrder\Business\PluginExecutor\ErpOrderTotalsPluginExecutor;
 use FondOfOryx\Zed\ErpOrder\Business\PluginExecutor\ErpOrderTotalsPluginExecutorInterface;
 use FondOfOryx\Zed\ErpOrder\ErpOrderDependencyProvider;
+use Spryker\Shared\Log\LoggerTrait;
 use Spryker\Zed\Kernel\Business\AbstractBusinessFactory;
 
 /**
@@ -41,6 +42,8 @@ use Spryker\Zed\Kernel\Business\AbstractBusinessFactory;
  */
 class ErpOrderBusinessFactory extends AbstractBusinessFactory
 {
+    use LoggerTrait;
+
     /**
      * @return \FondOfOryx\Zed\ErpOrder\Business\Model\Writer\ErpOrderWriterInterface
      */
@@ -49,6 +52,7 @@ class ErpOrderBusinessFactory extends AbstractBusinessFactory
         return new ErpOrderWriter(
             $this->getEntityManager(),
             $this->createErpOrderPluginExecutor(),
+            $this->getLogger(),
         );
     }
 
