@@ -7,5 +7,5 @@ interface CustomerReferenceGeneratorInterface
     /**
      * @return string
      */
-    public function generateCustomerReference();
+    public function generateCustomerReference(): string;
 }

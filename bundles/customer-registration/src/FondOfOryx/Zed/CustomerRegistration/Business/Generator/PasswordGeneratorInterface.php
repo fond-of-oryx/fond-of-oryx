@@ -17,5 +17,5 @@ interface PasswordGeneratorInterface
      *
      * @return string
      */
-    public function generateRandomString(int $length = 32);
+    public function generateRandomString(int $length = 32): string;
 }

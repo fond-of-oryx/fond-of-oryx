@@ -22,6 +22,16 @@ interface CustomerRegistrationConstants
     /**
      * @var string
      */
+    public const CUSTOMER_REFERENCE_PREFIX = 'CUSTOMER_REFERENCE_PREFIX';
+
+    /**
+     * @var string
+     */
+    public const CUSTOMER_REFERENCE_OFFSET = 'CUSTOMER_REFERENCE_OFFSET';
+
+    /**
+     * @var string
+     */
     public const CONFIG_PATTERN_VERIFICATION_LINK = 'CUSTOMER_REGISTRATION:CONFIG_PATTERN_VERIFICATION_LINK';
 
     /**
