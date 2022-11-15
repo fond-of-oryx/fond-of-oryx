@@ -250,6 +250,10 @@
       "path": "bundles/customer-registration-extension/",
       "version": "1.0.0-beta.1"
     },
+    "customer-registration-rest-api": {
+      "path": "bundles/customer-registration-rest-api/",
+      "version": "1.0.0-beta.1"
+    },
     "customer-statistic": {
       "path": "bundles/customer-statistic/",
       "version": "1.0.0"
