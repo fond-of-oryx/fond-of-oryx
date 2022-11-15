@@ -139,6 +139,7 @@ class CustomerRegistrationDependencyProvider extends AbstractBundleDependencyPro
         $container = parent::providePersistenceLayerDependencies($container);
         $container = $this->addLocaleQueryContainer($container);
         $container = $this->addCustomerQueryContainer($container);
+        $container = $this->addLocaleFacade($container);
 
         return $container;
     }

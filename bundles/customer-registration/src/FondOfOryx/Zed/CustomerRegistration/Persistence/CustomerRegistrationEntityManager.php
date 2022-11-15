@@ -3,10 +3,12 @@
 namespace FondOfOryx\Zed\CustomerRegistration\Persistence;
 
 use DateTime;
+use Elastica\Util;
 use Exception;
 use Generated\Shared\Transfer\CustomerTransfer;
 use Generated\Shared\Transfer\LocaleTransfer;
 use Orm\Zed\Customer\Persistence\SpyCustomer;
+use Orm\Zed\Locale\Persistence\SpyLocale;
 use Spryker\Zed\Kernel\Persistence\AbstractEntityManager;
 
 /**
@@ -22,9 +24,9 @@ class CustomerRegistrationEntityManager extends AbstractEntityManager implements
     public function createCustomer(CustomerTransfer $customerTransfer): CustomerTransfer
     {
         $customerEntity = new SpyCustomer();
-        $customerEntity->fromArray($customerTransfer->toArray());
-
-        $customerEntity = $this->setLocale($customerEntity, $customerTransfer->getLocale());
+        $customerEntity
+            ->fromArray($customerTransfer->toArray())
+            ->setLocale($this->resolveLocale($customerTransfer->getLocale()));
 
         $customerEntity->save();
 
@@ -76,26 +78,26 @@ class CustomerRegistrationEntityManager extends AbstractEntityManager implements
     }
 
     /**
-     * @param \Orm\Zed\Customer\Persistence\SpyCustomer $customerEntity
      * @param \Generated\Shared\Transfer\LocaleTransfer|null $localeTransfer
      *
-     * @return \Orm\Zed\Customer\Persistence\SpyCustomer
+     * @return \Orm\Zed\Locale\Persistence\SpyLocale|null
      */
-    protected function setLocale(SpyCustomer $customerEntity, ?LocaleTransfer $localeTransfer): SpyCustomer
+    protected function resolveLocale(?LocaleTransfer $localeTransfer): ?SpyLocale
     {
-        if ($localeTransfer === null) {
-            //ToDo get Default locale instead of return
+        $localeEntity = null;
 
-            return $customerEntity;
+        if ($localeTransfer !== null && $localeTransfer->getLocaleName() !== null) {
+            $localeName = $localeTransfer->getLocaleName();
+            $localeEntity = $this->getFactory()->getLocaleQueryContainer()->queryLocaleByName($localeName)->findOne();
         }
-
-        $localeEntity = $this->getFactory()->getLocaleQueryContainer()->queryLocaleByName($localeTransfer->getLocaleName())->findOne();
 
         if ($localeEntity) {
-            $customerEntity->setLocale($localeEntity);
+            return $localeEntity;
         }
 
-        return $customerEntity;
+        $defaultLocale = $this->getFactory()->getLocaleFacade()->getCurrentLocaleName();
+
+        return $this->getFactory()->getLocaleQueryContainer()->queryLocaleByName($defaultLocale)->findOne();
     }
 
     /**
@@ -137,6 +139,6 @@ class CustomerRegistrationEntityManager extends AbstractEntityManager implements
             return null;
         }
 
-        return $dateTime->format('Y-m-d H:i:s.u');
+        return Util::convertDateTimeObject($dateTime);
     }
 }
