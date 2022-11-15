@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<transfers xmlns="spryker:transfer-01"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="spryker:transfer-01 http://static.spryker.com/transfer-01.xsd">
+    <transfer name="RestCustomerRegistrationRequestAttributes">
+        <property name="email" type="string"/>
+        <property name="language" type="string"/>
+        <property name="token" type="string"/>
+        <property name="verifyEmail" type="bool"/>
+        <property name="subscribe" type="bool"/>
+        <property name="acceptGdpr" type="bool"/>
+    </transfer>
+
+    <transfer name="RestCustomerRegistrationResponse">
+        <property name="isSuccessful" type="bool"/>
+        <property name="message" type="string" />
+    </transfer>
+
+</transfers>
