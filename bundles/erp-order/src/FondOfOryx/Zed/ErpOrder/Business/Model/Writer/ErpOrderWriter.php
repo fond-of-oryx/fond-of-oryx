@@ -7,7 +7,9 @@ use FondOfOryx\Zed\ErpOrder\Business\PluginExecutor\ErpOrderPluginExecutorInterf
 use FondOfOryx\Zed\ErpOrder\Persistence\ErpOrderEntityManagerInterface;
 use Generated\Shared\Transfer\ErpOrderResponseTransfer;
 use Generated\Shared\Transfer\ErpOrderTransfer;
+use Psr\Log\LoggerInterface;
 use Spryker\Zed\Kernel\Persistence\EntityManager\TransactionTrait;
+use Throwable;
 
 class ErpOrderWriter implements ErpOrderWriterInterface
 {
@@ -24,15 +26,22 @@ class ErpOrderWriter implements ErpOrderWriterInterface
     protected $erpOrderPluginExecutor;
 
     /**
+     * @var \Psr\Log\LoggerInterface
+     */
+    protected $logger;
+
+    /**
      * @param \FondOfOryx\Zed\ErpOrder\Persistence\ErpOrderEntityManagerInterface $entityManager
      * @param \FondOfOryx\Zed\ErpOrder\Business\PluginExecutor\ErpOrderPluginExecutorInterface $erpOrderPluginExecutor
      */
     public function __construct(
         ErpOrderEntityManagerInterface $entityManager,
-        ErpOrderPluginExecutorInterface $erpOrderPluginExecutor
+        ErpOrderPluginExecutorInterface $erpOrderPluginExecutor,
+        LoggerInterface $logger
     ) {
         $this->entityManager = $entityManager;
         $this->erpOrderPluginExecutor = $erpOrderPluginExecutor;
+        $this->logger = $logger;
     }
 
     /**
@@ -52,7 +61,13 @@ class ErpOrderWriter implements ErpOrderWriterInterface
                     return $self->executePersistTransaction($responseTransfer);
                 },
             );
-        } catch (Exception $exception) {
+        } catch (Throwable $exception) {
+            $this->logger->error($exception->getMessage(), [
+                'exception' => $exception->getMessage(),
+                'trace' => $exception->getTraceAsString(),
+                'data' => $erpOrderTransfer->serialize(),
+            ]);
+
             $responseTransfer->setErpOrder(null)
                 ->setIsSuccessful(false);
         }
@@ -78,6 +93,12 @@ class ErpOrderWriter implements ErpOrderWriterInterface
                 },
             );
         } catch (Exception $exception) {
+            $this->logger->error($exception->getMessage(), [
+                'exception' => $exception->getMessage(),
+                'trace' => $exception->getTraceAsString(),
+                'data' => $erpOrderTransfer->serialize(),
+            ]);
+
             $responseTransfer->setErpOrder(null)
                 ->setIsSuccessful(false);
         }
@@ -93,11 +114,22 @@ class ErpOrderWriter implements ErpOrderWriterInterface
     public function delete(int $idErpOrder): void
     {
         $self = $this;
-        $this->getTransactionHandler()->handleTransaction(
-            static function () use ($idErpOrder, $self) {
-                $self->executeDeleteTransaction($idErpOrder);
-            },
-        );
+
+        try {
+            $this->getTransactionHandler()->handleTransaction(
+                static function () use ($idErpOrder, $self) {
+                    $self->executeDeleteTransaction($idErpOrder);
+                },
+            );
+        } catch (Throwable $exception) {
+            $this->logger->error($exception->getMessage(), [
+                'exception' => $exception->getMessage(),
+                'trace' => $exception->getTraceAsString(),
+                'data' => $idErpOrder,
+            ]);
+
+            throw $exception;
+        }
     }
 
     /**
