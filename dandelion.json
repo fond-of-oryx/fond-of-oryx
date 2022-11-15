@@ -250,6 +250,10 @@
       "path": "bundles/customer-registration-extension/",
       "version": "1.0.0-beta.1"
     },
+    "customer-registration-one-time-password-connector": {
+      "path": "bundles/customer-registration-one-time-password-connector/",
+      "version": "1.0.0-beta.1"
+    },
     "customer-registration-rest-api": {
       "path": "bundles/customer-registration-rest-api/",
       "version": "1.0.0-beta.1"
