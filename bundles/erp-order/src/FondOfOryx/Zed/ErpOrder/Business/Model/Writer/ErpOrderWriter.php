@@ -33,6 +33,7 @@ class ErpOrderWriter implements ErpOrderWriterInterface
     /**
      * @param \FondOfOryx\Zed\ErpOrder\Persistence\ErpOrderEntityManagerInterface $entityManager
      * @param \FondOfOryx\Zed\ErpOrder\Business\PluginExecutor\ErpOrderPluginExecutorInterface $erpOrderPluginExecutor
+     * @param \Psr\Log\LoggerInterface $logger
      */
     public function __construct(
         ErpOrderEntityManagerInterface $entityManager,
@@ -108,6 +109,8 @@ class ErpOrderWriter implements ErpOrderWriterInterface
 
     /**
      * @param int $idErpOrder
+     *
+     * @throws \Throwable
      *
      * @return void
      */
