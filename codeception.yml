@@ -58,6 +58,7 @@ include:
   - bundles/customer-product-list-search-rest-api
   - bundles/customer-registration-one-time-password-connector
   - bundles/customer-registration-email-connector
+  - bundles/customer-registration-rest-api
   - bundles/customer-statistic
   - bundles/customer-statistics-rest-api
   - bundles/delivery-date-restriction
