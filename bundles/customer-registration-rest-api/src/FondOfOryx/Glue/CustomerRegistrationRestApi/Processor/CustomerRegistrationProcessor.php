@@ -102,7 +102,7 @@ class CustomerRegistrationProcessor implements CustomerRegistrationProcessorInte
 
         return $this->restResourceBuilder
             ->createRestResponse()
-            ->setStatus(Response::HTTP_CREATED);
+            ->setStatus(Response::HTTP_OK);
     }
 
     /**
@@ -127,7 +127,7 @@ class CustomerRegistrationProcessor implements CustomerRegistrationProcessorInte
 
         return $this->restResourceBuilder
             ->createRestResponse()
-            ->setStatus(Response::HTTP_CREATED);
+            ->setStatus(Response::HTTP_ACCEPTED);
     }
 
     /**
