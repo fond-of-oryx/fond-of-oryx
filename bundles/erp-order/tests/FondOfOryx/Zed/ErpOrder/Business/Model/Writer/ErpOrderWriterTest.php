@@ -38,7 +38,7 @@ class ErpOrderWriterTest extends Unit
     protected $handlerMock;
 
     /**
-     * @var \PHPUnit\Framework\MockObject\MockObject|\Psr\Log\LoggerInterface&\PHPUnit\Framework\MockObject\MockObject
+     * @var \Psr\Log\LoggerInterface|\PHPUnit\Framework\MockObject\MockObject
      */
     protected $loggerMock;
 

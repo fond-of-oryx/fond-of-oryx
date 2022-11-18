@@ -31,7 +31,7 @@ class ErpOrderTotalsHandlerTest extends Unit
     protected $erpOrderTotalsTransferMock;
 
     /**
-     * @var \Generated\Shared\Transfer\ErpOrderTotalsTransfer&\PHPUnit\Framework\MockObject\MockObject|\PHPUnit\Framework\MockObject\MockObject
+     * @var \Generated\Shared\Transfer\ErpOrderTotalsTransfer|\PHPUnit\Framework\MockObject\MockObject
      */
     protected $existingErpOrderTotalsTransferMock;
 
