@@ -15,14 +15,6 @@ interface ErpOrderItemReaderInterface
     public function findErpOrderItemByIdErpOrderItem(int $idErpOrderItem): ?ErpOrderItemTransfer;
 
     /**
-     * @param int $idErpOrderItem
-     * @param int $position
-     *
-     * @return \Generated\Shared\Transfer\ErpOrderItemTransfer|null
-     */
-    public function findErpOrderItemByIdErpOrderItemAndPosition(int $idErpOrderItem, int $position): ?ErpOrderItemTransfer;
-
-    /**
      * @param int $idErpOrder
      *
      * @return \Generated\Shared\Transfer\ErpOrderItemCollectionTransfer

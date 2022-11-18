@@ -40,15 +40,4 @@ class ErpOrderItemReader implements ErpOrderItemReaderInterface
     {
         return $this->repository->findErpOrderItemByIdErpOrderItem($idErpOrderItem);
     }
-
-    /**
-     * @param int $idErpOrderItem
-     * @param int $position
-     *
-     * @return \Generated\Shared\Transfer\ErpOrderItemTransfer|null
-     */
-    public function findErpOrderItemByIdErpOrderItemAndPosition(int $idErpOrderItem, int $position): ?ErpOrderItemTransfer
-    {
-        return $this->repository->findErpOrderItemByIdErpOrderItemAndPosition($idErpOrderItem, $position);
-    }
 }
