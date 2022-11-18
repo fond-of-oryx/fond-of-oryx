@@ -78,6 +78,26 @@ class CustomerRegistrationEntityManager extends AbstractEntityManager implements
     }
 
     /**
+     * @param \Generated\Shared\Transfer\CustomerTransfer $customerTransfer
+     *
+     * @return \Generated\Shared\Transfer\CustomerTransfer
+     */
+    public function persistRegistrationKeyToCustomer(CustomerTransfer $customerTransfer): CustomerTransfer
+    {
+        $customerTransfer->requireRegistrationKey();
+        $customerEntity = $this->resolveCustomerEntity($customerTransfer);
+
+        $customerEntity->setRegistrationKey($customerTransfer->getRegistrationKey());
+        $customerEntity->save();
+
+        return $customerTransfer
+            ->setRegistrationKey($customerTransfer->getRegistrationKey())
+            ->setIdCustomer($customerEntity->getIdCustomer())
+            ->setEmail($customerEntity->getEmail())
+            ->setUpdatedAt($this->convertDate($customerEntity->getUpdatedAt()));
+    }
+
+    /**
      * @param \Generated\Shared\Transfer\LocaleTransfer|null $localeTransfer
      *
      * @return \Orm\Zed\Locale\Persistence\SpyLocale|null

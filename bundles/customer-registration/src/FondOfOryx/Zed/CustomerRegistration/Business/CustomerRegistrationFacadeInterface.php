@@ -64,4 +64,29 @@ interface CustomerRegistrationFacadeInterface
      * @return string
      */
     public function generateEmailVerificationLink(CustomerTransfer $customerTransfer): string;
+
+    /**
+     * @param \Generated\Shared\Transfer\CustomerTransfer $customerTransfer
+     *
+     * @return \Generated\Shared\Transfer\CustomerTransfer
+     * @throws \Spryker\Zed\Kernel\Exception\Container\ContainerKeyNotFoundException
+     *
+     * @throws \Propel\Runtime\Exception\PropelException
+     */
+    public function flagCustomerAsGdprAccepted(CustomerTransfer $customerTransfer): CustomerTransfer;
+
+    /**
+     * @param \Generated\Shared\Transfer\CustomerTransfer $customerTransfer
+     *
+     * @return \Generated\Shared\Transfer\CustomerTransfer
+     * @throws \Spryker\Zed\Kernel\Exception\Container\ContainerKeyNotFoundException
+     *
+     * @throws \Propel\Runtime\Exception\PropelException
+     */
+    public function saveRegistrationKeyToCustomer(CustomerTransfer $customerTransfer): CustomerTransfer;
+
+    /**
+     * @return string
+     */
+    public function generateToken(): string;
 }

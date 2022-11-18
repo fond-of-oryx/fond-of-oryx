@@ -32,4 +32,11 @@ interface CustomerRegistrationEntityManagerInterface
      * @return \Generated\Shared\Transfer\CustomerTransfer
      */
     public function flagCustomerAsGdprAccepted(CustomerTransfer $customerTransfer): CustomerTransfer;
+
+    /**
+     * @param \Generated\Shared\Transfer\CustomerTransfer $customerTransfer
+     *
+     * @return \Generated\Shared\Transfer\CustomerTransfer
+     */
+    public function persistRegistrationKeyToCustomer(CustomerTransfer $customerTransfer): CustomerTransfer;
 }
