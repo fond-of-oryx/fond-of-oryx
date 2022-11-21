@@ -30,8 +30,7 @@ class CustomerRegistrationFacade extends AbstractFacade implements CustomerRegis
      */
     public function registerCustomer(
         CustomerRegistrationRequestTransfer $customerRegistrationRequestTransfer
-    ): CustomerRegistrationRequestTransfer
-    {
+    ): CustomerRegistrationRequestTransfer {
         return $this->getFactory()
             ->createRegistrationStep()
             ->register($customerRegistrationRequestTransfer);
@@ -77,9 +76,6 @@ class CustomerRegistrationFacade extends AbstractFacade implements CustomerRegis
      * @param \Generated\Shared\Transfer\CustomerTransfer $customerTransfer
      *
      * @return \Generated\Shared\Transfer\CustomerTransfer
-     * @throws \Spryker\Zed\Kernel\Exception\Container\ContainerKeyNotFoundException
-     *
-     * @throws \Propel\Runtime\Exception\PropelException
      */
     public function flagCustomerAsGdprAccepted(CustomerTransfer $customerTransfer): CustomerTransfer
     {
@@ -88,6 +84,7 @@ class CustomerRegistrationFacade extends AbstractFacade implements CustomerRegis
 
     /**
      * @param \Generated\Shared\Transfer\CustomerTransfer $customerTransfer
+     *
      * @return \Generated\Shared\Transfer\CustomerTransfer
      */
     public function saveRegistrationKeyToCustomer(CustomerTransfer $customerTransfer): CustomerTransfer

@@ -3,12 +3,11 @@
 namespace FondOfOryx\Zed\CustomerRegistration\Business\Generator;
 
 use Codeception\Test\Unit;
-use FondOfOryx\Zed\CustomerRegistration\CustomerRegistrationConfig;
+use FondOfOryx\Zed\CustomerRegistration\CustomerRegistrationConfigInterface;
 use FondOfOryx\Zed\CustomerRegistration\Dependency\Facade\CustomerRegistrationToLocaleFacadeInterface;
-use FondOfOryx\Zed\CustomerRegistration\Dependency\Facade\CustomerRegistrationToSequenceNumberFacadeInterface;
 use FondOfOryx\Zed\CustomerRegistration\Dependency\Facade\CustomerRegistrationToStoreFacadeInterface;
+use Generated\Shared\Transfer\CustomerTransfer;
 use Generated\Shared\Transfer\LocaleTransfer;
-use Generated\Shared\Transfer\SequenceNumberSettingsTransfer;
 use Generated\Shared\Transfer\StoreTransfer;
 
 class EmailVerificationLinkGeneratorTest extends Unit
@@ -73,7 +72,7 @@ class EmailVerificationLinkGeneratorTest extends Unit
             ->disableOriginalConstructor()
             ->getMock();
 
-        $this->configMock = $this->getMockBuilder(CustomerRegistrationConfig::class)
+        $this->configMock = $this->getMockBuilder(CustomerRegistrationConfigInterface::class)
             ->disableOriginalConstructor()
             ->getMock();
 
@@ -81,7 +80,11 @@ class EmailVerificationLinkGeneratorTest extends Unit
             ->disableOriginalConstructor()
             ->getMock();
 
-        $this->localeFacadeMock = $this->getMockBuilder(LocaleTransfer::class)
+        $this->localeTransferMock = $this->getMockBuilder(LocaleTransfer::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $this->customerTransferMock = $this->getMockBuilder(CustomerTransfer::class)
             ->disableOriginalConstructor()
             ->getMock();
 
@@ -109,6 +112,36 @@ class EmailVerificationLinkGeneratorTest extends Unit
             ->method('getBaseUrl')
             ->willReturn($baseUrl);
 
-        $this->generator->generateLink();
+        $this->customerTransferMock
+            ->expects(static::atLeastOnce())
+            ->method('getLocale')
+            ->willReturn($this->localeTransferMock);
+
+        $this->localeTransferMock
+            ->expects(static::atLeastOnce())
+            ->method('getLocaleName')
+            ->willReturn('de_DE');
+
+        $this->customerTransferMock
+            ->expects(static::atLeastOnce())
+            ->method('getRegistrationKey')
+            ->willReturn('KEY');
+
+        $this->localeFacadeMock
+            ->expects(static::atLeastOnce())
+            ->method('getCurrentLocaleName')
+            ->willReturn('de_DE');
+
+        $this->storeFacadeMock
+            ->expects(static::atLeastOnce())
+            ->method('getCurrentStore')
+            ->willReturn($this->storeTransferMock);
+
+        $this->storeTransferMock
+            ->expects(static::atLeastOnce())
+            ->method('getAvailableLocaleIsoCodes')
+            ->willReturn(['de_DE' => 'de']);
+
+        $this->generator->generateLink($this->customerTransferMock);
     }
 }

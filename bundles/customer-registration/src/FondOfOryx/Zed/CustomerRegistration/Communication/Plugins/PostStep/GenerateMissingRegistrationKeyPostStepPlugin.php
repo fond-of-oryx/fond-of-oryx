@@ -25,7 +25,7 @@ class GenerateMissingRegistrationKeyPostStepPlugin extends AbstractPlugin implem
         if ($customerTransfer !== null && $customerTransfer->getRegistrationKey() === null) {
             $customerTransfer->setRegistrationKey($this->getFacade()->generateToken());
             $customerTransfer = $this->getFacade()->saveRegistrationKeyToCustomer($customerTransfer);
-            if ($attributes !== null && $attributes->getAcceptGdpr()){
+            if ($attributes !== null && $attributes->getAcceptGdpr()) {
                 $attributes->setToken($customerTransfer->getRegistrationKey());
             }
         }
