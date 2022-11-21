@@ -14,6 +14,7 @@ class CustomerRegistrationSalesConnectorFacade extends AbstractFacade implements
     /**
      * @param \Generated\Shared\Transfer\SaveOrderTransfer $saveOrderTransfer
      * @param \Generated\Shared\Transfer\QuoteTransfer $quoteTransfer
+     *
      * @return \Generated\Shared\Transfer\SaveOrderTransfer
      */
     public function createCustomerAccount(SaveOrderTransfer $saveOrderTransfer, QuoteTransfer $quoteTransfer): SaveOrderTransfer

@@ -20,10 +20,10 @@ interface CustomerRegistrationSalesConnectorToCustomerRegistrationFacadeInterfac
     /**
      * @param \Generated\Shared\Transfer\CustomerTransfer $customerTransfer
      *
-     * @return \Generated\Shared\Transfer\CustomerTransfer
      * @throws \Spryker\Zed\Kernel\Exception\Container\ContainerKeyNotFoundException
-     *
      * @throws \Propel\Runtime\Exception\PropelException
+     *
+     * @return \Generated\Shared\Transfer\CustomerTransfer
      */
     public function flagCustomerAsGdprAccepted(CustomerTransfer $customerTransfer): CustomerTransfer;
 }

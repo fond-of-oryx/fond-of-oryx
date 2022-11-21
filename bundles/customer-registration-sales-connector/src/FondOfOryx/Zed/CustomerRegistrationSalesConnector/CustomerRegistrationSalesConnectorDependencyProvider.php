@@ -8,11 +8,14 @@ use Spryker\Zed\Kernel\Container;
 
 class CustomerRegistrationSalesConnectorDependencyProvider extends AbstractBundleDependencyProvider
 {
-    /** @var string  */
+    /**
+     * @var string
+     */
     public const FACADE_CUSTOMER_REGISTRATION = 'FACADE_CUSTOMER_REGISTRATION';
 
     /**
      * @param \Spryker\Zed\Kernel\Container $container
+     *
      * @return \Spryker\Zed\Kernel\Container
      */
     public function provideBusinessLayerDependencies(Container $container): Container
@@ -25,6 +28,7 @@ class CustomerRegistrationSalesConnectorDependencyProvider extends AbstractBundl
 
     /**
      * @param \Spryker\Zed\Kernel\Container $container
+     *
      * @return \Spryker\Zed\Kernel\Container
      */
     protected function addCustomerRegistrationFacade(Container $container): Container

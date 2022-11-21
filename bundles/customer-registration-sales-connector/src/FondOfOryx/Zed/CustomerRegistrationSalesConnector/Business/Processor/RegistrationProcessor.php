@@ -27,6 +27,7 @@ class RegistrationProcessor implements RegistrationProcessorInterface
     /**
      * @param \Generated\Shared\Transfer\SaveOrderTransfer $saveOrderTransfer
      * @param \Generated\Shared\Transfer\QuoteTransfer $quoteTransfer
+     *
      * @return \Generated\Shared\Transfer\SaveOrderTransfer
      */
     public function processRegistration(SaveOrderTransfer $saveOrderTransfer, QuoteTransfer $quoteTransfer): SaveOrderTransfer
@@ -40,12 +41,15 @@ class RegistrationProcessor implements RegistrationProcessorInterface
 
     /**
      * @param \Generated\Shared\Transfer\QuoteTransfer $quoteTransfer
+     *
+     * @throws \Exception
+     *
      * @return \Generated\Shared\Transfer\CustomerRegistrationRequestTransfer
      */
     protected function createRegistrationRequest(QuoteTransfer $quoteTransfer): CustomerRegistrationRequestTransfer
     {
         $customerTransfer = $quoteTransfer->getCustomer();
-        if ($customerTransfer === null){
+        if ($customerTransfer === null) {
             throw new Exception('Missing customer transfer to proceed registration process!');
         }
         $attributes = (new CustomerRegistrationAttributesTransfer())
@@ -53,6 +57,7 @@ class RegistrationProcessor implements RegistrationProcessorInterface
             ->setAcceptGdpr($quoteTransfer->getAcceptTerms())
             ->setSubscribe($quoteTransfer->getSignupNewsletter())
             ->setToken($customerTransfer->getRegistrationKey());
+
         return (new CustomerRegistrationRequestTransfer())->setAttributes($attributes);
     }
 }

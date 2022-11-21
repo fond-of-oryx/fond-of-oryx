@@ -20,7 +20,6 @@ class CustomerRegistrationSalesConnectorBusinessFactory extends AbstractBusiness
 
     /**
      * @return \FondOfOryx\Zed\CustomerRegistrationSalesConnector\Dependency\Facade\CustomerRegistrationSalesConnectorToCustomerRegistrationFacadeInterface
-     * @throws \Spryker\Zed\Kernel\Exception\Container\ContainerKeyNotFoundException
      */
     protected function getCustomerRegistrationFacade(): CustomerRegistrationSalesConnectorToCustomerRegistrationFacadeInterface
     {

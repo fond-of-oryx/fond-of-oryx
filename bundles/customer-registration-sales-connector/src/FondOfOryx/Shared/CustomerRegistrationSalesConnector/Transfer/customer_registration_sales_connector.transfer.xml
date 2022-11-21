@@ -5,6 +5,7 @@
 
     <transfer name="Quote">
         <property name="createAccount" type="bool"/>
+        <property name="acceptTerms" type="bool"/>
         <property name="signupNewsletter" type="bool"/>
     </transfer>
 </transfers>

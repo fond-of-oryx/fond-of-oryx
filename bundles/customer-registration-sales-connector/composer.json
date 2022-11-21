@@ -10,7 +10,8 @@
   ],
   "require": {
     "php": ">=7.4",
-    "fond-of-oryx/customer-registration": "^1.0.0-beta.1"
+    "fond-of-oryx/customer-registration": "^1.0.0",
+    "spryker/sales": "^11.18.0"
   },
   "require-dev": {
     "fond-of-codeception/spryker": "^1.0",
