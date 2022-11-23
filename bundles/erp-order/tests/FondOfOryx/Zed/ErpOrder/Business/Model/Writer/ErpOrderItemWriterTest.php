@@ -5,13 +5,8 @@ namespace FondOfOryx\Zed\ErpOrder\Business\Model\Writer;
 use Codeception\Test\Unit;
 use Exception;
 use FondOfOryx\Zed\ErpOrder\Business\PluginExecutor\ErpOrderItemPluginExecutor;
-use FondOfOryx\Zed\ErpOrder\Business\PluginExecutor\ErpOrderItemPluginExecutorInterface;
 use FondOfOryx\Zed\ErpOrder\Persistence\ErpOrderEntityManager;
-use FondOfOryx\Zed\ErpOrder\Persistence\ErpOrderEntityManagerInterface;
 use Generated\Shared\Transfer\ErpOrderItemTransfer;
-use Spryker\Zed\Kernel\Persistence\EntityManager\TransactionHandlerFactory;
-use Spryker\Zed\Kernel\Persistence\EntityManager\TransactionHandlerFactoryInterface;
-use Spryker\Zed\PropelOrm\Business\Transaction\PropelDatabaseTransactionHandler;
 
 class ErpOrderItemWriterTest extends Unit
 {
@@ -56,7 +51,7 @@ class ErpOrderItemWriterTest extends Unit
 
         $this->writer = new ErpOrderItemWriter(
             $this->entityManagerMock,
-            $this->pluginExecutorMock
+            $this->pluginExecutorMock,
         );
     }
 

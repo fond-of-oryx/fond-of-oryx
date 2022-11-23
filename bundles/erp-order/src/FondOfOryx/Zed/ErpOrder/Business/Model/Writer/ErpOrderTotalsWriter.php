@@ -43,7 +43,6 @@ class ErpOrderTotalsWriter implements ErpOrderTotalsWriterInterface
         return $this->erpOrderTotalsPluginExecutor->executePostSavePlugins($erpOrderTotalsTransfer);
     }
 
-
     /**
      * @param \Generated\Shared\Transfer\ErpOrderTotalsTransfer $erpOrderTotalsTransfer
      *

@@ -39,6 +39,7 @@ class ErpOrderItemWriter implements ErpOrderItemWriterInterface
     {
         $erpOrderItemTransfer = $this->erpOrderItemPluginExecutor->executePreSavePlugins($erpOrderItemTransfer);
         $erpOrderItemTransfer = $this->entityManager->createErpOrderItem($erpOrderItemTransfer);
+
         return $this->erpOrderItemPluginExecutor->executePostSavePlugins($erpOrderItemTransfer);
     }
 
@@ -55,6 +56,7 @@ class ErpOrderItemWriter implements ErpOrderItemWriterInterface
 
         $erpOrderItemTransfer = $this->erpOrderItemPluginExecutor->executePreSavePlugins($erpOrderItemTransfer);
         $erpOrderItemTransfer = $this->entityManager->updateErpOrderItem($erpOrderItemTransfer);
+
         return $this->erpOrderItemPluginExecutor->executePostSavePlugins($erpOrderItemTransfer);
     }
 
