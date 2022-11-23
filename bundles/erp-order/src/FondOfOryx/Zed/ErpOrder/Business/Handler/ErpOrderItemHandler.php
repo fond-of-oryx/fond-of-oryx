@@ -97,7 +97,8 @@ class ErpOrderItemHandler implements ErpOrderItemHandlerInterface
         $erpOrderItemTransfer->requireIdErpOrderItem();
 
         $item = $this->erpOrderItemReader->findErpOrderItemByIdErpOrderItem($erpOrderItemTransfer->getIdErpOrderItem());
-        $item->fromArray($erpOrderItemTransfer->toArray(), true);
+        $createdAt = $item->getCreatedAt();
+        $item->fromArray($erpOrderItemTransfer->toArray(), true)->setCreatedAt($createdAt)->setUpdatedAt(time());
 
         return $this->erpOrderItemWriter->update($item);
     }
@@ -135,7 +136,7 @@ class ErpOrderItemHandler implements ErpOrderItemHandlerInterface
      */
     protected function getItemIndex(ErpOrderItemTransfer $itemTransfer): string
     {
-        return sprintf('%s.%s', $itemTransfer->getSku(), $itemTransfer->getPosition());
+        return sprintf('%s.%s', $itemTransfer->getSku(), $itemTransfer->getIdErpOrderItem());
     }
 
     /**

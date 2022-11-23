@@ -116,7 +116,7 @@ class ErpOrderEntityManager extends AbstractEntityManager implements ErpOrderEnt
     {
         $erpOrderTransfer->requireIdErpOrder();
 
-        $query = $this->getFactory()->createErpOrderQuery();
+        $query = $this->getFactory()->createErpOrderQuery()->clear();
 
         $entity = $query->findOneByIdErpOrder($erpOrderTransfer->getIdErpOrder());
 
@@ -176,7 +176,7 @@ class ErpOrderEntityManager extends AbstractEntityManager implements ErpOrderEnt
      */
     public function deleteErpOrderByIdErpOrder(int $idErpOrder): void
     {
-        $order = $this->getFactory()->createErpOrderQuery()->findOneByIdErpOrder($idErpOrder);
+        $order = $this->getFactory()->createErpOrderQuery()->clear()->findOneByIdErpOrder($idErpOrder);
         $items = $order->getErpOrderItems();
 
         foreach ($items as $item) {
@@ -219,7 +219,7 @@ class ErpOrderEntityManager extends AbstractEntityManager implements ErpOrderEnt
      */
     public function deleteErpOrderItemByIdErpOrderItem(int $idErpOrderItem): void
     {
-        $orderItem = $this->getFactory()->createErpOrderItemQuery()->findOneByIdErpOrderItem($idErpOrderItem);
+        $orderItem = $this->getFactory()->createErpOrderItemQuery()->clear()->filterByIdErpOrderItem($idErpOrderItem)->findOne();
         if ($orderItem === null) {
             return;
         }
@@ -233,7 +233,7 @@ class ErpOrderEntityManager extends AbstractEntityManager implements ErpOrderEnt
      */
     public function deleteErpOrderAddressByIdErpOrderAddress(int $idErpOrderAddress): void
     {
-        $orderAddress = $this->getFactory()->createErpOrderAddressQuery()->findOneByIdErpOrderAddress($idErpOrderAddress);
+        $orderAddress = $this->getFactory()->createErpOrderAddressQuery()->clear()->findOneByIdErpOrderAddress($idErpOrderAddress);
         if ($orderAddress === null) {
             return;
         }
@@ -251,7 +251,7 @@ class ErpOrderEntityManager extends AbstractEntityManager implements ErpOrderEnt
     {
         $erpOrderAddressTransfer->requireIdErpOrderAddress();
 
-        $query = $this->getFactory()->createErpOrderAddressQuery();
+        $query = $this->getFactory()->createErpOrderAddressQuery()->clear();
 
         $entity = $query->findOneByIdErpOrderAddress($erpOrderAddressTransfer->getIdErpOrderAddress());
 
@@ -282,7 +282,7 @@ class ErpOrderEntityManager extends AbstractEntityManager implements ErpOrderEnt
      */
     protected function findOrCreateErpOrderItem(int $idErpOrder, string $sku): ErpOrderItem
     {
-        return $this->getFactory()->createErpOrderItemQuery()
+        return $this->getFactory()->createErpOrderItemQuery()->clear()
             ->filterByFkErpOrder($idErpOrder)
             ->filterBySku($sku)
             ->findOneOrCreate();
@@ -359,7 +359,7 @@ class ErpOrderEntityManager extends AbstractEntityManager implements ErpOrderEnt
      */
     public function deleteErpOrderTotalsByIdErpOrderTotals(int $idErpOrderTotals): void
     {
-        $erpOrderTotals = $this->getFactory()->createErpOrderTotalsQuery()
+        $erpOrderTotals = $this->getFactory()->createErpOrderTotalsQuery()->clear()
             ->findOneByIdErpOrderTotals($idErpOrderTotals);
 
         if ($erpOrderTotals === null) {
