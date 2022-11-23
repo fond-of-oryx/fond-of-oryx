@@ -122,10 +122,20 @@ class ErpOrderItemHandler implements ErpOrderItemHandlerInterface
         $itemsCollection = $this->erpOrderItemReader->findErpOrderItemsByIdErpOrder($idErpOrder);
         $existingItems = [];
         foreach ($itemsCollection->getItems() as $itemTransfer) {
-            $existingItems[$itemTransfer->getSku()] = $itemTransfer;
+            $existingItems[$this->getItemIndex($itemTransfer)] = $itemTransfer;
         }
 
         return $existingItems;
+    }
+
+    /**
+     * @param \Generated\Shared\Transfer\ErpOrderItemTransfer $itemTransfer
+     *
+     * @return string
+     */
+    protected function getItemIndex(ErpOrderItemTransfer $itemTransfer): string
+    {
+        return sprintf('%s.%s', $itemTransfer->getSku(), $itemTransfer->getPosition());
     }
 
     /**
@@ -142,14 +152,14 @@ class ErpOrderItemHandler implements ErpOrderItemHandlerInterface
         $update = [];
 
         foreach ($erpOrderTransfer->getOrderItems() as $erpOrderItemTransfer) {
-            $sku = $erpOrderItemTransfer->getSku();
-            if (array_key_exists($sku, $existingItems)) {
-                $updateItem = $existingItems[$sku];
+            $itemIndex = $this->getItemIndex($erpOrderItemTransfer);
+            if (array_key_exists($itemIndex, $existingItems)) {
+                $updateItem = $existingItems[$itemIndex];
                 $idOrderItem = $updateItem->getIdErpOrderItem();
                 $updateItem->fromArray($erpOrderItemTransfer->toArray(), true);
                 $updateItem->setIdErpOrderItem($idOrderItem);
                 $update[] = $updateItem;
-                unset($existingItems[$sku]);
+                unset($existingItems[$itemIndex]);
 
                 continue;
             }

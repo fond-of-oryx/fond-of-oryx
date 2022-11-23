@@ -13,7 +13,7 @@ interface ProductListPluginExecutorInterface
      *
      * @return bool
      */
-    public function executeUpdatePreCheckPlugins(
+    public function executeProductListUpdatePreCheckPlugins(
         RestProductListUpdateRequestTransfer $restProductListUpdateRequestTransfer,
         ProductListTransfer $productListTransfer
     ): bool;
@@ -24,8 +24,17 @@ interface ProductListPluginExecutorInterface
      *
      * @return \Generated\Shared\Transfer\ProductListTransfer
      */
-    public function executePostUpdatePlugins(
+    public function executeProductListPostUpdatePlugins(
         RestProductListUpdateRequestTransfer $restProductListUpdateRequestTransfer,
         ProductListTransfer $productListTransfer
     ): ProductListTransfer;
+
+    /**
+     * @param \Generated\Shared\Transfer\RestProductListUpdateRequestTransfer $restProductListUpdateRequestTransfer
+     *
+     * @return \Generated\Shared\Transfer\RestProductListUpdateRequestTransfer
+     */
+    public function executeRestProductListUpdateRequestExpanderPlugins(
+        RestProductListUpdateRequestTransfer $restProductListUpdateRequestTransfer
+    ): RestProductListUpdateRequestTransfer;
 }

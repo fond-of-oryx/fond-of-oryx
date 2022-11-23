@@ -2,7 +2,7 @@
 
 namespace FondOfOryx\Zed\ProductListsRestApi\Persistence;
 
-use Orm\Zed\Customer\Persistence\Map\SpyCustomerTableMap;
+use Orm\Zed\ProductList\Persistence\Map\SpyProductListTableMap;
 use Spryker\Zed\Kernel\Persistence\AbstractRepository;
 
 /**
@@ -24,7 +24,7 @@ class ProductListsRestApiRepository extends AbstractRepository implements Produc
             ->getProductListQuery()
             ->clear()
             ->filterByUuid($uuid)
-            ->select([SpyCustomerTableMap::COL_ID_CUSTOMER])
+            ->select([SpyProductListTableMap::COL_ID_PRODUCT_LIST])
             ->findOne();
 
         return $idProductList;

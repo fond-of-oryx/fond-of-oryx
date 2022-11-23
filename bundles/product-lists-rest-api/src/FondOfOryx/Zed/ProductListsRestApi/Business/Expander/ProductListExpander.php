@@ -31,15 +31,15 @@ class ProductListExpander implements ProductListExpanderInterface
         ProductListTransfer $productListTransfer,
         RestProductListUpdateRequestTransfer $restProductListUpdateRequestTransfer
     ): ProductListTransfer {
-        $restProductListTransfer = $restProductListUpdateRequestTransfer->getProductList();
+        $restProductListsAttributesTransfer = $restProductListUpdateRequestTransfer->getProductList();
 
-        if ($restProductListTransfer === null) {
+        if ($restProductListsAttributesTransfer === null) {
             return $productListTransfer;
         }
 
         $allowedFieldsToPatch = $this->config->getAllowedFieldsToPatch();
 
-        foreach ($restProductListTransfer->modifiedToArray() as $key => $value) {
+        foreach ($restProductListsAttributesTransfer->modifiedToArray() as $key => $value) {
             $method = sprintf('set%s', ucfirst(str_replace('_', '', ucwords($key, '_'))));
 
             if (!in_array($key, $allowedFieldsToPatch, true) || !method_exists($productListTransfer, $method)) {

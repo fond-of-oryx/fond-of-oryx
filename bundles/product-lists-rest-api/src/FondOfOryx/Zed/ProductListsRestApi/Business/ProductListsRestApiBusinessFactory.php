@@ -6,8 +6,6 @@ use FondOfOryx\Zed\ProductListsRestApi\Business\Executor\ProductListPluginExecut
 use FondOfOryx\Zed\ProductListsRestApi\Business\Executor\ProductListPluginExecutorInterface;
 use FondOfOryx\Zed\ProductListsRestApi\Business\Expander\ProductListExpander;
 use FondOfOryx\Zed\ProductListsRestApi\Business\Expander\ProductListExpanderInterface;
-use FondOfOryx\Zed\ProductListsRestApi\Business\Mapper\RestProductListMapper;
-use FondOfOryx\Zed\ProductListsRestApi\Business\Mapper\RestProductListMapperInterface;
 use FondOfOryx\Zed\ProductListsRestApi\Business\Reader\ProductListReader;
 use FondOfOryx\Zed\ProductListsRestApi\Business\Reader\ProductListReaderInterface;
 use FondOfOryx\Zed\ProductListsRestApi\Business\Updater\ProductListUpdater;
@@ -31,7 +29,6 @@ class ProductListsRestApiBusinessFactory extends AbstractBusinessFactory
             $this->createProductListReader(),
             $this->createProductListExpander(),
             $this->createProductListPluginExecutor(),
-            $this->createRestProductListMapper(),
             $this->getProductListFacade(),
         );
     }
@@ -73,6 +70,7 @@ class ProductListsRestApiBusinessFactory extends AbstractBusinessFactory
         return new ProductListPluginExecutor(
             $this->getProductListUpdatePreCheckPlugins(),
             $this->getProductListPostUpdatePlugins(),
+            $this->getRestProductListUpdateRequestExpanderPlugins(),
         );
     }
 
@@ -93,10 +91,12 @@ class ProductListsRestApiBusinessFactory extends AbstractBusinessFactory
     }
 
     /**
-     * @return \FondOfOryx\Zed\ProductListsRestApi\Business\Mapper\RestProductListMapperInterface
+     * @return array<\FondOfOryx\Zed\ProductListsRestApiExtension\Dependency\Plugin\RestProductListUpdateRequestExpanderPluginInterface>
      */
-    protected function createRestProductListMapper(): RestProductListMapperInterface
+    protected function getRestProductListUpdateRequestExpanderPlugins(): array
     {
-        return new RestProductListMapper();
+        return $this->getProvidedDependency(
+            ProductListsRestApiDependencyProvider::PLUGINS_REST_PRODUCT_LIST_UPDATE_REQUEST_EXPANDER,
+        );
     }
 }

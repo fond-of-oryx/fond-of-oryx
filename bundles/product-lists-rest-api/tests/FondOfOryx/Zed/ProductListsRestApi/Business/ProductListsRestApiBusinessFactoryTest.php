@@ -77,6 +77,7 @@ class ProductListsRestApiBusinessFactoryTest extends Unit
                 [ProductListsRestApiDependencyProvider::FACADE_PRODUCT_LIST],
                 [ProductListsRestApiDependencyProvider::PLUGINS_PRODUCT_LIST_UPDATE_PRE_CHECK],
                 [ProductListsRestApiDependencyProvider::PLUGINS_PRODUCT_LIST_POST_UPDATE],
+                [ProductListsRestApiDependencyProvider::PLUGINS_REST_PRODUCT_LIST_UPDATE_REQUEST_EXPANDER],
                 [ProductListsRestApiDependencyProvider::FACADE_PRODUCT_LIST],
             )->willReturn(true);
 
@@ -86,9 +87,11 @@ class ProductListsRestApiBusinessFactoryTest extends Unit
                 [ProductListsRestApiDependencyProvider::FACADE_PRODUCT_LIST],
                 [ProductListsRestApiDependencyProvider::PLUGINS_PRODUCT_LIST_UPDATE_PRE_CHECK],
                 [ProductListsRestApiDependencyProvider::PLUGINS_PRODUCT_LIST_POST_UPDATE],
+                [ProductListsRestApiDependencyProvider::PLUGINS_REST_PRODUCT_LIST_UPDATE_REQUEST_EXPANDER],
                 [ProductListsRestApiDependencyProvider::FACADE_PRODUCT_LIST],
             )->willReturnOnConsecutiveCalls(
                 $this->productListFacadeMock,
+                [],
                 [],
                 [],
                 $this->productListFacadeMock,

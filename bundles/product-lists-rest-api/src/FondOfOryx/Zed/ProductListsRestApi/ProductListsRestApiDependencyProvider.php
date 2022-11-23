@@ -33,6 +33,11 @@ class ProductListsRestApiDependencyProvider extends AbstractBundleDependencyProv
     public const PLUGINS_PRODUCT_LIST_POST_UPDATE = 'PLUGINS_PRODUCT_LIST_POST_UPDATE';
 
     /**
+     * @var string
+     */
+    public const PLUGINS_REST_PRODUCT_LIST_UPDATE_REQUEST_EXPANDER = 'PLUGINS_REST_PRODUCT_LIST_UPDATE_REQUEST_EXPANDER';
+
+    /**
      * @param \Spryker\Zed\Kernel\Container $container
      *
      * @return \Spryker\Zed\Kernel\Container
@@ -43,8 +48,9 @@ class ProductListsRestApiDependencyProvider extends AbstractBundleDependencyProv
 
         $container = $this->addProductListFacade($container);
         $container = $this->addProductListUpdatePreCheckPlugins($container);
+        $container = $this->addProductListPostUpdatePlugins($container);
 
-        return $this->addProductListPostUpdatePlugins($container);
+        return $this->addRestProductListUpdateRequestExpanderPlugins($container);
     }
 
     /**
@@ -133,6 +139,30 @@ class ProductListsRestApiDependencyProvider extends AbstractBundleDependencyProv
      * @return array<\FondOfOryx\Zed\ProductListsRestApiExtension\Dependency\Plugin\ProductListPostUpdatePluginInterface>
      */
     protected function getProductListPostUpdatePlugins(): array
+    {
+        return [];
+    }
+
+    /**
+     * @param \Spryker\Zed\Kernel\Container $container
+     *
+     * @return \Spryker\Zed\Kernel\Container
+     */
+    protected function addRestProductListUpdateRequestExpanderPlugins(Container $container): Container
+    {
+        $self = $this;
+
+        $container[static::PLUGINS_REST_PRODUCT_LIST_UPDATE_REQUEST_EXPANDER] = static function () use ($self) {
+            return $self->getRestProductListUpdateRequestExpanderPlugins();
+        };
+
+        return $container;
+    }
+
+    /**
+     * @return array<\FondOfOryx\Zed\ProductListsRestApiExtension\Dependency\Plugin\RestProductListUpdateRequestExpanderPluginInterface>
+     */
+    protected function getRestProductListUpdateRequestExpanderPlugins(): array
     {
         return [];
     }

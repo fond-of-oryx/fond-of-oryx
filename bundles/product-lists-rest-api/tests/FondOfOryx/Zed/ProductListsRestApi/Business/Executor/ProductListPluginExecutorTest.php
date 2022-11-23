@@ -5,6 +5,7 @@ namespace FondOfOryx\Zed\ProductListsRestApi\Business\Executor;
 use Codeception\Test\Unit;
 use FondOfOryx\Zed\ProductListsRestApiExtension\Dependency\Plugin\ProductListPostUpdatePluginInterface;
 use FondOfOryx\Zed\ProductListsRestApiExtension\Dependency\Plugin\ProductListUpdatePreCheckPluginInterface;
+use FondOfOryx\Zed\ProductListsRestApiExtension\Dependency\Plugin\RestProductListUpdateRequestExpanderPluginInterface;
 use Generated\Shared\Transfer\ProductListTransfer;
 use Generated\Shared\Transfer\RestProductListUpdateRequestTransfer;
 
@@ -19,6 +20,11 @@ class ProductListPluginExecutorTest extends Unit
      * @var array<\PHPUnit\Framework\MockObject\MockObject|\FondOfOryx\Zed\ProductListsRestApiExtension\Dependency\Plugin\ProductListPostUpdatePluginInterface>
      */
     protected $productListPostUpdatePluginMocks;
+
+    /**
+     * @var array<\PHPUnit\Framework\MockObject\MockObject|\FondOfOryx\Zed\ProductListsRestApiExtension\Dependency\Plugin\RestProductListUpdateRequestExpanderPluginInterface>
+     */
+    protected $restProductListUpdateRequestExpanderPluginMocks;
 
     /**
      * @var \Generated\Shared\Transfer\RestProductListUpdateRequestTransfer|\PHPUnit\Framework\MockObject\MockObject
@@ -57,6 +63,12 @@ class ProductListPluginExecutorTest extends Unit
                 ->getMock(),
         ];
 
+        $this->restProductListUpdateRequestExpanderPluginMocks = [
+            $this->getMockBuilder(RestProductListUpdateRequestExpanderPluginInterface::class)
+                ->disableOriginalConstructor()
+                ->getMock(),
+        ];
+
         $this->restProductListUpdateRequestTransferMock = $this->getMockBuilder(RestProductListUpdateRequestTransfer::class)
             ->disableOriginalConstructor()
             ->getMock();
@@ -68,13 +80,14 @@ class ProductListPluginExecutorTest extends Unit
         $this->productListPluginExecutor = new ProductListPluginExecutor(
             $this->productListUpdatePreCheckPluginMocks,
             $this->productListPostUpdatePluginMocks,
+            $this->restProductListUpdateRequestExpanderPluginMocks,
         );
     }
 
     /**
      * @return void
      */
-    public function testExecuteUpdatePreCheckPlugins(): void
+    public function testExecuteProductListUpdatePreCheckPlugins(): void
     {
         foreach ($this->productListUpdatePreCheckPluginMocks as $productListUpdatePreCheckPluginMock) {
             $productListUpdatePreCheckPluginMock->expects(static::atLeastOnce())
@@ -86,7 +99,7 @@ class ProductListPluginExecutorTest extends Unit
         }
 
         static::assertTrue(
-            $this->productListPluginExecutor->executeUpdatePreCheckPlugins(
+            $this->productListPluginExecutor->executeProductListUpdatePreCheckPlugins(
                 $this->restProductListUpdateRequestTransferMock,
                 $this->productListTransferMock,
             ),
@@ -96,7 +109,7 @@ class ProductListPluginExecutorTest extends Unit
     /**
      * @return void
      */
-    public function testExecuteUpdatePreCheckPluginsWithInvalidData(): void
+    public function testExecuteProductListUpdatePreCheckPluginsWithInvalidData(): void
     {
         foreach ($this->productListUpdatePreCheckPluginMocks as $index => $productListUpdatePreCheckPluginMock) {
             $productListUpdatePreCheckPluginMock->expects(static::atLeastOnce())
@@ -108,7 +121,7 @@ class ProductListPluginExecutorTest extends Unit
         }
 
         static::assertFalse(
-            $this->productListPluginExecutor->executeUpdatePreCheckPlugins(
+            $this->productListPluginExecutor->executeProductListUpdatePreCheckPlugins(
                 $this->restProductListUpdateRequestTransferMock,
                 $this->productListTransferMock,
             ),
@@ -118,7 +131,7 @@ class ProductListPluginExecutorTest extends Unit
     /**
      * @return void
      */
-    public function testExecutePostUpdatePlugins(): void
+    public function testExecuteProductListPostUpdatePlugins(): void
     {
         foreach ($this->productListPostUpdatePluginMocks as $productListPostUpdatePluginMock) {
             $productListPostUpdatePluginMock->expects(static::atLeastOnce())
@@ -131,9 +144,29 @@ class ProductListPluginExecutorTest extends Unit
 
         static::assertEquals(
             $this->productListTransferMock,
-            $this->productListPluginExecutor->executePostUpdatePlugins(
+            $this->productListPluginExecutor->executeProductListPostUpdatePlugins(
                 $this->restProductListUpdateRequestTransferMock,
                 $this->productListTransferMock,
+            ),
+        );
+    }
+
+    /**
+     * @return void
+     */
+    public function testExecuteRestProductListUpdateRequestExpanderPlugins(): void
+    {
+        foreach ($this->restProductListUpdateRequestExpanderPluginMocks as $restProductListUpdateRequestExpanderPluginMock) {
+            $restProductListUpdateRequestExpanderPluginMock->expects(static::atLeastOnce())
+                ->method('expand')
+                ->with($this->restProductListUpdateRequestTransferMock)
+                ->willReturn($this->restProductListUpdateRequestTransferMock);
+        }
+
+        static::assertEquals(
+            $this->restProductListUpdateRequestTransferMock,
+            $this->productListPluginExecutor->executeRestProductListUpdateRequestExpanderPlugins(
+                $this->restProductListUpdateRequestTransferMock,
             ),
         );
     }
