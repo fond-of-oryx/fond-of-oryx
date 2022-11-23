@@ -136,7 +136,7 @@ class ErpOrderItemHandler implements ErpOrderItemHandlerInterface
      */
     protected function getItemIndex(ErpOrderItemTransfer $itemTransfer): string
     {
-        return sprintf('%s.%s', $itemTransfer->getSku(), $itemTransfer->getPosition());
+        return sprintf('%s.%s', $itemTransfer->getSku(), $itemTransfer->getIdErpOrderItem());
     }
 
     /**
