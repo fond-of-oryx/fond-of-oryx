@@ -190,8 +190,10 @@ class ErpOrderItemHandlerTest extends Unit
 
         $existingItem1->expects($this->atLeastOnce())->method('getSku')->willReturn(1);
         $existingItem1->expects($this->atLeastOnce())->method('getIdErpOrderItem')->willReturn(1);
+        $existingItem1->expects($this->atLeastOnce())->method('toArray')->willReturn([]);
         $existingItem2->expects($this->atLeastOnce())->method('getSku')->willReturn(2);
         $existingItem2->expects($this->atLeastOnce())->method('getIdErpOrderItem')->willReturn(2);
+        $existingItem2->expects($this->atLeastOnce())->method('toArray')->willReturn([]);
         $this->erpOrderItemTransferMock->expects($this->atLeastOnce())->method('getSku')->willReturn(3);
         $this->itemReaderMock->expects($this->atLeastOnce())->method('findErpOrderItemByIdErpOrderItem')->willReturn($this->erpOrderItemTransferMock);
         $this->erpOrderItemTransferMock->expects($this->atLeastOnce())->method('getCreatedAt')->willReturn(time());
