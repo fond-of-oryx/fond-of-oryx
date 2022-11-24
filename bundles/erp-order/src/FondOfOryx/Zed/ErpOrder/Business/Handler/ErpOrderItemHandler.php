@@ -98,7 +98,9 @@ class ErpOrderItemHandler implements ErpOrderItemHandlerInterface
 
         $item = $this->erpOrderItemReader->findErpOrderItemByIdErpOrderItem($erpOrderItemTransfer->getIdErpOrderItem());
         $createdAt = $item->getCreatedAt();
-        $item->fromArray($erpOrderItemTransfer->toArray(), true)->setCreatedAt($createdAt)->setUpdatedAt(time());
+        $item->fromArray($erpOrderItemTransfer->toArray(), true)
+            ->setCreatedAt($createdAt)
+            ->setUpdatedAt(time());
 
         return $this->erpOrderItemWriter->update($item);
     }
@@ -116,14 +118,14 @@ class ErpOrderItemHandler implements ErpOrderItemHandlerInterface
     /**
      * @param int $idErpOrder
      *
-     * @return array<\Generated\Shared\Transfer\ErpOrderItemTransfer>
+     * @return array<array<\Generated\Shared\Transfer\ErpOrderItemTransfer>>
      */
     protected function getExistingErpOrderItems(int $idErpOrder): array
     {
         $itemsCollection = $this->erpOrderItemReader->findErpOrderItemsByIdErpOrder($idErpOrder);
         $existingItems = [];
         foreach ($itemsCollection->getItems() as $itemTransfer) {
-            $existingItems[$this->getItemIndex($itemTransfer)] = $itemTransfer;
+            $existingItems[$this->getItemIndex($itemTransfer)][] = $itemTransfer;
         }
 
         return $existingItems;
@@ -136,7 +138,7 @@ class ErpOrderItemHandler implements ErpOrderItemHandlerInterface
      */
     protected function getItemIndex(ErpOrderItemTransfer $itemTransfer): string
     {
-        return sprintf('%s.%s', $itemTransfer->getSku(), $itemTransfer->getIdErpOrderItem());
+        return sprintf('%s.%s', $itemTransfer->getSku(), $itemTransfer->getPosition());
     }
 
     /**
@@ -155,12 +157,10 @@ class ErpOrderItemHandler implements ErpOrderItemHandlerInterface
         foreach ($erpOrderTransfer->getOrderItems() as $erpOrderItemTransfer) {
             $itemIndex = $this->getItemIndex($erpOrderItemTransfer);
             if (array_key_exists($itemIndex, $existingItems)) {
-                $updateItem = $existingItems[$itemIndex];
-                $idOrderItem = $updateItem->getIdErpOrderItem();
-                $updateItem->fromArray($erpOrderItemTransfer->toArray(), true);
-                $updateItem->setIdErpOrderItem($idOrderItem);
-                $update[] = $updateItem;
-                unset($existingItems[$itemIndex]);
+                $update[] = $this->updateItemData(array_pop($existingItems[$itemIndex]), $erpOrderItemTransfer);
+                if (count($existingItems[$itemIndex]) === 0) {
+                    unset($existingItems[$itemIndex]);
+                }
 
                 continue;
             }
@@ -168,10 +168,51 @@ class ErpOrderItemHandler implements ErpOrderItemHandlerInterface
             $new[] = $erpOrderItemTransfer;
         }
 
+        $delete = $this->resolveItemsToDelete($existingItems);
+
+        foreach ($new as $index => $newItem) {
+            if (count($delete) > 0) {
+                $update[] = $this->updateItemData(array_pop($delete), $newItem);
+                unset($new[$index]);
+            }
+        }
+
         return [
             static::NEW => $new,
             static::UPDATE => $update,
-            static::DELETE => $existingItems,
+            static::DELETE => $delete,
         ];
+    }
+
+    /**
+     * @param array<array<\Generated\Shared\Transfer\ErpOrderItemTransfer>> $existingItems
+     *
+     * @return array<\Generated\Shared\Transfer\ErpOrderItemTransfer>
+     */
+    protected function resolveItemsToDelete(array $existingItems): array
+    {
+        $delete = [];
+        foreach ($existingItems as $existingItemBag) {
+            foreach ($existingItemBag as $existingItem) {
+                $delete[] = $existingItem;
+            }
+        }
+
+        return $delete;
+    }
+
+    /**
+     * @param \Generated\Shared\Transfer\ErpOrderItemTransfer $updateItem
+     * @param \Generated\Shared\Transfer\ErpOrderItemTransfer $erpOrderItemTransfer
+     *
+     * @return \Generated\Shared\Transfer\ErpOrderItemTransfer
+     */
+    protected function updateItemData(ErpOrderItemTransfer $updateItem, ErpOrderItemTransfer $erpOrderItemTransfer): ErpOrderItemTransfer
+    {
+        $idOrderItem = $updateItem->getIdErpOrderItem();
+        $updateItem->fromArray($erpOrderItemTransfer->toArray(), true);
+        $updateItem->setIdErpOrderItem($idOrderItem);
+
+        return $updateItem;
     }
 }
