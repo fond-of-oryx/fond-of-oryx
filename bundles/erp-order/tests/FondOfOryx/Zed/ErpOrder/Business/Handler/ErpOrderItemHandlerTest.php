@@ -200,6 +200,7 @@ class ErpOrderItemHandlerTest extends Unit
         $this->erpOrderItemTransferMock->expects($this->atLeastOnce())->method('setCreatedAt')->willReturnSelf();
         $this->erpOrderItemTransferMock->expects($this->atLeastOnce())->method('setUpdatedAt')->willReturnSelf();
         $this->erpOrderItemTransferMock->expects($this->atLeastOnce())->method('fromArray')->willReturnSelf();
+        $this->erpOrderItemTransferMock->expects($this->atLeastOnce())->method('toArray')->willReturn([]);
 
         $this->erpOrderTransferMock->expects($this->atLeastOnce())->method('getIdErpOrder')->willReturn(1);
         $this->erpOrderTransferMock->expects($this->atLeastOnce())->method('getOrderItems')->willReturn($items);
