@@ -42,8 +42,7 @@ class ErpOrderItemHandler implements ErpOrderItemHandlerInterface
     public function __construct(
         ErpOrderItemWriterInterface $erpOrderItemWriter,
         ErpOrderItemReaderInterface $erpOrderItemReader
-    )
-    {
+    ) {
         $this->erpOrderItemWriter = $erpOrderItemWriter;
         $this->erpOrderItemReader = $erpOrderItemReader;
     }
@@ -171,8 +170,8 @@ class ErpOrderItemHandler implements ErpOrderItemHandlerInterface
 
         $delete = $this->resolveItemsToDelete($existingItems);
 
-        foreach ($new as $index => $newItem){
-            if (count($delete) > 0){
+        foreach ($new as $index => $newItem) {
+            if (count($delete) > 0) {
                 $update[] = $this->updateItemData(array_pop($delete), $newItem);
                 unset($new[$index]);
             }
@@ -198,6 +197,7 @@ class ErpOrderItemHandler implements ErpOrderItemHandlerInterface
                 $delete[] = $existingItem;
             }
         }
+
         return $delete;
     }
 
@@ -212,6 +212,7 @@ class ErpOrderItemHandler implements ErpOrderItemHandlerInterface
         $idOrderItem = $updateItem->getIdErpOrderItem();
         $updateItem->fromArray($erpOrderItemTransfer->toArray(), true);
         $updateItem->setIdErpOrderItem($idOrderItem);
+
         return $updateItem;
     }
 }
