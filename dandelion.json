@@ -262,6 +262,10 @@
       "path": "bundles/customer-registration-rest-api/",
       "version": "1.0.0-beta.1"
     },
+    "customer-registration-sales-connector": {
+      "path": "bundles/customer-registration-sales-connector/",
+      "version": "1.0.0-beta.1"
+    },
     "customer-statistic": {
       "path": "bundles/customer-statistic/",
       "version": "1.0.0"

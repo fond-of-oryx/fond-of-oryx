@@ -40,8 +40,6 @@ class CustomerRegistrationSalesConnectorToCustomerRegistrationFacadeBridge imple
      */
     public function flagCustomerAsGdprAccepted(CustomerTransfer $customerTransfer): CustomerTransfer
     {
-        return $customerTransfer; //needed for merge
-
-//        return $this->facade->flagCustomerAsGdprAccepted($customerTransfer);
+        return $this->facade->flagCustomerAsGdprAccepted($customerTransfer);
     }
 }
