@@ -20,7 +20,7 @@ class WelcomeMailSenderPostPlugin extends AbstractPlugin implements CustomerRegi
      */
     public function execute(CustomerRegistrationRequestTransfer $customerRegistrationRequestTransfer): CustomerRegistrationRequestTransfer
     {
-        if ($customerRegistrationRequestTransfer->getType() !== CustomerRegistrationConstants::TYPE_REGISTRATION){
+        if ($customerRegistrationRequestTransfer->getType() !== CustomerRegistrationConstants::TYPE_REGISTRATION) {
             return $customerRegistrationRequestTransfer;
         }
 
