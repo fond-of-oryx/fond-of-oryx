@@ -3,6 +3,7 @@
 namespace FondOfOryx\Zed\CustomerRegistrationEmailConnector\Communication\Plugins\CustomerRegistration;
 
 use Exception;
+use FondOfOryx\Shared\CustomerRegistration\CustomerRegistrationConstants;
 use FondOfOryx\Zed\CustomerRegistrationExtension\Dependency\Plugin\CustomerRegistrationPostStepPluginInterface;
 use Generated\Shared\Transfer\CustomerRegistrationRequestTransfer;
 use Spryker\Zed\Kernel\Communication\AbstractPlugin;
@@ -19,6 +20,10 @@ class WelcomeMailSenderPostPlugin extends AbstractPlugin implements CustomerRegi
      */
     public function execute(CustomerRegistrationRequestTransfer $customerRegistrationRequestTransfer): CustomerRegistrationRequestTransfer
     {
+        if ($customerRegistrationRequestTransfer->getType() !== CustomerRegistrationConstants::TYPE_REGISTRATION) {
+            return $customerRegistrationRequestTransfer;
+        }
+
         $bag = $customerRegistrationRequestTransfer->getBagOrFail();
         $customerTransfer = $bag->getCustomer();
 

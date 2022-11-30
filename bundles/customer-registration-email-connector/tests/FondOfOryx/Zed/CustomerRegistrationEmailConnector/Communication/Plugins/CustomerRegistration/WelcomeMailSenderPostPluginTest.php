@@ -4,6 +4,7 @@ namespace FondOfOryx\Zed\CustomerRegistrationEmailConnector\Communication\Plugin
 
 use Codeception\Test\Unit;
 use Exception;
+use FondOfOryx\Shared\CustomerRegistration\CustomerRegistrationConstants;
 use FondOfOryx\Zed\CustomerRegistrationEmailConnector\Business\CustomerRegistrationEmailConnectorFacade;
 use Generated\Shared\Transfer\CustomerRegistrationBagTransfer;
 use Generated\Shared\Transfer\CustomerRegistrationRequestTransfer;
@@ -67,6 +68,10 @@ class WelcomeMailSenderPostPluginTest extends Unit
     public function testExecute(): void
     {
         $this->customerRegistrationRequestTransferMock->expects(static::atLeastOnce())
+            ->method('getType')
+            ->willReturn(CustomerRegistrationConstants::TYPE_REGISTRATION);
+
+        $this->customerRegistrationRequestTransferMock->expects(static::atLeastOnce())
             ->method('getBagOrFail')
             ->willReturn($this->bagTransferMock);
 
@@ -105,6 +110,10 @@ class WelcomeMailSenderPostPluginTest extends Unit
     public function testExecuteThrowsException(): void
     {
         $this->customerRegistrationRequestTransferMock->expects(static::atLeastOnce())
+            ->method('getType')
+            ->willReturn(CustomerRegistrationConstants::TYPE_REGISTRATION);
+
+        $this->customerRegistrationRequestTransferMock->expects(static::atLeastOnce())
             ->method('getBagOrFail')
             ->willReturn($this->bagTransferMock);
 
@@ -133,6 +142,21 @@ class WelcomeMailSenderPostPluginTest extends Unit
 
         $this->facadeMock->expects(static::atLeastOnce())
             ->method('sendWelcomeMail')->willThrowException(new Exception('test'));
+
+        $this->plugin->execute($this->customerRegistrationRequestTransferMock);
+    }
+
+    /**
+     * @return void
+     */
+    public function testExecuteWillNotSendWelcomeMail(): void
+    {
+        $this->customerRegistrationRequestTransferMock->expects(static::atLeastOnce())
+            ->method('getType')
+            ->willReturn(CustomerRegistrationConstants::TYPE_EMAIL_VERIFICATION);
+
+        $this->customerRegistrationRequestTransferMock->expects(static::never())
+            ->method('getBagOrFail');
 
         $this->plugin->execute($this->customerRegistrationRequestTransferMock);
     }
