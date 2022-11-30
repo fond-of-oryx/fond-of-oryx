@@ -27,6 +27,7 @@ class ErpOrderPageSearchDataMapperTest extends Unit
         $data = [
             ErpOrderPageSearchDataMapper::CONCRETE_DELIVERY_DATE => 'now',
             ErpOrderPageSearchDataMapper::CREATED_AT => 'now',
+            ErpOrderPageSearchDataMapper::UPDATED_AT => 'now',
             ErpOrderPageSearchDataMapper::EXTERNAL_REFERENCE => '',
             ErpOrderPageSearchDataMapper::FK_COMPANY_BUSINESS_UNIT => '',
             ErpOrderPageSearchDataMapper::COMPANY_BUSINESS_UNIT => [
@@ -46,7 +47,7 @@ class ErpOrderPageSearchDataMapperTest extends Unit
 
         $searchData = $this->erpOrderPageSearchDataMapper->mapErpOrderDataToSearchData($data);
 
-        $this->assertIsArray($searchData);
-        $this->assertNotEmpty($searchData);
+        static::assertIsArray($searchData);
+        static::assertNotEmpty($searchData);
     }
 }

@@ -47,6 +47,11 @@ class ErpOrderPageSearchDataMapper implements ErpOrderPageSearchDataMapperInterf
     /**
      * @var string
      */
+    public const UPDATED_AT = 'updated_at';
+
+    /**
+     * @var string
+     */
     public const ID_ERP_ORDER = 'id_erp_order';
 
     /**
@@ -174,6 +179,8 @@ class ErpOrderPageSearchDataMapper implements ErpOrderPageSearchDataMapperInterf
         return [
             ErpOrderIndexMap::LOCALE => null,
             ErpOrderIndexMap::CONCRETE_DELIVERY_DATE => $this->formatDate($data[static::CONCRETE_DELIVERY_DATE]),
+            ErpOrderIndexMap::CREATED_AT => $this->formatDate($data[static::CREATED_AT]),
+            ErpOrderIndexMap::UPDATED_AT => $this->formatDate($data[static::UPDATED_AT]),
             ErpOrderIndexMap::EXTERNAL_REFERENCE => $data[static::EXTERNAL_REFERENCE],
             ErpOrderIndexMap::ID_COMPANY_BUSINESS_UNIT => $data[static::FK_COMPANY_BUSINESS_UNIT],
             ErpOrderIndexMap::COMPANY_BUSINESS_UNIT_UUID => $data[static::COMPANY_BUSINESS_UNIT][static::COMPANY_BUSINESS_UNIT_UUID],
