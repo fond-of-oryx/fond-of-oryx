@@ -58,7 +58,7 @@ class PasswordGenerator implements PasswordGeneratorInterface
         $max = count($keySpaceIndexed) - 1;
 
         for ($i = 1; $i <= $length; ++$i) {
-            $parts[] = $keySpaceIndexed[mt_rand(0, $max)];
+            $parts[] = $keySpaceIndexed[random_int(0, $max)];
         }
 
         return implode('', $parts);

@@ -149,7 +149,7 @@ class RegistrationStep extends AbstractStep implements RegistrationStepInterface
     protected function encodePassword(CustomerTransfer $customerTransfer): CustomerTransfer
     {
         $currentPassword = $customerTransfer->getPassword();
-        if ($currentPassword === null) {
+        if ($currentPassword === null || $currentPassword === '') {
             $currentPassword = $this->passwordGenerator->generate();
         }
 
