@@ -2,7 +2,7 @@
 
 namespace FondOfOryx\Zed\CustomerRegistrationEmailConnector\Business;
 
-use Generated\Shared\Transfer\CustomerTransfer;
+use Generated\Shared\Transfer\CustomerRegistrationRequestTransfer;
 use Spryker\Zed\Kernel\Business\AbstractFacade;
 
 /**
@@ -11,15 +11,13 @@ use Spryker\Zed\Kernel\Business\AbstractFacade;
 class CustomerRegistrationEmailConnectorFacade extends AbstractFacade implements CustomerRegistrationEmailConnectorFacadeInterface
 {
     /**
-     * @param \Generated\Shared\Transfer\CustomerTransfer $customerTransfer
-     * @param string $link
-     *
-     * @return void
+     * @param \Generated\Shared\Transfer\CustomerRegistrationRequestTransfer $customerRegistrationRequestTransfer
+     * @return \Generated\Shared\Transfer\CustomerRegistrationRequestTransfer
      */
-    public function sendWelcomeMail(CustomerTransfer $customerTransfer, string $link): void
+    public function sendWelcomeMail(CustomerRegistrationRequestTransfer $customerRegistrationRequestTransfer): CustomerRegistrationRequestTransfer
     {
-        $this->getFactory()
-            ->createWelcomeMailSender()
-            ->sendWelcomeMail($customerTransfer, $link);
+        return $this->getFactory()
+            ->createWelcomeMailSenderStep()
+            ->sendWelcomeMail($customerRegistrationRequestTransfer);
     }
 }
