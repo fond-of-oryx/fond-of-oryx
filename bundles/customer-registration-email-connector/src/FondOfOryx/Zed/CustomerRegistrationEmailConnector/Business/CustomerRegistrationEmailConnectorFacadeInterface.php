@@ -8,6 +8,7 @@ interface CustomerRegistrationEmailConnectorFacadeInterface
 {
     /**
      * @param \Generated\Shared\Transfer\CustomerRegistrationRequestTransfer $customerRegistrationRequestTransfer
+     *
      * @return \Generated\Shared\Transfer\CustomerRegistrationRequestTransfer
      */
     public function sendWelcomeMail(CustomerRegistrationRequestTransfer $customerRegistrationRequestTransfer): CustomerRegistrationRequestTransfer;

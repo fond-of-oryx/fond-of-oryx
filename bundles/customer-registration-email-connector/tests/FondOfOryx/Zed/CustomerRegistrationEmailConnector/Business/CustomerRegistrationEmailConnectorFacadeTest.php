@@ -3,8 +3,8 @@
 namespace FondOfOryx\Zed\CustomerRegistrationEmailConnector\Business;
 
 use Codeception\Test\Unit;
-use FondOfOryx\Zed\CustomerRegistrationEmailConnector\Business\Sender\WelcomeMailSenderInterface;
-use Generated\Shared\Transfer\CustomerTransfer;
+use FondOfOryx\Zed\CustomerRegistrationEmailConnector\Business\Steps\WelcomeMailSenderStepInterface;
+use Generated\Shared\Transfer\CustomerRegistrationRequestTransfer;
 
 class CustomerRegistrationEmailConnectorFacadeTest extends Unit
 {
@@ -19,12 +19,12 @@ class CustomerRegistrationEmailConnectorFacadeTest extends Unit
     protected $customerRegistrationEmailConnectorBusinessFactoryMock;
 
     /**
-     * @var \Generated\Shared\Transfer\CustomerTransfer|\PHPUnit\Framework\MockObject\MockObject
+     * @var \Generated\Shared\Transfer\CustomerRegistrationRequestTransfer|\PHPUnit\Framework\MockObject\MockObject
      */
-    protected $customerTransferMock;
+    protected $customerRegistrationRequestTransfer;
 
     /**
-     * @var \FondOfOryx\Zed\CustomerRegistrationEmailConnector\Business\Sender\WelcomeMailSenderInterface|\PHPUnit\Framework\MockObject\MockObject
+     * @var \FondOfOryx\Zed\CustomerRegistrationEmailConnector\Business\Steps\WelcomeMailSenderStepInterface|\PHPUnit\Framework\MockObject\MockObject
      */
     protected $welcomeMailSenderMock;
 
@@ -37,11 +37,11 @@ class CustomerRegistrationEmailConnectorFacadeTest extends Unit
             ->disableOriginalConstructor()
             ->getMock();
 
-        $this->customerTransferMock = $this->getMockBuilder(CustomerTransfer::class)
+        $this->customerRegistrationRequestTransfer = $this->getMockBuilder(CustomerRegistrationRequestTransfer::class)
             ->disableOriginalConstructor()
             ->getMock();
 
-        $this->welcomeMailSenderMock = $this->getMockBuilder(WelcomeMailSenderInterface::class)
+        $this->welcomeMailSenderMock = $this->getMockBuilder(WelcomeMailSenderStepInterface::class)
             ->disableOriginalConstructor()
             ->getMock();
 
@@ -52,16 +52,16 @@ class CustomerRegistrationEmailConnectorFacadeTest extends Unit
     /**
      * @return void
      */
-    public function testSendCustomerRegistrationMail(): void
+    public function testSendWelcomeMail(): void
     {
         $this->customerRegistrationEmailConnectorBusinessFactoryMock->expects($this->atLeastOnce())
-            ->method('createWelcomeMailSender')
+            ->method('createWelcomeMailSenderStep')
             ->willReturn($this->welcomeMailSenderMock);
 
         $this->welcomeMailSenderMock->expects($this->atLeastOnce())
             ->method('sendWelcomeMail')
-            ->with($this->customerTransferMock);
+            ->with($this->customerRegistrationRequestTransfer)->willReturn($this->customerRegistrationRequestTransfer);
 
-        $this->customerRegistrationEmailConnectorFacade->sendWelcomeMail($this->customerTransferMock, 'test');
+        $this->customerRegistrationEmailConnectorFacade->sendWelcomeMail($this->customerRegistrationRequestTransfer);
     }
 }

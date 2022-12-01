@@ -1,21 +1,22 @@
 <?php
 
-namespace FondOfOryx\Zed\CustomerRegistrationEmailConnector\Communication\Plugins\CustomerRegistration;
+namespace FondOfOryx\Zed\CustomerRegistrationEmailConnector\Business\Steps;
 
 use Codeception\Test\Unit;
 use Exception;
-use FondOfOryx\Shared\CustomerRegistration\CustomerRegistrationConstants;
-use FondOfOryx\Zed\CustomerRegistrationEmailConnector\Business\CustomerRegistrationEmailConnectorFacade;
+use FondOfOryx\Zed\CustomerRegistrationEmailConnector\Business\Sender\WelcomeMailSenderInterface;
+use FondOfOryx\Zed\CustomerRegistrationExtension\Dependency\Plugin\CustomerRegistrationPostStepPluginInterface;
+use FondOfOryx\Zed\CustomerRegistrationExtension\Dependency\Plugin\CustomerRegistrationPreStepConditionPluginInterface;
 use Generated\Shared\Transfer\CustomerRegistrationBagTransfer;
 use Generated\Shared\Transfer\CustomerRegistrationRequestTransfer;
 use Generated\Shared\Transfer\CustomerTransfer;
 
-class WelcomeMailSenderPostPluginTest extends Unit
+class WelcomeMailSenderStepTest extends Unit
 {
     /**
-     * @var \FondOfOryx\Zed\CustomerRegistrationEmailConnector\Communication\Plugins\CustomerRegistration\WelcomeMailSenderPostPlugin
+     * @var \FondOfOryx\Zed\CustomerRegistrationEmailConnector\Business\Steps\WelcomeMailSenderStepInterface
      */
-    protected $plugin;
+    protected $step;
 
     /**
      * @var \PHPUnit\Framework\MockObject\MockObject|\Generated\Shared\Transfer\CustomerRegistrationBagTransfer
@@ -33,9 +34,19 @@ class WelcomeMailSenderPostPluginTest extends Unit
     protected $customerTransferMock;
 
     /**
-     * @var \FondOfOryx\Zed\CustomerRegistrationEmailConnector\Business\CustomerRegistrationEmailConnectorFacadeInterface|\PHPUnit\Framework\MockObject\MockObject
+     * @var \FondOfOryx\Zed\CustomerRegistrationExtension\Dependency\Plugin\CustomerRegistrationPreStepConditionPluginInterface|\PHPUnit\Framework\MockObject\MockObject
      */
-    protected $facadeMock;
+    protected $prePluginMock;
+
+    /**
+     * @var \FondOfOryx\Zed\CustomerRegistrationExtension\Dependency\Plugin\CustomerRegistrationPostStepPluginInterface|\PHPUnit\Framework\MockObject\MockObject
+     */
+    protected $postPluginMock;
+
+    /**
+     * @var \FondOfOryx\Zed\CustomerRegistrationEmailConnector\Business\Sender\WelcomeMailSenderInterface|\PHPUnit\Framework\MockObject\MockObject
+     */
+    protected $welcomeMailSenderMock;
 
     /**
      * @return void
@@ -54,22 +65,39 @@ class WelcomeMailSenderPostPluginTest extends Unit
             ->disableOriginalConstructor()
             ->getMock();
 
-        $this->facadeMock = $this->getMockBuilder(CustomerRegistrationEmailConnectorFacade::class)
+        $this->prePluginMock = $this->getMockBuilder(CustomerRegistrationPreStepConditionPluginInterface::class)
             ->disableOriginalConstructor()
             ->getMock();
 
-        $this->plugin = new WelcomeMailSenderPostPlugin();
-        $this->plugin->setFacade($this->facadeMock);
+        $this->postPluginMock = $this->getMockBuilder(CustomerRegistrationPostStepPluginInterface::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $this->welcomeMailSenderMock = $this->getMockBuilder(WelcomeMailSenderInterface::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $this->step = new WelcomeMailSenderStep(
+            $this->welcomeMailSenderMock,
+            [
+                $this->prePluginMock,
+                $this->prePluginMock,
+            ],
+            [
+                $this->postPluginMock,
+                $this->postPluginMock,
+            ],
+        );
     }
 
     /**
      * @return void
      */
-    public function testExecute(): void
+    public function testSendWelcomeMail(): void
     {
-        $this->customerRegistrationRequestTransferMock->expects(static::atLeastOnce())
-            ->method('getType')
-            ->willReturn(CustomerRegistrationConstants::TYPE_REGISTRATION);
+        $this->prePluginMock->expects(static::atLeastOnce())
+            ->method('checkPreCondition')
+            ->willReturn(true);
 
         $this->customerRegistrationRequestTransferMock->expects(static::atLeastOnce())
             ->method('getBagOrFail')
@@ -98,10 +126,13 @@ class WelcomeMailSenderPostPluginTest extends Unit
             ->with(true)
             ->willReturnSelf();
 
-        $this->facadeMock->expects(static::atLeastOnce())
+        $this->postPluginMock->expects(static::atLeastOnce())
+            ->method('execute')->willReturn($this->customerRegistrationRequestTransferMock);
+
+        $this->welcomeMailSenderMock->expects(static::atLeastOnce())
             ->method('sendWelcomeMail');
 
-        $this->plugin->execute($this->customerRegistrationRequestTransferMock);
+        $this->step->sendWelcomeMail($this->customerRegistrationRequestTransferMock);
     }
 
     /**
@@ -109,9 +140,9 @@ class WelcomeMailSenderPostPluginTest extends Unit
      */
     public function testExecuteThrowsException(): void
     {
-        $this->customerRegistrationRequestTransferMock->expects(static::atLeastOnce())
-            ->method('getType')
-            ->willReturn(CustomerRegistrationConstants::TYPE_REGISTRATION);
+        $this->prePluginMock->expects(static::atLeastOnce())
+            ->method('checkPreCondition')
+            ->willReturn(true);
 
         $this->customerRegistrationRequestTransferMock->expects(static::atLeastOnce())
             ->method('getBagOrFail')
@@ -140,10 +171,13 @@ class WelcomeMailSenderPostPluginTest extends Unit
             ->with(false)
             ->willReturnSelf();
 
-        $this->facadeMock->expects(static::atLeastOnce())
+        $this->postPluginMock->expects(static::atLeastOnce())
+            ->method('execute')->willReturn($this->customerRegistrationRequestTransferMock);
+
+        $this->welcomeMailSenderMock->expects(static::atLeastOnce())
             ->method('sendWelcomeMail')->willThrowException(new Exception('test'));
 
-        $this->plugin->execute($this->customerRegistrationRequestTransferMock);
+        $this->step->sendWelcomeMail($this->customerRegistrationRequestTransferMock);
     }
 
     /**
@@ -151,13 +185,16 @@ class WelcomeMailSenderPostPluginTest extends Unit
      */
     public function testExecuteWillNotSendWelcomeMail(): void
     {
-        $this->customerRegistrationRequestTransferMock->expects(static::atLeastOnce())
-            ->method('getType')
-            ->willReturn(CustomerRegistrationConstants::TYPE_EMAIL_VERIFICATION);
+        $this->prePluginMock->expects(static::atLeastOnce())
+            ->method('checkPreCondition')
+            ->willReturn(false);
 
         $this->customerRegistrationRequestTransferMock->expects(static::never())
             ->method('getBagOrFail');
 
-        $this->plugin->execute($this->customerRegistrationRequestTransferMock);
+        $this->welcomeMailSenderMock->expects(static::never())
+            ->method('sendWelcomeMail');
+
+        $this->step->sendWelcomeMail($this->customerRegistrationRequestTransferMock);
     }
 }

@@ -47,7 +47,7 @@ class WelcomeMailSenderStep extends AbstractStep implements WelcomeMailSenderSte
     public function sendWelcomeMail(CustomerRegistrationRequestTransfer $customerRegistrationRequestTransfer): CustomerRegistrationRequestTransfer
     {
         if ($this->checkPreConditions($customerRegistrationRequestTransfer) === false) {
-            return $customerRegistrationRequestTransfer;
+            return $this->executePostStepPlugins($customerRegistrationRequestTransfer);
         }
 
         $bag = $customerRegistrationRequestTransfer->getBagOrFail();

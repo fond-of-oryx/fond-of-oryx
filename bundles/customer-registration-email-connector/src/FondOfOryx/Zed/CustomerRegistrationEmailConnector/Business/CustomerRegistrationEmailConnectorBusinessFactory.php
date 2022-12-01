@@ -30,7 +30,7 @@ class CustomerRegistrationEmailConnectorBusinessFactory extends AbstractBusiness
         return new WelcomeMailSenderStep(
             $this->createWelcomeMailSender(),
             $this->getEmailConnectorPreConditionPlugins(),
-            $this->getEmailConnectorPostPlugins()
+            $this->getEmailConnectorPostPlugins(),
         );
     }
 
