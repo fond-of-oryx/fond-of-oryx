@@ -23,6 +23,11 @@ class EmailVerificationLinkGeneratorTest extends Unit
     protected $tokenPattern = '{{token}}';
 
     /**
+     * @var string
+     */
+    protected $emailPattern = '{{email}}';
+
+    /**
      * @var \FondOfOryx\Zed\CustomerRegistration\Dependency\Facade\CustomerRegistrationToLocaleFacadeInterface|\PHPUnit\Framework\MockObject\MockObject
      */
     protected $localeFacadeMock;
@@ -131,6 +136,11 @@ class EmailVerificationLinkGeneratorTest extends Unit
             ->expects(static::atLeastOnce())
             ->method('getCurrentLocaleName')
             ->willReturn('de_DE');
+
+        $this->customerTransferMock
+            ->expects(static::atLeastOnce())
+            ->method('getEmail')
+            ->willReturn('email@exmaple.de');
 
         $this->storeFacadeMock
             ->expects(static::atLeastOnce())

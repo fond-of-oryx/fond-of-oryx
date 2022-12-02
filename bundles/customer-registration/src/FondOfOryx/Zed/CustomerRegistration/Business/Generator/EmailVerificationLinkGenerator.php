@@ -21,6 +21,11 @@ class EmailVerificationLinkGenerator implements EmailVerificationLinkGeneratorIn
     protected const TOKEN_PATTERN = '{{token}}';
 
     /**
+     * @var string
+     */
+    protected const EMAIL_PATTERN = '{{email}}';
+
+    /**
      * @var \FondOfOryx\Zed\CustomerRegistration\CustomerRegistrationConfigInterface
      */
     protected $config;
@@ -59,10 +64,21 @@ class EmailVerificationLinkGenerator implements EmailVerificationLinkGeneratorIn
     {
         $linkPattern = sprintf($this->cleanSlashes($this->config->getVerificationLinkPattern()), $this->cleanSlashes($this->config->getBaseUrl()));
 
-        return $this->replaceTokenPattern(
-            $this->replaceLocalePattern($linkPattern, $this->getLocaleKey($customerTransfer->getLocale())),
-            $customerTransfer->getRegistrationKey(),
-        );
+        return $this->replacePatterns($linkPattern, $customerTransfer);
+    }
+
+    /**
+     * @param string $linkPattern
+     * @param \Generated\Shared\Transfer\CustomerTransfer $customerTransfer
+     *
+     * @return string
+     */
+    protected function replacePatterns(string $linkPattern, CustomerTransfer $customerTransfer): string
+    {
+        $linkPattern = $this->replaceTokenPattern($linkPattern, $customerTransfer->getRegistrationKey());
+        $linkPattern = $this->replaceLocalePattern($linkPattern, $this->getLocaleKey($customerTransfer->getLocale()));
+
+        return $this->replaceEmailPattern($linkPattern, $customerTransfer->getEmail());
     }
 
     /**
@@ -109,6 +125,17 @@ class EmailVerificationLinkGenerator implements EmailVerificationLinkGeneratorIn
     protected function replaceTokenPattern(string $pattern, string $token): string
     {
         return $this->replaceInPattern(static::TOKEN_PATTERN, $token, $pattern);
+    }
+
+    /**
+     * @param string $pattern
+     * @param string $email
+     *
+     * @return string
+     */
+    protected function replaceEmailPattern(string $pattern, string $email): string
+    {
+        return $this->replaceInPattern(static::EMAIL_PATTERN, $email, $pattern);
     }
 
     /**

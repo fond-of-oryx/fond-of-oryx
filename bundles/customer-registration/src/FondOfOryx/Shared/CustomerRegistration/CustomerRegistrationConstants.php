@@ -37,7 +37,7 @@ interface CustomerRegistrationConstants
     /**
      * @var string
      */
-    public const DEFAULT_PATTERN_VERIFICATION_LINK = '%s/{{locale}}/p/email-verification/{{token}}';
+    public const DEFAULT_PATTERN_VERIFICATION_LINK = '%s/{{locale}}?register={{token}}&email={{email}}';
 
     /**
      * @var string
