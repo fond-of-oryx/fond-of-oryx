@@ -762,6 +762,10 @@
       "path": "bundles/splittable-checkout-rest-api-order-custom-reference-connector",
       "version": "1.0.0"
     },
+    "splittable-checkout-rest-api-order-custom-references-connector": {
+      "path": "bundles/splittable-checkout-rest-api-order-custom-references-connector",
+      "version": "1.0.0"
+    },
     "splittable-checkout-rest-api-payment-connector": {
       "path": "bundles/splittable-checkout-rest-api-payment-connector/",
       "version": "1.0.1"
