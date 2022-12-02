@@ -50,7 +50,7 @@ class QuoteSplitter implements QuoteSplitterInterface
         $getterMethod = $this->getGetterMethod();
 
         if ($getterMethod === null) {
-            return ['*' => $quoteTransfer];
+            return ['*' => $quoteTransfer->setSplitKey('*')];
         }
 
         $quoteTransfers = [];
@@ -60,6 +60,7 @@ class QuoteSplitter implements QuoteSplitterInterface
 
             if (!isset($quoteTransfers[$splitItemAttributeValue])) {
                 $quoteTransfers[$splitItemAttributeValue] = $this->cloneQuote($quoteTransfer);
+                $quoteTransfers[$splitItemAttributeValue]->setSplitKey($splitItemAttributeValue);
             }
 
             $quoteTransfers[$splitItemAttributeValue]->addItem($itemTransfer);
