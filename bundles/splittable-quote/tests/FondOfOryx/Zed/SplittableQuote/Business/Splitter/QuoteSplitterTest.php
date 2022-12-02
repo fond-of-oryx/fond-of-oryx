@@ -38,6 +38,11 @@ class QuoteSplitterTest extends Unit
     protected $itemTransferMocks;
 
     /**
+     * @var \Generated\Shared\Transfer\QuoteTransfer&\PHPUnit\Framework\MockObject\MockObject|\PHPUnit\Framework\MockObject\MockObject
+     */
+    protected $splittedQuoteTransferMock;
+
+    /**
      * @var \FondOfOryx\Zed\SplittableQuote\Business\Splitter\QuoteSplitter
      */
     protected $quoteSplitter;
@@ -73,6 +78,10 @@ class QuoteSplitterTest extends Unit
                 ->getMock(),
         ];
 
+        $this->splittedQuoteTransferMock = $this->getMockBuilder(QuoteTransfer::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
         $this->quoteSplitter = new QuoteSplitter(
             $this->calculationFacadeMock,
             $this->configMock,
@@ -103,31 +112,29 @@ class QuoteSplitterTest extends Unit
             ->method('toArray')
             ->willReturn([]);
 
-        $this->splittedQuoteExpanderPluginMocks[0]->expects(static::atLeastOnce())
-            ->method('expand')
-            ->with(
-                static::callback(
-                    static function (QuoteTransfer $quoteTransfer) {
-                        return $quoteTransfer->getIdQuote() === null
-                            && $quoteTransfer->getUuid() === null
-                            && !$quoteTransfer->getIsDefault();
-                    },
-                ),
-            )
-            ->willReturn($this->quoteTransferMock);
-
         $this->calculationFacadeMock->expects(static::atLeastOnce())
             ->method('recalculateQuote')
-            ->with(
+            ->withConsecutive([
                 static::callback(
-                    static function (QuoteTransfer $quoteTransfer) {
+                    static function (QuoteTransfer $quoteTransfer) use ($groupKey) {
                         return $quoteTransfer->getIdQuote() === null
                             && $quoteTransfer->getUuid() === null
-                            && !$quoteTransfer->getIsDefault();
+                            && !$quoteTransfer->getIsDefault()
+                            && $quoteTransfer->getSplitKey() === $groupKey;
                     },
                 ),
                 false,
-            )
+            ], [
+                $this->splittedQuoteTransferMock,
+                false,
+            ])->willReturnOnConsecutiveCalls(
+                $this->splittedQuoteTransferMock,
+                $this->splittedQuoteTransferMock,
+            );
+
+        $this->splittedQuoteExpanderPluginMocks[0]->expects(static::atLeastOnce())
+            ->method('expand')
+            ->with($this->splittedQuoteTransferMock)
             ->willReturn($this->quoteTransferMock);
 
         $quoteTransfers = $this->quoteSplitter->split($this->quoteTransferMock);
@@ -144,6 +151,11 @@ class QuoteSplitterTest extends Unit
         $this->configMock->expects(static::atLeastOnce())
             ->method('getSplitItemAttribute')
             ->willReturn(null);
+
+        $this->quoteTransferMock->expects(static::atLeastOnce())
+            ->method('setSplitKey')
+            ->with('*')
+            ->willReturn($this->quoteTransferMock);
 
         $this->quoteTransferMock->expects(static::never())
             ->method('getItems');
@@ -172,6 +184,11 @@ class QuoteSplitterTest extends Unit
         $this->configMock->expects(static::atLeastOnce())
             ->method('getSplitItemAttribute')
             ->willReturn('xxx_yyy_zzz');
+
+        $this->quoteTransferMock->expects(static::atLeastOnce())
+            ->method('setSplitKey')
+            ->with('*')
+            ->willReturn($this->quoteTransferMock);
 
         $this->quoteTransferMock->expects(static::never())
             ->method('getItems');
