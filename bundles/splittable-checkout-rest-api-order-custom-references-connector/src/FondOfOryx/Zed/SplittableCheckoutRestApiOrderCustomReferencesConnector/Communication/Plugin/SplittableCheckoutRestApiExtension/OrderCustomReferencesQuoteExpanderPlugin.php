@@ -21,10 +21,6 @@ class OrderCustomReferencesQuoteExpanderPlugin extends AbstractPlugin implements
     ): QuoteTransfer {
         $orderCustomReferences = $restSplittableCheckoutRequestTransfer->getOrderCustomReferences();
 
-        if ($orderCustomReferences === null || count($orderCustomReferences) === 0) {
-            return $quoteTransfer;
-        }
-
         return $quoteTransfer->setOrderCustomReferences($orderCustomReferences);
     }
 }

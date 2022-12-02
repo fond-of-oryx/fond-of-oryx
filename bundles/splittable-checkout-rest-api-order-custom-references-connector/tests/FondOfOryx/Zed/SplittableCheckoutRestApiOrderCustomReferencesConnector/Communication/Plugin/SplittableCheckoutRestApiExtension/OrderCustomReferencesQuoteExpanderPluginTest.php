@@ -68,25 +68,4 @@ class OrderCustomReferencesQuoteExpanderPluginTest extends Unit
             ),
         );
     }
-
-    /**
-     * @return void
-     */
-    public function testExpandQuoteWithoutOrderCustomerReferences(): void
-    {
-        $this->restSplittableCheckoutRequestTransferMock->expects(static::atLeastOnce())
-            ->method('getOrderCustomReferences')
-            ->willReturn(null);
-
-        $this->quoteTransferMock->expects(static::never())
-            ->method('setOrderCustomReferences');
-
-        static::assertEquals(
-            $this->quoteTransferMock,
-            $this->plugin->expand(
-                $this->restSplittableCheckoutRequestTransferMock,
-                $this->quoteTransferMock,
-            ),
-        );
-    }
 }
