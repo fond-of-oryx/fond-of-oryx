@@ -2,6 +2,7 @@
 
 namespace FondOfOryx\Zed\CustomerRegistration;
 
+use FondOfOryx\Zed\CustomerRegistration\Communication\Plugins\LinkExpander\EmailVerificationLinkLocaleExpanderPlugin;
 use FondOfOryx\Zed\CustomerRegistration\Dependency\Encoder\CustomerRegistrationToPasswordEncoderBridge;
 use FondOfOryx\Zed\CustomerRegistration\Dependency\Facade\CustomerRegistrationToCustomerFacadeBridge;
 use FondOfOryx\Zed\CustomerRegistration\Dependency\Facade\CustomerRegistrationToLocaleFacadeBridge;
@@ -438,6 +439,8 @@ class CustomerRegistrationDependencyProvider extends AbstractBundleDependencyPro
      */
     protected function getEmailVerificationLinkExtenderPlugins(): array
     {
-        return [];
+        return [
+            new EmailVerificationLinkLocaleExpanderPlugin(),
+        ];
     }
 }
