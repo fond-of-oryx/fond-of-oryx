@@ -168,6 +168,7 @@ include:
   - bundles/splittable-quote
   - bundles/splittable-quote-extension
   - bundles/splittable-quote-nopayment-connector
+  - bundles/splittable-quote-order-customer-references-connector
   - bundles/splittable-quote-shipment-connector
   - bundles/splittable-totals
   - bundles/stock-api
