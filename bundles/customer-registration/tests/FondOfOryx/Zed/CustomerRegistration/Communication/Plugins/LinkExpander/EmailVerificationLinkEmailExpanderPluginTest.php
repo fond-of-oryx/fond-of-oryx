@@ -45,7 +45,7 @@ class EmailVerificationLinkEmailExpanderPluginTest extends Unit
 
         $this->assertSame(
             $email,
-            $this->emailVerificationLinkEmailExpanderPlugin->expand($link, $this->customerTransferMock)
+            $this->emailVerificationLinkEmailExpanderPlugin->expand($link, $this->customerTransferMock),
         );
     }
 }

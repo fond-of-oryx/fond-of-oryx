@@ -111,7 +111,7 @@ class EmailVerificationLinkLocaleExpanderPluginTest extends Unit
 
         $this->localeFacadeMock->expects(static::atLeastOnce())
             ->method('getCurrentLocaleName')
-            ->willReturn("other-locale");
+            ->willReturn('other-locale');
 
         $this->localeTransferMock->expects(static::atLeastOnce())
             ->method('getLocaleName')
@@ -133,8 +133,8 @@ class EmailVerificationLinkLocaleExpanderPluginTest extends Unit
             $locale,
             $this->emailVerificationLinkLocaleExpanderPlugin->expand(
                 $link,
-                $this->customerTransferMock
-            )
+                $this->customerTransferMock,
+            ),
         );
     }
 }

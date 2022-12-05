@@ -47,8 +47,8 @@ class EmailVerificationLinkTokenExpanderPluginTest extends Unit
             $token,
             $this->emailVerificationLinkTokenExpanderPlugin->expand(
                 $link,
-                $this->customerTransferMock
-            )
+                $this->customerTransferMock,
+            ),
         );
     }
 }
