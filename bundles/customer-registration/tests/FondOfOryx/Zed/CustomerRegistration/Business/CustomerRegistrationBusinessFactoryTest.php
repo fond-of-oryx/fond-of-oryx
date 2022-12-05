@@ -277,12 +277,10 @@ class CustomerRegistrationBusinessFactoryTest extends Unit
         $this->containerMock->expects($this->atLeastOnce())
             ->method('get')
             ->withConsecutive(
-                [CustomerRegistrationDependencyProvider::FACADE_STORE],
-                [CustomerRegistrationDependencyProvider::FACADE_LOCALE],
+                [CustomerRegistrationDependencyProvider::PLUGINS_EMAIL_VERIFICATION_LINK_EXTENDER],
             )
             ->willReturnOnConsecutiveCalls(
-                $this->storeFacadeMock,
-                $this->localeFacadeMock,
+                [],
             );
 
         $this->assertInstanceOf(

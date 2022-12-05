@@ -101,8 +101,7 @@ class CustomerRegistrationBusinessFactory extends AbstractBusinessFactory
     {
         return new EmailVerificationLinkGenerator(
             $this->getConfig(),
-            $this->getStoreFacade(),
-            $this->getLocaleFacade(),
+            $this->getEmailVerificationLinkExtenderPlugins(),
         );
     }
 
@@ -208,5 +207,13 @@ class CustomerRegistrationBusinessFactory extends AbstractBusinessFactory
     protected function getMailVerificationPostPlugins(): array
     {
         return $this->getProvidedDependency(CustomerRegistrationDependencyProvider::PLUGINS_MAIL_VERIFICATION_POST);
+    }
+
+    /**
+     * @return array<\FondOfOryx\Zed\CustomerRegistrationExtension\Dependency\Plugin\EmailVerificationLinkExpanderPluginInterface>
+     */
+    protected function getEmailVerificationLinkExtenderPlugins(): array
+    {
+        return $this->getProvidedDependency(CustomerRegistrationDependencyProvider::PLUGINS_EMAIL_VERIFICATION_LINK_EXTENDER);
     }
 }
