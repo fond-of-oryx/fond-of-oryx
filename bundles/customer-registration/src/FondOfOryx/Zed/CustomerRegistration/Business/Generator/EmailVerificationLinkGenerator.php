@@ -3,56 +3,30 @@
 namespace FondOfOryx\Zed\CustomerRegistration\Business\Generator;
 
 use FondOfOryx\Zed\CustomerRegistration\CustomerRegistrationConfigInterface;
-use FondOfOryx\Zed\CustomerRegistration\Dependency\Facade\CustomerRegistrationToLocaleFacadeInterface;
-use FondOfOryx\Zed\CustomerRegistration\Dependency\Facade\CustomerRegistrationToStoreFacadeInterface;
 use Generated\Shared\Transfer\CustomerTransfer;
-use Generated\Shared\Transfer\LocaleTransfer;
 
 class EmailVerificationLinkGenerator implements EmailVerificationLinkGeneratorInterface
 {
-    /**
-     * @var string
-     */
-    protected const LOCALE_PATTERN = '{{locale}}';
-
-    /**
-     * @var string
-     */
-    protected const TOKEN_PATTERN = '{{token}}';
-
-    /**
-     * @var string
-     */
-    protected const EMAIL_PATTERN = '{{email}}';
-
     /**
      * @var \FondOfOryx\Zed\CustomerRegistration\CustomerRegistrationConfigInterface
      */
     protected $config;
 
     /**
-     * @var \FondOfOryx\Zed\CustomerRegistration\Dependency\Facade\CustomerRegistrationToStoreFacadeInterface
+     * @var array<\FondOfOryx\Zed\CustomerRegistrationExtension\Dependency\Plugin\EmailVerificationLinkExpanderPluginInterface>
      */
-    protected $storeFacade;
-
-    /**
-     * @var \FondOfOryx\Zed\CustomerRegistration\Dependency\Facade\CustomerRegistrationToLocaleFacadeInterface
-     */
-    protected $localeFacade;
+    protected $emailVerificationLinkExtenderPlugins;
 
     /**
      * @param \FondOfOryx\Zed\CustomerRegistration\CustomerRegistrationConfigInterface $config
-     * @param \FondOfOryx\Zed\CustomerRegistration\Dependency\Facade\CustomerRegistrationToStoreFacadeInterface $storeFacade
-     * @param \FondOfOryx\Zed\CustomerRegistration\Dependency\Facade\CustomerRegistrationToLocaleFacadeInterface $localeFacade
+     * @param array<\FondOfOryx\Zed\CustomerRegistrationExtension\Dependency\Plugin\EmailVerificationLinkExpanderPluginInterface> $emailVerificationLinkExtenderPlugins
      */
     public function __construct(
         CustomerRegistrationConfigInterface $config,
-        CustomerRegistrationToStoreFacadeInterface $storeFacade,
-        CustomerRegistrationToLocaleFacadeInterface $localeFacade
+        array $emailVerificationLinkExtenderPlugins
     ) {
         $this->config = $config;
-        $this->storeFacade = $storeFacade;
-        $this->localeFacade = $localeFacade;
+        $this->emailVerificationLinkExtenderPlugins = $emailVerificationLinkExtenderPlugins;
     }
 
     /**
@@ -64,90 +38,22 @@ class EmailVerificationLinkGenerator implements EmailVerificationLinkGeneratorIn
     {
         $linkPattern = sprintf($this->cleanSlashes($this->config->getVerificationLinkPattern()), $this->cleanSlashes($this->config->getBaseUrl()));
 
-        return $this->replacePatterns($linkPattern, $customerTransfer);
+        return $this->runEmailVerificationLinkExtenderPlugins($linkPattern, $customerTransfer);
     }
 
     /**
-     * @param string $linkPattern
+     * @param string $link
      * @param \Generated\Shared\Transfer\CustomerTransfer $customerTransfer
      *
      * @return string
      */
-    protected function replacePatterns(string $linkPattern, CustomerTransfer $customerTransfer): string
+    protected function runEmailVerificationLinkExtenderPlugins(string $link, CustomerTransfer $customerTransfer): string
     {
-        $linkPattern = $this->replaceTokenPattern($linkPattern, $customerTransfer->getRegistrationKey());
-        $linkPattern = $this->replaceLocalePattern($linkPattern, $this->getLocaleKey($customerTransfer->getLocale()));
-
-        return $this->replaceEmailPattern($linkPattern, $customerTransfer->getEmail());
-    }
-
-    /**
-     * @param \Generated\Shared\Transfer\LocaleTransfer|null $localeTransfer
-     *
-     * @return string
-     */
-    protected function getLocaleKey(?LocaleTransfer $localeTransfer = null): string
-    {
-        $currentLocale = $this->localeFacade->getCurrentLocaleName();
-
-        if ($localeTransfer !== null) {
-            $currentLocale = $localeTransfer->getLocaleName();
+        foreach ($this->emailVerificationLinkExtenderPlugins as $emailVerificationLinkExtenderPlugin) {
+            $link = $emailVerificationLinkExtenderPlugin->expand($link, $customerTransfer);
         }
 
-        $availableLocaleIsoCodes = $this->storeFacade->getCurrentStore()->getAvailableLocaleIsoCodes();
-
-        $urlLocale = array_search($currentLocale, $availableLocaleIsoCodes, true);
-
-        if (!$urlLocale) {
-            return $this->config->getFallbackUrlLanguageKey();
-        }
-
-        return $urlLocale;
-    }
-
-    /**
-     * @param string $pattern
-     * @param string $locale
-     *
-     * @return string
-     */
-    protected function replaceLocalePattern(string $pattern, string $locale): string
-    {
-        return $this->replaceInPattern(static::LOCALE_PATTERN, $locale, $pattern);
-    }
-
-    /**
-     * @param string $pattern
-     * @param string $token
-     *
-     * @return string
-     */
-    protected function replaceTokenPattern(string $pattern, string $token): string
-    {
-        return $this->replaceInPattern(static::TOKEN_PATTERN, $token, $pattern);
-    }
-
-    /**
-     * @param string $pattern
-     * @param string $email
-     *
-     * @return string
-     */
-    protected function replaceEmailPattern(string $pattern, string $email): string
-    {
-        return $this->replaceInPattern(static::EMAIL_PATTERN, $email, $pattern);
-    }
-
-    /**
-     * @param string $replace
-     * @param string $with
-     * @param string $pattern
-     *
-     * @return string
-     */
-    protected function replaceInPattern(string $replace, string $with, string $pattern): string
-    {
-        return str_replace($replace, $with, $pattern);
+        return $link;
     }
 
     /**

@@ -92,6 +92,11 @@ class CustomerRegistrationDependencyProvider extends AbstractBundleDependencyPro
     public const PLUGINS_MAIL_VERIFICATION_POST = 'PLUGINS_MAIL_VERIFICATION_POST';
 
     /**
+     * @var string
+     */
+    public const PLUGINS_EMAIL_VERIFICATION_LINK_EXTENDER = 'PLUGINS_EMAIL_VERIFICATION_LINK_EXTENDER';
+
+    /**
      * @param \Spryker\Zed\Kernel\Container $container
      *
      * @return \Spryker\Zed\Kernel\Container
@@ -112,6 +117,7 @@ class CustomerRegistrationDependencyProvider extends AbstractBundleDependencyPro
         $container = $this->addGdprPostPlugins($container);
         $container = $this->addMailVerificationPreConditionPlugins($container);
         $container = $this->addMailVerificationPostPlugins($container);
+        $container = $this->addEmailVerificationLinkExtenderPlugins($container);
 
         return $container;
     }
@@ -125,6 +131,8 @@ class CustomerRegistrationDependencyProvider extends AbstractBundleDependencyPro
     {
         $container = parent::provideCommunicationLayerDependencies($container);
         $container = $this->addCustomerFacade($container);
+        $container = $this->addLocaleFacade($container);
+        $container = $this->addStoreFacade($container);
 
         return $container;
     }
@@ -363,6 +371,21 @@ class CustomerRegistrationDependencyProvider extends AbstractBundleDependencyPro
     }
 
     /**
+     * @param \Spryker\Zed\Kernel\Container $container
+     *
+     * @return \Spryker\Zed\Kernel\Container
+     */
+    protected function addEmailVerificationLinkExtenderPlugins(Container $container): Container
+    {
+        $self = $this;
+        $container[static::PLUGINS_EMAIL_VERIFICATION_LINK_EXTENDER] = static function () use ($self) {
+            return $self->getEmailVerificationLinkExtenderPlugins();
+        };
+
+        return $container;
+    }
+
+    /**
      * @return array<\FondOfOryx\Zed\CustomerRegistrationExtension\Dependency\Plugin\CustomerRegistrationPluginInterface>
      */
     protected function getCustomerRegistrationProcessorPlugins(): array
@@ -406,6 +429,14 @@ class CustomerRegistrationDependencyProvider extends AbstractBundleDependencyPro
      * @return array<\FondOfOryx\Zed\CustomerRegistrationExtension\Dependency\Plugin\CustomerRegistrationPostStepPluginInterface>
      */
     protected function getMailVerificationPostPlugins(): array
+    {
+        return [];
+    }
+
+    /**
+     * @return array<\FondOfOryx\Zed\CustomerRegistrationExtension\Dependency\Plugin\EmailVerificationLinkExpanderPluginInterface>
+     */
+    protected function getEmailVerificationLinkExtenderPlugins(): array
     {
         return [];
     }
