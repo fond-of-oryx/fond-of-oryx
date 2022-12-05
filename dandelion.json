@@ -786,6 +786,10 @@
       "path": "bundles/splittable-quote-nopayment-connector/",
       "version": "1.0.0"
     },
+    "splittable-quote-order-custom-references-connector": {
+      "path": "bundles/splittable-quote-order-custom-references-connector/",
+      "version": "1.0.0"
+    },
     "splittable-quote-shipment-connector": {
       "path": "bundles/splittable-quote-shipment-connector/",
       "version": "1.0.0"
