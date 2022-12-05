@@ -4,12 +4,8 @@ namespace FondOfOryx\Zed\CustomerRegistration\Business\Generator;
 
 use Codeception\Test\Unit;
 use FondOfOryx\Zed\CustomerRegistration\CustomerRegistrationConfigInterface;
-use FondOfOryx\Zed\CustomerRegistration\Dependency\Facade\CustomerRegistrationToLocaleFacadeInterface;
-use FondOfOryx\Zed\CustomerRegistration\Dependency\Facade\CustomerRegistrationToStoreFacadeInterface;
 use FondOfOryx\Zed\CustomerRegistrationExtension\Dependency\Plugin\EmailVerificationLinkExpanderPluginInterface;
 use Generated\Shared\Transfer\CustomerTransfer;
-use Generated\Shared\Transfer\LocaleTransfer;
-use Generated\Shared\Transfer\StoreTransfer;
 
 class EmailVerificationLinkGeneratorTest extends Unit
 {
@@ -54,7 +50,7 @@ class EmailVerificationLinkGeneratorTest extends Unit
 
         $this->generator = new EmailVerificationLinkGenerator(
             $this->configMock,
-            [$this->emailVerificationLinkExtenderPluginMock]
+            [$this->emailVerificationLinkExtenderPluginMock],
         );
     }
 
@@ -65,6 +61,7 @@ class EmailVerificationLinkGeneratorTest extends Unit
     {
         $linkPattern = '';
         $baseUrl = '';
+
         $this->configMock
             ->expects(static::atLeastOnce())
             ->method('getVerificationLinkPattern')
@@ -80,41 +77,6 @@ class EmailVerificationLinkGeneratorTest extends Unit
             ->method('expand')
             ->with($baseUrl, $this->customerTransferMock)
             ->willReturn($baseUrl);
-
-        /*$this->customerTransferMock
-            ->expects(static::atLeastOnce())
-            ->method('getLocale')
-            ->willReturn($this->localeTransferMock);
-
-        $this->localeTransferMock
-            ->expects(static::atLeastOnce())
-            ->method('getLocaleName')
-            ->willReturn('de_DE');
-
-        $this->customerTransferMock
-            ->expects(static::atLeastOnce())
-            ->method('getRegistrationKey')
-            ->willReturn('KEY');
-
-        $this->localeFacadeMock
-            ->expects(static::atLeastOnce())
-            ->method('getCurrentLocaleName')
-            ->willReturn('de_DE');
-
-        $this->customerTransferMock
-            ->expects(static::atLeastOnce())
-            ->method('getEmail')
-            ->willReturn('email@exmaple.de');
-
-        $this->storeFacadeMock
-            ->expects(static::atLeastOnce())
-            ->method('getCurrentStore')
-            ->willReturn($this->storeTransferMock);
-
-        $this->storeTransferMock
-            ->expects(static::atLeastOnce())
-            ->method('getAvailableLocaleIsoCodes')
-            ->willReturn(['de_DE' => 'de']);*/
 
         $this->generator->generateLink($this->customerTransferMock);
     }
