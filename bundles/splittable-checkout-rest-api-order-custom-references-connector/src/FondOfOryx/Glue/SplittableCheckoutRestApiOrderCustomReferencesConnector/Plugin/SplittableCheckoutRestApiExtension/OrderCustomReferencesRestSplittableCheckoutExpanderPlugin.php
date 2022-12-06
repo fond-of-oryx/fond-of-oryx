@@ -5,7 +5,7 @@ namespace FondOfOryx\Glue\SplittableCheckoutRestApiOrderCustomReferencesConnecto
 use FondOfOryx\Glue\SplittableCheckoutRestApiExtension\Dependency\Plugin\RestSplittableCheckoutExpanderPluginInterface;
 use Generated\Shared\Transfer\RestSplittableCheckoutTransfer;
 use Generated\Shared\Transfer\SplittableCheckoutTransfer;
-use Spryker\Glue\Kernel\Backend\AbstractPlugin;
+use Spryker\Glue\Kernel\AbstractPlugin;
 
 class OrderCustomReferencesRestSplittableCheckoutExpanderPlugin extends AbstractPlugin implements RestSplittableCheckoutExpanderPluginInterface
 {
