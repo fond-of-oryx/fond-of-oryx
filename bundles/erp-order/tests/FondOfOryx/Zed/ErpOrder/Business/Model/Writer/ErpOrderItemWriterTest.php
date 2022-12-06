@@ -5,13 +5,8 @@ namespace FondOfOryx\Zed\ErpOrder\Business\Model\Writer;
 use Codeception\Test\Unit;
 use Exception;
 use FondOfOryx\Zed\ErpOrder\Business\PluginExecutor\ErpOrderItemPluginExecutor;
-use FondOfOryx\Zed\ErpOrder\Business\PluginExecutor\ErpOrderItemPluginExecutorInterface;
 use FondOfOryx\Zed\ErpOrder\Persistence\ErpOrderEntityManager;
-use FondOfOryx\Zed\ErpOrder\Persistence\ErpOrderEntityManagerInterface;
 use Generated\Shared\Transfer\ErpOrderItemTransfer;
-use Spryker\Zed\Kernel\Persistence\EntityManager\TransactionHandlerFactory;
-use Spryker\Zed\Kernel\Persistence\EntityManager\TransactionHandlerFactoryInterface;
-use Spryker\Zed\PropelOrm\Business\Transaction\PropelDatabaseTransactionHandler;
 
 class ErpOrderItemWriterTest extends Unit
 {
@@ -24,16 +19,6 @@ class ErpOrderItemWriterTest extends Unit
      * @var \FondOfOryx\Zed\ErpOrder\Business\PluginExecutor\ErpOrderItemPluginExecutorInterface|\PHPUnit\Framework\MockObject\MockObject
      */
     protected $pluginExecutorMock;
-
-    /**
-     * @var \Spryker\Zed\Kernel\Persistence\EntityManager\TransactionHandlerFactory|\PHPUnit\Framework\MockObject\MockObject
-     */
-    protected $transactionHandlerFactoryMock;
-
-    /**
-     * @var \Spryker\Zed\Kernel\Persistence\EntityManager\TransactionHandlerInterface|\PHPUnit\Framework\MockObject\MockObject
-     */
-    protected $handlerMock;
 
     /**
      * @var \Generated\Shared\Transfer\ErpOrderItemTransfer|\PHPUnit\Framework\MockObject\MockObject
@@ -64,54 +49,10 @@ class ErpOrderItemWriterTest extends Unit
             ->disableOriginalConstructor()
             ->getMock();
 
-        $this->transactionHandlerFactoryMock = $this->getMockBuilder(TransactionHandlerFactory::class)
-            ->disableOriginalConstructor()
-            ->getMock();
-
-        $this->handlerMock = $this->getMockBuilder(PropelDatabaseTransactionHandler::class)
-            ->disableOriginalConstructor()
-            ->getMock();
-
-        $this->handlerMock->expects($this->atLeastOnce())
-            ->method('handleTransaction')
-            ->willReturnCallback(
-                static function ($closure) {
-                    return $closure();
-                },
-            );
-
-        $this->transactionHandlerFactoryMock->method('createHandler')->willReturn($this->handlerMock);
-
-        $this->writer = new class ($this->transactionHandlerFactoryMock, $this->entityManagerMock, $this->pluginExecutorMock) extends ErpOrderItemWriter {
-            /**
-             * @var \Spryker\Zed\Kernel\Persistence\EntityManager\TransactionHandlerFactoryInterface
-             */
-            protected $thFactory;
-
-            /**
-             *  constructor.
-             *
-             * @param \Spryker\Zed\Kernel\Persistence\EntityManager\TransactionHandlerFactoryInterface $transactionHandlerFactory
-             * @param \FondOfOryx\Zed\ErpOrder\Persistence\ErpOrderEntityManagerInterface $entityManager
-             * @param \FondOfOryx\Zed\ErpOrder\Business\PluginExecutor\ErpOrderItemPluginExecutorInterface $erpOrderPluginExecutor
-             */
-            public function __construct(
-                TransactionHandlerFactoryInterface $transactionHandlerFactory,
-                ErpOrderEntityManagerInterface $entityManager,
-                ErpOrderItemPluginExecutorInterface $erpOrderPluginExecutor
-            ) {
-                $this->thFactory = $transactionHandlerFactory;
-                parent::__construct($entityManager, $erpOrderPluginExecutor);
-            }
-
-            /**
-             * @return \Spryker\Zed\Kernel\Persistence\EntityManager\TransactionHandlerFactoryInterface
-             */
-            protected function createTransactionHandlerFactory()
-            {
-                return $this->thFactory;
-            }
-        };
+        $this->writer = new ErpOrderItemWriter(
+            $this->entityManagerMock,
+            $this->pluginExecutorMock,
+        );
     }
 
     /**

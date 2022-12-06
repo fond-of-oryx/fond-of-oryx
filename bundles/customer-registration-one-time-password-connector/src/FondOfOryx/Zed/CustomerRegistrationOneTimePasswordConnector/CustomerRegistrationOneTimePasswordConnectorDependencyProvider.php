@@ -2,6 +2,7 @@
 
 namespace FondOfOryx\Zed\CustomerRegistrationOneTimePasswordConnector;
 
+use FondOfOryx\Zed\CustomerRegistrationOneTimePasswordConnector\Dependency\Facade\CustomerRegistrationOneTimePasswordConnectorToLocaleFacadeBridge;
 use FondOfOryx\Zed\CustomerRegistrationOneTimePasswordConnector\Dependency\Facade\CustomerRegistrationOneTimePasswordConnectorToOneTimePasswordFacadeBridge;
 use Spryker\Zed\Kernel\AbstractBundleDependencyProvider;
 use Spryker\Zed\Kernel\Container;
@@ -12,6 +13,11 @@ class CustomerRegistrationOneTimePasswordConnectorDependencyProvider extends Abs
      * @var string
      */
     public const FACADE_ONE_TIME_PASSWORD = 'FACADE_ONE_TIME_PASSWORD';
+
+    /**
+     * @var string
+     */
+    public const FACADE_LOCALE = 'FACADE_LOCALE';
 
     /**
      * @var string
@@ -32,7 +38,8 @@ class CustomerRegistrationOneTimePasswordConnectorDependencyProvider extends Abs
     {
         $container = parent::provideBusinessLayerDependencies($container);
 
-        $container = $this->addCustomerFacade($container);
+        $container = $this->addOneTimePasswordFacade($container);
+        $container = $this->addLocaleFacade($container);
         $container = $this->addOneTimePasswordPostPlugins($container);
         $container = $this->addOneTimePasswordPreConditionPlugins($container);
 
@@ -44,11 +51,27 @@ class CustomerRegistrationOneTimePasswordConnectorDependencyProvider extends Abs
      *
      * @return \Spryker\Zed\Kernel\Container
      */
-    protected function addCustomerFacade(Container $container): Container
+    protected function addOneTimePasswordFacade(Container $container): Container
     {
         $container[static::FACADE_ONE_TIME_PASSWORD] = static function (Container $container) {
             return new CustomerRegistrationOneTimePasswordConnectorToOneTimePasswordFacadeBridge(
                 $container->getLocator()->oneTimePassword()->facade(),
+            );
+        };
+
+        return $container;
+    }
+
+    /**
+     * @param \Spryker\Zed\Kernel\Container $container
+     *
+     * @return \Spryker\Zed\Kernel\Container
+     */
+    protected function addLocaleFacade(Container $container): Container
+    {
+        $container[static::FACADE_LOCALE] = static function (Container $container) {
+            return new CustomerRegistrationOneTimePasswordConnectorToLocaleFacadeBridge(
+                $container->getLocator()->locale()->facade(),
             );
         };
 

@@ -56,6 +56,7 @@ include:
   - bundles/customer-product-list-connector-gui
   - bundles/customer-product-lists-rest-api
   - bundles/customer-product-list-search-rest-api
+  - bundles/customer-registration
   - bundles/customer-registration-one-time-password-connector
   - bundles/customer-registration-email-connector
   - bundles/customer-registration-rest-api
@@ -162,11 +163,13 @@ include:
   - bundles/splittable-checkout-rest-api-customer-connector
   - bundles/splittable-checkout-rest-api-extension
   - bundles/splittable-checkout-rest-api-order-custom-reference-connector
+  - bundles/splittable-checkout-rest-api-order-custom-references-connector
   - bundles/splittable-checkout-rest-api-payment-connector
   - bundles/splittable-checkout-rest-api-shipment-connector
   - bundles/splittable-quote
   - bundles/splittable-quote-extension
   - bundles/splittable-quote-nopayment-connector
+  - bundles/splittable-quote-order-custom-references-connector
   - bundles/splittable-quote-shipment-connector
   - bundles/splittable-totals
   - bundles/stock-api

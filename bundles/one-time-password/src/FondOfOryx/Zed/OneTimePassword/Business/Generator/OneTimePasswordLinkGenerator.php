@@ -108,19 +108,25 @@ class OneTimePasswordLinkGenerator implements OneTimePasswordLinkGeneratorInterf
         }
 
         return $oneTimePasswordResponseTransfer
-            ->setLoginLink($this->formatLoginLink(str_replace(static::LINK_LOCALE_PLACEHOLDER, $this->getUrlLocale(), $this->oneTimePasswordConfig->getLoginLinkPath()), $encodedLoginCredentials, $attributesTransfer));
+            ->setLoginLink($this->formatLoginLink(str_replace(static::LINK_LOCALE_PLACEHOLDER, $this->resolveLocale($attributesTransfer), $this->oneTimePasswordConfig->getLoginLinkPath()), $encodedLoginCredentials, $attributesTransfer));
     }
 
     /**
+     * @param \Generated\Shared\Transfer\OneTimePasswordAttributesTransfer $attributesTransfer
+     *
      * @return string
      */
-    protected function getUrlLocale(): string
+    protected function resolveLocale(OneTimePasswordAttributesTransfer $attributesTransfer): string
     {
-        $currentLocale = $this->localeFacade->getCurrentLocaleName();
+        $locale = $attributesTransfer->getLocale();
+        $localeName = $this->localeFacade->getCurrentLocaleName();
+        if ($locale !== null && $locale->getLocaleName() !== null) {
+            $localeName = $locale->getLocaleName();
+        }
 
         $availableLocaleIsoCodes = $this->storeFacade->getCurrentStore()->getAvailableLocaleIsoCodes();
 
-        $urlLocale = array_search($currentLocale, $availableLocaleIsoCodes, true);
+        $urlLocale = array_search($localeName, $availableLocaleIsoCodes, true);
 
         if (!$urlLocale) {
             return $this->oneTimePasswordConfig->getDefaultUrlLocale();

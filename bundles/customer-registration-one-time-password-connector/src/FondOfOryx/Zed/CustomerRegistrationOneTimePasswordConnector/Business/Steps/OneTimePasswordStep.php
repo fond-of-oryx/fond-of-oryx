@@ -3,8 +3,11 @@
 namespace FondOfOryx\Zed\CustomerRegistrationOneTimePasswordConnector\Business\Steps;
 
 use FondOfOryx\Zed\CustomerRegistration\Business\Steps\AbstractStep;
+use FondOfOryx\Zed\CustomerRegistrationOneTimePasswordConnector\Dependency\Facade\CustomerRegistrationOneTimePasswordConnectorToLocaleFacadeInterface;
 use FondOfOryx\Zed\CustomerRegistrationOneTimePasswordConnector\Dependency\Facade\CustomerRegistrationOneTimePasswordConnectorToOneTimePasswordFacadeInterface;
 use Generated\Shared\Transfer\CustomerRegistrationRequestTransfer;
+use Generated\Shared\Transfer\LocaleTransfer;
+use Generated\Shared\Transfer\OneTimePasswordAttributesTransfer;
 
 class OneTimePasswordStep extends AbstractStep implements OneTimePasswordStepInterface
 {
@@ -24,18 +27,26 @@ class OneTimePasswordStep extends AbstractStep implements OneTimePasswordStepInt
     protected $oneTimePasswordFacade;
 
     /**
+     * @var \FondOfOryx\Zed\CustomerRegistrationOneTimePasswordConnector\Dependency\Facade\CustomerRegistrationOneTimePasswordConnectorToLocaleFacadeInterface
+     */
+    protected $localeFacade;
+
+    /**
      * @param \FondOfOryx\Zed\CustomerRegistrationOneTimePasswordConnector\Dependency\Facade\CustomerRegistrationOneTimePasswordConnectorToOneTimePasswordFacadeInterface $oneTimePasswordFacade
+     * @param \FondOfOryx\Zed\CustomerRegistrationOneTimePasswordConnector\Dependency\Facade\CustomerRegistrationOneTimePasswordConnectorToLocaleFacadeInterface $localeFacade
      * @param array<\FondOfOryx\Zed\CustomerRegistrationExtension\Dependency\Plugin\CustomerRegistrationPreStepConditionPluginInterface> $preStepPlugins
      * @param array<\FondOfOryx\Zed\CustomerRegistrationExtension\Dependency\Plugin\CustomerRegistrationPostStepPluginInterface> $postStepPlugins
      */
     public function __construct(
         CustomerRegistrationOneTimePasswordConnectorToOneTimePasswordFacadeInterface $oneTimePasswordFacade,
+        CustomerRegistrationOneTimePasswordConnectorToLocaleFacadeInterface $localeFacade,
         array $preStepPlugins,
         array $postStepPlugins
     ) {
         $this->preStepPlugins = $preStepPlugins;
         $this->postStepPlugins = $postStepPlugins;
         $this->oneTimePasswordFacade = $oneTimePasswordFacade;
+        $this->localeFacade = $localeFacade;
     }
 
     /**
@@ -51,7 +62,7 @@ class OneTimePasswordStep extends AbstractStep implements OneTimePasswordStepInt
             return $customerRegistrationRequestTransfer->setBag($bag->setIsVerified(false));
         }
 
-        $otpResponse = $this->oneTimePasswordFacade->requestLoginLink($bag->getCustomerOrFail());
+        $otpResponse = $this->oneTimePasswordFacade->requestLoginLink($bag->getCustomerOrFail(), $this->createOneTimePasswordAttributes($customerRegistrationRequestTransfer));
         $bag->setMessage('could not send login link!')
             ->setIsLoginLinkSent($otpResponse->getIsSuccess())
             ->setOneTimePasswordResponse($otpResponse);
@@ -60,5 +71,40 @@ class OneTimePasswordStep extends AbstractStep implements OneTimePasswordStepInt
         }
 
         return $this->executePostStepPlugins($customerRegistrationRequestTransfer->setBag($bag));
+    }
+
+    /**
+     * @param \Generated\Shared\Transfer\CustomerRegistrationRequestTransfer $customerRegistrationRequestTransfer
+     *
+     * @return \Generated\Shared\Transfer\LocaleTransfer|null
+     */
+    protected function resolveLocale(CustomerRegistrationRequestTransfer $customerRegistrationRequestTransfer): ?LocaleTransfer
+    {
+        $language = $customerRegistrationRequestTransfer->getAttributesOrFail()->getLanguage();
+        $locale = null;
+
+        if ($language !== null) {
+            $locale = $this->localeFacade->getLocale($language);
+        }
+
+        if ($locale === null) {
+            $customer = $this->getBag($customerRegistrationRequestTransfer)->getCustomer();
+            if ($customer !== null) {
+                $locale = $customer->getLocale();
+            }
+        }
+
+        return $locale;
+    }
+
+    /**
+     * @param \Generated\Shared\Transfer\CustomerRegistrationRequestTransfer $customerRegistrationRequestTransfer
+     *
+     * @return \Generated\Shared\Transfer\OneTimePasswordAttributesTransfer
+     */
+    protected function createOneTimePasswordAttributes(
+        CustomerRegistrationRequestTransfer $customerRegistrationRequestTransfer
+    ): OneTimePasswordAttributesTransfer {
+        return (new OneTimePasswordAttributesTransfer())->setLocale($this->resolveLocale($customerRegistrationRequestTransfer));
     }
 }

@@ -5,12 +5,9 @@ namespace FondOfOryx\Zed\ErpOrder\Business\Model\Writer;
 use FondOfOryx\Zed\ErpOrder\Business\PluginExecutor\ErpOrderItemPluginExecutorInterface;
 use FondOfOryx\Zed\ErpOrder\Persistence\ErpOrderEntityManagerInterface;
 use Generated\Shared\Transfer\ErpOrderItemTransfer;
-use Spryker\Zed\Kernel\Persistence\EntityManager\TransactionTrait;
 
 class ErpOrderItemWriter implements ErpOrderItemWriterInterface
 {
-    use TransactionTrait;
-
     /**
      * @var \FondOfOryx\Zed\ErpOrder\Persistence\ErpOrderEntityManagerInterface
      */
@@ -40,14 +37,10 @@ class ErpOrderItemWriter implements ErpOrderItemWriterInterface
      */
     public function create(ErpOrderItemTransfer $erpOrderItemTransfer): ErpOrderItemTransfer
     {
-        $self = $this;
-        $erpOrderItemTransfer = $this->getTransactionHandler()->handleTransaction(
-            static function () use ($erpOrderItemTransfer, $self) {
-                return $self->executePersistTransaction($erpOrderItemTransfer);
-            },
-        );
+        $erpOrderItemTransfer = $this->erpOrderItemPluginExecutor->executePreSavePlugins($erpOrderItemTransfer);
+        $erpOrderItemTransfer = $this->entityManager->createErpOrderItem($erpOrderItemTransfer);
 
-        return $erpOrderItemTransfer;
+        return $this->erpOrderItemPluginExecutor->executePostSavePlugins($erpOrderItemTransfer);
     }
 
     /**
@@ -61,14 +54,10 @@ class ErpOrderItemWriter implements ErpOrderItemWriterInterface
             ->requireIdErpOrderItem()
             ->requireFkErpOrder();
 
-        $self = $this;
-        $erpOrderItemTransfer = $this->getTransactionHandler()->handleTransaction(
-            static function () use ($erpOrderItemTransfer, $self) {
-                return $self->executeUpdateTransaction($erpOrderItemTransfer);
-            },
-        );
+        $erpOrderItemTransfer = $this->erpOrderItemPluginExecutor->executePreSavePlugins($erpOrderItemTransfer);
+        $erpOrderItemTransfer = $this->entityManager->updateErpOrderItem($erpOrderItemTransfer);
 
-        return $erpOrderItemTransfer;
+        return $this->erpOrderItemPluginExecutor->executePostSavePlugins($erpOrderItemTransfer);
     }
 
     /**
@@ -77,51 +66,6 @@ class ErpOrderItemWriter implements ErpOrderItemWriterInterface
      * @return void
      */
     public function delete(int $idErpOrderItem): void
-    {
-        $self = $this;
-        $this->getTransactionHandler()->handleTransaction(
-            static function () use ($idErpOrderItem, $self) {
-                $self->executeDeleteTransaction($idErpOrderItem);
-            },
-        );
-    }
-
-    /**
-     * @param \Generated\Shared\Transfer\ErpOrderItemTransfer $erpOrderItemTransfer
-     *
-     * @return \Generated\Shared\Transfer\ErpOrderItemTransfer
-     */
-    protected function executePersistTransaction(
-        ErpOrderItemTransfer $erpOrderItemTransfer
-    ): ErpOrderItemTransfer {
-        $erpOrderItemTransfer = $this->erpOrderItemPluginExecutor->executePreSavePlugins($erpOrderItemTransfer);
-        $erpOrderItemTransfer = $this->entityManager->createErpOrderItem($erpOrderItemTransfer);
-        $erpOrderItemTransfer = $this->erpOrderItemPluginExecutor->executePostSavePlugins($erpOrderItemTransfer);
-
-        return $erpOrderItemTransfer;
-    }
-
-    /**
-     * @param \Generated\Shared\Transfer\ErpOrderItemTransfer $erpOrderItemTransfer
-     *
-     * @return \Generated\Shared\Transfer\ErpOrderItemTransfer
-     */
-    protected function executeUpdateTransaction(
-        ErpOrderItemTransfer $erpOrderItemTransfer
-    ): ErpOrderItemTransfer {
-        $erpOrderItemTransfer = $this->erpOrderItemPluginExecutor->executePreSavePlugins($erpOrderItemTransfer);
-        $erpOrderItemTransfer = $this->entityManager->updateErpOrderItem($erpOrderItemTransfer);
-        $erpOrderItemTransfer = $this->erpOrderItemPluginExecutor->executePostSavePlugins($erpOrderItemTransfer);
-
-        return $erpOrderItemTransfer;
-    }
-
-    /**
-     * @param int $idErpOrderItem
-     *
-     * @return void
-     */
-    protected function executeDeleteTransaction(int $idErpOrderItem): void
     {
         $this->entityManager->deleteErpOrderItemByIdErpOrderItem($idErpOrderItem);
     }

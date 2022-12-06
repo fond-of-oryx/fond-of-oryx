@@ -2,17 +2,14 @@
 
 namespace FondOfOryx\Zed\CustomerRegistrationEmailConnector\Business;
 
-use Generated\Shared\Transfer\CustomerTransfer;
+use Generated\Shared\Transfer\CustomerRegistrationRequestTransfer;
 
 interface CustomerRegistrationEmailConnectorFacadeInterface
 {
     /**
-     * @param \Generated\Shared\Transfer\CustomerTransfer $customerTransfer
-     * @param string $link
+     * @param \Generated\Shared\Transfer\CustomerRegistrationRequestTransfer $customerRegistrationRequestTransfer
      *
-     * @throws \Spryker\Zed\Kernel\Exception\Container\ContainerKeyNotFoundException
-     *
-     * @return void
+     * @return \Generated\Shared\Transfer\CustomerRegistrationRequestTransfer
      */
-    public function sendWelcomeMail(CustomerTransfer $customerTransfer, string $link): void;
+    public function sendWelcomeMail(CustomerRegistrationRequestTransfer $customerRegistrationRequestTransfer): CustomerRegistrationRequestTransfer;
 }

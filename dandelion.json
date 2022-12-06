@@ -244,22 +244,26 @@
     },
     "customer-registration": {
       "path": "bundles/customer-registration/",
-      "version": "1.0.1-beta.1"
+      "version": "1.1.3-beta.1"
     },
     "customer-registration-extension": {
       "path": "bundles/customer-registration-extension/",
-      "version": "1.0.0-beta.1"
+      "version": "1.0.1-beta.1"
     },
     "customer-registration-email-connector": {
       "path": "bundles/customer-registration-email-connector/",
-      "version": "1.0.0-beta.1"
+      "version": "1.0.1-beta.1"
     },
     "customer-registration-one-time-password-connector": {
       "path": "bundles/customer-registration-one-time-password-connector/",
-      "version": "1.0.0-beta.1"
+      "version": "1.1.0-beta.1"
     },
     "customer-registration-rest-api": {
       "path": "bundles/customer-registration-rest-api/",
+      "version": "1.0.0-beta.1"
+    },
+    "customer-registration-sales-connector": {
+      "path": "bundles/customer-registration-sales-connector/",
       "version": "1.0.0-beta.1"
     },
     "customer-statistic": {
@@ -336,7 +340,7 @@
     },
     "erp-order": {
       "path": "bundles/erp-order/",
-      "version": "2.6.0"
+      "version": "2.6.1"
     },
     "erp-order-api": {
       "path": "bundles/erp-order-api/",
@@ -348,7 +352,7 @@
     },
     "erp-order-page-search": {
       "path": "bundles/erp-order-page-search/",
-      "version": "2.3.0"
+      "version": "2.4.0"
     },
     "erp-order-page-search-rest-api": {
       "path": "bundles/erp-order-page-search-rest-api/",
@@ -548,7 +552,7 @@
     },
     "one-time-password": {
       "path": "bundles/one-time-password/",
-      "version": "1.1.0"
+      "version": "1.2.0"
     },
     "one-time-password-email-connector": {
       "path": "bundles/one-time-password-email-connector/",
@@ -758,6 +762,10 @@
       "path": "bundles/splittable-checkout-rest-api-order-custom-reference-connector",
       "version": "1.0.0"
     },
+    "splittable-checkout-rest-api-order-custom-references-connector": {
+      "path": "bundles/splittable-checkout-rest-api-order-custom-references-connector",
+      "version": "1.0.0"
+    },
     "splittable-checkout-rest-api-payment-connector": {
       "path": "bundles/splittable-checkout-rest-api-payment-connector/",
       "version": "1.0.1"
@@ -768,7 +776,7 @@
     },
     "splittable-quote": {
       "path": "bundles/splittable-quote/",
-      "version": "1.1.0"
+      "version": "1.2.0"
     },
     "splittable-quote-extension": {
       "path": "bundles/splittable-quote-extension/",
@@ -776,6 +784,10 @@
     },
     "splittable-quote-nopayment-connector": {
       "path": "bundles/splittable-quote-nopayment-connector/",
+      "version": "1.0.0"
+    },
+    "splittable-quote-order-custom-references-connector": {
+      "path": "bundles/splittable-quote-order-custom-references-connector/",
       "version": "1.0.0"
     },
     "splittable-quote-shipment-connector": {

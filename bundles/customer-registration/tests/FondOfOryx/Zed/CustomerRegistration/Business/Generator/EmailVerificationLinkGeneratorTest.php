@@ -4,48 +4,15 @@ namespace FondOfOryx\Zed\CustomerRegistration\Business\Generator;
 
 use Codeception\Test\Unit;
 use FondOfOryx\Zed\CustomerRegistration\CustomerRegistrationConfigInterface;
-use FondOfOryx\Zed\CustomerRegistration\Dependency\Facade\CustomerRegistrationToLocaleFacadeInterface;
-use FondOfOryx\Zed\CustomerRegistration\Dependency\Facade\CustomerRegistrationToStoreFacadeInterface;
+use FondOfOryx\Zed\CustomerRegistrationExtension\Dependency\Plugin\EmailVerificationLinkExpanderPluginInterface;
 use Generated\Shared\Transfer\CustomerTransfer;
-use Generated\Shared\Transfer\LocaleTransfer;
-use Generated\Shared\Transfer\StoreTransfer;
 
 class EmailVerificationLinkGeneratorTest extends Unit
 {
     /**
-     * @var string
-     */
-    protected $localePattern = '{{locale}}';
-
-    /**
-     * @var string
-     */
-    protected $tokenPattern = '{{token}}';
-
-    /**
-     * @var \FondOfOryx\Zed\CustomerRegistration\Dependency\Facade\CustomerRegistrationToLocaleFacadeInterface|\PHPUnit\Framework\MockObject\MockObject
-     */
-    protected $localeFacadeMock;
-
-    /**
-     * @var \FondOfOryx\Zed\CustomerRegistration\Dependency\Facade\CustomerRegistrationToStoreFacadeInterface|\PHPUnit\Framework\MockObject\MockObject
-     */
-    protected $storeFacadeMock;
-
-    /**
      * @var \FondOfOryx\Zed\CustomerRegistration\CustomerRegistrationConfigInterface|\PHPUnit\Framework\MockObject\MockObject
      */
     protected $configMock;
-
-    /**
-     * @var \Generated\Shared\Transfer\StoreTransfer|\PHPUnit\Framework\MockObject\MockObject
-     */
-    protected $storeTransferMock;
-
-    /**
-     * @var \Generated\Shared\Transfer\LocaleTransfer|\PHPUnit\Framework\MockObject\MockObject
-     */
-    protected $localeTransferMock;
 
     /**
      * @var \Generated\Shared\Transfer\CustomerTransfer|\PHPUnit\Framework\MockObject\MockObject
@@ -58,29 +25,18 @@ class EmailVerificationLinkGeneratorTest extends Unit
     protected $generator;
 
     /**
+     * @var \FondOfOryx\Zed\CustomerRegistrationExtension\Dependency\Plugin\EmailVerificationLinkExpanderPluginInterface|\PHPUnit\Framework\MockObject\MockObject
+     */
+    protected $emailVerificationLinkExtenderPluginMock;
+
+    /**
      * @return void
      */
     public function _before(): void
     {
         parent::_before();
 
-        $this->localeFacadeMock = $this->getMockBuilder(CustomerRegistrationToLocaleFacadeInterface::class)
-            ->disableOriginalConstructor()
-            ->getMock();
-
-        $this->storeFacadeMock = $this->getMockBuilder(CustomerRegistrationToStoreFacadeInterface::class)
-            ->disableOriginalConstructor()
-            ->getMock();
-
         $this->configMock = $this->getMockBuilder(CustomerRegistrationConfigInterface::class)
-            ->disableOriginalConstructor()
-            ->getMock();
-
-        $this->storeTransferMock = $this->getMockBuilder(StoreTransfer::class)
-            ->disableOriginalConstructor()
-            ->getMock();
-
-        $this->localeTransferMock = $this->getMockBuilder(LocaleTransfer::class)
             ->disableOriginalConstructor()
             ->getMock();
 
@@ -88,10 +44,13 @@ class EmailVerificationLinkGeneratorTest extends Unit
             ->disableOriginalConstructor()
             ->getMock();
 
+        $this->emailVerificationLinkExtenderPluginMock = $this->getMockBuilder(EmailVerificationLinkExpanderPluginInterface::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
         $this->generator = new EmailVerificationLinkGenerator(
             $this->configMock,
-            $this->storeFacadeMock,
-            $this->localeFacadeMock,
+            [$this->emailVerificationLinkExtenderPluginMock],
         );
     }
 
@@ -102,6 +61,7 @@ class EmailVerificationLinkGeneratorTest extends Unit
     {
         $linkPattern = '';
         $baseUrl = '';
+
         $this->configMock
             ->expects(static::atLeastOnce())
             ->method('getVerificationLinkPattern')
@@ -112,35 +72,11 @@ class EmailVerificationLinkGeneratorTest extends Unit
             ->method('getBaseUrl')
             ->willReturn($baseUrl);
 
-        $this->customerTransferMock
+        $this->emailVerificationLinkExtenderPluginMock
             ->expects(static::atLeastOnce())
-            ->method('getLocale')
-            ->willReturn($this->localeTransferMock);
-
-        $this->localeTransferMock
-            ->expects(static::atLeastOnce())
-            ->method('getLocaleName')
-            ->willReturn('de_DE');
-
-        $this->customerTransferMock
-            ->expects(static::atLeastOnce())
-            ->method('getRegistrationKey')
-            ->willReturn('KEY');
-
-        $this->localeFacadeMock
-            ->expects(static::atLeastOnce())
-            ->method('getCurrentLocaleName')
-            ->willReturn('de_DE');
-
-        $this->storeFacadeMock
-            ->expects(static::atLeastOnce())
-            ->method('getCurrentStore')
-            ->willReturn($this->storeTransferMock);
-
-        $this->storeTransferMock
-            ->expects(static::atLeastOnce())
-            ->method('getAvailableLocaleIsoCodes')
-            ->willReturn(['de_DE' => 'de']);
+            ->method('expand')
+            ->with($baseUrl, $this->customerTransferMock)
+            ->willReturn($baseUrl);
 
         $this->generator->generateLink($this->customerTransferMock);
     }
