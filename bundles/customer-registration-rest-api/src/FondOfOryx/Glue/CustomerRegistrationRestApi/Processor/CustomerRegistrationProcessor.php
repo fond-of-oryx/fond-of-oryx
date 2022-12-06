@@ -107,19 +107,28 @@ class CustomerRegistrationProcessor implements CustomerRegistrationProcessorInte
 
     /**
      * @param \Spryker\Glue\GlueApplication\Rest\Request\Data\RestRequestInterface $restRequest
-     * @param \Generated\Shared\Transfer\RestCustomerRegistrationRequestAttributesTransfer $restCustomerRegistrationRequestAttributesTransfer
+     * @param \Generated\Shared\Transfer\RestCustomerRegistrationRequestAttributesTransfer|null $restCustomerRegistrationRequestAttributesTransfer
      *
      * @return \Spryker\Glue\GlueApplication\Rest\JsonApi\RestResponseInterface
      */
     public function verifyEmail(
         RestRequestInterface $restRequest,
-        RestCustomerRegistrationRequestAttributesTransfer $restCustomerRegistrationRequestAttributesTransfer
+        ?RestCustomerRegistrationRequestAttributesTransfer $restCustomerRegistrationRequestAttributesTransfer
     ): RestResponseInterface {
+        if ($restCustomerRegistrationRequestAttributesTransfer === null) {
+            $restCustomerRegistrationRequestAttributesTransfer = new RestCustomerRegistrationRequestAttributesTransfer();
+        }
+
         $request = $this->requestMapper->mapRequestAttributesToTransfer($restCustomerRegistrationRequestAttributesTransfer);
 
         $mappedAttributes = $request->getAttributes();
         $mappedAttributes
             ->setToken($this->getToken($restRequest->getHttpRequest()));
+
+        $verify = $restRequest->getHttpRequest()->get('verify', false);
+        if ($mappedAttributes->getVerifyEmail() === null) {
+            $mappedAttributes->setVerifyEmail($verify === 'true' ? true : $verify);
+        }
 
         $this->customerRegistrationRestApiClient->handleCustomerRegistrationRequest(
             $request->setAttributes($mappedAttributes)->setType(CustomerRegistrationConstants::TYPE_EMAIL_VERIFICATION),
