@@ -124,7 +124,7 @@ class CustomerRegistrationProcessor implements CustomerRegistrationProcessorInte
         $mappedAttributes
             ->setToken($this->getToken($restRequest->getHttpRequest()));
 
-        $verify = $restRequest->getHttpRequest()->query->get('verify', false);
+        $verify = $restRequest->getHttpRequest()->get('verify', false);
         if ($mappedAttributes->getVerifyEmail() === null){
             $mappedAttributes->setVerifyEmail($verify === 'true' ? true : $verify);
         }
