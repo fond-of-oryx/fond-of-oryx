@@ -257,6 +257,7 @@
     "fond-of-oryx/log-log-io-connector": "*",
     "fond-of-oryx/log-slack-connector": "*",
     "fond-of-oryx/mail-bcc": "*",
+    "fond-of-oryx/mailjet-mail-connector": "*",
     "fond-of-oryx/oms-credit-memo-gift-card-connector": "*",
     "fond-of-oryx/no-payment-credit-memo": "*",
     "fond-of-oryx/one-time-password": "*",
