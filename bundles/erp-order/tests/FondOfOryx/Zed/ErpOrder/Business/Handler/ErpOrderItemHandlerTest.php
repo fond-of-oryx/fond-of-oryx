@@ -174,42 +174,4 @@ class ErpOrderItemHandlerTest extends Unit
 
         $order = $this->handler->handle($this->erpOrderTransferMock);
     }
-
-    /**
-     * @return void
-     */
-    public function testHandleUpdateInsteadOfDelete(): void
-    {
-        $existingItem1 = clone $this->erpOrderItemTransferMock;
-        $existingItem2 = clone $this->erpOrderItemTransferMock;
-        $items = new ArrayObject([$this->erpOrderItemTransferMock]);
-        $existingItems = new ArrayObject([$existingItem1, $existingItem2]);
-
-        $this->itemReaderMock->expects($this->atLeastOnce())->method('findErpOrderItemsByIdErpOrder')->willReturn($this->erpOrderItemCollectionTransferMock);
-        $this->erpOrderItemCollectionTransferMock->expects($this->atLeastOnce())->method('getItems')->willReturn($existingItems);
-
-        $existingItem1->expects($this->atLeastOnce())->method('getSku')->willReturn(1);
-        $existingItem1->expects($this->atLeastOnce())->method('getIdErpOrderItem')->willReturn(1);
-        $existingItem1->expects($this->atLeastOnce())->method('toArray')->willReturn([]);
-        $existingItem2->expects($this->atLeastOnce())->method('getSku')->willReturn(2);
-        $existingItem2->expects($this->atLeastOnce())->method('getIdErpOrderItem')->willReturn(2);
-        $existingItem2->expects($this->atLeastOnce())->method('toArray')->willReturn([]);
-        $this->erpOrderItemTransferMock->expects($this->atLeastOnce())->method('getSku')->willReturn(3);
-        $this->itemReaderMock->expects($this->atLeastOnce())->method('findErpOrderItemByIdErpOrderItem')->willReturn($this->erpOrderItemTransferMock);
-        $this->erpOrderItemTransferMock->expects($this->atLeastOnce())->method('getCreatedAt')->willReturn(time());
-        $this->erpOrderItemTransferMock->expects($this->atLeastOnce())->method('setCreatedAt')->willReturnSelf();
-        $this->erpOrderItemTransferMock->expects($this->atLeastOnce())->method('setUpdatedAt')->willReturnSelf();
-        $this->erpOrderItemTransferMock->expects($this->atLeastOnce())->method('fromArray')->willReturnSelf();
-        $this->erpOrderItemTransferMock->expects($this->atLeastOnce())->method('toArray')->willReturn([]);
-
-        $this->erpOrderTransferMock->expects($this->atLeastOnce())->method('getIdErpOrder')->willReturn(1);
-        $this->erpOrderTransferMock->expects($this->atLeastOnce())->method('getOrderItems')->willReturn($items);
-        $this->erpOrderTransferMock->expects($this->atLeastOnce())->method('setOrderItems')->willReturn($this->erpOrderTransferMock);
-
-        $this->itemWriterMock->expects($this->never())->method('create');
-        $this->itemWriterMock->expects($this->once())->method('delete');
-        $this->itemWriterMock->expects($this->atLeastOnce())->method('update')->willReturn($this->erpOrderItemTransferMock);
-
-        $order = $this->handler->handle($this->erpOrderTransferMock);
-    }
 }
