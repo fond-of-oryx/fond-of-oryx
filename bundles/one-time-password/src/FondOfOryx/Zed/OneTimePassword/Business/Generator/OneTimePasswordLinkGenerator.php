@@ -112,13 +112,15 @@ class OneTimePasswordLinkGenerator implements OneTimePasswordLinkGeneratorInterf
     }
 
     /**
+     * @param \Generated\Shared\Transfer\OneTimePasswordAttributesTransfer $attributesTransfer
+     *
      * @return string
      */
     protected function resolveLocale(OneTimePasswordAttributesTransfer $attributesTransfer): string
     {
         $locale = $attributesTransfer->getLocale();
         $localeName = $this->localeFacade->getCurrentLocaleName();
-        if ($locale !== null && $locale->getLocaleName() !== null){
+        if ($locale !== null && $locale->getLocaleName() !== null) {
             $localeName = $locale->getLocaleName();
         }
 

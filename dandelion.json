@@ -244,7 +244,7 @@
     },
     "customer-registration": {
       "path": "bundles/customer-registration/",
-      "version": "1.1.2-beta.1"
+      "version": "1.1.3-beta.1"
     },
     "customer-registration-extension": {
       "path": "bundles/customer-registration-extension/",
@@ -256,7 +256,7 @@
     },
     "customer-registration-one-time-password-connector": {
       "path": "bundles/customer-registration-one-time-password-connector/",
-      "version": "1.0.0-beta.1"
+      "version": "1.1.0-beta.1"
     },
     "customer-registration-rest-api": {
       "path": "bundles/customer-registration-rest-api/",
@@ -552,7 +552,7 @@
     },
     "one-time-password": {
       "path": "bundles/one-time-password/",
-      "version": "1.1.0"
+      "version": "1.2.0"
     },
     "one-time-password-email-connector": {
       "path": "bundles/one-time-password-email-connector/",
