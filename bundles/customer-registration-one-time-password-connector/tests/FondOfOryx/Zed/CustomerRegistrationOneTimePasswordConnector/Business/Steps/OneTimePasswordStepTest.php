@@ -3,7 +3,9 @@
 namespace FondOfOryx\Zed\CustomerRegistrationOneTimePasswordConnector\Business\Steps;
 
 use Codeception\Test\Unit;
+use FondOfOryx\Zed\CustomerRegistrationOneTimePasswordConnector\Dependency\Facade\CustomerRegistrationOneTimePasswordConnectorToLocaleFacadeInterface;
 use FondOfOryx\Zed\CustomerRegistrationOneTimePasswordConnector\Dependency\Facade\CustomerRegistrationOneTimePasswordConnectorToOneTimePasswordFacadeInterface;
+use Generated\Shared\Transfer\CustomerRegistrationAttributesTransfer;
 use Generated\Shared\Transfer\CustomerRegistrationBagTransfer;
 use Generated\Shared\Transfer\CustomerRegistrationRequestTransfer;
 use Generated\Shared\Transfer\CustomerTransfer;
@@ -15,6 +17,11 @@ class OneTimePasswordStepTest extends Unit
      * @var \FondOfOryx\Zed\CustomerRegistrationOneTimePasswordConnector\Dependency\Facade\CustomerRegistrationOneTimePasswordConnectorToOneTimePasswordFacadeInterface|\PHPUnit\Framework\MockObject\MockObject
      */
     protected $otpFacadeMock;
+
+    /**
+     * @var \FondOfOryx\Zed\CustomerRegistrationOneTimePasswordConnector\Dependency\Facade\CustomerRegistrationOneTimePasswordConnectorToLocaleFacadeInterface|\PHPUnit\Framework\MockObject\MockObject
+     */
+    protected $localeFacadeMock;
 
     /**
      * @var \Generated\Shared\Transfer\CustomerTransfer|\PHPUnit\Framework\MockObject\MockObject
@@ -30,6 +37,11 @@ class OneTimePasswordStepTest extends Unit
      * @var \Generated\Shared\Transfer\CustomerRegistrationBagTransfer|\PHPUnit\Framework\MockObject\MockObject
      */
     protected $bagTransferMock;
+
+    /**
+     * @var \Generated\Shared\Transfer\CustomerRegistrationAttributesTransfer|\PHPUnit\Framework\MockObject\MockObject
+     */
+    protected $attributesTransferMock;
 
     /**
      * @var \Generated\Shared\Transfer\OneTimePasswordResponseTransfer|\PHPUnit\Framework\MockObject\MockObject
@@ -68,6 +80,10 @@ class OneTimePasswordStepTest extends Unit
             ->disableOriginalConstructor()
             ->getMock();
 
+        $this->attributesTransferMock = $this->getMockBuilder(CustomerRegistrationAttributesTransfer::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
         $this->otpResponseTransferMock = $this->getMockBuilder(OneTimePasswordResponseTransfer::class)
             ->disableOriginalConstructor()
             ->getMock();
@@ -76,8 +92,13 @@ class OneTimePasswordStepTest extends Unit
             ->disableOriginalConstructor()
             ->getMock();
 
+        $this->localeFacadeMock = $this->getMockBuilder(CustomerRegistrationOneTimePasswordConnectorToLocaleFacadeInterface::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
         $this->step = new OneTimePasswordStep(
             $this->otpFacadeMock,
+            $this->localeFacadeMock,
             $this->prePluginMocks,
             $this->postPluginMocks,
         );
@@ -88,6 +109,7 @@ class OneTimePasswordStepTest extends Unit
      */
     public function testSendLoginLink(): void
     {
+        $this->customerRegistrationRequestTransferMock->expects(static::atLeastOnce())->method('getAttributesOrFail')->willReturn($this->attributesTransferMock);
         $this->customerRegistrationRequestTransferMock->expects(static::atLeastOnce())->method('getBag')->willReturn($this->bagTransferMock);
         $this->customerRegistrationRequestTransferMock->expects(static::atLeastOnce())->method('setBag')->with($this->bagTransferMock)->willReturnSelf();
         $this->otpFacadeMock->expects(static::atLeastOnce())->method('requestLoginLink')->willReturn($this->otpResponseTransferMock);
@@ -95,6 +117,7 @@ class OneTimePasswordStepTest extends Unit
         $this->bagTransferMock->expects(static::atLeastOnce())->method('getCustomerOrFail')->willReturn($this->customerTransferMock);
         $this->bagTransferMock->expects(static::exactly(2))->method('setMessage')->willReturnSelf();
         $this->bagTransferMock->expects(static::atLeastOnce())->method('setIsLoginLinkSent')->with(true)->willReturnSelf();
+        $this->bagTransferMock->expects(static::atLeastOnce())->method('setOneTimePasswordResponse')->with($this->otpResponseTransferMock)->willReturnSelf();
         $this->bagTransferMock->expects(static::atLeastOnce())->method('setOneTimePasswordResponse')->with($this->otpResponseTransferMock)->willReturnSelf();
 
         $this->step->sendLoginLink(

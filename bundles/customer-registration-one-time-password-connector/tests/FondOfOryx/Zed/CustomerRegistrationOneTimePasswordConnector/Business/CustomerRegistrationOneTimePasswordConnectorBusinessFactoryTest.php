@@ -5,6 +5,7 @@ namespace FondOfOryx\Zed\CustomerRegistrationOneTimePasswordConnector\Business;
 use Codeception\Test\Unit;
 use FondOfOryx\Zed\CustomerRegistrationOneTimePasswordConnector\Business\Steps\OneTimePasswordStepInterface;
 use FondOfOryx\Zed\CustomerRegistrationOneTimePasswordConnector\CustomerRegistrationOneTimePasswordConnectorDependencyProvider;
+use FondOfOryx\Zed\CustomerRegistrationOneTimePasswordConnector\Dependency\Facade\CustomerRegistrationOneTimePasswordConnectorToLocaleFacadeInterface;
 use FondOfOryx\Zed\CustomerRegistrationOneTimePasswordConnector\Dependency\Facade\CustomerRegistrationOneTimePasswordConnectorToOneTimePasswordFacadeInterface;
 use Spryker\Zed\Kernel\Container;
 
@@ -26,6 +27,11 @@ class CustomerRegistrationOneTimePasswordConnectorBusinessFactoryTest extends Un
     protected $otpFacadeMock;
 
     /**
+     * @var \FondOfOryx\Zed\CustomerRegistrationOneTimePasswordConnector\Dependency\Facade\CustomerRegistrationOneTimePasswordConnectorToLocaleFacadeInterface|\PHPUnit\Framework\MockObject\MockObject
+     */
+    protected $localeFacadeMock;
+
+    /**
      * @return void
      */
     protected function _before(): void
@@ -35,6 +41,10 @@ class CustomerRegistrationOneTimePasswordConnectorBusinessFactoryTest extends Un
             ->getMock();
 
         $this->otpFacadeMock = $this->getMockBuilder(CustomerRegistrationOneTimePasswordConnectorToOneTimePasswordFacadeInterface::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $this->localeFacadeMock = $this->getMockBuilder(CustomerRegistrationOneTimePasswordConnectorToLocaleFacadeInterface::class)
             ->disableOriginalConstructor()
             ->getMock();
 
@@ -55,11 +65,13 @@ class CustomerRegistrationOneTimePasswordConnectorBusinessFactoryTest extends Un
             ->method('get')
             ->withConsecutive(
                 [CustomerRegistrationOneTimePasswordConnectorDependencyProvider::FACADE_ONE_TIME_PASSWORD],
+                [CustomerRegistrationOneTimePasswordConnectorDependencyProvider::FACADE_LOCALE],
                 [CustomerRegistrationOneTimePasswordConnectorDependencyProvider::PLUGINS_ONE_TIME_PASSWORD_PRE],
                 [CustomerRegistrationOneTimePasswordConnectorDependencyProvider::PLUGINS_ONE_TIME_PASSWORD_POST],
             )
             ->willReturnOnConsecutiveCalls(
                 $this->otpFacadeMock,
+                $this->localeFacadeMock,
                 [],
                 [],
             );
