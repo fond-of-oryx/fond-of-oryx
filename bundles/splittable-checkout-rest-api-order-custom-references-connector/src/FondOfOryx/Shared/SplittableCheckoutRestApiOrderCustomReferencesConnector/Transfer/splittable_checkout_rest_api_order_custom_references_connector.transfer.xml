@@ -3,12 +3,8 @@
            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
            xsi:schemaLocation="spryker:transfer-01 https://static.spryker.com/transfer-01.xsd">
     <transfer name="Quote">
-        <property name="orderCustomReferences" type="array" associative="true"/>
+        <property name="orderCustomReference" type="string" />
         <property name="splitKey" type="string" />
-    </transfer>
-
-    <transfer name="RestSplittableCheckoutRequestAttributes">
-        <property name="orderCustomReferences" type="array" associative="true"/>
     </transfer>
 
     <transfer name="RestSplittableCheckoutRequest">
