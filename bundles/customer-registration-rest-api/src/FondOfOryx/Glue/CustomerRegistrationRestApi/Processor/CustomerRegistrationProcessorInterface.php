@@ -33,6 +33,7 @@ interface CustomerRegistrationProcessorInterface
     /**
      * @param \Spryker\Glue\GlueApplication\Rest\Request\Data\RestRequestInterface $restRequest
      * @param \Generated\Shared\Transfer\RestCustomerRegistrationRequestAttributesTransfer|null $restCustomerRegistrationRequestAttributesTransfer
+     *
      * @return \Spryker\Glue\GlueApplication\Rest\JsonApi\RestResponseInterface
      */
     public function verifyEmail(
