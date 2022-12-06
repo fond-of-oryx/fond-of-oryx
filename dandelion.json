@@ -340,7 +340,7 @@
     },
     "erp-order": {
       "path": "bundles/erp-order/",
-      "version": "2.6.1"
+      "version": "2.6.2"
     },
     "erp-order-api": {
       "path": "bundles/erp-order-api/",
