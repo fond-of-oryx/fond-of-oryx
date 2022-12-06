@@ -776,7 +776,7 @@
       "FondOfOryx\\Glue\\ReturnLabelsRestApi\\": "bundles/return-labels-rest-api/tests/FondOfOryx/Glue/ReturnLabelsRestApi",
       "FondOfOryx\\Glue\\SplittableCheckoutRestApi\\": "bundles/splittable-checkout-rest-api/tests/FondOfOryx/Glue/SplittableCheckoutRestApi",
       "FondOfOryx\\Glue\\SplittableCheckoutRestApiExtension\\": "bundles/splittable-checkout-rest-api-extension/tests/FondOfOryx/Glue/SplittableCheckoutRestApiExtension",
-      "FondOfOryx\\Glue\\SplittableCheckoutRestApiOrderCustomReferencesConnector\\": "bundles/splittable-checkout-rest-api-order-custom-references-connector/src/FondOfOryx/Glue/SplittableCheckoutRestApiOrderCustomReferencesConnector",
+      "FondOfOryx\\Glue\\SplittableCheckoutRestApiOrderCustomReferencesConnector\\": "bundles/splittable-checkout-rest-api-order-custom-references-connector/tests/FondOfOryx/Glue/SplittableCheckoutRestApiOrderCustomReferencesConnector",
       "FondOfOryx\\Service\\CrossEngage\\": "bundles/cross-engage/tests/FondOfOryx/Service/CrossEngage",
       "FondOfOryx\\Service\\PaymentEpcQrCode\\": "bundles/payment-epc-qr-code/tests/FondOfOryx/Service/PaymentEpcQrCode",
       "FondOfOryx\\Service\\QrCodeGenerator\\": "bundles/qr-code-generator/tests/FondOfOryx/Service/QrCodeGenerator",
