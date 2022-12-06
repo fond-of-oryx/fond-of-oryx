@@ -22,12 +22,11 @@ class CustomerRegistrationOneTimePasswordConnectorToLocaleFacadeBridge implement
 
     /**
      * @param string $locale
+     *
      * @return \Generated\Shared\Transfer\LocaleTransfer
-     * @throws \Spryker\Zed\Locale\Business\Exception\MissingLocaleException
      */
-    public function getLocale(
-        string $locale
-    ): LocaleTransfer {
+    public function getLocale(string $locale): LocaleTransfer
+    {
         return $this->facade->getLocale($locale);
     }
 }

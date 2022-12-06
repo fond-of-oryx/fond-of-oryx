@@ -39,11 +39,10 @@ class OneTimePasswordStep extends AbstractStep implements OneTimePasswordStepInt
      */
     public function __construct(
         CustomerRegistrationOneTimePasswordConnectorToOneTimePasswordFacadeInterface $oneTimePasswordFacade,
-        CustomerRegistrationOneTimePasswordConnectorToLocaleFacadeInterface          $localeFacade,
-        array                                                                        $preStepPlugins,
-        array                                                                        $postStepPlugins
-    )
-    {
+        CustomerRegistrationOneTimePasswordConnectorToLocaleFacadeInterface $localeFacade,
+        array $preStepPlugins,
+        array $postStepPlugins
+    ) {
         $this->preStepPlugins = $preStepPlugins;
         $this->postStepPlugins = $postStepPlugins;
         $this->oneTimePasswordFacade = $oneTimePasswordFacade;
@@ -76,9 +75,8 @@ class OneTimePasswordStep extends AbstractStep implements OneTimePasswordStepInt
 
     /**
      * @param \Generated\Shared\Transfer\CustomerRegistrationRequestTransfer $customerRegistrationRequestTransfer
+     *
      * @return \Generated\Shared\Transfer\LocaleTransfer|null
-     * @throws \Spryker\Shared\Kernel\Transfer\Exception\NullValueException
-     * @throws \Spryker\Zed\Locale\Business\Exception\MissingLocaleException
      */
     protected function resolveLocale(CustomerRegistrationRequestTransfer $customerRegistrationRequestTransfer): ?LocaleTransfer
     {
@@ -101,12 +99,12 @@ class OneTimePasswordStep extends AbstractStep implements OneTimePasswordStepInt
 
     /**
      * @param \Generated\Shared\Transfer\CustomerRegistrationRequestTransfer $customerRegistrationRequestTransfer
+     *
      * @return \Generated\Shared\Transfer\OneTimePasswordAttributesTransfer
-     * @throws \Spryker\Shared\Kernel\Transfer\Exception\NullValueException
-     * @throws \Spryker\Zed\Locale\Business\Exception\MissingLocaleException
      */
-    protected function createOneTimePasswordAttributes(CustomerRegistrationRequestTransfer $customerRegistrationRequestTransfer): OneTimePasswordAttributesTransfer
-    {
+    protected function createOneTimePasswordAttributes(
+        CustomerRegistrationRequestTransfer $customerRegistrationRequestTransfer
+    ): OneTimePasswordAttributesTransfer {
         return (new OneTimePasswordAttributesTransfer())->setLocale($this->resolveLocale($customerRegistrationRequestTransfer));
     }
 }

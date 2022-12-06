@@ -34,7 +34,6 @@ class CustomerRegistrationOneTimePasswordConnectorBusinessFactory extends Abstra
 
     /**
      * @return \FondOfOryx\Zed\CustomerRegistrationOneTimePasswordConnector\Dependency\Facade\CustomerRegistrationOneTimePasswordConnectorToLocaleFacadeInterface
-     * @throws \Spryker\Zed\Kernel\Exception\Container\ContainerKeyNotFoundException
      */
     protected function getLocaleFacade(): CustomerRegistrationOneTimePasswordConnectorToLocaleFacadeInterface
     {
