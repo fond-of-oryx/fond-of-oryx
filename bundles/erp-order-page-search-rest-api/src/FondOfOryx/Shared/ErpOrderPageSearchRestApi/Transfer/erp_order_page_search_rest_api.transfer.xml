@@ -38,6 +38,7 @@
 
     <transfer name="RestErpOrder">
         <property name="externalReference" type="string" />
+        <property name="customReference" type="string" />
         <property name="concreteDeliveryDate" type="string" />
         <property name="createdAt" type="string" />
         <property name="updatedAt" type="string" />
