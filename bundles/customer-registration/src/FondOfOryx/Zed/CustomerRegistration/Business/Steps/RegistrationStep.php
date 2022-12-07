@@ -127,7 +127,13 @@ class RegistrationStep extends AbstractStep implements RegistrationStepInterface
      */
     protected function createCustomer(CustomerRegistrationAttributesTransfer $attributesTransfer): CustomerTransfer
     {
-        $locale = $this->localeFacade->getLocale($attributesTransfer->getLanguage());
+        $language = $attributesTransfer->getLanguage();
+
+        if ($language === null) {
+            $language = $this->localeFacade->getCurrentLocaleName();
+        }
+
+        $locale = $this->localeFacade->getLocale($language);
 
         $customerTransfer = (new CustomerTransfer())
             ->setEmail($attributesTransfer->getEmail())
