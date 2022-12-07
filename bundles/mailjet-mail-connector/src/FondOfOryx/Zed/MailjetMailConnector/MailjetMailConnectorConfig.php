@@ -22,4 +22,28 @@ class MailjetMailConnectorConfig extends AbstractBundleConfig
     {
         return $this->get(MailjetMailConnectorConstants::MAILJET_SECRET, '');
     }
+
+    /**
+     * @return float
+     */
+    public function getMailjetConnectionTimeout(): float
+    {
+        return $this->get(MailjetMailConnectorConstants::MAILJET_CONNECTION_TIMEOUT, 2);
+    }
+
+    /**
+     * @return float
+     */
+    public function getMailjetTimeout(): float
+    {
+        return $this->get(MailjetMailConnectorConstants::MAILJET_TIMEOUT, 15);
+    }
+
+    /**
+     * @return bool
+     */
+    public function isMailjetApiCallEnabled(): bool
+    {
+        return $this->get(MailjetMailConnectorConstants::MAILJET_API_CALL_ENABLED, true);
+    }
 }
