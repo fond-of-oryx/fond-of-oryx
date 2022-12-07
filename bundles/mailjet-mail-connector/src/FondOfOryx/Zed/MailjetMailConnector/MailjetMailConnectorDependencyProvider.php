@@ -69,7 +69,7 @@ class MailjetMailConnectorDependencyProvider extends AbstractBundleDependencyPro
                 [
                     MailjetClient::TIMEOUT => $this->getConfig()->getMailjetTimeout(),
                     MailjetClient::CONNECT_TIMEOUT => $this->getConfig()->getMailjetConnectionTimeout(),
-                ]
+                ],
             ),
         );
     }
