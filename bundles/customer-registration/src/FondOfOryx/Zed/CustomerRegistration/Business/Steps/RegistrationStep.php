@@ -129,7 +129,7 @@ class RegistrationStep extends AbstractStep implements RegistrationStepInterface
     {
         $language = $attributesTransfer->getLanguage();
 
-        if ($language === null){
+        if ($language === null) {
             $language = $this->localeFacade->getCurrentLocaleName();
         }
 
