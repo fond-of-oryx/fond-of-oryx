@@ -1,18 +1,13 @@
-
 {% extends '@Gui/Layout/layout.twig' %}
 
 {% block section_title %}{{ 'jellyfish_buffer_gui.exported_order_overview' | trans }}{% endblock %}
 
 {% block content %}
-
     {% include '@JellyfishBufferGui/_partials/store_switcher.twig' %}
 
     {% embed '@Gui/Partials/widget.twig' with { widget_title: 'jellyfish_buffer_gui.exported_order_list' | trans } %}
-
         {% block widget_content %}
             {{ indexTable | raw }}
         {% endblock %}
-
     {% endembed %}
-
 {% endblock %}
