@@ -46,4 +46,43 @@ class MailjetMailConnectorConfig extends AbstractBundleConfig
     {
         return $this->get(MailjetMailConnectorConstants::MAILJET_API_CALL_ENABLED, true);
     }
+
+    /**
+     * @return string
+     */
+    public function getFromEmail(): string
+    {
+        return $this->get(MailjetMailConnectorConstants::MAILJET_FROM_EMAIL, '');
+    }
+
+    /**
+     * @return string
+     */
+    public function getFromName(): string
+    {
+        return $this->get(MailjetMailConnectorConstants::MAILJET_FROM_NAME, true);
+    }
+
+    /**
+     * @return string
+     */
+    public function getDefaultLocale(): string
+    {
+        return $this->get(MailjetMailConnectorConstants::MAILJET_DEFAULT_LOCALE, 'en_US');
+    }
+
+    /**
+     * @param string $locale
+     *
+     * @return string
+     */
+    public function getOrderConfirmationEmailTemplateIdByLocale(string $locale): string
+    {
+        $orderConfirmationEmailTemplateIdByLocales = $this->get(
+            MailjetMailConnectorConstants::MAILJET_ORDER_CONFIRMATION_TEMPLATE_ID_BY_LOCALE,
+            [],
+        );
+
+        return isset($orderConfirmationEmailTemplateIdByLocales[$locale]) ?: $this->getDefaultLocale();
+    }
 }

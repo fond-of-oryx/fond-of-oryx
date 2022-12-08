@@ -22,7 +22,7 @@ class MailjetMailConnectorFacade extends AbstractFacade implements MailjetMailCo
     public function sendMail(MailTransfer $mailTransfer): void
     {
         $this->getFactory()
-            ->getMailerProvider()
+            ->createMailjetMailer()
             ->sendMail($mailTransfer);
     }
 }

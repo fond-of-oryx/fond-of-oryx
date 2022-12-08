@@ -1,6 +1,6 @@
 <?php
 
-namespace FondOfOryx\Zed\MailjetMailConnector\Communication\Plugin;
+namespace FondOfOryx\Zed\MailjetMailConnector\Communication\Plugin\MailProvider;
 
 use Generated\Shared\Transfer\MailTransfer;
 use Spryker\Zed\Kernel\Communication\AbstractPlugin;

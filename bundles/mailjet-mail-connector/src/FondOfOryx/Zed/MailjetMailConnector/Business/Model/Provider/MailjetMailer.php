@@ -2,6 +2,7 @@
 
 namespace FondOfOryx\Zed\MailjetMailConnector\Business\Model\Provider;
 
+use FondOfOryx\Zed\MailjetMailConnector\Business\Mapper\MailjetClientRequestMapperInterface;
 use Generated\Shared\Transfer\MailTransfer;
 use Mailjet\Client;
 use Mailjet\Resources;
@@ -15,11 +16,20 @@ class MailjetMailer implements MailProviderPluginInterface
     protected $mailjetClient;
 
     /**
-     * @param \Mailjet\Client $mailjetClient
+     * @var \FondOfOryx\Zed\MailjetMailConnector\Business\Mapper\MailjetClientRequestMapperInterface
      */
-    public function __construct(Client $mailjetClient)
-    {
+    protected $mailjetClientRequestMapper;
+
+    /**
+     * @param \Mailjet\Client $mailjetClient
+     * @param \FondOfOryx\Zed\MailjetMailConnector\Business\Mapper\MailjetClientRequestMapperInterface $mailjetClientRequestMapper
+     */
+    public function __construct(
+        Client $mailjetClient,
+        MailjetClientRequestMapperInterface $mailjetClientRequestMapper
+    ) {
         $this->mailjetClient = $mailjetClient;
+        $this->mailjetClientRequestMapper = $mailjetClientRequestMapper;
     }
 
     /**

@@ -112,7 +112,8 @@
     "spryker/uuid-behavior": "^1.0.0",
     "spryker/zed-request": "^3.3.0",
     "spryker-eco/payone": "dev-master-fondof as 4.4.2",
-    "symfony/security-core": "^4.4.0"
+    "symfony/security-core": "^4.4.0",
+    "mailjet/mailjet-apiv3-php": "^1.5"
   },
   "require-dev": {
     "fond-of-codeception/spryker": "^1.0",
