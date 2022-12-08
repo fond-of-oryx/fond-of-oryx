@@ -12,58 +12,57 @@
     {% endembed %}
 {% endif %}
 
-    {% embed '@Gui/Partials/widget.twig' with { widget_title: 'jellyfish_buffer_gui.exported_order_data' | trans } %}
-        {% block widget_content %}
-            <div class="row">
-                <table class="footable table toggle-arrow-tiny order-group-items-table-{{ idExportedOrder }}">
+{% embed '@Gui/Partials/widget.twig' with { widget_title: 'jellyfish_buffer_gui.exported_order_data' | trans } %}
+    {% block widget_content %}
+        <div class="row">
+            <table class="footable table toggle-arrow-tiny order-group-items-table-{{ idExportedOrder }}">
+                <tr>
+                    <th>{{ 'ID' | trans }}</th>
+                    <th>{{ 'jellyfish_buffer_gui.exported_at' | trans }}</th>
+                    <th>{{ 'jellyfish_buffer_gui.last_modified' | trans }}</th>
+                    <th>{{ 'jellyfish_buffer_gui.is_reexported' | trans }}</th>
+                    <th>{{ 'Action' | trans }}</th>
+                </tr>
+                {% for idExportedOrder, orderData in orderCollection %}
                     <tr>
-                        <th>{{ 'ID' | trans }}</th>
-                        <th>{{ 'jellyfish_buffer_gui.exported_at' | trans }}</th>
-                        <th>{{ 'jellyfish_buffer_gui.last_modified' | trans }}</th>
-                        <th>{{ 'jellyfish_buffer_gui.is_reexported' | trans }}</th>
-                        <th>{{ 'Action' | trans }}</th>
+                        <td>{{ idExportedOrder }}</td>
+                        <td>{{ orderData.exportedOrder.created_at }}</td>
+                        <td>{{ orderData.exportedOrder.updated_at }}</td>
+                        <td>{{ orderData.exportedOrder.is_reexported == true ? 'Yes' | trans : 'No' | trans }}</td>
+                        <td>
+                            {{ viewTableButton('/jellyfish-buffer-gui/index/view?id-exported-order='~idExportedOrder~'&id-store='~idStore, 'View' | trans) }}
+                            {{ createTableButton('/jellyfish-buffer-gui/export/do?id-exported-order='~idExportedOrder~'&id-store='~idStore, 'jellyfish_buffer_gui.run_reexport' | trans) }}
+                        </td>
                     </tr>
-                    {% for idExportedOrder, orderData in orderCollection %}
-                        <tr>
-                            <td>{{ idExportedOrder }}</td>
-                            <td>{{ orderData.exportedOrder.created_at }}</td>
-                            <td>{{ orderData.exportedOrder.updated_at }}</td>
-                            <td>{{ orderData.exportedOrder.is_reexported == true ? 'Yes' | trans : 'No' | trans }}</td>
-                            <td>
-                                {{ viewTableButton('/jellyfish-buffer-gui/index/view?id-exported-order='~idExportedOrder~'&id-store='~idStore, 'View' | trans) }}
-                                {{ createTableButton('/jellyfish-buffer-gui/export/do?id-exported-order='~idExportedOrder~'&id-store='~idStore, 'jellyfish_buffer_gui.run_reexport' | trans) }}
-                            </td>
-                        </tr>
-                        <tr>
-                            <td colspan="5">
-                                {{ 'jellyfish_buffer_gui.exported_order_history' | trans }}
-                            </td>
-                        </tr>
-                        <tr>
-                            <td colspan="5">
-                                {% if orderData.exportedOrderHistory|length > 0 %}
-                                    <table class="footable table toggle-arrow-tiny order-group-items-table-{{ idExportedOrder }}">
-                                        <tr class="text-left">
-                                            <th>{{ 'ID' | trans }}</th>
-                                            <th>{{ 'jellyfish_buffer_gui.exported_at' | trans }}</th>
-                                            <th>{{ 'jellyfish_buffer_gui.exported_by' | trans }}</th>
-                                            <th>{{ 'Action' | trans }}</th>
+                    <tr>
+                        <td colspan="5">
+                            {{ 'jellyfish_buffer_gui.exported_order_history' | trans }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="5">
+                            {% if orderData.exportedOrderHistory|length > 0 %}
+                                <table class="footable table toggle-arrow-tiny order-group-items-table-{{ idExportedOrder }}">
+                                    <tr class="text-left">
+                                        <th>{{ 'ID' | trans }}</th>
+                                        <th>{{ 'jellyfish_buffer_gui.exported_at' | trans }}</th>
+                                        <th>{{ 'jellyfish_buffer_gui.exported_by' | trans }}</th>
+                                        <th>{{ 'Action' | trans }}</th>
+                                    </tr>
+                                    {% for key, historyEntry in orderData.exportedOrderHistory %}
+                                        <tr>
+                                            <td>{{ historyEntry.fkExportedOrder }}</td>
+                                            <td>{{ historyEntry.exportedAt }}</td>
+                                            <td>{{ historyEntry.user.firstName }} {{ historyEntry.user.lastName }}</td>
+                                            <td>{{ viewTableButton('/jellyfish-buffer-gui/index/view?id-exported-order='~idExportedOrder~'&id-store='~idStore, 'View' | trans) }}</td>
                                         </tr>
-                                        {% for key, historyEntry in orderData.exportedOrderHistory %}
-                                            <tr>
-                                                <td>{{ historyEntry.fkExportedOrder }}</td>
-                                                <td>{{ historyEntry.exportedAt }}</td>
-                                                <td>{{ historyEntry.user.firstName }} {{ historyEntry.user.lastName }}</td>
-                                                <td>{{ viewTableButton('/jellyfish-buffer-gui/index/view?id-exported-order='~idExportedOrder~'&id-store='~idStore, 'View' | trans) }}</td>
-                                            </tr>
-                                        {% endfor %}
-                                    </table>
-                                {% endif %}
-                            </td>
-                        </tr>
-                    {% endfor %}
-                </table>
-            </div>
-        {% endblock %}
-    {% endembed %}
-
+                                    {% endfor %}
+                                </table>
+                            {% endif %}
+                        </td>
+                    </tr>
+                {% endfor %}
+            </table>
+        </div>
+    {% endblock %}
+{% endembed %}
