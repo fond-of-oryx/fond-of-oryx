@@ -9,6 +9,7 @@
         <column name="fk_shipping_address" required="true" type="INTEGER"/>
         <column name="fk_company_business_unit" required="true" type="INTEGER"/>
         <column name="external_reference" required="true" size="255" type="VARCHAR"/>
+        <column name="custom_reference" required="false" size="35" type="VARCHAR"/>
         <column name="document_number" required="false" size="255" type="VARCHAR"/>
         <column name="order_date" required="false" type="DATE"/>
         <column name="currency_iso_code" type="VARCHAR" size="5" required="false"/>
