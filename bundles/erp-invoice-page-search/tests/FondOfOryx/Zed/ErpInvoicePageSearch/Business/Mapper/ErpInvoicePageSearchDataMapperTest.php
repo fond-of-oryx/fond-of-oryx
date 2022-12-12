@@ -30,6 +30,7 @@ class ErpInvoicePageSearchDataMapperTest extends Unit
             ErpInvoicePageSearchDataMapper::UPDATED_AT => 'now',
             ErpInvoicePageSearchDataMapper::DOCUMENT_NUMBER => '',
             ErpInvoicePageSearchDataMapper::EXTERNAL_REFERENCE => '',
+            ErpInvoicePageSearchDataMapper::CUSTOM_REFERENCE => '',
             ErpInvoicePageSearchDataMapper::FK_COMPANY_BUSINESS_UNIT => '',
             ErpInvoicePageSearchDataMapper::COMPANY_BUSINESS_UNIT => [
                 ErpInvoicePageSearchDataMapper::COMPANY_BUSINESS_UNIT_UUID => '',

@@ -10,7 +10,7 @@
   ],
   "require": {
     "php": ">=7.3",
-    "fond-of-oryx/erp-invoice": "^2.0.0",
+    "fond-of-oryx/erp-invoice": "^2.1.0",
     "fond-of-oryx/erp-invoice-permission": "^1.0.0",
     "spryker/customer": "^7.0.0",
     "spryker/event-behavior": "^1.0.0",
