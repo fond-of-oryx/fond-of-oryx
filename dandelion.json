@@ -292,7 +292,7 @@
     },
     "erp-delivery-note": {
       "path": "bundles/erp-delivery-note/",
-      "version": "1.2.0"
+      "version": "1.3.0"
     },
     "erp-delivery-note-api": {
       "path": "bundles/erp-delivery-note-api/",
@@ -304,11 +304,11 @@
     },
     "erp-delivery-note-page-search": {
       "path": "bundles/erp-delivery-note-page-search/",
-      "version": "1.2.0"
+      "version": "1.3.0"
     },
     "erp-delivery-note-page-search-rest-api": {
       "path": "bundles/erp-delivery-note-page-search-rest-api/",
-      "version": "1.1.0"
+      "version": "1.2.0"
     },
     "erp-delivery-note-permission": {
       "path": "bundles/erp-delivery-note-permission/",
