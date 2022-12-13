@@ -88,10 +88,7 @@ class OneTimePasswordStep extends AbstractStep implements OneTimePasswordStepInt
         }
 
         if ($locale === null) {
-            $customer = $this->getBag($customerRegistrationRequestTransfer)->getCustomer();
-            if ($customer !== null) {
-                $locale = $customer->getLocale();
-            }
+            $locale = $this->localeFacade->getCurrentLocale();
         }
 
         return $locale;

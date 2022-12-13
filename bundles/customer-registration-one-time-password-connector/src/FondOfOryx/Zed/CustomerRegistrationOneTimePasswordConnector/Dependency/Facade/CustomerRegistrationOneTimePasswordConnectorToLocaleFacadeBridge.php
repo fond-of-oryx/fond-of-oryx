@@ -29,4 +29,12 @@ class CustomerRegistrationOneTimePasswordConnectorToLocaleFacadeBridge implement
     {
         return $this->facade->getLocale($locale);
     }
+
+    /**
+     * @return \Generated\Shared\Transfer\LocaleTransfer
+     */
+    public function getCurrentLocale(): LocaleTransfer
+    {
+        return $this->facade->getCurrentLocale();
+    }
 }
