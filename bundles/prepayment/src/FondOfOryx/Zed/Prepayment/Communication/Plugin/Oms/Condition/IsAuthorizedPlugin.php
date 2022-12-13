@@ -1,16 +1,16 @@
 <?php
 
-namespace FondOfOryx\Zed\PrepaymentCreditMemo\Communication\Plugin\Oms\Condition;
+namespace FondOfOryx\Zed\Prepayment\Communication\Plugin\Oms\Condition;
 
-use FondOfOryx\Shared\PrepaymentCreditMemo\PrepaymentCreditMemoConstants;
+use FondOfOryx\Shared\Prepayment\PrepaymentConstants;
 use Orm\Zed\Sales\Persistence\SpySalesOrderItem;
 use Spryker\Zed\Kernel\Communication\AbstractPlugin;
 use Spryker\Zed\Oms\Dependency\Plugin\Condition\ConditionInterface;
 
 /**
- * @method \FondOfOryx\Zed\PrepaymentCreditMemo\Communication\PrepaymentCreditMemoCommunicationFactory getFactory()
- * @method \FondOfOryx\Zed\PrepaymentCreditMemo\Business\PrepaymentCreditMemoFacadeInterface getFacade()
- * @method \FondOfOryx\Zed\PrepaymentCreditMemo\PrepaymentCreditMemoConfig getConfig()
+ * @method \FondOfOryx\Zed\Prepayment\Communication\PrepaymentCommunicationFactory getFactory()
+ * @method \FondOfOryx\Zed\Prepayment\Business\PrepaymentFacadeInterface getFacade()
+ * @method \FondOfOryx\Zed\Prepayment\PrepaymentConfig getConfig()
  */
 class IsAuthorizedPlugin extends AbstractPlugin implements ConditionInterface
 {
@@ -25,8 +25,8 @@ class IsAuthorizedPlugin extends AbstractPlugin implements ConditionInterface
         $lastName = $orderItem->getOrder()->getLastName();
         $email = strtolower($orderItem->getOrder()->getEmail());
         return (
-            $firstName !== PrepaymentCreditMemoConstants::FIRST_NAME_FOR_INVALID_TEST
-            && $lastName !== PrepaymentCreditMemoConstants::LAST_NAME_FOR_INVALID_TEST
+            $firstName !== PrepaymentConstants::FIRST_NAME_FOR_INVALID_TEST
+            && $lastName !== PrepaymentConstants::LAST_NAME_FOR_INVALID_TEST
             && in_array($email, $this->getConfig()->getForceInvalidMailAddresses(), true) === false);
     }
 }
