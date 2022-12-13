@@ -6,6 +6,7 @@ use FondOfOryx\Zed\CustomerRegistration\Business\Steps\AbstractStep;
 use FondOfOryx\Zed\CustomerRegistrationOneTimePasswordConnector\Dependency\Facade\CustomerRegistrationOneTimePasswordConnectorToLocaleFacadeInterface;
 use FondOfOryx\Zed\CustomerRegistrationOneTimePasswordConnector\Dependency\Facade\CustomerRegistrationOneTimePasswordConnectorToOneTimePasswordFacadeInterface;
 use Generated\Shared\Transfer\CustomerRegistrationRequestTransfer;
+use Generated\Shared\Transfer\CustomerTransfer;
 use Generated\Shared\Transfer\LocaleTransfer;
 use Generated\Shared\Transfer\OneTimePasswordAttributesTransfer;
 
@@ -88,13 +89,10 @@ class OneTimePasswordStep extends AbstractStep implements OneTimePasswordStepInt
         }
 
         if ($locale === null) {
-            $customer = $this->getBag($customerRegistrationRequestTransfer)->getCustomer();
-            if ($customer !== null) {
-                $locale = $customer->getLocale();
-            }
+            $locale = $this->localeFacade->getCurrentLocale();
         }
 
-        return $locale;
+        return $this->getFallbackLocaleFromCustomer($this->getBag($customerRegistrationRequestTransfer)->getCustomer(),$locale);
     }
 
     /**
@@ -106,5 +104,20 @@ class OneTimePasswordStep extends AbstractStep implements OneTimePasswordStepInt
         CustomerRegistrationRequestTransfer $customerRegistrationRequestTransfer
     ): OneTimePasswordAttributesTransfer {
         return (new OneTimePasswordAttributesTransfer())->setLocale($this->resolveLocale($customerRegistrationRequestTransfer));
+    }
+
+    /**
+     * @param \Generated\Shared\Transfer\LocaleTransfer|null $locale
+     * @param \Generated\Shared\Transfer\CustomerRegistrationRequestTransfer $customerRegistrationRequestTransfer
+     * @return \Generated\Shared\Transfer\LocaleTransfer|null
+     */
+    protected function getFallbackLocaleFromCustomer(CustomerTransfer $customerTransfer, ?LocaleTransfer $locale): ?LocaleTransfer
+    {
+        if ($locale === null) {
+            if ($customerTransfer !== null) {
+                $locale = $customerTransfer->getLocale();
+            }
+        }
+        return $locale;
     }
 }
