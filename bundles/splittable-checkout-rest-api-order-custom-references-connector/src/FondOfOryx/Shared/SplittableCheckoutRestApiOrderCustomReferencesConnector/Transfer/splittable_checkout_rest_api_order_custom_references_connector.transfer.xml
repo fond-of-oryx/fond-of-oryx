@@ -8,6 +8,10 @@
         <property name="splitKey" type="string" />
     </transfer>
 
+    <transfer name="RestSplittableCheckoutRequestAttributes">
+        <property name="orderCustomReferences" type="array" associative="true"/>
+    </transfer>
+
     <transfer name="RestSplittableCheckoutRequest">
         <property name="orderCustomReferences" type="array" associative="true"/>
     </transfer>

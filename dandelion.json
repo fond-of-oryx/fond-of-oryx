@@ -432,7 +432,7 @@
     },
     "jellyfish-buffer-gui": {
       "path": "bundles/jellyfish-buffer-gui/",
-      "version": "1.0.1"
+      "version": "1.0.2"
     },
     "jellyfish-credit-memo": {
       "path": "bundles/jellyfish-credit-memo/",
