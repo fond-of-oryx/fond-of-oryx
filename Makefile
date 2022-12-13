@@ -45,7 +45,7 @@ release:
 	docker run -i -v $(BASE_DIRECTORY):/home/dandelion/project -w /home/dandelion/project dandelionphp/dandelion:latest dandelion release:all $(BRANCH)
 
 .PHONY: ci
-ci: phpcs codeception-without-coverage phpstan
+ci: phpcs codeception phpstan
 
 .PHONY: print-composer-replace-content
 print-composer-replace-content:
