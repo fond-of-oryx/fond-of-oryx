@@ -604,11 +604,11 @@
     },
     "prepayment": {
       "path": "bundles/prepayment/",
-      "version": "1.0.0"
+      "version": "1.1.0"
     },
     "prepayment-credit-memo": {
       "path": "bundles/prepayment-credit-memo/",
-      "version": "1.0.0"
+      "version": "1.1.0"
     },
     "price-list-extension": {
       "path": "bundles/price-list-extension/",

@@ -55,4 +55,12 @@ class PrepaymentConfig extends AbstractBundleConfig
             return null;
         }
     }
+
+    /**
+     * @return array
+     */
+    public function getForceInvalidMailAddresses(): array
+    {
+        return array_map('strtolower', $this->get(PrepaymentConstants::MAIL_ADDRESSES_FOR_INVALID_TEST, []));
+    }
 }
