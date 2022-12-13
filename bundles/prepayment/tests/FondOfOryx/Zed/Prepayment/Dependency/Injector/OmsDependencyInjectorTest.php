@@ -34,7 +34,7 @@ class OmsDependencyInjectorTest extends Unit
      */
     public function testInjectBusinessLayerDependencies(): void
     {
-        $this->containerMock->expects(static::exactly(2))->method('extend')->willReturn(static function ($string, $callback) {
+        $this->containerMock->expects(static::exactly(3))->method('extend')->willReturn(static function ($string, $callback) {
             if ($string === OmsDependencyProvider::COMMAND_PLUGINS) {
                 static::assertSame(OmsDependencyProvider::COMMAND_PLUGINS, $string);
 

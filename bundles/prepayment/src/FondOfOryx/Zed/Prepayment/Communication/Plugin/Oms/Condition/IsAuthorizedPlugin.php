@@ -24,6 +24,7 @@ class IsAuthorizedPlugin extends AbstractPlugin implements ConditionInterface
         $firstName = $orderItem->getOrder()->getFirstName();
         $lastName = $orderItem->getOrder()->getLastName();
         $email = strtolower($orderItem->getOrder()->getEmail());
+
         return (
             $firstName !== PrepaymentConstants::FIRST_NAME_FOR_INVALID_TEST
             && $lastName !== PrepaymentConstants::LAST_NAME_FOR_INVALID_TEST

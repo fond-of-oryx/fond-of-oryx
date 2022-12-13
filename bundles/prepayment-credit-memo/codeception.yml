@@ -1,4 +1,4 @@
-namespace: FondOfOryx/prepayment-credit-memo
+namespace: fond-of-oryx/prepayment-credit-memo
 
 suites:
   unit:
