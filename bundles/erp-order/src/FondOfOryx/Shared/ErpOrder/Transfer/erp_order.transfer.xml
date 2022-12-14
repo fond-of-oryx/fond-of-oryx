@@ -13,6 +13,7 @@
         <property name="shippingAddress" type="ErpOrderAddress"/>
         <property name="companyBusinessUnit" type="CompanyBusinessUnit"/>
         <property name="externalReference" type="string"/>
+        <property name="customReference" type="string"/>
         <property name="concreteDeliveryDate" type="string"/>
         <property name="totals" type="ErpOrderTotals"/>
         <property name="currencyIsoCode" type="string"/>

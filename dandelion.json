@@ -244,7 +244,7 @@
     },
     "customer-registration": {
       "path": "bundles/customer-registration/",
-      "version": "1.1.3-beta.1"
+      "version": "1.1.4-beta.1"
     },
     "customer-registration-extension": {
       "path": "bundles/customer-registration-extension/",
@@ -256,11 +256,11 @@
     },
     "customer-registration-one-time-password-connector": {
       "path": "bundles/customer-registration-one-time-password-connector/",
-      "version": "1.1.0-beta.1"
+      "version": "1.2.1-beta.1"
     },
     "customer-registration-rest-api": {
       "path": "bundles/customer-registration-rest-api/",
-      "version": "1.1.0-beta.1"
+      "version": "1.1.1-beta.1"
     },
     "customer-registration-sales-connector": {
       "path": "bundles/customer-registration-sales-connector/",
@@ -292,7 +292,7 @@
     },
     "erp-delivery-note": {
       "path": "bundles/erp-delivery-note/",
-      "version": "1.2.0"
+      "version": "1.3.0"
     },
     "erp-delivery-note-api": {
       "path": "bundles/erp-delivery-note-api/",
@@ -304,11 +304,11 @@
     },
     "erp-delivery-note-page-search": {
       "path": "bundles/erp-delivery-note-page-search/",
-      "version": "1.2.0"
+      "version": "1.3.0"
     },
     "erp-delivery-note-page-search-rest-api": {
       "path": "bundles/erp-delivery-note-page-search-rest-api/",
-      "version": "1.1.0"
+      "version": "1.2.0"
     },
     "erp-delivery-note-permission": {
       "path": "bundles/erp-delivery-note-permission/",
@@ -316,7 +316,7 @@
     },
     "erp-invoice": {
       "path": "bundles/erp-invoice/",
-      "version": "2.0.0"
+      "version": "2.1.0"
     },
     "erp-invoice-api": {
       "path": "bundles/erp-invoice-api/",
@@ -328,11 +328,11 @@
     },
     "erp-invoice-page-search": {
       "path": "bundles/erp-invoice-page-search/",
-      "version": "2.1.0"
+      "version": "2.2.0"
     },
     "erp-invoice-page-search-rest-api": {
       "path": "bundles/erp-invoice-page-search-rest-api/",
-      "version": "1.3.1"
+      "version": "1.4.0"
     },
     "erp-invoice-permission": {
       "path": "bundles/erp-invoice-permission/",
@@ -340,7 +340,7 @@
     },
     "erp-order": {
       "path": "bundles/erp-order/",
-      "version": "2.6.1"
+      "version": "2.7.0"
     },
     "erp-order-api": {
       "path": "bundles/erp-order-api/",
@@ -352,11 +352,11 @@
     },
     "erp-order-page-search": {
       "path": "bundles/erp-order-page-search/",
-      "version": "2.4.0"
+      "version": "2.5.0"
     },
     "erp-order-page-search-rest-api": {
       "path": "bundles/erp-order-page-search-rest-api/",
-      "version": "1.7.0"
+      "version": "1.8.0"
     },
     "erp-order-permission": {
       "path": "bundles/erp-order-permission/",
@@ -432,7 +432,7 @@
     },
     "jellyfish-buffer-gui": {
       "path": "bundles/jellyfish-buffer-gui/",
-      "version": "1.0.1"
+      "version": "1.0.2"
     },
     "jellyfish-credit-memo": {
       "path": "bundles/jellyfish-credit-memo/",
@@ -604,11 +604,11 @@
     },
     "prepayment": {
       "path": "bundles/prepayment/",
-      "version": "1.0.0"
+      "version": "1.1.0"
     },
     "prepayment-credit-memo": {
       "path": "bundles/prepayment-credit-memo/",
-      "version": "1.0.0"
+      "version": "1.1.0"
     },
     "price-list-extension": {
       "path": "bundles/price-list-extension/",

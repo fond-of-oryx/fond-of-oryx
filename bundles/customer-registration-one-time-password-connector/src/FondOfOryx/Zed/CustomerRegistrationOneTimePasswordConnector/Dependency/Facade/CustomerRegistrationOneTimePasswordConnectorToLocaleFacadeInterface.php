@@ -14,4 +14,9 @@ interface CustomerRegistrationOneTimePasswordConnectorToLocaleFacadeInterface
      * @return \Generated\Shared\Transfer\LocaleTransfer
      */
     public function getLocale(string $locale): LocaleTransfer;
+
+    /**
+     * @return \Generated\Shared\Transfer\LocaleTransfer
+     */
+    public function getCurrentLocale(): LocaleTransfer;
 }

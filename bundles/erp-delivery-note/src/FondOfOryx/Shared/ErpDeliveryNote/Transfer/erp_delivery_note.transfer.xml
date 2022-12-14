@@ -11,6 +11,7 @@
         <property name="deliveryNoteItems" singular="deliveryNoteItem" type="ErpDeliveryNoteItem[]"/>
         <property name="expenses" singular="expense" type="ErpDeliveryNoteExpense[]"/>
         <property name="externalReference" type="string"/>
+        <property name="customReference" type="string"/>
         <property name="documentNumber" type="string"/>
         <property name="billingAddress" type="ErpDeliveryNoteAddress"/>
         <property name="shippingAddress" type="ErpDeliveryNoteAddress"/>

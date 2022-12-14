@@ -1,6 +1,6 @@
 # Prepayment Module
-[![PHP from Travis config](https://img.shields.io/travis/php-v/symfony/symfony.svg)](https://php.net/)
-[![license](https://img.shields.io/github/license/mashape/apistatus.svg)](https://packagist.org/packages/fond-of-oryx/prepayment)
+[![CI](https://github.com/fond-of-oryx/prepayment/actions/workflows/main.yml/badge.svg)](https://github.com/fond-of-oryx/prepayment/actions/workflows/main.yml)
+[![license](https://img.shields.io/github/license/fond-of-oryx/prepayment.svg)](https://packagist.org/packages/fond-of-oryx/prepayment)
 
 ## Installation
 ```

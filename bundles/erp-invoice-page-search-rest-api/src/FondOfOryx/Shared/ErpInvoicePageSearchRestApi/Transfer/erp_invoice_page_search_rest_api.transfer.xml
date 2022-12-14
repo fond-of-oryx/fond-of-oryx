@@ -38,6 +38,7 @@
 
     <transfer name="RestErpInvoice">
         <property name="externalReference" type="string" />
+        <property name="customReference" type="string" />
         <property name="invoiceDate" type="string" />
         <property name="documentNumber" type="string" />
         <property name="createdAt" type="string" />

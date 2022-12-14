@@ -3,6 +3,7 @@
 namespace FondOfOryx\Zed\Prepayment\Dependency\Injector;
 
 use FondOfOryx\Zed\Prepayment\Communication\Plugin\Oms\Command\PayPlugin;
+use FondOfOryx\Zed\Prepayment\Communication\Plugin\Oms\Condition\IsAuthorizedPlugin;
 use FondOfOryx\Zed\Prepayment\Communication\Plugin\Oms\Condition\IsPayedPlugin;
 use Spryker\Zed\Kernel\Container;
 use Spryker\Zed\Kernel\Dependency\Injector\AbstractDependencyInjector;
@@ -51,6 +52,12 @@ class OmsDependencyInjector extends AbstractDependencyInjector
     {
         $container->extend(OmsDependencyProvider::CONDITION_PLUGINS, function (ConditionCollectionInterface $conditionCollection) {
             $conditionCollection->add(new IsPayedPlugin(), 'Prepayment/IsPayed');
+
+            return $conditionCollection;
+        });
+
+        $container->extend(OmsDependencyProvider::CONDITION_PLUGINS, function (ConditionCollectionInterface $conditionCollection) {
+            $conditionCollection->add(new IsAuthorizedPlugin(), 'Prepayment/IsAuthorized');
 
             return $conditionCollection;
         });

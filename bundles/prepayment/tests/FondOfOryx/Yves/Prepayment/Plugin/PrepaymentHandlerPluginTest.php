@@ -97,7 +97,7 @@ class PrepaymentHandlerPluginTest extends Unit
 
         $catch = null;
         try {
-            $this->plugin->addToDataClass($this->requestMock, new PaymentTransfer());
+            $this->plugin->addToDataClass($this->requestMock, new PaymentTransfer());// @phpstan-ignore-line
         } catch (Exception $exception) {
             $catch = $exception;
         }
