@@ -120,6 +120,7 @@ class OneTimePasswordStepTest extends Unit
     public function testSendLoginLink(): void
     {
         $this->customerRegistrationRequestTransferMock->expects(static::atLeastOnce())->method('getAttributesOrFail')->willReturn($this->attributesTransferMock);
+        $this->customerRegistrationRequestTransferMock->expects(static::atLeastOnce())->method('getAttributes')->willReturn($this->attributesTransferMock);
         $this->customerRegistrationRequestTransferMock->expects(static::atLeastOnce())->method('getBag')->willReturn($this->bagTransferMock);
         $this->customerRegistrationRequestTransferMock->expects(static::atLeastOnce())->method('setBag')->with($this->bagTransferMock)->willReturnSelf();
         $this->otpFacadeMock->expects(static::atLeastOnce())->method('requestLoginLink')->willReturn($this->otpResponseTransferMock);
@@ -128,6 +129,7 @@ class OneTimePasswordStepTest extends Unit
         $this->bagTransferMock->expects(static::exactly(2))->method('setMessage')->willReturnSelf();
         $this->bagTransferMock->expects(static::atLeastOnce())->method('setIsLoginLinkSent')->with(true)->willReturnSelf();
         $this->bagTransferMock->expects(static::atLeastOnce())->method('setOneTimePasswordResponse')->with($this->otpResponseTransferMock)->willReturnSelf();
+        $this->attributesTransferMock->expects(static::atLeastOnce())->method('getCallbackUrl')->willReturn(null);
 
         $this->step->sendLoginLink(
             $this->customerRegistrationRequestTransferMock,
@@ -140,6 +142,7 @@ class OneTimePasswordStepTest extends Unit
     public function testSendLoginLinkGetLocaleByCurrentLocale(): void
     {
         $this->customerRegistrationRequestTransferMock->expects(static::atLeastOnce())->method('getAttributesOrFail')->willReturn($this->attributesTransferMock);
+        $this->customerRegistrationRequestTransferMock->expects(static::atLeastOnce())->method('getAttributes')->willReturn($this->attributesTransferMock);
         $this->customerRegistrationRequestTransferMock->expects(static::atLeastOnce())->method('getBag')->willReturn($this->bagTransferMock);
         $this->customerRegistrationRequestTransferMock->expects(static::atLeastOnce())->method('setBag')->with($this->bagTransferMock)->willReturnSelf();
         $this->otpFacadeMock->expects(static::atLeastOnce())->method('requestLoginLink')->willReturn($this->otpResponseTransferMock);
@@ -149,6 +152,7 @@ class OneTimePasswordStepTest extends Unit
         $this->bagTransferMock->expects(static::atLeastOnce())->method('setIsLoginLinkSent')->with(true)->willReturnSelf();
         $this->bagTransferMock->expects(static::atLeastOnce())->method('setOneTimePasswordResponse')->with($this->otpResponseTransferMock)->willReturnSelf();
         $this->localeFacadeMock->expects(static::atLeastOnce())->method('getCurrentLocale')->willReturn($this->localeTransferMock);
+        $this->attributesTransferMock->expects(static::atLeastOnce())->method('getCallbackUrl')->willReturn(null);
 
         $this->step->sendLoginLink(
             $this->customerRegistrationRequestTransferMock,

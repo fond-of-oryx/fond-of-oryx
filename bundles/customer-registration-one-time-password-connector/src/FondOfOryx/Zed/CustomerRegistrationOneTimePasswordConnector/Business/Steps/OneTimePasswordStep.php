@@ -102,6 +102,8 @@ class OneTimePasswordStep extends AbstractStep implements OneTimePasswordStepInt
     protected function createOneTimePasswordAttributes(
         CustomerRegistrationRequestTransfer $customerRegistrationRequestTransfer
     ): OneTimePasswordAttributesTransfer {
-        return (new OneTimePasswordAttributesTransfer())->setLocale($this->resolveLocale($customerRegistrationRequestTransfer));
+        return (new OneTimePasswordAttributesTransfer())
+            ->setLocale($this->resolveLocale($customerRegistrationRequestTransfer))
+            ->setCallbackUrl($customerRegistrationRequestTransfer->getAttributes()->getCallbackUrl());
     }
 }
