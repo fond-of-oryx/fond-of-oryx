@@ -40,7 +40,7 @@ jobs:
                 COMPOSER_AUTH: '{"github-oauth": {"github.com": "${{ secrets.GITHUB_TOKEN }}"}}'
               run: make install
             - name: Run phpcs
-              run: make phpcs
+              run: make phpcs-with-cache
             - name: Run codeception
               run: make codeception-without-coverage
             - name: Run phpstan
