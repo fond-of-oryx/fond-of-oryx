@@ -4,4 +4,16 @@
 
     <transfer name="Mail"/>
 
+    <transfer name="MailjetClientRequest">
+        <property name="from" type="MailjetClientRequestEmail"/>
+        <property name="to" type="MailjetClientRequestEmail"/>
+        <property name="subject" type="string"/>
+        <property name="templateId" type="int"/>
+        <property name="variables" type="array"/>
+    </transfer>
+
+    <transfer name="MailjetClientRequestEmail">
+        <property name="email" type="string"/>
+        <property name="name" type="string"/>
+    </transfer>
 </transfers>
