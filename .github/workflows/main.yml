@@ -34,12 +34,12 @@ jobs:
               uses: actions/cache@v3
               with:
                 path: phpcs.cache
-                key: ${{ runner.os }}-${{ steps.get-date.outputs.date }}
+                key: ${{ runner.os }}-${{ steps.get-date.outputs.date }}-${{ matrix.php-versions }}
             - name: Cache phpstan
               uses: actions/cache@v3
               with:
                 path: phpstanCache
-                key: ${{ runner.os }}-${{ steps.get-date.outputs.date }}
+                key: ${{ runner.os }}-${{ steps.get-date.outputs.date }}-${{ matrix.php-versions }}
             - name: Install dependencies
               env:
                 COMPOSER_AUTH: '{"github-oauth": {"github.com": "${{ secrets.GITHUB_TOKEN }}"}}'
