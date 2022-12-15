@@ -25,6 +25,7 @@ jobs:
             - name: Install dependencies
               env:
                 COMPOSER_AUTH: '{"github-oauth": {"github.com": "${{ secrets.GITHUB_TOKEN }}"}}'
+              run: make install
             - name: Cache composer dependencies
               uses: actions/cache@v3
               with:
@@ -33,7 +34,6 @@ jobs:
                 # key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.json') }}
                 key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
                 restore-keys: ${{ runner.os }}-composer-
-              run: make install
             - name: Run phpcs
               run: make phpcs
             - name: Run codeception
