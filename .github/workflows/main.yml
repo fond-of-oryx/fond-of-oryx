@@ -30,10 +30,15 @@ jobs:
                   # key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.json') }}
                   key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
                   restore-keys: ${{ runner.os }}-composer-
-            - name: Get phpcs cache
+            - name: Cache phpcs
               uses: actions/cache@v3
               with:
                 path: phpcs.cache
+                key: ${{ runner.os }}-${{ steps.get-date.outputs.date }}
+            - name: Cache phpstan
+              uses: actions/cache@v3
+              with:
+                path: phpstanCache
                 key: ${{ runner.os }}-${{ steps.get-date.outputs.date }}
             - name: Install dependencies
               env:
