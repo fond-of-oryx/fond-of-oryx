@@ -88,6 +88,14 @@ class MailjetMailConnectorConfig extends AbstractBundleConfig
     }
 
     /**
+     * @return bool
+     */
+    public function getSecure(): bool
+    {
+        return $this->get(MailjetMailConnectorConstants::MAILJET_SECURE, true);
+    }
+
+    /**
      * @param string $locale
      *
      * @return string

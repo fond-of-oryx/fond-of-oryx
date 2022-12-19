@@ -40,6 +40,7 @@ class MailjetMailConnectorBusinessFactory extends AbstractBusinessFactory
                 MailjetClient::CONNECT_TIMEOUT => $this->getConfig()->getMailjetConnectionTimeout(),
                 'version' => $this->getConfig()->getVersion(),
                 'url' => $this->getConfig()->getUrl(),
+                'secured' => $this->getConfig()->getSecure(),
             ],
         );
     }

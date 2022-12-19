@@ -58,4 +58,9 @@ interface MailjetMailConnectorConstants
      * @var string
      */
     public const MAILJET_URL = 'MailjetMailConnector:MAILJET_URL';
+
+    /**
+     * @var string
+     */
+    public const MAILJET_SECURE = 'MailjetMailConnector:MAILJET_SECURE';
 }
