@@ -71,6 +71,7 @@ class ReturnLabelGenerator implements ReturnLabelGeneratorInterface
                 ->setReturnLabel($returnLabelTransfer);
         } catch (Exception $exception) {
             $this->logger->error($exception->getMessage(), $exception->getTrace());
+
             return $returnLabelResponseTransfer;
         }
     }
