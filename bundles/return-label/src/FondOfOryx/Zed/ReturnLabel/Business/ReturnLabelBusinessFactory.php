@@ -10,6 +10,7 @@ use FondOfOryx\Zed\ReturnLabel\Dependency\Service\ReturnLabelToUtilEncodingServi
 use FondOfOryx\Zed\ReturnLabel\ReturnLabelDependencyProvider;
 use GuzzleHttp\Client as HttpClient;
 use GuzzleHttp\ClientInterface as HttpClientInterface;
+use Spryker\Shared\Log\LoggerTrait;
 use Spryker\Zed\Kernel\Business\AbstractBusinessFactory;
 
 /**
@@ -18,6 +19,8 @@ use Spryker\Zed\Kernel\Business\AbstractBusinessFactory;
  */
 class ReturnLabelBusinessFactory extends AbstractBusinessFactory
 {
+    use LoggerTrait;
+
     /**
      * @return \FondOfOryx\Zed\ReturnLabel\Business\Model\ReturnLabelGeneratorInterface
      */
@@ -26,6 +29,7 @@ class ReturnLabelBusinessFactory extends AbstractBusinessFactory
         return new ReturnLabelGenerator(
             $this->createReturnLabelAdapter(),
             $this->getConfig(),
+            $this->getLogger(),
         );
     }
 

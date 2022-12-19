@@ -7,6 +7,8 @@ use FondOfOryx\Zed\ReturnLabel\Business\Model\ReturnLabelGenerator;
 use FondOfOryx\Zed\ReturnLabel\Dependency\Service\ReturnLabelToUtilEncodingServiceBridge;
 use FondOfOryx\Zed\ReturnLabel\ReturnLabelConfig;
 use FondOfOryx\Zed\ReturnLabel\ReturnLabelDependencyProvider;
+use Psr\Log\LoggerInterface;
+use Spryker\Shared\Log\Config\LoggerConfigInterface;
 use Spryker\Zed\Kernel\Container;
 
 class ReturnLabelBusinessFactoryTest extends Unit
@@ -20,6 +22,11 @@ class ReturnLabelBusinessFactoryTest extends Unit
      * @var \FondOfOryx\Zed\ReturnLabel\ReturnLabelConfig|\PHPUnit\Framework\MockObject\MockObject
      */
     protected $configMock;
+
+    /**
+     * @var \Psr\Log\LoggerInterface
+     */
+    protected $loggerMock;
 
     /**
      * @var \FondOfOryx\Zed\ReturnLabel\Dependency\Service\ReturnLabelToUtilEncodingServiceInterface|\PHPUnit\Framework\MockObject\MockObject
@@ -46,11 +53,38 @@ class ReturnLabelBusinessFactoryTest extends Unit
             ->disableOriginalConstructor()
             ->getMock();
 
+        $this->loggerMock = $this->getMockBuilder(LoggerInterface::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
         $this->returnLabelToUtilEncodingServiceMock = $this->getMockBuilder(ReturnLabelToUtilEncodingServiceBridge::class)
             ->disableOriginalConstructor()
             ->getMock();
 
-        $this->factory = new ReturnLabelBusinessFactory();
+        $this->factory = new class ($this->loggerMock) extends ReturnLabelBusinessFactory {
+            /**
+             * @var \Psr\Log\LoggerInterface
+             */
+            protected $loggerMock;
+
+            /**
+             * @param \Psr\Log\LoggerInterface $logger
+             */
+            public function __construct(LoggerInterface $logger)
+            {
+                $this->loggerMock = $logger;
+            }
+
+            /**
+             * @param \Spryker\Shared\Log\Config\LoggerConfigInterface|null $loggerConfig
+             *
+             * @return \Psr\Log\LoggerInterface
+             */
+            public function getLogger(?LoggerConfigInterface $loggerConfig = null): LoggerInterface
+            {
+                return $this->loggerMock;
+            }
+        };
         $this->factory->setContainer($this->containerMock);
         $this->factory->setConfig($this->configMock);
     }

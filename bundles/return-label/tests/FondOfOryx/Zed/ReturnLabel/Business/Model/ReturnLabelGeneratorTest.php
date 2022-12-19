@@ -7,6 +7,7 @@ use FondOfOryx\Zed\ReturnLabel\Business\Api\Adapter\ReturnLabelAdapter;
 use FondOfOryx\Zed\ReturnLabel\ReturnLabelConfig;
 use Generated\Shared\Transfer\ReturnLabelRequestTransfer;
 use GuzzleHttp\Psr7\Stream;
+use Psr\Log\LoggerInterface;
 
 class ReturnLabelGeneratorTest extends Unit
 {
@@ -19,6 +20,11 @@ class ReturnLabelGeneratorTest extends Unit
      * @var \FondOfOryx\Zed\ReturnLabel\ReturnLabelConfig|\PHPUnit\Framework\MockObject\MockObject
      */
     protected $configMock;
+
+    /**
+     * @var \Psr\Log\LoggerInterface|\PHPUnit\Framework\MockObject\MockObject
+     */
+    protected $loggerMock;
 
     /**
      * @var \Generated\Shared\Transfer\ReturnLabelRequestTransfer|\PHPUnit\Framework\MockObject\MockObject
@@ -58,9 +64,14 @@ class ReturnLabelGeneratorTest extends Unit
             ->disableOriginalConstructor()
             ->getMock();
 
+        $this->loggerMock = $this->getMockBuilder(LoggerInterface::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
         $this->generator = new ReturnLabelGenerator(
             $this->returnLabelAdapterMock,
             $this->configMock,
+            $this->loggerMock,
         );
     }
 

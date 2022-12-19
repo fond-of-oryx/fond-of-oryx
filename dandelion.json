@@ -680,7 +680,7 @@
     },
     "return-label": {
       "path": "bundles/return-label/",
-      "version": "1.0.0"
+      "version": "1.0.1"
     },
     "return-labels-rest-api": {
       "path": "bundles/return-labels-rest-api/",

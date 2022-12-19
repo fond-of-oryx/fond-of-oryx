@@ -85,7 +85,7 @@ class ReturnLabelDependencyProvider extends AbstractBundleDependencyProvider
         $container->set(
             static::PROPEL_QUERY_COMPANY_UNIT_ADDRESS,
             static function () {
-                return SpyCompanyUnitAddressQuery::create();
+                return SpyCompanyUnitAddressQuery::create();// @phpstan-ignore-line
             },
         );
 
@@ -102,7 +102,7 @@ class ReturnLabelDependencyProvider extends AbstractBundleDependencyProvider
         $container->set(
             static::PROPEL_QUERY_COMPANY_BUSINESS_UNIT,
             static function () {
-                return SpyCompanyBusinessUnitQuery::create();
+                return SpyCompanyBusinessUnitQuery::create();// @phpstan-ignore-line
             },
         );
 
@@ -119,7 +119,7 @@ class ReturnLabelDependencyProvider extends AbstractBundleDependencyProvider
         $container->set(
             static::PROPEL_QUERY_COMPANY,
             static function () {
-                return SpyCompanyQuery::create();
+                return SpyCompanyQuery::create();// @phpstan-ignore-line
             },
         );
 
