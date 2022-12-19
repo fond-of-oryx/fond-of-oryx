@@ -66,9 +66,25 @@ class MailjetMailConnectorConfig extends AbstractBundleConfig
     /**
      * @return string
      */
+    public function getVersion(): string
+    {
+        return $this->get(MailjetMailConnectorConstants::MAILJET_VERSION, 'v3.1');
+    }
+
+    /**
+     * @return string
+     */
     public function getDefaultLocale(): string
     {
         return $this->get(MailjetMailConnectorConstants::MAILJET_DEFAULT_LOCALE, 'en_US');
+    }
+
+    /**
+     * @return string
+     */
+    public function getUrl(): string
+    {
+        return $this->get(MailjetMailConnectorConstants::MAILJET_URL, 'api.mailjet.com');
     }
 
     /**

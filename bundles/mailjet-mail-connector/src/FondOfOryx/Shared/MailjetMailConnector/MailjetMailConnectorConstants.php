@@ -48,4 +48,14 @@ interface MailjetMailConnectorConstants
      * @var string
      */
     public const MAILJET_ORDER_CONFIRMATION_TEMPLATE_ID_BY_LOCALE = 'MailjetMailConnector:MAILJET_ORDER_CONFIRMATION_TEMPLATE_ID_BY_LOCALE';
+
+    /**
+     * @var string
+     */
+    public const MAILJET_VERSION = 'MailjetMailConnector:MAILJET_VERSION';
+
+    /**
+     * @var string
+     */
+    public const MAILJET_URL = 'MailjetMailConnector:MAILJET_URL';
 }
