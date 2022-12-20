@@ -598,6 +598,10 @@
       "path": "bundles/payone-credit-memo-gift-card-connector/",
       "version": "0.0.4-alpha"
     },
+    "payone-rest-api": {
+      "path": "bundles/payone-rest-api/",
+      "version": "1.0.0-alpha"
+    },
     "payone-secure-invoice": {
       "path": "bundles/payone-secure-invoice/",
       "version": "1.0.1"

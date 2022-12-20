@@ -19,9 +19,9 @@ class PayoneRestApiFactory extends AbstractFactory
 {
     /**
      * @return \FondOfOryx\Glue\PayoneRestApi\Processor\CreditCardCheckProcessorInterface
-     * @throws \Spryker\Glue\Kernel\Exception\Container\ContainerKeyNotFoundException
      */
-    public function createCreditCardCheckProcessor(): CreditCardCheckProcessorInterface{
+    public function createCreditCardCheckProcessor(): CreditCardCheckProcessorInterface
+    {
         return new CreditCardCheckProcessor($this->getPayoneRestApiToPayoneClient(), $this->createRestResponseBuilder());
     }
 
@@ -32,7 +32,8 @@ class PayoneRestApiFactory extends AbstractFactory
     {
         return new RestResponseBuilder(
             $this->getResourceBuilder(),
-            $this->createRestCreditCardDataResponseAttributesMapper());
+            $this->createRestCreditCardDataResponseAttributesMapper(),
+        );
     }
 
     /**
@@ -61,7 +62,6 @@ class PayoneRestApiFactory extends AbstractFactory
 
     /**
      * @return \FondOfOryx\Glue\PayoneRestApi\Dependency\PayoneRestApiToPayoneClientInterface
-     * @throws \Spryker\Glue\Kernel\Exception\Container\ContainerKeyNotFoundException
      */
     public function getPayoneRestApiToPayoneClient(): PayoneRestApiToPayoneClientInterface
     {

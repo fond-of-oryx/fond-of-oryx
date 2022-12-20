@@ -8,16 +8,25 @@ use Spryker\Zed\OrderPaymentsRestApiExtension\Dependency\Plugin\OrderPaymentUpda
 
 class PayoneRestApiOrderPaymentUpdaterPlugin implements OrderPaymentUpdaterPluginInterface
 {
+    /**
+     * @param \Generated\Shared\Transfer\UpdateOrderPaymentRequestTransfer $updateOrderPaymentRequestTransfer
+     *
+     * @return bool
+     */
     public function isApplicable(UpdateOrderPaymentRequestTransfer $updateOrderPaymentRequestTransfer): bool
     {
         //toDo add correct check!
         return true;
     }
 
+    /**
+     * @param \Generated\Shared\Transfer\UpdateOrderPaymentRequestTransfer $updateOrderPaymentRequestTransfer
+     *
+     * @return \Generated\Shared\Transfer\UpdateOrderPaymentResponseTransfer
+     */
     public function updateOrderPayment(UpdateOrderPaymentRequestTransfer $updateOrderPaymentRequestTransfer): UpdateOrderPaymentResponseTransfer
     {
         //toDo add real logic
         return new UpdateOrderPaymentResponseTransfer();
     }
-
 }

@@ -11,7 +11,11 @@ interface PayoneHandlerInterface
     /**
      * @param \Generated\Shared\Transfer\RestPaymentTransfer $restPaymentTransfer
      * @param \Generated\Shared\Transfer\RestCheckoutRequestAttributesTransfer $restCheckoutRequestAttributesTransfer
+     *
      * @return \Generated\Shared\Transfer\PaymentTransfer
      */
-    public function preparePayment(RestPaymentTransfer $restPaymentTransfer, RestCheckoutRequestAttributesTransfer $restCheckoutRequestAttributesTransfer):PaymentTransfer;
+    public function preparePayment(
+        RestPaymentTransfer $restPaymentTransfer,
+        RestCheckoutRequestAttributesTransfer $restCheckoutRequestAttributesTransfer
+    ): PaymentTransfer;
 }

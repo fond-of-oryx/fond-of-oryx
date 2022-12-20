@@ -37,5 +37,4 @@ class PayoneCheckoutDataResponseMapperPlugin extends AbstractPlugin implements C
                 $restCheckoutResponseAttributesTransfer,
             );
     }
-
 }

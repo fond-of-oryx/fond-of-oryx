@@ -9,6 +9,7 @@ interface RestCreditCardDataResponseAttributesMapperInterface
 {
     /**
      * @param \SprykerEco\Client\Payone\ClientApi\Request\CreditCardCheckContainer $creditCardCheckContainer
+     *
      * @return \Generated\Shared\Transfer\RestPayoneCreditCardDataResponseAttributesTransfer
      */
     public function mapCreditCardDataContainerToResponseAttributesTransfer(

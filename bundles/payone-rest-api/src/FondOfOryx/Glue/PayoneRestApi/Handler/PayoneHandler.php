@@ -12,9 +12,24 @@ use Spryker\Shared\Kernel\Store;
 
 class PayoneHandler implements PayoneHandlerInterface
 {
+    /**
+     * @var string
+     */
     public const PAYMENT_PROVIDER = 'Payone';
+
+    /**
+     * @var string
+     */
     public const CHECKOUT_INCLUDE_SUMMARY_PATH = 'Payone/partial/summary';
+
+    /**
+     * @var string
+     */
     public const CHECKOUT_INCLUDE_SUCCESS_PATH = 'Payone/partial/success';
+
+    /**
+     * @var string
+     */
     protected const PAYONE_PAYMENT_REFERENCE_PREFIX = 'TX1';
 
     /**
@@ -41,10 +56,13 @@ class PayoneHandler implements PayoneHandlerInterface
     /**
      * @param \Generated\Shared\Transfer\RestPaymentTransfer $restPaymentTransfer
      * @param \Generated\Shared\Transfer\RestCheckoutRequestAttributesTransfer $restCheckoutRequestAttributesTransfer
+     *
      * @return \Generated\Shared\Transfer\PaymentTransfer
      */
-    public function preparePayment(RestPaymentTransfer $restPaymentTransfer, RestCheckoutRequestAttributesTransfer $restCheckoutRequestAttributesTransfer):PaymentTransfer
-    {
+    public function preparePayment(
+        RestPaymentTransfer $restPaymentTransfer,
+        RestCheckoutRequestAttributesTransfer $restCheckoutRequestAttributesTransfer
+    ): PaymentTransfer {
         $paymentTransfer = new PaymentTransfer();
         $paymentSelection = $restPaymentTransfer->getPaymentSelection();
 
@@ -58,6 +76,7 @@ class PayoneHandler implements PayoneHandlerInterface
     /**
      * @param \Generated\Shared\Transfer\PaymentTransfer $paymentTransfer
      * @param string $paymentSelection
+     *
      * @return void
      */
     protected function setPaymentProviderAndMethod(PaymentTransfer $paymentTransfer, string $paymentSelection): void
@@ -69,6 +88,7 @@ class PayoneHandler implements PayoneHandlerInterface
 
     /**
      * @param \Generated\Shared\Transfer\PaymentTransfer $paymentTransfer
+     *
      * @return void
      */
     protected function setPaymentSuccessIncludePath(PaymentTransfer $paymentTransfer): void
@@ -80,23 +100,26 @@ class PayoneHandler implements PayoneHandlerInterface
     /**
      * @param \Generated\Shared\Transfer\PaymentTransfer $paymentTransfer
      * @param \Generated\Shared\Transfer\RestCheckoutRequestAttributesTransfer $requestAttributesTransfer
+     * @param \Generated\Shared\Transfer\RestPaymentTransfer $restPaymentTransfer
      * @param string $paymentSelection
+     *
      * @return void
      */
-    protected function setPayonePayment(PaymentTransfer $paymentTransfer, RestCheckoutRequestAttributesTransfer $requestAttributesTransfer, RestPaymentTransfer $restPaymentTransfer, string $paymentSelection): void
-    {
+    protected function setPayonePayment(
+        PaymentTransfer $paymentTransfer,
+        RestCheckoutRequestAttributesTransfer $requestAttributesTransfer,
+        RestPaymentTransfer $restPaymentTransfer,
+        string $paymentSelection
+    ): void {
         $payonePaymentTransfer = $this->getPayonePaymentTransfer($restPaymentTransfer, $paymentSelection);
 
         $paymentDetailTransfer = new PaymentDetailTransfer();
         $paymentDetailTransfer->setCurrency($this->getCurrency());
         if ($paymentSelection === PaymentTransfer::PAYONE_CREDIT_CARD) {
-            /** @var \Generated\Shared\Transfer\PayonePaymentCreditCardTransfer $payonePaymentTransfer */
             $paymentDetailTransfer->setPseudoCardPan($payonePaymentTransfer->getPseudocardpan());
         } elseif ($paymentSelection === PaymentTransfer::PAYONE_E_WALLET) {
-            /** @var \Generated\Shared\Transfer\PayonePaymentEWalletTransfer $payonePaymentTransfer */
             $paymentDetailTransfer->setType($payonePaymentTransfer->getWallettype());
         } elseif ($paymentSelection === PaymentTransfer::PAYONE_DIRECT_DEBIT) {
-            /** @var \Generated\Shared\Transfer\PayonePaymentDirectDebitTransfer $payonePaymentTransfer */
             $paymentDetailTransfer->setBankCountry($payonePaymentTransfer->getBankcountry());
             $paymentDetailTransfer->setBankAccount($payonePaymentTransfer->getBankaccount());
             $paymentDetailTransfer->setBankCode($payonePaymentTransfer->getBankcode());
@@ -114,7 +137,6 @@ class PayoneHandler implements PayoneHandlerInterface
             || $paymentSelection === PaymentTransfer::PAYONE_PRZELEWY24_ONLINE_TRANSFER
             || $paymentSelection === PaymentTransfer::PAYONE_BANCONTACT_ONLINE_TRANSFER
         ) {
-            /** @var \Generated\Shared\Transfer\PayonePaymentOnlinetransferTransfer $payonePaymentTransfer */
             $paymentDetailTransfer->setType($payonePaymentTransfer->getOnlineBankTransferType());
             $paymentDetailTransfer->setBankCountry($payonePaymentTransfer->getBankCountry());
             if ($paymentSelection === PaymentTransfer::PAYONE_BANCONTACT_ONLINE_TRANSFER) {
@@ -150,11 +172,13 @@ class PayoneHandler implements PayoneHandlerInterface
     /**
      * @param \Generated\Shared\Transfer\RestPaymentTransfer $restPaymentTransfer
      * @param string $paymentSelection
-     * @return mixed
+     *
+     * @return \Generated\Shared\Transfer\PayonePaymentCreditCardTransfer|\Generated\Shared\Transfer\PayonePaymentEWalletTransfer|\Generated\Shared\Transfer\PayonePaymentDirectDebitTransfer|\Generated\Shared\Transfer\PayonePaymentOnlinetransferTransfer
      */
     protected function getPayonePaymentTransfer(RestPaymentTransfer $restPaymentTransfer, string $paymentSelection)
     {
         $method = 'get' . ucfirst($paymentSelection);
+
         return $restPaymentTransfer->$method();
     }
 }

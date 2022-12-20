@@ -19,7 +19,6 @@ class PayoneRestApiCheckoutResponseMapperPlugin extends AbstractPlugin implement
         RestCheckoutResponseTransfer $restCheckoutResponseTransfer,
         RestCheckoutResponseAttributesTransfer $restCheckoutResponseAttributesTransfer
     ): RestCheckoutResponseAttributesTransfer {
-
         $restCheckoutResponseAttributesTransfer
             ->setIsExternalRedirect($restCheckoutResponseTransfer->getCheckoutResponse()->getIsExternalRedirect())
             ->setRedirectUrl($restCheckoutResponseTransfer->getCheckoutResponse()->getRedirectUrl());

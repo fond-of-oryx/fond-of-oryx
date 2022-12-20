@@ -9,6 +9,7 @@ class RestCreditCardDataResponseAttributesMapper implements RestCreditCardDataRe
 {
     /**
      * @param \SprykerEco\Client\Payone\ClientApi\Request\CreditCardCheckContainer $creditCardCheckContainer
+     *
      * @return \Generated\Shared\Transfer\RestPayoneCreditCardDataResponseAttributesTransfer
      */
     public function mapCreditCardDataContainerToResponseAttributesTransfer(
@@ -17,7 +18,7 @@ class RestCreditCardDataResponseAttributesMapper implements RestCreditCardDataRe
         return (new RestPayoneCreditCardDataResponseAttributesTransfer())
             ->fromArray($creditCardCheckContainer->toArray(), true)
             ->setPortalId($creditCardCheckContainer->getPortalid())
-            ->setResponseType($creditCardCheckContainer->getResponseType() === null ? 'JSON' : $creditCardCheckContainer->getResponseType())
+            ->setResponseType($creditCardCheckContainer->getResponseType() ?? 'JSON')
             ->setStoreCardData($creditCardCheckContainer->getStorecarddata())
             ->setJsonData($creditCardCheckContainer->toJson());
     }

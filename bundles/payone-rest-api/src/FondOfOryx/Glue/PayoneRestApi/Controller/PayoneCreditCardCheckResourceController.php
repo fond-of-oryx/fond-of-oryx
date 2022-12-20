@@ -13,15 +13,14 @@ class PayoneCreditCardCheckResourceController extends AbstractController
 {
     /**
      * @param \Spryker\Glue\GlueApplication\Rest\Request\Data\RestRequestInterface $restRequest
+     *
      * @return \Spryker\Glue\GlueApplication\Rest\JsonApi\RestResponseInterface
      */
     public function getAction(
         RestRequestInterface $restRequest
-    ): RestResponseInterface
-    {
+    ): RestResponseInterface {
         return $this->getFactory()
             ->createCreditCardCheckProcessor()
             ->getCheckCreditCardData($restRequest);
     }
-
 }

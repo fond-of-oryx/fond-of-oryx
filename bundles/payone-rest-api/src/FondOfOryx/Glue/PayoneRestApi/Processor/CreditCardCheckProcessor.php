@@ -31,12 +31,12 @@ class CreditCardCheckProcessor implements CreditCardCheckProcessorInterface
 
     /**
      * @param \Spryker\Glue\GlueApplication\Rest\Request\Data\RestRequestInterface $restRequest
+     *
      * @return \Spryker\Glue\GlueApplication\Rest\JsonApi\RestResponseInterface
      */
     public function getCheckCreditCardData(
         RestRequestInterface $restRequest
-    ): RestResponseInterface
-    {
+    ): RestResponseInterface {
         return $this->responseBuilder->buildCreditCardDataCheckRestResponse($this->payoneClient->getCreditCardCheckRequest(), $restRequest);
     }
 }

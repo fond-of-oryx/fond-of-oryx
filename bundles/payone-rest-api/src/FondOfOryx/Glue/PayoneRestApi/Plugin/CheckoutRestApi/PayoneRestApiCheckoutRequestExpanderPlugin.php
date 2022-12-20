@@ -13,17 +13,25 @@ use Spryker\Glue\Kernel\AbstractPlugin;
  */
 class PayoneRestApiCheckoutRequestExpanderPlugin extends AbstractPlugin implements CheckoutRequestExpanderPluginInterface
 {
-    public function expand(RestRequestInterface $restRequest, RestCheckoutRequestAttributesTransfer $restCheckoutRequestAttributesTransfer): RestCheckoutRequestAttributesTransfer
-    {
+    /**
+     * @param \Spryker\Glue\GlueApplication\Rest\Request\Data\RestRequestInterface $restRequest
+     * @param \Generated\Shared\Transfer\RestCheckoutRequestAttributesTransfer $restCheckoutRequestAttributesTransfer
+     *
+     * @return \Generated\Shared\Transfer\RestCheckoutRequestAttributesTransfer
+     */
+    public function expand(
+        RestRequestInterface $restRequest,
+        RestCheckoutRequestAttributesTransfer $restCheckoutRequestAttributesTransfer
+    ): RestCheckoutRequestAttributesTransfer {
         $payments = $restCheckoutRequestAttributesTransfer->getPayments();
-        foreach ($payments as $restPayment){
-            if (strtolower($restPayment->getPaymentProviderName()) === strtolower(PayoneRestApiConstants::PROVIDER_NAME)){
+        foreach ($payments as $restPayment) {
+            if (strtolower($restPayment->getPaymentProviderName()) === strtolower(PayoneRestApiConstants::PROVIDER_NAME)) {
                 $handler = $this->getFactory()->createPayoneHandler();
                 $payment = $handler->preparePayment($restPayment, $restCheckoutRequestAttributesTransfer);
                 $restPayment->setPayone($payment->getPayone())->setPaymentMethodName($payment->getPaymentMethod());
             }
         }
+
         return $restCheckoutRequestAttributesTransfer;
     }
-
 }
