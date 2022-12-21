@@ -1,0 +1,50 @@
+{
+  "name": "fond-of-oryx/payone-rest-api",
+  "description": "n/a",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Julian Hyatt",
+      "email": "dev@jzit.de"
+    }
+  ],
+  "repositories": [
+    {
+      "type": "vcs",
+      "url": "https://github.com/fond-of/payone"
+    }
+  ],
+  "require": {
+    "php": ">=7.4",
+    "spryker/glue-application": "^1.0.0",
+    "spryker/payments-rest-api": "^1.0.0",
+    "spryker/checkout-rest-api": "^3.0.0",
+    "spryker/order-payments-rest-api": "^1.0.0",
+    "spryker-eco/payone": "dev-master-fondof as 4.4.2"
+  },
+  "require-dev": {
+    "fond-of-codeception/spryker": "^1.0",
+    "spryker/code-sniffer": "*",
+    "spryker-sdk/phpstan-spryker": "*"
+  },
+  "minimum-stability": "dev",
+  "prefer-stable": true,
+  "autoload": {
+    "psr-4": {
+      "FondOfOryx\\": "src/FondOfOryx/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "FondOfOryx\\": "tests/FondOfOryx/",
+      "Generated\\": "src/Generated/",
+      "Orm\\Zed\\": "src/Orm/Zed/"
+    }
+  },
+  "config": {
+    "sort-packages": true,
+    "allow-plugins": {
+      "dealerdirect/phpcodesniffer-composer-installer": true
+    }
+  }
+}
