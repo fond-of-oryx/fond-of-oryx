@@ -600,7 +600,7 @@
     },
     "payone-rest-api": {
       "path": "bundles/payone-rest-api/",
-      "version": "1.0.0-alpha"
+      "version": "0.0.1-alpha"
     },
     "payone-secure-invoice": {
       "path": "bundles/payone-secure-invoice/",
