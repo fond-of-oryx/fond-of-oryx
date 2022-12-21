@@ -4,9 +4,11 @@ namespace FondOfOryx\Zed\PayoneRestApi\Communication\Plugin\OrderPaymentsRestApi
 
 use Generated\Shared\Transfer\UpdateOrderPaymentRequestTransfer;
 use Generated\Shared\Transfer\UpdateOrderPaymentResponseTransfer;
+use Spryker\Zed\Kernel\Communication\AbstractPlugin;
 use Spryker\Zed\OrderPaymentsRestApiExtension\Dependency\Plugin\OrderPaymentUpdaterPluginInterface;
+use SprykerEco\Shared\Payone\PayoneApiConstants;
 
-class PayoneRestApiOrderPaymentUpdaterPlugin implements OrderPaymentUpdaterPluginInterface
+class PayoneRestApiOrderPaymentUpdaterPlugin extends AbstractPlugin implements OrderPaymentUpdaterPluginInterface
 {
     /**
      * @param \Generated\Shared\Transfer\UpdateOrderPaymentRequestTransfer $updateOrderPaymentRequestTransfer
@@ -15,8 +17,7 @@ class PayoneRestApiOrderPaymentUpdaterPlugin implements OrderPaymentUpdaterPlugi
      */
     public function isApplicable(UpdateOrderPaymentRequestTransfer $updateOrderPaymentRequestTransfer): bool
     {
-        //toDo add correct check!
-        return true;
+        return strtolower($updateOrderPaymentRequestTransfer->getPaymentIdentifier()) === strtolower(PayoneApiConstants::PROVIDER_NAME);
     }
 
     /**
@@ -26,7 +27,11 @@ class PayoneRestApiOrderPaymentUpdaterPlugin implements OrderPaymentUpdaterPlugi
      */
     public function updateOrderPayment(UpdateOrderPaymentRequestTransfer $updateOrderPaymentRequestTransfer): UpdateOrderPaymentResponseTransfer
     {
-        //toDo add real logic
-        return new UpdateOrderPaymentResponseTransfer();
+        //ToDo: Maybe do some facade call for communication with payone
+
+        return (new UpdateOrderPaymentResponseTransfer())
+            ->setIsSuccessful(true)
+            ->setPaymentIdentifier($updateOrderPaymentRequestTransfer->getPaymentIdentifier())
+            ->setDataPayload($updateOrderPaymentRequestTransfer->getDataPayload());
     }
 }
