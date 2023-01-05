@@ -1,4 +1,4 @@
-namespace: fond-of-oryx/payone-rest-api
+namespace: fond-of-oryx/checkout-rest-api-payone-connector
 
 suites:
   unit:
