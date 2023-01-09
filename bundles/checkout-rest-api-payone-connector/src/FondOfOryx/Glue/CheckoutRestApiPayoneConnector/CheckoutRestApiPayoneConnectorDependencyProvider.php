@@ -2,7 +2,6 @@
 
 namespace FondOfOryx\Glue\CheckoutRestApiPayoneConnector;
 
-use FondOfOryx\Glue\CheckoutRestApiPayoneConnector\Dependency\CheckoutRestApiPayoneConnectorToPayoneClientBridge;
 use FondOfOryx\Glue\CheckoutRestApiPayoneConnector\Dependency\CheckoutRestApiPayoneConnectorToStoreClientBridge;
 use Spryker\Glue\Kernel\AbstractBundleDependencyProvider;
 use Spryker\Glue\Kernel\Container;

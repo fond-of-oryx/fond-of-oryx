@@ -4,9 +4,7 @@ namespace FondOfOryx\Glue\CheckoutRestApiPayoneConnector\Processor\Validator;
 
 use Codeception\Test\Unit;
 use FondOfOryx\Glue\CheckoutRestApiPayoneConnector\CheckoutRestApiPayoneConnectorConfig;
-use Generated\Shared\Transfer\PayoneCreditCardTransfer;
 use Generated\Shared\Transfer\RestPaymentTransfer;
-use Generated\Shared\Transfer\RestPayoneCreditCardTransfer;
 use Generated\Shared\Transfer\RestPayoneEWalletTransfer;
 
 class PayoneEWalletValidatorTest extends Unit

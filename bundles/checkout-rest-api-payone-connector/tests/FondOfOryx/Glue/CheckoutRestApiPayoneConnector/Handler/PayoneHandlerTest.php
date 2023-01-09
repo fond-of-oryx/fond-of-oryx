@@ -16,6 +16,9 @@ class PayoneHandlerTest extends Unit
      */
     private $payoneHandler;
 
+    /**
+     * @return void
+     */
     protected function _before(): void
     {
         $storeClientMock = $this->getMockBuilder(CheckoutRestApiPayoneConnectorToStoreClientBridge::class)

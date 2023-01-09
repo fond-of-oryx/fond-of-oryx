@@ -11,9 +11,9 @@ use Symfony\Component\HttpFoundation\Response;
 class PayoneCreditCardValidator implements ValidatorInterface
 {
     /**
-     * @param RestPaymentTransfer $restPaymentTransfer
+     * @param \Generated\Shared\Transfer\RestPaymentTransfer $restPaymentTransfer
      *
-     * @return RestErrorCollectionTransfer
+     * @return \Generated\Shared\Transfer\RestErrorCollectionTransfer
      */
     public function validate(RestPaymentTransfer $restPaymentTransfer): RestErrorCollectionTransfer
     {

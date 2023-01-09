@@ -4,12 +4,13 @@ namespace FondOfOryx\Glue\CheckoutRestApiPayoneConnector\Plugin\CheckoutRestApi;
 
 use Generated\Shared\Transfer\RestCheckoutRequestAttributesTransfer;
 use Generated\Shared\Transfer\RestErrorCollectionTransfer;
+use Spryker\Glue\CheckoutRestApiExtension\Dependency\Plugin\CheckoutRequestValidatorPluginInterface;
 use SprykerEco\Shared\Payone\PayoneApiConstants;
 
 /**
  * @method \FondOfOryx\Glue\CheckoutRestApiPayoneConnector\CheckoutRestApiPayoneConnectorFactory getFactory()
  */
-class PaymentPayoneCheckoutRequestValidatorPlugin implements \Spryker\Glue\CheckoutRestApiExtension\Dependency\Plugin\CheckoutRequestValidatorPluginInterface
+class PaymentPayoneCheckoutRequestValidatorPlugin implements CheckoutRequestValidatorPluginInterface
 {
     /**
      * @param \Generated\Shared\Transfer\RestCheckoutRequestAttributesTransfer $restCheckoutRequestAttributesTransfer

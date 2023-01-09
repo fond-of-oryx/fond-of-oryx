@@ -38,13 +38,14 @@ class PayoneHandler implements PayoneHandlerInterface
         PaymentTransfer::PAYONE_CREDIT_CARD => PayoneApiConstants::PAYMENT_METHOD_CREDITCARD,
         PaymentTransfer::PAYONE_E_WALLET => PayoneApiConstants::PAYMENT_METHOD_E_WALLET,
     ];
+
     /**
-     * @var CheckoutRestApiPayoneConnectorToStoreClientBridgeInterface
+     * @var \FondOfOryx\Glue\CheckoutRestApiPayoneConnector\Dependency\CheckoutRestApiPayoneConnectorToStoreClientBridgeInterface
      */
     private $storeClient;
 
     /**
-     * @param CheckoutRestApiPayoneConnectorToStoreClientBridgeInterface $storeClient
+     * @param \FondOfOryx\Glue\CheckoutRestApiPayoneConnector\Dependency\CheckoutRestApiPayoneConnectorToStoreClientBridgeInterface $storeClient
      */
     public function __construct(CheckoutRestApiPayoneConnectorToStoreClientBridgeInterface $storeClient)
     {
@@ -113,9 +114,11 @@ class PayoneHandler implements PayoneHandlerInterface
         switch ($paymentSelection) {
             case PaymentTransfer::PAYONE_CREDIT_CARD:
                 $paymentDetailTransfer->setPseudoCardPan($restPayoneTransfer->getPseudoCardPan());
+
                 break;
             case PaymentTransfer::PAYONE_E_WALLET:
                 $paymentDetailTransfer->setType($restPayoneTransfer->getWalletType());
+
                 break;
         }
 

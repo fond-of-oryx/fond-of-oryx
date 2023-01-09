@@ -2,7 +2,6 @@
 
 namespace FondOfOryx\Glue\CheckoutRestApiPayoneConnector\Plugin\CheckoutRestApi;
 
-use FondOfOryx\Shared\CheckoutRestApiPayoneConnector\CheckoutRestApiPayoneConnectorConstants;
 use Generated\Shared\Transfer\RestCheckoutRequestAttributesTransfer;
 use Spryker\Glue\CheckoutRestApiExtension\Dependency\Plugin\CheckoutRequestExpanderPluginInterface;
 use Spryker\Glue\GlueApplication\Rest\Request\Data\RestRequestInterface;

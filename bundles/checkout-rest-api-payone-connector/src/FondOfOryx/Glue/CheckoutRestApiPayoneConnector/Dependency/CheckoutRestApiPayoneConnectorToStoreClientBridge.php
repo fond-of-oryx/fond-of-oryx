@@ -12,7 +12,7 @@ class CheckoutRestApiPayoneConnectorToStoreClientBridge implements CheckoutRestA
     private $storeClient;
 
     /**
-     * @param StoreClientInterface $storeClient
+     * @param \Spryker\Client\Store\StoreClientInterface $storeClient
      */
     public function __construct(StoreClientInterface $storeClient)
     {
