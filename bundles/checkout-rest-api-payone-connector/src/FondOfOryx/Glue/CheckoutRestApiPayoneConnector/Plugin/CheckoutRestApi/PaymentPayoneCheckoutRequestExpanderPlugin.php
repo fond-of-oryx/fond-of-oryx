@@ -30,7 +30,7 @@ class PaymentPayoneCheckoutRequestExpanderPlugin extends AbstractPlugin implemen
             }
 
             $handler = $this->getFactory()->createPayoneHandler();
-            $payment = $handler->preparePayment($restPayment, $restCheckoutRequestAttributesTransfer);
+            $payment = $handler->preparePayment($restPayment);
             $restPayment->setPayone($payment->getPayone())->setPaymentMethodName($payment->getPaymentMethod());
         }
 
