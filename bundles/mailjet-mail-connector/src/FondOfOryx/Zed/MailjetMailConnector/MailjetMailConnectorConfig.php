@@ -60,7 +60,7 @@ class MailjetMailConnectorConfig extends AbstractBundleConfig
      */
     public function getFromName(): string
     {
-        return $this->get(MailjetMailConnectorConstants::MAILJET_FROM_NAME, true);
+        return $this->get(MailjetMailConnectorConstants::MAILJET_FROM_NAME, '');
     }
 
     /**
