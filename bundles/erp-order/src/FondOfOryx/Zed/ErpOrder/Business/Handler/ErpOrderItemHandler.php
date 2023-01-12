@@ -58,10 +58,8 @@ class ErpOrderItemHandler implements ErpOrderItemHandlerInterface
         $collection = new ArrayObject();
         $orderId = $erpOrderTransfer->getIdErpOrder();
 
-        foreach ($preparedItems[static::NEW] as $erpOrderItemTransfer) {
-            $erpOrderItemTransfer->setFkErpOrder($orderId);
-            $erpOrderItemTransfer = $this->create($erpOrderItemTransfer);
-            $collection->append($erpOrderItemTransfer);
+        foreach ($preparedItems[static::DELETE] as $erpOrderItemTransfer) {
+            $this->delete($erpOrderItemTransfer->getIdErpOrderItem());
         }
 
         foreach ($preparedItems[static::UPDATE] as $erpOrderItemTransfer) {
@@ -70,8 +68,10 @@ class ErpOrderItemHandler implements ErpOrderItemHandlerInterface
             $collection->append($erpOrderItemTransfer);
         }
 
-        foreach ($preparedItems[static::DELETE] as $erpOrderItemTransfer) {
-            $this->delete($erpOrderItemTransfer->getIdErpOrderItem());
+        foreach ($preparedItems[static::NEW] as $erpOrderItemTransfer) {
+            $erpOrderItemTransfer->setFkErpOrder($orderId);
+            $erpOrderItemTransfer = $this->create($erpOrderItemTransfer);
+            $collection->append($erpOrderItemTransfer);
         }
 
         return $erpOrderTransfer->setOrderItems($collection);
@@ -169,13 +169,6 @@ class ErpOrderItemHandler implements ErpOrderItemHandlerInterface
         }
 
         $delete = $this->resolveItemsToDelete($existingItems);
-
-        foreach ($new as $index => $newItem) {
-            if (count($delete) > 0) {
-                $update[] = $this->updateItemData(array_pop($delete), $newItem);
-                unset($new[$index]);
-            }
-        }
 
         return [
             static::NEW => $new,

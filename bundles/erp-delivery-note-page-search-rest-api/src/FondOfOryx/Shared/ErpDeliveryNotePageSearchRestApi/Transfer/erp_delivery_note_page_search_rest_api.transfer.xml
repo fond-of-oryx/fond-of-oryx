@@ -38,6 +38,7 @@
 
     <transfer name="RestErpDeliveryNote">
         <property name="externalReference" type="string" />
+        <property name="customReference" type="string" />
         <property name="orderDate" type="string" />
         <property name="documentNumber" type="string" />
         <property name="deliveryNoteNumber" type="string" />

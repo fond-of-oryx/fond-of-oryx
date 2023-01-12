@@ -5,6 +5,5 @@
     <table name="spy_customer" phpName="SpyCustomer">
         <column name="gdpr_accepted" type="BOOLEAN" required="false"/>
         <column name="is_verified" type="BOOLEAN" required="false"/>
-        <column name="is_welcome_send" type="BOOLEAN" required="false"/>
     </table>
 </database>

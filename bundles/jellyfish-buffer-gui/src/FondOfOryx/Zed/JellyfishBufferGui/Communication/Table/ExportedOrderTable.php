@@ -4,7 +4,6 @@ namespace FondOfOryx\Zed\JellyfishBufferGui\Communication\Table;
 
 use FondOfOryx\Zed\JellyfishBufferGui\Dependency\Facade\JellyfishBufferGuiToStoreFacadeInterface;
 use FondOfOryx\Zed\JellyfishBufferGui\Persistence\JellyfishBufferGuiQueryContainerInterface;
-use Orm\Zed\Customer\Persistence\Map\SpyCustomerTableMap;
 use Orm\Zed\JellyfishBuffer\Persistence\FooExportedOrder;
 use Orm\Zed\JellyfishBuffer\Persistence\Map\FooExportedOrderTableMap;
 use Orm\Zed\Sales\Persistence\Map\SpySalesOrderTableMap;
@@ -78,8 +77,8 @@ class ExportedOrderTable extends AbstractTable
         $config->setHeader([
             SpySalesOrderTableMap::COL_ID_SALES_ORDER => 'ID',
             SpySalesOrderTableMap::COL_ORDER_REFERENCE => 'Order Reference',
-            SpyCustomerTableMap::COL_CUSTOMER_REFERENCE => 'Customer Reference',
-            SpyCustomerTableMap::COL_EMAIL => 'Customer E-Mail',
+            SpySalesOrderTableMap::COL_CUSTOMER_REFERENCE => 'Customer Reference',
+            SpySalesOrderTableMap::COL_EMAIL => 'Customer E-Mail',
             SpyStoreTableMap::COL_NAME => 'Store',
             FooExportedOrderTableMap::COL_CREATED_AT => 'Exported at',
             FooExportedOrderTableMap::COL_UPDATED_AT => 'Last export at',
@@ -90,19 +89,21 @@ class ExportedOrderTable extends AbstractTable
         $config->setSortable([
             SpySalesOrderTableMap::COL_ID_SALES_ORDER,
             SpySalesOrderTableMap::COL_ORDER_REFERENCE,
-            SpyCustomerTableMap::COL_CUSTOMER_REFERENCE,
-            SpyCustomerTableMap::COL_EMAIL,
+            SpySalesOrderTableMap::COL_CUSTOMER_REFERENCE,
+            SpySalesOrderTableMap::COL_EMAIL,
             FooExportedOrderTableMap::COL_CREATED_AT,
             FooExportedOrderTableMap::COL_UPDATED_AT,
         ]);
 
         $config->setSearchable([
             SpySalesOrderTableMap::COL_ORDER_REFERENCE,
-            SpyCustomerTableMap::COL_CUSTOMER_REFERENCE,
-            SpyCustomerTableMap::COL_EMAIL,
+            SpySalesOrderTableMap::COL_CUSTOMER_REFERENCE,
+            SpySalesOrderTableMap::COL_EMAIL,
         ]);
 
         $config->addRawColumn(static::TABLE_COL_ACTION);
+        $config->addRawColumn(SpySalesOrderTableMap::COL_ORDER_REFERENCE);
+
         $config->setDefaultSortField(SpySalesOrderTableMap::COL_ORDER_REFERENCE, TableConfiguration::SORT_DESC);
 
         return $config;
@@ -127,8 +128,8 @@ class ExportedOrderTable extends AbstractTable
             $result[] = [
                 SpySalesOrderTableMap::COL_ID_SALES_ORDER => $exportedOrderEntity->getIdExportedOrder(),
                 SpySalesOrderTableMap::COL_ORDER_REFERENCE => $this->getSalesOrderPageLink($exportedOrderEntity->getOrderReference(), $order->getIdSalesOrder()),
-                SpyCustomerTableMap::COL_CUSTOMER_REFERENCE => $order->getCustomerReference(),
-                SpyCustomerTableMap::COL_EMAIL => $order->getEmail(),
+                SpySalesOrderTableMap::COL_CUSTOMER_REFERENCE => $order->getCustomerReference(),
+                SpySalesOrderTableMap::COL_EMAIL => $order->getEmail(),
                 SpyStoreTableMap::COL_NAME => $exportedOrderEntity->getStore(),
                 FooExportedOrderTableMap::COL_CREATED_AT => $exportedOrderEntity->getCreatedAt()->format('Y-m-d H:i:s.u'),
                 FooExportedOrderTableMap::COL_UPDATED_AT => $exportedOrderEntity->getUpdatedAt()->format('Y-m-d H:i:s.u'),

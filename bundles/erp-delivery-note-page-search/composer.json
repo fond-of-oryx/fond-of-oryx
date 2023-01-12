@@ -10,7 +10,7 @@
   ],
   "require": {
     "php": ">=7.3",
-    "fond-of-oryx/erp-delivery-note": "^1.0.0",
+    "fond-of-oryx/erp-delivery-note": "^1.3.0",
     "fond-of-oryx/erp-delivery-note-permission": "^1.0.0",
     "spryker/customer": "^7.0.0",
     "spryker/synchronization-behavior": "^1.0.0",

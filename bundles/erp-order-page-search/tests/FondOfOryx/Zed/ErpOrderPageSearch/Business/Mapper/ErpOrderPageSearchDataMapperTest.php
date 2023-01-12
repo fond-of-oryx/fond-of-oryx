@@ -29,6 +29,7 @@ class ErpOrderPageSearchDataMapperTest extends Unit
             ErpOrderPageSearchDataMapper::CREATED_AT => 'now',
             ErpOrderPageSearchDataMapper::UPDATED_AT => 'now',
             ErpOrderPageSearchDataMapper::EXTERNAL_REFERENCE => '',
+            ErpOrderPageSearchDataMapper::CUSTOM_REFERENCE => '',
             ErpOrderPageSearchDataMapper::FK_COMPANY_BUSINESS_UNIT => '',
             ErpOrderPageSearchDataMapper::COMPANY_BUSINESS_UNIT => [
                 ErpOrderPageSearchDataMapper::COMPANY_BUSINESS_UNIT_UUID => '',

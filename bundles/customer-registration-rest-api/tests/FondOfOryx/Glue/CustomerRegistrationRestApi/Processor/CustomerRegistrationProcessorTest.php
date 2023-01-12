@@ -305,8 +305,14 @@ class CustomerRegistrationProcessorTest extends Unit
 
         $this->requestMock->expects($this->atLeastOnce())
             ->method('get')
-            ->with('id')
-            ->willReturn('token');
+            ->withConsecutive(
+                ['id'],
+                ['verify'],
+            )
+            ->willReturnOnConsecutiveCalls(
+                'token',
+                'true',
+            );
 
         $this->assertSame(
             $this->restResponseMock,
