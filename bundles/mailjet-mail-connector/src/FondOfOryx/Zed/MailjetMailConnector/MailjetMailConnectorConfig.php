@@ -96,17 +96,29 @@ class MailjetMailConnectorConfig extends AbstractBundleConfig
     }
 
     /**
+     * @example ['de_DE' => 100, 'en_US' => 200]
+     *
+     * @api
+     *
      * @param string $locale
      *
-     * @return string
+     * @return int|null
      */
-    public function getOrderConfirmationEmailTemplateIdByLocale(string $locale): string
+    public function getOrderConfirmationEmailTemplateIdByLocale(string $locale): ?int
     {
         $orderConfirmationEmailTemplateIdByLocales = $this->get(
             MailjetMailConnectorConstants::MAILJET_ORDER_CONFIRMATION_TEMPLATE_ID_BY_LOCALE,
             [],
         );
 
-        return isset($orderConfirmationEmailTemplateIdByLocales[$locale]) ?: $this->getDefaultLocale();
+        if (isset($orderConfirmationEmailTemplateIdByLocales[$locale])) {
+            return $orderConfirmationEmailTemplateIdByLocales[$locale];
+        }
+
+        if (isset($orderConfirmationEmailTemplateIdByLocales[$this->getDefaultLocale()])) {
+            return $orderConfirmationEmailTemplateIdByLocales[$this->getDefaultLocale()];
+        }
+
+        return null;
     }
 }

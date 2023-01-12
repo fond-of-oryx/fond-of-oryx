@@ -20,10 +20,7 @@ class MailjetMailConnectorBusinessFactory extends AbstractBusinessFactory
      */
     public function createMailjetMailer(): MailProviderPluginInterface
     {
-        return new MailjetMailer(
-            $this->createMailjetClient(),
-            $this->createMailjetClientRequestMapper(),
-        );
+        return new MailjetMailer($this->createMailjetClient());
     }
 
     /**
