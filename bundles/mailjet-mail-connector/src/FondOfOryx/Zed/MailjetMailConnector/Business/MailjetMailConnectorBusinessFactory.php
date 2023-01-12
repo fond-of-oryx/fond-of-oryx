@@ -2,8 +2,6 @@
 
 namespace FondOfOryx\Zed\MailjetMailConnector\Business;
 
-use FondOfOryx\Zed\MailjetMailConnector\Business\Mapper\MailjetClientRequestMapper;
-use FondOfOryx\Zed\MailjetMailConnector\Business\Mapper\MailjetClientRequestMapperInterface;
 use FondOfOryx\Zed\MailjetMailConnector\Business\Model\Provider\MailjetMailer;
 use Mailjet\Client;
 use Mailjet\Client as MailjetClient;
@@ -40,13 +38,5 @@ class MailjetMailConnectorBusinessFactory extends AbstractBusinessFactory
                 'secured' => $this->getConfig()->getSecure(),
             ],
         );
-    }
-
-    /**
-     * @return \FondOfOryx\Zed\MailjetMailConnector\Business\Mapper\MailjetClientRequestMapperInterface
-     */
-    protected function createMailjetClientRequestMapper(): MailjetClientRequestMapperInterface
-    {
-        return new MailjetClientRequestMapper($this->getConfig());
     }
 }
