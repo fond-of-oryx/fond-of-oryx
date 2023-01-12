@@ -16,7 +16,10 @@
     <transfer name="Order">
         <property name="billingAddress" type="Address"/>
         <property name="customer" type="Customer"/>
+        <property name="totals" type="Totals"/>
         <property name="items" singular="item" type="Item[]"/>
+        <property name="voucherDiscounts" singular="voucherDiscount" type="DiscountTransfer[]"/>
+        <property name="payments" singular="payment" type="Payment[]"/>
     </transfer>
 
     <transfer name="Item">
@@ -26,6 +29,11 @@
     <transfer name="Shipment">
         <property name="shippingAddress" type="Address"/>
     </transfer>
+
+    <transfer name="Address"/>
+    <transfer name="Totals"/>
+    <transfer name="Discount"/>
+    <transfer name="Payment"/>
 
     <transfer name="Customer">
         <property name="firstName" type="string"/>

@@ -2,6 +2,7 @@
 
 namespace FondOfOryx\Zed\MailjetMailConnector\Communication\Plugin\MailTypeBuilder;
 
+use ArrayObject;
 use Generated\Shared\Transfer\AddressTransfer;
 use Generated\Shared\Transfer\MailjetClientRequestEmailTransfer;
 use Generated\Shared\Transfer\MailjetClientRequestTransfer;
@@ -112,9 +113,13 @@ class MailjetOrderConfirmationMailTypeBuilderPlugin extends AbstractPlugin imple
         $orderTransfer = $mailTransfer->getOrderOrFail();
 
         return $mailjetClientRequestTransfer->setVariables([
+            'reference' => $orderTransfer->getOrderReference(),
             'billingAddress' => $orderTransfer->getBillingAddress()->toArray(),
             'shippingAddress' => $this->getShippingAddress($orderTransfer)->toArray(),
-            'items' => $this->getItems($orderTransfer),
+            'totals' => $orderTransfer->getTotals()->toArray(),
+            'items' => $this->transferCollectionToArray($orderTransfer->getItems()),
+            'voucherDiscount' => $this->transferCollectionToArray($orderTransfer->getVoucherDiscounts()),
+            'payments' => $this->transferCollectionToArray($orderTransfer->getPayments()),
         ]);
     }
 
@@ -139,18 +144,18 @@ class MailjetOrderConfirmationMailTypeBuilderPlugin extends AbstractPlugin imple
     }
 
     /**
-     * @param \Generated\Shared\Transfer\OrderTransfer $orderTransfer
+     * @param \ArrayObject<\Spryker\Shared\Kernel\Transfer\AbstractTransfer> $arrayObjects
      *
      * @return array
      */
-    protected function getItems(OrderTransfer $orderTransfer): array
+    protected function transferCollectionToArray(ArrayObject $arrayObjects): array
     {
-        $items = [];
+        $array = [];
 
-        foreach ($orderTransfer->getItems() as $itemTransfer) {
-            $items[] = $itemTransfer->toArray();
+        foreach ($arrayObjects as $transfer) {
+            $array[] = $transfer->toArray();
         }
 
-        return $items;
+        return $array;
     }
 }
