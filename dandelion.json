@@ -380,7 +380,7 @@
     },
     "gift-card-payment-connector": {
       "path": "bundles/gift-card-payment-connector/",
-      "version": "1.0.0"
+      "version": "1.0.1"
     },
     "gift-card-product-connector": {
       "path": "bundles/gift-card-product-connector/",
