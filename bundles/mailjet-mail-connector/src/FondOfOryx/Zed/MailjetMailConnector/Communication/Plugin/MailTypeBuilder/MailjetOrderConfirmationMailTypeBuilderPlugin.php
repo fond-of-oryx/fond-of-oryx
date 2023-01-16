@@ -6,7 +6,6 @@ use ArrayObject;
 use Generated\Shared\Transfer\AddressTransfer;
 use Generated\Shared\Transfer\MailjetTemplateTransfer;
 use Generated\Shared\Transfer\MailTransfer;
-use Generated\Shared\Transfer\OrderTransfer;
 use Spryker\Shared\Kernel\Transfer\Exception\NullValueException;
 use Spryker\Zed\Kernel\Communication\AbstractPlugin;
 use Spryker\Zed\MailExtension\Dependency\Plugin\MailTypeBuilderPluginInterface;
@@ -21,6 +20,36 @@ class MailjetOrderConfirmationMailTypeBuilderPlugin extends AbstractPlugin imple
      * @var string
      */
     public const MAIL_TYPE = 'order confirmation mail';
+
+    /**
+     * @var string
+     */
+    public const REFERENCE = 'reference';
+
+    /**
+     * @var string
+     */
+    public const BILLING_ADDRESS = 'billingAddress';
+
+    /**
+     * @var string
+     */
+    public const SHIPPING_ADDRESS = 'shippingAddress';
+
+    /**
+     * @var string
+     */
+    public const TOTALS = 'totals';
+
+    /**
+     * @var string
+     */
+    public const ITEMS = 'items';
+
+    /**
+     * @var string
+     */
+    public const PAYMENTS = 'payments';
 
     /**
      * {@inheritDoc}
@@ -80,85 +109,72 @@ class MailjetOrderConfirmationMailTypeBuilderPlugin extends AbstractPlugin imple
     ): MailjetTemplateTransfer {
         $orderTransfer = $mailTransfer->getOrderOrFail();
 
-        $mailjetTemplateTransfer = $this->setItems($mailjetTemplateTransfer, $orderTransfer->getItems());
-        $mailjetTemplateTransfer = $this->setPayments($mailjetTemplateTransfer, $orderTransfer->getPayments());
-
         return $mailjetTemplateTransfer->setVariables([
-            'reference' => $orderTransfer->getOrderReference(),
-            'billingAddress' => $orderTransfer->getBillingAddress()->toArray(),
-            'shippingAddress' => $this->getShippingAddress($orderTransfer)->toArray(),
-            'totals' => $orderTransfer->getTotals()->toArray(),
-            'voucherDiscount' => $this->transferCollectionToArray($orderTransfer->getVoucherDiscounts()),
+            static::REFERENCE => $orderTransfer->getOrderReference(),
+            static::BILLING_ADDRESS => $this->getMappedBillingAddress($orderTransfer->getBillingAddress()),
+            static::SHIPPING_ADDRESS => $this->getMappedShippingAddressFromItems($orderTransfer->getItems()),
+            static::TOTALS => $orderTransfer->getTotals()->toArray(),
+            //'voucherDiscount' => $this->transferCollectionToArray($orderTransfer->getVoucherDiscounts()),
+            static::ITEMS => $this->getMappedItems($orderTransfer->getItems()),
+            static::PAYMENTS => $this->getMappedPayments($orderTransfer->getPayments()),
         ]);
     }
 
     /**
-     * @param \Generated\Shared\Transfer\MailjetTemplateTransfer $mailjetTemplateTransfer
-     * @param \ArrayObject $itemTransferCollection
+     * @param \Generated\Shared\Transfer\AddressTransfer $addressTransfer
      *
-     * @return \Generated\Shared\Transfer\MailjetTemplateTransfer
+     * @return array<string, string>
      */
-    protected function setItems(
-        MailjetTemplateTransfer $mailjetTemplateTransfer,
-        ArrayObject $itemTransferCollection
-    ): MailjetTemplateTransfer {
-        return $mailjetTemplateTransfer->addVariables([
-            'items' => $this->getFactory()
-                ->createMailjetTemplateVariablesItemMapper()
-                ->transferCollectionToArray($itemTransferCollection),
-        ]);
+    protected function getMappedBillingAddress(AddressTransfer $addressTransfer): array
+    {
+        return $this->getFactory()
+            ->createMailjetRequestAddressMapper()
+            ->addressTransferToArray($addressTransfer);
     }
 
     /**
-     * @param \Generated\Shared\Transfer\MailjetTemplateTransfer $mailjetTemplateTransfer
-     * @param \ArrayObject $paymentTransferCollection
-     *
-     * @return \Generated\Shared\Transfer\MailjetTemplateTransfer
-     */
-    protected function setPayments(
-        MailjetTemplateTransfer $mailjetTemplateTransfer,
-        ArrayObject $paymentTransferCollection
-    ): MailjetTemplateTransfer {
-        return $mailjetTemplateTransfer->addVariables([
-            'payments' => $this->getFactory()
-                ->createMailjetTemplateVariablesPaymentMapper()
-                ->transferCollectionToArray($paymentTransferCollection),
-        ]);
-    }
-
-    /**
-     * @param \Generated\Shared\Transfer\OrderTransfer $orderTransfer
+     * @param \ArrayObject $itemTransfers
      *
      * @throws \Spryker\Shared\Kernel\Transfer\Exception\NullValueException
      *
-     * @return \Generated\Shared\Transfer\AddressTransfer
+     * @return array<string, string>
      */
-    protected function getShippingAddress(OrderTransfer $orderTransfer): AddressTransfer
+    protected function getMappedShippingAddressFromItems(ArrayObject $itemTransfers): array
     {
-        foreach ($orderTransfer->getItems() as $itemTransfer) {
+        foreach ($itemTransfers as $itemTransfer) {
             if ($itemTransfer->getShipment()->getShippingAddress() === null) {
                 continue;
             }
 
-            return $itemTransfer->getShipment()->getShippingAddress();
+            return $this->getFactory()
+                ->createMailjetRequestAddressMapper()
+                ->addressTransferToArray($itemTransfer->getShipment()->getShippingAddress());
         }
 
         throw new NullValueException('no shipping found');
     }
 
     /**
-     * @param \ArrayObject<\Spryker\Shared\Kernel\Transfer\AbstractTransfer> $arrayObjects
+     * @param \ArrayObject $itemTransferCollection
      *
-     * @return array
+     * @return array<string, mixed>
      */
-    protected function transferCollectionToArray(ArrayObject $arrayObjects): array
+    protected function getMappedItems(ArrayObject $itemTransferCollection): array
     {
-        $array = [];
+        return $this->getFactory()
+                ->createMailjetTemplateVariablesItemMapper()
+                ->transferCollectionToArray($itemTransferCollection);
+    }
 
-        foreach ($arrayObjects as $transfer) {
-            $array[] = $transfer->toArray();
-        }
-
-        return $array;
+    /**
+     * @param \ArrayObject $paymentTransferCollection
+     *
+     * @return array<string, mixed>
+     */
+    protected function getMappedPayments(ArrayObject $paymentTransferCollection): array
+    {
+        return $this->getFactory()
+                ->createMailjetTemplateVariablesPaymentMapper()
+                ->transferCollectionToArray($paymentTransferCollection);
     }
 }

@@ -26,7 +26,20 @@
         <property name="shippingAddress" type="Address"/>
     </transfer>
 
-    <transfer name="Address"/>
+    <transfer name="Address">
+        <property name="company" type="string"/>
+        <property name="firstName" type="string"/>
+        <property name="lastName" type="string"/>
+        <property name="email" type="string"/>
+        <property name="address1" type="string"/>
+        <property name="address2" type="string"/>
+        <property name="address3" type="string"/>
+        <property name="zipCode" type="string"/>
+        <property name="city" type="string"/>
+        <property name="iso2code" type="string"/>
+        <property name="region" type="string"/>
+    </transfer>
+
     <transfer name="Totals"/>
     <transfer name="Discount"/>
 
