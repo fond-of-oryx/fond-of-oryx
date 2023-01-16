@@ -4,8 +4,7 @@ namespace FondOfOryx\Zed\MailjetMailConnector\Communication\Plugin\MailTypeBuild
 
 use ArrayObject;
 use Generated\Shared\Transfer\AddressTransfer;
-use Generated\Shared\Transfer\MailjetClientRequestEmailTransfer;
-use Generated\Shared\Transfer\MailjetClientRequestTransfer;
+use Generated\Shared\Transfer\MailjetTemplateTransfer;
 use Generated\Shared\Transfer\MailTransfer;
 use Generated\Shared\Transfer\OrderTransfer;
 use Spryker\Shared\Kernel\Transfer\Exception\NullValueException;
@@ -14,6 +13,7 @@ use Spryker\Zed\MailExtension\Dependency\Plugin\MailTypeBuilderPluginInterface;
 
 /**
  * @method \FondOfOryx\Zed\MailjetMailConnector\MailjetMailConnectorConfig getConfig()
+ * @method \FondOfOryx\Zed\MailjetMailConnector\Communication\MailjetMailConnectorCommunicationFactory getFactory()()
  */
 class MailjetOrderConfirmationMailTypeBuilderPlugin extends AbstractPlugin implements MailTypeBuilderPluginInterface
 {
@@ -47,14 +47,12 @@ class MailjetOrderConfirmationMailTypeBuilderPlugin extends AbstractPlugin imple
      */
     public function build(MailTransfer $mailTransfer): MailTransfer
     {
-        $mailjetClientRequestTransfer = (new MailjetClientRequestTransfer())
-            ->setFrom($this->getFrom())
-            ->setTo($this->getRecipient($mailTransfer))
+        $mailjetTemplateTransfer = (new MailjetTemplateTransfer())
             ->setSubject('mail.order_confirmation.subject')
             ->setTemplateId($this->getTemplateId($mailTransfer));
 
-        return $mailTransfer->setMailjetOrFail(
-            $this->setVariables($mailTransfer, $mailjetClientRequestTransfer),
+        return $mailTransfer->setMailjetTemplate(
+            $this->setVariables($mailTransfer, $mailjetTemplateTransfer),
         );
     }
 
@@ -71,55 +69,60 @@ class MailjetOrderConfirmationMailTypeBuilderPlugin extends AbstractPlugin imple
     }
 
     /**
-     * @return \Generated\Shared\Transfer\MailjetClientRequestEmailTransfer
-     */
-    protected function getFrom(): MailjetClientRequestEmailTransfer
-    {
-        return (new MailjetClientRequestEmailTransfer())
-            ->setName($this->getConfig()->getFromName())
-            ->setEmail($this->getConfig()->getFromEmail());
-    }
-
-    /**
      * @param \Generated\Shared\Transfer\MailTransfer $mailTransfer
+     * @param \Generated\Shared\Transfer\MailjetTemplateTransfer $mailjetTemplateTransfer
      *
-     * @return \Generated\Shared\Transfer\MailjetClientRequestEmailTransfer
-     */
-    protected function getRecipient(MailTransfer $mailTransfer): MailjetClientRequestEmailTransfer
-    {
-        $orderTransfer = $mailTransfer->getOrderOrFail();
-
-        $name = sprintf(
-            '%s %s',
-            $orderTransfer->getCustomer()->getFirstName(),
-            $orderTransfer->getCustomer()->getLastName(),
-        );
-
-        return (new MailjetClientRequestEmailTransfer())
-            ->setName($name)
-            ->setEmail($orderTransfer->getCustomer()->getEmail());
-    }
-
-    /**
-     * @param \Generated\Shared\Transfer\MailTransfer $mailTransfer
-     * @param \Generated\Shared\Transfer\MailjetClientRequestTransfer $mailjetClientRequestTransfer
-     *
-     * @return \Generated\Shared\Transfer\MailjetClientRequestTransfer
+     * @return \Generated\Shared\Transfer\MailjetTemplateTransfer
      */
     protected function setVariables(
         MailTransfer $mailTransfer,
-        MailjetClientRequestTransfer $mailjetClientRequestTransfer
-    ): MailjetClientRequestTransfer {
+        MailjetTemplateTransfer $mailjetTemplateTransfer
+    ): MailjetTemplateTransfer {
         $orderTransfer = $mailTransfer->getOrderOrFail();
 
-        return $mailjetClientRequestTransfer->setVariables([
+        $mailjetTemplateTransfer = $this->setItems($mailjetTemplateTransfer, $orderTransfer->getItems());
+        $mailjetTemplateTransfer = $this->setPayments($mailjetTemplateTransfer, $orderTransfer->getPayments());
+
+        return $mailjetTemplateTransfer->setVariables([
             'reference' => $orderTransfer->getOrderReference(),
             'billingAddress' => $orderTransfer->getBillingAddress()->toArray(),
             'shippingAddress' => $this->getShippingAddress($orderTransfer)->toArray(),
             'totals' => $orderTransfer->getTotals()->toArray(),
-            'items' => $this->transferCollectionToArray($orderTransfer->getItems()),
             'voucherDiscount' => $this->transferCollectionToArray($orderTransfer->getVoucherDiscounts()),
-            'payments' => $this->transferCollectionToArray($orderTransfer->getPayments()),
+        ]);
+    }
+
+    /**
+     * @param \Generated\Shared\Transfer\MailjetTemplateTransfer $mailjetTemplateTransfer
+     * @param \ArrayObject $itemTransferCollection
+     *
+     * @return \Generated\Shared\Transfer\MailjetTemplateTransfer
+     */
+    protected function setItems(
+        MailjetTemplateTransfer $mailjetTemplateTransfer,
+        ArrayObject $itemTransferCollection
+    ): MailjetTemplateTransfer {
+        return $mailjetTemplateTransfer->addVariables([
+            'items' => $this->getFactory()
+                ->createMailjetTemplateVariablesItemMapper()
+                ->transferCollectionToArray($itemTransferCollection),
+        ]);
+    }
+
+    /**
+     * @param \Generated\Shared\Transfer\MailjetTemplateTransfer $mailjetTemplateTransfer
+     * @param \ArrayObject $paymentTransferCollection
+     *
+     * @return \Generated\Shared\Transfer\MailjetTemplateTransfer
+     */
+    protected function setPayments(
+        MailjetTemplateTransfer $mailjetTemplateTransfer,
+        ArrayObject $paymentTransferCollection
+    ): MailjetTemplateTransfer {
+        return $mailjetTemplateTransfer->addVariables([
+            'payments' => $this->getFactory()
+                ->createMailjetTemplateVariablesPaymentMapper()
+                ->transferCollectionToArray($paymentTransferCollection),
         ]);
     }
 

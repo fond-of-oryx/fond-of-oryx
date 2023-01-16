@@ -10,7 +10,7 @@
     <transfer name="Mail">
         <property name="locale" type="Locale"/>
         <property name="order" type="Order"/>
-        <property name="mailjet" type="MailjetClientRequest"/>
+        <property name="mailjetTemplate" type="MailjetTemplate"/>
     </transfer>
 
     <transfer name="Order">
@@ -18,12 +18,8 @@
         <property name="customer" type="Customer"/>
         <property name="totals" type="Totals"/>
         <property name="items" singular="item" type="Item[]"/>
-        <property name="voucherDiscounts" singular="voucherDiscount" type="DiscountTransfer[]"/>
+        <property name="voucherDiscounts" singular="voucherDiscount" type="Discount[]"/>
         <property name="payments" singular="payment" type="Payment[]"/>
-    </transfer>
-
-    <transfer name="Item">
-        <property name="shipment" type="Shipment"/>
     </transfer>
 
     <transfer name="Shipment">
@@ -33,7 +29,6 @@
     <transfer name="Address"/>
     <transfer name="Totals"/>
     <transfer name="Discount"/>
-    <transfer name="Payment"/>
 
     <transfer name="Customer">
         <property name="firstName" type="string"/>
@@ -41,18 +36,34 @@
         <property name="email" type="string"/>
     </transfer>
 
-    <transfer name="MailjetClientRequest">
-        <property name="from" type="MailjetClientRequestEmail"/>
-        <property name="to" type="MailjetClientRequestEmail"/>
+    <transfer name="Item">
+        <property name="itemMetadata" type="ItemMetadata"/>
+        <property name="name" type="string"/>
+        <property name="sku" type="string"/>
+        <property name="quantity" type="int"/>
+        <property name="unitPrice" type="int"/>
+        <property name="sumPrice" type="int"/>
+        <property name="shipment" type="Shipment"/>
+    </transfer>
+
+    <transfer name="ItemMetadata">
+        <property name="image" type="string"/>
+    </transfer>
+
+    <transfer name="Payment">
+        <property name="paymentProvider" type="string"/>
+        <property name="paymentMethod" type="string"/>
+        <property name="accountHolder" type="string"/>
+        <property name="bank" type="string"/>
+        <property name="iban" type="string"/>
+        <property name="bic" type="string"/>
+    </transfer>
+
+    <transfer name="MailjetTemplate">
         <property name="subject" type="string"/>
         <property name="templateId" type="int"/>
         <property name="locale" type="Locale"/>
         <property name="variables" type="array"/>
         <property name="brand" type="string"/>
-    </transfer>
-
-    <transfer name="MailjetClientRequestEmail">
-        <property name="email" type="string"/>
-        <property name="name" type="string"/>
     </transfer>
 </transfers>
