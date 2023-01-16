@@ -2,35 +2,36 @@
 
 namespace FondOfOryx\Zed\MailjetMailConnector\Communication;
 
-use FondOfOryx\Zed\MailjetMailConnector\Business\Mapper\MailjetRequestAddressMapper;
-use FondOfOryx\Zed\MailjetMailConnector\Business\Mapper\MailjetRequestAddressMapperInterface;
-use FondOfOryx\Zed\MailjetMailConnector\Business\Mapper\MailjetTemplateVariablesItemMapper;
-use FondOfOryx\Zed\MailjetMailConnector\Business\Mapper\MailjetTemplateVariablesPaymentMapper;
+use FondOfOryx\Zed\MailjetMailConnector\Business\Mapper\MailjetTemplateVariablesItemsMapper;
+use FondOfOryx\Zed\MailjetMailConnector\Business\Mapper\MailjetTemplateVariablesPaymentsMapper;
+use FondOfOryx\Zed\MailjetMailConnector\Business\Mapper\MailjetTemplateVariablesTransferCollectionMapperInterface;
+use FondOfOryx\Zed\MailjetMailConnector\Business\Mapper\MailjetTemplateVariablesTransferMapper;
+use FondOfOryx\Zed\MailjetMailConnector\Business\Mapper\MailjetTemplateVariablesTransferMapperInterface;
 use Spryker\Zed\Kernel\Communication\AbstractCommunicationFactory;
 
 class MailjetMailConnectorCommunicationFactory extends AbstractCommunicationFactory
 {
     /**
-     * @return \FondOfOryx\Zed\MailjetMailConnector\Business\Mapper\MailjetTemplateVariablesItemMapper
+     * @return \FondOfOryx\Zed\MailjetMailConnector\Business\Mapper\MailjetTemplateVariablesTransferCollectionMapperInterface
      */
-    public function createMailjetTemplateVariablesItemMapper(): MailjetTemplateVariablesItemMapper
+    public function createMailjetTemplateVariablesItemsMapper(): MailjetTemplateVariablesTransferCollectionMapperInterface
     {
-        return new MailjetTemplateVariablesItemMapper();
+        return new MailjetTemplateVariablesItemsMapper();
     }
 
     /**
-     * @return \FondOfOryx\Zed\MailjetMailConnector\Business\Mapper\MailjetTemplateVariablesPaymentMapper
+     * @return \FondOfOryx\Zed\MailjetMailConnector\Business\Mapper\MailjetTemplateVariablesTransferCollectionMapperInterface
      */
-    public function createMailjetTemplateVariablesPaymentMapper(): MailjetTemplateVariablesPaymentMapper
+    public function createMailjetTemplateVariablesPaymentsMapper(): MailjetTemplateVariablesTransferCollectionMapperInterface
     {
-        return new MailjetTemplateVariablesPaymentMapper();
+        return new MailjetTemplateVariablesPaymentsMapper();
     }
 
     /**
-     * @return \FondOfOryx\Zed\MailjetMailConnector\Business\Mapper\MailjetRequestAddressMapperInterface
+     * @return \FondOfOryx\Zed\MailjetMailConnector\Business\Mapper\MailjetTemplateVariablesTransferMapperInterface
      */
-    public function createMailjetRequestAddressMapper(): MailjetRequestAddressMapperInterface
+    public function createMailjetRequestAddressMapper(): MailjetTemplateVariablesTransferMapperInterface
     {
-        return new MailjetRequestAddressMapper();
+        return new MailjetTemplateVariablesTransferMapper();
     }
 }

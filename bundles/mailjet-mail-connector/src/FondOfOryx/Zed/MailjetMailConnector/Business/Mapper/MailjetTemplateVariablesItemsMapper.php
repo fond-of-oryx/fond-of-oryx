@@ -5,9 +5,7 @@ namespace FondOfOryx\Zed\MailjetMailConnector\Business\Mapper;
 use ArrayObject;
 use Generated\Shared\Transfer\ItemTransfer;
 
-class MailjetTemplateVariablesItemMapper implements
-    MailjetTemplateVariablesItemTransferMapperInterface,
-    MailjetTemplateVariablesTransferCollectionMapperInterface
+class MailjetTemplateVariablesItemsMapper implements MailjetTemplateVariablesTransferCollectionMapperInterface
 {
     /**
      * @var string
@@ -40,11 +38,11 @@ class MailjetTemplateVariablesItemMapper implements
     public const SUM_PRICE = 'sumPrice';
 
     /**
-     * @param \ArrayObject<\Spryker\Shared\Kernel\Transfer\AbstractTransfer> $arrayObject
+     * @param \ArrayObject<(\Spryker\Shared\Kernel\Transfer\AbstractTransfer|\Generated\Shared\Transfer\ItemTransfer)> $arrayObject
      *
      * @return array<array<string, mixed>>
      */
-    public function transferCollectionToArray(ArrayObject $arrayObject): array
+    public function map(ArrayObject $arrayObject): array
     {
         $items = [];
 
@@ -61,7 +59,7 @@ class MailjetTemplateVariablesItemMapper implements
      *
      * @return array<string, mixed>
      */
-    public function itemTransferToArray(ItemTransfer $itemTransfer): array
+    protected function itemTransferToArray(ItemTransfer $itemTransfer): array
     {
         return [
             static::IMAGE => $itemTransfer->getMetadata()->getImage(),

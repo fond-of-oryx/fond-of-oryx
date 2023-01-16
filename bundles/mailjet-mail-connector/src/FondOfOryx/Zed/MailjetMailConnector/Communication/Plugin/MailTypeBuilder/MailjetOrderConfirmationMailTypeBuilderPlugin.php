@@ -129,7 +129,7 @@ class MailjetOrderConfirmationMailTypeBuilderPlugin extends AbstractPlugin imple
     {
         return $this->getFactory()
             ->createMailjetRequestAddressMapper()
-            ->addressTransferToArray($addressTransfer);
+            ->map($addressTransfer);
     }
 
     /**
@@ -148,7 +148,7 @@ class MailjetOrderConfirmationMailTypeBuilderPlugin extends AbstractPlugin imple
 
             return $this->getFactory()
                 ->createMailjetRequestAddressMapper()
-                ->addressTransferToArray($itemTransfer->getShipment()->getShippingAddress());
+                ->map($itemTransfer->getShipment()->getShippingAddress());
         }
 
         throw new NullValueException('no shipping found');
@@ -162,8 +162,8 @@ class MailjetOrderConfirmationMailTypeBuilderPlugin extends AbstractPlugin imple
     protected function getMappedItems(ArrayObject $itemTransferCollection): array
     {
         return $this->getFactory()
-                ->createMailjetTemplateVariablesItemMapper()
-                ->transferCollectionToArray($itemTransferCollection);
+                ->createMailjetTemplateVariablesItemsMapper()
+                ->map($itemTransferCollection);
     }
 
     /**
@@ -174,7 +174,7 @@ class MailjetOrderConfirmationMailTypeBuilderPlugin extends AbstractPlugin imple
     protected function getMappedPayments(ArrayObject $paymentTransferCollection): array
     {
         return $this->getFactory()
-                ->createMailjetTemplateVariablesPaymentMapper()
-                ->transferCollectionToArray($paymentTransferCollection);
+                ->createMailjetTemplateVariablesPaymentsMapper()
+                ->map($paymentTransferCollection);
     }
 }

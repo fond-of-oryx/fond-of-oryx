@@ -5,9 +5,7 @@ namespace FondOfOryx\Zed\MailjetMailConnector\Business\Mapper;
 use ArrayObject;
 use Generated\Shared\Transfer\PaymentTransfer;
 
-class MailjetTemplateVariablesPaymentMapper implements
-    MailjetTemplateVariablesPaymentMapperInterface,
-    MailjetTemplateVariablesTransferCollectionMapperInterface
+class MailjetTemplateVariablesPaymentsMapper implements MailjetTemplateVariablesTransferCollectionMapperInterface
 {
     /**
      * @var string
@@ -40,11 +38,11 @@ class MailjetTemplateVariablesPaymentMapper implements
     public const BIC = 'bic';
 
     /**
-     * @param \ArrayObject<\Spryker\Shared\Kernel\Transfer\AbstractTransfer> $arrayObject
+     * @param \ArrayObject<(\Spryker\Shared\Kernel\Transfer\AbstractTransfer|\Generated\Shared\Transfer\PaymentTransfer)> $arrayObject
      *
      * @return array<array<string, mixed>>
      */
-    public function transferCollectionToArray(ArrayObject $arrayObject): array
+    public function map(ArrayObject $arrayObject): array
     {
         $payments = [];
 
@@ -61,7 +59,7 @@ class MailjetTemplateVariablesPaymentMapper implements
      *
      * @return array<string, mixed>
      */
-    public function paymentTransferToArray(PaymentTransfer $paymentTransfer): array
+    protected function paymentTransferToArray(PaymentTransfer $paymentTransfer): array
     {
         return [
             static::PAYMENT_PROVIDER => $paymentTransfer->getPaymentProvider(),

@@ -11,5 +11,5 @@ interface MailjetTemplateVariablesTransferCollectionMapperInterface
      *
      * @return array<array<string, mixed>>
      */
-    public function transferCollectionToArray(ArrayObject $arrayObject): array;
+    public function map(ArrayObject $arrayObject): array;
 }
