@@ -52,6 +52,11 @@ class MailjetOrderConfirmationMailTypeBuilderPlugin extends AbstractPlugin imple
     public const PAYMENTS = 'payments';
 
     /**
+     * @var string
+     */
+    public const DISCOUNTS = 'discounts';
+
+    /**
      * {@inheritDoc}
      *
      * @api
@@ -92,7 +97,7 @@ class MailjetOrderConfirmationMailTypeBuilderPlugin extends AbstractPlugin imple
      */
     protected function getTemplateId(MailTransfer $mailTransfer): int
     {
-        $locale = $mailTransfer->getLocaleOrFail()->getLocaleName();
+        $locale = $mailTransfer->getLocale()->getLocaleName();
 
         return $this->getConfig()->getOrderConfirmationEmailTemplateIdByLocale($locale);
     }
@@ -114,7 +119,7 @@ class MailjetOrderConfirmationMailTypeBuilderPlugin extends AbstractPlugin imple
             static::BILLING_ADDRESS => $this->getMappedBillingAddress($orderTransfer->getBillingAddress()),
             static::SHIPPING_ADDRESS => $this->getMappedShippingAddressFromItems($orderTransfer->getItems()),
             static::TOTALS => $orderTransfer->getTotals()->toArray(),
-            //'voucherDiscount' => $this->transferCollectionToArray($orderTransfer->getVoucherDiscounts()),
+            static::DISCOUNTS => $this->getMappedDiscounts($orderTransfer->getCalculatedDiscounts()),
             static::ITEMS => $this->getMappedItems($orderTransfer->getItems()),
             static::PAYMENTS => $this->getMappedPayments($orderTransfer->getPayments()),
         ]);
@@ -128,7 +133,7 @@ class MailjetOrderConfirmationMailTypeBuilderPlugin extends AbstractPlugin imple
     protected function getMappedBillingAddress(AddressTransfer $addressTransfer): array
     {
         return $this->getFactory()
-            ->createMailjetRequestAddressMapper()
+            ->createMailjetTemplateVariablesAddressMapper()
             ->map($addressTransfer);
     }
 
@@ -147,7 +152,7 @@ class MailjetOrderConfirmationMailTypeBuilderPlugin extends AbstractPlugin imple
             }
 
             return $this->getFactory()
-                ->createMailjetRequestAddressMapper()
+                ->createMailjetTemplateVariablesAddressMapper()
                 ->map($itemTransfer->getShipment()->getShippingAddress());
         }
 
@@ -176,5 +181,17 @@ class MailjetOrderConfirmationMailTypeBuilderPlugin extends AbstractPlugin imple
         return $this->getFactory()
                 ->createMailjetTemplateVariablesPaymentsMapper()
                 ->map($paymentTransferCollection);
+    }
+
+    /**
+     * @param \ArrayObject $calculatedDiscountTransferCollection
+     *
+     * @return array
+     */
+    protected function getMappedDiscounts(ArrayObject $calculatedDiscountTransferCollection): array
+    {
+        return $this->getFactory()
+            ->createMailjetTemplateVariablesCalculatedDiscountsMapper()
+            ->map($calculatedDiscountTransferCollection);
     }
 }

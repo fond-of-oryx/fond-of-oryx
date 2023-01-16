@@ -4,7 +4,7 @@ namespace FondOfOryx\Zed\MailjetMailConnector\Business\Mapper;
 
 use Spryker\Shared\Kernel\Transfer\AbstractTransfer;
 
-class MailjetTemplateVariablesTransferMapper implements MailjetTemplateVariablesTransferMapperInterface
+class MailjetTemplateVariablesAddressMapper implements MailjetTemplateVariablesTransferMapperInterface
 {
     /**
      * @var string
