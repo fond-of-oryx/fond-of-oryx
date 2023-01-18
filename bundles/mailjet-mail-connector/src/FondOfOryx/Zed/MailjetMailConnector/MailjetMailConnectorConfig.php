@@ -121,4 +121,58 @@ class MailjetMailConnectorConfig extends AbstractBundleConfig
 
         return null;
     }
+
+    /**
+     * @example ['de_DE' => 100, 'en_US' => 200]
+     *
+     * @api
+     *
+     * @param string $locale
+     *
+     * @return int|null
+     */
+    public function getCustomerRegistrationWelcomeMailTemplateIdByLocale(string $locale): ?int
+    {
+        $customerRegistrationWelcomeMailTemplateIdByLocale = $this->get(
+            MailjetMailConnectorConstants::MAILJET_CUSTOMER_REGISTRATION_WELCOME_TEMPLATE_ID_BY_LOCALE,
+            [],
+        );
+
+        if (isset($customerRegistrationWelcomeMailTemplateIdByLocale[$locale])) {
+            return $customerRegistrationWelcomeMailTemplateIdByLocale[$locale];
+        }
+
+        if (isset($customerRegistrationWelcomeMailTemplateIdByLocale[$this->getDefaultLocale()])) {
+            return $customerRegistrationWelcomeMailTemplateIdByLocale[$this->getDefaultLocale()];
+        }
+
+        return null;
+    }
+
+    /**
+     * @example ['de_DE' => 100, 'en_US' => 200]
+     *
+     * @api
+     *
+     * @param string $locale
+     *
+     * @return int|null
+     */
+    public function getOneTimePasswordLoginLinkMailTemplateIdByLocale(string $locale): ?int
+    {
+        $oneTimePasswordLoginLinkMailTemplateIdByLocale = $this->get(
+            MailjetMailConnectorConstants::MAILJET_ONE_TIME_PASSWORD_EMAIL_LINK_TEMPLATE_ID_BY_LOCALE,
+            [],
+        );
+
+        if (isset($oneTimePasswordLoginLinkMailTemplateIdByLocale[$locale])) {
+            return $oneTimePasswordLoginLinkMailTemplateIdByLocale[$locale];
+        }
+
+        if (isset($oneTimePasswordLoginLinkMailTemplateIdByLocale[$this->getDefaultLocale()])) {
+            return $oneTimePasswordLoginLinkMailTemplateIdByLocale[$this->getDefaultLocale()];
+        }
+
+        return null;
+    }
 }

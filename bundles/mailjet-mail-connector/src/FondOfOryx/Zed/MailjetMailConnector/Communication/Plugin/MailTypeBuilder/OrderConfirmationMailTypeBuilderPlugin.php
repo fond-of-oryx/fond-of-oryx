@@ -6,6 +6,7 @@ use ArrayObject;
 use Generated\Shared\Transfer\AddressTransfer;
 use Generated\Shared\Transfer\MailjetTemplateTransfer;
 use Generated\Shared\Transfer\MailTransfer;
+use Generated\Shared\Transfer\OrderTransfer;
 use Spryker\Shared\Kernel\Transfer\Exception\NullValueException;
 use Spryker\Zed\Kernel\Communication\AbstractPlugin;
 use Spryker\Zed\MailExtension\Dependency\Plugin\MailTypeBuilderPluginInterface;
@@ -14,7 +15,7 @@ use Spryker\Zed\MailExtension\Dependency\Plugin\MailTypeBuilderPluginInterface;
  * @method \FondOfOryx\Zed\MailjetMailConnector\MailjetMailConnectorConfig getConfig()
  * @method \FondOfOryx\Zed\MailjetMailConnector\Communication\MailjetMailConnectorCommunicationFactory getFactory()()
  */
-class MailjetOrderConfirmationMailTypeBuilderPlugin extends AbstractPlugin implements MailTypeBuilderPluginInterface
+class OrderConfirmationMailTypeBuilderPlugin extends AbstractPlugin implements MailTypeBuilderPluginInterface
 {
     /**
      * @var string
@@ -82,12 +83,24 @@ class MailjetOrderConfirmationMailTypeBuilderPlugin extends AbstractPlugin imple
     public function build(MailTransfer $mailTransfer): MailTransfer
     {
         $mailjetTemplateTransfer = (new MailjetTemplateTransfer())
-            ->setSubject('mail.order_confirmation.subject')
+            ->setSubject($this->getSubjectByStore($mailTransfer))
             ->setTemplateId($this->getTemplateId($mailTransfer));
 
         return $mailTransfer->setMailjetTemplate(
             $this->setVariables($mailTransfer, $mailjetTemplateTransfer),
         );
+    }
+
+    /**
+     * @param \Generated\Shared\Transfer\MailTransfer $mailTransfer
+     *
+     * @return string
+     */
+    protected function getSubjectByStore(MailTransfer $mailTransfer): string
+    {
+        $brand = $this->extractBrandGlossaryKey($mailTransfer->getOrder());
+
+        return $brand . '.mail.order_confirmation.subject';
     }
 
     /**
@@ -193,5 +206,26 @@ class MailjetOrderConfirmationMailTypeBuilderPlugin extends AbstractPlugin imple
         return $this->getFactory()
             ->createMailjetTemplateVariablesCalculatedDiscountsMapper()
             ->map($calculatedDiscountTransferCollection);
+    }
+
+    /**
+     * @param \Generated\Shared\Transfer\OrderTransfer $orderTransfer
+     *
+     * @return string
+     */
+    protected function extractBrandGlossaryKey(OrderTransfer $orderTransfer): string
+    {
+        if (!$orderTransfer->getStore()) {
+            return 'default.';
+        }
+
+        $arrStore = explode('_', $orderTransfer->getStore());
+        // @phpstan-ignore-next-line
+        if (count($arrStore) > 0) {
+            return strtolower($arrStore[0]);
+        }
+
+        // @phpstan-ignore-next-line
+        return 'default.';
     }
 }

@@ -8,12 +8,16 @@
     </transfer>
 
     <transfer name="Mail">
+        <property name="emailVerificationLink" type="string"/>
+        <property name="oneTimePasswordLoginLink" type="string"/>
         <property name="locale" type="Locale"/>
         <property name="order" type="Order"/>
         <property name="mailjetTemplate" type="MailjetTemplate"/>
     </transfer>
 
     <transfer name="Order">
+        <property name="firstName" type="string"/>
+        <property name="lastName" type="string"/>
         <property name="billingAddress" type="Address"/>
         <property name="customer" type="Customer"/>
         <property name="totals" type="Totals"/>
@@ -36,7 +40,7 @@
         <property name="address3" type="string"/>
         <property name="zipCode" type="string"/>
         <property name="city" type="string"/>
-        <property name="iso2code" type="string"/>
+        <property name="iso2Code" type="string"/>
         <property name="region" type="string"/>
     </transfer>
 

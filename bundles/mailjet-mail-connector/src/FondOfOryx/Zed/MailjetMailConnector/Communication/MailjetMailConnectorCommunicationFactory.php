@@ -4,6 +4,7 @@ namespace FondOfOryx\Zed\MailjetMailConnector\Communication;
 
 use FondOfOryx\Zed\MailjetMailConnector\Business\Mapper\MailjetTemplateVariablesAddressMapper;
 use FondOfOryx\Zed\MailjetMailConnector\Business\Mapper\MailjetTemplateVariablesCalculatedDiscountsMapper;
+use FondOfOryx\Zed\MailjetMailConnector\Business\Mapper\MailjetTemplateVariablesCustomerMapper;
 use FondOfOryx\Zed\MailjetMailConnector\Business\Mapper\MailjetTemplateVariablesItemsMapper;
 use FondOfOryx\Zed\MailjetMailConnector\Business\Mapper\MailjetTemplateVariablesPaymentsMapper;
 use FondOfOryx\Zed\MailjetMailConnector\Business\Mapper\MailjetTemplateVariablesTransferCollectionMapperInterface;
@@ -42,5 +43,13 @@ class MailjetMailConnectorCommunicationFactory extends AbstractCommunicationFact
     public function createMailjetTemplateVariablesCalculatedDiscountsMapper(): MailjetTemplateVariablesTransferCollectionMapperInterface
     {
         return new MailjetTemplateVariablesCalculatedDiscountsMapper();
+    }
+
+    /**
+     * @return \FondOfOryx\Zed\MailjetMailConnector\Business\Mapper\MailjetTemplateVariablesTransferMapperInterface
+     */
+    public function createMailjetTemplateVariablesCustomerMapper(): MailjetTemplateVariablesTransferMapperInterface
+    {
+        return new MailjetTemplateVariablesCustomerMapper();
     }
 }

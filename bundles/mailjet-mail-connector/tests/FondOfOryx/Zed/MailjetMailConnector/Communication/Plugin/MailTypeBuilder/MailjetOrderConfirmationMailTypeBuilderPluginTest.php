@@ -103,7 +103,7 @@ class MailjetOrderConfirmationMailTypeBuilderPluginTest extends Unit
     protected $mailjetTemplateTransferMock;
 
     /**
-     * @var \FondOfOryx\Zed\MailjetMailConnector\Communication\Plugin\MailTypeBuilder\MailjetOrderConfirmationMailTypeBuilderPlugin
+     * @var \FondOfOryx\Zed\MailjetMailConnector\Communication\Plugin\MailTypeBuilder\OrderConfirmationMailTypeBuilderPlugin
      */
     protected $plugin;
 
@@ -178,7 +178,7 @@ class MailjetOrderConfirmationMailTypeBuilderPluginTest extends Unit
             ->disableOriginalConstructor()
             ->getMock();
 
-        $this->plugin = new MailjetOrderConfirmationMailTypeBuilderPlugin();
+        $this->plugin = new OrderConfirmationMailTypeBuilderPlugin();
         $this->plugin->setConfig($this->configMock);
         $this->plugin->setFactory($this->factoryMock);
     }
@@ -249,6 +249,10 @@ class MailjetOrderConfirmationMailTypeBuilderPluginTest extends Unit
 
         $this->mailTransferMock->expects(static::atLeastOnce())
             ->method('getOrderOrFail')
+            ->willReturn($this->orderTranserMock);
+
+        $this->mailTransferMock->expects(static::atLeastOnce())
+            ->method('getOrder')
             ->willReturn($this->orderTranserMock);
 
         $this->mailTransferMock->expects(static::atLeastOnce())
