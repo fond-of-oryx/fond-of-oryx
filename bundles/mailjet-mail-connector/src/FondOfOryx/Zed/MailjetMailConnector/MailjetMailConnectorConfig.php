@@ -96,6 +96,19 @@ class MailjetMailConnectorConfig extends AbstractBundleConfig
     }
 
     /**
+     * @return bool
+     */
+    public function getSandboxMode(): bool
+    {
+        return $this->get(MailjetMailConnectorConstants::MAILJET_SANDBOX_MODE, false);
+    }
+
+    public function getTemplateLanguage(): bool
+    {
+        return $this->get(MailjetMailConnectorConstants::MAILJET_TEMPLATE_LANGUAGE, true);
+    }
+
+    /**
      * @example ['de_DE' => 100, 'en_US' => 200]
      *
      * @api

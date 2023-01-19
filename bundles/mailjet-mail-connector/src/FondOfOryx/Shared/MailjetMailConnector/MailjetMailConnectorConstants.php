@@ -73,4 +73,14 @@ interface MailjetMailConnectorConstants
      * @var string
      */
     public const MAILJET_SECURE = 'MailjetMailConnector:MAILJET_SECURE';
+
+    /**
+     * @var string
+     */
+    public const MAILJET_SANDBOX_MODE = 'MailjetMailConnector:MAILJET_SANDBOX_MODE';
+
+    /**
+     * @var string
+     */
+    public const MAILJET_TEMPLATE_LANGUAGE = 'MailjetMailConnector:MAILJET_TEMPLATE_LANGUAGE';
 }

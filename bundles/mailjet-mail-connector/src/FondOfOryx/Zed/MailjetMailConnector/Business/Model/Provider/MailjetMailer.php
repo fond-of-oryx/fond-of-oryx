@@ -48,23 +48,26 @@ class MailjetMailer implements MailProviderPluginInterface
 
         $body = [
             'Messages' => [
-                'From' => [
-                    'Email' => $this->config->getFromEmail(),
-                    'Name' => $this->config->getFromName(),
-                ],
-                'To' => [
-                    [
-                        'Email' => $customerTransfer->getEmail(),
-                        'Name' => sprintf('%s %s', $customerTransfer->getFirstName(), $customerTransfer->getLastName()),
+                [
+                    'From' => [
+                        'Email' => $this->config->getFromEmail(),
+                        'Name' => $this->config->getFromName(),
                     ],
+                    'To' => [
+                        [
+                            'Email' => $customerTransfer->getEmail(),
+                            'Name' => sprintf('%s %s', $customerTransfer->getFirstName(), $customerTransfer->getLastName()),
+                        ],
+                    ],
+                    'Subject' => $mailTransfer->getSubject(),
+                    'TemplateID' => $mailTransfer->getMailjetTemplate()->getTemplateId(),
+                    'Variables' => $mailTransfer->getMailjetTemplate()->getVariables(),
                 ],
-                'TemplateID' => $mailTransfer->getMailjetTemplate()->getTemplateId(),
-                'Subject' => $mailTransfer->getSubject(),
-                'Variables' => $mailTransfer->getMailjetTemplate()->getVariables(),
             ],
+            'TemplateLanguage' => $this->config->getTemplateLanguage(),
+            'SandboxMode' => $this->config->getSandboxMode(),
         ];
 
-        $response = $this->mailjetClient->post(Resources::$Email, ['body' => $body]);
-        $response->success() && var_dump($response->getData());
+        $this->mailjetClient->post(Resources::$Email, ['body' => $body]);
     }
 }
