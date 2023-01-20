@@ -9,7 +9,7 @@
     }
   ],
   "require": {
-    "php": ">=7.3",
+    "php": ">=8.0",
     "spryker/guzzle": "^2.2.0",
     "spryker/util-encoding": "^1.0.0 || ^2.0.0"
   },

@@ -9,7 +9,7 @@
     }
   ],
   "require": {
-    "php": ">=7.3",
+    "php": ">=8.0",
     "fond-of-oryx/company-user-reference-sales-connector": "^1.0.0",
     "fond-of-oryx/jellyfish-sales-order-extension": "^1.0.0",
     "fond-of-spryker/company-user-reference": "dev-master"

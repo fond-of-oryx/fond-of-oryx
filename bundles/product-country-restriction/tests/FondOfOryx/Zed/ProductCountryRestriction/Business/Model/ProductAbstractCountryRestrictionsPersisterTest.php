@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * phpcs:disable SlevomatCodingStandard.Functions.DisallowTrailingCommaInClosureUse
+ */
+
 namespace FondOfOryx\Zed\ProductCountryRestriction\Business\Model;
 
 use Codeception\Test\Unit;
@@ -97,7 +101,7 @@ class ProductAbstractCountryRestrictionsPersisterTest extends Unit
                         ProductAbstractCountryRestrictionTransfer $productAbstractCountryRestrictionTransfer
                     ) use (
                         $idProductAbstract,
-                        $newCountryIds
+                        $newCountryIds,
                     ) {
                         return $productAbstractCountryRestrictionTransfer->getIdProductAbstract() === $idProductAbstract
                             && $productAbstractCountryRestrictionTransfer->getIdCountry() === $newCountryIds[1];

@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * phpcs:disable SlevomatCodingStandard.Functions.DisallowTrailingCommaInClosureUse
+ */
+
 namespace FondOfOryx\Zed\CompanyBusinessUnitOrderBudget\Business\Writer;
 
 use Codeception\Test\Unit;
@@ -243,7 +247,7 @@ class OrderBudgetWriterTest extends Unit
                         CompanyBusinessUnitTransfer $companyBusinessUnitTransfer
                     ) use (
                         $idCompanyBusinessUnit,
-                        $idOrderBudget
+                        $idOrderBudget,
                     ) {
                         return $companyBusinessUnitTransfer->getIdCompanyBusinessUnit() === $idCompanyBusinessUnit
                             && $companyBusinessUnitTransfer->getFkOrderBudget() === $idOrderBudget;

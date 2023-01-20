@@ -9,7 +9,7 @@
     }
   ],
   "require": {
-    "php": ">=7.3"
+    "php": ">=8.0"
   },
   "require-dev": {
     "fond-of-codeception/spryker": "^1.0",

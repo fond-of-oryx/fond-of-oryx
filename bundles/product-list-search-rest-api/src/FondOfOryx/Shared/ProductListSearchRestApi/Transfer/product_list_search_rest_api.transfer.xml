@@ -61,7 +61,7 @@
         <property name="showAll" type="bool"/>
         <property name="query" type="string"/>
         <property name="sort" type="string"/>
-        <property name="pagination" type="Pagination"/>
+        <property name="pagination" type="Pagination" strict="true"/>
     </transfer>
 
     <transfer name="ProductList">

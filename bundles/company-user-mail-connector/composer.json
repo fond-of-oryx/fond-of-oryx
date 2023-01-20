@@ -9,7 +9,7 @@
     }
   ],
   "require": {
-    "php": ">=7.3",
+    "php": ">=8.0",
     "fond-of-oryx/company-users-rest-api-extension": "^1.0.0",
     "spryker/company-user": "^2.0.0"
   },

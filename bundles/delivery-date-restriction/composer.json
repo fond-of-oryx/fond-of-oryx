@@ -9,7 +9,7 @@
     }
   ],
   "require": {
-    "php": ">=7.3",
+    "php": ">=8.0",
     "spryker/checkout-extension": "^1.2.0",
     "spryker/quote-extension": "^1.2.0",
     "spryker/permission": "^1.0.0",

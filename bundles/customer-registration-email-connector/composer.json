@@ -9,7 +9,7 @@
     }
   ],
   "require": {
-    "php": ">=7.4",
+    "php": ">=8.0",
     "fond-of-oryx/customer-registration": "^1.0.0",
     "spryker/mail": "^4.0.0"
   },
