@@ -103,6 +103,9 @@ class MailjetMailConnectorConfig extends AbstractBundleConfig
         return $this->get(MailjetMailConnectorConstants::MAILJET_SANDBOX_MODE, false);
     }
 
+    /**
+     * @return bool
+     */
     public function getTemplateLanguage(): bool
     {
         return $this->get(MailjetMailConnectorConstants::MAILJET_TEMPLATE_LANGUAGE, true);

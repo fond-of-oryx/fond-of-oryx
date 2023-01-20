@@ -43,8 +43,7 @@ class MailjetMailer implements MailProviderPluginInterface
      */
     public function sendMail(MailTransfer $mailTransfer): void
     {
-        $orderTransfer = $mailTransfer->getOrderOrFail();
-        $customerTransfer = $orderTransfer->getCustomer();
+        $customerTransfer = $mailTransfer->getCustomer();
 
         $body = [
             'Messages' => [
