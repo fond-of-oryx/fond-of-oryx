@@ -9,7 +9,7 @@
     }
   ],
   "require": {
-    "php": ">=7.3",
+    "php": ">=8.0",
     "spryker/api": "^0.3",
     "spryker/api-query-builder": "^0.1",
     "spryker/product-list": "^1.0.0"

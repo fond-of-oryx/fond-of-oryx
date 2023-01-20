@@ -9,7 +9,7 @@
     }
   ],
   "require": {
-    "php": ">=7.3",
+    "php": ">=8.0",
     "maxbanton/cwh": "^2.0.0",
     "spryker/log": "^3.7.0"
   },

@@ -9,7 +9,7 @@
     }
   ],
   "require": {
-    "php": ">=7.3",
+    "php": ">=8.0",
     "fond-of-oryx/one-time-password-email-connector": "^1.0.0",
     "fond-of-oryx/one-time-password-extension": "^1.0.0",
     "hackzilla/password-generator": "^1.6",

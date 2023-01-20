@@ -9,7 +9,7 @@
     }
   ],
   "require": {
-    "php": ">=7.3"
+    "php": ">=8.0"
   },
   "require-dev": {
     "fond-of-oryx/availability-cart-data-extender": "^1.0.0",

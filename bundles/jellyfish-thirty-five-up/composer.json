@@ -9,7 +9,7 @@
     }
   ],
   "require": {
-    "php": ">=7.3",
+    "php": ">=8.0",
     "fond-of-oryx/jellyfish-sales-order-extension": "^1.0.0",
     "fond-of-oryx/thirty-five-up": "^1.0.0"
   },

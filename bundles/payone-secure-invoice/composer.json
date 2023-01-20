@@ -9,7 +9,7 @@
     }
   ],
   "require": {
-    "php": ">=7.3",
+    "php": ">=8.0",
     "spryker-eco/payone": "dev-master-fondof as 4.4.2"
   },
   "require-dev": {

@@ -9,7 +9,7 @@
     }
   ],
   "require": {
-    "php": ">=7.3",
+    "php": ">=8.0",
     "fond-of-oryx/product-lists-rest-api-extension": "^1.0.0",
     "fond-of-spryker/product-list-company": "dev-spryker_upgrade"
   },
