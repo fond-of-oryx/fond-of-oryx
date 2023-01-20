@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * phpcs:disable SlevomatCodingStandard.Functions.DisallowTrailingCommaInClosureUse
+ */
+
 namespace FondOfOryx\Zed\ProductCartCodeTypeRestriction\Business\Persister;
 
 use Codeception\Test\Unit;
@@ -97,7 +101,7 @@ class ProductAbstractCartCodeTypeRestrictionsPersisterTest extends Unit
                         ProductAbstractCartCodeTypeRestrictionTransfer $productAbstractCartCodeTypeRestrictionTransfer
                     ) use (
                         $idProductAbstract,
-                        $newCartCodeTypeIds
+                        $newCartCodeTypeIds,
                     ) {
                         return $productAbstractCartCodeTypeRestrictionTransfer->getIdProductAbstract() === $idProductAbstract
                             && $productAbstractCartCodeTypeRestrictionTransfer->getIdCartCodeType() === $newCartCodeTypeIds[1];
