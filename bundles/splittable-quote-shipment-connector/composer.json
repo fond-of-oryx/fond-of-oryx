@@ -9,7 +9,7 @@
     }
   ],
   "require": {
-    "php": ">=7.3",
+    "php": ">=8.0",
     "fond-of-oryx/splittable-quote-extension": "^1.0.0",
     "spryker/shipment": "^6.2.0 || ^7.0.0 || ^8.0.0"
   },

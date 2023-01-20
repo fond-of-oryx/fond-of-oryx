@@ -9,7 +9,7 @@
     }
   ],
   "require": {
-    "php": ">=7.3",
+    "php": ">=8.0",
     "spryker/application": "^3.0.0",
     "spryker/router": "^1.6.1",
     "spryker/security-extension": "^1.0.0",

@@ -13,7 +13,7 @@
     }
   ],
   "require": {
-    "php": ">=7.3",
+    "php": ">=8.0",
     "spryker/company-user": "^2.0.0",
     "spryker/company-business-unit": "^2.0.0",
     "spryker/glossary-storage": "^1.5.0"
