@@ -30,5 +30,11 @@
     "psr-4": {
       "FondOfOryx\\": "tests/FondOfOryx/"
     }
+  },
+  "config": {
+    "sort-packages": true,
+    "allow-plugins": {
+      "dealerdirect/phpcodesniffer-composer-installer": true
+    }
   }
 }
