@@ -9,7 +9,7 @@ use FondOfOryx\Zed\MailjetMailConnector\Business\Mapper\MailjetTemplateVariables
 class MailjetMailConnectorCommunicationFactoryTest extends Unit
 {
     /**
-     * @var MailjetMailConnectorCommunicationFactory
+     * @var \FondOfOryx\Zed\MailjetMailConnector\Communication\MailjetMailConnectorCommunicationFactory
      */
     protected $factory;
 
@@ -30,7 +30,7 @@ class MailjetMailConnectorCommunicationFactoryTest extends Unit
     {
         static::assertInstanceOf(
             MailjetTemplateVariablesTransferCollectionMapperInterface::class,
-            $this->factory->createMailjetTemplateVariablesItemsMapper()
+            $this->factory->createMailjetTemplateVariablesItemsMapper(),
         );
     }
 
@@ -41,7 +41,7 @@ class MailjetMailConnectorCommunicationFactoryTest extends Unit
     {
         static::assertInstanceOf(
             MailjetTemplateVariablesTransferCollectionMapperInterface::class,
-            $this->factory->createMailjetTemplateVariablesPaymentsMapper()
+            $this->factory->createMailjetTemplateVariablesPaymentsMapper(),
         );
     }
 
@@ -52,7 +52,7 @@ class MailjetMailConnectorCommunicationFactoryTest extends Unit
     {
         static::assertInstanceOf(
             MailjetTemplateVariablesTransferMapperInterface::class,
-            $this->factory->createMailjetTemplateVariablesAddressMapper()
+            $this->factory->createMailjetTemplateVariablesAddressMapper(),
         );
     }
 
@@ -63,7 +63,7 @@ class MailjetMailConnectorCommunicationFactoryTest extends Unit
     {
         static::assertInstanceOf(
             MailjetTemplateVariablesTransferCollectionMapperInterface::class,
-            $this->factory->createMailjetTemplateVariablesCalculatedDiscountsMapper()
+            $this->factory->createMailjetTemplateVariablesCalculatedDiscountsMapper(),
         );
     }
 
@@ -74,7 +74,7 @@ class MailjetMailConnectorCommunicationFactoryTest extends Unit
     {
         static::assertInstanceOf(
             MailjetTemplateVariablesTransferMapperInterface::class,
-            $this->factory->createMailjetTemplateVariablesCustomerMapper()
+            $this->factory->createMailjetTemplateVariablesCustomerMapper(),
         );
     }
 }
