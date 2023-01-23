@@ -1,0 +1,86 @@
+<?xml version="1.0"?>
+<transfers xmlns="spryker:transfer-01" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="spryker:transfer-01 http://static.spryker.com/transfer-01.xsd">
+
+    <transfer name="Locale">
+        <property name="name" type="string"/>
+        <property name="localeName" type="string"/>
+    </transfer>
+
+    <transfer name="Mail">
+        <property name="emailVerificationLink" type="string"/>
+        <property name="oneTimePasswordLoginLink" type="string"/>
+        <property name="locale" type="Locale"/>
+        <property name="order" type="Order"/>
+        <property name="mailjetTemplate" type="MailjetTemplate"/>
+    </transfer>
+
+    <transfer name="Order">
+        <property name="firstName" type="string"/>
+        <property name="lastName" type="string"/>
+        <property name="billingAddress" type="Address"/>
+        <property name="customer" type="Customer"/>
+        <property name="totals" type="Totals"/>
+        <property name="items" singular="item" type="Item[]"/>
+        <property name="voucherDiscounts" singular="voucherDiscount" type="Discount[]"/>
+        <property name="payments" singular="payment" type="Payment[]"/>
+    </transfer>
+
+    <transfer name="Shipment">
+        <property name="shippingAddress" type="Address"/>
+    </transfer>
+
+    <transfer name="Address">
+        <property name="company" type="string"/>
+        <property name="firstName" type="string"/>
+        <property name="lastName" type="string"/>
+        <property name="email" type="string"/>
+        <property name="address1" type="string"/>
+        <property name="address2" type="string"/>
+        <property name="address3" type="string"/>
+        <property name="zipCode" type="string"/>
+        <property name="city" type="string"/>
+        <property name="iso2Code" type="string"/>
+        <property name="region" type="string"/>
+    </transfer>
+
+    <transfer name="Totals"/>
+    <transfer name="Discount"/>
+
+    <transfer name="Customer">
+        <property name="firstName" type="string"/>
+        <property name="lastName" type="string"/>
+        <property name="email" type="string"/>
+    </transfer>
+
+    <transfer name="Item">
+        <property name="itemMetadata" type="ItemMetadata"/>
+        <property name="name" type="string"/>
+        <property name="sku" type="string"/>
+        <property name="quantity" type="int"/>
+        <property name="unitPrice" type="int"/>
+        <property name="sumPrice" type="int"/>
+        <property name="shipment" type="Shipment"/>
+    </transfer>
+
+    <transfer name="ItemMetadata">
+        <property name="image" type="string"/>
+    </transfer>
+
+    <transfer name="Payment">
+        <property name="paymentProvider" type="string"/>
+        <property name="paymentMethod" type="string"/>
+        <property name="accountHolder" type="string"/>
+        <property name="bank" type="string"/>
+        <property name="iban" type="string"/>
+        <property name="bic" type="string"/>
+    </transfer>
+
+    <transfer name="MailjetTemplate">
+        <property name="subject" type="string"/>
+        <property name="templateId" type="int"/>
+        <property name="locale" type="Locale"/>
+        <property name="variables" type="array"/>
+        <property name="brand" type="string"/>
+    </transfer>
+</transfers>
