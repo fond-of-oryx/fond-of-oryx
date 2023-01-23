@@ -14,7 +14,6 @@
         <property name="order" type="Order"/>
         <property name="mailjetTemplate" type="MailjetTemplate"/>
         <property name="customer" type="Customer"/>
-        <property name="store" type="string"/>
         <property name="customer" type="Customer"/>
     </transfer>
 
@@ -28,6 +27,7 @@
         <property name="voucherDiscounts" singular="voucherDiscount" type="Discount[]"/>
         <property name="payments" singular="payment" type="Payment[]"/>
         <property name="calculatedDiscounts" singular="CalculatedDiscount" type="CalculatedDiscount[]"/>
+        <property name="store" type="string"/>
     </transfer>
 
     <transfer name="Shipment">
