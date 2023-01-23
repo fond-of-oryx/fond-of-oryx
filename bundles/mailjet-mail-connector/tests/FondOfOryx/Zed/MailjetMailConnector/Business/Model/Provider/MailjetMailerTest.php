@@ -101,10 +101,6 @@ class MailjetMailerTest extends Unit
             ->willReturn('Customer Lastname');
 
         $this->mailTransferMock->expects(static::atLeastOnce())
-            ->method('getSubject')
-            ->willReturn('email subject');
-
-        $this->mailTransferMock->expects(static::atLeastOnce())
             ->method('getMailjetTemplate')
             ->willReturn($this->mailjetTemplateTransferMock);
 

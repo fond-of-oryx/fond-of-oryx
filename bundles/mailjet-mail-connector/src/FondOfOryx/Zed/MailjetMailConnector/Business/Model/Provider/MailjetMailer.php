@@ -58,7 +58,7 @@ class MailjetMailer implements MailProviderPluginInterface
                             'Name' => sprintf('%s %s', $customerTransfer->getFirstName(), $customerTransfer->getLastName()),
                         ],
                     ],
-                    'Subject' => $mailTransfer->getSubject(),
+                    'Subject' => null,
                     'TemplateID' => $mailTransfer->getMailjetTemplate()->getTemplateId(),
                     'Variables' => $mailTransfer->getMailjetTemplate()->getVariables(),
                     'TemplateLanguage' => $this->config->getTemplateLanguage(),
