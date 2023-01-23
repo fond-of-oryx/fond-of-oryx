@@ -9,7 +9,7 @@
     }
   ],
   "require": {
-    "php": ">=7.3",
+    "php": ">=8.0",
     "fond-of-oryx/credit-memo": "^1.0.0",
     "fond-of-oryx/payone-credit-memo-extension": "^1.1.0",
     "spryker-eco/payone": "^4.0.0"

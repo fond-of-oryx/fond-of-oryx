@@ -13,7 +13,7 @@
     }
   ],
   "require": {
-    "php": ">=7.3",
+    "php": ">=8.0",
     "fond-of-spryker/company-unit-address-default-shipping": "dev-master",
     "spryker/company-user": "^2.0.0",
     "spryker/company-business-unit": "^2.0.0",

@@ -19,7 +19,7 @@
     }
   ],
   "require": {
-    "php": ">=7.3",
+    "php": ">=8.0",
     "ext-json": "*",
     "endroid/qr-code": ">=4.1 <4.6",
     "fond-of-spryker/brand-company": "dev-master",

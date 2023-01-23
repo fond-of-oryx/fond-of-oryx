@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * phpcs:disable SlevomatCodingStandard.Functions.DisallowTrailingCommaInClosureUse
+ */
+
 namespace FondOfOryx\Zed\ProductLocaleRestriction\Business\Model;
 
 use Codeception\Test\Unit;
@@ -97,7 +101,7 @@ class ProductAbstractLocaleRestrictionsPersisterTest extends Unit
                         ProductAbstractLocaleRestrictionTransfer $productAbstractLocaleRestrictionTransfer
                     ) use (
                         $idProductAbstract,
-                        $newLocaleIds
+                        $newLocaleIds,
                     ) {
                         return $productAbstractLocaleRestrictionTransfer->getIdProductAbstract() === $idProductAbstract
                             && $productAbstractLocaleRestrictionTransfer->getIdLocale() === $newLocaleIds[1];

@@ -15,7 +15,7 @@
     }
   ],
   "require": {
-    "php": ">=7.3",
+    "php": ">=8.0",
     "fond-of-oryx/credit-memo": "^1.0.0",
     "fond-of-oryx/credit-memo-gift-card-connector": "*",
     "fond-of-oryx/gift-card-proportional-value": "^1.0.0",

@@ -9,7 +9,7 @@
     }
   ],
   "require": {
-    "php": ">=7.3",
+    "php": ">=8.0",
     "fond-of-oryx/brand-product-list-connector": "^1.0.0",
     "fond-of-oryx/customer-product-list-connector-extension": "^1.0.0",
     "fond-of-spryker/brand-customer": "dev-spryker_upgrade"
