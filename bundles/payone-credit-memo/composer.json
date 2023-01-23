@@ -18,7 +18,7 @@
     "php": ">=8.0",
     "fond-of-oryx/credit-memo": "^1.0.0",
     "fond-of-oryx/payone-credit-memo-extension": "^1.1.0",
-    "spryker-eco/payone": "^4.0.0"
+    "spryker-eco/payone": "dev-master-fondof as 4.4.2"
   },
   "require-dev": {
     "fond-of-codeception/spryker": "^1.0",
