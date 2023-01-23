@@ -15,6 +15,7 @@
         <property name="mailjetTemplate" type="MailjetTemplate"/>
         <property name="customer" type="Customer"/>
         <property name="store" type="string"/>
+        <property name="customer" type="Customer"/>
     </transfer>
 
     <transfer name="Order">
