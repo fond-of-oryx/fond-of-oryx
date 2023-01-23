@@ -13,6 +13,7 @@
         <property name="locale" type="Locale"/>
         <property name="order" type="Order"/>
         <property name="mailjetTemplate" type="MailjetTemplate"/>
+        <property name="customer" type="Customer"/>
     </transfer>
 
     <transfer name="Order">
@@ -24,6 +25,7 @@
         <property name="items" singular="item" type="Item[]"/>
         <property name="voucherDiscounts" singular="voucherDiscount" type="Discount[]"/>
         <property name="payments" singular="payment" type="Payment[]"/>
+        <property name="calculatedDiscounts" singular="CalculatedDiscount" type="CalculatedDiscount[]"/>
     </transfer>
 
     <transfer name="Shipment">
@@ -47,6 +49,11 @@
     <transfer name="Totals"/>
     <transfer name="Discount"/>
 
+    <transfer name="CalculatedDiscount">
+        <property name="displayName" type="string"/>
+        <property name="voucherCode" type="string"/>
+    </transfer>
+
     <transfer name="Customer">
         <property name="firstName" type="string"/>
         <property name="lastName" type="string"/>
@@ -54,7 +61,7 @@
     </transfer>
 
     <transfer name="Item">
-        <property name="itemMetadata" type="ItemMetadata"/>
+        <property name="metadata" type="ItemMetadata"/>
         <property name="name" type="string"/>
         <property name="sku" type="string"/>
         <property name="quantity" type="int"/>
