@@ -8,6 +8,12 @@
       "email": "dev@julianzimmermann.dev"
     }
   ],
+  "repositories": [
+    {
+      "type": "vcs",
+      "url": "https://github.com/fond-of/payone"
+    }
+  ],
   "require": {
     "php": ">=8.0",
     "fond-of-oryx/credit-memo": "^1.0.0",
