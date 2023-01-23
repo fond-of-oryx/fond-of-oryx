@@ -61,10 +61,10 @@ class MailjetMailer implements MailProviderPluginInterface
                     'Subject' => $mailTransfer->getSubject(),
                     'TemplateID' => $mailTransfer->getMailjetTemplate()->getTemplateId(),
                     'Variables' => $mailTransfer->getMailjetTemplate()->getVariables(),
+                    'TemplateLanguage' => $this->config->getTemplateLanguage(),
+                    'SandboxMode' => $this->config->getSandboxMode(),
                 ],
             ],
-            'TemplateLanguage' => $this->config->getTemplateLanguage(),
-            'SandboxMode' => $this->config->getSandboxMode(),
         ];
 
         $this->mailjetClient->post(Resources::$Email, ['body' => $body]);
