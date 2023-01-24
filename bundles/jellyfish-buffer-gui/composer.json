@@ -10,7 +10,7 @@
   ],
   "require": {
     "php": ">=8.0",
-    "fond-of-oryx/jellyfish-buffer": "^1.1.0",
+    "fond-of-oryx/jellyfish-buffer": "^1.1.0 || ^2.0.0",
     "spryker/gui": "^3.15.0",
     "spryker/store": "^1.5.0"
   },
