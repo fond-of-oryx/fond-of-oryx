@@ -16,8 +16,8 @@
   ],
   "require": {
     "php": ">=8.0",
-    "fond-of-oryx/gift-card-proportional-value": "^1.1.0",
-    "fond-of-oryx/gift-card-proportional-value-extension": "^1.0.0",
+    "fond-of-oryx/gift-card-proportional-value": "^1.1.0 || ^2.0.0",
+    "fond-of-oryx/gift-card-proportional-value-extension": "^1.0.0 || ^2.0.0",
     "spryker-eco/payone": "dev-master-fondof as 4.4.2"
   },
   "require-dev": {

@@ -10,7 +10,7 @@
   ],
   "require": {
     "php": ">=8.0",
-    "fond-of-oryx/cart-code-type": "^1.0.0",
+    "fond-of-oryx/cart-code-type": "^1.0.0 || ^2.0.0",
     "spryker/product": "^5.0.0 || ^6.0.0"
   },
   "require-dev": {

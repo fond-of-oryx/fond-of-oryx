@@ -10,8 +10,8 @@
   ],
   "require": {
     "php": ">=8.0",
-    "fond-of-oryx/gift-card-proportional-value": "^1.0.0",
-    "fond-of-oryx/jellyfish-sales-order-gift-card-connector": "^1.0.0"
+    "fond-of-oryx/gift-card-proportional-value": "^1.0.0 || ^2.0.0",
+    "fond-of-oryx/jellyfish-sales-order-gift-card-connector": "^1.0.0 || ^2.0.0"
   },
   "require-dev": {
     "fond-of-codeception/spryker": "^1.0",

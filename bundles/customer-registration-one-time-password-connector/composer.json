@@ -10,8 +10,9 @@
   ],
   "require": {
     "php": ">=8.0",
-    "fond-of-oryx/customer-registration": "^1.0.0",
-    "fond-of-oryx/one-time-password": "^1.1.0"
+    "fond-of-oryx/customer-registration-plugin": "^2.0.0",
+    "fond-of-oryx/one-time-password": "^1.1.0 || ^2.0.0",
+    "spryker/locale": "^2.2.0 || ^3.0.0"
   },
   "require-dev": {
     "fond-of-codeception/spryker": "^1.0 || ^2.0",
