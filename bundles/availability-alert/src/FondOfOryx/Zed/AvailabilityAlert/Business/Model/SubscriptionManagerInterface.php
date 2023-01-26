@@ -46,11 +46,11 @@ interface SubscriptionManagerInterface
     public function getCurrentSubscriptionCountPerProductAbstract(): array;
 
     /**
-     * @param int $status
+     * @param string $status
      *
      * @throws \Spryker\Zed\Propel\Business\Exception\AmbiguousComparisonException
      *
      * @return \Generated\Shared\Transfer\AvailabilityAlertSubscriptionCollectionTransfer
      */
-    public function getSubscriptionsForCurrentStoreAndStatus(int $status): AvailabilityAlertSubscriptionCollectionTransfer;
+    public function getSubscriptionsForCurrentStoreAndStatus(string $status): AvailabilityAlertSubscriptionCollectionTransfer;
 }

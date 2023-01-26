@@ -133,11 +133,11 @@ class SubscriptionManager implements SubscriptionManagerInterface
     }
 
     /**
-     * @param int $status
+     * @param string $status
      *
      * @return \Generated\Shared\Transfer\AvailabilityAlertSubscriptionCollectionTransfer
      */
-    public function getSubscriptionsForCurrentStoreAndStatus(int $status): AvailabilityAlertSubscriptionCollectionTransfer
+    public function getSubscriptionsForCurrentStoreAndStatus(string $status): AvailabilityAlertSubscriptionCollectionTransfer
     {
         $currentStore = $this->storeFacade->getCurrentStore();
 
