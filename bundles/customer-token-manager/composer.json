@@ -16,7 +16,7 @@
     "spryker/customer-extension": "^1.4.0",
     "spryker/customer": "^7.22.0",
     "spryker/oauth": "^2.0.0",
-    "symfony/security-core": "^4.4.0"
+    "spryker/symfony": "^3.5.0"
   },
   "require-dev": {
     "fond-of-codeception/spryker": "^1.0",

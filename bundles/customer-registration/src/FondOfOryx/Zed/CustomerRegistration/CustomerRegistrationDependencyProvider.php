@@ -3,7 +3,6 @@
 namespace FondOfOryx\Zed\CustomerRegistration;
 
 use FondOfOryx\Zed\CustomerRegistration\Communication\Plugins\LinkExpander\EmailVerificationLinkLocaleExpanderPlugin;
-use FondOfOryx\Zed\CustomerRegistration\Dependency\Encoder\CustomerRegistrationToPasswordEncoderBridge;
 use FondOfOryx\Zed\CustomerRegistration\Dependency\Facade\CustomerRegistrationToCustomerFacadeBridge;
 use FondOfOryx\Zed\CustomerRegistration\Dependency\Facade\CustomerRegistrationToLocaleFacadeBridge;
 use FondOfOryx\Zed\CustomerRegistration\Dependency\Facade\CustomerRegistrationToSequenceNumberFacadeBridge;
@@ -13,7 +12,6 @@ use FondOfOryx\Zed\CustomerRegistration\Dependency\QueryContainer\CustomerRegist
 use FondOfOryx\Zed\CustomerRegistration\Dependency\Service\CustomerRegistrationToUtilTextServiceBridge;
 use Spryker\Zed\Kernel\AbstractBundleDependencyProvider;
 use Spryker\Zed\Kernel\Container;
-use Symfony\Component\Security\Core\Encoder\NativePasswordEncoder;
 
 class CustomerRegistrationDependencyProvider extends AbstractBundleDependencyProvider
 {
@@ -51,11 +49,6 @@ class CustomerRegistrationDependencyProvider extends AbstractBundleDependencyPro
      * @var string
      */
     public const QUERY_CONTAINER_CUSTOMER = 'QUERY_CONTAINER_CUSTOMER';
-
-    /**
-     * @var string
-     */
-    public const ENCODER_PASSWORD = 'ENCODER_PASSWORD';
 
     /**
      * @var string
@@ -108,7 +101,6 @@ class CustomerRegistrationDependencyProvider extends AbstractBundleDependencyPro
 
         $container = $this->addCustomerFacade($container);
         $container = $this->addLocaleFacade($container);
-        $container = $this->addPasswordEncoder($container);
         $container = $this->addSequenceNumberFacade($container);
         $container = $this->addStoreFacade($container);
         $container = $this->addUtilTextService($container);
@@ -211,22 +203,6 @@ class CustomerRegistrationDependencyProvider extends AbstractBundleDependencyPro
         $container[static::QUERY_CONTAINER_CUSTOMER] = static function (Container $container) {
             return new CustomerRegistrationToCustomerQueryContainerBridge(
                 $container->getLocator()->customer()->queryContainer(),
-            );
-        };
-
-        return $container;
-    }
-
-    /**
-     * @param \Spryker\Zed\Kernel\Container $container
-     *
-     * @return \Spryker\Zed\Kernel\Container
-     */
-    protected function addPasswordEncoder(Container $container): Container
-    {
-        $container[static::ENCODER_PASSWORD] = static function (Container $container) {
-            return new CustomerRegistrationToPasswordEncoderBridge(
-                new NativePasswordEncoder(null, null, static::BCRYPT_FACTOR),
             );
         };
 

@@ -7,15 +7,10 @@ use FondOfOryx\Zed\OneTimePassword\Persistence\OneTimePasswordEntityManagerInter
 use Generated\Shared\Transfer\CustomerTransfer;
 use Generated\Shared\Transfer\OneTimePasswordResponseTransfer;
 use Hackzilla\PasswordGenerator\Generator\HybridPasswordGenerator;
-use Symfony\Component\Security\Core\Encoder\NativePasswordEncoder;
+use Symfony\Component\PasswordHasher\PasswordHasherInterface;
 
 class OneTimePasswordGenerator implements OneTimePasswordGeneratorInterface
 {
-    /**
-     * @var int
-     */
-    protected const BCRYPT_FACTOR = 12;
-
     /**
      * @var string
      */
@@ -25,6 +20,11 @@ class OneTimePasswordGenerator implements OneTimePasswordGeneratorInterface
      * @var \Hackzilla\PasswordGenerator\Generator\HybridPasswordGenerator
      */
     protected $hybridPasswordGenerator;
+
+    /**
+     * @var \Symfony\Component\PasswordHasher\PasswordHasherInterface
+     */
+    protected PasswordHasherInterface $passwordHasher;
 
     /**
      * @var \FondOfOryx\Zed\OneTimePassword\Persistence\OneTimePasswordEntityManagerInterface
@@ -38,15 +38,18 @@ class OneTimePasswordGenerator implements OneTimePasswordGeneratorInterface
 
     /**
      * @param \Hackzilla\PasswordGenerator\Generator\HybridPasswordGenerator $hybridPasswordGenerator
+     * @param \Symfony\Component\PasswordHasher\PasswordHasherInterface $passwordHasher
      * @param \FondOfOryx\Zed\OneTimePassword\Persistence\OneTimePasswordEntityManagerInterface $oneTimePasswordEntityManager
      * @param \FondOfOryx\Zed\OneTimePassword\OneTimePasswordConfig $oneTimePasswordConfig
      */
     public function __construct(
         HybridPasswordGenerator $hybridPasswordGenerator,
+        PasswordHasherInterface $passwordHasher,
         OneTimePasswordEntityManagerInterface $oneTimePasswordEntityManager,
         OneTimePasswordConfig $oneTimePasswordConfig
     ) {
         $this->hybridPasswordGenerator = $hybridPasswordGenerator;
+        $this->passwordHasher = $passwordHasher;
         $this->oneTimePasswordEntityManager = $oneTimePasswordEntityManager;
         $this->oneTimePasswordConfig = $oneTimePasswordConfig;
     }
@@ -62,7 +65,7 @@ class OneTimePasswordGenerator implements OneTimePasswordGeneratorInterface
 
         $password = $this->generateNewPassword();
 
-        $customerTransfer->setNewPassword($this->getEncodedPassword($password));
+        $customerTransfer->setNewPassword($this->passwordHasher->hash($password));
 
         $customerResponseTransfer = $this->oneTimePasswordEntityManager->updateCustomerPassword($customerTransfer);
 
@@ -86,17 +89,5 @@ class OneTimePasswordGenerator implements OneTimePasswordGeneratorInterface
             ->setSegmentCount($this->oneTimePasswordConfig->getPasswordGeneratorSegmentCount())
             ->setSegmentSeparator($this->oneTimePasswordConfig->getPasswordGeneratorSegmentSeparator())
             ->generatePassword();
-    }
-
-    /**
-     * @param string $currentPassword
-     *
-     * @return string
-     */
-    protected function getEncodedPassword(string $currentPassword): string
-    {
-        $encoder = new NativePasswordEncoder(null, null, static::BCRYPT_FACTOR);
-
-        return $encoder->encodePassword($currentPassword, static::BCRYPT_SALT);
     }
 }

@@ -244,7 +244,7 @@
     },
     "customer-registration": {
       "path": "bundles/customer-registration/",
-      "version": "2.0.0"
+      "version": "2.1.0"
     },
     "customer-registration-extension": {
       "path": "bundles/customer-registration-extension/",
@@ -276,7 +276,7 @@
     },
     "customer-token-manager": {
       "path": "bundles/customer-token-manager/",
-      "version": "2.0.0"
+      "version": "2.1.0"
     },
     "customer-token-manager-one-time-password-connector": {
       "path": "bundles/customer-token-manager-one-time-password-connector/",
@@ -556,7 +556,7 @@
     },
     "one-time-password": {
       "path": "bundles/one-time-password/",
-      "version": "2.0.0"
+      "version": "2.1.0"
     },
     "one-time-password-email-connector": {
       "path": "bundles/one-time-password-email-connector/",

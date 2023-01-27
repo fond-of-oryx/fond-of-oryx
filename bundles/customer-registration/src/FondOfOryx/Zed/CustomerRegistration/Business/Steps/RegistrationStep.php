@@ -5,21 +5,16 @@ namespace FondOfOryx\Zed\CustomerRegistration\Business\Steps;
 use Exception;
 use FondOfOryx\Zed\CustomerRegistration\Business\Generator\CustomerReferenceGeneratorInterface;
 use FondOfOryx\Zed\CustomerRegistration\Business\Generator\PasswordGeneratorInterface;
-use FondOfOryx\Zed\CustomerRegistration\Dependency\Encoder\CustomerRegistrationToPasswordEncoderInterface;
 use FondOfOryx\Zed\CustomerRegistration\Dependency\Facade\CustomerRegistrationToCustomerFacadeInterface;
 use FondOfOryx\Zed\CustomerRegistration\Dependency\Facade\CustomerRegistrationToLocaleFacadeInterface;
 use FondOfOryx\Zed\CustomerRegistration\Persistence\CustomerRegistrationEntityManagerInterface;
 use Generated\Shared\Transfer\CustomerRegistrationAttributesTransfer;
 use Generated\Shared\Transfer\CustomerRegistrationRequestTransfer;
 use Generated\Shared\Transfer\CustomerTransfer;
+use Symfony\Component\PasswordHasher\PasswordHasherInterface;
 
 class RegistrationStep extends AbstractStep implements RegistrationStepInterface
 {
-    /**
-     * @var string
-     */
-    protected const BCRYPT_SALT = '';
-
     /**
      * @var \FondOfOryx\Zed\CustomerRegistration\Dependency\Facade\CustomerRegistrationToCustomerFacadeInterface
      */
@@ -31,9 +26,9 @@ class RegistrationStep extends AbstractStep implements RegistrationStepInterface
     protected $localeFacade;
 
     /**
-     * @var \FondOfOryx\Zed\CustomerRegistration\Dependency\Encoder\CustomerRegistrationToPasswordEncoderInterface
+     * @var \Symfony\Component\PasswordHasher\PasswordHasherInterface
      */
-    protected $passwordEncoder;
+    protected $passwordHasher;
 
     /**
      * @var \FondOfOryx\Zed\CustomerRegistration\Persistence\CustomerRegistrationEntityManagerInterface
@@ -60,7 +55,7 @@ class RegistrationStep extends AbstractStep implements RegistrationStepInterface
      * @param \FondOfOryx\Zed\CustomerRegistration\Business\Generator\CustomerReferenceGeneratorInterface $customerReferenceGenerator
      * @param \FondOfOryx\Zed\CustomerRegistration\Dependency\Facade\CustomerRegistrationToCustomerFacadeInterface $customerFacade
      * @param \FondOfOryx\Zed\CustomerRegistration\Dependency\Facade\CustomerRegistrationToLocaleFacadeInterface $localeFacade
-     * @param \FondOfOryx\Zed\CustomerRegistration\Dependency\Encoder\CustomerRegistrationToPasswordEncoderInterface $passwordEncoder
+     * @param \Symfony\Component\PasswordHasher\PasswordHasherInterface $passwordHasher
      * @param \FondOfOryx\Zed\CustomerRegistration\Persistence\CustomerRegistrationEntityManagerInterface $entityManager
      * @param array<\FondOfOryx\Zed\CustomerRegistrationExtension\Dependency\Plugin\CustomerRegistrationPostStepPluginInterface> $postStepPlugins
      */
@@ -69,7 +64,7 @@ class RegistrationStep extends AbstractStep implements RegistrationStepInterface
         CustomerReferenceGeneratorInterface $customerReferenceGenerator,
         CustomerRegistrationToCustomerFacadeInterface $customerFacade,
         CustomerRegistrationToLocaleFacadeInterface $localeFacade,
-        CustomerRegistrationToPasswordEncoderInterface $passwordEncoder,
+        PasswordHasherInterface $passwordHasher,
         CustomerRegistrationEntityManagerInterface $entityManager,
         array $postStepPlugins
     ) {
@@ -77,7 +72,7 @@ class RegistrationStep extends AbstractStep implements RegistrationStepInterface
         $this->customerReferenceGenerator = $customerReferenceGenerator;
         $this->customerFacade = $customerFacade;
         $this->localeFacade = $localeFacade;
-        $this->passwordEncoder = $passwordEncoder;
+        $this->passwordHasher = $passwordHasher;
         $this->entityManager = $entityManager;
         $this->postStepPlugins = $postStepPlugins;
     }
@@ -159,7 +154,7 @@ class RegistrationStep extends AbstractStep implements RegistrationStepInterface
             $currentPassword = $this->passwordGenerator->generate();
         }
 
-        $customerTransfer->setPassword($this->passwordEncoder->encodePassword($currentPassword, static::BCRYPT_SALT));
+        $customerTransfer->setPassword($this->passwordHasher->hash($currentPassword));
 
         return $customerTransfer;
     }
