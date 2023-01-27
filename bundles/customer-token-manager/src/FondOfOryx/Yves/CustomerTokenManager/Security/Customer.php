@@ -58,21 +58,11 @@ class Customer implements UserInterface
     }
 
     /**
-     * Returns the username used to authenticate the user.
-     *
-     * @return string The username
-     */
-    public function getUsername()
-    {
-        return $this->username;
-    }
-
-    /**
      * @return string
      */
     public function getUserIdentifier(): string
     {
-        return $this->getUsername();
+        return $this->username;
     }
 
     /**
