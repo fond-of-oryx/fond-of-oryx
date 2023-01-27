@@ -92,11 +92,11 @@ class AvailabilityAlertRepository extends AbstractRepository implements Availabi
 
     /**
      * @param int $idStore
-     * @param int $status
+     * @param string $status
      *
      * @return \Generated\Shared\Transfer\AvailabilityAlertSubscriptionCollectionTransfer
      */
-    public function findSubscriptionsByIdStoreAndStatus(int $idStore, int $status): AvailabilityAlertSubscriptionCollectionTransfer
+    public function findSubscriptionsByIdStoreAndStatus(int $idStore, string $status): AvailabilityAlertSubscriptionCollectionTransfer
     {
         $query = $this->getFactory()->createAvailabilityAlertSubscriptionQuery()
             ->filterByFkStore($idStore)
