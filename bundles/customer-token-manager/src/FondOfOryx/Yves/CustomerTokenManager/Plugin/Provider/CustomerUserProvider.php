@@ -15,13 +15,13 @@ use Symfony\Component\Security\Core\User\UserProviderInterface;
 class CustomerUserProvider extends AbstractPlugin implements UserProviderInterface
 {
     /**
-     * @param string $username
+     * @param string $identifier
      *
      * @return \Symfony\Component\Security\Core\User\UserInterface
      */
-    public function loadUserByUsername(string $username): UserInterface
+    public function loadUserByIdentifier(string $identifier): UserInterface
     {
-        $customerTransfer = $this->loadCustomerByEmail($username);
+        $customerTransfer = $this->loadCustomerByEmail($identifier);
 
         return $this->getFactory()->createSecurityUser($customerTransfer);
     }
