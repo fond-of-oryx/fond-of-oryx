@@ -9,6 +9,7 @@ use Generated\Shared\Transfer\CustomerResponseTransfer;
 use Generated\Shared\Transfer\CustomerTransfer;
 use Generated\Shared\Transfer\OneTimePasswordResponseTransfer;
 use Hackzilla\PasswordGenerator\Generator\HybridPasswordGenerator;
+use Symfony\Component\PasswordHasher\PasswordHasherInterface;
 
 class OneTimePasswordGeneratorTest extends Unit
 {
@@ -21,6 +22,11 @@ class OneTimePasswordGeneratorTest extends Unit
      * @var \Hackzilla\PasswordGenerator\Generator\HumanPasswordGenerator|\PHPUnit\Framework\MockObject\MockObject
      */
     protected $hybridPasswordGeneratorMock;
+
+    /**
+     * @var \PHPUnit\Framework\MockObject\MockObject|\Symfony\Component\PasswordHasher\PasswordHasherInterface
+     */
+    protected $passwordHasherMock;
 
     /**
      * @var \FondOfOryx\Zed\OneTimePassword\Persistence\OneTimePasswordEntityManagerInterface|\PHPUnit\Framework\MockObject\MockObject
@@ -126,6 +132,10 @@ class OneTimePasswordGeneratorTest extends Unit
             ->disableOriginalConstructor()
             ->getMock();
 
+        $this->passwordHasherMock = $this->getMockBuilder(PasswordHasherInterface::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
         $this->oneTimePasswordEntityManagerMock = $this->getMockBuilder(OneTimePasswordEntityManagerInterface::class)
             ->disableOriginalConstructor()
             ->getMock();
@@ -174,6 +184,7 @@ class OneTimePasswordGeneratorTest extends Unit
 
         $this->oneTimePasswordGenerator = new OneTimePasswordGenerator(
             $this->hybridPasswordGeneratorMock,
+            $this->passwordHasherMock,
             $this->oneTimePasswordEntityManagerMock,
             $this->oneTimePasswordConfigMock,
         );

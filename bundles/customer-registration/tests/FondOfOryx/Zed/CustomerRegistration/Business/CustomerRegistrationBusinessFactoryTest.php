@@ -12,7 +12,6 @@ use FondOfOryx\Zed\CustomerRegistration\Business\Steps\RegistrationStep;
 use FondOfOryx\Zed\CustomerRegistration\Business\Steps\VerificationStep;
 use FondOfOryx\Zed\CustomerRegistration\CustomerRegistrationConfig;
 use FondOfOryx\Zed\CustomerRegistration\CustomerRegistrationDependencyProvider;
-use FondOfOryx\Zed\CustomerRegistration\Dependency\Encoder\CustomerRegistrationToPasswordEncoderInterface;
 use FondOfOryx\Zed\CustomerRegistration\Dependency\Facade\CustomerRegistrationToCustomerFacadeInterface;
 use FondOfOryx\Zed\CustomerRegistration\Dependency\Facade\CustomerRegistrationToLocaleFacadeInterface;
 use FondOfOryx\Zed\CustomerRegistration\Dependency\Facade\CustomerRegistrationToSequenceNumberFacadeInterface;
@@ -75,11 +74,6 @@ class CustomerRegistrationBusinessFactoryTest extends Unit
     protected $repositoryMock;
 
     /**
-     * @var \FondOfOryx\Zed\CustomerRegistration\Dependency\Encoder\CustomerRegistrationToPasswordEncoderInterface|\PHPUnit\Framework\MockObject\MockObject
-     */
-    protected $passwordEncoderMock;
-
-    /**
      * @return void
      */
     protected function _before(): void
@@ -105,10 +99,6 @@ class CustomerRegistrationBusinessFactoryTest extends Unit
             ->getMock();
 
         $this->utilTextServiceMock = $this->getMockBuilder(CustomerRegistrationToUtilTextServiceInterface::class)
-            ->disableOriginalConstructor()
-            ->getMock();
-
-        $this->passwordEncoderMock = $this->getMockBuilder(CustomerRegistrationToPasswordEncoderInterface::class)
             ->disableOriginalConstructor()
             ->getMock();
 
@@ -168,7 +158,6 @@ class CustomerRegistrationBusinessFactoryTest extends Unit
                 [CustomerRegistrationDependencyProvider::FACADE_STORE],
                 [CustomerRegistrationDependencyProvider::FACADE_CUSTOMER],
                 [CustomerRegistrationDependencyProvider::FACADE_LOCALE],
-                [CustomerRegistrationDependencyProvider::ENCODER_PASSWORD],
                 [CustomerRegistrationDependencyProvider::PLUGINS_CUSTOMER_REGISTRATION_POST],
             )
             ->willReturnOnConsecutiveCalls(
@@ -177,7 +166,6 @@ class CustomerRegistrationBusinessFactoryTest extends Unit
                 $this->storeFacadeMock,
                 $this->customerFacadeMock,
                 $this->localeFacadeMock,
-                $this->passwordEncoderMock,
                 [],
             );
 

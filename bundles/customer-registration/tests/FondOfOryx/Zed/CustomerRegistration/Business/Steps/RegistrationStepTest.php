@@ -6,7 +6,6 @@ use Codeception\Test\Unit;
 use Exception;
 use FondOfOryx\Zed\CustomerRegistration\Business\Generator\CustomerReferenceGeneratorInterface;
 use FondOfOryx\Zed\CustomerRegistration\Business\Generator\PasswordGeneratorInterface;
-use FondOfOryx\Zed\CustomerRegistration\Dependency\Encoder\CustomerRegistrationToPasswordEncoderInterface;
 use FondOfOryx\Zed\CustomerRegistration\Dependency\Facade\CustomerRegistrationToCustomerFacadeInterface;
 use FondOfOryx\Zed\CustomerRegistration\Dependency\Facade\CustomerRegistrationToLocaleFacadeInterface;
 use FondOfOryx\Zed\CustomerRegistration\Persistence\CustomerRegistrationEntityManagerInterface;
@@ -16,6 +15,7 @@ use Generated\Shared\Transfer\CustomerRegistrationBagTransfer;
 use Generated\Shared\Transfer\CustomerRegistrationRequestTransfer;
 use Generated\Shared\Transfer\CustomerTransfer;
 use Generated\Shared\Transfer\LocaleTransfer;
+use Symfony\Component\PasswordHasher\PasswordHasherInterface;
 
 class RegistrationStepTest extends Unit
 {
@@ -50,9 +50,9 @@ class RegistrationStepTest extends Unit
     protected $localeFacadeMock;
 
     /**
-     * @var \FondOfOryx\Zed\CustomerRegistration\Dependency\Encoder\CustomerRegistrationToPasswordEncoderInterface|\PHPUnit\Framework\MockObject\MockObject
+     * @var \PHPUnit\Framework\MockObject\MockObject|\Symfony\Component\PasswordHasher\PasswordHasherInterface
      */
-    protected $passwordEncoderMock;
+    protected $passwordHasherMock;
 
     /**
      * @var \Generated\Shared\Transfer\CustomerRegistrationRequestTransfer|\PHPUnit\Framework\MockObject\MockObject
@@ -111,7 +111,7 @@ class RegistrationStepTest extends Unit
             ->disableOriginalConstructor()
             ->getMock();
 
-        $this->passwordEncoderMock = $this->getMockBuilder(CustomerRegistrationToPasswordEncoderInterface::class)
+        $this->passwordHasherMock = $this->getMockBuilder(PasswordHasherInterface::class)
             ->disableOriginalConstructor()
             ->getMock();
 
@@ -144,7 +144,7 @@ class RegistrationStepTest extends Unit
             $this->customerReferenceGeneratorMock,
             $this->customerFacadeMock,
             $this->localeFacadeMock,
-            $this->passwordEncoderMock,
+            $this->passwordHasherMock,
             $this->entityManagerMock,
             [
                 $this->postPluginMock,
@@ -168,7 +168,7 @@ class RegistrationStepTest extends Unit
         $this->localeFacadeMock->expects(static::once())->method('getLocale')->willReturn($this->localeTransferMock);
         $this->passwordGeneratorMock->expects(static::once())->method('generate')->willReturn('password');
         $this->passwordGeneratorMock->expects(static::once())->method('generateRandomString')->willReturn('token');
-        $this->passwordEncoderMock->expects(static::once())->method('encodePassword')->willReturn('encodedPassword');
+        $this->passwordHasherMock->expects(static::once())->method('hash')->willReturn('encodedPassword');
         $this->customerReferenceGeneratorMock->expects(static::once())->method('generateCustomerReference')->willReturn('ref');
         $this->entityManagerMock->expects(static::once())->method('createCustomer')->willReturnCallback(static function (CustomerTransfer $customerTransfer) {
             static::assertSame('ref', $customerTransfer->getCustomerReference());
