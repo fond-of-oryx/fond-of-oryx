@@ -16,11 +16,6 @@ use Symfony\Component\PasswordHasher\PasswordHasherInterface;
 class RegistrationStep extends AbstractStep implements RegistrationStepInterface
 {
     /**
-     * @var string
-     */
-    protected const BCRYPT_SALT = '';
-
-    /**
      * @var \FondOfOryx\Zed\CustomerRegistration\Dependency\Facade\CustomerRegistrationToCustomerFacadeInterface
      */
     protected $customerFacade;
@@ -159,7 +154,7 @@ class RegistrationStep extends AbstractStep implements RegistrationStepInterface
             $currentPassword = $this->passwordGenerator->generate();
         }
 
-        $customerTransfer->setPassword($this->passwordHasher->hash($currentPassword, static::BCRYPT_SALT));
+        $customerTransfer->setPassword($this->passwordHasher->hash($currentPassword));
 
         return $customerTransfer;
     }

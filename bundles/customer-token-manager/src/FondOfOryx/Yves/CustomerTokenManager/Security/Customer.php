@@ -44,7 +44,7 @@ class Customer implements UserInterface
     /**
      * @return array<(\Symfony\Component\Security\Core\Role\Role|string)>
      */
-    public function getRoles()
+    public function getRoles(): array
     {
         return $this->roles;
     }
@@ -65,6 +65,14 @@ class Customer implements UserInterface
     public function getUsername()
     {
         return $this->username;
+    }
+
+    /**
+     * @return string
+     */
+    public function getUserIdentifier(): string
+    {
+        return $this->getUsername();
     }
 
     /**

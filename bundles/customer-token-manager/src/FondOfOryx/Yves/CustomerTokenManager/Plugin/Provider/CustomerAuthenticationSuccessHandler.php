@@ -5,6 +5,7 @@ namespace FondOfOryx\Yves\CustomerTokenManager\Plugin\Provider;
 use Generated\Shared\Transfer\CustomerTransfer;
 use Spryker\Yves\Kernel\AbstractPlugin;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Http\Authentication\AuthenticationSuccessHandlerInterface;
 
@@ -26,7 +27,7 @@ class CustomerAuthenticationSuccessHandler extends AbstractPlugin implements Aut
      *
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function onAuthenticationSuccess(Request $request, TokenInterface $token)
+    public function onAuthenticationSuccess(Request $request, TokenInterface $token): Response
     {
         /** @var \FondOfOryx\Yves\CustomerTokenManager\Security\Customer $customer */
         $customer = $token->getUser();

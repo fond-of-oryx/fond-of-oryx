@@ -65,7 +65,7 @@ class OneTimePasswordGenerator implements OneTimePasswordGeneratorInterface
 
         $password = $this->generateNewPassword();
 
-        $customerTransfer->setNewPassword($this->passwordHasher->hash($password, static::BCRYPT_SALT));
+        $customerTransfer->setNewPassword($this->passwordHasher->hash($password));
 
         $customerResponseTransfer = $this->oneTimePasswordEntityManager->updateCustomerPassword($customerTransfer);
 

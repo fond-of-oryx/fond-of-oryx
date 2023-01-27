@@ -19,7 +19,7 @@ class CustomerUserProvider extends AbstractPlugin implements UserProviderInterfa
      *
      * @return \Symfony\Component\Security\Core\User\UserInterface
      */
-    public function loadUserByUsername($username): UserInterface
+    public function loadUserByUsername(string $username): UserInterface
     {
         $customerTransfer = $this->loadCustomerByEmail($username);
 
@@ -50,7 +50,7 @@ class CustomerUserProvider extends AbstractPlugin implements UserProviderInterfa
     protected function getCustomerTransfer(UserInterface $user): CustomerTransfer
     {
         if ($this->getFactory()->getCustomerClient()->isLoggedIn() === false) {
-            $customerTransfer = $this->loadCustomerByEmail($user->getUsername());
+            $customerTransfer = $this->loadCustomerByEmail($user->getUserIdentifier());
 
             return $customerTransfer;
         }
@@ -107,7 +107,7 @@ class CustomerUserProvider extends AbstractPlugin implements UserProviderInterfa
      */
     protected function updateUser(UserInterface $user): CustomerTransfer
     {
-        $customerTransfer = $this->loadCustomerByEmail($user->getUsername());
+        $customerTransfer = $this->loadCustomerByEmail($user->getUserIdentifier());
         $this->getFactory()
             ->getCustomerClient()
             ->setCustomer($customerTransfer);
