@@ -5,8 +5,8 @@ namespace FondOfOryx\Zed\CompanyBusinessUnitApi\Business\Model;
 
 use Codeception\Test\Unit;
 use Exception;
+use FondOfOryx\Zed\CompanyBusinessUnitApi\Dependency\Facade\CompanyBusinessUnitApiToApiFacadeInterface;
 use FondOfOryx\Zed\CompanyBusinessUnitApi\Dependency\Facade\CompanyBusinessUnitApiToCompanyBusinessUnitFacadeInterface;
-use FondOfOryx\Zed\CompanyBusinessUnitApi\Dependency\QueryContainer\CompanyBusinessUnitApiToApiQueryContainerInterface;
 use FondOfOryx\Zed\CompanyBusinessUnitApi\Persistence\CompanyBusinessUnitApiRepositoryInterface;
 use Generated\Shared\Transfer\ApiCollectionTransfer;
 use Generated\Shared\Transfer\ApiDataTransfer;
@@ -18,7 +18,7 @@ use Generated\Shared\Transfer\CompanyBusinessUnitTransfer;
 class CompanyBusinessUnitApiTest extends Unit
 {
     /**
-     * @var \PHPUnit\Framework\MockObject\MockObject|\FondOfOryx\Zed\CompanyBusinessUnitApi\Dependency\QueryContainer\CompanyBusinessUnitApiToApiQueryContainerInterface
+     * @var \PHPUnit\Framework\MockObject\MockObject|\FondOfOryx\Zed\CompanyBusinessUnitApi\Dependency\Facade\CompanyBusinessUnitApiToApiFacadeInterface
      */
     protected $apiQueryContainerMock;
 
@@ -74,7 +74,7 @@ class CompanyBusinessUnitApiTest extends Unit
     {
         parent::_before();
 
-        $this->apiQueryContainerMock = $this->getMockBuilder(CompanyBusinessUnitApiToApiQueryContainerInterface::class)
+        $this->apiQueryContainerMock = $this->getMockBuilder(CompanyBusinessUnitApiToApiFacadeInterface::class)
             ->disableOriginalConstructor()
             ->getMock();
 
@@ -307,7 +307,7 @@ class CompanyBusinessUnitApiTest extends Unit
 
         $this->apiQueryContainerMock->expects(static::atLeastOnce())
             ->method('createApiItem')
-            ->with([], $idCompanyBusinessUnit)
+            ->with(null, (string)$idCompanyBusinessUnit)
             ->willReturn($this->apiItemTransferMock);
 
         static::assertEquals(

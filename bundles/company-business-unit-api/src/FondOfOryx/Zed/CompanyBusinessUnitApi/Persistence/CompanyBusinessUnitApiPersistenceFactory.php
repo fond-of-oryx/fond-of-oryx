@@ -3,8 +3,8 @@
 namespace FondOfOryx\Zed\CompanyBusinessUnitApi\Persistence;
 
 use FondOfOryx\Zed\CompanyBusinessUnitApi\CompanyBusinessUnitApiDependencyProvider;
+use FondOfOryx\Zed\CompanyBusinessUnitApi\Dependency\Facade\CompanyBusinessUnitApiToApiFacadeInterface;
 use FondOfOryx\Zed\CompanyBusinessUnitApi\Dependency\QueryContainer\CompanyBusinessUnitApiToApiQueryBuilderQueryContainerInterface;
-use FondOfOryx\Zed\CompanyBusinessUnitApi\Dependency\QueryContainer\CompanyBusinessUnitApiToApiQueryContainerInterface;
 use Orm\Zed\CompanyBusinessUnit\Persistence\SpyCompanyBusinessUnitQuery;
 use Spryker\Zed\Kernel\Persistence\AbstractPersistenceFactory;
 
@@ -35,10 +35,10 @@ class CompanyBusinessUnitApiPersistenceFactory extends AbstractPersistenceFactor
     }
 
     /**
-     * @return \FondOfOryx\Zed\CompanyBusinessUnitApi\Dependency\QueryContainer\CompanyBusinessUnitApiToApiQueryContainerInterface
+     * @return \FondOfOryx\Zed\CompanyBusinessUnitApi\Dependency\Facade\CompanyBusinessUnitApiToApiFacadeInterface
      */
-    public function getApiQueryContainer(): CompanyBusinessUnitApiToApiQueryContainerInterface
+    public function getApiFacade(): CompanyBusinessUnitApiToApiFacadeInterface
     {
-        return $this->getProvidedDependency(CompanyBusinessUnitApiDependencyProvider::QUERY_CONTAINER_API);
+        return $this->getProvidedDependency(CompanyBusinessUnitApiDependencyProvider::FACADE_API);
     }
 }

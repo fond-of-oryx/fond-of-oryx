@@ -3,8 +3,8 @@
 namespace FondOfOryx\Zed\CompanyBusinessUnitApi\Business\Model;
 
 use Exception;
+use FondOfOryx\Zed\CompanyBusinessUnitApi\Dependency\Facade\CompanyBusinessUnitApiToApiFacadeInterface;
 use FondOfOryx\Zed\CompanyBusinessUnitApi\Dependency\Facade\CompanyBusinessUnitApiToCompanyBusinessUnitFacadeInterface;
-use FondOfOryx\Zed\CompanyBusinessUnitApi\Dependency\QueryContainer\CompanyBusinessUnitApiToApiQueryContainerInterface;
 use FondOfOryx\Zed\CompanyBusinessUnitApi\Persistence\CompanyBusinessUnitApiRepositoryInterface;
 use Generated\Shared\Transfer\ApiCollectionTransfer;
 use Generated\Shared\Transfer\ApiDataTransfer;
@@ -23,7 +23,7 @@ class CompanyBusinessUnitApi implements CompanyBusinessUnitApiInterface
     protected const KEY_ID_COMPANY_BUSINESS_UNIT = 'id_company_business_unit';
 
     /**
-     * @var \FondOfOryx\Zed\CompanyBusinessUnitApi\Dependency\QueryContainer\CompanyBusinessUnitApiToApiQueryContainerInterface
+     * @var \FondOfOryx\Zed\CompanyBusinessUnitApi\Dependency\Facade\CompanyBusinessUnitApiToApiFacadeInterface
      */
     protected $apiQueryContainer;
 
@@ -38,12 +38,12 @@ class CompanyBusinessUnitApi implements CompanyBusinessUnitApiInterface
     protected $repository;
 
     /**
-     * @param \FondOfOryx\Zed\CompanyBusinessUnitApi\Dependency\QueryContainer\CompanyBusinessUnitApiToApiQueryContainerInterface $apiQueryContainer
+     * @param \FondOfOryx\Zed\CompanyBusinessUnitApi\Dependency\Facade\CompanyBusinessUnitApiToApiFacadeInterface $apiQueryContainer
      * @param \FondOfOryx\Zed\CompanyBusinessUnitApi\Dependency\Facade\CompanyBusinessUnitApiToCompanyBusinessUnitFacadeInterface $companyBusinessUnitFacade
      * @param \FondOfOryx\Zed\CompanyBusinessUnitApi\Persistence\CompanyBusinessUnitApiRepositoryInterface $repository
      */
     public function __construct(
-        CompanyBusinessUnitApiToApiQueryContainerInterface $apiQueryContainer,
+        CompanyBusinessUnitApiToApiFacadeInterface $apiQueryContainer,
         CompanyBusinessUnitApiToCompanyBusinessUnitFacadeInterface $companyBusinessUnitFacade,
         CompanyBusinessUnitApiRepositoryInterface $repository
     ) {
@@ -75,7 +75,7 @@ class CompanyBusinessUnitApi implements CompanyBusinessUnitApiInterface
 
         return $this->apiQueryContainer->createApiItem(
             $companyBusinessUnitTransfer,
-            $companyBusinessUnitTransfer->getIdCompanyBusinessUnit(),
+            (string)$companyBusinessUnitTransfer->getIdCompanyBusinessUnit(),
         );
     }
 
@@ -90,7 +90,7 @@ class CompanyBusinessUnitApi implements CompanyBusinessUnitApiInterface
 
         return $this->apiQueryContainer->createApiItem(
             $companyBusinessUnitTransfer,
-            $companyBusinessUnitTransfer->getIdCompanyBusinessUnit(),
+            (string)$companyBusinessUnitTransfer->getIdCompanyBusinessUnit(),
         );
     }
 
@@ -122,7 +122,7 @@ class CompanyBusinessUnitApi implements CompanyBusinessUnitApiInterface
 
         return $this->apiQueryContainer->createApiItem(
             $companyBusinessUnitTransfer,
-            $companyBusinessUnitTransfer->getIdCompanyBusinessUnit(),
+            (string)$companyBusinessUnitTransfer->getIdCompanyBusinessUnit(),
         );
     }
 
@@ -138,7 +138,7 @@ class CompanyBusinessUnitApi implements CompanyBusinessUnitApiInterface
 
         $this->companyBusinessUnitFacade->delete($companyBusinessUnitTransfer);
 
-        return $this->apiQueryContainer->createApiItem([], $idCompanyBusinessUnit);
+        return $this->apiQueryContainer->createApiItem(null, (string)$idCompanyBusinessUnit);
     }
 
     /**
