@@ -3,11 +3,11 @@
 namespace FondOfOryx\Zed\GiftCardApi;
 
 use Codeception\Test\Unit;
+use FondOfOryx\Zed\GiftCardApi\Dependency\Facade\GiftCardApiToApiFacadeBridge;
 use FondOfOryx\Zed\GiftCardApi\Dependency\QueryContainer\GiftCardApiToApiQueryBuilderContainerBridge;
-use FondOfOryx\Zed\GiftCardApi\Dependency\QueryContainer\GiftCardApiToApiQueryContainerBridge;
 use FondOfOryx\Zed\GiftCardApi\Dependency\QueryContainer\GiftCardApiToGiftCardQueryContainerBridge;
 use Spryker\Shared\Kernel\BundleProxy;
-use Spryker\Zed\Api\Persistence\ApiQueryContainerInterface;
+use Spryker\Zed\Api\Business\ApiFacadeInterface;
 use Spryker\Zed\ApiQueryBuilder\Persistence\ApiQueryBuilderQueryContainerInterface;
 use Spryker\Zed\GiftCard\Persistence\GiftCardQueryContainerInterface;
 use Spryker\Zed\Kernel\Container;
@@ -21,9 +21,9 @@ class GiftCardApiDependencyProviderTest extends Unit
     protected $apiQueryBuilderQueryContainerMock;
 
     /**
-     * @var \Spryker\Zed\Api\Persistence\ApiQueryContainerInterface|\PHPUnit\Framework\MockObject\MockObject|null
+     * @var \Spryker\Zed\Api\Business\ApiFacadeInterface|\PHPUnit\Framework\MockObject\MockObject|null
      */
-    protected $apiQueryContainerMock;
+    protected $apiFacadeMock;
 
     /**
      * @var \Spryker\Zed\Kernel\Container|\PHPUnit\Framework\MockObject\MockObject|null
@@ -69,7 +69,7 @@ class GiftCardApiDependencyProviderTest extends Unit
             ->disableOriginalConstructor()
             ->getMock();
 
-        $this->apiQueryContainerMock = $this->getMockBuilder(ApiQueryContainerInterface::class)
+        $this->apiFacadeMock = $this->getMockBuilder(ApiFacadeInterface::class)
             ->disableOriginalConstructor()
             ->getMock();
 
@@ -99,15 +99,17 @@ class GiftCardApiDependencyProviderTest extends Unit
                 ['apiQueryBuilder'],
                 ['api'],
                 ['giftCard'],
-            )
-            ->willReturn($this->bundleProxyMock);
+            )->willReturn($this->bundleProxyMock);
 
         $this->bundleProxyMock->expects(static::atLeastOnce())
             ->method('__call')
-            ->with('queryContainer')
-            ->willReturnOnConsecutiveCalls(
+            ->withConsecutive(
+                ['queryContainer'],
+                ['facade'],
+                ['queryContainer'],
+            )->willReturnOnConsecutiveCalls(
                 $this->apiQueryBuilderQueryContainerMock,
-                $this->apiQueryContainerMock,
+                $this->apiFacadeMock,
                 $this->giftCardQueryContainerMock,
             );
 
@@ -122,8 +124,8 @@ class GiftCardApiDependencyProviderTest extends Unit
         );
 
         static::assertInstanceOf(
-            GiftCardApiToApiQueryContainerBridge::class,
-            $container[GiftCardApiDependencyProvider::QUERY_CONTAINER_API],
+            GiftCardApiToApiFacadeBridge::class,
+            $container[GiftCardApiDependencyProvider::FACADE_API],
         );
 
         static::assertInstanceOf(

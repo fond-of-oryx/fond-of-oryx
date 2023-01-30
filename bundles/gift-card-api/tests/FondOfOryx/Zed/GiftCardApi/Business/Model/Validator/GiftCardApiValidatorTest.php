@@ -1,17 +1,16 @@
 <?php
 
-namespace FondOfOryx\Zed\GiftCardApi\Business\Model;
+namespace FondOfOryx\Zed\GiftCardApi\Business\Model\Validator;
 
 use Codeception\Test\Unit;
-use FondOfOryx\Zed\GiftCardApi\Business\Model\Validator\GiftCardApiValidator;
-use Generated\Shared\Transfer\ApiDataTransfer;
+use Generated\Shared\Transfer\ApiRequestTransfer;
 
 class GiftCardApiValidatorTest extends Unit
 {
     /**
-     * @var \Generated\Shared\Transfer\ApiDataTransfer|\PHPUnit\Framework\MockObject\MockObject
+     * @var \Generated\Shared\Transfer\ApiRequestTransfer|\PHPUnit\Framework\MockObject\MockObject
      */
-    protected $apiDataTransferMock;
+    protected $apiRequestTransferMock;
 
     /**
      * @var \FondOfOryx\Zed\GiftCardApi\Business\Model\Validator\GiftCardApiValidator
@@ -25,7 +24,7 @@ class GiftCardApiValidatorTest extends Unit
     {
         parent::_before();
 
-        $this->apiDataTransferMock = $this->getMockBuilder(ApiDataTransfer::class)
+        $this->apiRequestTransferMock = $this->getMockBuilder(ApiRequestTransfer::class)
             ->disableOriginalConstructor()
             ->getMock();
 
@@ -37,6 +36,6 @@ class GiftCardApiValidatorTest extends Unit
      */
     public function testValidate(): void
     {
-        static::assertIsArray($this->model->validate($this->apiDataTransferMock));
+        static::assertIsArray($this->model->validate($this->apiRequestTransferMock));
     }
 }

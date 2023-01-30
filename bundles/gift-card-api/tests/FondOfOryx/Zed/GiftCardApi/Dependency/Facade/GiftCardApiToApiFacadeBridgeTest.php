@@ -1,14 +1,14 @@
 <?php
 
-namespace FondOfOryx\Zed\GiftCardApi\Dependency\QueryContainer;
+namespace FondOfOryx\Zed\GiftCardApi\Dependency\Facade;
 
 use Codeception\Test\Unit;
 use Generated\Shared\Transfer\ApiCollectionTransfer;
 use Generated\Shared\Transfer\ApiItemTransfer;
 use Spryker\Shared\Kernel\Transfer\AbstractTransfer;
-use Spryker\Zed\Api\Persistence\ApiQueryContainerInterface;
+use Spryker\Zed\Api\Business\ApiFacadeInterface;
 
-class GiftCardApiToApiQueryContainerBridgeTest extends Unit
+class GiftCardApiToApiFacadeBridgeTest extends Unit
 {
     /**
      * @var \Spryker\Shared\Kernel\Transfer\AbstractTransfer|\PHPUnit\Framework\MockObject\MockObject
@@ -16,14 +16,14 @@ class GiftCardApiToApiQueryContainerBridgeTest extends Unit
     protected $abstractTransferMock;
 
     /**
-     * @var \FondOfOryx\Zed\GiftCardApi\Dependency\QueryContainer\GiftCardApiToApiQueryContainerBridge
+     * @var \FondOfOryx\Zed\GiftCardApi\Dependency\Facade\GiftCardApiToApiFacadeBridge
      */
-    protected $apiQueryContainerBridge;
+    protected $bridge;
 
     /**
-     * @var \Spryker\Zed\Api\Persistence\ApiQueryContainerInterface|\PHPUnit\Framework\MockObject\MockObject
+     * @var \Spryker\Zed\Api\Business\ApiFacadeInterface|\PHPUnit\Framework\MockObject\MockObject
      */
-    protected $apiQueryQueryContainerMock;
+    protected $facadeMock;
 
     /**
      * @var \Generated\Shared\Transfer\ApiCollectionTransfer|\PHPUnit\Framework\MockObject\MockObject
@@ -42,8 +42,8 @@ class GiftCardApiToApiQueryContainerBridgeTest extends Unit
     {
         parent::_before();
 
-        $this->apiQueryQueryContainerMock = $this
-            ->getMockBuilder(ApiQueryContainerInterface::class)
+        $this->facadeMock = $this
+            ->getMockBuilder(ApiFacadeInterface::class)
             ->disableOriginalConstructor()
             ->getMock();
 
@@ -59,8 +59,8 @@ class GiftCardApiToApiQueryContainerBridgeTest extends Unit
             ->disableOriginalConstructor()
             ->getMock();
 
-        $this->apiQueryContainerBridge =
-            new GiftCardApiToApiQueryContainerBridge($this->apiQueryQueryContainerMock);
+        $this->bridge =
+            new GiftCardApiToApiFacadeBridge($this->facadeMock);
     }
 
     /**
@@ -68,15 +68,16 @@ class GiftCardApiToApiQueryContainerBridgeTest extends Unit
      */
     public function testCreateApiCollection(): void
     {
-        $data = [];
-        $this->apiQueryQueryContainerMock->expects(static::atLeastOnce())
+        $transfers = [];
+
+        $this->facadeMock->expects(static::atLeastOnce())
             ->method('createApiCollection')
-            ->with($data)
+            ->with($transfers)
             ->willReturn($this->apiCollectionTransferMock);
 
-        static::assertInstanceOf(
-            ApiCollectionTransfer::class,
-            $this->apiQueryContainerBridge->createApiCollection($data),
+        static::assertEquals(
+            $this->apiCollectionTransferMock,
+            $this->bridge->createApiCollection($transfers),
         );
     }
 
@@ -85,14 +86,16 @@ class GiftCardApiToApiQueryContainerBridgeTest extends Unit
      */
     public function testCreateApiItem(): void
     {
-        $this->apiQueryQueryContainerMock->expects(static::atLeastOnce())
+        $id = '1';
+
+        $this->facadeMock->expects(static::atLeastOnce())
             ->method('createApiItem')
-            ->with($this->abstractTransferMock)
+            ->with($this->abstractTransferMock, $id)
             ->willReturn($this->apiItemTransferMock);
 
-        static::assertInstanceOf(
-            ApiItemTransfer::class,
-            $this->apiQueryContainerBridge->createApiItem($this->abstractTransferMock),
+        static::assertEquals(
+            $this->apiItemTransferMock,
+            $this->bridge->createApiItem($this->abstractTransferMock, $id),
         );
     }
 }

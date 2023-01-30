@@ -5,7 +5,7 @@ namespace FondOfOryx\Zed\GiftCardApi\Communication\Plugin\Api;
 use Codeception\Test\Unit;
 use FondOfOryx\Zed\GiftCardApi\Business\GiftCardApiFacade;
 use FondOfOryx\Zed\GiftCardApi\GiftCardApiConfig;
-use Generated\Shared\Transfer\ApiDataTransfer;
+use Generated\Shared\Transfer\ApiRequestTransfer;
 
 class GiftCardApiValidatorPluginTest extends Unit
 {
@@ -15,9 +15,9 @@ class GiftCardApiValidatorPluginTest extends Unit
     protected $plugin;
 
     /**
-     * @var \Generated\Shared\Transfer\ApiDataTransfer|\PHPUnit\Framework\MockObject\MockObject
+     * @var \Generated\Shared\Transfer\ApiRequestTransfer|\PHPUnit\Framework\MockObject\MockObject
      */
-    protected $apiDataTransferMock;
+    protected $apiRequestTransferMock;
 
     /**
      * @var \FondOfOryx\Zed\GiftCardApi\Business\GiftCardApiFacade|\PHPUnit\Framework\MockObject\MockObject
@@ -31,7 +31,7 @@ class GiftCardApiValidatorPluginTest extends Unit
     {
         parent::_before();
 
-        $this->apiDataTransferMock = $this->getMockBuilder(ApiDataTransfer::class)
+        $this->apiRequestTransferMock = $this->getMockBuilder(ApiRequestTransfer::class)
             ->disableOriginalConstructor()
             ->getMock();
 
@@ -50,10 +50,10 @@ class GiftCardApiValidatorPluginTest extends Unit
     {
         $this->facadeMock->expects(static::atLeastOnce())
             ->method('validate')
-            ->with($this->apiDataTransferMock)
+            ->with($this->apiRequestTransferMock)
             ->willReturn([]);
 
-        static::assertIsArray($this->plugin->validate($this->apiDataTransferMock));
+        static::assertIsArray($this->plugin->validate($this->apiRequestTransferMock));
     }
 
     /**

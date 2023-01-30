@@ -6,7 +6,6 @@ use Codeception\Test\Unit;
 use FondOfOryx\Zed\GiftCardApi\Business\Model\GiftCardApiInterface;
 use FondOfOryx\Zed\GiftCardApi\Business\Model\Validator\GiftCardApiValidatorInterface;
 use Generated\Shared\Transfer\ApiCollectionTransfer;
-use Generated\Shared\Transfer\ApiDataTransfer;
 use Generated\Shared\Transfer\ApiRequestTransfer;
 
 class GiftCardApiFacadeTest extends Unit
@@ -15,11 +14,6 @@ class GiftCardApiFacadeTest extends Unit
      * @var \Generated\Shared\Transfer\ApiCollectionTransfer|\PHPUnit\Framework\MockObject\MockObject
      */
     protected $apiCollectionTransferMock;
-
-    /**
-     * @var \Generated\Shared\Transfer\ApiDataTransfer|\PHPUnit\Framework\MockObject\MockObject
-     */
-    protected $apiDataTransferMock;
 
     /**
      * @var \Generated\Shared\Transfer\ApiRequestTransfer|\PHPUnit\Framework\MockObject\MockObject
@@ -54,10 +48,6 @@ class GiftCardApiFacadeTest extends Unit
         parent::_before();
 
         $this->apiCollectionTransferMock = $this->getMockBuilder(ApiCollectionTransfer::class)
-            ->disableOriginalConstructor()
-            ->getMock();
-
-        $this->apiDataTransferMock = $this->getMockBuilder(ApiDataTransfer::class)
             ->disableOriginalConstructor()
             ->getMock();
 
@@ -96,8 +86,8 @@ class GiftCardApiFacadeTest extends Unit
             ->with($this->apiRequestTransferMock)
             ->willReturn($this->apiCollectionTransferMock);
 
-        static::assertInstanceOf(
-            ApiCollectionTransfer::class,
+        static::assertEquals(
+            $this->apiCollectionTransferMock,
             $this->facade->findGiftCard($this->apiRequestTransferMock),
         );
     }
@@ -107,15 +97,17 @@ class GiftCardApiFacadeTest extends Unit
      */
     public function testValidate(): void
     {
+        $result = [];
+
         $this->factoryMock->expects(static::atLeastOnce())
             ->method('createGiftCardApiValidator')
             ->willReturn($this->giftCardApiValidatorMock);
 
         $this->giftCardApiValidatorMock->expects(static::atLeastOnce())
             ->method('validate')
-            ->with($this->apiDataTransferMock)
-            ->willReturn([]);
+            ->with($this->apiRequestTransferMock)
+            ->willReturn($result);
 
-        static::assertIsArray($this->facade->validate($this->apiDataTransferMock));
+        static::assertEquals($result, $this->facade->validate($this->apiRequestTransferMock));
     }
 }

@@ -54,7 +54,7 @@ class GiftCardApiRepository extends AbstractRepository implements GiftCardApiRep
         foreach ($collection as $id => $giftCardTransfer) {
             $collection[$id] = $this->convert($giftCardTransfer)->getData();
         }
-        $apiCollectionTransfer = $this->getFactory()->getApiQueryContainer()->createApiCollection($collection);
+        $apiCollectionTransfer = $this->getFactory()->getApiFacade()->createApiCollection($collection);
 
         return $this->addPagination($query, $apiCollectionTransfer, $apiRequestTransfer);
     }
@@ -66,7 +66,12 @@ class GiftCardApiRepository extends AbstractRepository implements GiftCardApiRep
      */
     public function convert(GiftCardTransfer $giftCardTransfer): ApiItemTransfer
     {
-        return $this->getFactory()->getApiQueryContainer()->createApiItem($giftCardTransfer, $giftCardTransfer->getIdGiftCard());
+        return $this->getFactory()
+            ->getApiFacade()
+            ->createApiItem(
+                $giftCardTransfer,
+                (string)$giftCardTransfer->getIdGiftCard(),
+            );
     }
 
     /**
@@ -78,8 +83,11 @@ class GiftCardApiRepository extends AbstractRepository implements GiftCardApiRep
      *
      * @return \Generated\Shared\Transfer\ApiCollectionTransfer|array
      */
-    protected function addPagination(ModelCriteria $query, ApiCollectionTransfer $apiCollectionTransfer, ApiRequestTransfer $apiRequestTransfer)
-    {
+    protected function addPagination(
+        ModelCriteria $query,
+        ApiCollectionTransfer $apiCollectionTransfer,
+        ApiRequestTransfer $apiRequestTransfer
+    ) {
         $query->setOffset(0);
         $query->setLimit(-1);
         $total = $query->count();
