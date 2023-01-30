@@ -140,7 +140,7 @@
     },
     "company-unit-address-api": {
       "path": "bundles/company-unit-address-api/",
-      "version": "2.0.0"
+      "version": "3.0.0"
     },
     "company-unit-address-sales-connector": {
       "path": "bundles/company-unit-address-sales-connector/",

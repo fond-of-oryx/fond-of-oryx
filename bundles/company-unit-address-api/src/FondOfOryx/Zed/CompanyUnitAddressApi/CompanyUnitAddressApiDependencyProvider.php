@@ -2,9 +2,9 @@
 
 namespace FondOfOryx\Zed\CompanyUnitAddressApi;
 
+use FondOfOryx\Zed\CompanyUnitAddressApi\Dependency\Facade\CompanyUnitAddressApiToApiFacadeBridge;
 use FondOfOryx\Zed\CompanyUnitAddressApi\Dependency\Facade\CompanyUnitAddressApiToCompanyUnitAddressFacadeBridge;
 use FondOfOryx\Zed\CompanyUnitAddressApi\Dependency\QueryContainer\CompanyUnitAddressApiToApiQueryBuilderQueryContainerBridge;
-use FondOfOryx\Zed\CompanyUnitAddressApi\Dependency\QueryContainer\CompanyUnitAddressApiToApiQueryContainerBridge;
 use Orm\Zed\CompanyUnitAddress\Persistence\Base\SpyCompanyUnitAddressQuery;
 use Spryker\Zed\Kernel\AbstractBundleDependencyProvider;
 use Spryker\Zed\Kernel\Container;
@@ -27,7 +27,7 @@ class CompanyUnitAddressApiDependencyProvider extends AbstractBundleDependencyPr
     /**
      * @var string
      */
-    public const QUERY_CONTAINER_API = 'QUERY_CONTAINER_API';
+    public const FACADE_API = 'FACADE_API';
 
     /**
      * @var string
@@ -45,7 +45,7 @@ class CompanyUnitAddressApiDependencyProvider extends AbstractBundleDependencyPr
 
         $container = $this->addCompanyUnitAddressFacade($container);
 
-        return $this->addApiQueryContainer($container);
+        return $this->addApiFacade($container);
     }
 
     /**
@@ -57,7 +57,7 @@ class CompanyUnitAddressApiDependencyProvider extends AbstractBundleDependencyPr
     {
         $container = parent::providePersistenceLayerDependencies($container);
 
-        $container = $this->addApiQueryContainer($container);
+        $container = $this->addApiFacade($container);
         $container = $this->addApiQueryBuilderQueryContainer($container);
 
         return $this->addCompanyUnitAddressPropelQuery($container);
@@ -98,11 +98,11 @@ class CompanyUnitAddressApiDependencyProvider extends AbstractBundleDependencyPr
      *
      * @return \Spryker\Zed\Kernel\Container
      */
-    protected function addApiQueryContainer(Container $container): Container
+    protected function addApiFacade(Container $container): Container
     {
-        $container[static::QUERY_CONTAINER_API] = static function (Container $container) {
-            return new CompanyUnitAddressApiToApiQueryContainerBridge(
-                $container->getLocator()->api()->queryContainer(),
+        $container[static::FACADE_API] = static function (Container $container) {
+            return new CompanyUnitAddressApiToApiFacadeBridge(
+                $container->getLocator()->api()->facade(),
             );
         };
 

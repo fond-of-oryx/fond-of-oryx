@@ -2,8 +2,8 @@
 
 namespace FondOfOryx\Zed\CompanyUnitAddressApi\Business\Model;
 
+use FondOfOryx\Zed\CompanyUnitAddressApi\Dependency\Facade\CompanyUnitAddressApiToApiFacadeInterface;
 use FondOfOryx\Zed\CompanyUnitAddressApi\Dependency\Facade\CompanyUnitAddressApiToCompanyUnitAddressFacadeInterface;
-use FondOfOryx\Zed\CompanyUnitAddressApi\Dependency\QueryContainer\CompanyUnitAddressApiToApiQueryContainerInterface;
 use FondOfOryx\Zed\CompanyUnitAddressApi\Persistence\CompanyUnitAddressApiRepositoryInterface;
 use Generated\Shared\Transfer\ApiCollectionTransfer;
 use Generated\Shared\Transfer\ApiDataTransfer;
@@ -22,7 +22,7 @@ class CompanyUnitAddressApi implements CompanyUnitAddressApiInterface
     protected const KEY_ID_COMPANY_UNIT_ADDRESS = 'id_company_unit_address';
 
     /**
-     * @var \FondOfOryx\Zed\CompanyUnitAddressApi\Dependency\QueryContainer\CompanyUnitAddressApiToApiQueryContainerInterface
+     * @var \FondOfOryx\Zed\CompanyUnitAddressApi\Dependency\Facade\CompanyUnitAddressApiToApiFacadeInterface
      */
     protected $apiQueryContainer;
 
@@ -37,12 +37,12 @@ class CompanyUnitAddressApi implements CompanyUnitAddressApiInterface
     protected $repository;
 
     /**
-     * @param \FondOfOryx\Zed\CompanyUnitAddressApi\Dependency\QueryContainer\CompanyUnitAddressApiToApiQueryContainerInterface $apiQueryContainer
+     * @param \FondOfOryx\Zed\CompanyUnitAddressApi\Dependency\Facade\CompanyUnitAddressApiToApiFacadeInterface $apiQueryContainer
      * @param \FondOfOryx\Zed\CompanyUnitAddressApi\Dependency\Facade\CompanyUnitAddressApiToCompanyUnitAddressFacadeInterface $companyUnitAddressFacade
      * @param \FondOfOryx\Zed\CompanyUnitAddressApi\Persistence\CompanyUnitAddressApiRepositoryInterface $repository
      */
     public function __construct(
-        CompanyUnitAddressApiToApiQueryContainerInterface $apiQueryContainer,
+        CompanyUnitAddressApiToApiFacadeInterface $apiQueryContainer,
         CompanyUnitAddressApiToCompanyUnitAddressFacadeInterface $companyUnitAddressFacade,
         CompanyUnitAddressApiRepositoryInterface $repository
     ) {
@@ -75,7 +75,7 @@ class CompanyUnitAddressApi implements CompanyUnitAddressApiInterface
 
         return $this->apiQueryContainer->createApiItem(
             $companyUnitAddressTransfer,
-            $companyUnitAddressTransfer->getIdCompanyUnitAddress(),
+            (string)$companyUnitAddressTransfer->getIdCompanyUnitAddress(),
         );
     }
 
@@ -88,7 +88,7 @@ class CompanyUnitAddressApi implements CompanyUnitAddressApiInterface
     {
         $companyUnitAddressTransfer = $this->getByIdCompanyUnitAddress($idCompanyUnitAddress);
 
-        return $this->apiQueryContainer->createApiItem($companyUnitAddressTransfer, $idCompanyUnitAddress);
+        return $this->apiQueryContainer->createApiItem($companyUnitAddressTransfer, (string)$idCompanyUnitAddress);
     }
 
     /**
@@ -120,7 +120,7 @@ class CompanyUnitAddressApi implements CompanyUnitAddressApiInterface
 
         return $this->apiQueryContainer->createApiItem(
             $companyUnitAddressTransfer,
-            $companyUnitAddressTransfer->getIdCompanyUnitAddress(),
+            (string)$companyUnitAddressTransfer->getIdCompanyUnitAddress(),
         );
     }
 
@@ -136,7 +136,7 @@ class CompanyUnitAddressApi implements CompanyUnitAddressApiInterface
 
         $this->companyUnitAddressFacade->delete($companyUnitAddressTransfer);
 
-        return $this->apiQueryContainer->createApiItem([], $idCompanyUnitAddress);
+        return $this->apiQueryContainer->createApiItem(null, (string)$idCompanyUnitAddress);
     }
 
     /**
