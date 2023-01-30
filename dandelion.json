@@ -60,7 +60,7 @@
     },
     "company-api": {
       "path": "bundles/company-api/",
-      "version": "2.0.0"
+      "version": "3.0.0"
     },
     "company-brand-product-list-connector": {
       "path": "bundles/company-brand-product-list-connector/",

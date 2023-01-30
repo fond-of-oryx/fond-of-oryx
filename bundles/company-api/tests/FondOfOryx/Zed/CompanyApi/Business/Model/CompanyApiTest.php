@@ -4,8 +4,8 @@ namespace FondOfOryx\Zed\CompanyApi\Business\Model;
 
 use Codeception\Test\Unit;
 use Exception;
+use FondOfOryx\Zed\CompanyApi\Dependency\Facade\CompanyApiToApiFacadeInterface;
 use FondOfOryx\Zed\CompanyApi\Dependency\Facade\CompanyApiToCompanyFacadeInterface;
-use FondOfOryx\Zed\CompanyApi\Dependency\QueryContainer\CompanyApiToApiQueryContainerInterface;
 use FondOfOryx\Zed\CompanyApi\Persistence\CompanyApiRepositoryInterface;
 use Generated\Shared\Transfer\ApiCollectionTransfer;
 use Generated\Shared\Transfer\ApiDataTransfer;
@@ -17,9 +17,9 @@ use Generated\Shared\Transfer\CompanyTransfer;
 class CompanyApiTest extends Unit
 {
     /**
-     * @var \FondOfOryx\Zed\CompanyApi\Dependency\QueryContainer\CompanyApiToApiQueryContainerInterface|\PHPUnit\Framework\MockObject\MockObject
+     * @var \FondOfOryx\Zed\CompanyApi\Dependency\Facade\CompanyApiToApiFacadeInterface|\PHPUnit\Framework\MockObject\MockObject
      */
-    protected $apiQueryContainerMock;
+    protected $apiFacadeMock;
 
     /**
      * @var \FondOfOryx\Zed\CompanyApi\Dependency\Facade\CompanyApiToCompanyFacadeInterface|\PHPUnit\Framework\MockObject\MockObject
@@ -73,7 +73,7 @@ class CompanyApiTest extends Unit
     {
         parent::_before();
 
-        $this->apiQueryContainerMock = $this->getMockBuilder(CompanyApiToApiQueryContainerInterface::class)
+        $this->apiFacadeMock = $this->getMockBuilder(CompanyApiToApiFacadeInterface::class)
             ->disableOriginalConstructor()
             ->getMock();
 
@@ -110,7 +110,7 @@ class CompanyApiTest extends Unit
             ->getMock();
 
         $this->companyApi = new CompanyApi(
-            $this->apiQueryContainerMock,
+            $this->apiFacadeMock,
             $this->companyFacadeMock,
             $this->companyApiRepositoryMock,
         );
@@ -143,7 +143,7 @@ class CompanyApiTest extends Unit
             ->method('getIdCompany')
             ->willReturn($idCompany);
 
-        $this->apiQueryContainerMock->expects(static::atLeastOnce())
+        $this->apiFacadeMock->expects(static::atLeastOnce())
             ->method('createApiItem')
             ->with($this->companyTransferMock, $idCompany)
             ->willReturn($this->apiItemTransferMock);
@@ -179,7 +179,7 @@ class CompanyApiTest extends Unit
         $this->companyTransferMock->expects(static::never())
             ->method('getIdCompany');
 
-        $this->apiQueryContainerMock->expects(static::never())
+        $this->apiFacadeMock->expects(static::never())
             ->method('createApiItem');
 
         try {
@@ -225,7 +225,7 @@ class CompanyApiTest extends Unit
             ->method('getIdCompany')
             ->willReturn($idCompany);
 
-        $this->apiQueryContainerMock->expects(static::atLeastOnce())
+        $this->apiFacadeMock->expects(static::atLeastOnce())
             ->method('createApiItem')
             ->with($this->companyTransferMock, $idCompany)
             ->willReturn($this->apiItemTransferMock);
@@ -267,7 +267,7 @@ class CompanyApiTest extends Unit
         $this->companyResponseTransferMock->expects(static::never())
             ->method('getIsSuccessful');
 
-        $this->apiQueryContainerMock->expects(static::never())
+        $this->apiFacadeMock->expects(static::never())
             ->method('createApiItem');
 
         try {
@@ -294,9 +294,9 @@ class CompanyApiTest extends Unit
                 ),
             );
 
-        $this->apiQueryContainerMock->expects(static::atLeastOnce())
+        $this->apiFacadeMock->expects(static::atLeastOnce())
             ->method('createApiItem')
-            ->with([], $idCompany)
+            ->with(null, (string)$idCompany)
             ->willReturn($this->apiItemTransferMock);
 
         static::assertEquals(
@@ -321,7 +321,7 @@ class CompanyApiTest extends Unit
             ->method('getIdCompany')
             ->willReturn($idCompany);
 
-        $this->apiQueryContainerMock->expects(static::atLeastOnce())
+        $this->apiFacadeMock->expects(static::atLeastOnce())
             ->method('createApiItem')
             ->with($this->companyTransferMock, $idCompany)
             ->willReturn($this->apiItemTransferMock);

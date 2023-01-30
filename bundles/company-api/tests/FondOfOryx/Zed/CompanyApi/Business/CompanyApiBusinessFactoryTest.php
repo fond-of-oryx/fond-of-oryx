@@ -8,8 +8,8 @@ use FondOfOryx\Zed\CompanyApi\Business\Model\CompanyApi;
 use FondOfOryx\Zed\CompanyApi\Business\Model\Validator\CompanyApiValidator;
 use FondOfOryx\Zed\CompanyApi\CompanyApiConfig;
 use FondOfOryx\Zed\CompanyApi\CompanyApiDependencyProvider;
+use FondOfOryx\Zed\CompanyApi\Dependency\Facade\CompanyApiToApiFacadeInterface;
 use FondOfOryx\Zed\CompanyApi\Dependency\Facade\CompanyApiToCompanyFacadeInterface;
-use FondOfOryx\Zed\CompanyApi\Dependency\QueryContainer\CompanyApiToApiQueryContainerInterface;
 use FondOfOryx\Zed\CompanyApi\Persistence\CompanyApiRepository;
 use Spryker\Zed\Kernel\Container;
 
@@ -66,7 +66,7 @@ class CompanyApiBusinessFactoryTest extends Unit
      */
     public function testCreateCompanyApi(): void
     {
-        $apiQueryContainerMock = $this->getMockBuilder(CompanyApiToApiQueryContainerInterface::class)
+        $apiFacadeMock = $this->getMockBuilder(CompanyApiToApiFacadeInterface::class)
             ->disableOriginalConstructor()
             ->getMock();
 
@@ -77,18 +77,18 @@ class CompanyApiBusinessFactoryTest extends Unit
         $this->containerMock->expects(static::atLeastOnce())
             ->method('has')
             ->withConsecutive(
-                [CompanyApiDependencyProvider::QUERY_CONTAINER_API],
+                [CompanyApiDependencyProvider::FACADE_API],
                 [CompanyApiDependencyProvider::FACADE_COMPANY],
             )->willReturn(true);
 
         $this->containerMock->expects(static::atLeastOnce())
             ->method('get')
             ->withConsecutive(
-                [CompanyApiDependencyProvider::QUERY_CONTAINER_API],
+                [CompanyApiDependencyProvider::FACADE_API],
                 [CompanyApiDependencyProvider::FACADE_COMPANY],
             )
             ->willReturnOnConsecutiveCalls(
-                $apiQueryContainerMock,
+                $apiFacadeMock,
                 $apiToCompanyFacadeMock,
             );
 

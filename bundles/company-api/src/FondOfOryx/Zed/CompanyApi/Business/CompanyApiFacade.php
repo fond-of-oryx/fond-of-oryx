@@ -90,12 +90,12 @@ class CompanyApiFacade extends AbstractFacade implements CompanyApiFacadeInterfa
      *
      * @api
      *
-     * @param \Generated\Shared\Transfer\ApiDataTransfer $apiDataTransfer
+     * @param \Generated\Shared\Transfer\ApiRequestTransfer $apiRequestTransfer
      *
-     * @return array
+     * @return array<\Generated\Shared\Transfer\ApiValidationErrorTransfer>
      */
-    public function validate(ApiDataTransfer $apiDataTransfer): array
+    public function validate(ApiRequestTransfer $apiRequestTransfer): array
     {
-        return $this->getFactory()->createCompanyApiValidator()->validate($apiDataTransfer);
+        return $this->getFactory()->createCompanyApiValidator()->validate($apiRequestTransfer);
     }
 }
