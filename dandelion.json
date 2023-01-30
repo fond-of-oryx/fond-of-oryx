@@ -152,7 +152,7 @@
     },
     "company-user-api": {
       "path": "bundles/company-user-api/",
-      "version": "2.0.0"
+      "version": "3.0.0"
     },
     "company-user-archive": {
       "path": "bundles/company-user-archive/",
@@ -180,7 +180,7 @@
     },
     "concrete-product-api": {
       "path": "bundles/concrete-product-api/",
-      "version": "2.0.0"
+      "version": "3.0.0"
     },
     "country-oms-mail-connector": {
       "path": "bundles/country-oms-mail-connector/",

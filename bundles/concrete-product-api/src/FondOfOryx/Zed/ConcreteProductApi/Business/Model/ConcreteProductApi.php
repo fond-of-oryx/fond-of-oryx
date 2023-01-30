@@ -2,8 +2,8 @@
 
 namespace FondOfOryx\Zed\ConcreteProductApi\Business\Model;
 
+use FondOfOryx\Zed\ConcreteProductApi\Dependency\Facade\ConcreteProductApiToApiFacadeInterface;
 use FondOfOryx\Zed\ConcreteProductApi\Dependency\Facade\ConcreteProductApiToProductFacadeInterface;
-use FondOfOryx\Zed\ConcreteProductApi\Dependency\QueryContainer\ConcreteProductApiToApiQueryContainerInterface;
 use FondOfOryx\Zed\ConcreteProductApi\Persistence\ConcreteProductApiRepositoryInterface;
 use Generated\Shared\Transfer\ApiCollectionTransfer;
 use Generated\Shared\Transfer\ApiItemTransfer;
@@ -20,9 +20,9 @@ class ConcreteProductApi implements ConcreteProductApiInterface
     protected const KEY_ID_PRODUCT = 'id_product';
 
     /**
-     * @var \FondOfOryx\Zed\ConcreteProductApi\Dependency\QueryContainer\ConcreteProductApiToApiQueryContainerInterface
+     * @var \FondOfOryx\Zed\ConcreteProductApi\Dependency\Facade\ConcreteProductApiToApiFacadeInterface
      */
-    protected $apiQueryContainer;
+    protected $apiFacade;
 
     /**
      * @var \FondOfOryx\Zed\ConcreteProductApi\Dependency\Facade\ConcreteProductApiToProductFacadeInterface
@@ -35,16 +35,16 @@ class ConcreteProductApi implements ConcreteProductApiInterface
     protected $repository;
 
     /**
-     * @param \FondOfOryx\Zed\ConcreteProductApi\Dependency\QueryContainer\ConcreteProductApiToApiQueryContainerInterface $apiQueryContainer
+     * @param \FondOfOryx\Zed\ConcreteProductApi\Dependency\Facade\ConcreteProductApiToApiFacadeInterface $apiFacade
      * @param \FondOfOryx\Zed\ConcreteProductApi\Dependency\Facade\ConcreteProductApiToProductFacadeInterface $productFacade
      * @param \FondOfOryx\Zed\ConcreteProductApi\Persistence\ConcreteProductApiRepositoryInterface $repository
      */
     public function __construct(
-        ConcreteProductApiToApiQueryContainerInterface $apiQueryContainer,
+        ConcreteProductApiToApiFacadeInterface     $apiFacade,
         ConcreteProductApiToProductFacadeInterface $productFacade,
-        ConcreteProductApiRepositoryInterface $repository
+        ConcreteProductApiRepositoryInterface      $repository
     ) {
-        $this->apiQueryContainer = $apiQueryContainer;
+        $this->apiFacade = $apiFacade;
         $this->productFacade = $productFacade;
         $this->repository = $repository;
     }
@@ -79,7 +79,7 @@ class ConcreteProductApi implements ConcreteProductApiInterface
     {
         $productConcreteTransfer = $this->getByIdProductConcrete($id);
 
-        return $this->apiQueryContainer->createApiItem($productConcreteTransfer, $id);
+        return $this->apiFacade->createApiItem($productConcreteTransfer, (string)$id);
     }
 
     /**

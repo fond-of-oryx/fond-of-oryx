@@ -96,18 +96,18 @@ class ConcreteProductApiFacadeTest extends Unit
     {
         $errors = [];
 
-        $this->concreteProductApiBusinessFactoryMock->expects($this->atLeastOnce())
+        $this->concreteProductApiBusinessFactoryMock->expects(static::atLeastOnce())
             ->method('createConcreteProductApiValidator')
             ->willReturn($this->concreteProductApiValidatorInterfaceMock);
 
-        $this->concreteProductApiValidatorInterfaceMock->expects($this->atLeastOnce())
+        $this->concreteProductApiValidatorInterfaceMock->expects(static::atLeastOnce())
             ->method('validate')
-            ->with($this->apiDataTransferMock)
+            ->with($this->apiRequestTransferMock)
             ->willReturn([]);
 
         static::assertEquals(
             $errors,
-            $this->concreteProductApiFacade->validate($this->apiDataTransferMock),
+            $this->concreteProductApiFacade->validate($this->apiRequestTransferMock),
         );
     }
 
@@ -118,11 +118,11 @@ class ConcreteProductApiFacadeTest extends Unit
     {
         $id = 1;
 
-        $this->concreteProductApiBusinessFactoryMock->expects($this->atLeastOnce())
+        $this->concreteProductApiBusinessFactoryMock->expects(static::atLeastOnce())
             ->method('createConcreteProductApi')
             ->willReturn($this->concreteProductApiInterfaceMock);
 
-        $this->concreteProductApiInterfaceMock->expects($this->atLeastOnce())
+        $this->concreteProductApiInterfaceMock->expects(static::atLeastOnce())
             ->method('get')
             ->with($id)
             ->willReturn($this->apiItemTransferMock);
@@ -138,18 +138,18 @@ class ConcreteProductApiFacadeTest extends Unit
      */
     public function testFindConditionalProducts(): void
     {
-        $this->concreteProductApiBusinessFactoryMock->expects($this->atLeastOnce())
+        $this->concreteProductApiBusinessFactoryMock->expects(static::atLeastOnce())
             ->method('createConcreteProductApi')
             ->willReturn($this->concreteProductApiInterfaceMock);
 
-        $this->concreteProductApiInterfaceMock->expects($this->atLeastOnce())
+        $this->concreteProductApiInterfaceMock->expects(static::atLeastOnce())
             ->method('find')
             ->with($this->apiRequestTransferMock)
             ->willReturn($this->apiCollectionTransferMock);
 
         static::assertEquals(
             $this->apiCollectionTransferMock,
-            $this->concreteProductApiFacade->findConditionalProducts($this->apiRequestTransferMock),
+            $this->concreteProductApiFacade->findConcreteProducts($this->apiRequestTransferMock),
         );
     }
 }

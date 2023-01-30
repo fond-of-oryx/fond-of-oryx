@@ -7,9 +7,9 @@ use FondOfOryx\Zed\ConcreteProductApi\Business\Model\ConcreteProductApiInterface
 use FondOfOryx\Zed\ConcreteProductApi\Business\Validator\ConcreteProductApiValidator;
 use FondOfOryx\Zed\ConcreteProductApi\Business\Validator\ConcreteProductApiValidatorInterface;
 use FondOfOryx\Zed\ConcreteProductApi\ConcreteProductApiDependencyProvider;
+use FondOfOryx\Zed\ConcreteProductApi\Dependency\Facade\ConcreteProductApiToApiFacadeInterface;
 use FondOfOryx\Zed\ConcreteProductApi\Dependency\Facade\ConcreteProductApiToProductFacadeInterface;
 use FondOfOryx\Zed\ConcreteProductApi\Dependency\QueryContainer\ConcreteProductApiToApiQueryBuilderQueryContainerInterface;
-use FondOfOryx\Zed\ConcreteProductApi\Dependency\QueryContainer\ConcreteProductApiToApiQueryContainerInterface;
 use Spryker\Zed\Kernel\Business\AbstractBusinessFactory;
 
 /**
@@ -24,7 +24,7 @@ class ConcreteProductApiBusinessFactory extends AbstractBusinessFactory
     public function createConcreteProductApi(): ConcreteProductApiInterface
     {
         return new ConcreteProductApi(
-            $this->getApiQueryContainer(),
+            $this->getApiFacade(),
             $this->getProductFacade(),
             $this->getRepository(),
         );
@@ -39,11 +39,11 @@ class ConcreteProductApiBusinessFactory extends AbstractBusinessFactory
     }
 
     /**
-     * @return \FondOfOryx\Zed\ConcreteProductApi\Dependency\QueryContainer\ConcreteProductApiToApiQueryContainerInterface
+     * @return \FondOfOryx\Zed\ConcreteProductApi\Dependency\Facade\ConcreteProductApiToApiFacadeInterface
      */
-    protected function getApiQueryContainer(): ConcreteProductApiToApiQueryContainerInterface
+    protected function getApiFacade(): ConcreteProductApiToApiFacadeInterface
     {
-        return $this->getProvidedDependency(ConcreteProductApiDependencyProvider::QUERY_CONTAINER_API);
+        return $this->getProvidedDependency(ConcreteProductApiDependencyProvider::FACADE_API);
     }
 
     /**
