@@ -420,7 +420,7 @@
     },
     "invoice-api": {
       "path": "bundles/invoice-api/",
-      "version": "2.0.0"
+      "version": "3.0.0"
     },
     "invoice-extension": {
       "path": "bundles/invoice-extension/",

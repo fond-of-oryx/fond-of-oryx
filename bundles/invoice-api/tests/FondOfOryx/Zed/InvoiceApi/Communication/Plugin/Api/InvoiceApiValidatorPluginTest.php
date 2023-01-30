@@ -5,7 +5,7 @@ namespace FondOfOryx\Zed\InvoiceApi\Communication\Plugin\Api;
 use Codeception\Test\Unit;
 use FondOfOryx\Zed\InvoiceApi\Business\InvoiceApiFacade;
 use FondOfOryx\Zed\InvoiceApi\InvoiceApiConfig;
-use Generated\Shared\Transfer\ApiDataTransfer;
+use Generated\Shared\Transfer\ApiRequestTransfer;
 
 class InvoiceApiValidatorPluginTest extends Unit
 {
@@ -15,9 +15,9 @@ class InvoiceApiValidatorPluginTest extends Unit
     protected $facadeMock;
 
     /**
-     * @var \PHPUnit\Framework\MockObject\MockObject|\Generated\Shared\Transfer\ApiDataTransfer
+     * @var \PHPUnit\Framework\MockObject\MockObject|\Generated\Shared\Transfer\ApiRequestTransfer
      */
-    protected $apiDataTransferMock;
+    protected $apiRequestTransferMock;
 
     /**
      * @var \FondOfOryx\Zed\InvoiceApi\Communication\Plugin\Api\InvoiceApiValidatorPlugin
@@ -35,7 +35,7 @@ class InvoiceApiValidatorPluginTest extends Unit
             ->disableOriginalConstructor()
             ->getMock();
 
-        $this->apiDataTransferMock = $this->getMockBuilder(ApiDataTransfer::class)
+        $this->apiRequestTransferMock = $this->getMockBuilder(ApiRequestTransfer::class)
             ->disableOriginalConstructor()
             ->getMock();
 
@@ -58,9 +58,9 @@ class InvoiceApiValidatorPluginTest extends Unit
     {
         $this->facadeMock->expects(static::atLeastOnce())
             ->method('validate')
-            ->with($this->apiDataTransferMock)
+            ->with($this->apiRequestTransferMock)
             ->willReturn([]);
 
-        static::assertEquals([], $this->plugin->validate($this->apiDataTransferMock));
+        static::assertEquals([], $this->plugin->validate($this->apiRequestTransferMock));
     }
 }

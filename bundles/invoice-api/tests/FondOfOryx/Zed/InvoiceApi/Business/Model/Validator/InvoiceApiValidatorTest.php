@@ -3,14 +3,14 @@
 namespace FondOfOryx\Zed\InvoiceApi\Business\Model\Validator;
 
 use Codeception\Test\Unit;
-use Generated\Shared\Transfer\ApiDataTransfer;
+use Generated\Shared\Transfer\ApiRequestTransfer;
 
 class InvoiceApiValidatorTest extends Unit
 {
     /**
-     * @var \PHPUnit\Framework\MockObject\MockObject|\Generated\Shared\Transfer\ApiDataTransfer
+     * @var \PHPUnit\Framework\MockObject\MockObject|\Generated\Shared\Transfer\ApiRequestTransfer
      */
-    protected $apiDataTransferMock;
+    protected $apiRequestTransferMock;
 
     /**
      * @var \FondOfOryx\Zed\InvoiceApi\Business\Model\Validator\InvoiceApiValidator
@@ -24,7 +24,7 @@ class InvoiceApiValidatorTest extends Unit
     {
         parent::_before();
 
-        $this->apiDataTransferMock = $this->getMockBuilder(ApiDataTransfer::class)
+        $this->apiRequestTransferMock = $this->getMockBuilder(ApiRequestTransfer::class)
             ->disableOriginalConstructor()
             ->getMock();
 
@@ -36,6 +36,6 @@ class InvoiceApiValidatorTest extends Unit
      */
     public function testValidate(): void
     {
-        static::assertEquals([], $this->validator->validate($this->apiDataTransferMock));
+        static::assertEquals([], $this->validator->validate($this->apiRequestTransferMock));
     }
 }

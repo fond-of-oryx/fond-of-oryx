@@ -5,8 +5,8 @@ namespace FondOfOryx\Zed\InvoiceApi\Business;
 use Codeception\Test\Unit;
 use FondOfOryx\Zed\InvoiceApi\Business\Mapper\TransferMapper;
 use FondOfOryx\Zed\InvoiceApi\Business\Mapper\TransferMapperInterface;
+use FondOfOryx\Zed\InvoiceApi\Dependency\Facade\InvoiceApiToApiFacadeBridge;
 use FondOfOryx\Zed\InvoiceApi\Dependency\Facade\InvoiceApiToInvoiceFacadeBridge;
-use FondOfOryx\Zed\InvoiceApi\Dependency\QueryContainer\InvoiceApiToApiQueryContainerBridge;
 use FondOfOryx\Zed\InvoiceApi\InvoiceApiDependencyProvider;
 use Spryker\Zed\Kernel\Container;
 
@@ -18,9 +18,9 @@ class InvoiceApiBusinessFactoryTest extends Unit
     protected $containerMock;
 
     /**
-     * @var \PHPUnit\Framework\MockObject\MockObject|\Spryker\Zed\Api\Persistence\ApiQueryContainer
+     * @var \PHPUnit\Framework\MockObject\MockObject|\Spryker\Zed\Api\Business\ApiFacadeInterface
      */
-    protected $apiQueryContainerMock;
+    protected $apiFacadeMock;
 
     /**
      * @var \PHPUnit\Framework\MockObject\MockObject|\FondOfOryx\Zed\InvoiceApi\Dependency\Facade\InvoiceApiToInvoiceFacadeBridge
@@ -52,7 +52,7 @@ class InvoiceApiBusinessFactoryTest extends Unit
             ->disableOriginalConstructor()
             ->getMock();
 
-        $this->apiQueryContainerMock = $this->getMockBuilder(InvoiceApiToApiQueryContainerBridge::class)
+        $this->apiFacadeMock = $this->getMockBuilder(InvoiceApiToApiFacadeBridge::class)
             ->disableOriginalConstructor()
             ->getMock();
 
@@ -98,8 +98,8 @@ class InvoiceApiBusinessFactoryTest extends Unit
 
         $this->containerMock->expects(static::atLeastOnce())
             ->method('get')
-            ->withConsecutive([InvoiceApiDependencyProvider::QUERY_CONTAINER_API], [InvoiceApiDependencyProvider::FACADE_CREDIT_MEMO])
-            ->willReturnOnConsecutiveCalls($this->apiQueryContainerMock, $this->invoiceFacadeMock);
+            ->withConsecutive([InvoiceApiDependencyProvider::FACADE_API], [InvoiceApiDependencyProvider::FACADE_CREDIT_MEMO])
+            ->willReturnOnConsecutiveCalls($this->apiFacadeMock, $this->invoiceFacadeMock);
 
         $this->businessFactory->createInvoiceApi();
     }
