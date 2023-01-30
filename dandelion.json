@@ -122,6 +122,10 @@
       "path": "bundles/company-product-lists-rest-api/",
       "version": "2.0.0"
     },
+    "company-role-api": {
+      "path": "bundles/company-role-api/",
+      "version": "1.0.0"
+    },
     "company-role-search-rest-api": {
       "path": "bundles/company-role-search-rest-api/",
       "version": "2.0.0"

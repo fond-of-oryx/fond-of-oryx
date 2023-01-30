@@ -4,8 +4,8 @@ namespace FondOfOryx\Zed\CompanyRoleApi\Business\Model;
 
 use Codeception\Test\Unit;
 use Exception;
+use FondOfOryx\Zed\CompanyRoleApi\Dependency\Facade\CompanyRoleApiToApiFacadeInterface;
 use FondOfOryx\Zed\CompanyRoleApi\Dependency\Facade\CompanyRoleApiToCompanyRoleFacadeInterface;
-use FondOfOryx\Zed\CompanyRoleApi\Dependency\QueryContainer\CompanyRoleApiToApiQueryContainerInterface;
 use FondOfOryx\Zed\CompanyRoleApi\Persistence\CompanyRoleApiRepositoryInterface;
 use Generated\Shared\Transfer\ApiCollectionTransfer;
 use Generated\Shared\Transfer\ApiItemTransfer;
@@ -15,7 +15,7 @@ use Generated\Shared\Transfer\CompanyRoleTransfer;
 class CompanyRoleApiTest extends Unit
 {
     /**
-     * @var \PHPUnit\Framework\MockObject\MockObject|\FondOfOryx\Zed\CompanyRoleApi\Dependency\QueryContainer\CompanyRoleApiToApiQueryContainerInterface
+     * @var \PHPUnit\Framework\MockObject\MockObject|\FondOfOryx\Zed\CompanyRoleApi\Dependency\Facade\CompanyRoleApiToApiFacadeInterface
      */
     protected $apiQueryContainerMock;
 
@@ -61,7 +61,7 @@ class CompanyRoleApiTest extends Unit
     {
         parent::_before();
 
-        $this->apiQueryContainerMock = $this->getMockBuilder(CompanyRoleApiToApiQueryContainerInterface::class)
+        $this->apiQueryContainerMock = $this->getMockBuilder(CompanyRoleApiToApiFacadeInterface::class)
             ->disableOriginalConstructor()
             ->getMock();
 

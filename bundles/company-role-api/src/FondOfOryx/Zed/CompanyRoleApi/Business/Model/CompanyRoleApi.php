@@ -2,8 +2,8 @@
 
 namespace FondOfOryx\Zed\CompanyRoleApi\Business\Model;
 
+use FondOfOryx\Zed\CompanyRoleApi\Dependency\Facade\CompanyRoleApiToApiFacadeInterface;
 use FondOfOryx\Zed\CompanyRoleApi\Dependency\Facade\CompanyRoleApiToCompanyRoleFacadeInterface;
-use FondOfOryx\Zed\CompanyRoleApi\Dependency\QueryContainer\CompanyRoleApiToApiQueryContainerInterface;
 use FondOfOryx\Zed\CompanyRoleApi\Persistence\CompanyRoleApiRepositoryInterface;
 use Generated\Shared\Transfer\ApiCollectionTransfer;
 use Generated\Shared\Transfer\ApiItemTransfer;
@@ -21,9 +21,9 @@ class CompanyRoleApi implements CompanyRoleApiInterface
     public const KEY_ID_COMPANY_ROLE = 'id_company_role';
 
     /**
-     * @var \FondOfOryx\Zed\CompanyRoleApi\Dependency\QueryContainer\CompanyRoleApiToApiQueryContainerInterface
+     * @var \FondOfOryx\Zed\CompanyRoleApi\Dependency\Facade\CompanyRoleApiToApiFacadeInterface
      */
-    protected $apiQueryContainer;
+    protected $apiFacade;
 
     /**
      * @var \FondOfOryx\Zed\CompanyRoleApi\Dependency\Facade\CompanyRoleApiToCompanyRoleFacadeInterface
@@ -36,16 +36,16 @@ class CompanyRoleApi implements CompanyRoleApiInterface
     protected $repository;
 
     /**
-     * @param \FondOfOryx\Zed\CompanyRoleApi\Dependency\QueryContainer\CompanyRoleApiToApiQueryContainerInterface $apiQueryContainer
+     * @param \FondOfOryx\Zed\CompanyRoleApi\Dependency\Facade\CompanyRoleApiToApiFacadeInterface $apiFacade
      * @param \FondOfOryx\Zed\CompanyRoleApi\Dependency\Facade\CompanyRoleApiToCompanyRoleFacadeInterface $companyRoleFacade
      * @param \FondOfOryx\Zed\CompanyRoleApi\Persistence\CompanyRoleApiRepositoryInterface $repository
      */
     public function __construct(
-        CompanyRoleApiToApiQueryContainerInterface $apiQueryContainer,
+        CompanyRoleApiToApiFacadeInterface $apiFacade,
         CompanyRoleApiToCompanyRoleFacadeInterface $companyRoleFacade,
         CompanyRoleApiRepositoryInterface $repository
     ) {
-        $this->apiQueryContainer = $apiQueryContainer;
+        $this->apiFacade = $apiFacade;
         $this->companyRoleFacade = $companyRoleFacade;
         $this->repository = $repository;
     }
@@ -59,7 +59,7 @@ class CompanyRoleApi implements CompanyRoleApiInterface
     {
         $companyRoleTransfer = $this->getByIdCompanyRole($idCompanyRole);
 
-        return $this->apiQueryContainer->createApiItem($companyRoleTransfer, $idCompanyRole);
+        return $this->apiFacade->createApiItem($companyRoleTransfer, (string)$idCompanyRole);
     }
 
     /**
