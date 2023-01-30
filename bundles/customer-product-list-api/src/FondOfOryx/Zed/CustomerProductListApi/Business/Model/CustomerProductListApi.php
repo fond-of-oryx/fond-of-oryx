@@ -2,8 +2,8 @@
 
 namespace FondOfOryx\Zed\CustomerProductListApi\Business\Model;
 
+use FondOfOryx\Zed\CustomerProductListApi\Dependency\Facade\CustomerProductListApiToApiFacadeInterface;
 use FondOfOryx\Zed\CustomerProductListApi\Dependency\Facade\CustomerProductListApiToCustomerProductListConnectorFacadeInterface;
-use FondOfOryx\Zed\CustomerProductListApi\Dependency\QueryContainer\CustomerProductListApiToApiQueryContainerInterface;
 use Generated\Shared\Transfer\ApiDataTransfer;
 use Generated\Shared\Transfer\ApiItemTransfer;
 use Generated\Shared\Transfer\CustomerProductListRelationTransfer;
@@ -16,7 +16,7 @@ class CustomerProductListApi implements CustomerProductListApiInterface
     public const DATA_KEY_FK_CUSTOMER = 'fk_customer';
 
     /**
-     * @var \FondOfOryx\Zed\CustomerProductListApi\Dependency\QueryContainer\CustomerProductListApiToApiQueryContainerInterface
+     * @var \FondOfOryx\Zed\CustomerProductListApi\Dependency\Facade\CustomerProductListApiToApiFacadeInterface
      */
     protected $apiQueryContainer;
 
@@ -27,11 +27,11 @@ class CustomerProductListApi implements CustomerProductListApiInterface
 
     /**
      * @param \FondOfOryx\Zed\CustomerProductListApi\Dependency\Facade\CustomerProductListApiToCustomerProductListConnectorFacadeInterface $customerProductListConnectorFacade
-     * @param \FondOfOryx\Zed\CustomerProductListApi\Dependency\QueryContainer\CustomerProductListApiToApiQueryContainerInterface $apiQueryContainer
+     * @param \FondOfOryx\Zed\CustomerProductListApi\Dependency\Facade\CustomerProductListApiToApiFacadeInterface $apiQueryContainer
      */
     public function __construct(
         CustomerProductListApiToCustomerProductListConnectorFacadeInterface $customerProductListConnectorFacade,
-        CustomerProductListApiToApiQueryContainerInterface $apiQueryContainer
+        CustomerProductListApiToApiFacadeInterface $apiQueryContainer
     ) {
         $this->apiQueryContainer = $apiQueryContainer;
         $this->customerProductListConnectorFacade = $customerProductListConnectorFacade;

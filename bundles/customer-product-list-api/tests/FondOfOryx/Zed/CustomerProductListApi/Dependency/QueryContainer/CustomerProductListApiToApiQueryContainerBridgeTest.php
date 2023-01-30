@@ -3,8 +3,10 @@
 namespace FondOfOryx\Zed\CustomerProductListApi\Dependency\QueryContainer;
 
 use Codeception\Test\Unit;
+use FondOfOryx\Zed\CustomerProductListApi\Dependency\Facade\CustomerProductListApiToApiFacadeBridge;
 use Generated\Shared\Transfer\ApiItemTransfer;
-use Spryker\Zed\Api\Persistence\ApiQueryContainerInterface;
+use Spryker\Shared\Kernel\Transfer\AbstractTransfer;
+use Spryker\Zed\Api\Business\ApiFacadeInterface;
 
 class CustomerProductListApiToApiQueryContainerBridgeTest extends Unit
 {
@@ -16,10 +18,10 @@ class CustomerProductListApiToApiQueryContainerBridgeTest extends Unit
     /**
      * @var \Spryker\Zed\Api\Persistence\ApiQueryContainerInterface|\PHPUnit\Framework\MockObject\MockObject|null
      */
-    protected $apiQueryContainerMock;
+    protected $apiFacadeMock;
 
     /**
-     * @var \FondOfOryx\Zed\CustomerProductListApi\Dependency\QueryContainer\CustomerProductListApiToApiQueryContainerInterface
+     * @var \FondOfOryx\Zed\CustomerProductListApi\Dependency\Facade\CustomerProductListApiToApiFacadeInterface
      */
     protected $dependencyQueryContainer;
 
@@ -30,8 +32,8 @@ class CustomerProductListApiToApiQueryContainerBridgeTest extends Unit
     {
         parent::_before();
 
-        $this->apiQueryContainerMock = $this
-            ->getMockBuilder(ApiQueryContainerInterface::class)
+        $this->apiFacadeMock = $this
+            ->getMockBuilder(ApiFacadeInterface::class)
             ->disableOriginalConstructor()
             ->getMock();
 
@@ -40,8 +42,8 @@ class CustomerProductListApiToApiQueryContainerBridgeTest extends Unit
             ->disableOriginalConstructor()
             ->getMock();
 
-        $this->dependencyQueryContainer = new CustomerProductListApiToApiQueryContainerBridge(
-            $this->apiQueryContainerMock,
+        $this->dependencyQueryContainer = new CustomerProductListApiToApiFacadeBridge(
+            $this->apiFacadeMock,
         );
     }
 
@@ -50,14 +52,19 @@ class CustomerProductListApiToApiQueryContainerBridgeTest extends Unit
      */
     public function testCreateApiItem(): void
     {
-        $this->apiQueryContainerMock->expects(static::atLeastOnce())
+        $id = '1';
+        $transferMock = $this->getMockBuilder(AbstractTransfer::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $this->apiFacadeMock->expects(static::atLeastOnce())
             ->method('createApiItem')
-            ->with([], 1)
+            ->with($transferMock, $id)
             ->willReturn($this->apiItemTransferMock);
 
-        static::assertInstanceOf(
-            ApiItemTransfer::class,
-            $this->dependencyQueryContainer->createApiItem([], 1),
+        static::assertEquals(
+            $this->apiItemTransferMock,
+            $this->dependencyQueryContainer->createApiItem($transferMock, $id),
         );
     }
 }
