@@ -2,8 +2,8 @@
 
 namespace FondOfOryx\Zed\ErpOrderApi\Persistence;
 
+use FondOfOryx\Zed\ErpOrderApi\Dependency\Facade\ErpOrderApiToApiFacadeInterface;
 use FondOfOryx\Zed\ErpOrderApi\Dependency\QueryContainer\ErpOrderApiToApiQueryBuilderQueryContainerInterface;
-use FondOfOryx\Zed\ErpOrderApi\Dependency\QueryContainer\ErpOrderApiToApiQueryContainerInterface;
 use FondOfOryx\Zed\ErpOrderApi\ErpOrderApiDependencyProvider;
 use Orm\Zed\ErpOrder\Persistence\ErpOrderQuery;
 use Spryker\Zed\Kernel\Persistence\AbstractPersistenceFactory;
@@ -33,10 +33,10 @@ class ErpOrderApiPersistenceFactory extends AbstractPersistenceFactory
     }
 
     /**
-     * @return \FondOfOryx\Zed\ErpOrderApi\Dependency\QueryContainer\ErpOrderApiToApiQueryContainerInterface
+     * @return \FondOfOryx\Zed\ErpOrderApi\Dependency\Facade\ErpOrderApiToApiFacadeInterface
      */
-    public function getApiQueryContainer(): ErpOrderApiToApiQueryContainerInterface
+    public function getApiFacade(): ErpOrderApiToApiFacadeInterface
     {
-        return $this->getProvidedDependency(ErpOrderApiDependencyProvider::QUERY_CONTAINER_API);
+        return $this->getProvidedDependency(ErpOrderApiDependencyProvider::FACADE_API);
     }
 }

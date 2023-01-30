@@ -4,10 +4,10 @@ namespace FondOfOryx\Zed\ErpOrderApi;
 
 use Codeception\Test\Unit;
 use FondOfOryx\Zed\ErpOrder\Business\ErpOrderFacadeInterface;
+use FondOfOryx\Zed\ErpOrderApi\Dependency\Facade\ErpOrderApiToApiFacadeBridge;
 use FondOfOryx\Zed\ErpOrderApi\Dependency\Facade\ErpOrderApiToErpOrderFacadeBridge;
-use FondOfOryx\Zed\ErpOrderApi\Dependency\QueryContainer\ErpOrderApiToApiQueryContainerBridge;
 use Spryker\Shared\Kernel\BundleProxy;
-use Spryker\Zed\Api\Persistence\ApiQueryContainerInterface;
+use Spryker\Zed\Api\Business\ApiFacadeInterface;
 use Spryker\Zed\Kernel\Container;
 use Spryker\Zed\Kernel\Locator;
 
@@ -34,9 +34,9 @@ class ErpOrderApiDependencyProviderTest extends Unit
     protected $erpOrderFacadeMock;
 
     /**
-     * @var \PHPUnit\Framework\MockObject\MockObject|\Spryker\Zed\Api\Persistence\ApiQueryContainerInterface
+     * @var \PHPUnit\Framework\MockObject\MockObject|\Spryker\Zed\Api\Business\ApiFacadeInterface
      */
-    protected $apiQueryContainerMock;
+    protected $apiFacadeMock;
 
     /**
      * @var \FondOfOryx\Zed\ErpOrderApi\ErpOrderApiDependencyProvider
@@ -66,7 +66,7 @@ class ErpOrderApiDependencyProviderTest extends Unit
             ->disableOriginalConstructor()
             ->getMock();
 
-        $this->apiQueryContainerMock = $this->getMockBuilder(ApiQueryContainerInterface::class)
+        $this->apiFacadeMock = $this->getMockBuilder(ApiFacadeInterface::class)
             ->disableOriginalConstructor()
             ->getMock();
 
@@ -89,10 +89,10 @@ class ErpOrderApiDependencyProviderTest extends Unit
 
         $this->bundleProxyMock->expects(static::atLeastOnce())
             ->method('__call')
-            ->withConsecutive(['facade'], ['queryContainer'])
+            ->withConsecutive(['facade'], ['facade'])
             ->willReturnOnConsecutiveCalls(
                 $this->erpOrderFacadeMock,
-                $this->apiQueryContainerMock,
+                $this->apiFacadeMock,
             );
 
         $container = $this->erpOrderApiDependencyProvider->provideBusinessLayerDependencies(
@@ -106,8 +106,8 @@ class ErpOrderApiDependencyProviderTest extends Unit
         );
 
         static::assertInstanceOf(
-            ErpOrderApiToApiQueryContainerBridge::class,
-            $container[ErpOrderApiDependencyProvider::QUERY_CONTAINER_API],
+            ErpOrderApiToApiFacadeBridge::class,
+            $container[ErpOrderApiDependencyProvider::FACADE_API],
         );
     }
 }

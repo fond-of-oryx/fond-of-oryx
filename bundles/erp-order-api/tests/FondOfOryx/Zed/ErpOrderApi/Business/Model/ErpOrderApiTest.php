@@ -4,8 +4,8 @@ namespace FondOfOryx\Zed\ErpOrderApi\Business\Model;
 
 use Codeception\Test\Unit;
 use Exception;
+use FondOfOryx\Zed\ErpOrderApi\Dependency\Facade\ErpOrderApiToApiFacadeInterface;
 use FondOfOryx\Zed\ErpOrderApi\Dependency\Facade\ErpOrderApiToErpOrderFacadeInterface;
-use FondOfOryx\Zed\ErpOrderApi\Dependency\QueryContainer\ErpOrderApiToApiQueryContainerInterface;
 use FondOfOryx\Zed\ErpOrderApi\Persistence\ErpOrderApiRepositoryInterface;
 use Generated\Shared\Transfer\ApiCollectionTransfer;
 use Generated\Shared\Transfer\ApiDataTransfer;
@@ -17,9 +17,9 @@ use Generated\Shared\Transfer\ErpOrderTransfer;
 class ErpOrderApiTest extends Unit
 {
     /**
-     * @var \FondOfOryx\Zed\ErpOrderApi\Dependency\QueryContainer\ErpOrderApiToApiQueryContainerInterface|\PHPUnit\Framework\MockObject\MockObject
+     * @var \FondOfOryx\Zed\ErpOrderApi\Dependency\Facade\ErpOrderApiToApiFacadeInterface|\PHPUnit\Framework\MockObject\MockObject
      */
-    protected $apiQueryContainerMock;
+    protected $apiFacadeMock;
 
     /**
      * @var \FondOfOryx\Zed\ErpOrderApi\Dependency\Facade\ErpOrderApiToErpOrderFacadeInterface|\PHPUnit\Framework\MockObject\MockObject
@@ -73,7 +73,7 @@ class ErpOrderApiTest extends Unit
     {
         parent::_before();
 
-        $this->apiQueryContainerMock = $this->getMockBuilder(ErpOrderApiToApiQueryContainerInterface::class)
+        $this->apiFacadeMock = $this->getMockBuilder(ErpOrderApiToApiFacadeInterface::class)
             ->disableOriginalConstructor()
             ->getMock();
 
@@ -110,7 +110,7 @@ class ErpOrderApiTest extends Unit
             ->getMock();
 
         $this->erpOrderApi = new ErpOrderApi(
-            $this->apiQueryContainerMock,
+            $this->apiFacadeMock,
             $this->erpOrderFacadeMock,
             $this->erpOrderApiRepositoryMock,
         );
@@ -143,7 +143,7 @@ class ErpOrderApiTest extends Unit
             ->method('getIdErpOrder')
             ->willReturn($idErpOrder);
 
-        $this->apiQueryContainerMock->expects(static::atLeastOnce())
+        $this->apiFacadeMock->expects(static::atLeastOnce())
             ->method('createApiItem')
             ->with($this->erpOrderTransferMock, $idErpOrder)
             ->willReturn($this->apiItemTransferMock);
@@ -179,7 +179,7 @@ class ErpOrderApiTest extends Unit
         $this->erpOrderTransferMock->expects(static::never())
             ->method('getIdErpOrder');
 
-        $this->apiQueryContainerMock->expects(static::never())
+        $this->apiFacadeMock->expects(static::never())
             ->method('createApiItem');
 
         try {
@@ -221,7 +221,7 @@ class ErpOrderApiTest extends Unit
             ->method('getIdErpOrder')
             ->willReturn($idErpOrder);
 
-        $this->apiQueryContainerMock->expects(static::atLeastOnce())
+        $this->apiFacadeMock->expects(static::atLeastOnce())
             ->method('createApiItem')
             ->with($this->erpOrderTransferMock, $idErpOrder)
             ->willReturn($this->apiItemTransferMock);
@@ -262,7 +262,7 @@ class ErpOrderApiTest extends Unit
         $this->erpOrderTransferMock->expects(static::never())
             ->method('getIdErpOrder');
 
-        $this->apiQueryContainerMock->expects(static::never())
+        $this->apiFacadeMock->expects(static::never())
             ->method('createApiItem');
 
         try {
@@ -288,9 +288,9 @@ class ErpOrderApiTest extends Unit
             ->method('deleteErpOrderByIdErpOrder')
             ->with($idErpOrder);
 
-        $this->apiQueryContainerMock->expects(static::atLeastOnce())
+        $this->apiFacadeMock->expects(static::atLeastOnce())
             ->method('createApiItem')
-            ->with(new ErpOrderTransfer(), $idErpOrder)
+            ->with(null, (string)$idErpOrder)
             ->willReturn($this->apiItemTransferMock);
 
         static::assertEquals(
@@ -311,7 +311,7 @@ class ErpOrderApiTest extends Unit
             ->with($idErpOrder)
             ->willReturn($this->erpOrderTransferMock);
 
-        $this->apiQueryContainerMock->expects(static::atLeastOnce())
+        $this->apiFacadeMock->expects(static::atLeastOnce())
             ->method('createApiItem')
             ->with($this->erpOrderTransferMock, $idErpOrder)
             ->willReturn($this->apiItemTransferMock);

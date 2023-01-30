@@ -211,12 +211,12 @@ class ErpOrderApiFacadeTest extends Unit
 
         $this->erpOrderApiValidatorMock->expects(static::atLeastOnce())
             ->method('validate')
-            ->with($this->apiDataTransferMock)
+            ->with($this->apiRequestTransferMock)
             ->willReturn($validationResult);
 
         static::assertEquals(
             $validationResult,
-            $this->erpOrderApiFacade->validateErpOrder($this->apiDataTransferMock),
+            $this->erpOrderApiFacade->validateErpOrder($this->apiRequestTransferMock),
         );
     }
 }

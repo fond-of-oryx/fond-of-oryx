@@ -100,14 +100,14 @@ class ErpOrderApiFacade extends AbstractFacade implements ErpOrderApiFacadeInter
      *
      * @api
      *
-     * @param \Generated\Shared\Transfer\ApiDataTransfer $apiDataTransfer
+     * @param \Generated\Shared\Transfer\ApiRequestTransfer $apiRequestTransfer
      *
-     * @return array
+     * @return array<\Generated\Shared\Transfer\ApiValidationErrorTransfer>
      */
-    public function validateErpOrder(ApiDataTransfer $apiDataTransfer): array
+    public function validateErpOrder(ApiRequestTransfer $apiRequestTransfer): array
     {
         return $this->getFactory()
             ->createErpOrderApiValidator()
-            ->validate($apiDataTransfer);
+            ->validate($apiRequestTransfer);
     }
 }
