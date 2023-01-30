@@ -28,7 +28,7 @@ class CompanyUnitAddressApiPersistenceFactory extends AbstractPersistenceFactory
     /**
      * @return \FondOfOryx\Zed\CompanyUnitAddressApi\Dependency\Facade\CompanyUnitAddressApiToApiFacadeInterface
      */
-    public function getApiQueryContainer(): CompanyUnitAddressApiToApiFacadeInterface
+    public function getApiFacade(): CompanyUnitAddressApiToApiFacadeInterface
     {
         return $this->getProvidedDependency(
             CompanyUnitAddressApiDependencyProvider::FACADE_API,

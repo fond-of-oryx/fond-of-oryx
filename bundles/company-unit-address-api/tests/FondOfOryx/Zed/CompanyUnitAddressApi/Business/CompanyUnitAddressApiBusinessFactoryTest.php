@@ -16,7 +16,7 @@ class CompanyUnitAddressApiBusinessFactoryTest extends Unit
     /**
      * @var \PHPUnit\Framework\MockObject\MockObject|\FondOfOryx\Zed\CompanyUnitAddressApi\Dependency\Facade\CompanyUnitAddressApiToApiFacadeInterface
      */
-    protected $apiQueryContainerMock;
+    protected $apiFacadeMock;
 
     /**
      * @var \PHPUnit\Framework\MockObject\MockObject|\FondOfOryx\Zed\CompanyUnitAddressApi\Dependency\Facade\CompanyUnitAddressApiToCompanyUnitAddressFacadeInterface
@@ -47,7 +47,7 @@ class CompanyUnitAddressApiBusinessFactoryTest extends Unit
             ->disableOriginalConstructor()
             ->getMock();
 
-        $this->apiQueryContainerMock = $this->getMockBuilder(CompanyUnitAddressApiToApiFacadeInterface::class)
+        $this->apiFacadeMock = $this->getMockBuilder(CompanyUnitAddressApiToApiFacadeInterface::class)
             ->disableOriginalConstructor()
             ->getMock();
 
@@ -79,7 +79,7 @@ class CompanyUnitAddressApiBusinessFactoryTest extends Unit
                 [CompanyUnitAddressApiDependencyProvider::FACADE_API],
                 [CompanyUnitAddressApiDependencyProvider::FACADE_COMPANY_UNIT_ADDRESS],
             )->willReturnOnConsecutiveCalls(
-                $this->apiQueryContainerMock,
+                $this->apiFacadeMock,
                 $this->companyUnitAddressFacadeMock,
             );
 

@@ -12,7 +12,6 @@ use Spryker\Zed\Kernel\Communication\AbstractPlugin;
 
 /**
  * @method \FondOfOryx\Zed\CompanyUserApi\CompanyUserApiConfig getConfig()
- * @method \FondOfOryx\Zed\CompanyUserApi\Persistence\CompanyUserApiQueryContainerInterface getQueryContainer()
  * @method \FondOfOryx\Zed\CompanyUserApi\Business\CompanyUserApiFacadeInterface getFacade()
  */
 class CompanyUserApiResourcePlugin extends AbstractPlugin implements ApiResourcePluginInterface

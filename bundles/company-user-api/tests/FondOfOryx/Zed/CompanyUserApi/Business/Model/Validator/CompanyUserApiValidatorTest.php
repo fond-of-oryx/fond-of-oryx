@@ -3,7 +3,7 @@
 namespace FondOfOryx\Zed\CompanyUserApi\Business\Model\Validator;
 
 use Codeception\Test\Unit;
-use Generated\Shared\Transfer\ApiDataTransfer;
+use Generated\Shared\Transfer\ApiRequestTransfer;
 
 class CompanyUserApiValidatorTest extends Unit
 {
@@ -13,9 +13,9 @@ class CompanyUserApiValidatorTest extends Unit
     protected $companyUserApiValidator;
 
     /**
-     * @var \PHPUnit\Framework\MockObject\MockObject|\Generated\Shared\Transfer\ApiDataTransfer
+     * @var \PHPUnit\Framework\MockObject\MockObject|\Generated\Shared\Transfer\ApiRequestTransfer
      */
-    protected $apiDataTransferMock;
+    protected $apiRequestTransferMock;
 
     /**
      * @return void
@@ -24,7 +24,7 @@ class CompanyUserApiValidatorTest extends Unit
     {
         parent::_before();
 
-        $this->apiDataTransferMock = $this->getMockBuilder(ApiDataTransfer::class)
+        $this->apiRequestTransferMock = $this->getMockBuilder(ApiRequestTransfer::class)
             ->disableOriginalConstructor()
             ->getMock();
 
@@ -36,6 +36,6 @@ class CompanyUserApiValidatorTest extends Unit
      */
     public function testValidate(): void
     {
-        static::assertCount(0, $this->companyUserApiValidator->validate($this->apiDataTransferMock));
+        static::assertCount(0, $this->companyUserApiValidator->validate($this->apiRequestTransferMock));
     }
 }
