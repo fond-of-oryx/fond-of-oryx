@@ -19,7 +19,7 @@ class AvailabilityAlertFeed extends AbstractPlugin
     /**
      * @uses \Orm\Zed\AvailabilityAlert\Persistence\Map\FooAvailabilityAlertSubscriptionTableMap::COL_STATUS_PENDING
      *
-     * @var int
+     * @var string
      */
     protected const STATUS_PENDING = 'pending';
 
