@@ -96,7 +96,7 @@ class CompanyApiDependencyProvider extends AbstractBundleDependencyProvider
     protected function addApiFacade(Container $container): Container
     {
         $container[static::FACADE_API] = static function (Container $container) {
-            return new CompanyApiToApiFacadeBridge($container->getLocator()->api()->queryContainer());
+            return new CompanyApiToApiFacadeBridge($container->getLocator()->api()->facade());
         };
 
         return $container;

@@ -3,20 +3,20 @@
 namespace FondOfOryx\Zed\CompanyProductListApi;
 
 use Codeception\Test\Unit;
+use FondOfOryx\Zed\CompanyProductListApi\Dependency\Facade\CompanyProductListApiToApiFacadeInterface;
 use FondOfOryx\Zed\CompanyProductListApi\Dependency\Facade\CompanyProductListApiToCompanyProductListConnectorFacadeInterface;
-use FondOfOryx\Zed\CompanyProductListApi\Dependency\QueryContainer\CompanyProductListApiToApiQueryContainerInterface;
 use FondOfOryx\Zed\CompanyProductListConnector\Business\CompanyProductListConnectorFacadeInterface;
 use Spryker\Shared\Kernel\BundleProxy;
-use Spryker\Zed\Api\Persistence\ApiQueryContainerInterface;
+use Spryker\Zed\Api\Business\ApiFacadeInterface;
 use Spryker\Zed\Kernel\Container;
 use Spryker\Zed\Kernel\Locator;
 
 class CompanyProductListApiDependencyProviderTest extends Unit
 {
     /**
-     * @var \Spryker\Zed\Api\Persistence\ApiQueryContainerInterface|\PHPUnit\Framework\MockObject\MockObject|null
+     * @var \Spryker\Zed\Api\Business\ApiFacadeInterface|\PHPUnit\Framework\MockObject\MockObject|null
      */
-    protected $apiQueryContainerMock;
+    protected $apiFacadeMock;
 
     /**
      * @var \Spryker\Zed\Kernel\Container|\PHPUnit\Framework\MockObject\MockObject|null
@@ -67,8 +67,8 @@ class CompanyProductListApiDependencyProviderTest extends Unit
             ->disableOriginalConstructor()
             ->getMock();
 
-        $this->apiQueryContainerMock = $this
-            ->getMockBuilder(ApiQueryContainerInterface::class)
+        $this->apiFacadeMock = $this
+            ->getMockBuilder(ApiFacadeInterface::class)
             ->disableOriginalConstructor()
             ->getMock();
 
@@ -95,10 +95,10 @@ class CompanyProductListApiDependencyProviderTest extends Unit
             ->method('__call')
             ->withConsecutive(
                 ['facade'],
-                ['queryContainer'],
+                ['facade'],
             )->willReturnOnConsecutiveCalls(
                 $this->companyProductListConnectorFacadeMock,
-                $this->apiQueryContainerMock,
+                $this->apiFacadeMock,
             );
 
         $container = $this->companyProductListApiDependencyProvider
@@ -112,8 +112,8 @@ class CompanyProductListApiDependencyProviderTest extends Unit
         );
 
         static::assertInstanceOf(
-            CompanyProductListApiToApiQueryContainerInterface::class,
-            $container[CompanyProductListApiDependencyProvider::QUERY_CONTAINER_API],
+            CompanyProductListApiToApiFacadeInterface::class,
+            $container[CompanyProductListApiDependencyProvider::FACADE_API],
         );
     }
 }

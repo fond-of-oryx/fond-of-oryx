@@ -3,8 +3,8 @@
 namespace FondOfOryx\Zed\CompanyProductListApi\Business\Model;
 
 use Codeception\Test\Unit;
+use FondOfOryx\Zed\CompanyProductListApi\Dependency\Facade\CompanyProductListApiToApiFacadeInterface;
 use FondOfOryx\Zed\CompanyProductListApi\Dependency\Facade\CompanyProductListApiToCompanyProductListConnectorFacadeInterface;
-use FondOfOryx\Zed\CompanyProductListApi\Dependency\QueryContainer\CompanyProductListApiToApiQueryContainerInterface;
 use Generated\Shared\Transfer\ApiDataTransfer;
 use Generated\Shared\Transfer\ApiItemTransfer;
 
@@ -26,7 +26,7 @@ class CompanyProductListApiTest extends Unit
     protected $companyProductListApiToCompanyProductListConnectorFacadeMock;
 
     /**
-     * @var \PHPUnit\Framework\MockObject\MockObject|\FondOfOryx\Zed\CompanyProductListApi\Dependency\QueryContainer\CompanyProductListApiToApiQueryContainerInterface
+     * @var \PHPUnit\Framework\MockObject\MockObject|\FondOfOryx\Zed\CompanyProductListApi\Dependency\Facade\CompanyProductListApiToApiFacadeInterface
      */
     protected $companyProductListApiToApiQueryContainerMock;
 
@@ -58,7 +58,7 @@ class CompanyProductListApiTest extends Unit
             ->getMock();
 
         $this->companyProductListApiToApiQueryContainerMock = $this
-            ->getMockBuilder(CompanyProductListApiToApiQueryContainerInterface::class)
+            ->getMockBuilder(CompanyProductListApiToApiFacadeInterface::class)
             ->disableOriginalConstructor()
             ->getMock();
 
