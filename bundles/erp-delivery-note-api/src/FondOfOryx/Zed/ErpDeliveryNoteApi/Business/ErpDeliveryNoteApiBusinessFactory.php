@@ -6,8 +6,8 @@ use FondOfOryx\Zed\ErpDeliveryNoteApi\Business\Model\ErpDeliveryNoteApi;
 use FondOfOryx\Zed\ErpDeliveryNoteApi\Business\Model\ErpDeliveryNoteApiInterface;
 use FondOfOryx\Zed\ErpDeliveryNoteApi\Business\Validator\ErpDeliveryNoteApiValidator;
 use FondOfOryx\Zed\ErpDeliveryNoteApi\Business\Validator\ErpDeliveryNoteApiValidatorInterface;
+use FondOfOryx\Zed\ErpDeliveryNoteApi\Dependency\Facade\ErpDeliveryNoteApiToApiFacadeInterface;
 use FondOfOryx\Zed\ErpDeliveryNoteApi\Dependency\Facade\ErpDeliveryNoteApiToErpDeliveryNoteFacadeInterface;
-use FondOfOryx\Zed\ErpDeliveryNoteApi\Dependency\QueryContainer\ErpDeliveryNoteApiToApiQueryContainerInterface;
 use FondOfOryx\Zed\ErpDeliveryNoteApi\ErpDeliveryNoteApiDependencyProvider;
 use Spryker\Zed\Kernel\Business\AbstractBusinessFactory;
 
@@ -23,18 +23,18 @@ class ErpDeliveryNoteApiBusinessFactory extends AbstractBusinessFactory
     public function createErpDeliveryNoteApi(): ErpDeliveryNoteApiInterface
     {
         return new ErpDeliveryNoteApi(
-            $this->getApiQueryContainer(),
+            $this->getApiFacade(),
             $this->getErpDeliveryNoteFacade(),
             $this->getRepository(),
         );
     }
 
     /**
-     * @return \FondOfOryx\Zed\ErpDeliveryNoteApi\Dependency\QueryContainer\ErpDeliveryNoteApiToApiQueryContainerInterface
+     * @return \FondOfOryx\Zed\ErpDeliveryNoteApi\Dependency\Facade\ErpDeliveryNoteApiToApiFacadeInterface
      */
-    protected function getApiQueryContainer(): ErpDeliveryNoteApiToApiQueryContainerInterface
+    protected function getApiFacade(): ErpDeliveryNoteApiToApiFacadeInterface
     {
-        return $this->getProvidedDependency(ErpDeliveryNoteApiDependencyProvider::QUERY_CONTAINER_API);
+        return $this->getProvidedDependency(ErpDeliveryNoteApiDependencyProvider::FACADE_API);
     }
 
     /**

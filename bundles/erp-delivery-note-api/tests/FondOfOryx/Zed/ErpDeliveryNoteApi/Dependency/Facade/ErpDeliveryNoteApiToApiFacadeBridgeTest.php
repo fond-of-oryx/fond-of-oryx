@@ -1,19 +1,19 @@
 <?php
 
-namespace FondOfOryx\Zed\ErpDeliveryNoteApi\Dependency\QueryContainer;
+namespace FondOfOryx\Zed\ErpDeliveryNoteApi\Dependency\Facade;
 
 use Codeception\Test\Unit;
 use Generated\Shared\Transfer\ApiCollectionTransfer;
 use Generated\Shared\Transfer\ApiItemTransfer;
 use Spryker\Shared\Kernel\Transfer\AbstractTransfer;
-use Spryker\Zed\Api\Persistence\ApiQueryContainerInterface;
+use Spryker\Zed\Api\Business\ApiFacadeInterface;
 
-class ErpDeliveryNoteApiToApiQueryContainerBridgeTest extends Unit
+class ErpDeliveryNoteApiToApiFacadeBridgeTest extends Unit
 {
     /**
-     * @var \PHPUnit\Framework\MockObject\MockObject|\Spryker\Zed\Api\Persistence\ApiQueryContainerInterface
+     * @var \PHPUnit\Framework\MockObject\MockObject|\Spryker\Zed\Api\Business\ApiFacadeInterface
      */
-    protected $apiQueryContainerInterface;
+    protected $facadeMock;
 
     /**
      * @var \PHPUnit\Framework\MockObject\MockObject|\Spryker\Shared\Kernel\Transfer\AbstractTransfer
@@ -36,16 +36,16 @@ class ErpDeliveryNoteApiToApiQueryContainerBridgeTest extends Unit
     protected $apiCollectionTransferMock;
 
     /**
-     * @var \FondOfOryx\Zed\ErpDeliveryNoteApi\Dependency\QueryContainer\ErpDeliveryNoteApiToApiQueryContainerBridge
+     * @var \FondOfOryx\Zed\ErpDeliveryNoteApi\Dependency\Facade\ErpDeliveryNoteApiToApiFacadeBridge
      */
-    protected $erpDeliveryNoteApiToApiQueryContainerBridge;
+    protected $bridge;
 
     /**
      * @return void
      */
     protected function _before(): void
     {
-        $this->apiQueryContainerInterface = $this->getMockBuilder(ApiQueryContainerInterface::class)
+        $this->facadeMock = $this->getMockBuilder(ApiFacadeInterface::class)
             ->disableOriginalConstructor()
             ->getMock();
 
@@ -63,8 +63,8 @@ class ErpDeliveryNoteApiToApiQueryContainerBridgeTest extends Unit
             ->disableOriginalConstructor()
             ->getMock();
 
-        $this->erpDeliveryNoteApiToApiQueryContainerBridge = new ErpDeliveryNoteApiToApiQueryContainerBridge(
-            $this->apiQueryContainerInterface,
+        $this->bridge = new ErpDeliveryNoteApiToApiFacadeBridge(
+            $this->facadeMock,
         );
     }
 
@@ -73,14 +73,14 @@ class ErpDeliveryNoteApiToApiQueryContainerBridgeTest extends Unit
      */
     public function testCreateApiItem(): void
     {
-        $this->apiQueryContainerInterface->expects(static::atLeastOnce())
+        $this->facadeMock->expects(static::atLeastOnce())
             ->method('createApiItem')
             ->with($this->abstractTransferMock, $this->id)
             ->willReturn($this->apiItemTransferMock);
 
         static::assertEquals(
             $this->apiItemTransferMock,
-            $this->erpDeliveryNoteApiToApiQueryContainerBridge->createApiItem(
+            $this->bridge->createApiItem(
                 $this->abstractTransferMock,
                 $this->id,
             ),
@@ -92,14 +92,14 @@ class ErpDeliveryNoteApiToApiQueryContainerBridgeTest extends Unit
      */
     public function testCreateApiCollection(): void
     {
-        $this->apiQueryContainerInterface->expects(static::atLeastOnce())
+        $this->facadeMock->expects(static::atLeastOnce())
             ->method('createApiCollection')
             ->with([])
             ->willReturn($this->apiCollectionTransferMock);
 
         static::assertEquals(
             $this->apiCollectionTransferMock,
-            $this->erpDeliveryNoteApiToApiQueryContainerBridge->createApiCollection([]),
+            $this->bridge->createApiCollection([]),
         );
     }
 }

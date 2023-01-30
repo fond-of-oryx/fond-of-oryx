@@ -4,8 +4,8 @@ namespace FondOfOryx\Zed\ErpDeliveryNoteApi\Business\Model;
 
 use Codeception\Test\Unit;
 use Exception;
+use FondOfOryx\Zed\ErpDeliveryNoteApi\Dependency\Facade\ErpDeliveryNoteApiToApiFacadeInterface;
 use FondOfOryx\Zed\ErpDeliveryNoteApi\Dependency\Facade\ErpDeliveryNoteApiToErpDeliveryNoteFacadeInterface;
-use FondOfOryx\Zed\ErpDeliveryNoteApi\Dependency\QueryContainer\ErpDeliveryNoteApiToApiQueryContainerInterface;
 use FondOfOryx\Zed\ErpDeliveryNoteApi\Persistence\ErpDeliveryNoteApiRepositoryInterface;
 use Generated\Shared\Transfer\ApiCollectionTransfer;
 use Generated\Shared\Transfer\ApiDataTransfer;
@@ -17,9 +17,9 @@ use Generated\Shared\Transfer\ErpDeliveryNoteTransfer;
 class ErpDeliveryNoteApiTest extends Unit
 {
     /**
-     * @var \FondOfOryx\Zed\ErpDeliveryNoteApi\Dependency\QueryContainer\ErpDeliveryNoteApiToApiQueryContainerInterface|\PHPUnit\Framework\MockObject\MockObject
+     * @var \FondOfOryx\Zed\ErpDeliveryNoteApi\Dependency\Facade\ErpDeliveryNoteApiToApiFacadeInterface|\PHPUnit\Framework\MockObject\MockObject
      */
-    protected $apiQueryContainerMock;
+    protected $apiFacadeMock;
 
     /**
      * @var \FondOfOryx\Zed\ErpDeliveryNoteApi\Dependency\Facade\ErpDeliveryNoteApiToErpDeliveryNoteFacadeInterface|\PHPUnit\Framework\MockObject\MockObject
@@ -73,7 +73,7 @@ class ErpDeliveryNoteApiTest extends Unit
     {
         parent::_before();
 
-        $this->apiQueryContainerMock = $this->getMockBuilder(ErpDeliveryNoteApiToApiQueryContainerInterface::class)
+        $this->apiFacadeMock = $this->getMockBuilder(ErpDeliveryNoteApiToApiFacadeInterface::class)
             ->disableOriginalConstructor()
             ->getMock();
 
@@ -110,7 +110,7 @@ class ErpDeliveryNoteApiTest extends Unit
             ->getMock();
 
         $this->erpDeliveryNoteApi = new ErpDeliveryNoteApi(
-            $this->apiQueryContainerMock,
+            $this->apiFacadeMock,
             $this->erpDeliveryNoteFacadeMock,
             $this->erpDeliveryNoteApiRepositoryMock,
         );
@@ -143,9 +143,9 @@ class ErpDeliveryNoteApiTest extends Unit
             ->method('getIdErpDeliveryNote')
             ->willReturn($idErpDeliveryNote);
 
-        $this->apiQueryContainerMock->expects(static::atLeastOnce())
+        $this->apiFacadeMock->expects(static::atLeastOnce())
             ->method('createApiItem')
-            ->with($this->erpDeliveryNoteTransferMock, $idErpDeliveryNote)
+            ->with($this->erpDeliveryNoteTransferMock, (string)$idErpDeliveryNote)
             ->willReturn($this->apiItemTransferMock);
 
         static::assertEquals(
@@ -177,7 +177,7 @@ class ErpDeliveryNoteApiTest extends Unit
         $this->erpDeliveryNoteTransferMock->expects(static::never())
             ->method('getIdErpDeliveryNote');
 
-        $this->apiQueryContainerMock->expects(static::never())
+        $this->apiFacadeMock->expects(static::never())
             ->method('createApiItem');
 
         try {
@@ -225,9 +225,9 @@ class ErpDeliveryNoteApiTest extends Unit
             ->method('getIdErpDeliveryNote')
             ->willReturn($idErpDeliveryNote);
 
-        $this->apiQueryContainerMock->expects(static::atLeastOnce())
+        $this->apiFacadeMock->expects(static::atLeastOnce())
             ->method('createApiItem')
-            ->with($this->erpDeliveryNoteTransferMock, $idErpDeliveryNote)
+            ->with($this->erpDeliveryNoteTransferMock, (string)$idErpDeliveryNote)
             ->willReturn($this->apiItemTransferMock);
 
         static::assertEquals(
@@ -272,7 +272,7 @@ class ErpDeliveryNoteApiTest extends Unit
         $this->erpDeliveryNoteTransferMock->expects(static::never())
             ->method('getIdErpDeliveryNote');
 
-        $this->apiQueryContainerMock->expects(static::never())
+        $this->apiFacadeMock->expects(static::never())
             ->method('createApiItem');
 
         try {
@@ -298,9 +298,9 @@ class ErpDeliveryNoteApiTest extends Unit
             ->method('deleteErpDeliveryNoteByIdErpDeliveryNote')
             ->with($idErpDeliveryNote);
 
-        $this->apiQueryContainerMock->expects(static::atLeastOnce())
+        $this->apiFacadeMock->expects(static::atLeastOnce())
             ->method('createApiItem')
-            ->with(new ErpDeliveryNoteTransfer(), $idErpDeliveryNote)
+            ->with(null, (string)$idErpDeliveryNote)
             ->willReturn($this->apiItemTransferMock);
 
         static::assertEquals(
@@ -321,9 +321,9 @@ class ErpDeliveryNoteApiTest extends Unit
             ->with($idErpDeliveryNote)
             ->willReturn($this->erpDeliveryNoteTransferMock);
 
-        $this->apiQueryContainerMock->expects(static::atLeastOnce())
+        $this->apiFacadeMock->expects(static::atLeastOnce())
             ->method('createApiItem')
-            ->with($this->erpDeliveryNoteTransferMock, $idErpDeliveryNote)
+            ->with($this->erpDeliveryNoteTransferMock, (string)$idErpDeliveryNote)
             ->willReturn($this->apiItemTransferMock);
 
         static::assertEquals(

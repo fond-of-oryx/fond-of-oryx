@@ -81,9 +81,9 @@ interface ErpDeliveryNoteApiFacadeInterface
      *
      * @api
      *
-     * @param \Generated\Shared\Transfer\ApiDataTransfer $apiDataTransfer
+     * @param \Generated\Shared\Transfer\ApiRequestTransfer $apiRequestTransfer
      *
-     * @return array
+     * @return array<\Generated\Shared\Transfer\ApiValidationErrorTransfer>
      */
-    public function validateErpDeliveryNote(ApiDataTransfer $apiDataTransfer): array;
+    public function validateErpDeliveryNote(ApiRequestTransfer $apiRequestTransfer): array;
 }

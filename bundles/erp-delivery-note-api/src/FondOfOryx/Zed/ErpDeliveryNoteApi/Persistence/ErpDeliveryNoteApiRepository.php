@@ -35,7 +35,7 @@ class ErpDeliveryNoteApiRepository extends AbstractRepository implements ErpDeli
             ->toArray();
 
         $apiCollectionTransfer = $this->getFactory()
-            ->getApiQueryContainer()
+            ->getApiFacade()
             ->createApiCollection($data);
 
         if (count($apiCollectionTransfer->getData()) === 0) {

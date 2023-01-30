@@ -4,10 +4,10 @@ namespace FondOfOryx\Zed\ErpDeliveryNoteApi;
 
 use Codeception\Test\Unit;
 use FondOfOryx\Zed\ErpDeliveryNote\Business\ErpDeliveryNoteFacadeInterface;
+use FondOfOryx\Zed\ErpDeliveryNoteApi\Dependency\Facade\ErpDeliveryNoteApiToApiFacadeBridge;
 use FondOfOryx\Zed\ErpDeliveryNoteApi\Dependency\Facade\ErpDeliveryNoteApiToErpDeliveryNoteFacadeBridge;
-use FondOfOryx\Zed\ErpDeliveryNoteApi\Dependency\QueryContainer\ErpDeliveryNoteApiToApiQueryContainerBridge;
 use Spryker\Shared\Kernel\BundleProxy;
-use Spryker\Zed\Api\Persistence\ApiQueryContainerInterface;
+use Spryker\Zed\Api\Business\ApiFacadeInterface;
 use Spryker\Zed\Kernel\Container;
 use Spryker\Zed\Kernel\Locator;
 
@@ -34,9 +34,9 @@ class ErpDeliveryNoteApiDependencyProviderTest extends Unit
     protected $erpDeliveryNoteFacadeMock;
 
     /**
-     * @var \PHPUnit\Framework\MockObject\MockObject|\Spryker\Zed\Api\Persistence\ApiQueryContainerInterface
+     * @var \PHPUnit\Framework\MockObject\MockObject|\Spryker\Zed\Api\Business\ApiFacadeInterface
      */
-    protected $apiQueryContainerMock;
+    protected $apiFacadeMock;
 
     /**
      * @var \FondOfOryx\Zed\ErpDeliveryNoteApi\ErpDeliveryNoteApiDependencyProvider
@@ -66,7 +66,7 @@ class ErpDeliveryNoteApiDependencyProviderTest extends Unit
             ->disableOriginalConstructor()
             ->getMock();
 
-        $this->apiQueryContainerMock = $this->getMockBuilder(ApiQueryContainerInterface::class)
+        $this->apiFacadeMock = $this->getMockBuilder(ApiFacadeInterface::class)
             ->disableOriginalConstructor()
             ->getMock();
 
@@ -89,10 +89,10 @@ class ErpDeliveryNoteApiDependencyProviderTest extends Unit
 
         $this->bundleProxyMock->expects(static::atLeastOnce())
             ->method('__call')
-            ->withConsecutive(['facade'], ['queryContainer'])
+            ->withConsecutive(['facade'], ['facade'])
             ->willReturnOnConsecutiveCalls(
                 $this->erpDeliveryNoteFacadeMock,
-                $this->apiQueryContainerMock,
+                $this->apiFacadeMock,
             );
 
         $container = $this->erpDeliveryNoteApiDependencyProvider->provideBusinessLayerDependencies(
@@ -106,8 +106,8 @@ class ErpDeliveryNoteApiDependencyProviderTest extends Unit
         );
 
         static::assertInstanceOf(
-            ErpDeliveryNoteApiToApiQueryContainerBridge::class,
-            $container[ErpDeliveryNoteApiDependencyProvider::QUERY_CONTAINER_API],
+            ErpDeliveryNoteApiToApiFacadeBridge::class,
+            $container[ErpDeliveryNoteApiDependencyProvider::FACADE_API],
         );
     }
 }
