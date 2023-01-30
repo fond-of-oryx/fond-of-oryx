@@ -4,8 +4,8 @@ namespace FondOfOryx\Zed\ErpInvoiceApi\Business\Model;
 
 use Codeception\Test\Unit;
 use Exception;
+use FondOfOryx\Zed\ErpInvoiceApi\Dependency\Facade\ErpInvoiceApiToApiFacadeInterface;
 use FondOfOryx\Zed\ErpInvoiceApi\Dependency\Facade\ErpInvoiceApiToErpInvoiceFacadeInterface;
-use FondOfOryx\Zed\ErpInvoiceApi\Dependency\QueryContainer\ErpInvoiceApiToApiQueryContainerInterface;
 use FondOfOryx\Zed\ErpInvoiceApi\Persistence\ErpInvoiceApiRepositoryInterface;
 use Generated\Shared\Transfer\ApiCollectionTransfer;
 use Generated\Shared\Transfer\ApiDataTransfer;
@@ -17,9 +17,9 @@ use Generated\Shared\Transfer\ErpInvoiceTransfer;
 class ErpInvoiceApiTest extends Unit
 {
     /**
-     * @var \FondOfOryx\Zed\ErpInvoiceApi\Dependency\QueryContainer\ErpInvoiceApiToApiQueryContainerInterface|\PHPUnit\Framework\MockObject\MockObject
+     * @var \FondOfOryx\Zed\ErpInvoiceApi\Dependency\Facade\ErpInvoiceApiToApiFacadeInterface|\PHPUnit\Framework\MockObject\MockObject
      */
-    protected $apiQueryContainerMock;
+    protected $apiFacadeMock;
 
     /**
      * @var \FondOfOryx\Zed\ErpInvoiceApi\Dependency\Facade\ErpInvoiceApiToErpInvoiceFacadeInterface|\PHPUnit\Framework\MockObject\MockObject
@@ -73,7 +73,7 @@ class ErpInvoiceApiTest extends Unit
     {
         parent::_before();
 
-        $this->apiQueryContainerMock = $this->getMockBuilder(ErpInvoiceApiToApiQueryContainerInterface::class)
+        $this->apiFacadeMock = $this->getMockBuilder(ErpInvoiceApiToApiFacadeInterface::class)
             ->disableOriginalConstructor()
             ->getMock();
 
@@ -110,7 +110,7 @@ class ErpInvoiceApiTest extends Unit
             ->getMock();
 
         $this->erpInvoiceApi = new ErpInvoiceApi(
-            $this->apiQueryContainerMock,
+            $this->apiFacadeMock,
             $this->erpInvoiceFacadeMock,
             $this->erpInvoiceApiRepositoryMock,
         );
@@ -143,9 +143,9 @@ class ErpInvoiceApiTest extends Unit
             ->method('getIdErpInvoice')
             ->willReturn($idErpInvoice);
 
-        $this->apiQueryContainerMock->expects(static::atLeastOnce())
+        $this->apiFacadeMock->expects(static::atLeastOnce())
             ->method('createApiItem')
-            ->with($this->erpInvoiceTransferMock, $idErpInvoice)
+            ->with($this->erpInvoiceTransferMock, (string)$idErpInvoice)
             ->willReturn($this->apiItemTransferMock);
 
         static::assertEquals(
@@ -179,7 +179,7 @@ class ErpInvoiceApiTest extends Unit
         $this->erpInvoiceTransferMock->expects(static::never())
             ->method('getIdErpInvoice');
 
-        $this->apiQueryContainerMock->expects(static::never())
+        $this->apiFacadeMock->expects(static::never())
             ->method('createApiItem');
 
         try {
@@ -221,9 +221,9 @@ class ErpInvoiceApiTest extends Unit
             ->method('getIdErpInvoice')
             ->willReturn($idErpInvoice);
 
-        $this->apiQueryContainerMock->expects(static::atLeastOnce())
+        $this->apiFacadeMock->expects(static::atLeastOnce())
             ->method('createApiItem')
-            ->with($this->erpInvoiceTransferMock, $idErpInvoice)
+            ->with($this->erpInvoiceTransferMock, (string)$idErpInvoice)
             ->willReturn($this->apiItemTransferMock);
 
         static::assertEquals(
@@ -262,7 +262,7 @@ class ErpInvoiceApiTest extends Unit
         $this->erpInvoiceTransferMock->expects(static::never())
             ->method('getIdErpInvoice');
 
-        $this->apiQueryContainerMock->expects(static::never())
+        $this->apiFacadeMock->expects(static::never())
             ->method('createApiItem');
 
         try {
@@ -288,9 +288,9 @@ class ErpInvoiceApiTest extends Unit
             ->method('deleteErpInvoiceByIdErpInvoice')
             ->with($idErpInvoice);
 
-        $this->apiQueryContainerMock->expects(static::atLeastOnce())
+        $this->apiFacadeMock->expects(static::atLeastOnce())
             ->method('createApiItem')
-            ->with(new ErpInvoiceTransfer(), $idErpInvoice)
+            ->with(null, (string)$idErpInvoice)
             ->willReturn($this->apiItemTransferMock);
 
         static::assertEquals(
@@ -311,9 +311,9 @@ class ErpInvoiceApiTest extends Unit
             ->with($idErpInvoice)
             ->willReturn($this->erpInvoiceTransferMock);
 
-        $this->apiQueryContainerMock->expects(static::atLeastOnce())
+        $this->apiFacadeMock->expects(static::atLeastOnce())
             ->method('createApiItem')
-            ->with($this->erpInvoiceTransferMock, $idErpInvoice)
+            ->with($this->erpInvoiceTransferMock, (string)$idErpInvoice)
             ->willReturn($this->apiItemTransferMock);
 
         static::assertEquals(
