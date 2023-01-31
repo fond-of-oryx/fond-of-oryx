@@ -2,9 +2,9 @@
 
 namespace FondOfOryx\Zed\ThirtyFiveUpApi\Persistence;
 
+use FondOfOryx\Zed\ThirtyFiveUpApi\Dependency\Facade\ThirtyFiveUpApiToApiFacadeInterface;
 use FondOfOryx\Zed\ThirtyFiveUpApi\Dependency\Facade\ThirtyFiveUpApiToThirtyFiveUpFacadeInterface;
 use FondOfOryx\Zed\ThirtyFiveUpApi\Dependency\QueryContainer\ThirtyFiveUpApiToApiQueryBuilderContainerInterface;
-use FondOfOryx\Zed\ThirtyFiveUpApi\Dependency\QueryContainer\ThirtyFiveUpApiToApiQueryContainerInterface;
 use FondOfOryx\Zed\ThirtyFiveUpApi\Persistence\Propel\Mapper\TransferMapper;
 use FondOfOryx\Zed\ThirtyFiveUpApi\Persistence\Propel\Mapper\TransferMapperInterface;
 use FondOfOryx\Zed\ThirtyFiveUpApi\ThirtyFiveUpApiDependencyProvider;
@@ -41,11 +41,11 @@ class ThirtyFiveUpApiPersistenceFactory extends AbstractPersistenceFactory
     }
 
     /**
-     * @return \FondOfOryx\Zed\ThirtyFiveUpApi\Dependency\QueryContainer\ThirtyFiveUpApiToApiQueryContainerInterface
+     * @return \FondOfOryx\Zed\ThirtyFiveUpApi\Dependency\Facade\ThirtyFiveUpApiToApiFacadeInterface
      */
-    public function getApiQueryContainer(): ThirtyFiveUpApiToApiQueryContainerInterface
+    public function getApiFacade(): ThirtyFiveUpApiToApiFacadeInterface
     {
-        return $this->getProvidedDependency(ThirtyFiveUpApiDependencyProvider::QUERY_CONTAINER_API);
+        return $this->getProvidedDependency(ThirtyFiveUpApiDependencyProvider::FACADE_API);
     }
 
     /**

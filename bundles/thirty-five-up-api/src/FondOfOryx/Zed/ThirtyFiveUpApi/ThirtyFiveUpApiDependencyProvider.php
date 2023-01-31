@@ -2,12 +2,12 @@
 
 namespace FondOfOryx\Zed\ThirtyFiveUpApi;
 
+use FondOfOryx\Zed\ThirtyFiveUpApi\Dependency\Facade\ThirtyFiveUpApiToApiFacadeBridge;
+use FondOfOryx\Zed\ThirtyFiveUpApi\Dependency\Facade\ThirtyFiveUpApiToApiFacadeInterface;
 use FondOfOryx\Zed\ThirtyFiveUpApi\Dependency\Facade\ThirtyFiveUpApiToThirtyFiveUpFacadeBridge;
 use FondOfOryx\Zed\ThirtyFiveUpApi\Dependency\Facade\ThirtyFiveUpApiToThirtyFiveUpFacadeInterface;
 use FondOfOryx\Zed\ThirtyFiveUpApi\Dependency\QueryContainer\ThirtyFiveUpApiToApiQueryBuilderContainerBridge;
 use FondOfOryx\Zed\ThirtyFiveUpApi\Dependency\QueryContainer\ThirtyFiveUpApiToApiQueryBuilderContainerInterface;
-use FondOfOryx\Zed\ThirtyFiveUpApi\Dependency\QueryContainer\ThirtyFiveUpApiToApiQueryContainerBridge;
-use FondOfOryx\Zed\ThirtyFiveUpApi\Dependency\QueryContainer\ThirtyFiveUpApiToApiQueryContainerInterface;
 use Orm\Zed\ThirtyFiveUp\Persistence\FooThirtyFiveUpOrderQuery;
 use Spryker\Zed\Kernel\AbstractBundleDependencyProvider;
 use Spryker\Zed\Kernel\Container;
@@ -17,7 +17,7 @@ class ThirtyFiveUpApiDependencyProvider extends AbstractBundleDependencyProvider
     /**
      * @var string
      */
-    public const QUERY_CONTAINER_API = '35UP:QUERY_CONTAINER_API';
+    public const FACADE_API = '35UP:QUERY_CONTAINER_API';
 
     /**
      * @var string
@@ -39,14 +39,13 @@ class ThirtyFiveUpApiDependencyProvider extends AbstractBundleDependencyProvider
      *
      * @return \Spryker\Zed\Kernel\Container
      */
-    public function provideBusinessLayerDependencies(Container $container)
+    public function provideBusinessLayerDependencies(Container $container): Container
     {
         $container = parent::provideBusinessLayerDependencies($container);
 
-        $container = $this->addApiQueryContainer($container);
-        $container = $this->addThirtyFiveUpFacade($container);
+        $container = $this->addApiFacade($container);
 
-        return $container;
+        return $this->addThirtyFiveUpFacade($container);
     }
 
     /**
@@ -54,15 +53,15 @@ class ThirtyFiveUpApiDependencyProvider extends AbstractBundleDependencyProvider
      *
      * @return \Spryker\Zed\Kernel\Container
      */
-    public function providePersistenceLayerDependencies(Container $container)
+    public function providePersistenceLayerDependencies(Container $container): Container
     {
         $container = parent::providePersistenceLayerDependencies($container);
-        $container = $this->addApiQueryBuilderContainer($container);
-        $container = $this->addApiQueryContainer($container);
-        $container = $this->addThirtyFiveUpFacade($container);
-        $container = $this->addThirtyFiveUpOrderQuery($container);
 
-        return $container;
+        $container = $this->addApiQueryBuilderContainer($container);
+        $container = $this->addApiFacade($container);
+        $container = $this->addThirtyFiveUpFacade($container);
+
+        return $this->addThirtyFiveUpOrderQuery($container);
     }
 
     /**
@@ -70,10 +69,10 @@ class ThirtyFiveUpApiDependencyProvider extends AbstractBundleDependencyProvider
      *
      * @return \Spryker\Zed\Kernel\Container
      */
-    protected function addApiQueryContainer(Container $container): Container
+    protected function addApiFacade(Container $container): Container
     {
-        $container[static::QUERY_CONTAINER_API] = static function (Container $container): ThirtyFiveUpApiToApiQueryContainerInterface {
-            return new ThirtyFiveUpApiToApiQueryContainerBridge($container->getLocator()->api()->queryContainer());
+        $container[static::FACADE_API] = static function (Container $container): ThirtyFiveUpApiToApiFacadeInterface {
+            return new ThirtyFiveUpApiToApiFacadeBridge($container->getLocator()->api()->facade());
         };
 
         return $container;

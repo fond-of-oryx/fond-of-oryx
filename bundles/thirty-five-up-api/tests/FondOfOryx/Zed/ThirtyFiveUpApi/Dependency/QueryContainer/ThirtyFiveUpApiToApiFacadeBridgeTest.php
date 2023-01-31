@@ -3,21 +3,22 @@
 namespace FondOfOryx\Zed\ThirtyFiveUpApi\Dependency\QueryContainer;
 
 use Codeception\Test\Unit;
+use FondOfOryx\Zed\ThirtyFiveUpApi\Dependency\Facade\ThirtyFiveUpApiToApiFacadeBridge;
 use Generated\Shared\Transfer\ApiCollectionTransfer;
 use Generated\Shared\Transfer\ApiItemTransfer;
-use Spryker\Zed\Api\Persistence\ApiQueryContainer;
+use Spryker\Zed\Api\Business\ApiFacadeInterface;
 
-class ThirtyFiveUpApiToApiQueryContainerBridgeTest extends Unit
+class ThirtyFiveUpApiToApiFacadeBridgeTest extends Unit
 {
     /**
-     * @var \FondOfOryx\Zed\ThirtyFiveUpApi\Dependency\QueryContainer\ThirtyFiveUpApiToApiQueryContainerBridge
+     * @var \FondOfOryx\Zed\ThirtyFiveUpApi\Dependency\Facade\ThirtyFiveUpApiToApiFacadeBridge
      */
     protected $bridge;
 
     /**
-     * @var \Spryker\Zed\Api\Persistence\ApiQueryContainerInterface|\PHPUnit\Framework\MockObject\MockObject
+     * @var \Spryker\Zed\Api\Business\ApiFacadeInterface|\PHPUnit\Framework\MockObject\MockObject
      */
-    protected $queryContainerMock;
+    protected $apiFacadeMock;
 
     /**
      * @var \Generated\Shared\Transfer\ApiItemTransfer|\PHPUnit\Framework\MockObject\MockObject
@@ -34,7 +35,7 @@ class ThirtyFiveUpApiToApiQueryContainerBridgeTest extends Unit
      */
     protected function _before(): void
     {
-        $this->queryContainerMock = $this->getMockBuilder(ApiQueryContainer::class)
+        $this->apiFacadeMock = $this->getMockBuilder(ApiFacadeInterface::class)
             ->disableOriginalConstructor()
             ->getMock();
 
@@ -46,8 +47,8 @@ class ThirtyFiveUpApiToApiQueryContainerBridgeTest extends Unit
             ->disableOriginalConstructor()
             ->getMock();
 
-        $this->bridge = new ThirtyFiveUpApiToApiQueryContainerBridge(
-            $this->queryContainerMock,
+        $this->bridge = new ThirtyFiveUpApiToApiFacadeBridge(
+            $this->apiFacadeMock,
         );
     }
 
@@ -56,7 +57,7 @@ class ThirtyFiveUpApiToApiQueryContainerBridgeTest extends Unit
      */
     public function testCreateApiItem(): void
     {
-        $this->queryContainerMock->expects($this->once())
+        $this->apiFacadeMock->expects($this->once())
             ->method('createApiItem')
             ->willReturn($this->apiItemTransferMock);
 
@@ -68,7 +69,7 @@ class ThirtyFiveUpApiToApiQueryContainerBridgeTest extends Unit
      */
     public function testCreateApiCollection(): void
     {
-        $this->queryContainerMock->expects($this->once())
+        $this->apiFacadeMock->expects($this->once())
             ->method('createApiCollection')
             ->willReturn($this->collectionTransferMock);
 

@@ -8,7 +8,7 @@ use Generated\Shared\Transfer\ApiItemTransfer;
 use Spryker\Shared\Kernel\Transfer\AbstractTransfer;
 use Spryker\Zed\Api\Business\ApiFacadeInterface;
 
-class CustomerProductListApiToApiQueryContainerBridgeTest extends Unit
+class CustomerProductListApiToApiFacadeBridgeTest extends Unit
 {
     /**
      * @var \Generated\Shared\Transfer\ApiItemTransfer|\PHPUnit\Framework\MockObject\MockObject|null
@@ -16,7 +16,7 @@ class CustomerProductListApiToApiQueryContainerBridgeTest extends Unit
     protected $apiItemTransferMock;
 
     /**
-     * @var \Spryker\Zed\Api\Persistence\ApiQueryContainerInterface|\PHPUnit\Framework\MockObject\MockObject|null
+     * @var \Spryker\Zed\Api\Business\ApiFacadeInterface|\PHPUnit\Framework\MockObject\MockObject|null
      */
     protected $apiFacadeMock;
 

@@ -18,7 +18,7 @@ class CompanyProductListApi implements CompanyProductListApiInterface
     /**
      * @var \FondOfOryx\Zed\CompanyProductListApi\Dependency\Facade\CompanyProductListApiToApiFacadeInterface
      */
-    protected $apiQueryContainer;
+    protected $apiFacade;
 
     /**
      * @var \FondOfOryx\Zed\CompanyProductListApi\Dependency\Facade\CompanyProductListApiToCompanyProductListConnectorFacadeInterface
@@ -27,13 +27,13 @@ class CompanyProductListApi implements CompanyProductListApiInterface
 
     /**
      * @param \FondOfOryx\Zed\CompanyProductListApi\Dependency\Facade\CompanyProductListApiToCompanyProductListConnectorFacadeInterface $companyProductListConnectorFacade
-     * @param \FondOfOryx\Zed\CompanyProductListApi\Dependency\Facade\CompanyProductListApiToApiFacadeInterface $apiQueryContainer
+     * @param \FondOfOryx\Zed\CompanyProductListApi\Dependency\Facade\CompanyProductListApiToApiFacadeInterface $apiFacade
      */
     public function __construct(
         CompanyProductListApiToCompanyProductListConnectorFacadeInterface $companyProductListConnectorFacade,
-        CompanyProductListApiToApiFacadeInterface $apiQueryContainer
+        CompanyProductListApiToApiFacadeInterface $apiFacade
     ) {
-        $this->apiQueryContainer = $apiQueryContainer;
+        $this->apiFacade = $apiFacade;
         $this->companyProductListConnectorFacade = $companyProductListConnectorFacade;
     }
 
@@ -53,6 +53,6 @@ class CompanyProductListApi implements CompanyProductListApiInterface
         $this->companyProductListConnectorFacade
             ->persistCompanyProductListRelation($companyProductListRelationTransfer);
 
-        return $this->apiQueryContainer->createApiItem($companyProductListRelationTransfer);
+        return $this->apiFacade->createApiItem($companyProductListRelationTransfer);
     }
 }

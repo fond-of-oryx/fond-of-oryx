@@ -13,7 +13,7 @@ class CompanyRoleApiToApiFacadeBridgeTest extends Unit
     /**
      * @var \FondOfOryx\Zed\CompanyRoleApi\Dependency\Facade\CompanyRoleApiToApiFacadeBridge
      */
-    protected $companyRoleApiToApiQueryContainerBridge;
+    protected $bridge;
 
     /**
      * @var \PHPUnit\Framework\MockObject\MockObject|\Spryker\Zed\Api\Business\ApiFacadeInterface
@@ -56,7 +56,7 @@ class CompanyRoleApiToApiFacadeBridgeTest extends Unit
 
         $this->collectionData = [];
 
-        $this->companyRoleApiToApiQueryContainerBridge = new CompanyRoleApiToApiFacadeBridge($this->apiFacadeMock);
+        $this->bridge = new CompanyRoleApiToApiFacadeBridge($this->apiFacadeMock);
     }
 
     /**
@@ -71,7 +71,7 @@ class CompanyRoleApiToApiFacadeBridgeTest extends Unit
 
         static::assertEquals(
             $this->apiCollectionTransferMock,
-            $this->companyRoleApiToApiQueryContainerBridge->createApiCollection($this->collectionData),
+            $this->bridge->createApiCollection($this->collectionData),
         );
     }
 
@@ -92,7 +92,7 @@ class CompanyRoleApiToApiFacadeBridgeTest extends Unit
 
         static::assertEquals(
             $this->apiItemTransferMock,
-            $this->companyRoleApiToApiQueryContainerBridge->createApiItem($transferMock, $id),
+            $this->bridge->createApiItem($transferMock, $id),
         );
     }
 }

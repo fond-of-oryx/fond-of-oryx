@@ -8,7 +8,7 @@ use Generated\Shared\Transfer\ApiItemTransfer;
 use Generated\Shared\Transfer\StockTransfer;
 use Spryker\Zed\Api\Business\ApiFacadeInterface;
 
-class StockApiToApiQueryContainerBridgeTest extends Unit
+class StockApiToApiFacadeBridgeTest extends Unit
 {
     /**
      * @var \Spryker\Zed\Api\Business\ApiFacadeInterface|\PHPUnit\Framework\MockObject\MockObject|null

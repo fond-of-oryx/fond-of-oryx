@@ -19,12 +19,12 @@ class CustomerProductListApiBusinessFactoryTest extends Unit
     /**
      * @var \PHPUnit\Framework\MockObject\MockObject|\FondOfOryx\Zed\CustomerProductListApi\Dependency\Facade\CustomerProductListApiToCustomerProductListConnectorFacadeInterface
      */
-    protected $customerProductListApiToCustomerProductListConnectorFacadeMock;
+    protected $customerProductListConnectorFacadeMock;
 
     /**
      * @var \PHPUnit\Framework\MockObject\MockObject|\FondOfOryx\Zed\CustomerProductListApi\Dependency\Facade\CustomerProductListApiToApiFacadeInterface
      */
-    protected $customerProductListApiToApiQueryContainerMock;
+    protected $apiFacadeMock;
 
     /**
      * @var \FondOfOryx\Zed\CustomerProductListApi\Business\CustomerProductListApiBusinessFactory
@@ -42,12 +42,12 @@ class CustomerProductListApiBusinessFactoryTest extends Unit
             ->disableOriginalConstructor()
             ->getMock();
 
-        $this->customerProductListApiToCustomerProductListConnectorFacadeMock = $this
+        $this->customerProductListConnectorFacadeMock = $this
             ->getMockBuilder(CustomerProductListApiToCustomerProductListConnectorFacadeInterface::class)
             ->disableOriginalConstructor()
             ->getMock();
 
-        $this->customerProductListApiToApiQueryContainerMock = $this
+        $this->apiFacadeMock = $this
             ->getMockBuilder(CustomerProductListApiToApiFacadeInterface::class)
             ->disableOriginalConstructor()
             ->getMock();
@@ -74,8 +74,8 @@ class CustomerProductListApiBusinessFactoryTest extends Unit
                 [CustomerProductListApiDependencyProvider::FACADE_CUSTOMER_PRODUCT_LIST_CONNECTOR],
                 [CustomerProductListApiDependencyProvider::FACADE_API],
             )->willReturnOnConsecutiveCalls(
-                $this->customerProductListApiToCustomerProductListConnectorFacadeMock,
-                $this->customerProductListApiToApiQueryContainerMock,
+                $this->customerProductListConnectorFacadeMock,
+                $this->apiFacadeMock,
             );
 
         static::assertInstanceOf(

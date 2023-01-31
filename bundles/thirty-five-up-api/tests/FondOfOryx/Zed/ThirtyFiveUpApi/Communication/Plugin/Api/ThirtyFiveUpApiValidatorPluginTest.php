@@ -5,7 +5,7 @@ namespace FondOfOryx\Zed\ThirtyFiveUpApi\Communication\Plugin\Api;
 use Codeception\Test\Unit;
 use FondOfOryx\Zed\ThirtyFiveUpApi\Business\ThirtyFiveUpApiFacade;
 use FondOfOryx\Zed\ThirtyFiveUpApi\Business\ThirtyFiveUpApiFacadeInterface;
-use Generated\Shared\Transfer\ApiDataTransfer;
+use Generated\Shared\Transfer\ApiRequestTransfer;
 use Spryker\Zed\Kernel\Business\AbstractFacade;
 
 class ThirtyFiveUpApiValidatorPluginTest extends Unit
@@ -21,9 +21,9 @@ class ThirtyFiveUpApiValidatorPluginTest extends Unit
     protected $facadeMock;
 
     /**
-     * @var \Generated\Shared\Transfer\ApiDataTransfer|\PHPUnit\Framework\MockObject\MockObject
+     * @var \Generated\Shared\Transfer\ApiRequestTransfer|\PHPUnit\Framework\MockObject\MockObject
      */
-    protected $apiDataTransferMock;
+    protected $apiRequestTransferMock;
 
     /**
      * @return void
@@ -34,7 +34,7 @@ class ThirtyFiveUpApiValidatorPluginTest extends Unit
             ->disableOriginalConstructor()
             ->getMock();
 
-        $this->apiDataTransferMock = $this->getMockBuilder(ApiDataTransfer::class)
+        $this->apiRequestTransferMock = $this->getMockBuilder(ApiRequestTransfer::class)
             ->disableOriginalConstructor()
             ->getMock();
 
@@ -69,7 +69,13 @@ class ThirtyFiveUpApiValidatorPluginTest extends Unit
      */
     public function testValidate(): void
     {
-        $this->facadeMock->expects($this->once())->method('validate')->willReturn([]);
-        $this->plugin->validate($this->apiDataTransferMock);
+        $this->facadeMock->expects(static::atLeastOnce())
+            ->method('validate')
+            ->willReturn([]);
+
+        static::assertEquals(
+            [],
+            $this->plugin->validate($this->apiRequestTransferMock),
+        );
     }
 }

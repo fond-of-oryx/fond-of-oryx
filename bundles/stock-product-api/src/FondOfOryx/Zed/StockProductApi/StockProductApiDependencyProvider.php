@@ -40,7 +40,7 @@ class StockProductApiDependencyProvider extends AbstractBundleDependencyProvider
     {
         $container = parent::provideBusinessLayerDependencies($container);
 
-        $container = $this->provideApiQueryContainer($container);
+        $container = $this->provideApiFacade($container);
         $container = $this->provideApiQueryBuilderQueryContainer($container);
 
         return $this->provideStockFacade($container);
@@ -63,7 +63,7 @@ class StockProductApiDependencyProvider extends AbstractBundleDependencyProvider
      *
      * @return \Spryker\Zed\Kernel\Container
      */
-    protected function provideApiQueryContainer(Container $container): Container
+    protected function provideApiFacade(Container $container): Container
     {
         $container[static::FACADE_API] = static function (Container $container) {
             return new StockProductApiToApiFacadeBridge($container->getLocator()->api()->facade());

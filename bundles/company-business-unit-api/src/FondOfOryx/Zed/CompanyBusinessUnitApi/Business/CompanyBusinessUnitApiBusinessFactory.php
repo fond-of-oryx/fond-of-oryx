@@ -23,7 +23,7 @@ class CompanyBusinessUnitApiBusinessFactory extends AbstractBusinessFactory
     public function createCompanyBusinessUnitApi(): CompanyBusinessUnitApiInterface
     {
         return new CompanyBusinessUnitApi(
-            $this->getApiQueryContainer(),
+            $this->getApiFacade(),
             $this->getCompanyBusinessUnitFacade(),
             $this->getRepository(),
         );
@@ -32,7 +32,7 @@ class CompanyBusinessUnitApiBusinessFactory extends AbstractBusinessFactory
     /**
      * @return \FondOfOryx\Zed\CompanyBusinessUnitApi\Dependency\Facade\CompanyBusinessUnitApiToApiFacadeInterface
      */
-    protected function getApiQueryContainer(): CompanyBusinessUnitApiToApiFacadeInterface
+    protected function getApiFacade(): CompanyBusinessUnitApiToApiFacadeInterface
     {
         return $this->getProvidedDependency(CompanyBusinessUnitApiDependencyProvider::FACADE_API);
     }

@@ -18,7 +18,7 @@ class ProductListApiDependencyProvider extends AbstractBundleDependencyProvider
     /**
      * @var string
      */
-    public const FACADE_API = 'QUERY_CONTAINER_API';
+    public const FACADE_API = 'FACADE_API';
 
     /**
      * @var string
@@ -34,7 +34,7 @@ class ProductListApiDependencyProvider extends AbstractBundleDependencyProvider
     {
         $container = parent::provideBusinessLayerDependencies($container);
 
-        return $this->addApiQueryContainer($container);
+        return $this->addApiFacade($container);
     }
 
     /**
@@ -46,7 +46,7 @@ class ProductListApiDependencyProvider extends AbstractBundleDependencyProvider
     {
         $container = parent::providePersistenceLayerDependencies($container);
 
-        $container = $this->addApiQueryContainer($container);
+        $container = $this->addApiFacade($container);
         $container = $this->addApiQueryBuilderQueryContainer($container);
 
         return $this->addProductListPropelQuery($container);
@@ -71,7 +71,7 @@ class ProductListApiDependencyProvider extends AbstractBundleDependencyProvider
      *
      * @return \Spryker\Zed\Kernel\Container
      */
-    protected function addApiQueryContainer(Container $container): Container
+    protected function addApiFacade(Container $container): Container
     {
         $container[static::FACADE_API] = static function (Container $container) {
             return new ProductListApiToApiFacadeBridge($container->getLocator()->api()->facade());

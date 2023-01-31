@@ -4,8 +4,8 @@ namespace FondOfOryx\Zed\ThirtyFiveUpApi\Business\Model;
 
 use Codeception\Test\Unit;
 use Exception;
+use FondOfOryx\Zed\ThirtyFiveUpApi\Dependency\Facade\ThirtyFiveUpApiToApiFacadeBridge;
 use FondOfOryx\Zed\ThirtyFiveUpApi\Dependency\Facade\ThirtyFiveUpApiToThirtyFiveUpFacadeBridge;
-use FondOfOryx\Zed\ThirtyFiveUpApi\Dependency\QueryContainer\ThirtyFiveUpApiToApiQueryContainerBridge;
 use FondOfOryx\Zed\ThirtyFiveUpApi\Persistence\ThirtyFiveUpApiRepository;
 use Generated\Shared\Transfer\ApiCollectionTransfer;
 use Generated\Shared\Transfer\ApiDataTransfer;
@@ -22,7 +22,7 @@ class ThirtyFiveUpOrderApiTest extends Unit
     protected $orderApi;
 
     /**
-     * @var \FondOfOryx\Zed\ThirtyFiveUpApi\Dependency\QueryContainer\ThirtyFiveUpApiToApiQueryContainerInterface|\PHPUnit\Framework\MockObject\MockObject
+     * @var \FondOfOryx\Zed\ThirtyFiveUpApi\Dependency\Facade\ThirtyFiveUpApiToApiFacadeInterface|\PHPUnit\Framework\MockObject\MockObject
      */
     protected $thirtyFiveUpQueryContainerMock;
 
@@ -69,7 +69,7 @@ class ThirtyFiveUpOrderApiTest extends Unit
         parent::_before();
 
         $this->thirtyFiveUpApiFacadeMock = $this->getMockBuilder(ThirtyFiveUpApiToThirtyFiveUpFacadeBridge::class)->disableOriginalConstructor()->getMock();
-        $this->thirtyFiveUpQueryContainerMock = $this->getMockBuilder(ThirtyFiveUpApiToApiQueryContainerBridge::class)->disableOriginalConstructor()->getMock();
+        $this->thirtyFiveUpQueryContainerMock = $this->getMockBuilder(ThirtyFiveUpApiToApiFacadeBridge::class)->disableOriginalConstructor()->getMock();
         $this->repositoryMock = $this->getMockBuilder(ThirtyFiveUpApiRepository::class)->disableOriginalConstructor()->getMock();
         $this->apiDataTransferMock = $this->getMockBuilder(ApiDataTransfer::class)->disableOriginalConstructor()->getMock();
         $this->apiItemTransferMock = $this->getMockBuilder(ApiItemTransfer::class)->disableOriginalConstructor()->getMock();

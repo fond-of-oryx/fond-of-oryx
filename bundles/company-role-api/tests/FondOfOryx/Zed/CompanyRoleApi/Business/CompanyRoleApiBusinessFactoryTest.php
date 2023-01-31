@@ -75,7 +75,7 @@ class CompanyRoleApiBusinessFactoryTest extends Unit
      */
     public function testCreateCompanyRoleApi(): void
     {
-        $apiQueryContainerMock = $this->getMockBuilder(CompanyRoleApiToApiFacadeInterface::class)
+        $apiFacadeMock = $this->getMockBuilder(CompanyRoleApiToApiFacadeInterface::class)
             ->disableOriginalConstructor()
             ->getMock();
 
@@ -97,7 +97,7 @@ class CompanyRoleApiBusinessFactoryTest extends Unit
                 [CompanyRoleApiDependencyProvider::FACADE_COMPANY_ROLE],
             )
             ->willReturnOnConsecutiveCalls(
-                $apiQueryContainerMock,
+                $apiFacadeMock,
                 $apiToCompanyFacadeMock,
             );
 

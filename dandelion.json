@@ -816,7 +816,7 @@
     },
     "thirty-five-up-api": {
       "path": "bundles/thirty-five-up-api/",
-      "version": "2.0.0"
+      "version": "3.0.0"
     },
     "thirty-five-up-payment-connector": {
       "path": "bundles/thirty-five-up-payment-connector/",

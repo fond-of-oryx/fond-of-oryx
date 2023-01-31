@@ -18,7 +18,7 @@ class StockApiBusinessFactoryTest extends Unit
     /**
      * @var \FondOfOryx\Zed\StockApi\Dependency\Facade\StockApiToApiFacadeInterface|\PHPUnit\Framework\MockObject\MockObject
      */
-    protected $apiQueryContainerMock;
+    protected $apiFacadeMock;
 
     /**
      * @var \Spryker\Zed\Kernel\AbstractBundleConfig|\PHPUnit\Framework\MockObject\MockObject
@@ -55,7 +55,7 @@ class StockApiBusinessFactoryTest extends Unit
      */
     public function _before()
     {
-        $this->apiQueryContainerMock = $this->getMockBuilder(StockApiToApiFacadeInterface::class)
+        $this->apiFacadeMock = $this->getMockBuilder(StockApiToApiFacadeInterface::class)
             ->disableOriginalConstructor()
             ->getMock();
 
@@ -151,7 +151,7 @@ class StockApiBusinessFactoryTest extends Unit
                 [StockApiDependencyProvider::FACADE_API],
             )->willReturnOnConsecutiveCalls(
                 $this->stockFacadeMock,
-                $this->apiQueryContainerMock,
+                $this->apiFacadeMock,
                 $this->queryBuilderContainerMock,
                 $this->queryContainerMock,
             );

@@ -21,7 +21,7 @@ class CompanyProductListApiBusinessFactory extends AbstractBusinessFactory
     {
         return new CompanyProductListApi(
             $this->getCompanyProductListConnnectorFacade(),
-            $this->getApiQueryContainer(),
+            $this->getApiFacade(),
         );
     }
 
@@ -36,7 +36,7 @@ class CompanyProductListApiBusinessFactory extends AbstractBusinessFactory
     /**
      * @return \FondOfOryx\Zed\CompanyProductListApi\Dependency\Facade\CompanyProductListApiToApiFacadeInterface
      */
-    protected function getApiQueryContainer(): CompanyProductListApiToApiFacadeInterface
+    protected function getApiFacade(): CompanyProductListApiToApiFacadeInterface
     {
         return $this->getProvidedDependency(CompanyProductListApiDependencyProvider::FACADE_API);
     }

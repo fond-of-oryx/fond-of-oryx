@@ -3,8 +3,8 @@
 namespace FondOfOryx\Zed\ThirtyFiveUpApi\Business\Model;
 
 use Exception;
+use FondOfOryx\Zed\ThirtyFiveUpApi\Dependency\Facade\ThirtyFiveUpApiToApiFacadeInterface;
 use FondOfOryx\Zed\ThirtyFiveUpApi\Dependency\Facade\ThirtyFiveUpApiToThirtyFiveUpFacadeInterface;
-use FondOfOryx\Zed\ThirtyFiveUpApi\Dependency\QueryContainer\ThirtyFiveUpApiToApiQueryContainerInterface;
 use FondOfOryx\Zed\ThirtyFiveUpApi\Persistence\ThirtyFiveUpApiRepositoryInterface;
 use Generated\Shared\Transfer\ApiCollectionTransfer;
 use Generated\Shared\Transfer\ApiDataTransfer;
@@ -17,9 +17,9 @@ use Spryker\Zed\Api\Business\Exception\EntityNotSavedException;
 class ThirtyFiveUpOrderApi implements ThirtyFiveUpOrderApiInterface
 {
     /**
-     * @var \FondOfOryx\Zed\ThirtyFiveUpApi\Dependency\QueryContainer\ThirtyFiveUpApiToApiQueryContainerInterface
+     * @var \FondOfOryx\Zed\ThirtyFiveUpApi\Dependency\Facade\ThirtyFiveUpApiToApiFacadeInterface
      */
-    protected $apiQueryContainer;
+    protected $apiFacade;
 
     /**
      * @var \FondOfOryx\Zed\ThirtyFiveUpApi\Dependency\Facade\ThirtyFiveUpApiToThirtyFiveUpFacadeInterface
@@ -32,16 +32,16 @@ class ThirtyFiveUpOrderApi implements ThirtyFiveUpOrderApiInterface
     protected $repository;
 
     /**
-     * @param \FondOfOryx\Zed\ThirtyFiveUpApi\Dependency\QueryContainer\ThirtyFiveUpApiToApiQueryContainerInterface $apiQueryContainer
+     * @param \FondOfOryx\Zed\ThirtyFiveUpApi\Dependency\Facade\ThirtyFiveUpApiToApiFacadeInterface $apiFacade
      * @param \FondOfOryx\Zed\ThirtyFiveUpApi\Dependency\Facade\ThirtyFiveUpApiToThirtyFiveUpFacadeInterface $thirtyFiveUpFacade
      * @param \FondOfOryx\Zed\ThirtyFiveUpApi\Persistence\ThirtyFiveUpApiRepositoryInterface $repository
      */
     public function __construct(
-        ThirtyFiveUpApiToApiQueryContainerInterface $apiQueryContainer,
+        ThirtyFiveUpApiToApiFacadeInterface $apiFacade,
         ThirtyFiveUpApiToThirtyFiveUpFacadeInterface $thirtyFiveUpFacade,
         ThirtyFiveUpApiRepositoryInterface $repository
     ) {
-        $this->apiQueryContainer = $apiQueryContainer;
+        $this->apiFacade = $apiFacade;
         $this->thirtyFiveUpFacade = $thirtyFiveUpFacade;
         $this->repository = $repository;
     }
@@ -68,9 +68,9 @@ class ThirtyFiveUpOrderApi implements ThirtyFiveUpOrderApiInterface
             );
         }
 
-        return $this->apiQueryContainer->createApiItem(
+        return $this->apiFacade->createApiItem(
             $thirtyFiveUpOrderTransfer,
-            $thirtyFiveUpOrderTransfer->getId(),
+            (string)$thirtyFiveUpOrderTransfer->getId(),
         );
     }
 

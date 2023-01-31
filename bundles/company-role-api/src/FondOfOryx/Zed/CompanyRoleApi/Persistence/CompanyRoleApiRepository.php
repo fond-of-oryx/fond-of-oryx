@@ -35,7 +35,7 @@ class CompanyRoleApiRepository extends AbstractRepository implements CompanyRole
             ->toArray();
 
         $apiCollectionTransfer = $this->getFactory()
-            ->getApiQueryContainer()
+            ->getApiFacade()
             ->createApiCollection($data);
 
         if (count($apiCollectionTransfer->getData()) === 0) {

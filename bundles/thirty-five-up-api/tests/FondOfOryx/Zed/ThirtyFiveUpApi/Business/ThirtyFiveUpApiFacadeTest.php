@@ -117,10 +117,13 @@ class ThirtyFiveUpApiFacadeTest extends Unit
      */
     public function testUpdateThirtyFiveUpOrder(): void
     {
-        $this->factoryMock->expects($this->once())->method('createThirtyFiveUpApi')->willReturn($this->thirtyFiveUpApiMock);
-        $this->thirtyFiveUpApiMock->expects($this->once())->method('update')->willReturn($this->apiItemTransferMock);
+        $this->factoryMock->expects(static::atLeastOnce())->method('createThirtyFiveUpApi')->willReturn($this->thirtyFiveUpApiMock);
+        $this->thirtyFiveUpApiMock->expects(static::atLeastOnce())->method('update')->willReturn($this->apiItemTransferMock);
 
-        $this->facade->updateThirtyFiveUpOrder(1, $this->apiDataTransferMock);
+        static::assertEquals(
+            $this->apiItemTransferMock,
+            $this->facade->updateThirtyFiveUpOrder(1, $this->apiDataTransferMock),
+        );
     }
 
     /**
@@ -128,10 +131,13 @@ class ThirtyFiveUpApiFacadeTest extends Unit
      */
     public function testFindThirtyFiveUpOrder(): void
     {
-        $this->factoryMock->expects($this->once())->method('createThirtyFiveUpApi')->willReturn($this->thirtyFiveUpApiMock);
-        $this->thirtyFiveUpApiMock->expects($this->once())->method('find')->willReturn($this->apiCollectionTransferMock);
+        $this->factoryMock->expects(static::atLeastOnce())->method('createThirtyFiveUpApi')->willReturn($this->thirtyFiveUpApiMock);
+        $this->thirtyFiveUpApiMock->expects(static::atLeastOnce())->method('find')->willReturn($this->apiCollectionTransferMock);
 
-        $this->facade->findThirtyFiveUpOrder($this->apiRequestTransferMock);
+        static::assertEquals(
+            $this->apiCollectionTransferMock,
+            $this->facade->findThirtyFiveUpOrder($this->apiRequestTransferMock),
+        );
     }
 
     /**
@@ -139,9 +145,12 @@ class ThirtyFiveUpApiFacadeTest extends Unit
      */
     public function testValidate(): void
     {
-        $this->factoryMock->expects($this->once())->method('createThirtyFiveUpApiValidator')->willReturn($this->thirtyFiveUpApiValidatorMock);
-        $this->thirtyFiveUpApiValidatorMock->expects($this->once())->method('validate')->willReturn([]);
+        $this->factoryMock->expects(static::atLeastOnce())->method('createThirtyFiveUpApiValidator')->willReturn($this->thirtyFiveUpApiValidatorMock);
+        $this->thirtyFiveUpApiValidatorMock->expects(static::atLeastOnce())->method('validate')->with($this->apiRequestTransferMock)->willReturn([]);
 
-        $this->facade->validate($this->apiDataTransferMock);
+        static::assertEquals(
+            [],
+            $this->facade->validate($this->apiRequestTransferMock),
+        );
     }
 }

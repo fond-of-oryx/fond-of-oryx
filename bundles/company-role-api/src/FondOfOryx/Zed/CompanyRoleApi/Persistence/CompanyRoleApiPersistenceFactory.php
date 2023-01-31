@@ -36,7 +36,7 @@ class CompanyRoleApiPersistenceFactory extends AbstractPersistenceFactory
     /**
      * @return \FondOfOryx\Zed\CompanyRoleApi\Dependency\Facade\CompanyRoleApiToApiFacadeInterface
      */
-    public function getApiQueryContainer(): CompanyRoleApiToApiFacadeInterface
+    public function getApiFacade(): CompanyRoleApiToApiFacadeInterface
     {
         return $this->getProvidedDependency(CompanyRoleApiDependencyProvider::FACADE_API);
     }

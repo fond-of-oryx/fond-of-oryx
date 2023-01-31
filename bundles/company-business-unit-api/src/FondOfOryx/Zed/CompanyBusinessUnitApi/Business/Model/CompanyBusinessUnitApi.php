@@ -25,7 +25,7 @@ class CompanyBusinessUnitApi implements CompanyBusinessUnitApiInterface
     /**
      * @var \FondOfOryx\Zed\CompanyBusinessUnitApi\Dependency\Facade\CompanyBusinessUnitApiToApiFacadeInterface
      */
-    protected $apiQueryContainer;
+    protected $apiFacade;
 
     /**
      * @var \FondOfOryx\Zed\CompanyBusinessUnitApi\Dependency\Facade\CompanyBusinessUnitApiToCompanyBusinessUnitFacadeInterface
@@ -38,16 +38,16 @@ class CompanyBusinessUnitApi implements CompanyBusinessUnitApiInterface
     protected $repository;
 
     /**
-     * @param \FondOfOryx\Zed\CompanyBusinessUnitApi\Dependency\Facade\CompanyBusinessUnitApiToApiFacadeInterface $apiQueryContainer
+     * @param \FondOfOryx\Zed\CompanyBusinessUnitApi\Dependency\Facade\CompanyBusinessUnitApiToApiFacadeInterface $apiFacade
      * @param \FondOfOryx\Zed\CompanyBusinessUnitApi\Dependency\Facade\CompanyBusinessUnitApiToCompanyBusinessUnitFacadeInterface $companyBusinessUnitFacade
      * @param \FondOfOryx\Zed\CompanyBusinessUnitApi\Persistence\CompanyBusinessUnitApiRepositoryInterface $repository
      */
     public function __construct(
-        CompanyBusinessUnitApiToApiFacadeInterface $apiQueryContainer,
+        CompanyBusinessUnitApiToApiFacadeInterface $apiFacade,
         CompanyBusinessUnitApiToCompanyBusinessUnitFacadeInterface $companyBusinessUnitFacade,
         CompanyBusinessUnitApiRepositoryInterface $repository
     ) {
-        $this->apiQueryContainer = $apiQueryContainer;
+        $this->apiFacade = $apiFacade;
         $this->companyBusinessUnitFacade = $companyBusinessUnitFacade;
         $this->repository = $repository;
     }
@@ -73,7 +73,7 @@ class CompanyBusinessUnitApi implements CompanyBusinessUnitApiInterface
             );
         }
 
-        return $this->apiQueryContainer->createApiItem(
+        return $this->apiFacade->createApiItem(
             $companyBusinessUnitTransfer,
             (string)$companyBusinessUnitTransfer->getIdCompanyBusinessUnit(),
         );
@@ -88,7 +88,7 @@ class CompanyBusinessUnitApi implements CompanyBusinessUnitApiInterface
     {
         $companyBusinessUnitTransfer = $this->getByIdCompanyBusinessUnit($idCompanyBusinessUnit);
 
-        return $this->apiQueryContainer->createApiItem(
+        return $this->apiFacade->createApiItem(
             $companyBusinessUnitTransfer,
             (string)$companyBusinessUnitTransfer->getIdCompanyBusinessUnit(),
         );
@@ -120,7 +120,7 @@ class CompanyBusinessUnitApi implements CompanyBusinessUnitApiInterface
             );
         }
 
-        return $this->apiQueryContainer->createApiItem(
+        return $this->apiFacade->createApiItem(
             $companyBusinessUnitTransfer,
             (string)$companyBusinessUnitTransfer->getIdCompanyBusinessUnit(),
         );
@@ -138,7 +138,7 @@ class CompanyBusinessUnitApi implements CompanyBusinessUnitApiInterface
 
         $this->companyBusinessUnitFacade->delete($companyBusinessUnitTransfer);
 
-        return $this->apiQueryContainer->createApiItem(null, (string)$idCompanyBusinessUnit);
+        return $this->apiFacade->createApiItem(null, (string)$idCompanyBusinessUnit);
     }
 
     /**
