@@ -70,7 +70,7 @@ class OneTimePasswordEmailConnectorTest extends Unit
             [
                 OneTimePasswordEmailConnector::MAIL_TYPE => OneTimePasswordEmailConnectorMailTypeBuilderPlugin::MAIL_TYPE,
                 OneTimePasswordEmailConnector::MAIL_TYPE_LOGIN_LINK => OneTimePasswordEmailConnectorLoginLinkMailTypeBuilderPlugin::MAIL_TYPE,
-            ]
+            ],
         );
     }
 
