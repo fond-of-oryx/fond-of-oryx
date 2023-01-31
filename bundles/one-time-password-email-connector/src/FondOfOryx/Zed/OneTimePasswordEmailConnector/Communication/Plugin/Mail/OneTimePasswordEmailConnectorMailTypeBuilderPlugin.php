@@ -67,7 +67,7 @@ class OneTimePasswordEmailConnectorMailTypeBuilderPlugin extends AbstractPlugin 
                             '%s %s',
                             $mailTransfer->getCustomerOrFail()->getFirstName(),
                             $mailTransfer->getCustomerOrFail()->getLastName(),
-                        )
+                        ),
                     )
                     ->setEmail($mailTransfer->getCustomerOrFail()->getEmail()),
             );
