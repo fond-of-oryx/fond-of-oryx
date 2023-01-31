@@ -87,4 +87,14 @@ class Customer implements UserInterface
     {
         return $this->customerTransfer;
     }
+
+    /**
+     * @deprecated since Symfony 5.3, use getUserIdentifier() instead
+     *
+     * @return string
+     */
+    public function getUsername()
+    {
+        return $this->getUserIdentifier();
+    }
 }
