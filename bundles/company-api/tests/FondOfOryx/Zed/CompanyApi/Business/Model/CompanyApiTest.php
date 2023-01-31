@@ -195,6 +195,7 @@ class CompanyApiTest extends Unit
     public function testUpdate(): void
     {
         $idCompany = 1;
+        $data = [];
 
         $this->companyFacadeMock->expects(static::atLeastOnce())
             ->method('findCompanyById')
@@ -207,7 +208,12 @@ class CompanyApiTest extends Unit
 
         $this->apiDataTransferMock->expects(static::atLeastOnce())
             ->method('getData')
-            ->willReturn([]);
+            ->willReturn($data);
+
+        $this->companyTransferMock->expects(static::atLeastOnce())
+            ->method('fromArray')
+            ->with($data, true)
+            ->willReturn($this->companyTransferMock);
 
         $this->companyFacadeMock->expects(static::atLeastOnce())
             ->method('update')
@@ -227,7 +233,7 @@ class CompanyApiTest extends Unit
 
         $this->apiFacadeMock->expects(static::atLeastOnce())
             ->method('createApiItem')
-            ->with($this->companyTransferMock, $idCompany)
+            ->with($this->companyTransferMock, (string)$idCompany)
             ->willReturn($this->apiItemTransferMock);
 
         static::assertEquals(
@@ -241,6 +247,7 @@ class CompanyApiTest extends Unit
      */
     public function testUpdateWithError(): void
     {
+        $data = [];
         $idCompany = 1;
 
         $this->companyFacadeMock->expects(static::atLeastOnce())
@@ -254,7 +261,12 @@ class CompanyApiTest extends Unit
 
         $this->apiDataTransferMock->expects(static::atLeastOnce())
             ->method('getData')
-            ->willReturn([]);
+            ->willReturn($data);
+
+        $this->companyTransferMock->expects(static::atLeastOnce())
+            ->method('fromArray')
+            ->with($data, true)
+            ->willReturn($this->companyTransferMock);
 
         $this->companyFacadeMock->expects(static::atLeastOnce())
             ->method('update')

@@ -96,11 +96,10 @@ class CompanyApi implements CompanyApiInterface
      */
     public function update(int $idCompany, ApiDataTransfer $apiDataTransfer): ApiItemTransfer
     {
-        $this->getByIdCompany($idCompany);
+        $companyTransfer = $this->getByIdCompany($idCompany);
 
-        $companyTransfer = (new CompanyTransfer())
-            ->fromArray($apiDataTransfer->getData(), true)
-            ->setIdCompany($idCompany);
+        $companyTransfer = $companyTransfer
+            ->fromArray($apiDataTransfer->getData(), true);
 
         $companyResponseTransfer = $this->companyFacade->update($companyTransfer);
         $companyTransfer = $companyResponseTransfer->getCompanyTransfer();
