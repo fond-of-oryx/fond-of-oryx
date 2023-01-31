@@ -59,7 +59,7 @@ class StockApiResourcePluginTest extends Unit
     /**
      * @return void
      */
-    public function _before()
+    public function _before(): void
     {
         $this->apiDataTransferMock = $this->getMockBuilder(ApiDataTransfer::class)
             ->disableOriginalConstructor()
@@ -146,7 +146,7 @@ class StockApiResourcePluginTest extends Unit
     /**
      * @return void
      */
-    public function testGet()
+    public function testGet(): void
     {
         $this->facadeMock->expects(static::once())->method('getStockById')->willReturn($this->apiItemTransferMock);
         $this->stockApiResourcePlugin->get(1);
@@ -155,7 +155,7 @@ class StockApiResourcePluginTest extends Unit
     /**
      * @return void
      */
-    public function testAdd()
+    public function testAdd(): void
     {
         $this->expectException(RuntimeException::class);
         $this->stockApiResourcePlugin->add($this->apiDataTransferMock);
@@ -164,7 +164,7 @@ class StockApiResourcePluginTest extends Unit
     /**
      * @return void
      */
-    public function testRemove()
+    public function testRemove(): void
     {
         $this->expectException(RuntimeException::class);
         $this->stockApiResourcePlugin->remove(1);
@@ -173,7 +173,7 @@ class StockApiResourcePluginTest extends Unit
     /**
      * @return void
      */
-    public function testFind()
+    public function testFind(): void
     {
         $this->facadeMock->expects(static::once())->method('findStock')->willReturn($this->apiCollectionTransferMock);
         $this->stockApiResourcePlugin->find($this->apiRequestTransfer);
@@ -182,7 +182,7 @@ class StockApiResourcePluginTest extends Unit
     /**
      * @return void
      */
-    public function testUpdate()
+    public function testUpdate(): void
     {
         $this->expectException(RuntimeException::class);
         $this->stockApiResourcePlugin->update(1, $this->apiDataTransferMock);
@@ -191,7 +191,7 @@ class StockApiResourcePluginTest extends Unit
     /**
      * @return void
      */
-    public function testGetResourceName()
+    public function testGetResourceName(): void
     {
         $resource = $this->stockApiResourcePlugin->getResourceName();
 

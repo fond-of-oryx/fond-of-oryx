@@ -4,9 +4,9 @@ namespace FondOfOryx\Zed\StockApi\Business;
 
 use Codeception\Test\Unit;
 use FondOfOryx\Zed\StockApi\Business\Model\StockApi;
+use FondOfOryx\Zed\StockApi\Dependency\Facade\StockApiToApiFacadeInterface;
 use FondOfOryx\Zed\StockApi\Dependency\Facade\StockApiToStockInterface;
 use FondOfOryx\Zed\StockApi\Dependency\QueryContainer\StockApiToApiQueryBuilderQueryContainerBridge;
-use FondOfOryx\Zed\StockApi\Dependency\QueryContainer\StockApiToApiQueryContainerInterface;
 use FondOfOryx\Zed\StockApi\Persistence\StockApiQueryContainer;
 use FondOfOryx\Zed\StockApi\Persistence\StockApiQueryContainerInterface;
 use FondOfOryx\Zed\StockApi\StockApiConfig;
@@ -16,7 +16,7 @@ use Spryker\Zed\Kernel\Container;
 class StockApiBusinessFactoryTest extends Unit
 {
     /**
-     * @var \FondOfOryx\Zed\StockApi\Dependency\QueryContainer\StockApiToApiQueryContainerInterface|\PHPUnit\Framework\MockObject\MockObject
+     * @var \FondOfOryx\Zed\StockApi\Dependency\Facade\StockApiToApiFacadeInterface|\PHPUnit\Framework\MockObject\MockObject
      */
     protected $apiQueryContainerMock;
 
@@ -55,7 +55,7 @@ class StockApiBusinessFactoryTest extends Unit
      */
     public function _before()
     {
-        $this->apiQueryContainerMock = $this->getMockBuilder(StockApiToApiQueryContainerInterface::class)
+        $this->apiQueryContainerMock = $this->getMockBuilder(StockApiToApiFacadeInterface::class)
             ->disableOriginalConstructor()
             ->getMock();
 
@@ -146,9 +146,9 @@ class StockApiBusinessFactoryTest extends Unit
             ->method('get')
             ->withConsecutive(
                 [StockApiDependencyProvider::FACADE_STOCK],
-                [StockApiDependencyProvider::QUERY_CONTAINER_API],
+                [StockApiDependencyProvider::FACADE_API],
                 [StockApiDependencyProvider::QUERY_CONTAINER_API_QUERY_BUILDER],
-                [StockApiDependencyProvider::QUERY_CONTAINER_API],
+                [StockApiDependencyProvider::FACADE_API],
             )->willReturnOnConsecutiveCalls(
                 $this->stockFacadeMock,
                 $this->apiQueryContainerMock,

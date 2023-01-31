@@ -1,19 +1,19 @@
 <?php
 
-namespace FondOfOryx\Zed\StockApi\Dependency\QueryContainer;
+namespace FondOfOryx\Zed\StockApi\Dependency\Facade;
 
 use Codeception\Test\Unit;
 use Generated\Shared\Transfer\ApiCollectionTransfer;
 use Generated\Shared\Transfer\ApiItemTransfer;
 use Generated\Shared\Transfer\StockTransfer;
-use Spryker\Zed\Api\Persistence\ApiQueryContainerInterface;
+use Spryker\Zed\Api\Business\ApiFacadeInterface;
 
 class StockApiToApiQueryContainerBridgeTest extends Unit
 {
     /**
-     * @var \Spryker\Zed\Api\Persistence\ApiQueryContainer|\PHPUnit\Framework\MockObject\MockObject|null
+     * @var \Spryker\Zed\Api\Business\ApiFacadeInterface|\PHPUnit\Framework\MockObject\MockObject|null
      */
-    protected $apiQueryContainerMock;
+    protected $facadeMock;
 
     /**
      * @var \Generated\Shared\Transfer\ApiCollectionTransfer|\PHPUnit\Framework\MockObject\MockObject|null
@@ -26,9 +26,9 @@ class StockApiToApiQueryContainerBridgeTest extends Unit
     protected $apiItemTransferMock;
 
     /**
-     * @var \FondOfOryx\Zed\StockApi\Dependency\QueryContainer\StockApiToApiQueryContainerBridge
+     * @var \FondOfOryx\Zed\StockApi\Dependency\Facade\StockApiToApiFacadeBridge
      */
-    protected $stockApiToApiBridge;
+    protected $bridge;
 
     /**
      * @return void
@@ -43,11 +43,11 @@ class StockApiToApiQueryContainerBridgeTest extends Unit
             ->disableOriginalConstructor()
             ->getMock();
 
-        $this->apiQueryContainerMock = $this->getMockBuilder(ApiQueryContainerInterface::class)
+        $this->facadeMock = $this->getMockBuilder(ApiFacadeInterface::class)
             ->disableOriginalConstructor()
             ->getMock();
 
-        $this->stockApiToApiBridge = new StockApiToApiQueryContainerBridge($this->apiQueryContainerMock);
+        $this->bridge = new StockApiToApiFacadeBridge($this->facadeMock);
     }
 
     /**
@@ -55,11 +55,11 @@ class StockApiToApiQueryContainerBridgeTest extends Unit
      */
     public function testCreateApiCollection()
     {
-        $this->apiQueryContainerMock->expects($this->atLeastOnce())
+        $this->facadeMock->expects($this->atLeastOnce())
             ->method('createApiCollection')
             ->willReturn($this->apiCollectionTransferMock);
 
-        $apiCollectionTransfer = $this->stockApiToApiBridge->createApiCollection([]);
+        $apiCollectionTransfer = $this->bridge->createApiCollection([]);
 
         $this->assertInstanceOf(ApiCollectionTransfer::class, $apiCollectionTransfer);
     }
@@ -69,11 +69,11 @@ class StockApiToApiQueryContainerBridgeTest extends Unit
      */
     public function testCreateApiItem()
     {
-        $this->apiQueryContainerMock->expects($this->atLeastOnce())
+        $this->facadeMock->expects($this->atLeastOnce())
             ->method('createApiItem')
             ->willReturn($this->apiItemTransferMock);
 
-        $apiItemTransfer = $this->stockApiToApiBridge->createApiItem(new StockTransfer(), 1);
+        $apiItemTransfer = $this->bridge->createApiItem(new StockTransfer(), 1);
 
         $this->assertInstanceOf(ApiItemTransfer::class, $apiItemTransfer);
     }

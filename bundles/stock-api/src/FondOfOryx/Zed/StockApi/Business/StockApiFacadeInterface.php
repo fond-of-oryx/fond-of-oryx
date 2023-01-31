@@ -34,9 +34,9 @@ interface StockApiFacadeInterface
      *
      * @api
      *
-     * @param \Generated\Shared\Transfer\ApiDataTransfer $apiDataTransfer
+     * @param \Generated\Shared\Transfer\ApiRequestTransfer $apiRequestTransfer
      *
      * @return array<\Generated\Shared\Transfer\ApiValidationErrorTransfer>
      */
-    public function validate(ApiDataTransfer $apiDataTransfer): array;
+    public function validate(ApiRequestTransfer $apiRequestTransfer): array;
 }
