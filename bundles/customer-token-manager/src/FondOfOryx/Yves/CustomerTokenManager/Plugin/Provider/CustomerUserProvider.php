@@ -118,6 +118,8 @@ class CustomerUserProvider extends AbstractPlugin implements UserProviderInterfa
     /**
      * @deprecated since Symfony 5.3, use loadUserByIdentifier() instead
      *
+     * @param string $username
+     *
      * @return \Symfony\Component\Security\Core\User\UserInterface
      */
     public function loadUserByUsername(string $username)
