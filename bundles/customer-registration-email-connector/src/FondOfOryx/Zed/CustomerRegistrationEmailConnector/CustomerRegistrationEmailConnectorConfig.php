@@ -3,8 +3,9 @@
 namespace FondOfOryx\Zed\CustomerRegistrationEmailConnector;
 
 use FondOfOryx\Shared\CustomerRegistrationEmailConnector\CustomerRegistrationEmailConnectorConstants;
+use Spryker\Zed\Kernel\AbstractBundleConfig;
 
-class CustomerRegistrationEmailConnectorConfig
+class CustomerRegistrationEmailConnectorConfig extends AbstractBundleConfig
 {
     /**
      * @example ['de_DE' => 100, 'en_US' => 200]

@@ -14,7 +14,7 @@ class OneTimePasswordEmailConnectorConfig extends AbstractBundleConfig
      *
      * @return int|null
      */
-    public function getOneTimePasswordLoginLinkMailTemplateIdByLocale(string $locale): ?int
+    public function getOneTimePasswordLoginLinkMailTemplateIdByLocale(string $locale = 'en_US'): ?int
     {
         $oneTimePasswordLoginLinkMailTemplateIdByLocale = $this->get(
             OneTimePasswordEmailConnectorConstants::ONE_TIME_PASSWORD_EMAIL_LINK_TEMPLATE_ID_BY_LOCALE,
@@ -23,10 +23,6 @@ class OneTimePasswordEmailConnectorConfig extends AbstractBundleConfig
 
         if (isset($oneTimePasswordLoginLinkMailTemplateIdByLocale[$locale])) {
             return $oneTimePasswordLoginLinkMailTemplateIdByLocale[$locale];
-        }
-
-        if (isset($oneTimePasswordLoginLinkMailTemplateIdByLocale[$this->getDefaultLocale()])) {
-            return $oneTimePasswordLoginLinkMailTemplateIdByLocale[$this->getDefaultLocale()];
         }
 
         return null;
