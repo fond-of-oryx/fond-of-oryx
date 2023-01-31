@@ -8,13 +8,11 @@ use Spryker\Zed\Kernel\AbstractBundleConfig;
 class OneTimePasswordEmailConnectorConfig extends AbstractBundleConfig
 {
     /**
+     * @example ['de_DE' => 100, 'en_US' => 200]
+     *
      * @param string $locale
      *
      * @return int|null
-     * @example ['de_DE' => 100, 'en_US' => 200]
-     *
-     * @api
-     *
      */
     public function getOneTimePasswordLoginLinkMailTemplateIdByLocale(string $locale): ?int
     {

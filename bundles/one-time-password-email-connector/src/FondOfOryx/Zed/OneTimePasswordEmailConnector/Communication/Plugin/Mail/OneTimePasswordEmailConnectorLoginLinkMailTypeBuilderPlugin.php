@@ -64,10 +64,11 @@ class OneTimePasswordEmailConnectorLoginLinkMailTypeBuilderPlugin extends Abstra
                 (new MailRecipientTransfer())
                     ->setName(
                         sprintf(
-                        '%s %s',
-                        $mailTransfer->getCustomerOrFail()->getFirstName(),
-                        $mailTransfer->getCustomerOrFail()->getLastName(),
-                    ))
+                            '%s %s',
+                            $mailTransfer->getCustomerOrFail()->getFirstName(),
+                            $mailTransfer->getCustomerOrFail()->getLastName(),
+                        )
+                    )
                     ->setEmail($mailTransfer->getCustomerOrFail()->getEmail()),
             );
     }

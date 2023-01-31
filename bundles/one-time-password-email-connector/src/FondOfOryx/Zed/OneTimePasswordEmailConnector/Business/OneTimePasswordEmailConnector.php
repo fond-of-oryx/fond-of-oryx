@@ -29,7 +29,7 @@ class OneTimePasswordEmailConnector implements OneTimePasswordEmailConnectorInte
     protected array $mailTypes;
 
     /**
-     * @param OneTimePasswordEmailConnectorToMailBridge $mailFacade
+     * @param \FondOfOryx\Zed\OneTimePasswordEmailConnector\Business\Dependency\Facade\OneTimePasswordEmailConnectorToMailBridge $mailFacade
      * @param array<string> $mailTypes
      */
     public function __construct(OneTimePasswordEmailConnectorToMailBridge $mailFacade, array $mailTypes)

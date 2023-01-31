@@ -9,8 +9,6 @@ class CustomerRegistrationEmailConnectorConfig
     /**
      * @example ['de_DE' => 100, 'en_US' => 200]
      *
-     * @api
-     *
      * @param string $locale
      *
      * @return int|null

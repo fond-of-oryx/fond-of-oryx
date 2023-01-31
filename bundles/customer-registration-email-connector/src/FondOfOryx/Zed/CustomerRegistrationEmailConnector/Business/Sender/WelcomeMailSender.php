@@ -3,7 +3,6 @@
 namespace FondOfOryx\Zed\CustomerRegistrationEmailConnector\Business\Sender;
 
 use FondOfOryx\Zed\CustomerRegistrationEmailConnector\Communication\Plugins\Mail\CustomerRegistrationEmailConnectorWelcomeMailTypePlugin;
-use FondOfOryx\Zed\CustomerRegistrationEmailConnector\Communication\Plugins\Mail\CustomerRegistrationMailjetWelcomeMailTypeBuilderPlugin;
 use FondOfOryx\Zed\CustomerRegistrationEmailConnector\Dependency\Facade\CustomerRegistrationEmailConnectorToMailInterface;
 use Generated\Shared\Transfer\CustomerTransfer;
 use Generated\Shared\Transfer\MailTransfer;

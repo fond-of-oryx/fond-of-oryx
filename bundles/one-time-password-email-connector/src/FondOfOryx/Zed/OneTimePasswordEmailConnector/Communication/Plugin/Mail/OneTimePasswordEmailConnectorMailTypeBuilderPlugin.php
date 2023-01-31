@@ -3,7 +3,6 @@
 namespace FondOfOryx\Zed\OneTimePasswordEmailConnector\Communication\Plugin\Mail;
 
 use Generated\Shared\Transfer\MailRecipientTransfer;
-use Generated\Shared\Transfer\MailSenderTransfer;
 use Generated\Shared\Transfer\MailTemplateTransfer;
 use Generated\Shared\Transfer\MailTransfer;
 use Spryker\Zed\Kernel\Communication\AbstractPlugin;
@@ -68,7 +67,8 @@ class OneTimePasswordEmailConnectorMailTypeBuilderPlugin extends AbstractPlugin 
                             '%s %s',
                             $mailTransfer->getCustomerOrFail()->getFirstName(),
                             $mailTransfer->getCustomerOrFail()->getLastName(),
-                        ))
+                        )
+                    )
                     ->setEmail($mailTransfer->getCustomerOrFail()->getEmail()),
             );
     }
