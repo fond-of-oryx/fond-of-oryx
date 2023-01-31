@@ -2,8 +2,8 @@
 
 namespace FondOfOryx\Zed\ProductListApi;
 
+use FondOfOryx\Zed\ProductListApi\Dependency\Facade\ProductListApiToApiFacadeBridge;
 use FondOfOryx\Zed\ProductListApi\Dependency\QueryContainer\ProductListApiToApiQueryBuilderQueryContainerBridge;
-use FondOfOryx\Zed\ProductListApi\Dependency\QueryContainer\ProductListApiToApiQueryContainerBridge;
 use Orm\Zed\ProductList\Persistence\SpyProductListQuery;
 use Spryker\Zed\Kernel\AbstractBundleDependencyProvider;
 use Spryker\Zed\Kernel\Container;
@@ -13,17 +13,12 @@ class ProductListApiDependencyProvider extends AbstractBundleDependencyProvider
     /**
      * @var string
      */
-    public const FACADE_PRODUCT_LIST = 'FACADE_PRODUCT_LIST';
-
-    /**
-     * @var string
-     */
     public const PROPEL_QUERY_PRODUCT_LIST = 'PROPEL_QUERY_PRODUCT_LIST';
 
     /**
      * @var string
      */
-    public const QUERY_CONTAINER_API = 'QUERY_CONTAINER_API';
+    public const FACADE_API = 'QUERY_CONTAINER_API';
 
     /**
      * @var string
@@ -35,13 +30,11 @@ class ProductListApiDependencyProvider extends AbstractBundleDependencyProvider
      *
      * @return \Spryker\Zed\Kernel\Container
      */
-    public function provideBusinessLayerDependencies(Container $container)
+    public function provideBusinessLayerDependencies(Container $container): Container
     {
         $container = parent::provideBusinessLayerDependencies($container);
 
-        $container = $this->addApiQueryContainer($container);
-
-        return $container;
+        return $this->addApiQueryContainer($container);
     }
 
     /**
@@ -55,9 +48,8 @@ class ProductListApiDependencyProvider extends AbstractBundleDependencyProvider
 
         $container = $this->addApiQueryContainer($container);
         $container = $this->addApiQueryBuilderQueryContainer($container);
-        $container = $this->addProductListPropelQuery($container);
 
-        return $container;
+        return $this->addProductListPropelQuery($container);
     }
 
     /**
@@ -81,8 +73,8 @@ class ProductListApiDependencyProvider extends AbstractBundleDependencyProvider
      */
     protected function addApiQueryContainer(Container $container): Container
     {
-        $container[static::QUERY_CONTAINER_API] = static function (Container $container) {
-            return new ProductListApiToApiQueryContainerBridge($container->getLocator()->api()->queryContainer());
+        $container[static::FACADE_API] = static function (Container $container) {
+            return new ProductListApiToApiFacadeBridge($container->getLocator()->api()->facade());
         };
 
         return $container;

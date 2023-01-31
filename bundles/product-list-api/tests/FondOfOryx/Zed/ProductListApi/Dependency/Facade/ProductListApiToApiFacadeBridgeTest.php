@@ -3,15 +3,16 @@
 namespace FondOfOryx\Zed\ProductListApi\Dependency\QueryContainer;
 
 use Codeception\Test\Unit;
+use FondOfOryx\Zed\ProductListApi\Dependency\Facade\ProductListApiToApiFacadeBridge;
 use Generated\Shared\Transfer\ApiCollectionTransfer;
-use Spryker\Zed\Api\Persistence\ApiQueryContainerInterface;
+use Spryker\Zed\Api\Business\ApiFacadeInterface;
 
-class ProductListApiToApiQueryContainerBridgeTest extends Unit
+class ProductListApiToApiFacadeBridgeTest extends Unit
 {
     /**
-     * @var \Spryker\Zed\Api\Persistence\ApiQueryContainerInterface|\PHPUnit\Framework\MockObject\MockObject|null
+     * @var \Spryker\Zed\Api\Business\ApiFacadeInterface|\PHPUnit\Framework\MockObject\MockObject|null
      */
-    protected $apiQueryContainerMock;
+    protected $facadeMock;
 
     /**
      * @var \Generated\Shared\Transfer\ApiCollectionTransfer|\PHPUnit\Framework\MockObject\MockObject|null
@@ -19,9 +20,9 @@ class ProductListApiToApiQueryContainerBridgeTest extends Unit
     protected $apiCollectionTransferMock;
 
     /**
-     * @var \FondOfOryx\Zed\ProductListApi\Dependency\QueryContainer\ProductListApiToApiQueryContainerInterface
+     * @var \FondOfOryx\Zed\ProductListApi\Dependency\Facade\ProductListApiToApiFacadeInterface
      */
-    protected $dependencyApiQueryContainer;
+    protected $bridge;
 
     /**
      * @return void
@@ -30,8 +31,8 @@ class ProductListApiToApiQueryContainerBridgeTest extends Unit
     {
         parent::_before();
 
-        $this->apiQueryContainerMock = $this
-            ->getMockBuilder(ApiQueryContainerInterface::class)
+        $this->facadeMock = $this
+            ->getMockBuilder(ApiFacadeInterface::class)
             ->disableOriginalConstructor()
             ->getMock();
 
@@ -40,8 +41,8 @@ class ProductListApiToApiQueryContainerBridgeTest extends Unit
             ->disableOriginalConstructor()
             ->getMock();
 
-        $this->dependencyApiQueryContainer = new ProductListApiToApiQueryContainerBridge(
-            $this->apiQueryContainerMock,
+        $this->bridge = new ProductListApiToApiFacadeBridge(
+            $this->facadeMock,
         );
     }
 
@@ -50,14 +51,14 @@ class ProductListApiToApiQueryContainerBridgeTest extends Unit
      */
     public function testCreateApiCollection(): void
     {
-        $this->apiQueryContainerMock->expects(static::atLeastOnce())
+        $this->facadeMock->expects(static::atLeastOnce())
             ->method('createApiCollection')
             ->with([])
             ->willReturn($this->apiCollectionTransferMock);
 
-        static::assertInstanceOf(
-            ApiCollectionTransfer::class,
-            $this->dependencyApiQueryContainer
+        static::assertEquals(
+            $this->apiCollectionTransferMock,
+            $this->bridge
                 ->createApiCollection([]),
         );
     }

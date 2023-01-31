@@ -2,8 +2,8 @@
 
 namespace FondOfOryx\Zed\ProductListApi\Persistence;
 
+use FondOfOryx\Zed\ProductListApi\Dependency\Facade\ProductListApiToApiFacadeInterface;
 use FondOfOryx\Zed\ProductListApi\Dependency\QueryContainer\ProductListApiToApiQueryBuilderQueryContainerInterface;
-use FondOfOryx\Zed\ProductListApi\Dependency\QueryContainer\ProductListApiToApiQueryContainerInterface;
 use FondOfOryx\Zed\ProductListApi\ProductListApiDependencyProvider;
 use Orm\Zed\ProductList\Persistence\SpyProductListQuery;
 use Spryker\Zed\Kernel\Persistence\AbstractPersistenceFactory;
@@ -33,10 +33,10 @@ class ProductListApiPersistenceFactory extends AbstractPersistenceFactory
     }
 
     /**
-     * @return \FondOfOryx\Zed\ProductListApi\Dependency\QueryContainer\ProductListApiToApiQueryContainerInterface
+     * @return \FondOfOryx\Zed\ProductListApi\Dependency\Facade\ProductListApiToApiFacadeInterface
      */
-    public function getApiQueryContainer(): ProductListApiToApiQueryContainerInterface
+    public function getApiFacade(): ProductListApiToApiFacadeInterface
     {
-        return $this->getProvidedDependency(ProductListApiDependencyProvider::QUERY_CONTAINER_API);
+        return $this->getProvidedDependency(ProductListApiDependencyProvider::FACADE_API);
     }
 }
