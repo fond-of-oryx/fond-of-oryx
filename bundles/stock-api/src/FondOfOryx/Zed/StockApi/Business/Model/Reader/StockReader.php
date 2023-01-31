@@ -50,10 +50,10 @@ class StockReader implements StockReaderInterface
      * @param \FondOfOryx\Zed\StockApi\Persistence\StockApiQueryContainerInterface $stockApiQueryContainer
      */
     public function __construct(
-        StockApiToStockInterface                         $stockFacade,
-        StockApiToApiFacadeInterface                     $apiFacade,
+        StockApiToStockInterface $stockFacade,
+        StockApiToApiFacadeInterface $apiFacade,
         StockApiToApiQueryBuilderQueryContainerInterface $queryBuilderQueryContainer,
-        StockApiQueryContainerInterface                  $stockApiQueryContainer
+        StockApiQueryContainerInterface $stockApiQueryContainer
     ) {
         $this->stockFacade = $stockFacade;
         $this->apiFacade = $apiFacade;

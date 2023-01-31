@@ -2,7 +2,6 @@
 
 namespace FondOfOryx\Zed\ErpDeliveryNoteApi\Business\Validator;
 
-use Generated\Shared\Transfer\ApiDataTransfer;
 use Generated\Shared\Transfer\ApiRequestTransfer;
 
 interface ErpDeliveryNoteApiValidatorInterface

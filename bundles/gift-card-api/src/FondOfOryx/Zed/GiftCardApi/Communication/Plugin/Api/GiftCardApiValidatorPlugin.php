@@ -3,7 +3,6 @@
 namespace FondOfOryx\Zed\GiftCardApi\Communication\Plugin\Api;
 
 use FondOfOryx\Zed\GiftCardApi\GiftCardApiConfig;
-use Generated\Shared\Transfer\ApiDataTransfer;
 use Generated\Shared\Transfer\ApiRequestTransfer;
 use Spryker\Zed\ApiExtension\Dependency\Plugin\ApiValidatorPluginInterface;
 use Spryker\Zed\Kernel\Communication\AbstractPlugin;

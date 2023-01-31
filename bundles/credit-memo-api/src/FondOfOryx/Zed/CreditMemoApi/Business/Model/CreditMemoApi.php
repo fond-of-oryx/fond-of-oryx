@@ -33,8 +33,8 @@ class CreditMemoApi implements CreditMemoApiInterface
      * @param \FondOfOryx\Zed\CreditMemoApi\Dependency\Facade\CreditMemoApiToCreditMemoFacadeInterface $creditMemoFacade
      */
     public function __construct(
-        CreditMemoApiToApiFacadeInterface        $apiFacade,
-        TransferMapperInterface                  $transferMapper,
+        CreditMemoApiToApiFacadeInterface $apiFacade,
+        TransferMapperInterface $transferMapper,
         CreditMemoApiToCreditMemoFacadeInterface $creditMemoFacade
     ) {
         $this->apiFacade = $apiFacade;

@@ -40,9 +40,9 @@ class ConcreteProductApi implements ConcreteProductApiInterface
      * @param \FondOfOryx\Zed\ConcreteProductApi\Persistence\ConcreteProductApiRepositoryInterface $repository
      */
     public function __construct(
-        ConcreteProductApiToApiFacadeInterface     $apiFacade,
+        ConcreteProductApiToApiFacadeInterface $apiFacade,
         ConcreteProductApiToProductFacadeInterface $productFacade,
-        ConcreteProductApiRepositoryInterface      $repository
+        ConcreteProductApiRepositoryInterface $repository
     ) {
         $this->apiFacade = $apiFacade;
         $this->productFacade = $productFacade;

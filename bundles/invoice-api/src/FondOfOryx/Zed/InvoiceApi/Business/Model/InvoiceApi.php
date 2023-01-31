@@ -33,8 +33,8 @@ class InvoiceApi implements InvoiceApiInterface
      * @param \FondOfOryx\Zed\InvoiceApi\Dependency\Facade\InvoiceApiToInvoiceFacadeInterface $invoiceFacade
      */
     public function __construct(
-        InvoiceApiToApiFacadeInterface     $apiFacade,
-        TransferMapperInterface            $transferMapper,
+        InvoiceApiToApiFacadeInterface $apiFacade,
+        TransferMapperInterface $transferMapper,
         InvoiceApiToInvoiceFacadeInterface $invoiceFacade
     ) {
         $this->apiFacade = $apiFacade;

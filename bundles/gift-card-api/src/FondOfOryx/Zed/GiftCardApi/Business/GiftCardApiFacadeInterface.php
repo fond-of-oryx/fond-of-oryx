@@ -3,7 +3,6 @@
 namespace FondOfOryx\Zed\GiftCardApi\Business;
 
 use Generated\Shared\Transfer\ApiCollectionTransfer;
-use Generated\Shared\Transfer\ApiDataTransfer;
 use Generated\Shared\Transfer\ApiRequestTransfer;
 
 /**

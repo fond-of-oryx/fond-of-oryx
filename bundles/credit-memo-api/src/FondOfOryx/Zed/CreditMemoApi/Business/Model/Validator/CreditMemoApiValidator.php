@@ -2,7 +2,6 @@
 
 namespace FondOfOryx\Zed\CreditMemoApi\Business\Model\Validator;
 
-use Generated\Shared\Transfer\ApiDataTransfer;
 use Generated\Shared\Transfer\ApiRequestTransfer;
 
 class CreditMemoApiValidator implements CreditMemoApiValidatorInterface

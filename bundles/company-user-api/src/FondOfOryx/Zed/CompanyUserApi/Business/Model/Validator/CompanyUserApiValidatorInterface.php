@@ -2,7 +2,6 @@
 
 namespace FondOfOryx\Zed\CompanyUserApi\Business\Model\Validator;
 
-use Generated\Shared\Transfer\ApiDataTransfer;
 use Generated\Shared\Transfer\ApiRequestTransfer;
 
 interface CompanyUserApiValidatorInterface
