@@ -61,11 +61,11 @@ class StockProductApiBusinessFactory extends AbstractBusinessFactory
     }
 
     /**
-     * @return \FondOfOryx\Zed\StockProductApi\Dependency\QueryContainer\StockProductApiToApiQueryContainerInterface
+     * @return \FondOfOryx\Zed\StockProductApi\Dependency\Facade\StockProductApiToApiFacadeInterface
      */
     protected function getApiQueryContainer()
     {
-        return $this->getProvidedDependency(StockProductApiDependencyProvider::QUERY_CONTAINER_API);
+        return $this->getProvidedDependency(StockProductApiDependencyProvider::FACADE_API);
     }
 
     /**

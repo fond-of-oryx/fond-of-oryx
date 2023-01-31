@@ -5,8 +5,8 @@ namespace FondOfOryx\Zed\StockProductApi\Business\Model;
 use Exception;
 use FondOfOryx\Zed\StockProductApi\Business\Mapper\TransferMapperInterface;
 use FondOfOryx\Zed\StockProductApi\Business\Model\Reader\StockReaderInterface;
+use FondOfOryx\Zed\StockProductApi\Dependency\Facade\StockProductApiToApiFacadeInterface;
 use FondOfOryx\Zed\StockProductApi\Dependency\Facade\StockProductApiToStockInterface;
-use FondOfOryx\Zed\StockProductApi\Dependency\QueryContainer\StockProductApiToApiQueryContainerInterface;
 use Generated\Shared\Transfer\ApiCollectionTransfer;
 use Generated\Shared\Transfer\ApiDataTransfer;
 use Generated\Shared\Transfer\ApiItemTransfer;
@@ -16,9 +16,9 @@ use Generated\Shared\Transfer\StockProductTransfer;
 class StockProductApi implements StockProductApiInterface
 {
     /**
-     * @var \FondOfOryx\Zed\StockProductApi\Dependency\QueryContainer\StockProductApiToApiQueryContainerInterface
+     * @var \FondOfOryx\Zed\StockProductApi\Dependency\Facade\StockProductApiToApiFacadeInterface
      */
-    protected $apiQueryContainer;
+    protected $apiFacade;
 
     /**
      * @var \FondOfOryx\Zed\StockProductApi\Business\Mapper\TransferMapperInterface
@@ -36,18 +36,18 @@ class StockProductApi implements StockProductApiInterface
     protected $stockReader;
 
     /**
-     * @param \FondOfOryx\Zed\StockProductApi\Dependency\QueryContainer\StockProductApiToApiQueryContainerInterface $apiQueryContainer
+     * @param \FondOfOryx\Zed\StockProductApi\Dependency\Facade\StockProductApiToApiFacadeInterface $apiFacade
      * @param \FondOfOryx\Zed\StockProductApi\Business\Mapper\TransferMapperInterface $transferMapper
      * @param \FondOfOryx\Zed\StockProductApi\Dependency\Facade\StockProductApiToStockInterface $stockFacade
      * @param \FondOfOryx\Zed\StockProductApi\Business\Model\Reader\StockReaderInterface $stockReader
      */
     public function __construct(
-        StockProductApiToApiQueryContainerInterface $apiQueryContainer,
+        StockProductApiToApiFacadeInterface $apiFacade,
         TransferMapperInterface $transferMapper,
         StockProductApiToStockInterface $stockFacade,
         StockReaderInterface $stockReader
     ) {
-        $this->apiQueryContainer = $apiQueryContainer;
+        $this->apiFacade = $apiFacade;
         $this->transferMapper = $transferMapper;
         $this->stockFacade = $stockFacade;
         $this->stockReader = $stockReader;
@@ -72,7 +72,7 @@ class StockProductApi implements StockProductApiInterface
 
         $idProduct = $this->stockFacade->updateStockProduct($stockProductTransfer);
 
-        return $this->apiQueryContainer->createApiItem($stockProductTransfer, $idProduct);
+        return $this->apiFacade->createApiItem($stockProductTransfer, (string)$idProduct);
     }
 
     /**
@@ -85,7 +85,7 @@ class StockProductApi implements StockProductApiInterface
         $stockProductTransfer = $this->transferMapper->toTransfer($apiDataTransfer->getData());
         $idProduct = $this->stockFacade->createStockProduct($stockProductTransfer);
 
-        return $this->apiQueryContainer->createApiItem($stockProductTransfer, $idProduct);
+        return $this->apiFacade->createApiItem($stockProductTransfer, (string)$idProduct);
     }
 
     /**

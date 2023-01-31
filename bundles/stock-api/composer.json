@@ -13,7 +13,6 @@
     "spryker/api": "^0.4.0",
     "spryker/api-extension": "^0.1.0",
     "spryker/api-query-builder": "^0.1.0",
-    "spryker/kernel": "^3.42.4",
     "spryker/stock": "^8.0.0"
   },
   "require-dev": {
