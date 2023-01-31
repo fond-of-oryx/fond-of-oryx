@@ -70,22 +70,6 @@ class OneTimePasswordEmailConnectorMailTypeBuilderPlugin extends AbstractPlugin 
                             $mailTransfer->getCustomerOrFail()->getLastName(),
                         ))
                     ->setEmail($mailTransfer->getCustomerOrFail()->getEmail()),
-            )->setSender(
-                (new MailSenderTransfer())
-                    ->setEmail($this->config->getSenderEmail())
-                    ->setName($this->config->getSenderName())
             );
-    }
-
-    /**
-     * @param \Generated\Shared\Transfer\MailTransfer $mailTransfer
-     *
-     * @return $this
-     */
-    protected function setSender(MailTransfer $mailTransfer)
-    {
-        $mailTransfer->setSender('mail.sender.email', 'mail.sender.sender');
-
-        return $this;
     }
 }
