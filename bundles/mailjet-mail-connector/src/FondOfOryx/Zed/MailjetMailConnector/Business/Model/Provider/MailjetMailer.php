@@ -62,11 +62,27 @@ class MailjetMailer implements MailProviderPluginInterface
                     'TemplateID' => $mailTransfer->getMailjetTemplate()->getTemplateId(),
                     'Variables' => $mailTransfer->getMailjetTemplate()->getVariables(),
                     'TemplateLanguage' => $this->config->getTemplateLanguage(),
-                    'SandboxMode' => $this->config->getSandboxMode(),
+                    'SandboxMode' => $this->isSandbox($customerTransfer->getEmail()),
                 ],
             ],
         ];
 
         $this->mailjetClient->post(Resources::$Email, ['body' => $body]);
+    }
+
+    /**
+     * @param string $email
+     *
+     * @return bool
+     */
+    protected function isSandbox(string $email): bool
+    {
+        foreach ($this->config->getWhitelistedTLD() as $tld) {
+            if (str_contains(strtolower($email), sprintf('@%s', $tld))) {
+                return false;
+            }
+        }
+
+        return $this->config->getSandboxMode();
     }
 }
