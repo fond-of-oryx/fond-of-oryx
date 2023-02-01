@@ -47,11 +47,11 @@ interface AvailabilityAlertRepositoryInterface
 
     /**
      * @param int $idStore
-     * @param int $status
+     * @param string $status
      *
      * @throws \Spryker\Zed\Propel\Business\Exception\AmbiguousComparisonException
      *
      * @return \Generated\Shared\Transfer\AvailabilityAlertSubscriptionCollectionTransfer
      */
-    public function findSubscriptionsByIdStoreAndStatus(int $idStore, int $status): AvailabilityAlertSubscriptionCollectionTransfer;
+    public function findSubscriptionsByIdStoreAndStatus(int $idStore, string $status): AvailabilityAlertSubscriptionCollectionTransfer;
 }

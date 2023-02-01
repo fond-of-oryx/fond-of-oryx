@@ -63,7 +63,7 @@ class SubscribersNotifier implements SubscribersNotifierInterface
     {
         $countOfSubscriberPerProductAbstract = $this->subscriptionManager->getCurrentSubscriptionCountPerProductAbstract();
 
-        foreach ($this->subscriptionManager->getSubscriptionsForCurrentStoreAndStatus(0)->getSubscriptions() as $availabilityAlertSubscriptionTransfer) {
+        foreach ($this->subscriptionManager->getSubscriptionsForCurrentStoreAndStatus(FooAvailabilityAlertSubscriptionTableMap::COL_STATUS_PENDING)->getSubscriptions() as $availabilityAlertSubscriptionTransfer) {
             if (
                 !$this->canSendNotification(
                     $availabilityAlertSubscriptionTransfer,

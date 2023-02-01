@@ -36,6 +36,7 @@
     "fond-of-spryker/product-list-customer": "dev-spryker_upgrade",
     "hackzilla/password-generator": "^1.6.0",
     "maxbanton/cwh": "^2.0.0",
+    "mailjet/mailjet-apiv3-php": "^1.5",
     "mossadal/math-parser": "^1.3.0",
     "spryker/api": "^0.1.0 || ^0.2.0 || ^0.3.0",
     "spryker/api-query-builder": "^0.1.0",
@@ -104,6 +105,7 @@
     "spryker/stock": "^8.0.0",
     "spryker/storage": "^3.0.0",
     "spryker/store": "^1.2.0",
+    "spryker/symfony": "^3.5.0",
     "spryker/synchronization": "^1.0.0",
     "spryker/synchronization-behavior": "^1.0.0",
     "spryker/synchronization-extension": "^1.0.0",
@@ -114,8 +116,7 @@
     "spryker/uuid-behavior": "^1.0.0",
     "spryker/zed-request": "^3.3.0",
     "spryker-eco/payone": "dev-master-fondof as 4.4.2",
-    "symfony/security-core": "^4.4.0",
-    "mailjet/mailjet-apiv3-php": "^1.5"
+    "symfony/password-hasher": "^5.3.0 || ^6.0.0"
   },
   "require-dev": {
     "fond-of-codeception/spryker": "^1.0",

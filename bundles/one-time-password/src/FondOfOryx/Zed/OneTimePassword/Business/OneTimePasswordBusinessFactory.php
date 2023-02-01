@@ -21,6 +21,7 @@ use FondOfOryx\Zed\OneTimePassword\Dependency\Facade\OneTimePasswordToStoreFacad
 use FondOfOryx\Zed\OneTimePassword\OneTimePasswordDependencyProvider;
 use Hackzilla\PasswordGenerator\Generator\HybridPasswordGenerator;
 use Spryker\Zed\Kernel\Business\AbstractBusinessFactory;
+use Symfony\Component\PasswordHasher\Hasher\NativePasswordHasher;
 
 /**
  * @method \FondOfOryx\Zed\OneTimePassword\Persistence\OneTimePasswordEntityManagerInterface getEntityManager()
@@ -57,6 +58,7 @@ class OneTimePasswordBusinessFactory extends AbstractBusinessFactory
     {
         return new OneTimePasswordGenerator(
             $this->createHybridPasswordGenerator(),
+            new NativePasswordHasher(null, null, 12),
             $this->getEntityManager(),
             $this->getConfig(),
         );

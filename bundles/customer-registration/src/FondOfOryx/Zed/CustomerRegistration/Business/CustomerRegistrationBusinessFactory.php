@@ -17,13 +17,13 @@ use FondOfOryx\Zed\CustomerRegistration\Business\Steps\RegistrationStepInterface
 use FondOfOryx\Zed\CustomerRegistration\Business\Steps\VerificationStep;
 use FondOfOryx\Zed\CustomerRegistration\Business\Steps\VerificationStepInterface;
 use FondOfOryx\Zed\CustomerRegistration\CustomerRegistrationDependencyProvider;
-use FondOfOryx\Zed\CustomerRegistration\Dependency\Encoder\CustomerRegistrationToPasswordEncoderInterface;
 use FondOfOryx\Zed\CustomerRegistration\Dependency\Facade\CustomerRegistrationToCustomerFacadeInterface;
 use FondOfOryx\Zed\CustomerRegistration\Dependency\Facade\CustomerRegistrationToLocaleFacadeInterface;
 use FondOfOryx\Zed\CustomerRegistration\Dependency\Facade\CustomerRegistrationToSequenceNumberFacadeInterface;
 use FondOfOryx\Zed\CustomerRegistration\Dependency\Facade\CustomerRegistrationToStoreFacadeInterface;
 use FondOfOryx\Zed\CustomerRegistration\Dependency\Service\CustomerRegistrationToUtilTextServiceInterface;
 use Spryker\Zed\Kernel\Business\AbstractBusinessFactory;
+use Symfony\Component\PasswordHasher\Hasher\NativePasswordHasher;
 
 /**
  * @method \FondOfOryx\Zed\CustomerRegistration\Persistence\CustomerRegistrationRepositoryInterface getRepository()()
@@ -50,7 +50,7 @@ class CustomerRegistrationBusinessFactory extends AbstractBusinessFactory
             $this->createCustomerReferenceGenerator(),
             $this->getCustomerFacade(),
             $this->getLocaleFacade(),
-            $this->getPasswordEncoder(),
+            new NativePasswordHasher(null, null, 12),
             $this->getEntityManager(),
             $this->getCustomerRegistrationPostPlugins(),
         );
@@ -151,14 +151,6 @@ class CustomerRegistrationBusinessFactory extends AbstractBusinessFactory
     protected function getUtilTextService(): CustomerRegistrationToUtilTextServiceInterface
     {
         return $this->getProvidedDependency(CustomerRegistrationDependencyProvider::SERVICE_UTIL_TEXT_SERVICE);
-    }
-
-    /**
-     * @return \FondOfOryx\Zed\CustomerRegistration\Dependency\Encoder\CustomerRegistrationToPasswordEncoderInterface
-     */
-    protected function getPasswordEncoder(): CustomerRegistrationToPasswordEncoderInterface
-    {
-        return $this->getProvidedDependency(CustomerRegistrationDependencyProvider::ENCODER_PASSWORD);
     }
 
     /**

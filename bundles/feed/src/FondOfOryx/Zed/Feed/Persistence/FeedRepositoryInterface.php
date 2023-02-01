@@ -9,11 +9,11 @@ interface FeedRepositoryInterface
 {
     /**
      * @param int $idStore
-     * @param int $status
+     * @param string $status
      *
      * @return array
      */
-    public function findSubscriptionsByIdStoreAndStatus(int $idStore, int $status): array;
+    public function findSubscriptionsByIdStoreAndStatus(int $idStore, string $status): array;
 
     /**
      * @param int $idStore

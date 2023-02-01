@@ -18,7 +18,7 @@
   ],
   "require": {
     "php": ">=8.0",
-    "fond-of-oryx/invoice": "*",
+    "fond-of-oryx/invoice": "^1.0.0 || ^2.0.0",
     "spryker/api": "^0.1.0 || ^0.2.0 || ^0.3.0",
     "spryker/api-query-builder": "^0.1.0"
   },

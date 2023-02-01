@@ -17,9 +17,11 @@ use Spryker\Zed\Kernel\Communication\AbstractPlugin;
 class AvailabilityAlertFeed extends AbstractPlugin
 {
     /**
-     * @var int
+     * @uses \Orm\Zed\AvailabilityAlert\Persistence\Map\FooAvailabilityAlertSubscriptionTableMap::COL_STATUS_PENDING
+     *
+     * @var string
      */
-    protected const STATUS_WAITING = 0;
+    protected const STATUS_PENDING = 'pending';
 
     /**
      * @var \FondOfOryx\Zed\Feed\Persistence\FeedRepositoryInterface
@@ -61,7 +63,7 @@ class AvailabilityAlertFeed extends AbstractPlugin
         $data = [];
         $subscribers = $this->feedRepository->findSubscriptionsByIdStoreAndStatus(
             $this->storeFacade->getCurrentStore()->getIdStore(),
-            static::STATUS_WAITING,
+            static::STATUS_PENDING,
         );
 
         foreach ($subscribers as $subscriber) {

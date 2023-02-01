@@ -43,7 +43,6 @@ class CustomerTokenManagerFactory extends AbstractFactory
 
         return new UsernamePasswordToken(
             $user,
-            $user->getPassword(),
             CustomerTokenManagerConfig::SECURITY_FIREWALL_NAME,
             [CustomerTokenManagerSecurityPlugin::ROLE_USER],
         );

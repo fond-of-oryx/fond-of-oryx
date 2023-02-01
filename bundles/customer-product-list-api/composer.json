@@ -10,7 +10,7 @@
   ],
   "require": {
     "php": ">=8.0",
-    "fond-of-oryx/customer-product-list-connector": "^1.0.0",
+    "fond-of-oryx/customer-product-list-connector": "^1.0.0 || ^2.0.0",
     "spryker/api": "^0.3",
     "spryker/api-query-builder": "^0.1"
   },
