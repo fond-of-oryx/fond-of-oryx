@@ -58,6 +58,16 @@ class Customer implements UserInterface
     }
 
     /**
+     * @deprecated since Symfony 5.3, use getUserIdentifier() instead
+     *
+     * @return string
+     */
+    public function getUsername()
+    {
+        return $this->getUserIdentifier();
+    }
+
+    /**
      * @return string
      */
     public function getUserIdentifier(): string
