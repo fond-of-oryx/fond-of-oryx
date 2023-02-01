@@ -38,7 +38,7 @@ class StockApiTest extends Unit
     /**
      * @return void
      */
-    protected function _before()
+    protected function _before(): void
     {
         $this->stockReaderMock = $this->getMockBuilder(StockReader::class)
             ->disableOriginalConstructor()
@@ -64,7 +64,7 @@ class StockApiTest extends Unit
     /**
      * @return void
      */
-    public function testGet()
+    public function testGet(): void
     {
         $this->stockReaderMock->expects($this->once())
             ->method('getStockById')
@@ -76,7 +76,7 @@ class StockApiTest extends Unit
     /**
      * @return void
      */
-    public function testFind()
+    public function testFind(): void
     {
         $this->stockReaderMock->expects($this->once())
             ->method('findStock')

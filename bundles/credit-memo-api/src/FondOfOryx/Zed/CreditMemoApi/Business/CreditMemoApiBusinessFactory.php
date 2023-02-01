@@ -9,8 +9,8 @@ use FondOfOryx\Zed\CreditMemoApi\Business\Model\CreditMemoApiInterface;
 use FondOfOryx\Zed\CreditMemoApi\Business\Model\Validator\CreditMemoApiValidator;
 use FondOfOryx\Zed\CreditMemoApi\Business\Model\Validator\CreditMemoApiValidatorInterface;
 use FondOfOryx\Zed\CreditMemoApi\CreditMemoApiDependencyProvider;
+use FondOfOryx\Zed\CreditMemoApi\Dependency\Facade\CreditMemoApiToApiFacadeInterface;
 use FondOfOryx\Zed\CreditMemoApi\Dependency\Facade\CreditMemoApiToCreditMemoFacadeInterface;
-use FondOfOryx\Zed\CreditMemoApi\Dependency\QueryContainer\CreditMemoApiToApiQueryContainerInterface;
 use Spryker\Zed\Kernel\Business\AbstractBusinessFactory;
 
 /**
@@ -24,7 +24,7 @@ class CreditMemoApiBusinessFactory extends AbstractBusinessFactory
     public function createCreditMemoApi(): CreditMemoApiInterface
     {
         return new CreditMemoApi(
-            $this->getApiQueryContainer(),
+            $this->getApiFacade(),
             $this->createTransferMapper(),
             $this->getCreditMemoFacade(),
         );
@@ -47,11 +47,11 @@ class CreditMemoApiBusinessFactory extends AbstractBusinessFactory
     }
 
     /**
-     * @return \FondOfOryx\Zed\CreditMemoApi\Dependency\QueryContainer\CreditMemoApiToApiQueryContainerInterface
+     * @return \FondOfOryx\Zed\CreditMemoApi\Dependency\Facade\CreditMemoApiToApiFacadeInterface
      */
-    protected function getApiQueryContainer(): CreditMemoApiToApiQueryContainerInterface
+    protected function getApiFacade(): CreditMemoApiToApiFacadeInterface
     {
-        return $this->getProvidedDependency(CreditMemoApiDependencyProvider::QUERY_CONTAINER_API);
+        return $this->getProvidedDependency(CreditMemoApiDependencyProvider::FACADE_API);
     }
 
     /**

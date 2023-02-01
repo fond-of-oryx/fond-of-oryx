@@ -3,14 +3,14 @@
 namespace FondOfOryx\Zed\ThirtyFiveUpApi\Business\Model\Validator;
 
 use Codeception\Test\Unit;
-use Generated\Shared\Transfer\ApiDataTransfer;
+use Generated\Shared\Transfer\ApiRequestTransfer;
 
 class ThirtyFiveUpApiValidatorTest extends Unit
 {
     /**
-     * @var \Generated\Shared\Transfer\ApiDataTransfer|\PHPUnit\Framework\MockObject\MockObject
+     * @var \Generated\Shared\Transfer\ApiRequestTransfer|\PHPUnit\Framework\MockObject\MockObject
      */
-    protected $apiDataTransferMock;
+    protected $apiRequestTransferMock;
 
     /**
      * @var \FondOfOryx\Zed\ThirtyFiveUpApi\Business\Model\Validator\ThirtyFiveUpApiValidatorInterface
@@ -22,7 +22,7 @@ class ThirtyFiveUpApiValidatorTest extends Unit
      */
     protected function _before(): void
     {
-        $this->apiDataTransferMock = $this->getMockBuilder(ApiDataTransfer::class)
+        $this->apiRequestTransferMock = $this->getMockBuilder(ApiRequestTransfer::class)
             ->disableOriginalConstructor()
             ->getMock();
 
@@ -34,6 +34,6 @@ class ThirtyFiveUpApiValidatorTest extends Unit
      */
     public function testValidate(): void
     {
-        $this->assertSame([], $this->validator->validate($this->apiDataTransferMock));
+        $this->assertSame([], $this->validator->validate($this->apiRequestTransferMock));
     }
 }

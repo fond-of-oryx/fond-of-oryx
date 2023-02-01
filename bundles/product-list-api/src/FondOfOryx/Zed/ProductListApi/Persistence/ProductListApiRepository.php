@@ -35,7 +35,7 @@ class ProductListApiRepository extends AbstractRepository implements ProductList
             ->toArray();
 
         $apiCollectionTransfer = $this->getFactory()
-            ->getApiQueryContainer()
+            ->getApiFacade()
             ->createApiCollection($data);
 
         if (count($apiCollectionTransfer->getData()) === 0) {

@@ -2,8 +2,8 @@
 
 namespace FondOfOryx\Zed\ErpOrderApi\Business\Model;
 
+use FondOfOryx\Zed\ErpOrderApi\Dependency\Facade\ErpOrderApiToApiFacadeInterface;
 use FondOfOryx\Zed\ErpOrderApi\Dependency\Facade\ErpOrderApiToErpOrderFacadeInterface;
-use FondOfOryx\Zed\ErpOrderApi\Dependency\QueryContainer\ErpOrderApiToApiQueryContainerInterface;
 use FondOfOryx\Zed\ErpOrderApi\Persistence\ErpOrderApiRepositoryInterface;
 use Generated\Shared\Transfer\ApiCollectionTransfer;
 use Generated\Shared\Transfer\ApiDataTransfer;
@@ -22,9 +22,9 @@ class ErpOrderApi implements ErpOrderApiInterface
     protected const KEY_ID_ERP_ORDER = 'id_erp_order';
 
     /**
-     * @var \FondOfOryx\Zed\ErpOrderApi\Dependency\QueryContainer\ErpOrderApiToApiQueryContainerInterface
+     * @var \FondOfOryx\Zed\ErpOrderApi\Dependency\Facade\ErpOrderApiToApiFacadeInterface
      */
-    protected $apiQueryContainer;
+    protected $apiFacade;
 
     /**
      * @var \FondOfOryx\Zed\ErpOrderApi\Dependency\Facade\ErpOrderApiToErpOrderFacadeInterface
@@ -37,16 +37,16 @@ class ErpOrderApi implements ErpOrderApiInterface
     protected $repository;
 
     /**
-     * @param \FondOfOryx\Zed\ErpOrderApi\Dependency\QueryContainer\ErpOrderApiToApiQueryContainerInterface $apiQueryContainer
+     * @param \FondOfOryx\Zed\ErpOrderApi\Dependency\Facade\ErpOrderApiToApiFacadeInterface $apiFacade
      * @param \FondOfOryx\Zed\ErpOrderApi\Dependency\Facade\ErpOrderApiToErpOrderFacadeInterface $erpOrderFacade
      * @param \FondOfOryx\Zed\ErpOrderApi\Persistence\ErpOrderApiRepositoryInterface $repository
      */
     public function __construct(
-        ErpOrderApiToApiQueryContainerInterface $apiQueryContainer,
+        ErpOrderApiToApiFacadeInterface $apiFacade,
         ErpOrderApiToErpOrderFacadeInterface $erpOrderFacade,
         ErpOrderApiRepositoryInterface $repository
     ) {
-        $this->apiQueryContainer = $apiQueryContainer;
+        $this->apiFacade = $apiFacade;
         $this->erpOrderFacade = $erpOrderFacade;
         $this->repository = $repository;
     }
@@ -71,9 +71,9 @@ class ErpOrderApi implements ErpOrderApiInterface
             );
         }
 
-        return $this->apiQueryContainer->createApiItem(
+        return $this->apiFacade->createApiItem(
             $erpOrderTransfer,
-            $erpOrderTransfer->getIdErpOrder(),
+            (string)$erpOrderTransfer->getIdErpOrder(),
         );
     }
 
@@ -103,9 +103,9 @@ class ErpOrderApi implements ErpOrderApiInterface
             );
         }
 
-        return $this->apiQueryContainer->createApiItem(
+        return $this->apiFacade->createApiItem(
             $erpOrderTransfer,
-            $erpOrderTransfer->getIdErpOrder(),
+            (string)$erpOrderTransfer->getIdErpOrder(),
         );
     }
 
@@ -118,7 +118,7 @@ class ErpOrderApi implements ErpOrderApiInterface
     {
         $erpOrderTransfer = $this->getByIdErpOrder($idErpOrder);
 
-        return $this->apiQueryContainer->createApiItem($erpOrderTransfer, $idErpOrder);
+        return $this->apiFacade->createApiItem($erpOrderTransfer, (string)$idErpOrder);
     }
 
     /**
@@ -155,7 +155,7 @@ class ErpOrderApi implements ErpOrderApiInterface
 
         $this->erpOrderFacade->deleteErpOrderByIdErpOrder($idErpOrder);
 
-        return $this->apiQueryContainer->createApiItem(new ErpOrderTransfer(), $idErpOrder);
+        return $this->apiFacade->createApiItem(null, (string)$idErpOrder);
     }
 
     /**

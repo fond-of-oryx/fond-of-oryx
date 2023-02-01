@@ -60,7 +60,7 @@
     },
     "company-api": {
       "path": "bundles/company-api/",
-      "version": "2.0.0"
+      "version": "3.0.0"
     },
     "company-brand-product-list-connector": {
       "path": "bundles/company-brand-product-list-connector/",
@@ -76,7 +76,7 @@
     },
     "company-business-unit-api": {
       "path": "bundles/company-business-unit-api/",
-      "version": "2.0.0"
+      "version": "3.0.0"
     },
     "company-business-unit-cart-search-rest-api": {
       "path": "bundles/company-business-unit-cart-search-rest-api/",
@@ -104,7 +104,7 @@
     },
     "company-product-list-api": {
       "path": "bundles/company-product-list-api/",
-      "version": "2.0.0"
+      "version": "3.0.0"
     },
     "company-product-list-connector": {
       "path": "bundles/company-product-list-connector/",
@@ -122,6 +122,10 @@
       "path": "bundles/company-product-lists-rest-api/",
       "version": "2.0.0"
     },
+    "company-role-api": {
+      "path": "bundles/company-role-api/",
+      "version": "1.0.0"
+    },
     "company-role-search-rest-api": {
       "path": "bundles/company-role-search-rest-api/",
       "version": "2.0.0"
@@ -136,7 +140,7 @@
     },
     "company-unit-address-api": {
       "path": "bundles/company-unit-address-api/",
-      "version": "2.0.0"
+      "version": "3.0.0"
     },
     "company-unit-address-sales-connector": {
       "path": "bundles/company-unit-address-sales-connector/",
@@ -148,7 +152,7 @@
     },
     "company-user-api": {
       "path": "bundles/company-user-api/",
-      "version": "2.0.0"
+      "version": "3.0.0"
     },
     "company-user-archive": {
       "path": "bundles/company-user-archive/",
@@ -176,7 +180,7 @@
     },
     "concrete-product-api": {
       "path": "bundles/concrete-product-api/",
-      "version": "2.0.0"
+      "version": "3.0.0"
     },
     "country-oms-mail-connector": {
       "path": "bundles/country-oms-mail-connector/",
@@ -188,7 +192,7 @@
     },
     "credit-memo-api": {
       "path": "bundles/credit-memo-api/",
-      "version": "2.0.0"
+      "version": "3.0.0"
     },
     "credit-memo-extension": {
       "path": "bundles/credit-memo-extension/",
@@ -220,7 +224,7 @@
     },
     "customer-product-list-api": {
       "path": "bundles/customer-product-list-api/",
-      "version": "2.0.0"
+      "version": "3.0.0"
     },
     "customer-product-list-connector": {
       "path": "bundles/customer-product-list-connector/",
@@ -296,7 +300,7 @@
     },
     "erp-delivery-note-api": {
       "path": "bundles/erp-delivery-note-api/",
-      "version": "2.0.0"
+      "version": "3.0.0"
     },
     "erp-delivery-note-extension": {
       "path": "bundles/erp-delivery-note-extension/",
@@ -320,7 +324,7 @@
     },
     "erp-invoice-api": {
       "path": "bundles/erp-invoice-api/",
-      "version": "2.0.0"
+      "version": "3.0.0"
     },
     "erp-invoice-extension": {
       "path": "bundles/erp-invoice-extension/",
@@ -344,7 +348,7 @@
     },
     "erp-order-api": {
       "path": "bundles/erp-order-api/",
-      "version": "2.0.0"
+      "version": "3.0.0"
     },
     "erp-order-extension": {
       "path": "bundles/erp-order-extension/",
@@ -372,7 +376,7 @@
     },
     "gift-card-api": {
       "path": "bundles/gift-card-api/",
-      "version": "1.0.0"
+      "version": "2.0.0"
     },
     "gift-card-expiration": {
       "path": "bundles/gift-card-expiration/",
@@ -416,7 +420,7 @@
     },
     "invoice-api": {
       "path": "bundles/invoice-api/",
-      "version": "2.0.0"
+      "version": "3.0.0"
     },
     "invoice-extension": {
       "path": "bundles/invoice-extension/",
@@ -640,7 +644,7 @@
     },
     "product-list-api": {
       "path": "bundles/product-list-api/",
-      "version": "2.0.0"
+      "version": "3.0.0"
     },
     "product-list-search-rest-api": {
       "path": "bundles/product-list-search-rest-api/",
@@ -812,7 +816,7 @@
     },
     "thirty-five-up-api": {
       "path": "bundles/thirty-five-up-api/",
-      "version": "2.0.0"
+      "version": "3.0.0"
     },
     "thirty-five-up-payment-connector": {
       "path": "bundles/thirty-five-up-payment-connector/",

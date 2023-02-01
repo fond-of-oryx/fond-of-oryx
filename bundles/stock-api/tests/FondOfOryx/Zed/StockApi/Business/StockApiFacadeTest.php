@@ -55,7 +55,7 @@ class StockApiFacadeTest extends Unit
     /**
      * @return void
      */
-    protected function _before()
+    protected function _before(): void
     {
         $this->apiDataTransferMock = $this->getMockBuilder(ApiDataTransfer::class)
             ->disableOriginalConstructor()
@@ -91,7 +91,7 @@ class StockApiFacadeTest extends Unit
     /**
      * @return void
      */
-    public function testValidate()
+    public function testValidate(): void
     {
         $this->stockApiBusinessFactoryMock->expects($this->atLeastOnce())
             ->method('createStockApiValidator')
@@ -99,10 +99,11 @@ class StockApiFacadeTest extends Unit
 
         $this->stockApiValidatorMock->expects($this->atLeastOnce())
             ->method('validate')
+            ->with($this->apiRequestTransferMock)
             ->willReturn([]);
 
         $this->stockApiFacade->setFactory($this->stockApiBusinessFactoryMock);
-        $errors = $this->stockApiFacade->validate($this->apiDataTransferMock);
+        $errors = $this->stockApiFacade->validate($this->apiRequestTransferMock);
 
         $this->assertIsArray($errors);
     }
@@ -110,7 +111,7 @@ class StockApiFacadeTest extends Unit
     /**
      * @return void
      */
-    public function testFindStock()
+    public function testFindStock(): void
     {
         $this->stockApiBusinessFactoryMock->expects($this->atLeastOnce())
             ->method('createStockApi')
@@ -128,7 +129,7 @@ class StockApiFacadeTest extends Unit
     /**
      * @return void
      */
-    public function testGetStockById()
+    public function testGetStockById(): void
     {
         $this->stockApiBusinessFactoryMock->expects($this->atLeastOnce())
             ->method('createStockApi')

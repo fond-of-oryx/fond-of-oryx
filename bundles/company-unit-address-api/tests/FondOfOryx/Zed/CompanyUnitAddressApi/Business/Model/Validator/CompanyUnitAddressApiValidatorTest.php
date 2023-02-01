@@ -4,9 +4,15 @@ namespace FondOfOryx\Zed\CompanyUnitAddressApi\Business\Model\Validator;
 
 use Codeception\Test\Unit;
 use Generated\Shared\Transfer\ApiDataTransfer;
+use Generated\Shared\Transfer\ApiRequestTransfer;
 
 class CompanyUnitAddressApiValidatorTest extends Unit
 {
+    /**
+     * @var \Generated\Shared\Transfer\ApiRequestTransfer|\PHPUnit\Framework\MockObject\MockObject
+     */
+    protected $apiRequestTransferMock;
+
     /**
      * @var \PHPUnit\Framework\MockObject\MockObject|\Generated\Shared\Transfer\ApiDataTransfer
      */
@@ -22,6 +28,10 @@ class CompanyUnitAddressApiValidatorTest extends Unit
      */
     protected function _before(): void
     {
+        $this->apiRequestTransferMock = $this->getMockBuilder(ApiRequestTransfer::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
         $this->apiDataTransferMock = $this->getMockBuilder(ApiDataTransfer::class)
             ->disableOriginalConstructor()
             ->getMock();
@@ -36,15 +46,17 @@ class CompanyUnitAddressApiValidatorTest extends Unit
     {
         $data = [];
 
-        $this->apiDataTransferMock->expects($this->atLeastOnce())
+        $this->apiRequestTransferMock->expects(static::atLeastOnce())
+            ->method('getApiDataOrFail')
+            ->willReturn($this->apiDataTransferMock);
+
+        $this->apiDataTransferMock->expects(static::atLeastOnce())
             ->method('getData')
             ->willReturn($data);
 
         static::assertCount(
             4,
-            $this->companyUnitAddressApiValidator->validate(
-                $this->apiDataTransferMock,
-            ),
+            $this->companyUnitAddressApiValidator->validate($this->apiRequestTransferMock),
         );
     }
 
@@ -60,15 +72,17 @@ class CompanyUnitAddressApiValidatorTest extends Unit
             'iso2_code' => 'iso2_code',
         ];
 
-        $this->apiDataTransferMock->expects($this->atLeastOnce())
+        $this->apiRequestTransferMock->expects(static::atLeastOnce())
+            ->method('getApiDataOrFail')
+            ->willReturn($this->apiDataTransferMock);
+
+        $this->apiDataTransferMock->expects(static::atLeastOnce())
             ->method('getData')
             ->willReturn($data);
 
         static::assertCount(
             0,
-            $this->companyUnitAddressApiValidator->validate(
-                $this->apiDataTransferMock,
-            ),
+            $this->companyUnitAddressApiValidator->validate($this->apiRequestTransferMock),
         );
     }
 }

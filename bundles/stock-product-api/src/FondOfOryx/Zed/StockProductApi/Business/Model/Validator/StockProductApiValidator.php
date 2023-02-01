@@ -2,42 +2,74 @@
 
 namespace FondOfOryx\Zed\StockProductApi\Business\Model\Validator;
 
-use Generated\Shared\Transfer\ApiDataTransfer;
+use Generated\Shared\Transfer\ApiRequestTransfer;
+use Generated\Shared\Transfer\ApiValidationErrorTransfer;
 
 class StockProductApiValidator implements StockProductApiValidatorInterface
 {
     /**
-     * @param \Generated\Shared\Transfer\ApiDataTransfer $apiDataTransfer
-     *
-     * @return array
+     * @var string
      */
-    public function validate(ApiDataTransfer $apiDataTransfer)
+    protected const KEY_SKU = 'sku';
+
+    /**
+     * @var string
+     */
+    protected const KEY_STOCK_TYPE = 'stock_type';
+
+    /**
+     * @var string
+     */
+    protected const KEY_QUANTITY = 'quantity';
+
+    /**
+     * @var string
+     */
+    protected const KEY_IS_NEVER_OUT_OF_STOCK = 'is_never_out_of_stock';
+
+    /**
+     * @param \Generated\Shared\Transfer\ApiRequestTransfer $apiRequestTransfer
+     *
+     * @return array<\Generated\Shared\Transfer\ApiValidationErrorTransfer>
+     */
+    public function validate(ApiRequestTransfer $apiRequestTransfer): array
     {
-        $data = $apiDataTransfer->getData();
+        $apiData = $apiRequestTransfer->getApiDataOrFail()->getData();
 
-        $errors = [];
-        $errors = $this->assertRequiredField($data, 'sku', $errors);
-        $errors = $this->assertRequiredField($data, 'stock_type', $errors);
-        $errors = $this->assertRequiredField($data, 'quantity', $errors);
-        $errors = $this->assertRequiredField($data, 'is_never_out_of_stock', $errors);
+        $apiValidationErrorTransfers = $this->assertRequiredField($apiData, static::KEY_SKU, []);
+        $apiValidationErrorTransfers = $this->assertRequiredField($apiData, static::KEY_STOCK_TYPE, $apiValidationErrorTransfers);
+        $apiValidationErrorTransfers = $this->assertRequiredField($apiData, static::KEY_QUANTITY, $apiValidationErrorTransfers);
 
-        return $errors;
+        return $this->assertRequiredField($apiData, static::KEY_IS_NEVER_OUT_OF_STOCK, $apiValidationErrorTransfers);
     }
 
     /**
-     * @param array $data
+     * @param array<string, mixed> $data
      * @param string $field
-     * @param array $errors
+     * @param array<\Generated\Shared\Transfer\ApiValidationErrorTransfer> $apiValidationErrorTransfers
      *
-     * @return array
+     * @return array<\Generated\Shared\Transfer\ApiValidationErrorTransfer>
      */
-    protected function assertRequiredField(array $data, $field, array $errors)
+    protected function assertRequiredField(array $data, string $field, array $apiValidationErrorTransfers): array
     {
-        if (!isset($data[$field]) || !array_key_exists($field, $data)) {
+        if (!isset($data[$field]) || (array_key_exists($field, $data) && !$data[$field])) {
             $message = sprintf('Missing value for required field "%s"', $field);
-            $errors[$field][] = $message;
+            $apiValidationErrorTransfers[] = $this->createApiValidationErrorTransfer($field, [$message]);
         }
 
-        return $errors;
+        return $apiValidationErrorTransfers;
+    }
+
+    /**
+     * @param string $field
+     * @param array<string> $messages
+     *
+     * @return \Generated\Shared\Transfer\ApiValidationErrorTransfer
+     */
+    protected function createApiValidationErrorTransfer(string $field, array $messages): ApiValidationErrorTransfer
+    {
+        return (new ApiValidationErrorTransfer())
+            ->setField($field)
+            ->setMessages($messages);
     }
 }

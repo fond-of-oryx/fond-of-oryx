@@ -2,9 +2,9 @@
 
 namespace FondOfOryx\Zed\ErpDeliveryNoteApi;
 
+use FondOfOryx\Zed\ErpDeliveryNoteApi\Dependency\Facade\ErpDeliveryNoteApiToApiFacadeBridge;
 use FondOfOryx\Zed\ErpDeliveryNoteApi\Dependency\Facade\ErpDeliveryNoteApiToErpDeliveryNoteFacadeBridge;
 use FondOfOryx\Zed\ErpDeliveryNoteApi\Dependency\QueryContainer\ErpDeliveryNoteApiToApiQueryBuilderQueryContainerBridge;
-use FondOfOryx\Zed\ErpDeliveryNoteApi\Dependency\QueryContainer\ErpDeliveryNoteApiToApiQueryContainerBridge;
 use Orm\Zed\ErpDeliveryNote\Persistence\FooErpDeliveryNoteQuery;
 use Spryker\Zed\Kernel\AbstractBundleDependencyProvider;
 use Spryker\Zed\Kernel\Container;
@@ -19,7 +19,7 @@ class ErpDeliveryNoteApiDependencyProvider extends AbstractBundleDependencyProvi
     /**
      * @var string
      */
-    public const QUERY_CONTAINER_API = 'QUERY_CONTAINER_API';
+    public const FACADE_API = 'FACADE_API';
 
     /**
      * @var string
@@ -41,9 +41,8 @@ class ErpDeliveryNoteApiDependencyProvider extends AbstractBundleDependencyProvi
         $container = parent::provideBusinessLayerDependencies($container);
 
         $container = $this->addErpDeliveryNoteFacade($container);
-        $container = $this->addApiQueryContainer($container);
 
-        return $container;
+        return $this->addApiFacade($container);
     }
 
     /**
@@ -67,11 +66,11 @@ class ErpDeliveryNoteApiDependencyProvider extends AbstractBundleDependencyProvi
      *
      * @return \Spryker\Zed\Kernel\Container
      */
-    protected function addApiQueryContainer(Container $container): Container
+    protected function addApiFacade(Container $container): Container
     {
-        $container[static::QUERY_CONTAINER_API] = static function (Container $container) {
-            return new ErpDeliveryNoteApiToApiQueryContainerBridge(
-                $container->getLocator()->api()->queryContainer(),
+        $container[static::FACADE_API] = static function (Container $container) {
+            return new ErpDeliveryNoteApiToApiFacadeBridge(
+                $container->getLocator()->api()->facade(),
             );
         };
 
@@ -90,10 +89,9 @@ class ErpDeliveryNoteApiDependencyProvider extends AbstractBundleDependencyProvi
         $container = parent::providePersistenceLayerDependencies($container);
 
         $this->addErpDeliveryNotePropelQuery($container);
-        $this->addApiQueryContainer($container);
-        $this->addApiQueryBuilderQueryContainer($container);
+        $this->addApiFacade($container);
 
-        return $container;
+        return $this->addApiQueryBuilderQueryContainer($container);
     }
 
     /**

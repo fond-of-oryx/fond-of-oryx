@@ -4,8 +4,8 @@ namespace FondOfOryx\Zed\CompanyUnitAddressApi\Business\Model;
 
 use Codeception\Test\Unit;
 use Exception;
+use FondOfOryx\Zed\CompanyUnitAddressApi\Dependency\Facade\CompanyUnitAddressApiToApiFacadeInterface;
 use FondOfOryx\Zed\CompanyUnitAddressApi\Dependency\Facade\CompanyUnitAddressApiToCompanyUnitAddressFacadeInterface;
-use FondOfOryx\Zed\CompanyUnitAddressApi\Dependency\QueryContainer\CompanyUnitAddressApiToApiQueryContainerInterface;
 use FondOfOryx\Zed\CompanyUnitAddressApi\Persistence\CompanyUnitAddressApiRepositoryInterface;
 use Generated\Shared\Transfer\ApiCollectionTransfer;
 use Generated\Shared\Transfer\ApiDataTransfer;
@@ -18,9 +18,9 @@ use Generated\Shared\Transfer\ResponseMessageTransfer;
 class CompanyUnitAddressApiTest extends Unit
 {
     /**
-     * @var \PHPUnit\Framework\MockObject\MockObject|\FondOfOryx\Zed\CompanyUnitAddressApi\Dependency\QueryContainer\CompanyUnitAddressApiToApiQueryContainerInterface
+     * @var \PHPUnit\Framework\MockObject\MockObject|\FondOfOryx\Zed\CompanyUnitAddressApi\Dependency\Facade\CompanyUnitAddressApiToApiFacadeInterface
      */
-    protected $apiQueryContainerMock;
+    protected $apiFacadeMock;
 
     /**
      * @var \PHPUnit\Framework\MockObject\MockObject|\FondOfOryx\Zed\CompanyUnitAddressApi\Dependency\Facade\CompanyUnitAddressApiToCompanyUnitAddressFacadeInterface
@@ -77,7 +77,7 @@ class CompanyUnitAddressApiTest extends Unit
      */
     protected function _before(): void
     {
-        $this->apiQueryContainerMock = $this->getMockBuilder(CompanyUnitAddressApiToApiQueryContainerInterface::class)
+        $this->apiFacadeMock = $this->getMockBuilder(CompanyUnitAddressApiToApiFacadeInterface::class)
             ->disableOriginalConstructor()
             ->getMock();
 
@@ -118,7 +118,7 @@ class CompanyUnitAddressApiTest extends Unit
             ->getMock();
 
         $this->companyUnitAddressApi = new CompanyUnitAddressApi(
-            $this->apiQueryContainerMock,
+            $this->apiFacadeMock,
             $this->companyUnitAddressFacadeMock,
             $this->repositoryMock,
         );
@@ -160,9 +160,9 @@ class CompanyUnitAddressApiTest extends Unit
             ->method('getIdCompanyUnitAddress')
             ->willReturn($idCompanyUnitAddress);
 
-        $this->apiQueryContainerMock->expects(static::atLeastOnce())
+        $this->apiFacadeMock->expects(static::atLeastOnce())
             ->method('createApiItem')
-            ->with($this->companyUnitAddressTransferMock, $idCompanyUnitAddress)
+            ->with($this->companyUnitAddressTransferMock, (string)$idCompanyUnitAddress)
             ->willReturn($this->apiItemTransferMock);
 
         static::assertEquals(
@@ -201,7 +201,7 @@ class CompanyUnitAddressApiTest extends Unit
         $this->companyUnitAddressResponseTransferMock->expects(static::never())
             ->method('getIsSuccessful');
 
-        $this->apiQueryContainerMock->expects(static::never())
+        $this->apiFacadeMock->expects(static::never())
             ->method('createApiItem');
 
         try {
@@ -232,11 +232,11 @@ class CompanyUnitAddressApiTest extends Unit
             ->method('getIdCompanyUnitAddress')
             ->willReturn($idCompanyUnitAddress);
 
-        $this->apiQueryContainerMock->expects(static::atLeastOnce())
+        $this->apiFacadeMock->expects(static::atLeastOnce())
             ->method('createApiItem')
             ->with(
                 $this->companyUnitAddressTransferMock,
-                $idCompanyUnitAddress,
+                (string)$idCompanyUnitAddress,
             )->willReturn($this->apiItemTransferMock);
 
         static::assertEquals(
@@ -266,7 +266,7 @@ class CompanyUnitAddressApiTest extends Unit
             ->method('getIdCompanyUnitAddress')
             ->willReturn(null);
 
-        $this->apiQueryContainerMock->expects(static::never())
+        $this->apiFacadeMock->expects(static::never())
             ->method('createApiItem');
 
         try {
@@ -322,9 +322,9 @@ class CompanyUnitAddressApiTest extends Unit
             ->method('getIsSuccessful')
             ->willReturn(true);
 
-        $this->apiQueryContainerMock->expects(static::atLeastOnce())
+        $this->apiFacadeMock->expects(static::atLeastOnce())
             ->method('createApiItem')
-            ->with($this->companyUnitAddressTransferMock, $idCompanyUnitAddress)
+            ->with($this->companyUnitAddressTransferMock, (string)$idCompanyUnitAddress)
             ->willReturn($this->apiItemTransferMock);
 
         static::assertEquals(
@@ -365,7 +365,7 @@ class CompanyUnitAddressApiTest extends Unit
         $this->companyUnitAddressFacadeMock->expects(static::never())
             ->method('update');
 
-        $this->apiQueryContainerMock->expects(static::never())
+        $this->apiFacadeMock->expects(static::never())
             ->method('createApiItem');
 
         try {
@@ -423,7 +423,7 @@ class CompanyUnitAddressApiTest extends Unit
         $this->companyUnitAddressResponseTransferMock->expects(static::never())
             ->method('getIsSuccessful');
 
-        $this->apiQueryContainerMock->expects(static::never())
+        $this->apiFacadeMock->expects(static::never())
             ->method('createApiItem');
 
         try {
@@ -455,9 +455,9 @@ class CompanyUnitAddressApiTest extends Unit
                 ),
             );
 
-        $this->apiQueryContainerMock->expects(static::atLeastOnce())
+        $this->apiFacadeMock->expects(static::atLeastOnce())
             ->method('createApiItem')
-            ->with([], $idCompanyUnitAddress)
+            ->with(null, (string)$idCompanyUnitAddress)
             ->willReturn($this->apiItemTransferMock);
 
         static::assertEquals(

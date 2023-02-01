@@ -2,14 +2,14 @@
 
 namespace FondOfOryx\Zed\ErpDeliveryNoteApi\Business\Validator;
 
-use Generated\Shared\Transfer\ApiDataTransfer;
+use Generated\Shared\Transfer\ApiRequestTransfer;
 
 interface ErpDeliveryNoteApiValidatorInterface
 {
     /**
-     * @param \Generated\Shared\Transfer\ApiDataTransfer $apiDataTransfer
+     * @param \Generated\Shared\Transfer\ApiRequestTransfer $apiRequestTransfer
      *
-     * @return array<string>
+     * @return array<\Generated\Shared\Transfer\ApiValidationErrorTransfer>
      */
-    public function validate(ApiDataTransfer $apiDataTransfer): array;
+    public function validate(ApiRequestTransfer $apiRequestTransfer): array;
 }

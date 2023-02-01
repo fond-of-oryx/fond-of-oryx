@@ -3,7 +3,7 @@
 namespace FondOfOryx\Zed\GiftCardApi\Persistence;
 
 use Codeception\Test\Unit;
-use FondOfOryx\Zed\GiftCardApi\Dependency\QueryContainer\GiftCardApiToApiQueryContainerInterface;
+use FondOfOryx\Zed\GiftCardApi\Dependency\Facade\GiftCardApiToApiFacadeInterface;
 use FondOfOryx\Zed\GiftCardApi\Dependency\QueryContainer\GiftCardApiToGiftCardQueryContainerInterface;
 use Orm\Zed\GiftCard\Persistence\SpyGiftCardQuery;
 
@@ -15,7 +15,7 @@ class GiftCardApiRepositoryTest extends Unit
     protected $factoryMock;
 
     /**
-     * @var \FondOfOryx\Zed\GiftCardApi\Dependency\QueryContainer\GiftCardApiToApiQueryContainerInterface|\PHPUnit\Framework\MockObject\MockObject
+     * @var \FondOfOryx\Zed\GiftCardApi\Dependency\Facade\GiftCardApiToApiFacadeInterface|\PHPUnit\Framework\MockObject\MockObject
      */
     protected $queryContainerMock;
 
@@ -47,7 +47,7 @@ class GiftCardApiRepositoryTest extends Unit
         parent::_before();
 
         $this->factoryMock = $this->getMockBuilder(GiftCardApiPersistenceFactory::class)->disableOriginalConstructor()->getMock();
-        $this->queryContainerMock = $this->getMockBuilder(GiftCardApiToApiQueryContainerInterface::class)->disableOriginalConstructor()->getMock();
+        $this->queryContainerMock = $this->getMockBuilder(GiftCardApiToApiFacadeInterface::class)->disableOriginalConstructor()->getMock();
         $this->giftCardQueryContainerMock = $this->getMockBuilder(GiftCardApiToGiftCardQueryContainerInterface::class)->disableOriginalConstructor()->getMock();
         $this->spyGiftCardQueryMock = $this->getMockBuilder(SpyGiftCardQuery::class)->disableOriginalConstructor()->getMock();
         $this->spyGiftCardMock = $this->getMockBuilder(SpyGiftCardQuery::class)->disableOriginalConstructor()->getMock();

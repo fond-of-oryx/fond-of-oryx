@@ -2,8 +2,8 @@
 
 namespace FondOfOryx\Zed\ErpDeliveryNoteApi\Business\Model;
 
+use FondOfOryx\Zed\ErpDeliveryNoteApi\Dependency\Facade\ErpDeliveryNoteApiToApiFacadeInterface;
 use FondOfOryx\Zed\ErpDeliveryNoteApi\Dependency\Facade\ErpDeliveryNoteApiToErpDeliveryNoteFacadeInterface;
-use FondOfOryx\Zed\ErpDeliveryNoteApi\Dependency\QueryContainer\ErpDeliveryNoteApiToApiQueryContainerInterface;
 use FondOfOryx\Zed\ErpDeliveryNoteApi\Persistence\ErpDeliveryNoteApiRepositoryInterface;
 use Generated\Shared\Transfer\ApiCollectionTransfer;
 use Generated\Shared\Transfer\ApiDataTransfer;
@@ -22,9 +22,9 @@ class ErpDeliveryNoteApi implements ErpDeliveryNoteApiInterface
     protected const KEY_ID_ERP_DELIVERY_NOTE = 'id_erp_delivery_note';
 
     /**
-     * @var \FondOfOryx\Zed\ErpDeliveryNoteApi\Dependency\QueryContainer\ErpDeliveryNoteApiToApiQueryContainerInterface
+     * @var \FondOfOryx\Zed\ErpDeliveryNoteApi\Dependency\Facade\ErpDeliveryNoteApiToApiFacadeInterface
      */
-    protected $apiQueryContainer;
+    protected $apiFacade;
 
     /**
      * @var \FondOfOryx\Zed\ErpDeliveryNoteApi\Dependency\Facade\ErpDeliveryNoteApiToErpDeliveryNoteFacadeInterface
@@ -37,16 +37,16 @@ class ErpDeliveryNoteApi implements ErpDeliveryNoteApiInterface
     protected $repository;
 
     /**
-     * @param \FondOfOryx\Zed\ErpDeliveryNoteApi\Dependency\QueryContainer\ErpDeliveryNoteApiToApiQueryContainerInterface $apiQueryContainer
+     * @param \FondOfOryx\Zed\ErpDeliveryNoteApi\Dependency\Facade\ErpDeliveryNoteApiToApiFacadeInterface $apiFacade
      * @param \FondOfOryx\Zed\ErpDeliveryNoteApi\Dependency\Facade\ErpDeliveryNoteApiToErpDeliveryNoteFacadeInterface $erpDeliveryNoteFacade
      * @param \FondOfOryx\Zed\ErpDeliveryNoteApi\Persistence\ErpDeliveryNoteApiRepositoryInterface $repository
      */
     public function __construct(
-        ErpDeliveryNoteApiToApiQueryContainerInterface $apiQueryContainer,
+        ErpDeliveryNoteApiToApiFacadeInterface $apiFacade,
         ErpDeliveryNoteApiToErpDeliveryNoteFacadeInterface $erpDeliveryNoteFacade,
         ErpDeliveryNoteApiRepositoryInterface $repository
     ) {
-        $this->apiQueryContainer = $apiQueryContainer;
+        $this->apiFacade = $apiFacade;
         $this->erpDeliveryNoteFacade = $erpDeliveryNoteFacade;
         $this->repository = $repository;
     }
@@ -71,9 +71,9 @@ class ErpDeliveryNoteApi implements ErpDeliveryNoteApiInterface
             );
         }
 
-        return $this->apiQueryContainer->createApiItem(
+        return $this->apiFacade->createApiItem(
             $erpDeliveryNoteTransfer,
-            $erpDeliveryNoteTransfer->getIdErpDeliveryNote(),
+            (string)$erpDeliveryNoteTransfer->getIdErpDeliveryNote(),
         );
     }
 
@@ -100,9 +100,9 @@ class ErpDeliveryNoteApi implements ErpDeliveryNoteApiInterface
             );
         }
 
-        return $this->apiQueryContainer->createApiItem(
+        return $this->apiFacade->createApiItem(
             $erpDeliveryNoteTransfer,
-            $erpDeliveryNoteTransfer->getIdErpDeliveryNote(),
+            (string)$erpDeliveryNoteTransfer->getIdErpDeliveryNote(),
         );
     }
 
@@ -115,7 +115,7 @@ class ErpDeliveryNoteApi implements ErpDeliveryNoteApiInterface
     {
         $erpDeliveryNoteTransfer = $this->getByIdErpDeliveryNote($idErpDeliveryNote);
 
-        return $this->apiQueryContainer->createApiItem($erpDeliveryNoteTransfer, $idErpDeliveryNote);
+        return $this->apiFacade->createApiItem($erpDeliveryNoteTransfer, (string)$idErpDeliveryNote);
     }
 
     /**
@@ -152,7 +152,7 @@ class ErpDeliveryNoteApi implements ErpDeliveryNoteApiInterface
 
         $this->erpDeliveryNoteFacade->deleteErpDeliveryNoteByIdErpDeliveryNote($idErpDeliveryNote);
 
-        return $this->apiQueryContainer->createApiItem(new ErpDeliveryNoteTransfer(), $idErpDeliveryNote);
+        return $this->apiFacade->createApiItem(null, (string)$idErpDeliveryNote);
     }
 
     /**

@@ -4,6 +4,7 @@ namespace FondOfOryx\Zed\InvoiceApi\Business;
 
 use Generated\Shared\Transfer\ApiDataTransfer;
 use Generated\Shared\Transfer\ApiItemTransfer;
+use Generated\Shared\Transfer\ApiRequestTransfer;
 
 interface InvoiceApiFacadeInterface
 {
@@ -24,9 +25,9 @@ interface InvoiceApiFacadeInterface
      *
      * @api
      *
-     * @param \Generated\Shared\Transfer\ApiDataTransfer $apiDataTransfer
+     * @param \Generated\Shared\Transfer\ApiRequestTransfer $apiRequestTransfer
      *
-     * @return array
+     * @return array<\Generated\Shared\Transfer\ApiValidationErrorTransfer>
      */
-    public function validate(ApiDataTransfer $apiDataTransfer): array;
+    public function validate(ApiRequestTransfer $apiRequestTransfer): array;
 }

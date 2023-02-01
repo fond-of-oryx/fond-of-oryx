@@ -211,12 +211,12 @@ class ErpInvoiceApiFacadeTest extends Unit
 
         $this->erpInvoiceApiValidatorMock->expects(static::atLeastOnce())
             ->method('validate')
-            ->with($this->apiDataTransferMock)
+            ->with($this->apiRequestTransferMock)
             ->willReturn($validationResult);
 
         static::assertEquals(
             $validationResult,
-            $this->erpInvoiceApiFacade->validateErpInvoice($this->apiDataTransferMock),
+            $this->erpInvoiceApiFacade->validateErpInvoice($this->apiRequestTransferMock),
         );
     }
 }

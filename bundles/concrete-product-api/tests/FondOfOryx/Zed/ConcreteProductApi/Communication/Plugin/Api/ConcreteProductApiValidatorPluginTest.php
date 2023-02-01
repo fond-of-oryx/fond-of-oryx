@@ -5,7 +5,7 @@ namespace FondOfOryx\Zed\ConcreteProductApi\Communication\Plugin\Api;
 use Codeception\Test\Unit;
 use FondOfOryx\Zed\ConcreteProductApi\Business\ConcreteProductApiFacade;
 use FondOfOryx\Zed\ConcreteProductApi\ConcreteProductApiConfig;
-use Generated\Shared\Transfer\ApiDataTransfer;
+use Generated\Shared\Transfer\ApiRequestTransfer;
 
 class ConcreteProductApiValidatorPluginTest extends Unit
 {
@@ -15,9 +15,9 @@ class ConcreteProductApiValidatorPluginTest extends Unit
     protected $concreteProductApiValidatorPlugin;
 
     /**
-     * @var \PHPUnit\Framework\MockObject\MockObject|\Generated\Shared\Transfer\ApiDataTransfer
+     * @var \PHPUnit\Framework\MockObject\MockObject|\Generated\Shared\Transfer\ApiRequestTransfer
      */
-    protected $apiDataTransferMock;
+    protected $apiRequestTransferMock;
 
     /**
      * @var \PHPUnit\Framework\MockObject\MockObject|\FondOfOryx\Zed\ConcreteProductApi\Business\ConcreteProductApiFacade
@@ -33,7 +33,7 @@ class ConcreteProductApiValidatorPluginTest extends Unit
             ->disableOriginalConstructor()
             ->getMock();
 
-        $this->apiDataTransferMock = $this->getMockBuilder(ApiDataTransfer::class)
+        $this->apiRequestTransferMock = $this->getMockBuilder(ApiRequestTransfer::class)
             ->disableOriginalConstructor()
             ->getMock();
 
@@ -61,12 +61,12 @@ class ConcreteProductApiValidatorPluginTest extends Unit
 
         $this->concreteProductApiFacadeMock->expects($this->atLeastOnce())
             ->method('validate')
-            ->with($this->apiDataTransferMock)
+            ->with($this->apiRequestTransferMock)
             ->willReturn([]);
 
         static::assertEquals(
             $errors,
-            $this->concreteProductApiValidatorPlugin->validate($this->apiDataTransferMock),
+            $this->concreteProductApiValidatorPlugin->validate($this->apiRequestTransferMock),
         );
     }
 }

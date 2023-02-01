@@ -14,7 +14,6 @@ use Spryker\Zed\Kernel\Communication\AbstractPlugin;
 
 /**
  * @method \FondOfOryx\Zed\ConcreteProductApi\ConcreteProductApiConfig getConfig()
- * @method \FondOfOryx\Zed\ConcreteProductApi\Persistence\ConcreteProductApiQueryContainerInterface getQueryContainer()
  * @method \FondOfOryx\Zed\ConcreteProductApi\Business\ConcreteProductApiFacadeInterface getFacade()
  */
 class ConcreteProductApiResourcePlugin extends AbstractPlugin implements ApiResourcePluginInterface
@@ -81,6 +80,6 @@ class ConcreteProductApiResourcePlugin extends AbstractPlugin implements ApiReso
      */
     public function find(ApiRequestTransfer $apiRequestTransfer): ApiCollectionTransfer
     {
-        return $this->getFacade()->findConditionalProducts($apiRequestTransfer);
+        return $this->getFacade()->findConcreteProducts($apiRequestTransfer);
     }
 }

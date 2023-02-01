@@ -81,9 +81,9 @@ interface ErpInvoiceApiFacadeInterface
      *
      * @api
      *
-     * @param \Generated\Shared\Transfer\ApiDataTransfer $apiDataTransfer
+     * @param \Generated\Shared\Transfer\ApiRequestTransfer $apiRequestTransfer
      *
-     * @return array
+     * @return array<\Generated\Shared\Transfer\ApiValidationErrorTransfer>
      */
-    public function validateErpInvoice(ApiDataTransfer $apiDataTransfer): array;
+    public function validateErpInvoice(ApiRequestTransfer $apiRequestTransfer): array;
 }

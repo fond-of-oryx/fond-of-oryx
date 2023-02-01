@@ -7,8 +7,8 @@ use FondOfOryx\Zed\CompanyBusinessUnitApi\Business\Model\CompanyBusinessUnitApiI
 use FondOfOryx\Zed\CompanyBusinessUnitApi\Business\Model\Validator\CompanyBusinessUnitApiValidator;
 use FondOfOryx\Zed\CompanyBusinessUnitApi\Business\Model\Validator\CompanyBusinessUnitApiValidatorInterface;
 use FondOfOryx\Zed\CompanyBusinessUnitApi\CompanyBusinessUnitApiDependencyProvider;
+use FondOfOryx\Zed\CompanyBusinessUnitApi\Dependency\Facade\CompanyBusinessUnitApiToApiFacadeInterface;
 use FondOfOryx\Zed\CompanyBusinessUnitApi\Dependency\Facade\CompanyBusinessUnitApiToCompanyBusinessUnitFacadeInterface;
-use FondOfOryx\Zed\CompanyBusinessUnitApi\Dependency\QueryContainer\CompanyBusinessUnitApiToApiQueryContainerInterface;
 use Spryker\Zed\Kernel\Business\AbstractBusinessFactory;
 
 /**
@@ -23,18 +23,18 @@ class CompanyBusinessUnitApiBusinessFactory extends AbstractBusinessFactory
     public function createCompanyBusinessUnitApi(): CompanyBusinessUnitApiInterface
     {
         return new CompanyBusinessUnitApi(
-            $this->getApiQueryContainer(),
+            $this->getApiFacade(),
             $this->getCompanyBusinessUnitFacade(),
             $this->getRepository(),
         );
     }
 
     /**
-     * @return \FondOfOryx\Zed\CompanyBusinessUnitApi\Dependency\QueryContainer\CompanyBusinessUnitApiToApiQueryContainerInterface
+     * @return \FondOfOryx\Zed\CompanyBusinessUnitApi\Dependency\Facade\CompanyBusinessUnitApiToApiFacadeInterface
      */
-    protected function getApiQueryContainer(): CompanyBusinessUnitApiToApiQueryContainerInterface
+    protected function getApiFacade(): CompanyBusinessUnitApiToApiFacadeInterface
     {
-        return $this->getProvidedDependency(CompanyBusinessUnitApiDependencyProvider::QUERY_CONTAINER_API);
+        return $this->getProvidedDependency(CompanyBusinessUnitApiDependencyProvider::FACADE_API);
     }
 
     /**

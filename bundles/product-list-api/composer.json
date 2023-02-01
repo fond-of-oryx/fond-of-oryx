@@ -10,13 +10,15 @@
   ],
   "require": {
     "php": ">=8.0",
-    "spryker/api": "^0.3",
-    "spryker/api-query-builder": "^0.1",
+    "spryker/api": "^0.4.0",
+    "spryker/api-extension": "^0.1.0",
+    "spryker/api-query-builder": "^0.1.0",
     "spryker/product-list": "^1.0.0"
   },
   "require-dev": {
     "fond-of-codeception/spryker": "^1.0",
-    "spryker/code-sniffer": "^0.12"
+    "spryker/code-sniffer": "*",
+    "spryker-sdk/phpstan-spryker": "*"
   },
   "minimum-stability": "dev",
   "prefer-stable": true,
@@ -28,11 +30,11 @@
   "autoload-dev": {
     "psr-4": {
       "FondOfOryx\\": "tests/FondOfOryx/",
-      "Generated\\": "tests/Generated/"
+      "Generated\\":"src/Generated/",
+      "Orm\\":"src/Orm/"
     }
   },
   "config": {
-    "sort-packages": true,
     "allow-plugins": {
       "dealerdirect/phpcodesniffer-composer-installer": true
     }

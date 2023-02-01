@@ -5,8 +5,8 @@ namespace FondOfOryx\Zed\ErpOrderApi\Business;
 use Codeception\Test\Unit;
 use FondOfOryx\Zed\ErpOrderApi\Business\Model\ErpOrderApi;
 use FondOfOryx\Zed\ErpOrderApi\Business\Validator\ErpOrderApiValidator;
+use FondOfOryx\Zed\ErpOrderApi\Dependency\Facade\ErpOrderApiToApiFacadeInterface;
 use FondOfOryx\Zed\ErpOrderApi\Dependency\Facade\ErpOrderApiToErpOrderFacadeInterface;
-use FondOfOryx\Zed\ErpOrderApi\Dependency\QueryContainer\ErpOrderApiToApiQueryContainerInterface;
 use FondOfOryx\Zed\ErpOrderApi\ErpOrderApiDependencyProvider;
 use FondOfOryx\Zed\ErpOrderApi\Persistence\ErpOrderApiRepository;
 use Spryker\Zed\Kernel\Container;
@@ -24,9 +24,9 @@ class ErpOrderApiBusinessFactoryTest extends Unit
     protected $erpOrderFacadeMock;
 
     /**
-     * @var \FondOfOryx\Zed\ErpOrderApi\Dependency\QueryContainer\ErpOrderApiToApiQueryContainerInterface|\PHPUnit\Framework\MockObject\MockObject
+     * @var \FondOfOryx\Zed\ErpOrderApi\Dependency\Facade\ErpOrderApiToApiFacadeInterface|\PHPUnit\Framework\MockObject\MockObject
      */
-    protected $apiQueryContainerMock;
+    protected $apiFacadeMock;
 
     /**
      * @var \FondOfOryx\Zed\ErpOrderApi\Persistence\ErpOrderApiRepository|\PHPUnit\Framework\MockObject\MockObject
@@ -53,7 +53,7 @@ class ErpOrderApiBusinessFactoryTest extends Unit
             ->disableOriginalConstructor()
             ->getMock();
 
-        $this->apiQueryContainerMock = $this->getMockBuilder(ErpOrderApiToApiQueryContainerInterface::class)
+        $this->apiFacadeMock = $this->getMockBuilder(ErpOrderApiToApiFacadeInterface::class)
             ->disableOriginalConstructor()
             ->getMock();
 
@@ -77,8 +77,8 @@ class ErpOrderApiBusinessFactoryTest extends Unit
 
         $this->containerMock->expects(static::atLeastOnce())
             ->method('get')
-            ->withConsecutive([ErpOrderApiDependencyProvider::QUERY_CONTAINER_API], [ErpOrderApiDependencyProvider::FACADE_ERP_ORDER])
-            ->willReturnOnConsecutiveCalls($this->apiQueryContainerMock, $this->erpOrderFacadeMock);
+            ->withConsecutive([ErpOrderApiDependencyProvider::FACADE_API], [ErpOrderApiDependencyProvider::FACADE_ERP_ORDER])
+            ->willReturnOnConsecutiveCalls($this->apiFacadeMock, $this->erpOrderFacadeMock);
 
         static::assertInstanceOf(
             ErpOrderApi::class,

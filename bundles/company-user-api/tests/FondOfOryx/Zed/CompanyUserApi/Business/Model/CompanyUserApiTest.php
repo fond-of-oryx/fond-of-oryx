@@ -4,8 +4,8 @@ namespace FondOfOryx\Zed\CompanyUserApi\Business\Model;
 
 use Codeception\Test\Unit;
 use Exception;
+use FondOfOryx\Zed\CompanyUserApi\Dependency\Facade\CompanyUserApiToApiFacadeInterface;
 use FondOfOryx\Zed\CompanyUserApi\Dependency\Facade\CompanyUserApiToCompanyUserFacadeInterface;
-use FondOfOryx\Zed\CompanyUserApi\Dependency\QueryContainer\CompanyUserApiToApiQueryContainerInterface;
 use FondOfOryx\Zed\CompanyUserApi\Persistence\CompanyUserApiRepositoryInterface;
 use Generated\Shared\Transfer\ApiCollectionTransfer;
 use Generated\Shared\Transfer\ApiDataTransfer;
@@ -17,9 +17,9 @@ use Generated\Shared\Transfer\CompanyUserTransfer;
 class CompanyUserApiTest extends Unit
 {
     /**
-     * @var \PHPUnit\Framework\MockObject\MockObject|\FondOfOryx\Zed\CompanyUserApi\Dependency\QueryContainer\CompanyUserApiToApiQueryContainerInterface
+     * @var \PHPUnit\Framework\MockObject\MockObject|\FondOfOryx\Zed\CompanyUserApi\Dependency\Facade\CompanyUserApiToApiFacadeInterface
      */
-    protected $apiQueryContainerMock;
+    protected $apiFacadeMock;
 
     /**
      * @var \PHPUnit\Framework\MockObject\MockObject|\FondOfOryx\Zed\CompanyUserApi\Dependency\QueryContainer\CompanyUserApiToApiQueryBuilderQueryContainerInterface
@@ -78,7 +78,7 @@ class CompanyUserApiTest extends Unit
     {
         parent::_before();
 
-        $this->apiQueryContainerMock = $this->getMockBuilder(CompanyUserApiToApiQueryContainerInterface::class)
+        $this->apiFacadeMock = $this->getMockBuilder(CompanyUserApiToApiFacadeInterface::class)
             ->disableOriginalConstructor()
             ->getMock();
 
@@ -115,7 +115,7 @@ class CompanyUserApiTest extends Unit
             ->getMock();
 
         $this->companyUserApi = new CompanyUserApi(
-            $this->apiQueryContainerMock,
+            $this->apiFacadeMock,
             $this->companyUserFacadeMock,
             $this->repositoryMock,
         );
@@ -148,7 +148,7 @@ class CompanyUserApiTest extends Unit
             ->method('getIdCompanyUser')
             ->willReturn($idCompanyUser);
 
-        $this->apiQueryContainerMock->expects(static::atLeastOnce())
+        $this->apiFacadeMock->expects(static::atLeastOnce())
             ->method('createApiItem')
             ->with($this->companyUserTransferMock, $idCompanyUser)
             ->willReturn($this->apiItemTransferMock);
@@ -179,7 +179,7 @@ class CompanyUserApiTest extends Unit
         $this->companyUserResponseTransferMock->expects(static::never())
             ->method('getIsSuccessful');
 
-        $this->apiQueryContainerMock->expects(static::never())
+        $this->apiFacadeMock->expects(static::never())
             ->method('createApiItem');
 
         try {
@@ -205,7 +205,7 @@ class CompanyUserApiTest extends Unit
             ->method('getIdCompanyUser')
             ->willReturn($idCompanyUser);
 
-        $this->apiQueryContainerMock->expects(static::atLeastOnce())
+        $this->apiFacadeMock->expects(static::atLeastOnce())
             ->method('createApiItem')
             ->with($this->companyUserTransferMock, $idCompanyUser)
             ->willReturn($this->apiItemTransferMock);
@@ -232,7 +232,7 @@ class CompanyUserApiTest extends Unit
             ->method('getIdCompanyUser')
             ->willReturn(null);
 
-        $this->apiQueryContainerMock->expects(static::never())
+        $this->apiFacadeMock->expects(static::never())
             ->method('createApiItem');
 
         try {
@@ -284,7 +284,7 @@ class CompanyUserApiTest extends Unit
             ->method('getIdCompanyUser')
             ->willReturn($idCompanyUser);
 
-        $this->apiQueryContainerMock->expects(static::atLeastOnce())
+        $this->apiFacadeMock->expects(static::atLeastOnce())
             ->method('createApiItem')
             ->with($this->companyUserTransferMock, $idCompanyUser)
             ->willReturn($this->apiItemTransferMock);
@@ -332,7 +332,7 @@ class CompanyUserApiTest extends Unit
         $this->companyUserResponseTransferMock->expects(static::never())
             ->method('getIsSuccessful');
 
-        $this->apiQueryContainerMock->expects(static::never())
+        $this->apiFacadeMock->expects(static::never())
             ->method('createApiItem');
 
         try {
@@ -359,9 +359,9 @@ class CompanyUserApiTest extends Unit
                 ),
             )->willReturn($this->companyUserResponseTransferMock);
 
-        $this->apiQueryContainerMock->expects(static::atLeastOnce())
+        $this->apiFacadeMock->expects(static::atLeastOnce())
             ->method('createApiItem')
-            ->with([], $idCompanyUser)
+            ->with(null, (string)$idCompanyUser)
             ->willReturn($this->apiItemTransferMock);
 
         static::assertEquals($this->apiItemTransferMock, $this->companyUserApi->remove($idCompanyUser));

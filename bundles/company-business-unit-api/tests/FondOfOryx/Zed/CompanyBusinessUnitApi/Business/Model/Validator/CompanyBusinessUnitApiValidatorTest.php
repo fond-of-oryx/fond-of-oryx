@@ -5,9 +5,15 @@ namespace FondOfOryx\Zed\CompanyBusinessUnitApi\Business\Model\Validator;
 
 use Codeception\Test\Unit;
 use Generated\Shared\Transfer\ApiDataTransfer;
+use Generated\Shared\Transfer\ApiRequestTransfer;
 
 class CompanyBusinessUnitApiValidatorTest extends Unit
 {
+    /**
+     * @var \Generated\Shared\Transfer\ApiRequestTransfer|\PHPUnit\Framework\MockObject\MockObject
+     */
+    protected $apiRequestTransferMock;
+
     /**
      * @var \PHPUnit\Framework\MockObject\MockObject|\Generated\Shared\Transfer\ApiDataTransfer
      */
@@ -16,7 +22,7 @@ class CompanyBusinessUnitApiValidatorTest extends Unit
     /**
      * @var \FondOfOryx\Zed\CompanyBusinessUnitApi\Business\Model\Validator\CompanyBusinessUnitApiValidator
      */
-    protected $validator;
+    protected $companyBusinessUnitApiValidator;
 
     /**
      * @return void
@@ -25,11 +31,15 @@ class CompanyBusinessUnitApiValidatorTest extends Unit
     {
         parent::_before();
 
+        $this->apiRequestTransferMock = $this->getMockBuilder(ApiRequestTransfer::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
         $this->apiDataTransferMock = $this->getMockBuilder(ApiDataTransfer::class)
             ->disableOriginalConstructor()
             ->getMock();
 
-        $this->validator = new CompanyBusinessUnitApiValidator();
+        $this->companyBusinessUnitApiValidator = new CompanyBusinessUnitApiValidator();
     }
 
     /**
@@ -39,14 +49,17 @@ class CompanyBusinessUnitApiValidatorTest extends Unit
     {
         $transferData = ['name' => 'Lorem Ipsum'];
 
+        $this->apiRequestTransferMock->expects(static::atLeastOnce())
+            ->method('getApiDataOrFail')
+            ->willReturn($this->apiDataTransferMock);
+
         $this->apiDataTransferMock->expects(static::atLeastOnce())
             ->method('getData')
             ->willReturn($transferData);
 
-        $errors = $this->validator->validate($this->apiDataTransferMock);
+        $errors = $this->companyBusinessUnitApiValidator->validate($this->apiRequestTransferMock);
 
-        static::assertIsArray($errors);
-        static::assertArrayNotHasKey('name', $errors);
+        static::assertCount(0, $errors);
     }
 
     /**
@@ -56,15 +69,17 @@ class CompanyBusinessUnitApiValidatorTest extends Unit
     {
         $transferData = ['name' => ' '];
 
+        $this->apiRequestTransferMock->expects(static::atLeastOnce())
+            ->method('getApiDataOrFail')
+            ->willReturn($this->apiDataTransferMock);
+
         $this->apiDataTransferMock->expects(static::atLeastOnce())
             ->method('getData')
             ->willReturn($transferData);
 
-        $errors = $this->validator->validate($this->apiDataTransferMock);
+        $errors = $this->companyBusinessUnitApiValidator->validate($this->apiRequestTransferMock);
 
-        static::assertIsArray($errors);
-        static::assertArrayHasKey('name', $errors);
-        static::assertCount(1, $errors['name']);
+        static::assertCount(0, $errors);
     }
 
     /**
@@ -74,14 +89,16 @@ class CompanyBusinessUnitApiValidatorTest extends Unit
     {
         $transferData = [];
 
+        $this->apiRequestTransferMock->expects(static::atLeastOnce())
+            ->method('getApiDataOrFail')
+            ->willReturn($this->apiDataTransferMock);
+
         $this->apiDataTransferMock->expects(static::atLeastOnce())
             ->method('getData')
             ->willReturn($transferData);
 
-        $errors = $this->validator->validate($this->apiDataTransferMock);
+        $errors = $this->companyBusinessUnitApiValidator->validate($this->apiRequestTransferMock);
 
-        static::assertIsArray($errors);
-        static::assertArrayHasKey('name', $errors);
-        static::assertCount(1, $errors['name']);
+        static::assertCount(1, $errors);
     }
 }

@@ -3,12 +3,12 @@
 namespace FondOfOryx\Zed\ThirtyFiveUpApi\Persistence;
 
 use Codeception\Test\Unit;
+use FondOfOryx\Zed\ThirtyFiveUpApi\Dependency\Facade\ThirtyFiveUpApiToApiFacadeBridge;
+use FondOfOryx\Zed\ThirtyFiveUpApi\Dependency\Facade\ThirtyFiveUpApiToApiFacadeInterface;
 use FondOfOryx\Zed\ThirtyFiveUpApi\Dependency\Facade\ThirtyFiveUpApiToThirtyFiveUpFacadeBridge;
 use FondOfOryx\Zed\ThirtyFiveUpApi\Dependency\Facade\ThirtyFiveUpApiToThirtyFiveUpFacadeInterface;
 use FondOfOryx\Zed\ThirtyFiveUpApi\Dependency\QueryContainer\ThirtyFiveUpApiToApiQueryBuilderContainerBridge;
 use FondOfOryx\Zed\ThirtyFiveUpApi\Dependency\QueryContainer\ThirtyFiveUpApiToApiQueryBuilderContainerInterface;
-use FondOfOryx\Zed\ThirtyFiveUpApi\Dependency\QueryContainer\ThirtyFiveUpApiToApiQueryContainerBridge;
-use FondOfOryx\Zed\ThirtyFiveUpApi\Dependency\QueryContainer\ThirtyFiveUpApiToApiQueryContainerInterface;
 use FondOfOryx\Zed\ThirtyFiveUpApi\Persistence\Propel\Mapper\TransferMapperInterface;
 use FondOfOryx\Zed\ThirtyFiveUpApi\ThirtyFiveUpApiDependencyProvider;
 use Orm\Zed\ThirtyFiveUp\Persistence\FooThirtyFiveUpOrderQuery;
@@ -27,7 +27,7 @@ class ThirtyFiveUpApiPersistenceFactoryTest extends Unit
     protected $containerMock;
 
     /**
-     * @var \FondOfOryx\Zed\ThirtyFiveUpApi\Dependency\QueryContainer\ThirtyFiveUpApiToApiQueryContainerInterface|\PHPUnit\Framework\MockObject\MockObject
+     * @var \FondOfOryx\Zed\ThirtyFiveUpApi\Dependency\Facade\ThirtyFiveUpApiToApiFacadeInterface|\PHPUnit\Framework\MockObject\MockObject
      */
     protected $thirtyFiveUpQueryContainerMock;
 
@@ -55,7 +55,7 @@ class ThirtyFiveUpApiPersistenceFactoryTest extends Unit
 
         $this->containerMock = $this->getMockBuilder(Container::class)->disableOriginalConstructor()->getMock();
         $this->thirtyFiveUpFacadeMock = $this->getMockBuilder(ThirtyFiveUpApiToThirtyFiveUpFacadeBridge::class)->disableOriginalConstructor()->getMock();
-        $this->thirtyFiveUpQueryContainerMock = $this->getMockBuilder(ThirtyFiveUpApiToApiQueryContainerBridge::class)->disableOriginalConstructor()->getMock();
+        $this->thirtyFiveUpQueryContainerMock = $this->getMockBuilder(ThirtyFiveUpApiToApiFacadeBridge::class)->disableOriginalConstructor()->getMock();
         $this->thirtyFiveUpQueryBuilderContainerMock = $this->getMockBuilder(ThirtyFiveUpApiToApiQueryBuilderContainerBridge::class)->disableOriginalConstructor()->getMock();
         $this->orderQueryMock = $this->getMockBuilder(FooThirtyFiveUpOrderQuery::class)->disableOriginalConstructor()->getMock();
 
@@ -102,9 +102,9 @@ class ThirtyFiveUpApiPersistenceFactoryTest extends Unit
     public function testGetQueryContainer(): void
     {
         $this->containerMock->method('has')->willReturn(true);
-        $this->containerMock->method('get')->with(ThirtyFiveUpApiDependencyProvider::QUERY_CONTAINER_API)->willReturn($this->thirtyFiveUpQueryContainerMock);
+        $this->containerMock->method('get')->with(ThirtyFiveUpApiDependencyProvider::FACADE_API)->willReturn($this->thirtyFiveUpQueryContainerMock);
 
-        $this->assertInstanceOf(ThirtyFiveUpApiToApiQueryContainerInterface::class, $this->factory->getQueryContainer());
+        $this->assertInstanceOf(ThirtyFiveUpApiToApiFacadeInterface::class, $this->factory->getQueryContainer());
     }
 
     /**
