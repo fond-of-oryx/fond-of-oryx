@@ -7,6 +7,9 @@ use Spryker\Zed\Mail\Business\Model\Mail\Builder\MailBuilderInterface;
 use Spryker\Zed\Mail\Dependency\Plugin\MailTypePluginInterface;
 use Spryker\Zed\Mail\MailConfig;
 
+/**
+ * @deprecated Use {@link \FondOfOryx\Zed\CustomerRegistrationEmailConnector\Communication\Plugins\Mail\CustomerRegistrationMailjetWelcomeMailTypeBuilderPlugin} instead
+ */
 class CustomerRegistrationEmailConnectorWelcomeMailTypePlugin extends AbstractPlugin implements MailTypePluginInterface
 {
     /**

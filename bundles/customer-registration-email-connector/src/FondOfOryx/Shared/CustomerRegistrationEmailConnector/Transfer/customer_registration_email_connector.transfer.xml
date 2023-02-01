@@ -4,9 +4,16 @@
     <transfer name="Mail">
         <property name="emailVerificationLink" type="string"/>
         <property name="customer" type="Customer"/>
+        <property name="mailjetTemplate" type="MailjetTemplate" />
     </transfer>
 
     <transfer name="CustomerRegistrationBag">
         <property name="isWelcomeMailSent" type="bool"/>
+    </transfer>
+
+    <transfer name="MailjetTemplate">
+        <property name="subject" type="string"/>
+        <property name="templateId" type="int"/>
+        <property name="variables" type="array"/>
     </transfer>
 </transfers>

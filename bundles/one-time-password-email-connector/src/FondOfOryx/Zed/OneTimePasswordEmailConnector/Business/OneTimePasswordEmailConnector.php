@@ -3,24 +3,39 @@
 namespace FondOfOryx\Zed\OneTimePasswordEmailConnector\Business;
 
 use FondOfOryx\Zed\OneTimePasswordEmailConnector\Business\Dependency\Facade\OneTimePasswordEmailConnectorToMailBridge;
-use FondOfOryx\Zed\OneTimePasswordEmailConnector\Communication\Plugin\Mail\OneTimePasswordEmailConnectorLoginLinkMailTypePlugin;
-use FondOfOryx\Zed\OneTimePasswordEmailConnector\Communication\Plugin\Mail\OneTimePasswordEmailConnectorMailTypePlugin;
 use Generated\Shared\Transfer\MailTransfer;
 use Generated\Shared\Transfer\OneTimePasswordResponseTransfer;
 
 class OneTimePasswordEmailConnector implements OneTimePasswordEmailConnectorInterface
 {
     /**
+     * @var string
+     */
+    public const MAIL_TYPE_LOGIN_LINK = 'MAIL_TYPE_LOGIN_LINK';
+
+    /**
+     * @var string
+     */
+    public const MAIL_TYPE = 'MAIL_TYPE';
+
+    /**
      * @var \FondOfOryx\Zed\OneTimePasswordEmailConnector\Business\Dependency\Facade\OneTimePasswordEmailConnectorToMailBridge
      */
     protected $mailFacade;
 
     /**
-     * @param \FondOfOryx\Zed\OneTimePasswordEmailConnector\Business\Dependency\Facade\OneTimePasswordEmailConnectorToMailBridge $mailFacade
+     * @var array<string>
      */
-    public function __construct(OneTimePasswordEmailConnectorToMailBridge $mailFacade)
+    protected array $mailTypes;
+
+    /**
+     * @param \FondOfOryx\Zed\OneTimePasswordEmailConnector\Business\Dependency\Facade\OneTimePasswordEmailConnectorToMailBridge $mailFacade
+     * @param array<string> $mailTypes
+     */
+    public function __construct(OneTimePasswordEmailConnectorToMailBridge $mailFacade, array $mailTypes)
     {
         $this->mailFacade = $mailFacade;
+        $this->mailTypes = $mailTypes;
     }
 
     /**
@@ -36,7 +51,7 @@ class OneTimePasswordEmailConnector implements OneTimePasswordEmailConnectorInte
             ->getCustomerTransfer();
 
         $mailTransfer = (new MailTransfer())
-            ->setType(OneTimePasswordEmailConnectorMailTypePlugin::MAIL_TYPE)
+            ->setType($this->mailTypes[static::MAIL_TYPE])
             ->setCustomer($customerTransfer)
             ->setOneTimePasswordPlain($oneTimePasswordResponseTransfer->getOneTimePasswordPlain())
             ->setLocale($customerTransfer->getLocale());
@@ -57,7 +72,7 @@ class OneTimePasswordEmailConnector implements OneTimePasswordEmailConnectorInte
             ->getCustomerTransfer();
 
         $mailTransfer = (new MailTransfer())
-            ->setType(OneTimePasswordEmailConnectorLoginLinkMailTypePlugin::MAIL_TYPE)
+            ->setType($this->mailTypes[self::MAIL_TYPE_LOGIN_LINK])
             ->setCustomer($customerTransfer)
             ->setOneTimePasswordLoginLink($oneTimePasswordResponseTransfer->getLoginLink())
             ->setLocale($customerTransfer->getLocale());
