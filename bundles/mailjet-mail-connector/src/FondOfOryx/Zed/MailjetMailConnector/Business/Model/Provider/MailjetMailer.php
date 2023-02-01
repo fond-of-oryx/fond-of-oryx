@@ -62,7 +62,7 @@ class MailjetMailer implements MailProviderPluginInterface
                     'TemplateID' => $mailTransfer->getMailjetTemplate()->getTemplateId(),
                     'Variables' => $mailTransfer->getMailjetTemplate()->getVariables(),
                     'TemplateLanguage' => $this->config->getTemplateLanguage(),
-                    'SandboxMode' => $this->isSandbox($customerTransfer->getEmail())
+                    'SandboxMode' => $this->isSandbox($customerTransfer->getEmail()),
                 ],
             ],
         ];
@@ -82,6 +82,7 @@ class MailjetMailer implements MailProviderPluginInterface
                 return false;
             }
         }
+
         return $this->config->getSandboxMode();
     }
 }
