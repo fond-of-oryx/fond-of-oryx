@@ -52,16 +52,6 @@ interface MailjetMailConnectorConstants
     /**
      * @var string
      */
-    public const MAILJET_CUSTOMER_REGISTRATION_WELCOME_TEMPLATE_ID_BY_LOCALE = 'MailjetMailConnector:MAILJET_CUSTOMER_REGISTRATION_WELCOME_TEMPLATE_ID_BY_LOCALE';
-
-    /**
-     * @var string
-     */
-    public const MAILJET_ONE_TIME_PASSWORD_EMAIL_LINK_TEMPLATE_ID_BY_LOCALE = 'MailjetMailConnector:MAILJET_ONE_TIME_PASSWORD_EMAIL_LINK_TEMPLATE_ID_BY_LOCALE';
-
-    /**
-     * @var string
-     */
     public const MAILJET_VERSION = 'MailjetMailConnector:MAILJET_VERSION';
 
     /**
@@ -83,4 +73,9 @@ interface MailjetMailConnectorConstants
      * @var string
      */
     public const MAILJET_TEMPLATE_LANGUAGE = 'MailjetMailConnector:MAILJET_TEMPLATE_LANGUAGE';
+
+    /**
+     * @var string
+     */
+    public const MAILJET_WHITELISTED_TLD = 'MailjetMailConnector:MAILJET_WHITELISTED_TLD';
 }

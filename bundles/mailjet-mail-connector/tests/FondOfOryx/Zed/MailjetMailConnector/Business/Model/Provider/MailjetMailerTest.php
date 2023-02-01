@@ -126,4 +126,63 @@ class MailjetMailerTest extends Unit
 
         $this->mailer->sendMail($this->mailTransferMock);
     }
+
+    /**
+     * @return void
+     */
+    public function testSendMailWithWhitelistedTLD(): void
+    {
+        $this->mailTransferMock->expects(static::atLeastOnce())
+            ->method('getCustomer')
+            ->willReturn($this->customerTransferMock);
+
+        $this->configMock->expects(static::atLeastOnce())
+            ->method('getFromEmail')
+            ->willReturn('john.doe@fondof.de');
+
+        $this->configMock->expects(static::atLeastOnce())
+            ->method('getFromName')
+            ->willReturn('John Doe');
+
+        $this->customerTransferMock->expects(static::atLeastOnce())
+            ->method('getEmail')
+            ->willReturn('test@fondof.de');
+
+        $this->customerTransferMock->expects(static::atLeastOnce())
+            ->method('getFirstName')
+            ->willReturn('Customer Firstname');
+
+        $this->customerTransferMock->expects(static::atLeastOnce())
+            ->method('getLastName')
+            ->willReturn('Customer Lastname');
+
+        $this->mailTransferMock->expects(static::atLeastOnce())
+            ->method('getMailjetTemplate')
+            ->willReturn($this->mailjetTemplateTransferMock);
+
+        $this->mailjetTemplateTransferMock->expects(static::atLeastOnce())
+            ->method('getTemplateId')
+            ->willReturn(123);
+
+        $this->mailjetTemplateTransferMock->expects(static::atLeastOnce())
+            ->method('getTemplateId')
+            ->willReturn(123);
+
+        $this->mailjetTemplateTransferMock->expects(static::atLeastOnce())
+            ->method('getVariables')
+            ->willReturn([]);
+
+        $this->configMock->expects(static::atLeastOnce())
+            ->method('getTemplateLanguage')
+            ->willReturn(true);
+
+        $this->configMock->expects(static::atLeastOnce())
+            ->method('getWhitelistedTLD')
+            ->willReturn(['fondof.de']);
+
+        $this->configMock->expects(self::never())
+            ->method('getSandboxMode');
+
+        $this->mailer->sendMail($this->mailTransferMock);
+    }
 }
