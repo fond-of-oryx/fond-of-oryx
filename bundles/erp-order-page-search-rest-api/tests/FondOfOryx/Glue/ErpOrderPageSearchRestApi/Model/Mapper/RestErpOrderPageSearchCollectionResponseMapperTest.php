@@ -4,12 +4,12 @@ namespace FondOfOryx\Glue\ErpOrderPageSearchRestApi\Model\Mapper;
 
 use Codeception\Test\Unit;
 
-class ErpOrderMapperTest extends Unit
+class RestErpOrderPageSearchCollectionResponseMapperTest extends Unit
 {
     /**
-     * @var \FondOfOryx\Glue\ErpOrderPageSearchRestApi\Model\Mapper\ErpOrderMapperInterface
+     * @var \FondOfOryx\Glue\ErpOrderPageSearchRestApi\Model\Mapper\RestErpOrderPageSearchCollectionResponseMapperInterface
      */
-    protected $erpOrderMapper;
+    protected $restErpOrderPageSearchCollectionResponseMapper;
 
     /**
      * @return void
@@ -18,7 +18,7 @@ class ErpOrderMapperTest extends Unit
     {
         parent::_before();
 
-        $this->erpOrderMapper = new ErpOrderMapper();
+        $this->restErpOrderPageSearchCollectionResponseMapper = new RestErpOrderPageSearchCollectionResponseMapper();
     }
 
     /**
@@ -48,7 +48,7 @@ class ErpOrderMapperTest extends Unit
                 ],
             ],
         ];
-        $transfer = $this->erpOrderMapper->mapErpOrderResource($data);
+        $transfer = $this->restErpOrderPageSearchCollectionResponseMapper->fromSearchResult($data);
 
         static::assertEquals('sku', $transfer->getErpOrders()[0]->getItems()[0]->getSku());
         static::assertCount(count($data['erp-orders'][0]['items']), $transfer->getErpOrders()[0]->getItems());

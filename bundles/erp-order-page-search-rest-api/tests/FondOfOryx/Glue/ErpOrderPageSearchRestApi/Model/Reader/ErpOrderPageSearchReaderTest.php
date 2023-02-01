@@ -4,14 +4,16 @@ namespace FondOfOryx\Glue\ErpOrderPageSearchRestApi\Model\Reader;
 
 use Codeception\Test\Unit;
 use FondOfOryx\Glue\ErpOrderPageSearchRestApi\Dependency\Client\ErpOrderPageSearchRestApiToErpOrderPageSearchClientBridge;
+use FondOfOryx\Glue\ErpOrderPageSearchRestApi\ErpOrderPageSearchRestApiConfig;
 use FondOfOryx\Glue\ErpOrderPageSearchRestApi\Model\Builder\RequestBuilder;
-use FondOfOryx\Glue\ErpOrderPageSearchRestApi\Model\Mapper\ErpOrderMapper;
+use FondOfOryx\Glue\ErpOrderPageSearchRestApi\Model\Mapper\RestErpOrderPageSearchCollectionResponseMapper;
+use FondOfOryx\Glue\ErpOrderPageSearchRestApi\Model\Translator\RestErpOrderPageSearchCollectionResponseTranslatorInterface;
 use Generated\Shared\Transfer\ErpOrderPageSearchRequestTransfer;
 use Generated\Shared\Transfer\RestErpOrderPageSearchCollectionResponseTransfer;
 use Spryker\Glue\GlueApplication\Rest\JsonApi\RestResource;
 use Spryker\Glue\GlueApplication\Rest\JsonApi\RestResourceBuilder;
 use Spryker\Glue\GlueApplication\Rest\JsonApi\RestResponse;
-use Spryker\Glue\GlueApplication\Rest\JsonApi\RestResponseInterface;
+use Spryker\Glue\GlueApplication\Rest\Request\Data\MetadataInterface;
 use Spryker\Glue\GlueApplication\Rest\Request\Data\RestRequest;
 
 class ErpOrderPageSearchReaderTest extends Unit
@@ -20,6 +22,11 @@ class ErpOrderPageSearchReaderTest extends Unit
      * @var \Spryker\Glue\GlueApplication\Rest\Request\Data\RestRequestInterface|\PHPUnit\Framework\MockObject\MockObject
      */
     protected $restRequestMock;
+
+    /**
+     * @var \PHPUnit\Framework\MockObject\MockObject|\Spryker\Glue\GlueApplication\Rest\Request\Data\MetadataInterface
+     */
+    protected $metadataMock;
 
     /**
      * @var \Generated\Shared\Transfer\ErpOrderPageSearchRequestTransfer|\PHPUnit\Framework\MockObject\MockObject
@@ -37,9 +44,14 @@ class ErpOrderPageSearchReaderTest extends Unit
     protected $requestBuilderMock;
 
     /**
-     * @var \FondOfOryx\Glue\ErpOrderPageSearchRestApi\Model\Mapper\ErpOrderMapperInterface|\PHPUnit\Framework\MockObject\MockObject
+     * @var \FondOfOryx\Glue\ErpOrderPageSearchRestApi\Model\Mapper\RestErpOrderPageSearchCollectionResponseMapperInterface|\PHPUnit\Framework\MockObject\MockObject
      */
     protected $erpOrderMapperMock;
+
+    /**
+     * @var \FondOfOryx\Glue\ErpOrderPageSearchRestApi\Model\Translator\RestErpOrderPageSearchCollectionResponseTranslatorInterface|\PHPUnit\Framework\MockObject\MockObject
+     */
+    protected $restErpOrderPageSearchCollectionResponseTranslatorMock;
 
     /**
      * @var \Spryker\Glue\GlueApplication\Rest\JsonApi\RestResourceBuilderInterface|\PHPUnit\Framework\MockObject\MockObject
@@ -59,7 +71,7 @@ class ErpOrderPageSearchReaderTest extends Unit
     /**
      * @var \Generated\Shared\Transfer\RestErpOrderPageSearchCollectionResponseTransfer|\PHPUnit\Framework\MockObject\MockObject
      */
-    protected $erpOrderTransferMock;
+    protected $restErpOrderPageSearchCollectionResponseTransferMock;
 
     /**
      * @var \FondOfOryx\Glue\ErpOrderPageSearchRestApi\Model\Reader\ErpOrderPageSearchReaderInterface
@@ -78,6 +90,10 @@ class ErpOrderPageSearchReaderTest extends Unit
             ->disableOriginalConstructor()
             ->getMock();
 
+        $this->metadataMock = $this->getMockBuilder(MetadataInterface::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
         $this->erpOrderPageSearchRequestTransferMock = $this
             ->getMockBuilder(ErpOrderPageSearchRequestTransfer::class)
             ->disableOriginalConstructor()
@@ -89,7 +105,12 @@ class ErpOrderPageSearchReaderTest extends Unit
             ->getMock();
 
         $this->erpOrderMapperMock = $this
-            ->getMockBuilder(ErpOrderMapper::class)
+            ->getMockBuilder(RestErpOrderPageSearchCollectionResponseMapper::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $this->restErpOrderPageSearchCollectionResponseTranslatorMock = $this
+            ->getMockBuilder(RestErpOrderPageSearchCollectionResponseTranslatorInterface::class)
             ->disableOriginalConstructor()
             ->getMock();
 
@@ -113,7 +134,7 @@ class ErpOrderPageSearchReaderTest extends Unit
             ->disableOriginalConstructor()
             ->getMock();
 
-        $this->erpOrderTransferMock = $this
+        $this->restErpOrderPageSearchCollectionResponseTransferMock = $this
             ->getMockBuilder(RestErpOrderPageSearchCollectionResponseTransfer::class)
             ->disableOriginalConstructor()
             ->getMock();
@@ -122,6 +143,7 @@ class ErpOrderPageSearchReaderTest extends Unit
             $this->erpOrderPageSearchClient,
             $this->requestBuilderMock,
             $this->erpOrderMapperMock,
+            $this->restErpOrderPageSearchCollectionResponseTranslatorMock,
             $this->restResourceBuilderMock,
         );
     }
@@ -131,17 +153,65 @@ class ErpOrderPageSearchReaderTest extends Unit
      */
     public function testFindErpOrdersByFilterTransfer(): void
     {
-        $this->requestBuilderMock->expects($this->once())->method('create')->willReturn($this->erpOrderPageSearchRequestTransferMock);
-        $this->erpOrderPageSearchRequestTransferMock->expects($this->once())->method('getSearchString')->willReturn('');
-        $this->erpOrderPageSearchRequestTransferMock->expects($this->once())->method('getRequestParams')->willReturn([]);
-        $this->erpOrderPageSearchClient->expects($this->once())->method('search')->willReturn([]);
-        $this->restResourceBuilderMock->expects($this->once())->method('createRestResponse')->willReturn($this->restResponseMock);
-        $this->restResourceBuilderMock->expects($this->once())->method('createRestResource')->willReturn($this->restResourceMock);
-        $this->erpOrderMapperMock->expects($this->once())->method('mapErpOrderResource')->willReturn($this->erpOrderTransferMock);
-        $this->restResponseMock->expects($this->once())->method('addResource')->willReturn($this->restResponseMock);
+        $searchString = 'foo';
+        $requestParams = [];
+        $searchResult = [];
+        $locale = 'de_DE';
 
-        $response = $this->reader->findErpOrdersByFilterTransfer($this->restRequestMock);
+        $this->requestBuilderMock->expects(static::atLeastOnce())
+            ->method('create')
+            ->willReturn($this->erpOrderPageSearchRequestTransferMock);
 
-        $this->assertInstanceOf(RestResponseInterface::class, $response);
+        $this->erpOrderPageSearchRequestTransferMock->expects(static::atLeastOnce())
+            ->method('getSearchString')
+            ->willReturn($searchString);
+
+        $this->erpOrderPageSearchRequestTransferMock->expects(static::atLeastOnce())
+            ->method('getRequestParams')
+            ->willReturn($requestParams);
+
+        $this->erpOrderPageSearchClient->expects(static::atLeastOnce())
+            ->method('search')
+            ->with($searchString, $requestParams)
+            ->willReturn($searchResult);
+
+        $this->restRequestMock->expects(static::atLeastOnce())
+            ->method('getMetadata')
+            ->willReturn($this->metadataMock);
+
+        $this->metadataMock->expects(static::atLeastOnce())
+            ->method('getLocale')
+            ->willReturn($locale);
+
+        $this->restResourceBuilderMock->expects(static::atLeastOnce())
+            ->method('createRestResponse')
+            ->willReturn($this->restResponseMock);
+
+        $this->erpOrderMapperMock->expects(static::atLeastOnce())
+            ->method('fromSearchResult')
+            ->with($searchResult)
+            ->willReturn($this->restErpOrderPageSearchCollectionResponseTransferMock);
+
+        $this->restErpOrderPageSearchCollectionResponseTranslatorMock->expects(static::atLeastOnce())
+            ->method('translate')
+            ->with($this->restErpOrderPageSearchCollectionResponseTransferMock, $locale)
+            ->willReturn($this->restErpOrderPageSearchCollectionResponseTransferMock);
+
+        $this->restResourceBuilderMock->expects(static::atLeastOnce())
+            ->method('createRestResource')
+            ->with(
+                ErpOrderPageSearchRestApiConfig::RESOURCE_ERP_ORDERS,
+                null,
+                $this->restErpOrderPageSearchCollectionResponseTransferMock,
+            )->willReturn($this->restResourceMock);
+
+        $this->restResponseMock->expects(static::atLeastOnce())
+            ->method('addResource')
+            ->willReturn($this->restResponseMock);
+
+        static::assertEquals(
+            $this->restResponseMock,
+            $this->reader->findErpOrdersByFilterTransfer($this->restRequestMock),
+        );
     }
 }
