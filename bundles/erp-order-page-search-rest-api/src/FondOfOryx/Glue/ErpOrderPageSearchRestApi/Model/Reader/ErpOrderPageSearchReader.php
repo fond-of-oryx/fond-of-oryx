@@ -47,10 +47,10 @@ class ErpOrderPageSearchReader implements ErpOrderPageSearchReaderInterface
      */
     public function __construct(
         ErpOrderPageSearchRestApiToErpOrderPageSearchClientInterface $erpOrderPageSearchClient,
-        RequestBuilderInterface                                      $requestBuilder,
-        RestErpOrderPageSearchCollectionResponseMapperInterface      $erpOrderMapper,
-        RestErpOrderPageSearchCollectionResponseTranslatorInterface  $restErpOrderPageSearchCollectionResponseTranslator,
-        RestResourceBuilderInterface                                 $restResourceBuilder
+        RequestBuilderInterface $requestBuilder,
+        RestErpOrderPageSearchCollectionResponseMapperInterface $erpOrderMapper,
+        RestErpOrderPageSearchCollectionResponseTranslatorInterface $restErpOrderPageSearchCollectionResponseTranslator,
+        RestResourceBuilderInterface $restResourceBuilder
     ) {
         $this->erpOrderPageSearchClient = $erpOrderPageSearchClient;
         $this->requestBuilder = $requestBuilder;
@@ -78,6 +78,7 @@ class ErpOrderPageSearchReader implements ErpOrderPageSearchReaderInterface
 
     /**
      * @param array $searchResult
+     * @param string $locale
      *
      * @return \Spryker\Glue\GlueApplication\Rest\JsonApi\RestResponseInterface
      */
