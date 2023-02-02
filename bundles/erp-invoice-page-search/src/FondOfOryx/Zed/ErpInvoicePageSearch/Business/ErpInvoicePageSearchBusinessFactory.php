@@ -2,8 +2,11 @@
 
 namespace FondOfOryx\Zed\ErpInvoicePageSearch\Business;
 
+use FondOfOryx\Zed\ErpInvoicePageSearch\Business\Mapper\AbstractFullTextMapper;
 use FondOfOryx\Zed\ErpInvoicePageSearch\Business\Mapper\ErpInvoicePageSearchDataMapper;
 use FondOfOryx\Zed\ErpInvoicePageSearch\Business\Mapper\ErpInvoicePageSearchDataMapperInterface;
+use FondOfOryx\Zed\ErpInvoicePageSearch\Business\Mapper\FullTextBoostedMapper;
+use FondOfOryx\Zed\ErpInvoicePageSearch\Business\Mapper\FullTextMapper;
 use FondOfOryx\Zed\ErpInvoicePageSearch\Business\Publisher\ErpInvoicePageSearchPublisher;
 use FondOfOryx\Zed\ErpInvoicePageSearch\Business\Publisher\ErpInvoicePageSearchPublisherInterface;
 use FondOfOryx\Zed\ErpInvoicePageSearch\Business\UnPublisher\ErpInvoicePageSearchUnpublisher;
@@ -48,7 +51,30 @@ class ErpInvoicePageSearchBusinessFactory extends AbstractBusinessFactory
      */
     protected function createErpInvoicePageSearchDataMapper(): ErpInvoicePageSearchDataMapperInterface
     {
-        return new ErpInvoicePageSearchDataMapper();
+        return new ErpInvoicePageSearchDataMapper(
+            $this->createFullTextMapper(),
+            $this->createFullTextBoostedMapper(),
+        );
+    }
+
+    /**
+     * @return \FondOfOryx\Zed\ErpInvoicePageSearch\Business\Mapper\AbstractFullTextMapper
+     */
+    protected function createFullTextMapper(): AbstractFullTextMapper
+    {
+        return new FullTextMapper(
+            $this->getConfig(),
+        );
+    }
+
+    /**
+     * @return \FondOfOryx\Zed\ErpInvoicePageSearch\Business\Mapper\AbstractFullTextMapper
+     */
+    protected function createFullTextBoostedMapper(): AbstractFullTextMapper
+    {
+        return new FullTextBoostedMapper(
+            $this->getConfig(),
+        );
     }
 
     /**

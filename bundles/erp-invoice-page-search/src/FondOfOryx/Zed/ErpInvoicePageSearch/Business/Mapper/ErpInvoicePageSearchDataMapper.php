@@ -190,14 +190,38 @@ class ErpInvoicePageSearchDataMapper implements ErpInvoicePageSearchDataMapperIn
     public const SEARCH_RESULT_CURRENCY_ISO_CODE = 'currency_iso_code';
 
     /**
+     * @var \FondOfOryx\Zed\ErpInvoicePageSearch\Business\Mapper\AbstractFullTextMapper
+     */
+    protected $fullTextMapper;
+
+    /**
+     * @var \FondOfOryx\Zed\ErpInvoicePageSearch\Business\Mapper\AbstractFullTextMapper
+     */
+    protected $fullTextBoostedMapper;
+
+    /**
+     * @param \FondOfOryx\Zed\ErpInvoicePageSearch\Business\Mapper\AbstractFullTextMapper $fullTextMapper
+     * @param \FondOfOryx\Zed\ErpInvoicePageSearch\Business\Mapper\AbstractFullTextMapper $fullTextBoostedMapper
+     */
+    public function __construct(
+        AbstractFullTextMapper $fullTextMapper,
+        AbstractFullTextMapper $fullTextBoostedMapper
+    ) {
+        $this->fullTextMapper = $fullTextMapper;
+        $this->fullTextBoostedMapper = $fullTextBoostedMapper;
+    }
+
+    /**
      * @param array $data
      *
      * @return array
      */
     public function mapErpInvoiceDataToSearchData(array $data): array
     {
-        $searchData = [
+        return [
             ErpInvoiceIndexMap::LOCALE => null,
+            ErpInvoiceIndexMap::FULL_TEXT => $this->fullTextMapper->fromData($data),
+            ErpInvoiceIndexMap::FULL_TEXT_BOOSTED => $this->fullTextBoostedMapper->fromData($data),
             ErpInvoiceIndexMap::INVOICE_DATE => $this->convertDate($data[static::INVOICE_DATE]),
             ErpInvoiceIndexMap::CREATED_AT => $this->convertDate($data[static::CREATED_AT]),
             ErpInvoiceIndexMap::UPDATED_AT => $this->convertDate($data[static::UPDATED_AT]),
@@ -207,8 +231,6 @@ class ErpInvoicePageSearchDataMapper implements ErpInvoicePageSearchDataMapperIn
             ErpInvoiceIndexMap::COMPANY_BUSINESS_UNIT_UUID => $data[static::COMPANY_BUSINESS_UNIT][static::COMPANY_BUSINESS_UNIT_UUID],
             ErpInvoiceIndexMap::SEARCH_RESULT_DATA => $this->mapErpInvoiceDataToSearchResultData($data),
         ];
-
-        return $searchData;
     }
 
     /**
