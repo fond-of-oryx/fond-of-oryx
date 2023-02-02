@@ -180,6 +180,28 @@ class ErpOrderPageSearchDataMapper implements ErpOrderPageSearchDataMapperInterf
     public const SEARCH_RESULT_CURRENCY_ISO_CODE = 'currency_iso_code';
 
     /**
+     * @var \FondOfOryx\Zed\ErpOrderPageSearch\Business\Mapper\AbstractFullTextMapper
+     */
+    protected AbstractFullTextMapper $fullTextMapper;
+
+    /**
+     * @var \FondOfOryx\Zed\ErpOrderPageSearch\Business\Mapper\AbstractFullTextMapper
+     */
+    protected AbstractFullTextMapper $fullTextBoostedMapper;
+
+    /**
+     * @param \FondOfOryx\Zed\ErpOrderPageSearch\Business\Mapper\AbstractFullTextMapper $fullTextMapper
+     * @param \FondOfOryx\Zed\ErpOrderPageSearch\Business\Mapper\AbstractFullTextMapper $fullTextBoostedMapper
+     */
+    public function __construct(
+        AbstractFullTextMapper $fullTextMapper,
+        AbstractFullTextMapper $fullTextBoostedMapper
+    ) {
+        $this->fullTextMapper = $fullTextMapper;
+        $this->fullTextBoostedMapper = $fullTextBoostedMapper;
+    }
+
+    /**
      * @param array $data
      *
      * @return array
@@ -188,6 +210,8 @@ class ErpOrderPageSearchDataMapper implements ErpOrderPageSearchDataMapperInterf
     {
         return [
             ErpOrderIndexMap::LOCALE => null,
+            ErpOrderIndexMap::FULL_TEXT => $this->fullTextMapper->fromData($data),
+            ErpOrderIndexMap::FULL_TEXT_BOOSTED => $this->fullTextBoostedMapper->fromData($data),
             ErpOrderIndexMap::CONCRETE_DELIVERY_DATE => $this->formatDate($data[static::CONCRETE_DELIVERY_DATE]),
             ErpOrderIndexMap::CREATED_AT => $this->formatDate($data[static::CREATED_AT]),
             ErpOrderIndexMap::UPDATED_AT => $this->formatDate($data[static::UPDATED_AT]),
