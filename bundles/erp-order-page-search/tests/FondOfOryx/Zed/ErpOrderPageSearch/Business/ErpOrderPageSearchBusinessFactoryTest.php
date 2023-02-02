@@ -3,9 +3,10 @@
 namespace FondOfOryx\Zed\ErpOrderPageSearch\Business;
 
 use Codeception\Test\Unit;
-use FondOfOryx\Zed\ErpOrderPageSearch\Business\Publisher\ErpOrderPageSearchPublisherInterface;
-use FondOfOryx\Zed\ErpOrderPageSearch\Business\UnPublisher\ErpOrderPageSearchUnpublisherInterface;
+use FondOfOryx\Zed\ErpOrderPageSearch\Business\Publisher\ErpOrderPageSearchPublisher;
+use FondOfOryx\Zed\ErpOrderPageSearch\Business\UnPublisher\ErpOrderPageSearchUnpublisher;
 use FondOfOryx\Zed\ErpOrderPageSearch\Dependency\Service\ErpOrderPageSearchToUtilEncodingServiceInterface;
+use FondOfOryx\Zed\ErpOrderPageSearch\ErpOrderPageSearchConfig;
 use FondOfOryx\Zed\ErpOrderPageSearch\ErpOrderPageSearchDependencyProvider;
 use FondOfOryx\Zed\ErpOrderPageSearch\Persistence\ErpOrderPageSearchEntityManager;
 use FondOfOryx\Zed\ErpOrderPageSearch\Persistence\ErpOrderPageSearchQueryContainer;
@@ -17,6 +18,11 @@ class ErpOrderPageSearchBusinessFactoryTest extends Unit
      * @var \PHPUnit\Framework\MockObject\MockObject|\Spryker\Zed\Kernel\Container
      */
     protected $containerMock;
+
+    /**
+     * @var \FondOfOryx\Zed\ErpOrderPageSearch\ErpOrderPageSearchConfig|\PHPUnit\Framework\MockObject\MockObject
+     */
+    protected $configMock;
 
     /**
      * @var \FondOfOryx\Zed\ErpOrderPageSearch\Business\ErpOrderPageSearchBusinessFactory
@@ -47,6 +53,10 @@ class ErpOrderPageSearchBusinessFactoryTest extends Unit
             ->disableOriginalConstructor()
             ->getMock();
 
+        $this->configMock = $this->getMockBuilder(ErpOrderPageSearchConfig::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
         $this->erpOrderPageSearchEntityManagerMock = $this->getMockBuilder(ErpOrderPageSearchEntityManager::class)
             ->disableOriginalConstructor()
             ->getMock();
@@ -63,6 +73,7 @@ class ErpOrderPageSearchBusinessFactoryTest extends Unit
         $this->erpOrderPageSearchBusinessFactory->setEntityManager($this->erpOrderPageSearchEntityManagerMock);
         $this->erpOrderPageSearchBusinessFactory->setQueryContainer($this->erpOrderPageSearchQueryContainerMock);
         $this->erpOrderPageSearchBusinessFactory->setContainer($this->containerMock);
+        $this->erpOrderPageSearchBusinessFactory->setConfig($this->configMock);
     }
 
     /**
@@ -80,8 +91,8 @@ class ErpOrderPageSearchBusinessFactoryTest extends Unit
             ->with(ErpOrderPageSearchDependencyProvider::SERVICE_UTIL_ENCODING)
             ->willReturn($this->erpOrderPageSearchToUtilEncodingServiceMock);
 
-        $this->assertInstanceOf(
-            ErpOrderPageSearchPublisherInterface::class,
+        static::assertInstanceOf(
+            ErpOrderPageSearchPublisher::class,
             $this->erpOrderPageSearchBusinessFactory->createErpOrderPageSearchPublisher(),
         );
     }
@@ -91,8 +102,8 @@ class ErpOrderPageSearchBusinessFactoryTest extends Unit
      */
     public function testCreateErpOrderPageSearchUnPublisher()
     {
-        $this->assertInstanceOf(
-            ErpOrderPageSearchUnpublisherInterface::class,
+        static::assertInstanceOf(
+            ErpOrderPageSearchUnpublisher::class,
             $this->erpOrderPageSearchBusinessFactory->createErpOrderPageSearchUnPublisher(),
         );
     }

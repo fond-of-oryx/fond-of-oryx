@@ -2,8 +2,11 @@
 
 namespace FondOfOryx\Zed\ErpOrderPageSearch\Business;
 
+use FondOfOryx\Zed\ErpOrderPageSearch\Business\Mapper\AbstractFullTextMapper;
 use FondOfOryx\Zed\ErpOrderPageSearch\Business\Mapper\ErpOrderPageSearchDataMapper;
 use FondOfOryx\Zed\ErpOrderPageSearch\Business\Mapper\ErpOrderPageSearchDataMapperInterface;
+use FondOfOryx\Zed\ErpOrderPageSearch\Business\Mapper\FullTextBoostedMapper;
+use FondOfOryx\Zed\ErpOrderPageSearch\Business\Mapper\FullTextMapper;
 use FondOfOryx\Zed\ErpOrderPageSearch\Business\Publisher\ErpOrderPageSearchPublisher;
 use FondOfOryx\Zed\ErpOrderPageSearch\Business\Publisher\ErpOrderPageSearchPublisherInterface;
 use FondOfOryx\Zed\ErpOrderPageSearch\Business\UnPublisher\ErpOrderPageSearchUnpublisher;
@@ -48,7 +51,30 @@ class ErpOrderPageSearchBusinessFactory extends AbstractBusinessFactory
      */
     protected function createErpOrderPageSearchDataMapper(): ErpOrderPageSearchDataMapperInterface
     {
-        return new ErpOrderPageSearchDataMapper();
+        return new ErpOrderPageSearchDataMapper(
+            $this->createFullTextMapper(),
+            $this->createFullTextBoostedMapper(),
+        );
+    }
+
+    /**
+     * @return \FondOfOryx\Zed\ErpOrderPageSearch\Business\Mapper\AbstractFullTextMapper
+     */
+    protected function createFullTextMapper(): AbstractFullTextMapper
+    {
+        return new FullTextMapper(
+            $this->getConfig(),
+        );
+    }
+
+    /**
+     * @return \FondOfOryx\Zed\ErpOrderPageSearch\Business\Mapper\AbstractFullTextMapper
+     */
+    protected function createFullTextBoostedMapper(): AbstractFullTextMapper
+    {
+        return new FullTextBoostedMapper(
+            $this->getConfig(),
+        );
     }
 
     /**
