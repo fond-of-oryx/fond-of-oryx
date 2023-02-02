@@ -43,4 +43,14 @@ interface ErpInvoicePageSearchConstants
      * @var string
      */
     public const PARAMETER_EXTERNAL_REFERENCE = 'external-reference';
+
+    /**
+     * @var string
+     */
+    public const FULL_TEXT_FIELDS = 'FOND_OF_ORYX:ERP_INVOICE_PAGE_SEARCH:FULL_TEXT_FIELDS';
+
+    /**
+     * @var string
+     */
+    public const FULL_TEXT_BOOSTED_FIELDS = 'FOND_OF_ORYX:ERP_INVOICE_PAGE_SEARCH:FULL_TEXT_BOOSTED_FIELDS';
 }
