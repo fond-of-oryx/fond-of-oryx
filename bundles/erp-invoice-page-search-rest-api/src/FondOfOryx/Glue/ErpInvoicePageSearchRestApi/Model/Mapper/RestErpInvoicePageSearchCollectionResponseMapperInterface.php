@@ -6,14 +6,14 @@ namespace FondOfOryx\Glue\ErpInvoicePageSearchRestApi\Model\Mapper;
 
 use Generated\Shared\Transfer\RestErpInvoicePageSearchCollectionResponseTransfer;
 
-interface ErpInvoiceMapperInterface
+interface RestErpInvoicePageSearchCollectionResponseMapperInterface
 {
     /**
-     * @param array $searchResults
+     * @param array $searchResult
      *
      * @return \Generated\Shared\Transfer\RestErpInvoicePageSearchCollectionResponseTransfer
      */
-    public function mapErpInvoiceResource(
-        array $searchResults
+    public function fromSearchResult(
+        array $searchResult
     ): RestErpInvoicePageSearchCollectionResponseTransfer;
 }

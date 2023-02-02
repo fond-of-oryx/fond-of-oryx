@@ -3,16 +3,17 @@
 namespace FondOfOryx\Glue\ErpInvoicePageSearchRestApi\Model\Reader;
 
 use Codeception\Test\Unit;
-use FondOfOryx\Glue\ErpInvoicePageSearchRestApi\Dependency\Client\ErpInvoicePageSearchRestApiToErpInvoicePageSearchClientBridge;
-use FondOfOryx\Glue\ErpInvoicePageSearchRestApi\Model\Builder\RequestBuilder;
-use FondOfOryx\Glue\ErpInvoicePageSearchRestApi\Model\Mapper\ErpInvoiceMapper;
+use FondOfOryx\Glue\ErpInvoicePageSearchRestApi\Dependency\Client\ErpInvoicePageSearchRestApiToErpInvoicePageSearchClientInterface;
+use FondOfOryx\Glue\ErpInvoicePageSearchRestApi\Model\Builder\RequestBuilderInterface;
+use FondOfOryx\Glue\ErpInvoicePageSearchRestApi\Model\Mapper\RestErpInvoicePageSearchCollectionResponseMapperInterface;
+use FondOfOryx\Glue\ErpInvoicePageSearchRestApi\Model\Translator\RestErpInvoicePageSearchCollectionResponseTranslatorInterface;
 use Generated\Shared\Transfer\ErpInvoicePageSearchRequestTransfer;
 use Generated\Shared\Transfer\RestErpInvoicePageSearchCollectionResponseTransfer;
-use Spryker\Glue\GlueApplication\Rest\JsonApi\RestResource;
-use Spryker\Glue\GlueApplication\Rest\JsonApi\RestResourceBuilder;
-use Spryker\Glue\GlueApplication\Rest\JsonApi\RestResponse;
+use Spryker\Glue\GlueApplication\Rest\JsonApi\RestResourceBuilderInterface;
+use Spryker\Glue\GlueApplication\Rest\JsonApi\RestResourceInterface;
 use Spryker\Glue\GlueApplication\Rest\JsonApi\RestResponseInterface;
-use Spryker\Glue\GlueApplication\Rest\Request\Data\RestRequest;
+use Spryker\Glue\GlueApplication\Rest\Request\Data\MetadataInterface;
+use Spryker\Glue\GlueApplication\Rest\Request\Data\RestRequestInterface;
 
 class ErpInvoicePageSearchReaderTest extends Unit
 {
@@ -20,6 +21,11 @@ class ErpInvoicePageSearchReaderTest extends Unit
      * @var \Spryker\Glue\GlueApplication\Rest\Request\Data\RestRequestInterface|\PHPUnit\Framework\MockObject\MockObject
      */
     protected $restRequestMock;
+
+    /**
+     * @var \PHPUnit\Framework\MockObject\MockObject|\Spryker\Glue\GlueApplication\Rest\Request\Data\MetadataInterface
+     */
+    protected $metadataMock;
 
     /**
      * @var \Generated\Shared\Transfer\ErpInvoicePageSearchRequestTransfer|\PHPUnit\Framework\MockObject\MockObject
@@ -37,9 +43,14 @@ class ErpInvoicePageSearchReaderTest extends Unit
     protected $requestBuilderMock;
 
     /**
-     * @var \FondOfOryx\Glue\ErpInvoicePageSearchRestApi\Model\Mapper\ErpInvoiceMapperInterface|\PHPUnit\Framework\MockObject\MockObject
+     * @var \FondOfOryx\Glue\ErpInvoicePageSearchRestApi\Model\Mapper\RestErpInvoicePageSearchCollectionResponseMapperInterface|\PHPUnit\Framework\MockObject\MockObject
      */
-    protected $erpInvoiceMapperMock;
+    protected $restErpInvoicePageSearchCollectionResponseMapperMock;
+
+    /**
+     * @var \FondOfOryx\Glue\ErpInvoicePageSearchRestApi\Model\Translator\RestErpInvoicePageSearchCollectionResponseTranslatorInterface|\PHPUnit\Framework\MockObject\MockObject
+     */
+    protected $restErpInvoicePageSearchCollectionResponseTranslatorMock;
 
     /**
      * @var \Spryker\Glue\GlueApplication\Rest\JsonApi\RestResourceBuilderInterface|\PHPUnit\Framework\MockObject\MockObject
@@ -59,7 +70,7 @@ class ErpInvoicePageSearchReaderTest extends Unit
     /**
      * @var \Generated\Shared\Transfer\RestErpInvoicePageSearchCollectionResponseTransfer|\PHPUnit\Framework\MockObject\MockObject
      */
-    protected $erpInvoiceTransferMock;
+    protected $restErpInvoicePageSearchCollectionResponseTransferMock;
 
     /**
      * @var \FondOfOryx\Glue\ErpInvoicePageSearchRestApi\Model\Reader\ErpInvoicePageSearchReaderInterface
@@ -74,7 +85,12 @@ class ErpInvoicePageSearchReaderTest extends Unit
         parent::_before();
 
         $this->restRequestMock = $this
-            ->getMockBuilder(RestRequest::class)
+            ->getMockBuilder(RestRequestInterface::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $this->metadataMock = $this
+            ->getMockBuilder(MetadataInterface::class)
             ->disableOriginalConstructor()
             ->getMock();
 
@@ -84,36 +100,41 @@ class ErpInvoicePageSearchReaderTest extends Unit
             ->getMock();
 
         $this->erpInvoicePageSearchClient = $this
-            ->getMockBuilder(ErpInvoicePageSearchRestApiToErpInvoicePageSearchClientBridge::class)
+            ->getMockBuilder(ErpInvoicePageSearchRestApiToErpInvoicePageSearchClientInterface::class)
             ->disableOriginalConstructor()
             ->getMock();
 
-        $this->erpInvoiceMapperMock = $this
-            ->getMockBuilder(ErpInvoiceMapper::class)
+        $this->restErpInvoicePageSearchCollectionResponseMapperMock = $this
+            ->getMockBuilder(RestErpInvoicePageSearchCollectionResponseMapperInterface::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $this->restErpInvoicePageSearchCollectionResponseTranslatorMock = $this
+            ->getMockBuilder(RestErpInvoicePageSearchCollectionResponseTranslatorInterface::class)
             ->disableOriginalConstructor()
             ->getMock();
 
         $this->requestBuilderMock = $this
-            ->getMockBuilder(RequestBuilder::class)
+            ->getMockBuilder(RequestBuilderInterface::class)
             ->disableOriginalConstructor()
             ->getMock();
 
         $this->restResourceBuilderMock = $this
-            ->getMockBuilder(RestResourceBuilder::class)
+            ->getMockBuilder(RestResourceBuilderInterface::class)
             ->disableOriginalConstructor()
             ->getMock();
 
         $this->restResourceMock = $this
-            ->getMockBuilder(RestResource::class)
+            ->getMockBuilder(RestResourceInterface::class)
             ->disableOriginalConstructor()
             ->getMock();
 
         $this->restResponseMock = $this
-            ->getMockBuilder(RestResponse::class)
+            ->getMockBuilder(RestResponseInterface::class)
             ->disableOriginalConstructor()
             ->getMock();
 
-        $this->erpInvoiceTransferMock = $this
+        $this->restErpInvoicePageSearchCollectionResponseTransferMock = $this
             ->getMockBuilder(RestErpInvoicePageSearchCollectionResponseTransfer::class)
             ->disableOriginalConstructor()
             ->getMock();
@@ -121,7 +142,8 @@ class ErpInvoicePageSearchReaderTest extends Unit
         $this->reader = new ErpInvoicePageSearchReader(
             $this->erpInvoicePageSearchClient,
             $this->requestBuilderMock,
-            $this->erpInvoiceMapperMock,
+            $this->restErpInvoicePageSearchCollectionResponseMapperMock,
+            $this->restErpInvoicePageSearchCollectionResponseTranslatorMock,
             $this->restResourceBuilderMock,
         );
     }
@@ -131,17 +153,61 @@ class ErpInvoicePageSearchReaderTest extends Unit
      */
     public function testFindErpInvoicesByFilterTransfer(): void
     {
-        $this->requestBuilderMock->expects($this->once())->method('create')->willReturn($this->erpInvoicePageSearchRequestTransferMock);
-        $this->erpInvoicePageSearchRequestTransferMock->expects($this->once())->method('getSearchString')->willReturn('');
-        $this->erpInvoicePageSearchRequestTransferMock->expects($this->once())->method('getRequestParams')->willReturn([]);
-        $this->erpInvoicePageSearchClient->expects($this->once())->method('search')->willReturn([]);
-        $this->restResourceBuilderMock->expects($this->once())->method('createRestResponse')->willReturn($this->restResponseMock);
-        $this->restResourceBuilderMock->expects($this->once())->method('createRestResource')->willReturn($this->restResourceMock);
-        $this->erpInvoiceMapperMock->expects($this->once())->method('mapErpInvoiceResource')->willReturn($this->erpInvoiceTransferMock);
-        $this->restResponseMock->expects($this->once())->method('addResource')->willReturn($this->restResponseMock);
+        $searchString = 'foo';
+        $requestParams = [];
+        $searchResult = [];
+        $locale = 'de_DE';
 
-        $response = $this->reader->findErpInvoicesByFilterTransfer($this->restRequestMock);
+        $this->requestBuilderMock->expects(static::atLeastOnce())
+            ->method('create')
+            ->willReturn($this->erpInvoicePageSearchRequestTransferMock);
 
-        $this->assertInstanceOf(RestResponseInterface::class, $response);
+        $this->erpInvoicePageSearchRequestTransferMock->expects(static::atLeastOnce())
+            ->method('getSearchString')
+            ->willReturn($searchString);
+
+        $this->erpInvoicePageSearchRequestTransferMock->expects(static::atLeastOnce())
+            ->method('getRequestParams')
+            ->willReturn($requestParams);
+
+        $this->erpInvoicePageSearchClient->expects(static::atLeastOnce())
+            ->method('search')
+            ->with($searchString, $requestParams)
+            ->willReturn($searchResult);
+
+        $this->restRequestMock->expects(static::atLeastOnce())
+            ->method('getMetadata')
+            ->willReturn($this->metadataMock);
+
+        $this->metadataMock->expects(static::atLeastOnce())
+            ->method('getLocale')
+            ->willReturn($locale);
+
+        $this->restResourceBuilderMock->expects(static::atLeastOnce())
+            ->method('createRestResponse')
+            ->willReturn($this->restResponseMock);
+
+        $this->restResourceBuilderMock->expects(static::atLeastOnce())
+            ->method('createRestResource')
+            ->willReturn($this->restResourceMock);
+
+        $this->restErpInvoicePageSearchCollectionResponseMapperMock->expects(static::atLeastOnce())
+            ->method('fromSearchResult')
+            ->with($searchResult)
+            ->willReturn($this->restErpInvoicePageSearchCollectionResponseTransferMock);
+
+        $this->restErpInvoicePageSearchCollectionResponseTranslatorMock->expects(static::atLeastOnce())
+            ->method('translate')
+            ->with($this->restErpInvoicePageSearchCollectionResponseTransferMock, $locale)
+            ->willReturn($this->restErpInvoicePageSearchCollectionResponseTransferMock);
+
+        $this->restResponseMock->expects(static::atLeastOnce())
+            ->method('addResource')
+            ->willReturn($this->restResponseMock);
+
+        static::assertEquals(
+            $this->restResponseMock,
+            $this->reader->findErpInvoicesByFilterTransfer($this->restRequestMock),
+        );
     }
 }

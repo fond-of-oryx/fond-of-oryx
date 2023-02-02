@@ -3,6 +3,7 @@
 namespace FondOfOryx\Glue\ErpInvoicePageSearchRestApi;
 
 use FondOfOryx\Glue\ErpInvoicePageSearchRestApi\Dependency\Client\ErpInvoicePageSearchRestApiToErpInvoicePageSearchClientBridge;
+use FondOfOryx\Glue\ErpInvoicePageSearchRestApi\Dependency\Client\ErpInvoicePageSearchRestApiToGlossaryStorageClientBridge;
 use Spryker\Glue\Kernel\AbstractBundleDependencyProvider;
 use Spryker\Glue\Kernel\Container;
 
@@ -14,6 +15,11 @@ class ErpInvoicePageSearchRestApiDependencyProvider extends AbstractBundleDepend
     public const CLIENT_ERP_INVOICE_PAGE_SEARCH = 'CLIENT_ERP_INVOICE_PAGE_SEARCH';
 
     /**
+     * @var string
+     */
+    public const CLIENT_GLOSSARY_STORAGE = 'CLIENT_GLOSSARY_STORAGE';
+
+    /**
      * @param \Spryker\Glue\Kernel\Container $container
      *
      * @return \Spryker\Glue\Kernel\Container
@@ -21,9 +27,10 @@ class ErpInvoicePageSearchRestApiDependencyProvider extends AbstractBundleDepend
     public function provideDependencies(Container $container): Container
     {
         $container = parent::provideDependencies($container);
+
         $container = $this->addErpInvoicePageSearchClient($container);
 
-        return $container;
+        return $this->addGlossaryStorageClient($container);
     }
 
     /**
@@ -34,7 +41,25 @@ class ErpInvoicePageSearchRestApiDependencyProvider extends AbstractBundleDepend
     protected function addErpInvoicePageSearchClient(Container $container): Container
     {
         $container[static::CLIENT_ERP_INVOICE_PAGE_SEARCH] = static function (Container $container) {
-            return new ErpInvoicePageSearchRestApiToErpInvoicePageSearchClientBridge($container->getLocator()->erpInvoicePageSearch()->client());
+            return new ErpInvoicePageSearchRestApiToErpInvoicePageSearchClientBridge(
+                $container->getLocator()->erpInvoicePageSearch()->client(),
+            );
+        };
+
+        return $container;
+    }
+
+    /**
+     * @param \Spryker\Glue\Kernel\Container $container
+     *
+     * @return \Spryker\Glue\Kernel\Container
+     */
+    protected function addGlossaryStorageClient(Container $container): Container
+    {
+        $container[static::CLIENT_GLOSSARY_STORAGE] = static function (Container $container) {
+            return new ErpInvoicePageSearchRestApiToGlossaryStorageClientBridge(
+                $container->getLocator()->glossaryStorage()->client(),
+            );
         };
 
         return $container;
