@@ -190,14 +190,38 @@ class ErpDeliveryNotePageSearchDataMapper implements ErpDeliveryNotePageSearchDa
     public const SEARCH_RESULT_CURRENCY_ISO_CODE = 'currency_iso_code';
 
     /**
+     * @var \FondOfOryx\Zed\ErpDeliveryNotePageSearch\Business\Mapper\AbstractFullTextMapper
+     */
+    protected $fullTextMapper;
+
+    /**
+     * @var \FondOfOryx\Zed\ErpDeliveryNotePageSearch\Business\Mapper\AbstractFullTextMapper
+     */
+    protected $fullTextBoostedMapper;
+
+    /**
+     * @param \FondOfOryx\Zed\ErpDeliveryNotePageSearch\Business\Mapper\AbstractFullTextMapper $fullTextMapper
+     * @param \FondOfOryx\Zed\ErpDeliveryNotePageSearch\Business\Mapper\AbstractFullTextMapper $fullTextBoostedMapper
+     */
+    public function __construct(
+        AbstractFullTextMapper $fullTextMapper,
+        AbstractFullTextMapper $fullTextBoostedMapper
+    ) {
+        $this->fullTextMapper = $fullTextMapper;
+        $this->fullTextBoostedMapper = $fullTextBoostedMapper;
+    }
+
+    /**
      * @param array $data
      *
      * @return array
      */
     public function mapErpDeliveryNoteDataToSearchData(array $data): array
     {
-        $searchData = [
+        return [
             ErpDeliveryNoteIndexMap::LOCALE => null,
+            ErpDeliveryNoteIndexMap::FULL_TEXT => $this->fullTextMapper->fromData($data),
+            ErpDeliveryNoteIndexMap::FULL_TEXT_BOOSTED => $this->fullTextBoostedMapper->fromData($data),
             ErpDeliveryNoteIndexMap::ORDER_DATE => $this->convertDate($data[static::ORDER_DATE]),
             ErpDeliveryNoteIndexMap::CREATED_AT => $this->convertDate($data[static::CREATED_AT]),
             ErpDeliveryNoteIndexMap::UPDATED_AT => $this->convertDate($data[static::UPDATED_AT]),
@@ -208,8 +232,6 @@ class ErpDeliveryNotePageSearchDataMapper implements ErpDeliveryNotePageSearchDa
             ErpDeliveryNoteIndexMap::COMPANY_BUSINESS_UNIT_UUID => $data[static::COMPANY_BUSINESS_UNIT][static::COMPANY_BUSINESS_UNIT_UUID],
             ErpDeliveryNoteIndexMap::SEARCH_RESULT_DATA => $this->mapErpDeliveryNoteDataToSearchResultData($data),
         ];
-
-        return $searchData;
     }
 
     /**

@@ -3,9 +3,20 @@
 namespace FondOfOryx\Zed\ErpDeliveryNotePageSearch\Business\Mapper;
 
 use Codeception\Test\Unit;
+use Generated\Shared\Search\ErpDeliveryNoteIndexMap;
 
 class ErpDeliveryNotePageSearchDataMapperTest extends Unit
 {
+    /**
+     * @var \FondOfOryx\Zed\ErpDeliveryNotePageSearch\Business\Mapper\AbstractFullTextMapper|\PHPUnit\Framework\MockObject\MockObject
+     */
+    protected $fullTextMapperMock;
+
+    /**
+     * @var \FondOfOryx\Zed\ErpDeliveryNotePageSearch\Business\Mapper\AbstractFullTextMapper|\PHPUnit\Framework\MockObject\MockObject
+     */
+    protected $fullTextBoostedMapperMock;
+
     /**
      * @var \FondOfOryx\Zed\ErpDeliveryNotePageSearch\Business\Mapper\ErpDeliveryNotePageSearchDataMapperInterface
      */
@@ -16,7 +27,18 @@ class ErpDeliveryNotePageSearchDataMapperTest extends Unit
      */
     protected function _before(): void
     {
-        $this->erpDeliveryNotePageSearchDataMapper = new ErpDeliveryNotePageSearchDataMapper();
+        $this->fullTextMapperMock = $this->getMockBuilder(AbstractFullTextMapper::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $this->fullTextBoostedMapperMock = $this->getMockBuilder(AbstractFullTextMapper::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $this->erpDeliveryNotePageSearchDataMapper = new ErpDeliveryNotePageSearchDataMapper(
+            $this->fullTextMapperMock,
+            $this->fullTextBoostedMapperMock,
+        );
     }
 
     /**
@@ -30,15 +52,15 @@ class ErpDeliveryNotePageSearchDataMapperTest extends Unit
             ErpDeliveryNotePageSearchDataMapper::UPDATED_AT => 'now',
             ErpDeliveryNotePageSearchDataMapper::DOCUMENT_NUMBER => '',
             ErpDeliveryNotePageSearchDataMapper::DELIVERY_NOTE_NUMBER => '',
-            ErpDeliveryNotePageSearchDataMapper::EXTERNAL_REFERENCE => '',
-            ErpDeliveryNotePageSearchDataMapper::CUSTOM_REFERENCE => '',
-            ErpDeliveryNotePageSearchDataMapper::FK_COMPANY_BUSINESS_UNIT => '',
+            ErpDeliveryNotePageSearchDataMapper::EXTERNAL_REFERENCE => 'foo',
+            ErpDeliveryNotePageSearchDataMapper::CUSTOM_REFERENCE => 'bar',
+            ErpDeliveryNotePageSearchDataMapper::FK_COMPANY_BUSINESS_UNIT => 1,
             ErpDeliveryNotePageSearchDataMapper::COMPANY_BUSINESS_UNIT => [
                 ErpDeliveryNotePageSearchDataMapper::COMPANY_BUSINESS_UNIT_UUID => '',
             ],
-            ErpDeliveryNotePageSearchDataMapper::ID_ERP_DELIVERY_NOTE => '',
-            ErpDeliveryNotePageSearchDataMapper::FK_BILLING_ADDRESS => '',
-            ErpDeliveryNotePageSearchDataMapper::FK_SHIPPING_ADDRESS => '',
+            ErpDeliveryNotePageSearchDataMapper::ID_ERP_DELIVERY_NOTE => 1,
+            ErpDeliveryNotePageSearchDataMapper::FK_BILLING_ADDRESS => 1,
+            ErpDeliveryNotePageSearchDataMapper::FK_SHIPPING_ADDRESS => 1,
             ErpDeliveryNotePageSearchDataMapper::ERP_DELIVERY_NOTE_ITEMS => [],
             ErpDeliveryNotePageSearchDataMapper::ERP_DELIVERY_NOTE_EXPENSES => [],
             ErpDeliveryNotePageSearchDataMapper::SHIPPING_ADDRESS => null,
@@ -46,9 +68,29 @@ class ErpDeliveryNotePageSearchDataMapperTest extends Unit
             ErpDeliveryNotePageSearchDataMapper::CURRENCY_ISO_CODE => '',
         ];
 
+        $fullText = [
+            $data[ErpDeliveryNotePageSearchDataMapper::EXTERNAL_REFERENCE],
+            $data[ErpDeliveryNotePageSearchDataMapper::CUSTOM_REFERENCE],
+        ];
+
+        $fullTextBoosted = [
+            $data[ErpDeliveryNotePageSearchDataMapper::EXTERNAL_REFERENCE],
+        ];
+
+        $this->fullTextMapperMock->expects(static::atLeastOnce())
+            ->method('fromData')
+            ->with($data)
+            ->willReturn($fullText);
+
+        $this->fullTextBoostedMapperMock->expects(static::atLeastOnce())
+            ->method('fromData')
+            ->with($data)
+            ->willReturn($fullTextBoosted);
+
         $searchData = $this->erpDeliveryNotePageSearchDataMapper->mapErpDeliveryNoteDataToSearchData($data);
 
-        $this->assertIsArray($searchData);
         $this->assertNotEmpty($searchData);
+        static::assertEquals($fullText, $searchData[ErpDeliveryNoteIndexMap::FULL_TEXT]);
+        static::assertEquals($fullTextBoosted, $searchData[ErpDeliveryNoteIndexMap::FULL_TEXT_BOOSTED]);
     }
 }

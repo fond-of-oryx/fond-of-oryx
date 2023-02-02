@@ -2,8 +2,11 @@
 
 namespace FondOfOryx\Zed\ErpDeliveryNotePageSearch\Business;
 
+use FondOfOryx\Zed\ErpDeliveryNotePageSearch\Business\Mapper\AbstractFullTextMapper;
 use FondOfOryx\Zed\ErpDeliveryNotePageSearch\Business\Mapper\ErpDeliveryNotePageSearchDataMapper;
 use FondOfOryx\Zed\ErpDeliveryNotePageSearch\Business\Mapper\ErpDeliveryNotePageSearchDataMapperInterface;
+use FondOfOryx\Zed\ErpDeliveryNotePageSearch\Business\Mapper\FullTextBoostedMapper;
+use FondOfOryx\Zed\ErpDeliveryNotePageSearch\Business\Mapper\FullTextMapper;
 use FondOfOryx\Zed\ErpDeliveryNotePageSearch\Business\Publisher\ErpDeliveryNotePageSearchPublisher;
 use FondOfOryx\Zed\ErpDeliveryNotePageSearch\Business\Publisher\ErpDeliveryNotePageSearchPublisherInterface;
 use FondOfOryx\Zed\ErpDeliveryNotePageSearch\Business\UnPublisher\ErpDeliveryNotePageSearchUnpublisher;
@@ -48,7 +51,26 @@ class ErpDeliveryNotePageSearchBusinessFactory extends AbstractBusinessFactory
      */
     protected function createErpDeliveryNotePageSearchDataMapper(): ErpDeliveryNotePageSearchDataMapperInterface
     {
-        return new ErpDeliveryNotePageSearchDataMapper();
+        return new ErpDeliveryNotePageSearchDataMapper(
+            $this->createFullTextMapper(),
+            $this->createFullTextBoostedMapper(),
+        );
+    }
+
+    /**
+     * @return \FondOfOryx\Zed\ErpDeliveryNotePageSearch\Business\Mapper\AbstractFullTextMapper
+     */
+    protected function createFullTextMapper(): AbstractFullTextMapper
+    {
+        return new FullTextMapper($this->getConfig());
+    }
+
+    /**
+     * @return \FondOfOryx\Zed\ErpDeliveryNotePageSearch\Business\Mapper\AbstractFullTextMapper
+     */
+    protected function createFullTextBoostedMapper(): AbstractFullTextMapper
+    {
+        return new FullTextBoostedMapper($this->getConfig());
     }
 
     /**
