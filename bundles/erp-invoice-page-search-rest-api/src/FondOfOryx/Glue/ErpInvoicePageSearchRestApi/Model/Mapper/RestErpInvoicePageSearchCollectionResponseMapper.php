@@ -11,7 +11,7 @@ use Generated\Shared\Transfer\RestErpInvoiceItemTransfer;
 use Generated\Shared\Transfer\RestErpInvoicePageSearchCollectionResponseTransfer;
 use Generated\Shared\Transfer\RestErpInvoiceTransfer;
 
-class ErpInvoiceMapper implements ErpInvoiceMapperInterface
+class RestErpInvoicePageSearchCollectionResponseMapper implements RestErpInvoicePageSearchCollectionResponseMapperInterface
 {
     /**
      * @var string
@@ -39,23 +39,23 @@ class ErpInvoiceMapper implements ErpInvoiceMapperInterface
     protected const ERP_INVOICE_DATA_KEY_ERP_INVOICE_TOTAL = 'erp_invoice_total';
 
     /**
-     * @param array $searchResults
+     * @param array $searchResult
      *
      * @return \Generated\Shared\Transfer\RestErpInvoicePageSearchCollectionResponseTransfer
      */
-    public function mapErpInvoiceResource(
-        array $searchResults
+    public function fromSearchResult(
+        array $searchResult
     ): RestErpInvoicePageSearchCollectionResponseTransfer {
-        $responseTransfer = (new RestErpInvoicePageSearchCollectionResponseTransfer())->fromArray($searchResults, true);
+        $responseTransfer = (new RestErpInvoicePageSearchCollectionResponseTransfer())->fromArray($searchResult, true);
 
         if (
-            !array_key_exists(static::SEARCH_RESULT_KEY_ERP_INVOICES, $searchResults)
-            || !is_array($searchResults[static::SEARCH_RESULT_KEY_ERP_INVOICES])
+            !array_key_exists(static::SEARCH_RESULT_KEY_ERP_INVOICES, $searchResult)
+            || !is_array($searchResult[static::SEARCH_RESULT_KEY_ERP_INVOICES])
         ) {
             return $responseTransfer;
         }
 
-        foreach ($searchResults[static::SEARCH_RESULT_KEY_ERP_INVOICES] as $erpInvoiceData) {
+        foreach ($searchResult[static::SEARCH_RESULT_KEY_ERP_INVOICES] as $erpInvoiceData) {
             $restErpInvoice = new RestErpInvoiceTransfer();
             $restErpInvoice->fromArray($erpInvoiceData, true);
             $restErpInvoice->setCompanyBusinessUnit(

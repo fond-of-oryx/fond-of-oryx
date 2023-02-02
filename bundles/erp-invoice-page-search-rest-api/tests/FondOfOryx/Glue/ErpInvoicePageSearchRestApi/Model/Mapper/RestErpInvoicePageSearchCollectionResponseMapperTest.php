@@ -3,23 +3,22 @@
 namespace FondOfOryx\Glue\ErpInvoicePageSearchRestApi\Model\Mapper;
 
 use Codeception\Test\Unit;
-use Generated\Shared\Transfer\RestErpInvoicePageSearchCollectionResponseTransfer;
 
-class ErpInvoiceMapperTest extends Unit
+class RestErpInvoicePageSearchCollectionResponseMapperTest extends Unit
 {
     /**
-     * @var \FondOfOryx\Glue\ErpInvoicePageSearchRestApi\Model\Mapper\ErpInvoiceMapperInterface
+     * @var \FondOfOryx\Glue\ErpInvoicePageSearchRestApi\Model\Mapper\RestErpInvoicePageSearchCollectionResponseMapperInterface
      */
-    protected $erpInvoiceMapper;
+    protected $restErpInvoicePageSearchCollectionResponseMapper;
 
     /**
      * @return void
      */
-    protected function _before()
+    protected function _before(): void
     {
         parent::_before();
 
-        $this->erpInvoiceMapper = new ErpInvoiceMapper();
+        $this->restErpInvoicePageSearchCollectionResponseMapper = new RestErpInvoicePageSearchCollectionResponseMapper();
     }
 
     /**
@@ -46,9 +45,9 @@ class ErpInvoiceMapperTest extends Unit
                 ],
             ],
         ];
-        $transfer = $this->erpInvoiceMapper->mapErpInvoiceResource($data);
 
-        $this->assertInstanceOf(RestErpInvoicePageSearchCollectionResponseTransfer::class, $transfer);
-        $this->assertEquals('sku', $transfer->getErpInvoices()[0]->getItems()[0]->getSku());
+        $transfer = $this->restErpInvoicePageSearchCollectionResponseMapper->fromSearchResult($data);
+
+        static::assertEquals('sku', $transfer->getErpInvoices()[0]->getItems()[0]->getSku());
     }
 }
