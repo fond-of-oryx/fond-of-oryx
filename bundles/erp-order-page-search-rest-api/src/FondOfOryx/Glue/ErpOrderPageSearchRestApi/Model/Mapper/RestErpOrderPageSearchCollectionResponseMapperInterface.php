@@ -6,14 +6,14 @@ namespace FondOfOryx\Glue\ErpOrderPageSearchRestApi\Model\Mapper;
 
 use Generated\Shared\Transfer\RestErpOrderPageSearchCollectionResponseTransfer;
 
-interface ErpOrderMapperInterface
+interface RestErpOrderPageSearchCollectionResponseMapperInterface
 {
     /**
-     * @param array $searchResults
+     * @param array $searchResult
      *
      * @return \Generated\Shared\Transfer\RestErpOrderPageSearchCollectionResponseTransfer
      */
-    public function mapErpOrderResource(
-        array $searchResults
+    public function fromSearchResult(
+        array $searchResult
     ): RestErpOrderPageSearchCollectionResponseTransfer;
 }

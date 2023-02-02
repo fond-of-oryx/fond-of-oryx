@@ -9,7 +9,7 @@ use Generated\Shared\Transfer\RestErpOrderPageSearchCollectionResponseTransfer;
 use Generated\Shared\Transfer\RestErpOrderTotalTransfer;
 use Generated\Shared\Transfer\RestErpOrderTransfer;
 
-class ErpOrderMapper implements ErpOrderMapperInterface
+class RestErpOrderPageSearchCollectionResponseMapper implements RestErpOrderPageSearchCollectionResponseMapperInterface
 {
     /**
      * @var string
@@ -27,23 +27,23 @@ class ErpOrderMapper implements ErpOrderMapperInterface
     protected const ERP_ORDER_DATA_KEY_TOTALS = 'totals';
 
     /**
-     * @param array $searchResults
+     * @param array $searchResult
      *
      * @return \Generated\Shared\Transfer\RestErpOrderPageSearchCollectionResponseTransfer
      */
-    public function mapErpOrderResource(
-        array $searchResults
+    public function fromSearchResult(
+        array $searchResult
     ): RestErpOrderPageSearchCollectionResponseTransfer {
-        $responseTransfer = (new RestErpOrderPageSearchCollectionResponseTransfer())->fromArray($searchResults, true);
+        $responseTransfer = (new RestErpOrderPageSearchCollectionResponseTransfer())->fromArray($searchResult, true);
 
         if (
-            !array_key_exists(static::SEARCH_RESULT_KEY_ERP_ORDERS, $searchResults)
-            || !is_array($searchResults[static::SEARCH_RESULT_KEY_ERP_ORDERS])
+            !array_key_exists(static::SEARCH_RESULT_KEY_ERP_ORDERS, $searchResult)
+            || !is_array($searchResult[static::SEARCH_RESULT_KEY_ERP_ORDERS])
         ) {
             return $responseTransfer;
         }
 
-        foreach ($searchResults[static::SEARCH_RESULT_KEY_ERP_ORDERS] as $erpOrderData) {
+        foreach ($searchResult[static::SEARCH_RESULT_KEY_ERP_ORDERS] as $erpOrderData) {
             $restErpOrder = new RestErpOrderTransfer();
             $restErpOrder->fromArray($erpOrderData, true);
             $restErpOrder->setCompanyBusinessUnit(
