@@ -10,7 +10,7 @@ use Generated\Shared\Transfer\RestErpDeliveryNoteItemTransfer;
 use Generated\Shared\Transfer\RestErpDeliveryNotePageSearchCollectionResponseTransfer;
 use Generated\Shared\Transfer\RestErpDeliveryNoteTransfer;
 
-class ErpDeliveryNoteMapper implements ErpDeliveryNoteMapperInterface
+class RestErpDeliveryNotePageSearchCollectionResponseMapper implements RestErpDeliveryNotePageSearchCollectionResponseMapperInterface
 {
     /**
      * @var string
@@ -33,23 +33,23 @@ class ErpDeliveryNoteMapper implements ErpDeliveryNoteMapperInterface
     protected const ERP_DELIVERY_NOTE_DATA_KEY_COMPANY_BUSINESS_UNIT = 'company_business_unit';
 
     /**
-     * @param array $searchResults
+     * @param array $searchResult
      *
      * @return \Generated\Shared\Transfer\RestErpDeliveryNotePageSearchCollectionResponseTransfer
      */
-    public function mapErpDeliveryNoteResource(
-        array $searchResults
+    public function fromSearchResult(
+        array $searchResult
     ): RestErpDeliveryNotePageSearchCollectionResponseTransfer {
-        $responseTransfer = (new RestErpDeliveryNotePageSearchCollectionResponseTransfer())->fromArray($searchResults, true);
+        $responseTransfer = (new RestErpDeliveryNotePageSearchCollectionResponseTransfer())->fromArray($searchResult, true);
 
         if (
-            !array_key_exists(static::SEARCH_RESULT_KEY_ERP_DELIVERY_NOTES, $searchResults)
-            || !is_array($searchResults[static::SEARCH_RESULT_KEY_ERP_DELIVERY_NOTES])
+            !array_key_exists(static::SEARCH_RESULT_KEY_ERP_DELIVERY_NOTES, $searchResult)
+            || !is_array($searchResult[static::SEARCH_RESULT_KEY_ERP_DELIVERY_NOTES])
         ) {
             return $responseTransfer;
         }
 
-        foreach ($searchResults[static::SEARCH_RESULT_KEY_ERP_DELIVERY_NOTES] as $erpDeliveryNoteData) {
+        foreach ($searchResult[static::SEARCH_RESULT_KEY_ERP_DELIVERY_NOTES] as $erpDeliveryNoteData) {
             $restErpDeliveryNote = new RestErpDeliveryNoteTransfer();
             $restErpDeliveryNote->fromArray($erpDeliveryNoteData, true);
             $restErpDeliveryNote->setCompanyBusinessUnit(
