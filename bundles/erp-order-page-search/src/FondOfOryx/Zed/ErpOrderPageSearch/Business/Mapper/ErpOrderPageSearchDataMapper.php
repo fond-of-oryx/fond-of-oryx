@@ -182,12 +182,12 @@ class ErpOrderPageSearchDataMapper implements ErpOrderPageSearchDataMapperInterf
     /**
      * @var \FondOfOryx\Zed\ErpOrderPageSearch\Business\Mapper\AbstractFullTextMapper
      */
-    protected AbstractFullTextMapper $fullTextMapper;
+    protected $fullTextMapper;
 
     /**
      * @var \FondOfOryx\Zed\ErpOrderPageSearch\Business\Mapper\AbstractFullTextMapper
      */
-    protected AbstractFullTextMapper $fullTextBoostedMapper;
+    protected $fullTextBoostedMapper;
 
     /**
      * @param \FondOfOryx\Zed\ErpOrderPageSearch\Business\Mapper\AbstractFullTextMapper $fullTextMapper
