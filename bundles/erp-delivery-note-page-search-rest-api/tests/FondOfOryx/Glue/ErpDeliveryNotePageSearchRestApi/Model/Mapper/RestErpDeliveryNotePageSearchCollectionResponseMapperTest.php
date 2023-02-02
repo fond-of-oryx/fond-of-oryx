@@ -3,23 +3,22 @@
 namespace FondOfOryx\Glue\ErpDeliveryNotePageSearchRestApi\Model\Mapper;
 
 use Codeception\Test\Unit;
-use Generated\Shared\Transfer\RestErpDeliveryNotePageSearchCollectionResponseTransfer;
 
-class ErpDeliveryNoteMapperTest extends Unit
+class RestErpDeliveryNotePageSearchCollectionResponseMapperTest extends Unit
 {
     /**
-     * @var \FondOfOryx\Glue\ErpDeliveryNotePageSearchRestApi\Model\Mapper\ErpDeliveryNoteMapperInterface
+     * @var \FondOfOryx\Glue\ErpDeliveryNotePageSearchRestApi\Model\Mapper\RestErpDeliveryNotePageSearchCollectionResponseMapperInterface
      */
-    protected $erpDeliveryNoteMapper;
+    protected $restErpDeliveryNotePageSearchCollectionResponseMapper;
 
     /**
      * @return void
      */
-    protected function _before()
+    protected function _before(): void
     {
         parent::_before();
 
-        $this->erpDeliveryNoteMapper = new ErpDeliveryNoteMapper();
+        $this->restErpDeliveryNotePageSearchCollectionResponseMapper = new RestErpDeliveryNotePageSearchCollectionResponseMapper();
     }
 
     /**
@@ -42,9 +41,9 @@ class ErpDeliveryNoteMapperTest extends Unit
                 ],
             ],
         ];
-        $transfer = $this->erpDeliveryNoteMapper->mapErpDeliveryNoteResource($data);
 
-        $this->assertInstanceOf(RestErpDeliveryNotePageSearchCollectionResponseTransfer::class, $transfer);
-        $this->assertEquals('sku', $transfer->getErpDeliveryNotes()[0]->getItems()[0]->getSku());
+        $transfer = $this->restErpDeliveryNotePageSearchCollectionResponseMapper->fromSearchResult($data);
+
+        static::assertEquals('sku', $transfer->getErpDeliveryNotes()[0]->getItems()[0]->getSku());
     }
 }

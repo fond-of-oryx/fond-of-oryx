@@ -6,14 +6,14 @@ namespace FondOfOryx\Glue\ErpDeliveryNotePageSearchRestApi\Model\Mapper;
 
 use Generated\Shared\Transfer\RestErpDeliveryNotePageSearchCollectionResponseTransfer;
 
-interface ErpDeliveryNoteMapperInterface
+interface RestErpDeliveryNotePageSearchCollectionResponseMapperInterface
 {
     /**
-     * @param array $searchResults
+     * @param array $searchResult
      *
      * @return \Generated\Shared\Transfer\RestErpDeliveryNotePageSearchCollectionResponseTransfer
      */
-    public function mapErpDeliveryNoteResource(
-        array $searchResults
+    public function fromSearchResult(
+        array $searchResult
     ): RestErpDeliveryNotePageSearchCollectionResponseTransfer;
 }
