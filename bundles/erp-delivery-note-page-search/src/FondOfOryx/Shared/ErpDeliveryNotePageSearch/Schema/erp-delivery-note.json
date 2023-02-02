@@ -21,6 +21,12 @@
         "locale": {
           "type": "keyword"
         },
+        "full-text": {
+          "type": "text"
+        },
+        "full-text-boosted": {
+          "type": "text"
+        },
         "external-reference": {
           "type": "keyword"
         },
