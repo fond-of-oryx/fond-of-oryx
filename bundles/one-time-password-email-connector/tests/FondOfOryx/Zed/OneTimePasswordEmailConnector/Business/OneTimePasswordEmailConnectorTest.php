@@ -4,6 +4,8 @@ namespace FondOfOryx\Zed\OneTimePasswordEmailConnector\Business;
 
 use Codeception\Test\Unit;
 use FondOfOryx\Zed\OneTimePasswordEmailConnector\Business\Dependency\Facade\OneTimePasswordEmailConnectorToMailBridge;
+use FondOfOryx\Zed\OneTimePasswordEmailConnector\Communication\Plugin\Mail\OneTimePasswordEmailConnectorLoginLinkMailTypeBuilderPlugin;
+use FondOfOryx\Zed\OneTimePasswordEmailConnector\Communication\Plugin\Mail\OneTimePasswordEmailConnectorMailTypeBuilderPlugin;
 use Generated\Shared\Transfer\CustomerTransfer;
 use Generated\Shared\Transfer\LocaleTransfer;
 use Generated\Shared\Transfer\OneTimePasswordResponseTransfer;
@@ -65,6 +67,10 @@ class OneTimePasswordEmailConnectorTest extends Unit
 
         $this->oneTimePasswordEmailConnector = new OneTimePasswordEmailConnector(
             $this->mailBridgeMock,
+            [
+                OneTimePasswordEmailConnector::MAIL_TYPE => OneTimePasswordEmailConnectorMailTypeBuilderPlugin::MAIL_TYPE,
+                OneTimePasswordEmailConnector::MAIL_TYPE_LOGIN_LINK => OneTimePasswordEmailConnectorLoginLinkMailTypeBuilderPlugin::MAIL_TYPE,
+            ],
         );
     }
 

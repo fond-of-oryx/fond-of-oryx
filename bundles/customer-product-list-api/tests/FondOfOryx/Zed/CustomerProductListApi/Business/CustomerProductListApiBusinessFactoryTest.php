@@ -5,8 +5,8 @@ namespace FondOfOryx\Zed\CustomerProductListApi\Business;
 use Codeception\Test\Unit;
 use FondOfOryx\Zed\CustomerProductListApi\Business\Model\CustomerProductListApiInterface;
 use FondOfOryx\Zed\CustomerProductListApi\CustomerProductListApiDependencyProvider;
+use FondOfOryx\Zed\CustomerProductListApi\Dependency\Facade\CustomerProductListApiToApiFacadeInterface;
 use FondOfOryx\Zed\CustomerProductListApi\Dependency\Facade\CustomerProductListApiToCustomerProductListConnectorFacadeInterface;
-use FondOfOryx\Zed\CustomerProductListApi\Dependency\QueryContainer\CustomerProductListApiToApiQueryContainerInterface;
 use Spryker\Zed\Kernel\Container;
 
 class CustomerProductListApiBusinessFactoryTest extends Unit
@@ -19,12 +19,12 @@ class CustomerProductListApiBusinessFactoryTest extends Unit
     /**
      * @var \PHPUnit\Framework\MockObject\MockObject|\FondOfOryx\Zed\CustomerProductListApi\Dependency\Facade\CustomerProductListApiToCustomerProductListConnectorFacadeInterface
      */
-    protected $customerProductListApiToCustomerProductListConnectorFacadeMock;
+    protected $customerProductListConnectorFacadeMock;
 
     /**
-     * @var \PHPUnit\Framework\MockObject\MockObject|\FondOfOryx\Zed\CustomerProductListApi\Dependency\QueryContainer\CustomerProductListApiToApiQueryContainerInterface
+     * @var \PHPUnit\Framework\MockObject\MockObject|\FondOfOryx\Zed\CustomerProductListApi\Dependency\Facade\CustomerProductListApiToApiFacadeInterface
      */
-    protected $customerProductListApiToApiQueryContainerMock;
+    protected $apiFacadeMock;
 
     /**
      * @var \FondOfOryx\Zed\CustomerProductListApi\Business\CustomerProductListApiBusinessFactory
@@ -42,13 +42,13 @@ class CustomerProductListApiBusinessFactoryTest extends Unit
             ->disableOriginalConstructor()
             ->getMock();
 
-        $this->customerProductListApiToCustomerProductListConnectorFacadeMock = $this
+        $this->customerProductListConnectorFacadeMock = $this
             ->getMockBuilder(CustomerProductListApiToCustomerProductListConnectorFacadeInterface::class)
             ->disableOriginalConstructor()
             ->getMock();
 
-        $this->customerProductListApiToApiQueryContainerMock = $this
-            ->getMockBuilder(CustomerProductListApiToApiQueryContainerInterface::class)
+        $this->apiFacadeMock = $this
+            ->getMockBuilder(CustomerProductListApiToApiFacadeInterface::class)
             ->disableOriginalConstructor()
             ->getMock();
 
@@ -65,17 +65,17 @@ class CustomerProductListApiBusinessFactoryTest extends Unit
             ->method('has')
             ->withConsecutive(
                 [CustomerProductListApiDependencyProvider::FACADE_CUSTOMER_PRODUCT_LIST_CONNECTOR],
-                [CustomerProductListApiDependencyProvider::QUERY_CONTAINER_API],
+                [CustomerProductListApiDependencyProvider::FACADE_API],
             )->willReturn(true);
 
         $this->containerMock->expects(static::atLeastOnce())
             ->method('get')
             ->withConsecutive(
                 [CustomerProductListApiDependencyProvider::FACADE_CUSTOMER_PRODUCT_LIST_CONNECTOR],
-                [CustomerProductListApiDependencyProvider::QUERY_CONTAINER_API],
+                [CustomerProductListApiDependencyProvider::FACADE_API],
             )->willReturnOnConsecutiveCalls(
-                $this->customerProductListApiToCustomerProductListConnectorFacadeMock,
-                $this->customerProductListApiToApiQueryContainerMock,
+                $this->customerProductListConnectorFacadeMock,
+                $this->apiFacadeMock,
             );
 
         static::assertInstanceOf(

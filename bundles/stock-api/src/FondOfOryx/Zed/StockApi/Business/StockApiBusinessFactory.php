@@ -5,7 +5,12 @@ namespace FondOfOryx\Zed\StockApi\Business;
 use FondOfOryx\Zed\StockApi\Business\Model\Reader\StockReader;
 use FondOfOryx\Zed\StockApi\Business\Model\Reader\StockReaderInterface;
 use FondOfOryx\Zed\StockApi\Business\Model\StockApi;
+use FondOfOryx\Zed\StockApi\Business\Model\StockApiInterface;
 use FondOfOryx\Zed\StockApi\Business\Model\Validator\StockApiValidator;
+use FondOfOryx\Zed\StockApi\Business\Model\Validator\StockApiValidatorInterface;
+use FondOfOryx\Zed\StockApi\Dependency\Facade\StockApiToApiFacadeInterface;
+use FondOfOryx\Zed\StockApi\Dependency\Facade\StockApiToStockInterface;
+use FondOfOryx\Zed\StockApi\Dependency\QueryContainer\StockApiToApiQueryBuilderQueryContainerInterface;
 use FondOfOryx\Zed\StockApi\StockApiDependencyProvider;
 use Spryker\Zed\Kernel\Business\AbstractBusinessFactory;
 
@@ -18,7 +23,7 @@ class StockApiBusinessFactory extends AbstractBusinessFactory
     /**
      * @return \FondOfOryx\Zed\StockApi\Business\Model\StockApiInterface
      */
-    public function createStockApi()
+    public function createStockApi(): StockApiInterface
     {
         return new StockApi(
             $this->createStockReader(),
@@ -32,7 +37,7 @@ class StockApiBusinessFactory extends AbstractBusinessFactory
     {
         return new StockReader(
             $this->getStockFacade(),
-            $this->getApiQueryContainer(),
+            $this->getApiFacade(),
             $this->getApiQueryBuilderQueryContainer(),
             $this->getQueryContainer(),
         );
@@ -41,23 +46,23 @@ class StockApiBusinessFactory extends AbstractBusinessFactory
     /**
      * @return \FondOfOryx\Zed\StockApi\Business\Model\Validator\StockApiValidatorInterface
      */
-    public function createStockApiValidator()
+    public function createStockApiValidator(): StockApiValidatorInterface
     {
         return new StockApiValidator();
     }
 
     /**
-     * @return \FondOfOryx\Zed\StockApi\Dependency\QueryContainer\StockApiToApiQueryContainerInterface
+     * @return \FondOfOryx\Zed\StockApi\Dependency\Facade\StockApiToApiFacadeInterface
      */
-    protected function getApiQueryContainer()
+    protected function getApiFacade(): StockApiToApiFacadeInterface
     {
-        return $this->getProvidedDependency(StockApiDependencyProvider::QUERY_CONTAINER_API);
+        return $this->getProvidedDependency(StockApiDependencyProvider::FACADE_API);
     }
 
     /**
      * @return \FondOfOryx\Zed\StockApi\Dependency\QueryContainer\StockApiToApiQueryBuilderQueryContainerInterface
      */
-    protected function getApiQueryBuilderQueryContainer()
+    protected function getApiQueryBuilderQueryContainer(): StockApiToApiQueryBuilderQueryContainerInterface
     {
         return $this->getProvidedDependency(StockApiDependencyProvider::QUERY_CONTAINER_API_QUERY_BUILDER);
     }
@@ -65,7 +70,7 @@ class StockApiBusinessFactory extends AbstractBusinessFactory
     /**
      * @return \FondOfOryx\Zed\StockApi\Dependency\Facade\StockApiToStockInterface
      */
-    protected function getStockFacade()
+    protected function getStockFacade(): StockApiToStockInterface
     {
         return $this->getProvidedDependency(StockApiDependencyProvider::FACADE_STOCK);
     }

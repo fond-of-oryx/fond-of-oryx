@@ -6,7 +6,7 @@ use Codeception\Test\Unit;
 use FondOfOryx\Zed\ErpDeliveryNoteApi\Business\ErpDeliveryNoteApiFacade;
 use FondOfOryx\Zed\ErpDeliveryNoteApi\Communication\Plugin\Api\ErpDeliveryNoteApiValidatorPlugin;
 use FondOfOryx\Zed\ErpDeliveryNoteApi\ErpDeliveryNoteApiConfig;
-use Generated\Shared\Transfer\ApiDataTransfer;
+use Generated\Shared\Transfer\ApiRequestTransfer;
 
 class ErpDeliveryNoteApiValidatorPluginTest extends Unit
 {
@@ -16,9 +16,9 @@ class ErpDeliveryNoteApiValidatorPluginTest extends Unit
     protected $erpDeliveryNoteApiValidatorPlugin;
 
     /**
-     * @var \PHPUnit\Framework\MockObject\MockObject|\Generated\Shared\Transfer\ApiDataTransfer
+     * @var \PHPUnit\Framework\MockObject\MockObject|\Generated\Shared\Transfer\ApiRequestTransfer
      */
-    protected $apiDataTransferMock;
+    protected $apiRequestTransferMock;
 
     /**
      * @var \PHPUnit\Framework\MockObject\MockObject|\FondOfOryx\Zed\ErpDeliveryNoteApi\Business\ErpDeliveryNoteApiFacade
@@ -34,7 +34,7 @@ class ErpDeliveryNoteApiValidatorPluginTest extends Unit
             ->disableOriginalConstructor()
             ->getMock();
 
-        $this->apiDataTransferMock = $this->getMockBuilder(ApiDataTransfer::class)
+        $this->apiRequestTransferMock = $this->getMockBuilder(ApiRequestTransfer::class)
             ->disableOriginalConstructor()
             ->getMock();
 
@@ -62,13 +62,13 @@ class ErpDeliveryNoteApiValidatorPluginTest extends Unit
 
         $this->erpDeliveryNoteApiFacadeMock->expects(static::atLeastOnce())
             ->method('validateErpDeliveryNote')
-            ->with($this->apiDataTransferMock)
+            ->with($this->apiRequestTransferMock)
             ->willReturn($validationResult);
 
         static::assertEquals(
             $validationResult,
             $this->erpDeliveryNoteApiValidatorPlugin->validate(
-                $this->apiDataTransferMock,
+                $this->apiRequestTransferMock,
             ),
         );
     }

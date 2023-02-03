@@ -20,7 +20,7 @@ interface StockApiToStockInterface
      *
      * @return bool
      */
-    public function isNeverOutOfStock(string $sku);
+    public function isNeverOutOfStock(string $sku): bool;
 
     /**
      * @param \Generated\Shared\Transfer\StockProductTransfer $transferStockProduct

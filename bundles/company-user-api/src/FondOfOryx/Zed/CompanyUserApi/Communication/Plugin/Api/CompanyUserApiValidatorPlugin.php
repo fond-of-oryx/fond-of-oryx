@@ -3,14 +3,13 @@
 namespace FondOfOryx\Zed\CompanyUserApi\Communication\Plugin\Api;
 
 use FondOfOryx\Zed\CompanyUserApi\CompanyUserApiConfig;
-use Generated\Shared\Transfer\ApiDataTransfer;
-use Spryker\Zed\Api\Dependency\Plugin\ApiValidatorPluginInterface;
+use Generated\Shared\Transfer\ApiRequestTransfer;
+use Spryker\Zed\ApiExtension\Dependency\Plugin\ApiValidatorPluginInterface;
 use Spryker\Zed\Kernel\Communication\AbstractPlugin;
 
 /**
  * @method \FondOfOryx\Zed\CompanyUserApi\Business\CompanyUserApiFacadeInterface getFacade()
  * @method \FondOfOryx\Zed\CompanyUserApi\CompanyUserApiConfig getConfig()
- * @method \FondOfOryx\Zed\CompanyUserApi\Persistence\CompanyUserApiQueryContainerInterface getQueryContainer()
  */
 class CompanyUserApiValidatorPlugin extends AbstractPlugin implements ApiValidatorPluginInterface
 {
@@ -23,12 +22,12 @@ class CompanyUserApiValidatorPlugin extends AbstractPlugin implements ApiValidat
     }
 
     /**
-     * @param \Generated\Shared\Transfer\ApiDataTransfer $apiDataTransfer
+     * @param \Generated\Shared\Transfer\ApiRequestTransfer $apiRequestTransfer
      *
      * @return array<\Generated\Shared\Transfer\ApiValidationErrorTransfer>
      */
-    public function validate(ApiDataTransfer $apiDataTransfer): array
+    public function validate(ApiRequestTransfer $apiRequestTransfer): array
     {
-        return $this->getFacade()->validate($apiDataTransfer);
+        return $this->getFacade()->validate($apiRequestTransfer);
     }
 }

@@ -5,7 +5,7 @@ namespace FondOfOryx\Zed\CompanyUserApi\Communication\Plugin\Api;
 use Codeception\Test\Unit;
 use FondOfOryx\Zed\CompanyUserApi\Business\CompanyUserApiFacade;
 use FondOfOryx\Zed\CompanyUserApi\CompanyUserApiConfig;
-use Generated\Shared\Transfer\ApiDataTransfer;
+use Generated\Shared\Transfer\ApiRequestTransfer;
 
 class CompanyUserApiValidatorPluginTest extends Unit
 {
@@ -15,9 +15,9 @@ class CompanyUserApiValidatorPluginTest extends Unit
     protected $companyUserApiFacadeMock;
 
     /**
-     * @var \PHPUnit\Framework\MockObject\MockObject|\Generated\Shared\Transfer\ApiDataTransfer
+     * @var \PHPUnit\Framework\MockObject\MockObject|\Generated\Shared\Transfer\ApiRequestTransfer
      */
-    protected $apiDataTransferMock;
+    protected $apiRequestTransferMock;
 
     /**
      * @var \FondOfOryx\Zed\CompanyUserApi\Communication\Plugin\Api\CompanyUserApiValidatorPlugin
@@ -35,7 +35,7 @@ class CompanyUserApiValidatorPluginTest extends Unit
             ->disableOriginalConstructor()
             ->getMock();
 
-        $this->apiDataTransferMock = $this->getMockBuilder(ApiDataTransfer::class)
+        $this->apiRequestTransferMock = $this->getMockBuilder(ApiRequestTransfer::class)
             ->disableOriginalConstructor()
             ->getMock();
 
@@ -58,9 +58,9 @@ class CompanyUserApiValidatorPluginTest extends Unit
     {
         $this->companyUserApiFacadeMock->expects(static::atLeastOnce())
             ->method('validate')
-            ->with($this->apiDataTransferMock)
+            ->with($this->apiRequestTransferMock)
             ->willReturn([]);
 
-        static::assertCount(0, $this->plugin->validate($this->apiDataTransferMock));
+        static::assertCount(0, $this->plugin->validate($this->apiRequestTransferMock));
     }
 }

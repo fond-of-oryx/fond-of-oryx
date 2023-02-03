@@ -4,8 +4,8 @@ namespace FondOfOryx\Zed\InvoiceApi\Business\Model;
 
 use Codeception\Test\Unit;
 use FondOfOryx\Zed\InvoiceApi\Business\Mapper\TransferMapper;
+use FondOfOryx\Zed\InvoiceApi\Dependency\Facade\InvoiceApiToApiFacadeBridge;
 use FondOfOryx\Zed\InvoiceApi\Dependency\Facade\InvoiceApiToInvoiceFacadeBridge;
-use FondOfOryx\Zed\InvoiceApi\Dependency\QueryContainer\InvoiceApiToApiQueryContainerBridge;
 use Generated\Shared\Transfer\ApiDataTransfer;
 use Generated\Shared\Transfer\ApiItemTransfer;
 use Generated\Shared\Transfer\InvoiceResponseTransfer;
@@ -19,9 +19,9 @@ class InvoiceApiTest extends Unit
     protected $facadeMock;
 
     /**
-     * @var \PHPUnit\Framework\MockObject\MockObject|\FondOfOryx\Zed\InvoiceApi\Dependency\QueryContainer\InvoiceApiToApiQueryContainerBridge
+     * @var \PHPUnit\Framework\MockObject\MockObject|\FondOfOryx\Zed\InvoiceApi\Dependency\Facade\InvoiceApiToApiFacadeBridge
      */
-    protected $apiQueryContainerMock;
+    protected $apiFacade;
 
     /**
      * @var \PHPUnit\Framework\MockObject\MockObject|\FondOfOryx\Zed\InvoiceApi\Business\Mapper\TransferMapper
@@ -64,7 +64,7 @@ class InvoiceApiTest extends Unit
             ->disableOriginalConstructor()
             ->getMock();
 
-        $this->apiQueryContainerMock = $this->getMockBuilder(InvoiceApiToApiQueryContainerBridge::class)
+        $this->apiFacade = $this->getMockBuilder(InvoiceApiToApiFacadeBridge::class)
             ->disableOriginalConstructor()
             ->getMock();
 
@@ -88,7 +88,7 @@ class InvoiceApiTest extends Unit
             ->disableOriginalConstructor()
             ->getMock();
 
-        $this->invoiceApi = new InvoiceApi($this->apiQueryContainerMock, $this->transferMapperMock, $this->facadeMock);
+        $this->invoiceApi = new InvoiceApi($this->apiFacade, $this->transferMapperMock, $this->facadeMock);
     }
 
     /**
@@ -118,7 +118,7 @@ class InvoiceApiTest extends Unit
             ->method('getIsSuccess')
             ->willReturn(true);
 
-        $this->apiQueryContainerMock->expects(static::atLeastOnce())
+        $this->apiFacade->expects(static::atLeastOnce())
             ->method('createApiItem')
             ->with($this->invoiceTransferMock, 1)
             ->willReturn($this->apiItemTransferMock);

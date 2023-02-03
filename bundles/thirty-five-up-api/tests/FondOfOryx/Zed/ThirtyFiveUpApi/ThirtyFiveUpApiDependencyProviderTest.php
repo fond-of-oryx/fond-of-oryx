@@ -34,7 +34,7 @@ class ThirtyFiveUpApiDependencyProviderTest extends Unit
      */
     public function testProvideBusinessLayerDependencies(): void
     {
-        $this->assertInstanceOf(
+        static::assertInstanceOf(
             Container::class,
             $this->thirtyFiveUpApiDependencyProvider->provideBusinessLayerDependencies(
                 $this->containerMock,
@@ -47,7 +47,7 @@ class ThirtyFiveUpApiDependencyProviderTest extends Unit
      */
     public function testProvidePersistenceLayerDependencies(): void
     {
-        $this->assertInstanceOf(
+        static::assertInstanceOf(
             Container::class,
             $this->thirtyFiveUpApiDependencyProvider->providePersistenceLayerDependencies(
                 $this->containerMock,

@@ -89,12 +89,12 @@ class CompanyUnitAddressApiFacade extends AbstractFacade implements CompanyUnitA
      *
      * @api
      *
-     * @param \Generated\Shared\Transfer\ApiDataTransfer $apiDataTransfer
+     * @param \Generated\Shared\Transfer\ApiRequestTransfer $apiRequestTransfer
      *
-     * @return array
+     * @return array<\Generated\Shared\Transfer\ApiValidationErrorTransfer>
      */
-    public function validate(ApiDataTransfer $apiDataTransfer): array
+    public function validate(ApiRequestTransfer $apiRequestTransfer): array
     {
-        return $this->getFactory()->createCompanyUnitAddressApiValidator()->validate($apiDataTransfer);
+        return $this->getFactory()->createCompanyUnitAddressApiValidator()->validate($apiRequestTransfer);
     }
 }

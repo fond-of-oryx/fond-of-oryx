@@ -1,12 +1,11 @@
 <?php
 
-namespace FondOfOryx\Zed\CompanyApi\Communication\Plugin\Api;
+namespace FondOfOryx\Zed\CompanyBusinessUnitApi\Communication\Plugin\Api;
 
 use Codeception\Test\Unit;
 use FondOfOryx\Zed\CompanyBusinessUnitApi\Business\CompanyBusinessUnitApiFacade;
-use FondOfOryx\Zed\CompanyBusinessUnitApi\Communication\Plugin\Api\CompanyBusinessUnitApiValidatorPlugin;
 use FondOfOryx\Zed\CompanyBusinessUnitApi\CompanyBusinessUnitApiConfig;
-use Generated\Shared\Transfer\ApiDataTransfer;
+use Generated\Shared\Transfer\ApiRequestTransfer;
 
 class CompanyBusinessUnitApiValidatorPluginTest extends Unit
 {
@@ -16,9 +15,9 @@ class CompanyBusinessUnitApiValidatorPluginTest extends Unit
     protected $companyBusinessUnitApiFacadeMock;
 
     /**
-     * @var \PHPUnit\Framework\MockObject\MockObject|\Generated\Shared\Transfer\ApiDataTransfer
+     * @var \PHPUnit\Framework\MockObject\MockObject|\Generated\Shared\Transfer\ApiRequestTransfer
      */
-    protected $apiDataTransferMock;
+    protected $apiRequestTransferMock;
 
     /**
      * @var \FondOfOryx\Zed\CompanyBusinessUnitApi\Communication\Plugin\Api\CompanyBusinessUnitApiValidatorPlugin
@@ -36,7 +35,7 @@ class CompanyBusinessUnitApiValidatorPluginTest extends Unit
             ->disableOriginalConstructor()
             ->getMock();
 
-        $this->apiDataTransferMock = $this->getMockBuilder(ApiDataTransfer::class)
+        $this->apiRequestTransferMock = $this->getMockBuilder(ApiRequestTransfer::class)
             ->disableOriginalConstructor()
             ->getMock();
 
@@ -64,12 +63,12 @@ class CompanyBusinessUnitApiValidatorPluginTest extends Unit
 
         $this->companyBusinessUnitApiFacadeMock->expects(static::atLeastOnce())
             ->method('validate')
-            ->with($this->apiDataTransferMock)
+            ->with($this->apiRequestTransferMock)
             ->willReturn($errors);
 
         static::assertEquals(
             $errors,
-            $this->plugin->validate($this->apiDataTransferMock),
+            $this->plugin->validate($this->apiRequestTransferMock),
         );
     }
 }

@@ -20,3 +20,22 @@ coverage:
   enabled: true
   include:
     - src/*.php
+
+modules:
+  enabled:
+    - \FondOfCodeception\Module\Spryker
+  config:
+    \FondOfCodeception\Module\Spryker:
+      generate_transfer: false
+      generate_map_classes: false
+      generate_propel_classes: false
+
+env:
+  standalone:
+    modules:
+      config:
+        \FondOfCodeception\Module\Spryker:
+          generate_transfer: true
+          generate_map_classes: true
+          generate_propel_classes: true
+  monorepo:

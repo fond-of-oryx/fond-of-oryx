@@ -6,8 +6,8 @@ use FondOfOryx\Zed\ErpInvoiceApi\Business\Model\ErpInvoiceApi;
 use FondOfOryx\Zed\ErpInvoiceApi\Business\Model\ErpInvoiceApiInterface;
 use FondOfOryx\Zed\ErpInvoiceApi\Business\Validator\ErpInvoiceApiValidator;
 use FondOfOryx\Zed\ErpInvoiceApi\Business\Validator\ErpInvoiceApiValidatorInterface;
+use FondOfOryx\Zed\ErpInvoiceApi\Dependency\Facade\ErpInvoiceApiToApiFacadeInterface;
 use FondOfOryx\Zed\ErpInvoiceApi\Dependency\Facade\ErpInvoiceApiToErpInvoiceFacadeInterface;
-use FondOfOryx\Zed\ErpInvoiceApi\Dependency\QueryContainer\ErpInvoiceApiToApiQueryContainerInterface;
 use FondOfOryx\Zed\ErpInvoiceApi\ErpInvoiceApiDependencyProvider;
 use Spryker\Zed\Kernel\Business\AbstractBusinessFactory;
 
@@ -23,18 +23,18 @@ class ErpInvoiceApiBusinessFactory extends AbstractBusinessFactory
     public function createErpInvoiceApi(): ErpInvoiceApiInterface
     {
         return new ErpInvoiceApi(
-            $this->getApiQueryContainer(),
+            $this->getApiFacade(),
             $this->getErpInvoiceFacade(),
             $this->getRepository(),
         );
     }
 
     /**
-     * @return \FondOfOryx\Zed\ErpInvoiceApi\Dependency\QueryContainer\ErpInvoiceApiToApiQueryContainerInterface
+     * @return \FondOfOryx\Zed\ErpInvoiceApi\Dependency\Facade\ErpInvoiceApiToApiFacadeInterface
      */
-    protected function getApiQueryContainer(): ErpInvoiceApiToApiQueryContainerInterface
+    protected function getApiFacade(): ErpInvoiceApiToApiFacadeInterface
     {
-        return $this->getProvidedDependency(ErpInvoiceApiDependencyProvider::QUERY_CONTAINER_API);
+        return $this->getProvidedDependency(ErpInvoiceApiDependencyProvider::FACADE_API);
     }
 
     /**

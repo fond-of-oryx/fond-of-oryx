@@ -65,6 +65,10 @@ class ErpDeliveryNotePageSearchQueryPlugin extends AbstractPlugin implements Que
         }
 
         return (new MultiMatch())->setQuery($this->searchString)
+            ->setFields([
+                ErpDeliveryNoteIndexMap::FULL_TEXT,
+                sprintf('%s^3', ErpDeliveryNoteIndexMap::FULL_TEXT_BOOSTED),
+            ])
             ->setType(MultiMatch::TYPE_CROSS_FIELDS);
     }
 

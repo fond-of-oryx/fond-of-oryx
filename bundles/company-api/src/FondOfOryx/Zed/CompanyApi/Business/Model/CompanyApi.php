@@ -2,8 +2,8 @@
 
 namespace FondOfOryx\Zed\CompanyApi\Business\Model;
 
+use FondOfOryx\Zed\CompanyApi\Dependency\Facade\CompanyApiToApiFacadeInterface;
 use FondOfOryx\Zed\CompanyApi\Dependency\Facade\CompanyApiToCompanyFacadeInterface;
-use FondOfOryx\Zed\CompanyApi\Dependency\QueryContainer\CompanyApiToApiQueryContainerInterface;
 use FondOfOryx\Zed\CompanyApi\Persistence\CompanyApiRepositoryInterface;
 use Generated\Shared\Transfer\ApiCollectionTransfer;
 use Generated\Shared\Transfer\ApiDataTransfer;
@@ -22,9 +22,9 @@ class CompanyApi implements CompanyApiInterface
     protected const KEY_ID_COMPANY = 'id_company';
 
     /**
-     * @var \FondOfOryx\Zed\CompanyApi\Dependency\QueryContainer\CompanyApiToApiQueryContainerInterface
+     * @var \FondOfOryx\Zed\CompanyApi\Dependency\Facade\CompanyApiToApiFacadeInterface
      */
-    protected $apiQueryContainer;
+    protected $apiFacade;
 
     /**
      * @var \FondOfOryx\Zed\CompanyApi\Dependency\Facade\CompanyApiToCompanyFacadeInterface
@@ -37,16 +37,16 @@ class CompanyApi implements CompanyApiInterface
     protected $repository;
 
     /**
-     * @param \FondOfOryx\Zed\CompanyApi\Dependency\QueryContainer\CompanyApiToApiQueryContainerInterface $apiQueryContainer
+     * @param \FondOfOryx\Zed\CompanyApi\Dependency\Facade\CompanyApiToApiFacadeInterface $apiFacade
      * @param \FondOfOryx\Zed\CompanyApi\Dependency\Facade\CompanyApiToCompanyFacadeInterface $companyFacade
      * @param \FondOfOryx\Zed\CompanyApi\Persistence\CompanyApiRepositoryInterface $repository
      */
     public function __construct(
-        CompanyApiToApiQueryContainerInterface $apiQueryContainer,
+        CompanyApiToApiFacadeInterface $apiFacade,
         CompanyApiToCompanyFacadeInterface $companyFacade,
         CompanyApiRepositoryInterface $repository
     ) {
-        $this->apiQueryContainer = $apiQueryContainer;
+        $this->apiFacade = $apiFacade;
         $this->companyFacade = $companyFacade;
         $this->repository = $repository;
     }
@@ -71,7 +71,7 @@ class CompanyApi implements CompanyApiInterface
             );
         }
 
-        return $this->apiQueryContainer->createApiItem($companyTransfer, $companyTransfer->getIdCompany());
+        return $this->apiFacade->createApiItem($companyTransfer, (string)$companyTransfer->getIdCompany());
     }
 
     /**
@@ -83,7 +83,7 @@ class CompanyApi implements CompanyApiInterface
     {
         $companyTransfer = $this->getByIdCompany($idCompany);
 
-        return $this->apiQueryContainer->createApiItem($companyTransfer, $companyTransfer->getIdCompany());
+        return $this->apiFacade->createApiItem($companyTransfer, (string)$companyTransfer->getIdCompany());
     }
 
     /**
@@ -96,11 +96,10 @@ class CompanyApi implements CompanyApiInterface
      */
     public function update(int $idCompany, ApiDataTransfer $apiDataTransfer): ApiItemTransfer
     {
-        $this->getByIdCompany($idCompany);
+        $companyTransfer = $this->getByIdCompany($idCompany);
 
-        $companyTransfer = (new CompanyTransfer())
-            ->fromArray($apiDataTransfer->getData(), true)
-            ->setIdCompany($idCompany);
+        $companyTransfer = $companyTransfer
+            ->fromArray($apiDataTransfer->getData(), true);
 
         $companyResponseTransfer = $this->companyFacade->update($companyTransfer);
         $companyTransfer = $companyResponseTransfer->getCompanyTransfer();
@@ -112,7 +111,7 @@ class CompanyApi implements CompanyApiInterface
             );
         }
 
-        return $this->apiQueryContainer->createApiItem($companyTransfer, $companyTransfer->getIdCompany());
+        return $this->apiFacade->createApiItem($companyTransfer, (string)$companyTransfer->getIdCompany());
     }
 
     /**
@@ -126,7 +125,7 @@ class CompanyApi implements CompanyApiInterface
 
         $this->companyFacade->delete($companyTransfer);
 
-        return $this->apiQueryContainer->createApiItem([], $idCompany);
+        return $this->apiFacade->createApiItem(null, (string)$idCompany);
     }
 
     /**

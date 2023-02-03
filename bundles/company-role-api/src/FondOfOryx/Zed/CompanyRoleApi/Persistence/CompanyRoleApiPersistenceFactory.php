@@ -3,8 +3,8 @@
 namespace FondOfOryx\Zed\CompanyRoleApi\Persistence;
 
 use FondOfOryx\Zed\CompanyRoleApi\CompanyRoleApiDependencyProvider;
+use FondOfOryx\Zed\CompanyRoleApi\Dependency\Facade\CompanyRoleApiToApiFacadeInterface;
 use FondOfOryx\Zed\CompanyRoleApi\Dependency\QueryContainer\CompanyRoleApiToApiQueryBuilderQueryContainerInterface;
-use FondOfOryx\Zed\CompanyRoleApi\Dependency\QueryContainer\CompanyRoleApiToApiQueryContainerInterface;
 use Orm\Zed\CompanyRole\Persistence\SpyCompanyRoleQuery;
 use Spryker\Zed\Kernel\Persistence\AbstractPersistenceFactory;
 
@@ -34,10 +34,10 @@ class CompanyRoleApiPersistenceFactory extends AbstractPersistenceFactory
     }
 
     /**
-     * @return \FondOfOryx\Zed\CompanyRoleApi\Dependency\QueryContainer\CompanyRoleApiToApiQueryContainerInterface
+     * @return \FondOfOryx\Zed\CompanyRoleApi\Dependency\Facade\CompanyRoleApiToApiFacadeInterface
      */
-    public function getApiQueryContainer(): CompanyRoleApiToApiQueryContainerInterface
+    public function getApiFacade(): CompanyRoleApiToApiFacadeInterface
     {
-        return $this->getProvidedDependency(CompanyRoleApiDependencyProvider::QUERY_CONTAINER_API);
+        return $this->getProvidedDependency(CompanyRoleApiDependencyProvider::FACADE_API);
     }
 }

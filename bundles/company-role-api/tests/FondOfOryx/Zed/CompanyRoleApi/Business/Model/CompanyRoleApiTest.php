@@ -4,8 +4,8 @@ namespace FondOfOryx\Zed\CompanyRoleApi\Business\Model;
 
 use Codeception\Test\Unit;
 use Exception;
+use FondOfOryx\Zed\CompanyRoleApi\Dependency\Facade\CompanyRoleApiToApiFacadeInterface;
 use FondOfOryx\Zed\CompanyRoleApi\Dependency\Facade\CompanyRoleApiToCompanyRoleFacadeInterface;
-use FondOfOryx\Zed\CompanyRoleApi\Dependency\QueryContainer\CompanyRoleApiToApiQueryContainerInterface;
 use FondOfOryx\Zed\CompanyRoleApi\Persistence\CompanyRoleApiRepositoryInterface;
 use Generated\Shared\Transfer\ApiCollectionTransfer;
 use Generated\Shared\Transfer\ApiItemTransfer;
@@ -15,9 +15,9 @@ use Generated\Shared\Transfer\CompanyRoleTransfer;
 class CompanyRoleApiTest extends Unit
 {
     /**
-     * @var \PHPUnit\Framework\MockObject\MockObject|\FondOfOryx\Zed\CompanyRoleApi\Dependency\QueryContainer\CompanyRoleApiToApiQueryContainerInterface
+     * @var \PHPUnit\Framework\MockObject\MockObject|\FondOfOryx\Zed\CompanyRoleApi\Dependency\Facade\CompanyRoleApiToApiFacadeInterface
      */
-    protected $apiQueryContainerMock;
+    protected $apiFacadeMock;
 
     /**
      * @var \PHPUnit\Framework\MockObject\MockObject|\FondOfOryx\Zed\CompanyRoleApi\Dependency\Facade\CompanyRoleApiToCompanyRoleFacadeInterface
@@ -61,7 +61,7 @@ class CompanyRoleApiTest extends Unit
     {
         parent::_before();
 
-        $this->apiQueryContainerMock = $this->getMockBuilder(CompanyRoleApiToApiQueryContainerInterface::class)
+        $this->apiFacadeMock = $this->getMockBuilder(CompanyRoleApiToApiFacadeInterface::class)
             ->disableOriginalConstructor()
             ->getMock();
 
@@ -90,7 +90,7 @@ class CompanyRoleApiTest extends Unit
             ->getMock();
 
         $this->companyRoleApi = new CompanyRoleApi(
-            $this->apiQueryContainerMock,
+            $this->apiFacadeMock,
             $this->companyRoleFacadeMock,
             $this->repositoryMock,
         );
@@ -113,7 +113,7 @@ class CompanyRoleApiTest extends Unit
                 ),
             )->willReturn($this->companyRoleTransferMock);
 
-        $this->apiQueryContainerMock->expects(static::atLeastOnce())
+        $this->apiFacadeMock->expects(static::atLeastOnce())
             ->method('createApiItem')
             ->with($this->companyRoleTransferMock, $idCompanyRole)
             ->willReturn($this->apiItemTransferMock);
@@ -138,7 +138,7 @@ class CompanyRoleApiTest extends Unit
                 ),
             )->willThrowException(new Exception());
 
-        $this->apiQueryContainerMock->expects(static::never())
+        $this->apiFacadeMock->expects(static::never())
             ->method('createApiItem');
 
         try {

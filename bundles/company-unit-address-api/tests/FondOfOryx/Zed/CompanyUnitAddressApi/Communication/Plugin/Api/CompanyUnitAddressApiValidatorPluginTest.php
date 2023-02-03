@@ -5,14 +5,14 @@ namespace FondOfOryx\Zed\CompanyUnitAddressApi\Communication\Plugin\Api;
 use Codeception\Test\Unit;
 use FondOfOryx\Zed\CompanyUnitAddressApi\Business\CompanyUnitAddressApiFacade;
 use FondOfOryx\Zed\CompanyUnitAddressApi\CompanyUnitAddressApiConfig;
-use Generated\Shared\Transfer\ApiDataTransfer;
+use Generated\Shared\Transfer\ApiRequestTransfer;
 
 class CompanyUnitAddressApiValidatorPluginTest extends Unit
 {
     /**
-     * @var \PHPUnit\Framework\MockObject\MockObject|\Generated\Shared\Transfer\ApiDataTransfer
+     * @var \PHPUnit\Framework\MockObject\MockObject|\Generated\Shared\Transfer\ApiRequestTransfer
      */
-    protected $apiDataTransferMock;
+    protected $apiRequestTransferMock;
 
     /**
      * @var \PHPUnit\Framework\MockObject\MockObject|\FondOfOryx\Zed\CompanyUnitAddressApi\Business\CompanyUnitAddressApiFacadeInterface
@@ -29,7 +29,7 @@ class CompanyUnitAddressApiValidatorPluginTest extends Unit
      */
     protected function _before(): void
     {
-        $this->apiDataTransferMock = $this->getMockBuilder(ApiDataTransfer::class)
+        $this->apiRequestTransferMock = $this->getMockBuilder(ApiRequestTransfer::class)
             ->disableOriginalConstructor()
             ->getMock();
 
@@ -61,12 +61,12 @@ class CompanyUnitAddressApiValidatorPluginTest extends Unit
 
         $this->companyUnitAddressApiFacadeMock->expects($this->atLeastOnce())
             ->method('validate')
-            ->with($this->apiDataTransferMock)
+            ->with($this->apiRequestTransferMock)
             ->willReturn($errors);
 
         static::assertEquals(
             $errors,
-            $this->plugin->validate($this->apiDataTransferMock),
+            $this->plugin->validate($this->apiRequestTransferMock),
         );
     }
 }

@@ -3,7 +3,6 @@
 namespace FondOfOryx\Zed\GiftCardApi\Business;
 
 use Generated\Shared\Transfer\ApiCollectionTransfer;
-use Generated\Shared\Transfer\ApiDataTransfer;
 use Generated\Shared\Transfer\ApiRequestTransfer;
 use Spryker\Zed\Kernel\Business\AbstractFacade;
 
@@ -34,14 +33,14 @@ class GiftCardApiFacade extends AbstractFacade implements GiftCardApiFacadeInter
      *
      * @api
      *
-     * @param \Generated\Shared\Transfer\ApiDataTransfer $apiDataTransfer
+     * @param \Generated\Shared\Transfer\ApiRequestTransfer $apiRequestTransfer
      *
-     * @return array
+     * @return array<\Generated\Shared\Transfer\ApiValidationErrorTransfer>
      */
-    public function validate(ApiDataTransfer $apiDataTransfer): array
+    public function validate(ApiRequestTransfer $apiRequestTransfer): array
     {
         return $this->getFactory()
             ->createGiftCardApiValidator()
-            ->validate($apiDataTransfer);
+            ->validate($apiRequestTransfer);
     }
 }

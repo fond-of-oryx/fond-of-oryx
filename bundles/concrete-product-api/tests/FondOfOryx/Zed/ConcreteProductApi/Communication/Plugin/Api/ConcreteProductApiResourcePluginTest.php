@@ -106,7 +106,7 @@ class ConcreteProductApiResourcePluginTest extends Unit
     public function testFind(): void
     {
         $this->concreteProductApiFacadeMock->expects(static::atLeastOnce())
-            ->method('findConditionalProducts')
+            ->method('findConcreteProducts')
             ->with($this->apiRequestTransferMock)
             ->willReturn($this->apiCollectionTransferMock);
 

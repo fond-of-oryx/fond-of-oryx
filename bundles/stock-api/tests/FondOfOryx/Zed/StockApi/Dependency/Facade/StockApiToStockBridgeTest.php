@@ -27,7 +27,7 @@ class StockApiToStockBridgeTest extends Unit
     /**
      * @return void
      */
-    public function _before()
+    public function _before(): void
     {
         $this->stockFacadeMock = $this->getMockBuilder(StockFacadeInterface::class)
             ->disableOriginalConstructor()
@@ -43,7 +43,7 @@ class StockApiToStockBridgeTest extends Unit
     /**
      * @return void
      */
-    public function testFindProductConcreteIdBySku()
+    public function testFindProductConcreteIdBySku(): void
     {
         $this->stockFacadeMock->expects($this->atLeastOnce())
             ->method('calculateStockForProduct')
@@ -57,7 +57,7 @@ class StockApiToStockBridgeTest extends Unit
     /**
      * @return void
      */
-    public function testIsNeverOutOfStock()
+    public function testIsNeverOutOfStock(): void
     {
         $this->stockFacadeMock->expects($this->atLeastOnce())
             ->method('isNeverOutOfStock')
@@ -71,7 +71,7 @@ class StockApiToStockBridgeTest extends Unit
     /**
      * @return void
      */
-    public function testCreateStockProduct()
+    public function testCreateStockProduct(): void
     {
         $this->stockFacadeMock->expects($this->atLeastOnce())
             ->method('createStockProduct')
@@ -85,7 +85,7 @@ class StockApiToStockBridgeTest extends Unit
     /**
      * @return void
      */
-    public function testUpdateStockProduct()
+    public function testUpdateStockProduct(): void
     {
         $this->stockFacadeMock->expects($this->atLeastOnce())
             ->method('updateStockProduct')
@@ -99,7 +99,7 @@ class StockApiToStockBridgeTest extends Unit
     /**
      * @return void
      */
-    public function testGetAvailableStockTypes()
+    public function testGetAvailableStockTypes(): void
     {
         $this->stockFacadeMock->expects($this->atLeastOnce())
             ->method('getAvailableStockTypes')
@@ -113,7 +113,7 @@ class StockApiToStockBridgeTest extends Unit
     /**
      * @return void
      */
-    public function testGetStockProductsByIdProduct()
+    public function testGetStockProductsByIdProduct(): void
     {
         $this->stockFacadeMock->expects($this->atLeastOnce())
             ->method('getStockProductsByIdProduct')

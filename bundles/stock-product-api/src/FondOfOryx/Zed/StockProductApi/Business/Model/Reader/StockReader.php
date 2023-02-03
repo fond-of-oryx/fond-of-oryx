@@ -2,9 +2,9 @@
 
 namespace FondOfOryx\Zed\StockProductApi\Business\Model\Reader;
 
+use FondOfOryx\Zed\StockProductApi\Dependency\Facade\StockProductApiToApiFacadeInterface;
 use FondOfOryx\Zed\StockProductApi\Dependency\Facade\StockProductApiToStockInterface;
 use FondOfOryx\Zed\StockProductApi\Dependency\QueryContainer\StockProductApiToApiQueryBuilderQueryContainerInterface;
-use FondOfOryx\Zed\StockProductApi\Dependency\QueryContainer\StockProductApiToApiQueryContainerInterface;
 use FondOfOryx\Zed\StockProductApi\Persistence\StockProductApiQueryContainerInterface;
 use FondOfOryx\Zed\StockProductApi\Persistence\StockProductApiRepositoryInterface;
 use Generated\Shared\Transfer\ApiCollectionTransfer;
@@ -40,9 +40,9 @@ class StockReader implements StockReaderInterface
     protected $stockFacade;
 
     /**
-     * @var \FondOfOryx\Zed\StockProductApi\Dependency\QueryContainer\StockProductApiToApiQueryContainerInterface
+     * @var \FondOfOryx\Zed\StockProductApi\Dependency\Facade\StockProductApiToApiFacadeInterface
      */
-    protected $apiQueryContainer;
+    protected $apiFacade;
 
     /**
      * @var \FondOfOryx\Zed\StockProductApi\Dependency\QueryContainer\StockProductApiToApiQueryBuilderQueryContainerInterface
@@ -61,20 +61,20 @@ class StockReader implements StockReaderInterface
 
     /**
      * @param \FondOfOryx\Zed\StockProductApi\Dependency\Facade\StockProductApiToStockInterface $stockFacade
-     * @param \FondOfOryx\Zed\StockProductApi\Dependency\QueryContainer\StockProductApiToApiQueryContainerInterface $queryContainer
+     * @param \FondOfOryx\Zed\StockProductApi\Dependency\Facade\StockProductApiToApiFacadeInterface $apiFacade
      * @param \FondOfOryx\Zed\StockProductApi\Dependency\QueryContainer\StockProductApiToApiQueryBuilderQueryContainerInterface $queryBuilderQueryContainer
      * @param \FondOfOryx\Zed\StockProductApi\Persistence\StockProductApiQueryContainerInterface $stockApiQueryContainer
      * @param \FondOfOryx\Zed\StockProductApi\Persistence\StockProductApiRepositoryInterface $repository
      */
     public function __construct(
         StockProductApiToStockInterface $stockFacade,
-        StockProductApiToApiQueryContainerInterface $queryContainer,
+        StockProductApiToApiFacadeInterface $apiFacade,
         StockProductApiToApiQueryBuilderQueryContainerInterface $queryBuilderQueryContainer,
         StockProductApiQueryContainerInterface $stockApiQueryContainer,
         StockProductApiRepositoryInterface $repository
     ) {
         $this->stockFacade = $stockFacade;
-        $this->apiQueryContainer = $queryContainer;
+        $this->apiFacade = $apiFacade;
         $this->apiQueryBuilderQueryContainer = $queryBuilderQueryContainer;
         $this->queryContainer = $stockApiQueryContainer;
         $this->repository = $repository;
@@ -89,7 +89,7 @@ class StockReader implements StockReaderInterface
     {
         $query = $this->buildQuery($apiRequestTransfer);
         $collection = $this->toTransferCollection($query->find()->getData());
-        $apiCollectionTransfer = $this->apiQueryContainer->createApiCollection($collection);
+        $apiCollectionTransfer = $this->apiFacade->createApiCollection($collection);
 
         return $this->addPagination($query, $apiCollectionTransfer, $apiRequestTransfer);
     }
@@ -112,7 +112,7 @@ class StockReader implements StockReaderInterface
             );
         }
 
-        return $this->apiQueryContainer->createApiItem($stockProductTransfer, $id);
+        return $this->apiFacade->createApiItem($stockProductTransfer, (string)$id);
     }
 
     /**

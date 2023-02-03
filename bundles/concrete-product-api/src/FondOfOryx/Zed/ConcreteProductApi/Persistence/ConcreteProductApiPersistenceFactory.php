@@ -3,8 +3,8 @@
 namespace FondOfOryx\Zed\ConcreteProductApi\Persistence;
 
 use FondOfOryx\Zed\ConcreteProductApi\ConcreteProductApiDependencyProvider;
+use FondOfOryx\Zed\ConcreteProductApi\Dependency\Facade\ConcreteProductApiToApiFacadeInterface;
 use FondOfOryx\Zed\ConcreteProductApi\Dependency\QueryContainer\ConcreteProductApiToApiQueryBuilderQueryContainerInterface;
-use FondOfOryx\Zed\ConcreteProductApi\Dependency\QueryContainer\ConcreteProductApiToApiQueryContainerInterface;
 use Orm\Zed\Product\Persistence\SpyProductQuery;
 use Spryker\Zed\Kernel\Persistence\AbstractPersistenceFactory;
 
@@ -30,10 +30,10 @@ class ConcreteProductApiPersistenceFactory extends AbstractPersistenceFactory
     }
 
     /**
-     * @return \FondOfOryx\Zed\ConcreteProductApi\Dependency\QueryContainer\ConcreteProductApiToApiQueryContainerInterface
+     * @return \FondOfOryx\Zed\ConcreteProductApi\Dependency\Facade\ConcreteProductApiToApiFacadeInterface
      */
-    public function getApiQueryContainer(): ConcreteProductApiToApiQueryContainerInterface
+    public function getApiFacade(): ConcreteProductApiToApiFacadeInterface
     {
-        return $this->getProvidedDependency(ConcreteProductApiDependencyProvider::QUERY_CONTAINER_API);
+        return $this->getProvidedDependency(ConcreteProductApiDependencyProvider::FACADE_API);
     }
 }

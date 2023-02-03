@@ -3,7 +3,6 @@
 namespace FondOfOryx\Zed\ConcreteProductApi\Business;
 
 use Generated\Shared\Transfer\ApiCollectionTransfer;
-use Generated\Shared\Transfer\ApiDataTransfer;
 use Generated\Shared\Transfer\ApiItemTransfer;
 use Generated\Shared\Transfer\ApiRequestTransfer;
 
@@ -13,11 +12,13 @@ interface ConcreteProductApiFacadeInterface
      * Specification:
      * - Validate api data.
      *
-     * @param \Generated\Shared\Transfer\ApiDataTransfer $apiDataTransfer
+     * @api
      *
-     * @return array
+     * @param \Generated\Shared\Transfer\ApiRequestTransfer $apiRequestTransfer
+     *
+     * @return array<\Generated\Shared\Transfer\ApiValidationErrorTransfer>
      */
-    public function validate(ApiDataTransfer $apiDataTransfer): array;
+    public function validate(ApiRequestTransfer $apiRequestTransfer): array;
 
     /**
      * Specification:
@@ -42,5 +43,5 @@ interface ConcreteProductApiFacadeInterface
      *
      * @return \Generated\Shared\Transfer\ApiCollectionTransfer
      */
-    public function findConditionalProducts(ApiRequestTransfer $apiRequestTransfer): ApiCollectionTransfer;
+    public function findConcreteProducts(ApiRequestTransfer $apiRequestTransfer): ApiCollectionTransfer;
 }

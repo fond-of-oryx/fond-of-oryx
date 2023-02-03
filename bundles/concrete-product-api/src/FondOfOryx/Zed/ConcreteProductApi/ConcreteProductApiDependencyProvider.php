@@ -2,9 +2,9 @@
 
 namespace FondOfOryx\Zed\ConcreteProductApi;
 
+use FondOfOryx\Zed\ConcreteProductApi\Dependency\Facade\ConcreteProductApiToApiFacadeBridge;
 use FondOfOryx\Zed\ConcreteProductApi\Dependency\Facade\ConcreteProductApiToProductFacadeBridge;
 use FondOfOryx\Zed\ConcreteProductApi\Dependency\QueryContainer\ConcreteProductApiToApiQueryBuilderQueryContainerBridge;
-use FondOfOryx\Zed\ConcreteProductApi\Dependency\QueryContainer\ConcreteProductApiToApiQueryContainerBridge;
 use Orm\Zed\Product\Persistence\SpyProductQuery;
 use Spryker\Zed\Kernel\AbstractBundleDependencyProvider;
 use Spryker\Zed\Kernel\Container;
@@ -14,7 +14,7 @@ class ConcreteProductApiDependencyProvider extends AbstractBundleDependencyProvi
     /**
      * @var string
      */
-    public const QUERY_CONTAINER_API = 'QUERY_CONTAINER_API';
+    public const FACADE_API = 'FACADE_API';
 
     /**
      * @var string
@@ -40,7 +40,7 @@ class ConcreteProductApiDependencyProvider extends AbstractBundleDependencyProvi
     {
         $container = parent::provideBusinessLayerDependencies($container);
 
-        $container = $this->addApiQueryContainer($container);
+        $container = $this->addApiFacade($container);
 
         return $this->addProductFacade($container);
     }
@@ -54,7 +54,7 @@ class ConcreteProductApiDependencyProvider extends AbstractBundleDependencyProvi
     {
         $container = parent::providePersistenceLayerDependencies($container);
 
-        $container = $this->addApiQueryContainer($container);
+        $container = $this->addApiFacade($container);
         $container = $this->addApiQueryBuilderQueryContainer($container);
 
         return $this->addProductPropelQuery($container);
@@ -65,11 +65,11 @@ class ConcreteProductApiDependencyProvider extends AbstractBundleDependencyProvi
      *
      * @return \Spryker\Zed\Kernel\Container
      */
-    protected function addApiQueryContainer(Container $container): Container
+    protected function addApiFacade(Container $container): Container
     {
-        $container[static::QUERY_CONTAINER_API] = static function (Container $container) {
-            return new ConcreteProductApiToApiQueryContainerBridge(
-                $container->getLocator()->api()->queryContainer(),
+        $container[static::FACADE_API] = static function (Container $container) {
+            return new ConcreteProductApiToApiFacadeBridge(
+                $container->getLocator()->api()->facade(),
             );
         };
 

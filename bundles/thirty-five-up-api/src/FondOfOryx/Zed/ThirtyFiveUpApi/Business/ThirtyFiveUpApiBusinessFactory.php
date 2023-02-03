@@ -6,8 +6,8 @@ use FondOfOryx\Zed\ThirtyFiveUpApi\Business\Model\ThirtyFiveUpOrderApi;
 use FondOfOryx\Zed\ThirtyFiveUpApi\Business\Model\ThirtyFiveUpOrderApiInterface;
 use FondOfOryx\Zed\ThirtyFiveUpApi\Business\Model\Validator\ThirtyFiveUpApiValidator;
 use FondOfOryx\Zed\ThirtyFiveUpApi\Business\Model\Validator\ThirtyFiveUpApiValidatorInterface;
+use FondOfOryx\Zed\ThirtyFiveUpApi\Dependency\Facade\ThirtyFiveUpApiToApiFacadeInterface;
 use FondOfOryx\Zed\ThirtyFiveUpApi\Dependency\Facade\ThirtyFiveUpApiToThirtyFiveUpFacadeInterface;
-use FondOfOryx\Zed\ThirtyFiveUpApi\Dependency\QueryContainer\ThirtyFiveUpApiToApiQueryContainerInterface;
 use FondOfOryx\Zed\ThirtyFiveUpApi\ThirtyFiveUpApiDependencyProvider;
 use Spryker\Zed\Kernel\Business\AbstractBusinessFactory;
 
@@ -22,7 +22,7 @@ class ThirtyFiveUpApiBusinessFactory extends AbstractBusinessFactory
     public function createThirtyFiveUpApi(): ThirtyFiveUpOrderApiInterface
     {
         return new ThirtyFiveUpOrderApi(
-            $this->getApiQueryContainer(),
+            $this->getApiFacade(),
             $this->getThirtyFiveUpFacade(),
             $this->getRepository(),
         );
@@ -37,11 +37,11 @@ class ThirtyFiveUpApiBusinessFactory extends AbstractBusinessFactory
     }
 
     /**
-     * @return \FondOfOryx\Zed\ThirtyFiveUpApi\Dependency\QueryContainer\ThirtyFiveUpApiToApiQueryContainerInterface
+     * @return \FondOfOryx\Zed\ThirtyFiveUpApi\Dependency\Facade\ThirtyFiveUpApiToApiFacadeInterface
      */
-    protected function getApiQueryContainer(): ThirtyFiveUpApiToApiQueryContainerInterface
+    protected function getApiFacade(): ThirtyFiveUpApiToApiFacadeInterface
     {
-        return $this->getProvidedDependency(ThirtyFiveUpApiDependencyProvider::QUERY_CONTAINER_API);
+        return $this->getProvidedDependency(ThirtyFiveUpApiDependencyProvider::FACADE_API);
     }
 
     /**

@@ -6,8 +6,8 @@ use Codeception\Test\Unit;
 use FondOfOryx\Zed\CompanyRoleApi\Business\Model\CompanyRoleApi;
 use FondOfOryx\Zed\CompanyRoleApi\CompanyRoleApiConfig;
 use FondOfOryx\Zed\CompanyRoleApi\CompanyRoleApiDependencyProvider;
+use FondOfOryx\Zed\CompanyRoleApi\Dependency\Facade\CompanyRoleApiToApiFacadeInterface;
 use FondOfOryx\Zed\CompanyRoleApi\Dependency\Facade\CompanyRoleApiToCompanyRoleFacadeInterface;
-use FondOfOryx\Zed\CompanyRoleApi\Dependency\QueryContainer\CompanyRoleApiToApiQueryContainerInterface;
 use FondOfOryx\Zed\CompanyRoleApi\Persistence\CompanyRoleApiQueryContainer;
 use FondOfOryx\Zed\CompanyRoleApi\Persistence\CompanyRoleApiRepository;
 use Spryker\Zed\Kernel\Container;
@@ -75,7 +75,7 @@ class CompanyRoleApiBusinessFactoryTest extends Unit
      */
     public function testCreateCompanyRoleApi(): void
     {
-        $apiQueryContainerMock = $this->getMockBuilder(CompanyRoleApiToApiQueryContainerInterface::class)
+        $apiFacadeMock = $this->getMockBuilder(CompanyRoleApiToApiFacadeInterface::class)
             ->disableOriginalConstructor()
             ->getMock();
 
@@ -86,18 +86,18 @@ class CompanyRoleApiBusinessFactoryTest extends Unit
         $this->containerMock->expects(static::atLeastOnce())
             ->method('has')
             ->withConsecutive(
-                [CompanyRoleApiDependencyProvider::QUERY_CONTAINER_API],
+                [CompanyRoleApiDependencyProvider::FACADE_API],
                 [CompanyRoleApiDependencyProvider::FACADE_COMPANY_ROLE],
             )->willReturn(true);
 
         $this->containerMock->expects(static::atLeastOnce())
             ->method('get')
             ->withConsecutive(
-                [CompanyRoleApiDependencyProvider::QUERY_CONTAINER_API],
+                [CompanyRoleApiDependencyProvider::FACADE_API],
                 [CompanyRoleApiDependencyProvider::FACADE_COMPANY_ROLE],
             )
             ->willReturnOnConsecutiveCalls(
-                $apiQueryContainerMock,
+                $apiFacadeMock,
                 $apiToCompanyFacadeMock,
             );
 

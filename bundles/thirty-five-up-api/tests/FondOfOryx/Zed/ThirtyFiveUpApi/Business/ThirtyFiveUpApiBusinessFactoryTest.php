@@ -6,8 +6,8 @@ use Codeception\Test\Unit;
 use Exception;
 use FondOfOryx\Zed\ThirtyFiveUpApi\Business\Model\ThirtyFiveUpOrderApiInterface;
 use FondOfOryx\Zed\ThirtyFiveUpApi\Business\Model\Validator\ThirtyFiveUpApiValidatorInterface;
+use FondOfOryx\Zed\ThirtyFiveUpApi\Dependency\Facade\ThirtyFiveUpApiToApiFacadeBridge;
 use FondOfOryx\Zed\ThirtyFiveUpApi\Dependency\Facade\ThirtyFiveUpApiToThirtyFiveUpFacadeBridge;
-use FondOfOryx\Zed\ThirtyFiveUpApi\Dependency\QueryContainer\ThirtyFiveUpApiToApiQueryContainerBridge;
 use FondOfOryx\Zed\ThirtyFiveUpApi\Persistence\ThirtyFiveUpApiRepository;
 use FondOfOryx\Zed\ThirtyFiveUpApi\ThirtyFiveUpApiDependencyProvider;
 use Spryker\Zed\Kernel\Container;
@@ -25,7 +25,7 @@ class ThirtyFiveUpApiBusinessFactoryTest extends Unit
     protected $containerMock;
 
     /**
-     * @var \FondOfOryx\Zed\ThirtyFiveUpApi\Dependency\QueryContainer\ThirtyFiveUpApiToApiQueryContainerInterface|\PHPUnit\Framework\MockObject\MockObject
+     * @var \FondOfOryx\Zed\ThirtyFiveUpApi\Dependency\Facade\ThirtyFiveUpApiToApiFacadeInterface|\PHPUnit\Framework\MockObject\MockObject
      */
     protected $thirtyFiveUpQueryContainerMock;
 
@@ -48,7 +48,7 @@ class ThirtyFiveUpApiBusinessFactoryTest extends Unit
 
         $this->containerMock = $this->getMockBuilder(Container::class)->disableOriginalConstructor()->getMock();
         $this->thirtyFiveUpFacadeMock = $this->getMockBuilder(ThirtyFiveUpApiToThirtyFiveUpFacadeBridge::class)->disableOriginalConstructor()->getMock();
-        $this->thirtyFiveUpQueryContainerMock = $this->getMockBuilder(ThirtyFiveUpApiToApiQueryContainerBridge::class)->disableOriginalConstructor()->getMock();
+        $this->thirtyFiveUpQueryContainerMock = $this->getMockBuilder(ThirtyFiveUpApiToApiFacadeBridge::class)->disableOriginalConstructor()->getMock();
         $this->repositoryMock = $this->getMockBuilder(ThirtyFiveUpApiRepository::class)->disableOriginalConstructor()->getMock();
 
         $this->factory = new ThirtyFiveUpApiBusinessFactory();
@@ -64,7 +64,7 @@ class ThirtyFiveUpApiBusinessFactoryTest extends Unit
         $self = $this;
         $this->containerMock->method('has')->willReturn(true);
         $this->containerMock->method('get')->willReturnCallback(static function ($key) use ($self) {
-            if ($key === ThirtyFiveUpApiDependencyProvider::QUERY_CONTAINER_API) {
+            if ($key === ThirtyFiveUpApiDependencyProvider::FACADE_API) {
                 return $self->thirtyFiveUpQueryContainerMock;
             }
             if ($key === ThirtyFiveUpApiDependencyProvider::FACADE_THIRTY_FIVE_UP) {

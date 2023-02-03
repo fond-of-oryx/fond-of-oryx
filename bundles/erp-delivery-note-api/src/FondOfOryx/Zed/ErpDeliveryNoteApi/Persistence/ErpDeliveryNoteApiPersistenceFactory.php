@@ -2,8 +2,8 @@
 
 namespace FondOfOryx\Zed\ErpDeliveryNoteApi\Persistence;
 
+use FondOfOryx\Zed\ErpDeliveryNoteApi\Dependency\Facade\ErpDeliveryNoteApiToApiFacadeInterface;
 use FondOfOryx\Zed\ErpDeliveryNoteApi\Dependency\QueryContainer\ErpDeliveryNoteApiToApiQueryBuilderQueryContainerInterface;
-use FondOfOryx\Zed\ErpDeliveryNoteApi\Dependency\QueryContainer\ErpDeliveryNoteApiToApiQueryContainerInterface;
 use FondOfOryx\Zed\ErpDeliveryNoteApi\ErpDeliveryNoteApiDependencyProvider;
 use Orm\Zed\ErpDeliveryNote\Persistence\FooErpDeliveryNoteQuery;
 use Spryker\Zed\Kernel\Persistence\AbstractPersistenceFactory;
@@ -33,10 +33,10 @@ class ErpDeliveryNoteApiPersistenceFactory extends AbstractPersistenceFactory
     }
 
     /**
-     * @return \FondOfOryx\Zed\ErpDeliveryNoteApi\Dependency\QueryContainer\ErpDeliveryNoteApiToApiQueryContainerInterface
+     * @return \FondOfOryx\Zed\ErpDeliveryNoteApi\Dependency\Facade\ErpDeliveryNoteApiToApiFacadeInterface
      */
-    public function getApiQueryContainer(): ErpDeliveryNoteApiToApiQueryContainerInterface
+    public function getApiFacade(): ErpDeliveryNoteApiToApiFacadeInterface
     {
-        return $this->getProvidedDependency(ErpDeliveryNoteApiDependencyProvider::QUERY_CONTAINER_API);
+        return $this->getProvidedDependency(ErpDeliveryNoteApiDependencyProvider::FACADE_API);
     }
 }

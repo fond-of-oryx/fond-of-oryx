@@ -23,7 +23,7 @@ class StockProductApiBusinessFactory extends AbstractBusinessFactory
     public function createStockProductApi()
     {
         return new StockProductApi(
-            $this->getApiQueryContainer(),
+            $this->getApiFacade(),
             $this->createTransferMapper(),
             $this->getStockFacade(),
             $this->createStockReader(),
@@ -37,7 +37,7 @@ class StockProductApiBusinessFactory extends AbstractBusinessFactory
     {
         return new StockReader(
             $this->getStockFacade(),
-            $this->getApiQueryContainer(),
+            $this->getApiFacade(),
             $this->getApiQueryBuilderQueryContainer(),
             $this->getQueryContainer(),
             $this->getRepository(),
@@ -61,11 +61,11 @@ class StockProductApiBusinessFactory extends AbstractBusinessFactory
     }
 
     /**
-     * @return \FondOfOryx\Zed\StockProductApi\Dependency\QueryContainer\StockProductApiToApiQueryContainerInterface
+     * @return \FondOfOryx\Zed\StockProductApi\Dependency\Facade\StockProductApiToApiFacadeInterface
      */
-    protected function getApiQueryContainer()
+    protected function getApiFacade()
     {
-        return $this->getProvidedDependency(StockProductApiDependencyProvider::QUERY_CONTAINER_API);
+        return $this->getProvidedDependency(StockProductApiDependencyProvider::FACADE_API);
     }
 
     /**

@@ -5,8 +5,8 @@ namespace FondOfOryx\Zed\ErpDeliveryNoteApi\Business;
 use Codeception\Test\Unit;
 use FondOfOryx\Zed\ErpDeliveryNoteApi\Business\Model\ErpDeliveryNoteApi;
 use FondOfOryx\Zed\ErpDeliveryNoteApi\Business\Validator\ErpDeliveryNoteApiValidator;
+use FondOfOryx\Zed\ErpDeliveryNoteApi\Dependency\Facade\ErpDeliveryNoteApiToApiFacadeInterface;
 use FondOfOryx\Zed\ErpDeliveryNoteApi\Dependency\Facade\ErpDeliveryNoteApiToErpDeliveryNoteFacadeInterface;
-use FondOfOryx\Zed\ErpDeliveryNoteApi\Dependency\QueryContainer\ErpDeliveryNoteApiToApiQueryContainerInterface;
 use FondOfOryx\Zed\ErpDeliveryNoteApi\ErpDeliveryNoteApiDependencyProvider;
 use FondOfOryx\Zed\ErpDeliveryNoteApi\Persistence\ErpDeliveryNoteApiRepository;
 use Spryker\Zed\Kernel\Container;
@@ -24,9 +24,9 @@ class ErpDeliveryNoteApiBusinessFactoryTest extends Unit
     protected $erpDeliveryNoteFacadeMock;
 
     /**
-     * @var \FondOfOryx\Zed\ErpDeliveryNoteApi\Dependency\QueryContainer\ErpDeliveryNoteApiToApiQueryContainerInterface|\PHPUnit\Framework\MockObject\MockObject
+     * @var \FondOfOryx\Zed\ErpDeliveryNoteApi\Dependency\Facade\ErpDeliveryNoteApiToApiFacadeInterface|\PHPUnit\Framework\MockObject\MockObject
      */
-    protected $apiQueryContainerMock;
+    protected $apiFacadeMock;
 
     /**
      * @var \FondOfOryx\Zed\ErpDeliveryNoteApi\Persistence\ErpDeliveryNoteApiRepository|\PHPUnit\Framework\MockObject\MockObject
@@ -53,7 +53,7 @@ class ErpDeliveryNoteApiBusinessFactoryTest extends Unit
             ->disableOriginalConstructor()
             ->getMock();
 
-        $this->apiQueryContainerMock = $this->getMockBuilder(ErpDeliveryNoteApiToApiQueryContainerInterface::class)
+        $this->apiFacadeMock = $this->getMockBuilder(ErpDeliveryNoteApiToApiFacadeInterface::class)
             ->disableOriginalConstructor()
             ->getMock();
 
@@ -77,8 +77,8 @@ class ErpDeliveryNoteApiBusinessFactoryTest extends Unit
 
         $this->containerMock->expects(static::atLeastOnce())
             ->method('get')
-            ->withConsecutive([ErpDeliveryNoteApiDependencyProvider::QUERY_CONTAINER_API], [ErpDeliveryNoteApiDependencyProvider::FACADE_ERP_DELIVERY_NOTE])
-            ->willReturnOnConsecutiveCalls($this->apiQueryContainerMock, $this->erpDeliveryNoteFacadeMock);
+            ->withConsecutive([ErpDeliveryNoteApiDependencyProvider::FACADE_API], [ErpDeliveryNoteApiDependencyProvider::FACADE_ERP_DELIVERY_NOTE])
+            ->willReturnOnConsecutiveCalls($this->apiFacadeMock, $this->erpDeliveryNoteFacadeMock);
 
         static::assertInstanceOf(
             ErpDeliveryNoteApi::class,

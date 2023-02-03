@@ -2,8 +2,8 @@
 
 namespace FondOfOryx\Zed\CustomerProductListApi\Business\Model;
 
+use FondOfOryx\Zed\CustomerProductListApi\Dependency\Facade\CustomerProductListApiToApiFacadeInterface;
 use FondOfOryx\Zed\CustomerProductListApi\Dependency\Facade\CustomerProductListApiToCustomerProductListConnectorFacadeInterface;
-use FondOfOryx\Zed\CustomerProductListApi\Dependency\QueryContainer\CustomerProductListApiToApiQueryContainerInterface;
 use Generated\Shared\Transfer\ApiDataTransfer;
 use Generated\Shared\Transfer\ApiItemTransfer;
 use Generated\Shared\Transfer\CustomerProductListRelationTransfer;
@@ -16,9 +16,9 @@ class CustomerProductListApi implements CustomerProductListApiInterface
     public const DATA_KEY_FK_CUSTOMER = 'fk_customer';
 
     /**
-     * @var \FondOfOryx\Zed\CustomerProductListApi\Dependency\QueryContainer\CustomerProductListApiToApiQueryContainerInterface
+     * @var \FondOfOryx\Zed\CustomerProductListApi\Dependency\Facade\CustomerProductListApiToApiFacadeInterface
      */
-    protected $apiQueryContainer;
+    protected $apiFacade;
 
     /**
      * @var \FondOfOryx\Zed\CustomerProductListApi\Dependency\Facade\CustomerProductListApiToCustomerProductListConnectorFacadeInterface
@@ -27,13 +27,13 @@ class CustomerProductListApi implements CustomerProductListApiInterface
 
     /**
      * @param \FondOfOryx\Zed\CustomerProductListApi\Dependency\Facade\CustomerProductListApiToCustomerProductListConnectorFacadeInterface $customerProductListConnectorFacade
-     * @param \FondOfOryx\Zed\CustomerProductListApi\Dependency\QueryContainer\CustomerProductListApiToApiQueryContainerInterface $apiQueryContainer
+     * @param \FondOfOryx\Zed\CustomerProductListApi\Dependency\Facade\CustomerProductListApiToApiFacadeInterface $apiFacade
      */
     public function __construct(
         CustomerProductListApiToCustomerProductListConnectorFacadeInterface $customerProductListConnectorFacade,
-        CustomerProductListApiToApiQueryContainerInterface $apiQueryContainer
+        CustomerProductListApiToApiFacadeInterface $apiFacade
     ) {
-        $this->apiQueryContainer = $apiQueryContainer;
+        $this->apiFacade = $apiFacade;
         $this->customerProductListConnectorFacade = $customerProductListConnectorFacade;
     }
 
@@ -53,6 +53,6 @@ class CustomerProductListApi implements CustomerProductListApiInterface
         $this->customerProductListConnectorFacade
             ->persistCustomerProductListRelation($customerProductListRelationTransfer);
 
-        return $this->apiQueryContainer->createApiItem($customerProductListRelationTransfer);
+        return $this->apiFacade->createApiItem($customerProductListRelationTransfer);
     }
 }

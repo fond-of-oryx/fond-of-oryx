@@ -2,9 +2,9 @@
 
 namespace FondOfOryx\Zed\ErpOrderApi;
 
+use FondOfOryx\Zed\ErpOrderApi\Dependency\Facade\ErpOrderApiToApiFacadeBridge;
 use FondOfOryx\Zed\ErpOrderApi\Dependency\Facade\ErpOrderApiToErpOrderFacadeBridge;
 use FondOfOryx\Zed\ErpOrderApi\Dependency\QueryContainer\ErpOrderApiToApiQueryBuilderQueryContainerBridge;
-use FondOfOryx\Zed\ErpOrderApi\Dependency\QueryContainer\ErpOrderApiToApiQueryContainerBridge;
 use Orm\Zed\ErpOrder\Persistence\ErpOrderQuery;
 use Spryker\Zed\Kernel\AbstractBundleDependencyProvider;
 use Spryker\Zed\Kernel\Container;
@@ -19,7 +19,7 @@ class ErpOrderApiDependencyProvider extends AbstractBundleDependencyProvider
     /**
      * @var string
      */
-    public const QUERY_CONTAINER_API = 'QUERY_CONTAINER_API';
+    public const FACADE_API = 'FACADE_API';
 
     /**
      * @var string
@@ -41,9 +41,8 @@ class ErpOrderApiDependencyProvider extends AbstractBundleDependencyProvider
         $container = parent::provideBusinessLayerDependencies($container);
 
         $container = $this->addErpOrderFacade($container);
-        $container = $this->addApiQueryContainer($container);
 
-        return $container;
+        return $this->addApiFacade($container);
     }
 
     /**
@@ -67,11 +66,11 @@ class ErpOrderApiDependencyProvider extends AbstractBundleDependencyProvider
      *
      * @return \Spryker\Zed\Kernel\Container
      */
-    protected function addApiQueryContainer(Container $container): Container
+    protected function addApiFacade(Container $container): Container
     {
-        $container[static::QUERY_CONTAINER_API] = static function (Container $container) {
-            return new ErpOrderApiToApiQueryContainerBridge(
-                $container->getLocator()->api()->queryContainer(),
+        $container[static::FACADE_API] = static function (Container $container) {
+            return new ErpOrderApiToApiFacadeBridge(
+                $container->getLocator()->api()->facade(),
             );
         };
 
@@ -90,10 +89,9 @@ class ErpOrderApiDependencyProvider extends AbstractBundleDependencyProvider
         $container = parent::providePersistenceLayerDependencies($container);
 
         $this->addErpOrderPropelQuery($container);
-        $this->addApiQueryContainer($container);
-        $this->addApiQueryBuilderQueryContainer($container);
+        $this->addApiFacade($container);
 
-        return $container;
+        return $this->addApiQueryBuilderQueryContainer($container);
     }
 
     /**

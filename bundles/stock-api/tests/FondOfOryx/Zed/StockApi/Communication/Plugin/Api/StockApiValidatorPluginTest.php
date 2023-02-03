@@ -4,15 +4,15 @@ namespace FondOfOryx\Zed\StockApi\Communication\Plugin\Api;
 
 use Codeception\Test\Unit;
 use FondOfOryx\Zed\StockApi\Business\StockApiFacade;
-use Generated\Shared\Transfer\ApiDataTransfer;
+use Generated\Shared\Transfer\ApiRequestTransfer;
 use Generated\Shared\Transfer\ApiValidationErrorTransfer;
 
 class StockApiValidatorPluginTest extends Unit
 {
     /**
-     * @var \Generated\Shared\Transfer\ApiDataTransfer|\PHPUnit\Framework\MockObject\MockObject|null
+     * @var \Generated\Shared\Transfer\ApiRequestTransfer|\PHPUnit\Framework\MockObject\MockObject|null
      */
-    protected $apiDataTransferMock;
+    protected $apiRequestTransferMock;
 
     /**
      * @var \FondOfOryx\Zed\StockApi\Communication\Plugin\Api\StockApiValidatorPlugin
@@ -22,14 +22,14 @@ class StockApiValidatorPluginTest extends Unit
     /**
      * @var \FondOfOryx\Zed\StockApi\Business\StockApiFacadeInterface|\PHPUnit\Framework\MockObject\MockObject|null
      */
-    protected $stockApiFacadeMock;
+    protected $facadeMock;
 
     /**
      * @return void
      */
-    public function _before()
+    public function _before(): void
     {
-        $this->apiDataTransferMock = $this->getMockBuilder(ApiDataTransfer::class)
+        $this->apiRequestTransferMock = $this->getMockBuilder(ApiRequestTransfer::class)
             ->disableOriginalConstructor()
             ->getMock();
 
@@ -37,7 +37,7 @@ class StockApiValidatorPluginTest extends Unit
             ->disableOriginalConstructor()
             ->getMock();
 
-        $this->stockApiFacadeMock = $this->getMockBuilder(StockApiFacade::class)
+        $this->facadeMock = $this->getMockBuilder(StockApiFacade::class)
             ->disableOriginalConstructor()
             ->getMock();
 
@@ -47,21 +47,21 @@ class StockApiValidatorPluginTest extends Unit
     /**
      * @return void
      */
-    public function testValidate()
+    public function testValidate(): void
     {
-        $this->stockApiFacadeMock->expects($this->atLeastOnce())
+        $this->facadeMock->expects($this->atLeastOnce())
             ->method('validate')
             ->willReturn([$this->apiValidateErrorTransferMock]);
 
-        $this->stockApiValidatorPlugin->setFacade($this->stockApiFacadeMock);
+        $this->stockApiValidatorPlugin->setFacade($this->facadeMock);
 
-        $this->stockApiValidatorPlugin->validate($this->apiDataTransferMock);
+        $this->stockApiValidatorPlugin->validate($this->apiRequestTransferMock);
     }
 
     /**
      * @return void
      */
-    public function testGetResourceName()
+    public function testGetResourceName(): void
     {
         $resource = $this->stockApiValidatorPlugin->getResourceName();
 

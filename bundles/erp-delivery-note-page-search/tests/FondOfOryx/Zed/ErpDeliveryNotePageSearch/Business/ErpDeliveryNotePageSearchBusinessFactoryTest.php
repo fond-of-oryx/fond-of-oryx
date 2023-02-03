@@ -3,9 +3,10 @@
 namespace FondOfOryx\Zed\ErpDeliveryNotePageSearch\Business;
 
 use Codeception\Test\Unit;
-use FondOfOryx\Zed\ErpDeliveryNotePageSearch\Business\Publisher\ErpDeliveryNotePageSearchPublisherInterface;
-use FondOfOryx\Zed\ErpDeliveryNotePageSearch\Business\UnPublisher\ErpDeliveryNotePageSearchUnpublisherInterface;
+use FondOfOryx\Zed\ErpDeliveryNotePageSearch\Business\Publisher\ErpDeliveryNotePageSearchPublisher;
+use FondOfOryx\Zed\ErpDeliveryNotePageSearch\Business\UnPublisher\ErpDeliveryNotePageSearchUnpublisher;
 use FondOfOryx\Zed\ErpDeliveryNotePageSearch\Dependency\Service\ErpDeliveryNotePageSearchToUtilEncodingServiceInterface;
+use FondOfOryx\Zed\ErpDeliveryNotePageSearch\ErpDeliveryNotePageSearchConfig;
 use FondOfOryx\Zed\ErpDeliveryNotePageSearch\ErpDeliveryNotePageSearchDependencyProvider;
 use FondOfOryx\Zed\ErpDeliveryNotePageSearch\Persistence\ErpDeliveryNotePageSearchEntityManager;
 use FondOfOryx\Zed\ErpDeliveryNotePageSearch\Persistence\ErpDeliveryNotePageSearchQueryContainer;
@@ -17,6 +18,11 @@ class ErpDeliveryNotePageSearchBusinessFactoryTest extends Unit
      * @var \PHPUnit\Framework\MockObject\MockObject|\Spryker\Zed\Kernel\Container
      */
     protected $containerMock;
+
+    /**
+     * @var \FondOfOryx\Zed\ErpDeliveryNotePageSearch\ErpDeliveryNotePageSearchConfig|\PHPUnit\Framework\MockObject\MockObject
+     */
+    protected $configMock;
 
     /**
      * @var \FondOfOryx\Zed\ErpDeliveryNotePageSearch\Business\ErpDeliveryNotePageSearchBusinessFactory
@@ -47,6 +53,10 @@ class ErpDeliveryNotePageSearchBusinessFactoryTest extends Unit
             ->disableOriginalConstructor()
             ->getMock();
 
+        $this->configMock = $this->getMockBuilder(ErpDeliveryNotePageSearchConfig::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
         $this->erpDeliveryNotePageSearchEntityManagerMock = $this->getMockBuilder(ErpDeliveryNotePageSearchEntityManager::class)
             ->disableOriginalConstructor()
             ->getMock();
@@ -63,12 +73,13 @@ class ErpDeliveryNotePageSearchBusinessFactoryTest extends Unit
         $this->erpDeliveryNotePageSearchBusinessFactory->setEntityManager($this->erpDeliveryNotePageSearchEntityManagerMock);
         $this->erpDeliveryNotePageSearchBusinessFactory->setQueryContainer($this->erpDeliveryNotePageSearchQueryContainerMock);
         $this->erpDeliveryNotePageSearchBusinessFactory->setContainer($this->containerMock);
+        $this->erpDeliveryNotePageSearchBusinessFactory->setConfig($this->configMock);
     }
 
     /**
      * @return void
      */
-    public function testCeateErpDeliveryNotePageSearchPublisher()
+    public function testCeateErpDeliveryNotePageSearchPublisher(): void
     {
         $this->containerMock->expects(static::atLeastOnce())
             ->method('has')
@@ -80,8 +91,8 @@ class ErpDeliveryNotePageSearchBusinessFactoryTest extends Unit
             ->with(ErpDeliveryNotePageSearchDependencyProvider::SERVICE_UTIL_ENCODING)
             ->willReturn($this->erpDeliveryNotePageSearchToUtilEncodingServiceMock);
 
-        $this->assertInstanceOf(
-            ErpDeliveryNotePageSearchPublisherInterface::class,
+        static::assertInstanceOf(
+            ErpDeliveryNotePageSearchPublisher::class,
             $this->erpDeliveryNotePageSearchBusinessFactory->createErpDeliveryNotePageSearchPublisher(),
         );
     }
@@ -89,10 +100,10 @@ class ErpDeliveryNotePageSearchBusinessFactoryTest extends Unit
     /**
      * @return void
      */
-    public function testCreateErpDeliveryNotePageSearchUnPublisher()
+    public function testCreateErpDeliveryNotePageSearchUnPublisher(): void
     {
-        $this->assertInstanceOf(
-            ErpDeliveryNotePageSearchUnpublisherInterface::class,
+        static::assertInstanceOf(
+            ErpDeliveryNotePageSearchUnpublisher::class,
             $this->erpDeliveryNotePageSearchBusinessFactory->createErpDeliveryNotePageSearchUnPublisher(),
         );
     }

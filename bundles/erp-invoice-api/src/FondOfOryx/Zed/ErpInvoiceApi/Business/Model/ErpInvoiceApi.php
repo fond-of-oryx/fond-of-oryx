@@ -2,8 +2,8 @@
 
 namespace FondOfOryx\Zed\ErpInvoiceApi\Business\Model;
 
+use FondOfOryx\Zed\ErpInvoiceApi\Dependency\Facade\ErpInvoiceApiToApiFacadeInterface;
 use FondOfOryx\Zed\ErpInvoiceApi\Dependency\Facade\ErpInvoiceApiToErpInvoiceFacadeInterface;
-use FondOfOryx\Zed\ErpInvoiceApi\Dependency\QueryContainer\ErpInvoiceApiToApiQueryContainerInterface;
 use FondOfOryx\Zed\ErpInvoiceApi\Persistence\ErpInvoiceApiRepositoryInterface;
 use Generated\Shared\Transfer\ApiCollectionTransfer;
 use Generated\Shared\Transfer\ApiDataTransfer;
@@ -22,9 +22,9 @@ class ErpInvoiceApi implements ErpInvoiceApiInterface
     protected const KEY_ID_ERP_INVOICE = 'id_erp_invoice';
 
     /**
-     * @var \FondOfOryx\Zed\ErpInvoiceApi\Dependency\QueryContainer\ErpInvoiceApiToApiQueryContainerInterface
+     * @var \FondOfOryx\Zed\ErpInvoiceApi\Dependency\Facade\ErpInvoiceApiToApiFacadeInterface
      */
-    protected $apiQueryContainer;
+    protected $apiFacade;
 
     /**
      * @var \FondOfOryx\Zed\ErpInvoiceApi\Dependency\Facade\ErpInvoiceApiToErpInvoiceFacadeInterface
@@ -37,16 +37,16 @@ class ErpInvoiceApi implements ErpInvoiceApiInterface
     protected $repository;
 
     /**
-     * @param \FondOfOryx\Zed\ErpInvoiceApi\Dependency\QueryContainer\ErpInvoiceApiToApiQueryContainerInterface $apiQueryContainer
+     * @param \FondOfOryx\Zed\ErpInvoiceApi\Dependency\Facade\ErpInvoiceApiToApiFacadeInterface $apiFacade
      * @param \FondOfOryx\Zed\ErpInvoiceApi\Dependency\Facade\ErpInvoiceApiToErpInvoiceFacadeInterface $erpInvoiceFacade
      * @param \FondOfOryx\Zed\ErpInvoiceApi\Persistence\ErpInvoiceApiRepositoryInterface $repository
      */
     public function __construct(
-        ErpInvoiceApiToApiQueryContainerInterface $apiQueryContainer,
+        ErpInvoiceApiToApiFacadeInterface $apiFacade,
         ErpInvoiceApiToErpInvoiceFacadeInterface $erpInvoiceFacade,
         ErpInvoiceApiRepositoryInterface $repository
     ) {
-        $this->apiQueryContainer = $apiQueryContainer;
+        $this->apiFacade = $apiFacade;
         $this->erpInvoiceFacade = $erpInvoiceFacade;
         $this->repository = $repository;
     }
@@ -71,9 +71,9 @@ class ErpInvoiceApi implements ErpInvoiceApiInterface
             );
         }
 
-        return $this->apiQueryContainer->createApiItem(
+        return $this->apiFacade->createApiItem(
             $erpInvoiceTransfer,
-            $erpInvoiceTransfer->getIdErpInvoice(),
+            (string)$erpInvoiceTransfer->getIdErpInvoice(),
         );
     }
 
@@ -103,9 +103,9 @@ class ErpInvoiceApi implements ErpInvoiceApiInterface
             );
         }
 
-        return $this->apiQueryContainer->createApiItem(
+        return $this->apiFacade->createApiItem(
             $erpInvoiceTransfer,
-            $erpInvoiceTransfer->getIdErpInvoice(),
+            (string)$erpInvoiceTransfer->getIdErpInvoice(),
         );
     }
 
@@ -118,7 +118,7 @@ class ErpInvoiceApi implements ErpInvoiceApiInterface
     {
         $erpInvoiceTransfer = $this->getByIdErpInvoice($idErpInvoice);
 
-        return $this->apiQueryContainer->createApiItem($erpInvoiceTransfer, $idErpInvoice);
+        return $this->apiFacade->createApiItem($erpInvoiceTransfer, (string)$idErpInvoice);
     }
 
     /**
@@ -155,7 +155,7 @@ class ErpInvoiceApi implements ErpInvoiceApiInterface
 
         $this->erpInvoiceFacade->deleteErpInvoiceByIdErpInvoice($idErpInvoice);
 
-        return $this->apiQueryContainer->createApiItem(new ErpInvoiceTransfer(), $idErpInvoice);
+        return $this->apiFacade->createApiItem(null, (string)$idErpInvoice);
     }
 
     /**

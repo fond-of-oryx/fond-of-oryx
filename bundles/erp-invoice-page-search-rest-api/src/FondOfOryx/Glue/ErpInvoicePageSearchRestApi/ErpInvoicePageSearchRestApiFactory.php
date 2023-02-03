@@ -3,12 +3,15 @@
 namespace FondOfOryx\Glue\ErpInvoicePageSearchRestApi;
 
 use FondOfOryx\Glue\ErpInvoicePageSearchRestApi\Dependency\Client\ErpInvoicePageSearchRestApiToErpInvoicePageSearchClientInterface;
+use FondOfOryx\Glue\ErpInvoicePageSearchRestApi\Dependency\Client\ErpInvoicePageSearchRestApiToGlossaryStorageClientInterface;
 use FondOfOryx\Glue\ErpInvoicePageSearchRestApi\Model\Builder\RequestBuilder;
 use FondOfOryx\Glue\ErpInvoicePageSearchRestApi\Model\Builder\RequestBuilderInterface;
-use FondOfOryx\Glue\ErpInvoicePageSearchRestApi\Model\Mapper\ErpInvoiceMapper;
-use FondOfOryx\Glue\ErpInvoicePageSearchRestApi\Model\Mapper\ErpInvoiceMapperInterface;
+use FondOfOryx\Glue\ErpInvoicePageSearchRestApi\Model\Mapper\RestErpInvoicePageSearchCollectionResponseMapper;
+use FondOfOryx\Glue\ErpInvoicePageSearchRestApi\Model\Mapper\RestErpInvoicePageSearchCollectionResponseMapperInterface;
 use FondOfOryx\Glue\ErpInvoicePageSearchRestApi\Model\Reader\ErpInvoicePageSearchReader;
 use FondOfOryx\Glue\ErpInvoicePageSearchRestApi\Model\Reader\ErpInvoicePageSearchReaderInterface;
+use FondOfOryx\Glue\ErpInvoicePageSearchRestApi\Model\Translator\RestErpInvoicePageSearchCollectionResponseTranslator;
+use FondOfOryx\Glue\ErpInvoicePageSearchRestApi\Model\Translator\RestErpInvoicePageSearchCollectionResponseTranslatorInterface;
 use Spryker\Glue\Kernel\AbstractFactory;
 
 class ErpInvoicePageSearchRestApiFactory extends AbstractFactory
@@ -21,17 +24,28 @@ class ErpInvoicePageSearchRestApiFactory extends AbstractFactory
         return new ErpInvoicePageSearchReader(
             $this->getErpInvoicePageSearchClient(),
             $this->createRequestBuilder(),
-            $this->createErpInvoiceMapper(),
+            $this->createRestErpInvoicePageSearchCollectionResponseMapper(),
+            $this->createRestErpInvoicePageSearchCollectionResponseTranslator(),
             $this->getResourceBuilder(),
         );
     }
 
     /**
-     * @return \FondOfOryx\Glue\ErpInvoicePageSearchRestApi\Model\Mapper\ErpInvoiceMapperInterface
+     * @return \FondOfOryx\Glue\ErpInvoicePageSearchRestApi\Model\Mapper\RestErpInvoicePageSearchCollectionResponseMapperInterface
      */
-    protected function createErpInvoiceMapper(): ErpInvoiceMapperInterface
+    protected function createRestErpInvoicePageSearchCollectionResponseMapper(): RestErpInvoicePageSearchCollectionResponseMapperInterface
     {
-        return new ErpInvoiceMapper();
+        return new RestErpInvoicePageSearchCollectionResponseMapper();
+    }
+
+    /**
+     * @return \FondOfOryx\Glue\ErpInvoicePageSearchRestApi\Model\Translator\RestErpInvoicePageSearchCollectionResponseTranslatorInterface
+     */
+    protected function createRestErpInvoicePageSearchCollectionResponseTranslator(): RestErpInvoicePageSearchCollectionResponseTranslatorInterface
+    {
+        return new RestErpInvoicePageSearchCollectionResponseTranslator(
+            $this->getGlossaryStorageClient(),
+        );
     }
 
     /**
@@ -48,5 +62,13 @@ class ErpInvoicePageSearchRestApiFactory extends AbstractFactory
     protected function getErpInvoicePageSearchClient(): ErpInvoicePageSearchRestApiToErpInvoicePageSearchClientInterface
     {
         return $this->getProvidedDependency(ErpInvoicePageSearchRestApiDependencyProvider::CLIENT_ERP_INVOICE_PAGE_SEARCH);
+    }
+
+    /**
+     * @return \FondOfOryx\Glue\ErpInvoicePageSearchRestApi\Dependency\Client\ErpInvoicePageSearchRestApiToGlossaryStorageClientInterface
+     */
+    protected function getGlossaryStorageClient(): ErpInvoicePageSearchRestApiToGlossaryStorageClientInterface
+    {
+        return $this->getProvidedDependency(ErpInvoicePageSearchRestApiDependencyProvider::CLIENT_GLOSSARY_STORAGE);
     }
 }

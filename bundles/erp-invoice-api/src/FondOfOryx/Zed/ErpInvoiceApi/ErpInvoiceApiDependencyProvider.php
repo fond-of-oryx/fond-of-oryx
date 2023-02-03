@@ -2,9 +2,9 @@
 
 namespace FondOfOryx\Zed\ErpInvoiceApi;
 
+use FondOfOryx\Zed\ErpInvoiceApi\Dependency\Facade\ErpInvoiceApiToApiFacadeBridge;
 use FondOfOryx\Zed\ErpInvoiceApi\Dependency\Facade\ErpInvoiceApiToErpInvoiceFacadeBridge;
 use FondOfOryx\Zed\ErpInvoiceApi\Dependency\QueryContainer\ErpInvoiceApiToApiQueryBuilderQueryContainerBridge;
-use FondOfOryx\Zed\ErpInvoiceApi\Dependency\QueryContainer\ErpInvoiceApiToApiQueryContainerBridge;
 use Orm\Zed\ErpInvoice\Persistence\FooErpInvoiceQuery;
 use Spryker\Zed\Kernel\AbstractBundleDependencyProvider;
 use Spryker\Zed\Kernel\Container;
@@ -19,7 +19,7 @@ class ErpInvoiceApiDependencyProvider extends AbstractBundleDependencyProvider
     /**
      * @var string
      */
-    public const QUERY_CONTAINER_API = 'QUERY_CONTAINER_API';
+    public const FACADE_API = 'FACADE_API';
 
     /**
      * @var string
@@ -41,9 +41,8 @@ class ErpInvoiceApiDependencyProvider extends AbstractBundleDependencyProvider
         $container = parent::provideBusinessLayerDependencies($container);
 
         $container = $this->addErpInvoiceFacade($container);
-        $container = $this->addApiQueryContainer($container);
 
-        return $container;
+        return $this->addApiFacade($container);
     }
 
     /**
@@ -67,11 +66,11 @@ class ErpInvoiceApiDependencyProvider extends AbstractBundleDependencyProvider
      *
      * @return \Spryker\Zed\Kernel\Container
      */
-    protected function addApiQueryContainer(Container $container): Container
+    protected function addApiFacade(Container $container): Container
     {
-        $container[static::QUERY_CONTAINER_API] = static function (Container $container) {
-            return new ErpInvoiceApiToApiQueryContainerBridge(
-                $container->getLocator()->api()->queryContainer(),
+        $container[static::FACADE_API] = static function (Container $container) {
+            return new ErpInvoiceApiToApiFacadeBridge(
+                $container->getLocator()->api()->facade(),
             );
         };
 
@@ -90,10 +89,9 @@ class ErpInvoiceApiDependencyProvider extends AbstractBundleDependencyProvider
         $container = parent::providePersistenceLayerDependencies($container);
 
         $this->addErpInvoicePropelQuery($container);
-        $this->addApiQueryContainer($container);
-        $this->addApiQueryBuilderQueryContainer($container);
+        $this->addApiFacade($container);
 
-        return $container;
+        return $this->addApiQueryBuilderQueryContainer($container);
     }
 
     /**

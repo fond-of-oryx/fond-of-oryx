@@ -2,8 +2,8 @@
 
 namespace FondOfOryx\Zed\CompanyProductListApi;
 
+use FondOfOryx\Zed\CompanyProductListApi\Dependency\Facade\CompanyProductListApiToApiFacadeBridge;
 use FondOfOryx\Zed\CompanyProductListApi\Dependency\Facade\CompanyProductListApiToCompanyProductListConnectorFacadeBridge;
-use FondOfOryx\Zed\CompanyProductListApi\Dependency\QueryContainer\CompanyProductListApiToApiQueryContainerBridge;
 use Spryker\Zed\Kernel\AbstractBundleDependencyProvider;
 use Spryker\Zed\Kernel\Container;
 
@@ -17,21 +17,20 @@ class CompanyProductListApiDependencyProvider extends AbstractBundleDependencyPr
     /**
      * @var string
      */
-    public const QUERY_CONTAINER_API = 'QUERY_CONTAINER_API';
+    public const FACADE_API = 'FACADE_API';
 
     /**
      * @param \Spryker\Zed\Kernel\Container $container
      *
      * @return \Spryker\Zed\Kernel\Container
      */
-    public function provideBusinessLayerDependencies(Container $container)
+    public function provideBusinessLayerDependencies(Container $container): Container
     {
         $container = parent::provideBusinessLayerDependencies($container);
 
         $container = $this->addCompanyProductListConnectorFacade($container);
-        $container = $this->addApiQueryContainer($container);
 
-        return $container;
+        return $this->addApiFacade($container);
     }
 
     /**
@@ -41,7 +40,7 @@ class CompanyProductListApiDependencyProvider extends AbstractBundleDependencyPr
      */
     protected function addCompanyProductListConnectorFacade(Container $container)
     {
-        $container[static::FACADE_COMPANY_PRODUCT_LIST_CONNECTOR] = function (Container $container) {
+        $container[static::FACADE_COMPANY_PRODUCT_LIST_CONNECTOR] = static function (Container $container) {
             return new CompanyProductListApiToCompanyProductListConnectorFacadeBridge(
                 $container->getLocator()->companyProductListConnector()->facade(),
             );
@@ -55,10 +54,10 @@ class CompanyProductListApiDependencyProvider extends AbstractBundleDependencyPr
      *
      * @return \Spryker\Zed\Kernel\Container
      */
-    protected function addApiQueryContainer(Container $container): Container
+    protected function addApiFacade(Container $container): Container
     {
-        $container[static::QUERY_CONTAINER_API] = function (Container $container) {
-            return new CompanyProductListApiToApiQueryContainerBridge($container->getLocator()->api()->queryContainer());
+        $container[static::FACADE_API] = static function (Container $container) {
+            return new CompanyProductListApiToApiFacadeBridge($container->getLocator()->api()->facade());
         };
 
         return $container;

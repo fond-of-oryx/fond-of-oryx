@@ -3,12 +3,15 @@
 namespace FondOfOryx\Glue\ErpDeliveryNotePageSearchRestApi;
 
 use FondOfOryx\Glue\ErpDeliveryNotePageSearchRestApi\Dependency\Client\ErpDeliveryNotePageSearchRestApiToErpDeliveryNotePageSearchClientInterface;
+use FondOfOryx\Glue\ErpDeliveryNotePageSearchRestApi\Dependency\Client\ErpDeliveryNotePageSearchRestApiToGlossaryStorageClientInterface;
 use FondOfOryx\Glue\ErpDeliveryNotePageSearchRestApi\Model\Builder\RequestBuilder;
 use FondOfOryx\Glue\ErpDeliveryNotePageSearchRestApi\Model\Builder\RequestBuilderInterface;
-use FondOfOryx\Glue\ErpDeliveryNotePageSearchRestApi\Model\Mapper\ErpDeliveryNoteMapper;
-use FondOfOryx\Glue\ErpDeliveryNotePageSearchRestApi\Model\Mapper\ErpDeliveryNoteMapperInterface;
+use FondOfOryx\Glue\ErpDeliveryNotePageSearchRestApi\Model\Mapper\RestErpDeliveryNotePageSearchCollectionResponseMapper;
+use FondOfOryx\Glue\ErpDeliveryNotePageSearchRestApi\Model\Mapper\RestErpDeliveryNotePageSearchCollectionResponseMapperInterface;
 use FondOfOryx\Glue\ErpDeliveryNotePageSearchRestApi\Model\Reader\ErpDeliveryNotePageSearchReader;
 use FondOfOryx\Glue\ErpDeliveryNotePageSearchRestApi\Model\Reader\ErpDeliveryNotePageSearchReaderInterface;
+use FondOfOryx\Glue\ErpDeliveryNotePageSearchRestApi\Model\Translator\RestErpDeliveryNotePageSearchCollectionResponseTranslator;
+use FondOfOryx\Glue\ErpDeliveryNotePageSearchRestApi\Model\Translator\RestErpDeliveryNotePageSearchCollectionResponseTranslatorInterface;
 use Spryker\Glue\Kernel\AbstractFactory;
 
 class ErpDeliveryNotePageSearchRestApiFactory extends AbstractFactory
@@ -21,17 +24,28 @@ class ErpDeliveryNotePageSearchRestApiFactory extends AbstractFactory
         return new ErpDeliveryNotePageSearchReader(
             $this->getErpDeliveryNotePageSearchClient(),
             $this->createRequestBuilder(),
-            $this->createErpDeliveryNoteMapper(),
+            $this->createRestErpDeliveryNotePageSearchCollectionResponseMapper(),
+            $this->createRestErpDeliveryNotePageSearchCollectionResponseTranslator(),
             $this->getResourceBuilder(),
         );
     }
 
     /**
-     * @return \FondOfOryx\Glue\ErpDeliveryNotePageSearchRestApi\Model\Mapper\ErpDeliveryNoteMapperInterface
+     * @return \FondOfOryx\Glue\ErpDeliveryNotePageSearchRestApi\Model\Mapper\RestErpDeliveryNotePageSearchCollectionResponseMapperInterface
      */
-    protected function createErpDeliveryNoteMapper(): ErpDeliveryNoteMapperInterface
+    protected function createRestErpDeliveryNotePageSearchCollectionResponseMapper(): RestErpDeliveryNotePageSearchCollectionResponseMapperInterface
     {
-        return new ErpDeliveryNoteMapper();
+        return new RestErpDeliveryNotePageSearchCollectionResponseMapper();
+    }
+
+    /**
+     * @return \FondOfOryx\Glue\ErpDeliveryNotePageSearchRestApi\Model\Translator\RestErpDeliveryNotePageSearchCollectionResponseTranslatorInterface
+     */
+    protected function createRestErpDeliveryNotePageSearchCollectionResponseTranslator(): RestErpDeliveryNotePageSearchCollectionResponseTranslatorInterface
+    {
+        return new RestErpDeliveryNotePageSearchCollectionResponseTranslator(
+            $this->getGlossaryStorageClient(),
+        );
     }
 
     /**
@@ -47,6 +61,18 @@ class ErpDeliveryNotePageSearchRestApiFactory extends AbstractFactory
      */
     protected function getErpDeliveryNotePageSearchClient(): ErpDeliveryNotePageSearchRestApiToErpDeliveryNotePageSearchClientInterface
     {
-        return $this->getProvidedDependency(ErpDeliveryNotePageSearchRestApiDependencyProvider::CLIENT_ERP_DELIVERY_NOTE_PAGE_SEARCH);
+        return $this->getProvidedDependency(
+            ErpDeliveryNotePageSearchRestApiDependencyProvider::CLIENT_ERP_DELIVERY_NOTE_PAGE_SEARCH,
+        );
+    }
+
+    /**
+     * @return \FondOfOryx\Glue\ErpDeliveryNotePageSearchRestApi\Dependency\Client\ErpDeliveryNotePageSearchRestApiToGlossaryStorageClientInterface
+     */
+    protected function getGlossaryStorageClient(): ErpDeliveryNotePageSearchRestApiToGlossaryStorageClientInterface
+    {
+        return $this->getProvidedDependency(
+            ErpDeliveryNotePageSearchRestApiDependencyProvider::CLIENT_GLOSSARY_STORAGE,
+        );
     }
 }

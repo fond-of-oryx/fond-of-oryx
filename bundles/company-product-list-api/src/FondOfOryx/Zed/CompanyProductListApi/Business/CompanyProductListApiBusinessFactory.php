@@ -5,8 +5,8 @@ namespace FondOfOryx\Zed\CompanyProductListApi\Business;
 use FondOfOryx\Zed\CompanyProductListApi\Business\Model\CompanyProductListApi;
 use FondOfOryx\Zed\CompanyProductListApi\Business\Model\CompanyProductListApiInterface;
 use FondOfOryx\Zed\CompanyProductListApi\CompanyProductListApiDependencyProvider;
+use FondOfOryx\Zed\CompanyProductListApi\Dependency\Facade\CompanyProductListApiToApiFacadeInterface;
 use FondOfOryx\Zed\CompanyProductListApi\Dependency\Facade\CompanyProductListApiToCompanyProductListConnectorFacadeInterface;
-use FondOfOryx\Zed\CompanyProductListApi\Dependency\QueryContainer\CompanyProductListApiToApiQueryContainerInterface;
 use Spryker\Zed\Kernel\Business\AbstractBusinessFactory;
 
 /**
@@ -21,7 +21,7 @@ class CompanyProductListApiBusinessFactory extends AbstractBusinessFactory
     {
         return new CompanyProductListApi(
             $this->getCompanyProductListConnnectorFacade(),
-            $this->getApiQueryContainer(),
+            $this->getApiFacade(),
         );
     }
 
@@ -34,10 +34,10 @@ class CompanyProductListApiBusinessFactory extends AbstractBusinessFactory
     }
 
     /**
-     * @return \FondOfOryx\Zed\CompanyProductListApi\Dependency\QueryContainer\CompanyProductListApiToApiQueryContainerInterface
+     * @return \FondOfOryx\Zed\CompanyProductListApi\Dependency\Facade\CompanyProductListApiToApiFacadeInterface
      */
-    protected function getApiQueryContainer(): CompanyProductListApiToApiQueryContainerInterface
+    protected function getApiFacade(): CompanyProductListApiToApiFacadeInterface
     {
-        return $this->getProvidedDependency(CompanyProductListApiDependencyProvider::QUERY_CONTAINER_API);
+        return $this->getProvidedDependency(CompanyProductListApiDependencyProvider::FACADE_API);
     }
 }
