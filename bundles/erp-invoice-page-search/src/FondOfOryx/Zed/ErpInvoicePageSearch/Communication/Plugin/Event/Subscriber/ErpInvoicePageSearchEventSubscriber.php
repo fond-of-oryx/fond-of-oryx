@@ -19,7 +19,7 @@ class ErpInvoicePageSearchEventSubscriber extends AbstractPlugin implements Even
     /**
      * @param \Spryker\Zed\Event\Dependency\EventCollectionInterface $eventCollection
      *
-     * @return \Spryker\Zed\Event\Dependency\EventCollectionInterface|void
+     * @return \Spryker\Zed\Event\Dependency\EventCollectionInterface
      */
     public function getSubscribedEvents(EventCollectionInterface $eventCollection)
     {
@@ -27,6 +27,7 @@ class ErpInvoicePageSearchEventSubscriber extends AbstractPlugin implements Even
         $this->addErpInvoiceUnPublishListener($eventCollection);
         $this->addErpInvoiceCreateListener($eventCollection);
         $this->addErpInvoiceUpdateListener($eventCollection);
+        $this->addErpInvoiceDeleteListener($eventCollection);
 
         return $eventCollection;
     }
@@ -56,6 +57,22 @@ class ErpInvoicePageSearchEventSubscriber extends AbstractPlugin implements Even
     {
         $eventCollection->addListenerQueued(
             ErpInvoiceEvents::ENTITY_FOO_ERP_INVOICE_UPDATE,
+            new ErpInvoicePageSearchListener(),
+            0,
+            null,
+            $this->getConfig()->getEventQueueName(),
+        );
+    }
+
+    /**
+     * @param \Spryker\Zed\Event\Dependency\EventCollectionInterface $eventCollection
+     *
+     * @return void
+     */
+    protected function addErpInvoiceDeleteListener(EventCollectionInterface $eventCollection): void
+    {
+        $eventCollection->addListenerQueued(
+            ErpInvoiceEvents::ENTITY_FOO_ERP_INVOICE_DELETE,
             new ErpInvoicePageSearchListener(),
             0,
             null,
