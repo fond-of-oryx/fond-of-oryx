@@ -22,7 +22,13 @@ class LoginLinkOrderMailExpanderPlugin extends AbstractPlugin implements OmsOrde
      */
     public function expand(MailTransfer $mailTransfer, OrderTransfer $orderTransfer): MailTransfer
     {
-        $oneTimePasswordResponseTransfer = $this->getFacade()->generateLoginLinkWithOrderReference($orderTransfer, new OneTimePasswordAttributesTransfer());
+        $oneTimePasswordAttributesTransfer = (new OneTimePasswordAttributesTransfer())
+            ->setLocale($mailTransfer->getLocale());
+
+        $oneTimePasswordResponseTransfer = $this->getFacade()->generateLoginLinkWithOrderReference(
+            $orderTransfer,
+            $oneTimePasswordAttributesTransfer,
+        );
 
         $mailTransfer->setOneTimePasswordLoginLink($oneTimePasswordResponseTransfer->getLoginLink());
 
