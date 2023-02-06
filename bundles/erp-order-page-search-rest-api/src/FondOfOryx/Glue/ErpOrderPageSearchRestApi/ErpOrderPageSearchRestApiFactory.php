@@ -8,6 +8,10 @@ use FondOfOryx\Glue\ErpOrderPageSearchRestApi\Model\Builder\RequestBuilder;
 use FondOfOryx\Glue\ErpOrderPageSearchRestApi\Model\Builder\RequestBuilderInterface;
 use FondOfOryx\Glue\ErpOrderPageSearchRestApi\Model\Mapper\RestErpOrderPageSearchCollectionResponseMapper;
 use FondOfOryx\Glue\ErpOrderPageSearchRestApi\Model\Mapper\RestErpOrderPageSearchCollectionResponseMapperInterface;
+use FondOfOryx\Glue\ErpOrderPageSearchRestApi\Model\Mapper\RestErpOrderPageSearchPaginationMapper;
+use FondOfOryx\Glue\ErpOrderPageSearchRestApi\Model\Mapper\RestErpOrderPageSearchPaginationMapperInterface;
+use FondOfOryx\Glue\ErpOrderPageSearchRestApi\Model\Mapper\RestErpOrderPageSearchPaginationSortMapper;
+use FondOfOryx\Glue\ErpOrderPageSearchRestApi\Model\Mapper\RestErpOrderPageSearchPaginationSortMapperInterface;
 use FondOfOryx\Glue\ErpOrderPageSearchRestApi\Model\Reader\ErpOrderPageSearchReader;
 use FondOfOryx\Glue\ErpOrderPageSearchRestApi\Model\Reader\ErpOrderPageSearchReaderInterface;
 use FondOfOryx\Glue\ErpOrderPageSearchRestApi\Model\Translator\RestErpOrderPageSearchCollectionResponseTranslator;
@@ -35,7 +39,26 @@ class ErpOrderPageSearchRestApiFactory extends AbstractFactory
      */
     protected function createErpOrderMapper(): RestErpOrderPageSearchCollectionResponseMapperInterface
     {
-        return new RestErpOrderPageSearchCollectionResponseMapper();
+        return new RestErpOrderPageSearchCollectionResponseMapper(
+            $this->createRestErpOrderPageSearchPaginationMapper(),
+            $this->createRestErpOrderPageSearchPaginationSortMapper(),
+        );
+    }
+
+    /**
+     * @return \FondOfOryx\Glue\ErpOrderPageSearchRestApi\Model\Mapper\RestErpOrderPageSearchPaginationMapperInterface
+     */
+    protected function createRestErpOrderPageSearchPaginationMapper(): RestErpOrderPageSearchPaginationMapperInterface
+    {
+        return new RestErpOrderPageSearchPaginationMapper();
+    }
+
+    /**
+     * @return \FondOfOryx\Glue\ErpOrderPageSearchRestApi\Model\Mapper\RestErpOrderPageSearchPaginationSortMapperInterface
+     */
+    protected function createRestErpOrderPageSearchPaginationSortMapper(): RestErpOrderPageSearchPaginationSortMapperInterface
+    {
+        return new RestErpOrderPageSearchPaginationSortMapper();
     }
 
     /**

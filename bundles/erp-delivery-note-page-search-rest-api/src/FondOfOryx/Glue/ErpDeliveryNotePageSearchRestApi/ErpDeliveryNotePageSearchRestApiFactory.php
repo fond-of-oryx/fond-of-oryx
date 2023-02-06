@@ -8,6 +8,10 @@ use FondOfOryx\Glue\ErpDeliveryNotePageSearchRestApi\Model\Builder\RequestBuilde
 use FondOfOryx\Glue\ErpDeliveryNotePageSearchRestApi\Model\Builder\RequestBuilderInterface;
 use FondOfOryx\Glue\ErpDeliveryNotePageSearchRestApi\Model\Mapper\RestErpDeliveryNotePageSearchCollectionResponseMapper;
 use FondOfOryx\Glue\ErpDeliveryNotePageSearchRestApi\Model\Mapper\RestErpDeliveryNotePageSearchCollectionResponseMapperInterface;
+use FondOfOryx\Glue\ErpDeliveryNotePageSearchRestApi\Model\Mapper\RestErpDeliveryNotePageSearchPaginationMapper;
+use FondOfOryx\Glue\ErpDeliveryNotePageSearchRestApi\Model\Mapper\RestErpDeliveryNotePageSearchPaginationMapperInterface;
+use FondOfOryx\Glue\ErpDeliveryNotePageSearchRestApi\Model\Mapper\RestErpDeliveryNotePageSearchPaginationSortMapper;
+use FondOfOryx\Glue\ErpDeliveryNotePageSearchRestApi\Model\Mapper\RestErpDeliveryNotePageSearchPaginationSortMapperInterface;
 use FondOfOryx\Glue\ErpDeliveryNotePageSearchRestApi\Model\Reader\ErpDeliveryNotePageSearchReader;
 use FondOfOryx\Glue\ErpDeliveryNotePageSearchRestApi\Model\Reader\ErpDeliveryNotePageSearchReaderInterface;
 use FondOfOryx\Glue\ErpDeliveryNotePageSearchRestApi\Model\Translator\RestErpDeliveryNotePageSearchCollectionResponseTranslator;
@@ -35,7 +39,26 @@ class ErpDeliveryNotePageSearchRestApiFactory extends AbstractFactory
      */
     protected function createRestErpDeliveryNotePageSearchCollectionResponseMapper(): RestErpDeliveryNotePageSearchCollectionResponseMapperInterface
     {
-        return new RestErpDeliveryNotePageSearchCollectionResponseMapper();
+        return new RestErpDeliveryNotePageSearchCollectionResponseMapper(
+            $this->createRestErpDeliveryNotePageSearchPaginationMapper(),
+            $this->createRestErpDeliveryNotePageSearchPaginationSortMapper(),
+        );
+    }
+
+    /**
+     * @return \FondOfOryx\Glue\ErpDeliveryNotePageSearchRestApi\Model\Mapper\RestErpDeliveryNotePageSearchPaginationMapperInterface
+     */
+    protected function createRestErpDeliveryNotePageSearchPaginationMapper(): RestErpDeliveryNotePageSearchPaginationMapperInterface
+    {
+        return new RestErpDeliveryNotePageSearchPaginationMapper();
+    }
+
+    /**
+     * @return \FondOfOryx\Glue\ErpDeliveryNotePageSearchRestApi\Model\Mapper\RestErpDeliveryNotePageSearchPaginationSortMapperInterface
+     */
+    protected function createRestErpDeliveryNotePageSearchPaginationSortMapper(): RestErpDeliveryNotePageSearchPaginationSortMapperInterface
+    {
+        return new RestErpDeliveryNotePageSearchPaginationSortMapper();
     }
 
     /**

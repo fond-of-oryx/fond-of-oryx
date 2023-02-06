@@ -7,6 +7,16 @@ use Codeception\Test\Unit;
 class RestErpDeliveryNotePageSearchCollectionResponseMapperTest extends Unit
 {
     /**
+     * @var \FondOfOryx\Glue\ErpDeliveryNotePageSearchRestApi\Model\Mapper\RestErpDeliveryNotePageSearchPaginationMapperInterface|\PHPUnit\Framework\MockObject\MockObject
+     */
+    protected $restErpDeliveryNotePageSearchPaginationMapperMock;
+
+    /**
+     * @var \FondOfOryx\Glue\ErpDeliveryNotePageSearchRestApi\Model\Mapper\RestErpDeliveryNotePageSearchPaginationSortMapperInterface|\PHPUnit\Framework\MockObject\MockObject
+     */
+    protected $restErpDeliveryNotePageSearchPaginationSortMapperMock;
+
+    /**
      * @var \FondOfOryx\Glue\ErpDeliveryNotePageSearchRestApi\Model\Mapper\RestErpDeliveryNotePageSearchCollectionResponseMapperInterface
      */
     protected $restErpDeliveryNotePageSearchCollectionResponseMapper;
@@ -18,7 +28,18 @@ class RestErpDeliveryNotePageSearchCollectionResponseMapperTest extends Unit
     {
         parent::_before();
 
-        $this->restErpDeliveryNotePageSearchCollectionResponseMapper = new RestErpDeliveryNotePageSearchCollectionResponseMapper();
+        $this->restErpDeliveryNotePageSearchPaginationMapperMock = $this->getMockBuilder(RestErpDeliveryNotePageSearchPaginationMapperInterface::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $this->restErpDeliveryNotePageSearchPaginationSortMapperMock = $this->getMockBuilder(RestErpDeliveryNotePageSearchPaginationSortMapperInterface::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $this->restErpDeliveryNotePageSearchCollectionResponseMapper = new RestErpDeliveryNotePageSearchCollectionResponseMapper(
+            $this->restErpDeliveryNotePageSearchPaginationMapperMock,
+            $this->restErpDeliveryNotePageSearchPaginationSortMapperMock,
+        );
     }
 
     /**
@@ -41,6 +62,16 @@ class RestErpDeliveryNotePageSearchCollectionResponseMapperTest extends Unit
                 ],
             ],
         ];
+
+        $this->restErpDeliveryNotePageSearchPaginationMapperMock->expects(static::atLeastOnce())
+            ->method('fromSearchResult')
+            ->with($data)
+            ->willReturn(null);
+
+        $this->restErpDeliveryNotePageSearchPaginationSortMapperMock->expects(static::atLeastOnce())
+            ->method('fromSearchResult')
+            ->with($data)
+            ->willReturn(null);
 
         $transfer = $this->restErpDeliveryNotePageSearchCollectionResponseMapper->fromSearchResult($data);
 

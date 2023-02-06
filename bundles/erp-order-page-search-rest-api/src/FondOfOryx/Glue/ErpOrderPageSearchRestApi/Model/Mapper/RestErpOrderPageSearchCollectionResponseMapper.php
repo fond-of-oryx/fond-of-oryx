@@ -27,6 +27,28 @@ class RestErpOrderPageSearchCollectionResponseMapper implements RestErpOrderPage
     protected const ERP_ORDER_DATA_KEY_TOTALS = 'totals';
 
     /**
+     * @var \FondOfOryx\Glue\ErpOrderPageSearchRestApi\Model\Mapper\RestErpOrderPageSearchPaginationMapperInterface
+     */
+    protected $restErpOrderPageSearchPaginationMapper;
+
+    /**
+     * @var \FondOfOryx\Glue\ErpOrderPageSearchRestApi\Model\Mapper\RestErpOrderPageSearchPaginationSortMapperInterface
+     */
+    protected $restErpOrderPageSearchPaginationSortMapper;
+
+    /**
+     * @param \FondOfOryx\Glue\ErpOrderPageSearchRestApi\Model\Mapper\RestErpOrderPageSearchPaginationMapperInterface $restErpOrderPageSearchPaginationMapper
+     * @param \FondOfOryx\Glue\ErpOrderPageSearchRestApi\Model\Mapper\RestErpOrderPageSearchPaginationSortMapperInterface $restErpOrderPageSearchPaginationSortMapper
+     */
+    public function __construct(
+        RestErpOrderPageSearchPaginationMapperInterface $restErpOrderPageSearchPaginationMapper,
+        RestErpOrderPageSearchPaginationSortMapperInterface $restErpOrderPageSearchPaginationSortMapper
+    ) {
+        $this->restErpOrderPageSearchPaginationMapper = $restErpOrderPageSearchPaginationMapper;
+        $this->restErpOrderPageSearchPaginationSortMapper = $restErpOrderPageSearchPaginationSortMapper;
+    }
+
+    /**
      * @param array $searchResult
      *
      * @return \Generated\Shared\Transfer\RestErpOrderPageSearchCollectionResponseTransfer
@@ -34,7 +56,9 @@ class RestErpOrderPageSearchCollectionResponseMapper implements RestErpOrderPage
     public function fromSearchResult(
         array $searchResult
     ): RestErpOrderPageSearchCollectionResponseTransfer {
-        $responseTransfer = (new RestErpOrderPageSearchCollectionResponseTransfer())->fromArray($searchResult, true);
+        $responseTransfer = (new RestErpOrderPageSearchCollectionResponseTransfer())
+            ->setSort($this->restErpOrderPageSearchPaginationSortMapper->fromSearchResult($searchResult))
+            ->setPagination($this->restErpOrderPageSearchPaginationMapper->fromSearchResult($searchResult));
 
         if (
             !array_key_exists(static::SEARCH_RESULT_KEY_ERP_ORDERS, $searchResult)
