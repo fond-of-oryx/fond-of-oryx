@@ -7,6 +7,16 @@ use Codeception\Test\Unit;
 class RestErpInvoicePageSearchCollectionResponseMapperTest extends Unit
 {
     /**
+     * @var \FondOfOryx\Glue\ErpInvoicePageSearchRestApi\Model\Mapper\RestErpInvoicePageSearchPaginationMapperInterface|\PHPUnit\Framework\MockObject\MockObject
+     */
+    protected $restErpInvoicePageSearchPaginationMapperMock;
+
+    /**
+     * @var \FondOfOryx\Glue\ErpInvoicePageSearchRestApi\Model\Mapper\RestErpInvoicePageSearchPaginationSortMapperInterface|\PHPUnit\Framework\MockObject\MockObject
+     */
+    protected $restErpInvoicePageSearchPaginationSortMapperMock;
+
+    /**
      * @var \FondOfOryx\Glue\ErpInvoicePageSearchRestApi\Model\Mapper\RestErpInvoicePageSearchCollectionResponseMapperInterface
      */
     protected $restErpInvoicePageSearchCollectionResponseMapper;
@@ -18,7 +28,18 @@ class RestErpInvoicePageSearchCollectionResponseMapperTest extends Unit
     {
         parent::_before();
 
-        $this->restErpInvoicePageSearchCollectionResponseMapper = new RestErpInvoicePageSearchCollectionResponseMapper();
+        $this->restErpInvoicePageSearchPaginationMapperMock = $this->getMockBuilder(RestErpInvoicePageSearchPaginationMapperInterface::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $this->restErpInvoicePageSearchPaginationSortMapperMock = $this->getMockBuilder(RestErpInvoicePageSearchPaginationSortMapperInterface::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $this->restErpInvoicePageSearchCollectionResponseMapper = new RestErpInvoicePageSearchCollectionResponseMapper(
+            $this->restErpInvoicePageSearchPaginationMapperMock,
+            $this->restErpInvoicePageSearchPaginationSortMapperMock,
+        );
     }
 
     /**
@@ -45,6 +66,16 @@ class RestErpInvoicePageSearchCollectionResponseMapperTest extends Unit
                 ],
             ],
         ];
+
+        $this->restErpInvoicePageSearchPaginationMapperMock->expects(static::atLeastOnce())
+            ->method('fromSearchResult')
+            ->with($data)
+            ->willReturn(null);
+
+        $this->restErpInvoicePageSearchPaginationSortMapperMock->expects(static::atLeastOnce())
+            ->method('fromSearchResult')
+            ->with($data)
+            ->willReturn(null);
 
         $transfer = $this->restErpInvoicePageSearchCollectionResponseMapper->fromSearchResult($data);
 

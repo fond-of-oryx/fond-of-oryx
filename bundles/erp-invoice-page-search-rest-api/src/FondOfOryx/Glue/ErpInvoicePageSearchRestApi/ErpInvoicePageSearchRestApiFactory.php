@@ -8,6 +8,10 @@ use FondOfOryx\Glue\ErpInvoicePageSearchRestApi\Model\Builder\RequestBuilder;
 use FondOfOryx\Glue\ErpInvoicePageSearchRestApi\Model\Builder\RequestBuilderInterface;
 use FondOfOryx\Glue\ErpInvoicePageSearchRestApi\Model\Mapper\RestErpInvoicePageSearchCollectionResponseMapper;
 use FondOfOryx\Glue\ErpInvoicePageSearchRestApi\Model\Mapper\RestErpInvoicePageSearchCollectionResponseMapperInterface;
+use FondOfOryx\Glue\ErpInvoicePageSearchRestApi\Model\Mapper\RestErpInvoicePageSearchPaginationMapper;
+use FondOfOryx\Glue\ErpInvoicePageSearchRestApi\Model\Mapper\RestErpInvoicePageSearchPaginationMapperInterface;
+use FondOfOryx\Glue\ErpInvoicePageSearchRestApi\Model\Mapper\RestErpInvoicePageSearchPaginationSortMapper;
+use FondOfOryx\Glue\ErpInvoicePageSearchRestApi\Model\Mapper\RestErpInvoicePageSearchPaginationSortMapperInterface;
 use FondOfOryx\Glue\ErpInvoicePageSearchRestApi\Model\Reader\ErpInvoicePageSearchReader;
 use FondOfOryx\Glue\ErpInvoicePageSearchRestApi\Model\Reader\ErpInvoicePageSearchReaderInterface;
 use FondOfOryx\Glue\ErpInvoicePageSearchRestApi\Model\Translator\RestErpInvoicePageSearchCollectionResponseTranslator;
@@ -35,7 +39,26 @@ class ErpInvoicePageSearchRestApiFactory extends AbstractFactory
      */
     protected function createRestErpInvoicePageSearchCollectionResponseMapper(): RestErpInvoicePageSearchCollectionResponseMapperInterface
     {
-        return new RestErpInvoicePageSearchCollectionResponseMapper();
+        return new RestErpInvoicePageSearchCollectionResponseMapper(
+            $this->createRestErpInvoicePageSearchPaginationMapper(),
+            $this->createRestErpInvoicePageSearchPaginationSortMapper(),
+        );
+    }
+
+    /**
+     * @return \FondOfOryx\Glue\ErpInvoicePageSearchRestApi\Model\Mapper\RestErpInvoicePageSearchPaginationMapperInterface
+     */
+    protected function createRestErpInvoicePageSearchPaginationMapper(): RestErpInvoicePageSearchPaginationMapperInterface
+    {
+        return new RestErpInvoicePageSearchPaginationMapper();
+    }
+
+    /**
+     * @return \FondOfOryx\Glue\ErpInvoicePageSearchRestApi\Model\Mapper\RestErpInvoicePageSearchPaginationSortMapperInterface
+     */
+    protected function createRestErpInvoicePageSearchPaginationSortMapper(): RestErpInvoicePageSearchPaginationSortMapperInterface
+    {
+        return new RestErpInvoicePageSearchPaginationSortMapper();
     }
 
     /**
