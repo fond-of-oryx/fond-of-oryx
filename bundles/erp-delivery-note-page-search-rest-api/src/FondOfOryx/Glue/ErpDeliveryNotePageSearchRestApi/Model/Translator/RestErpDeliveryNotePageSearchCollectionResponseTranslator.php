@@ -8,6 +8,11 @@ use Generated\Shared\Transfer\RestErpDeliveryNotePageSearchCollectionResponseTra
 class RestErpDeliveryNotePageSearchCollectionResponseTranslator implements RestErpDeliveryNotePageSearchCollectionResponseTranslatorInterface
 {
     /**
+     * @var string
+     */
+    public const GLOSSARY_SORT_PARAM_NAME_KEY_PREFIX = 'erp_delivery_note_page_search_rest_api.sort.';
+
+    /**
      * @var \FondOfOryx\Glue\ErpDeliveryNotePageSearchRestApi\Dependency\Client\ErpDeliveryNotePageSearchRestApiToGlossaryStorageClientInterface
      */
     protected $glossaryStorageClient;
@@ -39,9 +44,9 @@ class RestErpDeliveryNotePageSearchCollectionResponseTranslator implements RestE
 
         $sortParamLocalizedNames = [];
 
-        foreach ($restErpDeliveryNotePageSearchPaginationSortTransfer->getSortParamLocalizedNames() as $sortParamNames => $sortParamLocalizedName) {
-            $sortParamLocalizedNames[$sortParamNames] = $this->glossaryStorageClient->translate(
-                $sortParamLocalizedName,
+        foreach ($restErpDeliveryNotePageSearchPaginationSortTransfer->getSortParamNames() as $sortParamName) {
+            $sortParamLocalizedNames[$sortParamName] = $this->glossaryStorageClient->translate(
+                sprintf('%s%s', static::GLOSSARY_SORT_PARAM_NAME_KEY_PREFIX, $sortParamName),
                 $locale,
             );
         }

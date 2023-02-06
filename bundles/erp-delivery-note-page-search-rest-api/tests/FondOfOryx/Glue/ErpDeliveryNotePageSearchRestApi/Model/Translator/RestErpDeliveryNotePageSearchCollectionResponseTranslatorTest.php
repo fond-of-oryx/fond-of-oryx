@@ -59,6 +59,10 @@ class RestErpDeliveryNotePageSearchCollectionResponseTranslatorTest extends Unit
     public function testTranslate(): void
     {
         $locale = 'de_DE';
+        $sortParamNames = [
+            'external-reference_asc',
+            'external-reference_desc',
+        ];
         $untranslated = [
             'external-reference_asc' => 'erp_delivery_note_page_search_rest_api.sort.external-reference_asc',
             'external-reference_desc' => 'erp_delivery_note_page_search_rest_api.sort.external-reference_desc',
@@ -73,8 +77,8 @@ class RestErpDeliveryNotePageSearchCollectionResponseTranslatorTest extends Unit
             ->willReturn($this->restErpDeliveryNotePageSearchPaginationSortTransferMock);
 
         $this->restErpDeliveryNotePageSearchPaginationSortTransferMock->expects(static::atLeastOnce())
-            ->method('getSortParamLocalizedNames')
-            ->willReturn($untranslated);
+            ->method('getSortParamNames')
+            ->willReturn($sortParamNames);
 
         $this->glossaryStorageClientMock->expects(static::atLeastOnce())
             ->method('translate')

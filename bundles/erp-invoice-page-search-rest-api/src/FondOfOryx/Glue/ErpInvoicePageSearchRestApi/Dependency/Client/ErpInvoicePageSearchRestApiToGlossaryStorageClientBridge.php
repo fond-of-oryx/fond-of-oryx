@@ -2,10 +2,9 @@
 
 namespace FondOfOryx\Glue\ErpInvoicePageSearchRestApi\Dependency\Client;
 
-use FondOfOryx\Glue\ErpOrderPageSearchRestApi\Dependency\Client\ErpOrderPageSearchRestApiToGlossaryStorageClientInterface;
 use Spryker\Client\GlossaryStorage\GlossaryStorageClientInterface;
 
-class ErpInvoicePageSearchRestApiToGlossaryStorageClientBridge implements ErpOrderPageSearchRestApiToGlossaryStorageClientInterface
+class ErpInvoicePageSearchRestApiToGlossaryStorageClientBridge implements ErpInvoicePageSearchRestApiToGlossaryStorageClientInterface
 {
     /**
      * @var \Spryker\Client\GlossaryStorage\GlossaryStorageClientInterface
