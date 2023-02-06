@@ -7,6 +7,16 @@ use Codeception\Test\Unit;
 class RestErpOrderPageSearchCollectionResponseMapperTest extends Unit
 {
     /**
+     * @var \FondOfOryx\Glue\ErpOrderPageSearchRestApi\Model\Mapper\RestErpOrderPageSearchPaginationMapperInterface|\PHPUnit\Framework\MockObject\MockObject
+     */
+    protected $restErpOrderPageSearchPaginationMapperMock;
+
+    /**
+     * @var \FondOfOryx\Glue\ErpOrderPageSearchRestApi\Model\Mapper\RestErpOrderPageSearchPaginationSortMapperInterface|\PHPUnit\Framework\MockObject\MockObject
+     */
+    protected $restErpOrderPageSearchPaginationSortMapperMock;
+
+    /**
      * @var \FondOfOryx\Glue\ErpOrderPageSearchRestApi\Model\Mapper\RestErpOrderPageSearchCollectionResponseMapperInterface
      */
     protected $restErpOrderPageSearchCollectionResponseMapper;
@@ -18,7 +28,18 @@ class RestErpOrderPageSearchCollectionResponseMapperTest extends Unit
     {
         parent::_before();
 
-        $this->restErpOrderPageSearchCollectionResponseMapper = new RestErpOrderPageSearchCollectionResponseMapper();
+        $this->restErpOrderPageSearchPaginationMapperMock = $this->getMockBuilder(RestErpOrderPageSearchPaginationMapperInterface::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $this->restErpOrderPageSearchPaginationSortMapperMock = $this->getMockBuilder(RestErpOrderPageSearchPaginationSortMapperInterface::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $this->restErpOrderPageSearchCollectionResponseMapper = new RestErpOrderPageSearchCollectionResponseMapper(
+            $this->restErpOrderPageSearchPaginationMapperMock,
+            $this->restErpOrderPageSearchPaginationSortMapperMock,
+        );
     }
 
     /**
@@ -48,6 +69,17 @@ class RestErpOrderPageSearchCollectionResponseMapperTest extends Unit
                 ],
             ],
         ];
+
+        $this->restErpOrderPageSearchPaginationMapperMock->expects(static::atLeastOnce())
+            ->method('fromSearchResult')
+            ->with($data)
+            ->willReturn(null);
+
+        $this->restErpOrderPageSearchPaginationSortMapperMock->expects(static::atLeastOnce())
+            ->method('fromSearchResult')
+            ->with($data)
+            ->willReturn(null);
+
         $transfer = $this->restErpOrderPageSearchCollectionResponseMapper->fromSearchResult($data);
 
         static::assertEquals('sku', $transfer->getErpOrders()[0]->getItems()[0]->getSku());
