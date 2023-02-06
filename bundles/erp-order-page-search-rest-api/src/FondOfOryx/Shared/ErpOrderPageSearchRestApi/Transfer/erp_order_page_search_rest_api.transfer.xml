@@ -28,7 +28,6 @@
         <property name="maxPage" type="int" />
         <property name="currentItemsPerPage" type="int" />
         <property name="config" type="RestErpOrderPageSearchPaginationConfig" />
-
     </transfer>
 
     <transfer name="RestErpOrderPageSearchPaginationSort">
