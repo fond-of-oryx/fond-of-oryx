@@ -39,6 +39,28 @@ class RestErpInvoicePageSearchCollectionResponseMapper implements RestErpInvoice
     protected const ERP_INVOICE_DATA_KEY_ERP_INVOICE_TOTAL = 'erp_invoice_total';
 
     /**
+     * @var \FondOfOryx\Glue\ErpInvoicePageSearchRestApi\Model\Mapper\RestErpInvoicePageSearchPaginationMapperInterface
+     */
+    protected $restErpInvoicePageSearchPaginationMapper;
+
+    /**
+     * @var \FondOfOryx\Glue\ErpInvoicePageSearchRestApi\Model\Mapper\RestErpInvoicePageSearchPaginationSortMapperInterface
+     */
+    protected $restErpInvoicePageSearchPaginationSortMapper;
+
+    /**
+     * @param \FondOfOryx\Glue\ErpInvoicePageSearchRestApi\Model\Mapper\RestErpInvoicePageSearchPaginationMapperInterface $restErpInvoicePageSearchPaginationMapper
+     * @param \FondOfOryx\Glue\ErpInvoicePageSearchRestApi\Model\Mapper\RestErpInvoicePageSearchPaginationSortMapperInterface $restErpInvoicePageSearchPaginationSortMapper
+     */
+    public function __construct(
+        RestErpInvoicePageSearchPaginationMapperInterface $restErpInvoicePageSearchPaginationMapper,
+        RestErpInvoicePageSearchPaginationSortMapperInterface $restErpInvoicePageSearchPaginationSortMapper
+    ) {
+        $this->restErpInvoicePageSearchPaginationMapper = $restErpInvoicePageSearchPaginationMapper;
+        $this->restErpInvoicePageSearchPaginationSortMapper = $restErpInvoicePageSearchPaginationSortMapper;
+    }
+
+    /**
      * @param array $searchResult
      *
      * @return \Generated\Shared\Transfer\RestErpInvoicePageSearchCollectionResponseTransfer
@@ -46,7 +68,9 @@ class RestErpInvoicePageSearchCollectionResponseMapper implements RestErpInvoice
     public function fromSearchResult(
         array $searchResult
     ): RestErpInvoicePageSearchCollectionResponseTransfer {
-        $responseTransfer = (new RestErpInvoicePageSearchCollectionResponseTransfer())->fromArray($searchResult, true);
+        $responseTransfer = (new RestErpInvoicePageSearchCollectionResponseTransfer())
+            ->setSort($this->restErpInvoicePageSearchPaginationSortMapper->fromSearchResult($searchResult))
+            ->setPagination($this->restErpInvoicePageSearchPaginationMapper->fromSearchResult($searchResult));
 
         if (
             !array_key_exists(static::SEARCH_RESULT_KEY_ERP_INVOICES, $searchResult)
