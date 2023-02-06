@@ -33,6 +33,28 @@ class RestErpDeliveryNotePageSearchCollectionResponseMapper implements RestErpDe
     protected const ERP_DELIVERY_NOTE_DATA_KEY_COMPANY_BUSINESS_UNIT = 'company_business_unit';
 
     /**
+     * @var \FondOfOryx\Glue\ErpDeliveryNotePageSearchRestApi\Model\Mapper\RestErpDeliveryNotePageSearchPaginationMapperInterface
+     */
+    protected $restErpDeliveryNotePageSearchPaginationMapper;
+
+    /**
+     * @var \FondOfOryx\Glue\ErpDeliveryNotePageSearchRestApi\Model\Mapper\RestErpDeliveryNotePageSearchPaginationSortMapperInterface
+     */
+    protected $restErpDeliveryNotePageSearchPaginationSortMapper;
+
+    /**
+     * @param \FondOfOryx\Glue\ErpDeliveryNotePageSearchRestApi\Model\Mapper\RestErpDeliveryNotePageSearchPaginationMapperInterface $restErpDeliveryNotePageSearchPaginationMapper
+     * @param \FondOfOryx\Glue\ErpDeliveryNotePageSearchRestApi\Model\Mapper\RestErpDeliveryNotePageSearchPaginationSortMapperInterface $restErpDeliveryNotePageSearchPaginationSortMapper
+     */
+    public function __construct(
+        RestErpDeliveryNotePageSearchPaginationMapperInterface $restErpDeliveryNotePageSearchPaginationMapper,
+        RestErpDeliveryNotePageSearchPaginationSortMapperInterface $restErpDeliveryNotePageSearchPaginationSortMapper
+    ) {
+        $this->restErpDeliveryNotePageSearchPaginationMapper = $restErpDeliveryNotePageSearchPaginationMapper;
+        $this->restErpDeliveryNotePageSearchPaginationSortMapper = $restErpDeliveryNotePageSearchPaginationSortMapper;
+    }
+
+    /**
      * @param array $searchResult
      *
      * @return \Generated\Shared\Transfer\RestErpDeliveryNotePageSearchCollectionResponseTransfer
@@ -40,7 +62,9 @@ class RestErpDeliveryNotePageSearchCollectionResponseMapper implements RestErpDe
     public function fromSearchResult(
         array $searchResult
     ): RestErpDeliveryNotePageSearchCollectionResponseTransfer {
-        $responseTransfer = (new RestErpDeliveryNotePageSearchCollectionResponseTransfer())->fromArray($searchResult, true);
+        $responseTransfer = (new RestErpDeliveryNotePageSearchCollectionResponseTransfer())
+            ->setSort($this->restErpDeliveryNotePageSearchPaginationSortMapper->fromSearchResult($searchResult))
+            ->setPagination($this->restErpDeliveryNotePageSearchPaginationMapper->fromSearchResult($searchResult));
 
         if (
             !array_key_exists(static::SEARCH_RESULT_KEY_ERP_DELIVERY_NOTES, $searchResult)
