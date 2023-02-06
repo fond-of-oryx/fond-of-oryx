@@ -308,11 +308,11 @@
     },
     "erp-delivery-note-page-search": {
       "path": "bundles/erp-delivery-note-page-search/",
-      "version": "2.0.0"
+      "version": "2.1.0"
     },
     "erp-delivery-note-page-search-rest-api": {
       "path": "bundles/erp-delivery-note-page-search-rest-api/",
-      "version": "2.0.0"
+      "version": "2.1.0"
     },
     "erp-delivery-note-permission": {
       "path": "bundles/erp-delivery-note-permission/",
@@ -332,11 +332,11 @@
     },
     "erp-invoice-page-search": {
       "path": "bundles/erp-invoice-page-search/",
-      "version": "3.0.0"
+      "version": "3.1.0"
     },
     "erp-invoice-page-search-rest-api": {
       "path": "bundles/erp-invoice-page-search-rest-api/",
-      "version": "2.0.0"
+      "version": "2.1.0"
     },
     "erp-invoice-permission": {
       "path": "bundles/erp-invoice-permission/",
@@ -356,11 +356,11 @@
     },
     "erp-order-page-search": {
       "path": "bundles/erp-order-page-search/",
-      "version": "3.0.0"
+      "version": "3.1.0"
     },
     "erp-order-page-search-rest-api": {
       "path": "bundles/erp-order-page-search-rest-api/",
-      "version": "2.0.0"
+      "version": "2.1.0"
     },
     "erp-order-permission": {
       "path": "bundles/erp-order-permission/",
