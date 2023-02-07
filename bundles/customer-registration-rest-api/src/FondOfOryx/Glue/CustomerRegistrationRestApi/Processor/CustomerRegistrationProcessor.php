@@ -2,27 +2,17 @@
 
 namespace FondOfOryx\Glue\CustomerRegistrationRestApi\Processor;
 
-use FondOfOryx\Client\CustomerRegistrationRestApi\CustomerRegistrationRestApiClientInterface;
 use FondOfOryx\Glue\CustomerRegistrationRestApi\CustomerRegistrationRestApiConfig;
 use FondOfOryx\Glue\CustomerRegistrationRestApi\Dependency\Client\CustomerRegistrationRestApiToCustomerClientInterface;
-use FondOfOryx\Glue\CustomerRegistrationRestApi\Mapper\RequestMapperInterface;
-use FondOfOryx\Glue\CustomerRegistrationRestApi\Mapper\ResponseMapperInterface;
 use FondOfOryx\Glue\CustomerRegistrationRestApi\Processor\Mapper\CustomerRegistrationResourceMapperInterface;
 use FondOfOryx\Glue\CustomerRegistrationRestApi\Processor\Password\GeneratorInterface as PasswordGeneratorInterface;
 use FondOfOryx\Glue\CustomerRegistrationRestApi\Processor\Validation\RestApiErrorInterface;
-use FondOfOryx\Shared\CustomerRegistration\CustomerRegistrationConstants;
-use Generated\Shared\Transfer\CustomerResponseTransfer;
 use Generated\Shared\Transfer\CustomerTransfer;
 use Generated\Shared\Transfer\RestCustomerRegistrationRequestAttributesTransfer;
 use Generated\Shared\Transfer\RestCustomerRegistrationResponseTransfer;
-use Generated\Shared\Transfer\RestCustomersResponseAttributesTransfer;
-use Generated\Shared\Transfer\RestErrorMessageTransfer;
-use Spryker\Glue\CustomersRestApi\CustomersRestApiConfig;
 use Spryker\Glue\GlueApplication\Rest\JsonApi\RestResourceBuilderInterface;
 use Spryker\Glue\GlueApplication\Rest\JsonApi\RestResponseInterface;
 use Spryker\Glue\GlueApplication\Rest\Request\Data\RestRequestInterface;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 
 class CustomerRegistrationProcessor implements CustomerRegistrationProcessorInterface
 {

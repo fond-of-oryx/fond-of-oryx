@@ -10,6 +10,11 @@ use Symfony\Component\HttpFoundation\Response;
 
 class RestApiError implements RestApiErrorInterface
 {
+    /**
+     * @param \Spryker\Glue\GlueApplication\Rest\JsonApi\RestResponseInterface $restResponse
+     *
+     * @return \Spryker\Glue\GlueApplication\Rest\JsonApi\RestResponseInterface
+     */
     public function addCustomerAlreadyExistsError(RestResponseInterface $restResponse): RestResponseInterface
     {
         $restErrorMessageTransfer = (new RestErrorMessageTransfer())
@@ -95,6 +100,7 @@ class RestApiError implements RestApiErrorInterface
 
         return $restResponse->addError($restErrorMessageTransfer);
     }
+
     /**
      * @param \Spryker\Glue\GlueApplication\Rest\JsonApi\RestResponseInterface $restResponse
      * @param \Generated\Shared\Transfer\CustomerResponseTransfer $customerResponseTransfer

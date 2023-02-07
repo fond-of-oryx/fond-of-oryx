@@ -9,6 +9,7 @@ use FondOfOryx\Glue\CustomerRegistrationRestApi\Processor\Password\GeneratorInte
 use FondOfOryx\Glue\CustomerRegistrationRestApi\Processor\Validation\RestApiErrorInterface;
 use Generated\Shared\Transfer\RestCustomerRegistrationRequestAttributesTransfer;
 use Generated\Shared\Transfer\RestCustomerRegistrationResponseTransfer;
+use PHPUnit\Framework\MockObject\MockObject;
 use Spryker\Glue\GlueApplication\Rest\JsonApi\RestResourceBuilderInterface;
 use Spryker\Glue\GlueApplication\Rest\Request\Data\RestRequestInterface;
 
@@ -67,22 +68,22 @@ class CustomerRegistrationProcessorTest extends Unit
     /**
      * @var \FondOfOryx\Glue\CustomerRegistrationRestApi\Dependency\Client\CustomerRegistrationRestApiToCustomerClientInterface|\PHPUnit\Framework\MockObject\MockObject
      */
-    protected \PHPUnit\Framework\MockObject\MockObject|CustomerRegistrationRestApiToCustomerClientInterface $customerClientMock;
+    protected MockObject|CustomerRegistrationRestApiToCustomerClientInterface $customerClientMock;
 
     /**
      * @var \FondOfOryx\Glue\CustomerRegistrationRestApi\Processor\Validation\RestApiErrorInterface|\PHPUnit\Framework\MockObject\MockObject
      */
-    protected RestApiErrorInterface|\PHPUnit\Framework\MockObject\MockObject $restApiErrorMock;
+    protected MockObject|RestApiErrorInterface $restApiErrorMock;
 
     /**
      * @var \FondOfOryx\Glue\CustomerRegistrationRestApi\Processor\Mapper\CustomerRegistrationResourceMapperInterface|\PHPUnit\Framework\MockObject\MockObject
      */
-    protected \PHPUnit\Framework\MockObject\MockObject|CustomerRegistrationResourceMapperInterface $customerRegistrationResourceMapperMock;
+    protected MockObject|CustomerRegistrationResourceMapperInterface $customerRegistrationResourceMapperMock;
 
     /**
      * @var \FondOfOryx\Glue\CustomerRegistrationRestApi\Processor\Password\GeneratorInterface|\PHPUnit\Framework\MockObject\MockObject
      */
-    protected \PHPUnit\Framework\MockObject\MockObject|GeneratorInterface $passwordGeneratorMock;
+    protected MockObject|GeneratorInterface $passwordGeneratorMock;
 
     /**
      * @return void

@@ -75,5 +75,4 @@ class CustomerRegistrationRestApiConfig extends AbstractBundleConfig
      * @var string
      */
     public const RESPONSE_MESSAGE_CUSTOMER_EMAIL_LENGTH_EXCEEDED = 'Email is too long. It should have 100 characters or less.';
-
 }
