@@ -36,7 +36,8 @@ class ErpOrderApiRepository extends AbstractRepository implements ErpOrderApiRep
 
         $apiCollectionTransfer = $this->getFactory()
             ->getApiFacade()
-            ->createApiCollection($data);
+            ->createApiCollection([])
+            ->setData($data);
 
         if (count($apiCollectionTransfer->getData()) === 0) {
             return $apiCollectionTransfer;

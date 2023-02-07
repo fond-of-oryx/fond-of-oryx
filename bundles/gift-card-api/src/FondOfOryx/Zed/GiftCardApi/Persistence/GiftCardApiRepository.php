@@ -54,7 +54,11 @@ class GiftCardApiRepository extends AbstractRepository implements GiftCardApiRep
         foreach ($collection as $id => $giftCardTransfer) {
             $collection[$id] = $this->convert($giftCardTransfer)->getData();
         }
-        $apiCollectionTransfer = $this->getFactory()->getApiFacade()->createApiCollection($collection);
+
+        $apiCollectionTransfer = $this->getFactory()
+            ->getApiFacade()
+            ->createApiCollection([])
+            ->setData($collection);
 
         return $this->addPagination($query, $apiCollectionTransfer, $apiRequestTransfer);
     }

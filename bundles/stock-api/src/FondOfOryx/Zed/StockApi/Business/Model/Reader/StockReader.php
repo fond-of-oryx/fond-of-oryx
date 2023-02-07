@@ -76,7 +76,8 @@ class StockReader implements StockReaderInterface
                 ->getData();
         }
 
-        $apiCollectionTransfer = $this->apiFacade->createApiCollection($collection);
+        $apiCollectionTransfer = $this->apiFacade->createApiCollection([])
+            ->setData($collection);
 
         return $this->addPagination($query, $apiCollectionTransfer, $apiRequestTransfer);
     }
