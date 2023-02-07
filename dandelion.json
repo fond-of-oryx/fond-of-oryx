@@ -786,6 +786,10 @@
       "path": "bundles/splittable-quote/",
       "version": "2.0.0"
     },
+    "splittable-quote-cart-notes-connector": {
+      "path": "bundles/splittable-quote-cart-notes-connector/",
+      "version": "1.0.0"
+    },
     "splittable-quote-extension": {
       "path": "bundles/splittable-quote-extension/",
       "version": "2.0.0"

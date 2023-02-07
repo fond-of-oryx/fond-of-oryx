@@ -167,6 +167,7 @@ include:
   - bundles/splittable-checkout-rest-api-payment-connector
   - bundles/splittable-checkout-rest-api-shipment-connector
   - bundles/splittable-quote
+  - bundles/splittable-quote-cart-notes-connector
   - bundles/splittable-quote-extension
   - bundles/splittable-quote-nopayment-connector
   - bundles/splittable-quote-order-custom-references-connector
