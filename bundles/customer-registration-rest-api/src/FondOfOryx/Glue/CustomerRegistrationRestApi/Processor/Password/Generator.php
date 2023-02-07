@@ -2,6 +2,8 @@
 
 namespace FondOfOryx\Glue\CustomerRegistrationRestApi\Processor\Password;
 
+use Exception;
+
 class Generator implements GeneratorInterface
 {
     /**

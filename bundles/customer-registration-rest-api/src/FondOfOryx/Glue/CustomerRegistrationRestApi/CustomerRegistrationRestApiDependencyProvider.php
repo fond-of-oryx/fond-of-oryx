@@ -6,9 +6,6 @@ use FondOfOryx\Glue\CustomerRegistrationRestApi\Dependency\Client\CustomerRegist
 use Spryker\Glue\Kernel\AbstractBundleDependencyProvider;
 use Spryker\Glue\Kernel\Container;
 
-/**
- * @method
- */
 class CustomerRegistrationRestApiDependencyProvider extends AbstractBundleDependencyProvider
 {
     /**

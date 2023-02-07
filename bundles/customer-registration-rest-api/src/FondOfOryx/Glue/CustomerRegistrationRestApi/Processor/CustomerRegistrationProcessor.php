@@ -22,7 +22,7 @@ class CustomerRegistrationProcessor implements CustomerRegistrationProcessorInte
     protected $restResourceBuilder;
 
     /**
-     * @var \FondOfOryx\Client\CustomerRegistrationRestApi\CustomerRegistrationRestApiClientInterface
+     * @var \FondOfOryx\Glue\CustomerRegistrationRestApi\Dependency\Client\CustomerRegistrationRestApiToCustomerClientInterface
      */
     protected $customerClient;
 
