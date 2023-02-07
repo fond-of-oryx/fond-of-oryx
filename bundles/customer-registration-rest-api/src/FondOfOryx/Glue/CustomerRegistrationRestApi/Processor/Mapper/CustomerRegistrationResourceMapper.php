@@ -15,7 +15,7 @@ class CustomerRegistrationResourceMapper implements CustomerRegistrationResource
      */
     public function mapCustomerTransferToRestCustomerRegistrationResponseTransfer(
         CustomerTransfer $customerTransfer,
-        RestCustomerRegistrationResponseTransfer $customerRegistrationResponseTransfer,
+        RestCustomerRegistrationResponseTransfer $customerRegistrationResponseTransfer
     ): RestCustomerRegistrationResponseTransfer
     {
         return $customerRegistrationResponseTransfer->fromArray($customerTransfer->toArray(), true);

@@ -110,7 +110,6 @@ class RestApiError implements RestApiErrorInterface
     protected function processKnownCustomerError(RestResponseInterface $restResponse, CustomerResponseTransfer $customerResponseTransfer): RestResponseInterface
     {
         foreach ($customerResponseTransfer->getErrors() as $customerErrorTransfer) {
-
             if ($customerErrorTransfer->getMessage() === static::ERROR_MESSAGE_CUSTOMER_EMAIL_ALREADY_USED) {
                 $restResponse = $this->addCustomerAlreadyExistsError($restResponse);
 

@@ -46,13 +46,14 @@ class CustomerRegistrationProcessor implements CustomerRegistrationProcessorInte
      * @param \Spryker\Glue\GlueApplication\Rest\JsonApi\RestResourceBuilderInterface $restResourceBuilder
      * @param \FondOfOryx\Glue\CustomerRegistrationRestApi\Processor\Validation\RestApiErrorInterface $restApiError
      * @param \FondOfOryx\Glue\CustomerRegistrationRestApi\Dependency\Client\CustomerRegistrationRestApiToCustomerClientInterface $customerClient
+     * @param \FondOfOryx\Glue\CustomerRegistrationRestApi\Processor\Password\GeneratorInterface $passwordGenerator
      */
     public function __construct(
         CustomerRegistrationResourceMapperInterface $customerRegistrationResourceMapper,
         RestResourceBuilderInterface $restResourceBuilder,
         RestApiErrorInterface $restApiError,
         CustomerRegistrationRestApiToCustomerClientInterface $customerClient,
-        PasswordGeneratorInterface $passwordGenerator,
+        PasswordGeneratorInterface $passwordGenerator
     ) {
         $this->restResourceBuilder = $restResourceBuilder;
         $this->customerClient = $customerClient;

@@ -15,6 +15,6 @@ interface CustomerRegistrationResourceMapperInterface
      */
     public function mapCustomerTransferToRestCustomerRegistrationResponseTransfer(
         CustomerTransfer $customerTransfer,
-        RestCustomerRegistrationResponseTransfer $customerRegistrationResponseTransfer,
+        RestCustomerRegistrationResponseTransfer $customerRegistrationResponseTransfer
     ): RestCustomerRegistrationResponseTransfer;
 }
