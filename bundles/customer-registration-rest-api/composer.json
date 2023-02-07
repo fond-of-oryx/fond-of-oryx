@@ -10,7 +10,7 @@
   ],
   "require": {
     "php": ">=8.0",
-    "fond-of-oryx/customer-registration": "^2.0.0",
+    "spryker/customer": "^7.0.0",
     "spryker/glue-application": "^1.21.0"
   },
   "require-dev": {
