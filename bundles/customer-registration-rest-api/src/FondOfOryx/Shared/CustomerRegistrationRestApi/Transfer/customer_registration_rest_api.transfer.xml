@@ -15,6 +15,7 @@
     <transfer name="RestCustomerRegistrationResponse">
         <property name="isSuccessful" type="bool"/>
         <property name="message" type="string" />
+        <property name="email" type="string" />
     </transfer>
 
 </transfers>
