@@ -51,10 +51,13 @@ class ThirtyFiveUpApiRepository extends AbstractRepository implements ThirtyFive
         foreach ($collection as $id => $orderTransfer) {
             $collection[$id] = $this->convert($orderTransfer)->getData();
         }
-        $apiCollectionTransfer = $this->getFactory()->getApiFacade()->createApiCollection($collection);
-        $apiCollectionTransfer = $this->addPagination($query, $apiCollectionTransfer, $apiRequestTransfer);
 
-        return $apiCollectionTransfer;
+        $apiCollectionTransfer = $this->getFactory()
+            ->getApiFacade()
+            ->createApiCollection([])
+            ->setData($collection);
+
+        return $this->addPagination($query, $apiCollectionTransfer, $apiRequestTransfer);
     }
 
     /**
