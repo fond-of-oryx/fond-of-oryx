@@ -66,6 +66,7 @@ class CustomerRegistrationProcessor implements CustomerRegistrationProcessorInte
         if ($registrationKey === null) {
             $this->oneTimePasswordFacade->requestLoginLink($customerTransfer);
             $response->setMessage(CustomerRegistrationRestApiConstants::SEND_LOGIN_TOKEN);
+
             return $response;
         }
 
