@@ -7,7 +7,7 @@ use Generated\Shared\Transfer\MailTransfer;
 interface CustomerRegistrationRestApiToMailFacadeInterface
 {
     /**
-     * @param \Generated\Shared\Transfer\MailTransfer $mailTransfer\
+     * @param \Generated\Shared\Transfer\MailTransfer $mailTransfer
      *
      * @return void
      */

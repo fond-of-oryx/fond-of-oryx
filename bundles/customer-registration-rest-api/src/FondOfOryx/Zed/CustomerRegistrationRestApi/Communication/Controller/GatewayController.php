@@ -11,9 +11,9 @@ use Spryker\Zed\Kernel\Communication\Controller\AbstractGatewayController;
 class GatewayController extends AbstractGatewayController
 {
     /**
-     * @param \Generated\Shared\Transfer\QuoteListTransfer $quoteListTransfer
+     * @param \Generated\Shared\Transfer\CustomerTransfer $customerTransfer
      *
-     * @return \Generated\Shared\Transfer\QuoteListTransfer
+     * @return void
      */
     public function handleKnownCustomerAction(CustomerTransfer $customerTransfer): void
     {

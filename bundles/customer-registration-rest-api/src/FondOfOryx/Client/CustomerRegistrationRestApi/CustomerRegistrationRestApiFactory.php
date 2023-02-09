@@ -22,6 +22,6 @@ class CustomerRegistrationRestApiFactory extends AbstractFactory
      */
     protected function getZedClient(): ZedClient
     {
-        $this->getProvidedDependency(CustomerRegistrationRestApiDepedencyProvider::CLIENT_ZED_REQUEST);
+        return $this->getProvidedDependency(CustomerRegistrationRestApiDepedencyProvider::CLIENT_ZED_REQUEST);
     }
 }

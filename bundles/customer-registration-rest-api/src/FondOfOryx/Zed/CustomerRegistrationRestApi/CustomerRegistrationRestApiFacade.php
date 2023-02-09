@@ -10,9 +10,11 @@ use Spryker\Zed\Kernel\Business\AbstractFacade;
  */
 class CustomerRegistrationRestApiFacade extends AbstractFacade implements CustomerRegistrationRestApiFacadeInterface
 {
- /**
-  * @return void
-  */
+    /**
+     * @param \Generated\Shared\Transfer\CustomerTransfer $customerTransfer
+     * 
+     * @return void
+     */
     public function handleKnownCustomer(CustomerTransfer $customerTransfer): void
     {
         $this->getFactory()

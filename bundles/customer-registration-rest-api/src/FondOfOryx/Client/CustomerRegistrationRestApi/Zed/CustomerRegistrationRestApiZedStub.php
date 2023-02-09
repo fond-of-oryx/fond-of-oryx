@@ -26,6 +26,8 @@ class CustomerRegistrationRestApiZedStub implements CustomerRegistrationRestApiZ
     }
 
     /**
+     * @param \Generated\Shared\Transfer\CustomerTransfer $customerTransfer
+     *
      * @return void
      */
     public function handleKnownCustomer(CustomerTransfer $customerTransfer): void

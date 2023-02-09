@@ -3,6 +3,8 @@
 namespace FondOfOryx\Glue\CustomerRegistrationRestApi\Processor;
 
 use Codeception\Test\Unit;
+use FondOfOryx\Client\CustomerRegistrationRestApi\CustomerRegistrationRestApiClient;
+use FondOfOryx\Client\CustomerRegistrationRestApi\CustomerRegistrationRestApiClientInterface;
 use FondOfOryx\Glue\CustomerRegistrationRestApi\Dependency\Client\CustomerRegistrationRestApiToCustomerClientInterface;
 use FondOfOryx\Glue\CustomerRegistrationRestApi\Processor\Mapper\CustomerRegistrationResourceMapperInterface;
 use FondOfOryx\Glue\CustomerRegistrationRestApi\Processor\Password\GeneratorInterface;
@@ -86,6 +88,11 @@ class CustomerRegistrationProcessorTest extends Unit
     protected MockObject|GeneratorInterface $passwordGeneratorMock;
 
     /**
+     * @var \FondOfOryx\Client\CustomerRegistrationRestApi\CustomerRegistrationRestApiClientInterface|\PHPUnit\Framework\MockObject\MockObject
+     */
+    protected MockObject|CustomerRegistrationRestApiClientInterface $clientMock;
+
+    /**
      * @return void
      */
     protected function _before(): void
@@ -118,12 +125,17 @@ class CustomerRegistrationProcessorTest extends Unit
             ->disableOriginalConstructor()
             ->getMock();
 
+        $this->clientMock = $this->getMockBuilder(CustomerRegistrationRestApiClientInterface::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
         $this->customerRegistrationProcessor = new CustomerRegistrationProcessor(
             $this->customerRegistrationResourceMapperMock,
             $this->restResourceBuilderMock,
             $this->restApiErrorMock,
             $this->customerClientMock,
             $this->passwordGeneratorMock,
+            $this->clientMock
         );
     }
 

@@ -11,6 +11,8 @@ use Spryker\Client\Kernel\AbstractClient;
 class CustomerRegistrationRestApiClient extends AbstractClient implements CustomerRegistrationRestApiClientInterface
 {
     /**
+     * @param \Generated\Shared\Transfer\CustomerTransfer $customerTransfer
+     *
      * @return void
      */
     public function handleKnownCustomer(CustomerTransfer $customerTransfer): void

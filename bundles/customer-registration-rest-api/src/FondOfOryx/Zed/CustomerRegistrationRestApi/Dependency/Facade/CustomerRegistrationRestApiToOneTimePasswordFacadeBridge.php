@@ -21,6 +21,11 @@ class CustomerRegistrationRestApiToOneTimePasswordFacadeBridge implements Custom
         $this->oneTimePasswordFacade = $oneTimePasswordFacade;
     }
 
+    /**
+     * @param \Generated\Shared\Transfer\CustomerTransfer $customerTransfer
+     *
+     * @return \Generated\Shared\Transfer\OneTimePasswordResponseTransfer
+     */
     public function requestLoginLink(CustomerTransfer $customerTransfer): OneTimePasswordResponseTransfer
     {
         return $this->oneTimePasswordFacade->requestLoginLink($customerTransfer);
