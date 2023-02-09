@@ -34,11 +34,14 @@ class CustomerRegistrationRepository extends AbstractRepository implements Custo
      *
      * @throws \Exception
      *
-     * @return \Orm\Zed\Customer\Persistence\SpyCustomerQuery
+     * @return \Generated\Shared\Transfer\CustomerTransfer
      */
     public function findCustomerById(int $idCustomer): CustomerTransfer
     {
-        $spyCustomer = $this->getFactory()->getCustomerQueryContainer()->queryCustomerById($idCustomer);
+        $spyCustomer = $this->getFactory()
+            ->getCustomerQueryContainer()
+            ->queryCustomerById($idCustomer)
+            ->findOne();
 
         if ($spyCustomer === null) {
             throw new Exception(sprintf('Could not find customer by id "%s"', $idCustomer));

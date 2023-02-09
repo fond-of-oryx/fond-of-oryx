@@ -36,7 +36,7 @@ class CustomerRegistrationCommunicationFactory extends AbstractCommunicationFact
     }
 
     /**
-     * @return \FondOfOryx\Zed\CustomerRegistration\Dependency\Facade\CustomerRegistrationToStoreFacadeInterface
+     * @return \FondOfOryx\Zed\CustomerRegistration\Dependency\Facade\CustomerRegistrationToMailFacadeInterface
      */
     public function getMailFacade(): CustomerRegistrationToMailFacadeInterface
     {

@@ -18,7 +18,7 @@ class CustomerRegisteredUpdateListener extends AbstractPlugin implements EventHa
      *
      * @inheritDoc
      *
-     * @param \Spryker\Shared\Kernel\Transfer\TransferInterface|\Generated\Shared\Transfer\EventEntityTransfer $transfer
+     * @param \Generated\Shared\Transfer\EventEntityTransfer|\Spryker\Shared\Kernel\Transfer\TransferInterface $transfer
      * @param string $eventName
      *
      * @return void

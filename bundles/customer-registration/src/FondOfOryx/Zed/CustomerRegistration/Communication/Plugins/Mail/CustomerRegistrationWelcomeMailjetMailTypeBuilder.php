@@ -9,6 +9,11 @@ use Spryker\Zed\MailExtension\Dependency\Plugin\MailTypeBuilderPluginInterface;
 class CustomerRegistrationWelcomeMailjetMailTypeBuilder extends AbstractPlugin implements MailTypeBuilderPluginInterface
 {
     /**
+     * @var string
+     */
+    public const MAIL_TYPE = 'customer registration welcome mail';
+
+    /**
      * {@inheritDoc}
      *
      * @api
@@ -17,7 +22,7 @@ class CustomerRegistrationWelcomeMailjetMailTypeBuilder extends AbstractPlugin i
      */
     public function getName(): string
     {
-        return 'customer registration welcome mail';
+        return static::MAIL_TYPE;
     }
 
     /**

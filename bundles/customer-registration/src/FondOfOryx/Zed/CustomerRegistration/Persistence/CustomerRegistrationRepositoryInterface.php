@@ -16,7 +16,7 @@ interface CustomerRegistrationRepositoryInterface
     /**
      * @param int $idCustomer
      *
-     * @return \Orm\Zed\Customer\Persistence\SpyCustomerQuery
+     * @return \Generated\Shared\Transfer\CustomerTransfer
      */
     public function findCustomerById(int $idCustomer): CustomerTransfer;
 }
