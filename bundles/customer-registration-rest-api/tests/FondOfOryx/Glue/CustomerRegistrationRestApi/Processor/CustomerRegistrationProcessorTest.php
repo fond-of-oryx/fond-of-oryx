@@ -9,7 +9,6 @@ use FondOfOryx\Glue\CustomerRegistrationRestApi\Processor\Mapper\CustomerRegistr
 use FondOfOryx\Glue\CustomerRegistrationRestApi\Processor\Password\GeneratorInterface;
 use FondOfOryx\Glue\CustomerRegistrationRestApi\Processor\Validation\RestApiErrorInterface;
 use Generated\Shared\Transfer\RestCustomerRegistrationRequestAttributesTransfer;
-use Generated\Shared\Transfer\RestCustomerRegistrationResponseTransfer;
 use PHPUnit\Framework\MockObject\MockObject;
 use Spryker\Glue\GlueApplication\Rest\JsonApi\RestResourceBuilderInterface;
 use Spryker\Glue\GlueApplication\Rest\Request\Data\RestRequestInterface;
@@ -19,52 +18,12 @@ class CustomerRegistrationProcessorTest extends Unit
     /**
      * @var \FondOfOryx\Glue\CustomerRegistrationRestApi\Processor\CustomerRegistrationProcessor
      */
-    protected $customerRegistrationProcessor;
+    protected CustomerRegistrationProcessor $customerRegistrationProcessor;
 
     /**
      * @var \PHPUnit\Framework\MockObject\MockObject|\Spryker\Glue\GlueApplication\Rest\JsonApi\RestResourceBuilderInterface
      */
-    protected $restResourceBuilderMock;
-
-    /**
-     * @var \PHPUnit\Framework\MockObject\MockObject|\Spryker\Glue\GlueApplication\Rest\JsonApi\RestResponseInterface
-     */
-    protected $restResponseMock;
-
-    /**
-     * @var \PHPUnit\Framework\MockObject\MockObject|\Spryker\Glue\GlueApplication\Rest\Request\Data\RestRequestInterface
-     */
-    protected $restRequestMock;
-
-    /**
-     * @var \PHPUnit\Framework\MockObject\MockObject|\Symfony\Component\HttpFoundation\Request
-     */
-    protected $requestMock;
-
-    /**
-     * @var \Generated\Shared\Transfer\RestCustomerRegistrationRequestAttributesTransfer|\PHPUnit\Framework\MockObject\MockObject
-     */
-    protected $restCustomerRegistrationRequestAttributesTransferMock;
-
-    /**
-     * @var \Generated\Shared\Transfer\CustomerRegistrationRequestTransfer|\PHPUnit\Framework\MockObject\MockObject
-     */
-    protected $customerRegistrationRequestTransferMock;
-
-    /**
-     * @var \Generated\Shared\Transfer\CustomerRegistrationResponseTransfer|\PHPUnit\Framework\MockObject\MockObject
-     */
-    protected $customerRegistrationResponseTransferMock;
-
-    /**
-     * @var \Generated\Shared\Transfer\CustomerRegistrationAttributesTransfer|\PHPUnit\Framework\MockObject\MockObject
-     */
-    protected $customerRegistrationAttributesTransfer;
-
-    /**
-     * @var \Generated\Shared\Transfer\RestCustomerRegistrationResponseTransfer|\PHPUnit\Framework\MockObject\MockObject
-     */
-    protected $restCustomerRegistrationResponseTransferMock;
+    protected MockObject|RestResourceBuilderInterface $restResourceBuilderMock;
 
     /**
      * @var \FondOfOryx\Glue\CustomerRegistrationRestApi\Dependency\Client\CustomerRegistrationRestApiToCustomerClientInterface|\PHPUnit\Framework\MockObject\MockObject
@@ -92,6 +51,11 @@ class CustomerRegistrationProcessorTest extends Unit
     protected MockObject|CustomerRegistrationRestApiClientInterface $clientMock;
 
     /**
+     * @var \Spryker\Glue\GlueApplication\Rest\Request\Data\RestRequestInterface|\PHPUnit\Framework\MockObject\MockObject
+     */
+    protected MockObject|RestRequestInterface $restRequestMock;
+
+    /**
      * @return void
      */
     protected function _before(): void
@@ -109,10 +73,6 @@ class CustomerRegistrationProcessorTest extends Unit
             ->getMock();
 
         $this->restRequestMock = $this->getMockBuilder(RestRequestInterface::class)
-            ->disableOriginalConstructor()
-            ->getMock();
-
-        $this->restCustomerRegistrationResponseTransferMock = $this->getMockBuilder(RestCustomerRegistrationResponseTransfer::class)
             ->disableOriginalConstructor()
             ->getMock();
 
