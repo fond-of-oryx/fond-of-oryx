@@ -18,7 +18,7 @@ class CustomerRegisteredUpdateListener extends AbstractPlugin implements EventHa
      *
      * @inheritDoc
      *
-     * @param \Generated\Shared\Transfer\EventEntityTransfer|\Spryker\Shared\Kernel\Transfer\TransferInterface $transfer
+     * @param \Spryker\Shared\Kernel\Transfer\TransferInterface|\Generated\Shared\Transfer\EventEntityTransfer $transfer
      * @param string $eventName
      *
      * @return void
@@ -29,6 +29,7 @@ class CustomerRegisteredUpdateListener extends AbstractPlugin implements EventHa
             return;
         }
 
+        /** @phpstan-ignore-next-line */
         $customerTransfer = $this->getRepository()->findCustomerById($transfer->getId());
 
         $this->getFacade()->sendWelcomeMail($customerTransfer);
