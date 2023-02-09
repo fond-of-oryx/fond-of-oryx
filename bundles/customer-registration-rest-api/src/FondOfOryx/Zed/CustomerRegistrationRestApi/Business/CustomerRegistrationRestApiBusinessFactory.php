@@ -25,7 +25,7 @@ class CustomerRegistrationRestApiBusinessFactory extends AbstractBusinessFactory
             $this->getCustomerFacade(),
             $this->getOneTimePasswordFacade(),
             $this->getMailFacade(),
-            $this->getConfig()
+            $this->getConfig(),
         );
     }
 
