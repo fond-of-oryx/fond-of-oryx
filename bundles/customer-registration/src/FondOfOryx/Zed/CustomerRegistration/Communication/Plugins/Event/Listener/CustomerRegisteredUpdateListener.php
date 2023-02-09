@@ -9,6 +9,7 @@ use Spryker\Zed\Kernel\Communication\AbstractPlugin;
 
 /**
  * @method \FondOfOryx\Zed\CustomerRegistration\Business\CustomerRegistrationFacadeInterface getFacade()
+ * @method \FondOfOryx\Zed\CustomerRegistration\Persistence\CustomerRegistrationRepositoryInterface getRepository()
  */
 class CustomerRegisteredUpdateListener extends AbstractPlugin implements EventHandlerInterface
 {
@@ -28,6 +29,8 @@ class CustomerRegisteredUpdateListener extends AbstractPlugin implements EventHa
             return;
         }
 
-        $this->getFacade()->sendWelcomeMail($transfer->getId());
+        $customerTransfer = $this->getRepository()->findCustomerById($transfer->getId());
+
+        $this->getFacade()->sendWelcomeMail($customerTransfer);
     }
 }

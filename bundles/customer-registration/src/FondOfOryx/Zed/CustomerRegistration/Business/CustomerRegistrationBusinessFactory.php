@@ -8,11 +8,9 @@ use FondOfOryx\Zed\CustomerRegistration\Business\Generator\EmailVerificationLink
 use FondOfOryx\Zed\CustomerRegistration\Business\Generator\EmailVerificationLinkGeneratorInterface;
 use FondOfOryx\Zed\CustomerRegistration\Business\Generator\PasswordGenerator;
 use FondOfOryx\Zed\CustomerRegistration\Business\Generator\PasswordGeneratorInterface;
-use FondOfOryx\Zed\CustomerRegistration\Business\Mapper\CustomerTransferToMailTransferMapper;
-use FondOfOryx\Zed\CustomerRegistration\Business\Mapper\CustomerTransferToMailTransferMapperInterface;
-use FondOfOryx\Zed\CustomerRegistration\Business\Model\WelcomeMail;
 use FondOfOryx\Zed\CustomerRegistration\Business\Processor\CustomerRegistrationProcessor;
 use FondOfOryx\Zed\CustomerRegistration\Business\Processor\CustomerRegistrationProcessorInterface;
+use FondOfOryx\Zed\CustomerRegistration\Business\Sender\WelcomeMailSender;
 use FondOfOryx\Zed\CustomerRegistration\Business\Steps\GdprStep;
 use FondOfOryx\Zed\CustomerRegistration\Business\Steps\GdprStepInterface;
 use FondOfOryx\Zed\CustomerRegistration\Business\Steps\RegistrationStep;
@@ -110,15 +108,11 @@ class CustomerRegistrationBusinessFactory extends AbstractBusinessFactory
     }
 
     /**
-     * @return \FondOfOryx\Zed\CustomerRegistration\Business\Model\WelcomeMail
+     * @return \FondOfOryx\Zed\CustomerRegistration\Business\Sender\WelcomeMailSender
      */
-    public function createWelcomeMail(): WelcomeMail
+    public function createWelcomeMail(): WelcomeMailSender
     {
-        return new WelcomeMail(
-            $this->getMailfacade(),
-            $this->getRepository(),
-            $this->createCustomerTransferToMailTransferMapper(),
-        );
+        return new WelcomeMailSender($this->getMailfacade());
     }
 
     /**
@@ -127,14 +121,6 @@ class CustomerRegistrationBusinessFactory extends AbstractBusinessFactory
     public function createPasswordGenerator(): PasswordGeneratorInterface
     {
         return new PasswordGenerator($this->getUtilTextService());
-    }
-
-    /**
-     * @return \FondOfOryx\Zed\CustomerRegistration\Business\Mapper\CustomerTransferToMailTransferMapperInterface
-     */
-    protected function createCustomerTransferToMailTransferMapper(): CustomerTransferToMailTransferMapperInterface
-    {
-        return new CustomerTransferToMailTransferMapper($this->getLocaleFacade());
     }
 
     /**

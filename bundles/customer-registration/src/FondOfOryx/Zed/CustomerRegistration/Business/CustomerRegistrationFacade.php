@@ -101,12 +101,12 @@ class CustomerRegistrationFacade extends AbstractFacade implements CustomerRegis
     }
 
     /**
-     * @param int $idCustomer
+     * @param \Generated\Shared\Transfer\CustomerTransfer $customerTransfer
      *
      * @return void
      */
-    public function sendWelcomeMail(int $idCustomer): void
+    public function sendWelcomeMail(CustomerTransfer $customerTransfer): void
     {
-        $this->getFactory()->createWelcomeMail()->handleMail($idCustomer);
+        $this->getFactory()->createWelcomeMail()->sendWelcomeMail($customerTransfer);
     }
 }
