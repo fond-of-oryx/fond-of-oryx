@@ -53,4 +53,9 @@ interface CustomerRegistrationConstants
      * @var string
      */
     public const DEFAULT_CONFIG_FALLBACK_URL_LOCALE = 'en';
+
+    /**
+     * @var string
+     */
+    public const ENTITY_CUSTOMER_UPDATE = 'Entity.spy_customer.update';
 }
