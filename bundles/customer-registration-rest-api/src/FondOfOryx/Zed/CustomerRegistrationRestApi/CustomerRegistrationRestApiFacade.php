@@ -12,7 +12,7 @@ class CustomerRegistrationRestApiFacade extends AbstractFacade implements Custom
 {
     /**
      * @param \Generated\Shared\Transfer\CustomerTransfer $customerTransfer
-     * 
+     *
      * @return void
      */
     public function handleKnownCustomer(CustomerTransfer $customerTransfer): void

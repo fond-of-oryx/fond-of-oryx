@@ -3,7 +3,6 @@
 namespace FondOfOryx\Glue\CustomerRegistrationRestApi\Processor;
 
 use Codeception\Test\Unit;
-use FondOfOryx\Client\CustomerRegistrationRestApi\CustomerRegistrationRestApiClient;
 use FondOfOryx\Client\CustomerRegistrationRestApi\CustomerRegistrationRestApiClientInterface;
 use FondOfOryx\Glue\CustomerRegistrationRestApi\Dependency\Client\CustomerRegistrationRestApiToCustomerClientInterface;
 use FondOfOryx\Glue\CustomerRegistrationRestApi\Processor\Mapper\CustomerRegistrationResourceMapperInterface;
@@ -135,7 +134,7 @@ class CustomerRegistrationProcessorTest extends Unit
             $this->restApiErrorMock,
             $this->customerClientMock,
             $this->passwordGeneratorMock,
-            $this->clientMock
+            $this->clientMock,
         );
     }
 
