@@ -8,14 +8,16 @@ use Spryker\Zed\Event\Dependency\Plugin\EventHandlerInterface;
 use Spryker\Zed\Kernel\Communication\AbstractPlugin;
 
 /**
- * @method \FondOfOryx\Zed\CustomerRegistration\Communication\CustomerRegistrationCommunicationFactory getFactory()
+ * @method \FondOfOryx\Zed\CustomerRegistration\Business\CustomerRegistrationFacadeInterface getFacade()
  */
 class CustomerRegisteredUpdateListener extends AbstractPlugin implements EventHandlerInterface
 {
     /**
      * @api
      *
-     * @param \Spryker\Shared\Kernel\Transfer\TransferInterface $transfer
+     * @inheritDoc
+     *
+     * @param \Spryker\Shared\Kernel\Transfer\TransferInterface|\Generated\Shared\Transfer\EventEntityTransfer $transfer
      * @param string $eventName
      *
      * @return void
@@ -26,6 +28,6 @@ class CustomerRegisteredUpdateListener extends AbstractPlugin implements EventHa
             return;
         }
 
-        $this->getFactory()->getMailFacade()->handleMail($transfer);
+        $this->getFacade()->sendWelcomeMail($transfer->getId());
     }
 }

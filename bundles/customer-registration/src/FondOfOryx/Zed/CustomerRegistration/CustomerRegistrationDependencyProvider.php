@@ -117,6 +117,7 @@ class CustomerRegistrationDependencyProvider extends AbstractBundleDependencyPro
         $container = $this->addMailVerificationPreConditionPlugins($container);
         $container = $this->addMailVerificationPostPlugins($container);
         $container = $this->addEmailVerificationLinkExtenderPlugins($container);
+        $container = $this->addMailFacade($container);
 
         return $container;
     }

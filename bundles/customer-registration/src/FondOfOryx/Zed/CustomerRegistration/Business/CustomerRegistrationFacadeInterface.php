@@ -89,4 +89,11 @@ interface CustomerRegistrationFacadeInterface
      * @return string
      */
     public function generateToken(): string;
+
+    /**
+     * @param int $idCustomer
+     *
+     * @return void
+     */
+    public function sendWelcomeMail(int $idCustomer): void;
 }
