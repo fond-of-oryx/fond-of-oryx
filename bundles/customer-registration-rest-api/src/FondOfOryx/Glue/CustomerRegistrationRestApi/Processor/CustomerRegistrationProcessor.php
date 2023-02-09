@@ -2,6 +2,8 @@
 
 namespace FondOfOryx\Glue\CustomerRegistrationRestApi\Processor;
 
+use ArrayObject;
+use FondOfOryx\Client\CustomerRegistrationRestApi\CustomerRegistrationRestApiClientInterface;
 use FondOfOryx\Glue\CustomerRegistrationRestApi\CustomerRegistrationRestApiConfig;
 use FondOfOryx\Glue\CustomerRegistrationRestApi\Dependency\Client\CustomerRegistrationRestApiToCustomerClientInterface;
 use FondOfOryx\Glue\CustomerRegistrationRestApi\Processor\Mapper\CustomerRegistrationResourceMapperInterface;
@@ -42,24 +44,32 @@ class CustomerRegistrationProcessor implements CustomerRegistrationProcessorInte
     protected PasswordGeneratorInterface $passwordGenerator;
 
     /**
+     * @var \FondOfOryx\Client\CustomerRegistrationRestApi\CustomerRegistrationRestApiClientInterface
+     */
+    private CustomerRegistrationRestApiClientInterface $client;
+
+    /**
      * @param \FondOfOryx\Glue\CustomerRegistrationRestApi\Processor\Mapper\CustomerRegistrationResourceMapperInterface $customerRegistrationResourceMapper
      * @param \Spryker\Glue\GlueApplication\Rest\JsonApi\RestResourceBuilderInterface $restResourceBuilder
      * @param \FondOfOryx\Glue\CustomerRegistrationRestApi\Processor\Validation\RestApiErrorInterface $restApiError
      * @param \FondOfOryx\Glue\CustomerRegistrationRestApi\Dependency\Client\CustomerRegistrationRestApiToCustomerClientInterface $customerClient
      * @param \FondOfOryx\Glue\CustomerRegistrationRestApi\Processor\Password\GeneratorInterface $passwordGenerator
+     * @param \FondOfOryx\Client\CustomerRegistrationRestApi\CustomerRegistrationRestApiClientInterface $client
      */
     public function __construct(
         CustomerRegistrationResourceMapperInterface $customerRegistrationResourceMapper,
         RestResourceBuilderInterface $restResourceBuilder,
         RestApiErrorInterface $restApiError,
         CustomerRegistrationRestApiToCustomerClientInterface $customerClient,
-        PasswordGeneratorInterface $passwordGenerator
+        PasswordGeneratorInterface $passwordGenerator,
+        CustomerRegistrationRestApiClientInterface $client
     ) {
         $this->restResourceBuilder = $restResourceBuilder;
         $this->customerClient = $customerClient;
         $this->customerRegistrationResourceMapper = $customerRegistrationResourceMapper;
         $this->restApiError = $restApiError;
         $this->passwordGenerator = $passwordGenerator;
+        $this->client = $client;
     }
 
     /**
@@ -86,6 +96,10 @@ class CustomerRegistrationProcessor implements CustomerRegistrationProcessorInte
         $customerTransfer->setPassword($this->passwordGenerator->generate());
         $customerResponseTransfer = $this->customerClient->registerCustomer($customerTransfer);
 
+        if ($customerResponseTransfer->getErrors() !== null) {
+            $this->preProcessCustomerErrorOnRegistration($customerTransfer, $customerResponseTransfer->getErrors());
+        }
+
         if (!$customerResponseTransfer->getIsSuccess()) {
             return $this->restApiError->processCustomerErrorOnRegistration(
                 $restResponse,
@@ -108,5 +122,20 @@ class CustomerRegistrationProcessor implements CustomerRegistrationProcessorInte
         );
 
         return $restResponse->addResource($restResource);
+    }
+
+    /**
+     * @param \Generated\Shared\Transfer\CustomerTransfer $customerTransfer
+     * @param \ArrayObject<\Generated\Shared\Transfer\CustomerErrorTransfer> $customerResponseErrors
+     *
+     * @return void
+     */
+    protected function preProcessCustomerErrorOnRegistration(CustomerTransfer $customerTransfer, ArrayObject $customerResponseErrors): void
+    {
+        foreach ($customerResponseErrors as $error) {
+            if ($error->getMessage() === RestApiErrorInterface::ERROR_MESSAGE_CUSTOMER_EMAIL_ALREADY_USED) {
+                $this->client->handleKnownCustomer($customerTransfer);
+            }
+        }
     }
 }

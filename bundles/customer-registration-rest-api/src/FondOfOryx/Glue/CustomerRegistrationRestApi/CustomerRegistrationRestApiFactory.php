@@ -29,6 +29,7 @@ class CustomerRegistrationRestApiFactory extends AbstractFactory
             $this->createApiError(),
             $this->getCustomerClient(),
             $this->createPasswordGenerator(),
+            $this->getClient(),
         );
     }
 
