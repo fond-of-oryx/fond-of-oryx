@@ -5,7 +5,7 @@ namespace FondOfOryx\Client\CustomerRegistrationRestApi;
 use Spryker\Client\Kernel\AbstractDependencyProvider;
 use Spryker\Client\Kernel\Container;
 
-class CustomerRegistrationRestApiDepedencyProvider extends AbstractDependencyProvider
+class CustomerRegistrationRestApiDependencyProvider extends AbstractDependencyProvider
 {
     /**
      * @var string

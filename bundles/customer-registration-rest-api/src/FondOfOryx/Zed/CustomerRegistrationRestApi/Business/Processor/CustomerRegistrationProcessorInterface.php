@@ -2,6 +2,7 @@
 
 namespace FondOfOryx\Zed\CustomerRegistrationRestApi\Business\Processor;
 
+use Generated\Shared\Transfer\CustomerRegistrationKnownCustomerResponseTransfer;
 use Generated\Shared\Transfer\CustomerTransfer;
 
 interface CustomerRegistrationProcessorInterface
@@ -9,7 +10,7 @@ interface CustomerRegistrationProcessorInterface
     /**
      * @param \Generated\Shared\Transfer\CustomerTransfer $customerTransfer
      *
-     * @return void
+     * @return \Generated\Shared\Transfer\CustomerRegistrationKnownCustomerResponseTransfer
      */
-    public function handleKnownCustomer(CustomerTransfer $customerTransfer): void;
+    public function handleKnownCustomer(CustomerTransfer $customerTransfer): CustomerRegistrationKnownCustomerResponseTransfer;
 }

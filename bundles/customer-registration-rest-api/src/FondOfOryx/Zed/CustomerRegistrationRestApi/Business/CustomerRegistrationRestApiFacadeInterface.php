@@ -1,11 +1,11 @@
 <?php
 
-namespace FondOfOryx\Client\CustomerRegistrationRestApi\Zed;
+namespace FondOfOryx\Zed\CustomerRegistrationRestApi\Business;
 
 use Generated\Shared\Transfer\CustomerRegistrationKnownCustomerResponseTransfer;
 use Generated\Shared\Transfer\CustomerTransfer;
 
-interface CustomerRegistrationRestApiZedStubInterface
+interface CustomerRegistrationRestApiFacadeInterface
 {
     /**
      * @param \Generated\Shared\Transfer\CustomerTransfer $customerTransfer

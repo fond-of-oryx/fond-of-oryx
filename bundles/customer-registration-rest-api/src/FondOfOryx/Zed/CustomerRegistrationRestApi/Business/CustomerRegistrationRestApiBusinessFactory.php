@@ -8,6 +8,7 @@ use FondOfOryx\Zed\CustomerRegistrationRestApi\CustomerRegistrationRestApiDepend
 use FondOfOryx\Zed\CustomerRegistrationRestApi\Dependency\Facade\CustomerRegistrationRestApiToCustomerFacadeInterface;
 use FondOfOryx\Zed\CustomerRegistrationRestApi\Dependency\Facade\CustomerRegistrationRestApiToMailFacadeInterface;
 use FondOfOryx\Zed\CustomerRegistrationRestApi\Dependency\Facade\CustomerRegistrationRestApiToOneTimePasswordFacadeInterface;
+use Generated\Shared\Transfer\CustomerRegistrationKnownCustomerResponseTransfer;
 use Spryker\Zed\Kernel\Business\AbstractBusinessFactory;
 
 /**
@@ -24,7 +25,7 @@ class CustomerRegistrationRestApiBusinessFactory extends AbstractBusinessFactory
             $this->getCustomerFacade(),
             $this->getOneTimePasswordFacade(),
             $this->getMailFacade(),
-            $this->getConfig(),
+            $this->getConfig()
         );
     }
 

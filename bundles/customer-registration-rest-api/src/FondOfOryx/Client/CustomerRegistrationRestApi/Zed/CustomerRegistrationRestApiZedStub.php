@@ -2,8 +2,9 @@
 
 namespace FondOfOryx\Client\CustomerRegistrationRestApi\Zed;
 
+use Generated\Shared\Transfer\CustomerRegistrationKnownCustomerResponseTransfer;
 use Generated\Shared\Transfer\CustomerTransfer;
-use Spryker\Client\ZedRequest\Client\ZedClient;
+use Spryker\Client\ZedRequest\ZedRequestClient;
 
 class CustomerRegistrationRestApiZedStub implements CustomerRegistrationRestApiZedStubInterface
 {
@@ -13,14 +14,14 @@ class CustomerRegistrationRestApiZedStub implements CustomerRegistrationRestApiZ
     protected const URL_HANDLE_KNOWN_CUSTOMER = '/customer-registration-rest-api/gateway/handle-known-customer';
 
     /**
-     * @var \Spryker\Client\ZedRequest\Client\ZedClient
+     * @var \Spryker\Client\ZedRequest\ZedRequestClient
      */
-    protected ZedClient $zedClient;
+    protected ZedRequestClient $zedClient;
 
     /**
-     * @param \Spryker\Client\ZedRequest\Client\ZedClient $zedClient
+     * @param \Spryker\Client\ZedRequest\ZedRequestClient $zedClient
      */
-    public function __construct(ZedClient $zedClient)
+    public function __construct(ZedRequestClient $zedClient)
     {
         $this->zedClient = $zedClient;
     }
@@ -28,10 +29,13 @@ class CustomerRegistrationRestApiZedStub implements CustomerRegistrationRestApiZ
     /**
      * @param \Generated\Shared\Transfer\CustomerTransfer $customerTransfer
      *
-     * @return void
+     * @return \Generated\Shared\Transfer\CustomerRegistrationKnownCustomerResponseTransfer
      */
-    public function handleKnownCustomer(CustomerTransfer $customerTransfer): void
+    public function handleKnownCustomer(CustomerTransfer $customerTransfer): CustomerRegistrationKnownCustomerResponseTransfer
     {
-        $this->zedClient->call(static::URL_HANDLE_KNOWN_CUSTOMER, $customerTransfer);
+        /** @var \Generated\Shared\Transfer\CustomerRegistrationKnownCustomerResponseTransfer $knownCustomerResponse */
+        $knownCustomerResponse = $this->zedClient->call(static::URL_HANDLE_KNOWN_CUSTOMER, $customerTransfer);
+
+        return $knownCustomerResponse;
     }
 }

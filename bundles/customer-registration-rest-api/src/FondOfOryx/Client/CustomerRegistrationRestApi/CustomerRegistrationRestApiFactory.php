@@ -5,7 +5,7 @@ namespace FondOfOryx\Client\CustomerRegistrationRestApi;
 use FondOfOryx\Client\CustomerRegistrationRestApi\Zed\CustomerRegistrationRestApiZedStub;
 use FondOfOryx\Client\CustomerRegistrationRestApi\Zed\CustomerRegistrationRestApiZedStubInterface;
 use Spryker\Client\Kernel\AbstractFactory;
-use Spryker\Client\ZedRequest\Client\ZedClient;
+use Spryker\Client\ZedRequest\ZedRequestClient;
 
 class CustomerRegistrationRestApiFactory extends AbstractFactory
 {
@@ -18,10 +18,10 @@ class CustomerRegistrationRestApiFactory extends AbstractFactory
     }
 
     /**
-     * @return \Spryker\Client\ZedRequest\Client\ZedClient
+     * @return \Spryker\Client\ZedRequest\ZedRequestClient
      */
-    protected function getZedClient(): ZedClient
+    protected function getZedClient(): ZedRequestClient
     {
-        return $this->getProvidedDependency(CustomerRegistrationRestApiDepedencyProvider::CLIENT_ZED_REQUEST);
+        return $this->getProvidedDependency(CustomerRegistrationRestApiDependencyProvider::CLIENT_ZED_REQUEST);
     }
 }

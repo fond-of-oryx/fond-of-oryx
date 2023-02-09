@@ -6,7 +6,7 @@ use Generated\Shared\Transfer\CustomerTransfer;
 use Spryker\Zed\Kernel\Communication\Controller\AbstractGatewayController;
 
 /**
- * @method \FondOfOryx\Zed\CustomerRegistrationRestApi\CustomerRegistrationRestApiFacadeInterface getFacade()
+ * @method \FondOfOryx\Zed\CustomerRegistrationRestApi\Business\CustomerRegistrationRestApiFacadeInterface getFacade()
  */
 class GatewayController extends AbstractGatewayController
 {
