@@ -10,6 +10,9 @@ use Spryker\Client\Kernel\AbstractClient;
  */
 class CustomerRegistrationRestApiClient extends AbstractClient implements CustomerRegistrationRestApiClientInterface
 {
+    /**
+     * @return void
+     */
     public function handleKnownCustomer(CustomerTransfer $customerTransfer): void
     {
         $this->getFactory()->createCustomerRegistrationRestApiZedStub()->handleKnownCustomer($customerTransfer);

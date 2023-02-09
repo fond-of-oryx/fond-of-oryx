@@ -9,6 +9,7 @@ class CustomerRegistrationRestApiConfig extends AbstractBundleConfig
 {
     /**
      * @uses CustomerConstants::CUSTOMER_REGISTRATION_WITH_CONFIRMATION_MAIL_TYPE
+     *
      * @var string
      */
     public const CUSTOMER_REGISTRATION_WITH_CONFIRMATION_MAIL_TYPE = 'customer registration confirmation mail';

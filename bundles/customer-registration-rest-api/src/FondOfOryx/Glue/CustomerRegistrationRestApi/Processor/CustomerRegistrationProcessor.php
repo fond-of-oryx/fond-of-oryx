@@ -41,6 +41,7 @@ class CustomerRegistrationProcessor implements CustomerRegistrationProcessorInte
      * @var \FondOfOryx\Glue\CustomerRegistrationRestApi\Processor\Password\GeneratorInterface
      */
     protected PasswordGeneratorInterface $passwordGenerator;
+
     /**
      * @var \FondOfOryx\Client\CustomerRegistrationRestApi\CustomerRegistrationRestApiClientInterface
      */
@@ -96,7 +97,7 @@ class CustomerRegistrationProcessor implements CustomerRegistrationProcessorInte
 
         foreach ($customerResponseTransfer->getErrors() as $error) {
             if ($error->getMessage() === RestApiErrorInterface::ERROR_MESSAGE_CUSTOMER_EMAIL_ALREADY_USED) {
-              $this->client->handleKnownCustomer($customerTransfer);
+                $this->client->handleKnownCustomer($customerTransfer);
             }
         }
 

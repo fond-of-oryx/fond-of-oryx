@@ -2,7 +2,6 @@
 
 namespace FondOfOryx\Zed\CustomerRegistrationRestApi\Business;
 
-use FondOfOryx\Zed\CustomerRegistration\CustomerRegistrationDependencyProvider;
 use FondOfOryx\Zed\CustomerRegistrationRestApi\Business\Processor\CustomerRegistrationProcessor;
 use FondOfOryx\Zed\CustomerRegistrationRestApi\Business\Processor\CustomerRegistrationProcessorInterface;
 use FondOfOryx\Zed\CustomerRegistrationRestApi\CustomerRegistrationRestApiDependencyProvider;

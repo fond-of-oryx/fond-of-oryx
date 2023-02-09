@@ -62,6 +62,7 @@ class CustomerRegistrationProcessor implements CustomerRegistrationProcessorInte
 
         if ($registrationKey === null) {
             $this->oneTimePasswordFacade->requestLoginLink($customerTransfer);
+
             return;
         }
 
