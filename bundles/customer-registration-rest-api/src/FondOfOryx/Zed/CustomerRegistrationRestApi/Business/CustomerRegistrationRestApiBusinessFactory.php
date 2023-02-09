@@ -10,6 +10,9 @@ use FondOfOryx\Zed\CustomerRegistrationRestApi\Dependency\Facade\CustomerRegistr
 use FondOfOryx\Zed\CustomerRegistrationRestApi\Dependency\Facade\CustomerRegistrationRestApiToOneTimePasswordFacadeInterface;
 use Spryker\Zed\Kernel\Business\AbstractBusinessFactory;
 
+/**
+ * @method \FondOfOryx\Zed\CustomerRegistrationRestApi\CustomerRegistrationRestApiConfig getConfig()
+ */
 class CustomerRegistrationRestApiBusinessFactory extends AbstractBusinessFactory
 {
     /**
@@ -17,7 +20,12 @@ class CustomerRegistrationRestApiBusinessFactory extends AbstractBusinessFactory
      */
     public function createCustomerRegistrationProcessor(): CustomerRegistrationProcessorInterface
     {
-        return new CustomerRegistrationProcessor();
+        return new CustomerRegistrationProcessor(
+            $this->getCustomerFacade(),
+            $this->getOneTimePasswordFacade(),
+            $this->getMailFacade(),
+            $this->getConfig(),
+        );
     }
 
     /**

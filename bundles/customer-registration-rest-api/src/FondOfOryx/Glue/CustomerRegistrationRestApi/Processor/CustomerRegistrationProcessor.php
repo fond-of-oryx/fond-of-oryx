@@ -14,6 +14,7 @@ use Generated\Shared\Transfer\RestCustomerRegistrationResponseTransfer;
 use Spryker\Glue\GlueApplication\Rest\JsonApi\RestResourceBuilderInterface;
 use Spryker\Glue\GlueApplication\Rest\JsonApi\RestResponseInterface;
 use Spryker\Glue\GlueApplication\Rest\Request\Data\RestRequestInterface;
+use ArrayObject;
 
 class CustomerRegistrationProcessor implements CustomerRegistrationProcessorInterface
 {
@@ -125,11 +126,11 @@ class CustomerRegistrationProcessor implements CustomerRegistrationProcessorInte
 
     /**
      * @param \Generated\Shared\Transfer\CustomerTransfer $customerTransfer
-     * @param array<\Generated\Shared\Transfer\CustomerErrorTransfer> $customerResponseErrors
+     * @param ArrayObject<\Generated\Shared\Transfer\CustomerErrorTransfer> $customerResponseErrors
      *
      * @return void
      */
-    protected function preProcessCustomerErrorOnRegistration(CustomerTransfer $customerTransfer, array $customerResponseErrors): void
+    protected function preProcessCustomerErrorOnRegistration(CustomerTransfer $customerTransfer, ArrayObject $customerResponseErrors): void
     {
         foreach ($customerResponseErrors as $error) {
             if ($error->getMessage() === RestApiErrorInterface::ERROR_MESSAGE_CUSTOMER_EMAIL_ALREADY_USED) {
