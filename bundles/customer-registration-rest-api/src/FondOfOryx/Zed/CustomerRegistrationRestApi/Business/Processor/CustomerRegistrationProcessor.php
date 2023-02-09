@@ -2,10 +2,12 @@
 
 namespace FondOfOryx\Zed\CustomerRegistrationRestApi\Business\Processor;
 
+use FondOfOryx\Shared\CustomerRegistrationRestApi\CustomerRegistrationRestApiConstants;
 use FondOfOryx\Zed\CustomerRegistrationRestApi\CustomerRegistrationRestApiConfig;
 use FondOfOryx\Zed\CustomerRegistrationRestApi\Dependency\Facade\CustomerRegistrationRestApiToCustomerFacadeInterface;
 use FondOfOryx\Zed\CustomerRegistrationRestApi\Dependency\Facade\CustomerRegistrationRestApiToMailFacadeInterface;
 use FondOfOryx\Zed\CustomerRegistrationRestApi\Dependency\Facade\CustomerRegistrationRestApiToOneTimePasswordFacadeInterface;
+use Generated\Shared\Transfer\CustomerRegistrationKnownCustomerResponseTransfer;
 use Generated\Shared\Transfer\CustomerTransfer;
 use Generated\Shared\Transfer\MailTransfer;
 
@@ -52,21 +54,26 @@ class CustomerRegistrationProcessor implements CustomerRegistrationProcessorInte
     /**
      * @param \Generated\Shared\Transfer\CustomerTransfer $customerTransfer
      *
-     * @return void
+     * @return \Generated\Shared\Transfer\CustomerRegistrationKnownCustomerResponseTransfer
      */
-    public function handleKnownCustomer(CustomerTransfer $customerTransfer): void
+    public function handleKnownCustomer(CustomerTransfer $customerTransfer): CustomerRegistrationKnownCustomerResponseTransfer
     {
+        $response = (new CustomerRegistrationKnownCustomerResponseTransfer());
         $customer = $this->customerFacade->getCustomer($customerTransfer);
 
         $registrationKey = $customer->getRegistrationKey();
 
         if ($registrationKey === null) {
             $this->oneTimePasswordFacade->requestLoginLink($customerTransfer);
+            $response->setMessage(CustomerRegistrationRestApiConstants::SEND_LOGIN_TOKEN);
 
-            return;
+            return $response;
         }
 
         $this->sendRegistrationToken($customerTransfer);
+        $response->setMessage(CustomerRegistrationRestApiConstants::RESEND_CONFIRMATION_TOKEN);
+
+        return $response;
     }
 
     /**
