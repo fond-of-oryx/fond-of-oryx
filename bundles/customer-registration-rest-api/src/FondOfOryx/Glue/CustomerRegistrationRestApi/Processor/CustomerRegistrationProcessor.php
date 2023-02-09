@@ -95,10 +95,8 @@ class CustomerRegistrationProcessor implements CustomerRegistrationProcessorInte
         $customerTransfer->setPassword($this->passwordGenerator->generate());
         $customerResponseTransfer = $this->customerClient->registerCustomer($customerTransfer);
 
-        foreach ($customerResponseTransfer->getErrors() as $error) {
-            if ($error->getMessage() === RestApiErrorInterface::ERROR_MESSAGE_CUSTOMER_EMAIL_ALREADY_USED) {
-                $this->client->handleKnownCustomer($customerTransfer);
-            }
+        if ($customerResponseTransfer->getErrors() !== null) {
+            $this->preProcessCustomerErrorOnRegistration($customerTransfer, $customerResponseTransfer->getErrors());
         }
 
         if (!$customerResponseTransfer->getIsSuccess()) {
@@ -123,5 +121,20 @@ class CustomerRegistrationProcessor implements CustomerRegistrationProcessorInte
         );
 
         return $restResponse->addResource($restResource);
+    }
+
+    /**
+     * @param \Generated\Shared\Transfer\CustomerTransfer $customerTransfer
+     * @param array<\Generated\Shared\Transfer\CustomerErrorTransfer> $customerResponseErrors
+     *
+     * @return void
+     */
+    protected function preProcessCustomerErrorOnRegistration(CustomerTransfer $customerTransfer, array $customerResponseErrors): void
+    {
+        foreach ($customerResponseErrors as $error) {
+            if ($error->getMessage() === RestApiErrorInterface::ERROR_MESSAGE_CUSTOMER_EMAIL_ALREADY_USED) {
+                $this->client->handleKnownCustomer($customerTransfer);
+            }
+        }
     }
 }
