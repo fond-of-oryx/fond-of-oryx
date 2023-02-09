@@ -2,6 +2,7 @@
 
 namespace FondOfOryx\Glue\CustomerRegistrationRestApi\Processor;
 
+use ArrayObject;
 use FondOfOryx\Client\CustomerRegistrationRestApi\CustomerRegistrationRestApiClientInterface;
 use FondOfOryx\Glue\CustomerRegistrationRestApi\CustomerRegistrationRestApiConfig;
 use FondOfOryx\Glue\CustomerRegistrationRestApi\Dependency\Client\CustomerRegistrationRestApiToCustomerClientInterface;
@@ -14,7 +15,6 @@ use Generated\Shared\Transfer\RestCustomerRegistrationResponseTransfer;
 use Spryker\Glue\GlueApplication\Rest\JsonApi\RestResourceBuilderInterface;
 use Spryker\Glue\GlueApplication\Rest\JsonApi\RestResponseInterface;
 use Spryker\Glue\GlueApplication\Rest\Request\Data\RestRequestInterface;
-use ArrayObject;
 
 class CustomerRegistrationProcessor implements CustomerRegistrationProcessorInterface
 {
@@ -126,7 +126,7 @@ class CustomerRegistrationProcessor implements CustomerRegistrationProcessorInte
 
     /**
      * @param \Generated\Shared\Transfer\CustomerTransfer $customerTransfer
-     * @param ArrayObject<\Generated\Shared\Transfer\CustomerErrorTransfer> $customerResponseErrors
+     * @param \ArrayObject<\Generated\Shared\Transfer\CustomerErrorTransfer> $customerResponseErrors
      *
      * @return void
      */
