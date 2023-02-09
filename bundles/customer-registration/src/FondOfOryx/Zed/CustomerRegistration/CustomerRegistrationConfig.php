@@ -70,7 +70,7 @@ class CustomerRegistrationConfig extends AbstractBundleConfig implements Custome
     /**
      * @return string
      */
-    protected function getUniqueIdentifierSeparator()
+    protected function getUniqueIdentifierSeparator(): string
     {
         return '-';
     }
