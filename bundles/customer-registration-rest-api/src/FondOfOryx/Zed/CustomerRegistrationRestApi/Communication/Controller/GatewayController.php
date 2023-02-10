@@ -3,7 +3,6 @@
 namespace FondOfOryx\Zed\CustomerRegistrationRestApi\Communication\Controller;
 
 use Generated\Shared\Transfer\CustomerRegistrationKnownCustomerResponseTransfer;
-use Generated\Shared\Transfer\CustomerTransfer;
 use Generated\Shared\Transfer\HandleKnownCustomerTransfer;
 use Spryker\Zed\Kernel\Communication\Controller\AbstractGatewayController;
 
