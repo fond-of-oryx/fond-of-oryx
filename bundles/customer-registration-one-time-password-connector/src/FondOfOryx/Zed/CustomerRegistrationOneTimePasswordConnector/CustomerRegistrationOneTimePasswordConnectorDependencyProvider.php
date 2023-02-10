@@ -2,8 +2,8 @@
 
 namespace FondOfOryx\Zed\CustomerRegistrationOneTimePasswordConnector;
 
+use FondOfOryx\Zed\CustomerRegistration\Dependency\Facade\CustomerRegistrationToOneTimePasswordFacadeBridge;
 use FondOfOryx\Zed\CustomerRegistrationOneTimePasswordConnector\Dependency\Facade\CustomerRegistrationOneTimePasswordConnectorToLocaleFacadeBridge;
-use FondOfOryx\Zed\CustomerRegistrationOneTimePasswordConnector\Dependency\Facade\CustomerRegistrationOneTimePasswordConnectorToOneTimePasswordFacadeBridge;
 use Spryker\Zed\Kernel\AbstractBundleDependencyProvider;
 use Spryker\Zed\Kernel\Container;
 
@@ -54,7 +54,7 @@ class CustomerRegistrationOneTimePasswordConnectorDependencyProvider extends Abs
     protected function addOneTimePasswordFacade(Container $container): Container
     {
         $container[static::FACADE_ONE_TIME_PASSWORD] = static function (Container $container) {
-            return new CustomerRegistrationOneTimePasswordConnectorToOneTimePasswordFacadeBridge(
+            return new CustomerRegistrationToOneTimePasswordFacadeBridge(
                 $container->getLocator()->oneTimePassword()->facade(),
             );
         };

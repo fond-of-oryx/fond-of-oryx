@@ -15,12 +15,17 @@ class CustomerRegistrationConfirmationMailjetMailTypeBuilder extends AbstractPlu
     /**
      * @var string
      */
+    protected const DEFAULT_LOCALE  = 'en_US';
+
+    /**
+     * @var string
+     */
     public const MAIL_TYPE = 'customer registration confirmation mail';
 
     /**
      * @var string
      */
-    protected const GLOSSARY_KEY_MAIL_SUBJECT = 'mail.customer.customer-registration.welcome-mail.subject';
+    protected const GLOSSARY_KEY_MAIL_SUBJECT = 'mail.customer.customer-registration.confirmation.subject';
 
     /**
      * {@inheritDoc}
@@ -67,7 +72,7 @@ class CustomerRegistrationConfirmationMailjetMailTypeBuilder extends AbstractPlu
         MailjetTemplateTransfer $mailjetTemplateTransfer
     ): MailjetTemplateTransfer {
         return $mailjetTemplateTransfer->setVariables([
-            'emailVerificationLink' => $mailTransfer->getEmailVerificationLink(),
+            'emailVerificationLink' => $mailTransfer->getCustomer()->getConfirmationLink(),
         ]);
     }
 
@@ -78,8 +83,12 @@ class CustomerRegistrationConfirmationMailjetMailTypeBuilder extends AbstractPlu
      */
     protected function getTemplateId(MailTransfer $mailTransfer): int
     {
-        $locale = $mailTransfer->getLocale()->getLocaleName();
+        $locale = $mailTransfer->getCustomer()->getLocale();
 
-        return $this->getConfig()->getCustomerRegistrationWelcomeMailTemplateIdByLocale($locale);
+        if($locale === null) {
+            $locale = static::DEFAULT_LOCALE;
+        }
+
+        return $this->getConfig()->getCustomerRegistrationConfirmationMailTemplateIdByLocale($locale);
     }
 }

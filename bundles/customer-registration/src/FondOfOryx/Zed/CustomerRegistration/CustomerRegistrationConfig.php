@@ -95,4 +95,25 @@ class CustomerRegistrationConfig extends AbstractBundleConfig implements Custome
 
         return null;
     }
+
+    /**
+     * @example ['de_DE' => 100, 'en_US' => 200]
+     *
+     * @param string $locale
+     *
+     * @return int|null
+     */
+    public function getCustomerRegistrationConfirmationMailTemplateIdByLocale(string $locale = 'en_US'): ?int
+    {
+        $oneTimePasswordLoginLinkMailTemplateIdByLocale = $this->get(
+            CustomerRegistrationConstants::MAILJET_CUSTOMER_REGISTRATION_CONFIRMATION_TEMPLATE_ID_BY_LOCALE,
+            [],
+        );
+
+        if (isset($oneTimePasswordLoginLinkMailTemplateIdByLocale[$locale])) {
+            return $oneTimePasswordLoginLinkMailTemplateIdByLocale[$locale];
+        }
+
+        return null;
+    }
 }

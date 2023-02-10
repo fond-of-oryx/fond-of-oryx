@@ -42,6 +42,12 @@
     </transfer>
 
     <transfer name="Mail">
+        <property name="customer" type="Customer" />
+        <property name="oneTimePasswordLoginLink" type="string" />
+    </transfer>
 
+    <transfer name="Customer">
+        <property name="confirmationLink" type="string" />
+        <property name="locale" type="string" />
     </transfer>
 </transfers>

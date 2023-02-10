@@ -6,6 +6,7 @@ use FondOfOryx\Zed\CustomerRegistration\Communication\Plugins\LinkExpander\Email
 use FondOfOryx\Zed\CustomerRegistration\Dependency\Facade\CustomerRegistrationToCustomerFacadeBridge;
 use FondOfOryx\Zed\CustomerRegistration\Dependency\Facade\CustomerRegistrationToLocaleFacadeBridge;
 use FondOfOryx\Zed\CustomerRegistration\Dependency\Facade\CustomerRegistrationToMailFacadeBridge;
+use FondOfOryx\Zed\CustomerRegistration\Dependency\Facade\CustomerRegistrationToOneTimePasswordFacadeBridge;
 use FondOfOryx\Zed\CustomerRegistration\Dependency\Facade\CustomerRegistrationToSequenceNumberFacadeBridge;
 use FondOfOryx\Zed\CustomerRegistration\Dependency\Facade\CustomerRegistrationToStoreFacadeBridge;
 use FondOfOryx\Zed\CustomerRegistration\Dependency\QueryContainer\CustomerRegistrationToCustomerQueryContainerBridge;
@@ -40,6 +41,11 @@ class CustomerRegistrationDependencyProvider extends AbstractBundleDependencyPro
      * @var string
      */
     public const FACADE_MAIL = 'FACADE_MAIL';
+
+    /**
+     * @var string
+     */
+    public const FACADE_ONE_TIME_PASSWORD = 'FACADE_ONE_TIME_PASSWORD';
 
     /**
      * @var string
@@ -134,6 +140,7 @@ class CustomerRegistrationDependencyProvider extends AbstractBundleDependencyPro
         $container = $this->addLocaleFacade($container);
         $container = $this->addStoreFacade($container);
         $container = $this->addMailFacade($container);
+        $container = $this->addOneTimePasswordFacade($container);
 
         return $container;
     }
@@ -179,6 +186,22 @@ class CustomerRegistrationDependencyProvider extends AbstractBundleDependencyPro
         $container[static::FACADE_LOCALE] = static function (Container $container) {
             return new CustomerRegistrationToLocaleFacadeBridge(
                 $container->getLocator()->locale()->facade(),
+            );
+        };
+
+        return $container;
+    }
+
+    /**
+     * @param \Spryker\Zed\Kernel\Container $container
+     *
+     * @return \Spryker\Zed\Kernel\Container
+     */
+    protected function addOneTimePasswordFacade(Container $container): Container
+    {
+        $container[static::FACADE_ONE_TIME_PASSWORD] = static function (Container $container) {
+            return new CustomerRegistrationToOneTimePasswordFacadeBridge(
+                $container->getLocator()->oneTimePassword()->facade(),
             );
         };
 

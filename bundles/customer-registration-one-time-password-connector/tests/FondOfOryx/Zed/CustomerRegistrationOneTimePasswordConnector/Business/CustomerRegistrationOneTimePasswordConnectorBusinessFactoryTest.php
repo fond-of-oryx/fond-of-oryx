@@ -3,10 +3,10 @@
 namespace FondOfOryx\Zed\CustomerRegistrationOneTimePasswordConnector\Business;
 
 use Codeception\Test\Unit;
+use FondOfOryx\Zed\CustomerRegistration\Dependency\Facade\CustomerRegistrationToOneTimePasswordFacadeInterface;
 use FondOfOryx\Zed\CustomerRegistrationOneTimePasswordConnector\Business\Steps\OneTimePasswordStepInterface;
 use FondOfOryx\Zed\CustomerRegistrationOneTimePasswordConnector\CustomerRegistrationOneTimePasswordConnectorDependencyProvider;
 use FondOfOryx\Zed\CustomerRegistrationOneTimePasswordConnector\Dependency\Facade\CustomerRegistrationOneTimePasswordConnectorToLocaleFacadeInterface;
-use FondOfOryx\Zed\CustomerRegistrationOneTimePasswordConnector\Dependency\Facade\CustomerRegistrationOneTimePasswordConnectorToOneTimePasswordFacadeInterface;
 use Spryker\Zed\Kernel\Container;
 
 class CustomerRegistrationOneTimePasswordConnectorBusinessFactoryTest extends Unit
@@ -22,7 +22,7 @@ class CustomerRegistrationOneTimePasswordConnectorBusinessFactoryTest extends Un
     protected $containerMock;
 
     /**
-     * @var \FondOfOryx\Zed\CustomerRegistrationOneTimePasswordConnector\Dependency\Facade\CustomerRegistrationOneTimePasswordConnectorToOneTimePasswordFacadeInterface|\PHPUnit\Framework\MockObject\MockObject
+     * @var \FondOfOryx\Zed\CustomerRegistration\Dependency\Facade\CustomerRegistrationToOneTimePasswordFacadeInterface|\PHPUnit\Framework\MockObject\MockObject
      */
     protected $otpFacadeMock;
 
@@ -40,7 +40,7 @@ class CustomerRegistrationOneTimePasswordConnectorBusinessFactoryTest extends Un
             ->disableOriginalConstructor()
             ->getMock();
 
-        $this->otpFacadeMock = $this->getMockBuilder(CustomerRegistrationOneTimePasswordConnectorToOneTimePasswordFacadeInterface::class)
+        $this->otpFacadeMock = $this->getMockBuilder(CustomerRegistrationToOneTimePasswordFacadeInterface::class)
             ->disableOriginalConstructor()
             ->getMock();
 

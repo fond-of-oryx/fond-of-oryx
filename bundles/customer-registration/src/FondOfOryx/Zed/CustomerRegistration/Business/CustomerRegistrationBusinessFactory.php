@@ -21,6 +21,7 @@ use FondOfOryx\Zed\CustomerRegistration\CustomerRegistrationDependencyProvider;
 use FondOfOryx\Zed\CustomerRegistration\Dependency\Facade\CustomerRegistrationToCustomerFacadeInterface;
 use FondOfOryx\Zed\CustomerRegistration\Dependency\Facade\CustomerRegistrationToLocaleFacadeInterface;
 use FondOfOryx\Zed\CustomerRegistration\Dependency\Facade\CustomerRegistrationToMailFacadeInterface;
+use FondOfOryx\Zed\CustomerRegistration\Dependency\Facade\CustomerRegistrationToOneTimePasswordFacadeInterface;
 use FondOfOryx\Zed\CustomerRegistration\Dependency\Facade\CustomerRegistrationToSequenceNumberFacadeInterface;
 use FondOfOryx\Zed\CustomerRegistration\Dependency\Facade\CustomerRegistrationToStoreFacadeInterface;
 use FondOfOryx\Zed\CustomerRegistration\Dependency\Service\CustomerRegistrationToUtilTextServiceInterface;
@@ -112,7 +113,10 @@ class CustomerRegistrationBusinessFactory extends AbstractBusinessFactory
      */
     public function createWelcomeMail(): WelcomeMailSender
     {
-        return new WelcomeMailSender($this->getMailfacade());
+        return new WelcomeMailSender(
+            $this->getMailfacade(),
+            $this->getOneTimePasswordFacade(),
+        );
     }
 
     /**
@@ -161,6 +165,14 @@ class CustomerRegistrationBusinessFactory extends AbstractBusinessFactory
     protected function getMailfacade(): CustomerRegistrationToMailFacadeInterface
     {
         return $this->getProvidedDependency(CustomerRegistrationDependencyProvider::FACADE_MAIL);
+    }
+
+    /**
+     * @return \FondOfOryx\Zed\CustomerRegistration\Dependency\Facade\CustomerRegistrationToOneTimePasswordFacadeInterface
+     */
+    protected function getOneTimePasswordFacade(): CustomerRegistrationToOneTimePasswordFacadeInterface
+    {
+        return $this->getProvidedDependency(CustomerRegistrationDependencyProvider::FACADE_ONE_TIME_PASSWORD);
     }
 
     /**
