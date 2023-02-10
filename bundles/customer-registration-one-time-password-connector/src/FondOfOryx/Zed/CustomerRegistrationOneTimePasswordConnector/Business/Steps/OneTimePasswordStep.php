@@ -3,8 +3,8 @@
 namespace FondOfOryx\Zed\CustomerRegistrationOneTimePasswordConnector\Business\Steps;
 
 use FondOfOryx\Zed\CustomerRegistration\Business\Steps\AbstractStep;
+use FondOfOryx\Zed\CustomerRegistration\Dependency\Facade\CustomerRegistrationToOneTimePasswordFacadeInterface;
 use FondOfOryx\Zed\CustomerRegistrationOneTimePasswordConnector\Dependency\Facade\CustomerRegistrationOneTimePasswordConnectorToLocaleFacadeInterface;
-use FondOfOryx\Zed\CustomerRegistrationOneTimePasswordConnector\Dependency\Facade\CustomerRegistrationOneTimePasswordConnectorToOneTimePasswordFacadeInterface;
 use Generated\Shared\Transfer\CustomerRegistrationRequestTransfer;
 use Generated\Shared\Transfer\LocaleTransfer;
 use Generated\Shared\Transfer\OneTimePasswordAttributesTransfer;
@@ -22,7 +22,7 @@ class OneTimePasswordStep extends AbstractStep implements OneTimePasswordStepInt
     protected $postStepPlugins;
 
     /**
-     * @var \FondOfOryx\Zed\CustomerRegistrationOneTimePasswordConnector\Dependency\Facade\CustomerRegistrationOneTimePasswordConnectorToOneTimePasswordFacadeInterface
+     * @var \FondOfOryx\Zed\CustomerRegistration\Dependency\Facade\CustomerRegistrationToOneTimePasswordFacadeInterface
      */
     protected $oneTimePasswordFacade;
 
@@ -32,13 +32,13 @@ class OneTimePasswordStep extends AbstractStep implements OneTimePasswordStepInt
     protected $localeFacade;
 
     /**
-     * @param \FondOfOryx\Zed\CustomerRegistrationOneTimePasswordConnector\Dependency\Facade\CustomerRegistrationOneTimePasswordConnectorToOneTimePasswordFacadeInterface $oneTimePasswordFacade
+     * @param \FondOfOryx\Zed\CustomerRegistration\Dependency\Facade\CustomerRegistrationToOneTimePasswordFacadeInterface $oneTimePasswordFacade
      * @param \FondOfOryx\Zed\CustomerRegistrationOneTimePasswordConnector\Dependency\Facade\CustomerRegistrationOneTimePasswordConnectorToLocaleFacadeInterface $localeFacade
      * @param array<\FondOfOryx\Zed\CustomerRegistrationExtension\Dependency\Plugin\CustomerRegistrationPreStepConditionPluginInterface> $preStepPlugins
      * @param array<\FondOfOryx\Zed\CustomerRegistrationExtension\Dependency\Plugin\CustomerRegistrationPostStepPluginInterface> $postStepPlugins
      */
     public function __construct(
-        CustomerRegistrationOneTimePasswordConnectorToOneTimePasswordFacadeInterface $oneTimePasswordFacade,
+        CustomerRegistrationToOneTimePasswordFacadeInterface $oneTimePasswordFacade,
         CustomerRegistrationOneTimePasswordConnectorToLocaleFacadeInterface $localeFacade,
         array $preStepPlugins,
         array $postStepPlugins

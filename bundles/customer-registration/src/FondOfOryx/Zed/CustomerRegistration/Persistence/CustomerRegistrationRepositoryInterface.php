@@ -12,4 +12,11 @@ interface CustomerRegistrationRepositoryInterface
      * @return \Generated\Shared\Transfer\CustomerTransfer
      */
     public function findCustomerByToken(string $token): CustomerTransfer;
+
+    /**
+     * @param int $idCustomer
+     *
+     * @return \Generated\Shared\Transfer\CustomerTransfer
+     */
+    public function findCustomerById(int $idCustomer): CustomerTransfer;
 }

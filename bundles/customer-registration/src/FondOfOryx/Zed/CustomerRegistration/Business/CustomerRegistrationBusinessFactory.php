@@ -10,6 +10,7 @@ use FondOfOryx\Zed\CustomerRegistration\Business\Generator\PasswordGenerator;
 use FondOfOryx\Zed\CustomerRegistration\Business\Generator\PasswordGeneratorInterface;
 use FondOfOryx\Zed\CustomerRegistration\Business\Processor\CustomerRegistrationProcessor;
 use FondOfOryx\Zed\CustomerRegistration\Business\Processor\CustomerRegistrationProcessorInterface;
+use FondOfOryx\Zed\CustomerRegistration\Business\Sender\WelcomeMailSender;
 use FondOfOryx\Zed\CustomerRegistration\Business\Steps\GdprStep;
 use FondOfOryx\Zed\CustomerRegistration\Business\Steps\GdprStepInterface;
 use FondOfOryx\Zed\CustomerRegistration\Business\Steps\RegistrationStep;
@@ -19,6 +20,8 @@ use FondOfOryx\Zed\CustomerRegistration\Business\Steps\VerificationStepInterface
 use FondOfOryx\Zed\CustomerRegistration\CustomerRegistrationDependencyProvider;
 use FondOfOryx\Zed\CustomerRegistration\Dependency\Facade\CustomerRegistrationToCustomerFacadeInterface;
 use FondOfOryx\Zed\CustomerRegistration\Dependency\Facade\CustomerRegistrationToLocaleFacadeInterface;
+use FondOfOryx\Zed\CustomerRegistration\Dependency\Facade\CustomerRegistrationToMailFacadeInterface;
+use FondOfOryx\Zed\CustomerRegistration\Dependency\Facade\CustomerRegistrationToOneTimePasswordFacadeInterface;
 use FondOfOryx\Zed\CustomerRegistration\Dependency\Facade\CustomerRegistrationToSequenceNumberFacadeInterface;
 use FondOfOryx\Zed\CustomerRegistration\Dependency\Facade\CustomerRegistrationToStoreFacadeInterface;
 use FondOfOryx\Zed\CustomerRegistration\Dependency\Service\CustomerRegistrationToUtilTextServiceInterface;
@@ -26,7 +29,7 @@ use Spryker\Zed\Kernel\Business\AbstractBusinessFactory;
 use Symfony\Component\PasswordHasher\Hasher\NativePasswordHasher;
 
 /**
- * @method \FondOfOryx\Zed\CustomerRegistration\Persistence\CustomerRegistrationRepositoryInterface getRepository()()
+ * @method \FondOfOryx\Zed\CustomerRegistration\Persistence\CustomerRegistrationRepositoryInterface getRepository()
  * @method \FondOfOryx\Zed\CustomerRegistration\Persistence\CustomerRegistrationEntityManagerInterface getEntityManager()
  * @method \FondOfOryx\Zed\CustomerRegistration\CustomerRegistrationConfig getConfig()
  */
@@ -106,6 +109,17 @@ class CustomerRegistrationBusinessFactory extends AbstractBusinessFactory
     }
 
     /**
+     * @return \FondOfOryx\Zed\CustomerRegistration\Business\Sender\WelcomeMailSender
+     */
+    public function createWelcomeMail(): WelcomeMailSender
+    {
+        return new WelcomeMailSender(
+            $this->getMailfacade(),
+            $this->getOneTimePasswordFacade(),
+        );
+    }
+
+    /**
      * @return \FondOfOryx\Zed\CustomerRegistration\Business\Generator\PasswordGeneratorInterface
      */
     public function createPasswordGenerator(): PasswordGeneratorInterface
@@ -143,6 +157,22 @@ class CustomerRegistrationBusinessFactory extends AbstractBusinessFactory
     protected function getLocaleFacade(): CustomerRegistrationToLocaleFacadeInterface
     {
         return $this->getProvidedDependency(CustomerRegistrationDependencyProvider::FACADE_LOCALE);
+    }
+
+    /**
+     * @return \FondOfOryx\Zed\CustomerRegistration\Dependency\Facade\CustomerRegistrationToMailFacadeInterface
+     */
+    protected function getMailfacade(): CustomerRegistrationToMailFacadeInterface
+    {
+        return $this->getProvidedDependency(CustomerRegistrationDependencyProvider::FACADE_MAIL);
+    }
+
+    /**
+     * @return \FondOfOryx\Zed\CustomerRegistration\Dependency\Facade\CustomerRegistrationToOneTimePasswordFacadeInterface
+     */
+    protected function getOneTimePasswordFacade(): CustomerRegistrationToOneTimePasswordFacadeInterface
+    {
+        return $this->getProvidedDependency(CustomerRegistrationDependencyProvider::FACADE_ONE_TIME_PASSWORD);
     }
 
     /**

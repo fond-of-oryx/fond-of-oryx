@@ -5,6 +5,7 @@ namespace FondOfOryx\Zed\CustomerRegistration\Communication;
 use FondOfOryx\Zed\CustomerRegistration\CustomerRegistrationDependencyProvider;
 use FondOfOryx\Zed\CustomerRegistration\Dependency\Facade\CustomerRegistrationToCustomerFacadeInterface;
 use FondOfOryx\Zed\CustomerRegistration\Dependency\Facade\CustomerRegistrationToLocaleFacadeInterface;
+use FondOfOryx\Zed\CustomerRegistration\Dependency\Facade\CustomerRegistrationToMailFacadeInterface;
 use FondOfOryx\Zed\CustomerRegistration\Dependency\Facade\CustomerRegistrationToStoreFacadeInterface;
 use Spryker\Zed\Kernel\Communication\AbstractCommunicationFactory;
 
@@ -32,5 +33,13 @@ class CustomerRegistrationCommunicationFactory extends AbstractCommunicationFact
     public function getStoreFacade(): CustomerRegistrationToStoreFacadeInterface
     {
         return $this->getProvidedDependency(CustomerRegistrationDependencyProvider::FACADE_STORE);
+    }
+
+    /**
+     * @return \FondOfOryx\Zed\CustomerRegistration\Dependency\Facade\CustomerRegistrationToMailFacadeInterface
+     */
+    public function getMailFacade(): CustomerRegistrationToMailFacadeInterface
+    {
+        return $this->getProvidedDependency(CustomerRegistrationDependencyProvider::FACADE_MAIL);
     }
 }

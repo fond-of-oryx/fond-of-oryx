@@ -28,4 +28,25 @@ class CustomerRegistrationRepository extends AbstractRepository implements Custo
 
         return (new CustomerTransfer())->fromArray($spyCustomer->toArray(), true);
     }
+
+    /**
+     * @param int $idCustomer
+     *
+     * @throws \Exception
+     *
+     * @return \Generated\Shared\Transfer\CustomerTransfer
+     */
+    public function findCustomerById(int $idCustomer): CustomerTransfer
+    {
+        $spyCustomer = $this->getFactory()
+            ->getCustomerQueryContainer()
+            ->queryCustomerById($idCustomer)
+            ->findOne();
+
+        if ($spyCustomer === null) {
+            throw new Exception(sprintf('Could not find customer by id "%s"', $idCustomer));
+        }
+
+        return (new CustomerTransfer())->fromArray($spyCustomer->toArray(), true);
+    }
 }

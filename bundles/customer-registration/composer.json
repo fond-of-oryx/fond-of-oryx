@@ -14,7 +14,8 @@
     "spryker/application": "^3.0.0",
     "spryker/customer": "^7.30.0",
     "spryker/symfony": "^3.5.0",
-    "symfony/password-hasher": "^5.3.0 || ^6.0.0"
+    "symfony/password-hasher": "^5.3.0 || ^6.0.0",
+    "fond-of-oryx/one-time-password": "^2.0.0"
   },
   "require-dev": {
     "fond-of-codeception/spryker": "^1.0",

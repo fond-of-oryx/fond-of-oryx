@@ -3,8 +3,8 @@
 namespace FondOfOryx\Zed\CustomerRegistrationOneTimePasswordConnector\Business\Steps;
 
 use Codeception\Test\Unit;
+use FondOfOryx\Zed\CustomerRegistration\Dependency\Facade\CustomerRegistrationToOneTimePasswordFacadeInterface;
 use FondOfOryx\Zed\CustomerRegistrationOneTimePasswordConnector\Dependency\Facade\CustomerRegistrationOneTimePasswordConnectorToLocaleFacadeInterface;
-use FondOfOryx\Zed\CustomerRegistrationOneTimePasswordConnector\Dependency\Facade\CustomerRegistrationOneTimePasswordConnectorToOneTimePasswordFacadeInterface;
 use Generated\Shared\Transfer\CustomerRegistrationAttributesTransfer;
 use Generated\Shared\Transfer\CustomerRegistrationBagTransfer;
 use Generated\Shared\Transfer\CustomerRegistrationRequestTransfer;
@@ -15,7 +15,7 @@ use Generated\Shared\Transfer\OneTimePasswordResponseTransfer;
 class OneTimePasswordStepTest extends Unit
 {
     /**
-     * @var \FondOfOryx\Zed\CustomerRegistrationOneTimePasswordConnector\Dependency\Facade\CustomerRegistrationOneTimePasswordConnectorToOneTimePasswordFacadeInterface|\PHPUnit\Framework\MockObject\MockObject
+     * @var \FondOfOryx\Zed\CustomerRegistration\Dependency\Facade\CustomerRegistrationToOneTimePasswordFacadeInterface|\PHPUnit\Framework\MockObject\MockObject
      */
     protected $otpFacadeMock;
 
@@ -94,7 +94,7 @@ class OneTimePasswordStepTest extends Unit
             ->disableOriginalConstructor()
             ->getMock();
 
-        $this->otpFacadeMock = $this->getMockBuilder(CustomerRegistrationOneTimePasswordConnectorToOneTimePasswordFacadeInterface::class)
+        $this->otpFacadeMock = $this->getMockBuilder(CustomerRegistrationToOneTimePasswordFacadeInterface::class)
             ->disableOriginalConstructor()
             ->getMock();
 

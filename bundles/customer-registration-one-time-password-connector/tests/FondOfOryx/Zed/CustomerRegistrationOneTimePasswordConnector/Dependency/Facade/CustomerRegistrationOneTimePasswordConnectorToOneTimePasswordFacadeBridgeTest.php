@@ -3,6 +3,7 @@
 namespace FondOfOryx\Zed\CustomerRegistrationOneTimePasswordConnector\Dependency\Facade;
 
 use Codeception\Test\Unit;
+use FondOfOryx\Zed\CustomerRegistration\Dependency\Facade\CustomerRegistrationToOneTimePasswordFacadeBridge;
 use FondOfOryx\Zed\OneTimePassword\Business\OneTimePasswordFacadeInterface;
 use Generated\Shared\Transfer\CustomerTransfer;
 use Generated\Shared\Transfer\OneTimePasswordAttributesTransfer;
@@ -11,7 +12,7 @@ use Generated\Shared\Transfer\OneTimePasswordResponseTransfer;
 class CustomerRegistrationOneTimePasswordConnectorToOneTimePasswordFacadeBridgeTest extends Unit
 {
     /**
-     * @var \FondOfOryx\Zed\CustomerRegistrationOneTimePasswordConnector\Dependency\Facade\CustomerRegistrationOneTimePasswordConnectorToOneTimePasswordFacadeBridge
+     * @var \FondOfOryx\Zed\CustomerRegistration\Dependency\Facade\CustomerRegistrationToOneTimePasswordFacadeBridge
      */
     protected $facade;
 
@@ -56,7 +57,7 @@ class CustomerRegistrationOneTimePasswordConnectorToOneTimePasswordFacadeBridgeT
             ->disableOriginalConstructor()
             ->getMock();
 
-        $this->facade = new CustomerRegistrationOneTimePasswordConnectorToOneTimePasswordFacadeBridge(
+        $this->facade = new CustomerRegistrationToOneTimePasswordFacadeBridge(
             $this->facadeMock,
         );
     }

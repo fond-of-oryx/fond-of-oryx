@@ -53,4 +53,19 @@ interface CustomerRegistrationConstants
      * @var string
      */
     public const DEFAULT_CONFIG_FALLBACK_URL_LOCALE = 'en';
+
+    /**
+     * @var string
+     */
+    public const ENTITY_CUSTOMER_UPDATE = 'Entity.spy_customer.update';
+
+    /**
+     * @var string
+     */
+    public const MAILJET_CUSTOMER_REGISTRATION_WELCOME_TEMPLATE_ID_BY_LOCALE = 'CUSTOMER_REGISTRATION:MAILJET_CUSTOMER_REGISTRATION_WELCOME_TEMPLATE_ID_BY_LOCALE';
+
+    /**
+     * @var string
+     */
+    public const MAILJET_CUSTOMER_REGISTRATION_CONFIRMATION_TEMPLATE_ID_BY_LOCALE = 'CUSTOMER_REGISTRATION:MAILJET_CUSTOMER_REGISTRATION_CONFIRMATION_TEMPLATE_ID_BY_LOCALE';
 }

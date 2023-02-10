@@ -2,11 +2,11 @@
 
 namespace FondOfOryx\Zed\CustomerRegistrationOneTimePasswordConnector\Business;
 
+use FondOfOryx\Zed\CustomerRegistration\Dependency\Facade\CustomerRegistrationToOneTimePasswordFacadeInterface;
 use FondOfOryx\Zed\CustomerRegistrationOneTimePasswordConnector\Business\Steps\OneTimePasswordStep;
 use FondOfOryx\Zed\CustomerRegistrationOneTimePasswordConnector\Business\Steps\OneTimePasswordStepInterface;
 use FondOfOryx\Zed\CustomerRegistrationOneTimePasswordConnector\CustomerRegistrationOneTimePasswordConnectorDependencyProvider;
 use FondOfOryx\Zed\CustomerRegistrationOneTimePasswordConnector\Dependency\Facade\CustomerRegistrationOneTimePasswordConnectorToLocaleFacadeInterface;
-use FondOfOryx\Zed\CustomerRegistrationOneTimePasswordConnector\Dependency\Facade\CustomerRegistrationOneTimePasswordConnectorToOneTimePasswordFacadeInterface;
 use Spryker\Zed\Kernel\Business\AbstractBusinessFactory;
 
 class CustomerRegistrationOneTimePasswordConnectorBusinessFactory extends AbstractBusinessFactory
@@ -25,9 +25,9 @@ class CustomerRegistrationOneTimePasswordConnectorBusinessFactory extends Abstra
     }
 
     /**
-     * @return \FondOfOryx\Zed\CustomerRegistrationOneTimePasswordConnector\Dependency\Facade\CustomerRegistrationOneTimePasswordConnectorToOneTimePasswordFacadeInterface
+     * @return \FondOfOryx\Zed\CustomerRegistration\Dependency\Facade\CustomerRegistrationToOneTimePasswordFacadeInterface
      */
-    protected function getOneTimePasswordFacade(): CustomerRegistrationOneTimePasswordConnectorToOneTimePasswordFacadeInterface
+    protected function getOneTimePasswordFacade(): CustomerRegistrationToOneTimePasswordFacadeInterface
     {
         return $this->getProvidedDependency(CustomerRegistrationOneTimePasswordConnectorDependencyProvider::FACADE_ONE_TIME_PASSWORD);
     }

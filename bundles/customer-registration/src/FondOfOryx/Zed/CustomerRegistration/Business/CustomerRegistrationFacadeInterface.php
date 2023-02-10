@@ -89,4 +89,11 @@ interface CustomerRegistrationFacadeInterface
      * @return string
      */
     public function generateToken(): string;
+
+    /**
+     * @param \Generated\Shared\Transfer\CustomerTransfer $customerTransfer
+     *
+     * @return void
+     */
+    public function sendWelcomeMail(CustomerTransfer $customerTransfer): void;
 }

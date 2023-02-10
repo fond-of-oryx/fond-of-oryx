@@ -1,13 +1,13 @@
 <?php
 
-namespace FondOfOryx\Zed\CustomerRegistrationOneTimePasswordConnector\Dependency\Facade;
+namespace FondOfOryx\Zed\CustomerRegistration\Dependency\Facade;
 
 use FondOfOryx\Zed\OneTimePassword\Business\OneTimePasswordFacadeInterface;
 use Generated\Shared\Transfer\CustomerTransfer;
 use Generated\Shared\Transfer\OneTimePasswordAttributesTransfer;
 use Generated\Shared\Transfer\OneTimePasswordResponseTransfer;
 
-class CustomerRegistrationOneTimePasswordConnectorToOneTimePasswordFacadeBridge implements CustomerRegistrationOneTimePasswordConnectorToOneTimePasswordFacadeInterface
+class CustomerRegistrationToOneTimePasswordFacadeBridge implements CustomerRegistrationToOneTimePasswordFacadeInterface
 {
     /**
      * @var \FondOfOryx\Zed\OneTimePassword\Business\OneTimePasswordFacadeInterface

@@ -9,7 +9,7 @@ use Spryker\Zed\Kernel\Business\AbstractFacade;
 
 /**
  * @method \FondOfOryx\Zed\CustomerRegistration\Business\CustomerRegistrationBusinessFactory getFactory()
- * @method \FondOfOryx\Zed\CustomerRegistration\Persistence\CustomerRegistrationEntityManagerInterface getEntityManager()()
+ * @method \FondOfOryx\Zed\CustomerRegistration\Persistence\CustomerRegistrationEntityManagerInterface getEntityManager()
  */
 class CustomerRegistrationFacade extends AbstractFacade implements CustomerRegistrationFacadeInterface
 {
@@ -98,5 +98,15 @@ class CustomerRegistrationFacade extends AbstractFacade implements CustomerRegis
     public function generateToken(): string
     {
         return $this->getFactory()->createPasswordGenerator()->generateRandomString();
+    }
+
+    /**
+     * @param \Generated\Shared\Transfer\CustomerTransfer $customerTransfer
+     *
+     * @return void
+     */
+    public function sendWelcomeMail(CustomerTransfer $customerTransfer): void
+    {
+        $this->getFactory()->createWelcomeMail()->sendWelcomeMail($customerTransfer);
     }
 }
