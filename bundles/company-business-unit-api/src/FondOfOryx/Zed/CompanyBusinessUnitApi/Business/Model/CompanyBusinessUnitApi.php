@@ -104,13 +104,12 @@ class CompanyBusinessUnitApi implements CompanyBusinessUnitApiInterface
      */
     public function update(int $idCompanyBusinessUnit, ApiDataTransfer $apiDataTransfer): ApiItemTransfer
     {
-        $this->getByIdCompanyBusinessUnit($idCompanyBusinessUnit);
+        $companyBusinessUnitTransfer = $this->getByIdCompanyBusinessUnit($idCompanyBusinessUnit);
 
-        $companyBusinessUnitTransfer = (new CompanyBusinessUnitTransfer())
-            ->fromArray($apiDataTransfer->getData(), true)
-            ->setIdCompanyBusinessUnit($idCompanyBusinessUnit);
+        $companyBusinessUnitTransfer->fromArray($apiDataTransfer->getData(), true);
 
         $companyBusinessUnitResponseTransfer = $this->companyBusinessUnitFacade->update($companyBusinessUnitTransfer);
+
         $companyBusinessUnitTransfer = $companyBusinessUnitResponseTransfer->getCompanyBusinessUnitTransfer();
 
         if ($companyBusinessUnitTransfer === null || !$companyBusinessUnitResponseTransfer->getIsSuccessful()) {
