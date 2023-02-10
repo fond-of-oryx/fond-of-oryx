@@ -18,4 +18,15 @@ interface CustomerRegistrationToOneTimePasswordFacadeInterface
         CustomerTransfer $customerTransfer,
         ?OneTimePasswordAttributesTransfer $attributesTransfer = null
     ): OneTimePasswordResponseTransfer;
+
+    /**
+     * @param \Generated\Shared\Transfer\CustomerTransfer $customerTransfer
+     * @param \Generated\Shared\Transfer\OneTimePasswordAttributesTransfer|null $attributesTransfer
+     *
+     * @return \Generated\Shared\Transfer\OneTimePasswordResponseTransfer
+     */
+    public function generateLoginLink(
+        CustomerTransfer $customerTransfer,
+        ?OneTimePasswordAttributesTransfer $attributesTransfer = null
+    ): OneTimePasswordResponseTransfer;
 }

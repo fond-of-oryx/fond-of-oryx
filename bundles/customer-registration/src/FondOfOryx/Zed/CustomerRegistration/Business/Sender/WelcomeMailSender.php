@@ -39,7 +39,7 @@ class WelcomeMailSender implements WelcomeMailSenderInterface
      */
     public function sendWelcomeMail(CustomerTransfer $customerTransfer): void
     {
-        $oneTimePasswordResponse = $this->oneTimePasswordFacade->requestLoginLink($customerTransfer);
+        $oneTimePasswordResponse = $this->oneTimePasswordFacade->generateLoginLink($customerTransfer);
 
         if (!$oneTimePasswordResponse->getIsSuccess()) {
             return;
