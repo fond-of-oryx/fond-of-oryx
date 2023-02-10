@@ -15,7 +15,7 @@ class CustomerRegistrationWelcomeMailjetMailTypeBuilder extends AbstractPlugin i
     /**
      * @var string
      */
-    protected const DEFAULT_LOCALE  = 'en_US';
+    protected const DEFAULT_LOCALE = 'en_US';
 
     /**
      * @var string
@@ -107,7 +107,7 @@ class CustomerRegistrationWelcomeMailjetMailTypeBuilder extends AbstractPlugin i
     {
         $locale = $mailTransfer->getCustomer()->getLocale();
 
-        if($locale === null) {
+        if ($locale === null) {
             $locale = static::DEFAULT_LOCALE;
         }
 

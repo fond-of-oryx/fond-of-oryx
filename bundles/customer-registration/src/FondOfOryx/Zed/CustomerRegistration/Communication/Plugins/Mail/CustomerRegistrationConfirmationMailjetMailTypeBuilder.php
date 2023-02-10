@@ -15,7 +15,7 @@ class CustomerRegistrationConfirmationMailjetMailTypeBuilder extends AbstractPlu
     /**
      * @var string
      */
-    protected const DEFAULT_LOCALE  = 'en_US';
+    protected const DEFAULT_LOCALE = 'en_US';
 
     /**
      * @var string
@@ -85,7 +85,7 @@ class CustomerRegistrationConfirmationMailjetMailTypeBuilder extends AbstractPlu
     {
         $locale = $mailTransfer->getCustomer()->getLocale();
 
-        if($locale === null) {
+        if ($locale === null) {
             $locale = static::DEFAULT_LOCALE;
         }
 

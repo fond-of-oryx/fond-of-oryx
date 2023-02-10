@@ -38,10 +38,10 @@ class OneTimePasswordStep extends AbstractStep implements OneTimePasswordStepInt
      * @param array<\FondOfOryx\Zed\CustomerRegistrationExtension\Dependency\Plugin\CustomerRegistrationPostStepPluginInterface> $postStepPlugins
      */
     public function __construct(
-        CustomerRegistrationToOneTimePasswordFacadeInterface                $oneTimePasswordFacade,
+        CustomerRegistrationToOneTimePasswordFacadeInterface $oneTimePasswordFacade,
         CustomerRegistrationOneTimePasswordConnectorToLocaleFacadeInterface $localeFacade,
-        array                                                               $preStepPlugins,
-        array                                                               $postStepPlugins
+        array $preStepPlugins,
+        array $postStepPlugins
     ) {
         $this->preStepPlugins = $preStepPlugins;
         $this->postStepPlugins = $postStepPlugins;
