@@ -4,6 +4,7 @@ namespace FondOfOryx\Zed\CustomerRegistrationRestApi\Communication\Controller;
 
 use Generated\Shared\Transfer\CustomerRegistrationKnownCustomerResponseTransfer;
 use Generated\Shared\Transfer\CustomerTransfer;
+use Generated\Shared\Transfer\HandleKnownCustomerTransfer;
 use Spryker\Zed\Kernel\Communication\Controller\AbstractGatewayController;
 
 /**
@@ -12,12 +13,12 @@ use Spryker\Zed\Kernel\Communication\Controller\AbstractGatewayController;
 class GatewayController extends AbstractGatewayController
 {
     /**
-     * @param \Generated\Shared\Transfer\CustomerTransfer $customerTransfer
+     * @param \Generated\Shared\Transfer\HandleKnownCustomerTransfer $handleKnownCustomerTransfer
      *
      * @return \Generated\Shared\Transfer\CustomerRegistrationKnownCustomerResponseTransfer
      */
-    public function handleKnownCustomerAction(CustomerTransfer $customerTransfer): CustomerRegistrationKnownCustomerResponseTransfer
+    public function handleKnownCustomerAction(HandleKnownCustomerTransfer $handleKnownCustomerTransfer): CustomerRegistrationKnownCustomerResponseTransfer
     {
-        return $this->getFacade()->handleKnownCustomer($customerTransfer);
+        return $this->getFacade()->handleKnownCustomer($handleKnownCustomerTransfer);
     }
 }

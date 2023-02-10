@@ -2,7 +2,7 @@
 
 namespace FondOfOryx\Client\CustomerRegistrationRestApi;
 
-use Generated\Shared\Transfer\CustomerTransfer;
+use Generated\Shared\Transfer\HandleKnownCustomerTransfer;
 use Spryker\Client\Kernel\AbstractClient;
 
 /**
@@ -11,12 +11,14 @@ use Spryker\Client\Kernel\AbstractClient;
 class CustomerRegistrationRestApiClient extends AbstractClient implements CustomerRegistrationRestApiClientInterface
 {
     /**
-     * @param \Generated\Shared\Transfer\CustomerTransfer $customerTransfer
+     * @param \Generated\Shared\Transfer\HandleKnownCustomerTransfer $handleKnownCustomerTransfer
      *
      * @return void
      */
-    public function handleKnownCustomer(CustomerTransfer $customerTransfer): void
+    public function handleKnownCustomer(HandleKnownCustomerTransfer $handleKnownCustomerTransfer): void
     {
-        $this->getFactory()->createCustomerRegistrationRestApiZedStub()->handleKnownCustomer($customerTransfer);
+        $this->getFactory()
+            ->createCustomerRegistrationRestApiZedStub()
+            ->handleKnownCustomer($handleKnownCustomerTransfer);
     }
 }

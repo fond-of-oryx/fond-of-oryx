@@ -10,6 +10,8 @@ use FondOfOryx\Glue\CustomerRegistrationRestApi\Processor\Mapper\CustomerRegistr
 use FondOfOryx\Glue\CustomerRegistrationRestApi\Processor\Password\GeneratorInterface as PasswordGeneratorInterface;
 use FondOfOryx\Glue\CustomerRegistrationRestApi\Processor\Validation\RestApiErrorInterface;
 use Generated\Shared\Transfer\CustomerTransfer;
+use Generated\Shared\Transfer\HandleKnownCustomerTransfer;
+use Generated\Shared\Transfer\OneTimePasswordAttributesTransfer;
 use Generated\Shared\Transfer\RestCustomerRegistrationRequestAttributesTransfer;
 use Generated\Shared\Transfer\RestCustomerRegistrationResponseTransfer;
 use Spryker\Glue\GlueApplication\Rest\JsonApi\RestResourceBuilderInterface;
@@ -96,8 +98,15 @@ class CustomerRegistrationProcessor implements CustomerRegistrationProcessorInte
         $customerTransfer->setPassword($this->passwordGenerator->generate());
         $customerResponseTransfer = $this->customerClient->registerCustomer($customerTransfer);
 
+        $handleKnownCustomerTransfer = (new HandleKnownCustomerTransfer())
+            ->setCustomer($customerTransfer)
+            ->setOneTimePasswordAttributes((new OneTimePasswordAttributesTransfer())->setCallbackUrl($restCustomerRegistrationRequestAttributesTransfer->getCallbackUrl()));
+
         if ($customerResponseTransfer->getErrors() !== null) {
-            $this->preProcessCustomerErrorOnRegistration($customerTransfer, $customerResponseTransfer->getErrors());
+            $this->preProcessCustomerErrorOnRegistration(
+                $handleKnownCustomerTransfer,
+                $customerResponseTransfer->getErrors(),
+            );
         }
 
         if (!$customerResponseTransfer->getIsSuccess()) {
@@ -125,16 +134,18 @@ class CustomerRegistrationProcessor implements CustomerRegistrationProcessorInte
     }
 
     /**
-     * @param \Generated\Shared\Transfer\CustomerTransfer $customerTransfer
-     * @param \ArrayObject<\Generated\Shared\Transfer\CustomerErrorTransfer> $customerResponseErrors
+     * @param \Generated\Shared\Transfer\HandleKnownCustomerTransfer $handleKnownCustomerTransfer
+     * @param \ArrayObject $customerResponseErrors
      *
      * @return void
      */
-    protected function preProcessCustomerErrorOnRegistration(CustomerTransfer $customerTransfer, ArrayObject $customerResponseErrors): void
-    {
+    protected function preProcessCustomerErrorOnRegistration(
+        HandleKnownCustomerTransfer $handleKnownCustomerTransfer,
+        ArrayObject $customerResponseErrors
+    ): void {
         foreach ($customerResponseErrors as $error) {
             if ($error->getMessage() === RestApiErrorInterface::ERROR_MESSAGE_CUSTOMER_EMAIL_ALREADY_USED) {
-                $this->client->handleKnownCustomer($customerTransfer);
+                $this->client->handleKnownCustomer($handleKnownCustomerTransfer);
             }
         }
     }
