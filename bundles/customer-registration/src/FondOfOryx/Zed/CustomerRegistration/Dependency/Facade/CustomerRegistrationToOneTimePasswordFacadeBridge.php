@@ -34,4 +34,17 @@ class CustomerRegistrationToOneTimePasswordFacadeBridge implements CustomerRegis
     ): OneTimePasswordResponseTransfer {
         return $this->facade->requestLoginLink($customerTransfer, $attributesTransfer);
     }
+
+    /**
+     * @param \Generated\Shared\Transfer\CustomerTransfer $customerTransfer
+     * @param \Generated\Shared\Transfer\OneTimePasswordAttributesTransfer|null $attributesTransfer
+     *
+     * @return \Generated\Shared\Transfer\OneTimePasswordResponseTransfer
+     */
+    public function generateLoginLink(
+        CustomerTransfer $customerTransfer,
+        ?OneTimePasswordAttributesTransfer $attributesTransfer = null
+    ): OneTimePasswordResponseTransfer {
+        return $this->facade->generateLoginLink($customerTransfer, $attributesTransfer);
+    }
 }
