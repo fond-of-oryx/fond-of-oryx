@@ -2,7 +2,6 @@
 
 namespace FondOfOryx\Zed\CustomerRegistrationSalesConnector\Business\Processor;
 
-use Exception;
 use FondOfOryx\Zed\CustomerRegistrationSalesConnector\Dependency\Facade\CustomerRegistrationSalesConnectorToCustomerFacadeInterface;
 use Generated\Shared\Transfer\QuoteTransfer;
 use Generated\Shared\Transfer\SaveOrderTransfer;
