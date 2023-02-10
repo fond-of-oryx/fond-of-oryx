@@ -233,8 +233,14 @@ class CompanyBusinessUnitApiTest extends Unit
             ->method('getData')
             ->willReturn($data);
 
+        $this->companyBusinessUnitTransferMock->expects(static::atLeastOnce())
+            ->method('fromArray')
+            ->with($data, true)
+            ->willReturn($this->companyBusinessUnitTransferMock);
+
         $this->companyBusinessUnitFacadeMock->expects(static::atLeastOnce())
             ->method('update')
+            ->with($this->companyBusinessUnitTransferMock)
             ->willReturn($this->companyBusinessUnitResponseTransferMock);
 
         $this->companyBusinessUnitResponseTransferMock->expects(static::atLeastOnce())
@@ -263,12 +269,22 @@ class CompanyBusinessUnitApiTest extends Unit
         $idCompanyBusinessUnit = 1;
         $data = [];
 
+        $this->companyBusinessUnitFacadeMock->expects(static::atLeastOnce())
+            ->method('getCompanyBusinessUnitById')
+            ->willReturn($this->companyBusinessUnitTransferMock);
+
         $this->apiDataTransferMock->expects(static::atLeastOnce())
             ->method('getData')
             ->willReturn($data);
 
+        $this->companyBusinessUnitTransferMock->expects(static::atLeastOnce())
+            ->method('fromArray')
+            ->with($data, true)
+            ->willReturn($this->companyBusinessUnitTransferMock);
+
         $this->companyBusinessUnitFacadeMock->expects(static::atLeastOnce())
             ->method('update')
+            ->with($this->companyBusinessUnitTransferMock)
             ->willReturn($this->companyBusinessUnitResponseTransferMock);
 
         $this->companyBusinessUnitResponseTransferMock->expects(static::atLeastOnce())
