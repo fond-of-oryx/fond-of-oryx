@@ -2,26 +2,23 @@
 
 namespace FondOfOryx\Zed\CustomerRegistrationSalesConnector\Business\Processor;
 
-use Exception;
-use FondOfOryx\Zed\CustomerRegistrationSalesConnector\Dependency\Facade\CustomerRegistrationSalesConnectorToCustomerRegistrationFacadeInterface;
-use Generated\Shared\Transfer\CustomerRegistrationAttributesTransfer;
-use Generated\Shared\Transfer\CustomerRegistrationRequestTransfer;
+use FondOfOryx\Zed\CustomerRegistrationSalesConnector\Dependency\Facade\CustomerRegistrationSalesConnectorToCustomerFacadeInterface;
 use Generated\Shared\Transfer\QuoteTransfer;
 use Generated\Shared\Transfer\SaveOrderTransfer;
 
 class RegistrationProcessor implements RegistrationProcessorInterface
 {
     /**
-     * @var \FondOfOryx\Zed\CustomerRegistrationSalesConnector\Dependency\Facade\CustomerRegistrationSalesConnectorToCustomerRegistrationFacadeInterface
+     * @var \FondOfOryx\Zed\CustomerRegistrationSalesConnector\Dependency\Facade\CustomerRegistrationSalesConnectorToCustomerFacadeInterface
      */
-    protected $customerRegistrationFacade;
+    protected CustomerRegistrationSalesConnectorToCustomerFacadeInterface $customerFacade;
 
     /**
-     * @param \FondOfOryx\Zed\CustomerRegistrationSalesConnector\Dependency\Facade\CustomerRegistrationSalesConnectorToCustomerRegistrationFacadeInterface $customerRegistrationFacade
+     * @param \FondOfOryx\Zed\CustomerRegistrationSalesConnector\Dependency\Facade\CustomerRegistrationSalesConnectorToCustomerFacadeInterface $customerFacade
      */
-    public function __construct(CustomerRegistrationSalesConnectorToCustomerRegistrationFacadeInterface $customerRegistrationFacade)
+    public function __construct(CustomerRegistrationSalesConnectorToCustomerFacadeInterface $customerFacade)
     {
-        $this->customerRegistrationFacade = $customerRegistrationFacade;
+        $this->customerFacade = $customerFacade;
     }
 
     /**
@@ -32,32 +29,14 @@ class RegistrationProcessor implements RegistrationProcessorInterface
      */
     public function processRegistration(SaveOrderTransfer $saveOrderTransfer, QuoteTransfer $quoteTransfer): SaveOrderTransfer
     {
+        if ($quoteTransfer->getCustomer() === null) {
+            return $saveOrderTransfer;
+        }
+
         if ($quoteTransfer->getCreateAccount() === true && $quoteTransfer->getAcceptTerms() === true) {
-            $this->customerRegistrationFacade->customerRegistration($this->createRegistrationRequest($quoteTransfer));
+            $this->customerFacade->registerCustomer($quoteTransfer->getCustomer());
         }
 
         return $saveOrderTransfer;
-    }
-
-    /**
-     * @param \Generated\Shared\Transfer\QuoteTransfer $quoteTransfer
-     *
-     * @throws \Exception
-     *
-     * @return \Generated\Shared\Transfer\CustomerRegistrationRequestTransfer
-     */
-    protected function createRegistrationRequest(QuoteTransfer $quoteTransfer): CustomerRegistrationRequestTransfer
-    {
-        $customerTransfer = $quoteTransfer->getCustomer();
-        if ($customerTransfer === null) {
-            throw new Exception('Missing customer transfer to proceed registration process!');
-        }
-        $attributes = (new CustomerRegistrationAttributesTransfer())
-            ->setEmail($customerTransfer->getEmail())
-            ->setAcceptGdpr($quoteTransfer->getAcceptTerms())
-            ->setSubscribe($quoteTransfer->getSignupNewsletter())
-            ->setToken($customerTransfer->getRegistrationKey());
-
-        return (new CustomerRegistrationRequestTransfer())->setAttributes($attributes);
     }
 }

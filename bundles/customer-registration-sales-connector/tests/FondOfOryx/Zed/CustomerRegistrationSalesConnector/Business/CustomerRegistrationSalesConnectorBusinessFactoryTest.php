@@ -5,7 +5,7 @@ namespace FondOfOryx\Zed\CustomerRegistrationSalesConnector\Business;
 use Codeception\Test\Unit;
 use FondOfOryx\Zed\CustomerRegistrationSalesConnector\Business\Processor\RegistrationProcessorInterface;
 use FondOfOryx\Zed\CustomerRegistrationSalesConnector\CustomerRegistrationSalesConnectorDependencyProvider;
-use FondOfOryx\Zed\CustomerRegistrationSalesConnector\Dependency\Facade\CustomerRegistrationSalesConnectorToCustomerRegistrationFacadeInterface;
+use FondOfOryx\Zed\CustomerRegistrationSalesConnector\Dependency\Facade\CustomerRegistrationSalesConnectorToCustomerFacadeInterface;
 use Spryker\Zed\Kernel\Container;
 
 class CustomerRegistrationSalesConnectorBusinessFactoryTest extends Unit
@@ -21,7 +21,7 @@ class CustomerRegistrationSalesConnectorBusinessFactoryTest extends Unit
     protected $containerMock;
 
     /**
-     * @var \FondOfOryx\Zed\CustomerRegistrationSalesConnector\Dependency\Facade\CustomerRegistrationSalesConnectorToCustomerRegistrationFacadeInterface|\PHPUnit\Framework\MockObject\MockObject
+     * @var \FondOfOryx\Zed\CustomerRegistrationSalesConnector\Dependency\Facade\CustomerRegistrationSalesConnectorToCustomerFacadeInterface|\PHPUnit\Framework\MockObject\MockObject
      */
     protected $customerRegistrationFacadeMock;
 
@@ -34,7 +34,7 @@ class CustomerRegistrationSalesConnectorBusinessFactoryTest extends Unit
             ->disableOriginalConstructor()
             ->getMock();
 
-        $this->customerRegistrationFacadeMock = $this->getMockBuilder(CustomerRegistrationSalesConnectorToCustomerRegistrationFacadeInterface::class)
+        $this->customerRegistrationFacadeMock = $this->getMockBuilder(CustomerRegistrationSalesConnectorToCustomerFacadeInterface::class)
             ->disableOriginalConstructor()
             ->getMock();
 
