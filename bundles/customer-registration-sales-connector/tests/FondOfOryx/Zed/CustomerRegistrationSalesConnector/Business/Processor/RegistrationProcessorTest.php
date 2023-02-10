@@ -3,7 +3,7 @@
 namespace FondOfOryx\Zed\CustomerRegistrationSalesConnector\Business\Processor;
 
 use Codeception\Test\Unit;
-use FondOfOryx\Zed\CustomerRegistrationSalesConnector\Dependency\Facade\CustomerRegistrationSalesConnectorToCustomerRegistrationFacadeInterface;
+use FondOfOryx\Zed\CustomerRegistrationSalesConnector\Dependency\Facade\CustomerRegistrationSalesConnectorToCustomerFacadeInterface;
 use Generated\Shared\Transfer\CustomerRegistrationRequestTransfer;
 use Generated\Shared\Transfer\CustomerRegistrationResponseTransfer;
 use Generated\Shared\Transfer\CustomerTransfer;
@@ -13,7 +13,7 @@ use Generated\Shared\Transfer\SaveOrderTransfer;
 class RegistrationProcessorTest extends Unit
 {
     /**
-     * @var \FondOfOryx\Zed\CustomerRegistrationSalesConnector\Dependency\Facade\CustomerRegistrationSalesConnectorToCustomerRegistrationFacadeInterface|\PHPUnit\Framework\MockObject\MockObject
+     * @var \FondOfOryx\Zed\CustomerRegistrationSalesConnector\Dependency\Facade\CustomerRegistrationSalesConnectorToCustomerFacadeInterface|\PHPUnit\Framework\MockObject\MockObject
      */
     protected $customerRegistrationFacadeMock;
 
@@ -62,7 +62,7 @@ class RegistrationProcessorTest extends Unit
      */
     protected function _before(): void
     {
-        $this->customerRegistrationFacadeMock = $this->getMockBuilder(CustomerRegistrationSalesConnectorToCustomerRegistrationFacadeInterface::class)
+        $this->customerRegistrationFacadeMock = $this->getMockBuilder(CustomerRegistrationSalesConnectorToCustomerFacadeInterface::class)
             ->disableOriginalConstructor()
             ->getMock();
 

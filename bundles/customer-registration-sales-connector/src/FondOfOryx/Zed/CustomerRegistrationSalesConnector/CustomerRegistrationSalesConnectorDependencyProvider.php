@@ -2,7 +2,7 @@
 
 namespace FondOfOryx\Zed\CustomerRegistrationSalesConnector;
 
-use FondOfOryx\Zed\CustomerRegistrationSalesConnector\Dependency\Facade\CustomerRegistrationSalesConnectorToCustomerRegistrationFacadeBridge;
+use FondOfOryx\Zed\CustomerRegistrationSalesConnector\Dependency\Facade\CustomerRegistrationSalesConnectorToCustomerFacadeBridge;
 use Spryker\Zed\Kernel\AbstractBundleDependencyProvider;
 use Spryker\Zed\Kernel\Container;
 
@@ -11,7 +11,7 @@ class CustomerRegistrationSalesConnectorDependencyProvider extends AbstractBundl
     /**
      * @var string
      */
-    public const FACADE_CUSTOMER_REGISTRATION = 'FACADE_CUSTOMER_REGISTRATION';
+    public const FACADE_CUSTOMER = 'FACADE_CUSTOMER';
 
     /**
      * @param \Spryker\Zed\Kernel\Container $container
@@ -21,9 +21,8 @@ class CustomerRegistrationSalesConnectorDependencyProvider extends AbstractBundl
     public function provideBusinessLayerDependencies(Container $container): Container
     {
         $container = parent::provideBusinessLayerDependencies($container);
-        $container = $this->addCustomerRegistrationFacade($container);
 
-        return $container;
+        return $this->addCustomerFacade($container);
     }
 
     /**
@@ -31,11 +30,11 @@ class CustomerRegistrationSalesConnectorDependencyProvider extends AbstractBundl
      *
      * @return \Spryker\Zed\Kernel\Container
      */
-    protected function addCustomerRegistrationFacade(Container $container): Container
+    protected function addCustomerFacade(Container $container): Container
     {
-        $container[static::FACADE_CUSTOMER_REGISTRATION] = static function (Container $container) {
-            return new CustomerRegistrationSalesConnectorToCustomerRegistrationFacadeBridge(
-                $container->getLocator()->customerRegistration()->facade(),
+        $container[static::FACADE_CUSTOMER] = static function (Container $container) {
+            return new CustomerRegistrationSalesConnectorToCustomerFacadeBridge(
+                $container->getLocator()->customer()->facade(),
             );
         };
 

@@ -7,5 +7,6 @@
         <property name="createAccount" type="bool"/>
         <property name="acceptTerms" type="bool"/>
         <property name="signupNewsletter" type="bool"/>
+        <property name="Customer" type="Customer"/>
     </transfer>
 </transfers>
