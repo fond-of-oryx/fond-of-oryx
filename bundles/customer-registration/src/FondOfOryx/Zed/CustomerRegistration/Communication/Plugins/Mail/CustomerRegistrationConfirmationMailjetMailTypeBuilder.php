@@ -83,10 +83,11 @@ class CustomerRegistrationConfirmationMailjetMailTypeBuilder extends AbstractPlu
      */
     protected function getTemplateId(MailTransfer $mailTransfer): int
     {
-        $locale = $mailTransfer->getCustomer()->getLocale();
+        $locale = static::DEFAULT_LOCALE;
+        $localeTransfer = $mailTransfer->getCustomer()->getLocale();
 
-        if ($locale === null) {
-            $locale = static::DEFAULT_LOCALE;
+        if ($localeTransfer !== null) {
+            $locale = $localeTransfer->getLocaleName();
         }
 
         return $this->getConfig()->getCustomerRegistrationConfirmationMailTemplateIdByLocale($locale);

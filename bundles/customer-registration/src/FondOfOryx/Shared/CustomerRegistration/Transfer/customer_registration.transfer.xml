@@ -48,6 +48,10 @@
 
     <transfer name="Customer">
         <property name="confirmationLink" type="string" />
-        <property name="locale" type="string" />
+        <property name="locale" type="Locale" />
+    </transfer>
+
+    <transfer name="Locale">
+        <property name="localeName" type="string" />
     </transfer>
 </transfers>
