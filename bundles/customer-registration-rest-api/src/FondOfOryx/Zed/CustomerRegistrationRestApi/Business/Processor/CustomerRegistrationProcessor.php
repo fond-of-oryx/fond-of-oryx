@@ -9,6 +9,7 @@ use FondOfOryx\Zed\CustomerRegistrationRestApi\Dependency\Facade\CustomerRegistr
 use FondOfOryx\Zed\CustomerRegistrationRestApi\Dependency\Facade\CustomerRegistrationRestApiToOneTimePasswordFacadeInterface;
 use Generated\Shared\Transfer\CustomerRegistrationKnownCustomerResponseTransfer;
 use Generated\Shared\Transfer\CustomerTransfer;
+use Generated\Shared\Transfer\HandleKnownCustomerTransfer;
 use Generated\Shared\Transfer\MailTransfer;
 
 class CustomerRegistrationProcessor implements CustomerRegistrationProcessorInterface
@@ -52,19 +53,21 @@ class CustomerRegistrationProcessor implements CustomerRegistrationProcessorInte
     }
 
     /**
-     * @param \Generated\Shared\Transfer\CustomerTransfer $customerTransfer
+     * @param \Generated\Shared\Transfer\HandleKnownCustomerTransfer $handleKnownCustomerTransfer
      *
      * @return \Generated\Shared\Transfer\CustomerRegistrationKnownCustomerResponseTransfer
      */
-    public function handleKnownCustomer(CustomerTransfer $customerTransfer): CustomerRegistrationKnownCustomerResponseTransfer
+    public function handleKnownCustomer(HandleKnownCustomerTransfer $handleKnownCustomerTransfer): CustomerRegistrationKnownCustomerResponseTransfer
     {
+        /** @var \Generated\Shared\Transfer\CustomerTransfer $customerTransfer */
+        $customerTransfer = $handleKnownCustomerTransfer->getCustomerOrFail();
         $response = (new CustomerRegistrationKnownCustomerResponseTransfer());
         $customer = $this->customerFacade->getCustomer($customerTransfer);
 
         $registrationKey = $customer->getRegistrationKey();
 
         if ($registrationKey === null) {
-            $this->oneTimePasswordFacade->requestLoginLink($customerTransfer);
+            $this->oneTimePasswordFacade->requestLoginLink($customerTransfer, $handleKnownCustomerTransfer->getOneTimePasswordAttributes());
             $response->setMessage(CustomerRegistrationRestApiConstants::SEND_LOGIN_TOKEN);
 
             return $response;

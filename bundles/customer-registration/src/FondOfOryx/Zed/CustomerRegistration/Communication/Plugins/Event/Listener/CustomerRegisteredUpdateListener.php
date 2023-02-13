@@ -3,6 +3,7 @@
 namespace FondOfOryx\Zed\CustomerRegistration\Communication\Plugins\Event\Listener;
 
 use FondOfOryx\Shared\CustomerRegistration\CustomerRegistrationConstants;
+use Generated\Shared\Transfer\EventEntityTransfer;
 use Spryker\Shared\Kernel\Transfer\TransferInterface;
 use Spryker\Zed\Event\Dependency\Plugin\EventHandlerInterface;
 use Spryker\Zed\Kernel\Communication\AbstractPlugin;
@@ -25,11 +26,13 @@ class CustomerRegisteredUpdateListener extends AbstractPlugin implements EventHa
      */
     public function handle(TransferInterface $transfer, $eventName): void
     {
-        if ($eventName !== CustomerRegistrationConstants::ENTITY_CUSTOMER_UPDATE) {
+        if (
+            $eventName !== CustomerRegistrationConstants::ENTITY_CUSTOMER_UPDATE ||
+            !$transfer instanceof EventEntityTransfer
+        ) {
             return;
         }
 
-        /** @phpstan-ignore-next-line */
         $customerTransfer = $this->getRepository()->findCustomerById($transfer->getId());
 
         $this->getFacade()->sendWelcomeMail($customerTransfer);
