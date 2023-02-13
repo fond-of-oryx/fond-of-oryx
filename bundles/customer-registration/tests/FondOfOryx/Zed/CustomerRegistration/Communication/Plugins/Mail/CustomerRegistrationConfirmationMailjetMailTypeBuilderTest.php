@@ -107,6 +107,6 @@ class CustomerRegistrationConfirmationMailjetMailTypeBuilderTest extends Unit
             ->method('setMailjetTemplate')
             ->willReturnSelf();
 
-        static::assertEquals($this->mailTransferMock,  $this->plugin->build($this->mailTransferMock));
+        static::assertEquals($this->mailTransferMock, $this->plugin->build($this->mailTransferMock));
     }
 }
