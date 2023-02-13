@@ -22,6 +22,6 @@
     </transfer>
 
     <transfer name="OneTimePasswordAttributes">
-        <property name="callbackUl" type="string" />
+        <property name="callbackUrl" type="string" />
     </transfer>
 </transfers>
