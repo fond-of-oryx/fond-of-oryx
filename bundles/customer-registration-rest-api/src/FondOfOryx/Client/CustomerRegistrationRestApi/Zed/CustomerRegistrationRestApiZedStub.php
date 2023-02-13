@@ -3,7 +3,7 @@
 namespace FondOfOryx\Client\CustomerRegistrationRestApi\Zed;
 
 use Generated\Shared\Transfer\CustomerRegistrationKnownCustomerResponseTransfer;
-use Generated\Shared\Transfer\CustomerTransfer;
+use Generated\Shared\Transfer\HandleKnownCustomerTransfer;
 use Spryker\Client\ZedRequest\ZedRequestClient;
 
 class CustomerRegistrationRestApiZedStub implements CustomerRegistrationRestApiZedStubInterface
@@ -27,14 +27,14 @@ class CustomerRegistrationRestApiZedStub implements CustomerRegistrationRestApiZ
     }
 
     /**
-     * @param \Generated\Shared\Transfer\CustomerTransfer $customerTransfer
+     * @param \Generated\Shared\Transfer\HandleKnownCustomerTransfer $handleKnownCustomerTransfer
      *
      * @return \Generated\Shared\Transfer\CustomerRegistrationKnownCustomerResponseTransfer
      */
-    public function handleKnownCustomer(CustomerTransfer $customerTransfer): CustomerRegistrationKnownCustomerResponseTransfer
+    public function handleKnownCustomer(HandleKnownCustomerTransfer $handleKnownCustomerTransfer): CustomerRegistrationKnownCustomerResponseTransfer
     {
         /** @var \Generated\Shared\Transfer\CustomerRegistrationKnownCustomerResponseTransfer $knownCustomerResponse */
-        $knownCustomerResponse = $this->zedClient->call(static::URL_HANDLE_KNOWN_CUSTOMER, $customerTransfer);
+        $knownCustomerResponse = $this->zedClient->call(static::URL_HANDLE_KNOWN_CUSTOMER, $handleKnownCustomerTransfer);
 
         return $knownCustomerResponse;
     }

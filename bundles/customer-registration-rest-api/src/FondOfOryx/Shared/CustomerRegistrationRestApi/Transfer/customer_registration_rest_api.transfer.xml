@@ -5,6 +5,7 @@
     <transfer name="RestCustomerRegistrationRequestAttributes">
         <property name="email" type="string"/>
         <property name="acceptGdpr" type="bool"/>
+        <property name="callbackUrl" type="string"/>
     </transfer>
 
     <transfer name="RestCustomerRegistrationResponse">
@@ -15,4 +16,8 @@
         <property name="message" type="string"/>
     </transfer>
 
+    <transfer name="HandleKnownCustomer">
+        <property name="customer" type="Customer"/>
+        <property name="oneTimePasswordAttributes" type="OneTimePasswordAttributes"/>
+    </transfer>
 </transfers>

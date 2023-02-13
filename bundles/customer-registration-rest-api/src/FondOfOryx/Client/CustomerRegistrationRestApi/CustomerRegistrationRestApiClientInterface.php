@@ -2,14 +2,14 @@
 
 namespace FondOfOryx\Client\CustomerRegistrationRestApi;
 
-use Generated\Shared\Transfer\CustomerTransfer;
+use Generated\Shared\Transfer\HandleKnownCustomerTransfer;
 
 interface CustomerRegistrationRestApiClientInterface
 {
     /**
-     * @param \Generated\Shared\Transfer\CustomerTransfer $customerTransfer
+     * @param \Generated\Shared\Transfer\HandleKnownCustomerTransfer $handleKnownCustomerTransfer
      *
      * @return void
      */
-    public function handleKnownCustomer(CustomerTransfer $customerTransfer): void;
+    public function handleKnownCustomer(HandleKnownCustomerTransfer $handleKnownCustomerTransfer): void;
 }
