@@ -49,8 +49,7 @@ class WelcomeMailSender implements WelcomeMailSenderInterface
             ->setOneTimePasswordLoginLink($oneTimePasswordResponse->getLoginLink())
             ->setType(CustomerRegistrationWelcomeMailjetMailTypeBuilder::MAIL_TYPE)
             ->setCustomer($customerTransfer)
-            ->setLocale($customerTransfer->getLocale())
-            ->setEmailVerificationLink('');
+            ->setLocale($customerTransfer->getLocale());
 
         $this->mailFacade->handleMail($mailTransfer);
     }
