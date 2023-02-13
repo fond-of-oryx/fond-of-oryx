@@ -6,9 +6,9 @@
         <column name="gdpr_accepted" type="BOOLEAN" required="false"/>
         <column name="is_verified" type="BOOLEAN" required="false"/>
         <column name="registered" type="DATE" default="NULL"/>
-    </table>
 
-    <behavior name="event">
-        <parameter name="spy_customer_update" column="registered"/>
-    </behavior>
+        <behavior name="event">
+            <parameter name="spy_customer_update" column="registered"/>
+        </behavior>
+    </table>
 </database>
