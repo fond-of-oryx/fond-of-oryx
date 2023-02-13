@@ -20,4 +20,8 @@
         <property name="customer" type="Customer"/>
         <property name="oneTimePasswordAttributes" type="OneTimePasswordAttributes"/>
     </transfer>
+
+    <transfer name="OneTimePasswordAttributes">
+        <property name="callbackUl" type="string" />
+    </transfer>
 </transfers>
