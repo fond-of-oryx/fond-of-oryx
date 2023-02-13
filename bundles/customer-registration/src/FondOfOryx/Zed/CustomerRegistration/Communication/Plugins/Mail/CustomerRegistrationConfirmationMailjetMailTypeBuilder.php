@@ -72,10 +72,11 @@ class CustomerRegistrationConfirmationMailjetMailTypeBuilder extends AbstractPlu
         MailjetTemplateTransfer $mailjetTemplateTransfer
     ): MailjetTemplateTransfer {
         return $mailjetTemplateTransfer->setVariables([
-            'emailVerificationLink' => sprintf('%s&email=%s',
+            'emailVerificationLink' => sprintf(
+                '%s&email=%s',
                 $mailTransfer->getCustomer()->getConfirmationLink(),
                 $mailTransfer->getCustomer()->getEmail(),
-            )
+            ),
         ]);
     }
 
