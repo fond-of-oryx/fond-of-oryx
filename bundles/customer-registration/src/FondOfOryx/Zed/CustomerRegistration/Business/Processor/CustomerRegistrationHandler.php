@@ -2,14 +2,11 @@
 
 namespace FondOfOryx\Zed\CustomerRegistration\Business\Processor;
 
-use FondOfOryx\Shared\CustomerRegistration\CustomerRegistrationConstants;
 use FondOfOryx\Zed\CustomerRegistration\CustomerRegistrationConfig;
 use FondOfOryx\Zed\CustomerRegistration\Dependency\Facade\CustomerRegistrationToCustomerFacadeInterface;
 use FondOfOryx\Zed\CustomerRegistration\Dependency\Facade\CustomerRegistrationToMailFacadeInterface;
 use FondOfOryx\Zed\CustomerRegistration\Dependency\Facade\CustomerRegistrationToOneTimePasswordFacadeInterface;
-use Generated\Shared\Transfer\CustomerRegistrationKnownCustomerResponseTransfer;
 use Generated\Shared\Transfer\CustomerTransfer;
-use Generated\Shared\Transfer\HandleKnownCustomerTransfer;
 use Generated\Shared\Transfer\MailTransfer;
 
 class CustomerRegistrationHandler implements CustomerRegistrationHandlerInterface

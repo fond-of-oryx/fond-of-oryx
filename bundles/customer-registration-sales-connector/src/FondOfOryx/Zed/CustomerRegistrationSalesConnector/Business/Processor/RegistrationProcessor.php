@@ -21,10 +21,11 @@ class RegistrationProcessor implements RegistrationProcessorInterface
 
     /**
      * @param \FondOfOryx\Zed\CustomerRegistrationSalesConnector\Dependency\Facade\CustomerRegistrationSalesConnectorToCustomerFacadeInterface $customerFacade
+     * @param \FondOfOryx\Zed\CustomerRegistrationSalesConnector\Dependency\Facade\CustomerRegistrationSalesConnectorToCustomerRegistrationFacadeInterface $customerRegistrationFacade
      */
     public function __construct(
         CustomerRegistrationSalesConnectorToCustomerFacadeInterface $customerFacade,
-        CustomerRegistrationSalesConnectorToCustomerRegistrationFacadeInterface $customerRegistrationFacade,
+        CustomerRegistrationSalesConnectorToCustomerRegistrationFacadeInterface $customerRegistrationFacade
     ) {
         $this->customerFacade = $customerFacade;
         $this->customerRegistrationFacade = $customerRegistrationFacade;
@@ -45,7 +46,7 @@ class RegistrationProcessor implements RegistrationProcessorInterface
         if ($quoteTransfer->getCreateAccount() === true && $quoteTransfer->getAcceptTerms() === true) {
             if ($quoteTransfer->getCustomer()->getIdCustomer() !== null) {
                 $this->customerRegistrationFacade->handleKnownCustomer(
-                    (new CustomerRegistrationTransfer)->setCustomer($quoteTransfer->getCustomer())
+                    (new CustomerRegistrationTransfer())->setCustomer($quoteTransfer->getCustomer()),
                 );
             } else {
                 $this->customerFacade->registerCustomer($quoteTransfer->getCustomer());

@@ -29,8 +29,7 @@ class CustomerRegistrationSalesConnectorBusinessFactory extends AbstractBusiness
     {
         return $this->getProvidedDependency(CustomerRegistrationSalesConnectorDependencyProvider::FACADE_CUSTOMER);
     }
-
-
+    
     /**
      * @return \FondOfOryx\Zed\CustomerRegistrationSalesConnector\Dependency\Facade\CustomerRegistrationSalesConnectorToCustomerRegistrationFacadeInterface
      */

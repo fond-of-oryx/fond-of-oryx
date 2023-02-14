@@ -3,7 +3,6 @@
 namespace FondOfOryx\Zed\CustomerRegistration;
 
 use FondOfOryx\Shared\CustomerRegistration\CustomerRegistrationConstants;
-use FondOfOryx\Shared\CustomerRegistrationRestApi\CustomerRegistrationRestApiConstants;
 use Generated\Shared\Transfer\SequenceNumberSettingsTransfer;
 use Spryker\Shared\Application\ApplicationConstants;
 use Spryker\Shared\Customer\CustomerConstants;
