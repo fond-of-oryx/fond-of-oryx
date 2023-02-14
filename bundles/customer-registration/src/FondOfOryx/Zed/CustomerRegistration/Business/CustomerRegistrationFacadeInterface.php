@@ -96,4 +96,11 @@ interface CustomerRegistrationFacadeInterface
      * @return void
      */
     public function sendWelcomeMail(CustomerTransfer $customerTransfer): void;
+
+    /**
+     * @param \FondOfOryx\Zed\CustomerRegistration\Business\CustomerRegistrationTransfer $customerRegistrationTransfer
+     *
+     * @return void
+     */
+    public function handleKnownCustomer(CustomerRegistrationTransfer $customerRegistrationTransfer): void;
 }

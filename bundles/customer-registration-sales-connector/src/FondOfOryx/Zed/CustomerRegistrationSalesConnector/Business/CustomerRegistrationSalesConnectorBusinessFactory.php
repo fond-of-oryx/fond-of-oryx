@@ -15,7 +15,10 @@ class CustomerRegistrationSalesConnectorBusinessFactory extends AbstractBusiness
      */
     public function createRegistrationProcessor(): RegistrationProcessorInterface
     {
-        return new RegistrationProcessor($this->getCustomerFacade());
+        return new RegistrationProcessor(
+            $this->getCustomerFacade(),
+            $this->getCustomerRegistrationFacade(),
+        );
     }
 
     /**
@@ -24,5 +27,13 @@ class CustomerRegistrationSalesConnectorBusinessFactory extends AbstractBusiness
     protected function getCustomerFacade(): CustomerRegistrationSalesConnectorToCustomerFacadeInterface
     {
         return $this->getProvidedDependency(CustomerRegistrationSalesConnectorDependencyProvider::FACADE_CUSTOMER);
+    }
+
+    /**
+     * @return \FondOfOryx\Zed\CustomerRegistrationSalesConnector\Dependency\Facade\CustomerRegistrationSalesConnectorToCustomerFacadeInterface
+     */
+    protected function getCustomerRegistrationFacade(): CustomerRegistrationSalesConnectorToCustomerFacadeInterface
+    {
+        return $this->getProvidedDependency(CustomerRegistrationSalesConnectorDependencyProvider::FACADE_CUSTOMER_REGISTRATION);
     }
 }

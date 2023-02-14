@@ -68,4 +68,14 @@ interface CustomerRegistrationConstants
      * @var string
      */
     public const MAILJET_CUSTOMER_REGISTRATION_CONFIRMATION_TEMPLATE_ID_BY_LOCALE = 'CUSTOMER_REGISTRATION:MAILJET_CUSTOMER_REGISTRATION_CONFIRMATION_TEMPLATE_ID_BY_LOCALE';
+
+    /**
+     * @var string
+     */
+    public const REGISTRATION_CONFIRMATION_TOKEN_URL = 'REGISTRATION_CONFIRMATION_TOKEN_URL';
+
+    /**
+     * @var string
+     */
+    public const BASE_URL_YVES = 'BASE_URL_YVES';
 }

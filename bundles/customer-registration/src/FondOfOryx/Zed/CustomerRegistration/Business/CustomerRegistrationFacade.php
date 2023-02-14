@@ -109,4 +109,14 @@ class CustomerRegistrationFacade extends AbstractFacade implements CustomerRegis
     {
         $this->getFactory()->createWelcomeMail()->sendWelcomeMail($customerTransfer);
     }
+
+    /**
+     * @param \FondOfOryx\Zed\CustomerRegistration\Business\CustomerRegistrationTransfer $customerRegistrationTransfer
+     *
+     * @return void
+     */
+    public function handleKnownCustomer(CustomerRegistrationTransfer $customerRegistrationTransfer): void
+    {
+        $this->getFactory()->createCustomerRegistrationHandler()->handleKnownCustomer($customerRegistrationTransfer);
+    }
 }
