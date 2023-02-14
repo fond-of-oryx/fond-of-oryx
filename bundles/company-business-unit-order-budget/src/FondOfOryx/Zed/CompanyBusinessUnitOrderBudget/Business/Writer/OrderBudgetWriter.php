@@ -3,6 +3,7 @@
 namespace FondOfOryx\Zed\CompanyBusinessUnitOrderBudget\Business\Writer;
 
 use Exception;
+use FondOfOryx\Zed\CompanyBusinessUnitOrderBudget\Business\Reader\OrderBudgetReaderInterface;
 use FondOfOryx\Zed\CompanyBusinessUnitOrderBudget\Dependency\Facade\CompanyBusinessUnitOrderBudgetToOrderBudgetFacadeInterface;
 use FondOfOryx\Zed\CompanyBusinessUnitOrderBudget\Persistence\CompanyBusinessUnitOrderBudgetEntityManagerInterface;
 use FondOfOryx\Zed\CompanyBusinessUnitOrderBudget\Persistence\CompanyBusinessUnitOrderBudgetRepositoryInterface;
@@ -13,6 +14,11 @@ use Spryker\Zed\Kernel\Persistence\EntityManager\TransactionTrait;
 class OrderBudgetWriter implements OrderBudgetWriterInterface
 {
     use TransactionTrait;
+
+    /**
+     * @var \FondOfOryx\Zed\CompanyBusinessUnitOrderBudget\Business\Reader\OrderBudgetReaderInterface
+     */
+    protected $orderBudgetReader;
 
     /**
      * @var \FondOfOryx\Zed\CompanyBusinessUnitOrderBudget\Dependency\Facade\CompanyBusinessUnitOrderBudgetToOrderBudgetFacadeInterface
@@ -35,17 +41,20 @@ class OrderBudgetWriter implements OrderBudgetWriterInterface
     protected $logger;
 
     /**
+     * @param \FondOfOryx\Zed\CompanyBusinessUnitOrderBudget\Business\Reader\OrderBudgetReaderInterface $orderBudgetReader
      * @param \FondOfOryx\Zed\CompanyBusinessUnitOrderBudget\Dependency\Facade\CompanyBusinessUnitOrderBudgetToOrderBudgetFacadeInterface $orderBudgetFacade
      * @param \FondOfOryx\Zed\CompanyBusinessUnitOrderBudget\Persistence\CompanyBusinessUnitOrderBudgetEntityManagerInterface $entityManager
      * @param \FondOfOryx\Zed\CompanyBusinessUnitOrderBudget\Persistence\CompanyBusinessUnitOrderBudgetRepositoryInterface $repository
      * @param \Psr\Log\LoggerInterface $logger
      */
     public function __construct(
+        OrderBudgetReaderInterface $orderBudgetReader,
         CompanyBusinessUnitOrderBudgetToOrderBudgetFacadeInterface $orderBudgetFacade,
         CompanyBusinessUnitOrderBudgetEntityManagerInterface $entityManager,
         CompanyBusinessUnitOrderBudgetRepositoryInterface $repository,
         LoggerInterface $logger
     ) {
+        $this->orderBudgetReader = $orderBudgetReader;
         $this->orderBudgetFacade = $orderBudgetFacade;
         $this->entityManager = $entityManager;
         $this->repository = $repository;
@@ -82,7 +91,17 @@ class OrderBudgetWriter implements OrderBudgetWriterInterface
      */
     protected function doCreateForCompanyBusinessUnit(CompanyBusinessUnitTransfer $companyBusinessUnitTransfer): void
     {
-        if ($companyBusinessUnitTransfer->getFkOrderBudget() !== null) {
+        $idOrderBudget = $companyBusinessUnitTransfer->getFkOrderBudget();
+
+        if ($idOrderBudget !== null) {
+            return;
+        }
+
+        $idOrderBudget = $this->orderBudgetReader->getIdOrderBudgetByCompanyBusinessUnit(
+            $companyBusinessUnitTransfer,
+        );
+
+        if ($idOrderBudget !== null) {
             return;
         }
 
