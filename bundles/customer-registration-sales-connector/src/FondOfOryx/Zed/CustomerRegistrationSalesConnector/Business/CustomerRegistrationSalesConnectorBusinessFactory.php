@@ -31,7 +31,7 @@ class CustomerRegistrationSalesConnectorBusinessFactory extends AbstractBusiness
     }
 
     /**
-     * @return \FondOfOry1x\Zed\CustomerRegistrationSalesConnector\Dependency\Facade\CustomerRegistrationSalesConnectorToCustomerRegistrationFacadeInterface
+     * @return \FondOfOryx\Zed\CustomerRegistrationSalesConnector\Dependency\Facade\CustomerRegistrationSalesConnectorToCustomerRegistrationFacadeInterface
      */
     protected function getCustomerRegistrationFacade(): CustomerRegistrationSalesConnectorToCustomerRegistrationFacadeInterface
     {

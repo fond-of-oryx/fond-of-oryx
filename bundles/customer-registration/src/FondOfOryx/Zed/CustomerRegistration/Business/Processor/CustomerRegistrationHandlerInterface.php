@@ -2,6 +2,8 @@
 
 namespace FondOfOryx\Zed\CustomerRegistration\Business\Processor;
 
+use Generated\Shared\Transfer\CustomerRegistrationTransfer;
+
 interface CustomerRegistrationHandlerInterface
 {
     /**

@@ -4,6 +4,7 @@ namespace FondOfOryx\Zed\CustomerRegistration\Business;
 
 use Generated\Shared\Transfer\CustomerRegistrationRequestTransfer;
 use Generated\Shared\Transfer\CustomerRegistrationResponseTransfer;
+use Generated\Shared\Transfer\CustomerRegistrationTransfer;
 use Generated\Shared\Transfer\CustomerTransfer;
 
 interface CustomerRegistrationFacadeInterface
@@ -98,7 +99,7 @@ interface CustomerRegistrationFacadeInterface
     public function sendWelcomeMail(CustomerTransfer $customerTransfer): void;
 
     /**
-     * @param \FondOfOryx\Zed\CustomerRegistration\Business\CustomerRegistrationTransfer $customerRegistrationTransfer
+     * @param \Generated\Shared\Transfer\CustomerRegistrationTransfer $customerRegistrationTransfer
      *
      * @return void
      */

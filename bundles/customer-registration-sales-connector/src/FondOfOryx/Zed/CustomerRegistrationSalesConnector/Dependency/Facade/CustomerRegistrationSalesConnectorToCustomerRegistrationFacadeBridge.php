@@ -21,7 +21,7 @@ class CustomerRegistrationSalesConnectorToCustomerRegistrationFacadeBridge imple
     }
 
     /**
-     * @param \FondOfOryx\Zed\CustomerRegistrationSalesConnector\Dependency\Facade\CustomerRegistrationTransfer $customerRegistrationTransfer
+     * @param \Generated\Shared\Transfer\CustomerRegistrationTransfer $customerRegistrationTransfer
      *
      * @return void
      */
