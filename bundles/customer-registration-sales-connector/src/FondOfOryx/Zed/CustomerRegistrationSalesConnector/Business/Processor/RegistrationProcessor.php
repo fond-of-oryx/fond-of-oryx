@@ -3,6 +3,8 @@
 namespace FondOfOryx\Zed\CustomerRegistrationSalesConnector\Business\Processor;
 
 use FondOfOryx\Zed\CustomerRegistrationSalesConnector\Dependency\Facade\CustomerRegistrationSalesConnectorToCustomerFacadeInterface;
+use FondOfOryx\Zed\CustomerRegistrationSalesConnector\Dependency\Facade\CustomerRegistrationSalesConnectorToCustomerRegistrationFacadeInterface;
+use Generated\Shared\Transfer\CustomerRegistrationTransfer;
 use Generated\Shared\Transfer\QuoteTransfer;
 use Generated\Shared\Transfer\SaveOrderTransfer;
 
@@ -14,11 +16,20 @@ class RegistrationProcessor implements RegistrationProcessorInterface
     protected CustomerRegistrationSalesConnectorToCustomerFacadeInterface $customerFacade;
 
     /**
-     * @param \FondOfOryx\Zed\CustomerRegistrationSalesConnector\Dependency\Facade\CustomerRegistrationSalesConnectorToCustomerFacadeInterface $customerFacade
+     * @var \FondOfOryx\Zed\CustomerRegistrationSalesConnector\Dependency\Facade\CustomerRegistrationSalesConnectorToCustomerRegistrationFacadeInterface
      */
-    public function __construct(CustomerRegistrationSalesConnectorToCustomerFacadeInterface $customerFacade)
-    {
+    protected CustomerRegistrationSalesConnectorToCustomerRegistrationFacadeInterface $customerRegistrationFacade;
+
+    /**
+     * @param \FondOfOryx\Zed\CustomerRegistrationSalesConnector\Dependency\Facade\CustomerRegistrationSalesConnectorToCustomerFacadeInterface $customerFacade
+     * @param \FondOfOryx\Zed\CustomerRegistrationSalesConnector\Dependency\Facade\CustomerRegistrationSalesConnectorToCustomerRegistrationFacadeInterface $customerRegistrationFacade
+     */
+    public function __construct(
+        CustomerRegistrationSalesConnectorToCustomerFacadeInterface $customerFacade,
+        CustomerRegistrationSalesConnectorToCustomerRegistrationFacadeInterface $customerRegistrationFacade
+    ) {
         $this->customerFacade = $customerFacade;
+        $this->customerRegistrationFacade = $customerRegistrationFacade;
     }
 
     /**
@@ -34,7 +45,13 @@ class RegistrationProcessor implements RegistrationProcessorInterface
         }
 
         if ($quoteTransfer->getCreateAccount() === true && $quoteTransfer->getAcceptTerms() === true) {
-            $this->customerFacade->registerCustomer($quoteTransfer->getCustomer());
+            if ($quoteTransfer->getCustomer()->getIdCustomer() !== null) {
+                $this->customerRegistrationFacade->handleKnownCustomer(
+                    (new CustomerRegistrationTransfer())->setCustomer($quoteTransfer->getCustomer()),
+                );
+            } else {
+                $this->customerFacade->registerCustomer($quoteTransfer->getCustomer());
+            }
         }
 
         return $saveOrderTransfer;

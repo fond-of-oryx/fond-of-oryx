@@ -8,6 +8,8 @@ use FondOfOryx\Zed\CustomerRegistration\Business\Generator\EmailVerificationLink
 use FondOfOryx\Zed\CustomerRegistration\Business\Generator\EmailVerificationLinkGeneratorInterface;
 use FondOfOryx\Zed\CustomerRegistration\Business\Generator\PasswordGenerator;
 use FondOfOryx\Zed\CustomerRegistration\Business\Generator\PasswordGeneratorInterface;
+use FondOfOryx\Zed\CustomerRegistration\Business\Processor\CustomerRegistrationHandler;
+use FondOfOryx\Zed\CustomerRegistration\Business\Processor\CustomerRegistrationHandlerInterface;
 use FondOfOryx\Zed\CustomerRegistration\Business\Processor\CustomerRegistrationProcessor;
 use FondOfOryx\Zed\CustomerRegistration\Business\Processor\CustomerRegistrationProcessorInterface;
 use FondOfOryx\Zed\CustomerRegistration\Business\Sender\WelcomeMailSender;
@@ -41,6 +43,19 @@ class CustomerRegistrationBusinessFactory extends AbstractBusinessFactory
     public function createCustomerRegistrationProcessor(): CustomerRegistrationProcessorInterface
     {
         return new CustomerRegistrationProcessor($this->getCustomerRegistrationProcessorPlugins());
+    }
+
+    /**
+     * @return \FondOfOryx\Zed\CustomerRegistration\Business\Processor\CustomerRegistrationHandlerInterface
+     */
+    public function createCustomerRegistrationHandler(): CustomerRegistrationHandlerInterface
+    {
+        return new CustomerRegistrationHandler(
+            $this->getCustomerFacade(),
+            $this->getOneTimePasswordFacade(),
+            $this->getMailfacade(),
+            $this->getConfig(),
+        );
     }
 
     /**

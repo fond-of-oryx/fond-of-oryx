@@ -9,4 +9,13 @@
         <property name="signupNewsletter" type="bool"/>
         <property name="Customer" type="Customer"/>
     </transfer>
+
+    <transfer name="CustomerRegistration">
+        <property name="Customer" type="Customer" />
+        <property name="oneTimePasswordAttributes" type="OneTimePasswordAttributes"/>
+    </transfer>
+
+    <transfer name="OneTimePasswordAttributes">
+        <property name="callbackUrl" type="string" />
+    </transfer>
 </transfers>
