@@ -57,7 +57,7 @@ class CustomerRegistrationSalesConnectorDependencyProvider extends AbstractBundl
     {
         $container[static::FACADE_CUSTOMER_REGISTRATION] = static function (Container $container) {
             return new CustomerRegistrationSalesConnectorToCustomerRegistrationFacadeBridge(
-                $container->getLocator()->customer()->facade(),
+                $container->getLocator()->customerRegistration()->facade(),
             );
         };
 
