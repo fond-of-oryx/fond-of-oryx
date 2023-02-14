@@ -2,8 +2,7 @@
 
 namespace FondOfOryx\Zed\CustomerRegistrationSalesConnector\Dependency\Facade;
 
-use Generated\Shared\Transfer\CustomerResponseTransfer;
-use Generated\Shared\Transfer\CustomerTransfer;
+use Generated\Shared\Transfer\CustomerRegistrationTransfer;
 
 interface CustomerRegistrationSalesConnectorToCustomerRegistrationFacadeInterface
 {

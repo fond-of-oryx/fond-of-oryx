@@ -3,8 +3,7 @@
 namespace FondOfOryx\Zed\CustomerRegistrationSalesConnector\Dependency\Facade;
 
 use FondOfOryx\Zed\CustomerRegistration\Business\CustomerRegistrationFacadeInterface;
-use Generated\Shared\Transfer\CustomerResponseTransfer;
-use Generated\Shared\Transfer\CustomerTransfer;
+use Generated\Shared\Transfer\CustomerRegistrationTransfer;
 
 class CustomerRegistrationSalesConnectorToCustomerRegistrationFacadeBridge implements CustomerRegistrationSalesConnectorToCustomerRegistrationFacadeInterface
 {
@@ -28,6 +27,6 @@ class CustomerRegistrationSalesConnectorToCustomerRegistrationFacadeBridge imple
      */
     public function handleKnownCustomer(CustomerRegistrationTransfer $customerRegistrationTransfer): void
     {
-        $this->facade->handleKnownCustomer();
+        $this->facade->handleKnownCustomer($customerRegistrationTransfer);
     }
 }
