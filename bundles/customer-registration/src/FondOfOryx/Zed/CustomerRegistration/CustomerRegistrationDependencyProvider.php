@@ -124,6 +124,7 @@ class CustomerRegistrationDependencyProvider extends AbstractBundleDependencyPro
         $container = $this->addMailVerificationPostPlugins($container);
         $container = $this->addEmailVerificationLinkExtenderPlugins($container);
         $container = $this->addMailFacade($container);
+        $container = $this->addOneTimePasswordFacade($container);
 
         return $container;
     }
@@ -140,7 +141,6 @@ class CustomerRegistrationDependencyProvider extends AbstractBundleDependencyPro
         $container = $this->addLocaleFacade($container);
         $container = $this->addStoreFacade($container);
         $container = $this->addMailFacade($container);
-        $container = $this->addOneTimePasswordFacade($container);
 
         return $container;
     }
