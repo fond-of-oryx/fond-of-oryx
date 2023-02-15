@@ -8,11 +8,6 @@ use Symfony\Component\Security\Core\Encoder\PasswordEncoderInterface;
 class PasswordHasherAdapter implements PasswordHasherInterface
 {
     /**
-     * @var int
-     */
-    protected const BCRYPT_FACTOR = 12;
-
-    /**
      * @var \Symfony\Component\Security\Core\Encoder\PasswordEncoderInterface
      */
     protected PasswordEncoderInterface $passwordHasher;
@@ -32,7 +27,7 @@ class PasswordHasherAdapter implements PasswordHasherInterface
      */
     public function hash(string $plainPassword): string
     {
-        return $this->passwordHasher->encodePassword($plainPassword, static::BCRYPT_FACTOR);
+        return $this->passwordHasher->encodePassword($plainPassword);
     }
 
     /**
@@ -43,7 +38,7 @@ class PasswordHasherAdapter implements PasswordHasherInterface
      */
     public function verify(string $hashedPassword, string $plainPassword): bool
     {
-        return $this->passwordHasher->isPasswordValid($hashedPassword, $plainPassword, static::BCRYPT_FACTOR);
+        return $this->passwordHasher->isPasswordValid($hashedPassword, $plainPassword);
     }
 
     /**
