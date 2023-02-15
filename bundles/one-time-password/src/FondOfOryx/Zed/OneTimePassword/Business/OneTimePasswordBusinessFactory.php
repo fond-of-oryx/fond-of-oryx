@@ -104,7 +104,7 @@ class OneTimePasswordBusinessFactory extends AbstractBusinessFactory
     {
         if (class_exists(NativePasswordEncoder::class)) {
             return new PasswordHasherAdapter(
-                new NativePasswordEncoder(null, null, static::BCRYPT_FACTOR)
+                new NativePasswordEncoder(null, null, static::BCRYPT_FACTOR),
             );
         }
 
