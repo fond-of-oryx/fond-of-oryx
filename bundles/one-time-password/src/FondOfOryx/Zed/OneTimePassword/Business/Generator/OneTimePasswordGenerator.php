@@ -23,9 +23,9 @@ class OneTimePasswordGenerator implements OneTimePasswordGeneratorInterface
     protected $hybridPasswordGenerator;
 
     /**
-     * @var \Symfony\Component\PasswordHasher\PasswordHasherInterface|\Symfony\Component\Security\Core\Encoder\PasswordEncoderInterface
+     * @var \Symfony\Component\PasswordHasher\PasswordHasherInterface
      */
-    protected PasswordHasherInterface|PasswordEncoderInterface $passwordHasher;
+    protected PasswordHasherInterface $passwordHasher;
 
     /**
      * @var \FondOfOryx\Zed\OneTimePassword\Persistence\OneTimePasswordEntityManagerInterface
@@ -39,13 +39,13 @@ class OneTimePasswordGenerator implements OneTimePasswordGeneratorInterface
 
     /**
      * @param \Hackzilla\PasswordGenerator\Generator\HybridPasswordGenerator $hybridPasswordGenerator
-     * @param \Symfony\Component\PasswordHasher\PasswordHasherInterface|\Symfony\Component\Security\Core\Encoder\PasswordEncoderInterface $passwordHasher
+     * @param \Symfony\Component\PasswordHasher\PasswordHasherInterface $passwordHasher
      * @param \FondOfOryx\Zed\OneTimePassword\Persistence\OneTimePasswordEntityManagerInterface $oneTimePasswordEntityManager
      * @param \FondOfOryx\Zed\OneTimePassword\OneTimePasswordConfig $oneTimePasswordConfig
      */
     public function __construct(
         HybridPasswordGenerator $hybridPasswordGenerator,
-        PasswordHasherInterface|PasswordEncoderInterface $passwordHasher,
+        PasswordHasherInterface $passwordHasher,
         OneTimePasswordEntityManagerInterface $oneTimePasswordEntityManager,
         OneTimePasswordConfig $oneTimePasswordConfig
     ) {
