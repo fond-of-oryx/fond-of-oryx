@@ -21,7 +21,9 @@ use FondOfOryx\Zed\OneTimePassword\Dependency\Facade\OneTimePasswordToStoreFacad
 use FondOfOryx\Zed\OneTimePassword\OneTimePasswordDependencyProvider;
 use Hackzilla\PasswordGenerator\Generator\HybridPasswordGenerator;
 use Spryker\Zed\Kernel\Business\AbstractBusinessFactory;
-use Symfony\Component\PasswordHasher\Hasher\NativePasswordHasher;
+use Symfony\Component\Security\Core\Encoder\BCryptPasswordEncoder;
+use Symfony\Component\Security\Core\Encoder\NativePasswordEncoder;
+use Symfony\Component\Security\Core\Encoder\PasswordEncoderInterface;
 
 /**
  * @method \FondOfOryx\Zed\OneTimePassword\Persistence\OneTimePasswordEntityManagerInterface getEntityManager()
@@ -29,6 +31,11 @@ use Symfony\Component\PasswordHasher\Hasher\NativePasswordHasher;
  */
 class OneTimePasswordBusinessFactory extends AbstractBusinessFactory
 {
+    /**
+     * @var int
+     */
+    protected const BCRYPT_FACTOR = 12;
+
     /**
      * @return \FondOfOryx\Zed\OneTimePassword\Business\Sender\OneTimePasswordSenderInterface
      */
@@ -58,7 +65,7 @@ class OneTimePasswordBusinessFactory extends AbstractBusinessFactory
     {
         return new OneTimePasswordGenerator(
             $this->createHybridPasswordGenerator(),
-            new NativePasswordHasher(null, null, 12),
+            $this->getPasswordEncoder(),
             $this->getEntityManager(),
             $this->getConfig(),
         );
@@ -87,6 +94,18 @@ class OneTimePasswordBusinessFactory extends AbstractBusinessFactory
             $this->getConfig(),
             $this->getUrlFormatterPlugins(),
         );
+    }
+
+    /**
+     * @return \Symfony\Component\Security\Core\Encoder\PasswordEncoderInterface
+     */
+    protected function getPasswordEncoder(): PasswordEncoderInterface
+    {
+        if (class_exists(NativePasswordEncoder::class)) {
+            return new NativePasswordEncoder(null, null, static::BCRYPT_FACTOR);
+        }
+
+        return new BCryptPasswordEncoder(static::BCRYPT_FACTOR);
     }
 
     /**
