@@ -4,6 +4,7 @@ namespace FondOfOryx\Zed\OneTimePassword\Business;
 
 use FondOfOryx\Zed\OneTimePassword\Business\Encoder\OneTimePasswordEncoderInterface;
 use FondOfOryx\Zed\OneTimePassword\Business\Encoder\OneTimePasswordJWTEncoder;
+use FondOfOryx\Zed\OneTimePassword\Business\Encoder\PasswordHasherAdapter;
 use FondOfOryx\Zed\OneTimePassword\Business\Generator\OneTimePasswordGenerator;
 use FondOfOryx\Zed\OneTimePassword\Business\Generator\OneTimePasswordGeneratorInterface;
 use FondOfOryx\Zed\OneTimePassword\Business\Generator\OneTimePasswordLinkGenerator;
@@ -21,9 +22,9 @@ use FondOfOryx\Zed\OneTimePassword\Dependency\Facade\OneTimePasswordToStoreFacad
 use FondOfOryx\Zed\OneTimePassword\OneTimePasswordDependencyProvider;
 use Hackzilla\PasswordGenerator\Generator\HybridPasswordGenerator;
 use Spryker\Zed\Kernel\Business\AbstractBusinessFactory;
-use Symfony\Component\Security\Core\Encoder\BCryptPasswordEncoder;
+use Symfony\Component\PasswordHasher\Hasher\NativePasswordHasher;
+use Symfony\Component\PasswordHasher\PasswordHasherInterface;
 use Symfony\Component\Security\Core\Encoder\NativePasswordEncoder;
-use Symfony\Component\Security\Core\Encoder\PasswordEncoderInterface;
 
 /**
  * @method \FondOfOryx\Zed\OneTimePassword\Persistence\OneTimePasswordEntityManagerInterface getEntityManager()
@@ -97,15 +98,17 @@ class OneTimePasswordBusinessFactory extends AbstractBusinessFactory
     }
 
     /**
-     * @return \Symfony\Component\Security\Core\Encoder\PasswordEncoderInterface
+     * @return \Symfony\Component\PasswordHasher\PasswordHasherInterface
      */
-    protected function getPasswordEncoder(): PasswordEncoderInterface
+    protected function getPasswordEncoder(): PasswordHasherInterface
     {
         if (class_exists(NativePasswordEncoder::class)) {
-            return new NativePasswordEncoder(null, null, static::BCRYPT_FACTOR);
+            return new PasswordHasherAdapter(
+                new NativePasswordEncoder(null, null, static::BCRYPT_FACTOR),
+            );
         }
 
-        return new BCryptPasswordEncoder(static::BCRYPT_FACTOR);
+        return new NativePasswordHasher(null, null, static::BCRYPT_FACTOR);
     }
 
     /**
