@@ -7,7 +7,7 @@ use FondOfOryx\Zed\OneTimePassword\Persistence\OneTimePasswordEntityManagerInter
 use Generated\Shared\Transfer\CustomerTransfer;
 use Generated\Shared\Transfer\OneTimePasswordResponseTransfer;
 use Hackzilla\PasswordGenerator\Generator\HybridPasswordGenerator;
-use Symfony\Component\Security\Core\Encoder\PasswordEncoderInterface;
+use Symfony\Component\PasswordHasher\PasswordHasherInterface;
 
 class OneTimePasswordGenerator implements OneTimePasswordGeneratorInterface
 {
@@ -22,9 +22,9 @@ class OneTimePasswordGenerator implements OneTimePasswordGeneratorInterface
     protected $hybridPasswordGenerator;
 
     /**
-     * @var \Symfony\Component\Security\Core\Encoder\PasswordEncoderInterface
+     * @var \Symfony\Component\PasswordHasher\PasswordHasherInterface
      */
-    protected PasswordEncoderInterface $passwordHasher;
+    protected PasswordHasherInterface $passwordHasher;
 
     /**
      * @var \FondOfOryx\Zed\OneTimePassword\Persistence\OneTimePasswordEntityManagerInterface
@@ -38,13 +38,13 @@ class OneTimePasswordGenerator implements OneTimePasswordGeneratorInterface
 
     /**
      * @param \Hackzilla\PasswordGenerator\Generator\HybridPasswordGenerator $hybridPasswordGenerator
-     * @param \Symfony\Component\Security\Core\Encoder\PasswordEncoderInterface $passwordHasher
+     * @param \Symfony\Component\PasswordHasher\PasswordHasherInterface $passwordHasher
      * @param \FondOfOryx\Zed\OneTimePassword\Persistence\OneTimePasswordEntityManagerInterface $oneTimePasswordEntityManager
      * @param \FondOfOryx\Zed\OneTimePassword\OneTimePasswordConfig $oneTimePasswordConfig
      */
     public function __construct(
         HybridPasswordGenerator $hybridPasswordGenerator,
-        PasswordEncoderInterface $passwordHasher,
+        PasswordHasherInterface $passwordHasher,
         OneTimePasswordEntityManagerInterface $oneTimePasswordEntityManager,
         OneTimePasswordConfig $oneTimePasswordConfig
     ) {
@@ -65,7 +65,7 @@ class OneTimePasswordGenerator implements OneTimePasswordGeneratorInterface
 
         $password = $this->generateNewPassword();
 
-        $customerTransfer->setNewPassword($this->passwordHasher->encodePassword($password, static::BCRYPT_SALT));
+        $customerTransfer->setNewPassword($this->passwordHasher->hash($password));
 
         $customerResponseTransfer = $this->oneTimePasswordEntityManager->updateCustomerPassword($customerTransfer);
 
