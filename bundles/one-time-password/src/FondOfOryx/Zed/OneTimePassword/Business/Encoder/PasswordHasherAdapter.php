@@ -27,7 +27,7 @@ class PasswordHasherAdapter implements PasswordHasherInterface
      */
     public function hash(string $plainPassword): string
     {
-        return $this->passwordHasher->encodePassword($plainPassword);
+        return $this->passwordHasher->encodePassword($plainPassword, '');
     }
 
     /**
@@ -38,7 +38,7 @@ class PasswordHasherAdapter implements PasswordHasherInterface
      */
     public function verify(string $hashedPassword, string $plainPassword): bool
     {
-        return $this->passwordHasher->isPasswordValid($hashedPassword, $plainPassword);
+        return $this->passwordHasher->isPasswordValid($hashedPassword, $plainPassword, '');
     }
 
     /**
