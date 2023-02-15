@@ -8,7 +8,6 @@ use Generated\Shared\Transfer\CustomerTransfer;
 use Generated\Shared\Transfer\OneTimePasswordResponseTransfer;
 use Hackzilla\PasswordGenerator\Generator\HybridPasswordGenerator;
 use Symfony\Component\PasswordHasher\PasswordHasherInterface;
-use Symfony\Component\Security\Core\Encoder\PasswordEncoderInterface;
 
 class OneTimePasswordGenerator implements OneTimePasswordGeneratorInterface
 {
