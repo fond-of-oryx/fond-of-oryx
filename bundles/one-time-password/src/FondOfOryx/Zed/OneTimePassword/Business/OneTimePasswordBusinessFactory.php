@@ -21,7 +21,8 @@ use FondOfOryx\Zed\OneTimePassword\Dependency\Facade\OneTimePasswordToStoreFacad
 use FondOfOryx\Zed\OneTimePassword\OneTimePasswordDependencyProvider;
 use Hackzilla\PasswordGenerator\Generator\HybridPasswordGenerator;
 use Spryker\Zed\Kernel\Business\AbstractBusinessFactory;
-use Symfony\Component\Security\Core\Encoder\BCryptPasswordEncoder;
+use Symfony\Component\PasswordHasher\Hasher\NativePasswordHasher;
+use Symfony\Component\PasswordHasher\PasswordHasherInterface;
 use Symfony\Component\Security\Core\Encoder\NativePasswordEncoder;
 use Symfony\Component\Security\Core\Encoder\PasswordEncoderInterface;
 
@@ -99,13 +100,13 @@ class OneTimePasswordBusinessFactory extends AbstractBusinessFactory
     /**
      * @return \Symfony\Component\Security\Core\Encoder\PasswordEncoderInterface
      */
-    protected function getPasswordEncoder(): PasswordEncoderInterface
+    protected function getPasswordEncoder(): PasswordHasherInterface|PasswordEncoderInterface
     {
-        if (class_exists(NativePasswordEncoder::class)) {
-            return new NativePasswordEncoder(null, null, static::BCRYPT_FACTOR);
+        if (class_exists(NativePasswordHasher::class)) {
+            return new NativePasswordHasher(null, null, static::BCRYPT_FACTOR);
         }
 
-        return new BCryptPasswordEncoder(static::BCRYPT_FACTOR);
+        return new NativePasswordEncoder(null, null, static::BCRYPT_FACTOR);
     }
 
     /**

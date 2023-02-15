@@ -7,6 +7,7 @@ use FondOfOryx\Zed\OneTimePassword\Persistence\OneTimePasswordEntityManagerInter
 use Generated\Shared\Transfer\CustomerTransfer;
 use Generated\Shared\Transfer\OneTimePasswordResponseTransfer;
 use Hackzilla\PasswordGenerator\Generator\HybridPasswordGenerator;
+use Symfony\Component\PasswordHasher\PasswordHasherInterface;
 use Symfony\Component\Security\Core\Encoder\PasswordEncoderInterface;
 
 class OneTimePasswordGenerator implements OneTimePasswordGeneratorInterface
@@ -22,9 +23,9 @@ class OneTimePasswordGenerator implements OneTimePasswordGeneratorInterface
     protected $hybridPasswordGenerator;
 
     /**
-     * @var \Symfony\Component\Security\Core\Encoder\PasswordEncoderInterface
+     * @var \Symfony\Component\PasswordHasher\PasswordHasherInterface|\Symfony\Component\Security\Core\Encoder\PasswordEncoderInterface
      */
-    protected PasswordEncoderInterface $passwordHasher;
+    protected PasswordHasherInterface|PasswordEncoderInterface $passwordHasher;
 
     /**
      * @var \FondOfOryx\Zed\OneTimePassword\Persistence\OneTimePasswordEntityManagerInterface
@@ -38,13 +39,13 @@ class OneTimePasswordGenerator implements OneTimePasswordGeneratorInterface
 
     /**
      * @param \Hackzilla\PasswordGenerator\Generator\HybridPasswordGenerator $hybridPasswordGenerator
-     * @param \Symfony\Component\Security\Core\Encoder\PasswordEncoderInterface $passwordHasher
+     * @param \Symfony\Component\PasswordHasher\PasswordHasherInterface|\Symfony\Component\Security\Core\Encoder\PasswordEncoderInterface $passwordHasher
      * @param \FondOfOryx\Zed\OneTimePassword\Persistence\OneTimePasswordEntityManagerInterface $oneTimePasswordEntityManager
      * @param \FondOfOryx\Zed\OneTimePassword\OneTimePasswordConfig $oneTimePasswordConfig
      */
     public function __construct(
         HybridPasswordGenerator $hybridPasswordGenerator,
-        PasswordEncoderInterface $passwordHasher,
+        PasswordHasherInterface|PasswordEncoderInterface $passwordHasher,
         OneTimePasswordEntityManagerInterface $oneTimePasswordEntityManager,
         OneTimePasswordConfig $oneTimePasswordConfig
     ) {
