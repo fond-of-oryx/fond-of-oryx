@@ -13,11 +13,6 @@ use Symfony\Component\Security\Core\Encoder\PasswordEncoderInterface;
 class OneTimePasswordGenerator implements OneTimePasswordGeneratorInterface
 {
     /**
-     * @var string
-     */
-    protected const BCRYPT_SALT = '';
-
-    /**
      * @var \Hackzilla\PasswordGenerator\Generator\HybridPasswordGenerator
      */
     protected $hybridPasswordGenerator;
@@ -66,7 +61,7 @@ class OneTimePasswordGenerator implements OneTimePasswordGeneratorInterface
 
         $password = $this->generateNewPassword();
 
-        $customerTransfer->setNewPassword($this->passwordHasher->encodePassword($password, static::BCRYPT_SALT));
+        $customerTransfer->setNewPassword($this->passwordHasher->hash($password));
 
         $customerResponseTransfer = $this->oneTimePasswordEntityManager->updateCustomerPassword($customerTransfer);
 
