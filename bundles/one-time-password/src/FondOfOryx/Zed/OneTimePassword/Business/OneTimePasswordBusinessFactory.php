@@ -32,7 +32,7 @@ use Symfony\Component\Security\Core\Encoder\PasswordEncoderInterface;
 class OneTimePasswordBusinessFactory extends AbstractBusinessFactory
 {
     /**
-     * @var string
+     * @var int
      */
     protected const BCRYPT_FACTOR = 12;
 
