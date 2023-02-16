@@ -132,7 +132,7 @@ class ErpDeliveryNoteItemHandlerTest extends Unit
         $existingItem1->expects($this->atLeastOnce())->method('fromArray');
         $existingItem1->expects($this->atLeastOnce())->method('toArray')->willReturn([]);
         $this->erpDeliveryNoteItemTransferMock->expects($this->atLeastOnce())->method('getSku')->willReturn('sku');
-        $this->erpDeliveryNoteItemTransferMock->expects($this->atLeastOnce())->method('getPosition')->willReturn(2);
+        $this->erpDeliveryNoteItemTransferMock->expects($this->atLeastOnce())->method('getPosition')->willReturn(1);
         $this->erpDeliveryNoteItemTransferMock->expects($this->atLeastOnce())->method('fromArray');
         $this->erpDeliveryNoteItemTransferMock->expects($this->atLeastOnce())->method('toArray')->willReturn([]);
         $this->erpDeliveryNoteItemTransferMock->expects($this->never())->method('getIdErpDeliveryNoteItem');
