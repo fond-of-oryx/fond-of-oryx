@@ -38,6 +38,7 @@
         <property name="amount" type="ErpInvoiceAmount"/>
         <property name="createdAt" type="int"/>
         <property name="updatedAt" type="int"/>
+        <property name="position" type="int"/>
     </transfer>
 
     <transfer name="ErpInvoiceExpense">

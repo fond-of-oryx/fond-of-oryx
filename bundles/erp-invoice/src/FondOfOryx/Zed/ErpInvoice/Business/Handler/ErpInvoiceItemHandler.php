@@ -117,7 +117,7 @@ class ErpInvoiceItemHandler implements ErpInvoiceItemHandlerInterface
     /**
      * @param int $idErpInvoice
      *
-     * @return array<\Generated\Shared\Transfer\ErpInvoiceItemTransfer>
+     * @return array<array<\Generated\Shared\Transfer\ErpInvoiceItemTransfer>>
      */
     protected function getExistingErpInvoiceItems(int $idErpInvoice): array
     {
@@ -130,7 +130,7 @@ class ErpInvoiceItemHandler implements ErpInvoiceItemHandlerInterface
      * @param \Generated\Shared\Transfer\ErpInvoiceTransfer $erpInvoiceTransfer
      * @param \Generated\Shared\Transfer\ErpInvoiceTransfer|null $existingErpInvoiceTransfer
      *
-     * @return array
+     * @return array<\Generated\Shared\Transfer\ErpInvoiceTransfer>
      */
     protected function prepareItems(ErpInvoiceTransfer $erpInvoiceTransfer, ?ErpInvoiceTransfer $existingErpInvoiceTransfer = null): array
     {
@@ -144,19 +144,16 @@ class ErpInvoiceItemHandler implements ErpInvoiceItemHandlerInterface
         if (count($existingItems) === 0) {
             $existingItems = $this->getExistingErpInvoiceItems($erpInvoiceTransfer->getIdErpInvoice());
         }
-
         $new = [];
         $update = [];
 
         foreach ($erpInvoiceTransfer->getInvoiceItems() as $erpInvoiceItemTransfer) {
-            $sku = $erpInvoiceItemTransfer->getSku();
-            if (array_key_exists($sku, $existingItems)) {
-                $updateItem = $existingItems[$sku];
-                $idInvoiceItem = $updateItem->getIdErpInvoiceItem();
-                $updateItem->fromArray($erpInvoiceItemTransfer->toArray(), true);
-                $updateItem->setIdErpInvoiceItem($idInvoiceItem);
-                $update[] = $updateItem;
-                unset($existingItems[$sku]);
+            $itemIndex = $this->getItemIndex($erpInvoiceItemTransfer);
+            if (array_key_exists($itemIndex, $existingItems)) {
+                $update[] = $this->updateItemData(array_pop($existingItems[$itemIndex]), $erpInvoiceItemTransfer);
+                if (count($existingItems[$itemIndex]) === 0) {
+                    unset($existingItems[$itemIndex]);
+                }
 
                 continue;
             }
@@ -164,10 +161,12 @@ class ErpInvoiceItemHandler implements ErpInvoiceItemHandlerInterface
             $new[] = $erpInvoiceItemTransfer;
         }
 
+        $delete = $this->resolveItemsToDelete($existingItems);
+
         return [
             static::NEW => $new,
             static::UPDATE => $update,
-            static::DELETE => $existingItems,
+            static::DELETE => $delete,
         ];
     }
 
@@ -180,9 +179,51 @@ class ErpInvoiceItemHandler implements ErpInvoiceItemHandlerInterface
     {
         $existingItems = [];
         foreach ($itemsCollection->getItems() as $itemTransfer) {
-            $existingItems[$itemTransfer->getSku()] = $itemTransfer;
+            $existingItems[$this->getItemIndex($itemTransfer)][] = $itemTransfer;
         }
 
         return $existingItems;
+    }
+
+    /**
+     * @param \Generated\Shared\Transfer\ErpInvoiceItemTransfer $itemTransfer
+     *
+     * @return string
+     */
+    protected function getItemIndex(ErpInvoiceItemTransfer $itemTransfer): string
+    {
+        return sprintf('%s.%s', $itemTransfer->getSku(), $itemTransfer->getPosition());
+    }
+
+    /**
+     * @param array<array<\Generated\Shared\Transfer\ErpInvoiceItemTransfer>> $existingItems
+     *
+     * @return array<\Generated\Shared\Transfer\ErpInvoiceItemTransfer>
+     */
+    protected function resolveItemsToDelete(array $existingItems): array
+    {
+        $delete = [];
+        foreach ($existingItems as $existingItemBag) {
+            foreach ($existingItemBag as $existingItem) {
+                $delete[] = $existingItem;
+            }
+        }
+
+        return $delete;
+    }
+
+    /**
+     * @param \Generated\Shared\Transfer\ErpInvoiceItemTransfer $updateItem
+     * @param \Generated\Shared\Transfer\ErpInvoiceItemTransfer $erpInvoiceItemTransfer
+     *
+     * @return \Generated\Shared\Transfer\ErpInvoiceItemTransfer
+     */
+    protected function updateItemData(ErpInvoiceItemTransfer $updateItem, ErpInvoiceItemTransfer $erpInvoiceItemTransfer): ErpInvoiceItemTransfer
+    {
+        $idInvoiceItem = $updateItem->getIdErpInvoiceItem();
+        $updateItem->fromArray($erpInvoiceItemTransfer->toArray(), true);
+        $updateItem->setIdErpInvoiceItem($idInvoiceItem);
+
+        return $updateItem;
     }
 }
