@@ -218,6 +218,10 @@
       "path": "bundles/customer-address-sales-connector/",
       "version": "2.0.0"
     },
+    "customer-api": {
+      "path": "bundles/customer-api/",
+      "version": "1.0.0"
+    },
     "customer-brand-product-list-connector": {
       "path": "bundles/customer-brand-product-list-connector/",
       "version": "2.0.0"
