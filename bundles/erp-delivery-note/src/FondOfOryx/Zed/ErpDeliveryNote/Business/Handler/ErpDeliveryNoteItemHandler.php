@@ -132,7 +132,7 @@ class ErpDeliveryNoteItemHandler implements ErpDeliveryNoteItemHandlerInterface
      * @param \Generated\Shared\Transfer\ErpDeliveryNoteTransfer $erpDeliveryNoteTransfer
      * @param \Generated\Shared\Transfer\ErpDeliveryNoteTransfer|null $existingErpDeliveryNoteTransfer
      *
-     * @return array<\Generated\Shared\Transfer\ErpDeliveryNoteItemTransfer>
+     * @return array<string, array<\Generated\Shared\Transfer\ErpDeliveryNoteItemTransfer>>
      */
     protected function prepareItems(ErpDeliveryNoteTransfer $erpDeliveryNoteTransfer, ?ErpDeliveryNoteTransfer $existingErpDeliveryNoteTransfer = null): array
     {
@@ -196,7 +196,9 @@ class ErpDeliveryNoteItemHandler implements ErpDeliveryNoteItemHandlerInterface
     protected function getItemIndex(ErpDeliveryNoteItemTransfer $itemTransfer): string
     {
         return sprintf('%s.%s', $itemTransfer->getSku(), $itemTransfer->getPosition());
-    }/**
+    }
+
+/**
  * @param array<array<\Generated\Shared\Transfer\ErpDeliveryNoteItemTransfer>> $existingItems
  *
  * @return array<\Generated\Shared\Transfer\ErpDeliveryNoteItemTransfer>
@@ -219,8 +221,10 @@ class ErpDeliveryNoteItemHandler implements ErpDeliveryNoteItemHandlerInterface
      *
      * @return \Generated\Shared\Transfer\ErpDeliveryNoteItemTransfer
      */
-    protected function updateItemData(ErpDeliveryNoteItemTransfer $updateItem, ErpDeliveryNoteItemTransfer $erpDeliveryNoteItemTransfer): ErpDeliveryNoteItemTransfer
-    {
+    protected function updateItemData(
+        ErpDeliveryNoteItemTransfer $updateItem,
+        ErpDeliveryNoteItemTransfer $erpDeliveryNoteItemTransfer
+    ): ErpDeliveryNoteItemTransfer {
         $idDeliveryNoteItem = $updateItem->getIdErpDeliveryNoteItem();
         $updateItem->fromArray($erpDeliveryNoteItemTransfer->toArray(), true);
         $updateItem->setIdErpDeliveryNoteItem($idDeliveryNoteItem);

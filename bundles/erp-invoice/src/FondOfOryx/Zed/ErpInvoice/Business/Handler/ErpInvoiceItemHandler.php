@@ -130,7 +130,7 @@ class ErpInvoiceItemHandler implements ErpInvoiceItemHandlerInterface
      * @param \Generated\Shared\Transfer\ErpInvoiceTransfer $erpInvoiceTransfer
      * @param \Generated\Shared\Transfer\ErpInvoiceTransfer|null $existingErpInvoiceTransfer
      *
-     * @return array<\Generated\Shared\Transfer\ErpInvoiceTransfer>
+     * @return array<string, array<\Generated\Shared\Transfer\ErpInvoiceItemTransfer>>
      */
     protected function prepareItems(ErpInvoiceTransfer $erpInvoiceTransfer, ?ErpInvoiceTransfer $existingErpInvoiceTransfer = null): array
     {

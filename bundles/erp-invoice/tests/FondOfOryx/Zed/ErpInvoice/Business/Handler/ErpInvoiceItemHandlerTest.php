@@ -100,7 +100,8 @@ class ErpInvoiceItemHandlerTest extends Unit
         $this->itemReaderMock->expects($this->atLeastOnce())->method('findErpInvoiceItemsByIdErpInvoice')->willReturn($this->erpInvoiceItemCollectionTransferMock);
         $this->erpInvoiceItemCollectionTransferMock->expects($this->once())->method('getItems')->willReturn(new ArrayObject());
 
-        $this->erpInvoiceItemTransferMock->expects($this->atLeastOnce())->method('getSku')->willReturn(3);
+        $this->erpInvoiceItemTransferMock->expects($this->atLeastOnce())->method('getSku')->willReturn('sku');
+        $this->erpInvoiceItemTransferMock->expects($this->atLeastOnce())->method('getPosition')->willReturn(1);
 
         $this->erpInvoiceTransferMock->expects($this->atLeastOnce())->method('getIdErpInvoice')->willReturn(1);
         $this->erpInvoiceTransferMock->expects($this->atLeastOnce())->method('getInvoiceItems')->willReturn($items);
@@ -125,11 +126,13 @@ class ErpInvoiceItemHandlerTest extends Unit
         $this->itemReaderMock->expects($this->atLeastOnce())->method('findErpInvoiceItemsByIdErpInvoice')->willReturn($this->erpInvoiceItemCollectionTransferMock);
         $this->erpInvoiceItemCollectionTransferMock->expects($this->atLeastOnce())->method('getItems')->willReturn($existingItems);
 
-        $existingItem1->expects($this->atLeastOnce())->method('getSku')->willReturn(1);
+        $existingItem1->expects($this->atLeastOnce())->method('getSku')->willReturn('sku');
+//        $existingItem1->expects($this->atLeastOnce())->method('getPosition')->willReturn(1);
         $existingItem1->expects($this->atLeastOnce())->method('getIdErpInvoiceItem')->willReturn(1);
         $existingItem1->expects($this->atLeastOnce())->method('fromArray');
         $existingItem1->expects($this->atLeastOnce())->method('toArray')->willReturn([]);
-        $this->erpInvoiceItemTransferMock->expects($this->atLeastOnce())->method('getSku')->willReturn(1);
+        $this->erpInvoiceItemTransferMock->expects($this->atLeastOnce())->method('getSku')->willReturn('sku');
+//        $this->erpInvoiceItemTransferMock->expects($this->atLeastOnce())->method('getPosition')->willReturn(2);
         $this->erpInvoiceItemTransferMock->expects($this->atLeastOnce())->method('fromArray');
         $this->erpInvoiceItemTransferMock->expects($this->atLeastOnce())->method('toArray')->willReturn([]);
         $this->erpInvoiceItemTransferMock->expects($this->never())->method('getIdErpInvoiceItem');
@@ -160,9 +163,11 @@ class ErpInvoiceItemHandlerTest extends Unit
         $this->itemReaderMock->expects($this->atLeastOnce())->method('findErpInvoiceItemsByIdErpInvoice')->willReturn($this->erpInvoiceItemCollectionTransferMock);
         $this->erpInvoiceItemCollectionTransferMock->expects($this->atLeastOnce())->method('getItems')->willReturn($existingItems);
 
-        $existingItem1->expects($this->atLeastOnce())->method('getSku')->willReturn(1);
+        $existingItem1->expects($this->atLeastOnce())->method('getSku')->willReturn('sku');
+        $existingItem1->expects($this->atLeastOnce())->method('getPosition')->willReturn(1);
         $existingItem1->expects($this->atLeastOnce())->method('getIdErpInvoiceItem')->willReturn(1);
-        $existingItem2->expects($this->atLeastOnce())->method('getSku')->willReturn(2);
+        $existingItem2->expects($this->atLeastOnce())->method('getSku')->willReturn('sku');
+        $existingItem2->expects($this->atLeastOnce())->method('getPosition')->willReturn(2);
         $existingItem2->expects($this->atLeastOnce())->method('getIdErpInvoiceItem')->willReturn(2);
         $this->erpInvoiceItemTransferMock->expects($this->atLeastOnce())->method('getSku')->willReturn(3);
 
