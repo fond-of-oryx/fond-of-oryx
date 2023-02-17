@@ -4,6 +4,7 @@ namespace FondOfOryx\Zed\CustomerApi\Business\Resource;
 
 use Codeception\Test\Unit;
 use Exception;
+use FondOfOryx\Zed\CustomerApi\Business\Mapper\CustomerApiMapperInterface;
 use FondOfOryx\Zed\CustomerApi\Dependency\Facade\CustomerApiToApiFacadeInterface;
 use FondOfOryx\Zed\CustomerApi\Dependency\Facade\CustomerApiToCustomerFacadeInterface;
 use FondOfOryx\Zed\CustomerApi\Persistence\CustomerApiRepositoryInterface;
@@ -11,12 +12,18 @@ use Generated\Shared\Transfer\ApiCollectionTransfer;
 use Generated\Shared\Transfer\ApiDataTransfer;
 use Generated\Shared\Transfer\ApiItemTransfer;
 use Generated\Shared\Transfer\ApiRequestTransfer;
+use Generated\Shared\Transfer\CustomerApiTransfer;
 use Generated\Shared\Transfer\CustomerResponseTransfer;
 use Generated\Shared\Transfer\CustomerTransfer;
 use PHPUnit\Framework\MockObject\MockObject;
 
 class CustomerResourceTest extends Unit
 {
+    /**
+     * @var (\FondOfOryx\Zed\CustomerApi\Business\Mapper\CustomerApiMapperInterface&\PHPUnit\Framework\MockObject\MockObject)|\PHPUnit\Framework\MockObject\MockObject
+     */
+    protected MockObject|CustomerApiMapperInterface $customerApiMapperMock;
+
     /**
      * @var (\FondOfOryx\Zed\CustomerApi\Dependency\Facade\CustomerApiToApiFacadeInterface&\PHPUnit\Framework\MockObject\MockObject)|\PHPUnit\Framework\MockObject\MockObject
      */
@@ -63,6 +70,11 @@ class CustomerResourceTest extends Unit
     protected ApiCollectionTransfer|MockObject $apiCollectionTransferMock;
 
     /**
+     * @var (\Generated\Shared\Transfer\CustomerApiTransfer&\PHPUnit\Framework\MockObject\MockObject)|\PHPUnit\Framework\MockObject\MockObject
+     */
+    protected CustomerApiTransfer|MockObject $customerApiTransferMock;
+
+    /**
      * @var \FondOfOryx\Zed\CustomerApi\Business\Resource\CustomerResource
      */
     protected CustomerResource $customerResource;
@@ -73,6 +85,10 @@ class CustomerResourceTest extends Unit
     protected function _before(): void
     {
         parent::_before();
+
+        $this->customerApiMapperMock = $this->getMockBuilder(CustomerApiMapperInterface::class)
+            ->disableOriginalConstructor()
+            ->getMock();
 
         $this->apiFacadeMock = $this->getMockBuilder(CustomerApiToApiFacadeInterface::class)
             ->disableOriginalConstructor()
@@ -110,7 +126,12 @@ class CustomerResourceTest extends Unit
             ->disableOriginalConstructor()
             ->getMock();
 
+        $this->customerApiTransferMock = $this->getMockBuilder(CustomerApiTransfer::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
         $this->customerResource = new CustomerResource(
+            $this->customerApiMapperMock,
             $this->apiFacadeMock,
             $this->customerFacadeMock,
             $this->repositoryMock,
@@ -144,9 +165,14 @@ class CustomerResourceTest extends Unit
             ->method('getIdCustomer')
             ->willReturn($id);
 
+        $this->customerApiMapperMock->expects(static::atLeastOnce())
+            ->method('fromCustomer')
+            ->with($this->customerTransferMock)
+            ->willReturn($this->customerApiTransferMock);
+
         $this->apiFacadeMock->expects(static::atLeastOnce())
             ->method('createApiItem')
-            ->with($this->customerTransferMock, $id)
+            ->with($this->customerApiTransferMock, (string)$id)
             ->willReturn($this->apiItemTransferMock);
 
         static::assertEquals(
@@ -177,6 +203,9 @@ class CustomerResourceTest extends Unit
 
         $this->customerTransferMock->expects(static::never())
             ->method('getIdCustomer');
+
+        $this->customerApiMapperMock->expects(static::never())
+            ->method('fromCustomer');
 
         $this->apiFacadeMock->expects(static::never())
             ->method('createApiItem');
@@ -234,9 +263,14 @@ class CustomerResourceTest extends Unit
             ->method('getIdCustomer')
             ->willReturn($id);
 
+        $this->customerApiMapperMock->expects(static::atLeastOnce())
+            ->method('fromCustomer')
+            ->with($this->customerTransferMock)
+            ->willReturn($this->customerApiTransferMock);
+
         $this->apiFacadeMock->expects(static::atLeastOnce())
             ->method('createApiItem')
-            ->with($this->customerTransferMock, (string)$id)
+            ->with($this->customerApiTransferMock, (string)$id)
             ->willReturn($this->apiItemTransferMock);
 
         static::assertEquals(
@@ -284,6 +318,9 @@ class CustomerResourceTest extends Unit
 
         $this->customerResponseTransferMock->expects(static::never())
             ->method('getIsSuccess');
+
+        $this->customerApiMapperMock->expects(static::never())
+            ->method('fromCustomer');
 
         $this->apiFacadeMock->expects(static::never())
             ->method('createApiItem');
@@ -340,9 +377,14 @@ class CustomerResourceTest extends Unit
             ->method('getIdCustomer')
             ->willReturn($id);
 
+        $this->customerApiMapperMock->expects(static::atLeastOnce())
+            ->method('fromCustomer')
+            ->with($this->customerTransferMock)
+            ->willReturn($this->customerApiTransferMock);
+
         $this->apiFacadeMock->expects(static::atLeastOnce())
             ->method('createApiItem')
-            ->with($this->customerTransferMock, $id)
+            ->with($this->customerApiTransferMock, $id)
             ->willReturn($this->apiItemTransferMock);
 
         static::assertEquals(
@@ -413,7 +455,12 @@ class CustomerResourceTest extends Unit
             ->method('getIdCustomer')
             ->willReturn($apiCollectionTransferData[0]['id_customer']);
 
-        $this->customerTransferMock->expects(static::atLeastOnce())
+        $this->customerApiMapperMock->expects(static::atLeastOnce())
+            ->method('fromCustomer')
+            ->with($this->customerTransferMock)
+            ->willReturn($this->customerApiTransferMock);
+
+        $this->customerApiTransferMock->expects(static::atLeastOnce())
             ->method('toArray')
             ->willReturn($data);
 

@@ -2,6 +2,8 @@
 
 namespace FondOfOryx\Zed\CustomerApi\Business;
 
+use FondOfOryx\Zed\CustomerApi\Business\Mapper\CustomerApiMapper;
+use FondOfOryx\Zed\CustomerApi\Business\Mapper\CustomerApiMapperInterface;
 use FondOfOryx\Zed\CustomerApi\Business\Resource\CustomerResource;
 use FondOfOryx\Zed\CustomerApi\Business\Resource\CustomerResourceInterface;
 use FondOfOryx\Zed\CustomerApi\Business\Validator\ApiRequestValidator;
@@ -30,10 +32,19 @@ class CustomerApiBusinessFactory extends AbstractBusinessFactory
     public function createCustomerResource(): CustomerResourceInterface
     {
         return new CustomerResource(
+            $this->createCustomerApiMapper(),
             $this->getApiFacade(),
             $this->getCustomerFacade(),
             $this->getRepository(),
         );
+    }
+
+    /**
+     * @return \FondOfOryx\Zed\CustomerApi\Business\Mapper\CustomerApiMapperInterface
+     */
+    protected function createCustomerApiMapper(): CustomerApiMapperInterface
+    {
+        return new CustomerApiMapper();
     }
 
     /**
