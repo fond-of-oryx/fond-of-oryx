@@ -2,6 +2,7 @@
 
 namespace FondOfOryx\Zed\CustomerApi\Business\Resource;
 
+use FondOfOryx\Zed\CustomerApi\Business\Mapper\CustomerApiMapperInterface;
 use FondOfOryx\Zed\CustomerApi\Dependency\Facade\CustomerApiToApiFacadeInterface;
 use FondOfOryx\Zed\CustomerApi\Dependency\Facade\CustomerApiToCustomerFacadeInterface;
 use FondOfOryx\Zed\CustomerApi\Persistence\CustomerApiRepositoryInterface;
@@ -22,6 +23,11 @@ class CustomerResource implements CustomerResourceInterface
     protected const KEY_ID_CUSTOMER = 'id_customer';
 
     /**
+     * @var \FondOfOryx\Zed\CustomerApi\Business\Mapper\CustomerApiMapperInterface
+     */
+    protected CustomerApiMapperInterface $customerApiMapper;
+
+    /**
      * @var \FondOfOryx\Zed\CustomerApi\Dependency\Facade\CustomerApiToApiFacadeInterface
      */
     protected CustomerApiToApiFacadeInterface $apiFacade;
@@ -37,15 +43,18 @@ class CustomerResource implements CustomerResourceInterface
     protected CustomerApiRepositoryInterface $repository;
 
     /**
+     * @param \FondOfOryx\Zed\CustomerApi\Business\Mapper\CustomerApiMapperInterface $customerApiMapper
      * @param \FondOfOryx\Zed\CustomerApi\Dependency\Facade\CustomerApiToApiFacadeInterface $apiFacade
      * @param \FondOfOryx\Zed\CustomerApi\Dependency\Facade\CustomerApiToCustomerFacadeInterface $customerFacade
      * @param \FondOfOryx\Zed\CustomerApi\Persistence\CustomerApiRepositoryInterface $repository
      */
     public function __construct(
+        CustomerApiMapperInterface $customerApiMapper,
         CustomerApiToApiFacadeInterface $apiFacade,
         CustomerApiToCustomerFacadeInterface $customerFacade,
         CustomerApiRepositoryInterface $repository
     ) {
+        $this->customerApiMapper = $customerApiMapper;
         $this->apiFacade = $apiFacade;
         $this->customerFacade = $customerFacade;
         $this->repository = $repository;
@@ -71,7 +80,10 @@ class CustomerResource implements CustomerResourceInterface
             );
         }
 
-        return $this->apiFacade->createApiItem($customerTransfer, (string)$customerTransfer->getIdCustomer());
+        return $this->apiFacade->createApiItem(
+            $this->customerApiMapper->fromCustomer($customerTransfer),
+            (string)$customerTransfer->getIdCustomer(),
+        );
     }
 
     /**
@@ -83,7 +95,10 @@ class CustomerResource implements CustomerResourceInterface
     {
         $customerTransfer = $this->getCustomerById($id);
 
-        return $this->apiFacade->createApiItem($customerTransfer, (string)$customerTransfer->getIdCustomer());
+        return $this->apiFacade->createApiItem(
+            $this->customerApiMapper->fromCustomer($customerTransfer),
+            (string)$customerTransfer->getIdCustomer(),
+        );
     }
 
     /**
@@ -108,7 +123,10 @@ class CustomerResource implements CustomerResourceInterface
             );
         }
 
-        return $this->apiFacade->createApiItem($customerTransfer, (string)$customerTransfer->getIdCustomer());
+        return $this->apiFacade->createApiItem(
+            $this->customerApiMapper->fromCustomer($customerTransfer),
+            (string)$customerTransfer->getIdCustomer(),
+        );
     }
 
     /**
@@ -140,7 +158,11 @@ class CustomerResource implements CustomerResourceInterface
                 continue;
             }
 
-            $data[$index] = $this->getCustomerById($item[static::KEY_ID_CUSTOMER])->toArray();
+            $customerApiTransfer = $this->customerApiMapper->fromCustomer(
+                $this->getCustomerById($item[static::KEY_ID_CUSTOMER]),
+            );
+
+            $data[$index] = $customerApiTransfer->toArray();
         }
 
         return $apiCollectionTransfer->setData($data);

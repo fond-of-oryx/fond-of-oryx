@@ -14,6 +14,28 @@
         <property name="data" type="array" singular="data"/>
     </transfer>
 
+    <transfer name="CustomerApi">
+        <property name="idCustomer" type="int"/>
+        <property name="email" type="string"/>
+        <property name="firstName" type="string"/>
+        <property name="lastName" type="string"/>
+        <property name="customerReference" type="string"/>
+        <property name="company" type="string"/>
+        <property name="gender" type="string"/>
+        <property name="dateOfBirth" type="string"/>
+        <property name="salutation" type="string"/>
+        <property name="defaultBillingAddress" type="int"/>
+        <property name="defaultShippingAddress" type="int"/>
+        <property name="createdAt" type="string"/>
+        <property name="updatedAt" type="string"/>
+        <property name="restorePasswordKey" type="string"/>
+        <property name="restorePasswordDate" type="string"/>
+        <property name="registrationKey" type="string"/>
+        <property name="confirmationLink" type="string"/>
+        <property name="registered" type="string"/>
+        <property name="fkLocale" type="int"/>
+    </transfer>
+
     <transfer name="Customer">
         <property name="idCustomer" type="int"/>
     </transfer>
