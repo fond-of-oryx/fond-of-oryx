@@ -312,7 +312,7 @@
     },
     "erp-delivery-note-page-search-rest-api": {
       "path": "bundles/erp-delivery-note-page-search-rest-api/",
-      "version": "2.1.0"
+      "version": "2.2.0"
     },
     "erp-delivery-note-permission": {
       "path": "bundles/erp-delivery-note-permission/",
@@ -336,7 +336,7 @@
     },
     "erp-invoice-page-search-rest-api": {
       "path": "bundles/erp-invoice-page-search-rest-api/",
-      "version": "2.1.0"
+      "version": "2.2.0"
     },
     "erp-invoice-permission": {
       "path": "bundles/erp-invoice-permission/",

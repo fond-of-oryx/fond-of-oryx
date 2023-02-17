@@ -127,12 +127,10 @@ class ErpInvoiceItemHandlerTest extends Unit
         $this->erpInvoiceItemCollectionTransferMock->expects($this->atLeastOnce())->method('getItems')->willReturn($existingItems);
 
         $existingItem1->expects($this->atLeastOnce())->method('getSku')->willReturn('sku');
-//        $existingItem1->expects($this->atLeastOnce())->method('getPosition')->willReturn(1);
         $existingItem1->expects($this->atLeastOnce())->method('getIdErpInvoiceItem')->willReturn(1);
         $existingItem1->expects($this->atLeastOnce())->method('fromArray');
         $existingItem1->expects($this->atLeastOnce())->method('toArray')->willReturn([]);
         $this->erpInvoiceItemTransferMock->expects($this->atLeastOnce())->method('getSku')->willReturn('sku');
-//        $this->erpInvoiceItemTransferMock->expects($this->atLeastOnce())->method('getPosition')->willReturn(2);
         $this->erpInvoiceItemTransferMock->expects($this->atLeastOnce())->method('fromArray');
         $this->erpInvoiceItemTransferMock->expects($this->atLeastOnce())->method('toArray')->willReturn([]);
         $this->erpInvoiceItemTransferMock->expects($this->never())->method('getIdErpInvoiceItem');

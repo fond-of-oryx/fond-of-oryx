@@ -80,6 +80,7 @@
         <property name="discountType" type="string"/>
         <property name="amount" type="RestErpInvoiceAmount"/>
         <property name="unitPrice" type="RestErpInvoiceAmount"/>
+        <property name="position" type="int"/>
     </transfer>
 
     <transfer name="RestErpInvoiceExpense">
