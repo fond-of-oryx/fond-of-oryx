@@ -132,7 +132,7 @@ class ErpDeliveryNoteItemHandler implements ErpDeliveryNoteItemHandlerInterface
      * @param \Generated\Shared\Transfer\ErpDeliveryNoteTransfer $erpDeliveryNoteTransfer
      * @param \Generated\Shared\Transfer\ErpDeliveryNoteTransfer|null $existingErpDeliveryNoteTransfer
      *
-     * @return array
+     * @return array<string, array<\Generated\Shared\Transfer\ErpDeliveryNoteItemTransfer>>
      */
     protected function prepareItems(ErpDeliveryNoteTransfer $erpDeliveryNoteTransfer, ?ErpDeliveryNoteTransfer $existingErpDeliveryNoteTransfer = null): array
     {
@@ -151,14 +151,12 @@ class ErpDeliveryNoteItemHandler implements ErpDeliveryNoteItemHandlerInterface
         $update = [];
 
         foreach ($erpDeliveryNoteTransfer->getDeliveryNoteItems() as $erpDeliveryNoteItemTransfer) {
-            $sku = $erpDeliveryNoteItemTransfer->getSku();
-            if (array_key_exists($sku, $existingItems)) {
-                $updateItem = $existingItems[$sku];
-                $idDeliveryNoteItem = $updateItem->getIdErpDeliveryNoteItem();
-                $updateItem->fromArray($erpDeliveryNoteItemTransfer->toArray(), true);
-                $updateItem->setIdErpDeliveryNoteItem($idDeliveryNoteItem);
-                $update[] = $updateItem;
-                unset($existingItems[$sku]);
+            $itemIndex = $this->getItemIndex($erpDeliveryNoteItemTransfer);
+            if (array_key_exists($itemIndex, $existingItems)) {
+                $update[] = $this->updateItemData(array_pop($existingItems[$itemIndex]), $erpDeliveryNoteItemTransfer);
+                if (count($existingItems[$itemIndex]) === 0) {
+                    unset($existingItems[$itemIndex]);
+                }
 
                 continue;
             }
@@ -166,10 +164,12 @@ class ErpDeliveryNoteItemHandler implements ErpDeliveryNoteItemHandlerInterface
             $new[] = $erpDeliveryNoteItemTransfer;
         }
 
+        $delete = $this->resolveItemsToDelete($existingItems);
+
         return [
             static::NEW => $new,
             static::UPDATE => $update,
-            static::DELETE => $existingItems,
+            static::DELETE => $delete,
         ];
     }
 
@@ -182,9 +182,53 @@ class ErpDeliveryNoteItemHandler implements ErpDeliveryNoteItemHandlerInterface
     {
         $existingItems = [];
         foreach ($itemsCollection->getItems() as $itemTransfer) {
-            $existingItems[$itemTransfer->getSku()] = $itemTransfer;
+            $existingItems[$this->getItemIndex($itemTransfer)][] = $itemTransfer;
         }
 
         return $existingItems;
+    }
+
+    /**
+     * @param \Generated\Shared\Transfer\ErpDeliveryNoteItemTransfer $itemTransfer
+     *
+     * @return string
+     */
+    protected function getItemIndex(ErpDeliveryNoteItemTransfer $itemTransfer): string
+    {
+        return sprintf('%s.%s', $itemTransfer->getSku(), $itemTransfer->getPosition());
+    }
+
+/**
+ * @param array<array<\Generated\Shared\Transfer\ErpDeliveryNoteItemTransfer>> $existingItems
+ *
+ * @return array<\Generated\Shared\Transfer\ErpDeliveryNoteItemTransfer>
+ */
+    protected function resolveItemsToDelete(array $existingItems): array
+    {
+        $delete = [];
+        foreach ($existingItems as $existingItemBag) {
+            foreach ($existingItemBag as $existingItem) {
+                $delete[] = $existingItem;
+            }
+        }
+
+        return $delete;
+    }
+
+    /**
+     * @param \Generated\Shared\Transfer\ErpDeliveryNoteItemTransfer $updateItem
+     * @param \Generated\Shared\Transfer\ErpDeliveryNoteItemTransfer $erpDeliveryNoteItemTransfer
+     *
+     * @return \Generated\Shared\Transfer\ErpDeliveryNoteItemTransfer
+     */
+    protected function updateItemData(
+        ErpDeliveryNoteItemTransfer $updateItem,
+        ErpDeliveryNoteItemTransfer $erpDeliveryNoteItemTransfer
+    ): ErpDeliveryNoteItemTransfer {
+        $idDeliveryNoteItem = $updateItem->getIdErpDeliveryNoteItem();
+        $updateItem->fromArray($erpDeliveryNoteItemTransfer->toArray(), true);
+        $updateItem->setIdErpDeliveryNoteItem($idDeliveryNoteItem);
+
+        return $updateItem;
     }
 }
