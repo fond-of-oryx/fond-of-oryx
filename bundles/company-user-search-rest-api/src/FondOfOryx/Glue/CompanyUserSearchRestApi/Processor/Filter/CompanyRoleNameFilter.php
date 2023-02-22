@@ -3,7 +3,6 @@
 namespace FondOfOryx\Glue\CompanyUserSearchRestApi\Processor\Filter;
 
 use Spryker\Glue\GlueApplication\Rest\Request\Data\RestRequestInterface;
-use Symfony\Component\HttpFoundation\InputBag;
 
 class CompanyRoleNameFilter implements CompanyRoleNameFilterInterface
 {
@@ -16,7 +15,7 @@ class CompanyRoleNameFilter implements CompanyRoleNameFilterInterface
     {
         $bag = $restRequest->getHttpRequest()->query;
 
-        $companyRoles =  $bag->all('company-role-name');
+        $companyRoles = $bag->all('company-role-name');
 
         return $companyRoles;
     }
