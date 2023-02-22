@@ -132,7 +132,7 @@ class JellyfishBufferRepositoryTest extends Unit
         $this->jellyfishBufferPersistenceFactoryMock->expects(static::once())->method('createJellyfishBufferMapper')->willReturn($this->jellyfishBufferMapperMock);
         $this->filterTransferMock->expects(static::atLeastOnce())->method('getForceReexport')->willReturn(false);
         $this->filterTransferMock->expects(static::atLeastOnce())->method('getStore')->willReturn('testStore');
-        $this->filterTransferMock->expects(static::once())->method('getIds');
+        $this->filterTransferMock->expects(static::atLeastOnce())->method('getIds')->willReturn([]);
         $this->filterTransferMock->expects(static::once())->method('getRangeFrom')->willReturn(1);
         $this->filterTransferMock->expects(static::once())->method('getRangeTo')->willReturn(10);
         $this->exportedOrderQueryMock->expects(static::once())->method('filterByIsReexported')->with(false);

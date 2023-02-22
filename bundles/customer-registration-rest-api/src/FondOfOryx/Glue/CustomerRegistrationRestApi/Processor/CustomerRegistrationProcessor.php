@@ -102,7 +102,7 @@ class CustomerRegistrationProcessor implements CustomerRegistrationProcessorInte
             ->setCustomer($customerTransfer)
             ->setOneTimePasswordAttributes((new OneTimePasswordAttributesTransfer())->setCallbackUrl($restCustomerRegistrationRequestAttributesTransfer->getCallbackUrl()));
 
-        if ($customerResponseTransfer->getErrors() !== null) {
+        if ($customerResponseTransfer->getErrors()->count() > 0) {
             $this->preProcessCustomerErrorOnRegistration(
                 $handleKnownCustomerTransfer,
                 $customerResponseTransfer->getErrors(),

@@ -82,7 +82,8 @@ class JellyfishCreditMemoMapper implements JellyfishCreditMemoMapperInterface
         }
 
         $state = array_search($state, CreditMemoConstants::STATE_MAPPING);
-        if ($state !== null && $state !== false) {
+
+        if ($state !== false) {
             return $state;
         }
 
