@@ -19,7 +19,10 @@ class CustomerFilterFieldsExpanderPlugin extends AbstractPlugin implements Filte
      */
     public function expand(RestRequestInterface $restRequest, ArrayObject $filterFieldTransfers): ArrayObject
     {
-        $restUser = $restRequest->getRestUser();
+        $getUserMethod = method_exists($restRequest, 'getRestUser') ? 'getRestUser' : 'getUser';
+
+        /** @var \Generated\Shared\Transfer\RestUserTransfer|\Spryker\Glue\GlueApplication\Rest\Request\Data\UserInterface|null $restUser */
+        $restUser = $restRequest->$getUserMethod();
 
         if ($restUser === null || $restUser->getSurrogateIdentifier() === null) {
             return $filterFieldTransfers;
@@ -27,7 +30,7 @@ class CustomerFilterFieldsExpanderPlugin extends AbstractPlugin implements Filte
 
         $filterFieldTransfer = (new FilterFieldTransfer())
             ->setType(CartSearchRestApiConstants::FILTER_FIELD_TYPE_ID_CUSTOMER)
-            ->setValue((string)$restUser->getSurrogateIdentifier());
+            ->setValue($restUser->getSurrogateIdentifier());
 
         $filterFieldTransfers->append($filterFieldTransfer);
 
