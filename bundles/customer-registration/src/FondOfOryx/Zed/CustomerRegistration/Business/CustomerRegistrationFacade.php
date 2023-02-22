@@ -4,6 +4,7 @@ namespace FondOfOryx\Zed\CustomerRegistration\Business;
 
 use Generated\Shared\Transfer\CustomerRegistrationRequestTransfer;
 use Generated\Shared\Transfer\CustomerRegistrationResponseTransfer;
+use Generated\Shared\Transfer\CustomerRegistrationTransfer;
 use Generated\Shared\Transfer\CustomerTransfer;
 use Spryker\Zed\Kernel\Business\AbstractFacade;
 
@@ -108,5 +109,15 @@ class CustomerRegistrationFacade extends AbstractFacade implements CustomerRegis
     public function sendWelcomeMail(CustomerTransfer $customerTransfer): void
     {
         $this->getFactory()->createWelcomeMail()->sendWelcomeMail($customerTransfer);
+    }
+
+    /**
+     * @param \Generated\Shared\Transfer\CustomerRegistrationTransfer $customerRegistrationTransfer
+     *
+     * @return void
+     */
+    public function handleKnownCustomer(CustomerRegistrationTransfer $customerRegistrationTransfer): void
+    {
+        $this->getFactory()->createCustomerRegistrationHandler()->handleKnownCustomer($customerRegistrationTransfer);
     }
 }

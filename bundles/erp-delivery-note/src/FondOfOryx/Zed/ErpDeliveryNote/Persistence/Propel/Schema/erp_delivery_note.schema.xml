@@ -51,6 +51,7 @@
         <column name="name" required="true" size="255" type="VARCHAR"/>
         <column name="quantity" required="true" type="INTEGER"/>
         <column name="external_reference" required="true" size="255" type="VARCHAR"/>
+        <column name="position" required="false" type="INTEGER"/>
 
         <behavior name="timestampable"/>
 

@@ -49,6 +49,7 @@ include:
   - bundles/credit-memo-gift-card-connector
   - bundles/cross-engage
   - bundles/customer-address-sales-connector
+  - bundles/customer-api
   - bundles/customer-brand-product-list-connector
   - bundles/customer-product-list-api
   - bundles/customer-product-list-connector
@@ -58,7 +59,6 @@ include:
   - bundles/customer-product-list-search-rest-api
   - bundles/customer-registration
   - bundles/customer-registration-one-time-password-connector
-  - bundles/customer-registration-email-connector
   - bundles/customer-registration-rest-api
   - bundles/customer-statistic
   - bundles/customer-statistics-rest-api

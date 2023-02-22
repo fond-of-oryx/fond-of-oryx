@@ -17,6 +17,11 @@ use Generated\Shared\Transfer\TotalsTransfer;
 class ShipmentTableRateReader implements ShipmentTableRateReaderInterface
 {
     /**
+     * @var int
+     */
+    protected const MAX_PRICE_TO_PAY = 2147483647;
+
+    /**
      * @var \FondOfOryx\Zed\ShipmentTableRate\Business\Model\ZipCodePatternsGeneratorInterface
      */
     protected $zipCodePatternsGenerator;
@@ -120,7 +125,7 @@ class ShipmentTableRateReader implements ShipmentTableRateReaderInterface
         return (new ShipmentTableRateCriteriaFilterTransfer())
             ->setFkCountry($countryTransfer->getIdCountry())
             ->setFkStore($storeTransfer->getIdStore())
-            ->setPriceToPay($priceToPay)
+            ->setPriceToPay(min($priceToPay, static::MAX_PRICE_TO_PAY))
             ->setZipCodePatterns($this->zipCodePatternsGenerator->generateFromZipCode($zipCode));
     }
 }

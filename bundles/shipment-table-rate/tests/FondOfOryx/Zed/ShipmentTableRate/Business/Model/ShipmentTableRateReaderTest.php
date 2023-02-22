@@ -10,6 +10,7 @@ use FondOfOryx\Zed\ShipmentTableRateExtension\Dependency\Plugin\PriceToPayFilter
 use Generated\Shared\Transfer\AddressTransfer;
 use Generated\Shared\Transfer\CountryTransfer;
 use Generated\Shared\Transfer\QuoteTransfer;
+use Generated\Shared\Transfer\ShipmentTableRateCriteriaFilterTransfer;
 use Generated\Shared\Transfer\ShipmentTableRateTransfer;
 use Generated\Shared\Transfer\ShipmentTransfer;
 use Generated\Shared\Transfer\StoreTransfer;
@@ -192,6 +193,8 @@ class ShipmentTableRateReaderTest extends Unit
      */
     public function testGetByShipmentAndQuote(): void
     {
+        $self = $this;
+
         $this->shipmentTransferMock->expects($this->atLeastOnce())
             ->method('getShippingAddress')
             ->willReturn($this->addressTransferMock);
@@ -246,7 +249,15 @@ class ShipmentTableRateReaderTest extends Unit
 
         $this->repositoryMock->expects($this->atLeastOnce())
             ->method('getShipmentTableRate')
-            ->willReturn($this->shipmentTableRateTransferMock);
+            ->with(
+                static::callback(
+                    static function (
+                        ShipmentTableRateCriteriaFilterTransfer $shipmentTableRateCriteriaFilterTransfer
+                    ) use ($self) {
+                        return $shipmentTableRateCriteriaFilterTransfer->getPriceToPay() === $self->priceToPay;
+                    },
+                ),
+            )->willReturn($this->shipmentTableRateTransferMock);
 
         $shipmentTableRateTransfer = $this->shipmentTableRateReader->getByShipmentAndQuote(
             $this->shipmentTransferMock,
@@ -435,5 +446,84 @@ class ShipmentTableRateReaderTest extends Unit
         );
 
         $this->assertEquals(null, $shipmentTableRateTransfer);
+    }
+
+    /**
+     * @return void
+     */
+    public function testGetByShipmentAndQuoteWithMaxPriceToPay(): void
+    {
+        $priceToPay = 2147483648;
+
+        $this->shipmentTransferMock->expects($this->atLeastOnce())
+            ->method('getShippingAddress')
+            ->willReturn($this->addressTransferMock);
+
+        $this->quoteTransferMock->expects($this->atLeastOnce())
+            ->method('getTotals')
+            ->willReturn($this->totalsTransferMock);
+
+        $this->quoteTransferMock->expects($this->atLeastOnce())
+            ->method('getStore')
+            ->willReturn($this->storeTransferMock);
+
+        $this->addressTransferMock->expects($this->atLeastOnce())
+            ->method('getIso2Code')
+            ->willReturn($this->iso2Code);
+
+        $this->storeTransferMock->expects($this->atLeastOnce())
+            ->method('getName')
+            ->willReturn($this->storeName);
+
+        $this->addressTransferMock->expects($this->atLeastOnce())
+            ->method('getZipCode')
+            ->willReturn($this->zipCode);
+
+        $this->countryFacadeMock->expects($this->atLeastOnce())
+            ->method('getCountryByIso2Code')
+            ->with($this->iso2Code)
+            ->willReturn($this->countryTransferMock);
+
+        $this->storeFacadeMock->expects($this->atLeastOnce())
+            ->method('getStoreByName')
+            ->with($this->storeName)
+            ->willReturn($this->storeTransferMock);
+
+        $this->countryTransferMock->expects($this->atLeastOnce())
+            ->method('getIdCountry')
+            ->willReturn($this->idCountry);
+
+        $this->storeTransferMock->expects($this->atLeastOnce())
+            ->method('getIdStore')
+            ->willReturn($this->idStore);
+
+        $this->priceToPayFilterPluginMock->expects($this->atLeastOnce())
+            ->method('filter')
+            ->with($this->totalsTransferMock)
+            ->willReturn($priceToPay);
+
+        $this->zipCodePatternsGeneratorMock->expects($this->atLeastOnce())
+            ->method('generateFromZipCode')
+            ->with($this->zipCode)
+            ->willReturn($this->zipCodePatterns);
+
+        $this->repositoryMock->expects($this->atLeastOnce())
+            ->method('getShipmentTableRate')
+            ->with(
+                static::callback(
+                    static function (
+                        ShipmentTableRateCriteriaFilterTransfer $shipmentTableRateCriteriaFilterTransfer
+                    ) use ($priceToPay) {
+                        return $shipmentTableRateCriteriaFilterTransfer->getPriceToPay() === ($priceToPay - 1);
+                    },
+                ),
+            )->willReturn($this->shipmentTableRateTransferMock);
+
+        $shipmentTableRateTransfer = $this->shipmentTableRateReader->getByShipmentAndQuote(
+            $this->shipmentTransferMock,
+            $this->quoteTransferMock,
+        );
+
+        $this->assertEquals($this->shipmentTableRateTransferMock, $shipmentTableRateTransfer);
     }
 }

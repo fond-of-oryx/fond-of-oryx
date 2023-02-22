@@ -218,6 +218,10 @@
       "path": "bundles/customer-address-sales-connector/",
       "version": "2.0.0"
     },
+    "customer-api": {
+      "path": "bundles/customer-api/",
+      "version": "1.0.0"
+    },
     "customer-brand-product-list-connector": {
       "path": "bundles/customer-brand-product-list-connector/",
       "version": "2.0.0"
@@ -253,10 +257,6 @@
     "customer-registration-extension": {
       "path": "bundles/customer-registration-extension/",
       "version": "2.0.0"
-    },
-    "customer-registration-email-connector": {
-      "path": "bundles/customer-registration-email-connector/",
-      "version": "2.1.0"
     },
     "customer-registration-one-time-password-connector": {
       "path": "bundles/customer-registration-one-time-password-connector/",
@@ -296,7 +296,7 @@
     },
     "erp-delivery-note": {
       "path": "bundles/erp-delivery-note/",
-      "version": "2.0.0"
+      "version": "2.1.0"
     },
     "erp-delivery-note-api": {
       "path": "bundles/erp-delivery-note-api/",
@@ -312,7 +312,7 @@
     },
     "erp-delivery-note-page-search-rest-api": {
       "path": "bundles/erp-delivery-note-page-search-rest-api/",
-      "version": "2.1.0"
+      "version": "2.2.0"
     },
     "erp-delivery-note-permission": {
       "path": "bundles/erp-delivery-note-permission/",
@@ -320,7 +320,7 @@
     },
     "erp-invoice": {
       "path": "bundles/erp-invoice/",
-      "version": "3.0.0"
+      "version": "3.1.0"
     },
     "erp-invoice-api": {
       "path": "bundles/erp-invoice-api/",
@@ -336,7 +336,7 @@
     },
     "erp-invoice-page-search-rest-api": {
       "path": "bundles/erp-invoice-page-search-rest-api/",
-      "version": "2.1.0"
+      "version": "2.2.0"
     },
     "erp-invoice-permission": {
       "path": "bundles/erp-invoice-permission/",
@@ -560,7 +560,7 @@
     },
     "one-time-password": {
       "path": "bundles/one-time-password/",
-      "version": "2.1.1"
+      "version": "2.2.0"
     },
     "one-time-password-email-connector": {
       "path": "bundles/one-time-password-email-connector/",
@@ -724,7 +724,7 @@
     },
     "shipment-table-rate": {
       "path": "bundles/shipment-table-rate/",
-      "version": "2.0.0"
+      "version": "2.0.1"
     },
     "shipment-table-rate-data-import": {
       "path": "bundles/shipment-table-rate-data-import/",

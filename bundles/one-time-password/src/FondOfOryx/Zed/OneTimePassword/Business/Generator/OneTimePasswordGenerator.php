@@ -12,11 +12,6 @@ use Symfony\Component\PasswordHasher\PasswordHasherInterface;
 class OneTimePasswordGenerator implements OneTimePasswordGeneratorInterface
 {
     /**
-     * @var string
-     */
-    protected const BCRYPT_SALT = '';
-
-    /**
      * @var \Hackzilla\PasswordGenerator\Generator\HybridPasswordGenerator
      */
     protected $hybridPasswordGenerator;

@@ -59,6 +59,7 @@
         <column name="quantity" required="true" type="INTEGER"/>
         <column name="discount" required="true" type="INTEGER"/>
         <column name="discount_type" required="true" size="50" type="VARCHAR"/>
+        <column name="position" required="false" type="INTEGER"/>
 
         <behavior name="timestampable"/>
 
