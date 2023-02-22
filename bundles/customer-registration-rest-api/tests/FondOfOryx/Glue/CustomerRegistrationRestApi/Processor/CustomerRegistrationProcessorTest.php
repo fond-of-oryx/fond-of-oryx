@@ -2,6 +2,7 @@
 
 namespace FondOfOryx\Glue\CustomerRegistrationRestApi\Processor;
 
+use ArrayObject;
 use Codeception\Test\Unit;
 use FondOfOryx\Client\CustomerRegistrationRestApi\CustomerRegistrationRestApiClientInterface;
 use FondOfOryx\Glue\CustomerRegistrationRestApi\Dependency\Client\CustomerRegistrationRestApiToCustomerClientInterface;
@@ -58,14 +59,15 @@ class CustomerRegistrationProcessorTest extends Unit
     protected MockObject|RestRequestInterface $restRequestMock;
 
     /**
-     * @var MockObject|CustomerResponseTransfer
+     * @var \PHPUnit\Framework\MockObject\MockObject|\Generated\Shared\Transfer\CustomerResponseTransfer
      */
     protected MockObject|CustomerResponseTransfer $customerResponseTransferMock;
 
     /**
-     * @var MockObject|CustomerErrorTransfer
+     * @var \PHPUnit\Framework\MockObject\MockObject|\Generated\Shared\Transfer\CustomerErrorTransfer
      */
     protected $customerErrorTransferMock;
+
     /**
      * @return void
      */
@@ -131,7 +133,7 @@ class CustomerRegistrationProcessorTest extends Unit
 
         $this->customerResponseTransferMock->expects(static::atLeastOnce())
             ->method('getErrors')
-            ->willReturn(new \ArrayObject());
+            ->willReturn(new ArrayObject());
 
         $restCustomerRegistrationRequestAttributes = (new RestCustomerRegistrationRequestAttributesTransfer())
             ->setEmail('foo@foo.de')
