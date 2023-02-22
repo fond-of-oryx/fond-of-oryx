@@ -108,5 +108,6 @@ class CustomerRegistrationConfirmationMailjetMailTypeBuilderTest extends Unit
             ->willReturnSelf();
 
         static::assertEquals($this->mailTransferMock, $this->plugin->build($this->mailTransferMock));
+        static::assertEquals($this->mailTransferMock->getCustomer()->getConfirmationLink(), 'CONFIRMATION_LINK');
     }
 }
