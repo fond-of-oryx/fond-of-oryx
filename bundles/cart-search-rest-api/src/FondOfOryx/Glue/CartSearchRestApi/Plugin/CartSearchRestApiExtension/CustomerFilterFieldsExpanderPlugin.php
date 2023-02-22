@@ -27,7 +27,7 @@ class CustomerFilterFieldsExpanderPlugin extends AbstractPlugin implements Filte
 
         $filterFieldTransfer = (new FilterFieldTransfer())
             ->setType(CartSearchRestApiConstants::FILTER_FIELD_TYPE_ID_CUSTOMER)
-            ->setValue($restUser->getSurrogateIdentifier());
+            ->setValue(strval($restUser->getSurrogateIdentifier()));
 
         $filterFieldTransfers->append($filterFieldTransfer);
 

@@ -134,10 +134,7 @@ class ErpOrderPageSearchPublisher implements ErpOrderPageSearchPublisherInterfac
         $erpOrderData[static::ITEMS] = $orderItems->toArray(null, false, TableMap::TYPE_FIELDNAME);
         $erpOrderData[static::BILLING_ADDRESS] = $this->getAddress($billingAddress);
         $erpOrderData[static::SHIPPING_ADDRESS] = $this->getAddress($shippingAddress);
-
-        if ($totals !== null) {
-            $erpOrderData[static::TOTALS] = $totals->toArray();
-        }
+        $erpOrderData[static::TOTALS] = $totals->toArray();
 
         $erpOrderPageSearchTransfer = (new ErpOrderPageSearchTransfer())
             ->fromArray($erpOrderData, true)

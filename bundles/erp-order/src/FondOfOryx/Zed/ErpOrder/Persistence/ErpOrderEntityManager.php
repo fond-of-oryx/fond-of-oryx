@@ -191,11 +191,9 @@ class ErpOrderEntityManager extends AbstractEntityManager implements ErpOrderEnt
 
         $order->delete();
 
-        if ($idTotals !== null) {
-            $this->getFactory()->createErpOrderTotalsQuery()
-                ->findOneByIdErpOrderTotals($idTotals)
-                ->delete();
-        }
+        $this->getFactory()->createErpOrderTotalsQuery()
+            ->findOneByIdErpOrderTotals($idTotals)
+            ->delete();
 
         $ordersWithBilling = $this->getFactory()->createErpOrderQuery()->filterByFkBillingAddress_In($addressIds)->find();
         if (count($ordersWithBilling) === 0 || empty($ordersWithBilling->getData()) === true) {

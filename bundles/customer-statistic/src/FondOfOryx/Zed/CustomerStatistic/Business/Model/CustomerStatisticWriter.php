@@ -31,7 +31,7 @@ class CustomerStatisticWriter implements CustomerStatisticWriterInterface
         $customerStatisticTransfer = $this->entityManager->persistCustomerStatistic($customerStatisticTransfer);
 
         return (new CustomerStatisticResponseTransfer())
-            ->setIsSuccessful($customerStatisticTransfer !== null)
+            ->setIsSuccessful(true)
             ->setCustomerStatistic($customerStatisticTransfer);
     }
 }

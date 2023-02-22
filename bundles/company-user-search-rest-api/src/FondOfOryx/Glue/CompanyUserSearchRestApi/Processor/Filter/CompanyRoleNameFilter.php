@@ -15,12 +15,8 @@ class CompanyRoleNameFilter implements CompanyRoleNameFilterInterface
     public function filterFromRestRequest(RestRequestInterface $restRequest): array
     {
         $bag = $restRequest->getHttpRequest()->query;
-        /** @phpstan-ignore-next-line */
-        $companyRoles = $bag instanceof InputBag ? $bag->all('company-role-name') : $bag->get('company-role-name');
 
-        if (!is_array($companyRoles)) {
-            return [];
-        }
+        $companyRoles =  $bag->all('company-role-name');
 
         return $companyRoles;
     }
