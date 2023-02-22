@@ -8,6 +8,8 @@ use FondOfOryx\Glue\CustomerRegistrationRestApi\Dependency\Client\CustomerRegist
 use FondOfOryx\Glue\CustomerRegistrationRestApi\Processor\Mapper\CustomerRegistrationResourceMapperInterface;
 use FondOfOryx\Glue\CustomerRegistrationRestApi\Processor\Password\GeneratorInterface;
 use FondOfOryx\Glue\CustomerRegistrationRestApi\Processor\Validation\RestApiErrorInterface;
+use Generated\Shared\Transfer\CustomerErrorTransfer;
+use Generated\Shared\Transfer\CustomerResponseTransfer;
 use Generated\Shared\Transfer\RestCustomerRegistrationRequestAttributesTransfer;
 use PHPUnit\Framework\MockObject\MockObject;
 use Spryker\Glue\GlueApplication\Rest\JsonApi\RestResourceBuilderInterface;
@@ -56,6 +58,15 @@ class CustomerRegistrationProcessorTest extends Unit
     protected MockObject|RestRequestInterface $restRequestMock;
 
     /**
+     * @var MockObject|CustomerResponseTransfer
+     */
+    protected MockObject|CustomerResponseTransfer $customerResponseTransferMock;
+
+    /**
+     * @var MockObject|CustomerErrorTransfer
+     */
+    protected $customerErrorTransferMock;
+    /**
      * @return void
      */
     protected function _before(): void
@@ -88,6 +99,14 @@ class CustomerRegistrationProcessorTest extends Unit
             ->disableOriginalConstructor()
             ->getMock();
 
+        $this->customerResponseTransferMock = $this->getMockBuilder(CustomerResponseTransfer::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $this->customerErrorTransferMock = $this->getMockBuilder(CustomerErrorTransfer::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
         $this->customerRegistrationProcessor = new CustomerRegistrationProcessor(
             $this->customerRegistrationResourceMapperMock,
             $this->restResourceBuilderMock,
@@ -107,7 +126,12 @@ class CustomerRegistrationProcessorTest extends Unit
             ->method('generate');
 
         $this->customerClientMock->expects(static::once())
-            ->method('registerCustomer');
+            ->method('registerCustomer')
+            ->willReturn($this->customerResponseTransferMock);
+
+        $this->customerResponseTransferMock->expects(static::atLeastOnce())
+            ->method('getErrors')
+            ->willReturn(new \ArrayObject());
 
         $restCustomerRegistrationRequestAttributes = (new RestCustomerRegistrationRequestAttributesTransfer())
             ->setEmail('foo@foo.de')
