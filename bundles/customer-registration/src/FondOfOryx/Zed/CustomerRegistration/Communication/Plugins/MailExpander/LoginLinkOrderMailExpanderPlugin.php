@@ -26,7 +26,7 @@ class LoginLinkOrderMailExpanderPlugin extends AbstractPlugin implements OmsOrde
         if ($customerTransfer->getRegistrationKey() === null) {
             $oneTimePasswordResponseTransfer = $this->getFactory()
                 ->getOneTimePasswordFacade()
-                ->requestLoginLink($customerTransfer);
+                ->generateLoginLink($customerTransfer);
 
             $mailTransfer->setOneTimePasswordLoginLink($oneTimePasswordResponseTransfer->getLoginLink());
         }
