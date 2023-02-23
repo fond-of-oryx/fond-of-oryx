@@ -5,11 +5,13 @@ namespace FondOfOryx\Zed\ErpDeliveryNote\Persistence\Propel\Mapper;
 use Generated\Shared\Transfer\ErpDeliveryNoteAddressTransfer;
 use Generated\Shared\Transfer\ErpDeliveryNoteExpenseTransfer;
 use Generated\Shared\Transfer\ErpDeliveryNoteItemTransfer;
+use Generated\Shared\Transfer\ErpDeliveryNoteTrackingTransfer;
 use Generated\Shared\Transfer\ErpDeliveryNoteTransfer;
 use Orm\Zed\ErpDeliveryNote\Persistence\FooErpDeliveryNote;
 use Orm\Zed\ErpDeliveryNote\Persistence\FooErpDeliveryNoteAddress;
 use Orm\Zed\ErpDeliveryNote\Persistence\FooErpDeliveryNoteExpense;
 use Orm\Zed\ErpDeliveryNote\Persistence\FooErpDeliveryNoteItem;
+use Orm\Zed\ErpDeliveryNote\Persistence\FooErpDeliveryNoteTracking;
 
 interface EntityToTransferMapperInterface
 {
@@ -36,6 +38,18 @@ interface EntityToTransferMapperInterface
         FooErpDeliveryNoteExpense $deliveryNoteExpense,
         ?ErpDeliveryNoteExpenseTransfer $deliveryNoteExpenseTransfer = null
     ): ErpDeliveryNoteExpenseTransfer;
+
+    /**
+     * @param \Orm\Zed\ErpDeliveryNote\Persistence\FooErpDeliveryNoteTracking $deliveryNoteTracking
+     * @param \Generated\Shared\Transfer\ErpDeliveryNoteTrackingTransfer|null $erpDeliveryNoteTrackingTransfer
+     *
+     * @return \Generated\Shared\Transfer\ErpDeliveryNoteTrackingTransfer
+     * @throws \Exception
+     */
+    public function fromErpDeliveryNoteTrackingToTransfer(
+        FooErpDeliveryNoteTracking $deliveryNoteTracking,
+        ?ErpDeliveryNoteTrackingTransfer $erpDeliveryNoteTrackingTransfer = null
+    ): ErpDeliveryNoteTrackingTransfer;
 
     /**
      * @param \Orm\Zed\ErpDeliveryNote\Persistence\FooErpDeliveryNote $erpDeliveryNote

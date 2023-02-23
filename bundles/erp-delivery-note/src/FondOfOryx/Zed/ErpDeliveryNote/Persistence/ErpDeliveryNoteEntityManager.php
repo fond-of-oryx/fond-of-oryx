@@ -7,11 +7,14 @@ use Exception;
 use Generated\Shared\Transfer\ErpDeliveryNoteAddressTransfer;
 use Generated\Shared\Transfer\ErpDeliveryNoteExpenseTransfer;
 use Generated\Shared\Transfer\ErpDeliveryNoteItemTransfer;
+use Generated\Shared\Transfer\ErpDeliveryNoteTrackingTransfer;
 use Generated\Shared\Transfer\ErpDeliveryNoteTransfer;
 use Orm\Zed\ErpDeliveryNote\Persistence\FooErpDeliveryNote;
 use Orm\Zed\ErpDeliveryNote\Persistence\FooErpDeliveryNoteAddress;
 use Orm\Zed\ErpDeliveryNote\Persistence\FooErpDeliveryNoteExpense;
 use Orm\Zed\ErpDeliveryNote\Persistence\FooErpDeliveryNoteItem;
+use Orm\Zed\ErpDeliveryNote\Persistence\FooErpDeliveryNoteTracking;
+use Orm\Zed\ErpDeliveryNote\Persistence\FooErpDeliveryNoteTrackingToItem;
 use Spryker\Zed\Kernel\Persistence\AbstractEntityManager;
 
 /**
@@ -22,9 +25,9 @@ class ErpDeliveryNoteEntityManager extends AbstractEntityManager implements ErpD
     /**
      * @param \Generated\Shared\Transfer\ErpDeliveryNoteTransfer $erpDeliveryNoteTransfer
      *
+     * @return \Generated\Shared\Transfer\ErpDeliveryNoteTransfer
      * @throws \Exception
      *
-     * @return \Generated\Shared\Transfer\ErpDeliveryNoteTransfer
      */
     public function createErpDeliveryNote(ErpDeliveryNoteTransfer $erpDeliveryNoteTransfer): ErpDeliveryNoteTransfer
     {
@@ -126,11 +129,43 @@ class ErpDeliveryNoteEntityManager extends AbstractEntityManager implements ErpD
     }
 
     /**
+     * @param \Generated\Shared\Transfer\ErpDeliveryNoteTrackingTransfer $trackingTransfer
+     *
+     * @return \Generated\Shared\Transfer\ErpDeliveryNoteTrackingTransfer
+     * @throws \Propel\Runtime\Exception\PropelException
+     * @throws \Spryker\Shared\Kernel\Transfer\Exception\RequiredTransferPropertyException
+     */
+    public function createErpDeliveryNoteTracking(ErpDeliveryNoteTrackingTransfer $trackingTransfer): ErpDeliveryNoteTrackingTransfer
+    {
+        $trackingTransfer
+            ->requireFkErpDeliveryNote()
+            ->requireErpDeliveryNoteItems()
+            ->requireTrackingNumber()
+            ->requireQuantity();
+
+        $now = new DateTime();
+
+        $entity = new FooErpDeliveryNoteTracking();
+        $entity->fromArray($trackingTransfer->toArray());
+        $entity
+            ->setCreatedAt($now)
+            ->setUpdatedAt($now)
+            ->save();
+
+        $this->addItemTrackingRelations($trackingTransfer, $entity);
+
+        return $this->getFactory()->createEntityToTransferMapper()->fromErpDeliveryNoteTrackingToTransfer(
+            $entity,
+            $trackingTransfer,
+        );
+    }
+
+    /**
      * @param \Generated\Shared\Transfer\ErpDeliveryNoteTransfer $erpDeliveryNoteTransfer
      *
+     * @return \Generated\Shared\Transfer\ErpDeliveryNoteTransfer
      * @throws \Exception
      *
-     * @return \Generated\Shared\Transfer\ErpDeliveryNoteTransfer
      */
     public function updateErpDeliveryNote(ErpDeliveryNoteTransfer $erpDeliveryNoteTransfer): ErpDeliveryNoteTransfer
     {
@@ -213,6 +248,64 @@ class ErpDeliveryNoteEntityManager extends AbstractEntityManager implements ErpD
     }
 
     /**
+     * @param \Generated\Shared\Transfer\ErpDeliveryNoteTrackingTransfer $deliveryNoteTrackingTransfer
+     *
+     * @return \Generated\Shared\Transfer\ErpDeliveryNoteTrackingTransfer
+     */
+    public function updateErpDeliveryNoteTracking(ErpDeliveryNoteTrackingTransfer $deliveryNoteTrackingTransfer): ErpDeliveryNoteTrackingTransfer
+    {
+        $deliveryNoteTrackingTransfer
+            ->requireIdErpDeliveryNoteTracking()
+            ->requireFkErpDeliveryNote()
+            ->requireTrackingNumber()
+            ->requireErpDeliveryNoteItems()
+            ->requireQuantity();
+
+        $entity = $this->findOrCreateErpDeliveryNoteTracking($deliveryNoteTrackingTransfer->getFkErpDeliveryNote(), $deliveryNoteTrackingTransfer->getTrackingNumber());
+        $createdAt = $entity->getCreatedAt();
+        $updatedAt = new DateTime();
+        $entity->fromArray($deliveryNoteTrackingTransfer->modifiedToArray());
+
+        $entity
+            ->setCreatedAt($createdAt)
+            ->setUpdatedAt($updatedAt)
+            ->save();
+
+        $this->deleteTrackingToItemRelationsByIdTracking($entity->getIdErpDeliveryNoteTracking());
+        $this->addItemTrackingRelations($deliveryNoteTrackingTransfer, $entity);
+
+        return $this->getFactory()->createEntityToTransferMapper()->fromErpDeliveryNoteTrackingToTransfer($entity);
+    }
+
+    /**
+     * @param int $idTracking
+     *
+     * @return void
+     * @throws \Propel\Runtime\Exception\PropelException
+     */
+    public function deleteTrackingToItemRelationsByIdTracking(int $idTracking): void
+    {
+        $relations = $this->getFactory()->createErpDeliveryNoteTrackingToItemQuery()->findByFkErpDeliveryNoteTracking($idTracking);
+        foreach ($relations as $relation) {
+            $relation->delete();
+        }
+    }
+
+    /**
+     * @param string $trackingNumber
+     *
+     * @return void
+     * @throws \Propel\Runtime\Exception\PropelException
+     */
+    public function deleteTrackingToItemRelationsByTrackingNumber(string $trackingNumber): void
+    {
+        $tracking = $this->getFactory()->createErpDeliveryNoteTrackingQuery()->findOneByTrackingNumber($trackingNumber);
+        if ($tracking !== null) {
+            $this->deleteTrackingToItemRelationsByIdTracking($tracking->getIdErpDeliveryNoteTracking());
+        }
+    }
+
+    /**
      * @param int $idErpDeliveryNote
      *
      * @return void
@@ -292,9 +385,9 @@ class ErpDeliveryNoteEntityManager extends AbstractEntityManager implements ErpD
     /**
      * @param \Generated\Shared\Transfer\ErpDeliveryNoteAddressTransfer $erpDeliveryNoteAddressTransfer
      *
+     * @return \Generated\Shared\Transfer\ErpDeliveryNoteAddressTransfer
      * @throws \Exception
      *
-     * @return \Generated\Shared\Transfer\ErpDeliveryNoteAddressTransfer
      */
     public function updateErpDeliveryNoteAddress(ErpDeliveryNoteAddressTransfer $erpDeliveryNoteAddressTransfer): ErpDeliveryNoteAddressTransfer
     {
@@ -349,5 +442,36 @@ class ErpDeliveryNoteEntityManager extends AbstractEntityManager implements ErpD
             ->filterByFkErpDeliveryNote($idErpDeliveryNote)
             ->filterByName($name)
             ->findOneOrCreate();
+    }
+
+    /**
+     * @param int $idErpDeliveryNote
+     * @param string $trackingNumber
+     *
+     * @return \Orm\Zed\ErpDeliveryNote\Persistence\FooErpDeliveryNoteTracking
+     */
+    protected function findOrCreateErpDeliveryNoteTracking(int $idErpDeliveryNote, string $trackingNumber): FooErpDeliveryNoteTracking
+    {
+        return $this->getFactory()->createErpDeliveryNoteTrackingQuery()
+            ->filterByFkErpDeliveryNote($idErpDeliveryNote)
+            ->filterByTrackingNumber($trackingNumber)
+            ->findOneOrCreate();
+    }
+
+    /**
+     * @param \Generated\Shared\Transfer\ErpDeliveryNoteTrackingTransfer $trackingTransfer
+     * @param \Orm\Zed\ErpDeliveryNote\Persistence\FooErpDeliveryNoteTracking $entity
+     *
+     * @return void
+     * @throws \Propel\Runtime\Exception\PropelException
+     */
+    protected function addItemTrackingRelations(ErpDeliveryNoteTrackingTransfer $trackingTransfer, FooErpDeliveryNoteTracking $entity): void
+    {
+        foreach ($trackingTransfer->getErpDeliveryNoteItems() as $itemTransfer) {
+            (new FooErpDeliveryNoteTrackingToItem())
+                ->setFkErpDeliveryNoteItem($itemTransfer->getIdErpDeliveryNoteItem())
+                ->setFkErpDeliveryNoteTracking($entity->getIdErpDeliveryNoteTracking())
+                ->save();
+        }
     }
 }

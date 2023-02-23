@@ -1,7 +1,5 @@
 <?xml version="1.0"?>
-<database xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" name="zed"
-          xsi:noNamespaceSchemaLocation="http://static.spryker.com/schema-01.xsd"
-          namespace="Orm\Zed\ErpDeliveryNote\Persistence" package="src.Orm.Zed.ErpDeliveryNote.Persistence">
+<database xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" name="zed" xsi:noNamespaceSchemaLocation="https://static.spryker.com/schema-01.xsd" namespace="Orm\Zed\ErpDeliveryNote\Persistence" package="src.Orm.Zed.ErpDeliveryNote.Persistence">
 
     <table name="foo_erp_delivery_note" phpName="FooErpDeliveryNote" identifierQuoting="true">
         <column name="id_erp_delivery_note" required="true" type="INTEGER" autoIncrement="true" primaryKey="true"/>
@@ -21,18 +19,15 @@
             <unique-column name="external_reference"/>
         </unique>
 
-        <foreign-key name="foo_erp_delivery_note-foo_erp_delivery_note_billing_address" foreignTable="foo_erp_delivery_note_address"
-                     phpName="FooErpDeliveryNoteBillingAddress">
+        <foreign-key name="foo_erp_delivery_note-foo_erp_delivery_note_billing_address" foreignTable="foo_erp_delivery_note_address" phpName="FooErpDeliveryNoteBillingAddress">
             <reference local="fk_billing_address" foreign="id_erp_delivery_note_address"/>
         </foreign-key>
 
-        <foreign-key name="foo_erp_delivery_note-foo_erp_delivery_note_shipping_address" foreignTable="foo_erp_delivery_note_address"
-                     phpName="FooErpDeliveryNoteShippingAddress">
+        <foreign-key name="foo_erp_delivery_note-foo_erp_delivery_note_shipping_address" foreignTable="foo_erp_delivery_note_address" phpName="FooErpDeliveryNoteShippingAddress">
             <reference local="fk_shipping_address" foreign="id_erp_delivery_note_address"/>
         </foreign-key>
 
-        <foreign-key name="foo_erp_delivery_note-spy_company_business_unit" foreignTable="spy_company_business_unit"
-                     phpName="SpyCompanyBusinessUnit">
+        <foreign-key name="foo_erp_delivery_note-spy_company_business_unit" foreignTable="spy_company_business_unit" phpName="SpyCompanyBusinessUnit">
             <reference local="fk_company_business_unit" foreign="id_company_business_unit"/>
         </foreign-key>
 
@@ -43,8 +38,7 @@
         <behavior name="timestampable"/>
     </table>
 
-    <table name="foo_erp_delivery_note_item" phpName="FooErpDeliveryNoteItem" idMethod="native" identifierQuoting="true"
-           allowPkInsert="true">
+    <table name="foo_erp_delivery_note_item" phpName="FooErpDeliveryNoteItem" idMethod="native" identifierQuoting="true" allowPkInsert="true">
         <column name="id_erp_delivery_note_item" required="true" type="INTEGER" autoIncrement="true" primaryKey="true"/>
         <column name="fk_erp_delivery_note" required="true" type="INTEGER"/>
         <column name="sku" required="true" size="255" type="VARCHAR"/>
@@ -57,14 +51,12 @@
 
         <id-method-parameter value="foo_erp_delivery_note_item_pk_seq"/>
 
-        <foreign-key name="foo_erp_delivery_note_item-fk_erp_delivery_note" foreignTable="foo_erp_delivery_note" phpName="FooErpDeliveryNote"
-                     refPhpName="FooErpDeliveryNoteItem">
+        <foreign-key name="foo_erp_delivery_note_item-fk_erp_delivery_note" foreignTable="foo_erp_delivery_note" phpName="FooErpDeliveryNote" refPhpName="FooErpDeliveryNoteItem">
             <reference local="fk_erp_delivery_note" foreign="id_erp_delivery_note"/>
         </foreign-key>
     </table>
 
-    <table name="foo_erp_delivery_note_expense" phpName="FooErpDeliveryNoteExpense" idMethod="native" identifierQuoting="true"
-           allowPkInsert="true">
+    <table name="foo_erp_delivery_note_expense" phpName="FooErpDeliveryNoteExpense" idMethod="native" identifierQuoting="true" allowPkInsert="true">
         <column name="id_erp_delivery_note_expense" required="true" type="INTEGER" autoIncrement="true" primaryKey="true"/>
         <column name="fk_erp_delivery_note" required="true" type="INTEGER"/>
         <column name="name" required="true" size="255" type="VARCHAR"/>
@@ -75,8 +67,7 @@
 
         <id-method-parameter value="foo_erp_delivery_note_expense_pk_seq"/>
 
-        <foreign-key name="foo_erp_delivery_note_expense-fk_erp_delivery_note" foreignTable="foo_erp_delivery_note" phpName="FooErpDeliveryNote"
-                     refPhpName="FooErpDeliveryNoteExpense">
+        <foreign-key name="foo_erp_delivery_note_expense-fk_erp_delivery_note" foreignTable="foo_erp_delivery_note" phpName="FooErpDeliveryNote" refPhpName="FooErpDeliveryNoteExpense">
             <reference local="fk_erp_delivery_note" foreign="id_erp_delivery_note"/>
         </foreign-key>
     </table>
@@ -98,9 +89,49 @@
 
         <id-method-parameter value="foo_erp_delivery_note_address_pk_seq"/>
 
-        <foreign-key name="foo_erp_delivery_note_address-fk_country" foreignTable="spy_country" phpName="SpyCountry"
-                     refPhpName="FooErpDeliveryNoteAddress">
+        <foreign-key name="foo_erp_delivery_note_address-fk_country" foreignTable="spy_country" phpName="SpyCountry" refPhpName="FooErpDeliveryNoteAddress">
             <reference local="fk_country" foreign="id_country"/>
         </foreign-key>
+    </table>
+
+    <table name="foo_erp_delivery_note_tracking" phpName="FooErpDeliveryNoteTracking" idMethod="native" identifierQuoting="true" allowPkInsert="true">
+        <column name="id_erp_delivery_note_tracking" required="true" size="255" type="INTEGER" autoIncrement="true" primaryKey="true"/>
+        <column name="tracking_number" required="true" size="255" type="VARCHAR"/>
+        <column name="fk_erp_delivery_note" required="true" type="INTEGER"/>
+        <column name="quantity" required="true" type="FLOAT"/>
+        <column name="tracking_url" required="true" size="255" type="VARCHAR"/>
+        <column name="shipping_agent_code" required="true" size="255" type="VARCHAR"/>
+        <column name="shipping_agent_service_code" required="true" size="255" type="VARCHAR"/>
+
+        <behavior name="timestampable"/>
+
+        <id-method-parameter value="foo_erp_delivery_note_tracking_pk_seq"/>
+
+        <foreign-key name="foo_erp_delivery_note_tracking-fk_erp_delivery_note" foreignTable="foo_erp_delivery_note" phpName="FooErpDeliveryNote">
+            <reference local="fk_erp_delivery_note" foreign="id_erp_delivery_note"/>
+        </foreign-key>
+
+        <index name="foo_erp_delivery_note_tracking-fk-erp-delivery-note-tracking-number">
+            <index-column name="fk_erp_delivery_note"/>
+            <index-column name="tracking_number"/>
+        </index>
+
+        <id-method-parameter value="foo_erp_delivery_note_tracking_pk_seq"/>
+    </table>
+
+    <table name="foo_erp_delivery_note_tracking_to_item" phpName="FooErpDeliveryNoteTrackingToItem" idMethod="native" identifierQuoting="true" allowPkInsert="true">
+        <column name="id_erp_delivery_note_tracking_to_item" required="true" size="255" type="INTEGER" autoIncrement="true" primaryKey="true"/>
+        <column name="fk_erp_delivery_note_tracking" required="true" type="INTEGER"/>
+        <column name="fk_erp_delivery_note_item" required="true" type="INTEGER"/>
+
+        <foreign-key name="foo_erp_delivery_note_tracking_to_item-fk_erp_delivery_note_item" foreignTable="foo_erp_delivery_note_item" phpName="FooErpDeliveryNoteItem">
+            <reference local="fk_erp_delivery_note_item" foreign="id_erp_delivery_note_item"/>
+        </foreign-key>
+
+        <foreign-key name="foo_erp_delivery_note_tracking_to_item-fk_erp_delivery_note_tracking" foreignTable="foo_erp_delivery_note_tracking" phpName="FooErpDeliveryNoteTracking">
+            <reference local="fk_erp_delivery_note_tracking" foreign="id_erp_delivery_note_tracking"/>
+        </foreign-key>
+
+        <id-method-parameter value="foo_erp_delivery_note_tracking_to_item_pk_seq"/>
     </table>
 </database>

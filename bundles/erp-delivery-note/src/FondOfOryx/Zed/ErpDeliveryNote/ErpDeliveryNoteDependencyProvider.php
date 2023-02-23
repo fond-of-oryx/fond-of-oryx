@@ -62,6 +62,16 @@ class ErpDeliveryNoteDependencyProvider extends AbstractBundleDependencyProvider
     /**
      * @var string
      */
+    public const PLUGIN_ERP_DELIVERY_NOTE_TRACKING_POST_SAVE = 'PLUGIN_ERP_DELIVERY_NOTE_TRACKING_POST_SAVE';
+
+    /**
+     * @var string
+     */
+    public const PLUGIN_ERP_DELIVERY_NOTE_TRACKING_PRE_SAVE = 'PLUGIN_ERP_DELIVERY_NOTE_TRACKING_PRE_SAVE';
+
+    /**
+     * @var string
+     */
     public const PLUGIN_ERP_DELIVERY_NOTE_ADDRESS_POST_SAVE = 'PLUGIN_ERP_DELIVERY_NOTE_ADDRESS_POST_SAVE';
 
     /**

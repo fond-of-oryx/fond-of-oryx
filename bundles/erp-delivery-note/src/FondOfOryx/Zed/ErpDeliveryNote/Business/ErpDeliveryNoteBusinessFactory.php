@@ -8,6 +8,8 @@ use FondOfOryx\Zed\ErpDeliveryNote\Business\Handler\ErpDeliveryNoteExpenseHandle
 use FondOfOryx\Zed\ErpDeliveryNote\Business\Handler\ErpDeliveryNoteExpenseHandlerInterface;
 use FondOfOryx\Zed\ErpDeliveryNote\Business\Handler\ErpDeliveryNoteItemHandler;
 use FondOfOryx\Zed\ErpDeliveryNote\Business\Handler\ErpDeliveryNoteItemHandlerInterface;
+use FondOfOryx\Zed\ErpDeliveryNote\Business\Handler\ErpDeliveryNoteTrackingHandler;
+use FondOfOryx\Zed\ErpDeliveryNote\Business\Handler\ErpDeliveryNoteTrackingHandlerInterface;
 use FondOfOryx\Zed\ErpDeliveryNote\Business\Model\Reader\ErpDeliveryNoteAddressReader;
 use FondOfOryx\Zed\ErpDeliveryNote\Business\Model\Reader\ErpDeliveryNoteAddressReaderInterface;
 use FondOfOryx\Zed\ErpDeliveryNote\Business\Model\Reader\ErpDeliveryNoteExpenseReader;
@@ -16,12 +18,16 @@ use FondOfOryx\Zed\ErpDeliveryNote\Business\Model\Reader\ErpDeliveryNoteItemRead
 use FondOfOryx\Zed\ErpDeliveryNote\Business\Model\Reader\ErpDeliveryNoteItemReaderInterface;
 use FondOfOryx\Zed\ErpDeliveryNote\Business\Model\Reader\ErpDeliveryNoteReader;
 use FondOfOryx\Zed\ErpDeliveryNote\Business\Model\Reader\ErpDeliveryNoteReaderInterface;
+use FondOfOryx\Zed\ErpDeliveryNote\Business\Model\Reader\ErpDeliveryNoteTrackingReader;
+use FondOfOryx\Zed\ErpDeliveryNote\Business\Model\Reader\ErpDeliveryNoteTrackingReaderInterface;
 use FondOfOryx\Zed\ErpDeliveryNote\Business\Model\Writer\ErpDeliveryNoteAddressWriter;
 use FondOfOryx\Zed\ErpDeliveryNote\Business\Model\Writer\ErpDeliveryNoteAddressWriterInterface;
 use FondOfOryx\Zed\ErpDeliveryNote\Business\Model\Writer\ErpDeliveryNoteExpenseWriter;
 use FondOfOryx\Zed\ErpDeliveryNote\Business\Model\Writer\ErpDeliveryNoteExpenseWriterInterface;
 use FondOfOryx\Zed\ErpDeliveryNote\Business\Model\Writer\ErpDeliveryNoteItemWriter;
 use FondOfOryx\Zed\ErpDeliveryNote\Business\Model\Writer\ErpDeliveryNoteItemWriterInterface;
+use FondOfOryx\Zed\ErpDeliveryNote\Business\Model\Writer\ErpDeliveryNoteTrackingWriter;
+use FondOfOryx\Zed\ErpDeliveryNote\Business\Model\Writer\ErpDeliveryNoteTrackingWriterInterface;
 use FondOfOryx\Zed\ErpDeliveryNote\Business\Model\Writer\ErpDeliveryNoteWriter;
 use FondOfOryx\Zed\ErpDeliveryNote\Business\Model\Writer\ErpDeliveryNoteWriterInterface;
 use FondOfOryx\Zed\ErpDeliveryNote\Business\PluginExecutor\ErpDeliveryNoteAddressPluginExecutor;
@@ -32,6 +38,8 @@ use FondOfOryx\Zed\ErpDeliveryNote\Business\PluginExecutor\ErpDeliveryNoteItemPl
 use FondOfOryx\Zed\ErpDeliveryNote\Business\PluginExecutor\ErpDeliveryNoteItemPluginExecutorInterface;
 use FondOfOryx\Zed\ErpDeliveryNote\Business\PluginExecutor\ErpDeliveryNotePluginExecutor;
 use FondOfOryx\Zed\ErpDeliveryNote\Business\PluginExecutor\ErpDeliveryNotePluginExecutorInterface;
+use FondOfOryx\Zed\ErpDeliveryNote\Business\PluginExecutor\ErpDeliveryNoteTrackingPluginExecutor;
+use FondOfOryx\Zed\ErpDeliveryNote\Business\PluginExecutor\ErpDeliveryNoteTrackingPluginExecutorInterface;
 use FondOfOryx\Zed\ErpDeliveryNote\ErpDeliveryNoteDependencyProvider;
 use Spryker\Zed\Kernel\Business\AbstractBusinessFactory;
 
@@ -91,6 +99,25 @@ class ErpDeliveryNoteBusinessFactory extends AbstractBusinessFactory
     }
 
     /**
+     * @return \FondOfOryx\Zed\ErpDeliveryNote\Business\Model\Writer\ErpDeliveryNoteTrackingWriterInterface
+     */
+    public function createErpDeliveryNoteTrackingWriter(): ErpDeliveryNoteTrackingWriterInterface
+    {
+        return new ErpDeliveryNoteTrackingWriter(
+            $this->getEntityManager(),
+            $this->createErpDeliveryNoteTrackingPluginExecutor(),
+        );
+    }
+
+    /**
+     * @return \FondOfOryx\Zed\ErpDeliveryNote\Business\Model\Reader\ErpDeliveryNoteTrackingReaderInterface
+     */
+    public function createErpDeliveryNoteTrackingReader(): ErpDeliveryNoteTrackingReaderInterface
+    {
+        return new ErpDeliveryNoteTrackingReader($this->getRepository());
+    }
+
+    /**
      * @return \FondOfOryx\Zed\ErpDeliveryNote\Business\Handler\ErpDeliveryNoteAddressHandlerInterface
      */
     public function createErpDeliveryNoteAddressHandler(): ErpDeliveryNoteAddressHandlerInterface
@@ -120,6 +147,17 @@ class ErpDeliveryNoteBusinessFactory extends AbstractBusinessFactory
         return new ErpDeliveryNoteExpenseHandler(
             $this->createErpDeliveryNoteExpenseWriter(),
             $this->createErpDeliveryNoteExpenseReader(),
+        );
+    }
+
+    /**
+     * @return \FondOfOryx\Zed\ErpDeliveryNote\Business\Handler\ErpDeliveryNoteTrackingHandlerInterface
+     */
+    public function createErpDeliveryNoteTrackingHandler(): ErpDeliveryNoteTrackingHandlerInterface
+    {
+        return new ErpDeliveryNoteTrackingHandler(
+            $this->createErpDeliveryNoteTrackingWriter(),
+            $this->createErpDeliveryNoteTrackingReader(),
         );
     }
 
@@ -189,6 +227,17 @@ class ErpDeliveryNoteBusinessFactory extends AbstractBusinessFactory
     }
 
     /**
+     * @return \FondOfOryx\Zed\ErpDeliveryNote\Business\PluginExecutor\ErpDeliveryNoteTrackingPluginExecutorInterface
+     */
+    protected function createErpDeliveryNoteTrackingPluginExecutor(): ErpDeliveryNoteTrackingPluginExecutorInterface
+    {
+        return new ErpDeliveryNoteTrackingPluginExecutor(
+            $this->getErpDeliveryNoteTrackingPreSavePlugin(),
+            $this->getErpDeliveryNoteTrackingPostSavePlugin(),
+        );
+    }
+
+    /**
      * @return \FondOfOryx\Zed\ErpDeliveryNote\Business\PluginExecutor\ErpDeliveryNoteAddressPluginExecutorInterface
      */
     protected function createErpDeliveryNoteAddressPluginExecutor(): ErpDeliveryNoteAddressPluginExecutorInterface
@@ -245,6 +294,22 @@ class ErpDeliveryNoteBusinessFactory extends AbstractBusinessFactory
     public function getErpDeliveryNoteExpensePostSavePlugin(): array
     {
         return $this->getProvidedDependency(ErpDeliveryNoteDependencyProvider::PLUGIN_ERP_DELIVERY_NOTE_EXPENSE_POST_SAVE)->getArrayCopy();
+    }
+
+    /**
+     * @return array<\FondOfOryx\Zed\ErpDeliveryNoteExtension\Dependency\Plugin\ErpDeliveryNoteTrackingPreSavePluginInterface>
+     */
+    public function getErpDeliveryNoteTrackingPreSavePlugin(): array
+    {
+        return $this->getProvidedDependency(ErpDeliveryNoteDependencyProvider::PLUGIN_ERP_DELIVERY_NOTE_TRACKING_PRE_SAVE)->getArrayCopy();
+    }
+
+    /**
+     * @return array<\FondOfOryx\Zed\ErpDeliveryNoteExtension\Dependency\Plugin\ErpDeliveryNoteTrackingPostSavePluginInterface>
+     */
+    public function getErpDeliveryNoteTrackingPostSavePlugin(): array
+    {
+        return $this->getProvidedDependency(ErpDeliveryNoteDependencyProvider::PLUGIN_ERP_DELIVERY_NOTE_TRACKING_POST_SAVE)->getArrayCopy();
     }
 
     /**
