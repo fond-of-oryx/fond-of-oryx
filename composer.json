@@ -21,7 +21,7 @@
   "require": {
     "php": ">=8.0",
     "ext-json": "*",
-    "endroid/qr-code": ">=4.1 <4.6",
+    "endroid/qr-code": "^4.8.0",
     "fond-of-spryker/brand-company": "dev-master",
     "fond-of-spryker/brand-customer": "dev-spryker_upgrade",
     "fond-of-spryker/brand-extension": "dev-master",
