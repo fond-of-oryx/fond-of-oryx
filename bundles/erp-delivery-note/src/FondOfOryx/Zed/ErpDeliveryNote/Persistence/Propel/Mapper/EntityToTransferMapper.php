@@ -60,7 +60,7 @@ class EntityToTransferMapper implements EntityToTransferMapperInterface
         foreach ($deliveryNoteItem->getFooErpDeliveryNoteTrackingToItems() as $trackingToItem){
             $trackingEntity = $trackingToItem->getFooErpDeliveryNoteTracking();
             $trackingTransfer = (new ErpDeliveryNoteTrackingTransfer())->fromArray($trackingEntity->toArray(), true);
-            $deliveryNoteItemTransfer->addTracking($trackingTransfer);
+            $deliveryNoteItemTransfer->addTrackingData($trackingTransfer);
         }
 
         return $deliveryNoteItemTransfer

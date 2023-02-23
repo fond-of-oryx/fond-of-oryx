@@ -367,6 +367,40 @@ class ErpDeliveryNoteEntityManager extends AbstractEntityManager implements ErpD
     }
 
     /**
+     * @param int $idErpDeliveryNoteTracking
+     *
+     * @return void
+     */
+    public function deleteErpDeliveryNoteTrackingByIdErpDeliveryNoteTracking(int $idErpDeliveryNoteTracking): void
+    {
+        $deliveryNoteTracking = $this->getFactory()->createErpDeliveryNoteTrackingQuery()->findOneByIdErpDeliveryNoteTracking($idErpDeliveryNoteTracking);
+        if ($deliveryNoteTracking === null) {
+            return;
+        }
+
+        $this->deleteErpDeliveryNoteTrackingRelationsByIdErpDeliveryNoteTracking($idErpDeliveryNoteTracking);
+
+        $deliveryNoteTracking->delete();
+    }
+
+    /**
+     * @param int $idErpDeliveryNoteTracking
+     *
+     * @return void
+     */
+    public function deleteErpDeliveryNoteTrackingRelationsByIdErpDeliveryNoteTracking(int $idErpDeliveryNoteTracking): void
+    {
+        $deliveryNoteTrackingRelations = $this->getFactory()->createErpDeliveryNoteTrackingToItemQuery()->findByFkErpDeliveryNoteTracking($idErpDeliveryNoteTracking);
+        if ($deliveryNoteTrackingRelations->count() === 0) {
+            return;
+        }
+
+        foreach ($deliveryNoteTrackingRelations as $relation){
+            $relation->delete();
+        }
+    }
+
+    /**
      * @param int $idErpDeliveryNoteAddress
      *
      * @return void

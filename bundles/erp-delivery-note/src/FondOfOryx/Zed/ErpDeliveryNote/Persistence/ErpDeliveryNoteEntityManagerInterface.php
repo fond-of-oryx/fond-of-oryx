@@ -131,6 +131,20 @@ interface ErpDeliveryNoteEntityManagerInterface
     public function deleteErpDeliveryNoteExpenseByIdErpDeliveryNoteExpense(int $idErpDeliveryNoteExpense): void;
 
     /**
+     * @param int $idErpDeliveryNoteTracking
+     *
+     * @return void
+     */
+    public function deleteErpDeliveryNoteTrackingByIdErpDeliveryNoteTracking(int $idErpDeliveryNoteTracking): void;
+
+    /**
+     * @param int $idErpDeliveryNoteTracking
+     *
+     * @return void
+     */
+    public function deleteErpDeliveryNoteTrackingRelationsByIdErpDeliveryNoteTracking(int $idErpDeliveryNoteTracking): void;
+
+    /**
      * @param int $idErpDeliveryNoteAddress
      *
      * @return void

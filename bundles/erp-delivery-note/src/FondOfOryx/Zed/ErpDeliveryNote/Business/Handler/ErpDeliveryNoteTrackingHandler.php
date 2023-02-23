@@ -27,16 +27,6 @@ class ErpDeliveryNoteTrackingHandler implements ErpDeliveryNoteTrackingHandlerIn
     protected const DELETE = 'delete';
 
     /**
-     * @var string
-     */
-    protected const ITEM = 'item';
-
-    /**
-     * @var string
-     */
-    protected const TRACKING = 'tracking';
-
-    /**
      * @var \FondOfOryx\Zed\ErpDeliveryNote\Business\Model\Writer\ErpDeliveryNoteTrackingWriterInterface
      */
     protected $erpDeliveryNoteTrackingWriter;
@@ -178,25 +168,12 @@ class ErpDeliveryNoteTrackingHandler implements ErpDeliveryNoteTrackingHandlerIn
 
         foreach ($this->prepareExistingTracking($erpDeliveryNoteTransfer) as $trackingNumber => $itemTracking) {
             if (array_key_exists($trackingNumber, $existingTracking)) {
-
-                $existingTrackingData = $existingTracking[$trackingNumber];
-
-//                foreach ($existingTrackingData->getErpDeliveryNoteItems() as $relation) {
-//                    if (array_key_exists($sku, $existingTracking[$trackingNumber])) {
-//                        $updateTracking = $existingTracking[$trackingNumber][$sku]->getTracking();
-//                        $idDeliveryNoteTracking = $updateTracking->getIdErpDeliveryNoteTracking();
-//                        $updateTracking->fromArray($tracking->toArray(), true);
-//                        $updateTracking->setIdErpDeliveryNoteTracking($idDeliveryNoteTracking);
-//                        $update[] = $updateTracking;
-//                        unset($existingTracking[$trackingNumber][$sku]);
-//
-//                        continue;
-//                    }
-//                    $new[$trackingNumber][$sku] = $tracking;
-//                }
+                $existingEntry = $existingTracking[$trackingNumber];
+                $itemTracking->setIdErpDeliveryNoteTracking($existingEntry->getIdErpDeliveryNoteTracking());
+                $update[] = $itemTracking;
+                unset($existingTracking[$trackingNumber]);
                 continue;
-            }
-
+                }
             $new[$trackingNumber] = $itemTracking;
         }
 
