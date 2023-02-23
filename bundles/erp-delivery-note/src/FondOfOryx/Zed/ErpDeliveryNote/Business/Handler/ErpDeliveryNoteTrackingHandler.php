@@ -5,7 +5,7 @@ namespace FondOfOryx\Zed\ErpDeliveryNote\Business\Handler;
 use ArrayObject;
 use FondOfOryx\Zed\ErpDeliveryNote\Business\Model\Reader\ErpDeliveryNoteTrackingReaderInterface;
 use FondOfOryx\Zed\ErpDeliveryNote\Business\Model\Writer\ErpDeliveryNoteTrackingWriterInterface;
-use Generated\Shared\Transfer\ErpDeliveryNoteTrackingCollectionTransfer;
+use Generated\Shared\Transfer\ErpDeliveryNoteTrackingToItemRelationTransfer;
 use Generated\Shared\Transfer\ErpDeliveryNoteTrackingTransfer;
 use Generated\Shared\Transfer\ErpDeliveryNoteTransfer;
 
@@ -27,6 +27,16 @@ class ErpDeliveryNoteTrackingHandler implements ErpDeliveryNoteTrackingHandlerIn
     protected const DELETE = 'delete';
 
     /**
+     * @var string
+     */
+    protected const ITEM = 'item';
+
+    /**
+     * @var string
+     */
+    protected const TRACKING = 'tracking';
+
+    /**
      * @var \FondOfOryx\Zed\ErpDeliveryNote\Business\Model\Writer\ErpDeliveryNoteTrackingWriterInterface
      */
     protected $erpDeliveryNoteTrackingWriter;
@@ -43,7 +53,8 @@ class ErpDeliveryNoteTrackingHandler implements ErpDeliveryNoteTrackingHandlerIn
     public function __construct(
         ErpDeliveryNoteTrackingWriterInterface $erpDeliveryNoteTrackingWriter,
         ErpDeliveryNoteTrackingReaderInterface $erpDeliveryNoteTrackingReader
-    ) {
+    )
+    {
         $this->erpDeliveryNoteTrackingWriter = $erpDeliveryNoteTrackingWriter;
         $this->erpDeliveryNoteTrackingReader = $erpDeliveryNoteTrackingReader;
     }
@@ -55,27 +66,25 @@ class ErpDeliveryNoteTrackingHandler implements ErpDeliveryNoteTrackingHandlerIn
      * @return \Generated\Shared\Transfer\ErpDeliveryNoteTransfer
      */
     public function handle(
-        ErpDeliveryNoteTransfer $erpDeliveryNoteTransfer,
+        ErpDeliveryNoteTransfer  $erpDeliveryNoteTransfer,
         ?ErpDeliveryNoteTransfer $existingErpDeliveryNoteTransfer = null
-    ): ErpDeliveryNoteTransfer {
+    ): ErpDeliveryNoteTransfer
+    {
         $preparedTracking = $this->prepareTracking($erpDeliveryNoteTransfer, $existingErpDeliveryNoteTransfer);
         $collection = new ArrayObject();
         $deliveryNoteId = $erpDeliveryNoteTransfer->getIdErpDeliveryNote();
 
-        foreach ($preparedTracking[static::NEW] as $erpDeliveryNoteTrackingTransfer) {
-            $erpDeliveryNoteTrackingTransfer->setFkErpDeliveryNote($deliveryNoteId);
-            $erpDeliveryNoteTrackingTransfer = $this->create($erpDeliveryNoteTrackingTransfer);
-            $collection->append($erpDeliveryNoteTrackingTransfer);
+        foreach ($preparedTracking[static::NEW] as $trackingData) {
+            $collection->append($this->create($trackingData));
         }
 
-        foreach ($preparedTracking[static::UPDATE] as $erpDeliveryNoteTrackingTransfer) {
-            $erpDeliveryNoteTrackingTransfer->setFkErpDeliveryNote($deliveryNoteId);
-            $erpDeliveryNoteTrackingTransfer = $this->update($erpDeliveryNoteTrackingTransfer);
-            $collection->append($erpDeliveryNoteTrackingTransfer);
+        foreach ($preparedTracking[static::UPDATE] as $trackingData) {
+            $trackingData->setFkErpDeliveryNote($deliveryNoteId);
+            $collection->append($this->update($trackingData));
         }
 
-        foreach ($preparedTracking[static::DELETE] as $erpDeliveryNoteTrackingTransfer) {
-            $this->delete($erpDeliveryNoteTrackingTransfer->getIdErpDeliveryNoteTracking());
+        foreach ($preparedTracking[static::DELETE] as $trackingData) {
+            $this->delete($trackingData->getIdErpDeliveryNoteTracking());
         }
 
         return $erpDeliveryNoteTransfer->setTracking($collection);
@@ -119,30 +128,45 @@ class ErpDeliveryNoteTrackingHandler implements ErpDeliveryNoteTrackingHandlerIn
     /**
      * @param int $idErpDeliveryNote
      *
-     * @return array<\Generated\Shared\Transfer\ErpDeliveryNoteTrackingTransfer>
+     * @return array<string, \Generated\Shared\Transfer\ErpDeliveryNoteTrackingTransfer>
      */
     protected function getExistingErpDeliveryNoteTracking(int $idErpDeliveryNote): array
     {
         $itemsCollection = $this->erpDeliveryNoteTrackingReader->findErpDeliveryNoteTrackingByIdErpDeliveryNote($idErpDeliveryNote);
+        $existingTracking = [];
+        foreach ($itemsCollection->getTracking() as $tracking) {
+            $trackingNumber = $tracking->getTrackingNumber();
+            $trackingData = $tracking;
+            if (array_key_exists($trackingNumber, $existingTracking)) {
+                $trackingData = $existingTracking[$trackingNumber];
+            }
+            foreach ($tracking->getErpDeliveryNoteItems() as $item) {
+                $relation = (new ErpDeliveryNoteTrackingToItemRelationTransfer())
+                    ->setQuantity($tracking->getQuantity())
+                    ->setFkErpDeliveryNoteItem($item->getIdErpDeliveryNoteItem());
 
-        return $this->prepareExistingTracking($itemsCollection);
+                $existingTracking[$trackingNumber] = $trackingData->addItemRelation($relation);
+            }
+        }
+        return $existingTracking;
     }
 
     /**
      * @param \Generated\Shared\Transfer\ErpDeliveryNoteTransfer $erpDeliveryNoteTransfer
      * @param \Generated\Shared\Transfer\ErpDeliveryNoteTransfer|null $existingErpDeliveryNoteTransfer
      *
-     * @return array
+     * @return array<string, array<string, \Generated\Shared\Transfer\ErpDeliveryNoteTrackingTransfer>>
      */
     protected function prepareTracking(
-        ErpDeliveryNoteTransfer $erpDeliveryNoteTransfer,
+        ErpDeliveryNoteTransfer  $erpDeliveryNoteTransfer,
         ?ErpDeliveryNoteTransfer $existingErpDeliveryNoteTransfer = null
-    ): array {
+    ): array
+    {
         $existingTracking = [];
         $erpDeliveryNoteTransfer->requireIdErpDeliveryNote();
 
         if ($existingErpDeliveryNoteTransfer !== null) {
-            $existingTracking = $this->prepareExistingTracking((new ErpDeliveryNoteTrackingCollectionTransfer())->setTracking($existingErpDeliveryNoteTransfer->trac()));
+            $existingTracking = $this->prepareExistingTracking($existingErpDeliveryNoteTransfer);
         }
 
         if (count($existingTracking) === 0) {
@@ -152,20 +176,28 @@ class ErpDeliveryNoteTrackingHandler implements ErpDeliveryNoteTrackingHandlerIn
         $new = [];
         $update = [];
 
-        foreach ($erpDeliveryNoteTransfer->getTracking() as $erpDeliveryNoteTrackingTransfer) {
-            $name = $erpDeliveryNoteTrackingTransfer->getName();
-            if (array_key_exists($name, $existingTracking)) {
-                $updateTracking = $existingTracking[$name];
-                $idDeliveryNoteTracking = $updateTracking->getIdErpDeliveryNoteTracking();
-                $updateTracking->fromArray($erpDeliveryNoteTrackingTransfer->toArray(), true);
-                $updateTracking->setIdErpDeliveryNoteTracking($idDeliveryNoteTracking);
-                $update[] = $updateTracking;
-                unset($existingTracking[$name]);
+        foreach ($this->prepareExistingTracking($erpDeliveryNoteTransfer) as $trackingNumber => $itemTracking) {
+            if (array_key_exists($trackingNumber, $existingTracking)) {
 
+                $existingTrackingData = $existingTracking[$trackingNumber];
+
+//                foreach ($existingTrackingData->getErpDeliveryNoteItems() as $relation) {
+//                    if (array_key_exists($sku, $existingTracking[$trackingNumber])) {
+//                        $updateTracking = $existingTracking[$trackingNumber][$sku]->getTracking();
+//                        $idDeliveryNoteTracking = $updateTracking->getIdErpDeliveryNoteTracking();
+//                        $updateTracking->fromArray($tracking->toArray(), true);
+//                        $updateTracking->setIdErpDeliveryNoteTracking($idDeliveryNoteTracking);
+//                        $update[] = $updateTracking;
+//                        unset($existingTracking[$trackingNumber][$sku]);
+//
+//                        continue;
+//                    }
+//                    $new[$trackingNumber][$sku] = $tracking;
+//                }
                 continue;
             }
 
-            $new[] = $erpDeliveryNoteTrackingTransfer;
+            $new[$trackingNumber] = $itemTracking;
         }
 
         return [
@@ -176,15 +208,29 @@ class ErpDeliveryNoteTrackingHandler implements ErpDeliveryNoteTrackingHandlerIn
     }
 
     /**
-     * @param \Generated\Shared\Transfer\ErpDeliveryNoteTrackingCollectionTransfer $itemsCollection
+     * @param \Generated\Shared\Transfer\ErpDeliveryNoteTransfer $existingErpDeliveryNoteTransfer
      *
-     * @return array
+     * @return array<string, \Generated\Shared\Transfer\ErpDeliveryNoteTrackingTransfer>
      */
-    protected function prepareExistingTracking(ErpDeliveryNoteTrackingCollectionTransfer $itemsCollection): array
+    protected function prepareExistingTracking(ErpDeliveryNoteTransfer $existingErpDeliveryNoteTransfer): array
     {
         $existingTracking = [];
-        foreach ($itemsCollection->getTracking() as $itemTransfer) {
-            $existingTracking[$itemTransfer->getName()] = $itemTransfer;
+        foreach ($existingErpDeliveryNoteTransfer->getDeliveryNoteItems() as $item) {
+            foreach ($item->getTrackingData() as $trackingData) {
+                $trackingTransfer = $trackingData;
+                $trackingNumber = $trackingData->getTrackingNumber();
+                if (array_key_exists($trackingNumber, $existingTracking)) {
+                    $trackingTransfer = $existingTracking[$trackingNumber];
+                }
+                $relation =
+                    (new ErpDeliveryNoteTrackingToItemRelationTransfer())
+                        ->setQuantity($trackingData->getQuantity())
+                        ->setFkErpDeliveryNoteItem($item->getIdErpDeliveryNoteItem());
+
+                $existingTracking[$trackingNumber] = $trackingTransfer
+                    ->addItemRelation($relation)
+                    ->setFkErpDeliveryNote($existingErpDeliveryNoteTransfer->getIdErpDeliveryNote());
+            }
         }
 
         return $existingTracking;

@@ -14,6 +14,8 @@ use FondOfOryx\Zed\ErpDeliveryNoteExtension\Dependency\Plugin\ErpDeliveryNoteIte
 use FondOfOryx\Zed\ErpDeliveryNoteExtension\Dependency\Plugin\ErpDeliveryNoteItemPreSavePluginInterface;
 use FondOfOryx\Zed\ErpDeliveryNoteExtension\Dependency\Plugin\ErpDeliveryNotePostSavePluginInterface;
 use FondOfOryx\Zed\ErpDeliveryNoteExtension\Dependency\Plugin\ErpDeliveryNotePreSavePluginInterface;
+use FondOfOryx\Zed\ErpDeliveryNoteExtension\Dependency\Plugin\ErpDeliveryNoteTrackingPostSavePluginInterface;
+use FondOfOryx\Zed\ErpDeliveryNoteExtension\Dependency\Plugin\ErpDeliveryNoteTrackingPreSavePluginInterface;
 use Spryker\Zed\Kernel\AbstractBundleDependencyProvider;
 use Spryker\Zed\Kernel\Container;
 
@@ -117,6 +119,8 @@ class ErpDeliveryNoteDependencyProvider extends AbstractBundleDependencyProvider
         $container = $this->addErpDeliveryNoteItemPostSavePlugin($container);
         $container = $this->addErpDeliveryNoteExpensePreSavePlugin($container);
         $container = $this->addErpDeliveryNoteExpensePostSavePlugin($container);
+        $container = $this->addErpDeliveryNoteTrackingPreSavePlugin($container);
+        $container = $this->addErpDeliveryNoteTrackingPostSavePlugin($container);
         $container = $this->addErpDeliveryNoteAddressPreSavePlugin($container);
         $container = $this->addErpDeliveryNoteAddressPostSavePlugin($container);
 
@@ -262,6 +266,40 @@ class ErpDeliveryNoteDependencyProvider extends AbstractBundleDependencyProvider
      *
      * @return \Spryker\Zed\Kernel\Container
      */
+    public function addErpDeliveryNoteTrackingPostSavePlugin(Container $container): Container
+    {
+        $container[static::PLUGIN_ERP_DELIVERY_NOTE_TRACKING_POST_SAVE] = function (Container $container) {
+            $plugins = $this->getErpDeliveryNoteTrackingPostSavePlugin();
+            $this->validatePlugin($plugins, ErpDeliveryNoteTrackingPostSavePluginInterface::class);
+
+            return new ArrayObject($plugins);
+        };
+
+        return $container;
+    }
+
+    /**
+     * @param \Spryker\Zed\Kernel\Container $container
+     *
+     * @return \Spryker\Zed\Kernel\Container
+     */
+    public function addErpDeliveryNoteTrackingPreSavePlugin(Container $container): Container
+    {
+        $container[static::PLUGIN_ERP_DELIVERY_NOTE_TRACKING_PRE_SAVE] = function (Container $container) {
+            $plugins = $this->getErpDeliveryNoteTrackingPreSavePlugin();
+            $this->validatePlugin($plugins, ErpDeliveryNoteTrackingPreSavePluginInterface::class);
+
+            return new ArrayObject($plugins);
+        };
+
+        return $container;
+    }
+
+    /**
+     * @param \Spryker\Zed\Kernel\Container $container
+     *
+     * @return \Spryker\Zed\Kernel\Container
+     */
     public function addErpDeliveryNoteAddressPostSavePlugin(Container $container): Container
     {
         $container[static::PLUGIN_ERP_DELIVERY_NOTE_ADDRESS_POST_SAVE] = function (Container $container) {
@@ -345,6 +383,14 @@ class ErpDeliveryNoteDependencyProvider extends AbstractBundleDependencyProvider
     }
 
     /**
+     * @return array<\FondOfOryx\Zed\ErpDeliveryNoteExtension\Dependency\Plugin\ErpDeliveryNoteTrackingPostSavePluginInterface>
+     */
+    protected function getErpDeliveryNoteTrackingPostSavePlugin(): array
+    {
+        return [];
+    }
+
+    /**
      * @return array<\FondOfOryx\Zed\ErpDeliveryNoteExtension\Dependency\Plugin\ErpDeliveryNoteItemPreSavePluginInterface>
      */
     protected function getErpDeliveryNoteItemPreSavePlugin(): array
@@ -356,6 +402,14 @@ class ErpDeliveryNoteDependencyProvider extends AbstractBundleDependencyProvider
      * @return array<\FondOfOryx\Zed\ErpDeliveryNoteExtension\Dependency\Plugin\ErpDeliveryNoteExpensePreSavePluginInterface>
      */
     protected function getErpDeliveryNoteExpensePreSavePlugin(): array
+    {
+        return [];
+    }
+
+    /**
+     * @return array<\FondOfOryx\Zed\ErpDeliveryNoteExtension\Dependency\Plugin\ErpDeliveryNoteTrackingPreSavePluginInterface>
+     */
+    protected function getErpDeliveryNoteTrackingPreSavePlugin(): array
     {
         return [];
     }

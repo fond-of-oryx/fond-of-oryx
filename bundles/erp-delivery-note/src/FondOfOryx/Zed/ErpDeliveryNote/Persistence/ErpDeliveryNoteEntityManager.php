@@ -139,9 +139,7 @@ class ErpDeliveryNoteEntityManager extends AbstractEntityManager implements ErpD
     {
         $trackingTransfer
             ->requireFkErpDeliveryNote()
-            ->requireErpDeliveryNoteItems()
-            ->requireTrackingNumber()
-            ->requireQuantity();
+            ->requireTrackingNumber();
 
         $now = new DateTime();
 
@@ -467,11 +465,29 @@ class ErpDeliveryNoteEntityManager extends AbstractEntityManager implements ErpD
      */
     protected function addItemTrackingRelations(ErpDeliveryNoteTrackingTransfer $trackingTransfer, FooErpDeliveryNoteTracking $entity): void
     {
+        $relations = [];
+        $keyPrefix = sprintf('%s-%s-%s', $trackingTransfer->getTrackingNumber(), $entity->getFkErpDeliveryNote(), $entity->getIdErpDeliveryNoteTracking());
+
+        foreach ($trackingTransfer->getItemRelations() as $itemRelation){
+            $relation = new FooErpDeliveryNoteTrackingToItem();
+            $key = sprintf('%s-%s', $keyPrefix, $itemRelation->getFkErpDeliveryNoteItem());
+            $relations[$key] = $relation->fromArray($itemRelation->toArray())
+                ->setFkErpDeliveryNoteTracking($entity->getIdErpDeliveryNoteTracking());
+        }
+
         foreach ($trackingTransfer->getErpDeliveryNoteItems() as $itemTransfer) {
-            (new FooErpDeliveryNoteTrackingToItem())
+            $key = sprintf('%s-%s', $keyPrefix, $itemTransfer->getIdErpDeliveryNoteItem());
+            $relation = new FooErpDeliveryNoteTrackingToItem();
+            if (array_key_exists($key, $relations)){
+                $relation = $relations[$key];
+            }
+            $relations[$key] = $relation
                 ->setFkErpDeliveryNoteItem($itemTransfer->getIdErpDeliveryNoteItem())
-                ->setFkErpDeliveryNoteTracking($entity->getIdErpDeliveryNoteTracking())
-                ->save();
+                ->setFkErpDeliveryNoteTracking($entity->getIdErpDeliveryNoteTracking());
+        }
+
+        foreach ($relations as $relation){
+            $relation->save();
         }
     }
 }

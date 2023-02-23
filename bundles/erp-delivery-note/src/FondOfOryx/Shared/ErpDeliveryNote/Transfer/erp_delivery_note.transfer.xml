@@ -19,6 +19,7 @@
         <property name="currencyIsoCode" type="string"/>
         <property name="orderDate" type="int"/>
         <property name="deliveryNoteNumber" type="string"/>
+        <property name="tracking" type="ErpDeliveryNoteTracking[]"/>
         <property name="createdAt" type="int"/>
         <property name="updatedAt" type="int"/>
     </transfer>
@@ -33,7 +34,7 @@
         <property name="createdAt" type="int"/>
         <property name="updatedAt" type="int"/>
         <property name="position" type="int"/>
-        <property name="tracking" type="ErpDeliveryNoteTracking[]"/>
+        <property name="trackingData" type="ErpDeliveryNoteTracking[]"/>
     </transfer>
 
     <transfer name="ErpDeliveryNoteExpense">
@@ -49,20 +50,22 @@
     <transfer name="ErpDeliveryNoteTracking">
         <property name="idErpDeliveryNoteTracking" type="int" />
         <property name="fkErpDeliveryNote" type="int" />
-        <property name="quantity" type="Decimal"/>
         <property name="trackingNumber" type="string"/>
         <property name="trackingUrl" type="string"/>
+        <property name="quantity" type="float"/>
         <property name="shippingAgentCode" type="string"/>
         <property name="shippingAgentServiceCode" type="string"/>
         <property name="createdAt" type="int"/>
         <property name="updatedAt" type="int"/>
         <property name="erpDeliveryNoteItems" singular="erpDeliveryNoteItem" type="ErpDeliveryNoteItem[]"/>
+        <property name="itemRelations" singular="itemRelation" type="ErpDeliveryNoteTrackingToItemRelation[]"/>
     </transfer>
 
-    <transfer name="ErpDeliveryNoteTrackingToItem">
+    <transfer name="ErpDeliveryNoteTrackingToItemRelation">
         <property name="idErpDeliveryNoteTrackingToItem" type="int" />
-        <property name="fkErpDeliveryNoteTrackingToItem" type="int" />
+        <property name="fkErpDeliveryNoteTracking" type="int" />
         <property name="fkErpDeliveryNoteItem" type="int" />
+        <property name="quantity" type="float"/>
     </transfer>
 
     <transfer name="ErpDeliveryNoteAddress">
