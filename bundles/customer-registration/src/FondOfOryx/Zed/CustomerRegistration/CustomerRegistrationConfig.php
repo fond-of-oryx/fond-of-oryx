@@ -12,6 +12,11 @@ use Spryker\Zed\Kernel\AbstractBundleConfig;
 class CustomerRegistrationConfig extends AbstractBundleConfig implements CustomerRegistrationConfigInterface
 {
     /**
+     * @var string
+     */
+    protected const MAILJET_DEFAULT_LOCALE = 'en_US';
+
+    /**
      * @api
      *
      * @param string $storeName
@@ -93,6 +98,10 @@ class CustomerRegistrationConfig extends AbstractBundleConfig implements Custome
             return $customerRegistrationWelcomeMailTemplateIdByLocale[$locale];
         }
 
+        if (isset($customerRegistrationWelcomeMailTemplateIdByLocale[static::MAILJET_DEFAULT_LOCALE])) {
+            return $customerRegistrationWelcomeMailTemplateIdByLocale[static::MAILJET_DEFAULT_LOCALE];
+        }
+
         return null;
     }
 
@@ -112,6 +121,10 @@ class CustomerRegistrationConfig extends AbstractBundleConfig implements Custome
 
         if (isset($oneTimePasswordLoginLinkMailTemplateIdByLocale[$locale])) {
             return $oneTimePasswordLoginLinkMailTemplateIdByLocale[$locale];
+        }
+
+        if (isset($oneTimePasswordLoginLinkMailTemplateIdByLocale[static::MAILJET_DEFAULT_LOCALE])) {
+            return $oneTimePasswordLoginLinkMailTemplateIdByLocale[static::MAILJET_DEFAULT_LOCALE];
         }
 
         return null;
