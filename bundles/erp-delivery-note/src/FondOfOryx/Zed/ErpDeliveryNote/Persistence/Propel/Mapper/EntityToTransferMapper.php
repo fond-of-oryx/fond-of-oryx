@@ -10,6 +10,7 @@ use Generated\Shared\Transfer\CompanyBusinessUnitTransfer;
 use Generated\Shared\Transfer\ErpDeliveryNoteAddressTransfer;
 use Generated\Shared\Transfer\ErpDeliveryNoteExpenseTransfer;
 use Generated\Shared\Transfer\ErpDeliveryNoteItemTransfer;
+use Generated\Shared\Transfer\ErpDeliveryNoteTrackingToItemRelationTransfer;
 use Generated\Shared\Transfer\ErpDeliveryNoteTrackingTransfer;
 use Generated\Shared\Transfer\ErpDeliveryNoteTransfer;
 use Orm\Zed\ErpDeliveryNote\Persistence\FooErpDeliveryNote;
@@ -17,6 +18,7 @@ use Orm\Zed\ErpDeliveryNote\Persistence\FooErpDeliveryNoteAddress;
 use Orm\Zed\ErpDeliveryNote\Persistence\FooErpDeliveryNoteExpense;
 use Orm\Zed\ErpDeliveryNote\Persistence\FooErpDeliveryNoteItem;
 use Orm\Zed\ErpDeliveryNote\Persistence\FooErpDeliveryNoteTracking;
+use Orm\Zed\ErpDeliveryNote\Persistence\FooErpDeliveryNoteTrackingToItem;
 
 class EntityToTransferMapper implements EntityToTransferMapperInterface
 {
@@ -59,13 +61,32 @@ class EntityToTransferMapper implements EntityToTransferMapperInterface
 
         foreach ($deliveryNoteItem->getFooErpDeliveryNoteTrackingToItems() as $trackingToItem){
             $trackingEntity = $trackingToItem->getFooErpDeliveryNoteTracking();
-            $trackingTransfer = (new ErpDeliveryNoteTrackingTransfer())->fromArray($trackingEntity->toArray(), true);
+            $trackingTransfer = (new ErpDeliveryNoteTrackingTransfer())
+                ->fromArray($trackingEntity->toArray(), true)
+                ->setQuantity($trackingToItem->getQuantity())
+                ->addItemRelation($this->fromItemTrackingRelationToTransfer($trackingToItem));
             $deliveryNoteItemTransfer->addTrackingData($trackingTransfer);
         }
 
         return $deliveryNoteItemTransfer
             ->setCreatedAt($this->convertDateTimeToTimestamp($deliveryNoteItem->getCreatedAt()))
             ->setUpdatedAt($this->convertDateTimeToTimestamp($deliveryNoteItem->getUpdatedAt()));
+    }
+
+    /**
+     * @param \Orm\Zed\ErpDeliveryNote\Persistence\FooErpDeliveryNoteTrackingToItem $trackingToItem
+     * @param \Generated\Shared\Transfer\ErpDeliveryNoteTrackingToItemRelationTransfer|null $trackingToItemRelationTransfer
+     *
+     * @return \Generated\Shared\Transfer\ErpDeliveryNoteTrackingToItemRelationTransfer
+     */
+    public function fromItemTrackingRelationToTransfer(
+        FooErpDeliveryNoteTrackingToItem $trackingToItem,
+        ?ErpDeliveryNoteTrackingToItemRelationTransfer $trackingToItemRelationTransfer = null
+    ): ErpDeliveryNoteTrackingToItemRelationTransfer {
+        if ($trackingToItemRelationTransfer === null) {
+            $trackingToItemRelationTransfer = new ErpDeliveryNoteTrackingToItemRelationTransfer();
+        }
+        return $trackingToItemRelationTransfer->fromArray($trackingToItem->toArray(), true);
     }
 
     /**

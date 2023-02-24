@@ -256,7 +256,6 @@ class ErpDeliveryNoteEntityManager extends AbstractEntityManager implements ErpD
             ->requireIdErpDeliveryNoteTracking()
             ->requireFkErpDeliveryNote()
             ->requireTrackingNumber()
-            ->requireErpDeliveryNoteItems()
             ->requireQuantity();
 
         $entity = $this->findOrCreateErpDeliveryNoteTracking($deliveryNoteTrackingTransfer->getFkErpDeliveryNote(), $deliveryNoteTrackingTransfer->getTrackingNumber());
