@@ -14,7 +14,7 @@ class CustomerRegistrationConfig extends AbstractBundleConfig implements Custome
     /**
      * @var string
      */
-    protected const DEFAULT_MAILJET_LOCALE = 'en_US';
+    protected const MAILJET_DEFAULT_LOCALE = 'en_US';
 
     /**
      * @api
@@ -98,8 +98,8 @@ class CustomerRegistrationConfig extends AbstractBundleConfig implements Custome
             return $customerRegistrationWelcomeMailTemplateIdByLocale[$locale];
         }
 
-        if (isset($customerRegistrationWelcomeMailTemplateIdByLocale[static::DEFAULT_MAILJET_LOCALE])) {
-            return $customerRegistrationWelcomeMailTemplateIdByLocale[static::DEFAULT_MAILJET_LOCALE];
+        if (isset($customerRegistrationWelcomeMailTemplateIdByLocale[static::MAILJET_DEFAULT_LOCALE])) {
+            return $customerRegistrationWelcomeMailTemplateIdByLocale[static::MAILJET_DEFAULT_LOCALE];
         }
 
         return null;
@@ -123,8 +123,8 @@ class CustomerRegistrationConfig extends AbstractBundleConfig implements Custome
             return $oneTimePasswordLoginLinkMailTemplateIdByLocale[$locale];
         }
 
-        if (isset($oneTimePasswordLoginLinkMailTemplateIdByLocale[static::DEFAULT_MAILJET_LOCALE])) {
-            return $oneTimePasswordLoginLinkMailTemplateIdByLocale[static::DEFAULT_MAILJET_LOCALE];
+        if (isset($oneTimePasswordLoginLinkMailTemplateIdByLocale[static::MAILJET_DEFAULT_LOCALE])) {
+            return $oneTimePasswordLoginLinkMailTemplateIdByLocale[static::MAILJET_DEFAULT_LOCALE];
         }
 
         return null;
