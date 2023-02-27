@@ -239,9 +239,6 @@ class ErpDeliveryNotePageSearchPublisher implements ErpDeliveryNotePageSearchPub
     protected function getTracking(ObjectCollection $orderItemEntities): array
     {
         $tracking = [];
-        if ($orderItemEntities->count() === 0) {
-            return $tracking;
-        }
         /** @var \Orm\Zed\ErpDeliveryNote\Persistence\FooErpDeliveryNoteItem $orderItemEntity */
         foreach ($orderItemEntities as $orderItemEntity) {
             foreach ($orderItemEntity->getFooErpDeliveryNoteTrackingToItems() as $trackingToItem) {
@@ -280,11 +277,8 @@ class ErpDeliveryNotePageSearchPublisher implements ErpDeliveryNotePageSearchPub
     protected function appendItemTrackingData(FooErpDeliveryNoteItem $fooErpDeliveryNoteItemEntity): array
     {
         $tracking = [];
-        $itemTrackingData = $fooErpDeliveryNoteItemEntity->getFooErpDeliveryNoteTrackingToItems();
-        if ($itemTrackingData === null) {
-            return $tracking;
-        }
-        foreach ($itemTrackingData as $trackingToItem) {
+
+        foreach ($fooErpDeliveryNoteItemEntity->getFooErpDeliveryNoteTrackingToItems() as $trackingToItem) {
             $trackingEntity = $trackingToItem->getFooErpDeliveryNoteTracking();
             $trackingData = $trackingEntity->toArray();
             $trackingData[static::FIELD_QUANTITY] = $trackingToItem->getQuantity();
