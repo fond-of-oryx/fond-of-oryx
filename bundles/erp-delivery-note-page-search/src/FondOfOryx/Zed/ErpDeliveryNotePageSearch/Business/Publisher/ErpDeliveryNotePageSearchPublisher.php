@@ -240,7 +240,7 @@ class ErpDeliveryNotePageSearchPublisher implements ErpDeliveryNotePageSearchPub
     {
         $tracking = [];
         /** @var \Orm\Zed\ErpDeliveryNote\Persistence\FooErpDeliveryNoteItem $orderItemEntity */
-        foreach ($orderItemEntities as $orderItemEntity) {
+        foreach ($orderItemEntities->getData() as $orderItemEntity) {
             foreach ($orderItemEntity->getFooErpDeliveryNoteTrackingToItems() as $trackingToItem) {
                 $trackingEntity = $trackingToItem->getFooErpDeliveryNoteTracking();
                 $trackingData = $trackingEntity->toArray();

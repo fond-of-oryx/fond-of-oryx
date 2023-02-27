@@ -225,6 +225,10 @@ class ErpDeliveryNotePageSearchPublisherTest extends Unit
             ->method('getIterator')
             ->willReturn($this->erpDeliveryNoteItemIteratorMock);
 
+        $this->erpDeliveryNoteItemCollectionMock->expects(static::atLeastOnce())
+            ->method('getData')
+            ->willReturn([]);
+
         $this->erpDeliveryNoteItemIteratorMock->expects(static::atLeastOnce())
             ->method('rewind');
 
