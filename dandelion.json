@@ -560,7 +560,7 @@
     },
     "one-time-password-email-connector": {
       "path": "bundles/one-time-password-email-connector/",
-      "version": "2.1.0"
+      "version": "2.1.1"
     },
     "one-time-password-extension": {
       "path": "bundles/one-time-password-extension/",
