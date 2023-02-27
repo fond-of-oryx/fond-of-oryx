@@ -86,12 +86,11 @@ class ErpDeliveryNotePageSearchPublisher implements ErpDeliveryNotePageSearchPub
      * @param \FondOfOryx\Zed\ErpDeliveryNotePageSearch\Business\Mapper\ErpDeliveryNotePageSearchDataMapperInterface $erpDeliveryNotePageSearchDataMapper
      */
     public function __construct(
-        ErpDeliveryNotePageSearchEntityManagerInterface         $entityManager,
-        ErpDeliveryNotePageSearchQueryContainerInterface        $queryContainer,
+        ErpDeliveryNotePageSearchEntityManagerInterface $entityManager,
+        ErpDeliveryNotePageSearchQueryContainerInterface $queryContainer,
         ErpDeliveryNotePageSearchToUtilEncodingServiceInterface $utilEncodingService,
-        ErpDeliveryNotePageSearchDataMapperInterface            $erpDeliveryNotePageSearchDataMapper
-    )
-    {
+        ErpDeliveryNotePageSearchDataMapperInterface $erpDeliveryNotePageSearchDataMapper
+    ) {
         $this->entityManager = $entityManager;
         $this->queryContainer = $queryContainer;
         $this->utilEncodingService = $utilEncodingService;
@@ -184,8 +183,7 @@ class ErpDeliveryNotePageSearchPublisher implements ErpDeliveryNotePageSearchPub
      */
     protected function addDataAttributes(
         ErpDeliveryNotePageSearchTransfer $erpDeliveryNotePageSearchTransfer
-    ): ErpDeliveryNotePageSearchTransfer
-    {
+    ): ErpDeliveryNotePageSearchTransfer {
         $data = array_merge(
             $erpDeliveryNotePageSearchTransfer->toArray(),
             $erpDeliveryNotePageSearchTransfer->getData(),
@@ -208,9 +206,8 @@ class ErpDeliveryNotePageSearchPublisher implements ErpDeliveryNotePageSearchPub
      */
     protected function addUniqueKeyIdentifier(
         ErpDeliveryNotePageSearchTransfer $erpDeliveryNotePageSearchTransfer,
-        FooErpDeliveryNote                $fooErpDeliveryNoteEntity
-    ): ErpDeliveryNotePageSearchTransfer
-    {
+        FooErpDeliveryNote $fooErpDeliveryNoteEntity
+    ): ErpDeliveryNotePageSearchTransfer {
         $updatedAt = $fooErpDeliveryNoteEntity->getUpdatedAt();
         $hash = md5(sprintf('%s/%s', $updatedAt->getTimestamp(), mt_rand(0, 999)));
         $uki = sprintf('%s-%s', $fooErpDeliveryNoteEntity->getIdErpDeliveryNote(), $hash);
@@ -242,6 +239,9 @@ class ErpDeliveryNotePageSearchPublisher implements ErpDeliveryNotePageSearchPub
     protected function getTracking(ObjectCollection $orderItemEntities): array
     {
         $tracking = [];
+        if ($orderItemEntities->count() === 0) {
+            return $tracking;
+        }
         /** @var \Orm\Zed\ErpDeliveryNote\Persistence\FooErpDeliveryNoteItem $orderItemEntity */
         foreach ($orderItemEntities as $orderItemEntity) {
             foreach ($orderItemEntity->getFooErpDeliveryNoteTrackingToItems() as $trackingToItem) {
@@ -276,12 +276,15 @@ class ErpDeliveryNotePageSearchPublisher implements ErpDeliveryNotePageSearchPub
      * @param \Orm\Zed\ErpDeliveryNote\Persistence\FooErpDeliveryNoteItem $fooErpDeliveryNoteItemEntity
      *
      * @return array
-     * @throws \Propel\Runtime\Exception\PropelException
      */
     protected function appendItemTrackingData(FooErpDeliveryNoteItem $fooErpDeliveryNoteItemEntity): array
     {
         $tracking = [];
-        foreach ($fooErpDeliveryNoteItemEntity->getFooErpDeliveryNoteTrackingToItems() as $trackingToItem) {
+        $itemTrackingData = $fooErpDeliveryNoteItemEntity->getFooErpDeliveryNoteTrackingToItems();
+        if ($itemTrackingData === null) {
+            return $tracking;
+        }
+        foreach ($itemTrackingData as $trackingToItem) {
             $trackingEntity = $trackingToItem->getFooErpDeliveryNoteTracking();
             $trackingData = $trackingEntity->toArray();
             $trackingData[static::FIELD_QUANTITY] = $trackingToItem->getQuantity();

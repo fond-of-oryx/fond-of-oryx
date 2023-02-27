@@ -47,9 +47,10 @@ interface ErpDeliveryNoteEntityManagerInterface
     /**
      * @param \Generated\Shared\Transfer\ErpDeliveryNoteTrackingTransfer $trackingTransfer
      *
-     * @return \Generated\Shared\Transfer\ErpDeliveryNoteTrackingTransfer
      * @throws \Propel\Runtime\Exception\PropelException
      * @throws \Spryker\Shared\Kernel\Transfer\Exception\RequiredTransferPropertyException
+     *
+     * @return \Generated\Shared\Transfer\ErpDeliveryNoteTrackingTransfer
      */
     public function createErpDeliveryNoteTracking(ErpDeliveryNoteTrackingTransfer $trackingTransfer): ErpDeliveryNoteTrackingTransfer;
 
@@ -89,16 +90,18 @@ interface ErpDeliveryNoteEntityManagerInterface
     /**
      * @param int $idTracking
      *
-     * @return void
      * @throws \Propel\Runtime\Exception\PropelException
+     *
+     * @return void
      */
     public function deleteTrackingToItemRelationsByIdTracking(int $idTracking): void;
 
     /**
      * @param string $trackingNumber
      *
-     * @return void
      * @throws \Propel\Runtime\Exception\PropelException
+     *
+     * @return void
      */
     public function deleteTrackingToItemRelationsByTrackingNumber(string $trackingNumber): void;
 

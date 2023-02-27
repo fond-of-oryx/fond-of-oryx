@@ -60,10 +60,9 @@ class RestErpDeliveryNotePageSearchCollectionResponseMapper implements RestErpDe
      * @param \FondOfOryx\Glue\ErpDeliveryNotePageSearchRestApi\Model\Mapper\RestErpDeliveryNotePageSearchPaginationSortMapperInterface $restErpDeliveryNotePageSearchPaginationSortMapper
      */
     public function __construct(
-        RestErpDeliveryNotePageSearchPaginationMapperInterface     $restErpDeliveryNotePageSearchPaginationMapper,
+        RestErpDeliveryNotePageSearchPaginationMapperInterface $restErpDeliveryNotePageSearchPaginationMapper,
         RestErpDeliveryNotePageSearchPaginationSortMapperInterface $restErpDeliveryNotePageSearchPaginationSortMapper
-    )
-    {
+    ) {
         $this->restErpDeliveryNotePageSearchPaginationMapper = $restErpDeliveryNotePageSearchPaginationMapper;
         $this->restErpDeliveryNotePageSearchPaginationSortMapper = $restErpDeliveryNotePageSearchPaginationSortMapper;
     }
@@ -75,8 +74,7 @@ class RestErpDeliveryNotePageSearchCollectionResponseMapper implements RestErpDe
      */
     public function fromSearchResult(
         array $searchResult
-    ): RestErpDeliveryNotePageSearchCollectionResponseTransfer
-    {
+    ): RestErpDeliveryNotePageSearchCollectionResponseTransfer {
         $responseTransfer = (new RestErpDeliveryNotePageSearchCollectionResponseTransfer())
             ->setSort($this->restErpDeliveryNotePageSearchPaginationSortMapper->fromSearchResult($searchResult))
             ->setPagination($this->restErpDeliveryNotePageSearchPaginationMapper->fromSearchResult($searchResult));
@@ -97,9 +95,11 @@ class RestErpDeliveryNotePageSearchCollectionResponseMapper implements RestErpDe
                 ),
             );
 
-            $this->addRestErpDeliveryNoteItems($restErpDeliveryNote, $erpDeliveryNoteData[self::ERP_DELIVERY_NOTE_DATA_KEY_ERP_DELIVERY_NOTE_ITEMS]);
-            $this->addRestErpDeliveryNoteExpenses($restErpDeliveryNote, $erpDeliveryNoteData[self::ERP_DELIVERY_NOTE_DATA_KEY_ERP_DELIVERY_NOTE_EXPENSES]);
-            $this->addRestErpDeliveryNoteTracking($restErpDeliveryNote, $erpDeliveryNoteData[self::ERP_DELIVERY_NOTE_DATA_KEY_ERP_DELIVERY_NOTE_TRACKING]);
+            $this->addRestErpDeliveryNoteItems($restErpDeliveryNote, $erpDeliveryNoteData[static::ERP_DELIVERY_NOTE_DATA_KEY_ERP_DELIVERY_NOTE_ITEMS]);
+            $this->addRestErpDeliveryNoteExpenses($restErpDeliveryNote, $erpDeliveryNoteData[static::ERP_DELIVERY_NOTE_DATA_KEY_ERP_DELIVERY_NOTE_EXPENSES]);
+            if (array_key_exists(static::ERP_DELIVERY_NOTE_DATA_KEY_ERP_DELIVERY_NOTE_TRACKING, $erpDeliveryNoteData)) {
+                $this->addRestErpDeliveryNoteTracking($restErpDeliveryNote, $erpDeliveryNoteData[static::ERP_DELIVERY_NOTE_DATA_KEY_ERP_DELIVERY_NOTE_TRACKING]);
+            }
 
             $responseTransfer->addErpDeliveryNote($restErpDeliveryNote);
         }
@@ -114,8 +114,7 @@ class RestErpDeliveryNotePageSearchCollectionResponseMapper implements RestErpDe
      */
     protected function mapCompanyBusinessUnitToRestCompanyBusinessUnit(
         array $companyBusinessUnit
-    ): RestCompanyBusinessUnitTransfer
-    {
+    ): RestCompanyBusinessUnitTransfer {
         return (new RestCompanyBusinessUnitTransfer())->fromArray($companyBusinessUnit, true);
     }
 
@@ -127,9 +126,8 @@ class RestErpDeliveryNotePageSearchCollectionResponseMapper implements RestErpDe
      */
     protected function addRestErpDeliveryNoteItems(
         RestErpDeliveryNoteTransfer $restErpDeliveryNoteTransfer,
-        array                       $erpDeliveryNoteItems
-    ): RestErpDeliveryNoteTransfer
-    {
+        array $erpDeliveryNoteItems
+    ): RestErpDeliveryNoteTransfer {
         foreach ($erpDeliveryNoteItems as $erpDeliveryNoteItemData) {
             $restErpDeliveryNoteItemTransfer = (new RestErpDeliveryNoteItemTransfer())->fromArray($erpDeliveryNoteItemData, true);
             $restErpDeliveryNoteItemTransfer = $this->mapItemTrackingData($restErpDeliveryNoteItemTransfer, $erpDeliveryNoteItemData);
@@ -147,9 +145,8 @@ class RestErpDeliveryNotePageSearchCollectionResponseMapper implements RestErpDe
      */
     protected function addRestErpDeliveryNoteExpenses(
         RestErpDeliveryNoteTransfer $restErpDeliveryNoteTransfer,
-        array                       $erpDeliveryNoteExpenses
-    ): RestErpDeliveryNoteTransfer
-    {
+        array $erpDeliveryNoteExpenses
+    ): RestErpDeliveryNoteTransfer {
         foreach ($erpDeliveryNoteExpenses as $erpDeliveryNoteExpenseData) {
             $restErpDeliveryNoteItemTransfer = (new RestErpDeliveryNoteExpenseTransfer())->fromArray($erpDeliveryNoteExpenseData, true);
             $restErpDeliveryNoteTransfer->addExpense($restErpDeliveryNoteItemTransfer);
@@ -166,9 +163,8 @@ class RestErpDeliveryNotePageSearchCollectionResponseMapper implements RestErpDe
      */
     protected function addRestErpDeliveryNoteTracking(
         RestErpDeliveryNoteTransfer $restErpDeliveryNoteTransfer,
-        array                       $erpDeliveryNoteTracking
-    ): RestErpDeliveryNoteTransfer
-    {
+        array $erpDeliveryNoteTracking
+    ): RestErpDeliveryNoteTransfer {
         foreach ($erpDeliveryNoteTracking as $erpDeliveryNoteTrackingData) {
             $restErpDeliveryNoteItemTransfer = (new RestErpDeliveryNoteTrackingTransfer())->fromArray($erpDeliveryNoteTrackingData, true);
             $restErpDeliveryNoteTransfer->addTracking($restErpDeliveryNoteItemTransfer);
@@ -179,18 +175,17 @@ class RestErpDeliveryNotePageSearchCollectionResponseMapper implements RestErpDe
 
     /**
      * @param \Generated\Shared\Transfer\RestErpDeliveryNoteItemTransfer $itemTransfer
-     * @param array $erpDeliveryNoteItems
+     * @param array $erpDeliveryNoteItemData
      *
      * @return \Generated\Shared\Transfer\RestErpDeliveryNoteItemTransfer
      */
     protected function mapItemTrackingData(
         RestErpDeliveryNoteItemTransfer $itemTransfer,
-        array                           $erpDeliveryNoteItemData
-    ): RestErpDeliveryNoteItemTransfer
-    {
+        array $erpDeliveryNoteItemData
+    ): RestErpDeliveryNoteItemTransfer {
         if (array_key_exists(static::ERP_DELIVERY_NOTE_DATA_KEY_ERP_DELIVERY_NOTE_ITEMS_TRACKING_DATA, $erpDeliveryNoteItemData)) {
             $collection = new ArrayObject();
-            foreach ($erpDeliveryNoteItemData[static::ERP_DELIVERY_NOTE_DATA_KEY_ERP_DELIVERY_NOTE_ITEMS_TRACKING_DATA] as $itemTrackingData){
+            foreach ($erpDeliveryNoteItemData[static::ERP_DELIVERY_NOTE_DATA_KEY_ERP_DELIVERY_NOTE_ITEMS_TRACKING_DATA] as $itemTrackingData) {
                 $collection->append((new RestErpDeliveryNoteItemTrackingTransfer())->fromArray($itemTrackingData, true));
             }
             $itemTransfer->setTrackingData($collection);

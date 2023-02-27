@@ -251,6 +251,11 @@ class ErpDeliveryNotePageSearchDataMapper implements ErpDeliveryNotePageSearchDa
      */
     protected function mapErpDeliveryNoteDataToSearchResultData(array $data): array
     {
+        $trackingData = [];
+        if (array_key_exists(static::ERP_DELIVERY_NOTE_TRACKING, $data)) {
+            $trackingData = $data[static::ERP_DELIVERY_NOTE_TRACKING];
+        }
+
         return [
             static::SEARCH_RESULT_ORDER_DATE => $this->convertDate($data[static::ORDER_DATE]),
             static::SEARCH_RESULT_CREATED_AT => $this->convertDate($data[static::CREATED_AT]),
@@ -267,7 +272,7 @@ class ErpDeliveryNotePageSearchDataMapper implements ErpDeliveryNotePageSearchDa
             static::SEARCH_RESULT_COMPANY_BUSINESS_UNIT => $data[static::COMPANY_BUSINESS_UNIT],
             static::SEARCH_RESULT_ERP_DELIVERY_NOTE_ITEMS => $data[static::ERP_DELIVERY_NOTE_ITEMS],
             static::SEARCH_RESULT_ERP_DELIVERY_NOTE_EXPENSES => $data[static::ERP_DELIVERY_NOTE_EXPENSES],
-            static::SEARCH_RESULT_ERP_DELIVERY_NOTE_TRACKING => $data[static::ERP_DELIVERY_NOTE_TRACKING],
+            static::SEARCH_RESULT_ERP_DELIVERY_NOTE_TRACKING => $trackingData,
             static::SEARCH_RESULT_SHIPPING_ADDRESS => $data[static::SHIPPING_ADDRESS],
             static::SEARCH_RESULT_BILLING_ADDRESS => $data[static::BILLING_ADDRESS],
             static::SEARCH_RESULT_CURRENCY_ISO_CODE => $data[static::CURRENCY_ISO_CODE],

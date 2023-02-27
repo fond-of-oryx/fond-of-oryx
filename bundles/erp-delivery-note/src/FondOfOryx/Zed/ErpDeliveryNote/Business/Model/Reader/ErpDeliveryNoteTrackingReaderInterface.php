@@ -2,7 +2,6 @@
 
 namespace FondOfOryx\Zed\ErpDeliveryNote\Business\Model\Reader;
 
-use FondOfOryx\Zed\ErpDeliveryNote\Persistence\ErpDeliveryNoteRepositoryInterface;
 use Generated\Shared\Transfer\ErpDeliveryNoteTrackingCollectionTransfer;
 use Generated\Shared\Transfer\ErpDeliveryNoteTrackingTransfer;
 

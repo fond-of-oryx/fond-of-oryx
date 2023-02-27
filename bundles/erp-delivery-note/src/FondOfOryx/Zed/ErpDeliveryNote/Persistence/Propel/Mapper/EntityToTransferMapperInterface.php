@@ -43,8 +43,9 @@ interface EntityToTransferMapperInterface
      * @param \Orm\Zed\ErpDeliveryNote\Persistence\FooErpDeliveryNoteTracking $deliveryNoteTracking
      * @param \Generated\Shared\Transfer\ErpDeliveryNoteTrackingTransfer|null $erpDeliveryNoteTrackingTransfer
      *
-     * @return \Generated\Shared\Transfer\ErpDeliveryNoteTrackingTransfer
      * @throws \Exception
+     *
+     * @return \Generated\Shared\Transfer\ErpDeliveryNoteTrackingTransfer
      */
     public function fromErpDeliveryNoteTrackingToTransfer(
         FooErpDeliveryNoteTracking $deliveryNoteTracking,

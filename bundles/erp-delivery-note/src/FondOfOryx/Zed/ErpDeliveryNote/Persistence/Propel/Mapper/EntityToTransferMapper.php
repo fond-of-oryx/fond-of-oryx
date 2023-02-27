@@ -59,7 +59,7 @@ class EntityToTransferMapper implements EntityToTransferMapperInterface
         }
         $deliveryNoteItemTransfer->fromArray($deliveryNoteItem->toArray(), true);
 
-        foreach ($deliveryNoteItem->getFooErpDeliveryNoteTrackingToItems() as $trackingToItem){
+        foreach ($deliveryNoteItem->getFooErpDeliveryNoteTrackingToItems() as $trackingToItem) {
             $trackingEntity = $trackingToItem->getFooErpDeliveryNoteTracking();
             $trackingTransfer = (new ErpDeliveryNoteTrackingTransfer())
                 ->fromArray($trackingEntity->toArray(), true)
@@ -86,6 +86,7 @@ class EntityToTransferMapper implements EntityToTransferMapperInterface
         if ($trackingToItemRelationTransfer === null) {
             $trackingToItemRelationTransfer = new ErpDeliveryNoteTrackingToItemRelationTransfer();
         }
+
         return $trackingToItemRelationTransfer->fromArray($trackingToItem->toArray(), true);
     }
 
@@ -114,7 +115,6 @@ class EntityToTransferMapper implements EntityToTransferMapperInterface
      * @param \Generated\Shared\Transfer\ErpDeliveryNoteTrackingTransfer|null $erpDeliveryNoteTrackingTransfer
      *
      * @return \Generated\Shared\Transfer\ErpDeliveryNoteTrackingTransfer
-     * @throws \Exception
      */
     public function fromErpDeliveryNoteTrackingToTransfer(
         FooErpDeliveryNoteTracking $deliveryNoteTracking,
@@ -125,7 +125,7 @@ class EntityToTransferMapper implements EntityToTransferMapperInterface
         }
         $erpDeliveryNoteTrackingTransfer->fromArray($deliveryNoteTracking->toArray(), true);
 
-        foreach ($deliveryNoteTracking->getFooErpDeliveryNoteTrackingToItems() as $trackingToItem){
+        foreach ($deliveryNoteTracking->getFooErpDeliveryNoteTrackingToItems() as $trackingToItem) {
             $item = (new ErpDeliveryNoteItemTransfer())->fromArray($trackingToItem->getFooErpDeliveryNoteItem()->toArray(), true);
             $erpDeliveryNoteTrackingTransfer->addErpDeliveryNoteItem($item);
         }

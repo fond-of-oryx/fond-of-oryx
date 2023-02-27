@@ -43,8 +43,7 @@ class ErpDeliveryNoteTrackingHandler implements ErpDeliveryNoteTrackingHandlerIn
     public function __construct(
         ErpDeliveryNoteTrackingWriterInterface $erpDeliveryNoteTrackingWriter,
         ErpDeliveryNoteTrackingReaderInterface $erpDeliveryNoteTrackingReader
-    )
-    {
+    ) {
         $this->erpDeliveryNoteTrackingWriter = $erpDeliveryNoteTrackingWriter;
         $this->erpDeliveryNoteTrackingReader = $erpDeliveryNoteTrackingReader;
     }
@@ -56,10 +55,9 @@ class ErpDeliveryNoteTrackingHandler implements ErpDeliveryNoteTrackingHandlerIn
      * @return \Generated\Shared\Transfer\ErpDeliveryNoteTransfer
      */
     public function handle(
-        ErpDeliveryNoteTransfer  $erpDeliveryNoteTransfer,
+        ErpDeliveryNoteTransfer $erpDeliveryNoteTransfer,
         ?ErpDeliveryNoteTransfer $existingErpDeliveryNoteTransfer = null
-    ): ErpDeliveryNoteTransfer
-    {
+    ): ErpDeliveryNoteTransfer {
         $preparedTracking = $this->prepareTracking($erpDeliveryNoteTransfer, $existingErpDeliveryNoteTransfer);
         $collection = new ArrayObject();
         $deliveryNoteId = $erpDeliveryNoteTransfer->getIdErpDeliveryNote();
@@ -138,6 +136,7 @@ class ErpDeliveryNoteTrackingHandler implements ErpDeliveryNoteTrackingHandlerIn
                 $existingTracking[$trackingNumber] = $trackingData->addItemRelation($relation);
             }
         }
+
         return $existingTracking;
     }
 
@@ -148,10 +147,9 @@ class ErpDeliveryNoteTrackingHandler implements ErpDeliveryNoteTrackingHandlerIn
      * @return array<string, array<string, \Generated\Shared\Transfer\ErpDeliveryNoteTrackingTransfer>>
      */
     protected function prepareTracking(
-        ErpDeliveryNoteTransfer  $erpDeliveryNoteTransfer,
+        ErpDeliveryNoteTransfer $erpDeliveryNoteTransfer,
         ?ErpDeliveryNoteTransfer $existingErpDeliveryNoteTransfer = null
-    ): array
-    {
+    ): array {
         $existingTracking = [];
         $erpDeliveryNoteTransfer->requireIdErpDeliveryNote();
 
@@ -172,8 +170,9 @@ class ErpDeliveryNoteTrackingHandler implements ErpDeliveryNoteTrackingHandlerIn
                 $itemTracking->setIdErpDeliveryNoteTracking($existingEntry->getIdErpDeliveryNoteTracking());
                 $update[] = $itemTracking;
                 unset($existingTracking[$trackingNumber]);
+
                 continue;
-                }
+            }
             $new[$trackingNumber] = $itemTracking;
         }
 

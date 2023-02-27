@@ -25,9 +25,9 @@ class ErpDeliveryNoteEntityManager extends AbstractEntityManager implements ErpD
     /**
      * @param \Generated\Shared\Transfer\ErpDeliveryNoteTransfer $erpDeliveryNoteTransfer
      *
-     * @return \Generated\Shared\Transfer\ErpDeliveryNoteTransfer
      * @throws \Exception
      *
+     * @return \Generated\Shared\Transfer\ErpDeliveryNoteTransfer
      */
     public function createErpDeliveryNote(ErpDeliveryNoteTransfer $erpDeliveryNoteTransfer): ErpDeliveryNoteTransfer
     {
@@ -132,8 +132,6 @@ class ErpDeliveryNoteEntityManager extends AbstractEntityManager implements ErpD
      * @param \Generated\Shared\Transfer\ErpDeliveryNoteTrackingTransfer $trackingTransfer
      *
      * @return \Generated\Shared\Transfer\ErpDeliveryNoteTrackingTransfer
-     * @throws \Propel\Runtime\Exception\PropelException
-     * @throws \Spryker\Shared\Kernel\Transfer\Exception\RequiredTransferPropertyException
      */
     public function createErpDeliveryNoteTracking(ErpDeliveryNoteTrackingTransfer $trackingTransfer): ErpDeliveryNoteTrackingTransfer
     {
@@ -161,9 +159,9 @@ class ErpDeliveryNoteEntityManager extends AbstractEntityManager implements ErpD
     /**
      * @param \Generated\Shared\Transfer\ErpDeliveryNoteTransfer $erpDeliveryNoteTransfer
      *
-     * @return \Generated\Shared\Transfer\ErpDeliveryNoteTransfer
      * @throws \Exception
      *
+     * @return \Generated\Shared\Transfer\ErpDeliveryNoteTransfer
      */
     public function updateErpDeliveryNote(ErpDeliveryNoteTransfer $erpDeliveryNoteTransfer): ErpDeliveryNoteTransfer
     {
@@ -278,7 +276,6 @@ class ErpDeliveryNoteEntityManager extends AbstractEntityManager implements ErpD
      * @param int $idTracking
      *
      * @return void
-     * @throws \Propel\Runtime\Exception\PropelException
      */
     public function deleteTrackingToItemRelationsByIdTracking(int $idTracking): void
     {
@@ -292,7 +289,6 @@ class ErpDeliveryNoteEntityManager extends AbstractEntityManager implements ErpD
      * @param string $trackingNumber
      *
      * @return void
-     * @throws \Propel\Runtime\Exception\PropelException
      */
     public function deleteTrackingToItemRelationsByTrackingNumber(string $trackingNumber): void
     {
@@ -394,7 +390,7 @@ class ErpDeliveryNoteEntityManager extends AbstractEntityManager implements ErpD
             return;
         }
 
-        foreach ($deliveryNoteTrackingRelations as $relation){
+        foreach ($deliveryNoteTrackingRelations as $relation) {
             $relation->delete();
         }
     }
@@ -416,9 +412,9 @@ class ErpDeliveryNoteEntityManager extends AbstractEntityManager implements ErpD
     /**
      * @param \Generated\Shared\Transfer\ErpDeliveryNoteAddressTransfer $erpDeliveryNoteAddressTransfer
      *
-     * @return \Generated\Shared\Transfer\ErpDeliveryNoteAddressTransfer
      * @throws \Exception
      *
+     * @return \Generated\Shared\Transfer\ErpDeliveryNoteAddressTransfer
      */
     public function updateErpDeliveryNoteAddress(ErpDeliveryNoteAddressTransfer $erpDeliveryNoteAddressTransfer): ErpDeliveryNoteAddressTransfer
     {
@@ -494,14 +490,13 @@ class ErpDeliveryNoteEntityManager extends AbstractEntityManager implements ErpD
      * @param \Orm\Zed\ErpDeliveryNote\Persistence\FooErpDeliveryNoteTracking $entity
      *
      * @return void
-     * @throws \Propel\Runtime\Exception\PropelException
      */
     protected function addItemTrackingRelations(ErpDeliveryNoteTrackingTransfer $trackingTransfer, FooErpDeliveryNoteTracking $entity): void
     {
         $relations = [];
         $keyPrefix = sprintf('%s-%s-%s', $trackingTransfer->getTrackingNumber(), $entity->getFkErpDeliveryNote(), $entity->getIdErpDeliveryNoteTracking());
 
-        foreach ($trackingTransfer->getItemRelations() as $itemRelation){
+        foreach ($trackingTransfer->getItemRelations() as $itemRelation) {
             $relation = new FooErpDeliveryNoteTrackingToItem();
             $key = sprintf('%s-%s', $keyPrefix, $itemRelation->getFkErpDeliveryNoteItem());
             $relations[$key] = $relation->fromArray($itemRelation->toArray())
@@ -511,7 +506,7 @@ class ErpDeliveryNoteEntityManager extends AbstractEntityManager implements ErpD
         foreach ($trackingTransfer->getErpDeliveryNoteItems() as $itemTransfer) {
             $key = sprintf('%s-%s', $keyPrefix, $itemTransfer->getIdErpDeliveryNoteItem());
             $relation = new FooErpDeliveryNoteTrackingToItem();
-            if (array_key_exists($key, $relations)){
+            if (array_key_exists($key, $relations)) {
                 $relation = $relations[$key];
             }
             $relations[$key] = $relation
@@ -519,7 +514,7 @@ class ErpDeliveryNoteEntityManager extends AbstractEntityManager implements ErpD
                 ->setFkErpDeliveryNoteTracking($entity->getIdErpDeliveryNoteTracking());
         }
 
-        foreach ($relations as $relation){
+        foreach ($relations as $relation) {
             $relation->save();
         }
     }
