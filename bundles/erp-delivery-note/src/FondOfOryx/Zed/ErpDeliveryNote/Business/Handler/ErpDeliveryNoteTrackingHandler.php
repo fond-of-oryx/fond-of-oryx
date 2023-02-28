@@ -98,7 +98,9 @@ class ErpDeliveryNoteTrackingHandler implements ErpDeliveryNoteTrackingHandlerIn
         $erpDeliveryNoteTrackingTransfer->requireIdErpDeliveryNoteTracking();
 
         $item = $this->erpDeliveryNoteTrackingReader->findErpDeliveryNoteTrackingByIdErpDeliveryNoteTracking($erpDeliveryNoteTrackingTransfer->getIdErpDeliveryNoteTracking());
-        $item->fromArray($erpDeliveryNoteTrackingTransfer->toArray(), true);
+        $idItemTracking = $item->getIdErpDeliveryNoteTracking();
+        $item->fromArray($erpDeliveryNoteTrackingTransfer->modifiedToArray(), true)
+            ->setIdErpDeliveryNoteTracking($idItemTracking);
 
         return $this->erpDeliveryNoteTrackingWriter->update($item);
     }

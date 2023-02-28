@@ -226,7 +226,7 @@ class ErpDeliveryNoteItemHandler implements ErpDeliveryNoteItemHandlerInterface
         ErpDeliveryNoteItemTransfer $erpDeliveryNoteItemTransfer
     ): ErpDeliveryNoteItemTransfer {
         $idDeliveryNoteItem = $updateItem->getIdErpDeliveryNoteItem();
-        $updateItem->fromArray($erpDeliveryNoteItemTransfer->toArray(), true);
+        $updateItem->fromArray($erpDeliveryNoteItemTransfer->modifiedToArray(), true);
         $updateItem->setIdErpDeliveryNoteItem($idDeliveryNoteItem);
 
         return $updateItem;

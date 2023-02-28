@@ -151,8 +151,9 @@ class ErpDeliveryNoteTrackingHandlerTest extends Unit
         $this->erpDeliveryNoteTrackingTransferMock->expects($this->atLeastOnce())->method('getQuantity')->willReturn($qty);
         $this->erpDeliveryNoteTrackingTransferMock->expects($this->atLeastOnce())->method('addItemRelation')->willReturnSelf();
         $this->erpDeliveryNoteTrackingTransferMock->expects($this->atLeastOnce())->method('setFkErpDeliveryNote')->with($orderId)->willReturnSelf();
-        $this->erpDeliveryNoteTrackingTransferMock->expects($this->atLeastOnce())->method('toArray')->willReturn([]);
+        $this->erpDeliveryNoteTrackingTransferMock->expects($this->atLeastOnce())->method('modifiedToArray')->willReturn([]);
         $this->erpDeliveryNoteTrackingTransferMock->expects($this->atLeastOnce())->method('getIdErpDeliveryNoteTracking')->willReturn($trackingId);
+        $this->erpDeliveryNoteTrackingTransferMock->expects($this->atLeastOnce())->method('fromArray')->willReturnSelf();
 
         $this->trackingReaderMock->expects($this->once())->method('findErpDeliveryNoteTrackingByIdErpDeliveryNoteTracking')->willReturn($this->erpDeliveryNoteTrackingTransferMock);
         $this->trackingWriterMock->expects($this->never())->method('create');
@@ -184,14 +185,15 @@ class ErpDeliveryNoteTrackingHandlerTest extends Unit
         $this->erpDeliveryNoteTrackingTransferMock->expects($this->atLeastOnce())->method('getQuantity')->willReturn($qty);
         $this->erpDeliveryNoteTrackingTransferMock->expects($this->atLeastOnce())->method('addItemRelation')->willReturnSelf();
         $this->erpDeliveryNoteTrackingTransferMock->expects($this->atLeastOnce())->method('setFkErpDeliveryNote')->with($orderId)->willReturnSelf();
-        $this->erpDeliveryNoteTrackingTransferMock->expects($this->atLeastOnce())->method('toArray')->willReturn([]);
+        $this->erpDeliveryNoteTrackingTransferMock->expects($this->atLeastOnce())->method('modifiedToArray')->willReturn([]);
         $this->erpDeliveryNoteTrackingTransferMock->expects($this->atLeastOnce())->method('getIdErpDeliveryNoteTracking')->willReturn($trackingId);
         $this->erpDeliveryNoteTrackingTransferMock->expects($this->atLeastOnce())->method('setIdErpDeliveryNoteTracking')->willReturnSelf();
+        $this->erpDeliveryNoteTrackingTransferMock->expects($this->atLeastOnce())->method('fromArray')->willReturnSelf();
         $trackingClone->expects($this->atLeastOnce())->method('getTrackingNumber')->willReturn($trackingNumber);
         $trackingClone->expects($this->atLeastOnce())->method('getQuantity')->willReturn(2);
         $trackingClone->expects($this->atLeastOnce())->method('addItemRelation')->willReturnSelf();
         $trackingClone->expects($this->atLeastOnce())->method('setIdErpDeliveryNoteTracking')->willReturnSelf();
-        $trackingClone->expects($this->atLeastOnce())->method('toArray')->willReturn([]);
+        $trackingClone->expects($this->atLeastOnce())->method('modifiedToArray')->willReturn([]);
         $trackingClone->expects($this->atLeastOnce())->method('getIdErpDeliveryNoteTracking')->willReturn(44);
 
         $this->trackingReaderMock->expects($this->once())->method('findErpDeliveryNoteTrackingByIdErpDeliveryNoteTracking')->willReturn($this->erpDeliveryNoteTrackingTransferMock);
