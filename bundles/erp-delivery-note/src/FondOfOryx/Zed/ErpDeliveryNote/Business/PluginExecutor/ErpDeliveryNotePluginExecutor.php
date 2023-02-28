@@ -3,7 +3,6 @@
 namespace FondOfOryx\Zed\ErpDeliveryNote\Business\PluginExecutor;
 
 use Generated\Shared\Transfer\ErpDeliveryNoteTransfer;
-use function DeepCopy\deep_copy;
 
 class ErpDeliveryNotePluginExecutor implements ErpDeliveryNotePluginExecutorInterface
 {
@@ -38,7 +37,7 @@ class ErpDeliveryNotePluginExecutor implements ErpDeliveryNotePluginExecutorInte
         ?ErpDeliveryNoteTransfer $existingErpDeliveryNoteTransfer = null
     ): ErpDeliveryNoteTransfer {
         foreach ($this->erpDeliveryNotePostSavePlugins as $plugin) {
-            $erpDeliveryNoteTransfer = $plugin->postSave($erpDeliveryNoteTransfer, deep_copy($existingErpDeliveryNoteTransfer));
+            $erpDeliveryNoteTransfer = $plugin->postSave($erpDeliveryNoteTransfer, $existingErpDeliveryNoteTransfer);
         }
 
         return $erpDeliveryNoteTransfer;
@@ -55,7 +54,7 @@ class ErpDeliveryNotePluginExecutor implements ErpDeliveryNotePluginExecutorInte
         ?ErpDeliveryNoteTransfer $existingErpDeliveryNoteTransfer = null
     ): ErpDeliveryNoteTransfer {
         foreach ($this->erpDeliveryNotePreSavePlugins as $plugin) {
-            $erpDeliveryNoteTransfer = $plugin->preSave($erpDeliveryNoteTransfer, deep_copy($existingErpDeliveryNoteTransfer));
+            $erpDeliveryNoteTransfer = $plugin->preSave($erpDeliveryNoteTransfer, $existingErpDeliveryNoteTransfer);
         }
 
         return $erpDeliveryNoteTransfer;

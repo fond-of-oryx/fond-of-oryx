@@ -11,7 +11,6 @@ use FondOfOryx\Zed\ErpDeliveryNote\Persistence\ErpDeliveryNoteRepositoryInterfac
 use Generated\Shared\Transfer\ErpDeliveryNoteResponseTransfer;
 use Generated\Shared\Transfer\ErpDeliveryNoteTransfer;
 use Spryker\Zed\Kernel\Persistence\EntityManager\TransactionTrait;
-use function DeepCopy\deep_copy;
 
 class ErpDeliveryNoteWriter implements ErpDeliveryNoteWriterInterface
 {
@@ -131,9 +130,9 @@ class ErpDeliveryNoteWriter implements ErpDeliveryNoteWriterInterface
             throw new ErpDeliveryNoteNotExistsException(sprintf('Erp DeliveryNote with external reference "%s" not exists! Use CREATE for creating it!', $erpDeliveryNoteTransfer->getExternalReference()));
         }
 
-        $erpDeliveryNoteTransfer = $this->erpDeliveryNotePluginExecutor->executePreSavePlugins($erpDeliveryNoteTransfer, deep_copy($existingErpDeliveryNote));
+        $erpDeliveryNoteTransfer = $this->erpDeliveryNotePluginExecutor->executePreSavePlugins($erpDeliveryNoteTransfer, $existingErpDeliveryNote);
         $erpDeliveryNoteTransfer = $this->entityManager->updateErpDeliveryNote($erpDeliveryNoteTransfer);
-        $erpDeliveryNoteTransfer = $this->erpDeliveryNotePluginExecutor->executePostSavePlugins($erpDeliveryNoteTransfer, deep_copy($existingErpDeliveryNote));
+        $erpDeliveryNoteTransfer = $this->erpDeliveryNotePluginExecutor->executePostSavePlugins($erpDeliveryNoteTransfer, $existingErpDeliveryNote);
 
         return $erpDeliveryNoteResponseTransfer->setErpDeliveryNote($erpDeliveryNoteTransfer);
     }
