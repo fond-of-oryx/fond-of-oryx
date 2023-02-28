@@ -120,9 +120,9 @@ class ErpDeliveryNoteTrackingHandler implements ErpDeliveryNoteTrackingHandlerIn
      */
     protected function getExistingErpDeliveryNoteTracking(int $idErpDeliveryNote): array
     {
-        $itemsCollection = $this->erpDeliveryNoteTrackingReader->findErpDeliveryNoteTrackingByIdErpDeliveryNote($idErpDeliveryNote);
+        $trackingCollection = $this->erpDeliveryNoteTrackingReader->findErpDeliveryNoteTrackingByIdErpDeliveryNote($idErpDeliveryNote);
         $existingTracking = [];
-        foreach ($itemsCollection->getTracking() as $tracking) {
+        foreach ($trackingCollection->getTracking() as $tracking) {
             $trackingNumber = $tracking->getTrackingNumber();
             $trackingData = $tracking;
             if (array_key_exists($trackingNumber, $existingTracking)) {
