@@ -300,7 +300,7 @@
     },
     "erp-delivery-note-extension": {
       "path": "bundles/erp-delivery-note-extension/",
-      "version": "2.1.0"
+      "version": "2.1.1"
     },
     "erp-delivery-note-page-search": {
       "path": "bundles/erp-delivery-note-page-search/",
