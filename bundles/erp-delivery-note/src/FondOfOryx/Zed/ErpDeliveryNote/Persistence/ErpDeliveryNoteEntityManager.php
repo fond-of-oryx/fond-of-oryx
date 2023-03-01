@@ -7,11 +7,14 @@ use Exception;
 use Generated\Shared\Transfer\ErpDeliveryNoteAddressTransfer;
 use Generated\Shared\Transfer\ErpDeliveryNoteExpenseTransfer;
 use Generated\Shared\Transfer\ErpDeliveryNoteItemTransfer;
+use Generated\Shared\Transfer\ErpDeliveryNoteTrackingTransfer;
 use Generated\Shared\Transfer\ErpDeliveryNoteTransfer;
 use Orm\Zed\ErpDeliveryNote\Persistence\FooErpDeliveryNote;
 use Orm\Zed\ErpDeliveryNote\Persistence\FooErpDeliveryNoteAddress;
 use Orm\Zed\ErpDeliveryNote\Persistence\FooErpDeliveryNoteExpense;
 use Orm\Zed\ErpDeliveryNote\Persistence\FooErpDeliveryNoteItem;
+use Orm\Zed\ErpDeliveryNote\Persistence\FooErpDeliveryNoteTracking;
+use Orm\Zed\ErpDeliveryNote\Persistence\FooErpDeliveryNoteTrackingToItem;
 use Spryker\Zed\Kernel\Persistence\AbstractEntityManager;
 
 /**
@@ -126,6 +129,34 @@ class ErpDeliveryNoteEntityManager extends AbstractEntityManager implements ErpD
     }
 
     /**
+     * @param \Generated\Shared\Transfer\ErpDeliveryNoteTrackingTransfer $trackingTransfer
+     *
+     * @return \Generated\Shared\Transfer\ErpDeliveryNoteTrackingTransfer
+     */
+    public function createErpDeliveryNoteTracking(ErpDeliveryNoteTrackingTransfer $trackingTransfer): ErpDeliveryNoteTrackingTransfer
+    {
+        $trackingTransfer
+            ->requireFkErpDeliveryNote()
+            ->requireTrackingNumber();
+
+        $now = new DateTime();
+
+        $entity = new FooErpDeliveryNoteTracking();
+        $entity->fromArray($trackingTransfer->toArray());
+        $entity
+            ->setCreatedAt($now)
+            ->setUpdatedAt($now)
+            ->save();
+
+        $this->addItemTrackingRelations($trackingTransfer, $entity);
+
+        return $this->getFactory()->createEntityToTransferMapper()->fromErpDeliveryNoteTrackingToTransfer(
+            $entity,
+            $trackingTransfer,
+        );
+    }
+
+    /**
      * @param \Generated\Shared\Transfer\ErpDeliveryNoteTransfer $erpDeliveryNoteTransfer
      *
      * @throws \Exception
@@ -213,6 +244,61 @@ class ErpDeliveryNoteEntityManager extends AbstractEntityManager implements ErpD
     }
 
     /**
+     * @param \Generated\Shared\Transfer\ErpDeliveryNoteTrackingTransfer $deliveryNoteTrackingTransfer
+     *
+     * @return \Generated\Shared\Transfer\ErpDeliveryNoteTrackingTransfer
+     */
+    public function updateErpDeliveryNoteTracking(ErpDeliveryNoteTrackingTransfer $deliveryNoteTrackingTransfer): ErpDeliveryNoteTrackingTransfer
+    {
+        $deliveryNoteTrackingTransfer
+            ->requireIdErpDeliveryNoteTracking()
+            ->requireFkErpDeliveryNote()
+            ->requireTrackingNumber()
+            ->requireQuantity();
+
+        $entity = $this->findOrCreateErpDeliveryNoteTracking($deliveryNoteTrackingTransfer->getFkErpDeliveryNote(), $deliveryNoteTrackingTransfer->getTrackingNumber());
+        $createdAt = $entity->getCreatedAt();
+        $updatedAt = new DateTime();
+        $entity->fromArray($deliveryNoteTrackingTransfer->modifiedToArray());
+
+        $entity
+            ->setCreatedAt($createdAt)
+            ->setUpdatedAt($updatedAt)
+            ->save();
+
+        $this->deleteTrackingToItemRelationsByIdTracking($entity->getIdErpDeliveryNoteTracking());
+        $this->addItemTrackingRelations($deliveryNoteTrackingTransfer, $entity);
+
+        return $this->getFactory()->createEntityToTransferMapper()->fromErpDeliveryNoteTrackingToTransfer($entity);
+    }
+
+    /**
+     * @param int $idTracking
+     *
+     * @return void
+     */
+    public function deleteTrackingToItemRelationsByIdTracking(int $idTracking): void
+    {
+        $relations = $this->getFactory()->createErpDeliveryNoteTrackingToItemQuery()->findByFkErpDeliveryNoteTracking($idTracking);
+        foreach ($relations as $relation) {
+            $relation->delete();
+        }
+    }
+
+    /**
+     * @param string $trackingNumber
+     *
+     * @return void
+     */
+    public function deleteTrackingToItemRelationsByTrackingNumber(string $trackingNumber): void
+    {
+        $tracking = $this->getFactory()->createErpDeliveryNoteTrackingQuery()->findOneByTrackingNumber($trackingNumber);
+        if ($tracking !== null) {
+            $this->deleteTrackingToItemRelationsByIdTracking($tracking->getIdErpDeliveryNoteTracking());
+        }
+    }
+
+    /**
      * @param int $idErpDeliveryNote
      *
      * @return void
@@ -273,6 +359,40 @@ class ErpDeliveryNoteEntityManager extends AbstractEntityManager implements ErpD
             return;
         }
         $deliveryNoteExpense->delete();
+    }
+
+    /**
+     * @param int $idErpDeliveryNoteTracking
+     *
+     * @return void
+     */
+    public function deleteErpDeliveryNoteTrackingByIdErpDeliveryNoteTracking(int $idErpDeliveryNoteTracking): void
+    {
+        $deliveryNoteTracking = $this->getFactory()->createErpDeliveryNoteTrackingQuery()->findOneByIdErpDeliveryNoteTracking($idErpDeliveryNoteTracking);
+        if ($deliveryNoteTracking === null) {
+            return;
+        }
+
+        $this->deleteErpDeliveryNoteTrackingRelationsByIdErpDeliveryNoteTracking($idErpDeliveryNoteTracking);
+
+        $deliveryNoteTracking->delete();
+    }
+
+    /**
+     * @param int $idErpDeliveryNoteTracking
+     *
+     * @return void
+     */
+    public function deleteErpDeliveryNoteTrackingRelationsByIdErpDeliveryNoteTracking(int $idErpDeliveryNoteTracking): void
+    {
+        $deliveryNoteTrackingRelations = $this->getFactory()->createErpDeliveryNoteTrackingToItemQuery()->findByFkErpDeliveryNoteTracking($idErpDeliveryNoteTracking);
+        if ($deliveryNoteTrackingRelations->count() === 0) {
+            return;
+        }
+
+        foreach ($deliveryNoteTrackingRelations as $relation) {
+            $relation->delete();
+        }
     }
 
     /**
@@ -349,5 +469,53 @@ class ErpDeliveryNoteEntityManager extends AbstractEntityManager implements ErpD
             ->filterByFkErpDeliveryNote($idErpDeliveryNote)
             ->filterByName($name)
             ->findOneOrCreate();
+    }
+
+    /**
+     * @param int $idErpDeliveryNote
+     * @param string $trackingNumber
+     *
+     * @return \Orm\Zed\ErpDeliveryNote\Persistence\FooErpDeliveryNoteTracking
+     */
+    protected function findOrCreateErpDeliveryNoteTracking(int $idErpDeliveryNote, string $trackingNumber): FooErpDeliveryNoteTracking
+    {
+        return $this->getFactory()->createErpDeliveryNoteTrackingQuery()
+            ->filterByFkErpDeliveryNote($idErpDeliveryNote)
+            ->filterByTrackingNumber($trackingNumber)
+            ->findOneOrCreate();
+    }
+
+    /**
+     * @param \Generated\Shared\Transfer\ErpDeliveryNoteTrackingTransfer $trackingTransfer
+     * @param \Orm\Zed\ErpDeliveryNote\Persistence\FooErpDeliveryNoteTracking $entity
+     *
+     * @return void
+     */
+    protected function addItemTrackingRelations(ErpDeliveryNoteTrackingTransfer $trackingTransfer, FooErpDeliveryNoteTracking $entity): void
+    {
+        $relations = [];
+        $keyPrefix = sprintf('%s-%s-%s', $trackingTransfer->getTrackingNumber(), $entity->getFkErpDeliveryNote(), $entity->getIdErpDeliveryNoteTracking());
+
+        foreach ($trackingTransfer->getItemRelations() as $itemRelation) {
+            $relation = new FooErpDeliveryNoteTrackingToItem();
+            $key = sprintf('%s-%s', $keyPrefix, $itemRelation->getFkErpDeliveryNoteItem());
+            $relations[$key] = $relation->fromArray($itemRelation->toArray())
+                ->setFkErpDeliveryNoteTracking($entity->getIdErpDeliveryNoteTracking());
+        }
+
+        foreach ($trackingTransfer->getErpDeliveryNoteItems() as $itemTransfer) {
+            $key = sprintf('%s-%s', $keyPrefix, $itemTransfer->getIdErpDeliveryNoteItem());
+            $relation = new FooErpDeliveryNoteTrackingToItem();
+            if (array_key_exists($key, $relations)) {
+                $relation = $relations[$key];
+            }
+            $relations[$key] = $relation
+                ->setFkErpDeliveryNoteItem($itemTransfer->getIdErpDeliveryNoteItem())
+                ->setFkErpDeliveryNoteTracking($entity->getIdErpDeliveryNoteTracking());
+        }
+
+        foreach ($relations as $relation) {
+            $relation->save();
+        }
     }
 }

@@ -11,6 +11,8 @@ use Orm\Zed\ErpDeliveryNote\Persistence\FooErpDeliveryNoteAddressQuery;
 use Orm\Zed\ErpDeliveryNote\Persistence\FooErpDeliveryNoteExpenseQuery;
 use Orm\Zed\ErpDeliveryNote\Persistence\FooErpDeliveryNoteItemQuery;
 use Orm\Zed\ErpDeliveryNote\Persistence\FooErpDeliveryNoteQuery;
+use Orm\Zed\ErpDeliveryNote\Persistence\FooErpDeliveryNoteTrackingQuery;
+use Orm\Zed\ErpDeliveryNote\Persistence\FooErpDeliveryNoteTrackingToItemQuery;
 use Spryker\Zed\Kernel\Persistence\AbstractPersistenceFactory;
 
 /**
@@ -77,5 +79,21 @@ class ErpDeliveryNotePersistenceFactory extends AbstractPersistenceFactory
     public function createErpDeliveryNoteAddressQuery(): FooErpDeliveryNoteAddressQuery
     {
         return FooErpDeliveryNoteAddressQuery::create();
+    }
+
+    /**
+     * @return \Orm\Zed\ErpDeliveryNote\Persistence\FooErpDeliveryNoteTrackingQuery
+     */
+    public function createErpDeliveryNoteTrackingQuery(): FooErpDeliveryNoteTrackingQuery
+    {
+        return FooErpDeliveryNoteTrackingQuery::create();
+    }
+
+    /**
+     * @return \Orm\Zed\ErpDeliveryNote\Persistence\FooErpDeliveryNoteTrackingToItemQuery
+     */
+    public function createErpDeliveryNoteTrackingToItemQuery(): FooErpDeliveryNoteTrackingToItemQuery
+    {
+        return FooErpDeliveryNoteTrackingToItemQuery::create();
     }
 }

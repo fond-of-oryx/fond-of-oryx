@@ -58,6 +58,7 @@
         <property name="items" singular="item" type="RestErpDeliveryNoteItem[]"/>
         <property name="expenses" singular="expense" type="RestErpDeliveryNoteExpense[]"/>
         <property name="currencyIsoCode" type="string"/>
+        <property name="tracking" type="RestErpDeliveryNoteTracking[]"/>
     </transfer>
 
     <transfer name="RestErpDeliveryNoteAddress">
@@ -78,11 +79,29 @@
         <property name="quantity" type="int"/>
         <property name="externalReference" type="string" />
         <property name="position" type="int"/>
+        <property name="trackingData" type="RestErpDeliveryNoteItemTracking[]"/>
     </transfer>
 
     <transfer name="RestErpDeliveryNoteExpense">
         <property name="name" type="string"/>
         <property name="quantity" type="int"/>
+    </transfer>
+
+    <transfer name="RestErpDeliveryNoteItemTracking">
+        <property name="trackingNumber" type="string"/>
+        <property name="trackingUrl" type="string"/>
+        <property name="quantity" type="float"/>
+        <property name="shippingAgentCode" type="string"/>
+        <property name="shippingAgentServiceCode" type="string"/>
+    </transfer>
+
+    <transfer name="RestErpDeliveryNoteTracking">
+        <property name="trackingNumber" type="string"/>
+        <property name="trackingUrl" type="string"/>
+        <property name="quantity" type="float"/>
+        <property name="shippingAgentCode" type="string"/>
+        <property name="shippingAgentServiceCode" type="string"/>
+        <property name="items" singular="item" type="RestErpDeliveryNoteItem[]"/>
     </transfer>
 
     <transfer name="RestCompanyBusinessUnit">

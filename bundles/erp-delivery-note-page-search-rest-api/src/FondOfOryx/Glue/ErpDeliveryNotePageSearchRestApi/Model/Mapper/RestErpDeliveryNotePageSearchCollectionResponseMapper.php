@@ -1,13 +1,16 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace FondOfOryx\Glue\ErpDeliveryNotePageSearchRestApi\Model\Mapper;
 
+use ArrayObject;
 use Generated\Shared\Transfer\RestCompanyBusinessUnitTransfer;
 use Generated\Shared\Transfer\RestErpDeliveryNoteExpenseTransfer;
+use Generated\Shared\Transfer\RestErpDeliveryNoteItemTrackingTransfer;
 use Generated\Shared\Transfer\RestErpDeliveryNoteItemTransfer;
 use Generated\Shared\Transfer\RestErpDeliveryNotePageSearchCollectionResponseTransfer;
+use Generated\Shared\Transfer\RestErpDeliveryNoteTrackingTransfer;
 use Generated\Shared\Transfer\RestErpDeliveryNoteTransfer;
 
 class RestErpDeliveryNotePageSearchCollectionResponseMapper implements RestErpDeliveryNotePageSearchCollectionResponseMapperInterface
@@ -25,7 +28,17 @@ class RestErpDeliveryNotePageSearchCollectionResponseMapper implements RestErpDe
     /**
      * @var string
      */
+    protected const ERP_DELIVERY_NOTE_DATA_KEY_ERP_DELIVERY_NOTE_ITEMS_TRACKING_DATA = 'tracking_data';
+
+    /**
+     * @var string
+     */
     protected const ERP_DELIVERY_NOTE_DATA_KEY_ERP_DELIVERY_NOTE_EXPENSES = 'erp_delivery_note_expenses';
+
+    /**
+     * @var string
+     */
+    protected const ERP_DELIVERY_NOTE_DATA_KEY_ERP_DELIVERY_NOTE_TRACKING = 'erp_delivery_note_tracking';
 
     /**
      * @var string
@@ -82,8 +95,11 @@ class RestErpDeliveryNotePageSearchCollectionResponseMapper implements RestErpDe
                 ),
             );
 
-            $this->addRestErpDeliveryNoteItems($restErpDeliveryNote, $erpDeliveryNoteData[self::ERP_DELIVERY_NOTE_DATA_KEY_ERP_DELIVERY_NOTE_ITEMS]);
-            $this->addRestErpDeliveryNoteExpenses($restErpDeliveryNote, $erpDeliveryNoteData[self::ERP_DELIVERY_NOTE_DATA_KEY_ERP_DELIVERY_NOTE_EXPENSES]);
+            $this->addRestErpDeliveryNoteItems($restErpDeliveryNote, $erpDeliveryNoteData[static::ERP_DELIVERY_NOTE_DATA_KEY_ERP_DELIVERY_NOTE_ITEMS]);
+            $this->addRestErpDeliveryNoteExpenses($restErpDeliveryNote, $erpDeliveryNoteData[static::ERP_DELIVERY_NOTE_DATA_KEY_ERP_DELIVERY_NOTE_EXPENSES]);
+            if (array_key_exists(static::ERP_DELIVERY_NOTE_DATA_KEY_ERP_DELIVERY_NOTE_TRACKING, $erpDeliveryNoteData)) {
+                $this->addRestErpDeliveryNoteTracking($restErpDeliveryNote, $erpDeliveryNoteData[static::ERP_DELIVERY_NOTE_DATA_KEY_ERP_DELIVERY_NOTE_TRACKING]);
+            }
 
             $responseTransfer->addErpDeliveryNote($restErpDeliveryNote);
         }
@@ -114,6 +130,7 @@ class RestErpDeliveryNotePageSearchCollectionResponseMapper implements RestErpDe
     ): RestErpDeliveryNoteTransfer {
         foreach ($erpDeliveryNoteItems as $erpDeliveryNoteItemData) {
             $restErpDeliveryNoteItemTransfer = (new RestErpDeliveryNoteItemTransfer())->fromArray($erpDeliveryNoteItemData, true);
+            $restErpDeliveryNoteItemTransfer = $this->mapItemTrackingData($restErpDeliveryNoteItemTransfer, $erpDeliveryNoteItemData);
             $restErpDeliveryNoteTransfer->addItem($restErpDeliveryNoteItemTransfer);
         }
 
@@ -136,5 +153,44 @@ class RestErpDeliveryNotePageSearchCollectionResponseMapper implements RestErpDe
         }
 
         return $restErpDeliveryNoteTransfer;
+    }
+
+    /**
+     * @param \Generated\Shared\Transfer\RestErpDeliveryNoteTransfer $restErpDeliveryNoteTransfer
+     * @param array $erpDeliveryNoteTracking
+     *
+     * @return \Generated\Shared\Transfer\RestErpDeliveryNoteTransfer
+     */
+    protected function addRestErpDeliveryNoteTracking(
+        RestErpDeliveryNoteTransfer $restErpDeliveryNoteTransfer,
+        array $erpDeliveryNoteTracking
+    ): RestErpDeliveryNoteTransfer {
+        foreach ($erpDeliveryNoteTracking as $erpDeliveryNoteTrackingData) {
+            $restErpDeliveryNoteItemTransfer = (new RestErpDeliveryNoteTrackingTransfer())->fromArray($erpDeliveryNoteTrackingData, true);
+            $restErpDeliveryNoteTransfer->addTracking($restErpDeliveryNoteItemTransfer);
+        }
+
+        return $restErpDeliveryNoteTransfer;
+    }
+
+    /**
+     * @param \Generated\Shared\Transfer\RestErpDeliveryNoteItemTransfer $itemTransfer
+     * @param array $erpDeliveryNoteItemData
+     *
+     * @return \Generated\Shared\Transfer\RestErpDeliveryNoteItemTransfer
+     */
+    protected function mapItemTrackingData(
+        RestErpDeliveryNoteItemTransfer $itemTransfer,
+        array $erpDeliveryNoteItemData
+    ): RestErpDeliveryNoteItemTransfer {
+        if (array_key_exists(static::ERP_DELIVERY_NOTE_DATA_KEY_ERP_DELIVERY_NOTE_ITEMS_TRACKING_DATA, $erpDeliveryNoteItemData)) {
+            $collection = new ArrayObject();
+            foreach ($erpDeliveryNoteItemData[static::ERP_DELIVERY_NOTE_DATA_KEY_ERP_DELIVERY_NOTE_ITEMS_TRACKING_DATA] as $itemTrackingData) {
+                $collection->append((new RestErpDeliveryNoteItemTrackingTransfer())->fromArray($itemTrackingData, true));
+            }
+            $itemTransfer->setTrackingData($collection);
+        }
+
+        return $itemTransfer;
     }
 }

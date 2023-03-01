@@ -7,11 +7,14 @@ use Generated\Shared\Transfer\ErpDeliveryNoteExpenseCollectionTransfer;
 use Generated\Shared\Transfer\ErpDeliveryNoteExpenseTransfer;
 use Generated\Shared\Transfer\ErpDeliveryNoteItemCollectionTransfer;
 use Generated\Shared\Transfer\ErpDeliveryNoteItemTransfer;
+use Generated\Shared\Transfer\ErpDeliveryNoteTrackingCollectionTransfer;
+use Generated\Shared\Transfer\ErpDeliveryNoteTrackingTransfer;
 use Generated\Shared\Transfer\ErpDeliveryNoteTransfer;
 use Orm\Zed\ErpDeliveryNote\Persistence\FooErpDeliveryNoteAddressQuery;
 use Orm\Zed\ErpDeliveryNote\Persistence\FooErpDeliveryNoteExpenseQuery;
 use Orm\Zed\ErpDeliveryNote\Persistence\FooErpDeliveryNoteItemQuery;
 use Orm\Zed\ErpDeliveryNote\Persistence\FooErpDeliveryNoteQuery;
+use Orm\Zed\ErpDeliveryNote\Persistence\FooErpDeliveryNoteTrackingQuery;
 use Spryker\Zed\Kernel\Persistence\AbstractRepository;
 
 /**
@@ -149,6 +152,45 @@ class ErpDeliveryNoteRepository extends AbstractRepository implements ErpDeliver
     }
 
     /**
+     * @param int $idErpDeliveryNote
+     *
+     * @return \Generated\Shared\Transfer\ErpDeliveryNoteTrackingCollectionTransfer
+     */
+    public function findErpDeliveryNoteTrackingByIdErpDeliveryNote(int $idErpDeliveryNote): ErpDeliveryNoteTrackingCollectionTransfer
+    {
+        $query = $this->getErpDeliveryNoteTrackingQuery();
+        $items = $query->findByFkErpDeliveryNote($idErpDeliveryNote);
+        $itemCollectionTransfer = new ErpDeliveryNoteTrackingCollectionTransfer();
+
+        if (empty($items->getData())) {
+            return $itemCollectionTransfer;
+        }
+
+        foreach ($items->getData() as $item) {
+            $itemCollectionTransfer->addTracking($this->getFactory()->createEntityToTransferMapper()->fromErpDeliveryNoteTrackingToTransfer($item));
+        }
+
+        return $itemCollectionTransfer;
+    }
+
+    /**
+     * @param int $idErpDeliveryNoteTracking
+     *
+     * @return \Generated\Shared\Transfer\ErpDeliveryNoteTrackingTransfer|null
+     */
+    public function findErpDeliveryNoteTrackingByIdErpDeliveryNoteTracking(int $idErpDeliveryNoteTracking): ?ErpDeliveryNoteTrackingTransfer
+    {
+        $query = $this->getErpDeliveryNoteTrackingQuery();
+        $item = $query->findOneByIdErpDeliveryNoteTracking($idErpDeliveryNoteTracking);
+
+        if ($item === null) {
+            return null;
+        }
+
+        return $this->getFactory()->createEntityToTransferMapper()->fromErpDeliveryNoteTrackingToTransfer($item);
+    }
+
+    /**
      * @return \Orm\Zed\ErpDeliveryNote\Persistence\FooErpDeliveryNoteQuery
      */
     protected function getErpDeliveryNoteQuery(): FooErpDeliveryNoteQuery
@@ -178,5 +220,13 @@ class ErpDeliveryNoteRepository extends AbstractRepository implements ErpDeliver
     protected function getErpDeliveryNoteAddressQuery(): FooErpDeliveryNoteAddressQuery
     {
         return $this->getFactory()->createErpDeliveryNoteAddressQuery();
+    }
+
+    /**
+     * @return \Orm\Zed\ErpDeliveryNote\Persistence\FooErpDeliveryNoteTrackingQuery
+     */
+    protected function getErpDeliveryNoteTrackingQuery(): FooErpDeliveryNoteTrackingQuery
+    {
+        return $this->getFactory()->createErpDeliveryNoteTrackingQuery();
     }
 }

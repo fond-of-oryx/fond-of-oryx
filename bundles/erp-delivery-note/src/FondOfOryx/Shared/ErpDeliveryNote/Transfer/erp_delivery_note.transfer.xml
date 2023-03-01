@@ -19,6 +19,7 @@
         <property name="currencyIsoCode" type="string"/>
         <property name="orderDate" type="int"/>
         <property name="deliveryNoteNumber" type="string"/>
+        <property name="tracking" type="ErpDeliveryNoteTracking[]"/>
         <property name="createdAt" type="int"/>
         <property name="updatedAt" type="int"/>
     </transfer>
@@ -33,6 +34,7 @@
         <property name="createdAt" type="int"/>
         <property name="updatedAt" type="int"/>
         <property name="position" type="int"/>
+        <property name="trackingData" type="ErpDeliveryNoteTracking[]"/>
     </transfer>
 
     <transfer name="ErpDeliveryNoteExpense">
@@ -43,6 +45,27 @@
         <property name="externalReference" type="string"/>
         <property name="createdAt" type="int"/>
         <property name="updatedAt" type="int"/>
+    </transfer>
+
+    <transfer name="ErpDeliveryNoteTracking">
+        <property name="idErpDeliveryNoteTracking" type="int" />
+        <property name="fkErpDeliveryNote" type="int" />
+        <property name="trackingNumber" type="string"/>
+        <property name="trackingUrl" type="string"/>
+        <property name="quantity" type="float"/>
+        <property name="shippingAgentCode" type="string"/>
+        <property name="shippingAgentServiceCode" type="string"/>
+        <property name="createdAt" type="int"/>
+        <property name="updatedAt" type="int"/>
+        <property name="erpDeliveryNoteItems" singular="erpDeliveryNoteItem" type="ErpDeliveryNoteItem[]"/>
+        <property name="itemRelations" singular="itemRelation" type="ErpDeliveryNoteTrackingToItemRelation[]"/>
+    </transfer>
+
+    <transfer name="ErpDeliveryNoteTrackingToItemRelation">
+        <property name="idErpDeliveryNoteTrackingToItem" type="int" />
+        <property name="fkErpDeliveryNoteTracking" type="int" />
+        <property name="fkErpDeliveryNoteItem" type="int" />
+        <property name="quantity" type="float"/>
     </transfer>
 
     <transfer name="ErpDeliveryNoteAddress">
@@ -67,6 +90,10 @@
 
     <transfer name="ErpDeliveryNoteExpenseCollection">
         <property name="expenses" singular="expense" type="ErpDeliveryNoteExpense[]" />
+    </transfer>
+
+    <transfer name="ErpDeliveryNoteTrackingCollection">
+        <property name="tracking" singular="tracking" type="ErpDeliveryNoteTracking[]" />
     </transfer>
 
     <transfer name="ErpDeliveryNoteResponse">

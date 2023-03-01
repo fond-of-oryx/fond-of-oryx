@@ -7,6 +7,8 @@ use Generated\Shared\Transfer\ErpDeliveryNoteExpenseCollectionTransfer;
 use Generated\Shared\Transfer\ErpDeliveryNoteExpenseTransfer;
 use Generated\Shared\Transfer\ErpDeliveryNoteItemCollectionTransfer;
 use Generated\Shared\Transfer\ErpDeliveryNoteItemTransfer;
+use Generated\Shared\Transfer\ErpDeliveryNoteTrackingCollectionTransfer;
+use Generated\Shared\Transfer\ErpDeliveryNoteTrackingTransfer;
 use Generated\Shared\Transfer\ErpDeliveryNoteTransfer;
 
 interface ErpDeliveryNoteRepositoryInterface
@@ -59,4 +61,18 @@ interface ErpDeliveryNoteRepositoryInterface
      * @return \Generated\Shared\Transfer\ErpDeliveryNoteAddressTransfer|null
      */
     public function findErpDeliveryNoteAddressByIdErpDeliveryNoteAddress(int $idErpDeliveryNoteAddress): ?ErpDeliveryNoteAddressTransfer;
+
+    /**
+     * @param int $idErpDeliveryNote
+     *
+     * @return \Generated\Shared\Transfer\ErpDeliveryNoteTrackingCollectionTransfer
+     */
+    public function findErpDeliveryNoteTrackingByIdErpDeliveryNote(int $idErpDeliveryNote): ErpDeliveryNoteTrackingCollectionTransfer;
+
+    /**
+     * @param int $idErpDeliveryNoteTracking
+     *
+     * @return \Generated\Shared\Transfer\ErpDeliveryNoteTrackingTransfer|null
+     */
+    public function findErpDeliveryNoteTrackingByIdErpDeliveryNoteTracking(int $idErpDeliveryNoteTracking): ?ErpDeliveryNoteTrackingTransfer;
 }
