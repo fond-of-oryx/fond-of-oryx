@@ -169,17 +169,16 @@ class RestErpDeliveryNotePageSearchCollectionResponseMapper implements RestErpDe
     ): RestErpDeliveryNoteTransfer {
         foreach ($erpDeliveryNoteTracking as $trackingNumber => $erpDeliveryNoteTrackingData) {
             $trackingTransfer = null;
-            foreach ($erpDeliveryNoteTrackingData as $sku => $itemTrackingData){
-                if ($trackingTransfer === null){
+            foreach ($erpDeliveryNoteTrackingData as $sku => $itemTrackingData) {
+                if ($trackingTransfer === null) {
                     $trackingTransfer = (new RestErpDeliveryNoteGlobalTrackingTransfer())->fromArray($itemTrackingData, true);
                     $trackingTransfer->setQuantity(0);
                 }
                 $restErpDeliveryNoteItemTransfer = (new RestErpDeliveryNoteTrackingTransfer())->fromArray($itemTrackingData, true);
                 $item = (new RestErpDeliveryNoteGlobalTrackingItemTransfer())->setQuantity($restErpDeliveryNoteItemTransfer->getQuantity())->setSku($sku);
                 $trackingTransfer->setQuantity($trackingTransfer->getQuantity() + $item->getQuantity())->addItem($item);
-
             }
-            if ($trackingTransfer !== null){
+            if ($trackingTransfer !== null) {
                 $restErpDeliveryNoteTransfer->addTracking($trackingTransfer);
             }
         }
