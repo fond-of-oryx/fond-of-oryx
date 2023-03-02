@@ -41,6 +41,15 @@ class CustomerTokenManagerFactory extends AbstractFactory
     {
         $user = $this->createSecurityUser($customerTransfer);
 
+        if (count((new \ReflectionClass(UsernamePasswordToken::class))->getConstructor()->getParameters()) === 4) {
+            return new UsernamePasswordToken(
+                $user,
+                $user->getPassword(),
+                CustomerTokenManagerConfig::SECURITY_FIREWALL_NAME,
+                [CustomerTokenManagerSecurityPlugin::ROLE_USER],
+            );
+        }
+
         return new UsernamePasswordToken(
             $user,
             CustomerTokenManagerConfig::SECURITY_FIREWALL_NAME,
