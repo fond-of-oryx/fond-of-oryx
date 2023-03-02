@@ -12,15 +12,11 @@ interface CustomerRegistrationFacadeInterface
     /**
      * @param \Generated\Shared\Transfer\CustomerRegistrationRequestTransfer $customerRegistrationRequestTransfer
      *
-     * @throws \Spryker\Shared\Kernel\Transfer\Exception\NullValueException
-     * @throws \Spryker\Zed\Kernel\Exception\Container\ContainerKeyNotFoundException
-     * @throws \Spryker\Zed\Locale\Business\Exception\MissingLocaleException
-     *
-     * @return \Generated\Shared\Transfer\CustomerRegistrationRequestTransfer
+     * @return \Generated\Shared\Transfer\CustomerRegistrationResponseTransfer
      */
     public function registerCustomer(
         CustomerRegistrationRequestTransfer $customerRegistrationRequestTransfer
-    ): CustomerRegistrationRequestTransfer;
+    ): CustomerRegistrationResponseTransfer;
 
     /**
      * @param \Generated\Shared\Transfer\CustomerTransfer $customerTransfer

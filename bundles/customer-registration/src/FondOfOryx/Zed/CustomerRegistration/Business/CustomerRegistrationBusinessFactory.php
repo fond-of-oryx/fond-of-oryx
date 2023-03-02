@@ -4,8 +4,6 @@ namespace FondOfOryx\Zed\CustomerRegistration\Business;
 
 use FondOfOryx\Zed\CustomerRegistration\Business\Processor\CustomerRegistrationHandler;
 use FondOfOryx\Zed\CustomerRegistration\Business\Processor\CustomerRegistrationHandlerInterface;
-use FondOfOryx\Zed\CustomerRegistration\Business\Processor\CustomerRegistrationProcessor;
-use FondOfOryx\Zed\CustomerRegistration\Business\Processor\CustomerRegistrationProcessorInterface;
 use FondOfOryx\Zed\CustomerRegistration\Business\Sender\WelcomeMailSender;
 use FondOfOryx\Zed\CustomerRegistration\CustomerRegistrationDependencyProvider;
 use FondOfOryx\Zed\CustomerRegistration\Dependency\Facade\CustomerRegistrationToCustomerFacadeInterface;
@@ -14,8 +12,6 @@ use FondOfOryx\Zed\CustomerRegistration\Dependency\Facade\CustomerRegistrationTo
 use Spryker\Zed\Kernel\Business\AbstractBusinessFactory;
 
 /**
- * @method \FondOfOryx\Zed\CustomerRegistration\Persistence\CustomerRegistrationRepositoryInterface getRepository()
- * @method \FondOfOryx\Zed\CustomerRegistration\Persistence\CustomerRegistrationEntityManagerInterface getEntityManager()
  * @method \FondOfOryx\Zed\CustomerRegistration\CustomerRegistrationConfig getConfig()
  */
 class CustomerRegistrationBusinessFactory extends AbstractBusinessFactory

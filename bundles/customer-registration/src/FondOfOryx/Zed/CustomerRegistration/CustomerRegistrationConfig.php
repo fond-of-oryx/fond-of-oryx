@@ -3,10 +3,9 @@
 namespace FondOfOryx\Zed\CustomerRegistration;
 
 use FondOfOryx\Shared\CustomerRegistration\CustomerRegistrationConstants;
-use Spryker\Shared\Customer\CustomerConstants;
 use Spryker\Zed\Kernel\AbstractBundleConfig;
 
-class CustomerRegistrationConfig extends AbstractBundleConfig implements CustomerRegistrationConfigInterface
+class CustomerRegistrationConfig extends AbstractBundleConfig
 {
     /**
      * @var string

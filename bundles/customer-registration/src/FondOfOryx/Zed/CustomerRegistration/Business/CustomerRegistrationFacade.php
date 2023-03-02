@@ -6,25 +6,23 @@ use Generated\Shared\Transfer\CustomerRegistrationRequestTransfer;
 use Generated\Shared\Transfer\CustomerRegistrationResponseTransfer;
 use Generated\Shared\Transfer\CustomerRegistrationTransfer;
 use Generated\Shared\Transfer\CustomerTransfer;
-use Silex\Tests\Provider\ValidatorServiceProviderTest\Constraint\Custom;
 use Spryker\Zed\Kernel\Business\AbstractFacade;
 
 /**
  * @method \FondOfOryx\Zed\CustomerRegistration\Business\CustomerRegistrationBusinessFactory getFactory()
- * @method \FondOfOryx\Zed\CustomerRegistration\Persistence\CustomerRegistrationEntityManagerInterface getEntityManager()
  */
 class CustomerRegistrationFacade extends AbstractFacade implements CustomerRegistrationFacadeInterface
 {
     /**
      * @param \Generated\Shared\Transfer\CustomerRegistrationRequestTransfer $customerRegistrationRequestTransfer
      *
-     * @return \Generated\Shared\Transfer\CustomerRegistrationRequestTransfer
+     * @return \Generated\Shared\Transfer\CustomerRegistrationResponseTransfer
      */
     public function registerCustomer(
         CustomerRegistrationRequestTransfer $customerRegistrationRequestTransfer
-    ): CustomerRegistrationRequestTransfer {
+    ): CustomerRegistrationResponseTransfer {
         // TODO: Implement logic
-        return new CustomerRegistrationRequestTransfer();
+        return new CustomerRegistrationResponseTransfer();
     }
 
     /**
