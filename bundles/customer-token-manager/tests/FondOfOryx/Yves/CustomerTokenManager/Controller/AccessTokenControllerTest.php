@@ -16,7 +16,6 @@ use Symfony\Component\HttpFoundation\InputBag;
 use Symfony\Component\HttpFoundation\ParameterBag;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorage;
 use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 
@@ -328,6 +327,18 @@ class AccessTokenControllerTest extends Unit
             ->method('getIsSuccess')
             ->willReturn(false);
 
+        $this->customerTokenManagerFactoryMock->expects(static::atLeastOnce())
+            ->method('showErrorMessageOnExpiredLogin')
+            ->willReturn(false);
+
+        $this->customerTokenManagerFactoryMock->expects(static::atLeastOnce())
+            ->method('getYvesBaseUrl')
+            ->willReturn('/');
+
+        $this->customerTokenManagerFactoryMock->expects(static::atLeastOnce())
+            ->method('getRedirectPathAfterExpiredLogin')
+            ->willReturn('/');
+
         $this->parameterBagMock->expects(static::atLeastOnce())
             ->method('get')
             ->withConsecutive(['language'])
@@ -335,8 +346,9 @@ class AccessTokenControllerTest extends Unit
                 'de',
             );
 
-        static::expectException(AccessDeniedHttpException::class);
-
-        $this->accessTokenController->tokenManagerAction($this->requestMock, $token);
+        static::assertInstanceOf(
+            RedirectResponse::class,
+            $this->accessTokenController->tokenManagerAction($this->requestMock, $token),
+        );
     }
 }

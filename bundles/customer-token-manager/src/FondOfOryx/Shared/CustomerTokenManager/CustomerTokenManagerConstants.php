@@ -12,7 +12,22 @@ interface CustomerTokenManagerConstants
     /**
      * @var string
      */
+    public const REDIRECT_PATH_AFTER_EXPIRED_LOGIN_DEFAULT = '/';
+
+    /**
+     * @var string
+     */
     public const REDIRECT_PATH_AFTER_LOGIN = 'REDIRECT_PATH_AFTER_LOGIN';
+
+    /**
+     * @var string
+     */
+    public const REDIRECT_PATH_AFTER_EXPIRED_LOGIN = 'REDIRECT_PATH_AFTER_EXPIRED_LOGIN';
+
+    /**
+     * @var string
+     */
+    public const SHOW_ERROR_MESSAGE_ON_EXPIRED_LOGIN = 'SHOW_ERROR_MESSAGE_ON_EXPIRED_LOGIN';
 
     /**
      * @var string

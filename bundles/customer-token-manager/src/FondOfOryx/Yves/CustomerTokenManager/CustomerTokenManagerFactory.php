@@ -119,6 +119,22 @@ class CustomerTokenManagerFactory extends AbstractFactory
     /**
      * @return string
      */
+    public function getRedirectPathAfterExpiredLogin(): string
+    {
+        return $this->getConfig()->getRedirectPathAfterExpiredLogin();
+    }
+
+    /**
+     * @return bool
+     */
+    public function showErrorMessageOnExpiredLogin(): bool
+    {
+        return $this->getConfig()->showErrorMessageOnExpiredLogin();
+    }
+
+    /**
+     * @return string
+     */
     public function getYvesBaseUrl(): string
     {
         return $this->getConfig()->getYvesBaseUrl();
