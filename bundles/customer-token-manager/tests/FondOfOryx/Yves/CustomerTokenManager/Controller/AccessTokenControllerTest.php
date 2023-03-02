@@ -328,6 +328,18 @@ class AccessTokenControllerTest extends Unit
             ->method('getIsSuccess')
             ->willReturn(false);
 
+        $this->customerTokenManagerFactoryMock->expects(static::atLeastOnce())
+            ->method('showErrorMessageOnExpiredLogin')
+            ->willReturn(false);
+
+        $this->customerTokenManagerFactoryMock->expects(static::atLeastOnce())
+            ->method('getYvesBaseUrl')
+            ->willReturn('/');
+
+        $this->customerTokenManagerFactoryMock->expects(static::atLeastOnce())
+            ->method('getRedirectPathAfterExpiredLogin')
+            ->willReturn('/');
+
         $this->parameterBagMock->expects(static::atLeastOnce())
             ->method('get')
             ->withConsecutive(['language'])
@@ -335,8 +347,10 @@ class AccessTokenControllerTest extends Unit
                 'de',
             );
 
-        static::expectException(AccessDeniedHttpException::class);
+        static::assertInstanceOf(
+            RedirectResponse::class,
+            $this->accessTokenController->tokenManagerAction($this->requestMock, $token),
+        );
 
-        $this->accessTokenController->tokenManagerAction($this->requestMock, $token);
     }
 }
