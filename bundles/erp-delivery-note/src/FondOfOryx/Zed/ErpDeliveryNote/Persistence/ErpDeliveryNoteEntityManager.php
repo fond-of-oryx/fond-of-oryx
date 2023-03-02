@@ -85,7 +85,8 @@ class ErpDeliveryNoteEntityManager extends AbstractEntityManager implements ErpD
         $itemTransfer
             ->requireFkErpDeliveryNote()
             ->requireSku()
-            ->requireName();
+            ->requireName()
+            ->setIdErpDeliveryNoteItem(null);
 
         $now = new DateTime();
 
@@ -111,7 +112,8 @@ class ErpDeliveryNoteEntityManager extends AbstractEntityManager implements ErpD
     {
         $itemTransfer
             ->requireFkErpDeliveryNote()
-            ->requireName();
+            ->requireName()
+            ->setIdErpDeliveryNoteExpense(null);
 
         $now = new DateTime();
 
