@@ -18,11 +18,6 @@ use Spryker\Zed\Kernel\Container;
 class CustomerRegistrationDependencyProvider extends AbstractBundleDependencyProvider
 {
     /**
-     * @var int
-     */
-    protected const BCRYPT_FACTOR = 12;
-
-    /**
      * @var string
      */
     public const FACADE_CUSTOMER = 'FACADE_CUSTOMER';
@@ -35,72 +30,12 @@ class CustomerRegistrationDependencyProvider extends AbstractBundleDependencyPro
     /**
      * @var string
      */
-    public const FACADE_STORE = 'FACADE_STORE';
-
-    /**
-     * @var string
-     */
     public const FACADE_MAIL = 'FACADE_MAIL';
 
     /**
      * @var string
      */
     public const FACADE_ONE_TIME_PASSWORD = 'FACADE_ONE_TIME_PASSWORD';
-
-    /**
-     * @var string
-     */
-    public const FACADE_SEQUENCE_NUMBER = 'FACADE_SEQUENCE_NUMBER';
-
-    /**
-     * @var string
-     */
-    public const QUERY_CONTAINER_LOCALE = 'QUERY_CONTAINER_LOCALE';
-
-    /**
-     * @var string
-     */
-    public const QUERY_CONTAINER_CUSTOMER = 'QUERY_CONTAINER_CUSTOMER';
-
-    /**
-     * @var string
-     */
-    public const SERVICE_UTIL_TEXT_SERVICE = 'SERVICE_UTIL_TEXT_SERVICE';
-
-    /**
-     * @var string
-     */
-    public const PLUGINS_CUSTOMER_REGISTRATION_PROCESSOR = 'PLUGINS_CUSTOMER_REGISTRATION_PROCESSOR';
-
-    /**
-     * @var string
-     */
-    public const PLUGINS_CUSTOMER_REGISTRATION_POST = 'PLUGINS_CUSTOMER_REGISTRATION_POST';
-
-    /**
-     * @var string
-     */
-    public const PLUGINS_GDPR_PRE = 'PLUGINS_GDPR_PRE';
-
-    /**
-     * @var string
-     */
-    public const PLUGINS_GDPR_POST = 'PLUGINS_GDPR_POST';
-
-    /**
-     * @var string
-     */
-    public const PLUGINS_MAIL_VERIFICATION_PRE = 'PLUGINS_MAIL_VERIFICATION_PRE';
-
-    /**
-     * @var string
-     */
-    public const PLUGINS_MAIL_VERIFICATION_POST = 'PLUGINS_MAIL_VERIFICATION_POST';
-
-    /**
-     * @var string
-     */
-    public const PLUGINS_EMAIL_VERIFICATION_LINK_EXTENDER = 'PLUGINS_EMAIL_VERIFICATION_LINK_EXTENDER';
 
     /**
      * @param \Spryker\Zed\Kernel\Container $container
@@ -113,16 +48,6 @@ class CustomerRegistrationDependencyProvider extends AbstractBundleDependencyPro
 
         $container = $this->addCustomerFacade($container);
         $container = $this->addLocaleFacade($container);
-        $container = $this->addSequenceNumberFacade($container);
-        $container = $this->addStoreFacade($container);
-        $container = $this->addUtilTextService($container);
-        $container = $this->addCustomerRegistrationProcessorPlugins($container);
-        $container = $this->addCustomerRegistrationPostPlugins($container);
-        $container = $this->addGdprPreConditionPlugins($container);
-        $container = $this->addGdprPostPlugins($container);
-        $container = $this->addMailVerificationPreConditionPlugins($container);
-        $container = $this->addMailVerificationPostPlugins($container);
-        $container = $this->addEmailVerificationLinkExtenderPlugins($container);
         $container = $this->addMailFacade($container);
         $container = $this->addOneTimePasswordFacade($container);
 
