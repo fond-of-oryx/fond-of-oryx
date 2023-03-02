@@ -12,24 +12,6 @@ use Spryker\Zed\Kernel\Persistence\AbstractRepository;
 class CustomerRegistrationRepository extends AbstractRepository implements CustomerRegistrationRepositoryInterface
 {
     /**
-     * @param string $token
-     *
-     * @throws \Exception
-     *
-     * @return \Generated\Shared\Transfer\CustomerTransfer
-     */
-    public function findCustomerByToken(string $token): CustomerTransfer
-    {
-        $spyCustomer = $this->getFactory()->getCustomerQueryContainer()->queryCustomers()->findOneByRegistrationKey($token);
-
-        if ($spyCustomer === null) {
-            throw new Exception(sprintf('Could not find customer by token "%s"', $token));
-        }
-
-        return (new CustomerTransfer())->fromArray($spyCustomer->toArray(), true);
-    }
-
-    /**
      * @param int $idCustomer
      *
      * @throws \Exception

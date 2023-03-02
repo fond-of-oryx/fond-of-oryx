@@ -11,55 +11,18 @@
         <property name="callbackUrl" type="string" />
     </transfer>
 
-    <transfer name="CustomerRegistrationRequest">
-        <property name="type" type="string"/>
-        <property name="attributes" type="CustomerRegistrationAttributes"/>
-        <property name="bag" type="CustomerRegistrationBag"/>
-    </transfer>
-
-    <transfer name="CustomerRegistrationAttributes">
-        <property name="email" type="string"/>
-        <property name="language" type="string"/>
-        <property name="token" type="string"/>
-        <property name="verifyEmail" type="bool"/>
-        <property name="subscribe" type="bool"/>
-        <property name="acceptGdpr" type="bool"/>
-    </transfer>
-
-    <transfer name="CustomerRegistrationBag">
-        <property name="isNewCustomer" type="bool"/>
-        <property name="EmailVerificationLink" type="string"/>
-        <property name="isVerified" type="bool"/>
-        <property name="gdprAccepted" type="bool"/>
-        <property name="subscribed" type="bool"/>
-        <property name="customer" type="Customer"/>
-        <property name="message" type="string" />
-    </transfer>
-
-    <transfer name="CustomerRegistrationResponse">
-        <property name="isNewCustomer" type="bool"/>
-        <property name="isVerified" type="bool"/>
-        <property name="gdprAccepted" type="bool"/>
-        <property name="subscribed" type="bool"/>
-        <property name="message" type="string" />
-    </transfer>
-
-    <transfer name="Customer">
-        <property name="gdprAccepted" type="bool"/>
-        <property name="isVerified" type="bool"/>
-        <property name="isNew" type="bool"/>
-        <property name="registrationKey" type="string" />
-    </transfer>
-
-    <transfer name="Mail">
-        <property name="customer" type="Customer" />
-        <property name="oneTimePasswordLoginLink" type="string" />
-    </transfer>
+    <transfer name="CustomerRegistrationResponse" />
+    <transfer name="CustomerRegistrationRequest" />
 
     <transfer name="Customer">
         <property name="confirmationLink" type="string" />
         <property name="registrationKey" type="string" />
         <property name="locale" type="Locale" />
+    </transfer>
+
+    <transfer name="Mail">
+        <property name="customer" type="Customer" />
+        <property name="oneTimePasswordLoginLink" type="string" />
     </transfer>
 
     <transfer name="Order">
