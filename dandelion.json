@@ -292,7 +292,7 @@
     },
     "erp-delivery-note": {
       "path": "bundles/erp-delivery-note/",
-      "version": "2.2.0-beta"
+      "version": "2.2.1-beta"
     },
     "erp-delivery-note-api": {
       "path": "bundles/erp-delivery-note-api/",
@@ -316,7 +316,7 @@
     },
     "erp-invoice": {
       "path": "bundles/erp-invoice/",
-      "version": "3.1.0"
+      "version": "3.1.1"
     },
     "erp-invoice-api": {
       "path": "bundles/erp-invoice-api/",
