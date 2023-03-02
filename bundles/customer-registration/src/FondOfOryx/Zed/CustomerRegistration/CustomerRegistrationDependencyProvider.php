@@ -38,6 +38,11 @@ class CustomerRegistrationDependencyProvider extends AbstractBundleDependencyPro
     public const FACADE_ONE_TIME_PASSWORD = 'FACADE_ONE_TIME_PASSWORD';
 
     /**
+     * @var string
+     */
+    public const QUERY_CONTAINER_CUSTOMER = 'QUERY_CONTAINER_CUSTOMER';
+
+    /**
      * @param \Spryker\Zed\Kernel\Container $container
      *
      * @return \Spryker\Zed\Kernel\Container
@@ -49,9 +54,8 @@ class CustomerRegistrationDependencyProvider extends AbstractBundleDependencyPro
         $container = $this->addCustomerFacade($container);
         $container = $this->addLocaleFacade($container);
         $container = $this->addMailFacade($container);
-        $container = $this->addOneTimePasswordFacade($container);
 
-        return $container;
+        return $this->addOneTimePasswordFacade($container);
     }
 
     /**
@@ -63,12 +67,9 @@ class CustomerRegistrationDependencyProvider extends AbstractBundleDependencyPro
     {
         $container = parent::provideCommunicationLayerDependencies($container);
         $container = $this->addCustomerFacade($container);
-        $container = $this->addLocaleFacade($container);
-        $container = $this->addStoreFacade($container);
         $container = $this->addMailFacade($container);
-        $container = $this->addOneTimePasswordFacade($container);
 
-        return $container;
+        return $this->addOneTimePasswordFacade($container);
     }
 
     /**
@@ -79,11 +80,8 @@ class CustomerRegistrationDependencyProvider extends AbstractBundleDependencyPro
     public function providePersistenceLayerDependencies(Container $container): Container
     {
         $container = parent::providePersistenceLayerDependencies($container);
-        $container = $this->addLocaleQueryContainer($container);
-        $container = $this->addCustomerQueryContainer($container);
-        $container = $this->addLocaleFacade($container);
 
-        return $container;
+        return $this->addCustomerQueryContainer($container);
     }
 
     /**
@@ -96,22 +94,6 @@ class CustomerRegistrationDependencyProvider extends AbstractBundleDependencyPro
         $container[static::FACADE_CUSTOMER] = static function (Container $container) {
             return new CustomerRegistrationToCustomerFacadeBridge(
                 $container->getLocator()->customer()->facade(),
-            );
-        };
-
-        return $container;
-    }
-
-    /**
-     * @param \Spryker\Zed\Kernel\Container $container
-     *
-     * @return \Spryker\Zed\Kernel\Container
-     */
-    protected function addLocaleFacade(Container $container): Container
-    {
-        $container[static::FACADE_LOCALE] = static function (Container $container) {
-            return new CustomerRegistrationToLocaleFacadeBridge(
-                $container->getLocator()->locale()->facade(),
             );
         };
 
@@ -139,59 +121,11 @@ class CustomerRegistrationDependencyProvider extends AbstractBundleDependencyPro
      *
      * @return \Spryker\Zed\Kernel\Container
      */
-    protected function addLocaleQueryContainer(Container $container): Container
-    {
-        $container[static::QUERY_CONTAINER_LOCALE] = static function (Container $container) {
-            return new CustomerRegistrationToLocaleQueryContainerBridge(
-                $container->getLocator()->locale()->queryContainer(),
-            );
-        };
-
-        return $container;
-    }
-
-    /**
-     * @param \Spryker\Zed\Kernel\Container $container
-     *
-     * @return \Spryker\Zed\Kernel\Container
-     */
     protected function addCustomerQueryContainer(Container $container): Container
     {
         $container[static::QUERY_CONTAINER_CUSTOMER] = static function (Container $container) {
             return new CustomerRegistrationToCustomerQueryContainerBridge(
                 $container->getLocator()->customer()->queryContainer(),
-            );
-        };
-
-        return $container;
-    }
-
-    /**
-     * @param \Spryker\Zed\Kernel\Container $container
-     *
-     * @return \Spryker\Zed\Kernel\Container
-     */
-    protected function addSequenceNumberFacade(Container $container): Container
-    {
-        $container[static::FACADE_SEQUENCE_NUMBER] = static function (Container $container) {
-            return new CustomerRegistrationToSequenceNumberFacadeBridge(
-                $container->getLocator()->sequenceNumber()->facade(),
-            );
-        };
-
-        return $container;
-    }
-
-    /**
-     * @param \Spryker\Zed\Kernel\Container $container
-     *
-     * @return \Spryker\Zed\Kernel\Container
-     */
-    protected function addStoreFacade(Container $container): Container
-    {
-        $container[static::FACADE_STORE] = static function (Container $container) {
-            return new CustomerRegistrationToStoreFacadeBridge(
-                $container->getLocator()->store()->facade(),
             );
         };
 
@@ -212,184 +146,5 @@ class CustomerRegistrationDependencyProvider extends AbstractBundleDependencyPro
         };
 
         return $container;
-    }
-
-    /**
-     * @param \Spryker\Zed\Kernel\Container $container
-     *
-     * @return \Spryker\Zed\Kernel\Container
-     */
-    protected function addUtilTextService(Container $container): Container
-    {
-        $container[static::SERVICE_UTIL_TEXT_SERVICE] = static function (Container $container) {
-            return new CustomerRegistrationToUtilTextServiceBridge(
-                $container->getLocator()->utilText()->service(),
-            );
-        };
-
-        return $container;
-    }
-
-    /**
-     * @param \Spryker\Zed\Kernel\Container $container
-     *
-     * @return \Spryker\Zed\Kernel\Container
-     */
-    protected function addCustomerRegistrationProcessorPlugins(Container $container): Container
-    {
-        $self = $this;
-        $container[static::PLUGINS_CUSTOMER_REGISTRATION_PROCESSOR] = static function () use ($self) {
-            return $self->getCustomerRegistrationProcessorPlugins();
-        };
-
-        return $container;
-    }
-
-    /**
-     * @param \Spryker\Zed\Kernel\Container $container
-     *
-     * @return \Spryker\Zed\Kernel\Container
-     */
-    protected function addCustomerRegistrationPostPlugins(Container $container): Container
-    {
-        $self = $this;
-        $container[static::PLUGINS_CUSTOMER_REGISTRATION_POST] = static function () use ($self) {
-            return $self->getCustomerRegistrationPostPlugins();
-        };
-
-        return $container;
-    }
-
-    /**
-     * @param \Spryker\Zed\Kernel\Container $container
-     *
-     * @return \Spryker\Zed\Kernel\Container
-     */
-    protected function addGdprPreConditionPlugins(Container $container): Container
-    {
-        $self = $this;
-        $container[static::PLUGINS_GDPR_PRE] = static function () use ($self) {
-            return $self->getGdprPreConditionPlugins();
-        };
-
-        return $container;
-    }
-
-    /**
-     * @param \Spryker\Zed\Kernel\Container $container
-     *
-     * @return \Spryker\Zed\Kernel\Container
-     */
-    protected function addGdprPostPlugins(Container $container): Container
-    {
-        $self = $this;
-        $container[static::PLUGINS_GDPR_POST] = static function () use ($self) {
-            return $self->getGdprPostPlugins();
-        };
-
-        return $container;
-    }
-
-    /**
-     * @param \Spryker\Zed\Kernel\Container $container
-     *
-     * @return \Spryker\Zed\Kernel\Container
-     */
-    protected function addMailVerificationPreConditionPlugins(Container $container): Container
-    {
-        $self = $this;
-        $container[static::PLUGINS_MAIL_VERIFICATION_PRE] = static function () use ($self) {
-            return $self->getMailVerificationPreConditionPlugins();
-        };
-
-        return $container;
-    }
-
-    /**
-     * @param \Spryker\Zed\Kernel\Container $container
-     *
-     * @return \Spryker\Zed\Kernel\Container
-     */
-    protected function addMailVerificationPostPlugins(Container $container): Container
-    {
-        $self = $this;
-        $container[static::PLUGINS_MAIL_VERIFICATION_POST] = static function () use ($self) {
-            return $self->getMailVerificationPostPlugins();
-        };
-
-        return $container;
-    }
-
-    /**
-     * @param \Spryker\Zed\Kernel\Container $container
-     *
-     * @return \Spryker\Zed\Kernel\Container
-     */
-    protected function addEmailVerificationLinkExtenderPlugins(Container $container): Container
-    {
-        $self = $this;
-        $container[static::PLUGINS_EMAIL_VERIFICATION_LINK_EXTENDER] = static function () use ($self) {
-            return $self->getEmailVerificationLinkExtenderPlugins();
-        };
-
-        return $container;
-    }
-
-    /**
-     * @return array<\FondOfOryx\Zed\CustomerRegistrationExtension\Dependency\Plugin\CustomerRegistrationPluginInterface>
-     */
-    protected function getCustomerRegistrationProcessorPlugins(): array
-    {
-        return [];
-    }
-
-    /**
-     * @return array<\FondOfOryx\Zed\CustomerRegistrationExtension\Dependency\Plugin\CustomerRegistrationPostStepPluginInterface>
-     */
-    protected function getCustomerRegistrationPostPlugins(): array
-    {
-        return [];
-    }
-
-    /**
-     * @return array<\FondOfOryx\Zed\CustomerRegistrationExtension\Dependency\Plugin\CustomerRegistrationPreStepConditionPluginInterface>
-     */
-    protected function getGdprPreConditionPlugins(): array
-    {
-        return [];
-    }
-
-    /**
-     * @return array<\FondOfOryx\Zed\CustomerRegistrationExtension\Dependency\Plugin\CustomerRegistrationPostStepPluginInterface>
-     */
-    protected function getGdprPostPlugins(): array
-    {
-        return [];
-    }
-
-    /**
-     * @return array<\FondOfOryx\Zed\CustomerRegistrationExtension\Dependency\Plugin\CustomerRegistrationPreStepConditionPluginInterface>
-     */
-    protected function getMailVerificationPreConditionPlugins(): array
-    {
-        return [];
-    }
-
-    /**
-     * @return array<\FondOfOryx\Zed\CustomerRegistrationExtension\Dependency\Plugin\CustomerRegistrationPostStepPluginInterface>
-     */
-    protected function getMailVerificationPostPlugins(): array
-    {
-        return [];
-    }
-
-    /**
-     * @return array<\FondOfOryx\Zed\CustomerRegistrationExtension\Dependency\Plugin\EmailVerificationLinkExpanderPluginInterface>
-     */
-    protected function getEmailVerificationLinkExtenderPlugins(): array
-    {
-        return [
-            new EmailVerificationLinkLocaleExpanderPlugin(),
-        ];
     }
 }
