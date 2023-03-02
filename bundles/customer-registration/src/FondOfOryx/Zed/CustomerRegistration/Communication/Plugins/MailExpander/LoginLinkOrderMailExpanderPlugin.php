@@ -3,6 +3,7 @@
 namespace FondOfOryx\Zed\CustomerRegistration\Communication\Plugins\MailExpander;
 
 use Generated\Shared\Transfer\MailTransfer;
+use Generated\Shared\Transfer\OneTimePasswordAttributesTransfer;
 use Generated\Shared\Transfer\OrderTransfer;
 use Spryker\Zed\Kernel\Communication\AbstractPlugin;
 use Spryker\Zed\OmsExtension\Dependency\Plugin\OmsOrderMailExpanderPluginInterface;
@@ -22,11 +23,13 @@ class LoginLinkOrderMailExpanderPlugin extends AbstractPlugin implements OmsOrde
     public function expand(MailTransfer $mailTransfer, OrderTransfer $orderTransfer): MailTransfer
     {
         $customerTransfer = $orderTransfer->getCustomer();
+        $oneTimePasswordAttributesTransfer = (new OneTimePasswordAttributesTransfer())
+            ->setLocale($mailTransfer->getLocale());
 
         if ($customerTransfer->getRegistrationKey() === null) {
             $oneTimePasswordResponseTransfer = $this->getFactory()
                 ->getOneTimePasswordFacade()
-                ->generateLoginLink($customerTransfer);
+                ->generateLoginLink($customerTransfer, $oneTimePasswordAttributesTransfer);
 
             $mailTransfer->setOneTimePasswordLoginLink($oneTimePasswordResponseTransfer->getLoginLink());
         }
