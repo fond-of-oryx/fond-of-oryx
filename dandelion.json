@@ -292,7 +292,7 @@
     },
     "erp-delivery-note": {
       "path": "bundles/erp-delivery-note/",
-      "version": "2.2.1-beta"
+      "version": "2.2.0-beta.1"
     },
     "erp-delivery-note-api": {
       "path": "bundles/erp-delivery-note-api/",
