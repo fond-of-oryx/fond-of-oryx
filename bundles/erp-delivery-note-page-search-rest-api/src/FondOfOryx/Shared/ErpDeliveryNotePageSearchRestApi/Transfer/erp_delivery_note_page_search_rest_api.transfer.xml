@@ -58,7 +58,7 @@
         <property name="items" singular="item" type="RestErpDeliveryNoteItem[]"/>
         <property name="expenses" singular="expense" type="RestErpDeliveryNoteExpense[]"/>
         <property name="currencyIsoCode" type="string"/>
-        <property name="tracking" type="RestErpDeliveryNoteTracking[]"/>
+        <property name="tracking" type="RestErpDeliveryNoteGlobalTracking[]"/>
     </transfer>
 
     <transfer name="RestErpDeliveryNoteAddress">
@@ -102,6 +102,20 @@
         <property name="shippingAgentCode" type="string"/>
         <property name="shippingAgentServiceCode" type="string"/>
         <property name="items" singular="item" type="RestErpDeliveryNoteItem[]"/>
+    </transfer>
+
+    <transfer name="RestErpDeliveryNoteGlobalTrackingItem">
+        <property name="sku" type="string"/>
+        <property name="quantity" type="float"/>
+    </transfer>
+
+    <transfer name="RestErpDeliveryNoteGlobalTracking">
+        <property name="trackingNumber" type="string"/>
+        <property name="trackingUrl" type="string"/>
+        <property name="quantity" type="float"/>
+        <property name="shippingAgentCode" type="string"/>
+        <property name="shippingAgentServiceCode" type="string"/>
+        <property name="items" singular="item" type="RestErpDeliveryNoteGlobalTrackingItem[]"/>
     </transfer>
 
     <transfer name="RestCompanyBusinessUnit">
