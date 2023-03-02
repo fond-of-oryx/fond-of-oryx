@@ -19,11 +19,6 @@ class CustomerRegistrationDependencyProvider extends AbstractBundleDependencyPro
     /**
      * @var string
      */
-    public const FACADE_LOCALE = 'FACADE_LOCALE';
-
-    /**
-     * @var string
-     */
     public const FACADE_MAIL = 'FACADE_MAIL';
 
     /**
@@ -46,7 +41,6 @@ class CustomerRegistrationDependencyProvider extends AbstractBundleDependencyPro
         $container = parent::provideBusinessLayerDependencies($container);
 
         $container = $this->addCustomerFacade($container);
-        $container = $this->addLocaleFacade($container);
         $container = $this->addMailFacade($container);
 
         return $this->addOneTimePasswordFacade($container);
