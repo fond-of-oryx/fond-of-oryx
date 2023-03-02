@@ -252,7 +252,7 @@
     },
     "customer-registration": {
       "path": "bundles/customer-registration/",
-      "version": "2.1.0"
+      "version": "2.1.1"
     },
     "customer-registration-extension": {
       "path": "bundles/customer-registration-extension/",
