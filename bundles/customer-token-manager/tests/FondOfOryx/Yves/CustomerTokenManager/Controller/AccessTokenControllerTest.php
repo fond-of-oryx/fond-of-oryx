@@ -16,7 +16,6 @@ use Symfony\Component\HttpFoundation\InputBag;
 use Symfony\Component\HttpFoundation\ParameterBag;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorage;
 use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 
@@ -351,6 +350,5 @@ class AccessTokenControllerTest extends Unit
             RedirectResponse::class,
             $this->accessTokenController->tokenManagerAction($this->requestMock, $token),
         );
-
     }
 }
