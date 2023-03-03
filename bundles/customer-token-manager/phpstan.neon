@@ -5,3 +5,4 @@ parameters:
         - src/Orm/Zed
     ignoreErrors:
         - '#.* on an unknown class Generated\\(Client|Glue|Service|Yves|Zed)\\.*#'
+        - '#^Parameter \#3 \$roles of class Symfony\\Component\\Security\\Core\\Authentication\\Token\\UsernamePasswordToken constructor expects array\<string\>, string given\.$#'
