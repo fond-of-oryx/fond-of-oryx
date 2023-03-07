@@ -29,9 +29,11 @@ class AvailabilityAlertFeed implements FeedInterface
         $content = new CsvContent(['SKU', 'Subscriber']);
         foreach ($this->client->getAvailabilityAlertFeedData()->getFeedDataArray() as $feedData) {
             $sku = str_replace('Abstract-', '', $feedData->getSku());
-            if (!is_string($sku)) {
+
+            if ($sku !== '') {
                 continue;
             }
+
             $content->addRow([$sku, (string)$feedData->getSubscriberCount()]);
         }
 

@@ -11,6 +11,7 @@ use FondOfOryx\Yves\CustomerTokenManager\Plugin\Provider\CustomerUserProvider;
 use FondOfOryx\Yves\CustomerTokenManager\Plugin\Security\CustomerTokenManagerSecurityPlugin;
 use FondOfOryx\Yves\CustomerTokenManager\Security\Customer;
 use Generated\Shared\Transfer\CustomerTransfer;
+use ReflectionClass;
 use Spryker\Yves\Kernel\AbstractFactory;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
@@ -40,6 +41,15 @@ class CustomerTokenManagerFactory extends AbstractFactory
     public function createUsernamePasswordToken(CustomerTransfer $customerTransfer): TokenInterface
     {
         $user = $this->createSecurityUser($customerTransfer);
+
+        if (count((new ReflectionClass(UsernamePasswordToken::class))->getConstructor()->getParameters()) === 4) {
+            return new UsernamePasswordToken(
+                $user,
+                $user->getPassword(),
+                CustomerTokenManagerConfig::SECURITY_FIREWALL_NAME,
+                [CustomerTokenManagerSecurityPlugin::ROLE_USER],
+            );
+        }
 
         return new UsernamePasswordToken(
             $user,
@@ -114,6 +124,22 @@ class CustomerTokenManagerFactory extends AbstractFactory
     public function getRedirectPathAfterLogin(): string
     {
         return $this->getConfig()->getRedirectPathAfterLogin();
+    }
+
+    /**
+     * @return string
+     */
+    public function getRedirectPathAfterExpiredLogin(): string
+    {
+        return $this->getConfig()->getRedirectPathAfterExpiredLogin();
+    }
+
+    /**
+     * @return bool
+     */
+    public function showErrorMessageOnExpiredLogin(): bool
+    {
+        return $this->getConfig()->showErrorMessageOnExpiredLogin();
     }
 
     /**

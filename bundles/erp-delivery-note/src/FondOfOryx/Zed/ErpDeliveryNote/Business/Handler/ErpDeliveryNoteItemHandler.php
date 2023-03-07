@@ -153,7 +153,7 @@ class ErpDeliveryNoteItemHandler implements ErpDeliveryNoteItemHandlerInterface
         foreach ($erpDeliveryNoteTransfer->getDeliveryNoteItems() as $erpDeliveryNoteItemTransfer) {
             $itemIndex = $this->getItemIndex($erpDeliveryNoteItemTransfer);
             if (array_key_exists($itemIndex, $existingItems)) {
-                $update[] = $this->updateItemData(array_pop($existingItems[$itemIndex]), $erpDeliveryNoteItemTransfer);
+                $update[] = $this->updateItemData(clone array_pop($existingItems[$itemIndex]), $erpDeliveryNoteItemTransfer);
                 if (count($existingItems[$itemIndex]) === 0) {
                     unset($existingItems[$itemIndex]);
                 }
@@ -226,7 +226,7 @@ class ErpDeliveryNoteItemHandler implements ErpDeliveryNoteItemHandlerInterface
         ErpDeliveryNoteItemTransfer $erpDeliveryNoteItemTransfer
     ): ErpDeliveryNoteItemTransfer {
         $idDeliveryNoteItem = $updateItem->getIdErpDeliveryNoteItem();
-        $updateItem->fromArray($erpDeliveryNoteItemTransfer->toArray(), true);
+        $updateItem->fromArray($erpDeliveryNoteItemTransfer->modifiedToArray(), true);
         $updateItem->setIdErpDeliveryNoteItem($idDeliveryNoteItem);
 
         return $updateItem;

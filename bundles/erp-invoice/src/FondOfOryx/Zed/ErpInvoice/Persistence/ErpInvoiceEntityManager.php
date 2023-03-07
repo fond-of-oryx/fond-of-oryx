@@ -102,7 +102,8 @@ class ErpInvoiceEntityManager extends AbstractEntityManager implements ErpInvoic
         $itemTransfer
             ->requireFkErpInvoice()
             ->requireSku()
-            ->requireName();
+            ->requireName()
+            ->setIdErpInvoiceItem(null);
 
         $now = new DateTime();
 

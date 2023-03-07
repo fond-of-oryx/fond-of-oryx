@@ -8,6 +8,7 @@ use FondOfOryx\Zed\ErpDeliveryNotePageSearch\Business\Mapper\ErpDeliveryNotePage
 use FondOfOryx\Zed\ErpDeliveryNotePageSearch\Dependency\Service\ErpDeliveryNotePageSearchToUtilEncodingServiceInterface;
 use FondOfOryx\Zed\ErpDeliveryNotePageSearch\Persistence\ErpDeliveryNotePageSearchEntityManagerInterface;
 use FondOfOryx\Zed\ErpDeliveryNotePageSearch\Persistence\ErpDeliveryNotePageSearchQueryContainerInterface;
+use Laminas\Stdlib\ArrayObject;
 use Orm\Zed\CompanyBusinessUnit\Persistence\SpyCompanyBusinessUnit;
 use Orm\Zed\Country\Persistence\SpyCountry;
 use Orm\Zed\ErpDeliveryNote\Persistence\FooErpDeliveryNote;
@@ -224,6 +225,10 @@ class ErpDeliveryNotePageSearchPublisherTest extends Unit
             ->method('getIterator')
             ->willReturn($this->erpDeliveryNoteItemIteratorMock);
 
+        $this->erpDeliveryNoteItemCollectionMock->expects(static::atLeastOnce())
+            ->method('getData')
+            ->willReturn([]);
+
         $this->erpDeliveryNoteItemIteratorMock->expects(static::atLeastOnce())
             ->method('rewind');
 
@@ -241,6 +246,10 @@ class ErpDeliveryNotePageSearchPublisherTest extends Unit
         $this->erpDeliveryNoteItemMock->expects(static::atLeastOnce())
             ->method('toArray')
             ->willReturn([]);
+
+        $this->erpDeliveryNoteItemMock->expects(static::atLeastOnce())
+            ->method('getFooErpDeliveryNoteTrackingToItems')
+            ->willReturn(new ArrayObject());
 
         $this->erpDeliveryNoteMock->expects(static::atLeastOnce())
             ->method('getFooErpDeliveryNoteExpenses')

@@ -22,6 +22,28 @@ class CustomerTokenManagerConfig extends AbstractBundleConfig
     /**
      * @return string
      */
+    public function getRedirectPathAfterExpiredLogin(): string
+    {
+        return $this->get(
+            CustomerTokenManagerConstants::REDIRECT_PATH_AFTER_EXPIRED_LOGIN,
+            CustomerTokenManagerConstants::REDIRECT_PATH_AFTER_EXPIRED_LOGIN_DEFAULT,
+        );
+    }
+
+    /**
+     * @return bool
+     */
+    public function showErrorMessageOnExpiredLogin(): bool
+    {
+        return $this->get(
+            CustomerTokenManagerConstants::SHOW_ERROR_MESSAGE_ON_EXPIRED_LOGIN,
+            false,
+        );
+    }
+
+    /**
+     * @return string
+     */
     public function getYvesBaseUrl(): string
     {
         return $this->get(

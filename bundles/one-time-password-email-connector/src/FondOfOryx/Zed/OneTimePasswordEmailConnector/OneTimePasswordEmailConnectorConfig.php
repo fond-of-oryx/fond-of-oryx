@@ -8,6 +8,11 @@ use Spryker\Zed\Kernel\AbstractBundleConfig;
 class OneTimePasswordEmailConnectorConfig extends AbstractBundleConfig
 {
     /**
+     * @var string
+     */
+    protected const MAILJET_DEFAULT_LOCALE = 'en_US';
+
+    /**
      * @example ['de_DE' => 100, 'en_US' => 200]
      *
      * @param string $locale
@@ -23,6 +28,10 @@ class OneTimePasswordEmailConnectorConfig extends AbstractBundleConfig
 
         if (isset($oneTimePasswordLoginLinkMailTemplateIdByLocale[$locale])) {
             return $oneTimePasswordLoginLinkMailTemplateIdByLocale[$locale];
+        }
+
+        if (isset($oneTimePasswordLoginLinkMailTemplateIdByLocale[static::MAILJET_DEFAULT_LOCALE])) {
+            return $oneTimePasswordLoginLinkMailTemplateIdByLocale[static::MAILJET_DEFAULT_LOCALE];
         }
 
         return null;

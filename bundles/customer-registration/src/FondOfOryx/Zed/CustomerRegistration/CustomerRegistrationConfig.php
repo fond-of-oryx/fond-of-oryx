@@ -3,77 +3,21 @@
 namespace FondOfOryx\Zed\CustomerRegistration;
 
 use FondOfOryx\Shared\CustomerRegistration\CustomerRegistrationConstants;
-use Generated\Shared\Transfer\SequenceNumberSettingsTransfer;
-use Spryker\Shared\Application\ApplicationConstants;
-use Spryker\Shared\Customer\CustomerConstants;
-use Spryker\Shared\SequenceNumber\SequenceNumberConstants;
 use Spryker\Zed\Kernel\AbstractBundleConfig;
 
-class CustomerRegistrationConfig extends AbstractBundleConfig implements CustomerRegistrationConfigInterface
+class CustomerRegistrationConfig extends AbstractBundleConfig
 {
     /**
-     * @api
+     * @var string
+     */
+    protected const MAILJET_DEFAULT_LOCALE = 'en_US';
+
+    /**
+     * @uses CustomerConstants::CUSTOMER_REGISTRATION_WITH_CONFIRMATION_MAIL_TYPE
      *
-     * @param string $storeName
-     *
-     * @return \Generated\Shared\Transfer\SequenceNumberSettingsTransfer
+     * @var string
      */
-    public function getCustomerReferenceDefaults(string $storeName): SequenceNumberSettingsTransfer
-    {
-        $sequenceNumberSettingsTransfer = new SequenceNumberSettingsTransfer();
-
-        $sequenceNumberSettingsTransfer->setName(CustomerConstants::NAME_CUSTOMER_REFERENCE);
-
-        $sequenceNumberPrefixParts = [];
-        $sequenceNumberPrefixParts[] = $this->get(CustomerRegistrationConstants::CUSTOMER_REFERENCE_PREFIX, $storeName);
-
-        if ($this->get(SequenceNumberConstants::ENVIRONMENT_PREFIX) !== '') {
-            $sequenceNumberPrefixParts[] = $this->get(SequenceNumberConstants::ENVIRONMENT_PREFIX);
-        }
-
-        $prefix = implode($this->getUniqueIdentifierSeparator(), $sequenceNumberPrefixParts) . $this->getUniqueIdentifierSeparator();
-
-        $sequenceNumberSettingsTransfer->setPrefix($prefix);
-
-        $offset = $this->get(CustomerRegistrationConstants::CUSTOMER_REFERENCE_OFFSET);
-        if ($offset) {
-            $sequenceNumberSettingsTransfer->setOffset($this->get(CustomerRegistrationConstants::CUSTOMER_REFERENCE_OFFSET));
-        }
-
-        return $sequenceNumberSettingsTransfer;
-    }
-
-    /**
-     * @return string
-     */
-    public function getVerificationLinkPattern(): string
-    {
-        return $this->get(CustomerRegistrationConstants::CONFIG_PATTERN_VERIFICATION_LINK, CustomerRegistrationConstants::DEFAULT_PATTERN_VERIFICATION_LINK);
-    }
-
-    /**
-     * @return string
-     */
-    public function getFallbackUrlLanguageKey(): string
-    {
-        return $this->get(CustomerRegistrationConstants::CONFIG_FALLBACK_URL_LOCALE, CustomerRegistrationConstants::DEFAULT_CONFIG_FALLBACK_URL_LOCALE);
-    }
-
-    /**
-     * @return string
-     */
-    public function getBaseUrl(): string
-    {
-        return $this->get(CustomerRegistrationConstants::CONFIG_BASE_URL, $this->get(ApplicationConstants::BASE_URL_YVES));
-    }
-
-    /**
-     * @return string
-     */
-    protected function getUniqueIdentifierSeparator(): string
-    {
-        return '-';
-    }
+    public const CUSTOMER_REGISTRATION_WITH_CONFIRMATION_MAIL_TYPE = 'customer registration confirmation mail';
 
     /**
      * @example ['de_DE' => 100, 'en_US' => 200]
@@ -91,6 +35,10 @@ class CustomerRegistrationConfig extends AbstractBundleConfig implements Custome
 
         if (isset($customerRegistrationWelcomeMailTemplateIdByLocale[$locale])) {
             return $customerRegistrationWelcomeMailTemplateIdByLocale[$locale];
+        }
+
+        if (isset($customerRegistrationWelcomeMailTemplateIdByLocale[static::MAILJET_DEFAULT_LOCALE])) {
+            return $customerRegistrationWelcomeMailTemplateIdByLocale[static::MAILJET_DEFAULT_LOCALE];
         }
 
         return null;
@@ -114,15 +62,12 @@ class CustomerRegistrationConfig extends AbstractBundleConfig implements Custome
             return $oneTimePasswordLoginLinkMailTemplateIdByLocale[$locale];
         }
 
+        if (isset($oneTimePasswordLoginLinkMailTemplateIdByLocale[static::MAILJET_DEFAULT_LOCALE])) {
+            return $oneTimePasswordLoginLinkMailTemplateIdByLocale[static::MAILJET_DEFAULT_LOCALE];
+        }
+
         return null;
     }
-
-    /**
-     * @uses CustomerConstants::CUSTOMER_REGISTRATION_WITH_CONFIRMATION_MAIL_TYPE
-     *
-     * @var string
-     */
-    public const CUSTOMER_REGISTRATION_WITH_CONFIRMATION_MAIL_TYPE = 'customer registration confirmation mail';
 
     /**
      * Specification:

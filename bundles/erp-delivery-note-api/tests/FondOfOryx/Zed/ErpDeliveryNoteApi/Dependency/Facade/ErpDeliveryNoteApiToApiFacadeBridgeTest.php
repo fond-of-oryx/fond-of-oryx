@@ -82,7 +82,7 @@ class ErpDeliveryNoteApiToApiFacadeBridgeTest extends Unit
             $this->apiItemTransferMock,
             $this->bridge->createApiItem(
                 $this->abstractTransferMock,
-                $this->id,
+                (string)$this->id,
             ),
         );
     }

@@ -109,4 +109,17 @@ class ErpDeliveryNoteFacade extends AbstractFacade implements ErpDeliveryNoteFac
     ): ErpDeliveryNoteTransfer {
         return $this->getFactory()->createErpDeliveryNoteExpenseHandler()->handle($erpDeliveryNoteTransfer, $existingErpDeliveryNoteTransfer);
     }
+
+    /**
+     * @param \Generated\Shared\Transfer\ErpDeliveryNoteTransfer $erpDeliveryNoteTransfer
+     * @param \Generated\Shared\Transfer\ErpDeliveryNoteTransfer|null $existingErpDeliveryNoteTransfer
+     *
+     * @return \Generated\Shared\Transfer\ErpDeliveryNoteTransfer
+     */
+    public function persistErpDeliveryNoteTrackingData(
+        ErpDeliveryNoteTransfer $erpDeliveryNoteTransfer,
+        ?ErpDeliveryNoteTransfer $existingErpDeliveryNoteTransfer = null
+    ): ErpDeliveryNoteTransfer {
+        return $this->getFactory()->createErpDeliveryNoteTrackingHandler()->handle($erpDeliveryNoteTransfer, $existingErpDeliveryNoteTransfer);
+    }
 }
