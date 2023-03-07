@@ -58,6 +58,10 @@
       "path": "bundles/catalog-sku-filter/",
       "version": "2.0.0"
     },
+    "checkout-rest-api-payone-connector": {
+      "path": "bundles/checkout-rest-api-payone-connector/",
+      "version": "1.0.0-alpha.0"
+    },
     "company-api": {
       "path": "bundles/company-api/",
       "version": "3.0.0"
