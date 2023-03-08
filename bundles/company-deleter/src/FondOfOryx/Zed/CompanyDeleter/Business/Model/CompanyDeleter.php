@@ -2,9 +2,9 @@
 
 namespace FondOfOryx\Zed\CompanyDeleter\Business\Model;
 
+use FondOfOryx\Zed\CompanyDeleter\Business\Executor\PluginExecutorInterface;
 use FondOfOryx\Zed\CompanyDeleter\Dependency\Facade\CompanyDeleterToCompanyFacadeInterface;
 use Generated\Shared\Transfer\CompanyTransfer;
-use FondOfOryx\Zed\CompanyDeleter\Business\Executor\PluginExecutorInterface;
 use Spryker\Zed\Kernel\Persistence\EntityManager\TransactionHandlerInterface;
 
 class CompanyDeleter implements CompanyDeleterInterface
@@ -31,9 +31,9 @@ class CompanyDeleter implements CompanyDeleterInterface
      */
     public function __construct(
         CompanyDeleterToCompanyFacadeInterface $companyFacade,
-        TransactionHandlerInterface          $transactionHandler,
-        PluginExecutorInterface              $pluginExecutor)
-    {
+        TransactionHandlerInterface $transactionHandler,
+        PluginExecutorInterface $pluginExecutor
+    ) {
         $this->companyFacade = $companyFacade;
         $this->transactionHandler = $transactionHandler;
         $this->pluginExecutor = $pluginExecutor;

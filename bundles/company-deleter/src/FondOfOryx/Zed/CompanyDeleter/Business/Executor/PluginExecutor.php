@@ -3,7 +3,6 @@
 namespace FondOfOryx\Zed\CompanyDeleter\Business\Executor;
 
 use Generated\Shared\Transfer\CompanyTransfer;
-use Spryker\Zed\Kernel\Persistence\EntityManager\TransactionHandlerInterface;
 
 class PluginExecutor implements PluginExecutorInterface
 {
@@ -13,18 +12,18 @@ class PluginExecutor implements PluginExecutorInterface
     protected $transactionHandler;
 
     /**
-     * @var \FondOfOryx\Zed\CompanyDeleterExtension\Communication\Plugin\CompanyDeleterPreDeletePluginInterface[]
+     * @var array<\FondOfOryx\Zed\CompanyDeleterExtension\Communication\Plugin\CompanyDeleterPreDeletePluginInterface>
      */
     protected $prePlugins;
 
     /**
-     * @var \FondOfOryx\Zed\CompanyDeleterExtension\Communication\Plugin\CompanyDeleterPostDeletePluginInterface[]
+     * @var array<\FondOfOryx\Zed\CompanyDeleterExtension\Communication\Plugin\CompanyDeleterPostDeletePluginInterface>
      */
     protected $postPlugins;
 
     /**
-     * @param \Spryker\Zed\Kernel\Persistence\EntityManager\TransactionHandlerInterface $transactionHandler
      * @param array<\FondOfOryx\Zed\CompanyDeleterExtension\Communication\Plugin\CompanyDeleterPreDeletePluginInterface> $prePlugins
+     * @param array<\FondOfOryx\Zed\CompanyDeleterExtension\Communication\Plugin\CompanyDeleterPostDeletePluginInterface> $postPlugins
      */
     public function __construct(array $prePlugins, array $postPlugins)
     {

@@ -2,10 +2,12 @@
 
 namespace FondOfOryx\Zed\CompanyDeleter\Business\Model;
 
-use Generated\Shared\Transfer\CompanyTransfer;
-use FondOfOryx\Zed\CompanyDeleter\Business\Executor\PluginExecutorInterface;
-
 interface CompanyDeleterInterface
 {
+    /**
+     * @param array $idCompanies
+     *
+     * @return void
+     */
     public function delete(array $idCompanies): void;
 }

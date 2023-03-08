@@ -8,8 +8,19 @@ use Spryker\Zed\Kernel\Container;
 
 class CompanyDeleterDependencyProvider extends AbstractBundleDependencyProvider
 {
+    /**
+     * @var string
+     */
     public const PLUGINS_PRE_COMPANY_DELETER = 'PLUGINS_PRE_COMPANY_DELETER';
+
+    /**
+     * @var string
+     */
     public const PLUGINS_POST_COMPANY_DELETER = 'PLUGINS_POST_COMPANY_DELETER';
+
+    /**
+     * @var string
+     */
     public const FACADE_COMPANY = 'FACADE_COMPANY';
 
     /**
