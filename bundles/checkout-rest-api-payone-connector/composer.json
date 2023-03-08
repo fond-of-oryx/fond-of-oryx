@@ -16,7 +16,7 @@
   ],
   "require": {
     "php": ">=8.0",
-    "spryker/checkout-rest-api-extension": "^3.0.0",
+    "spryker/checkout-rest-api-extension": "^1.5.0",
     "spryker-eco/payone": "dev-master-fondof as 4.4.2"
   },
   "require-dev": {
