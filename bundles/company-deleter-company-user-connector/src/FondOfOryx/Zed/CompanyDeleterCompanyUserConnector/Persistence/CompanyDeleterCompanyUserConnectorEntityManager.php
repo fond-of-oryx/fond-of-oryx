@@ -3,9 +3,11 @@
 namespace FondOfOryx\Zed\CompanyDeleterCompanyUserConnector\Persistence;
 
 use Generated\Shared\Transfer\CompanyTransfer;
-use Orm\Zed\CompanyUser\Persistence\SpyCompanyUserQuery;
 use Spryker\Zed\Kernel\Persistence\AbstractEntityManager;
 
+/**
+ * @method \FondOfOryx\Zed\CompanyDeleterProductListConnector\Persistence\CompanyDeleterCompanyUserConnectorPersistenceFactory getFactory()
+ */
 class CompanyDeleterCompanyUserConnectorEntityManager extends AbstractEntityManager implements CompanyDeleterCompanyUserConnectorEntityManagerInterface
 {
     /**
@@ -15,8 +17,7 @@ class CompanyDeleterCompanyUserConnectorEntityManager extends AbstractEntityMana
      */
     public function deleteCompanyUserByIdCompany(CompanyTransfer $companyTransfer): void
     {
-        $query = SpyCompanyUserQuery::create();
-        $user = $query->findByFkCompany($companyTransfer->getIdCompany());
+        $user = $this->getFactory()->createSpyCompanyUserQuery()->findByFkCompany($companyTransfer->getIdCompany());
 
         foreach ($user as $singleUser) {
             $singleUser->delete();
