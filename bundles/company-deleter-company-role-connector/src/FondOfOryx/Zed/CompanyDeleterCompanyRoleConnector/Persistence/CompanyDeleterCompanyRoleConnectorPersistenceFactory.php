@@ -1,6 +1,6 @@
 <?php
 
-namespace FondOfOryx\Zed\CompanyDeleterProductListConnector\Persistence;
+namespace FondOfOryx\Zed\CompanyDeleterCompanyRoleConnector\Persistence;
 
 use Orm\Zed\CompanyRole\Persistence\SpyCompanyRoleQuery;
 use Spryker\Zed\Kernel\Persistence\AbstractPersistenceFactory;
