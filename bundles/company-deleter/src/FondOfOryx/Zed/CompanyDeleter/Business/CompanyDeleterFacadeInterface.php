@@ -7,14 +7,14 @@ interface CompanyDeleterFacadeInterface
     /**
      * @param array $ids
      *
-     * @return void
+     * @return array<string, array<int>>
      */
-    public function deleteCompanies(array $ids): void;
+    public function deleteCompanies(array $ids): array;
 
     /**
      * @param int $id
      *
-     * @return void
+     * @return array<string, array<int>>
      */
-    public function deleteCompany(int $id): void;
+    public function deleteCompany(int $id): array;
 }

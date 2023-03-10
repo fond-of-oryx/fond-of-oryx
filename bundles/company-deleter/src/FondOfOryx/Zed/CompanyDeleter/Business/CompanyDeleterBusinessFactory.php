@@ -8,12 +8,14 @@ use FondOfOryx\Zed\CompanyDeleter\Business\Model\CompanyDeleter;
 use FondOfOryx\Zed\CompanyDeleter\Business\Model\CompanyDeleterInterface;
 use FondOfOryx\Zed\CompanyDeleter\CompanyDeleterDependencyProvider;
 use FondOfOryx\Zed\CompanyDeleter\Dependency\Facade\CompanyDeleterToCompanyFacadeInterface;
+use Spryker\Shared\Log\LoggerTrait;
 use Spryker\Zed\Kernel\Business\AbstractBusinessFactory;
 use Spryker\Zed\Kernel\Persistence\EntityManager\TransactionTrait;
 
 class CompanyDeleterBusinessFactory extends AbstractBusinessFactory
 {
     use TransactionTrait;
+    use LoggerTrait;
 
     /**
      * @return \FondOfOryx\Zed\CompanyDeleter\Business\Model\CompanyDeleterInterface
@@ -24,6 +26,7 @@ class CompanyDeleterBusinessFactory extends AbstractBusinessFactory
             $this->getCompanyFacade(),
             $this->getTransactionHandler(),
             $this->createCompanyDeleterPluginExecutor(),
+            $this->getLogger(),
         );
     }
 
