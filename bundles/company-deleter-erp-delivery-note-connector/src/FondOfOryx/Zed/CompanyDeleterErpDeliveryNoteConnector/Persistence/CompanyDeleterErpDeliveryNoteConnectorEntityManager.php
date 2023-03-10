@@ -25,14 +25,14 @@ class CompanyDeleterErpDeliveryNoteConnectorEntityManager extends AbstractEntity
                 $shipping = $erpDeliveryNote->getFooErpDeliveryNoteShippingAddress();
                 $erpDeliveryNote->getFooErpDeliveryNoteExpenses()->delete();
 
-                foreach ($erpDeliveryNote->getFooErpDeliveryNoteTrackings() as $tracking){
-                    foreach ($tracking->getFooErpDeliveryNoteTrackingToItems() as $relation){
+                foreach ($erpDeliveryNote->getFooErpDeliveryNoteTrackings() as $tracking) {
+                    foreach ($tracking->getFooErpDeliveryNoteTrackingToItems() as $relation) {
                         $relation->delete();
                     }
                     $tracking->delete();
                 }
 
-                foreach ($erpDeliveryNote->getFooErpDeliveryNoteItems() as $item){
+                foreach ($erpDeliveryNote->getFooErpDeliveryNoteItems() as $item) {
                     $item->delete();
                 }
                 $erpDeliveryNote->delete();

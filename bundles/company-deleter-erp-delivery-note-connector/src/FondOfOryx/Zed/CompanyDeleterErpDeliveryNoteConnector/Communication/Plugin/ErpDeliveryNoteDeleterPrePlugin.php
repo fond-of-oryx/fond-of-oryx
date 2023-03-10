@@ -15,11 +15,9 @@ class ErpDeliveryNoteDeleterPrePlugin extends AbstractPlugin implements CompanyD
      * @param \Generated\Shared\Transfer\CompanyTransfer $companyTransfer
      *
      * @return void
-     * @throws \Spryker\Zed\Kernel\Exception\Container\ContainerKeyNotFoundException
      */
     public function execute(CompanyTransfer $companyTransfer): void
     {
         $this->getFacade()->deleteErpDeliveryNoteDataForCompanyById($companyTransfer);
     }
-
 }

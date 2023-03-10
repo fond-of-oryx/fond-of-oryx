@@ -14,7 +14,6 @@ class CompanyDeleterErpDeliveryNoteConnectorFacade extends AbstractFacade implem
      * @param \Generated\Shared\Transfer\CompanyTransfer $companyTransfer
      *
      * @return void
-     * @throws \Spryker\Zed\Kernel\Exception\Container\ContainerKeyNotFoundException
      */
     public function deleteErpDeliveryNoteDataForCompanyById(CompanyTransfer $companyTransfer): void
     {

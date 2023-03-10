@@ -9,8 +9,9 @@ interface CompanyDeleterErpDeliveryNoteConnectorFacadeInterface
     /**
      * @param \Generated\Shared\Transfer\CompanyTransfer $companyTransfer
      *
-     * @return void
      * @throws \Spryker\Zed\Kernel\Exception\Container\ContainerKeyNotFoundException
+     *
+     * @return void
      */
     public function deleteErpDeliveryNoteDataForCompanyById(CompanyTransfer $companyTransfer): void;
 }
