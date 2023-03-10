@@ -12,20 +12,20 @@ class CompanyDeleterFacade extends AbstractFacade implements CompanyDeleterFacad
     /**
      * @param array $ids
      *
-     * @return void
+     * @return array<string, array<int>>
      */
-    public function deleteCompanies(array $ids): void
+    public function deleteCompanies(array $ids): array
     {
-        $this->getFactory()->createCompanyDeleter()->delete($ids);
+        return $this->getFactory()->createCompanyDeleter()->delete($ids);
     }
 
     /**
      * @param int $id
      *
-     * @return void
+     * @return array<string, array<int>>
      */
-    public function deleteCompany(int $id): void
+    public function deleteCompany(int $id): array
     {
-        $this->getFactory()->createCompanyDeleter()->delete([$id]);
+        return $this->getFactory()->createCompanyDeleter()->delete([$id]);
     }
 }

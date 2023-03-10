@@ -3,9 +3,11 @@
 namespace FondOfOryx\Zed\CompanyDeleterCompanyRoleConnector\Persistence;
 
 use Generated\Shared\Transfer\CompanyTransfer;
-use Orm\Zed\CompanyRole\Persistence\SpyCompanyRoleQuery;
 use Spryker\Zed\Kernel\Persistence\AbstractEntityManager;
 
+/**
+ * @method \FondOfOryx\Zed\CompanyDeleterProductListConnector\Persistence\CompanyDeleterCompanyRoleConnectorPersistenceFactory getFactory()
+ */
 class CompanyDeleterCompanyRoleConnectorEntityManager extends AbstractEntityManager implements CompanyDeleterCompanyRoleConnectorEntityManagerInterface
 {
     /**
@@ -15,8 +17,7 @@ class CompanyDeleterCompanyRoleConnectorEntityManager extends AbstractEntityMana
      */
     public function deleteCompanyRolesByIdCompany(CompanyTransfer $companyTransfer): void
     {
-        $query = SpyCompanyRoleQuery::create();
-        $roles = $query->findByFkCompany($companyTransfer->getIdCompany());
+        $roles = $this->getFactory()->createSpyCompanyRoleQuery()->findByFkCompany($companyTransfer->getIdCompany());
 
         foreach ($roles as $role) {
             foreach ($role->getSpyCompanyRoleToPermissions() as $permission) {
