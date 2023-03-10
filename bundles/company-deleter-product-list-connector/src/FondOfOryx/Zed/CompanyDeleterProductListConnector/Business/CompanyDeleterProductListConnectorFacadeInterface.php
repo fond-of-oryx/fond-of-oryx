@@ -9,8 +9,9 @@ interface CompanyDeleterProductListConnectorFacadeInterface
     /**
      * @param \Generated\Shared\Transfer\CompanyTransfer $companyTransfer
      *
-     * @return void
      * @throws \Spryker\Zed\Kernel\Exception\Container\ContainerKeyNotFoundException
+     *
+     * @return void
      */
     public function deleteProductListDataForCompanyById(CompanyTransfer $companyTransfer): void;
 }
