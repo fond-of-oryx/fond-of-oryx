@@ -11,9 +11,13 @@ use Spryker\Zed\Kernel\Communication\AbstractPlugin;
  */
 class CompanyRoleDeleterPrePlugin extends AbstractPlugin implements CompanyDeleterPreDeletePluginInterface
 {
+    /**
+     * @param \Generated\Shared\Transfer\CompanyTransfer $companyTransfer
+     *
+     * @return void
+     */
     public function execute(CompanyTransfer $companyTransfer): void
     {
         $this->getFacade()->deleteCompanyRoleDataForCompanyById($companyTransfer);
     }
-
 }

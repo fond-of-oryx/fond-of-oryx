@@ -3,10 +3,7 @@
 namespace FondOfOryx\Zed\CompanyDeleterCompanyRoleConnector\Persistence;
 
 use Generated\Shared\Transfer\CompanyTransfer;
-use Orm\Zed\Company\Persistence\SpyCompanyQuery;
-use Orm\Zed\CompanyBusinessUnit\Persistence\SpyCompanyBusinessUnitQuery;
 use Orm\Zed\CompanyRole\Persistence\SpyCompanyRoleQuery;
-use Orm\Zed\ProductList\Persistence\SpyProductListCompanyQuery;
 use Spryker\Zed\Kernel\Persistence\AbstractEntityManager;
 
 class CompanyDeleterCompanyRoleConnectorEntityManager extends AbstractEntityManager implements CompanyDeleterCompanyRoleConnectorEntityManagerInterface

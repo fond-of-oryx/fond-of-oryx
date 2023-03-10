@@ -9,8 +9,9 @@ interface CompanyDeleterCompanyRoleConnectorFacadeInterface
     /**
      * @param \Generated\Shared\Transfer\CompanyTransfer $companyTransfer
      *
-     * @return void
      * @throws \Spryker\Zed\Kernel\Exception\Container\ContainerKeyNotFoundException
+     *
+     * @return void
      */
     public function deleteCompanyRoleDataForCompanyById(CompanyTransfer $companyTransfer): void;
 }

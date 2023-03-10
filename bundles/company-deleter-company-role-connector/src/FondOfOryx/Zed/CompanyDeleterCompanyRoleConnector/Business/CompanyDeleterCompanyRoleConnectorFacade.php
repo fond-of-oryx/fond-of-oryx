@@ -14,7 +14,6 @@ class CompanyDeleterCompanyRoleConnectorFacade extends AbstractFacade implements
      * @param \Generated\Shared\Transfer\CompanyTransfer $companyTransfer
      *
      * @return void
-     * @throws \Spryker\Zed\Kernel\Exception\Container\ContainerKeyNotFoundException
      */
     public function deleteCompanyRoleDataForCompanyById(CompanyTransfer $companyTransfer): void
     {
