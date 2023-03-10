@@ -20,5 +20,4 @@ class ErpOrderDeleterPrePlugin extends AbstractPlugin implements CompanyDeleterP
     {
         $this->getFacade()->deleteErpOrderDataForCompanyById($companyTransfer);
     }
-
 }

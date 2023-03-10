@@ -14,7 +14,6 @@ class CompanyDeleterErpOrderConnectorFacade extends AbstractFacade implements Co
      * @param \Generated\Shared\Transfer\CompanyTransfer $companyTransfer
      *
      * @return void
-     * @throws \Spryker\Zed\Kernel\Exception\Container\ContainerKeyNotFoundException
      */
     public function deleteErpOrderDataForCompanyById(CompanyTransfer $companyTransfer): void
     {

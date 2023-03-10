@@ -24,7 +24,7 @@ class CompanyDeleterErpOrderConnectorEntityManager extends AbstractEntityManager
                 $totals = $erpOrder->getErpOrderTotals();
                 $billing = $erpOrder->getErpOrderBillingAddress();
                 $shipping = $erpOrder->getErpOrderShippingAddress();
-                foreach ($erpOrder->getErpOrderItems() as $item){
+                foreach ($erpOrder->getErpOrderItems() as $item) {
                     $item->delete();
                 }
                 $erpOrder->delete();
