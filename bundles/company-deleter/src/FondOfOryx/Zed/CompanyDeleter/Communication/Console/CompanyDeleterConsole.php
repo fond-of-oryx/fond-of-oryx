@@ -3,6 +3,7 @@
 namespace FondOfOryx\Zed\CompanyDeleter\Communication\Console;
 
 use Exception;
+use FondOfOryx\Shared\CompanyDeleter\CompanyDeleterConstants;
 use Spryker\Zed\Kernel\Communication\Console\Console;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
@@ -10,7 +11,6 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 /**
  * @method \FondOfOryx\Zed\CompanyDeleter\Business\CompanyDeleterFacadeInterface getFacade()
- * @method \FondOfOryx\Zed\CompanyDeleter\Persistence\CompanyDeleterRepositoryInterface getRepository()
  */
 class CompanyDeleterConsole extends Console
 {
@@ -60,6 +60,7 @@ class CompanyDeleterConsole extends Console
     {
         $status = static::CODE_SUCCESS;
         $messenger = $this->getMessenger();
+        $result = [];
 
         $ids = [];
         if ($input->getOption(static::COMPANY_IDS)) {
@@ -68,7 +69,7 @@ class CompanyDeleterConsole extends Console
         }
 
         try {
-            $this->getFacade()->deleteCompanies($ids);
+            $result = $this->getFacade()->deleteCompanies($ids);
         } catch (Exception $exception) {
             $status = static::CODE_ERROR;
             $messenger->error(sprintf(
@@ -84,6 +85,102 @@ class CompanyDeleterConsole extends Console
             static::COMMAND_NAME,
         ));
 
+        $successMessage = $this->getSuccessMessage($result);
+        if ($successMessage !== '') {
+            $messenger->info($successMessage);
+        }
+        $errorMessage = $this->getErrorMessage($result);
+        if ($errorMessage !== '') {
+            $messenger->warning($errorMessage);
+            $status = static::CODE_SUCCESS;
+        }
+
         return $status;
+    }
+
+    /**
+     * @param array $result
+     *
+     * @return string
+     */
+    protected function getSuccessMessage(array $result): string
+    {
+        $successCount = $this->getSuccessCount($result);
+        if ($successCount === 0) {
+            return '';
+        }
+
+        return sprintf('Successfully deleted "%s" company entries for following ids: %s', $successCount, implode(',', $this->getSuccessIds($result)));
+    }
+
+    /**
+     * @param array $result
+     *
+     * @return string
+     */
+    protected function getErrorMessage(array $result): string
+    {
+        $errorCount = $this->getErrorCount($result);
+        if ($errorCount === 0) {
+            return '';
+        }
+
+        return sprintf('"%s" error appeared. Please investigate log files for further information. Could not delete entries for following ids: %s', $errorCount, implode(',', $this->getErrorIds($result)));
+    }
+
+    /**
+     * @param array $result
+     *
+     * @return int
+     */
+    protected function getSuccessCount(array $result): int
+    {
+        if (array_key_exists(CompanyDeleterConstants::SUCCESS_IDS, $result) && is_array($result[CompanyDeleterConstants::SUCCESS_IDS])) {
+            return count($result[CompanyDeleterConstants::SUCCESS_IDS]);
+        }
+
+        return 0;
+    }
+
+    /**
+     * @param array $result
+     *
+     * @return array
+     */
+    protected function getSuccessIds(array $result): array
+    {
+        if (array_key_exists(CompanyDeleterConstants::SUCCESS_IDS, $result) && is_array($result[CompanyDeleterConstants::SUCCESS_IDS])) {
+            return $result[CompanyDeleterConstants::SUCCESS_IDS];
+        }
+
+        return [];
+    }
+
+    /**
+     * @param array $result
+     *
+     * @return array
+     */
+    protected function getErrorIds(array $result): array
+    {
+        if (array_key_exists(CompanyDeleterConstants::ERROR_IDS, $result) && is_array($result[CompanyDeleterConstants::ERROR_IDS])) {
+            return $result[CompanyDeleterConstants::ERROR_IDS];
+        }
+
+        return [];
+    }
+
+    /**
+     * @param array $result
+     *
+     * @return int
+     */
+    protected function getErrorCount(array $result): int
+    {
+        if (array_key_exists(CompanyDeleterConstants::ERROR_IDS, $result) && is_array($result[CompanyDeleterConstants::ERROR_IDS])) {
+            return count($result[CompanyDeleterConstants::ERROR_IDS]);
+        }
+
+        return 0;
     }
 }

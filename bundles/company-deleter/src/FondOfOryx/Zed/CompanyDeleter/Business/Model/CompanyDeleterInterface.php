@@ -7,7 +7,7 @@ interface CompanyDeleterInterface
     /**
      * @param array $idCompanies
      *
-     * @return void
+     * @return array<string, array<int>>
      */
-    public function delete(array $idCompanies): void;
+    public function delete(array $idCompanies): array;
 }
