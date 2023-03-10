@@ -14,7 +14,6 @@ class CompanyDeleterCompanyBusinessUnitConnectorFacade extends AbstractFacade im
      * @param \Generated\Shared\Transfer\CompanyTransfer $companyTransfer
      *
      * @return void
-     * @throws \Spryker\Zed\Kernel\Exception\Container\ContainerKeyNotFoundException
      */
     public function deleteErpInvoiceDataForCompanyById(CompanyTransfer $companyTransfer): void
     {
