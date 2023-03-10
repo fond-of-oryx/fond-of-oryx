@@ -20,5 +20,4 @@ class ErpInvoiceDeleterPrePlugin extends AbstractPlugin implements CompanyDelete
     {
         $this->getFacade()->deleteErpInvoiceDataForCompanyById($companyTransfer);
     }
-
 }

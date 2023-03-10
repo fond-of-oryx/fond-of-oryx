@@ -25,7 +25,7 @@ class CompanyDeleterErpInvoiceConnectorEntityManager extends AbstractEntityManag
                 $billing = $erpInvoice->getFooErpInvoiceBillingAddress();
                 $shipping = $erpInvoice->getFooErpInvoiceShippingAddress();
                 $erpInvoice->getFooErpInvoiceExpenses()->delete();
-                foreach ($erpInvoice->getFooErpInvoiceItems() as $item){
+                foreach ($erpInvoice->getFooErpInvoiceItems() as $item) {
                     $item->delete();
                 }
                 $erpInvoice->delete();
