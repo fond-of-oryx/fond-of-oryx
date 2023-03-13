@@ -106,10 +106,6 @@
       "path": "bundles/company-deleter-company-business-unit-connector/",
       "version": "1.0.0"
     },
-    "company-deleter-company-to-product-list-connector": {
-      "path": "bundles/company-deleter-company-to-product-list-connector/",
-      "version": "1.0.0"
-    },
     "company-deleter-company-role-connector": {
       "path": "bundles/company-deleter-company-role-connector/",
       "version": "1.0.0"
@@ -132,6 +128,10 @@
     },
     "company-deleter-extension": {
       "path": "bundles/company-deleter-extension/",
+      "version": "1.0.0"
+    },
+    "company-deleter-product-list-connector": {
+      "path": "bundles/company-deleter-product-list-connector/",
       "version": "1.0.0"
     },
     "company-oms-mail-connector": {
