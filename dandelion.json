@@ -810,6 +810,14 @@
       "path": "bundles/splittable-totals/",
       "version": "2.0.0"
     },
+    "stock-api": {
+      "path": "bundles/stock-api",
+      "version": "1.0.0.beta.0"
+    },
+    "stock-product-api": {
+      "path": "bundles/stock-product-api",
+      "version": "1.0.0.beta.0"
+    },
     "tax-calculation-connector": {
       "path": "bundles/tax-calculation-connector/",
       "version": "2.0.0"
