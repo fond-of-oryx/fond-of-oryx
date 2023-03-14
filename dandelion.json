@@ -118,12 +118,12 @@
       "path": "bundles/company-deleter-erp-delivery-note-connector/",
       "version": "1.0.0"
     },
-    "company-deleter-erp-invoice": {
-      "path": "bundles/company-deleter-erp-invoice/",
+    "company-deleter-erp-invoice-connector": {
+      "path": "bundles/company-deleter-erp-invoice-connector/",
       "version": "1.0.0"
     },
-    "company-deleter-erp-order": {
-      "path": "bundles/company-deleter-erp-order/",
+    "company-deleter-erp-order-connector": {
+      "path": "bundles/company-deleter-erp-order-connector/",
       "version": "1.0.0"
     },
     "company-deleter-extension": {
