@@ -98,6 +98,42 @@
       "path": "bundles/company-company-user-gui/",
       "version": "2.0.0"
     },
+    "company-deleter": {
+      "path": "bundles/company-deleter/",
+      "version": "1.0.0"
+    },
+    "company-deleter-company-business-unit-connector": {
+      "path": "bundles/company-deleter-company-business-unit-connector/",
+      "version": "1.0.0"
+    },
+    "company-deleter-company-role-connector": {
+      "path": "bundles/company-deleter-company-role-connector/",
+      "version": "1.0.0"
+    },
+    "company-deleter-company-user-connector": {
+      "path": "bundles/company-deleter-company-user-connector/",
+      "version": "1.0.0"
+    },
+    "company-deleter-erp-delivery-note-connector": {
+      "path": "bundles/company-deleter-erp-delivery-note-connector/",
+      "version": "1.0.0"
+    },
+    "company-deleter-erp-invoice": {
+      "path": "bundles/company-deleter-erp-invoice/",
+      "version": "1.0.0"
+    },
+    "company-deleter-erp-order": {
+      "path": "bundles/company-deleter-erp-order/",
+      "version": "1.0.0"
+    },
+    "company-deleter-extension": {
+      "path": "bundles/company-deleter-extension/",
+      "version": "1.0.0"
+    },
+    "company-deleter-product-list-connector": {
+      "path": "bundles/company-deleter-product-list-connector/",
+      "version": "1.0.0"
+    },
     "company-oms-mail-connector": {
       "path": "bundles/company-oms-mail-connector/",
       "version": "3.0.0"

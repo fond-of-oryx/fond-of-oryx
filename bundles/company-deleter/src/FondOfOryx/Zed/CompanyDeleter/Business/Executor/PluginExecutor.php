@@ -7,11 +7,6 @@ use Generated\Shared\Transfer\CompanyTransfer;
 class PluginExecutor implements PluginExecutorInterface
 {
     /**
-     * @var \Spryker\Zed\Kernel\Persistence\EntityManager\TransactionHandlerInterface
-     */
-    protected $transactionHandler;
-
-    /**
      * @var array<\FondOfOryx\Zed\CompanyDeleterExtension\Communication\Plugin\CompanyDeleterPreDeletePluginInterface>
      */
     protected $prePlugins;
@@ -50,7 +45,7 @@ class PluginExecutor implements PluginExecutorInterface
      */
     public function executePostDeletePlugins(CompanyTransfer $companyTransfer): void
     {
-        foreach ($this->prePlugins as $plugin) {
+        foreach ($this->postPlugins as $plugin) {
             $plugin->execute($companyTransfer);
         }
     }
