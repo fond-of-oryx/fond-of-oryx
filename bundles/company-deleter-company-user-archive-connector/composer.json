@@ -11,7 +11,8 @@
   "require": {
     "php": ">=8.0",
     "fond-of-oryx/company-deleter": "^1.0.0",
-    "fond-of-oryx/company-user-api": "*"
+    "fond-of-oryx/company-user-archive": "^2.0.0",
+    "spryker/company-business-unit": "^2.0.0"
   },
   "require-dev": {
     "fond-of-codeception/spryker": "^1.0",

@@ -2,7 +2,6 @@
 
 namespace FondOfOryx\Zed\CompanyDeleterCompanyUserArchiveConnector\Persistence;
 
-use Orm\Zed\CompanyUserArchive\Persistence\FooCompanyUserrchive;
 use Orm\Zed\CompanyUserArchive\Persistence\FooCompanyUserArchiveQuery;
 
 class CompanyDeleterCompanyUserArchiveConnectorPersistenceFactory
