@@ -6,7 +6,7 @@ use Generated\Shared\Transfer\CompanyTransfer;
 use Spryker\Zed\Kernel\Persistence\AbstractEntityManager;
 
 /**
- * @method getFactory()
+ * @method \FondOfOryx\Zed\CompanyDeleterCompanyBusinessUnitConnector\Persistence\CompanyDeleterCompanyBusinessUnitConnectorPersistenceFactory getFactory()
  */
 class CompanyDeleterCompanyBusinessUnitConnectorEntityManager extends AbstractEntityManager implements CompanyDeleterCompanyBusinessUnitConnectorEntityManagerInterface
 {
@@ -24,6 +24,7 @@ class CompanyDeleterCompanyBusinessUnitConnectorEntityManager extends AbstractEn
                 $companyUnitAddressToCompanyBusinessUnit->getCompanyUnitAddress()->delete();
                 $companyUnitAddressToCompanyBusinessUnit->delete();
             }
+
             $companyBusinessUnit->delete();
         }
     }
