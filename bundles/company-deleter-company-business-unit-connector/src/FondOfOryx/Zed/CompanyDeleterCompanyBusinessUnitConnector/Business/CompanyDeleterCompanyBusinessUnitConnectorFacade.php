@@ -15,7 +15,7 @@ class CompanyDeleterCompanyBusinessUnitConnectorFacade extends AbstractFacade im
      *
      * @return void
      */
-    public function deleteErpInvoiceDataForCompanyById(CompanyTransfer $companyTransfer): void
+    public function deleteCompanyBusinessUnitDataForCompanyById(CompanyTransfer $companyTransfer): void
     {
         $this->getFactory()->createBusinessUnitDeleter()->deleteBusinessUnitDataForCompanyByIdCompany($companyTransfer);
     }

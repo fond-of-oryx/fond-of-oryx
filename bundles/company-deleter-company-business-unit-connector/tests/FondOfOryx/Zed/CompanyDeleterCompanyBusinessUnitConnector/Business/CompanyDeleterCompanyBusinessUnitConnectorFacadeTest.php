@@ -63,6 +63,6 @@ class CompanyDeleterCompanyBusinessUnitConnectorFacadeTest extends Unit
         $this->deleterMock->expects(static::atLeastOnce())
             ->method('deleteBusinessUnitDataForCompanyByIdCompany');
 
-        $this->facade->deleteErpInvoiceDataForCompanyById($this->companyTransferMock);
+        $this->facade->deleteCompanyBusinessUnitDataForCompanyById($this->companyTransferMock);
     }
 }

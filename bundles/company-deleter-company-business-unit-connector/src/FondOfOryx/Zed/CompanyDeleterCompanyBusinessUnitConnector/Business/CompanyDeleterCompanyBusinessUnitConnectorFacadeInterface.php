@@ -13,5 +13,5 @@ interface CompanyDeleterCompanyBusinessUnitConnectorFacadeInterface
      *
      * @return void
      */
-    public function deleteErpInvoiceDataForCompanyById(CompanyTransfer $companyTransfer): void;
+    public function deleteCompanyBusinessUnitDataForCompanyById(CompanyTransfer $companyTransfer): void;
 }
