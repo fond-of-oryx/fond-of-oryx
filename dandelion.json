@@ -110,6 +110,14 @@
       "path": "bundles/company-deleter-company-role-connector/",
       "version": "1.0.0"
     },
+    "company-deleter-company-init-address-connector": {
+      "path": "bundles/company-deleter-company-init-address-connector/",
+      "version": "1.0.0"
+    },
+    "company-deleter-company-user-archive-connector": {
+      "path": "bundles/company-deleter-company-user-archive-connector/",
+      "version": "1.0.0"
+    },
     "company-deleter-company-user-connector": {
       "path": "bundles/company-deleter-company-user-connector/",
       "version": "1.0.0"
