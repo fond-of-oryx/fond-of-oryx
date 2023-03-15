@@ -18,6 +18,6 @@ class CompanyBusinessUnitDeleterPrePlugin extends AbstractPlugin implements Comp
      */
     public function execute(CompanyTransfer $companyTransfer): void
     {
-        $this->getFacade()->deleteErpInvoiceDataForCompanyById($companyTransfer);
+        $this->getFacade()->deleteCompanyBusinessUnitDataForCompanyById($companyTransfer);
     }
 }

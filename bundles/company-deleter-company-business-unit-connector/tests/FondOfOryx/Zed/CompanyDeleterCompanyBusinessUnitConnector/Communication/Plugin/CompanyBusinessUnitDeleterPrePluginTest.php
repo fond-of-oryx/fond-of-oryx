@@ -47,7 +47,7 @@ class CompanyBusinessUnitDeleterPrePluginTest extends Unit
      */
     public function testExecute()
     {
-        $this->facadeMock->expects(static::atLeastOnce())->method('deleteErpInvoiceDataForCompanyById');
+        $this->facadeMock->expects(static::atLeastOnce())->method('deleteCompanyBusinessUnitDataForCompanyById');
         $this->plugin->execute($this->companyTransferMock);
     }
 }
