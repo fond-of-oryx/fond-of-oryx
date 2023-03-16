@@ -29,6 +29,7 @@ modules:
       generate_transfer: false
       generate_map_classes: false
       generate_propel_classes: false
+      generate_ide_auto_completion: false
 
 env:
   standalone:
