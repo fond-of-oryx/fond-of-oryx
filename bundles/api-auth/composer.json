@@ -16,7 +16,8 @@
   "require-dev": {
     "fond-of-codeception/spryker": "^1.0",
     "spryker/code-sniffer": "*",
-    "spryker-sdk/phpstan-spryker": "*"
+    "spryker-sdk/phpstan-spryker": "*",
+    "spryker/silex": "*"
   },
   "minimum-stability": "dev",
   "prefer-stable": true,
