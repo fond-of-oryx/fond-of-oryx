@@ -120,7 +120,7 @@
     "symfony/password-hasher": "^5.3.0 || ^6.0.0"
   },
   "require-dev": {
-    "fond-of-codeception/spryker": "^1.0",
+    "fond-of-codeception/spryker": "^2.1",
     "fond-of-spryker/conditional-availability-sales-connector": "*",
     "spryker/code-sniffer": "*",
     "spryker/silex": "*",
