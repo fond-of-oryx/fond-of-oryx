@@ -4,5 +4,5 @@
 ## Installation
 
 ```
-composer require fond-of-oryx/fond-of-oryx/countries-rest-api
+composer require fond-of-oryx/countries-rest-api
 ```
