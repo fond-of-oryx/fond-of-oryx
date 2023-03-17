@@ -8,12 +8,12 @@ use Generated\Shared\Transfer\CountryTransfer;
 class ErpDeliveryNoteToCountryFacadeBridge implements ErpDeliveryNoteToCountryFacadeInterface
 {
     /**
-     * @var \FondOfSpryker\Zed\Country\Business\CountryFacade
+     * @var \FondOfSpryker\Zed\Country\Business\CountryFacadeInterface
      */
     protected $facade;
 
     /**
-     * @param \FondOfSpryker\Zed\Country\Business\CountryFacade $facade
+     * @param \FondOfSpryker\Zed\Country\Business\CountryFacadeInterface $facade
      */
     public function __construct(CountryFacadeInterface $facade)
     {
