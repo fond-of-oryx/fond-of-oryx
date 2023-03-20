@@ -142,6 +142,7 @@
     "fond-of-oryx/cart-search-rest-api-extension": "*",
     "fond-of-oryx/catalog-sku-filter": "*",
     "fond-of-oryx/checkout-rest-api-payone-connector": "*",
+    "fond-of-oryx/companies-rest-api": "*",
     "fond-of-oryx/company-api": "*",
     "fond-of-oryx/company-brand-product-list-connector": "*",
     "fond-of-oryx/company-brands-rest-api": "*",
