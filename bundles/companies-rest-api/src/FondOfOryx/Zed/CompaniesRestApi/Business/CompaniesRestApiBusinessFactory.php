@@ -12,7 +12,6 @@ class CompaniesRestApiBusinessFactory extends AbstractBusinessFactory
 {
     /**
      * @return \FondOfOryx\Zed\CompaniesRestApi\Business\Deleter\CompanyDeleterInterface
-     * @throws \Spryker\Zed\Kernel\Exception\Container\ContainerKeyNotFoundException
      */
     public function createCompanyDeleter(): CompanyDeleterInterface
     {
@@ -23,7 +22,6 @@ class CompaniesRestApiBusinessFactory extends AbstractBusinessFactory
 
     /**
      * @return \FondOfOryx\Zed\CompaniesRestApi\Dependency\Facade\CompaniesRestApiToCompanyDeleterFacadeInterface
-     * @throws \Spryker\Zed\Kernel\Exception\Container\ContainerKeyNotFoundException
      */
     protected function getCompanyDeleterFacade(): CompaniesRestApiToCompanyDeleterFacadeInterface
     {

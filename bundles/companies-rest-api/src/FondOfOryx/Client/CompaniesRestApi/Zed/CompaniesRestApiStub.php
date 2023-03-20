@@ -4,7 +4,6 @@ namespace FondOfOryx\Client\CompaniesRestApi\Zed;
 
 use FondOfOryx\Client\CompaniesRestApi\Dependency\Client\CompaniesRestApiToZedRequestClientInterface;
 use Generated\Shared\Transfer\CompanyCollectionTransfer;
-use Generated\Shared\Transfer\CompanyTransfer;
 
 class CompaniesRestApiStub implements CompaniesRestApiStubInterface
 {

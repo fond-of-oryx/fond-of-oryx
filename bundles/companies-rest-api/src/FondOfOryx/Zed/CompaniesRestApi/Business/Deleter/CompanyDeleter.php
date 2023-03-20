@@ -8,8 +8,14 @@ use Generated\Shared\Transfer\CompanyCollectionTransfer;
 
 class CompanyDeleter implements CompanyDeleterInterface
 {
+    /**
+     * @var string
+     */
     protected const DELETED_STATE = 'deleted';
 
+    /**
+     * @var string
+     */
     protected const ERROR_STATE = 'error';
 
     /**
@@ -33,10 +39,11 @@ class CompanyDeleter implements CompanyDeleterInterface
      */
     public function deleteCompanies(CompanyCollectionTransfer $companyCollectionTransfer): CompanyCollectionTransfer
     {
-        foreach ($companyCollectionTransfer->getCompanies() as $companyTransfer){
+        foreach ($companyCollectionTransfer->getCompanies() as $companyTransfer) {
             $arrayData = $this->companyDeleterFacade->deleteCompany($companyTransfer->getIdCompany());
-            if (array_key_exists(CompanyDeleterConstants::SUCCESS_IDS, $arrayData) && $arrayData[CompanyDeleterConstants::SUCCESS_IDS][0] === $companyTransfer->getIdCompany()){
+            if (array_key_exists(CompanyDeleterConstants::SUCCESS_IDS, $arrayData) && $arrayData[CompanyDeleterConstants::SUCCESS_IDS][0] === $companyTransfer->getIdCompany()) {
                 $companyTransfer->setStatus(static::DELETED_STATE);
+
                 continue;
             }
             $companyTransfer->setStatus(static::ERROR_STATE);

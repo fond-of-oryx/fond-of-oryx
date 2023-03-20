@@ -4,7 +4,6 @@ namespace FondOfOryx\Glue\CompaniesRestApi\Processor\Deleter;
 
 use FondOfOryx\Client\CompaniesRestApi\CompaniesRestApiClientInterface;
 use FondOfOryx\Glue\CompaniesRestApi\Processor\Mapper\CompanyCollectionMapperInterface;
-use Generated\Shared\Transfer\RestCompaniesRestApiAttributesTransfer;
 use Spryker\Glue\GlueApplication\Rest\JsonApi\RestResponseInterface;
 use Spryker\Glue\GlueApplication\Rest\Request\Data\RestRequestInterface;
 
@@ -39,5 +38,7 @@ class CompanyDeleter implements CompanyDeleterInterface
     {
         $collection = $this->companyCollectionMapper->fromRestRequest($restRequest);
         $this->client->deleteCompanies($collection);
+
+        //ToDo add response
     }
 }
