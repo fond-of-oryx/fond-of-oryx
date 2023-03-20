@@ -52,7 +52,7 @@ class StockProductApiValidator implements StockProductApiValidatorInterface
      */
     protected function assertRequiredField(array $data, string $field, array $apiValidationErrorTransfers): array
     {
-        if (!isset($data[$field]) || (array_key_exists($field, $data) && !$data[$field])) {
+        if (!array_key_exists($field, $data)) {
             $message = sprintf('Missing value for required field "%s"', $field);
             $apiValidationErrorTransfers[] = $this->createApiValidationErrorTransfer($field, [$message]);
         }
