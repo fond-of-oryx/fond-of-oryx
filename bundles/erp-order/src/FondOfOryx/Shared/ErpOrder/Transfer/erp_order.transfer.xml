@@ -20,6 +20,7 @@
         <property name="createdAt" type="int"/>
         <property name="updatedAt" type="int"/>
         <property name="outstandingQuantity" type="int"/>
+        <property name="isCanceled" type="bool"/>
     </transfer>
 
     <transfer name="ErpOrderItem">
