@@ -860,7 +860,7 @@
     },
     "stock-product-api": {
       "path": "bundles/stock-product-api",
-      "version": "1.0.0.beta.0"
+      "version": "1.0.0.beta.1"
     },
     "tax-calculation-connector": {
       "path": "bundles/tax-calculation-connector/",
