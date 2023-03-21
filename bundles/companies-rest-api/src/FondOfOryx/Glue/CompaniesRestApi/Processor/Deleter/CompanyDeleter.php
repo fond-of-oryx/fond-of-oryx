@@ -3,7 +3,8 @@
 namespace FondOfOryx\Glue\CompaniesRestApi\Processor\Deleter;
 
 use FondOfOryx\Client\CompaniesRestApi\CompaniesRestApiClientInterface;
-use FondOfOryx\Glue\CompaniesRestApi\Processor\Mapper\CompanyCollectionMapperInterface;
+use FondOfOryx\Glue\CompaniesRestApi\Processor\Builder\RestResponseBuilderInterface;
+use FondOfOryx\Glue\CompaniesRestApi\Processor\Mapper\CompanyMapperInterface;
 use Spryker\Glue\GlueApplication\Rest\JsonApi\RestResponseInterface;
 use Spryker\Glue\GlueApplication\Rest\Request\Data\RestRequestInterface;
 
@@ -15,18 +16,29 @@ class CompanyDeleter implements CompanyDeleterInterface
     protected $client;
 
     /**
-     * @var \FondOfOryx\Glue\CompaniesRestApi\Processor\Mapper\CompanyCollectionMapperInterface
+     * @var \FondOfOryx\Glue\CompaniesRestApi\Processor\Mapper\CompanyMapperInterface
      */
-    protected $companyCollectionMapper;
+    protected $companyMapper;
+
+    /**
+     * @var \FondOfOryx\Glue\CompaniesRestApi\Processor\Builder\RestResponseBuilderInterface
+     */
+    protected $responseBuilder;
 
     /**
      * @param \FondOfOryx\Client\CompaniesRestApi\CompaniesRestApiClientInterface $client
-     * @param \FondOfOryx\Glue\CompaniesRestApi\Processor\Mapper\CompanyCollectionMapperInterface $companyCollectionMapper
+     * @param \FondOfOryx\Glue\CompaniesRestApi\Processor\Mapper\CompanyMapperInterface $companyMapper
+     * @param \FondOfOryx\Glue\CompaniesRestApi\Processor\Builder\RestResponseBuilderInterface $responseBuilder
      */
-    public function __construct(CompaniesRestApiClientInterface $client, CompanyCollectionMapperInterface $companyCollectionMapper)
+    public function __construct(
+        CompaniesRestApiClientInterface $client,
+        CompanyMapperInterface $companyMapper,
+        RestResponseBuilderInterface $responseBuilder
+    )
     {
         $this->client = $client;
-        $this->companyCollectionMapper = $companyCollectionMapper;
+        $this->companyMapper = $companyMapper;
+        $this->responseBuilder = $responseBuilder;
     }
 
     /**
@@ -36,9 +48,8 @@ class CompanyDeleter implements CompanyDeleterInterface
      */
     public function delete(RestRequestInterface $restRequest): RestResponseInterface
     {
-        $collection = $this->companyCollectionMapper->fromRestRequest($restRequest);
-        $this->client->deleteCompanies($collection);
+        $companyTransfer = $this->client->deleteCompany($this->companyMapper->fromRestRequest($restRequest));
 
-        //ToDo add response
+        return $this->responseBuilder->buildCompanyDeleterRestResponse($companyTransfer);
     }
 }

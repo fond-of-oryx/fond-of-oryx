@@ -2,7 +2,7 @@
 
 namespace FondOfOryx\Client\CompaniesRestApi;
 
-use Generated\Shared\Transfer\CompanyCollectionTransfer;
+use Generated\Shared\Transfer\CompanyTransfer;
 use Spryker\Client\Kernel\AbstractClient;
 
 /**
@@ -15,12 +15,12 @@ class CompaniesRestApiClient extends AbstractClient implements CompaniesRestApiC
      *
      * @api
      *
-     * @param \Generated\Shared\Transfer\CompanyCollectionTransfer $companyCollectionTransfer
+     * @param \Generated\Shared\Transfer\CompanyTransfer $companyTransfer
      *
-     * @return \Generated\Shared\Transfer\CompanyCollectionTransfer
+     * @return \Generated\Shared\Transfer\CompanyTransfer
      */
-    public function deleteCompanies(CompanyCollectionTransfer $companyCollectionTransfer): CompanyCollectionTransfer
+    public function deleteCompany(CompanyTransfer $companyTransfer): CompanyTransfer
     {
-        return $this->getFactory()->createZedCompaniesRestApiStub()->deleteCompanies($companyCollectionTransfer);
+        return $this->getFactory()->createZedCompaniesRestApiStub()->deleteCompany($companyTransfer);
     }
 }

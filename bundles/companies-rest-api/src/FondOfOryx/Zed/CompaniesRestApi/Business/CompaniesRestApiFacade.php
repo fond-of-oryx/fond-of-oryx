@@ -2,7 +2,7 @@
 
 namespace FondOfOryx\Zed\CompaniesRestApi\Business;
 
-use Generated\Shared\Transfer\CompanyCollectionTransfer;
+use Generated\Shared\Transfer\CompanyTransfer;
 use Spryker\Zed\Kernel\Business\AbstractFacade;
 
 /**
@@ -13,14 +13,14 @@ class CompaniesRestApiFacade extends AbstractFacade implements CompaniesRestApiF
     /**
      * @api
      *
-     * @param \Generated\Shared\Transfer\CompanyCollectionTransfer $companyCollectionTransfer
+     * @param \Generated\Shared\Transfer\CompanyTransfer $companyTransfer
      *
-     * @return \Generated\Shared\Transfer\CompanyCollectionTransfer
+     * @return \Generated\Shared\Transfer\CompanyTransfer
      */
-    public function deleteCompanies(CompanyCollectionTransfer $companyCollectionTransfer): CompanyCollectionTransfer
+    public function deleteCompany(CompanyTransfer $companyTransfer): CompanyTransfer
     {
         return $this->getFactory()
             ->createCompanyDeleter()
-            ->deleteCompanies($companyCollectionTransfer);
+            ->deleteCompany($companyTransfer);
     }
 }

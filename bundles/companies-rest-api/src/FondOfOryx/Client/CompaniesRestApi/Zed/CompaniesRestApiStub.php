@@ -3,14 +3,14 @@
 namespace FondOfOryx\Client\CompaniesRestApi\Zed;
 
 use FondOfOryx\Client\CompaniesRestApi\Dependency\Client\CompaniesRestApiToZedRequestClientInterface;
-use Generated\Shared\Transfer\CompanyCollectionTransfer;
+use Generated\Shared\Transfer\CompanyTransfer;
 
 class CompaniesRestApiStub implements CompaniesRestApiStubInterface
 {
     /**
      * @var string
      */
-    public const DELETE_COMPANIES = '/campanies-rest-api/gateway/delete';
+    public const DELETE_COMPANY = '/companies-rest-api/gateway/delete';
 
     /**
      * @var \FondOfOryx\Client\CompaniesRestApi\Dependency\Client\CompaniesRestApiToZedRequestClientInterface
@@ -26,15 +26,15 @@ class CompaniesRestApiStub implements CompaniesRestApiStubInterface
     }
 
     /**
-     * @param \Generated\Shared\Transfer\CompanyCollectionTransfer $companyCollectionTransfer
+     * @param \Generated\Shared\Transfer\CompanyTransfer $companyTransfer
      *
-     * @return \Generated\Shared\Transfer\CompanyCollectionTransfer
+     * @return \Generated\Shared\Transfer\CompanyTransfer
      */
-    public function deleteCompanies(CompanyCollectionTransfer $companyCollectionTransfer): CompanyCollectionTransfer
+    public function deleteCompany(CompanyTransfer $companyTransfer): CompanyTransfer
     {
-        /** @var \Generated\Shared\Transfer\CompanyCollectionTransfer $companyCollectionTransfer */
-        $companyCollectionTransfer = $this->zedRequestClient->call(static::DELETE_COMPANIES, $companyCollectionTransfer);
+        /** @var \Generated\Shared\Transfer\CompanyTransfer $companyTransfer */
+        $companyTransfer = $this->zedRequestClient->call(static::DELETE_COMPANY, $companyTransfer);
 
-        return $companyCollectionTransfer;
+        return $companyTransfer;
     }
 }

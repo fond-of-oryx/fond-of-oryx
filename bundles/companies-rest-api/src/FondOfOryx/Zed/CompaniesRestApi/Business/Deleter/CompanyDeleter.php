@@ -4,7 +4,7 @@ namespace FondOfOryx\Zed\CompaniesRestApi\Business\Deleter;
 
 use FondOfOryx\Shared\CompanyDeleter\CompanyDeleterConstants;
 use FondOfOryx\Zed\CompaniesRestApi\Dependency\Facade\CompaniesRestApiToCompanyDeleterFacadeInterface;
-use Generated\Shared\Transfer\CompanyCollectionTransfer;
+use Generated\Shared\Transfer\CompanyTransfer;
 
 class CompanyDeleter implements CompanyDeleterInterface
 {
@@ -28,27 +28,22 @@ class CompanyDeleter implements CompanyDeleterInterface
      */
     public function __construct(
         CompaniesRestApiToCompanyDeleterFacadeInterface $companyDeleterFacade
-    ) {
+    )
+    {
         $this->companyDeleterFacade = $companyDeleterFacade;
     }
 
     /**
-     * @param \Generated\Shared\Transfer\CompanyCollectionTransfer $companyCollectionTransfer
+     * @param \Generated\Shared\Transfer\CompanyTransfer $companyTransfer
      *
-     * @return \Generated\Shared\Transfer\CompanyCollectionTransfer
+     * @return \Generated\Shared\Transfer\CompanyTransfer
      */
-    public function deleteCompanies(CompanyCollectionTransfer $companyCollectionTransfer): CompanyCollectionTransfer
+    public function deleteCompany(CompanyTransfer $companyTransfer): CompanyTransfer
     {
-        foreach ($companyCollectionTransfer->getCompanies() as $companyTransfer) {
-            $arrayData = $this->companyDeleterFacade->deleteCompany($companyTransfer->getIdCompany());
-            if (array_key_exists(CompanyDeleterConstants::SUCCESS_IDS, $arrayData) && $arrayData[CompanyDeleterConstants::SUCCESS_IDS][0] === $companyTransfer->getIdCompany()) {
-                $companyTransfer->setStatus(static::DELETED_STATE);
-
-                continue;
-            }
-            $companyTransfer->setStatus(static::ERROR_STATE);
+        $arrayData = $this->companyDeleterFacade->deleteCompany($companyTransfer->getIdCompany());
+        if (array_key_exists(CompanyDeleterConstants::SUCCESS_IDS, $arrayData) && $arrayData[CompanyDeleterConstants::SUCCESS_IDS][0] === $companyTransfer->getIdCompany()) {
+            $companyTransfer->setStatus(static::DELETED_STATE);
         }
-
-        return $companyCollectionTransfer;
+        return $companyTransfer->setStatus(static::ERROR_STATE);
     }
 }

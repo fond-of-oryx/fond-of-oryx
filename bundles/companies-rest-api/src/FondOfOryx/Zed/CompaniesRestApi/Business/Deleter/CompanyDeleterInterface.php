@@ -2,14 +2,14 @@
 
 namespace FondOfOryx\Zed\CompaniesRestApi\Business\Deleter;
 
-use Generated\Shared\Transfer\CompanyCollectionTransfer;
+use Generated\Shared\Transfer\CompanyTransfer;
 
 interface CompanyDeleterInterface
 {
     /**
-     * @param \Generated\Shared\Transfer\CompanyCollectionTransfer $companyCollectionTransfer
+     * @param \Generated\Shared\Transfer\CompanyTransfer $companyTransfer
      *
-     * @return \Generated\Shared\Transfer\CompanyCollectionTransfer
+     * @return \Generated\Shared\Transfer\CompanyTransfer
      */
-    public function deleteCompanies(CompanyCollectionTransfer $companyCollectionTransfer): CompanyCollectionTransfer;
+    public function deleteCompany(CompanyTransfer $companyTransfer): CompanyTransfer;
 }

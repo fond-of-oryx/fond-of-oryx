@@ -2,7 +2,7 @@
 
 namespace FondOfOryx\Zed\CompaniesRestApi\Communication\Controller;
 
-use Generated\Shared\Transfer\CompanyCollectionTransfer;
+use Generated\Shared\Transfer\CompanyTransfer;
 use Spryker\Zed\Kernel\Communication\Controller\AbstractGatewayController;
 
 /**
@@ -11,12 +11,12 @@ use Spryker\Zed\Kernel\Communication\Controller\AbstractGatewayController;
 class GatewayController extends AbstractGatewayController
 {
     /**
-     * @param \Generated\Shared\Transfer\CompanyCollectionTransfer $companyCollectionTransfer
+     * @param \Generated\Shared\Transfer\CompanyTransfer $companyTransfer
      *
-     * @return \Generated\Shared\Transfer\CompanyCollectionTransfer
+     * @return \Generated\Shared\Transfer\CompanyTransfer
      */
-    public function deleteCompaniesAction(CompanyCollectionTransfer $companyCollectionTransfer): CompanyCollectionTransfer
+    public function deleteAction(CompanyTransfer $companyTransfer): CompanyTransfer
     {
-        return $this->getFacade()->deleteCompanies($companyCollectionTransfer);
+        return $this->getFacade()->deleteCompany($companyTransfer);
     }
 }

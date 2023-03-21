@@ -155,6 +155,8 @@
     "fond-of-oryx/company-deleter": "*",
     "fond-of-oryx/company-deleter-company-business-unit-connector": "*",
     "fond-of-oryx/company-deleter-company-role-connector": "*",
+    "fond-of-oryx/company-deleter-company-unit-address-connector": "*",
+    "fond-of-oryx/company-deleter-company-user-archive-connector": "*",
     "fond-of-oryx/company-deleter-company-user-connector": "*",
     "fond-of-oryx/company-deleter-erp-delivery-note-connector": "*",
     "fond-of-oryx/company-deleter-erp-invoice-connector": "*",
