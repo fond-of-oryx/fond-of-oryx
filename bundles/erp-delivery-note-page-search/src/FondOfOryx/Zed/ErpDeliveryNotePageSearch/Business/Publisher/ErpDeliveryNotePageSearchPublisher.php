@@ -257,7 +257,7 @@ class ErpDeliveryNotePageSearchPublisher implements ErpDeliveryNotePageSearchPub
                 $trackingEntity = $trackingToItem->getFooErpDeliveryNoteTracking();
                 $trackingData = $trackingEntity->toArray();
                 $trackingData[static::FIELD_QUANTITY] = $trackingToItem->getQuantity();
-                $tracking[$trackingEntity->getTrackingNumber()][$orderItemEntity->getSku()] = $this->cleanTrackingData($trackingData);
+                $tracking[$trackingEntity->getTrackingNumber()][$orderItemEntity->getSku()] = $this->cleanBlacklistedData($this->config->getTrackingDataFieldsToRemove(), $trackingData);
             }
         }
 
@@ -265,19 +265,20 @@ class ErpDeliveryNotePageSearchPublisher implements ErpDeliveryNotePageSearchPub
     }
 
     /**
+     * @param array $blacklist
      * @param array $trackingData
      *
      * @return array
      */
-    protected function cleanTrackingData(array $trackingData): array
+    protected function cleanBlacklistedData(array $blacklist, array $trackingData): array
     {
-        foreach ($this->config->getTrackingDataFieldsToRemove() as $key) {
+        foreach ($blacklist as $key) {
             if (array_key_exists($key, $trackingData)) {
                 unset($trackingData[$key]);
             }
         }
         return $trackingData;
-//        return array_diff_key(array_flip($this->config->getTrackingDataFieldsToRemove()), $trackingData);
+//        return array_diff_key(array_flip($blacklist), $trackingData);
     }
 
     /**
@@ -291,7 +292,7 @@ class ErpDeliveryNotePageSearchPublisher implements ErpDeliveryNotePageSearchPub
         foreach ($orderItemEntities as $orderItemEntity) {
             $item = $orderItemEntity->toArray();
             $item[static::FIELD_TRACKING_DATA] = $this->appendItemTrackingData($orderItemEntity);
-            $items[] = $item;
+            $items[] = $this->cleanBlacklistedData($this->config->getItemDataFieldsToRemove(), $item);
         }
 
         return $items;
@@ -310,7 +311,7 @@ class ErpDeliveryNotePageSearchPublisher implements ErpDeliveryNotePageSearchPub
             $trackingEntity = $trackingToItem->getFooErpDeliveryNoteTracking();
             $trackingData = $trackingEntity->toArray();
             $trackingData[static::FIELD_QUANTITY] = $trackingToItem->getQuantity();
-            $tracking[] = $trackingData;
+            $tracking[] = $this->cleanBlacklistedData($this->config->getTrackingDataFieldsToRemove(), $trackingData);
         }
 
         return $tracking;

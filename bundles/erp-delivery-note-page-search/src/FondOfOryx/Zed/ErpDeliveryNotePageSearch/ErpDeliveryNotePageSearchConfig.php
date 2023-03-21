@@ -53,4 +53,12 @@ class ErpDeliveryNotePageSearchConfig extends AbstractBundleConfig
     {
         return $this->get(ErpDeliveryNotePageSearchConstants::TRACKING_DATA_BLACKLIST_FIELDS, ErpDeliveryNotePageSearchConstants::TRACKING_DATA_BLACKLIST_FIELDS_DEFAULT);
     }
+
+    /**
+     * @return array<string>
+     */
+    public function getItemDataFieldsToRemove(): array
+    {
+        return $this->get(ErpDeliveryNotePageSearchConstants::ITEM_DATA_BLACKLIST_FIELDS, ErpDeliveryNotePageSearchConstants::ITEM_DATA_BLACKLIST_FIELDS_DEFAULT);
+    }
 }
