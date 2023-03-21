@@ -356,7 +356,7 @@
     },
     "erp-delivery-note-page-search-rest-api": {
       "path": "bundles/erp-delivery-note-page-search-rest-api/",
-      "version": "2.3.0"
+      "version": "2.4.0"
     },
     "erp-delivery-note-permission": {
       "path": "bundles/erp-delivery-note-permission/",

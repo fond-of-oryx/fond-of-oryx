@@ -45,4 +45,12 @@ class ErpDeliveryNotePageSearchConfig extends AbstractBundleConfig
     {
         return $this->get(ErpDeliveryNotePageSearchConstants::FULL_TEXT_BOOSTED_FIELDS, []);
     }
+
+    /**
+     * @return array<string>
+     */
+    public function getTrackingDataFieldsToRemove(): array
+    {
+        return $this->get(ErpDeliveryNotePageSearchConstants::TRACKING_DATA_BLACKLIST_FIELDS, ErpDeliveryNotePageSearchConstants::TRACKING_DATA_BLACKLIST_FIELDS_DEFAULT);
+    }
 }
