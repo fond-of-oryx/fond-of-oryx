@@ -43,7 +43,7 @@ class SubscribersNotifierProductAttributeIsInPastOrIsEmptyCheckTest extends Unit
 
         $this->handler = new SubscribersNotifierProductAttributeIsInPastOrIsEmptyCheck(
             $this->productFacadeMock,
-            'launch_date'
+            'launch_date',
         );
     }
 
