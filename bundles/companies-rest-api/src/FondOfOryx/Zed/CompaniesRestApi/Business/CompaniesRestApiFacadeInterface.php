@@ -1,12 +1,14 @@
 <?php
 
-namespace FondOfOryx\Client\CompaniesRestApi\Zed;
+namespace FondOfOryx\Zed\CompaniesRestApi\Business;
 
 use Generated\Shared\Transfer\CompanyTransfer;
 
-interface CompaniesRestApiStubInterface
+interface CompaniesRestApiFacadeInterface
 {
     /**
+     * @api
+     *
      * @param \Generated\Shared\Transfer\CompanyTransfer $companyTransfer
      *
      * @return \Generated\Shared\Transfer\CompanyTransfer

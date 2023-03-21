@@ -1,10 +1,10 @@
 <?php
 
-namespace FondOfOryx\Client\CompaniesRestApi\Zed;
+namespace FondOfOryx\Zed\CompaniesRestApi\Business\Deleter;
 
 use Generated\Shared\Transfer\CompanyTransfer;
 
-interface CompaniesRestApiStubInterface
+interface CompanyDeleterInterface
 {
     /**
      * @param \Generated\Shared\Transfer\CompanyTransfer $companyTransfer
