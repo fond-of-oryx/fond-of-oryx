@@ -34,8 +34,7 @@ class CompanyDeleter implements CompanyDeleterInterface
         CompaniesRestApiClientInterface $client,
         CompanyMapperInterface $companyMapper,
         RestResponseBuilderInterface $responseBuilder
-    )
-    {
+    ) {
         $this->client = $client;
         $this->companyMapper = $companyMapper;
         $this->responseBuilder = $responseBuilder;

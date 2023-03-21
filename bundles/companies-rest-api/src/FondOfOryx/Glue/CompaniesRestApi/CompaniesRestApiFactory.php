@@ -17,14 +17,14 @@ use Spryker\Glue\Kernel\AbstractFactory;
 class CompaniesRestApiFactory extends AbstractFactory
 {
     /**
-     * @return \FondOfOryx\Zed\CompaniesRestApi\Business\Deleter\CompanyDeleterInterface
+     * @return \FondOfOryx\Glue\CompaniesRestApi\Processor\Deleter\CompanyDeleterInterface
      */
     public function createCompanyDeleter(): CompanyDeleterInterface
     {
         return new CompanyDeleter(
             $this->getClient(),
             $this->createCompanyMapper(),
-            $this->createRestResponseBuilder()
+            $this->createRestResponseBuilder(),
         );
     }
 

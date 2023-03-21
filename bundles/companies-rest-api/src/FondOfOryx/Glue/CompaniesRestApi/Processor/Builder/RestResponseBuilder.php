@@ -25,7 +25,6 @@ class RestResponseBuilder implements RestResponseBuilderInterface
 
     /**
      * @param \Generated\Shared\Transfer\CompanyTransfer $companyTransfer
-     * @param string $locale
      *
      * @return \Spryker\Glue\GlueApplication\Rest\JsonApi\RestResponseInterface
      */

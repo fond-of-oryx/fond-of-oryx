@@ -14,6 +14,21 @@ class CompanyMapper implements CompanyMapperInterface
      */
     public function fromRestRequest(RestRequestInterface $restRequest): CompanyTransfer
     {
-        return (new CompanyTransfer())->setIdCompany($restRequest->getResource()->getId());
+        return (new CompanyTransfer())->setIdCompany($this->getIdFromRequest($restRequest));
+    }
+
+    /**
+     * @param \Spryker\Glue\GlueApplication\Rest\Request\Data\RestRequestInterface $restRequest
+     *
+     * @return int|null
+     */
+    protected function getIdFromRequest(RestRequestInterface $restRequest): ?int
+    {
+        $id = $restRequest->getResource()->getId();
+        if (is_numeric($id)) {
+            return (int)$id;
+        }
+
+        return null;
     }
 }
