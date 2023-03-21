@@ -234,6 +234,10 @@
       "path": "bundles/country-oms-mail-connector/",
       "version": "2.0.0"
     },
+    "countries-rest-api": {
+      "path": "bundles/countries-rest-api/",
+      "version": "1.0.0-alpha.0"
+    },
     "credit-memo": {
       "path": "bundles/credit-memo/",
       "version": "2.0.0"
@@ -348,7 +352,7 @@
     },
     "erp-delivery-note-page-search": {
       "path": "bundles/erp-delivery-note-page-search/",
-      "version": "2.2.0"
+      "version": "2.3.0"
     },
     "erp-delivery-note-page-search-rest-api": {
       "path": "bundles/erp-delivery-note-page-search-rest-api/",
