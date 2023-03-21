@@ -6,6 +6,7 @@ use Codeception\Test\Unit;
 use DateTime;
 use FondOfOryx\Zed\ErpDeliveryNotePageSearch\Business\Mapper\ErpDeliveryNotePageSearchDataMapperInterface;
 use FondOfOryx\Zed\ErpDeliveryNotePageSearch\Dependency\Service\ErpDeliveryNotePageSearchToUtilEncodingServiceInterface;
+use FondOfOryx\Zed\ErpDeliveryNotePageSearch\ErpDeliveryNotePageSearchConfig;
 use FondOfOryx\Zed\ErpDeliveryNotePageSearch\Persistence\ErpDeliveryNotePageSearchEntityManagerInterface;
 use FondOfOryx\Zed\ErpDeliveryNotePageSearch\Persistence\ErpDeliveryNotePageSearchQueryContainerInterface;
 use Laminas\Stdlib\ArrayObject;
@@ -107,6 +108,11 @@ class ErpDeliveryNotePageSearchPublisherTest extends Unit
     protected $erpDeliveryNoteItemIteratorMock;
 
     /**
+     * @var \PHPUnit\Framework\MockObject\MockObject|\FondOfOryx\Zed\ErpDeliveryNotePageSearch\ErpDeliveryNotePageSearchConfig
+     */
+    protected $configMock;
+
+    /**
      * @return void
      */
     protected function _before(): void
@@ -175,11 +181,16 @@ class ErpDeliveryNotePageSearchPublisherTest extends Unit
             ->disableOriginalConstructor()
             ->getMock();
 
+        $this->configMock = $this->getMockBuilder(ErpDeliveryNotePageSearchConfig::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
         $this->erpDeliveryNotePageSearchPublisher = new ErpDeliveryNotePageSearchPublisher(
             $this->erpDeliveryNotePageSearchEntityManagerMock,
             $this->erpDeliveryNotePageSearchQueryContainerMock,
             $this->erpDeliveryNotePageSearchToUtilEncodingServiceMock,
             $this->erpDeliveryNotePageSearchDataMapperMock,
+            $this->configMock,
         );
     }
 
