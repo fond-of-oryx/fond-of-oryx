@@ -73,11 +73,11 @@ class AvailabilityAlertFacade extends AbstractFacade implements AvailabilityAler
      *
      * @return bool
      */
-    public function preCheckSubscribersNotifierProductAttributeReleaseDateInPastOrIsEmpty(
+    public function preCheckSubscribersNotifierProductAttributeLaunchDateInPastOrIsEmpty(
         AvailabilityAlertSubscriptionTransfer $availabilityAlertSubscriptionTransfer
     ): bool {
         return $this->getFactory()
-            ->createSubscribersNotifierProductAttributeReleaseDateInPastOrIsEmptyCheck()
-            ->checkHasProductAttributeReleaseDateInPastOrIsEmpty($availabilityAlertSubscriptionTransfer);
+            ->createSubscribersNotifierProductAttributeLaunchDateInPastOrIsEmptyCheck()
+            ->checkHasProductAttributeLaunchDateInPastOrIsEmpty($availabilityAlertSubscriptionTransfer);
     }
 }

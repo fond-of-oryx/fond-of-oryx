@@ -9,8 +9,8 @@ use FondOfOryx\Zed\AvailabilityAlert\Business\Model\NotificationHandlerInterface
 use FondOfOryx\Zed\AvailabilityAlert\Business\Model\SubscribersNotifier;
 use FondOfOryx\Zed\AvailabilityAlert\Business\Model\SubscribersNotifier\PreCheck\SubscribersNotifierHasProductAssignedStoresCheck;
 use FondOfOryx\Zed\AvailabilityAlert\Business\Model\SubscribersNotifier\PreCheck\SubscribersNotifierHasProductAssignedStoresCheckInterface;
-use FondOfOryx\Zed\AvailabilityAlert\Business\Model\SubscribersNotifier\PreCheck\SubscribersNotifierProductAttributeReleaseDateInPastOrIsEmptyCheck;
-use FondOfOryx\Zed\AvailabilityAlert\Business\Model\SubscribersNotifier\PreCheck\SubscribersNotifierProductAttributeReleaseDateInPastOrIsEmptyCheckInterface;
+use FondOfOryx\Zed\AvailabilityAlert\Business\Model\SubscribersNotifier\PreCheck\SubscribersNotifierProductAttributeLaunchDateInPastOrIsEmptyCheck;
+use FondOfOryx\Zed\AvailabilityAlert\Business\Model\SubscribersNotifier\PreCheck\SubscribersNotifierProductAttributeLaunchDateInPastOrIsEmptyCheckInterface;
 use FondOfOryx\Zed\AvailabilityAlert\Business\Model\SubscribersNotifier\SubscribersNotifierPluginExecutor;
 use FondOfOryx\Zed\AvailabilityAlert\Business\Model\SubscribersNotifier\SubscribersNotifierPluginExecutorInterface;
 use FondOfOryx\Zed\AvailabilityAlert\Business\Model\SubscribersNotifierInterface;
@@ -33,7 +33,7 @@ use Spryker\Zed\Kernel\Business\AbstractBusinessFactory;
 /**
  * @method \FondOfOryx\Zed\AvailabilityAlert\AvailabilityAlertConfig getConfig()
  * @method \FondOfOryx\Zed\AvailabilityAlert\Persistence\AvailabilityAlertEntityManagerInterface getEntityManager()
- * @method \FondOfOryx\Zed\AvailabilityAlert\Persistence\AvailabilityAlertRepositoryInterface getRepository()()
+ * @method \FondOfOryx\Zed\AvailabilityAlert\Persistence\AvailabilityAlertRepositoryInterface getRepository()
  */
 class AvailabilityAlertBusinessFactory extends AbstractBusinessFactory
 {
@@ -149,11 +149,11 @@ class AvailabilityAlertBusinessFactory extends AbstractBusinessFactory
     }
 
     /**
-     * @return \FondOfOryx\Zed\AvailabilityAlert\Business\Model\SubscribersNotifier\PreCheck\SubscribersNotifierProductAttributeReleaseDateInPastOrIsEmptyCheckInterface
+     * @return \FondOfOryx\Zed\AvailabilityAlert\Business\Model\SubscribersNotifier\PreCheck\SubscribersNotifierProductAttributeLaunchDateInPastOrIsEmptyCheckInterface
      */
-    public function createSubscribersNotifierProductAttributeReleaseDateInPastOrIsEmptyCheck(): SubscribersNotifierProductAttributeReleaseDateInPastOrIsEmptyCheckInterface
+    public function createSubscribersNotifierProductAttributeLaunchDateInPastOrIsEmptyCheck(): SubscribersNotifierProductAttributeLaunchDateInPastOrIsEmptyCheckInterface
     {
-        return new SubscribersNotifierProductAttributeReleaseDateInPastOrIsEmptyCheck(
+        return new SubscribersNotifierProductAttributeLaunchDateInPastOrIsEmptyCheck(
             $this->getProductFacade(),
         );
     }
