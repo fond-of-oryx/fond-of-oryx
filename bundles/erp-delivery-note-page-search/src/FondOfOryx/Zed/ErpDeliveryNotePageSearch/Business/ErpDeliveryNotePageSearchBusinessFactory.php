@@ -33,7 +33,7 @@ class ErpDeliveryNotePageSearchBusinessFactory extends AbstractBusinessFactory
             $this->getQueryContainer(),
             $this->getUtilEncodingService(),
             $this->createErpDeliveryNotePageSearchDataMapper(),
-            $this->getConfig()
+            $this->getConfig(),
         );
     }
 

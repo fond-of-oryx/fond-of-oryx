@@ -93,13 +93,12 @@ class ErpDeliveryNotePageSearchPublisher implements ErpDeliveryNotePageSearchPub
      * @param \FondOfOryx\Zed\ErpDeliveryNotePageSearch\ErpDeliveryNotePageSearchConfig $config
      */
     public function __construct(
-        ErpDeliveryNotePageSearchEntityManagerInterface         $entityManager,
-        ErpDeliveryNotePageSearchQueryContainerInterface        $queryContainer,
+        ErpDeliveryNotePageSearchEntityManagerInterface $entityManager,
+        ErpDeliveryNotePageSearchQueryContainerInterface $queryContainer,
         ErpDeliveryNotePageSearchToUtilEncodingServiceInterface $utilEncodingService,
-        ErpDeliveryNotePageSearchDataMapperInterface            $erpDeliveryNotePageSearchDataMapper,
-        ErpDeliveryNotePageSearchConfig                         $config
-    )
-    {
+        ErpDeliveryNotePageSearchDataMapperInterface $erpDeliveryNotePageSearchDataMapper,
+        ErpDeliveryNotePageSearchConfig $config
+    ) {
         $this->entityManager = $entityManager;
         $this->queryContainer = $queryContainer;
         $this->utilEncodingService = $utilEncodingService;
@@ -193,8 +192,7 @@ class ErpDeliveryNotePageSearchPublisher implements ErpDeliveryNotePageSearchPub
      */
     protected function addDataAttributes(
         ErpDeliveryNotePageSearchTransfer $erpDeliveryNotePageSearchTransfer
-    ): ErpDeliveryNotePageSearchTransfer
-    {
+    ): ErpDeliveryNotePageSearchTransfer {
         $data = array_merge(
             $erpDeliveryNotePageSearchTransfer->toArray(),
             $erpDeliveryNotePageSearchTransfer->getData(),
@@ -217,9 +215,8 @@ class ErpDeliveryNotePageSearchPublisher implements ErpDeliveryNotePageSearchPub
      */
     protected function addUniqueKeyIdentifier(
         ErpDeliveryNotePageSearchTransfer $erpDeliveryNotePageSearchTransfer,
-        FooErpDeliveryNote                $fooErpDeliveryNoteEntity
-    ): ErpDeliveryNotePageSearchTransfer
-    {
+        FooErpDeliveryNote $fooErpDeliveryNoteEntity
+    ): ErpDeliveryNotePageSearchTransfer {
         $updatedAt = $fooErpDeliveryNoteEntity->getUpdatedAt();
         $hash = md5(sprintf('%s/%s', $updatedAt->getTimestamp(), mt_rand(0, 999)));
         $uki = sprintf('%s-%s', $fooErpDeliveryNoteEntity->getIdErpDeliveryNote(), $hash);
@@ -277,6 +274,7 @@ class ErpDeliveryNotePageSearchPublisher implements ErpDeliveryNotePageSearchPub
                 unset($trackingData[$key]);
             }
         }
+
         return $trackingData;
 //        return array_diff_key(array_flip($blacklist), $trackingData);
     }
