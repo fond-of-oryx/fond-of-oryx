@@ -25,13 +25,12 @@ class SubscribersNotifierProductAttributeIsInPastOrIsEmptyCheck implements Subsc
 
     /**
      * @param \FondOfOryx\Zed\AvailabilityAlert\Dependency\Facade\AvailabilityAlertToProductInterface $availabilityAlertToProduct
-     * @param string
+     * @param string $productAttributeForDateCheck
      */
     public function __construct(
         AvailabilityAlertToProductInterface $availabilityAlertToProduct,
         string $productAttributeForDateCheck
-    )
-    {
+    ) {
         $this->availabilityAlertToProduct = $availabilityAlertToProduct;
         $this->productAttributeForDateCheck = $productAttributeForDateCheck;
     }

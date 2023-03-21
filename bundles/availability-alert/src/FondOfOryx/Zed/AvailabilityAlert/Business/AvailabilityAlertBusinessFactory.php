@@ -155,7 +155,7 @@ class AvailabilityAlertBusinessFactory extends AbstractBusinessFactory
     {
         return new SubscribersNotifierProductAttributeIsInPastOrIsEmptyCheck(
             $this->getProductFacade(),
-            $this->getConfig()->getProductAttributeForDateCheck()
+            $this->getConfig()->getProductAttributeForDateCheck(),
         );
     }
 

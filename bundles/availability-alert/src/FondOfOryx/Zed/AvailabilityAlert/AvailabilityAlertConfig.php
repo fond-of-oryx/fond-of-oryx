@@ -26,7 +26,7 @@ class AvailabilityAlertConfig extends AbstractBundleConfig
     {
         return $this->get(
             AvailabilityAlertConstants::PRODUCT_ATTRIBUTE_FOR_DATE_CHECK,
-            AvailabilityAlertConstants::PRODUCT_DEFAULT_ATTRIBUTE_FOR_DATE_CHECK
+            AvailabilityAlertConstants::PRODUCT_DEFAULT_ATTRIBUTE_FOR_DATE_CHECK,
         );
     }
 
