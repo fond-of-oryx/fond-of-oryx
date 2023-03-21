@@ -9,8 +9,8 @@ use FondOfOryx\Zed\AvailabilityAlert\Business\Model\NotificationHandlerInterface
 use FondOfOryx\Zed\AvailabilityAlert\Business\Model\SubscribersNotifier;
 use FondOfOryx\Zed\AvailabilityAlert\Business\Model\SubscribersNotifier\PreCheck\SubscribersNotifierHasProductAssignedStoresCheck;
 use FondOfOryx\Zed\AvailabilityAlert\Business\Model\SubscribersNotifier\PreCheck\SubscribersNotifierHasProductAssignedStoresCheckInterface;
-use FondOfOryx\Zed\AvailabilityAlert\Business\Model\SubscribersNotifier\PreCheck\SubscribersNotifierProductAttributeLaunchDateInPastOrIsEmptyCheck;
-use FondOfOryx\Zed\AvailabilityAlert\Business\Model\SubscribersNotifier\PreCheck\SubscribersNotifierProductAttributeLaunchDateInPastOrIsEmptyCheckInterface;
+use FondOfOryx\Zed\AvailabilityAlert\Business\Model\SubscribersNotifier\PreCheck\SubscribersNotifierProductAttributeIsInPastOrIsEmptyCheck;
+use FondOfOryx\Zed\AvailabilityAlert\Business\Model\SubscribersNotifier\PreCheck\SubscribersNotifierProductAttributeIsInPastOrIsEmptyCheckInterface;
 use FondOfOryx\Zed\AvailabilityAlert\Business\Model\SubscribersNotifier\SubscribersNotifierPluginExecutor;
 use FondOfOryx\Zed\AvailabilityAlert\Business\Model\SubscribersNotifier\SubscribersNotifierPluginExecutorInterface;
 use FondOfOryx\Zed\AvailabilityAlert\Business\Model\SubscribersNotifierInterface;
@@ -149,12 +149,13 @@ class AvailabilityAlertBusinessFactory extends AbstractBusinessFactory
     }
 
     /**
-     * @return \FondOfOryx\Zed\AvailabilityAlert\Business\Model\SubscribersNotifier\PreCheck\SubscribersNotifierProductAttributeLaunchDateInPastOrIsEmptyCheckInterface
+     * @return \FondOfOryx\Zed\AvailabilityAlert\Business\Model\SubscribersNotifier\PreCheck\SubscribersNotifierProductAttributeIsInPastOrIsEmptyCheckInterface
      */
-    public function createSubscribersNotifierProductAttributeLaunchDateInPastOrIsEmptyCheck(): SubscribersNotifierProductAttributeLaunchDateInPastOrIsEmptyCheckInterface
+    public function createSubscribersNotifierProductAttributeIsInPastOrIsEmptyCheck(): SubscribersNotifierProductAttributeIsInPastOrIsEmptyCheckInterface
     {
-        return new SubscribersNotifierProductAttributeLaunchDateInPastOrIsEmptyCheck(
+        return new SubscribersNotifierProductAttributeIsInPastOrIsEmptyCheck(
             $this->getProductFacade(),
+            $this->getConfig()->getProductAttributeForDateCheck()
         );
     }
 

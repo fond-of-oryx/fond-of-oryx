@@ -22,6 +22,17 @@ class AvailabilityAlertConfig extends AbstractBundleConfig
     /**
      * @return string
      */
+    public function getProductAttributeForDateCheck(): string
+    {
+        return $this->get(
+            AvailabilityAlertConstants::PRODUCT_ATTRIBUTE_FOR_DATE_CHECK,
+            AvailabilityAlertConstants::PRODUCT_DEFAULT_ATTRIBUTE_FOR_DATE_CHECK
+        );
+    }
+
+    /**
+     * @return string
+     */
     public function getBaseUrlSslYves(): string
     {
         return $this->get(

@@ -54,7 +54,7 @@ interface AvailabilityAlertFacadeInterface
      *
      * @return bool
      */
-    public function preCheckSubscribersNotifierProductAttributeLaunchDateInPastOrIsEmpty(
+    public function preCheckSubscribersNotifierProductAttributeIsInPastOrIsEmpty(
         AvailabilityAlertSubscriptionTransfer $availabilityAlertSubscriptionTransfer
     ): bool;
 }

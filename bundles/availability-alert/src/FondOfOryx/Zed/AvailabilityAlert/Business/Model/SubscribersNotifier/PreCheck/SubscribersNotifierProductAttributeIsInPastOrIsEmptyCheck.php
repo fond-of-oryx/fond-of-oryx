@@ -11,24 +11,29 @@ use Generated\Shared\Transfer\AvailabilityAlertSubscriptionTransfer;
 use Generated\Shared\Transfer\ProductAbstractTransfer;
 use function array_key_exists;
 
-class SubscribersNotifierProductAttributeLaunchDateInPastOrIsEmptyCheck implements SubscribersNotifierProductAttributeLaunchDateInPastOrIsEmptyCheckInterface
+class SubscribersNotifierProductAttributeIsInPastOrIsEmptyCheck implements SubscribersNotifierProductAttributeIsInPastOrIsEmptyCheckInterface
 {
-    /**
-     * @var string
-     */
-    protected const PRODUCT_ATTRIBUTE_LAUNCH_DATE = 'launch_date';
-
     /**
      * @var \FondOfOryx\Zed\AvailabilityAlert\Dependency\Facade\AvailabilityAlertToProductInterface
      */
     protected $availabilityAlertToProduct;
 
     /**
-     * @param \FondOfOryx\Zed\AvailabilityAlert\Dependency\Facade\AvailabilityAlertToProductInterface $availabilityAlertToProduct
+     * @var string
      */
-    public function __construct(AvailabilityAlertToProductInterface $availabilityAlertToProduct)
+    protected string $productAttributeForDateCheck;
+
+    /**
+     * @param \FondOfOryx\Zed\AvailabilityAlert\Dependency\Facade\AvailabilityAlertToProductInterface $availabilityAlertToProduct
+     * @param string
+     */
+    public function __construct(
+        AvailabilityAlertToProductInterface $availabilityAlertToProduct,
+        string $productAttributeForDateCheck
+    )
     {
         $this->availabilityAlertToProduct = $availabilityAlertToProduct;
+        $this->productAttributeForDateCheck = $productAttributeForDateCheck;
     }
 
     /**
@@ -36,18 +41,19 @@ class SubscribersNotifierProductAttributeLaunchDateInPastOrIsEmptyCheck implemen
      *
      * @return bool
      */
-    public function checkHasProductAttributeLaunchDateInPastOrIsEmpty(AvailabilityAlertSubscriptionTransfer $availabilityAlertSubscriptionTransfer): bool
+    public function checkHasProductAttributeIsInPastOrIsEmpty(AvailabilityAlertSubscriptionTransfer $availabilityAlertSubscriptionTransfer): bool
     {
         $productAbstractTransfer = $this->getProductAbstractTransfer($availabilityAlertSubscriptionTransfer);
+
         if ($productAbstractTransfer === null) {
             return false;
         }
 
-        if (!$this->hasProductAttributeLaunchDate($productAbstractTransfer)) {
+        if (!$this->hasProductAttribute($productAbstractTransfer)) {
             return true;
         }
 
-        return $this->isDateTimeInPastOrEqual($this->getProductAttributeLaunchDate($productAbstractTransfer));
+        return $this->isDateTimeInPastOrEqual($this->getProductAttribute($productAbstractTransfer));
     }
 
     /**
@@ -55,11 +61,11 @@ class SubscribersNotifierProductAttributeLaunchDateInPastOrIsEmptyCheck implemen
      *
      * @return bool
      */
-    protected function hasProductAttributeLaunchDate(ProductAbstractTransfer $productAbstractTransfer): bool
+    protected function hasProductAttribute(ProductAbstractTransfer $productAbstractTransfer): bool
     {
-        return array_key_exists(static::PRODUCT_ATTRIBUTE_LAUNCH_DATE, $productAbstractTransfer->getAttributes())
-            && $productAbstractTransfer->getAttributes()[static::PRODUCT_ATTRIBUTE_LAUNCH_DATE] !== ''
-            && $productAbstractTransfer->getAttributes()[static::PRODUCT_ATTRIBUTE_LAUNCH_DATE] !== null;
+        return array_key_exists($this->productAttributeForDateCheck, $productAbstractTransfer->getAttributes())
+            && $productAbstractTransfer->getAttributes()[$this->productAttributeForDateCheck] !== ''
+            && $productAbstractTransfer->getAttributes()[$this->productAttributeForDateCheck] !== null;
     }
 
     /**
@@ -67,9 +73,9 @@ class SubscribersNotifierProductAttributeLaunchDateInPastOrIsEmptyCheck implemen
      *
      * @return \DateTimeInterface
      */
-    protected function getProductAttributeLaunchDate(ProductAbstractTransfer $productAbstractTransfer): DateTimeInterface
+    protected function getProductAttribute(ProductAbstractTransfer $productAbstractTransfer): DateTimeInterface
     {
-        return new DateTimeImmutable($productAbstractTransfer->getAttributes()[static::PRODUCT_ATTRIBUTE_LAUNCH_DATE]);
+        return new DateTimeImmutable($productAbstractTransfer->getAttributes()[$this->productAttributeForDateCheck]);
     }
 
     /**

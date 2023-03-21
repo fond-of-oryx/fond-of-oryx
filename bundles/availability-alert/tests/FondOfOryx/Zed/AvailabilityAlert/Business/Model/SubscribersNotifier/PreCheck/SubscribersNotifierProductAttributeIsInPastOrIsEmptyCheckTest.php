@@ -8,7 +8,7 @@ use FondOfOryx\Zed\AvailabilityAlert\Dependency\Facade\AvailabilityAlertToProduc
 use Generated\Shared\Transfer\AvailabilityAlertSubscriptionTransfer;
 use Generated\Shared\Transfer\ProductAbstractTransfer;
 
-class SubscribersNotifierProductAttributeLaunchDateInPastOrIsEmptyCheckTest extends Unit
+class SubscribersNotifierProductAttributeIsInPastOrIsEmptyCheckTest extends Unit
 {
     /**
      * @var \FondOfOryx\Zed\AvailabilityAlert\Dependency\Facade\AvailabilityAlertToProductInterface|\PHPUnit\Framework\MockObject\MockObject
@@ -26,7 +26,7 @@ class SubscribersNotifierProductAttributeLaunchDateInPastOrIsEmptyCheckTest exte
     protected $productAbstractTransferMock;
 
     /**
-     * @var \FondOfOryx\Zed\AvailabilityAlert\Business\Model\SubscribersNotifier\PreCheck\SubscribersNotifierProductAttributeLaunchDateInPastOrIsEmptyCheckInterface
+     * @var \FondOfOryx\Zed\AvailabilityAlert\Business\Model\SubscribersNotifier\PreCheck\SubscribersNotifierProductAttributeIsInPastOrIsEmptyCheckInterface
      */
     protected $handler;
 
@@ -41,7 +41,10 @@ class SubscribersNotifierProductAttributeLaunchDateInPastOrIsEmptyCheckTest exte
         $this->subscriptionTransferMock = $this->getMockBuilder(AvailabilityAlertSubscriptionTransfer::class)->disableOriginalConstructor()->getMock();
         $this->productAbstractTransferMock = $this->getMockBuilder(ProductAbstractTransfer::class)->disableOriginalConstructor()->getMock();
 
-        $this->handler = new SubscribersNotifierProductAttributeLaunchDateInPastOrIsEmptyCheck($this->productFacadeMock);
+        $this->handler = new SubscribersNotifierProductAttributeIsInPastOrIsEmptyCheck(
+            $this->productFacadeMock,
+            'launch_date'
+        );
     }
 
     /**
@@ -57,7 +60,7 @@ class SubscribersNotifierProductAttributeLaunchDateInPastOrIsEmptyCheckTest exte
         $this->subscriptionTransferMock->expects(static::once())->method('getFkProductAbstract')->willReturn(1);
         $this->productAbstractTransferMock->expects(static::exactly(4))->method('getAttributes')->willReturn($attributes);
 
-        $return = $this->handler->checkHasProductAttributeLaunchDateInPastOrIsEmpty($this->subscriptionTransferMock);
+        $return = $this->handler->checkHasProductAttributeIsInPastOrIsEmpty($this->subscriptionTransferMock);
 
         static::assertTrue($return);
     }
@@ -70,7 +73,7 @@ class SubscribersNotifierProductAttributeLaunchDateInPastOrIsEmptyCheckTest exte
         $this->productFacadeMock->expects(static::once())->method('findProductAbstractById')->willReturn(null);
         $this->subscriptionTransferMock->expects(static::once())->method('getFkProductAbstract')->willReturn(1);
 
-        $return = $this->handler->checkHasProductAttributeLaunchDateInPastOrIsEmpty($this->subscriptionTransferMock);
+        $return = $this->handler->checkHasProductAttributeIsInPastOrIsEmpty($this->subscriptionTransferMock);
 
         static::assertFalse($return);
     }
@@ -88,7 +91,7 @@ class SubscribersNotifierProductAttributeLaunchDateInPastOrIsEmptyCheckTest exte
         $this->subscriptionTransferMock->expects(static::once())->method('getFkProductAbstract')->willReturn(1);
         $this->productAbstractTransferMock->expects(static::atLeastOnce())->method('getAttributes')->willReturn($attributes);
 
-        $return = $this->handler->checkHasProductAttributeLaunchDateInPastOrIsEmpty($this->subscriptionTransferMock);
+        $return = $this->handler->checkHasProductAttributeIsInPastOrIsEmpty($this->subscriptionTransferMock);
 
         static::assertTrue($return);
     }
