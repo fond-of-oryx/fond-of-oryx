@@ -47,7 +47,22 @@ interface ErpOrderPageSearchConstants
     /**
      * @var string
      */
+    public const PARAMETER_FROM = 'from';
+    
+    /**
+     * @var string
+     */
+    public const PARAMETER_IS_CANCELED = 'is-canceled';
+
+    /**
+     * @var string
+     */
     public const PARAMETER_REFERENCE = 'reference';
+
+    /**
+     * @var string
+     */
+    public const PARAMETER_TO = 'to';
 
     /**
      * @var string
