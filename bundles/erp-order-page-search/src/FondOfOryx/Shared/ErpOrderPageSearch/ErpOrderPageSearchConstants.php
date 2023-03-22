@@ -53,4 +53,14 @@ interface ErpOrderPageSearchConstants
      * @var string
      */
     public const PARAMETER_MIN_OUTSTANDING_QUANTITY = 'min-outstanding-quantity';
+
+    /**
+     * @var string
+     */
+    public const FULL_TEXT_FIELDS = 'FOND_OF_ORYX:ERP_ORDER_PAGE_SEARCH:FULL_TEXT_FIELDS';
+
+    /**
+     * @var string
+     */
+    public const FULL_TEXT_BOOSTED_FIELDS = 'FOND_OF_ORYX:ERP_ORDER_PAGE_SEARCH:FULL_TEXT_BOOSTED_FIELDS';
 }

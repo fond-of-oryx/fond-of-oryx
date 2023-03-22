@@ -78,4 +78,15 @@ interface ErpDeliveryNoteFacadeInterface
         ErpDeliveryNoteTransfer $erpDeliveryNoteTransfer,
         ?ErpDeliveryNoteTransfer $existingErpDeliveryNoteTransfer = null
     ): ErpDeliveryNoteTransfer;
+
+    /**
+     * @param \Generated\Shared\Transfer\ErpDeliveryNoteTransfer $erpDeliveryNoteTransfer
+     * @param \Generated\Shared\Transfer\ErpDeliveryNoteTransfer|null $existingErpDeliveryNoteTransfer
+     *
+     * @return \Generated\Shared\Transfer\ErpDeliveryNoteTransfer
+     */
+    public function persistErpDeliveryNoteTrackingData(
+        ErpDeliveryNoteTransfer $erpDeliveryNoteTransfer,
+        ?ErpDeliveryNoteTransfer $existingErpDeliveryNoteTransfer = null
+    ): ErpDeliveryNoteTransfer;
 }

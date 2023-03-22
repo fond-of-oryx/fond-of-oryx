@@ -9,8 +9,10 @@
     }
   ],
   "require": {
-    "php": ">=7.4",
-    "fond-of-oryx/customer-registration": "^1.0.0-beta.1",
+    "php": ">=8.0",
+    "spryker/customer": "^7.0.0",
+    "spryker/mail": "^4.0.0",
+    "fond-of-oryx/one-time-password": "^2.0.0",
     "spryker/glue-application": "^1.21.0"
   },
   "require-dev": {

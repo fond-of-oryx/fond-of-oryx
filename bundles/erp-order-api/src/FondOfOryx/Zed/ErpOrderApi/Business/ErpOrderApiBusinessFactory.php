@@ -6,8 +6,8 @@ use FondOfOryx\Zed\ErpOrderApi\Business\Model\ErpOrderApi;
 use FondOfOryx\Zed\ErpOrderApi\Business\Model\ErpOrderApiInterface;
 use FondOfOryx\Zed\ErpOrderApi\Business\Validator\ErpOrderApiValidator;
 use FondOfOryx\Zed\ErpOrderApi\Business\Validator\ErpOrderApiValidatorInterface;
+use FondOfOryx\Zed\ErpOrderApi\Dependency\Facade\ErpOrderApiToApiFacadeInterface;
 use FondOfOryx\Zed\ErpOrderApi\Dependency\Facade\ErpOrderApiToErpOrderFacadeInterface;
-use FondOfOryx\Zed\ErpOrderApi\Dependency\QueryContainer\ErpOrderApiToApiQueryContainerInterface;
 use FondOfOryx\Zed\ErpOrderApi\ErpOrderApiDependencyProvider;
 use Spryker\Zed\Kernel\Business\AbstractBusinessFactory;
 
@@ -23,18 +23,18 @@ class ErpOrderApiBusinessFactory extends AbstractBusinessFactory
     public function createErpOrderApi(): ErpOrderApiInterface
     {
         return new ErpOrderApi(
-            $this->getApiQueryContainer(),
+            $this->getApiFacade(),
             $this->getErpOrderFacade(),
             $this->getRepository(),
         );
     }
 
     /**
-     * @return \FondOfOryx\Zed\ErpOrderApi\Dependency\QueryContainer\ErpOrderApiToApiQueryContainerInterface
+     * @return \FondOfOryx\Zed\ErpOrderApi\Dependency\Facade\ErpOrderApiToApiFacadeInterface
      */
-    protected function getApiQueryContainer(): ErpOrderApiToApiQueryContainerInterface
+    protected function getApiFacade(): ErpOrderApiToApiFacadeInterface
     {
-        return $this->getProvidedDependency(ErpOrderApiDependencyProvider::QUERY_CONTAINER_API);
+        return $this->getProvidedDependency(ErpOrderApiDependencyProvider::FACADE_API);
     }
 
     /**

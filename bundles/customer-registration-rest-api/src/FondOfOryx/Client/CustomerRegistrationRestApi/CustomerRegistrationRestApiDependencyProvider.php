@@ -2,7 +2,6 @@
 
 namespace FondOfOryx\Client\CustomerRegistrationRestApi;
 
-use FondOfOryx\Client\CustomerRegistrationRestApi\Dependency\Client\CustomerRegistrationRestApiToZedRequestClientBridge;
 use Spryker\Client\Kernel\AbstractDependencyProvider;
 use Spryker\Client\Kernel\Container;
 
@@ -22,9 +21,7 @@ class CustomerRegistrationRestApiDependencyProvider extends AbstractDependencyPr
     {
         $container = parent::provideServiceLayerDependencies($container);
 
-        $container = $this->addZedRequestClient($container);
-
-        return $container;
+        return $this->addZedRequestClient($container);
     }
 
     /**
@@ -35,7 +32,7 @@ class CustomerRegistrationRestApiDependencyProvider extends AbstractDependencyPr
     protected function addZedRequestClient(Container $container): Container
     {
         $container[static::CLIENT_ZED_REQUEST] = static function (Container $container) {
-            return new CustomerRegistrationRestApiToZedRequestClientBridge($container->getLocator()->zedRequest()->client());
+            return $container->getLocator()->zedRequest()->client();
         };
 
         return $container;

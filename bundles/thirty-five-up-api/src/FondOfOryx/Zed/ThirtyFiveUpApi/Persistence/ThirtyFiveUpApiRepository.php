@@ -51,10 +51,13 @@ class ThirtyFiveUpApiRepository extends AbstractRepository implements ThirtyFive
         foreach ($collection as $id => $orderTransfer) {
             $collection[$id] = $this->convert($orderTransfer)->getData();
         }
-        $apiCollectionTransfer = $this->getFactory()->getApiQueryContainer()->createApiCollection($collection);
-        $apiCollectionTransfer = $this->addPagination($query, $apiCollectionTransfer, $apiRequestTransfer);
 
-        return $apiCollectionTransfer;
+        $apiCollectionTransfer = $this->getFactory()
+            ->getApiFacade()
+            ->createApiCollection([])
+            ->setData($collection);
+
+        return $this->addPagination($query, $apiCollectionTransfer, $apiRequestTransfer);
     }
 
     /**
@@ -72,7 +75,7 @@ class ThirtyFiveUpApiRepository extends AbstractRepository implements ThirtyFive
             throw new ThirtyFiveUpOrderNotFoundException(sprintf('Order with ID %s not found!', $orderEntityTransfer->getIdThirtyFiveUpOrder()));
         }
 
-        return $this->getFactory()->getApiQueryContainer()->createApiItem($orderTransfer, $orderTransfer->getId());
+        return $this->getFactory()->getApiFacade()->createApiItem($orderTransfer, (string)$orderTransfer->getId());
     }
 
     /**

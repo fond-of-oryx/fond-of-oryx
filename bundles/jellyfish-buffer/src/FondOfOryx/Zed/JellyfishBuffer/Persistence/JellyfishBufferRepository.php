@@ -52,7 +52,7 @@ class JellyfishBufferRepository extends AbstractRepository implements JellyfishB
             $query->filterByStore($jellyfishBufferTableFilterTransfer->getStore());
         }
 
-        if ($jellyfishBufferTableFilterTransfer->getIds() !== null && count($jellyfishBufferTableFilterTransfer->getIds()) > 0) {
+        if (count($jellyfishBufferTableFilterTransfer->getIds()) > 0) {
             return $query->filterByFkSalesOrder_In($jellyfishBufferTableFilterTransfer->getIds());
         }
 

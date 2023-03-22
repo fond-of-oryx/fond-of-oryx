@@ -3,7 +3,6 @@
 namespace FondOfOryx\Zed\ConcreteProductApi\Business;
 
 use Generated\Shared\Transfer\ApiCollectionTransfer;
-use Generated\Shared\Transfer\ApiDataTransfer;
 use Generated\Shared\Transfer\ApiItemTransfer;
 use Generated\Shared\Transfer\ApiRequestTransfer;
 use Spryker\Zed\Kernel\Business\AbstractFacade;
@@ -18,13 +17,13 @@ class ConcreteProductApiFacade extends AbstractFacade implements ConcreteProduct
      *
      * @api
      *
-     * @param \Generated\Shared\Transfer\ApiDataTransfer $apiDataTransfer
+     * @param \Generated\Shared\Transfer\ApiRequestTransfer $apiRequestTransfer
      *
-     * @return array<string>
+     * @return array<\Generated\Shared\Transfer\ApiValidationErrorTransfer>
      */
-    public function validate(ApiDataTransfer $apiDataTransfer): array
+    public function validate(ApiRequestTransfer $apiRequestTransfer): array
     {
-        return $this->getFactory()->createConcreteProductApiValidator()->validate($apiDataTransfer);
+        return $this->getFactory()->createConcreteProductApiValidator()->validate($apiRequestTransfer);
     }
 
     /**
@@ -50,7 +49,7 @@ class ConcreteProductApiFacade extends AbstractFacade implements ConcreteProduct
      *
      * @return \Generated\Shared\Transfer\ApiCollectionTransfer
      */
-    public function findConditionalProducts(ApiRequestTransfer $apiRequestTransfer): ApiCollectionTransfer
+    public function findConcreteProducts(ApiRequestTransfer $apiRequestTransfer): ApiCollectionTransfer
     {
         return $this->getFactory()->createConcreteProductApi()->find($apiRequestTransfer);
     }

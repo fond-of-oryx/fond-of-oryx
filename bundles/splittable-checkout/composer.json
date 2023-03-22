@@ -13,9 +13,9 @@
     }
   ],
   "require": {
-    "php": ">=7.3",
-    "fond-of-oryx/splittable-checkout-extension": "^1.0.0",
-    "fond-of-oryx/splittable-quote": "^1.0.0",
+    "php": ">=8.0",
+    "fond-of-oryx/splittable-checkout-extension": "^1.0.0 || ^2.0.0",
+    "fond-of-oryx/splittable-quote": "^1.0.0 || ^2.0.0",
     "spryker/checkout": "^6.0.0",
     "spryker/log": "^1.0.0 || ^2.0.0 || ^3.0.0",
     "spryker/permission": "^1.0.0",
@@ -36,6 +36,12 @@
     "psr-4": {
       "FondOfOryx\\": "tests/FondOfOryx/",
       "Generated\\": "src/Generated/"
+    }
+  },
+  "config": {
+    "sort-packages": true,
+    "allow-plugins": {
+      "dealerdirect/phpcodesniffer-composer-installer": true
     }
   }
 }

@@ -11,7 +11,7 @@ use Generated\Shared\Transfer\CustomerTransfer;
 class CustomerRegistrationSalesConnectorToCustomerRegistrationFacadeBridgeTest extends Unit
 {
     /**
-     * @var \FondOfOryx\Zed\CustomerRegistrationSalesConnector\Dependency\Facade\CustomerRegistrationSalesConnectorToCustomerRegistrationFacadeBridge
+     * @var \FondOfOryx\Zed\CustomerRegistrationSalesConnector\Dependency\Facade\CustomerRegistrationSalesConnectorToCustomerFacadeBridge
      */
     protected $facade;
 
@@ -56,7 +56,7 @@ class CustomerRegistrationSalesConnectorToCustomerRegistrationFacadeBridgeTest e
             ->disableOriginalConstructor()
             ->getMock();
 
-        $this->facade = new CustomerRegistrationSalesConnectorToCustomerRegistrationFacadeBridge(
+        $this->facade = new CustomerRegistrationSalesConnectorToCustomerFacadeBridge(
             $this->facadeMock,
         );
     }

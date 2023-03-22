@@ -2,8 +2,8 @@
 
 namespace FondOfOryx\Zed\CreditMemoApi;
 
+use FondOfOryx\Zed\CreditMemoApi\Dependency\Facade\CreditMemoApiToApiFacadeBridge;
 use FondOfOryx\Zed\CreditMemoApi\Dependency\Facade\CreditMemoApiToCreditMemoFacadeBridge;
-use FondOfOryx\Zed\CreditMemoApi\Dependency\QueryContainer\CreditMemoApiToApiQueryContainerBridge;
 use Spryker\Zed\Kernel\AbstractBundleDependencyProvider;
 use Spryker\Zed\Kernel\Container;
 
@@ -12,7 +12,7 @@ class CreditMemoApiDependencyProvider extends AbstractBundleDependencyProvider
     /**
      * @var string
      */
-    public const QUERY_CONTAINER_API = 'QUERY_CONTAINER_API';
+    public const FACADE_API = 'FACADE_API';
 
     /**
      * @var string
@@ -28,10 +28,9 @@ class CreditMemoApiDependencyProvider extends AbstractBundleDependencyProvider
     {
         $container = parent::provideBusinessLayerDependencies($container);
 
-        $container = $this->addApiQueryContainer($container);
-        $container = $this->addCreditMemoFacade($container);
+        $container = $this->addApiFacade($container);
 
-        return $container;
+        return $this->addCreditMemoFacade($container);
     }
 
     /**
@@ -39,10 +38,10 @@ class CreditMemoApiDependencyProvider extends AbstractBundleDependencyProvider
      *
      * @return \Spryker\Zed\Kernel\Container
      */
-    protected function addApiQueryContainer(Container $container): Container
+    protected function addApiFacade(Container $container): Container
     {
-        $container[static::QUERY_CONTAINER_API] = static function (Container $container) {
-            return new CreditMemoApiToApiQueryContainerBridge($container->getLocator()->api()->queryContainer());
+        $container[static::FACADE_API] = static function (Container $container) {
+            return new CreditMemoApiToApiFacadeBridge($container->getLocator()->api()->facade());
         };
 
         return $container;

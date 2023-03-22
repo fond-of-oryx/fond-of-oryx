@@ -10,11 +10,15 @@ use Generated\Shared\Transfer\CompanyBusinessUnitTransfer;
 use Generated\Shared\Transfer\ErpDeliveryNoteAddressTransfer;
 use Generated\Shared\Transfer\ErpDeliveryNoteExpenseTransfer;
 use Generated\Shared\Transfer\ErpDeliveryNoteItemTransfer;
+use Generated\Shared\Transfer\ErpDeliveryNoteTrackingToItemRelationTransfer;
+use Generated\Shared\Transfer\ErpDeliveryNoteTrackingTransfer;
 use Generated\Shared\Transfer\ErpDeliveryNoteTransfer;
 use Orm\Zed\ErpDeliveryNote\Persistence\FooErpDeliveryNote;
 use Orm\Zed\ErpDeliveryNote\Persistence\FooErpDeliveryNoteAddress;
 use Orm\Zed\ErpDeliveryNote\Persistence\FooErpDeliveryNoteExpense;
 use Orm\Zed\ErpDeliveryNote\Persistence\FooErpDeliveryNoteItem;
+use Orm\Zed\ErpDeliveryNote\Persistence\FooErpDeliveryNoteTracking;
+use Orm\Zed\ErpDeliveryNote\Persistence\FooErpDeliveryNoteTrackingToItem;
 
 class EntityToTransferMapper implements EntityToTransferMapperInterface
 {
@@ -55,9 +59,35 @@ class EntityToTransferMapper implements EntityToTransferMapperInterface
         }
         $deliveryNoteItemTransfer->fromArray($deliveryNoteItem->toArray(), true);
 
+        foreach ($deliveryNoteItem->getFooErpDeliveryNoteTrackingToItems() as $trackingToItem) {
+            $trackingEntity = $trackingToItem->getFooErpDeliveryNoteTracking();
+            $trackingTransfer = (new ErpDeliveryNoteTrackingTransfer())
+                ->fromArray($trackingEntity->toArray(), true)
+                ->setQuantity($trackingToItem->getQuantity())
+                ->addItemRelation($this->fromItemTrackingRelationToTransfer($trackingToItem));
+            $deliveryNoteItemTransfer->addTrackingData($trackingTransfer);
+        }
+
         return $deliveryNoteItemTransfer
             ->setCreatedAt($this->convertDateTimeToTimestamp($deliveryNoteItem->getCreatedAt()))
             ->setUpdatedAt($this->convertDateTimeToTimestamp($deliveryNoteItem->getUpdatedAt()));
+    }
+
+    /**
+     * @param \Orm\Zed\ErpDeliveryNote\Persistence\FooErpDeliveryNoteTrackingToItem $trackingToItem
+     * @param \Generated\Shared\Transfer\ErpDeliveryNoteTrackingToItemRelationTransfer|null $trackingToItemRelationTransfer
+     *
+     * @return \Generated\Shared\Transfer\ErpDeliveryNoteTrackingToItemRelationTransfer
+     */
+    public function fromItemTrackingRelationToTransfer(
+        FooErpDeliveryNoteTrackingToItem $trackingToItem,
+        ?ErpDeliveryNoteTrackingToItemRelationTransfer $trackingToItemRelationTransfer = null
+    ): ErpDeliveryNoteTrackingToItemRelationTransfer {
+        if ($trackingToItemRelationTransfer === null) {
+            $trackingToItemRelationTransfer = new ErpDeliveryNoteTrackingToItemRelationTransfer();
+        }
+
+        return $trackingToItemRelationTransfer->fromArray($trackingToItem->toArray(), true);
     }
 
     /**
@@ -78,6 +108,31 @@ class EntityToTransferMapper implements EntityToTransferMapperInterface
         return $deliveryNoteExpenseTransfer
             ->setCreatedAt($this->convertDateTimeToTimestamp($deliveryNoteExpense->getCreatedAt()))
             ->setUpdatedAt($this->convertDateTimeToTimestamp($deliveryNoteExpense->getUpdatedAt()));
+    }
+
+    /**
+     * @param \Orm\Zed\ErpDeliveryNote\Persistence\FooErpDeliveryNoteTracking $deliveryNoteTracking
+     * @param \Generated\Shared\Transfer\ErpDeliveryNoteTrackingTransfer|null $erpDeliveryNoteTrackingTransfer
+     *
+     * @return \Generated\Shared\Transfer\ErpDeliveryNoteTrackingTransfer
+     */
+    public function fromErpDeliveryNoteTrackingToTransfer(
+        FooErpDeliveryNoteTracking $deliveryNoteTracking,
+        ?ErpDeliveryNoteTrackingTransfer $erpDeliveryNoteTrackingTransfer = null
+    ): ErpDeliveryNoteTrackingTransfer {
+        if ($erpDeliveryNoteTrackingTransfer === null) {
+            $erpDeliveryNoteTrackingTransfer = new ErpDeliveryNoteTrackingTransfer();
+        }
+        $erpDeliveryNoteTrackingTransfer->fromArray($deliveryNoteTracking->toArray(), true);
+
+        foreach ($deliveryNoteTracking->getFooErpDeliveryNoteTrackingToItems() as $trackingToItem) {
+            $item = (new ErpDeliveryNoteItemTransfer())->fromArray($trackingToItem->getFooErpDeliveryNoteItem()->toArray(), true);
+            $erpDeliveryNoteTrackingTransfer->addErpDeliveryNoteItem($item);
+        }
+
+        return $erpDeliveryNoteTrackingTransfer
+            ->setCreatedAt($this->convertDateTimeToTimestamp($deliveryNoteTracking->getCreatedAt()))
+            ->setUpdatedAt($this->convertDateTimeToTimestamp($deliveryNoteTracking->getUpdatedAt()));
     }
 
     /**

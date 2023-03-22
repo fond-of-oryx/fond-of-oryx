@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * phpcs:disable SlevomatCodingStandard.Functions.DisallowTrailingCommaInClosureUse
+ */
+
 namespace FondOfOryx\Zed\CompanyBrandProductListConnector\Business\Persister;
 
 use Codeception\Test\Unit;
@@ -80,7 +84,7 @@ class CompanyBrandRelationPersisterTest extends Unit
                         CompanyBrandRelationTransfer $companyBrandRelationTransfer
                     ) use (
                         $idCompany,
-                        $brandIds
+                        $brandIds,
                     ) {
                         return $companyBrandRelationTransfer->getIdCompany() === $idCompany
                             && $companyBrandRelationTransfer->getIdBrands() === $brandIds;

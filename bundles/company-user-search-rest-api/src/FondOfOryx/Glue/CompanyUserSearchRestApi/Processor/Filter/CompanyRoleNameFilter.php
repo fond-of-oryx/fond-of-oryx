@@ -18,6 +18,7 @@ class CompanyRoleNameFilter implements CompanyRoleNameFilterInterface
         /** @phpstan-ignore-next-line */
         $companyRoles = $bag instanceof InputBag ? $bag->all('company-role-name') : $bag->get('company-role-name');
 
+        /** @phpstan-ignore-next-line */
         if (!is_array($companyRoles)) {
             return [];
         }

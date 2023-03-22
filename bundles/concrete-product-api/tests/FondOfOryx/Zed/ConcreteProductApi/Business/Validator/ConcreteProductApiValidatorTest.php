@@ -3,7 +3,7 @@
 namespace FondOfOryx\Zed\ConcreteProductApi\Business\Validator;
 
 use Codeception\Test\Unit;
-use Generated\Shared\Transfer\ApiDataTransfer;
+use Generated\Shared\Transfer\ApiRequestTransfer;
 
 class ConcreteProductApiValidatorTest extends Unit
 {
@@ -13,16 +13,16 @@ class ConcreteProductApiValidatorTest extends Unit
     protected $concreteProductApiValidator;
 
     /**
-     * @var \PHPUnit\Framework\MockObject\MockObject|\Generated\Shared\Transfer\ApiDataTransfer
+     * @var \PHPUnit\Framework\MockObject\MockObject|\Generated\Shared\Transfer\ApiRequestTransfer
      */
-    protected $apiDataTransferMock;
+    protected $apiRequestTransferMock;
 
     /**
      * @return void
      */
     protected function _before(): void
     {
-        $this->apiDataTransferMock = $this->getMockBuilder(ApiDataTransfer::class)
+        $this->apiRequestTransferMock = $this->getMockBuilder(ApiRequestTransfer::class)
             ->disableOriginalConstructor()
             ->getMock();
 
@@ -34,6 +34,6 @@ class ConcreteProductApiValidatorTest extends Unit
      */
     public function testValidate(): void
     {
-        static::assertIsArray($this->concreteProductApiValidator->validate($this->apiDataTransferMock));
+        static::assertIsArray($this->concreteProductApiValidator->validate($this->apiRequestTransferMock));
     }
 }

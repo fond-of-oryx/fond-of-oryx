@@ -27,6 +27,7 @@ class ErpDeliveryNotePageSearchEventSubscriber extends AbstractPlugin implements
         $this->addErpDeliveryNoteUnPublishListener($eventCollection);
         $this->addErpDeliveryNoteCreateListener($eventCollection);
         $this->addErpDeliveryNoteUpdateListener($eventCollection);
+        $this->addErpDeliveryNoteDeleteListener($eventCollection);
 
         return $eventCollection;
     }
@@ -56,6 +57,22 @@ class ErpDeliveryNotePageSearchEventSubscriber extends AbstractPlugin implements
     {
         $eventCollection->addListenerQueued(
             ErpDeliveryNoteEvents::ENTITY_FOO_ERP_DELIVERY_NOTE_UPDATE,
+            new ErpDeliveryNotePageSearchListener(),
+            0,
+            null,
+            $this->getConfig()->getEventQueueName(),
+        );
+    }
+
+    /**
+     * @param \Spryker\Zed\Event\Dependency\EventCollectionInterface $eventCollection
+     *
+     * @return void
+     */
+    protected function addErpDeliveryNoteDeleteListener(EventCollectionInterface $eventCollection): void
+    {
+        $eventCollection->addListenerQueued(
+            ErpDeliveryNoteEvents::ENTITY_FOO_ERP_DELIVERY_NOTE_DELETE,
             new ErpDeliveryNotePageSearchListener(),
             0,
             null,

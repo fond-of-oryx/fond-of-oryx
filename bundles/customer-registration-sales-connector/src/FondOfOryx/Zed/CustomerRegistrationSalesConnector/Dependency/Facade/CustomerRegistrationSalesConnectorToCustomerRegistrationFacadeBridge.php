@@ -3,9 +3,7 @@
 namespace FondOfOryx\Zed\CustomerRegistrationSalesConnector\Dependency\Facade;
 
 use FondOfOryx\Zed\CustomerRegistration\Business\CustomerRegistrationFacadeInterface;
-use Generated\Shared\Transfer\CustomerRegistrationRequestTransfer;
-use Generated\Shared\Transfer\CustomerRegistrationResponseTransfer;
-use Generated\Shared\Transfer\CustomerTransfer;
+use Generated\Shared\Transfer\CustomerRegistrationTransfer;
 
 class CustomerRegistrationSalesConnectorToCustomerRegistrationFacadeBridge implements CustomerRegistrationSalesConnectorToCustomerRegistrationFacadeInterface
 {
@@ -23,23 +21,12 @@ class CustomerRegistrationSalesConnectorToCustomerRegistrationFacadeBridge imple
     }
 
     /**
-     * @param \Generated\Shared\Transfer\CustomerRegistrationRequestTransfer $customerRegistrationRequestTransfer
+     * @param \Generated\Shared\Transfer\CustomerRegistrationTransfer $customerRegistrationTransfer
      *
-     * @return \Generated\Shared\Transfer\CustomerRegistrationResponseTransfer
+     * @return void
      */
-    public function customerRegistration(
-        CustomerRegistrationRequestTransfer $customerRegistrationRequestTransfer
-    ): CustomerRegistrationResponseTransfer {
-        return $this->facade->customerRegistration($customerRegistrationRequestTransfer);
-    }
-
-    /**
-     * @param \Generated\Shared\Transfer\CustomerTransfer $customerTransfer
-     *
-     * @return \Generated\Shared\Transfer\CustomerTransfer
-     */
-    public function flagCustomerAsGdprAccepted(CustomerTransfer $customerTransfer): CustomerTransfer
+    public function handleKnownCustomer(CustomerRegistrationTransfer $customerRegistrationTransfer): void
     {
-        return $this->facade->flagCustomerAsGdprAccepted($customerTransfer);
+        $this->facade->handleKnownCustomer($customerRegistrationTransfer);
     }
 }

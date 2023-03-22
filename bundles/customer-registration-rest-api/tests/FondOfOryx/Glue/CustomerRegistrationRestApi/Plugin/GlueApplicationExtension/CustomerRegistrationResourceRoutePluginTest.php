@@ -39,16 +39,6 @@ class CustomerRegistrationResourceRoutePluginTest extends Unit
             ->with('post', false)
             ->willReturnSelf();
 
-        $this->resourceRouteCollectionMock->expects($this->atLeastOnce())
-            ->method('addPatch')
-            ->with('patch', false)
-            ->willReturnSelf();
-
-        $this->resourceRouteCollectionMock->expects($this->atLeastOnce())
-            ->method('addGet')
-            ->with('get', false)
-            ->willReturnSelf();
-
         $this->assertSame(
             $this->resourceRouteCollectionMock,
             $this->customerRegistrationResourceRoutePlugin->configure(

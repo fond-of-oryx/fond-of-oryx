@@ -2,57 +2,57 @@
 
 namespace FondOfOryx\Zed\CompanyApi\Business\Model\Validator;
 
-use Generated\Shared\Transfer\ApiDataTransfer;
+use Generated\Shared\Transfer\ApiRequestTransfer;
+use Generated\Shared\Transfer\ApiValidationErrorTransfer;
 
 class CompanyApiValidator implements CompanyApiValidatorInterface
 {
     /**
-     * @param \Generated\Shared\Transfer\ApiDataTransfer $apiDataTransfer
-     *
-     * @return array
+     * @var string
      */
-    public function validate(ApiDataTransfer $apiDataTransfer): array
-    {
-        $data = $apiDataTransfer->getData();
+    protected const KEY_NAME = 'name';
 
-        return $this->assertNonEmptyString($data, 'name', []);
+    /**
+     * @param \Generated\Shared\Transfer\ApiRequestTransfer $apiRequestTransfer
+     *
+     * @return array<\Generated\Shared\Transfer\ApiValidationErrorTransfer>
+     */
+    public function validate(ApiRequestTransfer $apiRequestTransfer): array
+    {
+        $apiData = $apiRequestTransfer->getApiDataOrFail()->getData();
+
+        $apiValidationErrorTransfers = [];
+
+        return $this->assertRequiredField($apiData, static::KEY_NAME, $apiValidationErrorTransfers);
     }
 
     /**
-     * @param array $data
+     * @param array<string, mixed> $data
      * @param string $field
-     * @param array $errors
+     * @param array<\Generated\Shared\Transfer\ApiValidationErrorTransfer> $apiValidationErrorTransfers
      *
-     * @return array
+     * @return array<\Generated\Shared\Transfer\ApiValidationErrorTransfer>
      */
-    protected function assertNonEmptyString(array $data, string $field, array $errors): array
+    protected function assertRequiredField(array $data, string $field, array $apiValidationErrorTransfers): array
     {
-        $errors = $this->assertRequired($data, $field, $errors);
-
-        if (isset($errors[$field]) && is_array($errors[$field]) && count($errors[$field]) > 0) {
-            return $errors;
+        if (!isset($data[$field]) || (array_key_exists($field, $data) && !$data[$field])) {
+            $message = sprintf('Missing value for required field "%s"', $field);
+            $apiValidationErrorTransfers[] = $this->createApiValidationErrorTransfer($field, [$message]);
         }
 
-        if (trim($data[$field]) === '') {
-            $errors[$field][] = sprintf('Field "%s" is empty.', $field);
-        }
-
-        return $errors;
+        return $apiValidationErrorTransfers;
     }
 
     /**
-     * @param array $data
      * @param string $field
-     * @param array $errors
+     * @param array<string> $messages
      *
-     * @return array
+     * @return \Generated\Shared\Transfer\ApiValidationErrorTransfer
      */
-    protected function assertRequired(array $data, string $field, array $errors): array
+    protected function createApiValidationErrorTransfer(string $field, array $messages): ApiValidationErrorTransfer
     {
-        if (!isset($data[$field])) {
-            $errors[$field][] = sprintf('Missing value for required field "%s"', $field);
-        }
-
-        return $errors;
+        return (new ApiValidationErrorTransfer())
+            ->setField($field)
+            ->setMessages($messages);
     }
 }

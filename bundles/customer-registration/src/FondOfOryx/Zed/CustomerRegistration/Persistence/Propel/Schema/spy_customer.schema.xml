@@ -3,7 +3,10 @@
           xsi:noNamespaceSchemaLocation="https://static.spryker.com/schema-01.xsd"
           namespace="Orm\Zed\Customer\Persistence" package="src.Orm.Zed.Customer.Persistence">
     <table name="spy_customer" phpName="SpyCustomer">
-        <column name="gdpr_accepted" type="BOOLEAN" required="false"/>
-        <column name="is_verified" type="BOOLEAN" required="false"/>
+        <column name="registered" type="DATE" default="NULL"/>
+
+        <behavior name="event">
+            <parameter name="spy_customer_update" column="registered"/>
+        </behavior>
     </table>
 </database>

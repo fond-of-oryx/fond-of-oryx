@@ -17,8 +17,8 @@
     }
   ],
   "require": {
-    "php": ">=7.3",
-    "fond-of-oryx/invoice-extension": "^1.0.0",
+    "php": ">=8.0",
+    "fond-of-oryx/invoice-extension": "^1.0.0 || ^2.0.0",
     "spryker/invoice": "^0.20.0 || ^1.0.0 || ^2.0.0",
     "spryker/oms": "^6.0.0 || ^7.0.0 || ^8.0.0 || ^10.0.0 || ^11.0.0",
     "spryker/sequence-number": "^1.0.0 || ^2.0.0 || ^3.0.0",
@@ -40,6 +40,12 @@
     "psr-4": {
       "FondOfOryx\\": "tests/FondOfOryx/",
       "Generated\\": "src/Generated/"
+    }
+  },
+  "config": {
+    "sort-packages": true,
+    "allow-plugins": {
+      "dealerdirect/phpcodesniffer-composer-installer": true
     }
   }
 }

@@ -100,7 +100,8 @@ class ErpDeliveryNoteItemHandlerTest extends Unit
         $this->itemReaderMock->expects($this->atLeastOnce())->method('findErpDeliveryNoteItemsByIdErpDeliveryNote')->willReturn($this->erpDeliveryNoteItemCollectionTransferMock);
         $this->erpDeliveryNoteItemCollectionTransferMock->expects($this->once())->method('getItems')->willReturn(new ArrayObject());
 
-        $this->erpDeliveryNoteItemTransferMock->expects($this->atLeastOnce())->method('getSku')->willReturn(3);
+        $this->erpDeliveryNoteItemTransferMock->expects($this->atLeastOnce())->method('getSku')->willReturn('sku');
+        $this->erpDeliveryNoteItemTransferMock->expects($this->atLeastOnce())->method('getPosition')->willReturn(1);
 
         $this->erpDeliveryNoteTransferMock->expects($this->atLeastOnce())->method('getIdErpDeliveryNote')->willReturn(1);
         $this->erpDeliveryNoteTransferMock->expects($this->atLeastOnce())->method('getDeliveryNoteItems')->willReturn($items);
@@ -125,13 +126,15 @@ class ErpDeliveryNoteItemHandlerTest extends Unit
         $this->itemReaderMock->expects($this->atLeastOnce())->method('findErpDeliveryNoteItemsByIdErpDeliveryNote')->willReturn($this->erpDeliveryNoteItemCollectionTransferMock);
         $this->erpDeliveryNoteItemCollectionTransferMock->expects($this->atLeastOnce())->method('getItems')->willReturn($existingItems);
 
-        $existingItem1->expects($this->atLeastOnce())->method('getSku')->willReturn(1);
+        $existingItem1->expects($this->atLeastOnce())->method('getSku')->willReturn('sku');
+        $existingItem1->expects($this->atLeastOnce())->method('getPosition')->willReturn(1);
         $existingItem1->expects($this->atLeastOnce())->method('getIdErpDeliveryNoteItem')->willReturn(1);
         $existingItem1->expects($this->atLeastOnce())->method('fromArray');
-        $existingItem1->expects($this->atLeastOnce())->method('toArray')->willReturn([]);
-        $this->erpDeliveryNoteItemTransferMock->expects($this->atLeastOnce())->method('getSku')->willReturn(1);
+        $existingItem1->expects($this->atLeastOnce())->method('modifiedToArray')->willReturn([]);
+        $this->erpDeliveryNoteItemTransferMock->expects($this->atLeastOnce())->method('getSku')->willReturn('sku');
+        $this->erpDeliveryNoteItemTransferMock->expects($this->atLeastOnce())->method('getPosition')->willReturn(1);
         $this->erpDeliveryNoteItemTransferMock->expects($this->atLeastOnce())->method('fromArray');
-        $this->erpDeliveryNoteItemTransferMock->expects($this->atLeastOnce())->method('toArray')->willReturn([]);
+        $this->erpDeliveryNoteItemTransferMock->expects($this->atLeastOnce())->method('modifiedToArray')->willReturn([]);
         $this->erpDeliveryNoteItemTransferMock->expects($this->never())->method('getIdErpDeliveryNoteItem');
 
         $this->erpDeliveryNoteTransferMock->expects($this->atLeastOnce())->method('getIdErpDeliveryNote')->willReturn(1);
@@ -160,11 +163,13 @@ class ErpDeliveryNoteItemHandlerTest extends Unit
         $this->itemReaderMock->expects($this->atLeastOnce())->method('findErpDeliveryNoteItemsByIdErpDeliveryNote')->willReturn($this->erpDeliveryNoteItemCollectionTransferMock);
         $this->erpDeliveryNoteItemCollectionTransferMock->expects($this->atLeastOnce())->method('getItems')->willReturn($existingItems);
 
-        $existingItem1->expects($this->atLeastOnce())->method('getSku')->willReturn(1);
+        $existingItem1->expects($this->atLeastOnce())->method('getSku')->willReturn('sku');
+        $existingItem1->expects($this->atLeastOnce())->method('getPosition')->willReturn(1);
         $existingItem1->expects($this->atLeastOnce())->method('getIdErpDeliveryNoteItem')->willReturn(1);
-        $existingItem2->expects($this->atLeastOnce())->method('getSku')->willReturn(2);
+        $existingItem2->expects($this->atLeastOnce())->method('getSku')->willReturn('sku');
+        $existingItem2->expects($this->atLeastOnce())->method('getPosition')->willReturn(2);
         $existingItem2->expects($this->atLeastOnce())->method('getIdErpDeliveryNoteItem')->willReturn(2);
-        $this->erpDeliveryNoteItemTransferMock->expects($this->atLeastOnce())->method('getSku')->willReturn(3);
+        $this->erpDeliveryNoteItemTransferMock->expects($this->atLeastOnce())->method('getSku')->willReturn('sku1');
 
         $this->erpDeliveryNoteTransferMock->expects($this->atLeastOnce())->method('getIdErpDeliveryNote')->willReturn(1);
         $this->erpDeliveryNoteTransferMock->expects($this->atLeastOnce())->method('getDeliveryNoteItems')->willReturn($items);

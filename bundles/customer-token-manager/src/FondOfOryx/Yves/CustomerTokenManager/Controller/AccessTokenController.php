@@ -7,7 +7,6 @@ use Spryker\Yves\Kernel\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 
 /**
  * @method \FondOfOryx\Yves\CustomerTokenManager\CustomerTokenManagerFactory getFactory()
@@ -41,8 +40,6 @@ class AccessTokenController extends AbstractController
     /**
      * @param string $token
      *
-     * @throws \Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException
-     *
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
      */
     protected function executeTokenManagerAction(string $token): RedirectResponse
@@ -61,9 +58,11 @@ class AccessTokenController extends AbstractController
             ->getCustomerByAccessToken($token);
 
         if (!$customerResponseTransfer->getIsSuccess()) {
-            $this->addErrorMessage(CustomerTokenManagerConstants::GLOSSARY_KEY_INVALID_ACCESS_TOKEN);
+            if ($this->getFactory()->showErrorMessageOnExpiredLogin()) {
+                $this->addErrorMessage(CustomerTokenManagerConstants::GLOSSARY_KEY_INVALID_ACCESS_TOKEN);
+            }
 
-            throw new AccessDeniedHttpException();
+            return $this->redirectResponseExternal($this->determineExpiredTargetUrl());
         }
 
         $customerTransfer = $customerResponseTransfer->getCustomerTransfer();
@@ -112,6 +111,21 @@ class AccessTokenController extends AbstractController
         }
 
         $default = $this->cleanSlashes($this->getFactory()->getRedirectPathAfterLogin());
+
+        if ($this->language) {
+            return sprintf('%s/%s/%s', $baseUrl, $this->language, $default);
+        }
+
+        return sprintf('%s/%s', $baseUrl, $default);
+    }
+
+    /**
+     * @return string
+     */
+    protected function determineExpiredTargetUrl(): string
+    {
+        $baseUrl = $this->cleanSlashes($this->getFactory()->getYvesBaseUrl());
+        $default = $this->cleanSlashes($this->getFactory()->getRedirectPathAfterExpiredLogin());
 
         if ($this->language) {
             return sprintf('%s/%s/%s', $baseUrl, $this->language, $default);

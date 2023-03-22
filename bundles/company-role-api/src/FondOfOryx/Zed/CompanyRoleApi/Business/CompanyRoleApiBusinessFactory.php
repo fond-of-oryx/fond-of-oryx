@@ -5,8 +5,8 @@ namespace FondOfOryx\Zed\CompanyRoleApi\Business;
 use FondOfOryx\Zed\CompanyRoleApi\Business\Model\CompanyRoleApi;
 use FondOfOryx\Zed\CompanyRoleApi\Business\Model\CompanyRoleApiInterface;
 use FondOfOryx\Zed\CompanyRoleApi\CompanyRoleApiDependencyProvider;
+use FondOfOryx\Zed\CompanyRoleApi\Dependency\Facade\CompanyRoleApiToApiFacadeInterface;
 use FondOfOryx\Zed\CompanyRoleApi\Dependency\Facade\CompanyRoleApiToCompanyRoleFacadeInterface;
-use FondOfOryx\Zed\CompanyRoleApi\Dependency\QueryContainer\CompanyRoleApiToApiQueryContainerInterface;
 use Spryker\Zed\Kernel\Business\AbstractBusinessFactory;
 
 /**
@@ -22,18 +22,18 @@ class CompanyRoleApiBusinessFactory extends AbstractBusinessFactory
     public function createCompanyRoleApi(): CompanyRoleApiInterface
     {
         return new CompanyRoleApi(
-            $this->getApiQueryContainer(),
+            $this->getApiFacade(),
             $this->getCompanyRoleFacade(),
             $this->getRepository(),
         );
     }
 
     /**
-     * @return \FondOfOryx\Zed\CompanyRoleApi\Dependency\QueryContainer\CompanyRoleApiToApiQueryContainerInterface
+     * @return \FondOfOryx\Zed\CompanyRoleApi\Dependency\Facade\CompanyRoleApiToApiFacadeInterface
      */
-    protected function getApiQueryContainer(): CompanyRoleApiToApiQueryContainerInterface
+    protected function getApiFacade(): CompanyRoleApiToApiFacadeInterface
     {
-        return $this->getProvidedDependency(CompanyRoleApiDependencyProvider::QUERY_CONTAINER_API);
+        return $this->getProvidedDependency(CompanyRoleApiDependencyProvider::FACADE_API);
     }
 
     /**

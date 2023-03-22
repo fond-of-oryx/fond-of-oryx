@@ -8,11 +8,17 @@
       "email": "dev@julianzimmermann.dev"
     }
   ],
+  "repositories": [
+    {
+      "type": "vcs",
+      "url": "https://github.com/fond-of/payone"
+    }
+  ],
   "require": {
-    "php": ">=7.3",
-    "fond-of-oryx/credit-memo": "^1.0.0",
-    "fond-of-oryx/payone-credit-memo-extension": "^1.1.0",
-    "spryker-eco/payone": "^4.0.0"
+    "php": ">=8.0",
+    "fond-of-oryx/credit-memo": "^1.0.0 || ^2.0.0",
+    "fond-of-oryx/payone-credit-memo-extension": "^1.1.0 || ^2.0.0",
+    "spryker-eco/payone": "dev-master-fondof as 4.4.2"
   },
   "require-dev": {
     "fond-of-codeception/spryker": "^1.0",
@@ -31,6 +37,12 @@
       "FondOfOryx\\": "tests/FondOfOryx/",
       "Generated\\": "src/Generated/",
       "Orm\\Zed\\": "src/Orm/Zed/"
+    }
+  },
+  "config": {
+    "sort-packages": true,
+    "allow-plugins": {
+      "dealerdirect/phpcodesniffer-composer-installer": true
     }
   }
 }

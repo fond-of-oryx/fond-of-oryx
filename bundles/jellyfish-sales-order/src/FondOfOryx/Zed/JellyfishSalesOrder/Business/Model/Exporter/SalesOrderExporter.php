@@ -120,7 +120,7 @@ class SalesOrderExporter implements SalesOrderExporterInterface
                 continue;
             }
 
-            if ($groupKey !== null && !$groupKeyIndexMapping->offsetExists($groupKey)) {
+            if (!$groupKeyIndexMapping->offsetExists($groupKey)) {
                 $jellyfishOrderItems->append($jellyfishOrderItemTransfer);
                 $groupKeyIndexMapping->offsetSet($groupKey, $jellyfishOrderItems->count() - 1);
 

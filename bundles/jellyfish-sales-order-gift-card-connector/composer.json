@@ -9,10 +9,10 @@
     }
   ],
   "require": {
-    "php": ">=7.3",
-    "fond-of-oryx/gift-card-product-connector": "^1.0.0",
-    "fond-of-oryx/jellyfish-sales-order-extension": "^1.0.0",
-    "fond-of-oryx/product-cart-code-type-restriction": "^1.0.0"
+    "php": ">=8.0",
+    "fond-of-oryx/gift-card-product-connector": "^1.0.0 || ^2.0.0",
+    "fond-of-oryx/jellyfish-sales-order-extension": "^1.0.0 || ^2.0.0",
+    "fond-of-oryx/product-cart-code-type-restriction": "^1.0.0 || ^2.0.0"
   },
   "require-dev": {
     "fond-of-codeception/spryker": "^1.0",
@@ -34,6 +34,12 @@
       "FondOfOryx\\": "tests/FondOfOryx/",
       "Generated\\": "src/Generated/",
       "Orm\\Zed\\": "src/Orm/Zed/"
+    }
+  },
+  "config": {
+    "sort-packages": true,
+    "allow-plugins": {
+      "dealerdirect/phpcodesniffer-composer-installer": true
     }
   }
 }

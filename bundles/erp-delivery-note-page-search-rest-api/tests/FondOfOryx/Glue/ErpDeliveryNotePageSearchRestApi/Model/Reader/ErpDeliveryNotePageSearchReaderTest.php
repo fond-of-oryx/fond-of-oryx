@@ -3,16 +3,17 @@
 namespace FondOfOryx\Glue\ErpDeliveryNotePageSearchRestApi\Model\Reader;
 
 use Codeception\Test\Unit;
-use FondOfOryx\Glue\ErpDeliveryNotePageSearchRestApi\Dependency\Client\ErpDeliveryNotePageSearchRestApiToErpDeliveryNotePageSearchClientBridge;
-use FondOfOryx\Glue\ErpDeliveryNotePageSearchRestApi\Model\Builder\RequestBuilder;
-use FondOfOryx\Glue\ErpDeliveryNotePageSearchRestApi\Model\Mapper\ErpDeliveryNoteMapper;
+use FondOfOryx\Glue\ErpDeliveryNotePageSearchRestApi\Dependency\Client\ErpDeliveryNotePageSearchRestApiToErpDeliveryNotePageSearchClientInterface;
+use FondOfOryx\Glue\ErpDeliveryNotePageSearchRestApi\Model\Builder\RequestBuilderInterface;
+use FondOfOryx\Glue\ErpDeliveryNotePageSearchRestApi\Model\Mapper\RestErpDeliveryNotePageSearchCollectionResponseMapperInterface;
+use FondOfOryx\Glue\ErpDeliveryNotePageSearchRestApi\Model\Translator\RestErpDeliveryNotePageSearchCollectionResponseTranslatorInterface;
 use Generated\Shared\Transfer\ErpDeliveryNotePageSearchRequestTransfer;
 use Generated\Shared\Transfer\RestErpDeliveryNotePageSearchCollectionResponseTransfer;
-use Spryker\Glue\GlueApplication\Rest\JsonApi\RestResource;
-use Spryker\Glue\GlueApplication\Rest\JsonApi\RestResourceBuilder;
-use Spryker\Glue\GlueApplication\Rest\JsonApi\RestResponse;
+use Spryker\Glue\GlueApplication\Rest\JsonApi\RestResourceBuilderInterface;
+use Spryker\Glue\GlueApplication\Rest\JsonApi\RestResourceInterface;
 use Spryker\Glue\GlueApplication\Rest\JsonApi\RestResponseInterface;
-use Spryker\Glue\GlueApplication\Rest\Request\Data\RestRequest;
+use Spryker\Glue\GlueApplication\Rest\Request\Data\MetadataInterface;
+use Spryker\Glue\GlueApplication\Rest\Request\Data\RestRequestInterface;
 
 class ErpDeliveryNotePageSearchReaderTest extends Unit
 {
@@ -20,6 +21,11 @@ class ErpDeliveryNotePageSearchReaderTest extends Unit
      * @var \Spryker\Glue\GlueApplication\Rest\Request\Data\RestRequestInterface|\PHPUnit\Framework\MockObject\MockObject
      */
     protected $restRequestMock;
+
+    /**
+     * @var \PHPUnit\Framework\MockObject\MockObject|\Spryker\Glue\GlueApplication\Rest\Request\Data\MetadataInterface
+     */
+    protected $metadataMock;
 
     /**
      * @var \Generated\Shared\Transfer\ErpDeliveryNotePageSearchRequestTransfer|\PHPUnit\Framework\MockObject\MockObject
@@ -37,9 +43,14 @@ class ErpDeliveryNotePageSearchReaderTest extends Unit
     protected $requestBuilderMock;
 
     /**
-     * @var \FondOfOryx\Glue\ErpDeliveryNotePageSearchRestApi\Model\Mapper\ErpDeliveryNoteMapperInterface|\PHPUnit\Framework\MockObject\MockObject
+     * @var \FondOfOryx\Glue\ErpDeliveryNotePageSearchRestApi\Model\Mapper\RestErpDeliveryNotePageSearchCollectionResponseMapperInterface|\PHPUnit\Framework\MockObject\MockObject
      */
-    protected $erpDeliveryNoteMapperMock;
+    protected $restErpDeliveryNotePageSearchCollectionResponseMapperMock;
+
+    /**
+     * @var \FondOfOryx\Glue\ErpDeliveryNotePageSearchRestApi\Model\Translator\RestErpDeliveryNotePageSearchCollectionResponseTranslatorInterface|\PHPUnit\Framework\MockObject\MockObject
+     */
+    protected $restErpDeliveryNotePageSearchCollectionResponseTranslatorMock;
 
     /**
      * @var \Spryker\Glue\GlueApplication\Rest\JsonApi\RestResourceBuilderInterface|\PHPUnit\Framework\MockObject\MockObject
@@ -59,7 +70,7 @@ class ErpDeliveryNotePageSearchReaderTest extends Unit
     /**
      * @var \Generated\Shared\Transfer\RestErpDeliveryNotePageSearchCollectionResponseTransfer|\PHPUnit\Framework\MockObject\MockObject
      */
-    protected $erpDeliveryNoteTransferMock;
+    protected $restErpDeliveryNotePageSearchCollectionResponseTransferMock;
 
     /**
      * @var \FondOfOryx\Glue\ErpDeliveryNotePageSearchRestApi\Model\Reader\ErpDeliveryNotePageSearchReaderInterface
@@ -69,12 +80,17 @@ class ErpDeliveryNotePageSearchReaderTest extends Unit
     /**
      * @return void
      */
-    protected function _before()
+    protected function _before(): void
     {
         parent::_before();
 
         $this->restRequestMock = $this
-            ->getMockBuilder(RestRequest::class)
+            ->getMockBuilder(RestRequestInterface::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $this->metadataMock = $this
+            ->getMockBuilder(MetadataInterface::class)
             ->disableOriginalConstructor()
             ->getMock();
 
@@ -84,36 +100,41 @@ class ErpDeliveryNotePageSearchReaderTest extends Unit
             ->getMock();
 
         $this->erpDeliveryNotePageSearchClient = $this
-            ->getMockBuilder(ErpDeliveryNotePageSearchRestApiToErpDeliveryNotePageSearchClientBridge::class)
+            ->getMockBuilder(ErpDeliveryNotePageSearchRestApiToErpDeliveryNotePageSearchClientInterface::class)
             ->disableOriginalConstructor()
             ->getMock();
 
-        $this->erpDeliveryNoteMapperMock = $this
-            ->getMockBuilder(ErpDeliveryNoteMapper::class)
+        $this->restErpDeliveryNotePageSearchCollectionResponseMapperMock = $this
+            ->getMockBuilder(RestErpDeliveryNotePageSearchCollectionResponseMapperInterface::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $this->restErpDeliveryNotePageSearchCollectionResponseTranslatorMock = $this
+            ->getMockBuilder(RestErpDeliveryNotePageSearchCollectionResponseTranslatorInterface::class)
             ->disableOriginalConstructor()
             ->getMock();
 
         $this->requestBuilderMock = $this
-            ->getMockBuilder(RequestBuilder::class)
+            ->getMockBuilder(RequestBuilderInterface::class)
             ->disableOriginalConstructor()
             ->getMock();
 
         $this->restResourceBuilderMock = $this
-            ->getMockBuilder(RestResourceBuilder::class)
+            ->getMockBuilder(RestResourceBuilderInterface::class)
             ->disableOriginalConstructor()
             ->getMock();
 
         $this->restResourceMock = $this
-            ->getMockBuilder(RestResource::class)
+            ->getMockBuilder(RestResourceInterface::class)
             ->disableOriginalConstructor()
             ->getMock();
 
         $this->restResponseMock = $this
-            ->getMockBuilder(RestResponse::class)
+            ->getMockBuilder(RestResponseInterface::class)
             ->disableOriginalConstructor()
             ->getMock();
 
-        $this->erpDeliveryNoteTransferMock = $this
+        $this->restErpDeliveryNotePageSearchCollectionResponseTransferMock = $this
             ->getMockBuilder(RestErpDeliveryNotePageSearchCollectionResponseTransfer::class)
             ->disableOriginalConstructor()
             ->getMock();
@@ -121,7 +142,8 @@ class ErpDeliveryNotePageSearchReaderTest extends Unit
         $this->reader = new ErpDeliveryNotePageSearchReader(
             $this->erpDeliveryNotePageSearchClient,
             $this->requestBuilderMock,
-            $this->erpDeliveryNoteMapperMock,
+            $this->restErpDeliveryNotePageSearchCollectionResponseMapperMock,
+            $this->restErpDeliveryNotePageSearchCollectionResponseTranslatorMock,
             $this->restResourceBuilderMock,
         );
     }
@@ -131,17 +153,63 @@ class ErpDeliveryNotePageSearchReaderTest extends Unit
      */
     public function testFindErpDeliveryNotesByFilterTransfer(): void
     {
-        $this->requestBuilderMock->expects($this->once())->method('create')->willReturn($this->erpDeliveryNotePageSearchRequestTransferMock);
-        $this->erpDeliveryNotePageSearchRequestTransferMock->expects($this->once())->method('getSearchString')->willReturn('');
-        $this->erpDeliveryNotePageSearchRequestTransferMock->expects($this->once())->method('getRequestParams')->willReturn([]);
-        $this->erpDeliveryNotePageSearchClient->expects($this->once())->method('search')->willReturn([]);
-        $this->restResourceBuilderMock->expects($this->once())->method('createRestResponse')->willReturn($this->restResponseMock);
-        $this->restResourceBuilderMock->expects($this->once())->method('createRestResource')->willReturn($this->restResourceMock);
-        $this->erpDeliveryNoteMapperMock->expects($this->once())->method('mapErpDeliveryNoteResource')->willReturn($this->erpDeliveryNoteTransferMock);
-        $this->restResponseMock->expects($this->once())->method('addResource')->willReturn($this->restResponseMock);
+        $searchString = 'foo';
+        $requestParams = [];
+        $searchResult = [];
+        $locale = 'de_DE';
 
-        $response = $this->reader->findErpDeliveryNotesByFilterTransfer($this->restRequestMock);
+        $this->requestBuilderMock->expects(static::atLeastOnce())
+            ->method('create')
+            ->willReturn($this->erpDeliveryNotePageSearchRequestTransferMock);
 
-        $this->assertInstanceOf(RestResponseInterface::class, $response);
+        $this->erpDeliveryNotePageSearchRequestTransferMock->expects(static::atLeastOnce())
+            ->method('getSearchString')
+            ->willReturn($searchString);
+
+        $this->erpDeliveryNotePageSearchRequestTransferMock->expects(static::atLeastOnce())
+            ->method('getRequestParams')
+            ->willReturn($requestParams);
+
+        $this->erpDeliveryNotePageSearchClient->expects(static::atLeastOnce())
+            ->method('search')
+            ->with($searchString, $requestParams)
+            ->willReturn($searchResult);
+
+        $this->restRequestMock->expects(static::atLeastOnce())
+            ->method('getMetadata')
+            ->willReturn($this->metadataMock);
+
+        $this->metadataMock->expects(static::atLeastOnce())
+            ->method('getLocale')
+            ->willReturn($locale);
+
+        $this->restResourceBuilderMock->expects(static::atLeastOnce())
+            ->method('createRestResponse')
+            ->willReturn($this->restResponseMock);
+
+        $this->restResourceBuilderMock->expects(static::atLeastOnce())
+            ->method('createRestResource')
+            ->willReturn($this->restResourceMock);
+
+        $this->restErpDeliveryNotePageSearchCollectionResponseMapperMock->expects(static::atLeastOnce())
+            ->method('fromSearchResult')
+            ->with($searchResult)
+            ->willReturn($this->restErpDeliveryNotePageSearchCollectionResponseTransferMock);
+
+        $this->restErpDeliveryNotePageSearchCollectionResponseTranslatorMock->expects(static::atLeastOnce())
+            ->method('translate')
+            ->with(
+                $this->restErpDeliveryNotePageSearchCollectionResponseTransferMock,
+                $locale,
+            )->willReturn($this->restErpDeliveryNotePageSearchCollectionResponseTransferMock);
+
+        $this->restResponseMock->expects(static::atLeastOnce())
+            ->method('addResource')
+            ->willReturn($this->restResponseMock);
+
+        static::assertEquals(
+            $this->restResponseMock,
+            $this->reader->findErpDeliveryNotesByFilterTransfer($this->restRequestMock),
+        );
     }
 }

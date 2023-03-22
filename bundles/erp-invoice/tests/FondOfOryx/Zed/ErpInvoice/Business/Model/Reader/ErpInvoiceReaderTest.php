@@ -19,7 +19,7 @@ class ErpInvoiceReaderTest extends Unit
     protected $erpInvoiceTransfer;
 
     /**
-     * @var \FondOfOryx\Zed\ErpInvoice\Business\Model\Reader\ReaderInterface
+     * @var \FondOfOryx\Zed\ErpInvoice\Business\Model\Reader\ErpInvoiceReaderInterface
      */
     protected $reader;
 

@@ -3,8 +3,8 @@
 namespace FondOfOryx\Zed\InvoiceApi\Communication\Plugin\Api;
 
 use FondOfOryx\Zed\InvoiceApi\InvoiceApiConfig;
-use Generated\Shared\Transfer\ApiDataTransfer;
-use Spryker\Zed\Api\Dependency\Plugin\ApiValidatorPluginInterface;
+use Generated\Shared\Transfer\ApiRequestTransfer;
+use Spryker\Zed\ApiExtension\Dependency\Plugin\ApiValidatorPluginInterface;
 use Spryker\Zed\Kernel\Communication\AbstractPlugin;
 
 /**
@@ -22,12 +22,12 @@ class InvoiceApiValidatorPlugin extends AbstractPlugin implements ApiValidatorPl
     }
 
     /**
-     * @param \Generated\Shared\Transfer\ApiDataTransfer $apiDataTransfer
+     * @param \Generated\Shared\Transfer\ApiRequestTransfer $apiRequestTransfer
      *
      * @return array<\Generated\Shared\Transfer\ApiValidationErrorTransfer>
      */
-    public function validate(ApiDataTransfer $apiDataTransfer): array
+    public function validate(ApiRequestTransfer $apiRequestTransfer): array
     {
-        return $this->getFacade()->validate($apiDataTransfer);
+        return $this->getFacade()->validate($apiRequestTransfer);
     }
 }

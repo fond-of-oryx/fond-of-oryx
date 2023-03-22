@@ -2,25 +2,25 @@
 
 namespace FondOfOryx\Client\CustomerRegistrationRestApi;
 
-use FondOfOryx\Client\CustomerRegistrationRestApi\Dependency\Client\CustomerRegistrationRestApiToZedRequestClientInterface;
-use FondOfOryx\Client\CustomerRegistrationRestApi\Zed\CustomerRegistrationRestApiStub;
-use FondOfOryx\Client\CustomerRegistrationRestApi\Zed\CustomerRegistrationRestApiStubInterface;
+use FondOfOryx\Client\CustomerRegistrationRestApi\Zed\CustomerRegistrationRestApiZedStub;
+use FondOfOryx\Client\CustomerRegistrationRestApi\Zed\CustomerRegistrationRestApiZedStubInterface;
 use Spryker\Client\Kernel\AbstractFactory;
+use Spryker\Client\ZedRequest\ZedRequestClient;
 
 class CustomerRegistrationRestApiFactory extends AbstractFactory
 {
     /**
-     * @return \FondOfOryx\Client\CustomerRegistrationRestApi\Zed\CustomerRegistrationRestApiStubInterface
+     * @return \FondOfOryx\Client\CustomerRegistrationRestApi\Zed\CustomerRegistrationRestApiZedStubInterface
      */
-    public function createCustomerRegistrationZedStub(): CustomerRegistrationRestApiStubInterface
+    public function createCustomerRegistrationRestApiZedStub(): CustomerRegistrationRestApiZedStubInterface
     {
-        return new CustomerRegistrationRestApiStub($this->getZedRequestClient());
+        return new CustomerRegistrationRestApiZedStub($this->getZedClient());
     }
 
     /**
-     * @return \FondOfOryx\Client\CustomerRegistrationRestApi\Dependency\Client\CustomerRegistrationRestApiToZedRequestClientInterface
+     * @return \Spryker\Client\ZedRequest\ZedRequestClient
      */
-    public function getZedRequestClient(): CustomerRegistrationRestApiToZedRequestClientInterface
+    protected function getZedClient(): ZedRequestClient
     {
         return $this->getProvidedDependency(CustomerRegistrationRestApiDependencyProvider::CLIENT_ZED_REQUEST);
     }

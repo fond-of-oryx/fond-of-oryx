@@ -2,8 +2,12 @@
 
 namespace FondOfOryx\Zed\ErpOrderPageSearch;
 
+use FondOfOryx\Shared\ErpOrderPageSearch\ErpOrderPageSearchConstants;
 use Spryker\Zed\Kernel\AbstractBundleConfig;
 
+/**
+ * @codeCoverageIgnore
+ */
 class ErpOrderPageSearchConfig extends AbstractBundleConfig
 {
     /**
@@ -24,5 +28,21 @@ class ErpOrderPageSearchConfig extends AbstractBundleConfig
     public function getEventQueueName(): ?string
     {
         return null;
+    }
+
+    /**
+     * @return array<string>
+     */
+    public function getFullTextFields(): array
+    {
+        return $this->get(ErpOrderPageSearchConstants::FULL_TEXT_FIELDS, []);
+    }
+
+    /**
+     * @return array<string>
+     */
+    public function getFullTextBoostedFields(): array
+    {
+        return $this->get(ErpOrderPageSearchConstants::FULL_TEXT_BOOSTED_FIELDS, []);
     }
 }

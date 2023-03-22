@@ -7,8 +7,8 @@ use FondOfOryx\Zed\CompanyUnitAddressApi\Business\Model\CompanyUnitAddressApiInt
 use FondOfOryx\Zed\CompanyUnitAddressApi\Business\Model\Validator\CompanyUnitAddressApiValidator;
 use FondOfOryx\Zed\CompanyUnitAddressApi\Business\Model\Validator\CompanyUnitAddressApiValidatorInterface;
 use FondOfOryx\Zed\CompanyUnitAddressApi\CompanyUnitAddressApiDependencyProvider;
+use FondOfOryx\Zed\CompanyUnitAddressApi\Dependency\Facade\CompanyUnitAddressApiToApiFacadeInterface;
 use FondOfOryx\Zed\CompanyUnitAddressApi\Dependency\Facade\CompanyUnitAddressApiToCompanyUnitAddressFacadeInterface;
-use FondOfOryx\Zed\CompanyUnitAddressApi\Dependency\QueryContainer\CompanyUnitAddressApiToApiQueryContainerInterface;
 use Spryker\Zed\Kernel\Business\AbstractBusinessFactory;
 
 /**
@@ -23,18 +23,18 @@ class CompanyUnitAddressApiBusinessFactory extends AbstractBusinessFactory
     public function createCompanyUnitAddressApi(): CompanyUnitAddressApiInterface
     {
         return new CompanyUnitAddressApi(
-            $this->getApiQueryContainer(),
+            $this->getApiFacade(),
             $this->getCompanyFacade(),
             $this->getRepository(),
         );
     }
 
     /**
-     * @return \FondOfOryx\Zed\CompanyUnitAddressApi\Dependency\QueryContainer\CompanyUnitAddressApiToApiQueryContainerInterface
+     * @return \FondOfOryx\Zed\CompanyUnitAddressApi\Dependency\Facade\CompanyUnitAddressApiToApiFacadeInterface
      */
-    protected function getApiQueryContainer(): CompanyUnitAddressApiToApiQueryContainerInterface
+    protected function getApiFacade(): CompanyUnitAddressApiToApiFacadeInterface
     {
-        return $this->getProvidedDependency(CompanyUnitAddressApiDependencyProvider::QUERY_CONTAINER_API);
+        return $this->getProvidedDependency(CompanyUnitAddressApiDependencyProvider::FACADE_API);
     }
 
     /**

@@ -35,8 +35,9 @@ class CompanyUserApiRepository extends AbstractRepository implements CompanyUser
             ->toArray();
 
         $apiCollectionTransfer = $this->getFactory()
-            ->getApiQueryContainer()
-            ->createApiCollection($data);
+            ->getApiFacade()
+            ->createApiCollection([])
+            ->setData($data);
 
         if (count($apiCollectionTransfer->getData()) === 0) {
             return $apiCollectionTransfer;

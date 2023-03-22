@@ -3,8 +3,8 @@
 namespace FondOfOryx\Zed\InvoiceApi\Business\Model;
 
 use FondOfOryx\Zed\InvoiceApi\Business\Mapper\TransferMapperInterface;
+use FondOfOryx\Zed\InvoiceApi\Dependency\Facade\InvoiceApiToApiFacadeInterface;
 use FondOfOryx\Zed\InvoiceApi\Dependency\Facade\InvoiceApiToInvoiceFacadeInterface;
-use FondOfOryx\Zed\InvoiceApi\Dependency\QueryContainer\InvoiceApiToApiQueryContainerInterface;
 use Generated\Shared\Transfer\ApiDataTransfer;
 use Generated\Shared\Transfer\ApiItemTransfer;
 use Spryker\Zed\Api\ApiConfig;
@@ -13,9 +13,9 @@ use Spryker\Zed\Api\Business\Exception\EntityNotSavedException;
 class InvoiceApi implements InvoiceApiInterface
 {
     /**
-     * @var \FondOfOryx\Zed\InvoiceApi\Dependency\QueryContainer\InvoiceApiToApiQueryContainerInterface
+     * @var \FondOfOryx\Zed\InvoiceApi\Dependency\Facade\InvoiceApiToApiFacadeInterface
      */
-    protected $apiQueryContainer;
+    protected $apiFacade;
 
     /**
      * @var \FondOfOryx\Zed\InvoiceApi\Dependency\Facade\InvoiceApiToInvoiceFacadeInterface
@@ -28,16 +28,16 @@ class InvoiceApi implements InvoiceApiInterface
     protected $transferMapper;
 
     /**
-     * @param \FondOfOryx\Zed\InvoiceApi\Dependency\QueryContainer\InvoiceApiToApiQueryContainerInterface $apiQueryContainer
+     * @param \FondOfOryx\Zed\InvoiceApi\Dependency\Facade\InvoiceApiToApiFacadeInterface $apiFacade
      * @param \FondOfOryx\Zed\InvoiceApi\Business\Mapper\TransferMapperInterface $transferMapper
      * @param \FondOfOryx\Zed\InvoiceApi\Dependency\Facade\InvoiceApiToInvoiceFacadeInterface $invoiceFacade
      */
     public function __construct(
-        InvoiceApiToApiQueryContainerInterface $apiQueryContainer,
+        InvoiceApiToApiFacadeInterface $apiFacade,
         TransferMapperInterface $transferMapper,
         InvoiceApiToInvoiceFacadeInterface $invoiceFacade
     ) {
-        $this->apiQueryContainer = $apiQueryContainer;
+        $this->apiFacade = $apiFacade;
         $this->transferMapper = $transferMapper;
         $this->invoiceFacade = $invoiceFacade;
     }
@@ -68,9 +68,9 @@ class InvoiceApi implements InvoiceApiInterface
             );
         }
 
-        return $this->apiQueryContainer->createApiItem(
+        return $this->apiFacade->createApiItem(
             $invoiceTransfer,
-            $invoiceTransfer->getIdInvoice(),
+            (string)$invoiceTransfer->getIdInvoice(),
         );
     }
 }

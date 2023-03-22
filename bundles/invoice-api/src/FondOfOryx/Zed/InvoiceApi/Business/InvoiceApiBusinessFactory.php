@@ -8,8 +8,8 @@ use FondOfOryx\Zed\InvoiceApi\Business\Model\InvoiceApi;
 use FondOfOryx\Zed\InvoiceApi\Business\Model\InvoiceApiInterface;
 use FondOfOryx\Zed\InvoiceApi\Business\Model\Validator\InvoiceApiValidator;
 use FondOfOryx\Zed\InvoiceApi\Business\Model\Validator\InvoiceApiValidatorInterface;
+use FondOfOryx\Zed\InvoiceApi\Dependency\Facade\InvoiceApiToApiFacadeInterface;
 use FondOfOryx\Zed\InvoiceApi\Dependency\Facade\InvoiceApiToInvoiceFacadeInterface;
-use FondOfOryx\Zed\InvoiceApi\Dependency\QueryContainer\InvoiceApiToApiQueryContainerInterface;
 use FondOfOryx\Zed\InvoiceApi\InvoiceApiDependencyProvider;
 use Spryker\Zed\Kernel\Business\AbstractBusinessFactory;
 
@@ -24,7 +24,7 @@ class InvoiceApiBusinessFactory extends AbstractBusinessFactory
     public function createInvoiceApi(): InvoiceApiInterface
     {
         return new InvoiceApi(
-            $this->getApiQueryContainer(),
+            $this->getApiFacade(),
             $this->createTransferMapper(),
             $this->getInvoiceFacade(),
         );
@@ -47,11 +47,11 @@ class InvoiceApiBusinessFactory extends AbstractBusinessFactory
     }
 
     /**
-     * @return \FondOfOryx\Zed\InvoiceApi\Dependency\QueryContainer\InvoiceApiToApiQueryContainerInterface
+     * @return \FondOfOryx\Zed\InvoiceApi\Dependency\Facade\InvoiceApiToApiFacadeInterface
      */
-    protected function getApiQueryContainer(): InvoiceApiToApiQueryContainerInterface
+    protected function getApiFacade(): InvoiceApiToApiFacadeInterface
     {
-        return $this->getProvidedDependency(InvoiceApiDependencyProvider::QUERY_CONTAINER_API);
+        return $this->getProvidedDependency(InvoiceApiDependencyProvider::FACADE_API);
     }
 
     /**

@@ -17,8 +17,6 @@ use Spryker\Zed\Kernel\Communication\AbstractPlugin;
 class CompanyApiResourcePlugin extends AbstractPlugin implements ApiResourcePluginInterface
 {
     /**
-     * @api
-     *
      * @return string
      */
     public function getResourceName(): string
@@ -27,8 +25,6 @@ class CompanyApiResourcePlugin extends AbstractPlugin implements ApiResourcePlug
     }
 
     /**
-     * @api
-     *
      * @param \Generated\Shared\Transfer\ApiDataTransfer $apiDataTransfer
      *
      * @return \Generated\Shared\Transfer\ApiItemTransfer
@@ -39,8 +35,6 @@ class CompanyApiResourcePlugin extends AbstractPlugin implements ApiResourcePlug
     }
 
     /**
-     * @api
-     *
      * @param int $id
      *
      * @return \Generated\Shared\Transfer\ApiItemTransfer
@@ -51,8 +45,6 @@ class CompanyApiResourcePlugin extends AbstractPlugin implements ApiResourcePlug
     }
 
     /**
-     * @api
-     *
      * @param int $id
      * @param \Generated\Shared\Transfer\ApiDataTransfer $apiDataTransfer
      *
@@ -64,8 +56,6 @@ class CompanyApiResourcePlugin extends AbstractPlugin implements ApiResourcePlug
     }
 
     /**
-     * @api
-     *
      * @param int $id
      *
      * @return \Generated\Shared\Transfer\ApiItemTransfer
@@ -76,8 +66,6 @@ class CompanyApiResourcePlugin extends AbstractPlugin implements ApiResourcePlug
     }
 
     /**
-     * @api
-     *
      * @param \Generated\Shared\Transfer\ApiRequestTransfer $apiRequestTransfer
      *
      * @return \Generated\Shared\Transfer\ApiCollectionTransfer

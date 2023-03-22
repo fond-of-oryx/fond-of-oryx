@@ -4,11 +4,13 @@ namespace FondOfOryx\Zed\ErpDeliveryNotePageSearch\Business\Publisher;
 
 use FondOfOryx\Zed\ErpDeliveryNotePageSearch\Business\Mapper\ErpDeliveryNotePageSearchDataMapperInterface;
 use FondOfOryx\Zed\ErpDeliveryNotePageSearch\Dependency\Service\ErpDeliveryNotePageSearchToUtilEncodingServiceInterface;
+use FondOfOryx\Zed\ErpDeliveryNotePageSearch\ErpDeliveryNotePageSearchConfig;
 use FondOfOryx\Zed\ErpDeliveryNotePageSearch\Persistence\ErpDeliveryNotePageSearchEntityManagerInterface;
 use FondOfOryx\Zed\ErpDeliveryNotePageSearch\Persistence\ErpDeliveryNotePageSearchQueryContainerInterface;
 use Generated\Shared\Transfer\ErpDeliveryNotePageSearchTransfer;
 use Orm\Zed\ErpDeliveryNote\Persistence\FooErpDeliveryNote;
 use Orm\Zed\ErpDeliveryNote\Persistence\FooErpDeliveryNoteAddress;
+use Orm\Zed\ErpDeliveryNote\Persistence\FooErpDeliveryNoteItem;
 use Propel\Runtime\Collection\ObjectCollection;
 
 class ErpDeliveryNotePageSearchPublisher implements ErpDeliveryNotePageSearchPublisherInterface
@@ -31,6 +33,11 @@ class ErpDeliveryNotePageSearchPublisher implements ErpDeliveryNotePageSearchPub
     /**
      * @var string
      */
+    public const ERP_DELIVERY_NOTE_TRACKING = 'erpDeliveryNoteTracking';
+
+    /**
+     * @var string
+     */
     public const BILLING_ADDRESS = 'billingAddress';
 
     /**
@@ -42,6 +49,16 @@ class ErpDeliveryNotePageSearchPublisher implements ErpDeliveryNotePageSearchPub
      * @var string
      */
     public const FIELD_COUNTRY = 'country';
+
+    /**
+     * @var string
+     */
+    public const FIELD_QUANTITY = 'quantity';
+
+    /**
+     * @var string
+     */
+    public const FIELD_TRACKING_DATA = 'tracking_data';
 
     /**
      * @var \FondOfOryx\Zed\ErpDeliveryNotePageSearch\Persistence\ErpDeliveryNotePageSearchEntityManagerInterface
@@ -64,21 +81,29 @@ class ErpDeliveryNotePageSearchPublisher implements ErpDeliveryNotePageSearchPub
     protected $erpDeliveryNotePageSearchDataMapper;
 
     /**
+     * @var \FondOfOryx\Zed\ErpDeliveryNotePageSearch\ErpDeliveryNotePageSearchConfig
+     */
+    protected $config;
+
+    /**
      * @param \FondOfOryx\Zed\ErpDeliveryNotePageSearch\Persistence\ErpDeliveryNotePageSearchEntityManagerInterface $entityManager
      * @param \FondOfOryx\Zed\ErpDeliveryNotePageSearch\Persistence\ErpDeliveryNotePageSearchQueryContainerInterface $queryContainer
      * @param \FondOfOryx\Zed\ErpDeliveryNotePageSearch\Dependency\Service\ErpDeliveryNotePageSearchToUtilEncodingServiceInterface $utilEncodingService
      * @param \FondOfOryx\Zed\ErpDeliveryNotePageSearch\Business\Mapper\ErpDeliveryNotePageSearchDataMapperInterface $erpDeliveryNotePageSearchDataMapper
+     * @param \FondOfOryx\Zed\ErpDeliveryNotePageSearch\ErpDeliveryNotePageSearchConfig $config
      */
     public function __construct(
         ErpDeliveryNotePageSearchEntityManagerInterface $entityManager,
         ErpDeliveryNotePageSearchQueryContainerInterface $queryContainer,
         ErpDeliveryNotePageSearchToUtilEncodingServiceInterface $utilEncodingService,
-        ErpDeliveryNotePageSearchDataMapperInterface $erpDeliveryNotePageSearchDataMapper
+        ErpDeliveryNotePageSearchDataMapperInterface $erpDeliveryNotePageSearchDataMapper,
+        ErpDeliveryNotePageSearchConfig $config
     ) {
         $this->entityManager = $entityManager;
         $this->queryContainer = $queryContainer;
         $this->utilEncodingService = $utilEncodingService;
         $this->erpDeliveryNotePageSearchDataMapper = $erpDeliveryNotePageSearchDataMapper;
+        $this->config = $config;
     }
 
     /**
@@ -132,6 +157,7 @@ class ErpDeliveryNotePageSearchPublisher implements ErpDeliveryNotePageSearchPub
         $erpDeliveryNoteData[static::COMPANY_BUSINESS_UNIT] = $companyBusinessUnit->toArray();
         $erpDeliveryNoteData[static::ERP_DELIVERY_NOTE_ITEMS] = $this->getItems($orderItemEntities);
         $erpDeliveryNoteData[static::ERP_DELIVERY_NOTE_EXPENSES] = $this->getExpenses($orderExpenseEntities);
+        $erpDeliveryNoteData[static::ERP_DELIVERY_NOTE_TRACKING] = $this->getTracking($orderItemEntities);
         $erpDeliveryNoteData[static::BILLING_ADDRESS] = $this->getAddress($billingAddress);
         $erpDeliveryNoteData[static::SHIPPING_ADDRESS] = $this->getAddress($shippingAddress);
 
@@ -219,14 +245,73 @@ class ErpDeliveryNotePageSearchPublisher implements ErpDeliveryNotePageSearchPub
      *
      * @return array
      */
+    protected function getTracking(ObjectCollection $orderItemEntities): array
+    {
+        $tracking = [];
+        /** @var \Orm\Zed\ErpDeliveryNote\Persistence\FooErpDeliveryNoteItem $orderItemEntity */
+        foreach ($orderItemEntities->getData() as $orderItemEntity) {
+            foreach ($orderItemEntity->getFooErpDeliveryNoteTrackingToItems() as $trackingToItem) {
+                $trackingEntity = $trackingToItem->getFooErpDeliveryNoteTracking();
+                $trackingData = $trackingEntity->toArray();
+                $trackingData[static::FIELD_QUANTITY] = $trackingToItem->getQuantity();
+                $tracking[$trackingEntity->getTrackingNumber()][$orderItemEntity->getSku()] = $this->cleanBlacklistedData($this->config->getTrackingDataFieldsToRemove(), $trackingData);
+            }
+        }
+
+        return $tracking;
+    }
+
+    /**
+     * @param array $blacklist
+     * @param array $trackingData
+     *
+     * @return array
+     */
+    protected function cleanBlacklistedData(array $blacklist, array $trackingData): array
+    {
+        foreach ($blacklist as $key) {
+            if (array_key_exists($key, $trackingData)) {
+                unset($trackingData[$key]);
+            }
+        }
+
+        return $trackingData;
+//        return array_diff_key(array_flip($blacklist), $trackingData);
+    }
+
+    /**
+     * @param \Propel\Runtime\Collection\ObjectCollection<\Orm\Zed\ErpDeliveryNote\Persistence\FooErpDeliveryNoteItem> $orderItemEntities
+     *
+     * @return array
+     */
     protected function getItems(ObjectCollection $orderItemEntities): array
     {
         $items = [];
         foreach ($orderItemEntities as $orderItemEntity) {
             $item = $orderItemEntity->toArray();
-            $items[] = $item;
+            $item[static::FIELD_TRACKING_DATA] = $this->appendItemTrackingData($orderItemEntity);
+            $items[] = $this->cleanBlacklistedData($this->config->getItemDataFieldsToRemove(), $item);
         }
 
         return $items;
+    }
+
+    /**
+     * @param \Orm\Zed\ErpDeliveryNote\Persistence\FooErpDeliveryNoteItem $fooErpDeliveryNoteItemEntity
+     *
+     * @return array
+     */
+    protected function appendItemTrackingData(FooErpDeliveryNoteItem $fooErpDeliveryNoteItemEntity): array
+    {
+        $tracking = [];
+
+        foreach ($fooErpDeliveryNoteItemEntity->getFooErpDeliveryNoteTrackingToItems() as $trackingToItem) {
+            $trackingEntity = $trackingToItem->getFooErpDeliveryNoteTracking();
+            $trackingData = $trackingEntity->toArray();
+            $trackingData[static::FIELD_QUANTITY] = $trackingToItem->getQuantity();
+            $tracking[] = $this->cleanBlacklistedData($this->config->getTrackingDataFieldsToRemove(), $trackingData);
+        }
+
+        return $tracking;
     }
 }

@@ -97,6 +97,11 @@ class ErpOrderPageSearchDataMapper implements ErpOrderPageSearchDataMapperInterf
     /**
      * @var string
      */
+    public const IS_CANCELED = 'is_canceled';
+
+    /**
+     * @var string
+     */
     public const OUTSTANDING_QUANTITY = 'outstanding_quantity';
 
     /**
@@ -152,6 +157,11 @@ class ErpOrderPageSearchDataMapper implements ErpOrderPageSearchDataMapperInterf
     /**
      * @var string
      */
+    public const SEARCH_RESULT_IS_CANCELED = 'is_canceled';
+
+    /**
+     * @var string
+     */
     public const SEARCH_RESULT_ITEMS = 'items';
 
     /**
@@ -180,6 +190,28 @@ class ErpOrderPageSearchDataMapper implements ErpOrderPageSearchDataMapperInterf
     public const SEARCH_RESULT_CURRENCY_ISO_CODE = 'currency_iso_code';
 
     /**
+     * @var \FondOfOryx\Zed\ErpOrderPageSearch\Business\Mapper\AbstractFullTextMapper
+     */
+    protected $fullTextMapper;
+
+    /**
+     * @var \FondOfOryx\Zed\ErpOrderPageSearch\Business\Mapper\AbstractFullTextMapper
+     */
+    protected $fullTextBoostedMapper;
+
+    /**
+     * @param \FondOfOryx\Zed\ErpOrderPageSearch\Business\Mapper\AbstractFullTextMapper $fullTextMapper
+     * @param \FondOfOryx\Zed\ErpOrderPageSearch\Business\Mapper\AbstractFullTextMapper $fullTextBoostedMapper
+     */
+    public function __construct(
+        AbstractFullTextMapper $fullTextMapper,
+        AbstractFullTextMapper $fullTextBoostedMapper
+    ) {
+        $this->fullTextMapper = $fullTextMapper;
+        $this->fullTextBoostedMapper = $fullTextBoostedMapper;
+    }
+
+    /**
      * @param array $data
      *
      * @return array
@@ -188,6 +220,8 @@ class ErpOrderPageSearchDataMapper implements ErpOrderPageSearchDataMapperInterf
     {
         return [
             ErpOrderIndexMap::LOCALE => null,
+            ErpOrderIndexMap::FULL_TEXT => $this->fullTextMapper->fromData($data),
+            ErpOrderIndexMap::FULL_TEXT_BOOSTED => $this->fullTextBoostedMapper->fromData($data),
             ErpOrderIndexMap::CONCRETE_DELIVERY_DATE => $this->formatDate($data[static::CONCRETE_DELIVERY_DATE]),
             ErpOrderIndexMap::CREATED_AT => $this->formatDate($data[static::CREATED_AT]),
             ErpOrderIndexMap::UPDATED_AT => $this->formatDate($data[static::UPDATED_AT]),
@@ -195,6 +229,7 @@ class ErpOrderPageSearchDataMapper implements ErpOrderPageSearchDataMapperInterf
             ErpOrderIndexMap::ID_COMPANY_BUSINESS_UNIT => $data[static::FK_COMPANY_BUSINESS_UNIT],
             ErpOrderIndexMap::COMPANY_BUSINESS_UNIT_UUID => $data[static::COMPANY_BUSINESS_UNIT][static::COMPANY_BUSINESS_UNIT_UUID],
             ErpOrderIndexMap::OUTSTANDING_QUANTITY => $data[static::OUTSTANDING_QUANTITY],
+            ErpOrderIndexMap::IS_CANCELED => $data[static::IS_CANCELED],
             ErpOrderIndexMap::SEARCH_RESULT_DATA => $this->mapErpOrderDataToSearchResultData($data),
         ];
     }
@@ -223,6 +258,7 @@ class ErpOrderPageSearchDataMapper implements ErpOrderPageSearchDataMapperInterf
             static::SEARCH_RESULT_SHIPPING_ADDRESS => $data[static::SHIPPING_ADDRESS],
             static::SEARCH_RESULT_BILLING_ADDRESS => $data[static::BILLING_ADDRESS],
             static::SEARCH_RESULT_CURRENCY_ISO_CODE => $data[static::CURRENCY_ISO_CODE],
+            static::SEARCH_RESULT_IS_CANCELED => $data[static::IS_CANCELED],
         ];
     }
 

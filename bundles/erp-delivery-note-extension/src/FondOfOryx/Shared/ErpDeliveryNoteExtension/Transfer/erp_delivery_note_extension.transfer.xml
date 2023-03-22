@@ -16,4 +16,8 @@
 
     <transfer name="ErpDeliveryNoteResponse" />
 
+    <transfer name="ErpDeliveryNoteTracking" />
+
+    <transfer name="ErpDeliveryNoteTrackingCollection" />
+
 </transfers>

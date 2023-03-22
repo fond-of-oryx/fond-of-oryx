@@ -2,8 +2,8 @@
 
 namespace FondOfOryx\Zed\ErpInvoiceApi\Persistence;
 
+use FondOfOryx\Zed\ErpInvoiceApi\Dependency\Facade\ErpInvoiceApiToApiFacadeInterface;
 use FondOfOryx\Zed\ErpInvoiceApi\Dependency\QueryContainer\ErpInvoiceApiToApiQueryBuilderQueryContainerInterface;
-use FondOfOryx\Zed\ErpInvoiceApi\Dependency\QueryContainer\ErpInvoiceApiToApiQueryContainerInterface;
 use FondOfOryx\Zed\ErpInvoiceApi\ErpInvoiceApiDependencyProvider;
 use Orm\Zed\ErpInvoice\Persistence\FooErpInvoiceQuery;
 use Spryker\Zed\Kernel\Persistence\AbstractPersistenceFactory;
@@ -33,10 +33,10 @@ class ErpInvoiceApiPersistenceFactory extends AbstractPersistenceFactory
     }
 
     /**
-     * @return \FondOfOryx\Zed\ErpInvoiceApi\Dependency\QueryContainer\ErpInvoiceApiToApiQueryContainerInterface
+     * @return \FondOfOryx\Zed\ErpInvoiceApi\Dependency\Facade\ErpInvoiceApiToApiFacadeInterface
      */
-    public function getApiQueryContainer(): ErpInvoiceApiToApiQueryContainerInterface
+    public function getApiFacade(): ErpInvoiceApiToApiFacadeInterface
     {
-        return $this->getProvidedDependency(ErpInvoiceApiDependencyProvider::QUERY_CONTAINER_API);
+        return $this->getProvidedDependency(ErpInvoiceApiDependencyProvider::FACADE_API);
     }
 }

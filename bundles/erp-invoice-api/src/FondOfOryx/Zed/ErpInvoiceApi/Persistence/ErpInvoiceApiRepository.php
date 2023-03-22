@@ -35,8 +35,9 @@ class ErpInvoiceApiRepository extends AbstractRepository implements ErpInvoiceAp
             ->toArray();
 
         $apiCollectionTransfer = $this->getFactory()
-            ->getApiQueryContainer()
-            ->createApiCollection($data);
+            ->getApiFacade()
+            ->createApiCollection([])
+            ->setData($data);
 
         if (count($apiCollectionTransfer->getData()) === 0) {
             return $apiCollectionTransfer;

@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * phpcs:disable SlevomatCodingStandard.Functions.DisallowTrailingCommaInClosureUse
+ */
+
 namespace FondOfOryx\Zed\FallbackProductList\Communication\Plugin\Customer;
 
 use Codeception\Test\Unit;
@@ -125,7 +129,7 @@ class FallbackProductListCustomerTransferExpanderPluginTest extends Unit
                         CustomerProductListCollectionTransfer $customerProductListCollectionTransfer
                     ) use (
                         $fallbackWhitelistIds,
-                        $fallbackBlacklistIds
+                        $fallbackBlacklistIds,
                     ) {
                         return $customerProductListCollectionTransfer->getBlacklistIds() === $fallbackBlacklistIds
                             && $customerProductListCollectionTransfer->getWhitelistIds() === $fallbackWhitelistIds;

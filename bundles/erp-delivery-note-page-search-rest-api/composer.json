@@ -9,8 +9,9 @@
     }
   ],
   "require": {
-    "php": ">=7.3",
-    "fond-of-oryx/erp-delivery-note-page-search": "^1.0.0",
+    "php": ">=8.0",
+    "fond-of-oryx/erp-delivery-note-page-search": "^2.2.0",
+    "spryker/glossary-storage": "^1.5.0",
     "spryker/glue-application": "^1.0.0",
     "spryker/glue-application-extension": "^1.0.0"
   },
@@ -31,6 +32,12 @@
       "FondOfOryx\\": "tests/FondOfOryx/",
       "Generated\\": "src/Generated/",
       "Orm\\Zed\\": "src/Orm/Zed/"
+    }
+  },
+  "config": {
+    "sort-packages": true,
+    "allow-plugins": {
+      "dealerdirect/phpcodesniffer-composer-installer": true
     }
   }
 }

@@ -27,6 +27,7 @@
         <property name="currentPage" type="int" />
         <property name="maxPage" type="int" />
         <property name="currentItemsPerPage" type="int" />
+        <property name="config" type="RestErpDeliveryNotePageSearchPaginationConfig" />
     </transfer>
 
     <transfer name="RestErpDeliveryNotePageSearchPaginationSort">
@@ -34,6 +35,13 @@
         <property name="sortParamLocalizedNames" type="array" singular="sortParamLocalizedNames"/>
         <property name="currentSortParam" type="string"/>
         <property name="currentSortOrder" type="string"/>
+    </transfer>
+
+    <transfer name="RestErpDeliveryNotePageSearchPaginationConfig">
+        <property name="parameterName" type="string"/>
+        <property name="itemsPerPageParameterName" type="string"/>
+        <property name="defaultItemsPerPage" type="int"/>
+        <property name="validItemsPerPageOptions" type="array" singular="validItemsPerPageOptions"/>
     </transfer>
 
     <transfer name="RestErpDeliveryNote">
@@ -50,6 +58,7 @@
         <property name="items" singular="item" type="RestErpDeliveryNoteItem[]"/>
         <property name="expenses" singular="expense" type="RestErpDeliveryNoteExpense[]"/>
         <property name="currencyIsoCode" type="string"/>
+        <property name="tracking" type="RestErpDeliveryNoteGlobalTracking[]"/>
     </transfer>
 
     <transfer name="RestErpDeliveryNoteAddress">
@@ -69,11 +78,44 @@
         <property name="name" type="string"/>
         <property name="quantity" type="int"/>
         <property name="externalReference" type="string" />
+        <property name="position" type="int"/>
+        <property name="trackingData" type="RestErpDeliveryNoteItemTracking[]"/>
     </transfer>
 
     <transfer name="RestErpDeliveryNoteExpense">
         <property name="name" type="string"/>
         <property name="quantity" type="int"/>
+    </transfer>
+
+    <transfer name="RestErpDeliveryNoteItemTracking">
+        <property name="trackingNumber" type="string"/>
+        <property name="trackingUrl" type="string"/>
+        <property name="quantity" type="float"/>
+        <property name="shippingAgentCode" type="string"/>
+        <property name="shippingAgentServiceCode" type="string"/>
+    </transfer>
+
+    <transfer name="RestErpDeliveryNoteTracking">
+        <property name="trackingNumber" type="string"/>
+        <property name="trackingUrl" type="string"/>
+        <property name="quantity" type="float"/>
+        <property name="shippingAgentCode" type="string"/>
+        <property name="shippingAgentServiceCode" type="string"/>
+        <property name="items" singular="item" type="RestErpDeliveryNoteItem[]"/>
+    </transfer>
+
+    <transfer name="RestErpDeliveryNoteGlobalTrackingItem">
+        <property name="sku" type="string"/>
+        <property name="quantity" type="float"/>
+    </transfer>
+
+    <transfer name="RestErpDeliveryNoteGlobalTracking">
+        <property name="trackingNumber" type="string"/>
+        <property name="trackingUrl" type="string"/>
+        <property name="quantity" type="float"/>
+        <property name="shippingAgentCode" type="string"/>
+        <property name="shippingAgentServiceCode" type="string"/>
+        <property name="items" singular="item" type="RestErpDeliveryNoteGlobalTrackingItem[]"/>
     </transfer>
 
     <transfer name="RestCompanyBusinessUnit">

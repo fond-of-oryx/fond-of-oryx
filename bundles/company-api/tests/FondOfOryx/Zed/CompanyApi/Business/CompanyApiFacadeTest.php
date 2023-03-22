@@ -212,9 +212,9 @@ class CompanyApiFacadeTest extends Unit
 
         $this->companyApiValidatorMock->expects(static::atLeastOnce())
             ->method('validate')
-            ->with($this->apiDataTransferMock)
+            ->with($this->apiRequestTransferMock)
             ->willReturn($errors);
 
-        static::assertEquals($errors, $this->companyApiFacade->validate($this->apiDataTransferMock));
+        static::assertEquals($errors, $this->companyApiFacade->validate($this->apiRequestTransferMock));
     }
 }

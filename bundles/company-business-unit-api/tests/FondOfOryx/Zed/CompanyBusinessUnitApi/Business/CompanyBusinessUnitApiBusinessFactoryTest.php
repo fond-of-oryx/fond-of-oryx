@@ -8,8 +8,8 @@ use FondOfOryx\Zed\CompanyBusinessUnitApi\Business\Model\CompanyBusinessUnitApi;
 use FondOfOryx\Zed\CompanyBusinessUnitApi\Business\Model\Validator\CompanyBusinessUnitApiValidator;
 use FondOfOryx\Zed\CompanyBusinessUnitApi\CompanyBusinessUnitApiConfig;
 use FondOfOryx\Zed\CompanyBusinessUnitApi\CompanyBusinessUnitApiDependencyProvider;
+use FondOfOryx\Zed\CompanyBusinessUnitApi\Dependency\Facade\CompanyBusinessUnitApiToApiFacadeInterface;
 use FondOfOryx\Zed\CompanyBusinessUnitApi\Dependency\Facade\CompanyBusinessUnitApiToCompanyBusinessUnitFacadeInterface;
-use FondOfOryx\Zed\CompanyBusinessUnitApi\Dependency\QueryContainer\CompanyBusinessUnitApiToApiQueryContainerInterface;
 use FondOfOryx\Zed\CompanyBusinessUnitApi\Persistence\CompanyBusinessUnitApiRepository;
 use Spryker\Zed\Kernel\Container;
 
@@ -31,9 +31,9 @@ class CompanyBusinessUnitApiBusinessFactoryTest extends Unit
     protected $repositoryMock;
 
     /**
-     * @var \FondOfOryx\Zed\CompanyBusinessUnitApi\Dependency\QueryContainer\CompanyBusinessUnitApiToApiQueryContainerInterface|\PHPUnit\Framework\MockObject\MockObject
+     * @var \FondOfOryx\Zed\CompanyBusinessUnitApi\Dependency\Facade\CompanyBusinessUnitApiToApiFacadeInterface|\PHPUnit\Framework\MockObject\MockObject
      */
-    protected $apiQueryContainerMock;
+    protected $apiFacadeMock;
 
     /**
      * @var \FondOfOryx\Zed\CompanyBusinessUnitApi\Dependency\Facade\CompanyBusinessUnitApiToCompanyBusinessUnitFacadeInterface|\PHPUnit\Framework\MockObject\MockObject
@@ -64,7 +64,7 @@ class CompanyBusinessUnitApiBusinessFactoryTest extends Unit
             ->disableOriginalConstructor()
             ->getMock();
 
-        $this->apiQueryContainerMock = $this->getMockBuilder(CompanyBusinessUnitApiToApiQueryContainerInterface::class)
+        $this->apiFacadeMock = $this->getMockBuilder(CompanyBusinessUnitApiToApiFacadeInterface::class)
             ->disableOriginalConstructor()
             ->getMock();
 
@@ -87,18 +87,18 @@ class CompanyBusinessUnitApiBusinessFactoryTest extends Unit
         $this->containerMock->expects(static::atLeastOnce())
             ->method('has')
             ->withConsecutive(
-                [CompanyBusinessUnitApiDependencyProvider::QUERY_CONTAINER_API],
+                [CompanyBusinessUnitApiDependencyProvider::FACADE_API],
                 [CompanyBusinessUnitApiDependencyProvider::FACADE_COMPANY_BUSINESS_UNIT],
             )->willReturn(true);
 
         $this->containerMock->expects(static::atLeastOnce())
             ->method('get')
             ->withConsecutive(
-                [CompanyBusinessUnitApiDependencyProvider::QUERY_CONTAINER_API],
+                [CompanyBusinessUnitApiDependencyProvider::FACADE_API],
                 [CompanyBusinessUnitApiDependencyProvider::FACADE_COMPANY_BUSINESS_UNIT],
             )
             ->willReturnOnConsecutiveCalls(
-                $this->apiQueryContainerMock,
+                $this->apiFacadeMock,
                 $this->companyBusinessUnitFacadeMock,
             );
 

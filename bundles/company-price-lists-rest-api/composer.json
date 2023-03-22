@@ -9,9 +9,9 @@
     }
   ],
   "require": {
-    "php": ">=7.3",
-    "fond-of-oryx/price-list-extension": "^1.0.0",
-    "fond-of-oryx/price-lists-rest-api-extension": "^1.0.0",
+    "php": ">=8.0",
+    "fond-of-oryx/price-list-extension": "^1.0.0 || ^2.0.0",
+    "fond-of-oryx/price-lists-rest-api-extension": "^1.0.0 || ^2.0.0",
     "fond-of-spryker/company-price-list": "dev-master"
   },
   "require-dev": {
@@ -29,6 +29,12 @@
     "psr-4": {
       "FondOfOryx\\": "tests/FondOfOryx/",
       "Generated\\": "src/Generated/"
+    }
+  },
+  "config": {
+    "sort-packages": true,
+    "allow-plugins": {
+      "dealerdirect/phpcodesniffer-composer-installer": true
     }
   }
 }

@@ -211,12 +211,12 @@ class ErpDeliveryNoteApiFacadeTest extends Unit
 
         $this->erpDeliveryNoteApiValidatorMock->expects(static::atLeastOnce())
             ->method('validate')
-            ->with($this->apiDataTransferMock)
+            ->with($this->apiRequestTransferMock)
             ->willReturn($validationResult);
 
         static::assertEquals(
             $validationResult,
-            $this->erpDeliveryNoteApiFacade->validateErpDeliveryNote($this->apiDataTransferMock),
+            $this->erpDeliveryNoteApiFacade->validateErpDeliveryNote($this->apiRequestTransferMock),
         );
     }
 }

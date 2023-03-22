@@ -6,8 +6,8 @@ use Codeception\Test\Unit;
 use FondOfOryx\Zed\ConcreteProductApi\Business\Model\ConcreteProductApi;
 use FondOfOryx\Zed\ConcreteProductApi\Business\Validator\ConcreteProductApiValidator;
 use FondOfOryx\Zed\ConcreteProductApi\ConcreteProductApiDependencyProvider;
+use FondOfOryx\Zed\ConcreteProductApi\Dependency\Facade\ConcreteProductApiToApiFacadeInterface;
 use FondOfOryx\Zed\ConcreteProductApi\Dependency\Facade\ConcreteProductApiToProductFacadeInterface;
-use FondOfOryx\Zed\ConcreteProductApi\Dependency\QueryContainer\ConcreteProductApiToApiQueryContainerInterface;
 use FondOfOryx\Zed\ConcreteProductApi\Persistence\ConcreteProductApiRepository;
 use Spryker\Zed\Kernel\Container;
 
@@ -19,9 +19,9 @@ class ConcreteProductApiBusinessFactoryTest extends Unit
     protected $containerMock;
 
     /**
-     * @var \PHPUnit\Framework\MockObject\MockObject|\FondOfOryx\Zed\ConcreteProductApi\Dependency\QueryContainer\ConcreteProductApiToApiQueryContainerInterface
+     * @var \PHPUnit\Framework\MockObject\MockObject|\FondOfOryx\Zed\ConcreteProductApi\Dependency\Facade\ConcreteProductApiToApiFacadeInterface
      */
-    protected $apiQueryContainerMock;
+    protected $apiFacadeMock;
 
     /**
      * @var \PHPUnit\Framework\MockObject\MockObject|\FondOfOryx\Zed\ConcreteProductApi\Persistence\ConcreteProductApiRepository
@@ -47,7 +47,7 @@ class ConcreteProductApiBusinessFactoryTest extends Unit
             ->disableOriginalConstructor()
             ->getMock();
 
-        $this->apiQueryContainerMock = $this->getMockBuilder(ConcreteProductApiToApiQueryContainerInterface::class)
+        $this->apiFacadeMock = $this->getMockBuilder(ConcreteProductApiToApiFacadeInterface::class)
             ->disableOriginalConstructor()
             ->getMock();
 
@@ -76,10 +76,10 @@ class ConcreteProductApiBusinessFactoryTest extends Unit
         $this->containerMock->expects(static::atLeastOnce())
             ->method('get')
             ->withConsecutive(
-                [ConcreteProductApiDependencyProvider::QUERY_CONTAINER_API],
+                [ConcreteProductApiDependencyProvider::FACADE_API],
                 [ConcreteProductApiDependencyProvider::FACADE_PRODUCT],
             )->willReturnOnConsecutiveCalls(
-                $this->apiQueryContainerMock,
+                $this->apiFacadeMock,
                 $this->productFacadeMock,
             );
 

@@ -24,6 +24,14 @@ include:
   - bundles/company-business-unit-order-budget
   - bundles/company-business-unit-search-rest-api
   - bundles/company-company-user-gui
+  - bundles/company-deleter
+  - bundles/company-deleter-company-business-unit-connector
+  - bundles/company-deleter-company-role-connector
+  - bundles/company-deleter-company-user-connector
+  - bundles/company-deleter-erp-delivery-note-connector
+  - bundles/company-deleter-erp-invoice-connector
+  - bundles/company-deleter-erp-order-connector
+  - bundles/company-deleter-product-list-connector
   - bundles/company-oms-mail-connector
   - bundles/company-price-lists-rest-api
   - bundles/company-product-list-api
@@ -49,6 +57,7 @@ include:
   - bundles/credit-memo-gift-card-connector
   - bundles/cross-engage
   - bundles/customer-address-sales-connector
+  - bundles/customer-api
   - bundles/customer-brand-product-list-connector
   - bundles/customer-product-list-api
   - bundles/customer-product-list-connector
@@ -57,8 +66,6 @@ include:
   - bundles/customer-product-lists-rest-api
   - bundles/customer-product-list-search-rest-api
   - bundles/customer-registration
-  - bundles/customer-registration-one-time-password-connector
-  - bundles/customer-registration-email-connector
   - bundles/customer-registration-rest-api
   - bundles/customer-statistic
   - bundles/customer-statistics-rest-api
@@ -167,6 +174,7 @@ include:
   - bundles/splittable-checkout-rest-api-payment-connector
   - bundles/splittable-checkout-rest-api-shipment-connector
   - bundles/splittable-quote
+  - bundles/splittable-quote-cart-notes-connector
   - bundles/splittable-quote-extension
   - bundles/splittable-quote-nopayment-connector
   - bundles/splittable-quote-order-custom-references-connector
@@ -208,6 +216,7 @@ modules:
       generate_transfer: false
       generate_map_classes: false
       generate_propel_classes: false
+      generate_ide_auto_completion: false
 
 env:
   monorepo:
@@ -217,6 +226,10 @@ env:
           generate_transfer: true
           generate_map_classes: true
           generate_propel_classes: true
+          generate_ide_auto_completion: true
+          ide_auto_completion_source_directories:
+            './bundles/*/src/': '*/*/'
+            './vendor/fond-of-spryker/*/src/': '*/*/'
           supported_source_identifiers:
             - erp-delivery-note
             - erp-invoice

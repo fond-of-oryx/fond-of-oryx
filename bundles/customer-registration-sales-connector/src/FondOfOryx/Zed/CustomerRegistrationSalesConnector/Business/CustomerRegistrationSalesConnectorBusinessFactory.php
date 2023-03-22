@@ -5,6 +5,7 @@ namespace FondOfOryx\Zed\CustomerRegistrationSalesConnector\Business;
 use FondOfOryx\Zed\CustomerRegistrationSalesConnector\Business\Processor\RegistrationProcessor;
 use FondOfOryx\Zed\CustomerRegistrationSalesConnector\Business\Processor\RegistrationProcessorInterface;
 use FondOfOryx\Zed\CustomerRegistrationSalesConnector\CustomerRegistrationSalesConnectorDependencyProvider;
+use FondOfOryx\Zed\CustomerRegistrationSalesConnector\Dependency\Facade\CustomerRegistrationSalesConnectorToCustomerFacadeInterface;
 use FondOfOryx\Zed\CustomerRegistrationSalesConnector\Dependency\Facade\CustomerRegistrationSalesConnectorToCustomerRegistrationFacadeInterface;
 use Spryker\Zed\Kernel\Business\AbstractBusinessFactory;
 
@@ -15,7 +16,18 @@ class CustomerRegistrationSalesConnectorBusinessFactory extends AbstractBusiness
      */
     public function createRegistrationProcessor(): RegistrationProcessorInterface
     {
-        return new RegistrationProcessor($this->getCustomerRegistrationFacade());
+        return new RegistrationProcessor(
+            $this->getCustomerFacade(),
+            $this->getCustomerRegistrationFacade(),
+        );
+    }
+
+    /**
+     * @return \FondOfOryx\Zed\CustomerRegistrationSalesConnector\Dependency\Facade\CustomerRegistrationSalesConnectorToCustomerFacadeInterface
+     */
+    protected function getCustomerFacade(): CustomerRegistrationSalesConnectorToCustomerFacadeInterface
+    {
+        return $this->getProvidedDependency(CustomerRegistrationSalesConnectorDependencyProvider::FACADE_CUSTOMER);
     }
 
     /**

@@ -9,7 +9,7 @@
     }
   ],
   "require": {
-    "php": ">=7.3",
+    "php": ">=8.0",
     "spryker/guzzle": "^2.2.0",
     "spryker/locale": "^2.2.0 || ^3.0.0",
     "spryker/store": "^1.2.0",
@@ -31,6 +31,12 @@
     "psr-4": {
       "FondOfOryx\\": "tests/FondOfOryx",
       "Generated\\": "src/Generated"
+    }
+  },
+  "config": {
+    "sort-packages": true,
+    "allow-plugins": {
+      "dealerdirect/phpcodesniffer-composer-installer": true
     }
   }
 }

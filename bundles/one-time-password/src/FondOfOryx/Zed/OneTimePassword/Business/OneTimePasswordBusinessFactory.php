@@ -4,6 +4,7 @@ namespace FondOfOryx\Zed\OneTimePassword\Business;
 
 use FondOfOryx\Zed\OneTimePassword\Business\Encoder\OneTimePasswordEncoderInterface;
 use FondOfOryx\Zed\OneTimePassword\Business\Encoder\OneTimePasswordJWTEncoder;
+use FondOfOryx\Zed\OneTimePassword\Business\Encoder\PasswordHasherAdapter;
 use FondOfOryx\Zed\OneTimePassword\Business\Generator\OneTimePasswordGenerator;
 use FondOfOryx\Zed\OneTimePassword\Business\Generator\OneTimePasswordGeneratorInterface;
 use FondOfOryx\Zed\OneTimePassword\Business\Generator\OneTimePasswordLinkGenerator;
@@ -21,6 +22,9 @@ use FondOfOryx\Zed\OneTimePassword\Dependency\Facade\OneTimePasswordToStoreFacad
 use FondOfOryx\Zed\OneTimePassword\OneTimePasswordDependencyProvider;
 use Hackzilla\PasswordGenerator\Generator\HybridPasswordGenerator;
 use Spryker\Zed\Kernel\Business\AbstractBusinessFactory;
+use Symfony\Component\PasswordHasher\Hasher\NativePasswordHasher;
+use Symfony\Component\PasswordHasher\PasswordHasherInterface;
+use Symfony\Component\Security\Core\Encoder\NativePasswordEncoder;
 
 /**
  * @method \FondOfOryx\Zed\OneTimePassword\Persistence\OneTimePasswordEntityManagerInterface getEntityManager()
@@ -28,6 +32,11 @@ use Spryker\Zed\Kernel\Business\AbstractBusinessFactory;
  */
 class OneTimePasswordBusinessFactory extends AbstractBusinessFactory
 {
+    /**
+     * @var int
+     */
+    protected const BCRYPT_FACTOR = 12;
+
     /**
      * @return \FondOfOryx\Zed\OneTimePassword\Business\Sender\OneTimePasswordSenderInterface
      */
@@ -57,6 +66,7 @@ class OneTimePasswordBusinessFactory extends AbstractBusinessFactory
     {
         return new OneTimePasswordGenerator(
             $this->createHybridPasswordGenerator(),
+            $this->getPasswordEncoder(),
             $this->getEntityManager(),
             $this->getConfig(),
         );
@@ -85,6 +95,20 @@ class OneTimePasswordBusinessFactory extends AbstractBusinessFactory
             $this->getConfig(),
             $this->getUrlFormatterPlugins(),
         );
+    }
+
+    /**
+     * @return \Symfony\Component\PasswordHasher\PasswordHasherInterface
+     */
+    protected function getPasswordEncoder(): PasswordHasherInterface
+    {
+        if (class_exists(NativePasswordEncoder::class)) {
+            return new PasswordHasherAdapter(
+                new NativePasswordEncoder(null, null, static::BCRYPT_FACTOR),
+            );
+        }
+
+        return new NativePasswordHasher(null, null, static::BCRYPT_FACTOR);
     }
 
     /**

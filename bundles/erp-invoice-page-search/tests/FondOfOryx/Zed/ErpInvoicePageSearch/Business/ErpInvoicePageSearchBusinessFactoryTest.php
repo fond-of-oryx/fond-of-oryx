@@ -3,9 +3,10 @@
 namespace FondOfOryx\Zed\ErpInvoicePageSearch\Business;
 
 use Codeception\Test\Unit;
-use FondOfOryx\Zed\ErpInvoicePageSearch\Business\Publisher\ErpInvoicePageSearchPublisherInterface;
-use FondOfOryx\Zed\ErpInvoicePageSearch\Business\UnPublisher\ErpInvoicePageSearchUnpublisherInterface;
+use FondOfOryx\Zed\ErpInvoicePageSearch\Business\Publisher\ErpInvoicePageSearchPublisher;
+use FondOfOryx\Zed\ErpInvoicePageSearch\Business\UnPublisher\ErpInvoicePageSearchUnpublisher;
 use FondOfOryx\Zed\ErpInvoicePageSearch\Dependency\Service\ErpInvoicePageSearchToUtilEncodingServiceInterface;
+use FondOfOryx\Zed\ErpInvoicePageSearch\ErpInvoicePageSearchConfig;
 use FondOfOryx\Zed\ErpInvoicePageSearch\ErpInvoicePageSearchDependencyProvider;
 use FondOfOryx\Zed\ErpInvoicePageSearch\Persistence\ErpInvoicePageSearchEntityManager;
 use FondOfOryx\Zed\ErpInvoicePageSearch\Persistence\ErpInvoicePageSearchQueryContainer;
@@ -17,6 +18,11 @@ class ErpInvoicePageSearchBusinessFactoryTest extends Unit
      * @var \PHPUnit\Framework\MockObject\MockObject|\Spryker\Zed\Kernel\Container
      */
     protected $containerMock;
+
+    /**
+     * @var \FondOfOryx\Zed\ErpInvoicePageSearch\ErpInvoicePageSearchConfig|\PHPUnit\Framework\MockObject\MockObject
+     */
+    protected $configMock;
 
     /**
      * @var \FondOfOryx\Zed\ErpInvoicePageSearch\Business\ErpInvoicePageSearchBusinessFactory
@@ -47,6 +53,10 @@ class ErpInvoicePageSearchBusinessFactoryTest extends Unit
             ->disableOriginalConstructor()
             ->getMock();
 
+        $this->configMock = $this->getMockBuilder(ErpInvoicePageSearchConfig::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
         $this->erpInvoicePageSearchEntityManagerMock = $this->getMockBuilder(ErpInvoicePageSearchEntityManager::class)
             ->disableOriginalConstructor()
             ->getMock();
@@ -63,12 +73,13 @@ class ErpInvoicePageSearchBusinessFactoryTest extends Unit
         $this->erpInvoicePageSearchBusinessFactory->setEntityManager($this->erpInvoicePageSearchEntityManagerMock);
         $this->erpInvoicePageSearchBusinessFactory->setQueryContainer($this->erpInvoicePageSearchQueryContainerMock);
         $this->erpInvoicePageSearchBusinessFactory->setContainer($this->containerMock);
+        $this->erpInvoicePageSearchBusinessFactory->setConfig($this->configMock);
     }
 
     /**
      * @return void
      */
-    public function testCeateErpInvoicePageSearchPublisher()
+    public function testCeateErpInvoicePageSearchPublisher(): void
     {
         $this->containerMock->expects(static::atLeastOnce())
             ->method('has')
@@ -80,8 +91,8 @@ class ErpInvoicePageSearchBusinessFactoryTest extends Unit
             ->with(ErpInvoicePageSearchDependencyProvider::SERVICE_UTIL_ENCODING)
             ->willReturn($this->erpInvoicePageSearchToUtilEncodingServiceMock);
 
-        $this->assertInstanceOf(
-            ErpInvoicePageSearchPublisherInterface::class,
+        static::assertInstanceOf(
+            ErpInvoicePageSearchPublisher::class,
             $this->erpInvoicePageSearchBusinessFactory->createErpInvoicePageSearchPublisher(),
         );
     }
@@ -89,10 +100,10 @@ class ErpInvoicePageSearchBusinessFactoryTest extends Unit
     /**
      * @return void
      */
-    public function testCreateErpInvoicePageSearchUnPublisher()
+    public function testCreateErpInvoicePageSearchUnPublisher(): void
     {
-        $this->assertInstanceOf(
-            ErpInvoicePageSearchUnpublisherInterface::class,
+        static::assertInstanceOf(
+            ErpInvoicePageSearchUnpublisher::class,
             $this->erpInvoicePageSearchBusinessFactory->createErpInvoicePageSearchUnPublisher(),
         );
     }

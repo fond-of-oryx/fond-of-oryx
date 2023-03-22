@@ -27,6 +27,7 @@
         <property name="currentPage" type="int" />
         <property name="maxPage" type="int" />
         <property name="currentItemsPerPage" type="int" />
+        <property name="config" type="RestErpInvoicePageSearchPaginationConfig" />
     </transfer>
 
     <transfer name="RestErpInvoicePageSearchPaginationSort">
@@ -34,6 +35,13 @@
         <property name="sortParamLocalizedNames" type="array" singular="sortParamLocalizedNames"/>
         <property name="currentSortParam" type="string"/>
         <property name="currentSortOrder" type="string"/>
+    </transfer>
+
+    <transfer name="RestErpInvoicePageSearchPaginationConfig">
+        <property name="parameterName" type="string"/>
+        <property name="itemsPerPageParameterName" type="string"/>
+        <property name="defaultItemsPerPage" type="int"/>
+        <property name="validItemsPerPageOptions" type="array" singular="validItemsPerPageOptions"/>
     </transfer>
 
     <transfer name="RestErpInvoice">
@@ -72,6 +80,7 @@
         <property name="discountType" type="string"/>
         <property name="amount" type="RestErpInvoiceAmount"/>
         <property name="unitPrice" type="RestErpInvoiceAmount"/>
+        <property name="position" type="int"/>
     </transfer>
 
     <transfer name="RestErpInvoiceExpense">

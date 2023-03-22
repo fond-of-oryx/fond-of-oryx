@@ -3,8 +3,8 @@
 namespace FondOfOryx\Zed\CompanyProductListApi\Business\Model;
 
 use Codeception\Test\Unit;
+use FondOfOryx\Zed\CompanyProductListApi\Dependency\Facade\CompanyProductListApiToApiFacadeInterface;
 use FondOfOryx\Zed\CompanyProductListApi\Dependency\Facade\CompanyProductListApiToCompanyProductListConnectorFacadeInterface;
-use FondOfOryx\Zed\CompanyProductListApi\Dependency\QueryContainer\CompanyProductListApiToApiQueryContainerInterface;
 use Generated\Shared\Transfer\ApiDataTransfer;
 use Generated\Shared\Transfer\ApiItemTransfer;
 
@@ -26,9 +26,9 @@ class CompanyProductListApiTest extends Unit
     protected $companyProductListApiToCompanyProductListConnectorFacadeMock;
 
     /**
-     * @var \PHPUnit\Framework\MockObject\MockObject|\FondOfOryx\Zed\CompanyProductListApi\Dependency\QueryContainer\CompanyProductListApiToApiQueryContainerInterface
+     * @var \PHPUnit\Framework\MockObject\MockObject|\FondOfOryx\Zed\CompanyProductListApi\Dependency\Facade\CompanyProductListApiToApiFacadeInterface
      */
-    protected $companyProductListApiToApiQueryContainerMock;
+    protected $apiFacadeMock;
 
     /**
      * @var \FondOfOryx\Zed\CompanyProductListApi\Business\Model\CompanyProductListApi
@@ -57,14 +57,14 @@ class CompanyProductListApiTest extends Unit
             ->disableOriginalConstructor()
             ->getMock();
 
-        $this->companyProductListApiToApiQueryContainerMock = $this
-            ->getMockBuilder(CompanyProductListApiToApiQueryContainerInterface::class)
+        $this->apiFacadeMock = $this
+            ->getMockBuilder(CompanyProductListApiToApiFacadeInterface::class)
             ->disableOriginalConstructor()
             ->getMock();
 
         $this->model = new CompanyProductListApi(
             $this->companyProductListApiToCompanyProductListConnectorFacadeMock,
-            $this->companyProductListApiToApiQueryContainerMock,
+            $this->apiFacadeMock,
         );
     }
 
@@ -80,7 +80,7 @@ class CompanyProductListApiTest extends Unit
         $this->companyProductListApiToCompanyProductListConnectorFacadeMock->expects(static::atLeastOnce())
             ->method('persistCompanyProductListRelation');
 
-        $this->companyProductListApiToApiQueryContainerMock->expects(static::atLeastOnce())
+        $this->apiFacadeMock->expects(static::atLeastOnce())
             ->method('createApiItem')
             ->willReturn($this->apiItemTransferMock);
 

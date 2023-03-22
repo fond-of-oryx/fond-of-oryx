@@ -81,9 +81,9 @@ interface ErpOrderApiFacadeInterface
      *
      * @api
      *
-     * @param \Generated\Shared\Transfer\ApiDataTransfer $apiDataTransfer
+     * @param \Generated\Shared\Transfer\ApiRequestTransfer $apiRequestTransfer
      *
-     * @return array
+     * @return array<\Generated\Shared\Transfer\ApiValidationErrorTransfer>
      */
-    public function validateErpOrder(ApiDataTransfer $apiDataTransfer): array;
+    public function validateErpOrder(ApiRequestTransfer $apiRequestTransfer): array;
 }

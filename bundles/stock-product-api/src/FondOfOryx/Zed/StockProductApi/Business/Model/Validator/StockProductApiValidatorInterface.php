@@ -2,16 +2,14 @@
 
 namespace FondOfOryx\Zed\StockProductApi\Business\Model\Validator;
 
-use Generated\Shared\Transfer\ApiDataTransfer;
+use Generated\Shared\Transfer\ApiRequestTransfer;
 
 interface StockProductApiValidatorInterface
 {
     /**
-     * @param \Generated\Shared\Transfer\ApiDataTransfer $apiDataTransfer
+     * @param \Generated\Shared\Transfer\ApiRequestTransfer $apiRequestTransfer
      *
-     * @throws \Spryker\Zed\Api\Business\Exception\ApiValidationException
-     *
-     * @return array
+     * @return array<\Generated\Shared\Transfer\ApiValidationErrorTransfer>
      */
-    public function validate(ApiDataTransfer $apiDataTransfer);
+    public function validate(ApiRequestTransfer $apiRequestTransfer): array;
 }

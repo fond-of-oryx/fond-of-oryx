@@ -2,8 +2,8 @@
 
 namespace FondOfOryx\Zed\GiftCardApi\Persistence;
 
+use FondOfOryx\Zed\GiftCardApi\Dependency\Facade\GiftCardApiToApiFacadeInterface;
 use FondOfOryx\Zed\GiftCardApi\Dependency\QueryContainer\GiftCardApiToApiQueryBuilderContainerInterface;
-use FondOfOryx\Zed\GiftCardApi\Dependency\QueryContainer\GiftCardApiToApiQueryContainerInterface;
 use FondOfOryx\Zed\GiftCardApi\Dependency\QueryContainer\GiftCardApiToGiftCardQueryContainerInterface;
 use FondOfOryx\Zed\GiftCardApi\GiftCardApiDependencyProvider;
 use FondOfOryx\Zed\GiftCardApi\Persistence\Propel\Mapper\GiftCardMapper;
@@ -34,11 +34,11 @@ class GiftCardApiPersistenceFactory extends AbstractPersistenceFactory
     }
 
     /**
-     * @return \FondOfOryx\Zed\GiftCardApi\Dependency\QueryContainer\GiftCardApiToApiQueryContainerInterface
+     * @return \FondOfOryx\Zed\GiftCardApi\Dependency\Facade\GiftCardApiToApiFacadeInterface
      */
-    public function getApiQueryContainer(): GiftCardApiToApiQueryContainerInterface
+    public function getApiFacade(): GiftCardApiToApiFacadeInterface
     {
-        return $this->getProvidedDependency(GiftCardApiDependencyProvider::QUERY_CONTAINER_API);
+        return $this->getProvidedDependency(GiftCardApiDependencyProvider::FACADE_API);
     }
 
     /**

@@ -6,8 +6,10 @@ use Codeception\Test\Unit;
 use DateTime;
 use FondOfOryx\Zed\ErpDeliveryNotePageSearch\Business\Mapper\ErpDeliveryNotePageSearchDataMapperInterface;
 use FondOfOryx\Zed\ErpDeliveryNotePageSearch\Dependency\Service\ErpDeliveryNotePageSearchToUtilEncodingServiceInterface;
+use FondOfOryx\Zed\ErpDeliveryNotePageSearch\ErpDeliveryNotePageSearchConfig;
 use FondOfOryx\Zed\ErpDeliveryNotePageSearch\Persistence\ErpDeliveryNotePageSearchEntityManagerInterface;
 use FondOfOryx\Zed\ErpDeliveryNotePageSearch\Persistence\ErpDeliveryNotePageSearchQueryContainerInterface;
+use Laminas\Stdlib\ArrayObject;
 use Orm\Zed\CompanyBusinessUnit\Persistence\SpyCompanyBusinessUnit;
 use Orm\Zed\Country\Persistence\SpyCountry;
 use Orm\Zed\ErpDeliveryNote\Persistence\FooErpDeliveryNote;
@@ -106,6 +108,11 @@ class ErpDeliveryNotePageSearchPublisherTest extends Unit
     protected $erpDeliveryNoteItemIteratorMock;
 
     /**
+     * @var \PHPUnit\Framework\MockObject\MockObject|\FondOfOryx\Zed\ErpDeliveryNotePageSearch\ErpDeliveryNotePageSearchConfig
+     */
+    protected $configMock;
+
+    /**
      * @return void
      */
     protected function _before(): void
@@ -174,11 +181,16 @@ class ErpDeliveryNotePageSearchPublisherTest extends Unit
             ->disableOriginalConstructor()
             ->getMock();
 
+        $this->configMock = $this->getMockBuilder(ErpDeliveryNotePageSearchConfig::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
         $this->erpDeliveryNotePageSearchPublisher = new ErpDeliveryNotePageSearchPublisher(
             $this->erpDeliveryNotePageSearchEntityManagerMock,
             $this->erpDeliveryNotePageSearchQueryContainerMock,
             $this->erpDeliveryNotePageSearchToUtilEncodingServiceMock,
             $this->erpDeliveryNotePageSearchDataMapperMock,
+            $this->configMock,
         );
     }
 
@@ -224,6 +236,10 @@ class ErpDeliveryNotePageSearchPublisherTest extends Unit
             ->method('getIterator')
             ->willReturn($this->erpDeliveryNoteItemIteratorMock);
 
+        $this->erpDeliveryNoteItemCollectionMock->expects(static::atLeastOnce())
+            ->method('getData')
+            ->willReturn([]);
+
         $this->erpDeliveryNoteItemIteratorMock->expects(static::atLeastOnce())
             ->method('rewind');
 
@@ -241,6 +257,10 @@ class ErpDeliveryNotePageSearchPublisherTest extends Unit
         $this->erpDeliveryNoteItemMock->expects(static::atLeastOnce())
             ->method('toArray')
             ->willReturn([]);
+
+        $this->erpDeliveryNoteItemMock->expects(static::atLeastOnce())
+            ->method('getFooErpDeliveryNoteTrackingToItems')
+            ->willReturn(new ArrayObject());
 
         $this->erpDeliveryNoteMock->expects(static::atLeastOnce())
             ->method('getFooErpDeliveryNoteExpenses')

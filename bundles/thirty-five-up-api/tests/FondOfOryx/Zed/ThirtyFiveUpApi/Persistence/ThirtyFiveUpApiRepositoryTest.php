@@ -5,9 +5,9 @@ namespace FondOfOryx\Zed\ThirtyFiveUpApi\Persistence;
 use Codeception\Test\Unit;
 use Exception;
 use FondOfOryx\Zed\ThirtyFiveUp\Exception\ThirtyFiveUpOrderNotFoundException;
+use FondOfOryx\Zed\ThirtyFiveUpApi\Dependency\Facade\ThirtyFiveUpApiToApiFacadeBridge;
 use FondOfOryx\Zed\ThirtyFiveUpApi\Dependency\Facade\ThirtyFiveUpApiToThirtyFiveUpFacadeBridge;
 use FondOfOryx\Zed\ThirtyFiveUpApi\Dependency\QueryContainer\ThirtyFiveUpApiToApiQueryBuilderContainerBridge;
-use FondOfOryx\Zed\ThirtyFiveUpApi\Dependency\QueryContainer\ThirtyFiveUpApiToApiQueryContainerBridge;
 use FondOfOryx\Zed\ThirtyFiveUpApi\Persistence\Propel\Mapper\TransferMapper;
 use Generated\Shared\Transfer\ApiCollectionTransfer;
 use Generated\Shared\Transfer\ApiDataTransfer;
@@ -44,7 +44,7 @@ class ThirtyFiveUpApiRepositoryTest extends Unit
     protected $thirtyFiveUpQueryBuilderContainerMock;
 
     /**
-     * @var \FondOfOryx\Zed\ThirtyFiveUpApi\Dependency\QueryContainer\ThirtyFiveUpApiToApiQueryContainerInterface|\PHPUnit\Framework\MockObject\MockObject
+     * @var \FondOfOryx\Zed\ThirtyFiveUpApi\Dependency\Facade\ThirtyFiveUpApiToApiFacadeInterface|\PHPUnit\Framework\MockObject\MockObject
      */
     protected $thirtyFiveUpQueryContainerMock;
 
@@ -114,7 +114,7 @@ class ThirtyFiveUpApiRepositoryTest extends Unit
         $this->factoryMock = $this->getMockBuilder(ThirtyFiveUpApiPersistenceFactory::class)->disableOriginalConstructor()->getMock();
         $this->objectCollectionMock = $this->getMockBuilder(ObjectCollection::class)->disableOriginalConstructor()->getMock();
         $this->thirtyFiveUpQueryBuilderContainerMock = $this->getMockBuilder(ThirtyFiveUpApiToApiQueryBuilderContainerBridge::class)->disableOriginalConstructor()->getMock();
-        $this->thirtyFiveUpQueryContainerMock = $this->getMockBuilder(ThirtyFiveUpApiToApiQueryContainerBridge::class)->disableOriginalConstructor()->getMock();
+        $this->thirtyFiveUpQueryContainerMock = $this->getMockBuilder(ThirtyFiveUpApiToApiFacadeBridge::class)->disableOriginalConstructor()->getMock();
         $this->orderQueryMock = $this->getMockBuilder(FooThirtyFiveUpOrderQuery::class)->disableOriginalConstructor()->getMock();
         $this->apiItemTransferMock = $this->getMockBuilder(ApiItemTransfer::class)
             ->disableOriginalConstructor()

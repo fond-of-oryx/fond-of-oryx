@@ -3,14 +3,14 @@
 namespace FondOfOryx\Zed\ErpOrderApi\Business\Validator;
 
 use Codeception\Test\Unit;
-use Generated\Shared\Transfer\ApiDataTransfer;
+use Generated\Shared\Transfer\ApiRequestTransfer;
 
 class ErpOrderApiValidatorTest extends Unit
 {
     /**
-     * @var \Generated\Shared\Transfer\ApiDataTransfer|\PHPUnit\Framework\MockObject\MockObject
+     * @var \Generated\Shared\Transfer\ApiRequestTransfer|\PHPUnit\Framework\MockObject\MockObject
      */
-    protected $apiDataTransferMock;
+    protected $apiRequestTransferMock;
 
     /**
      * @var \FondOfOryx\Zed\ErpOrderApi\Business\Validator\ErpOrderApiValidator
@@ -24,7 +24,7 @@ class ErpOrderApiValidatorTest extends Unit
     {
         parent::_before();
 
-        $this->apiDataTransferMock = $this->getMockBuilder(ApiDataTransfer::class)
+        $this->apiRequestTransferMock = $this->getMockBuilder(ApiRequestTransfer::class)
             ->disableOriginalConstructor()
             ->getMock();
 
@@ -36,6 +36,6 @@ class ErpOrderApiValidatorTest extends Unit
      */
     public function testValidate(): void
     {
-        static::assertCount(0, $this->erpOrderApiValidator->validate($this->apiDataTransferMock));
+        static::assertCount(0, $this->erpOrderApiValidator->validate($this->apiRequestTransferMock));
     }
 }

@@ -8,6 +8,7 @@ use Spryker\Zed\Mail\Dependency\Plugin\MailTypePluginInterface;
 use Spryker\Zed\Mail\MailConfig;
 
 /**
+ * @deprecated Use {@link \FondOfOryx\Zed\OneTimePasswordEmailConnector\Communication\Plugin\Mail\OneTimePasswordEmailConnectorLoginLinkMailTypeBuilderPlugin} instead.
  * @method \FondOfOryx\Zed\OneTimePasswordEmailConnector\Business\OneTimePasswordEmailConnectorFacadeInterface getFacade()
  */
 class OneTimePasswordEmailConnectorLoginLinkMailTypePlugin extends AbstractPlugin implements MailTypePluginInterface

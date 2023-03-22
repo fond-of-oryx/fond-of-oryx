@@ -9,8 +9,8 @@
     }
   ],
   "require": {
-    "php": ">=7.3",
-    "fond-of-oryx/company-users-rest-api-extension": "^1.1.0",
+    "php": ">=8.0",
+    "fond-of-oryx/company-users-rest-api-extension": "^1.1.0 || ^2.0.0",
     "spryker/company-role": "^1.0.0"
   },
   "require-dev": {
@@ -30,6 +30,12 @@
       "FondOfOryx\\": "tests/FondOfOryx/",
       "Generated\\": "src/Generated/",
       "Orm\\Zed\\": "src/Orm/Zed/"
+    }
+  },
+  "config": {
+    "sort-packages": true,
+    "allow-plugins": {
+      "dealerdirect/phpcodesniffer-composer-installer": true
     }
   }
 }

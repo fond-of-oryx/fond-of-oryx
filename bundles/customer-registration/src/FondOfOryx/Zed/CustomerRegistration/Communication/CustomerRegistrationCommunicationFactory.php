@@ -4,8 +4,8 @@ namespace FondOfOryx\Zed\CustomerRegistration\Communication;
 
 use FondOfOryx\Zed\CustomerRegistration\CustomerRegistrationDependencyProvider;
 use FondOfOryx\Zed\CustomerRegistration\Dependency\Facade\CustomerRegistrationToCustomerFacadeInterface;
-use FondOfOryx\Zed\CustomerRegistration\Dependency\Facade\CustomerRegistrationToLocaleFacadeInterface;
-use FondOfOryx\Zed\CustomerRegistration\Dependency\Facade\CustomerRegistrationToStoreFacadeInterface;
+use FondOfOryx\Zed\CustomerRegistration\Dependency\Facade\CustomerRegistrationToMailFacadeInterface;
+use FondOfOryx\Zed\CustomerRegistration\Dependency\Facade\CustomerRegistrationToOneTimePasswordFacadeInterface;
 use Spryker\Zed\Kernel\Communication\AbstractCommunicationFactory;
 
 class CustomerRegistrationCommunicationFactory extends AbstractCommunicationFactory
@@ -19,18 +19,18 @@ class CustomerRegistrationCommunicationFactory extends AbstractCommunicationFact
     }
 
     /**
-     * @return \FondOfOryx\Zed\CustomerRegistration\Dependency\Facade\CustomerRegistrationToLocaleFacadeInterface
+     * @return \FondOfOryx\Zed\CustomerRegistration\Dependency\Facade\CustomerRegistrationToMailFacadeInterface
      */
-    public function getLocaleFacade(): CustomerRegistrationToLocaleFacadeInterface
+    public function getMailFacade(): CustomerRegistrationToMailFacadeInterface
     {
-        return $this->getProvidedDependency(CustomerRegistrationDependencyProvider::FACADE_LOCALE);
+        return $this->getProvidedDependency(CustomerRegistrationDependencyProvider::FACADE_MAIL);
     }
 
     /**
-     * @return \FondOfOryx\Zed\CustomerRegistration\Dependency\Facade\CustomerRegistrationToStoreFacadeInterface
+     * @return \FondOfOryx\Zed\CustomerRegistration\Dependency\Facade\CustomerRegistrationToOneTimePasswordFacadeInterface
      */
-    public function getStoreFacade(): CustomerRegistrationToStoreFacadeInterface
+    public function getOneTimePasswordFacade(): CustomerRegistrationToOneTimePasswordFacadeInterface
     {
-        return $this->getProvidedDependency(CustomerRegistrationDependencyProvider::FACADE_STORE);
+        return $this->getProvidedDependency(CustomerRegistrationDependencyProvider::FACADE_ONE_TIME_PASSWORD);
     }
 }

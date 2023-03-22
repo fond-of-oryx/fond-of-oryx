@@ -2,88 +2,71 @@
 
 namespace FondOfOryx\Glue\CustomerRegistrationRestApi\Processor;
 
+use ArrayObject;
 use Codeception\Test\Unit;
 use FondOfOryx\Client\CustomerRegistrationRestApi\CustomerRegistrationRestApiClientInterface;
-use FondOfOryx\Glue\CustomerRegistrationRestApi\Mapper\RequestMapperInterface;
-use FondOfOryx\Glue\CustomerRegistrationRestApi\Mapper\ResponseMapperInterface;
-use FondOfOryx\Shared\CustomerRegistration\CustomerRegistrationConstants;
-use Generated\Shared\Transfer\CustomerRegistrationAttributesTransfer;
-use Generated\Shared\Transfer\CustomerRegistrationRequestTransfer;
-use Generated\Shared\Transfer\CustomerRegistrationResponseTransfer;
+use FondOfOryx\Glue\CustomerRegistrationRestApi\Dependency\Client\CustomerRegistrationRestApiToCustomerClientInterface;
+use FondOfOryx\Glue\CustomerRegistrationRestApi\Processor\Mapper\CustomerRegistrationResourceMapperInterface;
+use FondOfOryx\Glue\CustomerRegistrationRestApi\Processor\Password\GeneratorInterface;
+use FondOfOryx\Glue\CustomerRegistrationRestApi\Processor\Validation\RestApiErrorInterface;
+use Generated\Shared\Transfer\CustomerErrorTransfer;
+use Generated\Shared\Transfer\CustomerResponseTransfer;
 use Generated\Shared\Transfer\RestCustomerRegistrationRequestAttributesTransfer;
-use Generated\Shared\Transfer\RestCustomerRegistrationResponseTransfer;
+use PHPUnit\Framework\MockObject\MockObject;
 use Spryker\Glue\GlueApplication\Rest\JsonApi\RestResourceBuilderInterface;
-use Spryker\Glue\GlueApplication\Rest\JsonApi\RestResponseInterface;
 use Spryker\Glue\GlueApplication\Rest\Request\Data\RestRequestInterface;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 
 class CustomerRegistrationProcessorTest extends Unit
 {
     /**
      * @var \FondOfOryx\Glue\CustomerRegistrationRestApi\Processor\CustomerRegistrationProcessor
      */
-    protected $customerRegistrationProcessor;
-
-    /**
-     * @var \FondOfOryx\Glue\CustomerRegistrationRestApi\Mapper\RequestMapperInterface|\PHPUnit\Framework\MockObject\MockObject
-     */
-    protected $requestMapperMock;
-
-    /**
-     * @var \FondOfOryx\Glue\CustomerRegistrationRestApi\Mapper\ResponseMapperInterface|\PHPUnit\Framework\MockObject\MockObject
-     */
-    protected $responseMapperMock;
+    protected CustomerRegistrationProcessor $customerRegistrationProcessor;
 
     /**
      * @var \PHPUnit\Framework\MockObject\MockObject|\Spryker\Glue\GlueApplication\Rest\JsonApi\RestResourceBuilderInterface
      */
-    protected $restResourceBuilderMock;
+    protected MockObject|RestResourceBuilderInterface $restResourceBuilderMock;
+
+    /**
+     * @var \FondOfOryx\Glue\CustomerRegistrationRestApi\Dependency\Client\CustomerRegistrationRestApiToCustomerClientInterface|\PHPUnit\Framework\MockObject\MockObject
+     */
+    protected MockObject|CustomerRegistrationRestApiToCustomerClientInterface $customerClientMock;
+
+    /**
+     * @var \FondOfOryx\Glue\CustomerRegistrationRestApi\Processor\Validation\RestApiErrorInterface|\PHPUnit\Framework\MockObject\MockObject
+     */
+    protected MockObject|RestApiErrorInterface $restApiErrorMock;
+
+    /**
+     * @var \FondOfOryx\Glue\CustomerRegistrationRestApi\Processor\Mapper\CustomerRegistrationResourceMapperInterface|\PHPUnit\Framework\MockObject\MockObject
+     */
+    protected MockObject|CustomerRegistrationResourceMapperInterface $customerRegistrationResourceMapperMock;
+
+    /**
+     * @var \FondOfOryx\Glue\CustomerRegistrationRestApi\Processor\Password\GeneratorInterface|\PHPUnit\Framework\MockObject\MockObject
+     */
+    protected MockObject|GeneratorInterface $passwordGeneratorMock;
 
     /**
      * @var \FondOfOryx\Client\CustomerRegistrationRestApi\CustomerRegistrationRestApiClientInterface|\PHPUnit\Framework\MockObject\MockObject
      */
-    protected $customerRegistrationRestApiClientMock;
+    protected MockObject|CustomerRegistrationRestApiClientInterface $clientMock;
 
     /**
-     * @var \PHPUnit\Framework\MockObject\MockObject|\Spryker\Glue\GlueApplication\Rest\JsonApi\RestResponseInterface
+     * @var \Spryker\Glue\GlueApplication\Rest\Request\Data\RestRequestInterface|\PHPUnit\Framework\MockObject\MockObject
      */
-    protected $restResponseMock;
+    protected MockObject|RestRequestInterface $restRequestMock;
 
     /**
-     * @var \PHPUnit\Framework\MockObject\MockObject|\Spryker\Glue\GlueApplication\Rest\Request\Data\RestRequestInterface
+     * @var \PHPUnit\Framework\MockObject\MockObject|\Generated\Shared\Transfer\CustomerResponseTransfer
      */
-    protected $restRequestMock;
+    protected MockObject|CustomerResponseTransfer $customerResponseTransferMock;
 
     /**
-     * @var \PHPUnit\Framework\MockObject\MockObject|\Symfony\Component\HttpFoundation\Request
+     * @var \PHPUnit\Framework\MockObject\MockObject|\Generated\Shared\Transfer\CustomerErrorTransfer
      */
-    protected $requestMock;
-
-    /**
-     * @var \Generated\Shared\Transfer\RestCustomerRegistrationRequestAttributesTransfer|\PHPUnit\Framework\MockObject\MockObject
-     */
-    protected $restCustomerRegistrationRequestAttributesTransferMock;
-
-    /**
-     * @var \Generated\Shared\Transfer\CustomerRegistrationRequestTransfer|\PHPUnit\Framework\MockObject\MockObject
-     */
-    protected $customerRegistrationRequestTransferMock;
-
-    /**
-     * @var \Generated\Shared\Transfer\CustomerRegistrationResponseTransfer|\PHPUnit\Framework\MockObject\MockObject
-     */
-    protected $customerRegistrationResponseTransferMock;
-
-    /**
-     * @var \Generated\Shared\Transfer\CustomerRegistrationAttributesTransfer|\PHPUnit\Framework\MockObject\MockObject
-     */
-    protected $customerRegistrationAttributesTransfer;
-
-    /**
-     * @var \Generated\Shared\Transfer\RestCustomerRegistrationResponseTransfer|\PHPUnit\Framework\MockObject\MockObject
-     */
-    protected $restCustomerRegistrationResponseTransferMock;
+    protected $customerErrorTransferMock;
 
     /**
      * @return void
@@ -94,19 +77,11 @@ class CustomerRegistrationProcessorTest extends Unit
             ->disableOriginalConstructor()
             ->getMock();
 
-        $this->customerRegistrationRestApiClientMock = $this->getMockBuilder(CustomerRegistrationRestApiClientInterface::class)
+        $this->customerClientMock = $this->getMockBuilder(CustomerRegistrationRestApiToCustomerClientInterface::class)
             ->disableOriginalConstructor()
             ->getMock();
 
-        $this->requestMapperMock = $this->getMockBuilder(RequestMapperInterface::class)
-            ->disableOriginalConstructor()
-            ->getMock();
-
-        $this->responseMapperMock = $this->getMockBuilder(ResponseMapperInterface::class)
-            ->disableOriginalConstructor()
-            ->getMock();
-
-        $this->restResponseMock = $this->getMockBuilder(RestResponseInterface::class)
+        $this->passwordGeneratorMock = $this->getMockBuilder(GeneratorInterface::class)
             ->disableOriginalConstructor()
             ->getMock();
 
@@ -114,35 +89,33 @@ class CustomerRegistrationProcessorTest extends Unit
             ->disableOriginalConstructor()
             ->getMock();
 
-        $this->restCustomerRegistrationRequestAttributesTransferMock = $this->getMockBuilder(RestCustomerRegistrationRequestAttributesTransfer::class)
+        $this->customerRegistrationResourceMapperMock = $this->getMockBuilder(CustomerRegistrationResourceMapperInterface::class)
             ->disableOriginalConstructor()
             ->getMock();
 
-        $this->customerRegistrationRequestTransferMock = $this->getMockBuilder(CustomerRegistrationRequestTransfer::class)
+        $this->restApiErrorMock = $this->getMockBuilder(RestApiErrorInterface::class)
             ->disableOriginalConstructor()
             ->getMock();
 
-        $this->customerRegistrationAttributesTransfer = $this->getMockBuilder(CustomerRegistrationAttributesTransfer::class)
+        $this->clientMock = $this->getMockBuilder(CustomerRegistrationRestApiClientInterface::class)
             ->disableOriginalConstructor()
             ->getMock();
 
-        $this->restCustomerRegistrationResponseTransferMock = $this->getMockBuilder(RestCustomerRegistrationResponseTransfer::class)
+        $this->customerResponseTransferMock = $this->getMockBuilder(CustomerResponseTransfer::class)
             ->disableOriginalConstructor()
             ->getMock();
 
-        $this->customerRegistrationResponseTransferMock = $this->getMockBuilder(CustomerRegistrationResponseTransfer::class)
-            ->disableOriginalConstructor()
-            ->getMock();
-
-        $this->requestMock = $this->getMockBuilder(Request::class)
+        $this->customerErrorTransferMock = $this->getMockBuilder(CustomerErrorTransfer::class)
             ->disableOriginalConstructor()
             ->getMock();
 
         $this->customerRegistrationProcessor = new CustomerRegistrationProcessor(
-            $this->requestMapperMock,
-            $this->responseMapperMock,
+            $this->customerRegistrationResourceMapperMock,
             $this->restResourceBuilderMock,
-            $this->customerRegistrationRestApiClientMock,
+            $this->restApiErrorMock,
+            $this->customerClientMock,
+            $this->passwordGeneratorMock,
+            $this->clientMock,
         );
     }
 
@@ -151,175 +124,24 @@ class CustomerRegistrationProcessorTest extends Unit
      */
     public function testRegister(): void
     {
-        $this->requestMapperMock->expects($this->atLeastOnce())
-            ->method('mapRequestAttributesToTransfer')
-            ->willReturn($this->customerRegistrationRequestTransferMock);
+        $this->passwordGeneratorMock->expects(static::once())
+            ->method('generate');
 
-        $this->customerRegistrationRequestTransferMock->expects($this->atLeastOnce())
-            ->method('getAttributes')
-            ->willReturn($this->customerRegistrationAttributesTransfer);
+        $this->customerClientMock->expects(static::once())
+            ->method('registerCustomer')
+            ->willReturn($this->customerResponseTransferMock);
 
-        $this->customerRegistrationRequestTransferMock->expects($this->atLeastOnce())
-            ->method('setType')
-            ->with(CustomerRegistrationConstants::TYPE_REGISTRATION)
-            ->willReturnSelf();
+        $this->customerResponseTransferMock->expects(static::atLeastOnce())
+            ->method('getErrors')
+            ->willReturn(new ArrayObject());
 
-        $this->customerRegistrationAttributesTransfer->expects($this->atLeastOnce())
-            ->method('getEmail')
-            ->willReturn('mail@foo.bar');
+        $restCustomerRegistrationRequestAttributes = (new RestCustomerRegistrationRequestAttributesTransfer())
+            ->setEmail('foo@foo.de')
+            ->setAcceptGdpr(true);
 
-        $this->customerRegistrationRestApiClientMock->expects($this->atLeastOnce())
-            ->method('handleCustomerRegistrationRequest')
-            ->with($this->customerRegistrationRequestTransferMock)
-            ->willReturn($this->customerRegistrationResponseTransferMock);
-
-        $this->restResourceBuilderMock->expects($this->atLeastOnce())
-            ->method('createRestResponse')
-            ->willReturn($this->restResponseMock);
-
-        $this->restResponseMock->expects($this->atLeastOnce())
-            ->method('setStatus')
-            ->with(Response::HTTP_CREATED)
-            ->willReturnSelf();
-
-        $this->assertSame(
-            $this->restResponseMock,
-            $this->customerRegistrationProcessor->register(
-                $this->restRequestMock,
-                $this->restCustomerRegistrationRequestAttributesTransferMock,
-            ),
-        );
-    }
-
-    /**
-     * @return void
-     */
-    public function testUpdateRegistration(): void
-    {
-        $this->requestMapperMock->expects($this->atLeastOnce())
-            ->method('mapRequestAttributesToTransfer')
-            ->willReturn($this->customerRegistrationRequestTransferMock);
-
-        $this->customerRegistrationRequestTransferMock->expects($this->atLeastOnce())
-            ->method('getAttributes')
-            ->willReturn($this->customerRegistrationAttributesTransfer);
-
-        $this->customerRegistrationRequestTransferMock->expects($this->atLeastOnce())
-            ->method('setAttributes')
-            ->willReturnSelf();
-
-        $this->customerRegistrationRequestTransferMock->expects($this->atLeastOnce())
-            ->method('setType')
-            ->with(CustomerRegistrationConstants::TYPE_GDPR)
-            ->willReturnSelf();
-
-        $this->customerRegistrationRequestTransferMock->expects($this->atLeastOnce())
-            ->method('getAttributes')
-            ->willReturn($this->customerRegistrationAttributesTransfer);
-
-        $this->customerRegistrationAttributesTransfer->expects($this->atLeastOnce())
-            ->method('setToken')
-            ->with('token')
-            ->willReturn($this->customerRegistrationAttributesTransfer);
-
-        $this->customerRegistrationRestApiClientMock->expects($this->atLeastOnce())
-            ->method('handleCustomerRegistrationRequest')
-            ->with($this->customerRegistrationRequestTransferMock)
-            ->willReturn($this->customerRegistrationResponseTransferMock);
-
-        $this->restResourceBuilderMock->expects($this->atLeastOnce())
-            ->method('createRestResponse')
-            ->willReturn($this->restResponseMock);
-
-        $this->restResponseMock->expects($this->atLeastOnce())
-            ->method('setStatus')
-            ->with(Response::HTTP_OK)
-            ->willReturnSelf();
-
-        $this->restRequestMock->expects($this->atLeastOnce())
-            ->method('getHttpRequest')
-            ->willReturn($this->requestMock);
-
-        $this->requestMock->expects($this->atLeastOnce())
-            ->method('get')
-            ->with('id')
-            ->willReturn('token');
-
-        $this->assertSame(
-            $this->restResponseMock,
-            $this->customerRegistrationProcessor->updateRegistration(
-                $this->restRequestMock,
-                $this->restCustomerRegistrationRequestAttributesTransferMock,
-            ),
-        );
-    }
-
-    /**
-     * @return void
-     */
-    public function testVerifyEmail(): void
-    {
-        $this->requestMapperMock->expects($this->atLeastOnce())
-            ->method('mapRequestAttributesToTransfer')
-            ->willReturn($this->customerRegistrationRequestTransferMock);
-
-        $this->customerRegistrationRequestTransferMock->expects($this->atLeastOnce())
-            ->method('getAttributes')
-            ->willReturn($this->customerRegistrationAttributesTransfer);
-
-        $this->customerRegistrationRequestTransferMock->expects($this->atLeastOnce())
-            ->method('setAttributes')
-            ->willReturnSelf();
-
-        $this->customerRegistrationRequestTransferMock->expects($this->atLeastOnce())
-            ->method('setType')
-            ->with(CustomerRegistrationConstants::TYPE_EMAIL_VERIFICATION)
-            ->willReturnSelf();
-
-        $this->customerRegistrationRequestTransferMock->expects($this->atLeastOnce())
-            ->method('getAttributes')
-            ->willReturn($this->customerRegistrationAttributesTransfer);
-
-        $this->customerRegistrationAttributesTransfer->expects($this->atLeastOnce())
-            ->method('setToken')
-            ->with('token')
-            ->willReturn($this->customerRegistrationAttributesTransfer);
-
-        $this->customerRegistrationRestApiClientMock->expects($this->atLeastOnce())
-            ->method('handleCustomerRegistrationRequest')
-            ->with($this->customerRegistrationRequestTransferMock)
-            ->willReturn($this->customerRegistrationResponseTransferMock);
-
-        $this->restResourceBuilderMock->expects($this->atLeastOnce())
-            ->method('createRestResponse')
-            ->willReturn($this->restResponseMock);
-
-        $this->restResponseMock->expects($this->atLeastOnce())
-            ->method('setStatus')
-            ->with(Response::HTTP_ACCEPTED)
-            ->willReturnSelf();
-
-        $this->restRequestMock->expects($this->atLeastOnce())
-            ->method('getHttpRequest')
-            ->willReturn($this->requestMock);
-
-        $this->requestMock->expects($this->atLeastOnce())
-            ->method('get')
-            ->withConsecutive(
-                ['id'],
-                ['verify'],
-            )
-            ->willReturnOnConsecutiveCalls(
-                'token',
-                'true',
-            );
-
-        $this->assertSame(
-            $this->restResponseMock,
-            $this->customerRegistrationProcessor->verifyEmail(
-                $this->restRequestMock,
-                $this->restCustomerRegistrationRequestAttributesTransferMock,
-            ),
+        $this->customerRegistrationProcessor->register(
+            $this->restRequestMock,
+            $restCustomerRegistrationRequestAttributes,
         );
     }
 }

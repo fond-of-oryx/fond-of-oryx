@@ -3,14 +3,14 @@
 namespace FondOfOryx\Zed\StockApi\Business\Model\Validator;
 
 use Codeception\Test\Unit;
-use Generated\Shared\Transfer\ApiDataTransfer;
+use Generated\Shared\Transfer\ApiRequestTransfer;
 
 class StockApiValidatorTest extends Unit
 {
     /**
-     * @var \Generated\Shared\Transfer\ApiDataTransfer |\PHPUnit\Framework\MockObject\MockObject
+     * @var \Generated\Shared\Transfer\ApiRequestTransfer |\PHPUnit\Framework\MockObject\MockObject
      */
-    protected $apiDataTransfer;
+    protected $apiRequestTransfer;
 
     /**
      * @var \FondOfOryx\Zed\StockApi\Business\Model\Validator\StockApiValidator
@@ -20,9 +20,9 @@ class StockApiValidatorTest extends Unit
     /**
      * @return void
      */
-    protected function _before()
+    protected function _before(): void
     {
-        $this->apiDataTransfer = $this->getMockBuilder(ApiDataTransfer::class)
+        $this->apiRequestTransfer = $this->getMockBuilder(ApiRequestTransfer::class)
             ->disableOriginalConstructor()
             ->getMock();
 
@@ -32,9 +32,9 @@ class StockApiValidatorTest extends Unit
     /**
      * @return void
      */
-    public function testValidate()
+    public function testValidate(): void
     {
-        $errors = $this->stockApiValidator->validate($this->apiDataTransfer);
+        $errors = $this->stockApiValidator->validate($this->apiRequestTransfer);
 
         $this->assertIsArray($errors);
     }

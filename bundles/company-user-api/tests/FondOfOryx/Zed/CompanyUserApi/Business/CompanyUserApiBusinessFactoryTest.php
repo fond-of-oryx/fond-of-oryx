@@ -7,8 +7,8 @@ use FondOfOryx\Zed\CompanyUserApi\Business\Model\CompanyUserApi;
 use FondOfOryx\Zed\CompanyUserApi\Business\Model\Validator\CompanyUserApiValidator;
 use FondOfOryx\Zed\CompanyUserApi\CompanyUserApiConfig;
 use FondOfOryx\Zed\CompanyUserApi\CompanyUserApiDependencyProvider;
+use FondOfOryx\Zed\CompanyUserApi\Dependency\Facade\CompanyUserApiToApiFacadeInterface;
 use FondOfOryx\Zed\CompanyUserApi\Dependency\Facade\CompanyUserApiToCompanyUserFacadeInterface;
-use FondOfOryx\Zed\CompanyUserApi\Dependency\QueryContainer\CompanyUserApiToApiQueryContainerInterface;
 use FondOfOryx\Zed\CompanyUserApi\Persistence\CompanyUserApiRepository;
 use Spryker\Zed\Kernel\Container;
 
@@ -30,9 +30,9 @@ class CompanyUserApiBusinessFactoryTest extends Unit
     protected $configMock;
 
     /**
-     * @var \FondOfOryx\Zed\CompanyUserApi\Dependency\QueryContainer\CompanyUserApiToApiQueryContainerInterface|\PHPUnit\Framework\MockObject\MockObject
+     * @var \FondOfOryx\Zed\CompanyUserApi\Dependency\Facade\CompanyUserApiToApiFacadeInterface|\PHPUnit\Framework\MockObject\MockObject
      */
-    protected $apiQueryContainerMock;
+    protected $apiFacadeMock;
 
     /**
      * @var \FondOfOryx\Zed\CompanyUserApi\Dependency\Facade\CompanyUserApiToCompanyUserFacadeInterface|\PHPUnit\Framework\MockObject\MockObject
@@ -63,7 +63,7 @@ class CompanyUserApiBusinessFactoryTest extends Unit
             ->disableOriginalConstructor()
             ->getMock();
 
-        $this->apiQueryContainerMock = $this->getMockBuilder(CompanyUserApiToApiQueryContainerInterface::class)
+        $this->apiFacadeMock = $this->getMockBuilder(CompanyUserApiToApiFacadeInterface::class)
             ->disableOriginalConstructor()
             ->getMock();
 
@@ -86,18 +86,18 @@ class CompanyUserApiBusinessFactoryTest extends Unit
         $this->containerMock->expects(static::atLeastOnce())
             ->method('has')
             ->withConsecutive(
-                [CompanyUserApiDependencyProvider::QUERY_CONTAINER_API],
+                [CompanyUserApiDependencyProvider::FACADE_API],
                 [CompanyUserApiDependencyProvider::FACADE_COMPANY_USER],
             )->willReturn(true);
 
         $this->containerMock->expects(static::atLeastOnce())
             ->method('get')
             ->withConsecutive(
-                [CompanyUserApiDependencyProvider::QUERY_CONTAINER_API],
+                [CompanyUserApiDependencyProvider::FACADE_API],
                 [CompanyUserApiDependencyProvider::FACADE_COMPANY_USER],
             )
             ->willReturnOnConsecutiveCalls(
-                $this->apiQueryContainerMock,
+                $this->apiFacadeMock,
                 $this->companyUserFacadeMock,
             );
 

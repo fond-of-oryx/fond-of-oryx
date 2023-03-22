@@ -3,8 +3,8 @@
 namespace FondOfOryx\Zed\CreditMemoApi\Business\Model;
 
 use FondOfOryx\Zed\CreditMemoApi\Business\Mapper\TransferMapperInterface;
+use FondOfOryx\Zed\CreditMemoApi\Dependency\Facade\CreditMemoApiToApiFacadeInterface;
 use FondOfOryx\Zed\CreditMemoApi\Dependency\Facade\CreditMemoApiToCreditMemoFacadeInterface;
-use FondOfOryx\Zed\CreditMemoApi\Dependency\QueryContainer\CreditMemoApiToApiQueryContainerInterface;
 use Generated\Shared\Transfer\ApiDataTransfer;
 use Generated\Shared\Transfer\ApiItemTransfer;
 use Spryker\Zed\Api\ApiConfig;
@@ -13,9 +13,9 @@ use Spryker\Zed\Api\Business\Exception\EntityNotSavedException;
 class CreditMemoApi implements CreditMemoApiInterface
 {
     /**
-     * @var \FondOfOryx\Zed\CreditMemoApi\Dependency\QueryContainer\CreditMemoApiToApiQueryContainerInterface
+     * @var \FondOfOryx\Zed\CreditMemoApi\Dependency\Facade\CreditMemoApiToApiFacadeInterface
      */
-    protected $apiQueryContainer;
+    protected $apiFacade;
 
     /**
      * @var \FondOfOryx\Zed\CreditMemoApi\Dependency\Facade\CreditMemoApiToCreditMemoFacadeInterface
@@ -28,16 +28,16 @@ class CreditMemoApi implements CreditMemoApiInterface
     protected $transferMapper;
 
     /**
-     * @param \FondOfOryx\Zed\CreditMemoApi\Dependency\QueryContainer\CreditMemoApiToApiQueryContainerInterface $apiQueryContainer
+     * @param \FondOfOryx\Zed\CreditMemoApi\Dependency\Facade\CreditMemoApiToApiFacadeInterface $apiFacade
      * @param \FondOfOryx\Zed\CreditMemoApi\Business\Mapper\TransferMapperInterface $transferMapper
      * @param \FondOfOryx\Zed\CreditMemoApi\Dependency\Facade\CreditMemoApiToCreditMemoFacadeInterface $creditMemoFacade
      */
     public function __construct(
-        CreditMemoApiToApiQueryContainerInterface $apiQueryContainer,
+        CreditMemoApiToApiFacadeInterface $apiFacade,
         TransferMapperInterface $transferMapper,
         CreditMemoApiToCreditMemoFacadeInterface $creditMemoFacade
     ) {
-        $this->apiQueryContainer = $apiQueryContainer;
+        $this->apiFacade = $apiFacade;
         $this->transferMapper = $transferMapper;
         $this->creditMemoFacade = $creditMemoFacade;
     }
@@ -68,9 +68,9 @@ class CreditMemoApi implements CreditMemoApiInterface
             );
         }
 
-        return $this->apiQueryContainer->createApiItem(
+        return $this->apiFacade->createApiItem(
             $creditMemoTransfer,
-            $creditMemoTransfer->getIdCreditMemo(),
+            (string)$creditMemoTransfer->getIdCreditMemo(),
         );
     }
 }

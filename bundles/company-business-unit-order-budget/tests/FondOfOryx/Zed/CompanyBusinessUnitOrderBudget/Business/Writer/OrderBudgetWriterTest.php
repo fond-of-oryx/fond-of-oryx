@@ -1,8 +1,13 @@
 <?php
 
+/**
+ * phpcs:disable SlevomatCodingStandard.Functions.DisallowTrailingCommaInClosureUse
+ */
+
 namespace FondOfOryx\Zed\CompanyBusinessUnitOrderBudget\Business\Writer;
 
 use Codeception\Test\Unit;
+use FondOfOryx\Zed\CompanyBusinessUnitOrderBudget\Business\Reader\OrderBudgetReaderInterface;
 use FondOfOryx\Zed\CompanyBusinessUnitOrderBudget\Dependency\Facade\CompanyBusinessUnitOrderBudgetToOrderBudgetFacadeInterface;
 use FondOfOryx\Zed\CompanyBusinessUnitOrderBudget\Persistence\CompanyBusinessUnitOrderBudgetEntityManagerInterface;
 use FondOfOryx\Zed\CompanyBusinessUnitOrderBudget\Persistence\CompanyBusinessUnitOrderBudgetRepositoryInterface;
@@ -13,6 +18,11 @@ use Spryker\Zed\Kernel\Persistence\EntityManager\TransactionHandlerInterface;
 
 class OrderBudgetWriterTest extends Unit
 {
+    /**
+     * @var \FondOfOryx\Zed\CompanyBusinessUnitOrderBudget\Business\Reader\OrderBudgetReaderInterface|\PHPUnit\Framework\MockObject\MockObject
+     */
+    protected $orderBudgetReaderMock;
+
     /**
      * @var \FondOfOryx\Zed\CompanyBusinessUnitOrderBudget\Dependency\Facade\CompanyBusinessUnitOrderBudgetToOrderBudgetFacadeInterface|\PHPUnit\Framework\MockObject\MockObject|mixed
      */
@@ -60,6 +70,10 @@ class OrderBudgetWriterTest extends Unit
     {
         parent::_before();
 
+        $this->orderBudgetReaderMock = $this->getMockBuilder(OrderBudgetReaderInterface::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
         $this->orderBudgetFacadeMock = $this->getMockBuilder(CompanyBusinessUnitOrderBudgetToOrderBudgetFacadeInterface::class)
             ->disableOriginalConstructor()
             ->getMock();
@@ -89,6 +103,7 @@ class OrderBudgetWriterTest extends Unit
             ->getMock();
 
         $this->orderBudgetWriter = new class (
+            $this->orderBudgetReaderMock,
             $this->orderBudgetFacadeMock,
             $this->entityManagerMock,
             $this->repositoryMock,
@@ -101,6 +116,7 @@ class OrderBudgetWriterTest extends Unit
             protected $transactionHandler;
 
             /**
+             * @param \FondOfOryx\Zed\CompanyBusinessUnitOrderBudget\Business\Reader\OrderBudgetReaderInterface $orderBudgetReader
              * @param \FondOfOryx\Zed\CompanyBusinessUnitOrderBudget\Dependency\Facade\CompanyBusinessUnitOrderBudgetToOrderBudgetFacadeInterface $orderBudgetFacade
              * @param \FondOfOryx\Zed\CompanyBusinessUnitOrderBudget\Persistence\CompanyBusinessUnitOrderBudgetEntityManagerInterface $entityManager
              * @param \FondOfOryx\Zed\CompanyBusinessUnitOrderBudget\Persistence\CompanyBusinessUnitOrderBudgetRepositoryInterface $repository
@@ -108,13 +124,14 @@ class OrderBudgetWriterTest extends Unit
              * @param \Spryker\Zed\Kernel\Persistence\EntityManager\TransactionHandlerInterface $transactionHandler
              */
             public function __construct(
+                OrderBudgetReaderInterface $orderBudgetReader,
                 CompanyBusinessUnitOrderBudgetToOrderBudgetFacadeInterface $orderBudgetFacade,
                 CompanyBusinessUnitOrderBudgetEntityManagerInterface $entityManager,
                 CompanyBusinessUnitOrderBudgetRepositoryInterface $repository,
                 LoggerInterface $logger,
                 TransactionHandlerInterface $transactionHandler
             ) {
-                parent::__construct($orderBudgetFacade, $entityManager, $repository, $logger);
+                parent::__construct($orderBudgetReader, $orderBudgetFacade, $entityManager, $repository, $logger);
 
                 $this->transactionHandler = $transactionHandler;
             }
@@ -148,6 +165,11 @@ class OrderBudgetWriterTest extends Unit
             ->method('getFkOrderBudget')
             ->willReturn(null);
 
+        $this->orderBudgetReaderMock->expects(static::atLeastOnce())
+            ->method('getIdOrderBudgetByCompanyBusinessUnit')
+            ->with($this->companyBusinessUnitTransferMock)
+            ->willReturn(null);
+
         $this->orderBudgetFacadeMock->expects(static::atLeastOnce())
             ->method('createOrderBudget')
             ->willReturn($this->orderBudgetTransferMock);
@@ -176,6 +198,43 @@ class OrderBudgetWriterTest extends Unit
     /**
      * @return void
      */
+    public function testCreateForCompanyBusinessUnitWithExistingOrderBudgetOnTransferObject(): void
+    {
+        $idOrderBudget = 1;
+
+        $this->transactionHandlerMock->expects(static::atLeastOnce())
+            ->method('handleTransaction')
+            ->willReturnCallback(
+                static function ($callable) {
+                    $callable();
+                },
+            );
+
+        $this->companyBusinessUnitTransferMock->expects(static::atLeastOnce())
+            ->method('getFkOrderBudget')
+            ->willReturn($idOrderBudget);
+
+        $this->orderBudgetReaderMock->expects(static::never())
+            ->method('getIdOrderBudgetByCompanyBusinessUnit');
+
+        $this->orderBudgetFacadeMock->expects(static::never())
+            ->method('createOrderBudget');
+
+        $this->companyBusinessUnitTransferMock->expects(static::never())
+            ->method('setFkOrderBudget');
+
+        $this->companyBusinessUnitTransferMock->expects(static::never())
+            ->method('setOrderBudget');
+
+        $this->entityManagerMock->expects(static::never())
+            ->method('assignOrderBudgetToCompanyBusinessUnit');
+
+        $this->orderBudgetWriter->createForCompanyBusinessUnit($this->companyBusinessUnitTransferMock);
+    }
+
+    /**
+     * @return void
+     */
     public function testCreateForCompanyBusinessUnitWithExistingOrderBudget(): void
     {
         $idOrderBudget = 1;
@@ -190,6 +249,11 @@ class OrderBudgetWriterTest extends Unit
 
         $this->companyBusinessUnitTransferMock->expects(static::atLeastOnce())
             ->method('getFkOrderBudget')
+            ->willReturn(null);
+
+        $this->orderBudgetReaderMock->expects(static::atLeastOnce())
+            ->method('getIdOrderBudgetByCompanyBusinessUnit')
+            ->with($this->companyBusinessUnitTransferMock)
             ->willReturn($idOrderBudget);
 
         $this->orderBudgetFacadeMock->expects(static::never())
@@ -243,7 +307,7 @@ class OrderBudgetWriterTest extends Unit
                         CompanyBusinessUnitTransfer $companyBusinessUnitTransfer
                     ) use (
                         $idCompanyBusinessUnit,
-                        $idOrderBudget
+                        $idOrderBudget,
                     ) {
                         return $companyBusinessUnitTransfer->getIdCompanyBusinessUnit() === $idCompanyBusinessUnit
                             && $companyBusinessUnitTransfer->getFkOrderBudget() === $idOrderBudget;

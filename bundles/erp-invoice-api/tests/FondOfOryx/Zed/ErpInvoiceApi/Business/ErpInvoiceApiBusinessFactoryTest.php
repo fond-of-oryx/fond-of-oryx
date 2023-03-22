@@ -5,8 +5,8 @@ namespace FondOfOryx\Zed\ErpInvoiceApi\Business;
 use Codeception\Test\Unit;
 use FondOfOryx\Zed\ErpInvoiceApi\Business\Model\ErpInvoiceApi;
 use FondOfOryx\Zed\ErpInvoiceApi\Business\Validator\ErpInvoiceApiValidator;
+use FondOfOryx\Zed\ErpInvoiceApi\Dependency\Facade\ErpInvoiceApiToApiFacadeInterface;
 use FondOfOryx\Zed\ErpInvoiceApi\Dependency\Facade\ErpInvoiceApiToErpInvoiceFacadeInterface;
-use FondOfOryx\Zed\ErpInvoiceApi\Dependency\QueryContainer\ErpInvoiceApiToApiQueryContainerInterface;
 use FondOfOryx\Zed\ErpInvoiceApi\ErpInvoiceApiDependencyProvider;
 use FondOfOryx\Zed\ErpInvoiceApi\Persistence\ErpInvoiceApiRepository;
 use Spryker\Zed\Kernel\Container;
@@ -24,9 +24,9 @@ class ErpInvoiceApiBusinessFactoryTest extends Unit
     protected $erpInvoiceFacadeMock;
 
     /**
-     * @var \FondOfOryx\Zed\ErpInvoiceApi\Dependency\QueryContainer\ErpInvoiceApiToApiQueryContainerInterface|\PHPUnit\Framework\MockObject\MockObject
+     * @var \FondOfOryx\Zed\ErpInvoiceApi\Dependency\Facade\ErpInvoiceApiToApiFacadeInterface|\PHPUnit\Framework\MockObject\MockObject
      */
-    protected $apiQueryContainerMock;
+    protected $apiFacadeMock;
 
     /**
      * @var \FondOfOryx\Zed\ErpInvoiceApi\Persistence\ErpInvoiceApiRepository|\PHPUnit\Framework\MockObject\MockObject
@@ -53,7 +53,7 @@ class ErpInvoiceApiBusinessFactoryTest extends Unit
             ->disableOriginalConstructor()
             ->getMock();
 
-        $this->apiQueryContainerMock = $this->getMockBuilder(ErpInvoiceApiToApiQueryContainerInterface::class)
+        $this->apiFacadeMock = $this->getMockBuilder(ErpInvoiceApiToApiFacadeInterface::class)
             ->disableOriginalConstructor()
             ->getMock();
 
@@ -77,8 +77,8 @@ class ErpInvoiceApiBusinessFactoryTest extends Unit
 
         $this->containerMock->expects(static::atLeastOnce())
             ->method('get')
-            ->withConsecutive([ErpInvoiceApiDependencyProvider::QUERY_CONTAINER_API], [ErpInvoiceApiDependencyProvider::FACADE_ERP_INVOICE])
-            ->willReturnOnConsecutiveCalls($this->apiQueryContainerMock, $this->erpInvoiceFacadeMock);
+            ->withConsecutive([ErpInvoiceApiDependencyProvider::FACADE_API], [ErpInvoiceApiDependencyProvider::FACADE_ERP_INVOICE])
+            ->willReturnOnConsecutiveCalls($this->apiFacadeMock, $this->erpInvoiceFacadeMock);
 
         static::assertInstanceOf(
             ErpInvoiceApi::class,

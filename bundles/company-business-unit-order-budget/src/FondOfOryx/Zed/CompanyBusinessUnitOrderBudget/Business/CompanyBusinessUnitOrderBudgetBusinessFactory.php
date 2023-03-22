@@ -6,6 +6,8 @@ use FondOfOryx\Zed\CompanyBusinessUnitOrderBudget\Business\Expander\CompanyBusin
 use FondOfOryx\Zed\CompanyBusinessUnitOrderBudget\Business\Expander\CompanyBusinessUnitExpanderInterface;
 use FondOfOryx\Zed\CompanyBusinessUnitOrderBudget\Business\Expander\QuoteExpander;
 use FondOfOryx\Zed\CompanyBusinessUnitOrderBudget\Business\Expander\QuoteExpanderInterface;
+use FondOfOryx\Zed\CompanyBusinessUnitOrderBudget\Business\Reader\OrderBudgetReader;
+use FondOfOryx\Zed\CompanyBusinessUnitOrderBudget\Business\Reader\OrderBudgetReaderInterface;
 use FondOfOryx\Zed\CompanyBusinessUnitOrderBudget\Business\Reducer\OrderBudgetReducer;
 use FondOfOryx\Zed\CompanyBusinessUnitOrderBudget\Business\Reducer\OrderBudgetReducerInterface;
 use FondOfOryx\Zed\CompanyBusinessUnitOrderBudget\Business\Validator\QuoteValidator;
@@ -63,10 +65,21 @@ class CompanyBusinessUnitOrderBudgetBusinessFactory extends AbstractBusinessFact
     public function createOrderBudgetWriter(): OrderBudgetWriterInterface
     {
         return new OrderBudgetWriter(
+            $this->createOrderBudgetReader(),
             $this->getOrderBudgetFacade(),
             $this->getEntityManager(),
             $this->getRepository(),
             $this->getLogger(),
+        );
+    }
+
+    /**
+     * @return \FondOfOryx\Zed\CompanyBusinessUnitOrderBudget\Business\Reader\OrderBudgetReaderInterface
+     */
+    protected function createOrderBudgetReader(): OrderBudgetReaderInterface
+    {
+        return new OrderBudgetReader(
+            $this->getRepository(),
         );
     }
 
