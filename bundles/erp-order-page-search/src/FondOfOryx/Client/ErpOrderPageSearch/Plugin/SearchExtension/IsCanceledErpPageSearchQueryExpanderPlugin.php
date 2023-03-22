@@ -7,13 +7,13 @@ use Elastica\Query\BoolQuery;
 use Elastica\Query\Term;
 use FondOfOryx\Shared\ErpOrderPageSearch\ErpOrderPageSearchConstants;
 use Generated\Shared\Search\ErpOrderIndexMap;
-use Generated\Shared\Search\PageIndexMap;
 use InvalidArgumentException;
 use Spryker\Client\Kernel\AbstractPlugin;
 use Spryker\Client\SearchExtension\Dependency\Plugin\QueryExpanderPluginInterface;
 use Spryker\Client\SearchExtension\Dependency\Plugin\QueryInterface;
 
-class IsCanceledErpPageSearchQueryExpanderPlugin extends AbstractPlugin implements QueryExpanderPluginInterface {
+class IsCanceledErpPageSearchQueryExpanderPlugin extends AbstractPlugin implements QueryExpanderPluginInterface
+{
     /**
      * @param \Spryker\Client\SearchExtension\Dependency\Plugin\QueryInterface $searchQuery
      * @param array $requestParameters

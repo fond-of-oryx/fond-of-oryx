@@ -8,13 +8,13 @@ use Elastica\Query\BoolQuery;
 use Elastica\Query\Range;
 use FondOfOryx\Shared\ErpOrderPageSearch\ErpOrderPageSearchConstants;
 use Generated\Shared\Search\ErpOrderIndexMap;
-use Generated\Shared\Search\PageIndexMap;
 use InvalidArgumentException;
 use Spryker\Client\Kernel\AbstractPlugin;
 use Spryker\Client\SearchExtension\Dependency\Plugin\QueryExpanderPluginInterface;
 use Spryker\Client\SearchExtension\Dependency\Plugin\QueryInterface;
 
-class FromDateErpOrderPageSearchQueryExpanderPlugin extends AbstractPlugin implements QueryExpanderPluginInterface {
+class FromDateErpOrderPageSearchQueryExpanderPlugin extends AbstractPlugin implements QueryExpanderPluginInterface
+{
     /**
      * @param \Spryker\Client\SearchExtension\Dependency\Plugin\QueryInterface $searchQuery
      * @param array $requestParameters

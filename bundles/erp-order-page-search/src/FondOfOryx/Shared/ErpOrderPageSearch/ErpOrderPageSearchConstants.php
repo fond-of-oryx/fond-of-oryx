@@ -48,7 +48,7 @@ interface ErpOrderPageSearchConstants
      * @var string
      */
     public const PARAMETER_FROM = 'from';
-    
+
     /**
      * @var string
      */
