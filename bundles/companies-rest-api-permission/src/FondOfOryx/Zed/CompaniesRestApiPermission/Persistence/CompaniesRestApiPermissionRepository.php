@@ -27,6 +27,7 @@ class CompaniesRestApiPermissionRepository extends AbstractRepository implements
                 ->filterByKey($permissionKey)
             ->endUse()
             ->useCompanyRoleQuery()
+                ->filterByFkCompany($idCompany)
                 ->useSpyCompanyRoleToCompanyUserQuery()
                     ->useCompanyUserQuery()
                         ->useCustomerQuery()
@@ -34,7 +35,7 @@ class CompaniesRestApiPermissionRepository extends AbstractRepository implements
                         ->endUse()
                     ->endUse()
                 ->endUse()
-            ->endUse()->filterByFkCompany($idCompany)
+            ->endUse()
             ->findOne();
 
         return $result !== null;
