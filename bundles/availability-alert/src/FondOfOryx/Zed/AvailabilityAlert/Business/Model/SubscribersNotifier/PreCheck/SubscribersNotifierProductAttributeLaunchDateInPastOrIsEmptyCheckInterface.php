@@ -6,12 +6,12 @@ namespace FondOfOryx\Zed\AvailabilityAlert\Business\Model\SubscribersNotifier\Pr
 
 use Generated\Shared\Transfer\AvailabilityAlertSubscriptionTransfer;
 
-interface SubscribersNotifierProductAttributeReleaseDateInPastOrIsEmptyCheckInterface
+interface SubscribersNotifierProductAttributeLaunchDateInPastOrIsEmptyCheckInterface
 {
     /**
      * @param \Generated\Shared\Transfer\AvailabilityAlertSubscriptionTransfer $availabilityAlertSubscriptionTransfer
      *
      * @return bool
      */
-    public function checkHasProductAttributeReleaseDateInPastOrIsEmpty(AvailabilityAlertSubscriptionTransfer $availabilityAlertSubscriptionTransfer): bool;
+    public function checkHasProductAttributeLaunchDateInPastOrIsEmpty(AvailabilityAlertSubscriptionTransfer $availabilityAlertSubscriptionTransfer): bool;
 }

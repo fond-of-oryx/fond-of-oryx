@@ -13,7 +13,7 @@ use Spryker\Zed\Kernel\Communication\AbstractPlugin;
  * @method \FondOfOryx\Zed\AvailabilityAlert\Communication\AvailabilityAlertCommunicationFactory getFactory()
  * @method \FondOfOryx\Zed\AvailabilityAlert\AvailabilityAlertConfig getConfig()
  */
-class SubscribersNotifierProductAttributeReleaseDateInPastOrIsEmptyPreCheckPlugin extends AbstractPlugin implements SubscribersNotifierPreCheckPluginInterface
+class SubscribersNotifierProductAttributeLaunchDateInPastOrIsEmptyPreCheckPlugin extends AbstractPlugin implements SubscribersNotifierPreCheckPluginInterface
 {
     /**
      * @param \Generated\Shared\Transfer\AvailabilityAlertSubscriptionTransfer $availabilityAlertSubscriptionTransfer
@@ -22,6 +22,6 @@ class SubscribersNotifierProductAttributeReleaseDateInPastOrIsEmptyPreCheckPlugi
      */
     public function checkCondition(AvailabilityAlertSubscriptionTransfer $availabilityAlertSubscriptionTransfer): bool
     {
-        return $this->getFacade()->preCheckSubscribersNotifierProductAttributeReleaseDateInPastOrIsEmpty($availabilityAlertSubscriptionTransfer);
+        return $this->getFacade()->preCheckSubscribersNotifierProductAttributeLaunchDateInPastOrIsEmpty($availabilityAlertSubscriptionTransfer);
     }
 }

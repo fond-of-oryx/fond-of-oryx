@@ -53,4 +53,35 @@ interface ErpDeliveryNotePageSearchConstants
      * @var string
      */
     public const FULL_TEXT_BOOSTED_FIELDS = 'FOND_OF_ORYX:ERP_DELIVERY_NOTE_PAGE_SEARCH:FULL_TEXT_BOOSTED_FIELDS';
+
+    /**
+     * @var string
+     */
+    public const TRACKING_DATA_BLACKLIST_FIELDS = 'FOND_OF_ORYX:ERP_DELIVERY_NOTE_PAGE_SEARCH:TRACKING_DATA_BLACKLIST_FIELDS';
+
+    /**
+     * @var array
+     */
+    public const TRACKING_DATA_BLACKLIST_FIELDS_DEFAULT = [
+        'id_erp_delivery_note_tracking',
+        'fk_erp_delivery_note',
+        'shipping_agent_service_code',
+        'created_at',
+        'updated_at',
+    ];
+
+    /**
+     * @var string
+     */
+    public const ITEM_DATA_BLACKLIST_FIELDS = 'FOND_OF_ORYX:ERP_DELIVERY_NOTE_PAGE_SEARCH:ITEM_DATA_BLACKLIST_FIELDS';
+
+    /**
+     * @var array
+     */
+    public const ITEM_DATA_BLACKLIST_FIELDS_DEFAULT = [
+        'id_erp_delivery_note_item',
+        'fk_erp_delivery_note',
+        'created_at',
+        'updated_at',
+    ];
 }
