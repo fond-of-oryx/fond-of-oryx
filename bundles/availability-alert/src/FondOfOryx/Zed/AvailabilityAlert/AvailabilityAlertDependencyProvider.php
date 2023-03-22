@@ -3,7 +3,7 @@
 namespace FondOfOryx\Zed\AvailabilityAlert;
 
 use FondOfOryx\Zed\AvailabilityAlert\Communication\Plugin\SubscribersNotifier\SubscribersNotifierHasProductAssignedStoresPreCheckPlugin;
-use FondOfOryx\Zed\AvailabilityAlert\Communication\Plugin\SubscribersNotifier\SubscribersNotifierProductAttributeReleaseDateInPastOrIsEmptyPreCheckPlugin;
+use FondOfOryx\Zed\AvailabilityAlert\Communication\Plugin\SubscribersNotifier\SubscribersNotifierProductAttributeLaunchDateInPastOrIsEmptyPreCheckPlugin;
 use FondOfOryx\Zed\AvailabilityAlert\Dependency\Facade\AvailabilityAlertToAvailabilityFacadeBridge;
 use FondOfOryx\Zed\AvailabilityAlert\Dependency\Facade\AvailabilityAlertToLocaleBridge;
 use FondOfOryx\Zed\AvailabilityAlert\Dependency\Facade\AvailabilityAlertToMailBridge;
@@ -206,7 +206,7 @@ class AvailabilityAlertDependencyProvider extends AbstractBundleDependencyProvid
     {
         return [
             new SubscribersNotifierHasProductAssignedStoresPreCheckPlugin(),
-            new SubscribersNotifierProductAttributeReleaseDateInPastOrIsEmptyPreCheckPlugin(),
+            new SubscribersNotifierProductAttributeLaunchDateInPastOrIsEmptyPreCheckPlugin(),
         ];
     }
 
