@@ -15,8 +15,9 @@ class CompaniesRestApiPermissionClient extends AbstractClient implements Compani
     /**
      * @param \Generated\Shared\Transfer\CompaniesRestApiPermissionRequestTransfer $companiesRestApiPermissionRequestTransfer
      *
-     * @return bool
      * @throws \Exception
+     *
+     * @return bool
      */
     public function hasPermissionToDeleteCompany(
         CompaniesRestApiPermissionRequestTransfer $companiesRestApiPermissionRequestTransfer

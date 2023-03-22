@@ -9,8 +9,9 @@ interface CompaniesRestApiPermissionClientInterface
     /**
      * @param \Generated\Shared\Transfer\CompaniesRestApiPermissionRequestTransfer $companiesRestApiPermissionRequestTransfer
      *
-     * @return bool
      * @throws \Exception
+     *
+     * @return bool
      */
     public function hasPermissionToDeleteCompany(
         CompaniesRestApiPermissionRequestTransfer $companiesRestApiPermissionRequestTransfer
