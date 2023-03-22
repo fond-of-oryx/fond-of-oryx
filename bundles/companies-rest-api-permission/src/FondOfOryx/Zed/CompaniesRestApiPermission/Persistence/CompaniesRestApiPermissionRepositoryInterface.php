@@ -2,8 +2,6 @@
 
 namespace FondOfOryx\Zed\CompaniesRestApiPermission\Persistence;
 
-use Generated\Shared\Transfer\CompanyBusinessUnitUuidCollectionTransfer;
-
 interface CompaniesRestApiPermissionRepositoryInterface
 {
     /**
@@ -11,8 +9,9 @@ interface CompaniesRestApiPermissionRepositoryInterface
      * @param string $customerReference
      * @param int $idCompany
      *
-     * @return bool
      * @throws \Spryker\Zed\Propel\Business\Exception\AmbiguousComparisonException
+     *
+     * @return bool
      */
     public function hasPermissionToDeleteCompany(
         string $permissionKey,
