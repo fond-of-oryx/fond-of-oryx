@@ -2,8 +2,6 @@
 
 namespace FondOfOryx\Zed\CompaniesRestApiPermission\Persistence;
 
-use Generated\Shared\Transfer\CompanyBusinessUnitUuidCollectionTransfer;
-use Orm\Zed\CompanyBusinessUnit\Persistence\Map\SpyCompanyBusinessUnitTableMap;
 use Spryker\Zed\Kernel\Persistence\AbstractRepository;
 
 /**
@@ -17,7 +15,6 @@ class CompaniesRestApiPermissionRepository extends AbstractRepository implements
      * @param int $idCompany
      *
      * @return bool
-     * @throws \Spryker\Zed\Propel\Business\Exception\AmbiguousComparisonException
      */
     public function hasPermissionToDeleteCompany(
         string $permissionKey,
@@ -26,7 +23,7 @@ class CompaniesRestApiPermissionRepository extends AbstractRepository implements
     ): bool {
         $spyCompanyRoleToPermissionQuery = $this->getFactory()->createSpyCompanyRoleToPermissionQuery();
 
-        $test = $spyCompanyRoleToPermissionQuery->usePermissionQuery()
+        $result = $spyCompanyRoleToPermissionQuery->usePermissionQuery()
                 ->filterByKey($permissionKey)
             ->endUse()
             ->useCompanyRoleQuery()
@@ -35,14 +32,11 @@ class CompaniesRestApiPermissionRepository extends AbstractRepository implements
                         ->useCustomerQuery()
                             ->filterByCustomerReference($customerReference)
                         ->endUse()
-                        ->useCompanyBusinessUnitQuery()
-                            ->withColumn(SpyCompanyBusinessUnitTableMap::COL_UUID, 'uuid')
-                        ->endUse()
                     ->endUse()
                 ->endUse()
             ->endUse()
             ->findByFkCompany($idCompany);
 
-        return $test !== null;
+        return $result !== null;
     }
 }

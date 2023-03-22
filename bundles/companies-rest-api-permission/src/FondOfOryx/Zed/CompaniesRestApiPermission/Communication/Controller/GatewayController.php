@@ -15,7 +15,6 @@ class GatewayController extends AbstractGatewayController
      * @param \Generated\Shared\Transfer\CompaniesRestApiPermissionRequestTransfer $companiesRestApiPermissionRequestTransfer
      *
      * @return \Generated\Shared\Transfer\CompaniesRestApiPermissionResponseTransfer
-     * @throws \Spryker\Zed\Propel\Business\Exception\AmbiguousComparisonException
      */
     public function getAccessibleCompanyBusinessUnitUuidsAction(
         CompaniesRestApiPermissionRequestTransfer $companiesRestApiPermissionRequestTransfer
@@ -24,7 +23,7 @@ class GatewayController extends AbstractGatewayController
             ->hasPermissionToDeleteCompany(
                 $companiesRestApiPermissionRequestTransfer->getPermissionKey(),
                 $companiesRestApiPermissionRequestTransfer->getCustomerReference(),
-                $companiesRestApiPermissionRequestTransfer->getCompanyId()
+                $companiesRestApiPermissionRequestTransfer->getCompanyId(),
             ))->setRequest($companiesRestApiPermissionRequestTransfer);
     }
 }
