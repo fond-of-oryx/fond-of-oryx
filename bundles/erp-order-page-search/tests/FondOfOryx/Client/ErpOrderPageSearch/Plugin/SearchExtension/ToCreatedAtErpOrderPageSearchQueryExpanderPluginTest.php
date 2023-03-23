@@ -9,7 +9,7 @@ use Elastica\Query\MatchQuery;
 use FondOfOryx\Shared\ErpOrderPageSearch\ErpOrderPageSearchConstants;
 use Spryker\Client\SearchExtension\Dependency\Plugin\QueryInterface;
 
-class FromDateErpOrderPageSearchQueryExpanderPluginTest extends Unit
+class ToCreatedAtErpOrderPageSearchQueryExpanderPluginTest extends Unit
 {
     /**
      * @var \PHPUnit\Framework\MockObject\MockObject|\Spryker\Client\SearchExtension\Dependency\Plugin\QueryInterface
@@ -65,10 +65,10 @@ class FromDateErpOrderPageSearchQueryExpanderPluginTest extends Unit
             ->getMock();
 
         $this->requestParameters = [
-            ErpOrderPageSearchConstants::PARAMETER_FROM => '1970-01-01',
+            ErpOrderPageSearchConstants::PARAMETER_TO => '1970-01-01',
         ];
 
-        $this->plugin = new FromDateErpOrderPageSearchQueryExpanderPlugin();
+        $this->plugin = new ToCreatedAtDateErpOrderPageSearchQueryExpanderPlugin();
     }
 
     /**

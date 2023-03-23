@@ -13,7 +13,7 @@ use Spryker\Client\Kernel\AbstractPlugin;
 use Spryker\Client\SearchExtension\Dependency\Plugin\QueryExpanderPluginInterface;
 use Spryker\Client\SearchExtension\Dependency\Plugin\QueryInterface;
 
-class FromDateErpOrderPageSearchQueryExpanderPlugin extends AbstractPlugin implements QueryExpanderPluginInterface
+class ToCreatedAtDateErpOrderPageSearchQueryExpanderPlugin extends AbstractPlugin implements QueryExpanderPluginInterface
 {
     /**
      * @param \Spryker\Client\SearchExtension\Dependency\Plugin\QueryInterface $searchQuery
@@ -23,21 +23,21 @@ class FromDateErpOrderPageSearchQueryExpanderPlugin extends AbstractPlugin imple
      */
     public function expandQuery(QueryInterface $searchQuery, array $requestParameters = [])
     {
-        if (!isset($requestParameters[ErpOrderPageSearchConstants::PARAMETER_FROM])) {
+        if (!isset($requestParameters[ErpOrderPageSearchConstants::PARAMETER_TO])) {
             return $searchQuery;
         }
 
-        $from = new DateTime($requestParameters[ErpOrderPageSearchConstants::PARAMETER_FROM]);
+        $to = new DateTime($requestParameters[ErpOrderPageSearchConstants::PARAMETER_TO]);
         $boolQuery = $this->getBoolQuery($searchQuery->getSearchQuery());
 
-        $fromRange = (new Range())->addField(
+        $toRange = (new Range())->addField(
             ErpOrderIndexMap::CREATED_AT,
             [
-                'gte' => $from->format('Y-m-d H:i:s'),
+                'lte' => $to->format(ErpOrderPageSearchConstants::DATE_FORMAT),
             ],
         );
 
-        $boolQuery->addFilter($fromRange);
+        $boolQuery->addFilter($toRange);
 
         return $searchQuery;
     }
