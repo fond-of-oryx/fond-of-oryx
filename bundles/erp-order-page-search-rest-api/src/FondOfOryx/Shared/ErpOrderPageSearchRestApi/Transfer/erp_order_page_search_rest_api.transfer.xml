@@ -56,6 +56,7 @@
         <property name="items" singular="item" type="RestErpOrderItem[]"/>
         <property name="totals" type="RestErpOrderTotal"/>
         <property name="currencyIsoCode" type="string"/>
+        <property name="isCanceled" type="bool"/>
     </transfer>
 
     <transfer name="RestErpOrderAddress">
