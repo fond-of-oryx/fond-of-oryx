@@ -177,8 +177,8 @@ class MailjetMailerTest extends Unit
             ->willReturn(true);
 
         $this->configMock->expects(static::atLeastOnce())
-            ->method('getWhitelisted')
-            ->willReturn([]);
+            ->method('getWhitelistedEmails')
+            ->willReturn(['test@example.de']);
 
         $this->configMock->expects(static::atLeastOnce())
             ->method('getWhitelistedTLD')
@@ -243,9 +243,8 @@ class MailjetMailerTest extends Unit
             ->method('getWhitelistedEmails')
             ->willReturn(['customer.address@example.com']);
 
-        $this->configMock->expects(static::atLeastOnce())
-            ->method('getWhitelisted')
-            ->willReturn(['customer.address@example.com']);
+        $this->configMock->expects(static::never())
+            ->method('getWhitelistedTLD');
 
         $this->configMock->expects(self::never())
             ->method('getSandboxMode');
