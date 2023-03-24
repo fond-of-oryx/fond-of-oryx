@@ -145,4 +145,12 @@ class MailjetMailConnectorConfig extends AbstractBundleConfig
     {
         return $this->get(MailjetMailConnectorConstants::MAILJET_WHITELISTED_TLD, []);
     }
+
+    /**
+     * @return array<string>
+     */
+    public function getWhitelistedEmails(): array
+    {
+        return $this->get(MailjetMailConnectorConstants::MAILJET_WHITELISTED_EMAILS, []);
+    }
 }
