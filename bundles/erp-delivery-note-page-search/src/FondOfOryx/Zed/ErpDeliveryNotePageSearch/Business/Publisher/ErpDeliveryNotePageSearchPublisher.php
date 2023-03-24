@@ -58,7 +58,32 @@ class ErpDeliveryNotePageSearchPublisher implements ErpDeliveryNotePageSearchPub
     /**
      * @var string
      */
+    public const FIELD_SKU = 'sku';
+
+    /**
+     * @var string
+     */
     public const FIELD_TRACKING_DATA = 'tracking_data';
+
+    /**
+     * @var string
+     */
+    public const FIELD_TRACKING_NUMBER = 'tracking_number';
+
+    /**
+     * @var string
+     */
+    public const FIELD_SHIPPING_AGENT_CODE = 'shipping_agent_code';
+
+    /**
+     * @var string
+     */
+    public const FIELD_TRACKING_URL = 'tracking_url';
+
+    /**
+     * @var string
+     */
+    public const FIELD_ITEMS = 'items';
 
     /**
      * @var \FondOfOryx\Zed\ErpDeliveryNotePageSearch\Persistence\ErpDeliveryNotePageSearchEntityManagerInterface
@@ -258,7 +283,7 @@ class ErpDeliveryNotePageSearchPublisher implements ErpDeliveryNotePageSearchPub
             }
         }
 
-        return $tracking;
+        return $this->optimizeForElasticSearchToReduceDynamicFields($tracking);
     }
 
     /**
@@ -313,5 +338,34 @@ class ErpDeliveryNotePageSearchPublisher implements ErpDeliveryNotePageSearchPub
         }
 
         return $tracking;
+    }
+
+    /**
+     * @param array $tracking
+     *
+     * @return array
+     */
+    protected function optimizeForElasticSearchToReduceDynamicFields(array $tracking): array
+    {
+        $optimizedTrackingData = [];
+        foreach ($tracking as $trackingNumber => $trackingCollection) {
+            $trackingPart = [
+                static::FIELD_TRACKING_NUMBER => $trackingNumber,
+            ];
+            $items = [];
+            foreach ($trackingCollection as $sku => $item) {
+                $reducedItem = [
+                    static::FIELD_QUANTITY => $item[static::FIELD_QUANTITY],
+                    static::FIELD_SKU => $sku,
+                ];
+                $trackingPart[static::FIELD_SHIPPING_AGENT_CODE] = $item[static::FIELD_SHIPPING_AGENT_CODE];
+                $trackingPart[static::FIELD_TRACKING_URL] = $item[static::FIELD_TRACKING_URL];
+                $items[] = $reducedItem;
+            }
+            $trackingPart[static::FIELD_ITEMS] = $items;
+            $optimizedTrackingData[] = $trackingPart;
+        }
+
+        return $optimizedTrackingData;
     }
 }
