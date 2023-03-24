@@ -78,4 +78,9 @@ interface MailjetMailConnectorConstants
      * @var string
      */
     public const MAILJET_WHITELISTED_TLD = 'MailjetMailConnector:MAILJET_WHITELISTED_TLD';
+
+    /**
+     * @var string
+     */
+    public const MAILJET_WHITELISTED_EMAILS = 'MailjetMailConnector:MAILJET_WHITELISTED_EMAILS';
 }

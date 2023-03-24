@@ -592,7 +592,7 @@
     },
     "mailjet-mail-connector": {
       "path": "bundles/mailjet-mail-connector/",
-      "version": "1.0.0"
+      "version": "1.1.0"
     },
     "no-payment-credit-memo": {
       "path": "bundles/no-payment-credit-memo/",
