@@ -349,11 +349,15 @@ class ErpDeliveryNotePageSearchPublisher implements ErpDeliveryNotePageSearchPub
     {
         $optimizedTrackingData = [];
         foreach ($tracking as $trackingNumber => $trackingCollection) {
-            $trackingPart[static::FIELD_TRACKING_NUMBER] = $trackingNumber;
+            $trackingPart = [
+                static::FIELD_TRACKING_NUMBER => $trackingNumber,
+            ];
             $items = [];
             foreach ($trackingCollection as $sku => $item) {
-                $reducedItem[static::FIELD_QUANTITY] = $item[static::FIELD_QUANTITY];
-                $reducedItem[static::FIELD_SKU] = $sku;
+                $reducedItem = [
+                    static::FIELD_QUANTITY => $item[static::FIELD_QUANTITY],
+                    static::FIELD_SKU => $sku,
+                ];
                 $trackingPart[static::FIELD_SHIPPING_AGENT_CODE] = $item[static::FIELD_SHIPPING_AGENT_CODE];
                 $trackingPart[static::FIELD_TRACKING_URL] = $item[static::FIELD_TRACKING_URL];
                 $items[] = $reducedItem;
@@ -361,6 +365,7 @@ class ErpDeliveryNotePageSearchPublisher implements ErpDeliveryNotePageSearchPub
             $trackingPart[static::FIELD_ITEMS] = $items;
             $optimizedTrackingData[] = $trackingPart;
         }
+
         return $optimizedTrackingData;
     }
 }
