@@ -130,6 +130,74 @@ class MailjetMailerTest extends Unit
     /**
      * @return void
      */
+    public function testDontSendMail(): void
+    {
+        $this->mailTransferMock->expects(static::atLeastOnce())
+            ->method('getCustomer')
+            ->willReturn($this->customerTransferMock);
+
+        $this->configMock->expects(static::atLeastOnce())
+            ->method('getFromEmail')
+            ->willReturn('john.doe@fondof.de');
+
+        $this->configMock->expects(static::atLeastOnce())
+            ->method('getFromName')
+            ->willReturn('John Doe');
+
+        $this->customerTransferMock->expects(static::atLeastOnce())
+            ->method('getEmail')
+            ->willReturn('customer.address@example.com');
+
+        $this->customerTransferMock->expects(static::atLeastOnce())
+            ->method('getFirstName')
+            ->willReturn('Customer Firstname');
+
+        $this->customerTransferMock->expects(static::atLeastOnce())
+            ->method('getLastName')
+            ->willReturn('Customer Lastname');
+
+        $this->mailTransferMock->expects(static::atLeastOnce())
+            ->method('getMailjetTemplate')
+            ->willReturn($this->mailjetTemplateTransferMock);
+
+        $this->mailjetTemplateTransferMock->expects(static::atLeastOnce())
+            ->method('getTemplateId')
+            ->willReturn(123);
+
+        $this->mailjetTemplateTransferMock->expects(static::atLeastOnce())
+            ->method('getTemplateId')
+            ->willReturn(123);
+
+        $this->mailjetTemplateTransferMock->expects(static::atLeastOnce())
+            ->method('getVariables')
+            ->willReturn([]);
+
+        $this->configMock->expects(static::atLeastOnce())
+            ->method('getTemplateLanguage')
+            ->willReturn(true);
+
+        $this->configMock->expects(static::atLeastOnce())
+            ->method('getSandboxMode')
+            ->willReturn(true);
+
+        $this->configMock->expects(static::atLeastOnce())
+            ->method('getWhitelistedEmails')
+            ->willReturn(['test@example.de']);
+
+        $this->configMock->expects(static::atLeastOnce())
+            ->method('getWhitelistedTLD')
+            ->willReturn(['fondof.de']);
+
+        $this->configMock->expects(self::atLeastOnce())
+            ->method('getSandboxMode')
+            ->willReturn(true);
+
+        $this->mailer->sendMail($this->mailTransferMock);
+    }
+
+    /**
+     * @return void
+     */
     public function testSendMailWithWhitelistedTLD(): void
     {
         $this->mailTransferMock->expects(static::atLeastOnce())
@@ -177,8 +245,8 @@ class MailjetMailerTest extends Unit
             ->willReturn(true);
 
         $this->configMock->expects(static::atLeastOnce())
-            ->method('getWhitelisted')
-            ->willReturn([]);
+            ->method('getWhitelistedEmails')
+            ->willReturn(['test@example.de']);
 
         $this->configMock->expects(static::atLeastOnce())
             ->method('getWhitelistedTLD')
@@ -243,9 +311,8 @@ class MailjetMailerTest extends Unit
             ->method('getWhitelistedEmails')
             ->willReturn(['customer.address@example.com']);
 
-        $this->configMock->expects(static::atLeastOnce())
-            ->method('getWhitelisted')
-            ->willReturn(['customer.address@example.com']);
+        $this->configMock->expects(static::never())
+            ->method('getWhitelistedTLD');
 
         $this->configMock->expects(self::never())
             ->method('getSandboxMode');
