@@ -8,7 +8,7 @@
     },
     "availability-alert": {
       "path": "bundles/availability-alert/",
-      "version": "4.0.0"
+      "version": "4.0.1"
     },
     "availability-alert-cross-engage": {
       "path": "bundles/availability-alert-cross-engage/",
