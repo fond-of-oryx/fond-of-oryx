@@ -17,17 +17,17 @@ class CompaniesRestApiPermissionClient extends AbstractClient implements Compani
      *
      * @throws \Exception
      *
-     * @return \Generated\Shared\Transfer\CompaniesRestApiPermissionResponseTransfer
+     * @return bool
      */
     public function hasPermissionToDeleteCompany(
         CompaniesRestApiPermissionRequestTransfer $companiesRestApiPermissionRequestTransfer
-    ): CompaniesRestApiPermissionResponseTransfer {
+    ): bool {
         $transfer = $this->getFactory()
             ->createCompaniesRestApiPermissionStub()
             ->hasPermissionToDeleteCompany($companiesRestApiPermissionRequestTransfer);
 
         if ($transfer instanceof CompaniesRestApiPermissionResponseTransfer) {
-            return $transfer;
+            return $transfer->getHasPermissionToDelete();
         }
 
         throw new Exception('Wrong response!');

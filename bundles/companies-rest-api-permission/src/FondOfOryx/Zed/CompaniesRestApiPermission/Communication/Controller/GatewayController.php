@@ -16,14 +16,14 @@ class GatewayController extends AbstractGatewayController
      *
      * @return \Generated\Shared\Transfer\CompaniesRestApiPermissionResponseTransfer
      */
-    public function getAccessibleCompanyBusinessUnitUuidsAction(
+    public function hasPermissionToDeleteCompanyAction(
         CompaniesRestApiPermissionRequestTransfer $companiesRestApiPermissionRequestTransfer
     ): CompaniesRestApiPermissionResponseTransfer {
         return (new CompaniesRestApiPermissionResponseTransfer())->setHasPermissionToDelete($this->getRepository()
             ->hasPermissionToDeleteCompany(
                 $companiesRestApiPermissionRequestTransfer->getPermissionKey(),
                 $companiesRestApiPermissionRequestTransfer->getCustomerReference(),
-                $companiesRestApiPermissionRequestTransfer->getCompanyId(),
+                $companiesRestApiPermissionRequestTransfer->getCompanyUuid(),
             ))->setRequest($companiesRestApiPermissionRequestTransfer);
     }
 }

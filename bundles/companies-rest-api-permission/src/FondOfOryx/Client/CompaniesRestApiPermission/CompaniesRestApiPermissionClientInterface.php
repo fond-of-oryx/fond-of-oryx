@@ -3,7 +3,6 @@
 namespace FondOfOryx\Client\CompaniesRestApiPermission;
 
 use Generated\Shared\Transfer\CompaniesRestApiPermissionRequestTransfer;
-use Generated\Shared\Transfer\CompaniesRestApiPermissionResponseTransfer;
 
 interface CompaniesRestApiPermissionClientInterface
 {
@@ -12,9 +11,9 @@ interface CompaniesRestApiPermissionClientInterface
      *
      * @throws \Exception
      *
-     * @return \Generated\Shared\Transfer\CompaniesRestApiPermissionResponseTransfer
+     * @return bool
      */
     public function hasPermissionToDeleteCompany(
         CompaniesRestApiPermissionRequestTransfer $companiesRestApiPermissionRequestTransfer
-    ): CompaniesRestApiPermissionResponseTransfer;
+    ): bool;
 }

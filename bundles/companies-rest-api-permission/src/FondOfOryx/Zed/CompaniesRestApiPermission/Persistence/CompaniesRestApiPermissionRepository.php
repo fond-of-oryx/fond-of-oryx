@@ -12,14 +12,14 @@ class CompaniesRestApiPermissionRepository extends AbstractRepository implements
     /**
      * @param string $permissionKey
      * @param string $customerReference
-     * @param int $idCompany
+     * @param string $companyUuid
      *
      * @return bool
      */
     public function hasPermissionToDeleteCompany(
         string $permissionKey,
         string $customerReference,
-        int $idCompany
+        string $companyUuid
     ): bool {
         $spyCompanyRoleToPermissionQuery = $this->getFactory()->createSpyCompanyRoleToPermissionQuery();
 
@@ -27,6 +27,9 @@ class CompaniesRestApiPermissionRepository extends AbstractRepository implements
                 ->filterByKey($permissionKey)
             ->endUse()
             ->useCompanyRoleQuery()
+                ->useCompanyQuery()
+                    ->filterByUuid($companyUuid)
+                ->endUse()
                 ->useSpyCompanyRoleToCompanyUserQuery()
                     ->useCompanyUserQuery()
                         ->useCustomerQuery()
@@ -34,8 +37,7 @@ class CompaniesRestApiPermissionRepository extends AbstractRepository implements
                         ->endUse()
                     ->endUse()
                 ->endUse()
-            ->endUse()->filterByFkCompany($idCompany)
-            ->findOne();
+            ->endUse()->findOne();
 
         return $result !== null;
     }
