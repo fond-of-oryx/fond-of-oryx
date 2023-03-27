@@ -4,8 +4,10 @@ namespace FondOfOryx\Glue\CompaniesRestApi\Processor\Builder;
 
 use FondOfOryx\Glue\CompaniesRestApi\CompaniesRestApiConfig;
 use Generated\Shared\Transfer\CompanyTransfer;
+use Generated\Shared\Transfer\RestErrorMessageTransfer;
 use Spryker\Glue\GlueApplication\Rest\JsonApi\RestResourceBuilderInterface;
 use Spryker\Glue\GlueApplication\Rest\JsonApi\RestResponseInterface;
+use Symfony\Component\HttpFoundation\Response;
 
 class RestResponseBuilder implements RestResponseBuilderInterface
 {
@@ -40,5 +42,20 @@ class RestResponseBuilder implements RestResponseBuilderInterface
         );
 
         return $restResponse->addResource($restResource);
+    }
+
+    /**
+     * @return \Spryker\Glue\GlueApplication\Rest\JsonApi\RestResponseInterface
+     */
+    public function buildCompanyDeleterMissingPermissionResponse(): RestResponseInterface
+    {
+        $restErrorMessageTransfer = (new RestErrorMessageTransfer())
+            ->setCode(CompaniesRestApiConfig::RESPONSE_CODE_USER_IS_NOT_ALLOWED_TO_DELETE_COMPANY)
+            ->setStatus(Response::HTTP_FORBIDDEN)
+            ->setDetail(CompaniesRestApiConfig::ERROR_MESSAGE_USER_IS_NOT_ALLOWED_TO_DELETE_COMPANY);
+
+        return $this->restResourceBuilder
+            ->createRestResponse()
+            ->addError($restErrorMessageTransfer);
     }
 }
