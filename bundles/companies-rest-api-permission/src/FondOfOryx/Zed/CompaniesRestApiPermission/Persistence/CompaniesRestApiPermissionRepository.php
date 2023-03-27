@@ -37,7 +37,7 @@ class CompaniesRestApiPermissionRepository extends AbstractRepository implements
                         ->endUse()
                     ->endUse()
                 ->endUse()
-            ->endUse();
+            ->endUse()->findOne();
 
         return $result !== null;
     }
