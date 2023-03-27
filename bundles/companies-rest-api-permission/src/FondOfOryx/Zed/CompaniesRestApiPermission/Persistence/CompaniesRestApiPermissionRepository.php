@@ -14,8 +14,6 @@ class CompaniesRestApiPermissionRepository extends AbstractRepository implements
      * @param string $customerReference
      * @param string $companyUuid
      *
-     * @throws \Spryker\Zed\Propel\Business\Exception\AmbiguousComparisonException
-     *
      * @return bool
      */
     public function hasPermissionToDeleteCompany(
