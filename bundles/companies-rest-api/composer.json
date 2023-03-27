@@ -10,6 +10,7 @@
   ],
   "require": {
     "php": ">=8.0",
+    "fond-of-oryx/companies-rest-api-permission": "^1.0.0",
     "fond-of-oryx/company-deleter": "^1.0.0",
     "spryker/glue-application": "*"
   },

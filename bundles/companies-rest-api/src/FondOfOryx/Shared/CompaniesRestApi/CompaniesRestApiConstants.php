@@ -7,6 +7,11 @@ interface CompaniesRestApiConstants
     /**
      * @var string
      */
+    public const PERMISSION_KEY = 'CanDeleteCompanyPermissionPlugin';
+
+    /**
+     * @var string
+     */
     public const VALID_ITEMS_PER_PAGE_OPTIONS = 'FOND_OF_ORYX:COMPANIES_REST_API:VALID_ITEMS_PER_PAGE_OPTIONS';
 
     /**

@@ -15,4 +15,9 @@ interface RestResponseBuilderInterface
     public function buildCompanyDeleterRestResponse(
         CompanyTransfer $companyTransfer
     ): RestResponseInterface;
+
+    /**
+     * @return \Spryker\Glue\GlueApplication\Rest\JsonApi\RestResponseInterface
+     */
+    public function buildCompanyDeleterMissingPermissionResponse(): RestResponseInterface;
 }

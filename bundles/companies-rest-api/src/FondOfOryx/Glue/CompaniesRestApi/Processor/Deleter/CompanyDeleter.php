@@ -5,6 +5,7 @@ namespace FondOfOryx\Glue\CompaniesRestApi\Processor\Deleter;
 use FondOfOryx\Client\CompaniesRestApi\CompaniesRestApiClientInterface;
 use FondOfOryx\Glue\CompaniesRestApi\Processor\Builder\RestResponseBuilderInterface;
 use FondOfOryx\Glue\CompaniesRestApi\Processor\Mapper\CompanyMapperInterface;
+use FondOfOryx\Glue\CompaniesRestApi\Processor\Permission\PermissionCheckerInterface;
 use Spryker\Glue\GlueApplication\Rest\JsonApi\RestResponseInterface;
 use Spryker\Glue\GlueApplication\Rest\Request\Data\RestRequestInterface;
 
@@ -26,18 +27,26 @@ class CompanyDeleter implements CompanyDeleterInterface
     protected $responseBuilder;
 
     /**
+     * @var \FondOfOryx\Glue\CompaniesRestApi\Processor\Permission\PermissionCheckerInterface
+     */
+    protected $permissionChecker;
+
+    /**
      * @param \FondOfOryx\Client\CompaniesRestApi\CompaniesRestApiClientInterface $client
      * @param \FondOfOryx\Glue\CompaniesRestApi\Processor\Mapper\CompanyMapperInterface $companyMapper
      * @param \FondOfOryx\Glue\CompaniesRestApi\Processor\Builder\RestResponseBuilderInterface $responseBuilder
+     * @param \FondOfOryx\Glue\CompaniesRestApi\Processor\Permission\PermissionCheckerInterface $permissionChecker
      */
     public function __construct(
         CompaniesRestApiClientInterface $client,
         CompanyMapperInterface $companyMapper,
-        RestResponseBuilderInterface $responseBuilder
+        RestResponseBuilderInterface $responseBuilder,
+        PermissionCheckerInterface $permissionChecker
     ) {
         $this->client = $client;
         $this->companyMapper = $companyMapper;
         $this->responseBuilder = $responseBuilder;
+        $this->permissionChecker = $permissionChecker;
     }
 
     /**
@@ -47,8 +56,13 @@ class CompanyDeleter implements CompanyDeleterInterface
      */
     public function delete(RestRequestInterface $restRequest): RestResponseInterface
     {
-        $companyTransfer = $this->client->deleteCompany($this->companyMapper->fromRestRequest($restRequest));
+        if ($this->permissionChecker->can($restRequest)) {
+            $companyTransfer = $this->companyMapper->fromRestRequest($restRequest);
+            $companyTransfer = $this->client->deleteCompany($companyTransfer);
 
-        return $this->responseBuilder->buildCompanyDeleterRestResponse($companyTransfer);
+            return $this->responseBuilder->buildCompanyDeleterRestResponse($companyTransfer);
+        }
+
+        return $this->responseBuilder->buildCompanyDeleterMissingPermissionResponse();
     }
 }
