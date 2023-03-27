@@ -50,7 +50,7 @@ class RestResponseBuilder implements RestResponseBuilderInterface
     public function buildCompanyDeleterMissingPermissionResponse(): RestResponseInterface
     {
         $restErrorMessageTransfer = (new RestErrorMessageTransfer())
-            ->setCode(CompaniesRestApiConfig::RESPONSE_CODE_USER_IS_NOT_ALLOWED_TO_DELETE_COMPANY)
+            ->setCode((string)CompaniesRestApiConfig::RESPONSE_CODE_USER_IS_NOT_ALLOWED_TO_DELETE_COMPANY)
             ->setStatus(Response::HTTP_FORBIDDEN)
             ->setDetail(CompaniesRestApiConfig::ERROR_MESSAGE_USER_IS_NOT_ALLOWED_TO_DELETE_COMPANY);
 

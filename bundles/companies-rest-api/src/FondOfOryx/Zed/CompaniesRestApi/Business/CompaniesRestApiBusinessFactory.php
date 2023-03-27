@@ -8,6 +8,9 @@ use FondOfOryx\Zed\CompaniesRestApi\CompaniesRestApiDependencyProvider;
 use FondOfOryx\Zed\CompaniesRestApi\Dependency\Facade\CompaniesRestApiToCompanyDeleterFacadeInterface;
 use Spryker\Zed\Kernel\Business\AbstractBusinessFactory;
 
+/**
+ * @method \FondOfOryx\Zed\CompaniesRestApi\Persistence\CompaniesRestApiRepositoryInterface getRepository()
+ */
 class CompaniesRestApiBusinessFactory extends AbstractBusinessFactory
 {
     /**
@@ -17,6 +20,7 @@ class CompaniesRestApiBusinessFactory extends AbstractBusinessFactory
     {
         return new CompanyDeleter(
             $this->getCompanyDeleterFacade(),
+            $this->getRepository(),
         );
     }
 

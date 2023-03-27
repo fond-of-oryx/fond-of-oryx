@@ -56,7 +56,7 @@ class CompanyDeleter implements CompanyDeleterInterface
      */
     public function delete(RestRequestInterface $restRequest): RestResponseInterface
     {
-        if ($this->permissionChecker->can($restRequest)){
+        if ($this->permissionChecker->can($restRequest)) {
             $companyTransfer = $this->companyMapper->fromRestRequest($restRequest);
             $companyTransfer = $this->client->deleteCompany($companyTransfer);
 

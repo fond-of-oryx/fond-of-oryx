@@ -12,6 +12,9 @@ use Spryker\Glue\Kernel\Container;
  */
 class CompaniesRestApiDependencyProvider extends AbstractBundleDependencyProvider
 {
+    /**
+     * @var string
+     */
     public const CLIENT_COMPANIES_REST_API_PERMISSION = 'CLIENT_COMPANIES_REST_API_PERMISSION';
 
     /**
@@ -22,13 +25,14 @@ class CompaniesRestApiDependencyProvider extends AbstractBundleDependencyProvide
     public function provideDependencies(Container $container): Container
     {
         $container = parent::provideDependencies($container);
+
         return $this->addCompaniesRestApiPermissionClient($container);
     }
 
     /**
-     * @param \Spryker\Zed\Kernel\Container $container
+     * @param \Spryker\Glue\Kernel\Container $container
      *
-     * @return \Spryker\Zed\Kernel\Container
+     * @return \Spryker\Glue\Kernel\Container
      */
     protected function addCompaniesRestApiPermissionClient(Container $container): Container
     {

@@ -17,7 +17,9 @@ class CompaniesRestApiDependencyProvider extends AbstractBundleDependencyProvide
      */
     public const FACADE_COMPANY_DELETER = 'FACADE_COMPANY_DELETER';
 
-    /** @var string */
+    /**
+     * @var string
+     */
     public const QUERY_SPY_COMPANY = 'QUERY_SPY_COMPANY';
 
     /**

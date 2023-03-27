@@ -24,12 +24,10 @@ class CompaniesRestApiToCompaniesRestApiPermissionBridge implements CompaniesRes
      * @param \Generated\Shared\Transfer\CompaniesRestApiPermissionRequestTransfer $companiesRestApiPermissionRequestTransfer
      *
      * @return bool
-     * @throws \Exception
      */
     public function hasPermissionToDeleteCompany(
         CompaniesRestApiPermissionRequestTransfer $companiesRestApiPermissionRequestTransfer
-    ): bool
-    {
+    ): bool {
         return $this->client->hasPermissionToDeleteCompany($companiesRestApiPermissionRequestTransfer);
     }
 }

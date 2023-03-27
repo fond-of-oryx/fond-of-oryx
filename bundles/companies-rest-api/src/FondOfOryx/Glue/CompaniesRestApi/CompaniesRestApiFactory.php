@@ -30,7 +30,7 @@ class CompaniesRestApiFactory extends AbstractFactory
             $this->getClient(),
             $this->createCompanyMapper(),
             $this->createRestResponseBuilder(),
-            $this->createPermissionChecker()
+            $this->createPermissionChecker(),
         );
     }
 
@@ -57,7 +57,7 @@ class CompaniesRestApiFactory extends AbstractFactory
     {
         return new PermissionChecker(
             $this->getCompaniesRestApiPermissionClient(),
-            $this->createPermissionRequestMapper()
+            $this->createPermissionRequestMapper(),
         );
     }
 
@@ -71,7 +71,6 @@ class CompaniesRestApiFactory extends AbstractFactory
 
     /**
      * @return \FondOfOryx\Glue\CompaniesRestApi\Dependency\Client\CompaniesRestApiToCompaniesRestApiPermissionInterface
-     * @throws \Spryker\Glue\Kernel\Exception\Container\ContainerKeyNotFoundException
      */
     public function getCompaniesRestApiPermissionClient(): CompaniesRestApiToCompaniesRestApiPermissionInterface
     {

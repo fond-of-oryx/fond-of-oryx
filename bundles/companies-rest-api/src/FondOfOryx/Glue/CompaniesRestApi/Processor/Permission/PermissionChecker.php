@@ -4,7 +4,7 @@ namespace FondOfOryx\Glue\CompaniesRestApi\Processor\Permission;
 
 use FondOfOryx\Glue\CompaniesRestApi\Dependency\Client\CompaniesRestApiToCompaniesRestApiPermissionInterface;
 use FondOfOryx\Glue\CompaniesRestApi\Processor\Mapper\PermissionRequestMapperInterface;
-use FondOfOryx\Zed\CompaniesRestApiPermission\Communication\Plugin\Permission\CanDeleteCompanyPermissionPlugin;
+use FondOfOryx\Shared\CompaniesRestApi\CompaniesRestApiConstants;
 use Spryker\Glue\GlueApplication\Rest\Request\Data\RestRequestInterface;
 
 class PermissionChecker implements PermissionCheckerInterface
@@ -25,9 +25,8 @@ class PermissionChecker implements PermissionCheckerInterface
      */
     public function __construct(
         CompaniesRestApiToCompaniesRestApiPermissionInterface $permissionClient,
-        PermissionRequestMapperInterface                      $permissionRequestMapper
-    )
-    {
+        PermissionRequestMapperInterface $permissionRequestMapper
+    ) {
         $this->permissionClient = $permissionClient;
         $this->requestMapper = $permissionRequestMapper;
     }
@@ -39,7 +38,8 @@ class PermissionChecker implements PermissionCheckerInterface
      */
     public function can(RestRequestInterface $restRequest): bool
     {
-        $request = $this->requestMapper->fromRestRequest($restRequest)->setPermissionKey(CanDeleteCompanyPermissionPlugin::KEY);
+        $request = $this->requestMapper->fromRestRequest($restRequest)->setPermissionKey(CompaniesRestApiConstants::PERMISSION_KEY);
+
         return $this->permissionClient->hasPermissionToDeleteCompany($request);
     }
 }
