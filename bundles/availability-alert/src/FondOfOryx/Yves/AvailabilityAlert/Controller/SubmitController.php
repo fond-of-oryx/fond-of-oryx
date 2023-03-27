@@ -43,7 +43,7 @@ class SubmitController extends AbstractController
      */
     public function submitWidgetAction(Request $request): JsonResponse
     {
-        $formData = $request->request->get('availabilityAlertSubscriptionForm');
+        $formData = $request->get('availabilityAlertSubscriptionForm');
         $subscribed = false;
         if ($formData !== null) {
             $subscribed = $this->registerForAvailabilityAlert($formData, $request);
