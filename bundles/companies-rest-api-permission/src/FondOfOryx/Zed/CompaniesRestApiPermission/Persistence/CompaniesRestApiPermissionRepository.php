@@ -12,14 +12,16 @@ class CompaniesRestApiPermissionRepository extends AbstractRepository implements
     /**
      * @param string $permissionKey
      * @param string $customerReference
-     * @param int $idCompany
+     * @param string $companyUuid
+     *
+     * @throws \Spryker\Zed\Propel\Business\Exception\AmbiguousComparisonException
      *
      * @return bool
      */
     public function hasPermissionToDeleteCompany(
         string $permissionKey,
         string $customerReference,
-        int $idCompany
+        string $companyUuid
     ): bool {
         $spyCompanyRoleToPermissionQuery = $this->getFactory()->createSpyCompanyRoleToPermissionQuery();
 
@@ -27,7 +29,9 @@ class CompaniesRestApiPermissionRepository extends AbstractRepository implements
                 ->filterByKey($permissionKey)
             ->endUse()
             ->useCompanyRoleQuery()
-                ->filterByFkCompany($idCompany)
+                ->useCompanyQuery()
+                    ->filterByUuid($companyUuid)
+                ->endUse()
                 ->useSpyCompanyRoleToCompanyUserQuery()
                     ->useCompanyUserQuery()
                         ->useCustomerQuery()
@@ -35,8 +39,7 @@ class CompaniesRestApiPermissionRepository extends AbstractRepository implements
                         ->endUse()
                     ->endUse()
                 ->endUse()
-            ->endUse()
-            ->findOne();
+            ->endUse();
 
         return $result !== null;
     }

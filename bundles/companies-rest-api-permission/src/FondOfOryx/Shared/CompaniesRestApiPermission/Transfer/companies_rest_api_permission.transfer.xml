@@ -10,7 +10,7 @@
 
     <transfer name="CompaniesRestApiPermissionRequest">
         <property name="permissionKey" type="string" />
-        <property name="companyId" type="int" />
+        <property name="companyUuid" type="int" />
         <property name="customerReference" type="string" />
     </transfer>
 </transfers>

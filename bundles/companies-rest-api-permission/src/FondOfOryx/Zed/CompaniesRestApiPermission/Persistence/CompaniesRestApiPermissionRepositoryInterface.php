@@ -7,7 +7,7 @@ interface CompaniesRestApiPermissionRepositoryInterface
     /**
      * @param string $permissionKey
      * @param string $customerReference
-     * @param int $idCompany
+     * @param string $companyUuid
      *
      * @throws \Spryker\Zed\Propel\Business\Exception\AmbiguousComparisonException
      *
@@ -16,6 +16,6 @@ interface CompaniesRestApiPermissionRepositoryInterface
     public function hasPermissionToDeleteCompany(
         string $permissionKey,
         string $customerReference,
-        int $idCompany
+        string $companyUuid
     ): bool;
 }

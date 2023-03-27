@@ -23,7 +23,7 @@ class GatewayController extends AbstractGatewayController
             ->hasPermissionToDeleteCompany(
                 $companiesRestApiPermissionRequestTransfer->getPermissionKey(),
                 $companiesRestApiPermissionRequestTransfer->getCustomerReference(),
-                $companiesRestApiPermissionRequestTransfer->getCompanyId(),
+                $companiesRestApiPermissionRequestTransfer->getCompanyUuid(),
             ))->setRequest($companiesRestApiPermissionRequestTransfer);
     }
 }
