@@ -433,6 +433,7 @@
       "FondOfOryx\\Shared\\AvailabilityAlertCrossEngage\\": "bundles/availability-alert-cross-engage/src/FondOfOryx/Shared/AvailabilityAlertCrossEngage",
       "FondOfOryx\\Shared\\AvailabilityAlertMigrator\\": "bundles/availability-alert-migrator/src/FondOfOryx/Shared/AvailabilityAlertMigrator",
       "FondOfOryx\\Shared\\BrandsRestApiExtension\\": "bundles/brands-rest-api-extension/src/FondOfOryx/Shared/BrandsRestApiExtension",
+      "FondOfOryx\\Shared\\BusinessOnBehalfRestApi\\": "bundles/business-on-behalf-rest-api/src/FondOfOryx/Shared/BusinessOnBehalfRestApi",
       "FondOfOryx\\Shared\\CartSearchRestApi\\": "bundles/cart-search-rest-api/src/FondOfOryx/Shared/CartSearchRestApi",
       "FondOfOryx\\Shared\\CatalogSkuFilter\\": "bundles/catalog-sku-filter/src/FondOfOryx/Shared/CatalogSkuFilter",
       "FondOfOryx\\Shared\\CustomerRegistrationRestApi\\": "bundles/customer-registration-rest-api/src/FondOfOryx/Shared/CustomerRegistrationRestApi",
