@@ -16,6 +16,7 @@ include:
   - bundles/cart-search-rest-api-extension
   - bundles/catalog-sku-filter
   - bundles/companies-rest-api
+  - bundles/companies-rest-api-permission
   - bundles/company-api
   - bundles/company-user-archive
   - bundles/company-brand-product-list-connector
