@@ -3,37 +3,37 @@
 namespace FondOfOryx\Zed\BusinessOnBehalfRestApi\Business;
 
 use Codeception\Test\Unit;
-use FondOfOryx\Zed\BusinessOnBehalfRestApi\Business\BusinessOnBehalfRestApiBusinessFactory;
 use FondOfOryx\Zed\BusinessOnBehalfRestApi\Business\Writer\CompanyUserWriterInterface;
 use Generated\Shared\Transfer\RestBusinessOnBehalfRequestTransfer;
 use Generated\Shared\Transfer\RestBusinessOnBehalfResponseTransfer;
+use PHPUnit\Framework\MockObject\MockObject;
 
 class BusinessOnBehalfRestApiFacadeTest extends Unit
 {
     /**
      * @var \FondOfOryx\Zed\BusinessOnBehalfRestApi\Business\BusinessOnBehalfRestApiBusinessFactory|\PHPUnit\Framework\MockObject\MockObject
      */
-    protected $factoryMock;
+    protected MockObject|BusinessOnBehalfRestApiBusinessFactory $factoryMock;
 
     /**
      * @var \FondOfOryx\Zed\BusinessOnBehalfRestApi\Business\Writer\CompanyUserWriterInterface|\PHPUnit\Framework\MockObject\MockObject
      */
-    protected $companyUserWritterMock;
+    protected MockObject|CompanyUserWriterInterface $companyUserWriterMock;
 
     /**
-     * @var \Generated\Shared\Transfer\RestBusinessOnBehalfRequestTransfer|\PHPUnit\Framework\MockObject\MockObject|mixed
+     * @var \Generated\Shared\Transfer\RestBusinessOnBehalfRequestTransfer|\PHPUnit\Framework\MockObject\MockObject
      */
-    protected $restBusinessOnBehalfRequestTransferMock;
+    protected RestBusinessOnBehalfRequestTransfer|MockObject $restBusinessOnBehalfRequestTransferMock;
 
     /**
-     * @var \Generated\Shared\Transfer\RestBusinessOnBehalfResponseTransfer|\PHPUnit\Framework\MockObject\MockObject|mixed
+     * @var \Generated\Shared\Transfer\RestBusinessOnBehalfResponseTransfer|\PHPUnit\Framework\MockObject\MockObject
      */
-    protected $restBusinessOnBehalfResponseTransferMock;
+    protected RestBusinessOnBehalfResponseTransfer|MockObject $restBusinessOnBehalfResponseTransferMock;
 
     /**
      * @var \FondOfOryx\Zed\BusinessOnBehalfRestApi\Business\BusinessOnBehalfRestApiFacade
      */
-    protected $facade;
+    protected BusinessOnBehalfRestApiFacade $facade;
 
     /**
      * @return void
@@ -46,22 +46,15 @@ class BusinessOnBehalfRestApiFacadeTest extends Unit
             ->disableOriginalConstructor()
             ->getMock();
 
-        $this->companyUserWritterMock = $this->getMockBuilder(CompanyUserWriterInterface::class)
+        $this->companyUserWriterMock = $this->getMockBuilder(CompanyUserWriterInterface::class)
             ->disableOriginalConstructor()
             ->getMock();
 
-        $this->restBusinessOnBehalfRequestTransferMock = $this
-            ->getMockBuilder(RestBusinessOnBehalfRequestTransfer::class)
+        $this->restBusinessOnBehalfRequestTransferMock = $this->getMockBuilder(RestBusinessOnBehalfRequestTransfer::class)
             ->disableOriginalConstructor()
             ->getMock();
 
-        $this->restBusinessOnBehalfRequestTransferMock = $this
-            ->getMockBuilder(RestBusinessOnBehalfRequestTransfer::class)
-            ->disableOriginalConstructor()
-            ->getMock();
-
-        $this->restBusinessOnBehalfResponseTransferMock = $this
-            ->getMockBuilder(RestBusinessOnBehalfResponseTransfer::class)
+        $this->restBusinessOnBehalfResponseTransferMock = $this->getMockBuilder(RestBusinessOnBehalfResponseTransfer::class)
             ->disableOriginalConstructor()
             ->getMock();
 
@@ -76,16 +69,18 @@ class BusinessOnBehalfRestApiFacadeTest extends Unit
     {
         $this->factoryMock->expects(static::atLeastOnce())
             ->method('createCompanyUserWriter')
-            ->willReturn($this->companyUserWritterMock);
+            ->willReturn($this->companyUserWriterMock);
 
-        $this->companyUserWritterMock->expects(static::atLeastOnce())
+        $this->companyUserWriterMock->expects(static::atLeastOnce())
             ->method('setDefaultByRestBusinessOnBehalfRequest')
             ->with($this->restBusinessOnBehalfRequestTransferMock)
             ->willReturn($this->restBusinessOnBehalfResponseTransferMock);
 
         static::assertEquals(
             $this->restBusinessOnBehalfResponseTransferMock,
-            $this->facade->setDefaultCompanyUserByRestBusinessOnBehalfRequest($this->restBusinessOnBehalfRequestTransferMock),
+            $this->facade->setDefaultCompanyUserByRestBusinessOnBehalfRequest(
+                $this->restBusinessOnBehalfRequestTransferMock,
+            ),
         );
     }
 }

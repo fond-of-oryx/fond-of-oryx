@@ -55,6 +55,17 @@ class CompanyUserWriter implements CompanyUserWriterInterface
                 ->addError($restBusinessOnBehalfErrorTransfer);
         }
 
+        $customerTransfer = $companyUserTransfer->getCustomer();
+
+        if ($customerTransfer === null) {
+            $restBusinessOnBehalfErrorTransfer = (new RestBusinessOnBehalfErrorTransfer())
+                ->setMessage(BusinessOnBehalfRestApiConstants::ERROR_MESSAGE_INVALID_COMPANY_USER)
+                ->setErrorCode(BusinessOnBehalfRestApiConstants::ERROR_CODE_INVALID_COMPANY_USER);
+
+            return $restBusinessOnBehalfResponseTransfer->setIsSuccessful(false)
+                ->addError($restBusinessOnBehalfErrorTransfer);
+        }
+
         $this->businessOnBehalfFacade->unsetDefaultCompanyUserByCustomer($companyUserTransfer->getCustomer());
         $this->businessOnBehalfFacade->setDefaultCompanyUser($companyUserTransfer);
 

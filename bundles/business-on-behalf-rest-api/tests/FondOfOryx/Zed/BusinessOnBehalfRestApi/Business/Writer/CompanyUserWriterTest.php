@@ -137,7 +137,7 @@ class CompanyUserWriterTest extends Unit
         $restBusinessOnBehalfResponseTransfer = $this->companyUserWriter->setDefaultByRestBusinessOnBehalfRequest(
             $this->restBusinessOnBehalfRequestTransferMock,
         );
-        var_dump($restBusinessOnBehalfResponseTransfer->serialize());
+
         static::assertCount(1, $restBusinessOnBehalfResponseTransfer->getErrors());
         static::assertFalse($restBusinessOnBehalfResponseTransfer->getIsSuccessful());
         static::assertEquals(
@@ -146,6 +146,42 @@ class CompanyUserWriterTest extends Unit
         );
         static::assertEquals(
             BusinessOnBehalfRestApiConstants::ERROR_MESSAGE_COMPANY_USER_NOT_FOUND,
+            $restBusinessOnBehalfResponseTransfer->getErrors()[0]->getMessage(),
+        );
+    }
+
+    /**
+     * @return void
+     */
+    public function testSetDefaultByRestBusinessOnBehalfRequestWithInvalidCompanyUser(): void
+    {
+        $this->companyUserReaderMock->expects(static::atLeastOnce())
+            ->method('getByRestBusinessOnBehalfRequest')
+            ->with($this->restBusinessOnBehalfRequestTransferMock)
+            ->willReturn($this->companyUserTransferMock);
+
+        $this->companyUserTransferMock->expects(static::atLeastOnce())
+            ->method('getCustomer')
+            ->willReturn(null);
+
+        $this->businessOnBehalfFacadeMock->expects(static::never())
+            ->method('unsetDefaultCompanyUserByCustomer');
+
+        $this->businessOnBehalfFacadeMock->expects(static::never())
+            ->method('setDefaultCompanyUser');
+
+        $restBusinessOnBehalfResponseTransfer = $this->companyUserWriter->setDefaultByRestBusinessOnBehalfRequest(
+            $this->restBusinessOnBehalfRequestTransferMock,
+        );
+
+        static::assertCount(1, $restBusinessOnBehalfResponseTransfer->getErrors());
+        static::assertFalse($restBusinessOnBehalfResponseTransfer->getIsSuccessful());
+        static::assertEquals(
+            BusinessOnBehalfRestApiConstants::ERROR_CODE_INVALID_COMPANY_USER,
+            $restBusinessOnBehalfResponseTransfer->getErrors()[0]->getErrorCode(),
+        );
+        static::assertEquals(
+            BusinessOnBehalfRestApiConstants::ERROR_MESSAGE_INVALID_COMPANY_USER,
             $restBusinessOnBehalfResponseTransfer->getErrors()[0]->getMessage(),
         );
     }

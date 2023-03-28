@@ -40,6 +40,8 @@ class BusinessOnBehalfRestApiDependencyProvider extends AbstractBundleDependency
     }
 
     /**
+     * @codeCoverageIgnore
+     *
      * @param \Spryker\Zed\Kernel\Container $container
      *
      * @return \Spryker\Zed\Kernel\Container
@@ -84,6 +86,8 @@ class BusinessOnBehalfRestApiDependencyProvider extends AbstractBundleDependency
     }
 
     /**
+     * @codeCoverageIgnore
+     *
      * @param \Spryker\Zed\Kernel\Container $container
      *
      * @return \Spryker\Zed\Kernel\Container

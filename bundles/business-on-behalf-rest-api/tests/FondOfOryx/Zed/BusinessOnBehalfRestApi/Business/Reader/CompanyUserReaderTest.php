@@ -7,33 +7,34 @@ use FondOfOryx\Zed\BusinessOnBehalfRestApi\Dependency\Facade\BusinessOnBehalfRes
 use FondOfOryx\Zed\BusinessOnBehalfRestApi\Persistence\BusinessOnBehalfRestApiRepositoryInterface;
 use Generated\Shared\Transfer\CompanyUserTransfer;
 use Generated\Shared\Transfer\RestBusinessOnBehalfRequestTransfer;
+use PHPUnit\Framework\MockObject\MockObject;
 
 class CompanyUserReaderTest extends Unit
 {
     /**
-     * @var \FondOfOryx\Zed\BusinessOnBehalfRestApi\Business\Reader\CompanyUserReaderInterface
+     * @var \FondOfOryx\Zed\BusinessOnBehalfRestApi\Persistence\BusinessOnBehalfRestApiRepositoryInterface|\PHPUnit\Framework\MockObject\MockObject
      */
-    protected $companyUserReader;
-
-    /**
-     * @var \FondOfOryx\Zed\BusinessOnBehalfRestApi\Persistence\BusinessOnBehalfRestApiRepositoryInterface&\PHPUnit\Framework\MockObject\MockObject)|\PHPUnit\Framework\MockObject\MockObject
-     */
-    protected $repositoryMock;
+    protected MockObject|BusinessOnBehalfRestApiRepositoryInterface $repositoryMock;
 
     /**
      * @var \FondOfOryx\Zed\BusinessOnBehalfRestApi\Dependency\Facade\BusinessOnBehalfRestApiToCompanyUserFacadeInterface|\PHPUnit\Framework\MockObject\MockObject
      */
-    protected $companyUserFacadeMock;
+    protected BusinessOnBehalfRestApiToCompanyUserFacadeInterface|MockObject $companyUserFacadeMock;
 
     /**
      * @var \FondOfOryx\Zed\BusinessOnBehalfRestApi\Dependency\Facade\BusinessOnBehalfRestApiToCompanyUserFacadeInterface|\PHPUnit\Framework\MockObject\MockObject
      */
-    protected $companyUserTransferMock;
+    protected BusinessOnBehalfRestApiToCompanyUserFacadeInterface|MockObject $companyUserTransferMock;
 
     /**
      * @var \FondOfOryx\Zed\BusinessOnBehalfRestApi\Dependency\Facade\BusinessOnBehalfRestApiToCompanyUserFacadeInterface|\PHPUnit\Framework\MockObject\MockObject
      */
-    protected $restBusinessOnBehalfRequestTransfer;
+    protected BusinessOnBehalfRestApiToCompanyUserFacadeInterface|MockObject $restBusinessOnBehalfRequestTransfer;
+
+    /**
+     * @var \FondOfOryx\Zed\BusinessOnBehalfRestApi\Business\Reader\CompanyUserReader
+     */
+    protected CompanyUserReader $companyUserReader;
 
     /**
      * @return void
