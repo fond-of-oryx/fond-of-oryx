@@ -66,6 +66,7 @@ class ErpOrderPageSearchDataMapperTest extends Unit
             ErpOrderPageSearchDataMapper::BILLING_ADDRESS => null,
             ErpOrderPageSearchDataMapper::CURRENCY_ISO_CODE => '',
             ErpOrderPageSearchDataMapper::OUTSTANDING_QUANTITY => 1,
+            ErpOrderPageSearchDataMapper::IS_CANCELED => false,
         ];
 
         $fullText = [

@@ -1,0 +1,99 @@
+<?php
+
+namespace FondOfOryx\Zed\BusinessOnBehalfRestApi\Business;
+
+use Codeception\Test\Unit;
+use FondOfOryx\Zed\BusinessOnBehalfRestApi\Business\Writer\CompanyUserWriter;
+use FondOfOryx\Zed\BusinessOnBehalfRestApi\BusinessOnBehalfRestApiDependencyProvider;
+use FondOfOryx\Zed\BusinessOnBehalfRestApi\Dependency\Facade\BusinessOnBehalfRestApiToBusinessOnBehalfFacadeInterface;
+use FondOfOryx\Zed\BusinessOnBehalfRestApi\Dependency\Facade\BusinessOnBehalfRestApiToCompanyUserFacadeInterface;
+use FondOfOryx\Zed\BusinessOnBehalfRestApi\Persistence\BusinessOnBehalfRestApiRepository;
+use FondOfOryx\Zed\BusinessOnBehalfRestApi\Persistence\BusinessOnBehalfRestApiRepositoryInterface;
+use PHPUnit\Framework\MockObject\MockObject;
+use Spryker\Zed\Kernel\Container;
+
+class BusinessOnBehalfRestApiBusinessFactoryTest extends Unit
+{
+    /**
+     * @var \FondOfOryx\Zed\BusinessOnBehalfRestApi\Dependency\Facade\BusinessOnBehalfRestApiToBusinessOnBehalfFacadeInterface|\PHPUnit\Framework\MockObject\MockObject
+     */
+    protected MockObject|BusinessOnBehalfRestApiToBusinessOnBehalfFacadeInterface $businessOnBehalfFacadeMock;
+
+    /**
+     * @var \PHPUnit\Framework\MockObject\MockObject|\Spryker\Zed\Kernel\Container
+     */
+    protected MockObject|Container $containerMock;
+
+    /**
+     * @var \FondOfOryx\Zed\BusinessOnBehalfRestApi\Dependency\Facade\BusinessOnBehalfRestApiToCompanyUserFacadeInterface|\PHPUnit\Framework\MockObject\MockObject
+     */
+    protected BusinessOnBehalfRestApiToCompanyUserFacadeInterface|MockObject $companyUserFacadeMock;
+
+    /**
+     * @var \FondOfOryx\Zed\BusinessOnBehalfRestApi\Persistence\BusinessOnBehalfRestApiRepositoryInterface|\PHPUnit\Framework\MockObject\MockObject
+     */
+    protected MockObject|BusinessOnBehalfRestApiRepositoryInterface $repositoryMock;
+
+    /**
+     * @var \FondOfOryx\Zed\BusinessOnBehalfRestApi\Business\BusinessOnBehalfRestApiBusinessFactory
+     */
+    protected BusinessOnBehalfRestApiBusinessFactory $businessFactory;
+
+    /**
+     * @return void
+     */
+    protected function _before(): void
+    {
+        parent::_before();
+
+        $this->containerMock = $this->getMockBuilder(Container::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $this->companyUserFacadeMock = $this->getMockBuilder(BusinessOnBehalfRestApiToCompanyUserFacadeInterface::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $this->businessOnBehalfFacadeMock = $this->getMockBuilder(BusinessOnBehalfRestApiToBusinessOnBehalfFacadeInterface::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $this->repositoryMock = $this->getMockBuilder(BusinessOnBehalfRestApiRepository::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $this->businessFactory = new BusinessOnBehalfRestApiBusinessFactory();
+        $this->businessFactory->setRepository($this->repositoryMock);
+        $this->businessFactory->setContainer($this->containerMock);
+    }
+
+    /**
+     * @return void
+     */
+    public function testCreateCompanyUserWriter(): void
+    {
+        $this->containerMock->expects(static::atLeastOnce())
+            ->method('has')
+            ->withConsecutive(
+                [BusinessOnBehalfRestApiDependencyProvider::FACADE_COMPANY_USER],
+                [BusinessOnBehalfRestApiDependencyProvider::FACADE_BUSINESS_ON_BEHALF],
+            )
+            ->willReturn(true);
+
+        $this->containerMock->expects(static::atLeastOnce())
+            ->method('get')
+            ->withConsecutive(
+                [BusinessOnBehalfRestApiDependencyProvider::FACADE_COMPANY_USER],
+                [BusinessOnBehalfRestApiDependencyProvider::FACADE_BUSINESS_ON_BEHALF],
+            )
+            ->willReturnOnConsecutiveCalls(
+                $this->companyUserFacadeMock,
+                $this->businessOnBehalfFacadeMock,
+            );
+
+        static::assertInstanceOf(
+            CompanyUserWriter::class,
+            $this->businessFactory->createCompanyUserWriter(),
+        );
+    }
+}

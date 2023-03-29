@@ -77,6 +77,10 @@ class MailjetMailer implements MailProviderPluginInterface
      */
     protected function isSandbox(string $email): bool
     {
+        if (in_array($email, $this->config->getWhitelistedEmails(), true)) {
+            return false;
+        }
+
         foreach ($this->config->getWhitelistedTLD() as $tld) {
             if (str_contains(strtolower($email), sprintf('@%s', $tld))) {
                 return false;

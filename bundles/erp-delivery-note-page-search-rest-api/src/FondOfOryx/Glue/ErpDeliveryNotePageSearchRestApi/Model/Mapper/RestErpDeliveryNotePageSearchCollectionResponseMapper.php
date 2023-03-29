@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace FondOfOryx\Glue\ErpDeliveryNotePageSearchRestApi\Model\Mapper;
 
 use ArrayObject;
+use FondOfOryx\Shared\ErpDeliveryNotePageSearchRestApi\ErpDeliveryNotePageSearchRestApiConstants;
 use Generated\Shared\Transfer\RestCompanyBusinessUnitTransfer;
 use Generated\Shared\Transfer\RestErpDeliveryNoteExpenseTransfer;
 use Generated\Shared\Transfer\RestErpDeliveryNoteGlobalTrackingItemTransfer;
@@ -12,7 +13,6 @@ use Generated\Shared\Transfer\RestErpDeliveryNoteGlobalTrackingTransfer;
 use Generated\Shared\Transfer\RestErpDeliveryNoteItemTrackingTransfer;
 use Generated\Shared\Transfer\RestErpDeliveryNoteItemTransfer;
 use Generated\Shared\Transfer\RestErpDeliveryNotePageSearchCollectionResponseTransfer;
-use Generated\Shared\Transfer\RestErpDeliveryNoteTrackingTransfer;
 use Generated\Shared\Transfer\RestErpDeliveryNoteTransfer;
 
 class RestErpDeliveryNotePageSearchCollectionResponseMapper implements RestErpDeliveryNotePageSearchCollectionResponseMapperInterface
@@ -167,15 +167,14 @@ class RestErpDeliveryNotePageSearchCollectionResponseMapper implements RestErpDe
         RestErpDeliveryNoteTransfer $restErpDeliveryNoteTransfer,
         array $erpDeliveryNoteTracking
     ): RestErpDeliveryNoteTransfer {
-        foreach ($erpDeliveryNoteTracking as $trackingNumber => $erpDeliveryNoteTrackingData) {
+        foreach ($erpDeliveryNoteTracking as $erpDeliveryNoteTrackingData) {
             $trackingTransfer = null;
-            foreach ($erpDeliveryNoteTrackingData as $sku => $itemTrackingData) {
+            foreach ($erpDeliveryNoteTrackingData[ErpDeliveryNotePageSearchRestApiConstants::FIELD_ITEMS] as $itemTrackingData) {
                 if ($trackingTransfer === null) {
-                    $trackingTransfer = (new RestErpDeliveryNoteGlobalTrackingTransfer())->fromArray($itemTrackingData, true);
+                    $trackingTransfer = (new RestErpDeliveryNoteGlobalTrackingTransfer())->fromArray($erpDeliveryNoteTrackingData, true);
                     $trackingTransfer->setQuantity(0);
                 }
-                $restErpDeliveryNoteItemTransfer = (new RestErpDeliveryNoteTrackingTransfer())->fromArray($itemTrackingData, true);
-                $item = (new RestErpDeliveryNoteGlobalTrackingItemTransfer())->setQuantity($restErpDeliveryNoteItemTransfer->getQuantity())->setSku($sku);
+                $item = (new RestErpDeliveryNoteGlobalTrackingItemTransfer())->fromArray($itemTrackingData);
                 $trackingTransfer->setQuantity($trackingTransfer->getQuantity() + $item->getQuantity())->addItem($item);
             }
             if ($trackingTransfer !== null) {
