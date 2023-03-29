@@ -2,6 +2,7 @@
 
 namespace FondOfOryx\Glue\BusinessOnBehalfRestApi\Processor\Builder;
 
+use ArrayObject;
 use FondOfOryx\Shared\BusinessOnBehalfRestApi\BusinessOnBehalfRestApiConstants;
 use Generated\Shared\Transfer\RestErrorMessageTransfer;
 use Spryker\Glue\GlueApplication\Rest\JsonApi\RestResourceBuilderInterface;
@@ -34,16 +35,16 @@ class RestResponseBuilder implements RestResponseBuilderInterface
     }
 
     /**
-     * @param array<\Generated\Shared\Transfer\RestBusinessOnBehalfErrorTransfer> $restBusinessOnBehalfErrorTransfers
+     * @param \ArrayObject<\Generated\Shared\Transfer\RestBusinessOnBehalfErrorTransfer> $restBusinessOnBehalfErrorTransfers
      *
      * @return \Spryker\Glue\GlueApplication\Rest\JsonApi\RestResponseInterface
      */
-    public function buildErrorRestResponse(array $restBusinessOnBehalfErrorTransfers): RestResponseInterface
+    public function buildErrorRestResponse(ArrayObject $restBusinessOnBehalfErrorTransfers): RestResponseInterface
     {
         $restResponse = $this->restResourceBuilder
             ->createRestResponse();
 
-        if (count($restBusinessOnBehalfErrorTransfers) === 0) {
+        if ($restBusinessOnBehalfErrorTransfers->count() === 0) {
             $restErrorMessageTransfer = (new RestErrorMessageTransfer())
                 ->setCode(BusinessOnBehalfRestApiConstants::ERROR_CODE_UNDEFINED_ERROR_OCCURRED)
                 ->setStatus(Response::HTTP_BAD_REQUEST)

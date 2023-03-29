@@ -2,6 +2,7 @@
 
 namespace FondOfOryx\Glue\BusinessOnBehalfRestApi\Processor\Builder;
 
+use ArrayObject;
 use Codeception\Test\Unit;
 use FondOfOryx\Shared\BusinessOnBehalfRestApi\BusinessOnBehalfRestApiConstants;
 use Generated\Shared\Transfer\RestBusinessOnBehalfErrorTransfer;
@@ -116,7 +117,9 @@ class RestResponseBuilderTest extends Unit
 
         static::assertEquals(
             $this->restResponseMock,
-            $this->restResponseBuilder->buildErrorRestResponse([$this->restBusinessOnBehalfErrorTransferMock]),
+            $this->restResponseBuilder->buildErrorRestResponse(
+                new ArrayObject([$this->restBusinessOnBehalfErrorTransferMock]),
+            ),
         );
     }
 
@@ -143,7 +146,7 @@ class RestResponseBuilderTest extends Unit
 
         static::assertEquals(
             $this->restResponseMock,
-            $this->restResponseBuilder->buildErrorRestResponse([]),
+            $this->restResponseBuilder->buildErrorRestResponse(new ArrayObject()),
         );
     }
 }

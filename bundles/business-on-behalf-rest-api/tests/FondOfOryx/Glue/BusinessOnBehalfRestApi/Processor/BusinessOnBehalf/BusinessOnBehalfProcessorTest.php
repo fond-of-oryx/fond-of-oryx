@@ -2,6 +2,7 @@
 
 namespace FondOfOryx\Glue\BusinessOnBehalfRestApi\Processor\BusinessOnBehalf;
 
+use ArrayObject;
 use Codeception\Test\Unit;
 use FondOfOryx\Client\BusinessOnBehalfRestApi\BusinessOnBehalfRestApiClientInterface;
 use FondOfOryx\Glue\BusinessOnBehalfRestApi\Processor\Builder\RestResponseBuilderInterface;
@@ -183,7 +184,7 @@ class BusinessOnBehalfProcessorTest extends Unit
     public function testSetDefaultCompanyUserWithErrors(): void
     {
         $idCustomer = 1;
-        $errors = [$this->restBusinessOnBehalfErrorTransferMock];
+        $errors = new ArrayObject([$this->restBusinessOnBehalfErrorTransferMock]);
 
         $this->restBusinessOnBehalfRequestMapperMock->expects(static::atLeastOnce())
             ->method('fromRestBusinessOnBehalfRequestAttributes')
