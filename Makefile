@@ -8,6 +8,10 @@ install:
 phpcs:
 	./vendor/bin/phpcs -d memory_limit=-1 --standard=./vendor/spryker/code-sniffer/Spryker/ruleset.xml --parallel=75 ./bundles/*
 
+.PHONY: phpcs-changed
+phpcs-changed:
+	./vendor/bin/phpcs-changed -d memory_limit=-1 --git --git-base main --standard=./vendor/spryker/code-sniffer/Spryker/ruleset.xml ./bundles/*
+
 .PHONY: phpcs-with-cache
 phpcs-with-cache:
 	./vendor/bin/phpcs -d memory_limit=-1 --cache=phpcs.cache --standard=./vendor/spryker/code-sniffer/Spryker/ruleset.xml --parallel=75 ./bundles/*

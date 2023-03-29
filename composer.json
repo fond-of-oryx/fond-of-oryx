@@ -123,6 +123,7 @@
   "require-dev": {
     "fond-of-codeception/spryker": "^2.1.0",
     "fond-of-spryker/conditional-availability-sales-connector": "*",
+    "sirbrillig/phpcs-changed": "*",
     "spryker/code-sniffer": "*",
     "spryker/silex": "*",
     "spryker-sdk/phpstan-spryker": "*"
