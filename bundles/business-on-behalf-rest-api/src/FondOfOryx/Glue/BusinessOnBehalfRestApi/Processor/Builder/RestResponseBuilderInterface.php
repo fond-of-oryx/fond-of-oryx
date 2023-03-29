@@ -2,6 +2,7 @@
 
 namespace FondOfOryx\Glue\BusinessOnBehalfRestApi\Processor\Builder;
 
+use ArrayObject;
 use Spryker\Glue\GlueApplication\Rest\JsonApi\RestResponseInterface;
 
 interface RestResponseBuilderInterface
@@ -12,9 +13,9 @@ interface RestResponseBuilderInterface
     public function buildEmptyRestResponse(): RestResponseInterface;
 
     /**
-     * @param array<\Generated\Shared\Transfer\RestBusinessOnBehalfErrorTransfer> $restBusinessOnBehalfErrorTransfers
+     * @param \ArrayObject<\Generated\Shared\Transfer\RestBusinessOnBehalfErrorTransfer> $restBusinessOnBehalfErrorTransfers
      *
      * @return \Spryker\Glue\GlueApplication\Rest\JsonApi\RestResponseInterface
      */
-    public function buildErrorRestResponse(array $restBusinessOnBehalfErrorTransfers): RestResponseInterface;
+    public function buildErrorRestResponse(ArrayObject $restBusinessOnBehalfErrorTransfers): RestResponseInterface;
 }
