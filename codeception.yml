@@ -9,11 +9,14 @@ include:
   - bundles/availability-checkout-validator
   - bundles/brand-product-list-connector
   - bundles/brands-rest-api-extension
+  - bundles/business-on-behalf-rest-api
   - bundles/cart-code-type
   - bundles/cart-code-type-data-import
   - bundles/cart-search-rest-api
   - bundles/cart-search-rest-api-extension
   - bundles/catalog-sku-filter
+  - bundles/companies-rest-api
+  - bundles/companies-rest-api-permission
   - bundles/company-api
   - bundles/company-user-archive
   - bundles/company-brand-product-list-connector
@@ -125,10 +128,11 @@ include:
   - bundles/log-log-io-connector
   - bundles/log-slack-connector
   - bundles/mail-bcc
+  - bundles/mailjet-mail-connector
   - bundles/oms-credit-memo-gift-card-connector
   - bundles/one-time-password
   - bundles/one-time-password-email-connector
-#  - bundles/one-time-password-rest-api
+  #  - bundles/one-time-password-rest-api
   - bundles/order-budget
   - bundles/payment-cart-connector
   - bundles/payment-epc-qr-code
