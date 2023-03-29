@@ -12,7 +12,7 @@
     },
     "availability-alert-cross-engage": {
       "path": "bundles/availability-alert-cross-engage/",
-      "version": "3.0.0"
+      "version": "3.0.1"
     },
     "availability-alert-extension": {
       "path": "bundles/availability-alert-extension/",
@@ -20,7 +20,7 @@
     },
     "availability-alert-migrator": {
       "path": "bundles/availability-alert-migrator/",
-      "version": "2.0.0"
+      "version": "2.0.1"
     },
     "availability-cart-data-extender": {
       "path": "bundles/availability-cart-data-extender/",
@@ -416,7 +416,7 @@
     },
     "feed": {
       "path": "bundles/feed/",
-      "version": "2.0.1"
+      "version": "2.0.2"
     },
     "gift-card-api": {
       "path": "bundles/gift-card-api/",
