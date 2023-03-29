@@ -10,7 +10,7 @@ phpcs:
 
 .PHONY: phpcs-changed
 phpcs-changed:
-	./vendor/bin/phpcs-changed -d memory_limit=-1 --git --git-base main --standard=./vendor/spryker/code-sniffer/Spryker/ruleset.xml ./bundles/*
+	PATH=./vendor/bin:$PATH ./vendor/bin/phpcs-changed -d memory_limit=-1 --git --git-branch main --standard ./vendor/spryker/code-sniffer/Spryker/ruleset.xml ./bundles/*
 
 .PHONY: phpcs-with-cache
 phpcs-with-cache:
