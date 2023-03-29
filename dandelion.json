@@ -62,6 +62,10 @@
       "path": "bundles/catalog-sku-filter/",
       "version": "2.0.0"
     },
+    "companies-rest-api": {
+      "path": "bundles/companies-rest-api/",
+      "version": "1.0.0"
+    },
     "companies-rest-api-permission": {
       "path": "bundles/companies-rest-api-permission/",
       "version": "1.0.0"

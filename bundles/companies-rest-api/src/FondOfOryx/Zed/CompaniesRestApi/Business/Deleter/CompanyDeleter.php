@@ -50,7 +50,7 @@ class CompanyDeleter implements CompanyDeleterInterface
     {
         $arrayData = $this->companyDeleterFacade->deleteCompany($this->repository->getIdCompanyByUuid($companyTransfer->getUuid()));
         if (array_key_exists(CompanyDeleterConstants::SUCCESS_IDS, $arrayData) && $arrayData[CompanyDeleterConstants::SUCCESS_IDS][0] === $companyTransfer->getIdCompany()) {
-            $companyTransfer->setStatus(static::DELETED_STATE);
+            return $companyTransfer->setStatus(static::DELETED_STATE);
         }
 
         return $companyTransfer->setStatus(static::ERROR_STATE);
