@@ -83,7 +83,7 @@ class CustomerReaderTest extends Unit
             ->willReturn($idCustomer);
 
         $this->customerFacadeMock->expects(static::atLeastOnce())
-            ->method('findCustomerById')
+            ->method('getCustomer')
             ->with(
                 static::callback(
                     static fn (
@@ -116,7 +116,7 @@ class CustomerReaderTest extends Unit
             ->willReturn($idCustomer);
 
         $this->customerFacadeMock->expects(static::never())
-            ->method('findCustomerById');
+            ->method('getCustomer');
 
         static::assertEquals(
             null,

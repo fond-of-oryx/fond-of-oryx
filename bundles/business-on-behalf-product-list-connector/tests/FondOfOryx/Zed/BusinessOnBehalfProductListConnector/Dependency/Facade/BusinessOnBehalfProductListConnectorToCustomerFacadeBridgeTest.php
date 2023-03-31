@@ -47,16 +47,16 @@ class BusinessOnBehalfProductListConnectorToCustomerFacadeBridgeTest extends Uni
     /**
      * @return void
      */
-    public function testFindCustomerById(): void
+    public function testGetCustomer(): void
     {
         $this->facadeMock->expects(static::atLeastOnce())
-            ->method('findCustomerById')
+            ->method('getCustomer')
             ->with($this->customerTransferMock)
             ->willReturn($this->customerTransferMock);
 
         static::assertEquals(
             $this->customerTransferMock,
-            $this->bridge->findCustomerById($this->customerTransferMock),
+            $this->bridge->getCustomer($this->customerTransferMock),
         );
     }
 }
