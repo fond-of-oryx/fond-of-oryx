@@ -36,7 +36,7 @@ class BusinessOnBehalfProductListConnectorRepository extends AbstractRepository 
      */
     public function getIdCompanyUserByCompanyUserReference(string $companyUserReference): ?int
     {
-        /** @var int|null $defaultIdCompanyUser */
+        /** @var int|null $idCompanyUser */
         $idCompanyUser = $this->getFactory()->getCompanyUserQuery()->clear()
             ->filterByIsDefault(true)
             ->filterByCompanyUserReference($companyUserReference)
