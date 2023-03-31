@@ -23,10 +23,10 @@ class BusinessOnBehalfProductListConnectorToCustomerFacadeBridge implements Busi
     /**
      * @param \Generated\Shared\Transfer\CustomerTransfer $customerTransfer
      *
-     * @return \Generated\Shared\Transfer\CustomerTransfer|null
+     * @return \Generated\Shared\Transfer\CustomerTransfer
      */
-    public function findCustomerById(CustomerTransfer $customerTransfer): ?CustomerTransfer
+    public function getCustomer(CustomerTransfer $customerTransfer): CustomerTransfer
     {
-        return $this->customerFacade->findCustomerById($customerTransfer);
+        return $this->customerFacade->getCustomer($customerTransfer);
     }
 }

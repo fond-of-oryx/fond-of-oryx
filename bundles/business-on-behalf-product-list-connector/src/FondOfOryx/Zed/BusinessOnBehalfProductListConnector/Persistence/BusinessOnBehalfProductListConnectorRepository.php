@@ -2,6 +2,8 @@
 
 namespace FondOfOryx\Zed\BusinessOnBehalfProductListConnector\Persistence;
 
+use Orm\Zed\CompanyUser\Persistence\Map\SpyCompanyUserTableMap;
+use Orm\Zed\Customer\Persistence\Map\SpyCustomerTableMap;
 use Spryker\Zed\Kernel\Persistence\AbstractRepository;
 
 /**
@@ -24,6 +26,7 @@ class BusinessOnBehalfProductListConnectorRepository extends AbstractRepository 
             ->useCustomerQuery()
                 ->filterByCustomerReference($customerReference)
             ->endUse()
+            ->select([SpyCompanyUserTableMap::COL_ID_COMPANY_USER])
             ->findOne();
 
         return $defaultIdCompanyUser;
@@ -38,8 +41,8 @@ class BusinessOnBehalfProductListConnectorRepository extends AbstractRepository 
     {
         /** @var int|null $idCompanyUser */
         $idCompanyUser = $this->getFactory()->getCompanyUserQuery()->clear()
-            ->filterByIsDefault(true)
             ->filterByCompanyUserReference($companyUserReference)
+            ->select([SpyCompanyUserTableMap::COL_ID_COMPANY_USER])
             ->findOne();
 
         return $idCompanyUser;
@@ -55,6 +58,7 @@ class BusinessOnBehalfProductListConnectorRepository extends AbstractRepository 
         /** @var int|null $idCustomer */
         $idCustomer = $this->getFactory()->getCustomerQuery()->clear()
             ->filterByCustomerReference($customerReference)
+            ->select([SpyCustomerTableMap::COL_ID_CUSTOMER])
             ->findOne();
 
         return $idCustomer;
