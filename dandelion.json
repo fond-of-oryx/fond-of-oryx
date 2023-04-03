@@ -649,7 +649,7 @@
     },
     "payone-credit-memo": {
       "path": "bundles/payone-credit-memo/",
-      "version": "2.0.0"
+      "version": "2.1.0"
     },
     "payone-credit-memo-extension": {
       "path": "bundles/payone-credit-memo-extension/",

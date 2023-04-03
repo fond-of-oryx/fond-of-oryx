@@ -2,6 +2,7 @@
 
 namespace FondOfOryx\Zed\PayoneCreditMemo\Business\Refund;
 
+use Exception;
 use FondOfOryx\Shared\CreditMemo\CreditMemoConstants;
 use FondOfOryx\Shared\CreditMemo\CreditMemoRefundHelperTrait;
 use FondOfOryx\Zed\PayoneCreditMemo\Dependency\Facade\PayoneCreditMemoToCreditMemoInterface;
@@ -15,6 +16,7 @@ use Generated\Shared\Transfer\RefundResponseTransfer;
 use Generated\Shared\Transfer\RefundTransfer;
 use Orm\Zed\CreditMemo\Persistence\FooCreditMemo;
 use Orm\Zed\Sales\Persistence\SpySalesOrder;
+use Psr\Log\LoggerInterface;
 use Spryker\Zed\Oms\Business\Util\ReadOnlyArrayObject;
 
 class PartialRefund implements PartialRefundInterface
@@ -47,6 +49,11 @@ class PartialRefund implements PartialRefundInterface
     protected $payoneFacade;
 
     /**
+     * @var \Psr\Log\LoggerInterface
+     */
+    protected $logger;
+
+    /**
      * @var array<\FondOfOryx\Zed\PayoneCreditMemoExtension\Dependency\Plugin\PayoneCreditMemoPreRefundPluginInterface>
      */
     protected $preRefundPlugins;
@@ -56,6 +63,7 @@ class PartialRefund implements PartialRefundInterface
      * @param \FondOfOryx\Zed\PayoneCreditMemo\Dependency\Facade\PayoneCreditMemoToRefundInterface $refundFacade
      * @param \FondOfOryx\Zed\PayoneCreditMemo\Dependency\Facade\PayoneCreditMemoToSalesInterface $salesFacade
      * @param \FondOfOryx\Zed\PayoneCreditMemo\Dependency\Facade\PayoneCreditMemoToPayoneInterface $payoneFacade
+     * @param \Psr\Log\LoggerInterface $logger
      * @param array<\FondOfOryx\Zed\PayoneCreditMemoExtension\Dependency\Plugin\PayoneCreditMemoPreRefundPluginInterface> $preRefundPlugins
      */
     public function __construct(
@@ -63,12 +71,14 @@ class PartialRefund implements PartialRefundInterface
         PayoneCreditMemoToRefundInterface $refundFacade,
         PayoneCreditMemoToSalesInterface $salesFacade,
         PayoneCreditMemoToPayoneInterface $payoneFacade,
+        LoggerInterface $logger,
         array $preRefundPlugins
     ) {
         $this->creditMemoFacade = $creditMemoFacade;
         $this->refundFacade = $refundFacade;
         $this->salesFacade = $salesFacade;
         $this->payoneFacade = $payoneFacade;
+        $this->logger = $logger;
         $this->preRefundPlugins = $preRefundPlugins;
     }
 
@@ -114,7 +124,13 @@ class PartialRefund implements PartialRefundInterface
                     $this->handleRefundResponse($creditMemoUpdateTransfer, $response, $refundTransfer);
 
                     if ($creditMemoUpdateTransfer->getWasRefundSuccessful() === true) {
-                        $this->refundFacade->saveRefund($refundTransfer);
+                        try {
+                            $this->refundFacade->saveRefund($refundTransfer);
+                        } catch (Exception $exception) {
+                            $this->logger->error($exception->getMessage(), $exception->getTrace());
+
+                            throw $exception;
+                        }
                     }
                 }
             }
