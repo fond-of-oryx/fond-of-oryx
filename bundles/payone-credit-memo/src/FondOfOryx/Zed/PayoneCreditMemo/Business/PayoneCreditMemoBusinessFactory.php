@@ -11,6 +11,7 @@ use FondOfOryx\Zed\PayoneCreditMemo\Dependency\Facade\PayoneCreditMemoToPayoneIn
 use FondOfOryx\Zed\PayoneCreditMemo\Dependency\Facade\PayoneCreditMemoToRefundInterface;
 use FondOfOryx\Zed\PayoneCreditMemo\Dependency\Facade\PayoneCreditMemoToSalesInterface;
 use FondOfOryx\Zed\PayoneCreditMemo\PayoneCreditMemoDependencyProvider;
+use Spryker\Shared\Log\LoggerTrait;
 use Spryker\Zed\Kernel\Business\AbstractBusinessFactory;
 
 /**
@@ -18,6 +19,8 @@ use Spryker\Zed\Kernel\Business\AbstractBusinessFactory;
  */
 class PayoneCreditMemoBusinessFactory extends AbstractBusinessFactory
 {
+    use LoggerTrait;
+
     /**
      * @return \FondOfOryx\Zed\PayoneCreditMemo\Business\Refund\PartialRefundInterface
      */
@@ -28,6 +31,7 @@ class PayoneCreditMemoBusinessFactory extends AbstractBusinessFactory
             $this->getRefundFacade(),
             $this->getSalesFacade(),
             $this->getPayoneFacadeFacade(),
+            $this->getLogger(),
             $this->getPreRefundPlugins(),
         );
     }
