@@ -39,6 +39,10 @@
       "path": "bundles/brands-rest-api-extension/",
       "version": "2.0.0"
     },
+    "business-on-behalf-product-list-connector": {
+      "path": "bundles/business-on-behalf-product-list-connector/",
+      "version": "1.0.0"
+    },
     "cart-code-type": {
       "path": "bundles/cart-code-type/",
       "version": "2.0.0"
