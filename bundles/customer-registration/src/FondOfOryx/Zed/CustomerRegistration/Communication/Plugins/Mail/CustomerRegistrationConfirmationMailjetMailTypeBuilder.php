@@ -9,6 +9,7 @@ use Spryker\Zed\MailExtension\Dependency\Plugin\MailTypeBuilderPluginInterface;
 
 /**
  * @method \FondOfOryx\Zed\CustomerRegistration\CustomerRegistrationConfig getConfig()
+ * @method \FondOfOryx\Zed\CustomerRegistration\Communication\CustomerRegistrationCommunicationFactory getFactory()
  */
 class CustomerRegistrationConfirmationMailjetMailTypeBuilder extends AbstractPlugin implements MailTypeBuilderPluginInterface
 {
@@ -54,7 +55,7 @@ class CustomerRegistrationConfirmationMailjetMailTypeBuilder extends AbstractPlu
     {
         $mailjetTemplateTransfer = (new MailjetTemplateTransfer())
             ->setSubject(static::GLOSSARY_KEY_MAIL_SUBJECT)
-            ->setTemplateId($this->getTemplateId($mailTransfer));
+            ->setTemplateId($this->getTemplateId());
 
         return $mailTransfer->setMailjetTemplate(
             $this->setVariables($mailTransfer, $mailjetTemplateTransfer),
@@ -81,16 +82,17 @@ class CustomerRegistrationConfirmationMailjetMailTypeBuilder extends AbstractPlu
     }
 
     /**
-     * @param \Generated\Shared\Transfer\MailTransfer $mailTransfer
-     *
      * @return int
      */
-    protected function getTemplateId(MailTransfer $mailTransfer): int
+    protected function getTemplateId(): int
     {
         $locale = static::DEFAULT_LOCALE;
-        $localeTransfer = $mailTransfer->getCustomer()->getLocale();
 
-        if ($localeTransfer !== null) {
+        $localeTransfer = $this->getFactory()
+            ->getLocaleFacade()
+            ->getCurrentLocale();
+
+        if ($localeTransfer->getLocaleName() !== null) {
             $locale = $localeTransfer->getLocaleName();
         }
 

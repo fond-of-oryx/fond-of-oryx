@@ -321,7 +321,7 @@
     },
     "customer-registration": {
       "path": "bundles/customer-registration/",
-      "version": "2.1.1"
+      "version": "2.1.2"
     },
     "customer-registration-rest-api": {
       "path": "bundles/customer-registration-rest-api/",
