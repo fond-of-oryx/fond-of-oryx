@@ -47,6 +47,9 @@ class LoginLinkMailjetMailTypeBuilderPluginTest extends Unit
      */
     protected $plugin;
 
+    /**
+     * @return void
+     */
     protected function _before(): void
     {
         parent::_before();
@@ -80,6 +83,9 @@ class LoginLinkMailjetMailTypeBuilderPluginTest extends Unit
         $this->plugin->setFactory($this->factoryMock);
     }
 
+    /**
+     * @return void
+     */
     public function testBuild(): void
     {
         $this->factoryMock->expects(static::atLeastOnce())
