@@ -9,9 +9,15 @@ use Spryker\Zed\MailExtension\Dependency\Plugin\MailTypeBuilderPluginInterface;
 
 /**
  * @method \FondOfOryx\Zed\OneTimePasswordEmailConnector\OneTimePasswordEmailConnectorConfig getConfig()
+ * @method \FondOfOryx\Zed\OneTimePasswordEmailConnector\Communication\OneTimePasswordEmailConnectorCommunicationFactory getFactory()()
  */
 class LoginLinkMailjetMailTypeBuilderPlugin extends AbstractPlugin implements MailTypeBuilderPluginInterface
 {
+    /**
+     * @var string
+     */
+    protected const DEFAULT_LOCALE = 'en_US';
+
     /**
      * @var string
      */
@@ -67,7 +73,7 @@ class LoginLinkMailjetMailTypeBuilderPlugin extends AbstractPlugin implements Ma
     {
         $mailjetTemplateTransfer = (new MailjetTemplateTransfer())
             ->setSubject(static::GLOSSARY_KEY_MAIL_SUBJECT)
-            ->setTemplateId($this->getTemplateId($mailTransfer));
+            ->setTemplateId($this->getTemplateId());
 
         return $mailTransfer->setMailjetTemplate(
             $this->setVariables($mailTransfer, $mailjetTemplateTransfer),
@@ -94,13 +100,19 @@ class LoginLinkMailjetMailTypeBuilderPlugin extends AbstractPlugin implements Ma
     }
 
     /**
-     * @param \Generated\Shared\Transfer\MailTransfer $mailTransfer
-     *
      * @return int
      */
-    protected function getTemplateId(MailTransfer $mailTransfer): int
+    protected function getTemplateId(): int
     {
-        $locale = $mailTransfer->getLocale()->getLocaleName();
+        $locale = static::DEFAULT_LOCALE;
+
+        $localeTransfer = $this->getFactory()
+            ->getLocaleFacade()
+            ->getCurrentLocale();
+
+        if ($localeTransfer->getLocaleName() !== null) {
+            $locale = $localeTransfer->getLocaleName();
+        }
 
         return $this->getConfig()->getOneTimePasswordLoginLinkMailTemplateIdByLocale($locale);
     }
