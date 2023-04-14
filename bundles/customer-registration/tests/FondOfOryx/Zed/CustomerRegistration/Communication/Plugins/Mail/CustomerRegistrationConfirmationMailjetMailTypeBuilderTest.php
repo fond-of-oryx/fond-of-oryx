@@ -3,13 +3,25 @@
 namespace FondOfOryx\Zed\CustomerRegistration\Communication\Plugins\Mail;
 
 use Codeception\Test\Unit;
+use FondOfOryx\Zed\CustomerRegistration\Communication\CustomerRegistrationCommunicationFactory;
 use FondOfOryx\Zed\CustomerRegistration\CustomerRegistrationConfig;
+use FondOfOryx\Zed\CustomerRegistration\Dependency\Facade\CustomerRegistrationToLocaleFacadeBridge;
 use Generated\Shared\Transfer\CustomerTransfer;
 use Generated\Shared\Transfer\LocaleTransfer;
 use Generated\Shared\Transfer\MailTransfer;
 
 class CustomerRegistrationConfirmationMailjetMailTypeBuilderTest extends Unit
 {
+    /**
+     * @var \FondOfOryx\Zed\CustomerRegistration\Communication\CustomerRegistrationCommunicationFactory|\PHPUnit\Framework\MockObject\MockObject
+     */
+    protected $communicationFactoryMock;
+
+    /**
+     * @var \FondOfOryx\Zed\CustomerRegistration\Dependency\Facade\CustomerRegistrationToLocaleFacadeInterface|\PHPUnit\Framework\MockObject\MockObject
+     */
+    protected $localeFacadeMock;
+
     /**
      * @var \Generated\Shared\Transfer\MailTransfer|\PHPUnit\Framework\MockObject\MockObject
      */
@@ -58,8 +70,17 @@ class CustomerRegistrationConfirmationMailjetMailTypeBuilderTest extends Unit
             ->disableOriginalConstructor()
             ->getMock();
 
+        $this->communicationFactoryMock = $this->getMockBuilder(CustomerRegistrationCommunicationFactory::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $this->localeFacadeMock = $this->getMockBuilder(CustomerRegistrationToLocaleFacadeBridge::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
         $this->plugin = new CustomerRegistrationConfirmationMailjetMailTypeBuilder();
         $this->plugin->setConfig($this->configMock);
+        $this->plugin->setFactory($this->communicationFactoryMock);
     }
 
     /**
@@ -83,16 +104,20 @@ class CustomerRegistrationConfirmationMailjetMailTypeBuilderTest extends Unit
             ->willReturn($this->customerTransferMock);
 
         $this->customerTransferMock->expects(static::atLeastOnce())
-            ->method('getLocale')
-            ->willReturn($this->localeTransferMock);
-
-        $this->customerTransferMock->expects(static::atLeastOnce())
             ->method('getConfirmationLink')
             ->willReturn('CONFIRMATION_LINK');
 
         $this->customerTransferMock->expects(static::atLeastOnce())
             ->method('getEmail')
             ->willReturn('john.doe@fondof.de');
+
+        $this->communicationFactoryMock->expects(static::atLeastOnce())
+            ->method('getLocaleFacade')
+            ->willReturn($this->localeFacadeMock);
+
+        $this->localeFacadeMock->expects(static::atLeastOnce())
+            ->method('getCurrentLocale')
+            ->willReturn($this->localeTransferMock);
 
         $this->localeTransferMock->expects(static::atLeastOnce())
             ->method('getLocaleName')
