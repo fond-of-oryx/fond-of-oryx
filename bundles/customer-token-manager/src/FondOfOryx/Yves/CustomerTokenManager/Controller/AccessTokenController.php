@@ -156,7 +156,7 @@ class AccessTokenController extends AbstractController
                 $this->determineTargetUrl(),
                 $this->getFactory()->getSignatureParameterName(),
                 $token,
-                $searchParams
+                $searchParams,
             ),
         );
     }
