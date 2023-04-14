@@ -62,6 +62,7 @@ class CustomerRegistrationDependencyProvider extends AbstractBundleDependencyPro
         $container = parent::provideCommunicationLayerDependencies($container);
         $container = $this->addCustomerFacade($container);
         $container = $this->addMailFacade($container);
+        $container = $this->addLocaleFacade($container);
 
         return $this->addOneTimePasswordFacade($container);
     }
