@@ -126,7 +126,7 @@
     "spryker/code-sniffer": "*",
     "spryker/silex": "*",
     "spryker-sdk/phpstan-spryker": "*",
-    "phpstan/phpstan": "1.10.11."
+    "phpstan/phpstan": "1.10.13."
   },
   "replace": {
     "fond-of-oryx/api-auth": "*",
