@@ -14,7 +14,7 @@
     "fond-of-oryx/jellyfish-sales-order-extension": "^1.0.0 || ^2.0.0",
     "fond-of-spryker/company-user-reference": "dev-master",
     "spryker/currency": "^3.0.0",
-    "spryker/locale": "^2.0.0 || ^3.0.0"
+    "spryker/locale": "^2.0.0 || ^3.0.0 || ^4.0.0"
   },
   "require-dev": {
     "fond-of-codeception/spryker": "^1.0",
