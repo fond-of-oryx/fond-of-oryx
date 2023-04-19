@@ -35,7 +35,6 @@ class VertigoPriceProductPriceListRepository extends AbstractRepository implemen
             )->find();
 
         return $spyProductCollection->toArray();
-
     }
 
     /**
