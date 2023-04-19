@@ -9,7 +9,7 @@
     },
     "availability-alert": {
       "path": "bundles/availability-alert/",
-      "version": "4.0.1"
+      "version": "4.0.2"
     },
     "availability-alert-cross-engage": {
       "path": "bundles/availability-alert-cross-engage/",
@@ -33,7 +33,7 @@
     },
     "brand-product-list-connector": {
       "path": "bundles/brand-product-list-connector/",
-      "version": "2.0.0"
+      "version": "2.0.1"
     },
     "brands-rest-api-extension": {
       "path": "bundles/brands-rest-api-extension/",
@@ -105,7 +105,7 @@
     },
     "company-business-unit-order-budget": {
       "path": "bundles/company-business-unit-order-budget/",
-      "version": "2.1.0"
+      "version": "2.1.1"
     },
     "company-business-unit-search-rest-api": {
       "path": "bundles/company-business-unit-search-rest-api/",
@@ -113,7 +113,7 @@
     },
     "company-company-user-gui": {
       "path": "bundles/company-company-user-gui/",
-      "version": "2.0.0"
+      "version": "2.0.1"
     },
     "company-deleter": {
       "path": "bundles/company-deleter/",
@@ -173,7 +173,7 @@
     },
     "company-product-list-connector": {
       "path": "bundles/company-product-list-connector/",
-      "version": "2.0.0"
+      "version": "2.0.1"
     },
     "company-product-list-connector-extension": {
       "path": "bundles/company-product-list-connector-extension/",
@@ -185,7 +185,7 @@
     },
     "company-product-lists-rest-api": {
       "path": "bundles/company-product-lists-rest-api/",
-      "version": "2.0.0"
+      "version": "2.0.1"
     },
     "company-role-api": {
       "path": "bundles/company-role-api/",
@@ -193,7 +193,7 @@
     },
     "company-role-search-rest-api": {
       "path": "bundles/company-role-search-rest-api/",
-      "version": "2.0.0"
+      "version": "2.0.1"
     },
     "company-search-rest-api": {
       "path": "bundles/company-search-rest-api/",
@@ -201,7 +201,7 @@
     },
     "company-type-product-lists-rest-api": {
       "path": "bundles/company-type-product-lists-rest-api/",
-      "version": "2.0.0"
+      "version": "2.0.1"
     },
     "company-unit-address-api": {
       "path": "bundles/company-unit-address-api/",
@@ -237,7 +237,7 @@
     },
     "company-user-search-rest-api": {
       "path": "bundles/company-user-search-rest-api/",
-      "version": "2.0.0"
+      "version": "2.0.1"
     },
     "company-users-rest-api-extension": {
       "path": "bundles/company-users-rest-api-extension/",
@@ -257,7 +257,7 @@
     },
     "credit-memo": {
       "path": "bundles/credit-memo/",
-      "version": "2.0.0"
+      "version": "2.0.1"
     },
     "credit-memo-api": {
       "path": "bundles/credit-memo-api/",
@@ -301,7 +301,7 @@
     },
     "customer-product-list-connector": {
       "path": "bundles/customer-product-list-connector/",
-      "version": "2.0.0"
+      "version": "2.0.1"
     },
     "customer-product-list-connector-extension": {
       "path": "bundles/customer-product-list-connector-extension/",
@@ -317,7 +317,7 @@
     },
     "customer-product-lists-rest-api": {
       "path": "bundles/customer-product-lists-rest-api/",
-      "version": "2.0.0"
+      "version": "2.0.1"
     },
     "customer-registration": {
       "path": "bundles/customer-registration/",
@@ -637,7 +637,7 @@
     },
     "order-budget": {
       "path": "bundles/order-budget/",
-      "version": "2.0.0"
+      "version": "2.0.1"
     },
     "payment-address-restriction": {
       "path": "bundles/payment-address-restriction/",
@@ -689,11 +689,11 @@
     },
     "product-cart-code-type-restriction": {
       "path": "bundles/product-cart-code-type-restriction/",
-      "version": "2.0.0"
+      "version": "2.0.1"
     },
     "product-country-restriction": {
       "path": "bundles/product-country-restriction/",
-      "version": "2.0.0"
+      "version": "2.0.1"
     },
     "product-country-restriction-checkout-connector": {
       "path": "bundles/product-country-restriction-checkout-connector/",
@@ -725,7 +725,7 @@
     },
     "product-locale-restriction": {
       "path": "bundles/product-locale-restriction/",
-      "version": "2.0.0"
+      "version": "2.0.1"
     },
     "product-locale-restriction-cart-connector": {
       "path": "bundles/product-locale-restriction-cart-connector/",
@@ -737,11 +737,11 @@
     },
     "product-locale-restriction-storage": {
       "path": "bundles/product-locale-restriction-storage/",
-      "version": "2.0.0"
+      "version": "2.0.1"
     },
     "product-payment-restriction": {
       "path": "bundles/product-payment-restriction/",
-      "version": "2.0.0"
+      "version": "2.0.1"
     },
     "qr-code-generator": {
       "path": "bundles/qr-code-generator/",
@@ -909,7 +909,7 @@
     },
     "vertigo-price-product-price-list": {
       "path": "bundles/vertigo-price-product-price-list/",
-      "version": "2.0.0"
+      "version": "2.0.1"
     }
   },
   "vcs": {
