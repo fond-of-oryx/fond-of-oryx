@@ -125,8 +125,7 @@
     "fond-of-spryker/conditional-availability-sales-connector": "*",
     "spryker/code-sniffer": "*",
     "spryker/silex": "*",
-    "spryker-sdk/phpstan-spryker": "*",
-    "phpstan/phpstan": "1.10.11."
+    "spryker-sdk/phpstan-spryker": "*"
   },
   "replace": {
     "fond-of-oryx/api-auth": "*",

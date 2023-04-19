@@ -22,7 +22,8 @@ class CompanyProductListsRestApiRepository extends AbstractRepository implements
       */
     public function getCompanyIdsByCompanyUuidsAndIdCustomer(array $companyUuids, int $idCustomer): array
     {
-        return $this->getFactory()->getCompanyQuery()
+        /** @var \Propel\Runtime\Collection\ArrayCollection $spyCompanyUserCollection */
+        $spyCompanyUserCollection = $this->getFactory()->getCompanyQuery()
             ->useCompanyUserQuery()
                 ->filterByFkCustomer($idCustomer)
                 ->filterByIsActive(true)
@@ -33,8 +34,9 @@ class CompanyProductListsRestApiRepository extends AbstractRepository implements
             ->filterByIsActive(true)
             ->filterByUuid_In($companyUuids)
             ->select([SpyCompanyTableMap::COL_ID_COMPANY])
-            ->find()
-            ->toArray();
+            ->find();
+
+        return $spyCompanyUserCollection->toArray();
     }
 
     /**
@@ -44,12 +46,14 @@ class CompanyProductListsRestApiRepository extends AbstractRepository implements
      */
     public function getCompanyIdsByIdProductList(int $idProductList): array
     {
-        return $this->getFactory()
+        /** @var \Propel\Runtime\Collection\ArrayCollection $productListCompanyCollection */
+        $productListCompanyCollection = $this->getFactory()
             ->getProductListCompanyQuery()
             ->clear()
             ->filterByFkProductList($idProductList)
             ->select([SpyProductListCompanyTableMap::COL_FK_COMPANY])
-            ->find()
-            ->toArray();
+            ->find();
+
+        return $productListCompanyCollection->toArray();
     }
 }
