@@ -28,7 +28,7 @@ class CompanyProductListConnectorRepository extends AbstractRepository implement
             ->endUse()
             ->select([SpyProductListTableMap::COL_ID_PRODUCT_LIST])
             ->find();
-        
+
         return $spyProductListCollection->toArray();
     }
 }

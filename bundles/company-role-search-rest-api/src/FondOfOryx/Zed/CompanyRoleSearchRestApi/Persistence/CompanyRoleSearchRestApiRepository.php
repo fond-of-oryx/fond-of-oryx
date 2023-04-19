@@ -352,7 +352,7 @@ class CompanyRoleSearchRestApiRepository extends AbstractRepository implements C
             ->groupByName()
             ->find();
 
-        $companyRoleIds =  $companyRoleIds->toArray();
+        $companyRoleIds = $companyRoleIds->toArray();
 
         return $clonedCompanyRoleQuery->clear()
             ->filterByIdCompanyRole_In($companyRoleIds);

@@ -42,7 +42,7 @@ class CompanyTypeProductListsRestApiRepository extends AbstractRepository implem
             ->getIdCompanyTypeForManufacturer();
 
         /** @var \Propel\Runtime\Collection\ArrayCollection $spyCompanyUserCollection */
-        $spyCompanyUserCollection =  $this->getFactory()
+        $spyCompanyUserCollection = $this->getFactory()
             ->getCompanyUserQuery()
             ->clear()
             ->useCustomerQuery()
