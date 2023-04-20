@@ -11,7 +11,7 @@
   "require": {
     "php": ">=8.0",
     "fond-of-spryker/company-user-reference": "dev-master",
-    "spryker/locale": "^2.2.0 || ^3.0.0",
+    "spryker/locale": "^2.2.0 || ^3.0.0 || ^4.0.0",
     "spryker/oms-extension": "^1.0.0"
   },
   "require-dev": {
