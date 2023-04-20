@@ -37,13 +37,15 @@ class CustomerProductListsRestApiRepository extends AbstractRepository implement
     public function getCustomerIdsByCustomerReferences(
         array $customerReferences
     ): array {
-        return $this->getFactory()
+        /** @var \Propel\Runtime\Collection\ArrayCollection $customerCollection */
+        $customerCollection = $this->getFactory()
             ->getCustomerQuery()
             ->clear()
             ->filterByCustomerReference_In($customerReferences)
             ->select([SpyCustomerTableMap::COL_ID_CUSTOMER])
-            ->find()
-            ->toArray();
+            ->find();
+
+        return $customerCollection->toArray();
     }
 
     /**
@@ -53,12 +55,14 @@ class CustomerProductListsRestApiRepository extends AbstractRepository implement
      */
     public function getCustomerIdsByIdProductList(int $idProductList): array
     {
-        return $this->getFactory()
+        /** @var \Propel\Runtime\Collection\ArrayCollection $productListCustomerCollection */
+        $productListCustomerCollection = $this->getFactory()
             ->getProductListCustomerQuery()
             ->clear()
             ->filterByFkProductList($idProductList)
             ->select([SpyProductListCustomerTableMap::COL_FK_CUSTOMER])
-            ->find()
-            ->toArray();
+            ->find();
+
+        return $productListCustomerCollection->toArray();
     }
 }

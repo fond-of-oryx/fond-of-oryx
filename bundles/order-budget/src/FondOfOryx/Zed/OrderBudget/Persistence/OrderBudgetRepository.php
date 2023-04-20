@@ -15,13 +15,15 @@ class OrderBudgetRepository extends AbstractRepository implements OrderBudgetRep
      */
     public function findAllOrderBudgets(): array
     {
-        $query = $this->getFactory()
-            ->createFooOrderBudgetQuery();
+        /** @var \Propel\Runtime\Collection\ObjectCollection $fooOrderBudgetCollection */
+        $fooOrderBudgetCollection = $this->getFactory()
+            ->createFooOrderBudgetQuery()
+            ->find();
 
         return $this->getFactory()
             ->createOrderBudgetMapper()
             ->mapEntityCollectionToTransfers(
-                $query->find(),
+                $fooOrderBudgetCollection,
             );
     }
 

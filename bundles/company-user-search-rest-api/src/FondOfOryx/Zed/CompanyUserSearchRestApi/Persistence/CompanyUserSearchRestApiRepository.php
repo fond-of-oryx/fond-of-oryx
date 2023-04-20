@@ -181,11 +181,13 @@ class CompanyUserSearchRestApiRepository extends AbstractRepository implements C
 
         $clonedCompanyUserQuery = clone $companyUserQuery;
 
+        /** @var \Propel\Runtime\Collection\ArrayCollection $companyUserIds */
         $companyUserIds = $companyUserQuery->withColumn(sprintf('MIN(%s)', SpyCompanyUserTableMap::COL_ID_COMPANY_USER), static::COL_FIRST_COMPANY_USER_ID)
             ->select([static::COL_FIRST_COMPANY_USER_ID])
             ->groupByFkCustomer()
-            ->find()
-            ->toArray();
+            ->find();
+
+        $companyUserIds = $companyUserIds->toArray();
 
         return $clonedCompanyUserQuery->filterByIdCompanyUser_In($companyUserIds);
     }

@@ -23,11 +23,13 @@ class ProductLocaleRestrictionStorageRepository extends AbstractRepository imple
             ->getColumn(FooProductAbstractLocaleRestrictionStorageTableMap::COL_FK_PRODUCT_ABSTRACT)
             ->getPhpName();
 
-        return $this->getFactory()
+        /** @var \Propel\Runtime\Collection\ObjectCollection $fooProductAbstractLocaleRestrictionStorageCollection */
+        $fooProductAbstractLocaleRestrictionStorageCollection = $this->getFactory()
             ->createFooProductAbstractLocaleRestrictionStorageQuery()
             ->filterByFkProductAbstract_In($productAbstractIds)
-            ->find()
-            ->toKeyIndex($keyColumn);
+            ->find();
+
+        return $fooProductAbstractLocaleRestrictionStorageCollection->toKeyIndex($keyColumn);
     }
 
     /**

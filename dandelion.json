@@ -43,6 +43,10 @@
       "path": "bundles/business-on-behalf-product-list-connector/",
       "version": "1.0.0"
     },
+    "business-on-behalf-rest-api": {
+      "path": "bundles/business-on-behalf-rest-api/",
+      "version": "1.0.0"
+    },
     "cart-code-type": {
       "path": "bundles/cart-code-type/",
       "version": "2.0.0"
@@ -317,7 +321,7 @@
     },
     "customer-registration": {
       "path": "bundles/customer-registration/",
-      "version": "2.1.1"
+      "version": "2.2.1"
     },
     "customer-registration-rest-api": {
       "path": "bundles/customer-registration-rest-api/",
@@ -337,7 +341,7 @@
     },
     "customer-token-manager": {
       "path": "bundles/customer-token-manager/",
-      "version": "2.2.1"
+      "version": "2.3.0"
     },
     "customer-token-manager-one-time-password-connector": {
       "path": "bundles/customer-token-manager-one-time-password-connector/",
@@ -621,7 +625,7 @@
     },
     "one-time-password-email-connector": {
       "path": "bundles/one-time-password-email-connector/",
-      "version": "2.1.1"
+      "version": "2.2.0"
     },
     "one-time-password-extension": {
       "path": "bundles/one-time-password-extension/",

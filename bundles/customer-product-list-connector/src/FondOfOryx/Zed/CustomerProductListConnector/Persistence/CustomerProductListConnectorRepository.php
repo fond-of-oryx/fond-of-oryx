@@ -19,14 +19,16 @@ class CustomerProductListConnectorRepository extends AbstractRepository implemen
      */
     public function getProductListIdsByIdCustomer(int $idCustomer): array
     {
-        return $this->getFactory()
+        /** @var \Propel\Runtime\Collection\ArrayCollection $productListCollection */
+        $productListCollection = $this->getFactory()
             ->getProductListQuery()
             ->clear()
             ->useSpyProductListCustomerQuery()
                 ->filterByFkCustomer($idCustomer)
             ->endUse()
             ->select([SpyProductListTableMap::COL_ID_PRODUCT_LIST])
-            ->find()
-            ->toArray();
+            ->find();
+
+        return $productListCollection->toArray();
     }
 }

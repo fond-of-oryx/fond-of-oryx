@@ -16,12 +16,17 @@ class AccessTokenController extends AbstractController
     /**
      * @var string|null
      */
-    protected $callback_url;
+    protected ?string $callback_url;
 
     /**
      * @var string|null
      */
-    protected $language;
+    protected ?string $language;
+
+    /**
+     * @var array
+     */
+    protected array $additionalSearchParams;
 
     /**
      * @param \Symfony\Component\HttpFoundation\Request $request
@@ -33,6 +38,8 @@ class AccessTokenController extends AbstractController
     {
         $this->callback_url = $this->cleanSlashes($request->query->get('callback_url'));
         $this->language = $this->cleanSlashes($request->attributes->get('language'));
+        $request->query->remove('callback_url');
+        $this->additionalSearchParams = $request->query->all();
 
         return $this->executeTokenManagerAction($token);
     }
@@ -141,12 +148,15 @@ class AccessTokenController extends AbstractController
      */
     protected function createRedirectResponse(string $token): RedirectResponse
     {
+        $searchParams = count($this->additionalSearchParams) ? sprintf('&%s', http_build_query($this->additionalSearchParams)) : '';
+
         return $this->redirectResponseExternal(
             sprintf(
-                '%s?%s=%s',
+                '%s?%s=%s%s',
                 $this->determineTargetUrl(),
                 $this->getFactory()->getSignatureParameterName(),
                 $token,
+                $searchParams,
             ),
         );
     }

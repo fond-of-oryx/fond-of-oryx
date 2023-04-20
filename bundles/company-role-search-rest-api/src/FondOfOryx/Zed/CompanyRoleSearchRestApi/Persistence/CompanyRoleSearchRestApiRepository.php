@@ -346,11 +346,13 @@ class CompanyRoleSearchRestApiRepository extends AbstractRepository implements C
 
         $clonedCompanyRoleQuery = clone $companyRoleQuery;
 
+        /** @var \Propel\Runtime\Collection\ArrayCollection $companyRoleIds */
         $companyRoleIds = $companyRoleQuery->withColumn(sprintf('MIN(%s)', SpyCompanyRoleTableMap::COL_ID_COMPANY_ROLE), static::COL_FIRST_COMPANY_ROLE_ID)
             ->select([static::COL_FIRST_COMPANY_ROLE_ID])
             ->groupByName()
-            ->find()
-            ->toArray();
+            ->find();
+
+        $companyRoleIds = $companyRoleIds->toArray();
 
         return $clonedCompanyRoleQuery->clear()
             ->filterByIdCompanyRole_In($companyRoleIds);
