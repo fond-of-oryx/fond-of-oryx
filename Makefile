@@ -54,3 +54,12 @@ print-composer-replace-content:
 .PHONY: add-all-to-packagist
 add-all-to-packagist:
 	./Makefile.d/packagist.sh add_all
+
+.PHONY: ci-bundles
+ci-bundles:
+	./Makefile.d/bundle.sh test_all
+
+.PHONY: ci-bundle
+ci-bundle:
+	@read -p "Enter Bundle Name: " BUNDLE; \
+	./Makefile.d/bundle.sh test $$BUNDLE
