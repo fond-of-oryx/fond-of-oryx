@@ -41,7 +41,8 @@ class CompanyTypeProductListsRestApiRepository extends AbstractRepository implem
             ->getConfig()
             ->getIdCompanyTypeForManufacturer();
 
-        return $this->getFactory()
+        /** @var \Propel\Runtime\Collection\ArrayCollection $spyCompanyUserCollection */
+        $spyCompanyUserCollection = $this->getFactory()
             ->getCompanyUserQuery()
             ->clear()
             ->useCustomerQuery()
@@ -69,8 +70,9 @@ class CompanyTypeProductListsRestApiRepository extends AbstractRepository implem
                 ->filterByFkCompanyType($fkCompanyType)
             ->endUse()
             ->select([SpyCompanyUserTableMap::COL_ID_COMPANY_USER])
-            ->find()
-            ->toArray();
+            ->find();
+
+        return $spyCompanyUserCollection->toArray();
     }
 
     /**
@@ -84,7 +86,8 @@ class CompanyTypeProductListsRestApiRepository extends AbstractRepository implem
             ->getConfig()
             ->getIdCompanyTypeForManufacturer();
 
-        return $this->getFactory()
+        /** @var \Propel\Runtime\Collection\ArrayCollection $spyCustomerCollection */
+        $spyCustomerCollection = $this->getFactory()
             ->getCustomerQuery()
             ->clear()
             ->useCompanyUserQuery()
@@ -100,8 +103,9 @@ class CompanyTypeProductListsRestApiRepository extends AbstractRepository implem
             ->filterByAnonymizedAt(null, Criteria::ISNULL)
             ->groupByCustomerReference()
             ->select([SpyCustomerTableMap::COL_CUSTOMER_REFERENCE])
-            ->find()
-            ->toArray();
+            ->find();
+
+        return $spyCustomerCollection->toArray();
     }
 
     /**
@@ -114,7 +118,8 @@ class CompanyTypeProductListsRestApiRepository extends AbstractRepository implem
         int $currentIdCustomer,
         array $companyUuids
     ): array {
-        return $this->getFactory()
+        /** @var \Propel\Runtime\Collection\ArrayCollection $spyCompanyUserCollection */
+        $spyCompanyUserCollection = $this->getFactory()
             ->getCompanyUserQuery()
             ->clear()
             ->useCustomerQuery()
@@ -135,8 +140,9 @@ class CompanyTypeProductListsRestApiRepository extends AbstractRepository implem
                 ->filterByIsActive(true)
             ->endUse()
             ->select([SpyCompanyUserTableMap::COL_ID_COMPANY_USER])
-            ->find()
-            ->toArray();
+            ->find();
+
+        return $spyCompanyUserCollection->toArray();
     }
 
     /**
@@ -150,7 +156,8 @@ class CompanyTypeProductListsRestApiRepository extends AbstractRepository implem
             ->getConfig()
             ->getIdCompanyTypeForManufacturer();
 
-        return $this->getFactory()
+        /** @var \Propel\Runtime\Collection\ArrayCollection $spyCompanyCollection */
+        $spyCompanyCollection = $this->getFactory()
             ->getCompanyQuery()
             ->clear()
             ->useCompanyUserQuery()
@@ -159,7 +166,8 @@ class CompanyTypeProductListsRestApiRepository extends AbstractRepository implem
             ->filterByIsActive(true)
             ->filterByFkCompanyType($fkCompanyType, Criteria::NOT_EQUAL)
             ->select([SpyCompanyTableMap::COL_UUID])
-            ->find()
-            ->toArray();
+            ->find();
+
+        return $spyCompanyCollection->toArray();
     }
 }

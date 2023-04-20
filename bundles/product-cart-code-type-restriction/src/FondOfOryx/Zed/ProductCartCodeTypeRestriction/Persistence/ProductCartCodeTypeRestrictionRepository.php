@@ -22,6 +22,7 @@ class ProductCartCodeTypeRestrictionRepository extends AbstractRepository implem
         $fooProductAbstractCartCodeTypeRestrictionQuery = $this->getFactory()
             ->createFooProductAbstractCartCodeTypeRestrictionQuery();
 
+        /** @var \Propel\Runtime\Collection\ObjectCollection $fooProductAbstractCartCodeTypeRestrictionCollection */
         $fooProductAbstractCartCodeTypeRestrictionCollection = $fooProductAbstractCartCodeTypeRestrictionQuery
             ->filterByFkProductAbstract($idProductAbstract)
             ->innerJoinWithCartCodeType()
@@ -42,11 +43,13 @@ class ProductCartCodeTypeRestrictionRepository extends AbstractRepository implem
         $fooProductAbstractCartCodeTypeRestrictionQuery = $this->getFactory()
             ->createFooProductAbstractCartCodeTypeRestrictionQuery();
 
-        return $fooProductAbstractCartCodeTypeRestrictionQuery
+        /** @var \Propel\Runtime\Collection\ArrayCollection $fooProductAbstractCartCodeTypeRestrictionCollection */
+        $fooProductAbstractCartCodeTypeRestrictionCollection = $fooProductAbstractCartCodeTypeRestrictionQuery
             ->select(FooProductAbstractCartCodeTypeRestrictionTableMap::COL_FK_CART_CODE_TYPE)
             ->filterByFkProductAbstract($idProductAbstract)
-            ->find()
-            ->toArray();
+            ->find();
+
+        return $fooProductAbstractCartCodeTypeRestrictionCollection->toArray();
     }
 
     /**
@@ -57,8 +60,8 @@ class ProductCartCodeTypeRestrictionRepository extends AbstractRepository implem
     public function findBlacklistedCartCodeTypesByProductConcreteSkus(
         array $productConcreteSkus
     ): array {
-        /** @var \Orm\Zed\ProductCartCodeTypeRestriction\Persistence\FooProductAbstractCartCodeTypeRestrictionQuery $fooProductAbstractCartCodeTypeRestrictionQuery */
-        $fooProductAbstractCartCodeTypeRestrictionQuery = $this->getFactory()
+        /** @var \Propel\Runtime\Collection\ObjectCollection $fooProductAbstractCartCodeTypeRestrictionCollection */
+        $fooProductAbstractCartCodeTypeRestrictionCollection = $this->getFactory()
             ->createFooProductAbstractCartCodeTypeRestrictionQuery()
             ->innerJoinWithCartCodeType()
             ->useProductAbstractQuery()
@@ -70,7 +73,7 @@ class ProductCartCodeTypeRestrictionRepository extends AbstractRepository implem
 
         return $this->getFactory()->createProductAbstractCartCodeTypeRestrictionMapper()
             ->mapEntityCollectionToGroupedCartCodeTypeNames(
-                $fooProductAbstractCartCodeTypeRestrictionQuery->find(),
+                $fooProductAbstractCartCodeTypeRestrictionCollection,
                 'sku',
             );
     }

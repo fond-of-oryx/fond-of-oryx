@@ -42,16 +42,18 @@ class CompanyCompanyUserGuiRepository extends AbstractRepository implements Comp
         $config = $this->getFactory()
             ->getConfig();
 
-        $query = $this->getFactory()
+        /** @var \Propel\Runtime\Collection\ObjectCollection $spyCompanyQueryCollection */
+        $spyCompanyQueryCollection = $this->getFactory()
             ->getCompanyQuery()
             ->clear()
             ->filterByName(sprintf('%%%s%%', $namePattern), Criteria::LIKE)
             ->setIgnoreCase(true)
             ->setLimit($config->getSuggestionLimit())
-            ->orderByName();
+            ->orderByName()
+            ->find();
 
         return $this->getFactory()
             ->createCompanyMapper()
-            ->mapEntityCollectionToTransfers($query->find());
+            ->mapEntityCollectionToTransfers($spyCompanyQueryCollection);
     }
 }

@@ -18,7 +18,8 @@ class VertigoPriceProductPriceListRepository extends AbstractRepository implemen
      */
     public function getSkusWithoutPriceProductPriceList(): array
     {
-        return $this->getFactory()
+        /** @var \Propel\Runtime\Collection\ArrayCollection $spyProductCollection */
+        $spyProductCollection = $this->getFactory()
             ->getProductQuery()
             ->clear()
             ->select([SpyProductTableMap::COL_SKU])
@@ -31,8 +32,9 @@ class VertigoPriceProductPriceListRepository extends AbstractRepository implemen
                     FosPriceProductPriceListTableMap::COL_FK_PRODUCT,
                     FosPriceProductPriceListTableMap::COL_FK_PRODUCT,
                 ),
-            )->find()
-            ->toArray();
+            )->find();
+
+        return $spyProductCollection->toArray();
     }
 
     /**

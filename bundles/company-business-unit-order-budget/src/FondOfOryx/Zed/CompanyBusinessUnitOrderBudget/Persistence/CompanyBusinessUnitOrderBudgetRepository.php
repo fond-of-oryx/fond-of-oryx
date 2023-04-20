@@ -18,12 +18,15 @@ class CompanyBusinessUnitOrderBudgetRepository extends AbstractRepository implem
      */
     public function getCompanyBusinessUnitIdsWithoutOrderBudget(): array
     {
-        return $this->getFactory()->getCompanyBusinessUnitQuery()
+        /** @var \Propel\Runtime\Collection\ArrayCollection $spyCompanyBusinessUnitCollection */
+        $spyCompanyBusinessUnitCollection = $this->getFactory()
+            ->getCompanyBusinessUnitQuery()
             ->clear()
             ->filterByFkOrderBudget(null, Criteria::ISNULL)
             ->select([SpyCompanyBusinessUnitTableMap::COL_ID_COMPANY_BUSINESS_UNIT])
-            ->find()
-            ->toArray();
+            ->find();
+
+        return $spyCompanyBusinessUnitCollection->toArray();
     }
 
     /**
@@ -33,10 +36,13 @@ class CompanyBusinessUnitOrderBudgetRepository extends AbstractRepository implem
      */
     public function getIdOrderBudgetByIdCompanyBusinessUnit(int $idCompanyBusinessUnit): ?int
     {
-        return $this->getFactory()->getCompanyBusinessUnitQuery()
+        /** @var \Propel\Runtime\ActiveQuery\ModelCriteria $companyBusinessUnitQueryCriteria */
+        $companyBusinessUnitQueryCriteria = $this->getFactory()
+            ->getCompanyBusinessUnitQuery()
             ->clear()
             ->filterByIdCompanyBusinessUnit($idCompanyBusinessUnit)
-            ->select([SpyCompanyBusinessUnitTableMap::COL_FK_ORDER_BUDGET])
-            ->findOne();
+            ->select([SpyCompanyBusinessUnitTableMap::COL_FK_ORDER_BUDGET]);
+
+        return $companyBusinessUnitQueryCriteria->findOne();
     }
 }
