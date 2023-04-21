@@ -91,12 +91,28 @@ class CustomerRegistrationWelcomeMailjetMailTypeBuilder extends AbstractPlugin i
         MailjetTemplateTransfer $mailjetTemplateTransfer
     ): MailjetTemplateTransfer {
         return $mailjetTemplateTransfer->setVariables([
-            static::ONE_TIME_PASSWORD_LOGIN_LINK => sprintf('%s?emailType=welcome', $mailTransfer->getOneTimePasswordLoginLink()),
+            static::ONE_TIME_PASSWORD_LOGIN_LINK => $this->getOneTimePasswordLoginLink($mailTransfer->getOneTimePasswordLoginLink()),
             static::CUSTOMER => [
                 static::FIRST_NAME => $mailTransfer->getCustomer()->getFirstName(),
                 static::LAST_NAME => $mailTransfer->getCustomer()->getLastName(),
             ],
         ]);
+    }
+
+    /**
+     * @param string|null $oneTimePasswordLoginLink
+     *
+     * @return string|null
+     */
+    protected function getOneTimePasswordLoginLink(?string $oneTimePasswordLoginLink): ?string
+    {
+        if ($oneTimePasswordLoginLink === null) {
+            return null;
+        }
+
+        $searchParamOperator = (parse_url($oneTimePasswordLoginLink, PHP_URL_QUERY) ? '&' : '?');
+
+        return sprintf('%s%semailType=welcome', $oneTimePasswordLoginLink, $searchParamOperator);
     }
 
     /**
