@@ -9,8 +9,9 @@ interface RepresentationOfSalesPermissionClientInterface
     /**
      * @param \Generated\Shared\Transfer\RepresentationOfSalesPermissionRequestTransfer $representationOfSalesPermissionRequestTransfer
      *
-     * @return bool
      * @throws \Exception
+     *
+     * @return bool
      */
     public function hasPermissionToManageOwnRepresentations(
         RepresentationOfSalesPermissionRequestTransfer $representationOfSalesPermissionRequestTransfer
@@ -19,8 +20,9 @@ interface RepresentationOfSalesPermissionClientInterface
     /**
      * @param \Generated\Shared\Transfer\RepresentationOfSalesPermissionRequestTransfer $representationOfSalesPermissionRequestTransfer
      *
-     * @return bool
      * @throws \Exception
+     *
+     * @return bool
      */
     public function hasPermissionToManageGlobalRepresentations(
         RepresentationOfSalesPermissionRequestTransfer $representationOfSalesPermissionRequestTransfer
