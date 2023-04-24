@@ -2,8 +2,6 @@
 
 namespace FondOfOryx\Zed\RepresentationOfSalesPermission\Persistence;
 
-use Exception;
-use Orm\Zed\Customer\Persistence\Map\SpyCustomerTableMap;
 use Spryker\Zed\Kernel\Persistence\AbstractRepository;
 
 /**

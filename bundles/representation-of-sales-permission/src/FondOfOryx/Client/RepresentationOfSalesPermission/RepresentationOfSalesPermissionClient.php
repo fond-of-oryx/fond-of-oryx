@@ -15,8 +15,9 @@ class RepresentationOfSalesPermissionClient extends AbstractClient implements Re
     /**
      * @param \Generated\Shared\Transfer\RepresentationOfSalesPermissionRequestTransfer $representationOfSalesPermissionRequestTransfer
      *
-     * @return bool
      * @throws \Exception
+     *
+     * @return bool
      */
     public function hasPermissionToManageOwnRepresentations(
         RepresentationOfSalesPermissionRequestTransfer $representationOfSalesPermissionRequestTransfer
@@ -35,8 +36,9 @@ class RepresentationOfSalesPermissionClient extends AbstractClient implements Re
     /**
      * @param \Generated\Shared\Transfer\RepresentationOfSalesPermissionRequestTransfer $representationOfSalesPermissionRequestTransfer
      *
-     * @return bool
      * @throws \Exception
+     *
+     * @return bool
      */
     public function hasPermissionToManageGlobalRepresentations(
         RepresentationOfSalesPermissionRequestTransfer $representationOfSalesPermissionRequestTransfer
