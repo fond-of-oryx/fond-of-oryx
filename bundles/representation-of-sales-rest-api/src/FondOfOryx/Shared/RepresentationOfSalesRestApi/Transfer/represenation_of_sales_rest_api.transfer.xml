@@ -20,4 +20,9 @@
         <property name="request" type="RestRepresentationOfSalesRequest"/>
         <property name="representation" type="RepresentationOfSales"/>
     </transfer>
+
+    <transfer name="RepresentationOfSales" />
+    <transfer name="RepresentationOfSalesCollection" />
+    <transfer name="RepresentationOfSalesCommand" />
+    <transfer name="RepresentationOfSalesFilter" />
 </transfers>
