@@ -1,10 +1,10 @@
 <?php
 
-namespace FondOfOryx\Client\RepresentationOfSalesPermission\Dependency\Client;
+namespace FondOfOryx\Client\RepresentativeCompanyUserRestApiPermission\Dependency\Client;
 
 use Spryker\Shared\Kernel\Transfer\TransferInterface;
 
-interface RepresentationOfSalesPermissionToZedRequestInterface
+interface RepresentativeCompanyUserRestApiPermissionToZedRequestInterface
 {
     /**
      * @param string $url

@@ -1,4 +1,4 @@
-namespace: fond-of-oryx/representation-of-sales-permission
+namespace: fond-of-oryx/representative-company-user-rest-api-permission
 
 suites:
   unit:

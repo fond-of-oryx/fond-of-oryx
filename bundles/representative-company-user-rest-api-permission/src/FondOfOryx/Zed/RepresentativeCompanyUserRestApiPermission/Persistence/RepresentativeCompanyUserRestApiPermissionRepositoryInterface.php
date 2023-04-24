@@ -1,8 +1,8 @@
 <?php
 
-namespace FondOfOryx\Zed\RepresentationOfSalesPermission\Persistence;
+namespace FondOfOryx\Zed\RepresentativeCompanyUserRestApiPermission\Persistence;
 
-interface RepresentationOfSalesPermissionRepositoryInterface
+interface RepresentativeCompanyUserRestApiPermissionRepositoryInterface
 {
     /**
      * @param string $permissionKey
