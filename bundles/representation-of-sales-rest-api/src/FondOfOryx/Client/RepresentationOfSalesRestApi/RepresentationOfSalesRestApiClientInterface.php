@@ -16,5 +16,7 @@ interface RepresentationOfSalesRestApiClientInterface
      *
      * @return \Generated\Shared\Transfer\RestRepresentationOfSalesResponseTransfer
      */
-    public function addRepresentation(RestRepresentationOfSalesRequestTransfer $restRepresentationOfSalesRequestTransfer): RestRepresentationOfSalesResponseTransfer;
+    public function addRepresentation(
+        RestRepresentationOfSalesRequestTransfer $restRepresentationOfSalesRequestTransfer
+    ): RestRepresentationOfSalesResponseTransfer;
 }

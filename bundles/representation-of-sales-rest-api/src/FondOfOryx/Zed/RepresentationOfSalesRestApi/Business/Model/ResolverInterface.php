@@ -12,5 +12,7 @@ interface ResolverInterface
      *
      * @return \Generated\Shared\Transfer\RestRepresentationOfSalesOriginatorResponseTransfer
      */
-    public function resolveOriginator(RestRepresentationOfSalesOriginatorRequestTransfer $restRepresentationOfSalesOriginatorRequestTransfer): RestRepresentationOfSalesOriginatorResponseTransfer;
+    public function resolveOriginator(
+        RestRepresentationOfSalesOriginatorRequestTransfer $restRepresentationOfSalesOriginatorRequestTransfer
+    ): RestRepresentationOfSalesOriginatorResponseTransfer;
 }

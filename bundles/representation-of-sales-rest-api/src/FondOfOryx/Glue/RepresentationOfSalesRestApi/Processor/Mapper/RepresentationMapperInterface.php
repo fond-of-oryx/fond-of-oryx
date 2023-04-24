@@ -14,7 +14,10 @@ interface RepresentationMapperInterface
      *
      * @return \Generated\Shared\Transfer\RestRepresentationOfSalesRequestTransfer
      */
-    public function createRequest(RestRequestInterface $restRequest, RestRepresentationOfSalesAttributesTransfer $attributesTransfer = null): RestRepresentationOfSalesRequestTransfer;
+    public function createRequest(
+        RestRequestInterface $restRequest,
+        ?RestRepresentationOfSalesAttributesTransfer $attributesTransfer = null
+    ): RestRepresentationOfSalesRequestTransfer;
 
     /**
      * @param \Spryker\Glue\GlueApplication\Rest\Request\Data\RestRequestInterface $restRequest

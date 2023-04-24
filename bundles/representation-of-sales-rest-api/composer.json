@@ -10,12 +10,10 @@
   ],
   "require": {
     "php": ">=8.0",
-    "fond-of-oryx/representation-of-sales-rest-api-": "^1.0.0",
-    "fond-of-oryx/representation-of-sales-rest-api-permission": "^1.0.0",
     "spryker/glue-application": "*"
   },
   "require-dev": {
-    "fond-of-codeception/spryker": "^1.0",
+    "fond-of-codeception/spryker": "*",
     "spryker/code-sniffer": "*",
     "spryker-sdk/phpstan-spryker": "*"
   },
