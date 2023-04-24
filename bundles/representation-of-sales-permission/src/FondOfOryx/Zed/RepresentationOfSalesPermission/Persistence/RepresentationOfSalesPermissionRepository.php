@@ -1,0 +1,41 @@
+<?php
+
+namespace FondOfOryx\Zed\RepresentationOfSalesPermission\Persistence;
+
+use Exception;
+use Orm\Zed\Customer\Persistence\Map\SpyCustomerTableMap;
+use Spryker\Zed\Kernel\Persistence\AbstractRepository;
+
+/**
+ * @method \FondOfOryx\Zed\RepresentationOfSalesPermission\Persistence\RepresentationOfSalesPermissionPersistenceFactory getFactory()
+ */
+class RepresentationOfSalesPermissionRepository extends AbstractRepository implements RepresentationOfSalesPermissionRepositoryInterface
+{
+    /**
+     * @param string $permissionKey
+     * @param string $customerReference
+     *
+     * @return bool
+     */
+    public function hasPermission(
+        string $permissionKey,
+        string $customerReference
+    ): bool {
+        $spyCompanyRoleToPermissionQuery = $this->getFactory()->getSpyCompanyRoleToPermissionQuery();
+
+        $result = $spyCompanyRoleToPermissionQuery->usePermissionQuery()
+                ->filterByKey($permissionKey)
+            ->endUse()
+            ->useCompanyRoleQuery()
+                ->useSpyCompanyRoleToCompanyUserQuery()
+                    ->useCompanyUserQuery()
+                        ->useCustomerQuery()
+                            ->filterByCustomerReference($customerReference)
+                        ->endUse()
+                    ->endUse()
+                ->endUse()
+            ->endUse()->findOne();
+
+        return $result !== null;
+    }
+}
