@@ -321,7 +321,7 @@
     },
     "customer-registration": {
       "path": "bundles/customer-registration/",
-      "version": "2.2.1"
+      "version": "2.2.2"
     },
     "customer-registration-rest-api": {
       "path": "bundles/customer-registration-rest-api/",
@@ -625,7 +625,7 @@
     },
     "one-time-password-email-connector": {
       "path": "bundles/one-time-password-email-connector/",
-      "version": "2.2.0"
+      "version": "2.2.1"
     },
     "one-time-password-extension": {
       "path": "bundles/one-time-password-extension/",

@@ -91,12 +91,28 @@ class LoginLinkMailjetMailTypeBuilderPlugin extends AbstractPlugin implements Ma
         MailjetTemplateTransfer $mailjetTemplateTransfer
     ): MailjetTemplateTransfer {
         return $mailjetTemplateTransfer->setVariables([
-            static::ONE_TIME_PASSWORD_LOGIN_LINK => sprintf('%s?emailType=welcomeBack', $mailTransfer->getOneTimePasswordLoginLink()),
+            static::ONE_TIME_PASSWORD_LOGIN_LINK => $this->getOneTimePasswordLoginLink($mailTransfer->getOneTimePasswordLoginLink()),
             static::CUSTOMER => [
                 static::FIRST_NAME => $mailTransfer->getCustomerOrFail()->getFirstName(),
                 static::LAST_NAME => $mailTransfer->getCustomerOrFail()->getLastName(),
             ],
         ]);
+    }
+
+    /**
+     * @param string|null $oneTimePasswordLoginLink
+     *
+     * @return string|null
+     */
+    protected function getOneTimePasswordLoginLink(?string $oneTimePasswordLoginLink): ?string
+    {
+        if ($oneTimePasswordLoginLink === null) {
+            return null;
+        }
+
+        $searchParamOperator = (parse_url($oneTimePasswordLoginLink, PHP_URL_QUERY) ? '&' : '?');
+
+        return sprintf('%s%semailType=welcomeBack', $oneTimePasswordLoginLink, $searchParamOperator);
     }
 
     /**
