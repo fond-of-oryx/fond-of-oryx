@@ -7,10 +7,10 @@ use FondOfOryx\Glue\RepresentativeCompanyUserRestApi\Processor\Builder\RestRespo
 use FondOfOryx\Glue\RepresentativeCompanyUserRestApi\Processor\Builder\RestResponseBuilderInterface;
 use FondOfOryx\Glue\RepresentativeCompanyUserRestApi\Processor\Manager\RepresentationManager;
 use FondOfOryx\Glue\RepresentativeCompanyUserRestApi\Processor\Manager\RepresentationManagerInterface;
-use FondOfOryx\Glue\RepresentativeCompanyUserRestApi\Processor\Mapper\RepresentationMapper;
-use FondOfOryx\Glue\RepresentativeCompanyUserRestApi\Processor\Mapper\RepresentationMapperInterface;
 use FondOfOryx\Glue\RepresentativeCompanyUserRestApi\Processor\Mapper\PermissionRequestMapper;
 use FondOfOryx\Glue\RepresentativeCompanyUserRestApi\Processor\Mapper\PermissionRequestMapperInterface;
+use FondOfOryx\Glue\RepresentativeCompanyUserRestApi\Processor\Mapper\RepresentationMapper;
+use FondOfOryx\Glue\RepresentativeCompanyUserRestApi\Processor\Mapper\RepresentationMapperInterface;
 use FondOfOryx\Glue\RepresentativeCompanyUserRestApi\Processor\Permission\PermissionChecker;
 use FondOfOryx\Glue\RepresentativeCompanyUserRestApi\Processor\Permission\PermissionCheckerInterface;
 use Spryker\Glue\Kernel\AbstractFactory;

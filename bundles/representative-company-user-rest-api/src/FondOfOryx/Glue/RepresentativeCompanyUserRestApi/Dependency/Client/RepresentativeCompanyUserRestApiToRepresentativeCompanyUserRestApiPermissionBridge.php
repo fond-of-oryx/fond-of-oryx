@@ -21,24 +21,24 @@ class RepresentativeCompanyUserRestApiToRepresentativeCompanyUserRestApiPermissi
     }
 
     /**
-     * @param \Generated\Shared\Transfer\RepresentativeCompanyUserRestApiPermissionRequestTransfer $representationOfSalesPermissionRequestTransfer
+     * @param \Generated\Shared\Transfer\RepresentativeCompanyUserRestApiPermissionRequestTransfer $representativeCompanyUserPermissionRequestTransfer
      *
      * @return bool
      */
     public function hasPermissionToManageGlobalRepresentations(
-        RepresentativeCompanyUserRestApiPermissionRequestTransfer $representationOfSalesPermissionRequestTransfer
+        RepresentativeCompanyUserRestApiPermissionRequestTransfer $representativeCompanyUserPermissionRequestTransfer
     ): bool {
-        return $this->client->hasPermissionToManageGlobalRepresentations($representationOfSalesPermissionRequestTransfer);
+        return $this->client->hasPermissionToManageGlobalRepresentations($representativeCompanyUserPermissionRequestTransfer);
     }
 
     /**
-     * @param \Generated\Shared\Transfer\RepresentativeCompanyUserRestApiPermissionRequestTransfer $representationOfSalesPermissionRequestTransfer
+     * @param \Generated\Shared\Transfer\RepresentativeCompanyUserRestApiPermissionRequestTransfer $representativeCompanyUserPermissionRequestTransfer
      *
      * @return bool
      */
     public function hasPermissionToManageOwnRepresentations(
-        RepresentativeCompanyUserRestApiPermissionRequestTransfer $representationOfSalesPermissionRequestTransfer
+        RepresentativeCompanyUserRestApiPermissionRequestTransfer $representativeCompanyUserPermissionRequestTransfer
     ): bool {
-        return $this->client->hasPermissionToManageOwnRepresentations($representationOfSalesPermissionRequestTransfer);
+        return $this->client->hasPermissionToManageOwnRepresentations($representativeCompanyUserPermissionRequestTransfer);
     }
 }

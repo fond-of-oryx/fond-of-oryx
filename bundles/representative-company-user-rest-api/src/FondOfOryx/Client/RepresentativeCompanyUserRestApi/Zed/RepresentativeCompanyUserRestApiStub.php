@@ -34,9 +34,9 @@ class RepresentativeCompanyUserRestApiStub implements RepresentativeCompanyUserR
     public function addRepresentation(
         RestRepresentativeCompanyUserRequestTransfer $restRepresentativeCompanyUserRequestTransfer
     ): RestRepresentativeCompanyUserResponseTransfer {
-        /** @var \Generated\Shared\Transfer\RestRepresentativeCompanyUserResponseTransfer $representationOfSalesRestRespomseTransfer */
-        $representationOfSalesRestRespomseTransfer = $this->zedRequestClient->call(static::ADD_REPRESENTATION, $restRepresentativeCompanyUserRequestTransfer);
+        /** @var \Generated\Shared\Transfer\RestRepresentativeCompanyUserResponseTransfer $representativeCompanyUserRestResponseTransfer */
+        $representativeCompanyUserRestResponseTransfer = $this->zedRequestClient->call(static::ADD_REPRESENTATION, $restRepresentativeCompanyUserRequestTransfer);
 
-        return $representationOfSalesRestRespomseTransfer;
+        return $representativeCompanyUserRestResponseTransfer;
     }
 }

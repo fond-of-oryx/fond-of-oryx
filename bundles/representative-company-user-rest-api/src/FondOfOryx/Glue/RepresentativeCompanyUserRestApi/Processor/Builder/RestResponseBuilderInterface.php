@@ -8,12 +8,12 @@ use Spryker\Glue\GlueApplication\Rest\JsonApi\RestResponseInterface;
 interface RestResponseBuilderInterface
 {
     /**
-     * @param \Generated\Shared\Transfer\RepresentativeCompanyUserTransfer $representationOfSalesTransfer
+     * @param \Generated\Shared\Transfer\RepresentativeCompanyUserTransfer $representativeCompanyUserTransfer
      *
      * @return \Spryker\Glue\GlueApplication\Rest\JsonApi\RestResponseInterface
      */
     public function buildRepresentativeCompanyUserRestResponse(
-        RepresentativeCompanyUserTransfer $representationOfSalesTransfer
+        RepresentativeCompanyUserTransfer $representativeCompanyUserTransfer
     ): RestResponseInterface;
 
     /**

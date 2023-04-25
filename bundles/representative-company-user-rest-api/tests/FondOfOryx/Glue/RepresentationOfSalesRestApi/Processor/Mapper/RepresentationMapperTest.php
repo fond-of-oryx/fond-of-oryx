@@ -80,6 +80,10 @@ class RepresentationMapperTest extends Unit
     {
         $id = 'id';
         $this->restRequestMock->expects(static::atLeastOnce())
+            ->method('getAttributesDataFromRequest')
+            ->willReturn([]);
+
+        $this->restRequestMock->expects(static::atLeastOnce())
             ->method('getRestUser')
             ->willReturn($this->restUserTransferMock);
 

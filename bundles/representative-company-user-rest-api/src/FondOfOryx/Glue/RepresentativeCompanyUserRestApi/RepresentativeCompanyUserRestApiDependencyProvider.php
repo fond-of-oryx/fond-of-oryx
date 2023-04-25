@@ -38,7 +38,7 @@ class RepresentativeCompanyUserRestApiDependencyProvider extends AbstractBundleD
     {
         $container[static::CLIENT_REPRESENTATIVE_COMPANY_USER_PERMISSION] = static function (Container $container) {
             return new RepresentativeCompanyUserRestApiToRepresentativeCompanyUserRestApiPermissionBridge(
-                $container->getLocator()->representationOfSalesPermission()->client(),
+                $container->getLocator()->representativeCompanyUserRestApiPermission()->client(),
             );
         };
 

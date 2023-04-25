@@ -14,9 +14,11 @@ class RepresentationMapper implements RepresentationMapperInterface
      *
      * @return \Generated\Shared\Transfer\RestRepresentativeCompanyUserRequestTransfer
      */
-    public function createRequest(RestRequestInterface $restRequest, RestRepresentativeCompanyUserAttributesTransfer $attributesTransfer = null): RestRepresentativeCompanyUserRequestTransfer
-    {
-        if ($attributesTransfer === null){
+    public function createRequest(
+        RestRequestInterface $restRequest,
+        ?RestRepresentativeCompanyUserAttributesTransfer $attributesTransfer = null
+    ): RestRepresentativeCompanyUserRequestTransfer {
+        if ($attributesTransfer === null) {
             $attributesTransfer = $this->createAttributesFromRequest($restRequest);
         }
 

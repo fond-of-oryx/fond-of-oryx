@@ -7,20 +7,20 @@ use Generated\Shared\Transfer\RepresentativeCompanyUserRestApiPermissionRequestT
 interface RepresentativeCompanyUserRestApiToRepresentativeCompanyUserRestApiPermissionInterface
 {
     /**
-     * @param \Generated\Shared\Transfer\RepresentativeCompanyUserRestApiPermissionRequestTransfer $representationOfSalesPermissionRequestTransfer
+     * @param \Generated\Shared\Transfer\RepresentativeCompanyUserRestApiPermissionRequestTransfer $representativeCompanyUserPermissionRequestTransfer
      *
      * @return bool
      */
     public function hasPermissionToManageGlobalRepresentations(
-        RepresentativeCompanyUserRestApiPermissionRequestTransfer $representationOfSalesPermissionRequestTransfer
+        RepresentativeCompanyUserRestApiPermissionRequestTransfer $representativeCompanyUserPermissionRequestTransfer
     ): bool;
 
     /**
-     * @param \Generated\Shared\Transfer\RepresentativeCompanyUserRestApiPermissionRequestTransfer $representationOfSalesPermissionRequestTransfer
+     * @param \Generated\Shared\Transfer\RepresentativeCompanyUserRestApiPermissionRequestTransfer $representativeCompanyUserPermissionRequestTransfer
      *
      * @return bool
      */
     public function hasPermissionToManageOwnRepresentations(
-        RepresentativeCompanyUserRestApiPermissionRequestTransfer $representationOfSalesPermissionRequestTransfer
+        RepresentativeCompanyUserRestApiPermissionRequestTransfer $representativeCompanyUserPermissionRequestTransfer
     ): bool;
 }

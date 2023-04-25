@@ -12,8 +12,9 @@ class PermissionRequestMapper implements PermissionRequestMapperInterface
      *
      * @return \Generated\Shared\Transfer\RepresentativeCompanyUserRestApiPermissionRequestTransfer
      */
-    public function fromAttributesTransfer(RestRepresentativeCompanyUserAttributesTransfer $attributesTransfer): RepresentativeCompanyUserRestApiPermissionRequestTransfer
-    {
+    public function fromAttributesTransfer(
+        RestRepresentativeCompanyUserAttributesTransfer $attributesTransfer
+    ): RepresentativeCompanyUserRestApiPermissionRequestTransfer {
         return (new RepresentativeCompanyUserRestApiPermissionRequestTransfer())
             ->setDistributorReference($attributesTransfer->getReferenceDistributor());
     }

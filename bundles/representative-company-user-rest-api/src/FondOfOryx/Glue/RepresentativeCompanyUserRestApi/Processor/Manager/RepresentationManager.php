@@ -39,11 +39,10 @@ class RepresentationManager implements RepresentationManagerInterface
      */
     public function __construct(
         RepresentativeCompanyUserRestApiClientInterface $client,
-        RepresentationMapperInterface               $representationMapper,
-        RestResponseBuilderInterface                $responseBuilder,
-        PermissionCheckerInterface                  $permissionChecker
-    )
-    {
+        RepresentationMapperInterface $representationMapper,
+        RestResponseBuilderInterface $responseBuilder,
+        PermissionCheckerInterface $permissionChecker
+    ) {
         $this->client = $client;
         $this->representationMapper = $representationMapper;
         $this->responseBuilder = $responseBuilder;

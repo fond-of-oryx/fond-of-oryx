@@ -100,6 +100,7 @@ class PermissionCheckerTest extends Unit
 
         $this->permissionChecker->can($this->restAttributesTransferMock);
     }
+
     /**
      * @return void
      */
@@ -120,7 +121,8 @@ class PermissionCheckerTest extends Unit
             ->method('setPermissionKey')
             ->withConsecutive(
                 [RepresentativeCompanyUserRestApiConstants::PERMISSION_KEY_OWN],
-                [RepresentativeCompanyUserRestApiConstants::PERMISSION_KEY_GLOBAL])
+                [RepresentativeCompanyUserRestApiConstants::PERMISSION_KEY_GLOBAL],
+            )
             ->willReturnSelf();
 
         $this->representativeCompanyUserRestApiPermissionRequestTransferMock->expects(static::atLeastOnce())

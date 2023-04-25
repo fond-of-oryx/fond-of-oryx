@@ -5,7 +5,6 @@ namespace FondOfOryx\Glue\RepresentativeCompanyUserRestApi\Processor\Permission;
 use FondOfOryx\Glue\RepresentativeCompanyUserRestApi\Dependency\Client\RepresentativeCompanyUserRestApiToRepresentativeCompanyUserRestApiPermissionInterface;
 use FondOfOryx\Glue\RepresentativeCompanyUserRestApi\Processor\Mapper\PermissionRequestMapperInterface;
 use FondOfOryx\Shared\RepresentativeCompanyUserRestApi\RepresentativeCompanyUserRestApiConstants;
-use FondOfOryx\Zed\RepresentativeCompanyUserRestApiPermission\Persistence\RepresentativeCompanyUserRestApiPermissionRepositoryInterface;
 use Generated\Shared\Transfer\RestRepresentativeCompanyUserAttributesTransfer;
 
 class PermissionChecker implements PermissionCheckerInterface
@@ -26,16 +25,14 @@ class PermissionChecker implements PermissionCheckerInterface
      */
     public function __construct(
         RepresentativeCompanyUserRestApiToRepresentativeCompanyUserRestApiPermissionInterface $permissionClient,
-        PermissionRequestMapperInterface                                       $permissionRequestMapper
-    )
-    {
+        PermissionRequestMapperInterface $permissionRequestMapper
+    ) {
         $this->permissionClient = $permissionClient;
         $this->requestMapper = $permissionRequestMapper;
     }
 
     /**
      * @param \Generated\Shared\Transfer\RestRepresentativeCompanyUserAttributesTransfer $attributesTransfer
-     * @param string $originatorReference
      *
      * @return bool
      */
@@ -48,6 +45,7 @@ class PermissionChecker implements PermissionCheckerInterface
 
         if ($request->getDistributorReference() !== $originatorReference) {
             $request->setPermissionKey(RepresentativeCompanyUserRestApiConstants::PERMISSION_KEY_GLOBAL);
+
             return $this->permissionClient->hasPermissionToManageGlobalRepresentations($request);
         }
 
