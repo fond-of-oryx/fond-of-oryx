@@ -2,25 +2,25 @@
 
 namespace FondOfOryx\Glue\RepresentativeCompanyUserRestApi\Dependency\Client;
 
-use Generated\Shared\Transfer\RepresentationOfSalesPermissionRequestTransfer;
+use Generated\Shared\Transfer\RepresentativeCompanyUserPermissionRequestTransfer;
 
 interface RepresentativeCompanyUserRestApiToRepresentativeCompanyUserRestApiPermissionInterface
 {
     /**
-     * @param \Generated\Shared\Transfer\RepresentationOfSalesPermissionRequestTransfer $representationOfSalesPermissionRequestTransfer
+     * @param \Generated\Shared\Transfer\RepresentativeCompanyUserPermissionRequestTransfer $representationOfSalesPermissionRequestTransfer
      *
      * @return bool
      */
     public function hasPermissionToManageGlobalRepresentations(
-        RepresentationOfSalesPermissionRequestTransfer $representationOfSalesPermissionRequestTransfer
+        RepresentativeCompanyUserPermissionRequestTransfer $representationOfSalesPermissionRequestTransfer
     ): bool;
 
     /**
-     * @param \Generated\Shared\Transfer\RepresentationOfSalesPermissionRequestTransfer $representationOfSalesPermissionRequestTransfer
+     * @param \Generated\Shared\Transfer\RepresentativeCompanyUserPermissionRequestTransfer $representationOfSalesPermissionRequestTransfer
      *
      * @return bool
      */
     public function hasPermissionToManageOwnRepresentations(
-        RepresentationOfSalesPermissionRequestTransfer $representationOfSalesPermissionRequestTransfer
+        RepresentativeCompanyUserPermissionRequestTransfer $representationOfSalesPermissionRequestTransfer
     ): bool;
 }

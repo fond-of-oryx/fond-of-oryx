@@ -2,14 +2,14 @@
 
 namespace FondOfOryx\Zed\RepresentativeCompanyUserRestApi\Dependency\Facade;
 
-use Generated\Shared\Transfer\RepresentationOfSalesTransfer;
+use Generated\Shared\Transfer\RepresentativeCompanyUserTransfer;
 
 interface RepresentativeCompanyUserRestApiToRepresentativeCompanyUserFacadeInterface
 {
     /**
-     * @param \Generated\Shared\Transfer\RepresentationOfSalesTransfer $representationOfSalesTransfer
+     * @param \Generated\Shared\Transfer\RepresentativeCompanyUserTransfer $representationOfSalesTransfer
      *
-     * @return \Generated\Shared\Transfer\RepresentationOfSalesTransfer
+     * @return \Generated\Shared\Transfer\RepresentativeCompanyUserTransfer
      */
-    public function addRepresentationOfSales(RepresentationOfSalesTransfer $representationOfSalesTransfer): RepresentationOfSalesTransfer;
+    public function addRepresentativeCompanyUser(RepresentativeCompanyUserTransfer $representationOfSalesTransfer): RepresentativeCompanyUserTransfer;
 }

@@ -2,27 +2,27 @@
 
 namespace FondOfOryx\Glue\RepresentativeCompanyUserRestApi\Processor\Mapper;
 
-use Generated\Shared\Transfer\RestRepresentationOfSalesAttributesTransfer;
-use Generated\Shared\Transfer\RestRepresentationOfSalesRequestTransfer;
+use Generated\Shared\Transfer\RestRepresentativeCompanyUserAttributesTransfer;
+use Generated\Shared\Transfer\RestRepresentativeCompanyUserRequestTransfer;
 use Spryker\Glue\GlueApplication\Rest\Request\Data\RestRequestInterface;
 
 interface RepresentationMapperInterface
 {
     /**
      * @param \Spryker\Glue\GlueApplication\Rest\Request\Data\RestRequestInterface $restRequest
-     * @param \Generated\Shared\Transfer\RestRepresentationOfSalesAttributesTransfer|null $attributesTransfer
+     * @param \Generated\Shared\Transfer\RestRepresentativeCompanyUserAttributesTransfer|null $attributesTransfer
      *
-     * @return \Generated\Shared\Transfer\RestRepresentationOfSalesRequestTransfer
+     * @return \Generated\Shared\Transfer\RestRepresentativeCompanyUserRequestTransfer
      */
     public function createRequest(
         RestRequestInterface $restRequest,
-        ?RestRepresentationOfSalesAttributesTransfer $attributesTransfer = null
-    ): RestRepresentationOfSalesRequestTransfer;
+        ?RestRepresentativeCompanyUserAttributesTransfer $attributesTransfer = null
+    ): RestRepresentativeCompanyUserRequestTransfer;
 
     /**
      * @param \Spryker\Glue\GlueApplication\Rest\Request\Data\RestRequestInterface $restRequest
      *
-     * @return \Generated\Shared\Transfer\RestRepresentationOfSalesAttributesTransfer
+     * @return \Generated\Shared\Transfer\RestRepresentativeCompanyUserAttributesTransfer
      */
-    public function createAttributesFromRequest(RestRequestInterface $restRequest): RestRepresentationOfSalesAttributesTransfer;
+    public function createAttributesFromRequest(RestRequestInterface $restRequest): RestRepresentativeCompanyUserAttributesTransfer;
 }

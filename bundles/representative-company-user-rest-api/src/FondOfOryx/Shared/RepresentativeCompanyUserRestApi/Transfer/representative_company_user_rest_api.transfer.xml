@@ -3,7 +3,7 @@
            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
            xsi:schemaLocation="spryker:transfer-01 https://static.spryker.com/transfer-01.xsd">
 
-    <transfer name="RestRepresentationOfSalesAttributes">
+    <transfer name="RestRepresentativeCompanyUserAttributes">
         <property name="uuid" type="string"/>
         <property name="referenceDistributor" restRequestParameter="required" type="string" />
         <property name="referenceRepresentation" restRequestParameter="required" type="string" />
@@ -12,17 +12,18 @@
         <property name="endDate" type="int" />
     </transfer>
 
-    <transfer name="RestRepresentationOfSalesRequest">
-        <property name="attributes" type="RestRepresentationOfSalesAttributes"/>
+    <transfer name="RestRepresentativeCompanyUserRequest">
+        <property name="attributes" type="RestRepresentativeCompanyUserAttributes"/>
     </transfer>
 
-    <transfer name="RestRepresentationOfSalesResponse">
-        <property name="request" type="RestRepresentationOfSalesRequest"/>
-        <property name="representation" type="RepresentationOfSales"/>
+    <transfer name="RestRepresentativeCompanyUserResponse">
+        <property name="request" type="RestRepresentativeCompanyUserRequest"/>
+        <property name="representation" type="RepresentativeCompanyUser"/>
     </transfer>
 
-    <transfer name="RepresentationOfSales" />
-    <transfer name="RepresentationOfSalesCollection" />
-    <transfer name="RepresentationOfSalesCommand" />
-    <transfer name="RepresentationOfSalesFilter" />
+    <transfer name="RepresentativeCompanyUser" />
+    <transfer name="RepresentativeCompanyUserCollection" />
+    <transfer name="RepresentativeCompanyUserCommand" />
+    <transfer name="RepresentativeCompanyUserFilter" />
+    <transfer name="RepresentativeCompanyUserPermissionRequest" />
 </transfers>

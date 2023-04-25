@@ -2,15 +2,17 @@
 
 namespace FondOfOryx\Glue\RepresentativeCompanyUserRestApi\Processor\Mapper;
 
-use Generated\Shared\Transfer\RepresentationOfSalesPermissionRequestTransfer;
-use Generated\Shared\Transfer\RestRepresentationOfSalesAttributesTransfer;
+use Generated\Shared\Transfer\RepresentativeCompanyUserPermissionRequestTransfer;
+use Generated\Shared\Transfer\RestRepresentativeCompanyUserAttributesTransfer;
 
 interface PermissionRequestMapperInterface
 {
     /**
-     * @param \Generated\Shared\Transfer\RestRepresentationOfSalesAttributesTransfer $attributesTransfer
+     * @param \Generated\Shared\Transfer\RestRepresentativeCompanyUserAttributesTransfer $attributesTransfer
      *
-     * @return \Generated\Shared\Transfer\RepresentationOfSalesPermissionRequestTransfer
+     * @return \Generated\Shared\Transfer\RepresentativeCompanyUserPermissionRequestTransfer
      */
-    public function fromAttributesTransfer(RestRepresentationOfSalesAttributesTransfer $attributesTransfer): RepresentationOfSalesPermissionRequestTransfer;
+    public function fromAttributesTransfer(
+        RestRepresentativeCompanyUserAttributesTransfer $attributesTransfer
+    ): RepresentativeCompanyUserPermissionRequestTransfer;
 }

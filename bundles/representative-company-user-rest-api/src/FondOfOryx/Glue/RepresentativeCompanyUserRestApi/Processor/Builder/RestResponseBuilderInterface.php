@@ -2,22 +2,22 @@
 
 namespace FondOfOryx\Glue\RepresentativeCompanyUserRestApi\Processor\Builder;
 
-use Generated\Shared\Transfer\RepresentationOfSalesTransfer;
+use Generated\Shared\Transfer\RepresentativeCompanyUserTransfer;
 use Spryker\Glue\GlueApplication\Rest\JsonApi\RestResponseInterface;
 
 interface RestResponseBuilderInterface
 {
     /**
-     * @param \Generated\Shared\Transfer\RepresentationOfSalesTransfer $representationOfSalesTransfer
+     * @param \Generated\Shared\Transfer\RepresentativeCompanyUserTransfer $representationOfSalesTransfer
      *
      * @return \Spryker\Glue\GlueApplication\Rest\JsonApi\RestResponseInterface
      */
-    public function buildRepresentationOfSalesRestResponse(
-        RepresentationOfSalesTransfer $representationOfSalesTransfer
+    public function buildRepresentativeCompanyUserRestResponse(
+        RepresentativeCompanyUserTransfer $representationOfSalesTransfer
     ): RestResponseInterface;
 
     /**
      * @return \Spryker\Glue\GlueApplication\Rest\JsonApi\RestResponseInterface
      */
-    public function buildRepresentationOfSalesMissingPermissionResponse(): RestResponseInterface;
+    public function buildRepresentativeCompanyUserMissingPermissionResponse(): RestResponseInterface;
 }

@@ -2,14 +2,14 @@
 
 namespace FondOfOryx\Glue\RepresentativeCompanyUserRestApi\Processor\Permission;
 
-use Generated\Shared\Transfer\RestRepresentationOfSalesAttributesTransfer;
+use Generated\Shared\Transfer\RestRepresentativeCompanyUserAttributesTransfer;
 
 interface PermissionCheckerInterface
 {
     /**
-     * @param \Generated\Shared\Transfer\RestRepresentationOfSalesAttributesTransfer $attributesTransfer
+     * @param \Generated\Shared\Transfer\RestRepresentativeCompanyUserAttributesTransfer $attributesTransfer
      *
      * @return bool
      */
-    public function can(RestRepresentationOfSalesAttributesTransfer $attributesTransfer): bool;
+    public function can(RestRepresentativeCompanyUserAttributesTransfer $attributesTransfer): bool;
 }
