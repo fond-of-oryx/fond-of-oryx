@@ -20,8 +20,9 @@ class RepresentativeCompanyUserRestApiClient extends AbstractClient implements R
      *
      * @return \Generated\Shared\Transfer\RestRepresentativeCompanyUserResponseTransfer
      */
-    public function addRepresentation(RestRepresentativeCompanyUserRequestTransfer $restRepresentativeCompanyUserRequestTransfer): RestRepresentativeCompanyUserResponseTransfer
-    {
+    public function addRepresentation(
+        RestRepresentativeCompanyUserRequestTransfer $restRepresentativeCompanyUserRequestTransfer
+    ): RestRepresentativeCompanyUserResponseTransfer {
         return $this->getFactory()->createZedRepresentativeCompanyUserRestApiStub()->addRepresentation($restRepresentativeCompanyUserRequestTransfer);
     }
 }
