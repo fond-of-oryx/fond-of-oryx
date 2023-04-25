@@ -11,7 +11,7 @@ class RepresentativeCompanyUserRestApiStub implements RepresentativeCompanyUserR
     /**
      * @var string
      */
-    public const ADD_REPRESENTATION = '/representation-of-sales-rest-api/gateway/add-representation';
+    public const ADD_REPRESENTATION = '/representative-company-user-rest-api/gateway/add-representation';
 
     /**
      * @var \FondOfOryx\Client\RepresentativeCompanyUserRestApi\Dependency\Client\RepresentativeCompanyUserRestApiToZedRequestClientInterface
