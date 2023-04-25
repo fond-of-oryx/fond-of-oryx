@@ -12,32 +12,32 @@ use Spryker\Zed\Kernel\Communication\Controller\AbstractGatewayController;
 class GatewayController extends AbstractGatewayController
 {
     /**
-     * @param \Generated\Shared\Transfer\RepresentativeCompanyUserRestApiPermissionRequestTransfer $companiesRestApiPermissionRequestTransfer
+     * @param \Generated\Shared\Transfer\RepresentativeCompanyUserRestApiPermissionRequestTransfer $representativeCompanyUserRestApiPermissionRequestTransfer
      *
      * @return \Generated\Shared\Transfer\RepresentativeCompanyUserRestApiPermissionResponseTransfer
      */
     public function hasPermissionToManageOwnRepresentationsAction(
-        RepresentativeCompanyUserRestApiPermissionRequestTransfer $companiesRestApiPermissionRequestTransfer
+        RepresentativeCompanyUserRestApiPermissionRequestTransfer $representativeCompanyUserRestApiPermissionRequestTransfer
     ): RepresentativeCompanyUserRestApiPermissionResponseTransfer {
         return (new RepresentativeCompanyUserRestApiPermissionResponseTransfer())->setHasPermissionToManageOwnRepresentations($this->getRepository()
             ->hasPermission(
-                $companiesRestApiPermissionRequestTransfer->getPermissionKey(),
-                $companiesRestApiPermissionRequestTransfer->getOriginatorReference(),
-            ))->setRequest($companiesRestApiPermissionRequestTransfer);
+                $representativeCompanyUserRestApiPermissionRequestTransfer->getPermissionKey(),
+                $representativeCompanyUserRestApiPermissionRequestTransfer->getOriginatorReference(),
+            ))->setRequest($representativeCompanyUserRestApiPermissionRequestTransfer);
     }
 
     /**
-     * @param \Generated\Shared\Transfer\RepresentativeCompanyUserRestApiPermissionRequestTransfer $companiesRestApiPermissionRequestTransfer
+     * @param \Generated\Shared\Transfer\RepresentativeCompanyUserRestApiPermissionRequestTransfer $representativeCompanyUserRestApiPermissionRequestTransfer
      *
      * @return \Generated\Shared\Transfer\RepresentativeCompanyUserRestApiPermissionResponseTransfer
      */
     public function hasPermissionToManageGlobalRepresentationsAction(
-        RepresentativeCompanyUserRestApiPermissionRequestTransfer $companiesRestApiPermissionRequestTransfer
+        RepresentativeCompanyUserRestApiPermissionRequestTransfer $representativeCompanyUserRestApiPermissionRequestTransfer
     ): RepresentativeCompanyUserRestApiPermissionResponseTransfer {
         return (new RepresentativeCompanyUserRestApiPermissionResponseTransfer())->setHasPermissionToManageGlobalRepresentations($this->getRepository()
             ->hasPermission(
-                $companiesRestApiPermissionRequestTransfer->getPermissionKey(),
-                $companiesRestApiPermissionRequestTransfer->getOriginatorReference(),
-            ))->setRequest($companiesRestApiPermissionRequestTransfer);
+                $representativeCompanyUserRestApiPermissionRequestTransfer->getPermissionKey(),
+                $representativeCompanyUserRestApiPermissionRequestTransfer->getOriginatorReference(),
+            ))->setRequest($representativeCompanyUserRestApiPermissionRequestTransfer);
     }
 }
