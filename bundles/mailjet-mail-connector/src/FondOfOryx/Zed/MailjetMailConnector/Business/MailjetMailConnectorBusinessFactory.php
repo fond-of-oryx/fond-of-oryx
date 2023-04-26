@@ -3,13 +3,13 @@
 namespace FondOfOryx\Zed\MailjetMailConnector\Business;
 
 use FondOfOryx\Zed\MailjetMailConnector\Business\Model\Provider\MailjetMailer;
+use GuzzleRetry\GuzzleRetryMiddleware;
 use GuzzleHttp\HandlerStack;
 use Mailjet\Client;
 use Mailjet\Client as MailjetClient;
 use Spryker\Shared\Log\LoggerTrait;
 use Spryker\Zed\Kernel\Business\AbstractBusinessFactory;
 use Spryker\Zed\MailExtension\Dependency\Plugin\MailProviderPluginInterface;
-use GuzzleRetry\GuzzleRetryMiddleware;
 
 /**
  * @method \FondOfOryx\Zed\MailjetMailConnector\MailjetMailConnectorConfig getConfig()

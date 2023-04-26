@@ -4,10 +4,8 @@ namespace FondOfOryx\Zed\MailjetMailConnector\Business\Model\Provider;
 
 use FondOfOryx\Zed\MailjetMailConnector\MailjetMailConnectorConfig;
 use Generated\Shared\Transfer\MailTransfer;
-use GuzzleHttp\Exception\BadResponseException;
 use Mailjet\Client;
 use Mailjet\Resources;
-use PHPUnit\Util\Exception;
 use Psr\Log\LoggerInterface;
 use Spryker\Zed\MailExtension\Dependency\Plugin\MailProviderPluginInterface;
 
@@ -85,9 +83,9 @@ class MailjetMailer implements MailProviderPluginInterface
                 sprintf(
                     'Sending to mailjet failed after %d retries with status %d',
                     $this->config->getRetryEnabled() ? $this->config->getRetryMultiplier() : 1,
-                    $response->getStatus()
+                    $response->getStatus(),
                 ),
-                $response->getBody()
+                $response->getBody(),
             );
         }
     }

@@ -175,7 +175,7 @@ class MailjetMailConnectorConfig extends AbstractBundleConfig
      */
     public function getRetryOnStatus(): array
     {
-        return $this->get(MailjetMailConnectorConstants::MAILJET_RETRY_ON_STATUS, [503, 429]);
+        return $this->get(MailjetMailConnectorConstants::MAILJET_RETRY_ON_STATUS, [503, 429, 403]);
     }
 
     /**
@@ -183,6 +183,6 @@ class MailjetMailConnectorConfig extends AbstractBundleConfig
      */
     public function getRetryMultiplier(): float
     {
-        return $this->get(MailjetMailConnectorConstants::MAILJET_RETRY_MULTIPLIER, 1.5);
+        return $this->get(MailjetMailConnectorConstants::MAILJET_RETRY_MULTIPLIER, 1);
     }
 }
