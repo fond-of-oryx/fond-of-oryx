@@ -3,8 +3,8 @@
 namespace FondOfOryx\Zed\MailjetMailConnector\Business;
 
 use FondOfOryx\Zed\MailjetMailConnector\Business\Model\Provider\MailjetMailer;
-use GuzzleRetry\GuzzleRetryMiddleware;
 use GuzzleHttp\HandlerStack;
+use GuzzleRetry\GuzzleRetryMiddleware;
 use Mailjet\Client;
 use Mailjet\Client as MailjetClient;
 use Spryker\Shared\Log\LoggerTrait;
