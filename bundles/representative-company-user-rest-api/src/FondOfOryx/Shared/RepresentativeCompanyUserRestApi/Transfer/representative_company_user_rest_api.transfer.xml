@@ -25,5 +25,5 @@
     <transfer name="RepresentativeCompanyUserCollection" />
     <transfer name="RepresentativeCompanyUserCommand" />
     <transfer name="RepresentativeCompanyUserFilter" />
-    <transfer name="RepresentativeCompanyUserPermissionRequest" />
+    <transfer name="RepresentativeCompanyUserRestApiPermissionRequest" />
 </transfers>

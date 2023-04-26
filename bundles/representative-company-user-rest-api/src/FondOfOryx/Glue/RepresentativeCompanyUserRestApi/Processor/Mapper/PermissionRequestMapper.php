@@ -5,7 +5,7 @@ namespace FondOfOryx\Glue\RepresentativeCompanyUserRestApi\Processor\Mapper;
 use Generated\Shared\Transfer\RepresentativeCompanyUserRestApiPermissionRequestTransfer;
 use Generated\Shared\Transfer\RestRepresentativeCompanyUserAttributesTransfer;
 
-interface PermissionRequestMapperInterface
+class PermissionRequestMapper implements PermissionRequestMapperInterface
 {
     /**
      * @param \Generated\Shared\Transfer\RestRepresentativeCompanyUserAttributesTransfer $attributesTransfer
@@ -14,5 +14,8 @@ interface PermissionRequestMapperInterface
      */
     public function fromAttributesTransfer(
         RestRepresentativeCompanyUserAttributesTransfer $attributesTransfer
-    ): RepresentativeCompanyUserRestApiPermissionRequestTransfer;
+    ): RepresentativeCompanyUserRestApiPermissionRequestTransfer {
+        return (new RepresentativeCompanyUserRestApiPermissionRequestTransfer())
+            ->setDistributorReference($attributesTransfer->getReferenceDistributor());
+    }
 }

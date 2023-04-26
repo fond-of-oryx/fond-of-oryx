@@ -17,7 +17,7 @@ interface RepresentativeCompanyUserRestApiConstants
     /**
      * @var string
      */
-    public const VALID_ITEMS_PER_PAGE_OPTIONS = 'FOND_OF_ORYX:REPRESENTATION_OF_SALES_REST_API:VALID_ITEMS_PER_PAGE_OPTIONS';
+    public const VALID_ITEMS_PER_PAGE_OPTIONS = 'FOND_OF_ORYX:REPRESENTATIVE_COMPANY_USER_REST_API:VALID_ITEMS_PER_PAGE_OPTIONS';
 
     /**
      * @var array
@@ -27,7 +27,7 @@ interface RepresentativeCompanyUserRestApiConstants
     /**
      * @var string
      */
-    public const ITEMS_PER_PAGE = 'FOND_OF_ORYX:REPRESENTATION_OF_SALES_REST_API:ITEMS_PER_PAGE';
+    public const ITEMS_PER_PAGE = 'FOND_OF_ORYX:REPRESENTATIVE_COMPANY_USER_REST_API:ITEMS_PER_PAGE';
 
     /**
      * @var int
@@ -47,7 +47,7 @@ interface RepresentativeCompanyUserRestApiConstants
     /**
      * @var string
      */
-    public const FULLTEXT_SEARCH_FIELDS = 'FOND_OF_ORYX:REPRESENTATION_OF_SALES_REST_API:FULLTEXT_SEARCH_FIELDS';
+    public const FULLTEXT_SEARCH_FIELDS = 'FOND_OF_ORYX:REPRESENTATIVE_COMPANY_USER_REST_API:FULLTEXT_SEARCH_FIELDS';
 
     /**
      * @var array
