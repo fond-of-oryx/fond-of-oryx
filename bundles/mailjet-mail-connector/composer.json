@@ -11,7 +11,8 @@
   "require": {
     "php": ">=8.0",
     "spryker/mail-extension": "^1.0.0",
-    "mailjet/mailjet-apiv3-php": "^1.5"
+    "mailjet/mailjet-apiv3-php": "^1.5",
+    "caseyamcl/guzzle_retry_middleware": "^2.8"
   },
   "require-dev": {
     "fond-of-codeception/spryker": "^1.0",

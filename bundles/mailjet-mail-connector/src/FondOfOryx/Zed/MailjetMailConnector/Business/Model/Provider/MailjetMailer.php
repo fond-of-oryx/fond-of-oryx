@@ -4,8 +4,11 @@ namespace FondOfOryx\Zed\MailjetMailConnector\Business\Model\Provider;
 
 use FondOfOryx\Zed\MailjetMailConnector\MailjetMailConnectorConfig;
 use Generated\Shared\Transfer\MailTransfer;
+use GuzzleHttp\Exception\BadResponseException;
 use Mailjet\Client;
 use Mailjet\Resources;
+use PHPUnit\Util\Exception;
+use Psr\Log\LoggerInterface;
 use Spryker\Zed\MailExtension\Dependency\Plugin\MailProviderPluginInterface;
 
 class MailjetMailer implements MailProviderPluginInterface
@@ -13,23 +16,31 @@ class MailjetMailer implements MailProviderPluginInterface
     /**
      * @var \Mailjet\Client
      */
-    protected $mailjetClient;
+    protected Client $mailjetClient;
 
     /**
      * @var \FondOfOryx\Zed\MailjetMailConnector\MailjetMailConnectorConfig
      */
-    protected $config;
+    protected MailjetMailConnectorConfig $config;
+
+    /**
+     * @var \Psr\Log\LoggerInterface
+     */
+    protected LoggerInterface $logger;
 
     /**
      * @param \FondOfOryx\Zed\MailjetMailConnector\MailjetMailConnectorConfig $config
      * @param \Mailjet\Client $mailjetClient
+     * @param \Psr\Log\LoggerInterface $logger
      */
     public function __construct(
         MailjetMailConnectorConfig $config,
-        Client $mailjetClient
+        Client $mailjetClient,
+        LoggerInterface $logger
     ) {
         $this->mailjetClient = $mailjetClient;
         $this->config = $config;
+        $this->logger = $logger;
     }
 
     /**
@@ -67,7 +78,18 @@ class MailjetMailer implements MailProviderPluginInterface
             'SandboxMode' => $this->isSandbox($customerTransfer->getEmail()),
         ];
 
-        $this->mailjetClient->post(Resources::$Email, ['body' => $body]);
+        $response = $this->mailjetClient->post(Resources::$Email, ['body' => $body]);
+
+        if (!$response->success()) {
+            $this->logger->error(
+                sprintf(
+                    'Sending to mailjet failed after %d retries with status %d',
+                    $this->config->getRetryEnabled() ? $this->config->getRetryMultiplier() : 1,
+                    $response->getStatus()
+                ),
+                $response->getBody()
+            );
+        }
     }
 
     /**
