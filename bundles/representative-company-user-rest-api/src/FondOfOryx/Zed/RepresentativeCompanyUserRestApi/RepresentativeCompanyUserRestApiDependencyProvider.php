@@ -18,7 +18,9 @@ class RepresentativeCompanyUserRestApiDependencyProvider extends AbstractBundleD
      */
     public const QUERY_SPY_CUSTOMER = 'QUERY_SPY_CUSTOMER';
 
-    /** @var string */
+    /**
+     * @var string
+     */
     public const QUERY_SPY_COMPANY_USER = 'QUERY_SPY_COMPANY_USER';
 
     /**
@@ -39,9 +41,15 @@ class RepresentativeCompanyUserRestApiDependencyProvider extends AbstractBundleD
         return $this->addSpyCustomerQuery($container);
     }
 
-    public function provideBusinessLayerDependencies(Container $container)
+    /**
+     * @param \Spryker\Zed\Kernel\Container $container
+     *
+     * @return \Spryker\Zed\Kernel\Container
+     */
+    public function provideBusinessLayerDependencies(Container $container): Container
     {
         $container = parent::provideBusinessLayerDependencies($container);
+
         return $this->addRepresentativeCompanyUserFacade($container);
     }
 

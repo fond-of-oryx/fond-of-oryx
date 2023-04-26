@@ -15,7 +15,6 @@ class RepresentativeCompanyUserRestApiBusinessFactory extends AbstractBusinessFa
 {
     /**
      * @return \FondOfOryx\Zed\RepresentativeCompanyUserRestApi\Business\Model\RepresentationManagerInterface
-     * @throws \Spryker\Zed\Kernel\Exception\Container\ContainerKeyNotFoundException
      */
     public function createRepresentationManager(): RepresentationManagerInterface
     {
@@ -27,7 +26,6 @@ class RepresentativeCompanyUserRestApiBusinessFactory extends AbstractBusinessFa
 
     /**
      * @return \FondOfOryx\Zed\RepresentativeCompanyUserRestApi\Dependency\Facade\RepresentativeCompanyUserRestApiToRepresentativeCompanyUserFacadeInterface
-     * @throws \Spryker\Zed\Kernel\Exception\Container\ContainerKeyNotFoundException
      */
     protected function getRepresentativeCompanyUserFacade(): RepresentativeCompanyUserRestApiToRepresentativeCompanyUserFacadeInterface
     {

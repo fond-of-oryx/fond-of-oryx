@@ -16,8 +16,9 @@ class GatewayController extends AbstractGatewayController
      *
      * @return \Generated\Shared\Transfer\RestRepresentativeCompanyUserResponseTransfer
      */
-    public function addRepresentationAction(RestRepresentativeCompanyUserRequestTransfer $restRepresentativeCompanyUserRequestTransfer): RestRepresentativeCompanyUserResponseTransfer
-    {
+    public function addRepresentationAction(
+        RestRepresentativeCompanyUserRequestTransfer $restRepresentativeCompanyUserRequestTransfer
+    ): RestRepresentativeCompanyUserResponseTransfer {
         return $this->getFacade()->addRepresentation($restRepresentativeCompanyUserRequestTransfer);
     }
 }

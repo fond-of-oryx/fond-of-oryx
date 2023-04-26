@@ -15,10 +15,10 @@ class RepresentativeCompanyUserRestApiFacade extends AbstractFacade implements R
      * @param \Generated\Shared\Transfer\RestRepresentativeCompanyUserRequestTransfer $restRepresentativeCompanyUserRequestTransfer
      *
      * @return \Generated\Shared\Transfer\RestRepresentativeCompanyUserResponseTransfer
-     * @throws \Spryker\Zed\Kernel\Exception\Container\ContainerKeyNotFoundException
      */
-    public function addRepresentation(RestRepresentativeCompanyUserRequestTransfer $restRepresentativeCompanyUserRequestTransfer): RestRepresentativeCompanyUserResponseTransfer
-    {
+    public function addRepresentation(
+        RestRepresentativeCompanyUserRequestTransfer $restRepresentativeCompanyUserRequestTransfer
+    ): RestRepresentativeCompanyUserResponseTransfer {
         return $this->getFactory()
             ->createRepresentationManager()
             ->addRepresentation($restRepresentativeCompanyUserRequestTransfer);
