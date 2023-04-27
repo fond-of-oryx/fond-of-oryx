@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<database xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" name="zed"
+          xsi:noNamespaceSchemaLocation="https://static.spryker.com/schema-01.xsd"
+          namespace="Orm\Zed\CompanyUser\Persistence" package="src.Orm.Zed.CompanyUser.Persistence">
+
+    <table name="spy_company_user" phpName="SpyCompanyUser" identifierQuoting="true">
+        <column name="fk_representation_company_user" required="false" type="INTEGER"/>
+
+        <foreign-key name="spy_company_user-foo_representative_company_user" foreignTable="foo_representative_company_user">
+            <reference local="fk_representation_company_user" foreign="id_representative_company_user"/>
+        </foreign-key>
+    </table>
+</database>
