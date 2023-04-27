@@ -1,0 +1,142 @@
+<?php
+
+namespace FondOfOryx\Zed\RepresentativeCompanyUser\Business\Manager;
+
+use FondOfOryx\Zed\RepresentativeCompanyUser\Business\Reader\RepresentativeCompanyUserReaderInterface;
+use FondOfOryx\Zed\RepresentativeCompanyUser\Dependency\Facade\RepresentativeCompanyUserToCompanyUserFacadeInterface;
+use Generated\Shared\Transfer\CompanyUserTransfer;
+use Generated\Shared\Transfer\RepresentativeCompanyUserTransfer;
+use Spryker\Zed\Kernel\Persistence\EntityManager\TransactionTrait;
+
+class CompanyUserManager implements CompanyUserManagerInterface
+{
+    use TransactionTrait;
+
+    /**
+     * @var \FondOfOryx\Zed\RepresentativeCompanyUser\Business\Reader\RepresentativeCompanyUserReaderInterface
+     */
+    protected $reader;
+
+    /**
+     * @var \FondOfOryx\Zed\RepresentativeCompanyUser\Dependency\Facade\RepresentativeCompanyUserToCompanyUserFacadeInterface
+     */
+    protected $companyUserFacade;
+
+    /**
+     * @param \FondOfOryx\Zed\RepresentativeCompanyUser\Business\Reader\RepresentativeCompanyUserReaderInterface $reader
+     * @param \FondOfOryx\Zed\RepresentativeCompanyUser\Dependency\Facade\RepresentativeCompanyUserToCompanyUserFacadeInterface $companyUserFacade
+     */
+    public function __construct(
+        RepresentativeCompanyUserReaderInterface $reader,
+        RepresentativeCompanyUserToCompanyUserFacadeInterface $companyUserFacade
+    )
+    {
+        $this->reader = $reader;
+        $this->companyUserFacade = $companyUserFacade;
+    }
+
+    /**
+     * @param \Generated\Shared\Transfer\RepresentativeCompanyUserTransfer $representativeCompanyUserTransfer
+     *
+     * @return void
+     */
+    public function createCompanyUserForRepresentation(RepresentativeCompanyUserTransfer $representativeCompanyUserTransfer): void
+    {
+        $this->getTransactionHandler()->handleTransaction(
+            function () use ($representativeCompanyUserTransfer) {
+                $this->executeCreateTransaction($representativeCompanyUserTransfer);
+            },
+        );
+    }
+
+    /**
+     * @param \Generated\Shared\Transfer\RepresentativeCompanyUserTransfer $representativeCompanyUserTransfer
+     *
+     * @return void
+     */
+    public function deleteCompanyUserForRepresentation(RepresentativeCompanyUserTransfer $representativeCompanyUserTransfer): void
+    {
+        $this->getTransactionHandler()->handleTransaction(
+            function () use ($representativeCompanyUserTransfer) {
+                $this->executeDeleteTransaction($representativeCompanyUserTransfer);
+            },
+        );
+    }
+
+    /**
+     * @param \Generated\Shared\Transfer\RepresentativeCompanyUserTransfer $representativeCompanyUserTransfer
+     *
+     * @return void
+     */
+    protected function executeCreateTransaction(RepresentativeCompanyUserTransfer $representativeCompanyUserTransfer): void
+    {
+        $users = $this->resolveCompanyUserToCreate($representativeCompanyUserTransfer);
+        foreach ($users as $companyUserTransfer){
+            $companyUserTransfer->setIdCompanyUser(null)
+                ->setCompanyUserReference(null)
+                ->setIsDefault(false)
+                ->setCustomerReference($representativeCompanyUserTransfer->getRepresentation()->getCustomerReference())
+                ->setFkCustomer($representativeCompanyUserTransfer->getFkRepresentation())
+                ->setCustomer($representativeCompanyUserTransfer->getRepresentation())
+                ->setFkRepresentativeCompanyUser($representativeCompanyUserTransfer->getIdRepresentativeCompanyUser());
+            $response = $this->companyUserFacade->create($companyUserTransfer);
+            if (!$response->getIsSuccessful()){
+                //ToDo handle error case
+            }
+        }
+    }
+
+    /**
+     * @param \Generated\Shared\Transfer\RepresentativeCompanyUserTransfer $representativeCompanyUserTransfer
+     *
+     * @return void
+     */
+    protected function executeDeleteTransaction(RepresentativeCompanyUserTransfer $representativeCompanyUserTransfer): void
+    {
+        $companyUserCollection = $this->reader->getAllCompanyUserByFkRepresentativeCompanyUser($representativeCompanyUserTransfer->getIdRepresentativeCompanyUser());
+
+        foreach ($companyUserCollection->getCompanyUsers() as $companyUser){
+            $response = $this->companyUserFacade->deleteCompanyUser($companyUser);
+            if ($response->getIsSuccessful() === false){
+                //ToDo Logging
+            }
+        }
+    }
+
+    /**
+     * @param \Generated\Shared\Transfer\RepresentativeCompanyUserTransfer $representativeCompanyUserTransfer
+     *
+     * @return array<CompanyUserTransfer>
+     */
+    protected function resolveCompanyUserToCreate(RepresentativeCompanyUserTransfer $representativeCompanyUserTransfer): array
+    {
+        $companyUserDistributor = $this->reader->getAllCompanyUserByCustomerId($representativeCompanyUserTransfer->getFkDistributor());
+        $companyIdsRepresentation = $this->getCompanyIdsByIdCustomer($representativeCompanyUserTransfer->getFkRepresentation());
+
+        $users = [];
+        foreach ($companyUserDistributor->getCompanyUsers() as $companyUser){
+            if (in_array($companyUser->getFkCompany(), $companyIdsRepresentation)){
+                continue;
+            }
+
+            $users[] = $companyUser;
+        }
+        return $users;
+    }
+
+    /**
+     * @param int $idCustomer
+     *
+     * @return array<int>
+     */
+    protected function getCompanyIdsByIdCustomer(int $idCustomer): array
+    {
+        $companyUserCollection = $this->reader->getAllCompanyUserByCustomerId($idCustomer);
+        $companyIds = [];
+        foreach ($companyUserCollection->getCompanyUsers() as $companyUser){
+            $companyIds[] = $companyUser->getFkCompany();
+        }
+
+        return $companyIds;
+    }
+}
