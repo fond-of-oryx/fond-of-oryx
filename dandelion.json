@@ -101,7 +101,7 @@
     },
     "company-business-unit-cart-search-rest-api": {
       "path": "bundles/company-business-unit-cart-search-rest-api/",
-      "version": "2.0.0"
+      "version": "2.1.0"
     },
     "company-business-unit-order-budget": {
       "path": "bundles/company-business-unit-order-budget/",
