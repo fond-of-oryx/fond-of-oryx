@@ -3,8 +3,11 @@
 namespace FondOfOryx\Zed\MailjetMailConnector\Business;
 
 use FondOfOryx\Zed\MailjetMailConnector\Business\Model\Provider\MailjetMailer;
+use GuzzleHttp\HandlerStack;
+use GuzzleRetry\GuzzleRetryMiddleware;
 use Mailjet\Client;
 use Mailjet\Client as MailjetClient;
+use Spryker\Shared\Log\LoggerTrait;
 use Spryker\Zed\Kernel\Business\AbstractBusinessFactory;
 use Spryker\Zed\MailExtension\Dependency\Plugin\MailProviderPluginInterface;
 
@@ -13,6 +16,8 @@ use Spryker\Zed\MailExtension\Dependency\Plugin\MailProviderPluginInterface;
  */
 class MailjetMailConnectorBusinessFactory extends AbstractBusinessFactory
 {
+    use LoggerTrait;
+
     /**
      * @return \Spryker\Zed\MailExtension\Dependency\Plugin\MailProviderPluginInterface
      */
@@ -21,6 +26,7 @@ class MailjetMailConnectorBusinessFactory extends AbstractBusinessFactory
         return new MailjetMailer(
             $this->getConfig(),
             $this->createMailjetClient(),
+            $this->getLogger(),
         );
     }
 
@@ -29,7 +35,7 @@ class MailjetMailConnectorBusinessFactory extends AbstractBusinessFactory
      */
     protected function createMailjetClient(): Client
     {
-        return new MailjetClient(
+        $mailjetClient = new MailjetClient(
             $this->getConfig()->getMailjetKey(),
             $this->getConfig()->getMailjetSecret(),
             $this->getConfig()->isMailjetApiCallEnabled(),
@@ -41,5 +47,17 @@ class MailjetMailConnectorBusinessFactory extends AbstractBusinessFactory
                 'secured' => $this->getConfig()->getSecure(),
             ],
         );
+
+        $stack = HandlerStack::create();
+        $stack->push(GuzzleRetryMiddleware::factory([
+            'retry_enabled' => $this->getConfig()->getRetryEnabled(),
+            'max_retry_attempts' => $this->getConfig()->getRetryMaxAttempts(),
+            'retry_on_status' => $this->getConfig()->getRetryOnStatus(),
+            'default_retry_multiplier' => $this->getConfig()->getRetryMultiplier(),
+        ]));
+
+        $mailjetClient->addRequestOption('handler', $stack);
+
+        return $mailjetClient;
     }
 }

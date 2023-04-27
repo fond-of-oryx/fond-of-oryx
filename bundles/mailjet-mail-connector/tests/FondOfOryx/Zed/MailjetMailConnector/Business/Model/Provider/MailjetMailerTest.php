@@ -8,38 +8,45 @@ use Generated\Shared\Transfer\CustomerTransfer;
 use Generated\Shared\Transfer\MailjetTemplateTransfer;
 use Generated\Shared\Transfer\MailTransfer;
 use Mailjet\Client;
+use PHPUnit\Framework\MockObject\MockObject;
+use Psr\Log\LoggerInterface;
 
 class MailjetMailerTest extends Unit
 {
     /**
      * @var \FondOfOryx\Zed\MailjetMailConnector\MailjetMailConnectorConfig|\PHPUnit\Framework\MockObject\MockObject
      */
-    protected $configMock;
+    protected MockObject|MailjetMailConnectorConfig $configMock;
 
     /**
      * @var \Mailjet\Client|\PHPUnit\Framework\MockObject\MockObject
      */
-    protected $mailjetClientMock;
+    protected Client|MockObject $mailjetClientMock;
 
     /**
      * @var \Generated\Shared\Transfer\MailTransfer|\PHPUnit\Framework\MockObject\MockObject
      */
-    protected $mailTransferMock;
+    protected MockObject|MailTransfer $mailTransferMock;
 
     /**
      * @var \Generated\Shared\Transfer\CustomerTransfer|\PHPUnit\Framework\MockObject\MockObject
      */
-    protected $customerTransferMock;
+    protected CustomerTransfer|MockObject $customerTransferMock;
 
     /**
      * @var \Generated\Shared\Transfer\MailjetTemplateTransfer|\PHPUnit\Framework\MockObject\MockObject
      */
-    protected $mailjetTemplateTransferMock;
+    protected MockObject|MailjetTemplateTransfer $mailjetTemplateTransferMock;
 
     /**
      * @var \FondOfOryx\Zed\MailjetMailConnector\Business\Model\Provider\MailjetMailer
      */
-    protected $mailer;
+    protected MailjetMailer $mailer;
+
+    /**
+     * @var \PHPUnit\Framework\MockObject\MockObject|(\Psr\Log\LoggerInterface&\PHPUnit\Framework\MockObject\MockObject)
+     */
+    protected LoggerInterface|MockObject $loggerMock;
 
     /**
      * @return void
@@ -68,7 +75,15 @@ class MailjetMailerTest extends Unit
             ->disableOriginalConstructor()
             ->getMock();
 
-        $this->mailer = new MailjetMailer($this->configMock, $this->mailjetClientMock);
+        $this->loggerMock = $this->getMockBuilder(LoggerInterface::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $this->mailer = new MailjetMailer(
+            $this->configMock,
+            $this->mailjetClientMock,
+            $this->loggerMock,
+        );
     }
 
     /**
