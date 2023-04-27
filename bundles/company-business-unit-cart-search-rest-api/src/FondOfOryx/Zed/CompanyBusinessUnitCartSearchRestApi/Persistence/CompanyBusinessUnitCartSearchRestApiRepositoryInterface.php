@@ -14,4 +14,11 @@ interface CompanyBusinessUnitCartSearchRestApiRepositoryInterface
         int $idCustomer,
         string $companyBusinessUnitUuid
     ): ?int;
+
+    /**
+     * @param string $key
+     *
+     * @return int|null
+     */
+    public function getIdPermissionByKey(string $key): ?int;
 }
