@@ -51,14 +51,15 @@ class RepresentationManager implements RepresentationManagerInterface
         $representationTransfer = (new RepresentativeCompanyUserTransfer())
             ->setFkDistributor($distributorId)
             ->setFkOriginator($originatorId)
-            ->setFkRepresentation($representationId)
+            ->setFkRepresentative($representationId)
             ->setStartDate($restRepresentativeCompanyUserAttributesTransfer->getStartDate())
             ->setEndDate($restRepresentativeCompanyUserAttributesTransfer->getEndDate());
 
         $response = $this->representativeCompanyUserFacade->addRepresentativeCompanyUser($representationTransfer);
 
+
         return (new RestRepresentativeCompanyUserResponseTransfer())
-            ->setRequest($restRepresentativeCompanyUserAttributesTransfer)
+            ->setRequest($restRepresentativeCompanyUserRequestTransfer)
             ->setRepresentation($response);
     }
 }

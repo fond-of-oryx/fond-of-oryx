@@ -146,5 +146,15 @@ class RepresentationManagerTest extends Unit
             RestRepresentativeCompanyUserResponseTransfer::class,
             $restRepresentativeCompanyUserResponseTransfer
         );
+
+        static::assertEquals(
+            $restRepresentativeCompanyUserResponseTransfer->getRequest(),
+            $this->restRepresentativeCompanyUserRequestTransferMock
+        );
+
+        static::assertEquals(
+            $restRepresentativeCompanyUserResponseTransfer->getRepresentation(),
+            $this->representativeCompanyUserTransferMock
+        );
     }
 }
