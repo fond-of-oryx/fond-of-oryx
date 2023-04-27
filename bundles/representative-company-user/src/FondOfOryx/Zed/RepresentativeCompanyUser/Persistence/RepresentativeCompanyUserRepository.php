@@ -20,8 +20,9 @@ class RepresentativeCompanyUserRepository extends AbstractRepository implements 
     /**
      * @param string $uuid
      *
+     * @throws \Exception
+     *
      * @return \Generated\Shared\Transfer\RepresentativeCompanyUserTransfer
-     * @throws \Spryker\Zed\Propel\Business\Exception\AmbiguousComparisonException
      */
     public function findRepresentativeCompanyUserByUuid(string $uuid): RepresentativeCompanyUserTransfer
     {
@@ -38,13 +39,12 @@ class RepresentativeCompanyUserRepository extends AbstractRepository implements 
      * @param array|null $ids
      *
      * @return \Generated\Shared\Transfer\RepresentativeCompanyUserCollectionTransfer
-     * @throws \Spryker\Zed\Propel\Business\Exception\AmbiguousComparisonException
      */
     public function findRepresentativeCompanyUserByState(?string $state, ?array $ids = null): RepresentativeCompanyUserCollectionTransfer
     {
         $query = $this->getFactory()->getRepresentativeCompanyUserQuery();
 
-        if ($state !== null){
+        if ($state !== null) {
             $query->filterByState($state);
         }
 
@@ -55,7 +55,7 @@ class RepresentativeCompanyUserRepository extends AbstractRepository implements 
         $result = $query->find();
         $collection = new RepresentativeCompanyUserCollectionTransfer();
 
-        foreach ($result->getData() as $entity){
+        foreach ($result->getData() as $entity) {
             $collection->addRepresentation($this->getFactory()->createEntityToTransferMapper()->fromRepresentativeCompanyUserEntity($entity));
         }
 
@@ -66,11 +66,10 @@ class RepresentativeCompanyUserRepository extends AbstractRepository implements 
      * @param \Generated\Shared\Transfer\RepresentativeCompanyUserTransfer $representativeCompanyUserTransfer
      *
      * @return \Generated\Shared\Transfer\RepresentativeCompanyUserTransfer|null
-     * @throws \Spryker\Shared\Kernel\Transfer\Exception\RequiredTransferPropertyException
-     * @throws \Spryker\Zed\Propel\Business\Exception\AmbiguousComparisonException
      */
-    public function findRepresentativeCompanyUserByCase(RepresentativeCompanyUserTransfer $representativeCompanyUserTransfer): ?RepresentativeCompanyUserTransfer
-    {
+    public function findRepresentativeCompanyUserByCase(
+        RepresentativeCompanyUserTransfer $representativeCompanyUserTransfer
+    ): ?RepresentativeCompanyUserTransfer {
         $representativeCompanyUserTransfer
             ->requireFkDistributor()
             ->requireFkRepresentation()
@@ -95,10 +94,10 @@ class RepresentativeCompanyUserRepository extends AbstractRepository implements 
      * @param \Generated\Shared\Transfer\RepresentativeCompanyUserFilterTransfer|null $filterTransfer
      *
      * @return \Generated\Shared\Transfer\RepresentativeCompanyUserCollectionTransfer
-     * @throws \Spryker\Zed\Propel\Business\Exception\AmbiguousComparisonException
      */
-    public function findExpiredRepresentativeCompanyUser(?RepresentativeCompanyUserFilterTransfer $filterTransfer = null): RepresentativeCompanyUserCollectionTransfer
-    {
+    public function findExpiredRepresentativeCompanyUser(
+        ?RepresentativeCompanyUserFilterTransfer $filterTransfer = null
+    ): RepresentativeCompanyUserCollectionTransfer {
         $query = $this->prepareRepresentativeCompanyUserQuery($filterTransfer);
 
         $results = $query->where(FooRepresentativeCompanyUserTableMap::COL_END_DATE . '< now()')
@@ -106,7 +105,7 @@ class RepresentativeCompanyUserRepository extends AbstractRepository implements 
 
         $collection = new RepresentativeCompanyUserCollectionTransfer();
 
-        foreach ($results->getData() as $entity){
+        foreach ($results->getData() as $entity) {
             $collection->addRepresentation($this->getFactory()->createEntityToTransferMapper()->fromRepresentativeCompanyUserEntity($entity));
         }
 
@@ -117,7 +116,6 @@ class RepresentativeCompanyUserRepository extends AbstractRepository implements 
      * @param int $fkDistributor
      *
      * @return \Generated\Shared\Transfer\RepresentativeCompanyUserCollectionTransfer|null
-     * @throws \Spryker\Zed\Propel\Business\Exception\AmbiguousComparisonException
      */
     public function findRepresentativeCompanyUserByFkDistributor(int $fkDistributor): ?RepresentativeCompanyUserCollectionTransfer
     {
@@ -151,7 +149,7 @@ class RepresentativeCompanyUserRepository extends AbstractRepository implements 
 
         foreach ($result as $data) {
             $companyUser = (new CompanyUserTransfer())->fromArray($data->toArray(), true);
-            if ($data->getFkRepresentativeCompanyUser() !== null){
+            if ($data->getFkRepresentativeCompanyUser() !== null) {
                 $representation = (new RepresentativeCompanyUserTransfer())->fromArray($data->getFooRepresentativeCompanyUser()->toArray(), true);
                 $companyUser->setRepresentationOfSale($representation);
             }
@@ -196,6 +194,7 @@ class RepresentativeCompanyUserRepository extends AbstractRepository implements 
         if ($filterTransfer !== null && is_array($filterTransfer->getIds()) && count($filterTransfer->getIds()) > 0) {
             $query->filterByIdRepresentativeCompanyUser_In($filterTransfer->getIds());
         }
+
         return $query;
     }
 }

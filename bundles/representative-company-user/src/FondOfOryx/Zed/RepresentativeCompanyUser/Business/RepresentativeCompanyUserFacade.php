@@ -57,7 +57,6 @@ class RepresentativeCompanyUserFacade extends AbstractFacade implements Represen
      * @param \Generated\Shared\Transfer\RepresentativeCompanyUserTransfer $representativeCompanyUserTransfer
      *
      * @return void
-     * @throws \Spryker\Zed\Kernel\Exception\Container\ContainerKeyNotFoundException
      */
     public function createCompanyUserForRepresentation(RepresentativeCompanyUserTransfer $representativeCompanyUserTransfer): void
     {
@@ -79,11 +78,10 @@ class RepresentativeCompanyUserFacade extends AbstractFacade implements Represen
      * @param \Generated\Shared\Transfer\RepresentativeCompanyUserFilterTransfer $filterTransfer
      *
      * @return \Generated\Shared\Transfer\RepresentativeCompanyUserCollectionTransfer
-     * @throws \Propel\Runtime\Exception\PropelException
-     * @throws \Spryker\Zed\Propel\Business\Exception\AmbiguousComparisonException
      */
-    public function getAndFlagInProcessNewRepresentativeCompanyUser(RepresentativeCompanyUserFilterTransfer $filterTransfer): RepresentativeCompanyUserCollectionTransfer
-    {
+    public function getAndFlagInProcessNewRepresentativeCompanyUser(
+        RepresentativeCompanyUserFilterTransfer $filterTransfer
+    ): RepresentativeCompanyUserCollectionTransfer {
         return $this->getFactory()->createRepresentativeCompanyUserReader()->getAndFlagInProcessNewRepresentativeCompanyUser($filterTransfer);
     }
 
@@ -91,10 +89,10 @@ class RepresentativeCompanyUserFacade extends AbstractFacade implements Represen
      * @param \Generated\Shared\Transfer\RepresentativeCompanyUserCollectionTransfer $representativeCompanyUserCollectionTransfer
      *
      * @return \Generated\Shared\Transfer\RepresentativeCompanyUserCollectionTransfer
-     * @throws \Spryker\Zed\Kernel\Exception\Container\ContainerKeyNotFoundException
      */
-    public function setInProcess(RepresentativeCompanyUserCollectionTransfer $representativeCompanyUserCollectionTransfer): RepresentativeCompanyUserCollectionTransfer
-    {
+    public function setInProcess(
+        RepresentativeCompanyUserCollectionTransfer $representativeCompanyUserCollectionTransfer
+    ): RepresentativeCompanyUserCollectionTransfer {
         return $this->getFactory()->createRepresentationManager()->setAllInProcess($representativeCompanyUserCollectionTransfer);
     }
 

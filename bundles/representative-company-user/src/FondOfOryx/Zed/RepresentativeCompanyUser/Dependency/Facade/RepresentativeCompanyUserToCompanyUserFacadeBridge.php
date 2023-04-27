@@ -2,8 +2,6 @@
 
 namespace FondOfOryx\Zed\RepresentativeCompanyUser\Dependency\Facade;
 
-use Generated\Shared\Transfer\CompanyUserCollectionTransfer;
-use Generated\Shared\Transfer\CompanyUserCriteriaTransfer;
 use Generated\Shared\Transfer\CompanyUserResponseTransfer;
 use Generated\Shared\Transfer\CompanyUserTransfer;
 use Spryker\Zed\CompanyUser\Business\CompanyUserFacadeInterface;
@@ -28,11 +26,11 @@ class RepresentativeCompanyUserToCompanyUserFacadeBridge implements Representati
      * - Executes CompanyUserSavePreCheckPluginInterface check plugins before company user create.
      * - Creates a company user
      *
+     * @api
+     *
      * @param \Generated\Shared\Transfer\CompanyUserTransfer $companyUserTransfer
      *
      * @return \Generated\Shared\Transfer\CompanyUserResponseTransfer
-     * @api
-     *
      */
     public function create(CompanyUserTransfer $companyUserTransfer): CompanyUserResponseTransfer
     {

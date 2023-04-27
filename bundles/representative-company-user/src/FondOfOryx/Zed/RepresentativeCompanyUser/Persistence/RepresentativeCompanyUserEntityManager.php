@@ -39,6 +39,8 @@ class RepresentativeCompanyUserEntityManager extends AbstractEntityManager imple
      * @param string $uuid
      * @param string $state
      *
+     * @throws \Exception
+     *
      * @return \Generated\Shared\Transfer\RepresentativeCompanyUserTransfer
      */
     public function flagState(string $uuid, string $state): RepresentativeCompanyUserTransfer
@@ -65,11 +67,10 @@ class RepresentativeCompanyUserEntityManager extends AbstractEntityManager imple
      * @param \Generated\Shared\Transfer\RepresentativeCompanyUserFilterTransfer $filterTransfer
      *
      * @return \Generated\Shared\Transfer\RepresentativeCompanyUserCollectionTransfer
-     * @throws \Propel\Runtime\Exception\PropelException
-     * @throws \Spryker\Zed\Propel\Business\Exception\AmbiguousComparisonException
      */
-    public function findAndFlagInProcessNewRepresentativeCompanyUser(RepresentativeCompanyUserFilterTransfer $filterTransfer): RepresentativeCompanyUserCollectionTransfer
-    {
+    public function findAndFlagInProcessNewRepresentativeCompanyUser(
+        RepresentativeCompanyUserFilterTransfer $filterTransfer
+    ): RepresentativeCompanyUserCollectionTransfer {
         return $this->findAndFlagRepresentativeCompanyUserByState(FooRepresentativeCompanyUserTableMap::COL_STATE_NEW, FooRepresentativeCompanyUserTableMap::COL_STATE_PROCESS, $filterTransfer);
     }
 
@@ -79,11 +80,12 @@ class RepresentativeCompanyUserEntityManager extends AbstractEntityManager imple
      * @param \Generated\Shared\Transfer\RepresentativeCompanyUserFilterTransfer $filterTransfer
      *
      * @return \Generated\Shared\Transfer\RepresentativeCompanyUserCollectionTransfer
-     * @throws \Propel\Runtime\Exception\PropelException
-     * @throws \Spryker\Zed\Propel\Business\Exception\AmbiguousComparisonException
      */
-    public function findAndFlagRepresentativeCompanyUserByState(string $state, string $newState, RepresentativeCompanyUserFilterTransfer $filterTransfer): RepresentativeCompanyUserCollectionTransfer
-    {
+    public function findAndFlagRepresentativeCompanyUserByState(
+        string $state,
+        string $newState,
+        RepresentativeCompanyUserFilterTransfer $filterTransfer
+    ): RepresentativeCompanyUserCollectionTransfer {
         $this->validateState($newState);
         $this->validateState($state);
 
@@ -116,8 +118,9 @@ class RepresentativeCompanyUserEntityManager extends AbstractEntityManager imple
     /**
      * @param string $state
      *
-     * @return int
      * @throws \Exception
+     *
+     * @return int
      */
     protected function validateState(string $state): bool
     {

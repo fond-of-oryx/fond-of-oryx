@@ -70,7 +70,6 @@ class RepresentativeCompanyUserDependencyProvider extends AbstractBundleDependen
         return $this->addCompanyUserQuery($container);
     }
 
-
     /**
      * @param \Spryker\Zed\Kernel\Container $container
      *
@@ -165,7 +164,7 @@ class RepresentativeCompanyUserDependencyProvider extends AbstractBundleDependen
     /**
      * @return array<\FondOfOryx\Zed\RepresentativeCompanyUserExtension\Dependency\Plugin\RepresentativeCompanyUserTaskCommandPluginInterface>
      */
-    protected function getTaskPlugins():array
+    protected function getTaskPlugins(): array
     {
         return [];
     }

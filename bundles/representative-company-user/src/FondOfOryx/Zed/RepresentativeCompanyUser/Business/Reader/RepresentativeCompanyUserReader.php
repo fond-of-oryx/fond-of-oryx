@@ -34,11 +34,10 @@ class RepresentativeCompanyUserReader implements RepresentativeCompanyUserReader
      * @param \Generated\Shared\Transfer\RepresentativeCompanyUserFilterTransfer $filterTransfer
      *
      * @return \Generated\Shared\Transfer\RepresentativeCompanyUserCollectionTransfer
-     * @throws \Propel\Runtime\Exception\PropelException
-     * @throws \Spryker\Zed\Propel\Business\Exception\AmbiguousComparisonException
      */
-    public function getAndFlagInProcessNewRepresentativeCompanyUser(RepresentativeCompanyUserFilterTransfer $filterTransfer): RepresentativeCompanyUserCollectionTransfer
-    {
+    public function getAndFlagInProcessNewRepresentativeCompanyUser(
+        RepresentativeCompanyUserFilterTransfer $filterTransfer
+    ): RepresentativeCompanyUserCollectionTransfer {
         return $this->entityManager->findAndFlagInProcessNewRepresentativeCompanyUser($filterTransfer);
     }
 
@@ -47,7 +46,6 @@ class RepresentativeCompanyUserReader implements RepresentativeCompanyUserReader
      * @param array|null $ids
      *
      * @return \Generated\Shared\Transfer\RepresentativeCompanyUserCollectionTransfer
-     * @throws \Spryker\Zed\Propel\Business\Exception\AmbiguousComparisonException
      */
     public function getRepresentativeCompanyUserByState(?string $state, ?array $ids = null): RepresentativeCompanyUserCollectionTransfer
     {

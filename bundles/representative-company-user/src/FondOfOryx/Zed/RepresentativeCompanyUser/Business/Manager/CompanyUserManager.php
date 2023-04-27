@@ -4,7 +4,6 @@ namespace FondOfOryx\Zed\RepresentativeCompanyUser\Business\Manager;
 
 use FondOfOryx\Zed\RepresentativeCompanyUser\Business\Reader\RepresentativeCompanyUserReaderInterface;
 use FondOfOryx\Zed\RepresentativeCompanyUser\Dependency\Facade\RepresentativeCompanyUserToCompanyUserFacadeInterface;
-use Generated\Shared\Transfer\CompanyUserTransfer;
 use Generated\Shared\Transfer\RepresentativeCompanyUserTransfer;
 use Spryker\Zed\Kernel\Persistence\EntityManager\TransactionTrait;
 
@@ -29,8 +28,7 @@ class CompanyUserManager implements CompanyUserManagerInterface
     public function __construct(
         RepresentativeCompanyUserReaderInterface $reader,
         RepresentativeCompanyUserToCompanyUserFacadeInterface $companyUserFacade
-    )
-    {
+    ) {
         $this->reader = $reader;
         $this->companyUserFacade = $companyUserFacade;
     }
@@ -71,16 +69,16 @@ class CompanyUserManager implements CompanyUserManagerInterface
     protected function executeCreateTransaction(RepresentativeCompanyUserTransfer $representativeCompanyUserTransfer): void
     {
         $users = $this->resolveCompanyUserToCreate($representativeCompanyUserTransfer);
-        foreach ($users as $companyUserTransfer){
+        foreach ($users as $companyUserTransfer) {
             $companyUserTransfer->setIdCompanyUser(null)
                 ->setCompanyUserReference(null)
                 ->setIsDefault(false)
-                ->setCustomerReference($representativeCompanyUserTransfer->getRepresentation()->getCustomerReference())
-                ->setFkCustomer($representativeCompanyUserTransfer->getFkRepresentation())
-                ->setCustomer($representativeCompanyUserTransfer->getRepresentation())
+                ->setCustomerReference($representativeCompanyUserTransfer->getRepresentative()->getCustomerReference())
+                ->setFkCustomer($representativeCompanyUserTransfer->getFkRepresentative())
+                ->setCustomer($representativeCompanyUserTransfer->getRepresentative())
                 ->setFkRepresentativeCompanyUser($representativeCompanyUserTransfer->getIdRepresentativeCompanyUser());
             $response = $this->companyUserFacade->create($companyUserTransfer);
-            if (!$response->getIsSuccessful()){
+            if (!$response->getIsSuccessful()) {
                 //ToDo handle error case
             }
         }
@@ -95,9 +93,9 @@ class CompanyUserManager implements CompanyUserManagerInterface
     {
         $companyUserCollection = $this->reader->getAllCompanyUserByFkRepresentativeCompanyUser($representativeCompanyUserTransfer->getIdRepresentativeCompanyUser());
 
-        foreach ($companyUserCollection->getCompanyUsers() as $companyUser){
+        foreach ($companyUserCollection->getCompanyUsers() as $companyUser) {
             $response = $this->companyUserFacade->deleteCompanyUser($companyUser);
-            if ($response->getIsSuccessful() === false){
+            if ($response->getIsSuccessful() === false) {
                 //ToDo Logging
             }
         }
@@ -106,7 +104,7 @@ class CompanyUserManager implements CompanyUserManagerInterface
     /**
      * @param \Generated\Shared\Transfer\RepresentativeCompanyUserTransfer $representativeCompanyUserTransfer
      *
-     * @return array<CompanyUserTransfer>
+     * @return array<\Generated\Shared\Transfer\CompanyUserTransfer>
      */
     protected function resolveCompanyUserToCreate(RepresentativeCompanyUserTransfer $representativeCompanyUserTransfer): array
     {
@@ -114,13 +112,14 @@ class CompanyUserManager implements CompanyUserManagerInterface
         $companyIdsRepresentation = $this->getCompanyIdsByIdCustomer($representativeCompanyUserTransfer->getFkRepresentation());
 
         $users = [];
-        foreach ($companyUserDistributor->getCompanyUsers() as $companyUser){
-            if (in_array($companyUser->getFkCompany(), $companyIdsRepresentation)){
+        foreach ($companyUserDistributor->getCompanyUsers() as $companyUser) {
+            if (in_array($companyUser->getFkCompany(), $companyIdsRepresentation)) {
                 continue;
             }
 
             $users[] = $companyUser;
         }
+
         return $users;
     }
 
@@ -133,7 +132,7 @@ class CompanyUserManager implements CompanyUserManagerInterface
     {
         $companyUserCollection = $this->reader->getAllCompanyUserByCustomerId($idCustomer);
         $companyIds = [];
-        foreach ($companyUserCollection->getCompanyUsers() as $companyUser){
+        foreach ($companyUserCollection->getCompanyUsers() as $companyUser) {
             $companyIds[] = $companyUser->getFkCompany();
         }
 

@@ -17,7 +17,7 @@ class RepresentativeCompanyUserTaskRunnerConsole extends Console
     /**
      * @var string
      */
-    public const COMMAND_NAME = 'representationofsales:run:task';
+    public const COMMAND_NAME = 'representativecompanyuser:run:task';
 
     /**
      * @var string

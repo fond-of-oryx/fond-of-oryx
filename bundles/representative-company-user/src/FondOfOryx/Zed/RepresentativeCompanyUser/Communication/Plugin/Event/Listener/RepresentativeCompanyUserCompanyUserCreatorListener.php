@@ -17,7 +17,9 @@ class RepresentativeCompanyUserCompanyUserCreatorListener extends AbstractPlugin
 {
     /**
      * @param \Spryker\Shared\Kernel\Transfer\TransferInterface $transfer
-     * @param string $eventName
+     * @param $eventName
+     *
+     * @throws \Spryker\Zed\Kernel\Exception\Container\ContainerKeyNotFoundException
      *
      * @return void
      */
@@ -35,7 +37,8 @@ class RepresentativeCompanyUserCompanyUserCreatorListener extends AbstractPlugin
             $this->getFacade()->setRepresentationState($transfer->getUuid(), FooRepresentativeCompanyUserTableMap::COL_STATE_ACTIVE);
         } catch (Exception $exception) {
             $this->getFacade()->setRepresentationState($transfer->getUuid(), FooRepresentativeCompanyUserTableMap::COL_STATE_ERROR);
-            throw new $exception;
+
+            throw $exception;
         }
     }
 }

@@ -7,9 +7,9 @@ use FondOfOryx\Zed\RepresentativeCompanyUser\Persistence\Propel\Mapper\EntityToT
 use FondOfOryx\Zed\RepresentativeCompanyUser\Persistence\Propel\Mapper\TransferToEntityMapper;
 use FondOfOryx\Zed\RepresentativeCompanyUser\Persistence\Propel\Mapper\TransferToEntityMapperInterface;
 use FondOfOryx\Zed\RepresentativeCompanyUser\RepresentativeCompanyUserDependencyProvider;
-use Orm\Zed\RepresentativeCompanyUser\Persistence\FooRepresentativeCompanyUserQuery;
 use Orm\Zed\Company\Persistence\SpyCompanyQuery;
 use Orm\Zed\CompanyUser\Persistence\SpyCompanyUserQuery;
+use Orm\Zed\RepresentativeCompanyUser\Persistence\FooRepresentativeCompanyUserQuery;
 use Spryker\Zed\Kernel\Persistence\AbstractPersistenceFactory;
 
 class RepresentativeCompanyUserPersistenceFactory extends AbstractPersistenceFactory
@@ -40,7 +40,6 @@ class RepresentativeCompanyUserPersistenceFactory extends AbstractPersistenceFac
 
     /**
      * @return \Orm\Zed\CompanyUser\Persistence\SpyCompanyUserQuery
-     * @throws \Spryker\Zed\Kernel\Exception\Container\ContainerKeyNotFoundException
      */
     public function getCompanyUserQuery(): SpyCompanyUserQuery
     {
@@ -49,7 +48,6 @@ class RepresentativeCompanyUserPersistenceFactory extends AbstractPersistenceFac
 
     /**
      * @return \Orm\Zed\Company\Persistence\SpyCompanyQuery
-     * @throws \Spryker\Zed\Kernel\Exception\Container\ContainerKeyNotFoundException
      */
     public function getCompanyQuery(): SpyCompanyQuery
     {

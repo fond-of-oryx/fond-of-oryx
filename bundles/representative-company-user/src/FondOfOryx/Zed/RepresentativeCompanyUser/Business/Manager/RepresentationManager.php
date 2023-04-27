@@ -41,12 +41,11 @@ class RepresentationManager implements RepresentationManagerInterface
      * @param \FondOfOryx\Zed\RepresentativeCompanyUser\Dependency\Service\RepresentativeCompanyUserToUtilUuidGeneratorServiceInterface $uuidGenerator
      */
     public function __construct(
-        RepresentativeCompanyUserWriterInterface                     $writer,
-        RepresentativeCompanyUserReaderInterface                     $reader,
-        RepresentativeCompanyUserToEventFacadeInterface              $eventFacade,
+        RepresentativeCompanyUserWriterInterface $writer,
+        RepresentativeCompanyUserReaderInterface $reader,
+        RepresentativeCompanyUserToEventFacadeInterface $eventFacade,
         RepresentativeCompanyUserToUtilUuidGeneratorServiceInterface $uuidGenerator
-    )
-    {
+    ) {
         $this->writer = $writer;
         $this->reader = $reader;
         $this->eventFacade = $eventFacade;
@@ -65,7 +64,7 @@ class RepresentationManager implements RepresentationManagerInterface
         foreach ($this->setAllInProcess($expiredCollection)->getRepresentations() as $representationTransfer) {
             $this->eventFacade->trigger(
                 RepresentativeCompanyUserConstants::REPRESENTATIVE_COMPANY_USER_MARK_FOR_EXPIRE,
-                $representationTransfer
+                $representationTransfer,
             );
         }
     }
@@ -81,7 +80,7 @@ class RepresentationManager implements RepresentationManagerInterface
         foreach ($this->reader->getAndFlagInProcessNewRepresentativeCompanyUser($filterTransfer)->getRepresentations() as $representationTransfer) {
             $this->eventFacade->trigger(
                 RepresentativeCompanyUserConstants::REPRESENTATIVE_COMPANY_USER_MARK_FOR_CREATE_COMPANY_USER,
-                $representationTransfer
+                $representationTransfer,
             );
         }
     }
@@ -95,6 +94,7 @@ class RepresentationManager implements RepresentationManagerInterface
     {
         $uuid = $this->uuidGenerator->generateUuid5FromObjectId($this->generateObjectId($representativeCompanyUserTransfer));
         $representativeCompanyUserTransfer->setUuid($uuid);
+
         return $this->writer->write($representativeCompanyUserTransfer);
     }
 
@@ -114,8 +114,9 @@ class RepresentationManager implements RepresentationManagerInterface
      *
      * @return \Generated\Shared\Transfer\RepresentativeCompanyUserCollectionTransfer
      */
-    public function setAllInProcess(RepresentativeCompanyUserCollectionTransfer $representativeCompanyUserCollectionTransfer): RepresentativeCompanyUserCollectionTransfer
-    {
+    public function setAllInProcess(
+        RepresentativeCompanyUserCollectionTransfer $representativeCompanyUserCollectionTransfer
+    ): RepresentativeCompanyUserCollectionTransfer {
         $collection = new RepresentativeCompanyUserCollectionTransfer();
         foreach ($representativeCompanyUserCollectionTransfer->getRepresentations() as $representation) {
             $representation = $this->flagState($representation->getUuid(), FooRepresentativeCompanyUserTableMap::COL_STATE_PROCESS);
@@ -132,6 +133,6 @@ class RepresentationManager implements RepresentationManagerInterface
      */
     protected function generateObjectId(RepresentativeCompanyUserTransfer $representativeCompanyUserTransfer): string
     {
-        return sprintf('%s-%s-%s-%s-%s', $representativeCompanyUserTransfer->getFkDistributor(), $representativeCompanyUserTransfer->getFkRepresentation(), $representativeCompanyUserTransfer->getFkOriginator(), $representativeCompanyUserTransfer->getStartDate(), $representativeCompanyUserTransfer->getEndDate());
+        return sprintf('%s-%s-%s-%s-%s', $representativeCompanyUserTransfer->getFkDistributor(), $representativeCompanyUserTransfer->getFkRepresentative(), $representativeCompanyUserTransfer->getFkOriginator(), $representativeCompanyUserTransfer->getStartDate(), $representativeCompanyUserTransfer->getEndDate());
     }
 }

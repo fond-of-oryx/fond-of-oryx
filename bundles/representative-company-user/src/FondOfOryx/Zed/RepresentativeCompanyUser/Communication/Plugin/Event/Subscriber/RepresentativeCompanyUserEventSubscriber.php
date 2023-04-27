@@ -5,9 +5,9 @@ namespace FondOfOryx\Zed\RepresentativeCompanyUser\Communication\Plugin\Event\Su
 use FondOfOryx\Shared\RepresentativeCompanyUser\RepresentativeCompanyUserConstants;
 use FondOfOryx\Zed\RepresentativeCompanyUser\Communication\Plugin\Event\Listener\RepresentativeCompanyUserCompanyUserCreatorListener;
 use FondOfOryx\Zed\RepresentativeCompanyUser\Communication\Plugin\Event\Listener\RepresentativeCompanyUserCompanyUserDeleterListener;
-use Spryker\Zed\Kernel\Communication\AbstractPlugin;
 use Spryker\Zed\Event\Dependency\EventCollectionInterface;
 use Spryker\Zed\Event\Dependency\Plugin\EventSubscriberInterface;
+use Spryker\Zed\Kernel\Communication\AbstractPlugin;
 
 class RepresentativeCompanyUserEventSubscriber extends AbstractPlugin implements EventSubscriberInterface
 {

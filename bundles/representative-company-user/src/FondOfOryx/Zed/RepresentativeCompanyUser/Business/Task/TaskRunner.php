@@ -2,9 +2,7 @@
 
 namespace FondOfOryx\Zed\RepresentativeCompanyUser\Business\Task;
 
-use FondOfOryx\Zed\RepresentativeCompanyUser\Business\Writer\RepresentativeCompanyUserWriterInterface;
 use FondOfOryx\Zed\RepresentativeCompanyUser\Persistence\RepresentativeCompanyUserEntityManagerInterface;
-use FondOfOryx\Zed\RepresentativeCompanyUser\Persistence\RepresentativeCompanyUserRepositoryInterface;
 use FondOfOryx\Zed\RepresentativeCompanyUserExtension\Dependency\Plugin\RepresentativeCompanyUserTaskCommandPluginInterface;
 use Generated\Shared\Transfer\RepresentativeCompanyUserCommandTransfer;
 use Generated\Shared\Transfer\RepresentativeCompanyUserFilterTransfer;
@@ -12,7 +10,7 @@ use Generated\Shared\Transfer\RepresentativeCompanyUserFilterTransfer;
 class TaskRunner implements TaskRunnerInterface
 {
     /**
-     * @var \FondOfOryx\Zed\RepresentativeCompanyUserExtension\Dependency\Plugin\RepresentativeCompanyUserTaskCommandPluginInterface[]
+     * @var array<\FondOfOryx\Zed\RepresentativeCompanyUserExtension\Dependency\Plugin\RepresentativeCompanyUserTaskCommandPluginInterface>
      */
     protected $tasks;
 
@@ -45,6 +43,7 @@ class TaskRunner implements TaskRunnerInterface
         foreach ($this->tasks as $task) {
             if (count($resources) === 0) {
                 $this->handleRepresentations($task, $filter);
+
                 continue;
             }
 
@@ -74,6 +73,7 @@ class TaskRunner implements TaskRunnerInterface
         foreach ($this->tasks as $task) {
             $names[] = $task->getName();
         }
+
         return $names;
     }
 }

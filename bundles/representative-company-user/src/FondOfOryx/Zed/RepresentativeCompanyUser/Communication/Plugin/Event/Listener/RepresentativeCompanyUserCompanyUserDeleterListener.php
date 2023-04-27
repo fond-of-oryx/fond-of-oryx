@@ -17,7 +17,9 @@ class RepresentativeCompanyUserCompanyUserDeleterListener extends AbstractPlugin
 {
     /**
      * @param \Spryker\Shared\Kernel\Transfer\TransferInterface $transfer
-     * @param string $eventName
+     * @param $eventName
+     *
+     * @throws \Exception
      *
      * @return void
      */
@@ -35,7 +37,8 @@ class RepresentativeCompanyUserCompanyUserDeleterListener extends AbstractPlugin
             $this->getFacade()->setRepresentationState($transfer->getUuid(), FooRepresentativeCompanyUserTableMap::COL_STATE_EXPIRED);
         } catch (Exception $exception) {
             $this->getFacade()->setRepresentationState($transfer->getUuid(), FooRepresentativeCompanyUserTableMap::COL_STATE_ERROR);
-            throw new $exception;
+
+            throw $exception;
         }
     }
 }

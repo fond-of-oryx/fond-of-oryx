@@ -19,7 +19,7 @@ class EntityToTransferMapper implements EntityToTransferMapperInterface
         return (new RepresentativeCompanyUserTransfer())
             ->fromArray($entity->toArray(), true)
             ->setDistributor($this->mapCustomer($entity->getFooRepresentativeCompanyUserDistributor()))
-            ->setRepresentation($this->mapCustomer($entity->getFooRepresentativeCompanyUserRepresentation()))
+            ->setRepresentative($this->mapCustomer($entity->getFooRepresentativeCompanyUserRepresentation()))
             ->setOriginator($this->mapCustomer($entity->getFooRepresentativeCompanyUserOriginator()));
     }
 

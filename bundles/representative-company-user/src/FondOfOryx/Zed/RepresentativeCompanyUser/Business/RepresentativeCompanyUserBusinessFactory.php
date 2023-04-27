@@ -12,7 +12,6 @@ use FondOfOryx\Zed\RepresentativeCompanyUser\Business\Task\TaskRunner;
 use FondOfOryx\Zed\RepresentativeCompanyUser\Business\Writer\RepresentativeCompanyUserWriter;
 use FondOfOryx\Zed\RepresentativeCompanyUser\Business\Writer\RepresentativeCompanyUserWriterInterface;
 use FondOfOryx\Zed\RepresentativeCompanyUser\Dependency\Facade\RepresentativeCompanyUserToCompanyUserFacadeInterface;
-use FondOfOryx\Zed\RepresentativeCompanyUser\Dependency\Facade\RepresentativeCompanyUserToEventFacadeBridge;
 use FondOfOryx\Zed\RepresentativeCompanyUser\Dependency\Facade\RepresentativeCompanyUserToEventFacadeInterface;
 use FondOfOryx\Zed\RepresentativeCompanyUser\Dependency\Service\RepresentativeCompanyUserToUtilUuidGeneratorServiceInterface;
 use FondOfOryx\Zed\RepresentativeCompanyUser\RepresentativeCompanyUserDependencyProvider;
@@ -31,7 +30,7 @@ class RepresentativeCompanyUserBusinessFactory extends AbstractBusinessFactory
     {
         return new TaskRunner(
             $this->getEntityManager(),
-            $this->getTaskPlugins()
+            $this->getTaskPlugins(),
         );
     }
 
@@ -42,7 +41,7 @@ class RepresentativeCompanyUserBusinessFactory extends AbstractBusinessFactory
     {
         return new RepresentativeCompanyUserWriter(
             $this->createRepresentativeCompanyUserReader(),
-            $this->getEntityManager()
+            $this->getEntityManager(),
         );
     }
 
@@ -53,13 +52,12 @@ class RepresentativeCompanyUserBusinessFactory extends AbstractBusinessFactory
     {
         return new RepresentativeCompanyUserReader(
             $this->getRepository(),
-            $this->getEntityManager()
+            $this->getEntityManager(),
         );
     }
 
     /**
      * @return \FondOfOryx\Zed\RepresentativeCompanyUser\Business\Manager\RepresentationManagerInterface
-     * @throws \Spryker\Zed\Kernel\Exception\Container\ContainerKeyNotFoundException
      */
     public function createRepresentationManager(): RepresentationManagerInterface
     {
@@ -67,25 +65,23 @@ class RepresentativeCompanyUserBusinessFactory extends AbstractBusinessFactory
             $this->createRepresentativeCompanyUserWriter(),
             $this->createRepresentativeCompanyUserReader(),
             $this->getEventFacade(),
-            $this->getUtilUuidGeneratorService()
+            $this->getUtilUuidGeneratorService(),
         );
     }
 
     /**
      * @return \FondOfOryx\Zed\RepresentativeCompanyUser\Business\Manager\CompanyUserManagerInterface
-     * @throws \Spryker\Zed\Kernel\Exception\Container\ContainerKeyNotFoundException
      */
     public function createCompanyUserManager(): CompanyUserManagerInterface
     {
         return new CompanyUserManager(
             $this->createRepresentativeCompanyUserReader(),
-            $this->getCompanyUserFacade()
+            $this->getCompanyUserFacade(),
         );
     }
 
     /**
      * @return \FondOfOryx\Zed\RepresentativeCompanyUser\Dependency\Service\RepresentativeCompanyUserToUtilUuidGeneratorServiceInterface
-     * @throws \Spryker\Zed\Kernel\Exception\Container\ContainerKeyNotFoundException
      */
     public function getUtilUuidGeneratorService(): RepresentativeCompanyUserToUtilUuidGeneratorServiceInterface
     {
@@ -94,7 +90,6 @@ class RepresentativeCompanyUserBusinessFactory extends AbstractBusinessFactory
 
     /**
      * @return array<\FondOfOryx\Zed\RepresentativeCompanyUserExtension\Dependency\Plugin\RepresentativeCompanyUserTaskCommandPluginInterface>
-     * @throws \Spryker\Zed\Kernel\Exception\Container\ContainerKeyNotFoundException
      */
     public function getTaskPlugins(): array
     {
@@ -103,7 +98,6 @@ class RepresentativeCompanyUserBusinessFactory extends AbstractBusinessFactory
 
     /**
      * @return \FondOfOryx\Zed\RepresentativeCompanyUser\Dependency\Facade\RepresentativeCompanyUserToCompanyUserFacadeInterface
-     * @throws \Spryker\Zed\Kernel\Exception\Container\ContainerKeyNotFoundException
      */
     public function getCompanyUserFacade(): RepresentativeCompanyUserToCompanyUserFacadeInterface
     {
@@ -112,7 +106,6 @@ class RepresentativeCompanyUserBusinessFactory extends AbstractBusinessFactory
 
     /**
      * @return \FondOfOryx\Zed\RepresentativeCompanyUser\Dependency\Facade\RepresentativeCompanyUserToEventFacadeInterface
-     * @throws \Spryker\Zed\Kernel\Exception\Container\ContainerKeyNotFoundException
      */
     public function getEventFacade(): RepresentativeCompanyUserToEventFacadeInterface
     {
