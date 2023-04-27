@@ -39,8 +39,9 @@ interface RepresentativeCompanyUserFacadeInterface
     /**
      * @param \Generated\Shared\Transfer\RepresentativeCompanyUserTransfer $representativeCompanyUserTransfer
      *
-     * @return void
      * @throws \Spryker\Zed\Kernel\Exception\Container\ContainerKeyNotFoundException
+     *
+     * @return void
      */
     public function createCompanyUserForRepresentation(RepresentativeCompanyUserTransfer $representativeCompanyUserTransfer): void;
 
@@ -57,13 +58,18 @@ interface RepresentativeCompanyUserFacadeInterface
      *
      * @return \Generated\Shared\Transfer\RepresentativeCompanyUserCollectionTransfer
      */
-    public function getAndFlagInProcessNewRepresentativeCompanyUser(RepresentativeCompanyUserFilterTransfer $filterTransfer): RepresentativeCompanyUserCollectionTransfer;
+    public function getAndFlagInProcessNewRepresentativeCompanyUser(
+        RepresentativeCompanyUserFilterTransfer $filterTransfer
+    ): RepresentativeCompanyUserCollectionTransfer;
 
     /**
      * @param \Generated\Shared\Transfer\RepresentativeCompanyUserCollectionTransfer $representativeCompanyUserCollectionTransfer
      *
-     * @return \Generated\Shared\Transfer\RepresentativeCompanyUserCollectionTransfer
      * @throws \Spryker\Zed\Kernel\Exception\Container\ContainerKeyNotFoundException
+     *
+     * @return \Generated\Shared\Transfer\RepresentativeCompanyUserCollectionTransfer
      */
-    public function setInProcess(RepresentativeCompanyUserCollectionTransfer $representativeCompanyUserCollectionTransfer): RepresentativeCompanyUserCollectionTransfer;
+    public function setInProcess(
+        RepresentativeCompanyUserCollectionTransfer $representativeCompanyUserCollectionTransfer
+    ): RepresentativeCompanyUserCollectionTransfer;
 }

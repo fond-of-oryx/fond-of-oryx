@@ -6,15 +6,15 @@ use Generated\Shared\Transfer\CompanyUserCollectionTransfer;
 use Generated\Shared\Transfer\RepresentativeCompanyUserCollectionTransfer;
 use Generated\Shared\Transfer\RepresentativeCompanyUserFilterTransfer;
 use Generated\Shared\Transfer\RepresentativeCompanyUserTransfer;
-use Orm\Zed\RepresentativeCompanyUser\Persistence\Map\FooRepresentativeCompanyUserTableMap;
 
 interface RepresentativeCompanyUserRepositoryInterface
 {
     /**
      * @param string $uuid
      *
-     * @return \Generated\Shared\Transfer\RepresentativeCompanyUserTransfer
      * @throws \Spryker\Zed\Propel\Business\Exception\AmbiguousComparisonException
+     *
+     * @return \Generated\Shared\Transfer\RepresentativeCompanyUserTransfer
      */
     public function findRepresentativeCompanyUserByUuid(string $uuid): RepresentativeCompanyUserTransfer;
 
@@ -22,32 +22,39 @@ interface RepresentativeCompanyUserRepositoryInterface
      * @param string|null $state
      * @param array|null $ids
      *
-     * @return \Generated\Shared\Transfer\RepresentativeCompanyUserCollectionTransfer
      * @throws \Spryker\Zed\Propel\Business\Exception\AmbiguousComparisonException
+     *
+     * @return \Generated\Shared\Transfer\RepresentativeCompanyUserCollectionTransfer
      */
     public function findRepresentativeCompanyUserByState(?string $state, ?array $ids = null): RepresentativeCompanyUserCollectionTransfer;
 
     /**
      * @param \Generated\Shared\Transfer\RepresentativeCompanyUserTransfer $representativeCompanyUserTransfer
      *
-     * @return \Generated\Shared\Transfer\RepresentativeCompanyUserTransfer|null
      * @throws \Spryker\Shared\Kernel\Transfer\Exception\RequiredTransferPropertyException
      * @throws \Spryker\Zed\Propel\Business\Exception\AmbiguousComparisonException
+     *
+     * @return \Generated\Shared\Transfer\RepresentativeCompanyUserTransfer|null
      */
-    public function findRepresentativeCompanyUserByCase(RepresentativeCompanyUserTransfer $representativeCompanyUserTransfer): ?RepresentativeCompanyUserTransfer;
+    public function findRepresentativeCompanyUserByCase(
+        RepresentativeCompanyUserTransfer $representativeCompanyUserTransfer
+    ): ?RepresentativeCompanyUserTransfer;
 
     /**
      * @param \Generated\Shared\Transfer\RepresentativeCompanyUserFilterTransfer|null $filterTransfer
      *
      * @return \Generated\Shared\Transfer\RepresentativeCompanyUserCollectionTransfer
      */
-    public function findExpiredRepresentativeCompanyUser(?RepresentativeCompanyUserFilterTransfer $filterTransfer = null): RepresentativeCompanyUserCollectionTransfer;
+    public function findExpiredRepresentativeCompanyUser(
+        ?RepresentativeCompanyUserFilterTransfer $filterTransfer = null
+    ): RepresentativeCompanyUserCollectionTransfer;
 
     /**
      * @param int $fkDistributor
      *
-     * @return \Generated\Shared\Transfer\RepresentativeCompanyUserCollectionTransfer|null
      * @throws \Spryker\Zed\Propel\Business\Exception\AmbiguousComparisonException
+     *
+     * @return \Generated\Shared\Transfer\RepresentativeCompanyUserCollectionTransfer|null
      */
     public function findRepresentativeCompanyUserByFkDistributor(int $fkDistributor): ?RepresentativeCompanyUserCollectionTransfer;
 

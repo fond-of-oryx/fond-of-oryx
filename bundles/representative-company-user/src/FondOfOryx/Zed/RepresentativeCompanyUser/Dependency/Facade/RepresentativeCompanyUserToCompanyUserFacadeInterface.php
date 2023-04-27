@@ -12,11 +12,11 @@ interface RepresentativeCompanyUserToCompanyUserFacadeInterface
      * - Executes CompanyUserSavePreCheckPluginInterface check plugins before company user create.
      * - Creates a company user
      *
+     * @api
+     *
      * @param \Generated\Shared\Transfer\CompanyUserTransfer $companyUserTransfer
      *
      * @return \Generated\Shared\Transfer\CompanyUserResponseTransfer
-     * @api
-     *
      */
     public function create(CompanyUserTransfer $companyUserTransfer): CompanyUserResponseTransfer;
 

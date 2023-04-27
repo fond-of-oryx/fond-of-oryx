@@ -33,7 +33,9 @@ interface RepresentativeCompanyUserEntityManagerInterface
      *
      * @return \Generated\Shared\Transfer\RepresentativeCompanyUserCollectionTransfer
      */
-    public function findAndFlagInProcessNewRepresentativeCompanyUser(RepresentativeCompanyUserFilterTransfer $filterTransfer): RepresentativeCompanyUserCollectionTransfer;
+    public function findAndFlagInProcessNewRepresentativeCompanyUser(
+        RepresentativeCompanyUserFilterTransfer $filterTransfer
+    ): RepresentativeCompanyUserCollectionTransfer;
 
     /**
      * @param string $state
@@ -42,5 +44,9 @@ interface RepresentativeCompanyUserEntityManagerInterface
      *
      * @return \Generated\Shared\Transfer\RepresentativeCompanyUserCollectionTransfer
      */
-    public function findAndFlagRepresentativeCompanyUserByState(string $state, string $newState, RepresentativeCompanyUserFilterTransfer $filterTransfer): RepresentativeCompanyUserCollectionTransfer;
+    public function findAndFlagRepresentativeCompanyUserByState(
+        string $state,
+        string $newState,
+        RepresentativeCompanyUserFilterTransfer $filterTransfer
+    ): RepresentativeCompanyUserCollectionTransfer;
 }

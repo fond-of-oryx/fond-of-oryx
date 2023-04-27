@@ -3,14 +3,14 @@
 namespace FondOfOryx\Zed\RepresentativeCompanyUser\Persistence\Propel\Mapper;
 
 use Generated\Shared\Transfer\RepresentativeCompanyUserTransfer;
-use Orm\Zed\RepresentativeCompanyUser\Persistence\FooRepresentativeCompanyUser;
+use Orm\Zed\RepresentativeCompanyUser\Persistence\FooRepresentation;
 
 interface TransferToEntityMapperInterface
 {
     /**
      * @param \Generated\Shared\Transfer\RepresentativeCompanyUserTransfer $representativeCompanyUserTransfer
      *
-     * @return \Orm\Zed\RepresentativeCompanyUser\Persistence\FooRepresentativeCompanyUser
+     * @return \Orm\Zed\RepresentativeCompanyUser\Persistence\FooRepresentation
      */
-    public function fromRepresentativeCompanyUserTransfer(RepresentativeCompanyUserTransfer $representativeCompanyUserTransfer): FooRepresentativeCompanyUser;
+    public function fromRepresentativeCompanyUserTransfer(RepresentativeCompanyUserTransfer $representativeCompanyUserTransfer): FooRepresentation;
 }

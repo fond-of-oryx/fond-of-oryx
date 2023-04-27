@@ -27,5 +27,7 @@ interface RepresentationManagerInterface
      *
      * @return \Generated\Shared\Transfer\RepresentativeCompanyUserCollectionTransfer
      */
-    public function setAllInProcess(RepresentativeCompanyUserCollectionTransfer $representativeCompanyUserCollectionTransfer): RepresentativeCompanyUserCollectionTransfer;
+    public function setAllInProcess(
+        RepresentativeCompanyUserCollectionTransfer $representativeCompanyUserCollectionTransfer
+    ): RepresentativeCompanyUserCollectionTransfer;
 }
