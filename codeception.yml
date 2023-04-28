@@ -129,6 +129,7 @@ include:
   - bundles/log-log-io-connector
   - bundles/log-slack-connector
   - bundles/mail-bcc
+  - bundles/mail-proxy-extension
   - bundles/mailjet-mail-connector
   - bundles/oms-credit-memo-gift-card-connector
   - bundles/one-time-password
