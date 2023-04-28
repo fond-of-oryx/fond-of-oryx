@@ -607,6 +607,10 @@
       "path": "bundles/mail-bcc/",
       "version": "2.0.0"
     },
+    "mail-proxy": {
+      "path": "bundles/mail-proxy/",
+      "version": "1.0.0"
+    },
     "mail-proxy-extension": {
       "path": "bundles/mail-proxy-extension/",
       "version": "1.0.0"
