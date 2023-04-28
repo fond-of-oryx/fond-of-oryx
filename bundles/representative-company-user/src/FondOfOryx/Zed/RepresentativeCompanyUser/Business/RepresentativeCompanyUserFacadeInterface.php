@@ -3,6 +3,7 @@
 namespace FondOfOryx\Zed\RepresentativeCompanyUser\Business;
 
 use Generated\Shared\Transfer\RepresentativeCompanyUserCollectionTransfer;
+use Generated\Shared\Transfer\RepresentativeCompanyUserCommandTransfer;
 use Generated\Shared\Transfer\RepresentativeCompanyUserFilterTransfer;
 use Generated\Shared\Transfer\RepresentativeCompanyUserTransfer;
 
@@ -72,4 +73,16 @@ interface RepresentativeCompanyUserFacadeInterface
     public function setInProcess(
         RepresentativeCompanyUserCollectionTransfer $representativeCompanyUserCollectionTransfer
     ): RepresentativeCompanyUserCollectionTransfer;
+
+    /**
+     * @param \Generated\Shared\Transfer\RepresentativeCompanyUserCommandTransfer $commandTransfer
+     *
+     * @return void
+     */
+    public function runTask(RepresentativeCompanyUserCommandTransfer $commandTransfer): void;
+
+    /**
+     * @return array<string>
+     */
+    public function getRegisteredProcessorNames(): array;
 }

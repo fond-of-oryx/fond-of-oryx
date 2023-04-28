@@ -187,11 +187,11 @@ class RepresentativeCompanyUserRepository extends AbstractRepository implements 
     {
         $query = $this->getFactory()->getRepresentativeCompanyUserQuery();
 
-        if ($filterTransfer !== null && is_array($filterTransfer->getStates())) {
+        if ($filterTransfer !== null && count($filterTransfer->getStates()) > 0) {
             $query->filterByState_In($filterTransfer->getStates());
         }
 
-        if ($filterTransfer !== null && is_array($filterTransfer->getIds()) && count($filterTransfer->getIds()) > 0) {
+        if ($filterTransfer !== null && count($filterTransfer->getIds()) > 0) {
             $query->filterByIdRepresentativeCompanyUser_In($filterTransfer->getIds());
         }
 

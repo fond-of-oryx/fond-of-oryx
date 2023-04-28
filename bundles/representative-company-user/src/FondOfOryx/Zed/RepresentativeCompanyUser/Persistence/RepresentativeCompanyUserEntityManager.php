@@ -91,7 +91,7 @@ class RepresentativeCompanyUserEntityManager extends AbstractEntityManager imple
 
         $query = $this->getFactory()->getRepresentativeCompanyUserQuery()->filterByState($state);
         $ids = $filterTransfer->getIds();
-        if ($ids !== null && count($ids) > 0) {
+        if (count($ids) > 0) {
             $query->filterByIdRepresentativeCompanyUser_In($ids);
         }
 
