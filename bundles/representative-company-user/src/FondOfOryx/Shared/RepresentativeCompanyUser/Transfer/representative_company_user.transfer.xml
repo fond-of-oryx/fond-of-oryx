@@ -37,5 +37,6 @@
         <property name="fkRepresentativeCompanyUser" type="int" />
         <property name="representationOfSale" type="RepresentativeCompanyUser" />
         <property name="isDefault" type="bool" />
+        <property name="companyUserReference" type="string" />
     </transfer>
 </transfers>

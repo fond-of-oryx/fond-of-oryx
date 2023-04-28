@@ -120,7 +120,7 @@ class RepresentativeCompanyUserEntityManager extends AbstractEntityManager imple
      *
      * @throws \Exception
      *
-     * @return int
+     * @return bool
      */
     protected function validateState(string $state): bool
     {

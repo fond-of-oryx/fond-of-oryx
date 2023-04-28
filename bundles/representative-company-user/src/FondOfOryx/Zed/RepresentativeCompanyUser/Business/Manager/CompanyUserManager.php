@@ -109,7 +109,7 @@ class CompanyUserManager implements CompanyUserManagerInterface
     protected function resolveCompanyUserToCreate(RepresentativeCompanyUserTransfer $representativeCompanyUserTransfer): array
     {
         $companyUserDistributor = $this->reader->getAllCompanyUserByCustomerId($representativeCompanyUserTransfer->getFkDistributor());
-        $companyIdsRepresentation = $this->getCompanyIdsByIdCustomer($representativeCompanyUserTransfer->getFkRepresentation());
+        $companyIdsRepresentation = $this->getCompanyIdsByIdCustomer($representativeCompanyUserTransfer->getFkRepresentative());
 
         $users = [];
         foreach ($companyUserDistributor->getCompanyUsers() as $companyUser) {
