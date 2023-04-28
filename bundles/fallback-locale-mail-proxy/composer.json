@@ -1,0 +1,41 @@
+{
+  "name": "fond-of-oryx/fallback-locale-mail-proxy",
+  "description": "Fallback locale mail proxy module.",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Daniel Rose",
+      "email": "daniel-rose@gmx.de"
+    }
+  ],
+  "require": {
+    "php": ">=8.0",
+    "fond-of-oryx/mail-proxy-extension": "^1.0.0",
+    "spryker/mail-extension": "^1.0.0",
+    "spryker/store": "^1.2.0"
+  },
+  "require-dev": {
+    "fond-of-codeception/spryker": "*",
+    "spryker/code-sniffer": "*",
+    "spryker-sdk/phpstan-spryker": "*"
+  },
+  "minimum-stability": "dev",
+  "prefer-stable": true,
+  "autoload": {
+    "psr-4": {
+      "FondOfOryx\\": "src/FondOfOryx/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "FondOfOryx\\": "tests/FondOfOryx/",
+      "Generated\\":"src/Generated/",
+      "Orm\\":"src/Orm/"
+    }
+  },
+  "config": {
+    "allow-plugins": {
+      "dealerdirect/phpcodesniffer-composer-installer": true
+    }
+  }
+}
