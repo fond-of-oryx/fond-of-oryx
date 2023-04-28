@@ -2,29 +2,21 @@
 
 namespace FondOfOryx\Zed\RepresentativeCompanyUser\Business\Writer;
 
-use FondOfOryx\Zed\RepresentativeCompanyUser\Business\Reader\RepresentativeCompanyUserReaderInterface;
 use FondOfOryx\Zed\RepresentativeCompanyUser\Persistence\RepresentativeCompanyUserEntityManagerInterface;
 use Generated\Shared\Transfer\RepresentativeCompanyUserTransfer;
 
 class RepresentativeCompanyUserWriter implements RepresentativeCompanyUserWriterInterface
 {
     /**
-     * @var \FondOfOryx\Zed\RepresentativeCompanyUser\Business\Reader\RepresentativeCompanyUserReaderInterface
-     */
-    protected $reader;
-
-    /**
      * @var \FondOfOryx\Zed\RepresentativeCompanyUser\Persistence\RepresentativeCompanyUserEntityManagerInterface
      */
     protected $entityManager;
 
     /**
-     * @param \FondOfOryx\Zed\RepresentativeCompanyUser\Business\Reader\RepresentativeCompanyUserReaderInterface $reader
      * @param \FondOfOryx\Zed\RepresentativeCompanyUser\Persistence\RepresentativeCompanyUserEntityManagerInterface $entityManager
      */
-    public function __construct(RepresentativeCompanyUserReaderInterface $reader, RepresentativeCompanyUserEntityManagerInterface $entityManager)
+    public function __construct(RepresentativeCompanyUserEntityManagerInterface $entityManager)
     {
-        $this->reader = $reader;
         $this->entityManager = $entityManager;
     }
 

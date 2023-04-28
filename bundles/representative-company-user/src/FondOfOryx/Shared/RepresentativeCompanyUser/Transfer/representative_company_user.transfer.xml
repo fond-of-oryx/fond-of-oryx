@@ -38,5 +38,6 @@
         <property name="representationOfSale" type="RepresentativeCompanyUser" />
         <property name="isDefault" type="bool" />
         <property name="companyUserReference" type="string" />
+        <property name="customerReference" type="string" />
     </transfer>
 </transfers>

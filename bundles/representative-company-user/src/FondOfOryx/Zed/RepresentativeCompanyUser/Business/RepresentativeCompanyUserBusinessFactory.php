@@ -16,6 +16,7 @@ use FondOfOryx\Zed\RepresentativeCompanyUser\Dependency\Facade\RepresentativeCom
 use FondOfOryx\Zed\RepresentativeCompanyUser\Dependency\Service\RepresentativeCompanyUserToUtilUuidGeneratorServiceInterface;
 use FondOfOryx\Zed\RepresentativeCompanyUser\RepresentativeCompanyUserDependencyProvider;
 use Spryker\Zed\Kernel\Business\AbstractBusinessFactory;
+use Spryker\Zed\Kernel\Persistence\EntityManager\TransactionTrait;
 
 /**
  * @method \FondOfOryx\Zed\RepresentativeCompanyUser\Persistence\RepresentativeCompanyUserRepositoryInterface getRepository()
@@ -23,6 +24,8 @@ use Spryker\Zed\Kernel\Business\AbstractBusinessFactory;
  */
 class RepresentativeCompanyUserBusinessFactory extends AbstractBusinessFactory
 {
+    use TransactionTrait;
+
     /**
      * @return \FondOfOryx\Zed\RepresentativeCompanyUser\Business\Task\TaskRunner
      */
@@ -40,7 +43,6 @@ class RepresentativeCompanyUserBusinessFactory extends AbstractBusinessFactory
     public function createRepresentativeCompanyUserWriter(): RepresentativeCompanyUserWriterInterface
     {
         return new RepresentativeCompanyUserWriter(
-            $this->createRepresentativeCompanyUserReader(),
             $this->getEntityManager(),
         );
     }
@@ -77,6 +79,7 @@ class RepresentativeCompanyUserBusinessFactory extends AbstractBusinessFactory
         return new CompanyUserManager(
             $this->createRepresentativeCompanyUserReader(),
             $this->getCompanyUserFacade(),
+            $this->getTransactionHandler(),
         );
     }
 

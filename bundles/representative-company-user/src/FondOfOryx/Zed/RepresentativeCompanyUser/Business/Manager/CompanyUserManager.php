@@ -5,12 +5,10 @@ namespace FondOfOryx\Zed\RepresentativeCompanyUser\Business\Manager;
 use FondOfOryx\Zed\RepresentativeCompanyUser\Business\Reader\RepresentativeCompanyUserReaderInterface;
 use FondOfOryx\Zed\RepresentativeCompanyUser\Dependency\Facade\RepresentativeCompanyUserToCompanyUserFacadeInterface;
 use Generated\Shared\Transfer\RepresentativeCompanyUserTransfer;
-use Spryker\Zed\Kernel\Persistence\EntityManager\TransactionTrait;
+use Spryker\Zed\Kernel\Persistence\EntityManager\TransactionHandlerInterface;
 
 class CompanyUserManager implements CompanyUserManagerInterface
 {
-    use TransactionTrait;
-
     /**
      * @var \FondOfOryx\Zed\RepresentativeCompanyUser\Business\Reader\RepresentativeCompanyUserReaderInterface
      */
@@ -22,15 +20,23 @@ class CompanyUserManager implements CompanyUserManagerInterface
     protected $companyUserFacade;
 
     /**
+     * @var \Spryker\Zed\Kernel\Persistence\EntityManager\TransactionHandlerInterface
+     */
+    protected $transactionHandler;
+
+    /**
      * @param \FondOfOryx\Zed\RepresentativeCompanyUser\Business\Reader\RepresentativeCompanyUserReaderInterface $reader
      * @param \FondOfOryx\Zed\RepresentativeCompanyUser\Dependency\Facade\RepresentativeCompanyUserToCompanyUserFacadeInterface $companyUserFacade
+     * @param \Spryker\Zed\Kernel\Persistence\EntityManager\TransactionHandlerInterface $transactionHandler
      */
     public function __construct(
         RepresentativeCompanyUserReaderInterface $reader,
-        RepresentativeCompanyUserToCompanyUserFacadeInterface $companyUserFacade
+        RepresentativeCompanyUserToCompanyUserFacadeInterface $companyUserFacade,
+        TransactionHandlerInterface $transactionHandler
     ) {
         $this->reader = $reader;
         $this->companyUserFacade = $companyUserFacade;
+        $this->transactionHandler = $transactionHandler;
     }
 
     /**
@@ -40,7 +46,7 @@ class CompanyUserManager implements CompanyUserManagerInterface
      */
     public function createCompanyUserForRepresentation(RepresentativeCompanyUserTransfer $representativeCompanyUserTransfer): void
     {
-        $this->getTransactionHandler()->handleTransaction(
+        $this->transactionHandler->handleTransaction(
             function () use ($representativeCompanyUserTransfer) {
                 $this->executeCreateTransaction($representativeCompanyUserTransfer);
             },
@@ -54,7 +60,7 @@ class CompanyUserManager implements CompanyUserManagerInterface
      */
     public function deleteCompanyUserForRepresentation(RepresentativeCompanyUserTransfer $representativeCompanyUserTransfer): void
     {
-        $this->getTransactionHandler()->handleTransaction(
+        $this->transactionHandler->handleTransaction(
             function () use ($representativeCompanyUserTransfer) {
                 $this->executeDeleteTransaction($representativeCompanyUserTransfer);
             },
