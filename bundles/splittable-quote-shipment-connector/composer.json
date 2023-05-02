@@ -14,7 +14,7 @@
     "spryker/shipment": "^6.2.0 || ^7.0.0 || ^8.0.0"
   },
   "require-dev": {
-    "fond-of-codeception/spryker": "^1.0",
+    "fond-of-codeception/spryker": "^2.0.0",
     "spryker/code-sniffer": "^0.12"
   },
   "minimum-stability": "dev",

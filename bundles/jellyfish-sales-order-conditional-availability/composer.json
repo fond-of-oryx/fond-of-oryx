@@ -13,7 +13,7 @@
     "fond-of-oryx/jellyfish-sales-order-extension": "^1.0.0 || ^2.0.0"
   },
   "require-dev": {
-    "fond-of-codeception/spryker": "^1.0",
+    "fond-of-codeception/spryker": "^2.0.0",
     "fond-of-spryker/conditional-availability-sales-connector": "*",
     "spryker/code-sniffer": "*",
     "spryker-sdk/phpstan-spryker": "*",

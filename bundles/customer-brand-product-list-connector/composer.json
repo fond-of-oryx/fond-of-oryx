@@ -15,7 +15,7 @@
     "fond-of-spryker/brand-customer": "dev-spryker_upgrade"
   },
   "require-dev": {
-    "fond-of-codeception/spryker": "^1.0",
+    "fond-of-codeception/spryker": "^2.0.0",
     "spryker/code-sniffer": "*",
     "spryker-sdk/phpstan-spryker": "*"
   },

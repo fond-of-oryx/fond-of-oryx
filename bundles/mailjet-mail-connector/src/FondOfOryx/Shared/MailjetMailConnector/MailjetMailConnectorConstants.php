@@ -83,4 +83,24 @@ interface MailjetMailConnectorConstants
      * @var string
      */
     public const MAILJET_WHITELISTED_EMAILS = 'MailjetMailConnector:MAILJET_WHITELISTED_EMAILS';
+
+    /**
+     * @var string
+     */
+    public const MAILJET_RETRY_ENABLED = 'MailjetMailConnector:MAILJET_RETRY_ENABLED';
+
+    /**
+     * @var string
+     */
+    public const MAILJET_RETRY_MAX_ATTEMPTS = 'MailjetMailConnector:MAILJET_RETRY_MAX_ATTEMPTS';
+
+    /**
+     * @var string
+     */
+    public const MAILJET_RETRY_ON_STATUS = 'MailjetMailConnector:MAILJET_RETRY_ON_STATUS';
+
+    /**
+     * @var string
+     */
+    public const MAILJET_RETRY_MULTIPLIER = 'MailjetMailConnector:MAILJET_RETRY_MULTIPLIER';
 }

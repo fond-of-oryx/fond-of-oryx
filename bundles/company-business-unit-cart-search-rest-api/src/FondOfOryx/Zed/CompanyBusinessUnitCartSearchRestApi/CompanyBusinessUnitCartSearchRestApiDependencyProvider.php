@@ -3,6 +3,7 @@
 namespace FondOfOryx\Zed\CompanyBusinessUnitCartSearchRestApi;
 
 use Orm\Zed\CompanyBusinessUnit\Persistence\Base\SpyCompanyBusinessUnitQuery;
+use Orm\Zed\Permission\Persistence\Base\SpyPermissionQuery;
 use Spryker\Zed\Kernel\AbstractBundleDependencyProvider;
 use Spryker\Zed\Kernel\Container;
 
@@ -17,6 +18,11 @@ class CompanyBusinessUnitCartSearchRestApiDependencyProvider extends AbstractBun
     public const PROPEL_QUERY_COMPANY_BUSINESS_UNIT = 'PROPEL_QUERY_COMPANY_BUSINESS_UNIT';
 
     /**
+     * @var string
+     */
+    public const PROPEL_QUERY_PERMISSION = 'PROPEL_QUERY_PERMISSION';
+
+    /**
      * @param \Spryker\Zed\Kernel\Container $container
      *
      * @return \Spryker\Zed\Kernel\Container
@@ -25,7 +31,9 @@ class CompanyBusinessUnitCartSearchRestApiDependencyProvider extends AbstractBun
     {
         $container = parent::providePersistenceLayerDependencies($container);
 
-        return $this->addCompanyBusinessUnitQuery($container);
+        $container = $this->addCompanyBusinessUnitQuery($container);
+
+        return $this->addPermissionQuery($container);
     }
 
     /**
@@ -37,6 +45,20 @@ class CompanyBusinessUnitCartSearchRestApiDependencyProvider extends AbstractBun
     {
         $container[static::PROPEL_QUERY_COMPANY_BUSINESS_UNIT] = static function () {
             return SpyCompanyBusinessUnitQuery::create();
+        };
+
+        return $container;
+    }
+
+    /**
+     * @param \Spryker\Zed\Kernel\Container $container
+     *
+     * @return \Spryker\Zed\Kernel\Container
+     */
+    protected function addPermissionQuery(Container $container): Container
+    {
+        $container[static::PROPEL_QUERY_PERMISSION] = static function () {
+            return SpyPermissionQuery::create();
         };
 
         return $container;

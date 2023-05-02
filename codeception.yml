@@ -92,6 +92,7 @@ include:
   - bundles/erp-order-page-search
   - bundles/erp-order-page-search-rest-api
   - bundles/erp-order-permission
+  - bundles/fallback-locale-mail-proxy
   - bundles/fallback-product-list
   - bundles/feed
   - bundles/gift-card-expiration
@@ -129,6 +130,8 @@ include:
   - bundles/log-log-io-connector
   - bundles/log-slack-connector
   - bundles/mail-bcc
+  - bundles/mail-proxy
+  - bundles/mail-proxy-extension
   - bundles/mailjet-mail-connector
   - bundles/oms-credit-memo-gift-card-connector
   - bundles/one-time-password

@@ -1,0 +1,50 @@
+<?xml version="1.0"?>
+<database xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" name="zed"
+          xsi:noNamespaceSchemaLocation="https://static.spryker.com/schema-01.xsd"
+          namespace="Orm\Zed\RepresentativeCompanyUser\Persistence" package="src.Orm.Zed.RepresentativeCompanyUser.Persistence">
+
+    <table name="foo_representative_company_user" phpName="FooRepresentativeCompanyUser" identifierQuoting="true">
+        <column name="id_representative_company_user" required="true" type="INTEGER" autoIncrement="true"
+                primaryKey="true"/>
+        <column name="uuid" required="true" type="VARCHAR" size="255"/>
+        <column name="fk_distributor" required="true" type="INTEGER"/>
+        <column name="fk_representative" required="true" type="INTEGER"/>
+        <column name="start_date" required="true" type="TIMESTAMP"/>
+        <column name="end_date" required="true" type="TIMESTAMP"/>
+        <column name="fk_originator" required="true" type="INTEGER"/>
+        <column name="state" type="ENUM" valueSet="new, process, active, expired, revoked, error" default="new" required="true"/>
+        <column name="previous_state" type="ENUM" valueSet="new, process, active, expired, revoked, error" default="null" required="false"/>
+
+        <id-method-parameter value="foo_representative_company_user_pk_seq"/>
+
+        <unique name="foo_representative_company_user-unique-uuid">
+            <unique-column name="uuid"/>
+        </unique>
+
+        <behavior name="uuid">
+            <parameter name="key_prefix" value="fk_distributor"/>
+            <parameter name="key_columns" value="id_representative_company_user"/>
+        </behavior>
+
+        <foreign-key name="foo_representative_company_user-distributor-spy_customer" foreignTable="spy_customer"
+                     phpName="FooRepresentativeCompanyUserDistributor">
+            <reference local="fk_distributor" foreign="id_customer"/>
+        </foreign-key>
+
+        <foreign-key name="foo_representative_company_user-representative-spy_customer" foreignTable="spy_customer"
+                     phpName="FooRepresentativeCompanyUserRepresentative">
+            <reference local="fk_representative" foreign="id_customer"/>
+        </foreign-key>
+
+        <foreign-key name="foo_representative_company_user-originator-spy_customer" foreignTable="spy_customer"
+                     phpName="FooRepresentativeCompanyUserOriginator">
+            <reference local="fk_originator" foreign="id_customer"/>
+        </foreign-key>
+
+        <behavior name="event">
+            <parameter name="foo_representative_company_user_all" column="*"/>
+        </behavior>
+
+        <behavior name="timestampable"/>
+    </table>
+</database>
