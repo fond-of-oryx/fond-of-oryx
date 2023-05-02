@@ -9,6 +9,7 @@ use FondOfOryx\Zed\RepresentativeCompanyUser\Business\Manager\RepresentationMana
 use FondOfOryx\Zed\RepresentativeCompanyUser\Business\Reader\RepresentativeCompanyUserReader;
 use FondOfOryx\Zed\RepresentativeCompanyUser\Business\Reader\RepresentativeCompanyUserReaderInterface;
 use FondOfOryx\Zed\RepresentativeCompanyUser\Business\Task\TaskRunner;
+use FondOfOryx\Zed\RepresentativeCompanyUser\Business\Task\TaskRunnerInterface;
 use FondOfOryx\Zed\RepresentativeCompanyUser\Business\Writer\RepresentativeCompanyUserWriter;
 use FondOfOryx\Zed\RepresentativeCompanyUser\Business\Writer\RepresentativeCompanyUserWriterInterface;
 use FondOfOryx\Zed\RepresentativeCompanyUser\Dependency\Facade\RepresentativeCompanyUserToCompanyUserFacadeInterface;
@@ -29,7 +30,7 @@ class RepresentativeCompanyUserBusinessFactory extends AbstractBusinessFactory
     /**
      * @return \FondOfOryx\Zed\RepresentativeCompanyUser\Business\Task\TaskRunner
      */
-    public function createTaskRunner(): TaskRunner
+    public function createTaskRunner(): TaskRunnerInterface
     {
         return new TaskRunner(
             $this->getEntityManager(),
@@ -86,7 +87,7 @@ class RepresentativeCompanyUserBusinessFactory extends AbstractBusinessFactory
     /**
      * @return \FondOfOryx\Zed\RepresentativeCompanyUser\Dependency\Service\RepresentativeCompanyUserToUtilUuidGeneratorServiceInterface
      */
-    public function getUtilUuidGeneratorService(): RepresentativeCompanyUserToUtilUuidGeneratorServiceInterface
+    protected function getUtilUuidGeneratorService(): RepresentativeCompanyUserToUtilUuidGeneratorServiceInterface
     {
         return $this->getProvidedDependency(RepresentativeCompanyUserDependencyProvider::SERVICE_UTIL_UUID_GENERATOR);
     }
@@ -94,7 +95,7 @@ class RepresentativeCompanyUserBusinessFactory extends AbstractBusinessFactory
     /**
      * @return array<\FondOfOryx\Zed\RepresentativeCompanyUserExtension\Dependency\Plugin\RepresentativeCompanyUserTaskCommandPluginInterface>
      */
-    public function getTaskPlugins(): array
+    protected function getTaskPlugins(): array
     {
         return $this->getProvidedDependency(RepresentativeCompanyUserDependencyProvider::PLUGINS_TASKS);
     }
@@ -102,7 +103,7 @@ class RepresentativeCompanyUserBusinessFactory extends AbstractBusinessFactory
     /**
      * @return \FondOfOryx\Zed\RepresentativeCompanyUser\Dependency\Facade\RepresentativeCompanyUserToCompanyUserFacadeInterface
      */
-    public function getCompanyUserFacade(): RepresentativeCompanyUserToCompanyUserFacadeInterface
+    protected function getCompanyUserFacade(): RepresentativeCompanyUserToCompanyUserFacadeInterface
     {
         return $this->getProvidedDependency(RepresentativeCompanyUserDependencyProvider::FACADE_COMPANY_USER);
     }
@@ -110,7 +111,7 @@ class RepresentativeCompanyUserBusinessFactory extends AbstractBusinessFactory
     /**
      * @return \FondOfOryx\Zed\RepresentativeCompanyUser\Dependency\Facade\RepresentativeCompanyUserToEventFacadeInterface
      */
-    public function getEventFacade(): RepresentativeCompanyUserToEventFacadeInterface
+    protected function getEventFacade(): RepresentativeCompanyUserToEventFacadeInterface
     {
         return $this->getProvidedDependency(RepresentativeCompanyUserDependencyProvider::FACADE_EVENT);
     }
