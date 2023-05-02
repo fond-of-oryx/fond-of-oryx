@@ -4,7 +4,6 @@ namespace FondOfOryx\Zed\RepresentativeCompanyUserRestApi;
 
 use Codeception\Test\Unit;
 use FondOfOryx\Zed\BusinessOnBehalfProductListConnector\BusinessOnBehalfProductListConnectorDependencyProvider;
-use FondOfOryx\Zed\BusinessOnBehalfProductListConnector\Dependency\Facade\BusinessOnBehalfProductListConnectorToBusinessOnBehalfFacadeInterface;
 use FondOfOryx\Zed\BusinessOnBehalfProductListConnector\Dependency\Facade\BusinessOnBehalfProductListConnectorToCustomerFacadeInterface;
 use FondOfOryx\Zed\BusinessOnBehalfProductListConnector\Dependency\Facade\BusinessOnBehalfProductListConnectorToProductListFacadeInterface;
 use PHPUnit\Framework\MockObject\MockObject;
@@ -102,6 +101,5 @@ class RepresentativeCompanyUserRestApiDependencyProviderTest extends Unit
             BusinessOnBehalfProductListConnectorToProductListFacadeInterface::class,
             $container[BusinessOnBehalfProductListConnectorDependencyProvider::FACADE_PRODUCT_LIST],
         );
-
     }
 }

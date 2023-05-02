@@ -2,7 +2,7 @@
 
 namespace FondOfOryx\Zed\RepresentativeCompanyUserRestApi\Communication\Controller;
 
-use Codeception\Test\Unit;;
+use Codeception\Test\Unit;
 use FondOfOryx\Zed\RepresentativeCompanyUserRestApi\Business\RepresentativeCompanyUserRestApiFacade;
 use Generated\Shared\Transfer\RestRepresentativeCompanyUserRequestTransfer;
 use Generated\Shared\Transfer\RestRepresentativeCompanyUserResponseTransfer;
@@ -56,7 +56,7 @@ class GatewayControllerTest extends Unit
             protected AbstractFacade $representativeCompanyUserRestApiFacade;
 
             /**
-             * @param \Spryker\Zed\Kernel\Business\AbstractFacade $representativeCompanyUserRestApiFacade
+             * @param \Spryker\Zed\Kernel\Business\AbstractFacade $facade
              */
             public function __construct(AbstractFacade $facade)
             {
@@ -86,8 +86,8 @@ class GatewayControllerTest extends Unit
         static::assertEquals(
             $this->restRepresentativeCompanyUserResponseTransferMock,
             $this->gatewayController->addRepresentationAction(
-                $this->restRepresentativeCompanyUserRequestTransferMock
-            )
+                $this->restRepresentativeCompanyUserRequestTransferMock,
+            ),
         );
     }
 }

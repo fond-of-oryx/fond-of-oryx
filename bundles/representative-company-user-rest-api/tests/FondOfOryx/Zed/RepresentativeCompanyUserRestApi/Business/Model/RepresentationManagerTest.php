@@ -13,7 +13,7 @@ use Generated\Shared\Transfer\RestRepresentativeCompanyUserResponseTransfer;
 class RepresentationManagerTest extends Unit
 {
     /**
-     * @var FondOfOryx\Zed\RepresentativeCompanyUserRestApi\Dependency\Facade\RepresentativeCompanyUserRestApiToRepresentativeCompanyUserFacadeInterface|\PHPUnit\Framework\MockObject\MockObject
+     * @var \FondOfOryx\Zed\RepresentativeCompanyUserRestApi\Business\Model\FondOfOryx\Zed\RepresentativeCompanyUserRestApi\Dependency\Facade\RepresentativeCompanyUserRestApiToRepresentativeCompanyUserFacadeInterface|\PHPUnit\Framework\MockObject\MockObject
      */
     protected $facadeMock;
 
@@ -79,7 +79,7 @@ class RepresentationManagerTest extends Unit
 
         $this->representationManager = new RepresentationManager(
             $this->facadeMock,
-            $this->repositoryMock
+            $this->repositoryMock,
         );
     }
 
@@ -139,22 +139,22 @@ class RepresentationManagerTest extends Unit
             ->method('addRepresentativeCompanyUser')
             ->willReturn($this->representativeCompanyUserTransferMock);
 
-        $restRepresentativeCompanyUserResponseTransfer =  $this->representationManager
+        $restRepresentativeCompanyUserResponseTransfer = $this->representationManager
             ->addRepresentation($this->restRepresentativeCompanyUserRequestTransferMock);
 
         static::assertInstanceOf(
             RestRepresentativeCompanyUserResponseTransfer::class,
-            $restRepresentativeCompanyUserResponseTransfer
+            $restRepresentativeCompanyUserResponseTransfer,
         );
 
         static::assertEquals(
             $restRepresentativeCompanyUserResponseTransfer->getRequest(),
-            $this->restRepresentativeCompanyUserRequestTransferMock
+            $this->restRepresentativeCompanyUserRequestTransferMock,
         );
 
         static::assertEquals(
             $restRepresentativeCompanyUserResponseTransfer->getRepresentation(),
-            $this->representativeCompanyUserTransferMock
+            $this->representativeCompanyUserTransferMock,
         );
     }
 }

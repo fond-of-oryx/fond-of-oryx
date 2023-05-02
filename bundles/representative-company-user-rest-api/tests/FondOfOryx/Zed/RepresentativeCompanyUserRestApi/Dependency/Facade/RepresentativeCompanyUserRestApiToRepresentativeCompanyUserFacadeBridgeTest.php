@@ -5,6 +5,7 @@ namespace FondOfOryx\Zed\RepresentativeCompanyUserRestApi\Dependency\Facade;
 use Codeception\Test\Unit;
 use FondOfOryx\Zed\RepresentativeCompanyUser\Business\RepresentativeCompanyUserFacadeInterface;
 use Generated\Shared\Transfer\RepresentativeCompanyUserTransfer;
+
 class RepresentativeCompanyUserRestApiToRepresentativeCompanyUserFacadeBridgeTest extends Unit
 {
     /**
@@ -36,7 +37,7 @@ class RepresentativeCompanyUserRestApiToRepresentativeCompanyUserFacadeBridgeTes
             ->getMock();
 
         $this->facadeBridge = new RepresentativeCompanyUserRestApiToRepresentativeCompanyUserFacadeBridge(
-            $this->representativeCompanyUserFacadeMock
+            $this->representativeCompanyUserFacadeMock,
         );
     }
 
@@ -47,6 +48,5 @@ class RepresentativeCompanyUserRestApiToRepresentativeCompanyUserFacadeBridgeTes
      */
     public function testAddRepresentativeCompanyUser(): void
     {
-
     }
 }

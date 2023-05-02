@@ -79,8 +79,8 @@ class RepresentativeCompanyUserRestApiFacadeTest extends Unit
         static::assertEquals(
             $this->restRepresentativeCompanyUserResponseTransferMock,
             $this->facade->addRepresentation(
-                $this->restRepresentativeCompanyUserRequestTransferMock
-            )
+                $this->restRepresentativeCompanyUserRequestTransferMock,
+            ),
         );
     }
 }

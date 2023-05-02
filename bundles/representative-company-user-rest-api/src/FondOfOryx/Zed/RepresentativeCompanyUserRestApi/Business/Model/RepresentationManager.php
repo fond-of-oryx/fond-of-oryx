@@ -57,7 +57,6 @@ class RepresentationManager implements RepresentationManagerInterface
 
         $response = $this->representativeCompanyUserFacade->addRepresentativeCompanyUser($representationTransfer);
 
-
         return (new RestRepresentativeCompanyUserResponseTransfer())
             ->setRequest($restRepresentativeCompanyUserRequestTransfer)
             ->setRepresentation($response);
