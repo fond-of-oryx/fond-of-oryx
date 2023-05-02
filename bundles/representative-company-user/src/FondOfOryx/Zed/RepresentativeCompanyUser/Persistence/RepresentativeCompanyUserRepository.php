@@ -13,6 +13,8 @@ use Orm\Zed\RepresentativeCompanyUser\Persistence\Map\FooRepresentativeCompanyUs
 use Spryker\Zed\Kernel\Persistence\AbstractRepository;
 
 /**
+ * @codeCoverageIgnore
+ *
  * @method \FondOfOryx\Zed\RepresentativeCompanyUser\Persistence\RepresentativeCompanyUserPersistenceFactory getFactory()
  */
 class RepresentativeCompanyUserRepository extends AbstractRepository implements RepresentativeCompanyUserRepositoryInterface
