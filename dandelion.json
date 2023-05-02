@@ -57,7 +57,7 @@
     },
     "cart-search-rest-api": {
       "path": "bundles/cart-search-rest-api/",
-      "version": "2.0.0"
+      "version": "2.1.0"
     },
     "cart-search-rest-api-extension": {
       "path": "bundles/cart-search-rest-api-extension/",
