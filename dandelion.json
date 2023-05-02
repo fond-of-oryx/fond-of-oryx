@@ -763,6 +763,10 @@
       "path": "bundles/representative-company-user-rest-api-permission/",
       "version": "1.0.0.beta.1"
     },
+    "representative-company-user-extension": {
+      "path": "bundles/representative-company-user-extension/",
+      "version": "1.0.0.beta.1"
+    },
     "return-label": {
       "path": "bundles/return-label/",
       "version": "2.0.0"

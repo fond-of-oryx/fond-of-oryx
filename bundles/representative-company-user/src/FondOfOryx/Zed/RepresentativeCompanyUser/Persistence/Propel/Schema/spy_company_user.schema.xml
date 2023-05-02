@@ -4,10 +4,10 @@
           namespace="Orm\Zed\CompanyUser\Persistence" package="src.Orm.Zed.CompanyUser.Persistence">
 
     <table name="spy_company_user" phpName="SpyCompanyUser" identifierQuoting="true">
-        <column name="fk_representation_company_user" required="false" type="INTEGER"/>
+        <column name="fk_representative_company_user" required="false" type="INTEGER"/>
 
         <foreign-key name="spy_company_user-foo_representative_company_user" foreignTable="foo_representative_company_user">
-            <reference local="fk_representation_company_user" foreign="id_representative_company_user"/>
+            <reference local="fk_representative_company_user" foreign="id_representative_company_user"/>
         </foreign-key>
     </table>
 </database>

@@ -3,6 +3,7 @@
 namespace FondOfOryx\Zed\RepresentativeCompanyUser\Business\Manager;
 
 use Generated\Shared\Transfer\RepresentativeCompanyUserCollectionTransfer;
+use Generated\Shared\Transfer\RepresentativeCompanyUserFilterTransfer;
 use Generated\Shared\Transfer\RepresentativeCompanyUserTransfer;
 
 interface RepresentationManagerInterface
@@ -30,4 +31,18 @@ interface RepresentationManagerInterface
     public function setAllInProcess(
         RepresentativeCompanyUserCollectionTransfer $representativeCompanyUserCollectionTransfer
     ): RepresentativeCompanyUserCollectionTransfer;
+
+    /**
+     * @param \Generated\Shared\Transfer\RepresentativeCompanyUserFilterTransfer $filterTransfer
+     *
+     * @return void
+     */
+    public function checkForExpiration(RepresentativeCompanyUserFilterTransfer $filterTransfer): void;
+
+    /**
+     * @param \Generated\Shared\Transfer\RepresentativeCompanyUserFilterTransfer $filterTransfer
+     *
+     * @return void
+     */
+    public function checkForActivation(RepresentativeCompanyUserFilterTransfer $filterTransfer): void;
 }

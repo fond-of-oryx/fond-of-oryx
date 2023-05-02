@@ -3,7 +3,7 @@
            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
            xsi:schemaLocation="spryker:transfer-01 https://static.spryker.com/transfer-01.xsd">
     <transfer name="RepresentativeCompanyUser">
-        <property name="idRepresentation" type="int" />
+        <property name="idRepresentativeCompanyUser" type="int" />
         <property name="fkDistributor" type="int" />
         <property name="distributor" type="Customer" />
         <property name="fkRepresentative" type="int" />
@@ -36,5 +36,8 @@
     <transfer name="CompanyUser">
         <property name="fkRepresentativeCompanyUser" type="int" />
         <property name="representationOfSale" type="RepresentativeCompanyUser" />
+        <property name="isDefault" type="bool" />
+        <property name="companyUserReference" type="string" />
+        <property name="customerReference" type="string" />
     </transfer>
 </transfers>
