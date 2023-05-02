@@ -40,6 +40,8 @@ env:
           generate_map_classes: true
           generate_propel_classes: true
           generate_ide_auto_completion: true
+          ide_auto_completion_source_directories:
+            './vendor/fond-of-spryker/*/src/': '*/*/'
           supported_source_identifiers:
             - page
   monorepo:
