@@ -21,7 +21,7 @@ class JellyfishSalesOrderCompanyBusinessUnitBusinessFactoryTest extends Unit
     protected $companyUserReferenceFacadeMock;
 
     /**
-     * @var \FondOfOryx\Zed\JellyfishSalesOrderCompany\Business\JellyfishSalesOrderCompanyBusinessFactory
+     * @var \FondOfOryx\Zed\JellyfishSalesOrderCompanyBusinessUnit\Business\JellyfishSalesOrderCompanyBusinessUnitBusinessFactory
      */
     protected $factory;
 
