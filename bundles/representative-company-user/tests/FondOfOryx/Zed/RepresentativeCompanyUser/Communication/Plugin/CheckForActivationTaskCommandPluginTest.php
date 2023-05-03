@@ -49,7 +49,7 @@ class CheckForActivationTaskCommandPluginTest extends Unit
     {
         $this->facadeMock
             ->expects(static::atLeastOnce())
-            ->method('runTask');
+            ->method('checkForActivation');
         $this->plugin->run($this->representativeCompanyUserFilterTransferMock);
     }
 
