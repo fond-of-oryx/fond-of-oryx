@@ -8,7 +8,6 @@ use FondOfOryx\Zed\StockApi\Dependency\Facade\StockApiToApiFacadeInterface;
 use FondOfOryx\Zed\StockApi\Dependency\Facade\StockApiToStockInterface;
 use FondOfOryx\Zed\StockApi\Dependency\QueryContainer\StockApiToApiQueryBuilderQueryContainerBridge;
 use FondOfOryx\Zed\StockApi\Persistence\StockApiQueryContainer;
-use FondOfOryx\Zed\StockApi\Persistence\StockApiQueryContainerInterface;
 use FondOfOryx\Zed\StockApi\StockApiConfig;
 use FondOfOryx\Zed\StockApi\StockApiDependencyProvider;
 use Spryker\Zed\Kernel\Container;
@@ -91,16 +90,16 @@ class StockApiBusinessFactoryTest extends Unit
             protected $containerMock;
 
             /**
-             * @var \FondOfOryx\Zed\StockApi\Persistence\StockApiQueryContainerInterface
+             * @var \FondOfOryx\Zed\StockApi\Persistence\StockApiQueryContainer
              */
             protected $queryContainerMock;
 
             /**
              * @param \FondOfOryx\Zed\StockApi\StockApiConfig $config
              * @param \Spryker\Zed\Kernel\Container $container
-             * @param \FondOfOryx\Zed\StockApi\Persistence\StockApiQueryContainerInterface $queryContainer
+             * @param \FondOfOryx\Zed\StockApi\Persistence\StockApiQueryContainer $queryContainer
              */
-            public function __construct(StockApiConfig $config, Container $container, StockApiQueryContainerInterface $queryContainer)
+            public function __construct(StockApiConfig $config, Container $container, StockApiQueryContainer $queryContainer)
             {
                 $this->configMock = $config;
                 $this->containerMock = $container;

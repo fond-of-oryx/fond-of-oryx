@@ -20,9 +20,14 @@ class StockApiValidatorPluginTest extends Unit
     protected $stockApiValidatorPlugin;
 
     /**
-     * @var \FondOfOryx\Zed\StockApi\Business\StockApiFacadeInterface|\PHPUnit\Framework\MockObject\MockObject|null
+     * @var \FondOfOryx\Zed\StockApi\Business\StockApiFacade|\PHPUnit\Framework\MockObject\MockObject|null
      */
     protected $facadeMock;
+
+    /**
+     * @var \Generated\Shared\Transfer\ApiValidationErrorTransfer|\PHPUnit\Framework\MockObject\MockObject
+     */
+    protected $apiValidateErrorTransferMock;
 
     /**
      * @return void
