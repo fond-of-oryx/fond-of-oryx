@@ -42,11 +42,15 @@ class RepresentativeCompanyUserRestApiToRepresentativeCompanyUserFacadeBridgeTes
     }
 
     /**
-     * @skip missing module
-     *
      * @return void
      */
     public function testAddRepresentativeCompanyUser(): void
     {
+        $this->representativeCompanyUserFacadeMock
+            ->expects(static::atLeastOnce())
+            ->method('createRepresentativeCompanyUser')
+            ->willReturn($this->representativeCompanyUserTransferMock);
+
+        $this->facadeBridge->addRepresentativeCompanyUser($this->representativeCompanyUserTransferMock);
     }
 }

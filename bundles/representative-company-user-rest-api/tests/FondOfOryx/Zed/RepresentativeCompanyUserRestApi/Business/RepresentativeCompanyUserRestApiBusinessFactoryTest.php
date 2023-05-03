@@ -17,19 +17,19 @@ class RepresentativeCompanyUserRestApiBusinessFactoryTest extends Unit
     protected $containerMock;
 
     /**
-     * @var \FondOfOryx\Zed\RepresentativeCompanyUserRestApi\Business\FondOfOryx\Zed\RepresentativeCompanyUserRestApi\Dependency\Facade\RepresentativeCompanyUserRestApiToRepresentativeCompanyUserFacadeInterface|\PHPUnit\Framework\MockObject\MockObject
+     * @var \FondOfOryx\Zed\RepresentativeCompanyUserRestApi\Dependency\Facade\RepresentativeCompanyUserRestApiToRepresentativeCompanyUserFacadeInterface|\PHPUnit\Framework\MockObject\MockObject
      */
     protected $facadeMock;
+
+    /**
+     * @var \FondOfOryx\Zed\RepresentativeCompanyUserRestApi\Persistence\RepresentativeCompanyUserRestApiRepository|\PHPUnit\Framework\MockObject\MockObject
+     */
+    protected $repositoryMock;
 
     /**
      * @var \FondOfOryx\Zed\RepresentativeCompanyUserRestApi\Business\RepresentativeCompanyUserRestApiBusinessFactory
      */
     protected $factory;
-
-    /**
-     * @var \FondOfOryx\Zed\RepresentativeCompanyUserRestApi\Persistence\RepresentativeCompanyUserRestApiRepository\PHPUnit\Framework\MockObject\MockObject
-     */
-    protected $repositoryMock;
 
     /**
      * @return void

@@ -2,6 +2,7 @@
 
 namespace FondOfOryx\Zed\RepresentativeCompanyUserRestApi\Dependency\Facade;
 
+use FondOfOryx\Zed\RepresentativeCompanyUser\Business\RepresentativeCompanyUserFacadeInterface;
 use Generated\Shared\Transfer\RepresentativeCompanyUserTransfer;
 
 class RepresentativeCompanyUserRestApiToRepresentativeCompanyUserFacadeBridge implements RepresentativeCompanyUserRestApiToRepresentativeCompanyUserFacadeInterface

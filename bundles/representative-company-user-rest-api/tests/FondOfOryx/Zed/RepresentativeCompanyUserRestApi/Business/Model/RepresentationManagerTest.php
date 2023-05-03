@@ -13,17 +13,17 @@ use Generated\Shared\Transfer\RestRepresentativeCompanyUserResponseTransfer;
 class RepresentationManagerTest extends Unit
 {
     /**
-     * @var \FondOfOryx\Zed\RepresentativeCompanyUserRestApi\Business\Model\FondOfOryx\Zed\RepresentativeCompanyUserRestApi\Dependency\Facade\RepresentativeCompanyUserRestApiToRepresentativeCompanyUserFacadeInterface|\PHPUnit\Framework\MockObject\MockObject
+     * @var \FondOfOryx\Zed\RepresentativeCompanyUserRestApi\Dependency\Facade\RepresentativeCompanyUserRestApiToRepresentativeCompanyUserFacadeInterface|\PHPUnit\Framework\MockObject\MockObject
      */
     protected $facadeMock;
 
     /**
-     * @var \FondOfOryx\Zed\RepresentativeCompanyUserRestApi\Persistence\RepresentativeCompanyUserRestApiRepository\PHPUnit\Framework\MockObject\MockObject
+     * @var \FondOfOryx\Zed\RepresentativeCompanyUserRestApi\Persistence\RepresentativeCompanyUserRestApiRepository|\PHPUnit\Framework\MockObject\MockObject
      */
     protected $repositoryMock;
 
     /**
-     * @var \Generated\Shared\Transfer\RepresentativeCompanyUserTransfer\PHPUnit\Framework\MockObject\MockObject
+     * @var \Generated\Shared\Transfer\RepresentativeCompanyUserTransfer|\PHPUnit\Framework\MockObject\MockObject
      */
     protected $representativeCompanyUserTransferMock;
 
@@ -41,6 +41,11 @@ class RepresentationManagerTest extends Unit
      * @var \Generated\Shared\Transfer\RestRepresentativeCompanyUserRequestTransfer|\PHPUnit\Framework\MockObject\MockObject
      */
     protected $restRepresentativeCompanyUserRequestTransferMock;
+
+    /**
+     * @var \FondOfOryx\Zed\RepresentativeCompanyUserRestApi\Business\Model\RepresentationManagerInterface
+     */
+    protected $representationManager;
 
     /**
      * @return void

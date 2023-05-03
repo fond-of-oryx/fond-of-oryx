@@ -3,9 +3,10 @@
 namespace FondOfOryx\Zed\RepresentativeCompanyUserRestApi;
 
 use Codeception\Test\Unit;
-use FondOfOryx\Zed\BusinessOnBehalfProductListConnector\BusinessOnBehalfProductListConnectorDependencyProvider;
-use FondOfOryx\Zed\BusinessOnBehalfProductListConnector\Dependency\Facade\BusinessOnBehalfProductListConnectorToCustomerFacadeInterface;
-use FondOfOryx\Zed\BusinessOnBehalfProductListConnector\Dependency\Facade\BusinessOnBehalfProductListConnectorToProductListFacadeInterface;
+use FondOfOryx\Zed\RepresentativeCompanyUser\Business\RepresentativeCompanyUserFacadeInterface;
+use FondOfOryx\Zed\RepresentativeCompanyUserRestApi\Dependency\Facade\RepresentativeCompanyUserRestApiToRepresentativeCompanyUserFacadeInterface;
+use Orm\Zed\CompanyUser\Persistence\SpyCompanyUserQuery;
+use Orm\Zed\Customer\Persistence\SpyCustomerQuery;
 use PHPUnit\Framework\MockObject\MockObject;
 use Spryker\Shared\Kernel\BundleProxy;
 use Spryker\Zed\Kernel\Container;
@@ -39,6 +40,11 @@ class RepresentativeCompanyUserRestApiDependencyProviderTest extends Unit
     protected $representativeCompanyUserTransferMock;
 
     /**
+     * @var \FondOfOryx\Zed\RepresentativeCompanyUserRestApi\RepresentativeCompanyUserRestApiDependencyProvider
+     */
+    protected $dependencyProvider;
+
+    /**
      * @return void
      */
     protected function _before(): void
@@ -55,15 +61,17 @@ class RepresentativeCompanyUserRestApiDependencyProviderTest extends Unit
             ->disableOriginalConstructor()
             ->getMock();
 
+        $this->representativeCompanyUserFacadeMock = $this->getMockBuilder(RepresentativeCompanyUserFacadeInterface::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
         $this->dependencyProvider = new RepresentativeCompanyUserRestApiDependencyProvider();
     }
 
     /**
-     * @skip missing module
-     *
      * @return void
      */
-    public function testProvidePersistenceLayerDependencies(): void
+    public function testProvideBusinessLayerDependencies(): void
     {
         $this->containerMock->expects(static::atLeastOnce())
             ->method('getLocator')
@@ -71,16 +79,14 @@ class RepresentativeCompanyUserRestApiDependencyProviderTest extends Unit
 
         $this->locatorMock->expects(static::atLeastOnce())
             ->method('__call')
-            ->withConsecutive(['businessOnBehalf'], ['customer'], ['productList'])
+            ->withConsecutive(['representativeCompanyUser'])
             ->willReturn($this->bundleProxyMock);
 
         $this->bundleProxyMock->expects(static::atLeastOnce())
             ->method('__call')
-            ->withConsecutive(['facade'], ['facade'], ['facade'])
+            ->withConsecutive(['facade'])
             ->willReturnOnConsecutiveCalls(
-                $this->businessOnBehalfFacadeMock,
-                $this->customerFacadeMock,
-                $this->productListFacadeMock,
+                $this->representativeCompanyUserFacadeMock,
             );
 
         $container = $this->dependencyProvider->provideBusinessLayerDependencies($this->containerMock);
@@ -88,18 +94,28 @@ class RepresentativeCompanyUserRestApiDependencyProviderTest extends Unit
         static::assertEquals($this->containerMock, $container);
 
         static::assertInstanceOf(
-            FACADE_REPRESENTATIVE_COMPANY_USER::class,
-            $container[BusinessOnBehalfProductListConnectorDependencyProvider::FACADE_BUSINESS_ON_BEHALF],
+            RepresentativeCompanyUserRestApiToRepresentativeCompanyUserFacadeInterface::class,
+            $container[RepresentativeCompanyUserRestApiDependencyProvider::FACADE_REPRESENTATIVE_COMPANY_USER],
+        );
+    }
+
+    /**
+     * @return void
+     */
+    public function testProvidePersistenceLayerDependencies(): void
+    {
+        $container = $this->dependencyProvider->providePersistenceLayerDependencies($this->containerMock);
+
+        static::assertEquals($this->containerMock, $container);
+
+        static::assertInstanceOf(
+            SpyCustomerQuery::class,
+            $container[RepresentativeCompanyUserRestApiDependencyProvider::QUERY_SPY_CUSTOMER],
         );
 
         static::assertInstanceOf(
-            BusinessOnBehalfProductListConnectorToCustomerFacadeInterface::class,
-            $container[BusinessOnBehalfProductListConnectorDependencyProvider::FACADE_CUSTOMER],
-        );
-
-        static::assertInstanceOf(
-            BusinessOnBehalfProductListConnectorToProductListFacadeInterface::class,
-            $container[BusinessOnBehalfProductListConnectorDependencyProvider::FACADE_PRODUCT_LIST],
+            SpyCompanyUserQuery::class,
+            $container[RepresentativeCompanyUserRestApiDependencyProvider::QUERY_SPY_COMPANY_USER],
         );
     }
 }
