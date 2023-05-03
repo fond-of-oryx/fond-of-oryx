@@ -159,7 +159,9 @@ include:
   - bundles/product-locale-restriction-storage
   - bundles/product-payment-restriction
   - bundles/qr-code-generator
+  - bundles/representative-company-user
   - bundles/representative-company-user-rest-api
+  - bundles/representative-company-user-rest-api-permission
   - bundles/return-label
   - bundles/return-labels-rest-api
   - bundles/return-labels-rest-api-company-unit-address-connector

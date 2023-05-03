@@ -49,7 +49,7 @@ class CheckForExpirationTaskCommandPluginTest extends Unit
     {
         $this->facadeMock
             ->expects(static::atLeastOnce())
-            ->method('runTask');
+            ->method('checkForExpiration');
 
         $this->plugin->run($this->representativeCompanyUserFilterTransferMock);
     }
