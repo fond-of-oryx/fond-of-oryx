@@ -85,6 +85,6 @@ class InvoiceApiToApiFacadeBridgeTest extends Unit
             ->with($this->invoiceTransferMock, 1)
             ->willReturn($this->apiItemTransferMock);
 
-        static::assertEquals($this->apiItemTransferMock, $this->bridge->createApiItem($this->invoiceTransferMock, 1));
+        static::assertEquals($this->apiItemTransferMock, $this->bridge->createApiItem($this->invoiceTransferMock, '1'));
     }
 }
