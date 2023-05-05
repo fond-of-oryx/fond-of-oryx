@@ -90,7 +90,7 @@ class MailjetMailer implements MailProviderPluginInterface
                     $response->getBody(),
                 );
             }
-        } catch(Exception $e) {
+        } catch (Exception $e) {
             $this->logger->error(
                 $e->getMessage(),
                 $body,
