@@ -41,5 +41,5 @@ interface RepresentationManagerInterface
      */
     public function deleteRepresentation(
         RestRepresentativeCompanyUserRequestTransfer $restRepresentativeCompanyUserRequestTransfer
-    ): RestRepresentativeCompanyUserResponseTransfer ;
+    ): RestRepresentativeCompanyUserResponseTransfer;
 }

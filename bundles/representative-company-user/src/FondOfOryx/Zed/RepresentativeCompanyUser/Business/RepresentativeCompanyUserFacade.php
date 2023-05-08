@@ -153,6 +153,4 @@ class RepresentativeCompanyUserFacade extends AbstractFacade implements Represen
     {
         return $this->getFactory()->createRepresentationManager()->getRepresentativeCompanyUser($filterTransfer);
     }
-
-
 }

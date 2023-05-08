@@ -9,7 +9,9 @@ use Symfony\Component\HttpFoundation\Request;
 
 class RepresentationMapper implements RepresentationMapperInterface
 {
-    /** @var array */
+    /**
+     * @var array
+     */
     protected const UUID_METHODS = [
         Request::METHOD_PATCH,
         Request::METHOD_DELETE,
@@ -23,10 +25,9 @@ class RepresentationMapper implements RepresentationMapperInterface
      * @return \Generated\Shared\Transfer\RestRepresentativeCompanyUserRequestTransfer
      */
     public function createRequest(
-        RestRequestInterface                             $restRequest,
+        RestRequestInterface $restRequest,
         ?RestRepresentativeCompanyUserAttributesTransfer $attributesTransfer = null
-    ): RestRepresentativeCompanyUserRequestTransfer
-    {
+    ): RestRepresentativeCompanyUserRequestTransfer {
         if ($attributesTransfer === null) {
             $attributesTransfer = $this->createAttributesFromRequest($restRequest);
         }
@@ -74,6 +75,7 @@ class RepresentationMapper implements RepresentationMapperInterface
         if (in_array($meta->getMethod(), static::UUID_METHODS, true)) {
             return $restRequest->getResource()->getId();
         }
+
         return null;
     }
 }

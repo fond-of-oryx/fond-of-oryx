@@ -82,7 +82,7 @@ class RepresentationManager implements RepresentationManagerInterface
         if (
             $representationTransfer->getDistributor()->getCustomerReference() !== $restRepresentativeCompanyUserAttributesTransfer->getReferenceDistributor()
             || $representationTransfer->getRepresentative()->getCustomerReference() !== $restRepresentativeCompanyUserAttributesTransfer->getReferenceRepresentation()
-        ){
+        ) {
             $representationTransfer->setStatus(FooRepresentativeCompanyUserTableMap::COL_STATE_REVOKED);
             $this->representativeCompanyUserFacade->updateRepresentativeCompanyUser($representationTransfer);
 
@@ -95,28 +95,25 @@ class RepresentationManager implements RepresentationManagerInterface
             ->setStartDate($restRepresentativeCompanyUserAttributesTransfer->getStartDate());
         $response = $this->representativeCompanyUserFacade->updateRepresentativeCompanyUser($representationTransfer);
 
-
         return (new RestRepresentativeCompanyUserResponseTransfer())
             ->setRequest($restRepresentativeCompanyUserRequestTransfer)
             ->setRepresentation($response);
     }
 
     /**
-     * @param string $uuid
+     * @param \Generated\Shared\Transfer\RestRepresentativeCompanyUserRequestTransfer $restRepresentativeCompanyUserRequestTransfer
      *
      * @return \Generated\Shared\Transfer\RestRepresentativeCompanyUserResponseTransfer
      */
     public function deleteRepresentation(
         RestRepresentativeCompanyUserRequestTransfer $restRepresentativeCompanyUserRequestTransfer
-    ): RestRepresentativeCompanyUserResponseTransfer  {
+    ): RestRepresentativeCompanyUserResponseTransfer {
         $attributes = $restRepresentativeCompanyUserRequestTransfer->getAttributes();
 
         try {
             $attributes->requireUuid();
             $representation = $this->representativeCompanyUserFacade->deleteRepresentativeCompanyUser($attributes->getUuid());
-        }
-        catch (Exception $exception){
-
+        } catch (Exception $exception) {
         }
 
         return (new RestRepresentativeCompanyUserResponseTransfer())->setRepresentation($representation);
@@ -130,9 +127,9 @@ class RepresentationManager implements RepresentationManagerInterface
      */
     protected function getStatus(
         RepresentativeCompanyUserTransfer $representativeCompanyUserTransfer,
-        RestRepresentativeCompanyUserAttributesTransfer $representativeCompanyUserAttributesTransfer): string
-    {
-        if ($representativeCompanyUserAttributesTransfer->getStartDate() < $representativeCompanyUserTransfer->getStartDate()){
+        RestRepresentativeCompanyUserAttributesTransfer $representativeCompanyUserAttributesTransfer
+    ): string {
+        if ($representativeCompanyUserAttributesTransfer->getStartDate() < $representativeCompanyUserTransfer->getStartDate()) {
             return FooRepresentativeCompanyUserTableMap::COL_STATE_REVOKED;
         }
 
@@ -144,14 +141,14 @@ class RepresentationManager implements RepresentationManagerInterface
      *
      * @return \Generated\Shared\Transfer\RestRepresentativeCompanyUserResponseTransfer
      */
-    public function getRepresentation(RestRepresentativeCompanyUserRequestTransfer $restRepresentativeCompanyUserRequestTransfer): RestRepresentativeCompanyUserResponseTransfer
-    {
+    public function getRepresentation(
+        RestRepresentativeCompanyUserRequestTransfer $restRepresentativeCompanyUserRequestTransfer
+    ): RestRepresentativeCompanyUserResponseTransfer {
         $attributes = $restRepresentativeCompanyUserRequestTransfer->getAttributes();
         $filter = (new RepresentativeCompanyUserFilterTransfer())->addDistributorReference($attributes->getUuid());
 
         $collection = $this->representativeCompanyUserFacade->getRepresentativeCompanyUser($filter);
+
         return (new RestRepresentativeCompanyUserResponseTransfer())->setCollection($collection);
     }
-
-
 }

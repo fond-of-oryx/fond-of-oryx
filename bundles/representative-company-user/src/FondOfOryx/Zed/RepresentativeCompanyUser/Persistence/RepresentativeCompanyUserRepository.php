@@ -115,7 +115,7 @@ class RepresentativeCompanyUserRepository extends AbstractRepository implements 
     }
 
     /**
-     * @param \Generated\Shared\Transfer\RepresentativeCompanyUserFilterTransfer $filterTransfer
+     * @param \Generated\Shared\Transfer\RepresentativeCompanyUserFilterTransfer|null $filterTransfer
      *
      * @return \Generated\Shared\Transfer\RepresentativeCompanyUserCollectionTransfer
      */
@@ -204,13 +204,15 @@ class RepresentativeCompanyUserRepository extends AbstractRepository implements 
     /**
      * @param string $uuid
      *
+     * @throws \Exception
+     *
      * @return \Generated\Shared\Transfer\RepresentativeCompanyUserTransfer
      */
     public function findRepresentationByUuid(string $uuid): RepresentativeCompanyUserTransfer
     {
         $result = $this->getFactory()->getRepresentativeCompanyUserQuery()->findOneByUuid($uuid);
 
-        if ($result === null){
+        if ($result === null) {
             throw new Exception(sprintf('Could not find representative company user entry with given uuid "%s"', $uuid));
         }
 

@@ -124,6 +124,4 @@ class RepresentationManager implements RepresentationManagerInterface
 
         return $this->responseBuilder->buildRepresentativeCompanyUserMissingPermissionResponse();
     }
-
-
 }

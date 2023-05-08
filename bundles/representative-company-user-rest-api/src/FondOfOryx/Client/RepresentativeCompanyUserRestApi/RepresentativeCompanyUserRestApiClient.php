@@ -35,8 +35,9 @@ class RepresentativeCompanyUserRestApiClient extends AbstractClient implements R
      *
      * @return \Generated\Shared\Transfer\RestRepresentativeCompanyUserResponseTransfer
      */
-    public function getRepresentation(RestRepresentativeCompanyUserRequestTransfer $restRepresentativeCompanyUserRequestTransfer): RestRepresentativeCompanyUserResponseTransfer
-    {
+    public function getRepresentation(
+        RestRepresentativeCompanyUserRequestTransfer $restRepresentativeCompanyUserRequestTransfer
+    ): RestRepresentativeCompanyUserResponseTransfer {
         return $this->getFactory()->createZedRepresentativeCompanyUserRestApiStub()->getRepresentation($restRepresentativeCompanyUserRequestTransfer);
     }
 
@@ -49,8 +50,9 @@ class RepresentativeCompanyUserRestApiClient extends AbstractClient implements R
      *
      * @return \Generated\Shared\Transfer\RestRepresentativeCompanyUserResponseTransfer
      */
-    public function patchRepresentation(RestRepresentativeCompanyUserRequestTransfer $restRepresentativeCompanyUserRequestTransfer): RestRepresentativeCompanyUserResponseTransfer
-    {
+    public function patchRepresentation(
+        RestRepresentativeCompanyUserRequestTransfer $restRepresentativeCompanyUserRequestTransfer
+    ): RestRepresentativeCompanyUserResponseTransfer {
         return $this->getFactory()->createZedRepresentativeCompanyUserRestApiStub()->patchRepresentation($restRepresentativeCompanyUserRequestTransfer);
     }
 
@@ -63,10 +65,9 @@ class RepresentativeCompanyUserRestApiClient extends AbstractClient implements R
      *
      * @return \Generated\Shared\Transfer\RestRepresentativeCompanyUserResponseTransfer
      */
-    public function deleteRepresentation(RestRepresentativeCompanyUserRequestTransfer $restRepresentativeCompanyUserRequestTransfer): RestRepresentativeCompanyUserResponseTransfer
-    {
+    public function deleteRepresentation(
+        RestRepresentativeCompanyUserRequestTransfer $restRepresentativeCompanyUserRequestTransfer
+    ): RestRepresentativeCompanyUserResponseTransfer {
         return $this->getFactory()->createZedRepresentativeCompanyUserRestApiStub()->deleteRepresentation($restRepresentativeCompanyUserRequestTransfer);
     }
-
-
 }

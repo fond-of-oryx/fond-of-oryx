@@ -39,6 +39,8 @@ class RepresentativeCompanyUserEntityManager extends AbstractEntityManager imple
     /**
      * @param \Generated\Shared\Transfer\RepresentativeCompanyUserTransfer $representativeCompanyUserTransfer
      *
+     * @throws \Exception
+     *
      * @return \Generated\Shared\Transfer\RepresentativeCompanyUserTransfer
      */
     public function updateRepresentativeCompanyUser(RepresentativeCompanyUserTransfer $representativeCompanyUserTransfer): RepresentativeCompanyUserTransfer
@@ -48,11 +50,11 @@ class RepresentativeCompanyUserEntityManager extends AbstractEntityManager imple
         $query = new FooRepresentativeCompanyUserQuery();
         $entity = $query->filterByUuid($representativeCompanyUserTransfer->getUuid())->findOne();
 
-        if ($entity === null){
+        if ($entity === null) {
             throw new Exception(sprintf('Could not find representation with given uuid "%s"', $representativeCompanyUserTransfer->getUuid()));
         }
 
-        if ($entity->getState() === FooRepresentativeCompanyUserTableMap::COL_STATE_PROCESS){
+        if ($entity->getState() === FooRepresentativeCompanyUserTableMap::COL_STATE_PROCESS) {
             throw new Exception(sprintf('Representation with given uuid "%s" is still in process, please try again later!', $representativeCompanyUserTransfer->getUuid()));
         }
         $entity->fromArray($representativeCompanyUserTransfer->modifiedToArray());

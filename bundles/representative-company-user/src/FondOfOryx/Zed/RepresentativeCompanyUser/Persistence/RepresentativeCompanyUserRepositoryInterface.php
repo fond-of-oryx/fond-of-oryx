@@ -50,7 +50,7 @@ interface RepresentativeCompanyUserRepositoryInterface
     ): RepresentativeCompanyUserCollectionTransfer;
 
     /**
-     * @param \Generated\Shared\Transfer\RepresentativeCompanyUserFilterTransfer $filterTransfer
+     * @param \Generated\Shared\Transfer\RepresentativeCompanyUserFilterTransfer|null $filterTransfer
      *
      * @return \Generated\Shared\Transfer\RepresentativeCompanyUserCollectionTransfer
      */
