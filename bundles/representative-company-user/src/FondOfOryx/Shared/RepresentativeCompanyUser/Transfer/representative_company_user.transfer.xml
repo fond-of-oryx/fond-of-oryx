@@ -31,6 +31,7 @@
         <property name="ids" singular="id" type="array" />
         <property name="validTimeRange" type="bool" />
         <property name="states" singular="state" type="array" />
+        <property name="distributorReferences" singular="distributorReference" type="array" />
     </transfer>
 
     <transfer name="CompanyUser">

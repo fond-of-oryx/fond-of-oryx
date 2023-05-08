@@ -39,16 +39,6 @@ class RepresentativeCompanyUserBusinessFactory extends AbstractBusinessFactory
     }
 
     /**
-     * @return \FondOfOryx\Zed\RepresentativeCompanyUser\Business\Writer\RepresentativeCompanyUserWriterInterface
-     */
-    public function createRepresentativeCompanyUserWriter(): RepresentativeCompanyUserWriterInterface
-    {
-        return new RepresentativeCompanyUserWriter(
-            $this->getEntityManager(),
-        );
-    }
-
-    /**
      * @return \FondOfOryx\Zed\RepresentativeCompanyUser\Business\Reader\RepresentativeCompanyUserReaderInterface
      */
     public function createRepresentativeCompanyUserReader(): RepresentativeCompanyUserReaderInterface
@@ -65,7 +55,7 @@ class RepresentativeCompanyUserBusinessFactory extends AbstractBusinessFactory
     public function createRepresentationManager(): RepresentationManagerInterface
     {
         return new RepresentationManager(
-            $this->createRepresentativeCompanyUserWriter(),
+            $this->getEntityManager(),
             $this->createRepresentativeCompanyUserReader(),
             $this->getEventFacade(),
             $this->getUtilUuidGeneratorService(),

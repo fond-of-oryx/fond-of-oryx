@@ -146,18 +146,6 @@ class RepresentativeCompanyUserBusinessFactoryTest extends Unit
     /**
      * @return void
      */
-    public function testCreateRepresentativeCompanyUserWriter(): void
-    {
-        static::assertInstanceOf(
-            RepresentativeCompanyUserWriter::class,
-            $this->factory
-                ->createRepresentativeCompanyUserWriter(),
-        );
-    }
-
-    /**
-     * @return void
-     */
     public function testCreateRepresentativeCompanyUserReader(): void
     {
         static::assertInstanceOf(

@@ -15,4 +15,31 @@ interface RepresentativeCompanyUserRestApiFacadeInterface
     public function addRepresentation(
         RestRepresentativeCompanyUserRequestTransfer $restRepresentativeCompanyUserRequestTransfer
     ): RestRepresentativeCompanyUserResponseTransfer;
+
+    /**
+     * @param \Generated\Shared\Transfer\RestRepresentativeCompanyUserRequestTransfer $restRepresentativeCompanyUserRequestTransfer
+     *
+     * @return \Generated\Shared\Transfer\RestRepresentativeCompanyUserResponseTransfer
+     */
+    public function getRepresentation(
+        RestRepresentativeCompanyUserRequestTransfer $restRepresentativeCompanyUserRequestTransfer
+    ): RestRepresentativeCompanyUserResponseTransfer;
+
+    /**
+     * @param \Generated\Shared\Transfer\RestRepresentativeCompanyUserRequestTransfer $restRepresentativeCompanyUserRequestTransfer
+     *
+     * @return \Generated\Shared\Transfer\RestRepresentativeCompanyUserResponseTransfer
+     */
+    public function updateRepresentation(
+        RestRepresentativeCompanyUserRequestTransfer $restRepresentativeCompanyUserRequestTransfer
+    ): RestRepresentativeCompanyUserResponseTransfer;
+
+    /**
+     * @param \Generated\Shared\Transfer\RestRepresentativeCompanyUserRequestTransfer $restRepresentativeCompanyUserRequestTransfer
+     *
+     * @return \Generated\Shared\Transfer\RestRepresentativeCompanyUserResponseTransfer
+     */
+    public function deleteRepresentation(
+        RestRepresentativeCompanyUserRequestTransfer $restRepresentativeCompanyUserRequestTransfer
+    ): RestRepresentativeCompanyUserResponseTransfer;
 }
