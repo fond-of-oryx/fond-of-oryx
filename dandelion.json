@@ -649,7 +649,7 @@
     },
     "order-budget": {
       "path": "bundles/order-budget/",
-      "version": "2.0.0"
+      "version": "2.1.0"
     },
     "payment-address-restriction": {
       "path": "bundles/payment-address-restriction/",

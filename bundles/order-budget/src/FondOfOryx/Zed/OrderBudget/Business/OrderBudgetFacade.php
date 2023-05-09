@@ -65,4 +65,18 @@ class OrderBudgetFacade extends AbstractFacade implements OrderBudgetFacadeInter
     {
         return $this->getRepository()->findOrderBudgetByIdOrderBudget($idOrderBudget);
     }
+
+    /**
+     * {@inheritDoc}
+     *
+     * @api
+     *
+     * @param array<int> $orderBudgetIds
+     *
+     * @return array<\Generated\Shared\Transfer\OrderBudgetTransfer>
+     */
+    public function findOrderBudgetsByOrderBudgetIds(array $orderBudgetIds): array
+    {
+        return $this->getRepository()->findOrderBudgetsByOrderBudgetIds($orderBudgetIds);
+    }
 }
