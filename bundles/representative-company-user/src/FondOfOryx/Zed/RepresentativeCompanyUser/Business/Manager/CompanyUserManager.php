@@ -88,11 +88,10 @@ class CompanyUserManager implements CompanyUserManagerInterface
             if (!$response->getIsSuccessful()) {
                 //ToDo handle error case
             }
-            if ($test === 10){
+            if ($test === 10) {
                 return;
             }
             $test++;
-
         }
     }
 
