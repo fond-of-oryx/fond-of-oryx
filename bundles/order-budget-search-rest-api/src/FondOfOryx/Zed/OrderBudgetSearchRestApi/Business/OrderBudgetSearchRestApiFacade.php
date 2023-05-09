@@ -24,6 +24,5 @@ class OrderBudgetSearchRestApiFacade extends AbstractFacade implements OrderBudg
         return $this->getFactory()
             ->createOrderBudgetReader()
             ->findByOrderBudgetList($orderBudgetListTransfer);
-
     }
 }
