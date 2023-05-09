@@ -22,6 +22,10 @@ class RepresentativeCompanyUserEventSubscriber extends AbstractPlugin implements
             RepresentativeCompanyUserConstants::REPRESENTATIVE_COMPANY_USER_MARK_FOR_EXPIRE,
             new RepresentativeCompanyUserCompanyUserDeleterListener(),
         );
+        $eventCollection->addListenerQueued(
+            RepresentativeCompanyUserConstants::REPRESENTATIVE_COMPANY_USER_MARK_FOR_REVOCATION,
+            new RepresentativeCompanyUserCompanyUserDeleterListener(),
+        );
 
         $eventCollection->addListenerQueued(
             RepresentativeCompanyUserConstants::REPRESENTATIVE_COMPANY_USER_MARK_FOR_CREATE_COMPANY_USER,

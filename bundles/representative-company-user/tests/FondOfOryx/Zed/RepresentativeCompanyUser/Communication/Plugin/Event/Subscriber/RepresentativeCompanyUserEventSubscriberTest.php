@@ -55,6 +55,17 @@ class RepresentativeCompanyUserEventSubscriberTest extends Unit
                     null,
                 ],
                 [
+                    RepresentativeCompanyUserConstants::REPRESENTATIVE_COMPANY_USER_MARK_FOR_REVOCATION,
+                    static::callback(
+                        static function (EventBaseHandlerInterface $eventHandler) {
+                            return $eventHandler instanceof RepresentativeCompanyUserCompanyUserDeleterListener;
+                        },
+                    ),
+                    0,
+                    null,
+                    null,
+                ],
+                [
                     RepresentativeCompanyUserConstants::REPRESENTATIVE_COMPANY_USER_MARK_FOR_CREATE_COMPANY_USER,
                     static::callback(
                         static function (EventBaseHandlerInterface $eventHandler) {

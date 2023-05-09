@@ -24,6 +24,13 @@ interface RepresentativeCompanyUserFacadeInterface
     public function checkForActivation(RepresentativeCompanyUserFilterTransfer $filterTransfer): void;
 
     /**
+     * @param \Generated\Shared\Transfer\RepresentativeCompanyUserFilterTransfer $filterTransfer
+     *
+     * @return void
+     */
+    public function checkForRevocation(RepresentativeCompanyUserFilterTransfer $filterTransfer): void;
+
+    /**
      * @param \Generated\Shared\Transfer\RepresentativeCompanyUserTransfer $representativeCompanyUserTransfer
      *
      * @return \Generated\Shared\Transfer\RepresentativeCompanyUserTransfer

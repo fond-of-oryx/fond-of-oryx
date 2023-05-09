@@ -72,6 +72,22 @@ class RepresentationManager implements RepresentationManagerInterface
     /**
      * @param \Generated\Shared\Transfer\RepresentativeCompanyUserFilterTransfer $filterTransfer
      *
+     * @return void
+     */
+    public function checkForRevocation(RepresentativeCompanyUserFilterTransfer $filterTransfer): void
+    {
+        $revokedCollection = $this->reader->getRepresentativeCompanyUserByState(FooRepresentativeCompanyUserTableMap::COL_STATE_REVOKED);
+        foreach ($this->setAllInProcess($revokedCollection)->getRepresentations() as $representationTransfer) {
+            $this->eventFacade->trigger(
+                RepresentativeCompanyUserConstants::REPRESENTATIVE_COMPANY_USER_MARK_FOR_REVOCATION,
+                $representationTransfer,
+            );
+        }
+    }
+
+    /**
+     * @param \Generated\Shared\Transfer\RepresentativeCompanyUserFilterTransfer $filterTransfer
+     *
      * @return \Generated\Shared\Transfer\RepresentativeCompanyUserCollectionTransfer
      */
     public function getRepresentativeCompanyUser(RepresentativeCompanyUserFilterTransfer $filterTransfer): RepresentativeCompanyUserCollectionTransfer
