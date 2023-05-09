@@ -5,6 +5,7 @@ namespace FondOfOryx\Zed\RepresentativeCompanyUser\Business\Reader;
 use Generated\Shared\Transfer\CompanyUserCollectionTransfer;
 use Generated\Shared\Transfer\RepresentativeCompanyUserCollectionTransfer;
 use Generated\Shared\Transfer\RepresentativeCompanyUserFilterTransfer;
+use Generated\Shared\Transfer\RepresentativeCompanyUserTransfer;
 
 interface RepresentativeCompanyUserReaderInterface
 {
@@ -42,9 +43,23 @@ interface RepresentativeCompanyUserReaderInterface
     public function getAllCompanyUserByFkRepresentativeCompanyUser(int $idRepresentativeCompanyUser): CompanyUserCollectionTransfer;
 
     /**
+     * @param string $uuid
+     *
+     * @return \Generated\Shared\Transfer\RepresentativeCompanyUserTransfer
+     */
+    public function getRepresentationByUuid(string $uuid): RepresentativeCompanyUserTransfer;
+
+    /**
      * @param \Generated\Shared\Transfer\RepresentativeCompanyUserFilterTransfer $filterTransfer
      *
      * @return \Generated\Shared\Transfer\RepresentativeCompanyUserCollectionTransfer
      */
     public function getExpiredRepresentativeCompanyUser(RepresentativeCompanyUserFilterTransfer $filterTransfer): RepresentativeCompanyUserCollectionTransfer;
+
+    /**
+     * @param \Generated\Shared\Transfer\RepresentativeCompanyUserFilterTransfer $filterTransfer
+     *
+     * @return \Generated\Shared\Transfer\RepresentativeCompanyUserCollectionTransfer
+     */
+    public function getRepresentativeCompanyUser(RepresentativeCompanyUserFilterTransfer $filterTransfer): RepresentativeCompanyUserCollectionTransfer;
 }

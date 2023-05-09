@@ -19,6 +19,7 @@
     <transfer name="RestRepresentativeCompanyUserResponse">
         <property name="request" type="RestRepresentativeCompanyUserRequest"/>
         <property name="representation" type="RepresentativeCompanyUser"/>
+        <property name="collection" type="RepresentativeCompanyUserCollection"/>
     </transfer>
 
     <transfer name="RepresentativeCompanyUser" />

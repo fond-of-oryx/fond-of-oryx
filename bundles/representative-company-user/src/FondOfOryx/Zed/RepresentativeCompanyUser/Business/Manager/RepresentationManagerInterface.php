@@ -16,12 +16,33 @@ interface RepresentationManagerInterface
     public function addRepresentation(RepresentativeCompanyUserTransfer $representativeCompanyUserTransfer): RepresentativeCompanyUserTransfer;
 
     /**
+     * @param \Generated\Shared\Transfer\RepresentativeCompanyUserTransfer $representativeCompanyUserTransfer
+     *
+     * @return \Generated\Shared\Transfer\RepresentativeCompanyUserTransfer
+     */
+    public function updateRepresentation(RepresentativeCompanyUserTransfer $representativeCompanyUserTransfer): RepresentativeCompanyUserTransfer;
+
+    /**
      * @param string $uuid
      * @param string $state
      *
      * @return \Generated\Shared\Transfer\RepresentativeCompanyUserTransfer
      */
     public function flagState(string $uuid, string $state): RepresentativeCompanyUserTransfer;
+
+    /**
+     * @param string $uuid
+     *
+     * @return \Generated\Shared\Transfer\RepresentativeCompanyUserTransfer
+     */
+    public function findByUuid(string $uuid): RepresentativeCompanyUserTransfer;
+
+    /**
+     * @param string $uuid
+     *
+     * @return \Generated\Shared\Transfer\RepresentativeCompanyUserTransfer
+     */
+    public function deleteRepresentativeCompanyUser(string $uuid): RepresentativeCompanyUserTransfer;
 
     /**
      * @param \Generated\Shared\Transfer\RepresentativeCompanyUserCollectionTransfer $representativeCompanyUserCollectionTransfer
@@ -38,6 +59,13 @@ interface RepresentationManagerInterface
      * @return void
      */
     public function checkForExpiration(RepresentativeCompanyUserFilterTransfer $filterTransfer): void;
+
+    /**
+     * @param \Generated\Shared\Transfer\RepresentativeCompanyUserFilterTransfer $filterTransfer
+     *
+     * @return \Generated\Shared\Transfer\RepresentativeCompanyUserCollectionTransfer
+     */
+    public function getRepresentativeCompanyUser(RepresentativeCompanyUserFilterTransfer $filterTransfer): RepresentativeCompanyUserCollectionTransfer;
 
     /**
      * @param \Generated\Shared\Transfer\RepresentativeCompanyUserFilterTransfer $filterTransfer

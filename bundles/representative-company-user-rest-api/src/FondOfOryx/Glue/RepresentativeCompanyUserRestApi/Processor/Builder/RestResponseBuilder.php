@@ -3,6 +3,7 @@
 namespace FondOfOryx\Glue\RepresentativeCompanyUserRestApi\Processor\Builder;
 
 use FondOfOryx\Glue\RepresentativeCompanyUserRestApi\RepresentativeCompanyUserRestApiConfig;
+use Generated\Shared\Transfer\RepresentativeCompanyUserCollectionTransfer;
 use Generated\Shared\Transfer\RepresentativeCompanyUserTransfer;
 use Generated\Shared\Transfer\RestErrorMessageTransfer;
 use Spryker\Glue\GlueApplication\Rest\JsonApi\RestResourceBuilderInterface;
@@ -32,6 +33,25 @@ class RestResponseBuilder implements RestResponseBuilderInterface
      */
     public function buildRepresentativeCompanyUserRestResponse(
         RepresentativeCompanyUserTransfer $representativeCompanyUserTransfer
+    ): RestResponseInterface {
+        $restResponse = $this->restResourceBuilder->createRestResponse();
+
+        $restResource = $this->restResourceBuilder->createRestResource(
+            RepresentativeCompanyUserRestApiConfig::RESOURCE_REPRESENTATIVE_COMPANY_USER_REST_API,
+            null,
+            $representativeCompanyUserTransfer,
+        );
+
+        return $restResponse->addResource($restResource);
+    }
+
+    /**
+     * @param \Generated\Shared\Transfer\RepresentativeCompanyUserCollectionTransfer $representativeCompanyUserTransfer
+     *
+     * @return \Spryker\Glue\GlueApplication\Rest\JsonApi\RestResponseInterface
+     */
+    public function buildRepresentativeCompanyUserCollectionRestResponse(
+        RepresentativeCompanyUserCollectionTransfer $representativeCompanyUserTransfer
     ): RestResponseInterface {
         $restResponse = $this->restResourceBuilder->createRestResponse();
 

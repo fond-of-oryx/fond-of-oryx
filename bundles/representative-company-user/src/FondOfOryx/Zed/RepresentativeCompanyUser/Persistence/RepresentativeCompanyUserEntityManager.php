@@ -6,6 +6,7 @@ use Exception;
 use Generated\Shared\Transfer\RepresentativeCompanyUserCollectionTransfer;
 use Generated\Shared\Transfer\RepresentativeCompanyUserFilterTransfer;
 use Generated\Shared\Transfer\RepresentativeCompanyUserTransfer;
+use Orm\Zed\RepresentativeCompanyUser\Persistence\FooRepresentativeCompanyUserQuery;
 use Orm\Zed\RepresentativeCompanyUser\Persistence\Map\FooRepresentativeCompanyUserTableMap;
 use Spryker\Zed\Kernel\Persistence\AbstractEntityManager;
 
@@ -30,6 +31,33 @@ class RepresentativeCompanyUserEntityManager extends AbstractEntityManager imple
     public function createRepresentativeCompanyUser(RepresentativeCompanyUserTransfer $representativeCompanyUserTransfer): RepresentativeCompanyUserTransfer
     {
         $entity = $this->getFactory()->createTransferToEntityMapper()->fromRepresentativeCompanyUserTransfer($representativeCompanyUserTransfer);
+        $entity->save();
+
+        return $this->getFactory()->createEntityToTransferMapper()->fromRepresentativeCompanyUserEntity($entity);
+    }
+
+    /**
+     * @param \Generated\Shared\Transfer\RepresentativeCompanyUserTransfer $representativeCompanyUserTransfer
+     *
+     * @throws \Exception
+     *
+     * @return \Generated\Shared\Transfer\RepresentativeCompanyUserTransfer
+     */
+    public function updateRepresentativeCompanyUser(RepresentativeCompanyUserTransfer $representativeCompanyUserTransfer): RepresentativeCompanyUserTransfer
+    {
+        $representativeCompanyUserTransfer->requireUuid();
+
+        $query = new FooRepresentativeCompanyUserQuery();
+        $entity = $query->filterByUuid($representativeCompanyUserTransfer->getUuid())->findOne();
+
+        if ($entity === null) {
+            throw new Exception(sprintf('Could not find representation with given uuid "%s"', $representativeCompanyUserTransfer->getUuid()));
+        }
+
+        if ($entity->getState() === FooRepresentativeCompanyUserTableMap::COL_STATE_PROCESS) {
+            throw new Exception(sprintf('Representation with given uuid "%s" is still in process, please try again later!', $representativeCompanyUserTransfer->getUuid()));
+        }
+        $entity->fromArray($representativeCompanyUserTransfer->modifiedToArray());
         $entity->save();
 
         return $this->getFactory()->createEntityToTransferMapper()->fromRepresentativeCompanyUserEntity($entity);

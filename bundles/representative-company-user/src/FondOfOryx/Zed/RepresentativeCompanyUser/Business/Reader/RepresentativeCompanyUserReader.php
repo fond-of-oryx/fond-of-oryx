@@ -7,6 +7,7 @@ use FondOfOryx\Zed\RepresentativeCompanyUser\Persistence\RepresentativeCompanyUs
 use Generated\Shared\Transfer\CompanyUserCollectionTransfer;
 use Generated\Shared\Transfer\RepresentativeCompanyUserCollectionTransfer;
 use Generated\Shared\Transfer\RepresentativeCompanyUserFilterTransfer;
+use Generated\Shared\Transfer\RepresentativeCompanyUserTransfer;
 
 class RepresentativeCompanyUserReader implements RepresentativeCompanyUserReaderInterface
 {
@@ -73,6 +74,16 @@ class RepresentativeCompanyUserReader implements RepresentativeCompanyUserReader
     }
 
     /**
+     * @param string $uuid
+     *
+     * @return \Generated\Shared\Transfer\RepresentativeCompanyUserTransfer
+     */
+    public function getRepresentationByUuid(string $uuid): RepresentativeCompanyUserTransfer
+    {
+        return $this->repository->findRepresentationByUuid($uuid);
+    }
+
+    /**
      * @param \Generated\Shared\Transfer\RepresentativeCompanyUserFilterTransfer $filterTransfer
      *
      * @return \Generated\Shared\Transfer\RepresentativeCompanyUserCollectionTransfer
@@ -80,5 +91,15 @@ class RepresentativeCompanyUserReader implements RepresentativeCompanyUserReader
     public function getExpiredRepresentativeCompanyUser(RepresentativeCompanyUserFilterTransfer $filterTransfer): RepresentativeCompanyUserCollectionTransfer
     {
         return $this->repository->findExpiredRepresentativeCompanyUser($filterTransfer);
+    }
+
+    /**
+     * @param \Generated\Shared\Transfer\RepresentativeCompanyUserFilterTransfer $filterTransfer
+     *
+     * @return \Generated\Shared\Transfer\RepresentativeCompanyUserCollectionTransfer
+     */
+    public function getRepresentativeCompanyUser(RepresentativeCompanyUserFilterTransfer $filterTransfer): RepresentativeCompanyUserCollectionTransfer
+    {
+        return $this->repository->getRepresentativeCompanyUser($filterTransfer);
     }
 }

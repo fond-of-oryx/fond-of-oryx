@@ -46,6 +46,36 @@ class RepresentativeCompanyUserFacade extends AbstractFacade implements Represen
     /**
      * @param \Generated\Shared\Transfer\RepresentativeCompanyUserTransfer $representativeCompanyUserTransfer
      *
+     * @return \Generated\Shared\Transfer\RepresentativeCompanyUserTransfer
+     */
+    public function updateRepresentativeCompanyUser(RepresentativeCompanyUserTransfer $representativeCompanyUserTransfer): RepresentativeCompanyUserTransfer
+    {
+        return $this->getFactory()->createRepresentationManager()->updateRepresentation($representativeCompanyUserTransfer);
+    }
+
+    /**
+     * @param string $uuid
+     *
+     * @return \Generated\Shared\Transfer\RepresentativeCompanyUserTransfer
+     */
+    public function findRepresentationByUuid(string $uuid): RepresentativeCompanyUserTransfer
+    {
+        return $this->getFactory()->createRepresentationManager()->findByUuid($uuid);
+    }
+
+    /**
+     * @param string $uuid
+     *
+     * @return \Generated\Shared\Transfer\RepresentativeCompanyUserTransfer
+     */
+    public function deleteRepresentativeCompanyUser(string $uuid): RepresentativeCompanyUserTransfer
+    {
+        return $this->getFactory()->createRepresentationManager()->deleteRepresentativeCompanyUser($uuid);
+    }
+
+    /**
+     * @param \Generated\Shared\Transfer\RepresentativeCompanyUserTransfer $representativeCompanyUserTransfer
+     *
      * @return void
      */
     public function deleteCompanyUserForRepresentation(RepresentativeCompanyUserTransfer $representativeCompanyUserTransfer): void
@@ -112,5 +142,15 @@ class RepresentativeCompanyUserFacade extends AbstractFacade implements Represen
     public function getRegisteredProcessorNames(): array
     {
         return $this->getFactory()->createTaskRunner()->getRegisteredProcessorNames();
+    }
+
+    /**
+     * @param \Generated\Shared\Transfer\RepresentativeCompanyUserFilterTransfer $filterTransfer
+     *
+     * @return \Generated\Shared\Transfer\RepresentativeCompanyUserCollectionTransfer
+     */
+    public function getRepresentativeCompanyUser(RepresentativeCompanyUserFilterTransfer $filterTransfer): RepresentativeCompanyUserCollectionTransfer
+    {
+        return $this->getFactory()->createRepresentationManager()->getRepresentativeCompanyUser($filterTransfer);
     }
 }

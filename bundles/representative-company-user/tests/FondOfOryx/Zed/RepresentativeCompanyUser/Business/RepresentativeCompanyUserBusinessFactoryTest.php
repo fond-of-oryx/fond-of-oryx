@@ -7,7 +7,6 @@ use FondOfOryx\Zed\RepresentativeCompanyUser\Business\Manager\CompanyUserManager
 use FondOfOryx\Zed\RepresentativeCompanyUser\Business\Manager\RepresentationManager;
 use FondOfOryx\Zed\RepresentativeCompanyUser\Business\Reader\RepresentativeCompanyUserReader;
 use FondOfOryx\Zed\RepresentativeCompanyUser\Business\Task\TaskRunnerInterface;
-use FondOfOryx\Zed\RepresentativeCompanyUser\Business\Writer\RepresentativeCompanyUserWriter;
 use FondOfOryx\Zed\RepresentativeCompanyUser\Dependency\Facade\RepresentativeCompanyUserToCompanyUserFacadeInterface;
 use FondOfOryx\Zed\RepresentativeCompanyUser\Dependency\Facade\RepresentativeCompanyUserToEventFacadeInterface;
 use FondOfOryx\Zed\RepresentativeCompanyUser\Dependency\Service\RepresentativeCompanyUserToUtilUuidGeneratorServiceInterface;
@@ -140,18 +139,6 @@ class RepresentativeCompanyUserBusinessFactoryTest extends Unit
             TaskRunnerInterface::class,
             $this->factory
                 ->createTaskRunner(),
-        );
-    }
-
-    /**
-     * @return void
-     */
-    public function testCreateRepresentativeCompanyUserWriter(): void
-    {
-        static::assertInstanceOf(
-            RepresentativeCompanyUserWriter::class,
-            $this->factory
-                ->createRepresentativeCompanyUserWriter(),
         );
     }
 

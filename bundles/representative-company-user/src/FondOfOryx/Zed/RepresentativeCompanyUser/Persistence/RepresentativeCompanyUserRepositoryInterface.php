@@ -50,6 +50,15 @@ interface RepresentativeCompanyUserRepositoryInterface
     ): RepresentativeCompanyUserCollectionTransfer;
 
     /**
+     * @param \Generated\Shared\Transfer\RepresentativeCompanyUserFilterTransfer|null $filterTransfer
+     *
+     * @return \Generated\Shared\Transfer\RepresentativeCompanyUserCollectionTransfer
+     */
+    public function getRepresentativeCompanyUser(
+        ?RepresentativeCompanyUserFilterTransfer $filterTransfer
+    ): RepresentativeCompanyUserCollectionTransfer;
+
+    /**
      * @param int $fkDistributor
      *
      * @throws \Spryker\Zed\Propel\Business\Exception\AmbiguousComparisonException
@@ -71,4 +80,11 @@ interface RepresentativeCompanyUserRepositoryInterface
      * @return \Generated\Shared\Transfer\CompanyUserCollectionTransfer
      */
     public function findCompanyUserByIdRepresentativeCompanyUser(int $idRepresentativeCompanyUser): CompanyUserCollectionTransfer;
+
+    /**
+     * @param string $uuid
+     *
+     * @return \Generated\Shared\Transfer\RepresentativeCompanyUserTransfer
+     */
+    public function findRepresentationByUuid(string $uuid): RepresentativeCompanyUserTransfer;
 }

@@ -67,4 +67,61 @@ class RepresentationManager implements RepresentationManagerInterface
 
         return $this->responseBuilder->buildRepresentativeCompanyUserMissingPermissionResponse();
     }
+
+    /**
+     * @param \Spryker\Glue\GlueApplication\Rest\Request\Data\RestRequestInterface $restRequest
+     *
+     * @return \Spryker\Glue\GlueApplication\Rest\JsonApi\RestResponseInterface
+     */
+    public function get(RestRequestInterface $restRequest): RestResponseInterface
+    {
+        $attributes = $this->representationMapper->createAttributesFromRequest($restRequest);
+
+        if ($this->permissionChecker->can($attributes)) {
+            $representationRestRequestTransfer = $this->representationMapper->createRequest($restRequest, $attributes);
+            $representationRestResponseTransfer = $this->client->getRepresentation($representationRestRequestTransfer);
+
+            return $this->responseBuilder->buildRepresentativeCompanyUserCollectionRestResponse($representationRestResponseTransfer->getCollection());
+        }
+
+        return $this->responseBuilder->buildRepresentativeCompanyUserMissingPermissionResponse();
+    }
+
+    /**
+     * @param \Spryker\Glue\GlueApplication\Rest\Request\Data\RestRequestInterface $restRequest
+     *
+     * @return \Spryker\Glue\GlueApplication\Rest\JsonApi\RestResponseInterface
+     */
+    public function patch(RestRequestInterface $restRequest): RestResponseInterface
+    {
+        $attributes = $this->representationMapper->createAttributesFromRequest($restRequest);
+
+        if ($this->permissionChecker->can($attributes)) {
+            $representationRestRequestTransfer = $this->representationMapper->createRequest($restRequest, $attributes);
+            $representationRestResponseTransfer = $this->client->patchRepresentation($representationRestRequestTransfer);
+
+            return $this->responseBuilder->buildRepresentativeCompanyUserRestResponse($representationRestResponseTransfer->getRepresentation());
+        }
+
+        return $this->responseBuilder->buildRepresentativeCompanyUserMissingPermissionResponse();
+    }
+
+    /**
+     * @param \Spryker\Glue\GlueApplication\Rest\Request\Data\RestRequestInterface $restRequest
+     *
+     * @return \Spryker\Glue\GlueApplication\Rest\JsonApi\RestResponseInterface
+     */
+    public function delete(RestRequestInterface $restRequest): RestResponseInterface
+    {
+        $attributes = $this->representationMapper->createAttributesFromRequest($restRequest);
+
+        if ($this->permissionChecker->can($attributes)) {
+            $representationRestRequestTransfer = $this->representationMapper->createRequest($restRequest, $attributes);
+            $representationRestResponseTransfer = $this->client->deleteRepresentation($representationRestRequestTransfer);
+
+            return $this->responseBuilder->buildRepresentativeCompanyUserRestResponse($representationRestResponseTransfer->getRepresentation());
+        }
+
+        return $this->responseBuilder->buildRepresentativeCompanyUserMissingPermissionResponse();
+    }
 }
