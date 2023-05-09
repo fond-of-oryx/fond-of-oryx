@@ -761,11 +761,11 @@
     },
     "representative-company-user": {
       "path": "bundles/representative-company-user/",
-      "version": "1.0.0-beta.1"
+      "version": "1.0.0-beta.2"
     },
     "representative-company-user-rest-api": {
       "path": "bundles/representative-company-user-rest-api/",
-      "version": "1.0.0.beta.1"
+      "version": "1.0.0.beta.2"
     },
     "representative-company-user-rest-api-permission": {
       "path": "bundles/representative-company-user-rest-api-permission/",
