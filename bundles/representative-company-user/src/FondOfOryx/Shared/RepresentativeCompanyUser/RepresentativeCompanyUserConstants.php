@@ -13,4 +13,9 @@ interface RepresentativeCompanyUserConstants
      * @var string
      */
     public const REPRESENTATIVE_COMPANY_USER_MARK_FOR_EXPIRE = 'RepresentativeCompanyUser.mark_for_expiration';
+
+    /**
+     * @var string
+     */
+    public const REPRESENTATIVE_COMPANY_USER_MARK_FOR_REVOCATION = 'RepresentativeCompanyUser.mark_for_revocation';
 }

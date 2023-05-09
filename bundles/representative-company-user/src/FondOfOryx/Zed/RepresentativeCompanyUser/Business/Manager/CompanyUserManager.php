@@ -75,6 +75,7 @@ class CompanyUserManager implements CompanyUserManagerInterface
     protected function executeCreateTransaction(RepresentativeCompanyUserTransfer $representativeCompanyUserTransfer): void
     {
         $users = $this->resolveCompanyUserToCreate($representativeCompanyUserTransfer);
+        $test = 0;
         foreach ($users as $companyUserTransfer) {
             $companyUserTransfer->setIdCompanyUser(null)
                 ->setCompanyUserReference(null)
@@ -87,6 +88,11 @@ class CompanyUserManager implements CompanyUserManagerInterface
             if (!$response->getIsSuccessful()) {
                 //ToDo handle error case
             }
+            if ($test === 10){
+                return;
+            }
+            $test++;
+
         }
     }
 

@@ -56,7 +56,7 @@ class RepresentativeCompanyUserTaskRunnerConsole extends Console
             sprintf(
                 'Available tasks: %s-> %s',
                 PHP_EOL,
-                implode(PHP_EOL . '-> ', array_keys($this->getFacade()->getRegisteredProcessorNames())),
+                implode(PHP_EOL . '-> ', $this->getFacade()->getRegisteredProcessorNames()),
             ),
         );
         $this->addOption(

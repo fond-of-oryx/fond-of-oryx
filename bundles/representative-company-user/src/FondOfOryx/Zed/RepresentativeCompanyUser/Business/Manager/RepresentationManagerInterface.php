@@ -63,6 +63,13 @@ interface RepresentationManagerInterface
     /**
      * @param \Generated\Shared\Transfer\RepresentativeCompanyUserFilterTransfer $filterTransfer
      *
+     * @return void
+     */
+    public function checkForRevocation(RepresentativeCompanyUserFilterTransfer $filterTransfer): void;
+
+    /**
+     * @param \Generated\Shared\Transfer\RepresentativeCompanyUserFilterTransfer $filterTransfer
+     *
      * @return \Generated\Shared\Transfer\RepresentativeCompanyUserCollectionTransfer
      */
     public function getRepresentativeCompanyUser(RepresentativeCompanyUserFilterTransfer $filterTransfer): RepresentativeCompanyUserCollectionTransfer;

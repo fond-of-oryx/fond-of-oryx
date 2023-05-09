@@ -34,6 +34,16 @@ class RepresentativeCompanyUserFacade extends AbstractFacade implements Represen
     }
 
     /**
+     * @param \Generated\Shared\Transfer\RepresentativeCompanyUserFilterTransfer $filterTransfer
+     *
+     * @return void
+     */
+    public function checkForRevocation(RepresentativeCompanyUserFilterTransfer $filterTransfer): void
+    {
+        $this->getFactory()->createRepresentationManager()->checkForRevocation($filterTransfer);
+    }
+
+    /**
      * @param \Generated\Shared\Transfer\RepresentativeCompanyUserTransfer $representativeCompanyUserTransfer
      *
      * @return \Generated\Shared\Transfer\RepresentativeCompanyUserTransfer
