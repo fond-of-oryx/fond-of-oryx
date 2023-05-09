@@ -138,6 +138,7 @@ include:
   - bundles/one-time-password-email-connector
 # - bundles/one-time-password-rest-api
   - bundles/order-budget
+  - bundles/order-budget-search-rest-api
   - bundles/order-budget-search-rest-api-extension
   - bundles/payment-cart-connector
   - bundles/payment-epc-qr-code
