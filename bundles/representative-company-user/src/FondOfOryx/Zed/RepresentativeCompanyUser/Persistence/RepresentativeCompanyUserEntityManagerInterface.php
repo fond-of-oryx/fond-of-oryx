@@ -21,6 +21,13 @@ interface RepresentativeCompanyUserEntityManagerInterface
     public function createRepresentativeCompanyUser(RepresentativeCompanyUserTransfer $representativeCompanyUserTransfer): RepresentativeCompanyUserTransfer;
 
     /**
+     * @param \Generated\Shared\Transfer\RepresentativeCompanyUserTransfer $representativeCompanyUserTransfer
+     *
+     * @return \Generated\Shared\Transfer\RepresentativeCompanyUserTransfer
+     */
+    public function updateRepresentativeCompanyUser(RepresentativeCompanyUserTransfer $representativeCompanyUserTransfer): RepresentativeCompanyUserTransfer;
+
+    /**
      * @param string $uuid
      * @param string $state
      *

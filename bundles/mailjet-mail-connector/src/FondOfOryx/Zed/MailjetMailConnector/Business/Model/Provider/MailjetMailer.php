@@ -2,6 +2,7 @@
 
 namespace FondOfOryx\Zed\MailjetMailConnector\Business\Model\Provider;
 
+use Exception;
 use FondOfOryx\Zed\MailjetMailConnector\MailjetMailConnectorConfig;
 use Generated\Shared\Transfer\MailTransfer;
 use Mailjet\Client;
@@ -76,16 +77,23 @@ class MailjetMailer implements MailProviderPluginInterface
             'SandboxMode' => $this->isSandbox($customerTransfer->getEmail()),
         ];
 
-        $response = $this->mailjetClient->post(Resources::$Email, ['body' => $body]);
+        try {
+            $response = $this->mailjetClient->post(Resources::$Email, ['body' => $body]);
 
-        if (!$response->success()) {
+            if (!$response->success()) {
+                $this->logger->error(
+                    sprintf(
+                        'Sending to mailjet failed after %d retries with status %d',
+                        $this->config->getRetryEnabled() ? $this->config->getRetryMultiplier() : 1,
+                        $response->getStatus(),
+                    ),
+                    $response->getBody(),
+                );
+            }
+        } catch (Exception $e) {
             $this->logger->error(
-                sprintf(
-                    'Sending to mailjet failed after %d retries with status %d',
-                    $this->config->getRetryEnabled() ? $this->config->getRetryMultiplier() : 1,
-                    $response->getStatus(),
-                ),
-                $response->getBody(),
+                $e->getMessage(),
+                $body,
             );
         }
     }

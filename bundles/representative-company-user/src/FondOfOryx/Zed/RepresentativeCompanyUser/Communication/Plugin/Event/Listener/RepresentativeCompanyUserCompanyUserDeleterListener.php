@@ -27,7 +27,8 @@ class RepresentativeCompanyUserCompanyUserDeleterListener extends AbstractPlugin
     {
         if (
             !($transfer instanceof RepresentativeCompanyUserTransfer)
-            || $eventName !== RepresentativeCompanyUserConstants::REPRESENTATIVE_COMPANY_USER_MARK_FOR_EXPIRE
+            || ($eventName !== RepresentativeCompanyUserConstants::REPRESENTATIVE_COMPANY_USER_MARK_FOR_EXPIRE
+            && $eventName !== RepresentativeCompanyUserConstants::REPRESENTATIVE_COMPANY_USER_MARK_FOR_REVOCATION)
         ) {
             return;
         }

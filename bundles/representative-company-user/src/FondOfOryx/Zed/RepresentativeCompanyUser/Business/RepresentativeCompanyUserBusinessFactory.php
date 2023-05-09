@@ -10,8 +10,6 @@ use FondOfOryx\Zed\RepresentativeCompanyUser\Business\Reader\RepresentativeCompa
 use FondOfOryx\Zed\RepresentativeCompanyUser\Business\Reader\RepresentativeCompanyUserReaderInterface;
 use FondOfOryx\Zed\RepresentativeCompanyUser\Business\Task\TaskRunner;
 use FondOfOryx\Zed\RepresentativeCompanyUser\Business\Task\TaskRunnerInterface;
-use FondOfOryx\Zed\RepresentativeCompanyUser\Business\Writer\RepresentativeCompanyUserWriter;
-use FondOfOryx\Zed\RepresentativeCompanyUser\Business\Writer\RepresentativeCompanyUserWriterInterface;
 use FondOfOryx\Zed\RepresentativeCompanyUser\Dependency\Facade\RepresentativeCompanyUserToCompanyUserFacadeInterface;
 use FondOfOryx\Zed\RepresentativeCompanyUser\Dependency\Facade\RepresentativeCompanyUserToEventFacadeInterface;
 use FondOfOryx\Zed\RepresentativeCompanyUser\Dependency\Service\RepresentativeCompanyUserToUtilUuidGeneratorServiceInterface;
@@ -39,16 +37,6 @@ class RepresentativeCompanyUserBusinessFactory extends AbstractBusinessFactory
     }
 
     /**
-     * @return \FondOfOryx\Zed\RepresentativeCompanyUser\Business\Writer\RepresentativeCompanyUserWriterInterface
-     */
-    public function createRepresentativeCompanyUserWriter(): RepresentativeCompanyUserWriterInterface
-    {
-        return new RepresentativeCompanyUserWriter(
-            $this->getEntityManager(),
-        );
-    }
-
-    /**
      * @return \FondOfOryx\Zed\RepresentativeCompanyUser\Business\Reader\RepresentativeCompanyUserReaderInterface
      */
     public function createRepresentativeCompanyUserReader(): RepresentativeCompanyUserReaderInterface
@@ -65,7 +53,7 @@ class RepresentativeCompanyUserBusinessFactory extends AbstractBusinessFactory
     public function createRepresentationManager(): RepresentationManagerInterface
     {
         return new RepresentationManager(
-            $this->createRepresentativeCompanyUserWriter(),
+            $this->getEntityManager(),
             $this->createRepresentativeCompanyUserReader(),
             $this->getEventFacade(),
             $this->getUtilUuidGeneratorService(),

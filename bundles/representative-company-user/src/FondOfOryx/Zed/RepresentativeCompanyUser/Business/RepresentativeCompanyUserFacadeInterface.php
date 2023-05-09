@@ -24,11 +24,46 @@ interface RepresentativeCompanyUserFacadeInterface
     public function checkForActivation(RepresentativeCompanyUserFilterTransfer $filterTransfer): void;
 
     /**
+     * @param \Generated\Shared\Transfer\RepresentativeCompanyUserFilterTransfer $filterTransfer
+     *
+     * @return void
+     */
+    public function checkForRevocation(RepresentativeCompanyUserFilterTransfer $filterTransfer): void;
+
+    /**
      * @param \Generated\Shared\Transfer\RepresentativeCompanyUserTransfer $representativeCompanyUserTransfer
      *
      * @return \Generated\Shared\Transfer\RepresentativeCompanyUserTransfer
      */
     public function createRepresentativeCompanyUser(RepresentativeCompanyUserTransfer $representativeCompanyUserTransfer): RepresentativeCompanyUserTransfer;
+
+    /**
+     * @param \Generated\Shared\Transfer\RepresentativeCompanyUserTransfer $representativeCompanyUserTransfer
+     *
+     * @return \Generated\Shared\Transfer\RepresentativeCompanyUserTransfer
+     */
+    public function updateRepresentativeCompanyUser(RepresentativeCompanyUserTransfer $representativeCompanyUserTransfer): RepresentativeCompanyUserTransfer;
+
+    /**
+     * @param string $uuid
+     *
+     * @return \Generated\Shared\Transfer\RepresentativeCompanyUserTransfer
+     */
+    public function findRepresentationByUuid(string $uuid): RepresentativeCompanyUserTransfer;
+
+    /**
+     * @param string $uuid
+     *
+     * @return \Generated\Shared\Transfer\RepresentativeCompanyUserTransfer
+     */
+    public function deleteRepresentativeCompanyUser(string $uuid): RepresentativeCompanyUserTransfer;
+
+    /**
+     * @param \Generated\Shared\Transfer\RepresentativeCompanyUserFilterTransfer $filterTransfer
+     *
+     * @return \Generated\Shared\Transfer\RepresentativeCompanyUserCollectionTransfer
+     */
+    public function getRepresentativeCompanyUser(RepresentativeCompanyUserFilterTransfer $filterTransfer): RepresentativeCompanyUserCollectionTransfer;
 
     /**
      * @param \Generated\Shared\Transfer\RepresentativeCompanyUserTransfer $representativeCompanyUserTransfer

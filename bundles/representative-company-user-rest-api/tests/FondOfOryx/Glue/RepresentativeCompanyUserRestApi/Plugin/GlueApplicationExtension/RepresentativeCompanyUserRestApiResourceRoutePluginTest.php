@@ -41,6 +41,21 @@ class RepresentativeCompanyUserRestApiResourceRoutePluginTest extends Unit
             ->with('add', true)
             ->willReturnSelf();
 
+        $this->resourceRouteCollectionMock->expects(static::atLeastOnce())
+            ->method('addGet')
+            ->with('get', true)
+            ->willReturnSelf();
+
+        $this->resourceRouteCollectionMock->expects(static::atLeastOnce())
+            ->method('addDelete')
+            ->with('delete', true)
+            ->willReturnSelf();
+
+        $this->resourceRouteCollectionMock->expects(static::atLeastOnce())
+            ->method('addPatch')
+            ->with('patch', true)
+            ->willReturnSelf();
+
         static::assertEquals(
             $this->resourceRouteCollectionMock,
             $this->plugin->configure(

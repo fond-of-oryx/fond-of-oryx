@@ -17,7 +17,11 @@ class RepresentativeCompanyUserRestApiResourceRoutePlugin extends AbstractPlugin
      */
     public function configure(ResourceRouteCollectionInterface $resourceRouteCollection): ResourceRouteCollectionInterface
     {
-        return $resourceRouteCollection->addPost('add');
+        return $resourceRouteCollection
+            ->addPost('add')
+            ->addPatch('patch')
+            ->addDelete('delete')
+            ->addGet('get');
     }
 
     /**

@@ -115,6 +115,27 @@ class RepresentativeCompanyUserRepository extends AbstractRepository implements 
     }
 
     /**
+     * @param \Generated\Shared\Transfer\RepresentativeCompanyUserFilterTransfer|null $filterTransfer
+     *
+     * @return \Generated\Shared\Transfer\RepresentativeCompanyUserCollectionTransfer
+     */
+    public function getRepresentativeCompanyUser(
+        ?RepresentativeCompanyUserFilterTransfer $filterTransfer
+    ): RepresentativeCompanyUserCollectionTransfer {
+        $query = $this->prepareRepresentativeCompanyUserQuery($filterTransfer);
+
+        $results = $query->find();
+
+        $collection = new RepresentativeCompanyUserCollectionTransfer();
+
+        foreach ($results->getData() as $entity) {
+            $collection->addRepresentation($this->getFactory()->createEntityToTransferMapper()->fromRepresentativeCompanyUserEntity($entity));
+        }
+
+        return $collection;
+    }
+
+    /**
      * @param int $fkDistributor
      *
      * @return \Generated\Shared\Transfer\RepresentativeCompanyUserCollectionTransfer|null
@@ -178,6 +199,24 @@ class RepresentativeCompanyUserRepository extends AbstractRepository implements 
         }
 
         return $collection;
+    }
+
+    /**
+     * @param string $uuid
+     *
+     * @throws \Exception
+     *
+     * @return \Generated\Shared\Transfer\RepresentativeCompanyUserTransfer
+     */
+    public function findRepresentationByUuid(string $uuid): RepresentativeCompanyUserTransfer
+    {
+        $result = $this->getFactory()->getRepresentativeCompanyUserQuery()->findOneByUuid($uuid);
+
+        if ($result === null) {
+            throw new Exception(sprintf('Could not find representative company user entry with given uuid "%s"', $uuid));
+        }
+
+        return $this->getFactory()->createEntityToTransferMapper()->fromRepresentativeCompanyUserEntity($result);
     }
 
     /**
