@@ -36,7 +36,9 @@ class OrderBudgetSearchRestApiDependencyProvider extends AbstractBundleDependenc
     {
         $container = parent::provideBusinessLayerDependencies($container);
 
-        return $this->addOrderBudgetFacade($container);
+        $container = $this->addOrderBudgetFacade($container);
+
+        return $this->addSearchQuoteQueryExpanderPlugins($container);
     }
 
     /**
