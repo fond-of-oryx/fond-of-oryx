@@ -67,7 +67,7 @@ class GatewayControllerTest extends Unit
     /**
      * @return void
      */
-    public function testFindQuotesAction(): void
+    public function testFindOrderBudgetsAction(): void
     {
         $this->facadeMock->expects(static::atLeastOnce())
             ->method('findOrderBudgets')

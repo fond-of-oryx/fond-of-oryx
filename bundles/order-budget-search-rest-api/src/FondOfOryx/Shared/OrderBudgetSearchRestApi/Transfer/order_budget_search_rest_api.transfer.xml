@@ -5,7 +5,7 @@
     <transfer name="RestOrderBudgetSearchAttributes">
         <property name="sort" type="RestOrderBudgetSearchSort"/>
         <property name="pagination" type="RestOrderBudgetSearchPagination"/>
-        <property name="orderBudgets" type="RestOrderBudgetsAttributes[]" singular="cart"/>
+        <property name="orderBudgets" type="RestOrderBudgetsAttributes[]" singular="orderBudget"/>
     </transfer>
 
     <transfer name="RestOrderBudgetSearchSort">

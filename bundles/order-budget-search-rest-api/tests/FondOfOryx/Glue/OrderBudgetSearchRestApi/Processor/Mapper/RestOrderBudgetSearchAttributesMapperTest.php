@@ -97,7 +97,7 @@ class RestOrderBudgetSearchAttributesMapperTest extends Unit
     /**
      * @return void
      */
-    public function testFromQuoteList(): void
+    public function testFromOrderBudgetList(): void
     {
         $restOrderBudgetsAttributesTransfers = new ArrayObject([$this->restOrderBudgetsAttributesTransferMock]);
 

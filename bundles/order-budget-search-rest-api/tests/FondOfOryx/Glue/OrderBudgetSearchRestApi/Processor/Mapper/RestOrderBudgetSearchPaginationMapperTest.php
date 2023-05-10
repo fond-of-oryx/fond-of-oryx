@@ -55,7 +55,7 @@ class RestOrderBudgetSearchPaginationMapperTest extends Unit
     /**
      * @return void
      */
-    public function testFromQuoteList(): void
+    public function testFromOrderBudgetList(): void
     {
         $page = 1;
         $maxPerPage = 12;
@@ -100,7 +100,7 @@ class RestOrderBudgetSearchPaginationMapperTest extends Unit
     /**
      * @return void
      */
-    public function testFromQuoteListWithNullablePagination(): void
+    public function testFromOrderBudgetListWithNullablePagination(): void
     {
         $this->orderBudgetListTransferMock->expects(static::atLeastOnce())
             ->method('getPagination')

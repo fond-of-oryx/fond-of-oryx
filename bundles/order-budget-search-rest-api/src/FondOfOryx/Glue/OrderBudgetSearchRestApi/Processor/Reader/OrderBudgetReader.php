@@ -62,10 +62,10 @@ class OrderBudgetReader implements OrderBudgetReaderInterface
             return $this->restResponseBuilder->buildUseIsNotSpecifiedRestResponse();
         }
 
-        $quoteListTransfer = $this->orderBudgetListMapper->fromRestRequest($restRequest);
+        $orderBudgetListTransfer = $this->orderBudgetListMapper->fromRestRequest($restRequest);
 
         return $this->restResponseBuilder->buildOrderBudgetSearchRestResponse(
-            $this->client->findOrderBudgets($quoteListTransfer),
+            $this->client->findOrderBudgets($orderBudgetListTransfer),
             $restRequest->getMetadata()->getLocale(),
         );
     }

@@ -62,10 +62,10 @@ class RestOrderBudgetSearchSortMapperTest extends Unit
     /**
      * @return void
      */
-    public function testFromQuoteList(): void
+    public function testFromOrderBudgetList(): void
     {
         $sortParamNames = ['name_asc', 'name_desc'];
-        $sortParamLocalizedNames = ['cart_search_rest_api.sort.name_asc', 'cart_search_rest_api.sort.name_desc'];
+        $sortParamLocalizedNames = ['order_budget_search_rest_api.sort.name_asc', 'order_budget_search_rest_api.sort.name_desc'];
         $sortFields = ['name'];
 
         $this->configMock->expects(static::atLeastOnce())
@@ -112,10 +112,10 @@ class RestOrderBudgetSearchSortMapperTest extends Unit
     /**
      * @return void
      */
-    public function testFromQuoteListWithoutSort(): void
+    public function testFromOrderBudgetListWithoutSort(): void
     {
         $sortParamNames = ['name_asc', 'name_desc'];
-        $sortParamLocalizedNames = ['cart_search_rest_api.sort.name_asc', 'cart_search_rest_api.sort.name_desc'];
+        $sortParamLocalizedNames = ['order_budget_search_rest_api.sort.name_asc', 'order_budget_search_rest_api.sort.name_desc'];
 
         $this->configMock->expects(static::atLeastOnce())
             ->method('getSortParamNames')

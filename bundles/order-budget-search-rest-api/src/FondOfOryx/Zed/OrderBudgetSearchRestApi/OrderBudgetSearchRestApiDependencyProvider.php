@@ -38,7 +38,7 @@ class OrderBudgetSearchRestApiDependencyProvider extends AbstractBundleDependenc
 
         $container = $this->addOrderBudgetFacade($container);
 
-        return $this->addSearchQuoteQueryExpanderPlugins($container);
+        return $this->addSearchOrderBudgetQueryExpanderPlugins($container);
     }
 
     /**
@@ -62,17 +62,17 @@ class OrderBudgetSearchRestApiDependencyProvider extends AbstractBundleDependenc
      *
      * @return \Spryker\Zed\Kernel\Container
      */
-    protected function addSearchQuoteQueryExpanderPlugins(Container $container): Container
+    protected function addSearchOrderBudgetQueryExpanderPlugins(Container $container): Container
     {
-        $container[static::PLUGINS_SEARCH_ORDER_BUDGET_QUERY_EXPANDER] = fn () => $this->getSearchQuoteQueryExpanderPlugins();
+        $container[static::PLUGINS_SEARCH_ORDER_BUDGET_QUERY_EXPANDER] = fn () => $this->getSearchOrderBudgetQueryExpanderPlugins();
 
         return $container;
     }
 
     /**
-     * @return array<\FondOfOryx\Zed\CartSearchRestApiExtension\Dependency\Plugin\SearchQuoteQueryExpanderPluginInterface>
+     * @return array<\FondOfOryx\Zed\OrderBudgetSearchRestApiExtension\Dependency\Plugin\SearchOrderBudgetQueryExpanderPluginInterface>
      */
-    protected function getSearchQuoteQueryExpanderPlugins(): array
+    protected function getSearchOrderBudgetQueryExpanderPlugins(): array
     {
         return [];
     }
