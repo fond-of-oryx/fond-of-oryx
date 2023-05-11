@@ -479,6 +479,10 @@
       "path": "bundles/glue-application-acl/",
       "version": "2.0.0"
     },
+    "inactive-quote-item-filter": {
+      "path": "bundles/inactive-quote-item-filter/",
+      "version": "1.0.0"
+    },
     "invoice": {
       "path": "bundles/invoice/",
       "version": "2.0.0"

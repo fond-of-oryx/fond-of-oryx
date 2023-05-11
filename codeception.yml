@@ -103,6 +103,7 @@ include:
   - bundles/gift-card-proportional-value-payone-connector
   - bundles/gift-card-restriction
   - bundles/glue-application-acl
+  - bundles/inactive-quote-item-filter
   - bundles/invoice
   - bundles/jellyfish-availability-alert
   - bundles/jellyfish-buffer
