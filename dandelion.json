@@ -231,6 +231,10 @@
       "path": "bundles/company-user-mail-connector/",
       "version": "2.0.0"
     },
+    "company-user-order-budget-search-rest-api": {
+      "path": "bundles/company-user-order-budget-search-rest-api/",
+      "version": "1.0.0"
+    },
     "company-user-reference-sales-connector": {
       "path": "bundles/company-user-reference-sales-connector/",
       "version": "2.0.0"
@@ -653,7 +657,15 @@
     },
     "order-budget": {
       "path": "bundles/order-budget/",
-      "version": "2.0.0"
+      "version": "2.1.0"
+    },
+    "order-budget-search-rest-api": {
+      "path": "bundles/order-budget-search-rest-api/",
+      "version": "1.0.0"
+    },
+    "order-budget-search-rest-api-extension": {
+      "path": "bundles/order-budget-search-rest-api-extension/",
+      "version": "1.0.0"
     },
     "payment-address-restriction": {
       "path": "bundles/payment-address-restriction/",

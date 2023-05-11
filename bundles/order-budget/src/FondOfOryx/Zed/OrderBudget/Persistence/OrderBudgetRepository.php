@@ -49,4 +49,24 @@ class OrderBudgetRepository extends AbstractRepository implements OrderBudgetRep
                 $entity,
             );
     }
+
+    /**
+     * @param array<int> $orderBudgetIds
+     *
+     * @return array<\Generated\Shared\Transfer\OrderBudgetTransfer>
+     */
+    public function findOrderBudgetsByOrderBudgetIds(array $orderBudgetIds): array
+    {
+        /** @var \Propel\Runtime\Collection\ObjectCollection $collection */
+        $collection = $this->getFactory()
+            ->createFooOrderBudgetQuery()
+            ->filterByIdOrderBudget_In($orderBudgetIds)
+            ->find();
+
+        return $this->getFactory()
+            ->createOrderBudgetMapper()
+            ->mapEntityCollectionToTransfers(
+                $collection,
+            );
+    }
 }

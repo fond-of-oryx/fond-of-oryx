@@ -140,4 +140,23 @@ class OrderBudgetFacadeTest extends Unit
             $this->facade->findOrderBudgetByIdOrderBudget($idOrderBudget),
         );
     }
+
+    /**
+     * @return void
+     */
+    public function testFindOrderBudgetsByOrderBudgetIds(): void
+    {
+        $orderBudgetIds = [1];
+        $orderBudgetTransferMocks = [$this->orderBudgetTransferMock];
+
+        $this->repositoryMock->expects(static::atLeastOnce())
+            ->method('findOrderBudgetsByOrderBudgetIds')
+            ->with($orderBudgetIds)
+            ->willReturn($orderBudgetTransferMocks);
+
+        static::assertEquals(
+            $orderBudgetTransferMocks,
+            $this->facade->findOrderBudgetsByOrderBudgetIds($orderBudgetIds),
+        );
+    }
 }
