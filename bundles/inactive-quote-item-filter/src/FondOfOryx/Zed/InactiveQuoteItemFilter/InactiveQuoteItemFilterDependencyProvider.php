@@ -34,6 +34,11 @@ class InactiveQuoteItemFilterDependencyProvider extends AbstractBundleDependency
         return $this->addMessengerFacade($container);
     }
 
+    /**
+     * @param \Spryker\Zed\Kernel\Container $container
+     *
+     * @return \Spryker\Zed\Kernel\Container
+     */
     protected function addMessengerFacade(Container $container): Container
     {
         $container[static::FACADE_MESSENGER] = static fn (
@@ -57,6 +62,11 @@ class InactiveQuoteItemFilterDependencyProvider extends AbstractBundleDependency
         return $this->addProductQuery($container);
     }
 
+    /**
+     * @param \Spryker\Zed\Kernel\Container $container
+     *
+     * @return \Spryker\Zed\Kernel\Container
+     */
     protected function addProductQuery(Container $container): Container
     {
         $container[static::PROPEL_QUERY_PRODUCT] = static fn () => SpyProductQuery::create();
