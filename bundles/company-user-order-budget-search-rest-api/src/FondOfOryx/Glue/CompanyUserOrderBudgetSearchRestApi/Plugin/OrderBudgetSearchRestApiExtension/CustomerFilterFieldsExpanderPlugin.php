@@ -4,7 +4,6 @@ namespace FondOfOryx\Glue\CompanyUserOrderBudgetSearchRestApi\Plugin\OrderBudget
 
 use ArrayObject;
 use FondOfOryx\Glue\CartSearchRestApiExtension\Dependency\Plugin\FilterFieldsExpanderPluginInterface;
-use FondOfOryx\Shared\CartSearchRestApi\CartSearchRestApiConstants;
 use FondOfOryx\Shared\CompanyUserOrderBudgetSearchRestApi\CompanyUserOrderBudgetSearchRestApiConstants;
 use Generated\Shared\Transfer\FilterFieldTransfer;
 use Spryker\Glue\GlueApplication\Rest\Request\Data\RestRequestInterface;
