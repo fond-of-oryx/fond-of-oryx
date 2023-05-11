@@ -8,6 +8,7 @@ use Generated\Shared\Transfer\QueryJoinTransfer;
 use Generated\Shared\Transfer\QueryWhereConditionTransfer;
 use Orm\Zed\OrderBudget\Persistence\Base\FooOrderBudgetQuery;
 use Propel\Runtime\ActiveQuery\Criteria;
+use Propel\Runtime\ActiveQuery\Criterion\CustomCriterion;
 
 /**
  * @codeCoverageIgnore
