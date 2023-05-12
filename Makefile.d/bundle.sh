@@ -13,7 +13,7 @@ function test {
     fi
 
     cd ${RELATIVE_BUNDLE_PATH}
-    make install ci 1> /dev/null 2> ${PATH_TO_ERROR_LOG}
+    make install ci &> ${PATH_TO_ERROR_LOG}
     STATUS=${?}
     make clean &>/dev/null
     [ "${STATUS}" -eq 0 ] && echo "${BUNDLE} :: [SUCCESS]" || echo "${BUNDLE} :: [ERROR] :: Look at ${PATH_TO_ERROR_LOG}"
