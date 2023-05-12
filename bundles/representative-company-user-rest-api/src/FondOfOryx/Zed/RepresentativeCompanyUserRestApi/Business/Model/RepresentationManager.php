@@ -2,6 +2,7 @@
 
 namespace FondOfOryx\Zed\RepresentativeCompanyUserRestApi\Business\Model;
 
+use DateTime;
 use Exception;
 use FondOfOryx\Zed\RepresentativeCompanyUserRestApi\Dependency\Facade\RepresentativeCompanyUserRestApiToRepresentativeCompanyUserFacadeInterface;
 use FondOfOryx\Zed\RepresentativeCompanyUserRestApi\Persistence\RepresentativeCompanyUserRestApiRepositoryInterface;
@@ -30,8 +31,9 @@ class RepresentationManager implements RepresentationManagerInterface
      */
     public function __construct(
         RepresentativeCompanyUserRestApiToRepresentativeCompanyUserFacadeInterface $representativeCompanyUserFacade,
-        RepresentativeCompanyUserRestApiRepositoryInterface $repository
-    ) {
+        RepresentativeCompanyUserRestApiRepositoryInterface                        $repository
+    )
+    {
         $this->representativeCompanyUserFacade = $representativeCompanyUserFacade;
         $this->repository = $repository;
     }
@@ -43,7 +45,8 @@ class RepresentationManager implements RepresentationManagerInterface
      */
     public function addRepresentation(
         RestRepresentativeCompanyUserRequestTransfer $restRepresentativeCompanyUserRequestTransfer
-    ): RestRepresentativeCompanyUserResponseTransfer {
+    ): RestRepresentativeCompanyUserResponseTransfer
+    {
         $restRepresentativeCompanyUserAttributesTransfer = $restRepresentativeCompanyUserRequestTransfer->getAttributes();
         $distributorId = $this->repository->getIdCustomerByReference($restRepresentativeCompanyUserAttributesTransfer->getReferenceDistributor());
         $representationId = $this->repository->getIdCustomerByReference($restRepresentativeCompanyUserAttributesTransfer->getReferenceRepresentation());
@@ -56,8 +59,8 @@ class RepresentationManager implements RepresentationManagerInterface
             ->setFkDistributor($distributorId)
             ->setFkOriginator($originatorId)
             ->setFkRepresentative($representationId)
-            ->setStartDate($restRepresentativeCompanyUserAttributesTransfer->getStartDate())
-            ->setEndDate($restRepresentativeCompanyUserAttributesTransfer->getEndDate());
+            ->setStartAt($restRepresentativeCompanyUserAttributesTransfer->getStartAt())
+            ->setEndAt($restRepresentativeCompanyUserAttributesTransfer->getEndAt());
 
         $response = $this->representativeCompanyUserFacade->addRepresentativeCompanyUser($representationTransfer);
 
@@ -73,7 +76,8 @@ class RepresentationManager implements RepresentationManagerInterface
      */
     public function updateRepresentation(
         RestRepresentativeCompanyUserRequestTransfer $restRepresentativeCompanyUserRequestTransfer
-    ): RestRepresentativeCompanyUserResponseTransfer {
+    ): RestRepresentativeCompanyUserResponseTransfer
+    {
         $restRepresentativeCompanyUserAttributesTransfer = $restRepresentativeCompanyUserRequestTransfer->getAttributes();
         $restRepresentativeCompanyUserAttributesTransfer->requireUuid();
 
@@ -91,8 +95,8 @@ class RepresentationManager implements RepresentationManagerInterface
 
         $representationTransfer
             ->setStatus($this->getStatus($representationTransfer, $restRepresentativeCompanyUserAttributesTransfer))
-            ->setEndDate($restRepresentativeCompanyUserAttributesTransfer->getEndDate())
-            ->setStartDate($restRepresentativeCompanyUserAttributesTransfer->getStartDate());
+            ->setEndAt($this->convertDateStringToTimestamp($restRepresentativeCompanyUserAttributesTransfer->getEndAt()))
+            ->setStartAt($this->convertDateStringToTimestamp($restRepresentativeCompanyUserAttributesTransfer->getStartAt()));
         $response = $this->representativeCompanyUserFacade->updateRepresentativeCompanyUser($representationTransfer);
 
         return (new RestRepresentativeCompanyUserResponseTransfer())
@@ -107,7 +111,8 @@ class RepresentationManager implements RepresentationManagerInterface
      */
     public function deleteRepresentation(
         RestRepresentativeCompanyUserRequestTransfer $restRepresentativeCompanyUserRequestTransfer
-    ): RestRepresentativeCompanyUserResponseTransfer {
+    ): RestRepresentativeCompanyUserResponseTransfer
+    {
         $attributes = $restRepresentativeCompanyUserRequestTransfer->getAttributes();
 
         try {
@@ -128,10 +133,11 @@ class RepresentationManager implements RepresentationManagerInterface
      * @return string
      */
     protected function getStatus(
-        RepresentativeCompanyUserTransfer $representativeCompanyUserTransfer,
+        RepresentativeCompanyUserTransfer               $representativeCompanyUserTransfer,
         RestRepresentativeCompanyUserAttributesTransfer $representativeCompanyUserAttributesTransfer
-    ): string {
-        if ($representativeCompanyUserAttributesTransfer->getStartDate() < $representativeCompanyUserTransfer->getStartDate()) {
+    ): string
+    {
+        if ($representativeCompanyUserAttributesTransfer->getStartAt() < $representativeCompanyUserTransfer->getStartAt()) {
             return FooRepresentativeCompanyUserTableMap::COL_STATE_REVOKED;
         }
 
@@ -145,12 +151,23 @@ class RepresentationManager implements RepresentationManagerInterface
      */
     public function getRepresentation(
         RestRepresentativeCompanyUserRequestTransfer $restRepresentativeCompanyUserRequestTransfer
-    ): RestRepresentativeCompanyUserResponseTransfer {
+    ): RestRepresentativeCompanyUserResponseTransfer
+    {
         $attributes = $restRepresentativeCompanyUserRequestTransfer->getAttributes();
         $filter = (new RepresentativeCompanyUserFilterTransfer())->addDistributorReference($attributes->getUuid());
 
         $collection = $this->representativeCompanyUserFacade->getRepresentativeCompanyUser($filter);
 
         return (new RestRepresentativeCompanyUserResponseTransfer())->setCollection($collection);
+    }
+
+    /**
+     * @param string $date
+     *
+     * @return int
+     */
+    protected function convertDateStringToTimestamp(string $date): int
+    {
+        return strtotime($date);
     }
 }

@@ -8,8 +8,8 @@
         <property name="referenceDistributor" restRequestParameter="required" type="string" />
         <property name="referenceRepresentation" restRequestParameter="required" type="string" />
         <property name="referenceOriginator" restRequestParameter="required" type="string" />
-        <property name="startDate" type="int" />
-        <property name="endDate" type="int" />
+        <property name="startAt" type="string" />
+        <property name="endAt" type="string" />
     </transfer>
 
     <transfer name="RestRepresentativeCompanyUserRequest">
