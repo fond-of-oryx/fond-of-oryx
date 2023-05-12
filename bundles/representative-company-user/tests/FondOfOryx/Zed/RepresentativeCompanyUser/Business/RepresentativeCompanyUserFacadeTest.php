@@ -146,6 +146,22 @@ class RepresentativeCompanyUserFacadeTest extends Unit
     /**
      * @return void
      */
+    public function testCheckForRevocation(): void
+    {
+        $this->factoryMock->expects(static::atLeastOnce())
+            ->method('createRepresentationManager')
+            ->willReturn($this->representationManagerMock);
+
+        $this->representationManagerMock->expects(static::atLeastOnce())
+            ->method('checkForRevocation')
+            ->with($this->filterTransferMock);
+
+        $this->facade->checkForRevocation($this->filterTransferMock);
+    }
+
+    /**
+     * @return void
+     */
     public function testCreateRepresentativeCompanyUser(): void
     {
         $this->factoryMock->expects(static::atLeastOnce())

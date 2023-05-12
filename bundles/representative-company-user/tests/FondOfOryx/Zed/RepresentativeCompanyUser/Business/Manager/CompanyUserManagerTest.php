@@ -231,4 +231,40 @@ class CompanyUserManagerTest extends Unit
 
         $this->manager->deleteCompanyUserForRepresentation($this->representativeCompanyUserTransferMock);
     }
+
+    /**
+     * @return void
+     */
+    public function testFindByUuid(): void
+    {
+        $id = 1;
+
+        $this->transactionHandlerMock->expects(static::atLeastOnce())
+            ->method('handleTransaction')
+            ->willReturnCallback(static function (callable $callback) {
+                return call_user_func($callback);
+            });
+
+        $this->representativeCompanyUserTransferMock->expects(static::atLeastOnce())
+            ->method('getIdRepresentativeCompanyUser')
+            ->willReturn($id);
+
+        $this->companyUserCollectionTransferMock->expects(static::atLeastOnce())
+            ->method('getCompanyUsers')
+            ->willReturn([$this->companyUserTransferMock]);
+
+        $this->readerMock->expects(static::atLeastOnce())
+            ->method('getAllCompanyUserByFkRepresentativeCompanyUser')
+            ->willReturn($this->companyUserCollectionTransferMock);
+
+        $this->companyUserFacadeMock->expects(static::atLeastOnce())
+            ->method('deleteCompanyUser')
+            ->willReturn($this->companyUserResponseTransferMock);
+
+        $this->companyUserResponseTransferMock->expects(static::atLeastOnce())
+            ->method('getIsSuccessful')
+            ->willReturn(true);
+
+        $this->manager->deleteCompanyUserForRepresentation($this->representativeCompanyUserTransferMock);
+    }
 }
