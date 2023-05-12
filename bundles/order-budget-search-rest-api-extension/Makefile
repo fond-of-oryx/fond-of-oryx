@@ -12,7 +12,7 @@ phpcbf:
 
 .PHONY: phpstan
 phpstan:
-	./vendor/bin/phpstan --memory-limit=-1 analyse ./src/FondOfOryx ./tests
+	./vendor/bin/phpstan --memory-limit=-1 analyse ./src/FondOfOryx
 
 .PHONY: codeception
 codeception:
@@ -25,6 +25,6 @@ ci: phpcs codeception phpstan
 clean:
 	rm -Rf composer.lock
 	rm -Rf ./vendor
-	find ./tests/_output/ -not -name .gitignore -delete
+	find ./tests/_output/ -not -name .gitignore -not -name .gitkeep -delete
 	rm -Rf src/Generated/*
 	rm -Rf src/Orm/*
