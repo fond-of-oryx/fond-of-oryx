@@ -4,11 +4,14 @@ namespace FondOfOryx\Zed\SplittableCheckoutRestApi;
 
 use Codeception\Test\Unit;
 use FondOfOryx\Zed\SplittableCheckout\Business\SplittableCheckoutFacadeInterface;
+use FondOfOryx\Zed\SplittableCheckoutRestApi\Dependency\Facade\SplittableCheckoutRestApiToCartFacadeInterface;
 use FondOfOryx\Zed\SplittableCheckoutRestApi\Dependency\Facade\SplittableCheckoutRestApiToQuoteFacadeInterface;
 use FondOfOryx\Zed\SplittableCheckoutRestApi\Dependency\Facade\SplittableCheckoutRestApiToSplittableCheckoutFacadeInterface;
 use FondOfOryx\Zed\SplittableCheckoutRestApi\Dependency\Facade\SplittableCheckoutRestApiToSplittableTotalsFacadeInterface;
 use FondOfOryx\Zed\SplittableTotals\Business\SplittableTotalsFacadeInterface;
+use PHPUnit\Framework\MockObject\MockObject;
 use Spryker\Shared\Kernel\BundleProxy;
+use Spryker\Zed\Cart\Business\CartFacadeInterface;
 use Spryker\Zed\Kernel\Container;
 use Spryker\Zed\Kernel\Locator;
 use Spryker\Zed\Quote\Business\QuoteFacadeInterface;
@@ -16,39 +19,44 @@ use Spryker\Zed\Quote\Business\QuoteFacadeInterface;
 class SplittableCheckoutRestApiDependencyProviderTest extends Unit
 {
     /**
-     * @var \PHPUnit\Framework\MockObject\MockObject|\Spryker\Zed\Kernel\Container
+     * @var \PHPUnit\Framework\MockObject\MockObject|(\Spryker\Zed\Kernel\Container&\PHPUnit\Framework\MockObject\MockObject)
      */
-    protected $containerMock;
+    protected Container|MockObject $containerMock;
 
     /**
-     * @var \PHPUnit\Framework\MockObject\MockObject|\Spryker\Zed\Kernel\Locator
+     * @var \PHPUnit\Framework\MockObject\MockObject|(\Spryker\Zed\Kernel\Locator&\PHPUnit\Framework\MockObject\MockObject)
      */
-    protected $locatorMock;
+    protected MockObject|Locator $locatorMock;
 
     /**
-     * @var \PHPUnit\Framework\MockObject\MockObject|\Spryker\Shared\Kernel\BundleProxy
+     * @var \PHPUnit\Framework\MockObject\MockObject|(\Spryker\Shared\Kernel\BundleProxy&\PHPUnit\Framework\MockObject\MockObject)
      */
-    protected $bundleProxyMock;
+    protected BundleProxy|MockObject $bundleProxyMock;
 
     /**
-     * @var \PHPUnit\Framework\MockObject\MockObject|\Spryker\Zed\Quote\Business\QuoteFacadeInterface
+     * @var \PHPUnit\Framework\MockObject\MockObject|(\Spryker\Zed\Cart\Business\CartFacadeInterface&\PHPUnit\Framework\MockObject\MockObject)
      */
-    protected $quoteFacadeMock;
+    protected MockObject|CartFacadeInterface $cartFacadeMock;
 
     /**
-     * @var \FondOfOryx\Zed\SplittableCheckout\Business\SplittableCheckoutFacadeInterface|\PHPUnit\Framework\MockObject\MockObject
+     * @var \PHPUnit\Framework\MockObject\MockObject|(\Spryker\Zed\Quote\Business\QuoteFacadeInterface&\PHPUnit\Framework\MockObject\MockObject)
      */
-    protected $splittableCheckoutFacadeMock;
+    protected QuoteFacadeInterface|MockObject $quoteFacadeMock;
 
     /**
-     * @var \FondOfOryx\Zed\SplittableTotals\Business\SplittableTotalsFacadeInterface|\PHPUnit\Framework\MockObject\MockObject
+     * @var (\FondOfOryx\Zed\SplittableCheckout\Business\SplittableCheckoutFacadeInterface&\PHPUnit\Framework\MockObject\MockObject)|\PHPUnit\Framework\MockObject\MockObject
      */
-    protected $splittableTotalsFacadeMock;
+    protected SplittableCheckoutFacadeInterface|MockObject $splittableCheckoutFacadeMock;
+
+    /**
+     * @var (\FondOfOryx\Zed\SplittableTotals\Business\SplittableTotalsFacadeInterface&\PHPUnit\Framework\MockObject\MockObject)|\PHPUnit\Framework\MockObject\MockObject
+     */
+    protected SplittableTotalsFacadeInterface|MockObject $splittableTotalsFacadeMock;
 
     /**
      * @var \FondOfOryx\Zed\SplittableCheckoutRestApi\SplittableCheckoutRestApiDependencyProvider
      */
-    protected $dependencyProvider;
+    protected SplittableCheckoutRestApiDependencyProvider $dependencyProvider;
 
     /**
      * @return void
@@ -66,6 +74,10 @@ class SplittableCheckoutRestApiDependencyProviderTest extends Unit
             ->getMock();
 
         $this->bundleProxyMock = $this->getMockBuilder(BundleProxy::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $this->cartFacadeMock = $this->getMockBuilder(CartFacadeInterface::class)
             ->disableOriginalConstructor()
             ->getMock();
 
@@ -95,13 +107,14 @@ class SplittableCheckoutRestApiDependencyProviderTest extends Unit
 
         $this->locatorMock->expects(static::atLeastOnce())
             ->method('__call')
-            ->withConsecutive(['quote'], ['splittableCheckout'], ['splittableTotals'])
+            ->withConsecutive(['cart'], ['quote'], ['splittableCheckout'], ['splittableTotals'])
             ->willReturn($this->bundleProxyMock);
 
         $this->bundleProxyMock->expects(static::atLeastOnce())
             ->method('__call')
-            ->withConsecutive(['facade'], ['facade'], ['facade'])
+            ->withConsecutive(['facade'], ['facade'], ['facade'], ['facade'])
             ->willReturnOnConsecutiveCalls(
+                $this->cartFacadeMock,
                 $this->quoteFacadeMock,
                 $this->splittableCheckoutFacadeMock,
                 $this->splittableTotalsFacadeMock,
@@ -110,6 +123,11 @@ class SplittableCheckoutRestApiDependencyProviderTest extends Unit
         $container = $this->dependencyProvider->provideBusinessLayerDependencies($this->containerMock);
 
         static::assertEquals($this->containerMock, $container);
+
+        static::assertInstanceOf(
+            SplittableCheckoutRestApiToCartFacadeInterface::class,
+            $container[SplittableCheckoutRestApiDependencyProvider::FACADE_CART],
+        );
 
         static::assertInstanceOf(
             SplittableCheckoutRestApiToQuoteFacadeInterface::class,

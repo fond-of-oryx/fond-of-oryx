@@ -3,6 +3,7 @@
 namespace FondOfOryx\Zed\SplittableCheckoutRestApi\Business\Reader;
 
 use FondOfOryx\Zed\SplittableCheckoutRestApi\Business\Expander\QuoteExpanderInterface;
+use FondOfOryx\Zed\SplittableCheckoutRestApi\Dependency\Facade\SplittableCheckoutRestApiToCartFacadeInterface;
 use FondOfOryx\Zed\SplittableCheckoutRestApi\Dependency\Facade\SplittableCheckoutRestApiToQuoteFacadeInterface;
 use Generated\Shared\Transfer\QuoteTransfer;
 use Generated\Shared\Transfer\RestSplittableCheckoutRequestTransfer;
@@ -12,22 +13,30 @@ class QuoteReader implements QuoteReaderInterface
     /**
      * @var \FondOfOryx\Zed\SplittableCheckoutRestApi\Business\Expander\QuoteExpanderInterface
      */
-    protected $quoteExpander;
+    protected QuoteExpanderInterface $quoteExpander;
+
+    /**
+     * @var \FondOfOryx\Zed\SplittableCheckoutRestApi\Dependency\Facade\SplittableCheckoutRestApiToCartFacadeInterface
+     */
+    protected SplittableCheckoutRestApiToCartFacadeInterface $cartFacade;
 
     /**
      * @var \FondOfOryx\Zed\SplittableCheckoutRestApi\Dependency\Facade\SplittableCheckoutRestApiToQuoteFacadeInterface
      */
-    protected $quoteFacade;
+    protected SplittableCheckoutRestApiToQuoteFacadeInterface $quoteFacade;
 
     /**
      * @param \FondOfOryx\Zed\SplittableCheckoutRestApi\Business\Expander\QuoteExpanderInterface $quoteExpander
+     * @param \FondOfOryx\Zed\SplittableCheckoutRestApi\Dependency\Facade\SplittableCheckoutRestApiToCartFacadeInterface $cartFacade
      * @param \FondOfOryx\Zed\SplittableCheckoutRestApi\Dependency\Facade\SplittableCheckoutRestApiToQuoteFacadeInterface $quoteFacade
      */
     public function __construct(
         QuoteExpanderInterface $quoteExpander,
+        SplittableCheckoutRestApiToCartFacadeInterface $cartFacade,
         SplittableCheckoutRestApiToQuoteFacadeInterface $quoteFacade
     ) {
         $this->quoteExpander = $quoteExpander;
+        $this->cartFacade = $cartFacade;
         $this->quoteFacade = $quoteFacade;
     }
 
@@ -49,11 +58,17 @@ class QuoteReader implements QuoteReaderInterface
         $quoteResponseTransfer = $this->quoteFacade->findQuoteByUuid((new QuoteTransfer())->setUuid($uuid));
         $quoteTransfer = $quoteResponseTransfer->getQuoteTransfer();
 
-        if ($quoteTransfer === null || !$quoteResponseTransfer->getIsSuccessful()) {
+        if (
+            $quoteTransfer === null
+            || !$quoteResponseTransfer->getIsSuccessful()
+            || $quoteTransfer->getCustomerReference() !== $customerReference
+        ) {
             return null;
         }
 
-        if ($quoteTransfer->getCustomerReference() !== $customerReference) {
+        $quoteResponseTransfer = $this->cartFacade->validateQuote($quoteTransfer);
+
+        if (!$quoteResponseTransfer->getIsSuccessful()) {
             return null;
         }
 
