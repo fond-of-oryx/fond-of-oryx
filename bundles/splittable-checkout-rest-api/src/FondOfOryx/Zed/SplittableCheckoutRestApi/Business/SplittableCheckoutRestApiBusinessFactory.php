@@ -10,6 +10,7 @@ use FondOfOryx\Zed\SplittableCheckoutRestApi\Business\Reader\QuoteReader;
 use FondOfOryx\Zed\SplittableCheckoutRestApi\Business\Reader\QuoteReaderInterface;
 use FondOfOryx\Zed\SplittableCheckoutRestApi\Business\Reader\SplittableTotalsReader;
 use FondOfOryx\Zed\SplittableCheckoutRestApi\Business\Reader\SplittableTotalsReaderInterface;
+use FondOfOryx\Zed\SplittableCheckoutRestApi\Dependency\Facade\SplittableCheckoutRestApiToCartFacadeInterface;
 use FondOfOryx\Zed\SplittableCheckoutRestApi\Dependency\Facade\SplittableCheckoutRestApiToQuoteFacadeInterface;
 use FondOfOryx\Zed\SplittableCheckoutRestApi\Dependency\Facade\SplittableCheckoutRestApiToSplittableCheckoutFacadeInterface;
 use FondOfOryx\Zed\SplittableCheckoutRestApi\Dependency\Facade\SplittableCheckoutRestApiToSplittableTotalsFacadeInterface;
@@ -47,6 +48,7 @@ class SplittableCheckoutRestApiBusinessFactory extends AbstractBusinessFactory
     {
         return new QuoteReader(
             $this->createQuoteExpander(),
+            $this->getCartFacade(),
             $this->getQuoteFacade(),
         );
     }
@@ -67,6 +69,14 @@ class SplittableCheckoutRestApiBusinessFactory extends AbstractBusinessFactory
     protected function getQuoteExpanderPlugins(): array
     {
         return $this->getProvidedDependency(SplittableCheckoutRestApiDependencyProvider::PLUGINS_QUOTE_EXPANDER);
+    }
+
+    /**
+     * @return \FondOfOryx\Zed\SplittableCheckoutRestApi\Dependency\Facade\SplittableCheckoutRestApiToCartFacadeInterface
+     */
+    protected function getCartFacade(): SplittableCheckoutRestApiToCartFacadeInterface
+    {
+        return $this->getProvidedDependency(SplittableCheckoutRestApiDependencyProvider::FACADE_CART);
     }
 
     /**

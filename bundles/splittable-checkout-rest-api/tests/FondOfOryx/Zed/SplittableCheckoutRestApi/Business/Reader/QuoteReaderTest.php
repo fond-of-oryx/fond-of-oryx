@@ -4,42 +4,49 @@ namespace FondOfOryx\Zed\SplittableCheckoutRestApi\Business\Reader;
 
 use Codeception\Test\Unit;
 use FondOfOryx\Zed\SplittableCheckoutRestApi\Business\Expander\QuoteExpanderInterface;
+use FondOfOryx\Zed\SplittableCheckoutRestApi\Dependency\Facade\SplittableCheckoutRestApiToCartFacadeInterface;
 use FondOfOryx\Zed\SplittableCheckoutRestApi\Dependency\Facade\SplittableCheckoutRestApiToQuoteFacadeInterface;
 use Generated\Shared\Transfer\QuoteResponseTransfer;
 use Generated\Shared\Transfer\QuoteTransfer;
 use Generated\Shared\Transfer\RestSplittableCheckoutRequestTransfer;
+use PHPUnit\Framework\MockObject\MockObject;
 
 class QuoteReaderTest extends Unit
 {
     /**
-     * @var \Generated\Shared\Transfer\RestSplittableCheckoutRequestTransfer|\PHPUnit\Framework\MockObject\MockObject
+     * @var (\Generated\Shared\Transfer\RestSplittableCheckoutRequestTransfer&\PHPUnit\Framework\MockObject\MockObject)|\PHPUnit\Framework\MockObject\MockObject
      */
-    protected $restSplittableCheckoutRequestTransferMock;
+    protected RestSplittableCheckoutRequestTransfer|MockObject $restSplittableCheckoutRequestTransferMock;
 
     /**
-     * @var \FondOfOryx\Zed\SplittableCheckoutRestApi\Business\Expander\QuoteExpanderInterface|\PHPUnit\Framework\MockObject\MockObject
+     * @var (\FondOfOryx\Zed\SplittableCheckoutRestApi\Business\Expander\QuoteExpanderInterface&\PHPUnit\Framework\MockObject\MockObject)|\PHPUnit\Framework\MockObject\MockObject
      */
-    protected $quoteExpanderMock;
+    protected MockObject|QuoteExpanderInterface $quoteExpanderMock;
 
     /**
-     * @var \FondOfOryx\Zed\SplittableCheckoutRestApi\Dependency\Facade\SplittableCheckoutRestApiToQuoteFacadeInterface|\PHPUnit\Framework\MockObject\MockObject
+     * @var (\FondOfOryx\Zed\SplittableCheckoutRestApi\Dependency\Facade\SplittableCheckoutRestApiToCartFacadeInterface&\PHPUnit\Framework\MockObject\MockObject)|\PHPUnit\Framework\MockObject\MockObject
      */
-    protected $quoteFacadeMock;
+    protected MockObject|SplittableCheckoutRestApiToCartFacadeInterface $cartFacadeMock;
 
     /**
-     * @var \Generated\Shared\Transfer\QuoteResponseTransfer|\PHPUnit\Framework\MockObject\MockObject
+     * @var (\FondOfOryx\Zed\SplittableCheckoutRestApi\Dependency\Facade\SplittableCheckoutRestApiToQuoteFacadeInterface&\PHPUnit\Framework\MockObject\MockObject)|\PHPUnit\Framework\MockObject\MockObject
      */
-    protected $quoteResponseTransferMock;
+    protected MockObject|SplittableCheckoutRestApiToQuoteFacadeInterface $quoteFacadeMock;
 
     /**
-     * @var \Generated\Shared\Transfer\QuoteTransfer|\PHPUnit\Framework\MockObject\MockObject
+     * @var (\Generated\Shared\Transfer\QuoteResponseTransfer&\PHPUnit\Framework\MockObject\MockObject)|\PHPUnit\Framework\MockObject\MockObject
      */
-    protected $quoteTransferMock;
+    protected QuoteResponseTransfer|MockObject $quoteResponseTransferMock;
+
+    /**
+     * @var (\Generated\Shared\Transfer\QuoteTransfer&\PHPUnit\Framework\MockObject\MockObject)|\PHPUnit\Framework\MockObject\MockObject
+     */
+    protected QuoteTransfer|MockObject $quoteTransferMock;
 
     /**
      * @var \FondOfOryx\Zed\SplittableCheckoutRestApi\Business\Reader\QuoteReader
      */
-    protected $quoteReader;
+    protected QuoteReader $quoteReader;
 
     /**
      * @return void
@@ -53,6 +60,10 @@ class QuoteReaderTest extends Unit
             ->getMock();
 
         $this->quoteExpanderMock = $this->getMockBuilder(QuoteExpanderInterface::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $this->cartFacadeMock = $this->getMockBuilder(SplittableCheckoutRestApiToCartFacadeInterface::class)
             ->disableOriginalConstructor()
             ->getMock();
 
@@ -70,6 +81,7 @@ class QuoteReaderTest extends Unit
 
         $this->quoteReader = new QuoteReader(
             $this->quoteExpanderMock,
+            $this->cartFacadeMock,
             $this->quoteFacadeMock,
         );
     }
@@ -112,6 +124,11 @@ class QuoteReaderTest extends Unit
             ->method('getCustomerReference')
             ->willReturn($customerReference);
 
+        $this->cartFacadeMock->expects(static::atLeastOnce())
+            ->method('validateQuote')
+            ->with($this->quoteTransferMock)
+            ->willReturn($this->quoteResponseTransferMock);
+
         $this->quoteExpanderMock->expects(static::atLeastOnce())
             ->method('expand')
             ->with($this->restSplittableCheckoutRequestTransferMock, $this->quoteTransferMock)
@@ -141,6 +158,9 @@ class QuoteReaderTest extends Unit
 
         $this->quoteFacadeMock->expects(static::never())
             ->method('findQuoteByUuid');
+
+        $this->cartFacadeMock->expects(static::never())
+            ->method('validateQuote');
 
         $this->quoteExpanderMock->expects(static::never())
             ->method('expand');
@@ -183,6 +203,9 @@ class QuoteReaderTest extends Unit
 
         $this->quoteResponseTransferMock->expects(static::never())
             ->method('getIsSuccessful');
+
+        $this->cartFacadeMock->expects(static::never())
+            ->method('validateQuote');
 
         $this->quoteExpanderMock->expects(static::never())
             ->method('expand');
@@ -230,6 +253,9 @@ class QuoteReaderTest extends Unit
         $this->quoteTransferMock->expects(static::atLeastOnce())
             ->method('getCustomerReference')
             ->willReturn('FOO-7');
+
+        $this->cartFacadeMock->expects(static::never())
+            ->method('validateQuote');
 
         $this->quoteExpanderMock->expects(static::never())
             ->method('expand');
