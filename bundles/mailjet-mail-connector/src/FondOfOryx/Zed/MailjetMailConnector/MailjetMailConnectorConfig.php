@@ -185,4 +185,12 @@ class MailjetMailConnectorConfig extends AbstractBundleConfig
     {
         return $this->get(MailjetMailConnectorConstants::MAILJET_RETRY_MULTIPLIER, 1);
     }
+
+    /**
+     * @return bool
+     */
+    public function getRetryOnTimeout(): bool
+    {
+        return $this->get(MailjetMailConnectorConstants::MAILJET_RETRY_ON_TIMEOUT, true);
+    }
 }
