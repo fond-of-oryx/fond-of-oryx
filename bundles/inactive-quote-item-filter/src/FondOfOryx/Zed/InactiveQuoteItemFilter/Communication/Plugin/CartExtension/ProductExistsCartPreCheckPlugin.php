@@ -117,8 +117,6 @@ class ProductExistsCartPreCheckPlugin extends AbstractPlugin implements CartPreC
     }
 
     /**
-     * @param string $sku
-     *
      * @return \Generated\Shared\Transfer\MessageTransfer
      */
     protected function createMissingStoreErrorMessage(): MessageTransfer
