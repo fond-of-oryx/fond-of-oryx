@@ -8,6 +8,10 @@ use Generated\Shared\Transfer\MessageTransfer;
 use Spryker\Zed\CartExtension\Dependency\Plugin\CartPreCheckPluginInterface;
 use Spryker\Zed\Kernel\Communication\AbstractPlugin;
 
+/**
+ * @method \FondOfOryx\Zed\InactiveQuoteItemFilter\Persistence\InactiveQuoteItemFilterRepositoryInterface getRepository()
+ * @method \FondOfOryx\Zed\InactiveQuoteItemFilter\Communication\InactiveQuoteItemFilterCommunicationFactory getFactory()
+ */
 class ProductExistsCartPreCheckPlugin extends AbstractPlugin implements CartPreCheckPluginInterface
 {
     /**
@@ -25,11 +29,11 @@ class ProductExistsCartPreCheckPlugin extends AbstractPlugin implements CartPreC
      */
     public const MESSAGE_PARAM_SKU = 'sku';
 
-     /**
-      * @param \Generated\Shared\Transfer\CartChangeTransfer $cartChangeTransfer
-      *
-      * @return \Generated\Shared\Transfer\CartPreCheckResponseTransfer
-      */
+    /**
+     * @param \Generated\Shared\Transfer\CartChangeTransfer $cartChangeTransfer
+     *
+     * @return \Generated\Shared\Transfer\CartPreCheckResponseTransfer
+     */
     public function check(CartChangeTransfer $cartChangeTransfer): CartPreCheckResponseTransfer
     {
         $cartPreCheckResponseTransfer = new CartPreCheckResponseTransfer();
