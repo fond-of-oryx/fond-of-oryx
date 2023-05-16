@@ -75,14 +75,14 @@ class RepresentativeCompanyUserRepository extends AbstractRepository implements 
         $representativeCompanyUserTransfer
             ->requireFkDistributor()
             ->requireFkRepresentative()
-            ->requireStartDate()
-            ->requireEndDate();
+            ->requireStartAt()
+            ->requireEndAt();
 
         $entity = $this->getFactory()->getRepresentativeCompanyUserQuery()
             ->filterByFkDistributor($representativeCompanyUserTransfer->getFkDistributor())
             ->filterByFkDistributor($representativeCompanyUserTransfer->getFkRepresentative())
-            ->filterByStartDate($representativeCompanyUserTransfer->getStartDate())
-            ->filterByEndDate($representativeCompanyUserTransfer->getEndDate())
+            ->filterByStartAt($representativeCompanyUserTransfer->getStartAt())
+            ->filterByEndAt($representativeCompanyUserTransfer->getEndAt())
             ->findOne();
 
         if ($entity === null) {
@@ -102,7 +102,7 @@ class RepresentativeCompanyUserRepository extends AbstractRepository implements 
     ): RepresentativeCompanyUserCollectionTransfer {
         $query = $this->prepareRepresentativeCompanyUserQuery($filterTransfer);
 
-        $results = $query->where(FooRepresentativeCompanyUserTableMap::COL_END_DATE . '< now()')
+        $results = $query->where(FooRepresentativeCompanyUserTableMap::COL_END_AT . '< now()')
             ->find();
 
         $collection = new RepresentativeCompanyUserCollectionTransfer();

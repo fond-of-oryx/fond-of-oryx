@@ -10,8 +10,8 @@
         <property name="representative" type="Customer" />
         <property name="fkOriginator" type="int" />
         <property name="originator" type="Customer" />
-        <property name="startDate" type="int" />
-        <property name="endDate" type="int" />
+        <property name="startAt" type="string" />
+        <property name="endAt" type="string" />
         <property name="status" type="string" />
         <property name="uuid" type="string" />
         <property name="createdAt" type="int" />

@@ -56,8 +56,8 @@ class RepresentationManager implements RepresentationManagerInterface
             ->setFkDistributor($distributorId)
             ->setFkOriginator($originatorId)
             ->setFkRepresentative($representationId)
-            ->setStartDate($restRepresentativeCompanyUserAttributesTransfer->getStartDate())
-            ->setEndDate($restRepresentativeCompanyUserAttributesTransfer->getEndDate());
+            ->setStartAt($restRepresentativeCompanyUserAttributesTransfer->getStartAt())
+            ->setEndAt($restRepresentativeCompanyUserAttributesTransfer->getEndAt());
 
         $response = $this->representativeCompanyUserFacade->addRepresentativeCompanyUser($representationTransfer);
 
@@ -91,8 +91,8 @@ class RepresentationManager implements RepresentationManagerInterface
 
         $representationTransfer
             ->setStatus($this->getStatus($representationTransfer, $restRepresentativeCompanyUserAttributesTransfer))
-            ->setEndDate($restRepresentativeCompanyUserAttributesTransfer->getEndDate())
-            ->setStartDate($restRepresentativeCompanyUserAttributesTransfer->getStartDate());
+            ->setEndAt($restRepresentativeCompanyUserAttributesTransfer->getEndAt())
+            ->setStartAt($restRepresentativeCompanyUserAttributesTransfer->getStartAt());
         $response = $this->representativeCompanyUserFacade->updateRepresentativeCompanyUser($representationTransfer);
 
         return (new RestRepresentativeCompanyUserResponseTransfer())
@@ -131,7 +131,7 @@ class RepresentationManager implements RepresentationManagerInterface
         RepresentativeCompanyUserTransfer $representativeCompanyUserTransfer,
         RestRepresentativeCompanyUserAttributesTransfer $representativeCompanyUserAttributesTransfer
     ): string {
-        if ($representativeCompanyUserAttributesTransfer->getStartDate() < $representativeCompanyUserTransfer->getStartDate()) {
+        if ($representativeCompanyUserAttributesTransfer->getStartAt() < $representativeCompanyUserTransfer->getStartAt()) {
             return FooRepresentativeCompanyUserTableMap::COL_STATE_REVOKED;
         }
 
@@ -152,5 +152,15 @@ class RepresentationManager implements RepresentationManagerInterface
         $collection = $this->representativeCompanyUserFacade->getRepresentativeCompanyUser($filter);
 
         return (new RestRepresentativeCompanyUserResponseTransfer())->setCollection($collection);
+    }
+
+    /**
+     * @param string $date
+     *
+     * @return int
+     */
+    protected function convertDateStringToTimestamp(string $date): int
+    {
+        return strtotime($date);
     }
 }

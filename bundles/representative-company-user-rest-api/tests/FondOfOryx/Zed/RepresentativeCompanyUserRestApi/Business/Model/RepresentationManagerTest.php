@@ -101,8 +101,8 @@ class RepresentationManagerTest extends Unit
 
         $originatorReference = 'originator-reference';
 
-        $startDate = '01-01-1970';
-        $endDate = '02-01-1970';
+        $startAt = '01-01-1970';
+        $endAt = '02-01-1970';
 
         $this->restRepresentativeCompanyUserRequestTransferMock->expects(static::atLeastOnce())
             ->method('getAttributes')
@@ -133,12 +133,12 @@ class RepresentationManagerTest extends Unit
             ->willReturn($originatorReference);
 
         $this->restRepresentativeCompanyUserAttributesTransferMock->expects(static::atLeastOnce())
-            ->method('getStartDate')
-            ->willReturn($startDate);
+            ->method('getStartAt')
+            ->willReturn($startAt);
 
         $this->restRepresentativeCompanyUserAttributesTransferMock->expects(static::atLeastOnce())
-            ->method('getEndDate')
-            ->willReturn($endDate);
+            ->method('getEndAt')
+            ->willReturn($endAt);
 
         $this->facadeMock->expects(static::atLeastOnce())
             ->method('addRepresentativeCompanyUser')

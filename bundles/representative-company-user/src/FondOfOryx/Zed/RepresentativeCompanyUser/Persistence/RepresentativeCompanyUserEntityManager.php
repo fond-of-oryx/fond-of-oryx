@@ -124,7 +124,7 @@ class RepresentativeCompanyUserEntityManager extends AbstractEntityManager imple
         }
 
         if ($filterTransfer->getValidTimeRange()) {
-            $query->where(FooRepresentativeCompanyUserTableMap::COL_START_DATE . '<= now() and ' . FooRepresentativeCompanyUserTableMap::COL_END_DATE . '>= now()');
+            $query->where(FooRepresentativeCompanyUserTableMap::COL_START_AT . '<= now() and ' . FooRepresentativeCompanyUserTableMap::COL_END_AT . '>= now()');
         }
 
         $result = $query->find();

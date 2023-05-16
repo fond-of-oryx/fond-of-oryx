@@ -15,7 +15,7 @@ class CheckForRevocationTaskCommandPlugin extends AbstractPlugin implements Repr
     /**
      * @var string
      */
-    public const NAME = 'checkForRevocation';
+    public const NAME = 'CheckForRevocation';
 
     /**
      * @param \Generated\Shared\Transfer\RepresentativeCompanyUserFilterTransfer $filter

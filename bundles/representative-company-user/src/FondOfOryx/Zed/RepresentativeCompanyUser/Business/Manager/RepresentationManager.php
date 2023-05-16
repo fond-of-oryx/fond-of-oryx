@@ -191,6 +191,6 @@ class RepresentationManager implements RepresentationManagerInterface
      */
     protected function generateObjectId(RepresentativeCompanyUserTransfer $representativeCompanyUserTransfer): string
     {
-        return sprintf('%s-%s-%s-%s-%s', $representativeCompanyUserTransfer->getFkDistributor(), $representativeCompanyUserTransfer->getFkRepresentative(), $representativeCompanyUserTransfer->getFkOriginator(), $representativeCompanyUserTransfer->getStartDate(), $representativeCompanyUserTransfer->getEndDate());
+        return sprintf('%s-%s-%s-%s-%s', $representativeCompanyUserTransfer->getFkDistributor(), $representativeCompanyUserTransfer->getFkRepresentative(), $representativeCompanyUserTransfer->getFkOriginator(), $representativeCompanyUserTransfer->getStartAt(), $representativeCompanyUserTransfer->getEndAt());
     }
 }
