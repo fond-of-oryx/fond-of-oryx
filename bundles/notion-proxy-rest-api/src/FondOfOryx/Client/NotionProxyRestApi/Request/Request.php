@@ -12,7 +12,7 @@ class Request implements RequestInterface
     /**
      * @var string
      */
-    protected const STATUS_CODE_ERROR = '429';
+    protected const STATUS_CODE_ERROR = 429;
 
     /**
      * @var \GuzzleHttp\Client

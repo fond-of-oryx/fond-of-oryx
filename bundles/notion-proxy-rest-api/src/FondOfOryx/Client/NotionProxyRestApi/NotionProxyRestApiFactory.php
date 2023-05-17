@@ -15,7 +15,7 @@ use Spryker\Client\Kernel\AbstractFactory;
 class NotionProxyRestApiFactory extends AbstractFactory
 {
     /**
-     * @return \FondOfOryx\Client\NotionProxyrestApi\Request\RequestInterface
+     * @return \FondOfOryx\Client\NotionProxyRestApi\Request\RequestInterface
      */
     public function createRequestClient(): RequestInterface
     {
