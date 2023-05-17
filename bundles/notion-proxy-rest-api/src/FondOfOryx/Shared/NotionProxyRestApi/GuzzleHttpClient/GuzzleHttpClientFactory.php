@@ -7,14 +7,14 @@ use GuzzleHttp\Client;
 class GuzzleHttpClientFactory implements GuzzleHttpClientFactoryInterface
 {
     /**
-     * @var \Elastica\Client
+     * @var \GuzzleHttp\Client
      */
     protected static $client;
 
     /**
      * @param array $clientConfig
      *
-     * @return \Elastica\Client
+     * @return \GuzzleHttp\Client
      */
     public function createClient(array $clientConfig): Client
     {
