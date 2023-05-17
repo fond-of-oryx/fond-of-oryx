@@ -3,7 +3,7 @@
 namespace FondOfOryx\Client\NotionProxyRestApi;
 
 use FondOfOryx\Client\NotionProxyRestApi\Request\Request;
-use FondOfOryx\Client\NotionProxyrestApi\Request\RequestInterface;
+use FondOfOryx\Client\NotionProxyRestApi\Request\RequestInterface;
 use FondOfOryx\Shared\NotionProxyRestApi\GuzzleHttpClient\GuzzleHttpClientFactory;
 use FondOfOryx\Shared\NotionProxyRestApi\GuzzleHttpClient\GuzzleHttpClientFactoryInterface;
 use GuzzleHttp\Client;

@@ -7,7 +7,7 @@ use GuzzleHttp\Client;
 interface GuzzleHttpClientFactoryInterface
 {
     /**
-     * @param array $clientConfig
+     * @param array<string,mixed> $clientConfig
      *
      * @return \GuzzleHttp\Client
      */
