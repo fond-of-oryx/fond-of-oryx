@@ -44,9 +44,6 @@ class Request implements RequestInterface
                 $this->getOptions($restNotionProxyRequestAttributesTransfer),
             );
         } catch (Exception $e) {
-            print $e->getMessage();
-            exit('4');
-
             return $restNotionProxyRequestResponseTransfer
                 ->setStatus(static::STATUS_CODE_ERROR)
                 ->setErrors([$e->getMessage()]);

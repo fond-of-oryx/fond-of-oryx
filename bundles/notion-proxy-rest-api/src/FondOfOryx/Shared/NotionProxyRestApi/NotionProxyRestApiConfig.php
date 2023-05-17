@@ -38,6 +38,7 @@ class NotionProxyRestApiConfig extends AbstractSharedConfig
      */
     public function getClientConfig(): array
     {
+        $config = [];
         $authHeader = (string)$this->get(NotionProxyRestApiConstants::AUTH_HEADER, '');
         $notionVersionHeader = (string)$this->get(NotionProxyRestApiConstants::NOTION_VERSION_HEADER, '');
         $baseUri = (string)$this->get(NotionProxyRestApiConstants::BASE_URI, '');
