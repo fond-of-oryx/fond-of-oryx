@@ -26,7 +26,7 @@ class NotionProxyRestApiFactory extends AbstractFactory
     protected function createGuzzleClient(): Client
     {
         return new Client(
-            $this->getConfig()->getClientConfig()
+            $this->getConfig()->getClientConfig(),
         );
     }
 }

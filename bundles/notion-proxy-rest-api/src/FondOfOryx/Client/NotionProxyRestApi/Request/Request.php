@@ -9,6 +9,9 @@ use GuzzleHttp\Client;
 
 class Request implements RequestInterface
 {
+    /**
+     * @var string
+     */
     protected const STATUS_CODE_ERROR = '429';
 
     /**
@@ -28,8 +31,6 @@ class Request implements RequestInterface
      * @param \Generated\Shared\Transfer\RestNotionProxyRequestAttributesTransfer $restNotionProxyRequestAttributesTransfer
      *
      * @return \Generated\Shared\Transfer\RestNotionProxyRequestResponseTransfer
-     *
-     * @throws \GuzzleHttp\Exception\GuzzleException
      */
     public function send(
         RestNotionProxyRequestAttributesTransfer $restNotionProxyRequestAttributesTransfer
@@ -40,9 +41,9 @@ class Request implements RequestInterface
             $response = $this->client->request(
                 $restNotionProxyRequestAttributesTransfer->getMethod(),
                 $restNotionProxyRequestAttributesTransfer->getPath(),
-                $this->getOptions($restNotionProxyRequestAttributesTransfer)
+                $this->getOptions($restNotionProxyRequestAttributesTransfer),
             );
-        }catch (Exception $e) {
+        } catch (Exception $e) {
             return $restNotionProxyRequestResponseTransfer
                 ->setStatus(static::STATUS_CODE_ERROR)
                 ->setErrors([$e->getMessage()]);
@@ -56,7 +57,7 @@ class Request implements RequestInterface
     /**
      * @param \Generated\Shared\Transfer\RestNotionProxyRequestAttributesTransfer $restNotionProxyRequestAttributesTransfer
      *
-     * @return array<string,mixed>
+     * @return array<string, mixed>
      */
     protected function getOptions(
         RestNotionProxyRequestAttributesTransfer $restNotionProxyRequestAttributesTransfer
@@ -64,7 +65,7 @@ class Request implements RequestInterface
         $options = [];
 
         if ($restNotionProxyRequestAttributesTransfer->getData()) {
-            $options["json"] = $restNotionProxyRequestAttributesTransfer->getData();
+            $options['json'] = $restNotionProxyRequestAttributesTransfer->getData();
         }
 
         return $options;
