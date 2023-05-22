@@ -4,8 +4,7 @@
     <transfer name="RestNotionProxyRequestAttributes">
         <property name="method" type="string"/>
         <property name="data" type="string"/>
-        <property name="object" type="string"/>
-        <property name="id" type="string"/>
+        <property name="path" type="string"/>
     </transfer>
 
     <transfer name="RestNotionProxyRequestResponse">
