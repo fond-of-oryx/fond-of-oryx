@@ -36,7 +36,7 @@ class NotionProxyRestApiFactoryTest extends Unit
     /**
      * @return void
      */
-    public function testCreateGuzzleHttpClientFactory(): void
+    public function testCreateClient(): void
     {
         $this->configMock->expects(static::atLeastOnce())
             ->method('getClientConfig')

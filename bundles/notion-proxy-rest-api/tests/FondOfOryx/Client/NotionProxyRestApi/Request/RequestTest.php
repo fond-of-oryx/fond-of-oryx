@@ -83,20 +83,15 @@ class RequestTest extends Unit
     public function testSend(): void
     {
         $method = 'POST';
-        $object = 'object';
-        $id = '1';
+        $path = 'path';
 
         $this->restNotionProxyRequestAttributesTransferMock->expects(static::atLeastOnce())
             ->method('getMethod')
             ->willReturn($method);
 
         $this->restNotionProxyRequestAttributesTransferMock->expects(static::atLeastOnce())
-            ->method('getObject')
-            ->willReturn($object);
-
-        $this->restNotionProxyRequestAttributesTransferMock->expects(static::atLeastOnce())
-            ->method('getId')
-            ->willReturn($id);
+            ->method('getPath')
+            ->willReturn($path);
 
         $this->restNotionProxyRequestAttributesTransferMock->expects(static::atLeastOnce())
             ->method('getData')
@@ -104,7 +99,7 @@ class RequestTest extends Unit
 
         $this->guzzleHttpClientMock->expects(static::atLeastOnce())
             ->method('request')
-            ->with($method, $object . '/' . $id, ['json' => '{}'])
+            ->with($method, $path, ['json' => '{}'])
             ->willReturn($this->responseMock);
 
         $this->responseMock->expects(static::atLeastOnce())
