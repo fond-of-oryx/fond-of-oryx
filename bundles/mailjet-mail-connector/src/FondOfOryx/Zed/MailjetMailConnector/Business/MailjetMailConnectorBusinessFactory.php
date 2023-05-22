@@ -54,6 +54,7 @@ class MailjetMailConnectorBusinessFactory extends AbstractBusinessFactory
             'max_retry_attempts' => $this->getConfig()->getRetryMaxAttempts(),
             'retry_on_status' => $this->getConfig()->getRetryOnStatus(),
             'default_retry_multiplier' => $this->getConfig()->getRetryMultiplier(),
+            'retry_on_timeout' => $this->getConfig()->getRetryOnTimeout(),
         ]));
 
         $mailjetClient->addRequestOption('handler', $stack);
