@@ -9,10 +9,7 @@ use GuzzleHttp\Client;
 
 class Request implements RequestInterface
 {
-    /**
-     * @var int
-     */
-    protected const STATUS_CODE_ERROR = 429;
+    protected const STATUS_CODE_ERROR = '429';
 
     /**
      * @var \GuzzleHttp\Client
@@ -31,6 +28,8 @@ class Request implements RequestInterface
      * @param \Generated\Shared\Transfer\RestNotionProxyRequestAttributesTransfer $restNotionProxyRequestAttributesTransfer
      *
      * @return \Generated\Shared\Transfer\RestNotionProxyRequestResponseTransfer
+     *
+     * @throws \GuzzleHttp\Exception\GuzzleException
      */
     public function send(
         RestNotionProxyRequestAttributesTransfer $restNotionProxyRequestAttributesTransfer
@@ -40,10 +39,10 @@ class Request implements RequestInterface
         try {
             $response = $this->client->request(
                 $restNotionProxyRequestAttributesTransfer->getMethod(),
-                $this->getUri($restNotionProxyRequestAttributesTransfer),
-                $this->getOptions($restNotionProxyRequestAttributesTransfer),
+                $restNotionProxyRequestAttributesTransfer->getPath(),
+                $this->getOptions($restNotionProxyRequestAttributesTransfer)
             );
-        } catch (Exception $e) {
+        }catch (Exception $e) {
             return $restNotionProxyRequestResponseTransfer
                 ->setStatus(static::STATUS_CODE_ERROR)
                 ->setErrors([$e->getMessage()]);
@@ -57,24 +56,7 @@ class Request implements RequestInterface
     /**
      * @param \Generated\Shared\Transfer\RestNotionProxyRequestAttributesTransfer $restNotionProxyRequestAttributesTransfer
      *
-     * @return string
-     */
-    protected function getUri(
-        RestNotionProxyRequestAttributesTransfer $restNotionProxyRequestAttributesTransfer
-    ): string {
-        $uri = $restNotionProxyRequestAttributesTransfer->getObject();
-
-        if ($restNotionProxyRequestAttributesTransfer->getId()) {
-            $uri = $uri . '/' . $restNotionProxyRequestAttributesTransfer->getId();
-        }
-
-        return $uri;
-    }
-
-    /**
-     * @param \Generated\Shared\Transfer\RestNotionProxyRequestAttributesTransfer $restNotionProxyRequestAttributesTransfer
-     *
-     * @return array<string, mixed>
+     * @return array<string,mixed>
      */
     protected function getOptions(
         RestNotionProxyRequestAttributesTransfer $restNotionProxyRequestAttributesTransfer
@@ -82,7 +64,7 @@ class Request implements RequestInterface
         $options = [];
 
         if ($restNotionProxyRequestAttributesTransfer->getData()) {
-            $options['json'] = $restNotionProxyRequestAttributesTransfer->getData();
+            $options["json"] = $restNotionProxyRequestAttributesTransfer->getData();
         }
 
         return $options;
