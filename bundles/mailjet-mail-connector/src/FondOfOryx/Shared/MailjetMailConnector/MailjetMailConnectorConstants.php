@@ -103,4 +103,9 @@ interface MailjetMailConnectorConstants
      * @var string
      */
     public const MAILJET_RETRY_MULTIPLIER = 'MailjetMailConnector:MAILJET_RETRY_MULTIPLIER';
+
+    /**
+     * @var string
+     */
+    public const MAILJET_RETRY_ON_TIMEOUT = 'MailjetMailConnector:MAILJET_RETRY_ON_TIMEOUT';
 }
