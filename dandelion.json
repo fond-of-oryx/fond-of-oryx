@@ -635,6 +635,10 @@
       "path": "bundles/no-payment-credit-memo/",
       "version": "1.0.0"
     },
+    "notion-proxy-rest-api": {
+      "path": "bundles/notion-proxy-rest-api",
+      "version": "1.0.0.beta.1"
+    },
     "oms-credit-memo-gift-card-connector": {
       "path": "bundles/oms-credit-memo-gift-card-connector/",
       "version": "2.0.0"
