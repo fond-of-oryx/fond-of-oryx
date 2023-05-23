@@ -16,7 +16,7 @@ class NotionProxyRestApiFactory extends AbstractFactory
     /**
      * @return \FondOfOryx\Glue\NotionProxyRestApi\Processor\Creator\NotionProxyRequestCreatorInterface
      */
-    public function createNotionRequestCreator(): NotionProxyRequestCreatorInterface
+    public function createNotionProxyRequestCreator(): NotionProxyRequestCreatorInterface
     {
         return new NotionProxyRequestCreator(
             $this->createRestResponseBuilder(),

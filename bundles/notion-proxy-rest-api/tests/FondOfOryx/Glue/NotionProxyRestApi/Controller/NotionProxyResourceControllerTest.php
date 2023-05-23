@@ -101,7 +101,7 @@ class NotionProxyResourceControllerTest extends Unit
     public function testPostAction(): void
     {
         $this->factoryMock->expects(static::atLeastOnce())
-            ->method('createNotionRequestCreator')
+            ->method('createNotionProxyRequestCreator')
             ->willReturn($this->notionProxyRequestCreatorMock);
 
         $this->notionProxyRequestCreatorMock->expects(static::atLeastOnce())

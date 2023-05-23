@@ -23,7 +23,7 @@ class NotionProxyResourceController extends AbstractController
         RestNotionProxyRequestAttributesTransfer $restNotionProxyRequestAttributesTransfer
     ): RestResponseInterface {
         return $this->getFactory()
-            ->createNotionRequestCreator()
+            ->createNotionProxyRequestCreator()
             ->create($restNotionProxyRequestAttributesTransfer, $restRequest);
     }
 }

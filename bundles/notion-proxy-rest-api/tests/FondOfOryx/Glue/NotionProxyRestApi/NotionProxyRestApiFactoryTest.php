@@ -69,11 +69,11 @@ class NotionProxyRestApiFactoryTest extends Unit
     /**
      * @return void
      */
-    public function testCreateNotionRequestCreator(): void
+    public function testCreateNotionProxyRequestCreator(): void
     {
         static::assertInstanceOf(
             NotionProxyRequestCreatorInterface::class,
-            $this->factory->createNotionRequestCreator(),
+            $this->factory->createNotionProxyRequestCreator(),
         );
     }
 }
