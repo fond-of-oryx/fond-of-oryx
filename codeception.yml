@@ -135,6 +135,7 @@ include:
   - bundles/mail-proxy
   - bundles/mail-proxy-extension
   - bundles/mailjet-mail-connector
+  - bundles/notion-proxy-rest-api
   - bundles/oms-credit-memo-gift-card-connector
   - bundles/one-time-password
   - bundles/one-time-password-email-connector
