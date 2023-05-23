@@ -1,5 +1,7 @@
 <?php
 
+namespace FondOfOryx\Zed\CompanyUserSearchRestApiExtension\Dependency\Plugin;
+
 use Generated\Shared\Transfer\QueryJoinCollectionTransfer;
 
 interface SearchCompanyUserQueryExpanderPluginInterface
