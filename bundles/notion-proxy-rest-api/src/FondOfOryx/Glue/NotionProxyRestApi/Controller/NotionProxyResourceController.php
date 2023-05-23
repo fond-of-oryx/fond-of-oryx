@@ -25,6 +25,5 @@ class NotionProxyResourceController extends AbstractController
         return $this->getFactory()
             ->createNotionRequestCreator()
             ->create($restNotionProxyRequestAttributesTransfer, $restRequest);
-
     }
 }
