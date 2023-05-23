@@ -36,14 +36,14 @@ jobs:
               uses: actions/cache@v3
               with:
                 path: phpcs.cache
-                key: ${{ runner.os }}-phpcs-${{ matrix.php-versions }}-${{ env.GITHUB_SHA }}
+                key: ${{ runner.os }}-phpcs-${{ matrix.php-versions }}-${{ github.sha }}
                 restore-keys: ${{ runner.os }}-phpcs-${{ matrix.php-versions }}-
 
             - name: Cache phpstan
               uses: actions/cache@v3
               with:
                 path: phpstanCache
-                key: ${{ runner.os }}-phpstan-${{ matrix.php-versions }}-${{ env.GITHUB_SHA }}
+                key: ${{ runner.os }}-phpstan-${{ matrix.php-versions }}-${{ github.sha }}
                 restore-keys: ${{ runner.os }}-phpstan-${{ matrix.php-versions }}-
 
             - name: Install dependencies
