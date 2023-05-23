@@ -55,6 +55,7 @@ include:
   - bundles/company-user-order-budget-search-rest-api
   - bundles/company-user-reference-sales-connector
   - bundles/company-user-search-rest-api
+  - bundles/company-user-search-rest-api-extension
   - bundles/country-oms-mail-connector
   - bundles/credit-memo
   - bundles/credit-memo-payone-debit-connector
