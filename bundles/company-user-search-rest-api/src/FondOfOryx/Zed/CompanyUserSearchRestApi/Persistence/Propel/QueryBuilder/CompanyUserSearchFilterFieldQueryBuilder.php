@@ -142,9 +142,15 @@ class CompanyUserSearchFilterFieldQueryBuilder implements CompanyUserSearchFilte
             $filterFieldTransfer->getValue(),
         );
 
-        if ($orderColumn) {
-            $query->orderBy($orderColumn, $orderDirection);
+        if (!$orderColumn) {
+            return $query;
         }
+
+        if (isset($this->config->getSortFieldMapping()[$orderColumn])) {
+            $orderColumn = $this->config->getSortFieldMapping()[$orderColumn];
+        }
+
+        $query->orderBy($orderColumn, $orderDirection);
 
         return $query;
     }

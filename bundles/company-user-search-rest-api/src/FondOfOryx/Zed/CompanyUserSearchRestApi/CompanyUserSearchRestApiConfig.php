@@ -42,4 +42,15 @@ class CompanyUserSearchRestApiConfig extends AbstractBundleConfig
             CompanyUserSearchRestApiConstants::FILTER_FIELD_TYPE_MAPPING_DEFAULT,
         );
     }
+
+    /**
+     * @return array<string, string>
+     */
+    public function getSortFieldMapping(): array
+    {
+        return $this->get(
+            CompanyUserSearchRestApiConstants::SORT_FIELD_MAPPING,
+            CompanyUserSearchRestApiConstants::SORT_FIELD_MAPPING_DEFAULT,
+        );
+    }
 }

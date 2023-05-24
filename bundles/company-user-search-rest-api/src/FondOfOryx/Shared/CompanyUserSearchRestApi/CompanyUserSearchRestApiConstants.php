@@ -63,4 +63,14 @@ interface CompanyUserSearchRestApiConstants
      * @var array
      */
     public const SORT_FIELDS_DEFAULT = ['company_user_reference'];
+
+    /**
+     * @var string
+     */
+    public const SORT_FIELD_MAPPING = 'FOND_OF_ORYX:COMPANY_USER_REST_API:SORT_FIELD_MAPPING';
+
+    /**
+     * @var array
+     */
+    public const SORT_FIELD_MAPPING_DEFAULT = [];
 }
