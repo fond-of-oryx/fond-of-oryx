@@ -11,28 +11,6 @@ use Spryker\Zed\Kernel\AbstractBundleConfig;
 class CompanyUserSearchRestApiConfig extends AbstractBundleConfig
 {
     /**
-     * @return array<string>
-     */
-    public function getFulltextSearchFields(): array
-    {
-        return $this->get(
-            CompanyUserSearchRestApiConstants::FULLTEXT_SEARCH_FIELDS,
-            CompanyUserSearchRestApiConstants::FULLTEXT_SEARCH_FIELDS_DEFAULT,
-        );
-    }
-
-    /**
-     * @return array<string>
-     */
-    public function getSortFields(): array
-    {
-        return $this->get(
-            CompanyUserSearchRestApiConstants::SORT_FIELDS,
-            CompanyUserSearchRestApiConstants::SORT_FIELDS_DEFAULT,
-        );
-    }
-
-    /**
      * @return int
      */
     public function getItemsPerPage(): int
@@ -51,6 +29,28 @@ class CompanyUserSearchRestApiConfig extends AbstractBundleConfig
         return $this->get(
             CompanyUserSearchRestApiConstants::VALID_ITEMS_PER_PAGE_OPTIONS,
             CompanyUserSearchRestApiConstants::VALID_ITEMS_PER_PAGE_OPTIONS_DEFAULT,
+        );
+    }
+
+    /**
+     * @return array<string, string>
+     */
+    public function getFilterFieldTypeMapping(): array
+    {
+        return $this->get(
+            CompanyUserSearchRestApiConstants::FILTER_FIELD_TYPE_MAPPING,
+            CompanyUserSearchRestApiConstants::FILTER_FIELD_TYPE_MAPPING_DEFAULT,
+        );
+    }
+
+    /**
+     * @return array<string, string>
+     */
+    public function getSortFieldMapping(): array
+    {
+        return $this->get(
+            CompanyUserSearchRestApiConstants::SORT_FIELD_MAPPING,
+            CompanyUserSearchRestApiConstants::SORT_FIELD_MAPPING_DEFAULT,
         );
     }
 }

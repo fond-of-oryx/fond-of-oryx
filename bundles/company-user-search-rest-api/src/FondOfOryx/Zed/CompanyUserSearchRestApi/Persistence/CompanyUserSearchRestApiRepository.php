@@ -3,10 +3,11 @@
 namespace FondOfOryx\Zed\CompanyUserSearchRestApi\Persistence;
 
 use ArrayObject;
+use FondOfOryx\Shared\CompanyUserSearchRestApi\CompanyUserSearchRestApiConstants;
+use FondOfOryx\Zed\CompanyUserSearchRestApi\Persistence\Propel\QueryBuilder\CompanyUserSearchFilterFieldQueryBuilder;
 use Generated\Shared\Transfer\CompanyUserListTransfer;
+use Orm\Zed\CompanyUser\Persistence\Base\SpyCompanyUserQuery;
 use Orm\Zed\CompanyUser\Persistence\Map\SpyCompanyUserTableMap;
-use Orm\Zed\CompanyUser\Persistence\SpyCompanyUserQuery;
-use Orm\Zed\Customer\Persistence\Map\SpyCustomerTableMap;
 use Propel\Runtime\ActiveQuery\Criteria;
 use Propel\Runtime\ActiveQuery\ModelCriteria;
 use Spryker\Zed\Kernel\Persistence\AbstractRepository;
@@ -30,16 +31,31 @@ class CompanyUserSearchRestApiRepository extends AbstractRepository implements C
      */
     public function searchCompanyUser(CompanyUserListTransfer $companyUserListTransfer): CompanyUserListTransfer
     {
-        $companyUserQuery = $this->getBaseQuery($companyUserListTransfer);
-        $companyUserQuery = $this->addCompanyQuery($companyUserQuery, $companyUserListTransfer);
-        $companyUserQuery = $this->addFulltextSearchFields($companyUserQuery, $companyUserListTransfer);
-        $companyUserQuery = $this->addOnlyOnePerCustomerFilter($companyUserQuery, $companyUserListTransfer);
-        $companyUserQuery = $this->addSort($companyUserQuery, $companyUserListTransfer);
-        $companyUserQuery = $this->preparePagination($companyUserQuery, $companyUserListTransfer);
+        $query = $this->getBaseQuery($companyUserListTransfer);
+        $query = $this->addCompanyQuery($query, $companyUserListTransfer);
+        $query = $this->addOnlyOnePerCustomerFilter($query, $companyUserListTransfer);
+
+        $query = $this->getFactory()
+            ->createCompanyUserSearchFilterFieldQueryBuilder()
+            ->addQueryFilters($query, $companyUserListTransfer);
+
+        $queryJoinCollectionTransfer = $companyUserListTransfer->getQueryJoins();
+
+        if ($queryJoinCollectionTransfer !== null && $queryJoinCollectionTransfer->getQueryJoins()->count() > 0) {
+            $query = $this->getFactory()
+                ->createCompanyUserQueryJoinQueryBuilder()
+                ->addQueryFilters($query, $queryJoinCollectionTransfer);
+        }
+
+        if ($this->isSearchByAllFilterFieldSet($companyUserListTransfer)) {
+            $query->where([CompanyUserSearchFilterFieldQueryBuilder::CONDITION_GROUP_ALL]);
+        }
+
+        $query = $this->preparePagination($query, $companyUserListTransfer);
 
         $companyUser = $this->getFactory()
             ->createCompanyUserMapper()
-            ->mapEntityCollectionToTransfers($companyUserQuery->find());
+            ->mapEntityCollectionToTransfers($query->find());
 
         return $companyUserListTransfer->setCompanyUser(new ArrayObject($companyUser));
     }
@@ -120,57 +136,6 @@ class CompanyUserSearchRestApiRepository extends AbstractRepository implements C
      *
      * @return \Orm\Zed\CompanyUser\Persistence\SpyCompanyUserQuery
      */
-    protected function addFulltextSearchFields(
-        SpyCompanyUserQuery $companyUserQuery,
-        CompanyUserListTransfer $companyUserListTransfer
-    ): SpyCompanyUserQuery {
-        $query = $companyUserListTransfer->getQuery();
-
-        if ($query === null) {
-            return $companyUserQuery;
-        }
-
-        $fulltextSearchFields = $this->getFactory()->getConfig()->getFulltextSearchFields();
-        $conditionNames = [];
-        $tableMaps = [
-            SpyCompanyUserTableMap::getTableMap(),
-            SpyCustomerTableMap::getTableMap(),
-        ];
-
-        foreach ($fulltextSearchFields as $fulltextSearchField) {
-            foreach ($tableMaps as $tableMap) {
-                if (!$tableMap->hasColumn($fulltextSearchField)) {
-                    continue;
-                }
-
-                $columnMap = $tableMap->getColumn($fulltextSearchField);
-
-                if (!$columnMap->isText()) {
-                    continue;
-                }
-
-                $conditionNames[] = $conditionName = uniqid($fulltextSearchField, true);
-                $companyUserQuery->addCond($conditionName, $columnMap->getFullyQualifiedName(), sprintf('%%%s%%', $query), Criteria::ILIKE);
-
-                break;
-            }
-        }
-
-        if (count($conditionNames) === 0) {
-            return $companyUserQuery;
-        }
-
-        $companyUserQuery->combine($conditionNames, Criteria::LOGICAL_OR);
-
-        return $companyUserQuery;
-    }
-
-    /**
-     * @param \Orm\Zed\CompanyUser\Persistence\SpyCompanyUserQuery $companyUserQuery
-     * @param \Generated\Shared\Transfer\CompanyUserListTransfer $companyUserListTransfer
-     *
-     * @return \Orm\Zed\CompanyUser\Persistence\SpyCompanyUserQuery
-     */
     protected function addOnlyOnePerCustomerFilter(
         SpyCompanyUserQuery $companyUserQuery,
         CompanyUserListTransfer $companyUserListTransfer
@@ -193,59 +158,29 @@ class CompanyUserSearchRestApiRepository extends AbstractRepository implements C
     }
 
     /**
-     * @param \Orm\Zed\CompanyUser\Persistence\SpyCompanyUserQuery $companyUserQuery
      * @param \Generated\Shared\Transfer\CompanyUserListTransfer $companyUserListTransfer
      *
-     * @return \Orm\Zed\CompanyUser\Persistence\SpyCompanyUserQuery
+     * @return bool
      */
-    protected function addSort(
-        SpyCompanyUserQuery $companyUserQuery,
-        CompanyUserListTransfer $companyUserListTransfer
-    ): SpyCompanyUserQuery {
-        $sort = $companyUserListTransfer->getSort();
-
-        if ($sort === null) {
-            return $companyUserQuery;
+    protected function isSearchByAllFilterFieldSet(CompanyUserListTransfer $companyUserListTransfer): bool
+    {
+        foreach ($companyUserListTransfer->getFilterFields() as $filterFieldTransfer) {
+            if ($filterFieldTransfer->getType() === CompanyUserSearchRestApiConstants::FILTER_FIELD_TYPE_ALL) {
+                return true;
+            }
         }
 
-        $sortFields = $this->getFactory()->getConfig()->getSortFields();
-        $tableMaps = [
-            SpyCompanyUserTableMap::getTableMap(),
-            SpyCustomerTableMap::getTableMap(),
-        ];
-
-        [$sortField, $direction] = explode(' ', preg_replace('/(([a-z0-9]+)(_[a-z0-9]+)*)_(asc|desc)/', '$1 $4', $sort));
-
-        foreach ($tableMaps as $tableMap) {
-            if (!in_array($sortField, $sortFields, true) || !$tableMap->hasColumn($sortField)) {
-                continue;
-            }
-
-            $columnMap = $tableMap->getColumn($sortField);
-
-            $companyUserQuery->orderBy(
-                $columnMap->getFullyQualifiedName(),
-                $direction === 'desc' ? Criteria::DESC : Criteria::ASC,
-            );
-
-            if ($companyUserListTransfer->getOnlyOnePerCustomer() !== true) {
-                return $companyUserQuery;
-            }
-
-            return $companyUserQuery->addAscendingOrderByColumn(SpyCompanyUserTableMap::COL_ID_COMPANY_USER);
-        }
-
-        return $companyUserQuery;
+        return false;
     }
 
     /**
-     * @param \Orm\Zed\CompanyUser\Persistence\SpyCompanyUserQuery $companyUserQuery
+     * @param \Orm\Zed\CompanyUser\Persistence\Base\SpyCompanyUserQuery $query
      * @param \Generated\Shared\Transfer\CompanyUserListTransfer $companyUserListTransfer
      *
      * @return \Propel\Runtime\ActiveQuery\ModelCriteria
      */
     protected function preparePagination(
-        SpyCompanyUserQuery $companyUserQuery,
+        SpyCompanyUserQuery $query,
         CompanyUserListTransfer $companyUserListTransfer
     ): ModelCriteria {
         $config = $this->getFactory()->getConfig();
@@ -259,7 +194,7 @@ class CompanyUserSearchRestApiRepository extends AbstractRepository implements C
             $maxPerPage = $itemsPerPage;
         }
 
-        $propelModelPager = $companyUserQuery->paginate($page, $maxPerPage);
+        $propelModelPager = $query->paginate($page, $maxPerPage);
 
         $paginationTransfer->setNbResults($propelModelPager->getNbResults())
             ->setFirstIndex($propelModelPager->getFirstIndex())

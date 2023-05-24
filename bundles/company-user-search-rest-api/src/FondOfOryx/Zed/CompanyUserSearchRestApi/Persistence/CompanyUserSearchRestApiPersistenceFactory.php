@@ -9,6 +9,10 @@ use FondOfOryx\Zed\CompanyUserSearchRestApi\Persistence\Propel\Mapper\CompanyUse
 use FondOfOryx\Zed\CompanyUserSearchRestApi\Persistence\Propel\Mapper\CompanyUserMapperInterface;
 use FondOfOryx\Zed\CompanyUserSearchRestApi\Persistence\Propel\Mapper\CustomerMapper;
 use FondOfOryx\Zed\CompanyUserSearchRestApi\Persistence\Propel\Mapper\CustomerMapperInterface;
+use FondOfOryx\Zed\CompanyUserSearchRestApi\Persistence\Propel\QueryBuilder\CompanyUserQueryJoinQueryBuilder;
+use FondOfOryx\Zed\CompanyUserSearchRestApi\Persistence\Propel\QueryBuilder\CompanyUserQueryJoinQueryBuilderInterface;
+use FondOfOryx\Zed\CompanyUserSearchRestApi\Persistence\Propel\QueryBuilder\CompanyUserSearchFilterFieldQueryBuilder;
+use FondOfOryx\Zed\CompanyUserSearchRestApi\Persistence\Propel\QueryBuilder\CompanyUserSearchFilterFieldQueryBuilderInterface;
 use Orm\Zed\CompanyUser\Persistence\SpyCompanyUserQuery;
 use Spryker\Zed\Kernel\Persistence\AbstractPersistenceFactory;
 
@@ -53,5 +57,23 @@ class CompanyUserSearchRestApiPersistenceFactory extends AbstractPersistenceFact
     public function createCustomerMapper(): CustomerMapperInterface
     {
         return new CustomerMapper();
+    }
+
+    /**
+     * @return \FondOfOryx\Zed\CompanyUserSearchRestApi\Persistence\Propel\QueryBuilder\CompanyUserQueryJoinQueryBuilderInterface
+     */
+    public function createCompanyUserQueryJoinQueryBuilder(): CompanyUserQueryJoinQueryBuilderInterface
+    {
+        return new CompanyUserQueryJoinQueryBuilder();
+    }
+
+    /**
+     * @return \FondOfOryx\Zed\CompanyUserSearchRestApi\Persistence\Propel\QueryBuilder\CompanyUserSearchFilterFieldQueryBuilderInterface
+     */
+    public function createCompanyUserSearchFilterFieldQueryBuilder(): CompanyUserSearchFilterFieldQueryBuilderInterface
+    {
+        return new CompanyUserSearchFilterFieldQueryBuilder(
+            $this->getConfig(),
+        );
     }
 }
