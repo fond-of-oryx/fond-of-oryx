@@ -9,7 +9,6 @@ use Generated\Shared\Transfer\QueryJoinCollectionTransfer;
 use Generated\Shared\Transfer\QueryJoinTransfer;
 use Orm\Zed\Company\Persistence\Map\SpyCompanyTableMap;
 use Orm\Zed\CompanyType\Persistence\Map\FosCompanyTypeTableMap;
-use Orm\Zed\CompanyUser\Persistence\Map\SpyCompanyUserTableMap;
 use PHPUnit\Framework\MockObject\MockObject;
 use Propel\Runtime\ActiveQuery\Criteria;
 
@@ -101,16 +100,7 @@ class CompanyTypeSearchCompanyUserQueryExpanderPluginTest extends Unit
 
         $this->queryJoinCollectionTransferMock->expects(static::atLeastOnce())
             ->method('addQueryJoin')
-            ->withConsecutive([
-                static::callback(
-                    static fn (
-                        QueryJoinTransfer $queryJoinTransfer
-                    ) => $queryJoinTransfer->getLeft() == [SpyCompanyUserTableMap::COL_FK_COMPANY]
-                            && $queryJoinTransfer->getRight() == [SpyCompanyTableMap::COL_ID_COMPANY]
-                            && $queryJoinTransfer->getJoinType() === Criteria::INNER_JOIN
-                            && $queryJoinTransfer->getWhereConditions()->count() === 0
-                ),
-            ], [
+            ->with(
                 static::callback(
                     fn (
                         QueryJoinTransfer $queryJoinTransfer
@@ -122,7 +112,7 @@ class CompanyTypeSearchCompanyUserQueryExpanderPluginTest extends Unit
                         && $queryJoinTransfer->getWhereConditions()->offsetGet(0)->getComparison() === Criteria::EQUAL
                         && $queryJoinTransfer->getWhereConditions()->offsetGet(0)->getValue() === $companyType
                 ),
-            ])->willReturn($this->queryJoinCollectionTransferMock);
+            )->willReturn($this->queryJoinCollectionTransferMock);
 
         static::assertEquals(
             $this->queryJoinCollectionTransferMock,

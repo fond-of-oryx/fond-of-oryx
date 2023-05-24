@@ -9,7 +9,6 @@ use Generated\Shared\Transfer\QueryJoinTransfer;
 use Generated\Shared\Transfer\QueryWhereConditionTransfer;
 use Orm\Zed\Company\Persistence\Map\SpyCompanyTableMap;
 use Orm\Zed\CompanyType\Persistence\Map\FosCompanyTypeTableMap;
-use Orm\Zed\CompanyUser\Persistence\Map\SpyCompanyUserTableMap;
 use Propel\Runtime\ActiveQuery\Criteria;
 use Spryker\Zed\Kernel\Communication\AbstractPlugin;
 
@@ -65,11 +64,6 @@ class CompanyTypeSearchCompanyUserQueryExpanderPlugin extends AbstractPlugin imp
         }
 
         return $queryJoinCollectionTransfer->addQueryJoin(
-            (new QueryJoinTransfer())
-                ->setJoinType(Criteria::INNER_JOIN)
-                ->setLeft([SpyCompanyUserTableMap::COL_FK_COMPANY])
-                ->setRight([SpyCompanyTableMap::COL_ID_COMPANY]),
-        )->addQueryJoin(
             (new QueryJoinTransfer())
                 ->setJoinType(Criteria::INNER_JOIN)
                 ->setLeft([SpyCompanyTableMap::COL_FK_COMPANY_TYPE])
