@@ -14,30 +14,36 @@ class CompanyUserListMapper implements CompanyUserListMapperInterface
     /**
      * @var \FondOfOryx\Glue\CompanyUserSearchRestApi\Processor\Mapper\PaginationMapperInterface
      */
-    protected $paginationMapper;
+    protected PaginationMapperInterface $paginationMapper;
 
     /**
      * @var \FondOfOryx\Glue\CompanyUserSearchRestApi\Processor\Filter\RequestParameterFilterInterface
      */
-    protected $requestParameterFilter;
+    protected RequestParameterFilterInterface $requestParameterFilter;
 
     /**
      * @var \FondOfOryx\Glue\CompanyUserSearchRestApi\Processor\Filter\CustomerReferenceFilterInterface
      */
-    protected $customerReferenceFilter;
+    protected CustomerReferenceFilterInterface $customerReferenceFilter;
 
     /**
      * @var \FondOfOryx\Glue\CompanyUserSearchRestApi\Processor\Filter\CustomerIdFilterInterface
      */
-    protected $customerIdFilter;
+    protected CustomerIdFilterInterface $customerIdFilter;
 
     /**
      * @var \FondOfOryx\Glue\CompanyUserSearchRestApi\Processor\Filter\CompanyRoleNameFilterInterface
      */
-    protected $companyRoleNameFilter;
+    protected CompanyRoleNameFilterInterface $companyRoleNameFilter;
+
+    /**
+     * @var \FondOfOryx\Glue\CompanyUserSearchRestApi\Processor\Mapper\FilterFieldsMapperInterface
+     */
+    protected FilterFieldsMapperInterface $filterFieldsMapper;
 
     /**
      * @param \FondOfOryx\Glue\CompanyUserSearchRestApi\Processor\Mapper\PaginationMapperInterface $paginationMapper
+     * @param \FondOfOryx\Glue\CompanyUserSearchRestApi\Processor\Mapper\FilterFieldsMapperInterface $filterFieldsMapper
      * @param \FondOfOryx\Glue\CompanyUserSearchRestApi\Processor\Filter\RequestParameterFilterInterface $requestParameterFilter
      * @param \FondOfOryx\Glue\CompanyUserSearchRestApi\Processor\Filter\CustomerReferenceFilterInterface $customerReferenceFilter
      * @param \FondOfOryx\Glue\CompanyUserSearchRestApi\Processor\Filter\CustomerIdFilterInterface $customerIdFilter
@@ -45,12 +51,14 @@ class CompanyUserListMapper implements CompanyUserListMapperInterface
      */
     public function __construct(
         PaginationMapperInterface $paginationMapper,
+        FilterFieldsMapperInterface $filterFieldsMapper,
         RequestParameterFilterInterface $requestParameterFilter,
         CustomerReferenceFilterInterface $customerReferenceFilter,
         CustomerIdFilterInterface $customerIdFilter,
         CompanyRoleNameFilterInterface $companyRoleNameFilter
     ) {
         $this->paginationMapper = $paginationMapper;
+        $this->filterFieldsMapper = $filterFieldsMapper;
         $this->requestParameterFilter = $requestParameterFilter;
         $this->customerReferenceFilter = $customerReferenceFilter;
         $this->customerIdFilter = $customerIdFilter;
@@ -66,12 +74,11 @@ class CompanyUserListMapper implements CompanyUserListMapperInterface
     {
         return (new CompanyUserListTransfer())
             ->setPagination($this->paginationMapper->fromRestRequest($restRequest))
-            ->setQuery($this->requestParameterFilter->getRequestParameter($restRequest, 'q'))
+            ->setFilterFields($this->filterFieldsMapper->fromRestRequest($restRequest))
             ->setShowAll($this->requestParameterFilter->getRequestParameter($restRequest, 'show-all') === 'true')
             ->setOnlyOnePerCustomer($this->requestParameterFilter->getRequestParameter($restRequest, 'only-one-per-customer') === 'true')
             ->setCompanyUuid($this->requestParameterFilter->getRequestParameter($restRequest, 'company-id'))
             ->setCompanyUserReference($this->requestParameterFilter->getRequestParameter($restRequest, 'company-user-reference'))
-            ->setSort($this->requestParameterFilter->getRequestParameter($restRequest, 'sort'))
             ->setCustomerId($this->customerIdFilter->filterFromRestRequest($restRequest))
             ->setCustomerReference($this->customerReferenceFilter->filterFromRestRequest($restRequest))
             ->setCompanyRoleNames($this->companyRoleNameFilter->filterFromRestRequest($restRequest));
