@@ -108,10 +108,10 @@ class CompanyUserSearchRestApiRepository extends AbstractRepository implements C
     }
 
     /**
-     * @param \Orm\Zed\CompanyUser\Persistence\SpyCompanyUserQuery $companyUserQuery
+     * @param \Orm\Zed\CompanyUser\Persistence\Base\SpyCompanyUserQuery $companyUserQuery
      * @param \Generated\Shared\Transfer\CompanyUserListTransfer $companyUserListTransfer
      *
-     * @return \Orm\Zed\CompanyUser\Persistence\SpyCompanyUserQuery
+     * @return \Orm\Zed\CompanyUser\Persistence\Base\SpyCompanyUserQuery
      */
     protected function addCompanyQuery(SpyCompanyUserQuery $companyUserQuery, CompanyUserListTransfer $companyUserListTransfer): SpyCompanyUserQuery
     {
@@ -132,23 +132,23 @@ class CompanyUserSearchRestApiRepository extends AbstractRepository implements C
     }
 
     /**
-     * @param \Orm\Zed\CompanyUser\Persistence\SpyCompanyUserQuery $companyUserQuery
+     * @param \Orm\Zed\CompanyUser\Persistence\Base\SpyCompanyUserQuery $query
      * @param \Generated\Shared\Transfer\CompanyUserListTransfer $companyUserListTransfer
      *
-     * @return \Orm\Zed\CompanyUser\Persistence\SpyCompanyUserQuery
+     * @return \Orm\Zed\CompanyUser\Persistence\Base\SpyCompanyUserQuery
      */
     protected function addOnlyOnePerCustomerFilter(
-        SpyCompanyUserQuery $companyUserQuery,
+        SpyCompanyUserQuery $query,
         CompanyUserListTransfer $companyUserListTransfer
     ): SpyCompanyUserQuery {
         if ($companyUserListTransfer->getOnlyOnePerCustomer() !== true) {
-            return $companyUserQuery;
+            return $query;
         }
 
-        $clonedCompanyUserQuery = clone $companyUserQuery;
+        $clonedCompanyUserQuery = clone $query;
 
         /** @var \Propel\Runtime\Collection\ArrayCollection $companyUserIds */
-        $companyUserIds = $companyUserQuery->withColumn(sprintf('MIN(%s)', SpyCompanyUserTableMap::COL_ID_COMPANY_USER), static::COL_FIRST_COMPANY_USER_ID)
+        $companyUserIds = $query->withColumn(sprintf('MIN(%s)', SpyCompanyUserTableMap::COL_ID_COMPANY_USER), static::COL_FIRST_COMPANY_USER_ID)
             ->select([static::COL_FIRST_COMPANY_USER_ID])
             ->groupByFkCustomer()
             ->clearOrderByColumns()
