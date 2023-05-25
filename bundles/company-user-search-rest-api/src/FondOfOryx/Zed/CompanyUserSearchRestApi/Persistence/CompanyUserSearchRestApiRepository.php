@@ -33,7 +33,6 @@ class CompanyUserSearchRestApiRepository extends AbstractRepository implements C
     {
         $query = $this->getBaseQuery($companyUserListTransfer);
         $query = $this->addCompanyQuery($query, $companyUserListTransfer);
-        $query = $this->addOnlyOnePerCustomerFilter($query, $companyUserListTransfer);
 
         $query = $this->getFactory()
             ->createCompanyUserSearchFilterFieldQueryBuilder()
@@ -50,6 +49,8 @@ class CompanyUserSearchRestApiRepository extends AbstractRepository implements C
         if ($this->isSearchByAllFilterFieldSet($companyUserListTransfer)) {
             $query->where([CompanyUserSearchFilterFieldQueryBuilder::CONDITION_GROUP_ALL]);
         }
+
+        $query = $this->addOnlyOnePerCustomerFilter($query, $companyUserListTransfer);
 
         $query = $this->preparePagination($query, $companyUserListTransfer);
 
@@ -150,6 +151,7 @@ class CompanyUserSearchRestApiRepository extends AbstractRepository implements C
         $companyUserIds = $companyUserQuery->withColumn(sprintf('MIN(%s)', SpyCompanyUserTableMap::COL_ID_COMPANY_USER), static::COL_FIRST_COMPANY_USER_ID)
             ->select([static::COL_FIRST_COMPANY_USER_ID])
             ->groupByFkCustomer()
+            ->clearOrderByColumns()
             ->find();
 
         $companyUserIds = $companyUserIds->toArray();

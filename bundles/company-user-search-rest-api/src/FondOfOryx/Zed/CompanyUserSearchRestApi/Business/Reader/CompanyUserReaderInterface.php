@@ -1,15 +1,15 @@
 <?php
 
-namespace FondOfOryx\Zed\CompanyUserSearchRestApi\Persistence;
+namespace FondOfOryx\Zed\CompanyUserSearchRestApi\Business\Reader;
 
 use Generated\Shared\Transfer\CompanyUserListTransfer;
 
-interface CompanyUserSearchRestApiRepositoryInterface
+interface CompanyUserReaderInterface
 {
     /**
      * @param \Generated\Shared\Transfer\CompanyUserListTransfer $companyUserListTransfer
      *
      * @return \Generated\Shared\Transfer\CompanyUserListTransfer
      */
-    public function searchCompanyUser(CompanyUserListTransfer $companyUserListTransfer): CompanyUserListTransfer;
+    public function findByCompanyUserList(CompanyUserListTransfer $companyUserListTransfer): CompanyUserListTransfer;
 }
