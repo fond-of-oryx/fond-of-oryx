@@ -21,6 +21,11 @@ class ApiAuthBusinessFactory extends AbstractBusinessFactory
         return new BasicAuth($this->createTokenModel());
     }
 
+    public function test(): mixed
+    {
+        return "Das ist nur ein Test";
+    }
+
     /**
      * @return \FondOfOryx\Zed\ApiAuth\Business\Model\TokenInterface
      */
