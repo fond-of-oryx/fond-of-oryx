@@ -65,5 +65,4 @@ jobs:
               run: make codeception-without-coverage
 
             - name: Run phpstan
-              if: steps.changed-files.outputs.any_changed == 'true'
-              run: ./vendor/bin/phpstan --memory-limit=-1 analyse ${{ steps.changed-files.outputs.all_changed_files }}
+              run: make phpstan
