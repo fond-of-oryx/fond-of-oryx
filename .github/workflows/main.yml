@@ -21,6 +21,12 @@ jobs:
                   extensions: mbstring, dom, fileinfo, pgsql, json
                   coverage: xdebug
 
+            - name: Changed Files
+              id: changed-files
+              uses: tj-actions/changed-files@v35.9.2
+              with:
+                files: bundles/**/*.php
+
             - name: Get composer cache directory
               id: composercache
               run: echo "::set-output name=dir::$(composer config cache-files-dir)"
@@ -52,10 +58,13 @@ jobs:
               run: make install
 
             - name: Run phpcs
-              run: make phpcs-with-cache
+              if: steps.changed-files.outputs.any_changed == 'true'
+              run: make phpcs-action ${{ steps.changed-files.outputs.all_changed_files }}
 
             - name: Run codeception
+              if: steps.changed-files.outputs.any_changed == 'true'
               run: make codeception-without-coverage
 
             - name: Run phpstan
+              if: steps.changed-files.outputs.any_changed == 'true'
               run: make phpstan

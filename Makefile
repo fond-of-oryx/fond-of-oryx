@@ -12,6 +12,10 @@ phpcs:
 phpcs-with-cache:
 	./vendor/bin/phpcs -d memory_limit=-1 --cache=phpcs.cache --standard=./vendor/spryker/code-sniffer/Spryker/ruleset.xml --parallel=75 ./bundles/*
 
+.PHONY: phpcs-action
+phpcs-action:
+	./vendor/bin/phpcs -d memory_limit=-1 --cache=phpcs.cache --standard=./vendor/spryker/code-sniffer/Spryker/ruleset.xml --parallel=75
+
 .PHONY: phpcbf
 phpcbf:
 	./vendor/bin/phpcbf -d memory_limit=-1 --standard=./vendor/spryker/code-sniffer/Spryker/ruleset.xml ./bundles/*
