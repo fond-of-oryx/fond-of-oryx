@@ -22,14 +22,6 @@ class ApiAuthBusinessFactory extends AbstractBusinessFactory
     }
 
     /**
-     * @return string
-     */
-    public function test(): string
-    {
-        return 'Das ist nur ein Test';
-    }
-
-    /**
      * @return \FondOfOryx\Zed\ApiAuth\Business\Model\TokenInterface
      */
     public function createTokenModel(): TokenInterface

@@ -20,12 +20,4 @@ class ApiAuthFacade extends AbstractFacade implements ApiAuthFacadeInterface
             ->createAuthModel()
             ->isAuthorized($authorizationHeader);
     }
-
-    /**
-     * @return string
-     */
-    public function test(): string
-    {
-        return 'Das ist nur ein Test';
-    }
 }
