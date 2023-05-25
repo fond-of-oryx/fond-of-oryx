@@ -26,13 +26,23 @@ class CompanyUserSearchRestApiDependencyProvider extends AbstractBundleDependenc
      *
      * @return \Spryker\Zed\Kernel\Container
      */
+    public function provideBusinessLayerDependencies(Container $container)
+    {
+        $container = parent::provideBusinessLayerDependencies($container);
+
+        return $this->addSearchCompanyUserQueryExpanderPlugins($container);
+    }
+
+    /**
+     * @param \Spryker\Zed\Kernel\Container $container
+     *
+     * @return \Spryker\Zed\Kernel\Container
+     */
     public function providePersistenceLayerDependencies(Container $container): Container
     {
         $container = parent::providePersistenceLayerDependencies($container);
 
-        $container = $this->addCompanyUserQuery($container);
-
-        return $this->addSearchCompanyUserQueryExpanderPlugins($container);
+        return $this->addCompanyUserQuery($container);
     }
 
     /**
