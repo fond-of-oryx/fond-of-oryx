@@ -21,9 +21,12 @@ class ApiAuthBusinessFactory extends AbstractBusinessFactory
         return new BasicAuth($this->createTokenModel());
     }
 
-    public function test(): mixed
+    /**
+     * @return string
+     */
+    public function test(): string
     {
-        return "Das ist nur ein Test";
+        return 'Das ist nur ein Test';
     }
 
     /**
