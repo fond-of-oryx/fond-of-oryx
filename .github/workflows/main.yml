@@ -62,7 +62,6 @@ jobs:
               run: ./vendor/bin/phpcs -d memory_limit=-1 --cache=phpcs.cache --standard=./vendor/spryker/code-sniffer/Spryker/ruleset.xml --parallel=75 ${{ steps.changed-files.outputs.all_changed_files }}
 
             - name: Run codeception
-              if: steps.changed-files.outputs.any_changed == 'true'
               run: make codeception-without-coverage
 
             - name: Run phpstan
