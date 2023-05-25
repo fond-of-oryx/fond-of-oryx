@@ -21,6 +21,12 @@ jobs:
                   extensions: mbstring, dom, fileinfo, pgsql, json
                   coverage: xdebug
 
+            - name: Changed Files
+              id: changed-files
+              uses: tj-actions/changed-files@v35.9.2
+              with:
+                files: bundles/**/*.php
+
             - name: Get composer cache directory
               id: composercache
               run: echo "::set-output name=dir::$(composer config cache-files-dir)"
@@ -52,10 +58,12 @@ jobs:
               run: make install
 
             - name: Run phpcs
-              run: make phpcs-with-cache
+              if: steps.changed-files.outputs.any_changed == 'true'
+              run: ./vendor/bin/phpcs -d memory_limit=-1 --cache=phpcs.cache --standard=./vendor/spryker/code-sniffer/Spryker/ruleset.xml --parallel=75 ${{ steps.changed-files.outputs.all_changed_files }}
 
             - name: Run codeception
               run: make codeception-without-coverage
 
             - name: Run phpstan
-              run: make phpstan
+              if: steps.changed-files.outputs.any_changed == 'true'
+              run: ./vendor/bin/phpstan --memory-limit=-1 analyse ${{ steps.changed-files.outputs.all_changed_files }}
