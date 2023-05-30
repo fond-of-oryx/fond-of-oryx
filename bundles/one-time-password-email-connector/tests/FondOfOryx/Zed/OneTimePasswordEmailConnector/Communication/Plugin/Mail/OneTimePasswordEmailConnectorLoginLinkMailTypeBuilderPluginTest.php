@@ -28,7 +28,6 @@ class OneTimePasswordEmailConnectorLoginLinkMailTypeBuilderPluginTest extends Un
      */
     protected function _before(): void
     {
-
         $this->mailTransferMock = $this->getMockBuilder(MailTransfer::class)
             ->disableOriginalConstructor()
             ->getMock();

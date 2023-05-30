@@ -3,11 +3,9 @@
 namespace FondOfOryx\Zed\OneTimePasswordEmailConnector\Communication\Plugin\Mail;
 
 use Generated\Shared\Transfer\MailRecipientTransfer;
-use Generated\Shared\Transfer\MailSenderTransfer;
 use Generated\Shared\Transfer\MailTemplateTransfer;
 use Generated\Shared\Transfer\MailTransfer;
 use Spryker\Zed\Kernel\Communication\AbstractPlugin;
-use Spryker\Zed\Mail\MailConfig;
 use Spryker\Zed\MailExtension\Dependency\Plugin\MailTypeBuilderPluginInterface;
 
 /**
