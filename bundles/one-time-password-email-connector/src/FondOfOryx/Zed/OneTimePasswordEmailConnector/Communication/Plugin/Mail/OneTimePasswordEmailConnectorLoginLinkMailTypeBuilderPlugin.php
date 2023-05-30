@@ -36,19 +36,6 @@ class OneTimePasswordEmailConnectorLoginLinkMailTypeBuilderPlugin extends Abstra
     protected const GLOSSARY_KEY_MAIL_SUBJECT = 'mail.customer.one-time-password.login-link.subject';
 
     /**
-     * @var \Spryker\Zed\Mail\MailConfig
-     */
-    protected $config;
-
-    /**
-     * @param \Spryker\Zed\Mail\MailConfig $config
-     */
-    public function __construct(MailConfig $config)
-    {
-        $this->config = $config;
-    }
-
-    /**
      * @return string
      */
     public function getName(): string
@@ -85,11 +72,6 @@ class OneTimePasswordEmailConnectorLoginLinkMailTypeBuilderPlugin extends Abstra
                         ),
                     )
                     ->setEmail($mailTransfer->getCustomerOrFail()->getEmail()),
-            )
-            ->setSender(
-                (new MailSenderTransfer())
-                    ->setEmail($this->config->getSenderEmail())
-                    ->setName($this->config->getSenderName()),
             );
     }
 }

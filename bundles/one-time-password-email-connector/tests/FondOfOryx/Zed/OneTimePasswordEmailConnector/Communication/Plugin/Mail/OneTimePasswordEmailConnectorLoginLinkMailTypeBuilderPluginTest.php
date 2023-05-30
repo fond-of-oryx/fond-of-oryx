@@ -5,15 +5,9 @@ namespace FondOfOryx\Zed\OneTimePasswordEmailConnector\Communication\Plugin\Mail
 use Codeception\Test\Unit;
 use Generated\Shared\Transfer\CustomerTransfer;
 use Generated\Shared\Transfer\MailTransfer;
-use Spryker\Zed\Mail\MailConfig;
 
 class OneTimePasswordEmailConnectorLoginLinkMailTypeBuilderPluginTest extends Unit
 {
-    /**
-     * @var \PHPUnit\Framework\MockObject\MockObject|\Spryker\Zed\Mail\MailConfig
-     */
-    protected $mailConfigMock;
-
     /**
      * @var \PHPUnit\Framework\MockObject\MockObject|\Generated\Shared\Transfer\MailTransfer
      */
@@ -34,9 +28,6 @@ class OneTimePasswordEmailConnectorLoginLinkMailTypeBuilderPluginTest extends Un
      */
     protected function _before(): void
     {
-        $this->mailConfigMock = $this->getMockBuilder(MailConfig::class)
-            ->disableOriginalConstructor()
-            ->getMock();
 
         $this->mailTransferMock = $this->getMockBuilder(MailTransfer::class)
             ->disableOriginalConstructor()
@@ -46,7 +37,7 @@ class OneTimePasswordEmailConnectorLoginLinkMailTypeBuilderPluginTest extends Un
             ->disableOriginalConstructor()
             ->getMock();
 
-        $this->plugin = new OneTimePasswordEmailConnectorLoginLinkMailTypeBuilderPlugin($this->mailConfigMock);
+        $this->plugin = new OneTimePasswordEmailConnectorLoginLinkMailTypeBuilderPlugin();
     }
 
     /**
@@ -93,18 +84,6 @@ class OneTimePasswordEmailConnectorLoginLinkMailTypeBuilderPluginTest extends Un
         $this->mailTransferMock->expects(static::atLeastOnce())
             ->method('addRecipient')
             ->willReturnSelf();
-
-        $this->mailTransferMock->expects(static::atLeastOnce())
-            ->method('setSender')
-            ->willReturnSelf();
-
-        $this->mailConfigMock->expects(static::atLeastOnce())
-            ->method('getSenderEmail')
-            ->willReturn('sender.email@mailinator.com');
-
-        $this->mailConfigMock->expects(static::atLeastOnce())
-            ->method('getSenderName')
-            ->willReturn('Sender Name');
 
         $mailTransfer = $this->plugin->build($this->mailTransferMock);
 
