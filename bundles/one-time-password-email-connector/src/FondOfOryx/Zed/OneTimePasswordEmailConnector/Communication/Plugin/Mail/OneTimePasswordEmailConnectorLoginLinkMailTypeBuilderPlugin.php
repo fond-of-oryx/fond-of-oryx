@@ -3,9 +3,11 @@
 namespace FondOfOryx\Zed\OneTimePasswordEmailConnector\Communication\Plugin\Mail;
 
 use Generated\Shared\Transfer\MailRecipientTransfer;
+use Generated\Shared\Transfer\MailSenderTransfer;
 use Generated\Shared\Transfer\MailTemplateTransfer;
 use Generated\Shared\Transfer\MailTransfer;
 use Spryker\Zed\Kernel\Communication\AbstractPlugin;
+use Spryker\Zed\Mail\MailConfig;
 use Spryker\Zed\MailExtension\Dependency\Plugin\MailTypeBuilderPluginInterface;
 
 /**
@@ -32,6 +34,19 @@ class OneTimePasswordEmailConnectorLoginLinkMailTypeBuilderPlugin extends Abstra
      * @var string
      */
     protected const GLOSSARY_KEY_MAIL_SUBJECT = 'mail.customer.one-time-password.login-link.subject';
+
+    /**
+     * @var \Spryker\Zed\Mail\MailConfig
+     */
+    protected $config;
+
+    /**
+     * @param \Spryker\Zed\Mail\MailConfig $config
+     */
+    public function __construct(MailConfig $config)
+    {
+        $this->config = $config;
+    }
 
     /**
      * @return string
@@ -70,6 +85,11 @@ class OneTimePasswordEmailConnectorLoginLinkMailTypeBuilderPlugin extends Abstra
                         ),
                     )
                     ->setEmail($mailTransfer->getCustomerOrFail()->getEmail()),
+            )
+            ->setSender(
+                (new MailSenderTransfer())
+                    ->setEmail($this->config->getSenderEmail())
+                    ->setName($this->config->getSenderName()),
             );
     }
 }
