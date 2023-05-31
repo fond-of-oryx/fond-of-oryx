@@ -47,7 +47,6 @@ jobs:
               with:
                 path: phpstanCache
                 key: ${{ runner.os }}-phpstan-${{ matrix.php-versions }}
-                restore-keys: ${{ runner.os }}-phpstan-${{ matrix.php-versions }}
 
             - name: Install dependencies
               env:
