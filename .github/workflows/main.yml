@@ -53,7 +53,7 @@ jobs:
               uses: actions/cache@v3
               with:
                 path: phpstanCache
-                key: ${{ runner.os }}-phpstan-${{ matrix.php-versions }}-${{ hashFiles('phpstanCache') }}
+                key: ${{ runner.os }}-phpstan-${{ matrix.php-versions }}-${{ hashFiles('phpstanCache/**') }}
                 restore-keys: ${{ runner.os }}-phpstan-${{ matrix.php-versions }}-
 
             - name: Install dependencies
