@@ -533,7 +533,7 @@
     },
     "jellyfish-sales-order": {
       "path": "bundles/jellyfish-sales-order/",
-      "version": "2.0.0"
+      "version": "2.1.0"
     },
     "jellyfish-sales-order-b2c": {
       "path": "bundles/jellyfish-sales-order-b2c/",
