@@ -4,7 +4,7 @@ on:
     - pull_request
 
 concurrency:
-  group: ${{ github.ref_name }}
+  group: ${{ github.head_ref }}
   cancel-in-progress: true
 
 jobs:
@@ -46,14 +46,14 @@ jobs:
               uses: actions/cache@v3
               with:
                 path: phpcs.cache
-                key: ${{ runner.os }}-phpcs-${{ matrix.php-versions }}-${{ github.sha }}
+                key: ${{ runner.os }}-phpcs-${{ matrix.php-versions }}-${{ github.head_ref }}
                 restore-keys: ${{ runner.os }}-phpcs-${{ matrix.php-versions }}-
 
             - name: Cache phpstan
               uses: actions/cache@v3
               with:
                 path: phpstanCache
-                key: ${{ runner.os }}-phpstan-${{ matrix.php-versions }}-${{ github.sha }}
+                key: ${{ runner.os }}-phpstan-${{ matrix.php-versions }}-${{ github.head_ref }}
                 restore-keys: ${{ runner.os }}-phpstan-${{ matrix.php-versions }}-
 
             - name: Install dependencies
