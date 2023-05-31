@@ -6,40 +6,41 @@ use Codeception\Test\Unit;
 use FondOfOryx\Client\CompanyUserSearchRestApi\CompanyUserSearchRestApiClient;
 use FondOfOryx\Glue\CompanyUserSearchRestApi\Dependency\Client\CompanyUserSearchRestApiToGlossaryStorageClientInterface;
 use FondOfOryx\Glue\CompanyUserSearchRestApi\Processor\Reader\CompanyUserReader;
+use PHPUnit\Framework\MockObject\MockObject;
 use Spryker\Glue\GlueApplication\Rest\JsonApi\RestResourceBuilderInterface;
 use Spryker\Glue\Kernel\Container;
 
 class CompanyUserSearchRestApiFactoryTest extends Unit
 {
     /**
-     * @var \PHPUnit\Framework\MockObject\MockObject|\Spryker\Glue\Kernel\Container|mixed
+     * @var \PHPUnit\Framework\MockObject\MockObject|(\Spryker\Glue\Kernel\Container&\PHPUnit\Framework\MockObject\MockObject)
      */
-    protected $containerMock;
+    protected Container|MockObject $containerMock;
 
     /**
-     * @var \FondOfOryx\Client\CompanyUserSearchRestApi\CompanyUserSearchRestApiClient|\PHPUnit\Framework\MockObject\MockObject|mixed
+     * @var (\FondOfOryx\Client\CompanyUserSearchRestApi\CompanyUserSearchRestApiClient&\PHPUnit\Framework\MockObject\MockObject)|\PHPUnit\Framework\MockObject\MockObject
      */
-    protected $clientMock;
+    protected CompanyUserSearchRestApiClient|MockObject $clientMock;
 
     /**
-     * @var \FondOfOryx\Glue\CompanyUserSearchRestApi\CompanyUserSearchRestApiConfig|\PHPUnit\Framework\MockObject\MockObject|mixed
+     * @var (\FondOfOryx\Glue\CompanyUserSearchRestApi\CompanyUserSearchRestApiConfig&\PHPUnit\Framework\MockObject\MockObject)|\PHPUnit\Framework\MockObject\MockObject
      */
-    protected $configMock;
+    protected MockObject|CompanyUserSearchRestApiConfig $configMock;
 
     /**
-     * @var \PHPUnit\Framework\MockObject\MockObject|\Spryker\Glue\GlueApplication\Rest\JsonApi\RestResourceBuilderInterface
+     * @var \PHPUnit\Framework\MockObject\MockObject|(\Spryker\Glue\GlueApplication\Rest\JsonApi\RestResourceBuilderInterface&\PHPUnit\Framework\MockObject\MockObject)
      */
-    protected $restResourceBuilderMock;
+    protected RestResourceBuilderInterface|MockObject $restResourceBuilderMock;
 
     /**
-     * @var \FondOfOryx\Glue\CompanyUserSearchRestApi\Dependency\Client\CompanyUserSearchRestApiToGlossaryStorageClientInterface|\PHPUnit\Framework\MockObject\MockObject|mixed
+     * @var (\FondOfOryx\Glue\CompanyUserSearchRestApi\Dependency\Client\CompanyUserSearchRestApiToGlossaryStorageClientInterface&\PHPUnit\Framework\MockObject\MockObject)|\PHPUnit\Framework\MockObject\MockObject
      */
-    protected $glossaryStorageClientMock;
+    protected CompanyUserSearchRestApiToGlossaryStorageClientInterface|MockObject $glossaryStorageClientMock;
 
     /**
      * @var \FondOfOryx\Glue\CompanyUserSearchRestApi\CompanyUserSearchRestApiFactory
      */
-    protected $factory;
+    protected CompanyUserSearchRestApiFactory $factory;
 
     /**
      * @return void
@@ -72,7 +73,7 @@ class CompanyUserSearchRestApiFactoryTest extends Unit
             /**
              * @var \Spryker\Glue\GlueApplication\Rest\JsonApi\RestResourceBuilderInterface
              */
-            protected $restResourceBuilder;
+            protected RestResourceBuilderInterface $restResourceBuilder;
 
             /**
              * @param \Spryker\Glue\GlueApplication\Rest\JsonApi\RestResourceBuilderInterface $restResourceBuilder
@@ -103,13 +104,20 @@ class CompanyUserSearchRestApiFactoryTest extends Unit
     {
         $this->containerMock->expects(static::atLeastOnce())
             ->method('has')
-            ->with(CompanyUserSearchRestApiDependencyProvider::CLIENT_GLOSSARY_STORAGE)
-            ->willReturn(true);
+            ->withConsecutive(
+                [CompanyUserSearchRestApiDependencyProvider::PLUGINS_FILTER_FIELDS_EXPANDER],
+                [CompanyUserSearchRestApiDependencyProvider::CLIENT_GLOSSARY_STORAGE],
+            )->willReturn(true);
 
         $this->containerMock->expects(static::atLeastOnce())
             ->method('get')
-            ->with(CompanyUserSearchRestApiDependencyProvider::CLIENT_GLOSSARY_STORAGE)
-            ->willReturn($this->glossaryStorageClientMock);
+            ->withConsecutive(
+                [CompanyUserSearchRestApiDependencyProvider::PLUGINS_FILTER_FIELDS_EXPANDER],
+                [CompanyUserSearchRestApiDependencyProvider::CLIENT_GLOSSARY_STORAGE],
+            )->willReturnOnConsecutiveCalls(
+                [],
+                $this->glossaryStorageClientMock,
+            );
 
         static::assertInstanceOf(
             CompanyUserReader::class,

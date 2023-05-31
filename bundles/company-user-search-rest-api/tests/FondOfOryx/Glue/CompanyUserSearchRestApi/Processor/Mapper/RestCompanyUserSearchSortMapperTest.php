@@ -2,26 +2,34 @@
 
 namespace FondOfOryx\Glue\CompanyUserSearchRestApi\Processor\Mapper;
 
+use ArrayObject;
 use Codeception\Test\Unit;
 use FondOfOryx\Glue\CompanyUserSearchRestApi\CompanyUserSearchRestApiConfig;
 use Generated\Shared\Transfer\CompanyUserListTransfer;
+use Generated\Shared\Transfer\FilterFieldTransfer;
+use PHPUnit\Framework\MockObject\MockObject;
 
 class RestCompanyUserSearchSortMapperTest extends Unit
 {
     /**
-     * @var \FondOfOryx\Glue\CompanyUserSearchRestApi\CompanyUserSearchRestApiConfig|\PHPUnit\Framework\MockObject\MockObject|mixed
+     * @var (\FondOfOryx\Glue\CompanyUserSearchRestApi\CompanyUserSearchRestApiConfig&\PHPUnit\Framework\MockObject\MockObject)|\PHPUnit\Framework\MockObject\MockObject
      */
-    protected $configMock;
+    protected MockObject|CompanyUserSearchRestApiConfig $configMock;
 
     /**
-     * @var \Generated\Shared\Transfer\CompanyUserListTransfer|\PHPUnit\Framework\MockObject\MockObject|mixed
+     * @var (\Generated\Shared\Transfer\CompanyUserListTransfer&\PHPUnit\Framework\MockObject\MockObject)|\PHPUnit\Framework\MockObject\MockObject
      */
-    protected $companyUserListTransferMock;
+    protected MockObject|CompanyUserListTransfer $companyUserListTransferMock;
+
+    /**
+     * @var array<(\Generated\Shared\Transfer\FilterFieldTransfer&\PHPUnit\Framework\MockObject\MockObject)|\PHPUnit\Framework\MockObject\MockObject>
+     */
+    protected array $filterFieldTransferMocks;
 
     /**
      * @var \FondOfOryx\Glue\CompanyUserSearchRestApi\Processor\Mapper\RestCompanyUserSearchSortMapper
      */
-    protected $restCompanyUserSearchSortMapper;
+    protected RestCompanyUserSearchSortMapper $restCompanyUserSearchSortMapper;
 
     /**
      * @return void
@@ -37,6 +45,15 @@ class RestCompanyUserSearchSortMapperTest extends Unit
         $this->companyUserListTransferMock = $this->getMockBuilder(CompanyUserListTransfer::class)
             ->disableOriginalConstructor()
             ->getMock();
+
+        $this->filterFieldTransferMocks = [
+            $this->getMockBuilder(FilterFieldTransfer::class)
+                ->disableOriginalConstructor()
+                ->getMock(),
+            $this->getMockBuilder(FilterFieldTransfer::class)
+                ->disableOriginalConstructor()
+                ->getMock(),
+        ];
 
         $this->restCompanyUserSearchSortMapper = new RestCompanyUserSearchSortMapper($this->configMock);
     }
@@ -59,8 +76,23 @@ class RestCompanyUserSearchSortMapperTest extends Unit
             ->willReturn($sortParamLocalizedNames);
 
         $this->companyUserListTransferMock->expects(static::atLeastOnce())
-            ->method('getSort')
-            ->willReturn($sortParamNames[0]);
+            ->method('getFilterFields')
+            ->willReturn(new ArrayObject($this->filterFieldTransferMocks));
+
+        $this->filterFieldTransferMocks[0]->expects(static::atLeastOnce())
+            ->method('getType')
+            ->willReturn('foo');
+
+        $this->filterFieldTransferMocks[0]->expects(static::never())
+            ->method('getValue');
+
+        $this->filterFieldTransferMocks[1]->expects(static::atLeastOnce())
+            ->method('getType')
+            ->willReturn('orderBy');
+
+        $this->filterFieldTransferMocks[1]->expects(static::atLeastOnce())
+            ->method('getValue')
+            ->willReturn('name::asc');
 
         $this->configMock->expects(static::atLeastOnce())
             ->method('getSortFields')
