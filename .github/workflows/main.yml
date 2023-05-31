@@ -3,6 +3,10 @@ name: CI
 on:
     - pull_request
 
+concurrency:
+  group: ${{ github.head_ref }}
+  cancel-in-progress: true
+
 jobs:
     continous-integration:
         runs-on: ubuntu-latest
@@ -38,19 +42,11 @@ jobs:
                   key: ${{ runner.os }}-composer-${{ matrix.php-versions }}-${{ hashFiles('composer.json') }}
                   restore-keys: ${{ runner.os }}-composer-${{ matrix.php-versions }}-
 
-            - name: Cache phpcs
-              uses: actions/cache@v3
-              with:
-                path: phpcs.cache
-                key: ${{ runner.os }}-phpcs-${{ matrix.php-versions }}-${{ github.sha }}
-                restore-keys: ${{ runner.os }}-phpcs-${{ matrix.php-versions }}-
-
             - name: Cache phpstan
               uses: actions/cache@v3
               with:
                 path: phpstanCache
-                key: ${{ runner.os }}-phpstan-${{ matrix.php-versions }}-${{ github.sha }}
-                restore-keys: ${{ runner.os }}-phpstan-${{ matrix.php-versions }}-
+                key: ${{ runner.os }}-phpstan-${{ matrix.php-versions }}
 
             - name: Install dependencies
               env:
@@ -59,7 +55,7 @@ jobs:
 
             - name: Run phpcs
               if: steps.changed-files.outputs.any_changed == 'true'
-              run: ./vendor/bin/phpcs -d memory_limit=-1 --cache=phpcs.cache --standard=./vendor/spryker/code-sniffer/Spryker/ruleset.xml --parallel=75 ${{ steps.changed-files.outputs.all_changed_files }}
+              run: ./vendor/bin/phpcs -d memory_limit=-1 --standard=./vendor/spryker/code-sniffer/Spryker/ruleset.xml --parallel=75 ${{ steps.changed-files.outputs.all_changed_files }}
 
             - name: Run codeception
               run: make codeception-without-coverage
