@@ -3,6 +3,10 @@ name: CI
 on:
     - pull_request
 
+concurrency:
+  group: ${{ github.ref_name }}
+  cancel-in-progress: true
+
 jobs:
     continous-integration:
         runs-on: ubuntu-latest
@@ -48,7 +52,7 @@ jobs:
             - name: Cache phpstan
               uses: actions/cache@v3
               with:
-                path: phpstanCache
+                path: phpstanCache.php
                 key: ${{ runner.os }}-phpstan-${{ matrix.php-versions }}-${{ github.sha }}
                 restore-keys: ${{ runner.os }}-phpstan-${{ matrix.php-versions }}-
 
