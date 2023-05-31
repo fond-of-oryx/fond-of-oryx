@@ -122,6 +122,7 @@ include:
   - bundles/jellyfish-sales-order-company-user
   - bundles/jellyfish-sales-order-conditional-availability
   - bundles/jellyfish-sales-order-customer-address
+  - bundles/jellyfish-sales-order-discount
   - bundles/jellyfish-sales-order-extension
   - bundles/jellyfish-sales-order-gift-card-connector
   - bundles/jellyfish-sales-order-gift-card-proportional-value-connector
