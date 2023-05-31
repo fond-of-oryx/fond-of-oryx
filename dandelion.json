@@ -567,6 +567,10 @@
       "path": "bundles/jellyfish-sales-order-customer-address/",
       "version": "2.0.0"
     },
+    "jellyfish-sales-order-discount": {
+      "path": "bundles/jellyfish-sales-order-discount/",
+      "version": "1.0.0"
+    },
     "jellyfish-sales-order-extension": {
       "path": "bundles/jellyfish-sales-order-extension/",
       "version": "2.0.0"
