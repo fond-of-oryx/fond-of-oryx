@@ -5,7 +5,6 @@ namespace FondOfOryx\Zed\JellyfishSalesOrder\Communication\Plugin;
 use Codeception\Test\Unit;
 use DateTime;
 use FondOfOryx\Zed\JellyfishSalesOrder\Business\Model\Mapper\JellyfishOrderAddressMapperInterface;
-use FondOfOryx\Zed\JellyfishSalesOrder\Business\Model\Mapper\JellyfishOrderDiscountMapperInterface;
 use FondOfOryx\Zed\JellyfishSalesOrder\Business\Model\Mapper\JellyfishOrderExpenseMapperInterface;
 use FondOfOryx\Zed\JellyfishSalesOrder\Business\Model\Mapper\JellyfishOrderMapper;
 use FondOfOryx\Zed\JellyfishSalesOrder\Business\Model\Mapper\JellyfishOrderPaymentMapperInterface;
@@ -45,11 +44,6 @@ class JellyfishOrderMapperTest extends Unit
      * @var \PHPUnit\Framework\MockObject\MockObject|\FondOfOryx\Zed\JellyfishSalesOrder\Business\Model\Mapper\JellyfishOrderExpenseMapperInterface
      */
     protected $jellyfishOrderExpenseMapperMock;
-
-    /**
-     * @var \PHPUnit\Framework\MockObject\MockObject|\FondOfOryx\Zed\JellyfishSalesOrder\Business\Model\Mapper\JellyfishOrderDiscountMapperInterface
-     */
-    protected $jellyfishOrderDiscountMapperMock;
 
     /**
      * @var \PHPUnit\Framework\MockObject\MockObject|\FondOfOryx\Zed\JellyfishSalesOrder\Business\Model\Mapper\JellyfishOrderPaymentMapperInterface
@@ -132,10 +126,6 @@ class JellyfishOrderMapperTest extends Unit
             ->disableOriginalConstructor()
             ->getMock();
 
-        $this->jellyfishOrderDiscountMapperMock = $this->getMockBuilder(JellyfishOrderDiscountMapperInterface::class)
-            ->disableOriginalConstructor()
-            ->getMock();
-
         $this->jellyfishOrderPaymentMapperMock = $this->getMockBuilder(JellyfishOrderPaymentMapperInterface::class)
             ->disableOriginalConstructor()
             ->getMock();
@@ -151,7 +141,6 @@ class JellyfishOrderMapperTest extends Unit
         $this->jellyfishOrderMapper = new JellyfishOrderMapper(
             $this->jellyfishOrderAddressMapperMock,
             $this->jellyfishOrderExpenseMapperMock,
-            $this->jellyfishOrderDiscountMapperMock,
             $this->jellyfishOrderPaymentMapperMock,
             $this->jellyfishOrderTotalsMapperMock,
             $this->configMock,
@@ -216,10 +205,6 @@ class JellyfishOrderMapperTest extends Unit
 
         $this->spySalesOrderMock->expects($this->atLeastOnce())
             ->method('getExpenses')
-            ->willReturn(new ObjectCollection());
-
-        $this->spySalesOrderMock->expects($this->atLeastOnce())
-            ->method('getDiscounts')
             ->willReturn(new ObjectCollection());
 
         $this->spyLocaleMock->expects($this->atLeastOnce())
