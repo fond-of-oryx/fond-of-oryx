@@ -65,13 +65,13 @@ class CompanySearchRestApiRepository extends AbstractRepository implements Compa
     }
 
     /**
-     * @param \Generated\Shared\Transfer\CompanyListTransfer $companyUserListTransfer
+     * @param \Generated\Shared\Transfer\CompanyListTransfer $companyListTransfer
      *
      * @return bool
      */
-    protected function isSearchByAllFilterFieldSet(CompanyListTransfer $companyUserListTransfer): bool
+    protected function isSearchByAllFilterFieldSet(CompanyListTransfer $companyListTransfer): bool
     {
-        foreach ($companyUserListTransfer->getFilterFields() as $filterFieldTransfer) {
+        foreach ($companyListTransfer->getFilterFields() as $filterFieldTransfer) {
             if ($filterFieldTransfer->getType() === CompanySearchRestApiConstants::FILTER_FIELD_TYPE_ALL) {
                 return true;
             }
