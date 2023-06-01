@@ -6,7 +6,7 @@ use Generated\Shared\Transfer\CompanyListTransfer;
 use Spryker\Zed\Kernel\Communication\Controller\AbstractGatewayController;
 
 /**
- * @method \FondOfOryx\Zed\CompanySearchRestApi\Persistence\CompanySearchRestApiRepository getRepository()
+ * @method \FondOfOryx\Zed\CompanySearchRestApi\Business\CompanySearchRestApiFacadeInterface getFacade()
  */
 class GatewayController extends AbstractGatewayController
 {
@@ -17,6 +17,6 @@ class GatewayController extends AbstractGatewayController
      */
     public function searchCompaniesAction(CompanyListTransfer $companyListTransfer): CompanyListTransfer
     {
-        return $this->getRepository()->searchCompanies($companyListTransfer);
+        return $this->getFacade()->findCompanies($companyListTransfer);
     }
 }
