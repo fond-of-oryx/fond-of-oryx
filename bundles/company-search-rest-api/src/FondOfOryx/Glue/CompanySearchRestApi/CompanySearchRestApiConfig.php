@@ -28,17 +28,6 @@ class CompanySearchRestApiConfig extends AbstractBundleConfig
     public const ERROR_MESSAGE_USER_IS_NOT_SPECIFIED = 'Authorization header is required';
 
     /**
-     * @return array<string>
-     */
-    public function getSortFields(): array
-    {
-        return $this->get(
-            CompanySearchRestApiConstants::SORT_FIELDS,
-            CompanySearchRestApiConstants::SORT_FIELDS_DEFAULT,
-        );
-    }
-
-    /**
      * @return int
      */
     public function getItemsPerPage(): int
@@ -57,6 +46,17 @@ class CompanySearchRestApiConfig extends AbstractBundleConfig
         return $this->get(
             CompanySearchRestApiConstants::VALID_ITEMS_PER_PAGE_OPTIONS,
             CompanySearchRestApiConstants::VALID_ITEMS_PER_PAGE_OPTIONS_DEFAULT,
+        );
+    }
+
+    /**
+     * @return array<string>
+     */
+    public function getSortFields(): array
+    {
+        return $this->get(
+            CompanySearchRestApiConstants::SORT_FIELDS,
+            CompanySearchRestApiConstants::SORT_FIELDS_DEFAULT,
         );
     }
 

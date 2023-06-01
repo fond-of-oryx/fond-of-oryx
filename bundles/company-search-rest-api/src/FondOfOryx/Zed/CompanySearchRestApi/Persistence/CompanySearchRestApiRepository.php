@@ -3,14 +3,16 @@
 namespace FondOfOryx\Zed\CompanySearchRestApi\Persistence;
 
 use ArrayObject;
+use FondOfOryx\Shared\CompanySearchRestApi\CompanySearchRestApiConstants;
+use FondOfOryx\Zed\CompanySearchRestApi\Persistence\Propel\QueryBuilder\CompanySearchFilterFieldQueryBuilder;
 use Generated\Shared\Transfer\CompanyListTransfer;
 use Orm\Zed\Company\Persistence\Base\SpyCompanyQuery;
-use Orm\Zed\Company\Persistence\Map\SpyCompanyTableMap;
-use Propel\Runtime\ActiveQuery\Criteria;
 use Propel\Runtime\ActiveQuery\ModelCriteria;
 use Spryker\Zed\Kernel\Persistence\AbstractRepository;
 
 /**
+ * @codeCoverageIgnore
+ *
  * @method \FondOfOryx\Zed\CompanySearchRestApi\Persistence\CompanySearchRestApiPersistenceFactory getFactory()
  */
 class CompanySearchRestApiRepository extends AbstractRepository implements CompanySearchRestApiRepositoryInterface
@@ -22,7 +24,7 @@ class CompanySearchRestApiRepository extends AbstractRepository implements Compa
      */
     public function searchCompanies(CompanyListTransfer $companyListTransfer): CompanyListTransfer
     {
-        $companyQuery = $this->getFactory()
+        $query = $this->getFactory()
             ->getCompanyQuery()
             ->clear()
             ->filterByIsActive(true)
@@ -34,107 +36,58 @@ class CompanySearchRestApiRepository extends AbstractRepository implements Compa
             ->endUse();
 
         if ($companyListTransfer->getCompanyUuid() !== null) {
-            $companyQuery->filterByUuid($companyListTransfer->getCompanyUuid());
+            $query->filterByUuid($companyListTransfer->getCompanyUuid());
         }
 
-        $companyQuery = $this->addFulltextSearchFields($companyQuery, $companyListTransfer);
-        $companyQuery = $this->addSort($companyQuery, $companyListTransfer);
-        $companyQuery = $this->preparePagination($companyQuery, $companyListTransfer);
+        $query = $this->getFactory()
+            ->createCompanySearchFilterFieldQueryBuilder()
+            ->addQueryFilters($query, $companyListTransfer);
+
+        $queryJoinCollectionTransfer = $companyListTransfer->getQueryJoins();
+
+        if ($queryJoinCollectionTransfer !== null && $queryJoinCollectionTransfer->getQueryJoins()->count() > 0) {
+            $query = $this->getFactory()
+                ->createCompanyQueryJoinQueryBuilder()
+                ->addQueryFilters($query, $queryJoinCollectionTransfer);
+        }
+
+        if ($this->isSearchByAllFilterFieldSet($companyListTransfer)) {
+            $query->where([CompanySearchFilterFieldQueryBuilder::CONDITION_GROUP_ALL]);
+        }
+
+        $query = $this->preparePagination($query, $companyListTransfer);
 
         $companies = $this->getFactory()
             ->createCompanyMapper()
-            ->mapEntityCollectionToTransfers($companyQuery->find());
+            ->mapEntityCollectionToTransfers($query->find());
 
         return $companyListTransfer->setCompanies(new ArrayObject($companies));
     }
 
     /**
-     * @param \Orm\Zed\Company\Persistence\Base\SpyCompanyQuery $companyQuery
      * @param \Generated\Shared\Transfer\CompanyListTransfer $companyListTransfer
      *
-     * @return \Orm\Zed\Company\Persistence\Base\SpyCompanyQuery
+     * @return bool
      */
-    protected function addFulltextSearchFields(
-        SpyCompanyQuery $companyQuery,
-        CompanyListTransfer $companyListTransfer
-    ): SpyCompanyQuery {
-        $query = $companyListTransfer->getQuery();
-
-        if ($query === null) {
-            return $companyQuery;
-        }
-
-        $conditionNames = [];
-        $tableMap = SpyCompanyTableMap::getTableMap();
-        $fulltextSearchFields = $this->getFactory()->getConfig()->getFulltextSearchFields();
-
-        foreach ($fulltextSearchFields as $fulltextSearchField) {
-            if (!$tableMap->hasColumn($fulltextSearchField)) {
-                continue;
+    protected function isSearchByAllFilterFieldSet(CompanyListTransfer $companyListTransfer): bool
+    {
+        foreach ($companyListTransfer->getFilterFields() as $filterFieldTransfer) {
+            if ($filterFieldTransfer->getType() === CompanySearchRestApiConstants::FILTER_FIELD_TYPE_ALL) {
+                return true;
             }
-
-            $columnMap = $tableMap->getColumn($fulltextSearchField);
-
-            if (!$columnMap->isText()) {
-                continue;
-            }
-
-            $conditionNames[] = $conditionName = uniqid($fulltextSearchField, true);
-            $companyQuery->addCond($conditionName, $columnMap->getFullyQualifiedName(), sprintf('%%%s%%', $query), Criteria::ILIKE);
         }
 
-        if (count($conditionNames) === 0) {
-            return $companyQuery;
-        }
-
-        $companyQuery->combine($conditionNames, Criteria::LOGICAL_OR);
-
-        return $companyQuery;
+        return false;
     }
 
     /**
-     * @param \Orm\Zed\Company\Persistence\Base\SpyCompanyQuery $companyQuery
-     * @param \Generated\Shared\Transfer\CompanyListTransfer $companyListTransfer
-     *
-     * @return \Orm\Zed\Company\Persistence\Base\SpyCompanyQuery
-     */
-    protected function addSort(
-        SpyCompanyQuery $companyQuery,
-        CompanyListTransfer $companyListTransfer
-    ): SpyCompanyQuery {
-        $sort = $companyListTransfer->getSort();
-
-        if ($sort === null) {
-            return $companyQuery;
-        }
-
-        $tableMap = SpyCompanyTableMap::getTableMap();
-        $sortFields = $this->getFactory()->getConfig()->getSortFields();
-
-        [$sortField, $direction] = explode(' ', preg_replace('/(([a-z0-9]+)(_[a-z0-9]+)*)_(asc|desc)/', '$1 $4', $sort));
-
-        if (!in_array($sortField, $sortFields, true) || !$tableMap->hasColumn($sortField)) {
-            return $companyQuery;
-        }
-
-        $columnMap = $tableMap->getColumn($sortField);
-
-        $companyQuery->orderBy(
-            $columnMap->getFullyQualifiedName(),
-            $direction === 'desc' ? Criteria::DESC : Criteria::ASC,
-        );
-
-        return $companyQuery;
-    }
-
-    /**
-     * @param \Orm\Zed\Company\Persistence\Base\SpyCompanyQuery $companyQuery
+     * @param \Orm\Zed\Company\Persistence\Base\SpyCompanyQuery $query
      * @param \Generated\Shared\Transfer\CompanyListTransfer $companyListTransfer
      *
      * @return \Propel\Runtime\ActiveQuery\ModelCriteria
      */
     protected function preparePagination(
-        SpyCompanyQuery $companyQuery,
+        SpyCompanyQuery $query,
         CompanyListTransfer $companyListTransfer
     ): ModelCriteria {
         $config = $this->getFactory()->getConfig();
@@ -148,7 +101,7 @@ class CompanySearchRestApiRepository extends AbstractRepository implements Compa
             $maxPerPage = $itemsPerPage;
         }
 
-        $propelModelPager = $companyQuery->paginate($page, $maxPerPage);
+        $propelModelPager = $query->paginate($page, $maxPerPage);
 
         $paginationTransfer->setNbResults($propelModelPager->getNbResults())
             ->setFirstIndex($propelModelPager->getFirstIndex())

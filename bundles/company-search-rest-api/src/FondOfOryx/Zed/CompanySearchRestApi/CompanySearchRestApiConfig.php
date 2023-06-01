@@ -5,30 +5,11 @@ namespace FondOfOryx\Zed\CompanySearchRestApi;
 use FondOfOryx\Shared\CompanySearchRestApi\CompanySearchRestApiConstants;
 use Spryker\Zed\Kernel\AbstractBundleConfig;
 
+/**
+ * @codeCoverageIgnore
+ */
 class CompanySearchRestApiConfig extends AbstractBundleConfig
 {
-    /**
-     * @return array<string>
-     */
-    public function getFulltextSearchFields(): array
-    {
-        return $this->get(
-            CompanySearchRestApiConstants::FULLTEXT_SEARCH_FIELDS,
-            CompanySearchRestApiConstants::FULLTEXT_SEARCH_FIELDS_DEFAULT,
-        );
-    }
-
-    /**
-     * @return array<string>
-     */
-    public function getSortFields(): array
-    {
-        return $this->get(
-            CompanySearchRestApiConstants::SORT_FIELDS,
-            CompanySearchRestApiConstants::SORT_FIELDS_DEFAULT,
-        );
-    }
-
     /**
      * @return int
      */
@@ -48,6 +29,28 @@ class CompanySearchRestApiConfig extends AbstractBundleConfig
         return $this->get(
             CompanySearchRestApiConstants::VALID_ITEMS_PER_PAGE_OPTIONS,
             CompanySearchRestApiConstants::VALID_ITEMS_PER_PAGE_OPTIONS_DEFAULT,
+        );
+    }
+
+    /**
+     * @return array<string, string>
+     */
+    public function getFilterFieldTypeMapping(): array
+    {
+        return $this->get(
+            CompanySearchRestApiConstants::FILTER_FIELD_TYPE_MAPPING,
+            CompanySearchRestApiConstants::FILTER_FIELD_TYPE_MAPPING_DEFAULT,
+        );
+    }
+
+    /**
+     * @return array<string, string>
+     */
+    public function getSortFieldMapping(): array
+    {
+        return $this->get(
+            CompanySearchRestApiConstants::SORT_FIELD_MAPPING,
+            CompanySearchRestApiConstants::SORT_FIELD_MAPPING_DEFAULT,
         );
     }
 }

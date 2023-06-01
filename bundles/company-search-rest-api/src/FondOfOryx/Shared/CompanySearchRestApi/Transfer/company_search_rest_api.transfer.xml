@@ -36,23 +36,13 @@
         <property name="isActive" type="bool"/>
     </transfer>
 
-    <transfer name="Pagination">
-        <property name="page" type="int"/>
-        <property name="maxPerPage" type="int"/>
-        <property name="nbResults" type="int"/>
-        <property name="previousPage" type="int"/>
-        <property name="nextPage" type="int"/>
-        <property name="firstIndex" type="int"/>
-        <property name="lastIndex" type="int"/>
-        <property name="firstPage" type="int"/>
-        <property name="lastPage" type="int"/>
-    </transfer>
-
     <transfer name="CompanyList">
         <property name="companyUuid" type="string"/>
         <property name="customerReference" type="string"/>
         <property name="query" type="string"/>
         <property name="companies" type="Company[]" singular="company"/>
+        <property name="filterFields" type="FilterField[]" singular="filterField"/>
+        <property name="queryJoins" type="QueryJoinCollection"/>
         <property name="sort" type="string"/>
         <property name="pagination" type="Pagination"/>
     </transfer>
@@ -63,5 +53,46 @@
         <property name="isActive" type="bool"/>
         <property name="status" type="string"/>
         <property name="uuid" type="string"/>
+    </transfer>
+
+    <transfer name="FilterField">
+        <property name="type" type="string"/>
+        <property name="value" type="string"/>
+    </transfer>
+
+    <transfer name="QueryJoinCollection">
+        <property name="queryJoins" type="QueryJoin[]" singular="queryJoin"/>
+    </transfer>
+
+    <transfer name="QueryJoin">
+        <property name="relation" type="string"/>
+        <property name="left" type="array" singular="left"/>
+        <property name="right" type="array" singular="right"/>
+        <property name="joinType" type="string"/>
+        <property name="condition" type="string"/>
+        <property name="whereConditions" type="QueryWhereCondition[]" singular="queryWhereCondition"/>
+        <property name="withColumns" type="string[]" singular="withColumn"/>
+        <property name="orderBy" type="string"/>
+        <property name="orderDirection" type="string"/>
+    </transfer>
+
+    <transfer name="QueryWhereCondition">
+        <property name="column" type="string"/>
+        <property name="value" type="string"/>
+        <property name="comparison" type="string"/>
+        <property name="mergeWithCondition" type="string"/>
+        <property name="mergeOperator" type="string"/>
+    </transfer>
+
+    <transfer name="Pagination">
+        <property name="page" type="int"/>
+        <property name="maxPerPage" type="int"/>
+        <property name="nbResults" type="int"/>
+        <property name="previousPage" type="int"/>
+        <property name="nextPage" type="int"/>
+        <property name="firstIndex" type="int"/>
+        <property name="lastIndex" type="int"/>
+        <property name="firstPage" type="int"/>
+        <property name="lastPage" type="int"/>
     </transfer>
 </transfers>
