@@ -73,4 +73,34 @@ interface CompanySearchRestApiConstants
      * @var array
      */
     public const SORT_FIELD_MAPPING_DEFAULT = [];
+
+    /**
+     * @var string
+     */
+    public const PARAMETER_NAME_ID = 'id';
+
+    /**
+     * @var string
+     */
+    public const PARAMETER_NAME_IS_ACTIVE = 'is-active';
+
+    /**
+     * @var string
+     */
+    public const FILTER_FIELD_TYPE_UUID = 'uuid';
+
+    /**
+     * @var string
+     */
+    public const FILTER_FIELD_TYPE_IS_ACTIVE = 'isActive';
+
+    /**
+     * @var string
+     */
+    public const FULL_TEXT_COLUMNS = 'FOND_OF_ORYX:COMPANIES_REST_API:FULL_TEXT_COLUMNS';
+
+    /**
+     * @var array
+     */
+    public const FULL_TEXT_COLUMNS_DEFAULT = [];
 }
