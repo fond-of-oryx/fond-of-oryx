@@ -4,7 +4,6 @@ namespace FondOfOryx\Glue\CompanySearchRestApi\Processor\Mapper;
 
 use ArrayObject;
 use Codeception\Test\Unit;
-use FondOfOryx\Glue\CompanySearchRestApi\Processor\Filter\CustomerReferenceFilterInterface;
 use FondOfOryx\Glue\CompanySearchRestApi\Processor\Filter\RequestParameterFilterInterface;
 use Generated\Shared\Transfer\PaginationTransfer;
 use PHPUnit\Framework\MockObject\MockObject;
@@ -26,11 +25,6 @@ class CompanyListMapperTest extends Unit
      * @var (\FondOfOryx\Glue\CompanySearchRestApi\Processor\Filter\RequestParameterFilterInterface&\PHPUnit\Framework\MockObject\MockObject)|\PHPUnit\Framework\MockObject\MockObject
      */
     protected MockObject|RequestParameterFilterInterface $requestParameterFilterMock;
-
-    /**
-     * @var (\FondOfOryx\Glue\CompanySearchRestApi\Processor\Filter\CustomerReferenceFilterInterface&\PHPUnit\Framework\MockObject\MockObject)|\PHPUnit\Framework\MockObject\MockObject
-     */
-    protected CustomerReferenceFilterInterface|MockObject $customerReferenceFilterMock;
 
     /**
      * @var \PHPUnit\Framework\MockObject\MockObject|(\Spryker\Glue\GlueApplication\Rest\Request\Data\RestRequestInterface&\PHPUnit\Framework\MockObject\MockObject)
@@ -66,10 +60,6 @@ class CompanyListMapperTest extends Unit
             ->disableOriginalConstructor()
             ->getMock();
 
-        $this->customerReferenceFilterMock = $this->getMockBuilder(CustomerReferenceFilterInterface::class)
-            ->disableOriginalConstructor()
-            ->getMock();
-
         $this->restRequestMock = $this->getMockBuilder(RestRequestInterface::class)
             ->disableOriginalConstructor()
             ->getMock();
@@ -82,7 +72,6 @@ class CompanyListMapperTest extends Unit
             $this->paginationMapperMock,
             $this->filterFieldsMapperMock,
             $this->requestParameterFilterMock,
-            $this->customerReferenceFilterMock,
         );
     }
 
@@ -92,7 +81,6 @@ class CompanyListMapperTest extends Unit
     public function testFromRestRequest(): void
     {
         $companyUuid = 'e5046482-92ba-4c21-a239-db9ce1bc3c60';
-        $customerReference = 'FOO-C--1';
         $query = 'foo';
         $sort = 'foo_asc';
 
@@ -116,17 +104,7 @@ class CompanyListMapperTest extends Unit
                 $companyUuid,
             );
 
-        $this->customerReferenceFilterMock->expects(static::atLeastOnce())
-            ->method('filterFromRestRequest')
-            ->with($this->restRequestMock)
-            ->willReturn($customerReference);
-
         $companyListTransfer = $this->companyListMapper->fromRestRequest($this->restRequestMock);
-
-        static::assertEquals(
-            $customerReference,
-            $companyListTransfer->getCustomerReference(),
-        );
 
         static::assertEquals(
             $sort,

@@ -45,6 +45,7 @@ class CompanySearchRestApiFactory extends AbstractFactory
     {
         return new CompanyReader(
             $this->createCompanyListMapper(),
+            $this->createCustomerReferenceFilter(),
             $this->createRestResponseBuilder(),
             $this->getClient(),
         );
@@ -59,7 +60,6 @@ class CompanySearchRestApiFactory extends AbstractFactory
             $this->createPaginationMapper(),
             $this->createFilterFieldsMapper(),
             $this->createRequestParameterFilter(),
-            $this->createCustomerReferenceFilter(),
         );
     }
 
