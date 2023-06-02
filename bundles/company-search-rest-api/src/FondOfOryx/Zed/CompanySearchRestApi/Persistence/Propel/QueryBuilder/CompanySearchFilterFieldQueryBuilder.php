@@ -95,7 +95,7 @@ class CompanySearchFilterFieldQueryBuilder implements CompanySearchFilterFieldQu
     ): SpyCompanyQuery {
         $conditions = [];
 
-        foreach ($this->config->getFilterFieldTypeMapping() as $column) {
+        foreach ($this->config->getFullTextColumns() as $column) {
             $conditionName = uniqid($column, true);
 
             $query->addCond(
@@ -106,6 +106,10 @@ class CompanySearchFilterFieldQueryBuilder implements CompanySearchFilterFieldQu
             );
 
             $conditions[] = $conditionName;
+        }
+
+        if (count($conditions) === 0) {
+            return $query;
         }
 
         $query->combine(

@@ -53,4 +53,15 @@ class CompanySearchRestApiConfig extends AbstractBundleConfig
             CompanySearchRestApiConstants::SORT_FIELD_MAPPING_DEFAULT,
         );
     }
+
+    /**
+     * @return array<int, string>
+     */
+    public function getFullTextColumns(): array
+    {
+        return $this->get(
+            CompanySearchRestApiConstants::FULL_TEXT_COLUMNS,
+            CompanySearchRestApiConstants::FULL_TEXT_COLUMNS_DEFAULT,
+        );
+    }
 }

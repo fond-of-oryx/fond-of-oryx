@@ -27,17 +27,12 @@ class CompanySearchRestApiRepository extends AbstractRepository implements Compa
         $query = $this->getFactory()
             ->getCompanyQuery()
             ->clear()
-            ->filterByIsActive(true)
             ->useCompanyUserQuery()
                 ->useCustomerQuery()
                     ->filterByCustomerReference($companyListTransfer->getCustomerReference())
                 ->endUse()
                 ->filterByIsActive(true)
             ->endUse();
-
-        if ($companyListTransfer->getCompanyUuid() !== null) {
-            $query->filterByUuid($companyListTransfer->getCompanyUuid());
-        }
 
         $query = $this->getFactory()
             ->createCompanySearchFilterFieldQueryBuilder()
