@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<database xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" name="zed"
+          xsi:noNamespaceSchemaLocation="https://static.spryker.com/schema-01.xsd"
+          namespace="Orm\Zed\RepresentativeCompanyUser\Persistence" package="src.Orm.Zed.RepresentativeCompanyUser.Persistence">
+
+    <table name="foo_representative_company_user" phpName="FooRepresentativeCompanyUser" identifierQuoting="true">
+        <column name="fk_representative_company_user_trade_fair" required="false" default="null" type="INTEGER"/>
+
+        <foreign-key name="foo_representative_company_user-foo_representative_company_user_trade_fair" foreignTable="foo_representative_company_user_trade_fair"
+                     phpName="FooRepresentativeCompanyUserTradeFair">
+            <reference local="fk_representative_company_user_trade_fair" foreign="id_representative_company_user_trade_fair"/>
+        </foreign-key>
+    </table>
+</database>
