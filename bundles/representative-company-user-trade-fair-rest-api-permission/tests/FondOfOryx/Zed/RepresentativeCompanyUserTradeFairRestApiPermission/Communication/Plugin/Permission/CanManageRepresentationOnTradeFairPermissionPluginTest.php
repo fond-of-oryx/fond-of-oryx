@@ -10,7 +10,7 @@ class CanManageRepresentationOnTradeFairPermissionPluginTest extends Unit
     /**
      * @var \FondOfOryx\Zed\RepresentativeCompanyUserTradeFairRestApiPermission\Communication\Plugin\PermissionExtension\CanManageRepresentationOnTradeFairPermissionPlugin
      */
-    protected $plugin;
+    protected CanManageRepresentationOnTradeFairPermissionPlugin $plugin;
 
     /**
      * @return void

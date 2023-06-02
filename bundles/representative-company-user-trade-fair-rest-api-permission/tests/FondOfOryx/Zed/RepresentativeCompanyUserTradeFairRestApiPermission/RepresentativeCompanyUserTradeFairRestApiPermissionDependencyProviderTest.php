@@ -4,6 +4,7 @@ namespace FondOfOryx\Zed\RepresentativeCompanyUserTradeFairRestApiPermission;
 
 use Codeception\Test\Unit;
 use Orm\Zed\CompanyRole\Persistence\SpyCompanyRoleToPermissionQuery;
+use PHPUnit\Framework\MockObject\MockObject;
 use Spryker\Zed\Kernel\Container;
 
 class RepresentativeCompanyUserTradeFairRestApiPermissionDependencyProviderTest extends Unit
@@ -11,7 +12,7 @@ class RepresentativeCompanyUserTradeFairRestApiPermissionDependencyProviderTest 
     /**
      * @var \PHPUnit\Framework\MockObject\MockObject|\Spryker\Zed\Kernel\Container
      */
-    protected $containerMock;
+    protected MockObject|Container $containerMock;
 
     /**
      * @var \FondOfOryx\Zed\RepresentativeCompanyUserTradeFairRestApiPermission\RepresentativeCompanyUserTradeFairRestApiPermissionDependencyProvider

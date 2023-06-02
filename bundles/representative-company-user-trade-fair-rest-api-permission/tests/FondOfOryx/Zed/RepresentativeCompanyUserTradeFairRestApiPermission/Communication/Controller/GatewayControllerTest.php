@@ -10,19 +10,19 @@ use Spryker\Zed\Kernel\Persistence\AbstractRepository;
 class GatewayControllerTest extends Unit
 {
     /**
-     * @var \FondOfOryx\Zed\RepresentativeCompanyUserTradeFairRestApiPermission\Persistence\RepresentativeCompanyUserRestApiPermissionRepositoryInterface|\PHPUnit\Framework\MockObject\MockObject
+     * @var \FondOfOryx\Zed\RepresentativeCompanyUserTradeFairRestApiPermission\Persistence\RepresentativeCompanyUserTradeFairRestApiPermissionRepository|\PHPUnit\Framework\MockObject\MockObject
      */
-    protected $repositoryMock;
+    protected MockObject|RepresentativeCompanyUserTradeFairRestApiPermissionRepository $repositoryMock;
 
     /**
      * @var \Generated\Shared\Transfer\RepresentativeCompanyUserTradeFairRestApiPermissionRequestTransfer|\PHPUnit\Framework\MockObject\MockObject
      */
-    protected $representativeCompanyUserRestApiPermissionRequestTransferMock;
+    protected MockObject|RepresentativeCompanyUserTradeFairRestApiPermissionRequestTransfer $representativeCompanyUserRestApiPermissionRequestTransferMock;
 
     /**
      * @var \FondOfOryx\Zed\RepresentativeCompanyUserTradeFairRestApiPermission\Communication\Controller\GatewayController
      */
-    protected $gatewayController;
+    protected GatewayController $gatewayController;
 
     /**
      * @return void
