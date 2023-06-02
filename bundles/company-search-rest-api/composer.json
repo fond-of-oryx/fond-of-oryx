@@ -12,7 +12,6 @@
     "php": ">=8.0",
     "fond-of-oryx/company-search-rest-api-extension": "^1.0.0",
     "spryker/company": "^1.0.0",
-    "spryker/company-user": "^1.0.0 || ^2.0.0",
     "spryker/glossary-storage": "^1.5.0",
     "spryker/glue-application": "^1.0.0",
     "spryker/uuid-behavior": "^1.0.0"

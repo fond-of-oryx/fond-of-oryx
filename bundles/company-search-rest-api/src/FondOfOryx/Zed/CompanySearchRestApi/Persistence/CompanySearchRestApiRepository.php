@@ -26,13 +26,7 @@ class CompanySearchRestApiRepository extends AbstractRepository implements Compa
     {
         $query = $this->getFactory()
             ->getCompanyQuery()
-            ->clear()
-            ->useCompanyUserQuery()
-                ->useCustomerQuery()
-                    ->filterByCustomerReference($companyListTransfer->getCustomerReference())
-                ->endUse()
-                ->filterByIsActive(true)
-            ->endUse();
+            ->clear();
 
         $query = $this->getFactory()
             ->createCompanySearchFilterFieldQueryBuilder()

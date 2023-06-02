@@ -2,7 +2,6 @@
 
 namespace FondOfOryx\Glue\CompanySearchRestApi\Processor\Mapper;
 
-use FondOfOryx\Glue\CompanySearchRestApi\Processor\Filter\CustomerReferenceFilterInterface;
 use FondOfOryx\Glue\CompanySearchRestApi\Processor\Filter\RequestParameterFilterInterface;
 use Generated\Shared\Transfer\CompanyListTransfer;
 use Spryker\Glue\GlueApplication\Rest\Request\Data\RestRequestInterface;
@@ -25,26 +24,18 @@ class CompanyListMapper implements CompanyListMapperInterface
     protected RequestParameterFilterInterface $requestParameterFilter;
 
     /**
-     * @var \FondOfOryx\Glue\CompanySearchRestApi\Processor\Filter\CustomerReferenceFilterInterface
-     */
-    protected CustomerReferenceFilterInterface $customerReferenceFilter;
-
-    /**
      * @param \FondOfOryx\Glue\CompanySearchRestApi\Processor\Mapper\PaginationMapperInterface $paginationMapper
      * @param \FondOfOryx\Glue\CompanySearchRestApi\Processor\Mapper\FilterFieldsMapperInterface $filterFieldsMapper
      * @param \FondOfOryx\Glue\CompanySearchRestApi\Processor\Filter\RequestParameterFilterInterface $requestParameterFilter
-     * @param \FondOfOryx\Glue\CompanySearchRestApi\Processor\Filter\CustomerReferenceFilterInterface $customerReferenceFilter
      */
     public function __construct(
         PaginationMapperInterface $paginationMapper,
         FilterFieldsMapperInterface $filterFieldsMapper,
-        RequestParameterFilterInterface $requestParameterFilter,
-        CustomerReferenceFilterInterface $customerReferenceFilter
+        RequestParameterFilterInterface $requestParameterFilter
     ) {
         $this->paginationMapper = $paginationMapper;
         $this->filterFieldsMapper = $filterFieldsMapper;
         $this->requestParameterFilter = $requestParameterFilter;
-        $this->customerReferenceFilter = $customerReferenceFilter;
     }
 
     /**
@@ -57,7 +48,6 @@ class CompanyListMapper implements CompanyListMapperInterface
         return (new CompanyListTransfer())
             ->setPagination($this->paginationMapper->fromRestRequest($restRequest))
             ->setFilterFields($this->filterFieldsMapper->fromRestRequest($restRequest))
-            ->setSort($this->requestParameterFilter->getRequestParameter($restRequest, 'sort'))
-            ->setCustomerReference($this->customerReferenceFilter->filterFromRestRequest($restRequest));
+            ->setSort($this->requestParameterFilter->getRequestParameter($restRequest, 'sort'));
     }
 }

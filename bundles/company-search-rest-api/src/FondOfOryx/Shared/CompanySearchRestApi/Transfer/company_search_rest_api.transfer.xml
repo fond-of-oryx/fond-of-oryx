@@ -37,7 +37,6 @@
     </transfer>
 
     <transfer name="CompanyList">
-        <property name="customerReference" type="string"/>
         <property name="companies" type="Company[]" singular="company"/>
         <property name="filterFields" type="FilterField[]" singular="filterField"/>
         <property name="queryJoins" type="QueryJoinCollection"/>
