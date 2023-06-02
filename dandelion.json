@@ -235,6 +235,10 @@
       "path": "bundles/company-user-company-role-connector/",
       "version": "2.0.0"
     },
+    "company-user-company-search-rest-api": {
+      "path": "bundles/company-user-company-search-rest-api",
+      "version": "1.0.0"
+    },
     "company-user-mail-connector": {
       "path": "bundles/company-user-mail-connector/",
       "version": "2.0.0"
