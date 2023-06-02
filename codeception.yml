@@ -19,7 +19,6 @@ include:
   - bundles/companies-rest-api
   - bundles/companies-rest-api-permission
   - bundles/company-api
-  - bundles/company-user-archive
   - bundles/company-brand-product-list-connector
   - bundles/company-brands-rest-api
   - bundles/company-business-unit-address-search-rest-api
@@ -46,12 +45,15 @@ include:
   - bundles/company-role-api
   - bundles/company-role-search-rest-api
   - bundles/company-search-rest-api
+  - bundles/company-search-rest-api-extension
   - bundles/company-type-company-user-search-rest-api
   - bundles/company-type-product-lists-rest-api
   - bundles/company-unit-address-api
   - bundles/company-unit-address-sales-connector
   - bundles/company-user-api
+  - bundles/company-user-archive
   - bundles/company-user-company-role-connector
+  - bundles/company-user-company-search-rest-api
   - bundles/company-user-mail-connector
   - bundles/company-user-order-budget-search-rest-api
   - bundles/company-user-reference-sales-connector

@@ -3,25 +3,27 @@
 namespace FondOfOryx\Zed\CompanySearchRestApi\Communication\Controller;
 
 use Codeception\Test\Unit;
-use FondOfOryx\Zed\CompanySearchRestApi\Persistence\CompanySearchRestApiRepository;
+use FondOfOryx\Zed\CompanySearchRestApi\Business\CompanySearchRestApiFacade;
 use Generated\Shared\Transfer\CompanyListTransfer;
+use PHPUnit\Framework\MockObject\MockObject;
+use Spryker\Zed\Kernel\Business\AbstractFacade;
 
 class GatewayControllerTest extends Unit
 {
     /**
-     * @var \FondOfOryx\Zed\CompanySearchRestApi\Persistence\CompanySearchRestApiRepository|\PHPUnit\Framework\MockObject\MockObject|mixed
+     * @var (\FondOfOryx\Zed\CompanySearchRestApi\Business\CompanySearchRestApiFacade&\PHPUnit\Framework\MockObject\MockObject)|\PHPUnit\Framework\MockObject\MockObject
      */
-    protected $repositoryMock;
+    protected CompanySearchRestApiFacade|MockObject $facadeMock;
 
     /**
-     * @var \Generated\Shared\Transfer\CompanyListTransfer|\PHPUnit\Framework\MockObject\MockObject|mixed
+     * @var (\Generated\Shared\Transfer\CompanyListTransfer&\PHPUnit\Framework\MockObject\MockObject)|\PHPUnit\Framework\MockObject\MockObject
      */
-    protected $companyListTransferMock;
+    protected MockObject|CompanyListTransfer $companyListTransferMock;
 
     /**
      * @var \FondOfOryx\Zed\CompanySearchRestApi\Communication\Controller\GatewayController
      */
-    protected $gatewayController;
+    protected GatewayController $gatewayController;
 
     /**
      * @return void
@@ -30,7 +32,7 @@ class GatewayControllerTest extends Unit
     {
         parent::_before();
 
-        $this->repositoryMock = $this->getMockBuilder(CompanySearchRestApiRepository::class)
+        $this->facadeMock = $this->getMockBuilder(CompanySearchRestApiFacade::class)
             ->disableOriginalConstructor()
             ->getMock();
 
@@ -38,8 +40,28 @@ class GatewayControllerTest extends Unit
             ->disableOriginalConstructor()
             ->getMock();
 
-        $this->gatewayController = new GatewayController();
-        $this->gatewayController->setRepository($this->repositoryMock);
+        $this->gatewayController = new class ($this->facadeMock) extends GatewayController {
+            /**
+             * @var \Spryker\Zed\Kernel\Business\AbstractFacade
+             */
+            protected AbstractFacade $abstractFacade;
+
+            /**
+             * @param \Spryker\Zed\Kernel\Business\AbstractFacade $abstractFacade
+             */
+            public function __construct(AbstractFacade $abstractFacade)
+            {
+                $this->abstractFacade = $abstractFacade;
+            }
+
+            /**
+             * @return \Spryker\Zed\Kernel\Business\AbstractFacade
+             */
+            protected function getFacade(): AbstractFacade
+            {
+                return $this->abstractFacade;
+            }
+        };
     }
 
     /**
@@ -47,8 +69,8 @@ class GatewayControllerTest extends Unit
      */
     public function testSearchCompaniesAction(): void
     {
-        $this->repositoryMock->expects(static::atLeastOnce())
-            ->method('searchCompanies')
+        $this->facadeMock->expects(static::atLeastOnce())
+            ->method('findCompanies')
             ->with($this->companyListTransferMock)
             ->willReturn($this->companyListTransferMock);
 

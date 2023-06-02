@@ -5,11 +5,17 @@ namespace FondOfOryx\Glue\CompanySearchRestApi;
 use FondOfOryx\Glue\CompanySearchRestApi\Dependency\Client\CompanySearchRestApiToGlossaryStorageClientInterface;
 use FondOfOryx\Glue\CompanySearchRestApi\Processor\Builder\RestResponseBuilder;
 use FondOfOryx\Glue\CompanySearchRestApi\Processor\Builder\RestResponseBuilderInterface;
+use FondOfOryx\Glue\CompanySearchRestApi\Processor\Expander\FilterFieldsExpander;
+use FondOfOryx\Glue\CompanySearchRestApi\Processor\Expander\FilterFieldsExpanderInterface;
 use FondOfOryx\Glue\CompanySearchRestApi\Processor\Filter\CustomerReferenceFilter;
 use FondOfOryx\Glue\CompanySearchRestApi\Processor\Filter\CustomerReferenceFilterInterface;
 use FondOfOryx\Glue\CompanySearchRestApi\Processor\Filter\RequestParameterFilter;
 use FondOfOryx\Glue\CompanySearchRestApi\Processor\Filter\RequestParameterFilterInterface;
+use FondOfOryx\Glue\CompanySearchRestApi\Processor\Mapper\AllFilterFieldMapper;
 use FondOfOryx\Glue\CompanySearchRestApi\Processor\Mapper\CompanyListMapper;
+use FondOfOryx\Glue\CompanySearchRestApi\Processor\Mapper\FilterFieldsMapper;
+use FondOfOryx\Glue\CompanySearchRestApi\Processor\Mapper\FilterFieldsMapperInterface;
+use FondOfOryx\Glue\CompanySearchRestApi\Processor\Mapper\OrderByFilterFieldMapper;
 use FondOfOryx\Glue\CompanySearchRestApi\Processor\Mapper\PaginationMapper;
 use FondOfOryx\Glue\CompanySearchRestApi\Processor\Mapper\PaginationMapperInterface;
 use FondOfOryx\Glue\CompanySearchRestApi\Processor\Mapper\RestCompanySearchAttributesMapper;
@@ -51,6 +57,7 @@ class CompanySearchRestApiFactory extends AbstractFactory
     {
         return new CompanyListMapper(
             $this->createPaginationMapper(),
+            $this->createFilterFieldsMapper(),
             $this->createRequestParameterFilter(),
             $this->createCustomerReferenceFilter(),
         );
@@ -139,6 +146,40 @@ class CompanySearchRestApiFactory extends AbstractFactory
     {
         return new RestCompanySearchAttributesTranslator(
             $this->getGlossaryStorageClient(),
+        );
+    }
+
+    /**
+     * @return \FondOfOryx\Glue\CompanySearchRestApi\Processor\Mapper\FilterFieldsMapperInterface
+     */
+    protected function createFilterFieldsMapper(): FilterFieldsMapperInterface
+    {
+        return new FilterFieldsMapper(
+            [
+                new AllFilterFieldMapper($this->createRequestParameterFilter()),
+                new OrderByFilterFieldMapper($this->createRequestParameterFilter(), $this->getConfig()),
+            ],
+            $this->createFilterFieldsExpander(),
+        );
+    }
+
+    /**
+     * @return \FondOfOryx\Glue\CompanySearchRestApi\Processor\Expander\FilterFieldsExpanderInterface
+     */
+    protected function createFilterFieldsExpander(): FilterFieldsExpanderInterface
+    {
+        return new FilterFieldsExpander(
+            $this->getFilterFieldsExpanderPlugins(),
+        );
+    }
+
+    /**
+     * @return array<\FondOfOryx\Glue\CompanySearchRestApiExtension\Dependency\Plugin\FilterFieldsExpanderPluginInterface>
+     */
+    protected function getFilterFieldsExpanderPlugins(): array
+    {
+        return $this->getProvidedDependency(
+            CompanySearchRestApiDependencyProvider::PLUGINS_FILTER_FIELDS_EXPANDER,
         );
     }
 

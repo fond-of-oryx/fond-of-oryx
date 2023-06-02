@@ -199,6 +199,10 @@
       "path": "bundles/company-search-rest-api/",
       "version": "2.0.0"
     },
+    "company-search-rest-api-extension": {
+      "path": "bundles/company-search-rest-api-extension/",
+      "version": "1.0.0"
+    },
     "company-type-company-user-search-rest-api": {
       "path": "bundles/company-type-company-user-search-rest-api/",
       "version": "1.0.0"
@@ -230,6 +234,10 @@
     "company-user-company-role-connector": {
       "path": "bundles/company-user-company-role-connector/",
       "version": "2.0.0"
+    },
+    "company-user-company-search-rest-api": {
+      "path": "bundles/company-user-company-search-rest-api",
+      "version": "1.0.0"
     },
     "company-user-mail-connector": {
       "path": "bundles/company-user-mail-connector/",
@@ -533,7 +541,7 @@
     },
     "jellyfish-sales-order": {
       "path": "bundles/jellyfish-sales-order/",
-      "version": "2.0.0"
+      "version": "2.1.0"
     },
     "jellyfish-sales-order-b2c": {
       "path": "bundles/jellyfish-sales-order-b2c/",
