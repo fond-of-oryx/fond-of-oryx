@@ -2,7 +2,6 @@
 
 namespace FondOfOryx\Zed\CompanyUserCompanySearchRestApi\Communication\Plugin\CompanySearchRestApiExtension;
 
-use ArrayObject;
 use FondOfOryx\Shared\CompanyUserCompanySearchRestApi\CompanyUserCompanySearchRestApiConstants;
 use FondOfOryx\Zed\CompanySearchRestApiExtension\Dependency\Plugin\SearchCompanyQueryExpanderPluginInterface;
 use Generated\Shared\Transfer\QueryJoinCollectionTransfer;
@@ -54,23 +53,25 @@ class CustomerSearchCompanyQueryExpanderPlugin extends AbstractPlugin implements
             $idCustomer = $filterFieldTransfer->getValue();
         }
 
-        $whereConditions = [
-            (new QueryWhereConditionTransfer())
-                ->setValue($idCustomer)
-                ->setColumn(SpyCompanyUserTableMap::COL_FK_CUSTOMER)
-                ->setComparison(Criteria::EQUAL),
-            (new QueryWhereConditionTransfer())
-                ->setValue('true')
-                ->setColumn(SpyCompanyUserTableMap::COL_IS_ACTIVE)
-                ->setComparison(Criteria::EQUAL),
-        ];
-
         return $queryJoinCollectionTransfer->addQueryJoin(
             (new QueryJoinTransfer())
                 ->setJoinType(Criteria::INNER_JOIN)
                 ->setLeft([SpyCompanyTableMap::COL_ID_COMPANY])
                 ->setRight([SpyCompanyUserTableMap::COL_FK_COMPANY])
-                ->setWhereConditions(new ArrayObject($whereConditions)),
+                ->addQueryWhereCondition(
+                    (new QueryWhereConditionTransfer())
+                        ->setValue($idCustomer)
+                        ->setColumn(SpyCompanyUserTableMap::COL_FK_CUSTOMER)
+                        ->setComparison(Criteria::EQUAL),
+                ),
+        )->addQueryJoin(
+            (new QueryJoinTransfer())
+                ->addQueryWhereCondition(
+                    (new QueryWhereConditionTransfer())
+                        ->setValue('true')
+                        ->setColumn(SpyCompanyUserTableMap::COL_IS_ACTIVE)
+                        ->setComparison(Criteria::EQUAL),
+                ),
         );
     }
 }

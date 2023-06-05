@@ -105,17 +105,26 @@ class CustomerSearchCompanyQueryExpanderPluginTest extends Unit
 
         $this->queryJoinCollectionTransferMock->expects(static::atLeastOnce())
             ->method('addQueryJoin')
-            ->with(
-                static::callback(
-                    static function (QueryJoinTransfer $queryJoinTransfer) use ($idCustomer) {
-                        return $queryJoinTransfer->getLeft() == [SpyCompanyTableMap::COL_ID_COMPANY]
-                            && $queryJoinTransfer->getRight() == [SpyCompanyUserTableMap::COL_FK_COMPANY]
-                            && $queryJoinTransfer->getJoinType() === Criteria::INNER_JOIN
-                            && $queryJoinTransfer->getWhereConditions()->count() === 2
-                            && $queryJoinTransfer->getWhereConditions()->offsetGet(0)->getValue() === $idCustomer
-                            && $queryJoinTransfer->getWhereConditions()->offsetGet(1)->getValue() === 'true';
-                    },
-                ),
+            ->withConsecutive(
+                [
+                    static::callback(
+                        fn (
+                            QueryJoinTransfer $queryJoinTransfer
+                        ) => $queryJoinTransfer->getLeft() == [SpyCompanyTableMap::COL_ID_COMPANY]
+                                && $queryJoinTransfer->getRight() == [SpyCompanyUserTableMap::COL_FK_COMPANY]
+                                && $queryJoinTransfer->getJoinType() === Criteria::INNER_JOIN
+                                && $queryJoinTransfer->getWhereConditions()->count() === 1
+                                && $queryJoinTransfer->getWhereConditions()->offsetGet(0)->getValue() === $idCustomer,
+                    ),
+                ],
+                [
+                    static::callback(
+                        static fn (
+                            QueryJoinTransfer $queryJoinTransfer
+                        ) => $queryJoinTransfer->getWhereConditions()->count() === 1
+                                && $queryJoinTransfer->getWhereConditions()->offsetGet(0)->getValue() === 'true'
+                    ),
+                ],
             )->willReturn($this->queryJoinCollectionTransferMock);
 
         static::assertEquals(
