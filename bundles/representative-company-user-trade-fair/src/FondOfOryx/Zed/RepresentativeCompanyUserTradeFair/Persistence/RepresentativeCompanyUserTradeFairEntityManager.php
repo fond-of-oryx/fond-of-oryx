@@ -4,6 +4,7 @@ namespace FondOfOryx\Zed\RepresentativeCompanyUserTradeFair\Persistence;
 
 use Exception;
 use Generated\Shared\Transfer\RepresentativeCompanyUserTradeFairTransfer;
+use Orm\Zed\RepresentativeCompanyUser\Persistence\Map\FooRepresentativeCompanyUserTableMap;
 use Orm\Zed\RepresentativeCompanyUserTradeFair\Persistence\FooRepresentativeCompanyUserTradeFairQuery;
 use Spryker\Zed\Kernel\Persistence\AbstractEntityManager;
 
@@ -65,6 +66,11 @@ class RepresentativeCompanyUserTradeFairEntityManager extends AbstractEntityMana
 
         $entity->setActive(false);
         $entity->save();
+
+        foreach ($entity->getFooRepresentativeCompanyUsers() as $companyUser){
+            $companyUser->setState(FooRepresentativeCompanyUserTableMap::COL_PREVIOUS_STATE_REVOKED);
+            $companyUser->save();
+        }
 
         return $this->getFactory()->createEntityToTransferMapper()->fromRepresentativeCompanyUserTradeFairEntity($entity);
     }

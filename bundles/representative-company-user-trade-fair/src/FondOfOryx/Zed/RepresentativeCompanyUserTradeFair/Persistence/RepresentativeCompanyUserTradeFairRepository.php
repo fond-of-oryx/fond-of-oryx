@@ -7,6 +7,7 @@ use Generated\Shared\Transfer\RepresentativeCompanyUserCollectionTransfer;
 use Generated\Shared\Transfer\RepresentativeCompanyUserTradeFairCollectionTransfer;
 use Generated\Shared\Transfer\RepresentativeCompanyUserTradeFairFilterTransfer;
 use Generated\Shared\Transfer\RepresentativeCompanyUserTradeFairTransfer;
+use Orm\Zed\Customer\Persistence\Map\SpyCustomerTableMap;
 use Orm\Zed\RepresentativeCompanyUserTradeFair\Persistence\FooRepresentativeCompanyUserTradeFairQuery;
 use Orm\Zed\RepresentativeCompanyUserTradeFair\Persistence\Map\FooRepresentativeCompanyUserTradeFairTableMap;
 use Spryker\Zed\Kernel\Persistence\AbstractRepository;
@@ -152,12 +153,19 @@ class RepresentativeCompanyUserTradeFairRepository extends AbstractRepository im
      */
     public function resolveDistributorFksToRepresent(int $fkRepresentative): array
     {
-
-//        $roleQuery = $this->getFactory()->getCompanyRoleQuery()->leftJoinSpyCompanyRoleToCompanyUser()->leftJoinCompany()
-        return $this->getFactory()->getCustomerQuery()->leftJoinCompanyUser('cu')
-            ->select('id_customer')
-            ->where('id_customer != ?', $fkRepresentative)
-            ->find()->getData();
+        return $this->getFactory()->getCustomerQuery()
+                ->useCompanyUserQuery()
+                    ->useSpyCompanyRoleToCompanyUserQuery()
+                        ->useCompanyRoleQuery()
+                            ->filterByName('distribution')
+                        ->endUse()
+                    ->endUse()
+                ->endUse()
+                ->select(SpyCustomerTableMap::COL_ID_CUSTOMER)
+                ->where(SpyCustomerTableMap::COL_ID_CUSTOMER .' != ?', $fkRepresentative)
+                ->groupBy(SpyCustomerTableMap::COL_ID_CUSTOMER)
+                ->find()
+                ->getData();
     }
 
     /**
