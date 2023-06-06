@@ -9,7 +9,7 @@
     },
     "availability-alert": {
       "path": "bundles/availability-alert/",
-      "version": "4.0.1"
+      "version": "4.1.0"
     },
     "availability-alert-cross-engage": {
       "path": "bundles/availability-alert-cross-engage/",
@@ -521,7 +521,7 @@
     },
     "jellyfish-availability-alert": {
       "path": "bundles/jellyfish-availability-alert/",
-      "version": "2.0.0"
+      "version": "2.1.0"
     },
     "jellyfish-buffer": {
       "path": "bundles/jellyfish-buffer/",
@@ -537,7 +537,7 @@
     },
     "jellyfish-cross-engage": {
       "path": "bundles/jellyfish-cross-engage/",
-      "version": "2.0.0"
+      "version": "2.1.0"
     },
     "jellyfish-gift-card": {
       "path": "bundles/jellyfish-gift-card/",
@@ -669,11 +669,11 @@
     },
     "one-time-password": {
       "path": "bundles/one-time-password/",
-      "version": "2.2.0"
+      "version": "2.3.0"
     },
     "one-time-password-email-connector": {
       "path": "bundles/one-time-password-email-connector/",
-      "version": "2.2.1"
+      "version": "2.3.0"
     },
     "one-time-password-extension": {
       "path": "bundles/one-time-password-extension/",
@@ -781,19 +781,19 @@
     },
     "product-locale-restriction": {
       "path": "bundles/product-locale-restriction/",
-      "version": "2.0.0"
+      "version": "2.1.0"
     },
     "product-locale-restriction-cart-connector": {
       "path": "bundles/product-locale-restriction-cart-connector/",
-      "version": "2.0.0"
+      "version": "2.1.0"
     },
     "product-locale-restriction-search": {
       "path": "bundles/product-locale-restriction-search/",
-      "version": "2.0.0"
+      "version": "2.1.0"
     },
     "product-locale-restriction-storage": {
       "path": "bundles/product-locale-restriction-storage/",
-      "version": "2.0.0"
+      "version": "2.1.0"
     },
     "product-payment-restriction": {
       "path": "bundles/product-payment-restriction/",
@@ -961,7 +961,7 @@
     },
     "thirty-five-up": {
       "path": "bundles/thirty-five-up/",
-      "version": "2.0.0"
+      "version": "2.1.0"
     },
     "thirty-five-up-api": {
       "path": "bundles/thirty-five-up-api/",
