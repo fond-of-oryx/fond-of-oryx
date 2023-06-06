@@ -4,7 +4,7 @@ namespace FondOfOryx\Zed\ProductListSearchRestApiExtension\Dependency\Plugin;
 
 use Generated\Shared\Transfer\QueryJoinCollectionTransfer;
 
-interface SearchQuoteQueryExpanderPluginInterface
+interface SearchProductListQueryExpanderPluginInterface
 {
     /**
      * Specification:
