@@ -164,6 +164,7 @@ include:
   - bundles/product-lists-rest-api
   - bundles/product-lists-rest-api-extension
   - bundles/product-list-search-rest-api
+  - bundles/product-list-search-rest-api-extension
   - bundles/product-locale-restriction
   - bundles/product-locale-restriction-cart-connector
   - bundles/product-locale-restriction-search

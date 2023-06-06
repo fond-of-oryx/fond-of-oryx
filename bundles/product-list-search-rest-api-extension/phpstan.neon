@@ -4,4 +4,4 @@ parameters:
     scanDirectories:
         - src/Orm/Zed
     ignoreErrors:
-        - '#.* on an unknown class Generated\\(Client|Glue|Service|Yves|Zed)\\.*#'
+        - '#.* on an unknown class Generated\\(Client|Glue|Service|Yves|Zed)\\Ide\\AutoCompletion.*#'

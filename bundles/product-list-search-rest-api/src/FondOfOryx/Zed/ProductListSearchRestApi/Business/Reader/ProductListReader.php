@@ -11,23 +11,23 @@ class ProductListReader implements ProductListReaderInterface
     /**
      * @var \FondOfOryx\Zed\ProductListSearchRestApi\Persistence\ProductListSearchRestApiRepositoryInterface
      */
-    protected $repository;
+    protected ProductListSearchRestApiRepositoryInterface $repository;
 
     /**
-     * @var array<\FondOfOryx\Zed\ProductListSearchRestApiExtension\Dependency\Plugin\SearchQuoteQueryExpanderPluginInterface>
+     * @var array<\FondOfOryx\Zed\ProductListSearchRestApiExtension\Dependency\Plugin\SearchProductListQueryExpanderPluginInterface>
      */
-    protected $searchQuoteQueryExpanderPlugins;
+    protected array $searchProductListQueryExpanderPlugins;
 
     /**
      * @param \FondOfOryx\Zed\ProductListSearchRestApi\Persistence\ProductListSearchRestApiRepositoryInterface $repository
-     * @param array<\FondOfOryx\Zed\ProductListSearchRestApiExtension\Dependency\Plugin\SearchQuoteQueryExpanderPluginInterface> $searchQuoteQueryExpanderPlugins
+     * @param array<\FondOfOryx\Zed\ProductListSearchRestApiExtension\Dependency\Plugin\SearchProductListQueryExpanderPluginInterface> $searchProductListQueryExpanderPlugins
      */
     public function __construct(
         ProductListSearchRestApiRepositoryInterface $repository,
-        array $searchQuoteQueryExpanderPlugins = []
+        array $searchProductListQueryExpanderPlugins = []
     ) {
         $this->repository = $repository;
-        $this->searchQuoteQueryExpanderPlugins = $searchQuoteQueryExpanderPlugins;
+        $this->searchProductListQueryExpanderPlugins = $searchProductListQueryExpanderPlugins;
     }
 
     /**
@@ -37,7 +37,7 @@ class ProductListReader implements ProductListReaderInterface
      */
     public function findProductList(ProductListCollectionTransfer $productListCollectionTransfer): ProductListCollectionTransfer
     {
-        $productListCollectionTransfer = $this->executeSearchQuoteQueryExpanderPlugins($productListCollectionTransfer);
+        $productListCollectionTransfer = $this->executeSearchProductListQueryExpanderPlugins($productListCollectionTransfer);
 
         return $this->repository->findProductList($productListCollectionTransfer);
     }
@@ -47,13 +47,13 @@ class ProductListReader implements ProductListReaderInterface
      *
      * @return \Generated\Shared\Transfer\ProductListCollectionTransfer
      */
-    protected function executeSearchQuoteQueryExpanderPlugins(
+    protected function executeSearchProductListQueryExpanderPlugins(
         ProductListCollectionTransfer $productListCollectionTransfer
     ): ProductListCollectionTransfer {
         $queryJoinCollectionTransfer = new QueryJoinCollectionTransfer();
         $filterTransfers = $productListCollectionTransfer->getFilterFields()->getArrayCopy();
 
-        foreach ($this->searchQuoteQueryExpanderPlugins as $searchQuoteQueryExpanderPlugin) {
+        foreach ($this->searchProductListQueryExpanderPlugins as $searchQuoteQueryExpanderPlugin) {
             $queryJoinCollectionTransfer = $searchQuoteQueryExpanderPlugin
                 ->expand($filterTransfers, $queryJoinCollectionTransfer);
         }
