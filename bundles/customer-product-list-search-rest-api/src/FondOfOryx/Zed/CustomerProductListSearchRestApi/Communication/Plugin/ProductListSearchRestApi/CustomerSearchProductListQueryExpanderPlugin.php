@@ -3,7 +3,7 @@
 namespace FondOfOryx\Zed\CustomerProductListSearchRestApi\Communication\Plugin\ProductListSearchRestApi;
 
 use FondOfOryx\Shared\CustomerProductListSearchRestApi\CustomerProductListSearchRestApiConstants;
-use FondOfOryx\Zed\ProductListSearchRestApiExtension\Dependency\Plugin\SearchQuoteQueryExpanderPluginInterface;
+use FondOfOryx\Zed\ProductListSearchRestApiExtension\Dependency\Plugin\SearchProductListQueryExpanderPluginInterface;
 use Generated\Shared\Transfer\QueryJoinCollectionTransfer;
 use Generated\Shared\Transfer\QueryJoinTransfer;
 use Generated\Shared\Transfer\QueryWhereConditionTransfer;
@@ -12,7 +12,7 @@ use Orm\Zed\ProductList\Persistence\Map\SpyProductListTableMap;
 use Propel\Runtime\ActiveQuery\Criteria;
 use Spryker\Zed\Kernel\Communication\AbstractPlugin;
 
-class CustomerSearchQuoteQueryExpanderPlugin extends AbstractPlugin implements SearchQuoteQueryExpanderPluginInterface
+class CustomerSearchProductListQueryExpanderPlugin extends AbstractPlugin implements SearchProductListQueryExpanderPluginInterface
 {
     /**
      * @param array<\Generated\Shared\Transfer\FilterFieldTransfer> $filterFieldTransfers
@@ -35,6 +35,8 @@ class CustomerSearchQuoteQueryExpanderPlugin extends AbstractPlugin implements S
             }
 
             $idCustomer = $filterFieldTransfer->getValue();
+
+            break;
         }
 
         $whereCondition = (new QueryWhereConditionTransfer())

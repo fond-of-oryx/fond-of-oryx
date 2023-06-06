@@ -19,7 +19,7 @@ class ProductListSearchRestApiDependencyProvider extends AbstractBundleDependenc
     /**
      * @var string
      */
-    public const PLUGINS_SEARCH_QUOTE_QUERY_EXPANDER = 'PLUGINS_SEARCH_QUOTE_QUERY_EXPANDER';
+    public const PLUGINS_SEARCH_PRODUCT_LIST_QUERY_EXPANDER = 'PLUGINS_SEARCH_PRODUCT_LIST_QUERY_EXPANDER';
 
     /**
      * @param \Spryker\Zed\Kernel\Container $container
@@ -30,14 +30,14 @@ class ProductListSearchRestApiDependencyProvider extends AbstractBundleDependenc
     {
         $container = parent::provideBusinessLayerDependencies($container);
 
-        return $this->addSearchQuoteQueryExpanderPlugins($container);
+        return $this->addSearchProductListQueryExpanderPlugins($container);
     }
 
-        /**
-         * @param \Spryker\Zed\Kernel\Container $container
-         *
-         * @return \Spryker\Zed\Kernel\Container
-         */
+    /**
+     * @param \Spryker\Zed\Kernel\Container $container
+     *
+     * @return \Spryker\Zed\Kernel\Container
+     */
     public function providePersistenceLayerDependencies(Container $container): Container
     {
         $container = parent::providePersistenceLayerDependencies($container);
@@ -50,21 +50,17 @@ class ProductListSearchRestApiDependencyProvider extends AbstractBundleDependenc
      *
      * @return \Spryker\Zed\Kernel\Container
      */
-    protected function addSearchQuoteQueryExpanderPlugins(Container $container): Container
+    protected function addSearchProductListQueryExpanderPlugins(Container $container): Container
     {
-        $self = $this;
-
-        $container[static::PLUGINS_SEARCH_QUOTE_QUERY_EXPANDER] = static function () use ($self) {
-            return $self->getSearchQuoteQueryExpanderPlugins();
-        };
+        $container[static::PLUGINS_SEARCH_PRODUCT_LIST_QUERY_EXPANDER] = fn () => $this->getSearchProductListQueryExpanderPlugins();
 
         return $container;
     }
 
     /**
-     * @return array<\FondOfOryx\Zed\ProductListSearchRestApiExtension\Dependency\Plugin\SearchQuoteQueryExpanderPluginInterface>
+     * @return array<\FondOfOryx\Zed\ProductListSearchRestApiExtension\Dependency\Plugin\SearchProductListQueryExpanderPluginInterface>
      */
-    protected function getSearchQuoteQueryExpanderPlugins(): array
+    protected function getSearchProductListQueryExpanderPlugins(): array
     {
         return [];
     }
@@ -76,9 +72,7 @@ class ProductListSearchRestApiDependencyProvider extends AbstractBundleDependenc
      */
     protected function addProductListQuery(Container $container): Container
     {
-        $container[static::PROPEL_QUERY_PRODUCT_LIST] = static function () {
-            return SpyProductListQuery::create();
-        };
+        $container[static::PROPEL_QUERY_PRODUCT_LIST] = static fn () => SpyProductListQuery::create();
 
         return $container;
     }

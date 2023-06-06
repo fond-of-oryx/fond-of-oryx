@@ -6,23 +6,24 @@ use Codeception\Test\Unit;
 use FondOfOryx\Shared\CustomerProductListSearchRestApi\CustomerProductListSearchRestApiConstants;
 use Generated\Shared\Transfer\FilterFieldTransfer;
 use Generated\Shared\Transfer\QueryJoinCollectionTransfer;
+use PHPUnit\Framework\MockObject\MockObject;
 
-class CustomerSearchQuoteQueryExpanderPluginTest extends Unit
+class CustomerSearchProductListQueryExpanderPluginTest extends Unit
 {
     /**
-     * @var array<\Generated\Shared\Transfer\FilterFieldTransfer|\PHPUnit\Framework\MockObject\MockObject>
+     * @var array<(\Generated\Shared\Transfer\FilterFieldTransfer&\PHPUnit\Framework\MockObject\MockObject)|\PHPUnit\Framework\MockObject\MockObject>
      */
-    protected $filterFieldTransferMocks;
+    protected array $filterFieldTransferMocks;
 
     /**
-     * @var \Generated\Shared\Transfer\QueryJoinCollectionTransfer|\PHPUnit\Framework\MockObject\MockObject
+     * @var (\Generated\Shared\Transfer\QueryJoinCollectionTransfer&\PHPUnit\Framework\MockObject\MockObject)|\PHPUnit\Framework\MockObject\MockObject
      */
-    protected $queryJoinCollectionTransferMock;
+    protected MockObject|QueryJoinCollectionTransfer $queryJoinCollectionTransferMock;
 
     /**
-     * @var \FondOfOryx\Zed\CustomerProductListSearchRestApi\Communication\Plugin\CustomerProductListSearchRestApi\CustomerSearchQuoteQueryExpanderPlugin
+     * @var \FondOfOryx\Zed\CustomerProductListSearchRestApi\Communication\Plugin\ProductListSearchRestApi\CustomerSearchProductListQueryExpanderPlugin
      */
-    protected $plugin;
+    protected CustomerSearchProductListQueryExpanderPlugin $plugin;
 
     /**
      * @return void
@@ -41,7 +42,7 @@ class CustomerSearchQuoteQueryExpanderPluginTest extends Unit
             ->disableOriginalConstructor()
             ->getMock();
 
-        $this->plugin = new CustomerSearchQuoteQueryExpanderPlugin();
+        $this->plugin = new CustomerSearchProductListQueryExpanderPlugin();
     }
 
     /**
