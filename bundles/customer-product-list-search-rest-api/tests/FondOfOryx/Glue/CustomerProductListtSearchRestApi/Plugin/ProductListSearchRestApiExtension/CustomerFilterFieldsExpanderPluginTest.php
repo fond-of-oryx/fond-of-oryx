@@ -1,11 +1,12 @@
 <?php
 
-namespace FondOfOryx\Glue\CustomerProductListSearchRestApi\Communication\Plugin\ProductListSearchRestApi;
+namespace FondOfOryx\Glue\CustomerProductListSearchRestApi\Plugin\ProductListSearchRestApiExtension;
 
 use ArrayObject;
 use Codeception\Test\Unit;
 use FondOfOryx\Shared\CustomerProductListSearchRestApi\CustomerProductListSearchRestApiConstants;
 use Generated\Shared\Transfer\RestUserTransfer;
+use PHPUnit\Framework\MockObject\MockObject;
 use Spryker\Glue\GlueApplication\Rest\JsonApi\RestResourceInterface;
 use Spryker\Glue\GlueApplication\Rest\Request\Data\RestRequestInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -13,24 +14,34 @@ use Symfony\Component\HttpFoundation\Request;
 class CustomerFilterFieldsExpanderPluginTest extends Unit
 {
     /**
-     * @var \PHPUnit\Framework\MockObject\MockObject|\Spryker\Glue\GlueApplication\Rest\Request\Data\RestRequestInterface|mixed
+     * @var \PHPUnit\Framework\MockObject\MockObject|(\Spryker\Glue\GlueApplication\Rest\Request\Data\RestRequestInterface&\PHPUnit\Framework\MockObject\MockObject)
      */
-    protected $restRequestMock;
+    protected RestRequestInterface|MockObject $restRequestMock;
 
     /**
-     * @var \PHPUnit\Framework\MockObject\MockObject|\Generated\Shared\Transfer\RestUserTransfer
+     * @var (\Generated\Shared\Transfer\RestUserTransfer&\PHPUnit\Framework\MockObject\MockObject)|\PHPUnit\Framework\MockObject\MockObject
      */
-    protected $restUserTransferMock;
+    protected RestUserTransfer|MockObject $restUserTransferMock;
+
+    /**
+     * @var \PHPUnit\Framework\MockObject\MockObject|(\Spryker\Glue\GlueApplication\Rest\JsonApi\RestResourceInterface&\PHPUnit\Framework\MockObject\MockObject)
+     */
+    protected MockObject|RestResourceInterface $restResourceMock;
+
+    /**
+     * @var \PHPUnit\Framework\MockObject\MockObject|(\Symfony\Component\HttpFoundation\Request&\PHPUnit\Framework\MockObject\MockObject)
+     */
+    protected MockObject|Request $httpRequestMock;
 
     /**
      * @var \ArrayObject<\Generated\Shared\Transfer\FilterFieldTransfer>
      */
-    protected $filterFieldTransfers;
+    protected ArrayObject $filterFieldTransfers;
 
     /**
-     * @var \FondOfOryx\Glue\CustomerProductListSearchRestApi\Plugin\ProductListSearchRestApi\CustomerFilterFieldsExpanderPlugin
+     * @var \FondOfOryx\Glue\CustomerProductListSearchRestApi\Plugin\ProductListSearchRestApiExtension\CustomerFilterFieldsExpanderPlugin
      */
-    protected $plugin;
+    protected CustomerFilterFieldsExpanderPlugin $plugin;
 
     /**
      * @return void
@@ -73,16 +84,12 @@ class CustomerFilterFieldsExpanderPluginTest extends Unit
             ->method('getSurrogateIdentifier')
             ->willReturn(1);
 
-        $this->restUserTransferMock->expects(static::atLeastOnce())
-            ->method('getNaturalIdentifier')
-            ->willReturn('identifier');
-
         $filterFieldTransfers = $this->plugin->expand($this->restRequestMock, $this->filterFieldTransfers);
 
-        static::assertCount(2, $filterFieldTransfers);
-
-        $filterFieldTransfer = $filterFieldTransfers->offsetGet(0);
-
-        static::assertEquals(CustomerProductListSearchRestApiConstants::FILTER_FIELD_TYPE_ID_CUSTOMER, $filterFieldTransfer->getType());
+        static::assertCount(1, $filterFieldTransfers);
+        static::assertEquals(
+            CustomerProductListSearchRestApiConstants::FILTER_FIELD_TYPE_ID_CUSTOMER,
+            $filterFieldTransfers->offsetGet(0)->getType(),
+        );
     }
 }

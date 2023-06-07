@@ -1,6 +1,6 @@
 <?php
 
-namespace FondOfOryx\Zed\CustomerProductListSearchRestApi\Communication\Plugin\ProductListSearchRestApi;
+namespace FondOfOryx\Zed\CustomerProductListSearchRestApi\Communication\Plugin\ProductListSearchRestApiExtension;
 
 use Codeception\Test\Unit;
 use FondOfOryx\Shared\CustomerProductListSearchRestApi\CustomerProductListSearchRestApiConstants;
@@ -21,7 +21,7 @@ class CustomerSearchProductListQueryExpanderPluginTest extends Unit
     protected MockObject|QueryJoinCollectionTransfer $queryJoinCollectionTransferMock;
 
     /**
-     * @var \FondOfOryx\Zed\CustomerProductListSearchRestApi\Communication\Plugin\ProductListSearchRestApi\CustomerSearchProductListQueryExpanderPlugin
+     * @var \FondOfOryx\Zed\CustomerProductListSearchRestApi\Communication\Plugin\ProductListSearchRestApiExtension\CustomerSearchProductListQueryExpanderPlugin
      */
     protected CustomerSearchProductListQueryExpanderPlugin $plugin;
 
