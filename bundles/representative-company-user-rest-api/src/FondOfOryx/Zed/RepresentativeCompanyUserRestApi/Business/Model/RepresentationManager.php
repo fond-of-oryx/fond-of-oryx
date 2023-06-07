@@ -90,7 +90,7 @@ class RepresentationManager implements RepresentationManagerInterface
         }
 
         $representationTransfer
-            ->setStatus($this->getStatus($representationTransfer, $restRepresentativeCompanyUserAttributesTransfer))
+            ->setState($this->getStatus($representationTransfer, $restRepresentativeCompanyUserAttributesTransfer))
             ->setEndAt($restRepresentativeCompanyUserAttributesTransfer->getEndAt())
             ->setStartAt($restRepresentativeCompanyUserAttributesTransfer->getStartAt());
         $response = $this->representativeCompanyUserFacade->updateRepresentativeCompanyUser($representationTransfer);

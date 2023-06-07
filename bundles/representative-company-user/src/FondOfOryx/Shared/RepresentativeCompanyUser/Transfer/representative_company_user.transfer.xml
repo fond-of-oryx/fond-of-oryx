@@ -12,7 +12,7 @@
         <property name="originator" type="Customer" />
         <property name="startAt" type="string" />
         <property name="endAt" type="string" />
-        <property name="status" type="string" />
+        <property name="state" type="string" />
         <property name="uuid" type="string" />
         <property name="createdAt" type="int" />
         <property name="updatedAt" type="int" />

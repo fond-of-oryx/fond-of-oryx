@@ -18,9 +18,16 @@ class EntityToTransferMapper implements EntityToTransferMapperInterface
      */
     public function fromRepresentativeCompanyUserTradeFairEntity(FooRepresentativeCompanyUserTradeFair $entity): RepresentativeCompanyUserTradeFairTransfer
     {
-        return (new RepresentativeCompanyUserTradeFairTransfer())
+        $representativeCompanyUserTradeFairTransfer = (new RepresentativeCompanyUserTradeFairTransfer())
             ->fromArray($entity->toArray(), true)
             ->setDistributor($this->mapCustomer($entity->getFooRepresentativeCompanyUserTradeFairDistributor()));
+
+        foreach ($entity->getFooRepresentativeCompanyUsers()->getData() as $representativeCompanyUserTradeFairEntity){
+            $representativeCompanyUserTradeFairTransfer->addRepresentativeCompanyUser((new RepresentativeCompanyUserTransfer())
+                ->fromArray($representativeCompanyUserTradeFairEntity->toArray(), true));
+        }
+
+        return $representativeCompanyUserTradeFairTransfer;
     }
 
     /**
@@ -33,7 +40,7 @@ class EntityToTransferMapper implements EntityToTransferMapperInterface
         return (new RepresentativeCompanyUserTransfer())
             ->fromArray($entity->toArray(), true)
             ->setRepresentativeCompanyUserTradeFair($this->fromRepresentativeCompanyUserTradeFairEntity($entity->getFooRepresentativeCompanyUserTradeFair()))
-            ->setDistributor($this->mapCustomer($entity->getFooRepresentativeCompanyUserTradeFairDistributor()))
+            ->setDistributor($this->mapCustomer($entity->getFooRepresentativeCompanyUserDistributor()))
             ->setOriginator($this->mapCustomer($entity->getFooRepresentativeCompanyUserOriginator()))
             ->setRepresentative($this->mapCustomer($entity->getFooRepresentativeCompanyUserRepresentative()));
     }

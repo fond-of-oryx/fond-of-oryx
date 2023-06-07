@@ -51,6 +51,7 @@ class TradeFairRepresentationManager implements TradeFairRepresentationManagerIn
         $representationTransfer = (new RepresentativeCompanyUserTradeFairTransfer())
             ->setFkDistributor($representationId)
             ->setFkOriginator($originatorId)
+            ->setName($restRepresentativeCompanyUserTradeFairAttributesTransfer->getTradeFairName())
             ->setStartAt($restRepresentativeCompanyUserTradeFairAttributesTransfer->getStartAt())
             ->setEndAt($restRepresentativeCompanyUserTradeFairAttributesTransfer->getEndAt());
 
@@ -141,7 +142,11 @@ class TradeFairRepresentationManager implements TradeFairRepresentationManagerIn
         RestRepresentativeCompanyUserTradeFairRequestTransfer $restRepresentativeCompanyUserTradeFairRequestTransfer
     ): RestRepresentativeCompanyUserTradeFairResponseTransfer {
         $attributes = $restRepresentativeCompanyUserTradeFairRequestTransfer->getAttributes();
-        $filter = (new RepresentativeCompanyUserTradeFairFilterTransfer())->addUuid($attributes->getUuid());
+        $filter = (new RepresentativeCompanyUserTradeFairFilterTransfer());
+
+        if ($attributes->getUuid() !== null){
+            $filter->addUuid($attributes->getUuid());
+        }
 
         $collection = $this->representativeCompanyUserTradeFairFacade->getRepresentativeCompanyUserTradeFair($filter);
 

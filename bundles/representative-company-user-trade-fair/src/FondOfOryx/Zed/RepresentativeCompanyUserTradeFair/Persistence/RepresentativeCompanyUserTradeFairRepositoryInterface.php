@@ -44,4 +44,12 @@ interface RepresentativeCompanyUserTradeFairRepositoryInterface
      * @return \Generated\Shared\Transfer\RepresentativeCompanyUserTradeFairTransfer
      */
     public function findTradeFairByUuid(string $uuid): RepresentativeCompanyUserTradeFairTransfer;
+
+    /**
+     * @param int $fkRepresentative
+     *
+     * @return array
+     * @throws \Propel\Runtime\Exception\PropelException
+     */
+    public function resolveDistributorFksToRepresent(int $fkRepresentative): array;
 }

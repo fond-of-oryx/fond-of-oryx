@@ -8,6 +8,7 @@
                 primaryKey="true"/>
         <column name="uuid" required="true" type="VARCHAR" size="255"/>
         <column name="fk_distributor" required="true" type="INTEGER"/>
+        <column name="fk_originator" required="true" type="INTEGER"/>
         <column name="name" required="true" type="VARCHAR" size="255"/>
         <column name="start_at" required="true" type="TIMESTAMP"/>
         <column name="end_at" required="true" type="TIMESTAMP"/>
