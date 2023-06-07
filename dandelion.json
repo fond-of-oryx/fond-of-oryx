@@ -337,7 +337,7 @@
     },
     "customer-product-list-search-rest-api": {
       "path": "bundles/customer-product-list-search-rest-api/",
-      "version": "2.0.0"
+      "version": "3.0.0"
     },
     "customer-product-lists-rest-api": {
       "path": "bundles/customer-product-lists-rest-api/",

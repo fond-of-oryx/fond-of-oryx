@@ -1,6 +1,6 @@
 <?php
 
-namespace FondOfOryx\Glue\CustomerProductListSearchRestApi\Communication\Plugin\ProductListSearchRestApi;
+namespace FondOfOryx\Glue\CustomerProductListSearchRestApi\Plugin\ProductListSearchRestApiExtension;
 
 use ArrayObject;
 use FondOfOryx\Glue\ProductListSearchRestApiExtension\Dependency\Plugin\FilterFieldsExpanderPluginInterface;
@@ -24,25 +24,15 @@ class CustomerFilterFieldsExpanderPlugin extends AbstractPlugin implements Filte
         /** @var \Generated\Shared\Transfer\RestUserTransfer|\Spryker\Glue\GlueApplication\Rest\Request\Data\UserInterface|null $restUser */
         $restUser = $restRequest->$getUserMethod();
 
-        if ($restUser === null) {
+        if ($restUser === null || $restUser->getSurrogateIdentifier() === null) {
             return $filterFieldTransfers;
         }
 
-        if ($restUser->getSurrogateIdentifier() !== null) {
-            $filterFieldTransfer = (new FilterFieldTransfer())
-                ->setType(CustomerProductListSearchRestApiConstants::FILTER_FIELD_TYPE_ID_CUSTOMER)
-                ->setValue($restUser->getSurrogateIdentifier());
+        $filterFieldTransfer = (new FilterFieldTransfer())
+            ->setType(CustomerProductListSearchRestApiConstants::FILTER_FIELD_TYPE_ID_CUSTOMER)
+            ->setValue($restUser->getSurrogateIdentifier());
 
-            $filterFieldTransfers->append($filterFieldTransfer);
-        }
-
-        if ($restUser->getNaturalIdentifier() !== null) {
-            $filterFieldTransfer = (new FilterFieldTransfer())
-                ->setType(CustomerProductListSearchRestApiConstants::FILTER_FIELD_TYPE_CUSTOMER_REFERENCE)
-                ->setValue($restUser->getNaturalIdentifier());
-
-            $filterFieldTransfers->append($filterFieldTransfer);
-        }
+        $filterFieldTransfers->append($filterFieldTransfer);
 
         return $filterFieldTransfers;
     }
