@@ -6,6 +6,7 @@ use FondOfOryx\Client\RepresentativeCompanyUserTradeFairRestApi\RepresentativeCo
 use FondOfOryx\Glue\RepresentativeCompanyUserTradeFairRestApi\Processor\Builder\RestResponseBuilderInterface;
 use FondOfOryx\Glue\RepresentativeCompanyUserTradeFairRestApi\Processor\Mapper\RepresentationMapperInterface;
 use FondOfOryx\Glue\RepresentativeCompanyUserTradeFairRestApi\Processor\Permission\PermissionCheckerInterface;
+use FondOfOryx\Glue\RepresentativeCompanyUserTradeFairRestApi\Processor\Validator\DurationValidatorInterface;
 use Spryker\Glue\GlueApplication\Rest\JsonApi\RestResponseInterface;
 use Spryker\Glue\GlueApplication\Rest\Request\Data\RestRequestInterface;
 
@@ -15,6 +16,11 @@ class TradeFairRepresentationManager implements TradeFairRepresentationManagerIn
      * @var \FondOfOryx\Client\RepresentativeCompanyUserTradeFairRestApi\RepresentativeCompanyUserTradeFairRestApiClientInterface
      */
     protected $client;
+
+    /**
+     * @var \FondOfOryx\Glue\RepresentativeCompanyUserTradeFairRestApi\Processor\Validator\DurationValidatorInterface
+     */
+    protected $durationValidator;
 
     /**
      * @var \FondOfOryx\Glue\RepresentativeCompanyUserTradeFairRestApi\Processor\Mapper\RepresentationMapperInterface
@@ -41,12 +47,14 @@ class TradeFairRepresentationManager implements TradeFairRepresentationManagerIn
         RepresentativeCompanyUserTradeFairRestApiClientInterface $client,
         RepresentationMapperInterface $representationMapper,
         RestResponseBuilderInterface $responseBuilder,
-        PermissionCheckerInterface $permissionChecker
+        PermissionCheckerInterface $permissionChecker,
+        DurationValidatorInterface $durationValidator
     ) {
         $this->client = $client;
         $this->representationMapper = $representationMapper;
         $this->responseBuilder = $responseBuilder;
         $this->permissionChecker = $permissionChecker;
+        $this->durationValidator = $durationValidator;
     }
 
     /**
@@ -58,14 +66,18 @@ class TradeFairRepresentationManager implements TradeFairRepresentationManagerIn
     {
         $attributes = $this->representationMapper->createAttributesFromRequest($restRequest);
 
-        if ($this->permissionChecker->can($attributes)) {
-            $representationRestRequestTransfer = $this->representationMapper->createRequest($restRequest, $attributes);
-            $representationRestResponseTransfer = $this->client->addTradeFairRepresentation($representationRestRequestTransfer);
-
-            return $this->responseBuilder->buildRepresentativeCompanyUserTradeFairRestResponse($representationRestResponseTransfer->getRepresentation());
+        if (!$this->permissionChecker->can($attributes)) {
+            return $this->responseBuilder->buildRepresentativeCompanyUserTradeFairMissingPermissionResponse();
         }
 
-        return $this->responseBuilder->buildRepresentativeCompanyUserTradeFairMissingPermissionResponse();
+        if (!$this->durationValidator->validate($attributes)) {
+            return $this->responseBuilder->buildRepresentativeCompanyUserTradeFairDurationValidationErrorRestResponse();
+        }
+
+        $representationRestRequestTransfer = $this->representationMapper->createRequest($restRequest, $attributes);
+        $representationRestResponseTransfer = $this->client->addTradeFairRepresentation($representationRestRequestTransfer);
+
+        return $this->responseBuilder->buildRepresentativeCompanyUserTradeFairRestResponse($representationRestResponseTransfer->getRepresentation());
     }
 
     /**

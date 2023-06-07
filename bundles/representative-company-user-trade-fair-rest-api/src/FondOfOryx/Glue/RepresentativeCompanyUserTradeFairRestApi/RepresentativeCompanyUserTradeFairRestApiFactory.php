@@ -13,6 +13,8 @@ use FondOfOryx\Glue\RepresentativeCompanyUserTradeFairRestApi\Processor\Mapper\R
 use FondOfOryx\Glue\RepresentativeCompanyUserTradeFairRestApi\Processor\Mapper\RepresentationMapperInterface;
 use FondOfOryx\Glue\RepresentativeCompanyUserTradeFairRestApi\Processor\Permission\PermissionChecker;
 use FondOfOryx\Glue\RepresentativeCompanyUserTradeFairRestApi\Processor\Permission\PermissionCheckerInterface;
+use FondOfOryx\Glue\RepresentativeCompanyUserTradeFairRestApi\Processor\Validator\DurationValidator;
+use FondOfOryx\Glue\RepresentativeCompanyUserTradeFairRestApi\Processor\Validator\DurationValidatorInterface;
 use Spryker\Glue\Kernel\AbstractFactory;
 
 /**
@@ -31,6 +33,7 @@ class RepresentativeCompanyUserTradeFairRestApiFactory extends AbstractFactory
             $this->createRepresentationMapper(),
             $this->createRestResponseBuilder(),
             $this->createPermissionChecker(),
+            $this->createDurationValidator(),
         );
     }
 
@@ -48,6 +51,14 @@ class RepresentativeCompanyUserTradeFairRestApiFactory extends AbstractFactory
     public function createPermissionRequestMapper(): PermissionRequestMapperInterface
     {
         return new PermissionRequestMapper();
+    }
+
+    /**
+     * @return \FondOfOryx\Glue\RepresentativeCompanyUserTradeFairRestApi\Processor\Validator\DurationValidatorInterface
+     */
+    public function createDurationValidator(): DurationValidatorInterface
+    {
+        return new DurationValidator($this->getConfig());
     }
 
     /**

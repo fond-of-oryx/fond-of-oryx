@@ -22,7 +22,8 @@ class RestResponseBuilder implements RestResponseBuilderInterface
      */
     public function __construct(
         RestResourceBuilderInterface $restResourceBuilder
-    ) {
+    )
+    {
         $this->restResourceBuilder = $restResourceBuilder;
     }
 
@@ -33,7 +34,8 @@ class RestResponseBuilder implements RestResponseBuilderInterface
      */
     public function buildRepresentativeCompanyUserTradeFairRestResponse(
         RepresentativeCompanyUserTradeFairTransfer $representativeCompanyUserTradeFairTransfer
-    ): RestResponseInterface {
+    ): RestResponseInterface
+    {
         $restResponse = $this->restResourceBuilder->createRestResponse();
 
         $restResource = $this->restResourceBuilder->createRestResource(
@@ -52,7 +54,8 @@ class RestResponseBuilder implements RestResponseBuilderInterface
      */
     public function buildRepresentativeCompanyUserTradeFairCollectionRestResponse(
         RepresentativeCompanyUserTradeFairCollectionTransfer $representativeCompanyUserTradeFairTransfer
-    ): RestResponseInterface {
+    ): RestResponseInterface
+    {
         $restResponse = $this->restResourceBuilder->createRestResponse();
 
         $restResource = $this->restResourceBuilder->createRestResource(
@@ -74,6 +77,29 @@ class RestResponseBuilder implements RestResponseBuilderInterface
             ->setStatus(Response::HTTP_FORBIDDEN)
             ->setDetail(RepresentativeCompanyUserTradeFairRestApiConfig::ERROR_MESSAGE_USER_IS_NOT_ALLOWED_TO_ADD_TRADE_FAIR_REPRESENTATION);
 
+        return $this->createRestResponse($restErrorMessageTransfer);
+    }
+
+    /**
+     * @return \Spryker\Glue\GlueApplication\Rest\JsonApi\RestResponseInterface
+     */
+    public function buildRepresentativeCompanyUserTradeFairDurationValidationErrorRestResponse(): RestResponseInterface
+    {
+        $restErrorMessageTransfer = (new RestErrorMessageTransfer())
+            ->setCode(RepresentativeCompanyUserTradeFairRestApiConfig::RESPONSE_CODE_REPRESENTATION_DURATION_EXCEEDED)
+            ->setStatus(Response::HTTP_BAD_REQUEST)
+            ->setDetail(RepresentativeCompanyUserTradeFairRestApiConfig::ERROR_MESSAGE_REPRESENTATION_DURATION_EXCEEDED);
+
+        return $this->createRestResponse($restErrorMessageTransfer);
+    }
+
+    /**
+     * @param \Generated\Shared\Transfer\RestErrorMessageTransfer $restErrorMessageTransfer
+     *
+     * @return \Spryker\Glue\GlueApplication\Rest\JsonApi\RestResponseInterface
+     */
+    protected function createRestResponse(RestErrorMessageTransfer $restErrorMessageTransfer): RestResponseInterface
+    {
         return $this->restResourceBuilder
             ->createRestResponse()
             ->addError($restErrorMessageTransfer);
