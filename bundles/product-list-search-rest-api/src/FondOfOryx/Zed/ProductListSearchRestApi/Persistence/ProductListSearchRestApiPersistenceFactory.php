@@ -50,7 +50,7 @@ class ProductListSearchRestApiPersistenceFactory extends AbstractPersistenceFact
     public function createQuoteQueryJoinQueryBuilder(): QuoteQueryJoinQueryBuilderInterface
     {
         return new QuoteQueryJoinQueryBuilder(
-            $this->getUtilEncodingService()
+            $this->getUtilEncodingService(),
         );
     }
 
