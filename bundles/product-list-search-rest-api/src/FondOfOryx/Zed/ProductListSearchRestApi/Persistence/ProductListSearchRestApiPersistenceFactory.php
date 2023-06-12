@@ -2,6 +2,7 @@
 
 namespace FondOfOryx\Zed\ProductListSearchRestApi\Persistence;
 
+use FondOfOryx\Zed\ProductListSearchRestApi\Dependency\Service\ProductListSearchRestApiToUtilEncodingServiceInterface;
 use FondOfOryx\Zed\ProductListSearchRestApi\Persistence\Propel\Mapper\ProductListMapper;
 use FondOfOryx\Zed\ProductListSearchRestApi\Persistence\Propel\Mapper\ProductListMapperInterface;
 use FondOfOryx\Zed\ProductListSearchRestApi\Persistence\Propel\QueryBuilder\ProductListSearchFilterFieldQueryBuilder;
@@ -48,6 +49,16 @@ class ProductListSearchRestApiPersistenceFactory extends AbstractPersistenceFact
      */
     public function createQuoteQueryJoinQueryBuilder(): QuoteQueryJoinQueryBuilderInterface
     {
-        return new QuoteQueryJoinQueryBuilder();
+        return new QuoteQueryJoinQueryBuilder(
+            $this->getUtilEncodingService(),
+        );
+    }
+
+    /**
+     * @return \FondOfOryx\Zed\ProductListSearchRestApi\Dependency\Service\ProductListSearchRestApiToUtilEncodingServiceInterface
+     */
+    protected function getUtilEncodingService(): ProductListSearchRestApiToUtilEncodingServiceInterface
+    {
+        return $this->getProvidedDependency(ProductListSearchRestApiDependencyProvider::SERVICE_UTIL_ENCODING);
     }
 }

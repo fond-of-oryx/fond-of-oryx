@@ -11,8 +11,10 @@
   "require": {
     "php": ">=8.0",
     "fond-of-oryx/product-list-search-rest-api-extension": "^3.0.0",
+    "spryker/glue-application": "^1.0.0",
+    "spryker/glue-application-extension": "^1.0.0",
     "spryker/product-list": "^1.0.0",
-    "spryker/glue-application-extension": "^1.0.0"
+    "spryker/util-encoding": "^1.0.0 || ^2.0.0"
   },
   "require-dev": {
     "fond-of-codeception/spryker": "*",

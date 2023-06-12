@@ -41,6 +41,7 @@ include:
   - bundles/company-product-list-connector
   - bundles/company-product-list-connector-extension
   - bundles/company-product-list-connector-gui
+  - bundles/company-product-list-search-rest-api
   - bundles/company-product-lists-rest-api
   - bundles/company-role-api
   - bundles/company-role-search-rest-api

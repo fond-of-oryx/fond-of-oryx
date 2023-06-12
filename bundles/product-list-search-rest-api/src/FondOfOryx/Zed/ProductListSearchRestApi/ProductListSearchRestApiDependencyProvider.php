@@ -2,6 +2,7 @@
 
 namespace FondOfOryx\Zed\ProductListSearchRestApi;
 
+use FondOfOryx\Zed\ProductListSearchRestApi\Dependency\Service\ProductListSearchRestApiToUtilEncodingServiceBridge;
 use Orm\Zed\ProductList\Persistence\SpyProductListQuery;
 use Spryker\Zed\Kernel\AbstractBundleDependencyProvider;
 use Spryker\Zed\Kernel\Container;
@@ -20,6 +21,11 @@ class ProductListSearchRestApiDependencyProvider extends AbstractBundleDependenc
      * @var string
      */
     public const PLUGINS_SEARCH_PRODUCT_LIST_QUERY_EXPANDER = 'PLUGINS_SEARCH_PRODUCT_LIST_QUERY_EXPANDER';
+
+    /**
+     * @var string
+     */
+    public const SERVICE_UTIL_ENCODING = 'SERVICE_UTIL_ENCODING';
 
     /**
      * @param \Spryker\Zed\Kernel\Container $container
@@ -42,7 +48,9 @@ class ProductListSearchRestApiDependencyProvider extends AbstractBundleDependenc
     {
         $container = parent::providePersistenceLayerDependencies($container);
 
-        return $this->addProductListQuery($container);
+        $container = $this->addProductListQuery($container);
+
+        return $this->addUtilEncodingService($container);
     }
 
     /**
@@ -73,6 +81,22 @@ class ProductListSearchRestApiDependencyProvider extends AbstractBundleDependenc
     protected function addProductListQuery(Container $container): Container
     {
         $container[static::PROPEL_QUERY_PRODUCT_LIST] = static fn () => SpyProductListQuery::create();
+
+        return $container;
+    }
+
+    /**
+     * @param \Spryker\Zed\Kernel\Container $container
+     *
+     * @return \Spryker\Zed\Kernel\Container
+     */
+    protected function addUtilEncodingService(Container $container): Container
+    {
+        $container[static::SERVICE_UTIL_ENCODING] = static fn (
+            Container $container
+        ) => new ProductListSearchRestApiToUtilEncodingServiceBridge(
+            $container->getLocator()->utilEncoding()->service(),
+        );
 
         return $container;
     }
