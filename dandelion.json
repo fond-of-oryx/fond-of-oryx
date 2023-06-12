@@ -183,6 +183,10 @@
       "path": "bundles/company-product-list-connector-gui/",
       "version": "2.0.0"
     },
+    "company-product-list-search-rest-api": {
+      "path": "bundles/company-product-list-search-rest-api/",
+      "version": "1.0.0"
+    },
     "company-product-lists-rest-api": {
       "path": "bundles/company-product-lists-rest-api/",
       "version": "2.0.0"
@@ -337,7 +341,7 @@
     },
     "customer-product-list-search-rest-api": {
       "path": "bundles/customer-product-list-search-rest-api/",
-      "version": "3.0.0"
+      "version": "3.1.0"
     },
     "customer-product-lists-rest-api": {
       "path": "bundles/customer-product-lists-rest-api/",
@@ -765,7 +769,7 @@
     },
     "product-list-search-rest-api": {
       "path": "bundles/product-list-search-rest-api/",
-      "version": "3.0.0"
+      "version": "3.1.0"
     },
     "product-list-search-rest-api-extension": {
       "path": "bundles/product-list-search-rest-api-extension/",
