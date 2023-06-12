@@ -17,6 +17,11 @@ interface RepresentativeCompanyUserTradeFairRestApiConstants
     public const VALID_ITEMS_PER_PAGE_OPTIONS = 'FOND_OF_ORYX:REPRESENTATIVE_COMPANY_USER_TRADE_FAIR_REST_API:VALID_ITEMS_PER_PAGE_OPTIONS';
 
     /**
+     * @var string
+     */
+    public const MAX_DURATION_FOR_REPRESENTATION = 'FOND_OF_ORYX:REPRESENTATIVE_COMPANY_USER_TRADE_FAIR_REST_API:MAX_DURATION_FOR_REPRESENTATION';
+
+    /**
      * @var array
      */
     public const VALID_ITEMS_PER_PAGE_OPTIONS_DEFAULT = [12, 24, 36];

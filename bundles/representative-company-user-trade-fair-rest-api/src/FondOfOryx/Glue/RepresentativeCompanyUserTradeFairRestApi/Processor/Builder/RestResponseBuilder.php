@@ -68,32 +68,6 @@ class RestResponseBuilder implements RestResponseBuilderInterface
     }
 
     /**
-     * @return \Spryker\Glue\GlueApplication\Rest\JsonApi\RestResponseInterface
-     */
-    public function buildRepresentativeCompanyUserTradeFairMissingPermissionResponse(): RestResponseInterface
-    {
-        $restErrorMessageTransfer = (new RestErrorMessageTransfer())
-            ->setCode((string)RepresentativeCompanyUserTradeFairRestApiConfig::RESPONSE_CODE_USER_IS_NOT_ALLOWED_TO_ADD_TRADE_FAIR_REPRESENTATION)
-            ->setStatus(Response::HTTP_FORBIDDEN)
-            ->setDetail(RepresentativeCompanyUserTradeFairRestApiConfig::ERROR_MESSAGE_USER_IS_NOT_ALLOWED_TO_ADD_TRADE_FAIR_REPRESENTATION);
-
-        return $this->createRestResponse($restErrorMessageTransfer);
-    }
-
-    /**
-     * @return \Spryker\Glue\GlueApplication\Rest\JsonApi\RestResponseInterface
-     */
-    public function buildRepresentativeCompanyUserTradeFairDurationValidationErrorRestResponse(): RestResponseInterface
-    {
-        $restErrorMessageTransfer = (new RestErrorMessageTransfer())
-            ->setCode(RepresentativeCompanyUserTradeFairRestApiConfig::RESPONSE_CODE_REPRESENTATION_DURATION_EXCEEDED)
-            ->setStatus(Response::HTTP_BAD_REQUEST)
-            ->setDetail(RepresentativeCompanyUserTradeFairRestApiConfig::ERROR_MESSAGE_REPRESENTATION_DURATION_EXCEEDED);
-
-        return $this->createRestResponse($restErrorMessageTransfer);
-    }
-
-    /**
      * @param \Generated\Shared\Transfer\RestErrorMessageTransfer $restErrorMessageTransfer
      *
      * @return \Spryker\Glue\GlueApplication\Rest\JsonApi\RestResponseInterface

@@ -3,6 +3,8 @@
 namespace FondOfOryx\Zed\RepresentativeCompanyUserTradeFairRestApi\Persistence;
 
 use Exception;
+use Orm\Zed\CompanyUser\Persistence\Map\SpyCompanyUserTableMap;
+use Orm\Zed\Permission\Persistence\Map\SpyPermissionTableMap;
 use Spryker\Zed\Kernel\Persistence\AbstractRepository;
 
 /**
@@ -25,5 +27,71 @@ class RepresentativeCompanyUserTradeFairRestApiRepository extends AbstractReposi
         }
 
         return $customer->getIdCustomer();
+    }
+
+    /**
+     * @param string $permissionKey
+     * @param string $customerReference
+     * @param int $companyTypeId
+     *
+     * @return bool
+     *
+     * @throws \Propel\Runtime\Exception\PropelException
+     * @throws \Spryker\Zed\Kernel\Exception\Container\ContainerKeyNotFoundException
+     * @throws \Spryker\Zed\Propel\Business\Exception\AmbiguousComparisonException
+     */
+    public function hasPermission(
+        string $permissionKey,
+        string $customerReference,
+        int $companyTypeId
+    ): bool {
+        $idPermission = $this->getIdPermissionByKey($permissionKey);
+
+        if ($idPermission === null) {
+            return false;
+        }
+
+        /** @var \Propel\Runtime\Collection\ArrayCollection|null $collection */
+        $collection = $this->getFactory()
+            ->getCompanyUserQuery()
+            ->clear()
+            ->useCustomerQuery()
+                ->filterByCustomerReference($customerReference)
+            ->endUse()
+            ->useCompanyQuery()
+                ->filterByFkCompanyType($companyTypeId)
+            ->endUse()
+            ->useSpyCompanyRoleToCompanyUserQuery()
+                ->useCompanyRoleQuery()
+                    ->useSpyCompanyRoleToPermissionQuery()
+                        ->usePermissionQuery()
+                            ->filterByIdPermission($idPermission)
+                        ->endUse()
+                    ->endUse()
+                ->endUse()
+            ->endUse()
+            ->select([SpyCompanyUserTableMap::COL_ID_COMPANY_USER])
+            ->find();
+
+        return $collection->count() > 0;
+    }
+
+
+    /**
+     * @param string $key
+     *
+     * @return int|null
+     */
+    public function getIdPermissionByKey(string $key): ?int
+    {
+        /** @var int|null $idPermission */
+        $idPermission = $this->getFactory()
+            ->getPermissionQuery()
+            ->clear()
+            ->filterByKey($key)
+            ->select([SpyPermissionTableMap::COL_ID_PERMISSION])
+            ->findOne();
+
+        return $idPermission;
     }
 }

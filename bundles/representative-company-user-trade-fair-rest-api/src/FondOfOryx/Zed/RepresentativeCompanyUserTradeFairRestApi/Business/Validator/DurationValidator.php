@@ -1,20 +1,20 @@
 <?php
 
-namespace FondOfOryx\Glue\RepresentativeCompanyUserTradeFairRestApi\Processor\Validator;
+namespace FondOfOryx\Zed\RepresentativeCompanyUserTradeFairRestApi\Business\Validator;
 
 use \DateTime;
-use FondOfOryx\Glue\RepresentativeCompanyUserTradeFairRestApi\RepresentativeCompanyUserTradeFairRestApiConfig;
+use FondOfOryx\Zed\RepresentativeCompanyUserTradeFairRestApi\RepresentativeCompanyUserTradeFairRestApiConfig;
 use Generated\Shared\Transfer\RestRepresentativeCompanyUserTradeFairAttributesTransfer;
 
 class DurationValidator implements DurationValidatorInterface
 {
     /**
-     * @var \Spryker\Glue\CartsRestApi\CartsRestApiConfig
+     * @var \FondOfOryx\Zed\RepresentativeCompanyUserTradeFairRestApi\RepresentativeCompanyUserTradeFairRestApiConfig
      */
     protected $config;
 
     /**
-     * @param \FondOfOryx\Glue\RepresentativeCompanyUserTradeFairRestApi\RepresentativeCompanyUserTradeFairRestApiConfig $config
+     * @param \FondOfOryx\Zed\RepresentativeCompanyUserTradeFairRestApi\RepresentativeCompanyUserTradeFairRestApiConfig $config
      */
     public function __construct(RepresentativeCompanyUserTradeFairRestApiConfig $config)
     {

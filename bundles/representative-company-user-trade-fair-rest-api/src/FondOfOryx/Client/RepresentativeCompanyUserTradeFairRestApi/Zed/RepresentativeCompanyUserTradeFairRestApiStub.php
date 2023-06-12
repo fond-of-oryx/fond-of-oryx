@@ -50,7 +50,11 @@ class RepresentativeCompanyUserTradeFairRestApiStub implements RepresentativeCom
         RestRepresentativeCompanyUserTradeFairRequestTransfer $restRepresentativeCompanyUserTradeFairRequestTransfer
     ): RestRepresentativeCompanyUserTradeFairResponseTransfer {
         /** @var \Generated\Shared\Transfer\RestRepresentativeCompanyUserTradeFairResponseTransfer $representativeCompanyUserTradeFairRestResponseTransfer */
-        $representativeCompanyUserTradeFairRestResponseTransfer = $this->zedRequestClient->call(static::ADD_TRADE_FAIR_REPRESENTATION, $restRepresentativeCompanyUserTradeFairRequestTransfer);
+        $representativeCompanyUserTradeFairRestResponseTransfer = $this
+            ->zedRequestClient->call(
+                static::ADD_TRADE_FAIR_REPRESENTATION,
+                $restRepresentativeCompanyUserTradeFairRequestTransfer
+            );
 
         return $representativeCompanyUserTradeFairRestResponseTransfer;
     }
@@ -64,7 +68,11 @@ class RepresentativeCompanyUserTradeFairRestApiStub implements RepresentativeCom
         RestRepresentativeCompanyUserTradeFairRequestTransfer $restRepresentativeCompanyUserTradeFairRequestTransfer
     ): RestRepresentativeCompanyUserTradeFairResponseTransfer {
         /** @var \Generated\Shared\Transfer\RestRepresentativeCompanyUserTradeFairResponseTransfer $representativeCompanyUserTradeFairRestResponseTransfer */
-        $representativeCompanyUserTradeFairRestResponseTransfer = $this->zedRequestClient->call(static::GET_TRADE_FAIR_REPRESENTATION, $restRepresentativeCompanyUserTradeFairRequestTransfer);
+        $representativeCompanyUserTradeFairRestResponseTransfer = $this
+            ->zedRequestClient->call(
+                static::GET_TRADE_FAIR_REPRESENTATION,
+                $restRepresentativeCompanyUserTradeFairRequestTransfer
+            );
 
         return $representativeCompanyUserTradeFairRestResponseTransfer;
     }

@@ -25,14 +25,4 @@ interface RestResponseBuilderInterface
     public function buildRepresentativeCompanyUserTradeFairCollectionRestResponse(
         RepresentativeCompanyUserTradeFairCollectionTransfer $representativeCompanyUserTradeFairTransfer
     ): RestResponseInterface;
-
-    /**
-     * @return \Spryker\Glue\GlueApplication\Rest\JsonApi\RestResponseInterface
-     */
-    public function buildRepresentativeCompanyUserTradeFairMissingPermissionResponse(): RestResponseInterface;
-
-    /**
-     * @return \Spryker\Glue\GlueApplication\Rest\JsonApi\RestResponseInterface
-     */
-    public function buildRepresentativeCompanyUserTradeFairDurationValidationErrorRestResponse(): RestResponseInterface;
 }

@@ -12,7 +12,7 @@
     "php": ">=8.0",
     "fond-of-oryx/representative-company-user": "^1.0.0",
     "fond-of-oryx/representative-company-user-extension": "^1.0.0",
-    "fond-of-oryx/representative-company-user-trade-fair-rest-api-permission": "^1.0.0",
+    "fond-of-spryker/company-type": "dev-master",
     "spryker/glue-application": "*"
   },
   "require-dev": {

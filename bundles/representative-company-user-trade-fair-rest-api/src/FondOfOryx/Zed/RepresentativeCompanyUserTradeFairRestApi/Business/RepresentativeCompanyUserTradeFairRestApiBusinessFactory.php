@@ -4,11 +4,15 @@ namespace FondOfOryx\Zed\RepresentativeCompanyUserTradeFairRestApi\Business;
 
 use FondOfOryx\Zed\RepresentativeCompanyUserTradeFairRestApi\Business\Model\TradeFairRepresentationManager;
 use FondOfOryx\Zed\RepresentativeCompanyUserTradeFairRestApi\Business\Model\TradeFairRepresentationManagerInterface;
+use FondOfOryx\Zed\RepresentativeCompanyUserTradeFairRestApi\Business\Validator\DurationValidator;
+use FondOfOryx\Zed\RepresentativeCompanyUserTradeFairRestApi\Business\Validator\DurationValidatorInterface;
+use FondOfOryx\Zed\RepresentativeCompanyUserTradeFairRestApi\Dependency\Facade\RepresentativeCompanyUserTradeFairRestApiToCompanyTypeInterface;
 use FondOfOryx\Zed\RepresentativeCompanyUserTradeFairRestApi\Dependency\Facade\RepresentativeCompanyUserTradeFairRestApiToRepresentativeCompanyUserTradeFairFacadeInterface;
 use FondOfOryx\Zed\RepresentativeCompanyUserTradeFairRestApi\RepresentativeCompanyUserTradeFairRestApiDependencyProvider;
 use Spryker\Zed\Kernel\Business\AbstractBusinessFactory;
 
 /**
+ * @method \FondOfOryx\Zed\RepresentativeCompanyUserTradeFairRestApi\RepresentativeCompanyUserTradeFairRestApiConfig getConfig()
  * @method \FondOfOryx\Zed\RepresentativeCompanyUserTradeFairRestApi\Persistence\RepresentativeCompanyUserTradeFairRestApiRepositoryInterface getRepository()
  */
 class RepresentativeCompanyUserTradeFairRestApiBusinessFactory extends AbstractBusinessFactory
@@ -20,8 +24,18 @@ class RepresentativeCompanyUserTradeFairRestApiBusinessFactory extends AbstractB
     {
         return new TradeFairRepresentationManager(
             $this->getRepresentativeCompanyUserTradeFairFacade(),
+            $this->getCompanyTypeFacade(),
+            $this->createDurationValidator(),
             $this->getRepository(),
         );
+    }
+
+    /**
+     * @return \FondOfOryx\Zed\RepresentativeCompanyUserTradeFairRestApi\Business\Validator\DurationValidatorInterface
+     */
+    public function createDurationValidator(): DurationValidatorInterface
+    {
+        return new DurationValidator($this->getConfig());
     }
 
     /**
@@ -30,5 +44,15 @@ class RepresentativeCompanyUserTradeFairRestApiBusinessFactory extends AbstractB
     protected function getRepresentativeCompanyUserTradeFairFacade(): RepresentativeCompanyUserTradeFairRestApiToRepresentativeCompanyUserTradeFairFacadeInterface
     {
         return $this->getProvidedDependency(RepresentativeCompanyUserTradeFairRestApiDependencyProvider::FACADE_REPRESENTATIVE_COMPANY_USER);
+    }
+
+    /**
+     * @return \FondOfOryx\Zed\RepresentativeCompanyUserTradeFairRestApi\Dependency\Facade\RepresentativeCompanyUserTradeFairRestApiToCompanyTypeInterface
+     *
+     * @throws \Spryker\Zed\Kernel\Exception\Container\ContainerKeyNotFoundException
+     */
+    protected function getCompanyTypeFacade(): RepresentativeCompanyUserTradeFairRestApiToCompanyTypeInterface
+    {
+        return $this->getProvidedDependency(RepresentativeCompanyUserTradeFairRestApiDependencyProvider::FACADE_COMPANY_TYPE);
     }
 }

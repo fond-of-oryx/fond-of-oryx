@@ -17,6 +17,8 @@
     </transfer>
 
     <transfer name="RestRepresentativeCompanyUserTradeFairResponse">
+        <property name="isSuccessful" type="bool"/>
+        <property name="error" type="string" />
         <property name="request" type="RestRepresentativeCompanyUserTradeFairRequest"/>
         <property name="representation" type="RepresentativeCompanyUserTradeFair"/>
         <property name="collection" type="RepresentativeCompanyUserTradeFairCollection"/>
@@ -26,5 +28,4 @@
     <transfer name="RepresentativeCompanyUserTradeFairCollection" />
     <transfer name="RepresentativeCompanyUserTradeFairCommand" />
     <transfer name="RepresentativeCompanyUserTradeFairFilter" />
-    <transfer name="RepresentativeCompanyUserTradeFairRestApiPermissionRequest" />
 </transfers>

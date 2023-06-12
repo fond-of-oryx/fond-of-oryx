@@ -1,6 +1,6 @@
 <?php
 
-namespace FondOfOryx\Glue\RepresentativeCompanyUserTradeFairRestApi\Processor\Validator;
+namespace FondOfOryx\Zed\RepresentativeCompanyUserTradeFairRestApi\Business\Validator;
 
 use Generated\Shared\Transfer\RestRepresentativeCompanyUserTradeFairAttributesTransfer;
 
