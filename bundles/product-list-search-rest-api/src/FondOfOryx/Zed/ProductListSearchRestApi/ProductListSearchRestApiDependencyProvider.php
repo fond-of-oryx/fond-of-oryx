@@ -92,10 +92,10 @@ class ProductListSearchRestApiDependencyProvider extends AbstractBundleDependenc
      */
     protected function addUtilEncodingService(Container $container): Container
     {
-        $container[static::SERVICE_UTIL_ENCODING] = static fn(
+        $container[static::SERVICE_UTIL_ENCODING] = static fn (
             Container $container
         ) => new ProductListSearchRestApiToUtilEncodingServiceBridge(
-            $container->getLocator()->utilEncoding()->service()
+            $container->getLocator()->utilEncoding()->service(),
         );
 
         return $container;

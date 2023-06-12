@@ -98,7 +98,7 @@ class SearchProductListQueryExpanderTest extends Unit
                         && $queryJoinTransfer->getWhereConditions()->offsetGet(0)->getColumn() === SpyProductListTableMap::COL_ID_PRODUCT_LIST
                         && $queryJoinTransfer->getWhereConditions()->offsetGet(0)->getComparison() === Criteria::IN
                         && $queryJoinTransfer->getWhereConditions()->offsetGet(0)->getValue() === $json
-                )
+                ),
             )->willReturn($this->queryJoinCollectionTransferMock);
 
         static::assertEquals(
@@ -137,7 +137,7 @@ class SearchProductListQueryExpanderTest extends Unit
                         && $queryJoinTransfer->getWhereConditions()->offsetGet(0)->getColumn() === SpyProductListTableMap::COL_ID_PRODUCT_LIST
                         && $queryJoinTransfer->getWhereConditions()->offsetGet(0)->getComparison() === Criteria::IN
                         && $queryJoinTransfer->getWhereConditions()->offsetGet(0)->getValue() === $json
-                )
+                ),
             )->willReturn($this->queryJoinCollectionTransferMock);
 
         static::assertEquals(
