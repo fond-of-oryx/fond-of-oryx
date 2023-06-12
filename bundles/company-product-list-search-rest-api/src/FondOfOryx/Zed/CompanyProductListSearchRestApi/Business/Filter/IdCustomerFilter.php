@@ -25,7 +25,7 @@ class IdCustomerFilter implements IdCustomerFilterInterface
         }
 
         foreach ($filterFieldTransfers as $filterFieldTransfer) {
-            if ($filterFieldTransfer->getType() !== CompanyProductListSearchRestApiConstants::FILTER_FIELD_TYPE_CUSTOMER_ID) {
+            if ($filterFieldTransfer->getType() !== CompanyProductListSearchRestApiConstants::FILTER_FIELD_TYPE_ID_CUSTOMER) {
                 continue;
             }
 

@@ -17,5 +17,5 @@ interface CompanyProductListSearchRestApiConstants
     /**
      * @var string
      */
-    public const FILTER_FIELD_TYPE_CUSTOMER_ID = 'customerId';
+    public const FILTER_FIELD_TYPE_ID_CUSTOMER = 'idCustomer';
 }

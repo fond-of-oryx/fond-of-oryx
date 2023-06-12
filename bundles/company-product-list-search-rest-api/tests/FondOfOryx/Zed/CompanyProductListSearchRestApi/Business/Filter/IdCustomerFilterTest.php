@@ -53,7 +53,7 @@ class IdCustomerFilterTest extends Unit
 
         $this->filterFieldTransferMocks[1]->expects(static::atLeastOnce())
             ->method('getType')
-            ->willReturn(CompanyProductListSearchRestApiConstants::FILTER_FIELD_TYPE_CUSTOMER_ID);
+            ->willReturn(CompanyProductListSearchRestApiConstants::FILTER_FIELD_TYPE_ID_CUSTOMER);
 
         $this->filterFieldTransferMocks[1]->expects(static::atLeastOnce())
             ->method('getValue')

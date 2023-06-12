@@ -31,7 +31,8 @@ class CompanyProductListSearchRestApiRepository extends AbstractRepository imple
                 ->filterByIsActive(true)
                 ->filterByUuid($companyUuid)
             ->endUse()
-            ->select([SpyCompanyUserTableMap::COL_ID_COMPANY_USER]);
+            ->select([SpyCompanyUserTableMap::COL_ID_COMPANY_USER])
+            ->findOne();
 
         return $idCompanyUser;
     }
