@@ -69,6 +69,6 @@ class CompanyTypeProductListSearchRestApiRepository extends AbstractRepository i
             ->select([static::COL_COUNT_OF_CUSTOMER])
             ->findOne();
 
-        return $countOfCustomer === null || $countOfCustomer === 0;
+        return $countOfCustomer !== null && $countOfCustomer > 0;
     }
 }
