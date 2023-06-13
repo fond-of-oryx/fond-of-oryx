@@ -49,6 +49,7 @@ include:
   - bundles/company-search-rest-api-extension
   - bundles/company-type-company-search-rest-api
   - bundles/company-type-company-user-search-rest-api
+  - bundles/company-type-product-list-search-rest-api
   - bundles/company-type-product-lists-rest-api
   - bundles/company-unit-address-api
   - bundles/company-unit-address-sales-connector
