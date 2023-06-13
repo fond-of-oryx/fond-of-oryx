@@ -33,12 +33,19 @@ class CompanyTypeProductListSearchRestApiRepository extends AbstractRepository i
         int $currentIdCustomer,
         string $customerReference
     ): bool {
+        $companyTypeNameForManufacturer = $this->getFactory()
+            ->getConfig()
+            ->getCompanyTypeNameForManufacturer();
+
         /** @var int|null $countOfCustomer */
         $countOfCustomer = $this->getFactory()
             ->getCustomerQuery()
             ->clear()
             ->useCompanyUserQuery()
                 ->useCompanyQuery()
+                    ->useFosCompanyTypeQuery()
+                        ->filterByName($companyTypeNameForManufacturer)
+                    ->endUse()
                     ->useCompanyUserQuery(static::RELATION_ALIAS_TEMP_COMPANY_USER)
                         ->filterByIsActive(true)
                         ->filterByFkCustomer($currentIdCustomer)
@@ -53,7 +60,6 @@ class CompanyTypeProductListSearchRestApiRepository extends AbstractRepository i
                         ->endUse()
                     ->endUse()
                     ->filterByIsActive(true)
-                    ->filterByFkCompanyType(2)
                 ->endUse()
             ->endUse()
             ->filterByAnonymizedAt(null, Criteria::ISNULL)

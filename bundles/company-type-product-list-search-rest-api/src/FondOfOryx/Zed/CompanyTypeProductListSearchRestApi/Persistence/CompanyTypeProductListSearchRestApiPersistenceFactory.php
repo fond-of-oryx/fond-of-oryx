@@ -8,6 +8,8 @@ use Spryker\Zed\Kernel\Persistence\AbstractPersistenceFactory;
 
 /**
  * @codeCoverageIgnore
+ *
+ * @method \FondOfOryx\Zed\CompanyTypeProductListSearchRestApi\CompanyTypeProductListSearchRestApiConfig getConfig()
  */
 class CompanyTypeProductListSearchRestApiPersistenceFactory extends AbstractPersistenceFactory
 {
