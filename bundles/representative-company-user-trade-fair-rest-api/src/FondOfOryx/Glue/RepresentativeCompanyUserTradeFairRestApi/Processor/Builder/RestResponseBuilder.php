@@ -9,6 +9,7 @@ use Generated\Shared\Transfer\RestErrorMessageTransfer;
 use Spryker\Glue\GlueApplication\Rest\JsonApi\RestResourceBuilderInterface;
 use Spryker\Glue\GlueApplication\Rest\JsonApi\RestResponseInterface;
 use Symfony\Component\HttpFoundation\Response;
+use Throwable;
 
 class RestResponseBuilder implements RestResponseBuilderInterface
 {
@@ -68,12 +69,18 @@ class RestResponseBuilder implements RestResponseBuilderInterface
     }
 
     /**
-     * @param \Generated\Shared\Transfer\RestErrorMessageTransfer $restErrorMessageTransfer
-     *
-     * @return \Spryker\Glue\GlueApplication\Rest\JsonApi\RestResponseInterface
+     * @param string $error
+     * @param int $code
+     * @param int $status
+     * @return RestResponseInterface
      */
-    protected function createRestResponse(RestErrorMessageTransfer $restErrorMessageTransfer): RestResponseInterface
+    public function createRestErrorResponse(string $error, int $code, int $status = 0): RestResponseInterface
     {
+        $restErrorMessageTransfer = (new RestErrorMessageTransfer())
+            ->setCode($code)
+            ->setStatus(0)
+            ->setDetail($error);
+
         return $this->restResourceBuilder
             ->createRestResponse()
             ->addError($restErrorMessageTransfer);

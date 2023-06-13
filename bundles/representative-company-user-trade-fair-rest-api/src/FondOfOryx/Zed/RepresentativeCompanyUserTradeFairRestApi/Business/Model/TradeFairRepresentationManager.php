@@ -103,6 +103,12 @@ class TradeFairRepresentationManager implements TradeFairRepresentationManagerIn
         $restRepresentativeCompanyUserTradeFairAttributesTransfer = $restRepresentativeCompanyUserTradeFairRequestTransfer->getAttributes();
         $restRepresentativeCompanyUserTradeFairAttributesTransfer->requireUuid();
 
+        $error = $this->validate($restRepresentativeCompanyUserTradeFairRequestTransfer);
+
+        if ($error) {
+            return (new RestRepresentativeCompanyUserTradeFairResponseTransfer())->setError($error);
+        }
+
         $representationTransfer = $this->representativeCompanyUserTradeFairFacade->findTradeFairRepresentationByUuid($restRepresentativeCompanyUserTradeFairAttributesTransfer->getUuid());
 
         if (
@@ -184,8 +190,7 @@ class TradeFairRepresentationManager implements TradeFairRepresentationManagerIn
     }
 
     /**
-     * @param \Generated\Shared\Transfer\RestRepresentativeCompanyUserTradeFairRequestTransfer $restRepresentativeCompanyUserTradeFairRequestTransfer
-     *
+     * @param RestRepresentativeCompanyUserTradeFairRequestTransfer $restRepresentativeCompanyUserTradeFairRequestTransfer
      * @return string
      */
     protected function validate(
@@ -201,6 +206,11 @@ class TradeFairRepresentationManager implements TradeFairRepresentationManagerIn
             )
         ) {
             return RepresentativeCompanyUserTradeFairRestApiConfig::ERROR_MESSAGE_USER_IS_NOT_ALLOWED_TO_ADD_TRADE_FAIR_REPRESENTATION;
+        }
+
+        if (!$this->durationValidator->validate($restRepresentativeCompanyUserTradeFairRequestTransfer->getAttributes()
+        )) {
+            return RepresentativeCompanyUserTradeFairRestApiConfig::ERROR_MESSAGE_REPRESENTATION_DURATION_EXCEEDED;
         }
 
         return '';
