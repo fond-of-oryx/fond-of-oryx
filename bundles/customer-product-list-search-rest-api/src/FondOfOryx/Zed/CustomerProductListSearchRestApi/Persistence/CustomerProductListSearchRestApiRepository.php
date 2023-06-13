@@ -28,7 +28,7 @@ class CustomerProductListSearchRestApiRepository extends AbstractRepository impl
             ->endUse()
             ->select([SpyProductListTableMap::COL_ID_PRODUCT_LIST])
             ->find()
-            ->toArray();
+            ->getData();
 
         return $productListIds;
     }
