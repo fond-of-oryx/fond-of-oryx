@@ -2,7 +2,6 @@
 
 namespace FondOfOryx\Zed\RepresentativeCompanyUserTradeFair;
 
-use FondOfOryx\Zed\RepresentativeCompanyUserTradeFair\Dependency\Facade\RepresentativeCompanyUserTradeFairToEventFacadeBridge;
 use FondOfOryx\Zed\RepresentativeCompanyUserTradeFair\Dependency\Facade\RepresentativeCompanyUserTradeFairToRepresentativeCompanyUserBridge;
 use FondOfOryx\Zed\RepresentativeCompanyUserTradeFair\Dependency\Service\RepresentativeCompanyUserTradeFairToUtilUuidGeneratorServiceBridge;
 use Orm\Zed\Company\Persistence\SpyCompanyQuery;
@@ -21,11 +20,6 @@ class RepresentativeCompanyUserTradeFairDependencyProvider extends AbstractBundl
      * @var string
      */
     public const SERVICE_UTIL_UUID_GENERATOR = 'SERVICE_UTIL_UUID_GENERATOR';
-
-    /**
-     * @var string
-     */
-    public const FACADE_EVENT = 'FACADE_EVENT';
 
     /**
      * @var string
@@ -60,7 +54,6 @@ class RepresentativeCompanyUserTradeFairDependencyProvider extends AbstractBundl
     public function provideBusinessLayerDependencies(Container $container): Container
     {
         $container = parent::provideBusinessLayerDependencies($container);
-        $container = $this->addEventFacade($container);
         $container = $this->addRepresentativeCompanyUserFacade($container);
 
         return $this->addUtilUuidGeneratorService($container);
@@ -91,22 +84,6 @@ class RepresentativeCompanyUserTradeFairDependencyProvider extends AbstractBundl
         $container[static::SERVICE_UTIL_UUID_GENERATOR] = static function (Container $container) {
             return new RepresentativeCompanyUserTradeFairToUtilUuidGeneratorServiceBridge(
                 $container->getLocator()->utilUuidGenerator()->service(),
-            );
-        };
-
-        return $container;
-    }
-
-    /**
-     * @param \Spryker\Zed\Kernel\Container $container
-     *
-     * @return \Spryker\Zed\Kernel\Container
-     */
-    protected function addEventFacade(Container $container): Container
-    {
-        $container[static::FACADE_EVENT] = static function (Container $container) {
-            return new RepresentativeCompanyUserTradeFairToEventFacadeBridge(
-                $container->getLocator()->event()->facade(),
             );
         };
 

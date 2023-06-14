@@ -11,14 +11,18 @@ interface RepresentativeCompanyUserTradeFairEntityManagerInterface
      *
      * @return \Generated\Shared\Transfer\RepresentativeCompanyUserTradeFairTransfer
      */
-    public function createRepresentativeCompanyUserTradeFair(RepresentativeCompanyUserTradeFairTransfer $representativeCompanyUserTradeFairTransfer): RepresentativeCompanyUserTradeFairTransfer;
+    public function createRepresentativeCompanyUserTradeFair(
+        RepresentativeCompanyUserTradeFairTransfer $representativeCompanyUserTradeFairTransfer
+    ): RepresentativeCompanyUserTradeFairTransfer;
 
     /**
      * @param \Generated\Shared\Transfer\RepresentativeCompanyUserTradeFairTransfer $representativeCompanyUserTradeFairTransfer
      *
      * @return \Generated\Shared\Transfer\RepresentativeCompanyUserTradeFairTransfer
      */
-    public function updateRepresentativeCompanyUserTradeFair(RepresentativeCompanyUserTradeFairTransfer $representativeCompanyUserTradeFairTransfer): RepresentativeCompanyUserTradeFairTransfer;
+    public function updateRepresentativeCompanyUserTradeFair(
+        RepresentativeCompanyUserTradeFairTransfer $representativeCompanyUserTradeFairTransfer
+    ): RepresentativeCompanyUserTradeFairTransfer;
 
     /**
      * @param string $uuid

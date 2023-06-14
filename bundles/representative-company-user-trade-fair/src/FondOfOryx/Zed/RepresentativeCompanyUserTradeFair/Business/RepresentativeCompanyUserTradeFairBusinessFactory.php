@@ -4,7 +4,6 @@ namespace FondOfOryx\Zed\RepresentativeCompanyUserTradeFair\Business;
 
 use FondOfOryx\Zed\RepresentativeCompanyUserTradeFair\Business\Manager\TradeFairRepresentationManager;
 use FondOfOryx\Zed\RepresentativeCompanyUserTradeFair\Business\Manager\TradeFairRepresentationManagerInterface;
-use FondOfOryx\Zed\RepresentativeCompanyUserTradeFair\Dependency\Facade\RepresentativeCompanyUserTradeFairToEventFacadeInterface;
 use FondOfOryx\Zed\RepresentativeCompanyUserTradeFair\Dependency\Facade\RepresentativeCompanyUserTradeFairToRepresentativeCompanyUserInterface;
 use FondOfOryx\Zed\RepresentativeCompanyUserTradeFair\Dependency\Service\RepresentativeCompanyUserTradeFairToUtilUuidGeneratorServiceInterface;
 use FondOfOryx\Zed\RepresentativeCompanyUserTradeFair\RepresentativeCompanyUserTradeFairDependencyProvider;
@@ -29,11 +28,10 @@ class RepresentativeCompanyUserTradeFairBusinessFactory extends AbstractBusiness
         return new TradeFairRepresentationManager(
             $this->getEntityManager(),
             $this->getRepository(),
-            $this->getEventFacade(),
             $this->getRepresentativeCompanyUserFacade(),
             $this->getUtilUuidGeneratorService(),
             $this->getTransactionHandler(),
-            $this->getLogger()
+            $this->getLogger(),
         );
     }
 
@@ -47,18 +45,9 @@ class RepresentativeCompanyUserTradeFairBusinessFactory extends AbstractBusiness
 
     /**
      * @return \FondOfOryx\Zed\RepresentativeCompanyUserTradeFair\Dependency\Facade\RepresentativeCompanyUserTradeFairToRepresentativeCompanyUserInterface
-     * @throws \Spryker\Zed\Kernel\Exception\Container\ContainerKeyNotFoundException
      */
     protected function getRepresentativeCompanyUserFacade(): RepresentativeCompanyUserTradeFairToRepresentativeCompanyUserInterface
     {
         return $this->getProvidedDependency(RepresentativeCompanyUserTradeFairDependencyProvider::FACADE_REPRESENTATIVE_COMPANY_USER);
-    }
-
-    /**
-     * @return \FondOfOryx\Zed\RepresentativeCompanyUserTradeFair\Dependency\Facade\RepresentativeCompanyUserTradeFairToEventFacadeInterface
-     */
-    protected function getEventFacade(): RepresentativeCompanyUserTradeFairToEventFacadeInterface
-    {
-        return $this->getProvidedDependency(RepresentativeCompanyUserTradeFairDependencyProvider::FACADE_EVENT);
     }
 }

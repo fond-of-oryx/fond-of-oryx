@@ -3,7 +3,6 @@
 namespace FondOfOryx\Zed\RepresentativeCompanyUserTradeFair\Business;
 
 use Generated\Shared\Transfer\RepresentativeCompanyUserTradeFairCollectionTransfer;
-use Generated\Shared\Transfer\RepresentativeCompanyUserTradeFairCommandTransfer;
 use Generated\Shared\Transfer\RepresentativeCompanyUserTradeFairFilterTransfer;
 use Generated\Shared\Transfer\RepresentativeCompanyUserTradeFairTransfer;
 
@@ -14,14 +13,18 @@ interface RepresentativeCompanyUserTradeFairFacadeInterface
      *
      * @return \Generated\Shared\Transfer\RepresentativeCompanyUserTradeFairTransfer
      */
-    public function createRepresentativeCompanyUserTradeFair(RepresentativeCompanyUserTradeFairTransfer $representativeCompanyUserTradeFairTransfer): RepresentativeCompanyUserTradeFairTransfer;
+    public function createRepresentativeCompanyUserTradeFair(
+        RepresentativeCompanyUserTradeFairTransfer $representativeCompanyUserTradeFairTransfer
+    ): RepresentativeCompanyUserTradeFairTransfer;
 
     /**
      * @param \Generated\Shared\Transfer\RepresentativeCompanyUserTradeFairTransfer $representativeCompanyUserTradeFairTransfer
      *
      * @return \Generated\Shared\Transfer\RepresentativeCompanyUserTradeFairTransfer
      */
-    public function updateRepresentativeCompanyUserTradeFair(RepresentativeCompanyUserTradeFairTransfer $representativeCompanyUserTradeFairTransfer): RepresentativeCompanyUserTradeFairTransfer;
+    public function updateRepresentativeCompanyUserTradeFair(
+        RepresentativeCompanyUserTradeFairTransfer $representativeCompanyUserTradeFairTransfer
+    ): RepresentativeCompanyUserTradeFairTransfer;
 
     /**
      * @param string $uuid
@@ -42,5 +45,7 @@ interface RepresentativeCompanyUserTradeFairFacadeInterface
      *
      * @return \Generated\Shared\Transfer\RepresentativeCompanyUserTradeFairCollectionTransfer
      */
-    public function getRepresentativeCompanyUserTradeFair(RepresentativeCompanyUserTradeFairFilterTransfer $filterTransfer): RepresentativeCompanyUserTradeFairCollectionTransfer;
+    public function getRepresentativeCompanyUserTradeFair(
+        RepresentativeCompanyUserTradeFairFilterTransfer $filterTransfer
+    ): RepresentativeCompanyUserTradeFairCollectionTransfer;
 }

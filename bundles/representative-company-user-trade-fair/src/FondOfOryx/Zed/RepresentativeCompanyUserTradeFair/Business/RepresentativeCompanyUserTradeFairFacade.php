@@ -3,7 +3,6 @@
 namespace FondOfOryx\Zed\RepresentativeCompanyUserTradeFair\Business;
 
 use Generated\Shared\Transfer\RepresentativeCompanyUserTradeFairCollectionTransfer;
-use Generated\Shared\Transfer\RepresentativeCompanyUserTradeFairCommandTransfer;
 use Generated\Shared\Transfer\RepresentativeCompanyUserTradeFairFilterTransfer;
 use Generated\Shared\Transfer\RepresentativeCompanyUserTradeFairTransfer;
 use Spryker\Zed\Kernel\Business\AbstractFacade;
@@ -18,8 +17,9 @@ class RepresentativeCompanyUserTradeFairFacade extends AbstractFacade implements
      *
      * @return \Generated\Shared\Transfer\RepresentativeCompanyUserTradeFairTransfer
      */
-    public function createRepresentativeCompanyUserTradeFair(RepresentativeCompanyUserTradeFairTransfer $representativeCompanyUserTradeFairTransfer): RepresentativeCompanyUserTradeFairTransfer
-    {
+    public function createRepresentativeCompanyUserTradeFair(
+        RepresentativeCompanyUserTradeFairTransfer $representativeCompanyUserTradeFairTransfer
+    ): RepresentativeCompanyUserTradeFairTransfer {
         return $this->getFactory()->createTradeFairRepresentationManager()->create($representativeCompanyUserTradeFairTransfer);
     }
 
@@ -28,8 +28,9 @@ class RepresentativeCompanyUserTradeFairFacade extends AbstractFacade implements
      *
      * @return \Generated\Shared\Transfer\RepresentativeCompanyUserTradeFairTransfer
      */
-    public function updateRepresentativeCompanyUserTradeFair(RepresentativeCompanyUserTradeFairTransfer $representativeCompanyUserTradeFairTransfer): RepresentativeCompanyUserTradeFairTransfer
-    {
+    public function updateRepresentativeCompanyUserTradeFair(
+        RepresentativeCompanyUserTradeFairTransfer $representativeCompanyUserTradeFairTransfer
+    ): RepresentativeCompanyUserTradeFairTransfer {
         return $this->getFactory()->createTradeFairRepresentationManager()->update($representativeCompanyUserTradeFairTransfer);
     }
 
@@ -58,8 +59,9 @@ class RepresentativeCompanyUserTradeFairFacade extends AbstractFacade implements
      *
      * @return \Generated\Shared\Transfer\RepresentativeCompanyUserTradeFairCollectionTransfer
      */
-    public function getRepresentativeCompanyUserTradeFair(RepresentativeCompanyUserTradeFairFilterTransfer $filterTransfer): RepresentativeCompanyUserTradeFairCollectionTransfer
-    {
+    public function getRepresentativeCompanyUserTradeFair(
+        RepresentativeCompanyUserTradeFairFilterTransfer $filterTransfer
+    ): RepresentativeCompanyUserTradeFairCollectionTransfer {
         return $this->getFactory()->createTradeFairRepresentationManager()->get($filterTransfer);
     }
 }

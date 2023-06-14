@@ -22,7 +22,7 @@ class EntityToTransferMapper implements EntityToTransferMapperInterface
             ->fromArray($entity->toArray(), true)
             ->setDistributor($this->mapCustomer($entity->getFooRepresentativeCompanyUserTradeFairDistributor()));
 
-        foreach ($entity->getFooRepresentativeCompanyUsers()->getData() as $representativeCompanyUserTradeFairEntity){
+        foreach ($entity->getFooRepresentativeCompanyUsers()->getData() as $representativeCompanyUserTradeFairEntity) {
             $representativeCompanyUserTradeFairTransfer->addRepresentativeCompanyUser((new RepresentativeCompanyUserTransfer())
                 ->fromArray($representativeCompanyUserTradeFairEntity->toArray(), true));
         }
@@ -44,7 +44,6 @@ class EntityToTransferMapper implements EntityToTransferMapperInterface
             ->setOriginator($this->mapCustomer($entity->getFooRepresentativeCompanyUserOriginator()))
             ->setRepresentative($this->mapCustomer($entity->getFooRepresentativeCompanyUserRepresentative()));
     }
-
 
     /**
      * @param \Orm\Zed\Customer\Persistence\SpyCustomer $customerEntity
