@@ -6,7 +6,7 @@ use FondOfOryx\Zed\RepresentativeCompanyUserTradeFairRestApi\Business\Model\Trad
 use FondOfOryx\Zed\RepresentativeCompanyUserTradeFairRestApi\Business\Model\TradeFairRepresentationManagerInterface;
 use FondOfOryx\Zed\RepresentativeCompanyUserTradeFairRestApi\Business\Validator\DurationValidator;
 use FondOfOryx\Zed\RepresentativeCompanyUserTradeFairRestApi\Business\Validator\DurationValidatorInterface;
-use FondOfOryx\Zed\RepresentativeCompanyUserTradeFairRestApi\Dependency\Facade\RepresentativeCompanyUserTradeFairRestApiToCompanyTypeInterface;
+use FondOfOryx\Zed\RepresentativeCompanyUserTradeFairRestApi\Dependency\Facade\RepresentativeCompanyUserTradeFairRestApiToCompanyTypeFacadeInterface;
 use FondOfOryx\Zed\RepresentativeCompanyUserTradeFairRestApi\Dependency\Facade\RepresentativeCompanyUserTradeFairRestApiToRepresentativeCompanyUserTradeFairFacadeInterface;
 use FondOfOryx\Zed\RepresentativeCompanyUserTradeFairRestApi\RepresentativeCompanyUserTradeFairRestApiDependencyProvider;
 use Spryker\Zed\Kernel\Business\AbstractBusinessFactory;
@@ -47,11 +47,9 @@ class RepresentativeCompanyUserTradeFairRestApiBusinessFactory extends AbstractB
     }
 
     /**
-     * @return \FondOfOryx\Zed\RepresentativeCompanyUserTradeFairRestApi\Dependency\Facade\RepresentativeCompanyUserTradeFairRestApiToCompanyTypeInterface
-     *
-     * @throws \Spryker\Zed\Kernel\Exception\Container\ContainerKeyNotFoundException
+     * @return \FondOfOryx\Zed\RepresentativeCompanyUserTradeFairRestApi\Dependency\Facade\RepresentativeCompanyUserTradeFairRestApiToCompanyTypeFacadeInterface
      */
-    protected function getCompanyTypeFacade(): RepresentativeCompanyUserTradeFairRestApiToCompanyTypeInterface
+    protected function getCompanyTypeFacade(): RepresentativeCompanyUserTradeFairRestApiToCompanyTypeFacadeInterface
     {
         return $this->getProvidedDependency(RepresentativeCompanyUserTradeFairRestApiDependencyProvider::FACADE_COMPANY_TYPE);
     }

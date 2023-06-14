@@ -35,10 +35,6 @@ class RepresentativeCompanyUserTradeFairRestApiRepository extends AbstractReposi
      * @param int $companyTypeId
      *
      * @return bool
-     *
-     * @throws \Propel\Runtime\Exception\PropelException
-     * @throws \Spryker\Zed\Kernel\Exception\Container\ContainerKeyNotFoundException
-     * @throws \Spryker\Zed\Propel\Business\Exception\AmbiguousComparisonException
      */
     public function hasPermission(
         string $permissionKey,
@@ -75,7 +71,6 @@ class RepresentativeCompanyUserTradeFairRestApiRepository extends AbstractReposi
 
         return $collection->count() > 0;
     }
-
 
     /**
      * @param string $key

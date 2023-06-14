@@ -20,16 +20,13 @@ class RepresentativeCompanyUserTradeFairRestApiPersistenceFactory extends Abstra
 
     /**
      * @return \Orm\Zed\CompanyUser\Persistence\SpyCompanyUserQuery
-     *
-     * @throws \Spryker\Zed\Kernel\Exception\Container\ContainerKeyNotFoundException
      */
     public function getCompanyUserQuery(): SpyCompanyUserQuery
     {
         return $this->getProvidedDependency(
-            RepresentativeCompanyUserTradeFairRestApiDependencyProvider::QUERY_SPY_COMPANY_USER
+            RepresentativeCompanyUserTradeFairRestApiDependencyProvider::QUERY_SPY_COMPANY_USER,
         );
     }
-
 
     /**
      * @return \Orm\Zed\Permission\Persistence\Base\SpyPermissionQuery
@@ -37,7 +34,7 @@ class RepresentativeCompanyUserTradeFairRestApiPersistenceFactory extends Abstra
     public function getPermissionQuery(): SpyPermissionQuery
     {
         return $this->getProvidedDependency(
-            RepresentativeCompanyUserTradeFairRestApiDependencyProvider::PROPEL_QUERY_PERMISSION
+            RepresentativeCompanyUserTradeFairRestApiDependencyProvider::PROPEL_QUERY_PERMISSION,
         );
     }
 }

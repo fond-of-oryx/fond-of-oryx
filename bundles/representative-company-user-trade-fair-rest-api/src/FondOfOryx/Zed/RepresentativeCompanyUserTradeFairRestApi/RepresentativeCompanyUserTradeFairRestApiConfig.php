@@ -5,9 +5,6 @@ namespace FondOfOryx\Zed\RepresentativeCompanyUserTradeFairRestApi;
 use FondOfOryx\Shared\RepresentativeCompanyUserTradeFairRestApi\RepresentativeCompanyUserTradeFairRestApiConstants;
 use Spryker\Zed\Kernel\AbstractBundleConfig;
 
-/**
- * @codeCoverageIgnore
- */
 class RepresentativeCompanyUserTradeFairRestApiConfig extends AbstractBundleConfig
 {
     /**
@@ -26,8 +23,8 @@ class RepresentativeCompanyUserTradeFairRestApiConfig extends AbstractBundleConf
     public function getMaxDurationForRepresentation(): int
     {
         return $this->get(
-            RepresentativeCompanyUserTradeFairRestApiConstants::MAX_DURATION_FOR_REPRESENTATION, 7
+            RepresentativeCompanyUserTradeFairRestApiConstants::MAX_DURATION_FOR_REPRESENTATION,
+            7,
         );
     }
-
 }

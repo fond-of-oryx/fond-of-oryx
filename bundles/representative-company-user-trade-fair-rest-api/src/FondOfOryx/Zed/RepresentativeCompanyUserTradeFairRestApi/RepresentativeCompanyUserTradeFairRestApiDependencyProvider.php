@@ -10,9 +10,6 @@ use Orm\Zed\Permission\Persistence\Base\SpyPermissionQuery;
 use Spryker\Zed\Kernel\AbstractBundleDependencyProvider;
 use Spryker\Zed\Kernel\Container;
 
-/**
- * @codeCoverageIgnore
- */
 class RepresentativeCompanyUserTradeFairRestApiDependencyProvider extends AbstractBundleDependencyProvider
 {
     /**
@@ -118,7 +115,7 @@ class RepresentativeCompanyUserTradeFairRestApiDependencyProvider extends Abstra
     {
         $container[static::FACADE_COMPANY_TYPE] = static function (Container $container) {
             return new RepresentativeCompanyUserTradeFairRestApiToCompanyTypeFacadeBridge(
-                $container->getLocator()->companyType()->facade()
+                $container->getLocator()->companyType()->facade(),
             );
         };
 

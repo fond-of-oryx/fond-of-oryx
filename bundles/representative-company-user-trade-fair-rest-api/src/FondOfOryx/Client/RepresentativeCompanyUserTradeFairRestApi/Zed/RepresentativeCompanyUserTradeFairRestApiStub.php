@@ -53,7 +53,7 @@ class RepresentativeCompanyUserTradeFairRestApiStub implements RepresentativeCom
         $representativeCompanyUserTradeFairRestResponseTransfer = $this
             ->zedRequestClient->call(
                 static::ADD_TRADE_FAIR_REPRESENTATION,
-                $restRepresentativeCompanyUserTradeFairRequestTransfer
+                $restRepresentativeCompanyUserTradeFairRequestTransfer,
             );
 
         return $representativeCompanyUserTradeFairRestResponseTransfer;
@@ -71,7 +71,7 @@ class RepresentativeCompanyUserTradeFairRestApiStub implements RepresentativeCom
         $representativeCompanyUserTradeFairRestResponseTransfer = $this
             ->zedRequestClient->call(
                 static::GET_TRADE_FAIR_REPRESENTATION,
-                $restRepresentativeCompanyUserTradeFairRequestTransfer
+                $restRepresentativeCompanyUserTradeFairRequestTransfer,
             );
 
         return $representativeCompanyUserTradeFairRestResponseTransfer;

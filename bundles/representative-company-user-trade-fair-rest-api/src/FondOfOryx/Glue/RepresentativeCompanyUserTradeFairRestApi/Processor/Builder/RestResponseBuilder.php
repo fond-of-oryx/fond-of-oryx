@@ -8,8 +8,6 @@ use Generated\Shared\Transfer\RepresentativeCompanyUserTradeFairTransfer;
 use Generated\Shared\Transfer\RestErrorMessageTransfer;
 use Spryker\Glue\GlueApplication\Rest\JsonApi\RestResourceBuilderInterface;
 use Spryker\Glue\GlueApplication\Rest\JsonApi\RestResponseInterface;
-use Symfony\Component\HttpFoundation\Response;
-use Throwable;
 
 class RestResponseBuilder implements RestResponseBuilderInterface
 {
@@ -23,8 +21,7 @@ class RestResponseBuilder implements RestResponseBuilderInterface
      */
     public function __construct(
         RestResourceBuilderInterface $restResourceBuilder
-    )
-    {
+    ) {
         $this->restResourceBuilder = $restResourceBuilder;
     }
 
@@ -35,8 +32,7 @@ class RestResponseBuilder implements RestResponseBuilderInterface
      */
     public function buildRepresentativeCompanyUserTradeFairRestResponse(
         RepresentativeCompanyUserTradeFairTransfer $representativeCompanyUserTradeFairTransfer
-    ): RestResponseInterface
-    {
+    ): RestResponseInterface {
         $restResponse = $this->restResourceBuilder->createRestResponse();
 
         $restResource = $this->restResourceBuilder->createRestResource(
@@ -55,8 +51,7 @@ class RestResponseBuilder implements RestResponseBuilderInterface
      */
     public function buildRepresentativeCompanyUserTradeFairCollectionRestResponse(
         RepresentativeCompanyUserTradeFairCollectionTransfer $representativeCompanyUserTradeFairTransfer
-    ): RestResponseInterface
-    {
+    ): RestResponseInterface {
         $restResponse = $this->restResourceBuilder->createRestResponse();
 
         $restResource = $this->restResourceBuilder->createRestResource(
@@ -72,7 +67,8 @@ class RestResponseBuilder implements RestResponseBuilderInterface
      * @param string $error
      * @param int $code
      * @param int $status
-     * @return RestResponseInterface
+     *
+     * @return \Spryker\Glue\GlueApplication\Rest\JsonApi\RestResponseInterface
      */
     public function createRestErrorResponse(string $error, int $code, int $status = 0): RestResponseInterface
     {

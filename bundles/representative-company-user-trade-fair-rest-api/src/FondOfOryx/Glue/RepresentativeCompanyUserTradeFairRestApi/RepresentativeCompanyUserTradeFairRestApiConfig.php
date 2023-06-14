@@ -2,7 +2,6 @@
 
 namespace FondOfOryx\Glue\RepresentativeCompanyUserTradeFairRestApi;
 
-use FondOfOryx\Shared\RepresentativeCompanyUserTradeFairRestApi\RepresentativeCompanyUserTradeFairRestApiConstants;
 use Spryker\Glue\Kernel\AbstractBundleConfig;
 
 class RepresentativeCompanyUserTradeFairRestApiConfig extends AbstractBundleConfig

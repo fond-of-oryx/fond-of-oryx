@@ -5,7 +5,7 @@ namespace FondOfOryx\Zed\RepresentativeCompanyUserTradeFairRestApi\Dependency\Fa
 use FondOfSpryker\Zed\CompanyType\Business\CompanyTypeFacadeInterface;
 use Generated\Shared\Transfer\CompanyTypeTransfer;
 
-class RepresentativeCompanyUserTradeFairRestApiToCompanyTypeFacadeBridge implements RepresentativeCompanyUserTradeFairRestApiToCompanyTypeInterface
+class RepresentativeCompanyUserTradeFairRestApiToCompanyTypeFacadeBridge implements RepresentativeCompanyUserTradeFairRestApiToCompanyTypeFacadeInterface
 {
     /**
      * @var \FondOfSpryker\Zed\CompanyType\Business\CompanyTypeFacadeInterface

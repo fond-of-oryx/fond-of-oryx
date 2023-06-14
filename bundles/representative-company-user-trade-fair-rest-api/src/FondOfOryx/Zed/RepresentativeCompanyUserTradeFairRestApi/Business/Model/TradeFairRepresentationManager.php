@@ -4,11 +4,11 @@ namespace FondOfOryx\Zed\RepresentativeCompanyUserTradeFairRestApi\Business\Mode
 
 use Exception;
 use FondOfOryx\Zed\RepresentativeCompanyUserTradeFairRestApi\Business\Validator\DurationValidatorInterface;
-use FondOfOryx\Zed\RepresentativeCompanyUserTradeFairRestApi\RepresentativeCompanyUserTradeFairRestApiConfig;
 use FondOfOryx\Zed\RepresentativeCompanyUserTradeFairRestApi\Communication\Plugin\PermissionExtension\CanManageRepresentationOnTradeFairPermissionPlugin;
-use FondOfOryx\Zed\RepresentativeCompanyUserTradeFairRestApi\Dependency\Facade\RepresentativeCompanyUserTradeFairRestApiToCompanyTypeInterface;
+use FondOfOryx\Zed\RepresentativeCompanyUserTradeFairRestApi\Dependency\Facade\RepresentativeCompanyUserTradeFairRestApiToCompanyTypeFacadeInterface;
 use FondOfOryx\Zed\RepresentativeCompanyUserTradeFairRestApi\Dependency\Facade\RepresentativeCompanyUserTradeFairRestApiToRepresentativeCompanyUserTradeFairFacadeInterface;
 use FondOfOryx\Zed\RepresentativeCompanyUserTradeFairRestApi\Persistence\RepresentativeCompanyUserTradeFairRestApiRepositoryInterface;
+use FondOfOryx\Zed\RepresentativeCompanyUserTradeFairRestApi\RepresentativeCompanyUserTradeFairRestApiConfig;
 use Generated\Shared\Transfer\RepresentativeCompanyUserTradeFairFilterTransfer;
 use Generated\Shared\Transfer\RepresentativeCompanyUserTradeFairTransfer;
 use Generated\Shared\Transfer\RestRepresentativeCompanyUserTradeFairAttributesTransfer;
@@ -18,7 +18,7 @@ use Generated\Shared\Transfer\RestRepresentativeCompanyUserTradeFairResponseTran
 class TradeFairRepresentationManager implements TradeFairRepresentationManagerInterface
 {
     /**
-     * @var \FondOfOryx\Zed\RepresentativeCompanyUserTradeFairRestApi\Dependency\Facade\RepresentativeCompanyUserTradeFairRestApiToCompanyTypeInterface
+     * @var \FondOfOryx\Zed\RepresentativeCompanyUserTradeFairRestApi\Dependency\Facade\RepresentativeCompanyUserTradeFairRestApiToCompanyTypeFacadeInterface
      */
     protected $companyTypeFacade;
 
@@ -39,13 +39,13 @@ class TradeFairRepresentationManager implements TradeFairRepresentationManagerIn
 
     /**
      * @param \FondOfOryx\Zed\RepresentativeCompanyUserTradeFairRestApi\Dependency\Facade\RepresentativeCompanyUserTradeFairRestApiToRepresentativeCompanyUserTradeFairFacadeInterface $representativeCompanyUserTradeFairFacade
-     * @param \FondOfOryx\Zed\RepresentativeCompanyUserTradeFairRestApi\Dependency\Facade\RepresentativeCompanyUserTradeFairRestApiToCompanyTypeInterface $companyTypeFacade
+     * @param \FondOfOryx\Zed\RepresentativeCompanyUserTradeFairRestApi\Dependency\Facade\RepresentativeCompanyUserTradeFairRestApiToCompanyTypeFacadeInterface $companyTypeFacade
      * @param \FondOfOryx\Zed\RepresentativeCompanyUserTradeFairRestApi\Business\Validator\DurationValidatorInterface $durationValidator
      * @param \FondOfOryx\Zed\RepresentativeCompanyUserTradeFairRestApi\Persistence\RepresentativeCompanyUserTradeFairRestApiRepositoryInterface $repository
      */
     public function __construct(
         RepresentativeCompanyUserTradeFairRestApiToRepresentativeCompanyUserTradeFairFacadeInterface $representativeCompanyUserTradeFairFacade,
-        RepresentativeCompanyUserTradeFairRestApiToCompanyTypeInterface $companyTypeFacade,
+        RepresentativeCompanyUserTradeFairRestApiToCompanyTypeFacadeInterface $companyTypeFacade,
         DurationValidatorInterface $durationValidator,
         RepresentativeCompanyUserTradeFairRestApiRepositoryInterface $repository
     ) {
@@ -180,7 +180,7 @@ class TradeFairRepresentationManager implements TradeFairRepresentationManagerIn
         $attributes = $restRepresentativeCompanyUserTradeFairRequestTransfer->getAttributes();
         $filter = (new RepresentativeCompanyUserTradeFairFilterTransfer());
 
-        if ($attributes->getUuid() !== null){
+        if ($attributes->getUuid() !== null) {
             $filter->addUuid($attributes->getUuid());
         }
 
@@ -190,7 +190,8 @@ class TradeFairRepresentationManager implements TradeFairRepresentationManagerIn
     }
 
     /**
-     * @param RestRepresentativeCompanyUserTradeFairRequestTransfer $restRepresentativeCompanyUserTradeFairRequestTransfer
+     * @param \Generated\Shared\Transfer\RestRepresentativeCompanyUserTradeFairRequestTransfer $restRepresentativeCompanyUserTradeFairRequestTransfer
+     *
      * @return string
      */
     protected function validate(
@@ -198,22 +199,23 @@ class TradeFairRepresentationManager implements TradeFairRepresentationManagerIn
     ): string {
         $companyTypeManufacturer = $this->companyTypeFacade->getCompanyTypeManufacturer();
 
-        if (!$companyTypeManufacturer
+        if (
+            !$companyTypeManufacturer
             || !$this->repository->hasPermission(
-                    CanManageRepresentationOnTradeFairPermissionPlugin::KEY,
-                    $restRepresentativeCompanyUserTradeFairRequestTransfer->getAttributes()->getCustomerReferenceOriginator(),
-                    $companyTypeManufacturer->getIdCompanyType()
+                CanManageRepresentationOnTradeFairPermissionPlugin::KEY,
+                $restRepresentativeCompanyUserTradeFairRequestTransfer->getAttributes()->getCustomerReferenceOriginator(),
+                $companyTypeManufacturer->getIdCompanyType(),
             )
         ) {
             return RepresentativeCompanyUserTradeFairRestApiConfig::ERROR_MESSAGE_USER_IS_NOT_ALLOWED_TO_ADD_TRADE_FAIR_REPRESENTATION;
         }
 
-        if (!$this->durationValidator->validate($restRepresentativeCompanyUserTradeFairRequestTransfer->getAttributes()
-        )) {
+        if (
+            !$this->durationValidator->validate($restRepresentativeCompanyUserTradeFairRequestTransfer->getAttributes())
+        ) {
             return RepresentativeCompanyUserTradeFairRestApiConfig::ERROR_MESSAGE_REPRESENTATION_DURATION_EXCEEDED;
         }
 
         return '';
     }
-
 }

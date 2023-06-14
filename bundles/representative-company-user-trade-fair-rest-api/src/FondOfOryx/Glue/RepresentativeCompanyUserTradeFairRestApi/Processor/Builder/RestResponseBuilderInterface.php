@@ -5,7 +5,6 @@ namespace FondOfOryx\Glue\RepresentativeCompanyUserTradeFairRestApi\Processor\Bu
 use Generated\Shared\Transfer\RepresentativeCompanyUserTradeFairCollectionTransfer;
 use Generated\Shared\Transfer\RepresentativeCompanyUserTradeFairTransfer;
 use Spryker\Glue\GlueApplication\Rest\JsonApi\RestResponseInterface;
-use Throwable;
 
 interface RestResponseBuilderInterface
 {
@@ -31,7 +30,8 @@ interface RestResponseBuilderInterface
      * @param string $error
      * @param int $code
      * @param int $status
-     * @return RestResponseInterface
+     *
+     * @return \Spryker\Glue\GlueApplication\Rest\JsonApi\RestResponseInterface
      */
     public function createRestErrorResponse(string $error, int $code, int $status = 0): RestResponseInterface;
 }

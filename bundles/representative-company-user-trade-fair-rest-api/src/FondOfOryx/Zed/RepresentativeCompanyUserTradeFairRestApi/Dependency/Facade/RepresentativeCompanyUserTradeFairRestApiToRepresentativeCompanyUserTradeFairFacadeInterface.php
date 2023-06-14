@@ -13,14 +13,18 @@ interface RepresentativeCompanyUserTradeFairRestApiToRepresentativeCompanyUserTr
      *
      * @return \Generated\Shared\Transfer\RepresentativeCompanyUserTradeFairTransfer
      */
-    public function addRepresentativeCompanyUserTradeFair(RepresentativeCompanyUserTradeFairTransfer $representativeCompanyUserTradeFairTransfer): RepresentativeCompanyUserTradeFairTransfer;
+    public function addRepresentativeCompanyUserTradeFair(
+        RepresentativeCompanyUserTradeFairTransfer $representativeCompanyUserTradeFairTransfer
+    ): RepresentativeCompanyUserTradeFairTransfer;
 
     /**
      * @param \Generated\Shared\Transfer\RepresentativeCompanyUserTradeFairTransfer $representativeCompanyUserTradeFairTransfer
      *
      * @return \Generated\Shared\Transfer\RepresentativeCompanyUserTradeFairTransfer
      */
-    public function updateRepresentativeCompanyUserTradeFair(RepresentativeCompanyUserTradeFairTransfer $representativeCompanyUserTradeFairTransfer): RepresentativeCompanyUserTradeFairTransfer;
+    public function updateRepresentativeCompanyUserTradeFair(
+        RepresentativeCompanyUserTradeFairTransfer $representativeCompanyUserTradeFairTransfer
+    ): RepresentativeCompanyUserTradeFairTransfer;
 
     /**
      * @param string $uuid
@@ -41,5 +45,7 @@ interface RepresentativeCompanyUserTradeFairRestApiToRepresentativeCompanyUserTr
      *
      * @return \Generated\Shared\Transfer\RepresentativeCompanyUserTradeFairCollectionTransfer
      */
-    public function getRepresentativeCompanyUserTradeFair(RepresentativeCompanyUserTradeFairFilterTransfer $filterTransfer): RepresentativeCompanyUserTradeFairCollectionTransfer;
+    public function getRepresentativeCompanyUserTradeFair(
+        RepresentativeCompanyUserTradeFairFilterTransfer $filterTransfer
+    ): RepresentativeCompanyUserTradeFairCollectionTransfer;
 }

@@ -52,7 +52,7 @@ class TradeFairRepresentationManager implements TradeFairRepresentationManagerIn
         $representationRestRequestTransfer = $this->representationMapper->createRequest($restRequest, $attributes);
         $representationRestResponseTransfer = $this->client->addTradeFairRepresentation($representationRestRequestTransfer);
 
-        if ($representationRestResponseTransfer->getError() !== null){
+        if ($representationRestResponseTransfer->getError() !== null) {
             return $this->responseBuilder
                 ->createRestErrorResponse($representationRestResponseTransfer->getError(), ApiConfig::HTTP_CODE_VALIDATION_ERRORS);
         }
@@ -73,7 +73,7 @@ class TradeFairRepresentationManager implements TradeFairRepresentationManagerIn
         $representationRestRequestTransfer = $this->representationMapper->createRequest($restRequest, $attributes);
         $representationRestResponseTransfer = $this->client->getTradeFairRepresentation($representationRestRequestTransfer);
 
-        if ($representationRestResponseTransfer->getError() !== null){
+        if ($representationRestResponseTransfer->getError() !== null) {
             return $this->responseBuilder
                 ->createRestErrorResponse($representationRestResponseTransfer->getError(), ApiConfig::HTTP_CODE_VALIDATION_ERRORS);
         }
@@ -93,7 +93,7 @@ class TradeFairRepresentationManager implements TradeFairRepresentationManagerIn
         $representationRestRequestTransfer = $this->representationMapper->createRequest($restRequest, $attributes);
         $representationRestResponseTransfer = $this->client->patchTradeFairRepresentation($representationRestRequestTransfer);
 
-        if ($representationRestResponseTransfer->getError() !== null){
+        if ($representationRestResponseTransfer->getError() !== null) {
             return $this->responseBuilder
                 ->createRestErrorResponse($representationRestResponseTransfer->getError(), ApiConfig::HTTP_CODE_VALIDATION_ERRORS);
         }
@@ -113,7 +113,7 @@ class TradeFairRepresentationManager implements TradeFairRepresentationManagerIn
         $representationRestRequestTransfer = $this->representationMapper->createRequest($restRequest, $attributes);
         $representationRestResponseTransfer = $this->client->deleteTradeFairRepresentation($representationRestRequestTransfer);
 
-        if ($representationRestResponseTransfer->getError() !== null){
+        if ($representationRestResponseTransfer->getError() !== null) {
             return $this->responseBuilder
                 ->createRestErrorResponse($representationRestResponseTransfer->getError(), ApiConfig::HTTP_CODE_VALIDATION_ERRORS);
         }

@@ -27,8 +27,9 @@ class RepresentativeCompanyUserTradeFairRestApiToRepresentativeCompanyUserTradeF
      *
      * @return \Generated\Shared\Transfer\RepresentativeCompanyUserTradeFairTransfer
      */
-    public function addRepresentativeCompanyUserTradeFair(RepresentativeCompanyUserTradeFairTransfer $representativeCompanyUserTradeFairTransfer): RepresentativeCompanyUserTradeFairTransfer
-    {
+    public function addRepresentativeCompanyUserTradeFair(
+        RepresentativeCompanyUserTradeFairTransfer $representativeCompanyUserTradeFairTransfer
+    ): RepresentativeCompanyUserTradeFairTransfer {
         return $this->facade->createRepresentativeCompanyUserTradeFair($representativeCompanyUserTradeFairTransfer);
     }
 
@@ -37,8 +38,9 @@ class RepresentativeCompanyUserTradeFairRestApiToRepresentativeCompanyUserTradeF
      *
      * @return \Generated\Shared\Transfer\RepresentativeCompanyUserTradeFairTransfer
      */
-    public function updateRepresentativeCompanyUserTradeFair(RepresentativeCompanyUserTradeFairTransfer $representativeCompanyUserTradeFairTransfer): RepresentativeCompanyUserTradeFairTransfer
-    {
+    public function updateRepresentativeCompanyUserTradeFair(
+        RepresentativeCompanyUserTradeFairTransfer $representativeCompanyUserTradeFairTransfer
+    ): RepresentativeCompanyUserTradeFairTransfer {
         return $this->facade->updateRepresentativeCompanyUserTradeFair($representativeCompanyUserTradeFairTransfer);
     }
 
@@ -67,8 +69,9 @@ class RepresentativeCompanyUserTradeFairRestApiToRepresentativeCompanyUserTradeF
      *
      * @return \Generated\Shared\Transfer\RepresentativeCompanyUserTradeFairCollectionTransfer
      */
-    public function getRepresentativeCompanyUserTradeFair(RepresentativeCompanyUserTradeFairFilterTransfer $filterTransfer): RepresentativeCompanyUserTradeFairCollectionTransfer
-    {
+    public function getRepresentativeCompanyUserTradeFair(
+        RepresentativeCompanyUserTradeFairFilterTransfer $filterTransfer
+    ): RepresentativeCompanyUserTradeFairCollectionTransfer {
         return $this->facade->getRepresentativeCompanyUserTradeFair($filterTransfer);
     }
 }
