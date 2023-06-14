@@ -18,8 +18,8 @@ interface RepresentativeCompanyUserTradeFairRepositoryInterface
     public function findRepresentativeCompanyUserTradeFairByUuid(string $uuid): RepresentativeCompanyUserTradeFairTransfer;
 
    /**
-     * @return \Generated\Shared\Transfer\RepresentativeCompanyUserTradeFairCollectionTransfer
-     */
+    * @return \Generated\Shared\Transfer\RepresentativeCompanyUserTradeFairCollectionTransfer
+    */
     public function findExpiredRepresentativeCompanyUserTradeFair(): RepresentativeCompanyUserTradeFairCollectionTransfer;
 
     /**
@@ -27,7 +27,9 @@ interface RepresentativeCompanyUserTradeFairRepositoryInterface
      *
      * @return \Generated\Shared\Transfer\RepresentativeCompanyUserTradeFairCollectionTransfer
      */
-    public function getRepresentativeCompanyUserTradeFair(RepresentativeCompanyUserTradeFairFilterTransfer $filterTransfer): RepresentativeCompanyUserTradeFairCollectionTransfer;
+    public function getRepresentativeCompanyUserTradeFair(
+        RepresentativeCompanyUserTradeFairFilterTransfer $filterTransfer
+    ): RepresentativeCompanyUserTradeFairCollectionTransfer;
 
     /**
      * @param int $fkDistributor
@@ -48,8 +50,9 @@ interface RepresentativeCompanyUserTradeFairRepositoryInterface
     /**
      * @param int $fkRepresentative
      *
-     * @return array
      * @throws \Propel\Runtime\Exception\PropelException
+     *
+     * @return array
      */
     public function resolveDistributorFksToRepresent(int $fkRepresentative): array;
 }

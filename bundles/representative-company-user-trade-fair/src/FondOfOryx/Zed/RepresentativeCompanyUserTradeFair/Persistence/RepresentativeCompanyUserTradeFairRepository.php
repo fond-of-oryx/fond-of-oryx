@@ -22,9 +22,9 @@ class RepresentativeCompanyUserTradeFairRepository extends AbstractRepository im
     /**
      * @param string $uuid
      *
-     * @return \Generated\Shared\Transfer\RepresentativeCompanyUserTradeFairTransfer
      * @throws \Exception
      *
+     * @return \Generated\Shared\Transfer\RepresentativeCompanyUserTradeFairTransfer
      */
     public function findRepresentativeCompanyUserTradeFairByUuid(string $uuid): RepresentativeCompanyUserTradeFairTransfer
     {
@@ -43,8 +43,7 @@ class RepresentativeCompanyUserTradeFairRepository extends AbstractRepository im
      */
     public function findExpiredRepresentativeCompanyUserTradeFair(
         ?RepresentativeCompanyUserTradeFairFilterTransfer $filterTransfer = null
-    ): RepresentativeCompanyUserTradeFairCollectionTransfer
-    {
+    ): RepresentativeCompanyUserTradeFairCollectionTransfer {
         $query = $this->prepareQuery($filterTransfer);
 
         $results = $query->where(FooRepresentativeCompanyUserTradeFairTableMap::COL_END_AT . '< now()')
@@ -64,8 +63,9 @@ class RepresentativeCompanyUserTradeFairRepository extends AbstractRepository im
      *
      * @return \Generated\Shared\Transfer\RepresentativeCompanyUserTradeFairCollectionTransfer
      */
-    public function getRepresentativeCompanyUserTradeFair(RepresentativeCompanyUserTradeFairFilterTransfer $filterTransfer): RepresentativeCompanyUserTradeFairCollectionTransfer
-    {
+    public function getRepresentativeCompanyUserTradeFair(
+        RepresentativeCompanyUserTradeFairFilterTransfer $filterTransfer
+    ): RepresentativeCompanyUserTradeFairCollectionTransfer {
         $query = $this->prepareQuery($filterTransfer);
 
         $results = $query->find();
@@ -130,9 +130,9 @@ class RepresentativeCompanyUserTradeFairRepository extends AbstractRepository im
     /**
      * @param string $uuid
      *
-     * @return \Generated\Shared\Transfer\RepresentativeCompanyUserTradeFairTransfer
      * @throws \Exception
      *
+     * @return \Generated\Shared\Transfer\RepresentativeCompanyUserTradeFairTransfer
      */
     public function findTradeFairByUuid(string $uuid): RepresentativeCompanyUserTradeFairTransfer
     {
@@ -149,7 +149,6 @@ class RepresentativeCompanyUserTradeFairRepository extends AbstractRepository im
      * @param int $fkRepresentative
      *
      * @return array
-     * @throws \Propel\Runtime\Exception\PropelException
      */
     public function resolveDistributorFksToRepresent(int $fkRepresentative): array
     {
@@ -162,7 +161,7 @@ class RepresentativeCompanyUserTradeFairRepository extends AbstractRepository im
                     ->endUse()
                 ->endUse()
                 ->select(SpyCustomerTableMap::COL_ID_CUSTOMER)
-                ->where(SpyCustomerTableMap::COL_ID_CUSTOMER .' != ?', $fkRepresentative)
+                ->where(SpyCustomerTableMap::COL_ID_CUSTOMER . ' != ?', $fkRepresentative)
                 ->groupBy(SpyCustomerTableMap::COL_ID_CUSTOMER)
                 ->find()
                 ->getData();
@@ -177,23 +176,23 @@ class RepresentativeCompanyUserTradeFairRepository extends AbstractRepository im
     {
         $query = $this->getFactory()->getRepresentativeCompanyUserTradeFairQuery();
 
-        if ($filterTransfer === null){
+        if ($filterTransfer === null) {
             return $query;
         }
 
-        if ($filterTransfer->getTradeFairName() !== null){
+        if ($filterTransfer->getTradeFairName() !== null) {
             $query->filterByName($filterTransfer->getTradeFairName());
         }
 
-        if ($filterTransfer->getActive() !== null){
+        if ($filterTransfer->getActive() !== null) {
             $query->filterByActive($filterTransfer->getActive());
         }
 
-        if (count($filterTransfer->getUuids()) > 0){
+        if (count($filterTransfer->getUuids()) > 0) {
             $query->filterByUuid_In($filterTransfer->getUuids());
         }
 
-        if (count($filterTransfer->getFkDistributors()) > 0){
+        if (count($filterTransfer->getFkDistributors()) > 0) {
             $query->filterByFkDistributor_In($filterTransfer->getFkDistributors());
         }
 

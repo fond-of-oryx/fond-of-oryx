@@ -8,7 +8,7 @@ use Generated\Shared\Transfer\RepresentativeCompanyUserTransfer;
 class RepresentativeCompanyUserTradeFairToRepresentativeCompanyUserBridge implements RepresentativeCompanyUserTradeFairToRepresentativeCompanyUserInterface
 {
     /**
-     * @var \Spryker\Zed\Event\Business\EventFacadeInterface
+     * @var \FondOfOryx\Zed\RepresentativeCompanyUser\Business\RepresentativeCompanyUserFacadeInterface
      */
     protected $facade;
 

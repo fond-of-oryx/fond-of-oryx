@@ -18,8 +18,9 @@ class RepresentativeCompanyUserTradeFairEntityManager extends AbstractEntityMana
      *
      * @return \Generated\Shared\Transfer\RepresentativeCompanyUserTradeFairTransfer
      */
-    public function createRepresentativeCompanyUserTradeFair(RepresentativeCompanyUserTradeFairTransfer $representativeCompanyUserTradeFairTransfer): RepresentativeCompanyUserTradeFairTransfer
-    {
+    public function createRepresentativeCompanyUserTradeFair(
+        RepresentativeCompanyUserTradeFairTransfer $representativeCompanyUserTradeFairTransfer
+    ): RepresentativeCompanyUserTradeFairTransfer {
         $entity = $this->getFactory()->createTransferToEntityMapper()->fromRepresentativeCompanyUserTradeFairTransfer($representativeCompanyUserTradeFairTransfer);
         $entity->save();
 
@@ -33,8 +34,9 @@ class RepresentativeCompanyUserTradeFairEntityManager extends AbstractEntityMana
      *
      * @return \Generated\Shared\Transfer\RepresentativeCompanyUserTradeFairTransfer
      */
-    public function updateRepresentativeCompanyUserTradeFair(RepresentativeCompanyUserTradeFairTransfer $representativeCompanyUserTradeFairTransfer): RepresentativeCompanyUserTradeFairTransfer
-    {
+    public function updateRepresentativeCompanyUserTradeFair(
+        RepresentativeCompanyUserTradeFairTransfer $representativeCompanyUserTradeFairTransfer
+    ): RepresentativeCompanyUserTradeFairTransfer {
         $representativeCompanyUserTradeFairTransfer->requireUuid();
 
         $query = new FooRepresentativeCompanyUserTradeFairQuery();
@@ -53,6 +55,8 @@ class RepresentativeCompanyUserTradeFairEntityManager extends AbstractEntityMana
     /**
      * @param string $uuid
      *
+     * @throws \Exception
+     *
      * @return \Generated\Shared\Transfer\RepresentativeCompanyUserTradeFairTransfer
      */
     public function deactivate(string $uuid): RepresentativeCompanyUserTradeFairTransfer
@@ -67,7 +71,7 @@ class RepresentativeCompanyUserTradeFairEntityManager extends AbstractEntityMana
         $entity->setActive(false);
         $entity->save();
 
-        foreach ($entity->getFooRepresentativeCompanyUsers() as $companyUser){
+        foreach ($entity->getFooRepresentativeCompanyUsers() as $companyUser) {
             $companyUser->setState(FooRepresentativeCompanyUserTableMap::COL_PREVIOUS_STATE_REVOKED);
             $companyUser->save();
         }

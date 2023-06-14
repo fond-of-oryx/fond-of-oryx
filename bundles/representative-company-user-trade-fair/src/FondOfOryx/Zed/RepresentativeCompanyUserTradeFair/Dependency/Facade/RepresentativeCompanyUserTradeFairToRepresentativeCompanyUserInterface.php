@@ -2,7 +2,6 @@
 
 namespace FondOfOryx\Zed\RepresentativeCompanyUserTradeFair\Dependency\Facade;
 
-use FondOfOryx\Zed\RepresentativeCompanyUser\Business\RepresentativeCompanyUserFacadeInterface;
 use Generated\Shared\Transfer\RepresentativeCompanyUserTransfer;
 
 interface RepresentativeCompanyUserTradeFairToRepresentativeCompanyUserInterface

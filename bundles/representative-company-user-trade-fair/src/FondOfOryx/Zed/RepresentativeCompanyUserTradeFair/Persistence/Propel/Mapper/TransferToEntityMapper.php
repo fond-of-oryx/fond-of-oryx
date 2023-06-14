@@ -12,8 +12,9 @@ class TransferToEntityMapper implements TransferToEntityMapperInterface
      *
      * @return \Orm\Zed\RepresentativeCompanyUserTradeFair\Persistence\FooRepresentativeCompanyUserTradeFair
      */
-    public function fromRepresentativeCompanyUserTradeFairTransfer(RepresentativeCompanyUserTradeFairTransfer $representativeCompanyUserTradeFairTransfer): FooRepresentativeCompanyUserTradeFair
-    {
+    public function fromRepresentativeCompanyUserTradeFairTransfer(
+        RepresentativeCompanyUserTradeFairTransfer $representativeCompanyUserTradeFairTransfer
+    ): FooRepresentativeCompanyUserTradeFair {
         return (new FooRepresentativeCompanyUserTradeFair())->fromArray($representativeCompanyUserTradeFairTransfer->modifiedToArray());
     }
 }
