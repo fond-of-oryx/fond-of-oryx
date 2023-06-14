@@ -62,10 +62,18 @@ class SearchProductListQueryExpander implements SearchProductListQueryExpanderIn
             return $queryJoinCollectionTransfer;
         }
 
+        $queryWhereConditionTransfer = (new QueryWhereConditionTransfer())
+            ->setColumn(SpyCompanyTableMap::COL_UUID)
+            ->setComparison(Criteria::EQUAL)
+            ->setValue($companyUuid);
+
         $idCompanyUser = $this->companyUserReader->getIdByFilterFields($filterFieldTransfers);
 
         if ($idCompanyUser === null || !$this->permissionFacade->can(SeeCompanyProductListsPermissionPlugin::KEY, $idCompanyUser)) {
-            return $queryJoinCollectionTransfer;
+            $queryWhereConditionTransfer = (new QueryWhereConditionTransfer())
+                ->setColumn(SpyCompanyTableMap::COL_ID_COMPANY)
+                ->setComparison(Criteria::EQUAL)
+                ->setValue('-1');
         }
 
         return $queryJoinCollectionTransfer->addQueryJoin(
@@ -78,12 +86,7 @@ class SearchProductListQueryExpander implements SearchProductListQueryExpanderIn
                 ->setJoinType(Criteria::INNER_JOIN)
                 ->setLeft([SpyProductListCompanyTableMap::COL_FK_COMPANY])
                 ->setRight([SpyCompanyTableMap::COL_ID_COMPANY])
-                ->addQueryWhereCondition(
-                    (new QueryWhereConditionTransfer())
-                        ->setColumn(SpyCompanyTableMap::COL_UUID)
-                        ->setComparison(Criteria::EQUAL)
-                        ->setValue($companyUuid),
-                ),
+                ->addQueryWhereCondition($queryWhereConditionTransfer),
         );
     }
 }

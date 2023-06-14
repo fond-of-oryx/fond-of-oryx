@@ -191,8 +191,29 @@ class SearchProductListQueryExpanderTest extends Unit
             ->with(SeeCompanyProductListsPermissionPlugin::KEY, $idCompanyUser)
             ->willReturn(false);
 
-        $this->queryJoinCollectionTransferMock->expects(static::never())
-            ->method('addQueryJoin');
+        $this->queryJoinCollectionTransferMock->expects(static::atLeastOnce())
+            ->method('addQueryJoin')
+            ->withConsecutive([
+                static::callback(
+                    fn (
+                        QueryJoinTransfer $queryJoinTransfer
+                    ) => $queryJoinTransfer->getJoinType() === Criteria::INNER_JOIN
+                        && $queryJoinTransfer->getLeft() == [SpyProductListTableMap::COL_ID_PRODUCT_LIST]
+                        && $queryJoinTransfer->getRight() == [SpyProductListCompanyTableMap::COL_FK_PRODUCT_LIST]
+                ),
+            ], [
+                static::callback(
+                    fn (
+                        QueryJoinTransfer $queryJoinTransfer
+                    ) => $queryJoinTransfer->getJoinType() === Criteria::INNER_JOIN
+                        && $queryJoinTransfer->getLeft() == [SpyProductListCompanyTableMap::COL_FK_COMPANY]
+                        && $queryJoinTransfer->getRight() == [SpyCompanyTableMap::COL_ID_COMPANY]
+                        && $queryJoinTransfer->getWhereConditions()->count() === 1
+                        && $queryJoinTransfer->getWhereConditions()->offsetGet(0)->getColumn() === SpyCompanyTableMap::COL_ID_COMPANY
+                        && $queryJoinTransfer->getWhereConditions()->offsetGet(0)->getComparison() === Criteria::EQUAL
+                        && $queryJoinTransfer->getWhereConditions()->offsetGet(0)->getValue() === '-1'
+                ),
+            ])->willReturn($this->queryJoinCollectionTransferMock);
 
         static::assertEquals(
             $this->queryJoinCollectionTransferMock,
