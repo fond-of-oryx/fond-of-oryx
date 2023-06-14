@@ -185,7 +185,7 @@
     },
     "company-product-list-search-rest-api": {
       "path": "bundles/company-product-list-search-rest-api/",
-      "version": "1.0.0"
+      "version": "1.0.1"
     },
     "company-product-lists-rest-api": {
       "path": "bundles/company-product-lists-rest-api/",
