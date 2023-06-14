@@ -2,7 +2,7 @@
 
 namespace FondOfOryx\Zed\RepresentativeCompanyUserTradeFairRestApi\Business\Validator;
 
-use \DateTime;
+use DateTime;
 use FondOfOryx\Zed\RepresentativeCompanyUserTradeFairRestApi\RepresentativeCompanyUserTradeFairRestApiConfig;
 use Generated\Shared\Transfer\RestRepresentativeCompanyUserTradeFairAttributesTransfer;
 
@@ -25,14 +25,19 @@ class DurationValidator implements DurationValidatorInterface
      * @param \Generated\Shared\Transfer\RestRepresentativeCompanyUserTradeFairAttributesTransfer $restRepresentativeCompanyUserTradeFairAttributesTransfer
      *
      * @return bool
-     *
-     * @throws \Exception
      */
     public function validate(
         RestRepresentativeCompanyUserTradeFairAttributesTransfer $restRepresentativeCompanyUserTradeFairAttributesTransfer
     ): bool {
-        $startAtDateTime = new DateTime($restRepresentativeCompanyUserTradeFairAttributesTransfer->getStartAt());
-        $endAtDateTime = new DateTime($restRepresentativeCompanyUserTradeFairAttributesTransfer->getEndAt());
+        $startAt = $restRepresentativeCompanyUserTradeFairAttributesTransfer->getStartAt();
+        $endAt = $restRepresentativeCompanyUserTradeFairAttributesTransfer->getEndAt();
+
+        if (!$startAt || !$endAt) {
+            return false;
+        }
+
+        $startAtDateTime = new DateTime($startAt);
+        $endAtDateTime = new DateTime($endAt);
 
         if ($startAtDateTime->diff($endAtDateTime)->format('%d') > $this->config->getMaxDurationForRepresentation()) {
             return false;
@@ -40,5 +45,4 @@ class DurationValidator implements DurationValidatorInterface
 
         return true;
     }
-
 }

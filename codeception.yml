@@ -1,7 +1,6 @@
 namespace: fond-of-oryx/fond-of-oryx
 
 include:
-  - bundles/representative-company-user-trade-fair-rest-api-permission
   - bundles/availability-alert
   - bundles/availability-alert-cross-engage
   - bundles/availability-alert-migrator
@@ -172,6 +171,7 @@ include:
   - bundles/representative-company-user
   - bundles/representative-company-user-rest-api
   - bundles/representative-company-user-rest-api-permission
+  - bundles/representative-company-user-trade-fair-rest-api
   - bundles/representative-company-user-trade-fair-rest-api-permission
   - bundles/return-label
   - bundles/return-labels-rest-api

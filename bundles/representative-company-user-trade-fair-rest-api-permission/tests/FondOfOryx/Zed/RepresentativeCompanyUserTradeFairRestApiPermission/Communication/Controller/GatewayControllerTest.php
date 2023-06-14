@@ -89,8 +89,7 @@ class GatewayControllerTest extends Unit
 
         $this->gatewayController
             ->hasPermissionToManageTradeFairRepresentationsAction(
-                $this->representativeCompanyUserTradeFairRestApiPermissionRequestTransferMock
+                $this->representativeCompanyUserTradeFairRestApiPermissionRequestTransferMock,
             );
     }
-
 }

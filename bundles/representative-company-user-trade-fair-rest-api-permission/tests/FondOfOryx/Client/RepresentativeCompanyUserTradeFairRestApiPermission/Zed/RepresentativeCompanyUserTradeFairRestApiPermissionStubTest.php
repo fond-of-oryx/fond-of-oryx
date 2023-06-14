@@ -69,7 +69,7 @@ class RepresentativeCompanyUserTradeFairRestApiPermissionStubTest extends Unit
         static::assertEquals(
             $this->representativeCompanyUserTradeFairRestApiPermissionResponseTransferMock,
             $this->stub->hasPermissionToManageOwnTradeFairRepresentations(
-                $this->representativeCompanyUserTradeFairRestApiPermissionRequestTransferMock
+                $this->representativeCompanyUserTradeFairRestApiPermissionRequestTransferMock,
             ),
         );
     }

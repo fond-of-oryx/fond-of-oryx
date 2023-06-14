@@ -4,7 +4,7 @@ namespace FondOfOryx\Zed\RepresentativeCompanyUserTradeFairRestApi\Dependency\Fa
 
 use Generated\Shared\Transfer\CompanyTypeTransfer;
 
-interface RepresentativeCompanyUserTradeFairRestApiToCompanyTypeInterface
+interface RepresentativeCompanyUserTradeFairRestApiToCompanyTypeFacadeInterface
 {
     /**
      * @return \Generated\Shared\Transfer\CompanyTypeTransfer|null

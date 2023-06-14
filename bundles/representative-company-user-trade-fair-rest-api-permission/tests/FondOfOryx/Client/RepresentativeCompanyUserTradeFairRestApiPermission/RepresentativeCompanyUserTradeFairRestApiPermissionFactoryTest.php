@@ -59,7 +59,7 @@ class RepresentativeCompanyUserTradeFairRestApiPermissionFactoryTest extends Uni
 
         static::assertInstanceOf(
             RepresentativeCompanyUserTradeFairRestApiPermissionStub::class,
-            $this->factory->createRepresentativeCompanyUserTradeFairRestApiPermissionStub()
+            $this->factory->createRepresentativeCompanyUserTradeFairRestApiPermissionStub(),
         );
     }
 }

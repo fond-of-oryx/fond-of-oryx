@@ -5,17 +5,17 @@ namespace FondOfOryx\Client\RepresentativeCompanyUserTradeFairRestApiPermission;
 use Codeception\Test\Unit;
 use FondOfOryx\Client\RepresentativeCompanyUserTradeFairRestApiPermission\Dependency\Client\RepresentativeCompanyUserTradeFairRestApiPermissionToZedRequestInterface;
 use PHPUnit\Framework\MockObject\MockObject;
+use Spryker\Client\Kernel\Container;
 use Spryker\Client\Kernel\Locator;
 use Spryker\Client\ZedRequest\ZedRequestClientInterface;
 use Spryker\Shared\Kernel\BundleProxy;
-use Spryker\Zed\Kernel\Container;
 
 class RepresentativeCompanyUserTradeFairRestApiPermissionDependencyProviderTest extends Unit
 {
     /**
      * @var \PHPUnit\Framework\MockObject\MockObject|\Spryker\Zed\Kernel\Container
      */
-    protected  MockObject|\Spryker\Client\Kernel\Container $containerMock;
+    protected MockObject|\Spryker\Client\Kernel\Container $containerMock;
 
     /**
      * @var \PHPUnit\Framework\MockObject\MockObject|\Spryker\Client\Kernel\Locator
@@ -44,7 +44,7 @@ class RepresentativeCompanyUserTradeFairRestApiPermissionDependencyProviderTest 
     {
         parent::_before();
 
-        $this->containerMock = $this->getMockBuilder(\Spryker\Client\Kernel\Container::class)
+        $this->containerMock = $this->getMockBuilder(Container::class)
             ->setMethodsExcept(['factory', 'set', 'offsetSet', 'get', 'offsetGet'])
             ->getMock();
 
@@ -88,6 +88,5 @@ class RepresentativeCompanyUserTradeFairRestApiPermissionDependencyProviderTest 
             RepresentativeCompanyUserTradeFairRestApiPermissionToZedRequestInterface::class,
             $container[RepresentativeCompanyUserTradeFairRestApiPermissionDependencyProvider::CLIENT_ZED_REQUEST],
         );
-
     }
 }

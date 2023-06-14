@@ -44,6 +44,5 @@ class RepresentativeCompanyUserTradeFairRestApiPermissionDependencyProviderTest 
             SpyCompanyRoleToPermissionQuery::class,
             $container[RepresentativeCompanyUserTradeFairRestApiPermissionDependencyProvider::QUERY_SPY_COMPANY_ROLE_PERMISSION],
         );
-
     }
 }

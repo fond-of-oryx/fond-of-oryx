@@ -83,7 +83,7 @@ class RepresentativeCompanyUserTradeFairRestApiPermissionClientTest extends Unit
 
         static::assertTrue(
             $this->client->hasPermissionToManageOwnTradeFairRepresentations(
-                $this->representativeCompanyUserTradeFairRestApiPermissionRequestTransferMock
+                $this->representativeCompanyUserTradeFairRestApiPermissionRequestTransferMock,
             ),
         );
     }
