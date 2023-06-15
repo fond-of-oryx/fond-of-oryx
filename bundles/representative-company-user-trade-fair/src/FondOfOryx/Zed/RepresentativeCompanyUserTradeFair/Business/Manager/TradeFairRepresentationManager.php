@@ -1,6 +1,7 @@
 <?php
 
 namespace FondOfOryx\Zed\RepresentativeCompanyUserTradeFair\Business\Manager;
+
 use Exception;
 use FondOfOryx\Zed\RepresentativeCompanyUserTradeFair\Dependency\Facade\RepresentativeCompanyUserTradeFairToRepresentativeCompanyUserInterface;
 use FondOfOryx\Zed\RepresentativeCompanyUserTradeFair\Dependency\Service\RepresentativeCompanyUserTradeFairToUtilUuidGeneratorServiceInterface;
@@ -61,7 +62,7 @@ class TradeFairRepresentationManager implements TradeFairRepresentationManagerIn
         RepresentativeCompanyUserTradeFairToRepresentativeCompanyUserInterface $representativeCompanyUserFacade,
         RepresentativeCompanyUserTradeFairToUtilUuidGeneratorServiceInterface $uuidGenerator,
         TransactionHandlerInterface $transactionHandler,
-        LoggerInterface $logger,
+        LoggerInterface $logger
     ) {
         $this->entityManager = $entityManager;
         $this->repository = $repository;
@@ -82,10 +83,12 @@ class TradeFairRepresentationManager implements TradeFairRepresentationManagerIn
     }
 
     /**
-     * @param RepresentativeCompanyUserTradeFairTransfer $representativeCompanyUserTradeFairTransfer
-     * @return RepresentativeCompanyUserTradeFairTransfer
-     * @throws Throwable
+     * @param \Generated\Shared\Transfer\RepresentativeCompanyUserTradeFairTransfer $representativeCompanyUserTradeFairTransfer
+     *
+     * @throws \Throwable
      * @throws \Propel\Runtime\Exception\PropelException
+     *
+     * @return \Generated\Shared\Transfer\RepresentativeCompanyUserTradeFairTransfer
      */
     public function create(RepresentativeCompanyUserTradeFairTransfer $representativeCompanyUserTradeFairTransfer): RepresentativeCompanyUserTradeFairTransfer
     {
@@ -103,8 +106,8 @@ class TradeFairRepresentationManager implements TradeFairRepresentationManagerIn
                     $representativeCompanyUserTransfer = $self->createRepresentativeCompanyUserTransfer($representativeCompanyUserTradeFairTransfer);
 
                     $done = [];
-                    foreach ($toRepresent as $fkDistributorToRepresentate){
-                        if (in_array($fkDistributorToRepresentate, $done, true)){
+                    foreach ($toRepresent as $fkDistributorToRepresentate) {
+                        if (in_array($fkDistributorToRepresentate, $done, true)) {
                             continue;
                         }
                         $representativeCompanyUserTransfer->setFkDistributor($fkDistributorToRepresentate);
@@ -117,12 +120,17 @@ class TradeFairRepresentationManager implements TradeFairRepresentationManagerIn
             );
         } catch (Throwable $throwable) {
             $this->logger->error($throwable->getMessage(), $throwable->getTrace());
+
             throw $throwable;
         }
     }
 
     /**
      * @param \Generated\Shared\Transfer\RepresentativeCompanyUserTradeFairTransfer $representativeCompanyUserTradeFairTransfer
+     *
+     * @throws \Throwable
+     * @throws \Propel\Runtime\Exception\PropelException
+     * @throws \Spryker\Shared\Kernel\Transfer\Exception\RequiredTransferPropertyException
      *
      * @return \Generated\Shared\Transfer\RepresentativeCompanyUserTradeFairTransfer
      */
@@ -136,14 +144,14 @@ class TradeFairRepresentationManager implements TradeFairRepresentationManagerIn
                 static function () use ($representativeCompanyUserTradeFairTransfer, $self) {
                     $representativeCompanyUserTradeFairTransferUpdate = $self->repository->findTradeFairByUuid($representativeCompanyUserTradeFairTransfer->getUuid());
 
-                    if ($representativeCompanyUserTradeFairTransferUpdate->getFkDistributor() !== $representativeCompanyUserTradeFairTransfer->getFkDistributor()){
+                    if ($representativeCompanyUserTradeFairTransferUpdate->getFkDistributor() !== $representativeCompanyUserTradeFairTransfer->getFkDistributor()) {
                         throw new Exception('Please use delete endpoint fist and then create new trade fair entry!');
                     }
 
                     $representativeCompanyUserTradeFairTransferUpdate->fromArray($representativeCompanyUserTradeFairTransfer->modifiedToArray());
 
                     $fkDistributorIds = [];
-                    foreach ($representativeCompanyUserTradeFairTransferUpdate->getRepresentativeCompanyUser() as $repCompanyUser){
+                    foreach ($representativeCompanyUserTradeFairTransferUpdate->getRepresentativeCompanyUser() as $repCompanyUser) {
                         $repCompanyUser
                             ->setFkRepresentative($representativeCompanyUserTradeFairTransferUpdate->getFkDistributor())
                             ->setFkOriginator($representativeCompanyUserTradeFairTransferUpdate->getFkOriginator())
@@ -156,8 +164,8 @@ class TradeFairRepresentationManager implements TradeFairRepresentationManagerIn
                     }
 
                     $createNew = $self->repository->resolveDistributorFksToRepresent($representativeCompanyUserTradeFairTransferUpdate->getFkDistributor());
-                    foreach ($createNew as $fkCustomer){
-                        if (in_array($fkCustomer, $fkDistributorIds, true)){
+                    foreach ($createNew as $fkCustomer) {
+                        if (in_array($fkCustomer, $fkDistributorIds, true)) {
                             continue;
                         }
 
@@ -166,11 +174,13 @@ class TradeFairRepresentationManager implements TradeFairRepresentationManagerIn
                         $self->representativeCompanyUserFacade->createRepresentativeCompanyUser($transfer);
                     }
                     $representativeCompanyUserTradeFairTransfer->setActive(true);
+
                     return $self->entityManager->updateRepresentativeCompanyUserTradeFair($representativeCompanyUserTradeFairTransfer);
                 },
             );
         } catch (Throwable $throwable) {
             $this->logger->error($throwable->getMessage(), $throwable->getTrace());
+
             throw $throwable;
         }
     }
@@ -188,6 +198,8 @@ class TradeFairRepresentationManager implements TradeFairRepresentationManagerIn
     /**
      * @param string $uuid
      *
+     * @throws \Throwable
+     *
      * @return \Generated\Shared\Transfer\RepresentativeCompanyUserTradeFairTransfer
      */
     public function delete(string $uuid): RepresentativeCompanyUserTradeFairTransfer
@@ -202,6 +214,7 @@ class TradeFairRepresentationManager implements TradeFairRepresentationManagerIn
             );
         } catch (Throwable $throwable) {
             $this->logger->error($throwable->getMessage(), $throwable->getTrace());
+
             throw $throwable;
         }
     }
@@ -217,11 +230,13 @@ class TradeFairRepresentationManager implements TradeFairRepresentationManagerIn
     }
 
     /**
-     * @param RepresentativeCompanyUserTradeFairTransfer $representativeCompanyUserTradeFairTransfer
-     * @return RepresentativeCompanyUserTransfer
+     * @param \Generated\Shared\Transfer\RepresentativeCompanyUserTradeFairTransfer $representativeCompanyUserTradeFairTransfer
+     *
+     * @return \Generated\Shared\Transfer\RepresentativeCompanyUserTransfer
      */
-    protected function createRepresentativeCompanyUserTransfer(RepresentativeCompanyUserTradeFairTransfer $representativeCompanyUserTradeFairTransfer): RepresentativeCompanyUserTransfer
-    {
+    protected function createRepresentativeCompanyUserTransfer(
+        RepresentativeCompanyUserTradeFairTransfer $representativeCompanyUserTradeFairTransfer
+    ): RepresentativeCompanyUserTransfer {
         return (new RepresentativeCompanyUserTransfer())
             ->setFkRepresentativeCompanyUserTradeFair($representativeCompanyUserTradeFairTransfer->getIdRepresentativeCompanyUserTradeFair())
             ->setFkRepresentative($representativeCompanyUserTradeFairTransfer->getFkDistributor())

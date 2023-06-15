@@ -271,10 +271,6 @@ class TradeFairRepresentationManagerTest extends Unit
             ->willReturn(2);
 
         $this->representativeCompanyUserTransferMock->expects(static::atLeastOnce())
-            ->method('setFkRepresentativeCompanyUserTradeFair')
-            ->willReturnSelf();
-
-        $this->representativeCompanyUserTransferMock->expects(static::atLeastOnce())
             ->method('setFkRepresentative')
             ->willReturnSelf();
 
