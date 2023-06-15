@@ -39,7 +39,7 @@ class DurationValidator implements DurationValidatorInterface
         $startAtDateTime = new DateTime($startAt);
         $endAtDateTime = new DateTime($endAt);
 
-        if ($startAtDateTime->diff($endAtDateTime)->format('%d') > $this->config->getMaxDurationForRepresentation()) {
+        if ($startAtDateTime->diff($endAtDateTime)->days > $this->config->getMaxDurationForRepresentation()) {
             return false;
         }
 
