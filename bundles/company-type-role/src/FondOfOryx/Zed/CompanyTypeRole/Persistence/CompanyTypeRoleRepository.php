@@ -17,6 +17,7 @@ class CompanyTypeRoleRepository extends AbstractRepository implements CompanyTyp
      */
     public function findActiveCompanyUserIdsByIdCustomer(int $idCustomer): array
     {
+        /** @phpstan-ignore-next-line */
         return $this->getFactory()->getCompanyUserQuery()
             ->clear()
             ->filterByIsActive(true)

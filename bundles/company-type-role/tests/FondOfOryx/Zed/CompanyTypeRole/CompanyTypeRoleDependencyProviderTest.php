@@ -3,10 +3,10 @@
 namespace FondOfOryx\Zed\CompanyTypeRole;
 
 use Codeception\Test\Unit;
-use FondOfOryx\Zed\CompanyType\Business\CompanyTypeFacadeInterface;
 use FondOfOryx\Zed\CompanyTypeRole\Dependency\Facade\CompanyTypeRoleToCompanyRoleFacadeBridge;
 use FondOfOryx\Zed\CompanyTypeRole\Dependency\Facade\CompanyTypeRoleToCompanyTypeFacadeBridge;
 use FondOfOryx\Zed\CompanyTypeRole\Dependency\Facade\CompanyTypeRoleToPermissionFacadeBridge;
+use FondOfSpryker\Zed\CompanyType\Business\CompanyTypeFacadeInterface;
 use Spryker\Shared\Kernel\BundleProxy;
 use Spryker\Zed\CompanyRole\Business\CompanyRoleFacadeInterface;
 use Spryker\Zed\Kernel\Container;
@@ -36,7 +36,7 @@ class CompanyTypeRoleDependencyProviderTest extends Unit
     protected $companyRoleFacadeMock;
 
     /**
-     * @var \PHPUnit\Framework\MockObject\MockObject|\FondOfOryx\Zed\CompanyType\Business\CompanyTypeFacadeInterface
+     * @var \PHPUnit\Framework\MockObject\MockObject|\FondOfSpryker\Zed\CompanyType\Business\CompanyTypeFacadeInterface
      */
     protected $companyTypeFacadeMock;
 

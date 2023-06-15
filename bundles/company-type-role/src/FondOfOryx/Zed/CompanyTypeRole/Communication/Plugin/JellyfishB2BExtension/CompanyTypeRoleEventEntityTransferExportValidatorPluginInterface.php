@@ -2,7 +2,7 @@
 
 namespace FondOfOryx\Zed\CompanyTypeRole\Communication\Plugin\JellyfishB2BExtension;
 
-use FondOfOryx\Zed\JellyfishB2BExtension\Dependency\Plugin\EventEntityTransferExportValidatorPluginInterface;
+use FondOfSpryker\Zed\JellyfishB2BExtension\Dependency\Plugin\EventEntityTransferExportValidatorPluginInterface;
 use Generated\Shared\Transfer\EventEntityTransfer;
 use Spryker\Zed\Kernel\Communication\AbstractPlugin;
 
