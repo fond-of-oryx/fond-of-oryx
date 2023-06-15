@@ -172,7 +172,6 @@ include:
   - bundles/representative-company-user-rest-api
   - bundles/representative-company-user-rest-api-permission
   - bundles/representative-company-user-trade-fair-rest-api
-  - bundles/representative-company-user-trade-fair-rest-api-permission
   - bundles/return-label
   - bundles/return-labels-rest-api
   - bundles/return-labels-rest-api-company-unit-address-connector
