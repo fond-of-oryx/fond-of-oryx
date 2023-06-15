@@ -2,15 +2,8 @@
 
 namespace FondOfOryx\Shared\RepresentativeCompanyUserTradeFairRestApi;
 
-use FondOfOryx\Zed\RepresentativeCompanyUserTradeFairRestApiPermission\Communication\Plugin\Permission\CanManageRepresentationOnTradeFairPermissionPlugin;
-
 interface RepresentativeCompanyUserTradeFairRestApiConstants
 {
-    /**
-     * @var string
-     */
-    public const PERMISSION_KEY = CanManageRepresentationOnTradeFairPermissionPlugin::KEY;
-
     /**
      * @var string
      */
