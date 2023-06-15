@@ -223,6 +223,10 @@
       "path": "bundles/company-type-product-lists-rest-api/",
       "version": "2.0.0"
     },
+    "company-type-role": {
+      "path": "bundles/company-type-role/",
+      "version": "1.0.0"
+    },
     "company-unit-address-api": {
       "path": "bundles/company-unit-address-api/",
       "version": "3.0.0"
