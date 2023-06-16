@@ -161,7 +161,7 @@ class TradeFairRepresentationManager implements TradeFairRepresentationManagerIn
     protected function getStatus(
         RepresentativeCompanyUserTradeFairTransfer $representativeCompanyUserTradeFairTransfer,
         RestRepresentativeCompanyUserTradeFairAttributesTransfer $representativeCompanyUserTradeFairAttributesTransfer
-    ): bool{
+    ): bool {
         if ($representativeCompanyUserTradeFairAttributesTransfer->getStartAt() < $representativeCompanyUserTradeFairTransfer->getStartAt()) {
             return false;
         }
