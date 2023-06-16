@@ -156,12 +156,12 @@ class TradeFairRepresentationManager implements TradeFairRepresentationManagerIn
      * @param \Generated\Shared\Transfer\RepresentativeCompanyUserTradeFairTransfer $representativeCompanyUserTradeFairTransfer
      * @param \Generated\Shared\Transfer\RestRepresentativeCompanyUserTradeFairAttributesTransfer $representativeCompanyUserTradeFairAttributesTransfer
      *
-     * @return string
+     * @return bool
      */
     protected function getStatus(
         RepresentativeCompanyUserTradeFairTransfer $representativeCompanyUserTradeFairTransfer,
         RestRepresentativeCompanyUserTradeFairAttributesTransfer $representativeCompanyUserTradeFairAttributesTransfer
-    ): string {
+    ): bool{
         if ($representativeCompanyUserTradeFairAttributesTransfer->getStartAt() < $representativeCompanyUserTradeFairTransfer->getStartAt()) {
             return false;
         }

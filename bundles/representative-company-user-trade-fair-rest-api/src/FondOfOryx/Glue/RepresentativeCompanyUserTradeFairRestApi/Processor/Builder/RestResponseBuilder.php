@@ -73,7 +73,7 @@ class RestResponseBuilder implements RestResponseBuilderInterface
     public function createRestErrorResponse(string $error, int $code, int $status = 0): RestResponseInterface
     {
         $restErrorMessageTransfer = (new RestErrorMessageTransfer())
-            ->setCode($code)
+            ->setCode((string)$code)
             ->setStatus(0)
             ->setDetail($error);
 
