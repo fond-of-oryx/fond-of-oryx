@@ -62,7 +62,6 @@ class CountryRestrictionRestrictionPaymentMethodFilterTest extends Unit
             ->disableOriginalConstructor()
             ->getMock();
 
-
         $this->paymentMethodsTransfer = new PaymentMethodsTransfer();
 
         $this->paymentMethodsTransfer->setMethods(new ArrayObject([
