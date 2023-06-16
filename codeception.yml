@@ -150,6 +150,7 @@ include:
   - bundles/order-budget
   - bundles/order-budget-search-rest-api
   - bundles/order-budget-search-rest-api-extension
+  - bundles/payment-address-restriction
   - bundles/payment-cart-connector
   - bundles/payment-epc-qr-code
   - bundles/payone-credit-memo

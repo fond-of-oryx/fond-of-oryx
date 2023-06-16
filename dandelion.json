@@ -705,7 +705,7 @@
     },
     "payment-address-restriction": {
       "path": "bundles/payment-address-restriction/",
-      "version": "2.0.0"
+      "version": "2.0.1"
     },
     "payment-cart-connector": {
       "path": "bundles/payment-cart-connector/",
