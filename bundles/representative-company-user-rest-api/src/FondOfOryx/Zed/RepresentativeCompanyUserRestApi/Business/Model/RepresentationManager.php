@@ -83,14 +83,14 @@ class RepresentationManager implements RepresentationManagerInterface
             $representationTransfer->getDistributor()->getCustomerReference() !== $restRepresentativeCompanyUserAttributesTransfer->getReferenceDistributor()
             || $representationTransfer->getRepresentative()->getCustomerReference() !== $restRepresentativeCompanyUserAttributesTransfer->getReferenceRepresentation()
         ) {
-            $representationTransfer->setStatus(FooRepresentativeCompanyUserTableMap::COL_STATE_REVOKED);
+            $representationTransfer->setState(FooRepresentativeCompanyUserTableMap::COL_STATE_REVOKED);
             $this->representativeCompanyUserFacade->updateRepresentativeCompanyUser($representationTransfer);
 
             return $this->addRepresentation($restRepresentativeCompanyUserRequestTransfer);
         }
 
         $representationTransfer
-            ->setStatus($this->getStatus($representationTransfer, $restRepresentativeCompanyUserAttributesTransfer))
+            ->setState($this->getState($representationTransfer, $restRepresentativeCompanyUserAttributesTransfer))
             ->setEndAt($restRepresentativeCompanyUserAttributesTransfer->getEndAt())
             ->setStartAt($restRepresentativeCompanyUserAttributesTransfer->getStartAt());
         $response = $this->representativeCompanyUserFacade->updateRepresentativeCompanyUser($representationTransfer);
@@ -127,7 +127,7 @@ class RepresentationManager implements RepresentationManagerInterface
      *
      * @return string
      */
-    protected function getStatus(
+    protected function getState(
         RepresentativeCompanyUserTransfer $representativeCompanyUserTransfer,
         RestRepresentativeCompanyUserAttributesTransfer $representativeCompanyUserAttributesTransfer
     ): string {

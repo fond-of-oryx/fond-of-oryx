@@ -24,12 +24,16 @@ class EntityToTransferMapper implements EntityToTransferMapperInterface
     }
 
     /**
-     * @param \Orm\Zed\Customer\Persistence\SpyCustomer $customerEntity
+     * @param \Orm\Zed\Customer\Persistence\SpyCustomer|null $customerEntity
      *
-     * @return \Generated\Shared\Transfer\CustomerTransfer
+     * @return \Generated\Shared\Transfer\CustomerTransfer|null
      */
-    protected function mapCustomer(SpyCustomer $customerEntity): CustomerTransfer
+    protected function mapCustomer(?SpyCustomer $customerEntity): ?CustomerTransfer
     {
+        if ($customerEntity === null) {
+            return null;
+        }
+
         return (new CustomerTransfer())->fromArray($customerEntity->toArray(), true);
     }
 }
