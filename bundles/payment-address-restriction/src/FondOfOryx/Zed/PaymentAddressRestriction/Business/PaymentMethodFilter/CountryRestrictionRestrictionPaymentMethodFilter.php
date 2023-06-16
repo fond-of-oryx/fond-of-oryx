@@ -32,7 +32,7 @@ class CountryRestrictionRestrictionPaymentMethodFilter implements PaymentMethodF
         PaymentMethodsTransfer $paymentMethodsTransfer,
         QuoteTransfer $quoteTransfer
     ): PaymentMethodsTransfer {
-        if ($this->hasRestrictedPaymentMethods($paymentMethodsTransfer) === false) {
+        if ($quoteTransfer->getBillingAddress() === null || $this->hasRestrictedPaymentMethods($paymentMethodsTransfer) === false) {
             return $paymentMethodsTransfer;
         }
 
@@ -67,10 +67,6 @@ class CountryRestrictionRestrictionPaymentMethodFilter implements PaymentMethodF
         PaymentMethodsTransfer $paymentMethodsTransfer,
         QuoteTransfer $quoteTransfer
     ): PaymentMethodsTransfer {
-        if (!$quoteTransfer->getBillingAddress()) {
-            return $paymentMethodsTransfer;
-        }
-
         $filteredPaymentMethods = new ArrayObject();
 
         foreach ($this->config->getBlackListedPaymentCountryCombinations() as $paymentMethodName => $iso2Countries) {
