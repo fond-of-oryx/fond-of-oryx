@@ -37,7 +37,7 @@ class TradeFairRepresentationManagerTest extends Unit
     /**
      * @var \PHPUnit\Framework\MockObject\MockObject|\FondOfOryx\Zed\RepresentativeCompanyUserTradeFairRestApi\Business\Validator\DurationValidatorInterface
      */
-    protected DurationValidatorInterface $durationValidatorMock;
+    protected DurationValidatorInterface|MockObject $durationValidatorMock;
 
     /**
      * @var \PHPUnit\Framework\MockObject\MockObject|\FondOfOryx\Zed\RepresentativeCompanyUserTradeFairRestApi\Dependency\Facade\RepresentativeCompanyUserTradeFairRestApiToRepresentativeCompanyUserTradeFairFacadeInterface
@@ -70,7 +70,7 @@ class TradeFairRepresentationManagerTest extends Unit
     protected $representativeCompanyUserTradeFairCollectionTransferMock;
 
     /**
-     * @var \FondOfOryx\Zed\RepresentativeCompanyUserTradeFairRestApi\Business\Model\TradeFairRepresentationManagerInterface
+     * @var \FondOfOryx\Zed\RepresentativeCompanyUserTradeFairRestApi\Business\Model\TradeFairRepresentationManager
      */
     protected TradeFairRepresentationManager $tradeFairRepresentation;
 
