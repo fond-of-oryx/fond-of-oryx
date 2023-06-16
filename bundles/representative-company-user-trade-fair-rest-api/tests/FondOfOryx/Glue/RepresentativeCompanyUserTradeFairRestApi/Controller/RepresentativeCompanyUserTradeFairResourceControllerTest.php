@@ -33,6 +33,11 @@ class RepresentativeCompanyUserTradeFairResourceControllerTest extends Unit
     protected RestResponseInterface|MockObject $restResponseMock;
 
     /**
+     * @var \FondOfOryx\Glue\RepresentativeCompanyUserTradeFairRestApi\Controller\RepresentativeCompanyUserTradeFairResourceController|\PHPUnit\Framework\MockObject\MockObject
+     */
+    protected RepresentativeCompanyUserTradeFairResourceController|MockObject $resourceController;
+
+    /**
      * @return void
      */
     protected function _before(): void

@@ -5,6 +5,11 @@ namespace FondOfOryx\Shared\RepresentativeCompanyUserTradeFairRestApi;
 interface RepresentativeCompanyUserTradeFairRestApiConstants
 {
     /**
+     * @var int
+     */
+    public const HTTP_CODE_VALIDATION_ERRORS = 422;
+
+    /**
      * @var string
      */
     public const VALID_ITEMS_PER_PAGE_OPTIONS = 'FOND_OF_ORYX:REPRESENTATIVE_COMPANY_USER_TRADE_FAIR_REST_API:VALID_ITEMS_PER_PAGE_OPTIONS';
