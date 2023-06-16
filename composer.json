@@ -811,6 +811,8 @@
       "FondOfOryx\\Zed\\RepresentativeCompanyUserExtension\\": "bundles/representative-company-user-extension/src/FondOfOryx/Zed/RepresentativeCompanyUserExtension",
       "FondOfOryx\\Zed\\RepresentativeCompanyUserRestApiPermission\\": "bundles/representative-company-user-rest-api-permission/src/FondOfOryx/Zed/RepresentativeCompanyUserRestApiPermission",
       "FondOfOryx\\Zed\\RepresentativeCompanyUserRestApi\\": "bundles/representative-company-user-rest-api/src/FondOfOryx/Zed/RepresentativeCompanyUserRestApi",
+      "FondOfOryx\\Zed\\RepresentativeCompanyUserTradeFair\\": "bundles/representative-company-user-trade-fair/src/FondOfOryx/Zed/RepresentativeCompanyUserTradeFair",
+      "FondOfOryx\\Zed\\RepresentativeCompanyUserTradeFairRestApi\\": "bundles/representative-company-user-trade-fair-rest-api/src/FondOfOryx/Zed/RepresentativeCompanyUserTradeFairRestApi",
       "FondOfOryx\\Zed\\ReturnLabel\\": "bundles/return-label/src/FondOfOryx/Zed/ReturnLabel",
       "FondOfOryx\\Zed\\ReturnLabelsRestApi\\": "bundles/return-labels-rest-api/src/FondOfOryx/Zed/ReturnLabelsRestApi",
       "FondOfOryx\\Zed\\ReturnLabelsRestApiCompanyBusinessUnitConnector\\": "bundles/return-labels-rest-api-company-business-unit-connector/src/FondOfOryx/Zed/ReturnLabelsRestApiCompanyBusinessUnitConnector",
