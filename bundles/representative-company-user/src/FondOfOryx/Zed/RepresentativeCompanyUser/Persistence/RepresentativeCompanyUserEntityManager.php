@@ -126,7 +126,6 @@ class RepresentativeCompanyUserEntityManager extends AbstractEntityManager imple
         }
 
         if ($filterTransfer->getValidTimeRange()) {
-
             $now = $this->getFactory()->getUtilDateTimeService()->formatDateTime(new DateTime());
             $query
                 ->filterByStartAt($now, Criteria::LESS_EQUAL)

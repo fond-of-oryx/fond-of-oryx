@@ -7,12 +7,12 @@ use Spryker\Service\UtilDateTime\UtilDateTimeServiceInterface;
 class RepresentativeCompanyUserToUtilDateTimeServiceBridge implements RepresentativeCompanyUserToUtilDateTimeServiceInterface
 {
     /**
-     * @var UtilDateTimeServiceInterface
+     * @var \Spryker\Service\UtilDateTime\UtilDateTimeServiceInterface
      */
     protected $service;
 
     /**
-     * @param UtilDateTimeServiceInterface $utilDateTimeService
+     * @param \Spryker\Service\UtilDateTime\UtilDateTimeServiceInterface $utilDateTimeService
      */
     public function __construct(UtilDateTimeServiceInterface $utilDateTimeService)
     {

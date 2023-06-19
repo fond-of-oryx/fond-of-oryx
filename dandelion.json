@@ -813,7 +813,7 @@
     },
     "representative-company-user": {
       "path": "bundles/representative-company-user/",
-      "version": "1.0.1"
+      "version": "1.0.2"
     },
     "representative-company-user-rest-api": {
       "path": "bundles/representative-company-user-rest-api/",

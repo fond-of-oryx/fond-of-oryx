@@ -60,7 +60,6 @@ class RepresentativeCompanyUserPersistenceFactory extends AbstractPersistenceFac
 
     /**
      * @return \FondOfOryx\Zed\RepresentativeCompanyUser\Dependency\Service\RepresentativeCompanyUserToUtilDateTimeServiceInterface
-     * @throws \Spryker\Zed\Kernel\Exception\Container\ContainerKeyNotFoundException
      */
     public function getUtilDateTimeService(): RepresentativeCompanyUserToUtilDateTimeServiceInterface
     {
