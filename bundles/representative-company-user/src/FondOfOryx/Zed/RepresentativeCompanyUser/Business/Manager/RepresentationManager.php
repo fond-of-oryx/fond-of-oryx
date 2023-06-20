@@ -103,6 +103,7 @@ class RepresentationManager implements RepresentationManagerInterface
     public function checkForActivation(RepresentativeCompanyUserFilterTransfer $filterTransfer): void
     {
         $filterTransfer->setStates([FooRepresentativeCompanyUserTableMap::COL_STATE_NEW]);
+        $filterTransfer->setValidTimeRange(true);
         foreach ($this->reader->getAndFlagInProcessNewRepresentativeCompanyUser($filterTransfer)->getRepresentations() as $representationTransfer) {
             $this->eventFacade->trigger(
                 RepresentativeCompanyUserConstants::REPRESENTATIVE_COMPANY_USER_MARK_FOR_CREATE_COMPANY_USER,
