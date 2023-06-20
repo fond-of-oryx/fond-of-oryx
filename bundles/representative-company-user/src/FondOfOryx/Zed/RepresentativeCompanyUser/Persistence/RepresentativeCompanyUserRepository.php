@@ -2,6 +2,7 @@
 
 namespace FondOfOryx\Zed\RepresentativeCompanyUser\Persistence;
 
+use DateTime;
 use Exception;
 use Generated\Shared\Transfer\CompanyUserCollectionTransfer;
 use Generated\Shared\Transfer\CompanyUserTransfer;
@@ -9,7 +10,7 @@ use Generated\Shared\Transfer\RepresentativeCompanyUserCollectionTransfer;
 use Generated\Shared\Transfer\RepresentativeCompanyUserFilterTransfer;
 use Generated\Shared\Transfer\RepresentativeCompanyUserTransfer;
 use Orm\Zed\RepresentativeCompanyUser\Persistence\FooRepresentativeCompanyUserQuery;
-use Orm\Zed\RepresentativeCompanyUser\Persistence\Map\FooRepresentativeCompanyUserTableMap;
+use Propel\Runtime\ActiveQuery\Criteria;
 use Spryker\Zed\Kernel\Persistence\AbstractRepository;
 
 /**
@@ -102,8 +103,8 @@ class RepresentativeCompanyUserRepository extends AbstractRepository implements 
     ): RepresentativeCompanyUserCollectionTransfer {
         $query = $this->prepareRepresentativeCompanyUserQuery($filterTransfer);
 
-        $results = $query->where(FooRepresentativeCompanyUserTableMap::COL_END_AT . '< now()')
-            ->find();
+        $expireAt = $this->getFactory()->getUtilDateTimeService()->formatDateTime(new DateTime());
+        $results = $query->filterByEndAt($expireAt, Criteria::LESS_THAN)->find();
 
         $collection = new RepresentativeCompanyUserCollectionTransfer();
 

@@ -4,6 +4,7 @@ namespace FondOfOryx\Zed\RepresentativeCompanyUser;
 
 use FondOfOryx\Zed\RepresentativeCompanyUser\Dependency\Facade\RepresentativeCompanyUserToCompanyUserFacadeBridge;
 use FondOfOryx\Zed\RepresentativeCompanyUser\Dependency\Facade\RepresentativeCompanyUserToEventFacadeBridge;
+use FondOfOryx\Zed\RepresentativeCompanyUser\Dependency\Service\RepresentativeCompanyUserToUtilDateTimeServiceBridge;
 use FondOfOryx\Zed\RepresentativeCompanyUser\Dependency\Service\RepresentativeCompanyUserToUtilUuidGeneratorServiceBridge;
 use Orm\Zed\Company\Persistence\SpyCompanyQuery;
 use Orm\Zed\CompanyUser\Persistence\SpyCompanyUserQuery;
@@ -29,6 +30,11 @@ class RepresentativeCompanyUserDependencyProvider extends AbstractBundleDependen
      * @var string
      */
     public const FACADE_EVENT = 'FACADE_EVENT';
+
+    /**
+     * @var string
+     */
+    public const SERVICE_UTIL_DATE_TIME = 'SERVICE_UTIL_DATE_TIME';
 
     /**
      * @var string
@@ -69,6 +75,7 @@ class RepresentativeCompanyUserDependencyProvider extends AbstractBundleDependen
     {
         $container = parent::providePersistenceLayerDependencies($container);
         $container = $this->addCompanyQuery($container);
+        $container = $this->addUtilDateTimeService($container);
 
         return $this->addCompanyUserQuery($container);
     }
@@ -144,6 +151,22 @@ class RepresentativeCompanyUserDependencyProvider extends AbstractBundleDependen
     {
         $container[static::QUERY_COMPANY] = static function (Container $container) {
             return new SpyCompanyQuery();
+        };
+
+        return $container;
+    }
+
+    /**
+     * @param \Spryker\Zed\Kernel\Container $container
+     *
+     * @return \Spryker\Zed\Kernel\Container
+     */
+    protected function addUtilDateTimeService(Container $container): Container
+    {
+        $container[static::SERVICE_UTIL_DATE_TIME] = static function (Container $container) {
+            return new RepresentativeCompanyUserToUtilDateTimeServiceBridge(
+                $container->getLocator()->utilDateTime()->service(),
+            );
         };
 
         return $container;
