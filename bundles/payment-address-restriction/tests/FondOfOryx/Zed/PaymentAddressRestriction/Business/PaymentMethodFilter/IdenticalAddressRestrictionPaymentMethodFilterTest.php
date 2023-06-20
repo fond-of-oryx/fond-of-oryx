@@ -9,38 +9,39 @@ use Generated\Shared\Transfer\AddressTransfer;
 use Generated\Shared\Transfer\PaymentMethodsTransfer;
 use Generated\Shared\Transfer\PaymentMethodTransfer;
 use Generated\Shared\Transfer\QuoteTransfer;
+use PHPUnit\Framework\MockObject\MockObject;
 
 class IdenticalAddressRestrictionPaymentMethodFilterTest extends Unit
 {
     /**
      * @var \PHPUnit\Framework\MockObject\MockObject|\Generated\Shared\Transfer\PaymentMethodsTransfer
      */
-    protected $paymentMethodsTransferMock;
+    protected MockObject|PaymentMethodsTransfer $paymentMethodsTransferMock;
 
     /**
      * @var \PHPUnit\Framework\MockObject\MockObject|\Generated\Shared\Transfer\PaymentMethodTransfer
      */
-    protected $paymentMethodTransferMock;
+    protected MockObject|PaymentMethodTransfer $paymentMethodTransferMock;
 
     /**
      * @var \PHPUnit\Framework\MockObject\MockObject|\Generated\Shared\Transfer\QuoteTransfer
      */
-    protected $quoteTransferMock;
+    protected MockObject|QuoteTransfer $quoteTransferMock;
 
     /**
      * @var \PHPUnit\Framework\MockObject\MockObject|\Generated\Shared\Transfer\AddressTransfer
      */
-    protected $billingAddressMock;
+    protected MockObject|AddressTransfer $billingAddressMock;
 
     /**
      * @var \PHPUnit\Framework\MockObject\MockObject|\FondOfOryx\Zed\PaymentAddressRestriction\PaymentAddressRestrictionConfig
      */
-    protected $configMock;
+    protected PaymentAddressRestrictionConfig|MockObject $configMock;
 
     /**
-     * @var \FondOfOryx\Zed\PaymentAddressRestriction\Business\PaymentMethodFilter\CountryRestrictionRestrictionPaymentMethodFilter
+     * @var \FondOfOryx\Zed\PaymentAddressRestriction\Business\PaymentMethodFilter\IdenticalAddressRestrictionPaymentMethodFilter
      */
-    protected $paymentMethodFilter;
+    protected IdenticalAddressRestrictionPaymentMethodFilter $paymentMethodFilter;
 
     /**
      * @return void
