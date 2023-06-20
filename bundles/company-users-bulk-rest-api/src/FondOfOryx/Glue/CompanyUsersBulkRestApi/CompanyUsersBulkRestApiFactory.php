@@ -10,6 +10,9 @@ use FondOfOryx\Glue\CompanyUsersBulkRestApi\Processor\Mapper\RestCompanyUsersBul
 use FondOfOryx\Glue\CompanyUsersBulkRestApi\Processor\Mapper\RestCompanyUsersBulkRequestMapperInterface;
 use Spryker\Glue\Kernel\AbstractFactory;
 
+/**
+ * @method \FondOfOryx\Client\CompanyUsersBulkRestApi\CompanyUsersBulkRestApiClientInterface getClient()
+ */
 class CompanyUsersBulkRestApiFactory extends AbstractFactory
 {
     /**
@@ -19,6 +22,7 @@ class CompanyUsersBulkRestApiFactory extends AbstractFactory
     {
         return new CompanyUsersBulkProcessor(
             $this->createRestCompanyUsersBulkRequestMapper(),
+            $this->getClient(),
             $this->createRestResponseBuilder()
         );
     }

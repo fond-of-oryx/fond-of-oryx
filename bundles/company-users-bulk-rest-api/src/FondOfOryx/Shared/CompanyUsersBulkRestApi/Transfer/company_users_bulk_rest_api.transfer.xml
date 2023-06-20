@@ -3,16 +3,19 @@
            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
            xsi:schemaLocation="spryker:transfer-01 https://static.spryker.com/transfer-01.xsd">
     <transfer name="RestCompanyUsersBulkRequestAttributes">
+        <property name="assign" type="RestCompanyUsersBulkItem[]" singular="item"/>
+        <property name="unassign" type="RestCompanyUsersBulkItem[]" singular="item"/>
     </transfer>
 
     <transfer name="RestCompanyUsersBulkRequest">
-        <property name="assign" type="RestCompanyUsersBulkItem[]" singular="item"/>
-        <property name="deassign" type="RestCompanyUsersBulkItem[]" singular="item"/>
+        <property name="attributes" type="RestCompanyUsersBulkRequestAttributes"/>
+        <property name="originatorReference" type="string"/>
     </transfer>
 
     <transfer name="RestCompanyUsersBulkResponse">
         <property name="isSuccessful" type="bool"/>
         <property name="error" type="string"/>
+        <property name="code" type="int"/>
     </transfer>
 
     <transfer name="RestCompanyUsersBulkItem">

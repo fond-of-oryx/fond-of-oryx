@@ -2,6 +2,7 @@
 
 namespace FondOfOryx\Glue\CompanyUsersBulkRestApi\Processor\CompanyUsersBulk;
 
+use FondOfOryx\Client\CompanyUsersBulkRestApi\CompanyUsersBulkRestApiClientInterface;
 use FondOfOryx\Glue\CompanyUsersBulkRestApi\Processor\Builder\RestResponseBuilderInterface;
 use FondOfOryx\Glue\CompanyUsersBulkRestApi\Processor\Mapper\RestCompanyUsersBulkRequestMapperInterface;
 use Generated\Shared\Transfer\RestCompanyUsersBulkRequestAttributesTransfer;
@@ -21,14 +22,21 @@ class CompanyUsersBulkProcessor implements CompanyUsersBulkProcessorInterface
     protected RestResponseBuilderInterface $restResponseBuilder;
 
     /**
+     * @var \FondOfOryx\Client\CompanyUsersBulkRestApi\CompanyUsersBulkRestApiClientInterface
+     */
+    protected CompanyUsersBulkRestApiClientInterface $client;
+
+    /**
      * @param \FondOfOryx\Glue\CompanyUsersBulkRestApi\Processor\Mapper\RestCompanyUsersBulkRequestMapperInterface $restCompanyUsersBulkRequestMapper
      * @param \FondOfOryx\Glue\CompanyUsersBulkRestApi\Processor\Builder\RestResponseBuilderInterface $restResponseBuilder
      */
     public function __construct(
         RestCompanyUsersBulkRequestMapperInterface $restCompanyUsersBulkRequestMapper,
+        CompanyUsersBulkRestApiClientInterface $client,
         RestResponseBuilderInterface $restResponseBuilder
     ) {
         $this->restCompanyUsersBulkRequestMapper = $restCompanyUsersBulkRequestMapper;
+        $this->client = $client;
         $this->restResponseBuilder = $restResponseBuilder;
     }
 
@@ -43,6 +51,15 @@ class CompanyUsersBulkProcessor implements CompanyUsersBulkProcessorInterface
         RestCompanyUsersBulkRequestAttributesTransfer $restCompanyUsersBulkRequestAttributesTransfer
     ): RestResponseInterface {
         $restCompanyUsersBulkRequestTransfer = $this->restCompanyUsersBulkRequestMapper
-            ->fromRestCompanyUsersBulkRequestAttributes($restCompanyUsersBulkRequestAttributesTransfer);
+            ->createRequest($restRequest, $restCompanyUsersBulkRequestAttributesTransfer);
+
+        $response = $this->client->bulkProcess($restCompanyUsersBulkRequestTransfer);
+
+        if ($response->getError() !== null){
+            return $this->restResponseBuilder->createRestErrorResponse($response->getError(), $response->getCode());
+        }
+
+        return $this->restResponseBuilder->buildEmptyRestResponse();
+
     }
 }
