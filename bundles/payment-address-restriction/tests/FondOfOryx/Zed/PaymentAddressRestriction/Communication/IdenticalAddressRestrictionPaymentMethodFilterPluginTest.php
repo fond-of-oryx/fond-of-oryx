@@ -4,41 +4,43 @@ namespace FondOfOryx\Zed\PaymentAddressRestriction\Communication;
 
 use Codeception\Test\Unit;
 use FondOfOryx\Zed\PaymentAddressRestriction\Business\PaymentAddressRestrictionFacade;
+use FondOfOryx\Zed\PaymentAddressRestriction\Business\PaymentMethodFilter\CountryRestrictionRestrictionPaymentMethodFilter;
 use FondOfOryx\Zed\PaymentAddressRestriction\PaymentAddressRestrictionConfig;
 use Generated\Shared\Transfer\PaymentMethodsTransfer;
 use Generated\Shared\Transfer\QuoteTransfer;
+use PHPUnit\Framework\MockObject\MockObject;
 
 class IdenticalAddressRestrictionPaymentMethodFilterPluginTest extends Unit
 {
     /**
      * @var \PHPUnit\Framework\MockObject\MockObject|\Generated\Shared\Transfer\PaymentMethodsTransfer
      */
-    protected $paymentMethodsTransferMock;
+    protected MockObject|PaymentMethodsTransfer $paymentMethodsTransferMock;
 
     /**
      * @var \PHPUnit\Framework\MockObject\MockObject|\Generated\Shared\Transfer\QuoteTransfer
      */
-    protected $quoteTransferMock;
+    protected MockObject|QuoteTransfer $quoteTransferMock;
 
     /**
      * @var \PHPUnit\Framework\MockObject\MockObject|\FondOfOryx\Zed\PaymentAddressRestriction\Business\PaymentAddressRestrictionFacade
      */
-    protected $paymentCountryRestrictionFacadeMock;
+    protected PaymentAddressRestrictionFacade|MockObject $paymentCountryRestrictionFacadeMock;
 
     /**
      * @var \PHPUnit\Framework\MockObject\MockObject|\FondOfOryx\Zed\PaymentAddressRestriction\PaymentAddressRestrictionConfig
      */
-    protected $configMock;
+    protected PaymentAddressRestrictionConfig|MockObject $configMock;
 
     /**
      * @var \PHPUnit\Framework\MockObject\MockObject|\FondOfOryx\Zed\PaymentAddressRestriction\Business\PaymentMethodFilter\CountryRestrictionRestrictionPaymentMethodFilter
      */
-    protected $countryRestrictionRestrictionPaymentMethodFilter;
+    protected CountryRestrictionRestrictionPaymentMethodFilter|MockObject $countryRestrictionRestrictionPaymentMethodFilter;
 
     /**
-     * @var \FondOfOryx\Zed\PaymentAddressRestriction\Communication\CountryRestrictionPaymentMethodFilterPlugin
+     * @var \FondOfOryx\Zed\PaymentAddressRestriction\Communication\IdenticalAddressRestrictionPaymentMethodFilterPlugin
      */
-    protected $plugin;
+    protected IdenticalAddressRestrictionPaymentMethodFilterPlugin $plugin;
 
     /**
      * @return void
