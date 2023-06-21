@@ -25,7 +25,7 @@ class PermissionChecker implements PermissionCheckerInterface
      * @param \Generated\Shared\Transfer\RestCompanyUsersBulkRequestTransfer $restCompanyUsersBulkRequestTransfer
      * @return bool
      */
-    public function checkPermission(
+    public function check(
         RestCompanyUsersBulkRequestTransfer $restCompanyUsersBulkRequestTransfer
     ): bool {
         return $this->repository->hasPermission(
