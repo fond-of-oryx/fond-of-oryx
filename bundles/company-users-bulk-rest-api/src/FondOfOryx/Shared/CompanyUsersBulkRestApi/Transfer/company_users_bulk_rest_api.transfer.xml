@@ -12,6 +12,12 @@
         <property name="originatorReference" type="string"/>
     </transfer>
 
+    <transfer name="RestCompanyUsersBulkItemCollection">
+        <property name="items" singular="item" type="RestCompanyUsersBulkItem[]"/>
+        <property name="companyCache" type="array"/>
+        <property name="customerCache" type="array"/>
+    </transfer>
+
     <transfer name="RestCompanyUsersBulkResponse">
         <property name="isSuccessful" type="bool"/>
         <property name="error" type="string"/>
@@ -32,6 +38,14 @@
     <transfer name="RestCompanyUsersBulkItemCompany">
         <property name="companyId" type="string"/>
         <property name="debtorNumber" type="string"/>
+    </transfer>
+
+    <transfer name="CompanyUsersBulkPreparation">
+        <property name="item" type="RestCompanyUsersBulkItem"/>
+        <property name="company" type="Company"/>
+        <property name="customer" type="Customer"/>
+        <property name="companyCache" type="array"/>
+        <property name="customerCache" type="array"/>
     </transfer>
 
 </transfers>

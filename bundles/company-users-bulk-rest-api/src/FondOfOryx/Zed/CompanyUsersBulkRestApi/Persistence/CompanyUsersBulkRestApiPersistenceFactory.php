@@ -3,6 +3,7 @@
 namespace FondOfOryx\Zed\CompanyUsersBulkRestApi\Persistence;
 
 use FondOfOryx\Zed\CompanyUsersBulkRestApi\CompanyUsersBulkRestApiDependencyProvider;
+use Orm\Zed\Company\Persistence\Base\SpyCompanyQuery;
 use Orm\Zed\CompanyUser\Persistence\SpyCompanyUserQuery;
 use Orm\Zed\Customer\Persistence\SpyCustomerQuery;
 use Orm\Zed\Permission\Persistence\Base\SpyPermissionQuery;
@@ -35,6 +36,17 @@ class CompanyUsersBulkRestApiPersistenceFactory extends AbstractPersistenceFacto
     {
         return $this->getProvidedDependency(
             CompanyUsersBulkRestApiDependencyProvider::PROPEL_QUERY_PERMISSION,
+        );
+    }
+
+    /**
+     * @return \Orm\Zed\Company\Persistence\Base\SpyCompanyQuery
+     * @throws \Spryker\Zed\Kernel\Exception\Container\ContainerKeyNotFoundException
+     */
+    public function getCompanyQuery(): SpyCompanyQuery
+    {
+        return $this->getProvidedDependency(
+            CompanyUsersBulkRestApiDependencyProvider::QUERY_SPY_COMPANY,
         );
     }
 }
