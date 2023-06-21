@@ -15,13 +15,15 @@ class OrderBudgetRepository extends AbstractRepository implements OrderBudgetRep
      */
     public function findAllOrderBudgets(): array
     {
-        $query = $this->getFactory()
-            ->createFooOrderBudgetQuery();
+        /** @var \Propel\Runtime\Collection\ObjectCollection $fooOrderBudgetCollection */
+        $fooOrderBudgetCollection = $this->getFactory()
+            ->createFooOrderBudgetQuery()
+            ->find();
 
         return $this->getFactory()
             ->createOrderBudgetMapper()
             ->mapEntityCollectionToTransfers(
-                $query->find(),
+                $fooOrderBudgetCollection,
             );
     }
 
@@ -45,6 +47,26 @@ class OrderBudgetRepository extends AbstractRepository implements OrderBudgetRep
             ->createOrderBudgetMapper()
             ->mapEntityToTransfer(
                 $entity,
+            );
+    }
+
+    /**
+     * @param array<int> $orderBudgetIds
+     *
+     * @return array<\Generated\Shared\Transfer\OrderBudgetTransfer>
+     */
+    public function findOrderBudgetsByOrderBudgetIds(array $orderBudgetIds): array
+    {
+        /** @var \Propel\Runtime\Collection\ObjectCollection $collection */
+        $collection = $this->getFactory()
+            ->createFooOrderBudgetQuery()
+            ->filterByIdOrderBudget_In($orderBudgetIds)
+            ->find();
+
+        return $this->getFactory()
+            ->createOrderBudgetMapper()
+            ->mapEntityCollectionToTransfers(
+                $collection,
             );
     }
 }

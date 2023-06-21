@@ -5,8 +5,10 @@ namespace FondOfOryx\Glue\CompanySearchRestApi\Processor\Reader;
 use Codeception\Test\Unit;
 use FondOfOryx\Client\CompanySearchRestApi\CompanySearchRestApiClientInterface;
 use FondOfOryx\Glue\CompanySearchRestApi\Processor\Builder\RestResponseBuilderInterface;
+use FondOfOryx\Glue\CompanySearchRestApi\Processor\Filter\CustomerReferenceFilterInterface;
 use FondOfOryx\Glue\CompanySearchRestApi\Processor\Mapper\CompanyListMapperInterface;
 use Generated\Shared\Transfer\CompanyListTransfer;
+use PHPUnit\Framework\MockObject\MockObject;
 use Spryker\Glue\GlueApplication\Rest\JsonApi\RestResponseInterface;
 use Spryker\Glue\GlueApplication\Rest\Request\Data\MetadataInterface;
 use Spryker\Glue\GlueApplication\Rest\Request\Data\RestRequestInterface;
@@ -14,44 +16,49 @@ use Spryker\Glue\GlueApplication\Rest\Request\Data\RestRequestInterface;
 class CompanyReaderTest extends Unit
 {
     /**
-     * @var \FondOfOryx\Glue\CompanySearchRestApi\Processor\Mapper\CompanyListMapperInterface|\PHPUnit\Framework\MockObject\MockObject|mixed
+     * @var (\FondOfOryx\Glue\CompanySearchRestApi\Processor\Mapper\CompanyListMapperInterface&\PHPUnit\Framework\MockObject\MockObject)|\PHPUnit\Framework\MockObject\MockObject
      */
-    protected $companyListMapperMock;
+    protected CompanyListMapperInterface|MockObject $companyListMapperMock;
 
     /**
-     * @var \FondOfOryx\Glue\CompanySearchRestApi\Processor\Builder\RestResponseBuilderInterface|\PHPUnit\Framework\MockObject\MockObject|mixed
+     * @var (\FondOfOryx\Glue\CompanySearchRestApi\Processor\Filter\CustomerReferenceFilterInterface&\PHPUnit\Framework\MockObject\MockObject)|\PHPUnit\Framework\MockObject\MockObject
      */
-    protected $restResponseBuilderMock;
+    protected CustomerReferenceFilterInterface|MockObject $customerReferenceFilter;
 
     /**
-     * @var \FondOfOryx\Client\CompanySearchRestApi\CompanySearchRestApiClientInterface|\PHPUnit\Framework\MockObject\MockObject|mixed
+     * @var (\FondOfOryx\Glue\CompanySearchRestApi\Processor\Builder\RestResponseBuilderInterface&\PHPUnit\Framework\MockObject\MockObject)|\PHPUnit\Framework\MockObject\MockObject
      */
-    protected $clientMock;
+    protected RestResponseBuilderInterface|MockObject $restResponseBuilderMock;
 
     /**
-     * @var \PHPUnit\Framework\MockObject\MockObject|\Spryker\Glue\GlueApplication\Rest\Request\Data\RestRequestInterface|mixed
+     * @var (\FondOfOryx\Client\CompanySearchRestApi\CompanySearchRestApiClientInterface&\PHPUnit\Framework\MockObject\MockObject)|\PHPUnit\Framework\MockObject\MockObject
      */
-    protected $restRequestMock;
+    protected MockObject|CompanySearchRestApiClientInterface $clientMock;
 
     /**
-     * @var \PHPUnit\Framework\MockObject\MockObject|\Spryker\Glue\GlueApplication\Rest\Request\Data\MetadataInterface|mixed
+     * @var \PHPUnit\Framework\MockObject\MockObject|(\Spryker\Glue\GlueApplication\Rest\Request\Data\RestRequestInterface&\PHPUnit\Framework\MockObject\MockObject)
      */
-    protected $metadataMock;
+    protected RestRequestInterface|MockObject $restRequestMock;
 
     /**
-     * @var \PHPUnit\Framework\MockObject\MockObject|\Spryker\Glue\GlueApplication\Rest\JsonApi\RestResponseInterface|mixed
+     * @var \PHPUnit\Framework\MockObject\MockObject|(\Spryker\Glue\GlueApplication\Rest\Request\Data\MetadataInterface&\PHPUnit\Framework\MockObject\MockObject)
      */
-    protected $restResponseMock;
+    protected MetadataInterface|MockObject $metadataMock;
 
     /**
-     * @var \Generated\Shared\Transfer\CompanyListTransfer|\PHPUnit\Framework\MockObject\MockObject|mixed
+     * @var \PHPUnit\Framework\MockObject\MockObject|(\Spryker\Glue\GlueApplication\Rest\JsonApi\RestResponseInterface&\PHPUnit\Framework\MockObject\MockObject)
      */
-    protected $companyListTransferMock;
+    protected RestResponseInterface|MockObject $restResponseMock;
+
+    /**
+     * @var (\Generated\Shared\Transfer\CompanyListTransfer&\PHPUnit\Framework\MockObject\MockObject)|\PHPUnit\Framework\MockObject\MockObject
+     */
+    protected CompanyListTransfer|MockObject $companyListTransferMock;
 
     /**
      * @var \FondOfOryx\Glue\CompanySearchRestApi\Processor\Reader\CompanyReader
      */
-    protected $companyReader;
+    protected CompanyReader $companyReader;
 
     /**
      * @return void
@@ -61,6 +68,10 @@ class CompanyReaderTest extends Unit
         parent::_before();
 
         $this->companyListMapperMock = $this->getMockBuilder(CompanyListMapperInterface::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $this->customerReferenceFilter = $this->getMockBuilder(CustomerReferenceFilterInterface::class)
             ->disableOriginalConstructor()
             ->getMock();
 
@@ -90,6 +101,7 @@ class CompanyReaderTest extends Unit
 
         $this->companyReader = new CompanyReader(
             $this->companyListMapperMock,
+            $this->customerReferenceFilter,
             $this->restResponseBuilderMock,
             $this->clientMock,
         );
@@ -103,14 +115,15 @@ class CompanyReaderTest extends Unit
         $customerReference = 'FOO-C--1';
         $locale = 'de_DE';
 
+        $this->customerReferenceFilter->expects(static::atLeastOnce())
+            ->method('filterFromRestRequest')
+            ->with($this->restRequestMock)
+            ->willReturn($customerReference);
+
         $this->companyListMapperMock->expects(static::atLeastOnce())
             ->method('fromRestRequest')
             ->with($this->restRequestMock)
             ->willReturn($this->companyListTransferMock);
-
-        $this->companyListTransferMock->expects(static::atLeastOnce())
-            ->method('getCustomerReference')
-            ->willReturn($customerReference);
 
         $this->clientMock->expects(static::atLeastOnce())
             ->method('searchCompanies')
@@ -144,14 +157,13 @@ class CompanyReaderTest extends Unit
      */
     public function testFindWithError(): void
     {
-        $this->companyListMapperMock->expects(static::atLeastOnce())
-            ->method('fromRestRequest')
+        $this->customerReferenceFilter->expects(static::atLeastOnce())
+            ->method('filterFromRestRequest')
             ->with($this->restRequestMock)
-            ->willReturn($this->companyListTransferMock);
-
-        $this->companyListTransferMock->expects(static::atLeastOnce())
-            ->method('getCustomerReference')
             ->willReturn(null);
+
+        $this->companyListMapperMock->expects(static::never())
+            ->method('fromRestRequest');
 
         $this->clientMock->expects(static::never())
             ->method('searchCompanies');

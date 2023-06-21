@@ -1,3 +1,4 @@
+
 {
   "pathToSplitshLite": "/usr/local/bin/splitsh-lite",
   "pathToTempDirectory": "/home/dandelion/project/tmp/",
@@ -8,11 +9,11 @@
     },
     "availability-alert": {
       "path": "bundles/availability-alert/",
-      "version": "3.0.1"
+      "version": "4.1.0"
     },
     "availability-alert-cross-engage": {
       "path": "bundles/availability-alert-cross-engage/",
-      "version": "3.0.0"
+      "version": "3.0.1"
     },
     "availability-alert-extension": {
       "path": "bundles/availability-alert-extension/",
@@ -20,7 +21,7 @@
     },
     "availability-alert-migrator": {
       "path": "bundles/availability-alert-migrator/",
-      "version": "2.0.0"
+      "version": "2.0.1"
     },
     "availability-cart-data-extender": {
       "path": "bundles/availability-cart-data-extender/",
@@ -37,6 +38,14 @@
     "brands-rest-api-extension": {
       "path": "bundles/brands-rest-api-extension/",
       "version": "2.0.0"
+    },
+    "business-on-behalf-product-list-connector": {
+      "path": "bundles/business-on-behalf-product-list-connector/",
+      "version": "1.0.0"
+    },
+    "business-on-behalf-rest-api": {
+      "path": "bundles/business-on-behalf-rest-api/",
+      "version": "1.0.0"
     },
     "cart-code-type": {
       "path": "bundles/cart-code-type/",
@@ -62,6 +71,14 @@
       "path": "bundles/catalog-sku-filter/",
       "version": "2.0.0"
     },
+    "companies-rest-api": {
+      "path": "bundles/companies-rest-api/",
+      "version": "1.0.0"
+    },
+    "companies-rest-api-permission": {
+      "path": "bundles/companies-rest-api-permission/",
+      "version": "1.0.0"
+    },
     "company-api": {
       "path": "bundles/company-api/",
       "version": "3.0.0"
@@ -84,7 +101,7 @@
     },
     "company-business-unit-cart-search-rest-api": {
       "path": "bundles/company-business-unit-cart-search-rest-api/",
-      "version": "2.0.0"
+      "version": "2.2.0"
     },
     "company-business-unit-order-budget": {
       "path": "bundles/company-business-unit-order-budget/",
@@ -166,6 +183,10 @@
       "path": "bundles/company-product-list-connector-gui/",
       "version": "2.0.0"
     },
+    "company-product-list-search-rest-api": {
+      "path": "bundles/company-product-list-search-rest-api/",
+      "version": "1.0.1"
+    },
     "company-product-lists-rest-api": {
       "path": "bundles/company-product-lists-rest-api/",
       "version": "2.0.0"
@@ -180,7 +201,23 @@
     },
     "company-search-rest-api": {
       "path": "bundles/company-search-rest-api/",
-      "version": "2.0.0"
+      "version": "2.1.0"
+    },
+    "company-search-rest-api-extension": {
+      "path": "bundles/company-search-rest-api-extension/",
+      "version": "1.0.0"
+    },
+    "company-type-company-search-rest-api": {
+      "path": "bundles/company-type-company-search-rest-api/",
+      "version": "1.0.0"
+    },
+    "company-type-company-user-search-rest-api": {
+      "path": "bundles/company-type-company-user-search-rest-api/",
+      "version": "1.0.0"
+    },
+    "company-type-product-list-search-rest-api": {
+      "path": "bundles/company-type-product-list-search-rest-api/",
+      "version": "1.0.0"
     },
     "company-type-product-lists-rest-api": {
       "path": "bundles/company-type-product-lists-rest-api/",
@@ -210,9 +247,17 @@
       "path": "bundles/company-user-company-role-connector/",
       "version": "2.0.0"
     },
+    "company-user-company-search-rest-api": {
+      "path": "bundles/company-user-company-search-rest-api",
+      "version": "1.0.0"
+    },
     "company-user-mail-connector": {
       "path": "bundles/company-user-mail-connector/",
       "version": "2.0.0"
+    },
+    "company-user-order-budget-search-rest-api": {
+      "path": "bundles/company-user-order-budget-search-rest-api/",
+      "version": "1.0.0"
     },
     "company-user-reference-sales-connector": {
       "path": "bundles/company-user-reference-sales-connector/",
@@ -220,7 +265,11 @@
     },
     "company-user-search-rest-api": {
       "path": "bundles/company-user-search-rest-api/",
-      "version": "2.0.0"
+      "version": "2.1.0"
+    },
+    "company-user-search-rest-api-extension": {
+      "path": "bundles/company-user-search-rest-api-extension/",
+      "version": "1.0.0"
     },
     "company-users-rest-api-extension": {
       "path": "bundles/company-users-rest-api-extension/",
@@ -296,7 +345,7 @@
     },
     "customer-product-list-search-rest-api": {
       "path": "bundles/customer-product-list-search-rest-api/",
-      "version": "2.0.0"
+      "version": "3.0.0"
     },
     "customer-product-lists-rest-api": {
       "path": "bundles/customer-product-lists-rest-api/",
@@ -304,7 +353,7 @@
     },
     "customer-registration": {
       "path": "bundles/customer-registration/",
-      "version": "2.1.1"
+      "version": "2.3.0"
     },
     "customer-registration-rest-api": {
       "path": "bundles/customer-registration-rest-api/",
@@ -324,7 +373,7 @@
     },
     "customer-token-manager": {
       "path": "bundles/customer-token-manager/",
-      "version": "2.2.1"
+      "version": "2.3.0"
     },
     "customer-token-manager-one-time-password-connector": {
       "path": "bundles/customer-token-manager-one-time-password-connector/",
@@ -352,11 +401,11 @@
     },
     "erp-delivery-note-page-search": {
       "path": "bundles/erp-delivery-note-page-search/",
-      "version": "2.2.0"
+      "version": "2.3.1"
     },
     "erp-delivery-note-page-search-rest-api": {
       "path": "bundles/erp-delivery-note-page-search-rest-api/",
-      "version": "2.3.0"
+      "version": "2.3.1"
     },
     "erp-delivery-note-permission": {
       "path": "bundles/erp-delivery-note-permission/",
@@ -388,7 +437,7 @@
     },
     "erp-order": {
       "path": "bundles/erp-order/",
-      "version": "3.0.0"
+      "version": "3.1.0"
     },
     "erp-order-api": {
       "path": "bundles/erp-order-api/",
@@ -400,15 +449,19 @@
     },
     "erp-order-page-search": {
       "path": "bundles/erp-order-page-search/",
-      "version": "3.1.0"
+      "version": "3.2.0"
     },
     "erp-order-page-search-rest-api": {
       "path": "bundles/erp-order-page-search-rest-api/",
-      "version": "2.1.0"
+      "version": "2.1.1"
     },
     "erp-order-permission": {
       "path": "bundles/erp-order-permission/",
       "version": "2.0.0"
+    },
+    "fallback-locale-mail-proxy": {
+      "path": "bundles/fallback-locale-mail-proxy/",
+      "version": "1.0.0"
     },
     "fallback-product-list": {
       "path": "bundles/fallback-product-list/",
@@ -416,7 +469,7 @@
     },
     "feed": {
       "path": "bundles/feed/",
-      "version": "2.0.1"
+      "version": "2.0.2"
     },
     "gift-card-api": {
       "path": "bundles/gift-card-api/",
@@ -458,6 +511,10 @@
       "path": "bundles/glue-application-acl/",
       "version": "2.0.0"
     },
+    "inactive-quote-item-filter": {
+      "path": "bundles/inactive-quote-item-filter/",
+      "version": "1.1.0"
+    },
     "invoice": {
       "path": "bundles/invoice/",
       "version": "2.0.0"
@@ -472,7 +529,7 @@
     },
     "jellyfish-availability-alert": {
       "path": "bundles/jellyfish-availability-alert/",
-      "version": "2.0.0"
+      "version": "2.1.0"
     },
     "jellyfish-buffer": {
       "path": "bundles/jellyfish-buffer/",
@@ -488,7 +545,7 @@
     },
     "jellyfish-cross-engage": {
       "path": "bundles/jellyfish-cross-engage/",
-      "version": "2.0.0"
+      "version": "2.1.0"
     },
     "jellyfish-gift-card": {
       "path": "bundles/jellyfish-gift-card/",
@@ -496,7 +553,7 @@
     },
     "jellyfish-sales-order": {
       "path": "bundles/jellyfish-sales-order/",
-      "version": "2.0.0"
+      "version": "2.1.0"
     },
     "jellyfish-sales-order-b2c": {
       "path": "bundles/jellyfish-sales-order-b2c/",
@@ -529,6 +586,10 @@
     "jellyfish-sales-order-customer-address": {
       "path": "bundles/jellyfish-sales-order-customer-address/",
       "version": "2.0.0"
+    },
+    "jellyfish-sales-order-discount": {
+      "path": "bundles/jellyfish-sales-order-discount/",
+      "version": "1.0.0"
     },
     "jellyfish-sales-order-extension": {
       "path": "bundles/jellyfish-sales-order-extension/",
@@ -590,13 +651,25 @@
       "path": "bundles/mail-bcc/",
       "version": "2.0.0"
     },
+    "mail-proxy": {
+      "path": "bundles/mail-proxy/",
+      "version": "1.0.0"
+    },
+    "mail-proxy-extension": {
+      "path": "bundles/mail-proxy-extension/",
+      "version": "1.0.0"
+    },
     "mailjet-mail-connector": {
       "path": "bundles/mailjet-mail-connector/",
-      "version": "1.0.0"
+      "version": "1.4.0"
     },
     "no-payment-credit-memo": {
       "path": "bundles/no-payment-credit-memo/",
       "version": "1.0.0"
+    },
+    "notion-proxy-rest-api": {
+      "path": "bundles/notion-proxy-rest-api",
+      "version": "1.0.0-beta.2"
     },
     "oms-credit-memo-gift-card-connector": {
       "path": "bundles/oms-credit-memo-gift-card-connector/",
@@ -604,11 +677,11 @@
     },
     "one-time-password": {
       "path": "bundles/one-time-password/",
-      "version": "2.2.0"
+      "version": "2.3.0"
     },
     "one-time-password-email-connector": {
       "path": "bundles/one-time-password-email-connector/",
-      "version": "2.1.1"
+      "version": "2.3.0"
     },
     "one-time-password-extension": {
       "path": "bundles/one-time-password-extension/",
@@ -620,11 +693,19 @@
     },
     "order-budget": {
       "path": "bundles/order-budget/",
-      "version": "2.0.0"
+      "version": "2.1.0"
+    },
+    "order-budget-search-rest-api": {
+      "path": "bundles/order-budget-search-rest-api/",
+      "version": "1.0.0"
+    },
+    "order-budget-search-rest-api-extension": {
+      "path": "bundles/order-budget-search-rest-api-extension/",
+      "version": "1.0.0"
     },
     "payment-address-restriction": {
       "path": "bundles/payment-address-restriction/",
-      "version": "2.0.0"
+      "version": "2.0.1"
     },
     "payment-cart-connector": {
       "path": "bundles/payment-cart-connector/",
@@ -640,7 +721,7 @@
     },
     "payone-credit-memo": {
       "path": "bundles/payone-credit-memo/",
-      "version": "2.0.0"
+      "version": "2.1.0"
     },
     "payone-credit-memo-extension": {
       "path": "bundles/payone-credit-memo-extension/",
@@ -692,11 +773,11 @@
     },
     "product-list-search-rest-api": {
       "path": "bundles/product-list-search-rest-api/",
-      "version": "2.0.0"
+      "version": "3.0.0"
     },
     "product-list-search-rest-api-extension": {
       "path": "bundles/product-list-search-rest-api-extension/",
-      "version": "2.0.0"
+      "version": "3.0.0"
     },
     "product-lists-rest-api": {
       "path": "bundles/product-lists-rest-api/",
@@ -708,19 +789,19 @@
     },
     "product-locale-restriction": {
       "path": "bundles/product-locale-restriction/",
-      "version": "2.0.0"
+      "version": "2.1.0"
     },
     "product-locale-restriction-cart-connector": {
       "path": "bundles/product-locale-restriction-cart-connector/",
-      "version": "2.0.0"
+      "version": "2.1.0"
     },
     "product-locale-restriction-search": {
       "path": "bundles/product-locale-restriction-search/",
-      "version": "2.0.0"
+      "version": "2.1.0"
     },
     "product-locale-restriction-storage": {
       "path": "bundles/product-locale-restriction-storage/",
-      "version": "2.0.0"
+      "version": "2.1.0"
     },
     "product-payment-restriction": {
       "path": "bundles/product-payment-restriction/",
@@ -729,6 +810,30 @@
     "qr-code-generator": {
       "path": "bundles/qr-code-generator/",
       "version": "2.0.0"
+    },
+    "representative-company-user": {
+      "path": "bundles/representative-company-user/",
+      "version": "1.0.2"
+    },
+    "representative-company-user-rest-api": {
+      "path": "bundles/representative-company-user-rest-api/",
+      "version": "1.0.1"
+    },
+    "representative-company-user-rest-api-permission": {
+      "path": "bundles/representative-company-user-rest-api-permission/",
+      "version": "1.0.0"
+    },
+    "representative-company-user-trade-fair": {
+      "path": "bundles/representative-company-user-trade-fair/",
+      "version": "1.0.0"
+    },
+    "representative-company-user-trade-fair-rest-api": {
+      "path": "bundles/representative-company-user-trade-fair-rest-api/",
+      "version": "1.0.0"
+    },
+    "representative-company-user-extension": {
+      "path": "bundles/representative-company-user-extension/",
+      "version": "1.0.0"
     },
     "return-label": {
       "path": "bundles/return-label/",
@@ -792,7 +897,7 @@
     },
     "splittable-checkout-rest-api": {
       "path": "bundles/splittable-checkout-rest-api/",
-      "version": "2.0.0"
+      "version": "2.1.0"
     },
     "splittable-checkout-rest-api-cart-note-connector": {
       "path": "bundles/splittable-checkout-rest-api-cart-note-connector/",
@@ -872,7 +977,7 @@
     },
     "thirty-five-up": {
       "path": "bundles/thirty-five-up/",
-      "version": "2.0.0"
+      "version": "2.1.0"
     },
     "thirty-five-up-api": {
       "path": "bundles/thirty-five-up-api/",

@@ -19,7 +19,8 @@ class BrandProductListConnectorRepository extends AbstractRepository implements 
      */
     public function getBrandIdsByProductListIds(array $productListIds): array
     {
-        return $this->getFactory()
+        /** @var \Propel\Runtime\Collection\ArrayCollection $fosBrandProductCollection */
+        $fosBrandProductCollection = $this->getFactory()
             ->getBrandProductQuery()
             ->clear()
             ->useSpyProductAbstractQuery()
@@ -31,7 +32,8 @@ class BrandProductListConnectorRepository extends AbstractRepository implements 
             ->endUse()
             ->groupByFkBrand()
             ->select([FosBrandProductTableMap::COL_FK_BRAND])
-            ->find()
-            ->toArray();
+            ->find();
+
+        return $fosBrandProductCollection->toArray();
     }
 }

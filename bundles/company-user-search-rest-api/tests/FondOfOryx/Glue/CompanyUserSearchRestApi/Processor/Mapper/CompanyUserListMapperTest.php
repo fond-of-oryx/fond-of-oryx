@@ -2,55 +2,62 @@
 
 namespace FondOfOryx\Glue\CompanyUserSearchRestApi\Processor\Mapper;
 
+use ArrayObject;
 use Codeception\Test\Unit;
 use FondOfOryx\Glue\CompanyUserSearchRestApi\Processor\Filter\CompanyRoleNameFilterInterface;
 use FondOfOryx\Glue\CompanyUserSearchRestApi\Processor\Filter\CustomerIdFilterInterface;
 use FondOfOryx\Glue\CompanyUserSearchRestApi\Processor\Filter\CustomerReferenceFilterInterface;
 use FondOfOryx\Glue\CompanyUserSearchRestApi\Processor\Filter\RequestParameterFilterInterface;
 use Generated\Shared\Transfer\PaginationTransfer;
+use PHPUnit\Framework\MockObject\MockObject;
 use Spryker\Glue\GlueApplication\Rest\Request\Data\RestRequestInterface;
 
 class CompanyUserListMapperTest extends Unit
 {
     /**
-     * @var \FondOfOryx\Glue\CompanyUserSearchRestApi\Processor\Mapper\PaginationMapperInterface|\PHPUnit\Framework\MockObject\MockObject|mixed
+     * @var (\FondOfOryx\Glue\CompanyUserSearchRestApi\Processor\Mapper\PaginationMapperInterface&\PHPUnit\Framework\MockObject\MockObject)|\PHPUnit\Framework\MockObject\MockObject
      */
-    protected $paginationMapperMock;
+    protected MockObject|PaginationMapperInterface $paginationMapperMock;
 
     /**
-     * @var \FondOfOryx\Glue\CompanyUserSearchRestApi\Processor\Filter\RequestParameterFilterInterface|\PHPUnit\Framework\MockObject\MockObject|mixed
+     * @var (\FondOfOryx\Glue\CompanyUserSearchRestApi\Processor\Mapper\FilterFieldsMapperInterface&\PHPUnit\Framework\MockObject\MockObject)|\PHPUnit\Framework\MockObject\MockObject
      */
-    protected $requestParameterFilterMock;
+    protected MockObject|FilterFieldsMapperInterface $filterFieldsMapperMock;
 
     /**
-     * @var \FondOfOryx\Glue\CompanyUserSearchRestApi\Processor\Filter\CustomerReferenceFilterInterface|\PHPUnit\Framework\MockObject\MockObject|mixed
+     * @var (\FondOfOryx\Glue\CompanyUserSearchRestApi\Processor\Filter\RequestParameterFilterInterface&\PHPUnit\Framework\MockObject\MockObject)|\PHPUnit\Framework\MockObject\MockObject
      */
-    protected $customerReferenceFilterMock;
+    protected MockObject|RequestParameterFilterInterface $requestParameterFilterMock;
 
     /**
-     * @var \FondOfOryx\Glue\CompanyUserSearchRestApi\Processor\Filter\CustomerIdFilterInterface|\PHPUnit\Framework\MockObject\MockObject|mixed
+     * @var (\FondOfOryx\Glue\CompanyUserSearchRestApi\Processor\Filter\CustomerReferenceFilterInterface&\PHPUnit\Framework\MockObject\MockObject)|\PHPUnit\Framework\MockObject\MockObject
      */
-    protected $customerIdFilterMock;
+    protected CustomerReferenceFilterInterface|MockObject $customerReferenceFilterMock;
 
     /**
-     * @var \FondOfOryx\Glue\CompanyUserSearchRestApi\Processor\Filter\CompanyRoleNameFilterInterface&\PHPUnit\Framework\MockObject\MockObject|\PHPUnit\Framework\MockObject\MockObject
+     * @var (\FondOfOryx\Glue\CompanyUserSearchRestApi\Processor\Filter\CustomerIdFilterInterface&\PHPUnit\Framework\MockObject\MockObject)|\PHPUnit\Framework\MockObject\MockObject
      */
-    protected $companyRoleNameFilterMock;
+    protected MockObject|CustomerIdFilterInterface $customerIdFilterMock;
 
     /**
-     * @var \PHPUnit\Framework\MockObject\MockObject|\Spryker\Glue\GlueApplication\Rest\Request\Data\RestRequestInterface|mixed
+     * @var (\FondOfOryx\Glue\CompanyUserSearchRestApi\Processor\Filter\CompanyRoleNameFilterInterface&\PHPUnit\Framework\MockObject\MockObject)|\PHPUnit\Framework\MockObject\MockObject
      */
-    protected $restRequestMock;
+    protected MockObject|CompanyRoleNameFilterInterface $companyRoleNameFilterMock;
 
     /**
-     * @var \Generated\Shared\Transfer\PaginationTransfer|\PHPUnit\Framework\MockObject\MockObject|mixed
+     * @var \PHPUnit\Framework\MockObject\MockObject|(\Spryker\Glue\GlueApplication\Rest\Request\Data\RestRequestInterface&\PHPUnit\Framework\MockObject\MockObject)
      */
-    protected $paginationTransferMock;
+    protected RestRequestInterface|MockObject $restRequestMock;
+
+    /**
+     * @var (\Generated\Shared\Transfer\PaginationTransfer&\PHPUnit\Framework\MockObject\MockObject)|\PHPUnit\Framework\MockObject\MockObject
+     */
+    protected MockObject|PaginationTransfer $paginationTransferMock;
 
     /**
      * @var \FondOfOryx\Glue\CompanyUserSearchRestApi\Processor\Mapper\CompanyUserListMapper
      */
-    protected $companyUserListMapper;
+    protected CompanyUserListMapper $companyUserListMapper;
 
     /**
      * @return void
@@ -60,6 +67,10 @@ class CompanyUserListMapperTest extends Unit
         parent::_before();
 
         $this->paginationMapperMock = $this->getMockBuilder(PaginationMapperInterface::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $this->filterFieldsMapperMock = $this->getMockBuilder(FilterFieldsMapperInterface::class)
             ->disableOriginalConstructor()
             ->getMock();
 
@@ -89,6 +100,7 @@ class CompanyUserListMapperTest extends Unit
 
         $this->companyUserListMapper = new CompanyUserListMapper(
             $this->paginationMapperMock,
+            $this->filterFieldsMapperMock,
             $this->requestParameterFilterMock,
             $this->customerReferenceFilterMock,
             $this->customerIdFilterMock,
@@ -102,8 +114,6 @@ class CompanyUserListMapperTest extends Unit
     public function testFromRestRequest(): void
     {
         $customerReference = 'FOO-C--1';
-        $query = 'foo';
-        $sort = 'foo_asc';
         $companyUuid = 'foo company uuid';
         $companyUserReference = 'FOO-CU--1';
         $companyRoleNames = ['foo', 'bar'];
@@ -113,22 +123,23 @@ class CompanyUserListMapperTest extends Unit
             ->with($this->restRequestMock)
             ->willReturn($this->paginationTransferMock);
 
+        $this->filterFieldsMapperMock->expects(static::atLeastOnce())
+            ->method('fromRestRequest')
+            ->with($this->restRequestMock)
+            ->willReturn(new ArrayObject());
+
         $this->requestParameterFilterMock->expects(static::atLeastOnce())
             ->method('getRequestParameter')
             ->withConsecutive(
-                [$this->restRequestMock, 'q'],
                 [$this->restRequestMock, 'show-all'],
                 [$this->restRequestMock, 'only-one-per-customer'],
                 [$this->restRequestMock, 'company-id'],
                 [$this->restRequestMock, 'company-user-reference'],
-                [$this->restRequestMock, 'sort'],
             )->willReturnOnConsecutiveCalls(
-                $query,
                 'true',
                 'true',
                 $companyUuid,
                 $companyUserReference,
-                $sort,
             );
 
         $this->customerReferenceFilterMock->expects(static::atLeastOnce())
@@ -149,11 +160,6 @@ class CompanyUserListMapperTest extends Unit
         );
 
         static::assertEquals(
-            $sort,
-            $companyUserListTransfer->getSort(),
-        );
-
-        static::assertEquals(
             $companyUuid,
             $companyUserListTransfer->getCompanyUuid(),
         );
@@ -164,11 +170,6 @@ class CompanyUserListMapperTest extends Unit
 
         static::assertTrue(
             $companyUserListTransfer->getOnlyOnePerCustomer(),
-        );
-
-        static::assertEquals(
-            $query,
-            $companyUserListTransfer->getQuery(),
         );
 
         static::assertEquals(

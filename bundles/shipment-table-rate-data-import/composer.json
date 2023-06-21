@@ -14,7 +14,7 @@
     "spryker/data-import": "^1.3.0"
   },
   "require-dev": {
-    "fond-of-codeception/spryker": "^1.0",
+    "fond-of-codeception/spryker": "^2.0.0",
     "spryker/code-sniffer": "^0.12"
   },
   "replace": {

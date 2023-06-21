@@ -2,7 +2,6 @@
 
 namespace FondOfOryx\Glue\CompanySearchRestApi\Processor\Mapper;
 
-use FondOfOryx\Glue\CompanySearchRestApi\Processor\Filter\CustomerReferenceFilterInterface;
 use FondOfOryx\Glue\CompanySearchRestApi\Processor\Filter\RequestParameterFilterInterface;
 use Generated\Shared\Transfer\CompanyListTransfer;
 use Spryker\Glue\GlueApplication\Rest\Request\Data\RestRequestInterface;
@@ -12,31 +11,31 @@ class CompanyListMapper implements CompanyListMapperInterface
     /**
      * @var \FondOfOryx\Glue\CompanySearchRestApi\Processor\Mapper\PaginationMapperInterface
      */
-    protected $paginationMapper;
+    protected PaginationMapperInterface $paginationMapper;
+
+    /**
+     * @var \FondOfOryx\Glue\CompanySearchRestApi\Processor\Mapper\FilterFieldsMapperInterface
+     */
+    protected FilterFieldsMapperInterface $filterFieldsMapper;
 
     /**
      * @var \FondOfOryx\Glue\CompanySearchRestApi\Processor\Filter\RequestParameterFilterInterface
      */
-    protected $requestParameterFilter;
-
-    /**
-     * @var \FondOfOryx\Glue\CompanySearchRestApi\Processor\Filter\CustomerReferenceFilterInterface
-     */
-    protected $customerReferenceFilter;
+    protected RequestParameterFilterInterface $requestParameterFilter;
 
     /**
      * @param \FondOfOryx\Glue\CompanySearchRestApi\Processor\Mapper\PaginationMapperInterface $paginationMapper
+     * @param \FondOfOryx\Glue\CompanySearchRestApi\Processor\Mapper\FilterFieldsMapperInterface $filterFieldsMapper
      * @param \FondOfOryx\Glue\CompanySearchRestApi\Processor\Filter\RequestParameterFilterInterface $requestParameterFilter
-     * @param \FondOfOryx\Glue\CompanySearchRestApi\Processor\Filter\CustomerReferenceFilterInterface $customerReferenceFilter
      */
     public function __construct(
         PaginationMapperInterface $paginationMapper,
-        RequestParameterFilterInterface $requestParameterFilter,
-        CustomerReferenceFilterInterface $customerReferenceFilter
+        FilterFieldsMapperInterface $filterFieldsMapper,
+        RequestParameterFilterInterface $requestParameterFilter
     ) {
         $this->paginationMapper = $paginationMapper;
+        $this->filterFieldsMapper = $filterFieldsMapper;
         $this->requestParameterFilter = $requestParameterFilter;
-        $this->customerReferenceFilter = $customerReferenceFilter;
     }
 
     /**
@@ -48,9 +47,7 @@ class CompanyListMapper implements CompanyListMapperInterface
     {
         return (new CompanyListTransfer())
             ->setPagination($this->paginationMapper->fromRestRequest($restRequest))
-            ->setQuery($this->requestParameterFilter->getRequestParameter($restRequest, 'q'))
-            ->setSort($this->requestParameterFilter->getRequestParameter($restRequest, 'sort'))
-            ->setCustomerReference($this->customerReferenceFilter->filterFromRestRequest($restRequest))
-            ->setCompanyUuid($this->requestParameterFilter->getRequestParameter($restRequest, 'id'));
+            ->setFilterFields($this->filterFieldsMapper->fromRestRequest($restRequest))
+            ->setSort($this->requestParameterFilter->getRequestParameter($restRequest, 'sort'));
     }
 }

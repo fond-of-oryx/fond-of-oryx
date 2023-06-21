@@ -14,9 +14,10 @@
     "spryker/event-dispatcher": "^1.0.0"
   },
   "require-dev": {
-    "fond-of-codeception/spryker": "^1.0",
+    "fond-of-codeception/spryker": "*",
     "spryker/code-sniffer": "*",
-    "spryker-sdk/phpstan-spryker": "*"
+    "spryker-sdk/phpstan-spryker": "*",
+    "spryker/silex": "*"
   },
   "minimum-stability": "dev",
   "prefer-stable": true,

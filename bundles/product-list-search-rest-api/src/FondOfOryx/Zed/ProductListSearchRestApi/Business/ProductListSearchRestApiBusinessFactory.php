@@ -19,15 +19,15 @@ class ProductListSearchRestApiBusinessFactory extends AbstractBusinessFactory
     {
         return new ProductListReader(
             $this->getRepository(),
-            $this->getSearchQuoteQueryExpanderPlugins(),
+            $this->getSearchProductListQueryExpanderPlugins(),
         );
     }
 
     /**
-     * @return array<\FondOfOryx\Zed\ProductListSearchRestApiExtension\Dependency\Plugin\SearchQuoteQueryExpanderPluginInterface>
+     * @return array<\FondOfOryx\Zed\ProductListSearchRestApiExtension\Dependency\Plugin\SearchProductListQueryExpanderPluginInterface>
      */
-    public function getSearchQuoteQueryExpanderPlugins(): array
+    public function getSearchProductListQueryExpanderPlugins(): array
     {
-        return $this->getProvidedDependency(ProductListSearchRestApiDependencyProvider::PLUGINS_SEARCH_QUOTE_QUERY_EXPANDER);
+        return $this->getProvidedDependency(ProductListSearchRestApiDependencyProvider::PLUGINS_SEARCH_PRODUCT_LIST_QUERY_EXPANDER);
     }
 }

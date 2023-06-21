@@ -20,6 +20,7 @@ class ProductPaymentRestrictionRepository extends AbstractRepository implements 
         $fooProductAbstractPaymentRestrictionQuery = $this->getFactory()
             ->createFooProductAbstractPaymentRestrictionQuery();
 
+        /** @var \Propel\Runtime\Collection\ObjectCollection $fooProductAbstractPaymentRestrictionCollection */
         $fooProductAbstractPaymentRestrictionCollection = $fooProductAbstractPaymentRestrictionQuery
             ->filterByFkProductAbstract_In($idProductAbstracts)
             ->innerJoinWithPaymentMethod()
@@ -39,10 +40,12 @@ class ProductPaymentRestrictionRepository extends AbstractRepository implements 
         $fooProductAbstractPaymentRestrictionQuery = $this->getFactory()
             ->createFooProductAbstractPaymentRestrictionQuery();
 
-        return $fooProductAbstractPaymentRestrictionQuery
+        /** @var \Propel\Runtime\Collection\ArrayCollection $collection */
+        $collection = $fooProductAbstractPaymentRestrictionQuery
             ->select(FooProductAbstractPaymentRestrictionTableMap::COL_FK_PAYMENT_METHOD)
             ->filterByFkProductAbstract($idProductAbstract)
-            ->find()
-            ->toArray();
+            ->find();
+
+        return $collection->toArray();
     }
 }

@@ -2,6 +2,7 @@
 
 namespace FondOfOryx\Zed\ProductListSearchRestApi;
 
+use FondOfOryx\Zed\ProductListSearchRestApi\Dependency\Service\ProductListSearchRestApiToUtilEncodingServiceBridge;
 use Orm\Zed\ProductList\Persistence\SpyProductListQuery;
 use Spryker\Zed\Kernel\AbstractBundleDependencyProvider;
 use Spryker\Zed\Kernel\Container;
@@ -19,7 +20,12 @@ class ProductListSearchRestApiDependencyProvider extends AbstractBundleDependenc
     /**
      * @var string
      */
-    public const PLUGINS_SEARCH_QUOTE_QUERY_EXPANDER = 'PLUGINS_SEARCH_QUOTE_QUERY_EXPANDER';
+    public const PLUGINS_SEARCH_PRODUCT_LIST_QUERY_EXPANDER = 'PLUGINS_SEARCH_PRODUCT_LIST_QUERY_EXPANDER';
+
+    /**
+     * @var string
+     */
+    public const SERVICE_UTIL_ENCODING = 'SERVICE_UTIL_ENCODING';
 
     /**
      * @param \Spryker\Zed\Kernel\Container $container
@@ -30,19 +36,7 @@ class ProductListSearchRestApiDependencyProvider extends AbstractBundleDependenc
     {
         $container = parent::provideBusinessLayerDependencies($container);
 
-        return $this->addSearchQuoteQueryExpanderPlugins($container);
-    }
-
-        /**
-         * @param \Spryker\Zed\Kernel\Container $container
-         *
-         * @return \Spryker\Zed\Kernel\Container
-         */
-    public function providePersistenceLayerDependencies(Container $container): Container
-    {
-        $container = parent::providePersistenceLayerDependencies($container);
-
-        return $this->addProductListQuery($container);
+        return $this->addSearchProductListQueryExpanderPlugins($container);
     }
 
     /**
@@ -50,21 +44,31 @@ class ProductListSearchRestApiDependencyProvider extends AbstractBundleDependenc
      *
      * @return \Spryker\Zed\Kernel\Container
      */
-    protected function addSearchQuoteQueryExpanderPlugins(Container $container): Container
+    public function providePersistenceLayerDependencies(Container $container): Container
     {
-        $self = $this;
+        $container = parent::providePersistenceLayerDependencies($container);
 
-        $container[static::PLUGINS_SEARCH_QUOTE_QUERY_EXPANDER] = static function () use ($self) {
-            return $self->getSearchQuoteQueryExpanderPlugins();
-        };
+        $container = $this->addProductListQuery($container);
+
+        return $this->addUtilEncodingService($container);
+    }
+
+    /**
+     * @param \Spryker\Zed\Kernel\Container $container
+     *
+     * @return \Spryker\Zed\Kernel\Container
+     */
+    protected function addSearchProductListQueryExpanderPlugins(Container $container): Container
+    {
+        $container[static::PLUGINS_SEARCH_PRODUCT_LIST_QUERY_EXPANDER] = fn () => $this->getSearchProductListQueryExpanderPlugins();
 
         return $container;
     }
 
     /**
-     * @return array<\FondOfOryx\Zed\ProductListSearchRestApiExtension\Dependency\Plugin\SearchQuoteQueryExpanderPluginInterface>
+     * @return array<\FondOfOryx\Zed\ProductListSearchRestApiExtension\Dependency\Plugin\SearchProductListQueryExpanderPluginInterface>
      */
-    protected function getSearchQuoteQueryExpanderPlugins(): array
+    protected function getSearchProductListQueryExpanderPlugins(): array
     {
         return [];
     }
@@ -76,9 +80,23 @@ class ProductListSearchRestApiDependencyProvider extends AbstractBundleDependenc
      */
     protected function addProductListQuery(Container $container): Container
     {
-        $container[static::PROPEL_QUERY_PRODUCT_LIST] = static function () {
-            return SpyProductListQuery::create();
-        };
+        $container[static::PROPEL_QUERY_PRODUCT_LIST] = static fn () => SpyProductListQuery::create();
+
+        return $container;
+    }
+
+    /**
+     * @param \Spryker\Zed\Kernel\Container $container
+     *
+     * @return \Spryker\Zed\Kernel\Container
+     */
+    protected function addUtilEncodingService(Container $container): Container
+    {
+        $container[static::SERVICE_UTIL_ENCODING] = static fn (
+            Container $container
+        ) => new ProductListSearchRestApiToUtilEncodingServiceBridge(
+            $container->getLocator()->utilEncoding()->service(),
+        );
 
         return $container;
     }

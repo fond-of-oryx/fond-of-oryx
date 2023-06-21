@@ -56,4 +56,16 @@ interface OrderBudgetFacadeInterface
      * @return \Generated\Shared\Transfer\OrderBudgetTransfer|null
      */
     public function findOrderBudgetByIdOrderBudget(int $idOrderBudget): ?OrderBudgetTransfer;
+
+    /**
+     * Specification:
+     * - Finds order budget transfer by ids.
+     *
+     * @api
+     *
+     * @param array<int> $orderBudgetIds
+     *
+     * @return array<\Generated\Shared\Transfer\OrderBudgetTransfer>
+     */
+    public function findOrderBudgetsByOrderBudgetIds(array $orderBudgetIds): array;
 }

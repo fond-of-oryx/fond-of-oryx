@@ -59,6 +59,7 @@ class CreditMemoRepository extends AbstractRepository implements CreditMemoRepos
 
         $this->handleLimitAndOffset($limit, $offset, $filter);
 
+        /** @var \Propel\Runtime\Collection\ObjectCollection $fooCreditMemos */
         $fooCreditMemos = $this->prepareFindUnprocessedCreditMemoQuery($filter)->find();
 
         return $this->prepareCreditMemoData($fooCreditMemos);
@@ -78,6 +79,7 @@ class CreditMemoRepository extends AbstractRepository implements CreditMemoRepos
         $filter->setStoreName($storeTransfer->getName());
         $filter->setIds($ids);
 
+        /** @var \Propel\Runtime\Collection\ObjectCollection $fooCreditMemos */
         $fooCreditMemos = $this->prepareFindUnprocessedCreditMemoQuery($filter)->find();
 
         return $this->prepareCreditMemoData($fooCreditMemos);
@@ -149,7 +151,13 @@ class CreditMemoRepository extends AbstractRepository implements CreditMemoRepos
             $itemIds[] = $itemTransfer->getFkSalesOrderItem();
         }
 
-        return $this->getFactory()->getSpySalesOrderItemQuery()->filterByIdSalesOrderItem_In($itemIds)->find();
+        /** @var \Propel\Runtime\Collection\ObjectCollection $spySalesOrderItemCollection */
+        $spySalesOrderItemCollection = $this->getFactory()
+            ->getSpySalesOrderItemQuery()
+            ->filterByIdSalesOrderItem_In($itemIds)
+            ->find();
+
+        return $spySalesOrderItemCollection;
     }
 
     /**

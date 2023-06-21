@@ -27,11 +27,6 @@ class JellyfishOrderMapper implements JellyfishOrderMapperInterface
     protected $jellyfishOrderExpenseMapper;
 
     /**
-     * @var \FondOfOryx\Zed\JellyfishSalesOrder\Business\Model\Mapper\JellyfishOrderDiscountMapperInterface
-     */
-    protected $jellyfishOrderDiscountMapper;
-
-    /**
      * @var \FondOfOryx\Zed\JellyfishSalesOrder\Business\Model\Mapper\JellyfishOrderPaymentMapperInterface
      */
     protected $jellyfishOrderPaymentMapper;
@@ -49,7 +44,6 @@ class JellyfishOrderMapper implements JellyfishOrderMapperInterface
     /**
      * @param \FondOfOryx\Zed\JellyfishSalesOrder\Business\Model\Mapper\JellyfishOrderAddressMapperInterface $jellyfishOrderAddressMapper
      * @param \FondOfOryx\Zed\JellyfishSalesOrder\Business\Model\Mapper\JellyfishOrderExpenseMapperInterface $jellyfishOrderExpenseMapper
-     * @param \FondOfOryx\Zed\JellyfishSalesOrder\Business\Model\Mapper\JellyfishOrderDiscountMapperInterface $jellyfishOrderDiscountMapper
      * @param \FondOfOryx\Zed\JellyfishSalesOrder\Business\Model\Mapper\JellyfishOrderPaymentMapperInterface $jellyfishOrderPaymentMapper
      * @param \FondOfOryx\Zed\JellyfishSalesOrder\Business\Model\Mapper\JellyfishOrderTotalsMapperInterface $jellyfishOrderTotalsMapper
      * @param \FondOfOryx\Zed\JellyfishSalesOrder\JellyfishSalesOrderConfig $config
@@ -58,7 +52,6 @@ class JellyfishOrderMapper implements JellyfishOrderMapperInterface
     public function __construct(
         JellyfishOrderAddressMapperInterface $jellyfishOrderAddressMapper,
         JellyfishOrderExpenseMapperInterface $jellyfishOrderExpenseMapper,
-        JellyfishOrderDiscountMapperInterface $jellyfishOrderDiscountMapper,
         JellyfishOrderPaymentMapperInterface $jellyfishOrderPaymentMapper,
         JellyfishOrderTotalsMapperInterface $jellyfishOrderTotalsMapper,
         JellyfishSalesOrderConfig $config,
@@ -66,7 +59,6 @@ class JellyfishOrderMapper implements JellyfishOrderMapperInterface
     ) {
         $this->jellyfishOrderAddressMapper = $jellyfishOrderAddressMapper;
         $this->jellyfishOrderExpenseMapper = $jellyfishOrderExpenseMapper;
-        $this->jellyfishOrderDiscountMapper = $jellyfishOrderDiscountMapper;
         $this->jellyfishOrderPaymentMapper = $jellyfishOrderPaymentMapper;
         $this->jellyfishOrderTotalsMapper = $jellyfishOrderTotalsMapper;
         $this->jellyfishOrderExpanderPostMapPlugins = $jellyfishOrderExpanderPostMapPlugins;
@@ -92,7 +84,6 @@ class JellyfishOrderMapper implements JellyfishOrderMapperInterface
             ->setBillingAddress($this->mapSalesOrderToBillingAddress($salesOrder))
             ->setShippingAddress($this->mapSalesOrderToShippingAddress($salesOrder))
             ->setExpenses($this->mapSalesOrderToExpenses($salesOrder))
-            ->setDiscounts($this->mapSalesOrderToDiscounts($salesOrder))
             ->setTotals($this->mapSalesOrderToTotals($salesOrder))
             ->setCreatedAt($salesOrder->getCreatedAt()->format('Y-m-d H:i:s'));
 
@@ -194,24 +185,6 @@ class JellyfishOrderMapper implements JellyfishOrderMapperInterface
     protected function mapSalesOrderToShippingAddress(SpySalesOrder $salesOrder): JellyfishOrderAddressTransfer
     {
         return $this->jellyfishOrderAddressMapper->fromSalesOrderAddress($salesOrder->getShippingAddress());
-    }
-
-    /**
-     * @param \Orm\Zed\Sales\Persistence\SpySalesOrder $salesOrder
-     *
-     * @return \ArrayObject
-     */
-    protected function mapSalesOrderToDiscounts(SpySalesOrder $salesOrder): ArrayObject
-    {
-        $jellyfishOrderDiscounts = new ArrayObject();
-
-        foreach ($salesOrder->getDiscounts() as $salesDiscount) {
-            $jellyfishOrderDiscount = $this->jellyfishOrderDiscountMapper->fromSalesDiscount($salesDiscount);
-
-            $jellyfishOrderDiscounts->append($jellyfishOrderDiscount);
-        }
-
-        return $jellyfishOrderDiscounts;
     }
 
     /**

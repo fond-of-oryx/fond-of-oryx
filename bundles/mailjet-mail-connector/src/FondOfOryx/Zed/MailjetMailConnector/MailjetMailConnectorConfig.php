@@ -145,4 +145,52 @@ class MailjetMailConnectorConfig extends AbstractBundleConfig
     {
         return $this->get(MailjetMailConnectorConstants::MAILJET_WHITELISTED_TLD, []);
     }
+
+    /**
+     * @return array<string>
+     */
+    public function getWhitelistedEmails(): array
+    {
+        return $this->get(MailjetMailConnectorConstants::MAILJET_WHITELISTED_EMAILS, []);
+    }
+
+    /**
+     * @return bool
+     */
+    public function getRetryEnabled(): bool
+    {
+        return $this->get(MailjetMailConnectorConstants::MAILJET_RETRY_ENABLED, true);
+    }
+
+    /**
+     * @return int
+     */
+    public function getRetryMaxAttempts(): int
+    {
+        return $this->get(MailjetMailConnectorConstants::MAILJET_RETRY_MAX_ATTEMPTS, 10);
+    }
+
+    /**
+     * @return array
+     */
+    public function getRetryOnStatus(): array
+    {
+        return $this->get(MailjetMailConnectorConstants::MAILJET_RETRY_ON_STATUS, [503, 429, 403]);
+    }
+
+    /**
+     * @return float
+     */
+    public function getRetryMultiplier(): float
+    {
+        return $this->get(MailjetMailConnectorConstants::MAILJET_RETRY_MULTIPLIER, 1);
+    }
+
+    /**
+     * @return bool
+     */
+    public function getRetryOnTimeout(): bool
+    {
+        return $this->get(MailjetMailConnectorConstants::MAILJET_RETRY_ON_TIMEOUT, true);
+    }
 }

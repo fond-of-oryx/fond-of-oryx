@@ -20,7 +20,7 @@ class ApiAuthBootstrapProviderTest extends Unit
     protected $apiAuthFacadeMock;
 
     /**
-     * @var \PHPUnit\Framework\MockObject\MockObject
+     * @var \Silex\Application|\PHPUnit\Framework\MockObject\MockObject
      */
     protected $applicationMock;
 

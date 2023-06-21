@@ -5,38 +5,45 @@ namespace FondOfOryx\Zed\SplittableCheckoutRestApi\Business;
 use Codeception\Test\Unit;
 use FondOfOryx\Zed\SplittableCheckoutRestApi\Business\Processor\PlaceOrderProcessor;
 use FondOfOryx\Zed\SplittableCheckoutRestApi\Business\Reader\SplittableTotalsReader;
+use FondOfOryx\Zed\SplittableCheckoutRestApi\Dependency\Facade\SplittableCheckoutRestApiToCartFacadeInterface;
 use FondOfOryx\Zed\SplittableCheckoutRestApi\Dependency\Facade\SplittableCheckoutRestApiToQuoteFacadeInterface;
 use FondOfOryx\Zed\SplittableCheckoutRestApi\Dependency\Facade\SplittableCheckoutRestApiToSplittableCheckoutFacadeInterface;
 use FondOfOryx\Zed\SplittableCheckoutRestApi\Dependency\Facade\SplittableCheckoutRestApiToSplittableTotalsFacadeInterface;
 use FondOfOryx\Zed\SplittableCheckoutRestApi\SplittableCheckoutRestApiDependencyProvider;
+use PHPUnit\Framework\MockObject\MockObject;
 use Spryker\Zed\Kernel\Container;
 
 class SplittableCheckoutRestApiBusinessFactoryTest extends Unit
 {
     /**
-     * @var \PHPUnit\Framework\MockObject\MockObject|\Spryker\Zed\Kernel\Container
+     * @var \PHPUnit\Framework\MockObject\MockObject|(\Spryker\Zed\Kernel\Container&\PHPUnit\Framework\MockObject\MockObject)
      */
-    protected $containerMock;
+    protected Container|MockObject $containerMock;
 
     /**
-     * @var \FondOfOryx\Zed\SplittableCheckoutRestApi\Dependency\Facade\SplittableCheckoutRestApiToQuoteFacadeInterface|\PHPUnit\Framework\MockObject\MockObject
+     * @var (\FondOfOryx\Zed\SplittableCheckoutRestApi\Dependency\Facade\SplittableCheckoutRestApiToCartFacadeInterface&\PHPUnit\Framework\MockObject\MockObject)|\PHPUnit\Framework\MockObject\MockObject
      */
-    protected $quoteFacadeMock;
+    protected MockObject|SplittableCheckoutRestApiToCartFacadeInterface $cartFacadeMock;
 
     /**
-     * @var \FondOfOryx\Zed\SplittableCheckoutRestApi\Dependency\Facade\SplittableCheckoutRestApiToSplittableCheckoutFacadeInterface|\PHPUnit\Framework\MockObject\MockObject
+     * @var (\FondOfOryx\Zed\SplittableCheckoutRestApi\Dependency\Facade\SplittableCheckoutRestApiToQuoteFacadeInterface&\PHPUnit\Framework\MockObject\MockObject)|\PHPUnit\Framework\MockObject\MockObject
      */
-    protected $splittableCheckoutFacadeMock;
+    protected MockObject|SplittableCheckoutRestApiToQuoteFacadeInterface $quoteFacadeMock;
 
     /**
-     * @var \FondOfOryx\Zed\SplittableCheckoutRestApi\Dependency\Facade\SplittableCheckoutRestApiToSplittableTotalsFacadeInterface|\PHPUnit\Framework\MockObject\MockObject
+     * @var (\FondOfOryx\Zed\SplittableCheckoutRestApi\Dependency\Facade\SplittableCheckoutRestApiToSplittableCheckoutFacadeInterface&\PHPUnit\Framework\MockObject\MockObject)|\PHPUnit\Framework\MockObject\MockObject
      */
-    protected $splittableTotalsFacadeMock;
+    protected SplittableCheckoutRestApiToSplittableCheckoutFacadeInterface|MockObject $splittableCheckoutFacadeMock;
+
+    /**
+     * @var (\FondOfOryx\Zed\SplittableCheckoutRestApi\Dependency\Facade\SplittableCheckoutRestApiToSplittableTotalsFacadeInterface&\PHPUnit\Framework\MockObject\MockObject)|\PHPUnit\Framework\MockObject\MockObject
+     */
+    protected MockObject|SplittableCheckoutRestApiToSplittableTotalsFacadeInterface $splittableTotalsFacadeMock;
 
     /**
      * @var \FondOfOryx\Zed\SplittableCheckoutRestApi\Business\SplittableCheckoutRestApiBusinessFactory
      */
-    protected $businessFactory;
+    protected SplittableCheckoutRestApiBusinessFactory $businessFactory;
 
     /**
      * @return void
@@ -46,6 +53,10 @@ class SplittableCheckoutRestApiBusinessFactoryTest extends Unit
         parent::_before();
 
         $this->containerMock = $this->getMockBuilder(Container::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $this->cartFacadeMock = $this->getMockBuilder(SplittableCheckoutRestApiToCartFacadeInterface::class)
             ->disableOriginalConstructor()
             ->getMock();
 
@@ -78,11 +89,13 @@ class SplittableCheckoutRestApiBusinessFactoryTest extends Unit
             ->method('get')
             ->withConsecutive(
                 [SplittableCheckoutRestApiDependencyProvider::PLUGINS_QUOTE_EXPANDER],
+                [SplittableCheckoutRestApiDependencyProvider::FACADE_CART],
                 [SplittableCheckoutRestApiDependencyProvider::FACADE_QUOTE],
                 [SplittableCheckoutRestApiDependencyProvider::FACADE_SPLITTABLE_CHECKOUT],
             )
             ->willReturnOnConsecutiveCalls(
                 [],
+                $this->cartFacadeMock,
                 $this->quoteFacadeMock,
                 $this->splittableCheckoutFacadeMock,
             );
@@ -106,11 +119,13 @@ class SplittableCheckoutRestApiBusinessFactoryTest extends Unit
             ->method('get')
             ->withConsecutive(
                 [SplittableCheckoutRestApiDependencyProvider::PLUGINS_QUOTE_EXPANDER],
+                [SplittableCheckoutRestApiDependencyProvider::FACADE_CART],
                 [SplittableCheckoutRestApiDependencyProvider::FACADE_QUOTE],
                 [SplittableCheckoutRestApiDependencyProvider::FACADE_SPLITTABLE_TOTALS],
             )
             ->willReturnOnConsecutiveCalls(
                 [],
+                $this->cartFacadeMock,
                 $this->quoteFacadeMock,
                 $this->splittableTotalsFacadeMock,
             );

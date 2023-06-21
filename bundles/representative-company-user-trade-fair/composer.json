@@ -1,0 +1,46 @@
+{
+  "name": "fond-of-oryx/representative-company-user-trade-fair",
+  "description": "Representative Company User Trade Fair",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Julian Hyatt",
+      "email": "dev@jzit.de"
+    }
+  ],
+  "require": {
+    "php": ">=8.0",
+    "fond-of-oryx/representative-company-user": "^1.0.1",
+    "spryker/company-role": "^1.0.0",
+    "spryker/company-user": "^2.0.0",
+    "spryker/event": "^2.0.0",
+    "spryker/event-behavior": "^1.20.0",
+    "spryker/uuid-behavior": "^1.0.0",
+    "spryker/util-uuid-generator": "^1.0.0"
+  },
+  "require-dev": {
+    "fond-of-codeception/spryker": "*",
+    "spryker/code-sniffer": "*",
+    "spryker-sdk/phpstan-spryker": "*"
+  },
+  "minimum-stability": "dev",
+  "prefer-stable": true,
+  "autoload": {
+    "psr-4": {
+      "FondOfOryx\\": "src/FondOfOryx/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "FondOfOryx\\": "tests/FondOfOryx/",
+      "Generated\\": "src/Generated/",
+      "Orm\\Zed\\": "src/Orm/Zed/"
+    }
+  },
+  "config": {
+    "sort-packages": true,
+    "allow-plugins": {
+      "dealerdirect/phpcodesniffer-composer-installer": true
+    }
+  }
+}

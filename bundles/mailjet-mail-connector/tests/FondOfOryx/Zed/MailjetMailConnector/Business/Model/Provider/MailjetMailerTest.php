@@ -8,38 +8,45 @@ use Generated\Shared\Transfer\CustomerTransfer;
 use Generated\Shared\Transfer\MailjetTemplateTransfer;
 use Generated\Shared\Transfer\MailTransfer;
 use Mailjet\Client;
+use PHPUnit\Framework\MockObject\MockObject;
+use Psr\Log\LoggerInterface;
 
 class MailjetMailerTest extends Unit
 {
     /**
      * @var \FondOfOryx\Zed\MailjetMailConnector\MailjetMailConnectorConfig|\PHPUnit\Framework\MockObject\MockObject
      */
-    protected $configMock;
+    protected MockObject|MailjetMailConnectorConfig $configMock;
 
     /**
      * @var \Mailjet\Client|\PHPUnit\Framework\MockObject\MockObject
      */
-    protected $mailjetClientMock;
+    protected Client|MockObject $mailjetClientMock;
 
     /**
      * @var \Generated\Shared\Transfer\MailTransfer|\PHPUnit\Framework\MockObject\MockObject
      */
-    protected $mailTransferMock;
+    protected MockObject|MailTransfer $mailTransferMock;
 
     /**
      * @var \Generated\Shared\Transfer\CustomerTransfer|\PHPUnit\Framework\MockObject\MockObject
      */
-    protected $customerTransferMock;
+    protected CustomerTransfer|MockObject $customerTransferMock;
 
     /**
      * @var \Generated\Shared\Transfer\MailjetTemplateTransfer|\PHPUnit\Framework\MockObject\MockObject
      */
-    protected $mailjetTemplateTransferMock;
+    protected MockObject|MailjetTemplateTransfer $mailjetTemplateTransferMock;
 
     /**
      * @var \FondOfOryx\Zed\MailjetMailConnector\Business\Model\Provider\MailjetMailer
      */
-    protected $mailer;
+    protected MailjetMailer $mailer;
+
+    /**
+     * @var \PHPUnit\Framework\MockObject\MockObject|(\Psr\Log\LoggerInterface&\PHPUnit\Framework\MockObject\MockObject)
+     */
+    protected LoggerInterface|MockObject $loggerMock;
 
     /**
      * @return void
@@ -68,7 +75,15 @@ class MailjetMailerTest extends Unit
             ->disableOriginalConstructor()
             ->getMock();
 
-        $this->mailer = new MailjetMailer($this->configMock, $this->mailjetClientMock);
+        $this->loggerMock = $this->getMockBuilder(LoggerInterface::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $this->mailer = new MailjetMailer(
+            $this->configMock,
+            $this->mailjetClientMock,
+            $this->loggerMock,
+        );
     }
 
     /**
@@ -130,6 +145,74 @@ class MailjetMailerTest extends Unit
     /**
      * @return void
      */
+    public function testDontSendMail(): void
+    {
+        $this->mailTransferMock->expects(static::atLeastOnce())
+            ->method('getCustomer')
+            ->willReturn($this->customerTransferMock);
+
+        $this->configMock->expects(static::atLeastOnce())
+            ->method('getFromEmail')
+            ->willReturn('john.doe@fondof.de');
+
+        $this->configMock->expects(static::atLeastOnce())
+            ->method('getFromName')
+            ->willReturn('John Doe');
+
+        $this->customerTransferMock->expects(static::atLeastOnce())
+            ->method('getEmail')
+            ->willReturn('customer.address@example.com');
+
+        $this->customerTransferMock->expects(static::atLeastOnce())
+            ->method('getFirstName')
+            ->willReturn('Customer Firstname');
+
+        $this->customerTransferMock->expects(static::atLeastOnce())
+            ->method('getLastName')
+            ->willReturn('Customer Lastname');
+
+        $this->mailTransferMock->expects(static::atLeastOnce())
+            ->method('getMailjetTemplate')
+            ->willReturn($this->mailjetTemplateTransferMock);
+
+        $this->mailjetTemplateTransferMock->expects(static::atLeastOnce())
+            ->method('getTemplateId')
+            ->willReturn(123);
+
+        $this->mailjetTemplateTransferMock->expects(static::atLeastOnce())
+            ->method('getTemplateId')
+            ->willReturn(123);
+
+        $this->mailjetTemplateTransferMock->expects(static::atLeastOnce())
+            ->method('getVariables')
+            ->willReturn([]);
+
+        $this->configMock->expects(static::atLeastOnce())
+            ->method('getTemplateLanguage')
+            ->willReturn(true);
+
+        $this->configMock->expects(static::atLeastOnce())
+            ->method('getSandboxMode')
+            ->willReturn(true);
+
+        $this->configMock->expects(static::atLeastOnce())
+            ->method('getWhitelistedEmails')
+            ->willReturn(['test@example.de']);
+
+        $this->configMock->expects(static::atLeastOnce())
+            ->method('getWhitelistedTLD')
+            ->willReturn(['fondof.de']);
+
+        $this->configMock->expects(self::atLeastOnce())
+            ->method('getSandboxMode')
+            ->willReturn(true);
+
+        $this->mailer->sendMail($this->mailTransferMock);
+    }
+
+    /**
+     * @return void
+     */
     public function testSendMailWithWhitelistedTLD(): void
     {
         $this->mailTransferMock->expects(static::atLeastOnce())
@@ -177,8 +260,74 @@ class MailjetMailerTest extends Unit
             ->willReturn(true);
 
         $this->configMock->expects(static::atLeastOnce())
+            ->method('getWhitelistedEmails')
+            ->willReturn(['test@example.de']);
+
+        $this->configMock->expects(static::atLeastOnce())
             ->method('getWhitelistedTLD')
             ->willReturn(['fondof.de']);
+
+        $this->configMock->expects(self::never())
+            ->method('getSandboxMode');
+
+        $this->mailer->sendMail($this->mailTransferMock);
+    }
+
+    /**
+     * @return void
+     */
+    public function testSendMailWithWhitelistedEmail(): void
+    {
+        $this->mailTransferMock->expects(static::atLeastOnce())
+            ->method('getCustomer')
+            ->willReturn($this->customerTransferMock);
+
+        $this->configMock->expects(static::atLeastOnce())
+            ->method('getFromEmail')
+            ->willReturn('john.doe@fondof.de');
+
+        $this->configMock->expects(static::atLeastOnce())
+            ->method('getFromName')
+            ->willReturn('John Doe');
+
+        $this->customerTransferMock->expects(static::atLeastOnce())
+            ->method('getEmail')
+            ->willReturn('customer.address@example.com');
+
+        $this->customerTransferMock->expects(static::atLeastOnce())
+            ->method('getFirstName')
+            ->willReturn('Customer Firstname');
+
+        $this->customerTransferMock->expects(static::atLeastOnce())
+            ->method('getLastName')
+            ->willReturn('Customer Lastname');
+
+        $this->mailTransferMock->expects(static::atLeastOnce())
+            ->method('getMailjetTemplate')
+            ->willReturn($this->mailjetTemplateTransferMock);
+
+        $this->mailjetTemplateTransferMock->expects(static::atLeastOnce())
+            ->method('getTemplateId')
+            ->willReturn(123);
+
+        $this->mailjetTemplateTransferMock->expects(static::atLeastOnce())
+            ->method('getTemplateId')
+            ->willReturn(123);
+
+        $this->mailjetTemplateTransferMock->expects(static::atLeastOnce())
+            ->method('getVariables')
+            ->willReturn([]);
+
+        $this->configMock->expects(static::atLeastOnce())
+            ->method('getTemplateLanguage')
+            ->willReturn(true);
+
+        $this->configMock->expects(static::atLeastOnce())
+            ->method('getWhitelistedEmails')
+            ->willReturn(['customer.address@example.com']);
+
+        $this->configMock->expects(static::never())
+            ->method('getWhitelistedTLD');
 
         $this->configMock->expects(self::never())
             ->method('getSandboxMode');

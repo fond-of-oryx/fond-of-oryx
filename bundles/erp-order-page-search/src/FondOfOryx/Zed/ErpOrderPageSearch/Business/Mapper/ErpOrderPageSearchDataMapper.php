@@ -97,6 +97,11 @@ class ErpOrderPageSearchDataMapper implements ErpOrderPageSearchDataMapperInterf
     /**
      * @var string
      */
+    public const IS_CANCELED = 'is_canceled';
+
+    /**
+     * @var string
+     */
     public const OUTSTANDING_QUANTITY = 'outstanding_quantity';
 
     /**
@@ -148,6 +153,11 @@ class ErpOrderPageSearchDataMapper implements ErpOrderPageSearchDataMapperInterf
      * @var string
      */
     public const SEARCH_RESULT_CUSTOM_REFERENCE = 'custom_reference';
+
+    /**
+     * @var string
+     */
+    public const SEARCH_RESULT_IS_CANCELED = 'is_canceled';
 
     /**
      * @var string
@@ -219,6 +229,7 @@ class ErpOrderPageSearchDataMapper implements ErpOrderPageSearchDataMapperInterf
             ErpOrderIndexMap::ID_COMPANY_BUSINESS_UNIT => $data[static::FK_COMPANY_BUSINESS_UNIT],
             ErpOrderIndexMap::COMPANY_BUSINESS_UNIT_UUID => $data[static::COMPANY_BUSINESS_UNIT][static::COMPANY_BUSINESS_UNIT_UUID],
             ErpOrderIndexMap::OUTSTANDING_QUANTITY => $data[static::OUTSTANDING_QUANTITY],
+            ErpOrderIndexMap::IS_CANCELED => $data[static::IS_CANCELED],
             ErpOrderIndexMap::SEARCH_RESULT_DATA => $this->mapErpOrderDataToSearchResultData($data),
         ];
     }
@@ -247,6 +258,7 @@ class ErpOrderPageSearchDataMapper implements ErpOrderPageSearchDataMapperInterf
             static::SEARCH_RESULT_SHIPPING_ADDRESS => $data[static::SHIPPING_ADDRESS],
             static::SEARCH_RESULT_BILLING_ADDRESS => $data[static::BILLING_ADDRESS],
             static::SEARCH_RESULT_CURRENCY_ISO_CODE => $data[static::CURRENCY_ISO_CODE],
+            static::SEARCH_RESULT_IS_CANCELED => $data[static::IS_CANCELED],
         ];
     }
 

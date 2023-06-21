@@ -5,6 +5,10 @@ namespace FondOfOryx\Zed\MailjetMailConnector\Business;
 use Codeception\Test\Unit;
 use FondOfOryx\Zed\MailjetMailConnector\Business\Model\Provider\MailjetMailer;
 use FondOfOryx\Zed\MailjetMailConnector\MailjetMailConnectorConfig;
+use PHPUnit\Framework\MockObject\MockObject;
+use Psr\Log\LoggerInterface;
+use Psr\Log\NullLogger;
+use Spryker\Shared\Log\Config\LoggerConfigInterface;
 use Spryker\Zed\MailExtension\Dependency\Plugin\MailProviderPluginInterface;
 
 class MailjetMailConnectorBusinessFactoryTest extends Unit
@@ -12,17 +16,17 @@ class MailjetMailConnectorBusinessFactoryTest extends Unit
     /**
      * @var \FondOfOryx\Zed\MailjetMailConnector\MailjetMailConnectorConfig|\PHPUnit\Framework\MockObject\MockObject
      */
-    protected $configMock;
+    protected MockObject|MailjetMailConnectorConfig $configMock;
 
     /**
      * @var \FondOfOryx\Zed\MailjetMailConnector\Business\Model\Provider\MailjetMailer|\PHPUnit\Framework\MockObject\MockObject
      */
-    protected $mailjetMailerMock;
+    protected MockObject|MailjetMailer $mailjetMailerMock;
 
     /**
      * @var \FondOfOryx\Zed\MailjetMailConnector\Business\MailjetMailConnectorBusinessFactory
      */
-    protected $factory;
+    protected MailjetMailConnectorBusinessFactory $factory;
 
     /**
      * @return void
@@ -39,7 +43,17 @@ class MailjetMailConnectorBusinessFactoryTest extends Unit
             ->disableOriginalConstructor()
             ->getMock();
 
-        $this->factory = new MailjetMailConnectorBusinessFactory();
+        $this->factory = new class extends MailjetMailConnectorBusinessFactory {
+            /**
+             * @param \Spryker\Shared\Log\Config\LoggerConfigInterface|null $loggerConfig
+             *
+             * @return \Psr\Log\LoggerInterface
+             */
+            protected function getLogger(?LoggerConfigInterface $loggerConfig = null): LoggerInterface
+            {
+                return new NullLogger();
+            }
+        };
         $this->factory->setConfig($this->configMock);
     }
 

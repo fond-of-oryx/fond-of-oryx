@@ -3,6 +3,7 @@
 namespace FondOfOryx\Glue\CompanySearchRestApi\Processor\Mapper;
 
 use FondOfOryx\Glue\CompanySearchRestApi\CompanySearchRestApiConfig;
+use FondOfOryx\Shared\CompanySearchRestApi\CompanySearchRestApiConstants;
 use Generated\Shared\Transfer\CompanyListTransfer;
 use Generated\Shared\Transfer\RestCompanySearchSortTransfer;
 
@@ -11,12 +12,12 @@ class RestCompanySearchSortMapper implements RestCompanySearchSortMapperInterfac
     /**
      * @var string
      */
-    protected const SORT_PATTERN = '/([a-z_]*)_(asc|desc)/';
+    protected const PATTERN_ORDER_BY = '/^([a-z_]+)::(asc|desc)/';
 
     /**
      * @var \FondOfOryx\Glue\CompanySearchRestApi\CompanySearchRestApiConfig
      */
-    protected $config;
+    protected CompanySearchRestApiConfig $config;
 
     /**
      * @param \FondOfOryx\Glue\CompanySearchRestApi\CompanySearchRestApiConfig $config
@@ -37,22 +38,32 @@ class RestCompanySearchSortMapper implements RestCompanySearchSortMapperInterfac
             ->setSortParamNames($this->config->getSortParamNames())
             ->setSortParamLocalizedNames($this->config->getSortParamLocalizedNames());
 
-        $sort = $companyListTransfer->getSort();
+        $sort = null;
+
+        foreach ($companyListTransfer->getFilterFields() as $filterFieldTransfer) {
+            if ($filterFieldTransfer->getType() !== 'orderBy') {
+                continue;
+            }
+
+            $sort = $filterFieldTransfer->getValue();
+        }
 
         if ($sort === null) {
             return $restCompanySearchSortTransfer;
         }
 
         $sortFields = $this->config->getSortFields();
-        $sortField = preg_replace(static::SORT_PATTERN, '$1', $sort);
+        $sortField = preg_replace(static::PATTERN_ORDER_BY, '$1', $sort);
 
         if (!in_array($sortField, $sortFields, true)) {
             return $restCompanySearchSortTransfer;
         }
 
-        $sortDirection = preg_replace(static::SORT_PATTERN, '$2', $sort);
+        $sortDirection = preg_replace(static::PATTERN_ORDER_BY, '$2', $sort);
 
-        return $restCompanySearchSortTransfer->setCurrentSortParam($sort)
-            ->setCurrentSortOrder($sortDirection);
+        return $restCompanySearchSortTransfer->setCurrentSortOrder($sortDirection)
+            ->setCurrentSortParam(
+                sprintf('%s%s%s', $sortField, CompanySearchRestApiConstants::DELIMITER_SORT, $sortDirection),
+            );
     }
 }

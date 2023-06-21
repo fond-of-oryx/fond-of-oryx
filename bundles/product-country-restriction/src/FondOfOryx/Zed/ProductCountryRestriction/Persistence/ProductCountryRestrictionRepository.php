@@ -27,6 +27,7 @@ class ProductCountryRestrictionRepository extends AbstractRepository implements 
         $fooProductAbstractCountryRestrictionQuery = $this->getFactory()
             ->createFooProductAbstractCountryRestrictionQuery();
 
+        /** @var \Propel\Runtime\Collection\ObjectCollection $fooProductAbstractCountryRestrictionCollection */
         $fooProductAbstractCountryRestrictionCollection = $fooProductAbstractCountryRestrictionQuery
             ->filterByFkProductAbstract($idProductAbstract)
             ->innerJoinWithCountry()
@@ -47,11 +48,13 @@ class ProductCountryRestrictionRepository extends AbstractRepository implements 
         $fooProductAbstractCountryRestrictionQuery = $this->getFactory()
             ->createFooProductAbstractCountryRestrictionQuery();
 
-        return $fooProductAbstractCountryRestrictionQuery
-            ->select(FooProductAbstractCountryRestrictionTableMap::COL_FK_COUNTRY)
-            ->filterByFkProductAbstract($idProductAbstract)
-            ->find()
-            ->toArray();
+        /** @var \Propel\Runtime\Collection\ArrayCollection $fooProductAbstractCountryRestrictionCollection */
+        $fooProductAbstractCountryRestrictionCollection = $fooProductAbstractCountryRestrictionQuery
+                ->select(FooProductAbstractCountryRestrictionTableMap::COL_FK_COUNTRY)
+                ->filterByFkProductAbstract($idProductAbstract)
+                ->find();
+
+        return $fooProductAbstractCountryRestrictionCollection->toArray();
     }
 
     /**
@@ -62,8 +65,8 @@ class ProductCountryRestrictionRepository extends AbstractRepository implements 
     public function findBlacklistedCountriesByProductConcreteSkus(
         array $productConcreteSkus
     ): array {
-        /** @var \Orm\Zed\ProductCountryRestriction\Persistence\FooProductAbstractCountryRestrictionQuery $fooProductAbstractCountryRestrictionQuery */
-        $fooProductAbstractCountryRestrictionQuery = $this->getFactory()
+        /** @var \Propel\Runtime\Collection\ObjectCollection $fooProductAbstractCountryRestrictionCollection */
+        $fooProductAbstractCountryRestrictionCollection = $this->getFactory()
             ->createFooProductAbstractCountryRestrictionQuery()
             ->innerJoinWithCountry()
             ->useProductAbstractQuery()
@@ -71,9 +74,10 @@ class ProductCountryRestrictionRepository extends AbstractRepository implements 
                     ->filterBySku_In($productConcreteSkus)
                     ->withColumn(SpyProductTableMap::COL_SKU, 'sku')
                 ->endUse()
-            ->endUse();
+            ->endUse()
+            ->find();
 
         return $this->getFactory()->createProductAbstractCountryRestrictionMapper()
-            ->mapEntityCollectionToGroupedCountryNames($fooProductAbstractCountryRestrictionQuery->find(), 'sku');
+            ->mapEntityCollectionToGroupedCountryNames($fooProductAbstractCountryRestrictionCollection, 'sku');
     }
 }

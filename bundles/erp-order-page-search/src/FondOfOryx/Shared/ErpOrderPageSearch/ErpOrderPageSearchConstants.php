@@ -5,6 +5,11 @@ namespace FondOfOryx\Shared\ErpOrderPageSearch;
 interface ErpOrderPageSearchConstants
 {
     /**
+     * @var string
+     */
+    public const DATE_FORMAT = 'Y-m-d H:i:s';
+
+    /**
      * Specification:
      * - Queue name as used for processing erp order messages
      *
@@ -47,7 +52,22 @@ interface ErpOrderPageSearchConstants
     /**
      * @var string
      */
+    public const PARAMETER_FROM = 'from';
+
+    /**
+     * @var string
+     */
+    public const PARAMETER_IS_CANCELED = 'is-canceled';
+
+    /**
+     * @var string
+     */
     public const PARAMETER_REFERENCE = 'reference';
+
+    /**
+     * @var string
+     */
+    public const PARAMETER_TO = 'to';
 
     /**
      * @var string

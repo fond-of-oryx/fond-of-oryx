@@ -5,6 +5,8 @@ namespace FondOfOryx\Glue\CompanyUserSearchRestApi;
 use FondOfOryx\Glue\CompanyUserSearchRestApi\Dependency\Client\CompanyUserSearchRestApiToGlossaryStorageClientInterface;
 use FondOfOryx\Glue\CompanyUserSearchRestApi\Processor\Builder\RestResponseBuilder;
 use FondOfOryx\Glue\CompanyUserSearchRestApi\Processor\Builder\RestResponseBuilderInterface;
+use FondOfOryx\Glue\CompanyUserSearchRestApi\Processor\Expander\FilterFieldsExpander;
+use FondOfOryx\Glue\CompanyUserSearchRestApi\Processor\Expander\FilterFieldsExpanderInterface;
 use FondOfOryx\Glue\CompanyUserSearchRestApi\Processor\Filter\CompanyRoleNameFilter;
 use FondOfOryx\Glue\CompanyUserSearchRestApi\Processor\Filter\CompanyRoleNameFilterInterface;
 use FondOfOryx\Glue\CompanyUserSearchRestApi\Processor\Filter\CustomerIdFilter;
@@ -13,7 +15,11 @@ use FondOfOryx\Glue\CompanyUserSearchRestApi\Processor\Filter\CustomerReferenceF
 use FondOfOryx\Glue\CompanyUserSearchRestApi\Processor\Filter\CustomerReferenceFilterInterface;
 use FondOfOryx\Glue\CompanyUserSearchRestApi\Processor\Filter\RequestParameterFilter;
 use FondOfOryx\Glue\CompanyUserSearchRestApi\Processor\Filter\RequestParameterFilterInterface;
+use FondOfOryx\Glue\CompanyUserSearchRestApi\Processor\Mapper\AllFilterFieldMapper;
 use FondOfOryx\Glue\CompanyUserSearchRestApi\Processor\Mapper\CompanyUserListMapper;
+use FondOfOryx\Glue\CompanyUserSearchRestApi\Processor\Mapper\FilterFieldsMapper;
+use FondOfOryx\Glue\CompanyUserSearchRestApi\Processor\Mapper\FilterFieldsMapperInterface;
+use FondOfOryx\Glue\CompanyUserSearchRestApi\Processor\Mapper\OrderByFilterFieldMapper;
 use FondOfOryx\Glue\CompanyUserSearchRestApi\Processor\Mapper\PaginationMapper;
 use FondOfOryx\Glue\CompanyUserSearchRestApi\Processor\Mapper\PaginationMapperInterface;
 use FondOfOryx\Glue\CompanyUserSearchRestApi\Processor\Mapper\RestCompanyUserSearchAttributesMapper;
@@ -55,6 +61,7 @@ class CompanyUserSearchRestApiFactory extends AbstractFactory
     {
         return new CompanyUserListMapper(
             $this->createPaginationMapper(),
+            $this->createFilterFieldsMapper(),
             $this->createRequestParameterFilter(),
             $this->createCustomerReferenceFilter(),
             $this->createCustomerIdFilter(),
@@ -170,5 +177,36 @@ class CompanyUserSearchRestApiFactory extends AbstractFactory
     protected function createCompanyRoleNameFilter(): CompanyRoleNameFilterInterface
     {
         return new CompanyRoleNameFilter();
+    }
+
+    /**
+     * @return \FondOfOryx\Glue\CompanyUserSearchRestApi\Processor\Mapper\FilterFieldsMapperInterface
+     */
+    protected function createFilterFieldsMapper(): FilterFieldsMapperInterface
+    {
+        return new FilterFieldsMapper([
+            new AllFilterFieldMapper($this->createRequestParameterFilter()),
+            new OrderByFilterFieldMapper($this->createRequestParameterFilter(), $this->getConfig()),
+        ], $this->createFilterFieldsExpander());
+    }
+
+    /**
+     * @return \FondOfOryx\Glue\CompanyUserSearchRestApi\Processor\Expander\FilterFieldsExpanderInterface
+     */
+    protected function createFilterFieldsExpander(): FilterFieldsExpanderInterface
+    {
+        return new FilterFieldsExpander(
+            $this->getFilterFieldsExpanderPlugins(),
+        );
+    }
+
+    /**
+     * @return array<\FondOfOryx\Glue\CompanyUserSearchRestApiExtension\Dependency\Plugin\FilterFieldsExpanderPluginInterface>
+     */
+    protected function getFilterFieldsExpanderPlugins(): array
+    {
+        return $this->getProvidedDependency(
+            CompanyUserSearchRestApiDependencyProvider::PLUGINS_FILTER_FIELDS_EXPANDER,
+        );
     }
 }

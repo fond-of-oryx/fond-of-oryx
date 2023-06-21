@@ -4,6 +4,7 @@ namespace FondOfOryx\Zed\ErpDeliveryNotePageSearch\Business\Publisher;
 
 use FondOfOryx\Zed\ErpDeliveryNotePageSearch\Business\Mapper\ErpDeliveryNotePageSearchDataMapperInterface;
 use FondOfOryx\Zed\ErpDeliveryNotePageSearch\Dependency\Service\ErpDeliveryNotePageSearchToUtilEncodingServiceInterface;
+use FondOfOryx\Zed\ErpDeliveryNotePageSearch\ErpDeliveryNotePageSearchConfig;
 use FondOfOryx\Zed\ErpDeliveryNotePageSearch\Persistence\ErpDeliveryNotePageSearchEntityManagerInterface;
 use FondOfOryx\Zed\ErpDeliveryNotePageSearch\Persistence\ErpDeliveryNotePageSearchQueryContainerInterface;
 use Generated\Shared\Transfer\ErpDeliveryNotePageSearchTransfer;
@@ -57,7 +58,32 @@ class ErpDeliveryNotePageSearchPublisher implements ErpDeliveryNotePageSearchPub
     /**
      * @var string
      */
+    public const FIELD_SKU = 'sku';
+
+    /**
+     * @var string
+     */
     public const FIELD_TRACKING_DATA = 'tracking_data';
+
+    /**
+     * @var string
+     */
+    public const FIELD_TRACKING_NUMBER = 'tracking_number';
+
+    /**
+     * @var string
+     */
+    public const FIELD_SHIPPING_AGENT_CODE = 'shipping_agent_code';
+
+    /**
+     * @var string
+     */
+    public const FIELD_TRACKING_URL = 'tracking_url';
+
+    /**
+     * @var string
+     */
+    public const FIELD_ITEMS = 'items';
 
     /**
      * @var \FondOfOryx\Zed\ErpDeliveryNotePageSearch\Persistence\ErpDeliveryNotePageSearchEntityManagerInterface
@@ -80,21 +106,29 @@ class ErpDeliveryNotePageSearchPublisher implements ErpDeliveryNotePageSearchPub
     protected $erpDeliveryNotePageSearchDataMapper;
 
     /**
+     * @var \FondOfOryx\Zed\ErpDeliveryNotePageSearch\ErpDeliveryNotePageSearchConfig
+     */
+    protected $config;
+
+    /**
      * @param \FondOfOryx\Zed\ErpDeliveryNotePageSearch\Persistence\ErpDeliveryNotePageSearchEntityManagerInterface $entityManager
      * @param \FondOfOryx\Zed\ErpDeliveryNotePageSearch\Persistence\ErpDeliveryNotePageSearchQueryContainerInterface $queryContainer
      * @param \FondOfOryx\Zed\ErpDeliveryNotePageSearch\Dependency\Service\ErpDeliveryNotePageSearchToUtilEncodingServiceInterface $utilEncodingService
      * @param \FondOfOryx\Zed\ErpDeliveryNotePageSearch\Business\Mapper\ErpDeliveryNotePageSearchDataMapperInterface $erpDeliveryNotePageSearchDataMapper
+     * @param \FondOfOryx\Zed\ErpDeliveryNotePageSearch\ErpDeliveryNotePageSearchConfig $config
      */
     public function __construct(
         ErpDeliveryNotePageSearchEntityManagerInterface $entityManager,
         ErpDeliveryNotePageSearchQueryContainerInterface $queryContainer,
         ErpDeliveryNotePageSearchToUtilEncodingServiceInterface $utilEncodingService,
-        ErpDeliveryNotePageSearchDataMapperInterface $erpDeliveryNotePageSearchDataMapper
+        ErpDeliveryNotePageSearchDataMapperInterface $erpDeliveryNotePageSearchDataMapper,
+        ErpDeliveryNotePageSearchConfig $config
     ) {
         $this->entityManager = $entityManager;
         $this->queryContainer = $queryContainer;
         $this->utilEncodingService = $utilEncodingService;
         $this->erpDeliveryNotePageSearchDataMapper = $erpDeliveryNotePageSearchDataMapper;
+        $this->config = $config;
     }
 
     /**
@@ -245,11 +279,29 @@ class ErpDeliveryNotePageSearchPublisher implements ErpDeliveryNotePageSearchPub
                 $trackingEntity = $trackingToItem->getFooErpDeliveryNoteTracking();
                 $trackingData = $trackingEntity->toArray();
                 $trackingData[static::FIELD_QUANTITY] = $trackingToItem->getQuantity();
-                $tracking[$trackingEntity->getTrackingNumber()][$orderItemEntity->getSku()] = $trackingData;
+                $tracking[$trackingEntity->getTrackingNumber()][$orderItemEntity->getSku()] = $this->cleanBlacklistedData($this->config->getTrackingDataFieldsToRemove(), $trackingData);
             }
         }
 
-        return $tracking;
+        return $this->optimizeForElasticSearchToReduceDynamicFields($tracking);
+    }
+
+    /**
+     * @param array $blacklist
+     * @param array $trackingData
+     *
+     * @return array
+     */
+    protected function cleanBlacklistedData(array $blacklist, array $trackingData): array
+    {
+        foreach ($blacklist as $key) {
+            if (array_key_exists($key, $trackingData)) {
+                unset($trackingData[$key]);
+            }
+        }
+
+        return $trackingData;
+//        return array_diff_key(array_flip($blacklist), $trackingData);
     }
 
     /**
@@ -263,7 +315,7 @@ class ErpDeliveryNotePageSearchPublisher implements ErpDeliveryNotePageSearchPub
         foreach ($orderItemEntities as $orderItemEntity) {
             $item = $orderItemEntity->toArray();
             $item[static::FIELD_TRACKING_DATA] = $this->appendItemTrackingData($orderItemEntity);
-            $items[] = $item;
+            $items[] = $this->cleanBlacklistedData($this->config->getItemDataFieldsToRemove(), $item);
         }
 
         return $items;
@@ -282,9 +334,38 @@ class ErpDeliveryNotePageSearchPublisher implements ErpDeliveryNotePageSearchPub
             $trackingEntity = $trackingToItem->getFooErpDeliveryNoteTracking();
             $trackingData = $trackingEntity->toArray();
             $trackingData[static::FIELD_QUANTITY] = $trackingToItem->getQuantity();
-            $tracking[] = $trackingData;
+            $tracking[] = $this->cleanBlacklistedData($this->config->getTrackingDataFieldsToRemove(), $trackingData);
         }
 
         return $tracking;
+    }
+
+    /**
+     * @param array $tracking
+     *
+     * @return array
+     */
+    protected function optimizeForElasticSearchToReduceDynamicFields(array $tracking): array
+    {
+        $optimizedTrackingData = [];
+        foreach ($tracking as $trackingNumber => $trackingCollection) {
+            $trackingPart = [
+                static::FIELD_TRACKING_NUMBER => $trackingNumber,
+            ];
+            $items = [];
+            foreach ($trackingCollection as $sku => $item) {
+                $reducedItem = [
+                    static::FIELD_QUANTITY => $item[static::FIELD_QUANTITY],
+                    static::FIELD_SKU => $sku,
+                ];
+                $trackingPart[static::FIELD_SHIPPING_AGENT_CODE] = $item[static::FIELD_SHIPPING_AGENT_CODE];
+                $trackingPart[static::FIELD_TRACKING_URL] = $item[static::FIELD_TRACKING_URL];
+                $items[] = $reducedItem;
+            }
+            $trackingPart[static::FIELD_ITEMS] = $items;
+            $optimizedTrackingData[] = $trackingPart;
+        }
+
+        return $optimizedTrackingData;
     }
 }

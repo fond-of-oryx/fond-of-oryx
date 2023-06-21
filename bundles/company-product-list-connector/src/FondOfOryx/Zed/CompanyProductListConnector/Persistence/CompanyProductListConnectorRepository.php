@@ -19,14 +19,16 @@ class CompanyProductListConnectorRepository extends AbstractRepository implement
      */
     public function getProductListIdsByIdCompany(int $idCompany): array
     {
-        return $this->getFactory()
+        /** @var \Propel\Runtime\Collection\ArrayCollection $spyProductListCollection */
+        $spyProductListCollection = $this->getFactory()
             ->getProductListQuery()
             ->clear()
             ->useSpyProductListCompanyQuery()
                 ->filterByFkCompany($idCompany)
             ->endUse()
             ->select([SpyProductListTableMap::COL_ID_PRODUCT_LIST])
-            ->find()
-            ->toArray();
+            ->find();
+
+        return $spyProductListCollection->toArray();
     }
 }

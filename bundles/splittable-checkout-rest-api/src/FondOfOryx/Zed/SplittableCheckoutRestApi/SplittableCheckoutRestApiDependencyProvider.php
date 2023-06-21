@@ -2,6 +2,7 @@
 
 namespace FondOfOryx\Zed\SplittableCheckoutRestApi;
 
+use FondOfOryx\Zed\SplittableCheckoutRestApi\Dependency\Facade\SplittableCheckoutRestApiToCartFacadeBridge;
 use FondOfOryx\Zed\SplittableCheckoutRestApi\Dependency\Facade\SplittableCheckoutRestApiToQuoteFacadeBridge;
 use FondOfOryx\Zed\SplittableCheckoutRestApi\Dependency\Facade\SplittableCheckoutRestApiToSplittableCheckoutFacadeBridge;
 use FondOfOryx\Zed\SplittableCheckoutRestApi\Dependency\Facade\SplittableCheckoutRestApiToSplittableTotalsFacadeBridge;
@@ -10,6 +11,11 @@ use Spryker\Zed\Kernel\Container;
 
 class SplittableCheckoutRestApiDependencyProvider extends AbstractBundleDependencyProvider
 {
+    /**
+     * @var string
+     */
+    public const FACADE_CART = 'FACADE_CART';
+
     /**
      * @var string
      */
@@ -39,6 +45,7 @@ class SplittableCheckoutRestApiDependencyProvider extends AbstractBundleDependen
     {
         $container = parent::provideBusinessLayerDependencies($container);
 
+        $container = $this->addCartFacade($container);
         $container = $this->addQuoteFacade($container);
         $container = $this->addSplittableCheckoutFacade($container);
         $container = $this->addSplittableTotalsFacade($container);
@@ -53,11 +60,11 @@ class SplittableCheckoutRestApiDependencyProvider extends AbstractBundleDependen
      */
     protected function addQuoteFacade(Container $container): Container
     {
-        $container[static::FACADE_QUOTE] = static function (Container $container) {
-            return new SplittableCheckoutRestApiToQuoteFacadeBridge(
-                $container->getLocator()->quote()->facade(),
-            );
-        };
+        $container[static::FACADE_QUOTE] = static fn (
+            Container $container
+        ) => new SplittableCheckoutRestApiToQuoteFacadeBridge(
+            $container->getLocator()->quote()->facade(),
+        );
 
         return $container;
     }
@@ -69,11 +76,11 @@ class SplittableCheckoutRestApiDependencyProvider extends AbstractBundleDependen
      */
     protected function addSplittableCheckoutFacade(Container $container): Container
     {
-        $container[static::FACADE_SPLITTABLE_CHECKOUT] = static function (Container $container) {
-            return new SplittableCheckoutRestApiToSplittableCheckoutFacadeBridge(
-                $container->getLocator()->splittableCheckout()->facade(),
-            );
-        };
+        $container[static::FACADE_SPLITTABLE_CHECKOUT] = static fn (
+            Container $container
+        ) => new SplittableCheckoutRestApiToSplittableCheckoutFacadeBridge(
+            $container->getLocator()->splittableCheckout()->facade(),
+        );
 
         return $container;
     }
@@ -85,11 +92,11 @@ class SplittableCheckoutRestApiDependencyProvider extends AbstractBundleDependen
      */
     protected function addSplittableTotalsFacade(Container $container): Container
     {
-        $container[static::FACADE_SPLITTABLE_TOTALS] = static function (Container $container) {
-            return new SplittableCheckoutRestApiToSplittableTotalsFacadeBridge(
-                $container->getLocator()->splittableTotals()->facade(),
-            );
-        };
+        $container[static::FACADE_SPLITTABLE_TOTALS] = static fn (
+            Container $container
+        ) => new SplittableCheckoutRestApiToSplittableTotalsFacadeBridge(
+            $container->getLocator()->splittableTotals()->facade(),
+        );
 
         return $container;
     }
@@ -101,11 +108,7 @@ class SplittableCheckoutRestApiDependencyProvider extends AbstractBundleDependen
      */
     protected function addQuoteExpanderPlugins(Container $container): Container
     {
-        $self = $this;
-
-        $container[static::PLUGINS_QUOTE_EXPANDER] = static function () use ($self) {
-            return $self->getQuoteExpanderPlugins();
-        };
+        $container[static::PLUGINS_QUOTE_EXPANDER] = fn () => $this->getQuoteExpanderPlugins();
 
         return $container;
     }
@@ -116,5 +119,21 @@ class SplittableCheckoutRestApiDependencyProvider extends AbstractBundleDependen
     protected function getQuoteExpanderPlugins(): array
     {
         return [];
+    }
+
+    /**
+     * @param \Spryker\Zed\Kernel\Container $container
+     *
+     * @return \Spryker\Zed\Kernel\Container
+     */
+    protected function addCartFacade(Container $container): Container
+    {
+        $container[static::FACADE_CART] = static fn (
+            Container $container
+        ) => new SplittableCheckoutRestApiToCartFacadeBridge(
+            $container->getLocator()->cart()->facade(),
+        );
+
+        return $container;
     }
 }
