@@ -3,6 +3,8 @@
 namespace FondOfOryx\Zed\CompanyUsersBulkRestApi\Persistence;
 
 use Generated\Shared\Transfer\CompanyTransfer;
+use Generated\Shared\Transfer\CompanyUserCollectionTransfer;
+use Generated\Shared\Transfer\CompanyUserTransfer;
 use Generated\Shared\Transfer\CustomerTransfer;
 use Generated\Shared\Transfer\RestCompanyUsersBulkItemCompanyTransfer;
 use Generated\Shared\Transfer\RestCompanyUsersBulkItemCustomerTransfer;
@@ -26,6 +28,21 @@ interface CompanyUsersBulkRestApiRepositoryInterface
      * @throws \Spryker\Zed\Propel\Business\Exception\AmbiguousComparisonException
      */
     public function findCustomer(RestCompanyUsersBulkItemCustomerTransfer $restCompanyUsersBulkItemCustomerTransfer): CustomerTransfer;
+
+    /**
+     * @param \Generated\Shared\Transfer\CompanyUserTransfer $companyUserTransfer
+     * @return \Generated\Shared\Transfer\CompanyUserTransfer|null
+     * @throws \Spryker\Shared\Kernel\Transfer\Exception\RequiredTransferPropertyException
+     * @throws \Spryker\Zed\Propel\Business\Exception\AmbiguousComparisonException
+     */
+    public function findCompanyUser(CompanyUserTransfer $companyUserTransfer): ?CompanyUserTransfer;
+
+    /**
+     * @param int $idCompany
+     * @param int $idCustomer
+     * @return \Generated\Shared\Transfer\CompanyUserCollectionTransfer
+     */
+    public function findCompanyUsersByFkCompanyAndFkCustomer(int $idCompany, int $idCustomer): CompanyUserCollectionTransfer;
 
     /**
      * @param \Generated\Shared\Transfer\RestCompanyUsersBulkItemCompanyTransfer $restCompanyUsersBulkItemCompanyTransfer

@@ -3,10 +3,15 @@
 namespace FondOfOryx\Zed\CompanyUsersBulkRestApi\Persistence;
 
 use Exception;
+use Generated\Shared\Transfer\CompanyBusinessUnitTransfer;
+use Generated\Shared\Transfer\CompanyRoleTransfer;
 use Generated\Shared\Transfer\CompanyTransfer;
+use Generated\Shared\Transfer\CompanyUserCollectionTransfer;
+use Generated\Shared\Transfer\CompanyUserTransfer;
 use Generated\Shared\Transfer\CustomerTransfer;
 use Generated\Shared\Transfer\RestCompanyUsersBulkItemCompanyTransfer;
 use Generated\Shared\Transfer\RestCompanyUsersBulkItemCustomerTransfer;
+use Orm\Zed\Company\Persistence\Base\SpyCompanyQuery;
 use Orm\Zed\CompanyUser\Persistence\Map\SpyCompanyUserTableMap;
 use Orm\Zed\Permission\Persistence\Map\SpyPermissionTableMap;
 use Spryker\Zed\Kernel\Persistence\AbstractRepository;
@@ -80,30 +85,66 @@ class CompanyUsersBulkRestApiRepository extends AbstractRepository implements Co
      */
     public function findCustomer(RestCompanyUsersBulkItemCustomerTransfer $restCompanyUsersBulkItemCustomerTransfer): CustomerTransfer
     {
-        $query = $this->getFactory()->getCustomerQuery();
-        $throw = true;
+        $entity = $this->getCustomerQuery($restCompanyUsersBulkItemCustomerTransfer)->findOne();
 
-        if ($restCompanyUsersBulkItemCustomerTransfer->getCustomerReference() !== null) {
-            $query->filterByCustomerReference($restCompanyUsersBulkItemCustomerTransfer->getCustomerReference());
-            $throw = false;
-        }
-
-        if ($restCompanyUsersBulkItemCustomerTransfer->getEmail() !== null) {
-            $query->filterByEmail($restCompanyUsersBulkItemCustomerTransfer->getEmail());
-            $throw = false;
-        }
-
-        if ($throw) {
-            throw new Exception('At least customer reference or customer email is required to find customer!');
-        }
-
-        $result = $query->findOne();
-
-        if ($result === null) {
+        if ($entity === null) {
             throw new Exception(sprintf('Could not find customer by given email "%s" or reference "%s"', $restCompanyUsersBulkItemCustomerTransfer->getEmail(), $restCompanyUsersBulkItemCustomerTransfer->getCustomerReference()));
         }
 
-        return (new CustomerTransfer())->fromArray($result->toArray(), true);
+        return (new CustomerTransfer())->fromArray($entity->toArray(), true);
+    }
+
+    /**
+     * @param \Generated\Shared\Transfer\CompanyUserTransfer $companyUserTransfer
+     * @return \Generated\Shared\Transfer\CompanyUserTransfer|null
+     * @throws \Spryker\Shared\Kernel\Transfer\Exception\RequiredTransferPropertyException
+     * @throws \Spryker\Zed\Propel\Business\Exception\AmbiguousComparisonException
+     */
+    public function findCompanyUser(CompanyUserTransfer $companyUserTransfer): ?CompanyUserTransfer
+    {
+        $companyUserTransfer
+            ->requireFkCompany()
+            ->requireFkCompanyBusinessUnit()
+            ->requireFkCustomer();
+
+        $entity = $this->getFactory()->getCompanyUserQuery()
+            ->filterByFkCompany($companyUserTransfer->getFkCompany())
+            ->filterByFkCustomer($companyUserTransfer->getFkCustomer())
+            ->filterByFkCompanyBusinessUnit($companyUserTransfer->getFkCompanyBusinessUnit())
+            ->findOne();
+
+        if ($entity === null) {
+            return null;
+        }
+
+        return (new CompanyUserTransfer())->fromArray($entity->toArray(), true);
+    }
+
+    /**
+     * @param int $idCompany
+     * @param int $idCustomer
+     * @return \Generated\Shared\Transfer\CompanyUserCollectionTransfer
+     */
+    public function findCompanyUsersByFkCompanyAndFkCustomer(int $idCompany, int $idCustomer): CompanyUserCollectionTransfer
+    {
+        $results = $this->getFactory()->getCompanyUserQuery()
+            ->filterByFkCompany($idCompany)
+            ->filterByFkCustomer($idCustomer)
+            ->find();
+
+        $companyUserCollection = new CompanyUserCollectionTransfer();
+        /** @var \Orm\Zed\CompanyUser\Persistence\Base\SpyCompanyUser $entity */
+        foreach ($results->getData() as $entity){
+            $companyUserTransfer = (new CompanyUserTransfer())->fromArray($entity->toArray(), true);
+            $rolesToCompanyUser = $entity->getSpyCompanyRoleToCompanyUsersJoinCompanyRole();
+            /** @var \Orm\Zed\CompanyRole\Persistence\SpyCompanyRoleToCompanyUser $roleToCompanyUser */
+            foreach ($rolesToCompanyUser->getData() as $roleToCompanyUser){
+                $companyUserTransfer->setCompanyRole((new CompanyRoleTransfer())->fromArray($roleToCompanyUser->getCompanyRole()->toArray(), true));
+            }
+            $companyUserCollection->addCompanyUser($companyUserTransfer);
+        }
+
+        return $companyUserCollection;
     }
 
     /**
@@ -113,6 +154,33 @@ class CompanyUsersBulkRestApiRepository extends AbstractRepository implements Co
      * @throws \Spryker\Zed\Propel\Business\Exception\AmbiguousComparisonException
      */
     public function findCompany(RestCompanyUsersBulkItemCompanyTransfer $restCompanyUsersBulkItemCompanyTransfer): CompanyTransfer
+    {
+        $entity = $this->getCompanyQuery($restCompanyUsersBulkItemCompanyTransfer)->findOne();
+
+        if ($entity === null) {
+            throw new Exception(sprintf('Could not find company by given id "%s" or debtor number "%s"', $restCompanyUsersBulkItemCompanyTransfer->getCompanyId(), $restCompanyUsersBulkItemCompanyTransfer->getDebtorNumber()));
+        }
+
+        $companyTransfer = (new CompanyTransfer())->fromArray($entity->toArray(), true);
+
+        foreach ($entity->getCompanyBusinessUnits() as $companyBusinessUnit){
+            $companyTransfer->addCompanyBusinessUnit((new CompanyBusinessUnitTransfer())->fromArray($companyBusinessUnit->toArray(), true));
+        }
+
+        foreach ($entity->getCompanyRoles() as $role){
+            $companyTransfer->addCompanyRole((new CompanyRoleTransfer())->fromArray($role->toArray(), true));
+        }
+
+        return $companyTransfer;
+    }
+
+    /**
+     * @param \Generated\Shared\Transfer\RestCompanyUsersBulkItemCompanyTransfer $restCompanyUsersBulkItemCompanyTransfer
+     * @return \Orm\Zed\Company\Persistence\Base\SpyCompanyQuery
+     * @throws \Spryker\Zed\Kernel\Exception\Container\ContainerKeyNotFoundException
+     * @throws \Spryker\Zed\Propel\Business\Exception\AmbiguousComparisonException
+     */
+    protected function getCompanyQuery(RestCompanyUsersBulkItemCompanyTransfer $restCompanyUsersBulkItemCompanyTransfer): SpyCompanyQuery
     {
         $query = $this->getFactory()->getCompanyQuery();
         $throw = true;
@@ -131,12 +199,32 @@ class CompanyUsersBulkRestApiRepository extends AbstractRepository implements Co
             throw new Exception('At least company uuid or debtor number is required to find company!');
         }
 
-        $result = $query->findOne();
+        return $query;
+    }
 
-        if ($result === null) {
-            throw new Exception(sprintf('Could not find company by given id "%s" or debtor number "%s"', $restCompanyUsersBulkItemCompanyTransfer->getCompanyId(), $restCompanyUsersBulkItemCompanyTransfer->getDebtorNumber()));
+    /**
+     * @param \Generated\Shared\Transfer\RestCompanyUsersBulkItemCustomerTransfer $restCompanyUsersBulkItemCustomerTransfer
+     * @return \Orm\Zed\Customer\Persistence\SpyCustomerQuery
+     * @throws \Spryker\Zed\Propel\Business\Exception\AmbiguousComparisonException
+     */
+    protected function getCustomerQuery(RestCompanyUsersBulkItemCustomerTransfer $restCompanyUsersBulkItemCustomerTransfer): \Orm\Zed\Customer\Persistence\SpyCustomerQuery
+    {
+        $query = $this->getFactory()->getCustomerQuery();
+        $throw = true;
+
+        if ($restCompanyUsersBulkItemCustomerTransfer->getCustomerReference() !== null) {
+            $query->filterByCustomerReference($restCompanyUsersBulkItemCustomerTransfer->getCustomerReference());
+            $throw = false;
         }
 
-        return (new CompanyTransfer())->fromArray($result->toArray(), true);
+        if ($restCompanyUsersBulkItemCustomerTransfer->getEmail() !== null) {
+            $query->filterByEmail($restCompanyUsersBulkItemCustomerTransfer->getEmail());
+            $throw = false;
+        }
+
+        if ($throw) {
+            throw new Exception('At least customer reference or customer email is required to find customer!');
+        }
+        return $query;
     }
 }

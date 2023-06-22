@@ -19,6 +19,7 @@
     </transfer>
 
     <transfer name="RestCompanyUsersBulkResponse">
+        <property name="request" type="RestCompanyUsersBulkRequest"/>
         <property name="isSuccessful" type="bool"/>
         <property name="error" type="string"/>
         <property name="code" type="int"/>
@@ -46,6 +47,11 @@
         <property name="customer" type="Customer"/>
         <property name="companyCache" type="array"/>
         <property name="customerCache" type="array"/>
+    </transfer>
+
+    <transfer name="Company">
+        <property name="companyBusinessUnits" singular="companyBusinessUnit" type="CompanyBusinessUnit[]"/>
+        <property name="companyRoles" singular="companyRole" type="CompanyRole[]"/>
     </transfer>
 
 </transfers>
