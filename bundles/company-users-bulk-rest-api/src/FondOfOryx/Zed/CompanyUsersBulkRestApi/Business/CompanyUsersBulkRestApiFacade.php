@@ -14,6 +14,7 @@ class CompanyUsersBulkRestApiFacade extends AbstractFacade implements CompanyUse
 {
     /**
      * @param \Generated\Shared\Transfer\RestCompanyUsersBulkRequestTransfer $restCompanyUsersBulkRequestTransfer
+     *
      * @return \Generated\Shared\Transfer\RestCompanyUsersBulkResponseTransfer
      */
     public function bulkProcess(
@@ -26,6 +27,7 @@ class CompanyUsersBulkRestApiFacade extends AbstractFacade implements CompanyUse
 
     /**
      * @param \Generated\Shared\Transfer\RestCompanyUsersBulkItemCollectionTransfer $restCompanyUsersBulkItemCollectionTransfer
+     *
      * @return void
      */
     public function createCompanyUserBulkMode(RestCompanyUsersBulkItemCollectionTransfer $restCompanyUsersBulkItemCollectionTransfer): void
@@ -37,6 +39,7 @@ class CompanyUsersBulkRestApiFacade extends AbstractFacade implements CompanyUse
 
     /**
      * @param \Generated\Shared\Transfer\RestCompanyUsersBulkItemCollectionTransfer $restCompanyUsersBulkItemCollectionTransfer
+     *
      * @return void
      */
     public function deleteCompanyUserBulkMode(RestCompanyUsersBulkItemCollectionTransfer $restCompanyUsersBulkItemCollectionTransfer): void
@@ -45,6 +48,4 @@ class CompanyUsersBulkRestApiFacade extends AbstractFacade implements CompanyUse
             ->createBulkManager()
             ->deleteCompanyUser($restCompanyUsersBulkItemCollectionTransfer);
     }
-
-
 }

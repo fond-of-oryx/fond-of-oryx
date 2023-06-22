@@ -23,7 +23,7 @@ class CompanyUsersBulkRestApiFactory extends AbstractFactory
         return new CompanyUsersBulkProcessor(
             $this->createRestCompanyUsersBulkRequestMapper(),
             $this->getClient(),
-            $this->createRestResponseBuilder()
+            $this->createRestResponseBuilder(),
         );
     }
 

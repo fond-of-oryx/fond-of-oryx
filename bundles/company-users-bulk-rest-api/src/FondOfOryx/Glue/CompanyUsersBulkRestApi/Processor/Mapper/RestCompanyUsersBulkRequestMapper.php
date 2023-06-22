@@ -11,16 +11,17 @@ class RestCompanyUsersBulkRequestMapper implements RestCompanyUsersBulkRequestMa
     /**
      * @param \Spryker\Glue\GlueApplication\Rest\Request\Data\RestRequestInterface $restRequest
      * @param \Generated\Shared\Transfer\RestCompanyUsersBulkRequestAttributesTransfer|null $restCompanyUsersBulkRequestAttributesTransfer
+     *
      * @return \Generated\Shared\Transfer\RestCompanyUsersBulkRequestTransfer
      */
     public function createRequest(
-        RestRequestInterface                           $restRequest,
+        RestRequestInterface $restRequest,
         ?RestCompanyUsersBulkRequestAttributesTransfer $restCompanyUsersBulkRequestAttributesTransfer = null
-    ): RestCompanyUsersBulkRequestTransfer
-    {
-        if ($restCompanyUsersBulkRequestAttributesTransfer === null){
+    ): RestCompanyUsersBulkRequestTransfer {
+        if ($restCompanyUsersBulkRequestAttributesTransfer === null) {
             $restCompanyUsersBulkRequestAttributesTransfer = $this->createAttributesFromRequest($restRequest);
         }
+
         return (new RestCompanyUsersBulkRequestTransfer())
             ->setAttributes($restCompanyUsersBulkRequestAttributesTransfer)
             ->setOriginatorReference($this->getOriginatorReference($restRequest));
@@ -28,6 +29,7 @@ class RestCompanyUsersBulkRequestMapper implements RestCompanyUsersBulkRequestMa
 
     /**
      * @param \Spryker\Glue\GlueApplication\Rest\Request\Data\RestRequestInterface $restRequest
+     *
      * @return string
      */
     protected function getOriginatorReference(RestRequestInterface $restRequest): string
@@ -37,11 +39,12 @@ class RestCompanyUsersBulkRequestMapper implements RestCompanyUsersBulkRequestMa
 
     /**
      * @param \Spryker\Glue\GlueApplication\Rest\Request\Data\RestRequestInterface $restRequest
+     *
      * @return \Generated\Shared\Transfer\RestCompanyUsersBulkRequestAttributesTransfer
      */
     protected function createAttributesFromRequest(
-        RestRequestInterface $restRequest): RestCompanyUsersBulkRequestAttributesTransfer
-    {
+        RestRequestInterface $restRequest
+    ): RestCompanyUsersBulkRequestAttributesTransfer {
         $data = $restRequest->getAttributesDataFromRequest();
         if ($data === null) {
             $data = [];

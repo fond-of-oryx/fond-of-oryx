@@ -13,6 +13,7 @@ use Generated\Shared\Transfer\RestCompanyUsersBulkItemCompanyTransfer;
 use Generated\Shared\Transfer\RestCompanyUsersBulkItemCustomerTransfer;
 use Orm\Zed\Company\Persistence\Base\SpyCompanyQuery;
 use Orm\Zed\CompanyUser\Persistence\Map\SpyCompanyUserTableMap;
+use Orm\Zed\Customer\Persistence\SpyCustomerQuery;
 use Orm\Zed\Permission\Persistence\Map\SpyPermissionTableMap;
 use Spryker\Zed\Kernel\Persistence\AbstractRepository;
 
@@ -30,8 +31,7 @@ class CompanyUsersBulkRestApiRepository extends AbstractRepository implements Co
     public function hasPermission(
         string $permissionKey,
         string $customerReference
-    ): bool
-    {
+    ): bool {
         $idPermission = $this->getIdPermissionByKey($permissionKey);
 
         if ($idPermission === null) {
@@ -80,8 +80,10 @@ class CompanyUsersBulkRestApiRepository extends AbstractRepository implements Co
 
     /**
      * @param \Generated\Shared\Transfer\RestCompanyUsersBulkItemCustomerTransfer $restCompanyUsersBulkItemCustomerTransfer
+     *
+     * @throws \Exception
+     *
      * @return \Generated\Shared\Transfer\CustomerTransfer
-     * @throws \Spryker\Zed\Propel\Business\Exception\AmbiguousComparisonException
      */
     public function findCustomer(RestCompanyUsersBulkItemCustomerTransfer $restCompanyUsersBulkItemCustomerTransfer): CustomerTransfer
     {
@@ -96,9 +98,8 @@ class CompanyUsersBulkRestApiRepository extends AbstractRepository implements Co
 
     /**
      * @param \Generated\Shared\Transfer\CompanyUserTransfer $companyUserTransfer
+     *
      * @return \Generated\Shared\Transfer\CompanyUserTransfer|null
-     * @throws \Spryker\Shared\Kernel\Transfer\Exception\RequiredTransferPropertyException
-     * @throws \Spryker\Zed\Propel\Business\Exception\AmbiguousComparisonException
      */
     public function findCompanyUser(CompanyUserTransfer $companyUserTransfer): ?CompanyUserTransfer
     {
@@ -123,6 +124,7 @@ class CompanyUsersBulkRestApiRepository extends AbstractRepository implements Co
     /**
      * @param int $idCompany
      * @param int $idCustomer
+     *
      * @return \Generated\Shared\Transfer\CompanyUserCollectionTransfer
      */
     public function findCompanyUsersByFkCompanyAndFkCustomer(int $idCompany, int $idCustomer): CompanyUserCollectionTransfer
@@ -134,11 +136,11 @@ class CompanyUsersBulkRestApiRepository extends AbstractRepository implements Co
 
         $companyUserCollection = new CompanyUserCollectionTransfer();
         /** @var \Orm\Zed\CompanyUser\Persistence\Base\SpyCompanyUser $entity */
-        foreach ($results->getData() as $entity){
+        foreach ($results->getData() as $entity) {
             $companyUserTransfer = (new CompanyUserTransfer())->fromArray($entity->toArray(), true);
             $rolesToCompanyUser = $entity->getSpyCompanyRoleToCompanyUsersJoinCompanyRole();
             /** @var \Orm\Zed\CompanyRole\Persistence\SpyCompanyRoleToCompanyUser $roleToCompanyUser */
-            foreach ($rolesToCompanyUser->getData() as $roleToCompanyUser){
+            foreach ($rolesToCompanyUser->getData() as $roleToCompanyUser) {
                 $companyUserTransfer->setCompanyRole((new CompanyRoleTransfer())->fromArray($roleToCompanyUser->getCompanyRole()->toArray(), true));
             }
             $companyUserCollection->addCompanyUser($companyUserTransfer);
@@ -149,9 +151,10 @@ class CompanyUsersBulkRestApiRepository extends AbstractRepository implements Co
 
     /**
      * @param \Generated\Shared\Transfer\RestCompanyUsersBulkItemCompanyTransfer $restCompanyUsersBulkItemCompanyTransfer
+     *
+     * @throws \Exception
+     *
      * @return \Generated\Shared\Transfer\CompanyTransfer
-     * @throws \Spryker\Zed\Kernel\Exception\Container\ContainerKeyNotFoundException
-     * @throws \Spryker\Zed\Propel\Business\Exception\AmbiguousComparisonException
      */
     public function findCompany(RestCompanyUsersBulkItemCompanyTransfer $restCompanyUsersBulkItemCompanyTransfer): CompanyTransfer
     {
@@ -163,11 +166,11 @@ class CompanyUsersBulkRestApiRepository extends AbstractRepository implements Co
 
         $companyTransfer = (new CompanyTransfer())->fromArray($entity->toArray(), true);
 
-        foreach ($entity->getCompanyBusinessUnits() as $companyBusinessUnit){
+        foreach ($entity->getCompanyBusinessUnits() as $companyBusinessUnit) {
             $companyTransfer->addCompanyBusinessUnit((new CompanyBusinessUnitTransfer())->fromArray($companyBusinessUnit->toArray(), true));
         }
 
-        foreach ($entity->getCompanyRoles() as $role){
+        foreach ($entity->getCompanyRoles() as $role) {
             $companyTransfer->addCompanyRole((new CompanyRoleTransfer())->fromArray($role->toArray(), true));
         }
 
@@ -176,9 +179,10 @@ class CompanyUsersBulkRestApiRepository extends AbstractRepository implements Co
 
     /**
      * @param \Generated\Shared\Transfer\RestCompanyUsersBulkItemCompanyTransfer $restCompanyUsersBulkItemCompanyTransfer
+     *
+     * @throws \Exception
+     *
      * @return \Orm\Zed\Company\Persistence\Base\SpyCompanyQuery
-     * @throws \Spryker\Zed\Kernel\Exception\Container\ContainerKeyNotFoundException
-     * @throws \Spryker\Zed\Propel\Business\Exception\AmbiguousComparisonException
      */
     protected function getCompanyQuery(RestCompanyUsersBulkItemCompanyTransfer $restCompanyUsersBulkItemCompanyTransfer): SpyCompanyQuery
     {
@@ -204,11 +208,14 @@ class CompanyUsersBulkRestApiRepository extends AbstractRepository implements Co
 
     /**
      * @param \Generated\Shared\Transfer\RestCompanyUsersBulkItemCustomerTransfer $restCompanyUsersBulkItemCustomerTransfer
+     *
+     * @throws \Exception
+     *
      * @return \Orm\Zed\Customer\Persistence\SpyCustomerQuery
-     * @throws \Spryker\Zed\Propel\Business\Exception\AmbiguousComparisonException
      */
-    protected function getCustomerQuery(RestCompanyUsersBulkItemCustomerTransfer $restCompanyUsersBulkItemCustomerTransfer): \Orm\Zed\Customer\Persistence\SpyCustomerQuery
-    {
+    protected function getCustomerQuery(
+        RestCompanyUsersBulkItemCustomerTransfer $restCompanyUsersBulkItemCustomerTransfer
+    ): SpyCustomerQuery {
         $query = $this->getFactory()->getCustomerQuery();
         $throw = true;
 
@@ -225,6 +232,7 @@ class CompanyUsersBulkRestApiRepository extends AbstractRepository implements Co
         if ($throw) {
             throw new Exception('At least customer reference or customer email is required to find customer!');
         }
+
         return $query;
     }
 }

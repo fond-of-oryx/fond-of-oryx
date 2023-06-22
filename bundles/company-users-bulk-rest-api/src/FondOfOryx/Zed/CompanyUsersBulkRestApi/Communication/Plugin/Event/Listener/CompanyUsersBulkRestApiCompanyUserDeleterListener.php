@@ -2,7 +2,6 @@
 
 namespace FondOfOryx\Zed\CompanyUsersBulkRestApi\Communication\Plugin\Event\Listener;
 
-use Exception;
 use FondOfOryx\Shared\CompanyUsersBulkRestApi\CompanyUsersBulkRestApiConstants;
 use Generated\Shared\Transfer\RestCompanyUsersBulkItemCollectionTransfer;
 use Spryker\Shared\Kernel\Transfer\TransferInterface;
@@ -17,8 +16,6 @@ class CompanyUsersBulkRestApiCompanyUserDeleterListener extends AbstractPlugin i
     /**
      * @param \Spryker\Shared\Kernel\Transfer\TransferInterface $transfer
      * @param $eventName
-     *
-     * @throws \Exception
      *
      * @return void
      */

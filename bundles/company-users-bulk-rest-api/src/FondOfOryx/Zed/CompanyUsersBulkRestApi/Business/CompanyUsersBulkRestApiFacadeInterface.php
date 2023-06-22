@@ -10,6 +10,7 @@ interface CompanyUsersBulkRestApiFacadeInterface
 {
     /**
      * @param \Generated\Shared\Transfer\RestCompanyUsersBulkRequestTransfer $restCompanyUsersBulkRequestTransfer
+     *
      * @return \Generated\Shared\Transfer\RestCompanyUsersBulkResponseTransfer
      */
     public function bulkProcess(
@@ -18,6 +19,7 @@ interface CompanyUsersBulkRestApiFacadeInterface
 
     /**
      * @param \Generated\Shared\Transfer\RestCompanyUsersBulkItemCollectionTransfer $restCompanyUsersBulkItemCollectionTransfer
+     *
      * @return void
      */
     public function createCompanyUserBulkMode(
@@ -26,6 +28,7 @@ interface CompanyUsersBulkRestApiFacadeInterface
 
     /**
      * @param \Generated\Shared\Transfer\RestCompanyUsersBulkItemCollectionTransfer $restCompanyUsersBulkItemCollectionTransfer
+     *
      * @return void
      */
     public function deleteCompanyUserBulkMode(

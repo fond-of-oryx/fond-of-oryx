@@ -24,28 +24,34 @@ interface CompanyUsersBulkRestApiRepositoryInterface
 
     /**
      * @param \Generated\Shared\Transfer\RestCompanyUsersBulkItemCustomerTransfer $restCompanyUsersBulkItemCustomerTransfer
-     * @return \Generated\Shared\Transfer\CustomerTransfer
+     *
      * @throws \Spryker\Zed\Propel\Business\Exception\AmbiguousComparisonException
+     *
+     * @return \Generated\Shared\Transfer\CustomerTransfer
      */
     public function findCustomer(RestCompanyUsersBulkItemCustomerTransfer $restCompanyUsersBulkItemCustomerTransfer): CustomerTransfer;
 
     /**
      * @param \Generated\Shared\Transfer\CompanyUserTransfer $companyUserTransfer
-     * @return \Generated\Shared\Transfer\CompanyUserTransfer|null
+     *
      * @throws \Spryker\Shared\Kernel\Transfer\Exception\RequiredTransferPropertyException
      * @throws \Spryker\Zed\Propel\Business\Exception\AmbiguousComparisonException
+     *
+     * @return \Generated\Shared\Transfer\CompanyUserTransfer|null
      */
     public function findCompanyUser(CompanyUserTransfer $companyUserTransfer): ?CompanyUserTransfer;
 
     /**
      * @param int $idCompany
      * @param int $idCustomer
+     *
      * @return \Generated\Shared\Transfer\CompanyUserCollectionTransfer
      */
     public function findCompanyUsersByFkCompanyAndFkCustomer(int $idCompany, int $idCustomer): CompanyUserCollectionTransfer;
 
     /**
      * @param \Generated\Shared\Transfer\RestCompanyUsersBulkItemCompanyTransfer $restCompanyUsersBulkItemCompanyTransfer
+     *
      * @return \Generated\Shared\Transfer\CompanyTransfer
      */
     public function findCompany(RestCompanyUsersBulkItemCompanyTransfer $restCompanyUsersBulkItemCompanyTransfer): CompanyTransfer;

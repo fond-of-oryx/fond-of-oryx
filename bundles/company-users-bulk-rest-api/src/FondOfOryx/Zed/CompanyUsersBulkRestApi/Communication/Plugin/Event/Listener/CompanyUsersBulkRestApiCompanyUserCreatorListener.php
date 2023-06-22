@@ -17,8 +17,6 @@ class CompanyUsersBulkRestApiCompanyUserCreatorListener extends AbstractPlugin i
      * @param \Spryker\Shared\Kernel\Transfer\TransferInterface $transfer
      * @param $eventName
      *
-     * @throws \Spryker\Zed\Kernel\Exception\Container\ContainerKeyNotFoundException
-     *
      * @return void
      */
     public function handle(TransferInterface $transfer, $eventName): void

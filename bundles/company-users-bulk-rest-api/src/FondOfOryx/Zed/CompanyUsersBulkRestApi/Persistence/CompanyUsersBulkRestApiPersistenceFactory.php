@@ -41,7 +41,6 @@ class CompanyUsersBulkRestApiPersistenceFactory extends AbstractPersistenceFacto
 
     /**
      * @return \Orm\Zed\Company\Persistence\Base\SpyCompanyQuery
-     * @throws \Spryker\Zed\Kernel\Exception\Container\ContainerKeyNotFoundException
      */
     public function getCompanyQuery(): SpyCompanyQuery
     {

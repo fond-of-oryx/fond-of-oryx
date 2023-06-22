@@ -12,6 +12,11 @@ use Spryker\Zed\Kernel\Communication\AbstractPlugin;
  */
 class CustomerResolverPreEnrichmentPlugin extends AbstractPlugin implements CompanyUsersBulkItemPreEnrichmentPluginInterface
 {
+    /**
+     * @param \Generated\Shared\Transfer\CompanyUsersBulkPreparationTransfer $companyUsersBulkPreparationTransfer
+     *
+     * @return \Generated\Shared\Transfer\CompanyUsersBulkPreparationTransfer
+     */
     public function preEnrichment(CompanyUsersBulkPreparationTransfer $companyUsersBulkPreparationTransfer): CompanyUsersBulkPreparationTransfer
     {
         $item = $companyUsersBulkPreparationTransfer->getItem();
@@ -36,6 +41,11 @@ class CustomerResolverPreEnrichmentPlugin extends AbstractPlugin implements Comp
             ->setItem($item);
     }
 
+    /**
+     * @param \Generated\Shared\Transfer\CompanyUsersBulkPreparationTransfer $companyUsersBulkPreparationTransfer
+     *
+     * @return \Generated\Shared\Transfer\CustomerTransfer|null
+     */
     protected function getCustomerFromCache(CompanyUsersBulkPreparationTransfer $companyUsersBulkPreparationTransfer): ?CustomerTransfer
     {
         $customer = $companyUsersBulkPreparationTransfer->getItem()->getCustomer();
@@ -47,5 +57,4 @@ class CustomerResolverPreEnrichmentPlugin extends AbstractPlugin implements Comp
 
         return null;
     }
-
 }

@@ -57,14 +57,13 @@ class BulkManager implements BulkManagerInterface
      * @param \Psr\Log\LoggerInterface $logger
      */
     public function __construct(
-        PermissionCheckerInterface                          $permissionChecker,
-        CompanyUsersBulkRestApiToEventFacadeInterface       $eventFacade,
+        PermissionCheckerInterface $permissionChecker,
+        CompanyUsersBulkRestApiToEventFacadeInterface $eventFacade,
         CompanyUsersBulkRestApiToCompanyUserFacadeInterface $companyUserFacade,
-        BulkDataPluginExecutionerInterface                  $pluginExecutioner,
-        CompanyUsersBulkRestApiRepositoryInterface          $repository,
-        LoggerInterface                                     $logger
-    )
-    {
+        BulkDataPluginExecutionerInterface $pluginExecutioner,
+        CompanyUsersBulkRestApiRepositoryInterface $repository,
+        LoggerInterface $logger
+    ) {
         $this->permissionChecker = $permissionChecker;
         $this->eventFacade = $eventFacade;
         $this->companyUserFacade = $companyUserFacade;
@@ -75,12 +74,12 @@ class BulkManager implements BulkManagerInterface
 
     /**
      * @param \Generated\Shared\Transfer\RestCompanyUsersBulkRequestTransfer $restCompanyUsersBulkRequestTransfer
+     *
      * @return \Generated\Shared\Transfer\RestCompanyUsersBulkResponseTransfer
      */
     public function handleBulkRequest(
         RestCompanyUsersBulkRequestTransfer $restCompanyUsersBulkRequestTransfer
-    ): RestCompanyUsersBulkResponseTransfer
-    {
+    ): RestCompanyUsersBulkResponseTransfer {
         try {
             $restCompanyUsersBulkRequestTransfer = $this->pluginExecutioner->executePreHandlePlugins($restCompanyUsersBulkRequestTransfer);
 
@@ -106,17 +105,22 @@ class BulkManager implements BulkManagerInterface
                 $this->createEmptyResponseTransfer()
                     ->setCode(CompanyUsersBulkRestApiConstants::ERROR_CODE)
                     ->setIsSuccessful(false)
-                    ->setError($throwable->getMessage())
+                    ->setError($throwable->getMessage()),
             );
         }
 
         return $this->pluginExecutioner->executePostHandlePlugins(
             $this->createEmptyResponseTransfer()
                 ->setCode(CompanyUsersBulkRestApiConstants::SUCCESS_CODE)
-                ->setIsSuccessful(true)
+                ->setIsSuccessful(true),
         );
     }
 
+    /**
+     * @param \Generated\Shared\Transfer\RestCompanyUsersBulkItemCollectionTransfer $restCompanyUsersBulkItemCollectionTransfer
+     *
+     * @return void
+     */
     public function createCompanyUser(RestCompanyUsersBulkItemCollectionTransfer $restCompanyUsersBulkItemCollectionTransfer): void
     {
         $prepareDataCollection = $this->prepareData($restCompanyUsersBulkItemCollectionTransfer);
@@ -135,7 +139,6 @@ class BulkManager implements BulkManagerInterface
                     ->setFkCompanyBusinessUnit($companyBusinessUnit->getIdCompanyBusinessUnit())
                     ->setCompany($company);
 
-
                 if ($this->repository->findCompanyUser($companyUserTransfer) !== null) {
                     continue;
                 }
@@ -151,6 +154,7 @@ class BulkManager implements BulkManagerInterface
 
     /**
      * @param \Generated\Shared\Transfer\RestCompanyUsersBulkItemCollectionTransfer $restCompanyUsersBulkItemCollectionTransfer
+     *
      * @return void
      */
     public function deleteCompanyUser(RestCompanyUsersBulkItemCollectionTransfer $restCompanyUsersBulkItemCollectionTransfer): void
@@ -163,8 +167,7 @@ class BulkManager implements BulkManagerInterface
 
             $companyUserCollectionTransfer = $this->repository->findCompanyUsersByFkCompanyAndFkCustomer($company->getIdCompany(), $customer->getIdCustomer());
             foreach ($companyUserCollectionTransfer->getCompanyUsers() as $companyUserTransfer) {
-
-                if ($companyUserTransfer->getCompanyRole()->getName() !== $prepareData->getItem()->getRole()){
+                if ($companyUserTransfer->getCompanyRole()->getName() !== $prepareData->getItem()->getRole()) {
                     continue;
                 }
 
@@ -179,7 +182,8 @@ class BulkManager implements BulkManagerInterface
 
     /**
      * @param \Generated\Shared\Transfer\RestCompanyUsersBulkItemCollectionTransfer $restCompanyUsersBulkItemCollectionTransfer
-     * @return \ArrayObject|CompanyUsersBulkPreparationTransfer[]
+     *
+     * @return \ArrayObject<\Generated\Shared\Transfer\CompanyUsersBulkPreparationTransfer>
      */
     protected function prepareData(RestCompanyUsersBulkItemCollectionTransfer $restCompanyUsersBulkItemCollectionTransfer): ArrayObject
     {
@@ -214,6 +218,7 @@ class BulkManager implements BulkManagerInterface
 
     /**
      * @param \ArrayObject $arrayObject
+     *
      * @return \Generated\Shared\Transfer\RestCompanyUsersBulkItemCollectionTransfer
      */
     protected function createCollectionTransfer(ArrayObject $arrayObject): RestCompanyUsersBulkItemCollectionTransfer
@@ -231,8 +236,10 @@ class BulkManager implements BulkManagerInterface
 
     /**
      * @param \Generated\Shared\Transfer\CompanyUsersBulkPreparationTransfer $companyUsersBulkPreparationTransfer
-     * @return \Generated\Shared\Transfer\CompanyRoleTransfer
+     *
      * @throws \Exception
+     *
+     * @return \Generated\Shared\Transfer\CompanyRoleTransfer
      */
     protected function resolveRole(CompanyUsersBulkPreparationTransfer $companyUsersBulkPreparationTransfer): CompanyRoleTransfer
     {
@@ -242,6 +249,7 @@ class BulkManager implements BulkManagerInterface
                 return $companyRole;
             }
         }
+
         throw new Exception(sprintf('Role with given name "%s" not found!', $companyUsersBulkPreparationTransfer->getItem()->getRole()));
     }
 }

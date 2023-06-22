@@ -13,6 +13,7 @@ class GatewayController extends AbstractGatewayController
 {
     /**
      * @param \Generated\Shared\Transfer\RestCompanyUsersBulkRequestTransfer $restCompanyUsersBulkRequestTransfer
+     *
      * @return \Generated\Shared\Transfer\RestCompanyUsersBulkResponseTransfer
      */
     public function bulkProcessAction(

@@ -11,10 +11,11 @@ interface RestCompanyUsersBulkRequestMapperInterface
     /**
      * @param \Spryker\Glue\GlueApplication\Rest\Request\Data\RestRequestInterface $restRequest
      * @param \Generated\Shared\Transfer\RestCompanyUsersBulkRequestAttributesTransfer|null $restCompanyUsersBulkRequestAttributesTransfer
+     *
      * @return \Generated\Shared\Transfer\RestCompanyUsersBulkRequestTransfer
      */
     public function createRequest(
-        RestRequestInterface                           $restRequest,
+        RestRequestInterface $restRequest,
         ?RestCompanyUsersBulkRequestAttributesTransfer $restCompanyUsersBulkRequestAttributesTransfer = null
     ): RestCompanyUsersBulkRequestTransfer;
 }

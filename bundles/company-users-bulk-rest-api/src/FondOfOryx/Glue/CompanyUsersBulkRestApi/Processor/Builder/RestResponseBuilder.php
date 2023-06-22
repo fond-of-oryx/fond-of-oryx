@@ -2,7 +2,6 @@
 
 namespace FondOfOryx\Glue\CompanyUsersBulkRestApi\Processor\Builder;
 
-use ArrayObject;
 use Generated\Shared\Transfer\RestErrorMessageTransfer;
 use Spryker\Glue\GlueApplication\Rest\JsonApi\RestResourceBuilderInterface;
 use Spryker\Glue\GlueApplication\Rest\JsonApi\RestResponseInterface;

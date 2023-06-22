@@ -8,6 +8,7 @@ interface PermissionCheckerInterface
 {
     /**
      * @param \Generated\Shared\Transfer\RestCompanyUsersBulkRequestTransfer $restCompanyUsersBulkRequestTransfer
+     *
      * @return bool
      */
     public function check(

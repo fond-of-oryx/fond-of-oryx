@@ -28,6 +28,7 @@ class CompanyUsersBulkProcessor implements CompanyUsersBulkProcessorInterface
 
     /**
      * @param \FondOfOryx\Glue\CompanyUsersBulkRestApi\Processor\Mapper\RestCompanyUsersBulkRequestMapperInterface $restCompanyUsersBulkRequestMapper
+     * @param \FondOfOryx\Client\CompanyUsersBulkRestApi\CompanyUsersBulkRestApiClientInterface $client
      * @param \FondOfOryx\Glue\CompanyUsersBulkRestApi\Processor\Builder\RestResponseBuilderInterface $restResponseBuilder
      */
     public function __construct(
@@ -55,11 +56,11 @@ class CompanyUsersBulkProcessor implements CompanyUsersBulkProcessorInterface
 
         $response = $this->client->bulkProcess($restCompanyUsersBulkRequestTransfer);
 
-        if ($response->getError() !== null){
-            return $this->restResponseBuilder->createRestErrorResponse($response->getError(), $response->getCode());
+        if ($response->getError() !== null) {
+            return $this->restResponseBuilder
+                ->createRestErrorResponse($response->getError(), $response->getCode());
         }
 
         return $this->restResponseBuilder->buildEmptyRestResponse();
-
     }
 }

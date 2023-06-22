@@ -102,6 +102,7 @@ class CompanyUsersBulkRestApiDependencyProvider extends AbstractBundleDependency
 
     /**
      * @param \Spryker\Zed\Kernel\Container $container
+     *
      * @return \Spryker\Zed\Kernel\Container
      */
     public function provideBusinessLayerDependencies(Container $container): Container
@@ -119,7 +120,6 @@ class CompanyUsersBulkRestApiDependencyProvider extends AbstractBundleDependency
 
         return $this->addEventFacade($container);
     }
-
 
     /**
      * @param \Spryker\Zed\Kernel\Container $container
@@ -221,7 +221,7 @@ class CompanyUsersBulkRestApiDependencyProvider extends AbstractBundleDependency
     }
 
     /**
-     * @return \FondOfOryx\Zed\CompanyUsersBulkRestApiExtension\Dependency\Plugin\CompanyUsersBulkItemPreEnrichmentPluginInterface[]
+     * @return array<\FondOfOryx\Zed\CompanyUsersBulkRestApiExtension\Dependency\Plugin\CompanyUsersBulkItemPreEnrichmentPluginInterface>
      */
     protected function getPreEnrichmentPlugins(): array
     {
@@ -247,7 +247,7 @@ class CompanyUsersBulkRestApiDependencyProvider extends AbstractBundleDependency
     }
 
     /**
-     * @return \FondOfOryx\Zed\CompanyUsersBulkRestApiExtension\Dependency\Plugin\CompanyUsersBulkItemPostEnrichmentPluginInterface[]
+     * @return array<\FondOfOryx\Zed\CompanyUsersBulkRestApiExtension\Dependency\Plugin\CompanyUsersBulkItemPostEnrichmentPluginInterface>
      */
     protected function getPostEnrichmentPlugins(): array
     {
@@ -270,7 +270,7 @@ class CompanyUsersBulkRestApiDependencyProvider extends AbstractBundleDependency
     }
 
     /**
-     * @return \FondOfOryx\Zed\CompanyUsersBulkRestApiExtension\Dependency\Plugin\CompanyUsersBulkPreHandlingPluginInterface[]
+     * @return array<\FondOfOryx\Zed\CompanyUsersBulkRestApiExtension\Dependency\Plugin\CompanyUsersBulkPreHandlingPluginInterface>
      */
     protected function getPreHandlingPlugins(): array
     {
@@ -293,7 +293,7 @@ class CompanyUsersBulkRestApiDependencyProvider extends AbstractBundleDependency
     }
 
     /**
-     * @return \FondOfOryx\Zed\CompanyUsersBulkRestApiExtension\Dependency\Plugin\CompanyUsersBulkPostHandlingPluginInterface[]
+     * @return array<\FondOfOryx\Zed\CompanyUsersBulkRestApiExtension\Dependency\Plugin\CompanyUsersBulkPostHandlingPluginInterface>
      */
     protected function getPostHandlingPlugins(): array
     {
@@ -316,7 +316,7 @@ class CompanyUsersBulkRestApiDependencyProvider extends AbstractBundleDependency
     }
 
     /**
-     * @return \FondOfOryx\Zed\CompanyUsersBulkRestApiExtension\Dependency\Plugin\CompanyUsersBulkPreAssignPluginInterface[]
+     * @return array<\FondOfOryx\Zed\CompanyUsersBulkRestApiExtension\Dependency\Plugin\CompanyUsersBulkPreAssignPluginInterface>
      */
     protected function getPreAssignPlugins(): array
     {
@@ -339,7 +339,7 @@ class CompanyUsersBulkRestApiDependencyProvider extends AbstractBundleDependency
     }
 
     /**
-     * @return \FondOfOryx\Zed\CompanyUsersBulkRestApiExtension\Dependency\Plugin\CompanyUsersBulkPostAssignPluginInterface[]
+     * @return array<\FondOfOryx\Zed\CompanyUsersBulkRestApiExtension\Dependency\Plugin\CompanyUsersBulkPostAssignPluginInterface>
      */
     protected function getPostAssignPlugins(): array
     {
@@ -362,7 +362,7 @@ class CompanyUsersBulkRestApiDependencyProvider extends AbstractBundleDependency
     }
 
     /**
-     * @return \FondOfOryx\Zed\CompanyUsersBulkRestApiExtension\Dependency\Plugin\CompanyUsersBulkPreUnassignPluginInterface[]
+     * @return array<\FondOfOryx\Zed\CompanyUsersBulkRestApiExtension\Dependency\Plugin\CompanyUsersBulkPreUnassignPluginInterface>
      */
     protected function getPreUnassignPlugins(): array
     {
@@ -385,7 +385,7 @@ class CompanyUsersBulkRestApiDependencyProvider extends AbstractBundleDependency
     }
 
     /**
-     * @return \FondOfOryx\Zed\CompanyUsersBulkRestApiExtension\Dependency\Plugin\CompanyUsersBulkPostUnassignPluginInterface[]
+     * @return array<\FondOfOryx\Zed\CompanyUsersBulkRestApiExtension\Dependency\Plugin\CompanyUsersBulkPostUnassignPluginInterface>
      */
     protected function getPostUnassignPlugins(): array
     {

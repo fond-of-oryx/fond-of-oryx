@@ -23,6 +23,7 @@ class PermissionChecker implements PermissionCheckerInterface
 
     /**
      * @param \Generated\Shared\Transfer\RestCompanyUsersBulkRequestTransfer $restCompanyUsersBulkRequestTransfer
+     *
      * @return bool
      */
     public function check(
@@ -30,7 +31,7 @@ class PermissionChecker implements PermissionCheckerInterface
     ): bool {
         return $this->repository->hasPermission(
             CanBulkCreateCompanyUsersPermissionPlugin::KEY,
-            $restCompanyUsersBulkRequestTransfer->getOriginatorReference()
+            $restCompanyUsersBulkRequestTransfer->getOriginatorReference(),
         );
     }
 }

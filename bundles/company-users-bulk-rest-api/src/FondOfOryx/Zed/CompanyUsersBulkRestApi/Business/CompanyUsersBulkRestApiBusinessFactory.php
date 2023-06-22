@@ -33,7 +33,7 @@ class CompanyUsersBulkRestApiBusinessFactory extends AbstractBusinessFactory
             $this->getCompanyUserFacade(),
             $this->createBulkDataPluginExecutioner(),
             $this->getRepository(),
-            $this->getLogger()
+            $this->getLogger(),
         );
     }
 
@@ -58,13 +58,12 @@ class CompanyUsersBulkRestApiBusinessFactory extends AbstractBusinessFactory
             $this->getPreAssignPlugins(),
             $this->getPostAssignPlugins(),
             $this->getPreUnassignPlugins(),
-            $this->getPostUnassignPlugins()
+            $this->getPostUnassignPlugins(),
         );
     }
 
     /**
      * @return \FondOfOryx\Zed\CompanyUsersBulkRestApi\Dependency\Facade\CompanyUsersBulkRestApiToEventFacadeInterface
-     * @throws \Spryker\Zed\Kernel\Exception\Container\ContainerKeyNotFoundException
      */
     public function getEventFacade(): CompanyUsersBulkRestApiToEventFacadeInterface
     {
@@ -75,7 +74,6 @@ class CompanyUsersBulkRestApiBusinessFactory extends AbstractBusinessFactory
 
     /**
      * @return \FondOfOryx\Zed\CompanyUsersBulkRestApi\Dependency\Facade\CompanyUsersBulkRestApiToCompanyUserFacadeInterface
-     * @throws \Spryker\Zed\Kernel\Exception\Container\ContainerKeyNotFoundException
      */
     public function getCompanyUserFacade(): CompanyUsersBulkRestApiToCompanyUserFacadeInterface
     {
@@ -85,8 +83,7 @@ class CompanyUsersBulkRestApiBusinessFactory extends AbstractBusinessFactory
     }
 
     /**
-     * @return \FondOfOryx\Zed\CompanyUsersBulkRestApiExtension\Dependency\Plugin\CompanyUsersBulkItemPreEnrichmentPluginInterface[]
-     * @throws \Spryker\Zed\Kernel\Exception\Container\ContainerKeyNotFoundException
+     * @return array<\FondOfOryx\Zed\CompanyUsersBulkRestApiExtension\Dependency\Plugin\CompanyUsersBulkItemPreEnrichmentPluginInterface>
      */
     public function getPreEnrichmentPlugins(): array
     {
@@ -96,8 +93,7 @@ class CompanyUsersBulkRestApiBusinessFactory extends AbstractBusinessFactory
     }
 
     /**
-     * @return \FondOfOryx\Zed\CompanyUsersBulkRestApiExtension\Dependency\Plugin\CompanyUsersBulkItemPostEnrichmentPluginInterface[]
-     * @throws \Spryker\Zed\Kernel\Exception\Container\ContainerKeyNotFoundException
+     * @return array<\FondOfOryx\Zed\CompanyUsersBulkRestApiExtension\Dependency\Plugin\CompanyUsersBulkItemPostEnrichmentPluginInterface>
      */
     public function getPostEnrichmentPlugins(): array
     {
@@ -107,8 +103,7 @@ class CompanyUsersBulkRestApiBusinessFactory extends AbstractBusinessFactory
     }
 
     /**
-     * @return \FondOfOryx\Zed\CompanyUsersBulkRestApiExtension\Dependency\Plugin\CompanyUsersBulkPreHandlingPluginInterface[]
-     * @throws \Spryker\Zed\Kernel\Exception\Container\ContainerKeyNotFoundException
+     * @return array<\FondOfOryx\Zed\CompanyUsersBulkRestApiExtension\Dependency\Plugin\CompanyUsersBulkPreHandlingPluginInterface>
      */
     public function getPreHandlingPlugins(): array
     {
@@ -118,8 +113,7 @@ class CompanyUsersBulkRestApiBusinessFactory extends AbstractBusinessFactory
     }
 
     /**
-     * @return \FondOfOryx\Zed\CompanyUsersBulkRestApiExtension\Dependency\Plugin\CompanyUsersBulkPostHandlingPluginInterface[]
-     * @throws \Spryker\Zed\Kernel\Exception\Container\ContainerKeyNotFoundException
+     * @return array<\FondOfOryx\Zed\CompanyUsersBulkRestApiExtension\Dependency\Plugin\CompanyUsersBulkPostHandlingPluginInterface>
      */
     public function getPostHandlingPlugins(): array
     {
@@ -129,8 +123,7 @@ class CompanyUsersBulkRestApiBusinessFactory extends AbstractBusinessFactory
     }
 
     /**
-     * @return \FondOfOryx\Zed\CompanyUsersBulkRestApiExtension\Dependency\Plugin\CompanyUsersBulkPreAssignPluginInterface[]
-     * @throws \Spryker\Zed\Kernel\Exception\Container\ContainerKeyNotFoundException
+     * @return array<\FondOfOryx\Zed\CompanyUsersBulkRestApiExtension\Dependency\Plugin\CompanyUsersBulkPreAssignPluginInterface>
      */
     public function getPreAssignPlugins(): array
     {
@@ -140,8 +133,7 @@ class CompanyUsersBulkRestApiBusinessFactory extends AbstractBusinessFactory
     }
 
     /**
-     * @return \FondOfOryx\Zed\CompanyUsersBulkRestApiExtension\Dependency\Plugin\CompanyUsersBulkPostAssignPluginInterface[]
-     * @throws \Spryker\Zed\Kernel\Exception\Container\ContainerKeyNotFoundException
+     * @return array<\FondOfOryx\Zed\CompanyUsersBulkRestApiExtension\Dependency\Plugin\CompanyUsersBulkPostAssignPluginInterface>
      */
     public function getPostAssignPlugins(): array
     {
@@ -151,8 +143,7 @@ class CompanyUsersBulkRestApiBusinessFactory extends AbstractBusinessFactory
     }
 
     /**
-     * @return \FondOfOryx\Zed\CompanyUsersBulkRestApiExtension\Dependency\Plugin\CompanyUsersBulkPreUnassignPluginInterface[]
-     * @throws \Spryker\Zed\Kernel\Exception\Container\ContainerKeyNotFoundException
+     * @return array<\FondOfOryx\Zed\CompanyUsersBulkRestApiExtension\Dependency\Plugin\CompanyUsersBulkPreUnassignPluginInterface>
      */
     public function getPreUnassignPlugins(): array
     {
@@ -162,8 +153,7 @@ class CompanyUsersBulkRestApiBusinessFactory extends AbstractBusinessFactory
     }
 
     /**
-     * @return \FondOfOryx\Zed\CompanyUsersBulkRestApiExtension\Dependency\Plugin\CompanyUsersBulkPostUnassignPluginInterface[]
-     * @throws \Spryker\Zed\Kernel\Exception\Container\ContainerKeyNotFoundException
+     * @return array<\FondOfOryx\Zed\CompanyUsersBulkRestApiExtension\Dependency\Plugin\CompanyUsersBulkPostUnassignPluginInterface>
      */
     public function getPostUnassignPlugins(): array
     {

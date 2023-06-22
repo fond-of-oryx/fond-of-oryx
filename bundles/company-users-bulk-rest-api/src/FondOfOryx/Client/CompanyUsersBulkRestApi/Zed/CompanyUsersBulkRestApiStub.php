@@ -28,6 +28,7 @@ class CompanyUsersBulkRestApiStub implements CompanyUsersBulkRestApiStubInterfac
 
     /**
      * @param \Generated\Shared\Transfer\RestCompanyUsersBulkRequestTransfer $restCompanyUsersBulkRequestTransfer
+     *
      * @return \Generated\Shared\Transfer\RestCompanyUsersBulkResponseTransfer
      */
     public function bulkProcess(

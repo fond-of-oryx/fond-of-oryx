@@ -13,6 +13,7 @@ class CompanyUsersBulkRestApiClient extends AbstractClient implements CompanyUse
 {
     /**
      * @param \Generated\Shared\Transfer\RestCompanyUsersBulkRequestTransfer $restCompanyUsersBulkRequestTransfer
+     *
      * @return \Generated\Shared\Transfer\RestCompanyUsersBulkResponseTransfer
      */
     public function bulkProcess(
