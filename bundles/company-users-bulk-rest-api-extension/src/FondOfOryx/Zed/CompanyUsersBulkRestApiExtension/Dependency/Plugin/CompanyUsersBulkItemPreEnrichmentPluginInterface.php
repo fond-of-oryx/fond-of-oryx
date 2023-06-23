@@ -8,6 +8,7 @@ interface CompanyUsersBulkItemPreEnrichmentPluginInterface
 {
     /**
      * @param \Generated\Shared\Transfer\CompanyUsersBulkPreparationTransfer $companyUsersBulkPreparationTransfer
+     *
      * @return \Generated\Shared\Transfer\CompanyUsersBulkPreparationTransfer
      */
     public function preEnrichment(

@@ -16,7 +16,7 @@ phpstan:
 
 .PHONY: codeception
 codeception:
-	./vendor/bin/codecept run --env standalone --coverage --coverage-xml --coverage-html
+	./vendor/bin/codecept run --env standalone
 
 .PHONY: codeception-without-coverage
 codeception-without-coverage:

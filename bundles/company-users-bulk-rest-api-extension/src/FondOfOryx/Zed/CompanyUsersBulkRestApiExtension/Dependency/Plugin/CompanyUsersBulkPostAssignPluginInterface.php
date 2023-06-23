@@ -8,6 +8,7 @@ interface CompanyUsersBulkPostAssignPluginInterface
 {
     /**
      * @param \Generated\Shared\Transfer\RestCompanyUsersBulkRequestTransfer $restCompanyUsersBulkRequestTransfer
+     *
      * @return \Generated\Shared\Transfer\RestCompanyUsersBulkRequestTransfer
      */
     public function postAssign(
