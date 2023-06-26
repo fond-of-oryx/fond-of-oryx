@@ -2,25 +2,17 @@
 
 namespace FondOfOryx\Zed\CompanyUsersBulkRestApi\Business\PluginExecutioner;
 
-use Generated\Shared\Transfer\CompanyUsersBulkPreparationTransfer;
+use Generated\Shared\Transfer\CompanyUsersBulkPreparationCollectionTransfer;
 use Generated\Shared\Transfer\RestCompanyUsersBulkRequestTransfer;
 use Generated\Shared\Transfer\RestCompanyUsersBulkResponseTransfer;
 
 interface BulkDataPluginExecutionerInterface
 {
     /**
-     * @param \Generated\Shared\Transfer\CompanyUsersBulkPreparationTransfer $companyUsersBulkPreparationTransfer
-     *
-     * @return \Generated\Shared\Transfer\CompanyUsersBulkPreparationTransfer
+     * @param \Generated\Shared\Transfer\CompanyUsersBulkPreparationCollectionTransfer $companyUsersBulkPreparationCollectionTransfer
+     * @return \Generated\Shared\Transfer\CompanyUsersBulkPreparationCollectionTransfer
      */
-    public function executePreEnrichmentPlugins(CompanyUsersBulkPreparationTransfer $companyUsersBulkPreparationTransfer): CompanyUsersBulkPreparationTransfer;
-
-    /**
-     * @param \Generated\Shared\Transfer\CompanyUsersBulkPreparationTransfer $companyUsersBulkPreparationTransfer
-     *
-     * @return \Generated\Shared\Transfer\CompanyUsersBulkPreparationTransfer
-     */
-    public function executePostEnrichmentPlugins(CompanyUsersBulkPreparationTransfer $companyUsersBulkPreparationTransfer): CompanyUsersBulkPreparationTransfer;
+    public function executeExpand(CompanyUsersBulkPreparationCollectionTransfer $companyUsersBulkPreparationCollectionTransfer): CompanyUsersBulkPreparationCollectionTransfer;
 
     /**
      * @param \Generated\Shared\Transfer\RestCompanyUsersBulkRequestTransfer $restCompanyUsersBulkRequestTransfer

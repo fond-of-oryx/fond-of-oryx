@@ -10,7 +10,9 @@ use FondOfOryx\Zed\CompanyUsersBulkRestApi\Business\PluginExecutioner\BulkDataPl
 use FondOfOryx\Zed\CompanyUsersBulkRestApi\Dependency\Facade\CompanyUsersBulkRestApiToCompanyUserFacadeInterface;
 use FondOfOryx\Zed\CompanyUsersBulkRestApi\Dependency\Facade\CompanyUsersBulkRestApiToEventFacadeInterface;
 use FondOfOryx\Zed\CompanyUsersBulkRestApi\Persistence\CompanyUsersBulkRestApiRepositoryInterface;
+use Generated\Shared\Transfer\CompanyRoleCollectionTransfer;
 use Generated\Shared\Transfer\CompanyRoleTransfer;
+use Generated\Shared\Transfer\CompanyUsersBulkPreparationCollectionTransfer;
 use Generated\Shared\Transfer\CompanyUsersBulkPreparationTransfer;
 use Generated\Shared\Transfer\CompanyUserTransfer;
 use Generated\Shared\Transfer\RestCompanyUsersBulkItemCollectionTransfer;
@@ -57,13 +59,14 @@ class BulkManager implements BulkManagerInterface
      * @param \Psr\Log\LoggerInterface $logger
      */
     public function __construct(
-        PermissionCheckerInterface $permissionChecker,
-        CompanyUsersBulkRestApiToEventFacadeInterface $eventFacade,
+        PermissionCheckerInterface                          $permissionChecker,
+        CompanyUsersBulkRestApiToEventFacadeInterface       $eventFacade,
         CompanyUsersBulkRestApiToCompanyUserFacadeInterface $companyUserFacade,
-        BulkDataPluginExecutionerInterface $pluginExecutioner,
-        CompanyUsersBulkRestApiRepositoryInterface $repository,
-        LoggerInterface $logger
-    ) {
+        BulkDataPluginExecutionerInterface                  $pluginExecutioner,
+        CompanyUsersBulkRestApiRepositoryInterface          $repository,
+        LoggerInterface                                     $logger
+    )
+    {
         $this->permissionChecker = $permissionChecker;
         $this->eventFacade = $eventFacade;
         $this->companyUserFacade = $companyUserFacade;
@@ -79,7 +82,8 @@ class BulkManager implements BulkManagerInterface
      */
     public function handleBulkRequest(
         RestCompanyUsersBulkRequestTransfer $restCompanyUsersBulkRequestTransfer
-    ): RestCompanyUsersBulkResponseTransfer {
+    ): RestCompanyUsersBulkResponseTransfer
+    {
         try {
             $restCompanyUsersBulkRequestTransfer = $this->pluginExecutioner->executePreHandlePlugins($restCompanyUsersBulkRequestTransfer);
 
@@ -123,32 +127,38 @@ class BulkManager implements BulkManagerInterface
      */
     public function createCompanyUser(RestCompanyUsersBulkItemCollectionTransfer $restCompanyUsersBulkItemCollectionTransfer): void
     {
-        $prepareDataCollection = $this->prepareData($restCompanyUsersBulkItemCollectionTransfer);
+        try {
+            $prepareDataCollection = $this->prepareData($restCompanyUsersBulkItemCollectionTransfer);
 
-        foreach ($prepareDataCollection as $prepareData) {
-            $company = $prepareData->getCompany();
-            $customer = $prepareData->getCustomer();
-            $role = $this->resolveRole($prepareData);
-            foreach ($company->getCompanyBusinessUnits() as $companyBusinessUnit) {
-                $companyUserTransfer = $this->createDummyCompanyUserTransfer()
-                    ->setCustomerReference($customer->getCustomerReference())
-                    ->setFkCustomer($customer->getIdCustomer())
-                    ->setCustomer($customer)
-                    ->setCompanyRole($role)
-                    ->setFkCompany($company->getIdCompany())
-                    ->setFkCompanyBusinessUnit($companyBusinessUnit->getIdCompanyBusinessUnit())
-                    ->setCompany($company);
+            foreach ($prepareDataCollection->getItems() as $prepareData) {
+                $company = $prepareData->getCompanyOrFail();
+                $customer = $prepareData->getCustomerOrFail();
+                $role = $this->resolveRole($prepareData);
+                $roleCollection = (new CompanyRoleCollectionTransfer())->addRole($role);
+                foreach ($company->getCompanyBusinessUnits() as $companyBusinessUnit) {
+                    $companyUserTransfer = $this->createDummyCompanyUserTransfer()
+                        ->setCustomerReference($customer->getCustomerReference())
+                        ->setFkCustomer($customer->getIdCustomer())
+                        ->setCustomer($customer)
+                        ->setCompanyRoleCollection($roleCollection)
+                        ->setFkCompany($company->getIdCompany())
+                        ->setFkCompanyBusinessUnit($companyBusinessUnit->getIdCompanyBusinessUnit())
+                        ->setCompany($company);
 
-                if ($this->repository->findCompanyUser($companyUserTransfer) !== null) {
-                    continue;
-                }
+                    if ($this->repository->findCompanyUser($companyUserTransfer) !== null) {
+                        continue;
+                    }
 
-                $response = $this->companyUserFacade->create($companyUserTransfer);
+                    $response = $this->companyUserFacade->create($companyUserTransfer);
 
-                if (!$response->getIsSuccessful()) {
-                    //ToDo handle error case
+                    if (!$response->getIsSuccessful()) {
+                        $this->logger->warning(sprintf('Could not create companyUser for customer "%s" and company "%s"', $customer->getCustomerReference(), $company->getUuid()));
+                        $this->logger->warning(json_encode($companyUserTransfer->toArray()));
+                    }
                 }
             }
+        } catch (Throwable $throwable) {
+            $this->logger->warning($throwable->getMessage(), $throwable->getTrace());
         }
     }
 
@@ -159,53 +169,47 @@ class BulkManager implements BulkManagerInterface
      */
     public function deleteCompanyUser(RestCompanyUsersBulkItemCollectionTransfer $restCompanyUsersBulkItemCollectionTransfer): void
     {
-        $prepareDataCollection = $this->prepareData($restCompanyUsersBulkItemCollectionTransfer);
+        try {
+            $prepareDataCollection = $this->prepareData($restCompanyUsersBulkItemCollectionTransfer);
 
-        foreach ($prepareDataCollection as $prepareData) {
-            $company = $prepareData->getCompany();
-            $customer = $prepareData->getCustomer();
+            foreach ($prepareDataCollection->getItems() as $prepareData) {
+                $company = $prepareData->getCompanyOrFail();
+                $customer = $prepareData->getCustomerOrFail();
 
-            $companyUserCollectionTransfer = $this->repository->findCompanyUsersByFkCompanyAndFkCustomer($company->getIdCompany(), $customer->getIdCustomer());
-            foreach ($companyUserCollectionTransfer->getCompanyUsers() as $companyUserTransfer) {
-                if ($companyUserTransfer->getCompanyRole()->getName() !== $prepareData->getItem()->getRole()) {
-                    continue;
-                }
+                $companyUserCollectionTransfer = $this->repository->findCompanyUsersByFkCompanyAndFkCustomer($company->getIdCompany(), $customer->getIdCustomer());
+                foreach ($companyUserCollectionTransfer->getCompanyUsers() as $companyUserTransfer) {
+                    if ($companyUserTransfer->getCompanyRole()->getName() !== $prepareData->getItem()->getRole()) {
+                        continue;
+                    }
 
-                $response = $this->companyUserFacade->deleteCompanyUser($companyUserTransfer);
+                    $response = $this->companyUserFacade->deleteCompanyUser($companyUserTransfer);
 
-                if (!$response->getIsSuccessful()) {
-                    //ToDo handle error case
+                    if (!$response->getIsSuccessful()) {
+                        $this->logger->warning(sprintf('Could not delete companyUser for customer "%s" and company "%s"', $customer->getCustomerReference(), $company->getUuid()));
+                        $this->logger->warning(json_encode($companyUserTransfer->toArray()));
+                    }
                 }
             }
+        }
+        catch (Throwable $throwable){
+            $this->logger->warning($throwable->getMessage(), $throwable->getTrace());
         }
     }
 
     /**
      * @param \Generated\Shared\Transfer\RestCompanyUsersBulkItemCollectionTransfer $restCompanyUsersBulkItemCollectionTransfer
-     *
-     * @return \ArrayObject<\Generated\Shared\Transfer\CompanyUsersBulkPreparationTransfer>
+     * @return \Generated\Shared\Transfer\CompanyUsersBulkPreparationCollectionTransfer
      */
-    protected function prepareData(RestCompanyUsersBulkItemCollectionTransfer $restCompanyUsersBulkItemCollectionTransfer): ArrayObject
+    protected function prepareData(RestCompanyUsersBulkItemCollectionTransfer $restCompanyUsersBulkItemCollectionTransfer): CompanyUsersBulkPreparationCollectionTransfer
     {
-        $collection = new ArrayObject();
-        $companyCache = [];
-        $customerCache = [];
+        $collection = new CompanyUsersBulkPreparationCollectionTransfer();
+
         foreach ($restCompanyUsersBulkItemCollectionTransfer->getItems() as $item) {
-            $companyUsersBulkPreparationTransfer = (new CompanyUsersBulkPreparationTransfer())
-                ->setCompanyCache($companyCache)
-                ->setCustomerCache($customerCache)
-                ->setItem($item);
-
-            $companyUsersBulkPreparationTransfer = $this->pluginExecutioner->executePreEnrichmentPlugins($companyUsersBulkPreparationTransfer);
-            $companyUsersBulkPreparationTransfer = $this->pluginExecutioner->executePostEnrichmentPlugins($companyUsersBulkPreparationTransfer);
-
-            $companyCache = $companyUsersBulkPreparationTransfer->getCompanyCache();
-            $customerCache = $companyUsersBulkPreparationTransfer->getCustomerCache();
-
-            $collection->append($companyUsersBulkPreparationTransfer);
+            $preparedItem = (new CompanyUsersBulkPreparationTransfer())->setItem($item);
+            $collection->addItem($preparedItem);
         }
 
-        return $collection;
+        return $this->pluginExecutioner->executeExpand($collection);
     }
 
     /**
@@ -237,13 +241,12 @@ class BulkManager implements BulkManagerInterface
     /**
      * @param \Generated\Shared\Transfer\CompanyUsersBulkPreparationTransfer $companyUsersBulkPreparationTransfer
      *
+     * @return \Generated\Shared\Transfer\CompanyRoleTransfer
      * @throws \Exception
      *
-     * @return \Generated\Shared\Transfer\CompanyRoleTransfer
      */
     protected function resolveRole(CompanyUsersBulkPreparationTransfer $companyUsersBulkPreparationTransfer): CompanyRoleTransfer
     {
-        $roles = $companyUsersBulkPreparationTransfer->getCompany()->getCompanyRoles();
         foreach ($companyUsersBulkPreparationTransfer->getCompany()->getCompanyRoles() as $companyRole) {
             if ($companyUsersBulkPreparationTransfer->getItem()->getRole() === $companyRole->getName()) {
                 return $companyRole;

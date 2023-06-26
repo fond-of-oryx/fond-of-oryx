@@ -11,6 +11,7 @@ use FondOfOryx\Zed\CompanyUsersBulkRestApi\Business\PluginExecutioner\BulkDataPl
 use FondOfOryx\Zed\CompanyUsersBulkRestApi\CompanyUsersBulkRestApiDependencyProvider;
 use FondOfOryx\Zed\CompanyUsersBulkRestApi\Dependency\Facade\CompanyUsersBulkRestApiToCompanyUserFacadeInterface;
 use FondOfOryx\Zed\CompanyUsersBulkRestApi\Dependency\Facade\CompanyUsersBulkRestApiToEventFacadeInterface;
+use FondOfOryx\Zed\CompanyUsersBulkRestApiExtension\Dependency\Plugin\CompanyUsersBulkDataExpanderPluginInterface;
 use Spryker\Shared\Log\LoggerTrait;
 use Spryker\Zed\Kernel\Business\AbstractBusinessFactory;
 
@@ -51,8 +52,7 @@ class CompanyUsersBulkRestApiBusinessFactory extends AbstractBusinessFactory
     public function createBulkDataPluginExecutioner(): BulkDataPluginExecutionerInterface
     {
         return new BulkDataPluginExecutioner(
-            $this->getPreEnrichmentPlugins(),
-            $this->getPostEnrichmentPlugins(),
+            $this->getDataExpanderPlugins(),
             $this->getPreHandlingPlugins(),
             $this->getPostHandlingPlugins(),
             $this->getPreAssignPlugins(),
@@ -83,12 +83,12 @@ class CompanyUsersBulkRestApiBusinessFactory extends AbstractBusinessFactory
     }
 
     /**
-     * @return array<\FondOfOryx\Zed\CompanyUsersBulkRestApiExtension\Dependency\Plugin\CompanyUsersBulkItemPreEnrichmentPluginInterface>
+     * @return array<\FondOfOryx\Zed\CompanyUsersBulkRestApiExtension\Dependency\Plugin\CompanyUsersBulkDataExpanderPluginInterface>
      */
-    public function getPreEnrichmentPlugins(): array
+    public function getDataExpanderPlugins(): array
     {
         return $this->getProvidedDependency(
-            CompanyUsersBulkRestApiDependencyProvider::PLUGINS_PRE_ENRICHMENT,
+            CompanyUsersBulkRestApiDependencyProvider::PLUGINS_DATA_EXPANDER,
         );
     }
 

@@ -2,8 +2,6 @@
 
 namespace FondOfOryx\Zed\CompanyUsersBulkRestApi;
 
-use FondOfOryx\Zed\CompanyUsersBulkRestApi\Communication\Plugin\CompanyResolverPreEnrichmentPlugin;
-use FondOfOryx\Zed\CompanyUsersBulkRestApi\Communication\Plugin\CustomerResolverPreEnrichmentPlugin;
 use FondOfOryx\Zed\CompanyUsersBulkRestApi\Dependency\Facade\CompanyUsersBulkRestApiToCompanyUserFacadeBridge;
 use FondOfOryx\Zed\CompanyUsersBulkRestApi\Dependency\Facade\CompanyUsersBulkRestApiToEventFacadeBridge;
 use Orm\Zed\Company\Persistence\SpyCompanyQuery;
@@ -48,12 +46,7 @@ class CompanyUsersBulkRestApiDependencyProvider extends AbstractBundleDependency
     /**
      * @var string
      */
-    public const PLUGINS_PRE_ENRICHMENT = 'PLUGINS_PRE_ENRICHMENT';
-
-    /**
-     * @var string
-     */
-    public const PLUGINS_POST_ENRICHMENT = 'PLUGINS_POST_ENRICHMENT';
+    public const PLUGINS_DATA_EXPANDER = 'PLUGINS_DATA_EXPANDER';
 
     /**
      * @var string
@@ -109,8 +102,7 @@ class CompanyUsersBulkRestApiDependencyProvider extends AbstractBundleDependency
     {
         $container = parent::provideBusinessLayerDependencies($container);
         $container = $this->addCompanyUserFacade($container);
-        $container = $this->addPostEnrichmentPlugins($container);
-        $container = $this->addPreEnrichmentPlugins($container);
+        $container = $this->addDataExpanderPlugins($container);
         $container = $this->addPostHandlingPlugins($container);
         $container = $this->addPreHandlingPlugins($container);
         $container = $this->addPostAssignPlugins($container);
@@ -210,46 +202,20 @@ class CompanyUsersBulkRestApiDependencyProvider extends AbstractBundleDependency
      *
      * @return \Spryker\Zed\Kernel\Container
      */
-    protected function addPreEnrichmentPlugins(Container $container): Container
+    protected function addDataExpanderPlugins(Container $container): Container
     {
         $self = $this;
-        $container[static::PLUGINS_PRE_ENRICHMENT] = static function (Container $container) use ($self) {
-            return $self->getPreEnrichmentPlugins();
+        $container[static::PLUGINS_DATA_EXPANDER] = static function (Container $container) use ($self) {
+            return $self->getDataExpanderPlugins();
         };
 
         return $container;
     }
 
     /**
-     * @return array<\FondOfOryx\Zed\CompanyUsersBulkRestApiExtension\Dependency\Plugin\CompanyUsersBulkItemPreEnrichmentPluginInterface>
+     * @return array<\FondOfOryx\Zed\CompanyUsersBulkRestApiExtension\Dependency\Plugin\CompanyUsersBulkDataExpanderPluginInterface>
      */
-    protected function getPreEnrichmentPlugins(): array
-    {
-        return [
-            new CompanyResolverPreEnrichmentPlugin(),
-            new CustomerResolverPreEnrichmentPlugin(),
-        ];
-    }
-
-    /**
-     * @param \Spryker\Zed\Kernel\Container $container
-     *
-     * @return \Spryker\Zed\Kernel\Container
-     */
-    protected function addPostEnrichmentPlugins(Container $container): Container
-    {
-        $self = $this;
-        $container[static::PLUGINS_POST_ENRICHMENT] = static function (Container $container) use ($self) {
-            return $self->getPostEnrichmentPlugins();
-        };
-
-        return $container;
-    }
-
-    /**
-     * @return array<\FondOfOryx\Zed\CompanyUsersBulkRestApiExtension\Dependency\Plugin\CompanyUsersBulkItemPostEnrichmentPluginInterface>
-     */
-    protected function getPostEnrichmentPlugins(): array
+    protected function getDataExpanderPlugins(): array
     {
         return [];
     }

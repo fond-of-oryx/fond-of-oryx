@@ -4,11 +4,14 @@ namespace FondOfOryx\Zed\CompanyUsersBulkRestApi\Persistence;
 
 use Exception;
 use Generated\Shared\Transfer\CompanyBusinessUnitTransfer;
+use Generated\Shared\Transfer\CompanyCollectionTransfer;
 use Generated\Shared\Transfer\CompanyRoleTransfer;
 use Generated\Shared\Transfer\CompanyTransfer;
 use Generated\Shared\Transfer\CompanyUserCollectionTransfer;
 use Generated\Shared\Transfer\CompanyUserTransfer;
+use Generated\Shared\Transfer\CustomerCollectionTransfer;
 use Generated\Shared\Transfer\CustomerTransfer;
+use Generated\Shared\Transfer\RestCompanyUsersBulkItemCollectionTransfer;
 use Generated\Shared\Transfer\RestCompanyUsersBulkItemCompanyTransfer;
 use Generated\Shared\Transfer\RestCompanyUsersBulkItemCustomerTransfer;
 use Orm\Zed\Company\Persistence\Base\SpyCompanyQuery;
@@ -35,7 +38,7 @@ class CompanyUsersBulkRestApiRepository extends AbstractRepository implements Co
         $idPermission = $this->getIdPermissionByKey($permissionKey);
 
         if ($idPermission === null) {
-            return false;
+            return true;
         }
 
         /** @var \Propel\Runtime\Collection\ArrayCollection|null $collection */
@@ -43,16 +46,16 @@ class CompanyUsersBulkRestApiRepository extends AbstractRepository implements Co
             ->getCompanyUserQuery()
             ->clear()
             ->useCustomerQuery()
-            ->filterByCustomerReference($customerReference)
+                ->filterByCustomerReference($customerReference)
             ->endUse()
             ->useSpyCompanyRoleToCompanyUserQuery()
-            ->useCompanyRoleQuery()
-            ->useSpyCompanyRoleToPermissionQuery()
-            ->usePermissionQuery()
-            ->filterByIdPermission($idPermission)
-            ->endUse()
-            ->endUse()
-            ->endUse()
+                ->useCompanyRoleQuery()
+                    ->useSpyCompanyRoleToPermissionQuery()
+                        ->usePermissionQuery()
+                            ->filterByIdPermission($idPermission)
+                        ->endUse()
+                    ->endUse()
+                ->endUse()
             ->endUse()
             ->select([SpyCompanyUserTableMap::COL_ID_COMPANY_USER])
             ->find();
@@ -76,24 +79,6 @@ class CompanyUsersBulkRestApiRepository extends AbstractRepository implements Co
             ->findOne();
 
         return $idPermission;
-    }
-
-    /**
-     * @param \Generated\Shared\Transfer\RestCompanyUsersBulkItemCustomerTransfer $restCompanyUsersBulkItemCustomerTransfer
-     *
-     * @throws \Exception
-     *
-     * @return \Generated\Shared\Transfer\CustomerTransfer
-     */
-    public function findCustomer(RestCompanyUsersBulkItemCustomerTransfer $restCompanyUsersBulkItemCustomerTransfer): CustomerTransfer
-    {
-        $entity = $this->getCustomerQuery($restCompanyUsersBulkItemCustomerTransfer)->findOne();
-
-        if ($entity === null) {
-            throw new Exception(sprintf('Could not find customer by given email "%s" or reference "%s"', $restCompanyUsersBulkItemCustomerTransfer->getEmail(), $restCompanyUsersBulkItemCustomerTransfer->getCustomerReference()));
-        }
-
-        return (new CustomerTransfer())->fromArray($entity->toArray(), true);
     }
 
     /**
@@ -122,6 +107,85 @@ class CompanyUsersBulkRestApiRepository extends AbstractRepository implements Co
     }
 
     /**
+     * @param array $companyUuids
+     * @return \Generated\Shared\Transfer\CompanyCollectionTransfer
+     */
+    public function findCompaniesByUuids(array $companyUuids): CompanyCollectionTransfer
+    {
+        $collection = new CompanyCollectionTransfer;
+
+        if (count($companyUuids) === 0){
+            return $collection;
+        }
+        $entityCollection = $this->getFactory()->getCompanyQuery()
+            ->filterByUuid_In($companyUuids)
+            ->find();
+
+        /** @var \Orm\Zed\Company\Persistence\SpyCompany $entity */
+        foreach ($entityCollection->getData() as $entity){
+            $companyTransfer = (new CompanyTransfer())->fromArray($entity->toArray(), true);
+            foreach ($entity->getCompanyBusinessUnits() as $companyBusinessUnit) {
+                $companyTransfer->addCompanyBusinessUnit((new CompanyBusinessUnitTransfer())->fromArray($companyBusinessUnit->toArray(), true));
+            }
+
+            foreach ($entity->getCompanyRoles() as $role) {
+                $companyTransfer->addCompanyRole((new CompanyRoleTransfer())->fromArray($role->toArray(), true));
+            }
+            $collection->addCompany($companyTransfer);
+        }
+
+        return $collection;
+    }
+
+    /**
+     * @param array $customerReferences
+     * @return \Generated\Shared\Transfer\CustomerCollectionTransfer
+     */
+    public function findCustomerByReferences(array $customerReferences): CustomerCollectionTransfer
+    {
+        $collection = new CustomerCollectionTransfer();
+        if (count($customerReferences) === 0){
+            return $collection;
+        }
+        $entityCollection = $this->getFactory()->getCustomerQuery()
+            ->filterByCustomerReference_In($customerReferences)
+            ->find();
+
+        /** @var \Orm\Zed\Customer\Persistence\SpyCustomer $entity */
+        foreach ($entityCollection->getData() as $entity){
+            $customerTransfer = (new CustomerTransfer())->fromArray($entity->toArray(), true);
+            $collection->addCustomer($customerTransfer);
+        }
+
+        return $collection;
+    }
+
+    /**
+     * @param array $emailAddresses
+     * @return \Generated\Shared\Transfer\CustomerCollectionTransfer
+     */
+    public function findCustomerByEmail(array $emailAddresses): CustomerCollectionTransfer
+    {
+        $collection = new CustomerCollectionTransfer();
+
+        if (count($emailAddresses) === 0){
+            return $collection;
+        }
+
+        $entityCollection = $this->getFactory()->getCustomerQuery()
+            ->filterByEmail_In($emailAddresses)
+            ->find();
+
+        /** @var \Orm\Zed\Customer\Persistence\SpyCustomer $entity */
+        foreach ($entityCollection->getData() as $entity){
+            $customerTransfer = (new CustomerTransfer())->fromArray($entity->toArray(), true);
+            $collection->addCustomer($customerTransfer);
+        }
+
+        return $collection;
+    }
+
+    /**
      * @param int $idCompany
      * @param int $idCustomer
      *
@@ -147,92 +211,5 @@ class CompanyUsersBulkRestApiRepository extends AbstractRepository implements Co
         }
 
         return $companyUserCollection;
-    }
-
-    /**
-     * @param \Generated\Shared\Transfer\RestCompanyUsersBulkItemCompanyTransfer $restCompanyUsersBulkItemCompanyTransfer
-     *
-     * @throws \Exception
-     *
-     * @return \Generated\Shared\Transfer\CompanyTransfer
-     */
-    public function findCompany(RestCompanyUsersBulkItemCompanyTransfer $restCompanyUsersBulkItemCompanyTransfer): CompanyTransfer
-    {
-        $entity = $this->getCompanyQuery($restCompanyUsersBulkItemCompanyTransfer)->findOne();
-
-        if ($entity === null) {
-            throw new Exception(sprintf('Could not find company by given id "%s" or debtor number "%s"', $restCompanyUsersBulkItemCompanyTransfer->getCompanyId(), $restCompanyUsersBulkItemCompanyTransfer->getDebtorNumber()));
-        }
-
-        $companyTransfer = (new CompanyTransfer())->fromArray($entity->toArray(), true);
-
-        foreach ($entity->getCompanyBusinessUnits() as $companyBusinessUnit) {
-            $companyTransfer->addCompanyBusinessUnit((new CompanyBusinessUnitTransfer())->fromArray($companyBusinessUnit->toArray(), true));
-        }
-
-        foreach ($entity->getCompanyRoles() as $role) {
-            $companyTransfer->addCompanyRole((new CompanyRoleTransfer())->fromArray($role->toArray(), true));
-        }
-
-        return $companyTransfer;
-    }
-
-    /**
-     * @param \Generated\Shared\Transfer\RestCompanyUsersBulkItemCompanyTransfer $restCompanyUsersBulkItemCompanyTransfer
-     *
-     * @throws \Exception
-     *
-     * @return \Orm\Zed\Company\Persistence\Base\SpyCompanyQuery
-     */
-    protected function getCompanyQuery(RestCompanyUsersBulkItemCompanyTransfer $restCompanyUsersBulkItemCompanyTransfer): SpyCompanyQuery
-    {
-        $query = $this->getFactory()->getCompanyQuery();
-        $throw = true;
-
-        if ($restCompanyUsersBulkItemCompanyTransfer->getCompanyId() !== null) {
-            $query->filterByUuid($restCompanyUsersBulkItemCompanyTransfer->getCompanyId());
-            $throw = false;
-        }
-
-        if ($restCompanyUsersBulkItemCompanyTransfer->getDebtorNumber() !== null) {
-            $query->filterByDebtorNumber($restCompanyUsersBulkItemCompanyTransfer->getDebtorNumber());
-            $throw = false;
-        }
-
-        if ($throw) {
-            throw new Exception('At least company uuid or debtor number is required to find company!');
-        }
-
-        return $query;
-    }
-
-    /**
-     * @param \Generated\Shared\Transfer\RestCompanyUsersBulkItemCustomerTransfer $restCompanyUsersBulkItemCustomerTransfer
-     *
-     * @throws \Exception
-     *
-     * @return \Orm\Zed\Customer\Persistence\SpyCustomerQuery
-     */
-    protected function getCustomerQuery(
-        RestCompanyUsersBulkItemCustomerTransfer $restCompanyUsersBulkItemCustomerTransfer
-    ): SpyCustomerQuery {
-        $query = $this->getFactory()->getCustomerQuery();
-        $throw = true;
-
-        if ($restCompanyUsersBulkItemCustomerTransfer->getCustomerReference() !== null) {
-            $query->filterByCustomerReference($restCompanyUsersBulkItemCustomerTransfer->getCustomerReference());
-            $throw = false;
-        }
-
-        if ($restCompanyUsersBulkItemCustomerTransfer->getEmail() !== null) {
-            $query->filterByEmail($restCompanyUsersBulkItemCustomerTransfer->getEmail());
-            $throw = false;
-        }
-
-        if ($throw) {
-            throw new Exception('At least customer reference or customer email is required to find customer!');
-        }
-
-        return $query;
     }
 }

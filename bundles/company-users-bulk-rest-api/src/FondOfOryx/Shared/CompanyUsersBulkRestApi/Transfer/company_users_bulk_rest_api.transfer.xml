@@ -14,8 +14,6 @@
 
     <transfer name="RestCompanyUsersBulkItemCollection">
         <property name="items" singular="item" type="RestCompanyUsersBulkItem[]"/>
-        <property name="companyCache" type="array"/>
-        <property name="customerCache" type="array"/>
     </transfer>
 
     <transfer name="RestCompanyUsersBulkResponse">
@@ -41,12 +39,14 @@
         <property name="debtorNumber" type="string"/>
     </transfer>
 
+    <transfer name="CompanyUsersBulkPreparationCollection">
+        <property name="items" singular="item" type="CompanyUsersBulkPreparation[]"/>
+    </transfer>
+
     <transfer name="CompanyUsersBulkPreparation">
         <property name="item" type="RestCompanyUsersBulkItem"/>
         <property name="company" type="Company"/>
         <property name="customer" type="Customer"/>
-        <property name="companyCache" type="array"/>
-        <property name="customerCache" type="array"/>
     </transfer>
 
     <transfer name="Company">

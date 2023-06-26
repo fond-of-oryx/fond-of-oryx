@@ -7,6 +7,16 @@ interface CompanyUsersBulkRestApiConstants
     /**
      * @var string
      */
+    public const INDEX_CUSTOMER = 'customer';
+
+    /**
+     * @var string
+     */
+    public const INDEX_COMPANIES = 'companies';
+
+    /**
+     * @var string
+     */
     public const ERROR_MESSAGE_MISSING_PERMISSION = 'Missing permission to create bulk company user!';
 
     /**

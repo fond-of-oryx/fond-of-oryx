@@ -2,21 +2,16 @@
 
 namespace FondOfOryx\Zed\CompanyUsersBulkRestApi\Business\PluginExecutioner;
 
-use Generated\Shared\Transfer\CompanyUsersBulkPreparationTransfer;
+use Generated\Shared\Transfer\CompanyUsersBulkPreparationCollectionTransfer;
 use Generated\Shared\Transfer\RestCompanyUsersBulkRequestTransfer;
 use Generated\Shared\Transfer\RestCompanyUsersBulkResponseTransfer;
 
 class BulkDataPluginExecutioner implements BulkDataPluginExecutionerInterface
 {
     /**
-     * @var array<\FondOfOryx\Zed\CompanyUsersBulkRestApiExtension\Dependency\Plugin\CompanyUsersBulkItemPreEnrichmentPluginInterface>
+     * @var array<\FondOfOryx\Zed\CompanyUsersBulkRestApiExtension\Dependency\Plugin\CompanyUsersBulkDataExpanderPluginInterface>
      */
-    protected array $preEnrichmentPlugins;
-
-    /**
-     * @var array<\FondOfOryx\Zed\CompanyUsersBulkRestApiExtension\Dependency\Plugin\CompanyUsersBulkItemPostEnrichmentPluginInterface>
-     */
-    protected array $postEnrichmentPlugins;
+    protected array $expanderPlugins;
 
     /**
      * @var array<\FondOfOryx\Zed\CompanyUsersBulkRestApiExtension\Dependency\Plugin\CompanyUsersBulkPreHandlingPluginInterface>
@@ -49,18 +44,16 @@ class BulkDataPluginExecutioner implements BulkDataPluginExecutionerInterface
     protected array $postUnassignPlugins;
 
     /**
-     * @param array<\FondOfOryx\Zed\CompanyUsersBulkRestApi\Business\PluginExecutioner\CompanyUsersBulkItemPreEnrichmentPluginInterface> $preEnrichmentPlugins
-     * @param array<\FondOfOryx\Zed\CompanyUsersBulkRestApi\Business\PluginExecutioner\CompanyUsersBulkItemPostEnrichmentPluginInterface> $postEnrichmentPlugins
-     * @param array<\FondOfOryx\Zed\CompanyUsersBulkRestApi\Business\PluginExecutioner\CompanyUsersBulkPreHandlingPluginInterface> $preHandlingPlugins
-     * @param array<\FondOfOryx\Zed\CompanyUsersBulkRestApi\Business\PluginExecutioner\CompanyUsersBulkPostHandlingPluginInterface> $postHandlingPlugins
-     * @param array<\FondOfOryx\Zed\CompanyUsersBulkRestApi\Business\PluginExecutioner\CompanyUsersBulkPreAssignPluginInterface> $preAssignPlugins
-     * @param array<\FondOfOryx\Zed\CompanyUsersBulkRestApi\Business\PluginExecutioner\CompanyUsersBulkPostAssignPluginInterface> $postAssignPlugins
-     * @param array<\FondOfOryx\Zed\CompanyUsersBulkRestApi\Business\PluginExecutioner\CompanyUsersBulkPreUnassignPluginInterface> $preUnassignPlugins
-     * @param array<\FondOfOryx\Zed\CompanyUsersBulkRestApi\Business\PluginExecutioner\CompanyUsersBulkPostUnassignPluginInterface> $postUnassignPlugins
+     * @param array<\FondOfOryx\Zed\CompanyUsersBulkRestApiExtension\Dependency\Plugin\CompanyUsersBulkDataExpanderPluginInterface> $expanderPlugins
+     * @param array<\FondOfOryx\Zed\CompanyUsersBulkRestApiExtension\Dependency\Plugin\CompanyUsersBulkPreHandlingPluginInterface> $preHandlingPlugins
+     * @param array<\FondOfOryx\Zed\CompanyUsersBulkRestApiExtension\Dependency\Plugin\CompanyUsersBulkPostHandlingPluginInterface> $postHandlingPlugins
+     * @param array<\FondOfOryx\Zed\CompanyUsersBulkRestApiExtension\Dependency\Plugin\CompanyUsersBulkPreAssignPluginInterface> $preAssignPlugins
+     * @param array<\FondOfOryx\Zed\CompanyUsersBulkRestApiExtension\Dependency\Plugin\CompanyUsersBulkPostAssignPluginInterface> $postAssignPlugins
+     * @param array<\FondOfOryx\Zed\CompanyUsersBulkRestApiExtension\Dependency\Plugin\CompanyUsersBulkPreUnassignPluginInterface> $preUnassignPlugins
+     * @param array<\FondOfOryx\Zed\CompanyUsersBulkRestApiExtension\Dependency\Plugin\CompanyUsersBulkPostUnassignPluginInterface> $postUnassignPlugins
      */
     public function __construct(
-        array $preEnrichmentPlugins,
-        array $postEnrichmentPlugins,
+        array $expanderPlugins,
         array $preHandlingPlugins,
         array $postHandlingPlugins,
         array $preAssignPlugins,
@@ -68,8 +61,7 @@ class BulkDataPluginExecutioner implements BulkDataPluginExecutionerInterface
         array $preUnassignPlugins,
         array $postUnassignPlugins
     ) {
-        $this->preEnrichmentPlugins = $preEnrichmentPlugins;
-        $this->postEnrichmentPlugins = $postEnrichmentPlugins;
+        $this->expanderPlugins = $expanderPlugins;
         $this->preHandlingPlugins = $preHandlingPlugins;
         $this->postHandlingPlugins = $postHandlingPlugins;
         $this->preAssignPlugins = $preAssignPlugins;
@@ -79,31 +71,15 @@ class BulkDataPluginExecutioner implements BulkDataPluginExecutionerInterface
     }
 
     /**
-     * @param \Generated\Shared\Transfer\CompanyUsersBulkPreparationTransfer $companyUsersBulkPreparationTransfer
-     *
-     * @return \Generated\Shared\Transfer\CompanyUsersBulkPreparationTransfer
+     * @param \Generated\Shared\Transfer\CompanyUsersBulkPreparationCollectionTransfer $companyUsersBulkPreparationCollectionTransfer
+     * @return \Generated\Shared\Transfer\CompanyUsersBulkPreparationCollectionTransfer
      */
-    public function executePreEnrichmentPlugins(CompanyUsersBulkPreparationTransfer $companyUsersBulkPreparationTransfer): CompanyUsersBulkPreparationTransfer
-    {
-        foreach ($this->preEnrichmentPlugins as $plugin) {
-            $companyUsersBulkPreparationTransfer = $plugin->preEnrichment($companyUsersBulkPreparationTransfer);
+    public function executeExpand(CompanyUsersBulkPreparationCollectionTransfer $companyUsersBulkPreparationCollectionTransfer): CompanyUsersBulkPreparationCollectionTransfer{
+        foreach ($this->expanderPlugins as $plugin) {
+            $companyUsersBulkPreparationCollectionTransfer = $plugin->expand($companyUsersBulkPreparationCollectionTransfer);
         }
 
-        return $companyUsersBulkPreparationTransfer;
-    }
-
-    /**
-     * @param \Generated\Shared\Transfer\CompanyUsersBulkPreparationTransfer $companyUsersBulkPreparationTransfer
-     *
-     * @return \Generated\Shared\Transfer\CompanyUsersBulkPreparationTransfer
-     */
-    public function executePostEnrichmentPlugins(CompanyUsersBulkPreparationTransfer $companyUsersBulkPreparationTransfer): CompanyUsersBulkPreparationTransfer
-    {
-        foreach ($this->postEnrichmentPlugins as $plugin) {
-            $companyUsersBulkPreparationTransfer = $plugin->postEnrichment($companyUsersBulkPreparationTransfer);
-        }
-
-        return $companyUsersBulkPreparationTransfer;
+        return $companyUsersBulkPreparationCollectionTransfer;
     }
 
     /**
