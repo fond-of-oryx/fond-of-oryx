@@ -8,7 +8,10 @@ interface CompanyUsersBulkDataExpanderPluginInterface
 {
     /**
      * @param \Generated\Shared\Transfer\CompanyUsersBulkPreparationCollectionTransfer $companyUsersBulkPreparationCollectionTransfer
+     *
      * @return \Generated\Shared\Transfer\CompanyUsersBulkPreparationCollectionTransfer
      */
-    public function expand(CompanyUsersBulkPreparationCollectionTransfer $companyUsersBulkPreparationCollectionTransfer): CompanyUsersBulkPreparationCollectionTransfer;
+    public function expand(
+        CompanyUsersBulkPreparationCollectionTransfer $companyUsersBulkPreparationCollectionTransfer
+    ): CompanyUsersBulkPreparationCollectionTransfer;
 }

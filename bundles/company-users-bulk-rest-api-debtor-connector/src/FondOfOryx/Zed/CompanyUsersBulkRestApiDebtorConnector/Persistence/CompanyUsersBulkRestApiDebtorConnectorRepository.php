@@ -15,13 +15,14 @@ class CompanyUsersBulkRestApiDebtorConnectorRepository extends AbstractRepositor
 {
     /**
      * @param array $debtorNumbers
+     *
      * @return \Generated\Shared\Transfer\CompanyCollectionTransfer
      */
     public function findCompaniesByDebtorNumbers(array $debtorNumbers): CompanyCollectionTransfer
     {
-        $collection = new CompanyCollectionTransfer;
+        $collection = new CompanyCollectionTransfer();
 
-        if (count($debtorNumbers) === 0){
+        if (count($debtorNumbers) === 0) {
             return $collection;
         }
         $entityCollection = $this->getFactory()->getCompanyQuery()
@@ -29,7 +30,7 @@ class CompanyUsersBulkRestApiDebtorConnectorRepository extends AbstractRepositor
             ->find();
 
         /** @var \Orm\Zed\Company\Persistence\SpyCompany $entity */
-        foreach ($entityCollection->getData() as $entity){
+        foreach ($entityCollection->getData() as $entity) {
             $companyTransfer = (new CompanyTransfer())->fromArray($entity->toArray(), true);
             foreach ($entity->getCompanyBusinessUnits() as $companyBusinessUnit) {
                 $companyTransfer->addCompanyBusinessUnit((new CompanyBusinessUnitTransfer())->fromArray($companyBusinessUnit->toArray(), true));

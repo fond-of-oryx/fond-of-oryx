@@ -59,14 +59,13 @@ class BulkManager implements BulkManagerInterface
      * @param \Psr\Log\LoggerInterface $logger
      */
     public function __construct(
-        PermissionCheckerInterface                          $permissionChecker,
-        CompanyUsersBulkRestApiToEventFacadeInterface       $eventFacade,
+        PermissionCheckerInterface $permissionChecker,
+        CompanyUsersBulkRestApiToEventFacadeInterface $eventFacade,
         CompanyUsersBulkRestApiToCompanyUserFacadeInterface $companyUserFacade,
-        BulkDataPluginExecutionerInterface                  $pluginExecutioner,
-        CompanyUsersBulkRestApiRepositoryInterface          $repository,
-        LoggerInterface                                     $logger
-    )
-    {
+        BulkDataPluginExecutionerInterface $pluginExecutioner,
+        CompanyUsersBulkRestApiRepositoryInterface $repository,
+        LoggerInterface $logger
+    ) {
         $this->permissionChecker = $permissionChecker;
         $this->eventFacade = $eventFacade;
         $this->companyUserFacade = $companyUserFacade;
@@ -82,8 +81,7 @@ class BulkManager implements BulkManagerInterface
      */
     public function handleBulkRequest(
         RestCompanyUsersBulkRequestTransfer $restCompanyUsersBulkRequestTransfer
-    ): RestCompanyUsersBulkResponseTransfer
-    {
+    ): RestCompanyUsersBulkResponseTransfer {
         try {
             $restCompanyUsersBulkRequestTransfer = $this->pluginExecutioner->executePreHandlePlugins($restCompanyUsersBulkRequestTransfer);
 
@@ -91,8 +89,7 @@ class BulkManager implements BulkManagerInterface
                 return $this->pluginExecutioner->executePostHandlePlugins($this->createEmptyResponseTransfer()
                     ->setCode(CompanyUsersBulkRestApiConstants::ERROR_CODE_PERMISSION_DENIED)
                     ->setError(CompanyUsersBulkRestApiConstants::ERROR_MESSAGE_MISSING_PERMISSION)
-                    ->setRequest($restCompanyUsersBulkRequestTransfer)
-                );
+                    ->setRequest($restCompanyUsersBulkRequestTransfer));
             }
 
             $attributes = $restCompanyUsersBulkRequestTransfer->getAttributes();
@@ -190,18 +187,19 @@ class BulkManager implements BulkManagerInterface
                     }
                 }
             }
-        }
-        catch (Throwable $throwable){
+        } catch (Throwable $throwable) {
             $this->logger->warning($throwable->getMessage(), $throwable->getTrace());
         }
     }
 
     /**
      * @param \Generated\Shared\Transfer\RestCompanyUsersBulkItemCollectionTransfer $restCompanyUsersBulkItemCollectionTransfer
+     *
      * @return \Generated\Shared\Transfer\CompanyUsersBulkPreparationCollectionTransfer
      */
-    protected function prepareData(RestCompanyUsersBulkItemCollectionTransfer $restCompanyUsersBulkItemCollectionTransfer): CompanyUsersBulkPreparationCollectionTransfer
-    {
+    protected function prepareData(
+        RestCompanyUsersBulkItemCollectionTransfer $restCompanyUsersBulkItemCollectionTransfer
+    ): CompanyUsersBulkPreparationCollectionTransfer {
         $collection = new CompanyUsersBulkPreparationCollectionTransfer();
 
         foreach ($restCompanyUsersBulkItemCollectionTransfer->getItems() as $item) {
@@ -241,9 +239,9 @@ class BulkManager implements BulkManagerInterface
     /**
      * @param \Generated\Shared\Transfer\CompanyUsersBulkPreparationTransfer $companyUsersBulkPreparationTransfer
      *
-     * @return \Generated\Shared\Transfer\CompanyRoleTransfer
      * @throws \Exception
      *
+     * @return \Generated\Shared\Transfer\CompanyRoleTransfer
      */
     protected function resolveRole(CompanyUsersBulkPreparationTransfer $companyUsersBulkPreparationTransfer): CompanyRoleTransfer
     {

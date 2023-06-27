@@ -59,26 +59,6 @@ class CompanyUsersBulkRestApiDependencyProvider extends AbstractBundleDependency
     public const PLUGINS_POST_HANDLING = 'PLUGINS_POST_HANDLING';
 
     /**
-     * @var string
-     */
-    public const PLUGINS_PRE_ASSIGN = 'PLUGINS_PRE_ASSIGN';
-
-    /**
-     * @var string
-     */
-    public const PLUGINS_POST_ASSIGN = 'PLUGINS_POST_ASSIGN';
-
-    /**
-     * @var string
-     */
-    public const PLUGINS_PRE_UNASSIGN = 'PLUGINS_PRE_UNASSIGN';
-
-    /**
-     * @var string
-     */
-    public const PLUGINS_POST_UNASSIGN = 'PLUGINS_POST_UNASSIGN';
-
-    /**
      * @param \Spryker\Zed\Kernel\Container $container
      *
      * @return \Spryker\Zed\Kernel\Container
@@ -105,10 +85,6 @@ class CompanyUsersBulkRestApiDependencyProvider extends AbstractBundleDependency
         $container = $this->addDataExpanderPlugins($container);
         $container = $this->addPostHandlingPlugins($container);
         $container = $this->addPreHandlingPlugins($container);
-        $container = $this->addPostAssignPlugins($container);
-        $container = $this->addPreAssignPlugins($container);
-        $container = $this->addPostUnassignPlugins($container);
-        $container = $this->addPreUnassignPlugins($container);
 
         return $this->addEventFacade($container);
     }
@@ -262,98 +238,6 @@ class CompanyUsersBulkRestApiDependencyProvider extends AbstractBundleDependency
      * @return array<\FondOfOryx\Zed\CompanyUsersBulkRestApiExtension\Dependency\Plugin\CompanyUsersBulkPostHandlingPluginInterface>
      */
     protected function getPostHandlingPlugins(): array
-    {
-        return [];
-    }
-
-    /**
-     * @param \Spryker\Zed\Kernel\Container $container
-     *
-     * @return \Spryker\Zed\Kernel\Container
-     */
-    protected function addPreAssignPlugins(Container $container): Container
-    {
-        $self = $this;
-        $container[static::PLUGINS_PRE_ASSIGN] = static function (Container $container) use ($self) {
-            return $self->getPreAssignPlugins();
-        };
-
-        return $container;
-    }
-
-    /**
-     * @return array<\FondOfOryx\Zed\CompanyUsersBulkRestApiExtension\Dependency\Plugin\CompanyUsersBulkPreAssignPluginInterface>
-     */
-    protected function getPreAssignPlugins(): array
-    {
-        return [];
-    }
-
-    /**
-     * @param \Spryker\Zed\Kernel\Container $container
-     *
-     * @return \Spryker\Zed\Kernel\Container
-     */
-    protected function addPostAssignPlugins(Container $container): Container
-    {
-        $self = $this;
-        $container[static::PLUGINS_POST_ASSIGN] = static function (Container $container) use ($self) {
-            return $self->getPostAssignPlugins();
-        };
-
-        return $container;
-    }
-
-    /**
-     * @return array<\FondOfOryx\Zed\CompanyUsersBulkRestApiExtension\Dependency\Plugin\CompanyUsersBulkPostAssignPluginInterface>
-     */
-    protected function getPostAssignPlugins(): array
-    {
-        return [];
-    }
-
-    /**
-     * @param \Spryker\Zed\Kernel\Container $container
-     *
-     * @return \Spryker\Zed\Kernel\Container
-     */
-    protected function addPreUnassignPlugins(Container $container): Container
-    {
-        $self = $this;
-        $container[static::PLUGINS_PRE_UNASSIGN] = static function (Container $container) use ($self) {
-            return $self->getPreUnassignPlugins();
-        };
-
-        return $container;
-    }
-
-    /**
-     * @return array<\FondOfOryx\Zed\CompanyUsersBulkRestApiExtension\Dependency\Plugin\CompanyUsersBulkPreUnassignPluginInterface>
-     */
-    protected function getPreUnassignPlugins(): array
-    {
-        return [];
-    }
-
-    /**
-     * @param \Spryker\Zed\Kernel\Container $container
-     *
-     * @return \Spryker\Zed\Kernel\Container
-     */
-    protected function addPostUnassignPlugins(Container $container): Container
-    {
-        $self = $this;
-        $container[static::PLUGINS_POST_UNASSIGN] = static function (Container $container) use ($self) {
-            return $self->getPostUnassignPlugins();
-        };
-
-        return $container;
-    }
-
-    /**
-     * @return array<\FondOfOryx\Zed\CompanyUsersBulkRestApiExtension\Dependency\Plugin\CompanyUsersBulkPostUnassignPluginInterface>
-     */
-    protected function getPostUnassignPlugins(): array
     {
         return [];
     }

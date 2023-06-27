@@ -13,23 +13,25 @@ class CompanyResolverPreDataExpanderPlugin extends AbstractPlugin implements Com
 {
     /**
      * @param \Generated\Shared\Transfer\CompanyUsersBulkPreparationCollectionTransfer $companyUsersBulkPreparationCollectionTransfer
+     *
      * @return \Generated\Shared\Transfer\CompanyUsersBulkPreparationCollectionTransfer
      */
-    public function expand(CompanyUsersBulkPreparationCollectionTransfer $companyUsersBulkPreparationCollectionTransfer): CompanyUsersBulkPreparationCollectionTransfer
-    {
+    public function expand(
+        CompanyUsersBulkPreparationCollectionTransfer $companyUsersBulkPreparationCollectionTransfer
+    ): CompanyUsersBulkPreparationCollectionTransfer {
         $companyCollection = $this->getRepository()->findCompaniesByUuids($this->resolveCompanyIds($companyUsersBulkPreparationCollectionTransfer));
         $companies = [];
-        foreach ($companyCollection->getCompanies() as $companyTransfer){
+        foreach ($companyCollection->getCompanies() as $companyTransfer) {
             $companies[$companyTransfer->getUuid()] = $companyTransfer;
         }
 
-        foreach ($companyUsersBulkPreparationCollectionTransfer->getItems() as $preparedItem){
-            if ($preparedItem->getCompany() !== null){
+        foreach ($companyUsersBulkPreparationCollectionTransfer->getItems() as $preparedItem) {
+            if ($preparedItem->getCompany() !== null) {
                 continue;
             }
 
             $companyId = $preparedItem->getItem()->getCompany()->getCompanyId();
-            if (array_key_exists($companyId, $companies)){
+            if (array_key_exists($companyId, $companies)) {
                 $preparedItem->setCompany($companies[$companyId]);
             }
         }
@@ -39,17 +41,18 @@ class CompanyResolverPreDataExpanderPlugin extends AbstractPlugin implements Com
 
     /**
      * @param \Generated\Shared\Transfer\CompanyUsersBulkPreparationCollectionTransfer $companyUsersBulkPreparationTransfer
+     *
      * @return array
      */
     protected function resolveCompanyIds(CompanyUsersBulkPreparationCollectionTransfer $companyUsersBulkPreparationTransfer): array
     {
         $companyIds = [];
-        foreach ($companyUsersBulkPreparationTransfer->getItems() as $preparedItem){
-            if ($preparedItem->getCompany() !== null){
+        foreach ($companyUsersBulkPreparationTransfer->getItems() as $preparedItem) {
+            if ($preparedItem->getCompany() !== null) {
                 continue;
             }
             $companyId = $preparedItem->getItem()->getCompany()->getCompanyId();
-            if ($companyId !== null && $companyId !== ''){
+            if ($companyId !== null && $companyId !== '') {
                 $companyIds[] = $companyId;
             }
         }

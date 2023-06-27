@@ -2,7 +2,6 @@
 
 namespace FondOfOryx\Zed\CompanyUsersBulkRestApi\Persistence;
 
-use Exception;
 use Generated\Shared\Transfer\CompanyBusinessUnitTransfer;
 use Generated\Shared\Transfer\CompanyCollectionTransfer;
 use Generated\Shared\Transfer\CompanyRoleTransfer;
@@ -11,12 +10,7 @@ use Generated\Shared\Transfer\CompanyUserCollectionTransfer;
 use Generated\Shared\Transfer\CompanyUserTransfer;
 use Generated\Shared\Transfer\CustomerCollectionTransfer;
 use Generated\Shared\Transfer\CustomerTransfer;
-use Generated\Shared\Transfer\RestCompanyUsersBulkItemCollectionTransfer;
-use Generated\Shared\Transfer\RestCompanyUsersBulkItemCompanyTransfer;
-use Generated\Shared\Transfer\RestCompanyUsersBulkItemCustomerTransfer;
-use Orm\Zed\Company\Persistence\Base\SpyCompanyQuery;
 use Orm\Zed\CompanyUser\Persistence\Map\SpyCompanyUserTableMap;
-use Orm\Zed\Customer\Persistence\SpyCustomerQuery;
 use Orm\Zed\Permission\Persistence\Map\SpyPermissionTableMap;
 use Spryker\Zed\Kernel\Persistence\AbstractRepository;
 
@@ -108,13 +102,14 @@ class CompanyUsersBulkRestApiRepository extends AbstractRepository implements Co
 
     /**
      * @param array $companyUuids
+     *
      * @return \Generated\Shared\Transfer\CompanyCollectionTransfer
      */
     public function findCompaniesByUuids(array $companyUuids): CompanyCollectionTransfer
     {
-        $collection = new CompanyCollectionTransfer;
+        $collection = new CompanyCollectionTransfer();
 
-        if (count($companyUuids) === 0){
+        if (count($companyUuids) === 0) {
             return $collection;
         }
         $entityCollection = $this->getFactory()->getCompanyQuery()
@@ -122,7 +117,7 @@ class CompanyUsersBulkRestApiRepository extends AbstractRepository implements Co
             ->find();
 
         /** @var \Orm\Zed\Company\Persistence\SpyCompany $entity */
-        foreach ($entityCollection->getData() as $entity){
+        foreach ($entityCollection->getData() as $entity) {
             $companyTransfer = (new CompanyTransfer())->fromArray($entity->toArray(), true);
             foreach ($entity->getCompanyBusinessUnits() as $companyBusinessUnit) {
                 $companyTransfer->addCompanyBusinessUnit((new CompanyBusinessUnitTransfer())->fromArray($companyBusinessUnit->toArray(), true));
@@ -139,12 +134,13 @@ class CompanyUsersBulkRestApiRepository extends AbstractRepository implements Co
 
     /**
      * @param array $customerReferences
+     *
      * @return \Generated\Shared\Transfer\CustomerCollectionTransfer
      */
     public function findCustomerByReferences(array $customerReferences): CustomerCollectionTransfer
     {
         $collection = new CustomerCollectionTransfer();
-        if (count($customerReferences) === 0){
+        if (count($customerReferences) === 0) {
             return $collection;
         }
         $entityCollection = $this->getFactory()->getCustomerQuery()
@@ -152,7 +148,7 @@ class CompanyUsersBulkRestApiRepository extends AbstractRepository implements Co
             ->find();
 
         /** @var \Orm\Zed\Customer\Persistence\SpyCustomer $entity */
-        foreach ($entityCollection->getData() as $entity){
+        foreach ($entityCollection->getData() as $entity) {
             $customerTransfer = (new CustomerTransfer())->fromArray($entity->toArray(), true);
             $collection->addCustomer($customerTransfer);
         }
@@ -162,13 +158,14 @@ class CompanyUsersBulkRestApiRepository extends AbstractRepository implements Co
 
     /**
      * @param array $emailAddresses
+     *
      * @return \Generated\Shared\Transfer\CustomerCollectionTransfer
      */
     public function findCustomerByEmail(array $emailAddresses): CustomerCollectionTransfer
     {
         $collection = new CustomerCollectionTransfer();
 
-        if (count($emailAddresses) === 0){
+        if (count($emailAddresses) === 0) {
             return $collection;
         }
 
@@ -177,7 +174,7 @@ class CompanyUsersBulkRestApiRepository extends AbstractRepository implements Co
             ->find();
 
         /** @var \Orm\Zed\Customer\Persistence\SpyCustomer $entity */
-        foreach ($entityCollection->getData() as $entity){
+        foreach ($entityCollection->getData() as $entity) {
             $customerTransfer = (new CustomerTransfer())->fromArray($entity->toArray(), true);
             $collection->addCustomer($customerTransfer);
         }

@@ -13,19 +13,21 @@ class CustomerByEmailResolverPreDataExpanderPlugin extends AbstractPlugin implem
 {
     /**
      * @param \Generated\Shared\Transfer\CompanyUsersBulkPreparationCollectionTransfer $companyUsersBulkPreparationCollectionTransfer
+     *
      * @return \Generated\Shared\Transfer\CompanyUsersBulkPreparationCollectionTransfer
      */
-    public function expand(CompanyUsersBulkPreparationCollectionTransfer $companyUsersBulkPreparationCollectionTransfer): CompanyUsersBulkPreparationCollectionTransfer
-    {
+    public function expand(
+        CompanyUsersBulkPreparationCollectionTransfer $companyUsersBulkPreparationCollectionTransfer
+    ): CompanyUsersBulkPreparationCollectionTransfer {
         $customerCollection = $this->getRepository()->findCustomerByEmail($this->resolveCustomerEmailAddresses($companyUsersBulkPreparationCollectionTransfer));
         $customer = [];
-        foreach ($customerCollection->getCustomers() as $customerTransfer){
+        foreach ($customerCollection->getCustomers() as $customerTransfer) {
             $customer[$customerTransfer->getEmail()] = $customerTransfer;
         }
 
-        foreach ($companyUsersBulkPreparationCollectionTransfer->getItems() as $preparedItem){
+        foreach ($companyUsersBulkPreparationCollectionTransfer->getItems() as $preparedItem) {
             $email = $preparedItem->getItem()->getCustomer()->getEmail();
-            if (array_key_exists($email, $customer)){
+            if (array_key_exists($email, $customer)) {
                 $preparedItem->setCustomer($customer[$email]);
             }
         }
@@ -35,18 +37,19 @@ class CustomerByEmailResolverPreDataExpanderPlugin extends AbstractPlugin implem
 
     /**
      * @param \Generated\Shared\Transfer\CompanyUsersBulkPreparationCollectionTransfer $companyUsersBulkPreparationTransfer
+     *
      * @return array
      */
     protected function resolveCustomerEmailAddresses(CompanyUsersBulkPreparationCollectionTransfer $companyUsersBulkPreparationTransfer): array
     {
         $customerEmailAddresses = [];
-        foreach ($companyUsersBulkPreparationTransfer->getItems() as $preparedItem){
-            if ($preparedItem->getCustomer() !== null){
+        foreach ($companyUsersBulkPreparationTransfer->getItems() as $preparedItem) {
+            if ($preparedItem->getCustomer() !== null) {
                 continue;
             }
 
             $customerEmail = $preparedItem->getItem()->getCustomer()->getEmail();
-            if ($customerEmail !== null && $customerEmail !== ''){
+            if ($customerEmail !== null && $customerEmail !== '') {
                 $customerEmailAddresses[] = $customerEmail;
             }
         }

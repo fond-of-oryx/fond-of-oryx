@@ -13,23 +13,25 @@ class CompanyDebtorNumberResolverPreDataExpanderPlugin extends AbstractPlugin im
 {
     /**
      * @param \Generated\Shared\Transfer\CompanyUsersBulkPreparationCollectionTransfer $companyUsersBulkPreparationCollectionTransfer
+     *
      * @return \Generated\Shared\Transfer\CompanyUsersBulkPreparationCollectionTransfer
      */
-    public function expand(CompanyUsersBulkPreparationCollectionTransfer $companyUsersBulkPreparationCollectionTransfer): CompanyUsersBulkPreparationCollectionTransfer
-    {
+    public function expand(
+        CompanyUsersBulkPreparationCollectionTransfer $companyUsersBulkPreparationCollectionTransfer
+    ): CompanyUsersBulkPreparationCollectionTransfer {
         $companyCollection = $this->getRepository()->findCompaniesByDebtorNumbers($this->resolveDebtorNumber($companyUsersBulkPreparationCollectionTransfer));
         $companies = [];
-        foreach ($companyCollection->getCompanies() as $companyTransfer){
+        foreach ($companyCollection->getCompanies() as $companyTransfer) {
             $companies[$companyTransfer->getDebtorNumber()] = $companyTransfer;
         }
 
-        foreach ($companyUsersBulkPreparationCollectionTransfer->getItems() as $preparedItem){
-            if ($preparedItem->getCompany() !== null){
+        foreach ($companyUsersBulkPreparationCollectionTransfer->getItems() as $preparedItem) {
+            if ($preparedItem->getCompany() !== null) {
                 continue;
             }
 
             $debtorNumber = $preparedItem->getItem()->getCompany()->getDebtorNumber();
-            if (array_key_exists($debtorNumber, $companies)){
+            if (array_key_exists($debtorNumber, $companies)) {
                 $preparedItem->setCompany($companies[$debtorNumber]);
             }
         }
@@ -39,17 +41,18 @@ class CompanyDebtorNumberResolverPreDataExpanderPlugin extends AbstractPlugin im
 
     /**
      * @param \Generated\Shared\Transfer\CompanyUsersBulkPreparationCollectionTransfer $companyUsersBulkPreparationTransfer
+     *
      * @return array
      */
     protected function resolveDebtorNumber(CompanyUsersBulkPreparationCollectionTransfer $companyUsersBulkPreparationTransfer): array
     {
         $debtorNumbers = [];
-        foreach ($companyUsersBulkPreparationTransfer->getItems() as $preparedItem){
-            if ($preparedItem->getCompany() !== null){
+        foreach ($companyUsersBulkPreparationTransfer->getItems() as $preparedItem) {
+            if ($preparedItem->getCompany() !== null) {
                 continue;
             }
             $debtorNumber = $preparedItem->getItem()->getCompany()->getDebtorNumber();
-            if ($debtorNumber !== null && $debtorNumber !== ''){
+            if ($debtorNumber !== null && $debtorNumber !== '') {
                 $debtorNumbers[] = $debtorNumber;
             }
         }

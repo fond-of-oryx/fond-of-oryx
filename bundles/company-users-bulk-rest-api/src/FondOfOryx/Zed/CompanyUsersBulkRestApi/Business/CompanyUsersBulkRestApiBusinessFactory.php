@@ -11,7 +11,6 @@ use FondOfOryx\Zed\CompanyUsersBulkRestApi\Business\PluginExecutioner\BulkDataPl
 use FondOfOryx\Zed\CompanyUsersBulkRestApi\CompanyUsersBulkRestApiDependencyProvider;
 use FondOfOryx\Zed\CompanyUsersBulkRestApi\Dependency\Facade\CompanyUsersBulkRestApiToCompanyUserFacadeInterface;
 use FondOfOryx\Zed\CompanyUsersBulkRestApi\Dependency\Facade\CompanyUsersBulkRestApiToEventFacadeInterface;
-use FondOfOryx\Zed\CompanyUsersBulkRestApiExtension\Dependency\Plugin\CompanyUsersBulkDataExpanderPluginInterface;
 use Spryker\Shared\Log\LoggerTrait;
 use Spryker\Zed\Kernel\Business\AbstractBusinessFactory;
 
@@ -55,10 +54,6 @@ class CompanyUsersBulkRestApiBusinessFactory extends AbstractBusinessFactory
             $this->getDataExpanderPlugins(),
             $this->getPreHandlingPlugins(),
             $this->getPostHandlingPlugins(),
-            $this->getPreAssignPlugins(),
-            $this->getPostAssignPlugins(),
-            $this->getPreUnassignPlugins(),
-            $this->getPostUnassignPlugins(),
         );
     }
 
@@ -93,16 +88,6 @@ class CompanyUsersBulkRestApiBusinessFactory extends AbstractBusinessFactory
     }
 
     /**
-     * @return array<\FondOfOryx\Zed\CompanyUsersBulkRestApiExtension\Dependency\Plugin\CompanyUsersBulkItemPostEnrichmentPluginInterface>
-     */
-    public function getPostEnrichmentPlugins(): array
-    {
-        return $this->getProvidedDependency(
-            CompanyUsersBulkRestApiDependencyProvider::PLUGINS_POST_ENRICHMENT,
-        );
-    }
-
-    /**
      * @return array<\FondOfOryx\Zed\CompanyUsersBulkRestApiExtension\Dependency\Plugin\CompanyUsersBulkPreHandlingPluginInterface>
      */
     public function getPreHandlingPlugins(): array
@@ -119,46 +104,6 @@ class CompanyUsersBulkRestApiBusinessFactory extends AbstractBusinessFactory
     {
         return $this->getProvidedDependency(
             CompanyUsersBulkRestApiDependencyProvider::PLUGINS_POST_HANDLING,
-        );
-    }
-
-    /**
-     * @return array<\FondOfOryx\Zed\CompanyUsersBulkRestApiExtension\Dependency\Plugin\CompanyUsersBulkPreAssignPluginInterface>
-     */
-    public function getPreAssignPlugins(): array
-    {
-        return $this->getProvidedDependency(
-            CompanyUsersBulkRestApiDependencyProvider::PLUGINS_PRE_ASSIGN,
-        );
-    }
-
-    /**
-     * @return array<\FondOfOryx\Zed\CompanyUsersBulkRestApiExtension\Dependency\Plugin\CompanyUsersBulkPostAssignPluginInterface>
-     */
-    public function getPostAssignPlugins(): array
-    {
-        return $this->getProvidedDependency(
-            CompanyUsersBulkRestApiDependencyProvider::PLUGINS_POST_ASSIGN,
-        );
-    }
-
-    /**
-     * @return array<\FondOfOryx\Zed\CompanyUsersBulkRestApiExtension\Dependency\Plugin\CompanyUsersBulkPreUnassignPluginInterface>
-     */
-    public function getPreUnassignPlugins(): array
-    {
-        return $this->getProvidedDependency(
-            CompanyUsersBulkRestApiDependencyProvider::PLUGINS_PRE_UNASSIGN,
-        );
-    }
-
-    /**
-     * @return array<\FondOfOryx\Zed\CompanyUsersBulkRestApiExtension\Dependency\Plugin\CompanyUsersBulkPostUnassignPluginInterface>
-     */
-    public function getPostUnassignPlugins(): array
-    {
-        return $this->getProvidedDependency(
-            CompanyUsersBulkRestApiDependencyProvider::PLUGINS_POST_UNASSIGN,
         );
     }
 }

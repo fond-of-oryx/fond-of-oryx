@@ -32,6 +32,7 @@ interface CompanyUsersBulkRestApiRepositoryInterface
 
     /**
      * @param array $emailAddresses
+     *
      * @return \Generated\Shared\Transfer\CustomerCollectionTransfer
      */
     public function findCustomerByEmail(array $emailAddresses): CustomerCollectionTransfer;
@@ -46,12 +47,14 @@ interface CompanyUsersBulkRestApiRepositoryInterface
 
     /**
      * @param array $customerReferences
+     *
      * @return \Generated\Shared\Transfer\CustomerCollectionTransfer
      */
     public function findCustomerByReferences(array $customerReferences): CustomerCollectionTransfer;
 
     /**
      * @param array $companyUuids
+     *
      * @return \Generated\Shared\Transfer\CompanyCollectionTransfer|null
      */
     public function findCompaniesByUuids(array $companyUuids): ?CompanyCollectionTransfer;
