@@ -87,13 +87,13 @@ class BulkManager implements BulkManagerInterface
         try {
             $restCompanyUsersBulkRequestTransfer = $this->pluginExecutioner->executePreHandlePlugins($restCompanyUsersBulkRequestTransfer);
 
-//            if (!$this->permissionChecker->check($restCompanyUsersBulkRequestTransfer)) {
-//                return $this->pluginExecutioner->executePostHandlePlugins($this->createEmptyResponseTransfer()
-//                    ->setCode(CompanyUsersBulkRestApiConstants::ERROR_CODE_PERMISSION_DENIED)
-//                    ->setError(CompanyUsersBulkRestApiConstants::ERROR_MESSAGE_MISSING_PERMISSION)
-//                    ->setRequest($restCompanyUsersBulkRequestTransfer)
-//                );
-//            }
+            if (!$this->permissionChecker->check($restCompanyUsersBulkRequestTransfer)) {
+                return $this->pluginExecutioner->executePostHandlePlugins($this->createEmptyResponseTransfer()
+                    ->setCode(CompanyUsersBulkRestApiConstants::ERROR_CODE_PERMISSION_DENIED)
+                    ->setError(CompanyUsersBulkRestApiConstants::ERROR_MESSAGE_MISSING_PERMISSION)
+                    ->setRequest($restCompanyUsersBulkRequestTransfer)
+                );
+            }
 
             $attributes = $restCompanyUsersBulkRequestTransfer->getAttributes();
 
