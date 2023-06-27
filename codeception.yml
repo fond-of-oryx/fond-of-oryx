@@ -124,7 +124,6 @@ include:
   - bundles/jellyfish-sales-order-company-business-unit
   - bundles/jellyfish-sales-order-company-unit-address
   - bundles/jellyfish-sales-order-company-user
-  - bundles/jellyfish-sales-order-conditional-availability
   - bundles/jellyfish-sales-order-customer-address
   - bundles/jellyfish-sales-order-discount
   - bundles/jellyfish-sales-order-extension
