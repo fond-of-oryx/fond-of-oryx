@@ -31,6 +31,7 @@
     "fond-of-spryker/company-unit-address-default-shipping": "dev-master",
     "fond-of-spryker/company-user-reference": "dev-master",
     "fond-of-spryker/country": "dev-spryker_upgrade || dev-feature/paypal-refund",
+    "fond-of-spryker/navision-company": "dev-master",
     "fond-of-spryker/price-product-price-list": "dev-master",
     "fond-of-spryker/product-list-company": "dev-spryker_upgrade",
     "fond-of-spryker/product-list-customer": "dev-spryker_upgrade",
