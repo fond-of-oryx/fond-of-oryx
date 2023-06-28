@@ -275,6 +275,18 @@
       "path": "bundles/company-users-rest-api-extension/",
       "version": "2.0.0"
     },
+    "company-users-bulk-rest-api": {
+      "path": "bundles/company-users-bulk-rest-api/",
+      "version": "1.0.0"
+    },
+    "company-users-bulk-rest-api-debtor-connector": {
+      "path": "bundles/company-users-bulk-rest-api-debtor-connector/",
+      "version": "1.0.0"
+    },
+    "company-users-bulk-rest-api-extension": {
+      "path": "bundles/company-users-bulk-rest-api-extension/",
+      "version": "1.0.0"
+    },
     "concrete-product-api": {
       "path": "bundles/concrete-product-api/",
       "version": "3.0.0"
