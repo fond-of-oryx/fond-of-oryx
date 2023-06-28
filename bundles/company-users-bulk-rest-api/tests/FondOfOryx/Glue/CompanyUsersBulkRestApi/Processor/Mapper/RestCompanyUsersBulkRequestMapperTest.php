@@ -5,6 +5,7 @@ namespace FondOfOryx\Glue\CompanyUsersBulkRestApi\Processor\Mapper;
 use Codeception\Test\Unit;
 use Generated\Shared\Transfer\RestCompanyUsersBulkRequestAttributesTransfer;
 use Generated\Shared\Transfer\RestUserTransfer;
+use PHPUnit\Framework\MockObject\MockObject;
 use Spryker\Glue\GlueApplication\Rest\Request\Data\RestRequestInterface;
 
 class RestCompanyUsersBulkRequestMapperTest extends Unit
@@ -12,17 +13,17 @@ class RestCompanyUsersBulkRequestMapperTest extends Unit
     /**
      * @var \Spryker\Glue\GlueApplication\Rest\Request\Data\RestRequestInterface|\PHPUnit\Framework\MockObject\MockObject
      */
-    protected RestRequestInterface $restRequestMock;
+    protected RestRequestInterface|MockObject $restRequestMock;
 
     /**
      * @var \Generated\Shared\Transfer\RestCompanyUsersBulkRequestAttributesTransfer|\PHPUnit\Framework\MockObject\MockObject
      */
-    protected RestCompanyUsersBulkRequestAttributesTransfer $requestAttributesTransferMock;
+    protected RestCompanyUsersBulkRequestAttributesTransfer|MockObject $requestAttributesTransferMock;
 
     /**
      * @var \Generated\Shared\Transfer\RestUserTransfer|\PHPUnit\Framework\MockObject\MockObject
      */
-    protected RestUserTransfer $restUserTransfer;
+    protected RestUserTransfer|MockObject $restUserTransfer;
 
     /**
      * @var \FondOfOryx\Glue\CompanyUsersBulkRestApi\Processor\Mapper\RestCompanyUsersBulkRequestMapper

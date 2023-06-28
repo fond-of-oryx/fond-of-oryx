@@ -15,7 +15,7 @@ use PHPUnit\Framework\MockObject\MockObject;
 class CustomerByEmailResolverPreDataExpanderPluginTest extends Unit
 {
     /**
-     * @var \FondOfOryx\Zed\CompanyUsersBulkRestApi\Dependency\Facade\CompanyUsersBulkRestApiToEventFacadeBridge
+     * @var \FondOfOryx\Zed\CompanyUsersBulkRestApi\Communication\Plugin\CustomerByEmailResolverPreDataExpanderPlugin
      */
     protected CustomerByEmailResolverPreDataExpanderPlugin $plugin;
 
@@ -30,7 +30,7 @@ class CustomerByEmailResolverPreDataExpanderPluginTest extends Unit
     protected CompanyUsersBulkPreparationCollectionTransfer|MockObject $companyUsersBulkPreparationCollectionTransferMock;
 
     /**
-     * @var \Generated\Shared\Transfer\CompanyCollectionTransfer|\PHPUnit\Framework\MockObject\MockObject
+     * @var \Generated\Shared\Transfer\CustomerCollectionTransfer|\PHPUnit\Framework\MockObject\MockObject
      */
     protected CustomerCollectionTransfer|MockObject $customerCollectionTransferMock;
 
@@ -50,7 +50,7 @@ class CustomerByEmailResolverPreDataExpanderPluginTest extends Unit
     protected RestCompanyUsersBulkItemTransfer|MockObject $restCompanyUsersBulkItemTransfer;
 
     /**
-     * @var \Generated\Shared\Transfer\RestCompanyUsersBulkItemTransfer|\PHPUnit\Framework\MockObject\MockObject
+     * @var \Generated\Shared\Transfer\RestCompanyUsersBulkItemCustomerTransfer|\PHPUnit\Framework\MockObject\MockObject
      */
     protected RestCompanyUsersBulkItemCustomerTransfer|MockObject $restCompanyUsersBulkItemCustomerTransfer;
 

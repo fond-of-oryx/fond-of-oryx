@@ -50,7 +50,7 @@ class CompanyResolverPreDataExpanderPluginTest extends Unit
     protected RestCompanyUsersBulkItemTransfer|MockObject $restCompanyUsersBulkItemTransfer;
 
     /**
-     * @var \Generated\Shared\Transfer\RestCompanyUsersBulkItemTransfer|\PHPUnit\Framework\MockObject\MockObject
+     * @var \Generated\Shared\Transfer\RestCompanyUsersBulkItemCompanyTransfer|\PHPUnit\Framework\MockObject\MockObject
      */
     protected RestCompanyUsersBulkItemCompanyTransfer|MockObject $restCompanyUsersBulkItemCompanyTransfer;
 
