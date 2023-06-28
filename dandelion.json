@@ -579,10 +579,6 @@
       "path": "bundles/jellyfish-sales-order-company-user/",
       "version": "2.0.0"
     },
-    "jellyfish-sales-order-conditional-availability": {
-      "path": "bundles/jellyfish-sales-order-conditional-availability/",
-      "version": "2.0.0"
-    },
     "jellyfish-sales-order-customer-address": {
       "path": "bundles/jellyfish-sales-order-customer-address/",
       "version": "2.0.0"
@@ -757,7 +753,7 @@
     },
     "product-country-restriction": {
       "path": "bundles/product-country-restriction/",
-      "version": "2.0.0"
+      "version": "2.0.1"
     },
     "product-country-restriction-checkout-connector": {
       "path": "bundles/product-country-restriction-checkout-connector/",

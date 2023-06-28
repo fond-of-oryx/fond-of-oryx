@@ -10,12 +10,12 @@
   ],
   "require": {
     "php": ">=8.0",
-    "spryker/product": "^5.0.0 || ^6.0.0",
-    "spryker/country": "^3.0.0"
+    "spryker/country": "^3.1.0 || ^4.0.0",
+    "spryker/product": "^5.0.0 || ^6.0.0"
   },
   "require-dev": {
     "fond-of-codeception/spryker": "^2.0.0",
-    "spryker/code-sniffer": "^0.12"
+    "spryker/code-sniffer": "*"
   },
   "minimum-stability": "dev",
   "prefer-stable": true,
