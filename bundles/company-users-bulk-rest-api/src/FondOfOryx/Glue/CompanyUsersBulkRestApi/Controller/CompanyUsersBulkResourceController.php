@@ -24,6 +24,6 @@ class CompanyUsersBulkResourceController extends AbstractController
     ): RestResponseInterface {
         return $this->getFactory()
             ->createCompanyUsersBulkProcessor()
-            ->saveCustomerCompanyRelation($restRequest, $restCompanyUsersBulkRequestAttributesTransfer);
+            ->process($restRequest, $restCompanyUsersBulkRequestAttributesTransfer);
     }
 }

@@ -47,7 +47,7 @@ class CompanyUsersBulkProcessor implements CompanyUsersBulkProcessorInterface
      *
      * @return \Spryker\Glue\GlueApplication\Rest\JsonApi\RestResponseInterface
      */
-    public function saveCustomerCompanyRelation(
+    public function process(
         RestRequestInterface $restRequest,
         RestCompanyUsersBulkRequestAttributesTransfer $restCompanyUsersBulkRequestAttributesTransfer
     ): RestResponseInterface {

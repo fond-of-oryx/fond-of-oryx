@@ -15,7 +15,6 @@ use Spryker\Shared\Log\LoggerTrait;
 use Spryker\Zed\Kernel\Business\AbstractBusinessFactory;
 
 /**
- * @method \FondOfOryx\Zed\CompanyUsersBulkRestApi\CompanyUsersBulkRestApiConfig getConfig()
  * @method \FondOfOryx\Zed\CompanyUsersBulkRestApi\Persistence\CompanyUsersBulkRestApiRepositoryInterface getRepository()
  */
 class CompanyUsersBulkRestApiBusinessFactory extends AbstractBusinessFactory
@@ -40,7 +39,7 @@ class CompanyUsersBulkRestApiBusinessFactory extends AbstractBusinessFactory
     /**
      * @return \FondOfOryx\Zed\CompanyUsersBulkRestApi\Business\Permission\PermissionCheckerInterface
      */
-    public function createPermissionChecker(): PermissionCheckerInterface
+    protected function createPermissionChecker(): PermissionCheckerInterface
     {
         return new PermissionChecker($this->getRepository());
     }
@@ -48,7 +47,7 @@ class CompanyUsersBulkRestApiBusinessFactory extends AbstractBusinessFactory
     /**
      * @return \FondOfOryx\Zed\CompanyUsersBulkRestApi\Business\PluginExecutioner\BulkDataPluginExecutionerInterface
      */
-    public function createBulkDataPluginExecutioner(): BulkDataPluginExecutionerInterface
+    protected function createBulkDataPluginExecutioner(): BulkDataPluginExecutionerInterface
     {
         return new BulkDataPluginExecutioner(
             $this->getDataExpanderPlugins(),
@@ -60,7 +59,7 @@ class CompanyUsersBulkRestApiBusinessFactory extends AbstractBusinessFactory
     /**
      * @return \FondOfOryx\Zed\CompanyUsersBulkRestApi\Dependency\Facade\CompanyUsersBulkRestApiToEventFacadeInterface
      */
-    public function getEventFacade(): CompanyUsersBulkRestApiToEventFacadeInterface
+    protected function getEventFacade(): CompanyUsersBulkRestApiToEventFacadeInterface
     {
         return $this->getProvidedDependency(
             CompanyUsersBulkRestApiDependencyProvider::FACADE_EVENT,
@@ -70,7 +69,7 @@ class CompanyUsersBulkRestApiBusinessFactory extends AbstractBusinessFactory
     /**
      * @return \FondOfOryx\Zed\CompanyUsersBulkRestApi\Dependency\Facade\CompanyUsersBulkRestApiToCompanyUserFacadeInterface
      */
-    public function getCompanyUserFacade(): CompanyUsersBulkRestApiToCompanyUserFacadeInterface
+    protected function getCompanyUserFacade(): CompanyUsersBulkRestApiToCompanyUserFacadeInterface
     {
         return $this->getProvidedDependency(
             CompanyUsersBulkRestApiDependencyProvider::FACADE_COMPANY_USER,
@@ -80,7 +79,7 @@ class CompanyUsersBulkRestApiBusinessFactory extends AbstractBusinessFactory
     /**
      * @return array<\FondOfOryx\Zed\CompanyUsersBulkRestApiExtension\Dependency\Plugin\CompanyUsersBulkDataExpanderPluginInterface>
      */
-    public function getDataExpanderPlugins(): array
+    protected function getDataExpanderPlugins(): array
     {
         return $this->getProvidedDependency(
             CompanyUsersBulkRestApiDependencyProvider::PLUGINS_DATA_EXPANDER,
@@ -90,7 +89,7 @@ class CompanyUsersBulkRestApiBusinessFactory extends AbstractBusinessFactory
     /**
      * @return array<\FondOfOryx\Zed\CompanyUsersBulkRestApiExtension\Dependency\Plugin\CompanyUsersBulkPreHandlingPluginInterface>
      */
-    public function getPreHandlingPlugins(): array
+    protected function getPreHandlingPlugins(): array
     {
         return $this->getProvidedDependency(
             CompanyUsersBulkRestApiDependencyProvider::PLUGINS_PRE_HANDLING,
@@ -100,7 +99,7 @@ class CompanyUsersBulkRestApiBusinessFactory extends AbstractBusinessFactory
     /**
      * @return array<\FondOfOryx\Zed\CompanyUsersBulkRestApiExtension\Dependency\Plugin\CompanyUsersBulkPostHandlingPluginInterface>
      */
-    public function getPostHandlingPlugins(): array
+    protected function getPostHandlingPlugins(): array
     {
         return $this->getProvidedDependency(
             CompanyUsersBulkRestApiDependencyProvider::PLUGINS_POST_HANDLING,

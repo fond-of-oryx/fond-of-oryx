@@ -12,6 +12,7 @@ use FondOfOryx\Zed\CompanyUsersBulkRestApi\Dependency\Facade\CompanyUsersBulkRes
 use FondOfOryx\Zed\CompanyUsersBulkRestApi\Persistence\CompanyUsersBulkRestApiRepositoryInterface;
 use Generated\Shared\Transfer\CompanyRoleCollectionTransfer;
 use Generated\Shared\Transfer\CompanyRoleTransfer;
+use Generated\Shared\Transfer\CompanyTransfer;
 use Generated\Shared\Transfer\CompanyUsersBulkPreparationCollectionTransfer;
 use Generated\Shared\Transfer\CompanyUsersBulkPreparationTransfer;
 use Generated\Shared\Transfer\CompanyUserTransfer;
@@ -94,11 +95,11 @@ class BulkManager implements BulkManagerInterface
 
             $attributes = $restCompanyUsersBulkRequestTransfer->getAttributes();
 
-            if ($attributes !== null && count($attributes->getAssign()) > 0) {
+            if ($attributes !== null && $attributes->getAssign()->count() > 0) {
                 $this->eventFacade->trigger(CompanyUsersBulkRestApiConstants::BULK_ASSIGN, $this->createCollectionTransfer($attributes->getAssign()));
             }
 
-            if ($attributes !== null && count($attributes->getUnassign()) > 0) {
+            if ($attributes !== null && $attributes->getUnassign()->count() > 0) {
                 $this->eventFacade->trigger(CompanyUsersBulkRestApiConstants::BULK_UNASSIGN, $this->createCollectionTransfer($attributes->getUnassign()));
             }
         } catch (Throwable $throwable) {
@@ -130,17 +131,17 @@ class BulkManager implements BulkManagerInterface
             foreach ($prepareDataCollection->getItems() as $prepareData) {
                 $company = $prepareData->getCompanyOrFail();
                 $customer = $prepareData->getCustomerOrFail();
-                $role = $this->resolveRole($prepareData);
+                $role = $this->resolveRole($company, $prepareData->getItem()->getRole());
                 $roleCollection = (new CompanyRoleCollectionTransfer())->addRole($role);
                 foreach ($company->getCompanyBusinessUnits() as $companyBusinessUnit) {
                     $companyUserTransfer = $this->createDummyCompanyUserTransfer()
-                        ->setCustomerReference($customer->getCustomerReference())
-                        ->setFkCustomer($customer->getIdCustomer())
-                        ->setCustomer($customer)
-                        ->setCompanyRoleCollection($roleCollection)
-                        ->setFkCompany($company->getIdCompany())
-                        ->setFkCompanyBusinessUnit($companyBusinessUnit->getIdCompanyBusinessUnit())
-                        ->setCompany($company);
+                    ->setCustomerReference($customer->getCustomerReference())
+                    ->setFkCustomer($customer->getIdCustomer())
+                    ->setCustomer($customer)
+                    ->setCompanyRoleCollection($roleCollection)
+                    ->setFkCompany($company->getIdCompany())
+                    ->setFkCompanyBusinessUnit($companyBusinessUnit->getIdCompanyBusinessUnit())
+                    ->setCompany($company);
 
                     if ($this->repository->findCompanyUser($companyUserTransfer) !== null) {
                         continue;
@@ -233,24 +234,27 @@ class BulkManager implements BulkManagerInterface
      */
     protected function createDummyCompanyUserTransfer(): CompanyUserTransfer
     {
-        return (new CompanyUserTransfer())->setIsActive(true)->setIsDefault(false);
+        return (new CompanyUserTransfer())
+            ->setIsActive(true)
+            ->setIsDefault(false);
     }
 
     /**
-     * @param \Generated\Shared\Transfer\CompanyUsersBulkPreparationTransfer $companyUsersBulkPreparationTransfer
+     * @param \Generated\Shared\Transfer\CompanyTransfer $companyTransfer
+     * @param string $role
      *
      * @throws \Exception
      *
      * @return \Generated\Shared\Transfer\CompanyRoleTransfer
      */
-    protected function resolveRole(CompanyUsersBulkPreparationTransfer $companyUsersBulkPreparationTransfer): CompanyRoleTransfer
+    protected function resolveRole(CompanyTransfer $companyTransfer, string $role): CompanyRoleTransfer
     {
-        foreach ($companyUsersBulkPreparationTransfer->getCompany()->getCompanyRoles() as $companyRole) {
-            if ($companyUsersBulkPreparationTransfer->getItem()->getRole() === $companyRole->getName()) {
+        foreach ($companyTransfer->getCompanyRoles() as $companyRole) {
+            if ($role === $companyRole->getName()) {
                 return $companyRole;
             }
         }
 
-        throw new Exception(sprintf('Role with given name "%s" not found!', $companyUsersBulkPreparationTransfer->getItem()->getRole()));
+        throw new Exception(sprintf('Role with given name "%s" not found!', $role));
     }
 }

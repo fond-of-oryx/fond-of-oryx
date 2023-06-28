@@ -14,6 +14,7 @@
   ],
   "require": {
     "php": ">=8.0",
+    "fond-of-oryx/company-user-company-role-connector": "^1.0.0",
     "fond-of-oryx/company-users-bulk-rest-api-extension": "^1.0.0",
     "spryker/glue-application": "^1.0.0",
     "spryker/glue-application-extension": "^1.0.0",
