@@ -757,7 +757,7 @@
     },
     "product-country-restriction-checkout-connector": {
       "path": "bundles/product-country-restriction-checkout-connector/",
-      "version": "2.0.0"
+      "version": "2.0.1"
     },
     "product-default-category-assigner": {
       "path": "bundles/product-default-category-assigner/",
