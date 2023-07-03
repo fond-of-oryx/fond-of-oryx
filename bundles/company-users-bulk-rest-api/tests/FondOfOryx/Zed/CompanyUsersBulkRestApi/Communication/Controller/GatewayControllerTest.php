@@ -20,7 +20,7 @@ class GatewayControllerTest extends Unit
     /**
      * @var \FondOfOryx\Zed\CompanyUsersBulkRestApi\Communication\Controller\GatewayController
      */
-    protected $gatewayController;
+    protected GatewayController $gatewayController;
 
     /**
      * @var \Generated\Shared\Transfer\RestCompanyUsersBulkRequestTransfer|\PHPUnit\Framework\MockObject\MockObject

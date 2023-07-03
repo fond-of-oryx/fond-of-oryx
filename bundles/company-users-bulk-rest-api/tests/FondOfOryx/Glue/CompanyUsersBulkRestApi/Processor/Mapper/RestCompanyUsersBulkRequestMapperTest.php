@@ -28,7 +28,7 @@ class RestCompanyUsersBulkRequestMapperTest extends Unit
     /**
      * @var \FondOfOryx\Glue\CompanyUsersBulkRestApi\Processor\Mapper\RestCompanyUsersBulkRequestMapper
      */
-    protected $mapper;
+    protected RestCompanyUsersBulkRequestMapper $mapper;
 
     /**
      * @return void

@@ -43,7 +43,7 @@ class CompanyUsersBulkRestApiBusinessFactoryTest extends Unit
     /**
      * @var \FondOfOryx\Zed\CompanyUsersBulkRestApi\Business\CompanyUsersBulkRestApiBusinessFactory
      */
-    protected $factory;
+    protected CompanyUsersBulkRestApiBusinessFactory $factory;
 
     /**
      * @return void
