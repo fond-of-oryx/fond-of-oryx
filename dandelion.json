@@ -279,8 +279,8 @@
       "path": "bundles/company-users-bulk-rest-api/",
       "version": "1.0.0"
     },
-    "company-users-bulk-rest-api-debtor-connector": {
-      "path": "bundles/company-users-bulk-rest-api-debtor-connector/",
+    "company-users-bulk-rest-api-business-central-connector": {
+      "path": "bundles/company-users-bulk-rest-api-business-central-connector/",
       "version": "1.0.0"
     },
     "company-users-bulk-rest-api-extension": {

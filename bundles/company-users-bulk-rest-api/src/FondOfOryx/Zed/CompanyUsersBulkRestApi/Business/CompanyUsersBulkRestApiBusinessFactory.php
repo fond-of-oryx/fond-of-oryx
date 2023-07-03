@@ -2,6 +2,10 @@
 
 namespace FondOfOryx\Zed\CompanyUsersBulkRestApi\Business;
 
+use FondOfOryx\Zed\CompanyUsersBulkRestApi\Business\Expander\CompanyExpander;
+use FondOfOryx\Zed\CompanyUsersBulkRestApi\Business\Expander\CustomerByMailExpander;
+use FondOfOryx\Zed\CompanyUsersBulkRestApi\Business\Expander\CustomerByReferenceExpander;
+use FondOfOryx\Zed\CompanyUsersBulkRestApi\Business\Expander\ExpanderInterface;
 use FondOfOryx\Zed\CompanyUsersBulkRestApi\Business\Manager\BulkManager;
 use FondOfOryx\Zed\CompanyUsersBulkRestApi\Business\Manager\BulkManagerInterface;
 use FondOfOryx\Zed\CompanyUsersBulkRestApi\Business\Permission\PermissionChecker;
@@ -34,6 +38,30 @@ class CompanyUsersBulkRestApiBusinessFactory extends AbstractBusinessFactory
             $this->getRepository(),
             $this->getLogger(),
         );
+    }
+
+    /**
+     * @return \FondOfOryx\Zed\CompanyUsersBulkRestApi\Business\Expander\ExpanderInterface
+     */
+    public function createCompanyExpander(): ExpanderInterface
+    {
+        return new CompanyExpander($this->getRepository());
+    }
+
+    /**
+     * @return \FondOfOryx\Zed\CompanyUsersBulkRestApi\Business\Expander\ExpanderInterface
+     */
+    public function createCustomerByMailExpander(): ExpanderInterface
+    {
+        return new CustomerByMailExpander($this->getRepository());
+    }
+
+    /**
+     * @return \FondOfOryx\Zed\CompanyUsersBulkRestApi\Business\Expander\ExpanderInterface
+     */
+    public function createCustomerByReferenceExpander(): ExpanderInterface
+    {
+        return new CustomerByReferenceExpander($this->getRepository());
     }
 
     /**

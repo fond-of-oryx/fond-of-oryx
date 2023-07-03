@@ -2,6 +2,7 @@
 
 namespace FondOfOryx\Zed\CompanyUsersBulkRestApi\Business;
 
+use Generated\Shared\Transfer\CompanyUsersBulkPreparationCollectionTransfer;
 use Generated\Shared\Transfer\RestCompanyUsersBulkItemCollectionTransfer;
 use Generated\Shared\Transfer\RestCompanyUsersBulkRequestTransfer;
 use Generated\Shared\Transfer\RestCompanyUsersBulkResponseTransfer;
@@ -34,4 +35,31 @@ interface CompanyUsersBulkRestApiFacadeInterface
     public function deleteCompanyUserBulkMode(
         RestCompanyUsersBulkItemCollectionTransfer $restCompanyUsersBulkItemCollectionTransfer
     ): void;
+
+    /**
+     * @param \Generated\Shared\Transfer\CompanyUsersBulkPreparationCollectionTransfer $companyUsersBulkPreparationCollectionTransfer
+     *
+     * @return \Generated\Shared\Transfer\CompanyUsersBulkPreparationCollectionTransfer
+     */
+    public function expandWithCompany(
+        CompanyUsersBulkPreparationCollectionTransfer $companyUsersBulkPreparationCollectionTransfer
+    ): CompanyUsersBulkPreparationCollectionTransfer;
+
+    /**
+     * @param \Generated\Shared\Transfer\CompanyUsersBulkPreparationCollectionTransfer $companyUsersBulkPreparationCollectionTransfer
+     *
+     * @return \Generated\Shared\Transfer\CompanyUsersBulkPreparationCollectionTransfer
+     */
+    public function expandWithCustomerByReference(
+        CompanyUsersBulkPreparationCollectionTransfer $companyUsersBulkPreparationCollectionTransfer
+    ): CompanyUsersBulkPreparationCollectionTransfer;
+
+    /**
+     * @param \Generated\Shared\Transfer\CompanyUsersBulkPreparationCollectionTransfer $companyUsersBulkPreparationCollectionTransfer
+     *
+     * @return \Generated\Shared\Transfer\CompanyUsersBulkPreparationCollectionTransfer
+     */
+    public function expandWithCustomerByMail(
+        CompanyUsersBulkPreparationCollectionTransfer $companyUsersBulkPreparationCollectionTransfer
+    ): CompanyUsersBulkPreparationCollectionTransfer;
 }
