@@ -13,6 +13,7 @@ class RestDataMapper implements RestDataMapperInterface
 {
     /**
      * @param \Generated\Shared\Transfer\RepresentativeCompanyUserTransfer $companyUserTransfer
+     *
      * @return \Generated\Shared\Transfer\RestRepresentativeCompanyUserTransfer
      */
     public function mapResponse(RepresentativeCompanyUserTransfer $companyUserTransfer): RestRepresentativeCompanyUserTransfer
@@ -26,6 +27,7 @@ class RestDataMapper implements RestDataMapperInterface
 
     /**
      * @param \Generated\Shared\Transfer\RepresentativeCompanyUserCollectionTransfer $companyUserCollectionTransfer
+     *
      * @return \ArrayObject|\Generated\Shared\Transfer\RestRepresentativeCompanyUserTransfer[]
      */
     public function mapResponseCollection(RepresentativeCompanyUserCollectionTransfer $companyUserCollectionTransfer): ArrayObject
@@ -41,11 +43,12 @@ class RestDataMapper implements RestDataMapperInterface
 
     /**
      * @param \Generated\Shared\Transfer\CustomerTransfer|null $customerTransfer
+     *
      * @return \Generated\Shared\Transfer\RestRepresentativeDistributorTransfer|null
      */
     protected function mapRestRepresentativeDistributor(?CustomerTransfer $customerTransfer): ?RestRepresentativeDistributorTransfer
     {
-        if ($customerTransfer === null){
+        if ($customerTransfer === null) {
             return null;
         }
 

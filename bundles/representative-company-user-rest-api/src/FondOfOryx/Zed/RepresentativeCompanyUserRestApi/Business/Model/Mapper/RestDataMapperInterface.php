@@ -11,12 +11,14 @@ interface RestDataMapperInterface
 {
     /**
      * @param \Generated\Shared\Transfer\RepresentativeCompanyUserTransfer $companyUserTransfer
+     *
      * @return \Generated\Shared\Transfer\RestRepresentativeCompanyUserTransfer
      */
     public function mapResponse(RepresentativeCompanyUserTransfer $companyUserTransfer): RestRepresentativeCompanyUserTransfer;
 
     /**
      * @param \Generated\Shared\Transfer\RepresentativeCompanyUserCollectionTransfer $companyUserCollectionTransfer
+     *
      * @return \ArrayObject|\Generated\Shared\Transfer\RestRepresentativeCompanyUserTransfer[]
      */
     public function mapResponseCollection(RepresentativeCompanyUserCollectionTransfer $companyUserCollectionTransfer): ArrayObject;

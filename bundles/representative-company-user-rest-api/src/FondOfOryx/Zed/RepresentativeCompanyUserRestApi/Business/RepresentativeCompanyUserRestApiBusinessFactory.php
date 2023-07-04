@@ -23,7 +23,7 @@ class RepresentativeCompanyUserRestApiBusinessFactory extends AbstractBusinessFa
         return new RepresentationManager(
             $this->getRepresentativeCompanyUserFacade(),
             $this->getRepository(),
-            $this->createRestDataMapper()
+            $this->createRestDataMapper(),
         );
     }
 
