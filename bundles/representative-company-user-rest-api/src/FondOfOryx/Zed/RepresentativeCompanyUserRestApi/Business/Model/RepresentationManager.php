@@ -3,6 +3,7 @@
 namespace FondOfOryx\Zed\RepresentativeCompanyUserRestApi\Business\Model;
 
 use Exception;
+use FondOfOryx\Zed\RepresentativeCompanyUserRestApi\Business\Model\Mapper\RestDataMapperInterface;
 use FondOfOryx\Zed\RepresentativeCompanyUserRestApi\Dependency\Facade\RepresentativeCompanyUserRestApiToRepresentativeCompanyUserFacadeInterface;
 use FondOfOryx\Zed\RepresentativeCompanyUserRestApi\Persistence\RepresentativeCompanyUserRestApiRepositoryInterface;
 use Generated\Shared\Transfer\RepresentativeCompanyUserFilterTransfer;
@@ -17,12 +18,17 @@ class RepresentationManager implements RepresentationManagerInterface
     /**
      * @var \FondOfOryx\Zed\RepresentativeCompanyUserRestApi\Dependency\Facade\RepresentativeCompanyUserRestApiToRepresentativeCompanyUserFacadeInterface
      */
-    protected $representativeCompanyUserFacade;
+    protected RepresentativeCompanyUserRestApiToRepresentativeCompanyUserFacadeInterface $representativeCompanyUserFacade;
 
     /**
      * @var \FondOfOryx\Zed\RepresentativeCompanyUserRestApi\Persistence\RepresentativeCompanyUserRestApiRepositoryInterface
      */
-    protected $repository;
+    protected RepresentativeCompanyUserRestApiRepositoryInterface $repository;
+
+    /**
+     * @var \FondOfOryx\Zed\RepresentativeCompanyUserRestApi\Business\Model\Mapper\RestDataMapperInterface
+     */
+    protected RestDataMapperInterface $restDataMapper;
 
     /**
      * @param \FondOfOryx\Zed\RepresentativeCompanyUserRestApi\Dependency\Facade\RepresentativeCompanyUserRestApiToRepresentativeCompanyUserFacadeInterface $representativeCompanyUserFacade
@@ -30,10 +36,12 @@ class RepresentationManager implements RepresentationManagerInterface
      */
     public function __construct(
         RepresentativeCompanyUserRestApiToRepresentativeCompanyUserFacadeInterface $representativeCompanyUserFacade,
-        RepresentativeCompanyUserRestApiRepositoryInterface $repository
+        RepresentativeCompanyUserRestApiRepositoryInterface $repository,
+        RestDataMapperInterface $restDataMapper
     ) {
         $this->representativeCompanyUserFacade = $representativeCompanyUserFacade;
         $this->repository = $repository;
+        $this->restDataMapper = $restDataMapper;
     }
 
     /**
@@ -63,7 +71,7 @@ class RepresentationManager implements RepresentationManagerInterface
 
         return (new RestRepresentativeCompanyUserResponseTransfer())
             ->setRequest($restRepresentativeCompanyUserRequestTransfer)
-            ->setRepresentation($response);
+            ->addRepresentation($this->restDataMapper->mapResponse($response));
     }
 
     /**
@@ -97,7 +105,7 @@ class RepresentationManager implements RepresentationManagerInterface
 
         return (new RestRepresentativeCompanyUserResponseTransfer())
             ->setRequest($restRepresentativeCompanyUserRequestTransfer)
-            ->setRepresentation($response);
+            ->addRepresentation($this->restDataMapper->mapResponse($response));
     }
 
     /**
@@ -118,7 +126,7 @@ class RepresentationManager implements RepresentationManagerInterface
             $representation = null;
         }
 
-        return (new RestRepresentativeCompanyUserResponseTransfer())->setRepresentation($representation);
+        return (new RestRepresentativeCompanyUserResponseTransfer())->addRepresentation($this->restDataMapper->mapResponse($representation));
     }
 
     /**
@@ -151,16 +159,6 @@ class RepresentationManager implements RepresentationManagerInterface
 
         $collection = $this->representativeCompanyUserFacade->getRepresentativeCompanyUser($filter);
 
-        return (new RestRepresentativeCompanyUserResponseTransfer())->setCollection($collection);
-    }
-
-    /**
-     * @param string $date
-     *
-     * @return int
-     */
-    protected function convertDateStringToTimestamp(string $date): int
-    {
-        return strtotime($date);
+        return (new RestRepresentativeCompanyUserResponseTransfer())->setRepresentations($this->restDataMapper->mapResponseCollection($collection));
     }
 }

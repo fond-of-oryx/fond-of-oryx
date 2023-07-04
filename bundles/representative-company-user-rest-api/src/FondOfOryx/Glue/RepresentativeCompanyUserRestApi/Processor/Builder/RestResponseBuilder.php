@@ -6,6 +6,7 @@ use FondOfOryx\Glue\RepresentativeCompanyUserRestApi\RepresentativeCompanyUserRe
 use Generated\Shared\Transfer\RepresentativeCompanyUserCollectionTransfer;
 use Generated\Shared\Transfer\RepresentativeCompanyUserTransfer;
 use Generated\Shared\Transfer\RestErrorMessageTransfer;
+use Generated\Shared\Transfer\RestRepresentativeCompanyUserResponseTransfer;
 use Spryker\Glue\GlueApplication\Rest\JsonApi\RestResourceBuilderInterface;
 use Spryker\Glue\GlueApplication\Rest\JsonApi\RestResponseInterface;
 use Symfony\Component\HttpFoundation\Response;
@@ -27,38 +28,18 @@ class RestResponseBuilder implements RestResponseBuilderInterface
     }
 
     /**
-     * @param \Generated\Shared\Transfer\RepresentativeCompanyUserTransfer $representativeCompanyUserTransfer
-     *
+     * @param \Generated\Shared\Transfer\RestRepresentativeCompanyUserResponseTransfer $restRepresentativeCompanyUserResponseTransfer
      * @return \Spryker\Glue\GlueApplication\Rest\JsonApi\RestResponseInterface
      */
     public function buildRepresentativeCompanyUserRestResponse(
-        RepresentativeCompanyUserTransfer $representativeCompanyUserTransfer
+        RestRepresentativeCompanyUserResponseTransfer $restRepresentativeCompanyUserResponseTransfer
     ): RestResponseInterface {
         $restResponse = $this->restResourceBuilder->createRestResponse();
 
         $restResource = $this->restResourceBuilder->createRestResource(
             RepresentativeCompanyUserRestApiConfig::RESOURCE_REPRESENTATIVE_COMPANY_USER_REST_API,
             null,
-            $representativeCompanyUserTransfer,
-        );
-
-        return $restResponse->addResource($restResource);
-    }
-
-    /**
-     * @param \Generated\Shared\Transfer\RepresentativeCompanyUserCollectionTransfer $representativeCompanyUserTransfer
-     *
-     * @return \Spryker\Glue\GlueApplication\Rest\JsonApi\RestResponseInterface
-     */
-    public function buildRepresentativeCompanyUserCollectionRestResponse(
-        RepresentativeCompanyUserCollectionTransfer $representativeCompanyUserTransfer
-    ): RestResponseInterface {
-        $restResponse = $this->restResourceBuilder->createRestResponse();
-
-        $restResource = $this->restResourceBuilder->createRestResource(
-            RepresentativeCompanyUserRestApiConfig::RESOURCE_REPRESENTATIVE_COMPANY_USER_REST_API,
-            null,
-            $representativeCompanyUserTransfer,
+            $restRepresentativeCompanyUserResponseTransfer,
         );
 
         return $restResponse->addResource($restResource);
