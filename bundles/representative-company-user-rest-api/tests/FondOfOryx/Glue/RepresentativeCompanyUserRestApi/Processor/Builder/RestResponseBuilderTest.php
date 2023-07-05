@@ -4,8 +4,9 @@ namespace FondOfOryx\Glue\RepresentativeCompanyUserRestApi\Processor\Builder;
 
 use Codeception\Test\Unit;
 use FondOfOryx\Glue\RepresentativeCompanyUserRestApi\RepresentativeCompanyUserRestApiConfig;
-use Generated\Shared\Transfer\RepresentativeCompanyUserTransfer;
 use Generated\Shared\Transfer\RestErrorMessageTransfer;
+use Generated\Shared\Transfer\RestRepresentativeCompanyUserResponseTransfer;
+use PHPUnit\Framework\MockObject\MockObject;
 use Spryker\Glue\GlueApplication\Rest\JsonApi\RestResourceBuilderInterface;
 use Spryker\Glue\GlueApplication\Rest\JsonApi\RestResourceInterface;
 use Spryker\Glue\GlueApplication\Rest\JsonApi\RestResponseInterface;
@@ -16,27 +17,27 @@ class RestResponseBuilderTest extends Unit
     /**
      * @var \PHPUnit\Framework\MockObject\MockObject|\Spryker\Glue\GlueApplication\Rest\JsonApi\RestResourceBuilderInterface
      */
-    protected $restResourceBuilderMock;
+    protected RestResourceBuilderInterface|MockObject $restResourceBuilderMock;
 
     /**
-     * @var \Generated\Shared\Transfer\RepresentativeCompanyUserTransfer|\PHPUnit\Framework\MockObject\MockObject
+     * @var \Generated\Shared\Transfer\RestRepresentativeCompanyUserResponseTransfer|\PHPUnit\Framework\MockObject\MockObject
      */
-    protected $representativeCompanyUserTransferMock;
+    protected RestRepresentativeCompanyUserResponseTransfer|MockObject $restRepresentativeCompanyUserResponseTransferMock;
 
     /**
      * @var \PHPUnit\Framework\MockObject\MockObject|\Spryker\Glue\GlueApplication\Rest\JsonApi\RestResourceInterface
      */
-    protected $restResourceMock;
+    protected RestResourceInterface|MockObject $restResourceMock;
 
     /**
      * @var \PHPUnit\Framework\MockObject\MockObject|\Spryker\Glue\GlueApplication\Rest\JsonApi\RestResponseInterface
      */
-    protected $restResponseMock;
+    protected RestResponseInterface|MockObject $restResponseMock;
 
     /**
      * @var \FondOfOryx\Glue\RepresentativeCompanyUserRestApi\Processor\Builder\RestResponseBuilder
      */
-    protected $restResponseBuilder;
+    protected RestResponseBuilder $restResponseBuilder;
 
     /**
      * @return void
@@ -49,7 +50,7 @@ class RestResponseBuilderTest extends Unit
             ->disableOriginalConstructor()
             ->getMock();
 
-        $this->representativeCompanyUserTransferMock = $this->getMockBuilder(RepresentativeCompanyUserTransfer::class)
+        $this->restRepresentativeCompanyUserResponseTransferMock = $this->getMockBuilder(RestRepresentativeCompanyUserResponseTransfer::class)
             ->disableOriginalConstructor()
             ->getMock();
 
@@ -69,7 +70,7 @@ class RestResponseBuilderTest extends Unit
     /**
      * @return void
      */
-    public function testBuildCompanyDeleterRestResponse(): void
+    public function testBuildRepresentativeCompanyUserRestResponse(): void
     {
         $this->restResourceBuilderMock->expects(static::atLeastOnce())
             ->method('createRestResponse')
@@ -80,7 +81,7 @@ class RestResponseBuilderTest extends Unit
             ->with(
                 RepresentativeCompanyUserRestApiConfig::RESOURCE_REPRESENTATIVE_COMPANY_USER_REST_API,
                 null,
-                $this->representativeCompanyUserTransferMock,
+                $this->restRepresentativeCompanyUserResponseTransferMock,
             )->willReturn($this->restResourceMock);
 
         $this->restResponseMock->expects(static::atLeastOnce())
@@ -91,7 +92,7 @@ class RestResponseBuilderTest extends Unit
         static::assertEquals(
             $this->restResponseMock,
             $this->restResponseBuilder->buildRepresentativeCompanyUserRestResponse(
-                $this->representativeCompanyUserTransferMock,
+                $this->restRepresentativeCompanyUserResponseTransferMock,
             ),
         );
     }
@@ -99,7 +100,7 @@ class RestResponseBuilderTest extends Unit
     /**
      * @return void
      */
-    public function testBuildCompanyDeleterMissingPermissionResponse(): void
+    public function testBuildRepresentativeCompanyUserMissingPermissionResponse(): void
     {
         $this->restResourceBuilderMock->expects(static::atLeastOnce())
             ->method('createRestResponse')

@@ -18,8 +18,26 @@
 
     <transfer name="RestRepresentativeCompanyUserResponse">
         <property name="request" type="RestRepresentativeCompanyUserRequest"/>
-        <property name="representation" type="RepresentativeCompanyUser"/>
-        <property name="collection" type="RepresentativeCompanyUserCollection"/>
+        <property name="representations" singular="representation" type="RestRepresentativeCompanyUser[]"/>
+    </transfer>
+
+    <transfer name="RestRepresentativeCompanyUser">
+        <property name="distributor" type="RestRepresentativeDistributor" />
+        <property name="representative" type="RestRepresentativeDistributor" />
+        <property name="originator" type="RestRepresentativeDistributor" />
+        <property name="startAt" type="string" />
+        <property name="endAt" type="string" />
+        <property name="state" type="string" />
+        <property name="uuid" type="string" />
+        <property name="createdAt" type="int" />
+        <property name="updatedAt" type="int" />
+    </transfer>
+
+    <transfer name="RestRepresentativeDistributor">
+        <property name="customerReference" type="string" />
+        <property name="email" type="string" />
+        <property name="firstName" type="string" />
+        <property name="lastName" type="string" />
     </transfer>
 
     <transfer name="RepresentativeCompanyUser" />
