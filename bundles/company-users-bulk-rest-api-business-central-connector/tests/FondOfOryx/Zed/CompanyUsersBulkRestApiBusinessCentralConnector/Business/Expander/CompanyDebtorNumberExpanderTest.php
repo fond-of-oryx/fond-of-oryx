@@ -1,9 +1,9 @@
 <?php
 
-namespace FondOfOryx\Zed\CompanyUsersBulkRestApi\Business\Expander;
+namespace FondOfOryx\Zed\CompanyUsersBulkRestApiBusinessCentralConnector\Business\Expander;
 
 use Codeception\Test\Unit;
-use FondOfOryx\Zed\CompanyUsersBulkRestApi\Persistence\CompanyUsersBulkRestApiRepository;
+use FondOfOryx\Zed\CompanyUsersBulkRestApiBusinessCentralConnector\Persistence\CompanyUsersBulkRestApiBusinessCentralConnectorRepository;
 use Generated\Shared\Transfer\CompanyUsersBulkCompanyCollectionTransfer;
 use Generated\Shared\Transfer\CompanyUsersBulkCompanyTransfer;
 use Generated\Shared\Transfer\CompanyUsersBulkPreparationCollectionTransfer;
@@ -12,17 +12,17 @@ use Generated\Shared\Transfer\RestCompanyUsersBulkItemCompanyTransfer;
 use Generated\Shared\Transfer\RestCompanyUsersBulkItemTransfer;
 use PHPUnit\Framework\MockObject\MockObject;
 
-class CompanyExpanderTest extends Unit
+class CompanyDebtorNumberExpanderTest extends Unit
 {
     /**
-     * @var \FondOfOryx\Zed\CompanyUsersBulkRestApi\Business\Expander\CompanyExpander
+     * @var \FondOfOryx\Zed\CompanyUsersBulkRestApiBusinessCentralConnector\Business\Expander\CompanyDebtorNumberExpander
      */
-    protected CompanyExpander $expander;
+    protected CompanyDebtorNumberExpander $expander;
 
     /**
-     * @var \FondOfOryx\Zed\CompanyUsersBulkRestApi\Persistence\CompanyUsersBulkRestApiRepository|\PHPUnit\Framework\MockObject\MockObject
+     * @var \FondOfOryx\Zed\CompanyUsersBulkRestApiBusinessCentralConnector\Persistence\CompanyUsersBulkRestApiBusinessCentralConnectorRepository|\PHPUnit\Framework\MockObject\MockObject
      */
-    protected CompanyUsersBulkRestApiRepository|MockObject $repositoryMock;
+    protected CompanyUsersBulkRestApiBusinessCentralConnectorRepository|MockObject $repositoryMock;
 
     /**
      * @var \Generated\Shared\Transfer\CompanyUsersBulkPreparationCollectionTransfer|\PHPUnit\Framework\MockObject\MockObject
@@ -59,7 +59,7 @@ class CompanyExpanderTest extends Unit
      */
     protected function _before(): void
     {
-        $this->repositoryMock = $this->getMockBuilder(CompanyUsersBulkRestApiRepository::class)
+        $this->repositoryMock = $this->getMockBuilder(CompanyUsersBulkRestApiBusinessCentralConnectorRepository::class)
             ->disableOriginalConstructor()
             ->getMock();
 
@@ -87,7 +87,7 @@ class CompanyExpanderTest extends Unit
             ->disableOriginalConstructor()
             ->getMock();
 
-        $this->expander = new CompanyExpander($this->repositoryMock);
+        $this->expander = new CompanyDebtorNumberExpander($this->repositoryMock);
     }
 
     /**
@@ -97,7 +97,7 @@ class CompanyExpanderTest extends Unit
     {
         $this->repositoryMock
             ->expects(static::atLeastOnce())
-            ->method('findCompaniesByUuids')
+            ->method('findCompaniesByDebtorNumbers')
             ->willReturn($this->companyCollectionTransferMock);
 
         $this->companyUsersBulkPreparationCollectionTransferMock
@@ -122,13 +122,13 @@ class CompanyExpanderTest extends Unit
 
         $this->restCompanyUsersBulkItemCompanyTransfer
             ->expects(static::atLeastOnce())
-            ->method('getCompanyId')
-            ->willReturn('uuid');
+            ->method('getDebtorNumber')
+            ->willReturn('xxx');
 
         $this->companyTransferMock
             ->expects(static::atLeastOnce())
-            ->method('getUuid')
-            ->willReturn('uuid');
+            ->method('getDebtorNumber')
+            ->willReturn('xxx');
 
         $this->companyCollectionTransferMock
             ->expects(static::atLeastOnce())

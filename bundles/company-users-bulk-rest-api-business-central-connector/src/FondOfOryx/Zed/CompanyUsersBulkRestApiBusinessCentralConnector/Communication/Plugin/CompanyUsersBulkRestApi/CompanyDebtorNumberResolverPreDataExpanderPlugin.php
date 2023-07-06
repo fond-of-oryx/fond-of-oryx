@@ -7,7 +7,7 @@ use Generated\Shared\Transfer\CompanyUsersBulkPreparationCollectionTransfer;
 use Spryker\Zed\Kernel\Communication\AbstractPlugin;
 
 /**
- * @method \FondOfOryx\Zed\CompanyUsersBulkRestApiBusinessCentralConnector\Persistence\CompanyUsersBulkRestApiBusinessCentralConnectorRepositoryInterface getRepository()
+ * @method \FondOfOryx\Zed\CompanyUsersBulkRestApiBusinessCentralConnector\Business\CompanyUsersBulkRestApiBusinessCentralConnectorFacadeInterface getFacade()
  */
 class CompanyDebtorNumberResolverPreDataExpanderPlugin extends AbstractPlugin implements CompanyUsersBulkDataExpanderPluginInterface
 {
@@ -19,44 +19,6 @@ class CompanyDebtorNumberResolverPreDataExpanderPlugin extends AbstractPlugin im
     public function expand(
         CompanyUsersBulkPreparationCollectionTransfer $companyUsersBulkPreparationCollectionTransfer
     ): CompanyUsersBulkPreparationCollectionTransfer {
-        $companyCollection = $this->getRepository()->findCompaniesByDebtorNumbers($this->resolveDebtorNumber($companyUsersBulkPreparationCollectionTransfer));
-        $companies = [];
-        foreach ($companyCollection->getCompanies() as $companyTransfer) {
-            $companies[$companyTransfer->getDebtorNumber()] = $companyTransfer;
-        }
-
-        foreach ($companyUsersBulkPreparationCollectionTransfer->getItems() as $preparedItem) {
-            if ($preparedItem->getCompany() !== null) {
-                continue;
-            }
-
-            $debtorNumber = $preparedItem->getItem()->getCompany()->getDebtorNumber();
-            if (array_key_exists($debtorNumber, $companies)) {
-                $preparedItem->setCompany($companies[$debtorNumber]);
-            }
-        }
-
-        return $companyUsersBulkPreparationCollectionTransfer;
-    }
-
-    /**
-     * @param \Generated\Shared\Transfer\CompanyUsersBulkPreparationCollectionTransfer $companyUsersBulkPreparationTransfer
-     *
-     * @return array
-     */
-    protected function resolveDebtorNumber(CompanyUsersBulkPreparationCollectionTransfer $companyUsersBulkPreparationTransfer): array
-    {
-        $debtorNumbers = [];
-        foreach ($companyUsersBulkPreparationTransfer->getItems() as $preparedItem) {
-            if ($preparedItem->getCompany() !== null) {
-                continue;
-            }
-            $debtorNumber = $preparedItem->getItem()->getCompany()->getDebtorNumber();
-            if ($debtorNumber !== null && $debtorNumber !== '') {
-                $debtorNumbers[] = $debtorNumber;
-            }
-        }
-
-        return $debtorNumbers;
+        return $this->getFacade()->expandWithCompanyDebtorNumber($companyUsersBulkPreparationCollectionTransfer);
     }
 }

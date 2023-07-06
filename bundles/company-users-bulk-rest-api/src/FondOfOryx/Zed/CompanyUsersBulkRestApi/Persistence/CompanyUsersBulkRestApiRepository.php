@@ -3,10 +3,7 @@
 namespace FondOfOryx\Zed\CompanyUsersBulkRestApi\Persistence;
 
 use ArrayObject;
-use Generated\Shared\Transfer\CompanyBusinessUnitTransfer;
-use Generated\Shared\Transfer\CompanyCollectionTransfer;
 use Generated\Shared\Transfer\CompanyRoleTransfer;
-use Generated\Shared\Transfer\CompanyTransfer;
 use Generated\Shared\Transfer\CompanyUserCollectionTransfer;
 use Generated\Shared\Transfer\CompanyUsersBulkCompanyBusinessUnitTransfer;
 use Generated\Shared\Transfer\CompanyUsersBulkCompanyCollectionTransfer;
@@ -15,15 +12,12 @@ use Generated\Shared\Transfer\CompanyUsersBulkCompanyTransfer;
 use Generated\Shared\Transfer\CompanyUsersBulkCustomerCollectionTransfer;
 use Generated\Shared\Transfer\CompanyUsersBulkCustomerTransfer;
 use Generated\Shared\Transfer\CompanyUserTransfer;
-use Generated\Shared\Transfer\CustomerCollectionTransfer;
-use Generated\Shared\Transfer\CustomerTransfer;
 use Orm\Zed\Company\Persistence\Map\SpyCompanyTableMap;
 use Orm\Zed\CompanyBusinessUnit\Persistence\Map\SpyCompanyBusinessUnitTableMap;
 use Orm\Zed\CompanyRole\Persistence\Map\SpyCompanyRoleTableMap;
 use Orm\Zed\CompanyUser\Persistence\Map\SpyCompanyUserTableMap;
 use Orm\Zed\Customer\Persistence\Map\SpyCustomerTableMap;
 use Orm\Zed\Permission\Persistence\Map\SpyPermissionTableMap;
-use Propel\Runtime\ActiveQuery\Criteria;
 use Spryker\Zed\Kernel\Persistence\AbstractRepository;
 
 /**
@@ -40,8 +34,7 @@ class CompanyUsersBulkRestApiRepository extends AbstractRepository implements Co
     public function hasPermission(
         string $permissionKey,
         string $customerReference
-    ): bool
-    {
+    ): bool {
         $idPermission = $this->getIdPermissionByKey($permissionKey);
 
         if ($idPermission === null) {
@@ -90,9 +83,8 @@ class CompanyUsersBulkRestApiRepository extends AbstractRepository implements Co
 
     /**
      * @param \Generated\Shared\Transfer\CompanyUserTransfer $companyUserTransfer
+     *
      * @return bool
-     * @throws \Spryker\Shared\Kernel\Transfer\Exception\RequiredTransferPropertyException
-     * @throws \Spryker\Zed\Propel\Business\Exception\AmbiguousComparisonException
      */
     public function isCompanyUserAlreadyAvailable(CompanyUserTransfer $companyUserTransfer): bool
     {
@@ -116,6 +108,7 @@ class CompanyUsersBulkRestApiRepository extends AbstractRepository implements Co
 
     /**
      * @param array $companyUuids
+     *
      * @return \Generated\Shared\Transfer\CompanyUsersBulkCompanyCollectionTransfer
      */
     public function findCompaniesByUuids(array $companyUuids): CompanyUsersBulkCompanyCollectionTransfer
@@ -132,8 +125,8 @@ class CompanyUsersBulkRestApiRepository extends AbstractRepository implements Co
 
     /**
      * @param array $customerReferences
+     *
      * @return \Generated\Shared\Transfer\CompanyUsersBulkCustomerCollectionTransfer
-     * @throws \Propel\Runtime\Exception\PropelException
      */
     public function findCustomerByReferences(array $customerReferences): CompanyUsersBulkCustomerCollectionTransfer
     {
@@ -221,7 +214,8 @@ class CompanyUsersBulkRestApiRepository extends AbstractRepository implements Co
     }
 
     /**
-     * @param array $companyIds
+     * @param array $companyUuids
+     *
      * @return array<int, \Generated\Shared\Transfer\CompanyUsersBulkCompanyTransfer>
      */
     protected function getCompanyTransfersByCompanyUuids(array $companyUuids): array
@@ -232,7 +226,7 @@ class CompanyUsersBulkRestApiRepository extends AbstractRepository implements Co
             ->find();
 
         $collection = [];
-        foreach ($result->getData() as $companyData){
+        foreach ($result->getData() as $companyData) {
             $idCompany = $companyData[SpyCompanyTableMap::COL_ID_COMPANY];
             $uuid = $companyData[SpyCompanyTableMap::COL_UUID];
             $collection[$idCompany] = (new CompanyUsersBulkCompanyTransfer())
@@ -241,13 +235,14 @@ class CompanyUsersBulkRestApiRepository extends AbstractRepository implements Co
         }
 
         $collection = $this->appendCompanyBusinessUnitsToCompanyTransfers($collection);
+
         return $this->appendCompanyRolesToCompanyTransfers($collection);
     }
 
     /**
      * @param array<int, \Generated\Shared\Transfer\CompanyUsersBulkCompanyTransfer> $companyUsersBulkCompanyTransfers
+     *
      * @return array<int, \Generated\Shared\Transfer\CompanyUsersBulkCompanyTransfer>
-     * @throws \Propel\Runtime\Exception\PropelException
      */
     public function appendCompanyBusinessUnitsToCompanyTransfers(array $companyUsersBulkCompanyTransfers): array
     {
@@ -275,8 +270,8 @@ class CompanyUsersBulkRestApiRepository extends AbstractRepository implements Co
 
     /**
      * @param array<int, \Generated\Shared\Transfer\CompanyUsersBulkCompanyTransfer> $companyUsersBulkCompanyTransfers
+     *
      * @return array<int, \Generated\Shared\Transfer\CompanyUsersBulkCompanyTransfer>
-     * @throws \Propel\Runtime\Exception\PropelException
      */
     public function appendCompanyRolesToCompanyTransfers(array $companyUsersBulkCompanyTransfers): array
     {
@@ -287,7 +282,7 @@ class CompanyUsersBulkRestApiRepository extends AbstractRepository implements Co
             ->select([SpyCompanyRoleTableMap::COL_ID_COMPANY_ROLE, SpyCompanyRoleTableMap::COL_FK_COMPANY, SpyCompanyRoleTableMap::COL_NAME])
             ->find();
 
-        foreach ($result->getData() as $companyRoleData){
+        foreach ($result->getData() as $companyRoleData) {
             $idCompanyRole = $companyRoleData[SpyCompanyRoleTableMap::COL_ID_COMPANY_ROLE];
             $idCompany = $companyRoleData[SpyCompanyRoleTableMap::COL_FK_COMPANY];
             $name = $companyRoleData[SpyCompanyRoleTableMap::COL_NAME];
@@ -306,6 +301,7 @@ class CompanyUsersBulkRestApiRepository extends AbstractRepository implements Co
 
     /**
      * @param array<\Generated\Shared\Transfer\CompanyUsersBulkCompanyTransfer> $companyUsersBulkCompanyTransfers
+     *
      * @return array<int, \Generated\Shared\Transfer\CompanyUsersBulkCompanyTransfer>
      */
     protected function prepareCompanyTransferArray(array $companyUsersBulkCompanyTransfers): array

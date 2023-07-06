@@ -4,7 +4,7 @@ namespace FondOfOryx\Zed\CompanyUsersBulkRestApiBusinessCentralConnector\Persist
 
 use ArrayObject;
 use FondOfOryx\Zed\CompanyUsersBulkRestApiBusinessCentralConnector\Dependency\Facade\CompanyUsersBulkRestApiBusinessCentralConnectorToCompanyUsersBulkRestApiFacadeInterface;
-use Generated\Shared\Transfer\CompanyCollectionTransfer;
+use Generated\Shared\Transfer\CompanyUsersBulkCompanyCollectionTransfer;
 use Generated\Shared\Transfer\CompanyUsersBulkCompanyTransfer;
 use Orm\Zed\Company\Persistence\Map\SpyCompanyTableMap;
 use Spryker\Zed\Kernel\Persistence\AbstractRepository;
@@ -17,11 +17,11 @@ class CompanyUsersBulkRestApiBusinessCentralConnectorRepository extends Abstract
     /**
      * @param array $debtorNumbers
      *
-     * @return \Generated\Shared\Transfer\CompanyCollectionTransfer
+     * @return \Generated\Shared\Transfer\CompanyUsersBulkCompanyCollectionTransfer
      */
-    public function findCompaniesByDebtorNumbers(array $debtorNumbers): CompanyCollectionTransfer
+    public function findCompaniesByDebtorNumbers(array $debtorNumbers): CompanyUsersBulkCompanyCollectionTransfer
     {
-        $collection = new CompanyCollectionTransfer();
+        $collection = new CompanyUsersBulkCompanyCollectionTransfer();
 
         if (count($debtorNumbers) === 0) {
             return $collection;
@@ -32,7 +32,8 @@ class CompanyUsersBulkRestApiBusinessCentralConnectorRepository extends Abstract
     }
 
     /**
-     * @param array $companyIds
+     * @param array $debtorNumbers
+     *
      * @return array<int, \Generated\Shared\Transfer\CompanyUsersBulkCompanyTransfer>
      */
     protected function getCompanyTransfers(array $debtorNumbers): array
@@ -43,7 +44,7 @@ class CompanyUsersBulkRestApiBusinessCentralConnectorRepository extends Abstract
             ->find();
 
         $collection = [];
-        foreach ($result->getData() as $companyData){
+        foreach ($result->getData() as $companyData) {
             $idCompany = $companyData[SpyCompanyTableMap::COL_ID_COMPANY];
             $debtorNumber = $companyData[SpyCompanyTableMap::COL_DEBTOR_NUMBER];
             $collection[$idCompany] = (new CompanyUsersBulkCompanyTransfer())
@@ -52,14 +53,15 @@ class CompanyUsersBulkRestApiBusinessCentralConnectorRepository extends Abstract
         }
 
         $collection = $this->getCompanyUsersBulkRestApiFacade()->appendCompanyBusinessUnitsToCompanyTransfers($collection);
+
         return $this->getCompanyUsersBulkRestApiFacade()->appendCompanyRolesToCompanyTransfers($collection);
     }
 
     /**
      * @return \FondOfOryx\Zed\CompanyUsersBulkRestApiBusinessCentralConnector\Dependency\Facade\CompanyUsersBulkRestApiBusinessCentralConnectorToCompanyUsersBulkRestApiFacadeInterface
-     * @throws \Spryker\Zed\Kernel\Exception\Container\ContainerKeyNotFoundException
      */
-    protected function getCompanyUsersBulkRestApiFacade(): CompanyUsersBulkRestApiBusinessCentralConnectorToCompanyUsersBulkRestApiFacadeInterface{
+    protected function getCompanyUsersBulkRestApiFacade(): CompanyUsersBulkRestApiBusinessCentralConnectorToCompanyUsersBulkRestApiFacadeInterface
+    {
         return $this->getFactory()->getCompanyUsersBulkRestApiFacade();
     }
 }

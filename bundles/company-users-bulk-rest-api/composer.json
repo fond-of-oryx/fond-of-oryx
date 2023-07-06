@@ -12,10 +12,21 @@
       "email": "dev@jzit.de"
     }
   ],
+  "repositories": [
+    {
+      "name": "fond-of-oryx/company-users-bulk-rest-api-extension",
+      "type":"path",
+      "options": {
+        "symlink": false
+      },
+      "packagist.org": false,
+      "url":"../company-users-bulk-rest-api-extension"
+    }
+  ],
   "require": {
     "php": ">=8.0",
     "fond-of-oryx/company-user-company-role-connector": "^1.0.0",
-    "fond-of-oryx/company-users-bulk-rest-api-extension": "^1.0.0",
+    "fond-of-oryx/company-users-bulk-rest-api-extension": "*",
     "spryker/glue-application": "^1.0.0",
     "spryker/glue-application-extension": "^1.0.0",
     "spryker/company-business-unit": "^1.0.0 || ^2.0.0",

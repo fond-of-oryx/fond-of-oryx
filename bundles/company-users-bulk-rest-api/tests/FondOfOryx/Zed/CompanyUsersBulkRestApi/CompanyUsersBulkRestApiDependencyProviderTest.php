@@ -6,6 +6,8 @@ use Codeception\Test\Unit;
 use FondOfOryx\Zed\CompanyUsersBulkRestApi\Dependency\Facade\CompanyUsersBulkRestApiToCompanyUserFacadeInterface;
 use FondOfOryx\Zed\CompanyUsersBulkRestApi\Dependency\Facade\CompanyUsersBulkRestApiToEventFacadeInterface;
 use Orm\Zed\Company\Persistence\SpyCompanyQuery;
+use Orm\Zed\CompanyBusinessUnit\Persistence\SpyCompanyBusinessUnitQuery;
+use Orm\Zed\CompanyRole\Persistence\SpyCompanyRoleQuery;
 use Orm\Zed\CompanyUser\Persistence\SpyCompanyUserQuery;
 use Orm\Zed\Customer\Persistence\SpyCustomerQuery;
 use Orm\Zed\Permission\Persistence\SpyPermissionQuery;
@@ -140,6 +142,16 @@ class CompanyUsersBulkRestApiDependencyProviderTest extends Unit
         static::assertInstanceOf(
             SpyPermissionQuery::class,
             $container[CompanyUsersBulkRestApiDependencyProvider::PROPEL_QUERY_PERMISSION],
+        );
+
+        static::assertInstanceOf(
+            SpyCompanyBusinessUnitQuery::class,
+            $container[CompanyUsersBulkRestApiDependencyProvider::QUERY_SPY_COMPANY_BUSINESS_UNIT],
+        );
+
+        static::assertInstanceOf(
+            SpyCompanyRoleQuery::class,
+            $container[CompanyUsersBulkRestApiDependencyProvider::QUERY_SPY_COMPANY_ROLE],
         );
     }
 }

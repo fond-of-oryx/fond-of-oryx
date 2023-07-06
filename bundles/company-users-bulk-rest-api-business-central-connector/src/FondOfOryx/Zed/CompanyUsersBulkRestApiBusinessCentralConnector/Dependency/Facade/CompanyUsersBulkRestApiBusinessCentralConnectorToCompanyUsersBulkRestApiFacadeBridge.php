@@ -21,8 +21,8 @@ class CompanyUsersBulkRestApiBusinessCentralConnectorToCompanyUsersBulkRestApiFa
 
     /**
      * @param array<int, \Generated\Shared\Transfer\CompanyUsersBulkCompanyTransfer> $companyUsersBulkCompanyTransfers
+     *
      * @return array<int, \Generated\Shared\Transfer\CompanyUsersBulkCompanyTransfer>
-     * @throws \Propel\Runtime\Exception\PropelException
      */
     public function appendCompanyBusinessUnitsToCompanyTransfers(array $companyUsersBulkCompanyTransfers): array
     {
@@ -31,8 +31,8 @@ class CompanyUsersBulkRestApiBusinessCentralConnectorToCompanyUsersBulkRestApiFa
 
     /**
      * @param array<int, \Generated\Shared\Transfer\CompanyUsersBulkCompanyTransfer> $companyUsersBulkCompanyTransfers
+     *
      * @return array<int, \Generated\Shared\Transfer\CompanyUsersBulkCompanyTransfer>
-     * @throws \Propel\Runtime\Exception\PropelException
      */
     public function appendCompanyRolesToCompanyTransfers(array $companyUsersBulkCompanyTransfers): array
     {

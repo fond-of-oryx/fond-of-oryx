@@ -53,7 +53,6 @@ class CompanyUsersBulkRestApiPersistenceFactory extends AbstractPersistenceFacto
 
     /**
      * @return \Orm\Zed\CompanyBusinessUnit\Persistence\SpyCompanyBusinessUnitQuery
-     * @throws \Spryker\Zed\Kernel\Exception\Container\ContainerKeyNotFoundException
      */
     public function getCompanyBusinessUnitQuery(): SpyCompanyBusinessUnitQuery
     {
@@ -64,7 +63,6 @@ class CompanyUsersBulkRestApiPersistenceFactory extends AbstractPersistenceFacto
 
     /**
      * @return \Orm\Zed\CompanyRole\Persistence\SpyCompanyRoleQuery
-     * @throws \Spryker\Zed\Kernel\Exception\Container\ContainerKeyNotFoundException
      */
     public function getCompanyRoleQuery(): SpyCompanyRoleQuery
     {

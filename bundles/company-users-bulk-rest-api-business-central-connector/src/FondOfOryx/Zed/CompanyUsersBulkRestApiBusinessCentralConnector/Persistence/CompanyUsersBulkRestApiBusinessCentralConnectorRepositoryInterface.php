@@ -2,14 +2,14 @@
 
 namespace FondOfOryx\Zed\CompanyUsersBulkRestApiBusinessCentralConnector\Persistence;
 
-use Generated\Shared\Transfer\CompanyCollectionTransfer;
+use Generated\Shared\Transfer\CompanyUsersBulkCompanyCollectionTransfer;
 
 interface CompanyUsersBulkRestApiBusinessCentralConnectorRepositoryInterface
 {
     /**
      * @param array $debtorNumbers
      *
-     * @return \Generated\Shared\Transfer\CompanyCollectionTransfer
+     * @return \Generated\Shared\Transfer\CompanyUsersBulkCompanyCollectionTransfer
      */
-    public function findCompaniesByDebtorNumbers(array $debtorNumbers): CompanyCollectionTransfer;
+    public function findCompaniesByDebtorNumbers(array $debtorNumbers): CompanyUsersBulkCompanyCollectionTransfer;
 }

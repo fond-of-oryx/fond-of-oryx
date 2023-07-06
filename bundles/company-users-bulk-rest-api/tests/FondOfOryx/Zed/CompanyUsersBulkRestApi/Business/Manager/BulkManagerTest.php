@@ -11,15 +11,15 @@ use FondOfOryx\Zed\CompanyUsersBulkRestApi\Dependency\Facade\CompanyUsersBulkRes
 use FondOfOryx\Zed\CompanyUsersBulkRestApi\Dependency\Facade\CompanyUsersBulkRestApiToEventFacadeInterface;
 use FondOfOryx\Zed\CompanyUsersBulkRestApi\Persistence\CompanyUsersBulkRestApiRepository;
 use FondOfOryx\Zed\CompanyUsersBulkRestApi\Persistence\CompanyUsersBulkRestApiRepositoryInterface;
-use Generated\Shared\Transfer\CompanyBusinessUnitTransfer;
-use Generated\Shared\Transfer\CompanyRoleTransfer;
-use Generated\Shared\Transfer\CompanyTransfer;
 use Generated\Shared\Transfer\CompanyUserCollectionTransfer;
 use Generated\Shared\Transfer\CompanyUserResponseTransfer;
+use Generated\Shared\Transfer\CompanyUsersBulkCompanyBusinessUnitTransfer;
+use Generated\Shared\Transfer\CompanyUsersBulkCompanyRoleTransfer;
+use Generated\Shared\Transfer\CompanyUsersBulkCompanyTransfer;
+use Generated\Shared\Transfer\CompanyUsersBulkCustomerTransfer;
 use Generated\Shared\Transfer\CompanyUsersBulkPreparationCollectionTransfer;
 use Generated\Shared\Transfer\CompanyUsersBulkPreparationTransfer;
 use Generated\Shared\Transfer\CompanyUserTransfer;
-use Generated\Shared\Transfer\CustomerTransfer;
 use Generated\Shared\Transfer\RestCompanyUsersBulkItemCollectionTransfer;
 use Generated\Shared\Transfer\RestCompanyUsersBulkItemTransfer;
 use Generated\Shared\Transfer\RestCompanyUsersBulkRequestAttributesTransfer;
@@ -96,24 +96,24 @@ class BulkManagerTest extends Unit
     protected CompanyUsersBulkPreparationTransfer|MockObject $companyUsersBulkPreparationTransferMock;
 
     /**
-     * @var \Generated\Shared\Transfer\CompanyTransfer|\PHPUnit\Framework\MockObject\MockObject
+     * @var \Generated\Shared\Transfer\CompanyUsersBulkCompanyTransfer|\PHPUnit\Framework\MockObject\MockObject
      */
-    protected CompanyTransfer|MockObject $companyTransferMock;
+    protected CompanyUsersBulkCompanyTransfer|MockObject $companyTransferMock;
 
     /**
-     * @var \Generated\Shared\Transfer\CustomerTransfer|\PHPUnit\Framework\MockObject\MockObject
+     * @var \Generated\Shared\Transfer\CompanyUsersBulkCustomerTransfer|\PHPUnit\Framework\MockObject\MockObject
      */
-    protected CustomerTransfer|MockObject $customerTransferMock;
+    protected CompanyUsersBulkCustomerTransfer|MockObject $customerTransferMock;
 
     /**
-     * @var \Generated\Shared\Transfer\CompanyRoleTransfer|\PHPUnit\Framework\MockObject\MockObject
+     * @var \Generated\Shared\Transfer\CompanyUsersBulkCompanyRoleTransfer|\PHPUnit\Framework\MockObject\MockObject
      */
-    protected CompanyRoleTransfer|MockObject $companyRoleTransferMock;
+    protected CompanyUsersBulkCompanyRoleTransfer|MockObject $companyRoleTransferMock;
 
     /**
-     * @var \Generated\Shared\Transfer\CompanyBusinessUnitTransfer|\PHPUnit\Framework\MockObject\MockObject
+     * @var \Generated\Shared\Transfer\CompanyUsersBulkCompanyBusinessUnitTransfer|\PHPUnit\Framework\MockObject\MockObject
      */
-    protected CompanyBusinessUnitTransfer|MockObject $companyBusinessUnitTransferMock;
+    protected CompanyUsersBulkCompanyBusinessUnitTransfer|MockObject $companyBusinessUnitTransferMock;
 
     /**
      * @var \Generated\Shared\Transfer\CompanyUserResponseTransfer|\PHPUnit\Framework\MockObject\MockObject
@@ -206,22 +206,22 @@ class BulkManagerTest extends Unit
             ->getMock();
 
         $this->companyTransferMock = $this
-            ->getMockBuilder(CompanyTransfer::class)
+            ->getMockBuilder(CompanyUsersBulkCompanyTransfer::class)
             ->disableOriginalConstructor()
             ->getMock();
 
         $this->customerTransferMock = $this
-            ->getMockBuilder(CustomerTransfer::class)
+            ->getMockBuilder(CompanyUsersBulkCustomerTransfer::class)
             ->disableOriginalConstructor()
             ->getMock();
 
         $this->companyRoleTransferMock = $this
-            ->getMockBuilder(CompanyRoleTransfer::class)
+            ->getMockBuilder(CompanyUsersBulkCompanyRoleTransfer::class)
             ->disableOriginalConstructor()
             ->getMock();
 
         $this->companyBusinessUnitTransferMock = $this
-            ->getMockBuilder(CompanyBusinessUnitTransfer::class)
+            ->getMockBuilder(CompanyUsersBulkCompanyBusinessUnitTransfer::class)
             ->disableOriginalConstructor()
             ->getMock();
 
@@ -398,8 +398,8 @@ class BulkManagerTest extends Unit
 
         $this->repositoryMock
             ->expects(static::atLeastOnce())
-            ->method('findCompanyUser')
-            ->willReturn(null);
+            ->method('isCompanyUserAlreadyAvailable')
+            ->willReturn(false);
 
         $this->companyUserFacadeMock
             ->expects(static::atLeastOnce())

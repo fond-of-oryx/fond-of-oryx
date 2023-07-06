@@ -21,7 +21,6 @@ class CompanyUsersBulkRestApiBusinessCentralConnectorPersistenceFactory extends 
 
     /**
      * @return \FondOfOryx\Zed\CompanyUsersBulkRestApiBusinessCentralConnector\Dependency\Facade\CompanyUsersBulkRestApiBusinessCentralConnectorToCompanyUsersBulkRestApiFacadeInterface
-     * @throws \Spryker\Zed\Kernel\Exception\Container\ContainerKeyNotFoundException
      */
     public function getCompanyUsersBulkRestApiFacade(): CompanyUsersBulkRestApiBusinessCentralConnectorToCompanyUsersBulkRestApiFacadeInterface
     {

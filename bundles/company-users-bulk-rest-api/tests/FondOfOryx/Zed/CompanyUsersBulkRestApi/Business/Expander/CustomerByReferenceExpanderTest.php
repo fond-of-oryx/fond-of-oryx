@@ -4,10 +4,10 @@ namespace FondOfOryx\Zed\CompanyUsersBulkRestApi\Business\Expander;
 
 use Codeception\Test\Unit;
 use FondOfOryx\Zed\CompanyUsersBulkRestApi\Persistence\CompanyUsersBulkRestApiRepository;
+use Generated\Shared\Transfer\CompanyUsersBulkCustomerCollectionTransfer;
+use Generated\Shared\Transfer\CompanyUsersBulkCustomerTransfer;
 use Generated\Shared\Transfer\CompanyUsersBulkPreparationCollectionTransfer;
 use Generated\Shared\Transfer\CompanyUsersBulkPreparationTransfer;
-use Generated\Shared\Transfer\CustomerCollectionTransfer;
-use Generated\Shared\Transfer\CustomerTransfer;
 use Generated\Shared\Transfer\RestCompanyUsersBulkItemCustomerTransfer;
 use Generated\Shared\Transfer\RestCompanyUsersBulkItemTransfer;
 use PHPUnit\Framework\MockObject\MockObject;
@@ -30,14 +30,14 @@ class CustomerByReferenceExpanderTest extends Unit
     protected CompanyUsersBulkPreparationCollectionTransfer|MockObject $companyUsersBulkPreparationCollectionTransferMock;
 
     /**
-     * @var \Generated\Shared\Transfer\CustomerCollectionTransfer|\PHPUnit\Framework\MockObject\MockObject
+     * @var \Generated\Shared\Transfer\CompanyUsersBulkCustomerCollectionTransfer|\PHPUnit\Framework\MockObject\MockObject
      */
-    protected CustomerCollectionTransfer|MockObject $customerCollectionTransferMock;
+    protected CompanyUsersBulkCustomerCollectionTransfer|MockObject $customerCollectionTransferMock;
 
     /**
-     * @var \Generated\Shared\Transfer\CustomerTransfer|\PHPUnit\Framework\MockObject\MockObject
+     * @var \Generated\Shared\Transfer\CompanyUsersBulkCustomerTransfer|\PHPUnit\Framework\MockObject\MockObject
      */
-    protected CustomerTransfer|MockObject $customerTransferMock;
+    protected CompanyUsersBulkCustomerTransfer|MockObject $customerTransferMock;
 
     /**
      * @var \Generated\Shared\Transfer\CompanyUsersBulkPreparationTransfer|\PHPUnit\Framework\MockObject\MockObject
@@ -67,11 +67,11 @@ class CustomerByReferenceExpanderTest extends Unit
             ->disableOriginalConstructor()
             ->getMock();
 
-        $this->customerCollectionTransferMock = $this->getMockBuilder(CustomerCollectionTransfer::class)
+        $this->customerCollectionTransferMock = $this->getMockBuilder(CompanyUsersBulkCustomerCollectionTransfer::class)
             ->disableOriginalConstructor()
             ->getMock();
 
-        $this->customerTransferMock = $this->getMockBuilder(CustomerTransfer::class)
+        $this->customerTransferMock = $this->getMockBuilder(CompanyUsersBulkCustomerTransfer::class)
             ->disableOriginalConstructor()
             ->getMock();
 
