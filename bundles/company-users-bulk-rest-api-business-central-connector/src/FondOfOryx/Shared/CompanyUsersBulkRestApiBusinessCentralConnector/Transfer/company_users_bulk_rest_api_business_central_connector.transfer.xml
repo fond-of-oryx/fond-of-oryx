@@ -6,4 +6,8 @@
         <property name="debtorNumber" type="string"/>
     </transfer>
 
+    <transfer name="CompanyUsersBulkCompany">
+        <property name="debtorNumber" type="string"/>
+    </transfer>
+
 </transfers>

@@ -3,10 +3,12 @@
 namespace FondOfOryx\Zed\CompanyUsersBulkRestApi\Persistence;
 
 use FondOfOryx\Zed\CompanyUsersBulkRestApi\CompanyUsersBulkRestApiDependencyProvider;
-use Orm\Zed\Company\Persistence\Base\SpyCompanyQuery;
+use Orm\Zed\Company\Persistence\SpyCompanyQuery;
+use Orm\Zed\CompanyBusinessUnit\Persistence\SpyCompanyBusinessUnitQuery;
+use Orm\Zed\CompanyRole\Persistence\SpyCompanyRoleQuery;
 use Orm\Zed\CompanyUser\Persistence\SpyCompanyUserQuery;
 use Orm\Zed\Customer\Persistence\SpyCustomerQuery;
-use Orm\Zed\Permission\Persistence\Base\SpyPermissionQuery;
+use Orm\Zed\Permission\Persistence\SpyPermissionQuery;
 use Spryker\Zed\Kernel\Persistence\AbstractPersistenceFactory;
 
 class CompanyUsersBulkRestApiPersistenceFactory extends AbstractPersistenceFactory
@@ -30,7 +32,7 @@ class CompanyUsersBulkRestApiPersistenceFactory extends AbstractPersistenceFacto
     }
 
     /**
-     * @return \Orm\Zed\Permission\Persistence\Base\SpyPermissionQuery
+     * @return \Orm\Zed\Permission\Persistence\SpyPermissionQuery
      */
     public function getPermissionQuery(): SpyPermissionQuery
     {
@@ -40,12 +42,34 @@ class CompanyUsersBulkRestApiPersistenceFactory extends AbstractPersistenceFacto
     }
 
     /**
-     * @return \Orm\Zed\Company\Persistence\Base\SpyCompanyQuery
+     * @return \Orm\Zed\Company\Persistence\SpyCompanyQuery
      */
     public function getCompanyQuery(): SpyCompanyQuery
     {
         return $this->getProvidedDependency(
             CompanyUsersBulkRestApiDependencyProvider::QUERY_SPY_COMPANY,
+        );
+    }
+
+    /**
+     * @return \Orm\Zed\CompanyBusinessUnit\Persistence\SpyCompanyBusinessUnitQuery
+     * @throws \Spryker\Zed\Kernel\Exception\Container\ContainerKeyNotFoundException
+     */
+    public function getCompanyBusinessUnitQuery(): SpyCompanyBusinessUnitQuery
+    {
+        return $this->getProvidedDependency(
+            CompanyUsersBulkRestApiDependencyProvider::QUERY_SPY_COMPANY_BUSINESS_UNIT,
+        );
+    }
+
+    /**
+     * @return \Orm\Zed\CompanyRole\Persistence\SpyCompanyRoleQuery
+     * @throws \Spryker\Zed\Kernel\Exception\Container\ContainerKeyNotFoundException
+     */
+    public function getCompanyRoleQuery(): SpyCompanyRoleQuery
+    {
+        return $this->getProvidedDependency(
+            CompanyUsersBulkRestApiDependencyProvider::QUERY_SPY_COMPANY_ROLE,
         );
     }
 }

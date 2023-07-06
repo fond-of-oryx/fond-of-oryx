@@ -4,6 +4,8 @@ namespace FondOfOryx\Zed\CompanyUsersBulkRestApi\Persistence;
 
 use Generated\Shared\Transfer\CompanyCollectionTransfer;
 use Generated\Shared\Transfer\CompanyUserCollectionTransfer;
+use Generated\Shared\Transfer\CompanyUsersBulkCompanyCollectionTransfer;
+use Generated\Shared\Transfer\CompanyUsersBulkCustomerCollectionTransfer;
 use Generated\Shared\Transfer\CompanyUserTransfer;
 use Generated\Shared\Transfer\CustomerCollectionTransfer;
 
@@ -22,20 +24,18 @@ interface CompanyUsersBulkRestApiRepositoryInterface
 
     /**
      * @param \Generated\Shared\Transfer\CompanyUserTransfer $companyUserTransfer
-     *
+     * @return bool
      * @throws \Spryker\Shared\Kernel\Transfer\Exception\RequiredTransferPropertyException
      * @throws \Spryker\Zed\Propel\Business\Exception\AmbiguousComparisonException
-     *
-     * @return \Generated\Shared\Transfer\CompanyUserTransfer|null
      */
-    public function findCompanyUser(CompanyUserTransfer $companyUserTransfer): ?CompanyUserTransfer;
+    public function isCompanyUserAlreadyAvailable(CompanyUserTransfer $companyUserTransfer): bool;
 
     /**
      * @param array $emailAddresses
      *
-     * @return \Generated\Shared\Transfer\CustomerCollectionTransfer
+     * @return \Generated\Shared\Transfer\CompanyUsersBulkCustomerCollectionTransfer
      */
-    public function findCustomerByEmail(array $emailAddresses): CustomerCollectionTransfer;
+    public function findCustomerByEmail(array $emailAddresses): CompanyUsersBulkCustomerCollectionTransfer;
 
     /**
      * @param int $idCompany
@@ -47,15 +47,28 @@ interface CompanyUsersBulkRestApiRepositoryInterface
 
     /**
      * @param array $customerReferences
-     *
-     * @return \Generated\Shared\Transfer\CustomerCollectionTransfer
+     * @return \Generated\Shared\Transfer\CompanyUsersBulkCustomerCollectionTransfer
+     * @throws \Propel\Runtime\Exception\PropelException
      */
-    public function findCustomerByReferences(array $customerReferences): CustomerCollectionTransfer;
+    public function findCustomerByReferences(array $customerReferences): CompanyUsersBulkCustomerCollectionTransfer;
 
     /**
      * @param array $companyUuids
-     *
-     * @return \Generated\Shared\Transfer\CompanyCollectionTransfer|null
+     * @return \Generated\Shared\Transfer\CompanyUsersBulkCompanyCollectionTransfer
      */
-    public function findCompaniesByUuids(array $companyUuids): ?CompanyCollectionTransfer;
+    public function findCompaniesByUuids(array $companyUuids): CompanyUsersBulkCompanyCollectionTransfer;
+
+    /**
+     * @param array<int, \Generated\Shared\Transfer\CompanyUsersBulkCompanyTransfer> $companyUsersBulkCompanyTransfers
+     * @return array<int, \Generated\Shared\Transfer\CompanyUsersBulkCompanyTransfer>
+     * @throws \Propel\Runtime\Exception\PropelException
+     */
+    public function appendCompanyBusinessUnitsToCompanyTransfers(array $companyUsersBulkCompanyTransfers): array;
+
+    /**
+     * @param array<int, \Generated\Shared\Transfer\CompanyUsersBulkCompanyTransfer> $companyUsersBulkCompanyTransfers
+     * @return array<int, \Generated\Shared\Transfer\CompanyUsersBulkCompanyTransfer>
+     * @throws \Propel\Runtime\Exception\PropelException
+     */
+    public function appendCompanyRolesToCompanyTransfers(array $companyUsersBulkCompanyTransfers): array;
 }

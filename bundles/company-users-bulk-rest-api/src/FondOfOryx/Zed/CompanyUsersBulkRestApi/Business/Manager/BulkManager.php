@@ -13,9 +13,11 @@ use FondOfOryx\Zed\CompanyUsersBulkRestApi\Persistence\CompanyUsersBulkRestApiRe
 use Generated\Shared\Transfer\CompanyRoleCollectionTransfer;
 use Generated\Shared\Transfer\CompanyRoleTransfer;
 use Generated\Shared\Transfer\CompanyTransfer;
+use Generated\Shared\Transfer\CompanyUsersBulkCompanyTransfer;
 use Generated\Shared\Transfer\CompanyUsersBulkPreparationCollectionTransfer;
 use Generated\Shared\Transfer\CompanyUsersBulkPreparationTransfer;
 use Generated\Shared\Transfer\CompanyUserTransfer;
+use Generated\Shared\Transfer\CustomerTransfer;
 use Generated\Shared\Transfer\RestCompanyUsersBulkItemCollectionTransfer;
 use Generated\Shared\Transfer\RestCompanyUsersBulkRequestTransfer;
 use Generated\Shared\Transfer\RestCompanyUsersBulkResponseTransfer;
@@ -137,13 +139,13 @@ class BulkManager implements BulkManagerInterface
                     $companyUserTransfer = $this->createDummyCompanyUserTransfer()
                     ->setCustomerReference($customer->getCustomerReference())
                     ->setFkCustomer($customer->getIdCustomer())
-                    ->setCustomer($customer)
                     ->setCompanyRoleCollection($roleCollection)
                     ->setFkCompany($company->getIdCompany())
-                    ->setFkCompanyBusinessUnit($companyBusinessUnit->getIdCompanyBusinessUnit())
-                    ->setCompany($company);
+                    ->setCompany((new CompanyTransfer())->fromArray($company->toArray(), true))
+                    ->setCustomer((new CustomerTransfer())->fromArray($customer->toArray(), true))
+                    ->setFkCompanyBusinessUnit($companyBusinessUnit->getIdCompanyBusinessUnit());
 
-                    if ($this->repository->findCompanyUser($companyUserTransfer) !== null) {
+                    if ($this->repository->isCompanyUserAlreadyAvailable($companyUserTransfer) === true) {
                         continue;
                     }
 
@@ -240,18 +242,18 @@ class BulkManager implements BulkManagerInterface
     }
 
     /**
-     * @param \Generated\Shared\Transfer\CompanyTransfer $companyTransfer
+     * @param \Generated\Shared\Transfer\CompanyUsersBulkCompanyTransfer $companyTransfer
      * @param string $role
      *
      * @throws \Exception
      *
      * @return \Generated\Shared\Transfer\CompanyRoleTransfer
      */
-    protected function resolveRole(CompanyTransfer $companyTransfer, string $role): CompanyRoleTransfer
+    protected function resolveRole(CompanyUsersBulkCompanyTransfer $companyTransfer, string $role): CompanyRoleTransfer
     {
         foreach ($companyTransfer->getCompanyRoles() as $companyRole) {
             if ($role === $companyRole->getName()) {
-                return $companyRole;
+                return (new CompanyRoleTransfer())->fromArray($companyRole->toArray(), true);
             }
         }
 

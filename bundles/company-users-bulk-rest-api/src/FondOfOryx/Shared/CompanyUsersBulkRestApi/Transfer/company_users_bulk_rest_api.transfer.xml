@@ -45,13 +45,38 @@
 
     <transfer name="CompanyUsersBulkPreparation">
         <property name="item" type="RestCompanyUsersBulkItem"/>
-        <property name="company" type="Company"/>
-        <property name="customer" type="Customer"/>
+        <property name="company" type="CompanyUsersBulkCompany"/>
+        <property name="customer" type="CompanyUsersBulkCustomer"/>
     </transfer>
 
-    <transfer name="Company">
-        <property name="companyBusinessUnits" singular="companyBusinessUnit" type="CompanyBusinessUnit[]"/>
-        <property name="companyRoles" singular="companyRole" type="CompanyRole[]"/>
+    <transfer name="CompanyUsersBulkCompany">
+        <property name="idCompany" type="int"/>
+        <property name="uuid" type="string"/>
+        <property name="companyBusinessUnits" singular="companyBusinessUnit" type="CompanyUsersBulkCompanyBusinessUnit[]"/>
+        <property name="companyRoles" singular="companyRole" type="CompanyUsersBulkCompanyRole[]"/>
+    </transfer>
+
+    <transfer name="CompanyUsersBulkCompanyCollection">
+        <property name="companies" singular="company" type="CompanyUsersBulkCompany[]"/>
+    </transfer>
+
+    <transfer name="CompanyUsersBulkCustomer">
+        <property name="idCustomer" type="int"/>
+        <property name="customerReference" type="string"/>
+        <property name="email" type="string"/>
+    </transfer>
+
+    <transfer name="CompanyUsersBulkCustomerCollection">
+        <property name="customers" singular="customer" type="CompanyUsersBulkCustomer[]"/>
+    </transfer>
+
+    <transfer name="CompanyUsersBulkCompanyRole">
+        <property name="idCompanyRole" type="int"/>
+        <property name="name" type="string"/>
+    </transfer>
+
+    <transfer name="CompanyUsersBulkCompanyBusinessUnit">
+        <property name="idCompanyBusinessUnit" type="int"/>
     </transfer>
 
     <transfer name="CompanyUser">

@@ -5,9 +5,11 @@ namespace FondOfOryx\Zed\CompanyUsersBulkRestApi;
 use FondOfOryx\Zed\CompanyUsersBulkRestApi\Dependency\Facade\CompanyUsersBulkRestApiToCompanyUserFacadeBridge;
 use FondOfOryx\Zed\CompanyUsersBulkRestApi\Dependency\Facade\CompanyUsersBulkRestApiToEventFacadeBridge;
 use Orm\Zed\Company\Persistence\SpyCompanyQuery;
+use Orm\Zed\CompanyBusinessUnit\Persistence\SpyCompanyBusinessUnitQuery;
+use Orm\Zed\CompanyRole\Persistence\SpyCompanyRoleQuery;
 use Orm\Zed\CompanyUser\Persistence\SpyCompanyUserQuery;
 use Orm\Zed\Customer\Persistence\SpyCustomerQuery;
-use Orm\Zed\Permission\Persistence\Base\SpyPermissionQuery;
+use Orm\Zed\Permission\Persistence\SpyPermissionQuery;
 use Spryker\Zed\Kernel\AbstractBundleDependencyProvider;
 use Spryker\Zed\Kernel\Container;
 
@@ -32,6 +34,16 @@ class CompanyUsersBulkRestApiDependencyProvider extends AbstractBundleDependency
      * @var string
      */
     public const PROPEL_QUERY_PERMISSION = 'PROPEL_QUERY_PERMISSION';
+
+    /**
+     * @var string
+     */
+    public const QUERY_SPY_COMPANY_BUSINESS_UNIT = 'QUERY_SPY_COMPANY_BUSINESS_UNIT';
+
+    /**
+     * @var string
+     */
+    public const QUERY_SPY_COMPANY_ROLE = 'QUERY_SPY_COMPANY_ROLE';
 
     /**
      * @var string
@@ -69,6 +81,8 @@ class CompanyUsersBulkRestApiDependencyProvider extends AbstractBundleDependency
         $container = $this->addSpyCompanyQuery($container);
         $container = $this->addSpyCompanyUserQuery($container);
         $container = $this->addSpyCustomerQuery($container);
+        $container = $this->addSpyCompanyRoleQuery($container);
+        $container = $this->addSpyCompanyBusinessUnitQuery($container);
 
         return $this->addPermissionQuery($container);
     }
@@ -140,6 +154,34 @@ class CompanyUsersBulkRestApiDependencyProvider extends AbstractBundleDependency
     {
         $container[static::PROPEL_QUERY_PERMISSION] = static function () {
             return SpyPermissionQuery::create();
+        };
+
+        return $container;
+    }
+
+    /**
+     * @param \Spryker\Zed\Kernel\Container $container
+     *
+     * @return \Spryker\Zed\Kernel\Container
+     */
+    protected function addSpyCompanyBusinessUnitQuery(Container $container): Container
+    {
+        $container[static::QUERY_SPY_COMPANY_BUSINESS_UNIT] = static function () {
+            return new SpyCompanyBusinessUnitQuery();
+        };
+
+        return $container;
+    }
+
+    /**
+     * @param \Spryker\Zed\Kernel\Container $container
+     *
+     * @return \Spryker\Zed\Kernel\Container
+     */
+    protected function addSpyCompanyRoleQuery(Container $container): Container
+    {
+        $container[static::QUERY_SPY_COMPANY_ROLE] = static function () {
+            return new SpyCompanyRoleQuery();
         };
 
         return $container;

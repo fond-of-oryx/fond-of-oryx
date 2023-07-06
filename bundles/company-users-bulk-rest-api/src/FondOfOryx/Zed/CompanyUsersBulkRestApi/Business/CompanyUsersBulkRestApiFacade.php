@@ -10,6 +10,7 @@ use Spryker\Zed\Kernel\Business\AbstractFacade;
 
 /**
  * @method \FondOfOryx\Zed\CompanyUsersBulkRestApi\Business\CompanyUsersBulkRestApiBusinessFactory getFactory()
+ * @method \FondOfOryx\Zed\CompanyUsersBulkRestApi\Persistence\CompanyUsersBulkRestApiRepositoryInterface getRepository()
  */
 class CompanyUsersBulkRestApiFacade extends AbstractFacade implements CompanyUsersBulkRestApiFacadeInterface
 {
@@ -20,7 +21,8 @@ class CompanyUsersBulkRestApiFacade extends AbstractFacade implements CompanyUse
      */
     public function bulkProcess(
         RestCompanyUsersBulkRequestTransfer $restCompanyUsersBulkRequestTransfer
-    ): RestCompanyUsersBulkResponseTransfer {
+    ): RestCompanyUsersBulkResponseTransfer
+    {
         return $this->getFactory()
             ->createBulkManager()
             ->handleBulkRequest($restCompanyUsersBulkRequestTransfer);
@@ -57,7 +59,8 @@ class CompanyUsersBulkRestApiFacade extends AbstractFacade implements CompanyUse
      */
     public function expandWithCompany(
         CompanyUsersBulkPreparationCollectionTransfer $companyUsersBulkPreparationCollectionTransfer
-    ): CompanyUsersBulkPreparationCollectionTransfer {
+    ): CompanyUsersBulkPreparationCollectionTransfer
+    {
         return $this->getFactory()->createCompanyExpander()->expand($companyUsersBulkPreparationCollectionTransfer);
     }
 
@@ -68,7 +71,8 @@ class CompanyUsersBulkRestApiFacade extends AbstractFacade implements CompanyUse
      */
     public function expandWithCustomerByReference(
         CompanyUsersBulkPreparationCollectionTransfer $companyUsersBulkPreparationCollectionTransfer
-    ): CompanyUsersBulkPreparationCollectionTransfer {
+    ): CompanyUsersBulkPreparationCollectionTransfer
+    {
         return $this->getFactory()->createCustomerByReferenceExpander()->expand($companyUsersBulkPreparationCollectionTransfer);
     }
 
@@ -79,7 +83,28 @@ class CompanyUsersBulkRestApiFacade extends AbstractFacade implements CompanyUse
      */
     public function expandWithCustomerByMail(
         CompanyUsersBulkPreparationCollectionTransfer $companyUsersBulkPreparationCollectionTransfer
-    ): CompanyUsersBulkPreparationCollectionTransfer {
+    ): CompanyUsersBulkPreparationCollectionTransfer
+    {
         return $this->getFactory()->createCustomerByMailExpander()->expand($companyUsersBulkPreparationCollectionTransfer);
+    }
+
+    /**
+     * @param array<int, \Generated\Shared\Transfer\CompanyUsersBulkCompanyTransfer> $companyUsersBulkCompanyTransfers
+     * @return array<int, \Generated\Shared\Transfer\CompanyUsersBulkCompanyTransfer>
+     * @throws \Propel\Runtime\Exception\PropelException
+     */
+    public function appendCompanyBusinessUnitsToCompanyTransfers(array $companyUsersBulkCompanyTransfers): array
+    {
+        return $this->getRepository()->appendCompanyBusinessUnitsToCompanyTransfers($companyUsersBulkCompanyTransfers);
+    }
+
+    /**
+     * @param array<int, \Generated\Shared\Transfer\CompanyUsersBulkCompanyTransfer> $companyUsersBulkCompanyTransfers
+     * @return array<int, \Generated\Shared\Transfer\CompanyUsersBulkCompanyTransfer>
+     * @throws \Propel\Runtime\Exception\PropelException
+     */
+    public function appendCompanyRolesToCompanyTransfers(array $companyUsersBulkCompanyTransfers): array
+    {
+        return $this->getRepository()->appendCompanyRolesToCompanyTransfers($companyUsersBulkCompanyTransfers);
     }
 }
