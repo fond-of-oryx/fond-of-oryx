@@ -2,10 +2,12 @@
 
 namespace FondOfOryx\Zed\RepresentativeCompanyUser;
 
+use FondOfOryx\Zed\RepresentativeCompanyUser\Communication\Plugin\QueryExpander\RepresentativeCompanyUserExpiredQueryExpanderPlugin;
 use FondOfOryx\Zed\RepresentativeCompanyUser\Dependency\Facade\RepresentativeCompanyUserToCompanyUserFacadeBridge;
 use FondOfOryx\Zed\RepresentativeCompanyUser\Dependency\Facade\RepresentativeCompanyUserToEventFacadeBridge;
 use FondOfOryx\Zed\RepresentativeCompanyUser\Dependency\Service\RepresentativeCompanyUserToUtilDateTimeServiceBridge;
 use FondOfOryx\Zed\RepresentativeCompanyUser\Dependency\Service\RepresentativeCompanyUserToUtilUuidGeneratorServiceBridge;
+use FondOfOryx\Zed\RepresentativeCompanyUserTradeFair\Communication\Plugin\RepresentativeCompanyUser\ExcludeTradeFairsFromNormalGetRequestQueryExpanderPlugin;
 use Orm\Zed\Company\Persistence\SpyCompanyQuery;
 use Orm\Zed\CompanyUser\Persistence\SpyCompanyUserQuery;
 use Spryker\Zed\Kernel\AbstractBundleDependencyProvider;
@@ -44,6 +46,11 @@ class RepresentativeCompanyUserDependencyProvider extends AbstractBundleDependen
     /**
      * @var string
      */
+    public const PLUGINS_FOO_REPRESENTATIVE_COMPANY_USER_EXPANDER = 'PLUGINS_FOO_REPRESENTATIVE_COMPANY_USER_EXPANDER';
+
+    /**
+     * @var string
+     */
     public const QUERY_COMPANY_USER = 'QUERY_COMPANY_USER';
 
     /**
@@ -76,6 +83,7 @@ class RepresentativeCompanyUserDependencyProvider extends AbstractBundleDependen
         $container = parent::providePersistenceLayerDependencies($container);
         $container = $this->addCompanyQuery($container);
         $container = $this->addUtilDateTimeService($container);
+        $container = $this->addFooRepresentativeCompanyUserQueryExpanderPlugins($container);
 
         return $this->addCompanyUserQuery($container);
     }
@@ -193,5 +201,31 @@ class RepresentativeCompanyUserDependencyProvider extends AbstractBundleDependen
     protected function getTaskPlugins(): array
     {
         return [];
+    }
+
+    /**
+     * @param \Spryker\Zed\Kernel\Container $container
+     *
+     * @return \Spryker\Zed\Kernel\Container
+     */
+    public function addFooRepresentativeCompanyUserQueryExpanderPlugins(Container $container): Container
+    {
+        $self = $this;
+        $container[static::PLUGINS_FOO_REPRESENTATIVE_COMPANY_USER_EXPANDER] = static function (Container $container)use ($self) {
+            return $self->getFooRepresentativeCompanyUserQueryExpanderPlugins();
+        };
+
+        return $container;
+    }
+
+    /**
+     * @return array|\FondOfOryx\Zed\RepresentativeCompanyUserExtension\Dependency\Plugin\Persistence\RepresentativeCompanyUserQueryExpanderPluginInterface[]
+     */
+    public function getFooRepresentativeCompanyUserQueryExpanderPlugins(): array
+    {
+        return [
+            new RepresentativeCompanyUserExpiredQueryExpanderPlugin(),
+            new ExcludeTradeFairsFromNormalGetRequestQueryExpanderPlugin(),
+        ];
     }
 }

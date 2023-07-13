@@ -6,10 +6,16 @@ use DateTime;
 use Exception;
 use Generated\Shared\Transfer\CompanyUserCollectionTransfer;
 use Generated\Shared\Transfer\CompanyUserTransfer;
+use Generated\Shared\Transfer\PaginationTransfer;
+use Generated\Shared\Transfer\PropelQueryBuilderColumnSelectionTransfer;
+use Generated\Shared\Transfer\PropelQueryBuilderColumnTransfer;
+use Generated\Shared\Transfer\PropelQueryBuilderPaginationTransfer;
+use Generated\Shared\Transfer\PropelQueryBuilderSortTransfer;
 use Generated\Shared\Transfer\RepresentativeCompanyUserCollectionTransfer;
 use Generated\Shared\Transfer\RepresentativeCompanyUserFilterTransfer;
 use Generated\Shared\Transfer\RepresentativeCompanyUserTransfer;
 use Orm\Zed\RepresentativeCompanyUser\Persistence\FooRepresentativeCompanyUserQuery;
+use Orm\Zed\RepresentativeCompanyUser\Persistence\Map\FooRepresentativeCompanyUserTableMap;
 use Propel\Runtime\ActiveQuery\Criteria;
 use Spryker\Zed\Kernel\Persistence\AbstractRepository;
 
@@ -23,9 +29,9 @@ class RepresentativeCompanyUserRepository extends AbstractRepository implements 
     /**
      * @param string $uuid
      *
+     * @return \Generated\Shared\Transfer\RepresentativeCompanyUserTransfer
      * @throws \Exception
      *
-     * @return \Generated\Shared\Transfer\RepresentativeCompanyUserTransfer
      */
     public function findRepresentativeCompanyUserByUuid(string $uuid): RepresentativeCompanyUserTransfer
     {
@@ -72,7 +78,8 @@ class RepresentativeCompanyUserRepository extends AbstractRepository implements 
      */
     public function findRepresentativeCompanyUserByCase(
         RepresentativeCompanyUserTransfer $representativeCompanyUserTransfer
-    ): ?RepresentativeCompanyUserTransfer {
+    ): ?RepresentativeCompanyUserTransfer
+    {
         $representativeCompanyUserTransfer
             ->requireFkDistributor()
             ->requireFkRepresentative()
@@ -100,7 +107,8 @@ class RepresentativeCompanyUserRepository extends AbstractRepository implements 
      */
     public function findExpiredRepresentativeCompanyUser(
         ?RepresentativeCompanyUserFilterTransfer $filterTransfer = null
-    ): RepresentativeCompanyUserCollectionTransfer {
+    ): RepresentativeCompanyUserCollectionTransfer
+    {
         $query = $this->prepareRepresentativeCompanyUserQuery($filterTransfer);
 
         $expireAt = $this->getFactory()->getUtilDateTimeService()->formatDateTime(new DateTime());
@@ -122,8 +130,19 @@ class RepresentativeCompanyUserRepository extends AbstractRepository implements 
      */
     public function getRepresentativeCompanyUser(
         ?RepresentativeCompanyUserFilterTransfer $filterTransfer
-    ): RepresentativeCompanyUserCollectionTransfer {
+    ): RepresentativeCompanyUserCollectionTransfer
+    {
         $query = $this->prepareRepresentativeCompanyUserQuery($filterTransfer);
+
+        $maxItems = $query->count();
+
+        if ($filterTransfer->getLimit() !== null){
+            $query->setLimit($filterTransfer->getLimit());
+        }
+
+        if ($filterTransfer->getOffset() !== null){
+            $query->setOffset($filterTransfer->getOffset());
+        }
 
         $results = $query->find();
 
@@ -133,7 +152,12 @@ class RepresentativeCompanyUserRepository extends AbstractRepository implements 
             $collection->addRepresentation($this->getFactory()->createEntityToTransferMapper()->fromRepresentativeCompanyUserEntity($entity));
         }
 
-        return $collection;
+        $paginationTransfer = (new PaginationTransfer())
+            ->setOffset($filterTransfer->getOffset())
+            ->setLimit($filterTransfer->getLimit())
+            ->setTotal($maxItems);
+
+        return $collection->setPagination($paginationTransfer);
     }
 
     /**
@@ -205,9 +229,9 @@ class RepresentativeCompanyUserRepository extends AbstractRepository implements 
     /**
      * @param string $uuid
      *
+     * @return \Generated\Shared\Transfer\RepresentativeCompanyUserTransfer
      * @throws \Exception
      *
-     * @return \Generated\Shared\Transfer\RepresentativeCompanyUserTransfer
      */
     public function findRepresentationByUuid(string $uuid): RepresentativeCompanyUserTransfer
     {
@@ -235,6 +259,38 @@ class RepresentativeCompanyUserRepository extends AbstractRepository implements 
 
         if ($filterTransfer !== null && count($filterTransfer->getIds()) > 0) {
             $query->filterByIdRepresentativeCompanyUser_In($filterTransfer->getIds());
+        }
+
+        if (count($filterTransfer->getDistributorReferences()) > 0) {
+            $query
+                ->useFooRepresentativeCompanyUserDistributorQuery()
+                    ->filterByEmail_In($filterTransfer->getDistributorReferences())
+                ->endUse();
+        }
+
+        if ($filterTransfer !== null && $filterTransfer->getSorting()->count() > 0) {
+            foreach ($filterTransfer->getSorting() as $sort){
+                $field = str_replace('-', '', ucwords($sort->getField(), '-'));
+                if (in_array($field, FooRepresentativeCompanyUserTableMap::getFieldNames(), true)){
+                    $query->orderBy($field, $sort->getDirection());
+                }
+            }
+        }
+
+        return $this->expandFooRepresentativeCompanyUserQuery($query, $filterTransfer);
+    }
+
+    /**
+     * @param \Generated\Shared\Transfer\RepresentativeCompanyUserFilterTransfer|null $filterTransfer
+     * @param mixed $query
+     * @return mixed|\Orm\Zed\RepresentativeCompanyUser\Persistence\FooRepresentativeCompanyUserQuery
+     */
+    protected function expandFooRepresentativeCompanyUserQuery(FooRepresentativeCompanyUserQuery $query, ?RepresentativeCompanyUserFilterTransfer $filterTransfer): mixed
+    {
+        if ($filterTransfer !== null) {
+            foreach ($this->getFactory()->getFooRepresentativeCompanyUserQueryExpanderPlugins() as $plugin) {
+                $query = $plugin->expand($query, $filterTransfer);
+            }
         }
 
         return $query;
