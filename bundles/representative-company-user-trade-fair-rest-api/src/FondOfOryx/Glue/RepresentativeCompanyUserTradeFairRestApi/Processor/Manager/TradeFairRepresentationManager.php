@@ -78,7 +78,7 @@ class TradeFairRepresentationManager implements TradeFairRepresentationManagerIn
                 ->createRestErrorResponse($representationRestResponseTransfer->getError(), RepresentativeCompanyUserTradeFairRestApiConstants::HTTP_CODE_VALIDATION_ERRORS);
         }
 
-        return $this->responseBuilder->buildRepresentativeCompanyUserTradeFairCollectionRestResponse($representationRestResponseTransfer->getCollection());
+        return $this->responseBuilder->buildRepresentativeCompanyUserTradeFairCollectionRestResponse($representationRestResponseTransfer);
     }
 
     /**
