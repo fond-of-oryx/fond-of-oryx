@@ -10,7 +10,11 @@ interface RepresentativeCompanyUserTradeFairQueryExpanderPluginInterface
     /**
      * @param \Orm\Zed\RepresentativeCompanyUserTradeFair\Persistence\FooRepresentativeCompanyUserTradeFairQuery $query
      * @param \Generated\Shared\Transfer\RepresentativeCompanyUserTradeFairFilterTransfer $filterTransfer
+     *
      * @return \Orm\Zed\RepresentativeCompanyUserTradeFair\Persistence\FooRepresentativeCompanyUserTradeFairQuery
      */
-    public function expand(FooRepresentativeCompanyUserTradeFairQuery $query, RepresentativeCompanyUserTradeFairFilterTransfer $filterTransfer): FooRepresentativeCompanyUserTradeFairQuery;
+    public function expand(
+        FooRepresentativeCompanyUserTradeFairQuery $query,
+        RepresentativeCompanyUserTradeFairFilterTransfer $filterTransfer
+    ): FooRepresentativeCompanyUserTradeFairQuery;
 }
