@@ -71,11 +71,11 @@ class RepresentativeCompanyUserTradeFairRepository extends AbstractRepository im
 
         $maxItems = $query->count();
 
-        if ($filterTransfer->getLimit() !== null){
+        if ($filterTransfer->getLimit() !== null) {
             $query->setLimit($filterTransfer->getLimit());
         }
 
-        if ($filterTransfer->getOffset() !== null){
+        if ($filterTransfer->getOffset() !== null) {
             $query->setOffset($filterTransfer->getOffset());
         }
 
@@ -220,9 +220,9 @@ class RepresentativeCompanyUserTradeFairRepository extends AbstractRepository im
         }
 
         if ($filterTransfer !== null && $filterTransfer->getSorting()->count() > 0) {
-            foreach ($filterTransfer->getSorting() as $sort){
+            foreach ($filterTransfer->getSorting() as $sort) {
                 $field = str_replace('-', '', ucwords($sort->getField(), '-'));
-                if (in_array($field, FooRepresentativeCompanyUserTradeFairTableMap::getFieldNames(), true)){
+                if (in_array($field, FooRepresentativeCompanyUserTradeFairTableMap::getFieldNames(), true)) {
                     $query->orderBy($field, $sort->getDirection());
                 }
             }
@@ -234,10 +234,13 @@ class RepresentativeCompanyUserTradeFairRepository extends AbstractRepository im
     /**
      * @param \Orm\Zed\RepresentativeCompanyUserTradeFair\Persistence\FooRepresentativeCompanyUserTradeFairQuery $query
      * @param \Generated\Shared\Transfer\RepresentativeCompanyUserTradeFairFilterTransfer|null $filterTransfer
+     *
      * @return mixed
      */
-    protected function expandFooRepresentativeCompanyUserTradeFairQuery(FooRepresentativeCompanyUserTradeFairQuery $query, ?RepresentativeCompanyUserTradeFairFilterTransfer $filterTransfer): mixed
-    {
+    protected function expandFooRepresentativeCompanyUserTradeFairQuery(
+        FooRepresentativeCompanyUserTradeFairQuery $query,
+        ?RepresentativeCompanyUserTradeFairFilterTransfer $filterTransfer
+    ): mixed {
         if ($filterTransfer !== null) {
             foreach ($this->getFactory()->getFooRepresentativeCompanyUserTradeFairQueryExpanderPlugins() as $plugin) {
                 $query = $plugin->expand($query, $filterTransfer);

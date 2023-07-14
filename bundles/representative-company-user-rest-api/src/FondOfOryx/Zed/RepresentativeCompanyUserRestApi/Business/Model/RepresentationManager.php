@@ -40,10 +40,9 @@ class RepresentationManager implements RepresentationManagerInterface
      */
     public function __construct(
         RepresentativeCompanyUserRestApiToRepresentativeCompanyUserFacadeInterface $representativeCompanyUserFacade,
-        RepresentativeCompanyUserRestApiRepositoryInterface                        $repository,
-        RestDataMapperInterface                                                    $restDataMapper
-    )
-    {
+        RepresentativeCompanyUserRestApiRepositoryInterface $repository,
+        RestDataMapperInterface $restDataMapper
+    ) {
         $this->representativeCompanyUserFacade = $representativeCompanyUserFacade;
         $this->repository = $repository;
         $this->restDataMapper = $restDataMapper;
@@ -56,8 +55,7 @@ class RepresentationManager implements RepresentationManagerInterface
      */
     public function addRepresentation(
         RestRepresentativeCompanyUserRequestTransfer $restRepresentativeCompanyUserRequestTransfer
-    ): RestRepresentativeCompanyUserResponseTransfer
-    {
+    ): RestRepresentativeCompanyUserResponseTransfer {
         $restRepresentativeCompanyUserAttributesTransfer = $restRepresentativeCompanyUserRequestTransfer->getAttributes();
         $distributorId = $this->repository->getIdCustomerByReference($restRepresentativeCompanyUserAttributesTransfer->getReferenceDistributor());
         $representationId = $this->repository->getIdCustomerByReference($restRepresentativeCompanyUserAttributesTransfer->getReferenceRepresentation());
@@ -87,8 +85,7 @@ class RepresentationManager implements RepresentationManagerInterface
      */
     public function updateRepresentation(
         RestRepresentativeCompanyUserRequestTransfer $restRepresentativeCompanyUserRequestTransfer
-    ): RestRepresentativeCompanyUserResponseTransfer
-    {
+    ): RestRepresentativeCompanyUserResponseTransfer {
         $restRepresentativeCompanyUserAttributesTransfer = $restRepresentativeCompanyUserRequestTransfer->getAttributes();
         $restRepresentativeCompanyUserAttributesTransfer->requireUuid();
 
@@ -122,8 +119,7 @@ class RepresentationManager implements RepresentationManagerInterface
      */
     public function deleteRepresentation(
         RestRepresentativeCompanyUserRequestTransfer $restRepresentativeCompanyUserRequestTransfer
-    ): RestRepresentativeCompanyUserResponseTransfer
-    {
+    ): RestRepresentativeCompanyUserResponseTransfer {
         $attributes = $restRepresentativeCompanyUserRequestTransfer->getAttributes();
 
         try {
@@ -144,10 +140,9 @@ class RepresentationManager implements RepresentationManagerInterface
      * @return string
      */
     protected function getState(
-        RepresentativeCompanyUserTransfer               $representativeCompanyUserTransfer,
+        RepresentativeCompanyUserTransfer $representativeCompanyUserTransfer,
         RestRepresentativeCompanyUserAttributesTransfer $representativeCompanyUserAttributesTransfer
-    ): string
-    {
+    ): string {
         if ($representativeCompanyUserAttributesTransfer->getStartAt() < $representativeCompanyUserTransfer->getStartAt()) {
             return FooRepresentativeCompanyUserTableMap::COL_STATE_REVOKED;
         }
@@ -162,8 +157,7 @@ class RepresentationManager implements RepresentationManagerInterface
      */
     public function getRepresentation(
         RestRepresentativeCompanyUserRequestTransfer $restRepresentativeCompanyUserRequestTransfer
-    ): RestRepresentativeCompanyUserResponseTransfer
-    {
+    ): RestRepresentativeCompanyUserResponseTransfer {
         $attributes = $restRepresentativeCompanyUserRequestTransfer->getAttributes();
         $filter = $this->createFilter($restRepresentativeCompanyUserRequestTransfer, $attributes);
 
@@ -177,10 +171,13 @@ class RepresentationManager implements RepresentationManagerInterface
     /**
      * @param \Generated\Shared\Transfer\RestRepresentativeCompanyUserRequestTransfer $restRepresentativeCompanyUserRequestTransfer
      * @param \Generated\Shared\Transfer\RestRepresentativeCompanyUserAttributesTransfer|null $attributes
+     *
      * @return \Generated\Shared\Transfer\RepresentativeCompanyUserFilterTransfer
      */
-    public function createFilter(RestRepresentativeCompanyUserRequestTransfer $restRepresentativeCompanyUserRequestTransfer, ?RestRepresentativeCompanyUserAttributesTransfer $attributes): RepresentativeCompanyUserFilterTransfer
-    {
+    public function createFilter(
+        RestRepresentativeCompanyUserRequestTransfer $restRepresentativeCompanyUserRequestTransfer,
+        ?RestRepresentativeCompanyUserAttributesTransfer $attributes
+    ): RepresentativeCompanyUserFilterTransfer {
         $restFilter = $restRepresentativeCompanyUserRequestTransfer->getFilter();
         $filter = new RepresentativeCompanyUserFilterTransfer();
 
@@ -216,6 +213,7 @@ class RepresentationManager implements RepresentationManagerInterface
 
     /**
      * @param \Generated\Shared\Transfer\RepresentativeCompanyUserCollectionTransfer $collection
+     *
      * @return \Generated\Shared\Transfer\RestRepresentativeCompanyUserPaginationTransfer
      */
     public function createPagination(RepresentativeCompanyUserCollectionTransfer $collection): RestRepresentativeCompanyUserPaginationTransfer
@@ -227,7 +225,7 @@ class RepresentationManager implements RepresentationManagerInterface
         $offset = $pagination->getOffset();
 
         if ($limit !== null & $total !== null && $limit > 0) {
-            $paginationTransfer->setMaxPage(ceil($total / $limit));
+            $paginationTransfer->setMaxPage((int)ceil($total / $limit));
         }
 
         if ($limit !== null & $offset !== null && $limit > 0) {

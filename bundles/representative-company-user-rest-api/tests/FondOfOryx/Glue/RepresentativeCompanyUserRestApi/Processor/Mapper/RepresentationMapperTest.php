@@ -4,30 +4,43 @@ namespace FondOfOryx\Glue\RepresentativeCompanyUserRestApi\Processor\Mapper;
 
 use Codeception\Test\Unit;
 use Generated\Shared\Transfer\RestUserTransfer;
+use PHPUnit\Framework\MockObject\MockObject;
 use Spryker\Glue\GlueApplication\Rest\JsonApi\RestResourceInterface;
 use Spryker\Glue\GlueApplication\Rest\Request\Data\RestRequestInterface;
+use Symfony\Component\HttpFoundation\InputBag;
+use Symfony\Component\HttpFoundation\Request;
 
 class RepresentationMapperTest extends Unit
 {
     /**
      * @var \PHPUnit\Framework\MockObject\MockObject|\Spryker\Glue\GlueApplication\Rest\JsonApi\RestResourceInterface
      */
-    protected $restResourceMock;
+    protected MockObject|RestResourceInterface $restResourceMock;
 
     /**
      * @var \PHPUnit\Framework\MockObject\MockObject|\Spryker\Glue\GlueApplication\Rest\Request\Data\RestRequestInterface
      */
-    protected $restRequestMock;
+    protected MockObject|RestRequestInterface $restRequestMock;
 
     /**
      * @var \PHPUnit\Framework\MockObject\MockObject|\Generated\Shared\Transfer\RestUserTransfer
      */
-    protected $restUserTransferMock;
+    protected MockObject|RestUserTransfer $restUserTransferMock;
+
+    /**
+     * @var \PHPUnit\Framework\MockObject\MockObject|\Symfony\Component\HttpFoundation\Request
+     */
+    protected MockObject|Request $requestMock;
+
+    /**
+     * @var \Symfony\Component\HttpFoundation\InputBag
+     */
+    protected InputBag $inputBagMock;
 
     /**
      * @var \FondOfOryx\Glue\RepresentativeCompanyUserRestApi\Processor\Mapper\RepresentationMapperInterface
      */
-    protected $representationMapper;
+    protected RepresentationMapperInterface $representationMapper;
 
     /**
      * @return void
@@ -41,6 +54,11 @@ class RepresentationMapperTest extends Unit
             ->getMock();
 
         $this->restResourceMock = $this->getMockBuilder(RestResourceInterface::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $this->requestMock = $this
+            ->getMockBuilder(Request::class)
             ->disableOriginalConstructor()
             ->getMock();
 
@@ -68,6 +86,12 @@ class RepresentationMapperTest extends Unit
             ->method('getNaturalIdentifier')
             ->willReturn(null);
 
+        $this->requestMock->query = new InputBag();
+
+        $this->restRequestMock->expects(static::atLeastOnce())
+            ->method('getHttpRequest')
+            ->willReturn($this->requestMock);
+
         $requestTransfer = $this->representationMapper->createRequest($this->restRequestMock);
 
         static::assertNotNull($requestTransfer->getAttributes());
@@ -90,6 +114,12 @@ class RepresentationMapperTest extends Unit
         $this->restUserTransferMock->expects(static::atLeastOnce())
             ->method('getNaturalIdentifier')
             ->willReturn($id);
+
+        $this->requestMock->query = new InputBag();
+
+        $this->restRequestMock->expects(static::atLeastOnce())
+            ->method('getHttpRequest')
+            ->willReturn($this->requestMock);
 
         $requestTransfer = $this->representationMapper->createRequest($this->restRequestMock);
 

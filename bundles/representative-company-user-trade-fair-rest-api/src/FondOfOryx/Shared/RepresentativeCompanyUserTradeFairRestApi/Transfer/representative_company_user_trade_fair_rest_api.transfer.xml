@@ -69,4 +69,5 @@
     <transfer name="RepresentativeCompanyUserTradeFairCollection" />
     <transfer name="RepresentativeCompanyUserTradeFairCommand" />
     <transfer name="RepresentativeCompanyUserTradeFairFilter" />
+    <transfer name="RestRepresentativeDistributor" />
 </transfers>

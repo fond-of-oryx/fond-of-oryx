@@ -107,7 +107,8 @@ class RepresentationMapper implements RepresentationMapperInterface
 
     /**
      * @param \Spryker\Glue\GlueApplication\Rest\Request\Data\RestRequestInterface $restRequest
-     * @return \ArrayObject|\Generated\Shared\Transfer\RestRepresentativeCompanyUserTradeFairFilterSortTransfer[]
+     *
+     * @return \ArrayObject<\Generated\Shared\Transfer\RestRepresentativeCompanyUserTradeFairFilterSortTransfer>
      */
     public function recreateSortFilter(RestRequestInterface $restRequest): ArrayObject
     {
@@ -134,14 +135,16 @@ class RepresentationMapper implements RepresentationMapperInterface
 
     /**
      * @param \Spryker\Glue\GlueApplication\Rest\Request\Data\RestRequestInterface $restRequest
+     *
      * @return \Generated\Shared\Transfer\RestRepresentativeCompanyUserTradeFairFilterPageTransfer|null
      */
     public function recreatePageFilter(RestRequestInterface $restRequest): ?RestRepresentativeCompanyUserTradeFairFilterPageTransfer
     {
         $page = $restRequest->getPage();
-        if ($page === null){
+        if ($page === null) {
             return null;
         }
+
         return (new RestRepresentativeCompanyUserTradeFairFilterPageTransfer())
             ->setLimit($page->getLimit())
             ->setOffset($page->getOffset());

@@ -176,7 +176,7 @@ class RepresentativeCompanyUserTradeFairDependencyProvider extends AbstractBundl
     public function addFooRepresentativeCompanyUserQueryExpanderPlugins(Container $container): Container
     {
         $self = $this;
-        $container[static::PLUGINS_FOO_REPRESENTATIVE_COMPANY_USER_TRADE_FAIR_EXPANDER] = static function (Container $container)use ($self) {
+        $container[static::PLUGINS_FOO_REPRESENTATIVE_COMPANY_USER_TRADE_FAIR_EXPANDER] = static function (Container $container) use ($self) {
             return $self->getFooRepresentativeCompanyUserTradeFairQueryExpanderPlugins();
         };
 
@@ -184,7 +184,7 @@ class RepresentativeCompanyUserTradeFairDependencyProvider extends AbstractBundl
     }
 
     /**
-     * @return array|\FondOfOryx\Zed\RepresentativeCompanyUserTradeFairExtension\Dependency\Plugin\Persistence\RepresentativeCompanyUserTradeFairQueryExpanderPluginInterface[]
+     * @return \FondOfOryx\Zed\RepresentativeCompanyUserTradeFairExtension\Dependency\Plugin\Persistence\RepresentativeCompanyUserTradeFairQueryExpanderPluginInterface[]
      */
     public function getFooRepresentativeCompanyUserTradeFairQueryExpanderPlugins(): array
     {

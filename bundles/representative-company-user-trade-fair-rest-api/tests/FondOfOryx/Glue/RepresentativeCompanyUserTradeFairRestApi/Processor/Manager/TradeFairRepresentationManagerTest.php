@@ -8,10 +8,10 @@ use FondOfOryx\Glue\RepresentativeCompanyUserTradeFairRestApi\Processor\Builder\
 use FondOfOryx\Glue\RepresentativeCompanyUserTradeFairRestApi\Processor\Mapper\RepresentationMapperInterface;
 use FondOfOryx\Shared\RepresentativeCompanyUserTradeFairRestApi\RepresentativeCompanyUserTradeFairRestApiConstants;
 use Generated\Shared\Transfer\RepresentativeCompanyUserTradeFairCollectionTransfer;
-use Generated\Shared\Transfer\RepresentativeCompanyUserTradeFairTransfer;
 use Generated\Shared\Transfer\RestRepresentativeCompanyUserTradeFairAttributesTransfer;
 use Generated\Shared\Transfer\RestRepresentativeCompanyUserTradeFairRequestTransfer;
 use Generated\Shared\Transfer\RestRepresentativeCompanyUserTradeFairResponseTransfer;
+use Generated\Shared\Transfer\RestRepresentativeCompanyUserTradeFairTransfer;
 use PHPUnit\Framework\MockObject\MockObject;
 use Spryker\Glue\GlueApplication\Rest\JsonApi\RestResponseInterface;
 use Spryker\Glue\GlueApplication\Rest\Request\Data\RestRequestInterface;
@@ -59,9 +59,9 @@ class TradeFairRepresentationManagerTest extends Unit
     protected MockObject|RestRepresentativeCompanyUserTradeFairResponseTransfer $restRepresentativeCompanyUserTradeFairResponseTransferMock;
 
     /**
-     * @var \PHPUnit\Framework\MockObject\MockObject|\Generated\Shared\Transfer\RepresentativeCompanyUserTradeFairTransfer
+     * @var \PHPUnit\Framework\MockObject\MockObject|\Generated\Shared\Transfer\RestRepresentativeCompanyUserTradeFairTransfer
      */
-    protected MockObject|RepresentativeCompanyUserTradeFairTransfer $representativeCompanyUserTradeFairTransferMock;
+    protected MockObject|RestRepresentativeCompanyUserTradeFairTransfer $representativeCompanyUserTradeFairTransferMock;
 
     /**
      * @var \PHPUnit\Framework\MockObject\MockObject|\Spryker\Glue\GlueApplication\Rest\JsonApi\RestResponseInterface
@@ -116,7 +116,7 @@ class TradeFairRepresentationManagerTest extends Unit
             ->getMock();
 
         $this->representativeCompanyUserTradeFairTransferMock = $this
-            ->getMockBuilder(RepresentativeCompanyUserTradeFairTransfer::class)
+            ->getMockBuilder(RestRepresentativeCompanyUserTradeFairTransfer::class)
             ->disableOriginalConstructor()
             ->getMock();
 
@@ -248,16 +248,12 @@ class TradeFairRepresentationManagerTest extends Unit
             ->method('getError')
             ->willReturn(null);
 
-        $this->restRepresentativeCompanyUserTradeFairResponseTransferMock->expects(static::atLeastOnce())
-            ->method('getCollection')
-            ->willReturn($this->representativeCompanyUserTradeFairCollectionTransferMock);
-
         $this->responseBuilderMock->expects(static::atLeastOnce())
             ->method('buildRepresentativeCompanyUserTradeFairCollectionRestResponse')
-            ->with($this->representativeCompanyUserTradeFairCollectionTransferMock)
+            ->with($this->restRepresentativeCompanyUserTradeFairResponseTransferMock)
             ->willReturn($this->restResponseMock);
 
-        $response = $this->tradeFairRepresentationManager->get($this->restRequestMock);
+            $response = $this->tradeFairRepresentationManager->get($this->restRequestMock);
 
         static::assertEquals($this->restResponseMock, $response);
     }

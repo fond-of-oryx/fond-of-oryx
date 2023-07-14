@@ -4,7 +4,6 @@ namespace FondOfOryx\Glue\RepresentativeCompanyUserTradeFairRestApi\Processor\Bu
 
 use FondOfOryx\Glue\RepresentativeCompanyUserTradeFairRestApi\RepresentativeCompanyUserTradeFairRestApiConfig;
 use Generated\Shared\Transfer\RestErrorMessageTransfer;
-use Generated\Shared\Transfer\RestRepresentativeCompanyUserTradeFairCollectionTransfer;
 use Generated\Shared\Transfer\RestRepresentativeCompanyUserTradeFairResponseTransfer;
 use Generated\Shared\Transfer\RestRepresentativeCompanyUserTradeFairTransfer;
 use Spryker\Glue\GlueApplication\Rest\JsonApi\RestResourceBuilderInterface;
@@ -28,6 +27,7 @@ class RestResponseBuilder implements RestResponseBuilderInterface
 
     /**
      * @param \Generated\Shared\Transfer\RestRepresentativeCompanyUserTradeFairTransfer $representativeCompanyUserTradeFairTransfer
+     *
      * @return \Spryker\Glue\GlueApplication\Rest\JsonApi\RestResponseInterface
      */
     public function buildRepresentativeCompanyUserTradeFairRestResponse(
@@ -46,6 +46,7 @@ class RestResponseBuilder implements RestResponseBuilderInterface
 
     /**
      * @param \Generated\Shared\Transfer\RestRepresentativeCompanyUserTradeFairResponseTransfer $representativeCompanyUserTradeFairTransfer
+     *
      * @return \Spryker\Glue\GlueApplication\Rest\JsonApi\RestResponseInterface
      */
     public function buildRepresentativeCompanyUserTradeFairCollectionRestResponse(

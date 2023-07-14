@@ -13,6 +13,7 @@ class RepresentativeCompanyUserExpiredQueryExpanderPlugin implements Representat
     /**
      * @param \Orm\Zed\RepresentativeCompanyUser\Persistence\FooRepresentativeCompanyUserQuery $query
      * @param \Generated\Shared\Transfer\RepresentativeCompanyUserFilterTransfer $filterTransfer
+     *
      * @return \Orm\Zed\RepresentativeCompanyUser\Persistence\FooRepresentativeCompanyUserQuery
      */
     public function expand(FooRepresentativeCompanyUserQuery $query, RepresentativeCompanyUserFilterTransfer $filterTransfer): FooRepresentativeCompanyUserQuery
@@ -23,7 +24,7 @@ class RepresentativeCompanyUserExpiredQueryExpanderPlugin implements Representat
         }
 
         $criteria = $expired === true ? Criteria::EQUAL : Criteria::NOT_EQUAL;
+
         return $query->filterByState(FooRepresentativeCompanyUserTableMap::COL_STATE_EXPIRED, $criteria);
     }
-
 }

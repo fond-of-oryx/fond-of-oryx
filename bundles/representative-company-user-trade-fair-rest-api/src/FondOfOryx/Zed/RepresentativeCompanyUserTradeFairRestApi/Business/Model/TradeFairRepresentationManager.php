@@ -99,7 +99,7 @@ class TradeFairRepresentationManager implements TradeFairRepresentationManagerIn
 
         return $restRepresentativeCompanyUserTradeFairResponse
             ->setIsSuccessful(true)
-            ->setRepresentation($response);
+            ->setRepresentation($this->restDataMapper->mapResponse($response));
     }
 
     /**
@@ -137,7 +137,7 @@ class TradeFairRepresentationManager implements TradeFairRepresentationManagerIn
         $response = $this->representativeCompanyUserTradeFairFacade->updateRepresentativeCompanyUserTradeFair($representationTransfer);
 
         return (new RestRepresentativeCompanyUserTradeFairResponseTransfer())
-            ->setRepresentation($response);
+            ->setRepresentation($this->restDataMapper->mapResponse($response));
     }
 
     /**
@@ -153,12 +153,13 @@ class TradeFairRepresentationManager implements TradeFairRepresentationManagerIn
         try {
             $attributes->requireUuid();
             $representation = $this->representativeCompanyUserTradeFairFacade->deleteRepresentativeCompanyUserTradeFair($attributes->getUuid());
+            $response = $this->restDataMapper->mapResponse($representation);
         } catch (Exception $exception) {
             //ToDo Handle/Log
-            $representation = null;
+            $response = null;
         }
 
-        return (new RestRepresentativeCompanyUserTradeFairResponseTransfer())->setRepresentation($representation);
+        return (new RestRepresentativeCompanyUserTradeFairResponseTransfer())->setRepresentation($response);
     }
 
     /**
@@ -229,10 +230,13 @@ class TradeFairRepresentationManager implements TradeFairRepresentationManagerIn
     /**
      * @param \Generated\Shared\Transfer\RestRepresentativeCompanyUserTradeFairRequestTransfer $restRepresentativeCompanyUserTradeFairRequestTransfer
      * @param \Generated\Shared\Transfer\RestRepresentativeCompanyUserTradeFairAttributesTransfer|null $attributes
+     *
      * @return \Generated\Shared\Transfer\RepresentativeCompanyUserTradeFairFilterTransfer
      */
-    public function createFilter(RestRepresentativeCompanyUserTradeFairRequestTransfer $restRepresentativeCompanyUserTradeFairRequestTransfer, ?RestRepresentativeCompanyUserTradeFairAttributesTransfer $attributes): RepresentativeCompanyUserTradeFairFilterTransfer
-    {
+    public function createFilter(
+        RestRepresentativeCompanyUserTradeFairRequestTransfer $restRepresentativeCompanyUserTradeFairRequestTransfer,
+        ?RestRepresentativeCompanyUserTradeFairAttributesTransfer $attributes
+    ): RepresentativeCompanyUserTradeFairFilterTransfer {
         $restFilter = $restRepresentativeCompanyUserTradeFairRequestTransfer->getFilter();
         $filter = new RepresentativeCompanyUserTradeFairFilterTransfer();
 
@@ -255,7 +259,7 @@ class TradeFairRepresentationManager implements TradeFairRepresentationManagerIn
         }
 
         if ($attributes->getUuid() !== null) {
-            $filter = $filter->addId($attributes->getUuid());
+            $filter = $filter->addUuid($attributes->getUuid());
         }
 
         return $filter;
@@ -263,6 +267,7 @@ class TradeFairRepresentationManager implements TradeFairRepresentationManagerIn
 
     /**
      * @param \Generated\Shared\Transfer\RepresentativeCompanyUserTradeFairCollectionTransfer $collection
+     *
      * @return \Generated\Shared\Transfer\RestRepresentativeCompanyUserPaginationTransfer
      */
     public function createPagination(RepresentativeCompanyUserTradeFairCollectionTransfer $collection): RestRepresentativeCompanyUserPaginationTransfer
@@ -273,12 +278,12 @@ class TradeFairRepresentationManager implements TradeFairRepresentationManagerIn
         $limit = $pagination->getLimit();
         $offset = $pagination->getOffset();
 
-        if ($limit !== null & $total !== null && $limit > 0){
-            $paginationTransfer->setMaxPage(ceil($total/$limit));
+        if ($limit !== null & $total !== null && $limit > 0) {
+            $paginationTransfer->setMaxPage((int)ceil($total / $limit));
         }
 
-        if ($limit !== null & $offset !== null && $limit > 0){
-            $current = ceil($offset/$limit);
+        if ($limit !== null & $offset !== null && $limit > 0) {
+            $current = ceil($offset / $limit);
             $paginationTransfer->setCurrentPage($current > 0 ? $current : 1);
         }
 

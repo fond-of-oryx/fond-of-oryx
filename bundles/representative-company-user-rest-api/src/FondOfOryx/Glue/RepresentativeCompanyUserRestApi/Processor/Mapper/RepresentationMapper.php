@@ -9,7 +9,6 @@ use Generated\Shared\Transfer\RestRepresentativeCompanyUserFilterSortTransfer;
 use Generated\Shared\Transfer\RestRepresentativeCompanyUserFilterTransfer;
 use Generated\Shared\Transfer\RestRepresentativeCompanyUserRequestTransfer;
 use Spryker\Glue\GlueApplication\Rest\Request\Data\RestRequestInterface;
-use Spryker\Glue\GlueApplication\Rest\Request\Data\Sort;
 use Spryker\Glue\GlueApplication\Rest\Request\Data\SortInterface;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -108,7 +107,8 @@ class RepresentationMapper implements RepresentationMapperInterface
 
     /**
      * @param \Spryker\Glue\GlueApplication\Rest\Request\Data\RestRequestInterface $restRequest
-     * @return \ArrayObject|\Generated\Shared\Transfer\RestRepresentativeCompanyUserFilterSortTransfer
+     *
+     * @return \ArrayObject|\Generated\Shared\Transfer\RestRepresentativeCompanyUserFilterSortTransfer[]
      */
     public function recreateSortFilter(RestRequestInterface $restRequest): ArrayObject
     {
@@ -135,14 +135,16 @@ class RepresentationMapper implements RepresentationMapperInterface
 
     /**
      * @param \Spryker\Glue\GlueApplication\Rest\Request\Data\RestRequestInterface $restRequest
+     *
      * @return \Generated\Shared\Transfer\RestRepresentativeCompanyUserFilterPageTransfer|null
      */
     public function recreatePageFilter(RestRequestInterface $restRequest): ?RestRepresentativeCompanyUserFilterPageTransfer
     {
         $page = $restRequest->getPage();
-        if ($page === null){
+        if ($page === null) {
             return null;
         }
+
         return (new RestRepresentativeCompanyUserFilterPageTransfer())
             ->setLimit($page->getLimit())
             ->setOffset($page->getOffset());

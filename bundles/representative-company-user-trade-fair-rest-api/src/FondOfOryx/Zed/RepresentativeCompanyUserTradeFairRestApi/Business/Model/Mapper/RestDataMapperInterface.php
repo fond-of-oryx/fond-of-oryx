@@ -11,13 +11,17 @@ interface RestDataMapperInterface
 {
     /**
      * @param \Generated\Shared\Transfer\RepresentativeCompanyUserTradeFairTransfer $companyUserTransfer
+     *
      * @return \Generated\Shared\Transfer\RestRepresentativeCompanyUserTradeFairTransfer
      */
     public function mapResponse(RepresentativeCompanyUserTradeFairTransfer $companyUserTransfer): RestRepresentativeCompanyUserTradeFairTransfer;
 
     /**
      * @param \Generated\Shared\Transfer\RepresentativeCompanyUserTradeFairCollectionTransfer $companyUserCollectionTransfer
+     *
      * @return \Generated\Shared\Transfer\RestRepresentativeCompanyUserTradeFairCollectionTransfer
      */
-    public function mapResponseCollection(RepresentativeCompanyUserTradeFairCollectionTransfer $companyUserCollectionTransfer): RestRepresentativeCompanyUserTradeFairCollectionTransfer;
+    public function mapResponseCollection(
+        RepresentativeCompanyUserTradeFairCollectionTransfer $companyUserCollectionTransfer
+    ): RestRepresentativeCompanyUserTradeFairCollectionTransfer;
 }

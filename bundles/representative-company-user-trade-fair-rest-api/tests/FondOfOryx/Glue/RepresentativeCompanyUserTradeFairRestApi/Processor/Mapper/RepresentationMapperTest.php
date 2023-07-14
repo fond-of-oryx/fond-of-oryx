@@ -10,6 +10,7 @@ use PHPUnit\Framework\MockObject\MockObject;
 use Spryker\Glue\GlueApplication\Rest\JsonApi\RestResourceInterface;
 use Spryker\Glue\GlueApplication\Rest\Request\Data\MetadataInterface;
 use Spryker\Glue\GlueApplication\Rest\Request\Data\RestRequestInterface;
+use Symfony\Component\HttpFoundation\InputBag;
 use Symfony\Component\HttpFoundation\Request;
 
 class RepresentationMapperTest extends Unit
@@ -50,6 +51,16 @@ class RepresentationMapperTest extends Unit
     protected MockObject|RestUserTransfer $restUserTransferMock;
 
     /**
+     * @var \PHPUnit\Framework\MockObject\MockObject|\Symfony\Component\HttpFoundation\Request
+     */
+    protected MockObject|Request $requestMock;
+
+    /**
+     * @var \Symfony\Component\HttpFoundation\InputBag
+     */
+    protected InputBag $inputBagMock;
+
+    /**
      * @return void
      */
     protected function _before(): void
@@ -68,6 +79,11 @@ class RepresentationMapperTest extends Unit
 
         $this->restRequestMock = $this
             ->getMockBuilder(RestRequestInterface::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $this->requestMock = $this
+            ->getMockBuilder(Request::class)
             ->disableOriginalConstructor()
             ->getMock();
 
@@ -94,6 +110,12 @@ class RepresentationMapperTest extends Unit
      */
     public function testCreateRequest(): void
     {
+        $this->requestMock->query = new InputBag();
+
+        $this->restRequestMock->expects(static::atLeastOnce())
+            ->method('getHttpRequest')
+            ->willReturn($this->requestMock);
+
         $restRepresentativeCompanyUserTradeFairRequestTransfer = $this->representationMapper
             ->createRequest($this->restRequestMock, $this->restRepresentativeCompanyUserTradeFairAttributesTransferMock);
 
@@ -143,6 +165,12 @@ class RepresentationMapperTest extends Unit
         $this->restUserTransferMock->expects(static::atLeastOnce())
             ->method('getNaturalIdentifier')
             ->willReturn($naturalIdentifier);
+
+        $this->requestMock->query = new InputBag();
+
+        $this->restRequestMock->expects(static::atLeastOnce())
+            ->method('getHttpRequest')
+            ->willReturn($this->requestMock);
 
         $restRepresentativeCompanyUserTradeFairRequestTransfer = $this->representationMapper
             ->createRequest($this->restRequestMock, null);
@@ -199,6 +227,12 @@ class RepresentationMapperTest extends Unit
             ->method('getNaturalIdentifier')
             ->willReturn($naturalIdentifier);
 
+        $this->requestMock->query = new InputBag();
+
+        $this->restRequestMock->expects(static::atLeastOnce())
+            ->method('getHttpRequest')
+            ->willReturn($this->requestMock);
+
         $restRepresentativeCompanyUserTradeFairRequestTransfer = $this->representationMapper
             ->createRequest($this->restRequestMock, null);
 
@@ -240,6 +274,12 @@ class RepresentationMapperTest extends Unit
         $this->restRequestMock->expects(static::atLeastOnce())
             ->method('getRestUser')
             ->willReturn($this->restUserTransferMock);
+
+        $this->restRequestMock->expects(static::atLeastOnce())
+            ->method('getHttpRequest')
+            ->willReturn($this->requestMock);
+
+        $this->requestMock->query = new InputBag();
 
         $this->restUserTransferMock->expects(static::atLeastOnce())
             ->method('getNaturalIdentifier')

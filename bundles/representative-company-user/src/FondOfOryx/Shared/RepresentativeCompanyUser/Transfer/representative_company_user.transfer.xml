@@ -51,4 +51,8 @@
         <property name="companyUserReference" type="string" />
         <property name="customerReference" type="string" />
     </transfer>
+
+    <transfer name="Pagination">
+        <property name="total" type="int" />
+    </transfer>
 </transfers>

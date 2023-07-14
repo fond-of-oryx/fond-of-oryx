@@ -29,7 +29,7 @@ class RepresentativeCompanyUserTradeFairRestApiBusinessFactory extends AbstractB
             $this->getCompanyTypeFacade(),
             $this->createDurationValidator(),
             $this->getRepository(),
-            $this->createRestDataMapper()
+            $this->createRestDataMapper(),
         );
     }
 

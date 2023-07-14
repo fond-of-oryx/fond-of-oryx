@@ -2,12 +2,10 @@
 
 namespace FondOfOryx\Zed\RepresentativeCompanyUser;
 
-use FondOfOryx\Zed\RepresentativeCompanyUser\Communication\Plugin\QueryExpander\RepresentativeCompanyUserExpiredQueryExpanderPlugin;
 use FondOfOryx\Zed\RepresentativeCompanyUser\Dependency\Facade\RepresentativeCompanyUserToCompanyUserFacadeBridge;
 use FondOfOryx\Zed\RepresentativeCompanyUser\Dependency\Facade\RepresentativeCompanyUserToEventFacadeBridge;
 use FondOfOryx\Zed\RepresentativeCompanyUser\Dependency\Service\RepresentativeCompanyUserToUtilDateTimeServiceBridge;
 use FondOfOryx\Zed\RepresentativeCompanyUser\Dependency\Service\RepresentativeCompanyUserToUtilUuidGeneratorServiceBridge;
-use FondOfOryx\Zed\RepresentativeCompanyUserTradeFair\Communication\Plugin\RepresentativeCompanyUser\ExcludeTradeFairsFromNormalGetRequestQueryExpanderPlugin;
 use Orm\Zed\Company\Persistence\SpyCompanyQuery;
 use Orm\Zed\CompanyUser\Persistence\SpyCompanyUserQuery;
 use Spryker\Zed\Kernel\AbstractBundleDependencyProvider;
@@ -211,7 +209,7 @@ class RepresentativeCompanyUserDependencyProvider extends AbstractBundleDependen
     public function addFooRepresentativeCompanyUserQueryExpanderPlugins(Container $container): Container
     {
         $self = $this;
-        $container[static::PLUGINS_FOO_REPRESENTATIVE_COMPANY_USER_EXPANDER] = static function (Container $container)use ($self) {
+        $container[static::PLUGINS_FOO_REPRESENTATIVE_COMPANY_USER_EXPANDER] = static function (Container $container) use ($self) {
             return $self->getFooRepresentativeCompanyUserQueryExpanderPlugins();
         };
 
@@ -219,13 +217,10 @@ class RepresentativeCompanyUserDependencyProvider extends AbstractBundleDependen
     }
 
     /**
-     * @return array|\FondOfOryx\Zed\RepresentativeCompanyUserExtension\Dependency\Plugin\Persistence\RepresentativeCompanyUserQueryExpanderPluginInterface[]
+     * @return \FondOfOryx\Zed\RepresentativeCompanyUserExtension\Dependency\Plugin\Persistence\RepresentativeCompanyUserQueryExpanderPluginInterface[]
      */
     public function getFooRepresentativeCompanyUserQueryExpanderPlugins(): array
     {
-        return [
-            new RepresentativeCompanyUserExpiredQueryExpanderPlugin(),
-            new ExcludeTradeFairsFromNormalGetRequestQueryExpanderPlugin(),
-        ];
+        return [];
     }
 }
