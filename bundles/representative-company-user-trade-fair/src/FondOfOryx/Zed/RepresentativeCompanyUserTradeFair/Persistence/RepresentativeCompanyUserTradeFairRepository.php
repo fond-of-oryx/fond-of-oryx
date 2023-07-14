@@ -219,7 +219,7 @@ class RepresentativeCompanyUserTradeFairRepository extends AbstractRepository im
                 ->endUse();
         }
 
-        if ($filterTransfer !== null && $filterTransfer->getSorting()->count() > 0) {
+        if ($filterTransfer->getSorting()->count() > 0) {
             foreach ($filterTransfer->getSorting() as $sort) {
                 $field = str_replace('-', '', ucwords($sort->getField(), '-'));
                 if (in_array($field, FooRepresentativeCompanyUserTradeFairTableMap::getFieldNames(), true)) {
