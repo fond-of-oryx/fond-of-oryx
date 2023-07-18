@@ -809,11 +809,15 @@
     },
     "representative-company-user": {
       "path": "bundles/representative-company-user/",
-      "version": "1.0.2"
+      "version": "1.1.0"
+    },
+    "representative-company-user-extension": {
+      "path": "bundles/representative-company-user-extension/",
+      "version": "1.1.0"
     },
     "representative-company-user-rest-api": {
       "path": "bundles/representative-company-user-rest-api/",
-      "version": "1.1.0"
+      "version": "1.2.0"
     },
     "representative-company-user-rest-api-permission": {
       "path": "bundles/representative-company-user-rest-api-permission/",
@@ -821,15 +825,15 @@
     },
     "representative-company-user-trade-fair": {
       "path": "bundles/representative-company-user-trade-fair/",
+      "version": "1.1.0"
+    },
+    "representative-company-user-trade-fair-extension": {
+      "path": "bundles/representative-company-user-trade-fair-extension/",
       "version": "1.0.0"
     },
     "representative-company-user-trade-fair-rest-api": {
       "path": "bundles/representative-company-user-trade-fair-rest-api/",
-      "version": "1.0.0"
-    },
-    "representative-company-user-extension": {
-      "path": "bundles/representative-company-user-extension/",
-      "version": "1.0.0"
+      "version": "1.1.0"
     },
     "return-label": {
       "path": "bundles/return-label/",
