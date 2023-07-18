@@ -14,18 +14,60 @@
 
     <transfer name="RestRepresentativeCompanyUserTradeFairRequest">
         <property name="attributes" type="RestRepresentativeCompanyUserTradeFairAttributes"/>
+        <property name="filter" type="RestRepresentativeCompanyUserTradeFairFilter"/>
+    </transfer>
+
+    <transfer name="RestRepresentativeCompanyUserTradeFairFilter">
+        <property name="active" type="bool"/>
+        <property name="representative" type="string"/>
+        <property name="page" type="RestRepresentativeCompanyUserTradeFairFilterPage" />
+        <property name="sort" type="RestRepresentativeCompanyUserTradeFairFilterSort[]" />
+    </transfer>
+
+    <transfer name="RestRepresentativeCompanyUserTradeFairFilterSort">
+        <property name="field" type="string"/>
+        <property name="direction" type="string"/>
+    </transfer>
+
+    <transfer name="RestRepresentativeCompanyUserTradeFairFilterPage">
+        <property name="offset" type="int"/>
+        <property name="limit" type="int"/>
     </transfer>
 
     <transfer name="RestRepresentativeCompanyUserTradeFairResponse">
         <property name="isSuccessful" type="bool"/>
         <property name="error" type="string" />
-        <property name="request" type="RestRepresentativeCompanyUserTradeFairRequest"/>
-        <property name="representation" type="RepresentativeCompanyUserTradeFair"/>
-        <property name="collection" type="RepresentativeCompanyUserTradeFairCollection"/>
+        <property name="representation" type="RestRepresentativeCompanyUserTradeFair"/>
+        <property name="collection" type="RestRepresentativeCompanyUserTradeFairCollection"/>
+        <property name="pagination" type="RestRepresentativeCompanyUserPagination"/>
+    </transfer>
+
+    <transfer name="RestRepresentativeCompanyUserPagination">
+        <property name="numFound" type="int" />
+        <property name="currentPage" type="int" />
+        <property name="maxPage" type="int" />
+        <property name="currentItemsPerPage" type="int" />
+    </transfer>
+
+    <transfer name="RestRepresentativeCompanyUserTradeFair">
+        <property name="representativeCompanyUser" type="RestRepresentativeCompanyUser[]" />
+        <property name="distributor" type="RestRepresentativeDistributor" />
+        <property name="name" type="string" />
+        <property name="startAt" type="string" />
+        <property name="endAt" type="string" />
+        <property name="active" type="bool" />
+        <property name="uuid" type="string" />
+        <property name="createdAt" type="int" />
+        <property name="updatedAt" type="int" />
+    </transfer>
+
+    <transfer name="RestRepresentativeCompanyUserTradeFairCollection">
+        <property name="representations" singular="representation" type="RestRepresentativeCompanyUserTradeFair[]" />
     </transfer>
 
     <transfer name="RepresentativeCompanyUserTradeFair" />
     <transfer name="RepresentativeCompanyUserTradeFairCollection" />
     <transfer name="RepresentativeCompanyUserTradeFairCommand" />
     <transfer name="RepresentativeCompanyUserTradeFairFilter" />
+    <transfer name="RestRepresentativeDistributor" />
 </transfers>

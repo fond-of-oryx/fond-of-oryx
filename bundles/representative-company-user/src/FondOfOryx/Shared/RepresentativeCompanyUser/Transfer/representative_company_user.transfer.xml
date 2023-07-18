@@ -20,6 +20,7 @@
 
     <transfer name="RepresentativeCompanyUserCollection">
         <property name="representations" singular="representation" type="RepresentativeCompanyUser[]" />
+        <property name="pagination" type="Pagination" />
     </transfer>
 
     <transfer name="RepresentativeCompanyUserCommand">
@@ -31,7 +32,16 @@
         <property name="ids" singular="id" type="array" />
         <property name="validTimeRange" type="bool" />
         <property name="states" singular="state" type="array" />
+        <property name="expired" type="bool" />
+        <property name="offset" type="int" />
+        <property name="limit" type="int" />
+        <property name="sorting" singular="sort" type="RepresentativeCompanyUserFilterSort[]" />
         <property name="distributorReferences" singular="distributorReference" type="array" />
+    </transfer>
+
+    <transfer name="RepresentativeCompanyUserFilterSort">
+        <property name="field" type="string"/>
+        <property name="direction" type="string"/>
     </transfer>
 
     <transfer name="CompanyUser">
@@ -40,5 +50,9 @@
         <property name="isDefault" type="bool" />
         <property name="companyUserReference" type="string" />
         <property name="customerReference" type="string" />
+    </transfer>
+
+    <transfer name="Pagination">
+        <property name="total" type="int" />
     </transfer>
 </transfers>

@@ -12,13 +12,39 @@
         <property name="endAt" type="string" />
     </transfer>
 
+    <transfer name="RestRepresentativeCompanyUserFilter">
+        <property name="expired" type="bool"/>
+        <property name="representative" type="string"/>
+        <property name="page" type="RestRepresentativeCompanyUserFilterPage" />
+        <property name="sort" type="RestRepresentativeCompanyUserFilterSort[]" />
+    </transfer>
+
+    <transfer name="RestRepresentativeCompanyUserFilterSort">
+        <property name="field" type="string"/>
+        <property name="direction" type="string"/>
+    </transfer>
+
+    <transfer name="RestRepresentativeCompanyUserFilterPage">
+        <property name="offset" type="int"/>
+        <property name="limit" type="int"/>
+    </transfer>
+
     <transfer name="RestRepresentativeCompanyUserRequest">
         <property name="attributes" type="RestRepresentativeCompanyUserAttributes"/>
+        <property name="filter" type="RestRepresentativeCompanyUserFilter"/>
     </transfer>
 
     <transfer name="RestRepresentativeCompanyUserResponse">
         <property name="request" type="RestRepresentativeCompanyUserRequest"/>
         <property name="representations" singular="representation" type="RestRepresentativeCompanyUser[]"/>
+        <property name="pagination" type="RestRepresentativeCompanyUserPagination"/>
+    </transfer>
+
+    <transfer name="RestRepresentativeCompanyUserPagination">
+        <property name="numFound" type="int" />
+        <property name="currentPage" type="int" />
+        <property name="maxPage" type="int" />
+        <property name="currentItemsPerPage" type="int" />
     </transfer>
 
     <transfer name="RestRepresentativeCompanyUser">

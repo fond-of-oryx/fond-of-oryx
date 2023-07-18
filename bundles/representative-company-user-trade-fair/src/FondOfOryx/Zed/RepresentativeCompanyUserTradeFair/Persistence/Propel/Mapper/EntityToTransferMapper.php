@@ -22,9 +22,14 @@ class EntityToTransferMapper implements EntityToTransferMapperInterface
             ->fromArray($entity->toArray(), true)
             ->setDistributor($this->mapCustomer($entity->getFooRepresentativeCompanyUserTradeFairDistributor()));
 
+        /** @var \Orm\Zed\RepresentativeCompanyUser\Persistence\FooRepresentativeCompanyUser $representativeCompanyUserTradeFairEntity */
         foreach ($entity->getFooRepresentativeCompanyUsers()->getData() as $representativeCompanyUserTradeFairEntity) {
-            $representativeCompanyUserTradeFairTransfer->addRepresentativeCompanyUser((new RepresentativeCompanyUserTransfer())
-                ->fromArray($representativeCompanyUserTradeFairEntity->toArray(), true));
+            $representativeCompanyUserTransfer = (new RepresentativeCompanyUserTransfer())
+                ->fromArray($representativeCompanyUserTradeFairEntity->toArray(), true)
+                ->setRepresentative($this->mapCustomer($representativeCompanyUserTradeFairEntity->getFooRepresentativeCompanyUserRepresentative()))
+                ->setDistributor($this->mapCustomer($representativeCompanyUserTradeFairEntity->getFooRepresentativeCompanyUserDistributor()))
+                ->setOriginator($this->mapCustomer($representativeCompanyUserTradeFairEntity->getFooRepresentativeCompanyUserOriginator()));
+            $representativeCompanyUserTradeFairTransfer->addRepresentativeCompanyUser($representativeCompanyUserTransfer);
         }
 
         return $representativeCompanyUserTradeFairTransfer;
@@ -46,12 +51,16 @@ class EntityToTransferMapper implements EntityToTransferMapperInterface
     }
 
     /**
-     * @param \Orm\Zed\Customer\Persistence\SpyCustomer $customerEntity
+     * @param \Orm\Zed\Customer\Persistence\SpyCustomer|null $customerEntity
      *
-     * @return \Generated\Shared\Transfer\CustomerTransfer
+     * @return \Generated\Shared\Transfer\CustomerTransfer|null
      */
-    protected function mapCustomer(SpyCustomer $customerEntity): CustomerTransfer
+    protected function mapCustomer(?SpyCustomer $customerEntity): ?CustomerTransfer
     {
+        if ($customerEntity === null) {
+            return null;
+        }
+
         return (new CustomerTransfer())->fromArray($customerEntity->toArray(), true);
     }
 }

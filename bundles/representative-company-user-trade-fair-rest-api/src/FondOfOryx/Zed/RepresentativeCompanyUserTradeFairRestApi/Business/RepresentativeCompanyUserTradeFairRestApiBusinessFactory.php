@@ -2,6 +2,8 @@
 
 namespace FondOfOryx\Zed\RepresentativeCompanyUserTradeFairRestApi\Business;
 
+use FondOfOryx\Zed\RepresentativeCompanyUserTradeFairRestApi\Business\Model\Mapper\RestDataMapper;
+use FondOfOryx\Zed\RepresentativeCompanyUserTradeFairRestApi\Business\Model\Mapper\RestDataMapperInterface;
 use FondOfOryx\Zed\RepresentativeCompanyUserTradeFairRestApi\Business\Model\TradeFairRepresentationManager;
 use FondOfOryx\Zed\RepresentativeCompanyUserTradeFairRestApi\Business\Model\TradeFairRepresentationManagerInterface;
 use FondOfOryx\Zed\RepresentativeCompanyUserTradeFairRestApi\Business\Validator\DurationValidator;
@@ -27,6 +29,7 @@ class RepresentativeCompanyUserTradeFairRestApiBusinessFactory extends AbstractB
             $this->getCompanyTypeFacade(),
             $this->createDurationValidator(),
             $this->getRepository(),
+            $this->createRestDataMapper(),
         );
     }
 
@@ -36,6 +39,14 @@ class RepresentativeCompanyUserTradeFairRestApiBusinessFactory extends AbstractB
     public function createDurationValidator(): DurationValidatorInterface
     {
         return new DurationValidator($this->getConfig());
+    }
+
+    /**
+     * @return \FondOfOryx\Zed\RepresentativeCompanyUserTradeFairRestApi\Business\Model\Mapper\RestDataMapperInterface
+     */
+    public function createRestDataMapper(): RestDataMapperInterface
+    {
+        return new RestDataMapper();
     }
 
     /**

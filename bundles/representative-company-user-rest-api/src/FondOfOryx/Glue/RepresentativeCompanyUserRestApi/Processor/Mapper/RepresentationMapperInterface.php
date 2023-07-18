@@ -3,6 +3,7 @@
 namespace FondOfOryx\Glue\RepresentativeCompanyUserRestApi\Processor\Mapper;
 
 use Generated\Shared\Transfer\RestRepresentativeCompanyUserAttributesTransfer;
+use Generated\Shared\Transfer\RestRepresentativeCompanyUserFilterTransfer;
 use Generated\Shared\Transfer\RestRepresentativeCompanyUserRequestTransfer;
 use Spryker\Glue\GlueApplication\Rest\Request\Data\RestRequestInterface;
 
@@ -25,4 +26,11 @@ interface RepresentationMapperInterface
      * @return \Generated\Shared\Transfer\RestRepresentativeCompanyUserAttributesTransfer
      */
     public function createAttributesFromRequest(RestRequestInterface $restRequest): RestRepresentativeCompanyUserAttributesTransfer;
+
+    /**
+     * @param \Spryker\Glue\GlueApplication\Rest\Request\Data\RestRequestInterface $restRequest
+     *
+     * @return \Generated\Shared\Transfer\RestRepresentativeCompanyUserFilterTransfer
+     */
+    public function createFilterFromRequest(RestRequestInterface $restRequest): RestRepresentativeCompanyUserFilterTransfer;
 }

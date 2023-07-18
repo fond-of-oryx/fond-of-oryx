@@ -10,7 +10,8 @@
   ],
   "require": {
     "php": ">=8.0",
-    "fond-of-oryx/representative-company-user": "^1.0.1",
+    "fond-of-oryx/representative-company-user": "^1.1.0",
+    "fond-of-oryx/representative-company-user-trade-fair-extension": "1.0.0",
     "spryker/company-role": "^1.0.0",
     "spryker/company-user": "^2.0.0",
     "spryker/event": "^2.0.0",

@@ -3,6 +3,7 @@
 namespace FondOfOryx\Zed\RepresentativeCompanyUserTradeFairRestApi\Business\Model;
 
 use Codeception\Test\Unit;
+use FondOfOryx\Zed\RepresentativeCompanyUserTradeFairRestApi\Business\Model\Mapper\RestDataMapperInterface;
 use FondOfOryx\Zed\RepresentativeCompanyUserTradeFairRestApi\Business\Validator\DurationValidatorInterface;
 use FondOfOryx\Zed\RepresentativeCompanyUserTradeFairRestApi\Dependency\Facade\RepresentativeCompanyUserTradeFairRestApiToCompanyTypeFacadeInterface;
 use FondOfOryx\Zed\RepresentativeCompanyUserTradeFairRestApi\Dependency\Facade\RepresentativeCompanyUserTradeFairRestApiToRepresentativeCompanyUserTradeFairFacadeInterface;
@@ -10,11 +11,13 @@ use FondOfOryx\Zed\RepresentativeCompanyUserTradeFairRestApi\Persistence\Represe
 use FondOfOryx\Zed\RepresentativeCompanyUserTradeFairRestApi\RepresentativeCompanyUserTradeFairRestApiConfig;
 use Generated\Shared\Transfer\CompanyTypeTransfer;
 use Generated\Shared\Transfer\CustomerTransfer;
+use Generated\Shared\Transfer\PaginationTransfer;
 use Generated\Shared\Transfer\RepresentativeCompanyUserTradeFairCollectionTransfer;
 use Generated\Shared\Transfer\RepresentativeCompanyUserTradeFairTransfer;
 use Generated\Shared\Transfer\RestRepresentativeCompanyUserTradeFairAttributesTransfer;
 use Generated\Shared\Transfer\RestRepresentativeCompanyUserTradeFairRequestTransfer;
 use Generated\Shared\Transfer\RestRepresentativeCompanyUserTradeFairResponseTransfer;
+use Generated\Shared\Transfer\RestRepresentativeCompanyUserTradeFairTransfer;
 use PHPUnit\Framework\MockObject\MockObject;
 
 class TradeFairRepresentationManagerTest extends Unit
@@ -38,6 +41,11 @@ class TradeFairRepresentationManagerTest extends Unit
      * @var \PHPUnit\Framework\MockObject\MockObject|\FondOfOryx\Zed\RepresentativeCompanyUserTradeFairRestApi\Business\Validator\DurationValidatorInterface
      */
     protected DurationValidatorInterface|MockObject $durationValidatorMock;
+
+    /**
+     * @var \Generated\Shared\Transfer\PaginationTransfer|\PHPUnit\Framework\MockObject\MockObject
+     */
+    protected PaginationTransfer|MockObject $paginationTransferMock;
 
     /**
      * @var \PHPUnit\Framework\MockObject\MockObject|\FondOfOryx\Zed\RepresentativeCompanyUserTradeFairRestApi\Dependency\Facade\RepresentativeCompanyUserTradeFairRestApiToRepresentativeCompanyUserTradeFairFacadeInterface
@@ -65,9 +73,19 @@ class TradeFairRepresentationManagerTest extends Unit
     protected MockObject|RestRepresentativeCompanyUserTradeFairRequestTransfer $restRepresentativeCompanyUserTradeFairRequestTransferMock;
 
     /**
-     * @var \PHPUnit\Framework\MockObject\MockObject|\Generated\Shared\Transfer\RepresentativeCompanyUserTradeFairCollectionTransfer
+     * @var \Generated\Shared\Transfer\RepresentativeCompanyUserTradeFairCollectionTransfer|\PHPUnit\Framework\MockObject\MockObject
      */
-    protected $representativeCompanyUserTradeFairCollectionTransferMock;
+    protected RepresentativeCompanyUserTradeFairCollectionTransfer|MockObject $representativeCompanyUserTradeFairCollectionTransferMock;
+
+    /**
+     * @var \Generated\Shared\Transfer\RestRepresentativeCompanyUserTradeFairTransfer|\PHPUnit\Framework\MockObject\MockObject
+     */
+    protected RestRepresentativeCompanyUserTradeFairTransfer|MockObject $restRepresentativeCompanyUserTradeFairTransferMock;
+
+    /**
+     * @var \FondOfOryx\Zed\RepresentativeCompanyUserTradeFairRestApi\Business\Model\Mapper\RestDataMapperInterface|\PHPUnit\Framework\MockObject\MockObject
+     */
+    protected RestDataMapperInterface|MockObject $restDataMapperMock;
 
     /**
      * @var \FondOfOryx\Zed\RepresentativeCompanyUserTradeFairRestApi\Business\Model\TradeFairRepresentationManager
@@ -121,6 +139,21 @@ class TradeFairRepresentationManagerTest extends Unit
             ->disableOriginalConstructor()
             ->getMock();
 
+        $this->restRepresentativeCompanyUserTradeFairTransferMock = $this
+            ->getMockBuilder(RestRepresentativeCompanyUserTradeFairTransfer::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $this->restDataMapperMock = $this
+            ->getMockBuilder(RestDataMapperInterface::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $this->paginationTransferMock = $this
+            ->getMockBuilder(PaginationTransfer::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
         $this->repositoryMock = $this
             ->getMockBuilder(RepresentativeCompanyUserTradeFairRestApiRepositoryInterface::class)
             ->disableOriginalConstructor()
@@ -136,6 +169,7 @@ class TradeFairRepresentationManagerTest extends Unit
             $this->companyTypeFacadeMock,
             $this->durationValidatorMock,
             $this->repositoryMock,
+            $this->restDataMapperMock,
         );
     }
 
@@ -223,10 +257,6 @@ class TradeFairRepresentationManagerTest extends Unit
         );
 
         $this->assertEquals(true, $restRepresentativeCompanyUserTradeFairResponse->getIsSuccessful());
-        $this->assertEquals(
-            $this->representativeCompanyUserTradeFairTransferMock,
-            $restRepresentativeCompanyUserTradeFairResponse->getRepresentation(),
-        );
     }
 
     /**
@@ -388,11 +418,6 @@ class TradeFairRepresentationManagerTest extends Unit
         $this->assertInstanceOf(
             RestRepresentativeCompanyUserTradeFairResponseTransfer::class,
             $restRepresentativeCompanyUserTradeFairResponse,
-        );
-
-        $this->assertEquals(
-            $this->representativeCompanyUserTradeFairTransferMock,
-            $restRepresentativeCompanyUserTradeFairResponse->getRepresentation(),
         );
     }
 
@@ -566,11 +591,6 @@ class TradeFairRepresentationManagerTest extends Unit
         );
 
         $this->assertEquals(
-            $this->representativeCompanyUserTradeFairTransferMock,
-            $restRepresentativeCompanyUserTradeFairResponse->getRepresentation(),
-        );
-
-        $this->assertEquals(
             true,
             $restRepresentativeCompanyUserTradeFairResponse->getIsSuccessful(),
         );
@@ -606,11 +626,6 @@ class TradeFairRepresentationManagerTest extends Unit
             RestRepresentativeCompanyUserTradeFairResponseTransfer::class,
             $restRepresentativeCompanyUserTradeFairResponse,
         );
-
-        $this->assertEquals(
-            $this->representativeCompanyUserTradeFairTransferMock,
-            $restRepresentativeCompanyUserTradeFairResponse->getRepresentation(),
-        );
     }
 
     /**
@@ -632,17 +647,16 @@ class TradeFairRepresentationManagerTest extends Unit
             ->method('getRepresentativeCompanyUserTradeFair')
             ->willReturn($this->representativeCompanyUserTradeFairCollectionTransferMock);
 
+        $this->representativeCompanyUserTradeFairCollectionTransferMock->expects(static::atLeastOnce())
+            ->method('getPagination')
+            ->willReturn($this->paginationTransferMock);
+
         $restRepresentativeCompanyUserTradeFairResponse = $this
             ->tradeFairRepresentation->getTradeFairRepresentation($this->restRepresentativeCompanyUserTradeFairRequestTransferMock);
 
         $this->assertInstanceOf(
             RestRepresentativeCompanyUserTradeFairResponseTransfer::class,
             $restRepresentativeCompanyUserTradeFairResponse,
-        );
-
-        $this->assertEquals(
-            $this->representativeCompanyUserTradeFairCollectionTransferMock,
-            $restRepresentativeCompanyUserTradeFairResponse->getCollection(),
         );
     }
 
@@ -802,11 +816,6 @@ class TradeFairRepresentationManagerTest extends Unit
         $this->assertInstanceOf(
             RestRepresentativeCompanyUserTradeFairResponseTransfer::class,
             $restRepresentativeCompanyUserTradeFairResponse,
-        );
-
-        $this->assertEquals(
-            $this->representativeCompanyUserTradeFairTransferMock,
-            $restRepresentativeCompanyUserTradeFairResponse->getRepresentation(),
         );
     }
 }
