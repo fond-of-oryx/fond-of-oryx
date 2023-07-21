@@ -1,0 +1,57 @@
+{
+  "name": "fond-of-oryx/company-type-converter",
+  "description": "CompanyTypeConverter  module",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "József Geng",
+      "email": "gengjozsef86@gmail.com"
+    }
+  ],
+  "repositories": [
+    {
+      "name": "fond-of-oryx/company-type-role",
+      "type":"path",
+      "options": {
+        "symlink": false
+      },
+      "packagist.org": false,
+      "url":"../company-type-role"
+    }
+  ],
+  "require": {
+    "php": ">=8.0",
+    "spryker/company": "^1.0.0",
+    "spryker/company-role": "^1.0",
+    "spryker/permission": "^1.2",
+    "spryker/company-user": "^2.0.0",
+    "fond-of-oryx/company-type-role": "*",
+    "fond-of-spryker/company-type": "dev-master",
+    "fond-of-spryker/company-type-converter-extension": "dev-master"
+  },
+  "require-dev": {
+    "fond-of-codeception/spryker": "*",
+    "spryker/code-sniffer": "*",
+    "spryker-sdk/phpstan-spryker": "*"
+  },
+  "minimum-stability": "dev",
+  "prefer-stable": true,
+  "autoload": {
+    "psr-4": {
+      "FondOfOryx\\": "src/FondOfOryx/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "FondOfOryx\\": "tests/FondOfOryx/",
+      "Generated\\": "src/Generated/",
+      "Orm\\Zed\\": "src/Orm/Zed/"
+    }
+  },
+  "config": {
+    "sort-packages": true,
+    "allow-plugins": {
+      "dealerdirect/phpcodesniffer-composer-installer": true
+    }
+  }
+}
