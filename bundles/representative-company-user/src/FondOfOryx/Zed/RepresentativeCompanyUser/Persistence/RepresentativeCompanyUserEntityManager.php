@@ -2,12 +2,14 @@
 
 namespace FondOfOryx\Zed\RepresentativeCompanyUser\Persistence;
 
+use DateTime;
 use Exception;
 use Generated\Shared\Transfer\RepresentativeCompanyUserCollectionTransfer;
 use Generated\Shared\Transfer\RepresentativeCompanyUserFilterTransfer;
 use Generated\Shared\Transfer\RepresentativeCompanyUserTransfer;
 use Orm\Zed\RepresentativeCompanyUser\Persistence\FooRepresentativeCompanyUserQuery;
 use Orm\Zed\RepresentativeCompanyUser\Persistence\Map\FooRepresentativeCompanyUserTableMap;
+use Propel\Runtime\ActiveQuery\Criteria;
 use Spryker\Zed\Kernel\Persistence\AbstractEntityManager;
 
 /**
@@ -124,7 +126,10 @@ class RepresentativeCompanyUserEntityManager extends AbstractEntityManager imple
         }
 
         if ($filterTransfer->getValidTimeRange()) {
-            $query->where(FooRepresentativeCompanyUserTableMap::COL_START_AT . '<= now() and ' . FooRepresentativeCompanyUserTableMap::COL_END_AT . '>= now()');
+            $now = $this->getFactory()->getUtilDateTimeService()->formatDateTime(new DateTime());
+            $query
+                ->filterByStartAt($now, Criteria::LESS_EQUAL)
+                ->filterByEndAt($now, Criteria::GREATER_EQUAL);
         }
 
         $result = $query->find();

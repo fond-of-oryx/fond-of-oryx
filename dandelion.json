@@ -583,10 +583,6 @@
       "path": "bundles/jellyfish-sales-order-company-user/",
       "version": "2.0.0"
     },
-    "jellyfish-sales-order-conditional-availability": {
-      "path": "bundles/jellyfish-sales-order-conditional-availability/",
-      "version": "2.0.0"
-    },
     "jellyfish-sales-order-customer-address": {
       "path": "bundles/jellyfish-sales-order-customer-address/",
       "version": "2.0.0"
@@ -709,7 +705,7 @@
     },
     "payment-address-restriction": {
       "path": "bundles/payment-address-restriction/",
-      "version": "2.0.0"
+      "version": "2.0.1"
     },
     "payment-cart-connector": {
       "path": "bundles/payment-cart-connector/",
@@ -761,11 +757,11 @@
     },
     "product-country-restriction": {
       "path": "bundles/product-country-restriction/",
-      "version": "2.0.0"
+      "version": "2.0.1"
     },
     "product-country-restriction-checkout-connector": {
       "path": "bundles/product-country-restriction-checkout-connector/",
-      "version": "2.0.0"
+      "version": "2.0.1"
     },
     "product-default-category-assigner": {
       "path": "bundles/product-default-category-assigner/",
@@ -817,19 +813,31 @@
     },
     "representative-company-user": {
       "path": "bundles/representative-company-user/",
-      "version": "1.0.0"
+      "version": "1.1.0"
+    },
+    "representative-company-user-extension": {
+      "path": "bundles/representative-company-user-extension/",
+      "version": "1.1.0"
     },
     "representative-company-user-rest-api": {
       "path": "bundles/representative-company-user-rest-api/",
-      "version": "1.0.0"
+      "version": "1.2.0"
     },
     "representative-company-user-rest-api-permission": {
       "path": "bundles/representative-company-user-rest-api-permission/",
       "version": "1.0.0"
     },
-    "representative-company-user-extension": {
-      "path": "bundles/representative-company-user-extension/",
+    "representative-company-user-trade-fair": {
+      "path": "bundles/representative-company-user-trade-fair/",
+      "version": "1.1.0"
+    },
+    "representative-company-user-trade-fair-extension": {
+      "path": "bundles/representative-company-user-trade-fair-extension/",
       "version": "1.0.0"
+    },
+    "representative-company-user-trade-fair-rest-api": {
+      "path": "bundles/representative-company-user-trade-fair-rest-api/",
+      "version": "1.1.0"
     },
     "return-label": {
       "path": "bundles/return-label/",

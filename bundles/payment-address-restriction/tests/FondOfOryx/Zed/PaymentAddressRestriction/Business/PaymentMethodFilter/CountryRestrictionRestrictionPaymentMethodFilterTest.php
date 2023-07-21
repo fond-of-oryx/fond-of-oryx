@@ -9,38 +9,39 @@ use Generated\Shared\Transfer\AddressTransfer;
 use Generated\Shared\Transfer\PaymentMethodsTransfer;
 use Generated\Shared\Transfer\PaymentMethodTransfer;
 use Generated\Shared\Transfer\QuoteTransfer;
+use PHPUnit\Framework\MockObject\MockObject;
 
 class CountryRestrictionRestrictionPaymentMethodFilterTest extends Unit
 {
     /**
-     * @var \PHPUnit\Framework\MockObject\MockObject|\Generated\Shared\Transfer\PaymentMethodsTransfer
+     * @var \Generated\Shared\Transfer\PaymentMethodsTransfer
      */
-    protected $paymentMethodsTransferMock;
+    protected PaymentMethodsTransfer $paymentMethodsTransfer;
 
     /**
      * @var \PHPUnit\Framework\MockObject\MockObject|\Generated\Shared\Transfer\PaymentMethodTransfer
      */
-    protected $paymentMethodTransferMock;
+    protected MockObject|PaymentMethodTransfer $paymyentMethodTransferMock;
 
     /**
      * @var \PHPUnit\Framework\MockObject\MockObject|\Generated\Shared\Transfer\QuoteTransfer
      */
-    protected $quoteTransferMock;
+    protected MockObject|QuoteTransfer $quoteTransferMock;
 
     /**
      * @var \PHPUnit\Framework\MockObject\MockObject|\Generated\Shared\Transfer\AddressTransfer
      */
-    protected $billingAddressMock;
+    protected MockObject|AddressTransfer $billingAddressMock;
 
     /**
      * @var \PHPUnit\Framework\MockObject\MockObject|\FondOfOryx\Zed\PaymentAddressRestriction\PaymentAddressRestrictionConfig
      */
-    protected $configMock;
+    protected PaymentAddressRestrictionConfig|MockObject $configMock;
 
     /**
      * @var \FondOfOryx\Zed\PaymentAddressRestriction\Business\PaymentMethodFilter\CountryRestrictionRestrictionPaymentMethodFilter
      */
-    protected $paymentMethodFilter;
+    protected CountryRestrictionRestrictionPaymentMethodFilter $paymentMethodFilter;
 
     /**
      * @return void
@@ -48,14 +49,6 @@ class CountryRestrictionRestrictionPaymentMethodFilterTest extends Unit
     protected function _before(): void
     {
         parent::_before();
-
-        $this->paymentMethodsTransferMock = $this->getMockBuilder(PaymentMethodsTransfer::class)
-            ->disableOriginalConstructor()
-            ->getMock();
-
-        $this->paymentMethodTransferMock = $this->getMockBuilder(PaymentMethodTransfer::class)
-            ->disableOriginalConstructor()
-            ->getMock();
 
         $this->quoteTransferMock = $this->getMockBuilder(QuoteTransfer::class)
             ->disableOriginalConstructor()
@@ -68,6 +61,13 @@ class CountryRestrictionRestrictionPaymentMethodFilterTest extends Unit
         $this->configMock = $this->getMockBuilder(PaymentAddressRestrictionConfig::class)
             ->disableOriginalConstructor()
             ->getMock();
+
+        $this->paymentMethodsTransfer = new PaymentMethodsTransfer();
+
+        $this->paymentMethodsTransfer->setMethods(new ArrayObject([
+            (new PaymentMethodTransfer())->setMethodName('payment-method-to-remove'),
+            (new PaymentMethodTransfer())->setMethodName('payment-method'),
+        ]));
 
         $this->paymentMethodFilter = new CountryRestrictionRestrictionPaymentMethodFilter($this->configMock);
     }
@@ -83,14 +83,6 @@ class CountryRestrictionRestrictionPaymentMethodFilterTest extends Unit
                 ['payment-method-to-remove' => ['de', 'at', 'ch']],
             );
 
-        $this->paymentMethodsTransferMock->expects(static::atLeastOnce())
-            ->method('getMethods')
-            ->willReturn([$this->paymentMethodTransferMock]);
-
-        $this->paymentMethodTransferMock->expects(static::atLeastOnce())
-            ->method('getMethodName')
-            ->willReturn('payment-method-to-remove');
-
         $this->quoteTransferMock->expects(static::atLeastOnce())
             ->method('getBillingAddress')
             ->willReturn($this->billingAddressMock);
@@ -99,17 +91,31 @@ class CountryRestrictionRestrictionPaymentMethodFilterTest extends Unit
             ->method('getIso2Code')
             ->willReturn('es');
 
-        $this->paymentMethodsTransferMock->setMethods(new ArrayObject());
-        $this->paymentMethodsTransferMock->expects(static::atLeastOnce())
-            ->method('setMethods')
-            ->with(new ArrayObject())
-            ->willReturnSelf();
-
         $paymentMethodsTransfer = $this->paymentMethodFilter->filterPaymentMethods(
-            $this->paymentMethodsTransferMock,
+            $this->paymentMethodsTransfer,
             $this->quoteTransferMock,
         );
 
         static::assertCount(1, $paymentMethodsTransfer->getMethods());
+    }
+
+    /**
+     * @return void
+     */
+    public function testFilterPaymentMethodsNoBillingAddress(): void
+    {
+        $this->quoteTransferMock->expects(static::atLeastOnce())
+            ->method('getBillingAddress')
+            ->willReturn(null);
+
+        $this->configMock->expects(static::never())
+            ->method('getBlackListedPaymentCountryCombinations');
+
+        $paymentMethodsTransfer = $this->paymentMethodFilter->filterPaymentMethods(
+            $this->paymentMethodsTransfer,
+            $this->quoteTransferMock,
+        );
+
+        static::assertCount(2, $paymentMethodsTransfer->getMethods());
     }
 }

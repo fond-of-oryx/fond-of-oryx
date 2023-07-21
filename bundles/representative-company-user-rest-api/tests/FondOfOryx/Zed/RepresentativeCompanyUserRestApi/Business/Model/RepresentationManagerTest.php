@@ -3,49 +3,62 @@
 namespace FondOfOryx\Zed\RepresentativeCompanyUserRestApi\Business\Model;
 
 use Codeception\Test\Unit;
+use FondOfOryx\Zed\RepresentativeCompanyUserRestApi\Business\Model\Mapper\RestDataMapperInterface;
 use FondOfOryx\Zed\RepresentativeCompanyUserRestApi\Dependency\Facade\RepresentativeCompanyUserRestApiToRepresentativeCompanyUserFacadeInterface;
 use FondOfOryx\Zed\RepresentativeCompanyUserRestApi\Persistence\RepresentativeCompanyUserRestApiRepository;
 use Generated\Shared\Transfer\RepresentativeCompanyUserTransfer;
 use Generated\Shared\Transfer\RestRepresentativeCompanyUserAttributesTransfer;
 use Generated\Shared\Transfer\RestRepresentativeCompanyUserRequestTransfer;
 use Generated\Shared\Transfer\RestRepresentativeCompanyUserResponseTransfer;
+use Generated\Shared\Transfer\RestRepresentativeCompanyUserTransfer;
+use PHPUnit\Framework\MockObject\MockObject;
 
 class RepresentationManagerTest extends Unit
 {
     /**
      * @var \FondOfOryx\Zed\RepresentativeCompanyUserRestApi\Dependency\Facade\RepresentativeCompanyUserRestApiToRepresentativeCompanyUserFacadeInterface|\PHPUnit\Framework\MockObject\MockObject
      */
-    protected $facadeMock;
+    protected RepresentativeCompanyUserRestApiToRepresentativeCompanyUserFacadeInterface|MockObject $facadeMock;
 
     /**
      * @var \FondOfOryx\Zed\RepresentativeCompanyUserRestApi\Persistence\RepresentativeCompanyUserRestApiRepository|\PHPUnit\Framework\MockObject\MockObject
      */
-    protected $repositoryMock;
+    protected RepresentativeCompanyUserRestApiRepository|MockObject $repositoryMock;
+
+    /**
+     * @var \FondOfOryx\Zed\RepresentativeCompanyUserRestApi\Business\Model\Mapper\RestDataMapperInterface|\PHPUnit\Framework\MockObject\MockObject
+     */
+    protected RestDataMapperInterface|MockObject $restDataMapperMock;
 
     /**
      * @var \Generated\Shared\Transfer\RepresentativeCompanyUserTransfer|\PHPUnit\Framework\MockObject\MockObject
      */
-    protected $representativeCompanyUserTransferMock;
+    protected RepresentativeCompanyUserTransfer|MockObject $representativeCompanyUserTransferMock;
 
     /**
      * @var \Generated\Shared\Transfer\RestRepresentativeCompanyUserAttributesTransfer|\PHPUnit\Framework\MockObject\MockObject
      */
-    protected $restRepresentativeCompanyUserAttributesTransferMock;
+    protected RestRepresentativeCompanyUserAttributesTransfer|MockObject $restRepresentativeCompanyUserAttributesTransferMock;
 
     /**
      * @var \Generated\Shared\Transfer\RestRepresentativeCompanyUserResponseTransfer|\PHPUnit\Framework\MockObject\MockObject
      */
-    protected $restRepresentativeCompanyUserResponseTransferMock;
+    protected RestRepresentativeCompanyUserResponseTransfer|MockObject $restRepresentativeCompanyUserResponseTransferMock;
 
     /**
      * @var \Generated\Shared\Transfer\RestRepresentativeCompanyUserRequestTransfer|\PHPUnit\Framework\MockObject\MockObject
      */
-    protected $restRepresentativeCompanyUserRequestTransferMock;
+    protected RestRepresentativeCompanyUserRequestTransfer|MockObject $restRepresentativeCompanyUserRequestTransferMock;
+
+    /**
+     * @var \Generated\Shared\Transfer\RestRepresentativeCompanyUserTransfer|\PHPUnit\Framework\MockObject\MockObject
+     */
+    protected RestRepresentativeCompanyUserTransfer|MockObject $restRepresentativeCompanyUserTransferMock;
 
     /**
      * @var \FondOfOryx\Zed\RepresentativeCompanyUserRestApi\Business\Model\RepresentationManagerInterface
      */
-    protected $representationManager;
+    protected RepresentationManagerInterface $representationManager;
 
     /**
      * @return void
@@ -62,8 +75,18 @@ class RepresentationManagerTest extends Unit
             ->disableOriginalConstructor()
             ->getMock();
 
+        $this->restDataMapperMock = $this
+            ->getMockBuilder(RestDataMapperInterface::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
         $this->restRepresentativeCompanyUserAttributesTransferMock = $this
             ->getMockBuilder(RestRepresentativeCompanyUserAttributesTransfer::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $this->restRepresentativeCompanyUserTransferMock = $this
+            ->getMockBuilder(RestRepresentativeCompanyUserTransfer::class)
             ->disableOriginalConstructor()
             ->getMock();
 
@@ -85,6 +108,7 @@ class RepresentationManagerTest extends Unit
         $this->representationManager = new RepresentationManager(
             $this->facadeMock,
             $this->repositoryMock,
+            $this->restDataMapperMock,
         );
     }
 
@@ -144,6 +168,10 @@ class RepresentationManagerTest extends Unit
             ->method('addRepresentativeCompanyUser')
             ->willReturn($this->representativeCompanyUserTransferMock);
 
+        $this->restDataMapperMock->expects(static::atLeastOnce())
+            ->method('mapResponse')
+            ->willReturn($this->restRepresentativeCompanyUserTransferMock);
+
         $restRepresentativeCompanyUserResponseTransfer = $this->representationManager
             ->addRepresentation($this->restRepresentativeCompanyUserRequestTransferMock);
 
@@ -158,8 +186,8 @@ class RepresentationManagerTest extends Unit
         );
 
         static::assertEquals(
-            $restRepresentativeCompanyUserResponseTransfer->getRepresentation(),
-            $this->representativeCompanyUserTransferMock,
+            $restRepresentativeCompanyUserResponseTransfer->getRepresentations()[0],
+            $this->restRepresentativeCompanyUserTransferMock,
         );
     }
 }

@@ -3,11 +3,15 @@
 namespace FondOfOryx\Zed\RepresentativeCompanyUserRestApi\Business\Model;
 
 use Exception;
+use FondOfOryx\Zed\RepresentativeCompanyUserRestApi\Business\Model\Mapper\RestDataMapperInterface;
 use FondOfOryx\Zed\RepresentativeCompanyUserRestApi\Dependency\Facade\RepresentativeCompanyUserRestApiToRepresentativeCompanyUserFacadeInterface;
 use FondOfOryx\Zed\RepresentativeCompanyUserRestApi\Persistence\RepresentativeCompanyUserRestApiRepositoryInterface;
+use Generated\Shared\Transfer\RepresentativeCompanyUserCollectionTransfer;
+use Generated\Shared\Transfer\RepresentativeCompanyUserFilterSortTransfer;
 use Generated\Shared\Transfer\RepresentativeCompanyUserFilterTransfer;
 use Generated\Shared\Transfer\RepresentativeCompanyUserTransfer;
 use Generated\Shared\Transfer\RestRepresentativeCompanyUserAttributesTransfer;
+use Generated\Shared\Transfer\RestRepresentativeCompanyUserPaginationTransfer;
 use Generated\Shared\Transfer\RestRepresentativeCompanyUserRequestTransfer;
 use Generated\Shared\Transfer\RestRepresentativeCompanyUserResponseTransfer;
 use Orm\Zed\RepresentativeCompanyUser\Persistence\Map\FooRepresentativeCompanyUserTableMap;
@@ -17,23 +21,31 @@ class RepresentationManager implements RepresentationManagerInterface
     /**
      * @var \FondOfOryx\Zed\RepresentativeCompanyUserRestApi\Dependency\Facade\RepresentativeCompanyUserRestApiToRepresentativeCompanyUserFacadeInterface
      */
-    protected $representativeCompanyUserFacade;
+    protected RepresentativeCompanyUserRestApiToRepresentativeCompanyUserFacadeInterface $representativeCompanyUserFacade;
 
     /**
      * @var \FondOfOryx\Zed\RepresentativeCompanyUserRestApi\Persistence\RepresentativeCompanyUserRestApiRepositoryInterface
      */
-    protected $repository;
+    protected RepresentativeCompanyUserRestApiRepositoryInterface $repository;
+
+    /**
+     * @var \FondOfOryx\Zed\RepresentativeCompanyUserRestApi\Business\Model\Mapper\RestDataMapperInterface
+     */
+    protected RestDataMapperInterface $restDataMapper;
 
     /**
      * @param \FondOfOryx\Zed\RepresentativeCompanyUserRestApi\Dependency\Facade\RepresentativeCompanyUserRestApiToRepresentativeCompanyUserFacadeInterface $representativeCompanyUserFacade
      * @param \FondOfOryx\Zed\RepresentativeCompanyUserRestApi\Persistence\RepresentativeCompanyUserRestApiRepositoryInterface $repository
+     * @param \FondOfOryx\Zed\RepresentativeCompanyUserRestApi\Business\Model\Mapper\RestDataMapperInterface $restDataMapper
      */
     public function __construct(
         RepresentativeCompanyUserRestApiToRepresentativeCompanyUserFacadeInterface $representativeCompanyUserFacade,
-        RepresentativeCompanyUserRestApiRepositoryInterface $repository
+        RepresentativeCompanyUserRestApiRepositoryInterface $repository,
+        RestDataMapperInterface $restDataMapper
     ) {
         $this->representativeCompanyUserFacade = $representativeCompanyUserFacade;
         $this->repository = $repository;
+        $this->restDataMapper = $restDataMapper;
     }
 
     /**
@@ -63,7 +75,7 @@ class RepresentationManager implements RepresentationManagerInterface
 
         return (new RestRepresentativeCompanyUserResponseTransfer())
             ->setRequest($restRepresentativeCompanyUserRequestTransfer)
-            ->setRepresentation($response);
+            ->addRepresentation($this->restDataMapper->mapResponse($response));
     }
 
     /**
@@ -83,21 +95,21 @@ class RepresentationManager implements RepresentationManagerInterface
             $representationTransfer->getDistributor()->getCustomerReference() !== $restRepresentativeCompanyUserAttributesTransfer->getReferenceDistributor()
             || $representationTransfer->getRepresentative()->getCustomerReference() !== $restRepresentativeCompanyUserAttributesTransfer->getReferenceRepresentation()
         ) {
-            $representationTransfer->setStatus(FooRepresentativeCompanyUserTableMap::COL_STATE_REVOKED);
+            $representationTransfer->setState(FooRepresentativeCompanyUserTableMap::COL_STATE_REVOKED);
             $this->representativeCompanyUserFacade->updateRepresentativeCompanyUser($representationTransfer);
 
             return $this->addRepresentation($restRepresentativeCompanyUserRequestTransfer);
         }
 
         $representationTransfer
-            ->setStatus($this->getStatus($representationTransfer, $restRepresentativeCompanyUserAttributesTransfer))
+            ->setState($this->getState($representationTransfer, $restRepresentativeCompanyUserAttributesTransfer))
             ->setEndAt($restRepresentativeCompanyUserAttributesTransfer->getEndAt())
             ->setStartAt($restRepresentativeCompanyUserAttributesTransfer->getStartAt());
         $response = $this->representativeCompanyUserFacade->updateRepresentativeCompanyUser($representationTransfer);
 
         return (new RestRepresentativeCompanyUserResponseTransfer())
             ->setRequest($restRepresentativeCompanyUserRequestTransfer)
-            ->setRepresentation($response);
+            ->addRepresentation($this->restDataMapper->mapResponse($response));
     }
 
     /**
@@ -118,7 +130,7 @@ class RepresentationManager implements RepresentationManagerInterface
             $representation = null;
         }
 
-        return (new RestRepresentativeCompanyUserResponseTransfer())->setRepresentation($representation);
+        return (new RestRepresentativeCompanyUserResponseTransfer())->addRepresentation($this->restDataMapper->mapResponse($representation));
     }
 
     /**
@@ -127,7 +139,7 @@ class RepresentationManager implements RepresentationManagerInterface
      *
      * @return string
      */
-    protected function getStatus(
+    protected function getState(
         RepresentativeCompanyUserTransfer $representativeCompanyUserTransfer,
         RestRepresentativeCompanyUserAttributesTransfer $representativeCompanyUserAttributesTransfer
     ): string {
@@ -147,20 +159,82 @@ class RepresentationManager implements RepresentationManagerInterface
         RestRepresentativeCompanyUserRequestTransfer $restRepresentativeCompanyUserRequestTransfer
     ): RestRepresentativeCompanyUserResponseTransfer {
         $attributes = $restRepresentativeCompanyUserRequestTransfer->getAttributes();
-        $filter = (new RepresentativeCompanyUserFilterTransfer())->addDistributorReference($attributes->getUuid());
+        $filter = $this->createFilter($restRepresentativeCompanyUserRequestTransfer, $attributes);
 
         $collection = $this->representativeCompanyUserFacade->getRepresentativeCompanyUser($filter);
 
-        return (new RestRepresentativeCompanyUserResponseTransfer())->setCollection($collection);
+        return (new RestRepresentativeCompanyUserResponseTransfer())
+            ->setRepresentations($this->restDataMapper->mapResponseCollection($collection))
+            ->setPagination($this->createPagination($collection));
     }
 
     /**
-     * @param string $date
+     * @param \Generated\Shared\Transfer\RestRepresentativeCompanyUserRequestTransfer $restRepresentativeCompanyUserRequestTransfer
+     * @param \Generated\Shared\Transfer\RestRepresentativeCompanyUserAttributesTransfer|null $attributes
      *
-     * @return int
+     * @return \Generated\Shared\Transfer\RepresentativeCompanyUserFilterTransfer
      */
-    protected function convertDateStringToTimestamp(string $date): int
+    public function createFilter(
+        RestRepresentativeCompanyUserRequestTransfer $restRepresentativeCompanyUserRequestTransfer,
+        ?RestRepresentativeCompanyUserAttributesTransfer $attributes
+    ): RepresentativeCompanyUserFilterTransfer {
+        $restFilter = $restRepresentativeCompanyUserRequestTransfer->getFilter();
+        $filter = new RepresentativeCompanyUserFilterTransfer();
+
+        if ($restFilter !== null) {
+            $filter->fromArray($restRepresentativeCompanyUserRequestTransfer->getFilter()->toArray(), true);
+
+            $page = $restFilter->getPage();
+            if ($page !== null) {
+                $filter
+                    ->setLimit($page->getLimit())
+                    ->setOffset($page->getOffset());
+            }
+
+            $sorting = $restFilter->getSort();
+            if ($sorting->count() > 0) {
+                foreach ($sorting as $sort) {
+                    $filter->addSort((new RepresentativeCompanyUserFilterSortTransfer())->fromArray($sort->toArray(), true));
+                }
+            }
+
+            $representative = $restFilter->getRepresentative();
+            if ($representative !== null) {
+                $filter->addDistributorReference($representative);
+            }
+        }
+
+        if ($attributes->getUuid() !== null) {
+            $filter = $filter->addId($attributes->getUuid());
+        }
+
+        return $filter;
+    }
+
+    /**
+     * @param \Generated\Shared\Transfer\RepresentativeCompanyUserCollectionTransfer $collection
+     *
+     * @return \Generated\Shared\Transfer\RestRepresentativeCompanyUserPaginationTransfer
+     */
+    public function createPagination(RepresentativeCompanyUserCollectionTransfer $collection): RestRepresentativeCompanyUserPaginationTransfer
     {
-        return strtotime($date);
+        $paginationTransfer = new RestRepresentativeCompanyUserPaginationTransfer();
+        $pagination = $collection->getPagination();
+        $total = $pagination->getTotal();
+        $limit = $pagination->getLimit();
+        $offset = $pagination->getOffset();
+
+        if ($limit !== null & $total !== null && $limit > 0) {
+            $paginationTransfer->setMaxPage((int)ceil($total / $limit));
+        }
+
+        if ($limit !== null & $offset !== null && $limit > 0) {
+            $current = ceil($offset / $limit);
+            $paginationTransfer->setCurrentPage($current > 0 ? $current : 1);
+        }
+
+        return $paginationTransfer
+            ->setNumFound($total)
+            ->setCurrentItemsPerPage($limit);
     }
 }

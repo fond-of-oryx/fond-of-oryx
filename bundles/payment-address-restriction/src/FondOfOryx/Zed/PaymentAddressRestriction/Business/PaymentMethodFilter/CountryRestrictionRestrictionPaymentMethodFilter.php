@@ -32,7 +32,7 @@ class CountryRestrictionRestrictionPaymentMethodFilter implements PaymentMethodF
         PaymentMethodsTransfer $paymentMethodsTransfer,
         QuoteTransfer $quoteTransfer
     ): PaymentMethodsTransfer {
-        if ($this->hasRestrictedPaymentMethods($paymentMethodsTransfer) === false) {
+        if ($quoteTransfer->getBillingAddress() === null || $this->hasRestrictedPaymentMethods($paymentMethodsTransfer) === false) {
             return $paymentMethodsTransfer;
         }
 

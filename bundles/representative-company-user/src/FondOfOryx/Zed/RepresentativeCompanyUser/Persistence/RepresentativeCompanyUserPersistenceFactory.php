@@ -2,6 +2,7 @@
 
 namespace FondOfOryx\Zed\RepresentativeCompanyUser\Persistence;
 
+use FondOfOryx\Zed\RepresentativeCompanyUser\Dependency\Service\RepresentativeCompanyUserToUtilDateTimeServiceInterface;
 use FondOfOryx\Zed\RepresentativeCompanyUser\Persistence\Propel\Mapper\EntityToTransferMapper;
 use FondOfOryx\Zed\RepresentativeCompanyUser\Persistence\Propel\Mapper\EntityToTransferMapperInterface;
 use FondOfOryx\Zed\RepresentativeCompanyUser\Persistence\Propel\Mapper\TransferToEntityMapper;
@@ -55,5 +56,21 @@ class RepresentativeCompanyUserPersistenceFactory extends AbstractPersistenceFac
     public function getCompanyQuery(): SpyCompanyQuery
     {
         return $this->getProvidedDependency(RepresentativeCompanyUserDependencyProvider::QUERY_COMPANY);
+    }
+
+    /**
+     * @return \FondOfOryx\Zed\RepresentativeCompanyUser\Dependency\Service\RepresentativeCompanyUserToUtilDateTimeServiceInterface
+     */
+    public function getUtilDateTimeService(): RepresentativeCompanyUserToUtilDateTimeServiceInterface
+    {
+        return $this->getProvidedDependency(RepresentativeCompanyUserDependencyProvider::SERVICE_UTIL_DATE_TIME);
+    }
+
+    /**
+     * @return \FondOfOryx\Zed\RepresentativeCompanyUserExtension\Dependency\Plugin\Persistence\RepresentativeCompanyUserQueryExpanderPluginInterface[]
+     */
+    public function getFooRepresentativeCompanyUserQueryExpanderPlugins(): array
+    {
+        return $this->getProvidedDependency(RepresentativeCompanyUserDependencyProvider::PLUGINS_FOO_REPRESENTATIVE_COMPANY_USER_EXPANDER);
     }
 }

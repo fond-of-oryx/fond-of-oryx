@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<database xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" name="zed"
+          xsi:noNamespaceSchemaLocation="https://static.spryker.com/schema-01.xsd"
+          namespace="Orm\Zed\RepresentativeCompanyUserTradeFair\Persistence" package="src.Orm.Zed.RepresentativeCompanyUserTradeFair.Persistence">
+
+    <table name="foo_representative_company_user_trade_fair" phpName="FooRepresentativeCompanyUserTradeFair" identifierQuoting="true">
+        <column name="id_representative_company_user_trade_fair" required="true" type="INTEGER" autoIncrement="true"
+                primaryKey="true"/>
+        <column name="uuid" required="true" type="VARCHAR" size="255"/>
+        <column name="fk_distributor" required="true" type="INTEGER"/>
+        <column name="fk_originator" required="true" type="INTEGER"/>
+        <column name="name" required="true" type="VARCHAR" size="255"/>
+        <column name="start_at" required="true" type="TIMESTAMP"/>
+        <column name="end_at" required="true" type="TIMESTAMP"/>
+        <column name="active" required="true" type="BOOLEAN"/>
+
+        <id-method-parameter value="foo_representative_company_user_trade_fair_pk_seq"/>
+
+        <unique name="foo_representative_company_user_trade_fair-unique-uuid">
+            <unique-column name="uuid"/>
+        </unique>
+
+        <behavior name="uuid">
+            <parameter name="key_prefix" value="fk_distributor"/>
+            <parameter name="key_columns" value="id_representative_company_user_trade_fair"/>
+        </behavior>
+
+        <foreign-key name="foo_representative_company_user_trade_fair_distributor-spy_customer" foreignTable="spy_customer"
+                     phpName="FooRepresentativeCompanyUserTradeFairDistributor">
+            <reference local="fk_distributor" foreign="id_customer"/>
+        </foreign-key>
+
+        <behavior name="event">
+            <parameter name="foo_representative_company_user_trade_fair_all" column="*"/>
+        </behavior>
+
+        <behavior name="timestampable"/>
+    </table>
+</database>

@@ -2,14 +2,17 @@
 
 namespace FondOfOryx\Zed\RepresentativeCompanyUser\Persistence;
 
+use DateTime;
 use Exception;
 use Generated\Shared\Transfer\CompanyUserCollectionTransfer;
 use Generated\Shared\Transfer\CompanyUserTransfer;
+use Generated\Shared\Transfer\PaginationTransfer;
 use Generated\Shared\Transfer\RepresentativeCompanyUserCollectionTransfer;
 use Generated\Shared\Transfer\RepresentativeCompanyUserFilterTransfer;
 use Generated\Shared\Transfer\RepresentativeCompanyUserTransfer;
 use Orm\Zed\RepresentativeCompanyUser\Persistence\FooRepresentativeCompanyUserQuery;
 use Orm\Zed\RepresentativeCompanyUser\Persistence\Map\FooRepresentativeCompanyUserTableMap;
+use Propel\Runtime\ActiveQuery\Criteria;
 use Spryker\Zed\Kernel\Persistence\AbstractRepository;
 
 /**
@@ -102,8 +105,8 @@ class RepresentativeCompanyUserRepository extends AbstractRepository implements 
     ): RepresentativeCompanyUserCollectionTransfer {
         $query = $this->prepareRepresentativeCompanyUserQuery($filterTransfer);
 
-        $results = $query->where(FooRepresentativeCompanyUserTableMap::COL_END_AT . '< now()')
-            ->find();
+        $expireAt = $this->getFactory()->getUtilDateTimeService()->formatDateTime(new DateTime());
+        $results = $query->filterByEndAt($expireAt, Criteria::LESS_THAN)->find();
 
         $collection = new RepresentativeCompanyUserCollectionTransfer();
 
@@ -124,6 +127,16 @@ class RepresentativeCompanyUserRepository extends AbstractRepository implements 
     ): RepresentativeCompanyUserCollectionTransfer {
         $query = $this->prepareRepresentativeCompanyUserQuery($filterTransfer);
 
+        $maxItems = $query->count();
+
+        if ($filterTransfer->getLimit() !== null) {
+            $query->setLimit($filterTransfer->getLimit());
+        }
+
+        if ($filterTransfer->getOffset() !== null) {
+            $query->setOffset($filterTransfer->getOffset());
+        }
+
         $results = $query->find();
 
         $collection = new RepresentativeCompanyUserCollectionTransfer();
@@ -132,7 +145,12 @@ class RepresentativeCompanyUserRepository extends AbstractRepository implements 
             $collection->addRepresentation($this->getFactory()->createEntityToTransferMapper()->fromRepresentativeCompanyUserEntity($entity));
         }
 
-        return $collection;
+        $paginationTransfer = (new PaginationTransfer())
+            ->setOffset($filterTransfer->getOffset())
+            ->setLimit($filterTransfer->getLimit())
+            ->setTotal($maxItems);
+
+        return $collection->setPagination($paginationTransfer);
     }
 
     /**
@@ -234,6 +252,41 @@ class RepresentativeCompanyUserRepository extends AbstractRepository implements 
 
         if ($filterTransfer !== null && count($filterTransfer->getIds()) > 0) {
             $query->filterByIdRepresentativeCompanyUser_In($filterTransfer->getIds());
+        }
+
+        if (count($filterTransfer->getDistributorReferences()) > 0) {
+            $query
+                ->useFooRepresentativeCompanyUserDistributorQuery()
+                    ->filterByEmail_In($filterTransfer->getDistributorReferences())
+                ->endUse();
+        }
+
+        if ($filterTransfer !== null && $filterTransfer->getSorting()->count() > 0) {
+            foreach ($filterTransfer->getSorting() as $sort) {
+                $field = str_replace('-', '', ucwords($sort->getField(), '-'));
+                if (in_array($field, FooRepresentativeCompanyUserTableMap::getFieldNames(), true)) {
+                    $query->orderBy($field, $sort->getDirection());
+                }
+            }
+        }
+
+        return $this->expandFooRepresentativeCompanyUserQuery($query, $filterTransfer);
+    }
+
+    /**
+     * @param \Orm\Zed\RepresentativeCompanyUser\Persistence\FooRepresentativeCompanyUserQuery $query
+     * @param \Generated\Shared\Transfer\RepresentativeCompanyUserFilterTransfer|null $filterTransfer
+     *
+     * @return \Orm\Zed\RepresentativeCompanyUser\Persistence\FooRepresentativeCompanyUserQuery
+     */
+    protected function expandFooRepresentativeCompanyUserQuery(
+        FooRepresentativeCompanyUserQuery $query,
+        ?RepresentativeCompanyUserFilterTransfer $filterTransfer
+    ): FooRepresentativeCompanyUserQuery {
+        if ($filterTransfer !== null) {
+            foreach ($this->getFactory()->getFooRepresentativeCompanyUserQueryExpanderPlugins() as $plugin) {
+                $query = $plugin->expand($query, $filterTransfer);
+            }
         }
 
         return $query;
