@@ -63,3 +63,7 @@ ci-bundles:
 ci-bundle:
 	@read -p "Enter Bundle Name: " BUNDLE; \
 	./Makefile.d/bundle.sh test $$BUNDLE
+
+.PHONY: generate-composer-sections
+generate-composer-sections:
+	./Makefile.d/composer.sh generate_sections
