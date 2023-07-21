@@ -64,13 +64,12 @@ class CompanyTypeRoleConfig extends AbstractBundleConfig
         $predefinedRoles = [
             $this->createCompanyRole($companyTypeName, static::ROLE_NAME_ADMINISTRATION, true),
             $this->createCompanyRole($companyTypeName, static::ROLE_NAME_DISTRIBUTION, false),
-            $this->createCompanyRole($companyTypeName, static::ROLE_NAME_SUPER_DISTRIBUTION, false),
             $this->createCompanyRole($companyTypeName, static::ROLE_NAME_CUSTOMER_SERVICE, false),
             $this->createCompanyRole($companyTypeName, static::ROLE_NAME_SALES_COORDINATION, false),
         ];
 
         if ($companyTypeName === 'manufacturer') {
-            return $predefinedRoles;
+            return array_merge($predefinedRoles, [$this->createCompanyRole($companyTypeName, static::ROLE_NAME_SUPER_DISTRIBUTION, false)]);
         }
 
         $predefinedRoles = array_merge($predefinedRoles, [
