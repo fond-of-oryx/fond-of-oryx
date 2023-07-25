@@ -19,13 +19,18 @@
 
     <transfer name="RepresentativeCompanyUserTradeFairCollection">
         <property name="representations" singular="representation" type="RepresentativeCompanyUserTradeFair[]" />
+        <property name="pagination" type="Pagination" />
     </transfer>
 
     <transfer name="RepresentativeCompanyUserTradeFairFilter">
         <property name="tradeFairName" type="string" />
         <property name="uuids" singular="uuid" type="array" />
         <property name="active" type="bool" />
+        <property name="offset" type="int" />
+        <property name="limit" type="int" />
+        <property name="sorting" singular="sort" type="RepresentativeCompanyUserFilterSort[]" />
         <property name="fkDistributors" singular="fkDistributor" type="array" />
+        <property name="representative" type="string" />
     </transfer>
 
     <transfer name="RepresentativeCompanyUser">

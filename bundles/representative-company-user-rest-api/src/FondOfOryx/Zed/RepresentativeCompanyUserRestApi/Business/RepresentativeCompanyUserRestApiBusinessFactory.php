@@ -2,6 +2,8 @@
 
 namespace FondOfOryx\Zed\RepresentativeCompanyUserRestApi\Business;
 
+use FondOfOryx\Zed\RepresentativeCompanyUserRestApi\Business\Model\Mapper\RestDataMapper;
+use FondOfOryx\Zed\RepresentativeCompanyUserRestApi\Business\Model\Mapper\RestDataMapperInterface;
 use FondOfOryx\Zed\RepresentativeCompanyUserRestApi\Business\Model\RepresentationManager;
 use FondOfOryx\Zed\RepresentativeCompanyUserRestApi\Business\Model\RepresentationManagerInterface;
 use FondOfOryx\Zed\RepresentativeCompanyUserRestApi\Dependency\Facade\RepresentativeCompanyUserRestApiToRepresentativeCompanyUserFacadeInterface;
@@ -21,7 +23,16 @@ class RepresentativeCompanyUserRestApiBusinessFactory extends AbstractBusinessFa
         return new RepresentationManager(
             $this->getRepresentativeCompanyUserFacade(),
             $this->getRepository(),
+            $this->createRestDataMapper(),
         );
+    }
+
+    /**
+     * @return \FondOfOryx\Zed\RepresentativeCompanyUserRestApi\Business\Model\Mapper\RestDataMapperInterface
+     */
+    public function createRestDataMapper(): RestDataMapperInterface
+    {
+        return new RestDataMapper();
     }
 
     /**

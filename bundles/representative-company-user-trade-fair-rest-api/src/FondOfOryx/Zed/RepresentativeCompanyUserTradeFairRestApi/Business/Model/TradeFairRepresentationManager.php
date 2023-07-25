@@ -3,14 +3,18 @@
 namespace FondOfOryx\Zed\RepresentativeCompanyUserTradeFairRestApi\Business\Model;
 
 use Exception;
+use FondOfOryx\Zed\RepresentativeCompanyUserTradeFairRestApi\Business\Model\Mapper\RestDataMapperInterface;
 use FondOfOryx\Zed\RepresentativeCompanyUserTradeFairRestApi\Business\Validator\DurationValidatorInterface;
 use FondOfOryx\Zed\RepresentativeCompanyUserTradeFairRestApi\Communication\Plugin\PermissionExtension\CanManageRepresentationOnTradeFairPermissionPlugin;
 use FondOfOryx\Zed\RepresentativeCompanyUserTradeFairRestApi\Dependency\Facade\RepresentativeCompanyUserTradeFairRestApiToCompanyTypeFacadeInterface;
 use FondOfOryx\Zed\RepresentativeCompanyUserTradeFairRestApi\Dependency\Facade\RepresentativeCompanyUserTradeFairRestApiToRepresentativeCompanyUserTradeFairFacadeInterface;
 use FondOfOryx\Zed\RepresentativeCompanyUserTradeFairRestApi\Persistence\RepresentativeCompanyUserTradeFairRestApiRepositoryInterface;
 use FondOfOryx\Zed\RepresentativeCompanyUserTradeFairRestApi\RepresentativeCompanyUserTradeFairRestApiConfig;
+use Generated\Shared\Transfer\RepresentativeCompanyUserFilterSortTransfer;
+use Generated\Shared\Transfer\RepresentativeCompanyUserTradeFairCollectionTransfer;
 use Generated\Shared\Transfer\RepresentativeCompanyUserTradeFairFilterTransfer;
 use Generated\Shared\Transfer\RepresentativeCompanyUserTradeFairTransfer;
+use Generated\Shared\Transfer\RestRepresentativeCompanyUserPaginationTransfer;
 use Generated\Shared\Transfer\RestRepresentativeCompanyUserTradeFairAttributesTransfer;
 use Generated\Shared\Transfer\RestRepresentativeCompanyUserTradeFairRequestTransfer;
 use Generated\Shared\Transfer\RestRepresentativeCompanyUserTradeFairResponseTransfer;
@@ -20,39 +24,47 @@ class TradeFairRepresentationManager implements TradeFairRepresentationManagerIn
     /**
      * @var \FondOfOryx\Zed\RepresentativeCompanyUserTradeFairRestApi\Dependency\Facade\RepresentativeCompanyUserTradeFairRestApiToCompanyTypeFacadeInterface
      */
-    protected $companyTypeFacade;
+    protected RepresentativeCompanyUserTradeFairRestApiToCompanyTypeFacadeInterface $companyTypeFacade;
 
     /**
      * @var \FondOfOryx\Zed\RepresentativeCompanyUserTradeFairRestApi\Business\Validator\DurationValidatorInterface
      */
-    protected $durationValidator;
+    protected DurationValidatorInterface $durationValidator;
 
     /**
      * @var \FondOfOryx\Zed\RepresentativeCompanyUserTradeFairRestApi\Dependency\Facade\RepresentativeCompanyUserTradeFairRestApiToRepresentativeCompanyUserTradeFairFacadeInterface
      */
-    protected $representativeCompanyUserTradeFairFacade;
+    protected RepresentativeCompanyUserTradeFairRestApiToRepresentativeCompanyUserTradeFairFacadeInterface $representativeCompanyUserTradeFairFacade;
 
     /**
      * @var \FondOfOryx\Zed\RepresentativeCompanyUserTradeFairRestApi\Persistence\RepresentativeCompanyUserTradeFairRestApiRepositoryInterface
      */
-    protected $repository;
+    protected RepresentativeCompanyUserTradeFairRestApiRepositoryInterface $repository;
+
+    /**
+     * @var \FondOfOryx\Zed\RepresentativeCompanyUserTradeFairRestApi\Business\Model\Mapper\RestDataMapperInterface
+     */
+    protected RestDataMapperInterface $restDataMapper;
 
     /**
      * @param \FondOfOryx\Zed\RepresentativeCompanyUserTradeFairRestApi\Dependency\Facade\RepresentativeCompanyUserTradeFairRestApiToRepresentativeCompanyUserTradeFairFacadeInterface $representativeCompanyUserTradeFairFacade
      * @param \FondOfOryx\Zed\RepresentativeCompanyUserTradeFairRestApi\Dependency\Facade\RepresentativeCompanyUserTradeFairRestApiToCompanyTypeFacadeInterface $companyTypeFacade
      * @param \FondOfOryx\Zed\RepresentativeCompanyUserTradeFairRestApi\Business\Validator\DurationValidatorInterface $durationValidator
      * @param \FondOfOryx\Zed\RepresentativeCompanyUserTradeFairRestApi\Persistence\RepresentativeCompanyUserTradeFairRestApiRepositoryInterface $repository
+     * @param \FondOfOryx\Zed\RepresentativeCompanyUserTradeFairRestApi\Business\Model\Mapper\RestDataMapperInterface $restDataMapper
      */
     public function __construct(
         RepresentativeCompanyUserTradeFairRestApiToRepresentativeCompanyUserTradeFairFacadeInterface $representativeCompanyUserTradeFairFacade,
         RepresentativeCompanyUserTradeFairRestApiToCompanyTypeFacadeInterface $companyTypeFacade,
         DurationValidatorInterface $durationValidator,
-        RepresentativeCompanyUserTradeFairRestApiRepositoryInterface $repository
+        RepresentativeCompanyUserTradeFairRestApiRepositoryInterface $repository,
+        RestDataMapperInterface $restDataMapper
     ) {
         $this->representativeCompanyUserTradeFairFacade = $representativeCompanyUserTradeFairFacade;
         $this->companyTypeFacade = $companyTypeFacade;
         $this->durationValidator = $durationValidator;
         $this->repository = $repository;
+        $this->restDataMapper = $restDataMapper;
     }
 
     /**
@@ -64,8 +76,7 @@ class TradeFairRepresentationManager implements TradeFairRepresentationManagerIn
         RestRepresentativeCompanyUserTradeFairRequestTransfer $restRepresentativeCompanyUserTradeFairRequestTransfer
     ): RestRepresentativeCompanyUserTradeFairResponseTransfer {
         $restRepresentativeCompanyUserTradeFairResponse = (new RestRepresentativeCompanyUserTradeFairResponseTransfer())
-            ->setIsSuccessful(false)
-            ->setRequest($restRepresentativeCompanyUserTradeFairRequestTransfer);
+            ->setIsSuccessful(false);
 
         $error = $this->validate($restRepresentativeCompanyUserTradeFairRequestTransfer);
 
@@ -88,8 +99,7 @@ class TradeFairRepresentationManager implements TradeFairRepresentationManagerIn
 
         return $restRepresentativeCompanyUserTradeFairResponse
             ->setIsSuccessful(true)
-            ->setRequest($restRepresentativeCompanyUserTradeFairRequestTransfer)
-            ->setRepresentation($response);
+            ->setRepresentation($this->restDataMapper->mapResponse($response));
     }
 
     /**
@@ -127,8 +137,7 @@ class TradeFairRepresentationManager implements TradeFairRepresentationManagerIn
         $response = $this->representativeCompanyUserTradeFairFacade->updateRepresentativeCompanyUserTradeFair($representationTransfer);
 
         return (new RestRepresentativeCompanyUserTradeFairResponseTransfer())
-            ->setRequest($restRepresentativeCompanyUserTradeFairRequestTransfer)
-            ->setRepresentation($response);
+            ->setRepresentation($this->restDataMapper->mapResponse($response));
     }
 
     /**
@@ -144,12 +153,13 @@ class TradeFairRepresentationManager implements TradeFairRepresentationManagerIn
         try {
             $attributes->requireUuid();
             $representation = $this->representativeCompanyUserTradeFairFacade->deleteRepresentativeCompanyUserTradeFair($attributes->getUuid());
+            $response = $this->restDataMapper->mapResponse($representation);
         } catch (Exception $exception) {
             //ToDo Handle/Log
-            $representation = null;
+            $response = null;
         }
 
-        return (new RestRepresentativeCompanyUserTradeFairResponseTransfer())->setRepresentation($representation);
+        return (new RestRepresentativeCompanyUserTradeFairResponseTransfer())->setRepresentation($response);
     }
 
     /**
@@ -178,15 +188,13 @@ class TradeFairRepresentationManager implements TradeFairRepresentationManagerIn
         RestRepresentativeCompanyUserTradeFairRequestTransfer $restRepresentativeCompanyUserTradeFairRequestTransfer
     ): RestRepresentativeCompanyUserTradeFairResponseTransfer {
         $attributes = $restRepresentativeCompanyUserTradeFairRequestTransfer->getAttributes();
-        $filter = (new RepresentativeCompanyUserTradeFairFilterTransfer());
-
-        if ($attributes->getUuid() !== null) {
-            $filter->addUuid($attributes->getUuid());
-        }
+        $filter = $this->createFilter($restRepresentativeCompanyUserTradeFairRequestTransfer, $attributes);
 
         $collection = $this->representativeCompanyUserTradeFairFacade->getRepresentativeCompanyUserTradeFair($filter);
 
-        return (new RestRepresentativeCompanyUserTradeFairResponseTransfer())->setCollection($collection);
+        return (new RestRepresentativeCompanyUserTradeFairResponseTransfer())
+            ->setCollection($this->restDataMapper->mapResponseCollection($collection))
+            ->setPagination($this->createPagination($collection));
     }
 
     /**
@@ -217,5 +225,70 @@ class TradeFairRepresentationManager implements TradeFairRepresentationManagerIn
         }
 
         return '';
+    }
+
+    /**
+     * @param \Generated\Shared\Transfer\RestRepresentativeCompanyUserTradeFairRequestTransfer $restRepresentativeCompanyUserTradeFairRequestTransfer
+     * @param \Generated\Shared\Transfer\RestRepresentativeCompanyUserTradeFairAttributesTransfer|null $attributes
+     *
+     * @return \Generated\Shared\Transfer\RepresentativeCompanyUserTradeFairFilterTransfer
+     */
+    public function createFilter(
+        RestRepresentativeCompanyUserTradeFairRequestTransfer $restRepresentativeCompanyUserTradeFairRequestTransfer,
+        ?RestRepresentativeCompanyUserTradeFairAttributesTransfer $attributes
+    ): RepresentativeCompanyUserTradeFairFilterTransfer {
+        $restFilter = $restRepresentativeCompanyUserTradeFairRequestTransfer->getFilter();
+        $filter = new RepresentativeCompanyUserTradeFairFilterTransfer();
+
+        if ($restFilter !== null) {
+            $filter->fromArray($restRepresentativeCompanyUserTradeFairRequestTransfer->getFilter()->toArray(), true);
+
+            $page = $restFilter->getPage();
+            if ($page !== null) {
+                $filter
+                    ->setLimit($page->getLimit())
+                    ->setOffset($page->getOffset());
+            }
+
+            $sorting = $restFilter->getSort();
+            if ($sorting->count() > 0) {
+                foreach ($sorting as $sort) {
+                    $filter->addSort((new RepresentativeCompanyUserFilterSortTransfer())->fromArray($sort->toArray(), true));
+                }
+            }
+        }
+
+        if ($attributes->getUuid() !== null) {
+            $filter = $filter->addUuid($attributes->getUuid());
+        }
+
+        return $filter;
+    }
+
+    /**
+     * @param \Generated\Shared\Transfer\RepresentativeCompanyUserTradeFairCollectionTransfer $collection
+     *
+     * @return \Generated\Shared\Transfer\RestRepresentativeCompanyUserPaginationTransfer
+     */
+    public function createPagination(RepresentativeCompanyUserTradeFairCollectionTransfer $collection): RestRepresentativeCompanyUserPaginationTransfer
+    {
+        $paginationTransfer = new RestRepresentativeCompanyUserPaginationTransfer();
+        $pagination = $collection->getPagination();
+        $total = $pagination->getTotal();
+        $limit = $pagination->getLimit();
+        $offset = $pagination->getOffset();
+
+        if ($limit !== null & $total !== null && $limit > 0) {
+            $paginationTransfer->setMaxPage((int)ceil($total / $limit));
+        }
+
+        if ($limit !== null & $offset !== null && $limit > 0) {
+            $current = ceil($offset / $limit);
+            $paginationTransfer->setCurrentPage($current > 0 ? $current : 1);
+        }
+
+        return $paginationTransfer
+            ->setNumFound($total)
+            ->setCurrentItemsPerPage($limit);
     }
 }

@@ -74,4 +74,12 @@ class RepresentativeCompanyUserTradeFairPersistenceFactory extends AbstractPersi
     {
         return $this->getProvidedDependency(RepresentativeCompanyUserTradeFairDependencyProvider::QUERY_COMPANY);
     }
+
+    /**
+     * @return \FondOfOryx\Zed\RepresentativeCompanyUserTradeFairExtension\Dependency\Plugin\Persistence\RepresentativeCompanyUserTradeFairQueryExpanderPluginInterface[]
+     */
+    public function getFooRepresentativeCompanyUserTradeFairQueryExpanderPlugins(): array
+    {
+        return $this->getProvidedDependency(RepresentativeCompanyUserTradeFAirDependencyProvider::PLUGINS_FOO_REPRESENTATIVE_COMPANY_USER_TRADE_FAIR_EXPANDER);
+    }
 }

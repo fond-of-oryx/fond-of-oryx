@@ -65,4 +65,12 @@ class RepresentativeCompanyUserPersistenceFactory extends AbstractPersistenceFac
     {
         return $this->getProvidedDependency(RepresentativeCompanyUserDependencyProvider::SERVICE_UTIL_DATE_TIME);
     }
+
+    /**
+     * @return \FondOfOryx\Zed\RepresentativeCompanyUserExtension\Dependency\Plugin\Persistence\RepresentativeCompanyUserQueryExpanderPluginInterface[]
+     */
+    public function getFooRepresentativeCompanyUserQueryExpanderPlugins(): array
+    {
+        return $this->getProvidedDependency(RepresentativeCompanyUserDependencyProvider::PLUGINS_FOO_REPRESENTATIVE_COMPANY_USER_EXPANDER);
+    }
 }

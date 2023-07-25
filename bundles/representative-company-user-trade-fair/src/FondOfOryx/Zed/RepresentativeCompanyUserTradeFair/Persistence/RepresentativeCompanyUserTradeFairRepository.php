@@ -3,6 +3,7 @@
 namespace FondOfOryx\Zed\RepresentativeCompanyUserTradeFair\Persistence;
 
 use Exception;
+use Generated\Shared\Transfer\PaginationTransfer;
 use Generated\Shared\Transfer\RepresentativeCompanyUserCollectionTransfer;
 use Generated\Shared\Transfer\RepresentativeCompanyUserTradeFairCollectionTransfer;
 use Generated\Shared\Transfer\RepresentativeCompanyUserTradeFairFilterTransfer;
@@ -68,6 +69,16 @@ class RepresentativeCompanyUserTradeFairRepository extends AbstractRepository im
     ): RepresentativeCompanyUserTradeFairCollectionTransfer {
         $query = $this->prepareQuery($filterTransfer);
 
+        $maxItems = $query->count();
+
+        if ($filterTransfer->getLimit() !== null) {
+            $query->setLimit($filterTransfer->getLimit());
+        }
+
+        if ($filterTransfer->getOffset() !== null) {
+            $query->setOffset($filterTransfer->getOffset());
+        }
+
         $results = $query->find();
 
         $collection = new RepresentativeCompanyUserTradeFairCollectionTransfer();
@@ -76,7 +87,12 @@ class RepresentativeCompanyUserTradeFairRepository extends AbstractRepository im
             $collection->addRepresentation($this->getFactory()->createEntityToTransferMapper()->fromRepresentativeCompanyUserTradeFairEntity($entity));
         }
 
-        return $collection;
+        $paginationTransfer = (new PaginationTransfer())
+            ->setOffset($filterTransfer->getOffset())
+            ->setLimit($filterTransfer->getLimit())
+            ->setTotal($maxItems);
+
+        return $collection->setPagination($paginationTransfer);
     }
 
     /**
@@ -194,6 +210,41 @@ class RepresentativeCompanyUserTradeFairRepository extends AbstractRepository im
 
         if (count($filterTransfer->getFkDistributors()) > 0) {
             $query->filterByFkDistributor_In($filterTransfer->getFkDistributors());
+        }
+
+        if ($filterTransfer->getRepresentative() !== null) {
+            $query
+                ->useFooRepresentativeCompanyUserTradeFairDistributorQuery()
+                    ->filterByEmail($filterTransfer->getRepresentative())
+                ->endUse();
+        }
+
+        if ($filterTransfer->getSorting()->count() > 0) {
+            foreach ($filterTransfer->getSorting() as $sort) {
+                $field = str_replace('-', '', ucwords($sort->getField(), '-'));
+                if (in_array($field, FooRepresentativeCompanyUserTradeFairTableMap::getFieldNames(), true)) {
+                    $query->orderBy($field, $sort->getDirection());
+                }
+            }
+        }
+
+        return $this->expandFooRepresentativeCompanyUserTradeFairQuery($query, $filterTransfer);
+    }
+
+    /**
+     * @param \Orm\Zed\RepresentativeCompanyUserTradeFair\Persistence\FooRepresentativeCompanyUserTradeFairQuery $query
+     * @param \Generated\Shared\Transfer\RepresentativeCompanyUserTradeFairFilterTransfer|null $filterTransfer
+     *
+     * @return mixed
+     */
+    protected function expandFooRepresentativeCompanyUserTradeFairQuery(
+        FooRepresentativeCompanyUserTradeFairQuery $query,
+        ?RepresentativeCompanyUserTradeFairFilterTransfer $filterTransfer
+    ): mixed {
+        if ($filterTransfer !== null) {
+            foreach ($this->getFactory()->getFooRepresentativeCompanyUserTradeFairQueryExpanderPlugins() as $plugin) {
+                $query = $plugin->expand($query, $filterTransfer);
+            }
         }
 
         return $query;

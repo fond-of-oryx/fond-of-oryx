@@ -4,8 +4,9 @@ namespace FondOfOryx\Glue\RepresentativeCompanyUserTradeFairRestApi\Processor\Bu
 
 use Codeception\Test\Unit;
 use FondOfOryx\Glue\RepresentativeCompanyUserTradeFairRestApi\RepresentativeCompanyUserTradeFairRestApiConfig;
-use Generated\Shared\Transfer\RepresentativeCompanyUserTradeFairCollectionTransfer;
 use Generated\Shared\Transfer\RepresentativeCompanyUserTradeFairTransfer;
+use Generated\Shared\Transfer\RestRepresentativeCompanyUserTradeFairResponseTransfer;
+use Generated\Shared\Transfer\RestRepresentativeCompanyUserTradeFairTransfer;
 use PHPUnit\Framework\MockObject\MockObject;
 use Spryker\Glue\GlueApplication\Rest\JsonApi\RestResourceBuilderInterface;
 use Spryker\Glue\GlueApplication\Rest\JsonApi\RestResourceInterface;
@@ -19,9 +20,9 @@ class RestResponseBuilderTest extends Unit
     protected MockObject|RepresentativeCompanyUserTradeFairTransfer $representativeCompanyUserTradeFairTransferMock;
 
     /**
-     * @var \PHPUnit\Framework\MockObject\MockObject|\Generated\Shared\Transfer\RepresentativeCompanyUserTradeFairCollectionTransfer
+     * @var \PHPUnit\Framework\MockObject\MockObject|\Generated\Shared\Transfer\RestRepresentativeCompanyUserTradeFairResponseTransfer
      */
-    protected MockObject|RepresentativeCompanyUserTradeFairCollectionTransfer $representativeCompanyUserTradeFairCollectionTransferMock;
+    protected MockObject|RestRepresentativeCompanyUserTradeFairResponseTransfer $representativeCompanyUserTradeFairCollectionTransferMock;
 
     /**
      * @var \PHPUnit\Framework\MockObject\MockObject|\Spryker\Glue\GlueApplication\Rest\JsonApi\RestResourceInterface
@@ -37,6 +38,11 @@ class RestResponseBuilderTest extends Unit
      * @var \PHPUnit\Framework\MockObject\MockObject|\Spryker\Glue\GlueApplication\Rest\JsonApi\RestResourceBuilderInterface
      */
     protected MockObject|RestResourceBuilderInterface $restResourceBuilderMock;
+
+    /**
+     * @var \PHPUnit\Framework\MockObject\MockObject|\Generated\Shared\Transfer\RestRepresentativeCompanyUserTradeFairTransfer
+     */
+    protected MockObject|RestRepresentativeCompanyUserTradeFairTransfer $restRepresentativeCompanyUserTradeFairTransferMock;
 
     /**
      * @var \PHPUnit\Framework\MockObject\MockObject|\Spryker\Glue\GlueApplication\Rest\JsonApi\RestResponseInterface
@@ -71,7 +77,12 @@ class RestResponseBuilderTest extends Unit
             ->getMock();
 
         $this->representativeCompanyUserTradeFairCollectionTransferMock = $this
-            ->getMockBuilder(RepresentativeCompanyUserTradeFairCollectionTransfer::class)
+            ->getMockBuilder(RestRepresentativeCompanyUserTradeFairResponseTransfer::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $this->restRepresentativeCompanyUserTradeFairTransferMock = $this
+            ->getMockBuilder(RestRepresentativeCompanyUserTradeFairTransfer::class)
             ->disableOriginalConstructor()
             ->getMock();
 
@@ -92,7 +103,7 @@ class RestResponseBuilderTest extends Unit
             ->with(
                 RepresentativeCompanyUserTradeFairRestApiConfig::RESOURCE_REPRESENTATIVE_COMPANY_USER_TRADE_FAIR_REST_API,
                 null,
-                $this->representativeCompanyUserTradeFairTransferMock,
+                $this->restRepresentativeCompanyUserTradeFairTransferMock,
             )
             ->willReturn($this->restResourceMock);
 
@@ -102,7 +113,7 @@ class RestResponseBuilderTest extends Unit
             ->willReturn($this->restResponseMock);
 
         $response = $this->restResponseBuilder
-            ->buildRepresentativeCompanyUserTradeFairRestResponse($this->representativeCompanyUserTradeFairTransferMock);
+            ->buildRepresentativeCompanyUserTradeFairRestResponse($this->restRepresentativeCompanyUserTradeFairTransferMock);
 
         static::assertEquals(
             $this->restResponseMock,

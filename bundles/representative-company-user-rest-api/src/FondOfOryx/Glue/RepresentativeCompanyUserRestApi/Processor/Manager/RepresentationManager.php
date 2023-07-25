@@ -14,22 +14,22 @@ class RepresentationManager implements RepresentationManagerInterface
     /**
      * @var \FondOfOryx\Client\RepresentativeCompanyUserRestApi\RepresentativeCompanyUserRestApiClientInterface
      */
-    protected $client;
+    protected RepresentativeCompanyUserRestApiClientInterface $client;
 
     /**
      * @var \FondOfOryx\Glue\RepresentativeCompanyUserRestApi\Processor\Mapper\RepresentationMapperInterface
      */
-    protected $representationMapper;
+    protected RepresentationMapperInterface $representationMapper;
 
     /**
      * @var \FondOfOryx\Glue\RepresentativeCompanyUserRestApi\Processor\Builder\RestResponseBuilderInterface
      */
-    protected $responseBuilder;
+    protected RestResponseBuilderInterface $responseBuilder;
 
     /**
      * @var \FondOfOryx\Glue\RepresentativeCompanyUserRestApi\Processor\Permission\PermissionCheckerInterface
      */
-    protected $permissionChecker;
+    protected PermissionCheckerInterface $permissionChecker;
 
     /**
      * @param \FondOfOryx\Client\RepresentativeCompanyUserRestApi\RepresentativeCompanyUserRestApiClientInterface $client
@@ -62,7 +62,7 @@ class RepresentationManager implements RepresentationManagerInterface
             $representationRestRequestTransfer = $this->representationMapper->createRequest($restRequest, $attributes);
             $representationRestResponseTransfer = $this->client->addRepresentation($representationRestRequestTransfer);
 
-            return $this->responseBuilder->buildRepresentativeCompanyUserRestResponse($representationRestResponseTransfer->getRepresentation());
+            return $this->responseBuilder->buildRepresentativeCompanyUserRestResponse($representationRestResponseTransfer);
         }
 
         return $this->responseBuilder->buildRepresentativeCompanyUserMissingPermissionResponse();
@@ -81,7 +81,7 @@ class RepresentationManager implements RepresentationManagerInterface
             $representationRestRequestTransfer = $this->representationMapper->createRequest($restRequest, $attributes);
             $representationRestResponseTransfer = $this->client->getRepresentation($representationRestRequestTransfer);
 
-            return $this->responseBuilder->buildRepresentativeCompanyUserCollectionRestResponse($representationRestResponseTransfer->getCollection());
+            return $this->responseBuilder->buildRepresentativeCompanyUserRestResponse($representationRestResponseTransfer);
         }
 
         return $this->responseBuilder->buildRepresentativeCompanyUserMissingPermissionResponse();
@@ -100,7 +100,7 @@ class RepresentationManager implements RepresentationManagerInterface
             $representationRestRequestTransfer = $this->representationMapper->createRequest($restRequest, $attributes);
             $representationRestResponseTransfer = $this->client->patchRepresentation($representationRestRequestTransfer);
 
-            return $this->responseBuilder->buildRepresentativeCompanyUserRestResponse($representationRestResponseTransfer->getRepresentation());
+            return $this->responseBuilder->buildRepresentativeCompanyUserRestResponse($representationRestResponseTransfer);
         }
 
         return $this->responseBuilder->buildRepresentativeCompanyUserMissingPermissionResponse();
@@ -119,7 +119,7 @@ class RepresentationManager implements RepresentationManagerInterface
             $representationRestRequestTransfer = $this->representationMapper->createRequest($restRequest, $attributes);
             $representationRestResponseTransfer = $this->client->deleteRepresentation($representationRestRequestTransfer);
 
-            return $this->responseBuilder->buildRepresentativeCompanyUserRestResponse($representationRestResponseTransfer->getRepresentation());
+            return $this->responseBuilder->buildRepresentativeCompanyUserRestResponse($representationRestResponseTransfer);
         }
 
         return $this->responseBuilder->buildRepresentativeCompanyUserMissingPermissionResponse();

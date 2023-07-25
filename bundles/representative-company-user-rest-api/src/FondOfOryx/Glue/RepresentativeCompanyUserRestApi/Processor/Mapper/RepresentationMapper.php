@@ -2,9 +2,14 @@
 
 namespace FondOfOryx\Glue\RepresentativeCompanyUserRestApi\Processor\Mapper;
 
+use ArrayObject;
 use Generated\Shared\Transfer\RestRepresentativeCompanyUserAttributesTransfer;
+use Generated\Shared\Transfer\RestRepresentativeCompanyUserFilterPageTransfer;
+use Generated\Shared\Transfer\RestRepresentativeCompanyUserFilterSortTransfer;
+use Generated\Shared\Transfer\RestRepresentativeCompanyUserFilterTransfer;
 use Generated\Shared\Transfer\RestRepresentativeCompanyUserRequestTransfer;
 use Spryker\Glue\GlueApplication\Rest\Request\Data\RestRequestInterface;
+use Spryker\Glue\GlueApplication\Rest\Request\Data\SortInterface;
 use Symfony\Component\HttpFoundation\Request;
 
 class RepresentationMapper implements RepresentationMapperInterface
@@ -33,7 +38,8 @@ class RepresentationMapper implements RepresentationMapperInterface
         }
 
         return (new RestRepresentativeCompanyUserRequestTransfer())
-            ->setAttributes($attributesTransfer);
+            ->setAttributes($attributesTransfer)
+            ->setFilter($this->createFilterFromRequest($restRequest));
     }
 
     /**
@@ -52,6 +58,26 @@ class RepresentationMapper implements RepresentationMapperInterface
             ->fromArray($data, true)
             ->setUuid($this->getUuid($restRequest))
             ->setReferenceOriginator($this->getOriginatorCustomerUserReference($restRequest));
+    }
+
+    /**
+     * @param \Spryker\Glue\GlueApplication\Rest\Request\Data\RestRequestInterface $restRequest
+     *
+     * @return \Generated\Shared\Transfer\RestRepresentativeCompanyUserFilterTransfer
+     */
+    public function createFilterFromRequest(RestRequestInterface $restRequest): RestRepresentativeCompanyUserFilterTransfer
+    {
+        $queryData = $restRequest->getHttpRequest()->query;
+        $data = [];
+        if ($queryData->count() > 0) {
+            $data = $queryData->all();
+            unset($data['page'], $data['sort']);
+        }
+
+        return (new RestRepresentativeCompanyUserFilterTransfer())
+            ->fromArray($data, true)
+            ->setSort($this->recreateSortFilter($restRequest))
+            ->setPage($this->recreatePageFilter($restRequest));
     }
 
     /**
@@ -77,5 +103,50 @@ class RepresentationMapper implements RepresentationMapperInterface
         }
 
         return null;
+    }
+
+    /**
+     * @param \Spryker\Glue\GlueApplication\Rest\Request\Data\RestRequestInterface $restRequest
+     *
+     * @return \ArrayObject|\Generated\Shared\Transfer\RestRepresentativeCompanyUserFilterSortTransfer[]
+     */
+    public function recreateSortFilter(RestRequestInterface $restRequest): ArrayObject
+    {
+        $sortFilter = new ArrayObject();
+
+        foreach ($restRequest->getSort() as $index => $sort) {
+            $override = explode('_', $sort->getField());
+            $direction = strtoupper(array_pop($override));
+            $sortTransfer = (new RestRepresentativeCompanyUserFilterSortTransfer())
+                ->setField($sort->getField())
+                ->setDirection($sort->getDirection());
+
+            if ($direction === SortInterface::SORT_ASC || $direction === SortInterface::SORT_DESC) {
+                $sortTransfer
+                    ->setField(implode('_', $override))
+                    ->setDirection($direction);
+            }
+
+            $sortFilter->append($sortTransfer);
+        }
+
+        return $sortFilter;
+    }
+
+    /**
+     * @param \Spryker\Glue\GlueApplication\Rest\Request\Data\RestRequestInterface $restRequest
+     *
+     * @return \Generated\Shared\Transfer\RestRepresentativeCompanyUserFilterPageTransfer|null
+     */
+    public function recreatePageFilter(RestRequestInterface $restRequest): ?RestRepresentativeCompanyUserFilterPageTransfer
+    {
+        $page = $restRequest->getPage();
+        if ($page === null) {
+            return null;
+        }
+
+        return (new RestRepresentativeCompanyUserFilterPageTransfer())
+            ->setLimit($page->getLimit())
+            ->setOffset($page->getOffset());
     }
 }

@@ -5,6 +5,7 @@
 
     <table name="foo_representative_company_user" phpName="FooRepresentativeCompanyUser" identifierQuoting="true">
         <column name="fk_representative_company_user_trade_fair" required="false" default="null" type="INTEGER"/>
+        <column name="state" type="ENUM" valueSet="new, process, active, expired, revoked, error" default="new" required="true"/>
 
         <foreign-key name="foo_representative_company_user-foo_representative_company_user_trade_fair" foreignTable="foo_representative_company_user_trade_fair"
                      phpName="FooRepresentativeCompanyUserTradeFair">

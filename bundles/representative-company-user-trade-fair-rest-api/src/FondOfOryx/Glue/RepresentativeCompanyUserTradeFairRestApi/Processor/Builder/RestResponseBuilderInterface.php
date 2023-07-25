@@ -2,28 +2,28 @@
 
 namespace FondOfOryx\Glue\RepresentativeCompanyUserTradeFairRestApi\Processor\Builder;
 
-use Generated\Shared\Transfer\RepresentativeCompanyUserTradeFairCollectionTransfer;
-use Generated\Shared\Transfer\RepresentativeCompanyUserTradeFairTransfer;
+use Generated\Shared\Transfer\RestRepresentativeCompanyUserTradeFairResponseTransfer;
+use Generated\Shared\Transfer\RestRepresentativeCompanyUserTradeFairTransfer;
 use Spryker\Glue\GlueApplication\Rest\JsonApi\RestResponseInterface;
 
 interface RestResponseBuilderInterface
 {
     /**
-     * @param \Generated\Shared\Transfer\RepresentativeCompanyUserTradeFairTransfer $representativeCompanyUserTradeFairTransfer
+     * @param \Generated\Shared\Transfer\RestRepresentativeCompanyUserTradeFairTransfer $representativeCompanyUserTradeFairTransfer
      *
      * @return \Spryker\Glue\GlueApplication\Rest\JsonApi\RestResponseInterface
      */
     public function buildRepresentativeCompanyUserTradeFairRestResponse(
-        RepresentativeCompanyUserTradeFairTransfer $representativeCompanyUserTradeFairTransfer
+        RestRepresentativeCompanyUserTradeFairTransfer $representativeCompanyUserTradeFairTransfer
     ): RestResponseInterface;
 
     /**
-     * @param \Generated\Shared\Transfer\RepresentativeCompanyUserTradeFairCollectionTransfer $representativeCompanyUserTradeFairTransfer
+     * @param \Generated\Shared\Transfer\RestRepresentativeCompanyUserTradeFairResponseTransfer $representativeCompanyUserTradeFairTransfer
      *
      * @return \Spryker\Glue\GlueApplication\Rest\JsonApi\RestResponseInterface
      */
     public function buildRepresentativeCompanyUserTradeFairCollectionRestResponse(
-        RepresentativeCompanyUserTradeFairCollectionTransfer $representativeCompanyUserTradeFairTransfer
+        RestRepresentativeCompanyUserTradeFairResponseTransfer $representativeCompanyUserTradeFairTransfer
     ): RestResponseInterface;
 
     /**

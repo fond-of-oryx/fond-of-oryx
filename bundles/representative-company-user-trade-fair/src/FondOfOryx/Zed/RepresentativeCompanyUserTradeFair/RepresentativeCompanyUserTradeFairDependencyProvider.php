@@ -47,6 +47,11 @@ class RepresentativeCompanyUserTradeFairDependencyProvider extends AbstractBundl
     public const QUERY_REPRESENTATIVE_COMPANY_USER = 'QUERY_REPRESENTATIVE_COMPANY_USER';
 
     /**
+     * @var string
+     */
+    public const PLUGINS_FOO_REPRESENTATIVE_COMPANY_USER_TRADE_FAIR_EXPANDER = 'PLUGINS_FOO_REPRESENTATIVE_COMPANY_USER_TRADE_FAIR_EXPANDER';
+
+    /**
      * @param \Spryker\Zed\Kernel\Container $container
      *
      * @return \Spryker\Zed\Kernel\Container
@@ -70,6 +75,7 @@ class RepresentativeCompanyUserTradeFairDependencyProvider extends AbstractBundl
         $container = $this->addRepresentativeCompanyUserQuery($container);
         $container = $this->addCustomerQuery($container);
         $container = $this->addCompanyRoleQuery($container);
+        $container = $this->addFooRepresentativeCompanyUserQueryExpanderPlugins($container);
 
         return $this->addCompanyQuery($container);
     }
@@ -160,5 +166,28 @@ class RepresentativeCompanyUserTradeFairDependencyProvider extends AbstractBundl
         };
 
         return $container;
+    }
+
+    /**
+     * @param \Spryker\Zed\Kernel\Container $container
+     *
+     * @return \Spryker\Zed\Kernel\Container
+     */
+    public function addFooRepresentativeCompanyUserQueryExpanderPlugins(Container $container): Container
+    {
+        $self = $this;
+        $container[static::PLUGINS_FOO_REPRESENTATIVE_COMPANY_USER_TRADE_FAIR_EXPANDER] = static function (Container $container) use ($self) {
+            return $self->getFooRepresentativeCompanyUserTradeFairQueryExpanderPlugins();
+        };
+
+        return $container;
+    }
+
+    /**
+     * @return \FondOfOryx\Zed\RepresentativeCompanyUserTradeFairExtension\Dependency\Plugin\Persistence\RepresentativeCompanyUserTradeFairQueryExpanderPluginInterface[]
+     */
+    public function getFooRepresentativeCompanyUserTradeFairQueryExpanderPlugins(): array
+    {
+        return [];
     }
 }
