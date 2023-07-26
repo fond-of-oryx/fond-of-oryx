@@ -33,15 +33,33 @@ class MailExpander implements ExpanderInterface
      */
     public function expand(MailTransfer $mailTransfer, OrderTransfer $orderTransfer): MailTransfer
     {
-        $companyBusinessUnitTransfer = $this->getCompanyBusinessUnit($this->getCompanyUser($mailTransfer, $orderTransfer));
-        $recipientMailAddress = $companyBusinessUnitTransfer->getEmail();
+        $recipientName = null;
+        $recipientMailAddress = null;
+
+        try {
+            $companyUser = $this->getCompanyUser($mailTransfer, $orderTransfer);
+            $companyBusinessUnitTransfer = $this->getCompanyBusinessUnit($companyUser);
+            $recipientMailAddress = $companyBusinessUnitTransfer->getEmail();
+            $recipientName = $companyBusinessUnitTransfer->getName();
+        }
+        catch (\Throwable $throwable){
+            if ($recipientMailAddress === null) {
+                $recipientMailAddress = $orderTransfer->getEmail();
+            }
+            if ($recipientName === null) {
+                $recipientName = sprintf('%s %s', $orderTransfer->getFirstName(), $orderTransfer->getLastName());
+            }
+            //ToDo: maybe log here
+        }
+
+
 
         if ($recipientMailAddress === null) {
             return $mailTransfer;
         }
 
         if ($this->isRecipient($recipientMailAddress, $mailTransfer) === false) {
-            $recipientTransfer = (new MailRecipientTransfer())->setEmail($recipientMailAddress)->setName($companyBusinessUnitTransfer->getName());
+            $recipientTransfer = (new MailRecipientTransfer())->setEmail($recipientMailAddress)->setName($recipientName);
             $mailTransfer->addRecipient($recipientTransfer);
         }
 

@@ -10,6 +10,7 @@ use Generated\Shared\Transfer\CompanyUserTransfer;
 use Generated\Shared\Transfer\LocaleTransfer;
 use Generated\Shared\Transfer\MailTransfer;
 use Generated\Shared\Transfer\OrderTransfer;
+use Throwable;
 
 class LocaleExpander implements ExpanderInterface
 {
@@ -56,9 +57,21 @@ class LocaleExpander implements ExpanderInterface
      */
     public function expand(MailTransfer $mailTransfer, OrderTransfer $orderTransfer): MailTransfer
     {
-        $companyUser = $this->getCompanyUser($mailTransfer, $orderTransfer);
+        $companyUser = null;
 
-        return $mailTransfer->setLocale($this->getLocale($this->getCompanyLocaleId($mailTransfer, $companyUser)));
+        try {
+            $companyUser = $this->getCompanyUser($mailTransfer, $orderTransfer);
+        }
+        catch (Throwable $throwable){
+            //ToDo: maybe log here
+        }
+
+        $localeId = $orderTransfer->getFkLocale();
+        if ($companyUser !== null){
+            $localeId = $this->getCompanyLocaleId($mailTransfer, $companyUser);
+        }
+
+        return $mailTransfer->setLocale($this->getLocale($localeId));
     }
 
     /**
