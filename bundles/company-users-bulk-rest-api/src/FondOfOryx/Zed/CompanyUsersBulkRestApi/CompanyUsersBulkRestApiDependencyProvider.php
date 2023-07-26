@@ -63,6 +63,11 @@ class CompanyUsersBulkRestApiDependencyProvider extends AbstractBundleDependency
     /**
      * @var string
      */
+    public const PLUGINS_DATA_POST_EXPANDER = 'PLUGINS_DATA_POST_EXPANDER';
+
+    /**
+     * @var string
+     */
     public const PLUGINS_PRE_HANDLING = 'PLUGINS_PRE_HANDLING';
 
     /**
@@ -97,6 +102,7 @@ class CompanyUsersBulkRestApiDependencyProvider extends AbstractBundleDependency
         $container = parent::provideBusinessLayerDependencies($container);
         $container = $this->addCompanyUserFacade($container);
         $container = $this->addDataExpanderPlugins($container);
+        $container = $this->addDataPostExpanderPlugins($container);
         $container = $this->addPostHandlingPlugins($container);
         $container = $this->addPreHandlingPlugins($container);
 
@@ -234,6 +240,29 @@ class CompanyUsersBulkRestApiDependencyProvider extends AbstractBundleDependency
      * @return array<\FondOfOryx\Zed\CompanyUsersBulkRestApiExtension\Dependency\Plugin\CompanyUsersBulkDataExpanderPluginInterface>
      */
     protected function getDataExpanderPlugins(): array
+    {
+        return [];
+    }
+
+    /**
+     * @param \Spryker\Zed\Kernel\Container $container
+     *
+     * @return \Spryker\Zed\Kernel\Container
+     */
+    protected function addDataPostExpanderPlugins(Container $container): Container
+    {
+        $self = $this;
+        $container[static::PLUGINS_DATA_POST_EXPANDER] = static function (Container $container) use ($self) {
+            return $self->getDataPostExpanderPlugins();
+        };
+
+        return $container;
+    }
+
+    /**
+     * @return array<\FondOfOryx\Zed\CompanyUsersBulkRestApiExtension\Dependency\Plugin\CompanyUsersBulkDataPostExpanderPluginInterface>
+     */
+    protected function getDataPostExpanderPlugins(): array
     {
         return [];
     }

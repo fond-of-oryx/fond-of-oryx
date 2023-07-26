@@ -14,6 +14,11 @@ class BulkDataPluginExecutioner implements BulkDataPluginExecutionerInterface
     protected array $expanderPlugins;
 
     /**
+     * @var array<\FondOfOryx\Zed\CompanyUsersBulkRestApiExtension\Dependency\Plugin\CompanyUsersBulkDataPostExpanderPluginInterface>
+     */
+    protected array $postExpanderPlugins;
+
+    /**
      * @var array<\FondOfOryx\Zed\CompanyUsersBulkRestApiExtension\Dependency\Plugin\CompanyUsersBulkPreHandlingPluginInterface>
      */
     protected array $preHandlingPlugins;
@@ -25,15 +30,18 @@ class BulkDataPluginExecutioner implements BulkDataPluginExecutionerInterface
 
     /**
      * @param array<\FondOfOryx\Zed\CompanyUsersBulkRestApiExtension\Dependency\Plugin\CompanyUsersBulkDataExpanderPluginInterface> $expanderPlugins
+     * @param array<\FondOfOryx\Zed\CompanyUsersBulkRestApiExtension\Dependency\Plugin\CompanyUsersBulkDataPostExpanderPluginInterface> $postExpanderPlugins
      * @param array<\FondOfOryx\Zed\CompanyUsersBulkRestApiExtension\Dependency\Plugin\CompanyUsersBulkPreHandlingPluginInterface> $preHandlingPlugins
      * @param array<\FondOfOryx\Zed\CompanyUsersBulkRestApiExtension\Dependency\Plugin\CompanyUsersBulkPostHandlingPluginInterface> $postHandlingPlugins
      */
     public function __construct(
         array $expanderPlugins,
+        array $postExpanderPlugins,
         array $preHandlingPlugins,
         array $postHandlingPlugins
     ) {
         $this->expanderPlugins = $expanderPlugins;
+        $this->postExpanderPlugins = $postExpanderPlugins;
         $this->preHandlingPlugins = $preHandlingPlugins;
         $this->postHandlingPlugins = $postHandlingPlugins;
     }
@@ -48,6 +56,21 @@ class BulkDataPluginExecutioner implements BulkDataPluginExecutionerInterface
     ): CompanyUsersBulkPreparationCollectionTransfer {
         foreach ($this->expanderPlugins as $plugin) {
             $companyUsersBulkPreparationCollectionTransfer = $plugin->expand($companyUsersBulkPreparationCollectionTransfer);
+        }
+
+        return $this->executePostExpand($companyUsersBulkPreparationCollectionTransfer);
+    }
+
+    /**
+     * @param \Generated\Shared\Transfer\CompanyUsersBulkPreparationCollectionTransfer $companyUsersBulkPreparationCollectionTransfer
+     *
+     * @return \Generated\Shared\Transfer\CompanyUsersBulkPreparationCollectionTransfer
+     */
+    protected function executePostExpand(
+        CompanyUsersBulkPreparationCollectionTransfer $companyUsersBulkPreparationCollectionTransfer
+    ): CompanyUsersBulkPreparationCollectionTransfer {
+        foreach ($this->postExpanderPlugins as $plugin) {
+            $companyUsersBulkPreparationCollectionTransfer = $plugin->postExpand($companyUsersBulkPreparationCollectionTransfer);
         }
 
         return $companyUsersBulkPreparationCollectionTransfer;

@@ -85,22 +85,24 @@ class CompanyUsersBulkRestApiFacade extends AbstractFacade implements CompanyUse
     }
 
     /**
-     * @param array<int, \Generated\Shared\Transfer\CompanyUsersBulkCompanyTransfer> $companyUsersBulkCompanyTransfers
+     * @param \Generated\Shared\Transfer\CompanyUsersBulkPreparationCollectionTransfer $companyUsersBulkPreparationCollectionTransfer
      *
-     * @return array<int, \Generated\Shared\Transfer\CompanyUsersBulkCompanyTransfer>
+     * @return \Generated\Shared\Transfer\CompanyUsersBulkPreparationCollectionTransfer
      */
-    public function appendCompanyBusinessUnitsToCompanyTransfers(array $companyUsersBulkCompanyTransfers): array
-    {
-        return $this->getRepository()->appendCompanyBusinessUnitsToCompanyTransfers($companyUsersBulkCompanyTransfers);
+    public function expandCompanyTransfersWithCompanyBusinessUnits(
+        CompanyUsersBulkPreparationCollectionTransfer $companyUsersBulkPreparationCollectionTransfer
+    ): CompanyUsersBulkPreparationCollectionTransfer {
+        return $this->getFactory()->createCompanyBusinessUnitToCompanyTransferExpander()->expand($companyUsersBulkPreparationCollectionTransfer);
     }
 
     /**
-     * @param array<int, \Generated\Shared\Transfer\CompanyUsersBulkCompanyTransfer> $companyUsersBulkCompanyTransfers
+     * @param \Generated\Shared\Transfer\CompanyUsersBulkPreparationCollectionTransfer $companyUsersBulkPreparationCollectionTransfer
      *
-     * @return array<int, \Generated\Shared\Transfer\CompanyUsersBulkCompanyTransfer>
+     * @return \Generated\Shared\Transfer\CompanyUsersBulkPreparationCollectionTransfer
      */
-    public function appendCompanyRolesToCompanyTransfers(array $companyUsersBulkCompanyTransfers): array
-    {
-        return $this->getRepository()->appendCompanyRolesToCompanyTransfers($companyUsersBulkCompanyTransfers);
+    public function expandCompanyTransfersWithCompanyRoles(
+        CompanyUsersBulkPreparationCollectionTransfer $companyUsersBulkPreparationCollectionTransfer
+    ): CompanyUsersBulkPreparationCollectionTransfer {
+        return $this->getFactory()->createCompanyRolesToCompanyTransferExpander()->expand($companyUsersBulkPreparationCollectionTransfer);
     }
 }

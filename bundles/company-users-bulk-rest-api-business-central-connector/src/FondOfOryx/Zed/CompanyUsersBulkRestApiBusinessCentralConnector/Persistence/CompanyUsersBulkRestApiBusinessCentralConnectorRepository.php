@@ -3,7 +3,6 @@
 namespace FondOfOryx\Zed\CompanyUsersBulkRestApiBusinessCentralConnector\Persistence;
 
 use ArrayObject;
-use FondOfOryx\Zed\CompanyUsersBulkRestApiBusinessCentralConnector\Dependency\Facade\CompanyUsersBulkRestApiBusinessCentralConnectorToCompanyUsersBulkRestApiFacadeInterface;
 use Generated\Shared\Transfer\CompanyUsersBulkCompanyCollectionTransfer;
 use Generated\Shared\Transfer\CompanyUsersBulkCompanyTransfer;
 use Orm\Zed\Company\Persistence\Map\SpyCompanyTableMap;
@@ -52,16 +51,6 @@ class CompanyUsersBulkRestApiBusinessCentralConnectorRepository extends Abstract
                 ->setDebtorNumber($debtorNumber);
         }
 
-        $collection = $this->getCompanyUsersBulkRestApiFacade()->appendCompanyBusinessUnitsToCompanyTransfers($collection);
-
-        return $this->getCompanyUsersBulkRestApiFacade()->appendCompanyRolesToCompanyTransfers($collection);
-    }
-
-    /**
-     * @return \FondOfOryx\Zed\CompanyUsersBulkRestApiBusinessCentralConnector\Dependency\Facade\CompanyUsersBulkRestApiBusinessCentralConnectorToCompanyUsersBulkRestApiFacadeInterface
-     */
-    protected function getCompanyUsersBulkRestApiFacade(): CompanyUsersBulkRestApiBusinessCentralConnectorToCompanyUsersBulkRestApiFacadeInterface
-    {
-        return $this->getFactory()->getCompanyUsersBulkRestApiFacade();
+        return $collection;
     }
 }

@@ -64,20 +64,20 @@ interface CompanyUsersBulkRestApiFacadeInterface
     ): CompanyUsersBulkPreparationCollectionTransfer;
 
     /**
-     * @param array<int, \Generated\Shared\Transfer\CompanyUsersBulkCompanyTransfer> $companyUsersBulkCompanyTransfers
+     * @param \Generated\Shared\Transfer\CompanyUsersBulkPreparationCollectionTransfer $companyUsersBulkPreparationCollectionTransfer
      *
-     * @throws \Propel\Runtime\Exception\PropelException
-     *
-     * @return array<int, \Generated\Shared\Transfer\CompanyUsersBulkCompanyTransfer>
+     * @return \Generated\Shared\Transfer\CompanyUsersBulkPreparationCollectionTransfer
      */
-    public function appendCompanyBusinessUnitsToCompanyTransfers(array $companyUsersBulkCompanyTransfers): array;
+    public function expandCompanyTransfersWithCompanyBusinessUnits(
+        CompanyUsersBulkPreparationCollectionTransfer $companyUsersBulkPreparationCollectionTransfer
+    ): CompanyUsersBulkPreparationCollectionTransfer;
 
     /**
-     * @param array<int, \Generated\Shared\Transfer\CompanyUsersBulkCompanyTransfer> $companyUsersBulkCompanyTransfers
+     * @param \Generated\Shared\Transfer\CompanyUsersBulkPreparationCollectionTransfer $companyUsersBulkPreparationCollectionTransfer
      *
-     * @throws \Propel\Runtime\Exception\PropelException
-     *
-     * @return array<int, \Generated\Shared\Transfer\CompanyUsersBulkCompanyTransfer>
+     * @return \Generated\Shared\Transfer\CompanyUsersBulkPreparationCollectionTransfer
      */
-    public function appendCompanyRolesToCompanyTransfers(array $companyUsersBulkCompanyTransfers): array;
+    public function expandCompanyTransfersWithCompanyRoles(
+        CompanyUsersBulkPreparationCollectionTransfer $companyUsersBulkPreparationCollectionTransfer
+    ): CompanyUsersBulkPreparationCollectionTransfer;
 }

@@ -234,25 +234,22 @@ class CompanyUsersBulkRestApiRepository extends AbstractRepository implements Co
                 ->setUuid($uuid);
         }
 
-        $collection = $this->appendCompanyBusinessUnitsToCompanyTransfers($collection);
-
-        return $this->appendCompanyRolesToCompanyTransfers($collection);
+        return $collection;
     }
 
     /**
-     * @param array<int, \Generated\Shared\Transfer\CompanyUsersBulkCompanyTransfer> $companyUsersBulkCompanyTransfers
+     * @param array<int> $companyIds
      *
-     * @return array<int, \Generated\Shared\Transfer\CompanyUsersBulkCompanyTransfer>
+     * @return array<int, array<int, \Generated\Shared\Transfer\CompanyUsersBulkCompanyBusinessUnitTransfer>>
      */
-    public function appendCompanyBusinessUnitsToCompanyTransfers(array $companyUsersBulkCompanyTransfers): array
+    public function findCompanyBusinessUnitsByIdCompany(array $companyIds): array
     {
-        $companyUsersBulkCompanyTransfers = $this->prepareCompanyTransferArray($companyUsersBulkCompanyTransfers);
-
         $result = $this->getFactory()->getCompanyBusinessUnitQuery()
-            ->filterByFkCompany_In(array_keys($companyUsersBulkCompanyTransfers))
+            ->filterByFkCompany_In($companyIds)
             ->select([SpyCompanyBusinessUnitTableMap::COL_ID_COMPANY_BUSINESS_UNIT, SpyCompanyBusinessUnitTableMap::COL_FK_COMPANY])
             ->find();
 
+        $collection = [];
         foreach ($result->getData() as $companyBusinessUnitData) {
             $idCompanyBusinessUnit = $companyBusinessUnitData[SpyCompanyBusinessUnitTableMap::COL_ID_COMPANY_BUSINESS_UNIT];
             $idCompany = $companyBusinessUnitData[SpyCompanyBusinessUnitTableMap::COL_FK_COMPANY];
@@ -260,28 +257,25 @@ class CompanyUsersBulkRestApiRepository extends AbstractRepository implements Co
             $companyUsersBulkCompanyBusinessUnitTransfer = (new CompanyUsersBulkCompanyBusinessUnitTransfer())
                 ->setIdCompanyBusinessUnit($idCompanyBusinessUnit);
 
-            $companyUsersBulkCompanyTransfer = $companyUsersBulkCompanyTransfers[$idCompany];
-            $companyUsersBulkCompanyTransfer->addCompanyBusinessUnit($companyUsersBulkCompanyBusinessUnitTransfer);
-            $companyUsersBulkCompanyTransfers[$idCompany] = $companyUsersBulkCompanyTransfer;
+            $collection[$idCompany][$idCompanyBusinessUnit] = $companyUsersBulkCompanyBusinessUnitTransfer;
         }
 
-        return $companyUsersBulkCompanyTransfers;
+        return $collection;
     }
 
     /**
-     * @param array<int, \Generated\Shared\Transfer\CompanyUsersBulkCompanyTransfer> $companyUsersBulkCompanyTransfers
+     * @param array<int> $companyIds
      *
-     * @return array<int, \Generated\Shared\Transfer\CompanyUsersBulkCompanyTransfer>
+     * @return array<int, array<int, \Generated\Shared\Transfer\CompanyUsersBulkCompanyRoleTransfer>>
      */
-    public function appendCompanyRolesToCompanyTransfers(array $companyUsersBulkCompanyTransfers): array
+    public function findCompanyRolesByCompanyIds(array $companyIds): array
     {
-        $companyUsersBulkCompanyTransfers = $this->prepareCompanyTransferArray($companyUsersBulkCompanyTransfers);
-
         $result = $this->getFactory()->getCompanyRoleQuery()
-            ->filterByFkCompany_In(array_keys($companyUsersBulkCompanyTransfers))
+            ->filterByFkCompany_In(array_keys($companyIds))
             ->select([SpyCompanyRoleTableMap::COL_ID_COMPANY_ROLE, SpyCompanyRoleTableMap::COL_FK_COMPANY, SpyCompanyRoleTableMap::COL_NAME])
             ->find();
 
+        $roles = [];
         foreach ($result->getData() as $companyRoleData) {
             $idCompanyRole = $companyRoleData[SpyCompanyRoleTableMap::COL_ID_COMPANY_ROLE];
             $idCompany = $companyRoleData[SpyCompanyRoleTableMap::COL_FK_COMPANY];
@@ -291,26 +285,9 @@ class CompanyUsersBulkRestApiRepository extends AbstractRepository implements Co
                 ->setIdCompanyRole($idCompanyRole)
                 ->setName($name);
 
-            $companyUsersBulkCompanyTransfer = $companyUsersBulkCompanyTransfers[$idCompany];
-            $companyUsersBulkCompanyTransfer->addCompanyRole($companyRoleTransfer);
-            $companyUsersBulkCompanyTransfers[$idCompany] = $companyUsersBulkCompanyTransfer;
+            $roles[$idCompany][$companyRoleTransfer->getIdCompanyRole()] = $companyRoleTransfer;
         }
 
-        return $companyUsersBulkCompanyTransfers;
-    }
-
-    /**
-     * @param array<\Generated\Shared\Transfer\CompanyUsersBulkCompanyTransfer> $companyUsersBulkCompanyTransfers
-     *
-     * @return array<int, \Generated\Shared\Transfer\CompanyUsersBulkCompanyTransfer>
-     */
-    protected function prepareCompanyTransferArray(array $companyUsersBulkCompanyTransfers): array
-    {
-        $prepared = [];
-        foreach ($companyUsersBulkCompanyTransfers as $companyUsersBulkCompanyTransfer) {
-            $prepared[$companyUsersBulkCompanyTransfer->getIdCompanyOrFail()] = $companyUsersBulkCompanyTransfer;
-        }
-
-        return $prepared;
+        return $roles;
     }
 }

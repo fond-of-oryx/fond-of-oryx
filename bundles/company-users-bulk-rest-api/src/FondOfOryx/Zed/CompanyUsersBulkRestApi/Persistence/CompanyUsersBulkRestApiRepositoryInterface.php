@@ -62,20 +62,16 @@ interface CompanyUsersBulkRestApiRepositoryInterface
     public function findCompaniesByUuids(array $companyUuids): CompanyUsersBulkCompanyCollectionTransfer;
 
     /**
-     * @param array<int, \Generated\Shared\Transfer\CompanyUsersBulkCompanyTransfer> $companyUsersBulkCompanyTransfers
+     * @param array<int> $companyIds
      *
-     * @throws \Propel\Runtime\Exception\PropelException
-     *
-     * @return array<int, \Generated\Shared\Transfer\CompanyUsersBulkCompanyTransfer>
+     * @return array<int, array<int, \Generated\Shared\Transfer\CompanyUsersBulkCompanyBusinessUnitTransfer>>
      */
-    public function appendCompanyBusinessUnitsToCompanyTransfers(array $companyUsersBulkCompanyTransfers): array;
+    public function findCompanyBusinessUnitsByIdCompany(array $companyIds): array;
 
     /**
-     * @param array<int, \Generated\Shared\Transfer\CompanyUsersBulkCompanyTransfer> $companyUsersBulkCompanyTransfers
+     * @param array<int> $companyIds
      *
-     * @throws \Propel\Runtime\Exception\PropelException
-     *
-     * @return array<int, \Generated\Shared\Transfer\CompanyUsersBulkCompanyTransfer>
+     * @return array<int, array<int, \Generated\Shared\Transfer\CompanyUsersBulkCompanyRoleTransfer>>
      */
-    public function appendCompanyRolesToCompanyTransfers(array $companyUsersBulkCompanyTransfers): array;
+    public function findCompanyRolesByCompanyIds(array $companyIds): array;
 }

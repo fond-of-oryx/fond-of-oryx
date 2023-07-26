@@ -2,7 +2,9 @@
 
 namespace FondOfOryx\Zed\CompanyUsersBulkRestApi\Business;
 
+use FondOfOryx\Zed\CompanyUsersBulkRestApi\Business\Expander\CompanyBusinessUnitToCompanyTransferExpander;
 use FondOfOryx\Zed\CompanyUsersBulkRestApi\Business\Expander\CompanyExpander;
+use FondOfOryx\Zed\CompanyUsersBulkRestApi\Business\Expander\CompanyRolesToCompanyTransferExpander;
 use FondOfOryx\Zed\CompanyUsersBulkRestApi\Business\Expander\CustomerByMailExpander;
 use FondOfOryx\Zed\CompanyUsersBulkRestApi\Business\Expander\CustomerByReferenceExpander;
 use FondOfOryx\Zed\CompanyUsersBulkRestApi\Business\Expander\ExpanderInterface;
@@ -65,6 +67,22 @@ class CompanyUsersBulkRestApiBusinessFactory extends AbstractBusinessFactory
     }
 
     /**
+     * @return \FondOfOryx\Zed\CompanyUsersBulkRestApi\Business\Expander\ExpanderInterface
+     */
+    public function createCompanyBusinessUnitToCompanyTransferExpander(): ExpanderInterface
+    {
+        return new CompanyBusinessUnitToCompanyTransferExpander($this->getRepository());
+    }
+
+    /**
+     * @return \FondOfOryx\Zed\CompanyUsersBulkRestApi\Business\Expander\ExpanderInterface
+     */
+    public function createCompanyRolesToCompanyTransferExpander(): ExpanderInterface
+    {
+        return new CompanyRolesToCompanyTransferExpander($this->getRepository());
+    }
+
+    /**
      * @return \FondOfOryx\Zed\CompanyUsersBulkRestApi\Business\Permission\PermissionCheckerInterface
      */
     protected function createPermissionChecker(): PermissionCheckerInterface
@@ -79,6 +97,7 @@ class CompanyUsersBulkRestApiBusinessFactory extends AbstractBusinessFactory
     {
         return new BulkDataPluginExecutioner(
             $this->getDataExpanderPlugins(),
+            $this->getDataPostExpanderPlugins(),
             $this->getPreHandlingPlugins(),
             $this->getPostHandlingPlugins(),
         );
@@ -111,6 +130,16 @@ class CompanyUsersBulkRestApiBusinessFactory extends AbstractBusinessFactory
     {
         return $this->getProvidedDependency(
             CompanyUsersBulkRestApiDependencyProvider::PLUGINS_DATA_EXPANDER,
+        );
+    }
+
+    /**
+     * @return array<\FondOfOryx\Zed\CompanyUsersBulkRestApiExtension\Dependency\Plugin\CompanyUsersBulkDataPostExpanderPluginInterface>
+     */
+    protected function getDataPostExpanderPlugins(): array
+    {
+        return $this->getProvidedDependency(
+            CompanyUsersBulkRestApiDependencyProvider::PLUGINS_DATA_POST_EXPANDER,
         );
     }
 
