@@ -10,6 +10,7 @@ interface CompanyUserPreDeleteValidationPluginInterface
     /**
      * @param \Generated\Shared\Transfer\CompanyUserTransfer $companyUserTransfer
      * @param \Generated\Shared\Transfer\RestDeleteCompanyUserRequestTransfer $restDeleteCompanyUserRequestTransfer
+     *
      * @return bool
      */
     public function validate(

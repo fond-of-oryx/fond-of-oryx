@@ -10,6 +10,7 @@ interface CompanyUserPreUpdateValidationPluginInterface
     /**
      * @param \Generated\Shared\Transfer\CompanyUserTransfer $companyUserTransfer
      * @param \Generated\Shared\Transfer\RestWriteCompanyUserRequestTransfer $restWriteCompanyUserRequestTransfer
+     *
      * @return bool
      */
     public function validate(
