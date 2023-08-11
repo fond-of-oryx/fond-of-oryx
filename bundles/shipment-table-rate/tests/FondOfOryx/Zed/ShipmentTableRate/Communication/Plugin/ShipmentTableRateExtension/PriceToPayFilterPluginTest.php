@@ -48,7 +48,7 @@ class PriceToPayFilterPluginTest extends Unit
             ->willReturn($discount);
 
         static::assertEquals(
-            $subTotal-$discount,
+            $subTotal - $discount,
             $this->priceToPayFilterPlugin->filter($this->totalsTransferMock),
         );
     }
@@ -70,7 +70,7 @@ class PriceToPayFilterPluginTest extends Unit
             ->willReturn($discount);
 
         static::assertEquals(
-            $subTotal-$discount,
+            $subTotal - $discount,
             $this->priceToPayFilterPlugin->filter($this->totalsTransferMock),
         );
     }
