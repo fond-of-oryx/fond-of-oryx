@@ -23,6 +23,6 @@ class PriceToPayFilterPlugin extends AbstractPlugin implements PriceToPayFilterP
      */
     public function filter(TotalsTransfer $totalsTransfer): ?int
     {
-        return $totalsTransfer->getPriceToPay();
+        return $totalsTransfer->getSubtotal() - $totalsTransfer->getDiscountTotal();
     }
 }

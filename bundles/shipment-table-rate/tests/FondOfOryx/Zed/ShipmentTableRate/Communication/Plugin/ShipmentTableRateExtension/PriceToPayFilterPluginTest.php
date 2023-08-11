@@ -34,16 +34,43 @@ class PriceToPayFilterPluginTest extends Unit
     /**
      * @return void
      */
-    public function testFilter(): void
+    public function testFilterWithDiscount(): void
     {
-        $priceToPay = 1295;
+        $subTotal = 1990;
+        $discount = 800;
 
         $this->totalsTransferMock->expects(static::atLeastOnce())
             ->method('getPriceToPay')
-            ->willReturn($priceToPay);
+            ->willReturn($subTotal);
+
+        $this->totalsTransferMock->expects(static::atLeastOnce())
+            ->method('getPriceToPay')
+            ->willReturn($discount);
 
         static::assertEquals(
-            $priceToPay,
+            $subTotal-$discount,
+            $this->priceToPayFilterPlugin->filter($this->totalsTransferMock),
+        );
+    }
+
+    /**
+     * @return void
+     */
+    public function testFilterWithoutDiscount(): void
+    {
+        $subTotal = 1990;
+        $discount = 0;
+
+        $this->totalsTransferMock->expects(static::atLeastOnce())
+            ->method('getPriceToPay')
+            ->willReturn($subTotal);
+
+        $this->totalsTransferMock->expects(static::atLeastOnce())
+            ->method('getPriceToPay')
+            ->willReturn($discount);
+
+        static::assertEquals(
+            $subTotal-$discount,
             $this->priceToPayFilterPlugin->filter($this->totalsTransferMock),
         );
     }
