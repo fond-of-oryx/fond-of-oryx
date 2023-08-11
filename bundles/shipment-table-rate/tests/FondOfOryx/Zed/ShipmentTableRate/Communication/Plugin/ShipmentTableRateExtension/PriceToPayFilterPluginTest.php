@@ -40,11 +40,11 @@ class PriceToPayFilterPluginTest extends Unit
         $discount = 800;
 
         $this->totalsTransferMock->expects(static::atLeastOnce())
-            ->method('getPriceToPay')
+            ->method('getSubtotal')
             ->willReturn($subTotal);
 
         $this->totalsTransferMock->expects(static::atLeastOnce())
-            ->method('getPriceToPay')
+            ->method('getDiscountTotal')
             ->willReturn($discount);
 
         static::assertEquals(
@@ -62,11 +62,11 @@ class PriceToPayFilterPluginTest extends Unit
         $discount = 0;
 
         $this->totalsTransferMock->expects(static::atLeastOnce())
-            ->method('getPriceToPay')
+            ->method('getSubtotal')
             ->willReturn($subTotal);
 
         $this->totalsTransferMock->expects(static::atLeastOnce())
-            ->method('getPriceToPay')
+            ->method('getDiscountTotal')
             ->willReturn($discount);
 
         static::assertEquals(
