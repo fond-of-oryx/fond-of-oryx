@@ -8,7 +8,7 @@ use Generated\Shared\Transfer\FilterFieldTransfer;
 use Generated\Shared\Transfer\QueryJoinCollectionTransfer;
 use Generated\Shared\Transfer\QueryJoinTransfer;
 use Orm\Zed\Company\Persistence\Map\SpyCompanyTableMap;
-use Orm\Zed\PriceList\Persistence\Map\FosPriceListTableMap;
+use Orm\Zed\PriceList\Persistence\Map\FoiPriceListTableMap;
 use Propel\Runtime\ActiveQuery\Criteria;
 
 class CompanySearchPriceListQueryExpanderPluginTest extends Unit
@@ -87,7 +87,7 @@ class CompanySearchPriceListQueryExpanderPluginTest extends Unit
                 static::callback(
                     static function (QueryJoinTransfer $queryJoinTransfer) use ($companyUuid) {
                         return $queryJoinTransfer->getJoinType() === Criteria::INNER_JOIN
-                            && $queryJoinTransfer->getLeft() == [FosPriceListTableMap::COL_ID_PRICE_LIST]
+                            && $queryJoinTransfer->getLeft() == [FoiPriceListTableMap::COL_ID_PRICE_LIST]
                             && $queryJoinTransfer->getRight() == [SpyCompanyTableMap::COL_FK_PRICE_LIST]
                             && $queryJoinTransfer->getWhereConditions()->count() === 1
                             && $queryJoinTransfer->getWhereConditions()->offsetGet(0)->getValue() === $companyUuid

@@ -12,7 +12,7 @@
     "php": ">=8.0",
     "fond-of-oryx/price-list-extension": "^1.0.0 || ^2.0.0",
     "fond-of-oryx/price-lists-rest-api-extension": "^1.0.0 || ^2.0.0",
-    "fond-of-spryker/company-price-list": "dev-master"
+    "fond-of-impala/company-price-list": "^1.0.0"
   },
   "require-dev": {
     "fond-of-codeception/spryker": "^2.0.0",

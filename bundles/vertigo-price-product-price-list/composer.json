@@ -10,7 +10,7 @@
   ],
   "require": {
     "php": ">=8.0",
-    "fond-of-spryker/price-product-price-list": "dev-master",
+    "fond-of-impala/price-product-price-list": "^1.0.0",
     "spryker/log": "^3.9.0",
     "spryker/product": "^5.0.0 || ^6.0.0",
     "spryker/product-extension": "^1.0.0",
