@@ -2,6 +2,7 @@
 
 namespace FondOfOryx\Zed\ShipmentTableRate;
 
+use FondOfOryx\Zed\ShipmentTableRate\Communication\Plugin\PriceCalculator\NoShipmentPriceCalculatorPlugin;
 use FondOfOryx\Zed\ShipmentTableRate\Communication\Plugin\ShipmentTableRateExtension\PriceToPayFilterPlugin;
 use FondOfOryx\Zed\ShipmentTableRate\Dependency\Facade\ShipmentTableRateToCountryFacadeBridge;
 use FondOfOryx\Zed\ShipmentTableRate\Dependency\Facade\ShipmentTableRateToStoreFacadeBridge;
@@ -33,6 +34,11 @@ class ShipmentTableRateDependencyProvider extends AbstractBundleDependencyProvid
     public const SERVICE_UTIL_MATH_FORMULA = 'SERVICE_UTIL_MATH_FORMULA';
 
     /**
+     * @var string
+     */
+    public const PLUGINS_PRICE_CALCULATOR = 'PLUGINS_PRICE_CALCULATOR';
+
+    /**
      * @param \Spryker\Zed\Kernel\Container $container
      *
      * @return \Spryker\Zed\Kernel\Container
@@ -43,6 +49,7 @@ class ShipmentTableRateDependencyProvider extends AbstractBundleDependencyProvid
 
         $container = $this->addCountryFacade($container);
         $container = $this->addStoreFacade($container);
+        $container = $this->addPriceCalculatorPlugins($container);
         $container = $this->addUtilMathFormulaService($container);
 
         return $this->addPriceToPayFilterPlugin($container);
@@ -114,5 +121,31 @@ class ShipmentTableRateDependencyProvider extends AbstractBundleDependencyProvid
     protected function getPriceToPayFilterPlugin(): PriceToPayFilterPluginInterface
     {
         return new PriceToPayFilterPlugin();
+    }
+
+    /**
+     * @param \Spryker\Zed\Kernel\Container $container
+     *
+     * @return \Spryker\Zed\Kernel\Container
+     */
+    protected function addPriceCalculatorPlugins(Container $container): Container
+    {
+        $self = $this;
+
+        $container[static::PLUGINS_PRICE_CALCULATOR] = static function () use ($self) {
+            return $self->getPriceCalculatorPlugins();
+        };
+
+        return $container;
+    }
+
+    /**
+     * @return array<\FondOfOryx\Zed\ShipmentTableRate\Communication\Plugin\PriceCalculator\PriceCalculatorPluginInterface>
+     */
+    protected function getPriceCalculatorPlugins(): array
+    {
+        return [
+            new NoShipmentPriceCalculatorPlugin(),
+        ];
     }
 }

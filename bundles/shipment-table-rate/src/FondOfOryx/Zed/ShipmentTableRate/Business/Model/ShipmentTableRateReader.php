@@ -114,8 +114,9 @@ class ShipmentTableRateReader implements ShipmentTableRateReaderInterface
         $storeName = $storeTransfer->getName();
         $zipCode = $shippingAddressTransfer->getZipCode();
         $priceToPay = $this->priceToPayFilterPlugin->filter($totalsTransfer);
+        $priceToPay -= $totalsTransfer->getNoShipmentPrice();
 
-        if ($iso2Code === null || $storeName === null || $zipCode === null || $priceToPay === null) {
+        if ($iso2Code === null || $storeName === null || $zipCode === null || $priceToPay > 0) {
             return null;
         }
 
