@@ -3,7 +3,7 @@
 namespace FondOfOryx\Zed\ShipmentTableRate\Communication\Plugin\ShipmentTableRateExtension;
 
 use FondOfOryx\Zed\ShipmentTableRateExtension\Dependency\Plugin\PriceToPayFilterPluginInterface;
-use Generated\Shared\Transfer\TotalsTransfer;
+use Generated\Shared\Transfer\QuoteTransfer;
 use Spryker\Zed\Kernel\Communication\AbstractPlugin;
 
 /**
@@ -17,12 +17,28 @@ class PriceToPayFilterPlugin extends AbstractPlugin implements PriceToPayFilterP
      *
      * @api
      *
-     * @param \Generated\Shared\Transfer\TotalsTransfer $totalsTransfer
+     * @param \Generated\Shared\Transfer\QuoteTransfer $quoteTransfer
      *
      * @return int|null
      */
-    public function filter(TotalsTransfer $totalsTransfer): ?int
+    public function filter(QuoteTransfer $quoteTransfer): ?int
     {
-        return $totalsTransfer->getSubtotal() - $totalsTransfer->getDiscountTotal();
+        $totalsTransfer = $quoteTransfer->getTotals();
+        $shipmentPrice = 0;
+
+        foreach ($quoteTransfer->getItems() as $itemTransfer) {
+            if (!isset($itemTransfer->getAbstractAttributes()['_']['model_untranslated'])) {
+                continue;
+            }
+
+            if (!str_contains(strtoupper($itemTransfer->getAbstractAttributes()['_']['model_untranslated']), 'VOUCHER')) {
+                continue;
+            }
+
+            $shipmentPrice += $itemTransfer->getSumPrice();
+        }
+
+        return ($shipmentPrice - $totalsTransfer->getDiscountTotal() > 0)
+            ? $shipmentPrice - $totalsTransfer->getDiscountTotal() : 0;
     }
 }

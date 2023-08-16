@@ -33,7 +33,6 @@ class ShipmentTableRateBusinessFactory extends AbstractBusinessFactory
             $this->getConfig(),
             $this->getUtilMathFormulaService(),
             $this->createVariableExtractor(),
-            $this->getPriceCalculatorPlugins(),
         );
     }
 
@@ -97,13 +96,5 @@ class ShipmentTableRateBusinessFactory extends AbstractBusinessFactory
     protected function createVariableExtractor(): VariableExtractorInterface
     {
         return new VariableExtractor();
-    }
-
-    /**
-     * @return array<\FondOfOryx\Zed\ShipmentTableRate\Communication\Plugin\PriceCalculator\PriceCalculatorPluginInterface>
-     */
-    protected function getPriceCalculatorPlugins(): array
-    {
-        return $this->getProvidedDependency(ShipmentTableRateDependencyProvider::PLUGINS_PRICE_CALCULATOR);
     }
 }

@@ -11,8 +11,6 @@ use Generated\Shared\Transfer\QuoteTransfer;
 use Generated\Shared\Transfer\ShipmentTableRateCriteriaFilterTransfer;
 use Generated\Shared\Transfer\ShipmentTableRateTransfer;
 use Generated\Shared\Transfer\ShipmentTransfer;
-use Generated\Shared\Transfer\StoreTransfer;
-use Generated\Shared\Transfer\TotalsTransfer;
 
 class ShipmentTableRateReader implements ShipmentTableRateReaderInterface
 {
@@ -86,9 +84,7 @@ class ShipmentTableRateReader implements ShipmentTableRateReaderInterface
         }
 
         $shipmentTableRateCriteriaFilter = $this->createShipmentTableRateCriteriaFilter(
-            $shippingAddressTransfer,
-            $totalsTransfer,
-            $storeTransfer,
+            $shippingAddressTransfer, $quoteTransfer
         );
 
         if ($shipmentTableRateCriteriaFilter === null) {
@@ -100,23 +96,21 @@ class ShipmentTableRateReader implements ShipmentTableRateReaderInterface
 
     /**
      * @param \Generated\Shared\Transfer\AddressTransfer $shippingAddressTransfer
-     * @param \Generated\Shared\Transfer\TotalsTransfer $totalsTransfer
-     * @param \Generated\Shared\Transfer\StoreTransfer $storeTransfer
+     * @param \Generated\Shared\Transfer\QuoteTransfer $quoteTransfer
      *
      * @return \Generated\Shared\Transfer\ShipmentTableRateCriteriaFilterTransfer|null
      */
     protected function createShipmentTableRateCriteriaFilter(
         AddressTransfer $shippingAddressTransfer,
-        TotalsTransfer $totalsTransfer,
-        StoreTransfer $storeTransfer
+        QuoteTransfer $quoteTransfer
     ): ?ShipmentTableRateCriteriaFilterTransfer {
         $iso2Code = $shippingAddressTransfer->getIso2Code();
-        $storeName = $storeTransfer->getName();
+        $storeName = $quoteTransfer->getStore()->getName();
         $zipCode = $shippingAddressTransfer->getZipCode();
-        $priceToPay = $this->priceToPayFilterPlugin->filter($totalsTransfer);
-        $priceToPay -= $totalsTransfer->getNoShipmentPrice();
 
-        if ($iso2Code === null || $storeName === null || $zipCode === null || $priceToPay > 0) {
+        $priceToPay = $this->priceToPayFilterPlugin->filter($quoteTransfer);
+
+        if ($iso2Code === null || $storeName === null || $zipCode === null || $priceToPay === null) {
             return null;
         }
 

@@ -30,29 +30,21 @@ class PriceCalculator implements PriceCalculatorInterface
     protected $variableExtractor;
 
     /**
-     * @var array<\FondOfOryx\Zed\ShipmentTableRate\Communication\Plugin\PriceCalculator\PriceCalculatorPluginInterface>
-     */
-    protected $priceCalculatorPlugins;
-
-    /**
      * @param \FondOfOryx\Zed\ShipmentTableRate\Business\Model\ShipmentTableRateReaderInterface $shipmentTableRateReader
      * @param \FondOfOryx\Zed\ShipmentTableRate\ShipmentTableRateConfig $shipmentTableRateConfig
      * @param \FondOfOryx\Zed\ShipmentTableRate\Dependency\Service\ShipmentTableRateToUtilMathFormulaServiceInterface $utilMathFormulaService
      * @param \FondOfOryx\Zed\ShipmentTableRate\Business\Model\VariableExtractorInterface $variableExtractor
-     * @param array<\FondOfOryx\Zed\ShipmentTableRate\Communication\Plugin\PriceCalculator\PriceCalculatorPluginInterface> $priceCalculatorPlugins
      */
     public function __construct(
         ShipmentTableRateReaderInterface $shipmentTableRateReader,
         ShipmentTableRateConfig $shipmentTableRateConfig,
         ShipmentTableRateToUtilMathFormulaServiceInterface $utilMathFormulaService,
-        VariableExtractorInterface $variableExtractor,
-        array $priceCalculatorPlugins
+        VariableExtractorInterface $variableExtractor
     ) {
         $this->shipmentTableRateReader = $shipmentTableRateReader;
         $this->shipmentTableRateConfig = $shipmentTableRateConfig;
         $this->utilMathFormulaService = $utilMathFormulaService;
         $this->variableExtractor = $variableExtractor;
-        $this->priceCalculatorPlugins = $priceCalculatorPlugins;
     }
 
     /**
@@ -63,8 +55,6 @@ class PriceCalculator implements PriceCalculatorInterface
      */
     public function calculate(QuoteTransfer $quoteTransfer, ?ShipmentGroupTransfer $shipmentGroupTransfer = null): int
     {
-        $quoteTransfer = $this->executePriceCalculatorPlugins($quoteTransfer);
-
         $shipmentTransfer = $quoteTransfer->getShipment();
 
         if ($shipmentGroupTransfer !== null) {
@@ -88,19 +78,5 @@ class PriceCalculator implements PriceCalculatorInterface
             $shipmentTableRateTransfer->getFormula(),
             $this->variableExtractor->extractFromQuote($quoteTransfer),
         );
-    }
-
-    /**
-     * @param \Generated\Shared\Transfer\QuoteTransfer $quoteTransfer
-     *
-     * @return \Generated\Shared\Transfer\QuoteTransfer
-     */
-    protected function executePriceCalculatorPlugins(QuoteTransfer $quoteTransfer): QuoteTransfer
-    {
-        foreach ($this->priceCalculatorPlugins as $plugin) {
-            $quoteTransfer = $plugin->calculate($quoteTransfer);
-        }
-
-        return $quoteTransfer;
     }
 }
