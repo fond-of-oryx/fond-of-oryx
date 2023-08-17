@@ -24,6 +24,10 @@ class PriceToPayFilterPlugin extends AbstractPlugin implements PriceToPayFilterP
      */
     public function filter(QuoteTransfer $quoteTransfer): ?int
     {
+        if ($quoteTransfer->getTotals() === null) {
+            return null;
+        }
+
         $totalsTransfer = $quoteTransfer->getTotals();
         $shipmentPrice = 0;
 
@@ -47,6 +51,10 @@ class PriceToPayFilterPlugin extends AbstractPlugin implements PriceToPayFilterP
      */
     protected function isItemGiftCard(ItemTransfer $itemTransfer): bool
     {
+        if ($itemTransfer->getGiftCardMetadata() === null) {
+            return false;
+        }
+
         $isGiftCard = $itemTransfer->getGiftCardMetadata()->getIsGiftCard();
 
         if ($isGiftCard === false || $isGiftCard === null) {

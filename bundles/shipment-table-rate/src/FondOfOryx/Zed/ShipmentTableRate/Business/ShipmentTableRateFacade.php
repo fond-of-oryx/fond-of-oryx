@@ -31,14 +31,4 @@ class ShipmentTableRateFacade extends AbstractFacade implements ShipmentTableRat
             ->createPriceCalculator()
             ->calculate($quoteTransfer, $shipmentGroupTransfer);
     }
-
-    /**
-     * @param \Generated\Shared\Transfer\QuoteTransfer $quoteTransfer
-     *
-     * @return \Generated\Shared\Transfer\QuoteTransfer
-     */
-    public function calculateNoShipment(QuoteTransfer $quoteTransfer): QuoteTransfer
-    {
-        return $quoteTransfer;
-    }
 }

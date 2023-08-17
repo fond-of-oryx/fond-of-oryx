@@ -22,11 +22,4 @@ interface ShipmentTableRateFacadeInterface
         QuoteTransfer $quoteTransfer,
         ?ShipmentGroupTransfer $shipmentGroupTransfer = null
     ): int;
-
-    /**
-     * @param \Generated\Shared\Transfer\QuoteTransfer $quoteTransfer
-     *
-     * @return \Generated\Shared\Transfer\QuoteTransfer
-     */
-    public function calculateNoShipment(QuoteTransfer $quoteTransfer): QuoteTransfer;
 }
