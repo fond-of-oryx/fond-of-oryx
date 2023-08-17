@@ -3,6 +3,7 @@
 namespace FondOfOryx\Zed\ShipmentTableRate\Communication\Plugin\ShipmentTableRateExtension;
 
 use FondOfOryx\Zed\ShipmentTableRateExtension\Dependency\Plugin\PriceToPayFilterPluginInterface;
+use Generated\Shared\Transfer\ItemTransfer;
 use Generated\Shared\Transfer\QuoteTransfer;
 use Spryker\Zed\Kernel\Communication\AbstractPlugin;
 
@@ -27,18 +28,31 @@ class PriceToPayFilterPlugin extends AbstractPlugin implements PriceToPayFilterP
         $shipmentPrice = 0;
 
         foreach ($quoteTransfer->getItems() as $itemTransfer) {
-            if (!isset($itemTransfer->getAbstractAttributes()['_']['model_untranslated'])) {
-                continue;
-            }
-
-            if (!str_contains(strtoupper($itemTransfer->getAbstractAttributes()['_']['model_untranslated']), 'VOUCHER')) {
+            if ($this->isItemGiftCard($itemTransfer) === false) {
                 continue;
             }
 
             $shipmentPrice += $itemTransfer->getSumPrice();
         }
 
-        return ($shipmentPrice - $totalsTransfer->getDiscountTotal() > 0)
-            ? $shipmentPrice - $totalsTransfer->getDiscountTotal() : 0;
+        $total = ($totalsTransfer->getSubtotal() - $totalsTransfer->getDiscountTotal()) - $shipmentPrice;
+
+        return ($total > 0) ? $total : 0;
+    }
+
+    /**
+     * @param \Generated\Shared\Transfer\ItemTransfer $itemTransfer
+     *
+     * @return bool
+     */
+    protected function isItemGiftCard(ItemTransfer $itemTransfer): bool
+    {
+        $isGiftCard = $itemTransfer->getGiftCardMetadata()->getIsGiftCard();
+
+        if ($isGiftCard === false || $isGiftCard === null) {
+            return false;
+        }
+
+        return true;
     }
 }

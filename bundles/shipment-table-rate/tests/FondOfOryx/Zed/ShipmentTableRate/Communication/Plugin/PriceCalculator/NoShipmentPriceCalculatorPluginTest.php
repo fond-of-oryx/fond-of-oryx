@@ -11,6 +11,5 @@ class NoShipmentPriceCalculatorPluginTest extends Unit
      */
     protected function _before(): void
     {
-
     }
 }

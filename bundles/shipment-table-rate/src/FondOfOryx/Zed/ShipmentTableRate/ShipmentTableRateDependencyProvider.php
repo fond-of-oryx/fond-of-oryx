@@ -33,11 +33,6 @@ class ShipmentTableRateDependencyProvider extends AbstractBundleDependencyProvid
     public const SERVICE_UTIL_MATH_FORMULA = 'SERVICE_UTIL_MATH_FORMULA';
 
     /**
-     * @var string
-     */
-    public const PLUGINS_PRICE_CALCULATOR = 'PLUGINS_PRICE_CALCULATOR';
-
-    /**
      * @param \Spryker\Zed\Kernel\Container $container
      *
      * @return \Spryker\Zed\Kernel\Container
