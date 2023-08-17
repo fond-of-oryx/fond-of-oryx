@@ -11,8 +11,6 @@
     <transfer name="Item">
         <property name="giftCardMetadata" type="GiftCardMetadata"/>
         <property name="sumPrice" type="int"/>
-        <property name="subtotal" type="int"/>
-        <property name="discountTotal" type="int"/>
     </transfer>
 
     <transfer name="GiftCardMetadata">
@@ -21,6 +19,8 @@
 
     <transfer name="Totals">
         <property name="priceToPay" type="int"/>
+        <property name="discountTotal" type="int"/>
+        <property name="subtotal" type="int"/>
     </transfer>
 
     <transfer name="ShipmentTableRate">
