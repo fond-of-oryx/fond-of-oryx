@@ -873,15 +873,15 @@
     },
     "shipment-table-rate": {
       "path": "bundles/shipment-table-rate/",
-      "version": "3.0.0"
+      "version": "4.0.0"
     },
     "shipment-table-rate-data-import": {
       "path": "bundles/shipment-table-rate-data-import/",
-      "version": "2.0.1"
+      "version": "2.1.0"
     },
     "shipment-table-rate-extension": {
       "path": "bundles/shipment-table-rate-extension/",
-      "version": "2.0.0"
+      "version": "3.0.0"
     },
     "splittable-checkout": {
       "path": "bundles/splittable-checkout/",

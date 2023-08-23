@@ -239,7 +239,7 @@ class ShipmentTableRateReaderTest extends Unit
 
         $this->priceToPayFilterPluginMock->expects($this->atLeastOnce())
             ->method('filter')
-            ->with($this->totalsTransferMock)
+            ->with($this->quoteTransferMock)
             ->willReturn($this->priceToPay);
 
         $this->zipCodePatternsGeneratorMock->expects($this->atLeastOnce())
@@ -353,7 +353,7 @@ class ShipmentTableRateReaderTest extends Unit
 
         $this->priceToPayFilterPluginMock->expects($this->atLeastOnce())
             ->method('filter')
-            ->with($this->totalsTransferMock)
+            ->with($this->quoteTransferMock)
             ->willReturn($this->priceToPay);
 
         $this->storeFacadeMock->expects($this->never())
@@ -428,7 +428,7 @@ class ShipmentTableRateReaderTest extends Unit
 
         $this->priceToPayFilterPluginMock->expects($this->atLeastOnce())
             ->method('filter')
-            ->with($this->totalsTransferMock)
+            ->with($this->quoteTransferMock)
             ->willReturn($this->priceToPay);
 
         $this->zipCodePatternsGeneratorMock->expects($this->atLeastOnce())
@@ -499,7 +499,7 @@ class ShipmentTableRateReaderTest extends Unit
 
         $this->priceToPayFilterPluginMock->expects($this->atLeastOnce())
             ->method('filter')
-            ->with($this->totalsTransferMock)
+            ->with($this->quoteTransferMock)
             ->willReturn($priceToPay);
 
         $this->zipCodePatternsGeneratorMock->expects($this->atLeastOnce())

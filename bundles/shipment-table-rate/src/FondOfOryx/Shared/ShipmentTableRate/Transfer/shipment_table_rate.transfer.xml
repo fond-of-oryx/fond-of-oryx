@@ -2,8 +2,25 @@
 <transfers xmlns="spryker:transfer-01"
            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
            xsi:schemaLocation="spryker:transfer-01 http://static.spryker.com/transfer-01.xsd">
+
+    <transfer name="Quote">
+        <property name="totals" type="Totals"/>
+        <property name="items" singular="item" type="Item[]"/>
+    </transfer>
+
+    <transfer name="Item">
+        <property name="giftCardMetadata" type="GiftCardMetadata"/>
+        <property name="sumPrice" type="int"/>
+    </transfer>
+
+    <transfer name="GiftCardMetadata">
+        <property name="isGiftCard" type="bool"/>
+    </transfer>
+
     <transfer name="Totals">
         <property name="priceToPay" type="int"/>
+        <property name="discountTotal" type="int"/>
+        <property name="subtotal" type="int"/>
     </transfer>
 
     <transfer name="ShipmentTableRate">
