@@ -3,7 +3,7 @@
 namespace FondOfOryx\Zed\ShipmentTableRate\Communication\Plugin\ShipmentTableRateExtension;
 
 use FondOfOryx\Zed\ShipmentTableRateExtension\Dependency\Plugin\PriceToPayFilterPluginInterface;
-use Generated\Shared\Transfer\TotalsTransfer;
+use Generated\Shared\Transfer\QuoteTransfer;
 use Spryker\Zed\Kernel\Communication\AbstractPlugin;
 
 /**
@@ -17,12 +17,12 @@ class SubtotalPriceToPayFilterPlugin extends AbstractPlugin implements PriceToPa
      *
      * @api
      *
-     * @param \Generated\Shared\Transfer\TotalsTransfer $totalsTransfer
+     * @param \Generated\Shared\Transfer\QuoteTransfer $quoteTransfer
      *
      * @return int|null
      */
-    public function filter(TotalsTransfer $totalsTransfer): ?int
+    public function filter(QuoteTransfer $quoteTransfer): ?int
     {
-        return $totalsTransfer->getSubtotal();
+        return $quoteTransfer->getTotals()->getSubtotal();
     }
 }
