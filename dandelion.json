@@ -165,7 +165,7 @@
     },
     "company-price-lists-rest-api": {
       "path": "bundles/company-price-lists-rest-api/",
-      "version": "2.0.0"
+      "version": "3.0.0"
     },
     "company-product-list-api": {
       "path": "bundles/company-product-list-api/",
@@ -997,7 +997,7 @@
     },
     "vertigo-price-product-price-list": {
       "path": "bundles/vertigo-price-product-price-list/",
-      "version": "2.0.0"
+      "version": "3.0.0"
     }
   },
   "vcs": {
