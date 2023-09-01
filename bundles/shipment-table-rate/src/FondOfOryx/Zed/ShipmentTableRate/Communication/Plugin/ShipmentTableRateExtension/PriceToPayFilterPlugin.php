@@ -3,7 +3,8 @@
 namespace FondOfOryx\Zed\ShipmentTableRate\Communication\Plugin\ShipmentTableRateExtension;
 
 use FondOfOryx\Zed\ShipmentTableRateExtension\Dependency\Plugin\PriceToPayFilterPluginInterface;
-use Generated\Shared\Transfer\TotalsTransfer;
+use Generated\Shared\Transfer\ItemTransfer;
+use Generated\Shared\Transfer\QuoteTransfer;
 use Spryker\Zed\Kernel\Communication\AbstractPlugin;
 
 /**
@@ -17,12 +18,49 @@ class PriceToPayFilterPlugin extends AbstractPlugin implements PriceToPayFilterP
      *
      * @api
      *
-     * @param \Generated\Shared\Transfer\TotalsTransfer $totalsTransfer
+     * @param \Generated\Shared\Transfer\QuoteTransfer $quoteTransfer
      *
      * @return int|null
      */
-    public function filter(TotalsTransfer $totalsTransfer): ?int
+    public function filter(QuoteTransfer $quoteTransfer): ?int
     {
-        return $totalsTransfer->getSubtotal() - $totalsTransfer->getDiscountTotal();
+        if ($quoteTransfer->getTotals() === null) {
+            return null;
+        }
+
+        $totalsTransfer = $quoteTransfer->getTotals();
+        $shipmentPrice = 0;
+
+        foreach ($quoteTransfer->getItems() as $itemTransfer) {
+            if ($this->isItemGiftCard($itemTransfer) === false) {
+                continue;
+            }
+
+            $shipmentPrice += $itemTransfer->getSumPrice();
+        }
+
+        $total = ($totalsTransfer->getSubtotal() - $totalsTransfer->getDiscountTotal()) - $shipmentPrice;
+
+        return ($total > 0) ? $total : 0;
+    }
+
+    /**
+     * @param \Generated\Shared\Transfer\ItemTransfer $itemTransfer
+     *
+     * @return bool
+     */
+    protected function isItemGiftCard(ItemTransfer $itemTransfer): bool
+    {
+        if ($itemTransfer->getGiftCardMetadata() === null) {
+            return false;
+        }
+
+        $isGiftCard = $itemTransfer->getGiftCardMetadata()->getIsGiftCard();
+
+        if ($isGiftCard === false || $isGiftCard === null) {
+            return false;
+        }
+
+        return true;
     }
 }
