@@ -16,6 +16,10 @@
     {
       "type": "vcs",
       "url": "https://github.com/fond-of/payone"
+    },
+    {
+      "url": "https://github.com/fond-of-kudu/carts-rest-api.git",
+      "type": "git"
     }
   ],
   "require": {
