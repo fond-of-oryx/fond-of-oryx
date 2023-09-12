@@ -102,7 +102,7 @@ class SqlExecutorTest extends Unit
 
         $this->configMock->expects(static::atLeastOnce())
             ->method('getSqlDirectory')
-            ->willReturn(__DIR__ . '/../../../../../_data/PreMigrations/');
+            ->willReturn(__DIR__ . '/../../../../../_data/pre-migrations/');
 
         $this->transactionHandlerMock->expects(static::once())->method('handleTransaction')->willReturnCallback(static function ($callable) {
             return $callable();
@@ -141,7 +141,7 @@ class SqlExecutorTest extends Unit
 
         $this->configMock->expects(static::atLeastOnce())
             ->method('getSqlDirectory')
-            ->willReturn(__DIR__ . '/../../../../../_data/PreMigrations/');
+            ->willReturn(__DIR__ . '/../../../../../_data/pre-migrations/');
 
         $exception = null;
         $results = [];

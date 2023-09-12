@@ -32,6 +32,6 @@ class PropelPreMigrationConfig extends AbstractBundleConfig
      */
     protected function getDefaultSqlDirectory(): string
     {
-        return APPLICATION_ROOT_DIR . DIRECTORY_SEPARATOR . 'data' . DIRECTORY_SEPARATOR . 'PreMigrations' . DIRECTORY_SEPARATOR; // @phpstan-ignore-line
+        return APPLICATION_ROOT_DIR . DIRECTORY_SEPARATOR . 'data' . DIRECTORY_SEPARATOR . 'pre-migrations' . DIRECTORY_SEPARATOR; // @phpstan-ignore-line
     }
 }
