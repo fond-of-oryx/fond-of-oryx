@@ -52,6 +52,10 @@ class SqlExecutor implements SqlExecutorInterface
             $sqlFiles = $this->getSqlFilesFromDirectory($importDirectory);
         }
 
+        if (count($sqlFiles) === 0) {
+            return [];
+        }
+
         $sqlFilesForMigration = $this->repository->getNotMigratedFileNamesByFileNames($sqlFiles);
 
         return $this->transactionHandler->handleTransaction(
