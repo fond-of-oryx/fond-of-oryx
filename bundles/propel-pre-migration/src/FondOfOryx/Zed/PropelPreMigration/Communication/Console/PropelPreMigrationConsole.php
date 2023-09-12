@@ -64,8 +64,8 @@ class PropelPreMigrationConsole extends Console
     {
         $files = [];
         if ($input->getOption(static::RESOURCE_FILES_OPTION)) {
-            $file = $input->getOption(static::RESOURCE_FILES_OPTION);
-            $files = explode(',', $file);
+            $commaSeparatedFiles = $input->getOption(static::RESOURCE_FILES_OPTION);
+            $files = explode(',', $commaSeparatedFiles);
         }
 
         $result = $this->getFacade()->execute($files);
