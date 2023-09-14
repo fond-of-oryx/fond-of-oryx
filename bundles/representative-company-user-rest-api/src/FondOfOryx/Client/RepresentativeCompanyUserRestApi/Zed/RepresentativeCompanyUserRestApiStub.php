@@ -59,7 +59,7 @@ class RepresentativeCompanyUserRestApiStub implements RepresentativeCompanyUserR
     /**
      * @param \Generated\Shared\Transfer\RestRepresentativeCompanyUserRequestTransfer $restRepresentativeCompanyUserRequestTransfer
      *
-     * @return \Generated\Shared\Transfer\RestRepresentativeCompanyUserResponseTransfer
+     * @return \Generated\Shared\Transfer\RestRepresentativeCompanyUserCollectionResponseTransfer
      */
     public function getRepresentation(
         RestRepresentativeCompanyUserRequestTransfer $restRepresentativeCompanyUserRequestTransfer

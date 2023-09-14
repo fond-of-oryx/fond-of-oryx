@@ -181,12 +181,7 @@ class RepresentationManagerTest extends Unit
         );
 
         static::assertEquals(
-            $restRepresentativeCompanyUserResponseTransfer->getRequest(),
-            $this->restRepresentativeCompanyUserRequestTransferMock,
-        );
-
-        static::assertEquals(
-            $restRepresentativeCompanyUserResponseTransfer->getRepresentations()[0],
+            $restRepresentativeCompanyUserResponseTransfer->getRepresentation(),
             $this->restRepresentativeCompanyUserTransferMock,
         );
     }

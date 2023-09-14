@@ -79,9 +79,9 @@ class RestResponseBuilder implements RestResponseBuilderInterface
             ->addError($restErrorMessageTransfer);
     }
 
-
     /**
      * @param \Generated\Shared\Transfer\RestRepresentativeCompanyUserResponseTransfer $restRepresentativeCompanyUserResponseTransfer
+     *
      * @return string|null
      */
     protected function getUuidFromRestRepresentativeCompanyUserResponse(
@@ -89,7 +89,7 @@ class RestResponseBuilder implements RestResponseBuilderInterface
     ): ?string {
         $representativeCompanyUser = $restRepresentativeCompanyUserResponseTransfer->getRepresentation();
 
-        if ($representativeCompanyUser === null){
+        if ($representativeCompanyUser === null) {
             return null;
         }
 
