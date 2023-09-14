@@ -11,6 +11,7 @@ use Generated\Shared\Transfer\RepresentativeCompanyUserFilterSortTransfer;
 use Generated\Shared\Transfer\RepresentativeCompanyUserFilterTransfer;
 use Generated\Shared\Transfer\RepresentativeCompanyUserTransfer;
 use Generated\Shared\Transfer\RestRepresentativeCompanyUserAttributesTransfer;
+use Generated\Shared\Transfer\RestRepresentativeCompanyUserCollectionResponseTransfer;
 use Generated\Shared\Transfer\RestRepresentativeCompanyUserPaginationTransfer;
 use Generated\Shared\Transfer\RestRepresentativeCompanyUserRequestTransfer;
 use Generated\Shared\Transfer\RestRepresentativeCompanyUserResponseTransfer;
@@ -74,8 +75,7 @@ class RepresentationManager implements RepresentationManagerInterface
         $response = $this->representativeCompanyUserFacade->addRepresentativeCompanyUser($representationTransfer);
 
         return (new RestRepresentativeCompanyUserResponseTransfer())
-            ->setRequest($restRepresentativeCompanyUserRequestTransfer)
-            ->addRepresentation($this->restDataMapper->mapResponse($response));
+            ->setRepresentation($this->restDataMapper->mapResponse($response));
     }
 
     /**
@@ -108,8 +108,7 @@ class RepresentationManager implements RepresentationManagerInterface
         $response = $this->representativeCompanyUserFacade->updateRepresentativeCompanyUser($representationTransfer);
 
         return (new RestRepresentativeCompanyUserResponseTransfer())
-            ->setRequest($restRepresentativeCompanyUserRequestTransfer)
-            ->addRepresentation($this->restDataMapper->mapResponse($response));
+            ->setRepresentation($this->restDataMapper->mapResponse($response));
     }
 
     /**
@@ -130,7 +129,7 @@ class RepresentationManager implements RepresentationManagerInterface
             $representation = null;
         }
 
-        return (new RestRepresentativeCompanyUserResponseTransfer())->addRepresentation($this->restDataMapper->mapResponse($representation));
+        return (new RestRepresentativeCompanyUserResponseTransfer())->setRepresentation($this->restDataMapper->mapResponse($representation));
     }
 
     /**
@@ -153,17 +152,17 @@ class RepresentationManager implements RepresentationManagerInterface
     /**
      * @param \Generated\Shared\Transfer\RestRepresentativeCompanyUserRequestTransfer $restRepresentativeCompanyUserRequestTransfer
      *
-     * @return \Generated\Shared\Transfer\RestRepresentativeCompanyUserResponseTransfer
+     * @return \Generated\Shared\Transfer\RestRepresentativeCompanyUserCollectionResponseTransfer
      */
     public function getRepresentation(
         RestRepresentativeCompanyUserRequestTransfer $restRepresentativeCompanyUserRequestTransfer
-    ): RestRepresentativeCompanyUserResponseTransfer {
+    ): RestRepresentativeCompanyUserCollectionResponseTransfer {
         $attributes = $restRepresentativeCompanyUserRequestTransfer->getAttributes();
         $filter = $this->createFilter($restRepresentativeCompanyUserRequestTransfer, $attributes);
 
         $collection = $this->representativeCompanyUserFacade->getRepresentativeCompanyUser($filter);
 
-        return (new RestRepresentativeCompanyUserResponseTransfer())
+        return (new RestRepresentativeCompanyUserCollectionResponseTransfer())
             ->setRepresentations($this->restDataMapper->mapResponseCollection($collection))
             ->setPagination($this->createPagination($collection));
     }

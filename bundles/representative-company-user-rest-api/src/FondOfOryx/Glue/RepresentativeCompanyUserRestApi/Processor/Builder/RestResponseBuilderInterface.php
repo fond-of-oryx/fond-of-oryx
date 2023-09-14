@@ -2,6 +2,7 @@
 
 namespace FondOfOryx\Glue\RepresentativeCompanyUserRestApi\Processor\Builder;
 
+use Generated\Shared\Transfer\RestRepresentativeCompanyUserCollectionResponseTransfer;
 use Generated\Shared\Transfer\RestRepresentativeCompanyUserResponseTransfer;
 use Spryker\Glue\GlueApplication\Rest\JsonApi\RestResponseInterface;
 
@@ -14,6 +15,15 @@ interface RestResponseBuilderInterface
      */
     public function buildRepresentativeCompanyUserRestResponse(
         RestRepresentativeCompanyUserResponseTransfer $restRepresentativeCompanyUserResponseTransfer
+    ): RestResponseInterface;
+
+    /**
+     * @param \Generated\Shared\Transfer\RestRepresentativeCompanyUserCollectionResponseTransfer $restRepresentativeCompanyUserCollectionResponseTransfer
+     *
+     * @return \Spryker\Glue\GlueApplication\Rest\JsonApi\RestResponseInterface
+     */
+    public function buildRepresentativeCompanyUserCollectionRestResponse(
+        RestRepresentativeCompanyUserCollectionResponseTransfer $restRepresentativeCompanyUserCollectionResponseTransfer
     ): RestResponseInterface;
 
     /**

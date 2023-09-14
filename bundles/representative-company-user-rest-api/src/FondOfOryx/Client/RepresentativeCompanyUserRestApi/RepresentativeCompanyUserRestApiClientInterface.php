@@ -2,6 +2,7 @@
 
 namespace FondOfOryx\Client\RepresentativeCompanyUserRestApi;
 
+use Generated\Shared\Transfer\RestRepresentativeCompanyUserCollectionResponseTransfer;
 use Generated\Shared\Transfer\RestRepresentativeCompanyUserRequestTransfer;
 use Generated\Shared\Transfer\RestRepresentativeCompanyUserResponseTransfer;
 
@@ -27,11 +28,11 @@ interface RepresentativeCompanyUserRestApiClientInterface
      *
      * @param \Generated\Shared\Transfer\RestRepresentativeCompanyUserRequestTransfer $restRepresentativeCompanyUserRequestTransfer
      *
-     * @return \Generated\Shared\Transfer\RestRepresentativeCompanyUserResponseTransfer
+     * @return \Generated\Shared\Transfer\RestRepresentativeCompanyUserCollectionResponseTransfer
      */
     public function getRepresentation(
         RestRepresentativeCompanyUserRequestTransfer $restRepresentativeCompanyUserRequestTransfer
-    ): RestRepresentativeCompanyUserResponseTransfer;
+    ): RestRepresentativeCompanyUserCollectionResponseTransfer;
 
     /**
      * {@inheritDoc}

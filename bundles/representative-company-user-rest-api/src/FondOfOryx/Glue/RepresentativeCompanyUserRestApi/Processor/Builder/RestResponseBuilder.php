@@ -4,6 +4,7 @@ namespace FondOfOryx\Glue\RepresentativeCompanyUserRestApi\Processor\Builder;
 
 use FondOfOryx\Glue\RepresentativeCompanyUserRestApi\RepresentativeCompanyUserRestApiConfig;
 use Generated\Shared\Transfer\RestErrorMessageTransfer;
+use Generated\Shared\Transfer\RestRepresentativeCompanyUserCollectionResponseTransfer;
 use Generated\Shared\Transfer\RestRepresentativeCompanyUserResponseTransfer;
 use Spryker\Glue\GlueApplication\Rest\JsonApi\RestResourceBuilderInterface;
 use Spryker\Glue\GlueApplication\Rest\JsonApi\RestResponseInterface;
@@ -37,8 +38,27 @@ class RestResponseBuilder implements RestResponseBuilderInterface
 
         $restResource = $this->restResourceBuilder->createRestResource(
             RepresentativeCompanyUserRestApiConfig::RESOURCE_REPRESENTATIVE_COMPANY_USER_REST_API,
-            null,
+            $this->getUuidFromRestRepresentativeCompanyUserResponse($restRepresentativeCompanyUserResponseTransfer),
             $restRepresentativeCompanyUserResponseTransfer,
+        );
+
+        return $restResponse->addResource($restResource);
+    }
+
+    /**
+     * @param \Generated\Shared\Transfer\RestRepresentativeCompanyUserCollectionResponseTransfer $restRepresentativeCompanyUserCollectionResponseTransfer
+     *
+     * @return \Spryker\Glue\GlueApplication\Rest\JsonApi\RestResponseInterface
+     */
+    public function buildRepresentativeCompanyUserCollectionRestResponse(
+        RestRepresentativeCompanyUserCollectionResponseTransfer $restRepresentativeCompanyUserCollectionResponseTransfer
+    ): RestResponseInterface {
+        $restResponse = $this->restResourceBuilder->createRestResponse();
+
+        $restResource = $this->restResourceBuilder->createRestResource(
+            RepresentativeCompanyUserRestApiConfig::RESOURCE_REPRESENTATIVE_COMPANY_USER_REST_API,
+            null,
+            $restRepresentativeCompanyUserCollectionResponseTransfer,
         );
 
         return $restResponse->addResource($restResource);
@@ -57,5 +77,22 @@ class RestResponseBuilder implements RestResponseBuilderInterface
         return $this->restResourceBuilder
             ->createRestResponse()
             ->addError($restErrorMessageTransfer);
+    }
+
+
+    /**
+     * @param \Generated\Shared\Transfer\RestRepresentativeCompanyUserResponseTransfer $restRepresentativeCompanyUserResponseTransfer
+     * @return string|null
+     */
+    protected function getUuidFromRestRepresentativeCompanyUserResponse(
+        RestRepresentativeCompanyUserResponseTransfer $restRepresentativeCompanyUserResponseTransfer
+    ): ?string {
+        $representativeCompanyUser = $restRepresentativeCompanyUserResponseTransfer->getRepresentation();
+
+        if ($representativeCompanyUser === null){
+            return null;
+        }
+
+        return $representativeCompanyUser->getUuid();
     }
 }

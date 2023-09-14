@@ -2,6 +2,7 @@
 
 namespace FondOfOryx\Client\RepresentativeCompanyUserRestApi\Zed;
 
+use Generated\Shared\Transfer\RestRepresentativeCompanyUserCollectionResponseTransfer;
 use Generated\Shared\Transfer\RestRepresentativeCompanyUserRequestTransfer;
 use Generated\Shared\Transfer\RestRepresentativeCompanyUserResponseTransfer;
 
@@ -23,11 +24,11 @@ interface RepresentativeCompanyUserRestApiStubInterface
      *
      * @param \Generated\Shared\Transfer\RestRepresentativeCompanyUserRequestTransfer $restRepresentativeCompanyUserRequestTransfer
      *
-     * @return \Generated\Shared\Transfer\RestRepresentativeCompanyUserResponseTransfer
+     * @return \Generated\Shared\Transfer\RestRepresentativeCompanyUserCollectionResponseTransfer
      */
     public function getRepresentation(
         RestRepresentativeCompanyUserRequestTransfer $restRepresentativeCompanyUserRequestTransfer
-    ): RestRepresentativeCompanyUserResponseTransfer;
+    ): RestRepresentativeCompanyUserCollectionResponseTransfer;
 
     /**
      * @api

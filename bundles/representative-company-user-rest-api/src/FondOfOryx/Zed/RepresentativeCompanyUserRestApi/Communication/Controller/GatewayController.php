@@ -2,6 +2,7 @@
 
 namespace FondOfOryx\Zed\RepresentativeCompanyUserRestApi\Communication\Controller;
 
+use Generated\Shared\Transfer\RestRepresentativeCompanyUserCollectionResponseTransfer;
 use Generated\Shared\Transfer\RestRepresentativeCompanyUserRequestTransfer;
 use Generated\Shared\Transfer\RestRepresentativeCompanyUserResponseTransfer;
 use Spryker\Zed\Kernel\Communication\Controller\AbstractGatewayController;
@@ -25,11 +26,11 @@ class GatewayController extends AbstractGatewayController
     /**
      * @param \Generated\Shared\Transfer\RestRepresentativeCompanyUserRequestTransfer $restRepresentativeCompanyUserRequestTransfer
      *
-     * @return \Generated\Shared\Transfer\RestRepresentativeCompanyUserResponseTransfer
+     * @return \Generated\Shared\Transfer\RestRepresentativeCompanyUserCollectionResponseTransfer
      */
     public function getRepresentationAction(
         RestRepresentativeCompanyUserRequestTransfer $restRepresentativeCompanyUserRequestTransfer
-    ): RestRepresentativeCompanyUserResponseTransfer {
+    ): RestRepresentativeCompanyUserCollectionResponseTransfer {
         return $this->getFacade()->getRepresentation($restRepresentativeCompanyUserRequestTransfer);
     }
 

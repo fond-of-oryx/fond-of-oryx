@@ -35,7 +35,10 @@
     </transfer>
 
     <transfer name="RestRepresentativeCompanyUserResponse">
-        <property name="request" type="RestRepresentativeCompanyUserRequest"/>
+        <property name="representation" type="RestRepresentativeCompanyUser"/>
+    </transfer>
+
+    <transfer name="RestRepresentativeCompanyUserCollectionResponse">
         <property name="representations" singular="representation" type="RestRepresentativeCompanyUser[]"/>
         <property name="pagination" type="RestRepresentativeCompanyUserPagination"/>
     </transfer>

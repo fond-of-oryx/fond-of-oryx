@@ -81,7 +81,7 @@ class RepresentationManager implements RepresentationManagerInterface
             $representationRestRequestTransfer = $this->representationMapper->createRequest($restRequest, $attributes);
             $representationRestResponseTransfer = $this->client->getRepresentation($representationRestRequestTransfer);
 
-            return $this->responseBuilder->buildRepresentativeCompanyUserRestResponse($representationRestResponseTransfer);
+            return $this->responseBuilder->buildRepresentativeCompanyUserCollectionRestResponse($representationRestResponseTransfer);
         }
 
         return $this->responseBuilder->buildRepresentativeCompanyUserMissingPermissionResponse();

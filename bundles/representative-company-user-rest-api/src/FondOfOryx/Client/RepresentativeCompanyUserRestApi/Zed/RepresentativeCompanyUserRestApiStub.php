@@ -3,6 +3,7 @@
 namespace FondOfOryx\Client\RepresentativeCompanyUserRestApi\Zed;
 
 use FondOfOryx\Client\RepresentativeCompanyUserRestApi\Dependency\Client\RepresentativeCompanyUserRestApiToZedRequestClientInterface;
+use Generated\Shared\Transfer\RestRepresentativeCompanyUserCollectionResponseTransfer;
 use Generated\Shared\Transfer\RestRepresentativeCompanyUserRequestTransfer;
 use Generated\Shared\Transfer\RestRepresentativeCompanyUserResponseTransfer;
 
@@ -62,8 +63,8 @@ class RepresentativeCompanyUserRestApiStub implements RepresentativeCompanyUserR
      */
     public function getRepresentation(
         RestRepresentativeCompanyUserRequestTransfer $restRepresentativeCompanyUserRequestTransfer
-    ): RestRepresentativeCompanyUserResponseTransfer {
-        /** @var \Generated\Shared\Transfer\RestRepresentativeCompanyUserResponseTransfer $representativeCompanyUserRestResponseTransfer */
+    ): RestRepresentativeCompanyUserCollectionResponseTransfer {
+        /** @var \Generated\Shared\Transfer\RestRepresentativeCompanyUserCollectionResponseTransfer $representativeCompanyUserRestResponseTransfer */
         $representativeCompanyUserRestResponseTransfer = $this->zedRequestClient->call(static::GET_REPRESENTATION, $restRepresentativeCompanyUserRequestTransfer);
 
         return $representativeCompanyUserRestResponseTransfer;
