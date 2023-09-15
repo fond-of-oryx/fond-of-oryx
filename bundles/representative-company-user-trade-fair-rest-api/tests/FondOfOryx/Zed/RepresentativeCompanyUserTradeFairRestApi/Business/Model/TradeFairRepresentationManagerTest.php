@@ -303,7 +303,7 @@ class TradeFairRepresentationManagerTest extends Unit
         $this->assertEquals(false, $restRepresentativeCompanyUserTradeFairResponse->getIsSuccessful());
         $this->assertEquals(
             RepresentativeCompanyUserTradeFairRestApiConfig::ERROR_MESSAGE_USER_IS_NOT_ALLOWED_TO_ADD_TRADE_FAIR_REPRESENTATION,
-            $restRepresentativeCompanyUserTradeFairResponse->getError(),
+            $restRepresentativeCompanyUserTradeFairResponse->getError()->getDetail(),
         );
     }
 
@@ -468,7 +468,7 @@ class TradeFairRepresentationManagerTest extends Unit
 
         $this->assertEquals(
             RepresentativeCompanyUserTradeFairRestApiConfig::ERROR_MESSAGE_USER_IS_NOT_ALLOWED_TO_ADD_TRADE_FAIR_REPRESENTATION,
-            $restRepresentativeCompanyUserTradeFairResponse->getError(),
+            $restRepresentativeCompanyUserTradeFairResponse->getError()->getDetail(),
         );
     }
 
@@ -709,7 +709,7 @@ class TradeFairRepresentationManagerTest extends Unit
         $this->assertEquals(false, $restRepresentativeCompanyUserTradeFairResponse->getIsSuccessful());
         $this->assertEquals(
             RepresentativeCompanyUserTradeFairRestApiConfig::ERROR_MESSAGE_REPRESENTATION_DURATION_EXCEEDED,
-            $restRepresentativeCompanyUserTradeFairResponse->getError(),
+            $restRepresentativeCompanyUserTradeFairResponse->getError()->getDetail(),
         );
     }
 

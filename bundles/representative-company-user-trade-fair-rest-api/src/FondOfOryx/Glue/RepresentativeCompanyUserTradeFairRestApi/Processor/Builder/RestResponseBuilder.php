@@ -66,20 +66,25 @@ class RestResponseBuilder implements RestResponseBuilderInterface
     /**
      * @param \Generated\Shared\Transfer\RestErrorMessageTransfer|null $restErrorMessageTransfer
      * @param string|null $error
-     * @param int $code
+     * @param string $code
      * @param int $status
+     *
      * @return \Spryker\Glue\GlueApplication\Rest\JsonApi\RestResponseInterface
      */
-    public function createRestErrorResponse(?RestErrorMessageTransfer $restErrorMessageTransfer, ?string $error, int $code = 200, int $status = 0): RestResponseInterface
-    {
-        if ($restErrorMessageTransfer !== null){
+    public function createRestErrorResponse(
+        ?RestErrorMessageTransfer $restErrorMessageTransfer,
+        ?string $error = null,
+        string $code = '200',
+        int $status = 0
+    ): RestResponseInterface {
+        if ($restErrorMessageTransfer !== null) {
             return $this->restResourceBuilder
                 ->createRestResponse()
                 ->addError($restErrorMessageTransfer);
         }
 
         $restErrorMessageTransfer = (new RestErrorMessageTransfer())
-            ->setCode((string)$code)
+            ->setCode($code)
             ->setStatus(0)
             ->setDetail($error);
 

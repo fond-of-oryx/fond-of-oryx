@@ -2,7 +2,6 @@
 
 namespace FondOfOryx\Zed\RepresentativeCompanyUserTradeFairRestApi\Business\Model;
 
-use Exception;
 use FondOfOryx\Zed\RepresentativeCompanyUserTradeFairRestApi\Business\Model\Mapper\RestDataMapperInterface;
 use FondOfOryx\Zed\RepresentativeCompanyUserTradeFairRestApi\Business\Validator\DurationValidatorInterface;
 use FondOfOryx\Zed\RepresentativeCompanyUserTradeFairRestApi\Communication\Plugin\PermissionExtension\CanManageRepresentationOnTradeFairPermissionPlugin;
@@ -57,12 +56,11 @@ class TradeFairRepresentationManager implements TradeFairRepresentationManagerIn
      */
     public function __construct(
         RepresentativeCompanyUserTradeFairRestApiToRepresentativeCompanyUserTradeFairFacadeInterface $representativeCompanyUserTradeFairFacade,
-        RepresentativeCompanyUserTradeFairRestApiToCompanyTypeFacadeInterface                        $companyTypeFacade,
-        DurationValidatorInterface                                                                   $durationValidator,
-        RepresentativeCompanyUserTradeFairRestApiRepositoryInterface                                 $repository,
-        RestDataMapperInterface                                                                      $restDataMapper
-    )
-    {
+        RepresentativeCompanyUserTradeFairRestApiToCompanyTypeFacadeInterface $companyTypeFacade,
+        DurationValidatorInterface $durationValidator,
+        RepresentativeCompanyUserTradeFairRestApiRepositoryInterface $repository,
+        RestDataMapperInterface $restDataMapper
+    ) {
         $this->representativeCompanyUserTradeFairFacade = $representativeCompanyUserTradeFairFacade;
         $this->companyTypeFacade = $companyTypeFacade;
         $this->durationValidator = $durationValidator;
@@ -77,8 +75,7 @@ class TradeFairRepresentationManager implements TradeFairRepresentationManagerIn
      */
     public function addTradeFairRepresentation(
         RestRepresentativeCompanyUserTradeFairRequestTransfer $restRepresentativeCompanyUserTradeFairRequestTransfer
-    ): RestRepresentativeCompanyUserTradeFairResponseTransfer
-    {
+    ): RestRepresentativeCompanyUserTradeFairResponseTransfer {
         $restRepresentativeCompanyUserTradeFairResponse = (new RestRepresentativeCompanyUserTradeFairResponseTransfer())
             ->setIsSuccessful(false);
 
@@ -117,8 +114,7 @@ class TradeFairRepresentationManager implements TradeFairRepresentationManagerIn
      */
     public function updateTradeFairRepresentation(
         RestRepresentativeCompanyUserTradeFairRequestTransfer $restRepresentativeCompanyUserTradeFairRequestTransfer
-    ): RestRepresentativeCompanyUserTradeFairResponseTransfer
-    {
+    ): RestRepresentativeCompanyUserTradeFairResponseTransfer {
         $restRepresentativeCompanyUserTradeFairAttributesTransfer = $restRepresentativeCompanyUserTradeFairRequestTransfer->getAttributes();
         $restRepresentativeCompanyUserTradeFairAttributesTransfer->requireUuid();
         $restResponse = (new RestRepresentativeCompanyUserTradeFairResponseTransfer())->setIsSuccessful(false);
@@ -161,8 +157,7 @@ class TradeFairRepresentationManager implements TradeFairRepresentationManagerIn
      */
     public function deleteTradeFairRepresentation(
         RestRepresentativeCompanyUserTradeFairRequestTransfer $restRepresentativeCompanyUserTradeFairRequestTransfer
-    ): RestRepresentativeCompanyUserTradeFairResponseTransfer
-    {
+    ): RestRepresentativeCompanyUserTradeFairResponseTransfer {
         $attributes = $restRepresentativeCompanyUserTradeFairRequestTransfer->getAttributes();
         $restResponse = (new RestRepresentativeCompanyUserTradeFairResponseTransfer())->setIsSuccessful(false);
 
@@ -185,10 +180,9 @@ class TradeFairRepresentationManager implements TradeFairRepresentationManagerIn
      * @return bool
      */
     protected function getStatus(
-        RepresentativeCompanyUserTradeFairTransfer               $representativeCompanyUserTradeFairTransfer,
+        RepresentativeCompanyUserTradeFairTransfer $representativeCompanyUserTradeFairTransfer,
         RestRepresentativeCompanyUserTradeFairAttributesTransfer $representativeCompanyUserTradeFairAttributesTransfer
-    ): bool
-    {
+    ): bool {
         if ($representativeCompanyUserTradeFairAttributesTransfer->getStartAt() < $representativeCompanyUserTradeFairTransfer->getStartAt()) {
             return false;
         }
@@ -203,8 +197,7 @@ class TradeFairRepresentationManager implements TradeFairRepresentationManagerIn
      */
     public function getTradeFairRepresentation(
         RestRepresentativeCompanyUserTradeFairRequestTransfer $restRepresentativeCompanyUserTradeFairRequestTransfer
-    ): RestRepresentativeCompanyUserTradeFairResponseTransfer
-    {
+    ): RestRepresentativeCompanyUserTradeFairResponseTransfer {
         $attributes = $restRepresentativeCompanyUserTradeFairRequestTransfer->getAttributes();
         $filter = $this->createFilter($restRepresentativeCompanyUserTradeFairRequestTransfer, $attributes);
 
@@ -215,17 +208,16 @@ class TradeFairRepresentationManager implements TradeFairRepresentationManagerIn
 
         return (new RestRepresentativeCompanyUserTradeFairResponseTransfer())
             ->setCollection($collectionTransfer);
-
     }
 
     /**
      * @param \Generated\Shared\Transfer\RestRepresentativeCompanyUserTradeFairRequestTransfer $restRepresentativeCompanyUserTradeFairRequestTransfer
+     *
      * @return \Generated\Shared\Transfer\RestErrorMessageTransfer|null
      */
     protected function validate(
         RestRepresentativeCompanyUserTradeFairRequestTransfer $restRepresentativeCompanyUserTradeFairRequestTransfer
-    ): ?RestErrorMessageTransfer
-    {
+    ): ?RestErrorMessageTransfer {
         $companyTypeManufacturer = $this->companyTypeFacade->getCompanyTypeManufacturer();
 
         if (
@@ -255,10 +247,9 @@ class TradeFairRepresentationManager implements TradeFairRepresentationManagerIn
      * @return \Generated\Shared\Transfer\RepresentativeCompanyUserTradeFairFilterTransfer
      */
     public function createFilter(
-        RestRepresentativeCompanyUserTradeFairRequestTransfer     $restRepresentativeCompanyUserTradeFairRequestTransfer,
+        RestRepresentativeCompanyUserTradeFairRequestTransfer $restRepresentativeCompanyUserTradeFairRequestTransfer,
         ?RestRepresentativeCompanyUserTradeFairAttributesTransfer $attributes
-    ): RepresentativeCompanyUserTradeFairFilterTransfer
-    {
+    ): RepresentativeCompanyUserTradeFairFilterTransfer {
         $restFilter = $restRepresentativeCompanyUserTradeFairRequestTransfer->getFilter();
         $filter = new RepresentativeCompanyUserTradeFairFilterTransfer();
 
@@ -318,6 +309,7 @@ class TradeFairRepresentationManager implements TradeFairRepresentationManagerIn
      * @param string $message
      * @param string $code
      * @param int $status
+     *
      * @return \Generated\Shared\Transfer\RestErrorMessageTransfer
      */
     protected function createError(string $message, string $code, int $status = 400): RestErrorMessageTransfer

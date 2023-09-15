@@ -30,9 +30,15 @@ interface RestResponseBuilderInterface
     /**
      * @param \Generated\Shared\Transfer\RestErrorMessageTransfer|null $restErrorMessageTransfer
      * @param string|null $error
-     * @param int $code
+     * @param string $code
      * @param int $status
+     *
      * @return \Spryker\Glue\GlueApplication\Rest\JsonApi\RestResponseInterface
      */
-    public function createRestErrorResponse(?RestErrorMessageTransfer $restErrorMessageTransfer, ?string $error, int $code = 200, int $status = 0): RestResponseInterface;
+    public function createRestErrorResponse(
+        ?RestErrorMessageTransfer $restErrorMessageTransfer,
+        ?string $error = null,
+        string $code = '200',
+        int $status = 0
+    ): RestResponseInterface;
 }

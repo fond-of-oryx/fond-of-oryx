@@ -837,7 +837,7 @@
     },
     "representative-company-user-trade-fair-rest-api": {
       "path": "bundles/representative-company-user-trade-fair-rest-api/",
-      "version": "1.1.0"
+      "version": "1.2.0"
     },
     "return-label": {
       "path": "bundles/return-label/",
