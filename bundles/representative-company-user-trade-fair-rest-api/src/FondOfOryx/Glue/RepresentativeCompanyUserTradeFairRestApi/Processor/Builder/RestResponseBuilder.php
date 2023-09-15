@@ -37,7 +37,7 @@ class RestResponseBuilder implements RestResponseBuilderInterface
 
         $restResource = $this->restResourceBuilder->createRestResource(
             RepresentativeCompanyUserTradeFairRestApiConfig::RESOURCE_REPRESENTATIVE_COMPANY_USER_TRADE_FAIR_REST_API,
-            null,
+            $representativeCompanyUserTradeFairTransfer->getUuid(),
             $representativeCompanyUserTradeFairTransfer,
         );
 
@@ -57,21 +57,27 @@ class RestResponseBuilder implements RestResponseBuilderInterface
         $restResource = $this->restResourceBuilder->createRestResource(
             RepresentativeCompanyUserTradeFairRestApiConfig::RESOURCE_REPRESENTATIVE_COMPANY_USER_TRADE_FAIR_REST_API,
             null,
-            $representativeCompanyUserTradeFairTransfer,
+            $representativeCompanyUserTradeFairTransfer->getCollection(),
         );
 
         return $restResponse->addResource($restResource);
     }
 
     /**
-     * @param string $error
+     * @param \Generated\Shared\Transfer\RestErrorMessageTransfer|null $restErrorMessageTransfer
+     * @param string|null $error
      * @param int $code
      * @param int $status
-     *
      * @return \Spryker\Glue\GlueApplication\Rest\JsonApi\RestResponseInterface
      */
-    public function createRestErrorResponse(string $error, int $code, int $status = 0): RestResponseInterface
+    public function createRestErrorResponse(?RestErrorMessageTransfer $restErrorMessageTransfer, ?string $error, int $code = 200, int $status = 0): RestResponseInterface
     {
+        if ($restErrorMessageTransfer !== null){
+            return $this->restResourceBuilder
+                ->createRestResponse()
+                ->addError($restErrorMessageTransfer);
+        }
+
         $restErrorMessageTransfer = (new RestErrorMessageTransfer())
             ->setCode((string)$code)
             ->setStatus(0)
