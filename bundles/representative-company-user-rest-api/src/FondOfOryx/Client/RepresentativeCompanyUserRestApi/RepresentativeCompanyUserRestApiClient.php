@@ -2,6 +2,8 @@
 
 namespace FondOfOryx\Client\RepresentativeCompanyUserRestApi;
 
+use Generated\Shared\Transfer\RestErrorMessageTransfer;
+use Generated\Shared\Transfer\RestRepresentativeCompanyUserCollectionResponseTransfer;
 use Generated\Shared\Transfer\RestRepresentativeCompanyUserRequestTransfer;
 use Generated\Shared\Transfer\RestRepresentativeCompanyUserResponseTransfer;
 use Spryker\Client\Kernel\AbstractClient;
@@ -18,11 +20,11 @@ class RepresentativeCompanyUserRestApiClient extends AbstractClient implements R
      *
      * @param \Generated\Shared\Transfer\RestRepresentativeCompanyUserRequestTransfer $restRepresentativeCompanyUserRequestTransfer
      *
-     * @return \Generated\Shared\Transfer\RestRepresentativeCompanyUserResponseTransfer
+     * @return \Generated\Shared\Transfer\RestRepresentativeCompanyUserResponseTransfer|\Generated\Shared\Transfer\RestErrorMessageTransfer
      */
     public function addRepresentation(
         RestRepresentativeCompanyUserRequestTransfer $restRepresentativeCompanyUserRequestTransfer
-    ): RestRepresentativeCompanyUserResponseTransfer {
+    ): RestRepresentativeCompanyUserResponseTransfer|RestErrorMessageTransfer {
         return $this->getFactory()->createZedRepresentativeCompanyUserRestApiStub()->addRepresentation($restRepresentativeCompanyUserRequestTransfer);
     }
 
@@ -33,11 +35,11 @@ class RepresentativeCompanyUserRestApiClient extends AbstractClient implements R
      *
      * @param \Generated\Shared\Transfer\RestRepresentativeCompanyUserRequestTransfer $restRepresentativeCompanyUserRequestTransfer
      *
-     * @return \Generated\Shared\Transfer\RestRepresentativeCompanyUserResponseTransfer
+     * @return \Generated\Shared\Transfer\RestRepresentativeCompanyUserCollectionResponseTransfer|\Generated\Shared\Transfer\RestErrorMessageTransfer
      */
     public function getRepresentation(
         RestRepresentativeCompanyUserRequestTransfer $restRepresentativeCompanyUserRequestTransfer
-    ): RestRepresentativeCompanyUserResponseTransfer {
+    ): RestRepresentativeCompanyUserCollectionResponseTransfer|RestErrorMessageTransfer {
         return $this->getFactory()->createZedRepresentativeCompanyUserRestApiStub()->getRepresentation($restRepresentativeCompanyUserRequestTransfer);
     }
 
@@ -48,11 +50,11 @@ class RepresentativeCompanyUserRestApiClient extends AbstractClient implements R
      *
      * @param \Generated\Shared\Transfer\RestRepresentativeCompanyUserRequestTransfer $restRepresentativeCompanyUserRequestTransfer
      *
-     * @return \Generated\Shared\Transfer\RestRepresentativeCompanyUserResponseTransfer
+     * @return \Generated\Shared\Transfer\RestRepresentativeCompanyUserResponseTransfer|\Generated\Shared\Transfer\RestErrorMessageTransfer
      */
     public function patchRepresentation(
         RestRepresentativeCompanyUserRequestTransfer $restRepresentativeCompanyUserRequestTransfer
-    ): RestRepresentativeCompanyUserResponseTransfer {
+    ): RestRepresentativeCompanyUserResponseTransfer|RestErrorMessageTransfer {
         return $this->getFactory()->createZedRepresentativeCompanyUserRestApiStub()->patchRepresentation($restRepresentativeCompanyUserRequestTransfer);
     }
 
@@ -63,11 +65,11 @@ class RepresentativeCompanyUserRestApiClient extends AbstractClient implements R
      *
      * @param \Generated\Shared\Transfer\RestRepresentativeCompanyUserRequestTransfer $restRepresentativeCompanyUserRequestTransfer
      *
-     * @return \Generated\Shared\Transfer\RestRepresentativeCompanyUserResponseTransfer
+     * @return \Generated\Shared\Transfer\RestRepresentativeCompanyUserResponseTransfer|\Generated\Shared\Transfer\RestErrorMessageTransfer
      */
     public function deleteRepresentation(
         RestRepresentativeCompanyUserRequestTransfer $restRepresentativeCompanyUserRequestTransfer
-    ): RestRepresentativeCompanyUserResponseTransfer {
+    ): RestRepresentativeCompanyUserResponseTransfer|RestErrorMessageTransfer {
         return $this->getFactory()->createZedRepresentativeCompanyUserRestApiStub()->deleteRepresentation($restRepresentativeCompanyUserRequestTransfer);
     }
 }

@@ -10,11 +10,14 @@ use Generated\Shared\Transfer\RepresentativeCompanyUserCollectionTransfer;
 use Generated\Shared\Transfer\RepresentativeCompanyUserFilterSortTransfer;
 use Generated\Shared\Transfer\RepresentativeCompanyUserFilterTransfer;
 use Generated\Shared\Transfer\RepresentativeCompanyUserTransfer;
+use Generated\Shared\Transfer\RestErrorMessageTransfer;
 use Generated\Shared\Transfer\RestRepresentativeCompanyUserAttributesTransfer;
+use Generated\Shared\Transfer\RestRepresentativeCompanyUserCollectionResponseTransfer;
 use Generated\Shared\Transfer\RestRepresentativeCompanyUserPaginationTransfer;
 use Generated\Shared\Transfer\RestRepresentativeCompanyUserRequestTransfer;
 use Generated\Shared\Transfer\RestRepresentativeCompanyUserResponseTransfer;
 use Orm\Zed\RepresentativeCompanyUser\Persistence\Map\FooRepresentativeCompanyUserTableMap;
+use Throwable;
 
 class RepresentationManager implements RepresentationManagerInterface
 {
@@ -51,86 +54,96 @@ class RepresentationManager implements RepresentationManagerInterface
     /**
      * @param \Generated\Shared\Transfer\RestRepresentativeCompanyUserRequestTransfer $restRepresentativeCompanyUserRequestTransfer
      *
-     * @return \Generated\Shared\Transfer\RestRepresentativeCompanyUserResponseTransfer
+     * @return \Generated\Shared\Transfer\RestRepresentativeCompanyUserResponseTransfer|\Generated\Shared\Transfer\RestErrorMessageTransfer
      */
     public function addRepresentation(
         RestRepresentativeCompanyUserRequestTransfer $restRepresentativeCompanyUserRequestTransfer
-    ): RestRepresentativeCompanyUserResponseTransfer {
-        $restRepresentativeCompanyUserAttributesTransfer = $restRepresentativeCompanyUserRequestTransfer->getAttributes();
-        $distributorId = $this->repository->getIdCustomerByReference($restRepresentativeCompanyUserAttributesTransfer->getReferenceDistributor());
-        $representationId = $this->repository->getIdCustomerByReference($restRepresentativeCompanyUserAttributesTransfer->getReferenceRepresentation());
-        $originatorId = $distributorId;
-        if ($restRepresentativeCompanyUserAttributesTransfer->getReferenceDistributor() !== $restRepresentativeCompanyUserAttributesTransfer->getReferenceOriginator()) {
-            $originatorId = $this->repository->getIdCustomerByReference($restRepresentativeCompanyUserAttributesTransfer->getReferenceOriginator());
+    ): RestRepresentativeCompanyUserResponseTransfer|RestErrorMessageTransfer {
+        try {
+            $restRepresentativeCompanyUserAttributesTransfer = $restRepresentativeCompanyUserRequestTransfer->getAttributes();
+            $distributorId = $this->repository->getIdCustomerByReference($restRepresentativeCompanyUserAttributesTransfer->getReferenceDistributor());
+            $representationId = $this->repository->getIdCustomerByReference($restRepresentativeCompanyUserAttributesTransfer->getReferenceRepresentation());
+            $originatorId = $distributorId;
+            if ($restRepresentativeCompanyUserAttributesTransfer->getReferenceDistributor() !== $restRepresentativeCompanyUserAttributesTransfer->getReferenceOriginator()) {
+                $originatorId = $this->repository->getIdCustomerByReference($restRepresentativeCompanyUserAttributesTransfer->getReferenceOriginator());
+            }
+
+            $representationTransfer = (new RepresentativeCompanyUserTransfer())
+                ->setFkDistributor($distributorId)
+                ->setFkOriginator($originatorId)
+                ->setFkRepresentative($representationId)
+                ->setStartAt($restRepresentativeCompanyUserAttributesTransfer->getStartAt())
+                ->setEndAt($restRepresentativeCompanyUserAttributesTransfer->getEndAt());
+
+            $response = $this->representativeCompanyUserFacade->addRepresentativeCompanyUser($representationTransfer);
+
+            return (new RestRepresentativeCompanyUserResponseTransfer())
+                ->setRepresentation($this->restDataMapper->mapResponse($response));
+        } catch (Throwable $throwable) {
+            return $this->createErrorFromThrowable($throwable);
         }
-
-        $representationTransfer = (new RepresentativeCompanyUserTransfer())
-            ->setFkDistributor($distributorId)
-            ->setFkOriginator($originatorId)
-            ->setFkRepresentative($representationId)
-            ->setStartAt($restRepresentativeCompanyUserAttributesTransfer->getStartAt())
-            ->setEndAt($restRepresentativeCompanyUserAttributesTransfer->getEndAt());
-
-        $response = $this->representativeCompanyUserFacade->addRepresentativeCompanyUser($representationTransfer);
-
-        return (new RestRepresentativeCompanyUserResponseTransfer())
-            ->setRequest($restRepresentativeCompanyUserRequestTransfer)
-            ->addRepresentation($this->restDataMapper->mapResponse($response));
     }
 
     /**
      * @param \Generated\Shared\Transfer\RestRepresentativeCompanyUserRequestTransfer $restRepresentativeCompanyUserRequestTransfer
      *
-     * @return \Generated\Shared\Transfer\RestRepresentativeCompanyUserResponseTransfer
+     * @return \Generated\Shared\Transfer\RestRepresentativeCompanyUserResponseTransfer|\Generated\Shared\Transfer\RestErrorMessageTransfer
      */
     public function updateRepresentation(
         RestRepresentativeCompanyUserRequestTransfer $restRepresentativeCompanyUserRequestTransfer
-    ): RestRepresentativeCompanyUserResponseTransfer {
-        $restRepresentativeCompanyUserAttributesTransfer = $restRepresentativeCompanyUserRequestTransfer->getAttributes();
-        $restRepresentativeCompanyUserAttributesTransfer->requireUuid();
+    ): RestRepresentativeCompanyUserResponseTransfer|RestErrorMessageTransfer {
+        try {
+            $restRepresentativeCompanyUserAttributesTransfer = $restRepresentativeCompanyUserRequestTransfer->getAttributes();
+            $restRepresentativeCompanyUserAttributesTransfer->requireUuid();
 
-        $representationTransfer = $this->representativeCompanyUserFacade->findRepresentationByUuid($restRepresentativeCompanyUserAttributesTransfer->getUuid());
+            $representationTransfer = $this->representativeCompanyUserFacade->findRepresentationByUuid($restRepresentativeCompanyUserAttributesTransfer->getUuid());
 
-        if (
-            $representationTransfer->getDistributor()->getCustomerReference() !== $restRepresentativeCompanyUserAttributesTransfer->getReferenceDistributor()
-            || $representationTransfer->getRepresentative()->getCustomerReference() !== $restRepresentativeCompanyUserAttributesTransfer->getReferenceRepresentation()
-        ) {
-            $representationTransfer->setState(FooRepresentativeCompanyUserTableMap::COL_STATE_REVOKED);
-            $this->representativeCompanyUserFacade->updateRepresentativeCompanyUser($representationTransfer);
+            if (
+                $representationTransfer->getDistributor()->getCustomerReference() !== $restRepresentativeCompanyUserAttributesTransfer->getReferenceDistributor()
+                || $representationTransfer->getRepresentative()->getCustomerReference() !== $restRepresentativeCompanyUserAttributesTransfer->getReferenceRepresentation()
+            ) {
+                $representationTransfer->setState(FooRepresentativeCompanyUserTableMap::COL_STATE_REVOKED);
+                $this->representativeCompanyUserFacade->updateRepresentativeCompanyUser($representationTransfer);
 
-            return $this->addRepresentation($restRepresentativeCompanyUserRequestTransfer);
+                return $this->addRepresentation($restRepresentativeCompanyUserRequestTransfer);
+            }
+
+            $representationTransfer
+                ->setState($this->getState($representationTransfer, $restRepresentativeCompanyUserAttributesTransfer))
+                ->setEndAt($restRepresentativeCompanyUserAttributesTransfer->getEndAt())
+                ->setStartAt($restRepresentativeCompanyUserAttributesTransfer->getStartAt());
+            $response = $this->representativeCompanyUserFacade->updateRepresentativeCompanyUser($representationTransfer);
+
+            return (new RestRepresentativeCompanyUserResponseTransfer())
+                ->setRepresentation($this->restDataMapper->mapResponse($response));
+        } catch (Throwable $throwable) {
+            return $this->createErrorFromThrowable($throwable);
         }
-
-        $representationTransfer
-            ->setState($this->getState($representationTransfer, $restRepresentativeCompanyUserAttributesTransfer))
-            ->setEndAt($restRepresentativeCompanyUserAttributesTransfer->getEndAt())
-            ->setStartAt($restRepresentativeCompanyUserAttributesTransfer->getStartAt());
-        $response = $this->representativeCompanyUserFacade->updateRepresentativeCompanyUser($representationTransfer);
-
-        return (new RestRepresentativeCompanyUserResponseTransfer())
-            ->setRequest($restRepresentativeCompanyUserRequestTransfer)
-            ->addRepresentation($this->restDataMapper->mapResponse($response));
     }
 
     /**
      * @param \Generated\Shared\Transfer\RestRepresentativeCompanyUserRequestTransfer $restRepresentativeCompanyUserRequestTransfer
      *
-     * @return \Generated\Shared\Transfer\RestRepresentativeCompanyUserResponseTransfer
+     * @return \Generated\Shared\Transfer\RestRepresentativeCompanyUserResponseTransfer|\Generated\Shared\Transfer\RestErrorMessageTransfer
      */
     public function deleteRepresentation(
         RestRepresentativeCompanyUserRequestTransfer $restRepresentativeCompanyUserRequestTransfer
-    ): RestRepresentativeCompanyUserResponseTransfer {
-        $attributes = $restRepresentativeCompanyUserRequestTransfer->getAttributes();
-
+    ): RestRepresentativeCompanyUserResponseTransfer|RestErrorMessageTransfer {
         try {
-            $attributes->requireUuid();
-            $representation = $this->representativeCompanyUserFacade->deleteRepresentativeCompanyUser($attributes->getUuid());
-        } catch (Exception $exception) {
-            //ToDo Handle/Log
-            $representation = null;
-        }
+            $attributes = $restRepresentativeCompanyUserRequestTransfer->getAttributes();
 
-        return (new RestRepresentativeCompanyUserResponseTransfer())->addRepresentation($this->restDataMapper->mapResponse($representation));
+            try {
+                $attributes->requireUuid();
+                $representation = $this->representativeCompanyUserFacade->deleteRepresentativeCompanyUser($attributes->getUuid());
+            } catch (Exception $exception) {
+                //ToDo Handle/Log
+                $representation = null;
+            }
+
+            return (new RestRepresentativeCompanyUserResponseTransfer())->setRepresentation($this->restDataMapper->mapResponse($representation));
+        } catch (Throwable $throwable) {
+            return $this->createErrorFromThrowable($throwable);
+        }
     }
 
     /**
@@ -153,19 +166,23 @@ class RepresentationManager implements RepresentationManagerInterface
     /**
      * @param \Generated\Shared\Transfer\RestRepresentativeCompanyUserRequestTransfer $restRepresentativeCompanyUserRequestTransfer
      *
-     * @return \Generated\Shared\Transfer\RestRepresentativeCompanyUserResponseTransfer
+     * @return \Generated\Shared\Transfer\RestRepresentativeCompanyUserCollectionResponseTransfer|\Generated\Shared\Transfer\RestErrorMessageTransfer
      */
     public function getRepresentation(
         RestRepresentativeCompanyUserRequestTransfer $restRepresentativeCompanyUserRequestTransfer
-    ): RestRepresentativeCompanyUserResponseTransfer {
-        $attributes = $restRepresentativeCompanyUserRequestTransfer->getAttributes();
-        $filter = $this->createFilter($restRepresentativeCompanyUserRequestTransfer, $attributes);
+    ): RestRepresentativeCompanyUserCollectionResponseTransfer|RestErrorMessageTransfer {
+        try {
+            $attributes = $restRepresentativeCompanyUserRequestTransfer->getAttributes();
+            $filter = $this->createFilter($restRepresentativeCompanyUserRequestTransfer, $attributes);
 
-        $collection = $this->representativeCompanyUserFacade->getRepresentativeCompanyUser($filter);
+            $collection = $this->representativeCompanyUserFacade->getRepresentativeCompanyUser($filter);
 
-        return (new RestRepresentativeCompanyUserResponseTransfer())
-            ->setRepresentations($this->restDataMapper->mapResponseCollection($collection))
-            ->setPagination($this->createPagination($collection));
+            return (new RestRepresentativeCompanyUserCollectionResponseTransfer())
+                ->setRepresentations($this->restDataMapper->mapResponseCollection($collection))
+                ->setPagination($this->createPagination($collection));
+        } catch (Throwable $throwable) {
+            return $this->createErrorFromThrowable($throwable);
+        }
     }
 
     /**
@@ -236,5 +253,18 @@ class RepresentationManager implements RepresentationManagerInterface
         return $paginationTransfer
             ->setNumFound($total)
             ->setCurrentItemsPerPage($limit);
+    }
+
+    /**
+     * @param \Throwable|\Exception $throwable
+     *
+     * @return \Generated\Shared\Transfer\RestErrorMessageTransfer
+     */
+    public function createErrorFromThrowable(Throwable|Exception $throwable): RestErrorMessageTransfer
+    {
+        return (new RestErrorMessageTransfer())
+            ->setDetail($throwable->getMessage())
+            ->setCode((string)$throwable->getCode())
+            ->setStatus($throwable->getCode());
     }
 }

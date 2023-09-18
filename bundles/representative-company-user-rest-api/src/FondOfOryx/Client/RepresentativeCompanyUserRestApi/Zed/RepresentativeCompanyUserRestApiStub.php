@@ -3,6 +3,8 @@
 namespace FondOfOryx\Client\RepresentativeCompanyUserRestApi\Zed;
 
 use FondOfOryx\Client\RepresentativeCompanyUserRestApi\Dependency\Client\RepresentativeCompanyUserRestApiToZedRequestClientInterface;
+use Generated\Shared\Transfer\RestErrorMessageTransfer;
+use Generated\Shared\Transfer\RestRepresentativeCompanyUserCollectionResponseTransfer;
 use Generated\Shared\Transfer\RestRepresentativeCompanyUserRequestTransfer;
 use Generated\Shared\Transfer\RestRepresentativeCompanyUserResponseTransfer;
 
@@ -44,12 +46,12 @@ class RepresentativeCompanyUserRestApiStub implements RepresentativeCompanyUserR
     /**
      * @param \Generated\Shared\Transfer\RestRepresentativeCompanyUserRequestTransfer $restRepresentativeCompanyUserRequestTransfer
      *
-     * @return \Generated\Shared\Transfer\RestRepresentativeCompanyUserResponseTransfer
+     * @return \Generated\Shared\Transfer\RestRepresentativeCompanyUserResponseTransfer|\Generated\Shared\Transfer\RestErrorMessageTransfer
      */
     public function addRepresentation(
         RestRepresentativeCompanyUserRequestTransfer $restRepresentativeCompanyUserRequestTransfer
-    ): RestRepresentativeCompanyUserResponseTransfer {
-        /** @var \Generated\Shared\Transfer\RestRepresentativeCompanyUserResponseTransfer $representativeCompanyUserRestResponseTransfer */
+    ): RestRepresentativeCompanyUserResponseTransfer|RestErrorMessageTransfer {
+        /** @var \Generated\Shared\Transfer\RestRepresentativeCompanyUserResponseTransfer|\Generated\Shared\Transfer\RestErrorMessageTransfer $representativeCompanyUserRestResponseTransfer */
         $representativeCompanyUserRestResponseTransfer = $this->zedRequestClient->call(static::ADD_REPRESENTATION, $restRepresentativeCompanyUserRequestTransfer);
 
         return $representativeCompanyUserRestResponseTransfer;
@@ -58,12 +60,12 @@ class RepresentativeCompanyUserRestApiStub implements RepresentativeCompanyUserR
     /**
      * @param \Generated\Shared\Transfer\RestRepresentativeCompanyUserRequestTransfer $restRepresentativeCompanyUserRequestTransfer
      *
-     * @return \Generated\Shared\Transfer\RestRepresentativeCompanyUserResponseTransfer
+     * @return \Generated\Shared\Transfer\RestRepresentativeCompanyUserCollectionResponseTransfer|\Generated\Shared\Transfer\RestErrorMessageTransfer
      */
     public function getRepresentation(
         RestRepresentativeCompanyUserRequestTransfer $restRepresentativeCompanyUserRequestTransfer
-    ): RestRepresentativeCompanyUserResponseTransfer {
-        /** @var \Generated\Shared\Transfer\RestRepresentativeCompanyUserResponseTransfer $representativeCompanyUserRestResponseTransfer */
+    ): RestRepresentativeCompanyUserCollectionResponseTransfer|RestErrorMessageTransfer {
+        /** @var \Generated\Shared\Transfer\RestRepresentativeCompanyUserCollectionResponseTransfer|\Generated\Shared\Transfer\RestErrorMessageTransfer $representativeCompanyUserRestResponseTransfer */
         $representativeCompanyUserRestResponseTransfer = $this->zedRequestClient->call(static::GET_REPRESENTATION, $restRepresentativeCompanyUserRequestTransfer);
 
         return $representativeCompanyUserRestResponseTransfer;
@@ -72,12 +74,12 @@ class RepresentativeCompanyUserRestApiStub implements RepresentativeCompanyUserR
     /**
      * @param \Generated\Shared\Transfer\RestRepresentativeCompanyUserRequestTransfer $restRepresentativeCompanyUserRequestTransfer
      *
-     * @return \Generated\Shared\Transfer\RestRepresentativeCompanyUserResponseTransfer
+     * @return \Generated\Shared\Transfer\RestRepresentativeCompanyUserResponseTransfer|\Generated\Shared\Transfer\RestErrorMessageTransfer
      */
     public function patchRepresentation(
         RestRepresentativeCompanyUserRequestTransfer $restRepresentativeCompanyUserRequestTransfer
-    ): RestRepresentativeCompanyUserResponseTransfer {
-        /** @var \Generated\Shared\Transfer\RestRepresentativeCompanyUserResponseTransfer $representativeCompanyUserRestResponseTransfer */
+    ): RestRepresentativeCompanyUserResponseTransfer|RestErrorMessageTransfer {
+        /** @var \Generated\Shared\Transfer\RestRepresentativeCompanyUserResponseTransfer|\Generated\Shared\Transfer\RestErrorMessageTransfer $representativeCompanyUserRestResponseTransfer */
         $representativeCompanyUserRestResponseTransfer = $this->zedRequestClient->call(static::PATCH_REPRESENTATION, $restRepresentativeCompanyUserRequestTransfer);
 
         return $representativeCompanyUserRestResponseTransfer;
@@ -86,12 +88,12 @@ class RepresentativeCompanyUserRestApiStub implements RepresentativeCompanyUserR
     /**
      * @param \Generated\Shared\Transfer\RestRepresentativeCompanyUserRequestTransfer $restRepresentativeCompanyUserRequestTransfer
      *
-     * @return \Generated\Shared\Transfer\RestRepresentativeCompanyUserResponseTransfer
+     * @return \Generated\Shared\Transfer\RestRepresentativeCompanyUserResponseTransfer|\Generated\Shared\Transfer\RestErrorMessageTransfer
      */
     public function deleteRepresentation(
         RestRepresentativeCompanyUserRequestTransfer $restRepresentativeCompanyUserRequestTransfer
-    ): RestRepresentativeCompanyUserResponseTransfer {
-        /** @var \Generated\Shared\Transfer\RestRepresentativeCompanyUserResponseTransfer $representativeCompanyUserRestResponseTransfer */
+    ): RestRepresentativeCompanyUserResponseTransfer|RestErrorMessageTransfer {
+        /** @var \Generated\Shared\Transfer\RestRepresentativeCompanyUserResponseTransfer|\Generated\Shared\Transfer\RestErrorMessageTransfer $representativeCompanyUserRestResponseTransfer */
         $representativeCompanyUserRestResponseTransfer = $this->zedRequestClient->call(static::DELETE_REPRESENTATION, $restRepresentativeCompanyUserRequestTransfer);
 
         return $representativeCompanyUserRestResponseTransfer;
