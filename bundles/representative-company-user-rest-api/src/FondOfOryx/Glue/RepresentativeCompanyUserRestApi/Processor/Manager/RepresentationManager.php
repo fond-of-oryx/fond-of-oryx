@@ -66,7 +66,7 @@ class RepresentationManager implements RepresentationManagerInterface
         $representationRestRequestTransfer = $this->representationMapper->createRequest($restRequest, $attributes);
         $representationRestResponseTransfer = $this->client->addRepresentation($representationRestRequestTransfer);
 
-        if ($representationRestResponseTransfer instanceof RestErrorMessageTransfer){
+        if ($representationRestResponseTransfer instanceof RestErrorMessageTransfer) {
             return $this->responseBuilder->buildErrorResponse($representationRestResponseTransfer);
         }
 
@@ -89,7 +89,7 @@ class RepresentationManager implements RepresentationManagerInterface
         $representationRestRequestTransfer = $this->representationMapper->createRequest($restRequest, $attributes);
         $representationRestResponseTransfer = $this->client->getRepresentation($representationRestRequestTransfer);
 
-        if ($representationRestResponseTransfer instanceof RestErrorMessageTransfer){
+        if ($representationRestResponseTransfer instanceof RestErrorMessageTransfer) {
             return $this->responseBuilder->buildErrorResponse($representationRestResponseTransfer);
         }
 
@@ -112,7 +112,7 @@ class RepresentationManager implements RepresentationManagerInterface
         $representationRestRequestTransfer = $this->representationMapper->createRequest($restRequest, $attributes);
         $representationRestResponseTransfer = $this->client->patchRepresentation($representationRestRequestTransfer);
 
-        if ($representationRestResponseTransfer instanceof RestErrorMessageTransfer){
+        if ($representationRestResponseTransfer instanceof RestErrorMessageTransfer) {
             return $this->responseBuilder->buildErrorResponse($representationRestResponseTransfer);
         }
 
@@ -135,7 +135,7 @@ class RepresentationManager implements RepresentationManagerInterface
         $representationRestRequestTransfer = $this->representationMapper->createRequest($restRequest, $attributes);
         $representationRestResponseTransfer = $this->client->deleteRepresentation($representationRestRequestTransfer);
 
-        if ($representationRestResponseTransfer instanceof RestErrorMessageTransfer){
+        if ($representationRestResponseTransfer instanceof RestErrorMessageTransfer) {
             return $this->responseBuilder->buildErrorResponse($representationRestResponseTransfer);
         }
 

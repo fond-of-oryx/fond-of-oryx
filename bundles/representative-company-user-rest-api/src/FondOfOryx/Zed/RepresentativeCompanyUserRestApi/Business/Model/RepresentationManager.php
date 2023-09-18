@@ -17,6 +17,7 @@ use Generated\Shared\Transfer\RestRepresentativeCompanyUserPaginationTransfer;
 use Generated\Shared\Transfer\RestRepresentativeCompanyUserRequestTransfer;
 use Generated\Shared\Transfer\RestRepresentativeCompanyUserResponseTransfer;
 use Orm\Zed\RepresentativeCompanyUser\Persistence\Map\FooRepresentativeCompanyUserTableMap;
+use Throwable;
 
 class RepresentationManager implements RepresentationManagerInterface
 {
@@ -52,6 +53,7 @@ class RepresentationManager implements RepresentationManagerInterface
 
     /**
      * @param \Generated\Shared\Transfer\RestRepresentativeCompanyUserRequestTransfer $restRepresentativeCompanyUserRequestTransfer
+     *
      * @return \Generated\Shared\Transfer\RestRepresentativeCompanyUserResponseTransfer|\Generated\Shared\Transfer\RestErrorMessageTransfer
      */
     public function addRepresentation(
@@ -77,14 +79,14 @@ class RepresentationManager implements RepresentationManagerInterface
 
             return (new RestRepresentativeCompanyUserResponseTransfer())
                 ->setRepresentation($this->restDataMapper->mapResponse($response));
-        }
-        catch (\Throwable $throwable){
+        } catch (Throwable $throwable) {
             return $this->createErrorFromThrowable($throwable);
         }
     }
 
     /**
      * @param \Generated\Shared\Transfer\RestRepresentativeCompanyUserRequestTransfer $restRepresentativeCompanyUserRequestTransfer
+     *
      * @return \Generated\Shared\Transfer\RestRepresentativeCompanyUserResponseTransfer|\Generated\Shared\Transfer\RestErrorMessageTransfer
      */
     public function updateRepresentation(
@@ -114,14 +116,14 @@ class RepresentationManager implements RepresentationManagerInterface
 
             return (new RestRepresentativeCompanyUserResponseTransfer())
                 ->setRepresentation($this->restDataMapper->mapResponse($response));
-        }
-        catch (\Throwable $throwable){
+        } catch (Throwable $throwable) {
             return $this->createErrorFromThrowable($throwable);
         }
     }
 
     /**
      * @param \Generated\Shared\Transfer\RestRepresentativeCompanyUserRequestTransfer $restRepresentativeCompanyUserRequestTransfer
+     *
      * @return \Generated\Shared\Transfer\RestRepresentativeCompanyUserResponseTransfer|\Generated\Shared\Transfer\RestErrorMessageTransfer
      */
     public function deleteRepresentation(
@@ -139,8 +141,7 @@ class RepresentationManager implements RepresentationManagerInterface
             }
 
             return (new RestRepresentativeCompanyUserResponseTransfer())->setRepresentation($this->restDataMapper->mapResponse($representation));
-        }
-        catch (\Throwable $throwable){
+        } catch (Throwable $throwable) {
             return $this->createErrorFromThrowable($throwable);
         }
     }
@@ -164,6 +165,7 @@ class RepresentationManager implements RepresentationManagerInterface
 
     /**
      * @param \Generated\Shared\Transfer\RestRepresentativeCompanyUserRequestTransfer $restRepresentativeCompanyUserRequestTransfer
+     *
      * @return \Generated\Shared\Transfer\RestRepresentativeCompanyUserCollectionResponseTransfer|\Generated\Shared\Transfer\RestErrorMessageTransfer
      */
     public function getRepresentation(
@@ -178,8 +180,7 @@ class RepresentationManager implements RepresentationManagerInterface
             return (new RestRepresentativeCompanyUserCollectionResponseTransfer())
                 ->setRepresentations($this->restDataMapper->mapResponseCollection($collection))
                 ->setPagination($this->createPagination($collection));
-        }
-        catch (\Throwable $throwable){
+        } catch (Throwable $throwable) {
             return $this->createErrorFromThrowable($throwable);
         }
     }
@@ -256,9 +257,10 @@ class RepresentationManager implements RepresentationManagerInterface
 
     /**
      * @param \Throwable|\Exception $throwable
+     *
      * @return \Generated\Shared\Transfer\RestErrorMessageTransfer
      */
-    public function createErrorFromThrowable(\Throwable|Exception $throwable): RestErrorMessageTransfer
+    public function createErrorFromThrowable(Throwable|Exception $throwable): RestErrorMessageTransfer
     {
         return (new RestErrorMessageTransfer())
             ->setDetail($throwable->getMessage())

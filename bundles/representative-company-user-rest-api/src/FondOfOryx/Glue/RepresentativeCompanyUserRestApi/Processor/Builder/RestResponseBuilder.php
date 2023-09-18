@@ -67,11 +67,12 @@ class RestResponseBuilder implements RestResponseBuilderInterface
 
     /**
      * @param \Generated\Shared\Transfer\RestErrorMessageTransfer|null $restErrorMessageTransfer
+     *
      * @return \Spryker\Glue\GlueApplication\Rest\JsonApi\RestResponseInterface
      */
     public function buildErrorResponse(?RestErrorMessageTransfer $restErrorMessageTransfer = null): RestResponseInterface
     {
-        if ($restErrorMessageTransfer === null){
+        if ($restErrorMessageTransfer === null) {
             $restErrorMessageTransfer = (new RestErrorMessageTransfer())
                 ->setCode((string)RepresentativeCompanyUserRestApiConfig::RESPONSE_CODE_USER_IS_NOT_ALLOWED_TO_ADD_REPRESENTATION)
                 ->setStatus(Response::HTTP_FORBIDDEN)
@@ -82,7 +83,7 @@ class RestResponseBuilder implements RestResponseBuilderInterface
                 ->addError($restErrorMessageTransfer);
         }
 
-        if (str_starts_with($restErrorMessageTransfer->getDetail(), 'Unable to execute INSERT statement')){
+        if (str_starts_with($restErrorMessageTransfer->getDetail(), 'Unable to execute INSERT statement')) {
             $restErrorMessageTransfer->setDetail(RepresentativeCompanyUserRestApiConstants::PROBABLY_DUPLICATED_CONTENT)->setStatus(Response::HTTP_CONFLICT);
         }
 

@@ -45,6 +45,7 @@ class RepresentativeCompanyUserRestApiStub implements RepresentativeCompanyUserR
 
     /**
      * @param \Generated\Shared\Transfer\RestRepresentativeCompanyUserRequestTransfer $restRepresentativeCompanyUserRequestTransfer
+     *
      * @return \Generated\Shared\Transfer\RestRepresentativeCompanyUserResponseTransfer|\Generated\Shared\Transfer\RestErrorMessageTransfer
      */
     public function addRepresentation(
@@ -58,12 +59,13 @@ class RepresentativeCompanyUserRestApiStub implements RepresentativeCompanyUserR
 
     /**
      * @param \Generated\Shared\Transfer\RestRepresentativeCompanyUserRequestTransfer $restRepresentativeCompanyUserRequestTransfer
+     *
      * @return \Generated\Shared\Transfer\RestRepresentativeCompanyUserCollectionResponseTransfer|\Generated\Shared\Transfer\RestErrorMessageTransfer
      */
     public function getRepresentation(
         RestRepresentativeCompanyUserRequestTransfer $restRepresentativeCompanyUserRequestTransfer
     ): RestRepresentativeCompanyUserCollectionResponseTransfer|RestErrorMessageTransfer {
-        /** @var \Generated\Shared\Transfer\RestRepresentativeCompanyUserCollectionResponseTransfer|RestErrorMessageTransfer $representativeCompanyUserRestResponseTransfer */
+        /** @var \Generated\Shared\Transfer\RestRepresentativeCompanyUserCollectionResponseTransfer|\Generated\Shared\Transfer\RestErrorMessageTransfer $representativeCompanyUserRestResponseTransfer */
         $representativeCompanyUserRestResponseTransfer = $this->zedRequestClient->call(static::GET_REPRESENTATION, $restRepresentativeCompanyUserRequestTransfer);
 
         return $representativeCompanyUserRestResponseTransfer;
@@ -71,12 +73,13 @@ class RepresentativeCompanyUserRestApiStub implements RepresentativeCompanyUserR
 
     /**
      * @param \Generated\Shared\Transfer\RestRepresentativeCompanyUserRequestTransfer $restRepresentativeCompanyUserRequestTransfer
+     *
      * @return \Generated\Shared\Transfer\RestRepresentativeCompanyUserResponseTransfer|\Generated\Shared\Transfer\RestErrorMessageTransfer
      */
     public function patchRepresentation(
         RestRepresentativeCompanyUserRequestTransfer $restRepresentativeCompanyUserRequestTransfer
     ): RestRepresentativeCompanyUserResponseTransfer|RestErrorMessageTransfer {
-        /** @var \Generated\Shared\Transfer\RestRepresentativeCompanyUserResponseTransfer|RestErrorMessageTransfer $representativeCompanyUserRestResponseTransfer */
+        /** @var \Generated\Shared\Transfer\RestRepresentativeCompanyUserResponseTransfer|\Generated\Shared\Transfer\RestErrorMessageTransfer $representativeCompanyUserRestResponseTransfer */
         $representativeCompanyUserRestResponseTransfer = $this->zedRequestClient->call(static::PATCH_REPRESENTATION, $restRepresentativeCompanyUserRequestTransfer);
 
         return $representativeCompanyUserRestResponseTransfer;
@@ -84,12 +87,13 @@ class RepresentativeCompanyUserRestApiStub implements RepresentativeCompanyUserR
 
     /**
      * @param \Generated\Shared\Transfer\RestRepresentativeCompanyUserRequestTransfer $restRepresentativeCompanyUserRequestTransfer
+     *
      * @return \Generated\Shared\Transfer\RestRepresentativeCompanyUserResponseTransfer|\Generated\Shared\Transfer\RestErrorMessageTransfer
      */
     public function deleteRepresentation(
         RestRepresentativeCompanyUserRequestTransfer $restRepresentativeCompanyUserRequestTransfer
     ): RestRepresentativeCompanyUserResponseTransfer|RestErrorMessageTransfer {
-        /** @var \Generated\Shared\Transfer\RestRepresentativeCompanyUserResponseTransfer|RestErrorMessageTransfer $representativeCompanyUserRestResponseTransfer */
+        /** @var \Generated\Shared\Transfer\RestRepresentativeCompanyUserResponseTransfer|\Generated\Shared\Transfer\RestErrorMessageTransfer $representativeCompanyUserRestResponseTransfer */
         $representativeCompanyUserRestResponseTransfer = $this->zedRequestClient->call(static::DELETE_REPRESENTATION, $restRepresentativeCompanyUserRequestTransfer);
 
         return $representativeCompanyUserRestResponseTransfer;

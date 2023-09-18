@@ -55,7 +55,7 @@ interface RepresentativeCompanyUserRestApiConstants
     public const FULLTEXT_SEARCH_FIELDS_DEFAULT = ['name'];
 
     /**
-     * @var array
+     * @var string
      */
     public const PROBABLY_DUPLICATED_CONTENT = 'Could not create representation. Probably representation already exists!';
 }
