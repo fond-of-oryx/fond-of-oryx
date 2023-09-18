@@ -3,6 +3,7 @@
 namespace FondOfOryx\Glue\RepresentativeCompanyUserRestApi\Processor\Builder;
 
 use FondOfOryx\Glue\RepresentativeCompanyUserRestApi\RepresentativeCompanyUserRestApiConfig;
+use FondOfOryx\Shared\RepresentativeCompanyUserRestApi\RepresentativeCompanyUserRestApiConstants;
 use Generated\Shared\Transfer\RestErrorMessageTransfer;
 use Generated\Shared\Transfer\RestRepresentativeCompanyUserCollectionResponseTransfer;
 use Generated\Shared\Transfer\RestRepresentativeCompanyUserResponseTransfer;
@@ -65,14 +66,25 @@ class RestResponseBuilder implements RestResponseBuilderInterface
     }
 
     /**
+     * @param \Generated\Shared\Transfer\RestErrorMessageTransfer|null $restErrorMessageTransfer
      * @return \Spryker\Glue\GlueApplication\Rest\JsonApi\RestResponseInterface
      */
-    public function buildRepresentativeCompanyUserMissingPermissionResponse(): RestResponseInterface
+    public function buildErrorResponse(?RestErrorMessageTransfer $restErrorMessageTransfer = null): RestResponseInterface
     {
-        $restErrorMessageTransfer = (new RestErrorMessageTransfer())
-            ->setCode((string)RepresentativeCompanyUserRestApiConfig::RESPONSE_CODE_USER_IS_NOT_ALLOWED_TO_ADD_REPRESENTATION)
-            ->setStatus(Response::HTTP_FORBIDDEN)
-            ->setDetail(RepresentativeCompanyUserRestApiConfig::ERROR_MESSAGE_USER_IS_NOT_ALLOWED_TO_ADD_REPRESENTATION);
+        if ($restErrorMessageTransfer === null){
+            $restErrorMessageTransfer = (new RestErrorMessageTransfer())
+                ->setCode((string)RepresentativeCompanyUserRestApiConfig::RESPONSE_CODE_USER_IS_NOT_ALLOWED_TO_ADD_REPRESENTATION)
+                ->setStatus(Response::HTTP_FORBIDDEN)
+                ->setDetail(RepresentativeCompanyUserRestApiConfig::ERROR_MESSAGE_USER_IS_NOT_ALLOWED_TO_ADD_REPRESENTATION);
+
+            return $this->restResourceBuilder
+                ->createRestResponse()
+                ->addError($restErrorMessageTransfer);
+        }
+
+        if (str_starts_with($restErrorMessageTransfer->getDetail(), 'Unable to execute INSERT statement')){
+            $restErrorMessageTransfer->setDetail(RepresentativeCompanyUserRestApiConstants::PROBABLY_DUPLICATED_CONTENT)->setStatus(Response::HTTP_CONFLICT);
+        }
 
         return $this->restResourceBuilder
             ->createRestResponse()

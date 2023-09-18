@@ -191,7 +191,7 @@ class RepresentationManagerTest extends Unit
             ->willReturn($this->restResponseMock);
 
         $this->responseBuilderMock->expects(static::never())
-            ->method('buildRepresentativeCompanyUserMissingPermissionResponse');
+            ->method('buildErrorResponse');
 
         $this->representationManager->add($this->restRequestMock);
     }
@@ -216,7 +216,7 @@ class RepresentationManagerTest extends Unit
             ->method('buildRepresentativeCompanyUserRestResponse');
 
         $this->responseBuilderMock->expects(static::atLeastOnce())
-            ->method('buildRepresentativeCompanyUserMissingPermissionResponse')
+            ->method('buildErrorResponse')
             ->willReturn($this->restResponseMock);
 
         $this->representationManager->add($this->restRequestMock);
@@ -248,7 +248,7 @@ class RepresentationManagerTest extends Unit
             ->willReturn($this->restResponseMock);
 
         $this->responseBuilderMock->expects(static::never())
-            ->method('buildRepresentativeCompanyUserMissingPermissionResponse');
+            ->method('buildErrorResponse');
 
         $this->representationManager->get($this->restRequestMock);
     }
@@ -273,7 +273,7 @@ class RepresentationManagerTest extends Unit
             ->method('buildRepresentativeCompanyUserRestResponse');
 
         $this->responseBuilderMock->expects(static::atLeastOnce())
-            ->method('buildRepresentativeCompanyUserMissingPermissionResponse')
+            ->method('buildErrorResponse')
             ->willReturn($this->restResponseMock);
 
         $this->representationManager->get($this->restRequestMock);
@@ -305,7 +305,7 @@ class RepresentationManagerTest extends Unit
             ->willReturn($this->restResponseMock);
 
         $this->responseBuilderMock->expects(static::never())
-            ->method('buildRepresentativeCompanyUserMissingPermissionResponse');
+            ->method('buildErrorResponse');
 
         $this->representationManager->patch($this->restRequestMock);
     }
@@ -330,7 +330,7 @@ class RepresentationManagerTest extends Unit
             ->method('buildRepresentativeCompanyUserRestResponse');
 
         $this->responseBuilderMock->expects(static::atLeastOnce())
-            ->method('buildRepresentativeCompanyUserMissingPermissionResponse')
+            ->method('buildErrorResponse')
             ->willReturn($this->restResponseMock);
 
         $this->representationManager->patch($this->restRequestMock);
@@ -362,7 +362,7 @@ class RepresentationManagerTest extends Unit
             ->willReturn($this->restResponseMock);
 
         $this->responseBuilderMock->expects(static::never())
-            ->method('buildRepresentativeCompanyUserMissingPermissionResponse');
+            ->method('buildErrorResponse');
 
         $this->representationManager->delete($this->restRequestMock);
     }
@@ -387,7 +387,7 @@ class RepresentationManagerTest extends Unit
             ->method('buildRepresentativeCompanyUserRestResponse');
 
         $this->responseBuilderMock->expects(static::atLeastOnce())
-            ->method('buildRepresentativeCompanyUserMissingPermissionResponse')
+            ->method('buildErrorResponse')
             ->willReturn($this->restResponseMock);
 
         $this->representationManager->delete($this->restRequestMock);

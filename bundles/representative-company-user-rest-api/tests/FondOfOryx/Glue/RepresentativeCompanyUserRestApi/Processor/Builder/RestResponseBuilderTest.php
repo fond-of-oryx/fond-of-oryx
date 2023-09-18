@@ -214,6 +214,6 @@ class RestResponseBuilderTest extends Unit
                 ),
             )->willReturn($this->restResponseMock);
 
-        $this->restResponseBuilder->buildRepresentativeCompanyUserMissingPermissionResponse();
+        $this->restResponseBuilder->buildErrorResponse();
     }
 }
