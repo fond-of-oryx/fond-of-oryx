@@ -132,13 +132,8 @@ class RepresentationManager implements RepresentationManagerInterface
         try {
             $attributes = $restRepresentativeCompanyUserRequestTransfer->getAttributes();
 
-            try {
-                $attributes->requireUuid();
-                $representation = $this->representativeCompanyUserFacade->deleteRepresentativeCompanyUser($attributes->getUuid());
-            } catch (Exception $exception) {
-                //ToDo Handle/Log
-                $representation = null;
-            }
+            $attributes->requireUuid();
+            $representation = $this->representativeCompanyUserFacade->deleteRepresentativeCompanyUser($attributes->getUuid());
 
             return (new RestRepresentativeCompanyUserResponseTransfer())->setRepresentation($this->restDataMapper->mapResponse($representation));
         } catch (Throwable $throwable) {
