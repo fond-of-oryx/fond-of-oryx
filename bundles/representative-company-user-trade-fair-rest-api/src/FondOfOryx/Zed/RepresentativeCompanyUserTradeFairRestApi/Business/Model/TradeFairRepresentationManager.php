@@ -2,7 +2,6 @@
 
 namespace FondOfOryx\Zed\RepresentativeCompanyUserTradeFairRestApi\Business\Model;
 
-use Exception;
 use FondOfOryx\Zed\RepresentativeCompanyUserTradeFairRestApi\Business\Model\Mapper\RestDataMapperInterface;
 use FondOfOryx\Zed\RepresentativeCompanyUserTradeFairRestApi\Business\Validator\DurationValidatorInterface;
 use FondOfOryx\Zed\RepresentativeCompanyUserTradeFairRestApi\Communication\Plugin\PermissionExtension\CanManageRepresentationOnTradeFairPermissionPlugin;
@@ -14,10 +13,12 @@ use Generated\Shared\Transfer\RepresentativeCompanyUserFilterSortTransfer;
 use Generated\Shared\Transfer\RepresentativeCompanyUserTradeFairCollectionTransfer;
 use Generated\Shared\Transfer\RepresentativeCompanyUserTradeFairFilterTransfer;
 use Generated\Shared\Transfer\RepresentativeCompanyUserTradeFairTransfer;
+use Generated\Shared\Transfer\RestErrorMessageTransfer;
 use Generated\Shared\Transfer\RestRepresentativeCompanyUserPaginationTransfer;
 use Generated\Shared\Transfer\RestRepresentativeCompanyUserTradeFairAttributesTransfer;
 use Generated\Shared\Transfer\RestRepresentativeCompanyUserTradeFairRequestTransfer;
 use Generated\Shared\Transfer\RestRepresentativeCompanyUserTradeFairResponseTransfer;
+use Throwable;
 
 class TradeFairRepresentationManager implements TradeFairRepresentationManagerInterface
 {
@@ -80,22 +81,26 @@ class TradeFairRepresentationManager implements TradeFairRepresentationManagerIn
 
         $error = $this->validate($restRepresentativeCompanyUserTradeFairRequestTransfer);
 
-        if ($error) {
+        if ($error !== null) {
             return $restRepresentativeCompanyUserTradeFairResponse->setError($error);
         }
 
-        $restRepresentativeCompanyUserTradeFairAttributesTransfer = $restRepresentativeCompanyUserTradeFairRequestTransfer->getAttributes();
-        $originatorId = $this->repository->getIdCustomerByReference($restRepresentativeCompanyUserTradeFairAttributesTransfer->getCustomerReferenceOriginator());
-        $representationId = $this->repository->getIdCustomerByReference($restRepresentativeCompanyUserTradeFairAttributesTransfer->getCustomerReferenceRepresentative());
+        try {
+            $restRepresentativeCompanyUserTradeFairAttributesTransfer = $restRepresentativeCompanyUserTradeFairRequestTransfer->getAttributes();
+            $originatorId = $this->repository->getIdCustomerByReference($restRepresentativeCompanyUserTradeFairAttributesTransfer->getCustomerReferenceOriginator());
+            $representationId = $this->repository->getIdCustomerByReference($restRepresentativeCompanyUserTradeFairAttributesTransfer->getCustomerReferenceRepresentative());
 
-        $representationTransfer = (new RepresentativeCompanyUserTradeFairTransfer())
-            ->setFkDistributor($representationId)
-            ->setFkOriginator($originatorId)
-            ->setName($restRepresentativeCompanyUserTradeFairAttributesTransfer->getTradeFairName())
-            ->setStartAt($restRepresentativeCompanyUserTradeFairAttributesTransfer->getStartAt())
-            ->setEndAt($restRepresentativeCompanyUserTradeFairAttributesTransfer->getEndAt());
+            $representationTransfer = (new RepresentativeCompanyUserTradeFairTransfer())
+                ->setFkDistributor($representationId)
+                ->setFkOriginator($originatorId)
+                ->setName($restRepresentativeCompanyUserTradeFairAttributesTransfer->getTradeFairName())
+                ->setStartAt($restRepresentativeCompanyUserTradeFairAttributesTransfer->getStartAt())
+                ->setEndAt($restRepresentativeCompanyUserTradeFairAttributesTransfer->getEndAt());
 
-        $response = $this->representativeCompanyUserTradeFairFacade->addRepresentativeCompanyUserTradeFair($representationTransfer);
+            $response = $this->representativeCompanyUserTradeFairFacade->addRepresentativeCompanyUserTradeFair($representationTransfer);
+        } catch (Throwable $throwable) {
+            return $restRepresentativeCompanyUserTradeFairResponse->setError($this->createError($throwable->getMessage(), '500', 500));
+        }
 
         return $restRepresentativeCompanyUserTradeFairResponse
             ->setIsSuccessful(true)
@@ -112,32 +117,37 @@ class TradeFairRepresentationManager implements TradeFairRepresentationManagerIn
     ): RestRepresentativeCompanyUserTradeFairResponseTransfer {
         $restRepresentativeCompanyUserTradeFairAttributesTransfer = $restRepresentativeCompanyUserTradeFairRequestTransfer->getAttributes();
         $restRepresentativeCompanyUserTradeFairAttributesTransfer->requireUuid();
+        $restResponse = (new RestRepresentativeCompanyUserTradeFairResponseTransfer())->setIsSuccessful(false);
 
         $error = $this->validate($restRepresentativeCompanyUserTradeFairRequestTransfer);
 
-        if ($error) {
-            return (new RestRepresentativeCompanyUserTradeFairResponseTransfer())->setError($error);
+        if ($error !== null) {
+            return $restResponse->setError($error);
         }
 
-        $representationTransfer = $this->representativeCompanyUserTradeFairFacade->findTradeFairRepresentationByUuid($restRepresentativeCompanyUserTradeFairAttributesTransfer->getUuid());
+        try {
+            $representationTransfer = $this->representativeCompanyUserTradeFairFacade->findTradeFairRepresentationByUuid($restRepresentativeCompanyUserTradeFairAttributesTransfer->getUuid());
 
-        if (
-            $representationTransfer->getDistributor()->getCustomerReference() !== $restRepresentativeCompanyUserTradeFairAttributesTransfer->getCustomerReferenceRepresentative()
-        ) {
-            $representationTransfer->setActive(false);
-            $this->representativeCompanyUserTradeFairFacade->updateRepresentativeCompanyUserTradeFair($representationTransfer);
+            if (
+                $representationTransfer->getDistributor()->getCustomerReference() !== $restRepresentativeCompanyUserTradeFairAttributesTransfer->getCustomerReferenceRepresentative()
+            ) {
+                $representationTransfer->setActive(false);
+                $this->representativeCompanyUserTradeFairFacade->updateRepresentativeCompanyUserTradeFair($representationTransfer);
 
-            return $this->addTradeFairRepresentation($restRepresentativeCompanyUserTradeFairRequestTransfer);
+                return $this->addTradeFairRepresentation($restRepresentativeCompanyUserTradeFairRequestTransfer);
+            }
+
+            $representationTransfer
+                ->setActive($this->getStatus($representationTransfer, $restRepresentativeCompanyUserTradeFairAttributesTransfer))
+                ->setEndAt($restRepresentativeCompanyUserTradeFairAttributesTransfer->getEndAt())
+                ->setStartAt($restRepresentativeCompanyUserTradeFairAttributesTransfer->getStartAt());
+            $response = $this->representativeCompanyUserTradeFairFacade->updateRepresentativeCompanyUserTradeFair($representationTransfer);
+        } catch (Throwable $throwable) {
+            return $restResponse->setError($this->createError($throwable->getMessage(), '500', 500));
         }
 
-        $representationTransfer
-            ->setActive($this->getStatus($representationTransfer, $restRepresentativeCompanyUserTradeFairAttributesTransfer))
-            ->setEndAt($restRepresentativeCompanyUserTradeFairAttributesTransfer->getEndAt())
-            ->setStartAt($restRepresentativeCompanyUserTradeFairAttributesTransfer->getStartAt());
-        $response = $this->representativeCompanyUserTradeFairFacade->updateRepresentativeCompanyUserTradeFair($representationTransfer);
-
-        return (new RestRepresentativeCompanyUserTradeFairResponseTransfer())
-            ->setRepresentation($this->restDataMapper->mapResponse($response));
+        return $restResponse
+            ->setRepresentation($this->restDataMapper->mapResponse($response))->setIsSuccessful(true);
     }
 
     /**
@@ -149,17 +159,18 @@ class TradeFairRepresentationManager implements TradeFairRepresentationManagerIn
         RestRepresentativeCompanyUserTradeFairRequestTransfer $restRepresentativeCompanyUserTradeFairRequestTransfer
     ): RestRepresentativeCompanyUserTradeFairResponseTransfer {
         $attributes = $restRepresentativeCompanyUserTradeFairRequestTransfer->getAttributes();
+        $restResponse = (new RestRepresentativeCompanyUserTradeFairResponseTransfer())->setIsSuccessful(false);
 
         try {
             $attributes->requireUuid();
             $representation = $this->representativeCompanyUserTradeFairFacade->deleteRepresentativeCompanyUserTradeFair($attributes->getUuid());
             $response = $this->restDataMapper->mapResponse($representation);
-        } catch (Exception $exception) {
+        } catch (Throwable $throwable) {
             //ToDo Handle/Log
-            $response = null;
+            return $restResponse->setError($this->createError($throwable->getMessage(), '500', 500));
         }
 
-        return (new RestRepresentativeCompanyUserTradeFairResponseTransfer())->setRepresentation($response);
+        return $restResponse->setRepresentation($response)->setIsSuccessful(true);
     }
 
     /**
@@ -191,20 +202,22 @@ class TradeFairRepresentationManager implements TradeFairRepresentationManagerIn
         $filter = $this->createFilter($restRepresentativeCompanyUserTradeFairRequestTransfer, $attributes);
 
         $collection = $this->representativeCompanyUserTradeFairFacade->getRepresentativeCompanyUserTradeFair($filter);
+        $pagination = $this->createPagination($collection);
+        $collectionTransfer = $this->restDataMapper->mapResponseCollection($collection);
+        $collectionTransfer->setPagination($pagination);
 
         return (new RestRepresentativeCompanyUserTradeFairResponseTransfer())
-            ->setCollection($this->restDataMapper->mapResponseCollection($collection))
-            ->setPagination($this->createPagination($collection));
+            ->setCollection($collectionTransfer);
     }
 
     /**
      * @param \Generated\Shared\Transfer\RestRepresentativeCompanyUserTradeFairRequestTransfer $restRepresentativeCompanyUserTradeFairRequestTransfer
      *
-     * @return string
+     * @return \Generated\Shared\Transfer\RestErrorMessageTransfer|null
      */
     protected function validate(
         RestRepresentativeCompanyUserTradeFairRequestTransfer $restRepresentativeCompanyUserTradeFairRequestTransfer
-    ): string {
+    ): ?RestErrorMessageTransfer {
         $companyTypeManufacturer = $this->companyTypeFacade->getCompanyTypeManufacturer();
 
         if (
@@ -215,16 +228,16 @@ class TradeFairRepresentationManager implements TradeFairRepresentationManagerIn
                 $companyTypeManufacturer->getIdCompanyType(),
             )
         ) {
-            return RepresentativeCompanyUserTradeFairRestApiConfig::ERROR_MESSAGE_USER_IS_NOT_ALLOWED_TO_ADD_TRADE_FAIR_REPRESENTATION;
+            return $this->createError(RepresentativeCompanyUserTradeFairRestApiConfig::ERROR_MESSAGE_USER_IS_NOT_ALLOWED_TO_ADD_TRADE_FAIR_REPRESENTATION, '422');
         }
 
         if (
             !$this->durationValidator->validate($restRepresentativeCompanyUserTradeFairRequestTransfer->getAttributes())
         ) {
-            return RepresentativeCompanyUserTradeFairRestApiConfig::ERROR_MESSAGE_REPRESENTATION_DURATION_EXCEEDED;
+            return $this->createError(RepresentativeCompanyUserTradeFairRestApiConfig::ERROR_MESSAGE_REPRESENTATION_DURATION_EXCEEDED, '422');
         }
 
-        return '';
+        return null;
     }
 
     /**
@@ -290,5 +303,20 @@ class TradeFairRepresentationManager implements TradeFairRepresentationManagerIn
         return $paginationTransfer
             ->setNumFound($total)
             ->setCurrentItemsPerPage($limit);
+    }
+
+    /**
+     * @param string $message
+     * @param string $code
+     * @param int $status
+     *
+     * @return \Generated\Shared\Transfer\RestErrorMessageTransfer
+     */
+    protected function createError(string $message, string $code, int $status = 400): RestErrorMessageTransfer
+    {
+        return (new RestErrorMessageTransfer())
+            ->setDetail($message)
+            ->setCode($code)
+            ->setStatus($status);
     }
 }
