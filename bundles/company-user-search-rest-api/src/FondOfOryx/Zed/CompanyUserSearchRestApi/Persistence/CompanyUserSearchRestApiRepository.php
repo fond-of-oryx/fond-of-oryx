@@ -71,10 +71,18 @@ class CompanyUserSearchRestApiRepository extends AbstractRepository implements C
         $query = $this->getFactory()
             ->getCompanyUserQuery()
             ->clear()
-            ->useCustomerQuery()
-                ->filterByAnonymizedAt(null, Criteria::ISNULL)
-            ->endUse()
             ->filterByIsActive(true);
+
+        if (count($companyUserListTransfer->getEmails()) > 0) {
+            $query = $query->useCustomerQuery()
+                    ->filterByAnonymizedAt(null, Criteria::ISNULL)
+                    ->filterByEmail_In($companyUserListTransfer->getEmails())
+                ->endUse();
+        } else {
+            $query = $query->useCustomerQuery()
+                    ->filterByAnonymizedAt(null, Criteria::ISNULL)
+                ->endUse();
+        }
 
         if (count($companyUserListTransfer->getCompanyRoleNames()) > 0) {
             $query = $query->useSpyCompanyRoleToCompanyUserQuery()
@@ -94,7 +102,7 @@ class CompanyUserSearchRestApiRepository extends AbstractRepository implements C
             return $query->filterByFkCustomer($companyUserListTransfer->getCustomerId());
         }
 
-        $query = $query->where(
+        return $query->where(
             sprintf(
                 '%s IN (SELECT %s FROM %s WHERE %s = true AND %s = ?)',
                 SpyCompanyUserTableMap::COL_FK_COMPANY,
@@ -105,14 +113,6 @@ class CompanyUserSearchRestApiRepository extends AbstractRepository implements C
             ),
             $companyUserListTransfer->getCustomerId(),
         );
-
-        if (count($companyUserListTransfer->getEmails()) === 0) {
-            return $query;
-        }
-
-        return $query->useCustomerQuery()
-                ->filterByEmail_In($companyUserListTransfer->getEmails())
-            ->endUse();
     }
 
     /**
