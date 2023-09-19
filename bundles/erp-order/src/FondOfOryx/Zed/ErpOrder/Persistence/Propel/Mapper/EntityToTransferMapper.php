@@ -162,6 +162,7 @@ class EntityToTransferMapper implements EntityToTransferMapperInterface
 
         return $erpOrderTotalsTransfer
             ->setGrandTotal($erpOrderTotals->getGrandTotal())
-            ->setTaxTotal($erpOrderTotals->getTaxTotal());
+            ->setTaxTotal($erpOrderTotals->getTaxTotal())
+            ->setExpenseTotal($erpOrderTotals->getExpenseTotal());
     }
 }
