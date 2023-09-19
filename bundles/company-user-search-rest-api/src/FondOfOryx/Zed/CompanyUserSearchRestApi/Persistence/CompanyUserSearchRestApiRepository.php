@@ -94,7 +94,7 @@ class CompanyUserSearchRestApiRepository extends AbstractRepository implements C
             return $query->filterByFkCustomer($companyUserListTransfer->getCustomerId());
         }
 
-        return $query->where(
+        $query = $query->where(
             sprintf(
                 '%s IN (SELECT %s FROM %s WHERE %s = true AND %s = ?)',
                 SpyCompanyUserTableMap::COL_FK_COMPANY,
@@ -105,6 +105,14 @@ class CompanyUserSearchRestApiRepository extends AbstractRepository implements C
             ),
             $companyUserListTransfer->getCustomerId(),
         );
+
+        if (count($companyUserListTransfer->getEmails()) === 0) {
+            return $query;
+        }
+
+        return $query->useCustomerQuery()
+                ->filterByEmail_In($companyUserListTransfer->getEmails())
+            ->endUse();
     }
 
     /**

@@ -13,6 +13,8 @@ use FondOfOryx\Glue\CompanyUserSearchRestApi\Processor\Filter\CustomerIdFilter;
 use FondOfOryx\Glue\CompanyUserSearchRestApi\Processor\Filter\CustomerIdFilterInterface;
 use FondOfOryx\Glue\CompanyUserSearchRestApi\Processor\Filter\CustomerReferenceFilter;
 use FondOfOryx\Glue\CompanyUserSearchRestApi\Processor\Filter\CustomerReferenceFilterInterface;
+use FondOfOryx\Glue\CompanyUserSearchRestApi\Processor\Filter\EmailFilter;
+use FondOfOryx\Glue\CompanyUserSearchRestApi\Processor\Filter\EmailFilterInterface;
 use FondOfOryx\Glue\CompanyUserSearchRestApi\Processor\Filter\RequestParameterFilter;
 use FondOfOryx\Glue\CompanyUserSearchRestApi\Processor\Filter\RequestParameterFilterInterface;
 use FondOfOryx\Glue\CompanyUserSearchRestApi\Processor\Mapper\AllFilterFieldMapper;
@@ -66,6 +68,7 @@ class CompanyUserSearchRestApiFactory extends AbstractFactory
             $this->createCustomerReferenceFilter(),
             $this->createCustomerIdFilter(),
             $this->createCompanyRoleNameFilter(),
+            $this->createEmailFilter(),
         );
     }
 
@@ -177,6 +180,14 @@ class CompanyUserSearchRestApiFactory extends AbstractFactory
     protected function createCompanyRoleNameFilter(): CompanyRoleNameFilterInterface
     {
         return new CompanyRoleNameFilter();
+    }
+
+    /**
+     * @return \FondOfOryx\Glue\CompanyUserSearchRestApi\Processor\Filter\EmailFilterInterface
+     */
+    protected function createEmailFilter(): EmailFilterInterface
+    {
+        return new EmailFilter();
     }
 
     /**

@@ -7,6 +7,7 @@ use Codeception\Test\Unit;
 use FondOfOryx\Glue\CompanyUserSearchRestApi\Processor\Filter\CompanyRoleNameFilterInterface;
 use FondOfOryx\Glue\CompanyUserSearchRestApi\Processor\Filter\CustomerIdFilterInterface;
 use FondOfOryx\Glue\CompanyUserSearchRestApi\Processor\Filter\CustomerReferenceFilterInterface;
+use FondOfOryx\Glue\CompanyUserSearchRestApi\Processor\Filter\EmailFilterInterface;
 use FondOfOryx\Glue\CompanyUserSearchRestApi\Processor\Filter\RequestParameterFilterInterface;
 use Generated\Shared\Transfer\PaginationTransfer;
 use PHPUnit\Framework\MockObject\MockObject;
@@ -43,6 +44,11 @@ class CompanyUserListMapperTest extends Unit
      * @var (\FondOfOryx\Glue\CompanyUserSearchRestApi\Processor\Filter\CompanyRoleNameFilterInterface&\PHPUnit\Framework\MockObject\MockObject)|\PHPUnit\Framework\MockObject\MockObject
      */
     protected MockObject|CompanyRoleNameFilterInterface $companyRoleNameFilterMock;
+
+    /**
+     * @var (\FondOfOryx\Glue\CompanyUserSearchRestApi\Processor\Filter\EmailFilterInterface&\PHPUnit\Framework\MockObject\MockObject)|\PHPUnit\Framework\MockObject\MockObject
+     */
+    protected MockObject|EmailFilterInterface $emailFilterMock;
 
     /**
      * @var \PHPUnit\Framework\MockObject\MockObject|(\Spryker\Glue\GlueApplication\Rest\Request\Data\RestRequestInterface&\PHPUnit\Framework\MockObject\MockObject)
@@ -90,6 +96,10 @@ class CompanyUserListMapperTest extends Unit
             ->disableOriginalConstructor()
             ->getMock();
 
+        $this->emailFilterMock = $this->getMockBuilder(EmailFilterInterface::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
         $this->restRequestMock = $this->getMockBuilder(RestRequestInterface::class)
             ->disableOriginalConstructor()
             ->getMock();
@@ -105,6 +115,7 @@ class CompanyUserListMapperTest extends Unit
             $this->customerReferenceFilterMock,
             $this->customerIdFilterMock,
             $this->companyRoleNameFilterMock,
+            $this->emailFilterMock,
         );
     }
 
@@ -117,6 +128,7 @@ class CompanyUserListMapperTest extends Unit
         $companyUuid = 'foo company uuid';
         $companyUserReference = 'FOO-CU--1';
         $companyRoleNames = ['foo', 'bar'];
+        $emails = ['foo@bar.com', 'bar@foo.com'];
 
         $this->paginationMapperMock->expects(static::atLeastOnce())
             ->method('fromRestRequest')
@@ -152,6 +164,11 @@ class CompanyUserListMapperTest extends Unit
             ->with($this->restRequestMock)
             ->willReturn($companyRoleNames);
 
+        $this->emailFilterMock->expects(static::atLeastOnce())
+            ->method('filterFromRestRequest')
+            ->with($this->restRequestMock)
+            ->willReturn($emails);
+
         $companyUserListTransfer = $this->companyUserListMapper->fromRestRequest($this->restRequestMock);
 
         static::assertEquals(
@@ -180,6 +197,11 @@ class CompanyUserListMapperTest extends Unit
         static::assertEquals(
             $companyRoleNames,
             $companyUserListTransfer->getCompanyRoleNames(),
+        );
+
+        static::assertEquals(
+            $emails,
+            $companyUserListTransfer->getEmails(),
         );
     }
 }
