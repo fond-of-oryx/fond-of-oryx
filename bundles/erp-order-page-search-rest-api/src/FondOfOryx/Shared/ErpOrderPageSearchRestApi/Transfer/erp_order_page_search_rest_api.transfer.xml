@@ -90,6 +90,7 @@
         <property name="subtotal" type="int"/>
         <property name="grandTotal" type="int"/>
         <property name="taxTotal" type="int"/>
+        <property name="expenseTotal" type="int"/>
     </transfer>
 
     <transfer name="RestCompanyBusinessUnit">
