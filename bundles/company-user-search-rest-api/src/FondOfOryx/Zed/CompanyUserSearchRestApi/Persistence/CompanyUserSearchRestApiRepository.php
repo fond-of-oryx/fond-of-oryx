@@ -71,10 +71,18 @@ class CompanyUserSearchRestApiRepository extends AbstractRepository implements C
         $query = $this->getFactory()
             ->getCompanyUserQuery()
             ->clear()
-            ->useCustomerQuery()
-                ->filterByAnonymizedAt(null, Criteria::ISNULL)
-            ->endUse()
             ->filterByIsActive(true);
+
+        if (count($companyUserListTransfer->getEmails()) > 0) {
+            $query = $query->useCustomerQuery()
+                    ->filterByAnonymizedAt(null, Criteria::ISNULL)
+                    ->filterByEmail_In($companyUserListTransfer->getEmails())
+                ->endUse();
+        } else {
+            $query = $query->useCustomerQuery()
+                    ->filterByAnonymizedAt(null, Criteria::ISNULL)
+                ->endUse();
+        }
 
         if (count($companyUserListTransfer->getCompanyRoleNames()) > 0) {
             $query = $query->useSpyCompanyRoleToCompanyUserQuery()
