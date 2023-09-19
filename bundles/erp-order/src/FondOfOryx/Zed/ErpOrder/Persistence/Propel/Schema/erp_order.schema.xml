@@ -98,6 +98,7 @@
         <column name="subtotal" type="INTEGER" required="false" default="0"/>
         <column name="grand_total" type="INTEGER" required="false" default="0"/>
         <column name="tax_total" type="INTEGER" required="false" default="0"/>
+        <column name="expense_total" type="INTEGER" required="false" default="0"/>
 
         <id-method-parameter value="foo_erp_order_totals_pk_seq"/>
     </table>
