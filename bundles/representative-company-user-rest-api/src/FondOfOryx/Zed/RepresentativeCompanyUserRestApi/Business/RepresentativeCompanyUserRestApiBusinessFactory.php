@@ -8,6 +8,7 @@ use FondOfOryx\Zed\RepresentativeCompanyUserRestApi\Business\Model\Representatio
 use FondOfOryx\Zed\RepresentativeCompanyUserRestApi\Business\Model\RepresentationManagerInterface;
 use FondOfOryx\Zed\RepresentativeCompanyUserRestApi\Dependency\Facade\RepresentativeCompanyUserRestApiToRepresentativeCompanyUserFacadeInterface;
 use FondOfOryx\Zed\RepresentativeCompanyUserRestApi\RepresentativeCompanyUserRestApiDependencyProvider;
+use Spryker\Shared\Log\LoggerTrait;
 use Spryker\Zed\Kernel\Business\AbstractBusinessFactory;
 
 /**
@@ -15,6 +16,8 @@ use Spryker\Zed\Kernel\Business\AbstractBusinessFactory;
  */
 class RepresentativeCompanyUserRestApiBusinessFactory extends AbstractBusinessFactory
 {
+    use LoggerTrait;
+
     /**
      * @return \FondOfOryx\Zed\RepresentativeCompanyUserRestApi\Business\Model\RepresentationManagerInterface
      */
@@ -24,6 +27,7 @@ class RepresentativeCompanyUserRestApiBusinessFactory extends AbstractBusinessFa
             $this->getRepresentativeCompanyUserFacade(),
             $this->getRepository(),
             $this->createRestDataMapper(),
+            $this->getLogger(),
         );
     }
 
