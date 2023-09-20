@@ -19,11 +19,6 @@ class RepresentativeCompanyUserTradeFairDependencyProvider extends AbstractBundl
     /**
      * @var string
      */
-    public const SERVICE_UTIL_UUID_GENERATOR = 'SERVICE_UTIL_UUID_GENERATOR';
-
-    /**
-     * @var string
-     */
     public const FACADE_REPRESENTATIVE_COMPANY_USER = 'FACADE_REPRESENTATIVE_COMPANY_USER';
 
     /**
@@ -59,9 +54,7 @@ class RepresentativeCompanyUserTradeFairDependencyProvider extends AbstractBundl
     public function provideBusinessLayerDependencies(Container $container): Container
     {
         $container = parent::provideBusinessLayerDependencies($container);
-        $container = $this->addRepresentativeCompanyUserFacade($container);
-
-        return $this->addUtilUuidGeneratorService($container);
+        return $this->addRepresentativeCompanyUserFacade($container);
     }
 
     /**
@@ -78,22 +71,6 @@ class RepresentativeCompanyUserTradeFairDependencyProvider extends AbstractBundl
         $container = $this->addFooRepresentativeCompanyUserQueryExpanderPlugins($container);
 
         return $this->addCompanyQuery($container);
-    }
-
-    /**
-     * @param \Spryker\Zed\Kernel\Container $container
-     *
-     * @return \Spryker\Zed\Kernel\Container
-     */
-    protected function addUtilUuidGeneratorService(Container $container): Container
-    {
-        $container[static::SERVICE_UTIL_UUID_GENERATOR] = static function (Container $container) {
-            return new RepresentativeCompanyUserTradeFairToUtilUuidGeneratorServiceBridge(
-                $container->getLocator()->utilUuidGenerator()->service(),
-            );
-        };
-
-        return $container;
     }
 
     /**

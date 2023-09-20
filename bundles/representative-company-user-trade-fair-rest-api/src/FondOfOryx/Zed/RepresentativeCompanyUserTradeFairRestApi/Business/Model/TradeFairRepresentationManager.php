@@ -148,6 +148,7 @@ class TradeFairRepresentationManager implements TradeFairRepresentationManagerIn
             }
 
             $representationTransfer
+                ->setName($restRepresentativeCompanyUserTradeFairAttributesTransfer->getTradeFairName())
                 ->setActive($this->getStatus($representationTransfer, $restRepresentativeCompanyUserTradeFairAttributesTransfer))
                 ->setEndAt($restRepresentativeCompanyUserTradeFairAttributesTransfer->getEndAt())
                 ->setStartAt($restRepresentativeCompanyUserTradeFairAttributesTransfer->getStartAt());
