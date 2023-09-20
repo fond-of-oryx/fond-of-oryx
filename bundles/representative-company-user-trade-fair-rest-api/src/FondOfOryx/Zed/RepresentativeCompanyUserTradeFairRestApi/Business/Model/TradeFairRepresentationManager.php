@@ -60,6 +60,7 @@ class TradeFairRepresentationManager implements TradeFairRepresentationManagerIn
      * @param \FondOfOryx\Zed\RepresentativeCompanyUserTradeFairRestApi\Business\Validator\DurationValidatorInterface $durationValidator
      * @param \FondOfOryx\Zed\RepresentativeCompanyUserTradeFairRestApi\Persistence\RepresentativeCompanyUserTradeFairRestApiRepositoryInterface $repository
      * @param \FondOfOryx\Zed\RepresentativeCompanyUserTradeFairRestApi\Business\Model\Mapper\RestDataMapperInterface $restDataMapper
+     * @param \Psr\Log\LoggerInterface $logger
      */
     public function __construct(
         RepresentativeCompanyUserTradeFairRestApiToRepresentativeCompanyUserTradeFairFacadeInterface $representativeCompanyUserTradeFairFacade,
@@ -109,6 +110,7 @@ class TradeFairRepresentationManager implements TradeFairRepresentationManagerIn
             $response = $this->representativeCompanyUserTradeFairFacade->addRepresentativeCompanyUserTradeFair($representationTransfer);
         } catch (Throwable $throwable) {
             $this->logger->error($throwable->getMessage(), $throwable->getTrace());
+
             return $restRepresentativeCompanyUserTradeFairResponse->setError($this->createError(RepresentativeCompanyUserTradeFairRestApiConstants::HTTP_MESSAGE_ADD_ERROR, RepresentativeCompanyUserTradeFairRestApiConstants::HTTP_CODE_ADD_ERRORS));
         }
 
@@ -155,6 +157,7 @@ class TradeFairRepresentationManager implements TradeFairRepresentationManagerIn
             $response = $this->representativeCompanyUserTradeFairFacade->updateRepresentativeCompanyUserTradeFair($representationTransfer);
         } catch (Throwable $throwable) {
             $this->logger->error($throwable->getMessage(), $throwable->getTrace());
+
             return $restResponse->setError($this->createError(RepresentativeCompanyUserTradeFairRestApiConstants::HTTP_MESSAGE_UPDATE_ERROR, RepresentativeCompanyUserTradeFairRestApiConstants::HTTP_CODE_UPDATE_ERRORS));
         }
 
@@ -179,6 +182,7 @@ class TradeFairRepresentationManager implements TradeFairRepresentationManagerIn
             $response = $this->restDataMapper->mapResponse($representation);
         } catch (Throwable $throwable) {
             $this->logger->error($throwable->getMessage(), $throwable->getTrace());
+
             return $restResponse->setError($this->createError(RepresentativeCompanyUserTradeFairRestApiConstants::HTTP_MESSAGE_DELETE_ERROR, RepresentativeCompanyUserTradeFairRestApiConstants::HTTP_CODE_DELETE_ERRORS));
         }
 

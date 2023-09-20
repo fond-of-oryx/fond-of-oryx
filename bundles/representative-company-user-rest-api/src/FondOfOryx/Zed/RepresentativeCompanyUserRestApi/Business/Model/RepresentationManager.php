@@ -2,7 +2,6 @@
 
 namespace FondOfOryx\Zed\RepresentativeCompanyUserRestApi\Business\Model;
 
-use Exception;
 use FondOfOryx\Shared\RepresentativeCompanyUserRestApi\RepresentativeCompanyUserRestApiConstants;
 use FondOfOryx\Zed\RepresentativeCompanyUserRestApi\Business\Model\Mapper\RestDataMapperInterface;
 use FondOfOryx\Zed\RepresentativeCompanyUserRestApi\Dependency\Facade\RepresentativeCompanyUserRestApiToRepresentativeCompanyUserFacadeInterface;
@@ -47,6 +46,7 @@ class RepresentationManager implements RepresentationManagerInterface
      * @param \FondOfOryx\Zed\RepresentativeCompanyUserRestApi\Dependency\Facade\RepresentativeCompanyUserRestApiToRepresentativeCompanyUserFacadeInterface $representativeCompanyUserFacade
      * @param \FondOfOryx\Zed\RepresentativeCompanyUserRestApi\Persistence\RepresentativeCompanyUserRestApiRepositoryInterface $repository
      * @param \FondOfOryx\Zed\RepresentativeCompanyUserRestApi\Business\Model\Mapper\RestDataMapperInterface $restDataMapper
+     * @param \Psr\Log\LoggerInterface $logger
      */
     public function __construct(
         RepresentativeCompanyUserRestApiToRepresentativeCompanyUserFacadeInterface $representativeCompanyUserFacade,
@@ -90,6 +90,7 @@ class RepresentationManager implements RepresentationManagerInterface
                 ->setRepresentation($this->restDataMapper->mapResponse($response));
         } catch (Throwable $throwable) {
             $this->logger->error($throwable->getMessage(), $throwable->getTrace());
+
             return $this->createErrorTransfer(RepresentativeCompanyUserRestApiConstants::ERROR_MESSAGE_ADD, RepresentativeCompanyUserRestApiConstants::ERROR_CODE_ADD);
         }
     }
@@ -128,6 +129,7 @@ class RepresentationManager implements RepresentationManagerInterface
                 ->setRepresentation($this->restDataMapper->mapResponse($response));
         } catch (Throwable $throwable) {
             $this->logger->error($throwable->getMessage(), $throwable->getTrace());
+
             return $this->createErrorTransfer(RepresentativeCompanyUserRestApiConstants::ERROR_MESSAGE_UPDATE, RepresentativeCompanyUserRestApiConstants::ERROR_CODE_UPDATE);
         }
     }
@@ -149,6 +151,7 @@ class RepresentationManager implements RepresentationManagerInterface
             return (new RestRepresentativeCompanyUserResponseTransfer())->setRepresentation($this->restDataMapper->mapResponse($representation));
         } catch (Throwable $throwable) {
             $this->logger->error($throwable->getMessage(), $throwable->getTrace());
+
             return $this->createErrorTransfer(RepresentativeCompanyUserRestApiConstants::ERROR_MESSAGE_DELETE, RepresentativeCompanyUserRestApiConstants::ERROR_CODE_DELETE);
         }
     }
@@ -189,6 +192,7 @@ class RepresentationManager implements RepresentationManagerInterface
                 ->setPagination($this->createPagination($collection));
         } catch (Throwable $throwable) {
             $this->logger->error($throwable->getMessage(), $throwable->getTrace());
+
             return $this->createErrorTransfer(RepresentativeCompanyUserRestApiConstants::ERROR_MESSAGE_GET, RepresentativeCompanyUserRestApiConstants::ERROR_CODE_GET);
         }
     }
@@ -267,6 +271,7 @@ class RepresentationManager implements RepresentationManagerInterface
      * @param string $message
      * @param string $code
      * @param int $status
+     *
      * @return \Generated\Shared\Transfer\RestErrorMessageTransfer
      */
     public function createErrorTransfer(string $message, string $code, int $status = 400): RestErrorMessageTransfer
