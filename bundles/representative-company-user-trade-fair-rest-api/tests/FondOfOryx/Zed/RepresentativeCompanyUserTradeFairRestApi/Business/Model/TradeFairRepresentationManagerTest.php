@@ -19,6 +19,7 @@ use Generated\Shared\Transfer\RestRepresentativeCompanyUserTradeFairRequestTrans
 use Generated\Shared\Transfer\RestRepresentativeCompanyUserTradeFairResponseTransfer;
 use Generated\Shared\Transfer\RestRepresentativeCompanyUserTradeFairTransfer;
 use PHPUnit\Framework\MockObject\MockObject;
+use Psr\Log\LoggerInterface;
 
 class TradeFairRepresentationManagerTest extends Unit
 {
@@ -88,6 +89,11 @@ class TradeFairRepresentationManagerTest extends Unit
     protected RestDataMapperInterface|MockObject $restDataMapperMock;
 
     /**
+     * @var \Psr\Log\LoggerInterface|\PHPUnit\Framework\MockObject\MockObject
+     */
+    protected LoggerInterface|MockObject $loggerMock;
+
+    /**
      * @var \FondOfOryx\Zed\RepresentativeCompanyUserTradeFairRestApi\Business\Model\TradeFairRepresentationManager
      */
     protected TradeFairRepresentationManager $tradeFairRepresentation;
@@ -134,6 +140,11 @@ class TradeFairRepresentationManagerTest extends Unit
             ->disableOriginalConstructor()
             ->getMock();
 
+        $this->loggerMock = $this
+            ->getMockBuilder(LoggerInterface::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
         $this->restRepresentativeCompanyUserTradeFairRequestTransferMock = $this
             ->getMockBuilder(RestRepresentativeCompanyUserTradeFairRequestTransfer::class)
             ->disableOriginalConstructor()
@@ -170,6 +181,7 @@ class TradeFairRepresentationManagerTest extends Unit
             $this->durationValidatorMock,
             $this->repositoryMock,
             $this->restDataMapperMock,
+            $this->loggerMock,
         );
     }
 
