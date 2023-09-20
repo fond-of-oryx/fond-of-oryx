@@ -82,7 +82,7 @@ class RepresentativeCompanyUserTradeFairDependencyProviderTest extends Unit
 
         $this->bundleProxyMock->expects(static::atLeastOnce())
             ->method('__call')
-            ->withConsecutive(['facade'],)
+            ->withConsecutive(['facade'])
             ->willReturnOnConsecutiveCalls(
                 $this->representativeCompanyUserFacadeMock,
             );

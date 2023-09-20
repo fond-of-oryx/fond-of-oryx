@@ -203,26 +203,6 @@ class RepresentativeManagerTest extends Unit
             ->method('createRepresentativeCompanyUser')
             ->willReturn($this->representativeCompanyUserTransferMock);
 
-        $this->representativeCompanyUserTransferMock->expects(static::atLeastOnce())
-            ->method('getFkDistributor')
-            ->willReturn('fkdis');
-
-        $this->representativeCompanyUserTransferMock->expects(static::atLeastOnce())
-            ->method('getFkRepresentative')
-            ->willReturn('fkrep');
-
-        $this->representativeCompanyUserTransferMock->expects(static::atLeastOnce())
-            ->method('getFkOriginator')
-            ->willReturn('fkorg');
-
-        $this->representativeCompanyUserTransferMock->expects(static::atLeastOnce())
-            ->method('getStartAt')
-            ->willReturn('start');
-
-        $this->representativeCompanyUserTransferMock->expects(static::atLeastOnce())
-            ->method('getEndAt')
-            ->willReturn('end');
-
         $this->manager->addRepresentation($this->representativeCompanyUserTransferMock);
     }
 

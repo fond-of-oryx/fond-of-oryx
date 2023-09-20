@@ -3,7 +3,6 @@
 namespace FondOfOryx\Zed\RepresentativeCompanyUserTradeFair;
 
 use FondOfOryx\Zed\RepresentativeCompanyUserTradeFair\Dependency\Facade\RepresentativeCompanyUserTradeFairToRepresentativeCompanyUserBridge;
-use FondOfOryx\Zed\RepresentativeCompanyUserTradeFair\Dependency\Service\RepresentativeCompanyUserTradeFairToUtilUuidGeneratorServiceBridge;
 use Orm\Zed\Company\Persistence\SpyCompanyQuery;
 use Orm\Zed\CompanyRole\Persistence\SpyCompanyRoleQuery;
 use Orm\Zed\Customer\Persistence\SpyCustomerQuery;
@@ -54,6 +53,7 @@ class RepresentativeCompanyUserTradeFairDependencyProvider extends AbstractBundl
     public function provideBusinessLayerDependencies(Container $container): Container
     {
         $container = parent::provideBusinessLayerDependencies($container);
+
         return $this->addRepresentativeCompanyUserFacade($container);
     }
 

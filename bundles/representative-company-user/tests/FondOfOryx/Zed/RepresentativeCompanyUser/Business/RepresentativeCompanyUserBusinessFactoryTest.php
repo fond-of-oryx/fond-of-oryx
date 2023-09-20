@@ -157,7 +157,7 @@ class RepresentativeCompanyUserBusinessFactoryTest extends Unit
             ->method('get')
             ->withConsecutive([RepresentativeCompanyUserDependencyProvider::FACADE_EVENT])
             ->willReturnOnConsecutiveCalls(
-                $this->eventFacadeMock
+                $this->eventFacadeMock,
             );
 
         static::assertInstanceOf(

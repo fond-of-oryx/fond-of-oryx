@@ -5,7 +5,6 @@ namespace FondOfOryx\Zed\RepresentativeCompanyUser;
 use FondOfOryx\Zed\RepresentativeCompanyUser\Dependency\Facade\RepresentativeCompanyUserToCompanyUserFacadeBridge;
 use FondOfOryx\Zed\RepresentativeCompanyUser\Dependency\Facade\RepresentativeCompanyUserToEventFacadeBridge;
 use FondOfOryx\Zed\RepresentativeCompanyUser\Dependency\Service\RepresentativeCompanyUserToUtilDateTimeServiceBridge;
-use FondOfOryx\Zed\RepresentativeCompanyUser\Dependency\Service\RepresentativeCompanyUserToUtilUuidGeneratorServiceBridge;
 use Orm\Zed\Company\Persistence\SpyCompanyQuery;
 use Orm\Zed\CompanyUser\Persistence\SpyCompanyUserQuery;
 use Spryker\Zed\Kernel\AbstractBundleDependencyProvider;
