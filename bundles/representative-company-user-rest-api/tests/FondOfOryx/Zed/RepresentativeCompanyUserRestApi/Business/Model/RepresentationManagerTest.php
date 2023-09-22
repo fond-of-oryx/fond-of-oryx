@@ -12,6 +12,7 @@ use Generated\Shared\Transfer\RestRepresentativeCompanyUserRequestTransfer;
 use Generated\Shared\Transfer\RestRepresentativeCompanyUserResponseTransfer;
 use Generated\Shared\Transfer\RestRepresentativeCompanyUserTransfer;
 use PHPUnit\Framework\MockObject\MockObject;
+use Psr\Log\LoggerInterface;
 
 class RepresentationManagerTest extends Unit
 {
@@ -54,6 +55,11 @@ class RepresentationManagerTest extends Unit
      * @var \Generated\Shared\Transfer\RestRepresentativeCompanyUserTransfer|\PHPUnit\Framework\MockObject\MockObject
      */
     protected RestRepresentativeCompanyUserTransfer|MockObject $restRepresentativeCompanyUserTransferMock;
+
+    /**
+     * @var \Psr\Log\LoggerInterface|\PHPUnit\Framework\MockObject\MockObject
+     */
+    protected LoggerInterface|MockObject $loggerMock;
 
     /**
      * @var \FondOfOryx\Zed\RepresentativeCompanyUserRestApi\Business\Model\RepresentationManagerInterface
@@ -100,6 +106,11 @@ class RepresentationManagerTest extends Unit
             ->disableOriginalConstructor()
             ->getMock();
 
+        $this->loggerMock = $this
+            ->getMockBuilder(LoggerInterface::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
         $this->restRepresentativeCompanyUserRequestTransferMock = $this
             ->getMockBuilder(RestRepresentativeCompanyUserRequestTransfer::class)
             ->disableOriginalConstructor()
@@ -109,6 +120,7 @@ class RepresentationManagerTest extends Unit
             $this->facadeMock,
             $this->repositoryMock,
             $this->restDataMapperMock,
+            $this->loggerMock,
         );
     }
 

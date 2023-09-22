@@ -19,6 +19,7 @@ use Generated\Shared\Transfer\RestRepresentativeCompanyUserTradeFairRequestTrans
 use Generated\Shared\Transfer\RestRepresentativeCompanyUserTradeFairResponseTransfer;
 use Generated\Shared\Transfer\RestRepresentativeCompanyUserTradeFairTransfer;
 use PHPUnit\Framework\MockObject\MockObject;
+use Psr\Log\LoggerInterface;
 
 class TradeFairRepresentationManagerTest extends Unit
 {
@@ -88,6 +89,11 @@ class TradeFairRepresentationManagerTest extends Unit
     protected RestDataMapperInterface|MockObject $restDataMapperMock;
 
     /**
+     * @var \Psr\Log\LoggerInterface|\PHPUnit\Framework\MockObject\MockObject
+     */
+    protected LoggerInterface|MockObject $loggerMock;
+
+    /**
      * @var \FondOfOryx\Zed\RepresentativeCompanyUserTradeFairRestApi\Business\Model\TradeFairRepresentationManager
      */
     protected TradeFairRepresentationManager $tradeFairRepresentation;
@@ -134,6 +140,11 @@ class TradeFairRepresentationManagerTest extends Unit
             ->disableOriginalConstructor()
             ->getMock();
 
+        $this->loggerMock = $this
+            ->getMockBuilder(LoggerInterface::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
         $this->restRepresentativeCompanyUserTradeFairRequestTransferMock = $this
             ->getMockBuilder(RestRepresentativeCompanyUserTradeFairRequestTransfer::class)
             ->disableOriginalConstructor()
@@ -170,6 +181,7 @@ class TradeFairRepresentationManagerTest extends Unit
             $this->durationValidatorMock,
             $this->repositoryMock,
             $this->restDataMapperMock,
+            $this->loggerMock,
         );
     }
 
@@ -316,6 +328,7 @@ class TradeFairRepresentationManagerTest extends Unit
         $date1 = '1970-01-01';
         $date2 = '1970-01-05';
         $companyTypeId = 1;
+        $name = 'name';
         $uuid = 'xxxx-xxxxx-xxxx-xxxx';
 
         $this->restRepresentativeCompanyUserTradeFairRequestTransferMock->expects(static::atLeastOnce())
@@ -389,9 +402,18 @@ class TradeFairRepresentationManagerTest extends Unit
             ->method('getEndAt')
             ->willReturn($date2);
 
+        $this->restRepresentativeCompanyUserTradeFairAttributesTransferMock->expects(static::atLeastOnce())
+            ->method('getTradeFairName')
+            ->willReturn($name);
+
         $this->representativeCompanyUserTradeFairTransferMock->expects(static::atLeastOnce())
             ->method('setEndAt')
             ->with($date2)
+            ->willReturnSelf();
+
+        $this->representativeCompanyUserTradeFairTransferMock->expects(static::atLeastOnce())
+            ->method('setName')
+            ->with($name)
             ->willReturnSelf();
 
         $this->representativeCompanyUserTradeFairTransferMock->expects(static::atLeastOnce())
@@ -722,9 +744,8 @@ class TradeFairRepresentationManagerTest extends Unit
         $startAt2 = '1970-01-05';
         $uuid = 'xxxx-xxxxx-xxxx-xxxx';
         $customerReference = 'customer-reference';
-        $originatorId = 1;
-        $representationId = 2;
         $companyTypeId = 1;
+        $name = 'name';
 
         $this->restRepresentativeCompanyUserTradeFairRequestTransferMock->expects(static::atLeastOnce())
             ->method('getAttributes')
@@ -786,6 +807,10 @@ class TradeFairRepresentationManagerTest extends Unit
             ->willReturnSelf();
 
         $this->restRepresentativeCompanyUserTradeFairAttributesTransferMock->expects(static::atLeastOnce())
+            ->method('getTradeFairName')
+            ->willReturn($name);
+
+        $this->restRepresentativeCompanyUserTradeFairAttributesTransferMock->expects(static::atLeastOnce())
             ->method('getStartAt')
             ->willReturn($startAt1);
 
@@ -799,6 +824,10 @@ class TradeFairRepresentationManagerTest extends Unit
 
         $this->representativeCompanyUserTradeFairTransferMock->expects(static::atLeastOnce())
             ->method('setStartAt')
+            ->willReturnSelf();
+
+        $this->representativeCompanyUserTradeFairTransferMock->expects(static::atLeastOnce())
+            ->method('setName')->with($name)
             ->willReturnSelf();
 
         $this->representativeCompanyUserTradeFairFacadeMock->expects(static::atLeastOnce())

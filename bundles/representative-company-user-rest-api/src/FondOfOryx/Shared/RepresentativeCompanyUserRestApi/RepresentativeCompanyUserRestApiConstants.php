@@ -57,5 +57,40 @@ interface RepresentativeCompanyUserRestApiConstants
     /**
      * @var string
      */
-    public const PROBABLY_DUPLICATED_CONTENT = 'Could not create representation. Probably representation already exists!';
+    public const ERROR_MESSAGE_ADD = 'Could not create representation!';
+
+    /**
+     * @var string
+     */
+    public const ERROR_CODE_ADD = '1000';
+
+    /**
+     * @var string
+     */
+    public const ERROR_MESSAGE_UPDATE = 'Could not update representation!';
+
+    /**
+     * @var string
+     */
+    public const ERROR_CODE_UPDATE = '2000';
+
+    /**
+     * @var string
+     */
+    public const ERROR_MESSAGE_DELETE = 'Could not delete representation!';
+
+    /**
+     * @var string
+     */
+    public const ERROR_CODE_DELETE = '3000';
+
+    /**
+     * @var string
+     */
+    public const ERROR_MESSAGE_GET = 'Could not fetch representation!';
+
+    /**
+     * @var string
+     */
+    public const ERROR_CODE_GET = '4000';
 }

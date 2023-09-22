@@ -5,10 +5,8 @@ namespace FondOfOryx\Zed\RepresentativeCompanyUser;
 use Codeception\Test\Unit;
 use FondOfOryx\Zed\RepresentativeCompanyUser\Dependency\Facade\RepresentativeCompanyUserToCompanyUserFacadeInterface;
 use FondOfOryx\Zed\RepresentativeCompanyUser\Dependency\Facade\RepresentativeCompanyUserToEventFacadeInterface;
-use FondOfOryx\Zed\RepresentativeCompanyUser\Dependency\Service\RepresentativeCompanyUserToUtilUuidGeneratorServiceInterface;
 use Orm\Zed\Company\Persistence\SpyCompanyQuery;
 use Orm\Zed\CompanyUser\Persistence\SpyCompanyUserQuery;
-use Spryker\Service\UtilUuidGenerator\UtilUuidGeneratorServiceInterface;
 use Spryker\Shared\Kernel\BundleProxy;
 use Spryker\Zed\CompanyUser\Business\CompanyUserFacadeInterface;
 use Spryker\Zed\Event\Business\EventFacadeInterface;
@@ -36,11 +34,6 @@ class RepresentativeCompanyUserDependencyProviderTest extends Unit
      * @var \PHPUnit\Framework\MockObject\MockObject|\Spryker\Zed\Event\Business\EventFacadeInterface
      */
     protected $eventFacadeMock;
-
-    /**
-     * @var \PHPUnit\Framework\MockObject\MockObject|\Spryker\Service\UtilUuidGenerator\UtilUuidGeneratorServiceInterface
-     */
-    protected $uuidGeneratorServiceMock;
 
     /**
      * @var \PHPUnit\Framework\MockObject\MockObject|\Spryker\Shared\Kernel\BundleProxy
@@ -75,10 +68,6 @@ class RepresentativeCompanyUserDependencyProviderTest extends Unit
             ->disableOriginalConstructor()
             ->getMock();
 
-        $this->uuidGeneratorServiceMock = $this->getMockBuilder(UtilUuidGeneratorServiceInterface::class)
-            ->disableOriginalConstructor()
-            ->getMock();
-
         $this->eventFacadeMock = $this->getMockBuilder(EventFacadeInterface::class)
             ->disableOriginalConstructor()
             ->getMock();
@@ -97,7 +86,7 @@ class RepresentativeCompanyUserDependencyProviderTest extends Unit
 
         $this->locatorMock->expects(static::atLeastOnce())
             ->method('__call')
-            ->withConsecutive(['companyUser'], ['event'], ['utilUuidGenerator'])
+            ->withConsecutive(['companyUser'], ['event'])
             ->willReturn($this->bundleProxyMock);
 
         $this->bundleProxyMock->expects(static::atLeastOnce())
@@ -106,7 +95,6 @@ class RepresentativeCompanyUserDependencyProviderTest extends Unit
             ->willReturnOnConsecutiveCalls(
                 $this->companyUserFacadeMock,
                 $this->eventFacadeMock,
-                $this->uuidGeneratorServiceMock,
             );
 
         $container = $this->productLocaleRestrictionStorageDependencyProvider->provideBusinessLayerDependencies(
@@ -121,10 +109,6 @@ class RepresentativeCompanyUserDependencyProviderTest extends Unit
         static::assertInstanceOf(
             RepresentativeCompanyUserToEventFacadeInterface::class,
             $container[RepresentativeCompanyUserDependencyProvider::FACADE_EVENT],
-        );
-        static::assertInstanceOf(
-            RepresentativeCompanyUserToUtilUuidGeneratorServiceInterface::class,
-            $container[RepresentativeCompanyUserDependencyProvider::SERVICE_UTIL_UUID_GENERATOR],
         );
         static::assertIsArray(
             $container[RepresentativeCompanyUserDependencyProvider::PLUGINS_TASKS],

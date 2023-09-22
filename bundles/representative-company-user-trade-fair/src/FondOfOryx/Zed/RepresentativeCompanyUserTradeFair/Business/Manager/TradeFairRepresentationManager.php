@@ -4,7 +4,6 @@ namespace FondOfOryx\Zed\RepresentativeCompanyUserTradeFair\Business\Manager;
 
 use Exception;
 use FondOfOryx\Zed\RepresentativeCompanyUserTradeFair\Dependency\Facade\RepresentativeCompanyUserTradeFairToRepresentativeCompanyUserInterface;
-use FondOfOryx\Zed\RepresentativeCompanyUserTradeFair\Dependency\Service\RepresentativeCompanyUserTradeFairToUtilUuidGeneratorServiceInterface;
 use FondOfOryx\Zed\RepresentativeCompanyUserTradeFair\Persistence\RepresentativeCompanyUserTradeFairEntityManagerInterface;
 use FondOfOryx\Zed\RepresentativeCompanyUserTradeFair\Persistence\RepresentativeCompanyUserTradeFairRepositoryInterface;
 use Generated\Shared\Transfer\RepresentativeCompanyUserTradeFairCollectionTransfer;
@@ -34,11 +33,6 @@ class TradeFairRepresentationManager implements TradeFairRepresentationManagerIn
     protected $representativeCompanyUserFacade;
 
     /**
-     * @var \FondOfOryx\Zed\RepresentativeCompanyUserTradeFair\Dependency\Service\RepresentativeCompanyUserTradeFairToUtilUuidGeneratorServiceInterface
-     */
-    protected $uuidGenerator;
-
-    /**
      * @var \Spryker\Zed\Kernel\Persistence\EntityManager\TransactionHandlerInterface
      */
     protected $transactionHandler;
@@ -52,7 +46,6 @@ class TradeFairRepresentationManager implements TradeFairRepresentationManagerIn
      * @param \FondOfOryx\Zed\RepresentativeCompanyUserTradeFair\Persistence\RepresentativeCompanyUserTradeFairEntityManagerInterface $entityManager
      * @param \FondOfOryx\Zed\RepresentativeCompanyUserTradeFair\Persistence\RepresentativeCompanyUserTradeFairRepositoryInterface $repository
      * @param \FondOfOryx\Zed\RepresentativeCompanyUserTradeFair\Dependency\Facade\RepresentativeCompanyUserTradeFairToRepresentativeCompanyUserInterface $representativeCompanyUserFacade
-     * @param \FondOfOryx\Zed\RepresentativeCompanyUserTradeFair\Dependency\Service\RepresentativeCompanyUserTradeFairToUtilUuidGeneratorServiceInterface $uuidGenerator
      * @param \Spryker\Zed\Kernel\Persistence\EntityManager\TransactionHandlerInterface $transactionHandler
      * @param \Psr\Log\LoggerInterface $logger
      */
@@ -60,14 +53,12 @@ class TradeFairRepresentationManager implements TradeFairRepresentationManagerIn
         RepresentativeCompanyUserTradeFairEntityManagerInterface $entityManager,
         RepresentativeCompanyUserTradeFairRepositoryInterface $repository,
         RepresentativeCompanyUserTradeFairToRepresentativeCompanyUserInterface $representativeCompanyUserFacade,
-        RepresentativeCompanyUserTradeFairToUtilUuidGeneratorServiceInterface $uuidGenerator,
         TransactionHandlerInterface $transactionHandler,
         LoggerInterface $logger
     ) {
         $this->entityManager = $entityManager;
         $this->repository = $repository;
         $this->representativeCompanyUserFacade = $representativeCompanyUserFacade;
-        $this->uuidGenerator = $uuidGenerator;
         $this->transactionHandler = $transactionHandler;
         $this->logger = $logger;
     }
@@ -93,8 +84,6 @@ class TradeFairRepresentationManager implements TradeFairRepresentationManagerIn
     public function create(RepresentativeCompanyUserTradeFairTransfer $representativeCompanyUserTradeFairTransfer): RepresentativeCompanyUserTradeFairTransfer
     {
         $self = $this;
-        $uuid = $this->uuidGenerator->generateUuid5FromObjectId($this->generateObjectId($representativeCompanyUserTradeFairTransfer));
-        $representativeCompanyUserTradeFairTransfer->setUuid($uuid);
 
         try {
             return $this->transactionHandler->handleTransaction(

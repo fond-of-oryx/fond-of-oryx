@@ -12,6 +12,36 @@ interface RepresentativeCompanyUserTradeFairRestApiConstants
     /**
      * @var string
      */
+    public const HTTP_CODE_ADD_ERRORS = '1000';
+
+    /**
+     * @var string
+     */
+    public const HTTP_CODE_UPDATE_ERRORS = '2000';
+
+    /**
+     * @var string
+     */
+    public const HTTP_CODE_DELETE_ERRORS = '3000';
+
+    /**
+     * @var string
+     */
+    public const HTTP_MESSAGE_ADD_ERROR = 'Could not create trade fair representation!';
+
+    /**
+     * @var string
+     */
+    public const HTTP_MESSAGE_UPDATE_ERROR = 'Could not update trade fair representation!';
+
+    /**
+     * @var string
+     */
+    public const HTTP_MESSAGE_DELETE_ERROR = 'Could not delete trade fair representation!';
+
+    /**
+     * @var string
+     */
     public const VALID_ITEMS_PER_PAGE_OPTIONS = 'FOND_OF_ORYX:REPRESENTATIVE_COMPANY_USER_TRADE_FAIR_REST_API:VALID_ITEMS_PER_PAGE_OPTIONS';
 
     /**

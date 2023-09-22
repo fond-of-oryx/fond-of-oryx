@@ -5,7 +5,6 @@ namespace FondOfOryx\Zed\RepresentativeCompanyUserTradeFair\Business;
 use Codeception\Test\Unit;
 use FondOfOryx\Zed\RepresentativeCompanyUserTradeFair\Business\Manager\TradeFairRepresentationManager;
 use FondOfOryx\Zed\RepresentativeCompanyUserTradeFair\Dependency\Facade\RepresentativeCompanyUserTradeFairToRepresentativeCompanyUserInterface;
-use FondOfOryx\Zed\RepresentativeCompanyUserTradeFair\Dependency\Service\RepresentativeCompanyUserTradeFairToUtilUuidGeneratorServiceInterface;
 use FondOfOryx\Zed\RepresentativeCompanyUserTradeFair\Persistence\RepresentativeCompanyUserTradeFairEntityManager;
 use FondOfOryx\Zed\RepresentativeCompanyUserTradeFair\Persistence\RepresentativeCompanyUserTradeFairRepository;
 use FondOfOryx\Zed\RepresentativeCompanyUserTradeFair\RepresentativeCompanyUserTradeFairDependencyProvider;
@@ -30,11 +29,6 @@ class RepresentativeCompanyUserTradeFairBusinessFactoryTest extends Unit
      * @var \FondOfOryx\Zed\RepresentativeCompanyUserTradeFair\Persistence\RepresentativeCompanyUserTradeFairEntityManager|\PHPUnit\Framework\MockObject\MockObject
      */
     protected $entityManagerMock;
-
-    /**
-     * @var \FondOfOryx\Zed\RepresentativeCompanyUserTradeFair\Dependency\Service\RepresentativeCompanyUserTradeFairToUtilUuidGeneratorServiceInterface|\PHPUnit\Framework\MockObject\MockObject
-     */
-    protected $uuidGeneratorServiceMock;
 
     /**
      * @var \FondOfOryx\Zed\RepresentativeCompanyUserTradeFair\Dependency\Facade\RepresentativeCompanyUserTradeFairToRepresentativeCompanyUserInterface|\PHPUnit\Framework\MockObject\MockObject
@@ -72,10 +66,6 @@ class RepresentativeCompanyUserTradeFairBusinessFactoryTest extends Unit
             ->getMock();
 
         $this->entityManagerMock = $this->getMockBuilder(RepresentativeCompanyUserTradeFairEntityManager::class)
-            ->disableOriginalConstructor()
-            ->getMock();
-
-        $this->uuidGeneratorServiceMock = $this->getMockBuilder(RepresentativeCompanyUserTradeFairToUtilUuidGeneratorServiceInterface::class)
             ->disableOriginalConstructor()
             ->getMock();
 
@@ -149,11 +139,9 @@ class RepresentativeCompanyUserTradeFairBusinessFactoryTest extends Unit
             ->method('get')
             ->withConsecutive(
                 [RepresentativeCompanyUserTradeFairDependencyProvider::FACADE_REPRESENTATIVE_COMPANY_USER],
-                [RepresentativeCompanyUserTradeFairDependencyProvider::SERVICE_UTIL_UUID_GENERATOR],
             )
             ->willReturnOnConsecutiveCalls(
                 $this->representativeCompanyUserFacadeMock,
-                $this->uuidGeneratorServiceMock,
             );
 
         static::assertInstanceOf(

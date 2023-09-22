@@ -2,6 +2,7 @@
 
 namespace FondOfOryx\Zed\RepresentativeCompanyUserTradeFairRestApi\Business\Model;
 
+use FondOfOryx\Shared\RepresentativeCompanyUserTradeFairRestApi\RepresentativeCompanyUserTradeFairRestApiConstants;
 use FondOfOryx\Zed\RepresentativeCompanyUserTradeFairRestApi\Business\Model\Mapper\RestDataMapperInterface;
 use FondOfOryx\Zed\RepresentativeCompanyUserTradeFairRestApi\Business\Validator\DurationValidatorInterface;
 use FondOfOryx\Zed\RepresentativeCompanyUserTradeFairRestApi\Communication\Plugin\PermissionExtension\CanManageRepresentationOnTradeFairPermissionPlugin;
@@ -18,6 +19,7 @@ use Generated\Shared\Transfer\RestRepresentativeCompanyUserPaginationTransfer;
 use Generated\Shared\Transfer\RestRepresentativeCompanyUserTradeFairAttributesTransfer;
 use Generated\Shared\Transfer\RestRepresentativeCompanyUserTradeFairRequestTransfer;
 use Generated\Shared\Transfer\RestRepresentativeCompanyUserTradeFairResponseTransfer;
+use Psr\Log\LoggerInterface;
 use Throwable;
 
 class TradeFairRepresentationManager implements TradeFairRepresentationManagerInterface
@@ -43,6 +45,11 @@ class TradeFairRepresentationManager implements TradeFairRepresentationManagerIn
     protected RepresentativeCompanyUserTradeFairRestApiRepositoryInterface $repository;
 
     /**
+     * @var \Psr\Log\LoggerInterface
+     */
+    protected LoggerInterface $logger;
+
+    /**
      * @var \FondOfOryx\Zed\RepresentativeCompanyUserTradeFairRestApi\Business\Model\Mapper\RestDataMapperInterface
      */
     protected RestDataMapperInterface $restDataMapper;
@@ -53,19 +60,22 @@ class TradeFairRepresentationManager implements TradeFairRepresentationManagerIn
      * @param \FondOfOryx\Zed\RepresentativeCompanyUserTradeFairRestApi\Business\Validator\DurationValidatorInterface $durationValidator
      * @param \FondOfOryx\Zed\RepresentativeCompanyUserTradeFairRestApi\Persistence\RepresentativeCompanyUserTradeFairRestApiRepositoryInterface $repository
      * @param \FondOfOryx\Zed\RepresentativeCompanyUserTradeFairRestApi\Business\Model\Mapper\RestDataMapperInterface $restDataMapper
+     * @param \Psr\Log\LoggerInterface $logger
      */
     public function __construct(
         RepresentativeCompanyUserTradeFairRestApiToRepresentativeCompanyUserTradeFairFacadeInterface $representativeCompanyUserTradeFairFacade,
         RepresentativeCompanyUserTradeFairRestApiToCompanyTypeFacadeInterface $companyTypeFacade,
         DurationValidatorInterface $durationValidator,
         RepresentativeCompanyUserTradeFairRestApiRepositoryInterface $repository,
-        RestDataMapperInterface $restDataMapper
+        RestDataMapperInterface $restDataMapper,
+        LoggerInterface $logger
     ) {
         $this->representativeCompanyUserTradeFairFacade = $representativeCompanyUserTradeFairFacade;
         $this->companyTypeFacade = $companyTypeFacade;
         $this->durationValidator = $durationValidator;
         $this->repository = $repository;
         $this->restDataMapper = $restDataMapper;
+        $this->logger = $logger;
     }
 
     /**
@@ -99,7 +109,9 @@ class TradeFairRepresentationManager implements TradeFairRepresentationManagerIn
 
             $response = $this->representativeCompanyUserTradeFairFacade->addRepresentativeCompanyUserTradeFair($representationTransfer);
         } catch (Throwable $throwable) {
-            return $restRepresentativeCompanyUserTradeFairResponse->setError($this->createError($throwable->getMessage(), '500', 500));
+            $this->logger->error($throwable->getMessage(), $throwable->getTrace());
+
+            return $restRepresentativeCompanyUserTradeFairResponse->setError($this->createError(RepresentativeCompanyUserTradeFairRestApiConstants::HTTP_MESSAGE_ADD_ERROR, RepresentativeCompanyUserTradeFairRestApiConstants::HTTP_CODE_ADD_ERRORS));
         }
 
         return $restRepresentativeCompanyUserTradeFairResponse
@@ -138,12 +150,15 @@ class TradeFairRepresentationManager implements TradeFairRepresentationManagerIn
             }
 
             $representationTransfer
+                ->setName($restRepresentativeCompanyUserTradeFairAttributesTransfer->getTradeFairName())
                 ->setActive($this->getStatus($representationTransfer, $restRepresentativeCompanyUserTradeFairAttributesTransfer))
                 ->setEndAt($restRepresentativeCompanyUserTradeFairAttributesTransfer->getEndAt())
                 ->setStartAt($restRepresentativeCompanyUserTradeFairAttributesTransfer->getStartAt());
             $response = $this->representativeCompanyUserTradeFairFacade->updateRepresentativeCompanyUserTradeFair($representationTransfer);
         } catch (Throwable $throwable) {
-            return $restResponse->setError($this->createError($throwable->getMessage(), '500', 500));
+            $this->logger->error($throwable->getMessage(), $throwable->getTrace());
+
+            return $restResponse->setError($this->createError(RepresentativeCompanyUserTradeFairRestApiConstants::HTTP_MESSAGE_UPDATE_ERROR, RepresentativeCompanyUserTradeFairRestApiConstants::HTTP_CODE_UPDATE_ERRORS));
         }
 
         return $restResponse
@@ -166,8 +181,9 @@ class TradeFairRepresentationManager implements TradeFairRepresentationManagerIn
             $representation = $this->representativeCompanyUserTradeFairFacade->deleteRepresentativeCompanyUserTradeFair($attributes->getUuid());
             $response = $this->restDataMapper->mapResponse($representation);
         } catch (Throwable $throwable) {
-            //ToDo Handle/Log
-            return $restResponse->setError($this->createError($throwable->getMessage(), '500', 500));
+            $this->logger->error($throwable->getMessage(), $throwable->getTrace());
+
+            return $restResponse->setError($this->createError(RepresentativeCompanyUserTradeFairRestApiConstants::HTTP_MESSAGE_DELETE_ERROR, RepresentativeCompanyUserTradeFairRestApiConstants::HTTP_CODE_DELETE_ERRORS));
         }
 
         return $restResponse->setRepresentation($response)->setIsSuccessful(true);
@@ -228,13 +244,13 @@ class TradeFairRepresentationManager implements TradeFairRepresentationManagerIn
                 $companyTypeManufacturer->getIdCompanyType(),
             )
         ) {
-            return $this->createError(RepresentativeCompanyUserTradeFairRestApiConfig::ERROR_MESSAGE_USER_IS_NOT_ALLOWED_TO_ADD_TRADE_FAIR_REPRESENTATION, '422');
+            return $this->createError(RepresentativeCompanyUserTradeFairRestApiConfig::ERROR_MESSAGE_USER_IS_NOT_ALLOWED_TO_ADD_TRADE_FAIR_REPRESENTATION, (string)RepresentativeCompanyUserTradeFairRestApiConstants::HTTP_CODE_VALIDATION_ERRORS, RepresentativeCompanyUserTradeFairRestApiConstants::HTTP_CODE_VALIDATION_ERRORS);
         }
 
         if (
             !$this->durationValidator->validate($restRepresentativeCompanyUserTradeFairRequestTransfer->getAttributes())
         ) {
-            return $this->createError(RepresentativeCompanyUserTradeFairRestApiConfig::ERROR_MESSAGE_REPRESENTATION_DURATION_EXCEEDED, '422');
+            return $this->createError(RepresentativeCompanyUserTradeFairRestApiConfig::ERROR_MESSAGE_REPRESENTATION_DURATION_EXCEEDED, (string)RepresentativeCompanyUserTradeFairRestApiConstants::HTTP_CODE_VALIDATION_ERRORS, RepresentativeCompanyUserTradeFairRestApiConstants::HTTP_CODE_VALIDATION_ERRORS);
         }
 
         return null;

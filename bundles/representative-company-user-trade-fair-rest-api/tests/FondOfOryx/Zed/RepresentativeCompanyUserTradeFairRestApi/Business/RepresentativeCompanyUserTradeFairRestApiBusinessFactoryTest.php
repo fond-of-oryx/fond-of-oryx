@@ -11,6 +11,8 @@ use FondOfOryx\Zed\RepresentativeCompanyUserTradeFairRestApi\Persistence\Represe
 use FondOfOryx\Zed\RepresentativeCompanyUserTradeFairRestApi\RepresentativeCompanyUserTradeFairRestApiConfig;
 use FondOfOryx\Zed\RepresentativeCompanyUserTradeFairRestApi\RepresentativeCompanyUserTradeFairRestApiDependencyProvider;
 use PHPUnit\Framework\MockObject\MockObject;
+use Psr\Log\LoggerInterface;
+use Spryker\Shared\Log\Config\LoggerConfigInterface;
 use Spryker\Zed\Kernel\Container;
 
 class RepresentativeCompanyUserTradeFairRestApiBusinessFactoryTest extends Unit
@@ -34,6 +36,11 @@ class RepresentativeCompanyUserTradeFairRestApiBusinessFactoryTest extends Unit
      * @var \PHPUnit\Framework\MockObject\MockObject|\FondOfOryx\Zed\RepresentativeCompanyUserTradeFairRestApi\Persistence\RepresentativeCompanyUserTradeFairRestApiRepository
      */
     protected MockObject|RepresentativeCompanyUserTradeFairRestApiRepository $repositoryMock;
+
+    /**
+     * @var \PHPUnit\Framework\MockObject\MockObject|\Psr\Log\LoggerInterface
+     */
+    protected MockObject|LoggerInterface $loggerMock;
 
     /**
      * @var \PHPUnit\Framework\MockObject\MockObject|\FondOfOryx\Zed\RepresentativeCompanyUserTradeFairRestApi\Dependency\Facade\RepresentativeCompanyUserTradeFairRestApiToRepresentativeCompanyUserTradeFairFacadeInterface
@@ -77,12 +84,40 @@ class RepresentativeCompanyUserTradeFairRestApiBusinessFactoryTest extends Unit
             ->disableOriginalConstructor()
             ->getMock();
 
+        $this->loggerMock = $this
+            ->getMockBuilder(LoggerInterface::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
         $this->representativeCompanyUserTradeFairRestApiToCompanyTypeFacadeMock = $this
             ->getMockBuilder(RepresentativeCompanyUserTradeFairRestApiToCompanyTypeFacadeInterface::class)
             ->disableOriginalConstructor()
             ->getMock();
 
-        $this->factory = new RepresentativeCompanyUserTradeFairRestApiBusinessFactory();
+        $this->factory = new class ($this->loggerMock) extends RepresentativeCompanyUserTradeFairRestApiBusinessFactory {
+            /**
+             * @var \Psr\Log\LoggerInterface
+             */
+            protected LoggerInterface $loggerMock;
+
+            /**
+             * @param \Psr\Log\LoggerInterface $loggerMock
+             */
+            public function __construct(LoggerInterface $loggerMock)
+            {
+                $this->loggerMock = $loggerMock;
+            }
+
+            /**
+             * @param \Spryker\Shared\Log\Config\LoggerConfigInterface|null $loggerConfig
+             *
+             * @return \Psr\Log\LoggerInterface
+             */
+            public function getLogger(?LoggerConfigInterface $loggerConfig = null): LoggerInterface
+            {
+                return $this->loggerMock;
+            }
+        };
         $this->factory->setContainer($this->containerMock);
         $this->factory->setConfig($this->configMock);
         $this->factory->setRepository($this->repositoryMock);
