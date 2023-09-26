@@ -22,7 +22,6 @@
     "php": ">=8.0",
     "ext-json": "*",
     "endroid/qr-code": ">=4.1 <4.6",
-    "fond-of-kudu/carts-rest-api": "^1.0.0",
     "fond-of-impala/company-price-list": "^1.0.0",
     "fond-of-impala/price-product-price-list": "^1.0.0",
     "fond-of-spryker/brand-company": "dev-master",
