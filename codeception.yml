@@ -8,6 +8,7 @@ include:
   - bundles/availability-checkout-validator
   - bundles/brand-product-list-connector
   - bundles/brands-rest-api-extension
+  - bundles/business-on-behalf-company-user-search-rest-api
   - bundles/business-on-behalf-product-list-connector
   - bundles/business-on-behalf-rest-api
   - bundles/cart-code-type
