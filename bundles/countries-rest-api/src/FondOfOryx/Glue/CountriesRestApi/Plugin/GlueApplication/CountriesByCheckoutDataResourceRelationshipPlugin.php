@@ -25,6 +25,9 @@ class CountriesByCheckoutDataResourceRelationshipPlugin extends AbstractPlugin i
      */
     public function addResourceRelationships(array $resources, RestRequestInterface $restRequest): void
     {
+        $this->getFactory()
+            ->createCountryByCheckoutDataExpander()
+            ->addResourceRelationships($resources, $restRequest);
     }
 
     /**
