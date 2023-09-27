@@ -65,7 +65,7 @@
     },
     "cart-search-rest-api-extension": {
       "path": "bundles/cart-search-rest-api-extension/",
-      "version": "2.0.0"
+      "version": "2.0.1"
     },
     "checkout-rest-api-payone-connector": {
       "path": "bundles/checkout-rest-api-payone-connector/",
@@ -250,6 +250,10 @@
     "company-user-archive": {
       "path": "bundles/company-user-archive/",
       "version": "2.0.0"
+    },
+    "company-user-cart-search-rest-api": {
+      "path": "bundles/company-user-cart-search-rest-api/",
+      "version": "1.0.0"
     },
     "company-user-company-role-connector": {
       "path": "bundles/company-user-company-role-connector/",

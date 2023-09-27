@@ -55,6 +55,7 @@ include:
   - bundles/company-unit-address-sales-connector
   - bundles/company-user-api
   - bundles/company-user-archive
+  - bundles/company-user-cart-search-rest-api
   - bundles/company-user-company-role-connector
   - bundles/company-user-company-search-rest-api
   - bundles/company-user-mail-connector
