@@ -22,6 +22,11 @@ class ErpOrderPageSearchDataMapper implements ErpOrderPageSearchDataMapperInterf
     /**
      * @var string
      */
+    public const ERP_ORDER_EXPENSES = ErpOrderPageSearchPublisher::ERP_ORDER_EXPENSES;
+
+    /**
+     * @var string
+     */
     public const TOTALS = ErpOrderPageSearchPublisher::TOTALS;
 
     /**
@@ -167,6 +172,11 @@ class ErpOrderPageSearchDataMapper implements ErpOrderPageSearchDataMapperInterf
     /**
      * @var string
      */
+    public const SEARCH_RESULT_ERP_ORDER_EXPENSES = 'erp_order_expenses';
+
+    /**
+     * @var string
+     */
     public const SEARCH_RESULT_TOTALS = 'totals';
 
     /**
@@ -254,6 +264,7 @@ class ErpOrderPageSearchDataMapper implements ErpOrderPageSearchDataMapperInterf
             static::SEARCH_RESULT_CUSTOM_REFERENCE => $data[static::CUSTOM_REFERENCE],
             static::SEARCH_RESULT_COMPANY_BUSINESS_UNIT => $data[static::COMPANY_BUSINESS_UNIT],
             static::SEARCH_RESULT_ITEMS => $data[static::ITEMS],
+            static::SEARCH_RESULT_ERP_ORDER_EXPENSES => $data[static::ERP_ORDER_EXPENSES],
             static::SEARCH_RESULT_TOTALS => $data[static::TOTALS],
             static::SEARCH_RESULT_SHIPPING_ADDRESS => $data[static::SHIPPING_ADDRESS],
             static::SEARCH_RESULT_BILLING_ADDRESS => $data[static::BILLING_ADDRESS],
