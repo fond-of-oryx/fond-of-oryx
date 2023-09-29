@@ -82,7 +82,7 @@ class RestErpOrderPageSearchCollectionResponseMapper implements RestErpOrderPage
                 ),
             );
 
-            if (array_key_exists(static::ERP_ORDER_DATA_KEY_ERP_ORDER_EXPENSES, $erpOrderData)){
+            if (array_key_exists(static::ERP_ORDER_DATA_KEY_ERP_ORDER_EXPENSES, $erpOrderData)) {
                 $this->addRestErpOrderExpenses($restErpOrder, $erpOrderData[static::ERP_ORDER_DATA_KEY_ERP_ORDER_EXPENSES]);
             }
 

@@ -12,7 +12,6 @@ use Orm\Zed\ErpOrder\Persistence\ErpOrderAddress;
 use Orm\Zed\ErpOrder\Persistence\Map\ErpOrderItemTableMap;
 use Propel\Runtime\ActiveQuery\Criteria;
 use Propel\Runtime\Collection\ObjectCollection;
-use Propel\Runtime\Map\TableMap;
 
 class ErpOrderPageSearchPublisher implements ErpOrderPageSearchPublisherInterface
 {

@@ -8,23 +8,26 @@
       "email": "gengjozsef86@gmail.com"
     },
     {
-      "name": "Julian Zimmermann",
-      "email": "info@julianzimmermann.dev"
+      "name": "Julian Hyatt",
+      "email": "dev@jzit.de"
     }
   ],
   "require": {
     "php": ">=8.0",
-    "fond-of-oryx/erp-order": "^2.7.0 || ^3.0.0",
+    "fond-of-oryx/erp-order": "^4.0.0",
     "fond-of-oryx/erp-order-permission": "^1.0.0 || ^2.0.0",
     "spryker/customer": "^7.0.0",
     "spryker/event-behavior": "^1.0.0",
     "spryker/search": "^8.0.0",
     "spryker/search-elasticsearch": "^1.0.0",
-    "spryker/synchronization-extension": "^1.0.0"
+    "spryker/synchronization": "^1.0.0",
+    "spryker/synchronization-behavior": "^1.0.0",
+    "spryker/synchronization-extension": "^1.1.0"
   },
   "require-dev": {
-    "fond-of-codeception/spryker": "^2.0.0",
-    "spryker/code-sniffer": "^0.12"
+    "fond-of-codeception/spryker": "*",
+    "spryker/code-sniffer": "*",
+    "spryker-sdk/phpstan-spryker": "*"
   },
   "minimum-stability": "dev",
   "prefer-stable": true,
@@ -36,7 +39,8 @@
   "autoload-dev": {
     "psr-4": {
       "FondOfOryx\\": "tests/FondOfOryx/",
-      "Generated\\": "src/Generated/"
+      "Generated\\": "src/Generated/",
+      "Orm\\Zed\\": "src/Orm/Zed/"
     }
   },
   "config": {
