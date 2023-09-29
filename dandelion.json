@@ -39,6 +39,10 @@
       "path": "bundles/brands-rest-api-extension/",
       "version": "2.0.0"
     },
+    "business-on-behalf-company-user-search-rest-api": {
+      "path": "bundles/business-on-behalf-company-user-search-rest-api/",
+      "version": "1.0.0"
+    },
     "business-on-behalf-product-list-connector": {
       "path": "bundles/business-on-behalf-product-list-connector/",
       "version": "1.0.0"
@@ -61,7 +65,7 @@
     },
     "cart-search-rest-api-extension": {
       "path": "bundles/cart-search-rest-api-extension/",
-      "version": "2.0.0"
+      "version": "2.0.1"
     },
     "checkout-rest-api-payone-connector": {
       "path": "bundles/checkout-rest-api-payone-connector/",
@@ -246,6 +250,10 @@
     "company-user-archive": {
       "path": "bundles/company-user-archive/",
       "version": "2.0.0"
+    },
+    "company-user-cart-search-rest-api": {
+      "path": "bundles/company-user-cart-search-rest-api/",
+      "version": "1.0.0"
     },
     "company-user-company-role-connector": {
       "path": "bundles/company-user-company-role-connector/",
