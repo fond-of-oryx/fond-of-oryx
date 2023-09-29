@@ -107,17 +107,6 @@ class ErpOrderFacade extends AbstractFacade implements ErpOrderFacadeInterface
     }
 
     /**
-     * @param \Generated\Shared\Transfer\ErpOrderTransfer $erpOrderTransfer
-     * @param \Generated\Shared\Transfer\ErpOrderTransfer|null $existingErpOrderTransfer
-     *
-     * @return \Generated\Shared\Transfer\ErpOrderTransfer
-     */
-    public function persistErpOrderAmount(ErpOrderTransfer $erpOrderTransfer, ?ErpOrderTransfer $existingErpOrderTransfer = null): ErpOrderTransfer
-    {
-        return $this->getFactory()->createErpOrderAmountHandler()->handle($erpOrderTransfer, $existingErpOrderTransfer);
-    }
-
-    /**
      * @param \Generated\Shared\Transfer\ErpOrderItemTransfer $erpOrderItemTransfer
      * @param \Generated\Shared\Transfer\ErpOrderTransfer|null $existingErpOrderTransfer
      *

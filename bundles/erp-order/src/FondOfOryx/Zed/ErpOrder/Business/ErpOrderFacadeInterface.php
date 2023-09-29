@@ -74,14 +74,6 @@ interface ErpOrderFacadeInterface
     public function persistErpOrderExpense(ErpOrderTransfer $erpOrderTransfer, ?ErpOrderTransfer $existingErpOrderTransfer = null): ErpOrderTransfer;
 
     /**
-     * @param \Generated\Shared\Transfer\ErpOrderTransfer $erpOrderTransfer
-     * @param \Generated\Shared\Transfer\ErpOrderTransfer|null $existingErpOrderTransfer
-     *
-     * @return \Generated\Shared\Transfer\ErpOrderTransfer
-     */
-    public function persistErpOrderAmount(ErpOrderTransfer $erpOrderTransfer, ?ErpOrderTransfer $existingErpOrderTransfer = null): ErpOrderTransfer;
-
-    /**
      * @param \Generated\Shared\Transfer\ErpOrderItemTransfer $erpOrderItemTransfer
      * @param \Generated\Shared\Transfer\ErpOrderTransfer|null $existingErpOrderTransfer
      *
@@ -89,7 +81,7 @@ interface ErpOrderFacadeInterface
      */
     public function persistErpOrderItemAmounts(
         ErpOrderItemTransfer $erpOrderItemTransfer,
-        ?ErpOrderTransfer    $existingErpOrderTransfer = null
+        ?ErpOrderTransfer $existingErpOrderTransfer = null
     ): ErpOrderItemTransfer;
 
     /**
@@ -100,6 +92,6 @@ interface ErpOrderFacadeInterface
      */
     public function persistErpOrderExpenseAmounts(
         ErpOrderExpenseTransfer $erpOrderExpenseTransfer,
-        ?ErpOrderTransfer       $existingErpOrderTransfer = null
+        ?ErpOrderTransfer $existingErpOrderTransfer = null
     ): ErpOrderExpenseTransfer;
 }
