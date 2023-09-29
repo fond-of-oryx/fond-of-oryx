@@ -9,6 +9,7 @@
         <property name="fkCompanyBusinessUnit" type="int"/>
         <property name="fkTotals" type="int" />
         <property name="orderItems" singular="orderItem" type="ErpOrderItem[]"/>
+        <property name="orderExpenses" singular="orderExpense" type="ErpOrderExpense[]"/>
         <property name="billingAddress" type="ErpOrderAddress"/>
         <property name="shippingAddress" type="ErpOrderAddress"/>
         <property name="companyBusinessUnit" type="CompanyBusinessUnit"/>
@@ -26,6 +27,8 @@
     <transfer name="ErpOrderItem">
         <property name="idErpOrderItem" type="int" />
         <property name="fkErpOrder" type="int" />
+        <property name="fkAmount" type="int"/>
+        <property name="fkUnitPriceAmount" type="int"/>
         <property name="sku" type="string"/>
         <property name="name" type="string"/>
         <property name="canceledQuantity" type="int"/>
@@ -40,6 +43,33 @@
         <property name="position" type="int"/>
         <property name="expectedDeliveryDate" type="string"/>
         <property name="goodsIssueDate" type="string"/>
+        <property name="unitPrice" type="ErpOrderAmount"/>
+        <property name="amount" type="ErpOrderAmount"/>
+    </transfer>
+
+    <transfer name="ErpOrderExpense">
+        <property name="idErpOrderExpense" type="int" />
+        <property name="fkErpOrder" type="int" />
+        <property name="fkAmount" type="int"/>
+        <property name="fkUnitPriceAmount" type="int"/>
+        <property name="name" type="string"/>
+        <property name="quantity" type="int"/>
+        <property name="discount" type="int"/>
+        <property name="discountType" type="string"/>
+        <property name="unitPrice" type="ErpOrderAmount"/>
+        <property name="amount" type="ErpOrderAmount"/>
+        <property name="createdAt" type="int"/>
+        <property name="updatedAt" type="int"/>
+    </transfer>
+
+    <transfer name="ErpOrderAmount">
+        <property name="idErpOrderAmount" type="int" />
+        <property name="value" type="int"/>
+        <property name="tax" type="int"/>
+    </transfer>
+
+    <transfer name="ErpOrderExpenseCollection">
+        <property name="expenses" singular="expense" type="ErpOrderExpense[]" />
     </transfer>
 
     <transfer name="ErpOrderAddress">

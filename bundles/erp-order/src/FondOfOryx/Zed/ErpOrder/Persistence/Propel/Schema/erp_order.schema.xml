@@ -44,6 +44,8 @@
     <table name="foo_erp_order_item" phpName="ErpOrderItem" idMethod="native" identifierQuoting="true" allowPkInsert="true">
         <column name="id_erp_order_item" required="true" type="INTEGER" autoIncrement="true" primaryKey="true"/>
         <column name="fk_erp_order" required="true" type="INTEGER"/>
+        <column name="fk_amount" required="false" type="INTEGER"/>
+        <column name="fk_unit_price_amount" required="false" type="INTEGER"/>
         <column name="sku" required="true" size="255" type="VARCHAR"/>
         <column name="name" required="true" size="255" type="VARCHAR"/>
         <column name="canceled_quantity" required="false" type="INTEGER"/>
@@ -64,6 +66,53 @@
         <foreign-key name="foo_erp_order_item-fk_erp_order" foreignTable="foo_erp_order" phpName="ErpOrder" refPhpName="ErpOrderItem">
             <reference local="fk_erp_order" foreign="id_erp_order"/>
         </foreign-key>
+
+        <foreign-key name="foo_erp_order_item-foo_erp_order_amount" foreignTable="foo_erp_order_amount"
+                     phpName="FooErpOrderAmount">
+            <reference local="fk_amount" foreign="id_erp_order_amount"/>
+        </foreign-key>
+
+        <foreign-key name="foo_erp_invoice-foo_erp_order_unit_price_amount" foreignTable="foo_erp_order_amount"
+                     phpName="FooErpOrderAmountUnitPrice">
+            <reference local="fk_unit_price_amount" foreign="id_erp_order_amount"/>
+        </foreign-key>
+    </table>
+
+    <table name="foo_erp_order_expense" phpName="FooErpOrderExpense" idMethod="native" identifierQuoting="true"
+           allowPkInsert="true">
+        <column name="id_erp_order_expense" required="true" type="INTEGER" autoIncrement="true" primaryKey="true"/>
+        <column name="fk_erp_order" required="true" type="INTEGER"/>
+        <column name="fk_amount" required="true" type="INTEGER"/>
+        <column name="fk_unit_price_amount" required="true" type="INTEGER"/>
+        <column name="name" required="true" size="255" type="VARCHAR"/>
+        <column name="quantity" required="true" type="INTEGER"/>
+
+        <behavior name="timestampable"/>
+
+        <id-method-parameter value="foo_erp_order_expense_pk_seq"/>
+
+        <foreign-key name="foo_erp_order_expense-fk_erp_order" foreignTable="foo_erp_order" phpName="FooErpOrder"
+                     refPhpName="FooErpOrderExpense">
+            <reference local="fk_erp_order" foreign="id_erp_order"/>
+        </foreign-key>
+
+        <foreign-key name="foo_erp_order_expense-foo_erp_order_amount" foreignTable="foo_erp_order_amount"
+                     phpName="FooErpOrderAmount">
+            <reference local="fk_amount" foreign="id_erp_order_amount"/>
+        </foreign-key>
+
+        <foreign-key name="foo_erp_order-foo_erp_order_unit_price_amount" foreignTable="foo_erp_order_amount"
+                     phpName="FooErpOrderAmountUnitPrice">
+            <reference local="fk_unit_price_amount" foreign="id_erp_order_amount"/>
+        </foreign-key>
+    </table>
+
+    <table name="foo_erp_order_amount" phpName="FooErpOrderAmount" identifierQuoting="true">
+        <column name="id_erp_order_amount" required="true" type="INTEGER" autoIncrement="true" primaryKey="true"/>
+        <column name="value" type="INTEGER" required="false" default="0"/>
+        <column name="tax" type="INTEGER" required="false" default="0"/>
+
+        <id-method-parameter value="foo_erp_order_amount_pk_seq"/>
     </table>
 
     <table name="foo_erp_order_address" phpName="ErpOrderAddress" identifierQuoting="true">

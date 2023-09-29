@@ -8,6 +8,10 @@ use FondOfOryx\Zed\ErpOrder\Dependency\Facade\ErpOrderToCountryFacadeBridge;
 use FondOfOryx\Zed\ErpOrder\Exception\WrongInterfaceException;
 use FondOfOryx\Zed\ErpOrderExtension\Dependency\Plugin\ErpOrderAddressPostSavePluginInterface;
 use FondOfOryx\Zed\ErpOrderExtension\Dependency\Plugin\ErpOrderAddressPreSavePluginInterface;
+use FondOfOryx\Zed\ErpOrderExtension\Dependency\Plugin\ErpOrderAmountPostSavePluginInterface;
+use FondOfOryx\Zed\ErpOrderExtension\Dependency\Plugin\ErpOrderAmountPreSavePluginInterface;
+use FondOfOryx\Zed\ErpOrderExtension\Dependency\Plugin\ErpOrderExpensePostSavePluginInterface;
+use FondOfOryx\Zed\ErpOrderExtension\Dependency\Plugin\ErpOrderExpensePreSavePluginInterface;
 use FondOfOryx\Zed\ErpOrderExtension\Dependency\Plugin\ErpOrderItemPostSavePluginInterface;
 use FondOfOryx\Zed\ErpOrderExtension\Dependency\Plugin\ErpOrderItemPreSavePluginInterface;
 use FondOfOryx\Zed\ErpOrderExtension\Dependency\Plugin\ErpOrderPostSavePluginInterface;
@@ -68,6 +72,26 @@ class ErpOrderDependencyProvider extends AbstractBundleDependencyProvider
     public const PLUGIN_ERP_ORDER_TOTALS_PRE_SAVE = 'PLUGIN_ERP_ORDER_TOTALS_PRE_SAVE';
 
     /**
+     * @var string
+     */
+    public const PLUGIN_ERP_ORDER_EXPENSE_PRE_SAVE = 'PLUGIN_ERP_ORDER_EXPENSE_PRE_SAVE';
+
+    /**
+     * @var string
+     */
+    public const PLUGIN_ERP_ORDER_EXPENSE_POST_SAVE = 'PLUGIN_ERP_ORDER_EXPENSE_POST_SAVE';
+
+    /**
+     * @var string
+     */
+    public const PLUGIN_ERP_ORDER_AMOUNT_PRE_SAVE = 'PLUGIN_ERP_ORDER_AMOUNT_PRE_SAVE';
+
+    /**
+     * @var string
+     */
+    public const PLUGIN_ERP_ORDER_AMOUNT_POST_SAVE = 'PLUGIN_ERP_ORDER_AMOUNT_POST_SAVE';
+
+    /**
      * @param \Spryker\Zed\Kernel\Container $container
      *
      * @return \Spryker\Zed\Kernel\Container
@@ -97,6 +121,10 @@ class ErpOrderDependencyProvider extends AbstractBundleDependencyProvider
         $container = $this->addErpOrderAddressPreSavePlugin($container);
         $container = $this->addErpOrderAddressPostSavePlugin($container);
         $container = $this->addErpOrderTotalsPreSavePlugin($container);
+        $container = $this->addErpOrderExpensePreSavePlugin($container);
+        $container = $this->addErpOrderExpensePostSavePlugin($container);
+        $container = $this->addErpOrderAmountPreSavePlugin($container);
+        $container = $this->addErpOrderAmountPostSavePlugin($container);
 
         return $this->addErpOrderTotalsPostSavePlugin($container);
     }
@@ -348,6 +376,106 @@ class ErpOrderDependencyProvider extends AbstractBundleDependencyProvider
      * @return array<\FondOfOryx\Zed\ErpOrderExtension\Dependency\Plugin\ErpOrderTotalsPostSavePluginInterface>
      */
     protected function getErpOrderTotalsPostSavePlugin(): array
+    {
+        return [];
+    }
+
+    /**
+     * @param \Spryker\Zed\Kernel\Container $container
+     *
+     * @return \Spryker\Zed\Kernel\Container
+     */
+    public function addErpOrderExpensePostSavePlugin(Container $container): Container
+    {
+        $container[static::PLUGIN_ERP_ORDER_EXPENSE_POST_SAVE] = function (Container $container) {
+            $plugins = $this->getErpOrderExpensePostSavePlugin();
+            $this->validatePlugin($plugins, ErpOrderExpensePostSavePluginInterface::class);
+
+            return new ArrayObject($plugins);
+        };
+
+        return $container;
+    }
+
+    /**
+     * @param \Spryker\Zed\Kernel\Container $container
+     *
+     * @return \Spryker\Zed\Kernel\Container
+     */
+    public function addErpOrderExpensePreSavePlugin(Container $container): Container
+    {
+        $container[static::PLUGIN_ERP_ORDER_EXPENSE_PRE_SAVE] = function (Container $container) {
+            $plugins = $this->getErpOrderExpensePreSavePlugin();
+            $this->validatePlugin($plugins, ErpOrderExpensePreSavePluginInterface::class);
+
+            return new ArrayObject($plugins);
+        };
+
+        return $container;
+    }
+
+    /**
+     * @param \Spryker\Zed\Kernel\Container $container
+     *
+     * @return \Spryker\Zed\Kernel\Container
+     */
+    public function addErpOrderAmountPostSavePlugin(Container $container): Container
+    {
+        $container[static::PLUGIN_ERP_ORDER_AMOUNT_POST_SAVE] = function (Container $container) {
+            $plugins = $this->getErpOrderAmountPostSavePlugin();
+            $this->validatePlugin($plugins, ErpOrderAmountPostSavePluginInterface::class);
+
+            return new ArrayObject($plugins);
+        };
+
+        return $container;
+    }
+
+    /**
+     * @param \Spryker\Zed\Kernel\Container $container
+     *
+     * @return \Spryker\Zed\Kernel\Container
+     */
+    public function addErpOrderAmountPreSavePlugin(Container $container): Container
+    {
+        $container[static::PLUGIN_ERP_ORDER_AMOUNT_PRE_SAVE] = function (Container $container) {
+            $plugins = $this->getErpOrderAmountPreSavePlugin();
+            $this->validatePlugin($plugins, ErpOrderAmountPreSavePluginInterface::class);
+
+            return new ArrayObject($plugins);
+        };
+
+        return $container;
+    }
+
+    /**
+     * @return array<\FondOfOryx\Zed\ErpOrderExtension\Dependency\Plugin\ErpOrderExpensePostSavePluginInterface>
+     */
+    protected function getErpOrderExpensePostSavePlugin(): array
+    {
+        return [];
+    }
+
+    /**
+     * @return array<\FondOfOryx\Zed\ErpOrderExtension\Dependency\Plugin\ErpOrderExpensePreSavePluginInterface>
+     */
+    protected function getErpOrderExpensePreSavePlugin(): array
+    {
+        return [];
+    }
+
+    /**
+     * @return array<\FondOfOryx\Zed\ErpOrderExtension\Dependency\Plugin\ErpOrderAmountPostSavePluginInterface>
+     */
+    protected function getErpOrderAmountPostSavePlugin(): array
+    {
+        return [];
+    }
+
+    /**
+     * @return array<\FondOfOryx\Zed\ErpOrderExtension\Dependency\Plugin\ErpOrderAmountPreSavePluginInterface>
+     */
+    protected function getErpOrderAmountPreSavePlugin(): array
     {
         return [];
     }
