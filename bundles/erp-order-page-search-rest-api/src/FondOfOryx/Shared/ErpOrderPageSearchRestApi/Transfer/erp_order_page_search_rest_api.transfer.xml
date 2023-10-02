@@ -54,6 +54,7 @@
         <property name="shippingAddress" type="RestErpOrderAddress"/>
         <property name="companyBusinessUnit" type="RestCompanyBusinessUnit"/>
         <property name="items" singular="item" type="RestErpOrderItem[]"/>
+        <property name="expenses" singular="expense" type="RestErpOrderExpense[]"/>
         <property name="totals" type="RestErpOrderTotal"/>
         <property name="currencyIsoCode" type="string"/>
         <property name="isCanceled" type="bool"/>
@@ -81,6 +82,8 @@
         <property name="concreteDeliveryDate" type="string"/>
         <property name="expectedDeliveryDate" type="string"/>
         <property name="goodsIssueDate" type="string"/>
+        <property name="amount" type="RestErpOrderAmount"/>
+        <property name="unitPrice" type="RestErpOrderAmount"/>
         <property name="status" type="string"/>
         <property name="outstandingQuantity" type="int"/>
         <property name="position" type="int"/>
@@ -96,6 +99,20 @@
     <transfer name="RestCompanyBusinessUnit">
         <property name="name" type="string"/>
         <property name="uuid" type="string"/>
+    </transfer>
+
+    <transfer name="RestErpOrderExpense">
+        <property name="name" type="string"/>
+        <property name="quantity" type="int"/>
+        <property name="discount" type="int"/>
+        <property name="discountType" type="string"/>
+        <property name="amount" type="RestErpOrderAmount"/>
+        <property name="unitPrice" type="RestErpOrderAmount"/>
+    </transfer>
+
+    <transfer name="RestErpOrderAmount">
+        <property name="value" type="int"/>
+        <property name="tax" type="int"/>
     </transfer>
 
 </transfers>

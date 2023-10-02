@@ -5,6 +5,7 @@ declare(strict_types = 1);
 namespace FondOfOryx\Glue\ErpOrderPageSearchRestApi\Model\Mapper;
 
 use Generated\Shared\Transfer\RestCompanyBusinessUnitTransfer;
+use Generated\Shared\Transfer\RestErpOrderExpenseTransfer;
 use Generated\Shared\Transfer\RestErpOrderPageSearchCollectionResponseTransfer;
 use Generated\Shared\Transfer\RestErpOrderTotalTransfer;
 use Generated\Shared\Transfer\RestErpOrderTransfer;
@@ -25,6 +26,11 @@ class RestErpOrderPageSearchCollectionResponseMapper implements RestErpOrderPage
      * @var string
      */
     protected const ERP_ORDER_DATA_KEY_TOTALS = 'totals';
+
+    /**
+     * @var string
+     */
+    protected const ERP_ORDER_DATA_KEY_ERP_ORDER_EXPENSES = 'erp_order_expenses';
 
     /**
      * @var \FondOfOryx\Glue\ErpOrderPageSearchRestApi\Model\Mapper\RestErpOrderPageSearchPaginationMapperInterface
@@ -76,6 +82,10 @@ class RestErpOrderPageSearchCollectionResponseMapper implements RestErpOrderPage
                 ),
             );
 
+            if (array_key_exists(static::ERP_ORDER_DATA_KEY_ERP_ORDER_EXPENSES, $erpOrderData)) {
+                $this->addRestErpOrderExpenses($restErpOrder, $erpOrderData[static::ERP_ORDER_DATA_KEY_ERP_ORDER_EXPENSES]);
+            }
+
             $restErpOrder->setTotals($this->mapErpOrderTotalToRestOrderTotal(
                 $erpOrderData[static::ERP_ORDER_DATA_KEY_TOTALS],
             ));
@@ -106,5 +116,23 @@ class RestErpOrderPageSearchCollectionResponseMapper implements RestErpOrderPage
         array $erpOrderTotal
     ): RestErpOrderTotalTransfer {
         return (new RestErpOrderTotalTransfer())->fromArray($erpOrderTotal, true);
+    }
+
+    /**
+     * @param \Generated\Shared\Transfer\RestErpOrderTransfer $restErpOrderTransfer
+     * @param array $erpOrderExpenses
+     *
+     * @return \Generated\Shared\Transfer\RestErpOrderTransfer
+     */
+    protected function addRestErpOrderExpenses(
+        RestErpOrderTransfer $restErpOrderTransfer,
+        array $erpOrderExpenses
+    ): RestErpOrderTransfer {
+        foreach ($erpOrderExpenses as $erpOrderExpenseData) {
+            $restErpOrderItemTransfer = (new RestErpOrderExpenseTransfer())->fromArray($erpOrderExpenseData, true);
+            $restErpOrderTransfer->addExpense($restErpOrderItemTransfer);
+        }
+
+        return $restErpOrderTransfer;
     }
 }

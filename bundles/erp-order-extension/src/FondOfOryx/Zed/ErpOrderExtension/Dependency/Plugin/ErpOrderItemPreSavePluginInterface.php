@@ -12,9 +12,9 @@ interface ErpOrderItemPreSavePluginInterface
      *
      * @api
      *
-     * @param \Generated\Shared\Transfer\ErpOrderItemTransfer $erpOrderTransfer
+     * @param \Generated\Shared\Transfer\ErpOrderItemTransfer $erpOrderItemTransfer
      *
      * @return \Generated\Shared\Transfer\ErpOrderItemTransfer
      */
-    public function preSave(ErpOrderItemTransfer $erpOrderTransfer): ErpOrderItemTransfer;
+    public function preSave(ErpOrderItemTransfer $erpOrderItemTransfer): ErpOrderItemTransfer;
 }

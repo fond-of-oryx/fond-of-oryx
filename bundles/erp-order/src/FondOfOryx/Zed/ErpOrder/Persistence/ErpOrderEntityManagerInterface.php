@@ -3,6 +3,8 @@
 namespace FondOfOryx\Zed\ErpOrder\Persistence;
 
 use Generated\Shared\Transfer\ErpOrderAddressTransfer;
+use Generated\Shared\Transfer\ErpOrderAmountTransfer;
+use Generated\Shared\Transfer\ErpOrderExpenseTransfer;
 use Generated\Shared\Transfer\ErpOrderItemTransfer;
 use Generated\Shared\Transfer\ErpOrderTotalsTransfer;
 use Generated\Shared\Transfer\ErpOrderTransfer;
@@ -103,4 +105,41 @@ interface ErpOrderEntityManagerInterface
      * @return void
      */
     public function deleteErpOrderTotalsByIdErpOrderTotals(int $idErpOrderTotals): void;
+
+    /**
+     * @param \Generated\Shared\Transfer\ErpOrderAmountTransfer $orderAmountTransfer
+     *
+     * @return \Generated\Shared\Transfer\ErpOrderAmountTransfer
+     */
+    public function createErpOrderAmount(ErpOrderAmountTransfer $orderAmountTransfer): ErpOrderAmountTransfer;
+
+    /**
+     * @param \Generated\Shared\Transfer\ErpOrderExpenseTransfer $itemTransfer
+     *
+     * @return \Generated\Shared\Transfer\ErpOrderExpenseTransfer
+     */
+    public function createErpOrderExpense(ErpOrderExpenseTransfer $itemTransfer): ErpOrderExpenseTransfer;
+
+    /**
+     * @param \Generated\Shared\Transfer\ErpOrderExpenseTransfer $orderExpenseTransfer
+     *
+     * @return \Generated\Shared\Transfer\ErpOrderExpenseTransfer
+     */
+    public function updateErpOrderExpense(ErpOrderExpenseTransfer $orderExpenseTransfer): ErpOrderExpenseTransfer;
+
+    /**
+     * @param int $idErpOrderExpense
+     *
+     * @return void
+     */
+    public function deleteErpOrderExpenseByIdErpOrderExpense(int $idErpOrderExpense): void;
+
+    /**
+     * @param \Generated\Shared\Transfer\ErpOrderAmountTransfer $erpOrderAmountTransfer
+     *
+     * @throws \Exception
+     *
+     * @return \Generated\Shared\Transfer\ErpOrderAmountTransfer
+     */
+    public function updateErpOrderAmount(ErpOrderAmountTransfer $erpOrderAmountTransfer): ErpOrderAmountTransfer;
 }
