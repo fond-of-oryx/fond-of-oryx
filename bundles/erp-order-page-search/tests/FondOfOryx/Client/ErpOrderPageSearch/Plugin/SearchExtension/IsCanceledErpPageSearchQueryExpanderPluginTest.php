@@ -37,7 +37,7 @@ class IsCanceledErpPageSearchQueryExpanderPluginTest extends Unit
     protected $matchQueryMock;
 
     /**
-     * @var \FondOfOryx\Client\ErpOrderPageSearch\Plugin\SearchExtension\ExternalReferenceErpOrderPageSearchQueryExpanderPlugin
+     * @var \Spryker\Client\SearchExtension\Dependency\Plugin\QueryExpanderPluginInterface
      */
     protected $plugin;
 
@@ -64,7 +64,7 @@ class IsCanceledErpPageSearchQueryExpanderPluginTest extends Unit
             ->disableOriginalConstructor()
             ->getMock();
 
-        $this->requestParameters = [
+        $this->requestParameters = [ /** @phpstan-ignore-line */
             ErpOrderPageSearchConstants::PARAMETER_IS_CANCELED => [true],
         ];
 

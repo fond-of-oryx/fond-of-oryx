@@ -154,7 +154,7 @@ class ErpOrderDependencyProvider extends AbstractBundleDependencyProvider
     {
         $container[static::FACADE_COUNTRY] = static function (Container $container) {
             return new ErpOrderToCountryFacadeBridge(
-                $container->getLocator()->country()->facade(),
+                $container->getLocator()->country()->facade(), /** @phpstan-ignore-line */
             );
         };
 
