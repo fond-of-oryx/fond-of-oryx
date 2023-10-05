@@ -5,6 +5,7 @@ namespace FondOfOryx\Zed\ErpOrder;
 use ArrayObject;
 use FondOfOryx\Zed\ErpOrder\Dependency\Facade\ErpOrderToCompanyBusinessUnitFacadeBridge;
 use FondOfOryx\Zed\ErpOrder\Dependency\Facade\ErpOrderToCountryFacadeBridge;
+use FondOfOryx\Zed\ErpOrder\Dependency\Facade\ErpOrderToCustomerFacadeBridge;
 use FondOfOryx\Zed\ErpOrder\Exception\WrongInterfaceException;
 use FondOfOryx\Zed\ErpOrderExtension\Dependency\Plugin\ErpOrderAddressPostSavePluginInterface;
 use FondOfOryx\Zed\ErpOrderExtension\Dependency\Plugin\ErpOrderAddressPreSavePluginInterface;
@@ -30,6 +31,11 @@ class ErpOrderDependencyProvider extends AbstractBundleDependencyProvider
      * @var string
      */
     public const FACADE_COUNTRY = 'FACADE_COUNTRY';
+
+    /**
+     * @var string
+     */
+    public const FACADE_CUSTOMER = 'FACADE_CUSTOMER';
 
     /**
      * @var string
@@ -134,6 +140,18 @@ class ErpOrderDependencyProvider extends AbstractBundleDependencyProvider
      *
      * @return \Spryker\Zed\Kernel\Container
      */
+    public function provideCommunicationLayerDependencies(Container $container): Container
+    {
+        $container = parent::provideCommunicationLayerDependencies($container);
+
+        return $this->addCustomerFacade($container);
+    }
+
+    /**
+     * @param \Spryker\Zed\Kernel\Container $container
+     *
+     * @return \Spryker\Zed\Kernel\Container
+     */
     public function addCompanyBusinessUnitFacade(Container $container): Container
     {
         $container[static::FACADE_COMPANY_BUSINESS_UNIT] = static function (Container $container) {
@@ -157,6 +175,22 @@ class ErpOrderDependencyProvider extends AbstractBundleDependencyProvider
                 $container->getLocator()->country()->facade(), /** @phpstan-ignore-line */
             );
         };
+
+        return $container;
+    }
+
+    /**
+     * @param \Spryker\Zed\Kernel\Container $container
+     *
+     * @return \Spryker\Zed\Kernel\Container
+     */
+    protected function addCustomerFacade(Container $container): Container
+    {
+        $container[static::FACADE_CUSTOMER] = static fn (
+            Container $container
+        ): ErpOrderToCustomerFacadeBridge => new ErpOrderToCustomerFacadeBridge(
+            $container->getLocator()->customer()->facade(),
+        );
 
         return $container;
     }

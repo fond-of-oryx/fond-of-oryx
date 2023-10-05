@@ -17,6 +17,7 @@
     "fond-of-oryx/erp-order-extension": "^3.0.0",
     "fond-of-spryker/country": "dev-spryker_upgrade || dev-feature/paypal-refund",
     "spryker/company-business-unit": "^1.0.0 || ^2.0.0",
+    "spryker/customer": "^7.12.0",
     "spryker/log": "^1.0.0 || ^2.0.0 || ^3.0.0",
     "spryker/event-behavior": "^1.0.0"
   },
