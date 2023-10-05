@@ -20,7 +20,7 @@ class ErpOrderPageSearchQueryContainerTest extends Unit
     protected $erpOrderPageSearchPersistenceFactoryMock;
 
     /**
-     * @var \FondOfOryx\Zed\ErpOrderPageSearch\Persistence\ErpOrderPageSearchQueryContainerInterface
+     * @var \FondOfOryx\Zed\ErpOrderPageSearch\Persistence\ErpOrderPageSearchQueryContainer
      */
     protected $erpOrderPageSearchQueryContainer;
 
@@ -78,7 +78,7 @@ class ErpOrderPageSearchQueryContainerTest extends Unit
      *
      * @return void
      */
-    public function testQueryErpOrderWithAddressesAndCompanyBusinessUnitAndCompanyUserByErpOrderIds()
+    public function testQueryErpOrderWithAddressesAndCompanyBusinessUnitByErpOrderIds()
     {
         $this->erpOrderPageSearchPersistenceFactoryMock->expects(static::atLeastOnce())
             ->method('getErpOrderQuery')
@@ -94,7 +94,7 @@ class ErpOrderPageSearchQueryContainerTest extends Unit
             ->willReturn($this->erpOrderQueryMock);
 
         $erpOrderQuery = $this->erpOrderPageSearchQueryContainer
-            ->queryErpOrderWithAddressesAndCompanyBusinessUnitAndCompanyUserByErpOrderIds($this->erpOrderIds);
+            ->queryErpOrderWithAddressesAndCompanyBusinessUnitByErpOrderIds($this->erpOrderIds);
 
         $this->assertInstanceOf(ErpOrderQuery::class, $erpOrderQuery);
     }

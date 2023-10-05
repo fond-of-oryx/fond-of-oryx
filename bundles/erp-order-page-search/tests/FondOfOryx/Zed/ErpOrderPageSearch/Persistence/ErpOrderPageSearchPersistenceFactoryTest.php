@@ -6,7 +6,6 @@ use Codeception\Test\Unit;
 use FondOfOryx\Zed\ErpOrderPageSearch\Persistence\ErpOrderPageSearchPersistenceFactory;
 use FondOfOryx\Zed\ErpOrderPageSearch\Persistence\Propel\Mapper\ErpOrderPageSearchMapperInterface;
 use Orm\Zed\ErpOrder\Persistence\ErpOrderQuery;
-use Orm\Zed\ErpOrderPageSearch\Persistence\FooErpOrderPageSearchQuery;
 use Spryker\Zed\Kernel\Container;
 
 class ErpOrderPageSearchPersistenceFactoryTest extends Unit
@@ -42,10 +41,6 @@ class ErpOrderPageSearchPersistenceFactoryTest extends Unit
             ->disableOriginalConstructor()
             ->getMock();
 
-        $this->fooErpOrderPageSearchQuery = $this->getMockBuilder(FooErpOrderPageSearchQuery::class)
-            ->disableOriginalConstructor()
-            ->getMock();
-
         $this->erpOrderQueryMock = $this->getMockBuilder(ErpOrderQuery::class)
             ->disableOriginalConstructor()
             ->getMock();
@@ -63,30 +58,6 @@ class ErpOrderPageSearchPersistenceFactoryTest extends Unit
             ErpOrderPageSearchMapperInterface::class,
             $this->erpOrderPageSearchPersistenceFactory->createErpOrderPageSearchMapper(),
         );
-    }
-
-    /**
-     * @return void
-     */
-    public function testGetErpOrderPageSearchQuery()
-    {
-       /* $this->containerMock->expects(static::atLeastOnce())
-            ->method('has')
-            ->with(ErpOrderPageSearchDependencyProvider::QUERY_ERP_ORDER_PAGE_SEARCH)
-            ->willReturn(true);
-
-        $this->containerMock->expects(static::atLeastOnce())
-            ->method('get')
-            ->withConsecutive(
-                [ErpOrderPageSearchDependencyProvider::QUERY_ERP_ORDER_PAGE_SEARCH],
-            )->willReturnOnConsecutiveCalls(
-                $this->fooErpOrderPageSearchQueryMock
-            );
-
-        $this->assertInstanceOf(
-            FooErpOrderPageSearchQuery::class,
-            $this->erpOrderPageSearchPersistenceFactory->getErpOrderPageSearchQuery()
-        );*/
     }
 
     /**

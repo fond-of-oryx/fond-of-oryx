@@ -37,7 +37,7 @@ class FromCreatedAtErpOrderPageSearchQueryExpanderPluginTest extends Unit
     protected $matchQueryMock;
 
     /**
-     * @var \FondOfOryx\Client\ErpOrderPageSearch\Plugin\SearchExtension\ExternalReferenceErpOrderPageSearchQueryExpanderPlugin
+     * @var \Spryker\Client\SearchExtension\Dependency\Plugin\QueryExpanderPluginInterface
      */
     protected $plugin;
 
@@ -64,7 +64,7 @@ class FromCreatedAtErpOrderPageSearchQueryExpanderPluginTest extends Unit
             ->disableOriginalConstructor()
             ->getMock();
 
-        $this->requestParameters = [
+        $this->requestParameters = [ /** @phpstan-ignore-line */
             ErpOrderPageSearchConstants::PARAMETER_FROM => '1970-01-01',
         ];
 
