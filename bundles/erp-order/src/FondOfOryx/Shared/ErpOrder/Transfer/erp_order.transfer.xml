@@ -18,6 +18,9 @@
         <property name="concreteDeliveryDate" type="string"/>
         <property name="totals" type="ErpOrderTotals"/>
         <property name="currencyIsoCode" type="string"/>
+        <property name="purchaserEmail" type="string"/>
+        <property name="purchaserFirstName" type="string"/>
+        <property name="purchaserLastName" type="string"/>
         <property name="createdAt" type="int"/>
         <property name="updatedAt" type="int"/>
         <property name="outstandingQuantity" type="int"/>

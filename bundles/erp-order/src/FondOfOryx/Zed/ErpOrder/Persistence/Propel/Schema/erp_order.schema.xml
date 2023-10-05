@@ -15,6 +15,9 @@
         <column name="currency_iso_code" type="VARCHAR" size="5" required="false"/>
         <column name="outstanding_quantity" required="false" type="INTEGER" default="0"/>
         <column name="is_canceled" type="BOOLEAN" defaultValue="false" required="true"/>
+        <column name="purchaser_email" required="false" size="255" type="VARCHAR" caseInsensitive="true"/>
+        <column name="purchaser_first_name" required="false" size="100" type="VARCHAR"/>
+        <column name="purchaser_last_name" required="false" size="100" type="VARCHAR"/>
 
         <id-method-parameter value="foo_erp_order_pk_seq"/>
 
