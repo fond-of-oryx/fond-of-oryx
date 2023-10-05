@@ -2,7 +2,7 @@
 
 namespace FondOfOryx\Zed\ErpOrder\Communication\Plugin\PreSave;
 
-use \Exception;
+use Exception;
 use FondOfOryx\Zed\ErpOrderExtension\Dependency\Plugin\ErpOrderPreSavePluginInterface;
 use Generated\Shared\Transfer\CustomerTransfer;
 use Generated\Shared\Transfer\ErpOrderTransfer;
@@ -18,8 +18,8 @@ class PurchaserErpOrderPreSavePlugin extends AbstractPlugin implements ErpOrderP
      *
      * @return \Generated\Shared\Transfer\ErpOrderTransfer
      */
-    public function preSave(ErpOrderTransfer $erpOrderTransfer): ErpOrderTransfer {
-
+    public function preSave(ErpOrderTransfer $erpOrderTransfer): ErpOrderTransfer
+    {
         if (!$erpOrderTransfer->getPurchaserEmail()) {
             return $erpOrderTransfer;
         }
@@ -35,7 +35,6 @@ class PurchaserErpOrderPreSavePlugin extends AbstractPlugin implements ErpOrderP
             $erpOrderTransfer
                 ->setPurchaserFirstName($customerTransfer->getFirstName())
                 ->setPurchaserLastName($customerTransfer->getLastName());
-
         } catch (Exception $e) {
             /** @todo throw exception if necessary */
             return $erpOrderTransfer;

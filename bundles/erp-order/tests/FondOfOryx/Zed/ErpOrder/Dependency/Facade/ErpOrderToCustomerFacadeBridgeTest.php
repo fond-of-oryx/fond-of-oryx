@@ -57,7 +57,7 @@ class ErpOrderToCustomerFacadeBridgeTest extends Unit
 
         $this->assertEquals(
             $this->customerTransferMock,
-            $this->facade->getCustomer($this->customerTransferMock)
+            $this->facade->getCustomer($this->customerTransferMock),
         );
     }
 }

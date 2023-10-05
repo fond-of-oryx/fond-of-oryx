@@ -1,6 +1,6 @@
 <?php
 
-namespace  FondOfOryx\Zed\ErpOrder\Communication;
+namespace FondOfOryx\Zed\ErpOrder\Communication;
 
 use Codeception\Test\Unit;
 use FondOfOryx\Zed\ErpOrder\Dependency\Facade\ErpOrderToCustomerFacadeInterface;

@@ -120,7 +120,7 @@ class PurchaserErpOrderPreSavePluginTest extends Unit
 
         $this->assertEquals(
             $this->erpOrderTransferMock,
-            $this->plugin->preSave($this->erpOrderTransferMock)
+            $this->plugin->preSave($this->erpOrderTransferMock),
         );
     }
 
@@ -147,8 +147,7 @@ class PurchaserErpOrderPreSavePluginTest extends Unit
 
         $this->assertEquals(
             $this->erpOrderTransferMock,
-            $this->plugin->preSave($this->erpOrderTransferMock)
+            $this->plugin->preSave($this->erpOrderTransferMock),
         );
     }
-
 }

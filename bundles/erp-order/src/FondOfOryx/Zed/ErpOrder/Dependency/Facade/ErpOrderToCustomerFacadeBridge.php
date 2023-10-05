@@ -25,7 +25,7 @@ class ErpOrderToCustomerFacadeBridge implements ErpOrderToCustomerFacadeInterfac
      *
      * @return \Generated\Shared\Transfer\CustomerTransfer
      */
-    public function getCustomer(CustomerTransfer $customerTransfer):CustomerTransfer
+    public function getCustomer(CustomerTransfer $customerTransfer): CustomerTransfer
     {
         return $this->customerFacade->getCustomer($customerTransfer);
     }
