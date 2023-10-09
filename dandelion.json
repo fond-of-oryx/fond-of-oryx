@@ -461,11 +461,11 @@
     },
     "erp-order-page-search": {
       "path": "bundles/erp-order-page-search/",
-      "version": "3.3.0"
+      "version": "3.4.0"
     },
     "erp-order-page-search-rest-api": {
       "path": "bundles/erp-order-page-search-rest-api/",
-      "version": "2.3.0"
+      "version": "2.4.0"
     },
     "erp-order-permission": {
       "path": "bundles/erp-order-permission/",
