@@ -68,6 +68,9 @@ class ErpOrderPageSearchDataMapperTest extends Unit
             ErpOrderPageSearchDataMapper::CURRENCY_ISO_CODE => '',
             ErpOrderPageSearchDataMapper::OUTSTANDING_QUANTITY => 1,
             ErpOrderPageSearchDataMapper::IS_CANCELED => false,
+            ErpOrderPageSearchDataMapper::PURCHASER_EMAIL => 'john.doe@example.com',
+            ErpOrderPageSearchDataMapper::SEARCH_RESULT_PURCHASER_FIRST_NAME => 'john',
+            ErpOrderPageSearchDataMapper::SEARCH_RESULT_PURCHASER_LAST_NAME => 'doe',
         ];
 
         $fullText = [
