@@ -112,6 +112,11 @@ class ErpOrderPageSearchDataMapper implements ErpOrderPageSearchDataMapperInterf
     /**
      * @var string
      */
+    public const PURCHASER_EMAIL = 'purchaser_email';
+
+    /**
+     * @var string
+     */
     public const SEARCH_RESULT_CONCRETE_DELIVERY_DATE = 'concrete_delivery_date';
 
     /**
@@ -173,6 +178,21 @@ class ErpOrderPageSearchDataMapper implements ErpOrderPageSearchDataMapperInterf
      * @var string
      */
     public const SEARCH_RESULT_ERP_ORDER_EXPENSES = 'erp_order_expenses';
+
+    /**
+     * @var string
+     */
+    public const SEARCH_RESULT_PURCHASER_EMAIL = 'purchaser_email';
+
+    /**
+     * @var string
+     */
+    public const SEARCH_RESULT_PURCHASER_FIRST_NAME = 'purchaser_first_name';
+
+    /**
+     * @var string
+     */
+    public const SEARCH_RESULT_PURCHASER_LAST_NAME = 'purchaser_last_name';
 
     /**
      * @var string
@@ -240,6 +260,7 @@ class ErpOrderPageSearchDataMapper implements ErpOrderPageSearchDataMapperInterf
             ErpOrderIndexMap::COMPANY_BUSINESS_UNIT_UUID => $data[static::COMPANY_BUSINESS_UNIT][static::COMPANY_BUSINESS_UNIT_UUID],
             ErpOrderIndexMap::OUTSTANDING_QUANTITY => $data[static::OUTSTANDING_QUANTITY],
             ErpOrderIndexMap::IS_CANCELED => $data[static::IS_CANCELED],
+            ErpOrderIndexMap::PURCHASER_EMAIL => $data[static::PURCHASER_EMAIL],
             ErpOrderIndexMap::SEARCH_RESULT_DATA => $this->mapErpOrderDataToSearchResultData($data),
         ];
     }
@@ -270,6 +291,9 @@ class ErpOrderPageSearchDataMapper implements ErpOrderPageSearchDataMapperInterf
             static::SEARCH_RESULT_BILLING_ADDRESS => $data[static::BILLING_ADDRESS],
             static::SEARCH_RESULT_CURRENCY_ISO_CODE => $data[static::CURRENCY_ISO_CODE],
             static::SEARCH_RESULT_IS_CANCELED => $data[static::IS_CANCELED],
+            static::SEARCH_RESULT_PURCHASER_EMAIL => $data[static::SEARCH_RESULT_PURCHASER_EMAIL],
+            static::SEARCH_RESULT_PURCHASER_FIRST_NAME => $data[static::SEARCH_RESULT_PURCHASER_FIRST_NAME],
+            static::SEARCH_RESULT_PURCHASER_LAST_NAME => $data[static::SEARCH_RESULT_PURCHASER_LAST_NAME],
         ];
     }
 

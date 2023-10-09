@@ -58,6 +58,9 @@
         <property name="totals" type="RestErpOrderTotal"/>
         <property name="currencyIsoCode" type="string"/>
         <property name="isCanceled" type="bool"/>
+        <property name="purchaserEmail" type="string"/>
+        <property name="purchaserFirstName" type="string"/>
+        <property name="purchaserLastName" type="string"/>
     </transfer>
 
     <transfer name="RestErpOrderAddress">
