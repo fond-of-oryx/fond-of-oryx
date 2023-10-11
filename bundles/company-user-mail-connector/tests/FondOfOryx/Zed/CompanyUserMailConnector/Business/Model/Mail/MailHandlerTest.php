@@ -33,7 +33,7 @@ class MailHandlerTest extends Unit
     protected $mailTransferMock;
 
     /**
-     * @var \FondOfOryx\Zed\CompanyUserMailConnector\Business\Mail\MailHandlerInterface
+     * @var \FondOfOryx\Zed\CompanyUserMailConnector\Business\Model\Mail\MailHandlerInterface
      */
     protected $mailHandler;
 

@@ -12,10 +12,12 @@ interface CompanyUserMailConnectorRepositoryInterface
     /**
      * @param int $fkCompany
      * @param array $roleNames
-     * @return \Generated\Shared\Transfer\NotificationCustomerCollectionTransfer
+     *
      * @throws \Propel\Runtime\Exception\PropelException
      * @throws \Spryker\Zed\Kernel\Exception\Container\ContainerKeyNotFoundException
      * @throws \Spryker\Zed\Propel\Business\Exception\AmbiguousComparisonException
+     *
+     * @return \Generated\Shared\Transfer\NotificationCustomerCollectionTransfer
      */
     public function getNotificationCustomerByFkCompanyAndRole(int $fkCompany, array $roleNames): NotificationCustomerCollectionTransfer;
 }

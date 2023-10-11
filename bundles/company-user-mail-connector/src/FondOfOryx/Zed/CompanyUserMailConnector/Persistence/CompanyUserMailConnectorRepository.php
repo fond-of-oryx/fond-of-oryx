@@ -16,10 +16,8 @@ class CompanyUserMailConnectorRepository extends AbstractRepository implements C
     /**
      * @param int $fkCompany
      * @param array $roleNames
+     *
      * @return \Generated\Shared\Transfer\NotificationCustomerCollectionTransfer
-     * @throws \Propel\Runtime\Exception\PropelException
-     * @throws \Spryker\Zed\Kernel\Exception\Container\ContainerKeyNotFoundException
-     * @throws \Spryker\Zed\Propel\Business\Exception\AmbiguousComparisonException
      */
     public function getNotificationCustomerByFkCompanyAndRole(int $fkCompany, array $roleNames): NotificationCustomerCollectionTransfer
     {
@@ -41,6 +39,7 @@ class CompanyUserMailConnectorRepository extends AbstractRepository implements C
 
     /**
      * @param array $data
+     *
      * @return \Generated\Shared\Transfer\NotificationCustomerCollectionTransfer
      */
     protected function createCompanyUserCollection(array $data): NotificationCustomerCollectionTransfer
@@ -56,16 +55,19 @@ class CompanyUserMailConnectorRepository extends AbstractRepository implements C
 
             $collection->addNotificationCustomer($customer);
         }
+
         return $collection;
     }
 
     /**
      * @param string $field
+     *
      * @return string
      */
     protected function cleanFieldName(string $field): string
     {
         $data = explode('.', $field);
+
         return (string)end($data);
     }
 }

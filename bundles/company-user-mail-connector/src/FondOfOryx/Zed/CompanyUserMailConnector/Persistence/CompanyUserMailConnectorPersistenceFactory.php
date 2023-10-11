@@ -10,7 +10,6 @@ class CompanyUserMailConnectorPersistenceFactory extends AbstractPersistenceFact
 {
     /**
      * @return \Orm\Zed\Customer\Persistence\SpyCustomerQuery
-     * @throws \Spryker\Zed\Kernel\Exception\Container\ContainerKeyNotFoundException
      */
     public function getSpyCustomerQuery(): SpyCustomerQuery
     {

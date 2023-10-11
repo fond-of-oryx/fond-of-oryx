@@ -22,6 +22,9 @@ class InformationMailHandler implements InformationMailHandlerInterface
      */
     protected $config;
 
+    /**
+     * @var \FondOfOryx\Zed\CompanyUserMailConnector\Persistence\CompanyUserMailConnectorRepositoryInterface
+     */
     protected $repository;
 
     /**
@@ -29,8 +32,11 @@ class InformationMailHandler implements InformationMailHandlerInterface
      * @param \FondOfOryx\Zed\CompanyUserMailConnector\Persistence\CompanyUserMailConnectorRepositoryInterface $repository
      * @param \FondOfOryx\Zed\CompanyUserMailConnector\CompanyUserMailConnectorConfig $config
      */
-    public function __construct(CompanyUserMailConnectorToMailFacadeInterface $mailFacade, CompanyUserMailConnectorRepositoryInterface $repository, CompanyUserMailConnectorConfig $config)
-    {
+    public function __construct(
+        CompanyUserMailConnectorToMailFacadeInterface $mailFacade,
+        CompanyUserMailConnectorRepositoryInterface $repository,
+        CompanyUserMailConnectorConfig $config
+    ) {
         $this->mailFacade = $mailFacade;
         $this->config = $config;
         $this->repository = $repository;
@@ -51,7 +57,7 @@ class InformationMailHandler implements InformationMailHandlerInterface
 
         $inform = $this->repository->getNotificationCustomerByFkCompanyAndRole($companyUserTransfer->getFkCompany(), $this->config->getRolesToNotify());
 
-        foreach ($inform->getNotificationCustomers() as $notificationCustomer){
+        foreach ($inform->getNotificationCustomers() as $notificationCustomer) {
             $mailTransfer = new MailTransfer();
             $mailTransfer->setType(CompanyUserWasCreatedInformerMailTypePlugin::MAIL_TYPE);
             $mailTransfer->setCustomer($customerTransfer);
@@ -65,13 +71,14 @@ class InformationMailHandler implements InformationMailHandlerInterface
 
     /**
      * @param \Generated\Shared\Transfer\CompanyRoleCollectionTransfer $companyRoleCollectionTransfer
+     *
      * @return bool
      */
     protected function checkRoles(CompanyRoleCollectionTransfer $companyRoleCollectionTransfer): bool
     {
         $configRoles = $this->config->getRolesToInformAbout();
-        foreach ($companyRoleCollectionTransfer->getRoles() as $role ){
-            if (in_array($role->getName(), $configRoles)){
+        foreach ($companyRoleCollectionTransfer->getRoles() as $role) {
+            if (in_array($role->getName(), $configRoles)) {
                 return true;
             }
         }

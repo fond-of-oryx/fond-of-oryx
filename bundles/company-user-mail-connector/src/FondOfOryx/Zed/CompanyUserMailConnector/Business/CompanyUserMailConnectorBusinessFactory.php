@@ -32,7 +32,7 @@ class CompanyUserMailConnectorBusinessFactory extends AbstractBusinessFactory
         return new InformationMailHandler(
             $this->getMailFacade(),
             $this->getRepository(),
-            $this->getConfig()
+            $this->getConfig(),
         );
     }
 

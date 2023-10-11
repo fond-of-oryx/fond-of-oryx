@@ -19,6 +19,7 @@ class CompanyUserMailConnectorFacade extends AbstractFacade implements CompanyUs
     {
         return $this->getFactory()->createMailHandler()->sendMail($companyUserTransfer);
     }
+
     /**
      * @param \Generated\Shared\Transfer\CompanyUserTransfer $companyUserTransfer
      *
