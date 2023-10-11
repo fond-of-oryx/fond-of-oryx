@@ -1,0 +1,71 @@
+<?php
+
+namespace FondOfOryx\Zed\CompanyUserMailConnector\Persistence;
+
+use Generated\Shared\Transfer\NotificationCustomerCollectionTransfer;
+use Generated\Shared\Transfer\NotificationCustomerTransfer;
+use Orm\Zed\CompanyRole\Persistence\Map\SpyCompanyRoleTableMap;
+use Orm\Zed\Customer\Persistence\Map\SpyCustomerTableMap;
+use Spryker\Zed\Kernel\Persistence\AbstractRepository;
+
+/**
+ * @method \FondOfOryx\Zed\CompanyUserMailConnector\Persistence\CompanyUserMailConnectorPersistenceFactory getFactory()
+ */
+class CompanyUserMailConnectorRepository extends AbstractRepository implements CompanyUserMailConnectorRepositoryInterface
+{
+    /**
+     * @param int $fkCompany
+     * @param array $roleNames
+     * @return \Generated\Shared\Transfer\NotificationCustomerCollectionTransfer
+     * @throws \Propel\Runtime\Exception\PropelException
+     * @throws \Spryker\Zed\Kernel\Exception\Container\ContainerKeyNotFoundException
+     * @throws \Spryker\Zed\Propel\Business\Exception\AmbiguousComparisonException
+     */
+    public function getNotificationCustomerByFkCompanyAndRole(int $fkCompany, array $roleNames): NotificationCustomerCollectionTransfer
+    {
+        $customerQuery = $this->getFactory()->getSpyCustomerQuery();
+
+        $customerQuery
+            ->useCompanyUserQuery()
+            ->filterByFkCompany($fkCompany)
+            ->useSpyCompanyRoleToCompanyUserQuery()
+            ->useCompanyRoleQuery()
+            ->filterByName_In($roleNames)
+            ->endUse()
+            ->endUse()
+            ->endUse()
+            ->select([SpyCustomerTableMap::COL_FIRST_NAME, SpyCustomerTableMap::COL_LAST_NAME, SpyCustomerTableMap::COL_EMAIL, SpyCompanyRoleTableMap::COL_NAME]);
+
+        return $this->createCompanyUserCollection($customerQuery->find()->getData());
+    }
+
+    /**
+     * @param array $data
+     * @return \Generated\Shared\Transfer\NotificationCustomerCollectionTransfer
+     */
+    protected function createCompanyUserCollection(array $data): NotificationCustomerCollectionTransfer
+    {
+        $collection = new NotificationCustomerCollectionTransfer();
+
+        foreach ($data as $userData) {
+            $customer = (new NotificationCustomerTransfer())
+                ->setFirstName($userData[SpyCustomerTableMap::COL_FIRST_NAME])
+                ->setLastName($userData[SpyCustomerTableMap::COL_FIRST_NAME])
+                ->setRole($userData[SpyCompanyRoleTableMap::COL_NAME])
+                ->setEmail($userData[SpyCustomerTableMap::COL_EMAIL]);
+
+            $collection->addNotificationCustomer($customer);
+        }
+        return $collection;
+    }
+
+    /**
+     * @param string $field
+     * @return string
+     */
+    protected function cleanFieldName(string $field): string
+    {
+        $data = explode('.', $field);
+        return (string)end($data);
+    }
+}
