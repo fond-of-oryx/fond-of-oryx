@@ -10,7 +10,7 @@ use Generated\Shared\Transfer\CompanyRoleCollectionTransfer;
 use Generated\Shared\Transfer\CompanyUserTransfer;
 use Generated\Shared\Transfer\MailTransfer;
 
-class InformationMailHandler implements InformationMailHandlerInterface
+class CompanyUserCreationNotificationMailHandler implements CompanyUserCreationNotificationMailHandlerInterface
 {
     /**
      * @var \FondOfOryx\Zed\CompanyUserMailConnector\Dependency\Facade\CompanyUserMailConnectorToMailFacadeInterface

@@ -3,32 +3,33 @@
 namespace FondOfOryx\Zed\CompanyUserMailConnector\Communication\Plugin\CompanyUsersRestApi;
 
 use Codeception\Test\Unit;
-use FondOfOryx\Zed\CompanyUserMailConnector\Communication\Plugin\Mail\CustomerRegistrationMailTypePlugin;
-use Generated\Shared\Transfer\CustomerTransfer;
+use FondOfOryx\Zed\CompanyUserMailConnector\Communication\Plugin\Mail\CompanyUserWasCreatedInformerMailTypePlugin;
 use Generated\Shared\Transfer\MailTransfer;
+use Generated\Shared\Transfer\NotificationCustomerTransfer;
+use PHPUnit\Framework\MockObject\MockObject;
 use Spryker\Zed\Mail\Business\Model\Mail\Builder\MailBuilderInterface;
 
-class CustomerRegistrationMailTypePluginTest extends Unit
+class CompanyUserWasCreatedInformerMailTypePluginTest extends Unit
 {
     /**
-     * @var \Generated\Shared\Transfer\CustomerTransfer|\PHPUnit\Framework\MockObject\MockObject
+     * @var \Generated\Shared\Transfer\NotificationCustomerTransfer|\PHPUnit\Framework\MockObject\MockObject
      */
-    protected $customerTransferMock;
+    protected NotificationCustomerTransfer|MockObject $notificationCustomerTransferMock;
 
     /**
      * @var \Spryker\Zed\Mail\Business\Model\Mail\Builder\MailBuilderInterface|\PHPUnit\Framework\MockObject\MockObject
      */
-    protected $mailBuilderMock;
+    protected MailBuilderInterface|MockObject $mailBuilderMock;
 
     /**
      * @var \Generated\Shared\Transfer\MailTransfer|\PHPUnit\Framework\MockObject\MockObject
      */
-    protected $mailTransferMock;
+    protected MailTransfer|MockObject $mailTransferMock;
 
     /**
-     * @var \FondOfOryx\Zed\CompanyUserMailConnector\Communication\Plugin\Mail\CustomerRegistrationMailTypePlugin
+     * @var \FondOfOryx\Zed\CompanyUserMailConnector\Communication\Plugin\Mail\CompanyUserWasCreatedInformerMailTypePlugin
      */
-    protected $plugin;
+    protected CompanyUserWasCreatedInformerMailTypePlugin $plugin;
 
     /**
      * @return void
@@ -45,11 +46,11 @@ class CustomerRegistrationMailTypePluginTest extends Unit
             ->disableOriginalConstructor()
             ->getMock();
 
-        $this->customerTransferMock = $this->getMockBuilder(CustomerTransfer::class)
+        $this->notificationCustomerTransferMock = $this->getMockBuilder(NotificationCustomerTransfer::class)
             ->disableOriginalConstructor()
             ->getMock();
 
-        $this->plugin = new CustomerRegistrationMailTypePlugin();
+        $this->plugin = new CompanyUserWasCreatedInformerMailTypePlugin();
     }
 
     /**
@@ -62,22 +63,22 @@ class CustomerRegistrationMailTypePluginTest extends Unit
             ->willReturn($this->mailTransferMock);
 
         $this->mailTransferMock->expects(static::atLeastOnce())
-            ->method('requireCustomer')
+            ->method('requireNotifyCustomer')
             ->willReturnSelf();
 
         $this->mailTransferMock->expects(static::atLeastOnce())
-            ->method('getCustomer')
-            ->willReturn($this->customerTransferMock);
+            ->method('getNotifyCustomer')
+            ->willReturn($this->notificationCustomerTransferMock);
 
-        $this->customerTransferMock->expects(static::atLeastOnce())
+        $this->notificationCustomerTransferMock->expects(static::atLeastOnce())
             ->method('getEmail')
             ->willReturn('max.mustermann@example.com');
 
-        $this->customerTransferMock->expects(static::atLeastOnce())
+        $this->notificationCustomerTransferMock->expects(static::atLeastOnce())
             ->method('getFirstName')
             ->willReturn('Max');
 
-        $this->customerTransferMock->expects(static::atLeastOnce())
+        $this->notificationCustomerTransferMock->expects(static::atLeastOnce())
             ->method('getLastName')
             ->willReturn('Mustermann');
 
@@ -89,6 +90,6 @@ class CustomerRegistrationMailTypePluginTest extends Unit
      */
     public function testGetName(): void
     {
-        static::assertEquals('customer registration mail', $this->plugin->getName());
+        static::assertEquals('company user was created notification type', $this->plugin->getName());
     }
 }

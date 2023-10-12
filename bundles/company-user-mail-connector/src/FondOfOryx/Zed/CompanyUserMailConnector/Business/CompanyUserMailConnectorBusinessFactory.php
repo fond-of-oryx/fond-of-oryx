@@ -2,8 +2,8 @@
 
 namespace FondOfOryx\Zed\CompanyUserMailConnector\Business;
 
-use FondOfOryx\Zed\CompanyUserMailConnector\Business\Model\Mail\InformationMailHandler;
-use FondOfOryx\Zed\CompanyUserMailConnector\Business\Model\Mail\InformationMailHandlerInterface;
+use FondOfOryx\Zed\CompanyUserMailConnector\Business\Model\Mail\CompanyUserCreationNotificationMailHandler;
+use FondOfOryx\Zed\CompanyUserMailConnector\Business\Model\Mail\CompanyUserCreationNotificationMailHandlerInterface;
 use FondOfOryx\Zed\CompanyUserMailConnector\Business\Model\Mail\MailHandler;
 use FondOfOryx\Zed\CompanyUserMailConnector\Business\Model\Mail\MailHandlerInterface;
 use FondOfOryx\Zed\CompanyUserMailConnector\CompanyUserMailConnectorDependencyProvider;
@@ -25,11 +25,11 @@ class CompanyUserMailConnectorBusinessFactory extends AbstractBusinessFactory
     }
 
     /**
-     * @return \FondOfOryx\Zed\CompanyUserMailConnector\Business\Model\Mail\InformationMailHandlerInterface
+     * @return \FondOfOryx\Zed\CompanyUserMailConnector\Business\Model\Mail\CompanyUserCreationNotificationMailHandlerInterface
      */
-    public function createInformationMailHandler(): InformationMailHandlerInterface
+    public function createCompanyUserCreationNotificationMailHandler(): CompanyUserCreationNotificationMailHandlerInterface
     {
-        return new InformationMailHandler(
+        return new CompanyUserCreationNotificationMailHandler(
             $this->getMailFacade(),
             $this->getRepository(),
             $this->getConfig(),

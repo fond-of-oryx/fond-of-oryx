@@ -265,7 +265,7 @@
     },
     "company-user-mail-connector": {
       "path": "bundles/company-user-mail-connector/",
-      "version": "2.0.0"
+      "version": "2.1.0"
     },
     "company-user-order-budget-search-rest-api": {
       "path": "bundles/company-user-order-budget-search-rest-api/",

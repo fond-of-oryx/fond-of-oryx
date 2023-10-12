@@ -27,6 +27,6 @@ class CompanyUserMailConnectorFacade extends AbstractFacade implements CompanyUs
      */
     public function sendInformationMail(CompanyUserTransfer $companyUserTransfer): CompanyUserTransfer
     {
-        return $this->getFactory()->createInformationMailHandler()->sendInformationMail($companyUserTransfer);
+        return $this->getFactory()->createCompanyUserCreationNotificationMailHandler()->sendInformationMail($companyUserTransfer);
     }
 }

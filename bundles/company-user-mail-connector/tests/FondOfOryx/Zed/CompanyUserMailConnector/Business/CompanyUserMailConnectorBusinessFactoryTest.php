@@ -3,27 +3,41 @@
 namespace FondOfOryx\Zed\CompanyUserMailConnector\Business;
 
 use Codeception\Test\Unit;
+use FondOfOryx\Zed\CompanyUserMailConnector\Business\Model\Mail\CompanyUserCreationNotificationMailHandlerInterface;
 use FondOfOryx\Zed\CompanyUserMailConnector\Business\Model\Mail\MailHandlerInterface;
+use FondOfOryx\Zed\CompanyUserMailConnector\CompanyUserMailConnectorConfig;
 use FondOfOryx\Zed\CompanyUserMailConnector\CompanyUserMailConnectorDependencyProvider;
 use FondOfOryx\Zed\CompanyUserMailConnector\Dependency\Facade\CompanyUserMailConnectorToMailFacadeInterface;
+use FondOfOryx\Zed\CompanyUserMailConnector\Persistence\CompanyUserMailConnectorRepository;
+use PHPUnit\Framework\MockObject\MockObject;
 use Spryker\Zed\Kernel\Container;
 
 class CompanyUserMailConnectorBusinessFactoryTest extends Unit
 {
     /**
-     * @var \PHPUnit\Framework\MockObject\MockObject|\Spryker\Zed\Kernel\Container
+     * @var \Spryker\Zed\Kernel\Container|\PHPUnit\Framework\MockObject\MockObject
      */
-    protected $containerMock;
+    protected Container|MockObject $containerMock;
 
     /**
-     * @var \FondOfOryx\Zed\CompanyUserMailConnector\Business\CompanyUserMailConnectorBusinessFactory|\PHPUnit\Framework\MockObject\MockObject|null
+     * @var \FondOfOryx\Zed\CompanyUserMailConnector\Business\CompanyUserMailConnectorBusinessFactory
      */
-    protected $factory;
+    protected CompanyUserMailConnectorBusinessFactory $factory;
 
     /**
-     * @var \FondOfOryx\Zed\CompanyUserMailConnector\Dependency\Facade\CompanyUserMailConnectorToMailFacadeInterface|\Spryker\Zed\Kernel\Container
+     * @var \FondOfOryx\Zed\CompanyUserMailConnector\Dependency\Facade\CompanyUserMailConnectorToMailFacadeInterface|\PHPUnit\Framework\MockObject\MockObject
      */
-    protected $mailFacadeMock;
+    protected CompanyUserMailConnectorToMailFacadeInterface|MockObject $mailFacadeMock;
+
+    /**
+     * @var \FondOfOryx\Zed\CompanyUserMailConnector\CompanyUserMailConnectorConfig|\PHPUnit\Framework\MockObject\MockObject
+     */
+    protected CompanyUserMailConnectorConfig|MockObject $configMock;
+
+    /**
+     * @var \FondOfOryx\Zed\CompanyUserMailConnector\Persistence\CompanyUserMailConnectorRepository|\PHPUnit\Framework\MockObject\MockObject
+     */
+    protected CompanyUserMailConnectorRepository|MockObject $repositoryMock;
 
     /**
      * @return void
@@ -40,8 +54,18 @@ class CompanyUserMailConnectorBusinessFactoryTest extends Unit
             ->disableOriginalConstructor()
             ->getMock();
 
+        $this->configMock = $this->getMockBuilder(CompanyUserMailConnectorConfig::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $this->repositoryMock = $this->getMockBuilder(CompanyUserMailConnectorRepository::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
         $this->factory = new CompanyUserMailConnectorBusinessFactory();
         $this->factory->setContainer($this->containerMock);
+        $this->factory->setRepository($this->repositoryMock);
+        $this->factory->setConfig($this->configMock);
     }
 
     /**
@@ -62,6 +86,27 @@ class CompanyUserMailConnectorBusinessFactoryTest extends Unit
         static::assertInstanceOf(
             MailHandlerInterface::class,
             $this->factory->createMailHandler(),
+        );
+    }
+
+    /**
+     * @return void
+     */
+    public function testCreateCompanyUserCreationNotificationMailHandler(): void
+    {
+        $this->containerMock->expects(static::atLeastOnce())
+            ->method('has')
+            ->with(CompanyUserMailConnectorDependencyProvider::FACADE_MAIL)
+            ->willReturn(true);
+
+        $this->containerMock->expects(static::atLeastOnce())
+            ->method('get')
+            ->with(CompanyUserMailConnectorDependencyProvider::FACADE_MAIL)
+            ->willReturn($this->mailFacadeMock);
+
+        static::assertInstanceOf(
+            CompanyUserCreationNotificationMailHandlerInterface::class,
+            $this->factory->createCompanyUserCreationNotificationMailHandler(),
         );
     }
 }
