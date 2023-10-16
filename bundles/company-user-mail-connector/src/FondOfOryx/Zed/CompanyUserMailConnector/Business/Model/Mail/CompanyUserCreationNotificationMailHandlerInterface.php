@@ -11,5 +11,5 @@ interface CompanyUserCreationNotificationMailHandlerInterface
      *
      * @return \Generated\Shared\Transfer\CompanyUserTransfer
      */
-    public function sendInformationMail(CompanyUserTransfer $companyUserTransfer): CompanyUserTransfer;
+    public function sendCustomerNotificationMails(CompanyUserTransfer $companyUserTransfer): CompanyUserTransfer;
 }

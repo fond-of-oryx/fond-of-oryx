@@ -15,7 +15,7 @@ class CompanyUserMailConnectorRepository extends AbstractRepository implements C
 {
     /**
      * @param int $fkCompany
-     * @param array $roleNames
+     * @param array<string> $roleNames
      *
      * @return \Generated\Shared\Transfer\NotificationCustomerCollectionTransfer
      */
@@ -25,16 +25,16 @@ class CompanyUserMailConnectorRepository extends AbstractRepository implements C
 
         $customerQuery
             ->useCompanyUserQuery()
-            ->filterByFkCompany($fkCompany)
-            ->useSpyCompanyRoleToCompanyUserQuery()
-            ->useCompanyRoleQuery()
-            ->filterByName_In($roleNames)
-            ->endUse()
-            ->endUse()
+                ->filterByFkCompany($fkCompany)
+                ->useSpyCompanyRoleToCompanyUserQuery()
+                    ->useCompanyRoleQuery()
+                        ->filterByName_In($roleNames)
+                    ->endUse()
+                ->endUse()
             ->endUse()
             ->select([SpyCustomerTableMap::COL_FIRST_NAME, SpyCustomerTableMap::COL_LAST_NAME, SpyCustomerTableMap::COL_EMAIL, SpyCompanyRoleTableMap::COL_NAME]);
 
-        return $this->createCompanyUserCollection($customerQuery->find()->getData());
+        return $this->createCompanyUserCollectionByCustomerData($customerQuery->find()->getData());
     }
 
     /**
@@ -42,7 +42,7 @@ class CompanyUserMailConnectorRepository extends AbstractRepository implements C
      *
      * @return \Generated\Shared\Transfer\NotificationCustomerCollectionTransfer
      */
-    protected function createCompanyUserCollection(array $data): NotificationCustomerCollectionTransfer
+    protected function createCompanyUserCollectionByCustomerData(array $data): NotificationCustomerCollectionTransfer
     {
         $collection = new NotificationCustomerCollectionTransfer();
 
@@ -57,17 +57,5 @@ class CompanyUserMailConnectorRepository extends AbstractRepository implements C
         }
 
         return $collection;
-    }
-
-    /**
-     * @param string $field
-     *
-     * @return string
-     */
-    protected function cleanFieldName(string $field): string
-    {
-        $data = explode('.', $field);
-
-        return (string)end($data);
     }
 }

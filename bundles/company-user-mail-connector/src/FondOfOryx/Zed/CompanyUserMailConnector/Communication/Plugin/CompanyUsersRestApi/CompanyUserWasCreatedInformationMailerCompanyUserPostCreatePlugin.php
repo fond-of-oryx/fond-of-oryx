@@ -23,6 +23,6 @@ class CompanyUserWasCreatedInformationMailerCompanyUserPostCreatePlugin extends 
         CompanyUserTransfer $companyUserTransfer,
         RestCompanyUsersRequestAttributesTransfer $restCompanyUsersRequestAttributesTransfer
     ): CompanyUserTransfer {
-        return $this->getFacade()->sendInformationMail($companyUserTransfer);
+        return $this->getFacade()->sendCustomerNotificationMails($companyUserTransfer);
     }
 }

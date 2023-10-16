@@ -200,7 +200,7 @@ class CompanyUserCreationNotificationMailHandlerTest extends Unit
 
         static::assertInstanceOf(
             CompanyUserTransfer::class,
-            $this->mailHandler->sendInformationMail(
+            $this->mailHandler->sendCustomerNotificationMails(
                 $this->companyUserTransferMock,
             ),
         );
@@ -250,7 +250,7 @@ class CompanyUserCreationNotificationMailHandlerTest extends Unit
 
         static::assertInstanceOf(
             CompanyUserTransfer::class,
-            $this->mailHandler->sendInformationMail(
+            $this->mailHandler->sendCustomerNotificationMails(
                 $this->companyUserTransferMock,
             ),
         );
@@ -312,7 +312,7 @@ class CompanyUserCreationNotificationMailHandlerTest extends Unit
 
         static::assertInstanceOf(
             CompanyUserTransfer::class,
-            $this->mailHandler->sendInformationMail(
+            $this->mailHandler->sendCustomerNotificationMails(
                 $this->companyUserTransferMock,
             ),
         );
@@ -333,7 +333,7 @@ class CompanyUserCreationNotificationMailHandlerTest extends Unit
 
         static::assertInstanceOf(
             CompanyUserTransfer::class,
-            $this->mailHandler->sendInformationMail(
+            $this->mailHandler->sendCustomerNotificationMails(
                 $this->companyUserTransferMock,
             ),
         );

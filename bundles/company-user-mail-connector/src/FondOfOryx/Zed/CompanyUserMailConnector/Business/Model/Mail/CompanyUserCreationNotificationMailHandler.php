@@ -47,7 +47,7 @@ class CompanyUserCreationNotificationMailHandler implements CompanyUserCreationN
      *
      * @return \Generated\Shared\Transfer\CompanyUserTransfer
      */
-    public function sendInformationMail(CompanyUserTransfer $companyUserTransfer): CompanyUserTransfer
+    public function sendCustomerNotificationMails(CompanyUserTransfer $companyUserTransfer): CompanyUserTransfer
     {
         $customerTransfer = $companyUserTransfer->getCustomer();
 
@@ -58,11 +58,11 @@ class CompanyUserCreationNotificationMailHandler implements CompanyUserCreationN
         $inform = $this->repository->getNotificationCustomerByFkCompanyAndRole($companyUserTransfer->getFkCompany(), $this->config->getRolesToNotify());
 
         foreach ($inform->getNotificationCustomers() as $notificationCustomer) {
-            $mailTransfer = new MailTransfer();
-            $mailTransfer->setType(CompanyUserWasCreatedInformerMailTypePlugin::MAIL_TYPE);
-            $mailTransfer->setCustomer($customerTransfer);
-            $mailTransfer->setLocale($customerTransfer->getLocale());
-            $mailTransfer->setNotifyCustomer($notificationCustomer);
+            $mailTransfer = (new MailTransfer())
+                ->setType(CompanyUserWasCreatedInformerMailTypePlugin::MAIL_TYPE)
+                ->setCustomer($customerTransfer)
+                ->setLocale($customerTransfer->getLocale())
+                ->setNotifyCustomer($notificationCustomer);
             $this->mailFacade->handleMail($mailTransfer);
         }
 

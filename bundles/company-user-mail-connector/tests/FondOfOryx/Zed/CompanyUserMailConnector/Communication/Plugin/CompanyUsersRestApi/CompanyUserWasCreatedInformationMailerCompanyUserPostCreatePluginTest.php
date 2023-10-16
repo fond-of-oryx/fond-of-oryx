@@ -59,7 +59,7 @@ class CompanyUserWasCreatedInformationMailerCompanyUserPostCreatePluginTest exte
     public function testPostCreate(): void
     {
         $this->facadeMock->expects(static::atLeastOnce())
-            ->method('sendInformationMail')
+            ->method('sendCustomerNotificationMails')
             ->with($this->companyUserTransferMock)
             ->willReturn($this->companyUserTransferMock);
 

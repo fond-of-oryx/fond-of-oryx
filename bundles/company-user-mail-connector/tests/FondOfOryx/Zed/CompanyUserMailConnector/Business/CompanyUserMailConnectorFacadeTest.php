@@ -92,12 +92,12 @@ class CompanyUserMailConnectorFacadeTest extends Unit
             ->willReturn($this->notificationMailHandlerMock);
 
         $this->notificationMailHandlerMock->expects(static::atLeastOnce())
-            ->method('sendInformationMail')
+            ->method('sendCustomerNotificationMails')
             ->willReturn($this->companyUserTransferMock);
 
         static::assertInstanceOf(
             CompanyUserTransfer::class,
-            $this->facade->sendInformationMail($this->companyUserTransferMock),
+            $this->facade->sendCustomerNotificationMails($this->companyUserTransferMock),
         );
     }
 }
