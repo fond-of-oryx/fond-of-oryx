@@ -6,28 +6,29 @@ use Codeception\Test\Unit;
 use FondOfOryx\Zed\CompanyUserMailConnector\Business\CompanyUserMailConnectorFacade;
 use Generated\Shared\Transfer\CompanyUserTransfer;
 use Generated\Shared\Transfer\RestCompanyUsersRequestAttributesTransfer;
+use PHPUnit\Framework\MockObject\MockObject;
 
-class CustomerRegistrationMailCompanyUserPostCreatePluginTest extends Unit
+class CompanyUserWasCreatedInformationMailerCompanyUserPostCreatePluginTest extends Unit
 {
     /**
      * @var \FondOfOryx\Zed\CompanyUserMailConnector\Business\CompanyUserMailConnectorFacade|\PHPUnit\Framework\MockObject\MockObject
      */
-    protected $facadeMock;
+    protected CompanyUserMailConnectorFacade|MockObject $facadeMock;
 
     /**
      * @var \Generated\Shared\Transfer\CompanyUserTransfer|\PHPUnit\Framework\MockObject\MockObject
      */
-    protected $companyUserTransferMock;
+    protected CompanyUserTransfer|MockObject $companyUserTransferMock;
 
     /**
      * @var \Generated\Shared\Transfer\RestCompanyUsersRequestAttributesTransfer|\PHPUnit\Framework\MockObject\MockObject
      */
-    protected $restCompanyUsersRequestAttributesTransfer;
+    protected RestCompanyUsersRequestAttributesTransfer|MockObject $restCompanyUsersRequestAttributesTransferMock;
 
     /**
-     * @var \FondOfOryx\Zed\CompanyUserMailConnector\Communication\Plugin\CompanyUsersRestApi\CustomerRegistrationMailCompanyUserPostCreatePlugin
+     * @var \FondOfOryx\Zed\CompanyUserMailConnector\Communication\Plugin\CompanyUsersRestApi\CompanyUserWasCreatedInformationMailerCompanyUserPostCreatePlugin
      */
-    protected $plugin;
+    protected CompanyUserWasCreatedInformationMailerCompanyUserPostCreatePlugin $plugin;
 
     /**
      * @return void
@@ -44,11 +45,11 @@ class CustomerRegistrationMailCompanyUserPostCreatePluginTest extends Unit
             ->disableOriginalConstructor()
             ->getMock();
 
-        $this->restCompanyUsersRequestAttributesTransfer = $this->getMockBuilder(RestCompanyUsersRequestAttributesTransfer::class)
+        $this->restCompanyUsersRequestAttributesTransferMock = $this->getMockBuilder(RestCompanyUsersRequestAttributesTransfer::class)
             ->disableOriginalConstructor()
             ->getMock();
 
-        $this->plugin = new CustomerRegistrationMailCompanyUserPostCreatePlugin();
+        $this->plugin = new CompanyUserWasCreatedInformationMailerCompanyUserPostCreatePlugin();
         $this->plugin->setFacade($this->facadeMock);
     }
 
@@ -58,13 +59,13 @@ class CustomerRegistrationMailCompanyUserPostCreatePluginTest extends Unit
     public function testPostCreate(): void
     {
         $this->facadeMock->expects(static::atLeastOnce())
-            ->method('sendMail')
+            ->method('sendCustomerNotificationMails')
             ->with($this->companyUserTransferMock)
             ->willReturn($this->companyUserTransferMock);
 
         static::assertInstanceOf(
             CompanyUserTransfer::class,
-            $this->plugin->postCreate($this->companyUserTransferMock, $this->restCompanyUsersRequestAttributesTransfer),
+            $this->plugin->postCreate($this->companyUserTransferMock, $this->restCompanyUsersRequestAttributesTransferMock),
         );
     }
 }

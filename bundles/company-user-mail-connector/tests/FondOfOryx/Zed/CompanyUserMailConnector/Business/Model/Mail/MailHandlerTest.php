@@ -13,32 +13,32 @@ use Generated\Shared\Transfer\MailTransfer;
 class MailHandlerTest extends Unit
 {
     /**
-     * @var \Generated\Shared\Transfer\CompanyUserTransfer|\PHPUnit\Framework\MockObject\MockObject|mixed
+     * @var \Generated\Shared\Transfer\CompanyUserTransfer|\PHPUnit\Framework\MockObject\MockObject
      */
     protected $companyUserTransferMock;
 
     /**
-     * @var \Generated\Shared\Transfer\CustomerTransfer|\PHPUnit\Framework\MockObject\MockObject|mixed
+     * @var \Generated\Shared\Transfer\CustomerTransfer|\PHPUnit\Framework\MockObject\MockObject
      */
     protected $customerTransferMock;
 
     /**
-     * @var \FondOfOryx\Zed\CompanyUserMailConnector\Dependency\Facade\CompanyUserMailConnectorToMailFacadeInterface|\PHPUnit\Framework\MockObject\MockObject|mixed
+     * @var \FondOfOryx\Zed\CompanyUserMailConnector\Dependency\Facade\CompanyUserMailConnectorToMailFacadeInterface|\PHPUnit\Framework\MockObject\MockObject
      */
     protected $mailFacadeMock;
 
     /**
-     * @var \Generated\Shared\Transfer\MailTransfer|\PHPUnit\Framework\MockObject\MockObject|mixed
+     * @var \Generated\Shared\Transfer\MailTransfer|\PHPUnit\Framework\MockObject\MockObject
      */
     protected $mailTransferMock;
 
     /**
-     * @var \FondOfOryx\Zed\CompanyUserMailConnector\Business\Mail\MailHandlerInterface
+     * @var \FondOfOryx\Zed\CompanyUserMailConnector\Business\Model\Mail\MailHandlerInterface
      */
     protected $mailHandler;
 
     /**
-     * @var \Generated\Shared\Transfer\LocaleTransfer|\PHPUnit\Framework\MockObject\MockObject|mixed
+     * @var \Generated\Shared\Transfer\LocaleTransfer|\PHPUnit\Framework\MockObject\MockObject
      */
     protected $localeTransferMock;
 
