@@ -49,7 +49,7 @@ class CompanyUserMailConnectorRepository extends AbstractRepository implements C
         foreach ($data as $userData) {
             $customer = (new NotificationCustomerTransfer())
                 ->setFirstName($userData[SpyCustomerTableMap::COL_FIRST_NAME])
-                ->setLastName($userData[SpyCustomerTableMap::COL_FIRST_NAME])
+                ->setLastName($userData[SpyCustomerTableMap::COL_LAST_NAME])
                 ->setRole($userData[SpyCompanyRoleTableMap::COL_NAME])
                 ->setEmail($userData[SpyCustomerTableMap::COL_EMAIL]);
 
