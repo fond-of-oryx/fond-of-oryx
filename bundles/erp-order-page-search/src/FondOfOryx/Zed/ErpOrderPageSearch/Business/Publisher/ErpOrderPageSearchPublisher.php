@@ -221,11 +221,11 @@ class ErpOrderPageSearchPublisher implements ErpOrderPageSearchPublisherInterfac
             $amountEntity = $orderItemEntity->getFooErpOrderAmount();
             $unitPriceEntity = $orderItemEntity->getFooErpOrderAmountUnitPrice();
 
-            if ($amountEntity !== null){
+            if ($amountEntity !== null) {
                 $item['amount'] = $amountEntity->toArray();
             }
 
-            if ($unitPriceEntity !== null){
+            if ($unitPriceEntity !== null) {
                 $item['unit_price'] = $unitPriceEntity->toArray();
             }
 
