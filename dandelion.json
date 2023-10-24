@@ -285,7 +285,7 @@
     },
     "company-users-rest-api-extension": {
       "path": "bundles/company-users-rest-api-extension/",
-      "version": "2.1.0"
+      "version": "2.2.0"
     },
     "concrete-product-api": {
       "path": "bundles/concrete-product-api/",
