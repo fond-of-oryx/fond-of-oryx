@@ -80,7 +80,8 @@ class ModelDataRestCartItemsAttributesMapperPluginTest extends Unit
             ->willReturn($attributes);
 
         $this->restItemsAttributesTransferMock
-            ->expects(static::never());
+            ->expects(static::never())
+            ->method('setModel');
 
         $this->plugin->mapItemTransferToRestItemsAttributesTransfer($this->itemTransferMock, $this->restItemsAttributesTransferMock, '');
     }
