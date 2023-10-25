@@ -67,6 +67,10 @@
       "path": "bundles/cart-search-rest-api-extension/",
       "version": "2.0.1"
     },
+    "carts-rest-api-attributes-connector": {
+      "path": "bundles/carts-rest-api-attributes-connector/",
+      "version": "1.0.0"
+    },
     "checkout-rest-api-payone-connector": {
       "path": "bundles/checkout-rest-api-payone-connector/",
       "version": "1.0.0-alpha.0"

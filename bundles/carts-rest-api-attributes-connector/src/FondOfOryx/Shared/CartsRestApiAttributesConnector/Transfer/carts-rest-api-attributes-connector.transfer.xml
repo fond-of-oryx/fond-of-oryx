@@ -5,4 +5,8 @@
     <transfer name="RestItemsAttributes">
         <property name="model" type="string"/>
     </transfer>
+
+    <transfer name="Item">
+        <property name="concreteAttributes" type="array" singular="concreteAttribute"/>
+    </transfer>
 </transfers>

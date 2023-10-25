@@ -8,23 +8,29 @@ use Spryker\Glue\CartsRestApiExtension\Dependency\Plugin\RestCartItemsAttributes
 
 class ModelDataRestCartItemsAttributesMapperPlugin implements RestCartItemsAttributesMapperPluginInterface
 {
-    /** @var string  */
+    /**
+     * @var string
+     */
     protected const IDENTIFIER = 'model';
 
     /**
      * @param \Generated\Shared\Transfer\ItemTransfer $itemTransfer
      * @param \Generated\Shared\Transfer\RestItemsAttributesTransfer $restItemsAttributesTransfer
      * @param string $localeName
+     *
      * @return \Generated\Shared\Transfer\RestItemsAttributesTransfer
      */
-    public function mapItemTransferToRestItemsAttributesTransfer(ItemTransfer $itemTransfer, RestItemsAttributesTransfer $restItemsAttributesTransfer, string $localeName): RestItemsAttributesTransfer
-    {
-        foreach ($itemTransfer->getConcreteAttributes() as $key => $attribute){
-            if ($key === static::IDENTIFIER){
+    public function mapItemTransferToRestItemsAttributesTransfer(
+        ItemTransfer $itemTransfer,
+        RestItemsAttributesTransfer $restItemsAttributesTransfer,
+        string $localeName
+    ): RestItemsAttributesTransfer {
+        foreach ($itemTransfer->getConcreteAttributes() as $key => $attribute) {
+            if ($key === static::IDENTIFIER) {
                 $restItemsAttributesTransfer->setModel($attribute);
             }
         }
+
         return $restItemsAttributesTransfer;
     }
-
 }

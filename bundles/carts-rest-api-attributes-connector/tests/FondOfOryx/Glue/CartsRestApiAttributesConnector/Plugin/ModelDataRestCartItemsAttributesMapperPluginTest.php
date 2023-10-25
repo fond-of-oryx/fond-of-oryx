@@ -84,5 +84,4 @@ class ModelDataRestCartItemsAttributesMapperPluginTest extends Unit
 
         $this->plugin->mapItemTransferToRestItemsAttributesTransfer($this->itemTransferMock, $this->restItemsAttributesTransferMock, '');
     }
-
 }
