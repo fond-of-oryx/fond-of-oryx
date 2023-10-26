@@ -7,6 +7,6 @@
     </transfer>
 
     <transfer name="Item">
-        <property name="concreteAttributes" type="array" singular="concreteAttribute"/>
+        <property name="productConcreteAttributes" type="array" singular="concreteAttribute"/>
     </transfer>
 </transfers>

@@ -20,6 +20,6 @@ class ConcreteAttributesRestCartItemsAttributesMapperPlugin implements RestCartI
         RestItemsAttributesTransfer $restItemsAttributesTransfer,
         string $localeName
     ): RestItemsAttributesTransfer {
-        return $restItemsAttributesTransfer->setConcreteAttributes($itemTransfer->getConcreteAttributes());
+        return $restItemsAttributesTransfer->setProductConcreteAttributes($itemTransfer->getConcreteAttributes());
     }
 }

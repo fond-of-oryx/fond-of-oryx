@@ -59,7 +59,7 @@ class ConcreteAttributesRestCartItemsAttributesMapperPluginTest extends Unit
 
         $this->restItemsAttributesTransferMock
             ->expects(static::once())
-            ->method('setConcreteAttributes')
+            ->method('setProductConcreteAttributes')
             ->with($attributes);
 
         $this->plugin->mapItemTransferToRestItemsAttributesTransfer($this->itemTransferMock, $this->restItemsAttributesTransferMock, '');
