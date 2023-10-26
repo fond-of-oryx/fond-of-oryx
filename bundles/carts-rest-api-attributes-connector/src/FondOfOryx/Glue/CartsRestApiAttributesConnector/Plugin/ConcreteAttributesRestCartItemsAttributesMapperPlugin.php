@@ -6,13 +6,8 @@ use Generated\Shared\Transfer\ItemTransfer;
 use Generated\Shared\Transfer\RestItemsAttributesTransfer;
 use Spryker\Glue\CartsRestApiExtension\Dependency\Plugin\RestCartItemsAttributesMapperPluginInterface;
 
-class ModelDataRestCartItemsAttributesMapperPlugin implements RestCartItemsAttributesMapperPluginInterface
+class ConcreteAttributesRestCartItemsAttributesMapperPlugin implements RestCartItemsAttributesMapperPluginInterface
 {
-    /**
-     * @var string
-     */
-    protected const IDENTIFIER = 'model';
-
     /**
      * @param \Generated\Shared\Transfer\ItemTransfer $itemTransfer
      * @param \Generated\Shared\Transfer\RestItemsAttributesTransfer $restItemsAttributesTransfer
@@ -25,12 +20,6 @@ class ModelDataRestCartItemsAttributesMapperPlugin implements RestCartItemsAttri
         RestItemsAttributesTransfer $restItemsAttributesTransfer,
         string $localeName
     ): RestItemsAttributesTransfer {
-        foreach ($itemTransfer->getConcreteAttributes() as $key => $attribute) {
-            if ($key === static::IDENTIFIER) {
-                $restItemsAttributesTransfer->setModel($attribute);
-            }
-        }
-
-        return $restItemsAttributesTransfer;
+        return $restItemsAttributesTransfer->setConcreteAttributes($itemTransfer->getConcreteAttributes());
     }
 }

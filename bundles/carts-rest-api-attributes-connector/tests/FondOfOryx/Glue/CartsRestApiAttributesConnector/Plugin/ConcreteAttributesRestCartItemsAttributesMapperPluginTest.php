@@ -7,7 +7,7 @@ use Generated\Shared\Transfer\ItemTransfer;
 use Generated\Shared\Transfer\RestItemsAttributesTransfer;
 use PHPUnit\Framework\MockObject\MockObject;
 
-class ModelDataRestCartItemsAttributesMapperPluginTest extends Unit
+class ConcreteAttributesRestCartItemsAttributesMapperPluginTest extends Unit
 {
     /**
      * @var \Generated\Shared\Transfer\ItemTransfer|\PHPUnit\Framework\MockObject\MockObject
@@ -20,7 +20,7 @@ class ModelDataRestCartItemsAttributesMapperPluginTest extends Unit
     protected RestItemsAttributesTransfer|MockObject $restItemsAttributesTransferMock;
 
     /**
-     * @var \FondOfOryx\Glue\CartsRestApiAttributesConnector\Plugin\ModelDataRestCartItemsAttributesMapperPlugin
+     * @var \FondOfOryx\Glue\CartsRestApiAttributesConnector\Plugin\ConcreteAttributesRestCartItemsAttributesMapperPlugin
      */
     protected $plugin;
 
@@ -39,7 +39,7 @@ class ModelDataRestCartItemsAttributesMapperPluginTest extends Unit
             ->disableOriginalConstructor()
             ->getMock();
 
-        $this->plugin = new ModelDataRestCartItemsAttributesMapperPlugin();
+        $this->plugin = new ConcreteAttributesRestCartItemsAttributesMapperPlugin();
     }
 
     /**
@@ -59,29 +59,8 @@ class ModelDataRestCartItemsAttributesMapperPluginTest extends Unit
 
         $this->restItemsAttributesTransferMock
             ->expects(static::once())
-            ->method('setModel')
-            ->with($attributes['model']);
-
-        $this->plugin->mapItemTransferToRestItemsAttributesTransfer($this->itemTransferMock, $this->restItemsAttributesTransferMock, '');
-    }
-
-    /**
-     * @return void
-     */
-    public function testMapItemTransferToRestItemsAttributesTransferNothingMapped(): void
-    {
-        $attributes = [
-            'abc' => 'def',
-        ];
-
-        $this->itemTransferMock
-            ->expects(static::atLeastOnce())
-            ->method('getConcreteAttributes')
-            ->willReturn($attributes);
-
-        $this->restItemsAttributesTransferMock
-            ->expects(static::never())
-            ->method('setModel');
+            ->method('setConcreteAttributes')
+            ->with($attributes);
 
         $this->plugin->mapItemTransferToRestItemsAttributesTransfer($this->itemTransferMock, $this->restItemsAttributesTransferMock, '');
     }
