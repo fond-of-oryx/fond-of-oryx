@@ -49,7 +49,12 @@ class ConcreteAttributesRestCartItemsAttributesMapperPluginTest extends Unit
     {
         $attributes = [
             'model' => 'test',
-            'abc' => 'def',
+            'abc_def' => 'ghi',
+        ];
+
+        $attributesCheck = [
+            'model' => 'test',
+            'abcDef' => 'ghi',
         ];
 
         $this->itemTransferMock
@@ -60,7 +65,8 @@ class ConcreteAttributesRestCartItemsAttributesMapperPluginTest extends Unit
         $this->restItemsAttributesTransferMock
             ->expects(static::once())
             ->method('setProductConcreteAttributes')
-            ->with($attributes);
+            ->with($attributesCheck)
+            ->willReturnSelf();
 
         $this->plugin->mapItemTransferToRestItemsAttributesTransfer($this->itemTransferMock, $this->restItemsAttributesTransferMock, '');
     }

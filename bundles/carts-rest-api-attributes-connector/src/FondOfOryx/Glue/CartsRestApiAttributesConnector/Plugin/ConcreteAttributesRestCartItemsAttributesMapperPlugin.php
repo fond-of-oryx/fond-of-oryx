@@ -20,6 +20,31 @@ class ConcreteAttributesRestCartItemsAttributesMapperPlugin implements RestCartI
         RestItemsAttributesTransfer $restItemsAttributesTransfer,
         string $localeName
     ): RestItemsAttributesTransfer {
-        return $restItemsAttributesTransfer->setProductConcreteAttributes($itemTransfer->getConcreteAttributes());
+        return $restItemsAttributesTransfer->setProductConcreteAttributes($this->convertArrayKeysToCamelCase($itemTransfer->getConcreteAttributes()));
+    }
+
+    /**
+     * @param array<string, string> $array
+     *
+     * @return array<string, string>
+     */
+    protected function convertArrayKeysToCamelCase(array $array): array
+    {
+        $newArray = [];
+        foreach ($array as $key => $value) {
+            $newArray[$this->stringToCamelCase($key)] = $value;
+        }
+
+        return $newArray;
+    }
+
+    /**
+     * @param string $string
+     *
+     * @return string
+     */
+    protected function stringToCamelCase(string $string): string
+    {
+        return lcfirst(str_replace('_', '', ucwords($string, '_')));
     }
 }
