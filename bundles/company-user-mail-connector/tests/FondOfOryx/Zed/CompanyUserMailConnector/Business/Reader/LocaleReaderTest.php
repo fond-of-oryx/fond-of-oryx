@@ -142,7 +142,7 @@ class LocaleReaderTest extends Unit
      */
     public function testGetByCustomerWithFkLocaleAndException(): void
     {
-        $idLocale = 1;
+        $idLocale = 2;
 
         $this->customerTransferMock->expects(static::atLeastOnce())
             ->method('getLocale')
@@ -169,7 +169,7 @@ class LocaleReaderTest extends Unit
      */
     public function testGetByNotificationCustomer(): void
     {
-        $idLocale = 1;
+        $idLocale = 3;
 
         $this->notificationCustomerTransferMock->expects(static::atLeastOnce())
             ->method('getFkLocale')

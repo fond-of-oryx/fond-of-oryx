@@ -11,6 +11,11 @@ use Throwable;
 class LocaleReader implements LocaleReaderInterface
 {
     /**
+     * @var array<int, \Generated\Shared\Transfer\LocaleTransfer>
+     */
+    protected static array $cachedLocaleTransfers = [];
+
+    /**
      * @var \FondOfOryx\Zed\CompanyUserMailConnector\Dependency\Facade\CompanyUserMailConnectorToLocaleFacadeInterface
      */
     protected CompanyUserMailConnectorToLocaleFacadeInterface $localeFacade;
@@ -69,8 +74,14 @@ class LocaleReader implements LocaleReaderInterface
      */
     public function getByIdLocale(int $idLocale): LocaleTransfer
     {
+        if (isset(static::$cachedLocaleTransfers[$idLocale])) {
+            return static::$cachedLocaleTransfers[$idLocale];
+        }
+
         try {
-            return $this->localeFacade->getLocaleById($idLocale);
+            static::$cachedLocaleTransfers[$idLocale] = $this->localeFacade->getLocaleById($idLocale);
+
+            return static::$cachedLocaleTransfers[$idLocale];
         } catch (Throwable $exception) {
         }
 
