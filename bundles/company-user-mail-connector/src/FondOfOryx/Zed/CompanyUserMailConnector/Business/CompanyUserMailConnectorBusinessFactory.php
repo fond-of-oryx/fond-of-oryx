@@ -24,7 +24,10 @@ class CompanyUserMailConnectorBusinessFactory extends AbstractBusinessFactory
      */
     public function createMailHandler(): MailHandlerInterface
     {
-        return new MailHandler($this->createLocaleReader(), $this->getMailFacade());
+        return new MailHandler(
+            $this->createLocaleReader(),
+            $this->getMailFacade(),
+        );
     }
 
     /**
@@ -58,6 +61,9 @@ class CompanyUserMailConnectorBusinessFactory extends AbstractBusinessFactory
         return $this->getProvidedDependency(CompanyUserMailConnectorDependencyProvider::FACADE_MAIL);
     }
 
+    /**
+     * @return \FondOfOryx\Zed\CompanyUserMailConnector\Dependency\Facade\CompanyUserMailConnectorToLocaleFacadeInterface
+     */
     protected function getLocaleFacade(): CompanyUserMailConnectorToLocaleFacadeInterface
     {
         return $this->getProvidedDependency(CompanyUserMailConnectorDependencyProvider::FACADE_LOCALE);
