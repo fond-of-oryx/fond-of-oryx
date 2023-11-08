@@ -9,6 +9,8 @@ use Orm\Zed\Customer\Persistence\Map\SpyCustomerTableMap;
 use Spryker\Zed\Kernel\Persistence\AbstractRepository;
 
 /**
+ * @codeCoverageIgnore
+ *
  * @method \FondOfOryx\Zed\CompanyUserMailConnector\Persistence\CompanyUserMailConnectorPersistenceFactory getFactory()
  */
 class CompanyUserMailConnectorRepository extends AbstractRepository implements CompanyUserMailConnectorRepositoryInterface
@@ -32,7 +34,13 @@ class CompanyUserMailConnectorRepository extends AbstractRepository implements C
                     ->endUse()
                 ->endUse()
             ->endUse()
-            ->select([SpyCustomerTableMap::COL_FIRST_NAME, SpyCustomerTableMap::COL_LAST_NAME, SpyCustomerTableMap::COL_EMAIL, SpyCompanyRoleTableMap::COL_NAME]);
+            ->select([
+                SpyCustomerTableMap::COL_FIRST_NAME,
+                SpyCustomerTableMap::COL_LAST_NAME,
+                SpyCustomerTableMap::COL_EMAIL,
+                SpyCompanyRoleTableMap::COL_NAME,
+                SpyCustomerTableMap::COL_FK_LOCALE,
+            ]);
 
         return $this->createCompanyUserCollectionByCustomerData($customerQuery->find()->getData());
     }
@@ -51,7 +59,8 @@ class CompanyUserMailConnectorRepository extends AbstractRepository implements C
                 ->setFirstName($userData[SpyCustomerTableMap::COL_FIRST_NAME])
                 ->setLastName($userData[SpyCustomerTableMap::COL_LAST_NAME])
                 ->setRole($userData[SpyCompanyRoleTableMap::COL_NAME])
-                ->setEmail($userData[SpyCustomerTableMap::COL_EMAIL]);
+                ->setEmail($userData[SpyCustomerTableMap::COL_EMAIL])
+                ->setFkLocale($userData[SpyCustomerTableMap::COL_FK_LOCALE]);
 
             $collection->addNotificationCustomer($customer);
         }

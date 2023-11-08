@@ -6,6 +6,9 @@ use FondOfOryx\Zed\CompanyUserMailConnector\CompanyUserMailConnectorDependencyPr
 use Orm\Zed\Customer\Persistence\SpyCustomerQuery;
 use Spryker\Zed\Kernel\Persistence\AbstractPersistenceFactory;
 
+/**
+ * @codeCoverageIgnore
+ */
 class CompanyUserMailConnectorPersistenceFactory extends AbstractPersistenceFactory
 {
     /**

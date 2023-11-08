@@ -3,10 +3,11 @@
 namespace FondOfOryx\Zed\CompanyUserMailConnector\Business;
 
 use Codeception\Test\Unit;
-use FondOfOryx\Zed\CompanyUserMailConnector\Business\Model\Mail\CompanyUserCreationNotificationMailHandlerInterface;
-use FondOfOryx\Zed\CompanyUserMailConnector\Business\Model\Mail\MailHandlerInterface;
+use FondOfOryx\Zed\CompanyUserMailConnector\Business\Model\Mail\CompanyUserCreationNotificationMailHandler;
+use FondOfOryx\Zed\CompanyUserMailConnector\Business\Model\Mail\MailHandler;
 use FondOfOryx\Zed\CompanyUserMailConnector\CompanyUserMailConnectorConfig;
 use FondOfOryx\Zed\CompanyUserMailConnector\CompanyUserMailConnectorDependencyProvider;
+use FondOfOryx\Zed\CompanyUserMailConnector\Dependency\Facade\CompanyUserMailConnectorToLocaleFacadeInterface;
 use FondOfOryx\Zed\CompanyUserMailConnector\Dependency\Facade\CompanyUserMailConnectorToMailFacadeInterface;
 use FondOfOryx\Zed\CompanyUserMailConnector\Persistence\CompanyUserMailConnectorRepository;
 use PHPUnit\Framework\MockObject\MockObject;
@@ -40,6 +41,11 @@ class CompanyUserMailConnectorBusinessFactoryTest extends Unit
     protected CompanyUserMailConnectorRepository|MockObject $repositoryMock;
 
     /**
+     * @var \PHPUnit\Framework\MockObject\MockObject|\FondOfOryx\Zed\CompanyUserMailConnector\Dependency\Facade\CompanyUserMailConnectorToLocaleFacadeInterface
+     */
+    protected MockObject|CompanyUserMailConnectorToLocaleFacadeInterface $localeFacadeMock;
+
+    /**
      * @return void
      */
     protected function _before(): void
@@ -47,6 +53,10 @@ class CompanyUserMailConnectorBusinessFactoryTest extends Unit
         parent::_before();
 
         $this->containerMock = $this->getMockBuilder(Container::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $this->localeFacadeMock = $this->getMockBuilder(CompanyUserMailConnectorToLocaleFacadeInterface::class)
             ->disableOriginalConstructor()
             ->getMock();
 
@@ -75,16 +85,23 @@ class CompanyUserMailConnectorBusinessFactoryTest extends Unit
     {
         $this->containerMock->expects(static::atLeastOnce())
             ->method('has')
-            ->with(CompanyUserMailConnectorDependencyProvider::FACADE_MAIL)
-            ->willReturn(true);
+            ->withConsecutive(
+                [CompanyUserMailConnectorDependencyProvider::FACADE_LOCALE],
+                [CompanyUserMailConnectorDependencyProvider::FACADE_MAIL],
+            )->willReturn(true);
 
         $this->containerMock->expects(static::atLeastOnce())
             ->method('get')
-            ->with(CompanyUserMailConnectorDependencyProvider::FACADE_MAIL)
-            ->willReturn($this->mailFacadeMock);
+            ->withConsecutive(
+                [CompanyUserMailConnectorDependencyProvider::FACADE_LOCALE],
+                [CompanyUserMailConnectorDependencyProvider::FACADE_MAIL],
+            )->willReturnOnConsecutiveCalls(
+                $this->localeFacadeMock,
+                $this->mailFacadeMock,
+            );
 
         static::assertInstanceOf(
-            MailHandlerInterface::class,
+            MailHandler::class,
             $this->factory->createMailHandler(),
         );
     }
@@ -96,16 +113,23 @@ class CompanyUserMailConnectorBusinessFactoryTest extends Unit
     {
         $this->containerMock->expects(static::atLeastOnce())
             ->method('has')
-            ->with(CompanyUserMailConnectorDependencyProvider::FACADE_MAIL)
-            ->willReturn(true);
+            ->withConsecutive(
+                [CompanyUserMailConnectorDependencyProvider::FACADE_LOCALE],
+                [CompanyUserMailConnectorDependencyProvider::FACADE_MAIL],
+            )->willReturn(true);
 
         $this->containerMock->expects(static::atLeastOnce())
             ->method('get')
-            ->with(CompanyUserMailConnectorDependencyProvider::FACADE_MAIL)
-            ->willReturn($this->mailFacadeMock);
+            ->withConsecutive(
+                [CompanyUserMailConnectorDependencyProvider::FACADE_LOCALE],
+                [CompanyUserMailConnectorDependencyProvider::FACADE_MAIL],
+            )->willReturnOnConsecutiveCalls(
+                $this->localeFacadeMock,
+                $this->mailFacadeMock,
+            );
 
         static::assertInstanceOf(
-            CompanyUserCreationNotificationMailHandlerInterface::class,
+            CompanyUserCreationNotificationMailHandler::class,
             $this->factory->createCompanyUserCreationNotificationMailHandler(),
         );
     }

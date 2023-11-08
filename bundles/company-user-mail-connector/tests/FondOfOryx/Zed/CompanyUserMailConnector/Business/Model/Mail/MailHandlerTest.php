@@ -4,11 +4,13 @@ namespace FondOfOryx\Zed\CompanyUserMailConnector\Business\Mail;
 
 use Codeception\Test\Unit;
 use FondOfOryx\Zed\CompanyUserMailConnector\Business\Model\Mail\MailHandler;
+use FondOfOryx\Zed\CompanyUserMailConnector\Business\Reader\LocaleReaderInterface;
 use FondOfOryx\Zed\CompanyUserMailConnector\Dependency\Facade\CompanyUserMailConnectorToMailFacadeInterface;
 use Generated\Shared\Transfer\CompanyUserTransfer;
 use Generated\Shared\Transfer\CustomerTransfer;
 use Generated\Shared\Transfer\LocaleTransfer;
 use Generated\Shared\Transfer\MailTransfer;
+use PHPUnit\Framework\MockObject\MockObject;
 
 class MailHandlerTest extends Unit
 {
@@ -43,11 +45,20 @@ class MailHandlerTest extends Unit
     protected $localeTransferMock;
 
     /**
+     * @var \FondOfOryx\Zed\CompanyUserMailConnector\Business\Reader\LocaleReaderInterface|\PHPUnit\Framework\MockObject\MockObject
+     */
+    protected LocaleReaderInterface|MockObject $localeReaderMock;
+
+    /**
      * @return void
      */
     protected function _before(): void
     {
         parent::_before();
+
+        $this->localeReaderMock = $this->getMockBuilder(LocaleReaderInterface::class)
+            ->disableOriginalConstructor()
+            ->getMock();
 
         $this->companyUserTransferMock = $this
             ->getMockBuilder(CompanyUserTransfer::class)
@@ -74,7 +85,7 @@ class MailHandlerTest extends Unit
             ->disableOriginalConstructor()
             ->getMock();
 
-        $this->mailHandler = new MailHandler($this->mailFacadeMock);
+        $this->mailHandler = new MailHandler($this->localeReaderMock, $this->mailFacadeMock);
     }
 
     /**
@@ -90,8 +101,9 @@ class MailHandlerTest extends Unit
             ->method('getIsNew')
             ->willReturn(true);
 
-        $this->customerTransferMock->expects(static::atLeastOnce())
-            ->method('getLocale')
+        $this->localeReaderMock->expects(static::atLeastOnce())
+            ->method('getByCustomer')
+            ->with($this->customerTransferMock)
             ->willReturn($this->localeTransferMock);
 
         $this->mailFacadeMock->expects(static::atLeastOnce())

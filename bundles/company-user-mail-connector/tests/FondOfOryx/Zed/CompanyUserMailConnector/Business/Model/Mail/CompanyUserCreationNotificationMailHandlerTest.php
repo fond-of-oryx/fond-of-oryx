@@ -6,6 +6,7 @@ use ArrayObject;
 use Codeception\Test\Unit;
 use FondOfOryx\Zed\CompanyUserMailConnector\Business\Model\Mail\CompanyUserCreationNotificationMailHandler;
 use FondOfOryx\Zed\CompanyUserMailConnector\Business\Model\Mail\CompanyUserCreationNotificationMailHandlerInterface;
+use FondOfOryx\Zed\CompanyUserMailConnector\Business\Reader\LocaleReaderInterface;
 use FondOfOryx\Zed\CompanyUserMailConnector\CompanyUserMailConnectorConfig;
 use FondOfOryx\Zed\CompanyUserMailConnector\Dependency\Facade\CompanyUserMailConnectorToMailFacadeInterface;
 use FondOfOryx\Zed\CompanyUserMailConnector\Persistence\CompanyUserMailConnectorRepositoryInterface;
@@ -76,11 +77,20 @@ class CompanyUserCreationNotificationMailHandlerTest extends Unit
     protected CompanyUserMailConnectorRepositoryInterface|MockObject $repositoryMock;
 
     /**
+     * @var \FondOfOryx\Zed\CompanyUserMailConnector\Business\Reader\LocaleReaderInterface|\PHPUnit\Framework\MockObject\MockObject
+     */
+    protected LocaleReaderInterface|MockObject $localeReaderMock;
+
+    /**
      * @return void
      */
     protected function _before(): void
     {
         parent::_before();
+
+        $this->localeReaderMock = $this->getMockBuilder(LocaleReaderInterface::class)
+            ->disableOriginalConstructor()
+            ->getMock();
 
         $this->companyUserTransferMock = $this
             ->getMockBuilder(CompanyUserTransfer::class)
@@ -133,6 +143,7 @@ class CompanyUserCreationNotificationMailHandlerTest extends Unit
             ->getMock();
 
         $this->mailHandler = new CompanyUserCreationNotificationMailHandler(
+            $this->localeReaderMock,
             $this->mailFacadeMock,
             $this->repositoryMock,
             $this->configMock,
@@ -179,8 +190,9 @@ class CompanyUserCreationNotificationMailHandlerTest extends Unit
             ->method('getIsNew')
             ->willReturn(true);
 
-        $this->customerTransferMock->expects(static::atLeastOnce())
-            ->method('getLocale')
+        $this->localeReaderMock->expects(static::atLeastOnce())
+            ->method('getByNotificationCustomer')
+            ->with($this->notificationCustomerTransferMock)
             ->willReturn($this->localeTransferMock);
 
         $this->companyUserTransferMock->expects(static::atLeastOnce())
@@ -212,7 +224,6 @@ class CompanyUserCreationNotificationMailHandlerTest extends Unit
     public function testSendInformationMailWithRolesNotMatch(): void
     {
         $roleName = 'test';
-        $roleToNotifyName = 'admin';
         $roles = new ArrayObject();
         $roles->append($this->companyRoleTransferMock);
         $notifyCollection = new ArrayObject();
