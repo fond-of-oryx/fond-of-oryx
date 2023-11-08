@@ -5,6 +5,9 @@ namespace FondOfOryx\Zed\CompanyUserMailConnector;
 use FondOfOryx\Shared\CompanyUserMailConnector\CompanyUserMailConnectorConstants;
 use Spryker\Zed\Kernel\AbstractBundleConfig;
 
+/**
+ * @codeCoverageIgnore
+ */
 class CompanyUserMailConnectorConfig extends AbstractBundleConfig
 {
     /**

@@ -13,7 +13,8 @@
     "fond-of-oryx/company-users-rest-api-extension": "^1.0.0 || ^2.0.0",
     "spryker/company-user": "^2.0.0",
     "spryker/company-role": "^1.0.0",
-    "spryker/customer": "^6.0.0 || ^7.0.0"
+    "spryker/customer": "^6.0.0 || ^7.0.0",
+    "spryker/locale": "^2.2.0 || ^3.0.0 || ^4.0.0"
   },
   "require-dev": {
     "fond-of-codeception/spryker": "^2.0.0",

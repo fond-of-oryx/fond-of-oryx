@@ -5,6 +5,12 @@
 
     <transfer name="Customer">
         <property name="isNew" type="bool"/>
+        <property name="locale" type="Locale"/>
+        <property name="fkLocale" type="int" />
+    </transfer>
+
+    <transfer name="Locale">
+        <property name="idLocale" type="int"/>
     </transfer>
 
     <transfer name="Mail">
@@ -26,6 +32,7 @@
         <property name="lastName" type="string"/>
         <property name="email" type="string"/>
         <property name="role" type="string"/>
+        <property name="fkLocale" type="int"/>
     </transfer>
 
 </transfers>

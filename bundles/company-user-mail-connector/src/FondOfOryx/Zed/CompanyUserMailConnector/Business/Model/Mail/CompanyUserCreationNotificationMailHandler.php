@@ -2,6 +2,7 @@
 
 namespace FondOfOryx\Zed\CompanyUserMailConnector\Business\Model\Mail;
 
+use FondOfOryx\Zed\CompanyUserMailConnector\Business\Reader\LocaleReaderInterface;
 use FondOfOryx\Zed\CompanyUserMailConnector\Communication\Plugin\Mail\CompanyUserWasCreatedInformerMailTypePlugin;
 use FondOfOryx\Zed\CompanyUserMailConnector\CompanyUserMailConnectorConfig;
 use FondOfOryx\Zed\CompanyUserMailConnector\Dependency\Facade\CompanyUserMailConnectorToMailFacadeInterface;
@@ -13,30 +14,38 @@ use Generated\Shared\Transfer\MailTransfer;
 class CompanyUserCreationNotificationMailHandler implements CompanyUserCreationNotificationMailHandlerInterface
 {
     /**
+     * @var \FondOfOryx\Zed\CompanyUserMailConnector\Business\Reader\LocaleReaderInterface
+     */
+    protected LocaleReaderInterface $localeReader;
+
+    /**
      * @var \FondOfOryx\Zed\CompanyUserMailConnector\Dependency\Facade\CompanyUserMailConnectorToMailFacadeInterface
      */
-    protected $mailFacade;
+    protected CompanyUserMailConnectorToMailFacadeInterface $mailFacade;
 
     /**
      * @var \FondOfOryx\Zed\CompanyUserMailConnector\CompanyUserMailConnectorConfig
      */
-    protected $config;
+    protected CompanyUserMailConnectorConfig $config;
 
     /**
      * @var \FondOfOryx\Zed\CompanyUserMailConnector\Persistence\CompanyUserMailConnectorRepositoryInterface
      */
-    protected $repository;
+    protected CompanyUserMailConnectorRepositoryInterface $repository;
 
     /**
+     * @param \FondOfOryx\Zed\CompanyUserMailConnector\Business\Reader\LocaleReaderInterface $localeReader
      * @param \FondOfOryx\Zed\CompanyUserMailConnector\Dependency\Facade\CompanyUserMailConnectorToMailFacadeInterface $mailFacade
      * @param \FondOfOryx\Zed\CompanyUserMailConnector\Persistence\CompanyUserMailConnectorRepositoryInterface $repository
      * @param \FondOfOryx\Zed\CompanyUserMailConnector\CompanyUserMailConnectorConfig $config
      */
     public function __construct(
+        LocaleReaderInterface $localeReader,
         CompanyUserMailConnectorToMailFacadeInterface $mailFacade,
         CompanyUserMailConnectorRepositoryInterface $repository,
         CompanyUserMailConnectorConfig $config
     ) {
+        $this->localeReader = $localeReader;
         $this->mailFacade = $mailFacade;
         $this->config = $config;
         $this->repository = $repository;
@@ -61,7 +70,7 @@ class CompanyUserCreationNotificationMailHandler implements CompanyUserCreationN
             $mailTransfer = (new MailTransfer())
                 ->setType(CompanyUserWasCreatedInformerMailTypePlugin::MAIL_TYPE)
                 ->setCustomer($customerTransfer)
-                ->setLocale($customerTransfer->getLocale())
+                ->setLocale($this->localeReader->getByNotificationCustomer($notificationCustomer))
                 ->setNotifyCustomer($notificationCustomer);
             $this->mailFacade->handleMail($mailTransfer);
         }
