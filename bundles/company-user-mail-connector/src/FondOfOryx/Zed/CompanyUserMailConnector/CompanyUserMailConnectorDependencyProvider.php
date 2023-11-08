@@ -63,7 +63,7 @@ class CompanyUserMailConnectorDependencyProvider extends AbstractBundleDependenc
      */
     protected function addLocaleFacade(Container $container): Container
     {
-        $container[static::FACADE_MAIL] = static fn (Container $container) => new CompanyUserMailConnectorToLocaleFacadeBridge(
+        $container[static::FACADE_LOCALE] = static fn (Container $container) => new CompanyUserMailConnectorToLocaleFacadeBridge(
             $container->getLocator()->locale()->facade(),
         );
 
