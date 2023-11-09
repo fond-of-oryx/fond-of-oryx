@@ -64,14 +64,22 @@ class CompanyUserCreationNotificationMailHandler implements CompanyUserCreationN
             return $companyUserTransfer;
         }
 
-        $inform = $this->repository->getNotificationCustomerByFkCompanyAndRole($companyUserTransfer->getFkCompany(), $this->config->getRolesToNotify());
+        $inform = $this->repository->getNotificationCustomerByFkCompanyAndRole(
+            $companyUserTransfer->getFkCompany(),
+            $this->config->getRolesToNotify(),
+        );
 
         foreach ($inform->getNotificationCustomers() as $notificationCustomer) {
+            if ($customerTransfer->getEmail() === $notificationCustomer->getEmail()) {
+                continue;
+            }
+
             $mailTransfer = (new MailTransfer())
                 ->setType(CompanyUserWasCreatedInformerMailTypePlugin::MAIL_TYPE)
                 ->setCustomer($customerTransfer)
                 ->setLocale($this->localeReader->getByNotificationCustomer($notificationCustomer))
                 ->setNotifyCustomer($notificationCustomer);
+
             $this->mailFacade->handleMail($mailTransfer);
         }
 
