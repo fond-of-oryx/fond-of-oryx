@@ -62,9 +62,9 @@ class CompanyUserCreationNotificationMailHandlerTest extends Unit
     protected NotificationCustomerCollectionTransfer|MockObject $notificationCustomerCollectionTransferMock;
 
     /**
-     * @var \Generated\Shared\Transfer\NotificationCustomerTransfer|\PHPUnit\Framework\MockObject\MockObject
+     * @var array<\Generated\Shared\Transfer\NotificationCustomerTransfer|\PHPUnit\Framework\MockObject\MockObject>
      */
-    protected NotificationCustomerTransfer|MockObject $notificationCustomerTransferMock;
+    protected array $notificationCustomerTransferMocks;
 
     /**
      * @var \FondOfOryx\Zed\CompanyUserMailConnector\CompanyUserMailConnectorConfig|\PHPUnit\Framework\MockObject\MockObject
@@ -117,10 +117,14 @@ class CompanyUserCreationNotificationMailHandlerTest extends Unit
             ->disableOriginalConstructor()
             ->getMock();
 
-        $this->notificationCustomerTransferMock = $this
-            ->getMockBuilder(NotificationCustomerTransfer::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        $this->notificationCustomerTransferMocks = [
+            $this->getMockBuilder(NotificationCustomerTransfer::class)
+                ->disableOriginalConstructor()
+                ->getMock(),
+            $this->getMockBuilder(NotificationCustomerTransfer::class)
+                ->disableOriginalConstructor()
+                ->getMock(),
+        ];
 
         $this->companyRoleCollectionMock = $this
             ->getMockBuilder(CompanyRoleCollectionTransfer::class)
@@ -159,8 +163,11 @@ class CompanyUserCreationNotificationMailHandlerTest extends Unit
         $roleToNotifyName = 'admin';
         $roles = new ArrayObject();
         $roles->append($this->companyRoleTransferMock);
-        $notifyCollection = new ArrayObject();
-        $notifyCollection->append($this->notificationCustomerTransferMock);
+        $notifyCollection = new ArrayObject($this->notificationCustomerTransferMocks);
+        $emails = [
+            'foo@bar.de',
+            'bar@foo.de',
+        ];
 
         $this->companyUserTransferMock->expects(static::atLeastOnce())
             ->method('getCustomer')
@@ -192,8 +199,10 @@ class CompanyUserCreationNotificationMailHandlerTest extends Unit
 
         $this->localeReaderMock->expects(static::atLeastOnce())
             ->method('getByNotificationCustomer')
-            ->with($this->notificationCustomerTransferMock)
-            ->willReturn($this->localeTransferMock);
+            ->withConsecutive(
+                [$this->notificationCustomerTransferMocks[0]],
+                [$this->notificationCustomerTransferMocks[1]],
+            )->willReturn($this->localeTransferMock);
 
         $this->companyUserTransferMock->expects(static::atLeastOnce())
             ->method('getFkCompany')
@@ -207,11 +216,23 @@ class CompanyUserCreationNotificationMailHandlerTest extends Unit
             ->method('getNotificationCustomers')
             ->willReturn($notifyCollection);
 
+        $this->customerTransferMock->expects(static::atLeastOnce())
+            ->method('getEmail')
+            ->willReturn($emails[0]);
+
+        $this->notificationCustomerTransferMocks[0]->expects(static::atLeastOnce())
+            ->method('getEmail')
+            ->willReturn($emails[0]);
+
+        $this->notificationCustomerTransferMocks[1]->expects(static::atLeastOnce())
+            ->method('getEmail')
+            ->willReturn($emails[1]);
+
         $this->mailFacadeMock->expects(static::atLeastOnce())
             ->method('handleMail');
 
-        static::assertInstanceOf(
-            CompanyUserTransfer::class,
+        static::assertEquals(
+            $this->companyUserTransferMock,
             $this->mailHandler->sendCustomerNotificationMails(
                 $this->companyUserTransferMock,
             ),
@@ -227,7 +248,7 @@ class CompanyUserCreationNotificationMailHandlerTest extends Unit
         $roles = new ArrayObject();
         $roles->append($this->companyRoleTransferMock);
         $notifyCollection = new ArrayObject();
-        $notifyCollection->append($this->notificationCustomerTransferMock);
+        $notifyCollection->append($this->notificationCustomerTransferMocks);
 
         $this->companyUserTransferMock->expects(static::atLeastOnce())
             ->method('getCustomer')
@@ -259,8 +280,8 @@ class CompanyUserCreationNotificationMailHandlerTest extends Unit
         $this->mailFacadeMock->expects(static::never())
             ->method('handleMail');
 
-        static::assertInstanceOf(
-            CompanyUserTransfer::class,
+        static::assertEquals(
+            $this->companyUserTransferMock,
             $this->mailHandler->sendCustomerNotificationMails(
                 $this->companyUserTransferMock,
             ),
@@ -321,8 +342,8 @@ class CompanyUserCreationNotificationMailHandlerTest extends Unit
         $this->mailFacadeMock->expects(static::never())
             ->method('handleMail');
 
-        static::assertInstanceOf(
-            CompanyUserTransfer::class,
+        static::assertEquals(
+            $this->companyUserTransferMock,
             $this->mailHandler->sendCustomerNotificationMails(
                 $this->companyUserTransferMock,
             ),
@@ -342,8 +363,8 @@ class CompanyUserCreationNotificationMailHandlerTest extends Unit
             ->method('getIsNew')
             ->willReturn(false);
 
-        static::assertInstanceOf(
-            CompanyUserTransfer::class,
+        static::assertEquals(
+            $this->companyUserTransferMock,
             $this->mailHandler->sendCustomerNotificationMails(
                 $this->companyUserTransferMock,
             ),
