@@ -4,7 +4,6 @@ namespace FondOfOryx\Zed\ErpDeliveryNote;
 
 use ArrayObject;
 use FondOfOryx\Zed\ErpDeliveryNote\Dependency\Facade\ErpDeliveryNoteToCompanyBusinessUnitFacadeBridge;
-use FondOfOryx\Zed\ErpDeliveryNote\Dependency\Facade\ErpDeliveryNoteToCountryFacadeBridge;
 use FondOfOryx\Zed\ErpDeliveryNote\Exception\WrongInterfaceException;
 use FondOfOryx\Zed\ErpDeliveryNoteExtension\Dependency\Plugin\ErpDeliveryNoteAddressPostSavePluginInterface;
 use FondOfOryx\Zed\ErpDeliveryNoteExtension\Dependency\Plugin\ErpDeliveryNoteAddressPreSavePluginInterface;
@@ -25,11 +24,6 @@ class ErpDeliveryNoteDependencyProvider extends AbstractBundleDependencyProvider
      * @var string
      */
     public const FACADE_COMPANY_BUSINESS_UNIT = 'FACADE_COMPANY_BUSINESS_UNIT';
-
-    /**
-     * @var string
-     */
-    public const FACADE_COUNTRY = 'FACADE_COUNTRY';
 
     /**
      * @var string
@@ -99,10 +93,8 @@ class ErpDeliveryNoteDependencyProvider extends AbstractBundleDependencyProvider
     public function providePersistenceLayerDependencies(Container $container)
     {
         $container = parent::providePersistenceLayerDependencies($container);
-        $container = $this->addCompanyBusinessUnitFacade($container);
-        $container = $this->addCountryFacade($container);
 
-        return $container;
+        return  $this->addCompanyBusinessUnitFacade($container);
     }
 
     /**
@@ -137,22 +129,6 @@ class ErpDeliveryNoteDependencyProvider extends AbstractBundleDependencyProvider
         $container[static::FACADE_COMPANY_BUSINESS_UNIT] = function (Container $container) {
             return new ErpDeliveryNoteToCompanyBusinessUnitFacadeBridge(
                 $container->getLocator()->companyBusinessUnit()->facade(),
-            );
-        };
-
-        return $container;
-    }
-
-    /**
-     * @param \Spryker\Zed\Kernel\Container $container
-     *
-     * @return \Spryker\Zed\Kernel\Container
-     */
-    public function addCountryFacade(Container $container): Container
-    {
-        $container[static::FACADE_COUNTRY] = function (Container $container) {
-            return new ErpDeliveryNoteToCountryFacadeBridge(
-                $container->getLocator()->country()->facade(),
             );
         };
 
