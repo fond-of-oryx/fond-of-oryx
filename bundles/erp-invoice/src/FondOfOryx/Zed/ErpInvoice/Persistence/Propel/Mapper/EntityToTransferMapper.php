@@ -165,7 +165,7 @@ class EntityToTransferMapper implements EntityToTransferMapperInterface
      *
      * @return \Generated\Shared\Transfer\CountryTransfer
      */
-    public function fromCountryToTransfer(
+    protected function fromCountryToTransfer(
         SpyCountry $countryEntity,
         ?CountryTransfer $countryTransfer = null
     ): CountryTransfer {
