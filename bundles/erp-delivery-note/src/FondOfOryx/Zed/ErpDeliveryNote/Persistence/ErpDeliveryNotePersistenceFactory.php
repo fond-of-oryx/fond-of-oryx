@@ -28,7 +28,6 @@ class ErpDeliveryNotePersistenceFactory extends AbstractPersistenceFactory
     {
         return new EntityToTransferMapper(
             $this->getCompanyBusinessUnitFacade(),
-            $this->getCountryFacade(),
         );
     }
 
