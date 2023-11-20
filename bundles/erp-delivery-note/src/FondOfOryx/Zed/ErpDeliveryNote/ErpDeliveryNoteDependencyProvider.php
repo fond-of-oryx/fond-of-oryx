@@ -94,7 +94,7 @@ class ErpDeliveryNoteDependencyProvider extends AbstractBundleDependencyProvider
     {
         $container = parent::providePersistenceLayerDependencies($container);
 
-        return  $this->addCompanyBusinessUnitFacade($container);
+        return $this->addCompanyBusinessUnitFacade($container);
     }
 
     /**
@@ -105,6 +105,7 @@ class ErpDeliveryNoteDependencyProvider extends AbstractBundleDependencyProvider
     public function provideBusinessLayerDependencies(Container $container)
     {
         $container = parent::providePersistenceLayerDependencies($container);
+
         $container = $this->addErpDeliveryNotePreSavePlugin($container);
         $container = $this->addErpDeliveryNotePostSavePlugin($container);
         $container = $this->addErpDeliveryNoteItemPreSavePlugin($container);
@@ -114,9 +115,8 @@ class ErpDeliveryNoteDependencyProvider extends AbstractBundleDependencyProvider
         $container = $this->addErpDeliveryNoteTrackingPreSavePlugin($container);
         $container = $this->addErpDeliveryNoteTrackingPostSavePlugin($container);
         $container = $this->addErpDeliveryNoteAddressPreSavePlugin($container);
-        $container = $this->addErpDeliveryNoteAddressPostSavePlugin($container);
 
-        return $container;
+        return $this->addErpDeliveryNoteAddressPostSavePlugin($container);
     }
 
     /**
