@@ -32,7 +32,7 @@ class EntityToTransferMapper implements EntityToTransferMapperInterface
      * @param \FondOfOryx\Zed\ErpDeliveryNote\Dependency\Facade\ErpDeliveryNoteToCompanyBusinessUnitFacadeInterface $companyBusinessUnitFacade
      */
     public function __construct(
-        ErpDeliveryNoteToCompanyBusinessUnitFacadeInterface $companyBusinessUnitFacade,
+        ErpDeliveryNoteToCompanyBusinessUnitFacadeInterface $companyBusinessUnitFacade
     ) {
         $this->companyBusinessUnitFacade = $companyBusinessUnitFacade;
     }
@@ -192,7 +192,7 @@ class EntityToTransferMapper implements EntityToTransferMapperInterface
      *
      * @return \Generated\Shared\Transfer\CountryTransfer
      */
-    public function fromCountryToTransfer(
+    protected function fromCountryToTransfer(
         SpyCountry $countryEntity,
         ?CountryTransfer $countryTransfer = null
     ): CountryTransfer {
