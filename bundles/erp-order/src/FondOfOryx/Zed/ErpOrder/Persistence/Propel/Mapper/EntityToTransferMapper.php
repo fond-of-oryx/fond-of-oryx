@@ -5,14 +5,15 @@ namespace FondOfOryx\Zed\ErpOrder\Persistence\Propel\Mapper;
 use DateTime;
 use Exception;
 use FondOfOryx\Zed\ErpOrder\Dependency\Facade\ErpOrderToCompanyBusinessUnitFacadeInterface;
-use FondOfOryx\Zed\ErpOrder\Dependency\Facade\ErpOrderToCountryFacadeInterface;
 use Generated\Shared\Transfer\CompanyBusinessUnitTransfer;
+use Generated\Shared\Transfer\CountryTransfer;
 use Generated\Shared\Transfer\ErpOrderAddressTransfer;
 use Generated\Shared\Transfer\ErpOrderAmountTransfer;
 use Generated\Shared\Transfer\ErpOrderExpenseTransfer;
 use Generated\Shared\Transfer\ErpOrderItemTransfer;
 use Generated\Shared\Transfer\ErpOrderTotalsTransfer;
 use Generated\Shared\Transfer\ErpOrderTransfer;
+use Orm\Zed\Country\Persistence\SpyCountry;
 use Orm\Zed\ErpOrder\Persistence\ErpOrder;
 use Orm\Zed\ErpOrder\Persistence\ErpOrderAddress;
 use Orm\Zed\ErpOrder\Persistence\ErpOrderItem;
@@ -26,25 +27,17 @@ use Orm\Zed\ErpOrder\Persistence\FooErpOrderExpense;
 class EntityToTransferMapper implements EntityToTransferMapperInterface
 {
     /**
-     * @var \FondOfOryx\Zed\ErpOrder\Dependency\Facade\ErpOrderToCountryFacadeInterface
-     */
-    protected $countryFacade;
-
-    /**
      * @var \FondOfOryx\Zed\ErpOrder\Dependency\Facade\ErpOrderToCompanyBusinessUnitFacadeInterface
      */
     protected $companyBusinessUnitFacade;
 
     /**
      * @param \FondOfOryx\Zed\ErpOrder\Dependency\Facade\ErpOrderToCompanyBusinessUnitFacadeInterface $companyBusinessUnitFacade
-     * @param \FondOfOryx\Zed\ErpOrder\Dependency\Facade\ErpOrderToCountryFacadeInterface $countryFacade
      */
     public function __construct(
-        ErpOrderToCompanyBusinessUnitFacadeInterface $companyBusinessUnitFacade,
-        ErpOrderToCountryFacadeInterface $countryFacade
+        ErpOrderToCompanyBusinessUnitFacadeInterface $companyBusinessUnitFacade
     ) {
         $this->companyBusinessUnitFacade = $companyBusinessUnitFacade;
-        $this->countryFacade = $countryFacade;
     }
 
     /**
@@ -119,9 +112,26 @@ class EntityToTransferMapper implements EntityToTransferMapperInterface
         //ToDo: handle region
 
         return $erpOrderAddressTransfer
-            ->setCountry($this->countryFacade->getCountryByIdCountry($erpOrderAddress->getFkCountry()))
+            ->setCountry($this->fromCountryToTransfer($erpOrderAddress->getCountry()))
             ->setCreatedAt($this->convertDateTimeToTimestamp($erpOrderAddress->getCreatedAt()))
             ->setUpdatedAt($this->convertDateTimeToTimestamp($erpOrderAddress->getUpdatedAt()));
+    }
+
+    /**
+     * @param \Orm\Zed\Country\Persistence\SpyCountry $countryEntity
+     * @param \Generated\Shared\Transfer\CountryTransfer|null $countryTransfer
+     *
+     * @return \Generated\Shared\Transfer\CountryTransfer
+     */
+    protected function fromCountryToTransfer(
+        SpyCountry $countryEntity,
+        ?CountryTransfer $countryTransfer = null
+    ): CountryTransfer {
+        if ($countryTransfer === null) {
+            $countryTransfer = new CountryTransfer();
+        }
+
+        return $countryTransfer->fromArray($countryEntity->toArray(), true);
     }
 
     /**

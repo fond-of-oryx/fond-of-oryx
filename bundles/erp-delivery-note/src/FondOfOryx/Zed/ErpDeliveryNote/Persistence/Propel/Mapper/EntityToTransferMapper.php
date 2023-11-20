@@ -5,14 +5,15 @@ namespace FondOfOryx\Zed\ErpDeliveryNote\Persistence\Propel\Mapper;
 use DateTime;
 use Exception;
 use FondOfOryx\Zed\ErpDeliveryNote\Dependency\Facade\ErpDeliveryNoteToCompanyBusinessUnitFacadeInterface;
-use FondOfOryx\Zed\ErpDeliveryNote\Dependency\Facade\ErpDeliveryNoteToCountryFacadeInterface;
 use Generated\Shared\Transfer\CompanyBusinessUnitTransfer;
+use Generated\Shared\Transfer\CountryTransfer;
 use Generated\Shared\Transfer\ErpDeliveryNoteAddressTransfer;
 use Generated\Shared\Transfer\ErpDeliveryNoteExpenseTransfer;
 use Generated\Shared\Transfer\ErpDeliveryNoteItemTransfer;
 use Generated\Shared\Transfer\ErpDeliveryNoteTrackingToItemRelationTransfer;
 use Generated\Shared\Transfer\ErpDeliveryNoteTrackingTransfer;
 use Generated\Shared\Transfer\ErpDeliveryNoteTransfer;
+use Orm\Zed\Country\Persistence\SpyCountry;
 use Orm\Zed\ErpDeliveryNote\Persistence\FooErpDeliveryNote;
 use Orm\Zed\ErpDeliveryNote\Persistence\FooErpDeliveryNoteAddress;
 use Orm\Zed\ErpDeliveryNote\Persistence\FooErpDeliveryNoteExpense;
@@ -23,25 +24,17 @@ use Orm\Zed\ErpDeliveryNote\Persistence\FooErpDeliveryNoteTrackingToItem;
 class EntityToTransferMapper implements EntityToTransferMapperInterface
 {
     /**
-     * @var \FondOfOryx\Zed\ErpDeliveryNote\Dependency\Facade\ErpDeliveryNoteToCountryFacadeInterface
-     */
-    protected $countryFacade;
-
-    /**
      * @var \FondOfOryx\Zed\ErpDeliveryNote\Dependency\Facade\ErpDeliveryNoteToCompanyBusinessUnitFacadeInterface
      */
     protected $companyBusinessUnitFacade;
 
     /**
      * @param \FondOfOryx\Zed\ErpDeliveryNote\Dependency\Facade\ErpDeliveryNoteToCompanyBusinessUnitFacadeInterface $companyBusinessUnitFacade
-     * @param \FondOfOryx\Zed\ErpDeliveryNote\Dependency\Facade\ErpDeliveryNoteToCountryFacadeInterface $countryFacade
      */
     public function __construct(
-        ErpDeliveryNoteToCompanyBusinessUnitFacadeInterface $companyBusinessUnitFacade,
-        ErpDeliveryNoteToCountryFacadeInterface $countryFacade
+        ErpDeliveryNoteToCompanyBusinessUnitFacadeInterface $companyBusinessUnitFacade
     ) {
         $this->companyBusinessUnitFacade = $companyBusinessUnitFacade;
-        $this->countryFacade = $countryFacade;
     }
 
     /**
@@ -188,9 +181,26 @@ class EntityToTransferMapper implements EntityToTransferMapperInterface
         $erpDeliveryNoteAddressTransfer->fromArray($erpDeliveryNoteAddress->toArray(), true);
 
         return $erpDeliveryNoteAddressTransfer
-            ->setCountry($this->countryFacade->getCountryByIdCountry($erpDeliveryNoteAddress->getFkCountry()))
+            ->setCountry($this->fromCountryToTransfer($erpDeliveryNoteAddress->getSpyCountry()))
             ->setCreatedAt($this->convertDateTimeToTimestamp($erpDeliveryNoteAddress->getCreatedAt()))
             ->setUpdatedAt($this->convertDateTimeToTimestamp($erpDeliveryNoteAddress->getUpdatedAt()));
+    }
+
+    /**
+     * @param \Orm\Zed\Country\Persistence\SpyCountry $countryEntity
+     * @param \Generated\Shared\Transfer\CountryTransfer|null $countryTransfer
+     *
+     * @return \Generated\Shared\Transfer\CountryTransfer
+     */
+    protected function fromCountryToTransfer(
+        SpyCountry $countryEntity,
+        ?CountryTransfer $countryTransfer = null
+    ): CountryTransfer {
+        if ($countryTransfer === null) {
+            $countryTransfer = new CountryTransfer();
+        }
+
+        return $countryTransfer->fromArray($countryEntity->toArray(), true);
     }
 
     /**

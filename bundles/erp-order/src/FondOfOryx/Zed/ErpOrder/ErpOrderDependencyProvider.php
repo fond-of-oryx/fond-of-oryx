@@ -4,7 +4,6 @@ namespace FondOfOryx\Zed\ErpOrder;
 
 use ArrayObject;
 use FondOfOryx\Zed\ErpOrder\Dependency\Facade\ErpOrderToCompanyBusinessUnitFacadeBridge;
-use FondOfOryx\Zed\ErpOrder\Dependency\Facade\ErpOrderToCountryFacadeBridge;
 use FondOfOryx\Zed\ErpOrder\Dependency\Facade\ErpOrderToCustomerFacadeBridge;
 use FondOfOryx\Zed\ErpOrder\Exception\WrongInterfaceException;
 use FondOfOryx\Zed\ErpOrderExtension\Dependency\Plugin\ErpOrderAddressPostSavePluginInterface;
@@ -26,11 +25,6 @@ class ErpOrderDependencyProvider extends AbstractBundleDependencyProvider
      * @var string
      */
     public const FACADE_COMPANY_BUSINESS_UNIT = 'FACADE_COMPANY_BUSINESS_UNIT';
-
-    /**
-     * @var string
-     */
-    public const FACADE_COUNTRY = 'FACADE_COUNTRY';
 
     /**
      * @var string
@@ -106,9 +100,7 @@ class ErpOrderDependencyProvider extends AbstractBundleDependencyProvider
     {
         $container = parent::providePersistenceLayerDependencies($container);
 
-        $container = $this->addCompanyBusinessUnitFacade($container);
-
-        return $this->addCountryFacade($container);
+        return $this->addCompanyBusinessUnitFacade($container);
     }
 
     /**
@@ -157,22 +149,6 @@ class ErpOrderDependencyProvider extends AbstractBundleDependencyProvider
         $container[static::FACADE_COMPANY_BUSINESS_UNIT] = static function (Container $container) {
             return new ErpOrderToCompanyBusinessUnitFacadeBridge(
                 $container->getLocator()->companyBusinessUnit()->facade(),
-            );
-        };
-
-        return $container;
-    }
-
-    /**
-     * @param \Spryker\Zed\Kernel\Container $container
-     *
-     * @return \Spryker\Zed\Kernel\Container
-     */
-    public function addCountryFacade(Container $container): Container
-    {
-        $container[static::FACADE_COUNTRY] = static function (Container $container) {
-            return new ErpOrderToCountryFacadeBridge(
-                $container->getLocator()->country()->facade(), /** @phpstan-ignore-line */
             );
         };
 
