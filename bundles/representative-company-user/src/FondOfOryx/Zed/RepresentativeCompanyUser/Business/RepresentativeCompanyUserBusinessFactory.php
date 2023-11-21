@@ -12,7 +12,6 @@ use FondOfOryx\Zed\RepresentativeCompanyUser\Business\Task\TaskRunner;
 use FondOfOryx\Zed\RepresentativeCompanyUser\Business\Task\TaskRunnerInterface;
 use FondOfOryx\Zed\RepresentativeCompanyUser\Dependency\Facade\RepresentativeCompanyUserToCompanyUserFacadeInterface;
 use FondOfOryx\Zed\RepresentativeCompanyUser\Dependency\Facade\RepresentativeCompanyUserToEventFacadeInterface;
-use FondOfOryx\Zed\RepresentativeCompanyUser\Dependency\Service\RepresentativeCompanyUserToUtilUuidGeneratorServiceInterface;
 use FondOfOryx\Zed\RepresentativeCompanyUser\RepresentativeCompanyUserDependencyProvider;
 use Spryker\Zed\Kernel\Business\AbstractBusinessFactory;
 use Spryker\Zed\Kernel\Persistence\EntityManager\TransactionTrait;
@@ -56,7 +55,6 @@ class RepresentativeCompanyUserBusinessFactory extends AbstractBusinessFactory
             $this->getEntityManager(),
             $this->createRepresentativeCompanyUserReader(),
             $this->getEventFacade(),
-            $this->getUtilUuidGeneratorService(),
         );
     }
 
@@ -70,14 +68,6 @@ class RepresentativeCompanyUserBusinessFactory extends AbstractBusinessFactory
             $this->getCompanyUserFacade(),
             $this->getTransactionHandler(),
         );
-    }
-
-    /**
-     * @return \FondOfOryx\Zed\RepresentativeCompanyUser\Dependency\Service\RepresentativeCompanyUserToUtilUuidGeneratorServiceInterface
-     */
-    protected function getUtilUuidGeneratorService(): RepresentativeCompanyUserToUtilUuidGeneratorServiceInterface
-    {
-        return $this->getProvidedDependency(RepresentativeCompanyUserDependencyProvider::SERVICE_UTIL_UUID_GENERATOR);
     }
 
     /**

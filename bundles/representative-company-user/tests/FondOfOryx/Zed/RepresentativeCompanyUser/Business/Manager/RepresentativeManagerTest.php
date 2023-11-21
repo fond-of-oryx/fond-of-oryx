@@ -5,7 +5,6 @@ namespace FondOfOryx\Zed\RepresentativeCompanyUser\Business\Manager;
 use Codeception\Test\Unit;
 use FondOfOryx\Zed\RepresentativeCompanyUser\Business\Reader\RepresentativeCompanyUserReaderInterface;
 use FondOfOryx\Zed\RepresentativeCompanyUser\Dependency\Facade\RepresentativeCompanyUserToEventFacadeInterface;
-use FondOfOryx\Zed\RepresentativeCompanyUser\Dependency\Service\RepresentativeCompanyUserToUtilUuidGeneratorServiceInterface;
 use FondOfOryx\Zed\RepresentativeCompanyUser\Persistence\RepresentativeCompanyUserEntityManagerInterface;
 use Generated\Shared\Transfer\CompanyUserResponseTransfer;
 use Generated\Shared\Transfer\CompanyUserTransfer;
@@ -25,11 +24,6 @@ class RepresentativeManagerTest extends Unit
      * @var \FondOfOryx\Zed\RepresentativeCompanyUser\Dependency\Facade\RepresentativeCompanyUserToEventFacadeInterface|\PHPUnit\Framework\MockObject\MockObject
      */
     protected $eventFacadeMock;
-
-    /**
-     * @var \FondOfOryx\Zed\RepresentativeCompanyUser\Dependency\Service\RepresentativeCompanyUserToUtilUuidGeneratorServiceInterface|\PHPUnit\Framework\MockObject\MockObject
-     */
-    protected $uuidGeneratorMock;
 
     /**
      * @var \FondOfOryx\Zed\RepresentativeCompanyUser\Persistence\RepresentativeCompanyUserEntityManagerInterface|\PHPUnit\Framework\MockObject\MockObject
@@ -90,10 +84,6 @@ class RepresentativeManagerTest extends Unit
             ->disableOriginalConstructor()
             ->getMock();
 
-        $this->uuidGeneratorMock = $this->getMockBuilder(RepresentativeCompanyUserToUtilUuidGeneratorServiceInterface::class)
-            ->disableOriginalConstructor()
-            ->getMock();
-
         $this->filterTransferMock = $this->getMockBuilder(RepresentativeCompanyUserFilterTransfer::class)
             ->disableOriginalConstructor()
             ->getMock();
@@ -118,7 +108,7 @@ class RepresentativeManagerTest extends Unit
             ->disableOriginalConstructor()
             ->getMock();
 
-        $this->manager = new RepresentationManager($this->entityManagerMock, $this->readerMock, $this->eventFacadeMock, $this->uuidGeneratorMock);
+        $this->manager = new RepresentationManager($this->entityManagerMock, $this->readerMock, $this->eventFacadeMock);
     }
 
     /**
@@ -209,39 +199,9 @@ class RepresentativeManagerTest extends Unit
      */
     public function testAddRepresentation(): void
     {
-        $uuid = 'uuid';
-        $this->uuidGeneratorMock->expects(static::atLeastOnce())
-            ->method('generateUuid5FromObjectId')
-            ->willReturn($uuid);
-
         $this->entityManagerMock->expects(static::atLeastOnce())
             ->method('createRepresentativeCompanyUser')
             ->willReturn($this->representativeCompanyUserTransferMock);
-
-        $this->representativeCompanyUserTransferMock->expects(static::atLeastOnce())
-            ->method('setUuid')
-            ->with($uuid)
-            ->willReturnSelf();
-
-        $this->representativeCompanyUserTransferMock->expects(static::atLeastOnce())
-            ->method('getFkDistributor')
-            ->willReturn('fkdis');
-
-        $this->representativeCompanyUserTransferMock->expects(static::atLeastOnce())
-            ->method('getFkRepresentative')
-            ->willReturn('fkrep');
-
-        $this->representativeCompanyUserTransferMock->expects(static::atLeastOnce())
-            ->method('getFkOriginator')
-            ->willReturn('fkorg');
-
-        $this->representativeCompanyUserTransferMock->expects(static::atLeastOnce())
-            ->method('getStartAt')
-            ->willReturn('start');
-
-        $this->representativeCompanyUserTransferMock->expects(static::atLeastOnce())
-            ->method('getEndAt')
-            ->willReturn('end');
 
         $this->manager->addRepresentation($this->representativeCompanyUserTransferMock);
     }

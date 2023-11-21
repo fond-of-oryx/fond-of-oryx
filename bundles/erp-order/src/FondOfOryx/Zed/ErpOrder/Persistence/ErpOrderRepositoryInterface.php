@@ -3,6 +3,9 @@
 namespace FondOfOryx\Zed\ErpOrder\Persistence;
 
 use Generated\Shared\Transfer\ErpOrderAddressTransfer;
+use Generated\Shared\Transfer\ErpOrderAmountTransfer;
+use Generated\Shared\Transfer\ErpOrderExpenseCollectionTransfer;
+use Generated\Shared\Transfer\ErpOrderExpenseTransfer;
 use Generated\Shared\Transfer\ErpOrderItemCollectionTransfer;
 use Generated\Shared\Transfer\ErpOrderItemTransfer;
 use Generated\Shared\Transfer\ErpOrderTotalsTransfer;
@@ -44,4 +47,25 @@ interface ErpOrderRepositoryInterface
      * @return \Generated\Shared\Transfer\ErpOrderTotalsTransfer|null
      */
     public function findErpOrderTotalsByIdErpOrderTotals(int $idErpOrderTotals): ?ErpOrderTotalsTransfer;
+
+    /**
+     * @param int $idErpOrder
+     *
+     * @return \Generated\Shared\Transfer\ErpOrderExpenseCollectionTransfer
+     */
+    public function findErpOrderExpensesByIdErpOrder(int $idErpOrder): ErpOrderExpenseCollectionTransfer;
+
+    /**
+     * @param int $idErpOrderExpense
+     *
+     * @return \Generated\Shared\Transfer\ErpOrderExpenseTransfer|null
+     */
+    public function findErpOrderExpenseByIdErpOrderExpense(int $idErpOrderExpense): ?ErpOrderExpenseTransfer;
+
+    /**
+     * @param int $idErpOrderAmount
+     *
+     * @return \Generated\Shared\Transfer\ErpOrderAmountTransfer|null
+     */
+    public function findErpOrderAmountByIdErpOrderAmount(int $idErpOrderAmount): ?ErpOrderAmountTransfer;
 }

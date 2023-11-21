@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<database xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" name="zed"
+          xsi:noNamespaceSchemaLocation="https://static.spryker.com/schema-01.xsd"
+          namespace="Orm\Zed\PropelPreMigration\Persistence" package="src.Orm.Zed.PropelPreMigration.Persistence">
+
+    <table name="foo_propel_pre_migration" phpName="FooPropelPreMigration" identifierQuoting="true">
+        <column name="file" required="true" type="VARCHAR" size="255" primaryKey="true"/>
+        <column name="hash" required="true" type="VARCHAR" size="255"/>
+
+        <behavior name="timestampable"/>
+    </table>
+</database>

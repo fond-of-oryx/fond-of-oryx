@@ -6,6 +6,7 @@ use FondOfOryx\Client\RepresentativeCompanyUserRestApi\RepresentativeCompanyUser
 use FondOfOryx\Glue\RepresentativeCompanyUserRestApi\Processor\Builder\RestResponseBuilderInterface;
 use FondOfOryx\Glue\RepresentativeCompanyUserRestApi\Processor\Mapper\RepresentationMapperInterface;
 use FondOfOryx\Glue\RepresentativeCompanyUserRestApi\Processor\Permission\PermissionCheckerInterface;
+use Generated\Shared\Transfer\RestErrorMessageTransfer;
 use Spryker\Glue\GlueApplication\Rest\JsonApi\RestResponseInterface;
 use Spryker\Glue\GlueApplication\Rest\Request\Data\RestRequestInterface;
 
@@ -58,14 +59,18 @@ class RepresentationManager implements RepresentationManagerInterface
     {
         $attributes = $this->representationMapper->createAttributesFromRequest($restRequest);
 
-        if ($this->permissionChecker->can($attributes)) {
-            $representationRestRequestTransfer = $this->representationMapper->createRequest($restRequest, $attributes);
-            $representationRestResponseTransfer = $this->client->addRepresentation($representationRestRequestTransfer);
-
-            return $this->responseBuilder->buildRepresentativeCompanyUserRestResponse($representationRestResponseTransfer);
+        if (!$this->permissionChecker->can($attributes)) {
+            return $this->responseBuilder->buildErrorResponse();
         }
 
-        return $this->responseBuilder->buildRepresentativeCompanyUserMissingPermissionResponse();
+        $representationRestRequestTransfer = $this->representationMapper->createRequest($restRequest, $attributes);
+        $representationRestResponseTransfer = $this->client->addRepresentation($representationRestRequestTransfer);
+
+        if ($representationRestResponseTransfer instanceof RestErrorMessageTransfer) {
+            return $this->responseBuilder->buildErrorResponse($representationRestResponseTransfer);
+        }
+
+        return $this->responseBuilder->buildRepresentativeCompanyUserRestResponse($representationRestResponseTransfer);
     }
 
     /**
@@ -77,14 +82,18 @@ class RepresentationManager implements RepresentationManagerInterface
     {
         $attributes = $this->representationMapper->createAttributesFromRequest($restRequest);
 
-        if ($this->permissionChecker->can($attributes)) {
-            $representationRestRequestTransfer = $this->representationMapper->createRequest($restRequest, $attributes);
-            $representationRestResponseTransfer = $this->client->getRepresentation($representationRestRequestTransfer);
-
-            return $this->responseBuilder->buildRepresentativeCompanyUserRestResponse($representationRestResponseTransfer);
+        if (!$this->permissionChecker->can($attributes)) {
+            return $this->responseBuilder->buildErrorResponse();
         }
 
-        return $this->responseBuilder->buildRepresentativeCompanyUserMissingPermissionResponse();
+        $representationRestRequestTransfer = $this->representationMapper->createRequest($restRequest, $attributes);
+        $representationRestResponseTransfer = $this->client->getRepresentation($representationRestRequestTransfer);
+
+        if ($representationRestResponseTransfer instanceof RestErrorMessageTransfer) {
+            return $this->responseBuilder->buildErrorResponse($representationRestResponseTransfer);
+        }
+
+        return $this->responseBuilder->buildRepresentativeCompanyUserCollectionRestResponse($representationRestResponseTransfer);
     }
 
     /**
@@ -96,14 +105,18 @@ class RepresentationManager implements RepresentationManagerInterface
     {
         $attributes = $this->representationMapper->createAttributesFromRequest($restRequest);
 
-        if ($this->permissionChecker->can($attributes)) {
-            $representationRestRequestTransfer = $this->representationMapper->createRequest($restRequest, $attributes);
-            $representationRestResponseTransfer = $this->client->patchRepresentation($representationRestRequestTransfer);
-
-            return $this->responseBuilder->buildRepresentativeCompanyUserRestResponse($representationRestResponseTransfer);
+        if (!$this->permissionChecker->can($attributes)) {
+            return $this->responseBuilder->buildErrorResponse();
         }
 
-        return $this->responseBuilder->buildRepresentativeCompanyUserMissingPermissionResponse();
+        $representationRestRequestTransfer = $this->representationMapper->createRequest($restRequest, $attributes);
+        $representationRestResponseTransfer = $this->client->patchRepresentation($representationRestRequestTransfer);
+
+        if ($representationRestResponseTransfer instanceof RestErrorMessageTransfer) {
+            return $this->responseBuilder->buildErrorResponse($representationRestResponseTransfer);
+        }
+
+        return $this->responseBuilder->buildRepresentativeCompanyUserRestResponse($representationRestResponseTransfer);
     }
 
     /**
@@ -115,13 +128,17 @@ class RepresentationManager implements RepresentationManagerInterface
     {
         $attributes = $this->representationMapper->createAttributesFromRequest($restRequest);
 
-        if ($this->permissionChecker->can($attributes)) {
-            $representationRestRequestTransfer = $this->representationMapper->createRequest($restRequest, $attributes);
-            $representationRestResponseTransfer = $this->client->deleteRepresentation($representationRestRequestTransfer);
-
-            return $this->responseBuilder->buildRepresentativeCompanyUserRestResponse($representationRestResponseTransfer);
+        if (!$this->permissionChecker->can($attributes)) {
+            return $this->responseBuilder->buildErrorResponse();
         }
 
-        return $this->responseBuilder->buildRepresentativeCompanyUserMissingPermissionResponse();
+        $representationRestRequestTransfer = $this->representationMapper->createRequest($restRequest, $attributes);
+        $representationRestResponseTransfer = $this->client->deleteRepresentation($representationRestRequestTransfer);
+
+        if ($representationRestResponseTransfer instanceof RestErrorMessageTransfer) {
+            return $this->responseBuilder->buildErrorResponse($representationRestResponseTransfer);
+        }
+
+        return $this->responseBuilder->buildRepresentativeCompanyUserRestResponse($representationRestResponseTransfer);
     }
 }

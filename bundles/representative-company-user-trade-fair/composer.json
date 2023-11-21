@@ -16,8 +16,7 @@
     "spryker/company-user": "^2.0.0",
     "spryker/event": "^2.0.0",
     "spryker/event-behavior": "^1.20.0",
-    "spryker/uuid-behavior": "^1.0.0",
-    "spryker/util-uuid-generator": "^1.0.0"
+    "spryker/uuid-behavior": "^1.0.0"
   },
   "require-dev": {
     "fond-of-codeception/spryker": "*",

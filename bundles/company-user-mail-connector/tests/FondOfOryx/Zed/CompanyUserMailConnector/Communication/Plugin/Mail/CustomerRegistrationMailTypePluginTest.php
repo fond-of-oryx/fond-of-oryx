@@ -11,17 +11,17 @@ use Spryker\Zed\Mail\Business\Model\Mail\Builder\MailBuilderInterface;
 class CustomerRegistrationMailTypePluginTest extends Unit
 {
     /**
-     * @var \Generated\Shared\Transfer\CustomerTransfer|\PHPUnit\Framework\MockObject\MockObject|mixed
+     * @var \Generated\Shared\Transfer\CustomerTransfer|\PHPUnit\Framework\MockObject\MockObject
      */
     protected $customerTransferMock;
 
     /**
-     * @var \Spryker\Zed\Mail\Business\Model\Mail\Builder\MailBuilderInterface|\PHPUnit\Framework\MockObject\MockObject|mixed
+     * @var \Spryker\Zed\Mail\Business\Model\Mail\Builder\MailBuilderInterface|\PHPUnit\Framework\MockObject\MockObject
      */
     protected $mailBuilderMock;
 
     /**
-     * @var \Generated\Shared\Transfer\MailTransfer|\PHPUnit\Framework\MockObject\MockObject|mixed
+     * @var \Generated\Shared\Transfer\MailTransfer|\PHPUnit\Framework\MockObject\MockObject
      */
     protected $mailTransferMock;
 

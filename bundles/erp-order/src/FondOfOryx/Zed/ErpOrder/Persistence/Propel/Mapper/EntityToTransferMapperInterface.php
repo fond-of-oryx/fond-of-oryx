@@ -3,6 +3,8 @@
 namespace FondOfOryx\Zed\ErpOrder\Persistence\Propel\Mapper;
 
 use Generated\Shared\Transfer\ErpOrderAddressTransfer;
+use Generated\Shared\Transfer\ErpOrderAmountTransfer;
+use Generated\Shared\Transfer\ErpOrderExpenseTransfer;
 use Generated\Shared\Transfer\ErpOrderItemTransfer;
 use Generated\Shared\Transfer\ErpOrderTotalsTransfer;
 use Generated\Shared\Transfer\ErpOrderTransfer;
@@ -10,6 +12,8 @@ use Orm\Zed\ErpOrder\Persistence\ErpOrder;
 use Orm\Zed\ErpOrder\Persistence\ErpOrderAddress;
 use Orm\Zed\ErpOrder\Persistence\ErpOrderItem;
 use Orm\Zed\ErpOrder\Persistence\ErpOrderTotals;
+use Orm\Zed\ErpOrder\Persistence\FooErpOrderAmount;
+use Orm\Zed\ErpOrder\Persistence\FooErpOrderExpense;
 
 interface EntityToTransferMapperInterface
 {
@@ -58,4 +62,26 @@ interface EntityToTransferMapperInterface
         ErpOrderTotals $erpOrderTotals,
         ?ErpOrderTotalsTransfer $erpOrderTotalsTransfer = null
     ): ErpOrderTotalsTransfer;
+
+    /**
+     * @param \Orm\Zed\ErpOrder\Persistence\FooErpOrderAmount $erpOrderTotal
+     * @param \Generated\Shared\Transfer\ErpOrderAmountTransfer|null $erpOrderAmountTransfer
+     *
+     * @return \Generated\Shared\Transfer\ErpOrderAmountTransfer
+     */
+    public function fromErpOrderAmountToTransfer(
+        FooErpOrderAmount $erpOrderTotal,
+        ?ErpOrderAmountTransfer $erpOrderAmountTransfer = null
+    ): ErpOrderAmountTransfer;
+
+    /**
+     * @param \Orm\Zed\ErpOrder\Persistence\FooErpOrderExpense $orderExpense
+     * @param \Generated\Shared\Transfer\ErpOrderExpenseTransfer|null $orderExpenseTransfer
+     *
+     * @return \Generated\Shared\Transfer\ErpOrderExpenseTransfer
+     */
+    public function fromEprOrderExpenseToTransfer(
+        FooErpOrderExpense $orderExpense,
+        ?ErpOrderExpenseTransfer $orderExpenseTransfer = null
+    ): ErpOrderExpenseTransfer;
 }

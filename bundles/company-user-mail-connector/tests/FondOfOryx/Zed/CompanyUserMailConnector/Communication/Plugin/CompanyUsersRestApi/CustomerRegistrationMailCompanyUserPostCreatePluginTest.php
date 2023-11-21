@@ -10,22 +10,22 @@ use Generated\Shared\Transfer\RestCompanyUsersRequestAttributesTransfer;
 class CustomerRegistrationMailCompanyUserPostCreatePluginTest extends Unit
 {
     /**
-     * @var \FondOfOryx\Zed\CompanyUserMailConnector\Business\CompanyUserMailConnectorFacade|\PHPUnit\Framework\MockObject\MockObject|mixed
+     * @var \FondOfOryx\Zed\CompanyUserMailConnector\Business\CompanyUserMailConnectorFacade|\PHPUnit\Framework\MockObject\MockObject
      */
     protected $facadeMock;
 
     /**
-     * @var \Generated\Shared\Transfer\CompanyUserTransfer|\PHPUnit\Framework\MockObject\MockObject|mixed
+     * @var \Generated\Shared\Transfer\CompanyUserTransfer|\PHPUnit\Framework\MockObject\MockObject
      */
     protected $companyUserTransferMock;
 
     /**
-     * @var \Generated\Shared\Transfer\RestCompanyUsersRequestAttributesTransfer|\PHPUnit\Framework\MockObject\MockObject|mixed
+     * @var \Generated\Shared\Transfer\RestCompanyUsersRequestAttributesTransfer|\PHPUnit\Framework\MockObject\MockObject
      */
     protected $restCompanyUsersRequestAttributesTransfer;
 
     /**
-     * @var \FondOfOryx\Zed\CompanyUserCompanyRoleConnector\Communication\Plugin\CompanyUsersRestApi\CompanyRoleCompanyUserPostCreatePlugin
+     * @var \FondOfOryx\Zed\CompanyUserMailConnector\Communication\Plugin\CompanyUsersRestApi\CustomerRegistrationMailCompanyUserPostCreatePlugin
      */
     protected $plugin;
 

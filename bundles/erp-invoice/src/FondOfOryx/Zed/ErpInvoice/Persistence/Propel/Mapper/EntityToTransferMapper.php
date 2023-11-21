@@ -5,13 +5,14 @@ namespace FondOfOryx\Zed\ErpInvoice\Persistence\Propel\Mapper;
 use DateTime;
 use Exception;
 use FondOfOryx\Zed\ErpInvoice\Dependency\Facade\ErpInvoiceToCompanyBusinessUnitFacadeInterface;
-use FondOfOryx\Zed\ErpInvoice\Dependency\Facade\ErpInvoiceToCountryFacadeInterface;
 use Generated\Shared\Transfer\CompanyBusinessUnitTransfer;
+use Generated\Shared\Transfer\CountryTransfer;
 use Generated\Shared\Transfer\ErpInvoiceAddressTransfer;
 use Generated\Shared\Transfer\ErpInvoiceAmountTransfer;
 use Generated\Shared\Transfer\ErpInvoiceExpenseTransfer;
 use Generated\Shared\Transfer\ErpInvoiceItemTransfer;
 use Generated\Shared\Transfer\ErpInvoiceTransfer;
+use Orm\Zed\Country\Persistence\SpyCountry;
 use Orm\Zed\ErpInvoice\Persistence\FooErpInvoice;
 use Orm\Zed\ErpInvoice\Persistence\FooErpInvoiceAddress;
 use Orm\Zed\ErpInvoice\Persistence\FooErpInvoiceAmount;
@@ -21,25 +22,17 @@ use Orm\Zed\ErpInvoice\Persistence\FooErpInvoiceItem;
 class EntityToTransferMapper implements EntityToTransferMapperInterface
 {
     /**
-     * @var \FondOfOryx\Zed\ErpInvoice\Dependency\Facade\ErpInvoiceToCountryFacadeInterface
-     */
-    protected $countryFacade;
-
-    /**
      * @var \FondOfOryx\Zed\ErpInvoice\Dependency\Facade\ErpInvoiceToCompanyBusinessUnitFacadeInterface
      */
     protected $companyBusinessUnitFacade;
 
     /**
      * @param \FondOfOryx\Zed\ErpInvoice\Dependency\Facade\ErpInvoiceToCompanyBusinessUnitFacadeInterface $companyBusinessUnitFacade
-     * @param \FondOfOryx\Zed\ErpInvoice\Dependency\Facade\ErpInvoiceToCountryFacadeInterface $countryFacade
      */
     public function __construct(
-        ErpInvoiceToCompanyBusinessUnitFacadeInterface $companyBusinessUnitFacade,
-        ErpInvoiceToCountryFacadeInterface $countryFacade
+        ErpInvoiceToCompanyBusinessUnitFacadeInterface $companyBusinessUnitFacade
     ) {
         $this->companyBusinessUnitFacade = $companyBusinessUnitFacade;
-        $this->countryFacade = $countryFacade;
     }
 
     /**
@@ -140,7 +133,7 @@ class EntityToTransferMapper implements EntityToTransferMapperInterface
         $erpInvoiceAddressTransfer->fromArray($erpInvoiceAddress->toArray(), true);
 
         return $erpInvoiceAddressTransfer
-            ->setCountry($this->countryFacade->getCountryByIdCountry($erpInvoiceAddress->getFkCountry()))
+            ->setCountry($this->fromCountryToTransfer($erpInvoiceAddress->getSpyCountry()))
             ->setCreatedAt($this->convertDateTimeToTimestamp($erpInvoiceAddress->getCreatedAt()))
             ->setUpdatedAt($this->convertDateTimeToTimestamp($erpInvoiceAddress->getUpdatedAt()));
     }
@@ -164,6 +157,23 @@ class EntityToTransferMapper implements EntityToTransferMapperInterface
         return $erpInvoiceAmountTransfer
             ->setValue($erpInvoiceTotal->getValue())
             ->setTax($erpInvoiceTotal->getTax());
+    }
+
+    /**
+     * @param \Orm\Zed\Country\Persistence\SpyCountry $countryEntity
+     * @param \Generated\Shared\Transfer\CountryTransfer|null $countryTransfer
+     *
+     * @return \Generated\Shared\Transfer\CountryTransfer
+     */
+    protected function fromCountryToTransfer(
+        SpyCountry $countryEntity,
+        ?CountryTransfer $countryTransfer = null
+    ): CountryTransfer {
+        if ($countryTransfer === null) {
+            $countryTransfer = new CountryTransfer();
+        }
+
+        return $countryTransfer->fromArray($countryEntity->toArray(), true);
     }
 
     /**

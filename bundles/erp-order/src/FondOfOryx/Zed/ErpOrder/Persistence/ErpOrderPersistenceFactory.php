@@ -3,7 +3,6 @@
 namespace FondOfOryx\Zed\ErpOrder\Persistence;
 
 use FondOfOryx\Zed\ErpOrder\Dependency\Facade\ErpOrderToCompanyBusinessUnitFacadeInterface;
-use FondOfOryx\Zed\ErpOrder\Dependency\Facade\ErpOrderToCountryFacadeInterface;
 use FondOfOryx\Zed\ErpOrder\ErpOrderDependencyProvider;
 use FondOfOryx\Zed\ErpOrder\Persistence\Propel\Mapper\EntityToTransferMapper;
 use FondOfOryx\Zed\ErpOrder\Persistence\Propel\Mapper\EntityToTransferMapperInterface;
@@ -11,6 +10,8 @@ use Orm\Zed\ErpOrder\Persistence\ErpOrderAddressQuery;
 use Orm\Zed\ErpOrder\Persistence\ErpOrderItemQuery;
 use Orm\Zed\ErpOrder\Persistence\ErpOrderQuery;
 use Orm\Zed\ErpOrder\Persistence\ErpOrderTotalsQuery;
+use Orm\Zed\ErpOrder\Persistence\FooErpOrderAmountQuery;
+use Orm\Zed\ErpOrder\Persistence\FooErpOrderExpenseQuery;
 use Spryker\Zed\Kernel\Persistence\AbstractPersistenceFactory;
 
 /**
@@ -28,7 +29,6 @@ class ErpOrderPersistenceFactory extends AbstractPersistenceFactory
     {
         return new EntityToTransferMapper(
             $this->getCompanyBusinessUnitFacade(),
-            $this->getCountryFacade(),
         );
     }
 
@@ -41,19 +41,11 @@ class ErpOrderPersistenceFactory extends AbstractPersistenceFactory
     }
 
     /**
-     * @return \FondOfOryx\Zed\ErpOrder\Dependency\Facade\ErpOrderToCountryFacadeInterface
-     */
-    public function getCountryFacade(): ErpOrderToCountryFacadeInterface
-    {
-        return $this->getProvidedDependency(ErpOrderDependencyProvider::FACADE_COUNTRY);
-    }
-
-    /**
      * @return \Orm\Zed\ErpOrder\Persistence\ErpOrderQuery
      */
     public function createErpOrderQuery(): ErpOrderQuery
     {
-        return ErpOrderQuery::create();
+        return ErpOrderQuery::create()->clear();
     }
 
     /**
@@ -61,7 +53,7 @@ class ErpOrderPersistenceFactory extends AbstractPersistenceFactory
      */
     public function createErpOrderItemQuery(): ErpOrderItemQuery
     {
-        return ErpOrderItemQuery::create();
+        return ErpOrderItemQuery::create()->clear();
     }
 
     /**
@@ -69,7 +61,7 @@ class ErpOrderPersistenceFactory extends AbstractPersistenceFactory
      */
     public function createErpOrderAddressQuery(): ErpOrderAddressQuery
     {
-        return ErpOrderAddressQuery::create();
+        return ErpOrderAddressQuery::create()->clear();
     }
 
     /**
@@ -77,6 +69,22 @@ class ErpOrderPersistenceFactory extends AbstractPersistenceFactory
      */
     public function createErpOrderTotalsQuery(): ErpOrderTotalsQuery
     {
-        return ErpOrderTotalsQuery::create();
+        return ErpOrderTotalsQuery::create()->clear();
+    }
+
+    /**
+     * @return \Orm\Zed\ErpOrder\Persistence\FooErpOrderExpenseQuery
+     */
+    public function createErpOrderExpenseQuery(): FooErpOrderExpenseQuery
+    {
+        return FooErpOrderExpenseQuery::create()->clear();
+    }
+
+    /**
+     * @return \Orm\Zed\ErpOrder\Persistence\FooErpOrderAmountQuery
+     */
+    public function createErpOrderAmountQuery(): FooErpOrderAmountQuery
+    {
+        return FooErpOrderAmountQuery::create()->clear();
     }
 }

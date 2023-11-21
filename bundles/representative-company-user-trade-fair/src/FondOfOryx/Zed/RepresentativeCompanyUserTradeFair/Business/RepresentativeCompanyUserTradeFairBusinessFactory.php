@@ -5,7 +5,6 @@ namespace FondOfOryx\Zed\RepresentativeCompanyUserTradeFair\Business;
 use FondOfOryx\Zed\RepresentativeCompanyUserTradeFair\Business\Manager\TradeFairRepresentationManager;
 use FondOfOryx\Zed\RepresentativeCompanyUserTradeFair\Business\Manager\TradeFairRepresentationManagerInterface;
 use FondOfOryx\Zed\RepresentativeCompanyUserTradeFair\Dependency\Facade\RepresentativeCompanyUserTradeFairToRepresentativeCompanyUserInterface;
-use FondOfOryx\Zed\RepresentativeCompanyUserTradeFair\Dependency\Service\RepresentativeCompanyUserTradeFairToUtilUuidGeneratorServiceInterface;
 use FondOfOryx\Zed\RepresentativeCompanyUserTradeFair\RepresentativeCompanyUserTradeFairDependencyProvider;
 use Spryker\Shared\Log\LoggerTrait;
 use Spryker\Zed\Kernel\Business\AbstractBusinessFactory;
@@ -29,18 +28,9 @@ class RepresentativeCompanyUserTradeFairBusinessFactory extends AbstractBusiness
             $this->getEntityManager(),
             $this->getRepository(),
             $this->getRepresentativeCompanyUserFacade(),
-            $this->getUtilUuidGeneratorService(),
             $this->getTransactionHandler(),
             $this->getLogger(),
         );
-    }
-
-    /**
-     * @return \FondOfOryx\Zed\RepresentativeCompanyUserTradeFair\Dependency\Service\RepresentativeCompanyUserTradeFairToUtilUuidGeneratorServiceInterface
-     */
-    protected function getUtilUuidGeneratorService(): RepresentativeCompanyUserTradeFairToUtilUuidGeneratorServiceInterface
-    {
-        return $this->getProvidedDependency(RepresentativeCompanyUserTradeFairDependencyProvider::SERVICE_UTIL_UUID_GENERATOR);
     }
 
     /**

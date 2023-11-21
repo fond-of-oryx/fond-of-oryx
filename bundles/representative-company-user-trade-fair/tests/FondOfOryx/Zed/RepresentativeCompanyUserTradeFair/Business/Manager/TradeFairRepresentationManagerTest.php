@@ -4,7 +4,6 @@ namespace FondOfOryx\Zed\RepresentativeCompanyUserTradeFair\Business\Manager;
 
 use Codeception\Test\Unit;
 use FondOfOryx\Zed\RepresentativeCompanyUserTradeFair\Dependency\Facade\RepresentativeCompanyUserTradeFairToRepresentativeCompanyUserInterface;
-use FondOfOryx\Zed\RepresentativeCompanyUserTradeFair\Dependency\Service\RepresentativeCompanyUserTradeFairToUtilUuidGeneratorServiceInterface;
 use FondOfOryx\Zed\RepresentativeCompanyUserTradeFair\Persistence\RepresentativeCompanyUserTradeFairEntityManagerInterface;
 use FondOfOryx\Zed\RepresentativeCompanyUserTradeFair\Persistence\RepresentativeCompanyUserTradeFairRepositoryInterface;
 use Generated\Shared\Transfer\CompanyUserResponseTransfer;
@@ -20,11 +19,6 @@ use Spryker\Zed\Kernel\Persistence\EntityManager\TransactionHandlerInterface;
 
 class TradeFairRepresentationManagerTest extends Unit
 {
-    /**
-     * @var \FondOfOryx\Zed\RepresentativeCompanyUserTradeFair\Dependency\Service\RepresentativeCompanyUserTradeFairToUtilUuidGeneratorServiceInterface|\PHPUnit\Framework\MockObject\MockObject
-     */
-    protected $uuidGeneratorMock;
-
     /**
      * @var \FondOfOryx\Zed\RepresentativeCompanyUserTradeFair\Persistence\RepresentativeCompanyUserTradeFairEntityManagerInterface|\PHPUnit\Framework\MockObject\MockObject
      */
@@ -105,10 +99,6 @@ class TradeFairRepresentationManagerTest extends Unit
             ->disableOriginalConstructor()
             ->getMock();
 
-        $this->uuidGeneratorMock = $this->getMockBuilder(RepresentativeCompanyUserTradeFairToUtilUuidGeneratorServiceInterface::class)
-            ->disableOriginalConstructor()
-            ->getMock();
-
         $this->representativeCompanyUserFacadeMock = $this->getMockBuilder(RepresentativeCompanyUserTradeFairToRepresentativeCompanyUserInterface::class)
             ->disableOriginalConstructor()
             ->getMock();
@@ -153,7 +143,6 @@ class TradeFairRepresentationManagerTest extends Unit
             $this->entityManagerMock,
             $this->repositoryMock,
             $this->representativeCompanyUserFacadeMock,
-            $this->uuidGeneratorMock,
             $this->transactionHandlerMock,
             $this->loggerMock,
         );
@@ -177,14 +166,6 @@ class TradeFairRepresentationManagerTest extends Unit
      */
     public function testCreate(): void
     {
-        $this->uuidGeneratorMock->expects(static::atLeastOnce())
-            ->method('generateUuid5FromObjectId')
-            ->willReturn('uuid');
-
-        $this->representativeCompanyUserTradeFairTransferMock->expects(static::atLeastOnce())
-            ->method('getName')
-            ->willReturn('');
-
         $this->representativeCompanyUserTradeFairTransferMock->expects(static::atLeastOnce())
             ->method('getFkDistributor')
             ->willReturn(1);
@@ -200,10 +181,6 @@ class TradeFairRepresentationManagerTest extends Unit
         $this->representativeCompanyUserTradeFairTransferMock->expects(static::atLeastOnce())
             ->method('getEndAt')
             ->willReturn('');
-
-        $this->representativeCompanyUserTradeFairTransferMock->expects(static::atLeastOnce())
-            ->method('setUuid')
-            ->with('uuid');
 
         $this->representativeCompanyUserTradeFairTransferMock->expects(static::atLeastOnce())
             ->method('setActive')

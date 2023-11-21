@@ -5,7 +5,6 @@ namespace FondOfOryx\Zed\RepresentativeCompanyUser\Business\Manager;
 use FondOfOryx\Shared\RepresentativeCompanyUser\RepresentativeCompanyUserConstants;
 use FondOfOryx\Zed\RepresentativeCompanyUser\Business\Reader\RepresentativeCompanyUserReaderInterface;
 use FondOfOryx\Zed\RepresentativeCompanyUser\Dependency\Facade\RepresentativeCompanyUserToEventFacadeInterface;
-use FondOfOryx\Zed\RepresentativeCompanyUser\Dependency\Service\RepresentativeCompanyUserToUtilUuidGeneratorServiceInterface;
 use FondOfOryx\Zed\RepresentativeCompanyUser\Persistence\RepresentativeCompanyUserEntityManagerInterface;
 use Generated\Shared\Transfer\RepresentativeCompanyUserCollectionTransfer;
 use Generated\Shared\Transfer\RepresentativeCompanyUserFilterTransfer;
@@ -30,26 +29,18 @@ class RepresentationManager implements RepresentationManagerInterface
     protected $eventFacade;
 
     /**
-     * @var \FondOfOryx\Zed\RepresentativeCompanyUser\Dependency\Service\RepresentativeCompanyUserToUtilUuidGeneratorServiceInterface
-     */
-    protected $uuidGenerator;
-
-    /**
      * @param \FondOfOryx\Zed\RepresentativeCompanyUser\Persistence\RepresentativeCompanyUserEntityManagerInterface $entityManager
      * @param \FondOfOryx\Zed\RepresentativeCompanyUser\Business\Reader\RepresentativeCompanyUserReaderInterface $reader
      * @param \FondOfOryx\Zed\RepresentativeCompanyUser\Dependency\Facade\RepresentativeCompanyUserToEventFacadeInterface $eventFacade
-     * @param \FondOfOryx\Zed\RepresentativeCompanyUser\Dependency\Service\RepresentativeCompanyUserToUtilUuidGeneratorServiceInterface $uuidGenerator
      */
     public function __construct(
         RepresentativeCompanyUserEntityManagerInterface $entityManager,
         RepresentativeCompanyUserReaderInterface $reader,
-        RepresentativeCompanyUserToEventFacadeInterface $eventFacade,
-        RepresentativeCompanyUserToUtilUuidGeneratorServiceInterface $uuidGenerator
+        RepresentativeCompanyUserToEventFacadeInterface $eventFacade
     ) {
         $this->entityManager = $entityManager;
         $this->reader = $reader;
         $this->eventFacade = $eventFacade;
-        $this->uuidGenerator = $uuidGenerator;
     }
 
     /**
@@ -119,9 +110,6 @@ class RepresentationManager implements RepresentationManagerInterface
      */
     public function addRepresentation(RepresentativeCompanyUserTransfer $representativeCompanyUserTransfer): RepresentativeCompanyUserTransfer
     {
-        $uuid = $this->uuidGenerator->generateUuid5FromObjectId($this->generateObjectId($representativeCompanyUserTransfer));
-        $representativeCompanyUserTransfer->setUuid($uuid);
-
         return $this->entityManager->createRepresentativeCompanyUser($representativeCompanyUserTransfer);
     }
 
@@ -183,15 +171,5 @@ class RepresentationManager implements RepresentationManagerInterface
         }
 
         return $collection;
-    }
-
-    /**
-     * @param \Generated\Shared\Transfer\RepresentativeCompanyUserTransfer $representativeCompanyUserTransfer
-     *
-     * @return string
-     */
-    protected function generateObjectId(RepresentativeCompanyUserTransfer $representativeCompanyUserTransfer): string
-    {
-        return sprintf('%s-%s-%s-%s-%s', $representativeCompanyUserTransfer->getFkDistributor(), $representativeCompanyUserTransfer->getFkRepresentative(), $representativeCompanyUserTransfer->getFkOriginator(), $representativeCompanyUserTransfer->getStartAt(), $representativeCompanyUserTransfer->getEndAt());
     }
 }

@@ -6,8 +6,8 @@ use Codeception\Test\Unit;
 use FondOfOryx\Client\RepresentativeCompanyUserTradeFairRestApi\RepresentativeCompanyUserTradeFairRestApiClientInterface;
 use FondOfOryx\Glue\RepresentativeCompanyUserTradeFairRestApi\Processor\Builder\RestResponseBuilderInterface;
 use FondOfOryx\Glue\RepresentativeCompanyUserTradeFairRestApi\Processor\Mapper\RepresentationMapperInterface;
-use FondOfOryx\Shared\RepresentativeCompanyUserTradeFairRestApi\RepresentativeCompanyUserTradeFairRestApiConstants;
 use Generated\Shared\Transfer\RepresentativeCompanyUserTradeFairCollectionTransfer;
+use Generated\Shared\Transfer\RestErrorMessageTransfer;
 use Generated\Shared\Transfer\RestRepresentativeCompanyUserTradeFairAttributesTransfer;
 use Generated\Shared\Transfer\RestRepresentativeCompanyUserTradeFairRequestTransfer;
 use Generated\Shared\Transfer\RestRepresentativeCompanyUserTradeFairResponseTransfer;
@@ -62,6 +62,11 @@ class TradeFairRepresentationManagerTest extends Unit
      * @var \PHPUnit\Framework\MockObject\MockObject|\Generated\Shared\Transfer\RestRepresentativeCompanyUserTradeFairTransfer
      */
     protected MockObject|RestRepresentativeCompanyUserTradeFairTransfer $representativeCompanyUserTradeFairTransferMock;
+
+    /**
+     * @var \PHPUnit\Framework\MockObject\MockObject|\Generated\Shared\Transfer\RestErrorMessageTransfer
+     */
+    protected MockObject|RestErrorMessageTransfer $restErrorMessageTransferMock;
 
     /**
      * @var \PHPUnit\Framework\MockObject\MockObject|\Spryker\Glue\GlueApplication\Rest\JsonApi\RestResponseInterface
@@ -127,6 +132,11 @@ class TradeFairRepresentationManagerTest extends Unit
 
         $this->representativeCompanyUserTradeFairCollectionTransferMock = $this
             ->getMockBuilder(RepresentativeCompanyUserTradeFairCollectionTransfer::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $this->restErrorMessageTransferMock = $this
+            ->getMockBuilder(RestErrorMessageTransfer::class)
             ->disableOriginalConstructor()
             ->getMock();
 
@@ -207,11 +217,11 @@ class TradeFairRepresentationManagerTest extends Unit
 
         $this->restRepresentativeCompanyUserTradeFairResponseTransferMock->expects(static::atLeastOnce())
             ->method('getError')
-            ->willReturn('error');
+            ->willReturn($this->restErrorMessageTransferMock);
 
         $this->responseBuilderMock->expects(static::atLeastOnce())
             ->method('createRestErrorResponse')
-            ->with('error', RepresentativeCompanyUserTradeFairRestApiConstants::HTTP_CODE_VALIDATION_ERRORS)
+            ->with($this->restErrorMessageTransferMock)
             ->willReturn($this->restResponseMock);
 
         $response = $this->tradeFairRepresentationManager
@@ -283,11 +293,11 @@ class TradeFairRepresentationManagerTest extends Unit
 
         $this->restRepresentativeCompanyUserTradeFairResponseTransferMock->expects(static::atLeastOnce())
             ->method('getError')
-            ->willReturn('error');
+            ->willReturn($this->restErrorMessageTransferMock);
 
         $this->responseBuilderMock->expects(static::atLeastOnce())
             ->method('createRestErrorResponse')
-            ->with('error', RepresentativeCompanyUserTradeFairRestApiConstants::HTTP_CODE_VALIDATION_ERRORS)
+            ->with($this->restErrorMessageTransferMock)
             ->willReturn($this->restResponseMock);
 
         $response = $this->tradeFairRepresentationManager->get($this->restRequestMock);
@@ -362,11 +372,11 @@ class TradeFairRepresentationManagerTest extends Unit
 
         $this->restRepresentativeCompanyUserTradeFairResponseTransferMock->expects(static::atLeastOnce())
             ->method('getError')
-            ->willReturn('error');
+            ->willReturn($this->restErrorMessageTransferMock);
 
         $this->responseBuilderMock->expects(static::atLeastOnce())
             ->method('createRestErrorResponse')
-            ->with('error', RepresentativeCompanyUserTradeFairRestApiConstants::HTTP_CODE_VALIDATION_ERRORS)
+            ->with($this->restErrorMessageTransferMock)
             ->willReturn($this->restResponseMock);
 
         $response = $this->tradeFairRepresentationManager->patch($this->restRequestMock);
@@ -441,11 +451,11 @@ class TradeFairRepresentationManagerTest extends Unit
 
         $this->restRepresentativeCompanyUserTradeFairResponseTransferMock->expects(static::atLeastOnce())
             ->method('getError')
-            ->willReturn('error');
+            ->willReturn($this->restErrorMessageTransferMock);
 
         $this->responseBuilderMock->expects(static::atLeastOnce())
             ->method('createRestErrorResponse')
-            ->with('error', RepresentativeCompanyUserTradeFairRestApiConstants::HTTP_CODE_VALIDATION_ERRORS)
+            ->with($this->restErrorMessageTransferMock)
             ->willReturn($this->restResponseMock);
 
         $response = $this->tradeFairRepresentationManager->delete($this->restRequestMock);

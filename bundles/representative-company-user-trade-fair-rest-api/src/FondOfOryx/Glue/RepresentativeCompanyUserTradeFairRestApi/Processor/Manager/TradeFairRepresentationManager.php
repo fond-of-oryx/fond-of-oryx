@@ -5,7 +5,6 @@ namespace FondOfOryx\Glue\RepresentativeCompanyUserTradeFairRestApi\Processor\Ma
 use FondOfOryx\Client\RepresentativeCompanyUserTradeFairRestApi\RepresentativeCompanyUserTradeFairRestApiClientInterface;
 use FondOfOryx\Glue\RepresentativeCompanyUserTradeFairRestApi\Processor\Builder\RestResponseBuilderInterface;
 use FondOfOryx\Glue\RepresentativeCompanyUserTradeFairRestApi\Processor\Mapper\RepresentationMapperInterface;
-use FondOfOryx\Shared\RepresentativeCompanyUserTradeFairRestApi\RepresentativeCompanyUserTradeFairRestApiConstants;
 use Spryker\Glue\GlueApplication\Rest\JsonApi\RestResponseInterface;
 use Spryker\Glue\GlueApplication\Rest\Request\Data\RestRequestInterface;
 
@@ -54,7 +53,7 @@ class TradeFairRepresentationManager implements TradeFairRepresentationManagerIn
 
         if ($representationRestResponseTransfer->getError() !== null) {
             return $this->responseBuilder
-                ->createRestErrorResponse($representationRestResponseTransfer->getError(), RepresentativeCompanyUserTradeFairRestApiConstants::HTTP_CODE_VALIDATION_ERRORS);
+                ->createRestErrorResponse($representationRestResponseTransfer->getError());
         }
 
         return $this->responseBuilder
@@ -75,7 +74,7 @@ class TradeFairRepresentationManager implements TradeFairRepresentationManagerIn
 
         if ($representationRestResponseTransfer->getError() !== null) {
             return $this->responseBuilder
-                ->createRestErrorResponse($representationRestResponseTransfer->getError(), RepresentativeCompanyUserTradeFairRestApiConstants::HTTP_CODE_VALIDATION_ERRORS);
+                ->createRestErrorResponse($representationRestResponseTransfer->getError());
         }
 
         return $this->responseBuilder->buildRepresentativeCompanyUserTradeFairCollectionRestResponse($representationRestResponseTransfer);
@@ -95,7 +94,7 @@ class TradeFairRepresentationManager implements TradeFairRepresentationManagerIn
 
         if ($representationRestResponseTransfer->getError() !== null) {
             return $this->responseBuilder
-                ->createRestErrorResponse($representationRestResponseTransfer->getError(), RepresentativeCompanyUserTradeFairRestApiConstants::HTTP_CODE_VALIDATION_ERRORS);
+                ->createRestErrorResponse($representationRestResponseTransfer->getError());
         }
 
         return $this->responseBuilder->buildRepresentativeCompanyUserTradeFairRestResponse($representationRestResponseTransfer->getRepresentation());
@@ -115,7 +114,7 @@ class TradeFairRepresentationManager implements TradeFairRepresentationManagerIn
 
         if ($representationRestResponseTransfer->getError() !== null) {
             return $this->responseBuilder
-                ->createRestErrorResponse($representationRestResponseTransfer->getError(), RepresentativeCompanyUserTradeFairRestApiConstants::HTTP_CODE_VALIDATION_ERRORS);
+                ->createRestErrorResponse($representationRestResponseTransfer->getError());
         }
 
         return $this->responseBuilder->buildRepresentativeCompanyUserTradeFairRestResponse($representationRestResponseTransfer->getRepresentation());

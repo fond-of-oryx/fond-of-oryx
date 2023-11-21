@@ -5,6 +5,7 @@ namespace FondOfOryx\Glue\RepresentativeCompanyUserTradeFairRestApi\Processor\Bu
 use Codeception\Test\Unit;
 use FondOfOryx\Glue\RepresentativeCompanyUserTradeFairRestApi\RepresentativeCompanyUserTradeFairRestApiConfig;
 use Generated\Shared\Transfer\RepresentativeCompanyUserTradeFairTransfer;
+use Generated\Shared\Transfer\RestRepresentativeCompanyUserTradeFairCollectionTransfer;
 use Generated\Shared\Transfer\RestRepresentativeCompanyUserTradeFairResponseTransfer;
 use Generated\Shared\Transfer\RestRepresentativeCompanyUserTradeFairTransfer;
 use PHPUnit\Framework\MockObject\MockObject;
@@ -38,6 +39,11 @@ class RestResponseBuilderTest extends Unit
      * @var \PHPUnit\Framework\MockObject\MockObject|\Spryker\Glue\GlueApplication\Rest\JsonApi\RestResourceBuilderInterface
      */
     protected MockObject|RestResourceBuilderInterface $restResourceBuilderMock;
+
+    /**
+     * @var \PHPUnit\Framework\MockObject\MockObject|\Generated\Shared\Transfer\RestRepresentativeCompanyUserTradeFairCollectionTransfer
+     */
+    protected MockObject|RestRepresentativeCompanyUserTradeFairCollectionTransfer $restRepresentativeCompanyUserTradeFairCollectionTransferMock;
 
     /**
      * @var \PHPUnit\Framework\MockObject\MockObject|\Generated\Shared\Transfer\RestRepresentativeCompanyUserTradeFairTransfer
@@ -86,6 +92,11 @@ class RestResponseBuilderTest extends Unit
             ->disableOriginalConstructor()
             ->getMock();
 
+        $this->restRepresentativeCompanyUserTradeFairCollectionTransferMock = $this
+            ->getMockBuilder(RestRepresentativeCompanyUserTradeFairCollectionTransfer::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
         $this->restResponseBuilder = new RestResponseBuilder($this->restResourceBuilderMock);
     }
 
@@ -130,6 +141,10 @@ class RestResponseBuilderTest extends Unit
             ->method('createRestResponse')
             ->willReturn($this->restResponseMock);
 
+        $this->representativeCompanyUserTradeFairCollectionTransferMock->expects(static::atLeastOnce())
+            ->method('getCollection')
+            ->willReturn($this->representativeCompanyUserTradeFairCollectionTransferMock);
+
         $this->restResourceBuilderMock->expects(static::atLeastOnce())
             ->method('createRestResource')
             ->with(
@@ -167,7 +182,7 @@ class RestResponseBuilderTest extends Unit
             ->willReturnSelf();
 
         $response = $this->restResponseBuilder
-            ->createRestErrorResponse('', 1);
+            ->createRestErrorResponse(null, '', '1');
 
         static::assertEquals($this->restResponseMock, $response);
         static::assertEquals(0, $response->getStatus());

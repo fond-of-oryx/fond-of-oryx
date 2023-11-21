@@ -9,7 +9,6 @@ use FondOfOryx\Zed\RepresentativeCompanyUser\Business\Reader\RepresentativeCompa
 use FondOfOryx\Zed\RepresentativeCompanyUser\Business\Task\TaskRunnerInterface;
 use FondOfOryx\Zed\RepresentativeCompanyUser\Dependency\Facade\RepresentativeCompanyUserToCompanyUserFacadeInterface;
 use FondOfOryx\Zed\RepresentativeCompanyUser\Dependency\Facade\RepresentativeCompanyUserToEventFacadeInterface;
-use FondOfOryx\Zed\RepresentativeCompanyUser\Dependency\Service\RepresentativeCompanyUserToUtilUuidGeneratorServiceInterface;
 use FondOfOryx\Zed\RepresentativeCompanyUser\Persistence\RepresentativeCompanyUserEntityManager;
 use FondOfOryx\Zed\RepresentativeCompanyUser\Persistence\RepresentativeCompanyUserRepository;
 use FondOfOryx\Zed\RepresentativeCompanyUser\RepresentativeCompanyUserDependencyProvider;
@@ -32,11 +31,6 @@ class RepresentativeCompanyUserBusinessFactoryTest extends Unit
      * @var \FondOfOryx\Zed\RepresentativeCompanyUser\Persistence\RepresentativeCompanyUserEntityManager|\PHPUnit\Framework\MockObject\MockObject
      */
     protected $entityManagerMock;
-
-    /**
-     * @var \FondOfOryx\Zed\RepresentativeCompanyUser\Dependency\Service\RepresentativeCompanyUserToUtilUuidGeneratorServiceInterface|\PHPUnit\Framework\MockObject\MockObject
-     */
-    protected $uuidGeneratorServiceMock;
 
     /**
      * @var \FondOfOryx\Zed\RepresentativeCompanyUser\Dependency\Facade\RepresentativeCompanyUserToCompanyUserFacadeInterface|\PHPUnit\Framework\MockObject\MockObject
@@ -74,10 +68,6 @@ class RepresentativeCompanyUserBusinessFactoryTest extends Unit
             ->getMock();
 
         $this->entityManagerMock = $this->getMockBuilder(RepresentativeCompanyUserEntityManager::class)
-            ->disableOriginalConstructor()
-            ->getMock();
-
-        $this->uuidGeneratorServiceMock = $this->getMockBuilder(RepresentativeCompanyUserToUtilUuidGeneratorServiceInterface::class)
             ->disableOriginalConstructor()
             ->getMock();
 
@@ -165,10 +155,9 @@ class RepresentativeCompanyUserBusinessFactoryTest extends Unit
 
         $this->containerMock->expects(static::atLeastOnce())
             ->method('get')
-            ->withConsecutive([RepresentativeCompanyUserDependencyProvider::FACADE_EVENT], [RepresentativeCompanyUserDependencyProvider::SERVICE_UTIL_UUID_GENERATOR])
+            ->withConsecutive([RepresentativeCompanyUserDependencyProvider::FACADE_EVENT])
             ->willReturnOnConsecutiveCalls(
                 $this->eventFacadeMock,
-                $this->uuidGeneratorServiceMock,
             );
 
         static::assertInstanceOf(

@@ -6,7 +6,7 @@
     <table name="foo_representative_company_user" phpName="FooRepresentativeCompanyUser" identifierQuoting="true">
         <column name="id_representative_company_user" required="true" type="INTEGER" autoIncrement="true"
                 primaryKey="true"/>
-        <column name="uuid" required="true" type="VARCHAR" size="255"/>
+        <column name="uuid" type="VARCHAR" size="255"/>
         <column name="fk_distributor" required="true" type="INTEGER"/>
         <column name="fk_representative" required="true" type="INTEGER"/>
         <column name="start_at" required="true" type="TIMESTAMP"/>
@@ -19,6 +19,13 @@
 
         <unique name="foo_representative_company_user-unique-uuid">
             <unique-column name="uuid"/>
+        </unique>
+
+        <unique name="foo_representative_company_user-unique-fk_distributor-fk_representative-start_at-end_at">
+            <unique-column name="fk_distributor"/>
+            <unique-column name="fk_representative"/>
+            <unique-column name="start_at"/>
+            <unique-column name="end_at"/>
         </unique>
 
         <behavior name="uuid">
