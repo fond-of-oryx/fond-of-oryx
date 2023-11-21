@@ -2,19 +2,19 @@
 
 namespace FondOfOryx\Zed\ShipmentTableRateExtension\Dependency\Plugin;
 
-use Generated\Shared\Transfer\TotalsTransfer;
+use Generated\Shared\Transfer\QuoteTransfer;
 
 interface PriceToPayFilterPluginInterface
 {
     /**
      * Specifications:
-     * - Filters price to pay from totals transfer
+     * - Filters price to pay from quote transfer
      *
      * @api
      *
-     * @param \Generated\Shared\Transfer\TotalsTransfer $totalsTransfer
+     * @param \Generated\Shared\Transfer\QuoteTransfer $quoteTransfer
      *
      * @return int|null
      */
-    public function filter(TotalsTransfer $totalsTransfer): ?int;
+    public function filter(QuoteTransfer $quoteTransfer): ?int;
 }

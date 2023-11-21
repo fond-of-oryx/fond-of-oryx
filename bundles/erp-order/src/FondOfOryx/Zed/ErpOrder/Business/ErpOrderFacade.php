@@ -2,6 +2,8 @@
 
 namespace FondOfOryx\Zed\ErpOrder\Business;
 
+use Generated\Shared\Transfer\ErpOrderExpenseTransfer;
+use Generated\Shared\Transfer\ErpOrderItemTransfer;
 use Generated\Shared\Transfer\ErpOrderResponseTransfer;
 use Generated\Shared\Transfer\ErpOrderTransfer;
 use Spryker\Zed\Kernel\Business\AbstractFacade;
@@ -91,5 +93,42 @@ class ErpOrderFacade extends AbstractFacade implements ErpOrderFacadeInterface
     public function persistErpOrderTotals(ErpOrderTransfer $erpOrderTransfer): ErpOrderTransfer
     {
         return $this->getFactory()->createErpOrderTotalsHandler()->handle($erpOrderTransfer);
+    }
+
+    /**
+     * @param \Generated\Shared\Transfer\ErpOrderTransfer $erpOrderTransfer
+     * @param \Generated\Shared\Transfer\ErpOrderTransfer|null $existingErpOrderTransfer
+     *
+     * @return \Generated\Shared\Transfer\ErpOrderTransfer
+     */
+    public function persistErpOrderExpense(ErpOrderTransfer $erpOrderTransfer, ?ErpOrderTransfer $existingErpOrderTransfer = null): ErpOrderTransfer
+    {
+        return $this->getFactory()->createErpOrderExpenseHandler()->handle($erpOrderTransfer, $existingErpOrderTransfer);
+    }
+
+    /**
+     * @param \Generated\Shared\Transfer\ErpOrderItemTransfer $erpOrderItemTransfer
+     * @param \Generated\Shared\Transfer\ErpOrderTransfer|null $existingErpOrderTransfer
+     *
+     * @return \Generated\Shared\Transfer\ErpOrderItemTransfer
+     */
+    public function persistErpOrderItemAmounts(
+        ErpOrderItemTransfer $erpOrderItemTransfer,
+        ?ErpOrderTransfer $existingErpOrderTransfer = null
+    ): ErpOrderItemTransfer {
+        return $this->getFactory()->createErpOrderItemAmountHandler()->handle($erpOrderItemTransfer, $existingErpOrderTransfer);
+    }
+
+    /**
+     * @param \Generated\Shared\Transfer\ErpOrderExpenseTransfer $erpOrderExpenseTransfer
+     * @param \Generated\Shared\Transfer\ErpOrderTransfer|null $existingErpOrderTransfer
+     *
+     * @return \Generated\Shared\Transfer\ErpOrderExpenseTransfer
+     */
+    public function persistErpOrderExpenseAmounts(
+        ErpOrderExpenseTransfer $erpOrderExpenseTransfer,
+        ?ErpOrderTransfer $existingErpOrderTransfer = null
+    ): ErpOrderExpenseTransfer {
+        return $this->getFactory()->createErpOrderExpenseAmountHandler()->handle($erpOrderExpenseTransfer, $existingErpOrderTransfer);
     }
 }

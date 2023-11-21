@@ -53,4 +53,44 @@ interface RepresentativeCompanyUserRestApiConstants
      * @var array
      */
     public const FULLTEXT_SEARCH_FIELDS_DEFAULT = ['name'];
+
+    /**
+     * @var string
+     */
+    public const ERROR_MESSAGE_ADD = 'Could not create representation!';
+
+    /**
+     * @var string
+     */
+    public const ERROR_CODE_ADD = '1000';
+
+    /**
+     * @var string
+     */
+    public const ERROR_MESSAGE_UPDATE = 'Could not update representation!';
+
+    /**
+     * @var string
+     */
+    public const ERROR_CODE_UPDATE = '2000';
+
+    /**
+     * @var string
+     */
+    public const ERROR_MESSAGE_DELETE = 'Could not delete representation!';
+
+    /**
+     * @var string
+     */
+    public const ERROR_CODE_DELETE = '3000';
+
+    /**
+     * @var string
+     */
+    public const ERROR_MESSAGE_GET = 'Could not fetch representation!';
+
+    /**
+     * @var string
+     */
+    public const ERROR_CODE_GET = '4000';
 }

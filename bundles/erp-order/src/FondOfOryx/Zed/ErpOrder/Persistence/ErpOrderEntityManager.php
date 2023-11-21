@@ -5,6 +5,8 @@ namespace FondOfOryx\Zed\ErpOrder\Persistence;
 use DateTime;
 use Exception;
 use Generated\Shared\Transfer\ErpOrderAddressTransfer;
+use Generated\Shared\Transfer\ErpOrderAmountTransfer;
+use Generated\Shared\Transfer\ErpOrderExpenseTransfer;
 use Generated\Shared\Transfer\ErpOrderItemTransfer;
 use Generated\Shared\Transfer\ErpOrderTotalsTransfer;
 use Generated\Shared\Transfer\ErpOrderTransfer;
@@ -12,6 +14,8 @@ use Orm\Zed\ErpOrder\Persistence\ErpOrder;
 use Orm\Zed\ErpOrder\Persistence\ErpOrderAddress;
 use Orm\Zed\ErpOrder\Persistence\ErpOrderItem;
 use Orm\Zed\ErpOrder\Persistence\ErpOrderTotals;
+use Orm\Zed\ErpOrder\Persistence\FooErpOrderAmount;
+use Orm\Zed\ErpOrder\Persistence\FooErpOrderExpense;
 use Spryker\Zed\Kernel\Persistence\AbstractEntityManager;
 
 /**
@@ -365,5 +369,132 @@ class ErpOrderEntityManager extends AbstractEntityManager implements ErpOrderEnt
         }
 
         $erpOrderTotals->delete();
+    }
+
+    /**
+     * @param \Generated\Shared\Transfer\ErpOrderAmountTransfer $orderAmountTransfer
+     *
+     * @return \Generated\Shared\Transfer\ErpOrderAmountTransfer
+     */
+    public function createErpOrderAmount(ErpOrderAmountTransfer $orderAmountTransfer): ErpOrderAmountTransfer
+    {
+        $orderAmountTransfer
+            ->requireValue()
+            ->requireTax();
+
+        $entity = new FooErpOrderAmount();
+        $entity->fromArray($orderAmountTransfer->toArray());
+        $entity->save();
+
+        return $this->getFactory()->createEntityToTransferMapper()->fromErpOrderAmountToTransfer($entity);
+    }
+
+    /**
+     * @param \Generated\Shared\Transfer\ErpOrderExpenseTransfer $itemTransfer
+     *
+     * @return \Generated\Shared\Transfer\ErpOrderExpenseTransfer
+     */
+    public function createErpOrderExpense(ErpOrderExpenseTransfer $itemTransfer): ErpOrderExpenseTransfer
+    {
+        $itemTransfer
+            ->requireFkErpOrder()
+            ->requireName();
+
+        $now = new DateTime();
+
+        $entity = new FooErpOrderExpense();
+        $entity->fromArray($itemTransfer->toArray());
+        $entity
+            ->setCreatedAt($now)
+            ->setUpdatedAt($now)
+            ->save();
+
+        return $this->getFactory()->createEntityToTransferMapper()->fromEprOrderExpenseToTransfer(
+            $entity,
+            $itemTransfer,
+        );
+    }
+
+    /**
+     * @param \Generated\Shared\Transfer\ErpOrderExpenseTransfer $orderExpenseTransfer
+     *
+     * @return \Generated\Shared\Transfer\ErpOrderExpenseTransfer
+     */
+    public function updateErpOrderExpense(ErpOrderExpenseTransfer $orderExpenseTransfer): ErpOrderExpenseTransfer
+    {
+        $orderExpenseTransfer
+            ->requireIdErpOrderExpense()
+            ->requireFkErpOrder()
+            ->requireName();
+
+        $entity = $this->findOrCreateErpOrderExpense($orderExpenseTransfer->getFkErpOrder(), $orderExpenseTransfer->getName());
+        $createdAt = $entity->getCreatedAt();
+        $updatedAt = new DateTime();
+        $entity->fromArray($orderExpenseTransfer->modifiedToArray());
+
+        $entity
+            ->setCreatedAt($createdAt)
+            ->setUpdatedAt($updatedAt)
+            ->save();
+
+        return $this->getFactory()->createEntityToTransferMapper()->fromEprOrderExpenseToTransfer($entity);
+    }
+
+    /**
+     * @param int $idErpOrderExpense
+     *
+     * @return void
+     */
+    public function deleteErpOrderExpenseByIdErpOrderExpense(int $idErpOrderExpense): void
+    {
+        $orderExpense = $this->getFactory()->createErpOrderExpenseQuery()->findOneByIdErpOrderExpense($idErpOrderExpense);
+        if ($orderExpense === null) {
+            return;
+        }
+        $orderExpense->delete();
+    }
+
+    /**
+     * @param \Generated\Shared\Transfer\ErpOrderAmountTransfer $erpOrderAmountTransfer
+     *
+     * @throws \Exception
+     *
+     * @return \Generated\Shared\Transfer\ErpOrderAmountTransfer
+     */
+    public function updateErpOrderAmount(ErpOrderAmountTransfer $erpOrderAmountTransfer): ErpOrderAmountTransfer
+    {
+        $erpOrderAmountTransfer->requireIdErpOrderAmount();
+
+        $query = $this->getFactory()->createErpOrderAmountQuery();
+
+        $entity = $query->findOneByIdErpOrderAmount($erpOrderAmountTransfer->getIdErpOrderAmount());
+
+        if ($entity === null) {
+            throw new Exception(sprintf(
+                'Erp order total with id %s not found',
+                $erpOrderAmountTransfer->getIdErpOrderAmount(),
+            ));
+        }
+        $id = $entity->getIdErpOrderAmount();
+        $entity->fromArray($erpOrderAmountTransfer->toArray());
+        $entity
+            ->setIdErpOrderAmount($id)
+            ->save();
+
+        return $this->getFactory()->createEntityToTransferMapper()->fromErpOrderAmountToTransfer($entity);
+    }
+
+    /**
+     * @param int $idErpOrder
+     * @param string $name
+     *
+     * @return \Orm\Zed\ErpOrder\Persistence\FooErpOrderExpense
+     */
+    protected function findOrCreateErpOrderExpense(int $idErpOrder, string $name): FooErpOrderExpense
+    {
+        return $this->getFactory()->createErpOrderExpenseQuery()
+            ->filterByFkErpOrder($idErpOrder)
+            ->filterByName($name)
+            ->findOneOrCreate();
     }
 }

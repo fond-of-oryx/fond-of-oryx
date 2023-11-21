@@ -11,6 +11,7 @@ use FondOfOryx\Zed\RepresentativeCompanyUserTradeFairRestApi\Business\Validator\
 use FondOfOryx\Zed\RepresentativeCompanyUserTradeFairRestApi\Dependency\Facade\RepresentativeCompanyUserTradeFairRestApiToCompanyTypeFacadeInterface;
 use FondOfOryx\Zed\RepresentativeCompanyUserTradeFairRestApi\Dependency\Facade\RepresentativeCompanyUserTradeFairRestApiToRepresentativeCompanyUserTradeFairFacadeInterface;
 use FondOfOryx\Zed\RepresentativeCompanyUserTradeFairRestApi\RepresentativeCompanyUserTradeFairRestApiDependencyProvider;
+use Spryker\Shared\Log\LoggerTrait;
 use Spryker\Zed\Kernel\Business\AbstractBusinessFactory;
 
 /**
@@ -19,6 +20,8 @@ use Spryker\Zed\Kernel\Business\AbstractBusinessFactory;
  */
 class RepresentativeCompanyUserTradeFairRestApiBusinessFactory extends AbstractBusinessFactory
 {
+    use LoggerTrait;
+
     /**
      * @return \FondOfOryx\Zed\RepresentativeCompanyUserTradeFairRestApi\Business\Model\TradeFairRepresentationManagerInterface
      */
@@ -30,6 +33,7 @@ class RepresentativeCompanyUserTradeFairRestApiBusinessFactory extends AbstractB
             $this->createDurationValidator(),
             $this->getRepository(),
             $this->createRestDataMapper(),
+            $this->getLogger(),
         );
     }
 

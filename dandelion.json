@@ -39,6 +39,10 @@
       "path": "bundles/brands-rest-api-extension/",
       "version": "2.0.0"
     },
+    "business-on-behalf-company-user-search-rest-api": {
+      "path": "bundles/business-on-behalf-company-user-search-rest-api/",
+      "version": "1.0.0"
+    },
     "business-on-behalf-product-list-connector": {
       "path": "bundles/business-on-behalf-product-list-connector/",
       "version": "1.0.0"
@@ -61,7 +65,11 @@
     },
     "cart-search-rest-api-extension": {
       "path": "bundles/cart-search-rest-api-extension/",
-      "version": "2.0.0"
+      "version": "2.0.1"
+    },
+    "carts-rest-api-attributes-connector": {
+      "path": "bundles/carts-rest-api-attributes-connector/",
+      "version": "1.0.0"
     },
     "checkout-rest-api-payone-connector": {
       "path": "bundles/checkout-rest-api-payone-connector/",
@@ -165,7 +173,7 @@
     },
     "company-price-lists-rest-api": {
       "path": "bundles/company-price-lists-rest-api/",
-      "version": "2.0.0"
+      "version": "3.0.0"
     },
     "company-product-list-api": {
       "path": "bundles/company-product-list-api/",
@@ -190,6 +198,10 @@
     "company-product-lists-rest-api": {
       "path": "bundles/company-product-lists-rest-api/",
       "version": "2.0.0"
+    },
+    "propel-pre-migration": {
+      "path": "bundles/propel-pre-migration/",
+      "version": "1.0.0"
     },
     "company-role-api": {
       "path": "bundles/company-role-api/",
@@ -243,6 +255,10 @@
       "path": "bundles/company-user-archive/",
       "version": "2.0.0"
     },
+    "company-user-cart-search-rest-api": {
+      "path": "bundles/company-user-cart-search-rest-api/",
+      "version": "1.0.0"
+    },
     "company-user-company-role-connector": {
       "path": "bundles/company-user-company-role-connector/",
       "version": "2.0.0"
@@ -253,7 +269,7 @@
     },
     "company-user-mail-connector": {
       "path": "bundles/company-user-mail-connector/",
-      "version": "2.0.0"
+      "version": "2.1.2"
     },
     "company-user-order-budget-search-rest-api": {
       "path": "bundles/company-user-order-budget-search-rest-api/",
@@ -265,7 +281,7 @@
     },
     "company-user-search-rest-api": {
       "path": "bundles/company-user-search-rest-api/",
-      "version": "2.1.0"
+      "version": "2.2.0"
     },
     "company-user-search-rest-api-extension": {
       "path": "bundles/company-user-search-rest-api-extension/",
@@ -273,7 +289,7 @@
     },
     "company-users-rest-api-extension": {
       "path": "bundles/company-users-rest-api-extension/",
-      "version": "2.0.0"
+      "version": "2.2.0"
     },
     "concrete-product-api": {
       "path": "bundles/concrete-product-api/",
@@ -281,7 +297,7 @@
     },
     "country-oms-mail-connector": {
       "path": "bundles/country-oms-mail-connector/",
-      "version": "2.0.0"
+      "version": "2.1.0"
     },
     "countries-rest-api": {
       "path": "bundles/countries-rest-api/",
@@ -389,7 +405,7 @@
     },
     "erp-delivery-note": {
       "path": "bundles/erp-delivery-note/",
-      "version": "2.2.0"
+      "version": "2.3.0"
     },
     "erp-delivery-note-api": {
       "path": "bundles/erp-delivery-note-api/",
@@ -413,7 +429,7 @@
     },
     "erp-invoice": {
       "path": "bundles/erp-invoice/",
-      "version": "3.1.1"
+      "version": "3.2.0"
     },
     "erp-invoice-api": {
       "path": "bundles/erp-invoice-api/",
@@ -437,27 +453,27 @@
     },
     "erp-order": {
       "path": "bundles/erp-order/",
-      "version": "3.1.0"
+      "version": "4.2.0"
     },
     "erp-order-api": {
       "path": "bundles/erp-order-api/",
-      "version": "3.0.0"
+      "version": "3.1.0"
     },
     "erp-order-extension": {
       "path": "bundles/erp-order-extension/",
-      "version": "2.0.0"
+      "version": "3.0.0"
     },
     "erp-order-page-search": {
       "path": "bundles/erp-order-page-search/",
-      "version": "3.2.0"
+      "version": "3.4.1"
     },
     "erp-order-page-search-rest-api": {
       "path": "bundles/erp-order-page-search-rest-api/",
-      "version": "2.1.1"
+      "version": "2.4.0"
     },
     "erp-order-permission": {
       "path": "bundles/erp-order-permission/",
-      "version": "2.0.0"
+      "version": "2.0.1"
     },
     "fallback-locale-mail-proxy": {
       "path": "bundles/fallback-locale-mail-proxy/",
@@ -809,7 +825,7 @@
     },
     "representative-company-user": {
       "path": "bundles/representative-company-user/",
-      "version": "1.1.0"
+      "version": "1.2.0"
     },
     "representative-company-user-extension": {
       "path": "bundles/representative-company-user-extension/",
@@ -817,7 +833,7 @@
     },
     "representative-company-user-rest-api": {
       "path": "bundles/representative-company-user-rest-api/",
-      "version": "1.2.0"
+      "version": "1.4.0"
     },
     "representative-company-user-rest-api-permission": {
       "path": "bundles/representative-company-user-rest-api-permission/",
@@ -825,7 +841,7 @@
     },
     "representative-company-user-trade-fair": {
       "path": "bundles/representative-company-user-trade-fair/",
-      "version": "1.1.0"
+      "version": "1.2.0"
     },
     "representative-company-user-trade-fair-extension": {
       "path": "bundles/representative-company-user-trade-fair-extension/",
@@ -833,7 +849,7 @@
     },
     "representative-company-user-trade-fair-rest-api": {
       "path": "bundles/representative-company-user-trade-fair-rest-api/",
-      "version": "1.1.0"
+      "version": "1.3.0"
     },
     "return-label": {
       "path": "bundles/return-label/",
@@ -873,15 +889,15 @@
     },
     "shipment-table-rate": {
       "path": "bundles/shipment-table-rate/",
-      "version": "2.0.1"
+      "version": "4.1.0"
     },
     "shipment-table-rate-data-import": {
       "path": "bundles/shipment-table-rate-data-import/",
-      "version": "2.0.0"
+      "version": "2.1.0"
     },
     "shipment-table-rate-extension": {
       "path": "bundles/shipment-table-rate-extension/",
-      "version": "2.0.0"
+      "version": "3.0.0"
     },
     "splittable-checkout": {
       "path": "bundles/splittable-checkout/",
@@ -973,7 +989,7 @@
     },
     "tax-calculation-connector": {
       "path": "bundles/tax-calculation-connector/",
-      "version": "2.0.0"
+      "version": "2.1.0"
     },
     "thirty-five-up": {
       "path": "bundles/thirty-five-up/",
@@ -997,7 +1013,7 @@
     },
     "vertigo-price-product-price-list": {
       "path": "bundles/vertigo-price-product-price-list/",
-      "version": "2.0.0"
+      "version": "3.0.0"
     }
   },
   "vcs": {

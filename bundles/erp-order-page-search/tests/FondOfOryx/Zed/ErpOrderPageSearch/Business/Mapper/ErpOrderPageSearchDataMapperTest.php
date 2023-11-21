@@ -61,12 +61,16 @@ class ErpOrderPageSearchDataMapperTest extends Unit
             ErpOrderPageSearchDataMapper::FK_SHIPPING_ADDRESS => 1,
             ErpOrderPageSearchDataMapper::FK_TOTALS => 1,
             ErpOrderPageSearchDataMapper::ITEMS => [],
+            ErpOrderPageSearchDataMapper::ERP_ORDER_EXPENSES => [],
             ErpOrderPageSearchDataMapper::TOTALS => null,
             ErpOrderPageSearchDataMapper::SHIPPING_ADDRESS => null,
             ErpOrderPageSearchDataMapper::BILLING_ADDRESS => null,
             ErpOrderPageSearchDataMapper::CURRENCY_ISO_CODE => '',
             ErpOrderPageSearchDataMapper::OUTSTANDING_QUANTITY => 1,
             ErpOrderPageSearchDataMapper::IS_CANCELED => false,
+            ErpOrderPageSearchDataMapper::PURCHASER_EMAIL => 'john.doe@example.com',
+            ErpOrderPageSearchDataMapper::SEARCH_RESULT_PURCHASER_FIRST_NAME => 'john',
+            ErpOrderPageSearchDataMapper::SEARCH_RESULT_PURCHASER_LAST_NAME => 'doe',
         ];
 
         $fullText = [

@@ -8,6 +8,7 @@ include:
   - bundles/availability-checkout-validator
   - bundles/brand-product-list-connector
   - bundles/brands-rest-api-extension
+  - bundles/business-on-behalf-company-user-search-rest-api
   - bundles/business-on-behalf-product-list-connector
   - bundles/business-on-behalf-rest-api
   - bundles/cart-code-type
@@ -54,6 +55,7 @@ include:
   - bundles/company-unit-address-sales-connector
   - bundles/company-user-api
   - bundles/company-user-archive
+  - bundles/company-user-cart-search-rest-api
   - bundles/company-user-company-role-connector
   - bundles/company-user-company-search-rest-api
   - bundles/company-user-mail-connector
@@ -171,6 +173,7 @@ include:
   - bundles/product-locale-restriction-search
   - bundles/product-locale-restriction-storage
   - bundles/product-payment-restriction
+  - bundles/propel-pre-migration
   - bundles/qr-code-generator
   - bundles/representative-company-user
   - bundles/representative-company-user-rest-api

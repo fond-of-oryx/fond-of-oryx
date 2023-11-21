@@ -3,30 +3,37 @@
 namespace FondOfOryx\Zed\CompanyUserMailConnector\Business;
 
 use Codeception\Test\Unit;
+use FondOfOryx\Zed\CompanyUserMailConnector\Business\Model\Mail\CompanyUserCreationNotificationMailHandlerInterface;
 use FondOfOryx\Zed\CompanyUserMailConnector\Business\Model\Mail\MailHandlerInterface;
 use Generated\Shared\Transfer\CompanyUserTransfer;
+use PHPUnit\Framework\MockObject\MockObject;
 
 class CompanyUserMailConnectorFacadeTest extends Unit
 {
     /**
-     * @var \Generated\Shared\Transfer\CompanyUserTransfer|\PHPUnit\Framework\MockObject\MockObject|null
+     * @var \Generated\Shared\Transfer\CompanyUserTransfer|\PHPUnit\Framework\MockObject\MockObject
      */
-    protected $companyUserTransferMock;
+    protected CompanyUserTransfer|MockObject $companyUserTransferMock;
 
     /**
      * @var \FondOfOryx\Zed\CompanyUserMailConnector\Business\CompanyUserMailConnectorFacadeInterface
      */
-    protected $facade;
+    protected CompanyUserMailConnectorFacadeInterface $facade;
 
     /**
-     * @var \FondOfOryx\Zed\CompanyUserMailConnector\Business\CompanyUserMailConnectorBusinessFactory|\PHPUnit\Framework\MockObject\MockObject|null
+     * @var \FondOfOryx\Zed\CompanyUserMailConnector\Business\CompanyUserMailConnectorBusinessFactory|\PHPUnit\Framework\MockObject\MockObject
      */
-    protected $factoryMock;
+    protected CompanyUserMailConnectorBusinessFactory|MockObject $factoryMock;
 
     /**
-     * @var \FondOfOryx\Zed\CompanyUserMailConnector\Business\Model\Mail\MailHandlerInterface|\PHPUnit\Framework\MockObject\MockObject|null
+     * @var \FondOfOryx\Zed\CompanyUserMailConnector\Business\Model\Mail\MailHandlerInterface|\PHPUnit\Framework\MockObject\MockObject
      */
-    protected $mailHandlerMock;
+    protected MailHandlerInterface|MockObject $mailHandlerMock;
+
+    /**
+     * @var \FondOfOryx\Zed\CompanyUserMailConnector\Business\Model\Mail\CompanyUserCreationNotificationMailHandlerInterface|\PHPUnit\Framework\MockObject\MockObject
+     */
+    protected CompanyUserCreationNotificationMailHandlerInterface|MockObject $notificationMailHandlerMock;
 
     /**
      * @return void
@@ -45,6 +52,10 @@ class CompanyUserMailConnectorFacadeTest extends Unit
             ->getMock();
 
         $this->mailHandlerMock = $this->getMockBuilder(MailHandlerInterface::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $this->notificationMailHandlerMock = $this->getMockBuilder(CompanyUserCreationNotificationMailHandlerInterface::class)
             ->disableOriginalConstructor()
             ->getMock();
 
@@ -68,6 +79,25 @@ class CompanyUserMailConnectorFacadeTest extends Unit
         static::assertInstanceOf(
             CompanyUserTransfer::class,
             $this->facade->sendMail($this->companyUserTransferMock),
+        );
+    }
+
+    /**
+     * @return void
+     */
+    public function testSendInformationMail(): void
+    {
+        $this->factoryMock->expects(static::atLeastOnce())
+            ->method('createCompanyUserCreationNotificationMailHandler')
+            ->willReturn($this->notificationMailHandlerMock);
+
+        $this->notificationMailHandlerMock->expects(static::atLeastOnce())
+            ->method('sendCustomerNotificationMails')
+            ->willReturn($this->companyUserTransferMock);
+
+        static::assertInstanceOf(
+            CompanyUserTransfer::class,
+            $this->facade->sendCustomerNotificationMails($this->companyUserTransferMock),
         );
     }
 }

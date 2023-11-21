@@ -36,10 +36,9 @@
 
     <transfer name="RestRepresentativeCompanyUserTradeFairResponse">
         <property name="isSuccessful" type="bool"/>
-        <property name="error" type="string" />
+        <property name="error" type="RestErrorMessage" />
         <property name="representation" type="RestRepresentativeCompanyUserTradeFair"/>
         <property name="collection" type="RestRepresentativeCompanyUserTradeFairCollection"/>
-        <property name="pagination" type="RestRepresentativeCompanyUserPagination"/>
     </transfer>
 
     <transfer name="RestRepresentativeCompanyUserPagination">
@@ -63,6 +62,7 @@
 
     <transfer name="RestRepresentativeCompanyUserTradeFairCollection">
         <property name="representations" singular="representation" type="RestRepresentativeCompanyUserTradeFair[]" />
+        <property name="pagination" type="RestRepresentativeCompanyUserPagination"/>
     </transfer>
 
     <transfer name="RepresentativeCompanyUserTradeFair" />

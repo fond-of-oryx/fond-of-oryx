@@ -9,7 +9,7 @@ use Generated\Shared\Transfer\QueryJoinCollectionTransfer;
 use Generated\Shared\Transfer\QueryJoinTransfer;
 use Generated\Shared\Transfer\QueryWhereConditionTransfer;
 use Orm\Zed\Company\Persistence\Map\SpyCompanyTableMap;
-use Orm\Zed\PriceList\Persistence\Map\FosPriceListTableMap;
+use Orm\Zed\PriceList\Persistence\Map\FoiPriceListTableMap;
 use Propel\Runtime\ActiveQuery\Criteria;
 use Spryker\Zed\Kernel\Communication\AbstractPlugin;
 
@@ -65,7 +65,7 @@ class CompanySearchPriceListQueryExpanderPlugin extends AbstractPlugin implement
         $queryJoinCollectionTransfer->addQueryJoin(
             (new QueryJoinTransfer())
                 ->setJoinType(Criteria::INNER_JOIN)
-                ->setLeft([FosPriceListTableMap::COL_ID_PRICE_LIST])
+                ->setLeft([FoiPriceListTableMap::COL_ID_PRICE_LIST])
                 ->setRight([SpyCompanyTableMap::COL_FK_PRICE_LIST])
                 ->setWhereConditions(new ArrayObject($whereConditions)),
         );

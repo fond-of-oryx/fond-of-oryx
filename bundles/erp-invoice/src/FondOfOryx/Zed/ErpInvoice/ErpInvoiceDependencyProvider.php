@@ -4,7 +4,6 @@ namespace FondOfOryx\Zed\ErpInvoice;
 
 use ArrayObject;
 use FondOfOryx\Zed\ErpInvoice\Dependency\Facade\ErpInvoiceToCompanyBusinessUnitFacadeBridge;
-use FondOfOryx\Zed\ErpInvoice\Dependency\Facade\ErpInvoiceToCountryFacadeBridge;
 use FondOfOryx\Zed\ErpInvoice\Exception\WrongInterfaceException;
 use FondOfOryx\Zed\ErpInvoiceExtension\Dependency\Plugin\ErpInvoiceAddressPostSavePluginInterface;
 use FondOfOryx\Zed\ErpInvoiceExtension\Dependency\Plugin\ErpInvoiceAddressPreSavePluginInterface;
@@ -25,11 +24,6 @@ class ErpInvoiceDependencyProvider extends AbstractBundleDependencyProvider
      * @var string
      */
     public const FACADE_COMPANY_BUSINESS_UNIT = 'FACADE_COMPANY_BUSINESS_UNIT';
-
-    /**
-     * @var string
-     */
-    public const FACADE_COUNTRY = 'FACADE_COUNTRY';
 
     /**
      * @var string
@@ -90,7 +84,6 @@ class ErpInvoiceDependencyProvider extends AbstractBundleDependencyProvider
     {
         $container = parent::providePersistenceLayerDependencies($container);
         $container = $this->addCompanyBusinessUnitFacade($container);
-        $container = $this->addCountryFacade($container);
 
         return $container;
     }
@@ -127,22 +120,6 @@ class ErpInvoiceDependencyProvider extends AbstractBundleDependencyProvider
         $container[static::FACADE_COMPANY_BUSINESS_UNIT] = function (Container $container) {
             return new ErpInvoiceToCompanyBusinessUnitFacadeBridge(
                 $container->getLocator()->companyBusinessUnit()->facade(),
-            );
-        };
-
-        return $container;
-    }
-
-    /**
-     * @param \Spryker\Zed\Kernel\Container $container
-     *
-     * @return \Spryker\Zed\Kernel\Container
-     */
-    public function addCountryFacade(Container $container): Container
-    {
-        $container[static::FACADE_COUNTRY] = function (Container $container) {
-            return new ErpInvoiceToCountryFacadeBridge(
-                $container->getLocator()->country()->facade(),
             );
         };
 

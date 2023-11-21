@@ -5,7 +5,6 @@ namespace FondOfOryx\Zed\RepresentativeCompanyUser;
 use FondOfOryx\Zed\RepresentativeCompanyUser\Dependency\Facade\RepresentativeCompanyUserToCompanyUserFacadeBridge;
 use FondOfOryx\Zed\RepresentativeCompanyUser\Dependency\Facade\RepresentativeCompanyUserToEventFacadeBridge;
 use FondOfOryx\Zed\RepresentativeCompanyUser\Dependency\Service\RepresentativeCompanyUserToUtilDateTimeServiceBridge;
-use FondOfOryx\Zed\RepresentativeCompanyUser\Dependency\Service\RepresentativeCompanyUserToUtilUuidGeneratorServiceBridge;
 use Orm\Zed\Company\Persistence\SpyCompanyQuery;
 use Orm\Zed\CompanyUser\Persistence\SpyCompanyUserQuery;
 use Spryker\Zed\Kernel\AbstractBundleDependencyProvider;
@@ -16,11 +15,6 @@ use Spryker\Zed\Kernel\Container;
  */
 class RepresentativeCompanyUserDependencyProvider extends AbstractBundleDependencyProvider
 {
-    /**
-     * @var string
-     */
-    public const SERVICE_UTIL_UUID_GENERATOR = 'SERVICE_UTIL_UUID_GENERATOR';
-
     /**
      * @var string
      */
@@ -66,9 +60,8 @@ class RepresentativeCompanyUserDependencyProvider extends AbstractBundleDependen
         $container = parent::provideBusinessLayerDependencies($container);
         $container = $this->addTaskPlugins($container);
         $container = $this->addCompanyUserFacade($container);
-        $container = $this->addEventFacade($container);
 
-        return $this->addUtilUuidGeneratorService($container);
+        return $this->addEventFacade($container);
     }
 
     /**
@@ -84,22 +77,6 @@ class RepresentativeCompanyUserDependencyProvider extends AbstractBundleDependen
         $container = $this->addFooRepresentativeCompanyUserQueryExpanderPlugins($container);
 
         return $this->addCompanyUserQuery($container);
-    }
-
-    /**
-     * @param \Spryker\Zed\Kernel\Container $container
-     *
-     * @return \Spryker\Zed\Kernel\Container
-     */
-    protected function addUtilUuidGeneratorService(Container $container): Container
-    {
-        $container[static::SERVICE_UTIL_UUID_GENERATOR] = static function (Container $container) {
-            return new RepresentativeCompanyUserToUtilUuidGeneratorServiceBridge(
-                $container->getLocator()->utilUuidGenerator()->service(),
-            );
-        };
-
-        return $container;
     }
 
     /**

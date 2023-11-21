@@ -7,7 +7,7 @@ use Codeception\Test\Unit;
 class SeeErpOrderPermissionPluginTest extends Unit
 {
     /**
-     * @var \Spryker\Shared\PermissionExtension\Dependency\Plugin\ExecutablePermissionPluginInterface
+     * @var \Spryker\Shared\PermissionExtension\Dependency\Plugin\PermissionPluginInterface
      */
     protected $plugin;
 

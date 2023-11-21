@@ -71,10 +71,18 @@ class CompanyUserSearchRestApiRepository extends AbstractRepository implements C
         $query = $this->getFactory()
             ->getCompanyUserQuery()
             ->clear()
-            ->useCustomerQuery()
-                ->filterByAnonymizedAt(null, Criteria::ISNULL)
-            ->endUse()
             ->filterByIsActive(true);
+
+        if (count($companyUserListTransfer->getEmails()) > 0) {
+            $query = $query->useCustomerQuery()
+                    ->filterByAnonymizedAt(null, Criteria::ISNULL)
+                    ->filterByEmail_In($companyUserListTransfer->getEmails())
+                ->endUse();
+        } else {
+            $query = $query->useCustomerQuery()
+                    ->filterByAnonymizedAt(null, Criteria::ISNULL)
+                ->endUse();
+        }
 
         if (count($companyUserListTransfer->getCompanyRoleNames()) > 0) {
             $query = $query->useSpyCompanyRoleToCompanyUserQuery()
@@ -147,16 +155,14 @@ class CompanyUserSearchRestApiRepository extends AbstractRepository implements C
 
         $clonedCompanyUserQuery = clone $query;
 
-        /** @var \Propel\Runtime\Collection\ArrayCollection $companyUserIds */
-        $companyUserIds = $query->withColumn(sprintf('MIN(%s)', SpyCompanyUserTableMap::COL_ID_COMPANY_USER), static::COL_FIRST_COMPANY_USER_ID)
+        $params = [];
+        $sql = $clonedCompanyUserQuery->withColumn(sprintf('MIN(%s)', SpyCompanyUserTableMap::COL_ID_COMPANY_USER), static::COL_FIRST_COMPANY_USER_ID)
             ->select([static::COL_FIRST_COMPANY_USER_ID])
             ->groupByFkCustomer()
             ->clearOrderByColumns()
-            ->find();
+            ->createSelectSql($params);
 
-        $companyUserIds = $companyUserIds->toArray();
-
-        return $clonedCompanyUserQuery->filterByIdCompanyUser_In($companyUserIds);
+        return $query->where(sprintf('%s IN (%s)', SpyCompanyUserTableMap::COL_ID_COMPANY_USER, $sql));
     }
 
     /**

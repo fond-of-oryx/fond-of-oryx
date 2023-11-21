@@ -3,7 +3,6 @@
 namespace FondOfOryx\Zed\ErpInvoice\Persistence;
 
 use FondOfOryx\Zed\ErpInvoice\Dependency\Facade\ErpInvoiceToCompanyBusinessUnitFacadeInterface;
-use FondOfOryx\Zed\ErpInvoice\Dependency\Facade\ErpInvoiceToCountryFacadeInterface;
 use FondOfOryx\Zed\ErpInvoice\ErpInvoiceDependencyProvider;
 use FondOfOryx\Zed\ErpInvoice\Persistence\Propel\Mapper\EntityToTransferMapper;
 use FondOfOryx\Zed\ErpInvoice\Persistence\Propel\Mapper\EntityToTransferMapperInterface;
@@ -28,7 +27,6 @@ class ErpInvoicePersistenceFactory extends AbstractPersistenceFactory
     {
         return new EntityToTransferMapper(
             $this->getCompanyBusinessUnitFacade(),
-            $this->getCountryFacade(),
         );
     }
 
@@ -38,14 +36,6 @@ class ErpInvoicePersistenceFactory extends AbstractPersistenceFactory
     public function getCompanyBusinessUnitFacade(): ErpInvoiceToCompanyBusinessUnitFacadeInterface
     {
         return $this->getProvidedDependency(ErpInvoiceDependencyProvider::FACADE_COMPANY_BUSINESS_UNIT);
-    }
-
-    /**
-     * @return \FondOfOryx\Zed\ErpInvoice\Dependency\Facade\ErpInvoiceToCountryFacadeInterface
-     */
-    public function getCountryFacade(): ErpInvoiceToCountryFacadeInterface
-    {
-        return $this->getProvidedDependency(ErpInvoiceDependencyProvider::FACADE_COUNTRY);
     }
 
     /**

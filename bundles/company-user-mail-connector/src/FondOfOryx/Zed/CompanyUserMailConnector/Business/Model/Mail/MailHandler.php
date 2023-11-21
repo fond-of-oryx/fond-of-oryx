@@ -2,6 +2,7 @@
 
 namespace FondOfOryx\Zed\CompanyUserMailConnector\Business\Model\Mail;
 
+use FondOfOryx\Zed\CompanyUserMailConnector\Business\Reader\LocaleReaderInterface;
 use FondOfOryx\Zed\CompanyUserMailConnector\Communication\Plugin\Mail\CustomerRegistrationMailTypePlugin;
 use FondOfOryx\Zed\CompanyUserMailConnector\Dependency\Facade\CompanyUserMailConnectorToMailFacadeInterface;
 use Generated\Shared\Transfer\CompanyUserTransfer;
@@ -10,15 +11,24 @@ use Generated\Shared\Transfer\MailTransfer;
 class MailHandler implements MailHandlerInterface
 {
     /**
-     * @var \FondOfOryx\Zed\CompanyUserMailConnector\Dependency\Facade\CompanyUserMailConnectorToMailFacadeInterface
+     * @var \FondOfOryx\Zed\CompanyUserMailConnector\Business\Reader\LocaleReaderInterface
      */
-    protected $mailFacade;
+    protected LocaleReaderInterface $localeReader;
 
     /**
+     * @var \FondOfOryx\Zed\CompanyUserMailConnector\Dependency\Facade\CompanyUserMailConnectorToMailFacadeInterface
+     */
+    protected CompanyUserMailConnectorToMailFacadeInterface $mailFacade;
+
+    /**
+     * @param \FondOfOryx\Zed\CompanyUserMailConnector\Business\Reader\LocaleReaderInterface $localeReader
      * @param \FondOfOryx\Zed\CompanyUserMailConnector\Dependency\Facade\CompanyUserMailConnectorToMailFacadeInterface $mailFacade
      */
-    public function __construct(CompanyUserMailConnectorToMailFacadeInterface $mailFacade)
-    {
+    public function __construct(
+        LocaleReaderInterface $localeReader,
+        CompanyUserMailConnectorToMailFacadeInterface $mailFacade
+    ) {
+        $this->localeReader = $localeReader;
         $this->mailFacade = $mailFacade;
     }
 
@@ -38,7 +48,7 @@ class MailHandler implements MailHandlerInterface
         $mailTransfer = new MailTransfer();
         $mailTransfer->setType(CustomerRegistrationMailTypePlugin::MAIL_TYPE);
         $mailTransfer->setCustomer($customerTransfer);
-        $mailTransfer->setLocale($customerTransfer->getLocale());
+        $mailTransfer->setLocale($this->localeReader->getByCustomer($customerTransfer));
 
         $this->mailFacade->handleMail($mailTransfer);
 

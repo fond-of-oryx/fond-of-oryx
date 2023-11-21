@@ -39,10 +39,6 @@ class ErpOrderPageSearchCommunicationFactoryTest extends Unit
             ->disableOriginalConstructor()
             ->getMock();
 
-        $this->erpOrderQueryMock = $this->getMockBuilder(ErpOrderQuery::class)
-            ->disableOriginalConstructor()
-            ->getMock();
-
         $this->erpOrderPageSearchCommunicationFactory = new ErpOrderPageSearchCommunicationFactory();
         $this->erpOrderPageSearchCommunicationFactory->setContainer($this->containerMock);
     }

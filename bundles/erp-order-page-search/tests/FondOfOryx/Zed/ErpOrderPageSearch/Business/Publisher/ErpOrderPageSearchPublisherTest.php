@@ -171,10 +171,6 @@ class ErpOrderPageSearchPublisherTest extends Unit
             ->willReturn($this->companyBusinessUnitMock);
 
         $this->erpOrderMock->expects(static::atLeastOnce())
-            ->method('getCompanyUser')
-            ->willReturn($this->companyUser);
-
-        $this->erpOrderMock->expects(static::atLeastOnce())
             ->method('getErpOrderItems')
             ->willReturn($this->erpOrderItemObjectCollectionMock);
 

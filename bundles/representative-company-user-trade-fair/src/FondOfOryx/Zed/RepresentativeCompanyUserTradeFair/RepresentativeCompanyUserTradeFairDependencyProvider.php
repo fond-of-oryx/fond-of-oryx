@@ -3,7 +3,6 @@
 namespace FondOfOryx\Zed\RepresentativeCompanyUserTradeFair;
 
 use FondOfOryx\Zed\RepresentativeCompanyUserTradeFair\Dependency\Facade\RepresentativeCompanyUserTradeFairToRepresentativeCompanyUserBridge;
-use FondOfOryx\Zed\RepresentativeCompanyUserTradeFair\Dependency\Service\RepresentativeCompanyUserTradeFairToUtilUuidGeneratorServiceBridge;
 use Orm\Zed\Company\Persistence\SpyCompanyQuery;
 use Orm\Zed\CompanyRole\Persistence\SpyCompanyRoleQuery;
 use Orm\Zed\Customer\Persistence\SpyCustomerQuery;
@@ -16,11 +15,6 @@ use Spryker\Zed\Kernel\Container;
  */
 class RepresentativeCompanyUserTradeFairDependencyProvider extends AbstractBundleDependencyProvider
 {
-    /**
-     * @var string
-     */
-    public const SERVICE_UTIL_UUID_GENERATOR = 'SERVICE_UTIL_UUID_GENERATOR';
-
     /**
      * @var string
      */
@@ -59,9 +53,8 @@ class RepresentativeCompanyUserTradeFairDependencyProvider extends AbstractBundl
     public function provideBusinessLayerDependencies(Container $container): Container
     {
         $container = parent::provideBusinessLayerDependencies($container);
-        $container = $this->addRepresentativeCompanyUserFacade($container);
 
-        return $this->addUtilUuidGeneratorService($container);
+        return $this->addRepresentativeCompanyUserFacade($container);
     }
 
     /**
@@ -78,22 +71,6 @@ class RepresentativeCompanyUserTradeFairDependencyProvider extends AbstractBundl
         $container = $this->addFooRepresentativeCompanyUserQueryExpanderPlugins($container);
 
         return $this->addCompanyQuery($container);
-    }
-
-    /**
-     * @param \Spryker\Zed\Kernel\Container $container
-     *
-     * @return \Spryker\Zed\Kernel\Container
-     */
-    protected function addUtilUuidGeneratorService(Container $container): Container
-    {
-        $container[static::SERVICE_UTIL_UUID_GENERATOR] = static function (Container $container) {
-            return new RepresentativeCompanyUserTradeFairToUtilUuidGeneratorServiceBridge(
-                $container->getLocator()->utilUuidGenerator()->service(),
-            );
-        };
-
-        return $container;
     }
 
     /**

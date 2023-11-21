@@ -5,6 +5,7 @@ namespace FondOfOryx\Glue\CompanyUserSearchRestApi\Processor\Mapper;
 use FondOfOryx\Glue\CompanyUserSearchRestApi\Processor\Filter\CompanyRoleNameFilterInterface;
 use FondOfOryx\Glue\CompanyUserSearchRestApi\Processor\Filter\CustomerIdFilterInterface;
 use FondOfOryx\Glue\CompanyUserSearchRestApi\Processor\Filter\CustomerReferenceFilterInterface;
+use FondOfOryx\Glue\CompanyUserSearchRestApi\Processor\Filter\EmailFilterInterface;
 use FondOfOryx\Glue\CompanyUserSearchRestApi\Processor\Filter\RequestParameterFilterInterface;
 use Generated\Shared\Transfer\CompanyUserListTransfer;
 use Spryker\Glue\GlueApplication\Rest\Request\Data\RestRequestInterface;
@@ -42,12 +43,18 @@ class CompanyUserListMapper implements CompanyUserListMapperInterface
     protected FilterFieldsMapperInterface $filterFieldsMapper;
 
     /**
+     * @var \FondOfOryx\Glue\CompanyUserSearchRestApi\Processor\Filter\EmailFilterInterface
+     */
+    protected EmailFilterInterface $emailFilter;
+
+    /**
      * @param \FondOfOryx\Glue\CompanyUserSearchRestApi\Processor\Mapper\PaginationMapperInterface $paginationMapper
      * @param \FondOfOryx\Glue\CompanyUserSearchRestApi\Processor\Mapper\FilterFieldsMapperInterface $filterFieldsMapper
      * @param \FondOfOryx\Glue\CompanyUserSearchRestApi\Processor\Filter\RequestParameterFilterInterface $requestParameterFilter
      * @param \FondOfOryx\Glue\CompanyUserSearchRestApi\Processor\Filter\CustomerReferenceFilterInterface $customerReferenceFilter
      * @param \FondOfOryx\Glue\CompanyUserSearchRestApi\Processor\Filter\CustomerIdFilterInterface $customerIdFilter
      * @param \FondOfOryx\Glue\CompanyUserSearchRestApi\Processor\Filter\CompanyRoleNameFilterInterface $companyRoleNameFilter
+     * @param \FondOfOryx\Glue\CompanyUserSearchRestApi\Processor\Filter\EmailFilterInterface $emailFilter
      */
     public function __construct(
         PaginationMapperInterface $paginationMapper,
@@ -55,7 +62,8 @@ class CompanyUserListMapper implements CompanyUserListMapperInterface
         RequestParameterFilterInterface $requestParameterFilter,
         CustomerReferenceFilterInterface $customerReferenceFilter,
         CustomerIdFilterInterface $customerIdFilter,
-        CompanyRoleNameFilterInterface $companyRoleNameFilter
+        CompanyRoleNameFilterInterface $companyRoleNameFilter,
+        EmailFilterInterface $emailFilter
     ) {
         $this->paginationMapper = $paginationMapper;
         $this->filterFieldsMapper = $filterFieldsMapper;
@@ -63,6 +71,7 @@ class CompanyUserListMapper implements CompanyUserListMapperInterface
         $this->customerReferenceFilter = $customerReferenceFilter;
         $this->customerIdFilter = $customerIdFilter;
         $this->companyRoleNameFilter = $companyRoleNameFilter;
+        $this->emailFilter = $emailFilter;
     }
 
     /**
@@ -81,6 +90,7 @@ class CompanyUserListMapper implements CompanyUserListMapperInterface
             ->setCompanyUserReference($this->requestParameterFilter->getRequestParameter($restRequest, 'company-user-reference'))
             ->setCustomerId($this->customerIdFilter->filterFromRestRequest($restRequest))
             ->setCustomerReference($this->customerReferenceFilter->filterFromRestRequest($restRequest))
-            ->setCompanyRoleNames($this->companyRoleNameFilter->filterFromRestRequest($restRequest));
+            ->setCompanyRoleNames($this->companyRoleNameFilter->filterFromRestRequest($restRequest))
+            ->setEmails($this->emailFilter->filterFromRestRequest($restRequest));
     }
 }

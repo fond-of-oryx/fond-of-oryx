@@ -4,7 +4,9 @@ namespace FondOfOryx\Glue\RepresentativeCompanyUserRestApi\Processor\Builder;
 
 use Codeception\Test\Unit;
 use FondOfOryx\Glue\RepresentativeCompanyUserRestApi\RepresentativeCompanyUserRestApiConfig;
+use Generated\Shared\Transfer\RepresentativeCompanyUserTransfer;
 use Generated\Shared\Transfer\RestErrorMessageTransfer;
+use Generated\Shared\Transfer\RestRepresentativeCompanyUserCollectionResponseTransfer;
 use Generated\Shared\Transfer\RestRepresentativeCompanyUserResponseTransfer;
 use PHPUnit\Framework\MockObject\MockObject;
 use Spryker\Glue\GlueApplication\Rest\JsonApi\RestResourceBuilderInterface;
@@ -23,6 +25,16 @@ class RestResponseBuilderTest extends Unit
      * @var \Generated\Shared\Transfer\RestRepresentativeCompanyUserResponseTransfer|\PHPUnit\Framework\MockObject\MockObject
      */
     protected RestRepresentativeCompanyUserResponseTransfer|MockObject $restRepresentativeCompanyUserResponseTransferMock;
+
+    /**
+     * @var \Generated\Shared\Transfer\RepresentativeCompanyUserTransfer|\PHPUnit\Framework\MockObject\MockObject
+     */
+    protected RepresentativeCompanyUserTransfer|MockObject $representativeCompanyUserTransferMock;
+
+    /**
+     * @var \Generated\Shared\Transfer\RestRepresentativeCompanyUserCollectionResponseTransfer|\PHPUnit\Framework\MockObject\MockObject
+     */
+    protected RestRepresentativeCompanyUserCollectionResponseTransfer|MockObject $restRepresentativeCompanyUserCollectionResponseTransferMock;
 
     /**
      * @var \PHPUnit\Framework\MockObject\MockObject|\Spryker\Glue\GlueApplication\Rest\JsonApi\RestResourceInterface
@@ -54,6 +66,14 @@ class RestResponseBuilderTest extends Unit
             ->disableOriginalConstructor()
             ->getMock();
 
+        $this->restRepresentativeCompanyUserCollectionResponseTransferMock = $this->getMockBuilder(RestRepresentativeCompanyUserCollectionResponseTransfer::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $this->representativeCompanyUserTransferMock = $this->getMockBuilder(RepresentativeCompanyUserTransfer::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
         $this->restResourceMock = $this->getMockBuilder(RestResourceInterface::class)
             ->disableOriginalConstructor()
             ->getMock();
@@ -76,6 +96,10 @@ class RestResponseBuilderTest extends Unit
             ->method('createRestResponse')
             ->willReturn($this->restResponseMock);
 
+        $this->restRepresentativeCompanyUserResponseTransferMock->expects(static::atLeastOnce())
+            ->method('getRepresentation')
+            ->willReturn(null);
+
         $this->restResourceBuilderMock->expects(static::atLeastOnce())
             ->method('createRestResource')
             ->with(
@@ -93,6 +117,76 @@ class RestResponseBuilderTest extends Unit
             $this->restResponseMock,
             $this->restResponseBuilder->buildRepresentativeCompanyUserRestResponse(
                 $this->restRepresentativeCompanyUserResponseTransferMock,
+            ),
+        );
+    }
+
+    /**
+     * @return void
+     */
+    public function testBuildRepresentativeCompanyUserRestResponseAndSetUuid(): void
+    {
+        $uuid = '12345';
+
+        $this->restResourceBuilderMock->expects(static::atLeastOnce())
+            ->method('createRestResponse')
+            ->willReturn($this->restResponseMock);
+
+        $this->restRepresentativeCompanyUserResponseTransferMock->expects(static::atLeastOnce())
+            ->method('getRepresentation')
+            ->willReturn($this->representativeCompanyUserTransferMock);
+
+        $this->representativeCompanyUserTransferMock->expects(static::atLeastOnce())
+            ->method('getUuid')
+            ->willReturn($uuid);
+
+        $this->restResourceBuilderMock->expects(static::atLeastOnce())
+            ->method('createRestResource')
+            ->with(
+                RepresentativeCompanyUserRestApiConfig::RESOURCE_REPRESENTATIVE_COMPANY_USER_REST_API,
+                $uuid,
+                $this->restRepresentativeCompanyUserResponseTransferMock,
+            )->willReturn($this->restResourceMock);
+
+        $this->restResponseMock->expects(static::atLeastOnce())
+            ->method('addResource')
+            ->with($this->restResourceMock)
+            ->willReturn($this->restResponseMock);
+
+        static::assertEquals(
+            $this->restResponseMock,
+            $this->restResponseBuilder->buildRepresentativeCompanyUserRestResponse(
+                $this->restRepresentativeCompanyUserResponseTransferMock,
+            ),
+        );
+    }
+
+    /**
+     * @return void
+     */
+    public function testBuildRepresentativeCompanyUserCollectionRestResponse(): void
+    {
+        $this->restResourceBuilderMock->expects(static::atLeastOnce())
+            ->method('createRestResponse')
+            ->willReturn($this->restResponseMock);
+
+        $this->restResourceBuilderMock->expects(static::atLeastOnce())
+            ->method('createRestResource')
+            ->with(
+                RepresentativeCompanyUserRestApiConfig::RESOURCE_REPRESENTATIVE_COMPANY_USER_REST_API,
+                null,
+                $this->restRepresentativeCompanyUserCollectionResponseTransferMock,
+            )->willReturn($this->restResourceMock);
+
+        $this->restResponseMock->expects(static::atLeastOnce())
+            ->method('addResource')
+            ->with($this->restResourceMock)
+            ->willReturn($this->restResponseMock);
+
+        static::assertEquals(
+            $this->restResponseMock,
+            $this->restResponseBuilder->buildRepresentativeCompanyUserCollectionRestResponse(
+                $this->restRepresentativeCompanyUserCollectionResponseTransferMock,
             ),
         );
     }
@@ -120,6 +214,6 @@ class RestResponseBuilderTest extends Unit
                 ),
             )->willReturn($this->restResponseMock);
 
-        $this->restResponseBuilder->buildRepresentativeCompanyUserMissingPermissionResponse();
+        $this->restResponseBuilder->buildErrorResponse();
     }
 }

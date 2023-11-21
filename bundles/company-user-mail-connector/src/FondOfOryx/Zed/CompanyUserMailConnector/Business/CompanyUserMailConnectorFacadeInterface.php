@@ -12,4 +12,11 @@ interface CompanyUserMailConnectorFacadeInterface
      * @return \Generated\Shared\Transfer\CompanyUserTransfer
      */
     public function sendMail(CompanyUserTransfer $companyUserTransfer): CompanyUserTransfer;
+
+    /**
+     * @param \Generated\Shared\Transfer\CompanyUserTransfer $companyUserTransfer
+     *
+     * @return \Generated\Shared\Transfer\CompanyUserTransfer
+     */
+    public function sendCustomerNotificationMails(CompanyUserTransfer $companyUserTransfer): CompanyUserTransfer;
 }

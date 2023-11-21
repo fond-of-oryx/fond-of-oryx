@@ -5,16 +5,21 @@ namespace FondOfOryx\Zed\ErpOrder\Persistence\Propel\Mapper;
 use DateTime;
 use Exception;
 use FondOfOryx\Zed\ErpOrder\Dependency\Facade\ErpOrderToCompanyBusinessUnitFacadeInterface;
-use FondOfOryx\Zed\ErpOrder\Dependency\Facade\ErpOrderToCountryFacadeInterface;
 use Generated\Shared\Transfer\CompanyBusinessUnitTransfer;
+use Generated\Shared\Transfer\CountryTransfer;
 use Generated\Shared\Transfer\ErpOrderAddressTransfer;
+use Generated\Shared\Transfer\ErpOrderAmountTransfer;
+use Generated\Shared\Transfer\ErpOrderExpenseTransfer;
 use Generated\Shared\Transfer\ErpOrderItemTransfer;
 use Generated\Shared\Transfer\ErpOrderTotalsTransfer;
 use Generated\Shared\Transfer\ErpOrderTransfer;
+use Orm\Zed\Country\Persistence\SpyCountry;
 use Orm\Zed\ErpOrder\Persistence\ErpOrder;
 use Orm\Zed\ErpOrder\Persistence\ErpOrderAddress;
 use Orm\Zed\ErpOrder\Persistence\ErpOrderItem;
 use Orm\Zed\ErpOrder\Persistence\ErpOrderTotals;
+use Orm\Zed\ErpOrder\Persistence\FooErpOrderAmount;
+use Orm\Zed\ErpOrder\Persistence\FooErpOrderExpense;
 
 /**
  * @codeCoverageIgnore
@@ -22,25 +27,17 @@ use Orm\Zed\ErpOrder\Persistence\ErpOrderTotals;
 class EntityToTransferMapper implements EntityToTransferMapperInterface
 {
     /**
-     * @var \FondOfOryx\Zed\ErpOrder\Dependency\Facade\ErpOrderToCountryFacadeInterface
-     */
-    protected $countryFacade;
-
-    /**
      * @var \FondOfOryx\Zed\ErpOrder\Dependency\Facade\ErpOrderToCompanyBusinessUnitFacadeInterface
      */
     protected $companyBusinessUnitFacade;
 
     /**
      * @param \FondOfOryx\Zed\ErpOrder\Dependency\Facade\ErpOrderToCompanyBusinessUnitFacadeInterface $companyBusinessUnitFacade
-     * @param \FondOfOryx\Zed\ErpOrder\Dependency\Facade\ErpOrderToCountryFacadeInterface $countryFacade
      */
     public function __construct(
-        ErpOrderToCompanyBusinessUnitFacadeInterface $companyBusinessUnitFacade,
-        ErpOrderToCountryFacadeInterface $countryFacade
+        ErpOrderToCompanyBusinessUnitFacadeInterface $companyBusinessUnitFacade
     ) {
         $this->companyBusinessUnitFacade = $companyBusinessUnitFacade;
-        $this->countryFacade = $countryFacade;
     }
 
     /**
@@ -115,9 +112,26 @@ class EntityToTransferMapper implements EntityToTransferMapperInterface
         //ToDo: handle region
 
         return $erpOrderAddressTransfer
-            ->setCountry($this->countryFacade->getCountryByIdCountry($erpOrderAddress->getFkCountry()))
+            ->setCountry($this->fromCountryToTransfer($erpOrderAddress->getCountry()))
             ->setCreatedAt($this->convertDateTimeToTimestamp($erpOrderAddress->getCreatedAt()))
             ->setUpdatedAt($this->convertDateTimeToTimestamp($erpOrderAddress->getUpdatedAt()));
+    }
+
+    /**
+     * @param \Orm\Zed\Country\Persistence\SpyCountry $countryEntity
+     * @param \Generated\Shared\Transfer\CountryTransfer|null $countryTransfer
+     *
+     * @return \Generated\Shared\Transfer\CountryTransfer
+     */
+    protected function fromCountryToTransfer(
+        SpyCountry $countryEntity,
+        ?CountryTransfer $countryTransfer = null
+    ): CountryTransfer {
+        if ($countryTransfer === null) {
+            $countryTransfer = new CountryTransfer();
+        }
+
+        return $countryTransfer->fromArray($countryEntity->toArray(), true);
     }
 
     /**
@@ -162,6 +176,51 @@ class EntityToTransferMapper implements EntityToTransferMapperInterface
 
         return $erpOrderTotalsTransfer
             ->setGrandTotal($erpOrderTotals->getGrandTotal())
-            ->setTaxTotal($erpOrderTotals->getTaxTotal());
+            ->setTaxTotal($erpOrderTotals->getTaxTotal())
+            ->setExpenseTaxTotal($erpOrderTotals->getExpenseTaxTotal())
+            ->setExpenseTotal($erpOrderTotals->getExpenseTotal());
+    }
+
+    /**
+     * @param \Orm\Zed\ErpOrder\Persistence\FooErpOrderAmount $erpOrderTotal
+     * @param \Generated\Shared\Transfer\ErpOrderAmountTransfer|null $erpOrderAmountTransfer
+     *
+     * @return \Generated\Shared\Transfer\ErpOrderAmountTransfer
+     */
+    public function fromErpOrderAmountToTransfer(
+        FooErpOrderAmount $erpOrderTotal,
+        ?ErpOrderAmountTransfer $erpOrderAmountTransfer = null
+    ): ErpOrderAmountTransfer {
+        if ($erpOrderAmountTransfer === null) {
+            $erpOrderAmountTransfer = new ErpOrderAmountTransfer();
+        }
+
+        $erpOrderAmountTransfer->fromArray($erpOrderTotal->toArray(), true);
+
+        return $erpOrderAmountTransfer
+            ->setValue($erpOrderTotal->getValue())
+            ->setTax($erpOrderTotal->getTax());
+    }
+
+    /**
+     * @param \Orm\Zed\ErpOrder\Persistence\FooErpOrderExpense $orderExpense
+     * @param \Generated\Shared\Transfer\ErpOrderExpenseTransfer|null $orderExpenseTransfer
+     *
+     * @return \Generated\Shared\Transfer\ErpOrderExpenseTransfer
+     */
+    public function fromEprOrderExpenseToTransfer(
+        FooErpOrderExpense $orderExpense,
+        ?ErpOrderExpenseTransfer $orderExpenseTransfer = null
+    ): ErpOrderExpenseTransfer {
+        if ($orderExpenseTransfer === null) {
+            $orderExpenseTransfer = new ErpOrderExpenseTransfer();
+        }
+        $orderExpenseTransfer->fromArray($orderExpense->toArray(), true);
+
+        return $orderExpenseTransfer
+            ->setAmount((new ErpOrderAmountTransfer())->fromArray($orderExpense->getFooErpOrderAmount()->toArray(), true))
+            ->setUnitPrice((new ErpOrderAmountTransfer())->fromArray($orderExpense->getFooErpOrderAmountUnitPrice()->toArray(), true))
+            ->setCreatedAt($this->convertDateTimeToTimestamp($orderExpense->getCreatedAt()))
+            ->setUpdatedAt($this->convertDateTimeToTimestamp($orderExpense->getUpdatedAt()));
     }
 }

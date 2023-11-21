@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<transfers xmlns="spryker:transfer-01"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="spryker:transfer-01 https://static.spryker.com/transfer-01.xsd">
+    <transfer name="PropelPreMigration">
+        <property name="file" type="string" />
+        <property name="hash" type="string" />
+        <property name="createdAt" type="int" />
+        <property name="updatedAt" type="int" />
+    </transfer>
+</transfers>
