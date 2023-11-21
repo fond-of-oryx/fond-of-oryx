@@ -169,7 +169,7 @@
     },
     "company-oms-mail-connector": {
       "path": "bundles/company-oms-mail-connector/",
-      "version": "3.0.0"
+      "version": "3.1.0"
     },
     "company-price-lists-rest-api": {
       "path": "bundles/company-price-lists-rest-api/",
@@ -425,7 +425,7 @@
     },
     "erp-delivery-note-permission": {
       "path": "bundles/erp-delivery-note-permission/",
-      "version": "2.0.0"
+      "version": "2.1.0"
     },
     "erp-invoice": {
       "path": "bundles/erp-invoice/",
@@ -581,7 +581,7 @@
     },
     "jellyfish-sales-order-company": {
       "path": "bundles/jellyfish-sales-order-company/",
-      "version": "2.0.0"
+      "version": "2.1.0"
     },
     "jellyfish-sales-order-company-business-unit": {
       "path": "bundles/jellyfish-sales-order-company-business-unit/",
@@ -881,7 +881,7 @@
     },
     "sales-locale-connector": {
       "path": "bundles/sales-locale-connector/",
-      "version": "2.0.0"
+      "version": "2.1.0"
     },
     "shipment-cart-code-connector": {
       "path": "bundles/shipment-cart-code-connector/",
