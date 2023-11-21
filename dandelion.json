@@ -297,7 +297,7 @@
     },
     "country-oms-mail-connector": {
       "path": "bundles/country-oms-mail-connector/",
-      "version": "2.0.0"
+      "version": "2.1.0"
     },
     "countries-rest-api": {
       "path": "bundles/countries-rest-api/",
@@ -405,7 +405,7 @@
     },
     "erp-delivery-note": {
       "path": "bundles/erp-delivery-note/",
-      "version": "2.2.0"
+      "version": "2.3.0"
     },
     "erp-delivery-note-api": {
       "path": "bundles/erp-delivery-note-api/",
@@ -429,7 +429,7 @@
     },
     "erp-invoice": {
       "path": "bundles/erp-invoice/",
-      "version": "3.1.1"
+      "version": "3.2.0"
     },
     "erp-invoice-api": {
       "path": "bundles/erp-invoice-api/",
@@ -453,7 +453,7 @@
     },
     "erp-order": {
       "path": "bundles/erp-order/",
-      "version": "4.1.0"
+      "version": "4.2.0"
     },
     "erp-order-api": {
       "path": "bundles/erp-order-api/",
@@ -889,7 +889,7 @@
     },
     "shipment-table-rate": {
       "path": "bundles/shipment-table-rate/",
-      "version": "4.0.0"
+      "version": "4.1.0"
     },
     "shipment-table-rate-data-import": {
       "path": "bundles/shipment-table-rate-data-import/",
@@ -989,7 +989,7 @@
     },
     "tax-calculation-connector": {
       "path": "bundles/tax-calculation-connector/",
-      "version": "2.0.0"
+      "version": "2.1.0"
     },
     "thirty-five-up": {
       "path": "bundles/thirty-five-up/",
