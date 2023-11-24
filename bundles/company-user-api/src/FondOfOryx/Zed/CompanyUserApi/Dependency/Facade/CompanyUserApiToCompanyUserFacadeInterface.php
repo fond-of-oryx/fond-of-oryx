@@ -26,7 +26,7 @@ interface CompanyUserApiToCompanyUserFacadeInterface
      *
      * @return \Generated\Shared\Transfer\CompanyUserResponseTransfer
      */
-    public function delete(CompanyUserTransfer $companyUserTransfer): CompanyUserResponseTransfer;
+    public function deleteCompanyUser(CompanyUserTransfer $companyUserTransfer): CompanyUserResponseTransfer;
 
     /**
      * @param int $idCompanyUser

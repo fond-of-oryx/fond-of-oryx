@@ -46,9 +46,9 @@ class CompanyUserApiToCompanyUserFacadeBridge implements CompanyUserApiToCompany
      *
      * @return \Generated\Shared\Transfer\CompanyUserResponseTransfer
      */
-    public function delete(CompanyUserTransfer $companyUserTransfer): CompanyUserResponseTransfer
+    public function deleteCompanyUser(CompanyUserTransfer $companyUserTransfer): CompanyUserResponseTransfer
     {
-        return $this->companyUserFacade->delete($companyUserTransfer);
+        return $this->companyUserFacade->deleteCompanyUser($companyUserTransfer);
     }
 
     /**
