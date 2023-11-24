@@ -350,7 +350,7 @@ class CompanyUserApiTest extends Unit
         $idCompanyUser = 1;
 
         $this->companyUserFacadeMock->expects(static::atLeastOnce())
-            ->method('delete')
+            ->method('deleteCompanyUser')
             ->with(
                 static::callback(
                     static function (CompanyUserTransfer $companyUserTransfer) use ($idCompanyUser) {

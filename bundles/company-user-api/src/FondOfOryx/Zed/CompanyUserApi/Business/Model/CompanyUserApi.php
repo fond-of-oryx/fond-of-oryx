@@ -121,7 +121,7 @@ class CompanyUserApi implements CompanyUserApiInterface
     {
         $companyUserTransfer = (new CompanyUserTransfer())->setIdCompanyUser($idCompanyUser);
 
-        $this->companyUserFacade->delete($companyUserTransfer);
+        $this->companyUserFacade->deleteCompanyUser($companyUserTransfer);
 
         return $this->apiFacade->createApiItem(null, (string)$idCompanyUser);
     }

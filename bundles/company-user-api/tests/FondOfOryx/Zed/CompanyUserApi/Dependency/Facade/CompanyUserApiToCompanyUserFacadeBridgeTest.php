@@ -107,16 +107,16 @@ class CompanyUserApiToCompanyUserFacadeBridgeTest extends Unit
     /**
      * @return void
      */
-    public function testDelete(): void
+    public function testDeleteCompanyUser(): void
     {
         $this->companyUserFacadeMock->expects(static::atLeastOnce())
-            ->method('delete')
+            ->method('deleteCompanyUser')
             ->with($this->companyUserTransferMock)
             ->willReturn($this->companyUserResponseTransferMock);
 
         static::assertEquals(
             $this->companyUserResponseTransferMock,
-            $this->companyUserFacadeBridge->delete($this->companyUserTransferMock),
+            $this->companyUserFacadeBridge->deleteCompanyUser($this->companyUserTransferMock),
         );
     }
 }
