@@ -123,7 +123,7 @@
     "spryker-eco/payone": "dev-master-fondof as 4.4.2",
     "symfony/password-hasher": "^5.3.0 || ^6.0.0",
     "caseyamcl/guzzle_retry_middleware": "^2.8",
-    "codeception/codeception": "5.0.7"
+    "codeception/codeception": "5.0.12"
   },
   "require-dev": {
     "fond-of-codeception/spryker": "^2.1.1",
