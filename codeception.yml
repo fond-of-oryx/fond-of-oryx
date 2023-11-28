@@ -78,6 +78,7 @@ include:
   - bundles/customer-product-list-connector-gui
   - bundles/customer-product-lists-rest-api
   - bundles/customer-product-list-search-rest-api
+  - bundles/customer-quote-connector
   - bundles/customer-registration
   - bundles/customer-registration-rest-api
   - bundles/customer-statistic
