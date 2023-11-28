@@ -119,7 +119,7 @@ class CompanyUserApi implements CompanyUserApiInterface
      */
     public function remove(int $idCompanyUser): ApiItemTransfer
     {
-        $companyUserTransfer =  $this->companyUserFacade->getCompanyUserById($idCompanyUser);
+        $companyUserTransfer = $this->companyUserFacade->getCompanyUserById($idCompanyUser);
 
         $this->companyUserFacade->deleteCompanyUser($companyUserTransfer);
 
