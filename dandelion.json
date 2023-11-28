@@ -249,7 +249,7 @@
     },
     "company-user-api": {
       "path": "bundles/company-user-api/",
-      "version": "3.1.0"
+      "version": "3.1.1"
     },
     "company-user-archive": {
       "path": "bundles/company-user-archive/",
