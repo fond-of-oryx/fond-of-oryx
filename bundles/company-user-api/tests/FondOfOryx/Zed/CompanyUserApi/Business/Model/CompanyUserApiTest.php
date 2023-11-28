@@ -356,13 +356,8 @@ class CompanyUserApiTest extends Unit
 
         $this->companyUserFacadeMock->expects(static::atLeastOnce())
             ->method('deleteCompanyUser')
-            ->with(
-                static::callback(
-                    static function (CompanyUserTransfer $companyUserTransfer) use ($idCompanyUser) {
-                        return $idCompanyUser === $companyUserTransfer->getIdCompanyUser();
-                    },
-                ),
-            )->willReturn($this->companyUserResponseTransferMock);
+            ->with($this->companyUserTransferMock)
+            ->willReturn($this->companyUserResponseTransferMock);
 
         $this->apiFacadeMock->expects(static::atLeastOnce())
             ->method('createApiItem')
