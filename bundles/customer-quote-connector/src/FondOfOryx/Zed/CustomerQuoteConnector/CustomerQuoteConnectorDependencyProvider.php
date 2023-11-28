@@ -42,7 +42,7 @@ class CustomerQuoteConnectorDependencyProvider extends AbstractBundleDependencyP
      */
     protected function addCustomerFacade(Container $container): Container
     {
-        $container[static::PROPEL_QUERY_CUSTOMER] = static fn (
+        $container[static::FACADE_CUSTOMER] = static fn (
             Container $container
         ): CustomerQuoteConnectorToCustomerFacadeInterface => new CustomerQuoteConnectorToCustomerFacadeBridge(
             $container->getLocator()->customer()->facade(),
