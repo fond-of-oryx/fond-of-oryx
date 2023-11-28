@@ -367,6 +367,10 @@
       "path": "bundles/customer-product-lists-rest-api/",
       "version": "2.0.0"
     },
+    "customer-quote-connector": {
+      "path": "bundles/customer-quote-connector",
+      "version": "1.0.0"
+    },
     "customer-registration": {
       "path": "bundles/customer-registration/",
       "version": "2.3.0"
