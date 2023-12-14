@@ -8,7 +8,7 @@ use Generated\Shared\Transfer\FilterFieldTransfer;
 use Generated\Shared\Transfer\QueryJoinCollectionTransfer;
 use Generated\Shared\Transfer\QueryJoinTransfer;
 use Orm\Zed\Company\Persistence\Map\SpyCompanyTableMap;
-use Orm\Zed\CompanyType\Persistence\Map\FosCompanyTypeTableMap;
+use Orm\Zed\CompanyType\Persistence\Map\FoiCompanyTypeTableMap;
 use PHPUnit\Framework\MockObject\MockObject;
 use Propel\Runtime\ActiveQuery\Criteria;
 
@@ -105,10 +105,10 @@ class CompanyTypeSearchCompanyUserQueryExpanderPluginTest extends Unit
                     fn (
                         QueryJoinTransfer $queryJoinTransfer
                     ) => $queryJoinTransfer->getLeft() == [SpyCompanyTableMap::COL_FK_COMPANY_TYPE]
-                        && $queryJoinTransfer->getRight() == [FosCompanyTypeTableMap::COL_ID_COMPANY_TYPE]
+                        && $queryJoinTransfer->getRight() == [FoiCompanyTypeTableMap::COL_ID_COMPANY_TYPE]
                         && $queryJoinTransfer->getJoinType() === Criteria::INNER_JOIN
                         && $queryJoinTransfer->getWhereConditions()->count() === 1
-                        && $queryJoinTransfer->getWhereConditions()->offsetGet(0)->getColumn() === FosCompanyTypeTableMap::COL_NAME
+                        && $queryJoinTransfer->getWhereConditions()->offsetGet(0)->getColumn() === FoiCompanyTypeTableMap::COL_NAME
                         && $queryJoinTransfer->getWhereConditions()->offsetGet(0)->getComparison() === Criteria::EQUAL
                         && $queryJoinTransfer->getWhereConditions()->offsetGet(0)->getValue() === $companyType
                 ),

@@ -43,7 +43,7 @@ class CompanyTypeProductListSearchRestApiRepository extends AbstractRepository i
             ->clear()
             ->useCompanyUserQuery()
                 ->useCompanyQuery()
-                    ->useFosCompanyTypeQuery()
+                    ->useFoiCompanyTypeQuery()
                         ->filterByName($companyTypeNameForManufacturer)
                     ->endUse()
                     ->useCompanyUserQuery(static::RELATION_ALIAS_TEMP_COMPANY_USER)

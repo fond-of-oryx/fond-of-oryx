@@ -8,7 +8,7 @@ use Generated\Shared\Transfer\QueryJoinCollectionTransfer;
 use Generated\Shared\Transfer\QueryJoinTransfer;
 use Generated\Shared\Transfer\QueryWhereConditionTransfer;
 use Orm\Zed\Company\Persistence\Map\SpyCompanyTableMap;
-use Orm\Zed\CompanyType\Persistence\Map\FosCompanyTypeTableMap;
+use Orm\Zed\CompanyType\Persistence\Map\FoiCompanyTypeTableMap;
 use Propel\Runtime\ActiveQuery\Criteria;
 use Spryker\Zed\Kernel\Communication\AbstractPlugin;
 
@@ -67,10 +67,10 @@ class CompanyTypeSearchCompanyUserQueryExpanderPlugin extends AbstractPlugin imp
             (new QueryJoinTransfer())
                 ->setJoinType(Criteria::INNER_JOIN)
                 ->setLeft([SpyCompanyTableMap::COL_FK_COMPANY_TYPE])
-                ->setRight([FosCompanyTypeTableMap::COL_ID_COMPANY_TYPE])
+                ->setRight([FoiCompanyTypeTableMap::COL_ID_COMPANY_TYPE])
                 ->addQueryWhereCondition(
                     (new QueryWhereConditionTransfer())
-                        ->setColumn(FosCompanyTypeTableMap::COL_NAME)
+                        ->setColumn(FoiCompanyTypeTableMap::COL_NAME)
                         ->setComparison(Criteria::EQUAL)
                         ->setValue($companyType),
                 ),
