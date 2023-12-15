@@ -23,7 +23,7 @@
     "ext-json": "*",
     "endroid/qr-code": ">=4.1 <4.6",
     "fond-of-impala/company-price-list": "^1.0.0",
-    "fond-of-impala/company-type": "dev-main",
+    "fond-of-impala/company-type": "^1.0.0",
     "fond-of-impala/price-product-price-list": "^1.0.0",
     "fond-of-spryker/brand-company": "dev-master",
     "fond-of-spryker/brand-customer": "dev-spryker_upgrade",
