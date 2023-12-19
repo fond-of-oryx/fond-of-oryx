@@ -50,25 +50,13 @@ class ErpOrderPageSearchPublisher implements ErpOrderPageSearchPublisherInterfac
      */
     public const FIELD_COUNTRY = 'country';
 
-    /**
-     * @var \FondOfOryx\Zed\ErpOrderPageSearch\Persistence\ErpOrderPageSearchEntityManagerInterface
-     */
-    protected $entityManager;
+    protected ErpOrderPageSearchEntityManagerInterface $entityManager;
 
-    /**
-     * @var \FondOfOryx\Zed\ErpOrderPageSearch\Persistence\ErpOrderPageSearchQueryContainerInterface
-     */
-    protected $queryContainer;
+    protected ErpOrderPageSearchQueryContainerInterface $queryContainer;
 
-    /**
-     * @var \FondOfOryx\Zed\ErpOrderPageSearch\Dependency\Service\ErpOrderPageSearchToUtilEncodingServiceInterface
-     */
-    protected $utilEncodingService;
+    protected ErpOrderPageSearchToUtilEncodingServiceInterface $utilEncodingService;
 
-    /**
-     * @var \FondOfOryx\Zed\ErpOrderPageSearch\Business\Mapper\ErpOrderPageSearchDataMapperInterface
-     */
-    protected $erpOrderPageSearchDataMapper;
+    protected ErpOrderPageSearchDataMapperInterface $erpOrderPageSearchDataMapper;
 
     /**
      * @param \FondOfOryx\Zed\ErpOrderPageSearch\Persistence\ErpOrderPageSearchEntityManagerInterface $entityManager
@@ -95,14 +83,9 @@ class ErpOrderPageSearchPublisher implements ErpOrderPageSearchPublisherInterfac
      */
     public function publish(array $erpOrderIds): void
     {
-        $fooErpOrderEntities = $this->queryContainer->queryErpOrderWithAddressesAndCompanyBusinessUnitByErpOrderIds($erpOrderIds)->find()
-            ->getData();
-
-        if (count($erpOrderIds) > 0) {
-            $this->entityManager->deleteErpOrderSearchPagesByErpOrderIds(
-                $erpOrderIds,
-            );
-        }
+        $fooErpOrderEntities = $this->queryContainer->queryErpOrderWithAddressesAndCompanyBusinessUnitByErpOrderIds(
+            $erpOrderIds,
+        )->find()->getData();
 
         $this->storeData($fooErpOrderEntities);
     }
@@ -149,9 +132,8 @@ class ErpOrderPageSearchPublisher implements ErpOrderPageSearchPublisherInterfac
             ->setFkErpOrder($fooErpOrderEntity->getIdErpOrder());
 
         $erpOrderPageSearchTransfer = $this->addDataAttributes($erpOrderPageSearchTransfer);
-        $erpOrderPageSearchTransfer = $this->addUniqueKeyIdentifier($erpOrderPageSearchTransfer, $fooErpOrderEntity);
 
-        $this->entityManager->createErpOrderPageSearch($erpOrderPageSearchTransfer);
+        $this->entityManager->persistErpOrderPageSearch($erpOrderPageSearchTransfer);
     }
 
     /**
@@ -233,22 +215,5 @@ class ErpOrderPageSearchPublisher implements ErpOrderPageSearchPublisherInterfac
         }
 
         return $items;
-    }
-
-    /**
-     * @param \Generated\Shared\Transfer\ErpOrderPageSearchTransfer $erpOrderPageSearchTransfer
-     * @param \Orm\Zed\ErpOrder\Persistence\ErpOrder $fooErpOrderEntity
-     *
-     * @return \Generated\Shared\Transfer\ErpOrderPageSearchTransfer
-     */
-    protected function addUniqueKeyIdentifier(
-        ErpOrderPageSearchTransfer $erpOrderPageSearchTransfer,
-        ErpOrder $fooErpOrderEntity
-    ): ErpOrderPageSearchTransfer {
-        $updatedAt = $fooErpOrderEntity->getUpdatedAt();
-        $hash = md5(sprintf('%s/%s', $updatedAt->getTimestamp(), mt_rand(0, 999)));
-        $uki = sprintf('%s-%s', $fooErpOrderEntity->getIdErpOrder(), $hash);
-
-        return $erpOrderPageSearchTransfer->setUniqueKeyIdentifier($uki);
     }
 }

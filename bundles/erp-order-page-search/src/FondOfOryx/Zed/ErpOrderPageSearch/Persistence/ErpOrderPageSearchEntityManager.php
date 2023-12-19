@@ -3,7 +3,6 @@
 namespace FondOfOryx\Zed\ErpOrderPageSearch\Persistence;
 
 use Generated\Shared\Transfer\ErpOrderPageSearchTransfer;
-use Orm\Zed\ErpOrderPageSearch\Persistence\FooErpOrderPageSearch;
 use Spryker\Zed\Kernel\Persistence\AbstractEntityManager;
 
 /**
@@ -34,11 +33,15 @@ class ErpOrderPageSearchEntityManager extends AbstractEntityManager implements E
      *
      * @return void
      */
-    public function createErpOrderPageSearch(ErpOrderPageSearchTransfer $erpOrderPageSearchTransfer): void
+    public function persistErpOrderPageSearch(ErpOrderPageSearchTransfer $erpOrderPageSearchTransfer): void
     {
+        $fooErpOrderPageSearch = $this->getFactory()->getErpOrderPageSearchQuery()
+            ->filterByFkErpOrder($erpOrderPageSearchTransfer->getFkErpOrder())
+            ->findOneOrCreate();
+
         $fooErpOrderPageSearch = $this->getFactory()->createErpOrderPageSearchMapper()->mapTransferToEntity(
             $erpOrderPageSearchTransfer,
-            new FooErpOrderPageSearch(),
+            $fooErpOrderPageSearch,
         );
 
         $fooErpOrderPageSearch->save();

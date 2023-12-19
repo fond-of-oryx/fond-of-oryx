@@ -18,5 +18,5 @@ interface ErpOrderPageSearchEntityManagerInterface
      *
      * @return void
      */
-    public function createErpOrderPageSearch(ErpOrderPageSearchTransfer $erpOrderPageSearchTransfer): void;
+    public function persistErpOrderPageSearch(ErpOrderPageSearchTransfer $erpOrderPageSearchTransfer): void;
 }

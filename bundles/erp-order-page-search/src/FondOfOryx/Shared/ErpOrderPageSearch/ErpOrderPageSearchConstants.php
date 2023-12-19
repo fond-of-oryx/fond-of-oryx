@@ -30,6 +30,11 @@ interface ErpOrderPageSearchConstants
     public const ERP_ORDER_SYNC_SEARCH_ERROR_QUEUE = 'sync.search.erp_order.error';
 
     /**
+     * @var string
+     */
+    public const PUBLISH_ERP_ORDER = 'publish.erp_order';
+
+    /**
      * Specification:
      * - Resource name, this will use for key generating
      *
