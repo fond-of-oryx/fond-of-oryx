@@ -32,7 +32,7 @@ interface ErpOrderPageSearchConstants
     /**
      * @var string
      */
-    public const PUBLISH_ERP_ORDER = 'publish.conditional_availability';
+    public const PUBLISH_ERP_ORDER = 'publish.erp_order';
 
     /**
      * Specification:
