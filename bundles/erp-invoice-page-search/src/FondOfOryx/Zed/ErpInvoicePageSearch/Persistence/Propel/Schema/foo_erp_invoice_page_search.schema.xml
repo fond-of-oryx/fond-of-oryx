@@ -6,7 +6,7 @@
           package="src.Orm.Zed.ErpInvoicePageSearch.Persistence">
 
     <table name="foo_erp_invoice_page_search" identifierQuoting="true">
-        <column name="id_erp_invoice_page_search" type="INTEGER" required="true" primaryKey="true" autoIncrement="true"/>
+        <column name="id_erp_invoice_page_search" type="BIGINT" required="true" primaryKey="true" autoIncrement="true"/>
         <column name="fk_erp_invoice" type="INTEGER" required="true"/>
         <column name="structured_data" type="LONGVARCHAR" required="true"/>
         <column name="data" type="LONGVARCHAR" required="false"/>
