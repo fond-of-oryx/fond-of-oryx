@@ -3,7 +3,6 @@
 namespace FondOfOryx\Zed\ErpDeliveryNotePageSearch\Business\Publisher;
 
 use Codeception\Test\Unit;
-use DateTime;
 use FondOfOryx\Zed\ErpDeliveryNotePageSearch\Business\Mapper\ErpDeliveryNotePageSearchDataMapperInterface;
 use FondOfOryx\Zed\ErpDeliveryNotePageSearch\Dependency\Service\ErpDeliveryNotePageSearchToUtilEncodingServiceInterface;
 use FondOfOryx\Zed\ErpDeliveryNotePageSearch\ErpDeliveryNotePageSearchConfig;
@@ -205,8 +204,6 @@ class ErpDeliveryNotePageSearchPublisherTest extends Unit
             $this->erpDeliveryNoteMock,
         ];
 
-        $updatedAt = new DateTime('NOW');
-
         $this->erpDeliveryNotePageSearchQueryContainerMock->expects(static::atLeastOnce())
             ->method('queryErpDeliveryNoteWithAddressesAndCompanyBusinessUnitByErpDeliveryNoteIds')
             ->with($erpDeliveryNoteIds)
@@ -311,10 +308,6 @@ class ErpDeliveryNotePageSearchPublisherTest extends Unit
         $this->erpDeliveryNoteAddressMock->expects(static::atLeastOnce())
             ->method('toArray')
             ->willReturn([]);
-
-        $this->erpDeliveryNoteMock->expects(static::atLeastOnce())
-            ->method('getUpdatedAt')
-            ->willReturn($updatedAt);
 
         $this->erpDeliveryNotePageSearchPublisher->publish($erpDeliveryNoteIds);
     }

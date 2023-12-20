@@ -18,5 +18,7 @@ interface ErpDeliveryNotePageSearchEntityManagerInterface
      *
      * @return void
      */
-    public function createErpDeliveryNotePageSearch(ErpDeliveryNotePageSearchTransfer $erpDeliveryNotePageSearchTransfer): void;
+    public function persistErpDeliveryNotePageSearch(
+        ErpDeliveryNotePageSearchTransfer $erpDeliveryNotePageSearchTransfer
+    ): void;
 }

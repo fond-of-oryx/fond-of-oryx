@@ -199,15 +199,9 @@ class ErpDeliveryNotePageSearchDataMapper implements ErpDeliveryNotePageSearchDa
      */
     public const SEARCH_RESULT_CURRENCY_ISO_CODE = 'currency_iso_code';
 
-    /**
-     * @var \FondOfOryx\Zed\ErpDeliveryNotePageSearch\Business\Mapper\AbstractFullTextMapper
-     */
-    protected $fullTextMapper;
+    protected AbstractFullTextMapper $fullTextMapper;
 
-    /**
-     * @var \FondOfOryx\Zed\ErpDeliveryNotePageSearch\Business\Mapper\AbstractFullTextMapper
-     */
-    protected $fullTextBoostedMapper;
+    protected AbstractFullTextMapper $fullTextBoostedMapper;
 
     /**
      * @param \FondOfOryx\Zed\ErpDeliveryNotePageSearch\Business\Mapper\AbstractFullTextMapper $fullTextMapper
@@ -229,7 +223,6 @@ class ErpDeliveryNotePageSearchDataMapper implements ErpDeliveryNotePageSearchDa
     public function mapErpDeliveryNoteDataToSearchData(array $data): array
     {
         return [
-            ErpDeliveryNoteIndexMap::LOCALE => null,
             ErpDeliveryNoteIndexMap::FULL_TEXT => $this->fullTextMapper->fromData($data),
             ErpDeliveryNoteIndexMap::FULL_TEXT_BOOSTED => $this->fullTextBoostedMapper->fromData($data),
             ErpDeliveryNoteIndexMap::ORDER_DATE => $this->convertDate($data[static::ORDER_DATE]),
@@ -252,6 +245,7 @@ class ErpDeliveryNotePageSearchDataMapper implements ErpDeliveryNotePageSearchDa
     protected function mapErpDeliveryNoteDataToSearchResultData(array $data): array
     {
         $trackingData = [];
+
         if (array_key_exists(static::ERP_DELIVERY_NOTE_TRACKING, $data)) {
             $trackingData = $data[static::ERP_DELIVERY_NOTE_TRACKING];
         }

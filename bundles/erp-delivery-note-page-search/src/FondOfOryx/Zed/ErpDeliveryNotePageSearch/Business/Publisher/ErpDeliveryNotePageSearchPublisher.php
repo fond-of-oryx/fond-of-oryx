@@ -85,30 +85,15 @@ class ErpDeliveryNotePageSearchPublisher implements ErpDeliveryNotePageSearchPub
      */
     public const FIELD_ITEMS = 'items';
 
-    /**
-     * @var \FondOfOryx\Zed\ErpDeliveryNotePageSearch\Persistence\ErpDeliveryNotePageSearchEntityManagerInterface
-     */
-    protected $entityManager;
+    protected ErpDeliveryNotePageSearchEntityManagerInterface $entityManager;
 
-    /**
-     * @var \FondOfOryx\Zed\ErpDeliveryNotePageSearch\Persistence\ErpDeliveryNotePageSearchQueryContainerInterface
-     */
-    protected $queryContainer;
+    protected ErpDeliveryNotePageSearchQueryContainerInterface $queryContainer;
 
-    /**
-     * @var \FondOfOryx\Zed\ErpDeliveryNotePageSearch\Dependency\Service\ErpDeliveryNotePageSearchToUtilEncodingServiceInterface
-     */
-    protected $utilEncodingService;
+    protected ErpDeliveryNotePageSearchToUtilEncodingServiceInterface $utilEncodingService;
 
-    /**
-     * @var \FondOfOryx\Zed\ErpDeliveryNotePageSearch\Business\Mapper\ErpDeliveryNotePageSearchDataMapperInterface
-     */
-    protected $erpDeliveryNotePageSearchDataMapper;
+    protected ErpDeliveryNotePageSearchDataMapperInterface $erpDeliveryNotePageSearchDataMapper;
 
-    /**
-     * @var \FondOfOryx\Zed\ErpDeliveryNotePageSearch\ErpDeliveryNotePageSearchConfig
-     */
-    protected $config;
+    protected ErpDeliveryNotePageSearchConfig $config;
 
     /**
      * @param \FondOfOryx\Zed\ErpDeliveryNotePageSearch\Persistence\ErpDeliveryNotePageSearchEntityManagerInterface $entityManager
@@ -142,12 +127,6 @@ class ErpDeliveryNotePageSearchPublisher implements ErpDeliveryNotePageSearchPub
             ->queryErpDeliveryNoteWithAddressesAndCompanyBusinessUnitByErpDeliveryNoteIds($erpDeliveryNoteIds)
             ->find()
             ->getData();
-
-        if (count($erpDeliveryNoteIds) > 0) {
-            $this->entityManager->deleteErpDeliveryNoteSearchPagesByErpDeliveryNoteIds(
-                $erpDeliveryNoteIds,
-            );
-        }
 
         $this->storeData($fooErpDeliveryNoteEntities);
     }
@@ -192,9 +171,8 @@ class ErpDeliveryNotePageSearchPublisher implements ErpDeliveryNotePageSearchPub
             ->setFkErpDeliveryNote($fooErpDeliveryNoteEntity->getIdErpDeliveryNote());
 
         $erpDeliveryNotePageSearchTransfer = $this->addDataAttributes($erpDeliveryNotePageSearchTransfer);
-        $erpDeliveryNotePageSearchTransfer = $this->addUniqueKeyIdentifier($erpDeliveryNotePageSearchTransfer, $fooErpDeliveryNoteEntity);
 
-        $this->entityManager->createErpDeliveryNotePageSearch($erpDeliveryNotePageSearchTransfer);
+        $this->entityManager->persistErpDeliveryNotePageSearch($erpDeliveryNotePageSearchTransfer);
     }
 
     /**
@@ -230,23 +208,6 @@ class ErpDeliveryNotePageSearchPublisher implements ErpDeliveryNotePageSearchPub
 
         return $erpDeliveryNotePageSearchTransfer->setData($data)
             ->setStructuredData($structuredData);
-    }
-
-    /**
-     * @param \Generated\Shared\Transfer\ErpDeliveryNotePageSearchTransfer $erpDeliveryNotePageSearchTransfer
-     * @param \Orm\Zed\ErpDeliveryNote\Persistence\FooErpDeliveryNote $fooErpDeliveryNoteEntity
-     *
-     * @return \Generated\Shared\Transfer\ErpDeliveryNotePageSearchTransfer
-     */
-    protected function addUniqueKeyIdentifier(
-        ErpDeliveryNotePageSearchTransfer $erpDeliveryNotePageSearchTransfer,
-        FooErpDeliveryNote $fooErpDeliveryNoteEntity
-    ): ErpDeliveryNotePageSearchTransfer {
-        $updatedAt = $fooErpDeliveryNoteEntity->getUpdatedAt();
-        $hash = md5(sprintf('%s/%s', $updatedAt->getTimestamp(), mt_rand(0, 999)));
-        $uki = sprintf('%s-%s', $fooErpDeliveryNoteEntity->getIdErpDeliveryNote(), $hash);
-
-        return $erpDeliveryNotePageSearchTransfer->setUniqueKeyIdentifier($uki);
     }
 
     /**
