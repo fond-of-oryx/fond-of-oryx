@@ -189,15 +189,9 @@ class ErpInvoicePageSearchDataMapper implements ErpInvoicePageSearchDataMapperIn
      */
     public const SEARCH_RESULT_CURRENCY_ISO_CODE = 'currency_iso_code';
 
-    /**
-     * @var \FondOfOryx\Zed\ErpInvoicePageSearch\Business\Mapper\AbstractFullTextMapper
-     */
-    protected $fullTextMapper;
+    protected AbstractFullTextMapper $fullTextMapper;
 
-    /**
-     * @var \FondOfOryx\Zed\ErpInvoicePageSearch\Business\Mapper\AbstractFullTextMapper
-     */
-    protected $fullTextBoostedMapper;
+    protected AbstractFullTextMapper $fullTextBoostedMapper;
 
     /**
      * @param \FondOfOryx\Zed\ErpInvoicePageSearch\Business\Mapper\AbstractFullTextMapper $fullTextMapper
@@ -219,7 +213,6 @@ class ErpInvoicePageSearchDataMapper implements ErpInvoicePageSearchDataMapperIn
     public function mapErpInvoiceDataToSearchData(array $data): array
     {
         return [
-            ErpInvoiceIndexMap::LOCALE => null,
             ErpInvoiceIndexMap::FULL_TEXT => $this->fullTextMapper->fromData($data),
             ErpInvoiceIndexMap::FULL_TEXT_BOOSTED => $this->fullTextBoostedMapper->fromData($data),
             ErpInvoiceIndexMap::INVOICE_DATE => $this->convertDate($data[static::INVOICE_DATE]),

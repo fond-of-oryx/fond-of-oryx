@@ -48,25 +48,13 @@ class ErpInvoicePageSearchPublisher implements ErpInvoicePageSearchPublisherInte
      */
     public const FIELD_COUNTRY = 'country';
 
-    /**
-     * @var \FondOfOryx\Zed\ErpInvoicePageSearch\Persistence\ErpInvoicePageSearchEntityManagerInterface
-     */
-    protected $entityManager;
+    protected ErpInvoicePageSearchEntityManagerInterface $entityManager;
 
-    /**
-     * @var \FondOfOryx\Zed\ErpInvoicePageSearch\Persistence\ErpInvoicePageSearchQueryContainerInterface
-     */
-    protected $queryContainer;
+    protected ErpInvoicePageSearchQueryContainerInterface $queryContainer;
 
-    /**
-     * @var \FondOfOryx\Zed\ErpInvoicePageSearch\Dependency\Service\ErpInvoicePageSearchToUtilEncodingServiceInterface
-     */
-    protected $utilEncodingService;
+    protected ErpInvoicePageSearchToUtilEncodingServiceInterface $utilEncodingService;
 
-    /**
-     * @var \FondOfOryx\Zed\ErpInvoicePageSearch\Business\Mapper\ErpInvoicePageSearchDataMapperInterface
-     */
-    protected $erpInvoicePageSearchDataMapper;
+    protected ErpInvoicePageSearchDataMapperInterface $erpInvoicePageSearchDataMapper;
 
     /**
      * @param \FondOfOryx\Zed\ErpInvoicePageSearch\Persistence\ErpInvoicePageSearchEntityManagerInterface $entityManager
@@ -93,14 +81,10 @@ class ErpInvoicePageSearchPublisher implements ErpInvoicePageSearchPublisherInte
      */
     public function publish(array $erpInvoiceIds): void
     {
-        $fooErpInvoiceEntities = $this->queryContainer->queryErpInvoiceWithAddressesAndCompanyBusinessUnitByErpInvoiceIds($erpInvoiceIds)->find()
+        $fooErpInvoiceEntities = $this->queryContainer
+            ->queryErpInvoiceWithAddressesAndCompanyBusinessUnitByErpInvoiceIds($erpInvoiceIds)
+            ->find()
             ->getData();
-
-        if (count($erpInvoiceIds) > 0) {
-            $this->entityManager->deleteErpInvoiceSearchPagesByErpInvoiceIds(
-                $erpInvoiceIds,
-            );
-        }
 
         $this->storeData($fooErpInvoiceEntities);
     }
@@ -146,9 +130,8 @@ class ErpInvoicePageSearchPublisher implements ErpInvoicePageSearchPublisherInte
             ->setFkErpInvoice($fooErpInvoiceEntity->getIdErpInvoice());
 
         $erpInvoicePageSearchTransfer = $this->addDataAttributes($erpInvoicePageSearchTransfer);
-        $erpInvoicePageSearchTransfer = $this->addUniqueKeyIdentifier($erpInvoicePageSearchTransfer, $fooErpInvoiceEntity);
 
-        $this->entityManager->createErpInvoicePageSearch($erpInvoicePageSearchTransfer);
+        $this->entityManager->persistErpInvoicePageSearch($erpInvoicePageSearchTransfer);
     }
 
     /**
@@ -184,23 +167,6 @@ class ErpInvoicePageSearchPublisher implements ErpInvoicePageSearchPublisherInte
 
         return $erpInvoicePageSearchTransfer->setData($data)
             ->setStructuredData($structuredData);
-    }
-
-    /**
-     * @param \Generated\Shared\Transfer\ErpInvoicePageSearchTransfer $erpInvoicePageSearchTransfer
-     * @param \Orm\Zed\ErpInvoice\Persistence\FooErpInvoice $fooErpInvoiceEntity
-     *
-     * @return \Generated\Shared\Transfer\ErpInvoicePageSearchTransfer
-     */
-    protected function addUniqueKeyIdentifier(
-        ErpInvoicePageSearchTransfer $erpInvoicePageSearchTransfer,
-        FooErpInvoice $fooErpInvoiceEntity
-    ): ErpInvoicePageSearchTransfer {
-        $updatedAt = $fooErpInvoiceEntity->getUpdatedAt();
-        $hash = md5(sprintf('%s/%s', $updatedAt->getTimestamp(), mt_rand(0, 999)));
-        $uki = sprintf('%s-%s', $fooErpInvoiceEntity->getIdErpInvoice(), $hash);
-
-        return $erpInvoicePageSearchTransfer->setUniqueKeyIdentifier($uki);
     }
 
     /**
