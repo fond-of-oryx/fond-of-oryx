@@ -6,6 +6,8 @@ use Generated\Shared\Transfer\FilterTransfer;
 use Spryker\Zed\Kernel\Persistence\AbstractRepository;
 
 /**
+ * @codeCoverageIgnore
+ *
  * @method \FondOfOryx\Zed\ErpInvoicePageSearch\Persistence\ErpInvoicePageSearchPersistenceFactory getFactory()
  */
 class ErpInvoicePageSearchRepository extends AbstractRepository implements ErpInvoicePageSearchRepositoryInterface

@@ -3,8 +3,8 @@
            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
            xsi:schemaLocation="spryker:transfer-01 http://static.spryker.com/transfer-01.xsd">
     <transfer name="ErpOrderPageSearch">
+        <property name="idErpOrderPageSearch" type="int"/>
         <property name="fkErpOrder" type="int"/>
-        <property name="uniqueKeyIdentifier" type="string"/>
         <property name="structuredData" type="string"/>
         <property name="data" singular="data" type="array"/>
     </transfer>

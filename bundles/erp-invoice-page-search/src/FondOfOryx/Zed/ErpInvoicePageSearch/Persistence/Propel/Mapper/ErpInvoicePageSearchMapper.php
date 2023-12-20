@@ -5,6 +5,9 @@ namespace FondOfOryx\Zed\ErpInvoicePageSearch\Persistence\Propel\Mapper;
 use Generated\Shared\Transfer\ErpInvoicePageSearchTransfer;
 use Orm\Zed\ErpInvoicePageSearch\Persistence\FooErpInvoicePageSearch;
 
+/**
+ * @codeCoverageIgnore
+ */
 class ErpInvoicePageSearchMapper implements ErpInvoicePageSearchMapperInterface
 {
     /**

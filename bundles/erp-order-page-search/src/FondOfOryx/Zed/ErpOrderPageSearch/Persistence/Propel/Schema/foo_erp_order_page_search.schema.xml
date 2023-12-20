@@ -6,10 +6,10 @@
           package="src.Orm.Zed.ErpOrderPageSearch.Persistence">
 
     <table name="foo_erp_order_page_search" identifierQuoting="true">
-        <column name="fk_erp_order" type="INTEGER" required="true" primaryKey="true"/>
+        <column name="id_erp_order_page_search" type="BIGINT" autoIncrement="true" primaryKey="true"/>
+        <column name="fk_erp_order" type="INTEGER" required="true"/>
         <column name="structured_data" type="LONGVARCHAR" required="true"/>
         <column name="data" type="LONGVARCHAR" required="false"/>
-        <column name="unique_key_identifier" type="VARCHAR" required="true"/>
         <column name="key" type="VARCHAR" required="true"/>
 
         <index name="foo_erp_order_page_search-fk_erp_order">
@@ -20,8 +20,7 @@
 
         <behavior name="synchronization">
             <parameter name="resource" value="erp_order"/>
-            <parameter name="locale" required="false"/>
-            <parameter name="key_suffix_column" value="unique_key_identifier"/>
+            <parameter name="key_suffix_column" value="fk_erp_order"/>
             <parameter name="queue_group" value="sync.search.erp_order"/>
             <parameter name="params" value='{"type":"erp-order"}'/>
         </behavior>
