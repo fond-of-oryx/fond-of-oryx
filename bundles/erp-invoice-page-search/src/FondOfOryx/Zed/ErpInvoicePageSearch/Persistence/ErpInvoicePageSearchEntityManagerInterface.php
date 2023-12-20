@@ -18,5 +18,5 @@ interface ErpInvoicePageSearchEntityManagerInterface
      *
      * @return void
      */
-    public function createErpInvoicePageSearch(ErpInvoicePageSearchTransfer $erpInvoicePageSearchTransfer): void;
+    public function persistErpInvoicePageSearch(ErpInvoicePageSearchTransfer $erpInvoicePageSearchTransfer): void;
 }

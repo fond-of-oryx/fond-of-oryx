@@ -3,7 +3,6 @@
 namespace FondOfOryx\Zed\ErpInvoicePageSearch\Business\Publisher;
 
 use Codeception\Test\Unit;
-use DateTime;
 use FondOfOryx\Zed\ErpInvoicePageSearch\Business\Mapper\ErpInvoicePageSearchDataMapperInterface;
 use FondOfOryx\Zed\ErpInvoicePageSearch\Dependency\Service\ErpInvoicePageSearchToUtilEncodingServiceInterface;
 use FondOfOryx\Zed\ErpInvoicePageSearch\Persistence\ErpInvoicePageSearchEntityManagerInterface;
@@ -203,8 +202,6 @@ class ErpInvoicePageSearchPublisherTest extends Unit
             $this->erpInvoiceMock,
         ];
 
-        $updatedAt = new DateTime('NOW');
-
         $this->erpInvoicePageSearchQueryContainerMock->expects(static::atLeastOnce())
             ->method('queryErpInvoiceWithAddressesAndCompanyBusinessUnitByErpInvoiceIds')
             ->with($erpInvoiceIds)
@@ -325,10 +322,6 @@ class ErpInvoicePageSearchPublisherTest extends Unit
         $this->erpInvoiceAddressMock->expects(static::atLeastOnce())
             ->method('toArray')
             ->willReturn([]);
-
-        $this->erpInvoiceMock->expects(static::atLeastOnce())
-            ->method('getUpdatedAt')
-            ->willReturn($updatedAt);
 
         $this->erpInvoicePageSearchPublisher->publish($erpInvoiceIds);
     }

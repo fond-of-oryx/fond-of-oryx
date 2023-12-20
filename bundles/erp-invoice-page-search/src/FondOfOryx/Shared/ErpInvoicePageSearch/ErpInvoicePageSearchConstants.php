@@ -25,6 +25,11 @@ interface ErpInvoicePageSearchConstants
     public const ERP_INVOICE_SYNC_SEARCH_ERROR_QUEUE = 'sync.search.erp_invoice.error';
 
     /**
+     * @var string
+     */
+    public const PUBLISH_ERP_INVOICE = 'publish.erp_invoice';
+
+    /**
      * Specification:
      * - Resource name, this will use for key generating
      *

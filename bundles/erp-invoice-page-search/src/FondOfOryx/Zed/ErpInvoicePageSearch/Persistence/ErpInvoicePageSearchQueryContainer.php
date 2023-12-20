@@ -6,6 +6,8 @@ use Orm\Zed\ErpInvoice\Persistence\FooErpInvoiceQuery;
 use Spryker\Zed\Kernel\Persistence\AbstractQueryContainer;
 
 /**
+ * @codeCoverageIgnore
+ *
  * @method \FondOfOryx\Zed\ErpInvoicePageSearch\Persistence\ErpInvoicePageSearchPersistenceFactory getFactory()
  */
 class ErpInvoicePageSearchQueryContainer extends AbstractQueryContainer implements ErpInvoicePageSearchQueryContainerInterface
