@@ -35,6 +35,6 @@
 
     <transfer name="CompanyUnitAddress">
         <property name="iso3code" type="string"/>
-        <property name="country" type="string"/>
+        <property name="country" type="Country" strict="true"/>
     </transfer>
 </transfers>

@@ -873,7 +873,7 @@
     },
     "return-labels-rest-api-company-unit-address-connector": {
       "path": "bundles/return-labels-rest-api-company-unit-address-connector/",
-      "version": "2.0.0"
+      "version": "2.0.1"
     },
     "return-labels-rest-api-customer-connector": {
       "path": "bundles/return-labels-rest-api-customer-connector/",
