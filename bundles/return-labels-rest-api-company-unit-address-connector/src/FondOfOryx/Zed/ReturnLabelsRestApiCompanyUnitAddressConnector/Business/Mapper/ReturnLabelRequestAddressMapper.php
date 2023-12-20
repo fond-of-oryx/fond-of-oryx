@@ -15,9 +15,17 @@ class ReturnLabelRequestAddressMapper implements ReturnLabelRequestAddressMapper
     public function fromCompanyUnitAddressTransfer(
         CompanyUnitAddressTransfer $companyUnitAddressTransfer
     ): ReturnLabelRequestAddressTransfer {
-        return (new ReturnLabelRequestAddressTransfer())->fromArray(
+        $returnLabelRequestAddressTransfer = (new ReturnLabelRequestAddressTransfer())->fromArray(
             $companyUnitAddressTransfer->toArray(),
             true,
         );
+
+        $countryTransfer = $companyUnitAddressTransfer->getCountry();
+
+        if ($countryTransfer === null || $countryTransfer->getName() === null) {
+            return $returnLabelRequestAddressTransfer;
+        }
+
+        return $returnLabelRequestAddressTransfer->setCountry($countryTransfer->getName());
     }
 }

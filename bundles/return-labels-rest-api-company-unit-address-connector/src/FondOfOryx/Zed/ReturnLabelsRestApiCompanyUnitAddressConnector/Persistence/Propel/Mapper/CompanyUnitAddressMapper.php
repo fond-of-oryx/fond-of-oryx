@@ -23,7 +23,7 @@ class CompanyUnitAddressMapper implements CompanyUnitAddressMapperInterface
         $countryTransfer = (new CountryTransfer())
             ->fromArray($entity->getCountry()->toArray(), true);
 
-        return $transfer->setCountry($countryTransfer->getName())
+        return $transfer->setCountry($countryTransfer)
             ->setIso3Code($countryTransfer->getIso3Code());
     }
 }
