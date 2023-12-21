@@ -221,19 +221,19 @@
     },
     "company-type-company-search-rest-api": {
       "path": "bundles/company-type-company-search-rest-api/",
-      "version": "1.0.0"
+      "version": "2.0.0"
     },
     "company-type-company-user-search-rest-api": {
       "path": "bundles/company-type-company-user-search-rest-api/",
-      "version": "1.0.0"
+      "version": "2.0.0"
     },
     "company-type-product-list-search-rest-api": {
       "path": "bundles/company-type-product-list-search-rest-api/",
-      "version": "1.0.0"
+      "version": "2.0.0"
     },
     "company-type-product-lists-rest-api": {
       "path": "bundles/company-type-product-lists-rest-api/",
-      "version": "2.0.0"
+      "version": "3.0.0"
     },
     "company-unit-address-api": {
       "path": "bundles/company-unit-address-api/",
@@ -853,7 +853,7 @@
     },
     "representative-company-user-trade-fair-rest-api": {
       "path": "bundles/representative-company-user-trade-fair-rest-api/",
-      "version": "1.3.0"
+      "version": "2.0.0"
     },
     "return-label": {
       "path": "bundles/return-label/",

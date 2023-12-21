@@ -3,10 +3,10 @@
 namespace FondOfOryx\Zed\RepresentativeCompanyUserTradeFairRestApi;
 
 use Codeception\Test\Unit;
+use FondOfImpala\Zed\CompanyType\Business\CompanyTypeFacadeInterface;
 use FondOfOryx\Zed\RepresentativeCompanyUserTradeFair\Business\RepresentativeCompanyUserTradeFairFacadeInterface;
 use FondOfOryx\Zed\RepresentativeCompanyUserTradeFairRestApi\Dependency\Facade\RepresentativeCompanyUserTradeFairRestApiToCompanyTypeFacadeInterface;
 use FondOfOryx\Zed\RepresentativeCompanyUserTradeFairRestApi\Dependency\Facade\RepresentativeCompanyUserTradeFairRestApiToRepresentativeCompanyUserTradeFairFacadeInterface;
-use FondOfSpryker\Zed\CompanyType\Business\CompanyTypeFacadeInterface;
 use Orm\Zed\CompanyUser\Persistence\SpyCompanyUserQuery;
 use Orm\Zed\Customer\Persistence\SpyCustomerQuery;
 use Orm\Zed\Permission\Persistence\Base\SpyPermissionQuery;
@@ -23,7 +23,7 @@ class RepresentativeCompanyUserTradeFairRestApiDependencyProviderTest extends Un
     protected MockObject|Container $containerMock;
 
     /**
-     * @var \PHPUnit\Framework\MockObject\MockObject|\FondOfSpryker\Zed\CompanyType\Business\CompanyTypeFacadeInterface
+     * @var \PHPUnit\Framework\MockObject\MockObject|\FondOfImpala\Zed\CompanyType\Business\CompanyTypeFacadeInterface
      */
     protected MockObject|CompanyTypeFacadeInterface $companyTypeFacadeMock;
 

@@ -2,18 +2,18 @@
 
 namespace FondOfOryx\Zed\RepresentativeCompanyUserTradeFairRestApi\Dependency\Facade;
 
-use FondOfSpryker\Zed\CompanyType\Business\CompanyTypeFacadeInterface;
+use FondOfImpala\Zed\CompanyType\Business\CompanyTypeFacadeInterface;
 use Generated\Shared\Transfer\CompanyTypeTransfer;
 
 class RepresentativeCompanyUserTradeFairRestApiToCompanyTypeFacadeBridge implements RepresentativeCompanyUserTradeFairRestApiToCompanyTypeFacadeInterface
 {
     /**
-     * @var \FondOfSpryker\Zed\CompanyType\Business\CompanyTypeFacadeInterface
+     * @var \FondOfImpala\Zed\CompanyType\Business\CompanyTypeFacadeInterface
      */
     protected $facade;
 
     /**
-     * @param \FondOfSpryker\Zed\CompanyType\Business\CompanyTypeFacadeInterface $companyTypeFacade
+     * @param \FondOfImpala\Zed\CompanyType\Business\CompanyTypeFacadeInterface $companyTypeFacade
      */
     public function __construct(CompanyTypeFacadeInterface $companyTypeFacade)
     {

@@ -3,7 +3,7 @@
 namespace FondOfOryx\Zed\RepresentativeCompanyUserTradeFairRestApi\Dependency\Facade;
 
 use Codeception\Test\Unit;
-use FondOfSpryker\Zed\CompanyType\Business\CompanyTypeFacadeInterface;
+use FondOfImpala\Zed\CompanyType\Business\CompanyTypeFacadeInterface;
 use Generated\Shared\Transfer\CompanyTypeTransfer;
 use PHPUnit\Framework\MockObject\MockObject;
 
@@ -15,7 +15,7 @@ class RepresentativeCompanyUserTradeFairRestApiToCompanyTypeFacadeBridgeTest ext
     protected MockObject|CompanyTypeTransfer $companyTypeTransferMock;
 
     /**
-     * @var \PHPUnit\Framework\MockObject\MockObject|\FondOfSpryker\Zed\CompanyType\Business\CompanyTypeFacadeInterface
+     * @var \PHPUnit\Framework\MockObject\MockObject|\FondOfImpala\Zed\CompanyType\Business\CompanyTypeFacadeInterface
      */
     protected MockObject|CompanyTypeFacadeInterface $facadeMock;
 
