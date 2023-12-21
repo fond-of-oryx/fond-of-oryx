@@ -246,6 +246,13 @@ class ErpInvoiceEntityManager extends AbstractEntityManager implements ErpInvoic
         foreach ($items as $item) {
             $item->delete();
         }
+
+        $expenses = $invoice->getFooErpInvoiceExpenses();
+
+        foreach ($expenses as $expense) {
+            $expense->delete();
+        }
+
         $addressIds = [
             $invoice->getFkBillingAddress(),
             $invoice->getFkShippingAddress(),
