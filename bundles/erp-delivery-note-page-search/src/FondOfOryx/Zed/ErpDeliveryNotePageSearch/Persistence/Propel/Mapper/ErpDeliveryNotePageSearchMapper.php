@@ -5,6 +5,9 @@ namespace FondOfOryx\Zed\ErpDeliveryNotePageSearch\Persistence\Propel\Mapper;
 use Generated\Shared\Transfer\ErpDeliveryNotePageSearchTransfer;
 use Orm\Zed\ErpDeliveryNotePageSearch\Persistence\FooErpDeliveryNotePageSearch;
 
+/**
+ * @codeCoverageIgnore
+ */
 class ErpDeliveryNotePageSearchMapper implements ErpDeliveryNotePageSearchMapperInterface
 {
     /**

@@ -6,6 +6,8 @@ use Orm\Zed\ErpDeliveryNote\Persistence\FooErpDeliveryNoteQuery;
 use Spryker\Zed\Kernel\Persistence\AbstractQueryContainer;
 
 /**
+ * @codeCoverageIgnore
+ *
  * @method \FondOfOryx\Zed\ErpDeliveryNotePageSearch\Persistence\ErpDeliveryNotePageSearchPersistenceFactory getFactory()
  */
 class ErpDeliveryNotePageSearchQueryContainer extends AbstractQueryContainer implements ErpDeliveryNotePageSearchQueryContainerInterface

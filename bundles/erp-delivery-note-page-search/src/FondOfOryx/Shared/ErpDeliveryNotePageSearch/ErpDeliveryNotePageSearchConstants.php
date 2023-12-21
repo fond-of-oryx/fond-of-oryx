@@ -25,6 +25,11 @@ interface ErpDeliveryNotePageSearchConstants
     public const ERP_DELIVERY_NOTE_SYNC_SEARCH_ERROR_QUEUE = 'sync.search.erp_delivery_note.error';
 
     /**
+     * @var string
+     */
+    public const PUBLISH_ERP_DELIVERY_NOTE = 'publish.erp_delivery_note';
+
+    /**
      * Specification:
      * - Resource name, this will use for key generating
      *

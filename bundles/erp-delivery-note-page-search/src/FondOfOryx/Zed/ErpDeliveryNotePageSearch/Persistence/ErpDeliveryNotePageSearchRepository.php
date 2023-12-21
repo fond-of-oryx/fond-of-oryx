@@ -6,6 +6,8 @@ use Generated\Shared\Transfer\FilterTransfer;
 use Spryker\Zed\Kernel\Persistence\AbstractRepository;
 
 /**
+ * @codeCoverageIgnore
+ *
  * @method \FondOfOryx\Zed\ErpDeliveryNotePageSearch\Persistence\ErpDeliveryNotePageSearchPersistenceFactory getFactory()
  */
 class ErpDeliveryNotePageSearchRepository extends AbstractRepository implements ErpDeliveryNotePageSearchRepositoryInterface
