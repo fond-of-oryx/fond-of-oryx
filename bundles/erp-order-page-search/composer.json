@@ -18,6 +18,7 @@
     "fond-of-oryx/erp-order-permission": "^1.0.0 || ^2.0.0",
     "spryker/customer": "^7.0.0",
     "spryker/event-behavior": "^1.0.0",
+    "spryker/publisher-extension": "^1.0.0",
     "spryker/search": "^8.0.0",
     "spryker/search-elasticsearch": "^1.0.0",
     "spryker/synchronization": "^1.0.0",
