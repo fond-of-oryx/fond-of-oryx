@@ -313,6 +313,13 @@ class ErpDeliveryNoteEntityManager extends AbstractEntityManager implements ErpD
         foreach ($items as $item) {
             $item->delete();
         }
+
+        $expenses = $deliveryNote->getFooErpDeliveryNoteExpenses();
+
+        foreach ($expenses as $expense) {
+            $expense->delete();
+        }
+
         $addressIds = [
             $deliveryNote->getFkBillingAddress(),
             $deliveryNote->getFkShippingAddress(),
