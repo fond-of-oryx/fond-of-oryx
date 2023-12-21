@@ -3,13 +3,10 @@
 namespace FondOfOryx\Zed\ErpDeliveryNotePageSearch\Persistence;
 
 use Generated\Shared\Transfer\ErpDeliveryNotePageSearchTransfer;
-use Orm\Zed\ErpDeliveryNotePageSearch\Persistence\FooErpDeliveryNotePageSearch;
 use Spryker\Zed\Kernel\Persistence\AbstractEntityManager;
 
 /**
- * Class ErpDeliveryNotePageSearchEntityManager
- *
- * @package FondOfOryx\Zed\ErpDeliveryNotePageSearch\Persistence
+ * @codeCoverageIgnore
  *
  * @method \FondOfOryx\Zed\ErpDeliveryNotePageSearch\Persistence\ErpDeliveryNotePageSearchPersistenceFactory getFactory()
  */
@@ -34,12 +31,15 @@ class ErpDeliveryNotePageSearchEntityManager extends AbstractEntityManager imple
      *
      * @return void
      */
-    public function createErpDeliveryNotePageSearch(ErpDeliveryNotePageSearchTransfer $erpDeliveryNotePageSearchTransfer): void
-    {
-        $fooErpDeliveryNotePageSearch = $this->getFactory()->createErpDeliveryNotePageSearchMapper()->mapTransferToEntity(
-            $erpDeliveryNotePageSearchTransfer,
-            new FooErpDeliveryNotePageSearch(),
-        );
+    public function persistErpDeliveryNotePageSearch(
+        ErpDeliveryNotePageSearchTransfer $erpDeliveryNotePageSearchTransfer
+    ): void {
+        $fooErpDeliveryNotePageSearch = $this->getFactory()->getErpDeliveryNotePageSearchQuery()
+            ->filterByFkErpDeliveryNote($erpDeliveryNotePageSearchTransfer->getFkErpDeliveryNote())
+            ->findOneOrCreate();
+
+        $fooErpDeliveryNotePageSearch = $this->getFactory()->createErpDeliveryNotePageSearchMapper()
+            ->mapTransferToEntity($erpDeliveryNotePageSearchTransfer, $fooErpDeliveryNotePageSearch);
 
         $fooErpDeliveryNotePageSearch->save();
     }
