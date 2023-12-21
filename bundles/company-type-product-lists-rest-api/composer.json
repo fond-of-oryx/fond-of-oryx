@@ -11,6 +11,7 @@
   "require": {
     "php": ">=8.0",
     "fond-of-impala/company-type": "^1.0.0",
+    "fond-of-oryx/product-lists-rest-api": "^2.0.1",
     "fond-of-oryx/product-lists-rest-api-extension": "^1.0.0 || ^2.0.0",
     "spryker/company-role": "^1.0.0"
   },

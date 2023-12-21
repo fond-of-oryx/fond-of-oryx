@@ -11,17 +11,17 @@ use Generated\Shared\Transfer\RestProductListUpdateRequestTransfer;
 class ProductListReaderTest extends Unit
 {
     /**
-     * @var \FondOfOryx\Zed\ProductListsRestApi\Persistence\ProductListsRestApiRepositoryInterface&\PHPUnit\Framework\MockObject\MockObject|\PHPUnit\Framework\MockObject\MockObject
+     * @var \FondOfOryx\Zed\ProductListsRestApi\Persistence\ProductListsRestApiRepositoryInterface|\PHPUnit\Framework\MockObject\MockObject
      */
     protected $repositoryMock;
 
     /**
-     * @var \FondOfOryx\Zed\ProductListsRestApi\Dependency\Facade\ProductListsRestApiToProductListFacadeInterface&\PHPUnit\Framework\MockObject\MockObject|\PHPUnit\Framework\MockObject\MockObject
+     * @var \FondOfOryx\Zed\ProductListsRestApi\Dependency\Facade\ProductListsRestApiToProductListFacadeInterface|\PHPUnit\Framework\MockObject\MockObject
      */
     protected $productListFacadeMock;
 
     /**
-     * @var \Generated\Shared\Transfer\RestProductListUpdateRequestTransfer&\PHPUnit\Framework\MockObject\MockObject|\PHPUnit\Framework\MockObject\MockObject
+     * @var \Generated\Shared\Transfer\RestProductListUpdateRequestTransfer|\PHPUnit\Framework\MockObject\MockObject
      */
     protected $restProductListUpdateRequestTransferMock;
 

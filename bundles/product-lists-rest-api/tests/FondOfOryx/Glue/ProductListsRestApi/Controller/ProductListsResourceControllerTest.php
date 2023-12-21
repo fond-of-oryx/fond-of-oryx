@@ -13,32 +13,32 @@ use Spryker\Glue\Kernel\AbstractFactory;
 class ProductListsResourceControllerTest extends Unit
 {
     /**
-     * @var \PHPUnit\Framework\MockObject\MockObject|\Spryker\Glue\GlueApplication\Rest\Request\Data\RestRequestInterface&\PHPUnit\Framework\MockObject\MockObject
+     * @var \PHPUnit\Framework\MockObject\MockObject|\Spryker\Glue\GlueApplication\Rest\Request\Data\RestRequestInterface
      */
     protected $restRequestMock;
 
     /**
-     * @var \Generated\Shared\Transfer\RestProductListsAttributesTransfer&\PHPUnit\Framework\MockObject\MockObject|\PHPUnit\Framework\MockObject\MockObject
+     * @var \Generated\Shared\Transfer\RestProductListsAttributesTransfer|\PHPUnit\Framework\MockObject\MockObject
      */
     protected $restProductListsAttributesTransferMock;
 
     /**
-     * @var \PHPUnit\Framework\MockObject\MockObject|\Spryker\Glue\GlueApplication\Rest\JsonApi\RestResponseInterface&\PHPUnit\Framework\MockObject\MockObject
+     * @var \PHPUnit\Framework\MockObject\MockObject|\Spryker\Glue\GlueApplication\Rest\JsonApi\RestResponseInterface
      */
     protected $restResponseMock;
 
     /**
-     * @var \FondOfOryx\Glue\ProductListsRestApi\ProductListsRestApiFactory&\PHPUnit\Framework\MockObject\MockObject|\PHPUnit\Framework\MockObject\MockObject
+     * @var \FondOfOryx\Glue\ProductListsRestApi\ProductListsRestApiFactory|\PHPUnit\Framework\MockObject\MockObject
      */
     protected $factoryMock;
 
     /**
-     * @var \FondOfOryx\Glue\ProductListsRestApi\Processor\Updater\ProductListUpdaterInterface&\PHPUnit\Framework\MockObject\MockObject|\PHPUnit\Framework\MockObject\MockObject
+     * @var \FondOfOryx\Glue\ProductListsRestApi\Processor\Updater\ProductListUpdaterInterface|\PHPUnit\Framework\MockObject\MockObject
      */
     protected $productListUpdaterMock;
 
     /**
-     * @var \FondOfOryx\Glue\ProductListsRestApi\Controller\ProductListsResourceController|\FondOfOryx\Glue\ProductListsRestApi\Controller\__anonymous @2616
+     * @var \FondOfOryx\Glue\ProductListsRestApi\Controller\ProductListsResourceController
      */
     protected $controller;
 
