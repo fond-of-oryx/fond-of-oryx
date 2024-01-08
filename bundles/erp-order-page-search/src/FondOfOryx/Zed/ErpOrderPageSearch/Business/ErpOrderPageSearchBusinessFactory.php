@@ -64,6 +64,7 @@ class ErpOrderPageSearchBusinessFactory extends AbstractBusinessFactory
     {
         return new FullTextMapper(
             $this->getConfig(),
+            $this->getFullTextExpanderPlugins(),
         );
     }
 
@@ -74,6 +75,7 @@ class ErpOrderPageSearchBusinessFactory extends AbstractBusinessFactory
     {
         return new FullTextBoostedMapper(
             $this->getConfig(),
+            $this->getFullTextBoostedExpanderPlugins(),
         );
     }
 
@@ -83,5 +85,21 @@ class ErpOrderPageSearchBusinessFactory extends AbstractBusinessFactory
     protected function getUtilEncodingService(): ErpOrderPageSearchToUtilEncodingServiceInterface
     {
         return $this->getProvidedDependency(ErpOrderPageSearchDependencyProvider::SERVICE_UTIL_ENCODING);
+    }
+
+    /**
+     * @return array<\FondOfOryx\Zed\ErpOrderPageSearchExtension\Dependency\Plugin\FullTextExpanderPluginInterface>
+     */
+    protected function getFullTextExpanderPlugins(): array
+    {
+        return $this->getProvidedDependency(ErpOrderPageSearchDependencyProvider::PLUGINS_FULL_TEXT_EXPANDER);
+    }
+
+    /**
+     * @return array<\FondOfOryx\Zed\ErpOrderPageSearchExtension\Dependency\Plugin\FullTextExpanderPluginInterface>
+     */
+    protected function getFullTextBoostedExpanderPlugins(): array
+    {
+        return $this->getProvidedDependency(ErpOrderPageSearchDependencyProvider::PLUGINS_FULL_TEXT_BOOSTED_EXPANDER);
     }
 }
