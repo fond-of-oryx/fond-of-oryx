@@ -26,10 +26,12 @@ class SkuFullTextExpanderPluginTest extends Unit
      */
     public function testExpand(): void
     {
-        $data[SkuFullTextExpanderPlugin::KEY_ITEMS] = [
-            [SkuFullTextExpanderPlugin::KEY_SKU => 'foo'],
-            [SkuFullTextExpanderPlugin::KEY_SKU => 'bar'],
-            [],
+        $data = [
+            SkuFullTextExpanderPlugin::KEY_ITEMS => [
+                [SkuFullTextExpanderPlugin::KEY_SKU => 'foo'],
+                [SkuFullTextExpanderPlugin::KEY_SKU => 'bar'],
+                [],
+            ],
         ];
 
         $fullText = [];
