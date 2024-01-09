@@ -4,6 +4,8 @@ namespace FondOfOryx\Zed\ErpInvoicePageSearch\Business\Mapper;
 
 use Codeception\Test\Unit;
 use FondOfOryx\Zed\ErpInvoicePageSearch\ErpInvoicePageSearchConfig;
+use FondOfOryx\Zed\ErpInvoicePageSearchExtension\Dependency\Plugin\FullTextExpanderPluginInterface;
+use PHPUnit\Framework\MockObject\MockObject;
 use stdClass;
 
 class FullTextMapperTest extends Unit
@@ -11,12 +13,17 @@ class FullTextMapperTest extends Unit
     /**
      * @var \FondOfOryx\Zed\ErpInvoicePageSearch\ErpInvoicePageSearchConfig|\PHPUnit\Framework\MockObject\MockObject
      */
-    protected $configMock;
+    protected ErpInvoicePageSearchConfig|MockObject $configMock;
+
+    /**
+     * @var \FondOfOryx\Zed\ErpInvoicePageSearchExtension\Dependency\Plugin\FullTextExpanderPluginInterface|\PHPUnit\Framework\MockObject\MockObject
+     */
+    protected FullTextExpanderPluginInterface|MockObject $fullTextExpanderPluginMock;
 
     /**
      * @var \FondOfOryx\Zed\ErpInvoicePageSearch\Business\Mapper\FullTextMapper
      */
-    protected $mapper;
+    protected FullTextMapper $mapper;
 
     /**
      * @return void
@@ -29,8 +36,13 @@ class FullTextMapperTest extends Unit
             ->disableOriginalConstructor()
             ->getMock();
 
+        $this->fullTextExpanderPluginMock = $this->getMockBuilder(FullTextExpanderPluginInterface::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
         $this->mapper = new FullTextMapper(
             $this->configMock,
+            [$this->fullTextExpanderPluginMock],
         );
     }
 
@@ -72,6 +84,11 @@ class FullTextMapperTest extends Unit
         $this->configMock->expects(static::atLeastOnce())
             ->method('getFullTextFields')
             ->willReturn($fields);
+
+        $this->fullTextExpanderPluginMock->expects(static::atLeastOnce())
+            ->method('expand')
+            ->with($data, $fullText)
+            ->willReturn($fullText);
 
         static::assertEquals(
             $fullText,

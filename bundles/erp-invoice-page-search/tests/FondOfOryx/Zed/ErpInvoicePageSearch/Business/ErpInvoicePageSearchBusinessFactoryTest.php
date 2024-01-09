@@ -83,13 +83,23 @@ class ErpInvoicePageSearchBusinessFactoryTest extends Unit
     {
         $this->containerMock->expects(static::atLeastOnce())
             ->method('has')
-            ->with(ErpInvoicePageSearchDependencyProvider::SERVICE_UTIL_ENCODING)
-            ->willReturn(true);
+            ->withConsecutive(
+                [ErpInvoicePageSearchDependencyProvider::SERVICE_UTIL_ENCODING],
+                [ErpInvoicePageSearchDependencyProvider::PLUGINS_FULL_TEXT_EXPANDER],
+                [ErpInvoicePageSearchDependencyProvider::PLUGINS_FULL_TEXT_BOOSTED_EXPANDER],
+            )->willReturn(true);
 
         $this->containerMock->expects(static::atLeastOnce())
             ->method('get')
-            ->with(ErpInvoicePageSearchDependencyProvider::SERVICE_UTIL_ENCODING)
-            ->willReturn($this->erpInvoicePageSearchToUtilEncodingServiceMock);
+            ->withConsecutive(
+                [ErpInvoicePageSearchDependencyProvider::SERVICE_UTIL_ENCODING],
+                [ErpInvoicePageSearchDependencyProvider::PLUGINS_FULL_TEXT_EXPANDER],
+                [ErpInvoicePageSearchDependencyProvider::PLUGINS_FULL_TEXT_BOOSTED_EXPANDER],
+            )->willReturnOnConsecutiveCalls(
+                $this->erpInvoicePageSearchToUtilEncodingServiceMock,
+                [],
+                [],
+            );
 
         static::assertInstanceOf(
             ErpInvoicePageSearchPublisher::class,
