@@ -388,7 +388,9 @@
     "fond-of-oryx/thirty-five-up-payment-connector": "*",
     "fond-of-oryx/trbo": "*",
     "fond-of-oryx/util-math-formula": "*",
-    "fond-of-oryx/vertigo-price-product-price-list": "*"
+    "fond-of-oryx/vertigo-price-product-price-list": "*",
+    "fond-of-spryker/shipment-table-rate": "*",
+    "spryker/customer-api": "*"
   },
   "minimum-stability": "dev",
   "prefer-stable": true,
