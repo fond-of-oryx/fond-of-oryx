@@ -19,12 +19,17 @@ class ErpInvoicePageSearchDependencyProvider extends AbstractBundleDependencyPro
     /**
      * @var string
      */
-    public const SERVICE_UTIL_ENCODING = 'SERVICE_UTIL_ENCODING';
+    public const FACADE_EVENT_BEHAVIOR = 'FACADE_EVENT_BEHAVIOR';
 
     /**
      * @var string
      */
-    public const QUERY_ERP_INVOICE_PAGE_SEARCH = 'QUERY_ERP_INVOICE_PAGE_SEARCH';
+    public const PLUGINS_FULL_TEXT_EXPANDER = 'PLUGINS_FULL_TEXT_EXPANDER';
+
+    /**
+     * @var string
+     */
+    public const PLUGINS_FULL_TEXT_BOOSTED_EXPANDER = 'PLUGINS_FULL_TEXT_BOOSTED_EXPANDER';
 
     /**
      * @var string
@@ -34,7 +39,12 @@ class ErpInvoicePageSearchDependencyProvider extends AbstractBundleDependencyPro
     /**
      * @var string
      */
-    public const FACADE_EVENT_BEHAVIOR = 'FACADE_EVENT_BEHAVIOR';
+    public const QUERY_ERP_INVOICE_PAGE_SEARCH = 'QUERY_ERP_INVOICE_PAGE_SEARCH';
+
+    /**
+     * @var string
+     */
+    public const SERVICE_UTIL_ENCODING = 'SERVICE_UTIL_ENCODING';
 
     /**
      * @param \Spryker\Zed\Kernel\Container $container
@@ -45,9 +55,10 @@ class ErpInvoicePageSearchDependencyProvider extends AbstractBundleDependencyPro
     {
         $container = parent::provideBusinessLayerDependencies($container);
 
-        $container = $this->addUtilEncodingService($container);
+        $container = $this->addFullTextBoostedExpanderPlugins($container);
+        $container = $this->addFullTextExpanderPlugins($container);
 
-        return $container;
+        return $this->addUtilEncodingService($container);
     }
 
     /**
@@ -59,9 +70,7 @@ class ErpInvoicePageSearchDependencyProvider extends AbstractBundleDependencyPro
     {
         $container = parent::provideCommunicationLayerDependencies($container);
 
-        $container = $this->addEventBehaviorFacade($container);
-
-        return $container;
+        return $this->addEventBehaviorFacade($container);
     }
 
     /**
@@ -74,9 +83,8 @@ class ErpInvoicePageSearchDependencyProvider extends AbstractBundleDependencyPro
         $container = parent::providePersistenceLayerDependencies($container);
 
         $container = $this->addErpInvoicePageSearchQuery($container);
-        $container = $this->addErpInvoiceQuery($container);
 
-        return $container;
+        return $this->addErpInvoiceQuery($container);
     }
 
     /**
@@ -137,5 +145,49 @@ class ErpInvoicePageSearchDependencyProvider extends AbstractBundleDependencyPro
         };
 
         return $container;
+    }
+
+    /**
+     * @param \Spryker\Zed\Kernel\Container $container
+     *
+     * @return \Spryker\Zed\Kernel\Container
+     */
+    protected function addFullTextExpanderPlugins(Container $container): Container
+    {
+        $container[static::PLUGINS_FULL_TEXT_EXPANDER] = function () {
+            return $this->getFullTextExpanderPlugins();
+        };
+
+        return $container;
+    }
+
+    /**
+     * @return array<\FondOfOryx\Zed\ErpInvoicePageSearchExtension\Dependency\Plugin\FullTextExpanderPluginInterface>
+     */
+    protected function getFullTextExpanderPlugins(): array
+    {
+        return [];
+    }
+
+    /**
+     * @param \Spryker\Zed\Kernel\Container $container
+     *
+     * @return \Spryker\Zed\Kernel\Container
+     */
+    protected function addFullTextBoostedExpanderPlugins(Container $container): Container
+    {
+        $container[static::PLUGINS_FULL_TEXT_BOOSTED_EXPANDER] = function () {
+            return $this->getFullTextBoostedExpanderPlugins();
+        };
+
+        return $container;
+    }
+
+    /**
+     * @return array<\FondOfOryx\Zed\ErpInvoicePageSearchExtension\Dependency\Plugin\FullTextExpanderPluginInterface>
+     */
+    protected function getFullTextBoostedExpanderPlugins(): array
+    {
+        return [];
     }
 }
