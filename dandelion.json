@@ -415,6 +415,10 @@
       "path": "bundles/erp-delivery-note-page-search/",
       "version": "2.4.0"
     },
+    "erp-delivery-note-page-search-extension": {
+      "path": "bundles/erp-delivery-note-page-search-extension/",
+      "version": "1.0.0"
+    },
     "erp-delivery-note-page-search-rest-api": {
       "path": "bundles/erp-delivery-note-page-search-rest-api/",
       "version": "2.3.1"
