@@ -443,6 +443,10 @@
       "path": "bundles/erp-invoice-page-search/",
       "version": "3.2.0"
     },
+    "erp-invoice-page-search-extension": {
+      "path": "bundles/erp-invoice-page-search-extension/",
+      "version": "1.0.0"
+    },
     "erp-invoice-page-search-rest-api": {
       "path": "bundles/erp-invoice-page-search-rest-api/",
       "version": "2.2.0"
