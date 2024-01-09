@@ -467,6 +467,10 @@
       "path": "bundles/erp-order-page-search/",
       "version": "3.5.1"
     },
+    "erp-order-page-search-extension": {
+      "path": "bundles/erp-order-page-search-extension/",
+      "version": "1.0.0"
+    },
     "erp-order-page-search-rest-api": {
       "path": "bundles/erp-order-page-search-rest-api/",
       "version": "2.4.0"
