@@ -413,7 +413,7 @@
     },
     "erp-delivery-note-page-search": {
       "path": "bundles/erp-delivery-note-page-search/",
-      "version": "2.4.0"
+      "version": "2.5.0"
     },
     "erp-delivery-note-page-search-extension": {
       "path": "bundles/erp-delivery-note-page-search-extension/",

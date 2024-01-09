@@ -79,17 +79,27 @@ class ErpDeliveryNotePageSearchBusinessFactoryTest extends Unit
     /**
      * @return void
      */
-    public function testCeateErpDeliveryNotePageSearchPublisher(): void
+    public function testCreateErpDeliveryNotePageSearchPublisher(): void
     {
         $this->containerMock->expects(static::atLeastOnce())
             ->method('has')
-            ->with(ErpDeliveryNotePageSearchDependencyProvider::SERVICE_UTIL_ENCODING)
-            ->willReturn(true);
+            ->withConsecutive(
+                [ErpDeliveryNotePageSearchDependencyProvider::SERVICE_UTIL_ENCODING],
+                [ErpDeliveryNotePageSearchDependencyProvider::PLUGINS_FULL_TEXT_EXPANDER],
+                [ErpDeliveryNotePageSearchDependencyProvider::PLUGINS_FULL_TEXT_BOOSTED_EXPANDER],
+            )->willReturn(true);
 
         $this->containerMock->expects(static::atLeastOnce())
             ->method('get')
-            ->with(ErpDeliveryNotePageSearchDependencyProvider::SERVICE_UTIL_ENCODING)
-            ->willReturn($this->erpDeliveryNotePageSearchToUtilEncodingServiceMock);
+            ->withConsecutive(
+                [ErpDeliveryNotePageSearchDependencyProvider::SERVICE_UTIL_ENCODING],
+                [ErpDeliveryNotePageSearchDependencyProvider::PLUGINS_FULL_TEXT_EXPANDER],
+                [ErpDeliveryNotePageSearchDependencyProvider::PLUGINS_FULL_TEXT_BOOSTED_EXPANDER],
+            )->willReturnOnConsecutiveCalls(
+                $this->erpDeliveryNotePageSearchToUtilEncodingServiceMock,
+                [],
+                [],
+            );
 
         static::assertInstanceOf(
             ErpDeliveryNotePageSearchPublisher::class,

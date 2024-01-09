@@ -19,7 +19,17 @@ class ErpDeliveryNotePageSearchDependencyProvider extends AbstractBundleDependen
     /**
      * @var string
      */
-    public const SERVICE_UTIL_ENCODING = 'SERVICE_UTIL_ENCODING';
+    public const FACADE_EVENT_BEHAVIOR = 'FACADE_EVENT_BEHAVIOR';
+
+    /**
+     * @var string
+     */
+    public const PLUGINS_FULL_TEXT_EXPANDER = 'PLUGINS_FULL_TEXT_EXPANDER';
+
+    /**
+     * @var string
+     */
+    public const PLUGINS_FULL_TEXT_BOOSTED_EXPANDER = 'PLUGINS_FULL_TEXT_BOOSTED_EXPANDER';
 
     /**
      * @var string
@@ -34,7 +44,7 @@ class ErpDeliveryNotePageSearchDependencyProvider extends AbstractBundleDependen
     /**
      * @var string
      */
-    public const FACADE_EVENT_BEHAVIOR = 'FACADE_EVENT_BEHAVIOR';
+    public const SERVICE_UTIL_ENCODING = 'SERVICE_UTIL_ENCODING';
 
     /**
      * @param \Spryker\Zed\Kernel\Container $container
@@ -45,9 +55,10 @@ class ErpDeliveryNotePageSearchDependencyProvider extends AbstractBundleDependen
     {
         $container = parent::provideBusinessLayerDependencies($container);
 
-        $container = $this->addUtilEncodingService($container);
+        $container = $this->addFullTextExpanderPlugins($container);
+        $container = $this->addFullTextBoostedExpanderPlugins($container);
 
-        return $container;
+        return $this->addUtilEncodingService($container);
     }
 
     /**
@@ -59,9 +70,7 @@ class ErpDeliveryNotePageSearchDependencyProvider extends AbstractBundleDependen
     {
         $container = parent::provideCommunicationLayerDependencies($container);
 
-        $container = $this->addEventBehaviorFacade($container);
-
-        return $container;
+        return $this->addEventBehaviorFacade($container);
     }
 
     /**
@@ -74,9 +83,8 @@ class ErpDeliveryNotePageSearchDependencyProvider extends AbstractBundleDependen
         $container = parent::providePersistenceLayerDependencies($container);
 
         $container = $this->addErpDeliveryNotePageSearchQuery($container);
-        $container = $this->addErpDeliveryNoteQuery($container);
 
-        return $container;
+        return $this->addErpDeliveryNoteQuery($container);
     }
 
     /**
@@ -137,5 +145,49 @@ class ErpDeliveryNotePageSearchDependencyProvider extends AbstractBundleDependen
         };
 
         return $container;
+    }
+
+    /**
+     * @param \Spryker\Zed\Kernel\Container $container
+     *
+     * @return \Spryker\Zed\Kernel\Container
+     */
+    protected function addFullTextExpanderPlugins(Container $container): Container
+    {
+        $container[static::PLUGINS_FULL_TEXT_EXPANDER] = function () {
+            return $this->getFullTextExpanderPlugins();
+        };
+
+        return $container;
+    }
+
+    /**
+     * @return array<\FondOfOryx\Zed\ErpDeliveryNotePageSearchExtension\Dependency\Plugin\FullTextExpanderPluginInterface>
+     */
+    protected function getFullTextExpanderPlugins(): array
+    {
+        return [];
+    }
+
+    /**
+     * @param \Spryker\Zed\Kernel\Container $container
+     *
+     * @return \Spryker\Zed\Kernel\Container
+     */
+    protected function addFullTextBoostedExpanderPlugins(Container $container): Container
+    {
+        $container[static::PLUGINS_FULL_TEXT_BOOSTED_EXPANDER] = function () {
+            return $this->getFullTextBoostedExpanderPlugins();
+        };
+
+        return $container;
+    }
+
+    /**
+     * @return array<\FondOfOryx\Zed\ErpDeliveryNotePageSearchExtension\Dependency\Plugin\FullTextExpanderPluginInterface>
+     */
+    protected function getFullTextBoostedExpanderPlugins(): array
+    {
+        return [];
     }
 }

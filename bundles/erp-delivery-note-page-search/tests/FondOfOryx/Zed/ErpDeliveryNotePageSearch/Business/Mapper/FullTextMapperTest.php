@@ -4,6 +4,8 @@ namespace FondOfOryx\Zed\ErpDeliveryNotePageSearch\Business\Mapper;
 
 use Codeception\Test\Unit;
 use FondOfOryx\Zed\ErpDeliveryNotePageSearch\ErpDeliveryNotePageSearchConfig;
+use FondOfOryx\Zed\ErpDeliveryNotePageSearchExtension\Dependency\Plugin\FullTextExpanderPluginInterface;
+use PHPUnit\Framework\MockObject\MockObject;
 use stdClass;
 
 class FullTextMapperTest extends Unit
@@ -11,12 +13,17 @@ class FullTextMapperTest extends Unit
     /**
      * @var \FondOfOryx\Zed\ErpDeliveryNotePageSearch\ErpDeliveryNotePageSearchConfig|\PHPUnit\Framework\MockObject\MockObject
      */
-    protected $configMock;
+    protected ErpDeliveryNotePageSearchConfig|MockObject $configMock;
+
+    /**
+     * @var \PHPUnit\Framework\MockObject\MockObject|\FondOfOryx\Zed\ErpDeliveryNotePageSearchExtension\Dependency\Plugin\FullTextExpanderPluginInterface
+     */
+    protected MockObject|FullTextExpanderPluginInterface $fullTextExpanderPluginMock;
 
     /**
      * @var \FondOfOryx\Zed\ErpDeliveryNotePageSearch\Business\Mapper\FullTextMapper
      */
-    protected $mapper;
+    protected FullTextMapper $mapper;
 
     /**
      * @return void
@@ -29,8 +36,13 @@ class FullTextMapperTest extends Unit
             ->disableOriginalConstructor()
             ->getMock();
 
+        $this->fullTextExpanderPluginMock = $this->getMockBuilder(FullTextExpanderPluginInterface::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
         $this->mapper = new FullTextMapper(
             $this->configMock,
+            [$this->fullTextExpanderPluginMock],
         );
     }
 
@@ -72,6 +84,11 @@ class FullTextMapperTest extends Unit
         $this->configMock->expects(static::atLeastOnce())
             ->method('getFullTextFields')
             ->willReturn($fields);
+
+        $this->fullTextExpanderPluginMock->expects(static::atLeastOnce())
+            ->method('expand')
+            ->with($data, $fullText)
+            ->willReturn($fullText);
 
         static::assertEquals(
             $fullText,

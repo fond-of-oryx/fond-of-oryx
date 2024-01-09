@@ -63,7 +63,10 @@ class ErpDeliveryNotePageSearchBusinessFactory extends AbstractBusinessFactory
      */
     protected function createFullTextMapper(): AbstractFullTextMapper
     {
-        return new FullTextMapper($this->getConfig());
+        return new FullTextMapper(
+            $this->getConfig(),
+            $this->getFullTextExpanderPlugins(),
+        );
     }
 
     /**
@@ -71,7 +74,26 @@ class ErpDeliveryNotePageSearchBusinessFactory extends AbstractBusinessFactory
      */
     protected function createFullTextBoostedMapper(): AbstractFullTextMapper
     {
-        return new FullTextBoostedMapper($this->getConfig());
+        return new FullTextBoostedMapper(
+            $this->getConfig(),
+            $this->getFullTextBoostedExpanderPlugins(),
+        );
+    }
+
+    /**
+     * @return array<\FondOfOryx\Zed\ErpDeliveryNotePageSearchExtension\Dependency\Plugin\FullTextExpanderPluginInterface>
+     */
+    protected function getFullTextExpanderPlugins(): array
+    {
+        return $this->getProvidedDependency(ErpDeliveryNotePageSearchDependencyProvider::PLUGINS_FULL_TEXT_EXPANDER);
+    }
+
+    /**
+     * @return array<\FondOfOryx\Zed\ErpDeliveryNotePageSearchExtension\Dependency\Plugin\FullTextExpanderPluginInterface>
+     */
+    protected function getFullTextBoostedExpanderPlugins(): array
+    {
+        return $this->getProvidedDependency(ErpDeliveryNotePageSearchDependencyProvider::PLUGINS_FULL_TEXT_BOOSTED_EXPANDER);
     }
 
     /**
