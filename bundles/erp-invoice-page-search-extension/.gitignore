@@ -1,0 +1,7 @@
+.idea
+
+.DS_Store
+
+src/Generated
+vendor
+composer.lock
