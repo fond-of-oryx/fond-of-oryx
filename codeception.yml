@@ -146,9 +146,6 @@ include:
   - bundles/mailjet-mail-connector
   - bundles/notion-proxy-rest-api
   - bundles/oms-credit-memo-gift-card-connector
-  - bundles/one-time-password
-  - bundles/one-time-password-email-connector
-# - bundles/one-time-password-rest-api
   - bundles/order-budget
   - bundles/order-budget-search-rest-api
   - bundles/order-budget-search-rest-api-extension
