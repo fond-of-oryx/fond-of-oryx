@@ -469,7 +469,11 @@
     },
     "erp-order-page-search": {
       "path": "bundles/erp-order-page-search/",
-      "version": "3.5.1"
+      "version": "3.6.0"
+    },
+    "erp-order-page-search-extension": {
+      "path": "bundles/erp-order-page-search-extension/",
+      "version": "1.0.0"
     },
     "erp-order-page-search-extension": {
       "path": "bundles/erp-order-page-search-extension/",

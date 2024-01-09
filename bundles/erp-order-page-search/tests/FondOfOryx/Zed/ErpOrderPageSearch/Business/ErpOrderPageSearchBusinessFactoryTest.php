@@ -10,6 +10,7 @@ use FondOfOryx\Zed\ErpOrderPageSearch\ErpOrderPageSearchConfig;
 use FondOfOryx\Zed\ErpOrderPageSearch\ErpOrderPageSearchDependencyProvider;
 use FondOfOryx\Zed\ErpOrderPageSearch\Persistence\ErpOrderPageSearchEntityManager;
 use FondOfOryx\Zed\ErpOrderPageSearch\Persistence\ErpOrderPageSearchQueryContainer;
+use PHPUnit\Framework\MockObject\MockObject;
 use Spryker\Zed\Kernel\Container;
 
 class ErpOrderPageSearchBusinessFactoryTest extends Unit
@@ -17,32 +18,32 @@ class ErpOrderPageSearchBusinessFactoryTest extends Unit
     /**
      * @var \PHPUnit\Framework\MockObject\MockObject|\Spryker\Zed\Kernel\Container
      */
-    protected $containerMock;
+    protected MockObject|Container $containerMock;
 
     /**
      * @var \FondOfOryx\Zed\ErpOrderPageSearch\ErpOrderPageSearchConfig|\PHPUnit\Framework\MockObject\MockObject
      */
-    protected $configMock;
-
-    /**
-     * @var \FondOfOryx\Zed\ErpOrderPageSearch\Business\ErpOrderPageSearchBusinessFactory
-     */
-    protected $erpOrderPageSearchBusinessFactory;
+    protected ErpOrderPageSearchConfig|MockObject $configMock;
 
     /**
      * @var \PHPUnit\Framework\MockObject\MockObject|\FondOfOryx\Zed\ErpOrderPageSearch\Persistence\ErpOrderPageSearchEntityManager
      */
-    protected $erpOrderPageSearchEntityManagerMock;
+    protected ErpOrderPageSearchEntityManager|MockObject $erpOrderPageSearchEntityManagerMock;
 
     /**
      * @var \PHPUnit\Framework\MockObject\MockObject|\FondOfOryx\Zed\ErpOrderPageSearch\Persistence\ErpOrderPageSearchQueryContainer
      */
-    protected $erpOrderPageSearchQueryContainerMock;
+    protected MockObject|ErpOrderPageSearchQueryContainer $erpOrderPageSearchQueryContainerMock;
 
     /**
      * @var \PHPUnit\Framework\MockObject\MockObject|\FondOfOryx\Zed\ErpOrderPageSearch\Dependency\Service\ErpOrderPageSearchToUtilEncodingServiceInterface
      */
-    protected $erpOrderPageSearchToUtilEncodingServiceMock;
+    protected MockObject|ErpOrderPageSearchToUtilEncodingServiceInterface $erpOrderPageSearchToUtilEncodingServiceMock;
+
+    /**
+     * @var \FondOfOryx\Zed\ErpOrderPageSearch\Business\ErpOrderPageSearchBusinessFactory
+     */
+    protected ErpOrderPageSearchBusinessFactory $erpOrderPageSearchBusinessFactory;
 
     /**
      * @return void
@@ -79,17 +80,27 @@ class ErpOrderPageSearchBusinessFactoryTest extends Unit
     /**
      * @return void
      */
-    public function testCeateErpOrderPageSearchPublisher()
+    public function testCreateErpOrderPageSearchPublisher(): void
     {
         $this->containerMock->expects(static::atLeastOnce())
             ->method('has')
-            ->with(ErpOrderPageSearchDependencyProvider::SERVICE_UTIL_ENCODING)
-            ->willReturn(true);
+            ->withConsecutive(
+                [ErpOrderPageSearchDependencyProvider::SERVICE_UTIL_ENCODING],
+                [ErpOrderPageSearchDependencyProvider::PLUGINS_FULL_TEXT_EXPANDER],
+                [ErpOrderPageSearchDependencyProvider::PLUGINS_FULL_TEXT_BOOSTED_EXPANDER],
+            )->willReturn(true);
 
         $this->containerMock->expects(static::atLeastOnce())
             ->method('get')
-            ->with(ErpOrderPageSearchDependencyProvider::SERVICE_UTIL_ENCODING)
-            ->willReturn($this->erpOrderPageSearchToUtilEncodingServiceMock);
+            ->withConsecutive(
+                [ErpOrderPageSearchDependencyProvider::SERVICE_UTIL_ENCODING],
+                [ErpOrderPageSearchDependencyProvider::PLUGINS_FULL_TEXT_EXPANDER],
+                [ErpOrderPageSearchDependencyProvider::PLUGINS_FULL_TEXT_BOOSTED_EXPANDER],
+            )->willReturnOnConsecutiveCalls(
+                $this->erpOrderPageSearchToUtilEncodingServiceMock,
+                [],
+                [],
+            );
 
         static::assertInstanceOf(
             ErpOrderPageSearchPublisher::class,
@@ -100,7 +111,7 @@ class ErpOrderPageSearchBusinessFactoryTest extends Unit
     /**
      * @return void
      */
-    public function testCreateErpOrderPageSearchUnPublisher()
+    public function testCreateErpOrderPageSearchUnPublisher(): void
     {
         static::assertInstanceOf(
             ErpOrderPageSearchUnpublisher::class,
