@@ -11,6 +11,7 @@
   "require": {
     "php": ">=8.0",
     "fond-of-oryx/erp-delivery-note": "^2.2.0",
+    "fond-of-oryx/erp-delivery-note-page-search-extension": "^1.0.0",
     "fond-of-oryx/erp-delivery-note-permission": "^1.0.0 || ^2.0.0",
     "spryker/customer": "^7.0.0",
     "spryker/publisher-extension": "^1.0.0",

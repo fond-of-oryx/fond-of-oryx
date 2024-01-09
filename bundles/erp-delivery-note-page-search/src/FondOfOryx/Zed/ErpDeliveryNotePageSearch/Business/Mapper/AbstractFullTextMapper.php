@@ -7,7 +7,7 @@ abstract class AbstractFullTextMapper implements FullTextMapperInterface
     /**
      * @param array $data
      *
-     * @return array<string>
+     * @return array<scalar>
      */
     public function fromData(array $data): array
     {
