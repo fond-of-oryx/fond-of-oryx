@@ -36,7 +36,7 @@
     "fond-of-spryker/brand-extension": "dev-master",
     "fond-of-spryker/brand-product": "dev-spryker_upgrade",
     "fond-of-spryker/company-unit-address-default-shipping": "dev-master",
-    "fond-of-spryker/company-user-reference": "dev-master",
+    "fond-of-impala/company-user-reference": "^1.0.0",
     "fond-of-spryker/product-list-company": "dev-spryker_upgrade",
     "fond-of-spryker/product-list-customer": "dev-spryker_upgrade",
     "hackzilla/password-generator": "^1.6.0",
