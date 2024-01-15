@@ -169,7 +169,7 @@
     },
     "company-oms-mail-connector": {
       "path": "bundles/company-oms-mail-connector/",
-      "version": "3.1.0"
+      "version": "3.2.0"
     },
     "company-price-lists-rest-api": {
       "path": "bundles/company-price-lists-rest-api/",
@@ -601,11 +601,11 @@
     },
     "jellyfish-sales-order-company": {
       "path": "bundles/jellyfish-sales-order-company/",
-      "version": "2.1.0"
+      "version": "2.2.0"
     },
     "jellyfish-sales-order-company-business-unit": {
       "path": "bundles/jellyfish-sales-order-company-business-unit/",
-      "version": "2.0.0"
+      "version": "2.1.0"
     },
     "jellyfish-sales-order-company-unit-address": {
       "path": "bundles/jellyfish-sales-order-company-unit-address/",
@@ -613,7 +613,7 @@
     },
     "jellyfish-sales-order-company-user": {
       "path": "bundles/jellyfish-sales-order-company-user/",
-      "version": "2.0.0"
+      "version": "2.1.0"
     },
     "jellyfish-sales-order-customer-address": {
       "path": "bundles/jellyfish-sales-order-customer-address/",
