@@ -35,6 +35,8 @@ class LowercaseBehavior extends Behavior
     }
 
     /**
+     * @throws \Spryker\Zed\UuidBehavior\Persistence\Propel\Behavior\Exception\ColumnNotFoundException
+     *
      * @return string
      */
     protected function addColumnValuesToLowercase(): string
@@ -49,11 +51,11 @@ class LowercaseBehavior extends Behavior
         $lowercaseColumns = explode(',', $parameters[static::KEY_PARAMETER_LOWERCASE_COLUMN]);
 
         foreach ($lowercaseColumns as $index => $lowercaseColumn) {
-            if (!$this->getTable()?->hasColumn($lowercaseColumn)) {
+            if (!$this->getTable()->hasColumn($lowercaseColumn)) {
                 throw new ColumnNotFoundException(sprintf(
                     static::ERROR_COLUMN_NOT_FOUND,
                     $lowercaseColumn,
-                    $this->getTable()?->getName()
+                    $this->getTable()->getName(),
                 ));
             }
 
@@ -62,7 +64,7 @@ class LowercaseBehavior extends Behavior
             $setterMethodName = sprintf('set%s', $pascalCaseColumn);
 
             if ($index > 0) {
-                $body .= "";
+                $body .= '';
             }
 
             $body .= "\$this->$setterMethodName(strtolower(\$this->$getterMethodName()));";
@@ -88,5 +90,4 @@ protected function columnValuesToLowercase()
 }
         ";
     }
-
 }
