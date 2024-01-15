@@ -2,19 +2,19 @@
 
 namespace FondOfOryx\Zed\JellyfishSalesOrderCompanyBusinessUnit\Dependency\Facade;
 
-use FondOfSpryker\Zed\CompanyUserReference\Business\CompanyUserReferenceFacadeInterface;
+use FondOfImpala\Zed\CompanyUserReference\Business\CompanyUserReferenceFacadeInterface;
 use Generated\Shared\Transfer\CompanyBusinessUnitTransfer;
 
 class JellyfishSalesOrderCompanyBusinessUnitToCompanyUserReferenceFacadeBridge implements
     JellyfishSalesOrderCompanyBusinessUnitToCompanyUserReferenceFacadeInterface
 {
     /**
-     * @var \FondOfSpryker\Zed\CompanyUserReference\Business\CompanyUserReferenceFacadeInterface
+     * @var \FondOfImpala\Zed\CompanyUserReference\Business\CompanyUserReferenceFacadeInterface
      */
     protected $companyUserReferenceFacade;
 
     /**
-     * @param \FondOfSpryker\Zed\CompanyUserReference\Business\CompanyUserReferenceFacadeInterface $companyUserReferenceFacade
+     * @param \FondOfImpala\Zed\CompanyUserReference\Business\CompanyUserReferenceFacadeInterface $companyUserReferenceFacade
      */
     public function __construct(CompanyUserReferenceFacadeInterface $companyUserReferenceFacade)
     {

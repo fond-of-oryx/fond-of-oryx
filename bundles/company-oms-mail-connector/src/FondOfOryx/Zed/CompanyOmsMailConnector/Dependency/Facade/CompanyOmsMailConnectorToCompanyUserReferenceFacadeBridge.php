@@ -2,19 +2,19 @@
 
 namespace FondOfOryx\Zed\CompanyOmsMailConnector\Dependency\Facade;
 
-use FondOfSpryker\Zed\CompanyUserReference\Business\CompanyUserReferenceFacadeInterface;
+use FondOfImpala\Zed\CompanyUserReference\Business\CompanyUserReferenceFacadeInterface;
 use Generated\Shared\Transfer\CompanyUserResponseTransfer;
 use Generated\Shared\Transfer\CompanyUserTransfer;
 
 class CompanyOmsMailConnectorToCompanyUserReferenceFacadeBridge implements CompanyOmsMailConnectorToCompanyUserReferenceFacadeInterface
 {
     /**
-     * @var \FondOfSpryker\Zed\CompanyUserReference\Business\CompanyUserReferenceFacadeInterface
+     * @var \FondOfImpala\Zed\CompanyUserReference\Business\CompanyUserReferenceFacadeInterface
      */
     protected $facade;
 
     /**
-     * @param \FondOfSpryker\Zed\CompanyUserReference\Business\CompanyUserReferenceFacadeInterface $companyUserReferenceFacade
+     * @param \FondOfImpala\Zed\CompanyUserReference\Business\CompanyUserReferenceFacadeInterface $companyUserReferenceFacade
      */
     public function __construct(CompanyUserReferenceFacadeInterface $companyUserReferenceFacade)
     {
