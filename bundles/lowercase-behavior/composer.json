@@ -32,6 +32,13 @@
       "Orm\\": "src/Orm/"
     }
   },
+  "extra": {
+    "name": "lowercase",
+    "class": "\\FondOfOryx\\Zed\\LowercaseBehavior\\Persistence\\Propel\\Behavior\\LowercaseBehavior",
+    "branch-alias": {
+      "dev-master": "1.0.x-dev"
+    }
+  },
   "config": {
     "sort-packages": true,
     "allow-plugins": {
