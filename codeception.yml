@@ -140,6 +140,7 @@ include:
   - bundles/log-aws-cloud-watch-connector
   - bundles/log-log-io-connector
   - bundles/log-slack-connector
+  - bundles/lowercase-behavior
   - bundles/mail-bcc
   - bundles/mail-proxy
   - bundles/mail-proxy-extension

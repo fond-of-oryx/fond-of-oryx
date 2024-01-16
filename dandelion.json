@@ -679,6 +679,10 @@
       "path": "bundles/log-slack-connector/",
       "version": "2.0.0"
     },
+    "lowercase-behavior": {
+      "path": "bundles/lowercase-behavior/",
+      "version": "1.0.0-beta.1"
+    },
     "mail-bcc": {
       "path": "bundles/mail-bcc/",
       "version": "2.0.0"
