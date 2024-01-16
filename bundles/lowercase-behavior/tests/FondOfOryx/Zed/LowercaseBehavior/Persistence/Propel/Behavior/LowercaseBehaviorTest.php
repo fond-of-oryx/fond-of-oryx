@@ -4,7 +4,6 @@ namespace FondOfOryx\Zed\LowercaseBehavior\Persistence\Propel\Behavior;
 
 use Codeception\Test\Unit;
 use Propel\Generator\Util\QuickBuilder as PropelQuickBuilder;
-use TestLowercaseBehavior;
 
 class LowercaseBehaviorTest extends Unit
 {
