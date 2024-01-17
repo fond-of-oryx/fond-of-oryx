@@ -16,7 +16,8 @@
   "require-dev": {
     "fond-of-codeception/spryker": "*",
     "spryker/code-sniffer": "*",
-    "spryker-sdk/phpstan-spryker": "*"
+    "spryker-sdk/phpstan-spryker": "*",
+    "mikey179/vfsstream": "*"
   },
   "minimum-stability": "dev",
   "prefer-stable": true,
