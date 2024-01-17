@@ -1,8 +1,8 @@
 <?php
 namespace FondOfOryx\Zed\LowercaseBehavior\Persistence\Propel\Behavior;
 
+use FondOfOryx\Zed\LowercaseBehavior\Persistence\Propel\Behavior\Exception\ColumnNotFoundException;
 use Propel\Generator\Model\Behavior;
-use Spryker\Zed\UuidBehavior\Persistence\Propel\Behavior\Exception\ColumnNotFoundException;
 
 class LowercaseBehavior extends Behavior
 {
@@ -35,7 +35,7 @@ class LowercaseBehavior extends Behavior
     }
 
     /**
-     * @throws \Spryker\Zed\UuidBehavior\Persistence\Propel\Behavior\Exception\ColumnNotFoundException
+     * @throws \FondOfOryx\Zed\LowercaseBehavior\Persistence\Propel\Behavior\Exception\ColumnNotFoundException
      *
      * @return string
      */

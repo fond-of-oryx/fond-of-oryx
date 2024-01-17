@@ -4,13 +4,14 @@ namespace FondOfOryx\Zed\LowercaseBehavior\Persistence\Propel\Behavior;
 
 use Codeception\Test\Unit;
 use Propel\Generator\Util\QuickBuilder as PropelQuickBuilder;
+use TestLowercaseBehavior;
 
 class LowercaseBehaviorTest extends Unit
 {
     /**
      * @return void
      */
-   /*public function testGenerateColumnValuesToLowercaseByBody(): void
+    public function testGenerateColumnValuesToLowercaseByBody(): void
     {
         // Arrange
         $this->buildPropelEntities();
@@ -21,8 +22,8 @@ class LowercaseBehaviorTest extends Unit
         $testEntity->save();
 
         // Assert
-        $this->assertSame($testEntity->getEmail(), "max@mustermann.de");
-    }*/
+        $this->assertSame($testEntity->getEmail(), 'max@mustermann.de');
+    }
 
     /**
      * @uses TestLowercaseBehavior

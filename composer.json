@@ -30,7 +30,7 @@
     "fond-of-oryx/one-time-password-extension": "^2.0.0",
     "fond-of-oryx/one-time-password-rest-api": "^2.0.0",
     "fond-of-oryx/customer-token-manager": "^2.3.0",
-    "fond-of-oryx/customer-token-manager-one-time-password-connector": "^2.0.0",
+    "fond-of-oryx/lowercase-behavior": "^1.0",
     "fond-of-spryker/brand-company": "dev-master",
     "fond-of-spryker/brand-customer": "dev-spryker_upgrade",
     "fond-of-spryker/brand-extension": "dev-master",
@@ -136,7 +136,8 @@
     "fond-of-codeception/spryker": "^2.1.1",
     "spryker/code-sniffer": "*",
     "spryker/silex": "*",
-    "spryker-sdk/phpstan-spryker": "*"
+    "spryker-sdk/phpstan-spryker": "*",
+    "mikey179/vfsstream": "*"
   },
   "replace": {
     "fond-of-oryx/api-auth": "*",
