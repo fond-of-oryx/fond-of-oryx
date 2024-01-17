@@ -30,7 +30,7 @@
     "fond-of-oryx/one-time-password-extension": "^2.0.0",
     "fond-of-oryx/one-time-password-rest-api": "^2.0.0",
     "fond-of-oryx/customer-token-manager": "^2.3.0",
-    "fond-of-oryx/lowercase-behavior": "dev-main",
+    "fond-of-oryx/lowercase-behavior": "^1.0",
     "fond-of-spryker/brand-company": "dev-master",
     "fond-of-spryker/brand-customer": "dev-spryker_upgrade",
     "fond-of-spryker/brand-extension": "dev-master",
