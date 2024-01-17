@@ -1,7 +1,7 @@
 {
   "name": "fond-of-oryx/lowercase-behavior",
   "type": "propel-behavior",
-  "description": "LowrcaseBehavior module.",
+  "description": "LowercaseBehavior module.",
   "license": "MIT",
   "authors": [
     {
