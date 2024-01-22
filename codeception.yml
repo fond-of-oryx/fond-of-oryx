@@ -138,6 +138,7 @@ include:
   - bundles/jellyfish-thirty-five-up
   - bundles/limit-buyable-quantity
   - bundles/log-aws-cloud-watch-connector
+  - bundles/log-filesystem-connector
   - bundles/log-log-io-connector
   - bundles/log-slack-connector
   - bundles/lowercase-behavior

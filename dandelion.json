@@ -671,6 +671,10 @@
       "path": "bundles/log-aws-cloud-watch-connector/",
       "version": "2.0.0"
     },
+    "log-filesystem-connector": {
+      "path": "bundles/log-filesystem-connector/",
+      "version": "1.0.0"
+    },
     "log-log-io-connector": {
       "path": "bundles/log-log-io-connector/",
       "version": "2.0.0"
