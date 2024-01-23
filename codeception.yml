@@ -83,6 +83,7 @@ include:
   - bundles/customer-registration-rest-api
   - bundles/customer-statistic
   - bundles/customer-statistics-rest-api
+  - bundles/datadog
   - bundles/delivery-date-restriction
   - bundles/erp-customer
   - bundles/erp-delivery-note

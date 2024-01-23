@@ -391,6 +391,10 @@
       "path": "bundles/customer-statistics-rest-api/",
       "version": "2.0.0"
     },
+    "datadog": {
+      "path": "bundles/datadog/",
+      "version": "1.0.0"
+    },
     "delivery-date-restriction": {
       "path": "bundles/delivery-date-restriction/",
       "version": "2.0.0"
