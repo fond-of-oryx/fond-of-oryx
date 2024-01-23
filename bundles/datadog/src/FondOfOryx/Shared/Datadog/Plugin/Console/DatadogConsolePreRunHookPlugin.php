@@ -47,6 +47,10 @@ class DatadogConsolePreRunHookPlugin implements ConsolePreRunHookPluginInterface
      */
     protected function getArgumentsByInput(InputInterface $input): array
     {
+        if (!method_exists($input, '__toString')) {
+            return [];
+        }
+
         $arguments = explode(' ', $input->__toString());
 
         return array_slice($arguments, 1);
