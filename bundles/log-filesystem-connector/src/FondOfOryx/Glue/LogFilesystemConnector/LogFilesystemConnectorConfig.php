@@ -2,6 +2,7 @@
 
 namespace FondOfOryx\Glue\LogFilesystemConnector;
 
+use FondOfOryx\Shared\LogFilesystemConnector\LogFilesystemConnectorConstants;
 use Spryker\Glue\Kernel\AbstractBundleConfig;
 use Spryker\Shared\Log\LogConstants;
 
@@ -44,6 +45,9 @@ class LogFilesystemConnectorConfig extends AbstractBundleConfig
      */
     public function getMaxFiles(): int
     {
-        return 10;
+        return $this->get(
+            LogFilesystemConnectorConstants::MAX_FILES,
+            LogFilesystemConnectorConstants::MAX_FILES_DEFAULT,
+        );
     }
 }

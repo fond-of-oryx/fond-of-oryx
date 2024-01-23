@@ -3,6 +3,7 @@
 namespace FondOfOryx\Glue\LogFilesystemConnector;
 
 use Codeception\Test\Unit;
+use FondOfOryx\Shared\LogFilesystemConnector\LogFilesystemConnectorConstants;
 use Monolog\Logger;
 use PHPUnit\Framework\MockObject\MockObject;
 use Spryker\Shared\Log\LogConstants;
@@ -54,13 +55,20 @@ class LogFilesystemConnectorConfigTest extends Unit
      */
     public function testGetMaxFiles(): void
     {
-        static::assertEquals(10, $this->config->getMaxFiles());
+        $this->config->expects(static::atLeastOnce())
+            ->method('get')
+            ->with(
+                LogFilesystemConnectorConstants::MAX_FILES,
+                LogFilesystemConnectorConstants::MAX_FILES_DEFAULT,
+            )->willReturn(5);
+
+        static::assertEquals(5, $this->config->getMaxFiles());
     }
 
     /**
      * @return void
      */
-    public function testGetLogLeve(): void
+    public function testGetLogLevel(): void
     {
         $this->config->expects(static::atLeastOnce())
             ->method('get')
