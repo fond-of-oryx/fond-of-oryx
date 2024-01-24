@@ -14,7 +14,7 @@ class LogFilesystemConnectorConfig extends AbstractBundleConfig
     public function getApplicationLogDestinationPath(): string
     {
         return sprintf(
-            '%s/data/log/%s/Glue/application.log',
+            '%s/data/logs/%s/Glue/application.log',
             APPLICATION_ROOT_DIR,
             APPLICATION_STORE,
         );
@@ -26,7 +26,7 @@ class LogFilesystemConnectorConfig extends AbstractBundleConfig
     public function getExceptionLogDestinationPath(): string
     {
         return sprintf(
-            '%s/data/log/%s/Glue/exception.log',
+            '%s/data/logs/%s/Glue/exception.log',
             APPLICATION_ROOT_DIR,
             APPLICATION_STORE,
         );
