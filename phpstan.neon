@@ -15,6 +15,8 @@ parameters:
         - src/Generated
     ignoreErrors:
         - '#Call to function method_exists\(\).*#'
+        - '#Used function DDTrace\\root_span not found.*#'
+        - '#Function DDTrace\\root_span not found.*#'
     dynamicConstantNames:
         - APPLICATION
         - APPLICATION_ENV
