@@ -187,6 +187,12 @@ class ErpOrderEntityManager extends AbstractEntityManager implements ErpOrderEnt
             $item->delete();
         }
 
+        $expenses = $order->getFooErpOrderExpenses();
+
+        foreach ($expenses as $expense) {
+            $expense->delete();
+        }
+
         $idTotals = $order->getFkTotals();
         $addressIds = [
             $order->getFkBillingAddress(),
