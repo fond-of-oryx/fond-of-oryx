@@ -77,6 +77,20 @@ interface ErpOrderApiFacadeInterface
 
     /**
      * Specification:
+     *  - Finds erp order by id erp order.
+     *  - Throws HttpNotFoundException if not found.
+     *  - Updates erp order
+     *
+     * @api
+     *
+     * @param int $idErpOrder
+     *
+     * @return \Generated\Shared\Transfer\ApiItemTransfer
+     */
+    public function cancelErpOrder(int $idErpOrder): ApiItemTransfer;
+
+    /**
+     * Specification:
      * - Validate erp order api data.
      *
      * @api

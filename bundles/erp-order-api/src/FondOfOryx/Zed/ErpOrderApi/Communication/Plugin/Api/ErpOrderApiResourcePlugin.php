@@ -62,7 +62,7 @@ class ErpOrderApiResourcePlugin extends AbstractPlugin implements ApiResourcePlu
      */
     public function remove($id): ApiItemTransfer
     {
-        return $this->getFacade()->deleteErpOrder($id);
+        return $this->getFacade()->cancelErpOrder($id);
     }
 
     /**

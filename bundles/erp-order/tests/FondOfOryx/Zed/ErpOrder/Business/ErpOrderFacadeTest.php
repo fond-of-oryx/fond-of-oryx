@@ -149,6 +149,21 @@ class ErpOrderFacadeTest extends Unit
     /**
      * @return void
      */
+    public function testCancelErpOrder(): void
+    {
+        $this->erpOrderBusinessFactoryMock->expects(static::atLeastOnce())
+            ->method('createErpOrderWriter')
+            ->willReturn($this->erpOrderWriterMock);
+
+        $this->erpOrderWriterMock->expects(static::atLeastOnce())
+            ->method('cancel');
+
+        $this->erpOrderFacade->cancelErpOrder(1);
+    }
+
+    /**
+     * @return void
+     */
     public function testFindErpOrderByIdErpOrder(): void
     {
         $this->erpOrderBusinessFactoryMock->expects(static::atLeastOnce())->method('createErpOrderReader')->willReturn($this->erpOrderReaderMock);

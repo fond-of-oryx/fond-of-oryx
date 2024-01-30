@@ -151,7 +151,7 @@ class ErpOrderApiResourcePluginTest extends Unit
     public function testRemove(): void
     {
         $this->erpOrderApiFacadeMock->expects(static::atLeastOnce())
-            ->method('deleteErpOrder')
+            ->method('cancelErpOrder')
             ->with($this->id)
             ->willReturn($this->apiItemTransferMock);
 

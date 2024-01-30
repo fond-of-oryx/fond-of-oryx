@@ -136,6 +136,34 @@ class ErpOrderWriter implements ErpOrderWriterInterface
     }
 
     /**
+     * @param int $idErpOrder
+     *
+     * @throws \Throwable
+     *
+     * @return void
+     */
+    public function cancel(int $idErpOrder): void
+    {
+        $self = $this;
+
+        try {
+            $this->getTransactionHandler()->handleTransaction(
+                static function () use ($idErpOrder, $self) {
+                    $self->executeCancelTransaction($idErpOrder);
+                },
+            );
+        } catch (Throwable $exception) {
+            $this->logger->error($exception->getMessage(), [
+                'exception' => $exception->getMessage(),
+                'trace' => $exception->getTraceAsString(),
+                'data' => $idErpOrder,
+            ]);
+
+            throw $exception;
+        }
+    }
+
+    /**
      * @param \Generated\Shared\Transfer\ErpOrderResponseTransfer $erpOrderResponseTransfer
      *
      * @return \Generated\Shared\Transfer\ErpOrderResponseTransfer
@@ -175,5 +203,15 @@ class ErpOrderWriter implements ErpOrderWriterInterface
     protected function executeDeleteTransaction(int $idErpOrder): void
     {
         $this->entityManager->deleteErpOrderByIdErpOrder($idErpOrder);
+    }
+
+    /**
+     * @param int $idErpOrder
+     *
+     * @return void
+     */
+    protected function executeCancelTransaction(int $idErpOrder): void
+    {
+        $this->entityManager->cancelErpOrder($idErpOrder);
     }
 }

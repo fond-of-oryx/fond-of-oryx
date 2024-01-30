@@ -86,6 +86,13 @@ interface ErpOrderEntityManagerInterface
     public function deleteErpOrderAddressByIdErpOrderAddress(int $idErpOrderAddress): void;
 
     /**
+     * @param int $idErpOrder
+     *
+     * @return void
+     */
+    public function cancelErpOrder(int $idErpOrder): void;
+
+    /**
      * @param \Generated\Shared\Transfer\ErpOrderTotalsTransfer $erpOrderTotalsTransfer
      *
      * @return \Generated\Shared\Transfer\ErpOrderTotalsTransfer

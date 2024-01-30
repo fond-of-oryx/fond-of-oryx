@@ -100,6 +100,22 @@ class ErpOrderApiFacade extends AbstractFacade implements ErpOrderApiFacadeInter
      *
      * @api
      *
+     * @param int $idErpOrder
+     *
+     * @return \Generated\Shared\Transfer\ApiItemTransfer
+     */
+    public function cancelErpOrder(int $idErpOrder): ApiItemTransfer
+    {
+        return $this->getFactory()
+            ->createErpOrderApi()
+            ->cancel($idErpOrder);
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * @api
+     *
      * @param \Generated\Shared\Transfer\ApiRequestTransfer $apiRequestTransfer
      *
      * @return array<\Generated\Shared\Transfer\ApiValidationErrorTransfer>

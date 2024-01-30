@@ -46,4 +46,11 @@ interface ErpOrderApiInterface
      * @return \Generated\Shared\Transfer\ApiItemTransfer
      */
     public function delete(int $idErpOrder): ApiItemTransfer;
+
+    /**
+     * @param int $idErpOrder
+     *
+     * @return \Generated\Shared\Transfer\ApiItemTransfer
+     */
+    public function cancel(int $idErpOrder): ApiItemTransfer;
 }

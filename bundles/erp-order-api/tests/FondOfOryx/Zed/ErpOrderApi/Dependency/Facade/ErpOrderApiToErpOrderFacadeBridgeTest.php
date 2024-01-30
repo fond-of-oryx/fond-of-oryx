@@ -116,4 +116,18 @@ class ErpOrderApiToErpOrderFacadeBridgeTest extends Unit
             $this->erpOrderApiToErpOrderFacadeBridge->findErpOrderByIdErpOrder($idErpOrder),
         );
     }
+
+    /**
+     * @return void
+     */
+    public function testCancelErpOrder(): void
+    {
+        $idErpOrder = 1;
+
+        $this->erpOrderFacadeMock->expects(static::atLeastOnce())
+            ->method('cancelErpOrder')
+            ->with($idErpOrder);
+
+        $this->erpOrderApiToErpOrderFacadeBridge->cancelErpOrder($idErpOrder);
+    }
 }

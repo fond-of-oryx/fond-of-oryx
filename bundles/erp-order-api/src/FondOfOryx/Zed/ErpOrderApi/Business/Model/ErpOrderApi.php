@@ -161,6 +161,20 @@ class ErpOrderApi implements ErpOrderApiInterface
     /**
      * @param int $idErpOrder
      *
+     * @return \Generated\Shared\Transfer\ApiItemTransfer
+     */
+    public function cancel(int $idErpOrder): ApiItemTransfer
+    {
+        $this->getByIdErpOrder($idErpOrder);
+
+        $this->erpOrderFacade->cancelErpOrder($idErpOrder);
+
+        return $this->apiFacade->createApiItem(null, (string)$idErpOrder);
+    }
+
+    /**
+     * @param int $idErpOrder
+     *
      * @throws \Spryker\Zed\Api\Business\Exception\EntityNotFoundException
      *
      * @return \Generated\Shared\Transfer\ErpOrderTransfer

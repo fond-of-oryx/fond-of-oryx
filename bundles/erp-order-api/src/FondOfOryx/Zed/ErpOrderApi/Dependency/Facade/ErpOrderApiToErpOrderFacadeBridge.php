@@ -54,6 +54,16 @@ class ErpOrderApiToErpOrderFacadeBridge implements ErpOrderApiToErpOrderFacadeIn
     /**
      * @param int $idErpOrder
      *
+     * @return void
+     */
+    public function cancelErpOrder(int $idErpOrder): void
+    {
+        $this->erpOrderFacade->cancelErpOrder($idErpOrder);
+    }
+
+    /**
+     * @param int $idErpOrder
+     *
      * @return \Generated\Shared\Transfer\ErpOrderTransfer|null
      */
     public function findErpOrderByIdErpOrder(int $idErpOrder): ?ErpOrderTransfer

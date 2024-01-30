@@ -27,4 +27,11 @@ interface ErpOrderWriterInterface
      * @return void
      */
     public function delete(int $idErpOrder): void;
+
+    /**
+     * @param int $idErpOrder
+     *
+     * @return void
+     */
+    public function cancel(int $idErpOrder): void;
 }

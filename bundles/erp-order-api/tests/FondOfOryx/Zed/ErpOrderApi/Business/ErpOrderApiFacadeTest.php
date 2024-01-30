@@ -201,6 +201,26 @@ class ErpOrderApiFacadeTest extends Unit
     /**
      * @return void
      */
+    public function testCancelErpOrder(): void
+    {
+        $this->erpOrderApiBusinessFactoryMock->expects(static::atLeastOnce())
+            ->method('createErpOrderApi')
+            ->willReturn($this->erpOrderApiMock);
+
+        $this->erpOrderApiMock->expects(static::atLeastOnce())
+            ->method('cancel')
+            ->with($this->idErpOrder)
+            ->willReturn($this->apiItemTransferMock);
+
+        static::assertEquals(
+            $this->apiItemTransferMock,
+            $this->erpOrderApiFacade->cancelErpOrder($this->idErpOrder),
+        );
+    }
+
+    /**
+     * @return void
+     */
     public function testValidateErpOrder(): void
     {
         $validationResult = [];

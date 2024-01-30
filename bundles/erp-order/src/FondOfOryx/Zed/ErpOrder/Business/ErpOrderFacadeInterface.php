@@ -33,6 +33,13 @@ interface ErpOrderFacadeInterface
     /**
      * @param int $idErpOrder
      *
+     * @return void
+     */
+    public function cancelErpOrder(int $idErpOrder): void;
+
+    /**
+     * @param int $idErpOrder
+     *
      * @return \Generated\Shared\Transfer\ErpOrderTransfer|null
      */
     public function findErpOrderByIdErpOrder(int $idErpOrder): ?ErpOrderTransfer;

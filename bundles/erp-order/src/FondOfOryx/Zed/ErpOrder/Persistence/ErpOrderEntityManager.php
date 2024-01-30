@@ -131,7 +131,6 @@ class ErpOrderEntityManager extends AbstractEntityManager implements ErpOrderEnt
             ));
         }
         $createdAt = $entity->getCreatedAt();
-        $entity->fromArray($erpOrderTransfer->toArray());
 
         $entity
             ->setFkCompanyBusinessUnit($erpOrderTransfer->getFkCompanyBusinessUnit() ?: $erpOrderTransfer->getCompanyBusinessUnit()->getIdCompanyBusinessUnit())
@@ -240,6 +239,25 @@ class ErpOrderEntityManager extends AbstractEntityManager implements ErpOrderEnt
             return;
         }
         $orderAddress->delete();
+    }
+
+    /**
+     * @param int $idErpOrder
+     *
+     * @throws \Exception
+     *
+     * @return void
+     */
+    public function cancelErpOrder(int $idErpOrder): void
+    {
+        $query = $this->getFactory()->createErpOrderQuery()->clear();
+        $entity = $query->findOneByIdErpOrder($idErpOrder);
+
+        if ($entity === null) {
+            throw new Exception(sprintf('Erp order with id %s not found', $idErpOrder));
+        }
+
+        $entity->setIsCanceled(true)->save();
     }
 
     /**

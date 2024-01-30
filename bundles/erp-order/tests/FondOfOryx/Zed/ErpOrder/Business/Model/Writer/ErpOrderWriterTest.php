@@ -291,4 +291,44 @@ class ErpOrderWriterTest extends Unit
         } catch (Throwable $exception) {
         }
     }
+
+    /**
+     * @return void
+     */
+    public function testCancel(): void
+    {
+        $idErpOrder = 1;
+
+        $this->entityManagerMock->expects(static::atLeastOnce())
+            ->method('cancelErpOrder');
+
+        $this->writer->cancel($idErpOrder);
+    }
+
+    /**
+     * @return void
+     */
+    public function testCancelWithException(): void
+    {
+        $idErpOrder = 1;
+        $exception = new Exception('exception');
+
+        $this->entityManagerMock->expects(static::atLeastOnce())
+            ->method('cancelErpOrder')
+            ->willThrowException($exception);
+
+        $this->loggerMock->expects(static::atLeastOnce())
+            ->method('error')
+            ->with($exception->getMessage(), [
+                'exception' => $exception->getMessage(),
+                'trace' => $exception->getTraceAsString(),
+                'data' => $idErpOrder,
+            ]);
+
+        try {
+            $this->writer->cancel($idErpOrder);
+            static::fail();
+        } catch (Throwable $exception) {
+        }
+    }
 }
