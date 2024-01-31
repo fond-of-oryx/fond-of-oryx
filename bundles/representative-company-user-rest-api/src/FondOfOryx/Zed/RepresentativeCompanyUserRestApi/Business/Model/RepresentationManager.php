@@ -87,6 +87,11 @@ class RepresentationManager implements RepresentationManagerInterface
         try {
             $permission = $this->getPermission($restRepresentativeCompanyUserRequestTransfer);
             $restRepresentativeCompanyUserAttributesTransfer = $restRepresentativeCompanyUserRequestTransfer->getAttributes();
+
+            if ($this->hasOwnPermission($permission) && $restRepresentativeCompanyUserAttributesTransfer->getReferenceDistributor() !== $restRepresentativeCompanyUserAttributesTransfer->getReferenceOriginator()) {
+                $this->throwGlobalPermissionKeyMissingException();
+            }
+
             $distributorId = $this->repository->getIdCustomerByReference($restRepresentativeCompanyUserAttributesTransfer->getReferenceDistributor());
             $representationId = $this->repository->getIdCustomerByReference($restRepresentativeCompanyUserAttributesTransfer->getReferenceRepresentation());
             $originatorId = $distributorId;
@@ -124,6 +129,11 @@ class RepresentationManager implements RepresentationManagerInterface
         try {
             $permission = $this->getPermission($restRepresentativeCompanyUserRequestTransfer);
             $restRepresentativeCompanyUserAttributesTransfer = $restRepresentativeCompanyUserRequestTransfer->getAttributes();
+
+            if ($this->hasOwnPermission($permission) && $restRepresentativeCompanyUserAttributesTransfer->getReferenceDistributor() !== $restRepresentativeCompanyUserAttributesTransfer->getReferenceOriginator()) {
+                $this->throwGlobalPermissionKeyMissingException();
+            }
+
             $restRepresentativeCompanyUserAttributesTransfer->requireUuid();
 
             $representationTransfer = $this->representativeCompanyUserFacade->findRepresentationByUuid($restRepresentativeCompanyUserAttributesTransfer->getUuid());
@@ -165,6 +175,10 @@ class RepresentationManager implements RepresentationManagerInterface
         try {
             $permission = $this->getPermission($restRepresentativeCompanyUserRequestTransfer);
             $attributes = $restRepresentativeCompanyUserRequestTransfer->getAttributes();
+
+            if ($this->hasOwnPermission($permission) && $attributes->getReferenceDistributor() !== $attributes->getReferenceOriginator()) {
+                $this->throwGlobalPermissionKeyMissingException();
+            }
 
             $attributes->requireUuid();
             $representation = $this->representativeCompanyUserFacade->deleteRepresentativeCompanyUser($attributes->getUuid());
@@ -335,7 +349,7 @@ class RepresentationManager implements RepresentationManagerInterface
      *
      * @return \Generated\Shared\Transfer\RestRepresentativeCompanyUserPaginationTransfer
      */
-    public function createPagination(RepresentativeCompanyUserCollectionTransfer $collection): RestRepresentativeCompanyUserPaginationTransfer
+    protected function createPagination(RepresentativeCompanyUserCollectionTransfer $collection): RestRepresentativeCompanyUserPaginationTransfer
     {
         $paginationTransfer = new RestRepresentativeCompanyUserPaginationTransfer();
         $pagination = $collection->getPagination();
@@ -364,11 +378,20 @@ class RepresentationManager implements RepresentationManagerInterface
      *
      * @return \Generated\Shared\Transfer\RestErrorMessageTransfer
      */
-    public function createErrorTransfer(string $message, string $code, int $status = 400): RestErrorMessageTransfer
+    protected function createErrorTransfer(string $message, string $code, int $status = 400): RestErrorMessageTransfer
     {
         return (new RestErrorMessageTransfer())
             ->setDetail($message)
             ->setCode($code)
             ->setStatus($status);
+    }
+
+    /**
+     * @return void
+     * @throws \Exception
+     */
+    protected function throwGlobalPermissionKeyMissingException():void
+    {
+        throw new Exception(sprintf('Missing permission key "%s" to manage global representations!', static::PERMISSION_KEY_GLOBAL));
     }
 }
