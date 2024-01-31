@@ -12,4 +12,13 @@ interface RepresentativeCompanyUserRestApiRepositoryInterface
      * @return int
      */
     public function getIdCustomerByReference(string $customerReference): int;
+
+    /**
+     * @param string $mail
+     *
+     * @throws \Exception
+     *
+     * @return string
+     */
+    public function getCustomerReferenceByMail(string $mail): string;
 }

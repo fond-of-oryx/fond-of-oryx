@@ -2,6 +2,7 @@
 
 namespace FondOfOryx\Zed\RepresentativeCompanyUserTradeFairRestApi\Business\Model;
 
+use DateTime;
 use FondOfOryx\Shared\RepresentativeCompanyUserTradeFairRestApi\RepresentativeCompanyUserTradeFairRestApiConstants;
 use FondOfOryx\Zed\RepresentativeCompanyUserTradeFairRestApi\Business\Model\Mapper\RestDataMapperInterface;
 use FondOfOryx\Zed\RepresentativeCompanyUserTradeFairRestApi\Business\Validator\DurationValidatorInterface;
@@ -199,7 +200,10 @@ class TradeFairRepresentationManager implements TradeFairRepresentationManagerIn
         RepresentativeCompanyUserTradeFairTransfer $representativeCompanyUserTradeFairTransfer,
         RestRepresentativeCompanyUserTradeFairAttributesTransfer $representativeCompanyUserTradeFairAttributesTransfer
     ): bool {
-        if ($representativeCompanyUserTradeFairAttributesTransfer->getStartAt() < $representativeCompanyUserTradeFairTransfer->getStartAt()) {
+        $today = (new DateTime())->setTime(0,0);
+        $startAt = new DateTime($representativeCompanyUserTradeFairAttributesTransfer->getStartAt());
+
+        if ($startAt < $today) {
             return false;
         }
 

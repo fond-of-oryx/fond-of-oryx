@@ -10,6 +10,7 @@ use FondOfOryx\Zed\RepresentativeCompanyUser\Persistence\Propel\Mapper\TransferT
 use FondOfOryx\Zed\RepresentativeCompanyUser\RepresentativeCompanyUserDependencyProvider;
 use Orm\Zed\Company\Persistence\SpyCompanyQuery;
 use Orm\Zed\CompanyUser\Persistence\SpyCompanyUserQuery;
+use Orm\Zed\Customer\Persistence\SpyCustomerQuery;
 use Orm\Zed\RepresentativeCompanyUser\Persistence\FooRepresentativeCompanyUserQuery;
 use Spryker\Zed\Kernel\Persistence\AbstractPersistenceFactory;
 
@@ -56,6 +57,15 @@ class RepresentativeCompanyUserPersistenceFactory extends AbstractPersistenceFac
     public function getCompanyQuery(): SpyCompanyQuery
     {
         return $this->getProvidedDependency(RepresentativeCompanyUserDependencyProvider::QUERY_COMPANY);
+    }
+
+    /**
+     * @return \Orm\Zed\Customer\Persistence\SpyCustomerQuery
+     * @throws \Spryker\Zed\Kernel\Exception\Container\ContainerKeyNotFoundException
+     */
+    public function getCustomerQuery(): SpyCustomerQuery
+    {
+        return $this->getProvidedDependency(RepresentativeCompanyUserDependencyProvider::QUERY_CUSTOMER);
     }
 
     /**
