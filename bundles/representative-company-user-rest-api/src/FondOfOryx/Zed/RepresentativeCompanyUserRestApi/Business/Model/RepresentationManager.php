@@ -6,8 +6,8 @@ use DateTime;
 use Exception;
 use FondOfOryx\Shared\RepresentativeCompanyUserRestApi\RepresentativeCompanyUserRestApiConstants;
 use FondOfOryx\Zed\RepresentativeCompanyUserRestApi\Business\Model\Mapper\RestDataMapperInterface;
-use FondOfOryx\Zed\RepresentativeCompanyUserRestApi\Dependency\Facade\RepresentativeCompanyUserRestApiToRepresentativeCompanyUserRestApiPermissionFacadeInterface;
 use FondOfOryx\Zed\RepresentativeCompanyUserRestApi\Dependency\Facade\RepresentativeCompanyUserRestApiToRepresentativeCompanyUserFacadeInterface;
+use FondOfOryx\Zed\RepresentativeCompanyUserRestApi\Dependency\Facade\RepresentativeCompanyUserRestApiToRepresentativeCompanyUserRestApiPermissionFacadeInterface;
 use FondOfOryx\Zed\RepresentativeCompanyUserRestApi\Persistence\RepresentativeCompanyUserRestApiRepositoryInterface;
 use Generated\Shared\Transfer\RepresentativeCompanyUserCollectionTransfer;
 use Generated\Shared\Transfer\RepresentativeCompanyUserFilterSortTransfer;
@@ -25,6 +25,9 @@ use Throwable;
 
 class RepresentationManager implements RepresentationManagerInterface
 {
+    protected const PERMISSION_KEY_GLOBAL = RepresentativeCompanyUserRestApiConstants::PERMISSION_KEY_GLOBAL;
+    protected const PERMISSION_KEY_OWN = RepresentativeCompanyUserRestApiConstants::PERMISSION_KEY_OWN;
+
     /**
      * @var \FondOfOryx\Zed\RepresentativeCompanyUserRestApi\Dependency\Facade\RepresentativeCompanyUserRestApiToRepresentativeCompanyUserFacadeInterface
      */
@@ -44,10 +47,6 @@ class RepresentationManager implements RepresentationManagerInterface
      * @var \FondOfOryx\Zed\RepresentativeCompanyUserRestApi\Business\Model\Mapper\RestDataMapperInterface
      */
     protected RestDataMapperInterface $restDataMapper;
-
-    protected bool $canOwn = false;
-
-    protected bool $canGlobal = false;
 
     /**
      * @var \FondOfOryx\Zed\RepresentativeCompanyUserRestApi\Dependency\Facade\RepresentativeCompanyUserRestApiToRepresentativeCompanyUserRestApiPermissionFacadeInterface
@@ -86,7 +85,7 @@ class RepresentationManager implements RepresentationManagerInterface
     ): RestRepresentativeCompanyUserResponseTransfer|RestErrorMessageTransfer
     {
         try {
-            $this->validatePermission($restRepresentativeCompanyUserRequestTransfer);
+            $permission = $this->getPermission($restRepresentativeCompanyUserRequestTransfer);
             $restRepresentativeCompanyUserAttributesTransfer = $restRepresentativeCompanyUserRequestTransfer->getAttributes();
             $distributorId = $this->repository->getIdCustomerByReference($restRepresentativeCompanyUserAttributesTransfer->getReferenceDistributor());
             $representationId = $this->repository->getIdCustomerByReference($restRepresentativeCompanyUserAttributesTransfer->getReferenceRepresentation());
@@ -123,7 +122,7 @@ class RepresentationManager implements RepresentationManagerInterface
     ): RestRepresentativeCompanyUserResponseTransfer|RestErrorMessageTransfer
     {
         try {
-            $this->validatePermission($restRepresentativeCompanyUserRequestTransfer);
+            $permission = $this->getPermission($restRepresentativeCompanyUserRequestTransfer);
             $restRepresentativeCompanyUserAttributesTransfer = $restRepresentativeCompanyUserRequestTransfer->getAttributes();
             $restRepresentativeCompanyUserAttributesTransfer->requireUuid();
 
@@ -164,7 +163,7 @@ class RepresentationManager implements RepresentationManagerInterface
     ): RestRepresentativeCompanyUserResponseTransfer|RestErrorMessageTransfer
     {
         try {
-            $this->validatePermission($restRepresentativeCompanyUserRequestTransfer);
+            $permission = $this->getPermission($restRepresentativeCompanyUserRequestTransfer);
             $attributes = $restRepresentativeCompanyUserRequestTransfer->getAttributes();
 
             $attributes->requireUuid();
@@ -209,9 +208,12 @@ class RepresentationManager implements RepresentationManagerInterface
     ): RestRepresentativeCompanyUserCollectionResponseTransfer|RestErrorMessageTransfer
     {
         try {
-            $this->validatePermission($restRepresentativeCompanyUserRequestTransfer);
-            $attributes = $restRepresentativeCompanyUserRequestTransfer->getAttributes();
-            $filter = $this->createFilter($restRepresentativeCompanyUserRequestTransfer, $attributes);
+            $permission = $this->getPermission($restRepresentativeCompanyUserRequestTransfer);
+            $filter = $this->createFilter(
+                $restRepresentativeCompanyUserRequestTransfer,
+                $restRepresentativeCompanyUserRequestTransfer->getAttributes(),
+                $permission,
+            );
 
             $collection = $this->representativeCompanyUserFacade->getRepresentativeCompanyUser($filter);
 
@@ -229,25 +231,32 @@ class RepresentationManager implements RepresentationManagerInterface
      * @param \Generated\Shared\Transfer\RestRepresentativeCompanyUserRequestTransfer $restRepresentativeCompanyUserRequestTransfer
      * @throws \Spryker\Zed\Propel\Business\Exception\AmbiguousComparisonException
      */
-    protected function validatePermission(RestRepresentativeCompanyUserRequestTransfer $restRepresentativeCompanyUserRequestTransfer): void
+    protected function getPermission(RestRepresentativeCompanyUserRequestTransfer $restRepresentativeCompanyUserRequestTransfer): string
     {
-        $this->canOwn = $this->permissionFacade->can(RepresentativeCompanyUserRestApiConstants::PERMISSION_KEY_OWN, $restRepresentativeCompanyUserRequestTransfer->getAttributes()->getReferenceOriginator());
-        $this->canGlobal = $this->permissionFacade->can(RepresentativeCompanyUserRestApiConstants::PERMISSION_KEY_GLOBAL, $restRepresentativeCompanyUserRequestTransfer->getAttributes()->getReferenceOriginator());
+        $originatorReference = $restRepresentativeCompanyUserRequestTransfer->getAttributes()->getReferenceOriginator();
 
-        if (!$this->canOwn && !$this->canGlobal){
-            throw new Exception('Missing permission to manage representations');
+        if ($this->permissionFacade->can(static::PERMISSION_KEY_GLOBAL, $originatorReference)) {
+            return static::PERMISSION_KEY_GLOBAL;
         }
+
+        if ($this->permissionFacade->can(static::PERMISSION_KEY_OWN, $originatorReference)) {
+            return static::PERMISSION_KEY_OWN;
+        }
+
+        throw new Exception('Missing permission to manage representations');
     }
 
     /**
      * @param \Generated\Shared\Transfer\RestRepresentativeCompanyUserRequestTransfer $restRepresentativeCompanyUserRequestTransfer
      * @param \Generated\Shared\Transfer\RestRepresentativeCompanyUserAttributesTransfer $attributes
-     *
+     * @param string $permission
      * @return \Generated\Shared\Transfer\RepresentativeCompanyUserFilterTransfer
+     * @throws \Spryker\Shared\Kernel\Transfer\Exception\NullValueException
      */
     protected function createFilter(
-        RestRepresentativeCompanyUserRequestTransfer     $restRepresentativeCompanyUserRequestTransfer,
-        RestRepresentativeCompanyUserAttributesTransfer $attributes
+        RestRepresentativeCompanyUserRequestTransfer    $restRepresentativeCompanyUserRequestTransfer,
+        RestRepresentativeCompanyUserAttributesTransfer $attributes,
+        string $permission
     ): RepresentativeCompanyUserFilterTransfer
     {
         $restFilter = $restRepresentativeCompanyUserRequestTransfer->getFilter();
@@ -260,13 +269,10 @@ class RepresentationManager implements RepresentationManagerInterface
 
         $originatorReference = $attributes->getReferenceOriginatorOrFail();
 
-        if(!$this->hasGlobalPermission()){
+        if ($this->hasOwnPermission($permission)) {
+            $filter->addOriginatorReference($originatorReference);
             $filter->addDistributorReference($originatorReference);
             $filter->addRepresentativeReference($originatorReference);
-        }
-
-        if (!$this->hasGlobalPermission()) {
-            $filter = $filter->addOriginatorReference($originatorReference);
         }
 
         if ($restFilter !== null) {
@@ -289,7 +295,7 @@ class RepresentationManager implements RepresentationManagerInterface
             $representative = $restFilter->getRepresentative();
             if ($representative !== null) {
                 $representativeReference = $this->repository->getCustomerReferenceByMail($representative);
-                if ($representativeReference !== $originatorReference && $this->canGlobal){
+                if ($representativeReference !== $originatorReference && $this->hasGlobalPermission($permission)) {
                     $filter->addDistributorReference($representativeReference);
                 }
             }
@@ -297,7 +303,7 @@ class RepresentationManager implements RepresentationManagerInterface
             $distributor = $restFilter->getDistributor();
             if ($distributor !== null) {
                 $distributorReference = $this->repository->getCustomerReferenceByMail($distributor);
-                if ($distributorReference !== $originatorReference && $this->canGlobal){
+                if ($distributorReference !== $originatorReference && $this->hasGlobalPermission($permission)) {
                     $filter->addDistributorReference($distributorReference);
                 }
             }
@@ -307,19 +313,21 @@ class RepresentationManager implements RepresentationManagerInterface
     }
 
     /**
+     * @param string $permission
      * @return bool
      */
-    protected function hasGlobalPermission(): bool
+    protected function hasGlobalPermission(string $permission): bool
     {
-        return $this->canGlobal;
+        return $permission === static::PERMISSION_KEY_GLOBAL;
     }
 
     /**
+     * @param string $permission
      * @return bool
      */
-    protected function hasOwnPermission(): bool
+    protected function hasOwnPermission(string $permission): bool
     {
-        return $this->canOwn;
+        return $permission === static::PERMISSION_KEY_OWN;
     }
 
     /**
