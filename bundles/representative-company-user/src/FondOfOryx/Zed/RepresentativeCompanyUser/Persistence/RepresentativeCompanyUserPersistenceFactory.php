@@ -61,7 +61,6 @@ class RepresentativeCompanyUserPersistenceFactory extends AbstractPersistenceFac
 
     /**
      * @return \Orm\Zed\Customer\Persistence\SpyCustomerQuery
-     * @throws \Spryker\Zed\Kernel\Exception\Container\ContainerKeyNotFoundException
      */
     public function getCustomerQuery(): SpyCustomerQuery
     {
@@ -77,7 +76,7 @@ class RepresentativeCompanyUserPersistenceFactory extends AbstractPersistenceFac
     }
 
     /**
-     * @return \FondOfOryx\Zed\RepresentativeCompanyUserExtension\Dependency\Plugin\Persistence\RepresentativeCompanyUserQueryExpanderPluginInterface[]
+     * @return array<\FondOfOryx\Zed\RepresentativeCompanyUserExtension\Dependency\Plugin\Persistence\RepresentativeCompanyUserQueryExpanderPluginInterface>
      */
     public function getFooRepresentativeCompanyUserQueryExpanderPlugins(): array
     {

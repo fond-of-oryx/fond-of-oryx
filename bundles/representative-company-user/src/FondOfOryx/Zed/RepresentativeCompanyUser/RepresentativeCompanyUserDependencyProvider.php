@@ -215,7 +215,7 @@ class RepresentativeCompanyUserDependencyProvider extends AbstractBundleDependen
     }
 
     /**
-     * @return \FondOfOryx\Zed\RepresentativeCompanyUserExtension\Dependency\Plugin\Persistence\RepresentativeCompanyUserQueryExpanderPluginInterface[]
+     * @return array<\FondOfOryx\Zed\RepresentativeCompanyUserExtension\Dependency\Plugin\Persistence\RepresentativeCompanyUserQueryExpanderPluginInterface>
      */
     public function getFooRepresentativeCompanyUserQueryExpanderPlugins(): array
     {

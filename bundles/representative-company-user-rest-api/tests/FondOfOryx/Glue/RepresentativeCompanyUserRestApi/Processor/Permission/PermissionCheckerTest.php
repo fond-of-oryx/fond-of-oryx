@@ -82,7 +82,10 @@ class PermissionCheckerTest extends Unit
 
         $this->representativeCompanyUserRestApiPermissionRequestTransferMock->expects(static::atLeastOnce())
             ->method('setPermissionKey')
-            ->with(RepresentativeCompanyUserRestApiConstants::PERMISSION_KEY_OWN)
+            ->withConsecutive(
+                [RepresentativeCompanyUserRestApiConstants::PERMISSION_KEY_OWN],
+                [RepresentativeCompanyUserRestApiConstants::PERMISSION_KEY_GLOBAL],
+            )
             ->willReturnSelf();
 
         $this->representativeCompanyUserRestApiPermissionRequestTransferMock->expects(static::atLeastOnce())
@@ -90,13 +93,13 @@ class PermissionCheckerTest extends Unit
             ->with($id)
             ->willReturnSelf();
 
-        $this->representativeCompanyUserRestApiPermissionRequestTransferMock->expects(static::atLeastOnce())
-            ->method('getDistributorReference')
-            ->willReturn($id);
-
         $this->permissionClientMock->expects(static::atLeastOnce())
             ->method('hasPermissionToManageOwnRepresentations')
             ->willReturn(true);
+
+        $this->permissionClientMock->expects(static::atLeastOnce())
+            ->method('hasPermissionToManageGlobalRepresentations')
+            ->willReturn(false);
 
         $this->permissionChecker->can($this->restAttributesTransferMock);
     }
@@ -129,10 +132,6 @@ class PermissionCheckerTest extends Unit
             ->method('setOriginatorReference')
             ->with($id)
             ->willReturnSelf();
-
-        $this->representativeCompanyUserRestApiPermissionRequestTransferMock->expects(static::atLeastOnce())
-            ->method('getDistributorReference')
-            ->willReturn($id2);
 
         $this->permissionClientMock->expects(static::atLeastOnce())
             ->method('hasPermissionToManageGlobalRepresentations')

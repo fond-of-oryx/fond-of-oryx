@@ -25,9 +25,8 @@ class PermissionChecker implements PermissionCheckerInterface
      */
     public function __construct(
         RepresentativeCompanyUserRestApiToRepresentativeCompanyUserRestApiPermissionInterface $permissionClient,
-        PermissionRequestMapperInterface                                                      $permissionRequestMapper
-    )
-    {
+        PermissionRequestMapperInterface $permissionRequestMapper
+    ) {
         $this->permissionClient = $permissionClient;
         $this->requestMapper = $permissionRequestMapper;
     }

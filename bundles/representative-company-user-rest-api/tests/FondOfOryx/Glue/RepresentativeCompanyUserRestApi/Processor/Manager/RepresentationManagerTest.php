@@ -178,10 +178,6 @@ class RepresentationManagerTest extends Unit
             ->method('createRequest')
             ->willReturn($this->restRepresentativeCompanyUserRequestTransferMock);
 
-        $this->permissionCheckerMock->expects(static::atLeastOnce())
-            ->method('can')
-            ->willReturn(true);
-
         $this->clientMock->expects(static::atLeastOnce())
             ->method('addRepresentation')
             ->willReturn($this->restRepresentativeCompanyUserResponseTransferMock);
@@ -199,32 +195,6 @@ class RepresentationManagerTest extends Unit
     /**
      * @return void
      */
-    public function testAddMissingPermission(): void
-    {
-        $this->representationMapperMock->expects(static::atLeastOnce())
-            ->method('createAttributesFromRequest')
-            ->willReturn($this->restRepresentativeCompanyUserAttributesTransferMock);
-
-        $this->permissionCheckerMock->expects(static::atLeastOnce())
-            ->method('can')
-            ->willReturn(false);
-
-        $this->clientMock->expects(static::never())
-            ->method('addRepresentation');
-
-        $this->responseBuilderMock->expects(static::never())
-            ->method('buildRepresentativeCompanyUserRestResponse');
-
-        $this->responseBuilderMock->expects(static::atLeastOnce())
-            ->method('buildErrorResponse')
-            ->willReturn($this->restResponseMock);
-
-        $this->representationManager->add($this->restRequestMock);
-    }
-
-    /**
-     * @return void
-     */
     public function testGet(): void
     {
         $this->representationMapperMock->expects(static::atLeastOnce())
@@ -234,10 +204,6 @@ class RepresentationManagerTest extends Unit
         $this->representationMapperMock->expects(static::atLeastOnce())
             ->method('createRequest')
             ->willReturn($this->restRepresentativeCompanyUserRequestTransferMock);
-
-        $this->permissionCheckerMock->expects(static::atLeastOnce())
-            ->method('can')
-            ->willReturn(true);
 
         $this->clientMock->expects(static::atLeastOnce())
             ->method('getRepresentation')
@@ -256,32 +222,6 @@ class RepresentationManagerTest extends Unit
     /**
      * @return void
      */
-    public function testGetMissingPermission(): void
-    {
-        $this->representationMapperMock->expects(static::atLeastOnce())
-            ->method('createAttributesFromRequest')
-            ->willReturn($this->restRepresentativeCompanyUserAttributesTransferMock);
-
-        $this->permissionCheckerMock->expects(static::atLeastOnce())
-            ->method('can')
-            ->willReturn(false);
-
-        $this->clientMock->expects(static::never())
-            ->method('getRepresentation');
-
-        $this->responseBuilderMock->expects(static::never())
-            ->method('buildRepresentativeCompanyUserRestResponse');
-
-        $this->responseBuilderMock->expects(static::atLeastOnce())
-            ->method('buildErrorResponse')
-            ->willReturn($this->restResponseMock);
-
-        $this->representationManager->get($this->restRequestMock);
-    }
-
-    /**
-     * @return void
-     */
     public function testPatch(): void
     {
         $this->representationMapperMock->expects(static::atLeastOnce())
@@ -291,10 +231,6 @@ class RepresentationManagerTest extends Unit
         $this->representationMapperMock->expects(static::atLeastOnce())
             ->method('createRequest')
             ->willReturn($this->restRepresentativeCompanyUserRequestTransferMock);
-
-        $this->permissionCheckerMock->expects(static::atLeastOnce())
-            ->method('can')
-            ->willReturn(true);
 
         $this->clientMock->expects(static::atLeastOnce())
             ->method('patchRepresentation')
@@ -313,32 +249,6 @@ class RepresentationManagerTest extends Unit
     /**
      * @return void
      */
-    public function testPatchMissingPermission(): void
-    {
-        $this->representationMapperMock->expects(static::atLeastOnce())
-            ->method('createAttributesFromRequest')
-            ->willReturn($this->restRepresentativeCompanyUserAttributesTransferMock);
-
-        $this->permissionCheckerMock->expects(static::atLeastOnce())
-            ->method('can')
-            ->willReturn(false);
-
-        $this->clientMock->expects(static::never())
-            ->method('patchRepresentation');
-
-        $this->responseBuilderMock->expects(static::never())
-            ->method('buildRepresentativeCompanyUserRestResponse');
-
-        $this->responseBuilderMock->expects(static::atLeastOnce())
-            ->method('buildErrorResponse')
-            ->willReturn($this->restResponseMock);
-
-        $this->representationManager->patch($this->restRequestMock);
-    }
-
-    /**
-     * @return void
-     */
     public function testDelete(): void
     {
         $this->representationMapperMock->expects(static::atLeastOnce())
@@ -348,10 +258,6 @@ class RepresentationManagerTest extends Unit
         $this->representationMapperMock->expects(static::atLeastOnce())
             ->method('createRequest')
             ->willReturn($this->restRepresentativeCompanyUserRequestTransferMock);
-
-        $this->permissionCheckerMock->expects(static::atLeastOnce())
-            ->method('can')
-            ->willReturn(true);
 
         $this->clientMock->expects(static::atLeastOnce())
             ->method('deleteRepresentation')
@@ -363,32 +269,6 @@ class RepresentationManagerTest extends Unit
 
         $this->responseBuilderMock->expects(static::never())
             ->method('buildErrorResponse');
-
-        $this->representationManager->delete($this->restRequestMock);
-    }
-
-    /**
-     * @return void
-     */
-    public function testDeleteMissingPermission(): void
-    {
-        $this->representationMapperMock->expects(static::atLeastOnce())
-            ->method('createAttributesFromRequest')
-            ->willReturn($this->restRepresentativeCompanyUserAttributesTransferMock);
-
-        $this->permissionCheckerMock->expects(static::atLeastOnce())
-            ->method('can')
-            ->willReturn(false);
-
-        $this->clientMock->expects(static::never())
-            ->method('deleteRepresentation');
-
-        $this->responseBuilderMock->expects(static::never())
-            ->method('buildRepresentativeCompanyUserRestResponse');
-
-        $this->responseBuilderMock->expects(static::atLeastOnce())
-            ->method('buildErrorResponse')
-            ->willReturn($this->restResponseMock);
 
         $this->representationManager->delete($this->restRequestMock);
     }

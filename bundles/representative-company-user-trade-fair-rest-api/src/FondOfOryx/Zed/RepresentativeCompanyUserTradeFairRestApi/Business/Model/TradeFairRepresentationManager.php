@@ -200,7 +200,7 @@ class TradeFairRepresentationManager implements TradeFairRepresentationManagerIn
         RepresentativeCompanyUserTradeFairTransfer $representativeCompanyUserTradeFairTransfer,
         RestRepresentativeCompanyUserTradeFairAttributesTransfer $representativeCompanyUserTradeFairAttributesTransfer
     ): bool {
-        $today = (new DateTime())->setTime(0,0);
+        $today = (new DateTime())->setTime(0, 0);
         $startAt = new DateTime($representativeCompanyUserTradeFairAttributesTransfer->getStartAt());
 
         if ($startAt < $today) {
@@ -272,7 +272,6 @@ class TradeFairRepresentationManager implements TradeFairRepresentationManagerIn
     ): RepresentativeCompanyUserTradeFairFilterTransfer {
         $restFilter = $restRepresentativeCompanyUserTradeFairRequestTransfer->getFilter();
         $filter = new RepresentativeCompanyUserTradeFairFilterTransfer();
-
 
         if ($restFilter !== null) {
             $filter->fromArray($restRepresentativeCompanyUserTradeFairRequestTransfer->getFilter()->toArray(), true);

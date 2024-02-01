@@ -26,6 +26,7 @@ use Throwable;
 class RepresentationManager implements RepresentationManagerInterface
 {
     protected const PERMISSION_KEY_GLOBAL = RepresentativeCompanyUserRestApiConstants::PERMISSION_KEY_GLOBAL;
+
     protected const PERMISSION_KEY_OWN = RepresentativeCompanyUserRestApiConstants::PERMISSION_KEY_OWN;
 
     /**
@@ -61,13 +62,12 @@ class RepresentationManager implements RepresentationManagerInterface
      * @param \FondOfOryx\Zed\RepresentativeCompanyUserRestApi\Dependency\Facade\RepresentativeCompanyUserRestApiToRepresentativeCompanyUserRestApiPermissionFacadeInterface $permissionFacade
      */
     public function __construct(
-        RepresentativeCompanyUserRestApiToRepresentativeCompanyUserFacadeInterface                  $representativeCompanyUserFacade,
-        RepresentativeCompanyUserRestApiRepositoryInterface                                         $repository,
-        RestDataMapperInterface                                                                     $restDataMapper,
-        LoggerInterface                                                                             $logger,
+        RepresentativeCompanyUserRestApiToRepresentativeCompanyUserFacadeInterface $representativeCompanyUserFacade,
+        RepresentativeCompanyUserRestApiRepositoryInterface $repository,
+        RestDataMapperInterface $restDataMapper,
+        LoggerInterface $logger,
         RepresentativeCompanyUserRestApiToRepresentativeCompanyUserRestApiPermissionFacadeInterface $permissionFacade
-    )
-    {
+    ) {
         $this->representativeCompanyUserFacade = $representativeCompanyUserFacade;
         $this->repository = $repository;
         $this->restDataMapper = $restDataMapper;
@@ -82,8 +82,7 @@ class RepresentationManager implements RepresentationManagerInterface
      */
     public function addRepresentation(
         RestRepresentativeCompanyUserRequestTransfer $restRepresentativeCompanyUserRequestTransfer
-    ): RestRepresentativeCompanyUserResponseTransfer|RestErrorMessageTransfer
-    {
+    ): RestRepresentativeCompanyUserResponseTransfer|RestErrorMessageTransfer {
         try {
             $permission = $this->getPermission($restRepresentativeCompanyUserRequestTransfer);
             $restRepresentativeCompanyUserAttributesTransfer = $restRepresentativeCompanyUserRequestTransfer->getAttributes();
@@ -124,8 +123,7 @@ class RepresentationManager implements RepresentationManagerInterface
      */
     public function updateRepresentation(
         RestRepresentativeCompanyUserRequestTransfer $restRepresentativeCompanyUserRequestTransfer
-    ): RestRepresentativeCompanyUserResponseTransfer|RestErrorMessageTransfer
-    {
+    ): RestRepresentativeCompanyUserResponseTransfer|RestErrorMessageTransfer {
         try {
             $permission = $this->getPermission($restRepresentativeCompanyUserRequestTransfer);
             $restRepresentativeCompanyUserAttributesTransfer = $restRepresentativeCompanyUserRequestTransfer->getAttributes();
@@ -170,8 +168,7 @@ class RepresentationManager implements RepresentationManagerInterface
      */
     public function deleteRepresentation(
         RestRepresentativeCompanyUserRequestTransfer $restRepresentativeCompanyUserRequestTransfer
-    ): RestRepresentativeCompanyUserResponseTransfer|RestErrorMessageTransfer
-    {
+    ): RestRepresentativeCompanyUserResponseTransfer|RestErrorMessageTransfer {
         try {
             $permission = $this->getPermission($restRepresentativeCompanyUserRequestTransfer);
             $attributes = $restRepresentativeCompanyUserRequestTransfer->getAttributes();
@@ -198,10 +195,9 @@ class RepresentationManager implements RepresentationManagerInterface
      * @return string
      */
     protected function getState(
-        RepresentativeCompanyUserTransfer               $representativeCompanyUserTransfer,
+        RepresentativeCompanyUserTransfer $representativeCompanyUserTransfer,
         RestRepresentativeCompanyUserAttributesTransfer $representativeCompanyUserAttributesTransfer
-    ): string
-    {
+    ): string {
         $today = (new DateTime())->setTime(0, 0);
         $startAt = new DateTime($representativeCompanyUserAttributesTransfer->getStartAt());
 
@@ -219,8 +215,7 @@ class RepresentationManager implements RepresentationManagerInterface
      */
     public function getRepresentation(
         RestRepresentativeCompanyUserRequestTransfer $restRepresentativeCompanyUserRequestTransfer
-    ): RestRepresentativeCompanyUserCollectionResponseTransfer|RestErrorMessageTransfer
-    {
+    ): RestRepresentativeCompanyUserCollectionResponseTransfer|RestErrorMessageTransfer {
         try {
             $permission = $this->getPermission($restRepresentativeCompanyUserRequestTransfer);
             $filter = $this->createFilter(
@@ -243,7 +238,10 @@ class RepresentationManager implements RepresentationManagerInterface
 
     /**
      * @param \Generated\Shared\Transfer\RestRepresentativeCompanyUserRequestTransfer $restRepresentativeCompanyUserRequestTransfer
-     * @throws \Spryker\Zed\Propel\Business\Exception\AmbiguousComparisonException
+     *
+     * @throws \Exception
+     *
+     * @return string
      */
     protected function getPermission(RestRepresentativeCompanyUserRequestTransfer $restRepresentativeCompanyUserRequestTransfer): string
     {
@@ -264,18 +262,16 @@ class RepresentationManager implements RepresentationManagerInterface
      * @param \Generated\Shared\Transfer\RestRepresentativeCompanyUserRequestTransfer $restRepresentativeCompanyUserRequestTransfer
      * @param \Generated\Shared\Transfer\RestRepresentativeCompanyUserAttributesTransfer $attributes
      * @param string $permission
+     *
      * @return \Generated\Shared\Transfer\RepresentativeCompanyUserFilterTransfer
-     * @throws \Spryker\Shared\Kernel\Transfer\Exception\NullValueException
      */
     protected function createFilter(
-        RestRepresentativeCompanyUserRequestTransfer    $restRepresentativeCompanyUserRequestTransfer,
+        RestRepresentativeCompanyUserRequestTransfer $restRepresentativeCompanyUserRequestTransfer,
         RestRepresentativeCompanyUserAttributesTransfer $attributes,
-        string                                          $permission
-    ): RepresentativeCompanyUserFilterTransfer
-    {
+        string $permission
+    ): RepresentativeCompanyUserFilterTransfer {
         $restFilter = $restRepresentativeCompanyUserRequestTransfer->getFilter();
         $filter = new RepresentativeCompanyUserFilterTransfer();
-
 
         if ($attributes->getUuid() !== null) {
             $filter = $filter->addId($attributes->getUuid());
@@ -360,6 +356,7 @@ class RepresentationManager implements RepresentationManagerInterface
 
     /**
      * @param string $permission
+     *
      * @return bool
      */
     protected function hasGlobalPermission(string $permission): bool
@@ -369,6 +366,7 @@ class RepresentationManager implements RepresentationManagerInterface
 
     /**
      * @param string $permission
+     *
      * @return bool
      */
     protected function hasOwnPermission(string $permission): bool
@@ -419,8 +417,9 @@ class RepresentationManager implements RepresentationManagerInterface
     }
 
     /**
-     * @return void
      * @throws \Exception
+     *
+     * @return void
      */
     protected function throwGlobalPermissionKeyMissingException(): void
     {

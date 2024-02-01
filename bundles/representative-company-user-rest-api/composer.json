@@ -10,9 +10,9 @@
   ],
   "require": {
     "php": ">=8.0",
-    "fond-of-oryx/representative-company-user": "^1.1.0",
+    "fond-of-oryx/representative-company-user": "^1.3.0",
     "fond-of-oryx/representative-company-user-extension": "^1.1.0",
-    "fond-of-oryx/representative-company-user-rest-api-permission": "^1.0.0",
+    "fond-of-oryx/representative-company-user-rest-api-permission": "^1.1.0",
     "spryker/glue-application": "*"
   },
   "require-dev": {

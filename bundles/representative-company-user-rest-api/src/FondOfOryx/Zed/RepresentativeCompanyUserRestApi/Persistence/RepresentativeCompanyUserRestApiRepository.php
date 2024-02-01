@@ -26,6 +26,7 @@ class RepresentativeCompanyUserRestApiRepository extends AbstractRepository impl
 
         return $customer->getIdCustomer();
     }
+
     /**
      * @param string $mail
      *
