@@ -19,7 +19,7 @@ interface RestDataMapperInterface
     /**
      * @param \Generated\Shared\Transfer\RepresentativeCompanyUserCollectionTransfer $companyUserCollectionTransfer
      *
-     * @return \ArrayObject|\Generated\Shared\Transfer\RestRepresentativeCompanyUserTransfer[]
+     * @return \ArrayObject<\Generated\Shared\Transfer\RestRepresentativeCompanyUserTransfer>
      */
     public function mapResponseCollection(RepresentativeCompanyUserCollectionTransfer $companyUserCollectionTransfer): ArrayObject;
 }

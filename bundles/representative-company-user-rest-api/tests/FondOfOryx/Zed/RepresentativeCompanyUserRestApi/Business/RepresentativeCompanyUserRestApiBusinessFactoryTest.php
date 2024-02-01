@@ -5,6 +5,7 @@ namespace FondOfOryx\Zed\RepresentativeCompanyUserRestApi\Business;
 use Codeception\Test\Unit;
 use FondOfOryx\Zed\RepresentativeCompanyUserRestApi\Business\Model\RepresentationManagerInterface;
 use FondOfOryx\Zed\RepresentativeCompanyUserRestApi\Dependency\Facade\RepresentativeCompanyUserRestApiToRepresentativeCompanyUserFacadeInterface;
+use FondOfOryx\Zed\RepresentativeCompanyUserRestApi\Dependency\Facade\RepresentativeCompanyUserRestApiToRepresentativeCompanyUserRestApiPermissionFacadeInterface;
 use FondOfOryx\Zed\RepresentativeCompanyUserRestApi\Persistence\RepresentativeCompanyUserRestApiRepository;
 use FondOfOryx\Zed\RepresentativeCompanyUserRestApi\RepresentativeCompanyUserRestApiDependencyProvider;
 use PHPUnit\Framework\MockObject\MockObject;
@@ -22,7 +23,12 @@ class RepresentativeCompanyUserRestApiBusinessFactoryTest extends Unit
     /**
      * @var \FondOfOryx\Zed\RepresentativeCompanyUserRestApi\Dependency\Facade\RepresentativeCompanyUserRestApiToRepresentativeCompanyUserFacadeInterface|\PHPUnit\Framework\MockObject\MockObject
      */
-    protected RepresentativeCompanyUserRestApiToRepresentativeCompanyUserFacadeInterface|MockObject $facadeMock;
+    protected RepresentativeCompanyUserRestApiToRepresentativeCompanyUserFacadeInterface|MockObject $representativeCompanyUserFacadeMock;
+
+    /**
+     * @var \FondOfOryx\Zed\RepresentativeCompanyUserRestApi\Dependency\Facade\RepresentativeCompanyUserRestApiToRepresentativeCompanyUserRestApiPermissionFacadeInterface|\PHPUnit\Framework\MockObject\MockObject
+     */
+    protected RepresentativeCompanyUserRestApiToRepresentativeCompanyUserRestApiPermissionFacadeInterface|MockObject $representativeCompanyUserRestApiPermissionFacade;
 
     /**
      * @var \FondOfOryx\Zed\RepresentativeCompanyUserRestApi\Persistence\RepresentativeCompanyUserRestApiRepository|\PHPUnit\Framework\MockObject\MockObject
@@ -49,8 +55,13 @@ class RepresentativeCompanyUserRestApiBusinessFactoryTest extends Unit
             ->disableOriginalConstructor()
             ->getMock();
 
-        $this->facadeMock = $this
+        $this->representativeCompanyUserFacadeMock = $this
             ->getMockBuilder(RepresentativeCompanyUserRestApiToRepresentativeCompanyUserFacadeInterface::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $this->representativeCompanyUserRestApiPermissionFacade = $this
+            ->getMockBuilder(RepresentativeCompanyUserRestApiToRepresentativeCompanyUserRestApiPermissionFacadeInterface::class)
             ->disableOriginalConstructor()
             ->getMock();
 
@@ -103,8 +114,14 @@ class RepresentativeCompanyUserRestApiBusinessFactoryTest extends Unit
 
         $this->containerMock->expects(static::atLeastOnce())
             ->method('get')
-            ->with(RepresentativeCompanyUserRestApiDependencyProvider::FACADE_REPRESENTATIVE_COMPANY_USER)
-            ->willReturn($this->facadeMock);
+            ->withConsecutive(
+                [RepresentativeCompanyUserRestApiDependencyProvider::FACADE_REPRESENTATIVE_COMPANY_USER],
+                [RepresentativeCompanyUserRestApiDependencyProvider::FACADE_REPRESENTATIVE_COMPANY_USER_REST_API_PERMISSION],
+            )
+            ->willReturnOnConsecutiveCalls(
+                $this->representativeCompanyUserFacadeMock,
+                $this->representativeCompanyUserRestApiPermissionFacade,
+            );
 
         static::assertInstanceOf(
             RepresentationManagerInterface::class,

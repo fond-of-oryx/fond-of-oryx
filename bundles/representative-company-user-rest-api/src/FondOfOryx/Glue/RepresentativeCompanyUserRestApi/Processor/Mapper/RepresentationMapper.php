@@ -108,7 +108,7 @@ class RepresentationMapper implements RepresentationMapperInterface
     /**
      * @param \Spryker\Glue\GlueApplication\Rest\Request\Data\RestRequestInterface $restRequest
      *
-     * @return \ArrayObject|\Generated\Shared\Transfer\RestRepresentativeCompanyUserFilterSortTransfer[]
+     * @return \ArrayObject<\Generated\Shared\Transfer\RestRepresentativeCompanyUserFilterSortTransfer>
      */
     public function recreateSortFilter(RestRequestInterface $restRequest): ArrayObject
     {

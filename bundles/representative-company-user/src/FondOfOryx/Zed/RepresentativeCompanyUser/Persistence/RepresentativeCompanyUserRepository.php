@@ -10,6 +10,7 @@ use Generated\Shared\Transfer\PaginationTransfer;
 use Generated\Shared\Transfer\RepresentativeCompanyUserCollectionTransfer;
 use Generated\Shared\Transfer\RepresentativeCompanyUserFilterTransfer;
 use Generated\Shared\Transfer\RepresentativeCompanyUserTransfer;
+use Orm\Zed\Customer\Persistence\Map\SpyCustomerTableMap;
 use Orm\Zed\RepresentativeCompanyUser\Persistence\FooRepresentativeCompanyUserQuery;
 use Orm\Zed\RepresentativeCompanyUser\Persistence\Map\FooRepresentativeCompanyUserTableMap;
 use Propel\Runtime\ActiveQuery\Criteria;
@@ -127,8 +128,6 @@ class RepresentativeCompanyUserRepository extends AbstractRepository implements 
     ): RepresentativeCompanyUserCollectionTransfer {
         $query = $this->prepareRepresentativeCompanyUserQuery($filterTransfer);
 
-        $maxItems = $query->count();
-
         if ($filterTransfer->getLimit() !== null) {
             $query->setLimit($filterTransfer->getLimit());
         }
@@ -136,6 +135,26 @@ class RepresentativeCompanyUserRepository extends AbstractRepository implements 
         if ($filterTransfer->getOffset() !== null) {
             $query->setOffset($filterTransfer->getOffset());
         }
+
+        $originatorReferences = $filterTransfer->getOriginatorReferences();
+        $distributorReferences = $filterTransfer->getDistributorReferences();
+        $representativeReferences = $filterTransfer->getRepresentativeReferences();
+
+        if ($originatorReferences !== null && count($originatorReferences) > 0) {
+            $originatorIds = $this->getFactory()->getCustomerQuery()->filterByCustomerReference_In($originatorReferences)->select(SpyCustomerTableMap::COL_ID_CUSTOMER)->find()->getData();
+            $query->filterByFkOriginator_In($originatorIds);
+        }
+
+        if ($distributorReferences !== null && count($distributorReferences) > 0) {
+            $distributorIds = $this->getFactory()->getCustomerQuery()->filterByCustomerReference_In($distributorReferences)->select(SpyCustomerTableMap::COL_ID_CUSTOMER)->find()->getData();
+            $query->filterByFkDistributor_In($distributorIds);
+        }
+
+        if ($representativeReferences !== null && count($representativeReferences) > 0) {
+            $representativeIds = $this->getFactory()->getCustomerQuery()->filterByCustomerReference_In($representativeReferences)->select(SpyCustomerTableMap::COL_ID_CUSTOMER)->find()->getData();
+            $query->filterByFkRepresentative_In($representativeIds);
+        }
+        $maxItems = $query->count();
 
         $results = $query->find();
 
@@ -252,13 +271,6 @@ class RepresentativeCompanyUserRepository extends AbstractRepository implements 
 
         if ($filterTransfer !== null && count($filterTransfer->getIds()) > 0) {
             $query->filterByIdRepresentativeCompanyUser_In($filterTransfer->getIds());
-        }
-
-        if (count($filterTransfer->getDistributorReferences()) > 0) {
-            $query
-                ->useFooRepresentativeCompanyUserDistributorQuery()
-                    ->filterByEmail_In($filterTransfer->getDistributorReferences())
-                ->endUse();
         }
 
         if ($filterTransfer !== null && $filterTransfer->getSorting()->count() > 0) {

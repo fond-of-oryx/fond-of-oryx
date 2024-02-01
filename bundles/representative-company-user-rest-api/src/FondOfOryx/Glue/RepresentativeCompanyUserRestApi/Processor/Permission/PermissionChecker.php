@@ -43,12 +43,13 @@ class PermissionChecker implements PermissionCheckerInterface
             ->setOriginatorReference($originatorReference)
             ->setPermissionKey(RepresentativeCompanyUserRestApiConstants::PERMISSION_KEY_OWN);
 
-        if ($request->getDistributorReference() !== null && $request->getDistributorReference() !== $originatorReference) {
-            $request->setPermissionKey(RepresentativeCompanyUserRestApiConstants::PERMISSION_KEY_GLOBAL);
+        $canManageOwnRepresentations = $this->permissionClient->hasPermissionToManageOwnRepresentations($request);
+        $attributesTransfer->addPermission(RepresentativeCompanyUserRestApiConstants::PERMISSION_KEY_OWN, $canManageOwnRepresentations);
 
-            return $this->permissionClient->hasPermissionToManageGlobalRepresentations($request);
-        }
+        $request->setPermissionKey(RepresentativeCompanyUserRestApiConstants::PERMISSION_KEY_GLOBAL);
+        $canManageGlobalRepresentations = $this->permissionClient->hasPermissionToManageGlobalRepresentations($request);
+        $attributesTransfer->addPermission(RepresentativeCompanyUserRestApiConstants::PERMISSION_KEY_GLOBAL, $canManageGlobalRepresentations);
 
-        return $this->permissionClient->hasPermissionToManageOwnRepresentations($request);
+        return $canManageOwnRepresentations || $canManageGlobalRepresentations;
     }
 }

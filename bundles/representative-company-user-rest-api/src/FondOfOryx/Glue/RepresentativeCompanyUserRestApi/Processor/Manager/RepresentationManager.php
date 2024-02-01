@@ -59,10 +59,6 @@ class RepresentationManager implements RepresentationManagerInterface
     {
         $attributes = $this->representationMapper->createAttributesFromRequest($restRequest);
 
-        if (!$this->permissionChecker->can($attributes)) {
-            return $this->responseBuilder->buildErrorResponse();
-        }
-
         $representationRestRequestTransfer = $this->representationMapper->createRequest($restRequest, $attributes);
         $representationRestResponseTransfer = $this->client->addRepresentation($representationRestRequestTransfer);
 
@@ -81,10 +77,6 @@ class RepresentationManager implements RepresentationManagerInterface
     public function get(RestRequestInterface $restRequest): RestResponseInterface
     {
         $attributes = $this->representationMapper->createAttributesFromRequest($restRequest);
-
-        if (!$this->permissionChecker->can($attributes)) {
-            return $this->responseBuilder->buildErrorResponse();
-        }
 
         $representationRestRequestTransfer = $this->representationMapper->createRequest($restRequest, $attributes);
         $representationRestResponseTransfer = $this->client->getRepresentation($representationRestRequestTransfer);
@@ -105,10 +97,6 @@ class RepresentationManager implements RepresentationManagerInterface
     {
         $attributes = $this->representationMapper->createAttributesFromRequest($restRequest);
 
-        if (!$this->permissionChecker->can($attributes)) {
-            return $this->responseBuilder->buildErrorResponse();
-        }
-
         $representationRestRequestTransfer = $this->representationMapper->createRequest($restRequest, $attributes);
         $representationRestResponseTransfer = $this->client->patchRepresentation($representationRestRequestTransfer);
 
@@ -127,10 +115,6 @@ class RepresentationManager implements RepresentationManagerInterface
     public function delete(RestRequestInterface $restRequest): RestResponseInterface
     {
         $attributes = $this->representationMapper->createAttributesFromRequest($restRequest);
-
-        if (!$this->permissionChecker->can($attributes)) {
-            return $this->responseBuilder->buildErrorResponse();
-        }
 
         $representationRestRequestTransfer = $this->representationMapper->createRequest($restRequest, $attributes);
         $representationRestResponseTransfer = $this->client->deleteRepresentation($representationRestRequestTransfer);

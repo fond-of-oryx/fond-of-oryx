@@ -394,10 +394,6 @@ class TradeFairRepresentationManagerTest extends Unit
             ->method('getStartAt')
             ->willReturn($date2);
 
-        $this->representativeCompanyUserTradeFairTransferMock->expects(static::atLeastOnce())
-            ->method('getStartAt')
-            ->willReturn($date1);
-
         $this->restRepresentativeCompanyUserTradeFairAttributesTransferMock->expects(static::atLeastOnce())
             ->method('getEndAt')
             ->willReturn($date2);
@@ -420,10 +416,6 @@ class TradeFairRepresentationManagerTest extends Unit
             ->method('setStartAt')
             ->with($date2)
             ->willReturnSelf();
-
-        $this->representativeCompanyUserTradeFairTransferMock->expects(static::atLeastOnce())
-            ->method('getStartAt')
-            ->willReturn($date1);
 
         $this->restRepresentativeCompanyUserTradeFairAttributesTransferMock->expects(static::atLeastOnce())
             ->method('getStartAt')
@@ -815,15 +807,7 @@ class TradeFairRepresentationManagerTest extends Unit
             ->willReturn($startAt1);
 
         $this->representativeCompanyUserTradeFairTransferMock->expects(static::atLeastOnce())
-            ->method('getStartAt')
-            ->willReturn($startAt2);
-
-        $this->representativeCompanyUserTradeFairTransferMock->expects(static::atLeastOnce())
             ->method('setEndAt')
-            ->willReturnSelf();
-
-        $this->representativeCompanyUserTradeFairTransferMock->expects(static::atLeastOnce())
-            ->method('setStartAt')
             ->willReturnSelf();
 
         $this->representativeCompanyUserTradeFairTransferMock->expects(static::atLeastOnce())

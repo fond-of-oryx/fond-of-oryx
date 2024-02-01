@@ -5,6 +5,7 @@ namespace FondOfOryx\Zed\RepresentativeCompanyUserRestApi\Business\Model;
 use Codeception\Test\Unit;
 use FondOfOryx\Zed\RepresentativeCompanyUserRestApi\Business\Model\Mapper\RestDataMapperInterface;
 use FondOfOryx\Zed\RepresentativeCompanyUserRestApi\Dependency\Facade\RepresentativeCompanyUserRestApiToRepresentativeCompanyUserFacadeInterface;
+use FondOfOryx\Zed\RepresentativeCompanyUserRestApi\Dependency\Facade\RepresentativeCompanyUserRestApiToRepresentativeCompanyUserRestApiPermissionFacadeInterface;
 use FondOfOryx\Zed\RepresentativeCompanyUserRestApi\Persistence\RepresentativeCompanyUserRestApiRepository;
 use Generated\Shared\Transfer\RepresentativeCompanyUserTransfer;
 use Generated\Shared\Transfer\RestRepresentativeCompanyUserAttributesTransfer;
@@ -62,6 +63,11 @@ class RepresentationManagerTest extends Unit
     protected LoggerInterface|MockObject $loggerMock;
 
     /**
+     * @var \FondOfOryx\Zed\RepresentativeCompanyUserRestApi\Dependency\Facade\RepresentativeCompanyUserRestApiToRepresentativeCompanyUserRestApiPermissionFacadeInterface|\PHPUnit\Framework\MockObject\MockObject
+     */
+    protected RepresentativeCompanyUserRestApiToRepresentativeCompanyUserRestApiPermissionFacadeInterface|MockObject $representativeCompanyUserRestApiPermissionFacadeMock;
+
+    /**
      * @var \FondOfOryx\Zed\RepresentativeCompanyUserRestApi\Business\Model\RepresentationManagerInterface
      */
     protected RepresentationManagerInterface $representationManager;
@@ -111,6 +117,11 @@ class RepresentationManagerTest extends Unit
             ->disableOriginalConstructor()
             ->getMock();
 
+        $this->representativeCompanyUserRestApiPermissionFacadeMock = $this
+            ->getMockBuilder(RepresentativeCompanyUserRestApiToRepresentativeCompanyUserRestApiPermissionFacadeInterface::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
         $this->restRepresentativeCompanyUserRequestTransferMock = $this
             ->getMockBuilder(RestRepresentativeCompanyUserRequestTransfer::class)
             ->disableOriginalConstructor()
@@ -121,6 +132,7 @@ class RepresentationManagerTest extends Unit
             $this->repositoryMock,
             $this->restDataMapperMock,
             $this->loggerMock,
+            $this->representativeCompanyUserRestApiPermissionFacadeMock,
         );
     }
 
@@ -179,6 +191,10 @@ class RepresentationManagerTest extends Unit
         $this->facadeMock->expects(static::atLeastOnce())
             ->method('addRepresentativeCompanyUser')
             ->willReturn($this->representativeCompanyUserTransferMock);
+
+        $this->representativeCompanyUserRestApiPermissionFacadeMock->expects(static::atLeastOnce())
+            ->method('can')
+            ->willReturn(true);
 
         $this->restDataMapperMock->expects(static::atLeastOnce())
             ->method('mapResponse')

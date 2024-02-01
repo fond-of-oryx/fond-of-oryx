@@ -26,4 +26,21 @@ class RepresentativeCompanyUserRestApiRepository extends AbstractRepository impl
 
         return $customer->getIdCustomer();
     }
+
+    /**
+     * @param string $mail
+     *
+     * @throws \Exception
+     *
+     * @return string
+     */
+    public function getCustomerReferenceByMail(string $mail): string
+    {
+        $customer = $this->getFactory()->getCustomerQuery()->filterByEmail($mail)->findOne();
+        if ($customer === null) {
+            throw new Exception(sprintf('Could not find customer by mail %s', $mail));
+        }
+
+        return $customer->getCustomerReference();
+    }
 }

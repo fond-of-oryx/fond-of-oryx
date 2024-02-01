@@ -2,6 +2,7 @@
 
 namespace FondOfOryx\Zed\RepresentativeCompanyUserTradeFairRestApi\Business\Model;
 
+use DateTime;
 use FondOfOryx\Shared\RepresentativeCompanyUserTradeFairRestApi\RepresentativeCompanyUserTradeFairRestApiConstants;
 use FondOfOryx\Zed\RepresentativeCompanyUserTradeFairRestApi\Business\Model\Mapper\RestDataMapperInterface;
 use FondOfOryx\Zed\RepresentativeCompanyUserTradeFairRestApi\Business\Validator\DurationValidatorInterface;
@@ -199,7 +200,10 @@ class TradeFairRepresentationManager implements TradeFairRepresentationManagerIn
         RepresentativeCompanyUserTradeFairTransfer $representativeCompanyUserTradeFairTransfer,
         RestRepresentativeCompanyUserTradeFairAttributesTransfer $representativeCompanyUserTradeFairAttributesTransfer
     ): bool {
-        if ($representativeCompanyUserTradeFairAttributesTransfer->getStartAt() < $representativeCompanyUserTradeFairTransfer->getStartAt()) {
+        $today = (new DateTime())->setTime(0, 0);
+        $startAt = new DateTime($representativeCompanyUserTradeFairAttributesTransfer->getStartAt());
+
+        if ($startAt < $today) {
             return false;
         }
 
@@ -258,13 +262,13 @@ class TradeFairRepresentationManager implements TradeFairRepresentationManagerIn
 
     /**
      * @param \Generated\Shared\Transfer\RestRepresentativeCompanyUserTradeFairRequestTransfer $restRepresentativeCompanyUserTradeFairRequestTransfer
-     * @param \Generated\Shared\Transfer\RestRepresentativeCompanyUserTradeFairAttributesTransfer|null $attributes
+     * @param \Generated\Shared\Transfer\RestRepresentativeCompanyUserTradeFairAttributesTransfer $attributes
      *
      * @return \Generated\Shared\Transfer\RepresentativeCompanyUserTradeFairFilterTransfer
      */
     public function createFilter(
         RestRepresentativeCompanyUserTradeFairRequestTransfer $restRepresentativeCompanyUserTradeFairRequestTransfer,
-        ?RestRepresentativeCompanyUserTradeFairAttributesTransfer $attributes
+        RestRepresentativeCompanyUserTradeFairAttributesTransfer $attributes
     ): RepresentativeCompanyUserTradeFairFilterTransfer {
         $restFilter = $restRepresentativeCompanyUserTradeFairRequestTransfer->getFilter();
         $filter = new RepresentativeCompanyUserTradeFairFilterTransfer();
@@ -285,6 +289,7 @@ class TradeFairRepresentationManager implements TradeFairRepresentationManagerIn
                     $filter->addSort((new RepresentativeCompanyUserFilterSortTransfer())->fromArray($sort->toArray(), true));
                 }
             }
+            $filter->setRepresentative($attributes->getCustomerReferenceOriginator());
         }
 
         if ($attributes->getUuid() !== null) {

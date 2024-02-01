@@ -8,6 +8,7 @@
         <property name="referenceDistributor" restRequestParameter="required" type="string" />
         <property name="referenceRepresentation" restRequestParameter="required" type="string" />
         <property name="referenceOriginator" restRequestParameter="required" type="string" />
+        <property name="permissions" singular="permission" associative="true" type="array" />
         <property name="startAt" type="string" />
         <property name="endAt" type="string" />
     </transfer>
@@ -15,6 +16,8 @@
     <transfer name="RestRepresentativeCompanyUserFilter">
         <property name="expired" type="bool"/>
         <property name="representative" type="string"/>
+        <property name="distributor" type="string"/>
+        <property name="originator" type="string"/>
         <property name="page" type="RestRepresentativeCompanyUserFilterPage" />
         <property name="sort" type="RestRepresentativeCompanyUserFilterSort[]" />
     </transfer>

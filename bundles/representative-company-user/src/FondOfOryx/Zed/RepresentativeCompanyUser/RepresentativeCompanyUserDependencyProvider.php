@@ -7,6 +7,7 @@ use FondOfOryx\Zed\RepresentativeCompanyUser\Dependency\Facade\RepresentativeCom
 use FondOfOryx\Zed\RepresentativeCompanyUser\Dependency\Service\RepresentativeCompanyUserToUtilDateTimeServiceBridge;
 use Orm\Zed\Company\Persistence\SpyCompanyQuery;
 use Orm\Zed\CompanyUser\Persistence\SpyCompanyUserQuery;
+use Orm\Zed\Customer\Persistence\SpyCustomerQuery;
 use Spryker\Zed\Kernel\AbstractBundleDependencyProvider;
 use Spryker\Zed\Kernel\Container;
 
@@ -51,6 +52,11 @@ class RepresentativeCompanyUserDependencyProvider extends AbstractBundleDependen
     public const QUERY_COMPANY = 'QUERY_COMPANY';
 
     /**
+     * @var string
+     */
+    public const QUERY_CUSTOMER = 'QUERY_CUSTOMER';
+
+    /**
      * @param \Spryker\Zed\Kernel\Container $container
      *
      * @return \Spryker\Zed\Kernel\Container
@@ -73,6 +79,7 @@ class RepresentativeCompanyUserDependencyProvider extends AbstractBundleDependen
     {
         $container = parent::providePersistenceLayerDependencies($container);
         $container = $this->addCompanyQuery($container);
+        $container = $this->addCustomerQuery($container);
         $container = $this->addUtilDateTimeService($container);
         $container = $this->addFooRepresentativeCompanyUserQueryExpanderPlugins($container);
 
@@ -120,6 +127,20 @@ class RepresentativeCompanyUserDependencyProvider extends AbstractBundleDependen
     {
         $container[static::QUERY_COMPANY_USER] = static function (Container $container) {
             return new SpyCompanyUserQuery();
+        };
+
+        return $container;
+    }
+
+    /**
+     * @param \Spryker\Zed\Kernel\Container $container
+     *
+     * @return \Spryker\Zed\Kernel\Container
+     */
+    protected function addCustomerQuery(Container $container): Container
+    {
+        $container[static::QUERY_CUSTOMER] = static function (Container $container) {
+            return new SpyCustomerQuery();
         };
 
         return $container;
@@ -194,7 +215,7 @@ class RepresentativeCompanyUserDependencyProvider extends AbstractBundleDependen
     }
 
     /**
-     * @return \FondOfOryx\Zed\RepresentativeCompanyUserExtension\Dependency\Plugin\Persistence\RepresentativeCompanyUserQueryExpanderPluginInterface[]
+     * @return array<\FondOfOryx\Zed\RepresentativeCompanyUserExtension\Dependency\Plugin\Persistence\RepresentativeCompanyUserQueryExpanderPluginInterface>
      */
     public function getFooRepresentativeCompanyUserQueryExpanderPlugins(): array
     {

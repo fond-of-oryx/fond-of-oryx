@@ -10,6 +10,7 @@ use FondOfOryx\Zed\RepresentativeCompanyUser\Persistence\Propel\Mapper\TransferT
 use FondOfOryx\Zed\RepresentativeCompanyUser\RepresentativeCompanyUserDependencyProvider;
 use Orm\Zed\Company\Persistence\SpyCompanyQuery;
 use Orm\Zed\CompanyUser\Persistence\SpyCompanyUserQuery;
+use Orm\Zed\Customer\Persistence\SpyCustomerQuery;
 use Orm\Zed\RepresentativeCompanyUser\Persistence\FooRepresentativeCompanyUserQuery;
 use Spryker\Zed\Kernel\Persistence\AbstractPersistenceFactory;
 
@@ -59,6 +60,14 @@ class RepresentativeCompanyUserPersistenceFactory extends AbstractPersistenceFac
     }
 
     /**
+     * @return \Orm\Zed\Customer\Persistence\SpyCustomerQuery
+     */
+    public function getCustomerQuery(): SpyCustomerQuery
+    {
+        return $this->getProvidedDependency(RepresentativeCompanyUserDependencyProvider::QUERY_CUSTOMER);
+    }
+
+    /**
      * @return \FondOfOryx\Zed\RepresentativeCompanyUser\Dependency\Service\RepresentativeCompanyUserToUtilDateTimeServiceInterface
      */
     public function getUtilDateTimeService(): RepresentativeCompanyUserToUtilDateTimeServiceInterface
@@ -67,7 +76,7 @@ class RepresentativeCompanyUserPersistenceFactory extends AbstractPersistenceFac
     }
 
     /**
-     * @return \FondOfOryx\Zed\RepresentativeCompanyUserExtension\Dependency\Plugin\Persistence\RepresentativeCompanyUserQueryExpanderPluginInterface[]
+     * @return array<\FondOfOryx\Zed\RepresentativeCompanyUserExtension\Dependency\Plugin\Persistence\RepresentativeCompanyUserQueryExpanderPluginInterface>
      */
     public function getFooRepresentativeCompanyUserQueryExpanderPlugins(): array
     {

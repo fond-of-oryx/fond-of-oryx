@@ -37,6 +37,8 @@
         <property name="limit" type="int" />
         <property name="sorting" singular="sort" type="RepresentativeCompanyUserFilterSort[]" />
         <property name="distributorReferences" singular="distributorReference" type="array" />
+        <property name="originatorReferences" singular="originatorReference" type="array" />
+        <property name="representativeReferences" singular="representativeReference" type="array" />
     </transfer>
 
     <transfer name="RepresentativeCompanyUserFilterSort">

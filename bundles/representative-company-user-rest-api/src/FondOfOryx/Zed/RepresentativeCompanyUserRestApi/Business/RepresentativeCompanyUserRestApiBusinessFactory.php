@@ -7,6 +7,7 @@ use FondOfOryx\Zed\RepresentativeCompanyUserRestApi\Business\Model\Mapper\RestDa
 use FondOfOryx\Zed\RepresentativeCompanyUserRestApi\Business\Model\RepresentationManager;
 use FondOfOryx\Zed\RepresentativeCompanyUserRestApi\Business\Model\RepresentationManagerInterface;
 use FondOfOryx\Zed\RepresentativeCompanyUserRestApi\Dependency\Facade\RepresentativeCompanyUserRestApiToRepresentativeCompanyUserFacadeInterface;
+use FondOfOryx\Zed\RepresentativeCompanyUserRestApi\Dependency\Facade\RepresentativeCompanyUserRestApiToRepresentativeCompanyUserRestApiPermissionFacadeInterface;
 use FondOfOryx\Zed\RepresentativeCompanyUserRestApi\RepresentativeCompanyUserRestApiDependencyProvider;
 use Spryker\Shared\Log\LoggerTrait;
 use Spryker\Zed\Kernel\Business\AbstractBusinessFactory;
@@ -28,6 +29,7 @@ class RepresentativeCompanyUserRestApiBusinessFactory extends AbstractBusinessFa
             $this->getRepository(),
             $this->createRestDataMapper(),
             $this->getLogger(),
+            $this->getRepresentativeCompanyUserRestApiPermissionFacade(),
         );
     }
 
@@ -45,5 +47,13 @@ class RepresentativeCompanyUserRestApiBusinessFactory extends AbstractBusinessFa
     protected function getRepresentativeCompanyUserFacade(): RepresentativeCompanyUserRestApiToRepresentativeCompanyUserFacadeInterface
     {
         return $this->getProvidedDependency(RepresentativeCompanyUserRestApiDependencyProvider::FACADE_REPRESENTATIVE_COMPANY_USER);
+    }
+
+    /**
+     * @return \FondOfOryx\Zed\RepresentativeCompanyUserRestApi\Dependency\Facade\RepresentativeCompanyUserRestApiToRepresentativeCompanyUserRestApiPermissionFacadeInterface
+     */
+    protected function getRepresentativeCompanyUserRestApiPermissionFacade(): RepresentativeCompanyUserRestApiToRepresentativeCompanyUserRestApiPermissionFacadeInterface
+    {
+        return $this->getProvidedDependency(RepresentativeCompanyUserRestApiDependencyProvider::FACADE_REPRESENTATIVE_COMPANY_USER_REST_API_PERMISSION);
     }
 }
