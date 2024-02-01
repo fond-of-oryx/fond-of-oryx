@@ -215,7 +215,7 @@ class RepresentativeCompanyUserTradeFairRepository extends AbstractRepository im
         if ($filterTransfer->getRepresentative() !== null) {
             $query
                 ->useFooRepresentativeCompanyUserTradeFairDistributorQuery()
-                    ->filterByEmail($filterTransfer->getRepresentative())
+                    ->filterByCustomerReference($filterTransfer->getRepresentative())
                 ->endUse();
         }
 

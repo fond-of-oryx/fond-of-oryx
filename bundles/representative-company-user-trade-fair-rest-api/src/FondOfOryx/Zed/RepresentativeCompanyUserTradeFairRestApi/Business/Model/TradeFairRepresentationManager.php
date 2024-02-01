@@ -262,16 +262,17 @@ class TradeFairRepresentationManager implements TradeFairRepresentationManagerIn
 
     /**
      * @param \Generated\Shared\Transfer\RestRepresentativeCompanyUserTradeFairRequestTransfer $restRepresentativeCompanyUserTradeFairRequestTransfer
-     * @param \Generated\Shared\Transfer\RestRepresentativeCompanyUserTradeFairAttributesTransfer|null $attributes
+     * @param \Generated\Shared\Transfer\RestRepresentativeCompanyUserTradeFairAttributesTransfer $attributes
      *
      * @return \Generated\Shared\Transfer\RepresentativeCompanyUserTradeFairFilterTransfer
      */
     public function createFilter(
         RestRepresentativeCompanyUserTradeFairRequestTransfer $restRepresentativeCompanyUserTradeFairRequestTransfer,
-        ?RestRepresentativeCompanyUserTradeFairAttributesTransfer $attributes
+        RestRepresentativeCompanyUserTradeFairAttributesTransfer $attributes
     ): RepresentativeCompanyUserTradeFairFilterTransfer {
         $restFilter = $restRepresentativeCompanyUserTradeFairRequestTransfer->getFilter();
         $filter = new RepresentativeCompanyUserTradeFairFilterTransfer();
+
 
         if ($restFilter !== null) {
             $filter->fromArray($restRepresentativeCompanyUserTradeFairRequestTransfer->getFilter()->toArray(), true);
@@ -289,6 +290,7 @@ class TradeFairRepresentationManager implements TradeFairRepresentationManagerIn
                     $filter->addSort((new RepresentativeCompanyUserFilterSortTransfer())->fromArray($sort->toArray(), true));
                 }
             }
+            $filter->setRepresentative($attributes->getCustomerReferenceOriginator());
         }
 
         if ($attributes->getUuid() !== null) {

@@ -270,7 +270,7 @@ class RepresentationManager implements RepresentationManagerInterface
     protected function createFilter(
         RestRepresentativeCompanyUserRequestTransfer    $restRepresentativeCompanyUserRequestTransfer,
         RestRepresentativeCompanyUserAttributesTransfer $attributes,
-        string $permission
+        string                                          $permission
     ): RepresentativeCompanyUserFilterTransfer
     {
         $restFilter = $restRepresentativeCompanyUserRequestTransfer->getFilter();
@@ -283,10 +283,14 @@ class RepresentationManager implements RepresentationManagerInterface
 
         $originatorReference = $attributes->getReferenceOriginatorOrFail();
 
+        $forceOwnOriginatorReference = false;
+        $forceOwnDistributorReference = false;
+        $forceOwnRepresentativeReference = false;
+
         if ($this->hasOwnPermission($permission)) {
-            $filter->addOriginatorReference($originatorReference);
-            $filter->addDistributorReference($originatorReference);
-            $filter->addRepresentativeReference($originatorReference);
+            $forceOwnOriginatorReference = true;
+            $forceOwnDistributorReference = true;
+            $forceOwnRepresentativeReference = true;
         }
 
         if ($restFilter !== null) {
@@ -309,17 +313,45 @@ class RepresentationManager implements RepresentationManagerInterface
             $representative = $restFilter->getRepresentative();
             if ($representative !== null) {
                 $representativeReference = $this->repository->getCustomerReferenceByMail($representative);
-                if ($representativeReference !== $originatorReference && $this->hasGlobalPermission($permission)) {
-                    $filter->addDistributorReference($representativeReference);
+                if ($representativeReference !== $originatorReference) {
+                    $filter->addRepresentativeReference($representativeReference);
+                    $forceOwnRepresentativeReference = false;
+                    if ($this->hasGlobalPermission($permission)) {
+                        $forceOwnOriginatorReference = false;
+                    }
+                } else {
+                    $forceOwnOriginatorReference = false;
                 }
+            } else {
+                $forceOwnRepresentativeReference = false;
             }
 
             $distributor = $restFilter->getDistributor();
             if ($distributor !== null) {
                 $distributorReference = $this->repository->getCustomerReferenceByMail($distributor);
-                if ($distributorReference !== $originatorReference && $this->hasGlobalPermission($permission)) {
+                if ($distributorReference !== $originatorReference) {
+                    $forceOwnDistributorReference = false;
                     $filter->addDistributorReference($distributorReference);
+                    if ($this->hasGlobalPermission($permission)) {
+                        $forceOwnOriginatorReference = false;
+                    }
+                } else {
+                    $forceOwnOriginatorReference = false;
                 }
+            } else {
+                $forceOwnDistributorReference = false;
+            }
+
+            if ($forceOwnOriginatorReference) {
+                $filter->addOriginatorReference($originatorReference);
+            }
+
+            if ($forceOwnDistributorReference) {
+                $filter->addDistributorReference($originatorReference);
+            }
+
+            if ($forceOwnRepresentativeReference) {
+                $filter->addRepresentativeReference($originatorReference);
             }
         }
 
@@ -390,7 +422,7 @@ class RepresentationManager implements RepresentationManagerInterface
      * @return void
      * @throws \Exception
      */
-    protected function throwGlobalPermissionKeyMissingException():void
+    protected function throwGlobalPermissionKeyMissingException(): void
     {
         throw new Exception(sprintf('Missing permission key "%s" to manage global representations!', static::PERMISSION_KEY_GLOBAL));
     }

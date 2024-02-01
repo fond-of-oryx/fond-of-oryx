@@ -26,9 +26,9 @@ class RepresentativeCompanyUserRepository extends AbstractRepository implements 
     /**
      * @param string $uuid
      *
+     * @return \Generated\Shared\Transfer\RepresentativeCompanyUserTransfer
      * @throws \Exception
      *
-     * @return \Generated\Shared\Transfer\RepresentativeCompanyUserTransfer
      */
     public function findRepresentativeCompanyUserByUuid(string $uuid): RepresentativeCompanyUserTransfer
     {
@@ -75,7 +75,8 @@ class RepresentativeCompanyUserRepository extends AbstractRepository implements 
      */
     public function findRepresentativeCompanyUserByCase(
         RepresentativeCompanyUserTransfer $representativeCompanyUserTransfer
-    ): ?RepresentativeCompanyUserTransfer {
+    ): ?RepresentativeCompanyUserTransfer
+    {
         $representativeCompanyUserTransfer
             ->requireFkDistributor()
             ->requireFkRepresentative()
@@ -103,7 +104,8 @@ class RepresentativeCompanyUserRepository extends AbstractRepository implements 
      */
     public function findExpiredRepresentativeCompanyUser(
         ?RepresentativeCompanyUserFilterTransfer $filterTransfer = null
-    ): RepresentativeCompanyUserCollectionTransfer {
+    ): RepresentativeCompanyUserCollectionTransfer
+    {
         $query = $this->prepareRepresentativeCompanyUserQuery($filterTransfer);
 
         $expireAt = $this->getFactory()->getUtilDateTimeService()->formatDateTime(new DateTime());
@@ -125,7 +127,8 @@ class RepresentativeCompanyUserRepository extends AbstractRepository implements 
      */
     public function getRepresentativeCompanyUser(
         ?RepresentativeCompanyUserFilterTransfer $filterTransfer
-    ): RepresentativeCompanyUserCollectionTransfer {
+    ): RepresentativeCompanyUserCollectionTransfer
+    {
         $query = $this->prepareRepresentativeCompanyUserQuery($filterTransfer);
 
         if ($filterTransfer->getLimit() !== null) {
@@ -138,22 +141,21 @@ class RepresentativeCompanyUserRepository extends AbstractRepository implements 
 
         $originatorReferences = $filterTransfer->getOriginatorReferences();
         $distributorReferences = $filterTransfer->getDistributorReferences();
+        $representativeReferences = $filterTransfer->getRepresentativeReferences();
 
-        $addOr = false;
         if ($originatorReferences !== null && count($originatorReferences) > 0) {
             $originatorIds = $this->getFactory()->getCustomerQuery()->filterByCustomerReference_In($originatorReferences)->select(SpyCustomerTableMap::COL_ID_CUSTOMER)->find()->getData();
             $query->filterByFkOriginator_In($originatorIds);
-            $addOr = true;
         }
 
         if ($distributorReferences !== null && count($distributorReferences) > 0) {
             $distributorIds = $this->getFactory()->getCustomerQuery()->filterByCustomerReference_In($distributorReferences)->select(SpyCustomerTableMap::COL_ID_CUSTOMER)->find()->getData();
-            if($addOr){
-                $query->add(FooRepresentativeCompanyUserTableMap::COL_FK_DISTRIBUTOR, $distributorIds, Criteria::IN);
-            }
-            else{
-                $query->filterByFkDistributor_In($distributorIds);
-            }
+            $query->filterByFkDistributor_In($distributorIds);
+        }
+
+        if ($representativeReferences !== null && count($representativeReferences) > 0) {
+            $representativeIds = $this->getFactory()->getCustomerQuery()->filterByCustomerReference_In($representativeReferences)->select(SpyCustomerTableMap::COL_ID_CUSTOMER)->find()->getData();
+            $query->filterByFkRepresentative_In($representativeIds);
         }
         $maxItems = $query->count();
 
@@ -242,9 +244,9 @@ class RepresentativeCompanyUserRepository extends AbstractRepository implements 
     /**
      * @param string $uuid
      *
+     * @return \Generated\Shared\Transfer\RepresentativeCompanyUserTransfer
      * @throws \Exception
      *
-     * @return \Generated\Shared\Transfer\RepresentativeCompanyUserTransfer
      */
     public function findRepresentationByUuid(string $uuid): RepresentativeCompanyUserTransfer
     {
@@ -293,9 +295,10 @@ class RepresentativeCompanyUserRepository extends AbstractRepository implements 
      * @return \Orm\Zed\RepresentativeCompanyUser\Persistence\FooRepresentativeCompanyUserQuery
      */
     protected function expandFooRepresentativeCompanyUserQuery(
-        FooRepresentativeCompanyUserQuery $query,
+        FooRepresentativeCompanyUserQuery        $query,
         ?RepresentativeCompanyUserFilterTransfer $filterTransfer
-    ): FooRepresentativeCompanyUserQuery {
+    ): FooRepresentativeCompanyUserQuery
+    {
         if ($filterTransfer !== null) {
             foreach ($this->getFactory()->getFooRepresentativeCompanyUserQueryExpanderPlugins() as $plugin) {
                 $query = $plugin->expand($query, $filterTransfer);
