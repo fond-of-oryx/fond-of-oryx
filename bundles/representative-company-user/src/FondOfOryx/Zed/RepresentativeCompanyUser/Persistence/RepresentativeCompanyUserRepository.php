@@ -10,6 +10,7 @@ use Generated\Shared\Transfer\PaginationTransfer;
 use Generated\Shared\Transfer\RepresentativeCompanyUserCollectionTransfer;
 use Generated\Shared\Transfer\RepresentativeCompanyUserFilterTransfer;
 use Generated\Shared\Transfer\RepresentativeCompanyUserTransfer;
+use Orm\Zed\CompanyRole\Persistence\Map\SpyCompanyRoleToCompanyUserTableMap;
 use Orm\Zed\Customer\Persistence\Map\SpyCustomerTableMap;
 use Orm\Zed\RepresentativeCompanyUser\Persistence\FooRepresentativeCompanyUserQuery;
 use Orm\Zed\RepresentativeCompanyUser\Persistence\Map\FooRepresentativeCompanyUserTableMap;
@@ -107,7 +108,8 @@ class RepresentativeCompanyUserRepository extends AbstractRepository implements 
         $query = $this->prepareRepresentativeCompanyUserQuery($filterTransfer);
 
         $expireAt = $this->getFactory()->getUtilDateTimeService()->formatDateTime(new DateTime());
-        $results = $query->filterByEndAt($expireAt, Criteria::LESS_THAN)->find();
+        $query->filterByEndAt($expireAt, Criteria::LESS_THAN);
+        $results = $query->find();
 
         $collection = new RepresentativeCompanyUserCollectionTransfer();
 
@@ -126,7 +128,7 @@ class RepresentativeCompanyUserRepository extends AbstractRepository implements 
     public function getRepresentativeCompanyUser(
         ?RepresentativeCompanyUserFilterTransfer $filterTransfer
     ): RepresentativeCompanyUserCollectionTransfer {
-        $query = $this->prepareRepresentativeCompanyUserQuery($filterTransfer);
+        $query = $this->prepareGetRepresentativeCompanyUserQuery($filterTransfer);
 
         if ($filterTransfer->getLimit() !== null) {
             $query->setLimit($filterTransfer->getLimit());
@@ -205,7 +207,13 @@ class RepresentativeCompanyUserRepository extends AbstractRepository implements 
     {
         $collection = new CompanyUserCollectionTransfer();
 
-        $result = $this->getFactory()->getCompanyUserQuery()->findByFkCustomer($idCustomer);
+        $query = $this->getFactory()
+            ->getCompanyUserQuery()
+            ->innerJoinSpyCompanyRoleToCompanyUser()
+            ->withColumn(SpyCompanyRoleToCompanyUserTableMap::COL_FK_COMPANY_ROLE, 'representativeCompanyRole')
+            ->filterByFkCustomer($idCustomer);
+
+        $result = $query->find();
 
         foreach ($result as $data) {
             $companyUser = (new CompanyUserTransfer())->fromArray($data->toArray(), true);
@@ -281,6 +289,18 @@ class RepresentativeCompanyUserRepository extends AbstractRepository implements 
                 }
             }
         }
+
+        return $query;
+    }
+
+    /**
+     * @param \Generated\Shared\Transfer\RepresentativeCompanyUserFilterTransfer|null $filterTransfer
+     *
+     * @return \Orm\Zed\RepresentativeCompanyUser\Persistence\FooRepresentativeCompanyUserQuery
+     */
+    protected function prepareGetRepresentativeCompanyUserQuery(?RepresentativeCompanyUserFilterTransfer $filterTransfer): FooRepresentativeCompanyUserQuery
+    {
+        $query = $this->prepareRepresentativeCompanyUserQuery($filterTransfer);
 
         return $this->expandFooRepresentativeCompanyUserQuery($query, $filterTransfer);
     }
