@@ -64,4 +64,12 @@ class RepresentativeCompanyUserTradeFairFacade extends AbstractFacade implements
     ): RepresentativeCompanyUserTradeFairCollectionTransfer {
         return $this->getFactory()->createTradeFairRepresentationManager()->get($filterTransfer);
     }
+
+    /**
+     * @return void
+     */
+    public function checkForTradeFairExpiration(): void
+    {
+        $this->getFactory()->createTradeFairRepresentationManager()->checkForExpiration();
+    }
 }

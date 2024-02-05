@@ -3,9 +3,11 @@
 namespace FondOfOryx\Zed\RepresentativeCompanyUserTradeFair\Business\Manager;
 
 use Exception;
+use FondOfOryx\Shared\RepresentativeCompanyUser\RepresentativeCompanyUserConstants;
 use FondOfOryx\Zed\RepresentativeCompanyUserTradeFair\Dependency\Facade\RepresentativeCompanyUserTradeFairToRepresentativeCompanyUserInterface;
 use FondOfOryx\Zed\RepresentativeCompanyUserTradeFair\Persistence\RepresentativeCompanyUserTradeFairEntityManagerInterface;
 use FondOfOryx\Zed\RepresentativeCompanyUserTradeFair\Persistence\RepresentativeCompanyUserTradeFairRepositoryInterface;
+use Generated\Shared\Transfer\RepresentativeCompanyUserFilterTransfer;
 use Generated\Shared\Transfer\RepresentativeCompanyUserTradeFairCollectionTransfer;
 use Generated\Shared\Transfer\RepresentativeCompanyUserTradeFairFilterTransfer;
 use Generated\Shared\Transfer\RepresentativeCompanyUserTradeFairTransfer;
@@ -209,13 +211,15 @@ class TradeFairRepresentationManager implements TradeFairRepresentationManagerIn
     }
 
     /**
-     * @param \Generated\Shared\Transfer\RepresentativeCompanyUserTradeFairTransfer $representativeCompanyUserTradeFairTransfer
-     *
-     * @return string
+     * @return void
      */
-    protected function generateObjectId(RepresentativeCompanyUserTradeFairTransfer $representativeCompanyUserTradeFairTransfer): string
+    public function checkForExpiration(): void
     {
-        return sprintf('%s-%s-%s-%s-%s', $representativeCompanyUserTradeFairTransfer->getName(), $representativeCompanyUserTradeFairTransfer->getFkDistributor(), $representativeCompanyUserTradeFairTransfer->getFkOriginator(), $representativeCompanyUserTradeFairTransfer->getStartAt(), $representativeCompanyUserTradeFairTransfer->getEndAt());
+        $expiredCollection = $this->repository->getUuidsOfExpiredTradeFairs();
+
+        foreach ($expiredCollection as $uuid){
+            $this->entityManager->deactivate($uuid);
+        }
     }
 
     /**
