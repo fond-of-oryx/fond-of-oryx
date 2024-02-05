@@ -7,8 +7,8 @@ use Generated\Shared\Transfer\RepresentativeCompanyUserFilterTransfer;
 use Spryker\Zed\Kernel\Communication\AbstractPlugin;
 
 /**
- * @method \FondOfOryx\Zed\RepresentativeCompanyUser\Business\RepresentativeCompanyUserFacadeInterface getFacade()
- * @method \FondOfOryx\Zed\RepresentativeCompanyUser\Persistence\RepresentativeCompanyUserRepositoryInterface getRepository()
+ * @method \FondOfOryx\Zed\RepresentativeCompanyUserTradeFair\Business\RepresentativeCompanyUserTradeFairFacadeInterface getFacade()
+ * @method \FondOfOryx\Zed\RepresentativeCompanyUserTradeFair\Persistence\RepresentativeCompanyUserTradeFairRepositoryInterface getRepository()
  */
 class CheckForTradeFairExpirationTaskCommandPlugin extends AbstractPlugin implements RepresentativeCompanyUserTaskCommandPluginInterface
 {
@@ -24,7 +24,7 @@ class CheckForTradeFairExpirationTaskCommandPlugin extends AbstractPlugin implem
      */
     public function run(RepresentativeCompanyUserFilterTransfer $filter): void
     {
-        $this->getFacade()->checkForTradeFairExpiration($filter);
+        $this->getFacade()->checkForTradeFairExpiration();
     }
 
     /**

@@ -3,11 +3,9 @@
 namespace FondOfOryx\Zed\RepresentativeCompanyUserTradeFair\Business\Manager;
 
 use Exception;
-use FondOfOryx\Shared\RepresentativeCompanyUser\RepresentativeCompanyUserConstants;
 use FondOfOryx\Zed\RepresentativeCompanyUserTradeFair\Dependency\Facade\RepresentativeCompanyUserTradeFairToRepresentativeCompanyUserInterface;
 use FondOfOryx\Zed\RepresentativeCompanyUserTradeFair\Persistence\RepresentativeCompanyUserTradeFairEntityManagerInterface;
 use FondOfOryx\Zed\RepresentativeCompanyUserTradeFair\Persistence\RepresentativeCompanyUserTradeFairRepositoryInterface;
-use Generated\Shared\Transfer\RepresentativeCompanyUserFilterTransfer;
 use Generated\Shared\Transfer\RepresentativeCompanyUserTradeFairCollectionTransfer;
 use Generated\Shared\Transfer\RepresentativeCompanyUserTradeFairFilterTransfer;
 use Generated\Shared\Transfer\RepresentativeCompanyUserTradeFairTransfer;
@@ -217,7 +215,7 @@ class TradeFairRepresentationManager implements TradeFairRepresentationManagerIn
     {
         $expiredCollection = $this->repository->getUuidsOfExpiredTradeFairs();
 
-        foreach ($expiredCollection as $uuid){
+        foreach ($expiredCollection as $uuid) {
             $this->entityManager->deactivate($uuid);
         }
     }

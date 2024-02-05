@@ -22,10 +22,13 @@ use Spryker\Zed\Kernel\Persistence\AbstractRepository;
  */
 class RepresentativeCompanyUserTradeFairRepository extends AbstractRepository implements RepresentativeCompanyUserTradeFairRepositoryInterface
 {
+    /**
+     * @var array
+     */
     protected const MARKER_EXPIRED = [
         FooRepresentativeCompanyUserTableMap::COL_STATE_EXPIRED,
         FooRepresentativeCompanyUserTableMap::COL_STATE_REVOKED,
-        FooRepresentativeCompanyUserTableMap::COL_STATE_ERROR
+        FooRepresentativeCompanyUserTableMap::COL_STATE_ERROR,
     ];
 
     /**
@@ -211,10 +214,14 @@ class RepresentativeCompanyUserTradeFairRepository extends AbstractRepository im
     /**
      * @return array<int>
      */
-    protected function getExpiredCheckValues(): array{
+    protected function getExpiredCheckValues(): array
+    {
         $values = FooRepresentativeCompanyUserTableMap::getValueSet(FooRepresentativeCompanyUserTableMap::COL_STATE);
-        return array_intersect_key(array_flip($values),
-            array_flip(self::MARKER_EXPIRED));
+
+        return array_intersect_key(
+            array_flip($values),
+            array_flip(self::MARKER_EXPIRED),
+        );
     }
 
     /**
