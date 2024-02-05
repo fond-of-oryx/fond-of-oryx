@@ -55,4 +55,9 @@ interface RepresentativeCompanyUserTradeFairRepositoryInterface
      * @return array
      */
     public function resolveDistributorFksToRepresent(int $fkRepresentative): array;
+
+    /**
+     * @return array
+     */
+    public function getUuidsOfExpiredTradeFairs(): array;
 }

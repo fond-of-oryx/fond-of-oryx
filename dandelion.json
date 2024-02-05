@@ -857,7 +857,7 @@
     },
     "representative-company-user-trade-fair": {
       "path": "bundles/representative-company-user-trade-fair/",
-      "version": "1.3.0"
+      "version": "1.4.0"
     },
     "representative-company-user-trade-fair-extension": {
       "path": "bundles/representative-company-user-trade-fair-extension/",

@@ -209,13 +209,15 @@ class TradeFairRepresentationManager implements TradeFairRepresentationManagerIn
     }
 
     /**
-     * @param \Generated\Shared\Transfer\RepresentativeCompanyUserTradeFairTransfer $representativeCompanyUserTradeFairTransfer
-     *
-     * @return string
+     * @return void
      */
-    protected function generateObjectId(RepresentativeCompanyUserTradeFairTransfer $representativeCompanyUserTradeFairTransfer): string
+    public function checkForExpiration(): void
     {
-        return sprintf('%s-%s-%s-%s-%s', $representativeCompanyUserTradeFairTransfer->getName(), $representativeCompanyUserTradeFairTransfer->getFkDistributor(), $representativeCompanyUserTradeFairTransfer->getFkOriginator(), $representativeCompanyUserTradeFairTransfer->getStartAt(), $representativeCompanyUserTradeFairTransfer->getEndAt());
+        $expiredCollection = $this->repository->getUuidsOfExpiredTradeFairs();
+
+        foreach ($expiredCollection as $uuid) {
+            $this->entityManager->deactivate($uuid);
+        }
     }
 
     /**

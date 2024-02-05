@@ -48,4 +48,9 @@ interface RepresentativeCompanyUserTradeFairFacadeInterface
     public function getRepresentativeCompanyUserTradeFair(
         RepresentativeCompanyUserTradeFairFilterTransfer $filterTransfer
     ): RepresentativeCompanyUserTradeFairCollectionTransfer;
+
+    /**
+     * @return void
+     */
+    public function checkForTradeFairExpiration(): void;
 }

@@ -42,4 +42,9 @@ interface TradeFairRepresentationManagerInterface
      * @return \Generated\Shared\Transfer\RepresentativeCompanyUserTradeFairCollectionTransfer
      */
     public function get(RepresentativeCompanyUserTradeFairFilterTransfer $filterTransfer): RepresentativeCompanyUserTradeFairCollectionTransfer;
+
+    /**
+     * @return void
+     */
+    public function checkForExpiration(): void;
 }

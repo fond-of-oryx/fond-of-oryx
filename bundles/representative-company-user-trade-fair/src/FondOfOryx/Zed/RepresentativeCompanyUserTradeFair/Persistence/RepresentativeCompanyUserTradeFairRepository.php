@@ -9,8 +9,10 @@ use Generated\Shared\Transfer\RepresentativeCompanyUserTradeFairCollectionTransf
 use Generated\Shared\Transfer\RepresentativeCompanyUserTradeFairFilterTransfer;
 use Generated\Shared\Transfer\RepresentativeCompanyUserTradeFairTransfer;
 use Orm\Zed\Customer\Persistence\Map\SpyCustomerTableMap;
+use Orm\Zed\RepresentativeCompanyUser\Persistence\Map\FooRepresentativeCompanyUserTableMap;
 use Orm\Zed\RepresentativeCompanyUserTradeFair\Persistence\FooRepresentativeCompanyUserTradeFairQuery;
 use Orm\Zed\RepresentativeCompanyUserTradeFair\Persistence\Map\FooRepresentativeCompanyUserTradeFairTableMap;
+use Propel\Runtime\ActiveQuery\Criteria;
 use Spryker\Zed\Kernel\Persistence\AbstractRepository;
 
 /**
@@ -20,6 +22,15 @@ use Spryker\Zed\Kernel\Persistence\AbstractRepository;
  */
 class RepresentativeCompanyUserTradeFairRepository extends AbstractRepository implements RepresentativeCompanyUserTradeFairRepositoryInterface
 {
+    /**
+     * @var array
+     */
+    protected const MARKER_EXPIRED = [
+        FooRepresentativeCompanyUserTableMap::COL_STATE_EXPIRED,
+        FooRepresentativeCompanyUserTableMap::COL_STATE_REVOKED,
+        FooRepresentativeCompanyUserTableMap::COL_STATE_ERROR,
+    ];
+
     /**
      * @param string $uuid
      *
@@ -181,6 +192,36 @@ class RepresentativeCompanyUserTradeFairRepository extends AbstractRepository im
                 ->groupBy(SpyCustomerTableMap::COL_ID_CUSTOMER)
                 ->find()
                 ->getData();
+    }
+
+    /**
+     * @return array
+     */
+    public function getUuidsOfExpiredTradeFairs(): array
+    {
+        $query = $this->getFactory()->getRepresentativeCompanyUserTradeFairQuery()
+            ->joinFooRepresentativeCompanyUser()
+            ->select(FooRepresentativeCompanyUserTradeFairTableMap::COL_UUID)
+            ->where(FooRepresentativeCompanyUserTradeFairTableMap::COL_END_AT . ' < now()')
+            ->addAnd(FooRepresentativeCompanyUserTradeFairTableMap::COL_ACTIVE, true, Criteria::EQUAL)
+            ->addAnd(FooRepresentativeCompanyUserTableMap::COL_STATE, $this->getExpiredCheckValues(), Criteria::IN)
+            ->groupBy(FooRepresentativeCompanyUserTradeFairTableMap::COL_UUID);
+
+        return $query->find()
+            ->getData();
+    }
+
+    /**
+     * @return array<int>
+     */
+    protected function getExpiredCheckValues(): array
+    {
+        $values = FooRepresentativeCompanyUserTableMap::getValueSet(FooRepresentativeCompanyUserTableMap::COL_STATE);
+
+        return array_intersect_key(
+            array_flip($values),
+            array_flip(self::MARKER_EXPIRED),
+        );
     }
 
     /**
