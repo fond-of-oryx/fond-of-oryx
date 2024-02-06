@@ -841,7 +841,7 @@
     },
     "representative-company-user": {
       "path": "bundles/representative-company-user/",
-      "version": "1.3.1"
+      "version": "1.3.2"
     },
     "representative-company-user-extension": {
       "path": "bundles/representative-company-user-extension/",
