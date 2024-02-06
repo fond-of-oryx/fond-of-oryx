@@ -4,6 +4,8 @@ namespace FondOfOryx\Zed\RepresentativeCompanyUser\Persistence;
 
 use DateTime;
 use Exception;
+use Generated\Shared\Transfer\CompanyRoleCollectionTransfer;
+use Generated\Shared\Transfer\CompanyRoleTransfer;
 use Generated\Shared\Transfer\CompanyUserCollectionTransfer;
 use Generated\Shared\Transfer\CompanyUserTransfer;
 use Generated\Shared\Transfer\PaginationTransfer;
@@ -221,6 +223,20 @@ class RepresentativeCompanyUserRepository extends AbstractRepository implements 
                 $representation = (new RepresentativeCompanyUserTransfer())->fromArray($data->getFooRepresentativeCompanyUser()->toArray(), true);
                 $companyUser->setRepresentationOfSale($representation);
             }
+
+            $companyRoleId = $data->getVirtualColumn('representativeCompanyRole');
+
+            if ($companyRoleId === null) {
+                continue;
+            }
+
+            $companyRoleTransfer = (new CompanyRoleTransfer())->setIdCompanyRole($companyRoleId);
+
+            $companyRoleCollectionTransfer = new CompanyRoleCollectionTransfer();
+            $companyRoleCollectionTransfer->addRole($companyRoleTransfer);
+
+            $companyUser->setCompanyRoleCollection($companyRoleCollectionTransfer);
+
             $collection->addCompanyUser($companyUser);
         }
 
