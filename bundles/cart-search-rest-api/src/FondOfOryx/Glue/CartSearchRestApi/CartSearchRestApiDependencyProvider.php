@@ -3,6 +3,7 @@
 namespace FondOfOryx\Glue\CartSearchRestApi;
 
 use FondOfOryx\Glue\CartSearchRestApi\Dependency\Client\CartSearchRestApiToGlossaryStorageClientBridge;
+use FondOfOryx\Glue\CartSearchRestApi\Dependency\Service\CartSearchRestApiToUtilEncodingServiceBridge;
 use Spryker\Glue\Kernel\AbstractBundleDependencyProvider;
 use Spryker\Glue\Kernel\Container;
 
@@ -22,6 +23,11 @@ class CartSearchRestApiDependencyProvider extends AbstractBundleDependencyProvid
     public const CLIENT_GLOSSARY_STORAGE = 'CLIENT_GLOSSARY_STORAGE';
 
     /**
+     * @var string
+     */
+    public const SERVICE_UTIL_ENCODING = 'SERVICE_UTIL_ENCODING';
+
+    /**
      * @param \Spryker\Glue\Kernel\Container $container
      *
      * @return \Spryker\Glue\Kernel\Container
@@ -31,8 +37,9 @@ class CartSearchRestApiDependencyProvider extends AbstractBundleDependencyProvid
         $container = parent::provideDependencies($container);
 
         $container = $this->addGlossaryStorageClient($container);
+        $container = $this->addFilterFieldsExpanderPlugins($container);
 
-        return $this->addFilterFieldsExpanderPlugins($container);
+        return $this->addUtilEncodingService($container);
     }
 
     /**
@@ -73,5 +80,21 @@ class CartSearchRestApiDependencyProvider extends AbstractBundleDependencyProvid
     protected function getFilterFieldsExpanderPlugins(): array
     {
         return [];
+    }
+
+    /**
+     * @param \Spryker\Glue\Kernel\Container $container
+     *
+     * @return \Spryker\Glue\Kernel\Container
+     */
+    protected function addUtilEncodingService(Container $container): Container
+    {
+        $container[static::SERVICE_UTIL_ENCODING] = static function (Container $container) {
+            return new CartSearchRestApiToUtilEncodingServiceBridge(
+                $container->getLocator()->utilEncoding()->service(),
+            );
+        };
+
+        return $container;
     }
 }

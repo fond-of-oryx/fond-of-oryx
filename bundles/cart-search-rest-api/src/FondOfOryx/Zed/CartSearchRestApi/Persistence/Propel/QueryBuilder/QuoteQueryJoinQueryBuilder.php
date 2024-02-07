@@ -3,6 +3,7 @@
 namespace FondOfOryx\Zed\CartSearchRestApi\Persistence\Propel\QueryBuilder;
 
 use ArrayObject;
+use FondOfOryx\Zed\CartSearchRestApi\Dependency\Service\CartSearchRestApiToUtilEncodingServiceInterface;
 use Generated\Shared\Transfer\QueryJoinCollectionTransfer;
 use Generated\Shared\Transfer\QueryJoinTransfer;
 use Generated\Shared\Transfer\QueryWhereConditionTransfer;
@@ -19,6 +20,19 @@ class QuoteQueryJoinQueryBuilder implements QuoteQueryJoinQueryBuilderInterface
      * @var string
      */
     protected const CONCAT = 'CONCAT';
+
+    /**
+     * @var \FondOfOryx\Zed\CartSearchRestApi\Dependency\Service\CartSearchRestApiToUtilEncodingServiceInterface
+     */
+    protected CartSearchRestApiToUtilEncodingServiceInterface $utilEncodingService;
+
+    /**
+     * @param \FondOfOryx\Zed\CartSearchRestApi\Dependency\Service\CartSearchRestApiToUtilEncodingServiceInterface $utilEncodingService
+     */
+    public function __construct(CartSearchRestApiToUtilEncodingServiceInterface $utilEncodingService)
+    {
+        $this->utilEncodingService = $utilEncodingService;
+    }
 
     /**
      * @param \Orm\Zed\Quote\Persistence\Base\SpyQuoteQuery $query
@@ -243,6 +257,15 @@ class QuoteQueryJoinQueryBuilder implements QuoteQueryJoinQueryBuilderInterface
                 new CustomCriterion(new Criteria(), sprintf('%s%s\'%%%s%%\'', $column, $comparison, $value)),
                 null,
                 Criteria::CUSTOM,
+            );
+        }
+
+        if ($comparison === Criteria::IN) {
+            return $query->addCond(
+                $conditionName,
+                $column,
+                $this->utilEncodingService->decodeJson($value, true),
+                $comparison,
             );
         }
 

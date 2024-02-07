@@ -3,6 +3,7 @@
 namespace FondOfOryx\Glue\CartSearchRestApi;
 
 use FondOfOryx\Glue\CartSearchRestApi\Dependency\Client\CartSearchRestApiToGlossaryStorageClientInterface;
+use FondOfOryx\Glue\CartSearchRestApi\Dependency\Service\CartSearchRestApiToUtilEncodingServiceInterface;
 use FondOfOryx\Glue\CartSearchRestApi\Processor\Builder\RestResponseBuilder;
 use FondOfOryx\Glue\CartSearchRestApi\Processor\Builder\RestResponseBuilderInterface;
 use FondOfOryx\Glue\CartSearchRestApi\Processor\Expander\FilterFieldsExpander;
@@ -220,5 +221,13 @@ class CartSearchRestApiFactory extends AbstractFactory
         return $this->getProvidedDependency(
             CartSearchRestApiDependencyProvider::PLUGINS_FILTER_FIELDS_EXPANDER,
         );
+    }
+
+    /**
+     * @return \FondOfOryx\Glue\CartSearchRestApi\Dependency\Service\CartSearchRestApiToUtilEncodingServiceInterface
+     */
+    public function getUtilEncodingService(): CartSearchRestApiToUtilEncodingServiceInterface
+    {
+        return $this->getProvidedDependency(CartSearchRestApiDependencyProvider::SERVICE_UTIL_ENCODING);
     }
 }

@@ -3,6 +3,7 @@
 namespace FondOfOryx\Zed\CartSearchRestApi\Persistence;
 
 use FondOfOryx\Zed\CartSearchRestApi\CartSearchRestApiDependencyProvider;
+use FondOfOryx\Zed\CartSearchRestApi\Dependency\Service\CartSearchRestApiToUtilEncodingServiceInterface;
 use FondOfOryx\Zed\CartSearchRestApi\Persistence\Propel\Mapper\QuoteMapper;
 use FondOfOryx\Zed\CartSearchRestApi\Persistence\Propel\Mapper\QuoteMapperInterface;
 use FondOfOryx\Zed\CartSearchRestApi\Persistence\Propel\QueryBuilder\QuoteQueryJoinQueryBuilder;
@@ -32,7 +33,9 @@ class CartSearchRestApiPersistenceFactory extends AbstractPersistenceFactory
      */
     public function createQuoteQueryJoinQueryBuilder(): QuoteQueryJoinQueryBuilderInterface
     {
-        return new QuoteQueryJoinQueryBuilder();
+        return new QuoteQueryJoinQueryBuilder(
+            $this->getUtilEncodingService(),
+        );
     }
 
     /**
@@ -51,5 +54,13 @@ class CartSearchRestApiPersistenceFactory extends AbstractPersistenceFactory
     public function createQuoteMapper(): QuoteMapperInterface
     {
         return new QuoteMapper();
+    }
+
+    /**
+     * @return \FondOfOryx\Zed\CartSearchRestApi\Dependency\Service\CartSearchRestApiToUtilEncodingServiceInterface
+     */
+    protected function getUtilEncodingService(): CartSearchRestApiToUtilEncodingServiceInterface
+    {
+        return $this->getProvidedDependency(CartSearchRestApiDependencyProvider::SERVICE_UTIL_ENCODING);
     }
 }
