@@ -52,6 +52,16 @@ interface CartSearchRestApiConstants
     /**
      * @var string
      */
+    public const PARAMETER_NAME_ID = 'id';
+
+    /**
+     * @var string
+     */
+    public const FILTER_FIELD_TYPE_UUIDS = 'uuids';
+
+    /**
+     * @var string
+     */
     public const DELIMITER_ORDER_BY = '::';
 
     /**

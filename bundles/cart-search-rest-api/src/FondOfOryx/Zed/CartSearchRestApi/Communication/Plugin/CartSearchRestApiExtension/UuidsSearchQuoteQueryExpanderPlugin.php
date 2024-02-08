@@ -7,17 +7,16 @@ use FondOfOryx\Zed\CartSearchRestApiExtension\Dependency\Plugin\SearchQuoteQuery
 use Generated\Shared\Transfer\QueryJoinCollectionTransfer;
 use Generated\Shared\Transfer\QueryJoinTransfer;
 use Generated\Shared\Transfer\QueryWhereConditionTransfer;
-use Orm\Zed\Customer\Persistence\Map\SpyCustomerTableMap;
 use Orm\Zed\Quote\Persistence\Map\SpyQuoteTableMap;
 use Propel\Runtime\ActiveQuery\Criteria;
 use Spryker\Zed\Kernel\Communication\AbstractPlugin;
 
-class CustomerSearchQuoteQueryExpanderPlugin extends AbstractPlugin implements SearchQuoteQueryExpanderPluginInterface
+class UuidsSearchQuoteQueryExpanderPlugin extends AbstractPlugin implements SearchQuoteQueryExpanderPluginInterface
 {
     /**
      * @var string
      */
-    protected const REQUIRED_FILTER_FIELD_TYPE = CartSearchRestApiConstants::FILTER_FIELD_TYPE_ID_CUSTOMER;
+    protected const REQUIRED_FILTER_FIELD_TYPE = CartSearchRestApiConstants::FILTER_FIELD_TYPE_UUIDS;
 
     /**
      * @param array<\Generated\Shared\Transfer\FilterFieldTransfer> $filterFieldTransfers
@@ -45,27 +44,28 @@ class CustomerSearchQuoteQueryExpanderPlugin extends AbstractPlugin implements S
         array $filterFieldTransfers,
         QueryJoinCollectionTransfer $queryJoinCollectionTransfer
     ): QueryJoinCollectionTransfer {
-        $idCustomer = null;
+        $uuids = null;
 
         foreach ($filterFieldTransfers as $filterFieldTransfer) {
             if ($filterFieldTransfer->getType() !== static::REQUIRED_FILTER_FIELD_TYPE) {
                 continue;
             }
 
-            $idCustomer = $filterFieldTransfer->getValue();
+            $uuids = $filterFieldTransfer->getValue();
         }
 
-        $whereCondition = (new QueryWhereConditionTransfer())
-            ->setValue($idCustomer)
-            ->setColumn(SpyCustomerTableMap::COL_ID_CUSTOMER)
-            ->setComparison(Criteria::EQUAL);
+        if ($uuids === null) {
+            return $queryJoinCollectionTransfer;
+        }
 
         return $queryJoinCollectionTransfer->addQueryJoin(
             (new QueryJoinTransfer())
-                ->setJoinType(Criteria::INNER_JOIN)
-                ->setLeft([SpyQuoteTableMap::COL_CUSTOMER_REFERENCE])
-                ->setRight([SpyCustomerTableMap::COL_CUSTOMER_REFERENCE])
-                ->addQueryWhereCondition($whereCondition),
+                ->addQueryWhereCondition(
+                    (new QueryWhereConditionTransfer())
+                        ->setColumn(SpyQuoteTableMap::COL_UUID)
+                        ->setComparison(Criteria::IN)
+                        ->setValue($uuids),
+                ),
         );
     }
 }

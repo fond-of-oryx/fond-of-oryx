@@ -3,6 +3,7 @@
 namespace FondOfOryx\Zed\CartSearchRestApi;
 
 use FondOfOryx\Zed\CartSearchRestApi\Dependency\Facade\CartSearchRestApiToQuoteFacadeBridge;
+use FondOfOryx\Zed\CartSearchRestApi\Dependency\Service\CartSearchRestApiToUtilEncodingServiceBridge;
 use Orm\Zed\Quote\Persistence\SpyQuoteQuery;
 use Spryker\Zed\Kernel\AbstractBundleDependencyProvider;
 use Spryker\Zed\Kernel\Container;
@@ -26,6 +27,11 @@ class CartSearchRestApiDependencyProvider extends AbstractBundleDependencyProvid
      * @var string
      */
     public const PROPEL_QUERY_QUOTE = 'PROPEL_QUERY_QUOTE';
+
+    /**
+     * @var string
+     */
+    public const SERVICE_UTIL_ENCODING = 'SERVICE_UTIL_ENCODING';
 
     /**
      * @param \Spryker\Zed\Kernel\Container $container
@@ -74,7 +80,9 @@ class CartSearchRestApiDependencyProvider extends AbstractBundleDependencyProvid
     {
         $container = parent::providePersistenceLayerDependencies($container);
 
-        return $this->addQuoteQuery($container);
+        $container = $this->addQuoteQuery($container);
+
+        return $this->addUtilEncodingService($container);
     }
 
     /**
@@ -101,6 +109,22 @@ class CartSearchRestApiDependencyProvider extends AbstractBundleDependencyProvid
         $container[static::FACADE_QUOTE] = static function (Container $container) {
             return new CartSearchRestApiToQuoteFacadeBridge(
                 $container->getLocator()->quote()->facade(),
+            );
+        };
+
+        return $container;
+    }
+
+    /**
+     * @param \Spryker\Zed\Kernel\Container $container
+     *
+     * @return \Spryker\Zed\Kernel\Container
+     */
+    protected function addUtilEncodingService(Container $container): Container
+    {
+        $container[static::SERVICE_UTIL_ENCODING] = static function (Container $container) {
+            return new CartSearchRestApiToUtilEncodingServiceBridge(
+                $container->getLocator()->utilEncoding()->service(),
             );
         };
 
