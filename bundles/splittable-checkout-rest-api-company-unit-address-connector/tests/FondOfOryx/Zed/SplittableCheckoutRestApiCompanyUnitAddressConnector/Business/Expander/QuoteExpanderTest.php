@@ -77,8 +77,8 @@ class QuoteExpanderTest extends Unit
     public function testExpand(): void
     {
         $this->companyUnitAddressReaderMock->expects(static::atLeastOnce())
-            ->method('getBillingAddressByRestSplittableCheckoutRequestTransfer')
-            ->with($this->restSplittableCheckoutRequestTransferMock)
+            ->method('getBillingAddressByRestSplittableCheckoutRequestAndQuote')
+            ->with($this->restSplittableCheckoutRequestTransferMock, $this->quoteTransferMock)
             ->willReturn($this->addressTransferMock);
 
         $this->quoteTransferMock->expects(static::atLeastOnce())
@@ -87,8 +87,8 @@ class QuoteExpanderTest extends Unit
             ->willReturn($this->quoteTransferMock);
 
         $this->companyUnitAddressReaderMock->expects(static::atLeastOnce())
-            ->method('getShippingAddressByRestSplittableCheckoutRequestTransfer')
-            ->with($this->restSplittableCheckoutRequestTransferMock)
+            ->method('getShippingAddressByRestSplittableCheckoutRequestAndQuote')
+            ->with($this->restSplittableCheckoutRequestTransferMock, $this->quoteTransferMock)
             ->willReturn($this->addressTransferMock);
 
         $this->quoteTransferMock->expects(static::atLeastOnce())
@@ -134,16 +134,16 @@ class QuoteExpanderTest extends Unit
     public function testExpandWithoutAddresses(): void
     {
         $this->companyUnitAddressReaderMock->expects(static::atLeastOnce())
-            ->method('getBillingAddressByRestSplittableCheckoutRequestTransfer')
-            ->with($this->restSplittableCheckoutRequestTransferMock)
+            ->method('getBillingAddressByRestSplittableCheckoutRequestAndQuote')
+            ->with($this->restSplittableCheckoutRequestTransferMock, $this->quoteTransferMock)
             ->willReturn(null);
 
         $this->quoteTransferMock->expects(static::never())
             ->method('setBillingAddress');
 
         $this->companyUnitAddressReaderMock->expects(static::atLeastOnce())
-            ->method('getShippingAddressByRestSplittableCheckoutRequestTransfer')
-            ->with($this->restSplittableCheckoutRequestTransferMock)
+            ->method('getShippingAddressByRestSplittableCheckoutRequestAndQuote')
+            ->with($this->restSplittableCheckoutRequestTransferMock, $this->quoteTransferMock)
             ->willReturn(null);
 
         $this->quoteTransferMock->expects(static::never())

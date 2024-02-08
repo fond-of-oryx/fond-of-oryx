@@ -11,17 +11,22 @@ class SplittableCheckoutRestApiCompanyUnitAddressConnectorRepository extends Abs
 {
     /**
      * @param string $customerReference
+     * @param string $companyUserReference
      * @param string $idCompanyUnitAddress
      *
      * @return bool
      */
-    public function existsCompanyUnitAddress(string $customerReference, string $idCompanyUnitAddress): bool
-    {
+    public function existsCompanyUnitAddress(
+        string $customerReference,
+        string $companyUserReference,
+        string $idCompanyUnitAddress
+    ): bool {
         $spyCompanyUnitAddressToCompanyBusinessUnitQuery = $this->getFactory()
             ->getCompanyUnitAddressToCompanyBusinessUnitQuery();
 
         return $spyCompanyUnitAddressToCompanyBusinessUnitQuery->useCompanyBusinessUnitQuery()
                 ->useCompanyUserQuery()
+                    ->filterByCompanyUserReference($companyUserReference)
                     ->useCustomerQuery()
                         ->filterByCustomerReference($customerReference)
                     ->endUse()

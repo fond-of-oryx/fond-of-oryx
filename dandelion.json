@@ -941,7 +941,7 @@
     },
     "splittable-checkout-rest-api-company-unit-address-connector": {
       "path": "bundles/splittable-checkout-rest-api-company-unit-address-connector/",
-      "version": "2.0.0"
+      "version": "2.0.1"
     },
     "splittable-checkout-rest-api-customer-connector": {
       "path": "bundles/splittable-checkout-rest-api-customer-connector/",
