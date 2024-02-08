@@ -37,7 +37,7 @@ class IdFilterFieldsExpanderPlugin extends AbstractPlugin implements FilterField
         );
 
         /** @phpstan-ignore-next-line */
-        if (!is_array($uuids)) {
+        if (!is_array($uuids) || count($uuids) === 0) {
             return $filterFieldTransfers;
         }
 
