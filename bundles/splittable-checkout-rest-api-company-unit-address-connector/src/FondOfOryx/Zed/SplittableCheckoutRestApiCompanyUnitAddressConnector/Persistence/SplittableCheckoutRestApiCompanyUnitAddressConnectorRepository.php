@@ -11,6 +11,7 @@ class SplittableCheckoutRestApiCompanyUnitAddressConnectorRepository extends Abs
 {
     /**
      * @param string $customerReference
+     * @param string $companyUserReference
      * @param string $idCompanyUnitAddress
      *
      * @return bool
