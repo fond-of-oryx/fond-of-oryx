@@ -44,6 +44,7 @@ class CompanyUnitAddressReader implements CompanyUnitAddressReaderInterface
 
     /**
      * @param \Generated\Shared\Transfer\RestSplittableCheckoutRequestTransfer $restSplittableCheckoutRequestTransfer
+     * @param \Generated\Shared\Transfer\QuoteTransfer $quoteTransfer
      *
      * @return \Generated\Shared\Transfer\AddressTransfer|null
      */
@@ -69,6 +70,7 @@ class CompanyUnitAddressReader implements CompanyUnitAddressReaderInterface
 
     /**
      * @param \Generated\Shared\Transfer\RestSplittableCheckoutRequestTransfer $restSplittableCheckoutRequestTransfer
+     * @param \Generated\Shared\Transfer\QuoteTransfer $quoteTransfer
      *
      * @return \Generated\Shared\Transfer\AddressTransfer|null
      */
