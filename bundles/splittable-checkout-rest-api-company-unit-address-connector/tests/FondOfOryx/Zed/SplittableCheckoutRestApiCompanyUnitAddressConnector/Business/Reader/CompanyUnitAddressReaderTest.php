@@ -9,6 +9,7 @@ use FondOfOryx\Zed\SplittableCheckoutRestApiCompanyUnitAddressConnector\Persiste
 use Generated\Shared\Transfer\AddressTransfer;
 use Generated\Shared\Transfer\CompanyUnitAddressResponseTransfer;
 use Generated\Shared\Transfer\CompanyUnitAddressTransfer;
+use Generated\Shared\Transfer\QuoteTransfer;
 use Generated\Shared\Transfer\RestAddressTransfer;
 use Generated\Shared\Transfer\RestSplittableCheckoutRequestTransfer;
 
@@ -55,6 +56,11 @@ class CompanyUnitAddressReaderTest extends Unit
     protected $addressTransferMock;
 
     /**
+     * @var (\Generated\Shared\Transfer\QuoteTransfer&\PHPUnit\Framework\MockObject\MockObject)|\PHPUnit\Framework\MockObject\MockObject
+     */
+    protected $quoteTransferMock;
+
+    /**
      * @var \FondOfOryx\Zed\SplittableCheckoutRestApiCompanyUnitAddressConnector\Business\Reader\CompanyUnitAddressReader
      */
     protected $companyUnitAddressReader;
@@ -98,6 +104,10 @@ class CompanyUnitAddressReaderTest extends Unit
             ->disableOriginalConstructor()
             ->getMock();
 
+        $this->quoteTransferMock = $this->getMockBuilder(QuoteTransfer::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
         $this->companyUnitAddressReader = new CompanyUnitAddressReader(
             $this->addressMapperMock,
             $this->repositoryMock,
@@ -111,11 +121,16 @@ class CompanyUnitAddressReaderTest extends Unit
     public function testGetBillingAddressByRestSplittableCheckoutRequestTransfer(): void
     {
         $customerReference = 'FOO-1';
+        $companyUserReference = 'FOO-CU-1';
         $idCompanyUnitAddress = 'd73ec41e-2fc6-4b90-9632-823de9ba18c5';
 
         $this->restSplittableCheckoutRequestTransferMock->expects(static::atLeastOnce())
             ->method('getCustomerReference')
             ->willReturn($customerReference);
+
+        $this->quoteTransferMock->expects(static::atLeastOnce())
+            ->method('getCompanyUserReference')
+            ->willReturn($companyUserReference);
 
         $this->restSplittableCheckoutRequestTransferMock->expects(static::atLeastOnce())
             ->method('getBillingAddress')
@@ -127,7 +142,7 @@ class CompanyUnitAddressReaderTest extends Unit
 
         $this->repositoryMock->expects(static::atLeastOnce())
             ->method('existsCompanyUnitAddress')
-            ->with($customerReference, $idCompanyUnitAddress)
+            ->with($customerReference, $companyUserReference, $idCompanyUnitAddress)
             ->willReturn(true);
 
         $this->companyUnitAddressFacadeMock->expects(static::atLeastOnce())
@@ -155,8 +170,9 @@ class CompanyUnitAddressReaderTest extends Unit
 
         static::assertEquals(
             $this->addressTransferMock,
-            $this->companyUnitAddressReader->getBillingAddressByRestSplittableCheckoutRequestTransfer(
+            $this->companyUnitAddressReader->getBillingAddressByRestSplittableCheckoutRequestAndQuote(
                 $this->restSplittableCheckoutRequestTransferMock,
+                $this->quoteTransferMock,
             ),
         );
     }
@@ -172,6 +188,10 @@ class CompanyUnitAddressReaderTest extends Unit
             ->method('getCustomerReference')
             ->willReturn($customerReference);
 
+        $this->quoteTransferMock->expects(static::atLeastOnce())
+            ->method('getCompanyUserReference')
+            ->willReturn(null);
+
         $this->restSplittableCheckoutRequestTransferMock->expects(static::atLeastOnce())
             ->method('getBillingAddress')
             ->willReturn($this->restAddressTransferMock);
@@ -190,8 +210,9 @@ class CompanyUnitAddressReaderTest extends Unit
 
         static::assertEquals(
             null,
-            $this->companyUnitAddressReader->getBillingAddressByRestSplittableCheckoutRequestTransfer(
+            $this->companyUnitAddressReader->getBillingAddressByRestSplittableCheckoutRequestAndQuote(
                 $this->restSplittableCheckoutRequestTransferMock,
+                $this->quoteTransferMock,
             ),
         );
     }
@@ -201,8 +222,13 @@ class CompanyUnitAddressReaderTest extends Unit
      */
     public function testGetBillingAddressByRestSplittableCheckoutRequestTransferWithNonExistingCompanyUnitAddress(): void
     {
-        $customerReference = 1;
+        $customerReference = 'FOO-1';
+        $companyUserReference = 'FOO-CU-1';
         $idCompanyUnitAddress = 'd73ec41e-2fc6-4b90-9632-823de9ba18c5';
+
+        $this->quoteTransferMock->expects(static::atLeastOnce())
+            ->method('getCompanyUserReference')
+            ->willReturn($companyUserReference);
 
         $this->restSplittableCheckoutRequestTransferMock->expects(static::atLeastOnce())
             ->method('getCustomerReference')
@@ -218,7 +244,7 @@ class CompanyUnitAddressReaderTest extends Unit
 
         $this->repositoryMock->expects(static::atLeastOnce())
             ->method('existsCompanyUnitAddress')
-            ->with($customerReference, $idCompanyUnitAddress)
+            ->with($customerReference, $companyUserReference, $idCompanyUnitAddress)
             ->willReturn(false);
 
         $this->companyUnitAddressFacadeMock->expects(static::never())
@@ -229,8 +255,9 @@ class CompanyUnitAddressReaderTest extends Unit
 
         static::assertEquals(
             null,
-            $this->companyUnitAddressReader->getBillingAddressByRestSplittableCheckoutRequestTransfer(
+            $this->companyUnitAddressReader->getBillingAddressByRestSplittableCheckoutRequestAndQuote(
                 $this->restSplittableCheckoutRequestTransferMock,
+                $this->quoteTransferMock,
             ),
         );
     }
@@ -241,11 +268,16 @@ class CompanyUnitAddressReaderTest extends Unit
     public function testGetShippingAddressByRestSplittableCheckoutRequestTransfer(): void
     {
         $customerReference = 'FOO-1';
+        $companyUserReference = 'FOO-CU-1';
         $idCompanyUnitAddress = 'd73ec41e-2fc6-4b90-9632-823de9ba18c5';
 
         $this->restSplittableCheckoutRequestTransferMock->expects(static::atLeastOnce())
             ->method('getCustomerReference')
             ->willReturn($customerReference);
+
+        $this->quoteTransferMock->expects(static::atLeastOnce())
+            ->method('getCompanyUserReference')
+            ->willReturn($companyUserReference);
 
         $this->restSplittableCheckoutRequestTransferMock->expects(static::atLeastOnce())
             ->method('getShippingAddress')
@@ -257,7 +289,7 @@ class CompanyUnitAddressReaderTest extends Unit
 
         $this->repositoryMock->expects(static::atLeastOnce())
             ->method('existsCompanyUnitAddress')
-            ->with($customerReference, $idCompanyUnitAddress)
+            ->with($customerReference, $companyUserReference, $idCompanyUnitAddress)
             ->willReturn(true);
 
         $this->companyUnitAddressFacadeMock->expects(static::atLeastOnce())
@@ -285,8 +317,9 @@ class CompanyUnitAddressReaderTest extends Unit
 
         static::assertEquals(
             $this->addressTransferMock,
-            $this->companyUnitAddressReader->getShippingAddressByRestSplittableCheckoutRequestTransfer(
+            $this->companyUnitAddressReader->getShippingAddressByRestSplittableCheckoutRequestAndQuote(
                 $this->restSplittableCheckoutRequestTransferMock,
+                $this->quoteTransferMock,
             ),
         );
     }
@@ -297,10 +330,15 @@ class CompanyUnitAddressReaderTest extends Unit
     public function testGetShippingAddressByRestSplittableCheckoutRequestTransferWithoutCustomerId(): void
     {
         $customerReference = null;
+        $companyUserReference = null;
 
         $this->restSplittableCheckoutRequestTransferMock->expects(static::atLeastOnce())
             ->method('getCustomerReference')
             ->willReturn($customerReference);
+
+        $this->quoteTransferMock->expects(static::atLeastOnce())
+            ->method('getCompanyUserReference')
+            ->willReturn($companyUserReference);
 
         $this->restSplittableCheckoutRequestTransferMock->expects(static::atLeastOnce())
             ->method('getShippingAddress')
@@ -320,8 +358,9 @@ class CompanyUnitAddressReaderTest extends Unit
 
         static::assertEquals(
             null,
-            $this->companyUnitAddressReader->getShippingAddressByRestSplittableCheckoutRequestTransfer(
+            $this->companyUnitAddressReader->getShippingAddressByRestSplittableCheckoutRequestAndQuote(
                 $this->restSplittableCheckoutRequestTransferMock,
+                $this->quoteTransferMock,
             ),
         );
     }

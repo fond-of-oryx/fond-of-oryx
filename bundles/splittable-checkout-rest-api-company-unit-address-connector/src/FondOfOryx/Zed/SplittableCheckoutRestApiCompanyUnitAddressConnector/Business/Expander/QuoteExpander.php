@@ -49,8 +49,9 @@ class QuoteExpander implements QuoteExpanderInterface
         RestSplittableCheckoutRequestTransfer $restSplittableCheckoutRequestTransfer,
         QuoteTransfer $quoteTransfer
     ): QuoteTransfer {
-        $addressTransfer = $this->companyUnitAddressReader->getBillingAddressByRestSplittableCheckoutRequestTransfer(
+        $addressTransfer = $this->companyUnitAddressReader->getBillingAddressByRestSplittableCheckoutRequestAndQuote(
             $restSplittableCheckoutRequestTransfer,
+            $quoteTransfer,
         );
 
         if ($addressTransfer === null) {
@@ -70,8 +71,9 @@ class QuoteExpander implements QuoteExpanderInterface
         RestSplittableCheckoutRequestTransfer $restSplittableCheckoutRequestTransfer,
         QuoteTransfer $quoteTransfer
     ): QuoteTransfer {
-        $addressTransfer = $this->companyUnitAddressReader->getShippingAddressByRestSplittableCheckoutRequestTransfer(
+        $addressTransfer = $this->companyUnitAddressReader->getShippingAddressByRestSplittableCheckoutRequestAndQuote(
             $restSplittableCheckoutRequestTransfer,
+            $quoteTransfer,
         );
 
         if ($addressTransfer === null) {
