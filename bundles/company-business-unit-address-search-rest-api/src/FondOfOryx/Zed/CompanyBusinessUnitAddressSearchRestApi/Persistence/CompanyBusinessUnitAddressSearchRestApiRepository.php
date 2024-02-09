@@ -82,6 +82,10 @@ class CompanyBusinessUnitAddressSearchRestApiRepository extends AbstractReposito
                 ->filterByIsActive(true)
                 ->filterByFkCustomer($companyBusinessUnitAddressListTransfer->getCustomerId())
             ->endUse()
+            ->useCompanyQuery()
+                ->filterByIsActive(true)
+                ->filterByUuid($companyBusinessUnitAddressListTransfer->getCompanyUuid())
+            ->endUse()
             ->add(
                 SpyCompanyBusinessUnitTableMap::COL_DEFAULT_SHIPPING_ADDRESS,
                 null,
@@ -377,28 +381,20 @@ class CompanyBusinessUnitAddressSearchRestApiRepository extends AbstractReposito
         array $includeCompanyUnitAddressIds,
         array $excludeCompanyUnitAddressIds
     ): SpyCompanyUnitAddressQuery {
-        $query = $companyUnitAddressQuery->useSpyCompanyUnitAddressToCompanyBusinessUnitQuery();
-
         if (count($includeCompanyUnitAddressIds) > 0 && count($excludeCompanyUnitAddressIds) > 0) {
-            return $query
-                ->filterByFkCompanyUnitAddress_In($includeCompanyUnitAddressIds)
+            return $companyUnitAddressQuery->filterByIdCompanyUnitAddress_In($includeCompanyUnitAddressIds)
                 ->_or()
-                ->filterByFkCompanyUnitAddress($excludeCompanyUnitAddressIds, Criteria::NOT_IN)
-                ->endUse();
+                ->filterByIdCompanyUnitAddress($excludeCompanyUnitAddressIds, Criteria::NOT_IN);
         }
 
         if (count($includeCompanyUnitAddressIds) > 0) {
-            return $query
-                ->filterByFkCompanyUnitAddress_In($includeCompanyUnitAddressIds)
-                ->endUse();
+            return $companyUnitAddressQuery->filterByIdCompanyUnitAddress_In($includeCompanyUnitAddressIds);
         }
 
         if (count($excludeCompanyUnitAddressIds) > 0) {
-            return $query
-                ->filterByFkCompanyUnitAddress($excludeCompanyUnitAddressIds, Criteria::NOT_IN)
-                ->endUse();
+            return $companyUnitAddressQuery->filterByIdCompanyUnitAddress($excludeCompanyUnitAddressIds, Criteria::NOT_IN);
         }
 
-        return $query->endUse();
+        return $companyUnitAddressQuery;
     }
 }
