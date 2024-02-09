@@ -87,15 +87,11 @@ class CompanyBusinessUnitAddressSearchRestApiRepository extends AbstractReposito
                 ->endUse();
         }
 
-        $query->useCompanyQuery()
-                ->filterByIsActive(true)
-                ->filterByUuid($companyBusinessUnitAddressListTransfer->getCompanyUuid())
-            ->endUse()
-            ->add(
-                SpyCompanyBusinessUnitTableMap::COL_DEFAULT_SHIPPING_ADDRESS,
-                null,
-                Criteria::ISNOTNULL,
-            )
+        $query->add(
+            SpyCompanyBusinessUnitTableMap::COL_DEFAULT_SHIPPING_ADDRESS,
+            null,
+            Criteria::ISNOTNULL,
+        )
             ->addOr(
                 SpyCompanyBusinessUnitTableMap::COL_DEFAULT_BILLING_ADDRESS,
                 null,
