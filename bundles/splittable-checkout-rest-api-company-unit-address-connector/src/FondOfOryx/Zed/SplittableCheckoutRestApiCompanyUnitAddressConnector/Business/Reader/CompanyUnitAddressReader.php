@@ -65,7 +65,17 @@ class CompanyUnitAddressReader implements CompanyUnitAddressReaderInterface
             return null;
         }
 
-        return $this->getAddressTransfer($restAddressTransfer->getId(), $customerReference, $companyUserReference);
+        $exitsAddress = $this->repository->existsDefaultBillingAddress(
+            $customerReference,
+            $companyUserReference,
+            $restAddressTransfer->getId(),
+        );
+
+        if (!$exitsAddress) {
+            return null;
+        }
+
+        return $this->getAddressTransfer($restAddressTransfer->getId());
     }
 
     /**
@@ -91,25 +101,27 @@ class CompanyUnitAddressReader implements CompanyUnitAddressReaderInterface
             return null;
         }
 
-        return $this->getAddressTransfer($restAddressTransfer->getId(), $customerReference, $companyUserReference);
+        $exitsAddress = $this->repository->existsAddress(
+            $customerReference,
+            $companyUserReference,
+            $restAddressTransfer->getId(),
+        );
+
+        if (!$exitsAddress) {
+            return null;
+        }
+
+        return $this->getAddressTransfer($restAddressTransfer->getId());
     }
 
     /**
      * @param string $idCompanyUnitAddress
-     * @param string $customerReference
-     * @param string $companyUserReference
      *
      * @return \Generated\Shared\Transfer\AddressTransfer|null
      */
     protected function getAddressTransfer(
-        string $idCompanyUnitAddress,
-        string $customerReference,
-        string $companyUserReference
+        string $idCompanyUnitAddress
     ): ?AddressTransfer {
-        if (!$this->repository->existsCompanyUnitAddress($customerReference, $companyUserReference, $idCompanyUnitAddress)) {
-            return null;
-        }
-
         $companyUnitAddressTransfer = (new CompanyUnitAddressTransfer())
             ->setUuid($idCompanyUnitAddress);
 

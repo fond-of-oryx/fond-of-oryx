@@ -141,7 +141,7 @@ class CompanyUnitAddressReaderTest extends Unit
             ->willReturn($idCompanyUnitAddress);
 
         $this->repositoryMock->expects(static::atLeastOnce())
-            ->method('existsCompanyUnitAddress')
+            ->method('existsDefaultBillingAddress')
             ->with($customerReference, $companyUserReference, $idCompanyUnitAddress)
             ->willReturn(true);
 
@@ -200,7 +200,7 @@ class CompanyUnitAddressReaderTest extends Unit
             ->method('getId');
 
         $this->repositoryMock->expects(static::never())
-            ->method('existsCompanyUnitAddress');
+            ->method('existsDefaultBillingAddress');
 
         $this->companyUnitAddressFacadeMock->expects(static::never())
             ->method('findCompanyBusinessUnitAddressByUuid');
@@ -243,7 +243,7 @@ class CompanyUnitAddressReaderTest extends Unit
             ->willReturn($idCompanyUnitAddress);
 
         $this->repositoryMock->expects(static::atLeastOnce())
-            ->method('existsCompanyUnitAddress')
+            ->method('existsDefaultBillingAddress')
             ->with($customerReference, $companyUserReference, $idCompanyUnitAddress)
             ->willReturn(false);
 
@@ -288,7 +288,7 @@ class CompanyUnitAddressReaderTest extends Unit
             ->willReturn($idCompanyUnitAddress);
 
         $this->repositoryMock->expects(static::atLeastOnce())
-            ->method('existsCompanyUnitAddress')
+            ->method('existsAddress')
             ->with($customerReference, $companyUserReference, $idCompanyUnitAddress)
             ->willReturn(true);
 
@@ -348,7 +348,7 @@ class CompanyUnitAddressReaderTest extends Unit
             ->method('getId');
 
         $this->repositoryMock->expects(static::never())
-            ->method('existsCompanyUnitAddress');
+            ->method('existsAddress');
 
         $this->companyUnitAddressFacadeMock->expects(static::never())
             ->method('findCompanyBusinessUnitAddressByUuid');
