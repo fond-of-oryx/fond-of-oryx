@@ -11,7 +11,20 @@ interface SplittableCheckoutRestApiCompanyUnitAddressConnectorRepositoryInterfac
      *
      * @return bool
      */
-    public function existsCompanyUnitAddress(
+    public function existsAddress(
+        string $customerReference,
+        string $companyUserReference,
+        string $idCompanyUnitAddress
+    ): bool;
+
+    /**
+     * @param string $customerReference
+     * @param string $companyUserReference
+     * @param string $idCompanyUnitAddress
+     *
+     * @return bool
+     */
+    public function existsDefaultBillingAddress(
         string $customerReference,
         string $companyUserReference,
         string $idCompanyUnitAddress
