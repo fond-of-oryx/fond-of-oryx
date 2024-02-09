@@ -70,8 +70,9 @@ class CompanyBusinessUnitAddressSearchRestApiRepository extends AbstractReposito
      *
      * @return array<string, array<int>>
      */
-    protected function getDefaultAddressIds(CompanyBusinessUnitAddressListTransfer $companyBusinessUnitAddressListTransfer): array
-    {
+    protected function getDefaultAddressIds(
+        CompanyBusinessUnitAddressListTransfer $companyBusinessUnitAddressListTransfer
+    ): array {
         $query = $this->getFactory()
             ->getCompanyBusinessUnitQuery()
             ->clear()
@@ -303,13 +304,14 @@ class CompanyBusinessUnitAddressSearchRestApiRepository extends AbstractReposito
     /**
      * @param \Orm\Zed\CompanyUnitAddress\Persistence\SpyCompanyUnitAddressQuery $companyUnitAddressQuery
      * @param \Generated\Shared\Transfer\CompanyBusinessUnitAddressListTransfer $companyBusinessUnitAddressListTransfer
+     * @param array<string, array<int>> $defaultAddressIds
      *
      * @return \Orm\Zed\CompanyUnitAddress\Persistence\SpyCompanyUnitAddressQuery
      */
     protected function addAddressFilter(
         SpyCompanyUnitAddressQuery $companyUnitAddressQuery,
         CompanyBusinessUnitAddressListTransfer $companyBusinessUnitAddressListTransfer,
-        $defaultAddressIds
+        array $defaultAddressIds
     ): SpyCompanyUnitAddressQuery {
         if (
             $companyBusinessUnitAddressListTransfer->getDefaultShipping() === null &&
@@ -328,13 +330,14 @@ class CompanyBusinessUnitAddressSearchRestApiRepository extends AbstractReposito
     /**
      * @param \Orm\Zed\CompanyUnitAddress\Persistence\SpyCompanyUnitAddressQuery $companyUnitAddressQuery
      * @param \Generated\Shared\Transfer\CompanyBusinessUnitAddressListTransfer $companyBusinessUnitAddressListTransfer
+     * @param array<string, array<int>> $defaultAddressIds
      *
      * @return \Orm\Zed\CompanyUnitAddress\Persistence\SpyCompanyUnitAddressQuery
      */
     protected function addDefaultCompanyUnitAddressFilterQuery(
         SpyCompanyUnitAddressQuery $companyUnitAddressQuery,
         CompanyBusinessUnitAddressListTransfer $companyBusinessUnitAddressListTransfer,
-        $defaultAddressIds
+        array $defaultAddressIds
     ): SpyCompanyUnitAddressQuery {
         $defaultBillingAddressIds = $defaultAddressIds[static::KEY_DEFAULT_BILLING_IDS];
         $defaultShippingAddressIds = $defaultAddressIds[static::KEY_DEFAULT_SHIPPING_IDS];
