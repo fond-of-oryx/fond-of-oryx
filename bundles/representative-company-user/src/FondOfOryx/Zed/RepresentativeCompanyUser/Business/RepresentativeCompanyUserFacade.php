@@ -10,6 +10,8 @@ use Spryker\Zed\Kernel\Business\AbstractFacade;
 
 /**
  * @method \FondOfOryx\Zed\RepresentativeCompanyUser\Business\RepresentativeCompanyUserBusinessFactory getFactory()
+ * @method \FondOfOryx\Zed\RepresentativeCompanyUser\Persistence\RepresentativeCompanyUserRepositoryInterface getRepository()
+ * @method \FondOfOryx\Zed\RepresentativeCompanyUser\Persistence\RepresentativeCompanyUserEntityManagerInterface getEntityManager()()
  */
 class RepresentativeCompanyUserFacade extends AbstractFacade implements RepresentativeCompanyUserFacadeInterface
 {
@@ -98,6 +100,16 @@ class RepresentativeCompanyUserFacade extends AbstractFacade implements Represen
      *
      * @return void
      */
+    public function doCompanyUserOwnerChangeForRepresentation(RepresentativeCompanyUserTransfer $representativeCompanyUserTransfer): void
+    {
+        $this->getFactory()->createCompanyUserManager()->doCompanyUserOwnerChangeForRepresentation($representativeCompanyUserTransfer);
+    }
+
+    /**
+     * @param \Generated\Shared\Transfer\RepresentativeCompanyUserTransfer $representativeCompanyUserTransfer
+     *
+     * @return void
+     */
     public function createCompanyUserForRepresentation(RepresentativeCompanyUserTransfer $representativeCompanyUserTransfer): void
     {
         $this->getFactory()->createCompanyUserManager()->createCompanyUserForRepresentation($representativeCompanyUserTransfer);
@@ -122,7 +134,7 @@ class RepresentativeCompanyUserFacade extends AbstractFacade implements Represen
     public function getAndFlagInProcessNewRepresentativeCompanyUser(
         RepresentativeCompanyUserFilterTransfer $filterTransfer
     ): RepresentativeCompanyUserCollectionTransfer {
-        return $this->getFactory()->createRepresentativeCompanyUserReader()->getAndFlagInProcessNewRepresentativeCompanyUser($filterTransfer);
+        return $this->getEntityManager()->findAndFlagInProcessNewRepresentativeCompanyUser($filterTransfer);
     }
 
     /**

@@ -2,6 +2,7 @@
 
 namespace FondOfOryx\Zed\RepresentativeCompanyUser\Persistence;
 
+use Generated\Shared\Transfer\CompanyUserTransfer;
 use Generated\Shared\Transfer\RepresentativeCompanyUserCollectionTransfer;
 use Generated\Shared\Transfer\RepresentativeCompanyUserFilterTransfer;
 use Generated\Shared\Transfer\RepresentativeCompanyUserTransfer;
@@ -34,6 +35,16 @@ interface RepresentativeCompanyUserEntityManagerInterface
      * @return \Generated\Shared\Transfer\RepresentativeCompanyUserTransfer
      */
     public function flagState(string $uuid, string $state): RepresentativeCompanyUserTransfer;
+
+    /**
+     * @param \Generated\Shared\Transfer\CompanyUserTransfer $companyUserTransfer
+     * @param int $fkRepresentativeCompanyUser
+     *
+     * @throws \Propel\Runtime\Exception\PropelException
+     *
+     * @return void
+     */
+    public function updateCompanyUserOwnership(CompanyUserTransfer $companyUserTransfer, int $fkRepresentativeCompanyUser): void;
 
     /**
      * @param \Generated\Shared\Transfer\RepresentativeCompanyUserFilterTransfer $filterTransfer

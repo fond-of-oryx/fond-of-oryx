@@ -34,6 +34,7 @@ class RepresentativeCompanyUserCompanyUserDeleterListener extends AbstractPlugin
         }
 
         try {
+            $this->getFacade()->doCompanyUserOwnerChangeForRepresentation($transfer);
             $this->getFacade()->deleteCompanyUserForRepresentation($transfer);
             $this->getFacade()->setRepresentationState($transfer->getUuid(), FooRepresentativeCompanyUserTableMap::COL_STATE_EXPIRED);
         } catch (Exception $exception) {

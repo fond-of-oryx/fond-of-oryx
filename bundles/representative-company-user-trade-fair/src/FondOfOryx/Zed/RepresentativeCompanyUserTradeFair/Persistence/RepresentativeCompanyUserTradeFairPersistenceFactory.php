@@ -16,6 +16,7 @@ use Spryker\Zed\Kernel\Persistence\AbstractPersistenceFactory;
 
 /**
  * @codeCoverageIgnore
+ * @method \FondOfOryx\Zed\RepresentativeCompanyUserTradeFair\RepresentativeCompanyUserTradeFairConfig getConfig()
  */
 class RepresentativeCompanyUserTradeFairPersistenceFactory extends AbstractPersistenceFactory
 {

@@ -183,7 +183,7 @@ class RepresentativeCompanyUserTradeFairRepository extends AbstractRepository im
                 ->useCompanyUserQuery()
                     ->useSpyCompanyRoleToCompanyUserQuery()
                         ->useCompanyRoleQuery()
-                            ->filterByName('distribution')
+                            ->filterByName_In($this->getFactory()->getConfig()->getRolesToRepresent())
                         ->endUse()
                     ->endUse()
                 ->endUse()

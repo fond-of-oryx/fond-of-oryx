@@ -5,12 +5,16 @@ namespace FondOfOryx\Zed\RepresentativeCompanyUser\Business;
 use Codeception\Test\Unit;
 use FondOfOryx\Zed\RepresentativeCompanyUser\Business\Manager\CompanyUserManagerInterface;
 use FondOfOryx\Zed\RepresentativeCompanyUser\Business\Manager\RepresentationManagerInterface;
-use FondOfOryx\Zed\RepresentativeCompanyUser\Business\Reader\RepresentativeCompanyUserReaderInterface;
 use FondOfOryx\Zed\RepresentativeCompanyUser\Business\Task\TaskRunnerInterface;
+use FondOfOryx\Zed\RepresentativeCompanyUser\Persistence\RepresentativeCompanyUserEntityManager;
+use FondOfOryx\Zed\RepresentativeCompanyUser\Persistence\RepresentativeCompanyUserEntityManagerInterface;
+use FondOfOryx\Zed\RepresentativeCompanyUser\Persistence\RepresentativeCompanyUserRepository;
+use FondOfOryx\Zed\RepresentativeCompanyUser\Persistence\RepresentativeCompanyUserRepositoryInterface;
 use Generated\Shared\Transfer\RepresentativeCompanyUserCollectionTransfer;
 use Generated\Shared\Transfer\RepresentativeCompanyUserCommandTransfer;
 use Generated\Shared\Transfer\RepresentativeCompanyUserFilterTransfer;
 use Generated\Shared\Transfer\RepresentativeCompanyUserTransfer;
+use PHPUnit\Framework\MockObject\MockObject;
 
 class RepresentativeCompanyUserFacadeTest extends Unit
 {
@@ -35,9 +39,14 @@ class RepresentativeCompanyUserFacadeTest extends Unit
     protected $taskRunnerMock;
 
     /**
-     * @var \FondOfOryx\Zed\RepresentativeCompanyUser\Business\Reader\RepresentativeCompanyUserReaderInterface|\PHPUnit\Framework\MockObject\MockObject
+     * @var \FondOfOryx\Zed\RepresentativeCompanyUser\Persistence\RepresentativeCompanyUserRepositoryInterface|\PHPUnit\Framework\MockObject\MockObject
      */
-    protected $representativeCompanyUserReaderMock;
+    protected RepresentativeCompanyUserRepositoryInterface|MockObject $repositoryMock;
+
+    /**
+     * @var \FondOfOryx\Zed\RepresentativeCompanyUser\Persistence\RepresentativeCompanyUserEntityManagerInterface|\PHPUnit\Framework\MockObject\MockObject
+     */
+    protected RepresentativeCompanyUserEntityManagerInterface|MockObject $entityManagerMock;
 
     /**
      * @var \Generated\Shared\Transfer\RepresentativeCompanyUserFilterTransfer|\PHPUnit\Framework\MockObject\MockObject
@@ -83,7 +92,11 @@ class RepresentativeCompanyUserFacadeTest extends Unit
             ->disableOriginalConstructor()
             ->getMock();
 
-        $this->representativeCompanyUserReaderMock = $this->getMockBuilder(RepresentativeCompanyUserReaderInterface::class)
+        $this->repositoryMock = $this->getMockBuilder(RepresentativeCompanyUserRepository::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $this->entityManagerMock = $this->getMockBuilder(RepresentativeCompanyUserEntityManager::class)
             ->disableOriginalConstructor()
             ->getMock();
 
@@ -109,6 +122,8 @@ class RepresentativeCompanyUserFacadeTest extends Unit
 
         $this->facade = new RepresentativeCompanyUserFacade();
         $this->facade->setFactory($this->factoryMock);
+        $this->facade->setRepository($this->repositoryMock);
+        $this->facade->setEntityManager($this->entityManagerMock);
     }
 
     /**
@@ -233,12 +248,8 @@ class RepresentativeCompanyUserFacadeTest extends Unit
      */
     public function testGetAndFlagInProcessNewRepresentativeCompanyUser(): void
     {
-        $this->factoryMock->expects(static::atLeastOnce())
-            ->method('createRepresentativeCompanyUserReader')
-            ->willReturn($this->representativeCompanyUserReaderMock);
-
-        $this->representativeCompanyUserReaderMock->expects(static::atLeastOnce())
-            ->method('getAndFlagInProcessNewRepresentativeCompanyUser')
+        $this->entityManagerMock->expects(static::atLeastOnce())
+            ->method('findAndFlagInProcessNewRepresentativeCompanyUser')
             ->with($this->filterTransferMock)
             ->willReturn($this->representativeCompanyUserCollectionTransfer);
 

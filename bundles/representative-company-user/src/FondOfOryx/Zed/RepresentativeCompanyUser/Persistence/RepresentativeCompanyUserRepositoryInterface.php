@@ -59,6 +59,15 @@ interface RepresentativeCompanyUserRepositoryInterface
     ): RepresentativeCompanyUserCollectionTransfer;
 
     /**
+     * @param \Generated\Shared\Transfer\RepresentativeCompanyUserFilterTransfer $filterTransfer
+     *
+     * @return \Generated\Shared\Transfer\RepresentativeCompanyUserCollectionTransfer
+     */
+    public function findRepresentationsShouldBeActiveByRange(
+        RepresentativeCompanyUserFilterTransfer $filterTransfer
+    ): RepresentativeCompanyUserCollectionTransfer;
+
+    /**
      * @param int $fkDistributor
      *
      * @throws \Spryker\Zed\Propel\Business\Exception\AmbiguousComparisonException

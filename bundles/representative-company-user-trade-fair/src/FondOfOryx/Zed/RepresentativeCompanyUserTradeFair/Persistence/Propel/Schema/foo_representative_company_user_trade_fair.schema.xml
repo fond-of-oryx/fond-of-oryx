@@ -13,6 +13,7 @@
         <column name="start_at" required="true" type="TIMESTAMP"/>
         <column name="end_at" required="true" type="TIMESTAMP"/>
         <column name="active" required="true" type="BOOLEAN"/>
+        <column name="inactive_at" required="false" type="TIMESTAMP"/>
 
         <id-method-parameter value="foo_representative_company_user_trade_fair_pk_seq"/>
 
@@ -29,6 +30,7 @@
             <unique-column name="fk_distributor"/>
             <unique-column name="start_at"/>
             <unique-column name="end_at"/>
+            <unique-column name="inactive_at"/>
         </unique>
 
         <foreign-key name="foo_representative_company_user_trade_fair_distributor-spy_customer" foreignTable="spy_customer"

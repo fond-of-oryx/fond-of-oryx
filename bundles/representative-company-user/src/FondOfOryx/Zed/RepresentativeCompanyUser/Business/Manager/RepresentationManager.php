@@ -3,9 +3,9 @@
 namespace FondOfOryx\Zed\RepresentativeCompanyUser\Business\Manager;
 
 use FondOfOryx\Shared\RepresentativeCompanyUser\RepresentativeCompanyUserConstants;
-use FondOfOryx\Zed\RepresentativeCompanyUser\Business\Reader\RepresentativeCompanyUserReaderInterface;
 use FondOfOryx\Zed\RepresentativeCompanyUser\Dependency\Facade\RepresentativeCompanyUserToEventFacadeInterface;
 use FondOfOryx\Zed\RepresentativeCompanyUser\Persistence\RepresentativeCompanyUserEntityManagerInterface;
+use FondOfOryx\Zed\RepresentativeCompanyUser\Persistence\RepresentativeCompanyUserRepositoryInterface;
 use Generated\Shared\Transfer\RepresentativeCompanyUserCollectionTransfer;
 use Generated\Shared\Transfer\RepresentativeCompanyUserFilterTransfer;
 use Generated\Shared\Transfer\RepresentativeCompanyUserTransfer;
@@ -16,12 +16,12 @@ class RepresentationManager implements RepresentationManagerInterface
     /**
      * @var \FondOfOryx\Zed\RepresentativeCompanyUser\Persistence\RepresentativeCompanyUserEntityManagerInterface
      */
-    protected $entityManager;
+    protected RepresentativeCompanyUserEntityManagerInterface $entityManager;
 
     /**
-     * @var \FondOfOryx\Zed\RepresentativeCompanyUser\Business\Reader\RepresentativeCompanyUserReaderInterface
+     * @var \FondOfOryx\Zed\RepresentativeCompanyUser\Persistence\RepresentativeCompanyUserRepositoryInterface
      */
-    protected $reader;
+    protected RepresentativeCompanyUserRepositoryInterface $repository;
 
     /**
      * @var \FondOfOryx\Zed\RepresentativeCompanyUser\Dependency\Facade\RepresentativeCompanyUserToEventFacadeInterface
@@ -30,16 +30,16 @@ class RepresentationManager implements RepresentationManagerInterface
 
     /**
      * @param \FondOfOryx\Zed\RepresentativeCompanyUser\Persistence\RepresentativeCompanyUserEntityManagerInterface $entityManager
-     * @param \FondOfOryx\Zed\RepresentativeCompanyUser\Business\Reader\RepresentativeCompanyUserReaderInterface $reader
+     * @param \FondOfOryx\Zed\RepresentativeCompanyUser\Persistence\RepresentativeCompanyUserRepositoryInterface $repository
      * @param \FondOfOryx\Zed\RepresentativeCompanyUser\Dependency\Facade\RepresentativeCompanyUserToEventFacadeInterface $eventFacade
      */
     public function __construct(
         RepresentativeCompanyUserEntityManagerInterface $entityManager,
-        RepresentativeCompanyUserReaderInterface $reader,
+        RepresentativeCompanyUserRepositoryInterface $repository,
         RepresentativeCompanyUserToEventFacadeInterface $eventFacade
     ) {
         $this->entityManager = $entityManager;
-        $this->reader = $reader;
+        $this->repository = $repository;
         $this->eventFacade = $eventFacade;
     }
 
@@ -51,7 +51,13 @@ class RepresentationManager implements RepresentationManagerInterface
     public function checkForExpiration(RepresentativeCompanyUserFilterTransfer $filterTransfer): void
     {
         $filterTransfer->setStates([FooRepresentativeCompanyUserTableMap::COL_STATE_ACTIVE]);
-        $expiredCollection = $this->reader->getExpiredRepresentativeCompanyUser($filterTransfer);
+        $expiredCollection = $this->repository->findExpiredRepresentativeCompanyUser($filterTransfer);
+
+        if ($expiredCollection->getRepresentations()->count() === 0) {
+            return;
+        }
+
+        $expiredCollection = $this->checkForActiveOwnerChange($filterTransfer, $expiredCollection);
         foreach ($this->setAllInProcess($expiredCollection)->getRepresentations() as $representationTransfer) {
             $this->eventFacade->trigger(
                 RepresentativeCompanyUserConstants::REPRESENTATIVE_COMPANY_USER_MARK_FOR_EXPIRE,
@@ -62,12 +68,46 @@ class RepresentationManager implements RepresentationManagerInterface
 
     /**
      * @param \Generated\Shared\Transfer\RepresentativeCompanyUserFilterTransfer $filterTransfer
+     * @param \Generated\Shared\Transfer\RepresentativeCompanyUserCollectionTransfer $expiredCollection
+     *
+     * @return \Generated\Shared\Transfer\RepresentativeCompanyUserCollectionTransfer
+     */
+    protected function checkForActiveOwnerChange(
+        RepresentativeCompanyUserFilterTransfer $filterTransfer,
+        RepresentativeCompanyUserCollectionTransfer $expiredCollection
+    ) {
+        $filterTransfer->setValidTimeRange(true);
+        $collection = $this->repository->findRepresentationsShouldBeActiveByRange($filterTransfer);
+        $expiredRepresentations = $expiredCollection->getRepresentations();
+
+        foreach ($collection->getRepresentations() as $representation) {
+            $fkRepresentative = $representation->getFkRepresentative();
+            $fkDistributor = $representation->getFkDistributor();
+            foreach ($expiredRepresentations as $expiredRepresentation) {
+                if ($expiredRepresentation->getChangeCompanyUserOwnershipTo() !== null) {
+                    continue;
+                }
+
+                if (
+                    $expiredRepresentation->getFkDistributor() === $fkDistributor
+                    && $expiredRepresentation->getFkRepresentative() === $fkRepresentative
+                ) {
+                    $expiredRepresentation->setChangeCompanyUserOwnershipTo($representation);
+                }
+            }
+        }
+
+        return $expiredCollection->setRepresentations($expiredRepresentations);
+    }
+
+    /**
+     * @param \Generated\Shared\Transfer\RepresentativeCompanyUserFilterTransfer $filterTransfer
      *
      * @return void
      */
     public function checkForRevocation(RepresentativeCompanyUserFilterTransfer $filterTransfer): void
     {
-        $revokedCollection = $this->reader->getRepresentativeCompanyUserByState(FooRepresentativeCompanyUserTableMap::COL_STATE_REVOKED);
+        $revokedCollection = $this->repository->findRepresentativeCompanyUserByState(FooRepresentativeCompanyUserTableMap::COL_STATE_REVOKED);
         foreach ($this->setAllInProcess($revokedCollection)->getRepresentations() as $representationTransfer) {
             $this->eventFacade->trigger(
                 RepresentativeCompanyUserConstants::REPRESENTATIVE_COMPANY_USER_MARK_FOR_REVOCATION,
@@ -83,7 +123,7 @@ class RepresentationManager implements RepresentationManagerInterface
      */
     public function getRepresentativeCompanyUser(RepresentativeCompanyUserFilterTransfer $filterTransfer): RepresentativeCompanyUserCollectionTransfer
     {
-        return $this->reader->getRepresentativeCompanyUser($filterTransfer);
+        return $this->repository->getRepresentativeCompanyUser($filterTransfer);
     }
 
     /**
@@ -95,7 +135,7 @@ class RepresentationManager implements RepresentationManagerInterface
     {
         $filterTransfer->setStates([FooRepresentativeCompanyUserTableMap::COL_STATE_NEW]);
         $filterTransfer->setValidTimeRange(true);
-        foreach ($this->reader->getAndFlagInProcessNewRepresentativeCompanyUser($filterTransfer)->getRepresentations() as $representationTransfer) {
+        foreach ($this->entityManager->findAndFlagInProcessNewRepresentativeCompanyUser($filterTransfer)->getRepresentations() as $representationTransfer) {
             $this->eventFacade->trigger(
                 RepresentativeCompanyUserConstants::REPRESENTATIVE_COMPANY_USER_MARK_FOR_CREATE_COMPANY_USER,
                 $representationTransfer,
@@ -143,7 +183,7 @@ class RepresentationManager implements RepresentationManagerInterface
      */
     public function findByUuid(string $uuid): RepresentativeCompanyUserTransfer
     {
-        return $this->reader->getRepresentationByUuid($uuid);
+        return $this->repository->findRepresentationByUuid($uuid);
     }
 
     /**
@@ -166,7 +206,9 @@ class RepresentationManager implements RepresentationManagerInterface
     ): RepresentativeCompanyUserCollectionTransfer {
         $collection = new RepresentativeCompanyUserCollectionTransfer();
         foreach ($representativeCompanyUserCollectionTransfer->getRepresentations() as $representation) {
+            $changeOwnership = $representation->getChangeCompanyUserOwnershipTo();
             $representation = $this->flagState($representation->getUuid(), FooRepresentativeCompanyUserTableMap::COL_STATE_PROCESS);
+            $representation->setChangeCompanyUserOwnershipTo($changeOwnership);
             $collection->addRepresentation($representation);
         }
 

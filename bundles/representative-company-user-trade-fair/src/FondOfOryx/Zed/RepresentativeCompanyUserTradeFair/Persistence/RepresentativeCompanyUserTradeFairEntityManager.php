@@ -68,7 +68,10 @@ class RepresentativeCompanyUserTradeFairEntityManager extends AbstractEntityMana
             throw new Exception(sprintf('Could not find trade fair with given uuid "%s"', $uuid));
         }
 
+        $now = time();
         $entity->setActive(false);
+        $entity->setInactiveAt($now);
+        $entity->setUpdatedAt($now);
         $entity->save();
 
         foreach ($entity->getFooRepresentativeCompanyUsers() as $companyUser) {

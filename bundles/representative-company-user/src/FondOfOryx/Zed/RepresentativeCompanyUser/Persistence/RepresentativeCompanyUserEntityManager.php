@@ -4,6 +4,7 @@ namespace FondOfOryx\Zed\RepresentativeCompanyUser\Persistence;
 
 use DateTime;
 use Exception;
+use Generated\Shared\Transfer\CompanyUserTransfer;
 use Generated\Shared\Transfer\RepresentativeCompanyUserCollectionTransfer;
 use Generated\Shared\Transfer\RepresentativeCompanyUserFilterTransfer;
 use Generated\Shared\Transfer\RepresentativeCompanyUserTransfer;
@@ -91,6 +92,26 @@ class RepresentativeCompanyUserEntityManager extends AbstractEntityManager imple
             ->save();
 
         return $this->getFactory()->createEntityToTransferMapper()->fromRepresentativeCompanyUserEntity($entity);
+    }
+
+    /**
+     * @param \Generated\Shared\Transfer\CompanyUserTransfer $companyUserTransfer
+     * @param int $fkRepresentativeCompanyUser
+     *
+     * @throws \Exception
+     *
+     * @return void
+     */
+    public function updateCompanyUserOwnership(CompanyUserTransfer $companyUserTransfer, int $fkRepresentativeCompanyUser): void
+    {
+        $entity = $this->getFactory()->getCompanyUserQuery()->findOneByIdCompanyUser($companyUserTransfer->getIdCompanyUser());
+
+        if ($entity === null) {
+            throw new Exception(sprintf('Could not find company user by id "%s"', $companyUserTransfer->getIdCompanyUser()));
+        }
+
+        $entity->setFkRepresentativeCompanyUser($fkRepresentativeCompanyUser)
+            ->save();
     }
 
     /**

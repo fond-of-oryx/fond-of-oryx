@@ -11,5 +11,13 @@
                      phpName="FooRepresentativeCompanyUserTradeFair">
             <reference local="fk_representative_company_user_trade_fair" foreign="id_representative_company_user_trade_fair"/>
         </foreign-key>
+
+        <unique name="foo_representative_company_user-unique-fk_distributor-fk_representative-start_at-end_at">
+            <unique-column name="fk_distributor"/>
+            <unique-column name="fk_representative"/>
+            <unique-column name="start_at"/>
+            <unique-column name="end_at"/>
+            <unique-column name="fk_representative_company_user_trade_fair"/>
+        </unique>
     </table>
 </database>
