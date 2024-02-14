@@ -97,8 +97,10 @@ class RepresentativeCompanyUserEntityManager extends AbstractEntityManager imple
     /**
      * @param \Generated\Shared\Transfer\CompanyUserTransfer $companyUserTransfer
      * @param int $fkRepresentativeCompanyUser
+     *
+     * @throws \Exception
+     *
      * @return void
-     * @throws \Propel\Runtime\Exception\PropelException
      */
     public function updateCompanyUserOwnership(CompanyUserTransfer $companyUserTransfer, int $fkRepresentativeCompanyUser): void
     {

@@ -38,12 +38,11 @@ class CompanyUserManager implements CompanyUserManagerInterface
      * @param \Spryker\Zed\Kernel\Persistence\EntityManager\TransactionHandlerInterface $transactionHandler
      */
     public function __construct(
-        RepresentativeCompanyUserRepositoryInterface          $repository,
-        RepresentativeCompanyUserEntityManagerInterface       $entityManager,
+        RepresentativeCompanyUserRepositoryInterface $repository,
+        RepresentativeCompanyUserEntityManagerInterface $entityManager,
         RepresentativeCompanyUserToCompanyUserFacadeInterface $companyUserFacade,
-        TransactionHandlerInterface                           $transactionHandler
-    )
-    {
+        TransactionHandlerInterface $transactionHandler
+    ) {
         $this->repository = $repository;
         $this->entityManager = $entityManager;
         $this->companyUserFacade = $companyUserFacade;

@@ -39,8 +39,10 @@ interface RepresentativeCompanyUserEntityManagerInterface
     /**
      * @param \Generated\Shared\Transfer\CompanyUserTransfer $companyUserTransfer
      * @param int $fkRepresentativeCompanyUser
-     * @return void
+     *
      * @throws \Propel\Runtime\Exception\PropelException
+     *
+     * @return void
      */
     public function updateCompanyUserOwnership(CompanyUserTransfer $companyUserTransfer, int $fkRepresentativeCompanyUser): void;
 

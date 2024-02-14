@@ -5,7 +5,6 @@ namespace FondOfOryx\Zed\RepresentativeCompanyUser\Business;
 use Codeception\Test\Unit;
 use FondOfOryx\Zed\RepresentativeCompanyUser\Business\Manager\CompanyUserManager;
 use FondOfOryx\Zed\RepresentativeCompanyUser\Business\Manager\RepresentationManager;
-use FondOfOryx\Zed\RepresentativeCompanyUser\Business\Reader\RepresentativeCompanyUserReader;
 use FondOfOryx\Zed\RepresentativeCompanyUser\Business\Task\TaskRunnerInterface;
 use FondOfOryx\Zed\RepresentativeCompanyUser\Dependency\Facade\RepresentativeCompanyUserToCompanyUserFacadeInterface;
 use FondOfOryx\Zed\RepresentativeCompanyUser\Dependency\Facade\RepresentativeCompanyUserToEventFacadeInterface;
@@ -129,18 +128,6 @@ class RepresentativeCompanyUserBusinessFactoryTest extends Unit
             TaskRunnerInterface::class,
             $this->factory
                 ->createTaskRunner(),
-        );
-    }
-
-    /**
-     * @return void
-     */
-    public function testCreateRepresentativeCompanyUserReader(): void
-    {
-        static::assertInstanceOf(
-            RepresentativeCompanyUserReader::class,
-            $this->factory
-                ->createRepresentativeCompanyUserReader(),
         );
     }
 

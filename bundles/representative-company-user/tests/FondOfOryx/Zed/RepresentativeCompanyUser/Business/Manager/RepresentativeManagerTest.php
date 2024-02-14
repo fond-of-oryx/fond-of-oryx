@@ -2,23 +2,25 @@
 
 namespace FondOfOryx\Zed\RepresentativeCompanyUser\Business\Manager;
 
+use ArrayObject;
 use Codeception\Test\Unit;
-use FondOfOryx\Zed\RepresentativeCompanyUser\Business\Reader\RepresentativeCompanyUserReaderInterface;
 use FondOfOryx\Zed\RepresentativeCompanyUser\Dependency\Facade\RepresentativeCompanyUserToEventFacadeInterface;
 use FondOfOryx\Zed\RepresentativeCompanyUser\Persistence\RepresentativeCompanyUserEntityManagerInterface;
+use FondOfOryx\Zed\RepresentativeCompanyUser\Persistence\RepresentativeCompanyUserRepositoryInterface;
 use Generated\Shared\Transfer\CompanyUserResponseTransfer;
 use Generated\Shared\Transfer\CompanyUserTransfer;
 use Generated\Shared\Transfer\CustomerTransfer;
 use Generated\Shared\Transfer\RepresentativeCompanyUserCollectionTransfer;
 use Generated\Shared\Transfer\RepresentativeCompanyUserFilterTransfer;
 use Generated\Shared\Transfer\RepresentativeCompanyUserTransfer;
+use PHPUnit\Framework\MockObject\MockObject;
 
 class RepresentativeManagerTest extends Unit
 {
     /**
-     * @var \FondOfOryx\Zed\RepresentativeCompanyUser\Business\Reader\RepresentativeCompanyUserReaderInterface|\PHPUnit\Framework\MockObject\MockObject
+     * @var \FondOfOryx\Zed\RepresentativeCompanyUser\Persistence\RepresentativeCompanyUserRepositoryInterface|\PHPUnit\Framework\MockObject\MockObject
      */
-    protected $readerMock;
+    protected RepresentativeCompanyUserRepositoryInterface|MockObject $repositoryMock;
 
     /**
      * @var \FondOfOryx\Zed\RepresentativeCompanyUser\Dependency\Facade\RepresentativeCompanyUserToEventFacadeInterface|\PHPUnit\Framework\MockObject\MockObject
@@ -72,7 +74,7 @@ class RepresentativeManagerTest extends Unit
     {
         parent::_before();
 
-        $this->readerMock = $this->getMockBuilder(RepresentativeCompanyUserReaderInterface::class)
+        $this->repositoryMock = $this->getMockBuilder(RepresentativeCompanyUserRepositoryInterface::class)
             ->disableOriginalConstructor()
             ->getMock();
 
@@ -108,7 +110,7 @@ class RepresentativeManagerTest extends Unit
             ->disableOriginalConstructor()
             ->getMock();
 
-        $this->manager = new RepresentationManager($this->entityManagerMock, $this->readerMock, $this->eventFacadeMock);
+        $this->manager = new RepresentationManager($this->entityManagerMock, $this->repositoryMock, $this->eventFacadeMock);
     }
 
     /**
@@ -116,20 +118,44 @@ class RepresentativeManagerTest extends Unit
      */
     public function testCheckForExpiration(): void
     {
+        $collection = new ArrayObject();
+        $collection->append($this->representativeCompanyUserTransferMock);
+
         $this->filterTransferMock->expects(static::atLeastOnce())
             ->method('setStates');
 
-        $this->readerMock->expects(static::atLeastOnce())
-            ->method('getExpiredRepresentativeCompanyUser')
+        $this->repositoryMock->expects(static::atLeastOnce())
+            ->method('findExpiredRepresentativeCompanyUser')
+            ->willReturn($this->representativeCompanyUserCollectionTransferMock);
+
+        $this->repositoryMock->expects(static::atLeastOnce())
+            ->method('findRepresentationsShouldBeActiveByRange')
             ->willReturn($this->representativeCompanyUserCollectionTransferMock);
 
         $this->representativeCompanyUserCollectionTransferMock->expects(static::atLeastOnce())
             ->method('getRepresentations')
-            ->willReturn([$this->representativeCompanyUserTransferMock]);
+            ->willReturn($collection);
+
+        $this->representativeCompanyUserCollectionTransferMock->expects(static::atLeastOnce())
+            ->method('setRepresentations')
+            ->willReturnSelf();
 
         $this->representativeCompanyUserTransferMock->expects(static::atLeastOnce())
             ->method('getUuid')
             ->willReturn('uuid');
+
+        $this->representativeCompanyUserTransferMock->expects(static::atLeastOnce())
+            ->method('getFkRepresentative')
+            ->willReturn(1);
+
+        $this->representativeCompanyUserTransferMock->expects(static::atLeastOnce())
+            ->method('getFkDistributor')
+            ->willReturn(2);
+
+        $this->representativeCompanyUserTransferMock->expects(static::atLeastOnce())
+            ->method('setChangeCompanyUserOwnershipTo')
+            ->with($this->representativeCompanyUserTransferMock)
+            ->willReturnSelf();
 
         $this->eventFacadeMock->expects(static::atLeastOnce())
             ->method('trigger');
@@ -142,8 +168,8 @@ class RepresentativeManagerTest extends Unit
      */
     public function testCheckForRevocation(): void
     {
-        $this->readerMock->expects(static::atLeastOnce())
-            ->method('getRepresentativeCompanyUserByState')
+        $this->repositoryMock->expects(static::atLeastOnce())
+            ->method('findRepresentativeCompanyUserByState')
             ->willReturn($this->representativeCompanyUserCollectionTransferMock);
 
         $this->representativeCompanyUserCollectionTransferMock->expects(static::atLeastOnce())
@@ -168,8 +194,8 @@ class RepresentativeManagerTest extends Unit
         $this->filterTransferMock->expects(static::atLeastOnce())
             ->method('setStates');
 
-        $this->readerMock->expects(static::atLeastOnce())
-            ->method('getAndFlagInProcessNewRepresentativeCompanyUser')
+        $this->entityManagerMock->expects(static::atLeastOnce())
+            ->method('findAndFlagInProcessNewRepresentativeCompanyUser')
             ->willReturn($this->representativeCompanyUserCollectionTransferMock);
 
         $this->representativeCompanyUserCollectionTransferMock->expects(static::atLeastOnce())
@@ -187,7 +213,7 @@ class RepresentativeManagerTest extends Unit
      */
     public function testGetRepresentativeCompanyUser(): void
     {
-        $this->readerMock->expects(static::atLeastOnce())
+        $this->repositoryMock->expects(static::atLeastOnce())
             ->method('getRepresentativeCompanyUser')
             ->willReturn($this->representativeCompanyUserCollectionTransferMock);
 
@@ -238,8 +264,8 @@ class RepresentativeManagerTest extends Unit
      */
     public function testFindByUuid(): void
     {
-        $this->readerMock->expects(static::atLeastOnce())
-            ->method('getRepresentationByUuid')
+        $this->repositoryMock->expects(static::atLeastOnce())
+            ->method('findRepresentationByUuid')
             ->willReturn($this->representativeCompanyUserTransferMock);
 
         $this->manager->findByUuid('uuid');

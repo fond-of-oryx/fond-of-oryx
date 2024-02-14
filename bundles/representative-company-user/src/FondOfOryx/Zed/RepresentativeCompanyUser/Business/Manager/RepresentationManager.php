@@ -3,11 +3,9 @@
 namespace FondOfOryx\Zed\RepresentativeCompanyUser\Business\Manager;
 
 use FondOfOryx\Shared\RepresentativeCompanyUser\RepresentativeCompanyUserConstants;
-use FondOfOryx\Zed\RepresentativeCompanyUser\Business\Reader\RepresentativeCompanyUserReaderInterface;
 use FondOfOryx\Zed\RepresentativeCompanyUser\Dependency\Facade\RepresentativeCompanyUserToEventFacadeInterface;
 use FondOfOryx\Zed\RepresentativeCompanyUser\Persistence\RepresentativeCompanyUserEntityManagerInterface;
 use FondOfOryx\Zed\RepresentativeCompanyUser\Persistence\RepresentativeCompanyUserRepositoryInterface;
-use Generated\Shared\Transfer\CompanyUserOwnershipRewriteTransfer;
 use Generated\Shared\Transfer\RepresentativeCompanyUserCollectionTransfer;
 use Generated\Shared\Transfer\RepresentativeCompanyUserFilterTransfer;
 use Generated\Shared\Transfer\RepresentativeCompanyUserTransfer;
@@ -37,10 +35,9 @@ class RepresentationManager implements RepresentationManagerInterface
      */
     public function __construct(
         RepresentativeCompanyUserEntityManagerInterface $entityManager,
-        RepresentativeCompanyUserRepositoryInterface    $repository,
+        RepresentativeCompanyUserRepositoryInterface $repository,
         RepresentativeCompanyUserToEventFacadeInterface $eventFacade
-    )
-    {
+    ) {
         $this->entityManager = $entityManager;
         $this->repository = $repository;
         $this->eventFacade = $eventFacade;
@@ -69,9 +66,16 @@ class RepresentationManager implements RepresentationManagerInterface
         }
     }
 
-    protected function checkForActiveOwnerChange(RepresentativeCompanyUserFilterTransfer $filterTransfer, RepresentativeCompanyUserCollectionTransfer $expiredCollection)
-    {
-
+    /**
+     * @param \Generated\Shared\Transfer\RepresentativeCompanyUserFilterTransfer $filterTransfer
+     * @param \Generated\Shared\Transfer\RepresentativeCompanyUserCollectionTransfer $expiredCollection
+     *
+     * @return \Generated\Shared\Transfer\RepresentativeCompanyUserCollectionTransfer
+     */
+    protected function checkForActiveOwnerChange(
+        RepresentativeCompanyUserFilterTransfer $filterTransfer,
+        RepresentativeCompanyUserCollectionTransfer $expiredCollection
+    ) {
         $filterTransfer->setValidTimeRange(true);
         $collection = $this->repository->findRepresentationsShouldBeActiveByRange($filterTransfer);
         $expiredRepresentations = $expiredCollection->getRepresentations();
@@ -84,7 +88,8 @@ class RepresentationManager implements RepresentationManagerInterface
                     continue;
                 }
 
-                if ($expiredRepresentation->getFkDistributor() === $fkDistributor
+                if (
+                    $expiredRepresentation->getFkDistributor() === $fkDistributor
                     && $expiredRepresentation->getFkRepresentative() === $fkRepresentative
                 ) {
                     $expiredRepresentation->setChangeCompanyUserOwnershipTo($representation);
@@ -198,8 +203,7 @@ class RepresentationManager implements RepresentationManagerInterface
      */
     public function setAllInProcess(
         RepresentativeCompanyUserCollectionTransfer $representativeCompanyUserCollectionTransfer
-    ): RepresentativeCompanyUserCollectionTransfer
-    {
+    ): RepresentativeCompanyUserCollectionTransfer {
         $collection = new RepresentativeCompanyUserCollectionTransfer();
         foreach ($representativeCompanyUserCollectionTransfer->getRepresentations() as $representation) {
             $changeOwnership = $representation->getChangeCompanyUserOwnershipTo();

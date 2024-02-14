@@ -75,6 +75,13 @@ interface RepresentativeCompanyUserFacadeInterface
     /**
      * @param \Generated\Shared\Transfer\RepresentativeCompanyUserTransfer $representativeCompanyUserTransfer
      *
+     * @return void
+     */
+    public function doCompanyUserOwnerChangeForRepresentation(RepresentativeCompanyUserTransfer $representativeCompanyUserTransfer): void;
+
+    /**
+     * @param \Generated\Shared\Transfer\RepresentativeCompanyUserTransfer $representativeCompanyUserTransfer
+     *
      * @throws \Spryker\Zed\Kernel\Exception\Container\ContainerKeyNotFoundException
      *
      * @return void
