@@ -1,9 +1,12 @@
 <?xml version="1.0"?>
 <database xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" name="zed"
           xsi:noNamespaceSchemaLocation="https://static.spryker.com/schema-01.xsd"
-          namespace="Orm\Zed\RepresentativeCompanyUser\Persistence" package="src.Orm.Zed.RepresentativeCompanyUser.Persistence">
+          namespace="Orm\Zed\RepresentativeCompanyUser\Persistence"
+          package="src.Orm.Zed.RepresentativeCompanyUser.Persistence">
 
     <table name="foo_representative_company_user" phpName="FooRepresentativeCompanyUser" identifierQuoting="true">
-        <column name="id_representative_company_user" required="true" type="INTEGER" autoIncrement="true" primaryKey="true"/>
+        <column name="id_representative_company_user" required="true" type="INTEGER" autoIncrement="true"
+                primaryKey="true"/>
+        <id-method-parameter value="foo_representative_company_user_pk_seq"/>
     </table>
 </database>

@@ -16,6 +16,7 @@
         <property name="uuid" type="string" />
         <property name="createdAt" type="int" />
         <property name="updatedAt" type="int" />
+        <property name="changeCompanyUserOwnershipTo" type="RepresentativeCompanyUser" />
     </transfer>
 
     <transfer name="RepresentativeCompanyUserCollection">
@@ -26,6 +27,11 @@
     <transfer name="RepresentativeCompanyUserCommand">
         <property name="resources" singular="resource" type="array" />
         <property name="ids" singular="id" type="array" />
+    </transfer>
+
+    <transfer name="CompanyUserOwnershipRewrite">
+        <property name="from" type="RepresentativeCompanyUser" />
+        <property name="to" type="RepresentativeCompanyUser" />
     </transfer>
 
     <transfer name="RepresentativeCompanyUserFilter">

@@ -177,6 +177,38 @@ class RepresentativeCompanyUserRepository extends AbstractRepository implements 
     }
 
     /**
+     * @param \Generated\Shared\Transfer\RepresentativeCompanyUserFilterTransfer $filterTransfer
+     *
+     * @return \Generated\Shared\Transfer\RepresentativeCompanyUserCollectionTransfer
+     */
+    public function findRepresentationsShouldBeActiveByRange(
+        RepresentativeCompanyUserFilterTransfer $filterTransfer
+    ): RepresentativeCompanyUserCollectionTransfer {
+        $query = $this->getFactory()->getRepresentativeCompanyUserQuery();
+        $ids = $filterTransfer->getIds();
+        if (count($ids) > 0) {
+            $query->filterByIdRepresentativeCompanyUser_In($ids);
+        }
+
+        if ($filterTransfer->getValidTimeRange()) {
+            $now = $this->getFactory()->getUtilDateTimeService()->formatDateTime(new DateTime());
+            $query
+                ->filterByStartAt($now, Criteria::LESS_EQUAL)
+                ->filterByEndAt($now, Criteria::GREATER_EQUAL);
+        }
+
+        $result = $query->find();
+        $collection = new RepresentativeCompanyUserCollectionTransfer();
+
+        /** @var \Orm\Zed\RepresentativeCompanyUser\Persistence\FooRepresentativeCompanyUser $entity */
+        foreach ($result->getData() as $entity) {
+            $collection->addRepresentation($this->getFactory()->createEntityToTransferMapper()->fromRepresentativeCompanyUserEntity($entity));
+        }
+
+        return $collection;
+    }
+
+    /**
      * @param int $fkDistributor
      *
      * @return \Generated\Shared\Transfer\RepresentativeCompanyUserCollectionTransfer|null
@@ -304,6 +336,14 @@ class RepresentativeCompanyUserRepository extends AbstractRepository implements 
                     $query->orderBy($field, $sort->getDirection());
                 }
             }
+        }
+
+        if ($filterTransfer->getLimit() !== null) {
+            $query->setLimit($filterTransfer->getLimit());
+        }
+
+        if ($filterTransfer->getOffset() !== null) {
+            $query->setOffset($filterTransfer->getOffset());
         }
 
         return $query;

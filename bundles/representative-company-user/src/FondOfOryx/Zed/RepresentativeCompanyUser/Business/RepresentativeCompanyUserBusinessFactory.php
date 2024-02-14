@@ -6,8 +6,6 @@ use FondOfOryx\Zed\RepresentativeCompanyUser\Business\Manager\CompanyUserManager
 use FondOfOryx\Zed\RepresentativeCompanyUser\Business\Manager\CompanyUserManagerInterface;
 use FondOfOryx\Zed\RepresentativeCompanyUser\Business\Manager\RepresentationManager;
 use FondOfOryx\Zed\RepresentativeCompanyUser\Business\Manager\RepresentationManagerInterface;
-use FondOfOryx\Zed\RepresentativeCompanyUser\Business\Reader\RepresentativeCompanyUserReader;
-use FondOfOryx\Zed\RepresentativeCompanyUser\Business\Reader\RepresentativeCompanyUserReaderInterface;
 use FondOfOryx\Zed\RepresentativeCompanyUser\Business\Task\TaskRunner;
 use FondOfOryx\Zed\RepresentativeCompanyUser\Business\Task\TaskRunnerInterface;
 use FondOfOryx\Zed\RepresentativeCompanyUser\Dependency\Facade\RepresentativeCompanyUserToCompanyUserFacadeInterface;
@@ -36,24 +34,13 @@ class RepresentativeCompanyUserBusinessFactory extends AbstractBusinessFactory
     }
 
     /**
-     * @return \FondOfOryx\Zed\RepresentativeCompanyUser\Business\Reader\RepresentativeCompanyUserReaderInterface
-     */
-    public function createRepresentativeCompanyUserReader(): RepresentativeCompanyUserReaderInterface
-    {
-        return new RepresentativeCompanyUserReader(
-            $this->getRepository(),
-            $this->getEntityManager(),
-        );
-    }
-
-    /**
      * @return \FondOfOryx\Zed\RepresentativeCompanyUser\Business\Manager\RepresentationManagerInterface
      */
     public function createRepresentationManager(): RepresentationManagerInterface
     {
         return new RepresentationManager(
             $this->getEntityManager(),
-            $this->createRepresentativeCompanyUserReader(),
+            $this->getRepository(),
             $this->getEventFacade(),
         );
     }
@@ -64,7 +51,8 @@ class RepresentativeCompanyUserBusinessFactory extends AbstractBusinessFactory
     public function createCompanyUserManager(): CompanyUserManagerInterface
     {
         return new CompanyUserManager(
-            $this->createRepresentativeCompanyUserReader(),
+            $this->getRepository(),
+            $this->getEntityManager(),
             $this->getCompanyUserFacade(),
             $this->getTransactionHandler(),
         );
