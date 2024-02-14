@@ -3,7 +3,6 @@
 namespace FondOfOryx\Zed\RepresentativeCompanyUserTradeFair\Persistence;
 
 use Exception;
-use FondOfOryx\Zed\RepresentativeCompanyUserTradeFair\RepresentativeCompanyUserTradeFairConfig;
 use Generated\Shared\Transfer\PaginationTransfer;
 use Generated\Shared\Transfer\RepresentativeCompanyUserCollectionTransfer;
 use Generated\Shared\Transfer\RepresentativeCompanyUserTradeFairCollectionTransfer;
