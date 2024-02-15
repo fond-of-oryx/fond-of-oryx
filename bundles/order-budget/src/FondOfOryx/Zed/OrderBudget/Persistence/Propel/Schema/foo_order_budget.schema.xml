@@ -6,7 +6,7 @@
 
     <table name="foo_order_budget">
         <column name="id_order_budget" type="INTEGER" required="true" autoIncrement="true" primaryKey="true"/>
-        <column name="initial_budget" type="INTEGER" required="true"/>
+        <column name="initial_budget" type="INTEGER" required="false"/>
         <column name="budget" type="INTEGER" required="true"/>
 
         <id-method-parameter value="foo_order_budget_pk_seq"/>
