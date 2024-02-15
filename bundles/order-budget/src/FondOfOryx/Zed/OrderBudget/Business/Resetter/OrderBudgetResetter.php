@@ -6,7 +6,6 @@ use DateTime;
 use FondOfOryx\Zed\OrderBudget\Business\Mapper\OrderBudgetHistoryMapperInterface;
 use FondOfOryx\Zed\OrderBudget\Business\Reader\OrderBudgetReaderInterface;
 use FondOfOryx\Zed\OrderBudget\Dependency\Service\OrderBudgetToUtilDateTimeServiceInterface;
-use FondOfOryx\Zed\OrderBudget\OrderBudgetConfig;
 use FondOfOryx\Zed\OrderBudget\Persistence\OrderBudgetEntityManagerInterface;
 use Spryker\Zed\Kernel\Persistence\EntityManager\TransactionTrait;
 
@@ -35,29 +34,21 @@ class OrderBudgetResetter implements OrderBudgetResetterInterface
     protected $entityManager;
 
     /**
-     * @var \FondOfOryx\Zed\OrderBudget\OrderBudgetConfig
-     */
-    protected $config;
-
-    /**
      * @param \FondOfOryx\Zed\OrderBudget\Business\Reader\OrderBudgetReaderInterface $orderBudgetReader
      * @param \FondOfOryx\Zed\OrderBudget\Business\Mapper\OrderBudgetHistoryMapperInterface $orderBudgetHistoryMapper
      * @param \FondOfOryx\Zed\OrderBudget\Dependency\Service\OrderBudgetToUtilDateTimeServiceInterface $utilDateTimeService
      * @param \FondOfOryx\Zed\OrderBudget\Persistence\OrderBudgetEntityManagerInterface $entityManager
-     * @param \FondOfOryx\Zed\OrderBudget\OrderBudgetConfig $config
      */
     public function __construct(
         OrderBudgetReaderInterface $orderBudgetReader,
         OrderBudgetHistoryMapperInterface $orderBudgetHistoryMapper,
         OrderBudgetToUtilDateTimeServiceInterface $utilDateTimeService,
-        OrderBudgetEntityManagerInterface $entityManager,
-        OrderBudgetConfig $config
+        OrderBudgetEntityManagerInterface $entityManager
     ) {
         $this->orderBudgetReader = $orderBudgetReader;
         $this->orderBudgetHistoryMapper = $orderBudgetHistoryMapper;
         $this->utilDateTimeService = $utilDateTimeService;
         $this->entityManager = $entityManager;
-        $this->config = $config;
     }
 
     /**
@@ -77,7 +68,6 @@ class OrderBudgetResetter implements OrderBudgetResetterInterface
      */
     protected function executeResetAllTransaction(): void
     {
-        $initialBudget = $this->config->getInitialBudget();
         $orderBudgetTransfers = $this->orderBudgetReader->getAll();
 
         foreach ($orderBudgetTransfers as $orderBudgetTransfer) {
@@ -88,7 +78,7 @@ class OrderBudgetResetter implements OrderBudgetResetterInterface
 
             $this->entityManager->createOrderBudgetHistory($orderBudgetHistoryTransfer);
 
-            $orderBudgetTransfer->setBudget($initialBudget);
+            $orderBudgetTransfer->setBudget($orderBudgetTransfer->getInitialBudget());
 
             $this->entityManager->updateOrderBudget($orderBudgetTransfer);
         }

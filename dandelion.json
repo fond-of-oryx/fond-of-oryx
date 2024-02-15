@@ -721,11 +721,11 @@
     },
     "order-budget": {
       "path": "bundles/order-budget/",
-      "version": "2.1.0"
+      "version": "2.2.0"
     },
     "order-budget-search-rest-api": {
       "path": "bundles/order-budget-search-rest-api/",
-      "version": "1.0.0"
+      "version": "1.1.0"
     },
     "order-budget-search-rest-api-extension": {
       "path": "bundles/order-budget-search-rest-api-extension/",

@@ -8,7 +8,6 @@ use FondOfOryx\Shared\OrderBudget\OrderBudgetConstants;
 use FondOfOryx\Zed\OrderBudget\Business\Mapper\OrderBudgetHistoryMapperInterface;
 use FondOfOryx\Zed\OrderBudget\Business\Reader\OrderBudgetReaderInterface;
 use FondOfOryx\Zed\OrderBudget\Dependency\Service\OrderBudgetToUtilDateTimeServiceInterface;
-use FondOfOryx\Zed\OrderBudget\OrderBudgetConfig;
 use FondOfOryx\Zed\OrderBudget\Persistence\OrderBudgetEntityManagerInterface;
 use Generated\Shared\Transfer\OrderBudgetHistoryTransfer;
 use Generated\Shared\Transfer\OrderBudgetTransfer;
@@ -35,11 +34,6 @@ class OrderBudgetResetterTest extends Unit
      * @var \FondOfOryx\Zed\OrderBudget\Persistence\OrderBudgetEntityManagerInterface|\PHPUnit\Framework\MockObject\MockObject
      */
     protected $entityManagerMock;
-
-    /**
-     * @var \FondOfOryx\Zed\OrderBudget\OrderBudgetConfig|\PHPUnit\Framework\MockObject\MockObject
-     */
-    protected $configMock;
 
     /**
      * @var \PHPUnit\Framework\MockObject\MockObject|\Spryker\Zed\Kernel\Persistence\EntityManager\TransactionHandlerInterface
@@ -84,10 +78,6 @@ class OrderBudgetResetterTest extends Unit
             ->disableOriginalConstructor()
             ->getMock();
 
-        $this->configMock = $this->getMockBuilder(OrderBudgetConfig::class)
-            ->disableOriginalConstructor()
-            ->getMock();
-
         $this->transactionHandlerMock = $this->getMockBuilder(TransactionHandlerInterface::class)
             ->disableOriginalConstructor()
             ->getMock();
@@ -109,7 +99,6 @@ class OrderBudgetResetterTest extends Unit
             $this->orderBudgetHistoryMapperMock,
             $this->utilDateTimeServiceMock,
             $this->entityManagerMock,
-            $this->configMock,
             $this->transactionHandlerMock
         ) extends OrderBudgetResetter {
             /**
@@ -122,7 +111,6 @@ class OrderBudgetResetterTest extends Unit
              * @param \FondOfOryx\Zed\OrderBudget\Business\Mapper\OrderBudgetHistoryMapperInterface $orderBudgetHistoryMapper
              * @param \FondOfOryx\Zed\OrderBudget\Dependency\Service\OrderBudgetToUtilDateTimeServiceInterface $utilDateTimeService
              * @param \FondOfOryx\Zed\OrderBudget\Persistence\OrderBudgetEntityManagerInterface $entityManager
-             * @param \FondOfOryx\Zed\OrderBudget\OrderBudgetConfig $config
              * @param \Spryker\Zed\Kernel\Persistence\EntityManager\TransactionHandlerInterface $transactionHandler
              */
             public function __construct(
@@ -130,7 +118,6 @@ class OrderBudgetResetterTest extends Unit
                 OrderBudgetHistoryMapperInterface $orderBudgetHistoryMapper,
                 OrderBudgetToUtilDateTimeServiceInterface $utilDateTimeService,
                 OrderBudgetEntityManagerInterface $entityManager,
-                OrderBudgetConfig $config,
                 TransactionHandlerInterface $transactionHandler
             ) {
                 parent::__construct(
@@ -138,7 +125,6 @@ class OrderBudgetResetterTest extends Unit
                     $orderBudgetHistoryMapper,
                     $utilDateTimeService,
                     $entityManager,
-                    $config,
                 );
 
                 $this->transactionHandler = $transactionHandler;
@@ -169,10 +155,6 @@ class OrderBudgetResetterTest extends Unit
                 },
             );
 
-        $this->configMock->expects(static::atLeastOnce())
-            ->method('getInitialBudget')
-            ->willReturn(OrderBudgetConstants::INITIAL_BUDGET_DEFAULT);
-
         $this->orderBudgetReaderMock->expects(static::atLeastOnce())
             ->method('getAll')
             ->willReturn($this->orderBudgetTransferMocks);
@@ -194,6 +176,10 @@ class OrderBudgetResetterTest extends Unit
         $this->entityManagerMock->expects(static::atLeastOnce())
             ->method('createOrderBudgetHistory')
             ->with($this->orderBudgetHistoryTransferMocks[0]);
+
+        $this->orderBudgetTransferMocks[0]->expects(static::atLeastOnce())
+            ->method('getInitialBudget')
+            ->willReturn(OrderBudgetConstants::INITIAL_BUDGET_DEFAULT);
 
         $this->orderBudgetTransferMocks[0]->expects(static::atLeastOnce())
             ->method('setBudget')

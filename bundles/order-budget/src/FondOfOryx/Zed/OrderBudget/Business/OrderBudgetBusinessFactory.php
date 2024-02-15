@@ -42,7 +42,6 @@ class OrderBudgetBusinessFactory extends AbstractBusinessFactory
             $this->createOrderBudgetHistoryMapper(),
             $this->getUtilDateTimeService(),
             $this->getEntityManager(),
-            $this->getConfig(),
         );
     }
 
