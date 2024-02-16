@@ -128,7 +128,13 @@ class RepresentationManager implements RepresentationManagerInterface
             $permission = $this->getPermission($restRepresentativeCompanyUserRequestTransfer);
             $restRepresentativeCompanyUserAttributesTransfer = $restRepresentativeCompanyUserRequestTransfer->getAttributes();
 
-            if ($this->hasOwnPermission($permission) && $restRepresentativeCompanyUserAttributesTransfer->getReferenceDistributor() !== $restRepresentativeCompanyUserAttributesTransfer->getReferenceOriginator()) {
+            $representation = $this->representativeCompanyUserFacade->findRepresentationByUuid($restRepresentativeCompanyUserAttributesTransfer->getUuid());
+
+            if (
+                $this->hasOwnPermission($permission)
+                && $restRepresentativeCompanyUserAttributesTransfer->getReferenceDistributor() !== $restRepresentativeCompanyUserAttributesTransfer->getReferenceOriginator()
+                && $representation->getOriginator()->getCustomerReference() !== $restRepresentativeCompanyUserAttributesTransfer->getReferenceOriginator()
+            ) {
                 $this->throwGlobalPermissionKeyMissingException();
             }
 
@@ -173,7 +179,9 @@ class RepresentationManager implements RepresentationManagerInterface
             $permission = $this->getPermission($restRepresentativeCompanyUserRequestTransfer);
             $attributes = $restRepresentativeCompanyUserRequestTransfer->getAttributes();
 
-            if ($this->hasOwnPermission($permission) && $attributes->getReferenceDistributor() !== $attributes->getReferenceOriginator()) {
+            $representation = $this->representativeCompanyUserFacade->findRepresentationByUuid($attributes->getUuid());
+
+            if ($this->hasOwnPermission($permission) && $representation->getOriginator()->getCustomerReference() !== $attributes->getReferenceOriginator()) {
                 $this->throwGlobalPermissionKeyMissingException();
             }
 
