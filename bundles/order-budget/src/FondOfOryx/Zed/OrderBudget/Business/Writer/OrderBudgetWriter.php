@@ -42,6 +42,7 @@ class OrderBudgetWriter implements OrderBudgetWriterInterface
         }
 
         $orderBudgetTransfer = (new OrderBudgetTransfer())
+            ->setNextInitialBudget($budget)
             ->setInitialBudget($budget)
             ->setBudget($budget);
 

@@ -87,11 +87,14 @@ class OrderBudgetResetter implements OrderBudgetResetterInterface
 
             $this->entityManager->createOrderBudgetHistory($orderBudgetHistoryTransfer);
 
-            if ($orderBudgetTransfer->getInitialBudget() === null) {
-                $orderBudgetTransfer->setInitialBudget($this->config->getInitialBudget());
+            if ($orderBudgetTransfer->getNextInitialBudget() === null) {
+                $orderBudgetTransfer->setNextInitialBudget($this->config->getInitialBudget());
             }
 
-            $orderBudgetTransfer->setBudget($orderBudgetTransfer->getInitialBudget());
+            $nextInitialBudget = $orderBudgetTransfer->getNextInitialBudget();
+
+            $orderBudgetTransfer->setInitialBudget($nextInitialBudget)
+                ->setBudget($nextInitialBudget);
 
             $this->entityManager->updateOrderBudget($orderBudgetTransfer);
         }

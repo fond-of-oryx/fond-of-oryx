@@ -192,12 +192,20 @@ class OrderBudgetResetterTest extends Unit
             ->with($this->orderBudgetHistoryTransferMocks[0]);
 
         $this->orderBudgetTransferMocks[0]->expects(static::atLeastOnce())
-            ->method('getInitialBudget')
-            ->willReturnOnConsecutiveCalls(null, OrderBudgetConstants::INITIAL_BUDGET_DEFAULT);
+            ->method('getNextInitialBudget')
+            ->willReturnOnConsecutiveCalls(
+                null,
+                OrderBudgetConstants::INITIAL_BUDGET_DEFAULT,
+            );
 
         $this->configMock->expects(static::atLeastOnce())
             ->method('getInitialBudget')
             ->willReturn(OrderBudgetConstants::INITIAL_BUDGET_DEFAULT);
+
+        $this->orderBudgetTransferMocks[0]->expects(static::atLeastOnce())
+            ->method('setNextInitialBudget')
+            ->with(OrderBudgetConstants::INITIAL_BUDGET_DEFAULT)
+            ->willReturn($this->orderBudgetTransferMocks[0]);
 
         $this->orderBudgetTransferMocks[0]->expects(static::atLeastOnce())
             ->method('setInitialBudget')
