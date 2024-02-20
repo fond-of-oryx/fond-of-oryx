@@ -15,6 +15,8 @@
         <property name="idOrderBudgetHistory" type="int" />
         <property name="fkOrderBudget" type="int" />
         <property name="budget" type="int" />
+        <property name="initialBudget" type="int" />
+        <property name="nextInitialBudget" type="int" />
         <property name="validFrom" type="string" />
         <property name="validTo" type="string" />
     </transfer>
