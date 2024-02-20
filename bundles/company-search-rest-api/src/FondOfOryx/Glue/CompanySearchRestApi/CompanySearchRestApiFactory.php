@@ -119,7 +119,7 @@ class CompanySearchRestApiFactory extends AbstractFactory
     protected function createRestCompanySearchResultItemMapper(): RestCompanySearchResultItemMapperInterface
     {
         return new RestCompanySearchResultItemMapper(
-            $this->createRestCompanySearchResultItemExpander()
+            $this->createRestCompanySearchResultItemExpander(),
         );
     }
 

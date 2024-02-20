@@ -23,19 +23,17 @@ class RestCompanySearchResultItemExpander implements RestCompanySearchResultItem
     /**
      * @param \Generated\Shared\Transfer\RestCompanySearchResultItemTransfer $restCompanySearchResultItemTransfer
      * @param \Generated\Shared\Transfer\CompanyTransfer $companyTransfer
+     *
      * @return \Generated\Shared\Transfer\RestCompanySearchResultItemTransfer
      */
     public function expand(
         RestCompanySearchResultItemTransfer $restCompanySearchResultItemTransfer,
         CompanyTransfer $companyTransfer
-    ): RestCompanySearchResultItemTransfer
-    {
+    ): RestCompanySearchResultItemTransfer {
         foreach ($this->restCompanySearchResultItemExpanderPlugins as $restCompanySearchResultItemExpanderPlugin) {
             $restCompanySearchResultItemExpanderPlugin->expand($restCompanySearchResultItemTransfer, $companyTransfer);
         }
 
         return $restCompanySearchResultItemTransfer;
     }
-
-
 }

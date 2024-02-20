@@ -12,6 +12,9 @@ class RestCompanySearchResultItemMapper implements RestCompanySearchResultItemMa
 {
     protected RestCompanySearchResultItemExpanderInterface $restCompanySearchResultItemExpander;
 
+    /**
+     * @param \FondOfOryx\Glue\CompanySearchRestApi\Processor\Expander\RestCompanySearchResultItemExpanderInterface $restCompanySearchResultItemExpander
+     */
     public function __construct(RestCompanySearchResultItemExpanderInterface $restCompanySearchResultItemExpander)
     {
         $this->restCompanySearchResultItemExpander = $restCompanySearchResultItemExpander;

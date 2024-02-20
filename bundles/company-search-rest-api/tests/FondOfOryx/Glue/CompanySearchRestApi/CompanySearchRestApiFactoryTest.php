@@ -107,6 +107,7 @@ class CompanySearchRestApiFactoryTest extends Unit
             ->withConsecutive(
                 [CompanySearchRestApiDependencyProvider::PLUGINS_FILTER_FIELDS_EXPANDER],
                 [CompanySearchRestApiDependencyProvider::CLIENT_GLOSSARY_STORAGE],
+                [CompanySearchRestApiDependencyProvider::PLUGINS_REST_COMPANY_SEARCH_RESULT_ITEM_EXPANDER],
             )
             ->willReturn(true);
 
@@ -115,10 +116,12 @@ class CompanySearchRestApiFactoryTest extends Unit
             ->withConsecutive(
                 [CompanySearchRestApiDependencyProvider::PLUGINS_FILTER_FIELDS_EXPANDER],
                 [CompanySearchRestApiDependencyProvider::CLIENT_GLOSSARY_STORAGE],
+                [CompanySearchRestApiDependencyProvider::PLUGINS_REST_COMPANY_SEARCH_RESULT_ITEM_EXPANDER],
             )
             ->willReturnOnConsecutiveCalls(
                 [],
                 $this->glossaryStorageClientMock,
+                [],
             );
 
         static::assertInstanceOf(
