@@ -7,6 +7,8 @@ use Generated\Shared\Transfer\OrderBudgetTransfer;
 use Spryker\Zed\Kernel\Persistence\AbstractEntityManager;
 
 /**
+ * @codeCoverageIgnore
+ *
  * @method \FondOfOryx\Zed\OrderBudget\Persistence\OrderBudgetPersistenceFactory getFactory()
  */
 class OrderBudgetEntityManager extends AbstractEntityManager implements OrderBudgetEntityManagerInterface

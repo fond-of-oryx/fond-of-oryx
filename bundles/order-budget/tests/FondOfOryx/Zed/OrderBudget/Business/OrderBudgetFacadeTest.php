@@ -82,7 +82,7 @@ class OrderBudgetFacadeTest extends Unit
             ->willReturn($this->orderBudgetResetterMock);
 
         $this->orderBudgetResetterMock->expects(static::atLeastOnce())
-            ->method('resetAll');
+            ->method('resetMultiple');
 
         $this->facade->resetOrderBudgets();
     }

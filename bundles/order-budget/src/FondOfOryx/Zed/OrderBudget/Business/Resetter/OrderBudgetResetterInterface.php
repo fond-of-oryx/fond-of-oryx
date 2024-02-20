@@ -5,7 +5,9 @@ namespace FondOfOryx\Zed\OrderBudget\Business\Resetter;
 interface OrderBudgetResetterInterface
 {
     /**
+     * @param array<int> $orderBudgetIds
+     *
      * @return void
      */
-    public function resetAll(): void;
+    public function resetMultiple(array $orderBudgetIds = []): void;
 }

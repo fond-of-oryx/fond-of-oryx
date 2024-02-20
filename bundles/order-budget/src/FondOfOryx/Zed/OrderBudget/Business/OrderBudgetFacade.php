@@ -19,9 +19,9 @@ class OrderBudgetFacade extends AbstractFacade implements OrderBudgetFacadeInter
      *
      * @return void
      */
-    public function resetOrderBudgets(): void
+    public function resetOrderBudgets(array $orderBudgetIds = []): void
     {
-        $this->getFactory()->createOrderBudgetResetter()->resetAll();
+        $this->getFactory()->createOrderBudgetResetter()->resetMultiple($orderBudgetIds);
     }
 
     /**
