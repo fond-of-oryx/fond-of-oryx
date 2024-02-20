@@ -3,12 +3,23 @@
 namespace FondOfOryx\Glue\CompanySearchRestApi\Processor\Mapper;
 
 use ArrayObject;
+use FondOfOryx\Glue\CompanySearchRestApi\Processor\Expander\RestCompanySearchResultItemExpanderInterface;
 use Generated\Shared\Transfer\CompanyListTransfer;
 use Generated\Shared\Transfer\CompanyTransfer;
 use Generated\Shared\Transfer\RestCompanySearchResultItemTransfer;
 
 class RestCompanySearchResultItemMapper implements RestCompanySearchResultItemMapperInterface
 {
+    protected RestCompanySearchResultItemExpanderInterface $restCompanySearchResultItemExpander;
+
+    /**
+     * @param \FondOfOryx\Glue\CompanySearchRestApi\Processor\Expander\RestCompanySearchResultItemExpanderInterface $restCompanySearchResultItemExpander
+     */
+    public function __construct(RestCompanySearchResultItemExpanderInterface $restCompanySearchResultItemExpander)
+    {
+        $this->restCompanySearchResultItemExpander = $restCompanySearchResultItemExpander;
+    }
+
     /**
      * @param \Generated\Shared\Transfer\CompanyTransfer $companyTransfer
      *
@@ -16,10 +27,12 @@ class RestCompanySearchResultItemMapper implements RestCompanySearchResultItemMa
      */
     public function fromCompany(CompanyTransfer $companyTransfer): RestCompanySearchResultItemTransfer
     {
-        return (new RestCompanySearchResultItemTransfer())->fromArray(
+        $restCompanySearchResultItemTransfer = (new RestCompanySearchResultItemTransfer())->fromArray(
             $companyTransfer->toArray(),
             true,
         )->setId($companyTransfer->getUuid());
+
+        return $this->restCompanySearchResultItemExpander->expand($restCompanySearchResultItemTransfer, $companyTransfer);
     }
 
     /**

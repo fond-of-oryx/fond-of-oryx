@@ -4,8 +4,11 @@ namespace FondOfOryx\Glue\CompanySearchRestApi\Processor\Mapper;
 
 use ArrayObject;
 use Codeception\Test\Unit;
+use FondOfOryx\Glue\CompanySearchRestApi\Processor\Expander\RestCompanySearchResultItemExpanderInterface;
 use Generated\Shared\Transfer\CompanyListTransfer;
 use Generated\Shared\Transfer\CompanyTransfer;
+use Generated\Shared\Transfer\RestCompanySearchResultItemTransfer;
+use PHPUnit\Framework\MockObject\MockObject;
 
 class RestCompanySearchResultItemMapperTest extends Unit
 {
@@ -18,6 +21,11 @@ class RestCompanySearchResultItemMapperTest extends Unit
      * @var array<\PHPUnit\Framework\MockObject\MockObject>|array<\Generated\Shared\Transfer\CompanyTransfer>
      */
     protected $companyTransferMocks;
+
+    /**
+     * @var \FondOfOryx\Glue\CompanySearchRestApi\Processor\Expander\RestCompanySearchResultItemExpanderInterface|\PHPUnit\Framework\MockObject\MockObject
+     */
+    protected RestCompanySearchResultItemExpanderInterface|MockObject $companySearchResultItemExpanderMock;
 
     /**
      * @var \FondOfOryx\Glue\CompanySearchRestApi\Processor\Mapper\RestCompanySearchResultItemMapper
@@ -35,13 +43,17 @@ class RestCompanySearchResultItemMapperTest extends Unit
             ->disableOriginalConstructor()
             ->getMock();
 
+        $this->companySearchResultItemExpanderMock = $this->getMockBuilder(RestCompanySearchResultItemExpanderInterface::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
         $this->companyTransferMocks = [
             $this->getMockBuilder(CompanyTransfer::class)
                 ->disableOriginalConstructor()
                 ->getMock(),
         ];
 
-        $this->restCompanySearchResultItemMapper = new RestCompanySearchResultItemMapper();
+        $this->restCompanySearchResultItemMapper = new RestCompanySearchResultItemMapper($this->companySearchResultItemExpanderMock);
     }
 
     /**
@@ -62,6 +74,15 @@ class RestCompanySearchResultItemMapperTest extends Unit
         $this->companyTransferMocks[0]->expects(static::atLeastOnce())
             ->method('getUuid')
             ->willReturn($uuid);
+
+        $this->companySearchResultItemExpanderMock->expects(static::atLeastOnce())
+            ->method('expand')
+            ->willReturnCallback(static function (
+                RestCompanySearchResultItemTransfer $restCompanySearchResultItemTransfer,
+                CompanyTransfer $companyTransfer
+            ) {
+                return $restCompanySearchResultItemTransfer;
+            });
 
         $restCompanySearchResultItemTransfers = $this->restCompanySearchResultItemMapper->fromCompanyList(
             $this->companyListTransferMock,

@@ -7,6 +7,8 @@ use FondOfOryx\Glue\CompanySearchRestApi\Processor\Builder\RestResponseBuilder;
 use FondOfOryx\Glue\CompanySearchRestApi\Processor\Builder\RestResponseBuilderInterface;
 use FondOfOryx\Glue\CompanySearchRestApi\Processor\Expander\FilterFieldsExpander;
 use FondOfOryx\Glue\CompanySearchRestApi\Processor\Expander\FilterFieldsExpanderInterface;
+use FondOfOryx\Glue\CompanySearchRestApi\Processor\Expander\RestCompanySearchResultItemExpander;
+use FondOfOryx\Glue\CompanySearchRestApi\Processor\Expander\RestCompanySearchResultItemExpanderInterface;
 use FondOfOryx\Glue\CompanySearchRestApi\Processor\Filter\CustomerReferenceFilter;
 use FondOfOryx\Glue\CompanySearchRestApi\Processor\Filter\CustomerReferenceFilterInterface;
 use FondOfOryx\Glue\CompanySearchRestApi\Processor\Filter\RequestParameterFilter;
@@ -116,7 +118,9 @@ class CompanySearchRestApiFactory extends AbstractFactory
      */
     protected function createRestCompanySearchResultItemMapper(): RestCompanySearchResultItemMapperInterface
     {
-        return new RestCompanySearchResultItemMapper();
+        return new RestCompanySearchResultItemMapper(
+            $this->createRestCompanySearchResultItemExpander(),
+        );
     }
 
     /**
@@ -174,12 +178,32 @@ class CompanySearchRestApiFactory extends AbstractFactory
     }
 
     /**
+     * @return \FondOfOryx\Glue\CompanySearchRestApi\Processor\Expander\RestCompanySearchResultItemExpanderInterface
+     */
+    protected function createRestCompanySearchResultItemExpander(): RestCompanySearchResultItemExpanderInterface
+    {
+        return new RestCompanySearchResultItemExpander(
+            $this->getRestCompanySearchResultItemExpanderPlugins(),
+        );
+    }
+
+    /**
      * @return array<\FondOfOryx\Glue\CompanySearchRestApiExtension\Dependency\Plugin\FilterFieldsExpanderPluginInterface>
      */
     protected function getFilterFieldsExpanderPlugins(): array
     {
         return $this->getProvidedDependency(
             CompanySearchRestApiDependencyProvider::PLUGINS_FILTER_FIELDS_EXPANDER,
+        );
+    }
+
+    /**
+     * @return array<\FondOfOryx\Glue\CompanySearchRestApiExtension\Dependency\Plugin\RestCompanySearchResultItemExpanderPluginInterface>
+     */
+    protected function getRestCompanySearchResultItemExpanderPlugins(): array
+    {
+        return $this->getProvidedDependency(
+            CompanySearchRestApiDependencyProvider::PLUGINS_REST_COMPANY_SEARCH_RESULT_ITEM_EXPANDER,
         );
     }
 

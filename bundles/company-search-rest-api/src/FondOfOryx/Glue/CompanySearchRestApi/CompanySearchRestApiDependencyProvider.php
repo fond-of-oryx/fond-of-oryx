@@ -22,6 +22,11 @@ class CompanySearchRestApiDependencyProvider extends AbstractBundleDependencyPro
     public const PLUGINS_FILTER_FIELDS_EXPANDER = 'PLUGINS_FILTER_FIELDS_EXPANDER';
 
     /**
+     * @var string
+     */
+    public const PLUGINS_REST_COMPANY_SEARCH_RESULT_ITEM_EXPANDER = 'PLUGINS_REST_COMPANY_SEARCH_RESULT_ITEM_EXPANDER';
+
+    /**
      * @param \Spryker\Glue\Kernel\Container $container
      *
      * @return \Spryker\Glue\Kernel\Container
@@ -31,6 +36,7 @@ class CompanySearchRestApiDependencyProvider extends AbstractBundleDependencyPro
         $container = parent::provideDependencies($container);
 
         $container = $this->addFilterFieldsExpanderPlugins($container);
+        $container = $this->addRestCompanySearchResultItemExpanderPlugins($container);
 
         return $this->addGlossaryStorageClient($container);
     }
@@ -64,9 +70,29 @@ class CompanySearchRestApiDependencyProvider extends AbstractBundleDependencyPro
     }
 
     /**
+     * @param \Spryker\Glue\Kernel\Container $container
+     *
+     * @return \Spryker\Glue\Kernel\Container
+     */
+    protected function addRestCompanySearchResultItemExpanderPlugins(Container $container): Container
+    {
+        $container[static::PLUGINS_REST_COMPANY_SEARCH_RESULT_ITEM_EXPANDER] = fn () => $this->getRestCompanySearchResultItemExpanderPlugins();
+
+        return $container;
+    }
+
+    /**
      * @return array<\FondOfOryx\Glue\CompanySearchRestApiExtension\Dependency\Plugin\FilterFieldsExpanderPluginInterface>
      */
     protected function getFilterFieldsExpanderPlugins(): array
+    {
+        return [];
+    }
+
+    /**
+     * @return array<\FondOfOryx\Glue\CompanySearchRestApiExtension\Dependency\Plugin\RestCompanySearchResultItemExpanderPluginInterface>
+     */
+    protected function getRestCompanySearchResultItemExpanderPlugins(): array
     {
         return [];
     }
