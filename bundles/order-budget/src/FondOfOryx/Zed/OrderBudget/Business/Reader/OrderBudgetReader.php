@@ -20,6 +20,16 @@ class OrderBudgetReader implements OrderBudgetReaderInterface
     }
 
     /**
+     * @param array<int> $ids
+     *
+     * @return array<\Generated\Shared\Transfer\OrderBudgetTransfer>
+     */
+    public function getByIds(array $ids): array
+    {
+        return $this->repository->findOrderBudgetsByOrderBudgetIds($ids);
+    }
+
+    /**
      * @return array<\Generated\Shared\Transfer\OrderBudgetTransfer>
      */
     public function getAll(): array

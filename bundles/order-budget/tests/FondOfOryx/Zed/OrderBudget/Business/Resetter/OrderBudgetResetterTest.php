@@ -157,7 +157,7 @@ class OrderBudgetResetterTest extends Unit
     /**
      * @return void
      */
-    public function testResetAll(): void
+    public function testResetMultiple(): void
     {
         $now = (new DateTime())->format('Y-m-d');
 
@@ -221,6 +221,78 @@ class OrderBudgetResetterTest extends Unit
             ->method('updateOrderBudget')
             ->with($this->orderBudgetTransferMocks[0]);
 
-        $this->orderBudgetResetter->resetAll();
+        $this->orderBudgetResetter->resetMultiple();
+    }
+
+    /**
+     * @return void
+     */
+    public function testResetMultipleWithOrderBudgetIds(): void
+    {
+        $orderBudgetIds = [3];
+        $now = (new DateTime())->format('Y-m-d');
+
+        $this->transactionHandlerMock->expects(static::atLeastOnce())
+            ->method('handleTransaction')
+            ->willReturnCallback(
+                static function ($callable) {
+                    $callable();
+                },
+            );
+
+        $this->orderBudgetReaderMock->expects(static::atLeastOnce())
+            ->method('getByIds')
+            ->with($orderBudgetIds)
+            ->willReturn($this->orderBudgetTransferMocks);
+
+        $this->utilDateTimeServiceMock->expects(static::atLeastOnce())
+            ->method('formatDate')
+            ->willReturn($now);
+
+        $this->orderBudgetHistoryMapperMock->expects(static::atLeastOnce())
+            ->method('fromOrderBudget')
+            ->with($this->orderBudgetTransferMocks[0])
+            ->willReturn($this->orderBudgetHistoryTransferMocks[0]);
+
+        $this->orderBudgetHistoryTransferMocks[0]->expects(static::atLeastOnce())
+            ->method('setValidTo')
+            ->with($now)
+            ->willReturn($this->orderBudgetHistoryTransferMocks[0]);
+
+        $this->entityManagerMock->expects(static::atLeastOnce())
+            ->method('createOrderBudgetHistory')
+            ->with($this->orderBudgetHistoryTransferMocks[0]);
+
+        $this->orderBudgetTransferMocks[0]->expects(static::atLeastOnce())
+            ->method('getNextInitialBudget')
+            ->willReturnOnConsecutiveCalls(
+                null,
+                OrderBudgetConstants::INITIAL_BUDGET_DEFAULT,
+            );
+
+        $this->configMock->expects(static::atLeastOnce())
+            ->method('getInitialBudget')
+            ->willReturn(OrderBudgetConstants::INITIAL_BUDGET_DEFAULT);
+
+        $this->orderBudgetTransferMocks[0]->expects(static::atLeastOnce())
+            ->method('setNextInitialBudget')
+            ->with(OrderBudgetConstants::INITIAL_BUDGET_DEFAULT)
+            ->willReturn($this->orderBudgetTransferMocks[0]);
+
+        $this->orderBudgetTransferMocks[0]->expects(static::atLeastOnce())
+            ->method('setInitialBudget')
+            ->with(OrderBudgetConstants::INITIAL_BUDGET_DEFAULT)
+            ->willReturn($this->orderBudgetTransferMocks[0]);
+
+        $this->orderBudgetTransferMocks[0]->expects(static::atLeastOnce())
+            ->method('setBudget')
+            ->with(OrderBudgetConstants::INITIAL_BUDGET_DEFAULT)
+            ->willReturn($this->orderBudgetTransferMocks[0]);
+
+        $this->entityManagerMock->expects(static::atLeastOnce())
+            ->method('updateOrderBudget')
+            ->with($this->orderBudgetTransferMocks[0]);
+
+        $this->orderBudgetResetter->resetMultiple($orderBudgetIds);
     }
 }

@@ -61,24 +61,32 @@ class OrderBudgetResetter implements OrderBudgetResetterInterface
     }
 
     /**
+     * @param array<int> $orderBudgetIds
+     *
      * @return void
      */
-    public function resetAll(): void
+    public function resetMultiple(array $orderBudgetIds = []): void
     {
         $self = $this;
 
-        $this->getTransactionHandler()->handleTransaction(static function () use ($self) {
-            $self->executeResetAllTransaction();
+        $this->getTransactionHandler()->handleTransaction(static function () use ($self, $orderBudgetIds) {
+            if (count($orderBudgetIds) === 0) {
+                $self->executeResetMultiple($self->orderBudgetReader->getAll());
+
+                return;
+            }
+
+            $self->executeResetMultiple($self->orderBudgetReader->getByIds($orderBudgetIds));
         });
     }
 
     /**
+     * @param array<\Generated\Shared\Transfer\OrderBudgetTransfer> $orderBudgetTransfers
+     *
      * @return void
      */
-    protected function executeResetAllTransaction(): void
+    protected function executeResetMultiple(array $orderBudgetTransfers): void
     {
-        $orderBudgetTransfers = $this->orderBudgetReader->getAll();
-
         foreach ($orderBudgetTransfers as $orderBudgetTransfer) {
             $now = $this->utilDateTimeService->formatDate(new DateTime());
 

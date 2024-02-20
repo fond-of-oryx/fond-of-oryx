@@ -10,6 +10,8 @@ use Orm\Zed\OrderBudget\Persistence\Base\FooOrderBudgetQuery;
 use Spryker\Zed\Kernel\Persistence\AbstractPersistenceFactory;
 
 /**
+ * @codeCoverageIgnore
+ *
  * @method \FondOfOryx\Zed\OrderBudget\Persistence\OrderBudgetEntityManagerInterface getEntityManager()
  * @method \FondOfOryx\Zed\OrderBudget\Persistence\OrderBudgetRepositoryInterface getRepository()
  * @method \FondOfOryx\Zed\OrderBudget\OrderBudgetConfig getConfig()

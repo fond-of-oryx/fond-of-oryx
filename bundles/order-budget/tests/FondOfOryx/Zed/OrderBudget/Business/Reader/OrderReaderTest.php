@@ -57,4 +57,22 @@ class OrderReaderTest extends Unit
             $this->orderReader->getAll(),
         );
     }
+
+    /**
+     * @return void
+     */
+    public function testGetByIds(): void
+    {
+        $orderBudgetIds = [11];
+
+        $this->repositoryMock->expects(static::atLeastOnce())
+            ->method('findOrderBudgetsByOrderBudgetIds')
+            ->with($orderBudgetIds)
+            ->willReturn($this->orderBudgetTransferMocks);
+
+        static::assertEquals(
+            $this->orderBudgetTransferMocks,
+            $this->orderReader->getByIds($orderBudgetIds),
+        );
+    }
 }

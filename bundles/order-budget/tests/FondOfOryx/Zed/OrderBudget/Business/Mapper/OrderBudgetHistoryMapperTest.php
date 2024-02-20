@@ -52,6 +52,8 @@ class OrderBudgetHistoryMapperTest extends Unit
             'budget' => 20000,
             'valid_from' => '2022-01-01',
             'valid_to' => null,
+            'initial_budget' => null,
+            'next_initial_budget' => null,
         ];
 
         $this->orderBudgetHistoryMapper = new OrderBudgetHistoryMapper(
