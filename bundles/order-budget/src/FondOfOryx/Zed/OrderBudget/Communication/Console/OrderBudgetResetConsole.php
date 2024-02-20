@@ -60,12 +60,12 @@ class OrderBudgetResetConsole extends Console
      */
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
+        /** @var array<int> $orderBudgetIds */
         $orderBudgetIds = [];
 
         if ($input->getOption(static::ORDER_BUDGET_IDS_OPTION)) {
-            /** @var string $idsString */
-            $idsString = $input->getOption(static::ORDER_BUDGET_IDS_OPTION);
-            $orderBudgetIds = explode(',', $idsString);
+            $idsString = (string)$input->getOption(static::ORDER_BUDGET_IDS_OPTION);
+            $orderBudgetIds = array_map('intval', explode(',', $idsString));
         }
 
         $this->info('Reset order budgets');

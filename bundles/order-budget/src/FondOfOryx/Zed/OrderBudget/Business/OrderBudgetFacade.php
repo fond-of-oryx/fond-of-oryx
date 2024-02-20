@@ -17,6 +17,8 @@ class OrderBudgetFacade extends AbstractFacade implements OrderBudgetFacadeInter
      *
      * @api
      *
+     * @param array<int> $orderBudgetIds
+     *
      * @return void
      */
     public function resetOrderBudgets(array $orderBudgetIds = []): void

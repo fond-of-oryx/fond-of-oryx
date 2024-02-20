@@ -11,11 +11,11 @@ interface OrderBudgetFacadeInterface
      * - Resets multiple/all order budgets
      * - Saves old data to history
      *
+     * @api
+     *
      * @param array<int> $orderBudgetIds
      *
      * @return void
-     *@api
-     *
      */
     public function resetOrderBudgets(array $orderBudgetIds = []): void;
 
