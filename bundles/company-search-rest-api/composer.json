@@ -8,20 +8,9 @@
       "email": "daniel-rose@gmx.de"
     }
   ],
-  "repositories": [
-    {
-      "name": "fond-of-oryx/company-search-rest-api-extension",
-      "type":"path",
-      "options": {
-        "symlink": false
-      },
-      "packagist.org": false,
-      "url":"../company-search-rest-api-extension"
-    }
-  ],
   "require": {
     "php": ">=8.0",
-    "fond-of-oryx/company-search-rest-api-extension": "dev-main",
+    "fond-of-oryx/company-search-rest-api-extension": "^1.1.0",
     "spryker/company": "^1.0.0",
     "spryker/glossary-storage": "^1.5.0",
     "spryker/glue-application": "^1.0.0",
