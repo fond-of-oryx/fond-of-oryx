@@ -77,7 +77,6 @@ class OrderBudgetResetter implements OrderBudgetResetterInterface
      */
     protected function executeResetAllTransaction(): void
     {
-        $initialBudget = $this->config->getInitialBudget();
         $orderBudgetTransfers = $this->orderBudgetReader->getAll();
 
         foreach ($orderBudgetTransfers as $orderBudgetTransfer) {
@@ -88,7 +87,14 @@ class OrderBudgetResetter implements OrderBudgetResetterInterface
 
             $this->entityManager->createOrderBudgetHistory($orderBudgetHistoryTransfer);
 
-            $orderBudgetTransfer->setBudget($initialBudget);
+            if ($orderBudgetTransfer->getNextInitialBudget() === null) {
+                $orderBudgetTransfer->setNextInitialBudget($this->config->getInitialBudget());
+            }
+
+            $nextInitialBudget = $orderBudgetTransfer->getNextInitialBudget();
+
+            $orderBudgetTransfer->setInitialBudget($nextInitialBudget)
+                ->setBudget($nextInitialBudget);
 
             $this->entityManager->updateOrderBudget($orderBudgetTransfer);
         }

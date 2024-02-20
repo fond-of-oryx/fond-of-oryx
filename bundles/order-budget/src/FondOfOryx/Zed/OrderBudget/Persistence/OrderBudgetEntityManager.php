@@ -45,7 +45,7 @@ class OrderBudgetEntityManager extends AbstractEntityManager implements OrderBud
             return;
         }
 
-        $entity->fromArray($orderBudgetTransfer->toArray(true));
+        $entity->fromArray($orderBudgetTransfer->modifiedToArray(true));
 
         $entity->save();
     }

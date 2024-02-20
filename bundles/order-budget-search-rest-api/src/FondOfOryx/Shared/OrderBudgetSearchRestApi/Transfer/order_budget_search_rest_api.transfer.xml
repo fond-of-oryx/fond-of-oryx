@@ -32,6 +32,8 @@
 
     <transfer name="RestOrderBudgetsAttributes">
         <property name="id" type="string"/>
+        <property name="initialBudget" type="int" />
+        <property name="nextInitialBudget" type="int" />
         <property name="budget" type="int"/>
     </transfer>
 
@@ -47,6 +49,8 @@
         <property name="idOrderBudget" type="int" />
         <property name="uuid" type="string" />
         <property name="budget" type="int" />
+        <property name="initialBudget" type="int" />
+        <property name="nextInitialBudget" type="int" />
         <property name="createdAt" type="string" />
         <property name="updatedAt" type="string" />
     </transfer>

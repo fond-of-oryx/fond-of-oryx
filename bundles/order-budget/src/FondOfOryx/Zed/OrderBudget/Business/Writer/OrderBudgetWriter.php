@@ -41,7 +41,10 @@ class OrderBudgetWriter implements OrderBudgetWriterInterface
             $budget = $this->config->getInitialBudget();
         }
 
-        $orderBudgetTransfer = (new OrderBudgetTransfer())->setBudget($budget);
+        $orderBudgetTransfer = (new OrderBudgetTransfer())
+            ->setNextInitialBudget($budget)
+            ->setInitialBudget($budget)
+            ->setBudget($budget);
 
         return $this->entityManager->createOrderBudget($orderBudgetTransfer);
     }
