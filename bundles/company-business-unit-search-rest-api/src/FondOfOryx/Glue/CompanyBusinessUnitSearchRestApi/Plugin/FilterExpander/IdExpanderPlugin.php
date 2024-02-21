@@ -25,7 +25,7 @@ class IdExpanderPlugin implements FilterFieldsExpanderPluginInterface
     {
         $companyUuids = $restRequest->getHttpRequest()->get(static::FILTER_NAME);
 
-        if (!is_array($companyUuids) && count($companyUuids) === 0) {
+        if (!is_array($companyUuids) || count($companyUuids) === 0) {
             return $filterFieldTransfers;
         }
 
