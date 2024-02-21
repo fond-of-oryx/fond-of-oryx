@@ -5,6 +5,8 @@ namespace FondOfOryx\Glue\CompanyBusinessUnitSearchRestApi;
 use FondOfOryx\Glue\CompanyBusinessUnitSearchRestApi\Dependency\Client\CompanyBusinessUnitSearchRestApiToGlossaryStorageClientInterface;
 use FondOfOryx\Glue\CompanyBusinessUnitSearchRestApi\Processor\Builder\RestResponseBuilder;
 use FondOfOryx\Glue\CompanyBusinessUnitSearchRestApi\Processor\Builder\RestResponseBuilderInterface;
+use FondOfOryx\Glue\CompanyBusinessUnitSearchRestApi\Processor\Expander\FilterExpander;
+use FondOfOryx\Glue\CompanyBusinessUnitSearchRestApi\Processor\Expander\FilterExpanderInterface;
 use FondOfOryx\Glue\CompanyBusinessUnitSearchRestApi\Processor\Filter\CustomerIdFilter;
 use FondOfOryx\Glue\CompanyBusinessUnitSearchRestApi\Processor\Filter\CustomerIdFilterInterface;
 use FondOfOryx\Glue\CompanyBusinessUnitSearchRestApi\Processor\Filter\CustomerReferenceFilter;
@@ -72,7 +74,7 @@ class CompanyBusinessUnitSearchRestApiFactory extends AbstractFactory
      */
     protected function createRequestParameterFilter(): RequestParameterFilterInterface
     {
-        return new RequestParameterFilter();
+        return new RequestParameterFilter($this->createFilterExpander());
     }
 
     /**
@@ -89,6 +91,14 @@ class CompanyBusinessUnitSearchRestApiFactory extends AbstractFactory
     protected function createCustomerIdFilter(): CustomerIdFilterInterface
     {
         return new CustomerIdFilter();
+    }
+
+    /**
+     * @return \FondOfOryx\Glue\CompanyBusinessUnitSearchRestApi\Processor\Expander\FilterExpanderInterface
+     */
+    protected function createFilterExpander(): FilterExpanderInterface
+    {
+        return new FilterExpander($this->getFilterFieldsExpanderPlugins());
     }
 
     /**
@@ -159,5 +169,15 @@ class CompanyBusinessUnitSearchRestApiFactory extends AbstractFactory
     protected function getGlossaryStorageClient(): CompanyBusinessUnitSearchRestApiToGlossaryStorageClientInterface
     {
         return $this->getProvidedDependency(CompanyBusinessUnitSearchRestApiDependencyProvider::CLIENT_GLOSSARY_STORAGE);
+    }
+
+    /**
+     * @return array<\FondOfOryx\Glue\CompanyBusinessUnitSearchRestApiExtension\Dependency\Plugin\FilterFieldsExpanderPluginInterface>
+     */
+    protected function getFilterFieldsExpanderPlugins(): array
+    {
+        return $this->getProvidedDependency(
+            CompanyBusinessUnitSearchRestApiDependencyProvider::PLUGINS_FILTER_FIELDS_EXPANDER,
+        );
     }
 }

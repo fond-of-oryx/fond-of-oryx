@@ -3,6 +3,7 @@
 namespace FondOfOryx\Zed\CompanyBusinessUnitSearchRestApi\Persistence;
 
 use ArrayObject;
+use FondOfOryx\Shared\CompanyBusinessUnitSearchRestApi\CompanyBusinessUnitSearchRestApiConstants;
 use Generated\Shared\Transfer\CompanyBusinessUnitListTransfer;
 use Orm\Zed\CompanyBusinessUnit\Persistence\Map\SpyCompanyBusinessUnitTableMap;
 use Orm\Zed\CompanyBusinessUnit\Persistence\SpyCompanyBusinessUnitQuery;
@@ -55,14 +56,21 @@ class CompanyBusinessUnitSearchRestApiRepository extends AbstractRepository impl
         SpyCompanyBusinessUnitQuery $companyBusinessUnitQuery,
         CompanyBusinessUnitListTransfer $companyBusinessUnitListTransfer
     ): SpyCompanyBusinessUnitQuery {
-        if ($companyBusinessUnitListTransfer->getCompanyUuid() !== null) {
+        $companyUuids = [];
+        foreach ($companyBusinessUnitListTransfer->getFilterFields() as $filterField){
+            if ($filterField->getType() === CompanyBusinessUnitSearchRestApiConstants::FILTER_FIELD_TYPE_COMPANY_UUID && !in_array($filterField->getValue(), $companyUuids, true)){
+                $companyUuids[] = $filterField->getValue();
+            }
+        }
+
+        if (count($companyUuids) > 0) {
             return $companyBusinessUnitQuery
                 ->useCompanyQuery()
                     ->useCompanyUserQuery()
                         ->filterByFkCustomer($companyBusinessUnitListTransfer->getCustomerId())
                         ->filterByIsActive(true)
                     ->endUse()
-                    ->filterByUuid($companyBusinessUnitListTransfer->getCompanyUuid())
+                    ->filterByUuid_In($companyUuids)
                     ->filterByIsActive(true)
                 ->endUse();
         }
@@ -88,7 +96,13 @@ class CompanyBusinessUnitSearchRestApiRepository extends AbstractRepository impl
         SpyCompanyBusinessUnitQuery $companyBusinessUnitQuery,
         CompanyBusinessUnitListTransfer $companyBusinessUnitListTransfer
     ): SpyCompanyBusinessUnitQuery {
-        $sort = $companyBusinessUnitListTransfer->getSort();
+        $sort = null;
+        foreach ($companyBusinessUnitListTransfer->getFilterFields() as $filterField){
+            if ($filterField->getType() === CompanyBusinessUnitSearchRestApiConstants::FILTER_FIELD_TYPE_SORT){
+                $sort = $filterField->getType();
+                break;
+            }
+        }
 
         if ($sort === null) {
             return $companyBusinessUnitQuery;

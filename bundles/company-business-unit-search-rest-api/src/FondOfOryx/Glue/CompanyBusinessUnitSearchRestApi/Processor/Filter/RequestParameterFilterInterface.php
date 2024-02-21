@@ -2,15 +2,15 @@
 
 namespace FondOfOryx\Glue\CompanyBusinessUnitSearchRestApi\Processor\Filter;
 
+use ArrayObject;
 use Spryker\Glue\GlueApplication\Rest\Request\Data\RestRequestInterface;
 
 interface RequestParameterFilterInterface
 {
     /**
      * @param \Spryker\Glue\GlueApplication\Rest\Request\Data\RestRequestInterface $restRequest
-     * @param string $parameterName
-     *
-     * @return string|null
+     * @param \ArrayObject|null $filterFieldTransfers
+     * @return \ArrayObject
      */
-    public function getRequestParameter(RestRequestInterface $restRequest, string $parameterName): ?string;
+    public function getRequestParameter(RestRequestInterface $restRequest, ?ArrayObject $filterFieldTransfers = null): ArrayObject;
 }
