@@ -10,9 +10,5 @@
         <foreign-key name="spy_company_business_unit-fk_order_budget" foreignTable="foo_order_budget">
             <reference local="fk_order_budget" foreign="id_order_budget"/>
         </foreign-key>
-
-        <behavior name="event">
-            <parameter name="spy_company_business_unit_all" column="*"/>
-        </behavior>
     </table>
 </database>

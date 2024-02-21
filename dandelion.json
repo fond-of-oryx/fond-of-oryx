@@ -113,7 +113,7 @@
     },
     "company-business-unit-order-budget": {
       "path": "bundles/company-business-unit-order-budget/",
-      "version": "2.1.0"
+      "version": "2.2.0"
     },
     "company-business-unit-search-rest-api": {
       "path": "bundles/company-business-unit-search-rest-api/",
