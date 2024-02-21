@@ -20,7 +20,7 @@
         <column name="fk_order_budget" type="INTEGER" required="true"/>
         <column name="initial_budget" type="INTEGER" required="false"/>
         <column name="next_initial_budget" type="INTEGER" required="false"/>
-        <column name="budget" type="INTEGER" required="true"/>
+        <column name="budget" type="INTEGER" required="false"/>
         <column name="valid_from" type="DATE" required="true"/>
         <column name="valid_to" type="DATE" required="true"/>
 
