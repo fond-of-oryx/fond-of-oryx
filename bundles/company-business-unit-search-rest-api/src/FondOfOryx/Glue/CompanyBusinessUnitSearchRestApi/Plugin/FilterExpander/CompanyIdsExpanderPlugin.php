@@ -10,11 +10,15 @@ use Spryker\Glue\GlueApplication\Rest\Request\Data\RestRequestInterface;
 
 class CompanyIdsExpanderPlugin implements FilterFieldsExpanderPluginInterface
 {
+    /**
+     * @var string
+     */
     public const FILTER_NAME = 'company-id';
 
     /**
      * @param \Spryker\Glue\GlueApplication\Rest\Request\Data\RestRequestInterface $restRequest
      * @param \ArrayObject $filterFieldTransfers
+     *
      * @return \ArrayObject
      */
     public function expand(RestRequestInterface $restRequest, ArrayObject $filterFieldTransfers): ArrayObject
@@ -33,5 +37,4 @@ class CompanyIdsExpanderPlugin implements FilterFieldsExpanderPluginInterface
 
         return $filterFieldTransfers;
     }
-
 }

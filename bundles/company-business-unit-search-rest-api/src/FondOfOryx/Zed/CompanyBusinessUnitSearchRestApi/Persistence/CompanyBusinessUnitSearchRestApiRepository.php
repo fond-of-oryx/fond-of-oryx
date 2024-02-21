@@ -57,8 +57,8 @@ class CompanyBusinessUnitSearchRestApiRepository extends AbstractRepository impl
         CompanyBusinessUnitListTransfer $companyBusinessUnitListTransfer
     ): SpyCompanyBusinessUnitQuery {
         $companyUuids = [];
-        foreach ($companyBusinessUnitListTransfer->getFilterFields() as $filterField){
-            if ($filterField->getType() === CompanyBusinessUnitSearchRestApiConstants::FILTER_FIELD_TYPE_COMPANY_UUID && !in_array($filterField->getValue(), $companyUuids, true)){
+        foreach ($companyBusinessUnitListTransfer->getFilterFields() as $filterField) {
+            if ($filterField->getType() === CompanyBusinessUnitSearchRestApiConstants::FILTER_FIELD_TYPE_COMPANY_UUID && !in_array($filterField->getValue(), $companyUuids, true)) {
                 $companyUuids[] = $filterField->getValue();
             }
         }
@@ -97,9 +97,10 @@ class CompanyBusinessUnitSearchRestApiRepository extends AbstractRepository impl
         CompanyBusinessUnitListTransfer $companyBusinessUnitListTransfer
     ): SpyCompanyBusinessUnitQuery {
         $sort = null;
-        foreach ($companyBusinessUnitListTransfer->getFilterFields() as $filterField){
-            if ($filterField->getType() === CompanyBusinessUnitSearchRestApiConstants::FILTER_FIELD_TYPE_SORT){
+        foreach ($companyBusinessUnitListTransfer->getFilterFields() as $filterField) {
+            if ($filterField->getType() === CompanyBusinessUnitSearchRestApiConstants::FILTER_FIELD_TYPE_SORT) {
                 $sort = $filterField->getType();
+
                 break;
             }
         }

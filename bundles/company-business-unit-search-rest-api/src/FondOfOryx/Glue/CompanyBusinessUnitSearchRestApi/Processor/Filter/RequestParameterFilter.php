@@ -21,13 +21,15 @@ class RequestParameterFilter implements RequestParameterFilterInterface
     /**
      * @param \Spryker\Glue\GlueApplication\Rest\Request\Data\RestRequestInterface $restRequest
      * @param \ArrayObject|null $filterFieldTransfers
+     *
      * @return \ArrayObject
      */
     public function getRequestParameter(RestRequestInterface $restRequest, ?ArrayObject $filterFieldTransfers = null): ArrayObject
     {
-        if ($filterFieldTransfers === null){
+        if ($filterFieldTransfers === null) {
             $filterFieldTransfers = new ArrayObject();
         }
+
         return $this->expander->expand($restRequest, $filterFieldTransfers);
     }
 }

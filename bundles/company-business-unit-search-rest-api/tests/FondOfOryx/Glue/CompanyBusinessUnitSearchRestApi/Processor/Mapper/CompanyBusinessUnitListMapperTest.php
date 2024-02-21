@@ -2,6 +2,7 @@
 
 namespace FondOfOryx\Glue\CompanyBusinessUnitSearchRestApi\Processor\Mapper;
 
+use ArrayObject;
 use Codeception\Test\Unit;
 use FondOfOryx\Glue\CompanyBusinessUnitSearchRestApi\Processor\Filter\CustomerIdFilterInterface;
 use FondOfOryx\Glue\CompanyBusinessUnitSearchRestApi\Processor\Filter\CustomerReferenceFilterInterface;
@@ -91,9 +92,6 @@ class CompanyBusinessUnitListMapperTest extends Unit
     public function testFromRestRequest(): void
     {
         $customerReference = 'FOO-C--1';
-        $query = 'foo';
-        $sort = 'foo_asc';
-        $comanyUuid = 'foo company uuid';
 
         $this->paginationMapperMock->expects(static::atLeastOnce())
             ->method('fromRestRequest')
@@ -102,8 +100,7 @@ class CompanyBusinessUnitListMapperTest extends Unit
 
         $this->requestParameterFilterMock->expects(static::atLeastOnce())
             ->method('getRequestParameter')
-            ->withConsecutive([$this->restRequestMock, 'company-id'], [$this->restRequestMock, 'sort'])
-            ->willReturnOnConsecutiveCalls($comanyUuid, $sort);
+            ->willReturnOnConsecutiveCalls(new ArrayObject());
 
         $this->customerReferenceFilterMock->expects(static::atLeastOnce())
             ->method('filterFromRestRequest')
@@ -115,16 +112,6 @@ class CompanyBusinessUnitListMapperTest extends Unit
         static::assertEquals(
             $customerReference,
             $companyBusinessUnitListTransfer->getCustomerReference(),
-        );
-
-        static::assertEquals(
-            $sort,
-            $companyBusinessUnitListTransfer->getSort(),
-        );
-
-        static::assertEquals(
-            $comanyUuid,
-            $companyBusinessUnitListTransfer->getCompanyUuid(),
         );
 
         static::assertEquals(

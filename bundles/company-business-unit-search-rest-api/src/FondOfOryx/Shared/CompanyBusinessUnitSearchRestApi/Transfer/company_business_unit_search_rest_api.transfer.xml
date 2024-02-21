@@ -74,4 +74,9 @@
         <property name="iban" type="string"/>
         <property name="bic" type="string"/>
     </transfer>
+
+    <transfer name="FilterField">
+        <property name="type" type="string"/>
+        <property name="value" type="string"/>
+    </transfer>
 </transfers>

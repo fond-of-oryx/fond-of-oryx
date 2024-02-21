@@ -13,6 +13,9 @@ class CompanyBusinessUnitSearchRestApiDependencyProvider extends AbstractBundleD
      */
     public const CLIENT_GLOSSARY_STORAGE = 'CLIENT_GLOSSARY_STORAGE';
 
+    /**
+     * @var string
+     */
     public const PLUGINS_FILTER_FIELDS_EXPANDER = 'PLUGINS_FILTER_FIELDS_EXPANDER';
 
     /**
