@@ -52,5 +52,10 @@ interface CompanyBusinessUnitSearchRestApiConstants
     /**
      * @var string
      */
+    public const FILTER_FIELD_TYPE_COMPANY_BUSINESS_UNIT_UUID = 'companyBusinessUnitUuid';
+
+    /**
+     * @var string
+     */
     public const FILTER_FIELD_TYPE_SORT = 'sort';
 }

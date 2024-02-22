@@ -23,7 +23,7 @@ class CompanyBusinessUnitSearchRestApiRepository extends AbstractRepository impl
      */
     public function searchCompanyBusinessUnit(CompanyBusinessUnitListTransfer $companyBusinessUnitListTransfer): CompanyBusinessUnitListTransfer
     {
-        $companyBusinessUnitQuery = $this->getBaseQuery();
+        $companyBusinessUnitQuery = $this->getBaseQuery($companyBusinessUnitListTransfer);
         $companyBusinessUnitQuery = $this->addCompanyQuery($companyBusinessUnitQuery, $companyBusinessUnitListTransfer);
 
         $companyBusinessUnitQuery = $this->addSort($companyBusinessUnitQuery, $companyBusinessUnitListTransfer);
@@ -39,11 +39,24 @@ class CompanyBusinessUnitSearchRestApiRepository extends AbstractRepository impl
     /**
      * @return \Orm\Zed\CompanyBusinessUnit\Persistence\SpyCompanyBusinessUnitQuery
      */
-    protected function getBaseQuery(): SpyCompanyBusinessUnitQuery
+    protected function getBaseQuery(CompanyBusinessUnitListTransfer $companyBusinessUnitListTransfer): SpyCompanyBusinessUnitQuery
     {
-        return $this->getFactory()
+        $query = $this->getFactory()
             ->getCompanyBusinessUnitQuery()
             ->clear();
+
+        $companyBusinessUnitUuids = [];
+        foreach ($companyBusinessUnitListTransfer->getFilterFields() as $filterField) {
+            if ($filterField->getType() === CompanyBusinessUnitSearchRestApiConstants::FILTER_FIELD_TYPE_COMPANY_BUSINESS_UNIT_UUID && !in_array($filterField->getValue(), $companyBusinessUnitUuids, true)) {
+                $companyBusinessUnitUuids[] = $filterField->getValue();
+            }
+        }
+
+        if (count($companyBusinessUnitUuids) === 0){
+            return $query;
+        }
+
+        return $query->filterByUuid_In($companyBusinessUnitUuids);
     }
 
     /**

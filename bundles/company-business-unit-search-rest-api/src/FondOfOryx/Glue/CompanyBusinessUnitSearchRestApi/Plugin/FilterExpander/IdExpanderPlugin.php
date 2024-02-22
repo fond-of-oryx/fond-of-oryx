@@ -23,17 +23,23 @@ class IdExpanderPlugin implements FilterFieldsExpanderPluginInterface
      */
     public function expand(RestRequestInterface $restRequest, ArrayObject $filterFieldTransfers): ArrayObject
     {
-        $companyUuids = $restRequest->getHttpRequest()->get(static::FILTER_NAME);
+        $companyUuids = null;
+        $query = $restRequest->getHttpRequest()->query;
+        if ($query->getIterator()->offsetExists(static::FILTER_NAME)){
+            $companyUuids = $query->getIterator()->offsetGet(static::FILTER_NAME);
+        }
 
         if (!is_array($companyUuids) || count($companyUuids) === 0) {
             return $filterFieldTransfers;
         }
 
-        $filterFieldTransfer = (new FilterFieldTransfer())
-            ->setType(CompanyBusinessUnitSearchRestApiConstants::FILTER_FIELD_TYPE_COMPANY_UUID)
-            ->setValue($companyUuids);
+        foreach ($companyUuids as $companyUuid){
+            $filterFieldTransfer = (new FilterFieldTransfer())
+                ->setType(CompanyBusinessUnitSearchRestApiConstants::FILTER_FIELD_TYPE_COMPANY_BUSINESS_UNIT_UUID)
+                ->setValue($companyUuid);
 
-        $filterFieldTransfers->append($filterFieldTransfer);
+            $filterFieldTransfers->append($filterFieldTransfer);
+        }
 
         return $filterFieldTransfers;
     }
