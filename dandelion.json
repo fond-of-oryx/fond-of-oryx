@@ -725,7 +725,7 @@
     },
     "order-budget": {
       "path": "bundles/order-budget/",
-      "version": "2.2.0"
+      "version": "2.2.1"
     },
     "order-budget-search-rest-api": {
       "path": "bundles/order-budget-search-rest-api/",
