@@ -41,7 +41,7 @@ class RestCompanyBusinessUnitSearchSortMapper implements RestCompanyBusinessUnit
         $sort = null;
         foreach ($companyBusinessUnitListTransfer->getFilterFields() as $filterField) {
             if ($filterField->getType() === CompanyBusinessUnitSearchRestApiConstants::FILTER_FIELD_TYPE_SORT) {
-                $sort = $filterField->getType();
+                $sort = $filterField->getValue();
 
                 break;
             }

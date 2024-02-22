@@ -25,7 +25,7 @@ class IdExpanderPlugin implements FilterFieldsExpanderPluginInterface
     {
         $companyUuids = null;
         $query = $restRequest->getHttpRequest()->query;
-        if ($query->getIterator()->offsetExists(static::FILTER_NAME)){
+        if ($query->getIterator()->offsetExists(static::FILTER_NAME)) {
             $companyUuids = $query->getIterator()->offsetGet(static::FILTER_NAME);
         }
 
@@ -33,7 +33,7 @@ class IdExpanderPlugin implements FilterFieldsExpanderPluginInterface
             return $filterFieldTransfers;
         }
 
-        foreach ($companyUuids as $companyUuid){
+        foreach ($companyUuids as $companyUuid) {
             $filterFieldTransfer = (new FilterFieldTransfer())
                 ->setType(CompanyBusinessUnitSearchRestApiConstants::FILTER_FIELD_TYPE_COMPANY_BUSINESS_UNIT_UUID)
                 ->setValue($companyUuid);

@@ -37,6 +37,8 @@ class CompanyBusinessUnitSearchRestApiRepository extends AbstractRepository impl
     }
 
     /**
+     * @param \Generated\Shared\Transfer\CompanyBusinessUnitListTransfer $companyBusinessUnitListTransfer
+     *
      * @return \Orm\Zed\CompanyBusinessUnit\Persistence\SpyCompanyBusinessUnitQuery
      */
     protected function getBaseQuery(CompanyBusinessUnitListTransfer $companyBusinessUnitListTransfer): SpyCompanyBusinessUnitQuery
@@ -52,7 +54,7 @@ class CompanyBusinessUnitSearchRestApiRepository extends AbstractRepository impl
             }
         }
 
-        if (count($companyBusinessUnitUuids) === 0){
+        if (count($companyBusinessUnitUuids) === 0) {
             return $query;
         }
 
@@ -112,7 +114,7 @@ class CompanyBusinessUnitSearchRestApiRepository extends AbstractRepository impl
         $sort = null;
         foreach ($companyBusinessUnitListTransfer->getFilterFields() as $filterField) {
             if ($filterField->getType() === CompanyBusinessUnitSearchRestApiConstants::FILTER_FIELD_TYPE_SORT) {
-                $sort = $filterField->getType();
+                $sort = $filterField->getValue();
 
                 break;
             }
