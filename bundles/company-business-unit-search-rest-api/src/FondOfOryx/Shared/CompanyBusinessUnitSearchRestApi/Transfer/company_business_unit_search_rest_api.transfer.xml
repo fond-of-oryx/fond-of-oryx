@@ -56,6 +56,7 @@
         <property name="companyUuid" type="string"/>
         <property name="customerReference" type="string"/>
         <property name="customerId" type="int"/>
+        <property name="filterFields" singular="filterField" type="FilterField[]"/>
         <property name="companyBusinessUnits" singular="companyBusinessUnit" type="CompanyBusinessUnit[]"/>
         <property name="sort" type="string"/>
         <property name="pagination" type="Pagination"/>
@@ -72,5 +73,10 @@
         <property name="phone" type="string"/>
         <property name="iban" type="string"/>
         <property name="bic" type="string"/>
+    </transfer>
+
+    <transfer name="FilterField">
+        <property name="type" type="string"/>
+        <property name="value" type="string"/>
     </transfer>
 </transfers>

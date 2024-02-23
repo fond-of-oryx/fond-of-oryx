@@ -43,4 +43,19 @@ interface CompanyBusinessUnitSearchRestApiConstants
      * @var array
      */
     public const FULLTEXT_SEARCH_FIELDS_DEFAULT = [];
+
+    /**
+     * @var string
+     */
+    public const FILTER_FIELD_TYPE_COMPANY_UUID = 'companyUuid';
+
+    /**
+     * @var string
+     */
+    public const FILTER_FIELD_TYPE_COMPANY_BUSINESS_UNIT_UUID = 'companyBusinessUnitUuid';
+
+    /**
+     * @var string
+     */
+    public const FILTER_FIELD_TYPE_SORT = 'sort';
 }

@@ -57,8 +57,7 @@ class CompanyBusinessUnitListMapper implements CompanyBusinessUnitListMapperInte
     {
         return (new CompanyBusinessUnitListTransfer())
             ->setPagination($this->paginationMapper->fromRestRequest($restRequest))
-            ->setCompanyUuid($this->requestParameterFilter->getRequestParameter($restRequest, 'company-id'))
-            ->setSort($this->requestParameterFilter->getRequestParameter($restRequest, 'sort'))
+            ->setFilterFields($this->requestParameterFilter->getRequestParameter($restRequest))
             ->setCustomerId($this->customerIdFilter->filterFromRestRequest($restRequest))
             ->setCustomerReference($this->customerReferenceFilter->filterFromRestRequest($restRequest));
     }
