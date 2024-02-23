@@ -101,7 +101,11 @@
     },
     "company-business-unit-address-search-rest-api": {
       "path": "bundles/company-business-unit-address-search-rest-api/",
-      "version": "2.0.1"
+      "version": "3.0.0"
+    },
+    "company-business-unit-address-search-rest-api-extension": {
+      "path": "bundles/company-business-unit-address-search-rest-api-extension/",
+      "version": "1.0.0"
     },
     "company-business-unit-api": {
       "path": "bundles/company-business-unit-api/",

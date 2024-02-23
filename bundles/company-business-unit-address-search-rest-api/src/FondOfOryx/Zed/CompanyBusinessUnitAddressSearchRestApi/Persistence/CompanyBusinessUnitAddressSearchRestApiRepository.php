@@ -34,8 +34,7 @@ class CompanyBusinessUnitAddressSearchRestApiRepository extends AbstractReposito
      */
     public function searchCompanyBusinessUnitAddress(
         CompanyBusinessUnitAddressListTransfer $companyBusinessUnitAddressListTransfer
-    ): CompanyBusinessUnitAddressListTransfer
-    {
+    ): CompanyBusinessUnitAddressListTransfer {
         $defaultAddressIds = $this->getDefaultAddressIds($companyBusinessUnitAddressListTransfer);
 
         $companyUnitAddressQuery = $this->getBaseQuery($companyBusinessUnitAddressListTransfer);
@@ -58,6 +57,8 @@ class CompanyBusinessUnitAddressSearchRestApiRepository extends AbstractReposito
     }
 
     /**
+     * @param \Generated\Shared\Transfer\CompanyBusinessUnitAddressListTransfer $companyBusinessUnitAddressListTransfer
+     *
      * @return \Orm\Zed\CompanyUnitAddress\Persistence\SpyCompanyUnitAddressQuery
      */
     protected function getBaseQuery(CompanyBusinessUnitAddressListTransfer $companyBusinessUnitAddressListTransfer): SpyCompanyUnitAddressQuery
@@ -68,7 +69,7 @@ class CompanyBusinessUnitAddressSearchRestApiRepository extends AbstractReposito
 
         $uuids = $this->getFilterValuesByType($companyBusinessUnitAddressListTransfer->getFilterFields(), CompanyBusinessUnitAddressSearchRestApiConstants::FILTER_FIELD_TYPE_COMPANY_BUSINESS_UNIT_ADDRESS_UUID);
 
-        if (count($uuids) > 0){
+        if (count($uuids) > 0) {
             $query->filterByUuid_In($uuids);
         }
 
@@ -82,8 +83,7 @@ class CompanyBusinessUnitAddressSearchRestApiRepository extends AbstractReposito
      */
     protected function getDefaultAddressIds(
         CompanyBusinessUnitAddressListTransfer $companyBusinessUnitAddressListTransfer
-    ): array
-    {
+    ): array {
         $query = $this->getFactory()
             ->getCompanyBusinessUnitQuery()
             ->clear()
@@ -145,10 +145,9 @@ class CompanyBusinessUnitAddressSearchRestApiRepository extends AbstractReposito
      * @return \Orm\Zed\CompanyUnitAddress\Persistence\SpyCompanyUnitAddressQuery
      */
     protected function addCompanyQuery(
-        SpyCompanyUnitAddressQuery             $companyUnitAddressQuery,
+        SpyCompanyUnitAddressQuery $companyUnitAddressQuery,
         CompanyBusinessUnitAddressListTransfer $companyBusinessUnitAddressListTransfer
-    ): SpyCompanyUnitAddressQuery
-    {
+    ): SpyCompanyUnitAddressQuery {
         $filter = $companyBusinessUnitAddressListTransfer->getFilterFields();
         $companyBusinessUnitUuid = $this->getFilterValueByType($filter, CompanyBusinessUnitAddressSearchRestApiConstants::FILTER_FIELD_TYPE_COMPANY_BUSINESS_UNIT_UUID);
         $companyUuid = $this->getFilterValueByType($filter, CompanyBusinessUnitAddressSearchRestApiConstants::FILTER_FIELD_TYPE_COMPANY_UUID);
@@ -213,10 +212,9 @@ class CompanyBusinessUnitAddressSearchRestApiRepository extends AbstractReposito
      * @return \Orm\Zed\CompanyUnitAddress\Persistence\SpyCompanyUnitAddressQuery
      */
     protected function addSort(
-        SpyCompanyUnitAddressQuery             $companyUnitAddressQuery,
+        SpyCompanyUnitAddressQuery $companyUnitAddressQuery,
         CompanyBusinessUnitAddressListTransfer $companyBusinessUnitAddressListTransfer
-    ): SpyCompanyUnitAddressQuery
-    {
+    ): SpyCompanyUnitAddressQuery {
         $sort = $this->getFilterValueByType($companyBusinessUnitAddressListTransfer->getFilterFields(), CompanyBusinessUnitAddressSearchRestApiConstants::FILTER_FIELD_TYPE_SORT);
 
         if ($sort === null) {
@@ -249,10 +247,9 @@ class CompanyBusinessUnitAddressSearchRestApiRepository extends AbstractReposito
      * @return \Orm\Zed\CompanyUnitAddress\Persistence\SpyCompanyUnitAddressQuery
      */
     protected function addFulltextSearchFields(
-        SpyCompanyUnitAddressQuery             $companyUnitAddressQuery,
+        SpyCompanyUnitAddressQuery $companyUnitAddressQuery,
         CompanyBusinessUnitAddressListTransfer $companyBusinessUnitAddressListTransfer
-    ): SpyCompanyUnitAddressQuery
-    {
+    ): SpyCompanyUnitAddressQuery {
         $query = $this->getFilterValueByType($companyBusinessUnitAddressListTransfer->getFilterFields(), CompanyBusinessUnitAddressSearchRestApiConstants::FILTER_FIELD_TYPE_FULL_TEXT);
 
         if ($query === null) {
@@ -294,10 +291,9 @@ class CompanyBusinessUnitAddressSearchRestApiRepository extends AbstractReposito
      * @return \Propel\Runtime\ActiveQuery\ModelCriteria
      */
     protected function preparePagination(
-        SpyCompanyUnitAddressQuery             $companyUnitAddressQuery,
+        SpyCompanyUnitAddressQuery $companyUnitAddressQuery,
         CompanyBusinessUnitAddressListTransfer $companyBusinessUnitAddressListTransfer
-    ): ModelCriteria
-    {
+    ): ModelCriteria {
         $config = $this->getFactory()->getConfig();
         $itemsPerPage = $config->getItemsPerPage();
         $validItemsPerPageOptions = $config->getValidItemsPerPageOptions();
@@ -330,11 +326,10 @@ class CompanyBusinessUnitAddressSearchRestApiRepository extends AbstractReposito
      * @return \Orm\Zed\CompanyUnitAddress\Persistence\SpyCompanyUnitAddressQuery
      */
     protected function addAddressFilter(
-        SpyCompanyUnitAddressQuery             $companyUnitAddressQuery,
+        SpyCompanyUnitAddressQuery $companyUnitAddressQuery,
         CompanyBusinessUnitAddressListTransfer $companyBusinessUnitAddressListTransfer,
-        array                                  $defaultAddressIds
-    ): SpyCompanyUnitAddressQuery
-    {
+        array $defaultAddressIds
+    ): SpyCompanyUnitAddressQuery {
         $filter = $companyBusinessUnitAddressListTransfer->getFilterFields();
         $defaultShippingAddress = $this->getFilterValueByType($filter, CompanyBusinessUnitAddressSearchRestApiConstants::FILTER_FIELD_TYPE_DEFAULT_SHIPPING);
         $defaultBillingAddress = $this->getFilterValueByType($filter, CompanyBusinessUnitAddressSearchRestApiConstants::FILTER_FIELD_TYPE_DEFAULT_BILLING);
@@ -361,15 +356,13 @@ class CompanyBusinessUnitAddressSearchRestApiRepository extends AbstractReposito
      * @return \Orm\Zed\CompanyUnitAddress\Persistence\SpyCompanyUnitAddressQuery
      */
     protected function addDefaultCompanyUnitAddressFilterQuery(
-        SpyCompanyUnitAddressQuery             $companyUnitAddressQuery,
+        SpyCompanyUnitAddressQuery $companyUnitAddressQuery,
         CompanyBusinessUnitAddressListTransfer $companyBusinessUnitAddressListTransfer,
-        array                                  $defaultAddressIds
-    ): SpyCompanyUnitAddressQuery
-    {
+        array $defaultAddressIds
+    ): SpyCompanyUnitAddressQuery {
         $filter = $companyBusinessUnitAddressListTransfer->getFilterFields();
         $defaultShippingAddress = $this->getFilterValueByType($filter, CompanyBusinessUnitAddressSearchRestApiConstants::FILTER_FIELD_TYPE_DEFAULT_SHIPPING);
         $defaultBillingAddress = $this->getFilterValueByType($filter, CompanyBusinessUnitAddressSearchRestApiConstants::FILTER_FIELD_TYPE_DEFAULT_BILLING);
-
 
         $defaultBillingAddressIds = $defaultAddressIds[static::KEY_DEFAULT_BILLING_IDS];
         $defaultShippingAddressIds = $defaultAddressIds[static::KEY_DEFAULT_SHIPPING_IDS];
@@ -441,10 +434,9 @@ class CompanyBusinessUnitAddressSearchRestApiRepository extends AbstractReposito
      */
     protected function prepareCompanyUnitAddressFilter(
         SpyCompanyUnitAddressQuery $companyUnitAddressQuery,
-        array                      $includeCompanyUnitAddressIds,
-        array                      $excludeCompanyUnitAddressIds
-    ): SpyCompanyUnitAddressQuery
-    {
+        array $includeCompanyUnitAddressIds,
+        array $excludeCompanyUnitAddressIds
+    ): SpyCompanyUnitAddressQuery {
         if (count($includeCompanyUnitAddressIds) > 0 && count($excludeCompanyUnitAddressIds) > 0) {
             return $companyUnitAddressQuery->filterByIdCompanyUnitAddress_In($includeCompanyUnitAddressIds)
                 ->filterByIdCompanyUnitAddress($excludeCompanyUnitAddressIds, Criteria::NOT_IN);
@@ -464,6 +456,7 @@ class CompanyBusinessUnitAddressSearchRestApiRepository extends AbstractReposito
     /**
      * @param \ArrayObject $filterCollection
      * @param string $type
+     *
      * @return string|int|bool|null
      */
     protected function getFilterValueByType(ArrayObject $filterCollection, string $type): string|int|bool|null
@@ -480,6 +473,7 @@ class CompanyBusinessUnitAddressSearchRestApiRepository extends AbstractReposito
     /**
      * @param \ArrayObject $filterCollection
      * @param string $type
+     *
      * @return array<string|int|bool>
      */
     protected function getFilterValuesByType(ArrayObject $filterCollection, string $type): array
