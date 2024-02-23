@@ -1,12 +1,8 @@
 {
-  "name": "fond-of-oryx/company-business-unit-address-search-rest-api",
-  "description": "Company business unit address search rest api bundle.",
+  "name": "fond-of-oryx/company-business-unit-address-search-rest-api-extension",
+  "description": "Company business unit address search rest api extension module.",
   "license": "MIT",
   "authors": [
-    {
-      "name": "Daniel Rose",
-      "email": "daniel-rose@gmx.de"
-    },
     {
       "name": "Julian Hyatt",
       "email": "dev@jzit.de"
@@ -14,14 +10,10 @@
   ],
   "require": {
     "php": ">=8.0",
-    "fond-of-spryker/company-unit-address-default-shipping": "dev-master",
-    "spryker/company-user": "^2.0.0",
-    "spryker/company-business-unit": "^2.0.0",
-    "spryker/company-unit-address": "^1.0.0",
-    "spryker/glossary-storage": "^1.5.0"
+    "spryker/glue-application": "^1.0.0"
   },
   "require-dev": {
-    "fond-of-codeception/spryker": "*",
+    "fond-of-codeception/spryker": "^2.0.0",
     "spryker/code-sniffer": "*",
     "spryker-sdk/phpstan-spryker": "*"
   },
@@ -35,8 +27,8 @@
   "autoload-dev": {
     "psr-4": {
       "FondOfOryx\\": "tests/FondOfOryx/",
-      "Generated\\": "src/Generated/",
-      "Orm\\": "src/Orm/"
+      "Generated\\":"src/Generated/",
+      "Orm\\":"src/Orm/"
     }
   },
   "config": {

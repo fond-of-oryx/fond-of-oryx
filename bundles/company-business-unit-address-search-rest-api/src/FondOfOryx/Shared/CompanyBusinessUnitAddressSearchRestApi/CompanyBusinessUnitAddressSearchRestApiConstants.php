@@ -43,4 +43,39 @@ interface CompanyBusinessUnitAddressSearchRestApiConstants
      * @var array
      */
     public const FULLTEXT_SEARCH_FIELDS_DEFAULT = ['address1', 'address2', 'address3', 'city', 'zip_code'];
+
+    /**
+     * @var string
+     */
+    public const FILTER_FIELD_TYPE_COMPANY_UUID = 'companyUuid';
+
+    /**
+     * @var string
+     */
+    public const FILTER_FIELD_TYPE_COMPANY_BUSINESS_UNIT_UUID = 'companyBusinessUnitUuid';
+
+    /**
+     * @var string
+     */
+    public const FILTER_FIELD_TYPE_COMPANY_BUSINESS_UNIT_ADDRESS_UUID = 'companyBusinessUnitAddressUuid';
+
+    /**
+     * @var string
+     */
+    public const FILTER_FIELD_TYPE_SORT = 'sort';
+
+    /**
+     * @var string
+     */
+    public const FILTER_FIELD_TYPE_DEFAULT_BILLING = 'defaultBilling';
+
+    /**
+     * @var string
+     */
+    public const FILTER_FIELD_TYPE_DEFAULT_SHIPPING = 'defaultShipping';
+
+    /**
+     * @var string
+     */
+    public const FILTER_FIELD_TYPE_FULL_TEXT = 'fullText';
 }

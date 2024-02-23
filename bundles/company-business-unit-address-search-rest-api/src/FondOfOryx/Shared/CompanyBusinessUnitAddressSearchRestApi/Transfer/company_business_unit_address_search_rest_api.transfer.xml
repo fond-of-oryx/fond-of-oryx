@@ -62,16 +62,17 @@
     </transfer>
 
     <transfer name="CompanyBusinessUnitAddressList">
-        <property name="companyUuid" type="string"/>
         <property name="companyBusinessUnitUuid" type="string"/>
         <property name="customerReference" type="string"/>
         <property name="customerId" type="int"/>
-        <property name="defaultBilling" type="bool"/>
-        <property name="defaultShipping" type="bool"/>
+        <property name="filterFields" singular="filterField" type="FilterField[]"/>
         <property name="companyBusinessUnitAddresses" singular="companyBusinessUnitAddress" type="CompanyBusinessUnitAddress[]"/>
-        <property name="sort" type="string"/>
-        <property name="query" type="string"/>
         <property name="pagination" type="Pagination"/>
+    </transfer>
+
+    <transfer name="FilterField">
+        <property name="type" type="string"/>
+        <property name="value" type="string"/>
     </transfer>
 
     <transfer name="CompanyBusinessUnitAddress">

@@ -26,6 +26,9 @@ use FondOfOryx\Glue\CompanyBusinessUnitAddressSearchRestApi\Processor\Reader\Com
 use FondOfOryx\Glue\CompanyBusinessUnitAddressSearchRestApi\Processor\Reader\CompanyBusinessUnitAddressReaderInterface;
 use FondOfOryx\Glue\CompanyBusinessUnitAddressSearchRestApi\Processor\Translator\RestCompanyBusinessUnitAddressSearchAttributesTranslator;
 use FondOfOryx\Glue\CompanyBusinessUnitAddressSearchRestApi\Processor\Translator\RestCompanyBusinessUnitAddressSearchAttributesTranslatorInterface;
+use FondOfOryx\Glue\CompanyBusinessUnitAddressSearchRestApi\CompanyBusinessUnitAddressSearchRestApiDependencyProvider;
+use FondOfOryx\Glue\CompanyBusinessUnitAddressSearchRestApi\Processor\Expander\FilterExpander;
+use FondOfOryx\Glue\CompanyBusinessUnitAddressSearchRestApi\Processor\Expander\FilterExpanderInterface;
 use Spryker\Glue\Kernel\AbstractFactory;
 
 /**
@@ -72,7 +75,7 @@ class CompanyBusinessUnitAddressSearchRestApiFactory extends AbstractFactory
      */
     protected function createRequestParameterFilter(): RequestParameterFilterInterface
     {
-        return new RequestParameterFilter();
+        return new RequestParameterFilter($this->createFilterExpander());
     }
 
     /**
@@ -89,6 +92,14 @@ class CompanyBusinessUnitAddressSearchRestApiFactory extends AbstractFactory
     protected function createCustomerIdFilter(): CustomerIdFilterInterface
     {
         return new CustomerIdFilter();
+    }
+
+    /**
+     * @return \FondOfOryx\Glue\CompanyBusinessUnitAddressSearchRestApi\Processor\Expander\FilterExpanderInterface
+     */
+    protected function createFilterExpander(): FilterExpanderInterface
+    {
+        return new FilterExpander($this->getFilterFieldsExpanderPlugins());
     }
 
     /**
@@ -159,5 +170,15 @@ class CompanyBusinessUnitAddressSearchRestApiFactory extends AbstractFactory
     protected function getGlossaryStorageClient(): CompanyBusinessUnitAddressSearchRestApiToGlossaryStorageClientInterface
     {
         return $this->getProvidedDependency(CompanyBusinessUnitAddressSearchRestApiDependencyProvider::CLIENT_GLOSSARY_STORAGE);
+    }
+
+    /**
+     * @return array<\FondOfOryx\Glue\CompanyBusinessUnitAddressSearchRestApiExtension\Dependency\Plugin\FilterFieldsExpanderPluginInterface>
+     */
+    protected function getFilterFieldsExpanderPlugins(): array
+    {
+        return $this->getProvidedDependency(
+            CompanyBusinessUnitAddressSearchRestApiDependencyProvider::PLUGINS_FILTER_FIELDS_EXPANDER,
+        );
     }
 }
