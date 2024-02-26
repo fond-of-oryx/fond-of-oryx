@@ -2,7 +2,10 @@
 
 namespace FondOfOryx\Glue\CompanyBusinessUnitAddressSearchRestApi\Processor\Filter;
 
+use ArrayObject;
 use Codeception\Test\Unit;
+use FondOfOryx\Glue\CompanyBusinessUnitAddressSearchRestApi\Processor\Expander\FilterExpanderInterface;
+use PHPUnit\Framework\MockObject\MockObject;
 use Spryker\Glue\GlueApplication\Rest\Request\Data\RestRequestInterface;
 use Symfony\Component\HttpFoundation\ParameterBag;
 use Symfony\Component\HttpFoundation\Request;
@@ -18,6 +21,11 @@ class RequestParameterFilterTest extends Unit
      * @var \PHPUnit\Framework\MockObject\MockObject|\Symfony\Component\HttpFoundation\Request|mixed
      */
     protected $httpRequestMock;
+
+    /**
+     * @var \PHPUnit\Framework\MockObject\MockObject|\Symfony\Component\HttpFoundation\Request|mixed
+     */
+    protected FilterExpanderInterface|MockObject $filterExpanderMock;
 
     /**
      * @var \Symfony\Component\HttpFoundation\ParameterBag
@@ -44,9 +52,13 @@ class RequestParameterFilterTest extends Unit
             ->disableOriginalConstructor()
             ->getMock();
 
+        $this->filterExpanderMock = $this->getMockBuilder(FilterExpanderInterface::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
         $this->httpRequestMock->query = new ParameterBag(['foo' => 'bar']);
 
-        $this->requestParameterFilter = new RequestParameterFilter();
+        $this->requestParameterFilter = new RequestParameterFilter($this->filterExpanderMock);
     }
 
     /**
@@ -54,28 +66,33 @@ class RequestParameterFilterTest extends Unit
      */
     public function testGetRequestParameter(): void
     {
-        $this->restRequestMock->expects(static::atLeastOnce())
-            ->method('getHttpRequest')
-            ->willReturn($this->httpRequestMock);
+        $collection = new ArrayObject();
+
+        $this->filterExpanderMock->expects(static::atLeastOnce())
+            ->method('expand')
+            ->with($this->restRequestMock, $collection)
+            ->willReturn($collection);
 
         static::assertEquals(
-            'bar',
-            $this->requestParameterFilter->getRequestParameter($this->restRequestMock, 'foo'),
+            $collection,
+            $this->requestParameterFilter->getRequestParameter($this->restRequestMock, $collection),
         );
     }
 
     /**
      * @return void
      */
-    public function testGetRequestParameterWithNonExistingName(): void
+    public function testGetRequestParameterWithNewCollection(): void
     {
-        $this->restRequestMock->expects(static::atLeastOnce())
-            ->method('getHttpRequest')
-            ->willReturn($this->httpRequestMock);
+        $this->filterExpanderMock->expects(static::atLeastOnce())
+            ->method('expand')
+            ->willReturnCallback(static function (RestRequestInterface $restRequest, ArrayObject $filterFieldTransfers) {
+                return $filterFieldTransfers;
+            });
 
-        static::assertEquals(
-            null,
-            $this->requestParameterFilter->getRequestParameter($this->restRequestMock, 'bar'),
+        static::assertInstanceOf(
+            ArrayObject::class,
+            $this->requestParameterFilter->getRequestParameter($this->restRequestMock),
         );
     }
 }

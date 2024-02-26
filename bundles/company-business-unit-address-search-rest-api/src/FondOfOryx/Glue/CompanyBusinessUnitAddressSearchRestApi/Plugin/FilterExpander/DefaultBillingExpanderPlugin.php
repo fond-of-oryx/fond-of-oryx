@@ -31,10 +31,24 @@ class DefaultBillingExpanderPlugin implements FilterFieldsExpanderPluginInterfac
 
         $filterFieldTransfer = (new FilterFieldTransfer())
             ->setType(CompanyBusinessUnitAddressSearchRestApiConstants::FILTER_FIELD_TYPE_DEFAULT_BILLING)
-            ->setValue(filter_var($defaultBilling, FILTER_VALIDATE_BOOLEAN));
+            ->setValue($this->getValue($defaultBilling));
 
         $filterFieldTransfers->append($filterFieldTransfer);
 
         return $filterFieldTransfers;
+    }
+
+    /**
+     * @param string $check
+     *
+     * @return string
+     */
+    protected function getValue(string $check): string
+    {
+        if (filter_var($check, FILTER_VALIDATE_BOOLEAN)) {
+            return 'true';
+        }
+
+        return 'false';
     }
 }

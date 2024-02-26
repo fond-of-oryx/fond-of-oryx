@@ -2,6 +2,7 @@
 
 namespace FondOfOryx\Glue\CompanyBusinessUnitAddressSearchRestApi\Processor\Mapper;
 
+use ArrayObject;
 use Codeception\Test\Unit;
 use FondOfOryx\Glue\CompanyBusinessUnitAddressSearchRestApi\Processor\Filter\CustomerIdFilterInterface;
 use FondOfOryx\Glue\CompanyBusinessUnitAddressSearchRestApi\Processor\Filter\CustomerReferenceFilterInterface;
@@ -91,10 +92,7 @@ class CompanyBusinessUnitAddressListMapperTest extends Unit
     public function testFromRestRequest(): void
     {
         $customerReference = 'FOO-C--1';
-        $sort = 'foo_asc';
-        $comanyUuid = 'foo company uuid';
-        $comanyBUUuid = 'foo company bu uuid';
-        $q = 'foo';
+        $customerId = 1;
 
         $this->paginationMapperMock->expects(static::atLeastOnce())
             ->method('fromRestRequest')
@@ -103,58 +101,23 @@ class CompanyBusinessUnitAddressListMapperTest extends Unit
 
         $this->requestParameterFilterMock->expects(static::atLeastOnce())
             ->method('getRequestParameter')
-            ->withConsecutive(
-                [$this->restRequestMock, 'company-id'],
-                [$this->restRequestMock, 'company-business-unit-id'],
-                [$this->restRequestMock, 'default-billing'],
-                [$this->restRequestMock, 'default-billing'],
-                [$this->restRequestMock, 'default-shipping'],
-                [$this->restRequestMock, 'default-shipping'],
-                [$this->restRequestMock, 'sort'],
-                [$this->restRequestMock, 'q'],
-            )
-            ->willReturnOnConsecutiveCalls($comanyUuid, $comanyBUUuid, 'true', 'true', 'true', 'true', $sort, $q);
+            ->willReturn(new ArrayObject());
 
         $this->customerReferenceFilterMock->expects(static::atLeastOnce())
             ->method('filterFromRestRequest')
             ->with($this->restRequestMock)
             ->willReturn($customerReference);
 
+        $this->customerIdFilterMock->expects(static::atLeastOnce())
+            ->method('filterFromRestRequest')
+            ->with($this->restRequestMock)
+            ->willReturn($customerId);
+
         $companyBusinessUnitAddressListTransfer = $this->companyBusinessUnitAddressListMapper->fromRestRequest($this->restRequestMock);
 
         static::assertEquals(
             $customerReference,
             $companyBusinessUnitAddressListTransfer->getCustomerReference(),
-        );
-
-        static::assertEquals(
-            $sort,
-            $companyBusinessUnitAddressListTransfer->getSort(),
-        );
-
-        static::assertEquals(
-            $q,
-            $companyBusinessUnitAddressListTransfer->getQuery(),
-        );
-
-        static::assertEquals(
-            $comanyUuid,
-            $companyBusinessUnitAddressListTransfer->getCompanyUuid(),
-        );
-
-        static::assertEquals(
-            $comanyBUUuid,
-            $companyBusinessUnitAddressListTransfer->getCompanyBusinessUnitUuid(),
-        );
-
-        static::assertEquals(
-            true,
-            $companyBusinessUnitAddressListTransfer->getDefaultBilling(),
-        );
-
-        static::assertEquals(
-            true,
-            $companyBusinessUnitAddressListTransfer->getDefaultShipping(),
         );
 
         static::assertEquals(

@@ -41,9 +41,10 @@ class RestCompanyBusinessUnitAddressSearchSortMapper implements RestCompanyBusin
 
         $sort = null;
 
-        foreach ($companyBusinessUnitAddressListTransfer->getFilterFields() as $filterField){
-            if ($filterField->getType() === CompanyBusinessUnitAddressSearchRestApiConstants::FILTER_FIELD_TYPE_SORT){
+        foreach ($companyBusinessUnitAddressListTransfer->getFilterFields() as $filterField) {
+            if ($filterField->getType() === CompanyBusinessUnitAddressSearchRestApiConstants::FILTER_FIELD_TYPE_SORT) {
                 $sort = $filterField->getValue();
+
                 break;
             }
         }

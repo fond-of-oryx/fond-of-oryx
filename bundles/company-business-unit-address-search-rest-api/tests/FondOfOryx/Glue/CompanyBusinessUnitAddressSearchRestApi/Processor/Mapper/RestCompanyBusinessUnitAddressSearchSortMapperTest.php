@@ -2,21 +2,30 @@
 
 namespace FondOfOryx\Glue\CompanyBusinessUnitAddressSearchRestApi\Processor\Mapper;
 
+use ArrayObject;
 use Codeception\Test\Unit;
 use FondOfOryx\Glue\CompanyBusinessUnitAddressSearchRestApi\CompanyBusinessUnitAddressSearchRestApiConfig;
+use FondOfOryx\Shared\CompanyBusinessUnitAddressSearchRestApi\CompanyBusinessUnitAddressSearchRestApiConstants;
 use Generated\Shared\Transfer\CompanyBusinessUnitAddressListTransfer;
+use Generated\Shared\Transfer\FilterFieldTransfer;
+use PHPUnit\Framework\MockObject\MockObject;
 
 class RestCompanyBusinessUnitAddressSearchSortMapperTest extends Unit
 {
     /**
-     * @var \FondOfOryx\Glue\CompanyBusinessUnitAddressSearchRestApi\CompanyBusinessUnitAddressSearchRestApiConfig|\PHPUnit\Framework\MockObject\MockObject|mixed
+     * @var \FondOfOryx\Glue\CompanyBusinessUnitAddressSearchRestApi\CompanyBusinessUnitAddressSearchRestApiConfig|\PHPUnit\Framework\MockObject\MockObject
      */
     protected $configMock;
 
     /**
-     * @var \Generated\Shared\Transfer\CompanyBusinessUnitAddressListTransfer|\PHPUnit\Framework\MockObject\MockObject|mixed
+     * @var \Generated\Shared\Transfer\CompanyBusinessUnitAddressListTransfer|\PHPUnit\Framework\MockObject\MockObject
      */
     protected $companyBusinessUnitAddressListTransferMock;
+
+    /**
+     * @var \Generated\Shared\Transfer\CompanyBusinessUnitAddressListTransfer|\PHPUnit\Framework\MockObject\MockObject
+     */
+    protected FilterFieldTransfer|MockObject $filterFieldTransferMock;
 
     /**
      * @var \FondOfOryx\Glue\CompanyBusinessUnitAddressSearchRestApi\Processor\Mapper\RestCompanyBusinessUnitAddressSearchSortMapper
@@ -38,6 +47,10 @@ class RestCompanyBusinessUnitAddressSearchSortMapperTest extends Unit
             ->disableOriginalConstructor()
             ->getMock();
 
+        $this->filterFieldTransferMock = $this->getMockBuilder(FilterFieldTransfer::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
         $this->restCompanyBusinessUnitAddressSearchSortMapper = new RestCompanyBusinessUnitAddressSearchSortMapper($this->configMock);
     }
 
@@ -49,6 +62,8 @@ class RestCompanyBusinessUnitAddressSearchSortMapperTest extends Unit
         $sortParamNames = ['name_asc', 'name_desc'];
         $sortParamLocalizedNames = ['companies_rest_api.sort.name_asc', 'companies_rest_api.sort.name_desc'];
         $sortFields = ['name'];
+        $collection = new ArrayObject();
+        $collection->append($this->filterFieldTransferMock);
 
         $this->configMock->expects(static::atLeastOnce())
             ->method('getSortParamNames')
@@ -59,7 +74,15 @@ class RestCompanyBusinessUnitAddressSearchSortMapperTest extends Unit
             ->willReturn($sortParamLocalizedNames);
 
         $this->companyBusinessUnitAddressListTransferMock->expects(static::atLeastOnce())
-            ->method('getSort')
+            ->method('getFilterFields')
+            ->willReturn($collection);
+
+        $this->filterFieldTransferMock->expects(static::atLeastOnce())
+            ->method('getType')
+            ->willReturn(CompanyBusinessUnitAddressSearchRestApiConstants::FILTER_FIELD_TYPE_SORT);
+
+        $this->filterFieldTransferMock->expects(static::atLeastOnce())
+            ->method('getValue')
             ->willReturn($sortParamNames[0]);
 
         $this->configMock->expects(static::atLeastOnce())
