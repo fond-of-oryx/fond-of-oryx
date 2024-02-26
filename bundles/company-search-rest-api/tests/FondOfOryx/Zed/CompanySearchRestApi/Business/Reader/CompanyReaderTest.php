@@ -5,8 +5,10 @@ namespace FondOfOryx\Zed\CompanySearchRestApi\Business\Reader;
 use ArrayObject;
 use Codeception\Test\Unit;
 use FondOfOryx\Zed\CompanySearchRestApi\Persistence\CompanySearchRestApiRepositoryInterface;
+use FondOfOryx\Zed\CompanySearchRestApiExtension\Dependency\Plugin\CompanyExpanderPluginInterface;
 use FondOfOryx\Zed\CompanySearchRestApiExtension\Dependency\Plugin\SearchCompanyQueryExpanderPluginInterface;
 use Generated\Shared\Transfer\CompanyListTransfer;
+use Generated\Shared\Transfer\CompanyTransfer;
 use Generated\Shared\Transfer\FilterFieldTransfer;
 use Generated\Shared\Transfer\QueryJoinCollectionTransfer;
 use PHPUnit\Framework\MockObject\MockObject;
@@ -24,9 +26,19 @@ class CompanyReaderTest extends Unit
     protected array $searchCompanyQueryExpanderPluginMocks;
 
     /**
+     * @var array<\FondOfOryx\Zed\CompanySearchRestApiExtension\Dependency\Plugin\CompanyExpanderPluginInterface|\PHPUnit\Framework\MockObject\MockObject>
+     */
+    protected array $companyExpanderPluginMocks;
+
+    /**
      * @var (\Generated\Shared\Transfer\CompanyListTransfer&\PHPUnit\Framework\MockObject\MockObject)|\PHPUnit\Framework\MockObject\MockObject
      */
     protected MockObject|CompanyListTransfer $companyListTransferMock;
+
+    /**
+     * @var array<\Generated\Shared\Transfer\CompanyTransfer|\PHPUnit\Framework\MockObject\MockObject>
+     */
+    protected array $companyTransferMocks;
 
     /**
      * @var (\Generated\Shared\Transfer\QueryJoinCollectionTransfer&\PHPUnit\Framework\MockObject\MockObject)|\PHPUnit\Framework\MockObject\MockObject
@@ -63,6 +75,12 @@ class CompanyReaderTest extends Unit
                 ->getMock(),
         ];
 
+        $this->companyExpanderPluginMocks = [
+            $this->getMockBuilder(CompanyExpanderPluginInterface::class)
+                ->disableOriginalConstructor()
+                ->getMock(),
+        ];
+
         $this->companyListTransferMock = $this->getMockBuilder(CompanyListTransfer::class)
             ->disableOriginalConstructor()
             ->getMock();
@@ -77,9 +95,16 @@ class CompanyReaderTest extends Unit
             ->disableOriginalConstructor()
             ->getMock();
 
+        $this->companyTransferMocks = [
+            $this->getMockBuilder(CompanyTransfer::class)
+                ->disableOriginalConstructor()
+                ->getMock(),
+        ];
+
         $this->companyReader = new CompanyReader(
             $this->repositoryMock,
             $this->searchCompanyQueryExpanderPluginMocks,
+            $this->companyExpanderPluginMocks,
         );
     }
 
@@ -125,6 +150,15 @@ class CompanyReaderTest extends Unit
             ->method('searchCompanies')
             ->with($this->companyListTransferMock)
             ->willReturn($this->companyListTransferMock);
+
+        $this->companyListTransferMock->expects(static::atLeastOnce())
+            ->method('getCompanies')
+            ->willReturn(new ArrayObject($this->companyTransferMocks));
+
+        $this->companyExpanderPluginMocks[0]->expects(static::atLeastOnce())
+            ->method('expand')
+            ->with($this->companyTransferMocks[0])
+            ->willReturn($this->companyTransferMocks[0]);
 
         static::assertEquals(
             $this->companyListTransferMock,

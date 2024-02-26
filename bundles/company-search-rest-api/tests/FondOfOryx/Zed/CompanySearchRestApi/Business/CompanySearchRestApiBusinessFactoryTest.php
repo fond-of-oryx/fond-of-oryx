@@ -67,8 +67,11 @@ class CompanySearchRestApiBusinessFactoryTest extends Unit
 
         $this->containerMock->expects(static::atLeastOnce())
             ->method('get')
-            ->with(CompanySearchRestApiDependencyProvider::PLUGINS_SEARCH_COMPANY_QUERY_EXPANDER)
-            ->willReturn([$this->searchCompanyQueryExpanderPluginMock]);
+            ->withConsecutive([
+                CompanySearchRestApiDependencyProvider::PLUGINS_SEARCH_COMPANY_QUERY_EXPANDER,
+            ], [
+                CompanySearchRestApiDependencyProvider::PLUGINS_COMPANY_EXPANDER,
+            ])->willReturn([$this->searchCompanyQueryExpanderPluginMock], []);
 
         static::assertInstanceOf(
             CompanyReader::class,

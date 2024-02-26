@@ -14,6 +14,11 @@ class CompanySearchRestApiDependencyProvider extends AbstractBundleDependencyPro
     /**
      * @var string
      */
+    public const PLUGINS_COMPANY_EXPANDER = 'PLUGINS_COMPANY_EXPANDER';
+
+    /**
+     * @var string
+     */
     public const PLUGINS_SEARCH_COMPANY_QUERY_EXPANDER = 'PLUGINS_SEARCH_COMPANY_QUERY_EXPANDER';
 
     /**
@@ -30,7 +35,29 @@ class CompanySearchRestApiDependencyProvider extends AbstractBundleDependencyPro
     {
         $container = parent::provideBusinessLayerDependencies($container);
 
+        $container = $this->addCompanyExpanderPlugins($container);
+
         return $this->addSearchCompanyQueryExpanderPlugins($container);
+    }
+
+    /**
+     * @param \Spryker\Zed\Kernel\Container $container
+     *
+     * @return \Spryker\Zed\Kernel\Container
+     */
+    protected function addCompanyExpanderPlugins(Container $container): Container
+    {
+        $container[static::PLUGINS_COMPANY_EXPANDER] = fn () => $this->getCompanyExpanderPlugins();
+
+        return $container;
+    }
+
+    /**
+     * @return array<\FondOfOryx\Zed\CompanySearchRestApiExtension\Dependency\Plugin\CompanyExpanderPluginInterface>
+     */
+    protected function getCompanyExpanderPlugins(): array
+    {
+        return [];
     }
 
     /**

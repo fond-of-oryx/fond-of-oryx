@@ -19,15 +19,23 @@ class CompanyReader implements CompanyReaderInterface
     protected array $searchCompanyQueryExpanderPlugins;
 
     /**
+     * @var array<\FondOfOryx\Zed\CompanySearchRestApiExtension\Dependency\Plugin\CompanyExpanderPluginInterface>
+     */
+    protected array $companyExpanderPlugins;
+
+    /**
      * @param \FondOfOryx\Zed\CompanySearchRestApi\Persistence\CompanySearchRestApiRepositoryInterface $repository
-     * @param array $searchCompanyQueryExpanderPlugins
+     * @param array<\FondOfOryx\Zed\CompanySearchRestApiExtension\Dependency\Plugin\SearchCompanyQueryExpanderPluginInterface> $searchCompanyQueryExpanderPlugins
+     * @param array<\FondOfOryx\Zed\CompanySearchRestApiExtension\Dependency\Plugin\CompanyExpanderPluginInterface> $companyExpanderPlugins
      */
     public function __construct(
         CompanySearchRestApiRepositoryInterface $repository,
-        array $searchCompanyQueryExpanderPlugins = []
+        array $searchCompanyQueryExpanderPlugins = [],
+        array $companyExpanderPlugins = []
     ) {
         $this->repository = $repository;
         $this->searchCompanyQueryExpanderPlugins = $searchCompanyQueryExpanderPlugins;
+        $this->companyExpanderPlugins = $companyExpanderPlugins;
     }
 
  /**
@@ -38,8 +46,9 @@ class CompanyReader implements CompanyReaderInterface
     public function findByCompanyList(CompanyListTransfer $companyListTransfer): CompanyListTransfer
     {
         $companyListTransfer = $this->executeSearchCompanyQueryExpanderPlugins($companyListTransfer);
+        $companyListTransfer = $this->repository->searchCompanies($companyListTransfer);
 
-        return $this->repository->searchCompanies($companyListTransfer);
+        return $this->executeCompanyExpanderPlugins($companyListTransfer);
     }
 
     /**
@@ -65,5 +74,21 @@ class CompanyReader implements CompanyReaderInterface
         }
 
         return $companyListTransfer->setQueryJoins($queryJoinCollectionTransfer);
+    }
+
+    /**
+     * @param \Generated\Shared\Transfer\CompanyListTransfer $companyListTransfer
+     *
+     * @return \Generated\Shared\Transfer\CompanyListTransfer
+     */
+    protected function executeCompanyExpanderPlugins(CompanyListTransfer $companyListTransfer): CompanyListTransfer
+    {
+        foreach ($companyListTransfer->getCompanies() as $companyTransfer) {
+            foreach ($this->companyExpanderPlugins as $companyExpanderPlugin) {
+                $companyTransfer = $companyExpanderPlugin->expand($companyTransfer);
+            }
+        }
+
+        return $companyListTransfer;
     }
 }
