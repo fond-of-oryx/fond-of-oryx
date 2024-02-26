@@ -11,7 +11,7 @@ use Spryker\Glue\GlueApplication\Rest\Request\Data\RestRequestInterface;
 use Symfony\Component\HttpFoundation\InputBag;
 use Symfony\Component\HttpFoundation\Request;
 
-class DefaultBillingExpanderPluginTest extends Unit
+class IdsExpanderPluginTest extends Unit
 {
     /**
      * @var \Spryker\Glue\GlueApplication\Rest\Request\Data\RestRequestInterface|\PHPUnit\Framework\MockObject\MockObject
@@ -29,9 +29,9 @@ class DefaultBillingExpanderPluginTest extends Unit
     protected RequestParameterFilterInterface|MockObject $requestParameterFilterMock;
 
     /**
-     * @var \FondOfOryx\Glue\CompanyBusinessUnitAddressSearchRestApi\Plugin\FilterExpander\DefaultBillingExpanderPlugin
+     * @var \FondOfOryx\Glue\CompanyBusinessUnitAddressSearchRestApi\Plugin\FilterExpander\IdExpanderPlugin
      */
-    protected DefaultBillingExpanderPlugin $plugin;
+    protected IdExpanderPlugin $plugin;
 
     /**
      * @return void
@@ -52,7 +52,7 @@ class DefaultBillingExpanderPluginTest extends Unit
             ->disableOriginalConstructor()
             ->getMock();
 
-        $this->plugin = new DefaultBillingExpanderPlugin();
+        $this->plugin = new IdExpanderPlugin();
     }
 
     /**
@@ -61,7 +61,7 @@ class DefaultBillingExpanderPluginTest extends Unit
     public function testExpand(): void
     {
         $query = new InputBag();
-        $query->add([DefaultBillingExpanderPlugin::FILTER_NAME => 'true']);
+        $query->add([IdExpanderPlugin::FILTER_NAME => ['uuid', 'uuid2']]);
         $collection = new ArrayObject();
 
         $this->requestMock->query = $query;
@@ -74,58 +74,22 @@ class DefaultBillingExpanderPluginTest extends Unit
 
         static::assertEquals(
             $collection->offsetGet(0)->getValue(),
-            'true',
+            'uuid',
         );
-    }
-
-    /**
-     * @return void
-     */
-    public function testExpandFalse(): void
-    {
-        $query = new InputBag();
-        $query->add([DefaultBillingExpanderPlugin::FILTER_NAME => 'false']);
-        $collection = new ArrayObject();
-
-        $this->requestMock->query = $query;
-
-        $this->restRequestMock->expects(static::atLeastOnce())
-            ->method('getHttpRequest')
-            ->willReturn($this->requestMock);
-
-        $collection = $this->plugin->expand($this->restRequestMock, $collection);
 
         static::assertEquals(
-            $collection->offsetGet(0)->getValue(),
-            'false',
-        );
-    }
-
-    /**
-     * @return void
-     */
-    public function testExpandDefaultFalse(): void
-    {
-        $query = new InputBag();
-        $query->add([DefaultBillingExpanderPlugin::FILTER_NAME => 'xxx']);
-        $collection = new ArrayObject();
-
-        $this->requestMock->query = $query;
-
-        $this->restRequestMock->expects(static::atLeastOnce())
-            ->method('getHttpRequest')
-            ->willReturn($this->requestMock);
-
-        $collection = $this->plugin->expand($this->restRequestMock, $collection);
-
-        static::assertEquals(
-            $collection->offsetGet(0)->getValue(),
-            'false',
+            $collection->offsetGet(1)->getValue(),
+            'uuid2',
         );
 
         static::assertEquals(
             $collection->offsetGet(0)->getType(),
-            CompanyBusinessUnitAddressSearchRestApiConstants::FILTER_FIELD_TYPE_DEFAULT_BILLING,
+            CompanyBusinessUnitAddressSearchRestApiConstants::FILTER_FIELD_TYPE_COMPANY_BUSINESS_UNIT_ADDRESS_UUID,
+        );
+
+        static::assertEquals(
+            $collection->offsetGet(1)->getType(),
+            CompanyBusinessUnitAddressSearchRestApiConstants::FILTER_FIELD_TYPE_COMPANY_BUSINESS_UNIT_ADDRESS_UUID,
         );
     }
 }

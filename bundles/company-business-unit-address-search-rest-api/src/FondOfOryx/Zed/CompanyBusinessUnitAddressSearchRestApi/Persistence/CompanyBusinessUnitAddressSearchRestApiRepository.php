@@ -85,18 +85,25 @@ class CompanyBusinessUnitAddressSearchRestApiRepository extends AbstractReposito
         CompanyBusinessUnitAddressListTransfer $companyBusinessUnitAddressListTransfer
     ): array {
         $query = $this->getFactory()
-            ->getCompanyBusinessUnitQuery()
+            ->getCompanyBusinessUnitQuery();
+
+        $companyBusinessUnitUuid = $this->getFilterValueByType($companyBusinessUnitAddressListTransfer->getFilterFields(), CompanyBusinessUnitAddressSearchRestApiConstants::FILTER_FIELD_TYPE_COMPANY_BUSINESS_UNIT_UUID);
+        if ($companyBusinessUnitUuid !== null && count($companyBusinessUnitUuid) > 0) {
+            $query->filterByUuid_In($companyBusinessUnitUuid);
+        }
+
+        $query
             ->clear()
             ->useCompanyUserQuery()
             ->filterByIsActive(true)
             ->filterByFkCustomer($companyBusinessUnitAddressListTransfer->getCustomerId())
             ->endUse();
 
-        $companyBusinessUnitUuid = $this->getFilterValueByType($companyBusinessUnitAddressListTransfer->getFilterFields(), CompanyBusinessUnitAddressSearchRestApiConstants::FILTER_FIELD_TYPE_COMPANY_BUSINESS_UNIT_UUID);
-        if ($companyBusinessUnitUuid !== null) {
+        $companyId = $this->getFilterValueByType($companyBusinessUnitAddressListTransfer->getFilterFields(), CompanyBusinessUnitAddressSearchRestApiConstants::FILTER_FIELD_TYPE_COMPANY_UUID);
+        if ($companyId !== null) {
             $query->useCompanyQuery()
                 ->filterByIsActive(true)
-                ->filterByUuid($companyBusinessUnitUuid)
+                ->filterByUuid($companyId)
                 ->endUse();
         }
 
@@ -152,7 +159,7 @@ class CompanyBusinessUnitAddressSearchRestApiRepository extends AbstractReposito
         $companyBusinessUnitUuid = $this->getFilterValueByType($filter, CompanyBusinessUnitAddressSearchRestApiConstants::FILTER_FIELD_TYPE_COMPANY_BUSINESS_UNIT_UUID);
         $companyUuid = $this->getFilterValueByType($filter, CompanyBusinessUnitAddressSearchRestApiConstants::FILTER_FIELD_TYPE_COMPANY_UUID);
 
-        if ($companyUuid !== null && $companyBusinessUnitUuid !== null) {
+        if ($companyUuid !== null && ($companyBusinessUnitUuid !== null && count($companyBusinessUnitUuid) > 0)) {
             return $companyUnitAddressQuery
                 ->useCompanyQuery()
                     ->useCompanyUserQuery()
@@ -162,12 +169,12 @@ class CompanyBusinessUnitAddressSearchRestApiRepository extends AbstractReposito
                     ->filterByUuid($companyUuid)
                     ->filterByIsActive(true)
                     ->useCompanyBusinessUnitQuery()
-                        ->filterByUuid($companyBusinessUnitUuid)
+                        ->filterByUuid_In($companyBusinessUnitUuid)
                     ->endUse()
                 ->endUse();
         }
 
-        if ($companyBusinessUnitUuid !== null) {
+        if ($companyBusinessUnitUuid !== null && count($companyBusinessUnitUuid) > 0) {
             return $companyUnitAddressQuery
                 ->useCompanyQuery()
                     ->useCompanyUserQuery()
@@ -176,7 +183,7 @@ class CompanyBusinessUnitAddressSearchRestApiRepository extends AbstractReposito
                     ->endUse()
                     ->filterByIsActive(true)
                     ->useCompanyBusinessUnitQuery()
-                        ->filterByUuid($companyBusinessUnitUuid)
+                        ->filterByUuid_In($companyBusinessUnitUuid)
                     ->endUse()
                 ->endUse();
         }
