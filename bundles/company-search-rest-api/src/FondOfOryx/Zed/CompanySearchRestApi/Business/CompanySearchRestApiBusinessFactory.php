@@ -19,9 +19,26 @@ class CompanySearchRestApiBusinessFactory extends AbstractBusinessFactory
     {
         return new CompanyReader(
             $this->getRepository(),
-            $this->getProvidedDependency(
-                CompanySearchRestApiDependencyProvider::PLUGINS_SEARCH_COMPANY_QUERY_EXPANDER,
-            ),
+            $this->getSearchCompanyQueryExpanderPlugins(),
+            $this->getCompanyExpanderPlugins(),
         );
+    }
+
+    /**
+     * @return array<\FondOfOryx\Zed\CompanySearchRestApiExtension\Dependency\Plugin\SearchCompanyQueryExpanderPluginInterface>
+     */
+    protected function getSearchCompanyQueryExpanderPlugins(): array
+    {
+        return $this->getProvidedDependency(
+            CompanySearchRestApiDependencyProvider::PLUGINS_SEARCH_COMPANY_QUERY_EXPANDER,
+        );
+    }
+
+    /**
+     * @return array<\FondOfOryx\Zed\CompanySearchRestApiExtension\Dependency\Plugin\CompanyExpanderPluginInterface>
+     */
+    protected function getCompanyExpanderPlugins(): array
+    {
+        return $this->getProvidedDependency(CompanySearchRestApiDependencyProvider::PLUGINS_COMPANY_EXPANDER);
     }
 }
