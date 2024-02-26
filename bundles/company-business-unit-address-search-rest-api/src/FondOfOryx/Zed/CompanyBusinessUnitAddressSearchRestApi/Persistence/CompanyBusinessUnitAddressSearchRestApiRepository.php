@@ -151,7 +151,6 @@ class CompanyBusinessUnitAddressSearchRestApiRepository extends AbstractReposito
         $filter = $companyBusinessUnitAddressListTransfer->getFilterFields();
         $companyBusinessUnitUuid = $this->getFilterValueByType($filter, CompanyBusinessUnitAddressSearchRestApiConstants::FILTER_FIELD_TYPE_COMPANY_BUSINESS_UNIT_UUID);
         $companyUuid = $this->getFilterValueByType($filter, CompanyBusinessUnitAddressSearchRestApiConstants::FILTER_FIELD_TYPE_COMPANY_UUID);
-        $companyBusinessUnitAddressListTransfer->setCompanyUuid($companyUuid);
 
         if ($companyUuid !== null && $companyBusinessUnitUuid !== null) {
             return $companyUnitAddressQuery

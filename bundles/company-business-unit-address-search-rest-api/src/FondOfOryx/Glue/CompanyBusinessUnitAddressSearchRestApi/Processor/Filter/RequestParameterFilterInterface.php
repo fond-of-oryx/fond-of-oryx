@@ -13,5 +13,5 @@ interface RequestParameterFilterInterface
      *
      * @return \ArrayObject
      */
-    public function getRequestParameter(RestRequestInterface $restRequest, ?ArrayObject $filterFieldTransfers = null): ArrayObjec;
+    public function getRequestParameter(RestRequestInterface $restRequest, ?ArrayObject $filterFieldTransfers = null): ArrayObject;
 }

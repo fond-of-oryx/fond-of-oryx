@@ -24,7 +24,7 @@ class RequestParameterFilter implements RequestParameterFilterInterface
      *
      * @return \ArrayObject
      */
-    public function getRequestParameter(RestRequestInterface $restRequest, ?ArrayObject $filterFieldTransfers = null): ArrayObjec
+    public function getRequestParameter(RestRequestInterface $restRequest, ?ArrayObject $filterFieldTransfers = null): ArrayObject
     {
         if ($filterFieldTransfers === null) {
             $filterFieldTransfers = new ArrayObject();
