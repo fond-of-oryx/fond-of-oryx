@@ -2,6 +2,8 @@
 
 namespace FondOfOryx\Zed\OrderBudget\Business;
 
+use FondOfOryx\Zed\OrderBudget\Business\Cleanupper\OrderBudgetHistoryCleanupper;
+use FondOfOryx\Zed\OrderBudget\Business\Cleanupper\OrderBudgetHistoryCleanupperInterface;
 use FondOfOryx\Zed\OrderBudget\Business\Mapper\OrderBudgetHistoryMapper;
 use FondOfOryx\Zed\OrderBudget\Business\Mapper\OrderBudgetHistoryMapperInterface;
 use FondOfOryx\Zed\OrderBudget\Business\Reader\OrderBudgetReader;
@@ -41,6 +43,17 @@ class OrderBudgetBusinessFactory extends AbstractBusinessFactory
             $this->createOrderBudgetReader(),
             $this->createOrderBudgetHistoryMapper(),
             $this->getUtilDateTimeService(),
+            $this->getEntityManager(),
+            $this->getConfig(),
+        );
+    }
+
+    /**
+     * @return \FondOfOryx\Zed\OrderBudget\Business\Cleanupper\OrderBudgetHistoryCleanupperInterface
+     */
+    public function createOrderBudgetHistoryCleanupper(): OrderBudgetHistoryCleanupperInterface
+    {
+        return new OrderBudgetHistoryCleanupper(
             $this->getEntityManager(),
             $this->getConfig(),
         );

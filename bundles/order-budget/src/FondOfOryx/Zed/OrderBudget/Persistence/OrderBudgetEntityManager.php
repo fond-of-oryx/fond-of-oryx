@@ -2,8 +2,11 @@
 
 namespace FondOfOryx\Zed\OrderBudget\Persistence;
 
+use DateTime;
 use Generated\Shared\Transfer\OrderBudgetHistoryTransfer;
 use Generated\Shared\Transfer\OrderBudgetTransfer;
+use Orm\Zed\OrderBudget\Persistence\FooOrderBudgetHistoryQuery;
+use Propel\Runtime\ActiveQuery\Criteria;
 use Spryker\Zed\Kernel\Persistence\AbstractEntityManager;
 
 /**
@@ -69,5 +72,18 @@ class OrderBudgetEntityManager extends AbstractEntityManager implements OrderBud
         return $orderBudgetHistoryTransfer->setIdOrderBudgetHistory(
             $entity->getIdOrderBudgetHistory(),
         );
+    }
+
+    /**
+     * @param \DateTime $dateTime
+     * @return void
+     */
+    public function deleteOrderBudgetHistoryEntriesOlderThan(
+        DateTime $dateTime
+    ): void {
+        $this->getFactory()
+            ->createFooOrderBudgetHistoryQuery()
+            ->filterByCreatedAt($dateTime, Criteria::LESS_THAN)
+            ->delete();
     }
 }
