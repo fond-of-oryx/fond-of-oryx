@@ -87,7 +87,7 @@ class CompanyBusinessUnitAddressSearchRestApiRepository extends AbstractReposito
         $query = $this->getFactory()
             ->getCompanyBusinessUnitQuery();
 
-        $companyBusinessUnitUuid = $this->getFilterValueByType($companyBusinessUnitAddressListTransfer->getFilterFields(), CompanyBusinessUnitAddressSearchRestApiConstants::FILTER_FIELD_TYPE_COMPANY_BUSINESS_UNIT_UUID);
+        $companyBusinessUnitUuid = $this->getFilterValuesByType($companyBusinessUnitAddressListTransfer->getFilterFields(), CompanyBusinessUnitAddressSearchRestApiConstants::FILTER_FIELD_TYPE_COMPANY_BUSINESS_UNIT_UUID);
         if ($companyBusinessUnitUuid !== null && count($companyBusinessUnitUuid) > 0) {
             $query->filterByUuid_In($companyBusinessUnitUuid);
         }
@@ -156,7 +156,7 @@ class CompanyBusinessUnitAddressSearchRestApiRepository extends AbstractReposito
         CompanyBusinessUnitAddressListTransfer $companyBusinessUnitAddressListTransfer
     ): SpyCompanyUnitAddressQuery {
         $filter = $companyBusinessUnitAddressListTransfer->getFilterFields();
-        $companyBusinessUnitUuid = $this->getFilterValueByType($filter, CompanyBusinessUnitAddressSearchRestApiConstants::FILTER_FIELD_TYPE_COMPANY_BUSINESS_UNIT_UUID);
+        $companyBusinessUnitUuid = $this->getFilterValuesByType($filter, CompanyBusinessUnitAddressSearchRestApiConstants::FILTER_FIELD_TYPE_COMPANY_BUSINESS_UNIT_UUID);
         $companyUuid = $this->getFilterValueByType($filter, CompanyBusinessUnitAddressSearchRestApiConstants::FILTER_FIELD_TYPE_COMPANY_UUID);
 
         if ($companyUuid !== null && ($companyBusinessUnitUuid !== null && count($companyBusinessUnitUuid) > 0)) {
