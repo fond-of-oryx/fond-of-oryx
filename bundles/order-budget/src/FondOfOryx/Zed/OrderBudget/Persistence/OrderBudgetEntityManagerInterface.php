@@ -35,6 +35,7 @@ interface OrderBudgetEntityManagerInterface
 
     /**
      * @param \DateTime $dateTime
+     *
      * @return void
      */
     public function deleteOrderBudgetHistoryEntriesOlderThan(

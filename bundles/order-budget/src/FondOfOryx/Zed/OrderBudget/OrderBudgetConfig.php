@@ -14,6 +14,7 @@ class OrderBudgetConfig extends AbstractBundleConfig
     {
         return $this->get(OrderBudgetConstants::INITIAL_BUDGET, OrderBudgetConstants::INITIAL_BUDGET_DEFAULT);
     }
+
     /**
      * @return int
      */

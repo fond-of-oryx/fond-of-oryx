@@ -5,7 +5,6 @@ namespace FondOfOryx\Zed\OrderBudget\Persistence;
 use DateTime;
 use Generated\Shared\Transfer\OrderBudgetHistoryTransfer;
 use Generated\Shared\Transfer\OrderBudgetTransfer;
-use Orm\Zed\OrderBudget\Persistence\FooOrderBudgetHistoryQuery;
 use Propel\Runtime\ActiveQuery\Criteria;
 use Spryker\Zed\Kernel\Persistence\AbstractEntityManager;
 
@@ -76,6 +75,7 @@ class OrderBudgetEntityManager extends AbstractEntityManager implements OrderBud
 
     /**
      * @param \DateTime $dateTime
+     *
      * @return void
      */
     public function deleteOrderBudgetHistoryEntriesOlderThan(

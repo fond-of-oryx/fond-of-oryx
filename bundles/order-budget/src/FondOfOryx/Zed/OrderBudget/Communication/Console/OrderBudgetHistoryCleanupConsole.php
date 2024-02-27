@@ -22,7 +22,6 @@ class OrderBudgetHistoryCleanupConsole extends Console
      */
     public const DESCRIPTION = 'This command will remove old order budgets.';
 
-
     /**
      * @return void
      */
