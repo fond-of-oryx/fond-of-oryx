@@ -4,12 +4,12 @@ namespace FondOfOryx\Zed\OrderBudget\Business\Resetter;
 
 use Codeception\Test\Unit;
 use DateTime;
-use FondOfOryx\Zed\OrderBudget\Business\Cleanupper\OrderBudgetHistoryCleanupper;
+use FondOfOryx\Zed\OrderBudget\Business\Cleaner\OrderBudgetHistoryCleaner;
 use FondOfOryx\Zed\OrderBudget\OrderBudgetConfig;
 use FondOfOryx\Zed\OrderBudget\Persistence\OrderBudgetEntityManagerInterface;
 use Spryker\Zed\Kernel\Persistence\EntityManager\TransactionHandlerInterface;
 
-class OrderBudgetHistoryCleanupperTest extends Unit
+class OrderBudgetHistoryCleanerTest extends Unit
 {
     /**
      * @var \FondOfOryx\Zed\OrderBudget\Persistence\OrderBudgetEntityManagerInterface|\PHPUnit\Framework\MockObject\MockObject
@@ -27,7 +27,7 @@ class OrderBudgetHistoryCleanupperTest extends Unit
     protected $transactionHandlerMock;
 
     /**
-     * @var \FondOfOryx\Zed\OrderBudget\Business\Cleanupper\OrderBudgetHistoryCleanupper
+     * @var \FondOfOryx\Zed\OrderBudget\Business\Cleaner\OrderBudgetHistoryCleaner
      */
     protected $cleanupper;
 
@@ -54,7 +54,7 @@ class OrderBudgetHistoryCleanupperTest extends Unit
             $this->entityManagerMock,
             $this->configMock,
             $this->transactionHandlerMock
-        ) extends OrderBudgetHistoryCleanupper {
+        ) extends OrderBudgetHistoryCleaner {
             /**
              * @var \Spryker\Zed\Kernel\Persistence\EntityManager\TransactionHandlerInterface
              */
@@ -91,7 +91,7 @@ class OrderBudgetHistoryCleanupperTest extends Unit
     /**
      * @return void
      */
-    public function testRemoveOldHistoryEntries(): void
+    public function testClean(): void
     {
         $date = date('Y-m-d', strtotime('- 1 days'));
 
@@ -113,6 +113,6 @@ class OrderBudgetHistoryCleanupperTest extends Unit
             ->method('getHistoryRetentionTime')
             ->willReturn(1);
 
-        $this->cleanupper->removeOldHistoryEntries();
+        $this->cleanupper->clean();
     }
 }

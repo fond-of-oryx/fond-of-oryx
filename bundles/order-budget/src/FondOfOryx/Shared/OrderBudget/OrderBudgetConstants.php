@@ -22,5 +22,5 @@ interface OrderBudgetConstants
     /**
      * @var int
      */
-    public const RETENTION_TIME_IN_DAYS_DEFAULT = 360;
+    public const RETENTION_TIME_IN_DAYS_DEFAULT = 365;
 }

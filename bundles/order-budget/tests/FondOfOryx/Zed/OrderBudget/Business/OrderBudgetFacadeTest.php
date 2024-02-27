@@ -3,7 +3,7 @@
 namespace FondOfOryx\Zed\OrderBudget\Business;
 
 use Codeception\Test\Unit;
-use FondOfOryx\Zed\OrderBudget\Business\Cleanupper\OrderBudgetHistoryCleanupperInterface;
+use FondOfOryx\Zed\OrderBudget\Business\Cleaner\OrderBudgetHistoryCleanerInterface;
 use FondOfOryx\Zed\OrderBudget\Business\Resetter\OrderBudgetResetterInterface;
 use FondOfOryx\Zed\OrderBudget\Business\Writer\OrderBudgetWriterInterface;
 use FondOfOryx\Zed\OrderBudget\Persistence\OrderBudgetRepository;
@@ -22,9 +22,9 @@ class OrderBudgetFacadeTest extends Unit
     protected $orderBudgetResetterMock;
 
     /**
-     * @var \FondOfOryx\Zed\OrderBudget\Business\Cleanupper\OrderBudgetHistoryCleanupperInterface|\PHPUnit\Framework\MockObject\MockObject
+     * @var \FondOfOryx\Zed\OrderBudget\Business\Cleaner\OrderBudgetHistoryCleanerInterface|\PHPUnit\Framework\MockObject\MockObject
      */
-    protected $orderBudgetHistoryCleanupperMock;
+    protected $orderBudgetHistoryCleanerMock;
 
     /**
      * @var \FondOfOryx\Zed\OrderBudget\Business\Writer\OrderBudgetWriterInterface|\PHPUnit\Framework\MockObject\MockObject|mixed
@@ -61,7 +61,7 @@ class OrderBudgetFacadeTest extends Unit
             ->disableOriginalConstructor()
             ->getMock();
 
-        $this->orderBudgetHistoryCleanupperMock = $this->getMockBuilder(OrderBudgetHistoryCleanupperInterface::class)
+        $this->orderBudgetHistoryCleanerMock = $this->getMockBuilder(OrderBudgetHistoryCleanerInterface::class)
             ->disableOriginalConstructor()
             ->getMock();
 
@@ -103,11 +103,11 @@ class OrderBudgetFacadeTest extends Unit
     public function testRemoveOldOrderBudgetsFromHistory(): void
     {
         $this->factoryMock->expects(static::atLeastOnce())
-            ->method('createOrderBudgetHistoryCleanupper')
-            ->willReturn($this->orderBudgetHistoryCleanupperMock);
+            ->method('createOrderBudgetHistoryCleaner')
+            ->willReturn($this->orderBudgetHistoryCleanerMock);
 
-        $this->orderBudgetHistoryCleanupperMock->expects(static::atLeastOnce())
-            ->method('removeOldHistoryEntries');
+        $this->orderBudgetHistoryCleanerMock->expects(static::atLeastOnce())
+            ->method('clean');
 
         $this->facade->removeOldOrderBudgetsFromHistory();
     }

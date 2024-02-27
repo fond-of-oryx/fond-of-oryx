@@ -1,13 +1,14 @@
 <?php
 
-namespace FondOfOryx\Zed\OrderBudget\Business\Cleanupper;
+namespace FondOfOryx\Zed\OrderBudget\Business\Cleaner;
 
+use DateInterval;
 use DateTime;
 use FondOfOryx\Zed\OrderBudget\OrderBudgetConfig;
 use FondOfOryx\Zed\OrderBudget\Persistence\OrderBudgetEntityManagerInterface;
 use Spryker\Zed\Kernel\Persistence\EntityManager\TransactionTrait;
 
-class OrderBudgetHistoryCleanupper implements OrderBudgetHistoryCleanupperInterface
+class OrderBudgetHistoryCleaner implements OrderBudgetHistoryCleanerInterface
 {
     use TransactionTrait;
 
@@ -36,7 +37,7 @@ class OrderBudgetHistoryCleanupper implements OrderBudgetHistoryCleanupperInterf
     /**
      * @return void
      */
-    public function removeOldHistoryEntries(): void
+    public function clean(): void
     {
         $self = $this;
 
@@ -50,8 +51,7 @@ class OrderBudgetHistoryCleanupper implements OrderBudgetHistoryCleanupperInterf
      */
     protected function executeCleanup(): void
     {
-        $maxDate = date('Y-m-d', strtotime(sprintf('- %s days', $this->config->getHistoryRetentionTime())));
-        $test = new DateTime($maxDate);
-        $this->entityManager->deleteOrderBudgetHistoryEntriesOlderThan($test);
+        $oldestDate = (new DateTime())->sub(new DateInterval(sprintf('P%sD', $this->config->getHistoryRetentionTime())));
+        $this->entityManager->deleteOrderBudgetHistoryEntriesOlderThan($oldestDate);
     }
 }

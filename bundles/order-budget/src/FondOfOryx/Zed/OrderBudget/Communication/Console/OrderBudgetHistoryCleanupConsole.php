@@ -15,12 +15,12 @@ class OrderBudgetHistoryCleanupConsole extends Console
     /**
      * @var string
      */
-    public const COMMAND_NAME = 'order-budget:history-cleanup';
+    public const COMMAND_NAME = 'order-budget:history:cleanup';
 
     /**
      * @var string
      */
-    public const DESCRIPTION = 'This command will remove old order budgets.';
+    public const DESCRIPTION = 'This command will remove old history entries of order budgets.';
 
     /**
      * @return void
@@ -41,7 +41,7 @@ class OrderBudgetHistoryCleanupConsole extends Console
      */
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
-        $this->info('Order budgets history cleanup');
+        $this->info('Cleanup order budget history');
         $this->getFacade()->removeOldOrderBudgetsFromHistory();
 
         return static::CODE_SUCCESS;
