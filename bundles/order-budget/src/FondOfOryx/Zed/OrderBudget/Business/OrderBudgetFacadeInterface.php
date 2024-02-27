@@ -27,7 +27,7 @@ interface OrderBudgetFacadeInterface
      *
      * @return void
      */
-    public function removeOldOrderBudgetsFromHistory(): void;
+    public function cleanupOrderBudgetHistory(): void;
 
     /**
      * Specification:

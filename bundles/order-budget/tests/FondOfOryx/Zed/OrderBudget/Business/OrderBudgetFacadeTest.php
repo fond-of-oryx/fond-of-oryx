@@ -100,7 +100,7 @@ class OrderBudgetFacadeTest extends Unit
     /**
      * @return void
      */
-    public function testRemoveOldOrderBudgetsFromHistory(): void
+    public function testCleanupOrderBudgetHistory(): void
     {
         $this->factoryMock->expects(static::atLeastOnce())
             ->method('createOrderBudgetHistoryCleaner')
@@ -109,7 +109,7 @@ class OrderBudgetFacadeTest extends Unit
         $this->orderBudgetHistoryCleanerMock->expects(static::atLeastOnce())
             ->method('clean');
 
-        $this->facade->removeOldOrderBudgetsFromHistory();
+        $this->facade->cleanupOrderBudgetHistory();
     }
 
     /**

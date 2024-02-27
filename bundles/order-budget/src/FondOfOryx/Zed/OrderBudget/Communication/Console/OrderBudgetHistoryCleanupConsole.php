@@ -42,7 +42,7 @@ class OrderBudgetHistoryCleanupConsole extends Console
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $this->info('Cleanup order budget history');
-        $this->getFacade()->removeOldOrderBudgetsFromHistory();
+        $this->getFacade()->cleanupOrderBudgetHistory();
 
         return static::CODE_SUCCESS;
     }
