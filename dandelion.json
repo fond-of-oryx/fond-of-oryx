@@ -217,7 +217,7 @@
     },
     "company-search-rest-api": {
       "path": "bundles/company-search-rest-api/",
-      "version": "2.3.0"
+      "version": "2.4.0"
     },
     "company-search-rest-api-extension": {
       "path": "bundles/company-search-rest-api-extension/",
