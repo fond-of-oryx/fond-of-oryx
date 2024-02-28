@@ -102,11 +102,6 @@ interface CompanySearchRestApiConstants
     /**
      * @var string
      */
-    public const FILTER_FIELD_TYPE_UUIDS = 'uuids';
-
-    /**
-     * @var string
-     */
     public const FILTER_FIELD_TYPE_IS_ACTIVE = 'isActive';
 
     /**

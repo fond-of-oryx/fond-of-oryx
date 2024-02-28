@@ -131,14 +131,14 @@ class CompanyFilterFieldsExpanderPluginTest extends Unit
 
         static::assertEquals($companyUuid, $filterFieldTransfer->getValue());
         static::assertEquals(
-            CompanySearchRestApiConstants::FILTER_FIELD_TYPE_UUIDS,
+            CompanySearchRestApiConstants::FILTER_FIELD_TYPE_UUID,
             $filterFieldTransfer->getType(),
         );
         $filterFieldTransfer = $filterFieldTransfers->offsetGet(1);
 
         static::assertEquals($companyUuid2, $filterFieldTransfer->getValue());
         static::assertEquals(
-            CompanySearchRestApiConstants::FILTER_FIELD_TYPE_UUIDS,
+            CompanySearchRestApiConstants::FILTER_FIELD_TYPE_UUID,
             $filterFieldTransfer->getType(),
         );
     }

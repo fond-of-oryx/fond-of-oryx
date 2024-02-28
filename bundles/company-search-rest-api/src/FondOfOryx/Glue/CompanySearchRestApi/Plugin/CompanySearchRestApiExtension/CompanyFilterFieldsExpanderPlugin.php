@@ -38,9 +38,7 @@ class CompanyFilterFieldsExpanderPlugin extends AbstractPlugin implements Filter
                 $uuids[] = $uuid;
             }
         } catch (Throwable $throwable) {
-            if ($query->getIterator()->offsetExists(CompanySearchRestApiConstants::PARAMETER_NAME_ID)) {
-                $uuids = $query->getIterator()->offsetGet(CompanySearchRestApiConstants::PARAMETER_NAME_ID);
-            }
+                $uuids = $query->all(CompanySearchRestApiConstants::PARAMETER_NAME_ID);
         }
 
         $count = count($uuids);
@@ -48,14 +46,9 @@ class CompanyFilterFieldsExpanderPlugin extends AbstractPlugin implements Filter
             return $filterFieldTransfers;
         }
 
-        $type = CompanySearchRestApiConstants::FILTER_FIELD_TYPE_UUIDS;
-        if ($count === 1) {
-            $type = CompanySearchRestApiConstants::FILTER_FIELD_TYPE_UUID;
-        }
-
         foreach ($uuids as $uuid) {
             $filterFieldTransfer = (new FilterFieldTransfer())
-                ->setType($type)
+                ->setType(CompanySearchRestApiConstants::FILTER_FIELD_TYPE_UUID)
                 ->setValue((string)$uuid);
 
             $filterFieldTransfers->append($filterFieldTransfer);
