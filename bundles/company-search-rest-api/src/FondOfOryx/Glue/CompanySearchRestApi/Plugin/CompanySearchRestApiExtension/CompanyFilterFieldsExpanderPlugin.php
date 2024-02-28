@@ -3,6 +3,7 @@
 namespace FondOfOryx\Glue\CompanySearchRestApi\Plugin\CompanySearchRestApiExtension;
 
 use ArrayObject;
+use Exception;
 use FondOfOryx\Glue\CompanySearchRestApiExtension\Dependency\Plugin\FilterFieldsExpanderPluginInterface;
 use FondOfOryx\Shared\CompanySearchRestApi\CompanySearchRestApiConstants;
 use Generated\Shared\Transfer\FilterFieldTransfer;
@@ -16,6 +17,8 @@ class CompanyFilterFieldsExpanderPlugin extends AbstractPlugin implements Filter
      * @param \Spryker\Glue\GlueApplication\Rest\Request\Data\RestRequestInterface $restRequest
      * @param \ArrayObject<\Generated\Shared\Transfer\FilterFieldTransfer> $filterFieldTransfers
      *
+     * @throws \Exception
+     *
      * @return \ArrayObject<\Generated\Shared\Transfer\FilterFieldTransfer>
      */
     public function expand(RestRequestInterface $restRequest, ArrayObject $filterFieldTransfers): ArrayObject
@@ -23,9 +26,17 @@ class CompanyFilterFieldsExpanderPlugin extends AbstractPlugin implements Filter
         $query = $restRequest->getHttpRequest()->query;
         $uuids = [];
         try {
-            $uuids[] = $query->get(
+            $uuid = $query->get(
                 CompanySearchRestApiConstants::PARAMETER_NAME_ID,
             );
+
+            if (is_array($uuid)) { /* @phpstan-ignore-line */
+                throw new Exception('should not be an array');
+            }
+
+            if ($uuid !== null) {
+                $uuids[] = $uuid;
+            }
         } catch (Throwable $throwable) {
             if ($query->getIterator()->offsetExists(CompanySearchRestApiConstants::PARAMETER_NAME_ID)) {
                 $uuids = $query->getIterator()->offsetGet(CompanySearchRestApiConstants::PARAMETER_NAME_ID);
@@ -49,6 +60,7 @@ class CompanyFilterFieldsExpanderPlugin extends AbstractPlugin implements Filter
 
             $filterFieldTransfers->append($filterFieldTransfer);
         }
+
         return $filterFieldTransfers;
     }
 }
