@@ -8,6 +8,7 @@ use FondOfOryx\Shared\CompanySearchRestApi\CompanySearchRestApiConstants;
 use Generated\Shared\Transfer\FilterFieldTransfer;
 use Spryker\Glue\GlueApplication\Rest\Request\Data\RestRequestInterface;
 use Spryker\Glue\Kernel\AbstractPlugin;
+use Throwable;
 
 class CompanyFilterFieldsExpanderPlugin extends AbstractPlugin implements FilterFieldsExpanderPluginInterface
 {
@@ -19,20 +20,35 @@ class CompanyFilterFieldsExpanderPlugin extends AbstractPlugin implements Filter
      */
     public function expand(RestRequestInterface $restRequest, ArrayObject $filterFieldTransfers): ArrayObject
     {
-        $uuid = $restRequest->getHttpRequest()->query->get(
-            CompanySearchRestApiConstants::PARAMETER_NAME_ID,
-        );
+        $query = $restRequest->getHttpRequest()->query;
+        $uuids = [];
+        try {
+            $uuid[] = $query->get(
+                CompanySearchRestApiConstants::PARAMETER_NAME_ID,
+            );
+        } catch (Throwable $throwable) {
+            if ($query->getIterator()->offsetExists(CompanySearchRestApiConstants::PARAMETER_NAME_ID)) {
+                $uuids = $query->getIterator()->offsetGet(CompanySearchRestApiConstants::PARAMETER_NAME_ID);
+            }
+        }
 
-        if ($uuid === null) {
+        $count = count($uuids);
+        if ($count === 0) {
             return $filterFieldTransfers;
         }
 
-        $filterFieldTransfer = (new FilterFieldTransfer())
-            ->setType(CompanySearchRestApiConstants::FILTER_FIELD_TYPE_UUID)
-            ->setValue((string)$uuid);
+        $type = CompanySearchRestApiConstants::FILTER_FIELD_TYPE_UUIDS;
+        if ($count === 1) {
+            $type = CompanySearchRestApiConstants::FILTER_FIELD_TYPE_UUID;
+        }
 
-        $filterFieldTransfers->append($filterFieldTransfer);
+        foreach ($uuids as $uuid) {
+            $filterFieldTransfer = (new FilterFieldTransfer())
+                ->setType($type)
+                ->setValue((string)$uuid);
 
+            $filterFieldTransfers->append($filterFieldTransfer);
+        }
         return $filterFieldTransfers;
     }
 }

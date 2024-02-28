@@ -32,6 +32,10 @@ class CompanySearchRestApiRepository extends AbstractRepository implements Compa
             ->createCompanySearchFilterFieldQueryBuilder()
             ->addQueryFilters($query, $companyListTransfer);
 
+        $query = $this->getFactory()
+            ->createCompanySearchFilterFieldQueryBuilder()
+            ->addInQueryFilters($query, $companyListTransfer);
+
         $queryJoinCollectionTransfer = $companyListTransfer->getQueryJoins();
 
         if ($queryJoinCollectionTransfer !== null && $queryJoinCollectionTransfer->getQueryJoins()->count() > 0) {
