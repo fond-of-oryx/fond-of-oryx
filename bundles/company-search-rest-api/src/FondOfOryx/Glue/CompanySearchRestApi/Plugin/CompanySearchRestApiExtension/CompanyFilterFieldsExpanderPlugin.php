@@ -23,7 +23,7 @@ class CompanyFilterFieldsExpanderPlugin extends AbstractPlugin implements Filter
         $query = $restRequest->getHttpRequest()->query;
         $uuids = [];
         try {
-            $uuid[] = $query->get(
+            $uuids[] = $query->get(
                 CompanySearchRestApiConstants::PARAMETER_NAME_ID,
             );
         } catch (Throwable $throwable) {

@@ -61,7 +61,7 @@ class CompanySearchFilterFieldQueryBuilder implements CompanySearchFilterFieldQu
     ): SpyCompanyQuery {
         $grouped = [];
         foreach ($companyListTransfer->getFilterFields() as $filterField){
-            $grouped[$filterField->getType()] = $filterField->getValue();
+            $grouped[$filterField->getType()][] = $filterField->getValue();
         }
 
         foreach ($grouped as $key => $values){
