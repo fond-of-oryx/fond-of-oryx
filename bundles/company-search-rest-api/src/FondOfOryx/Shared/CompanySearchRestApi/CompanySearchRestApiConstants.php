@@ -42,6 +42,16 @@ interface CompanySearchRestApiConstants
     /**
      * @var string
      */
+    public const FILTER_IN_FIELD_TYPE_MAPPING = 'FOND_OF_ORYX:COMPANIES_REST_API:FILTER_IN_FIELD_TYPE_MAPPING';
+
+    /**
+     * @var array<string, string>
+     */
+    public const FILTER_IN_FIELD_TYPE_MAPPING_DEFAULT = [];
+
+    /**
+     * @var string
+     */
     public const FILTER_FIELD_TYPE_ORDER_BY = 'orderBy';
 
     /**
