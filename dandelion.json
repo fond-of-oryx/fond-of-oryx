@@ -473,7 +473,7 @@
     },
     "erp-order": {
       "path": "bundles/erp-order/",
-      "version": "4.2.1"
+      "version": "4.3.0"
     },
     "erp-order-api": {
       "path": "bundles/erp-order-api/",
