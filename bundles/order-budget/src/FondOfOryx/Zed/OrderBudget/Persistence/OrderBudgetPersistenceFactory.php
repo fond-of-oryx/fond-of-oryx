@@ -7,6 +7,7 @@ use FondOfOryx\Zed\OrderBudget\Persistence\Propel\Mapper\OrderBudgetHistoryMappe
 use FondOfOryx\Zed\OrderBudget\Persistence\Propel\Mapper\OrderBudgetMapper;
 use FondOfOryx\Zed\OrderBudget\Persistence\Propel\Mapper\OrderBudgetMapperInterface;
 use Orm\Zed\OrderBudget\Persistence\Base\FooOrderBudgetQuery;
+use Orm\Zed\OrderBudget\Persistence\FooOrderBudgetHistoryQuery;
 use Spryker\Zed\Kernel\Persistence\AbstractPersistenceFactory;
 
 /**
@@ -40,5 +41,13 @@ class OrderBudgetPersistenceFactory extends AbstractPersistenceFactory
     public function createFooOrderBudgetQuery(): FooOrderBudgetQuery
     {
         return FooOrderBudgetQuery::create();
+    }
+
+    /**
+     * @return \Orm\Zed\OrderBudget\Persistence\FooOrderBudgetHistoryQuery
+     */
+    public function createFooOrderBudgetHistoryQuery(): FooOrderBudgetHistoryQuery
+    {
+        return FooOrderBudgetHistoryQuery::create();
     }
 }

@@ -2,6 +2,7 @@
 
 namespace FondOfOryx\Zed\OrderBudget\Persistence;
 
+use DateTime;
 use Generated\Shared\Transfer\OrderBudgetHistoryTransfer;
 use Generated\Shared\Transfer\OrderBudgetTransfer;
 
@@ -31,4 +32,13 @@ interface OrderBudgetEntityManagerInterface
     public function createOrderBudgetHistory(
         OrderBudgetHistoryTransfer $orderBudgetHistoryTransfer
     ): OrderBudgetHistoryTransfer;
+
+    /**
+     * @param \DateTime $dateTime
+     *
+     * @return void
+     */
+    public function deleteOrderBudgetHistoryEntriesOlderThan(
+        DateTime $dateTime
+    ): void;
 }

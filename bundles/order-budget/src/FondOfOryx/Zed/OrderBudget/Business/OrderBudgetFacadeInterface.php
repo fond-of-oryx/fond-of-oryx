@@ -21,6 +21,16 @@ interface OrderBudgetFacadeInterface
 
     /**
      * Specification:
+     * - Removes old data from history
+     *
+     * @api
+     *
+     * @return void
+     */
+    public function cleanupOrderBudgetHistory(): void;
+
+    /**
+     * Specification:
      * - Creates order budget
      * - If budget is null, initial budget from config will be used
      * - Retrieves saved database entity as a transfer object

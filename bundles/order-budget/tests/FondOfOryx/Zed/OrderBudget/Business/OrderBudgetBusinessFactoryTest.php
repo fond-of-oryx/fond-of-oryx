@@ -3,6 +3,7 @@
 namespace FondOfOryx\Zed\OrderBudget\Business;
 
 use Codeception\Test\Unit;
+use FondOfOryx\Zed\OrderBudget\Business\Cleaner\OrderBudgetHistoryCleaner;
 use FondOfOryx\Zed\OrderBudget\Business\Resetter\OrderBudgetResetter;
 use FondOfOryx\Zed\OrderBudget\Business\Writer\OrderBudgetWriter;
 use FondOfOryx\Zed\OrderBudget\Dependency\Service\OrderBudgetToUtilDateTimeServiceInterface;
@@ -96,6 +97,17 @@ class OrderBudgetBusinessFactoryTest extends Unit
         static::assertInstanceOf(
             OrderBudgetResetter::class,
             $this->businessFactory->createOrderBudgetResetter(),
+        );
+    }
+
+    /**
+     * @return void
+     */
+    public function testCreateOrderBudgetHistoryCleaner(): void
+    {
+        static::assertInstanceOf(
+            OrderBudgetHistoryCleaner::class,
+            $this->businessFactory->createOrderBudgetHistoryCleaner(),
         );
     }
 

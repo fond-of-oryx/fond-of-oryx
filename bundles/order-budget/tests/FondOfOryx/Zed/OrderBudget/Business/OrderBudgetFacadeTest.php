@@ -3,6 +3,7 @@
 namespace FondOfOryx\Zed\OrderBudget\Business;
 
 use Codeception\Test\Unit;
+use FondOfOryx\Zed\OrderBudget\Business\Cleaner\OrderBudgetHistoryCleanerInterface;
 use FondOfOryx\Zed\OrderBudget\Business\Resetter\OrderBudgetResetterInterface;
 use FondOfOryx\Zed\OrderBudget\Business\Writer\OrderBudgetWriterInterface;
 use FondOfOryx\Zed\OrderBudget\Persistence\OrderBudgetRepository;
@@ -19,6 +20,11 @@ class OrderBudgetFacadeTest extends Unit
      * @var \FondOfOryx\Zed\OrderBudget\Business\Resetter\OrderBudgetResetterInterface|\PHPUnit\Framework\MockObject\MockObject
      */
     protected $orderBudgetResetterMock;
+
+    /**
+     * @var \FondOfOryx\Zed\OrderBudget\Business\Cleaner\OrderBudgetHistoryCleanerInterface|\PHPUnit\Framework\MockObject\MockObject
+     */
+    protected $orderBudgetHistoryCleanerMock;
 
     /**
      * @var \FondOfOryx\Zed\OrderBudget\Business\Writer\OrderBudgetWriterInterface|\PHPUnit\Framework\MockObject\MockObject|mixed
@@ -55,6 +61,10 @@ class OrderBudgetFacadeTest extends Unit
             ->disableOriginalConstructor()
             ->getMock();
 
+        $this->orderBudgetHistoryCleanerMock = $this->getMockBuilder(OrderBudgetHistoryCleanerInterface::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
         $this->orderBudgetWriterMock = $this->getMockBuilder(OrderBudgetWriterInterface::class)
             ->disableOriginalConstructor()
             ->getMock();
@@ -85,6 +95,21 @@ class OrderBudgetFacadeTest extends Unit
             ->method('resetMultiple');
 
         $this->facade->resetOrderBudgets();
+    }
+
+    /**
+     * @return void
+     */
+    public function testCleanupOrderBudgetHistory(): void
+    {
+        $this->factoryMock->expects(static::atLeastOnce())
+            ->method('createOrderBudgetHistoryCleaner')
+            ->willReturn($this->orderBudgetHistoryCleanerMock);
+
+        $this->orderBudgetHistoryCleanerMock->expects(static::atLeastOnce())
+            ->method('clean');
+
+        $this->facade->cleanupOrderBudgetHistory();
     }
 
     /**

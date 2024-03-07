@@ -27,6 +27,19 @@ class OrderBudgetFacade extends AbstractFacade implements OrderBudgetFacadeInter
     }
 
     /**
+     * Specification:
+     * - Removes old data from history
+     *
+     * @api
+     *
+     * @return void
+     */
+    public function cleanupOrderBudgetHistory(): void
+    {
+        $this->getFactory()->createOrderBudgetHistoryCleaner()->clean();
+    }
+
+    /**
      * {@inheritDoc}
      *
      * @api

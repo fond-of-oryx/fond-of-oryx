@@ -14,4 +14,12 @@ class OrderBudgetConfig extends AbstractBundleConfig
     {
         return $this->get(OrderBudgetConstants::INITIAL_BUDGET, OrderBudgetConstants::INITIAL_BUDGET_DEFAULT);
     }
+
+    /**
+     * @return int
+     */
+    public function getHistoryRetentionTime(): int
+    {
+        return $this->get(OrderBudgetConstants::RETENTION_TIME_IN_DAYS, OrderBudgetConstants::RETENTION_TIME_IN_DAYS_DEFAULT);
+    }
 }
