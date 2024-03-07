@@ -33,6 +33,7 @@
         <property name="fkAmount" type="int"/>
         <property name="fkUnitPriceAmount" type="int"/>
         <property name="sku" type="string"/>
+        <property name="gtin" type="string"/>
         <property name="name" type="string"/>
         <property name="canceledQuantity" type="int"/>
         <property name="orderedQuantity" type="int"/>

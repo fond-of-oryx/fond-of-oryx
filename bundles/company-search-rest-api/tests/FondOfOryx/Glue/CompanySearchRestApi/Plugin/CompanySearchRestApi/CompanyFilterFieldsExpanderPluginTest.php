@@ -101,4 +101,45 @@ class CompanyFilterFieldsExpanderPluginTest extends Unit
 
         static::assertCount(0, $filterFieldTransfers);
     }
+
+    /**
+     * @return void
+     */
+    public function testExpandWithMultipleIds(): void
+    {
+        $companyUuid = 'cb3eb2e7-3c15-438d-870f-5206d594879a';
+        $companyUuid2 = 'cb3eb2e7-3c15-438d-870f-5206d594879b';
+
+        $this->httpRequestMock->query = new ParameterBag(
+            [
+                CompanySearchRestApiConstants::PARAMETER_NAME_ID => [$companyUuid, $companyUuid2],
+            ],
+        );
+
+        $this->restRequestMock->expects(static::atLeastOnce())
+            ->method('getHttpRequest')
+            ->willReturn($this->httpRequestMock);
+
+        $filterFieldTransfers = $this->plugin->expand(
+            $this->restRequestMock,
+            $this->filterFieldTransfers,
+        );
+
+        static::assertCount(2, $filterFieldTransfers);
+
+        $filterFieldTransfer = $filterFieldTransfers->offsetGet(0);
+
+        static::assertEquals($companyUuid, $filterFieldTransfer->getValue());
+        static::assertEquals(
+            CompanySearchRestApiConstants::FILTER_FIELD_TYPE_UUID,
+            $filterFieldTransfer->getType(),
+        );
+        $filterFieldTransfer = $filterFieldTransfers->offsetGet(1);
+
+        static::assertEquals($companyUuid2, $filterFieldTransfer->getValue());
+        static::assertEquals(
+            CompanySearchRestApiConstants::FILTER_FIELD_TYPE_UUID,
+            $filterFieldTransfer->getType(),
+        );
+    }
 }

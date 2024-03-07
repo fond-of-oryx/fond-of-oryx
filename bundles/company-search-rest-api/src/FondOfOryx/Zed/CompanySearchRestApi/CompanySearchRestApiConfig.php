@@ -46,6 +46,17 @@ class CompanySearchRestApiConfig extends AbstractBundleConfig
     /**
      * @return array<string, string>
      */
+    public function getInFilterFieldTypeMapping(): array
+    {
+        return $this->get(
+            CompanySearchRestApiConstants::FILTER_IN_FIELD_TYPE_MAPPING,
+            CompanySearchRestApiConstants::FILTER_IN_FIELD_TYPE_MAPPING_DEFAULT,
+        );
+    }
+
+    /**
+     * @return array<string, string>
+     */
     public function getSortFieldMapping(): array
     {
         return $this->get(

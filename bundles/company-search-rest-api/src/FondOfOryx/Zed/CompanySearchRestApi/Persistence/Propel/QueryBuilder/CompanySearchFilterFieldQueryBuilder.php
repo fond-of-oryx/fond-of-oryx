@@ -51,6 +51,34 @@ class CompanySearchFilterFieldQueryBuilder implements CompanySearchFilterFieldQu
 
     /**
      * @param \Orm\Zed\Company\Persistence\Base\SpyCompanyQuery $query
+     * @param \Generated\Shared\Transfer\CompanyListTransfer $companyListTransfer
+     *
+     * @return \Orm\Zed\Company\Persistence\Base\SpyCompanyQuery
+     */
+    public function addInQueryFilters(
+        SpyCompanyQuery $query,
+        CompanyListTransfer $companyListTransfer
+    ): SpyCompanyQuery {
+        $grouped = [];
+        foreach ($companyListTransfer->getFilterFields() as $filterField) {
+            $grouped[$filterField->getType()][] = $filterField->getValue();
+        }
+
+        foreach ($grouped as $key => $values) {
+            if (isset($this->config->getInFilterFieldTypeMapping()[$key])) {
+                $query->add(
+                    $this->config->getInFilterFieldTypeMapping()[$key],
+                    $values,
+                    Criteria::IN,
+                );
+            }
+        }
+
+        return $query;
+    }
+
+    /**
+     * @param \Orm\Zed\Company\Persistence\Base\SpyCompanyQuery $query
      * @param \Generated\Shared\Transfer\FilterFieldTransfer $filterFieldTransfer
      *
      * @return \Orm\Zed\Company\Persistence\Base\SpyCompanyQuery
