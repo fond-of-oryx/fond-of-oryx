@@ -50,6 +50,7 @@
         <column name="fk_amount" required="false" type="INTEGER"/>
         <column name="fk_unit_price_amount" required="false" type="INTEGER"/>
         <column name="sku" required="true" size="255" type="VARCHAR"/>
+        <column name="gtin" size="255" type="VARCHAR"/>
         <column name="name" required="true" size="255" type="VARCHAR"/>
         <column name="canceled_quantity" required="false" type="INTEGER"/>
         <column name="ordered_quantity" required="false" type="INTEGER"/>
