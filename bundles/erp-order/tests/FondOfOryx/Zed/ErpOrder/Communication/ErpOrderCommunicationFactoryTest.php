@@ -11,7 +11,7 @@ use Spryker\Zed\Kernel\Container;
 class ErpOrderCommunicationFactoryTest extends Unit
 {
     /**
-     * @var \PHPUnit\Framework\MockObject\MockObject|\Spryker\Zed\Kernel\Container&\PHPUnit\Framework\MockObject\MockObject
+     * @var \PHPUnit\Framework\MockObject\MockObject|\Spryker\Zed\Kernel\Container $containerMock
      */
     protected Container|MockObject $containerMock;
 
