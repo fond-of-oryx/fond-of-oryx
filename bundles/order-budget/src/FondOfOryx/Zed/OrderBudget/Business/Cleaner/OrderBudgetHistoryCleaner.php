@@ -42,14 +42,14 @@ class OrderBudgetHistoryCleaner implements OrderBudgetHistoryCleanerInterface
         $self = $this;
 
         $this->getTransactionHandler()->handleTransaction(static function () use ($self) {
-            $self->executeCleanup();
+            $self->executeClean();
         });
     }
 
     /**
      * @return void
      */
-    protected function executeCleanup(): void
+    protected function executeClean(): void
     {
         $oldestDate = (new DateTime())->sub(new DateInterval(sprintf('P%sD', $this->config->getHistoryRetentionTime())));
         $this->entityManager->deleteOrderBudgetHistoryEntriesOlderThan($oldestDate);
