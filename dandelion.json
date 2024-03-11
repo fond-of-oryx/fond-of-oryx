@@ -497,7 +497,7 @@
     },
     "erp-order-page-search-rest-api": {
       "path": "bundles/erp-order-page-search-rest-api/",
-      "version": "2.4.0"
+      "version": "2.5.0"
     },
     "erp-order-permission": {
       "path": "bundles/erp-order-permission/",
