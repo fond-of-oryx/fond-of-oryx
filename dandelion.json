@@ -121,7 +121,7 @@
     },
     "company-business-unit-search-rest-api": {
       "path": "bundles/company-business-unit-search-rest-api/",
-      "version": "3.0.0"
+      "version": "3.1.0"
     },
     "company-business-unit-search-rest-api-extension": {
       "path": "bundles/company-business-unit-search-rest-api-extension/",
