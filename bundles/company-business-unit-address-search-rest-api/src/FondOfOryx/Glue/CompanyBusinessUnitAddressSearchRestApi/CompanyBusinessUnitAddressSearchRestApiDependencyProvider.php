@@ -14,6 +14,11 @@ class CompanyBusinessUnitAddressSearchRestApiDependencyProvider extends Abstract
     public const CLIENT_GLOSSARY_STORAGE = 'CLIENT_GLOSSARY_STORAGE';
 
     /**
+     * @var string
+     */
+    public const PLUGINS_FILTER_FIELDS_EXPANDER = 'PLUGINS_FILTER_FIELDS_EXPANDER';
+
+    /**
      * @param \Spryker\Glue\Kernel\Container $container
      *
      * @return \Spryker\Glue\Kernel\Container
@@ -21,6 +26,7 @@ class CompanyBusinessUnitAddressSearchRestApiDependencyProvider extends Abstract
     public function provideDependencies(Container $container): Container
     {
         $container = parent::provideDependencies($container);
+        $container = $this->addFilterFieldsExpanderPlugins($container);
 
         return $this->addGlossaryStorageClient($container);
     }
@@ -39,5 +45,29 @@ class CompanyBusinessUnitAddressSearchRestApiDependencyProvider extends Abstract
         };
 
         return $container;
+    }
+
+    /**
+     * @param \Spryker\Glue\Kernel\Container $container
+     *
+     * @return \Spryker\Glue\Kernel\Container
+     */
+    protected function addFilterFieldsExpanderPlugins(Container $container): Container
+    {
+        $self = $this;
+
+        $container[static::PLUGINS_FILTER_FIELDS_EXPANDER] = static function () use ($self) {
+            return $self->getFilterFieldsExpanderPlugins();
+        };
+
+        return $container;
+    }
+
+    /**
+     * @return array<\FondOfOryx\Glue\CompanyBusinessUnitAddressSearchRestApiExtension\Dependency\Plugin\FilterFieldsExpanderPluginInterface>
+     */
+    protected function getFilterFieldsExpanderPlugins(): array
+    {
+        return [];
     }
 }

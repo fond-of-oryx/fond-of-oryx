@@ -3,6 +3,7 @@
 namespace FondOfOryx\Glue\CompanyBusinessUnitAddressSearchRestApi\Processor\Mapper;
 
 use FondOfOryx\Glue\CompanyBusinessUnitAddressSearchRestApi\CompanyBusinessUnitAddressSearchRestApiConfig;
+use FondOfOryx\Shared\CompanyBusinessUnitAddressSearchRestApi\CompanyBusinessUnitAddressSearchRestApiConstants;
 use Generated\Shared\Transfer\CompanyBusinessUnitAddressListTransfer;
 use Generated\Shared\Transfer\RestCompanyBusinessUnitAddressSearchSortTransfer;
 
@@ -38,7 +39,15 @@ class RestCompanyBusinessUnitAddressSearchSortMapper implements RestCompanyBusin
             ->setSortParamNames($this->config->getSortParamNames())
             ->setSortParamLocalizedNames($this->config->getSortParamLocalizedNames());
 
-        $sort = $companyBusinessUnitAddressListTransfer->getSort();
+        $sort = null;
+
+        foreach ($companyBusinessUnitAddressListTransfer->getFilterFields() as $filterField) {
+            if ($filterField->getType() === CompanyBusinessUnitAddressSearchRestApiConstants::FILTER_FIELD_TYPE_SORT) {
+                $sort = $filterField->getValue();
+
+                break;
+            }
+        }
 
         if ($sort === null) {
             return $restCompanyBusinessUnitAddressSearchSortTransfer;

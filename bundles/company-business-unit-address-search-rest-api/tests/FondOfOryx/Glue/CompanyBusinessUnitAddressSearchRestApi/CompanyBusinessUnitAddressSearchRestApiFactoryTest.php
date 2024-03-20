@@ -103,13 +103,22 @@ class CompanyBusinessUnitAddressSearchRestApiFactoryTest extends Unit
     {
         $this->containerMock->expects(static::atLeastOnce())
             ->method('has')
-            ->with(CompanyBusinessUnitAddressSearchRestApiDependencyProvider::CLIENT_GLOSSARY_STORAGE)
+            ->withConsecutive(
+                [CompanyBusinessUnitAddressSearchRestApiDependencyProvider::PLUGINS_FILTER_FIELDS_EXPANDER],
+                [CompanyBusinessUnitAddressSearchRestApiDependencyProvider::CLIENT_GLOSSARY_STORAGE],
+            )
             ->willReturn(true);
 
         $this->containerMock->expects(static::atLeastOnce())
             ->method('get')
-            ->with(CompanyBusinessUnitAddressSearchRestApiDependencyProvider::CLIENT_GLOSSARY_STORAGE)
-            ->willReturn($this->glossaryStorageClientMock);
+            ->withConsecutive(
+                [CompanyBusinessUnitAddressSearchRestApiDependencyProvider::PLUGINS_FILTER_FIELDS_EXPANDER],
+                [CompanyBusinessUnitAddressSearchRestApiDependencyProvider::CLIENT_GLOSSARY_STORAGE],
+            )
+            ->willReturnOnConsecutiveCalls(
+                [],
+                $this->glossaryStorageClientMock,
+            );
 
         static::assertInstanceOf(
             CompanyBusinessUnitAddressReader::class,

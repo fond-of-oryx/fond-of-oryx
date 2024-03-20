@@ -15,10 +15,12 @@
   "require": {
     "php": ">=8.0",
     "fond-of-oryx/company-business-unit-search-rest-api-extension": "^1.0.0",
+    "spryker/company": "^1.0.0",
     "spryker/company-user": "^2.0.0",
     "spryker/company-business-unit": "^2.0.0",
     "spryker/glue-application": "^1.0.0",
-    "spryker/glossary-storage": "^1.5.0"
+    "spryker/glossary-storage": "^1.5.0",
+    "spryker/uuid-behavior": "^1.0.0"
   },
   "require-dev": {
     "fond-of-codeception/spryker": "*",
@@ -40,6 +42,7 @@
     }
   },
   "config": {
+    "sort-packages": true,
     "allow-plugins": {
       "dealerdirect/phpcodesniffer-composer-installer": true
     }

@@ -57,14 +57,7 @@ class CompanyBusinessUnitAddressListMapper implements CompanyBusinessUnitAddress
     {
         return (new CompanyBusinessUnitAddressListTransfer())
             ->setPagination($this->paginationMapper->fromRestRequest($restRequest))
-            ->setCompanyUuid($this->requestParameterFilter->getRequestParameter($restRequest, 'company-id'))
-            ->setCompanyBusinessUnitUuid($this->requestParameterFilter->getRequestParameter($restRequest, 'company-business-unit-id'))
-            ->setDefaultBilling($this->requestParameterFilter->getRequestParameter($restRequest, 'default-billing') !== null ?
-                filter_var($this->requestParameterFilter->getRequestParameter($restRequest, 'default-billing'), FILTER_VALIDATE_BOOLEAN) : null)
-            ->setDefaultShipping($this->requestParameterFilter->getRequestParameter($restRequest, 'default-shipping') !== null ?
-                filter_var($this->requestParameterFilter->getRequestParameter($restRequest, 'default-shipping'), FILTER_VALIDATE_BOOLEAN) : null)
-            ->setSort($this->requestParameterFilter->getRequestParameter($restRequest, 'sort'))
-            ->setQuery($this->requestParameterFilter->getRequestParameter($restRequest, 'q'))
+            ->setFilterFields($this->requestParameterFilter->getRequestParameter($restRequest))
             ->setCustomerId($this->customerIdFilter->filterFromRestRequest($restRequest))
             ->setCustomerReference($this->customerReferenceFilter->filterFromRestRequest($restRequest));
     }
