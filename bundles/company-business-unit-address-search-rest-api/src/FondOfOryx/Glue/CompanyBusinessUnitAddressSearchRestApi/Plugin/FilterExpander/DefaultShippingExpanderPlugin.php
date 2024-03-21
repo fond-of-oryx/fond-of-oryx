@@ -31,6 +31,7 @@ class DefaultShippingExpanderPlugin implements FilterFieldsExpanderPluginInterfa
 
         $filterFieldTransfer = (new FilterFieldTransfer())
             ->setType(CompanyBusinessUnitAddressSearchRestApiConstants::FILTER_FIELD_TYPE_DEFAULT_SHIPPING)
+            ->setIsBool(true)
             ->setValue($this->getValue($defaultShipping));
 
         $filterFieldTransfers->append($filterFieldTransfer);
