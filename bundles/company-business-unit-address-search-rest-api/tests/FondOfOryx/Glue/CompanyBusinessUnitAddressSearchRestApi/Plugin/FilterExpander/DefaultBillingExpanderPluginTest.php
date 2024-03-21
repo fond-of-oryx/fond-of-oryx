@@ -78,7 +78,7 @@ class DefaultBillingExpanderPluginTest extends Unit
         );
 
         static::assertTrue(
-            $collection->offsetGet(0)->getIsBool()
+            $collection->offsetGet(0)->getIsBool(),
         );
     }
 
@@ -105,7 +105,7 @@ class DefaultBillingExpanderPluginTest extends Unit
         );
 
         static::assertTrue(
-            $collection->offsetGet(0)->getIsBool()
+            $collection->offsetGet(0)->getIsBool(),
         );
     }
 
@@ -137,7 +137,7 @@ class DefaultBillingExpanderPluginTest extends Unit
         );
 
         static::assertTrue(
-            $collection->offsetGet(0)->getIsBool()
+            $collection->offsetGet(0)->getIsBool(),
         );
     }
 }
