@@ -469,12 +469,13 @@ class CompanyBusinessUnitAddressSearchRestApiRepository extends AbstractReposito
     {
         foreach ($filterCollection as $filter) {
             if ($filter->getType() === $type) {
-                if($filter->getIsBool()){
+                if ($filter->getIsBool()) {
                     return filter_var($filter->getValue(), FILTER_VALIDATE_BOOLEAN);
                 }
-                if($filter->getIsInt()){
+                if ($filter->getIsInt()) {
                     return filter_var($filter->getValue(), FILTER_VALIDATE_INT);
                 }
+
                 return $filter->getValue();
             }
         }
@@ -494,12 +495,14 @@ class CompanyBusinessUnitAddressSearchRestApiRepository extends AbstractReposito
 
         foreach ($filterCollection as $filter) {
             if ($filter->getType() === $type) {
-                if($filter->getIsBool()){
-                    $data[] =  filter_var($filter->getValue(), FILTER_VALIDATE_BOOLEAN);
+                if ($filter->getIsBool()) {
+                    $data[] = filter_var($filter->getValue(), FILTER_VALIDATE_BOOLEAN);
+
                     continue;
                 }
-                if($filter->getIsInt()){
-                    $data[] =  filter_var($filter->getValue(), FILTER_VALIDATE_INT);
+                if ($filter->getIsInt()) {
+                    $data[] = filter_var($filter->getValue(), FILTER_VALIDATE_INT);
+
                     continue;
                 }
                 $data[] = $filter->getValue();
