@@ -31,6 +31,7 @@ class DefaultBillingExpanderPlugin implements FilterFieldsExpanderPluginInterfac
 
         $filterFieldTransfer = (new FilterFieldTransfer())
             ->setType(CompanyBusinessUnitAddressSearchRestApiConstants::FILTER_FIELD_TYPE_DEFAULT_BILLING)
+            ->setIsBool(true)
             ->setValue($this->getValue($defaultBilling));
 
         $filterFieldTransfers->append($filterFieldTransfer);

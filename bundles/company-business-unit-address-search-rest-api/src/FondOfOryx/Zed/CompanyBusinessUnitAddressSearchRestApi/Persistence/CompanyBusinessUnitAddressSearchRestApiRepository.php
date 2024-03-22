@@ -468,9 +468,18 @@ class CompanyBusinessUnitAddressSearchRestApiRepository extends AbstractReposito
     protected function getFilterValueByType(ArrayObject $filterCollection, string $type): string|int|bool|null
     {
         foreach ($filterCollection as $filter) {
-            if ($filter->getType() === $type) {
-                return $filter->getValue();
+            if ($filter->getType() !== $type) {
+                continue;
             }
+
+            if ($filter->getIsBool()) {
+                return filter_var($filter->getValue(), FILTER_VALIDATE_BOOLEAN);
+            }
+            if ($filter->getIsInt()) {
+                return filter_var($filter->getValue(), FILTER_VALIDATE_INT);
+            }
+
+            return $filter->getValue();
         }
 
         return null;
@@ -487,9 +496,21 @@ class CompanyBusinessUnitAddressSearchRestApiRepository extends AbstractReposito
         $data = [];
 
         foreach ($filterCollection as $filter) {
-            if ($filter->getType() === $type) {
-                $data[] = $filter->getValue();
+            if ($filter->getType() !== $type) {
+                continue;
             }
+
+            if ($filter->getIsBool()) {
+                $data[] = filter_var($filter->getValue(), FILTER_VALIDATE_BOOLEAN);
+
+                continue;
+            }
+            if ($filter->getIsInt()) {
+                $data[] = filter_var($filter->getValue(), FILTER_VALIDATE_INT);
+
+                continue;
+            }
+            $data[] = $filter->getValue();
         }
 
         return $data;

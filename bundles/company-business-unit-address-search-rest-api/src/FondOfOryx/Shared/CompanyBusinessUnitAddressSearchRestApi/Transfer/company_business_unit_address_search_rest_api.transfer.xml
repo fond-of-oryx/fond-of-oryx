@@ -94,4 +94,9 @@
         <property name="isDefaultShippingAddress" type="bool"/>
         <property name="isDefaultBillingAddress" type="bool"/>
     </transfer>
+
+    <transfer name="FilterField">
+        <property name="isInt" type="bool"/>
+        <property name="isBool" type="bool"/>
+    </transfer>
 </transfers>

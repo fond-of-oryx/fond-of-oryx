@@ -76,6 +76,10 @@ class DefaultShippingExpanderPluginTest extends Unit
             $collection->offsetGet(0)->getValue(),
             'true',
         );
+
+        static::assertTrue(
+            $collection->offsetGet(0)->getIsBool(),
+        );
     }
 
     /**
@@ -98,6 +102,10 @@ class DefaultShippingExpanderPluginTest extends Unit
         static::assertEquals(
             $collection->offsetGet(0)->getValue(),
             'false',
+        );
+
+        static::assertTrue(
+            $collection->offsetGet(0)->getIsBool(),
         );
     }
 
@@ -126,6 +134,10 @@ class DefaultShippingExpanderPluginTest extends Unit
         static::assertEquals(
             $collection->offsetGet(0)->getType(),
             CompanyBusinessUnitAddressSearchRestApiConstants::FILTER_FIELD_TYPE_DEFAULT_SHIPPING,
+        );
+
+        static::assertTrue(
+            $collection->offsetGet(0)->getIsBool(),
         );
     }
 }
