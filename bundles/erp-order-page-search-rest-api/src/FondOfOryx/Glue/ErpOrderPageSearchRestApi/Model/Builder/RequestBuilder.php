@@ -25,11 +25,14 @@ class RequestBuilder implements RequestBuilderInterface
 
     /**
      * @param \Spryker\Glue\GlueApplication\Rest\Request\Data\RestRequestInterface $restRequest
+     * @param \Generated\Shared\Transfer\ErpOrderPageSearchRequestTransfer $erpOrderPageSearchRequestTransfer
      *
      * @return \Generated\Shared\Transfer\ErpOrderPageSearchRequestTransfer
      */
-    protected function addFilterFromRestRequest(RestRequestInterface $restRequest, ErpOrderPageSearchRequestTransfer $erpOrderPageSearchRequestTransfer): ErpOrderPageSearchRequestTransfer
-    {
+    protected function addFilterFromRestRequest(
+        RestRequestInterface $restRequest,
+        ErpOrderPageSearchRequestTransfer $erpOrderPageSearchRequestTransfer
+    ): ErpOrderPageSearchRequestTransfer {
         $filterCollection = [];
         foreach ($restRequest->getFilters() as $filterName => $filter) {
             $filterCollection[$filterName][] = [
@@ -45,6 +48,7 @@ class RequestBuilder implements RequestBuilderInterface
 
     /**
      * @param \Spryker\Glue\GlueApplication\Rest\Request\Data\RestRequestInterface $restRequest
+     * @param \Generated\Shared\Transfer\ErpOrderPageSearchRequestTransfer $erpOrderPageSearchRequestTransfer
      * @param string $parameterName
      *
      * @return \Generated\Shared\Transfer\ErpOrderPageSearchRequestTransfer
@@ -62,10 +66,13 @@ class RequestBuilder implements RequestBuilderInterface
     /**
      * @param \Spryker\Glue\GlueApplication\Rest\Request\Data\RestRequestInterface $restRequest
      * @param \Generated\Shared\Transfer\ErpOrderPageSearchRequestTransfer $erpOrderPageSearchRequestTransfer
+     *
      * @return \Generated\Shared\Transfer\ErpOrderPageSearchRequestTransfer
      */
-    protected function setAllRequestParameters(RestRequestInterface $restRequest, ErpOrderPageSearchRequestTransfer $erpOrderPageSearchRequestTransfer): ErpOrderPageSearchRequestTransfer
-    {
+    protected function setAllRequestParameters(
+        RestRequestInterface $restRequest,
+        ErpOrderPageSearchRequestTransfer $erpOrderPageSearchRequestTransfer
+    ): ErpOrderPageSearchRequestTransfer {
         $params = $restRequest->getHttpRequest()->query->all();
 
         if ($restRequest->getPage()) {
