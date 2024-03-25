@@ -9,24 +9,18 @@ use Spryker\Glue\GlueApplication\Rest\Request\Data\RestRequestInterface;
 class RequestBuilder implements RequestBuilderInterface
 {
     /**
-     * @var \Generated\Shared\Transfer\ErpOrderPageSearchRequestTransfer
-     */
-    protected $requestTransfer;
-
-    /**
      * @param \Spryker\Glue\GlueApplication\Rest\Request\Data\RestRequestInterface $restRequest
      *
      * @return \Generated\Shared\Transfer\ErpOrderPageSearchRequestTransfer
      */
     public function create(RestRequestInterface $restRequest): ErpOrderPageSearchRequestTransfer
     {
-        $this->requestTransfer = $this->createRequest();
-        $this->requestTransfer->setIncludes($restRequest->getInclude());
-        $this->requestTransfer = $this->addFilterFromRestRequest($restRequest);
-        $this->requestTransfer = $this->addRequestParameter($restRequest);
-        $this->requestTransfer = $this->setAllRequestParameters($restRequest);
+        $requestTransfer = $this->createRequest();
+        $requestTransfer->setIncludes($restRequest->getInclude());
+        $requestTransfer = $this->addFilterFromRestRequest($restRequest, $requestTransfer);
+        $requestTransfer = $this->addRequestParameter($restRequest, $requestTransfer);
 
-        return $this->requestTransfer;
+        return $this->setAllRequestParameters($restRequest, $requestTransfer);
     }
 
     /**
@@ -34,7 +28,7 @@ class RequestBuilder implements RequestBuilderInterface
      *
      * @return \Generated\Shared\Transfer\ErpOrderPageSearchRequestTransfer
      */
-    protected function addFilterFromRestRequest(RestRequestInterface $restRequest): ErpOrderPageSearchRequestTransfer
+    protected function addFilterFromRestRequest(RestRequestInterface $restRequest, ErpOrderPageSearchRequestTransfer $erpOrderPageSearchRequestTransfer): ErpOrderPageSearchRequestTransfer
     {
         $filterCollection = [];
         foreach ($restRequest->getFilters() as $filterName => $filter) {
@@ -44,9 +38,9 @@ class RequestBuilder implements RequestBuilderInterface
                 'field' => $filter->getField(),
             ];
         }
-        $this->requestTransfer->setFilters($filterCollection);
+        $erpOrderPageSearchRequestTransfer->setFilters($filterCollection);
 
-        return $this->requestTransfer;
+        return $erpOrderPageSearchRequestTransfer;
     }
 
     /**
@@ -57,19 +51,20 @@ class RequestBuilder implements RequestBuilderInterface
      */
     protected function addRequestParameter(
         RestRequestInterface $restRequest,
+        ErpOrderPageSearchRequestTransfer $erpOrderPageSearchRequestTransfer,
         string $parameterName = ErpOrderPageSearchRestApiConfig::QUERY_STRING_PARAMETER
     ): ErpOrderPageSearchRequestTransfer {
-        $this->requestTransfer->setSearchString($restRequest->getHttpRequest()->query->get($parameterName, ''));
+        $erpOrderPageSearchRequestTransfer->setSearchString($restRequest->getHttpRequest()->query->get($parameterName, ''));
 
-        return $this->requestTransfer;
+        return $erpOrderPageSearchRequestTransfer;
     }
 
     /**
      * @param \Spryker\Glue\GlueApplication\Rest\Request\Data\RestRequestInterface $restRequest
-     *
+     * @param \Generated\Shared\Transfer\ErpOrderPageSearchRequestTransfer $erpOrderPageSearchRequestTransfer
      * @return \Generated\Shared\Transfer\ErpOrderPageSearchRequestTransfer
      */
-    protected function setAllRequestParameters(RestRequestInterface $restRequest): ErpOrderPageSearchRequestTransfer
+    protected function setAllRequestParameters(RestRequestInterface $restRequest, ErpOrderPageSearchRequestTransfer $erpOrderPageSearchRequestTransfer): ErpOrderPageSearchRequestTransfer
     {
         $params = $restRequest->getHttpRequest()->query->all();
 
@@ -78,7 +73,7 @@ class RequestBuilder implements RequestBuilderInterface
             $params[ErpOrderPageSearchRestApiConfig::PARAMETER_NAME_PAGE] = ($restRequest->getPage()->getOffset() / $restRequest->getPage()->getLimit()) + 1;
         }
 
-        return $this->requestTransfer->setRequestParams($params);
+        return $erpOrderPageSearchRequestTransfer->setRequestParams($params);
     }
 
     /**
@@ -86,8 +81,6 @@ class RequestBuilder implements RequestBuilderInterface
      */
     protected function createRequest(): ErpOrderPageSearchRequestTransfer
     {
-        $this->requestTransfer = new ErpOrderPageSearchRequestTransfer();
-
-        return $this->requestTransfer;
+        return new ErpOrderPageSearchRequestTransfer();
     }
 }
