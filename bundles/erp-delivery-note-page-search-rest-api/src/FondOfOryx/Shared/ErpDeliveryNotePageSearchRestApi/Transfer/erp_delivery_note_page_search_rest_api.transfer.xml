@@ -14,6 +14,7 @@
     <transfer name="RestErpDeliveryNotePageSearchRequestAttributes">
         <property name="companyBusinessUnitId" type="string" />
         <property name="externalReference" type="string" />
+        <property name="reference" type="string" />
     </transfer>
 
     <transfer name="RestErpDeliveryNotePageSearchCollectionResponse">
@@ -47,6 +48,7 @@
     <transfer name="RestErpDeliveryNote">
         <property name="externalReference" type="string" />
         <property name="customReference" type="string" />
+        <property name="reference" type="string" />
         <property name="orderDate" type="string" />
         <property name="documentNumber" type="string" />
         <property name="deliveryNoteNumber" type="string" />
