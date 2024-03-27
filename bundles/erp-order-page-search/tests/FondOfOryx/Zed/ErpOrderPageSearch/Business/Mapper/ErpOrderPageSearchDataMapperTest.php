@@ -71,6 +71,7 @@ class ErpOrderPageSearchDataMapperTest extends Unit
             ErpOrderPageSearchDataMapper::PURCHASER_EMAIL => 'john.doe@example.com',
             ErpOrderPageSearchDataMapper::SEARCH_RESULT_PURCHASER_FIRST_NAME => 'john',
             ErpOrderPageSearchDataMapper::SEARCH_RESULT_PURCHASER_LAST_NAME => 'doe',
+            ErpOrderPageSearchDataMapper::REFERENCE => 'ref',
         ];
 
         $fullText = [

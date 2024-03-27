@@ -66,6 +66,7 @@ class ErpDeliveryNotePageSearchDataMapperTest extends Unit
             ErpDeliveryNotePageSearchDataMapper::SHIPPING_ADDRESS => null,
             ErpDeliveryNotePageSearchDataMapper::BILLING_ADDRESS => null,
             ErpDeliveryNotePageSearchDataMapper::CURRENCY_ISO_CODE => '',
+            ErpDeliveryNotePageSearchDataMapper::REFERENCE => 'ref',
         ];
 
         $fullText = [

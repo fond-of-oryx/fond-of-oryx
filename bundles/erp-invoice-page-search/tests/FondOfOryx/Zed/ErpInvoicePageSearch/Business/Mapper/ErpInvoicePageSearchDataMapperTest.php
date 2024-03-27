@@ -66,6 +66,7 @@ class ErpInvoicePageSearchDataMapperTest extends Unit
             ErpInvoicePageSearchDataMapper::SHIPPING_ADDRESS => null,
             ErpInvoicePageSearchDataMapper::BILLING_ADDRESS => null,
             ErpInvoicePageSearchDataMapper::CURRENCY_ISO_CODE => '',
+            ErpInvoicePageSearchDataMapper::REFERENCE => 'ref',
         ];
 
         $fullText = [

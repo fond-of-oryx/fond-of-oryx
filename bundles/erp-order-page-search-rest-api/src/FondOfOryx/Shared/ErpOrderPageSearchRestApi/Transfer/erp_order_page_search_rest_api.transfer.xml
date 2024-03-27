@@ -14,6 +14,7 @@
     <transfer name="RestErpOrderPageSearchRequestAttributes">
         <property name="companyBusinessUnitId" type="string" />
         <property name="externalReference" type="string" />
+        <property name="reference" type="string" />
     </transfer>
 
     <transfer name="RestErpOrderPageSearchCollectionResponse">
@@ -47,6 +48,7 @@
     <transfer name="RestErpOrder">
         <property name="externalReference" type="string" />
         <property name="customReference" type="string" />
+        <property name="reference" type="string" />
         <property name="concreteDeliveryDate" type="string" />
         <property name="createdAt" type="string" />
         <property name="updatedAt" type="string" />

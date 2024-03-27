@@ -43,6 +43,9 @@
         "purchaser-email": {
           "type": "keyword"
         },
+        "reference": {
+          "type": "keyword"
+        },
         "created-at": {
           "type": "date",
           "format": "yyyy-MM-dd HH:mm:ss.SSSSSS||yyyy-MM-dd HH:mm:ss||yyyy-MM-dd HH:mm:ss.SSSSSSZ"

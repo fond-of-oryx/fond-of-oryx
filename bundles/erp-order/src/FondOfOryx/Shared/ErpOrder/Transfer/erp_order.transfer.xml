@@ -21,6 +21,7 @@
         <property name="purchaserEmail" type="string"/>
         <property name="purchaserFirstName" type="string"/>
         <property name="purchaserLastName" type="string"/>
+        <property name="reference" type="string"/>
         <property name="createdAt" type="int"/>
         <property name="updatedAt" type="int"/>
         <property name="outstandingQuantity" type="int"/>
