@@ -29,6 +29,11 @@ class QuantityLimitCartPreCheckPlugin extends AbstractPlugin implements CartPreC
     public const MESSAGE_PARAM_NAME = 'name';
 
     /**
+     * @var string
+     */
+    public const MESSAGE_PARAM_MAX_QUANTITY = 'maxQuantity';
+
+    /**
      * @param \Generated\Shared\Transfer\CartChangeTransfer $cartChangeTransfer
      *
      * @return \Generated\Shared\Transfer\CartPreCheckResponseTransfer
@@ -53,6 +58,7 @@ class QuantityLimitCartPreCheckPlugin extends AbstractPlugin implements CartPreC
                     [
                         static::MESSAGE_PARAM_SKU => $itemTransfer->getSku(),
                         static::MESSAGE_PARAM_NAME => $itemTransfer->getName(),
+                        static::MESSAGE_PARAM_MAX_QUANTITY => $maxQuantity,
                     ],
                 );
 
