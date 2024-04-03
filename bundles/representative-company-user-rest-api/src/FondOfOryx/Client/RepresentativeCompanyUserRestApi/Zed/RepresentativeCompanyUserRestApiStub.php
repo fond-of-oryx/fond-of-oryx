@@ -18,6 +18,11 @@ class RepresentativeCompanyUserRestApiStub implements RepresentativeCompanyUserR
     /**
      * @var string
      */
+    public const ADD_REPRESENTATIONS = '/representative-company-user-rest-api/gateway/add-representations';
+
+    /**
+     * @var string
+     */
     public const GET_REPRESENTATION = '/representative-company-user-rest-api/gateway/get-representation';
 
     /**
@@ -53,6 +58,20 @@ class RepresentativeCompanyUserRestApiStub implements RepresentativeCompanyUserR
     ): RestRepresentativeCompanyUserResponseTransfer|RestErrorMessageTransfer {
         /** @var \Generated\Shared\Transfer\RestRepresentativeCompanyUserResponseTransfer|\Generated\Shared\Transfer\RestErrorMessageTransfer $representativeCompanyUserRestResponseTransfer */
         $representativeCompanyUserRestResponseTransfer = $this->zedRequestClient->call(static::ADD_REPRESENTATION, $restRepresentativeCompanyUserRequestTransfer);
+
+        return $representativeCompanyUserRestResponseTransfer;
+    }
+
+    /**
+     * @param \Generated\Shared\Transfer\RestRepresentativeCompanyUserRequestTransfer $restRepresentativeCompanyUserRequestTransfer
+     *
+     * @return \Generated\Shared\Transfer\RestRepresentativeCompanyUserResponseTransfer|\Generated\Shared\Transfer\RestErrorMessageTransfer
+     */
+    public function addRepresentations(
+        RestRepresentativeCompanyUserRequestTransfer $restRepresentativeCompanyUserRequestTransfer
+    ): RestRepresentativeCompanyUserResponseTransfer|RestErrorMessageTransfer {
+        /** @var \Generated\Shared\Transfer\RestRepresentativeCompanyUserResponseTransfer|\Generated\Shared\Transfer\RestErrorMessageTransfer $representativeCompanyUserRestResponseTransfer */
+        $representativeCompanyUserRestResponseTransfer = $this->zedRequestClient->call(static::ADD_REPRESENTATIONS, $restRepresentativeCompanyUserRequestTransfer);
 
         return $representativeCompanyUserRestResponseTransfer;
     }
