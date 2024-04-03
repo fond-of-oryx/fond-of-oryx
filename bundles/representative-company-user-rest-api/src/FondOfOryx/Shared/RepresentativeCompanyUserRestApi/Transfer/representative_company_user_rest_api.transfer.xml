@@ -76,7 +76,10 @@
         <property name="lastName" type="string" />
     </transfer>
 
-    <transfer name="RepresentativeCompanyUser" />
+    <transfer name="RepresentativeCompanyUser">
+        <property name="groupHash" type="string" />
+    </transfer>
+
     <transfer name="RepresentativeCompanyUserCollection" />
     <transfer name="RepresentativeCompanyUserCommand" />
     <transfer name="RepresentativeCompanyUserFilter" />

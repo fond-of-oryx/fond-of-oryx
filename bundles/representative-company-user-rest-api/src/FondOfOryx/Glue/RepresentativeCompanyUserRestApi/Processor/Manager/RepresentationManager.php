@@ -7,7 +7,6 @@ use FondOfOryx\Glue\RepresentativeCompanyUserRestApi\Processor\Builder\RestRespo
 use FondOfOryx\Glue\RepresentativeCompanyUserRestApi\Processor\Mapper\RepresentationMapperInterface;
 use FondOfOryx\Glue\RepresentativeCompanyUserRestApi\Processor\Permission\PermissionCheckerInterface;
 use Generated\Shared\Transfer\RestErrorMessageTransfer;
-use Generated\Shared\Transfer\RestRepresentativeCompanyUserAttributesTransfer;
 use Generated\Shared\Transfer\RestRepresentativeCompanyUserResponseTransfer;
 use Spryker\Glue\GlueApplication\Rest\JsonApi\RestResponseInterface;
 use Spryker\Glue\GlueApplication\Rest\Request\Data\RestRequestInterface;
@@ -70,13 +69,15 @@ class RepresentationManager implements RepresentationManagerInterface
 
     /**
      * @param \Spryker\Glue\GlueApplication\Rest\Request\Data\RestRequestInterface $restRequest
+     *
      * @return \Generated\Shared\Transfer\RestRepresentativeCompanyUserResponseTransfer|\Generated\Shared\Transfer\RestErrorMessageTransfer
      */
-    protected function handleAdd(RestRequestInterface $restRequest): RestRepresentativeCompanyUserResponseTransfer|RestErrorMessageTransfer{
+    protected function handleAdd(RestRequestInterface $restRequest): RestRepresentativeCompanyUserResponseTransfer|RestErrorMessageTransfer
+    {
         $attributes = $this->representationMapper->createAttributesFromRequest($restRequest);
         $representationRestRequestTransfer = $this->representationMapper->createRequest($restRequest, $attributes);
 
-        if (count($attributes->getReferenceRepresentations()) > 0){
+        if (count($attributes->getReferenceRepresentations()) > 0) {
             return $this->client->addRepresentations($representationRestRequestTransfer);
         }
 
