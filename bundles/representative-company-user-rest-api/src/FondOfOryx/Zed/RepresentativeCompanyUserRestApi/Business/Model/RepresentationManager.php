@@ -104,34 +104,33 @@ class RepresentationManager implements RepresentationManagerInterface
     public function addRepresentations(
         RestRepresentativeCompanyUserRequestTransfer $restRepresentativeCompanyUserRequestTransfer
     ): RestRepresentativeCompanyUserResponseTransfer|RestErrorMessageTransfer {
-//        try {
+        try {
             $restRepresentativeCompanyUserAttributesTransfer = $restRepresentativeCompanyUserRequestTransfer->getAttributes();
 
-        if ($restRepresentativeCompanyUserAttributesTransfer->getGroupHash() === null) {
-            $restRepresentativeCompanyUserAttributesTransfer->setGroupHash($this->generateGroupHash());
-        }
+            if ($restRepresentativeCompanyUserAttributesTransfer->getGroupHash() === null) {
+                $restRepresentativeCompanyUserAttributesTransfer->setGroupHash($this->generateGroupHash());
+            }
 
             $representatives = $restRepresentativeCompanyUserAttributesTransfer->getReferenceRepresentations();
 
-        if (count($representatives) === 0) {
-            return $this->createErrorTransfer(RepresentativeCompanyUserRestApiConstants::ERROR_MESSAGE_ADD_BULK_EMPTY, RepresentativeCompanyUserRestApiConstants::ERROR_CODE_ADD_BULK_EMPTY);
-        }
+            if (count($representatives) === 0) {
+                return $this->createErrorTransfer(RepresentativeCompanyUserRestApiConstants::ERROR_MESSAGE_ADD_BULK_EMPTY, RepresentativeCompanyUserRestApiConstants::ERROR_CODE_ADD_BULK_EMPTY);
+            }
 
             $resultCollection = new RepresentativeCompanyUserCollectionTransfer();
-        foreach ($representatives as $representative) {
-            $restRepresentativeCompanyUserAttributesTransfer->setReferenceRepresentation($representative);
+            foreach ($representatives as $representative) {
+                $restRepresentativeCompanyUserAttributesTransfer->setReferenceRepresentation($representative);
 
-            $resultCollection->addRepresentation($this->createRepresentation($restRepresentativeCompanyUserAttributesTransfer));
-        }
+                $resultCollection->addRepresentation($this->createRepresentation($restRepresentativeCompanyUserAttributesTransfer));
+            }
 
             return (new RestRepresentativeCompanyUserResponseTransfer())
                 ->setRepresentations($this->restDataMapper->mapResponseCollection($resultCollection));
+        } catch (Throwable $throwable) {
+            $this->logger->error($throwable->getMessage(), $throwable->getTrace());
 
-//        } catch (Throwable $throwable) {
-//            $this->logger->error($throwable->getMessage(), $throwable->getTrace());
-//
-//            return $this->createErrorTransfer(RepresentativeCompanyUserRestApiConstants::ERROR_MESSAGE_ADD, RepresentativeCompanyUserRestApiConstants::ERROR_CODE_ADD);
-//        }
+            return $this->createErrorTransfer(RepresentativeCompanyUserRestApiConstants::ERROR_MESSAGE_ADD, RepresentativeCompanyUserRestApiConstants::ERROR_CODE_ADD);
+        }
     }
 
     /**
