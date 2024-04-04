@@ -6,10 +6,7 @@ use Spryker\Zed\ProductAttribute\Business\ProductAttributeFacadeInterface;
 
 class ProductPageSearchAttributeExpanderToProductAttributeFacadeBridge implements ProductPageSearchAttributeExpanderToProductAttributeFacadeInterface
 {
-    /**
-     * @var \Spryker\Zed\ProductAttribute\Business\ProductAttributeFacadeInterface
-     */
-    protected $productAttributeFacade;
+    protected ProductAttributeFacadeInterface $productAttributeFacade;
 
     /**
      * @param \Spryker\Zed\ProductAttribute\Business\ProductAttributeFacadeInterface $productAttributeFacade

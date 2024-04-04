@@ -19,10 +19,7 @@ class SearchConfigExtensionBuilder implements SearchConfigExtensionBuilderInterf
      */
     protected const PARAMETER_NAME_SUFFIX_DESC = '_desc';
 
-    /**
-     * @var \FondOfOryx\Client\ProductPageSearchAttributeExpander\ProductPageSearchAttributeExpanderConfig
-     */
-    protected $config;
+    protected ProductPageSearchAttributeExpanderConfig $config;
 
     /**
      * @param \FondOfOryx\Client\ProductPageSearchAttributeExpander\ProductPageSearchAttributeExpanderConfig $config

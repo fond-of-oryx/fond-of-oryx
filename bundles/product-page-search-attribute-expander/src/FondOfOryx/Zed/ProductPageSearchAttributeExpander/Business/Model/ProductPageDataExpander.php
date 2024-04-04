@@ -13,10 +13,7 @@ class ProductPageDataExpander implements ProductPageDataExpanderInterface
      */
     protected const DEFAULT_LOCALE = '_';
 
-    /**
-     * @var \FondOfOryx\Zed\ProductPageSearchAttributeExpander\Dependency\Facade\ProductPageSearchAttributeExpanderToProductAttributeFacadeInterface
-     */
-    protected $productAttributeFacade;
+    protected ProductPageSearchAttributeExpanderToProductAttributeFacadeInterface $productAttributeFacade;
 
     /**
      * @param \FondOfOryx\Zed\ProductPageSearchAttributeExpander\Dependency\Facade\ProductPageSearchAttributeExpanderToProductAttributeFacadeInterface $productAttributeFacade

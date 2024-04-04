@@ -87,9 +87,15 @@ class ProductAttributePageMapExpanderPlugin extends AbstractPlugin implements Pr
                 continue;
             }
 
-            if (is_int($attributeValue) && in_array($attributeKey, $sortableIntegerAttributes, true)) {
-                $pageMapBuilder->addIntegerSort($pageMapTransfer, $attributeKey, $attributeValue);
+            if (!is_int($attributeValue)) {
+                continue;
             }
+
+            if (!in_array($attributeKey, $sortableIntegerAttributes, true)) {
+                continue;
+            }
+
+            $pageMapBuilder->addIntegerSort($pageMapTransfer, $attributeKey, $attributeValue);
         }
 
         return $pageMapTransfer;

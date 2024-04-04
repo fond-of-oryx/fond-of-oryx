@@ -22,9 +22,7 @@ class ProductPageSearchAttributeExpanderDependencyProvider extends AbstractBundl
     {
         $container = parent::provideBusinessLayerDependencies($container);
 
-        $container = $this->addProductAttributeFacade($container);
-
-        return $container;
+        return $this->addProductAttributeFacade($container);
     }
 
     /**
@@ -34,11 +32,9 @@ class ProductPageSearchAttributeExpanderDependencyProvider extends AbstractBundl
      */
     protected function addProductAttributeFacade(Container $container): Container
     {
-        $container[static::FACADE_PRODUCT_ATTRIBUTE] = function (Container $container) {
-            return new ProductPageSearchAttributeExpanderToProductAttributeFacadeBridge(
-                $container->getLocator()->productAttribute()->facade(),
-            );
-        };
+        $container[static::FACADE_PRODUCT_ATTRIBUTE] = static fn (Container $container): ProductPageSearchAttributeExpanderToProductAttributeFacadeBridge => new ProductPageSearchAttributeExpanderToProductAttributeFacadeBridge(
+            $container->getLocator()->productAttribute()->facade(),
+        );
 
         return $container;
     }
