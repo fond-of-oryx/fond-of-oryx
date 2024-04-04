@@ -174,6 +174,10 @@ class RepresentationManagerTest extends Unit
             ->method('createAttributesFromRequest')
             ->willReturn($this->restRepresentativeCompanyUserAttributesTransferMock);
 
+        $this->restRepresentativeCompanyUserAttributesTransferMock->expects(static::atLeastOnce())
+            ->method('getReferenceRepresentations')
+            ->willReturn([]);
+
         $this->representationMapperMock->expects(static::atLeastOnce())
             ->method('createRequest')
             ->willReturn($this->restRepresentativeCompanyUserRequestTransferMock);

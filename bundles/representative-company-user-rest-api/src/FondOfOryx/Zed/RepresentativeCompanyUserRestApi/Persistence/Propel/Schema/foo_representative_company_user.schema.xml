@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<database xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" name="zed"
+          xsi:noNamespaceSchemaLocation="https://static.spryker.com/schema-01.xsd"
+          namespace="Orm\Zed\RepresentativeCompanyUser\Persistence" package="src.Orm.Zed.RepresentativeCompanyUser.Persistence">
+
+    <table name="foo_representative_company_user" phpName="FooRepresentativeCompanyUser" identifierQuoting="true">
+        <column name="group_hash" required="false" type="VARCHAR" size="255"/>
+    </table>
+</database>

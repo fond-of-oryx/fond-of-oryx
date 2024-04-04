@@ -7,6 +7,7 @@ use FondOfOryx\Glue\RepresentativeCompanyUserRestApi\Processor\Builder\RestRespo
 use FondOfOryx\Glue\RepresentativeCompanyUserRestApi\Processor\Mapper\RepresentationMapperInterface;
 use FondOfOryx\Glue\RepresentativeCompanyUserRestApi\Processor\Permission\PermissionCheckerInterface;
 use Generated\Shared\Transfer\RestErrorMessageTransfer;
+use Generated\Shared\Transfer\RestRepresentativeCompanyUserResponseTransfer;
 use Spryker\Glue\GlueApplication\Rest\JsonApi\RestResponseInterface;
 use Spryker\Glue\GlueApplication\Rest\Request\Data\RestRequestInterface;
 
@@ -57,16 +58,30 @@ class RepresentationManager implements RepresentationManagerInterface
      */
     public function add(RestRequestInterface $restRequest): RestResponseInterface
     {
-        $attributes = $this->representationMapper->createAttributesFromRequest($restRequest);
-
-        $representationRestRequestTransfer = $this->representationMapper->createRequest($restRequest, $attributes);
-        $representationRestResponseTransfer = $this->client->addRepresentation($representationRestRequestTransfer);
+        $representationRestResponseTransfer = $this->handleAdd($restRequest);
 
         if ($representationRestResponseTransfer instanceof RestErrorMessageTransfer) {
             return $this->responseBuilder->buildErrorResponse($representationRestResponseTransfer);
         }
 
         return $this->responseBuilder->buildRepresentativeCompanyUserRestResponse($representationRestResponseTransfer);
+    }
+
+    /**
+     * @param \Spryker\Glue\GlueApplication\Rest\Request\Data\RestRequestInterface $restRequest
+     *
+     * @return \Generated\Shared\Transfer\RestRepresentativeCompanyUserResponseTransfer|\Generated\Shared\Transfer\RestErrorMessageTransfer
+     */
+    protected function handleAdd(RestRequestInterface $restRequest): RestRepresentativeCompanyUserResponseTransfer|RestErrorMessageTransfer
+    {
+        $attributes = $this->representationMapper->createAttributesFromRequest($restRequest);
+        $representationRestRequestTransfer = $this->representationMapper->createRequest($restRequest, $attributes);
+
+        if (count($attributes->getReferenceRepresentations()) > 0) {
+            return $this->client->addRepresentations($representationRestRequestTransfer);
+        }
+
+        return $this->client->addRepresentation($representationRestRequestTransfer);
     }
 
     /**

@@ -6,7 +6,9 @@
     <transfer name="RestRepresentativeCompanyUserAttributes">
         <property name="uuid" type="string"/>
         <property name="referenceDistributor" restRequestParameter="required" type="string" />
-        <property name="referenceRepresentation" restRequestParameter="required" type="string" />
+        <property name="referenceRepresentation" type="string" />
+        <property name="groupHash" type="string" />
+        <property name="referenceRepresentations" type="array" />
         <property name="referenceOriginator" restRequestParameter="required" type="string" />
         <property name="permissions" singular="permission" associative="true" type="array" />
         <property name="startAt" type="string" />
@@ -39,6 +41,7 @@
 
     <transfer name="RestRepresentativeCompanyUserResponse">
         <property name="representation" type="RestRepresentativeCompanyUser"/>
+        <property name="representations" singular="representation" type="RestRepresentativeCompanyUser[]"/>
     </transfer>
 
     <transfer name="RestRepresentativeCompanyUserCollectionResponse">
@@ -56,6 +59,7 @@
     <transfer name="RestRepresentativeCompanyUser">
         <property name="distributor" type="RestRepresentativeDistributor" />
         <property name="representative" type="RestRepresentativeDistributor" />
+        <property name="representatives" singular="representative" type="RestRepresentativeDistributor[]" />
         <property name="originator" type="RestRepresentativeDistributor" />
         <property name="startAt" type="string" />
         <property name="endAt" type="string" />
@@ -72,7 +76,10 @@
         <property name="lastName" type="string" />
     </transfer>
 
-    <transfer name="RepresentativeCompanyUser" />
+    <transfer name="RepresentativeCompanyUser">
+        <property name="groupHash" type="string" />
+    </transfer>
+
     <transfer name="RepresentativeCompanyUserCollection" />
     <transfer name="RepresentativeCompanyUserCommand" />
     <transfer name="RepresentativeCompanyUserFilter" />
