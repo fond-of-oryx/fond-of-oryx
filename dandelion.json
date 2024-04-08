@@ -827,6 +827,10 @@
       "path": "bundles/product-locale-restriction-storage/",
       "version": "2.1.0"
     },
+    "product-page-search-attribute-expander": {
+      "path": "bundles/product-page-search-attribute-expander/",
+      "version": "1.0.0"
+    },
     "product-payment-restriction": {
       "path": "bundles/product-payment-restriction/",
       "version": "2.0.0"

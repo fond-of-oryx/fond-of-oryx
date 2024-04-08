@@ -1,0 +1,58 @@
+{
+  "name": "fond-of-oryx/product-page-search-attribute-expander",
+  "description": "spryker product page search attribute expander",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Markus Nörenberg",
+      "email": "noerenberg.markus@gmail.com"
+    },
+    {
+      "name": "Daniel Rose",
+      "email": "daniel-rose@gmx.de"
+    },
+    {
+      "name": "Pascal Fischer",
+      "email": "p-fischer@gmx.net"
+    },
+    {
+      "name": "Jozsef Geng",
+      "email": "gengjozsef86@gmail.com"
+    },
+    {
+      "name": "Julian Hyatt",
+      "email": "dev@jzit.de"
+    }
+  ],
+  "require": {
+    "php": ">=8.0",
+    "spryker/product-attribute": "^1.0.0",
+    "spryker/product-page-search": "^3.2.0",
+    "spryker/product-page-search-extension": "^1.0.0"
+  },
+  "require-dev": {
+    "fond-of-codeception/spryker": "*",
+    "spryker/code-sniffer": "*",
+    "spryker-sdk/phpstan-spryker": "*"
+  },
+  "minimum-stability": "dev",
+  "prefer-stable": true,
+  "autoload": {
+    "psr-4": {
+      "FondOfOryx\\": "src/FondOfOryx/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "FondOfOryx\\": "tests/FondOfOryx/",
+      "Generated\\": "src/Generated/",
+      "Orm\\Zed\\": "src/Orm/Zed/"
+    }
+  },
+  "config": {
+    "sort-packages": true,
+    "allow-plugins": {
+      "dealerdirect/phpcodesniffer-composer-installer": true
+    }
+  }
+}
