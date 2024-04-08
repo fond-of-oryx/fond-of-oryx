@@ -14,7 +14,7 @@
   ],
   "require": {
     "php": ">=8.0",
-    "fond-of-oryx/erp-order": "^4.0.0",
+    "fond-of-oryx/erp-order": "^4.4.0",
     "fond-of-oryx/erp-order-page-search-extension": "^1.0.0",
     "fond-of-oryx/erp-order-permission": "^1.0.0 || ^2.0.0",
     "spryker/customer": "^7.0.0",
