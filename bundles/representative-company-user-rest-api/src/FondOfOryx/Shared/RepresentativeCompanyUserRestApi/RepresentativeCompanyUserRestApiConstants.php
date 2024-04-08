@@ -62,7 +62,17 @@ interface RepresentativeCompanyUserRestApiConstants
     /**
      * @var string
      */
+    public const ERROR_MESSAGE_ADD_BULK_EMPTY = 'No representatives for bulk creation given!';
+
+    /**
+     * @var string
+     */
     public const ERROR_CODE_ADD = '1000';
+
+    /**
+     * @var string
+     */
+    public const ERROR_CODE_ADD_BULK_EMPTY = '1001';
 
     /**
      * @var string

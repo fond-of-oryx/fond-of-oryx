@@ -665,7 +665,7 @@
     },
     "limit-buyable-quantity": {
       "path": "bundles/limit-buyable-quantity/",
-      "version": "2.0.0"
+      "version": "2.1.0"
     },
     "log-aws-cloud-watch-connector": {
       "path": "bundles/log-aws-cloud-watch-connector/",
@@ -837,7 +837,7 @@
     },
     "representative-company-user": {
       "path": "bundles/representative-company-user/",
-      "version": "1.4.0"
+      "version": "1.5.0"
     },
     "representative-company-user-extension": {
       "path": "bundles/representative-company-user-extension/",
@@ -845,7 +845,7 @@
     },
     "representative-company-user-rest-api": {
       "path": "bundles/representative-company-user-rest-api/",
-      "version": "1.5.1"
+      "version": "1.6.0"
     },
     "representative-company-user-rest-api-permission": {
       "path": "bundles/representative-company-user-rest-api-permission/",

@@ -136,6 +136,7 @@
   },
   "require-dev": {
     "fond-of-codeception/spryker": "^2.1.1",
+    "rector/rector": "*",
     "spryker/code-sniffer": "*",
     "spryker/silex": "*",
     "spryker-sdk/phpstan-spryker": "*",
