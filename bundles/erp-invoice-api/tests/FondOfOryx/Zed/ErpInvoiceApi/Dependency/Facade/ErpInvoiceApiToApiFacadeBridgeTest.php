@@ -21,7 +21,7 @@ class ErpInvoiceApiToApiFacadeBridgeTest extends Unit
     protected $abstractTransferMock;
 
     /**
-     * @var int
+     * @var string
      */
     protected $id;
 
