@@ -77,6 +77,11 @@ class ErpInvoicePageSearchDataMapper implements ErpInvoicePageSearchDataMapperIn
     /**
      * @var string
      */
+    public const REFERENCE = 'reference';
+
+    /**
+     * @var string
+     */
     public const INVOICE_DATE = 'invoice_date';
 
     /**
@@ -157,6 +162,11 @@ class ErpInvoicePageSearchDataMapper implements ErpInvoicePageSearchDataMapperIn
     /**
      * @var string
      */
+    public const SEARCH_RESULT_REFERENCE = 'reference';
+
+    /**
+     * @var string
+     */
     public const SEARCH_RESULT_ERP_INVOICE_ITEMS = 'erp_invoice_items';
 
     /**
@@ -220,6 +230,7 @@ class ErpInvoicePageSearchDataMapper implements ErpInvoicePageSearchDataMapperIn
             ErpInvoiceIndexMap::UPDATED_AT => $this->convertDate($data[static::UPDATED_AT]),
             ErpInvoiceIndexMap::DOCUMENT_NUMBER => $data[static::DOCUMENT_NUMBER],
             ErpInvoiceIndexMap::EXTERNAL_REFERENCE => $data[static::EXTERNAL_REFERENCE],
+            ErpInvoiceIndexMap::REFERENCE => $data[static::REFERENCE],
             ErpInvoiceIndexMap::ID_COMPANY_BUSINESS_UNIT => $data[static::FK_COMPANY_BUSINESS_UNIT],
             ErpInvoiceIndexMap::COMPANY_BUSINESS_UNIT_UUID => $data[static::COMPANY_BUSINESS_UNIT][static::COMPANY_BUSINESS_UNIT_UUID],
             ErpInvoiceIndexMap::SEARCH_RESULT_DATA => $this->mapErpInvoiceDataToSearchResultData($data),
@@ -245,6 +256,7 @@ class ErpInvoicePageSearchDataMapper implements ErpInvoicePageSearchDataMapperIn
             static::SEARCH_RESULT_COMPANY_BUSINESS_UNIT_UUID => $data[static::COMPANY_BUSINESS_UNIT][static::COMPANY_BUSINESS_UNIT_UUID],
             static::SEARCH_RESULT_EXTERNAL_REFERENCE => $data[static::EXTERNAL_REFERENCE],
             static::SEARCH_RESULT_CUSTOM_REFERENCE => $data[static::CUSTOM_REFERENCE],
+            static::SEARCH_RESULT_REFERENCE => $data[static::REFERENCE],
             static::SEARCH_RESULT_COMPANY_BUSINESS_UNIT => $data[static::COMPANY_BUSINESS_UNIT],
             static::SEARCH_RESULT_ERP_INVOICE_ITEMS => $data[static::ERP_INVOICE_ITEMS],
             static::SEARCH_RESULT_ERP_INVOICE_EXPENSES => $data[static::ERP_INVOICE_EXPENSES],

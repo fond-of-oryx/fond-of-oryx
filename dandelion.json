@@ -413,7 +413,7 @@
     },
     "erp-delivery-note": {
       "path": "bundles/erp-delivery-note/",
-      "version": "2.3.1"
+      "version": "2.4.0"
     },
     "erp-delivery-note-api": {
       "path": "bundles/erp-delivery-note-api/",
@@ -425,11 +425,7 @@
     },
     "erp-delivery-note-page-search": {
       "path": "bundles/erp-delivery-note-page-search/",
-      "version": "2.5.0"
-    },
-    "erp-delivery-note-page-search-extension": {
-      "path": "bundles/erp-delivery-note-page-search-extension/",
-      "version": "1.0.0"
+      "version": "2.6.0"
     },
     "erp-delivery-note-page-search-extension": {
       "path": "bundles/erp-delivery-note-page-search-extension/",
@@ -437,7 +433,7 @@
     },
     "erp-delivery-note-page-search-rest-api": {
       "path": "bundles/erp-delivery-note-page-search-rest-api/",
-      "version": "2.3.1"
+      "version": "2.4.0"
     },
     "erp-delivery-note-permission": {
       "path": "bundles/erp-delivery-note-permission/",
@@ -457,11 +453,7 @@
     },
     "erp-invoice-page-search": {
       "path": "bundles/erp-invoice-page-search/",
-      "version": "3.3.0"
-    },
-    "erp-invoice-page-search-extension": {
-      "path": "bundles/erp-invoice-page-search-extension/",
-      "version": "1.0.0"
+      "version": "3.4.0"
     },
     "erp-invoice-page-search-extension": {
       "path": "bundles/erp-invoice-page-search-extension/",
@@ -477,7 +469,7 @@
     },
     "erp-order": {
       "path": "bundles/erp-order/",
-      "version": "4.3.0"
+      "version": "4.4.0"
     },
     "erp-order-api": {
       "path": "bundles/erp-order-api/",
@@ -489,11 +481,7 @@
     },
     "erp-order-page-search": {
       "path": "bundles/erp-order-page-search/",
-      "version": "3.6.0"
-    },
-    "erp-order-page-search-extension": {
-      "path": "bundles/erp-order-page-search-extension/",
-      "version": "1.0.0"
+      "version": "3.7.0"
     },
     "erp-order-page-search-extension": {
       "path": "bundles/erp-order-page-search-extension/",
@@ -501,7 +489,7 @@
     },
     "erp-order-page-search-rest-api": {
       "path": "bundles/erp-order-page-search-rest-api/",
-      "version": "2.5.0"
+      "version": "2.6.0"
     },
     "erp-order-permission": {
       "path": "bundles/erp-order-permission/",

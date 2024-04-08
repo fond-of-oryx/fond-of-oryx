@@ -14,6 +14,7 @@
     <transfer name="RestErpInvoicePageSearchRequestAttributes">
         <property name="companyBusinessUnitId" type="string" />
         <property name="externalReference" type="string" />
+        <property name="reference" type="string" />
     </transfer>
 
     <transfer name="RestErpInvoicePageSearchCollectionResponse">
@@ -47,6 +48,7 @@
     <transfer name="RestErpInvoice">
         <property name="externalReference" type="string" />
         <property name="customReference" type="string" />
+        <property name="reference" type="string" />
         <property name="invoiceDate" type="string" />
         <property name="documentNumber" type="string" />
         <property name="createdAt" type="string" />

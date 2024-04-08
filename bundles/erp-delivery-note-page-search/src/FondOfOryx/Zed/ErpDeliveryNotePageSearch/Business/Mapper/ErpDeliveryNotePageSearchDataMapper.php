@@ -77,6 +77,11 @@ class ErpDeliveryNotePageSearchDataMapper implements ErpDeliveryNotePageSearchDa
     /**
      * @var string
      */
+    public const REFERENCE = 'reference';
+
+    /**
+     * @var string
+     */
     public const ORDER_DATE = 'order_date';
 
     /**
@@ -167,6 +172,11 @@ class ErpDeliveryNotePageSearchDataMapper implements ErpDeliveryNotePageSearchDa
     /**
      * @var string
      */
+    public const SEARCH_RESULT_REFERENCE = 'reference';
+
+    /**
+     * @var string
+     */
     public const SEARCH_RESULT_ERP_DELIVERY_NOTE_ITEMS = 'erp_delivery_note_items';
 
     /**
@@ -231,6 +241,7 @@ class ErpDeliveryNotePageSearchDataMapper implements ErpDeliveryNotePageSearchDa
             ErpDeliveryNoteIndexMap::DOCUMENT_NUMBER => $data[static::DOCUMENT_NUMBER],
             ErpDeliveryNoteIndexMap::DELIVERY_NOTE_NUMBER => $data[static::DELIVERY_NOTE_NUMBER],
             ErpDeliveryNoteIndexMap::EXTERNAL_REFERENCE => $data[static::EXTERNAL_REFERENCE],
+            ErpDeliveryNoteIndexMap::REFERENCE => $data[static::REFERENCE],
             ErpDeliveryNoteIndexMap::ID_COMPANY_BUSINESS_UNIT => $data[static::FK_COMPANY_BUSINESS_UNIT],
             ErpDeliveryNoteIndexMap::COMPANY_BUSINESS_UNIT_UUID => $data[static::COMPANY_BUSINESS_UNIT][static::COMPANY_BUSINESS_UNIT_UUID],
             ErpDeliveryNoteIndexMap::SEARCH_RESULT_DATA => $this->mapErpDeliveryNoteDataToSearchResultData($data),
@@ -263,6 +274,7 @@ class ErpDeliveryNotePageSearchDataMapper implements ErpDeliveryNotePageSearchDa
             static::SEARCH_RESULT_COMPANY_BUSINESS_UNIT_UUID => $data[static::COMPANY_BUSINESS_UNIT][static::COMPANY_BUSINESS_UNIT_UUID],
             static::SEARCH_RESULT_EXTERNAL_REFERENCE => $data[static::EXTERNAL_REFERENCE],
             static::SEARCH_RESULT_CUSTOM_REFERENCE => $data[static::CUSTOM_REFERENCE],
+            static::SEARCH_RESULT_REFERENCE => $data[static::REFERENCE],
             static::SEARCH_RESULT_COMPANY_BUSINESS_UNIT => $data[static::COMPANY_BUSINESS_UNIT],
             static::SEARCH_RESULT_ERP_DELIVERY_NOTE_ITEMS => $data[static::ERP_DELIVERY_NOTE_ITEMS],
             static::SEARCH_RESULT_ERP_DELIVERY_NOTE_EXPENSES => $data[static::ERP_DELIVERY_NOTE_EXPENSES],

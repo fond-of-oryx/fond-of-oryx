@@ -12,6 +12,7 @@
         <property name="expenses" singular="expense" type="ErpInvoiceExpense[]"/>
         <property name="externalReference" type="string"/>
         <property name="customReference" type="string"/>
+        <property name="reference" type="string"/>
         <property name="documentNumber" type="string"/>
         <property name="billingAddress" type="ErpInvoiceAddress"/>
         <property name="shippingAddress" type="ErpInvoiceAddress"/>

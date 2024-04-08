@@ -11,6 +11,7 @@
         <column name="fk_totals" required="true" type="INTEGER"/>
         <column name="external_reference" required="false" size="255" type="VARCHAR"/>
         <column name="custom_reference" required="false" size="35" type="VARCHAR"/>
+        <column name="reference" required="false" size="35" type="VARCHAR"/>
         <column name="concrete_delivery_date" required="false" type="DATE"/>
         <column name="currency_iso_code" type="VARCHAR" size="5" required="false"/>
         <column name="outstanding_quantity" required="false" type="INTEGER" default="0"/>

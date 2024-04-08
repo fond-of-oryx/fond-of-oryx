@@ -97,6 +97,11 @@ class ErpOrderPageSearchDataMapper implements ErpOrderPageSearchDataMapperInterf
     /**
      * @var string
      */
+    public const REFERENCE = 'reference';
+
+    /**
+     * @var string
+     */
     public const CURRENCY_ISO_CODE = 'currency_iso_code';
 
     /**
@@ -163,6 +168,11 @@ class ErpOrderPageSearchDataMapper implements ErpOrderPageSearchDataMapperInterf
      * @var string
      */
     public const SEARCH_RESULT_CUSTOM_REFERENCE = 'custom_reference';
+
+    /**
+     * @var string
+     */
+    public const SEARCH_RESULT_REFERENCE = 'reference';
 
     /**
      * @var string
@@ -276,6 +286,7 @@ class ErpOrderPageSearchDataMapper implements ErpOrderPageSearchDataMapperInterf
             static::SEARCH_RESULT_COMPANY_BUSINESS_UNIT_UUID => $data[static::COMPANY_BUSINESS_UNIT][static::COMPANY_BUSINESS_UNIT_UUID],
             static::SEARCH_RESULT_EXTERNAL_REFERENCE => $data[static::EXTERNAL_REFERENCE],
             static::SEARCH_RESULT_CUSTOM_REFERENCE => $data[static::CUSTOM_REFERENCE],
+            static::SEARCH_RESULT_REFERENCE => $data[static::REFERENCE],
             static::SEARCH_RESULT_COMPANY_BUSINESS_UNIT => $data[static::COMPANY_BUSINESS_UNIT],
             static::SEARCH_RESULT_ITEMS => $data[static::ITEMS],
             static::SEARCH_RESULT_ERP_ORDER_EXPENSES => $data[static::ERP_ORDER_EXPENSES],
