@@ -445,7 +445,7 @@
     },
     "erp-invoice": {
       "path": "bundles/erp-invoice/",
-      "version": "3.2.1"
+      "version": "3.3.0"
     },
     "erp-invoice-api": {
       "path": "bundles/erp-invoice-api/",
@@ -469,7 +469,7 @@
     },
     "erp-invoice-page-search-rest-api": {
       "path": "bundles/erp-invoice-page-search-rest-api/",
-      "version": "2.2.0"
+      "version": "2.3.0"
     },
     "erp-invoice-permission": {
       "path": "bundles/erp-invoice-permission/",

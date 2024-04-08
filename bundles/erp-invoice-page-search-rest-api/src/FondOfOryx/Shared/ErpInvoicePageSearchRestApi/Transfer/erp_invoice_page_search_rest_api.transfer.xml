@@ -74,6 +74,7 @@
 
     <transfer name="RestErpInvoiceItem">
         <property name="sku" type="string"/>
+        <property name="gtin" type="string"/>
         <property name="name" type="string"/>
         <property name="quantity" type="int"/>
         <property name="discount" type="int"/>
