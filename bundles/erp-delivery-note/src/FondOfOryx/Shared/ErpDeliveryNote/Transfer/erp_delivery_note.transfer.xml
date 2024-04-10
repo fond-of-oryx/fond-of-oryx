@@ -12,7 +12,6 @@
         <property name="expenses" singular="expense" type="ErpDeliveryNoteExpense[]"/>
         <property name="externalReference" type="string"/>
         <property name="customReference" type="string"/>
-        <property name="reference" type="string"/>
         <property name="documentNumber" type="string"/>
         <property name="billingAddress" type="ErpDeliveryNoteAddress"/>
         <property name="shippingAddress" type="ErpDeliveryNoteAddress"/>
@@ -29,6 +28,7 @@
         <property name="idErpDeliveryNoteItem" type="int" />
         <property name="fkErpDeliveryNote" type="int" />
         <property name="sku" type="string"/>
+        <property name="gtin" type="string"/>
         <property name="name" type="string"/>
         <property name="quantity" type="int"/>
         <property name="externalReference" type="string"/>
