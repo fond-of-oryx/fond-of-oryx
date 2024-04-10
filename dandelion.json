@@ -413,7 +413,7 @@
     },
     "erp-delivery-note": {
       "path": "bundles/erp-delivery-note/",
-      "version": "2.4.0"
+      "version": "2.5.0"
     },
     "erp-delivery-note-api": {
       "path": "bundles/erp-delivery-note-api/",
@@ -433,7 +433,7 @@
     },
     "erp-delivery-note-page-search-rest-api": {
       "path": "bundles/erp-delivery-note-page-search-rest-api/",
-      "version": "2.4.0"
+      "version": "2.5.0"
     },
     "erp-delivery-note-permission": {
       "path": "bundles/erp-delivery-note-permission/",

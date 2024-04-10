@@ -43,6 +43,7 @@
         <column name="id_erp_delivery_note_item" required="true" type="INTEGER" autoIncrement="true" primaryKey="true"/>
         <column name="fk_erp_delivery_note" required="true" type="INTEGER"/>
         <column name="sku" required="true" size="255" type="VARCHAR"/>
+        <column name="gtin" size="255" type="VARCHAR"/>
         <column name="name" required="true" size="255" type="VARCHAR"/>
         <column name="quantity" required="true" type="INTEGER"/>
         <column name="external_reference" required="true" size="255" type="VARCHAR"/>
