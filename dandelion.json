@@ -417,7 +417,7 @@
     },
     "erp-delivery-note-api": {
       "path": "bundles/erp-delivery-note-api/",
-      "version": "3.1.0"
+      "version": "3.2.0"
     },
     "erp-delivery-note-extension": {
       "path": "bundles/erp-delivery-note-extension/",
