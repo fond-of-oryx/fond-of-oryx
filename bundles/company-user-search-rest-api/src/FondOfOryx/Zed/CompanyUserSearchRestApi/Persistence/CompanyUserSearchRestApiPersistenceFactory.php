@@ -3,6 +3,8 @@
 namespace FondOfOryx\Zed\CompanyUserSearchRestApi\Persistence;
 
 use FondOfOryx\Zed\CompanyUserSearchRestApi\CompanyUserSearchRestApiDependencyProvider;
+use FondOfOryx\Zed\CompanyUserSearchRestApi\Persistence\Propel\Expander\CompanyUserTransferPostMapExpander;
+use FondOfOryx\Zed\CompanyUserSearchRestApi\Persistence\Propel\Expander\CompanyUserTransferPostMapExpanderInterface;
 use FondOfOryx\Zed\CompanyUserSearchRestApi\Persistence\Propel\Mapper\CompanyRoleMapper;
 use FondOfOryx\Zed\CompanyUserSearchRestApi\Persistence\Propel\Mapper\CompanyRoleMapperInterface;
 use FondOfOryx\Zed\CompanyUserSearchRestApi\Persistence\Propel\Mapper\CompanyUserMapper;
@@ -33,6 +35,14 @@ class CompanyUserSearchRestApiPersistenceFactory extends AbstractPersistenceFact
     }
 
     /**
+     * @return array<\FondOfOryx\Zed\CompanyUserSearchRestApiExtension\Dependency\Plugin\CompanyUserTransferPostMapExpanderPluginInterface>
+     */
+    public function getCompanyUserTransferPostMapExpanderPlugins(): array
+    {
+        return $this->getProvidedDependency(CompanyUserSearchRestApiDependencyProvider::PLUGINS_COMPANY_USER_TRANSFER_POST_MAP_EXPANDER);
+    }
+
+    /**
      * @return \FondOfOryx\Zed\CompanyUserSearchRestApi\Persistence\Propel\Mapper\CompanyUserMapperInterface
      */
     public function createCompanyUserMapper(): CompanyUserMapperInterface
@@ -40,6 +50,17 @@ class CompanyUserSearchRestApiPersistenceFactory extends AbstractPersistenceFact
         return new CompanyUserMapper(
             $this->createCustomerMapper(),
             $this->createCompanyRoleMapper(),
+            $this->createCompanyUserTransferPostMapExpander(),
+        );
+    }
+
+    /**
+     * @return \FondOfOryx\Zed\CompanyUserSearchRestApi\Persistence\Propel\Expander\CompanyUserTransferPostMapExpanderInterface
+     */
+    public function createCompanyUserTransferPostMapExpander(): CompanyUserTransferPostMapExpanderInterface
+    {
+        return new CompanyUserTransferPostMapExpander(
+            $this->getCompanyUserTransferPostMapExpanderPlugins(),
         );
     }
 

@@ -3,6 +3,7 @@
 namespace FondOfOryx\Zed\CompanyUserSearchRestApi\Persistence\Propel\Mapper;
 
 use ArrayObject;
+use FondOfOryx\Zed\CompanyUserSearchRestApi\Persistence\Propel\Expander\CompanyUserTransferPostMapExpanderInterface;
 use Generated\Shared\Transfer\CompanyRoleCollectionTransfer;
 use Generated\Shared\Transfer\CompanyUserTransfer;
 use Orm\Zed\CompanyUser\Persistence\SpyCompanyUser;
@@ -23,16 +24,21 @@ class CompanyUserMapper implements CompanyUserMapperInterface
      */
     protected $companyRoleMapper;
 
+    protected CompanyUserTransferPostMapExpanderInterface $postMapExpander;
+
     /**
      * @param \FondOfOryx\Zed\CompanyUserSearchRestApi\Persistence\Propel\Mapper\CustomerMapperInterface $customerMapper
      * @param \FondOfOryx\Zed\CompanyUserSearchRestApi\Persistence\Propel\Mapper\CompanyRoleMapperInterface $companyRoleMapper
+     * @param \FondOfOryx\Zed\CompanyUserSearchRestApi\Persistence\Propel\Expander\CompanyUserTransferPostMapExpanderInterface $postMapExpander
      */
     public function __construct(
         CustomerMapperInterface $customerMapper,
-        CompanyRoleMapperInterface $companyRoleMapper
+        CompanyRoleMapperInterface $companyRoleMapper,
+        CompanyUserTransferPostMapExpanderInterface $postMapExpander
     ) {
         $this->customerMapper = $customerMapper;
         $this->companyRoleMapper = $companyRoleMapper;
+        $this->postMapExpander = $postMapExpander;
     }
 
     /**
@@ -48,12 +54,14 @@ class CompanyUserMapper implements CompanyUserMapperInterface
             new ArrayObject($companyRoleTransfers),
         );
 
-        return (new CompanyUserTransfer())
+        $companyUserTransfer = (new CompanyUserTransfer())
             ->fromArray($entity->toArray(), true)
             ->setCustomerReference($customerTransfer->getCustomerReference())
             ->setCompanyUuid($entity->getCompany()->getUuid())
             ->setCustomer($customerTransfer)
             ->setCompanyRoleCollection($companyRoleCollectionTransfer);
+
+        return $this->postMapExpander->expand($companyUserTransfer, $entity);
     }
 
     /**
