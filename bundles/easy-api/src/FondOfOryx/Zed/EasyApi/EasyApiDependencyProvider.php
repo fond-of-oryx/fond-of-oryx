@@ -39,7 +39,7 @@ class EasyApiDependencyProvider extends AbstractBundleDependencyProvider
     {
         $container[static::CLIENT_GUZZLE] = function (Container $container) {
             return new EasyApiToGuzzleClientBridge(
-                new Client(['base_uri' => $this->getConfig()->getEasyApiUri()])
+                new Client(['base_uri' => $this->getConfig()->getEasyApiUri()]),
             );
         };
 

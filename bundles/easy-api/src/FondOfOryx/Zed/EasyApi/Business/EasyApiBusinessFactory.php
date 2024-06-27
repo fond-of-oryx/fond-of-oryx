@@ -30,7 +30,6 @@ class EasyApiBusinessFactory extends AbstractBusinessFactory
 
     /**
      * @return \FondOfOryx\Zed\EasyApi\Dependency\Client\EasyApiToGuzzleClientInterface
-     * @throws \Spryker\Zed\Kernel\Exception\Container\ContainerKeyNotFoundException
      */
     protected function getGuzzleClient(): EasyApiToGuzzleClientInterface
     {

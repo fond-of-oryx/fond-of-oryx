@@ -14,8 +14,8 @@ class GatewayController extends AbstractGatewayController
 {
     /**
      * @param \Generated\Shared\Transfer\EasyApiFilterTransfer $filterTransfer
+     *
      * @return \Generated\Shared\Transfer\EasyApiResponseTransfer
-     * @throws \GuzzleHttp\Exception\GuzzleException
      */
     public function findDocumentAction(EasyApiFilterTransfer $filterTransfer): EasyApiResponseTransfer
     {
@@ -24,9 +24,8 @@ class GatewayController extends AbstractGatewayController
 
     /**
      * @param \Generated\Shared\Transfer\EasyApiRequestTransfer $requestTransfer
+     *
      * @return \Generated\Shared\Transfer\EasyApiResponseTransfer
-     * @throws \GuzzleHttp\Exception\GuzzleException
-     * @throws \Spryker\Shared\Kernel\Transfer\Exception\RequiredTransferPropertyException
      */
     public function getDocumentAction(EasyApiRequestTransfer $requestTransfer): EasyApiResponseTransfer
     {

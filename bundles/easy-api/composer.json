@@ -10,7 +10,9 @@
   ],
   "require": {
     "php": ">=8.2",
-    "fond-of-oryx/easy-api-extension": "^1.0.0"
+    "guzzlehttp/guzzle": "^7.5",
+    "psr/http-client": "^1.0",
+    "psr/http-message": "^2.0"
   },
   "require-dev": {
     "fond-of-codeception/spryker": "*",

@@ -41,8 +41,8 @@ class ApiWrapper implements ApiWrapperInterface
 
     /**
      * @param \Generated\Shared\Transfer\EasyApiFilterTransfer $filterTransfer
+     *
      * @return \Generated\Shared\Transfer\EasyApiResponseTransfer
-     * @throws \GuzzleHttp\Exception\GuzzleException
      */
     public function findDocument(EasyApiFilterTransfer $filterTransfer): EasyApiResponseTransfer
     {
@@ -50,7 +50,7 @@ class ApiWrapper implements ApiWrapperInterface
 
         $response = $this->request($uri, 'post', $filterTransfer);
 
-        if ($response->getStatus() === 'success'){
+        if ($response->getStatus() === 'success') {
             $response->setType('json');
             $response->setHash(sha1($response->getData()));
         }
@@ -60,9 +60,8 @@ class ApiWrapper implements ApiWrapperInterface
 
     /**
      * @param \Generated\Shared\Transfer\EasyApiRequestTransfer $requestTransfer
+     *
      * @return \Generated\Shared\Transfer\EasyApiResponseTransfer
-     * @throws \GuzzleHttp\Exception\GuzzleException
-     * @throws \Spryker\Shared\Kernel\Transfer\Exception\RequiredTransferPropertyException
      */
     public function getFile(EasyApiRequestTransfer $requestTransfer): EasyApiResponseTransfer
     {
@@ -81,7 +80,7 @@ class ApiWrapper implements ApiWrapperInterface
 
         $response = $this->request($uri, 'get');
 
-        if ($response->getStatus() === 'success'){
+        if ($response->getStatus() === 'success') {
             $response->setData(base64_encode($response->getData()));
             $response->setType('base64string');
             $response->setHash(sha1($response->getData()));
@@ -90,20 +89,19 @@ class ApiWrapper implements ApiWrapperInterface
         return $response;
     }
 
-
     /**
      * @param string $uri
      * @param string $method
      * @param \Generated\Shared\Transfer\EasyApiFilterTransfer|null $filterTransfer
+     *
      * @return \Generated\Shared\Transfer\EasyApiResponseTransfer
-     * @throws \GuzzleHttp\Exception\GuzzleException
      */
     protected function request(string $uri, string $method, ?EasyApiFilterTransfer $filterTransfer = null): EasyApiResponseTransfer
     {
         $responseTransfer = new EasyApiResponseTransfer();
         $body = [];
         try {
-            if ($filterTransfer !== null){
+            if ($filterTransfer !== null) {
                 $body = $this->prepareBody($filterTransfer);
             }
             $response = $this->guzzle->request(
@@ -111,19 +109,18 @@ class ApiWrapper implements ApiWrapperInterface
                 $uri,
                 array_merge(
                     $this->config->getHeader(),
-                    $body
-                )
+                    $body,
+                ),
             );
 
             $responseTransfer->setStatus('success');
             $responseTransfer->setData($response->getBody()->getContents());
-
         } catch (RequestException $e) {
             $this->logger->error(sprintf(
                 '%s %s Reason: %s',
                 $uri,
                 $method,
-                $e->getResponse()->getBody()
+                $e->getResponse()->getBody(),
             ));
 
             $responseTransfer->setStatus('error');
@@ -135,6 +132,7 @@ class ApiWrapper implements ApiWrapperInterface
 
     /**
      * @param \Generated\Shared\Transfer\EasyApiFilterTransfer $filterTransfer
+     *
      * @return array
      */
     protected function prepareBody(EasyApiFilterTransfer $filterTransfer): array
@@ -148,6 +146,7 @@ class ApiWrapper implements ApiWrapperInterface
 
     /**
      * @param \Generated\Shared\Transfer\EasyApiFilterTransfer $filterTransfer
+     *
      * @return array<string, string>
      */
     public function buildConditions(EasyApiFilterTransfer $filterTransfer): array
@@ -162,16 +161,18 @@ class ApiWrapper implements ApiWrapperInterface
 
     /**
      * @param array<string, string> $body
+     *
      * @return array<string, string>
      */
     protected function cleanBody(array $body): array
     {
         $cleanedBody = [];
-        foreach ($this->config->getAllowedBodyFields() as $key){
-            if (array_key_exists($key, $body)){
+        foreach ($this->config->getAllowedBodyFields() as $key) {
+            if (array_key_exists($key, $body)) {
                 $cleanedBody[$key] = $body[$key];
             }
         }
+
         return $cleanedBody;
     }
 }

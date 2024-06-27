@@ -13,6 +13,7 @@ class EasyApiZedStub implements EasyApiZedStubInterface
      * @var string
      */
     public const URL_FIND_DOCUMENT = '/easy-api/gateway/find-document';
+
     /**
      * @var string
      */
@@ -33,6 +34,7 @@ class EasyApiZedStub implements EasyApiZedStubInterface
 
     /**
      * @param \Generated\Shared\Transfer\EasyApiFilterTransfer $filterTransfer
+     *
      * @return \Generated\Shared\Transfer\EasyApiResponseTransfer
      */
     public function findDocument(EasyApiFilterTransfer $filterTransfer): EasyApiResponseTransfer
@@ -48,6 +50,7 @@ class EasyApiZedStub implements EasyApiZedStubInterface
 
     /**
      * @param \Generated\Shared\Transfer\EasyApiRequestTransfer $requestTransfer
+     *
      * @return \Generated\Shared\Transfer\EasyApiResponseTransfer
      */
     public function getDocument(EasyApiRequestTransfer $requestTransfer): EasyApiResponseTransfer

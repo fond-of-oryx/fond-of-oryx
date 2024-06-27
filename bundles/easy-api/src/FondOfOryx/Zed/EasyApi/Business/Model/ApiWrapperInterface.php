@@ -10,16 +10,20 @@ interface ApiWrapperInterface
 {
     /**
      * @param \Generated\Shared\Transfer\EasyApiFilterTransfer $filterTransfer
-     * @return \Generated\Shared\Transfer\EasyApiResponseTransfer
+     *
      * @throws \GuzzleHttp\Exception\GuzzleException
+     *
+     * @return \Generated\Shared\Transfer\EasyApiResponseTransfer
      */
     public function findDocument(EasyApiFilterTransfer $filterTransfer): EasyApiResponseTransfer;
 
     /**
      * @param \Generated\Shared\Transfer\EasyApiRequestTransfer $requestTransfer
-     * @return \Generated\Shared\Transfer\EasyApiResponseTransfer
+     *
      * @throws \GuzzleHttp\Exception\GuzzleException
      * @throws \Spryker\Shared\Kernel\Transfer\Exception\RequiredTransferPropertyException
+     *
+     * @return \Generated\Shared\Transfer\EasyApiResponseTransfer
      */
     public function getFile(EasyApiRequestTransfer $requestTransfer): EasyApiResponseTransfer;
 }

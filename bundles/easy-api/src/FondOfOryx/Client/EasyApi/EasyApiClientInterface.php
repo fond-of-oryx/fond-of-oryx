@@ -15,12 +15,14 @@ interface EasyApiClientInterface
 {
     /**
      * @param \Generated\Shared\Transfer\EasyApiFilterTransfer $filterTransfer
+     *
      * @return \Generated\Shared\Transfer\EasyApiResponseTransfer
      */
     public function findDocument(EasyApiFilterTransfer $filterTransfer): EasyApiResponseTransfer;
 
     /**
      * @param \Generated\Shared\Transfer\EasyApiRequestTransfer $requestTransfer
+     *
      * @return \Generated\Shared\Transfer\EasyApiResponseTransfer
      */
     public function getDocument(EasyApiRequestTransfer $requestTransfer): EasyApiResponseTransfer;
