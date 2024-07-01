@@ -24,15 +24,13 @@ interface EasyApiConstants
      */
     public const EASY_API_CLIENT_HEADER = 'FOO:EasyApi:HEADER';
 
-
     /**
      * @var string
      */
     public const EASY_API_CLIENT_ALLOWED_BODY_FIELDS = 'FOO:EasyApi:EASY_API_CLIENT_ALLOWED_BODY_FIELDS';
 
-
     /**
-     * @var string
+     * @var array
      */
     public const EASY_API_CLIENT_ALLOWED_BODY_FIELDS_DEFAULT = ['stores', 'conditions'];
 
