@@ -88,8 +88,8 @@ class DocumentReader implements DocumentReaderInterface
 
             $document = (new DocumentTransfer())->fromArray($data, true);
 
-            $test = (new EasyApiRequestTransfer())->setUri($this->resolveAttachmentUri($document));
-            $document = $this->client->getDocument($test);
+            $fileRequest = (new EasyApiRequestTransfer())->setUri($this->resolveAttachmentUri($document));
+            $document = $this->client->getDocument($fileRequest);
         } catch (Throwable $throwable) {
             $this->logger->error($throwable->getMessage(), $throwable->getTrace());
 
