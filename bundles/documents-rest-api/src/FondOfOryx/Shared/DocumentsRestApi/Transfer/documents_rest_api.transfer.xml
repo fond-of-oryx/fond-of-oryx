@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+<transfers xmlns="spryker:transfer-01"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="spryker:transfer-01 https://static.spryker.com/transfer-01.xsd">
+    <transfer name="DocumentRestRequest">
+        <property name="id" type="string"/>
+        <property name="type" type="string"/>
+        <property name="customerReference" type="string"/>
+    </transfer>
+
+    <transfer name="Document">
+        <property name="resultId" type="string" />
+        <property name="completed" type="string" />
+        <property name="items" singular="item" type="DocumentItem[]" />
+    </transfer>
+
+    <transfer name="DocumentItem">
+        <property name="id" type="string" />
+        <property name="attachments" singular="attachment" type="DocumentAttachment[]" />
+    </transfer>
+
+    <transfer name="DocumentAttachment">
+        <property name="id" type="string" />
+        <property name="name" type="string" />
+        <property name="length" type="int" />
+    </transfer>
+
+    <transfer name="EasyApiFilter">
+        <property name="stores" type="array" />
+        <property name="conditions" singular="condition" type="EasyApiFilterCondition[]" />
+        <property name="error" type="Message" />
+    </transfer>
+
+    <transfer name="EasyApiFilterCondition">
+        <property name="field" type="string" />
+        <property name="value" type="string" />
+    </transfer>
+
+    <transfer name="Message">
+        <property name="message" type="string"/>
+    </transfer>
+</transfers>
