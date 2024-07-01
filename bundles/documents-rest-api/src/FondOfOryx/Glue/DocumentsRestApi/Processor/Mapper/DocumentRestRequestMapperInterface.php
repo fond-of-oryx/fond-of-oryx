@@ -9,6 +9,7 @@ interface DocumentRestRequestMapperInterface
 {
     /**
      * @param \Spryker\Glue\GlueApplication\Rest\Request\Data\RestRequestInterface $restRequest
+     *
      * @return \Generated\Shared\Transfer\DocumentRestRequestTransfer
      */
     public function fromRestRequest(RestRequestInterface $restRequest): DocumentRestRequestTransfer;

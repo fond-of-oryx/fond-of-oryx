@@ -22,7 +22,7 @@ class DocumentsRestApiFactory extends AbstractFactory
     use LoggerTrait;
 
     /**
-     * @return \FondOfOryx\Glue\DocumentsRestApi\Processor\Reader\OrderBudgetReaderInterface
+     * @return \FondOfOryx\Glue\DocumentsRestApi\Processor\Reader\DocumentReaderInterface
      */
     public function createDocumentReader(): DocumentReaderInterface
     {
@@ -56,7 +56,7 @@ class DocumentsRestApiFactory extends AbstractFactory
     }
 
     /**
-     * @return \FondOfOryx\Glue\DocumentsRestApi\Processor\Builder\RestResponseBuilderInterface
+     * @return \FondOfOryx\Glue\DocumentsRestApi\Processor\Expander\DocumentRestRequestExpanderInterface
      */
     public function createDocumentRestRequestExpander(): DocumentRestRequestExpanderInterface
     {
@@ -67,7 +67,6 @@ class DocumentsRestApiFactory extends AbstractFactory
 
     /**
      * @return \FondOfOryx\Glue\DocumentsRestApi\Dependency\Client\DocumentsRestApiToEasyApiInterface
-     * @throws \Spryker\Glue\Kernel\Exception\Container\ContainerKeyNotFoundException
      */
     protected function getEasyApi(): DocumentsRestApiToEasyApiInterface
     {
@@ -76,7 +75,6 @@ class DocumentsRestApiFactory extends AbstractFactory
 
     /**
      * @return array<\FondOfOryx\Glue\DocumentsRestApi\Dependency\Plugin\DocumentRestRequestExpanderPluginInterface>
-     * @throws \Spryker\Glue\Kernel\Exception\Container\ContainerKeyNotFoundException
      */
     protected function getDocumentRestRequestExpanderPlugins(): array
     {
@@ -85,7 +83,6 @@ class DocumentsRestApiFactory extends AbstractFactory
 
     /**
      * @return array<\FondOfOryx\Glue\DocumentsRestApi\Dependency\Plugin\DocumentTypePluginInterface>
-     * @throws \Spryker\Glue\Kernel\Exception\Container\ContainerKeyNotFoundException
      */
     protected function getDocumentTypePlugins(): array
     {

@@ -24,4 +24,17 @@
         <property name="name" type="string" />
         <property name="length" type="int" />
     </transfer>
+
+    <transfer name="EasyApiFilter">
+        <property name="stores" type="array" />
+        <property name="conditions" singular="condition" type="EasyApiFilterCondition[]" />
+        <property name="error" type="Message" />
+    </transfer>
+
+    <transfer name="EasyApiFilterCondition">
+        <property name="field" type="string" />
+        <property name="value" type="string" />
+    </transfer>
+
+    <transfer name="Message" />
 </transfers>

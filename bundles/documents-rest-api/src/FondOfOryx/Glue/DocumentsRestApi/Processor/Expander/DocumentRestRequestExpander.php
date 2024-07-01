@@ -23,6 +23,7 @@ class DocumentRestRequestExpander implements DocumentRestRequestExpanderInterfac
     /**
      * @param \Spryker\Glue\GlueApplication\Rest\Request\Data\RestRequestInterface $restRequest
      * @param \Generated\Shared\Transfer\DocumentRestRequestTransfer $documentRestRequestTransfer
+     *
      * @return \Generated\Shared\Transfer\DocumentRestRequestTransfer
      */
     public function expand(RestRequestInterface $restRequest, DocumentRestRequestTransfer $documentRestRequestTransfer): DocumentRestRequestTransfer

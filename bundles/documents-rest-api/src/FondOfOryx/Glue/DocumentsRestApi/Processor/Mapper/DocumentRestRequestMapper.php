@@ -17,18 +17,18 @@ class DocumentRestRequestMapper implements DocumentRestRequestMapperInterface
      * @param \FondOfOryx\Glue\DocumentsRestApi\Processor\Expander\DocumentRestRequestExpanderInterface $documentRestRequestExpander
      */
     public function __construct(
-        DocumentRestRequestExpanderInterface $documentRestRequestExpander,
+        DocumentRestRequestExpanderInterface $documentRestRequestExpander
     ) {
         $this->documentRestRequestExpander = $documentRestRequestExpander;
     }
 
     /**
      * @param \Spryker\Glue\GlueApplication\Rest\Request\Data\RestRequestInterface $restRequest
+     *
      * @return \Generated\Shared\Transfer\DocumentRestRequestTransfer
      */
     public function fromRestRequest(RestRequestInterface $restRequest): DocumentRestRequestTransfer
     {
         return $this->documentRestRequestExpander->expand($restRequest, new DocumentRestRequestTransfer());
     }
-
 }

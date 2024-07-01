@@ -14,6 +14,7 @@ interface DocumentTypePluginInterface
 
     /**
      * @param \Generated\Shared\Transfer\DocumentRestRequestTransfer $documentRestRequestTransfer
+     *
      * @return \Generated\Shared\Transfer\EasyApiFilterTransfer
      */
     public function createEasyApiFilter(DocumentRestRequestTransfer $documentRestRequestTransfer): EasyApiFilterTransfer;

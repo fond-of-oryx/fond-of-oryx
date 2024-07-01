@@ -11,16 +11,18 @@ interface RestResponseBuilderInterface
 {
     /**
      * @param \Generated\Shared\Transfer\EasyApiResponseTransfer $easyApiClientResponseTransfer
+     *
      * @return \Spryker\Glue\GlueApplication\Rest\JsonApi\RestResponseInterface
      */
     public function buildDocumentResponse(
-        EasyApiResponseTransfer $easyApiClientResponseTransfer,
+        EasyApiResponseTransfer $easyApiClientResponseTransfer
     ): RestResponseInterface;
 
     /**
      * @param string $details
      * @param string $code
      * @param int $status
+     *
      * @return \Spryker\Glue\GlueApplication\Rest\JsonApi\RestResponseInterface
      */
     public function buildErrorRestResponse(

@@ -3,7 +3,7 @@
 namespace FondOfOryx\Glue\DocumentsRestApi\Plugin\GlueApplicationExtension;
 
 use FondOfOryx\Glue\DocumentsRestApi\DocumentsRestApiConfig;
-use Generated\Shared\Transfer\RestOrderBudgetSearchAttributesTransfer;
+use Generated\Shared\Transfer\DocumentRestRequestTransfer;
 use Spryker\Glue\GlueApplicationExtension\Dependency\Plugin\ResourceRouteCollectionInterface;
 use Spryker\Glue\GlueApplicationExtension\Dependency\Plugin\ResourceRoutePluginInterface;
 use Spryker\Glue\Kernel\AbstractPlugin;
@@ -42,6 +42,6 @@ class DocumentsResourceRoutePlugin extends AbstractPlugin implements ResourceRou
      */
     public function getResourceAttributesClassName(): string
     {
-        return RestOrderBudgetSearchAttributesTransfer::class;
+        return DocumentRestRequestTransfer::class;
     }
 }

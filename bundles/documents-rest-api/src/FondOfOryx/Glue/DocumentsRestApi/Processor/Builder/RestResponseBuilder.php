@@ -27,10 +27,11 @@ class RestResponseBuilder implements RestResponseBuilderInterface
 
     /**
      * @param \Generated\Shared\Transfer\EasyApiResponseTransfer $easyApiClientResponseTransfer
+     *
      * @return \Spryker\Glue\GlueApplication\Rest\JsonApi\RestResponseInterface
      */
     public function buildDocumentResponse(
-        EasyApiResponseTransfer $easyApiClientResponseTransfer,
+        EasyApiResponseTransfer $easyApiClientResponseTransfer
     ): RestResponseInterface {
         if ($easyApiClientResponseTransfer->getStatus() !== 'success' || $easyApiClientResponseTransfer->getHash() !== sha1($easyApiClientResponseTransfer->getData())) {
             return $this->buildErrorRestResponse();
@@ -39,7 +40,7 @@ class RestResponseBuilder implements RestResponseBuilderInterface
         $restResponse = $this->restResourceBuilder->createRestResponse(1);
 
         $restResource = $this->restResourceBuilder->createRestResource(
-            DocumentsRestApiConfig::RESOURCE_DOCUMENTS_API
+            DocumentsRestApiConfig::RESOURCE_DOCUMENTS_API,
         )->setPayload($easyApiClientResponseTransfer);
 
         return $restResponse->addResource($restResource);
@@ -49,14 +50,14 @@ class RestResponseBuilder implements RestResponseBuilderInterface
      * @param string $details
      * @param string $code
      * @param int $status
+     *
      * @return \Spryker\Glue\GlueApplication\Rest\JsonApi\RestResponseInterface
      */
     public function buildErrorRestResponse(
         string $details = DocumentsRestApiConfig::ERROR_MESSAGE_UNEXPECTED,
         string $code = '500',
         int $status = Response::HTTP_INTERNAL_SERVER_ERROR
-    ): RestResponseInterface
-    {
+    ): RestResponseInterface {
         $restErrorMessageTransfer = (new RestErrorMessageTransfer())
             ->setCode($code)
             ->setStatus($status)

@@ -24,7 +24,7 @@ class DocumentReader implements DocumentReaderInterface
     protected LoggerInterface $logger;
 
     /**
-     * @var array|\FondOfOryx\Glue\DocumentsRestApi\Dependency\Plugin\DocumentTypePluginInterface[]
+     * @var array<\FondOfOryx\Glue\DocumentsRestApi\Dependency\Plugin\DocumentTypePluginInterface>
      */
     protected array $documentTypePlugins;
 
@@ -38,11 +38,10 @@ class DocumentReader implements DocumentReaderInterface
     public function __construct(
         DocumentsRestApiToEasyApiInterface $client,
         DocumentRestRequestMapperInterface $requestMapper,
-        RestResponseBuilderInterface       $responseBuilder,
-        LoggerInterface                    $logger,
-        array                              $documentTypePlugins
-    )
-    {
+        RestResponseBuilderInterface $responseBuilder,
+        LoggerInterface $logger,
+        array $documentTypePlugins
+    ) {
         $this->client = $client;
         $this->requestMapper = $requestMapper;
         $this->responseBuilder = $responseBuilder;
@@ -67,12 +66,14 @@ class DocumentReader implements DocumentReaderInterface
 
         if ($easyApiFilter === null) {
             $this->logger->error(sprintf('Missing plugin for document type "%s"', $filter->getType()));
+
             return $this->responseBuilder->buildErrorRestResponse();
         }
 
         $error = $easyApiFilter->getError();
         if ($error !== null) {
             $this->logger->error(sprintf('%s: %s | %s', $filter->getId(), $error->getMessage(), $error->getValue()));
+
             return $this->responseBuilder->buildErrorRestResponse($error->getMessage(), $error->getValue(), (int)$error->getValue());
         }
 
@@ -87,10 +88,11 @@ class DocumentReader implements DocumentReaderInterface
 
             $document = (new DocumentTransfer())->fromArray($data, true);
 
-            $test = (new EasyApiRequestTransfer())->setUri($this->resoloveAttachmentUri($document));
+            $test = (new EasyApiRequestTransfer())->setUri($this->resolveAttachmentUri($document));
             $document = $this->client->getDocument($test);
         } catch (Throwable $throwable) {
             $this->logger->error($throwable->getMessage(), $throwable->getTrace());
+
             return $this->responseBuilder->buildErrorRestResponse();
         }
 
@@ -99,14 +101,19 @@ class DocumentReader implements DocumentReaderInterface
 
     /**
      * @param \Generated\Shared\Transfer\DocumentTransfer $document
+     *
+     * @throws \Exception
+     *
      * @return string
      */
-    public function resoloveAttachmentUri(DocumentTransfer $document): string
+    public function resolveAttachmentUri(DocumentTransfer $document): string
     {
         foreach ($document->getItems() as $item) {
             foreach ($item->getAttachments() as $attachment) {
                 return sprintf('%s/attachments/%s', $item->getId(), $attachment->getId());
             }
         }
+
+        throw new Exception('Could not resolve attachment url!');
     }
 }

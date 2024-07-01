@@ -24,6 +24,7 @@ class DocumentsRestApiToEasyApiBridge implements DocumentsRestApiToEasyApiInterf
 
     /**
      * @param \Generated\Shared\Transfer\EasyApiFilterTransfer $filterTransfer
+     *
      * @return \Generated\Shared\Transfer\EasyApiResponseTransfer
      */
     public function findDocument(EasyApiFilterTransfer $filterTransfer): EasyApiResponseTransfer
@@ -33,6 +34,7 @@ class DocumentsRestApiToEasyApiBridge implements DocumentsRestApiToEasyApiInterf
 
     /**
      * @param \Generated\Shared\Transfer\EasyApiRequestTransfer $requestTransfer
+     *
      * @return \Generated\Shared\Transfer\EasyApiResponseTransfer
      */
     public function getDocument(EasyApiRequestTransfer $requestTransfer): EasyApiResponseTransfer
