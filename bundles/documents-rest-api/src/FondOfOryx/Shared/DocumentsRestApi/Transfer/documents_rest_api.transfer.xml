@@ -36,5 +36,7 @@
         <property name="value" type="string" />
     </transfer>
 
-    <transfer name="Message" />
+    <transfer name="Message">
+        <property name="message" type="string"/>
+    </transfer>
 </transfers>
