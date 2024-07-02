@@ -41,7 +41,9 @@ class RestResponseBuilder implements RestResponseBuilderInterface
 
         $restResource = $this->restResourceBuilder->createRestResource(
             DocumentsRestApiConfig::RESOURCE_DOCUMENTS_API,
-        )->setPayload($easyApiClientResponseTransfer);
+            null,
+            $easyApiClientResponseTransfer
+        );
 
         return $restResponse->addResource($restResource);
     }

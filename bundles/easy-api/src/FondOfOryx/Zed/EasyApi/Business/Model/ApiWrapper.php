@@ -50,7 +50,7 @@ class ApiWrapper implements ApiWrapperInterface
 
         $response = $this->request($uri, 'post', $filterTransfer);
 
-        if ($response->getStatus() === 'success') {
+        if ($response->getStatus() === 'success' && $response->getStatusCode() === 200) {
             $response->setType('json');
             $response->setHash(sha1($response->getData()));
         }
@@ -80,7 +80,7 @@ class ApiWrapper implements ApiWrapperInterface
 
         $response = $this->request($uri, 'get');
 
-        if ($response->getStatus() === 'success') {
+        if ($response->getStatus() === 'success' && $response->getStatusCode() === 200) {
             $response->setData(base64_encode($response->getData()));
             $response->setType('base64string');
             $response->setHash(sha1($response->getData()));
@@ -113,21 +113,26 @@ class ApiWrapper implements ApiWrapperInterface
                 ),
             );
 
-            $responseTransfer->setStatus('success');
-            $responseTransfer->setData($response->getBody()->getContents());
+            $responseTransfer
+                ->setStatus('success')
+                ->setMessage($response->getReasonPhrase())
+                ->setData($response->getBody()->getContents());
         } catch (RequestException $e) {
+            $response = $e->getResponse();
             $this->logger->error(sprintf(
                 '%s %s Reason: %s',
                 $uri,
                 $method,
-                $e->getResponse()->getBody(),
+                $response->getBody(),
             ));
 
-            $responseTransfer->setStatus('error');
-            $responseTransfer->setMessage($e->getResponse()->getBody());
+            $responseTransfer
+                ->setStatus('error')
+                ->setMessage($response->getBody()->getContents());
         }
 
-        return $responseTransfer->setStatusCode($response->getStatusCode());
+        return $responseTransfer
+            ->setStatusCode($response->getStatusCode());
     }
 
     /**
