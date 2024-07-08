@@ -409,7 +409,7 @@
     },
     "documents-rest-api": {
       "path": "bundles/documents-rest-api/",
-      "version": "1.0.0"
+      "version": "1.0.0-beta"
     },
     "easy-api": {
       "path": "bundles/easy-api/",
