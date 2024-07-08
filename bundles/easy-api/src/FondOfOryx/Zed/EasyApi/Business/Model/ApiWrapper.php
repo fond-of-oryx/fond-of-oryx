@@ -13,6 +13,11 @@ use Psr\Log\LoggerInterface;
 class ApiWrapper implements ApiWrapperInterface
 {
     /**
+     * @var string
+     */
+    protected const KEY_CONDITIONS = 'conditions';
+
+    /**
      * @var \FondOfOryx\Zed\EasyApi\Dependency\Client\EasyApiToGuzzleClientInterface
      */
     protected EasyApiToGuzzleClientInterface $guzzle;
@@ -144,7 +149,7 @@ class ApiWrapper implements ApiWrapperInterface
     {
         $transferData = $filterTransfer->toArray(true, true);
 
-        $transferData['conditions'] = $this->buildConditions($filterTransfer);
+        $transferData[static::KEY_CONDITIONS] = $this->buildConditions($filterTransfer);
 
         return ['body' => json_encode($this->cleanBody($transferData))];
     }
@@ -165,16 +170,16 @@ class ApiWrapper implements ApiWrapperInterface
     }
 
     /**
-     * @param array<string, string> $body
+     * @param array<string, array<string, string>> $body
      *
-     * @return array<string, string>
+     * @return array<string, array<string, string>>
      */
     protected function cleanBody(array $body): array
     {
         $cleanedBody = [];
         foreach ($this->config->getAllowedBodyFields() as $key) {
-            if (array_key_exists($key, $body)) {
-                $cleanedBody[$key] = $body[$key];
+            if (array_key_exists($key, $body[static::KEY_CONDITIONS])) {
+                $cleanedBody[static::KEY_CONDITIONS][$key] = $body[static::KEY_CONDITIONS][$key];
             }
         }
 

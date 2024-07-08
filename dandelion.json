@@ -407,6 +407,14 @@
       "path": "bundles/delivery-date-restriction/",
       "version": "2.0.0"
     },
+    "documents-rest-api": {
+      "path": "bundles/documents-rest-api/",
+      "version": "1.0.0"
+    },
+    "easy-api": {
+      "path": "bundles/easy-api/",
+      "version": "1.0.0"
+    },
     "erp-customer": {
       "path": "bundles/erp-customer/",
       "version": "2.0.0"

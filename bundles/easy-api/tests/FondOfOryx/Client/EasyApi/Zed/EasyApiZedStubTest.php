@@ -47,7 +47,6 @@ class EasyApiZedStubTest extends Unit
             ->disableOriginalConstructor()
             ->getMock();
 
-
         $this->easyApiFilterTransfer = $this->getMockBuilder(EasyApiFilterTransfer::class)
             ->disableOriginalConstructor()
             ->getMock();
@@ -80,7 +79,7 @@ class EasyApiZedStubTest extends Unit
         static::assertEquals(
             $this->easyApiResponseTransfer,
             $this->easyApiZedStub->getDocument(
-                $this->easyApiRequestTransfer
+                $this->easyApiRequestTransfer,
             ),
         );
     }
@@ -93,14 +92,14 @@ class EasyApiZedStubTest extends Unit
         $this->zedRequestClientMock->expects(static::atLeastOnce())
             ->method('call')
             ->with(
-                EasyApiZedStub::URL_GET_DOCUMENT,
+                EasyApiZedStub::URL_FIND_DOCUMENT,
                 $this->easyApiFilterTransfer,
             )->willReturn($this->easyApiResponseTransfer);
 
         static::assertEquals(
             $this->easyApiResponseTransfer,
             $this->easyApiZedStub->findDocument(
-                $this->easyApiFilterTransfer
+                $this->easyApiFilterTransfer,
             ),
         );
     }
