@@ -79,11 +79,22 @@ class DocumentReader implements DocumentReaderInterface
 
         $response = $this->client->findDocument($easyApiFilter);
 
-        if ($response->getStatus() !== 'success' || $response->getHash() !== sha1($response->getData())) {
+        if ($response->getStatus() !== 'success') {
             return $this->responseBuilder->buildErrorRestResponse();
         }
 
+        if ($response->getStatusCode() === 204) {
+            return $this->responseBuilder->buildErrorRestResponse(
+                $response->getMessage(),
+                (string)$response->getStatusCode(),
+                $response->getStatusCode(),
+            );
+        }
+
         try {
+            if ($response->getHash() !== sha1($response->getData())) {
+                return $this->responseBuilder->buildErrorRestResponse();
+            }
             $data = json_decode($response->getData(), true);
 
             $document = (new DocumentTransfer())->fromArray($data, true);

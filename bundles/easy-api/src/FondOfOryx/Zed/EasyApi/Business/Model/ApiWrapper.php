@@ -13,6 +13,11 @@ use Psr\Log\LoggerInterface;
 class ApiWrapper implements ApiWrapperInterface
 {
     /**
+     * @var string
+     */
+    protected const KEY_CONDITIONS = 'conditions';
+
+    /**
      * @var \FondOfOryx\Zed\EasyApi\Dependency\Client\EasyApiToGuzzleClientInterface
      */
     protected EasyApiToGuzzleClientInterface $guzzle;
@@ -50,7 +55,7 @@ class ApiWrapper implements ApiWrapperInterface
 
         $response = $this->request($uri, 'post', $filterTransfer);
 
-        if ($response->getStatus() === 'success') {
+        if ($response->getStatus() === 'success' && $response->getStatusCode() === 200) {
             $response->setType('json');
             $response->setHash(sha1($response->getData()));
         }
@@ -80,7 +85,7 @@ class ApiWrapper implements ApiWrapperInterface
 
         $response = $this->request($uri, 'get');
 
-        if ($response->getStatus() === 'success') {
+        if ($response->getStatus() === 'success' && $response->getStatusCode() === 200) {
             $response->setData(base64_encode($response->getData()));
             $response->setType('base64string');
             $response->setHash(sha1($response->getData()));
@@ -113,21 +118,26 @@ class ApiWrapper implements ApiWrapperInterface
                 ),
             );
 
-            $responseTransfer->setStatus('success');
-            $responseTransfer->setData($response->getBody()->getContents());
+            $responseTransfer
+                ->setStatus('success')
+                ->setMessage($response->getReasonPhrase())
+                ->setData($response->getBody()->getContents());
         } catch (RequestException $e) {
+            $response = $e->getResponse();
             $this->logger->error(sprintf(
                 '%s %s Reason: %s',
                 $uri,
                 $method,
-                $e->getResponse()->getBody(),
+                $response->getBody(),
             ));
 
-            $responseTransfer->setStatus('error');
-            $responseTransfer->setMessage($e->getResponse()->getBody());
+            $responseTransfer
+                ->setStatus('error')
+                ->setMessage($response->getBody()->getContents());
         }
 
-        return $responseTransfer->setStatusCode($response->getStatusCode());
+        return $responseTransfer
+            ->setStatusCode($response->getStatusCode());
     }
 
     /**
@@ -139,7 +149,7 @@ class ApiWrapper implements ApiWrapperInterface
     {
         $transferData = $filterTransfer->toArray(true, true);
 
-        $transferData['conditions'] = $this->buildConditions($filterTransfer);
+        $transferData[static::KEY_CONDITIONS] = $this->buildConditions($filterTransfer);
 
         return ['body' => json_encode($this->cleanBody($transferData))];
     }
@@ -160,16 +170,16 @@ class ApiWrapper implements ApiWrapperInterface
     }
 
     /**
-     * @param array<string, string> $body
+     * @param array<string, array<string, string>> $body
      *
-     * @return array<string, string>
+     * @return array<string, array<string, string>>
      */
     protected function cleanBody(array $body): array
     {
         $cleanedBody = [];
         foreach ($this->config->getAllowedBodyFields() as $key) {
-            if (array_key_exists($key, $body)) {
-                $cleanedBody[$key] = $body[$key];
+            if (array_key_exists($key, $body[static::KEY_CONDITIONS])) {
+                $cleanedBody[static::KEY_CONDITIONS][$key] = $body[static::KEY_CONDITIONS][$key];
             }
         }
 

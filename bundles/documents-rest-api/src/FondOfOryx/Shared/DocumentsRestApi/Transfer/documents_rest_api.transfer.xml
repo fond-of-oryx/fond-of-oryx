@@ -39,4 +39,9 @@
     <transfer name="Message">
         <property name="message" type="string"/>
     </transfer>
+
+    <transfer name="RestUser">
+        <property name="naturalIdentifier" type="string"/>
+        <property name="surrogateIdentifier" type="int"/>
+    </transfer>
 </transfers>

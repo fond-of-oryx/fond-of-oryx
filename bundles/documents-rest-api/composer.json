@@ -8,9 +8,22 @@
       "email": "dev@jzit.de"
     }
   ],
+  "repositories": [
+    {
+      "name": "fond-of-oryx/easy-api",
+      "type":"path",
+      "options": {
+        "symlink": false
+      },
+      "packagist.org": false,
+      "url":"../easy-api"
+    }
+  ],
   "require": {
     "php": ">=8.2",
-    "fond-of-oryx/easy-api": "^1.0.0"
+    "fond-of-oryx/easy-api": "dev-main",
+    "spryker/company-user": "^1.0.0 || ^2.0.0",
+    "spryker/glue-application-extension": "^1.0.0"
   },
   "require-dev": {
     "fond-of-codeception/spryker": "*",
