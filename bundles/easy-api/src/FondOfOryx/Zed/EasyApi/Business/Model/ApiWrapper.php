@@ -178,8 +178,8 @@ class ApiWrapper implements ApiWrapperInterface
     {
         $cleanedBody = [];
         foreach ($this->config->getAllowedBodyFields() as $key) {
-            if (array_key_exists($key, $body[static::KEY_CONDITIONS])) {
-                $cleanedBody[static::KEY_CONDITIONS][$key] = $body[static::KEY_CONDITIONS][$key];
+            if (array_key_exists($key, $body)) {
+                $cleanedBody[$key] = $body[$key];
             }
         }
 
