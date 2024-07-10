@@ -109,13 +109,16 @@ class ApiWrapper implements ApiWrapperInterface
             if ($filterTransfer !== null) {
                 $body = $this->prepareBody($filterTransfer);
             }
+
+            $data = array_merge(
+                $this->config->getHeader(),
+                $body,
+            );
+
             $response = $this->guzzle->request(
                 $method,
                 $uri,
-                array_merge(
-                    $this->config->getHeader(),
-                    $body,
-                ),
+                $data,
             );
 
             $responseTransfer
@@ -170,19 +173,20 @@ class ApiWrapper implements ApiWrapperInterface
     }
 
     /**
-     * @param array<string, array<string, string>> $body
+     * @param array<string, array<string, string>> $data
      *
      * @return array<string, array<string, string>>
      */
-    protected function cleanBody(array $body): array
+    protected function cleanBody(array $data): array
     {
-        $cleanedBody = [];
+        $cleanedData = [];
+
         foreach ($this->config->getAllowedBodyFields() as $key) {
-            if (array_key_exists($key, $body[static::KEY_CONDITIONS])) {
-                $cleanedBody[static::KEY_CONDITIONS][$key] = $body[static::KEY_CONDITIONS][$key];
+            if (array_key_exists($key, $data)) {
+                $cleanedData[$key] = $data[$key];
             }
         }
 
-        return $cleanedBody;
+        return $cleanedData;
     }
 }

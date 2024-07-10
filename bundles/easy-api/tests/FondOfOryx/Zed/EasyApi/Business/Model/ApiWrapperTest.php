@@ -169,6 +169,11 @@ class ApiWrapperTest extends Unit
      */
     public function testFindDocumentCreateConditions(): void
     {
+        $header = [
+        'headers' => [
+            'Content-Type' => 'application/json',
+        ]];
+
         $conditions = new ArrayObject();
         $conditions->append($this->easyApiFilterConditionTransferMock);
         $configUrl = 'test/123';
@@ -180,11 +185,11 @@ class ApiWrapperTest extends Unit
 
         $this->configMock->expects(static::atLeastOnce())
             ->method('getAllowedBodyFields')
-            ->willReturn(['test']);
+            ->willReturn(['conditions', 'stores']);
 
         $this->configMock->expects(static::atLeastOnce())
             ->method('getHeader')
-            ->willReturn([]);
+            ->willReturn($header);
 
         $this->responseMock->expects(static::atLeastOnce())
             ->method('getReasonPhrase')
@@ -208,7 +213,7 @@ class ApiWrapperTest extends Unit
 
         $this->easyApiFilterTransferMock->expects(static::atLeastOnce())
             ->method('toArray')
-            ->willReturn([]);
+            ->willReturn(json_decode('{"stores":["storename"],"error":null,"conditions":[{"field":"test","value":"ab"}]}', true));
 
         $this->easyApiFilterConditionTransferMock->expects(static::atLeastOnce())
             ->method('getField')
@@ -219,10 +224,10 @@ class ApiWrapperTest extends Unit
             ->willReturn('ab');
 
         $this->guzzleClientMock->expects(static::atLeastOnce())
-            ->method('request')->willReturnCallback(static function ($type, $url, $data) use ($self, $configUrl) {
+            ->method('request')->willReturnCallback(static function ($type, $url, $data) use ($self, $configUrl, $header) {
                 static::assertEquals('post', $type);
                 static::assertEquals(sprintf('%s/%s', $configUrl, 'api/content/search'), $url);
-                static::assertEquals(['body' => json_encode(['conditions' => ['test' => 'ab']])], $data);
+                static::assertEquals(array_merge($header, ['body' => '{"conditions":{"test":"ab"},"stores":["storename"]}']), $data);
 
                 return $self->responseMock;
             });
