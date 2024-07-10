@@ -97,6 +97,10 @@ class RestResponseBuilderTest extends Unit
             ->willReturn('success');
 
         $this->easyApiResponseTransferMock->expects(static::atLeastOnce())
+            ->method('getStatusCode')
+            ->willReturn(200);
+
+        $this->easyApiResponseTransferMock->expects(static::atLeastOnce())
             ->method('getHash')
             ->willReturn(sha1('test'));
 
