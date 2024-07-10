@@ -22,7 +22,7 @@ use Spryker\Glue\GlueApplication\Rest\Request\Data\RestRequestInterface;
 class DocumentReaderTest extends Unit
 {
     /**
-     * @var (\FondOfOryx\Glue\DocumentsRestApi\Processor\Builder\RestResponseBuilderInterface&\PHPUnit\Framework\MockObject\MockObject)|\PHPUnit\Framework\MockObject\MockObject
+     * @var \PHPUnit\Framework\MockObject\MockObject|\FondOfOryx\Glue\DocumentsRestApi\Processor\Builder\RestResponseBuilderInterface
      */
     protected MockObject|RestResponseBuilderInterface $restResponseBuilderMock;
 
@@ -67,12 +67,12 @@ class DocumentReaderTest extends Unit
     protected EasyApiFilterTransfer|MockObject $easyApiFilterTransferMock;
 
     /**
-     * @var \PHPUnit\Framework\MockObject\MockObject|(\Spryker\Glue\GlueApplication\Rest\Request\Data\RestRequestInterface&\PHPUnit\Framework\MockObject\MockObject)
+     * @var \Spryker\Glue\GlueApplication\Rest\Request\Data\RestRequestInterface|\PHPUnit\Framework\MockObject\MockObject
      */
     protected RestRequestInterface|MockObject $restRequestMock;
 
     /**
-     * @var \PHPUnit\Framework\MockObject\MockObject|(\Spryker\Glue\GlueApplication\Rest\JsonApi\RestResponseInterface&\PHPUnit\Framework\MockObject\MockObject)
+     * @var \Spryker\Glue\GlueApplication\Rest\JsonApi\RestResponseInterface|\PHPUnit\Framework\MockObject\MockObject
      */
     protected RestResponseInterface|MockObject $restResponseMock;
 

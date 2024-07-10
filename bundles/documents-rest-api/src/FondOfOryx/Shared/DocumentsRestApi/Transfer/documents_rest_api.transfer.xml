@@ -38,6 +38,7 @@
 
     <transfer name="Message">
         <property name="message" type="string"/>
+        <property name="code" type="int"/>
     </transfer>
 
     <transfer name="RestUser">
