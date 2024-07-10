@@ -86,7 +86,12 @@ class RestResponseBuilderTest extends Unit
         $this->restResponseMock->expects(static::atLeastOnce())
             ->method('setStatus')
             ->with(Response::HTTP_OK)
-            ->willReturn($this->restResponseMock);
+            ->willReturnSelf();
+
+        $this->restResponseMock->expects(static::atLeastOnce())
+            ->method('addResource')
+            ->with($this->restResourceMock)
+            ->willReturnSelf();
 
         $this->easyApiResponseTransferMock->expects(static::atLeastOnce())
             ->method('getStatus')
