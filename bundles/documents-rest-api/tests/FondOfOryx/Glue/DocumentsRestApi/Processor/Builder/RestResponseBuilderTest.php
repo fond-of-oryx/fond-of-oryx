@@ -99,21 +99,20 @@ class RestResponseBuilderTest extends Unit
      */
     public function testBuildErrorRestResponse(): void
     {
+        $self = $this;
         $this->restResourceBuilderMock->expects(static::atLeastOnce())
             ->method('createRestResponse')
             ->willReturn($this->restResponseMock);
 
         $this->restResponseMock->expects(static::atLeastOnce())
             ->method('addError')
-            ->with(
-                static::callback(
-                    static function (RestErrorMessageTransfer $restErrorMessageTransfer) {
-                        return $restErrorMessageTransfer->getCode() === (string)Response::HTTP_INTERNAL_SERVER_ERROR
-                            && $restErrorMessageTransfer->getDetail() === DocumentsRestApiConfig::ERROR_MESSAGE_UNEXPECTED
-                            && $restErrorMessageTransfer->getStatus() === Response::HTTP_INTERNAL_SERVER_ERROR;
-                    },
-                ),
-            )->willReturn($this->restResponseMock);
+            ->willReturnCallback(static function (RestErrorMessageTransfer $restErrorMessageTransfer) use ($self) {
+                static::assertEquals((string)Response::HTTP_INTERNAL_SERVER_ERROR, $restErrorMessageTransfer->getCode());
+                static::assertEquals(DocumentsRestApiConfig::ERROR_MESSAGE_UNEXPECTED, $restErrorMessageTransfer->getDetail());
+                static::assertEquals(Response::HTTP_INTERNAL_SERVER_ERROR, $restErrorMessageTransfer->getStatus());
+
+                return $self->restResponseMock;
+            });
 
         static::assertEquals(
             $this->restResponseMock,

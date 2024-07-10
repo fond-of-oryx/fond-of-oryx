@@ -67,6 +67,10 @@ class CustomerReferenceExpanderPluginTest extends Unit
             ->method('getNaturalIdentifier')
             ->willReturn($idCustomer);
 
+        $this->documentRestRequestTransferMock->expects(static::atLeastOnce())
+            ->method('setCustomerReference')
+            ->willReturnSelf();
+
         static::assertEquals(
             $this->documentRestRequestTransferMock,
             $this->expanderPlugin->expand($this->restRequestMock, $this->documentRestRequestTransferMock),
