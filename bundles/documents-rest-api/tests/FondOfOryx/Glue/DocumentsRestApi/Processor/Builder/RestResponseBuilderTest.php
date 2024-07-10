@@ -88,6 +88,18 @@ class RestResponseBuilderTest extends Unit
             ->with(Response::HTTP_OK)
             ->willReturn($this->restResponseMock);
 
+        $this->easyApiResponseTransferMock->expects(static::atLeastOnce())
+            ->method('getStatus')
+            ->willReturn('success');
+
+        $this->easyApiResponseTransferMock->expects(static::atLeastOnce())
+            ->method('getHash')
+            ->willReturn(sha1('test'));
+
+        $this->easyApiResponseTransferMock->expects(static::atLeastOnce())
+            ->method('getData')
+            ->willReturn('test');
+
         static::assertEquals(
             $this->restResponseMock,
             $this->restResponseBuilder->buildDocumentResponse($this->easyApiResponseTransferMock),

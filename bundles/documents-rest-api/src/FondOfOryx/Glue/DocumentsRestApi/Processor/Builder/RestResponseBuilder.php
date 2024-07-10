@@ -33,7 +33,10 @@ class RestResponseBuilder implements RestResponseBuilderInterface
     public function buildDocumentResponse(
         EasyApiResponseTransfer $easyApiClientResponseTransfer
     ): RestResponseInterface {
-        if ($easyApiClientResponseTransfer->getStatus() !== 'success' || $easyApiClientResponseTransfer->getHash() !== sha1($easyApiClientResponseTransfer->getData())) {
+        if (
+            $easyApiClientResponseTransfer->getStatus() !== 'success'
+            || $easyApiClientResponseTransfer->getHash() !== sha1($easyApiClientResponseTransfer->getData())
+        ) {
             return $this->buildErrorRestResponse();
         }
 
