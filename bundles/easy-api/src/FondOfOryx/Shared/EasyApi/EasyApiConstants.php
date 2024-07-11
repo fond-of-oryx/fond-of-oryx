@@ -22,7 +22,12 @@ interface EasyApiConstants
     /**
      * @var string
      */
-    public const EASY_API_CLIENT_HEADER = 'FOO:EasyApi:HEADER';
+    public const EASY_API_CLIENT_HEADER_JSON = 'FOO:EasyApi:HEADER:JSON';
+
+    /**
+     * @var string
+     */
+    public const EASY_API_CLIENT_HEADER_STREAM = 'FOO:EasyApi:HEADER:STREAM';
 
     /**
      * @var string

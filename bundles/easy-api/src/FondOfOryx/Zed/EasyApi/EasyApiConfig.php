@@ -42,17 +42,39 @@ class EasyApiConfig extends AbstractBundleConfig
     /**
      * @return array
      */
-    public function getHeader(): array
+    public function getJsonHeader(): array
     {
-        $base64Pass = base64_encode(sprintf('%s:%s', $this->getEasyApiUser(), $this->getEasyApiPassword()));
-
         $defaultHeaders = [
             'headers' => [
                 'Content-Type' => 'application/json',
-                'Authorization' => sprintf('Basic %s', $base64Pass),
+                'Authorization' => sprintf('Basic %s', $this->getBase64Credentials()),
             ],
         ];
 
-        return $this->get(EasyApiConstants::EASY_API_CLIENT_HEADER, $defaultHeaders);
+        return $this->get(EasyApiConstants::EASY_API_CLIENT_HEADER_JSON, $defaultHeaders);
+    }
+
+    /**
+     * @return array
+     */
+    public function getOctetStreamHeader(): array
+    {
+        $defaultHeaders = [
+            'headers' => [
+                'Content-Type' => 'application/octet-stream',
+                'Content-Disposition' => 'attachment',
+                'Authorization' => sprintf('Basic %s', $this->getBase64Credentials()),
+            ],
+        ];
+
+        return $this->get(EasyApiConstants::EASY_API_CLIENT_HEADER_STREAM, $defaultHeaders);
+    }
+
+    /**
+     * @return string
+     */
+    public function getBase64Credentials(): string
+    {
+        return base64_encode(sprintf('%s:%s', $this->getEasyApiUser(), $this->getEasyApiPassword()));
     }
 }
