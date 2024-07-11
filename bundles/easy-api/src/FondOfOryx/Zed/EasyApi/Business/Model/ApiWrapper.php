@@ -8,6 +8,7 @@ use Generated\Shared\Transfer\EasyApiFilterTransfer;
 use Generated\Shared\Transfer\EasyApiRequestTransfer;
 use Generated\Shared\Transfer\EasyApiResponseTransfer;
 use GuzzleHttp\Exception\RequestException;
+use Psr\Http\Message\ResponseInterface;
 use Psr\Log\LoggerInterface;
 
 class ApiWrapper implements ApiWrapperInterface
@@ -83,7 +84,7 @@ class ApiWrapper implements ApiWrapperInterface
             $uri = sprintf('%s/%s/%s', $this->config->getEasyApiUri(), 'api/content/docs', $uri);
         }
 
-        $response = $this->request($uri, 'get');
+        $response = $this->request($uri, 'get', null, $this->config->getOctetStreamHeader());
 
         if ($response->getStatus() === 'success' && $response->getStatusCode() === 200) {
             $response->setData(base64_encode($response->getData()));
@@ -98,32 +99,35 @@ class ApiWrapper implements ApiWrapperInterface
      * @param string $uri
      * @param string $method
      * @param \Generated\Shared\Transfer\EasyApiFilterTransfer|null $filterTransfer
+     * @param array|null $header
      *
      * @return \Generated\Shared\Transfer\EasyApiResponseTransfer
      */
-    protected function request(string $uri, string $method, ?EasyApiFilterTransfer $filterTransfer = null): EasyApiResponseTransfer
+    protected function request(string $uri, string $method, ?EasyApiFilterTransfer $filterTransfer = null, ?array $header = null): EasyApiResponseTransfer
     {
         $responseTransfer = new EasyApiResponseTransfer();
         $body = [];
         try {
+            if ($header === null) {
+                $header = $this->config->getJsonHeader();
+            }
             if ($filterTransfer !== null) {
                 $body = $this->prepareBody($filterTransfer);
             }
 
-            $data = array_merge(
-                $this->config->getHeader(),
-                $body,
-            );
-
             $response = $this->guzzle->request(
                 $method,
                 $uri,
-                $data,
+                array_merge(
+                    $header,
+                    $body,
+                ),
             );
 
             $responseTransfer
                 ->setStatus('success')
                 ->setMessage($response->getReasonPhrase())
+                ->setFileName($this->resolveFileName($response))
                 ->setData($response->getBody()->getContents());
         } catch (RequestException $e) {
             $response = $e->getResponse();
@@ -188,5 +192,30 @@ class ApiWrapper implements ApiWrapperInterface
         }
 
         return $cleanedData;
+    }
+
+    /**
+     * @param \Psr\Http\Message\ResponseInterface $response
+     *
+     * @return string|null
+     */
+    protected function resolveFileName(ResponseInterface $response): ?string
+    {
+        $contentDispositionHeaderData = $response->getHeader('Content-Disposition');
+
+        if (count($contentDispositionHeaderData) === 0) {
+            return null;
+        }
+
+        $data = current($contentDispositionHeaderData);
+
+        if (preg_match('/filename="(.+?)"/', $data, $matches)) {
+            return $matches[1];
+        }
+        if (preg_match('/filename=([^; ]+)/', $data, $matches)) {
+            return rawurldecode($matches[1]);
+        }
+
+        return sprintf('%s.pdf', sha1($response->getBody()->getContents()));
     }
 }

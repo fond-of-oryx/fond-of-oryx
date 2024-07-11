@@ -123,7 +123,7 @@ class ApiWrapperTest extends Unit
             ->willReturn([]);
 
         $this->configMock->expects(static::atLeastOnce())
-            ->method('getHeader')
+            ->method('getJsonHeader')
             ->willReturn([]);
 
         $this->responseMock->expects(static::atLeastOnce())
@@ -137,6 +137,10 @@ class ApiWrapperTest extends Unit
         $this->responseMock->expects(static::atLeastOnce())
             ->method('getBody')
             ->willReturn($this->streamMock);
+
+        $this->responseMock->expects(static::atLeastOnce())
+            ->method('getHeader')
+            ->willReturn([]);
 
         $this->streamMock->expects(static::atLeastOnce())
             ->method('getContents')
@@ -188,7 +192,7 @@ class ApiWrapperTest extends Unit
             ->willReturn(['conditions', 'stores']);
 
         $this->configMock->expects(static::atLeastOnce())
-            ->method('getHeader')
+            ->method('getJsonHeader')
             ->willReturn($header);
 
         $this->responseMock->expects(static::atLeastOnce())
@@ -202,6 +206,10 @@ class ApiWrapperTest extends Unit
         $this->responseMock->expects(static::atLeastOnce())
             ->method('getBody')
             ->willReturn($this->streamMock);
+
+        $this->responseMock->expects(static::atLeastOnce())
+            ->method('getHeader')
+            ->willReturn([]);
 
         $this->streamMock->expects(static::atLeastOnce())
             ->method('getContents')
@@ -259,7 +267,7 @@ class ApiWrapperTest extends Unit
             ->willReturn($transferUri);
 
         $this->configMock->expects(static::atLeastOnce())
-            ->method('getHeader')
+            ->method('getOctetStreamHeader')
             ->willReturn([]);
 
         $this->responseMock->expects(static::atLeastOnce())
@@ -273,6 +281,10 @@ class ApiWrapperTest extends Unit
         $this->responseMock->expects(static::atLeastOnce())
             ->method('getBody')
             ->willReturn($this->streamMock);
+
+        $this->responseMock->expects(static::atLeastOnce())
+            ->method('getHeader')
+            ->willReturn([]);
 
         $this->streamMock->expects(static::atLeastOnce())
             ->method('getContents')
@@ -328,7 +340,7 @@ class ApiWrapperTest extends Unit
             ->willReturnSelf();
 
         $this->configMock->expects(static::atLeastOnce())
-            ->method('getHeader')
+            ->method('getOctetStreamHeader')
             ->willReturn([]);
 
         $this->responseMock->expects(static::atLeastOnce())
@@ -342,6 +354,10 @@ class ApiWrapperTest extends Unit
         $this->responseMock->expects(static::atLeastOnce())
             ->method('getBody')
             ->willReturn($this->streamMock);
+
+        $this->responseMock->expects(static::atLeastOnce())
+            ->method('getHeader')
+            ->willReturn([]);
 
         $this->streamMock->expects(static::atLeastOnce())
             ->method('getContents')
@@ -362,6 +378,81 @@ class ApiWrapperTest extends Unit
 
         static::assertEquals(200, $response->getStatusCode());
         static::assertEquals('base64string', $response->getType());
+        static::assertEquals(sha1(base64_encode('test')), $response->getHash());
+    }
+
+    /**
+     * @return void
+     */
+    public function testGetFileWithFilenameSet(): void
+    {
+        $self = $this;
+        $id = '1111';
+        $ref = '2222';
+        $uri = sprintf('%s/attachments/%s', $id, $ref);
+        $configUrl = 'https://test/';
+        $responseHeader = ['attachment; filename="test.pdf"; size=216243'];
+
+        $this->configMock->expects(static::atLeastOnce())
+            ->method('getEasyApiUri')
+            ->willReturn($configUrl);
+
+        $this->easyApiRequestTransferMock->expects(static::atLeastOnce())
+            ->method('getId')
+            ->willReturn($id);
+
+        $this->easyApiRequestTransferMock->expects(static::atLeastOnce())
+            ->method('getDocumentReference')
+            ->willReturn($ref);
+
+        $this->easyApiRequestTransferMock->expects(static::atLeastOnce())
+            ->method('requireId')
+            ->willReturnSelf();
+
+        $this->easyApiRequestTransferMock->expects(static::atLeastOnce())
+            ->method('requireDocumentReference')
+            ->willReturnSelf();
+
+        $this->configMock->expects(static::atLeastOnce())
+            ->method('getOctetStreamHeader')
+            ->willReturn([]);
+
+        $this->responseMock->expects(static::atLeastOnce())
+            ->method('getReasonPhrase')
+            ->willReturn('');
+
+        $this->responseMock->expects(static::atLeastOnce())
+            ->method('getStatusCode')
+            ->willReturn(200);
+
+        $this->responseMock->expects(static::atLeastOnce())
+            ->method('getBody')
+            ->willReturn($this->streamMock);
+
+        $this->responseMock->expects(static::atLeastOnce())
+            ->method('getHeader')
+            ->willReturn($responseHeader);
+
+        $this->streamMock->expects(static::atLeastOnce())
+            ->method('getContents')
+            ->willReturn('test');
+
+        $this->guzzleClientMock->expects(static::atLeastOnce())
+            ->method('request')->willReturnCallback(static function ($type, $url, $data) use ($self, $configUrl, $uri) {
+                static::assertEquals('get', $type);
+                static::assertEquals(sprintf('%s/%s/%s', $configUrl, 'api/content/docs', $uri), $url);
+                static::assertEquals([], $data);
+
+                return $self->responseMock;
+            });
+
+        $response = $this->wrapper->getFile(
+            $this->easyApiRequestTransferMock,
+        );
+
+        static::assertEquals(200, $response->getStatusCode());
+        static::assertEquals('base64string', $response->getType());
+        static::assertEquals('test.pdf', $response->getFileName());
         static::assertEquals(sha1(base64_encode('test')), $response->getHash());
     }
 }
