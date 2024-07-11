@@ -138,6 +138,10 @@ class ApiWrapperTest extends Unit
             ->method('getBody')
             ->willReturn($this->streamMock);
 
+        $this->responseMock->expects(static::atLeastOnce())
+            ->method('getHeader')
+            ->willReturn([]);
+
         $this->streamMock->expects(static::atLeastOnce())
             ->method('getContents')
             ->willReturn('test');
@@ -202,6 +206,10 @@ class ApiWrapperTest extends Unit
         $this->responseMock->expects(static::atLeastOnce())
             ->method('getBody')
             ->willReturn($this->streamMock);
+
+        $this->responseMock->expects(static::atLeastOnce())
+            ->method('getHeader')
+            ->willReturn([]);
 
         $this->streamMock->expects(static::atLeastOnce())
             ->method('getContents')
@@ -274,6 +282,10 @@ class ApiWrapperTest extends Unit
             ->method('getBody')
             ->willReturn($this->streamMock);
 
+        $this->responseMock->expects(static::atLeastOnce())
+            ->method('getHeader')
+            ->willReturn([]);
+
         $this->streamMock->expects(static::atLeastOnce())
             ->method('getContents')
             ->willReturn('test');
@@ -342,6 +354,10 @@ class ApiWrapperTest extends Unit
         $this->responseMock->expects(static::atLeastOnce())
             ->method('getBody')
             ->willReturn($this->streamMock);
+
+        $this->responseMock->expects(static::atLeastOnce())
+            ->method('getHeader')
+            ->willReturn([]);
 
         $this->streamMock->expects(static::atLeastOnce())
             ->method('getContents')
