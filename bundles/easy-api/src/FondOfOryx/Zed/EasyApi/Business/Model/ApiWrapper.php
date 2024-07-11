@@ -100,6 +100,7 @@ class ApiWrapper implements ApiWrapperInterface
      * @param string $method
      * @param \Generated\Shared\Transfer\EasyApiFilterTransfer|null $filterTransfer
      * @param array|null $header
+     *
      * @return \Generated\Shared\Transfer\EasyApiResponseTransfer
      */
     protected function request(string $uri, string $method, ?EasyApiFilterTransfer $filterTransfer = null, ?array $header = null): EasyApiResponseTransfer
@@ -107,7 +108,7 @@ class ApiWrapper implements ApiWrapperInterface
         $responseTransfer = new EasyApiResponseTransfer();
         $body = [];
         try {
-            if ($header === null){
+            if ($header === null) {
                 $header = $this->config->getJsonHeader();
             }
             if ($filterTransfer !== null) {
@@ -195,13 +196,14 @@ class ApiWrapper implements ApiWrapperInterface
 
     /**
      * @param \Psr\Http\Message\ResponseInterface $response
+     *
      * @return string|null
      */
     protected function resolveFileName(ResponseInterface $response): ?string
     {
-        $contentDispositionHeaderData =  $response->getHeader('Content-Disposition');
+        $contentDispositionHeaderData = $response->getHeader('Content-Disposition');
 
-        if (count($contentDispositionHeaderData) === 0){
+        if (count($contentDispositionHeaderData) === 0) {
             return null;
         }
 
