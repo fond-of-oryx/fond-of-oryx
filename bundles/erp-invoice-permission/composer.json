@@ -5,12 +5,15 @@
   "authors": [
     {
       "name": "Julian Hyatt",
-      "email": "info@julianzimmermann.dev"
+      "email": "dev@jzit.de"
     }
   ],
   "require": {
     "php": ">=8.0",
-    "spryker/permission-extension": "^1.0.0"
+    "spryker/company-business-unit": "^1.0.0 || ^2.0.0",
+    "spryker/company-role": "^1.0.0",
+    "spryker/permission-extension": "^1.0.0",
+    "spryker/uuid-behavior": "^1.0.0"
   },
   "require-dev": {
     "fond-of-codeception/spryker": "*",
@@ -27,7 +30,8 @@
   "autoload-dev": {
     "psr-4": {
       "FondOfOryx\\": "tests/FondOfOryx/",
-      "Generated\\": "src/Generated/"
+      "Generated\\": "src/Generated/",
+      "Orm\\Zed\\": "src/Orm/Zed/"
     }
   },
   "config": {

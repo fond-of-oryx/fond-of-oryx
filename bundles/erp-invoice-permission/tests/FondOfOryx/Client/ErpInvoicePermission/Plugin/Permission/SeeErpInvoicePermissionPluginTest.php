@@ -8,7 +8,7 @@ use FondOfOryx\Zed\ErpInvoicePermission\Communication\Plugin\Permission\SeeErpIn
 class SeeErpInvoicePermissionPluginTest extends Unit
 {
     /**
-     * @var \Spryker\Shared\PermissionExtension\Dependency\Plugin\ExecutablePermissionPluginInterface
+     * @var \Spryker\Shared\PermissionExtension\Dependency\Plugin\PermissionPluginInterface
      */
     protected $plugin;
 
