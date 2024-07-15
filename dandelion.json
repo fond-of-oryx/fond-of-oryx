@@ -449,15 +449,15 @@
     },
     "erp-invoice": {
       "path": "bundles/erp-invoice/",
-      "version": "3.4.0"
+      "version": "3.5.0"
     },
     "erp-invoice-api": {
       "path": "bundles/erp-invoice-api/",
-      "version": "3.1.0"
+      "version": "3.2.0"
     },
     "erp-invoice-extension": {
       "path": "bundles/erp-invoice-extension/",
-      "version": "2.0.0"
+      "version": "2.1.0"
     },
     "erp-invoice-page-search": {
       "path": "bundles/erp-invoice-page-search/",
@@ -469,11 +469,11 @@
     },
     "erp-invoice-page-search-rest-api": {
       "path": "bundles/erp-invoice-page-search-rest-api/",
-      "version": "2.4.0"
+      "version": "2.5.0"
     },
     "erp-invoice-permission": {
       "path": "bundles/erp-invoice-permission/",
-      "version": "2.0.0"
+      "version": "2.1.0"
     },
     "erp-order": {
       "path": "bundles/erp-order/",
