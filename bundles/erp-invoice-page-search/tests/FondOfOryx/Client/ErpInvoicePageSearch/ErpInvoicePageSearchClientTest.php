@@ -19,7 +19,7 @@ class ErpInvoicePageSearchClientTest extends Unit
     protected $erpInvoicePageSearchFactoryMock;
 
     /**
-     * @var \PHPUnit\Framework\MockObject\MockObject|\FondOfOryx\Client\ErporderPageSearch\Dependency\Client\ErpInvoicePageSearchToSearchClientInterface
+     * @var \PHPUnit\Framework\MockObject\MockObject|\FondOfOryx\Client\ErpInvoicePageSearch\Dependency\Client\ErpInvoicePageSearchToSearchClientInterface
      */
     protected $erpInvoicePageSearchToSearchClientMock;
 
@@ -27,11 +27,6 @@ class ErpInvoicePageSearchClientTest extends Unit
      * @var \PHPUnit\Framework\MockObject\MockObject|\Spryker\Client\SearchExtension\Dependency\Plugin\QueryInterface
      */
     protected $pluginQueryMock;
-
-    /**
-     * @var \PHPUnit\Framework\MockObject\MockObject|\Spryker\Client\Kernel\PermissionAwareTrait
-     */
-    protected $permissionAwareTraitMock;
 
     /**
      * @return void
