@@ -39,10 +39,6 @@ class ErpInvoicePageSearchCommunicationFactoryTest extends Unit
             ->disableOriginalConstructor()
             ->getMock();
 
-        $this->erpInvoiceQueryMock = $this->getMockBuilder(ErpInvoiceQuery::class)
-            ->disableOriginalConstructor()
-            ->getMock();
-
         $this->erpInvoicePageSearchCommunicationFactory = new ErpInvoicePageSearchCommunicationFactory();
         $this->erpInvoicePageSearchCommunicationFactory->setContainer($this->containerMock);
     }
