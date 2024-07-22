@@ -135,7 +135,7 @@ class PartialRefund implements PartialRefundInterface
                         $this->logger->error(sprintf(
                             'Order %s: %s',
                             $creditMemoUpdateTransfer->getOrderReference(),
-                            $creditMemoUpdateTransfer->getErrorMessage()
+                            $creditMemoUpdateTransfer->getErrorMessage(),
                         ), [$creditMemoUpdateTransfer->getOrderReference()]);
                     }
                 }
