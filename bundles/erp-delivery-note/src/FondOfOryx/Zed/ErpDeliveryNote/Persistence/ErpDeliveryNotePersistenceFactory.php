@@ -15,7 +15,6 @@ use Orm\Zed\ErpDeliveryNote\Persistence\FooErpDeliveryNoteTrackingToItemQuery;
 use Spryker\Zed\Kernel\Persistence\AbstractPersistenceFactory;
 
 /**
- * @method \FondOfOryx\Zed\ErpDeliveryNote\ErpDeliveryNoteConfig getConfig()
  * @method \FondOfOryx\Zed\ErpDeliveryNote\Persistence\ErpDeliveryNoteEntityManagerInterface getEntityManager()
  * @method \FondOfOryx\Zed\ErpDeliveryNote\Persistence\ErpDeliveryNoteRepositoryInterface getRepository()
  */

@@ -18,7 +18,7 @@ use Spryker\Zed\Kernel\Persistence\AbstractRepository;
 /**
  * @codeCoverageIgnore
  *
- * @method \FondOfOryx\Zed\productListApi\Persistence\ProductListApiPersistenceFactory getFactory()
+ * @method \FondOfOryx\Zed\ProductListApi\Persistence\ProductListApiPersistenceFactory getFactory()
  */
 class ProductListApiRepository extends AbstractRepository implements ProductListApiRepositoryInterface
 {

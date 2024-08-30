@@ -20,7 +20,6 @@ use Orm\Zed\Product\Persistence\SpyProductQuery;
 use Spryker\Zed\Kernel\Persistence\AbstractPersistenceFactory;
 
 /**
- * @method \FondOfOryx\Zed\GiftCardProductConnector\Persistence\GiftCardProductConnectorRepositoryInterface getRepository()
  * @method \FondOfOryx\Zed\GiftCardProductConnector\Persistence\GiftCardProductConnectorEntityManagerInterface getEntityManager()
  * @method \FondOfOryx\Zed\GiftCardProductConnector\GiftCardProductConnectorConfig getConfig()
  */
