@@ -26,6 +26,7 @@
         <property name="updatedAt" type="int"/>
         <property name="outstandingQuantity" type="int"/>
         <property name="isCanceled" type="bool"/>
+        <property name="expectedDeliveryDate" type="string"/>
     </transfer>
 
     <transfer name="ErpOrderItem">
