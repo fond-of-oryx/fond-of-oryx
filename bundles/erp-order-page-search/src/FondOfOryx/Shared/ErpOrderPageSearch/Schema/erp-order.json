@@ -43,6 +43,10 @@
         "purchaser-email": {
           "type": "keyword"
         },
+        "expected-delivery-date": {
+          "type": "date",
+          "format": "yyyy-MM-dd HH:mm:ss.SSSSSS||yyyy-MM-dd HH:mm:ss||yyyy-MM-dd HH:mm:ss.SSSSSSZ"
+        },
         "reference": {
           "type": "keyword"
         },

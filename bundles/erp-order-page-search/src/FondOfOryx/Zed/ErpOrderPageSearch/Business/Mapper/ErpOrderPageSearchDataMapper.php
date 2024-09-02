@@ -122,6 +122,11 @@ class ErpOrderPageSearchDataMapper implements ErpOrderPageSearchDataMapperInterf
     /**
      * @var string
      */
+    public const EXPECTED_DELIVERY_DATE = 'expected_delivery_date';
+
+    /**
+     * @var string
+     */
     public const SEARCH_RESULT_CONCRETE_DELIVERY_DATE = 'concrete_delivery_date';
 
     /**
@@ -197,6 +202,11 @@ class ErpOrderPageSearchDataMapper implements ErpOrderPageSearchDataMapperInterf
     /**
      * @var string
      */
+    public const SEARCH_RESULT_EXPECTED_DELIVERY_DATE = 'expected_delivery_date';
+
+    /**
+     * @var string
+     */
     public const SEARCH_RESULT_PURCHASER_FIRST_NAME = 'purchaser_first_name';
 
     /**
@@ -264,6 +274,7 @@ class ErpOrderPageSearchDataMapper implements ErpOrderPageSearchDataMapperInterf
             ErpOrderIndexMap::OUTSTANDING_QUANTITY => $data[static::OUTSTANDING_QUANTITY],
             ErpOrderIndexMap::IS_CANCELED => $data[static::IS_CANCELED],
             ErpOrderIndexMap::PURCHASER_EMAIL => $data[static::PURCHASER_EMAIL],
+            ErpOrderIndexMap::EXPECTED_DELIVERY_DATE => $this->formatDate($data[static::EXPECTED_DELIVERY_DATE]),
             ErpOrderIndexMap::SEARCH_RESULT_DATA => $this->mapErpOrderDataToSearchResultData($data),
         ];
     }
@@ -296,6 +307,7 @@ class ErpOrderPageSearchDataMapper implements ErpOrderPageSearchDataMapperInterf
             static::SEARCH_RESULT_CURRENCY_ISO_CODE => $data[static::CURRENCY_ISO_CODE],
             static::SEARCH_RESULT_IS_CANCELED => $data[static::IS_CANCELED],
             static::SEARCH_RESULT_PURCHASER_EMAIL => $data[static::SEARCH_RESULT_PURCHASER_EMAIL],
+            static::SEARCH_RESULT_EXPECTED_DELIVERY_DATE => $this->formatDate($data[static::EXPECTED_DELIVERY_DATE]),
             static::SEARCH_RESULT_PURCHASER_FIRST_NAME => $data[static::SEARCH_RESULT_PURCHASER_FIRST_NAME],
             static::SEARCH_RESULT_PURCHASER_LAST_NAME => $data[static::SEARCH_RESULT_PURCHASER_LAST_NAME],
         ];

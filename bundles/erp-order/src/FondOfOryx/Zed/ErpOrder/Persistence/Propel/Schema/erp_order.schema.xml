@@ -19,6 +19,7 @@
         <column name="purchaser_email" required="false" size="255" type="VARCHAR" caseInsensitive="true"/>
         <column name="purchaser_first_name" required="false" size="100" type="VARCHAR"/>
         <column name="purchaser_last_name" required="false" size="100" type="VARCHAR"/>
+        <column name="expected_delivery_date" required="false" type="DATE"/>
 
         <id-method-parameter value="foo_erp_order_pk_seq"/>
 
