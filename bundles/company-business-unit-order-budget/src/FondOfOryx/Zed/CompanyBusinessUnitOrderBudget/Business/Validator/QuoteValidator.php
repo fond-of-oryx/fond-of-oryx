@@ -56,6 +56,7 @@ class QuoteValidator implements QuoteValidatorInterface
         if ($budget < $subTotal) {
             $exception = new NotEnoughOrderBudgetException('Order budget is lower then subtotal quote.');
             $exception->setParams(['%budget%' => $budget / 100]);
+
             throw $exception;
         }
     }

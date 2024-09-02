@@ -53,7 +53,6 @@ class QuoteExpander implements QuoteExpanderInterface
         } catch (NotEnoughOrderBudgetException $exception) {
             $message = static::MESSAGE_NOT_ENOUGH_ORDER_BUDGET;
             $params = $exception->getParams();
-
         } catch (Exception $exception) {
             $message = static::MESSAGE_INVALID_QUOTE;
         }

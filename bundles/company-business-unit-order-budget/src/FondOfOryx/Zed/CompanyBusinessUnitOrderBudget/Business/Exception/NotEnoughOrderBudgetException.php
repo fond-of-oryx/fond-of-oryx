@@ -7,12 +7,13 @@ use Exception;
 class NotEnoughOrderBudgetException extends Exception
 {
     /**
-     * @var
+     * @var array|null
      */
     protected $params;
 
     /**
      * @param array $params
+     *
      * @return void
      */
     public function setParams(array $params): void
