@@ -15,7 +15,6 @@ use Spryker\Zed\Kernel\Business\AbstractBusinessFactory;
 
 /**
  * @method \FondOfOryx\Zed\ReturnLabel\ReturnLabelConfig getConfig()
- * @method \FondOfOryx\Zed\ReturnLabel\Persistence\ReturnLabelRepositoryInterface getRepository()
  */
 class ReturnLabelBusinessFactory extends AbstractBusinessFactory
 {

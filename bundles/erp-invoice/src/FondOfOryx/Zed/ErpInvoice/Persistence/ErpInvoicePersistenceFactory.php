@@ -14,7 +14,6 @@ use Orm\Zed\ErpInvoice\Persistence\FooErpInvoiceQuery;
 use Spryker\Zed\Kernel\Persistence\AbstractPersistenceFactory;
 
 /**
- * @method \FondOfOryx\Zed\ErpInvoice\ErpInvoiceConfig getConfig()
  * @method \FondOfOryx\Zed\ErpInvoice\Persistence\ErpInvoiceEntityManagerInterface getEntityManager()
  * @method \FondOfOryx\Zed\ErpInvoice\Persistence\ErpInvoiceRepositoryInterface getRepository()
  */
