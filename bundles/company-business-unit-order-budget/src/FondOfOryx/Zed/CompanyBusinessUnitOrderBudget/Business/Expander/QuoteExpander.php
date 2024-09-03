@@ -46,11 +46,13 @@ class QuoteExpander implements QuoteExpanderInterface
     public function expand(QuoteTransfer $quoteTransfer): QuoteTransfer
     {
         $message = null;
+        $params = null;
 
         try {
             $this->quoteValidator->validate($quoteTransfer);
         } catch (NotEnoughOrderBudgetException $exception) {
             $message = static::MESSAGE_NOT_ENOUGH_ORDER_BUDGET;
+            $params = $exception->getParams();
         } catch (Exception $exception) {
             $message = static::MESSAGE_INVALID_QUOTE;
         }
@@ -60,7 +62,7 @@ class QuoteExpander implements QuoteExpanderInterface
         }
 
         $messageTransfer = (new MessageTransfer())->setType(static::MESSAGE_TYPE_ERROR)
-            ->setValue($message);
+            ->setValue($message)->setParameters($params);
 
         return $quoteTransfer->addValidationMessage($messageTransfer);
     }
