@@ -64,6 +64,7 @@
         <column name="position" required="false" type="INTEGER"/>
         <column name="expected_delivery_date" required="false" type="DATE"/>
         <column name="goods_issue_date" required="false" type="DATE"/>
+        <column name="line_id" required="false" size="255" type="VARCHAR"/>
 
         <behavior name="timestampable"/>
 
