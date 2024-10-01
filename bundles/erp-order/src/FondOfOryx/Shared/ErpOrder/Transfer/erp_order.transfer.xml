@@ -34,6 +34,7 @@
         <property name="fkErpOrder" type="int" />
         <property name="fkAmount" type="int"/>
         <property name="fkUnitPriceAmount" type="int"/>
+        <property name="lineId" type="string" />
         <property name="sku" type="string"/>
         <property name="gtin" type="string"/>
         <property name="name" type="string"/>
