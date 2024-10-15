@@ -43,6 +43,7 @@ class ErpOrderRepository extends AbstractRepository implements ErpOrderRepositor
 
     /**
      * @param string $externalReference
+     *
      * @return \Generated\Shared\Transfer\ErpOrderTransfer|null
      */
     public function findErpOrderByExternalReference(string $externalReference): ?ErpOrderTransfer
@@ -59,6 +60,7 @@ class ErpOrderRepository extends AbstractRepository implements ErpOrderRepositor
 
     /**
      * @param string $reference
+     *
      * @return \Generated\Shared\Transfer\ErpOrderTransfer|null
      */
     public function findErpOrderByReference(string $reference): ?ErpOrderTransfer
