@@ -42,6 +42,40 @@ class ErpOrderRepository extends AbstractRepository implements ErpOrderRepositor
     }
 
     /**
+     * @param string $externalReference
+     *
+     * @return \Generated\Shared\Transfer\ErpOrderTransfer|null
+     */
+    public function findErpOrderByExternalReference(string $externalReference): ?ErpOrderTransfer
+    {
+        $query = $this->getErpOrderQuery();
+        $order = $query->findOneByExternalReference($externalReference);
+
+        if ($order === null) {
+            return null;
+        }
+
+        return $this->getFactory()->createEntityToTransferMapper()->fromErpOrderToTransfer($order);
+    }
+
+    /**
+     * @param string $reference
+     *
+     * @return \Generated\Shared\Transfer\ErpOrderTransfer|null
+     */
+    public function findErpOrderByReference(string $reference): ?ErpOrderTransfer
+    {
+        $query = $this->getErpOrderQuery();
+        $order = $query->findOneByReference($reference);
+
+        if ($order === null) {
+            return null;
+        }
+
+        return $this->getFactory()->createEntityToTransferMapper()->fromErpOrderToTransfer($order);
+    }
+
+    /**
      * @param int $idErpOrder
      *
      * @return \Generated\Shared\Transfer\ErpOrderItemCollectionTransfer

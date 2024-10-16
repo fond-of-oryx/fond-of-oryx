@@ -21,6 +21,20 @@ interface ErpOrderRepositoryInterface
     public function findErpOrderByIdErpOrder(int $idErpOrder): ?ErpOrderTransfer;
 
     /**
+     * @param string $externalReference
+     *
+     * @return \Generated\Shared\Transfer\ErpOrderTransfer|null
+     */
+    public function findErpOrderByExternalReference(string $externalReference): ?ErpOrderTransfer;
+
+    /**
+     * @param string $reference
+     *
+     * @return \Generated\Shared\Transfer\ErpOrderTransfer|null
+     */
+    public function findErpOrderByReference(string $reference): ?ErpOrderTransfer;
+
+    /**
      * @param int $idErpOrder
      *
      * @return \Generated\Shared\Transfer\ErpOrderItemCollectionTransfer

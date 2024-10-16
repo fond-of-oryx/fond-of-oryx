@@ -56,6 +56,26 @@ class ErpOrderFacade extends AbstractFacade implements ErpOrderFacadeInterface
     }
 
     /**
+     * @param string $reference
+     *
+     * @return \Generated\Shared\Transfer\ErpOrderTransfer|null
+     */
+    public function findErpOrderByReference(string $reference): ?ErpOrderTransfer
+    {
+        return $this->getRepository()->findErpOrderByReference($reference);
+    }
+
+    /**
+     * @param string $externalReference
+     *
+     * @return \Generated\Shared\Transfer\ErpOrderTransfer|null
+     */
+    public function findErpOrderByExternalReference(string $externalReference): ?ErpOrderTransfer
+    {
+        return $this->getRepository()->findErpOrderByExternalReference($externalReference);
+    }
+
+    /**
      * @param \Generated\Shared\Transfer\ErpOrderTransfer $erpOrderTransfer
      *
      * @return \Generated\Shared\Transfer\ErpOrderTransfer
