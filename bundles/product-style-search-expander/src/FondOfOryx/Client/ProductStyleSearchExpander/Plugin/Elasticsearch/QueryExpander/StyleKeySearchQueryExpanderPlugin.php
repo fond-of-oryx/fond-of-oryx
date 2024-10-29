@@ -34,13 +34,15 @@ class StyleKeySearchQueryExpanderPlugin extends AbstractPlugin implements QueryE
 
         $boolQuery = $this->getBoolQuery($searchQuery->getSearchQuery());
 
+        /** @var \Elastica\Query\MatchQuery $matchQuery */
         $matchQuery = $this->getFactory()
             ->createQueryBuilder()
-            ->createMatchQuery()
-            ->setField(
-                ProductStyleSearchExpanderConstants::STYLE_KEY,
-                $requestParameters[ProductStyleSearchExpanderConstants::STYLE_KEY],
-            );
+            ->createMatchQuery();
+
+        $matchQuery->setField(
+            ProductStyleSearchExpanderConstants::STYLE_KEY,
+            $requestParameters[ProductStyleSearchExpanderConstants::STYLE_KEY],
+        );
 
         $boolQuery->addMust($matchQuery);
 

@@ -42,15 +42,20 @@ class ModelKeyAndStyleKeyQueryExpanderPlugin extends AbstractPlugin implements Q
         $styleKey = $requestParameters[ProductStyleSearchExpanderConstants::STYLE_KEY];
         $boolQuery = $this->getBoolQuery($searchQuery->getSearchQuery());
 
+        /** @var \Elastica\Query\MatchQuery $matchModelKeyQuery */
         $matchModelKeyQuery = $this->getFactory()
             ->createQueryBuilder()
-            ->createMatchQuery()
+            ->createMatchQuery();
+
+        $matchModelKeyQuery
             ->setField(ProductStyleSearchExpanderConstants::MODEL_KEY, $modelKey);
 
+        /** @var \Elastica\Query\MatchQuery $matchStyleKeyQuery */
         $matchStyleKeyQuery = $this->getFactory()
             ->createQueryBuilder()
-            ->createMatchQuery()
-            ->setField(ProductStyleSearchExpanderConstants::STYLE_KEY, $styleKey);
+            ->createMatchQuery();
+
+        $matchStyleKeyQuery->setField(ProductStyleSearchExpanderConstants::STYLE_KEY, $styleKey);
 
         $boolQuery->addMust($matchModelKeyQuery);
         $boolQuery->addMust($matchStyleKeyQuery);

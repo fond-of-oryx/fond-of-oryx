@@ -36,9 +36,12 @@ class ModelKeySearchQueryExpanderPlugin extends AbstractPlugin implements QueryE
 
         $boolQuery = $this->getBoolQuery($searchQuery->getSearchQuery());
 
+        /** @var \Elastica\Query\MatchQuery $matchQuery */
         $matchQuery = $this->getFactory()
             ->createQueryBuilder()
-            ->createMatchQuery()
+            ->createMatchQuery();
+
+        $matchQuery
             ->setField(
                 ProductStyleSearchExpanderConstants::MODEL_KEY,
                 $requestParameters[ProductStyleSearchExpanderConstants::MODEL_KEY],
