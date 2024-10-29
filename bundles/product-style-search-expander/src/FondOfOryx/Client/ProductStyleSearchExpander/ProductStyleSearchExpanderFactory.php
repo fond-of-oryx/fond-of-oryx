@@ -4,13 +4,13 @@ namespace FondOfOryx\Client\ProductStyleSearchExpander;
 
 use FondOfOryx\Client\ProductStyleSearchExpander\Dependency\Client\ProductStyleSearchExpanderToCatalogClientInterface;
 use Spryker\Client\Kernel\AbstractFactory;
-use Spryker\Client\Search\Model\Elasticsearch\Query\QueryBuilder;
-use Spryker\Client\Search\Model\Elasticsearch\Query\QueryBuilderInterface;
+use Spryker\Client\SearchElasticsearch\Query\QueryBuilder;
+use Spryker\Client\SearchElasticsearch\Query\QueryBuilderInterface;
 
 class ProductStyleSearchExpanderFactory extends AbstractFactory
 {
     /**
-     * @return \Spryker\Client\Search\Model\Elasticsearch\Query\QueryBuilder
+     * @return \Spryker\Client\SearchElasticsearch\Query\QueryBuilder
      */
     public function createQueryBuilder(): QueryBuilderInterface
     {

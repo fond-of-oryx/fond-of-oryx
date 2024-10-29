@@ -4,18 +4,19 @@ namespace FondOfOryx\Zed\ProductStyleSearchExpander\Communication\Plugin\Product
 
 use Codeception\Test\Unit;
 use Generated\Shared\Transfer\ProductPageSearchTransfer;
+use PHPUnit\Framework\MockObject\MockObject;
 
 class StyleKeyDataExpanderPluginTest extends Unit
 {
     /**
-     * @var \FondOfOryx\Zed\ProductStyleSearchExpander\Communication\Plugin\ProductPageSearch\Elasticsearch\StyleKeyDataExpanderPlugin
+     * @var \FondOfOryx\Zed\ProductStyleSearchExpander\Communication\Plugin\ProductPageSearch\Elasticsearch\ProductPageData\StyleKeyDataExpanderPlugin
      */
-    protected $plugin;
+    protected StyleKeyDataExpanderPlugin $plugin;
 
     /**
      * @var \Generated\Shared\Transfer\ProductPageSearchTransfer|\PHPUnit\Framework\MockObject\MockObject
      */
-    protected $productAbstractPageSearchTransfer;
+    protected ProductPageSearchTransfer|MockObject $productAbstractPageSearchTransfer;
 
     /**
      * @return void

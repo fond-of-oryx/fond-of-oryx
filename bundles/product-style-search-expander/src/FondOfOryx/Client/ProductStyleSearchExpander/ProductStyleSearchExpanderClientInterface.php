@@ -25,15 +25,4 @@ interface ProductStyleSearchExpanderClientInterface
      * @return array|null
      */
     public function getProductsWithSameStyleKey(string $styleKey): ?array;
-
-    /**
-     * @deprecated
-     *
-     * @param string $modelKey
-     * @param string $styleKey
-     * @param string|null $optionDontMergeSizes
-     *
-     * @return array|null
-     */
-    public function getSimilarProducts(string $modelKey, string $styleKey, ?string $optionDontMergeSizes): ?array;
 }

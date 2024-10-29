@@ -8,12 +8,17 @@ use Spryker\Client\Kernel\Container;
 
 class ProductStyleSearchExpanderDependencyProvider extends AbstractDependencyProvider
 {
+    /**
+     * @var string
+     */
     public const CLIENT_CATALOG = 'CLIENT_CATALOG';
 
     /**
      * @param \Spryker\Client\Kernel\Container $container
+     *
+     * @return \Spryker\Client\Kernel\Container
      */
-    public function provideServiceLayerDependencies(Container $container)
+    public function provideServiceLayerDependencies(Container $container): Container
     {
         $container = $this->addCatalogSearchClient($container);
 
@@ -29,7 +34,7 @@ class ProductStyleSearchExpanderDependencyProvider extends AbstractDependencyPro
     {
         $container[static::CLIENT_CATALOG] = function (Container $container) {
             return new ProductStyleSearchExpanderToCatalogClientBridge(
-                $container->getLocator()->catalog()->client()
+                $container->getLocator()->catalog()->client(),
             );
         };
 

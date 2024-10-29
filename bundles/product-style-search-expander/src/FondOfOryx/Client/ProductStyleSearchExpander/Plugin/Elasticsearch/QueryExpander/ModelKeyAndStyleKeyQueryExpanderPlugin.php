@@ -68,7 +68,7 @@ class ModelKeyAndStyleKeyQueryExpanderPlugin extends AbstractPlugin implements Q
     protected function addSort(Query $searchQuery): void
     {
         $searchQuery->addSort([
-            PageIndexMap::INTEGER_SORT . '.' . PageIndexMap::SIZE => [
+            PageIndexMap::INTEGER_SORT . '.' . ProductStyleSearchExpanderConstants::STYLE_KEY => [
                 'order' => SortConfig::DIRECTION_ASC,
                 'mode' => 'min',
             ],
@@ -89,7 +89,7 @@ class ModelKeyAndStyleKeyQueryExpanderPlugin extends AbstractPlugin implements Q
             throw new InvalidArgumentException(sprintf(
                 'Localized query expander available only with %s, got: %s',
                 BoolQuery::class,
-                get_class($boolQuery)
+                get_class($boolQuery),
             ));
         }
 

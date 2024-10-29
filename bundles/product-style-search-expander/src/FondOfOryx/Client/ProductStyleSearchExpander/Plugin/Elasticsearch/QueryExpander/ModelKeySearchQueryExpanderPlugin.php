@@ -41,7 +41,7 @@ class ModelKeySearchQueryExpanderPlugin extends AbstractPlugin implements QueryE
             ->createMatchQuery()
             ->setField(
                 ProductStyleSearchExpanderConstants::MODEL_KEY,
-                $requestParameters[ProductStyleSearchExpanderConstants::MODEL_KEY]
+                $requestParameters[ProductStyleSearchExpanderConstants::MODEL_KEY],
             );
 
         $boolQuery->addMust($matchQuery);
@@ -58,7 +58,7 @@ class ModelKeySearchQueryExpanderPlugin extends AbstractPlugin implements QueryE
     protected function addSort(Query $searchQuery): void
     {
         $searchQuery->addSort([
-            PageIndexMap::INTEGER_SORT . '.' . ProductStyleSearchExpanderConstants::SIZE => [
+            PageIndexMap::INTEGER_SORT . '.' . ProductStyleSearchExpanderConstants::MODEL_KEY => [
                 'order' => SortConfig::DIRECTION_ASC,
                 'mode' => 'min',
             ],
@@ -79,7 +79,7 @@ class ModelKeySearchQueryExpanderPlugin extends AbstractPlugin implements QueryE
             throw new InvalidArgumentException(sprintf(
                 'Localized query expander available only with %s, got: %s',
                 BoolQuery::class,
-                get_class($boolQuery)
+                get_class($boolQuery),
             ));
         }
 

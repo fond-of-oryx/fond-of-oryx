@@ -53,24 +53,4 @@ class ProductStyleSearchExpanderClient extends AbstractClient implements Product
                 ProductStyleSearchExpanderConstants::STYLE_KEY => $styleKey,
             ]);
     }
-
-    /**
-     * @deprecated
-     *
-     * @param string $modelKey
-     * @param string $styleKey
-     * @param string|null $optionDontMergeSizes
-     *
-     * @return array|null
-     */
-    public function getSimilarProducts(string $modelKey, string $styleKey, ?string $optionDontMergeSizes): ?array
-    {
-        return $this->getFactory()
-            ->getCatalogClient()
-            ->catalogSearch('', [
-                ProductStyleSearchExpanderConstants::MODEL_KEY => $modelKey,
-                ProductStyleSearchExpanderConstants::STYLE_KEY => $styleKey,
-                ProductStyleSearchExpanderConstants::OPTION_DONT_MERGE_SIZES => $optionDontMergeSizes,
-            ]);
-    }
 }

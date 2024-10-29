@@ -5,15 +5,15 @@ namespace FondOfOryx\Client\ProductStyleSearchExpander\Plugin\Elasticsearch\Quer
 use Codeception\Test\Unit;
 use Elastica\Query;
 use Elastica\Query\BoolQuery;
-use Elastica\Query\Match as MatchQuery;
+use Elastica\Query\MatchQuery;
 use FondOfOryx\Client\ProductStyleSearchExpander\ProductStyleSearchExpanderFactory;
-use Spryker\Client\Search\Model\Elasticsearch\Query\QueryBuilder;
+use Spryker\Client\SearchElasticsearch\Query\QueryBuilder;
 use Spryker\Client\SearchExtension\Dependency\Plugin\QueryInterface;
 
 class ModelKeySearchExpanderPluginTest extends Unit
 {
     /**
-     * @var \Spryker\Client\Search\Model\Elasticsearch\Query\QueryBuilder|\PHPUnit\Framework\MockObject\MockObject
+     * @var \Spryker\Client\SearchElasticsearch\Query\QueryBuilder|\PHPUnit\Framework\MockObject\MockObject
      */
     protected $queryBuilderMock;
 
@@ -38,7 +38,7 @@ class ModelKeySearchExpanderPluginTest extends Unit
     protected $searchQueryMock;
 
     /**
-     * @var \Elastica\Query\Match|\PHPUnit\Framework\MockObject\MockObject
+     * @var \Elastica\Query\MatchQuery|\PHPUnit\Framework\MockObject\MockObject
      */
     protected $matchQueryMock;
 
@@ -99,7 +99,7 @@ class ModelKeySearchExpanderPluginTest extends Unit
             ->method('getQuery')
             ->willReturn($this->boolQueryMock);
 
-        $this->queryBuilderMock->expects($this->once(1))
+        $this->queryBuilderMock->expects($this->once())
             ->method('createMatchQuery')
             ->willReturn($this->matchQueryMock);
 

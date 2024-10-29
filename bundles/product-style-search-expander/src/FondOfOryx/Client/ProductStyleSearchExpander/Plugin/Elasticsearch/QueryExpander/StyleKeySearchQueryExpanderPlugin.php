@@ -39,7 +39,7 @@ class StyleKeySearchQueryExpanderPlugin extends AbstractPlugin implements QueryE
             ->createMatchQuery()
             ->setField(
                 ProductStyleSearchExpanderConstants::STYLE_KEY,
-                $requestParameters[ProductStyleSearchExpanderConstants::STYLE_KEY]
+                $requestParameters[ProductStyleSearchExpanderConstants::STYLE_KEY],
             );
 
         $boolQuery->addMust($matchQuery);
@@ -61,7 +61,7 @@ class StyleKeySearchQueryExpanderPlugin extends AbstractPlugin implements QueryE
             throw new InvalidArgumentException(sprintf(
                 'Localized query expander available only with %s, got: %s',
                 BoolQuery::class,
-                get_class($boolQuery)
+                get_class($boolQuery),
             ));
         }
 

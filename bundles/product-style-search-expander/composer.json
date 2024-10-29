@@ -9,7 +9,8 @@
     }
   ],
   "require": {
-    "php": ">=8.1",
+    "php": ">=8.0",
+    "spryker/catalog": "^5.0.0",
     "spryker/product-page-search": "^3.7.0",
     "spryker/search-extension": "^1.0.0"
   },
