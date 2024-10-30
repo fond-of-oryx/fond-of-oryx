@@ -61,7 +61,7 @@ class ModelKeySearchQueryExpanderPlugin extends AbstractPlugin implements QueryE
     protected function addSort(Query $searchQuery): void
     {
         $searchQuery->addSort([
-            PageIndexMap::INTEGER_SORT . '.' . ProductStyleSearchExpanderConstants::MODEL_KEY => [
+            PageIndexMap::INTEGER_SORT . '.' . PageIndexMap::SIZE => [
                 'order' => SortConfig::DIRECTION_ASC,
                 'mode' => 'min',
             ],

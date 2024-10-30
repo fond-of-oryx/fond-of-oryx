@@ -73,7 +73,7 @@ class ModelKeyAndStyleKeyQueryExpanderPlugin extends AbstractPlugin implements Q
     protected function addSort(Query $searchQuery): void
     {
         $searchQuery->addSort([
-            PageIndexMap::INTEGER_SORT . '.' . ProductStyleSearchExpanderConstants::STYLE_KEY => [
+            PageIndexMap::INTEGER_SORT . '.' . PageIndexMap::SIZE => [
                 'order' => SortConfig::DIRECTION_ASC,
                 'mode' => 'min',
             ],
