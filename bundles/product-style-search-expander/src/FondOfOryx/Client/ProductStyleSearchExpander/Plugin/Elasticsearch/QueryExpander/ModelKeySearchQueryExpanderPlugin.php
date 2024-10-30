@@ -5,10 +5,8 @@ namespace FondOfOryx\Client\ProductStyleSearchExpander\Plugin\Elasticsearch\Quer
 use Elastica\Query;
 use Elastica\Query\BoolQuery;
 use FondOfOryx\Shared\ProductStyleSearchExpander\ProductStyleSearchExpanderConstants;
-use Generated\Shared\Search\PageIndexMap;
 use InvalidArgumentException;
 use Spryker\Client\Kernel\AbstractPlugin;
-use Spryker\Client\SearchElasticsearch\Config\SortConfig;
 use Spryker\Client\SearchExtension\Dependency\Plugin\QueryExpanderPluginInterface;
 use Spryker\Client\SearchExtension\Dependency\Plugin\QueryInterface;
 
