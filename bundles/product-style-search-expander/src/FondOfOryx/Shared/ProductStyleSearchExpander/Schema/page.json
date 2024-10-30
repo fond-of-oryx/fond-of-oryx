@@ -7,9 +7,6 @@
         },
         "style_key": {
           "type": "keyword"
-        },
-        "size": {
-          "type": "keyword"
         }
       }
     }

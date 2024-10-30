@@ -60,24 +60,7 @@ class ModelKeyAndStyleKeyQueryExpanderPlugin extends AbstractPlugin implements Q
         $boolQuery->addMust($matchModelKeyQuery);
         $boolQuery->addMust($matchStyleKeyQuery);
 
-        $this->addSort($searchQuery->getSearchQuery());
-
         return $searchQuery;
-    }
-
-    /**
-     * @param \Elastica\Query $searchQuery
-     *
-     * @return void
-     */
-    protected function addSort(Query $searchQuery): void
-    {
-        $searchQuery->addSort([
-            PageIndexMap::INTEGER_SORT . '.' . PageIndexMap::SIZE => [
-                'order' => SortConfig::DIRECTION_ASC,
-                'mode' => 'min',
-            ],
-        ]);
     }
 
     /**
