@@ -1,0 +1,14 @@
+{
+  "mappings": {
+    "page": {
+      "properties": {
+        "model_key": {
+          "type": "keyword"
+        },
+        "style_key": {
+          "type": "keyword"
+        }
+      }
+    }
+  }
+}

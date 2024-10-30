@@ -177,6 +177,7 @@ include:
   - bundles/product-locale-restriction-storage
   - bundles/product-page-search-attribute-expander
   - bundles/product-payment-restriction
+  - bundles/product-style-search-expander
   - bundles/propel-pre-migration
   - bundles/qr-code-generator
   - bundles/representative-company-user
