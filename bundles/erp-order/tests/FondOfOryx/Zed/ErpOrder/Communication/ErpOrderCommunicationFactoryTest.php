@@ -51,9 +51,14 @@ class ErpOrderCommunicationFactoryTest extends Unit
     {
         $this->containerMock->expects(static::atLeastOnce())
             ->method('has')
-            ->withConsecutive(
-                [ErpOrderDependencyProvider::FACADE_CUSTOMER],
-            )->willReturn(true);
+            ->willReturnCallback(function (string $name) {
+                switch ($name) {
+                    case ErpOrderDependencyProvider::FACADE_CUSTOMER:
+                        return true;
+                    default:
+                        return false;
+                }
+            });
 
         $this->containerMock->expects(static::atLeastOnce())
             ->method('get')

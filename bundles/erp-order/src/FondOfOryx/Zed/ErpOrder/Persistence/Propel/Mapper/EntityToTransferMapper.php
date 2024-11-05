@@ -56,15 +56,14 @@ class EntityToTransferMapper implements EntityToTransferMapperInterface
         $orderItemTransfer->fromArray($orderItem->toArray(), true);
 
         $orderAmount = $orderItem->getFooErpOrderAmount();
-        if ($orderAmount !== null){
+        if ($orderAmount !== null) {
             $orderItemTransfer->setAmount((new ErpOrderAmountTransfer())->fromArray($orderAmount->toArray(), true));
         }
 
         $unitAmount = $orderItem->getFooErpOrderAmountUnitPrice();
-        if ($unitAmount !== null){
+        if ($unitAmount !== null) {
             $orderItemTransfer->setUnitPrice((new ErpOrderAmountTransfer())->fromArray($unitAmount->toArray(), true));
         }
-
 
         $orderItem->getFooErpOrderAmount()->toArray();
 
