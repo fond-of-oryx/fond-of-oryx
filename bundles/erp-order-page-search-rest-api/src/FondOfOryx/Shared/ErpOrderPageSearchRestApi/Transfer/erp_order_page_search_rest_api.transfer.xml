@@ -92,6 +92,7 @@
         <property name="amount" type="RestErpOrderAmount"/>
         <property name="unitPrice" type="RestErpOrderAmount"/>
         <property name="status" type="string"/>
+        <property name="lineId" type="string"/>
         <property name="outstandingQuantity" type="int"/>
         <property name="position" type="int"/>
     </transfer>
