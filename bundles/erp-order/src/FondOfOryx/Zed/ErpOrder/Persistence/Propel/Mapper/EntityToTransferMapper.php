@@ -65,8 +65,6 @@ class EntityToTransferMapper implements EntityToTransferMapperInterface
             $orderItemTransfer->setUnitPrice((new ErpOrderAmountTransfer())->fromArray($unitAmount->toArray(), true));
         }
 
-        $orderItem->getFooErpOrderAmount()->toArray();
-
         return $orderItemTransfer
             ->setCreatedAt($this->convertDateTimeToTimestamp($orderItem->getCreatedAt()))
             ->setUpdatedAt($this->convertDateTimeToTimestamp($orderItem->getUpdatedAt()));
