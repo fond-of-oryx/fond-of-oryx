@@ -20,7 +20,7 @@ class ConcreteSkuQueryExpanderPluginTest extends Unit
     protected $queryMock;
 
     /**
-     * @var array<array<\string>>
+     * @var array<string, array<int, string>>
      */
     protected $requestParameters;
 

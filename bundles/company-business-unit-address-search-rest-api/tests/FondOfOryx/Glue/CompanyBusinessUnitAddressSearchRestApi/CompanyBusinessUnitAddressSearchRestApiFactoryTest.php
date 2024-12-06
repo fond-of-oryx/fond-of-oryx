@@ -3,6 +3,7 @@
 namespace FondOfOryx\Glue\CompanyBusinessUnitAddressSearchRestApi;
 
 use Codeception\Test\Unit;
+use Exception;
 use FondOfOryx\Client\CompanyBusinessUnitAddressSearchRestApi\CompanyBusinessUnitAddressSearchRestApiClient;
 use FondOfOryx\Glue\CompanyBusinessUnitAddressSearchRestApi\Dependency\Client\CompanyBusinessUnitAddressSearchRestApiToGlossaryStorageClientInterface;
 use FondOfOryx\Glue\CompanyBusinessUnitAddressSearchRestApi\Processor\Reader\CompanyBusinessUnitAddressReader;
@@ -101,24 +102,24 @@ class CompanyBusinessUnitAddressSearchRestApiFactoryTest extends Unit
      */
     public function testCreateCompanyBusinessUnitAddressReader(): void
     {
-        $this->containerMock->expects(static::atLeastOnce())
-            ->method('has')
-            ->withConsecutive(
-                [CompanyBusinessUnitAddressSearchRestApiDependencyProvider::PLUGINS_FILTER_FIELDS_EXPANDER],
-                [CompanyBusinessUnitAddressSearchRestApiDependencyProvider::CLIENT_GLOSSARY_STORAGE],
-            )
-            ->willReturn(true);
+        $self = $this;
 
         $this->containerMock->expects(static::atLeastOnce())
+            ->method('has')
+            ->willReturn(true);
+
+        $this->containerMock->expects($this->atLeastOnce())
             ->method('get')
-            ->withConsecutive(
-                [CompanyBusinessUnitAddressSearchRestApiDependencyProvider::PLUGINS_FILTER_FIELDS_EXPANDER],
-                [CompanyBusinessUnitAddressSearchRestApiDependencyProvider::CLIENT_GLOSSARY_STORAGE],
-            )
-            ->willReturnOnConsecutiveCalls(
-                [],
-                $this->glossaryStorageClientMock,
-            );
+            ->willReturnCallback(static function (string $key) use ($self) {
+                switch ($key) {
+                    case CompanyBusinessUnitAddressSearchRestApiDependencyProvider::PLUGINS_FILTER_FIELDS_EXPANDER:
+                        return [];
+                    case CompanyBusinessUnitAddressSearchRestApiDependencyProvider::CLIENT_GLOSSARY_STORAGE:
+                        return $self->glossaryStorageClientMock;
+                }
+
+                throw new Exception('Unexpected call');
+            });
 
         static::assertInstanceOf(
             CompanyBusinessUnitAddressReader::class,

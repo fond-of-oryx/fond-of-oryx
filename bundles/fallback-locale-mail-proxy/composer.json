@@ -9,7 +9,7 @@
     }
   ],
   "require": {
-    "php": ">=8.0",
+    "php": ">=8.2",
     "fond-of-oryx/mail-proxy-extension": "^1.0.0",
     "spryker/mail-extension": "^1.0.0",
     "spryker/store": "^1.2.0"

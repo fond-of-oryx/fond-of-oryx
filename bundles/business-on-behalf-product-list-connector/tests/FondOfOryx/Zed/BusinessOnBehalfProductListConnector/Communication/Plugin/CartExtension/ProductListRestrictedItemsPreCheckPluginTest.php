@@ -11,17 +11,17 @@ use PHPUnit\Framework\MockObject\MockObject;
 class ProductListRestrictedItemsPreCheckPluginTest extends Unit
 {
     /**
-     * @var (\Generated\Shared\Transfer\CartChangeTransfer&\PHPUnit\Framework\MockObject\MockObject)|\PHPUnit\Framework\MockObject\MockObject
+     * @var \Generated\Shared\Transfer\CartChangeTransfer|\PHPUnit\Framework\MockObject\MockObject
      */
     protected CartChangeTransfer|MockObject $cartChangeTransferMock;
 
     /**
-     * @var (\Generated\Shared\Transfer\CartPreCheckResponseTransfer&\PHPUnit\Framework\MockObject\MockObject)|\PHPUnit\Framework\MockObject\MockObject
+     * @var \Generated\Shared\Transfer\CartPreCheckResponseTransfer|\PHPUnit\Framework\MockObject\MockObject
      */
     protected CartPreCheckResponseTransfer|MockObject $cartPreCheckResponseTransferMock;
 
     /**
-     * @var (\FondOfOryx\Zed\BusinessOnBehalfProductListConnector\Business\BusinessOnBehalfProductListConnectorFacade&\PHPUnit\Framework\MockObject\MockObject)|\PHPUnit\Framework\MockObject\MockObject
+     * @var \PHPUnit\Framework\MockObject\MockObject|\FondOfOryx\Zed\BusinessOnBehalfProductListConnector\Business\BusinessOnBehalfProductListConnectorFacade
      */
     protected MockObject|BusinessOnBehalfProductListConnectorFacade $facadeMock;
 

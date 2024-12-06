@@ -14,22 +14,22 @@ use PHPUnit\Framework\MockObject\MockObject;
 class CompanyUserWriterTest extends Unit
 {
     /**
-     * @var (\FondOfOryx\Zed\BusinessOnBehalfProductListConnector\Business\Reader\CompanyUserReaderInterface&\PHPUnit\Framework\MockObject\MockObject)|\PHPUnit\Framework\MockObject\MockObject
+     * @var \FondOfOryx\Zed\BusinessOnBehalfProductListConnector\Business\Reader\CompanyUserReaderInterface|\PHPUnit\Framework\MockObject\MockObject
      */
     protected CompanyUserReaderInterface|MockObject $companyUserReaderMock;
 
     /**
-     * @var (\FondOfOryx\Zed\BusinessOnBehalfProductListConnector\Business\Reader\CustomerReaderInterface&\PHPUnit\Framework\MockObject\MockObject)|\PHPUnit\Framework\MockObject\MockObject
+     * @var \PHPUnit\Framework\MockObject\MockObject|\FondOfOryx\Zed\BusinessOnBehalfProductListConnector\Business\Reader\CustomerReaderInterface
      */
     protected MockObject|CustomerReaderInterface $customerReaderMock;
 
     /**
-     * @var (\FondOfOryx\Zed\BusinessOnBehalfProductListConnector\Dependency\Facade\BusinessOnBehalfProductListConnectorToBusinessOnBehalfFacadeInterface&\PHPUnit\Framework\MockObject\MockObject)|\PHPUnit\Framework\MockObject\MockObject
+     * @var \FondOfOryx\Zed\BusinessOnBehalfProductListConnector\Dependency\Facade\BusinessOnBehalfProductListConnectorToBusinessOnBehalfFacadeInterface|\PHPUnit\Framework\MockObject\MockObject
      */
     protected BusinessOnBehalfProductListConnectorToBusinessOnBehalfFacadeInterface|MockObject $businessOnBehalfFacadeMock;
 
     /**
-     * @var (\Generated\Shared\Transfer\QuoteTransfer&\PHPUnit\Framework\MockObject\MockObject)|\PHPUnit\Framework\MockObject\MockObject
+     * @var \Generated\Shared\Transfer\QuoteTransfer|\PHPUnit\Framework\MockObject\MockObject
      */
     protected QuoteTransfer|MockObject $quoteTransferMock;
 
@@ -98,7 +98,7 @@ class CompanyUserWriterTest extends Unit
                 static::callback(
                     static fn (
                         CustomerTransfer $customerTransfer
-                    ) => $customerTransfer->getIdCustomer() === $idCustomer
+                    ) => $customerTransfer->getIdCustomer() === $idCustomer,
                 ),
             );
 
@@ -110,7 +110,7 @@ class CompanyUserWriterTest extends Unit
                         CompanyUserTransfer $companyUserTransfer
                     ) => $companyUserTransfer->getIdCompanyUser() === $idCompanyUser
                     && $companyUserTransfer->getFkCustomer() === $idCustomer
-                    && $companyUserTransfer->getCustomer()->getIdCustomer() === $idCustomer
+                    && $companyUserTransfer->getCustomer()->getIdCustomer() === $idCustomer,
                 ),
             );
 

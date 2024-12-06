@@ -3,6 +3,7 @@
 namespace FondOfOryx\Zed\BusinessOnBehalfRestApi\Business;
 
 use Codeception\Test\Unit;
+use Exception;
 use FondOfOryx\Zed\BusinessOnBehalfRestApi\Business\Writer\CompanyUserWriter;
 use FondOfOryx\Zed\BusinessOnBehalfRestApi\BusinessOnBehalfRestApiDependencyProvider;
 use FondOfOryx\Zed\BusinessOnBehalfRestApi\Dependency\Facade\BusinessOnBehalfRestApiToBusinessOnBehalfFacadeInterface;
@@ -72,24 +73,24 @@ class BusinessOnBehalfRestApiBusinessFactoryTest extends Unit
      */
     public function testCreateCompanyUserWriter(): void
     {
-        $this->containerMock->expects(static::atLeastOnce())
-            ->method('has')
-            ->withConsecutive(
-                [BusinessOnBehalfRestApiDependencyProvider::FACADE_COMPANY_USER],
-                [BusinessOnBehalfRestApiDependencyProvider::FACADE_BUSINESS_ON_BEHALF],
-            )
-            ->willReturn(true);
+        $self = $this;
 
         $this->containerMock->expects(static::atLeastOnce())
+            ->method('has')
+            ->willReturn(true);
+
+        $this->containerMock->expects($this->atLeastOnce())
             ->method('get')
-            ->withConsecutive(
-                [BusinessOnBehalfRestApiDependencyProvider::FACADE_COMPANY_USER],
-                [BusinessOnBehalfRestApiDependencyProvider::FACADE_BUSINESS_ON_BEHALF],
-            )
-            ->willReturnOnConsecutiveCalls(
-                $this->companyUserFacadeMock,
-                $this->businessOnBehalfFacadeMock,
-            );
+            ->willReturnCallback(static function (string $key) use ($self) {
+                switch ($key) {
+                    case BusinessOnBehalfRestApiDependencyProvider::FACADE_COMPANY_USER:
+                        return $self->companyUserFacadeMock;
+                    case BusinessOnBehalfRestApiDependencyProvider::FACADE_BUSINESS_ON_BEHALF:
+                        return $self->businessOnBehalfFacadeMock;
+                }
+
+                throw new Exception('Unexpected call');
+            });
 
         static::assertInstanceOf(
             CompanyUserWriter::class,

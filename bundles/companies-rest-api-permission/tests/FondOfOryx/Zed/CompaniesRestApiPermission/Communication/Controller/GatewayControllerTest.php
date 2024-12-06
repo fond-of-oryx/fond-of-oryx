@@ -3,6 +3,7 @@
 namespace FondOfOryx\Zed\CompaniesRestApiPermission\Communication\Controller;
 
 use Codeception\Test\Unit;
+use Exception;
 use FondOfOryx\Zed\CompaniesRestApiPermission\Persistence\CompaniesRestApiPermissionRepository;
 use Generated\Shared\Transfer\CompaniesRestApiPermissionRequestTransfer;
 use Spryker\Zed\Kernel\Persistence\AbstractRepository;
@@ -68,18 +69,42 @@ class GatewayControllerTest extends Unit
      */
     public function testHasPermissionToDeleteCompanyAction(): void
     {
+        $self = $this;
+
         $permissionKey = 'permission_key';
         $custRef = 'cust_ref';
         $uuid = 'uuid';
 
-        $this->repositoryMock->expects(static::atLeastOnce())
+        $callCount = $this->atLeastOnce();
+        $this->repositoryMock->expects($callCount)
             ->method('hasPermissionToDeleteCompany')
-            ->withConsecutive(
-                [$permissionKey],
-                [$custRef],
-                [$uuid],
-            )
-            ->willReturn(true);
+            ->willReturnCallback(static function (string $key) use ($self, $callCount, $permissionKey, $custRef, $uuid) {
+                /** @phpstan-ignore-next-line */
+                if (method_exists($callCount, 'getInvocationCount')) {
+                    /** @phpstan-ignore-next-line */
+                    $count = $callCount->getInvocationCount();
+                } else {
+                    /** @phpstan-ignore-next-line */
+                    $count = $callCount->numberOfInvocations();
+                }
+
+                switch ($count) {
+                    case 1:
+                        $self->assertSame($permissionKey, $key);
+
+                        return true;
+                    case 2:
+                        $self->assertSame($custRef, $key);
+
+                        return true;
+                    case 3:
+                        $self->assertSame($uuid, $key);
+
+                        return true;
+                }
+
+                throw new Exception('Unexpected call count');
+            });
 
         $this->companiesRestApiPermissionRequestTransferMock->expects(static::atLeastOnce())
             ->method('getPermissionKey')

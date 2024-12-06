@@ -24,7 +24,7 @@ class IdsExpanderPluginTest extends Unit
     protected Request|MockObject $requestMock;
 
     /**
-     * @var \FondOfOryx\Glue\CompanyBusinessUnitAddressSearchRestApi\Processor\Filter\RequestParameterFilterInterface|\PHPUnit\Framework\MockObject\MockObject|mixed
+     * @var \FondOfOryx\Glue\CompanyBusinessUnitAddressSearchRestApi\Processor\Filter\RequestParameterFilterInterface|\PHPUnit\Framework\MockObject\MockObject
      */
     protected RequestParameterFilterInterface|MockObject $requestParameterFilterMock;
 

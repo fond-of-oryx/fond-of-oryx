@@ -4,17 +4,20 @@
   "license": "MIT",
   "authors": [
     {
-      "name": "Julian Haytt",
-      "email": "info@julianzimmermann.dev"
+      "name": "Julian Hyatt",
+      "email": "dev@jzit.de"
     }
   ],
   "require": {
-    "php": ">=8.0"
-  },
-  "require-dev": {
+    "php": ">=8.2",
     "fond-of-oryx/availability-cart-data-extender": "^1.0.0 || ^2.0.0",
     "spryker/checkout-extension": "^1.1.0",
     "spryker/zed-request": "^3.3.0"
+  },
+  "require-dev": {
+    "fond-of-codeception/spryker": "*",
+    "spryker/code-sniffer": "*",
+    "spryker-sdk/phpstan-spryker": "*"
   },
   "minimum-stability": "dev",
   "prefer-stable": true,
@@ -26,11 +29,11 @@
   "autoload-dev": {
     "psr-4": {
       "FondOfOryx\\": "tests/FondOfOryx/",
-      "Generated\\": "src/Generated/"
+      "Generated\\": "src/Generated/",
+      "Orm\\": "src/Orm/"
     }
   },
   "config": {
-    "sort-packages": true,
     "allow-plugins": {
       "dealerdirect/phpcodesniffer-composer-installer": true
     }

@@ -5,11 +5,11 @@
   "authors": [
     {
       "name": "Julian Zimmermann",
-      "email": "info@julianzimmermann.dev"
+      "email": "dev@jzit.de"
     }
   ],
   "require": {
-    "php": ">=8.0",
+    "php": ">=8.2",
     "fond-of-oryx/thirty-five-up": "^1.0.0 || ^2.0.0",
     "spryker/api": "^0.4.0",
     "spryker/api-extension": "^0.1.0",

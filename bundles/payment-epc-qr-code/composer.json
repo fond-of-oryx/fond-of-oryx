@@ -5,11 +5,11 @@
   "authors": [
     {
       "name": "Julian Zimmermann",
-      "email": "info@julianzimmermann.dev"
+      "email": "dev@jzit.de"
     }
   ],
   "require": {
-    "php": ">=8.0",
+    "php": ">=8.2",
     "fond-of-oryx/prepayment": "^1.0.0 || ^2.0.0",
     "fond-of-oryx/qr-code-generator": "^1.0.0 || ^2.0.0",
     "spryker/oms-extension": "^1.0.0"

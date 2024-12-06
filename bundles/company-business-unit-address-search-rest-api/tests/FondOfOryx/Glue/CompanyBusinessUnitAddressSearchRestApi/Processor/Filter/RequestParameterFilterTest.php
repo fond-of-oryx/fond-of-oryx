@@ -23,7 +23,7 @@ class RequestParameterFilterTest extends Unit
     protected $httpRequestMock;
 
     /**
-     * @var \PHPUnit\Framework\MockObject\MockObject|\Symfony\Component\HttpFoundation\Request|mixed
+     * @var \FondOfOryx\Glue\CompanyBusinessUnitAddressSearchRestApi\Processor\Expander\FilterExpanderInterface|\PHPUnit\Framework\MockObject\MockObject
      */
     protected FilterExpanderInterface|MockObject $filterExpanderMock;
 
@@ -56,6 +56,7 @@ class RequestParameterFilterTest extends Unit
             ->disableOriginalConstructor()
             ->getMock();
 
+        /** @phpstan-ignore-next-line */
         $this->httpRequestMock->query = new ParameterBag(['foo' => 'bar']);
 
         $this->requestParameterFilter = new RequestParameterFilter($this->filterExpanderMock);

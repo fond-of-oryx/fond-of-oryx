@@ -25,7 +25,7 @@ class AvailabilityAlertConfig extends AbstractBundleConfig
     public function getBaseUrlSslYves(): string
     {
         return $this->get(
-            ApplicationConstants::BASE_URL_SSL_YVES,
+            ApplicationConstants::BASE_URL_YVES,
         );
     }
 }

@@ -37,14 +37,14 @@ class AddAvailabilityDataToQuoteItemQuoteChangeObserverPluginTest extends Unit
 
         $this->toTest = new class ($this->facadeMock) extends AddAvailabilityDataToQuoteItemQuoteChangeObserverPlugin {
             /**
-             * @var \FondOfOryx\Zed\AvailabilityCartDataExtender\Business\AvailabilityCartDataExtenderFacadeInterface
+             * @var \FondOfOryx\Zed\AvailabilityCartDataExtender\Business\AvailabilityCartDataExtenderFacade
              */
             protected $facadeMock;
 
             /**
-             * @param \FondOfOryx\Zed\AvailabilityCartDataExtender\Business\AvailabilityCartDataExtenderFacadeInterface $facadeMock
+             * @param \FondOfOryx\Zed\AvailabilityCartDataExtender\Business\AvailabilityCartDataExtenderFacade $facadeMock
              */
-            public function __construct(AvailabilityCartDataExtenderFacadeInterface $facadeMock)
+            public function __construct(AvailabilityCartDataExtenderFacade $facadeMock)
             {
                 $this->facadeMock = $facadeMock;
             }

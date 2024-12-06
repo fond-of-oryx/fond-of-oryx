@@ -27,6 +27,11 @@ class AvailabilityAlertDependencyProvider extends AbstractBundleDependencyProvid
     /**
      * @var string
      */
+    public const FORM_FACTORY = 'FORM_FACTORY';
+
+    /**
+     * @var string
+     */
     public const PLUGINS_AVAILABILITY_ALERT_SUBSCRIPTION_REQUEST_EXPANDER = 'PLUGINS_AVAILABILITY_ALERT_SUBSCRIPTION_REQUEST_EXPANDER';
 
     /**
@@ -53,7 +58,7 @@ class AvailabilityAlertDependencyProvider extends AbstractBundleDependencyProvid
      */
     protected function addAvailabilityAlertClient(Container $container): Container
     {
-        $container[static::CLIENT_AVAILABILITY_ALERT] = function (Container $container) {
+        $container[static::CLIENT_AVAILABILITY_ALERT] = static function (Container $container) {
             return $container->getLocator()->availabilityAlert()->client();
         };
 
@@ -67,7 +72,7 @@ class AvailabilityAlertDependencyProvider extends AbstractBundleDependencyProvid
      */
     protected function addStoreClient(Container $container): Container
     {
-        $container[static::CLIENT_STORE] = function (Container $container) {
+        $container[static::CLIENT_STORE] = static function (Container $container) {
             return new AvailabilityAlertToStoreClientBridge($container->getLocator()->store()->client());
         };
 
@@ -81,7 +86,7 @@ class AvailabilityAlertDependencyProvider extends AbstractBundleDependencyProvid
      */
     protected function addLocaleClient(Container $container): Container
     {
-        $container[static::CLIENT_LOCALE] = function (Container $container) {
+        $container[static::CLIENT_LOCALE] = static function (Container $container) {
             return new AvailabilityAlertToLocaleClientBridge($container->getLocator()->locale()->client());
         };
 

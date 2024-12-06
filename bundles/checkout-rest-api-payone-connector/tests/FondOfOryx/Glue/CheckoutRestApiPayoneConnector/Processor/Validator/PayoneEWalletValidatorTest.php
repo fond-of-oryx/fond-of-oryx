@@ -10,9 +10,9 @@ use Generated\Shared\Transfer\RestPayoneEWalletTransfer;
 class PayoneEWalletValidatorTest extends Unit
 {
     /**
-     * @var \FondOfOryx\Glue\CheckoutRestApiPayoneConnector\Processor\Validator\PayoneCreditCardValidator
+     * @var \FondOfOryx\Glue\CheckoutRestApiPayoneConnector\Processor\Validator\PayoneEWalletValidator
      */
-    private $validator;
+    protected PayoneEWalletValidator $validator;
 
     /**
      * @return void

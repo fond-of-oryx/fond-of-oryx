@@ -9,7 +9,7 @@
     }
   ],
   "require": {
-    "php": ">=8.0",
+    "php": ">=8.2",
     "fond-of-oryx/company-search-rest-api-extension": "^1.2.0",
     "spryker/company": "^1.0.0",
     "spryker/glossary-storage": "^1.5.0",

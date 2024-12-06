@@ -3,6 +3,7 @@
 namespace FondOfOryx\Zed\CompaniesRestApi\Business;
 
 use Codeception\Test\Unit;
+use Exception;
 use FondOfOryx\Zed\CompaniesRestApi\Business\Deleter\CompanyDeleter;
 use FondOfOryx\Zed\CompaniesRestApi\CompaniesRestApiDependencyProvider;
 use FondOfOryx\Zed\CompaniesRestApi\Dependency\Facade\CompaniesRestApiToCompanyDeleterFacadeInterface;
@@ -60,17 +61,22 @@ class CompaniesRestApiBusinessFactoryTest extends Unit
      */
     public function testCreateCompanyDeleter(): void
     {
+        $self = $this;
+
         $this->containerMock->expects(static::atLeastOnce())
             ->method('has')
             ->willReturn(true);
 
-        $this->containerMock->expects(static::atLeastOnce())
+        $this->containerMock->expects($this->atLeastOnce())
             ->method('get')
-            ->withConsecutive(
-                [CompaniesRestApiDependencyProvider::FACADE_COMPANY_DELETER],
-            )->willReturnOnConsecutiveCalls(
-                $this->companyDeleterFacadeMock,
-            );
+            ->willReturnCallback(static function (string $key) use ($self) {
+                switch ($key) {
+                    case CompaniesRestApiDependencyProvider::FACADE_COMPANY_DELETER:
+                        return $self->companyDeleterFacadeMock;
+                }
+
+                throw new Exception('Unexpected call');
+            });
 
         static::assertInstanceOf(
             CompanyDeleter::class,

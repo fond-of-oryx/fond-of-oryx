@@ -9,7 +9,7 @@ use PHPUnit\Framework\MockObject\MockObject;
 class RestBusinessOnBehalfRequestMapperTest extends Unit
 {
     /**
-     * @var (\Generated\Shared\Transfer\RestBusinessOnBehalfRequestAttributesTransfer&\PHPUnit\Framework\MockObject\MockObject)|\PHPUnit\Framework\MockObject\MockObject
+     * @var \Generated\Shared\Transfer\RestBusinessOnBehalfRequestAttributesTransfer|\PHPUnit\Framework\MockObject\MockObject
      */
     protected MockObject|RestBusinessOnBehalfRequestAttributesTransfer $restBusinessOnBehalfRequestAttributesTransferMock;
 

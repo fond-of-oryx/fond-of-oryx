@@ -12,22 +12,22 @@ use Spryker\Zed\BusinessOnBehalf\Business\BusinessOnBehalfFacadeInterface;
 class BusinessOnBehalfRestApiToBusinessOnBehalfFacadeBridgeTest extends Unit
 {
     /**
-     * @var \PHPUnit\Framework\MockObject\MockObject|(\Spryker\Zed\BusinessOnBehalf\Business\BusinessOnBehalfFacadeInterface&\PHPUnit\Framework\MockObject\MockObject)
+     * @var \Spryker\Zed\BusinessOnBehalf\Business\BusinessOnBehalfFacadeInterface|\PHPUnit\Framework\MockObject\MockObject
      */
     protected BusinessOnBehalfFacadeInterface|MockObject $facadeMock;
 
     /**
-     * @var (\Generated\Shared\Transfer\CompanyUserTransfer&\PHPUnit\Framework\MockObject\MockObject)|\PHPUnit\Framework\MockObject\MockObject
+     * @var \Generated\Shared\Transfer\CompanyUserTransfer|\PHPUnit\Framework\MockObject\MockObject
      */
     protected CompanyUserTransfer|MockObject $companyUserTransferMock;
 
     /**
-     * @var (\Generated\Shared\Transfer\CompanyUserResponseTransfer&\PHPUnit\Framework\MockObject\MockObject)|\PHPUnit\Framework\MockObject\MockObject
+     * @var \PHPUnit\Framework\MockObject\MockObject|\Generated\Shared\Transfer\CompanyUserResponseTransfer
      */
     protected MockObject|CompanyUserResponseTransfer $companyUserResponseTransferMock;
 
     /**
-     * @var (\Generated\Shared\Transfer\CustomerTransfer&\PHPUnit\Framework\MockObject\MockObject)|\PHPUnit\Framework\MockObject\MockObject
+     * @var \Generated\Shared\Transfer\CustomerTransfer|\PHPUnit\Framework\MockObject\MockObject
      */
     protected CustomerTransfer|MockObject $customerTransferMock;
 

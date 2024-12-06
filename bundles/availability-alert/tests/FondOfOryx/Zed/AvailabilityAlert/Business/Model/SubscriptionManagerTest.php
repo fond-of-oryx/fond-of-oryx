@@ -212,7 +212,7 @@ class SubscriptionManagerTest extends Unit
         $this->storeFacadeMock->expects(static::once())->method('getCurrentStore')->willReturn($this->storeTransferMock);
         $this->repositoryMock->expects(static::once())->method('findSubscriptionsByIdStoreAndStatus')->willReturn($this->collectionTransferMock);
         $this->storeTransferMock->expects(static::once())->method('getIdStore')->willReturn(1);
-        $result = $this->manager->getSubscriptionsForCurrentStoreAndStatus(1);
+        $result = $this->manager->getSubscriptionsForCurrentStoreAndStatus('1');
 
         static::assertInstanceOf(AvailabilityAlertSubscriptionCollectionTransfer::class, $result);
     }

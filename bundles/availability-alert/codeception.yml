@@ -40,4 +40,5 @@ env:
           generate_map_classes: true
           generate_propel_classes: true
           generate_ide_auto_completion: true
-  monorepo:
+          supported_source_identifiers:
+            - page

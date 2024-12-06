@@ -3,6 +3,7 @@
 namespace FondOfOryx\Glue\CartSearchRestApi;
 
 use Codeception\Test\Unit;
+use Exception;
 use FondOfOryx\Client\CartSearchRestApi\CartSearchRestApiClient;
 use FondOfOryx\Glue\CartSearchRestApi\Dependency\Client\CartSearchRestApiToGlossaryStorageClientInterface;
 use FondOfOryx\Glue\CartSearchRestApi\Processor\Reader\CartReader;
@@ -113,22 +114,23 @@ class CartSearchRestApiFactoryTest extends Unit
      */
     public function testCreateCartReader(): void
     {
-        $this->containerMock->expects(static::atLeastOnce())
-            ->method('has')
-            ->withConsecutive(
-                [CartSearchRestApiDependencyProvider::PLUGINS_FILTER_FIELDS_EXPANDER],
-                [CartSearchRestApiDependencyProvider::CLIENT_GLOSSARY_STORAGE],
-            )->willReturn(true);
+        $self = $this;
 
         $this->containerMock->expects(static::atLeastOnce())
+            ->method('has')->willReturn(true);
+
+        $this->containerMock->expects($this->atLeastOnce())
             ->method('get')
-            ->withConsecutive(
-                [CartSearchRestApiDependencyProvider::PLUGINS_FILTER_FIELDS_EXPANDER],
-                [CartSearchRestApiDependencyProvider::CLIENT_GLOSSARY_STORAGE],
-            )->willReturnOnConsecutiveCalls(
-                $this->filterFieldsExpanderPluginMocks,
-                $this->glossaryStorageClientMock,
-            );
+            ->willReturnCallback(static function (string $key) use ($self) {
+                switch ($key) {
+                    case CartSearchRestApiDependencyProvider::PLUGINS_FILTER_FIELDS_EXPANDER:
+                        return $self->filterFieldsExpanderPluginMocks;
+                    case CartSearchRestApiDependencyProvider::CLIENT_GLOSSARY_STORAGE:
+                        return $self->glossaryStorageClientMock;
+                }
+
+                throw new Exception('Unexpected call');
+            });
 
         static::assertInstanceOf(
             CartReader::class,

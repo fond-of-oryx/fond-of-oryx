@@ -39,4 +39,8 @@
         <property name="redirectUrl" type="string"/>
         <property name="isExternalRedirect" type="bool"/>
     </transfer>
+
+    <transfer name="Payment">
+        <property name="paymentMethod" type="string"/>
+    </transfer>
 </transfers>

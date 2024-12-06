@@ -9,7 +9,7 @@
     }
   ],
   "require": {
-    "php": ">=8.0",
+    "php": ">=8.2",
     "spryker/mail-extension": "^1.0.0",
     "mailjet/mailjet-apiv3-php": "^1.5",
     "caseyamcl/guzzle_retry_middleware": "^2.8"

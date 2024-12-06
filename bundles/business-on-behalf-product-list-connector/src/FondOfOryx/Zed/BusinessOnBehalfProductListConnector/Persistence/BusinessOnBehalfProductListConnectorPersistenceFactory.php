@@ -3,8 +3,8 @@
 namespace FondOfOryx\Zed\BusinessOnBehalfProductListConnector\Persistence;
 
 use FondOfOryx\Zed\BusinessOnBehalfProductListConnector\BusinessOnBehalfProductListConnectorDependencyProvider;
-use Orm\Zed\CompanyUser\Persistence\Base\SpyCompanyUserQuery;
-use Orm\Zed\Customer\Persistence\Base\SpyCustomerQuery;
+use Orm\Zed\CompanyUser\Persistence\SpyCompanyUserQuery;
+use Orm\Zed\Customer\Persistence\SpyCustomerQuery;
 use Spryker\Zed\Kernel\Persistence\AbstractPersistenceFactory;
 
 /**
@@ -13,7 +13,7 @@ use Spryker\Zed\Kernel\Persistence\AbstractPersistenceFactory;
 class BusinessOnBehalfProductListConnectorPersistenceFactory extends AbstractPersistenceFactory
 {
     /**
-     * @return \Orm\Zed\CompanyUser\Persistence\Base\SpyCompanyUserQuery
+     * @return \Orm\Zed\CompanyUser\Persistence\SpyCompanyUserQuery
      */
     public function getCompanyUserQuery(): SpyCompanyUserQuery
     {
@@ -23,7 +23,7 @@ class BusinessOnBehalfProductListConnectorPersistenceFactory extends AbstractPer
     }
 
     /**
-     * @return \Orm\Zed\Customer\Persistence\Base\SpyCustomerQuery
+     * @return \Orm\Zed\Customer\Persistence\SpyCustomerQuery
      */
     public function getCustomerQuery(): SpyCustomerQuery
     {

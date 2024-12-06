@@ -3,6 +3,7 @@
 namespace FondOfOryx\Zed\BusinessOnBehalfProductListConnector\Business;
 
 use Codeception\Test\Unit;
+use Exception;
 use FondOfOryx\Zed\BusinessOnBehalfProductListConnector\Business\Filter\RestrictedItemsFilter;
 use FondOfOryx\Zed\BusinessOnBehalfProductListConnector\Business\Validator\ProductListRestrictionValidator;
 use FondOfOryx\Zed\BusinessOnBehalfProductListConnector\BusinessOnBehalfProductListConnectorDependencyProvider;
@@ -16,27 +17,27 @@ use Spryker\Zed\Kernel\Container;
 class BusinessOnBehalfProductListConnectorBusinessFactoryTest extends Unit
 {
     /**
-     * @var \PHPUnit\Framework\MockObject\MockObject|(\Spryker\Zed\Kernel\Container&\PHPUnit\Framework\MockObject\MockObject)
+     * @var \PHPUnit\Framework\MockObject\MockObject|\Spryker\Zed\Kernel\Container
      */
     protected Container|MockObject $containerMock;
 
     /**
-     * @var (\FondOfOryx\Zed\BusinessOnBehalfProductListConnector\Dependency\Facade\BusinessOnBehalfProductListConnectorToCustomerFacadeInterface&\PHPUnit\Framework\MockObject\MockObject)|\PHPUnit\Framework\MockObject\MockObject
+     * @var \FondOfOryx\Zed\BusinessOnBehalfProductListConnector\Dependency\Facade\BusinessOnBehalfProductListConnectorToCustomerFacadeInterface|\PHPUnit\Framework\MockObject\MockObject
      */
     protected MockObject|BusinessOnBehalfProductListConnectorToCustomerFacadeInterface $customerFacadeMock;
 
     /**
-     * @var (\FondOfOryx\Zed\BusinessOnBehalfProductListConnector\Dependency\Facade\BusinessOnBehalfProductListConnectorToBusinessOnBehalfFacadeInterface&\PHPUnit\Framework\MockObject\MockObject)|\PHPUnit\Framework\MockObject\MockObject
+     * @var \FondOfOryx\Zed\BusinessOnBehalfProductListConnector\Dependency\Facade\BusinessOnBehalfProductListConnectorToBusinessOnBehalfFacadeInterface|\PHPUnit\Framework\MockObject\MockObject
      */
     protected BusinessOnBehalfProductListConnectorToBusinessOnBehalfFacadeInterface|MockObject $businessOnBehalfFacadeMock;
 
     /**
-     * @var (\FondOfOryx\Zed\BusinessOnBehalfProductListConnector\Dependency\Facade\BusinessOnBehalfProductListConnectorToProductListFacadeInterface&\PHPUnit\Framework\MockObject\MockObject)|\PHPUnit\Framework\MockObject\MockObject
+     * @var \FondOfOryx\Zed\BusinessOnBehalfProductListConnector\Dependency\Facade\BusinessOnBehalfProductListConnectorToProductListFacadeInterface|\PHPUnit\Framework\MockObject\MockObject
      */
     protected MockObject|BusinessOnBehalfProductListConnectorToProductListFacadeInterface $productListFacadeMock;
 
     /**
-     * @var (\FondOfOryx\Zed\BusinessOnBehalfProductListConnector\Persistence\BusinessOnBehalfProductListConnectorRepository&\PHPUnit\Framework\MockObject\MockObject)|\PHPUnit\Framework\MockObject\MockObject
+     * @var \FondOfOryx\Zed\BusinessOnBehalfProductListConnector\Persistence\BusinessOnBehalfProductListConnectorRepository|\PHPUnit\Framework\MockObject\MockObject
      */
     protected BusinessOnBehalfProductListConnectorRepository|MockObject $repositoryMock;
 
@@ -82,30 +83,26 @@ class BusinessOnBehalfProductListConnectorBusinessFactoryTest extends Unit
      */
     public function testCreateRestrictedItemsFilter(): void
     {
-        $this->containerMock->expects(static::atLeastOnce())
-            ->method('has')
-            ->withConsecutive(
-                [BusinessOnBehalfProductListConnectorDependencyProvider::FACADE_CUSTOMER],
-                [BusinessOnBehalfProductListConnectorDependencyProvider::FACADE_BUSINESS_ON_BEHALF],
-                [BusinessOnBehalfProductListConnectorDependencyProvider::FACADE_CUSTOMER],
-                [BusinessOnBehalfProductListConnectorDependencyProvider::FACADE_PRODUCT_LIST],
-            )
-            ->willReturn(true);
+        $self = $this;
 
         $this->containerMock->expects(static::atLeastOnce())
+            ->method('has')
+            ->willReturn(true);
+
+        $this->containerMock->expects($this->atLeastOnce())
             ->method('get')
-            ->withConsecutive(
-                [BusinessOnBehalfProductListConnectorDependencyProvider::FACADE_CUSTOMER],
-                [BusinessOnBehalfProductListConnectorDependencyProvider::FACADE_BUSINESS_ON_BEHALF],
-                [BusinessOnBehalfProductListConnectorDependencyProvider::FACADE_CUSTOMER],
-                [BusinessOnBehalfProductListConnectorDependencyProvider::FACADE_PRODUCT_LIST],
-            )
-            ->willReturnOnConsecutiveCalls(
-                $this->customerFacadeMock,
-                $this->businessOnBehalfFacadeMock,
-                $this->customerFacadeMock,
-                $this->productListFacadeMock,
-            );
+            ->willReturnCallback(static function (string $key) use ($self) {
+                switch ($key) {
+                    case BusinessOnBehalfProductListConnectorDependencyProvider::FACADE_CUSTOMER:
+                        return $self->customerFacadeMock;
+                    case BusinessOnBehalfProductListConnectorDependencyProvider::FACADE_BUSINESS_ON_BEHALF:
+                        return $self->businessOnBehalfFacadeMock;
+                    case BusinessOnBehalfProductListConnectorDependencyProvider::FACADE_PRODUCT_LIST:
+                        return $self->productListFacadeMock;
+                }
+
+                throw new Exception('Unexpected call');
+            });
 
         static::assertInstanceOf(
             RestrictedItemsFilter::class,
@@ -118,30 +115,26 @@ class BusinessOnBehalfProductListConnectorBusinessFactoryTest extends Unit
      */
     public function testCreateProductListRestrictionValidator(): void
     {
-        $this->containerMock->expects(static::atLeastOnce())
-            ->method('has')
-            ->withConsecutive(
-                [BusinessOnBehalfProductListConnectorDependencyProvider::FACADE_CUSTOMER],
-                [BusinessOnBehalfProductListConnectorDependencyProvider::FACADE_BUSINESS_ON_BEHALF],
-                [BusinessOnBehalfProductListConnectorDependencyProvider::FACADE_CUSTOMER],
-                [BusinessOnBehalfProductListConnectorDependencyProvider::FACADE_PRODUCT_LIST],
-            )
-            ->willReturn(true);
+        $self = $this;
 
         $this->containerMock->expects(static::atLeastOnce())
+            ->method('has')
+            ->willReturn(true);
+
+        $this->containerMock->expects($this->atLeastOnce())
             ->method('get')
-            ->withConsecutive(
-                [BusinessOnBehalfProductListConnectorDependencyProvider::FACADE_CUSTOMER],
-                [BusinessOnBehalfProductListConnectorDependencyProvider::FACADE_BUSINESS_ON_BEHALF],
-                [BusinessOnBehalfProductListConnectorDependencyProvider::FACADE_CUSTOMER],
-                [BusinessOnBehalfProductListConnectorDependencyProvider::FACADE_PRODUCT_LIST],
-            )
-            ->willReturnOnConsecutiveCalls(
-                $this->customerFacadeMock,
-                $this->businessOnBehalfFacadeMock,
-                $this->customerFacadeMock,
-                $this->productListFacadeMock,
-            );
+            ->willReturnCallback(static function (string $key) use ($self) {
+                switch ($key) {
+                    case BusinessOnBehalfProductListConnectorDependencyProvider::FACADE_CUSTOMER:
+                        return $self->customerFacadeMock;
+                    case BusinessOnBehalfProductListConnectorDependencyProvider::FACADE_BUSINESS_ON_BEHALF:
+                        return $self->businessOnBehalfFacadeMock;
+                    case BusinessOnBehalfProductListConnectorDependencyProvider::FACADE_PRODUCT_LIST:
+                        return $self->productListFacadeMock;
+                }
+
+                throw new Exception('Unexpected call');
+            });
 
         static::assertInstanceOf(
             ProductListRestrictionValidator::class,

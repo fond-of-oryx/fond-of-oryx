@@ -4,6 +4,7 @@
 namespace FondOfOryx\Zed\CompanyApi\Business;
 
 use Codeception\Test\Unit;
+use Exception;
 use FondOfOryx\Zed\CompanyApi\Business\Model\CompanyApi;
 use FondOfOryx\Zed\CompanyApi\Business\Model\Validator\CompanyApiValidator;
 use FondOfOryx\Zed\CompanyApi\CompanyApiConfig;
@@ -76,21 +77,20 @@ class CompanyApiBusinessFactoryTest extends Unit
 
         $this->containerMock->expects(static::atLeastOnce())
             ->method('has')
-            ->withConsecutive(
-                [CompanyApiDependencyProvider::FACADE_API],
-                [CompanyApiDependencyProvider::FACADE_COMPANY],
-            )->willReturn(true);
+            ->willReturn(true);
 
-        $this->containerMock->expects(static::atLeastOnce())
+        $this->containerMock->expects($this->atLeastOnce())
             ->method('get')
-            ->withConsecutive(
-                [CompanyApiDependencyProvider::FACADE_API],
-                [CompanyApiDependencyProvider::FACADE_COMPANY],
-            )
-            ->willReturnOnConsecutiveCalls(
-                $apiFacadeMock,
-                $apiToCompanyFacadeMock,
-            );
+            ->willReturnCallback(static function (string $key) use ($apiFacadeMock, $apiToCompanyFacadeMock) {
+                switch ($key) {
+                    case CompanyApiDependencyProvider::FACADE_API:
+                        return $apiFacadeMock;
+                    case CompanyApiDependencyProvider::FACADE_COMPANY:
+                        return $apiToCompanyFacadeMock;
+                }
+
+                throw new Exception('Unexpected call');
+            });
 
         $company = $this->companyApiBusinessFactory->createCompanyApi();
 

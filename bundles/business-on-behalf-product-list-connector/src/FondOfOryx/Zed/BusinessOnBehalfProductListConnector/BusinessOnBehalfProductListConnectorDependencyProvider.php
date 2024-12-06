@@ -5,8 +5,8 @@ namespace FondOfOryx\Zed\BusinessOnBehalfProductListConnector;
 use FondOfOryx\Zed\BusinessOnBehalfProductListConnector\Dependency\Facade\BusinessOnBehalfProductListConnectorToBusinessOnBehalfFacadeBridge;
 use FondOfOryx\Zed\BusinessOnBehalfProductListConnector\Dependency\Facade\BusinessOnBehalfProductListConnectorToCustomerFacadeBridge;
 use FondOfOryx\Zed\BusinessOnBehalfProductListConnector\Dependency\Facade\BusinessOnBehalfProductListConnectorToProductListFacadeBridge;
-use Orm\Zed\CompanyUser\Persistence\Base\SpyCompanyUserQuery;
-use Orm\Zed\Customer\Persistence\Base\SpyCustomerQuery;
+use Orm\Zed\CompanyUser\Persistence\SpyCompanyUserQuery;
+use Orm\Zed\Customer\Persistence\SpyCustomerQuery;
 use Spryker\Zed\Kernel\AbstractBundleDependencyProvider;
 use Spryker\Zed\Kernel\Container;
 

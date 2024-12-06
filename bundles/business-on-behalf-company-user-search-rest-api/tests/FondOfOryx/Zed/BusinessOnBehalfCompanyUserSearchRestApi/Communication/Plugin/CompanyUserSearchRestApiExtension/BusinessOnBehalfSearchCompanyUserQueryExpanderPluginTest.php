@@ -14,14 +14,19 @@ use Propel\Runtime\ActiveQuery\Criteria;
 class BusinessOnBehalfSearchCompanyUserQueryExpanderPluginTest extends Unit
 {
     /**
-     * @var array<(\Generated\Shared\Transfer\FilterFieldTransfer&\PHPUnit\Framework\MockObject\MockObject)|\PHPUnit\Framework\MockObject\MockObject>
+     * @var array<\Generated\Shared\Transfer\FilterFieldTransfer|\PHPUnit\Framework\MockObject\MockObject>
      */
     protected array $filterFieldTransferMocks;
 
     /**
-     * @var (\Generated\Shared\Transfer\QueryJoinCollectionTransfer&\PHPUnit\Framework\MockObject\MockObject)|\PHPUnit\Framework\MockObject\MockObject
+     * @var \Generated\Shared\Transfer\QueryJoinCollectionTransfer|\PHPUnit\Framework\MockObject\MockObject
      */
     protected MockObject|QueryJoinCollectionTransfer $queryJoinCollectionTransferMock;
+
+    /**
+     * @var \FondOfOryx\Zed\BusinessOnBehalfCompanyUserSearchRestApi\Communication\Plugin\CompanyUserSearchRestApiExtension\BusinessOnBehalfSearchCompanyUserQueryExpanderPlugin
+     */
+    protected BusinessOnBehalfSearchCompanyUserQueryExpanderPlugin $plugin;
 
     /**
      * @return void
@@ -106,7 +111,7 @@ class BusinessOnBehalfSearchCompanyUserQueryExpanderPluginTest extends Unit
                     ) => $queryJoinTransfer->getWhereConditions()->count() === 1
                         && $queryJoinTransfer->getWhereConditions()->offsetGet(0)->getColumn() === SpyCompanyUserTableMap::COL_IS_DEFAULT
                         && $queryJoinTransfer->getWhereConditions()->offsetGet(0)->getComparison() === Criteria::EQUAL
-                        && $queryJoinTransfer->getWhereConditions()->offsetGet(0)->getValue() === $isDefault
+                        && $queryJoinTransfer->getWhereConditions()->offsetGet(0)->getValue() === $isDefault,
                 ),
             )->willReturn($this->queryJoinCollectionTransferMock);
 

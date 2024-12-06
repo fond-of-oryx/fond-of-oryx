@@ -5,11 +5,11 @@
   "authors": [
     {
       "name": "Julian Zimmermann",
-      "email": "info@julianzimmermann.dev"
+      "email": "dev@jzit.de"
     }
   ],
   "require": {
-    "php": ">=8.0",
+    "php": ">=8.2",
     "spryker/store": "^1.2.0"
   },
   "require-dev": {

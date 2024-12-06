@@ -105,13 +105,13 @@ class SubscribersNotifierTest extends Unit
             $decimal = clone $self->decimalMock;
             $availability = clone $self->availabilityTransferMock;
             if ($fkProd === 1) {
-                $decimal->expects(static::once())->method('toInt')->willReturn(3);
-                $availability->expects(static::once())->method('getAvailability')->willReturn($decimal);
+                $decimal->expects($self->once())->method('toInt')->willReturn(3);
+                $availability->expects($self->once())->method('getAvailability')->willReturn($decimal);
 
                 return $availability;
             }
-            $decimal->expects(static::once())->method('toInt')->willReturn(0);
-            $availability->expects(static::once())->method('getAvailability')->willReturn($decimal);
+            $decimal->expects($self->once())->method('toInt')->willReturn(0);
+            $availability->expects($self->once())->method('getAvailability')->willReturn($decimal);
 
             return $availability;
         });
