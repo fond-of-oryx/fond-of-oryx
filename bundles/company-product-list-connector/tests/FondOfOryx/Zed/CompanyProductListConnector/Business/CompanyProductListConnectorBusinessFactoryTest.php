@@ -3,6 +3,7 @@
 namespace FondOfOryx\Zed\CompanyProductListConnector\Business;
 
 use Codeception\Test\Unit;
+use Exception;
 use FondOfOryx\Zed\CompanyProductListConnector\Business\Persister\CompanyProductListRelationPersister;
 use FondOfOryx\Zed\CompanyProductListConnector\Business\Reader\ProductListReader;
 use FondOfOryx\Zed\CompanyProductListConnector\CompanyProductListConnectorDependencyProvider;
@@ -98,15 +99,18 @@ class CompanyProductListConnectorBusinessFactoryTest extends Unit
     {
         $this->containerMock->expects(static::atLeastOnce())
             ->method('has')
-            ->withConsecutive(
-                [CompanyProductListConnectorDependencyProvider::PLUGINS_COMPANY_PRODUCT_LIST_RELATION_POST_PERSIST],
-            )->willReturn(true);
+            ->willReturn(true);
 
-        $this->containerMock->expects(static::atLeastOnce())
+        $this->containerMock->expects($this->atLeastOnce())
             ->method('get')
-            ->withConsecutive(
-                [CompanyProductListConnectorDependencyProvider::PLUGINS_COMPANY_PRODUCT_LIST_RELATION_POST_PERSIST],
-            )->willReturnOnConsecutiveCalls([]);
+            ->willReturnCallback(static function (string $key) {
+                switch ($key) {
+                    case CompanyProductListConnectorDependencyProvider::PLUGINS_COMPANY_PRODUCT_LIST_RELATION_POST_PERSIST:
+                        return [];
+                }
+
+                throw new Exception('Unexpected call');
+            });
 
         static::assertInstanceOf(
             CompanyProductListRelationPersister::class,

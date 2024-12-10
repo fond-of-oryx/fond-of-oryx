@@ -26,11 +26,6 @@ class CompanyRoleSearchRestApiPersistenceFactoryTest extends Unit
     protected $spyCompanyRoleQuery;
 
     /**
-     * @var \PHPUnit\Framework\MockObject\MockObject|\Orm\Zed\ErpOrder\Persistence\ErpOrderQuery
-     */
-    protected $fooErpOrderPageSearchQueryMock;
-
-    /**
      * @return void
      */
     protected function _before(): void

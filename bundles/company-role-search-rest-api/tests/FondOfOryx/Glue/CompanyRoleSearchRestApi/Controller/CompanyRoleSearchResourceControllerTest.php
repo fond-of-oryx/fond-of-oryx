@@ -32,7 +32,7 @@ class CompanyRoleSearchResourceControllerTest extends Unit
     protected $restResponseMock;
 
     /**
-     * @var \FondOfOryx\Glue\CompanyRoleSearchRestApi\Controller\CompanyUserSearchResourceController
+     * @var \FondOfOryx\Glue\CompanyRoleSearchRestApi\Controller\CompanyRoleSearchResourceController
      */
     protected $controller;
 

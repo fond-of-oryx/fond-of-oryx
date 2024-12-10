@@ -44,6 +44,7 @@ class RequestParameterFilterTest extends Unit
             ->disableOriginalConstructor()
             ->getMock();
 
+        /** @phpstan-ignore-next-line */
         $this->httpRequestMock->query = new ParameterBag(['foo' => 'bar']);
 
         $this->requestParameterFilter = new RequestParameterFilter();

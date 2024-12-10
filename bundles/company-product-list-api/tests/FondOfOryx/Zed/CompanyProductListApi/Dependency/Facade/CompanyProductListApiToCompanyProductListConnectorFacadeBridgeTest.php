@@ -9,7 +9,7 @@ use Generated\Shared\Transfer\CompanyProductListRelationTransfer;
 class CompanyProductListApiToCompanyProductListConnectorFacadeBridgeTest extends Unit
 {
     /**
-     * @var \Generated\Shared\Transfer\CompnyProductListRelationTransfer|\PHPUnit\Framework\MockObject\MockObject|null
+     * @var \Generated\Shared\Transfer\CompanyProductListRelationTransfer|\PHPUnit\Framework\MockObject\MockObject|null
      */
     protected $companyProductListRelationTransferMock;
 

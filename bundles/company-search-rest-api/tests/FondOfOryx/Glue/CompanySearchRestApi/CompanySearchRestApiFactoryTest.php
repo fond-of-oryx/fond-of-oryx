@@ -3,6 +3,7 @@
 namespace FondOfOryx\Glue\CompanySearchRestApi;
 
 use Codeception\Test\Unit;
+use Exception;
 use FondOfOryx\Client\CompanySearchRestApi\CompanySearchRestApiClient;
 use FondOfOryx\Glue\CompanySearchRestApi\Dependency\Client\CompanySearchRestApiToGlossaryStorageClientInterface;
 use FondOfOryx\Glue\CompanySearchRestApi\Processor\Reader\CompanyReader;
@@ -38,7 +39,7 @@ class CompanySearchRestApiFactoryTest extends Unit
     protected CompanySearchRestApiToGlossaryStorageClientInterface|MockObject $glossaryStorageClientMock;
 
     /**
-     * @var \FondOfOryx\Glue\CompanySearchRestApi\CompanySearchRestApiFactory|\FondOfOryx\Glue\CompanySearchRestApi\__anonymous @2772
+     * @var \FondOfOryx\Glue\CompanySearchRestApi\CompanySearchRestApiFactory
      */
     protected $factory;
 
@@ -102,27 +103,26 @@ class CompanySearchRestApiFactoryTest extends Unit
      */
     public function testCreateCompanyReader(): void
     {
-        $this->containerMock->expects(static::atLeastOnce())
-            ->method('has')
-            ->withConsecutive(
-                [CompanySearchRestApiDependencyProvider::PLUGINS_FILTER_FIELDS_EXPANDER],
-                [CompanySearchRestApiDependencyProvider::CLIENT_GLOSSARY_STORAGE],
-                [CompanySearchRestApiDependencyProvider::PLUGINS_REST_COMPANY_SEARCH_RESULT_ITEM_EXPANDER],
-            )
-            ->willReturn(true);
+        $self = $this;
 
         $this->containerMock->expects(static::atLeastOnce())
+            ->method('has')
+            ->willReturn(true);
+
+        $this->containerMock->expects($this->atLeastOnce())
             ->method('get')
-            ->withConsecutive(
-                [CompanySearchRestApiDependencyProvider::PLUGINS_FILTER_FIELDS_EXPANDER],
-                [CompanySearchRestApiDependencyProvider::CLIENT_GLOSSARY_STORAGE],
-                [CompanySearchRestApiDependencyProvider::PLUGINS_REST_COMPANY_SEARCH_RESULT_ITEM_EXPANDER],
-            )
-            ->willReturnOnConsecutiveCalls(
-                [],
-                $this->glossaryStorageClientMock,
-                [],
-            );
+            ->willReturnCallback(static function (string $key) use ($self) {
+                switch ($key) {
+                    case CompanySearchRestApiDependencyProvider::PLUGINS_FILTER_FIELDS_EXPANDER:
+                        return [];
+                    case CompanySearchRestApiDependencyProvider::CLIENT_GLOSSARY_STORAGE:
+                        return $self->glossaryStorageClientMock;
+                    case CompanySearchRestApiDependencyProvider::PLUGINS_REST_COMPANY_SEARCH_RESULT_ITEM_EXPANDER:
+                        return [];
+                }
+
+                throw new Exception('Unexpected call');
+            });
 
         static::assertInstanceOf(
             CompanyReader::class,

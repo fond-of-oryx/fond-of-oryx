@@ -3,7 +3,7 @@
 namespace FondOfOryx\Zed\CompanyProductListsRestApi\Persistence;
 
 use FondOfOryx\Zed\CompanyProductListsRestApi\CompanyProductListsRestApiDependencyProvider;
-use Orm\Zed\Company\Persistence\Base\SpyCompanyQuery;
+use Orm\Zed\Company\Persistence\SpyCompanyQuery;
 use Orm\Zed\ProductList\Persistence\Base\SpyProductListCompanyQuery;
 use Spryker\Zed\Kernel\Persistence\AbstractPersistenceFactory;
 
@@ -23,7 +23,7 @@ class CompanyProductListsRestApiPersistenceFactory extends AbstractPersistenceFa
     }
 
     /**
-     * @return \Orm\Zed\Company\Persistence\Base\SpyCompanyQuery
+     * @return \Orm\Zed\Company\Persistence\SpyCompanyQuery
      */
     public function getCompanyQuery(): SpyCompanyQuery
     {

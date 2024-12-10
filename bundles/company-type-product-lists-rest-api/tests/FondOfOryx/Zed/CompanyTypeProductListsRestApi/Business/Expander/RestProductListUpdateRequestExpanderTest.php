@@ -12,27 +12,27 @@ use Generated\Shared\Transfer\RestProductListUpdateRequestTransfer;
 class RestProductListUpdateRequestExpanderTest extends Unit
 {
     /**
-     * @var \FondOfOryx\Zed\CompanyTypeProductListsRestApi\Business\Reader\CompanyUserReaderInterface&\PHPUnit\Framework\MockObject\MockObject|\PHPUnit\Framework\MockObject\MockObject
+     * @var \FondOfOryx\Zed\CompanyTypeProductListsRestApi\Business\Reader\CompanyUserReaderInterface|\PHPUnit\Framework\MockObject\MockObject
      */
     protected $companyUserReaderMock;
 
     /**
-     * @var \FondOfOryx\Zed\CompanyTypeProductListsRestApi\Business\Reader\CustomerReaderInterface&\PHPUnit\Framework\MockObject\MockObject|\PHPUnit\Framework\MockObject\MockObject
+     * @var \FondOfOryx\Zed\CompanyTypeProductListsRestApi\Business\Reader\CustomerReaderInterface|\PHPUnit\Framework\MockObject\MockObject
      */
     protected $customerReaderMock;
 
     /**
-     * @var \FondOfOryx\Zed\CompanyTypeProductListsRestApi\Business\Reader\CompanyReaderInterface&\PHPUnit\Framework\MockObject\MockObject|\PHPUnit\Framework\MockObject\MockObject
+     * @var \FondOfOryx\Zed\CompanyTypeProductListsRestApi\Business\Reader\CompanyReaderInterface|\PHPUnit\Framework\MockObject\MockObject
      */
     protected $companyReaderMock;
 
     /**
-     * @var \Generated\Shared\Transfer\RestProductListUpdateRequestTransfer&\PHPUnit\Framework\MockObject\MockObject|\PHPUnit\Framework\MockObject\MockObject
+     * @var \Generated\Shared\Transfer\RestProductListUpdateRequestTransfer|\PHPUnit\Framework\MockObject\MockObject
      */
     protected $restProductListUpdateRequestTransferMock;
 
     /**
-     * @var \Generated\Shared\Transfer\RestProductListsAttributesTransfer&\PHPUnit\Framework\MockObject\MockObject|\PHPUnit\Framework\MockObject\MockObject
+     * @var \Generated\Shared\Transfer\RestProductListsAttributesTransfer|\PHPUnit\Framework\MockObject\MockObject
      */
     protected $restProductListsAttributesTransferMock;
 

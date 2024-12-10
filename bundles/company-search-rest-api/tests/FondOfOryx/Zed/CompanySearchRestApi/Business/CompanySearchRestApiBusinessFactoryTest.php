@@ -3,6 +3,7 @@
 namespace FondOfOryx\Zed\CompanySearchRestApi\Business;
 
 use Codeception\Test\Unit;
+use Exception;
 use FondOfOryx\Zed\CompanySearchRestApi\Business\Reader\CompanyReader;
 use FondOfOryx\Zed\CompanySearchRestApi\CompanySearchRestApiDependencyProvider;
 use FondOfOryx\Zed\CompanySearchRestApi\Persistence\CompanySearchRestApiRepository;
@@ -61,17 +62,24 @@ class CompanySearchRestApiBusinessFactoryTest extends Unit
      */
     public function testCreateCompanyReader(): void
     {
+        $self = $this;
+
         $this->containerMock->expects(static::atLeastOnce())
             ->method('has')
             ->willReturn(true);
 
-        $this->containerMock->expects(static::atLeastOnce())
+        $this->containerMock->expects($this->atLeastOnce())
             ->method('get')
-            ->withConsecutive([
-                CompanySearchRestApiDependencyProvider::PLUGINS_SEARCH_COMPANY_QUERY_EXPANDER,
-            ], [
-                CompanySearchRestApiDependencyProvider::PLUGINS_COMPANY_EXPANDER,
-            ])->willReturn([$this->searchCompanyQueryExpanderPluginMock], []);
+            ->willReturnCallback(static function (string $key) use ($self) {
+                switch ($key) {
+                    case CompanySearchRestApiDependencyProvider::PLUGINS_SEARCH_COMPANY_QUERY_EXPANDER:
+                        return [$self->searchCompanyQueryExpanderPluginMock];
+                    case CompanySearchRestApiDependencyProvider::PLUGINS_COMPANY_EXPANDER:
+                        return [];
+                }
+
+                throw new Exception('Unexpected call');
+            });
 
         static::assertInstanceOf(
             CompanyReader::class,

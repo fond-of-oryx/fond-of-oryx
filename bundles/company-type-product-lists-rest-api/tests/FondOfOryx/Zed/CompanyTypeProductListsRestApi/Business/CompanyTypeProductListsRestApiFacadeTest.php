@@ -9,17 +9,17 @@ use Generated\Shared\Transfer\RestProductListUpdateRequestTransfer;
 class CompanyTypeProductListsRestApiFacadeTest extends Unit
 {
     /**
-     * @var \FondOfOryx\Zed\CompanyTypeProductListsRestApi\Business\CompanyTypeProductListsRestApiBusinessFactory&\PHPUnit\Framework\MockObject\MockObject|\PHPUnit\Framework\MockObject\MockObject
+     * @var \FondOfOryx\Zed\CompanyTypeProductListsRestApi\Business\CompanyTypeProductListsRestApiBusinessFactory|\PHPUnit\Framework\MockObject\MockObject
      */
     protected $factoryMock;
 
     /**
-     * @var \Generated\Shared\Transfer\RestProductListUpdateRequestTransfer&\PHPUnit\Framework\MockObject\MockObject|\PHPUnit\Framework\MockObject\MockObject
+     * @var \Generated\Shared\Transfer\RestProductListUpdateRequestTransfer|\PHPUnit\Framework\MockObject\MockObject
      */
     protected $restProductListUpdateRequestTransferMock;
 
     /**
-     * @var \FondOfOryx\Zed\CompanyTypeProductListsRestApi\Business\Expander\RestProductListUpdateRequestExpanderInterface&\PHPUnit\Framework\MockObject\MockObject|\PHPUnit\Framework\MockObject\MockObject
+     * @var \FondOfOryx\Zed\CompanyTypeProductListsRestApi\Business\Expander\RestProductListUpdateRequestExpanderInterface|\PHPUnit\Framework\MockObject\MockObject
      */
     protected $restProductListUpdateRequestExpanderMock;
 

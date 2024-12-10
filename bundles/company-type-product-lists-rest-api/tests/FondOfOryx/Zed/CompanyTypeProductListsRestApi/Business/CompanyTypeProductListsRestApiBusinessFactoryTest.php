@@ -9,7 +9,7 @@ use FondOfOryx\Zed\CompanyTypeProductListsRestApi\Persistence\CompanyTypeProduct
 class CompanyTypeProductListsRestApiBusinessFactoryTest extends Unit
 {
     /**
-     * @var \FondOfOryx\Zed\CompanyTypeProductListsRestApi\Persistence\CompanyTypeProductListsRestApiRepository&\PHPUnit\Framework\MockObject\MockObject|\PHPUnit\Framework\MockObject\MockObject
+     * @var \FondOfOryx\Zed\CompanyTypeProductListsRestApi\Persistence\CompanyTypeProductListsRestApiRepository|\PHPUnit\Framework\MockObject\MockObject
      */
     protected $repositoryMock;
 

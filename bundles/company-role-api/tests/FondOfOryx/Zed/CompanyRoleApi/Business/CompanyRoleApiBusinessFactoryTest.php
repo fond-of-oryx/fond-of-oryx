@@ -3,6 +3,7 @@
 namespace FondOfOryx\Zed\CompanyRoleApi\Business;
 
 use Codeception\Test\Unit;
+use Exception;
 use FondOfOryx\Zed\CompanyRoleApi\Business\Model\CompanyRoleApi;
 use FondOfOryx\Zed\CompanyRoleApi\CompanyRoleApiConfig;
 use FondOfOryx\Zed\CompanyRoleApi\CompanyRoleApiDependencyProvider;
@@ -85,21 +86,20 @@ class CompanyRoleApiBusinessFactoryTest extends Unit
 
         $this->containerMock->expects(static::atLeastOnce())
             ->method('has')
-            ->withConsecutive(
-                [CompanyRoleApiDependencyProvider::FACADE_API],
-                [CompanyRoleApiDependencyProvider::FACADE_COMPANY_ROLE],
-            )->willReturn(true);
+            ->willReturn(true);
 
-        $this->containerMock->expects(static::atLeastOnce())
+        $this->containerMock->expects($this->atLeastOnce())
             ->method('get')
-            ->withConsecutive(
-                [CompanyRoleApiDependencyProvider::FACADE_API],
-                [CompanyRoleApiDependencyProvider::FACADE_COMPANY_ROLE],
-            )
-            ->willReturnOnConsecutiveCalls(
-                $apiFacadeMock,
-                $apiToCompanyFacadeMock,
-            );
+            ->willReturnCallback(static function (string $key) use ($apiFacadeMock, $apiToCompanyFacadeMock) {
+                switch ($key) {
+                    case CompanyRoleApiDependencyProvider::FACADE_API:
+                        return $apiFacadeMock;
+                    case CompanyRoleApiDependencyProvider::FACADE_COMPANY_ROLE:
+                        return $apiToCompanyFacadeMock;
+                }
+
+                throw new Exception('Unexpected call');
+            });
 
         static::assertInstanceOf(CompanyRoleApi::class, $this->businessFactory->createCompanyRoleApi());
     }

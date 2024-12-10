@@ -3,6 +3,7 @@
 namespace FondOfOryx\Zed\CompanyTypeProductListSearchRestApi\Business\Expander;
 
 use Codeception\Test\Unit;
+use Exception;
 use FondOfOryx\Zed\CompanyTypeProductListSearchRestApi\Business\Filter\ForeignCustomerReferenceFilterInterface;
 use FondOfOryx\Zed\CompanyTypeProductListSearchRestApi\Business\Filter\IdCustomerFilterInterface;
 use FondOfOryx\Zed\CompanyTypeProductListSearchRestApi\Persistence\CompanyTypeProductListSearchRestApiRepositoryInterface;
@@ -18,27 +19,27 @@ use Propel\Runtime\ActiveQuery\Criteria;
 class SearchProductListQueryExpanderTest extends Unit
 {
     /**
-     * @var (\FondOfOryx\Zed\CompanyTypeProductListSearchRestApi\Business\Filter\ForeignCustomerReferenceFilterInterface&\PHPUnit\Framework\MockObject\MockObject)|\PHPUnit\Framework\MockObject\MockObject
+     * @var \FondOfOryx\Zed\CompanyTypeProductListSearchRestApi\Business\Filter\ForeignCustomerReferenceFilterInterface|\PHPUnit\Framework\MockObject\MockObject
      */
     protected ForeignCustomerReferenceFilterInterface|MockObject $foreignCustomerReferenceFilterMock;
 
     /**
-     * @var (\FondOfOryx\Zed\CompanyTypeProductListSearchRestApi\Business\Filter\IdCustomerFilterInterface&\PHPUnit\Framework\MockObject\MockObject)|\PHPUnit\Framework\MockObject\MockObject
+     * @var \PHPUnit\Framework\MockObject\MockObject|\FondOfOryx\Zed\CompanyTypeProductListSearchRestApi\Business\Filter\IdCustomerFilterInterface
      */
     protected MockObject|IdCustomerFilterInterface $idCustomerFilterMock;
 
     /**
-     * @var (\FondOfOryx\Zed\CompanyTypeProductListSearchRestApi\Persistence\CompanyTypeProductListSearchRestApiRepositoryInterface&\PHPUnit\Framework\MockObject\MockObject)|\PHPUnit\Framework\MockObject\MockObject
+     * @var \FondOfOryx\Zed\CompanyTypeProductListSearchRestApi\Persistence\CompanyTypeProductListSearchRestApiRepositoryInterface|\PHPUnit\Framework\MockObject\MockObject
      */
     protected CompanyTypeProductListSearchRestApiRepositoryInterface|MockObject $repositoryMock;
 
     /**
-     * @var (\Generated\Shared\Transfer\QueryJoinCollectionTransfer&\PHPUnit\Framework\MockObject\MockObject)|\PHPUnit\Framework\MockObject\MockObject
+     * @var \PHPUnit\Framework\MockObject\MockObject|\Generated\Shared\Transfer\QueryJoinCollectionTransfer
      */
     protected MockObject|QueryJoinCollectionTransfer $queryJoinCollectionTransferMock;
 
     /**
-     * @var array<(\Generated\Shared\Transfer\FilterFieldTransfer&\PHPUnit\Framework\MockObject\MockObject)|\PHPUnit\Framework\MockObject\MockObject>
+     * @var array<\Generated\Shared\Transfer\FilterFieldTransfer|\PHPUnit\Framework\MockObject\MockObject>
      */
     protected array $filterFieldTransferMocks;
 
@@ -88,6 +89,8 @@ class SearchProductListQueryExpanderTest extends Unit
      */
     public function testExpand(): void
     {
+        $self = $this;
+
         $idCustomer = 1;
         $customerReference = 'FOO--1';
 
@@ -106,29 +109,40 @@ class SearchProductListQueryExpanderTest extends Unit
             ->with($idCustomer, $customerReference)
             ->willReturn(true);
 
-        $this->queryJoinCollectionTransferMock->expects(static::atLeastOnce())
+        $callCount = $this->atLeastOnce();
+        $this->queryJoinCollectionTransferMock->expects($callCount)
             ->method('addQueryJoin')
-            ->withConsecutive([
-                static::callback(
-                    fn (
-                        QueryJoinTransfer $queryJoinTransfer
-                    ) => $queryJoinTransfer->getJoinType() === Criteria::INNER_JOIN
-                        && $queryJoinTransfer->getLeft() == [SpyProductListTableMap::COL_ID_PRODUCT_LIST]
-                        && $queryJoinTransfer->getRight() == [SpyProductListCustomerTableMap::COL_FK_PRODUCT_LIST]
-                ),
-            ], [
-                static::callback(
-                    fn (
-                        QueryJoinTransfer $queryJoinTransfer
-                    ) => $queryJoinTransfer->getJoinType() === Criteria::INNER_JOIN
-                        && $queryJoinTransfer->getLeft() == [SpyProductListCustomerTableMap::COL_FK_CUSTOMER]
-                        && $queryJoinTransfer->getRight() == [SpyCustomerTableMap::COL_ID_CUSTOMER]
-                        && $queryJoinTransfer->getWhereConditions()->count() === 1
-                        && $queryJoinTransfer->getWhereConditions()->offsetGet(0)->getColumn() === SpyCustomerTableMap::COL_CUSTOMER_REFERENCE
-                        && $queryJoinTransfer->getWhereConditions()->offsetGet(0)->getComparison() === Criteria::EQUAL
-                        && $queryJoinTransfer->getWhereConditions()->offsetGet(0)->getValue() === $customerReference
-                ),
-            ])->willReturn($this->queryJoinCollectionTransferMock);
+            ->willReturnCallback(static function (QueryJoinTransfer $queryJoinTransfer) use ($self, $callCount, $customerReference) {
+                /** @phpstan-ignore-next-line */
+                if (method_exists($callCount, 'getInvocationCount')) {
+                    /** @phpstan-ignore-next-line */
+                    $count = $callCount->getInvocationCount();
+                } else {
+                    /** @phpstan-ignore-next-line */
+                    $count = $callCount->numberOfInvocations();
+                }
+
+                switch ($count) {
+                    case 1:
+                        $self->assertSame(Criteria::INNER_JOIN, $queryJoinTransfer->getJoinType());
+                        $self->assertEquals([SpyProductListTableMap::COL_ID_PRODUCT_LIST], $queryJoinTransfer->getLeft());
+                        $self->assertEquals([SpyProductListCustomerTableMap::COL_FK_PRODUCT_LIST], $queryJoinTransfer->getRight());
+
+                        return $self->queryJoinCollectionTransferMock;
+                    case 2:
+                        $self->assertSame(Criteria::INNER_JOIN, $queryJoinTransfer->getJoinType());
+                        $self->assertEquals([SpyProductListCustomerTableMap::COL_FK_CUSTOMER], $queryJoinTransfer->getLeft());
+                        $self->assertEquals([SpyCustomerTableMap::COL_ID_CUSTOMER], $queryJoinTransfer->getRight());
+                        $self->assertCount(1, $queryJoinTransfer->getWhereConditions());
+                        $self->assertSame(SpyCustomerTableMap::COL_CUSTOMER_REFERENCE, $queryJoinTransfer->getWhereConditions()->offsetGet(0)->getColumn());
+                        $self->assertSame(Criteria::EQUAL, $queryJoinTransfer->getWhereConditions()->offsetGet(0)->getComparison());
+                        $self->assertSame($customerReference, $queryJoinTransfer->getWhereConditions()->offsetGet(0)->getValue());
+
+                        return $self->queryJoinCollectionTransferMock;
+                }
+
+                throw new Exception('Unexpected call count');
+            });
 
         static::assertEquals(
             $this->queryJoinCollectionTransferMock,
@@ -144,6 +158,8 @@ class SearchProductListQueryExpanderTest extends Unit
      */
     public function testExpandWithoutAccess(): void
     {
+        $self = $this;
+
         $idCustomer = 1;
         $customerReference = 'FOO--1';
 
@@ -162,29 +178,40 @@ class SearchProductListQueryExpanderTest extends Unit
             ->with($idCustomer, $customerReference)
             ->willReturn(false);
 
-        $this->queryJoinCollectionTransferMock->expects(static::atLeastOnce())
+        $callCount = $this->atLeastOnce();
+        $this->queryJoinCollectionTransferMock->expects($callCount)
             ->method('addQueryJoin')
-            ->withConsecutive([
-                static::callback(
-                    fn (
-                        QueryJoinTransfer $queryJoinTransfer
-                    ) => $queryJoinTransfer->getJoinType() === Criteria::INNER_JOIN
-                        && $queryJoinTransfer->getLeft() == [SpyProductListTableMap::COL_ID_PRODUCT_LIST]
-                        && $queryJoinTransfer->getRight() == [SpyProductListCustomerTableMap::COL_FK_PRODUCT_LIST]
-                ),
-            ], [
-                static::callback(
-                    fn (
-                        QueryJoinTransfer $queryJoinTransfer
-                    ) => $queryJoinTransfer->getJoinType() === Criteria::INNER_JOIN
-                        && $queryJoinTransfer->getLeft() == [SpyProductListCustomerTableMap::COL_FK_CUSTOMER]
-                        && $queryJoinTransfer->getRight() == [SpyCustomerTableMap::COL_ID_CUSTOMER]
-                        && $queryJoinTransfer->getWhereConditions()->count() === 1
-                        && $queryJoinTransfer->getWhereConditions()->offsetGet(0)->getColumn() === SpyCustomerTableMap::COL_ID_CUSTOMER
-                        && $queryJoinTransfer->getWhereConditions()->offsetGet(0)->getComparison() === Criteria::EQUAL
-                        && $queryJoinTransfer->getWhereConditions()->offsetGet(0)->getValue() === '-1'
-                ),
-            ])->willReturn($this->queryJoinCollectionTransferMock);
+            ->willReturnCallback(static function (QueryJoinTransfer $queryJoinTransfer) use ($self, $callCount) {
+                /** @phpstan-ignore-next-line */
+                if (method_exists($callCount, 'getInvocationCount')) {
+                    /** @phpstan-ignore-next-line */
+                    $count = $callCount->getInvocationCount();
+                } else {
+                    /** @phpstan-ignore-next-line */
+                    $count = $callCount->numberOfInvocations();
+                }
+
+                switch ($count) {
+                    case 1:
+                        $self->assertSame(Criteria::INNER_JOIN, $queryJoinTransfer->getJoinType());
+                        $self->assertEquals([SpyProductListTableMap::COL_ID_PRODUCT_LIST], $queryJoinTransfer->getLeft());
+                        $self->assertEquals([SpyProductListCustomerTableMap::COL_FK_PRODUCT_LIST], $queryJoinTransfer->getRight());
+
+                        return $self->queryJoinCollectionTransferMock;
+                    case 2:
+                        $self->assertSame(Criteria::INNER_JOIN, $queryJoinTransfer->getJoinType());
+                        $self->assertEquals([SpyProductListCustomerTableMap::COL_FK_CUSTOMER], $queryJoinTransfer->getLeft());
+                        $self->assertEquals([SpyCustomerTableMap::COL_ID_CUSTOMER], $queryJoinTransfer->getRight());
+                        $self->assertCount(1, $queryJoinTransfer->getWhereConditions());
+                        $self->assertSame(SpyCustomerTableMap::COL_ID_CUSTOMER, $queryJoinTransfer->getWhereConditions()->offsetGet(0)->getColumn());
+                        $self->assertSame(Criteria::EQUAL, $queryJoinTransfer->getWhereConditions()->offsetGet(0)->getComparison());
+                        $self->assertSame('-1', $queryJoinTransfer->getWhereConditions()->offsetGet(0)->getValue());
+
+                        return $self->queryJoinCollectionTransferMock;
+                }
+
+                throw new Exception('Unexpected call count');
+            });
 
         static::assertEquals(
             $this->queryJoinCollectionTransferMock,

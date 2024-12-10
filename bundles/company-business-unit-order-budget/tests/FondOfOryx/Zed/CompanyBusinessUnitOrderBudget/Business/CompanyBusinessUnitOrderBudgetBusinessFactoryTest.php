@@ -3,6 +3,7 @@
 namespace FondOfOryx\Zed\CompanyBusinessUnitOrderBudget\Business;
 
 use Codeception\Test\Unit;
+use Exception;
 use FondOfOryx\Zed\CompanyBusinessUnitOrderBudget\Business\Expander\CompanyBusinessUnitExpander;
 use FondOfOryx\Zed\CompanyBusinessUnitOrderBudget\Business\Expander\QuoteExpander;
 use FondOfOryx\Zed\CompanyBusinessUnitOrderBudget\Business\Reducer\OrderBudgetReducer;
@@ -182,22 +183,24 @@ class CompanyBusinessUnitOrderBudgetBusinessFactoryTest extends Unit
      */
     public function testCreateOrderBudgetReducer(): void
     {
-        $this->containerMock->expects(static::atLeastOnce())
-            ->method('has')
-            ->withConsecutive(
-                [CompanyBusinessUnitOrderBudgetDependencyProvider::FACADE_ORDER_BUDGET],
-                [CompanyBusinessUnitOrderBudgetDependencyProvider::FACADE_PERMISSION],
-            )->willReturn(true);
+        $self = $this;
 
         $this->containerMock->expects(static::atLeastOnce())
+            ->method('has')
+            ->willReturn(true);
+
+        $this->containerMock->expects($this->atLeastOnce())
             ->method('get')
-            ->withConsecutive(
-                [CompanyBusinessUnitOrderBudgetDependencyProvider::FACADE_ORDER_BUDGET],
-                [CompanyBusinessUnitOrderBudgetDependencyProvider::FACADE_PERMISSION],
-            )->willReturnOnConsecutiveCalls(
-                $this->orderBudgetFacadeMock,
-                $this->permissionFacadeMock,
-            );
+            ->willReturnCallback(static function (string $key) use ($self) {
+                switch ($key) {
+                    case CompanyBusinessUnitOrderBudgetDependencyProvider::FACADE_ORDER_BUDGET:
+                        return $self->orderBudgetFacadeMock;
+                    case CompanyBusinessUnitOrderBudgetDependencyProvider::FACADE_PERMISSION:
+                        return $self->permissionFacadeMock;
+                }
+
+                throw new Exception('Unexpected call');
+            });
 
         static::assertInstanceOf(
             OrderBudgetReducer::class,

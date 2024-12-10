@@ -127,7 +127,7 @@ class CompanyProductListApiResourcePluginTest extends Unit
     {
         static::assertEquals(
             CompanyProductListApiConfig::RESOURCE_COMPANY_PRODUCT_LIST,
-            $this->plugin->getResourceName($this->apiRequestTransferMock),
+            $this->plugin->getResourceName(),
         );
     }
 }

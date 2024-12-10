@@ -9,12 +9,12 @@ use Generated\Shared\Transfer\RestProductListUpdateRequestTransfer;
 class CompanyTypeRestProductListUpdateRequestExpanderPluginTest extends Unit
 {
     /**
-     * @var \FondOfOryx\Zed\CompanyTypeProductListsRestApi\Business\CompanyTypeProductListsRestApiFacade&\PHPUnit\Framework\MockObject\MockObject|\PHPUnit\Framework\MockObject\MockObject
+     * @var \FondOfOryx\Zed\CompanyTypeProductListsRestApi\Business\CompanyTypeProductListsRestApiFacade|\PHPUnit\Framework\MockObject\MockObject
      */
     protected $facadeMock;
 
     /**
-     * @var \Generated\Shared\Transfer\RestProductListUpdateRequestTransfer&\PHPUnit\Framework\MockObject\MockObject|\PHPUnit\Framework\MockObject\MockObject
+     * @var \Generated\Shared\Transfer\RestProductListUpdateRequestTransfer|\PHPUnit\Framework\MockObject\MockObject
      */
     protected $restProductListUpdateRequestTransferMock;
 

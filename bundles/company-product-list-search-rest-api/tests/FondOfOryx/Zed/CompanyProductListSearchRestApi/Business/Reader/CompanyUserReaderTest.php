@@ -12,22 +12,22 @@ use PHPUnit\Framework\MockObject\MockObject;
 class CompanyUserReaderTest extends Unit
 {
     /**
-     * @var (\FondOfOryx\Zed\CompanyProductListSearchRestApi\Business\Filter\IdCustomerFilterInterface&\PHPUnit\Framework\MockObject\MockObject)|\PHPUnit\Framework\MockObject\MockObject
+     * @var \PHPUnit\Framework\MockObject\MockObject|\FondOfOryx\Zed\CompanyProductListSearchRestApi\Business\Filter\IdCustomerFilterInterface
      */
     protected MockObject|IdCustomerFilterInterface $idCustomerFilterMock;
 
     /**
-     * @var (\FondOfOryx\Zed\CompanyProductListSearchRestApi\Business\Filter\CompanyUuidFilterInterface&\PHPUnit\Framework\MockObject\MockObject)|\PHPUnit\Framework\MockObject\MockObject
+     * @var \FondOfOryx\Zed\CompanyProductListSearchRestApi\Business\Filter\CompanyUuidFilterInterface|\PHPUnit\Framework\MockObject\MockObject
      */
     protected CompanyUuidFilterInterface|MockObject $companyUuidFilterMock;
 
     /**
-     * @var (\FondOfOryx\Zed\CompanyProductListSearchRestApi\Persistence\CompanyProductListSearchRestApiRepositoryInterface&\PHPUnit\Framework\MockObject\MockObject)|\PHPUnit\Framework\MockObject\MockObject
+     * @var \PHPUnit\Framework\MockObject\MockObject|\FondOfOryx\Zed\CompanyProductListSearchRestApi\Persistence\CompanyProductListSearchRestApiRepositoryInterface
      */
     protected MockObject|CompanyProductListSearchRestApiRepositoryInterface $repositoryMock;
 
     /**
-     * @var array<(\Generated\Shared\Transfer\FilterFieldTransfer&\PHPUnit\Framework\MockObject\MockObject)|\PHPUnit\Framework\MockObject\MockObject>
+     * @var array<\Generated\Shared\Transfer\FilterFieldTransfer|\PHPUnit\Framework\MockObject\MockObject>
      */
     protected array $filterFieldTransferMocks;
 

@@ -3,6 +3,7 @@
 namespace FondOfOryx\Glue\CompanyRoleSearchRestApi\Processor\Mapper;
 
 use Codeception\Test\Unit;
+use Exception;
 use FondOfOryx\Glue\CompanyRoleSearchRestApi\Processor\Filter\CustomerIdFilterInterface;
 use FondOfOryx\Glue\CompanyRoleSearchRestApi\Processor\Filter\CustomerReferenceFilterInterface;
 use FondOfOryx\Glue\CompanyRoleSearchRestApi\Processor\Filter\RequestParameterFilterInterface;
@@ -90,6 +91,8 @@ class CompanyRoleListMapperTest extends Unit
      */
     public function testFromRestRequest(): void
     {
+        $self = $this;
+
         $customerReference = 'CUSTOMER_REFERENCE';
         $query = 'query';
         $sort = 'sort';
@@ -100,15 +103,49 @@ class CompanyRoleListMapperTest extends Unit
             ->with($this->restRequestMock)
             ->willReturn($this->paginationTransferMock);
 
-        $this->requestParameterFilterMock->expects(static::atLeastOnce())
+        $callCount = $this->atLeastOnce();
+        $this->requestParameterFilterMock->expects($callCount)
             ->method('getRequestParameter')
-            ->withConsecutive(
-                [$this->restRequestMock, 'q'],
-                [$this->restRequestMock, 'show-all'],
-                [$this->restRequestMock, 'only-one-per-name'],
-                [$this->restRequestMock, 'company-id'],
-                [$this->restRequestMock, 'sort'],
-            )->willReturnOnConsecutiveCalls($query, 'true', 'true', $comanyUuid, $sort);
+            ->willReturnCallback(static function (RestRequestInterface $restRequest, string $parameterName) use ($self, $callCount, $query, $sort, $comanyUuid) {
+                /** @phpstan-ignore-next-line */
+                if (method_exists($callCount, 'getInvocationCount')) {
+                    /** @phpstan-ignore-next-line */
+                    $count = $callCount->getInvocationCount();
+                } else {
+                    /** @phpstan-ignore-next-line */
+                    $count = $callCount->numberOfInvocations();
+                }
+
+                switch ($count) {
+                    case 1:
+                        $self->assertSame($self->restRequestMock, $restRequest);
+                        $self->assertSame('q', $parameterName);
+
+                        return $query;
+                    case 2:
+                        $self->assertSame($self->restRequestMock, $restRequest);
+                        $self->assertSame('show-all', $parameterName);
+
+                        return 'true';
+                    case 3:
+                        $self->assertSame($self->restRequestMock, $restRequest);
+                        $self->assertSame('only-one-per-name', $parameterName);
+
+                        return 'true';
+                    case 4:
+                        $self->assertSame($self->restRequestMock, $restRequest);
+                        $self->assertSame('company-id', $parameterName);
+
+                        return $comanyUuid;
+                    case 5:
+                        $self->assertSame($self->restRequestMock, $restRequest);
+                        $self->assertSame('sort', $parameterName);
+
+                        return $sort;
+                }
+
+                throw new Exception('Unexpected call count');
+            });
 
         $this->customerReferenceFilterMock->expects(static::atLeastOnce())
             ->method('filterFromRestRequest')
