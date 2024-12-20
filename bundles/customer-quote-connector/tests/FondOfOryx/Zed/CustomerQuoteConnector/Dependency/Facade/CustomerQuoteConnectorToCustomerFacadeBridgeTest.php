@@ -10,12 +10,12 @@ use Spryker\Zed\Customer\Business\CustomerFacadeInterface;
 class CustomerQuoteConnectorToCustomerFacadeBridgeTest extends Unit
 {
     /**
-     * @var \PHPUnit\Framework\MockObject\MockObject|(\Spryker\Zed\Customer\Business\CustomerFacadeInterface&\PHPUnit\Framework\MockObject\MockObject)
+     * @var \PHPUnit\Framework\MockObject\MockObject|\Spryker\Zed\Customer\Business\CustomerFacadeInterface
      */
     protected MockObject|CustomerFacadeInterface $facadeMock;
 
     /**
-     * @var (\Generated\Shared\Transfer\CustomerTransfer&\PHPUnit\Framework\MockObject\MockObject)|\PHPUnit\Framework\MockObject\MockObject
+     * @var \Generated\Shared\Transfer\CustomerTransfer|\PHPUnit\Framework\MockObject\MockObject
      */
     protected CustomerTransfer|MockObject $customerTransferMock;
 

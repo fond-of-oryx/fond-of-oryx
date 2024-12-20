@@ -3,6 +3,7 @@
 namespace FondOfOryx\Zed\CustomerApi\Business;
 
 use Codeception\Test\Unit;
+use Exception;
 use FondOfOryx\Zed\CustomerApi\Business\Resource\CustomerResource;
 use FondOfOryx\Zed\CustomerApi\Business\Validator\ApiRequestValidator;
 use FondOfOryx\Zed\CustomerApi\CustomerApiDependencyProvider;
@@ -64,21 +65,20 @@ class CustomerApiBusinessFactoryTest extends Unit
 
         $this->containerMock->expects(static::atLeastOnce())
             ->method('has')
-            ->withConsecutive(
-                [CustomerApiDependencyProvider::FACADE_API],
-                [CustomerApiDependencyProvider::FACADE_CUSTOMER],
-            )->willReturn(true);
+            ->willReturn(true);
 
-        $this->containerMock->expects(static::atLeastOnce())
+        $this->containerMock->expects($this->atLeastOnce())
             ->method('get')
-            ->withConsecutive(
-                [CustomerApiDependencyProvider::FACADE_API],
-                [CustomerApiDependencyProvider::FACADE_CUSTOMER],
-            )
-            ->willReturnOnConsecutiveCalls(
-                $apiFacadeMock,
-                $apiToCustomerFacadeMock,
-            );
+            ->willReturnCallback(static function (string $key) use ($apiFacadeMock, $apiToCustomerFacadeMock) {
+                switch ($key) {
+                    case CustomerApiDependencyProvider::FACADE_API:
+                        return $apiFacadeMock;
+                    case CustomerApiDependencyProvider::FACADE_CUSTOMER:
+                        return $apiToCustomerFacadeMock;
+                }
+
+                throw new Exception('Unexpected call');
+            });
 
         static::assertInstanceOf(
             CustomerResource::class,

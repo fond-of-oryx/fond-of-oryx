@@ -49,33 +49,28 @@ class GatewayControllerTest extends Unit
             ->disableOriginalConstructor()
             ->getMock();
 
-        if (method_exists(GatewayController::class, 'setFacade')) {
-            $this->gatewayController = new GatewayController();
-            $this->gatewayController->setFacade($this->customerStatisticFacadeMock);
-        } else {
-            $this->gatewayController = new class ($this->customerStatisticFacadeMock) extends GatewayController {
-                /**
-                 * @var \FondOfOryx\Zed\CustomerStatistic\Business\CustomerStatisticFacade
-                 */
-                protected $customerStatisticFacade;
+        $this->gatewayController = new class ($this->customerStatisticFacadeMock) extends GatewayController {
+            /**
+             * @var \FondOfOryx\Zed\CustomerStatistic\Business\CustomerStatisticFacade
+             */
+            protected $customerStatisticFacade;
 
-                /**
-                 * @param \FondOfOryx\Zed\CustomerStatistic\Business\CustomerStatisticFacade $customerStatisticFacade
-                 */
-                public function __construct(CustomerStatisticFacade $customerStatisticFacade)
-                {
-                    $this->customerStatisticFacade = $customerStatisticFacade;
-                }
+            /**
+             * @param \FondOfOryx\Zed\CustomerStatistic\Business\CustomerStatisticFacade $customerStatisticFacade
+             */
+            public function __construct(CustomerStatisticFacade $customerStatisticFacade)
+            {
+                $this->customerStatisticFacade = $customerStatisticFacade;
+            }
 
-                /**
-                 * @return \Spryker\Zed\Kernel\Business\AbstractFacade
-                 */
-                protected function getFacade(): AbstractFacade
-                {
-                    return $this->customerStatisticFacade;
-                }
-            };
-        }
+            /**
+             * @return \Spryker\Zed\Kernel\Business\AbstractFacade
+             */
+            protected function getFacade(): AbstractFacade
+            {
+                return $this->customerStatisticFacade;
+            }
+        };
     }
 
     /**

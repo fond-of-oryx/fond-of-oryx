@@ -4,7 +4,6 @@ namespace FondOfOryx\Zed\DeliveryDateRestriction;
 
 use Codeception\Test\Unit;
 use FondOfOryx\Zed\DeliveryDateRestriction\Dependency\Facade\DeliveryDateRestrictionToPermissionFacadeInterface;
-use FondOfOryx\Zed\OrderBudget\Business\OrderBudgetFacadeInterface;
 use Spryker\Shared\Kernel\BundleProxy;
 use Spryker\Zed\Kernel\Container;
 use Spryker\Zed\Kernel\Locator;
@@ -28,11 +27,6 @@ class DeliveryDateRestrictionDependencyProviderTest extends Unit
     protected $bundleProxyMock;
 
     /**
-     * @var \FondOfOryx\Zed\OrderBudget\Business\OrderBudgetFacadeInterface|\PHPUnit\Framework\MockObject\MockObject|mixed
-     */
-    protected $orderBudgetFacadeMock;
-
-    /**
      * @var \PHPUnit\Framework\MockObject\MockObject|\Spryker\Zed\Permission\Business\PermissionFacadeInterface
      */
     protected $permissionFacadeMock;
@@ -49,19 +43,24 @@ class DeliveryDateRestrictionDependencyProviderTest extends Unit
     {
         parent::_before();
 
-        $this->containerMock = $this->getMockBuilder(Container::class)
-            ->setMethodsExcept(['factory', 'set', 'offsetSet', 'get', 'offsetGet', 'has', 'offsetExists'])
-            ->getMock();
+        $containerMock = $this->getMockBuilder(Container::class);
+
+        /** @phpstan-ignore-next-line */
+        if (method_exists($containerMock, 'setMethodsExcept')) {
+            /** @phpstan-ignore-next-line */
+            $containerMock->setMethodsExcept(['factory', 'set', 'offsetSet', 'get', 'offsetGet']);
+        } else {
+            /** @phpstan-ignore-next-line */
+            $containerMock->onlyMethods(['getLocator'])->enableOriginalClone();
+        }
+
+        $this->containerMock = $containerMock->getMock();
 
         $this->locatorMock = $this->getMockBuilder(Locator::class)
             ->disableOriginalConstructor()
             ->getMock();
 
         $this->bundleProxyMock = $this->getMockBuilder(BundleProxy::class)
-            ->disableOriginalConstructor()
-            ->getMock();
-
-        $this->orderBudgetFacadeMock = $this->getMockBuilder(OrderBudgetFacadeInterface::class)
             ->disableOriginalConstructor()
             ->getMock();
 

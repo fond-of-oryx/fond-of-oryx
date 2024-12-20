@@ -14,27 +14,27 @@ use PHPUnit\Framework\MockObject\MockObject;
 class CustomerQuoteExpanderPluginTest extends Unit
 {
     /**
-     * @var (\Generated\Shared\Transfer\QuoteTransfer&\PHPUnit\Framework\MockObject\MockObject)|\PHPUnit\Framework\MockObject\MockObject
+     * @var \Generated\Shared\Transfer\QuoteTransfer|\PHPUnit\Framework\MockObject\MockObject
      */
     protected QuoteTransfer|MockObject $quoteTransferMock;
 
     /**
-     * @var (\Generated\Shared\Transfer\CustomerTransfer&\PHPUnit\Framework\MockObject\MockObject)|\PHPUnit\Framework\MockObject\MockObject
+     * @var \Generated\Shared\Transfer\CustomerTransfer|\PHPUnit\Framework\MockObject\MockObject
      */
     protected CustomerTransfer|MockObject $customerTransferMock;
 
     /**
-     * @var (\FondOfOryx\Zed\CustomerQuoteConnector\Communication\CustomerQuoteConnectorCommunicationFactory&\PHPUnit\Framework\MockObject\MockObject)|\PHPUnit\Framework\MockObject\MockObject
+     * @var \PHPUnit\Framework\MockObject\MockObject|\FondOfOryx\Zed\CustomerQuoteConnector\Communication\CustomerQuoteConnectorCommunicationFactory
      */
     protected MockObject|CustomerQuoteConnectorCommunicationFactory $factoryMock;
 
     /**
-     * @var (\FondOfOryx\Zed\CustomerQuoteConnector\Persistence\CustomerQuoteConnectorRepository&\PHPUnit\Framework\MockObject\MockObject)|\PHPUnit\Framework\MockObject\MockObject
+     * @var \FondOfOryx\Zed\CustomerQuoteConnector\Persistence\CustomerQuoteConnectorRepository|\PHPUnit\Framework\MockObject\MockObject
      */
     protected CustomerQuoteConnectorRepository|MockObject $repositoryMock;
 
     /**
-     * @var (\FondOfOryx\Zed\CustomerQuoteConnector\Dependency\Facade\CustomerQuoteConnectorToCustomerFacadeInterface&\PHPUnit\Framework\MockObject\MockObject)|\PHPUnit\Framework\MockObject\MockObject
+     * @var \PHPUnit\Framework\MockObject\MockObject|\FondOfOryx\Zed\CustomerQuoteConnector\Dependency\Facade\CustomerQuoteConnectorToCustomerFacadeInterface
      */
     protected MockObject|CustomerQuoteConnectorToCustomerFacadeInterface $customerFacadeMock;
 
@@ -106,7 +106,7 @@ class CustomerQuoteExpanderPluginTest extends Unit
                 static::callback(
                     static fn (
                         CustomerTransfer $customerTransfer
-                    ): bool => $customerTransfer->getIdCustomer() === $idCustomer
+                    ): bool => $customerTransfer->getIdCustomer() === $idCustomer,
                 ),
             )->willReturn($this->customerTransferMock);
 

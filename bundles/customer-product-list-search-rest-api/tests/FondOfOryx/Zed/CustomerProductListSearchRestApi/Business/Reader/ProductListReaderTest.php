@@ -11,17 +11,17 @@ use PHPUnit\Framework\MockObject\MockObject;
 class ProductListReaderTest extends Unit
 {
     /**
-     * @var (\FondOfOryx\Zed\CustomerProductListSearchRestApi\Business\Filter\IdCustomerFilterInterface&\PHPUnit\Framework\MockObject\MockObject)|\PHPUnit\Framework\MockObject\MockObject
+     * @var \PHPUnit\Framework\MockObject\MockObject|\FondOfOryx\Zed\CustomerProductListSearchRestApi\Business\Filter\IdCustomerFilterInterface
      */
     protected MockObject|IdCustomerFilterInterface $idCustomerFilterMock;
 
     /**
-     * @var (\FondOfOryx\Zed\CustomerProductListSearchRestApi\Persistence\CustomerProductListSearchRestApiRepositoryInterface&\PHPUnit\Framework\MockObject\MockObject)|\PHPUnit\Framework\MockObject\MockObject
+     * @var \PHPUnit\Framework\MockObject\MockObject|\FondOfOryx\Zed\CustomerProductListSearchRestApi\Persistence\CustomerProductListSearchRestApiRepositoryInterface
      */
     protected MockObject|CustomerProductListSearchRestApiRepositoryInterface $repositoryMock;
 
     /**
-     * @var array<(\Generated\Shared\Transfer\FilterFieldTransfer&\PHPUnit\Framework\MockObject\MockObject)|\PHPUnit\Framework\MockObject\MockObject>
+     * @var array<\Generated\Shared\Transfer\FilterFieldTransfer|\PHPUnit\Framework\MockObject\MockObject>
      */
     protected array $filterFieldTransferMocks;
 

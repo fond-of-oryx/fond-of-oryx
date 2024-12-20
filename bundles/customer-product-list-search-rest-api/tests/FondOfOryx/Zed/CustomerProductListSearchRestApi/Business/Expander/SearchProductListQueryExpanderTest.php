@@ -15,22 +15,22 @@ use Propel\Runtime\ActiveQuery\Criteria;
 class SearchProductListQueryExpanderTest extends Unit
 {
     /**
-     * @var (\FondOfOryx\Zed\CustomerProductListSearchRestApi\Business\Reader\ProductListReader&\PHPUnit\Framework\MockObject\MockObject)|\PHPUnit\Framework\MockObject\MockObject
+     * @var \PHPUnit\Framework\MockObject\MockObject|\FondOfOryx\Zed\CustomerProductListSearchRestApi\Business\Reader\ProductListReader
      */
     protected MockObject|ProductListReader $productListReaderMock;
 
     /**
-     * @var (\FondOfOryx\Zed\CustomerProductListSearchRestApi\Dependency\Service\CustomerProductListSearchRestApiToUtilEncodingServiceInterface&\PHPUnit\Framework\MockObject\MockObject)|\PHPUnit\Framework\MockObject\MockObject
+     * @var \FondOfOryx\Zed\CustomerProductListSearchRestApi\Dependency\Service\CustomerProductListSearchRestApiToUtilEncodingServiceInterface|\PHPUnit\Framework\MockObject\MockObject
      */
     protected CustomerProductListSearchRestApiToUtilEncodingServiceInterface|MockObject $utilEncodingServiceMock;
 
     /**
-     * @var (\Generated\Shared\Transfer\QueryJoinCollectionTransfer&\PHPUnit\Framework\MockObject\MockObject)|\PHPUnit\Framework\MockObject\MockObject
+     * @var \PHPUnit\Framework\MockObject\MockObject|\Generated\Shared\Transfer\QueryJoinCollectionTransfer
      */
     protected MockObject|QueryJoinCollectionTransfer $queryJoinCollectionTransferMock;
 
     /**
-     * @var array<(\Generated\Shared\Transfer\FilterFieldTransfer&\PHPUnit\Framework\MockObject\MockObject)|\PHPUnit\Framework\MockObject\MockObject>
+     * @var array<\Generated\Shared\Transfer\FilterFieldTransfer|\PHPUnit\Framework\MockObject\MockObject>
      */
     protected array $filterFieldTransferMocks;
 
@@ -97,7 +97,7 @@ class SearchProductListQueryExpanderTest extends Unit
                     ) => $queryJoinTransfer->getWhereConditions()->count() === 1
                         && $queryJoinTransfer->getWhereConditions()->offsetGet(0)->getColumn() === SpyProductListTableMap::COL_ID_PRODUCT_LIST
                         && $queryJoinTransfer->getWhereConditions()->offsetGet(0)->getComparison() === Criteria::IN
-                        && $queryJoinTransfer->getWhereConditions()->offsetGet(0)->getValue() === $json
+                        && $queryJoinTransfer->getWhereConditions()->offsetGet(0)->getValue() === $json,
                 ),
             )->willReturn($this->queryJoinCollectionTransferMock);
 
@@ -136,7 +136,7 @@ class SearchProductListQueryExpanderTest extends Unit
                     ) => $queryJoinTransfer->getWhereConditions()->count() === 1
                         && $queryJoinTransfer->getWhereConditions()->offsetGet(0)->getColumn() === SpyProductListTableMap::COL_ID_PRODUCT_LIST
                         && $queryJoinTransfer->getWhereConditions()->offsetGet(0)->getComparison() === Criteria::IN
-                        && $queryJoinTransfer->getWhereConditions()->offsetGet(0)->getValue() === $json
+                        && $queryJoinTransfer->getWhereConditions()->offsetGet(0)->getValue() === $json,
                 ),
             )->willReturn($this->queryJoinCollectionTransferMock);
 

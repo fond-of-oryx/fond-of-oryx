@@ -4,7 +4,7 @@
   "license": "MIT",
   "authors": [
     {
-      "name": "Julian Zimmermann",
+      "name": "Julian Hyatt",
       "email": "dev@jzit.de"
     }
   ],
@@ -13,7 +13,7 @@
     "spryker/store": "^1.2.0"
   },
   "require-dev": {
-    "fond-of-codeception/spryker": "^2.0.0",
+    "fond-of-codeception/spryker": "*",
     "spryker/code-sniffer": "*",
     "spryker-sdk/phpstan-spryker": "*"
   },
@@ -21,13 +21,14 @@
   "prefer-stable": true,
   "autoload": {
     "psr-4": {
-      "FondOfOryx\\": "src/FondOfOryx"
+      "FondOfOryx\\": "src/FondOfOryx/"
     }
   },
   "autoload-dev": {
     "psr-4": {
-      "FondOfOryx\\": "tests/FondOfOryx",
-      "Generated\\": "src/Generated"
+      "FondOfOryx\\": "tests/FondOfOryx/",
+      "Generated\\": "src/Generated/",
+      "Orm\\": "src/Orm/"
     }
   },
   "config": {

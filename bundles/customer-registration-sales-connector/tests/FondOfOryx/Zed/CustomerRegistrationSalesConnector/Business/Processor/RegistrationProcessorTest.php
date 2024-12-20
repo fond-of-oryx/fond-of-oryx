@@ -4,18 +4,24 @@ namespace FondOfOryx\Zed\CustomerRegistrationSalesConnector\Business\Processor;
 
 use Codeception\Test\Unit;
 use FondOfOryx\Zed\CustomerRegistrationSalesConnector\Dependency\Facade\CustomerRegistrationSalesConnectorToCustomerFacadeInterface;
-use Generated\Shared\Transfer\CustomerRegistrationRequestTransfer;
-use Generated\Shared\Transfer\CustomerRegistrationResponseTransfer;
+use FondOfOryx\Zed\CustomerRegistrationSalesConnector\Dependency\Facade\CustomerRegistrationSalesConnectorToCustomerRegistrationFacadeInterface;
+use Generated\Shared\Transfer\CustomerResponseTransfer;
 use Generated\Shared\Transfer\CustomerTransfer;
 use Generated\Shared\Transfer\QuoteTransfer;
 use Generated\Shared\Transfer\SaveOrderTransfer;
+use PHPUnit\Framework\MockObject\MockObject;
 
 class RegistrationProcessorTest extends Unit
 {
     /**
+     * @var \FondOfOryx\Zed\CustomerRegistrationSalesConnector\Dependency\Facade\CustomerRegistrationSalesConnectorToCustomerRegistrationFacadeInterface|\PHPUnit\Framework\MockObject\MockObject
+     */
+    protected CustomerRegistrationSalesConnectorToCustomerRegistrationFacadeInterface|MockObject $customerRegistrationFacadeMock;
+
+    /**
      * @var \FondOfOryx\Zed\CustomerRegistrationSalesConnector\Dependency\Facade\CustomerRegistrationSalesConnectorToCustomerFacadeInterface|\PHPUnit\Framework\MockObject\MockObject
      */
-    protected $customerRegistrationFacadeMock;
+    protected CustomerRegistrationSalesConnectorToCustomerFacadeInterface|MockObject $customerFacadeMock;
 
     /**
      * @var \Generated\Shared\Transfer\SaveOrderTransfer|\PHPUnit\Framework\MockObject\MockObject
@@ -35,7 +41,7 @@ class RegistrationProcessorTest extends Unit
     /**
      * @var \Generated\Shared\Transfer\CustomerRegistrationResponseTransfer|\PHPUnit\Framework\MockObject\MockObject
      */
-    protected $customerRegistrationResponseTransferMock;
+    protected $customerResponseTransferMock;
 
     /**
      * @var string
@@ -62,7 +68,11 @@ class RegistrationProcessorTest extends Unit
      */
     protected function _before(): void
     {
-        $this->customerRegistrationFacadeMock = $this->getMockBuilder(CustomerRegistrationSalesConnectorToCustomerFacadeInterface::class)
+        $this->customerRegistrationFacadeMock = $this->getMockBuilder(CustomerRegistrationSalesConnectorToCustomerRegistrationFacadeInterface::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $this->customerFacadeMock = $this->getMockBuilder(CustomerRegistrationSalesConnectorToCustomerFacadeInterface::class)
             ->disableOriginalConstructor()
             ->getMock();
 
@@ -78,11 +88,12 @@ class RegistrationProcessorTest extends Unit
             ->disableOriginalConstructor()
             ->getMock();
 
-        $this->customerRegistrationResponseTransferMock = $this->getMockBuilder(CustomerRegistrationResponseTransfer::class)
+        $this->customerResponseTransferMock = $this->getMockBuilder(CustomerResponseTransfer::class)
             ->disableOriginalConstructor()
             ->getMock();
 
         $this->processor = new RegistrationProcessor(
+            $this->customerFacadeMock,
             $this->customerRegistrationFacadeMock,
         );
     }
@@ -94,21 +105,16 @@ class RegistrationProcessorTest extends Unit
     {
         $self = $this;
 
-        $this->quoteTransferMock->expects(static::atLeastOnce())->method('getCreateAccount')->willReturn(true);
-        $this->quoteTransferMock->expects(static::atLeastOnce())->method('getAcceptTerms')->willReturn(true);
-        $this->quoteTransferMock->expects(static::atLeastOnce())->method('getCustomer')->willReturn($this->customerTransferMock);
+        $this->quoteTransferMock->expects($this->atLeastOnce())->method('getCreateAccount')->willReturn(true);
+        $this->quoteTransferMock->expects($this->atLeastOnce())->method('getAcceptTerms')->willReturn(true);
+        $this->quoteTransferMock->expects($this->atLeastOnce())->method('getCustomer')->willReturn($this->customerTransferMock);
 
-        $this->customerTransferMock->expects(static::atLeastOnce())->method('getEmail')->willReturn($this->mail);
-        $this->quoteTransferMock->expects(static::atLeastOnce())->method('getSignupNewsletter')->willReturn($this->subscribe);
-        $this->customerTransferMock->expects(static::atLeastOnce())->method('getRegistrationKey')->willReturn($this->registrationKey);
+        $this->customerTransferMock->expects($this->atLeastOnce())->method('getEmail')->willReturn($this->mail);
 
-        $this->customerRegistrationFacadeMock->expects(static::atLeastOnce())->method('customerRegistration')->willReturnCallback(static function (CustomerRegistrationRequestTransfer $customerRegistrationRequestTransfer) use ($self) {
-            $attributes = $customerRegistrationRequestTransfer->getAttributes();
-            static::assertSame($self->mail, $attributes->getEmail());
-            static::assertSame($self->subscribe, $attributes->getSubscribe());
-            static::assertSame($self->registrationKey, $attributes->getToken());
+        $this->customerFacadeMock->expects($this->atLeastOnce())->method('registerCustomer')->willReturnCallback(static function (CustomerTransfer $customerTransfer) use ($self) {
+            static::assertSame($self->mail, $customerTransfer->getEmail());
 
-            return $self->customerRegistrationResponseTransferMock;
+            return $self->customerResponseTransferMock;
         });
 
         $this->processor->processRegistration(

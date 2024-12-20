@@ -3,6 +3,7 @@
 namespace FondOfOryx\Zed\CustomerBrandProductListConnector\Business;
 
 use Codeception\Test\Unit;
+use Exception;
 use FondOfOryx\Zed\CustomerBrandProductListConnector\Business\Persister\CustomerBrandRelationPersister;
 use FondOfOryx\Zed\CustomerBrandProductListConnector\CustomerBrandProductListConnectorDependencyProvider;
 use FondOfOryx\Zed\CustomerBrandProductListConnector\Dependecny\Facade\CustomerBrandProductListConnectorToBrandCustomerFacadeInterface;
@@ -59,22 +60,24 @@ class CustomerBrandProductListConnectorBusinessFactoryTest extends Unit
      */
     public function testCreateCustomerBrandRelationPersister(): void
     {
-        $this->containerMock->expects(static::atLeastOnce())
-            ->method('has')
-            ->withConsecutive(
-                [CustomerBrandProductListConnectorDependencyProvider::FACADE_BRAND_PRODUCT_LIST_CONNECTOR],
-                [CustomerBrandProductListConnectorDependencyProvider::FACADE_BRAND_CUSTOMER],
-            )->willReturn(true);
+        $self = $this;
 
         $this->containerMock->expects(static::atLeastOnce())
+            ->method('has')
+            ->willReturn(true);
+
+        $this->containerMock->expects($this->atLeastOnce())
             ->method('get')
-            ->withConsecutive(
-                [CustomerBrandProductListConnectorDependencyProvider::FACADE_BRAND_PRODUCT_LIST_CONNECTOR],
-                [CustomerBrandProductListConnectorDependencyProvider::FACADE_BRAND_CUSTOMER],
-            )->willReturnOnConsecutiveCalls(
-                $this->brandProductListConnectorFacadeMock,
-                $this->brandCustomerFacadeMock,
-            );
+            ->willReturnCallback(static function (string $key) use ($self) {
+                switch ($key) {
+                    case CustomerBrandProductListConnectorDependencyProvider::FACADE_BRAND_PRODUCT_LIST_CONNECTOR:
+                        return $self->brandProductListConnectorFacadeMock;
+                    case CustomerBrandProductListConnectorDependencyProvider::FACADE_BRAND_CUSTOMER:
+                        return $self->brandCustomerFacadeMock;
+                }
+
+                throw new Exception('Unexpected call');
+            });
 
         static::assertInstanceOf(
             CustomerBrandRelationPersister::class,

@@ -3,6 +3,7 @@
 namespace FondOfOryx\Zed\CustomerProductListApi\Business;
 
 use Codeception\Test\Unit;
+use Exception;
 use FondOfOryx\Zed\CustomerProductListApi\Business\Model\CustomerProductListApiInterface;
 use FondOfOryx\Zed\CustomerProductListApi\CustomerProductListApiDependencyProvider;
 use FondOfOryx\Zed\CustomerProductListApi\Dependency\Facade\CustomerProductListApiToApiFacadeInterface;
@@ -61,22 +62,24 @@ class CustomerProductListApiBusinessFactoryTest extends Unit
      */
     public function testCreateCustomerProductListApi(): void
     {
-        $this->containerMock->expects(static::atLeastOnce())
-            ->method('has')
-            ->withConsecutive(
-                [CustomerProductListApiDependencyProvider::FACADE_CUSTOMER_PRODUCT_LIST_CONNECTOR],
-                [CustomerProductListApiDependencyProvider::FACADE_API],
-            )->willReturn(true);
+        $self = $this;
 
         $this->containerMock->expects(static::atLeastOnce())
+            ->method('has')
+            ->willReturn(true);
+
+        $this->containerMock->expects($this->atLeastOnce())
             ->method('get')
-            ->withConsecutive(
-                [CustomerProductListApiDependencyProvider::FACADE_CUSTOMER_PRODUCT_LIST_CONNECTOR],
-                [CustomerProductListApiDependencyProvider::FACADE_API],
-            )->willReturnOnConsecutiveCalls(
-                $this->customerProductListConnectorFacadeMock,
-                $this->apiFacadeMock,
-            );
+            ->willReturnCallback(static function (string $key) use ($self) {
+                switch ($key) {
+                    case CustomerProductListApiDependencyProvider::FACADE_CUSTOMER_PRODUCT_LIST_CONNECTOR:
+                        return $self->customerProductListConnectorFacadeMock;
+                    case CustomerProductListApiDependencyProvider::FACADE_API:
+                        return $self->apiFacadeMock;
+                }
+
+                throw new Exception('Unexpected call');
+            });
 
         static::assertInstanceOf(
             CustomerProductListApiInterface::class,

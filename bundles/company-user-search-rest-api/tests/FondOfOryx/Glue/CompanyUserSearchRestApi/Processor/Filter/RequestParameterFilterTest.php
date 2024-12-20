@@ -10,19 +10,14 @@ use Symfony\Component\HttpFoundation\Request;
 class RequestParameterFilterTest extends Unit
 {
     /**
-     * @var \PHPUnit\Framework\MockObject\MockObject|\Spryker\Glue\GlueApplication\Rest\Request\Data\RestRequestInterface|mixed
+     * @var \PHPUnit\Framework\MockObject\MockObject|\Spryker\Glue\GlueApplication\Rest\Request\Data\RestRequestInterface
      */
     protected $restRequestMock;
 
     /**
-     * @var \PHPUnit\Framework\MockObject\MockObject|\Symfony\Component\HttpFoundation\Request|mixed
+     * @var \PHPUnit\Framework\MockObject\MockObject|\Symfony\Component\HttpFoundation\Request
      */
     protected $httpRequestMock;
-
-    /**
-     * @var \Symfony\Component\HttpFoundation\ParameterBag
-     */
-    protected $inputBag;
 
     /**
      * @var \FondOfOryx\Glue\CompanyUserSearchRestApi\Processor\Filter\RequestParameterFilter
@@ -44,6 +39,7 @@ class RequestParameterFilterTest extends Unit
             ->disableOriginalConstructor()
             ->getMock();
 
+        /** @phpstan-ignore-next-line */
         $this->httpRequestMock->query = new ParameterBag(['foo' => 'bar']);
 
         $this->requestParameterFilter = new RequestParameterFilter();

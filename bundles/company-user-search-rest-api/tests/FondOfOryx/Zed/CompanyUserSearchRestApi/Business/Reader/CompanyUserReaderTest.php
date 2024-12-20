@@ -14,27 +14,27 @@ use PHPUnit\Framework\MockObject\MockObject;
 class CompanyUserReaderTest extends Unit
 {
     /**
-     * @var (\FondOfOryx\Zed\CompanyUserSearchRestApi\Persistence\CompanyUserSearchRestApiRepositoryInterface&\PHPUnit\Framework\MockObject\MockObject)|\PHPUnit\Framework\MockObject\MockObject
+     * @var \PHPUnit\Framework\MockObject\MockObject|\FondOfOryx\Zed\CompanyUserSearchRestApi\Persistence\CompanyUserSearchRestApiRepositoryInterface
      */
     protected MockObject|CompanyUserSearchRestApiRepositoryInterface $repositoryMock;
 
     /**
-     * @var array<(\FondOfOryx\Zed\CompanyUserSearchRestApiExtension\Dependency\Plugin\SearchCompanyUserQueryExpanderPluginInterface&\PHPUnit\Framework\MockObject\MockObject)|\PHPUnit\Framework\MockObject\MockObject>
+     * @var array<\FondOfOryx\Zed\CompanyUserSearchRestApiExtension\Dependency\Plugin\SearchCompanyUserQueryExpanderPluginInterface|\PHPUnit\Framework\MockObject\MockObject>
      */
     protected array $searchCompanyUserQueryExpanderPluginMocks;
 
     /**
-     * @var (\Generated\Shared\Transfer\CompanyUserListTransfer&\PHPUnit\Framework\MockObject\MockObject)|\PHPUnit\Framework\MockObject\MockObject
+     * @var \PHPUnit\Framework\MockObject\MockObject|\Generated\Shared\Transfer\CompanyUserListTransfer
      */
     protected MockObject|CompanyUserListTransfer $companyUserListTransferMock;
 
     /**
-     * @var (\Generated\Shared\Transfer\QueryJoinCollectionTransfer&\PHPUnit\Framework\MockObject\MockObject)|\PHPUnit\Framework\MockObject\MockObject
+     * @var \PHPUnit\Framework\MockObject\MockObject|\Generated\Shared\Transfer\QueryJoinCollectionTransfer
      */
     protected MockObject|QueryJoinCollectionTransfer $queryJoinCollectionTransferMock;
 
     /**
-     * @var array<(\Generated\Shared\Transfer\FilterFieldTransfer&\PHPUnit\Framework\MockObject\MockObject)|\PHPUnit\Framework\MockObject\MockObject>
+     * @var array<\Generated\Shared\Transfer\FilterFieldTransfer|\PHPUnit\Framework\MockObject\MockObject>
      */
     protected array $filterFieldTransferMocks;
 

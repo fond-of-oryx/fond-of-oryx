@@ -20,57 +20,57 @@ use PHPUnit\Framework\MockObject\MockObject;
 class CustomerResourceTest extends Unit
 {
     /**
-     * @var (\FondOfOryx\Zed\CustomerApi\Business\Mapper\CustomerApiMapperInterface&\PHPUnit\Framework\MockObject\MockObject)|\PHPUnit\Framework\MockObject\MockObject
+     * @var \PHPUnit\Framework\MockObject\MockObject|\FondOfOryx\Zed\CustomerApi\Business\Mapper\CustomerApiMapperInterface
      */
     protected MockObject|CustomerApiMapperInterface $customerApiMapperMock;
 
     /**
-     * @var (\FondOfOryx\Zed\CustomerApi\Dependency\Facade\CustomerApiToApiFacadeInterface&\PHPUnit\Framework\MockObject\MockObject)|\PHPUnit\Framework\MockObject\MockObject
+     * @var \PHPUnit\Framework\MockObject\MockObject|\FondOfOryx\Zed\CustomerApi\Dependency\Facade\CustomerApiToApiFacadeInterface
      */
     protected MockObject|CustomerApiToApiFacadeInterface $apiFacadeMock;
 
     /**
-     * @var (\FondOfOryx\Zed\CustomerApi\Dependency\Facade\CustomerApiToCustomerFacadeInterface&\PHPUnit\Framework\MockObject\MockObject)|\PHPUnit\Framework\MockObject\MockObject
+     * @var \PHPUnit\Framework\MockObject\MockObject|\FondOfOryx\Zed\CustomerApi\Dependency\Facade\CustomerApiToCustomerFacadeInterface
      */
     protected MockObject|CustomerApiToCustomerFacadeInterface $customerFacadeMock;
 
     /**
-     * @var (\FondOfOryx\Zed\CustomerApi\Persistence\CustomerApiRepositoryInterface&\PHPUnit\Framework\MockObject\MockObject)|\PHPUnit\Framework\MockObject\MockObject
+     * @var \FondOfOryx\Zed\CustomerApi\Persistence\CustomerApiRepositoryInterface|\PHPUnit\Framework\MockObject\MockObject
      */
     protected CustomerApiRepositoryInterface|MockObject $repositoryMock;
 
     /**
-     * @var (\Generated\Shared\Transfer\CustomerTransfer&\PHPUnit\Framework\MockObject\MockObject)|\PHPUnit\Framework\MockObject\MockObject
+     * @var \Generated\Shared\Transfer\CustomerTransfer|\PHPUnit\Framework\MockObject\MockObject
      */
     protected CustomerTransfer|MockObject $customerTransferMock;
 
     /**
-     * @var (\Generated\Shared\Transfer\CustomerResponseTransfer&\PHPUnit\Framework\MockObject\MockObject)|\PHPUnit\Framework\MockObject\MockObject
+     * @var \Generated\Shared\Transfer\CustomerResponseTransfer|\PHPUnit\Framework\MockObject\MockObject
      */
     protected CustomerResponseTransfer|MockObject $customerResponseTransferMock;
 
     /**
-     * @var (\Generated\Shared\Transfer\ApiDataTransfer&\PHPUnit\Framework\MockObject\MockObject)|\PHPUnit\Framework\MockObject\MockObject
+     * @var \Generated\Shared\Transfer\ApiDataTransfer|\PHPUnit\Framework\MockObject\MockObject
      */
     protected ApiDataTransfer|MockObject $apiDataTransferMock;
 
     /**
-     * @var (\Generated\Shared\Transfer\ApiItemTransfer&\PHPUnit\Framework\MockObject\MockObject)|\PHPUnit\Framework\MockObject\MockObject
+     * @var \PHPUnit\Framework\MockObject\MockObject|\Generated\Shared\Transfer\ApiItemTransfer
      */
     protected MockObject|ApiItemTransfer $apiItemTransferMock;
 
     /**
-     * @var (\Generated\Shared\Transfer\ApiRequestTransfer&\PHPUnit\Framework\MockObject\MockObject)|\PHPUnit\Framework\MockObject\MockObject
+     * @var \Generated\Shared\Transfer\ApiRequestTransfer|\PHPUnit\Framework\MockObject\MockObject
      */
     protected ApiRequestTransfer|MockObject $apiRequestTransferMock;
 
     /**
-     * @var (\Generated\Shared\Transfer\ApiCollectionTransfer&\PHPUnit\Framework\MockObject\MockObject)|\PHPUnit\Framework\MockObject\MockObject
+     * @var \Generated\Shared\Transfer\ApiCollectionTransfer|\PHPUnit\Framework\MockObject\MockObject
      */
     protected ApiCollectionTransfer|MockObject $apiCollectionTransferMock;
 
     /**
-     * @var (\Generated\Shared\Transfer\CustomerApiTransfer&\PHPUnit\Framework\MockObject\MockObject)|\PHPUnit\Framework\MockObject\MockObject
+     * @var \Generated\Shared\Transfer\CustomerApiTransfer|\PHPUnit\Framework\MockObject\MockObject
      */
     protected CustomerApiTransfer|MockObject $customerApiTransferMock;
 
@@ -229,7 +229,7 @@ class CustomerResourceTest extends Unit
             ->method('findCustomerById')
             ->with(
                 static::callback(
-                    static fn (CustomerTransfer $customerTransfer): bool => $customerTransfer->getIdCustomer() === $id
+                    static fn (CustomerTransfer $customerTransfer): bool => $customerTransfer->getIdCustomer() === $id,
                 ),
             )
             ->willReturn($this->customerTransferMock);
@@ -291,7 +291,7 @@ class CustomerResourceTest extends Unit
             ->method('findCustomerById')
             ->with(
                 static::callback(
-                    static fn (CustomerTransfer $customerTransfer): bool => $customerTransfer->getIdCustomer() === $id
+                    static fn (CustomerTransfer $customerTransfer): bool => $customerTransfer->getIdCustomer() === $id,
                 ),
             )->willReturn($this->customerTransferMock);
 
@@ -343,7 +343,7 @@ class CustomerResourceTest extends Unit
             ->method('deleteCustomer')
             ->with(
                 static::callback(
-                    static fn (CustomerTransfer $customerTransfer): bool => $customerTransfer->getIdCustomer() === $id
+                    static fn (CustomerTransfer $customerTransfer): bool => $customerTransfer->getIdCustomer() === $id,
                 ),
             )->willReturn(true);
 
@@ -369,7 +369,7 @@ class CustomerResourceTest extends Unit
             ->method('findCustomerById')
             ->with(
                 static::callback(
-                    static fn (CustomerTransfer $customerTransfer): bool => $customerTransfer->getIdCustomer() === $id
+                    static fn (CustomerTransfer $customerTransfer): bool => $customerTransfer->getIdCustomer() === $id,
                 ),
             )->willReturn($this->customerTransferMock);
 
@@ -404,7 +404,7 @@ class CustomerResourceTest extends Unit
             ->method('findCustomerById')
             ->with(
                 static::callback(
-                    static fn (CustomerTransfer $customerTransfer): bool => $customerTransfer->getIdCustomer() === $id
+                    static fn (CustomerTransfer $customerTransfer): bool => $customerTransfer->getIdCustomer() === $id,
                 ),
             )->willReturn(null);
 
@@ -447,7 +447,7 @@ class CustomerResourceTest extends Unit
                 static::callback(
                     static fn (
                         CustomerTransfer $customerTransfer
-                    ): bool => $customerTransfer->getIdCustomer() === $apiCollectionTransferData[0]['id_customer']
+                    ): bool => $customerTransfer->getIdCustomer() === $apiCollectionTransferData[0]['id_customer'],
                 ),
             )->willReturn($this->customerTransferMock);
 
@@ -471,7 +471,7 @@ class CustomerResourceTest extends Unit
                     static fn (array $newData): bool => count($newData) === 1
                         && isset($newData[0]['id_customer'], $newData[0]['foo'])
                         && $newData[0]['id_customer'] === $data['id_customer']
-                        && $newData[0]['foo'] === $data['foo']
+                        && $newData[0]['foo'] === $data['foo'],
                 ),
             )->willReturn($this->apiCollectionTransferMock);
 

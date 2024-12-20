@@ -3,6 +3,7 @@
 namespace FondOfOryx\Glue\CompanyUserSearchRestApi;
 
 use Codeception\Test\Unit;
+use Exception;
 use FondOfOryx\Client\CompanyUserSearchRestApi\CompanyUserSearchRestApiClient;
 use FondOfOryx\Glue\CompanyUserSearchRestApi\Dependency\Client\CompanyUserSearchRestApiToGlossaryStorageClientInterface;
 use FondOfOryx\Glue\CompanyUserSearchRestApi\Processor\Reader\CompanyUserReader;
@@ -102,22 +103,24 @@ class CompanyUserSearchRestApiFactoryTest extends Unit
      */
     public function testCreateCompanyUserReader(): void
     {
-        $this->containerMock->expects(static::atLeastOnce())
-            ->method('has')
-            ->withConsecutive(
-                [CompanyUserSearchRestApiDependencyProvider::PLUGINS_FILTER_FIELDS_EXPANDER],
-                [CompanyUserSearchRestApiDependencyProvider::CLIENT_GLOSSARY_STORAGE],
-            )->willReturn(true);
+        $self = $this;
 
         $this->containerMock->expects(static::atLeastOnce())
+            ->method('has')
+            ->willReturn(true);
+
+        $this->containerMock->expects($this->atLeastOnce())
             ->method('get')
-            ->withConsecutive(
-                [CompanyUserSearchRestApiDependencyProvider::PLUGINS_FILTER_FIELDS_EXPANDER],
-                [CompanyUserSearchRestApiDependencyProvider::CLIENT_GLOSSARY_STORAGE],
-            )->willReturnOnConsecutiveCalls(
-                [],
-                $this->glossaryStorageClientMock,
-            );
+            ->willReturnCallback(static function (string $key) use ($self) {
+                switch ($key) {
+                    case CompanyUserSearchRestApiDependencyProvider::PLUGINS_FILTER_FIELDS_EXPANDER:
+                        return [];
+                    case CompanyUserSearchRestApiDependencyProvider::CLIENT_GLOSSARY_STORAGE:
+                        return $self->glossaryStorageClientMock;
+                }
+
+                throw new Exception('Unexpected call');
+            });
 
         static::assertInstanceOf(
             CompanyUserReader::class,

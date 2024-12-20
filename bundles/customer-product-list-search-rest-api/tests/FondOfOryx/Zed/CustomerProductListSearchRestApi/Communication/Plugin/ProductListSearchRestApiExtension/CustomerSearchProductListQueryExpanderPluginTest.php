@@ -11,17 +11,17 @@ use PHPUnit\Framework\MockObject\MockObject;
 class CustomerSearchProductListQueryExpanderPluginTest extends Unit
 {
     /**
-     * @var (\FondOfOryx\Zed\CustomerProductListSearchRestApi\Business\CustomerProductListSearchRestApiFacade&\PHPUnit\Framework\MockObject\MockObject)|\PHPUnit\Framework\MockObject\MockObject
+     * @var \FondOfOryx\Zed\CustomerProductListSearchRestApi\Business\CustomerProductListSearchRestApiFacade|\PHPUnit\Framework\MockObject\MockObject
      */
     protected CustomerProductListSearchRestApiFacade|MockObject $facadeMock;
 
     /**
-     * @var (\Generated\Shared\Transfer\QueryJoinCollectionTransfer&\PHPUnit\Framework\MockObject\MockObject)|\PHPUnit\Framework\MockObject\MockObject
+     * @var \PHPUnit\Framework\MockObject\MockObject|\Generated\Shared\Transfer\QueryJoinCollectionTransfer
      */
     protected MockObject|QueryJoinCollectionTransfer $queryJoinCollectionTransferMock;
 
     /**
-     * @var array<(\Generated\Shared\Transfer\FilterFieldTransfer&\PHPUnit\Framework\MockObject\MockObject)|\PHPUnit\Framework\MockObject\MockObject>
+     * @var array<\Generated\Shared\Transfer\FilterFieldTransfer|\PHPUnit\Framework\MockObject\MockObject>
      */
     protected array $filterFieldTransferMocks;
 

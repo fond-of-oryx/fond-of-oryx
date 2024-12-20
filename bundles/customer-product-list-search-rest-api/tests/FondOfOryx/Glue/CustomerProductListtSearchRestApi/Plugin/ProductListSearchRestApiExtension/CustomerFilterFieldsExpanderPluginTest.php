@@ -14,22 +14,22 @@ use Symfony\Component\HttpFoundation\Request;
 class CustomerFilterFieldsExpanderPluginTest extends Unit
 {
     /**
-     * @var \PHPUnit\Framework\MockObject\MockObject|(\Spryker\Glue\GlueApplication\Rest\Request\Data\RestRequestInterface&\PHPUnit\Framework\MockObject\MockObject)
+     * @var \Spryker\Glue\GlueApplication\Rest\Request\Data\RestRequestInterface|\PHPUnit\Framework\MockObject\MockObject
      */
     protected RestRequestInterface|MockObject $restRequestMock;
 
     /**
-     * @var (\Generated\Shared\Transfer\RestUserTransfer&\PHPUnit\Framework\MockObject\MockObject)|\PHPUnit\Framework\MockObject\MockObject
+     * @var \Generated\Shared\Transfer\RestUserTransfer|\PHPUnit\Framework\MockObject\MockObject
      */
     protected RestUserTransfer|MockObject $restUserTransferMock;
 
     /**
-     * @var \PHPUnit\Framework\MockObject\MockObject|(\Spryker\Glue\GlueApplication\Rest\JsonApi\RestResourceInterface&\PHPUnit\Framework\MockObject\MockObject)
+     * @var \PHPUnit\Framework\MockObject\MockObject|\Spryker\Glue\GlueApplication\Rest\JsonApi\RestResourceInterface
      */
     protected MockObject|RestResourceInterface $restResourceMock;
 
     /**
-     * @var \PHPUnit\Framework\MockObject\MockObject|(\Symfony\Component\HttpFoundation\Request&\PHPUnit\Framework\MockObject\MockObject)
+     * @var \PHPUnit\Framework\MockObject\MockObject|\Symfony\Component\HttpFoundation\Request
      */
     protected MockObject|Request $httpRequestMock;
 

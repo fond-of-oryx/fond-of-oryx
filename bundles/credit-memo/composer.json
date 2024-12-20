@@ -28,7 +28,7 @@
     "spryker-eco/payone": "^4.0.0"
   },
   "require-dev": {
-    "fond-of-codeception/spryker": "^2.0.0",
+    "fond-of-codeception/spryker": "*",
     "spryker/code-sniffer": "*",
     "spryker-sdk/phpstan-spryker": "*"
   },
@@ -43,7 +43,7 @@
     "psr-4": {
       "FondOfOryx\\": "tests/FondOfOryx/",
       "Generated\\": "src/Generated/",
-      "Orm\\Zed\\": "src/Orm/Zed/"
+      "Orm\\": "src/Orm/"
     }
   },
   "config": {

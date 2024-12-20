@@ -4,6 +4,7 @@ namespace FondOfOryx\Zed\CompanyUserMailConnector\Business\Mail;
 
 use ArrayObject;
 use Codeception\Test\Unit;
+use Exception;
 use FondOfOryx\Zed\CompanyUserMailConnector\Business\Model\Mail\CompanyUserCreationNotificationMailHandler;
 use FondOfOryx\Zed\CompanyUserMailConnector\Business\Model\Mail\CompanyUserCreationNotificationMailHandlerInterface;
 use FondOfOryx\Zed\CompanyUserMailConnector\Business\Reader\LocaleReaderInterface;
@@ -159,6 +160,8 @@ class CompanyUserCreationNotificationMailHandlerTest extends Unit
      */
     public function testSendInformationMail(): void
     {
+        $self = $this;
+
         $roleName = 'test';
         $roleToNotifyName = 'admin';
         $roles = new ArrayObject();
@@ -197,12 +200,32 @@ class CompanyUserCreationNotificationMailHandlerTest extends Unit
             ->method('getIsNew')
             ->willReturn(true);
 
-        $this->localeReaderMock->expects(static::atLeastOnce())
+        $callCount = $this->atLeastOnce();
+        $this->localeReaderMock->expects($callCount)
             ->method('getByNotificationCustomer')
-            ->withConsecutive(
-                [$this->notificationCustomerTransferMocks[0]],
-                [$this->notificationCustomerTransferMocks[1]],
-            )->willReturn($this->localeTransferMock);
+            ->willReturnCallback(static function (NotificationCustomerTransfer $notificationCustomerTransfer) use ($self, $callCount) {
+                /** @phpstan-ignore-next-line */
+                if (method_exists($callCount, 'getInvocationCount')) {
+                    /** @phpstan-ignore-next-line */
+                    $count = $callCount->getInvocationCount();
+                } else {
+                    /** @phpstan-ignore-next-line */
+                    $count = $callCount->numberOfInvocations();
+                }
+
+                switch ($count) {
+                    case 1:
+                        $self->assertEquals($self->notificationCustomerTransferMocks[0], $notificationCustomerTransfer);
+
+                        return $self->localeTransferMock;
+                    case 2:
+                        $self->assertEquals($self->notificationCustomerTransferMocks[1], $notificationCustomerTransfer);
+
+                        return $self->localeTransferMock;
+                }
+
+                throw new Exception('Unexpected call count');
+            });
 
         $this->companyUserTransferMock->expects(static::atLeastOnce())
             ->method('getFkCompany')

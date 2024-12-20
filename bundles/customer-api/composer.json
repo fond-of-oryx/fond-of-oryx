@@ -16,12 +16,9 @@
     "spryker/customer": "^4.3.0 || ^5.0.0 || ^6.0.0 || ^7.0.0"
   },
   "require-dev": {
-    "fond-of-codeception/spryker": "^2.0.0",
+    "fond-of-codeception/spryker": "*",
     "spryker/code-sniffer": "*",
     "spryker-sdk/phpstan-spryker": "*"
-  },
-  "replace": {
-    "spryker/customer-api": "*"
   },
   "minimum-stability": "dev",
   "prefer-stable": true,
@@ -33,11 +30,12 @@
   "autoload-dev": {
     "psr-4": {
       "FondOfOryx\\": "tests/FondOfOryx/",
-      "Generated\\":"src/Generated/",
-      "Orm\\":"src/Orm/"
+      "Generated\\": "src/Generated/",
+      "Orm\\": "src/Orm/"
     }
   },
   "config": {
+    "sort-packages": true,
     "allow-plugins": {
       "dealerdirect/phpcodesniffer-composer-installer": true
     }

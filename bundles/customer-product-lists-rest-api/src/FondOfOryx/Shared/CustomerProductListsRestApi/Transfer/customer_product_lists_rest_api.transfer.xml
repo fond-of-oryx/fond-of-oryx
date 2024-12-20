@@ -12,5 +12,10 @@
         <property name="productListId" type="string"/>
         <property name="idCustomer" type="int"/>
         <property name="customerReference" type="string"/>
+        <property name="productList" type="RestProductListsAttributes"/>
+    </transfer>
+
+    <transfer name="RestProductListUpdateResponse">
+        <property name="productList" type="ProductList"/>
     </transfer>
 </transfers>

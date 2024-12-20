@@ -14,37 +14,37 @@ use PHPUnit\Framework\MockObject\MockObject;
 class CustomerApiFacadeTest extends Unit
 {
     /**
-     * @var (\FondOfOryx\Zed\CustomerApi\Business\CustomerApiBusinessFactory&\PHPUnit\Framework\MockObject\MockObject)|\PHPUnit\Framework\MockObject\MockObject
+     * @var \PHPUnit\Framework\MockObject\MockObject|\FondOfOryx\Zed\CustomerApi\Business\CustomerApiBusinessFactory
      */
     protected MockObject|CustomerApiBusinessFactory $factoryMock;
 
     /**
-     * @var (\FondOfOryx\Zed\CustomerApi\Business\Resource\CustomerResourceInterface&\PHPUnit\Framework\MockObject\MockObject)|\PHPUnit\Framework\MockObject\MockObject
+     * @var \PHPUnit\Framework\MockObject\MockObject|\FondOfOryx\Zed\CustomerApi\Business\Resource\CustomerResourceInterface
      */
     protected MockObject|CustomerResourceInterface $customerResourceMock;
 
     /**
-     * @var (\Generated\Shared\Transfer\ApiDataTransfer&\PHPUnit\Framework\MockObject\MockObject)|\PHPUnit\Framework\MockObject\MockObject
+     * @var \Generated\Shared\Transfer\ApiDataTransfer|\PHPUnit\Framework\MockObject\MockObject
      */
     protected ApiDataTransfer|MockObject $apiDataTransferMock;
 
     /**
-     * @var (\Generated\Shared\Transfer\ApiItemTransfer&\PHPUnit\Framework\MockObject\MockObject)|\PHPUnit\Framework\MockObject\MockObject
+     * @var \PHPUnit\Framework\MockObject\MockObject|\Generated\Shared\Transfer\ApiItemTransfer
      */
     protected MockObject|ApiItemTransfer $apiItemTransferMock;
 
     /**
-     * @var (\Generated\Shared\Transfer\ApiRequestTransfer&\PHPUnit\Framework\MockObject\MockObject)|\PHPUnit\Framework\MockObject\MockObject
+     * @var \Generated\Shared\Transfer\ApiRequestTransfer|\PHPUnit\Framework\MockObject\MockObject
      */
     protected ApiRequestTransfer|MockObject $apiRequestTransferMock;
 
     /**
-     * @var (\Generated\Shared\Transfer\ApiCollectionTransfer&\PHPUnit\Framework\MockObject\MockObject)|\PHPUnit\Framework\MockObject\MockObject
+     * @var \Generated\Shared\Transfer\ApiCollectionTransfer|\PHPUnit\Framework\MockObject\MockObject
      */
     protected ApiCollectionTransfer|MockObject $apiCollectionTransferMock;
 
     /**
-     * @var (\FondOfOryx\Zed\CustomerApi\Business\Validator\ApiRequestValidatorInterface&\PHPUnit\Framework\MockObject\MockObject)|\PHPUnit\Framework\MockObject\MockObject
+     * @var \PHPUnit\Framework\MockObject\MockObject|\FondOfOryx\Zed\CustomerApi\Business\Validator\ApiRequestValidatorInterface
      */
     protected MockObject|ApiRequestValidatorInterface $apiRequestValidatorMock;
 

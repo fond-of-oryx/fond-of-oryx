@@ -12,22 +12,22 @@ use Spryker\Zed\ApiQueryBuilder\Persistence\ApiQueryBuilderQueryContainerInterfa
 class CustomerApiToApiQueryBuilderQueryContainerBridgeTest extends Unit
 {
     /**
-     * @var \PHPUnit\Framework\MockObject\MockObject|(\Spryker\Zed\ApiQueryBuilder\Persistence\ApiQueryBuilderQueryContainerInterface&\PHPUnit\Framework\MockObject\MockObject)
+     * @var \Spryker\Zed\ApiQueryBuilder\Persistence\ApiQueryBuilderQueryContainerInterface|\PHPUnit\Framework\MockObject\MockObject
      */
     protected ApiQueryBuilderQueryContainerInterface|MockObject $queryContainer;
 
     /**
-     * @var (\Generated\Shared\Transfer\ApiQueryBuilderQueryTransfer&\PHPUnit\Framework\MockObject\MockObject)|\PHPUnit\Framework\MockObject\MockObject
+     * @var \PHPUnit\Framework\MockObject\MockObject|\Generated\Shared\Transfer\ApiQueryBuilderQueryTransfer
      */
     protected MockObject|ApiQueryBuilderQueryTransfer $apiQueryBuilderQueryTransferMock;
 
     /**
-     * @var (\Generated\Shared\Transfer\PropelQueryBuilderCriteriaTransfer&\PHPUnit\Framework\MockObject\MockObject)|\PHPUnit\Framework\MockObject\MockObject
+     * @var \PHPUnit\Framework\MockObject\MockObject|\Generated\Shared\Transfer\PropelQueryBuilderCriteriaTransfer
      */
     protected MockObject|PropelQueryBuilderCriteriaTransfer $propelQueryBuilderCriteriaTransferMock;
 
     /**
-     * @var \PHPUnit\Framework\MockObject\MockObject|(\Propel\Runtime\ActiveQuery\ModelCriteria&\PHPUnit\Framework\MockObject\MockObject)
+     * @var \PHPUnit\Framework\MockObject\MockObject|\Propel\Runtime\ActiveQuery\ModelCriteria
      */
     protected MockObject|ModelCriteria $modelCriteriaMock;
 

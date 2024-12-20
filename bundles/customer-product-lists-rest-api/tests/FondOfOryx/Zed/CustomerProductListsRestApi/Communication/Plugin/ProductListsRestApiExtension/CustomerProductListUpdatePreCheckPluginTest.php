@@ -20,7 +20,7 @@ class CustomerProductListUpdatePreCheckPluginTest extends Unit
     protected $productListTransferMock;
 
     /**
-     * @var \FondOfOryx\Zed\CustomerProductListsRestApi\Persistence\CustomerProductListsRestApiRepository&\PHPUnit\Framework\MockObject\MockObject|\PHPUnit\Framework\MockObject\MockObject
+     * @var \FondOfOryx\Zed\CustomerProductListsRestApi\Persistence\CustomerProductListsRestApiRepository|\PHPUnit\Framework\MockObject\MockObject
      */
     protected $repositoryMock;
 

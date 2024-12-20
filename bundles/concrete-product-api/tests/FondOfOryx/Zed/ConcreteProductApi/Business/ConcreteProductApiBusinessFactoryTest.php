@@ -3,6 +3,7 @@
 namespace FondOfOryx\Zed\ConcreteProductApi\Business;
 
 use Codeception\Test\Unit;
+use Exception;
 use FondOfOryx\Zed\ConcreteProductApi\Business\Model\ConcreteProductApi;
 use FondOfOryx\Zed\ConcreteProductApi\Business\Validator\ConcreteProductApiValidator;
 use FondOfOryx\Zed\ConcreteProductApi\ConcreteProductApiDependencyProvider;
@@ -69,19 +70,24 @@ class ConcreteProductApiBusinessFactoryTest extends Unit
      */
     public function testCreateConcreteProductApi(): void
     {
+        $self = $this;
+
         $this->containerMock->expects(static::atLeastOnce())
             ->method('has')
             ->willReturn(true);
 
-        $this->containerMock->expects(static::atLeastOnce())
+        $this->containerMock->expects($this->atLeastOnce())
             ->method('get')
-            ->withConsecutive(
-                [ConcreteProductApiDependencyProvider::FACADE_API],
-                [ConcreteProductApiDependencyProvider::FACADE_PRODUCT],
-            )->willReturnOnConsecutiveCalls(
-                $this->apiFacadeMock,
-                $this->productFacadeMock,
-            );
+            ->willReturnCallback(static function (string $key) use ($self) {
+                switch ($key) {
+                    case ConcreteProductApiDependencyProvider::FACADE_API:
+                        return $self->apiFacadeMock;
+                    case ConcreteProductApiDependencyProvider::FACADE_PRODUCT:
+                        return $self->productFacadeMock;
+                }
+
+                throw new Exception('Unexpected call');
+            });
 
         static::assertInstanceOf(ConcreteProductApi::class, $this->factory->createConcreteProductApi());
     }

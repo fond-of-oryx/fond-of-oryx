@@ -15,27 +15,27 @@ use PHPUnit\Framework\MockObject\MockObject;
 class CustomerApiResourcePluginTest extends Unit
 {
     /**
-     * @var (\Generated\Shared\Transfer\ApiDataTransfer&\PHPUnit\Framework\MockObject\MockObject)|\PHPUnit\Framework\MockObject\MockObject
+     * @var \Generated\Shared\Transfer\ApiDataTransfer|\PHPUnit\Framework\MockObject\MockObject
      */
     protected ApiDataTransfer|MockObject $apiDataTransferMock;
 
     /**
-     * @var (\Generated\Shared\Transfer\ApiItemTransfer&\PHPUnit\Framework\MockObject\MockObject)|\PHPUnit\Framework\MockObject\MockObject
+     * @var \PHPUnit\Framework\MockObject\MockObject|\Generated\Shared\Transfer\ApiItemTransfer
      */
     protected MockObject|ApiItemTransfer $apiItemTransferMock;
 
     /**
-     * @var (\FondOfOryx\Zed\CustomerApi\Business\CustomerApiFacade&\PHPUnit\Framework\MockObject\MockObject)|\PHPUnit\Framework\MockObject\MockObject
+     * @var \FondOfOryx\Zed\CustomerApi\Business\CustomerApiFacade|\PHPUnit\Framework\MockObject\MockObject
      */
     protected CustomerApiFacade|MockObject $customerApiFacadeMock;
 
     /**
-     * @var (\Generated\Shared\Transfer\ApiRequestTransfer&\PHPUnit\Framework\MockObject\MockObject)|\PHPUnit\Framework\MockObject\MockObject
+     * @var \Generated\Shared\Transfer\ApiRequestTransfer|\PHPUnit\Framework\MockObject\MockObject
      */
     protected ApiRequestTransfer|MockObject $apiRequestTransferMock;
 
     /**
-     * @var (\Generated\Shared\Transfer\ApiCollectionTransfer&\PHPUnit\Framework\MockObject\MockObject)|\PHPUnit\Framework\MockObject\MockObject
+     * @var \Generated\Shared\Transfer\ApiCollectionTransfer|\PHPUnit\Framework\MockObject\MockObject
      */
     protected ApiCollectionTransfer|MockObject $apiCollectionTransferMock;
 

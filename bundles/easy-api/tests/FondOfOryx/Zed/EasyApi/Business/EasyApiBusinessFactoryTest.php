@@ -3,6 +3,7 @@
 namespace FondOfOryx\Zed\EasyApi\Business;
 
 use Codeception\Test\Unit;
+use Exception;
 use FondOfOryx\Zed\EasyApi\Business\Model\ApiWrapper;
 use FondOfOryx\Zed\EasyApi\Dependency\Client\EasyApiToGuzzleClientInterface;
 use FondOfOryx\Zed\EasyApi\EasyApiConfig;
@@ -95,21 +96,22 @@ class EasyApiBusinessFactoryTest extends Unit
      */
     public function testCreateApiWrapper(): void
     {
-        $this->containerMock->expects(static::atLeastOnce())
-            ->method('has')
-            ->withConsecutive(
-                [EasyApiDependencyProvider::CLIENT_GUZZLE],
-            )
-            ->willReturn(true);
+        $self = $this;
 
         $this->containerMock->expects(static::atLeastOnce())
+            ->method('has')
+            ->willReturn(true);
+
+        $this->containerMock->expects($this->atLeastOnce())
             ->method('get')
-            ->withConsecutive(
-                [EasyApiDependencyProvider::CLIENT_GUZZLE],
-            )
-            ->willReturnOnConsecutiveCalls(
-                $this->guzzleClientMock,
-            );
+            ->willReturnCallback(static function (string $key) use ($self) {
+                switch ($key) {
+                    case EasyApiDependencyProvider::CLIENT_GUZZLE:
+                        return $self->guzzleClientMock;
+                }
+
+                throw new Exception('Unexpected call');
+            });
 
         static::assertInstanceOf(
             ApiWrapper::class,
