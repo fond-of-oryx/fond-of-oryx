@@ -9,19 +9,19 @@ use Generated\Shared\Transfer\ProductListCollectionTransfer;
 class RestProductListSearchSortMapperTest extends Unit
 {
     /**
-     * @var \FondOfOryx\Glue\ProductListSearchRestApi\ProductListSearchRestApiConfig|\PHPUnit\Framework\MockObject\MockObject|mixed
+     * @var \FondOfOryx\Glue\ProductListSearchRestApi\ProductListSearchRestApiConfig|\PHPUnit\Framework\MockObject\MockObject
      */
     protected $configMock;
 
     /**
-     * @var \Generated\Shared\Transfer\ProductListCollectionTransfer|\PHPUnit\Framework\MockObject\MockObject|mixed
+     * @var \Generated\Shared\Transfer\ProductListCollectionTransfer|\PHPUnit\Framework\MockObject\MockObject
      */
     protected $productListCollectionTransferMock;
 
     /**
      * @var \FondOfOryx\Glue\ProductListSearchRestApi\Processor\Mapper\RestProductListSearchSortMapper
      */
-    protected $restProductListSearchSortMapper;
+    protected RestProductListSearchSortMapper $restProductListSearchSortMapper;
 
     /**
      * @return void
@@ -38,7 +38,7 @@ class RestProductListSearchSortMapperTest extends Unit
             ->disableOriginalConstructor()
             ->getMock();
 
-        $this->restproductListSearchSortMapper = new RestProductListSearchSortMapper($this->configMock);
+        $this->restProductListSearchSortMapper = new RestProductListSearchSortMapper($this->configMock);
     }
 
     /**
@@ -61,7 +61,7 @@ class RestProductListSearchSortMapperTest extends Unit
             ->method('getSortFields')
             ->willReturn($sortFields);
 
-        $restProductListSearchSortTransfer = $this->restproductListSearchSortMapper->fromProductListCollection(
+        $restProductListSearchSortTransfer = $this->restProductListSearchSortMapper->fromProductListCollection(
             $this->productListCollectionTransferMock,
         );
 

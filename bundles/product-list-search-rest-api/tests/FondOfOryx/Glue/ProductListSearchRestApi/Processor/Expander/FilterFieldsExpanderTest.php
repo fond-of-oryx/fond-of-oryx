@@ -16,7 +16,7 @@ class FilterFieldsExpanderTest extends Unit
     protected $filterFieldsExpanderPluginMock;
 
     /**
-     * @var array<\Generated\Shared\Transfer\FilterFieldTransfer|\PHPUnit\Framework\MockObject\MockObject>
+     * @var \Generated\Shared\Transfer\FilterFieldTransfer|\PHPUnit\Framework\MockObject\MockObject
      */
     protected $filterFieldTransferMock;
 

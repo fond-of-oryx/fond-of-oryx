@@ -5,7 +5,6 @@ namespace FondOfOryx\Zed\JellyfishSalesOrderPayone\Communication\Plugin;
 use ArrayObject;
 use Codeception\Test\Unit;
 use FondOfOryx\Zed\JellyfishSalesOrderPayone\Persistence\JellyfishSalesOrderPayoneRepository;
-use FondOfOryx\Zed\JellyfishSalesOrderPayone\Persistence\JellyfishSalesOrderPayoneRepositoryInterface;
 use Generated\Shared\Transfer\JellyfishOrderPaymentTransfer;
 use Generated\Shared\Transfer\JellyfishOrderTransfer;
 use Orm\Zed\Payment\Persistence\SpySalesPayment;
@@ -45,7 +44,7 @@ class JellyfishOrderPaymentExpanderPostMapPluginTest extends Unit
     protected $jellyfishPaymentTransferMock;
 
     /**
-     * @var \FondOfOryx\Zed\JellyfishSalesOrderPayone\Persistence\JellyfishSalesOrderPayoneRepositoryInterface|\PHPUnit\Framework\MockObject\MockObject
+     * @var \FondOfOryx\Zed\JellyfishSalesOrderPayone\Persistence\JellyfishSalesOrderPayoneRepository|\PHPUnit\Framework\MockObject\MockObject
      */
     protected $repositoryMock;
 
@@ -80,24 +79,24 @@ class JellyfishOrderPaymentExpanderPostMapPluginTest extends Unit
 
         $this->plugin = new class ($this->repositoryMock) extends JellyfishOrderPaymentExpanderPostMapPlugin {
             /**
-             * @var \FondOfOryx\Zed\JellyfishSalesOrderPayone\Persistence\JellyfishSalesOrderPayoneRepositoryInterface
+             * @var \FondOfOryx\Zed\JellyfishSalesOrderPayone\Persistence\JellyfishSalesOrderPayoneRepository
              */
             protected $repository;
 
             /**
              *  constructor.
              *
-             * @param \FondOfOryx\Zed\JellyfishSalesOrderPayone\Persistence\JellyfishSalesOrderPayoneRepositoryInterface $repository
+             * @param \FondOfOryx\Zed\JellyfishSalesOrderPayone\Persistence\JellyfishSalesOrderPayoneRepository $repository
              */
-            public function __construct(JellyfishSalesOrderPayoneRepositoryInterface $repository)
+            public function __construct(JellyfishSalesOrderPayoneRepository $repository)
             {
                 $this->repository = $repository;
             }
 
             /**
-             * @return \FondOfOryx\Zed\JellyfishSalesOrderPayone\Persistence\JellyfishSalesOrderPayoneRepositoryInterface
+             * @return \FondOfOryx\Zed\JellyfishSalesOrderPayone\Persistence\JellyfishSalesOrderPayoneRepository
              */
-            public function getRepository(): JellyfishSalesOrderPayoneRepositoryInterface
+            public function getRepository(): JellyfishSalesOrderPayoneRepository
             {
                 return $this->repository;
             }

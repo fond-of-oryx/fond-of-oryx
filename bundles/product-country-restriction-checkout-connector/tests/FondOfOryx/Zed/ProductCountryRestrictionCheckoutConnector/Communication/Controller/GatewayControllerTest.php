@@ -51,6 +51,7 @@ class GatewayControllerTest extends Unit
 
         if (method_exists(GatewayController::class, 'setFacade')) {
             $this->gatewayController = new GatewayController();
+            // @phpstan-ignore-next-line
             $this->gatewayController->setFacade($this->facadeMock);
         } else {
             $this->gatewayController = new class ($this->facadeMock) extends GatewayController {

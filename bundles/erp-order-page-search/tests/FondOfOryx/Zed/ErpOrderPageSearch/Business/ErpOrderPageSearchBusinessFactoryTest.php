@@ -3,6 +3,7 @@
 namespace FondOfOryx\Zed\ErpOrderPageSearch\Business;
 
 use Codeception\Test\Unit;
+use Exception;
 use FondOfOryx\Zed\ErpOrderPageSearch\Business\Publisher\ErpOrderPageSearchPublisher;
 use FondOfOryx\Zed\ErpOrderPageSearch\Business\UnPublisher\ErpOrderPageSearchUnpublisher;
 use FondOfOryx\Zed\ErpOrderPageSearch\Dependency\Service\ErpOrderPageSearchToUtilEncodingServiceInterface;
@@ -82,25 +83,26 @@ class ErpOrderPageSearchBusinessFactoryTest extends Unit
      */
     public function testCreateErpOrderPageSearchPublisher(): void
     {
-        $this->containerMock->expects(static::atLeastOnce())
-            ->method('has')
-            ->withConsecutive(
-                [ErpOrderPageSearchDependencyProvider::SERVICE_UTIL_ENCODING],
-                [ErpOrderPageSearchDependencyProvider::PLUGINS_FULL_TEXT_EXPANDER],
-                [ErpOrderPageSearchDependencyProvider::PLUGINS_FULL_TEXT_BOOSTED_EXPANDER],
-            )->willReturn(true);
+        $self = $this;
 
         $this->containerMock->expects(static::atLeastOnce())
+            ->method('has')
+            ->willReturn(true);
+
+        $this->containerMock->expects($this->atLeastOnce())
             ->method('get')
-            ->withConsecutive(
-                [ErpOrderPageSearchDependencyProvider::SERVICE_UTIL_ENCODING],
-                [ErpOrderPageSearchDependencyProvider::PLUGINS_FULL_TEXT_EXPANDER],
-                [ErpOrderPageSearchDependencyProvider::PLUGINS_FULL_TEXT_BOOSTED_EXPANDER],
-            )->willReturnOnConsecutiveCalls(
-                $this->erpOrderPageSearchToUtilEncodingServiceMock,
-                [],
-                [],
-            );
+            ->willReturnCallback(static function (string $key) use ($self) {
+                switch ($key) {
+                    case ErpOrderPageSearchDependencyProvider::SERVICE_UTIL_ENCODING:
+                        return $self->erpOrderPageSearchToUtilEncodingServiceMock;
+                    case ErpOrderPageSearchDependencyProvider::PLUGINS_FULL_TEXT_EXPANDER:
+                        return [];
+                    case ErpOrderPageSearchDependencyProvider::PLUGINS_FULL_TEXT_BOOSTED_EXPANDER:
+                        return [];
+                }
+
+                throw new Exception('Unexpected call');
+            });
 
         static::assertInstanceOf(
             ErpOrderPageSearchPublisher::class,

@@ -3,6 +3,7 @@
 namespace FondOfOryx\Zed\ProductLocaleRestrictionStorage\Communication\Plugin\Event\Subscriber;
 
 use Codeception\Test\Unit;
+use Exception;
 use FondOfOryx\Zed\ProductLocaleRestriction\Dependency\ProductLocaleRestrictionEvents;
 use FondOfOryx\Zed\ProductLocaleRestrictionStorage\Communication\Plugin\Event\Listener\ProductAbstractListener;
 use FondOfOryx\Zed\ProductLocaleRestrictionStorage\Communication\Plugin\Event\Listener\ProductAbstractLocaleRestrictionListener;
@@ -65,7 +66,7 @@ class ProductLocaleRestrictionStorageEventSubscriberTest extends Unit
                 /**
                  * @return \Spryker\Zed\Kernel\AbstractBundleConfig
                  */
-                protected function getConfig(): AbstractBundleConfig
+                public function getConfig(): AbstractBundleConfig
                 {
                     return $this->productLocaleRestrictionStorageConfig;
                 }
@@ -78,78 +79,76 @@ class ProductLocaleRestrictionStorageEventSubscriberTest extends Unit
      */
     public function testGetSubscribedEvents(): void
     {
+        $self = $this;
+
         $productAbstractLocaleRestrictionEventQueueName = 'foo';
 
-        $this->eventCollectionMock->expects(static::atLeastOnce())
+        $callCount = $this->atLeastOnce();
+        $this->eventCollectionMock->expects($callCount)
             ->method('addListenerQueued')
-            ->withConsecutive(
-                [
-                    ProductEvents::PRODUCT_ABSTRACT_PUBLISH,
-                    static::callback(
-                        static function (EventBaseHandlerInterface $eventHandler) {
-                            return $eventHandler instanceof ProductAbstractListener;
-                        },
-                    ),
-                    0,
-                    null,
-                    $productAbstractLocaleRestrictionEventQueueName,
-                ],
-                [
-                    ProductEvents::ENTITY_SPY_PRODUCT_ABSTRACT_CREATE,
-                    static::callback(
-                        static function (EventBaseHandlerInterface $eventHandler) {
-                            return $eventHandler instanceof ProductAbstractListener;
-                        },
-                    ),
-                    0,
-                    null,
-                    $productAbstractLocaleRestrictionEventQueueName,
-                ],
-                [
-                    ProductEvents::ENTITY_SPY_PRODUCT_ABSTRACT_UPDATE,
-                    static::callback(
-                        static function (EventBaseHandlerInterface $eventHandler) {
-                            return $eventHandler instanceof ProductAbstractListener;
-                        },
-                    ),
-                    0,
-                    null,
-                    $productAbstractLocaleRestrictionEventQueueName,
-                ],
-                [
-                    ProductLocaleRestrictionEvents::ENTITY_FOO_PRODUCT_ABSTRACT_LOCALE_RESTRICTION_CREATE,
-                    static::callback(
-                        static function (EventBaseHandlerInterface $eventHandler) {
-                            return $eventHandler instanceof ProductAbstractLocaleRestrictionListener;
-                        },
-                    ),
-                    0,
-                    null,
-                    $productAbstractLocaleRestrictionEventQueueName,
-                ],
-                [
-                    ProductLocaleRestrictionEvents::ENTITY_FOO_PRODUCT_ABSTRACT_LOCALE_RESTRICTION_UPDATE,
-                    static::callback(
-                        static function (EventBaseHandlerInterface $eventHandler) {
-                            return $eventHandler instanceof ProductAbstractLocaleRestrictionListener;
-                        },
-                    ),
-                    0,
-                    null,
-                    $productAbstractLocaleRestrictionEventQueueName,
-                ],
-                [
-                    ProductLocaleRestrictionEvents::ENTITY_FOO_PRODUCT_ABSTRACT_LOCALE_RESTRICTION_DELETE,
-                    static::callback(
-                        static function (EventBaseHandlerInterface $eventHandler) {
-                            return $eventHandler instanceof ProductAbstractLocaleRestrictionListener;
-                        },
-                    ),
-                    0,
-                    null,
-                    $productAbstractLocaleRestrictionEventQueueName,
-                ],
-            );
+            ->willReturnCallback(static function ($eventName, EventBaseHandlerInterface $eventHandler, $priority = 0, $queuePoolName = null, $eventQueueName = null) use ($self, $callCount, $productAbstractLocaleRestrictionEventQueueName) {
+                /** @phpstan-ignore-next-line */
+                if (method_exists($callCount, 'getInvocationCount')) {
+                    /** @phpstan-ignore-next-line */
+                    $count = $callCount->getInvocationCount();
+                } else {
+                    /** @phpstan-ignore-next-line */
+                    $count = $callCount->numberOfInvocations();
+                }
+
+                switch ($count) {
+                    case 1:
+                        $self->assertSame(ProductEvents::PRODUCT_ABSTRACT_PUBLISH, $eventName);
+                        $self->assertInstanceOf(ProductAbstractListener::class, $eventHandler);
+                        $self->assertSame(0, $priority);
+                        $self->assertNull($queuePoolName);
+                        $self->assertSame($productAbstractLocaleRestrictionEventQueueName, $eventQueueName);
+
+                        return $self->eventCollectionMock;
+                    case 2:
+                        $self->assertSame(ProductEvents::ENTITY_SPY_PRODUCT_ABSTRACT_CREATE, $eventName);
+                        $self->assertInstanceOf(ProductAbstractListener::class, $eventHandler);
+                        $self->assertSame(0, $priority);
+                        $self->assertNull($queuePoolName);
+                        $self->assertSame($productAbstractLocaleRestrictionEventQueueName, $eventQueueName);
+
+                        return $self->eventCollectionMock;
+                    case 3:
+                        $self->assertSame(ProductEvents::ENTITY_SPY_PRODUCT_ABSTRACT_UPDATE, $eventName);
+                        $self->assertInstanceOf(ProductAbstractListener::class, $eventHandler);
+                        $self->assertSame(0, $priority);
+                        $self->assertNull($queuePoolName);
+                        $self->assertSame($productAbstractLocaleRestrictionEventQueueName, $eventQueueName);
+
+                        return $self->eventCollectionMock;
+                    case 4:
+                        $self->assertSame(ProductLocaleRestrictionEvents::ENTITY_FOO_PRODUCT_ABSTRACT_LOCALE_RESTRICTION_CREATE, $eventName);
+                        $self->assertInstanceOf(ProductAbstractLocaleRestrictionListener::class, $eventHandler);
+                        $self->assertSame(0, $priority);
+                        $self->assertNull($queuePoolName);
+                        $self->assertSame($productAbstractLocaleRestrictionEventQueueName, $eventQueueName);
+
+                        return $self->eventCollectionMock;
+                    case 5:
+                        $self->assertSame(ProductLocaleRestrictionEvents::ENTITY_FOO_PRODUCT_ABSTRACT_LOCALE_RESTRICTION_UPDATE, $eventName);
+                        $self->assertInstanceOf(ProductAbstractLocaleRestrictionListener::class, $eventHandler);
+                        $self->assertSame(0, $priority);
+                        $self->assertNull($queuePoolName);
+                        $self->assertSame($productAbstractLocaleRestrictionEventQueueName, $eventQueueName);
+
+                        return $self->eventCollectionMock;
+                    case 6:
+                        $self->assertSame(ProductLocaleRestrictionEvents::ENTITY_FOO_PRODUCT_ABSTRACT_LOCALE_RESTRICTION_DELETE, $eventName);
+                        $self->assertInstanceOf(ProductAbstractLocaleRestrictionListener::class, $eventHandler);
+                        $self->assertSame(0, $priority);
+                        $self->assertNull($queuePoolName);
+                        $self->assertSame($productAbstractLocaleRestrictionEventQueueName, $eventQueueName);
+
+                        return $self->eventCollectionMock;
+                }
+
+                throw new Exception('Unexpected call count');
+            });
 
         $this->configMock->expects(static::atLeastOnce())
             ->method('getProductAbstractLocaleRestrictionEventQueueName')

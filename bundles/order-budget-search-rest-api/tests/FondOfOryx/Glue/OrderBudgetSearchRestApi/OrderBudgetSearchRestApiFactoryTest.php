@@ -3,6 +3,7 @@
 namespace FondOfOryx\Glue\OrderBudgetSearchRestApi;
 
 use Codeception\Test\Unit;
+use Exception;
 use FondOfOryx\Client\OrderBudgetSearchRestApi\OrderBudgetSearchRestApiClient;
 use FondOfOryx\Glue\OrderBudgetSearchRestApi\Dependency\Client\OrderBudgetSearchRestApiToGlossaryStorageClientInterface;
 use FondOfOryx\Glue\OrderBudgetSearchRestApi\Processor\Reader\OrderBudgetReader;
@@ -114,22 +115,24 @@ class OrderBudgetSearchRestApiFactoryTest extends Unit
      */
     public function testCreateOrderBudgetReader(): void
     {
-        $this->containerMock->expects(static::atLeastOnce())
-            ->method('has')
-            ->withConsecutive(
-                [OrderBudgetSearchRestApiDependencyProvider::PLUGINS_FILTER_FIELDS_EXPANDER],
-                [OrderBudgetSearchRestApiDependencyProvider::CLIENT_GLOSSARY_STORAGE],
-            )->willReturn(true);
+        $self = $this;
 
         $this->containerMock->expects(static::atLeastOnce())
+            ->method('has')
+            ->willReturn(true);
+
+        $this->containerMock->expects($this->atLeastOnce())
             ->method('get')
-            ->withConsecutive(
-                [OrderBudgetSearchRestApiDependencyProvider::PLUGINS_FILTER_FIELDS_EXPANDER],
-                [OrderBudgetSearchRestApiDependencyProvider::CLIENT_GLOSSARY_STORAGE],
-            )->willReturnOnConsecutiveCalls(
-                $this->filterFieldsExpanderPluginMocks,
-                $this->glossaryStorageClientMock,
-            );
+            ->willReturnCallback(static function (string $key) use ($self) {
+                switch ($key) {
+                    case OrderBudgetSearchRestApiDependencyProvider::PLUGINS_FILTER_FIELDS_EXPANDER:
+                        return $self->filterFieldsExpanderPluginMocks;
+                    case OrderBudgetSearchRestApiDependencyProvider::CLIENT_GLOSSARY_STORAGE:
+                        return $self->glossaryStorageClientMock;
+                }
+
+                throw new Exception('Unexpected call');
+            });
 
         static::assertInstanceOf(
             OrderBudgetReader::class,

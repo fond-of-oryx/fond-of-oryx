@@ -3,6 +3,7 @@
 namespace FondOfOryx\Zed\RepresentativeCompanyUserRestApi\Business;
 
 use Codeception\Test\Unit;
+use Exception;
 use FondOfOryx\Zed\RepresentativeCompanyUserRestApi\Business\Model\RepresentationManagerInterface;
 use FondOfOryx\Zed\RepresentativeCompanyUserRestApi\Dependency\Facade\RepresentativeCompanyUserRestApiToRepresentativeCompanyUserFacadeInterface;
 use FondOfOryx\Zed\RepresentativeCompanyUserRestApi\Dependency\Facade\RepresentativeCompanyUserRestApiToRepresentativeCompanyUserRestApiPermissionFacadeInterface;
@@ -108,20 +109,24 @@ class RepresentativeCompanyUserRestApiBusinessFactoryTest extends Unit
      */
     public function testCreateRepresentationManager(): void
     {
+        $self = $this;
+
         $this->containerMock->expects(static::atLeastOnce())
             ->method('has')
             ->willReturn(true);
 
-        $this->containerMock->expects(static::atLeastOnce())
+        $this->containerMock->expects($this->atLeastOnce())
             ->method('get')
-            ->withConsecutive(
-                [RepresentativeCompanyUserRestApiDependencyProvider::FACADE_REPRESENTATIVE_COMPANY_USER],
-                [RepresentativeCompanyUserRestApiDependencyProvider::FACADE_REPRESENTATIVE_COMPANY_USER_REST_API_PERMISSION],
-            )
-            ->willReturnOnConsecutiveCalls(
-                $this->representativeCompanyUserFacadeMock,
-                $this->representativeCompanyUserRestApiPermissionFacade,
-            );
+            ->willReturnCallback(static function (string $key) use ($self) {
+                switch ($key) {
+                    case RepresentativeCompanyUserRestApiDependencyProvider::FACADE_REPRESENTATIVE_COMPANY_USER:
+                        return $self->representativeCompanyUserFacadeMock;
+                    case RepresentativeCompanyUserRestApiDependencyProvider::FACADE_REPRESENTATIVE_COMPANY_USER_REST_API_PERMISSION:
+                        return $self->representativeCompanyUserRestApiPermissionFacade;
+                }
+
+                throw new Exception('Unexpected call');
+            });
 
         static::assertInstanceOf(
             RepresentationManagerInterface::class,

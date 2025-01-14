@@ -19,42 +19,42 @@ use Symfony\Component\HttpFoundation\Response;
 class RestResponseBuilderTest extends Unit
 {
     /**
-     * @var (\FondOfOryx\Glue\OrderBudgetSearchRestApi\Processor\Mapper\RestOrderBudgetSearchAttributesMapperInterface&\PHPUnit\Framework\MockObject\MockObject)|\PHPUnit\Framework\MockObject\MockObject
+     * @var \PHPUnit\Framework\MockObject\MockObject|\FondOfOryx\Glue\OrderBudgetSearchRestApi\Processor\Mapper\RestOrderBudgetSearchAttributesMapperInterface
      */
     protected MockObject|RestOrderBudgetSearchAttributesMapperInterface $restOrderBudgetSearchAttributesMapperMock;
 
     /**
-     * @var \PHPUnit\Framework\MockObject\MockObject|(\Spryker\Glue\GlueApplication\Rest\JsonApi\RestResourceBuilderInterface&\PHPUnit\Framework\MockObject\MockObject)
+     * @var \Spryker\Glue\GlueApplication\Rest\JsonApi\RestResourceBuilderInterface|\PHPUnit\Framework\MockObject\MockObject
      */
     protected RestResourceBuilderInterface|MockObject $restResourceBuilderMock;
 
     /**
-     * @var (\Generated\Shared\Transfer\OrderBudgetListTransfer&\PHPUnit\Framework\MockObject\MockObject)|\PHPUnit\Framework\MockObject\MockObject
+     * @var \Generated\Shared\Transfer\OrderBudgetListTransfer|\PHPUnit\Framework\MockObject\MockObject
      */
     protected OrderBudgetListTransfer|MockObject $orderBudgetListTransferMock;
 
     /**
-     * @var (\Generated\Shared\Transfer\RestOrderBudgetSearchAttributesTransfer&\PHPUnit\Framework\MockObject\MockObject)|\PHPUnit\Framework\MockObject\MockObject
+     * @var \Generated\Shared\Transfer\RestOrderBudgetSearchAttributesTransfer|\PHPUnit\Framework\MockObject\MockObject
      */
     protected RestOrderBudgetSearchAttributesTransfer|MockObject $restOrderBudgetSearchAttributesTransferMock;
 
     /**
-     * @var (\Generated\Shared\Transfer\RestOrderBudgetSearchPaginationTransfer&\PHPUnit\Framework\MockObject\MockObject)|\PHPUnit\Framework\MockObject\MockObject
+     * @var \Generated\Shared\Transfer\RestOrderBudgetSearchPaginationTransfer|\PHPUnit\Framework\MockObject\MockObject
      */
     protected RestOrderBudgetSearchPaginationTransfer|MockObject $restOrderBudgetSearchPaginationTransferMock;
 
     /**
-     * @var \PHPUnit\Framework\MockObject\MockObject|(\Spryker\Glue\GlueApplication\Rest\JsonApi\RestResourceInterface&\PHPUnit\Framework\MockObject\MockObject)
+     * @var \PHPUnit\Framework\MockObject\MockObject|\Spryker\Glue\GlueApplication\Rest\JsonApi\RestResourceInterface
      */
     protected MockObject|RestResourceInterface $restResourceMock;
 
     /**
-     * @var \PHPUnit\Framework\MockObject\MockObject|(\Spryker\Glue\GlueApplication\Rest\JsonApi\RestResponseInterface&\PHPUnit\Framework\MockObject\MockObject)
+     * @var \Spryker\Glue\GlueApplication\Rest\JsonApi\RestResponseInterface|\PHPUnit\Framework\MockObject\MockObject
      */
     protected RestResponseInterface|MockObject $restResponseMock;
 
     /**
-     * @var (\FondOfOryx\Glue\OrderBudgetSearchRestApi\Processor\Translator\RestOrderBudgetSearchAttributesTranslatorInterface&\PHPUnit\Framework\MockObject\MockObject)|\PHPUnit\Framework\MockObject\MockObject
+     * @var \PHPUnit\Framework\MockObject\MockObject|\FondOfOryx\Glue\OrderBudgetSearchRestApi\Processor\Translator\RestOrderBudgetSearchAttributesTranslatorInterface
      */
     protected MockObject|RestOrderBudgetSearchAttributesTranslatorInterface $restOrderBudgetSearchAttributesTranslatorMock;
 

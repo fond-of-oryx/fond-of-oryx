@@ -4,15 +4,13 @@ namespace FondOfOryx\Zed\StockApi\Communication\Plugin\Api;
 
 use Codeception\Test\Unit;
 use FondOfOryx\Zed\StockApi\Business\StockApiFacade;
-use FondOfOryx\Zed\StockApi\Business\StockApiFacadeInterface;
-use FondOfOryx\Zed\StockApi\Persistence\StockApiQueryContainerInterface;
+use FondOfOryx\Zed\StockApi\Persistence\StockApiQueryContainer;
 use FondOfOryx\Zed\StockApi\StockApiConfig;
 use Generated\Shared\Transfer\ApiCollectionTransfer;
 use Generated\Shared\Transfer\ApiDataTransfer;
 use Generated\Shared\Transfer\ApiItemTransfer;
 use Generated\Shared\Transfer\ApiRequestTransfer;
 use RuntimeException;
-use Spryker\Zed\Kernel\Business\AbstractFacade;
 
 class StockApiResourcePluginTest extends Unit
 {
@@ -47,12 +45,12 @@ class StockApiResourcePluginTest extends Unit
     protected $configMock;
 
     /**
-     * @var \FondOfOryx\Zed\StockApi\Business\StockApiFacadeInterface|\PHPUnit\Framework\MockObject\MockObject
+     * @var \FondOfOryx\Zed\StockApi\Business\StockApiFacade|\PHPUnit\Framework\MockObject\MockObject
      */
     protected $facadeMock;
 
     /**
-     * @var \FondOfOryx\Zed\StockApi\Persistence\StockApiQueryContainerInterface|\PHPUnit\Framework\MockObject\MockObject
+     * @var \FondOfOryx\Zed\StockApi\Persistence\StockApiQueryContainer|\PHPUnit\Framework\MockObject\MockObject
      */
     protected $queryContainerMock;
 
@@ -85,7 +83,7 @@ class StockApiResourcePluginTest extends Unit
             ->disableOriginalConstructor()
             ->getMock();
 
-        $this->queryContainerMock = $this->getMockBuilder(StockApiQueryContainerInterface::class)
+        $this->queryContainerMock = $this->getMockBuilder(StockApiQueryContainer::class)
             ->disableOriginalConstructor()
             ->getMock();
 
@@ -96,21 +94,21 @@ class StockApiResourcePluginTest extends Unit
             protected $configMock;
 
             /**
-             * @var \FondOfOryx\Zed\StockApi\Business\StockApiFacadeInterface
+             * @var \FondOfOryx\Zed\StockApi\Business\StockApiFacade
              */
             protected $facadeMock;
 
             /**
-             * @var \FondOfOryx\Zed\StockApi\Persistence\StockApiQueryContainerInterface
+             * @var \FondOfOryx\Zed\StockApi\Persistence\StockApiQueryContainer
              */
             protected $queryContainerMock;
 
             /**
-             * @param \FondOfOryx\Zed\StockApi\Business\StockApiFacadeInterface $stockFacade
+             * @param \FondOfOryx\Zed\StockApi\Business\StockApiFacade $stockFacade
              * @param \FondOfOryx\Zed\StockApi\StockApiConfig $config
-             * @param \FondOfOryx\Zed\StockApi\Persistence\StockApiQueryContainerInterface $queryContainer
+             * @param \FondOfOryx\Zed\StockApi\Persistence\StockApiQueryContainer $queryContainer
              */
-            public function __construct(StockApiFacadeInterface $stockFacade, StockApiConfig $config, StockApiQueryContainerInterface $queryContainer)
+            public function __construct(StockApiFacade $stockFacade, StockApiConfig $config, StockApiQueryContainer $queryContainer)
             {
                 $this->facadeMock = $stockFacade;
                 $this->configMock = $config;
@@ -118,9 +116,9 @@ class StockApiResourcePluginTest extends Unit
             }
 
             /**
-             * @return \Spryker\Zed\Kernel\Business\AbstractFacade
+             * @return \FondOfOryx\Zed\StockApi\Business\StockApiFacade
              */
-            protected function getFacade(): AbstractFacade
+            protected function getFacade(): StockApiFacade
             {
                 return $this->facadeMock;
             }

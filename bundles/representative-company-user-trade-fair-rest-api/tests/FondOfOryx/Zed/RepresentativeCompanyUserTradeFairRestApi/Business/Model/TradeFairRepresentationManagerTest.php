@@ -3,6 +3,7 @@
 namespace FondOfOryx\Zed\RepresentativeCompanyUserTradeFairRestApi\Business\Model;
 
 use Codeception\Test\Unit;
+use Exception;
 use FondOfOryx\Zed\RepresentativeCompanyUserTradeFairRestApi\Business\Model\Mapper\RestDataMapperInterface;
 use FondOfOryx\Zed\RepresentativeCompanyUserTradeFairRestApi\Business\Validator\DurationValidatorInterface;
 use FondOfOryx\Zed\RepresentativeCompanyUserTradeFairRestApi\Dependency\Facade\RepresentativeCompanyUserTradeFairRestApiToCompanyTypeFacadeInterface;
@@ -190,6 +191,8 @@ class TradeFairRepresentationManagerTest extends Unit
      */
     public function testAddTradeFairRepresentation(): void
     {
+        $self = $this;
+
         $customerReferenceOriginator = 'customer-reference-originator';
         $customerReferenceRepresentative = 'customer-reference-representative';
         $tradeFairName = 'fair trade';
@@ -233,16 +236,32 @@ class TradeFairRepresentationManagerTest extends Unit
             ->method('getCustomerReferenceRepresentative')
             ->willReturn($customerReferenceRepresentative);
 
-        $this->repositoryMock->expects(static::atLeastOnce())
+        $callCount = $this->atLeastOnce();
+        $this->repositoryMock->expects($callCount)
             ->method('getIdCustomerByReference')
-            ->withConsecutive(
-                [$customerReferenceOriginator],
-                [$customerReferenceRepresentative],
-            )
-            ->willReturnOnConsecutiveCalls(
-                $originatorId,
-                $representationId,
-            );
+            ->willReturnCallback(static function (string $customerReference) use ($self, $callCount, $customerReferenceOriginator, $customerReferenceRepresentative, $originatorId, $representationId) {
+                /** @phpstan-ignore-next-line */
+                if (method_exists($callCount, 'getInvocationCount')) {
+                    /** @phpstan-ignore-next-line */
+                    $count = $callCount->getInvocationCount();
+                } else {
+                    /** @phpstan-ignore-next-line */
+                    $count = $callCount->numberOfInvocations();
+                }
+
+                switch ($count) {
+                    case 1:
+                        $self->assertSame($customerReferenceOriginator, $customerReference);
+
+                        return $originatorId;
+                    case 2:
+                        $self->assertSame($customerReferenceRepresentative, $customerReference);
+
+                        return $representationId;
+                }
+
+                throw new Exception('Unexpected call count');
+            });
 
         $this->restRepresentativeCompanyUserTradeFairAttributesTransferMock->expects(static::atLeastOnce())
             ->method('getTradeFairName')
@@ -491,6 +510,8 @@ class TradeFairRepresentationManagerTest extends Unit
      */
     public function testUpdateTradeFairRepresentationWithSameDistributorAndOriginator(): void
     {
+        $self = $this;
+
         $startAt = '1970-01-01';
         $endAt = '1970-01-05';
         $uuid = 'xxxx-xxxxx-xxxx-xxxx';
@@ -569,16 +590,32 @@ class TradeFairRepresentationManagerTest extends Unit
             ->method('getCustomerReferenceRepresentative')
             ->willReturn($customerReferenceRepresentative);
 
-        $this->repositoryMock->expects(static::atLeastOnce())
+        $callCount = $this->atLeastOnce();
+        $this->repositoryMock->expects($callCount)
             ->method('getIdCustomerByReference')
-            ->withConsecutive(
-                [$customerReferenceOriginator],
-                [$customerReferenceRepresentative],
-            )
-            ->willReturnOnConsecutiveCalls(
-                $originatorId,
-                $representationId,
-            );
+            ->willReturnCallback(static function (string $customerReference) use ($self, $callCount, $customerReferenceOriginator, $customerReferenceRepresentative, $originatorId, $representationId) {
+                /** @phpstan-ignore-next-line */
+                if (method_exists($callCount, 'getInvocationCount')) {
+                    /** @phpstan-ignore-next-line */
+                    $count = $callCount->getInvocationCount();
+                } else {
+                    /** @phpstan-ignore-next-line */
+                    $count = $callCount->numberOfInvocations();
+                }
+
+                switch ($count) {
+                    case 1:
+                        $self->assertSame($customerReferenceOriginator, $customerReference);
+
+                        return $originatorId;
+                    case 2:
+                        $self->assertSame($customerReferenceRepresentative, $customerReference);
+
+                        return $representationId;
+                }
+
+                throw new Exception('Unexpected call count');
+            });
 
         $this->restRepresentativeCompanyUserTradeFairAttributesTransferMock->expects(static::atLeastOnce())
             ->method('getTradeFairName')

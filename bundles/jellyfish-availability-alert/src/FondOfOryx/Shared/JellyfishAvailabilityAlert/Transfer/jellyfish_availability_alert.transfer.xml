@@ -17,7 +17,12 @@
     </transfer>
 
     <transfer name="AvailabilityAlertSubscription">
+        <property name="idAvailabilityAlertSubscription" type="int" />
         <property name="eventType" type="string" />
+    </transfer>
+
+    <transfer name="AvailabilityAlertSubscriber">
+        <property name="idAvailabilityAlertSubscriber" type="int" />
     </transfer>
 </transfers>
 

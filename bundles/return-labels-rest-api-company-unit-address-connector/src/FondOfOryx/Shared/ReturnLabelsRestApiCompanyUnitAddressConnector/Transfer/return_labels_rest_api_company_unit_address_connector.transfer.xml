@@ -6,6 +6,7 @@
     <transfer name="RestReturnLabelRequest">
         <property name="idCustomer" type="int" />
         <property name="address" type="RestAddress" />
+        <property name="customer" type="RestCustomer"/>
     </transfer>
 
     <transfer name="RestAddress">
@@ -14,6 +15,7 @@
 
     <transfer name="ReturnLabelRequest">
         <property name="customer" type="ReturnLabelRequestCustomer"/>
+        <property name="receiverId" type="string"/>
     </transfer>
 
     <transfer name="ReturnLabelRequestCustomer">
@@ -36,5 +38,14 @@
     <transfer name="CompanyUnitAddress">
         <property name="iso3code" type="string"/>
         <property name="country" type="Country" strict="true"/>
+    </transfer>
+
+    <transfer name="Country">
+        <property name="name" type="string"/>
+    </transfer>
+
+    <transfer name="RestCustomer">
+        <property name="name" type="string"/>
+        <property name="idCustomer" type="int" />
     </transfer>
 </transfers>

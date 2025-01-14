@@ -10,17 +10,17 @@ use Generated\Shared\Transfer\SplittableCheckoutTransfer;
 class OrderCustomReferencesRestSplittableCheckoutExpanderPluginTest extends Unit
 {
     /**
-     * @var \Generated\Shared\Transfer\SplittableCheckoutTransfer&\PHPUnit\Framework\MockObject\MockObject|\PHPUnit\Framework\MockObject\MockObject
+     * @var \Generated\Shared\Transfer\SplittableCheckoutTransfer|\PHPUnit\Framework\MockObject\MockObject
      */
     protected $splittableCheckoutTransferMock;
 
     /**
-     * @var \Generated\Shared\Transfer\RestSplittableCheckoutTransfer&\PHPUnit\Framework\MockObject\MockObject|\PHPUnit\Framework\MockObject\MockObject
+     * @var \Generated\Shared\Transfer\RestSplittableCheckoutTransfer|\PHPUnit\Framework\MockObject\MockObject
      */
     protected $restSplittableCheckoutTransferMock;
 
     /**
-     * @var array<string, \Generated\Shared\Transfer\QuoteTransfer&\PHPUnit\Framework\MockObject\MockObject|\PHPUnit\Framework\MockObject\MockObject>
+     * @var array<string, \Generated\Shared\Transfer\QuoteTransfer|\PHPUnit\Framework\MockObject\MockObject>
      */
     protected $quoteTransferMocks;
 

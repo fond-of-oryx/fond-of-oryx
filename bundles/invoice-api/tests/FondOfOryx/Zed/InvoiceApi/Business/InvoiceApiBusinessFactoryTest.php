@@ -3,6 +3,7 @@
 namespace FondOfOryx\Zed\InvoiceApi\Business;
 
 use Codeception\Test\Unit;
+use Exception;
 use FondOfOryx\Zed\InvoiceApi\Business\Mapper\TransferMapper;
 use FondOfOryx\Zed\InvoiceApi\Business\Mapper\TransferMapperInterface;
 use FondOfOryx\Zed\InvoiceApi\Dependency\Facade\InvoiceApiToApiFacadeBridge;
@@ -92,14 +93,24 @@ class InvoiceApiBusinessFactoryTest extends Unit
      */
     public function testCreateInvoiceApi(): void
     {
+        $self = $this;
+
         $this->containerMock->expects(static::atLeastOnce())
             ->method('has')
             ->willReturn(true);
 
-        $this->containerMock->expects(static::atLeastOnce())
+        $this->containerMock->expects($this->atLeastOnce())
             ->method('get')
-            ->withConsecutive([InvoiceApiDependencyProvider::FACADE_API], [InvoiceApiDependencyProvider::FACADE_CREDIT_MEMO])
-            ->willReturnOnConsecutiveCalls($this->apiFacadeMock, $this->invoiceFacadeMock);
+            ->willReturnCallback(static function (string $key) use ($self) {
+                switch ($key) {
+                    case InvoiceApiDependencyProvider::FACADE_API:
+                        return $self->apiFacadeMock;
+                    case InvoiceApiDependencyProvider::FACADE_CREDIT_MEMO:
+                        return $self->invoiceFacadeMock;
+                }
+
+                throw new Exception('Unexpected call');
+            });
 
         $this->businessFactory->createInvoiceApi();
     }

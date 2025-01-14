@@ -3,6 +3,7 @@
 namespace FondOfOryx\Zed\ReturnLabel\Business;
 
 use Codeception\Test\Unit;
+use Exception;
 use FondOfOryx\Zed\ReturnLabel\Business\Model\ReturnLabelGenerator;
 use FondOfOryx\Zed\ReturnLabel\Dependency\Service\ReturnLabelToUtilEncodingServiceBridge;
 use FondOfOryx\Zed\ReturnLabel\ReturnLabelConfig;
@@ -94,14 +95,22 @@ class ReturnLabelBusinessFactoryTest extends Unit
      */
     public function testCreateReturnLabelGenerator(): void
     {
+        $self = $this;
+
         $this->containerMock->expects(static::atLeastOnce())
             ->method('has')
             ->willReturn(true);
 
-        $this->containerMock->expects(static::atLeastOnce())
+        $this->containerMock->expects($this->atLeastOnce())
             ->method('get')
-            ->withConsecutive([ReturnLabelDependencyProvider::SERVICE_UTIL_ENCODING])
-            ->willReturnOnConsecutiveCalls($this->returnLabelToUtilEncodingServiceMock);
+            ->willReturnCallback(static function (string $key) use ($self) {
+                switch ($key) {
+                    case ReturnLabelDependencyProvider::SERVICE_UTIL_ENCODING:
+                        return $self->returnLabelToUtilEncodingServiceMock;
+                }
+
+                throw new Exception('Unexpected call');
+            });
 
         static::assertInstanceOf(
             ReturnLabelGenerator::class,

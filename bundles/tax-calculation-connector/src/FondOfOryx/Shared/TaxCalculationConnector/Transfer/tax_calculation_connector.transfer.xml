@@ -10,4 +10,8 @@
         <property name="countryIso2Code" type="string" />
         <property name="maxTaxRate" type="float" />
     </transfer>
+
+    <transfer name="Address">
+        <property name="fkRegion" type="int"/>
+    </transfer>
 </transfers>

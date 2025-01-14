@@ -3,6 +3,7 @@
 namespace FondOfOryx\Zed\RepresentativeCompanyUser\Business;
 
 use Codeception\Test\Unit;
+use Exception;
 use FondOfOryx\Zed\RepresentativeCompanyUser\Business\Manager\CompanyUserManager;
 use FondOfOryx\Zed\RepresentativeCompanyUser\Business\Manager\RepresentationManager;
 use FondOfOryx\Zed\RepresentativeCompanyUser\Business\Task\TaskRunnerInterface;
@@ -136,16 +137,22 @@ class RepresentativeCompanyUserBusinessFactoryTest extends Unit
      */
     public function testCreateRepresentationManager(): void
     {
+        $self = $this;
+
         $this->containerMock->expects(static::atLeastOnce())
             ->method('has')
             ->willReturn(true);
 
-        $this->containerMock->expects(static::atLeastOnce())
+        $this->containerMock->expects($this->atLeastOnce())
             ->method('get')
-            ->withConsecutive([RepresentativeCompanyUserDependencyProvider::FACADE_EVENT])
-            ->willReturnOnConsecutiveCalls(
-                $this->eventFacadeMock,
-            );
+            ->willReturnCallback(static function (string $key) use ($self) {
+                switch ($key) {
+                    case RepresentativeCompanyUserDependencyProvider::FACADE_EVENT:
+                        return $self->eventFacadeMock;
+                }
+
+                throw new Exception('Unexpected call');
+            });
 
         static::assertInstanceOf(
             RepresentationManager::class,

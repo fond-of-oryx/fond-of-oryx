@@ -3,6 +3,7 @@
 namespace FondOfOryx\Zed\RepresentativeCompanyUser\Business\Manager;
 
 use Codeception\Test\Unit;
+use Exception;
 use FondOfOryx\Zed\RepresentativeCompanyUser\Dependency\Facade\RepresentativeCompanyUserToCompanyUserFacadeInterface;
 use FondOfOryx\Zed\RepresentativeCompanyUser\Persistence\RepresentativeCompanyUserEntityManagerInterface;
 use FondOfOryx\Zed\RepresentativeCompanyUser\Persistence\RepresentativeCompanyUserRepositoryInterface;
@@ -117,6 +118,8 @@ class CompanyUserManagerTest extends Unit
      */
     public function testCreateCompanyUserForRepresentation(): void
     {
+        $self = $this;
+
         $idDistributor = 1;
         $idCustomer = 2;
 
@@ -193,16 +196,32 @@ class CompanyUserManagerTest extends Unit
             ->method('getIsSuccessful')
             ->willReturn(true);
 
-        $this->repositoryMock->expects(static::atLeastOnce())
+        $callCount = $this->atLeastOnce();
+        $this->repositoryMock->expects($callCount)
             ->method('getAllCompanyUserByCustomerId')
-            ->withConsecutive(
-                [$idDistributor],
-                [$idCustomer],
-            )
-            ->willReturnOnConsecutiveCalls(
-                $this->companyUserCollectionTransferMock,
-                $collectionClone,
-            );
+            ->willReturnCallback(static function (int $idCustomerFn) use ($self, $callCount, $collectionClone, $idDistributor, $idCustomer) {
+                /** @phpstan-ignore-next-line */
+                if (method_exists($callCount, 'getInvocationCount')) {
+                    /** @phpstan-ignore-next-line */
+                    $count = $callCount->getInvocationCount();
+                } else {
+                    /** @phpstan-ignore-next-line */
+                    $count = $callCount->numberOfInvocations();
+                }
+
+                switch ($count) {
+                    case 1:
+                        $self->assertSame($idDistributor, $idCustomerFn);
+
+                        return $self->companyUserCollectionTransferMock;
+                    case 2:
+                        $self->assertSame($idCustomer, $idCustomerFn);
+
+                        return $collectionClone;
+                }
+
+                throw new Exception('Unexpected call count');
+            });
 
         $this->manager->createCompanyUserForRepresentation($this->representativeCompanyUserTransferMock);
     }

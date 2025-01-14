@@ -45,7 +45,7 @@ class TrboServiceTest extends Unit
             ->disableOriginalConstructor()
             ->getMock();
 
-        $this->TrboTransferMock = $this->getMockBuilder(TrboTransfer::class)
+        $this->trboTransferMock = $this->getMockBuilder(TrboTransfer::class)
             ->disableOriginalConstructor()
             ->getMock();
 
@@ -72,9 +72,9 @@ class TrboServiceTest extends Unit
 
         $this->trboApiMock->expects(static::atLeastOnce())
             ->method('requestData')
-            ->willReturn($this->TrboTransferMock);
+            ->willReturn($this->trboTransferMock);
 
-        static::assertEquals($this->TrboTransferMock, $this->service->requestData($this->requestMock));
+        static::assertEquals($this->trboTransferMock, $this->service->requestData($this->requestMock));
     }
 
     /**

@@ -17,37 +17,37 @@ use Symfony\Component\HttpFoundation\Response;
 class RestResponseBuilderTest extends Unit
 {
     /**
-     * @var \FondOfOryx\Glue\ProductListSearchRestApi\Processor\Mapper\RestProductListSearchAttributesMapperInterface|\PHPUnit\Framework\MockObject\MockObject|mixed
+     * @var \FondOfOryx\Glue\ProductListSearchRestApi\Processor\Mapper\RestProductListSearchAttributesMapperInterface|\PHPUnit\Framework\MockObject\MockObject
      */
     protected $restProductListSearchAttributesMapperMock;
 
     /**
-     * @var \PHPUnit\Framework\MockObject\MockObject|\Spryker\Glue\GlueApplication\Rest\JsonApi\RestResourceBuilderInterface|mixed
+     * @var \PHPUnit\Framework\MockObject\MockObject|\Spryker\Glue\GlueApplication\Rest\JsonApi\RestResourceBuilderInterface
      */
     protected $restResourceBuilderMock;
 
     /**
-     * @var \Generated\Shared\Transfer\ProductListCollectionTransfer|\PHPUnit\Framework\MockObject\MockObject|mixed
+     * @var \Generated\Shared\Transfer\ProductListCollectionTransfer|\PHPUnit\Framework\MockObject\MockObject
      */
     protected $productListCollectionTransferMock;
 
     /**
-     * @var \Generated\Shared\Transfer\RestProductListSearchAttributesTransfer|\PHPUnit\Framework\MockObject\MockObject|mixed
+     * @var \Generated\Shared\Transfer\RestProductListSearchAttributesTransfer|\PHPUnit\Framework\MockObject\MockObject
      */
     protected $restProductListSearchAttributesTransferMock;
 
     /**
-     * @var \Generated\Shared\Transfer\RestProductListSearchPaginationTransfer|\PHPUnit\Framework\MockObject\MockObject|mixed
+     * @var \Generated\Shared\Transfer\RestProductListSearchPaginationTransfer|\PHPUnit\Framework\MockObject\MockObject
      */
     protected $restProductListSearchPaginationTransferMock;
 
     /**
-     * @var \PHPUnit\Framework\MockObject\MockObject|\Spryker\Glue\GlueApplication\Rest\JsonApi\RestResourceInterface|mixed
+     * @var \PHPUnit\Framework\MockObject\MockObject|\Spryker\Glue\GlueApplication\Rest\JsonApi\RestResourceInterface
      */
     protected $restResourceMock;
 
     /**
-     * @var \PHPUnit\Framework\MockObject\MockObject|\Spryker\Glue\GlueApplication\Rest\JsonApi\RestResourceInterface|mixed
+     * @var \PHPUnit\Framework\MockObject\MockObject|\Spryker\Glue\GlueApplication\Rest\JsonApi\RestResourceInterface
      */
     protected $restResponseMock;
 
@@ -88,10 +88,6 @@ class RestResponseBuilderTest extends Unit
             ->getMock();
 
         $this->restResponseMock = $this->getMockBuilder(RestResponseInterface::class)
-            ->disableOriginalConstructor()
-            ->getMock();
-
-        $this->restProductListSearchAttributesTranslatorMock = $this->getMockBuilder(RestProductListSearchAttributesTranslatorInterface::class)
             ->disableOriginalConstructor()
             ->getMock();
 

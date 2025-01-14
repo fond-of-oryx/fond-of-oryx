@@ -3,6 +3,7 @@
 namespace FondOfOryx\Glue\RepresentativeCompanyUserRestApi;
 
 use Codeception\Test\Unit;
+use Exception;
 use FondOfOryx\Client\RepresentativeCompanyUserRestApi\RepresentativeCompanyUserRestApiClient;
 use FondOfOryx\Glue\RepresentativeCompanyUserRestApi\Dependency\Client\RepresentativeCompanyUserRestApiToRepresentativeCompanyUserRestApiPermissionInterface;
 use FondOfOryx\Glue\RepresentativeCompanyUserRestApi\Processor\Manager\RepresentationManager;
@@ -101,19 +102,22 @@ class RepresentativeCompanyUserRestApiFactoryTest extends Unit
      */
     public function testCreateRepresentationManager(): void
     {
-        $this->containerMock->expects(static::atLeastOnce())
-            ->method('has')
-            ->withConsecutive(
-                [RepresentativeCompanyUserRestApiDependencyProvider::CLIENT_REPRESENTATIVE_COMPANY_USER_PERMISSION],
-            )->willReturn(true);
+        $self = $this;
 
         $this->containerMock->expects(static::atLeastOnce())
+            ->method('has')
+            ->willReturn(true);
+
+        $this->containerMock->expects($this->atLeastOnce())
             ->method('get')
-            ->withConsecutive(
-                [RepresentativeCompanyUserRestApiDependencyProvider::CLIENT_REPRESENTATIVE_COMPANY_USER_PERMISSION],
-            )->willReturnOnConsecutiveCalls(
-                $this->permissionClientMock,
-            );
+            ->willReturnCallback(static function (string $key) use ($self) {
+                switch ($key) {
+                    case RepresentativeCompanyUserRestApiDependencyProvider::CLIENT_REPRESENTATIVE_COMPANY_USER_PERMISSION:
+                        return $self->permissionClientMock;
+                }
+
+                throw new Exception('Unexpected call');
+            });
 
         static::assertInstanceOf(
             RepresentationManager::class,

@@ -33,6 +33,7 @@ class PaymentEpcQrCodeDependencyProvider extends AbstractBundleDependencyProvide
     public function addQrCodeService(Container $container): Container
     {
         $container[static::SERVICE_EPC_QR_CODE] = static function (Container $container) {
+            // @phpstan-ignore-next-line
             return $container->getLocator()->paymentEpcQrCode()->service();
         };
 

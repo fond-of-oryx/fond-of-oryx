@@ -16,37 +16,37 @@ use PHPUnit\Framework\MockObject\MockObject;
 class OrderBudgetReaderTest extends Unit
 {
     /**
-     * @var (\FondOfOryx\Zed\OrderBudgetSearchRestApi\Persistence\OrderBudgetSearchRestApiRepositoryInterface&\PHPUnit\Framework\MockObject\MockObject)|\PHPUnit\Framework\MockObject\MockObject
+     * @var \PHPUnit\Framework\MockObject\MockObject|\FondOfOryx\Zed\OrderBudgetSearchRestApi\Persistence\OrderBudgetSearchRestApiRepositoryInterface
      */
     protected MockObject|OrderBudgetSearchRestApiRepositoryInterface $repositoryMock;
 
     /**
-     * @var (\FondOfOryx\Zed\OrderBudgetSearchRestApi\Dependency\Facade\OrderBudgetSearchRestApiToOrderBudgetFacadeInterface&\PHPUnit\Framework\MockObject\MockObject)|\PHPUnit\Framework\MockObject\MockObject
+     * @var \FondOfOryx\Zed\OrderBudgetSearchRestApi\Dependency\Facade\OrderBudgetSearchRestApiToOrderBudgetFacadeInterface|\PHPUnit\Framework\MockObject\MockObject
      */
     protected OrderBudgetSearchRestApiToOrderBudgetFacadeInterface|MockObject $orderBudgetFacadeMock;
 
     /**
-     * @var array<(\FondOfOryx\Zed\OrderBudgetSearchRestApiExtension\Dependency\Plugin\SearchOrderBudgetQueryExpanderPluginInterface&\PHPUnit\Framework\MockObject\MockObject)|\PHPUnit\Framework\MockObject\MockObject>
+     * @var array<\FondOfOryx\Zed\OrderBudgetSearchRestApiExtension\Dependency\Plugin\SearchOrderBudgetQueryExpanderPluginInterface|\PHPUnit\Framework\MockObject\MockObject>
      */
     protected array $searchOrderBudgetQueryExpanderPluginMocks;
 
     /**
-     * @var array<(\Generated\Shared\Transfer\OrderBudgetTransfer&\PHPUnit\Framework\MockObject\MockObject)|\PHPUnit\Framework\MockObject\MockObject>
+     * @var array<\Generated\Shared\Transfer\OrderBudgetTransfer|\PHPUnit\Framework\MockObject\MockObject>
      */
     protected array $orderBudgetTransferMocks;
 
     /**
-     * @var (\Generated\Shared\Transfer\OrderBudgetListTransfer&\PHPUnit\Framework\MockObject\MockObject)|\PHPUnit\Framework\MockObject\MockObject
+     * @var \Generated\Shared\Transfer\OrderBudgetListTransfer|\PHPUnit\Framework\MockObject\MockObject
      */
     protected OrderBudgetListTransfer|MockObject $orderBudgetListTransferMock;
 
     /**
-     * @var (\Generated\Shared\Transfer\FilterFieldTransfer&\PHPUnit\Framework\MockObject\MockObject)|\PHPUnit\Framework\MockObject\MockObject
+     * @var \PHPUnit\Framework\MockObject\MockObject|\Generated\Shared\Transfer\FilterFieldTransfer
      */
     protected MockObject|FilterFieldTransfer $filterFieldTransferMock;
 
     /**
-     * @var (\Generated\Shared\Transfer\QueryJoinCollectionTransfer&\PHPUnit\Framework\MockObject\MockObject)|\PHPUnit\Framework\MockObject\MockObject
+     * @var \PHPUnit\Framework\MockObject\MockObject|\Generated\Shared\Transfer\QueryJoinCollectionTransfer
      */
     protected MockObject|QueryJoinCollectionTransfer $queryJoinCollectionTransferMock;
 

@@ -104,7 +104,7 @@ class RequestTest extends Unit
 
         $this->responseMock->expects(static::atLeastOnce())
             ->method('getStatusCode')
-            ->willReturn('200');
+            ->willReturn(200);
 
         $this->responseMock->expects(static::atLeastOnce())
             ->method('getBody')

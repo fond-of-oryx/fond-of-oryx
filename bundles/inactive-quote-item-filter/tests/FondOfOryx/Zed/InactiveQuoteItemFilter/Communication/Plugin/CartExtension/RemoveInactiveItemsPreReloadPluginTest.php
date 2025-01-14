@@ -16,32 +16,32 @@ use PHPUnit\Framework\MockObject\MockObject;
 class RemoveInactiveItemsPreReloadPluginTest extends Unit
 {
     /**
-     * @var (\Generated\Shared\Transfer\QuoteTransfer&\PHPUnit\Framework\MockObject\MockObject)|\PHPUnit\Framework\MockObject\MockObject
+     * @var \Generated\Shared\Transfer\QuoteTransfer|\PHPUnit\Framework\MockObject\MockObject
      */
     protected QuoteTransfer|MockObject $quoteTransferMock;
 
     /**
-     * @var (\Generated\Shared\Transfer\StoreTransfer&\PHPUnit\Framework\MockObject\MockObject)|\PHPUnit\Framework\MockObject\MockObject
+     * @var \Generated\Shared\Transfer\StoreTransfer|\PHPUnit\Framework\MockObject\MockObject
      */
     protected StoreTransfer|MockObject $storeTransferMock;
 
     /**
-     * @var array<(\Generated\Shared\Transfer\ItemTransfer&\PHPUnit\Framework\MockObject\MockObject)|\PHPUnit\Framework\MockObject\MockObject>
+     * @var array<\Generated\Shared\Transfer\ItemTransfer|\PHPUnit\Framework\MockObject\MockObject>
      */
     protected array $itemTransferMocks;
 
     /**
-     * @var (\FondOfOryx\Zed\InactiveQuoteItemFilter\Persistence\InactiveQuoteItemFilterRepository&\PHPUnit\Framework\MockObject\MockObject)|\PHPUnit\Framework\MockObject\MockObject
+     * @var \PHPUnit\Framework\MockObject\MockObject|\FondOfOryx\Zed\InactiveQuoteItemFilter\Persistence\InactiveQuoteItemFilterRepository
      */
     protected MockObject|InactiveQuoteItemFilterRepository $repositoryMock;
 
     /**
-     * @var (\FondOfOryx\Zed\InactiveQuoteItemFilter\Communication\InactiveQuoteItemFilterCommunicationFactory&\PHPUnit\Framework\MockObject\MockObject)|\PHPUnit\Framework\MockObject\MockObject
+     * @var \FondOfOryx\Zed\InactiveQuoteItemFilter\Communication\InactiveQuoteItemFilterCommunicationFactory|\PHPUnit\Framework\MockObject\MockObject
      */
     protected InactiveQuoteItemFilterCommunicationFactory|MockObject $factoryMock;
 
     /**
-     * @var (\FondOfOryx\Zed\InactiveQuoteItemFilter\Dependency\Facade\InactiveQuoteItemFilterToMessengerFacadeInterface&\PHPUnit\Framework\MockObject\MockObject)|\PHPUnit\Framework\MockObject\MockObject
+     * @var \FondOfOryx\Zed\InactiveQuoteItemFilter\Dependency\Facade\InactiveQuoteItemFilterToMessengerFacadeInterface|\PHPUnit\Framework\MockObject\MockObject
      */
     protected InactiveQuoteItemFilterToMessengerFacadeInterface|MockObject $messengerFacadeMock;
 
@@ -143,7 +143,7 @@ class RemoveInactiveItemsPreReloadPluginTest extends Unit
                     fn (
                         MessageTransfer $messageTransfer
                     ) => $messageTransfer->getValue() === RemoveInactiveItemsPreReloadPlugin::MESSAGE_INFO_CONCRETE_INACTIVE_PRODUCT_REMOVED
-                        && $messageTransfer->getParameters() == [RemoveInactiveItemsPreReloadPlugin::MESSAGE_PARAM_SKU => $skus[0]]
+                        && $messageTransfer->getParameters() == [RemoveInactiveItemsPreReloadPlugin::MESSAGE_PARAM_SKU => $skus[0]],
                 ),
             );
 

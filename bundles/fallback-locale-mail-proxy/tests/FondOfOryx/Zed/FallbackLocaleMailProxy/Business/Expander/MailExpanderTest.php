@@ -12,22 +12,22 @@ use PHPUnit\Framework\MockObject\MockObject;
 class MailExpanderTest extends Unit
 {
     /**
-     * @var (\FondOfOryx\Zed\FallbackLocaleMailProxy\Business\Reader\StoreReaderInterface&\PHPUnit\Framework\MockObject\MockObject)|\PHPUnit\Framework\MockObject\MockObject
+     * @var \PHPUnit\Framework\MockObject\MockObject|\FondOfOryx\Zed\FallbackLocaleMailProxy\Business\Reader\StoreReaderInterface
      */
     protected MockObject|StoreReaderInterface $storeReaderMock;
 
     /**
-     * @var (\Generated\Shared\Transfer\MailTransfer&\PHPUnit\Framework\MockObject\MockObject)|\PHPUnit\Framework\MockObject\MockObject
+     * @var \PHPUnit\Framework\MockObject\MockObject|\Generated\Shared\Transfer\MailTransfer
      */
     protected MockObject|MailTransfer $mailTransferMock;
 
     /**
-     * @var (\Generated\Shared\Transfer\StoreTransfer&\PHPUnit\Framework\MockObject\MockObject)|\PHPUnit\Framework\MockObject\MockObject
+     * @var \Generated\Shared\Transfer\StoreTransfer|\PHPUnit\Framework\MockObject\MockObject
      */
     protected StoreTransfer|MockObject $storeTransferMock;
 
     /**
-     * @var (\Generated\Shared\Transfer\LocaleTransfer&\PHPUnit\Framework\MockObject\MockObject)|\PHPUnit\Framework\MockObject\MockObject
+     * @var \PHPUnit\Framework\MockObject\MockObject|\Generated\Shared\Transfer\LocaleTransfer
      */
     protected MockObject|LocaleTransfer $localeTransferMock;
 

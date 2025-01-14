@@ -45,6 +45,8 @@ class FormulaEvaluatorTest extends Unit
     public function testEvaluateWithInvalidVariableValue(): void
     {
         try {
+            // since it should fail next line could be ignored
+            // @phpstan-ignore-next-line
             $this->formulaEvaluator->evaluate('x+1', ['x' => 'x']);
             static::fail();
         } catch (Throwable $exception) {

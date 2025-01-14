@@ -3,6 +3,7 @@
 namespace FondOfOryx\Zed\SplittableCheckoutRestApi\Business;
 
 use Codeception\Test\Unit;
+use Exception;
 use FondOfOryx\Zed\SplittableCheckoutRestApi\Business\Processor\PlaceOrderProcessor;
 use FondOfOryx\Zed\SplittableCheckoutRestApi\Business\Reader\SplittableTotalsReader;
 use FondOfOryx\Zed\SplittableCheckoutRestApi\Dependency\Facade\SplittableCheckoutRestApiToCartFacadeInterface;
@@ -81,24 +82,28 @@ class SplittableCheckoutRestApiBusinessFactoryTest extends Unit
      */
     public function testCreatePlaceOrderProcessor(): void
     {
+        $self = $this;
+
         $this->containerMock->expects(static::atLeastOnce())
             ->method('has')
             ->willReturn(true);
 
-        $this->containerMock->expects(static::atLeastOnce())
+        $this->containerMock->expects($this->atLeastOnce())
             ->method('get')
-            ->withConsecutive(
-                [SplittableCheckoutRestApiDependencyProvider::PLUGINS_QUOTE_EXPANDER],
-                [SplittableCheckoutRestApiDependencyProvider::FACADE_CART],
-                [SplittableCheckoutRestApiDependencyProvider::FACADE_QUOTE],
-                [SplittableCheckoutRestApiDependencyProvider::FACADE_SPLITTABLE_CHECKOUT],
-            )
-            ->willReturnOnConsecutiveCalls(
-                [],
-                $this->cartFacadeMock,
-                $this->quoteFacadeMock,
-                $this->splittableCheckoutFacadeMock,
-            );
+            ->willReturnCallback(static function (string $key) use ($self) {
+                switch ($key) {
+                    case SplittableCheckoutRestApiDependencyProvider::PLUGINS_QUOTE_EXPANDER:
+                        return [];
+                    case SplittableCheckoutRestApiDependencyProvider::FACADE_CART:
+                        return $self->cartFacadeMock;
+                    case SplittableCheckoutRestApiDependencyProvider::FACADE_QUOTE:
+                        return $self->quoteFacadeMock;
+                    case SplittableCheckoutRestApiDependencyProvider::FACADE_SPLITTABLE_CHECKOUT:
+                        return $self->splittableCheckoutFacadeMock;
+                }
+
+                throw new Exception('Unexpected call');
+            });
 
         static::assertInstanceOf(
             PlaceOrderProcessor::class,
@@ -111,24 +116,28 @@ class SplittableCheckoutRestApiBusinessFactoryTest extends Unit
      */
     public function testCreateSplittableTotalsReader(): void
     {
+        $self = $this;
+
         $this->containerMock->expects(static::atLeastOnce())
             ->method('has')
             ->willReturn(true);
 
-        $this->containerMock->expects(static::atLeastOnce())
+        $this->containerMock->expects($this->atLeastOnce())
             ->method('get')
-            ->withConsecutive(
-                [SplittableCheckoutRestApiDependencyProvider::PLUGINS_QUOTE_EXPANDER],
-                [SplittableCheckoutRestApiDependencyProvider::FACADE_CART],
-                [SplittableCheckoutRestApiDependencyProvider::FACADE_QUOTE],
-                [SplittableCheckoutRestApiDependencyProvider::FACADE_SPLITTABLE_TOTALS],
-            )
-            ->willReturnOnConsecutiveCalls(
-                [],
-                $this->cartFacadeMock,
-                $this->quoteFacadeMock,
-                $this->splittableTotalsFacadeMock,
-            );
+            ->willReturnCallback(static function (string $key) use ($self) {
+                switch ($key) {
+                    case SplittableCheckoutRestApiDependencyProvider::PLUGINS_QUOTE_EXPANDER:
+                        return [];
+                    case SplittableCheckoutRestApiDependencyProvider::FACADE_CART:
+                        return $self->cartFacadeMock;
+                    case SplittableCheckoutRestApiDependencyProvider::FACADE_QUOTE:
+                        return $self->quoteFacadeMock;
+                    case SplittableCheckoutRestApiDependencyProvider::FACADE_SPLITTABLE_TOTALS:
+                        return $self->splittableTotalsFacadeMock;
+                }
+
+                throw new Exception('Unexpected call');
+            });
 
         static::assertInstanceOf(
             SplittableTotalsReader::class,

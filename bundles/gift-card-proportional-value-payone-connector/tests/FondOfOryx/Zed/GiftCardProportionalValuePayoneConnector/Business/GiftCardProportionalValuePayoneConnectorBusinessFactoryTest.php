@@ -3,6 +3,7 @@
 namespace FondOfOryx\Zed\GiftCardProportionalValuePayoneConnector\Business;
 
 use Codeception\Test\Unit;
+use Exception;
 use FondOfOryx\Zed\GiftCardProportionalValuePayoneConnector\Business\Calculator\ProportionalGiftCardCalculatorInterface;
 use FondOfOryx\Zed\GiftCardProportionalValuePayoneConnector\Business\Validator\IsPayonePaymentValidatorInterface;
 use FondOfOryx\Zed\GiftCardProportionalValuePayoneConnector\Dependency\Facade\GiftCardProportionalValuePayoneConnectorToSalesFacadeInterface;
@@ -85,19 +86,24 @@ class GiftCardProportionalValuePayoneConnectorBusinessFactoryTest extends Unit
      */
     public function testCreateProportionalGiftCardCalculator(): void
     {
+        $self = $this;
+
         $this->containerMock->expects(static::atLeastOnce())
             ->method('has')
             ->willReturn(true);
 
-        $this->containerMock->expects(static::atLeastOnce())
+        $this->containerMock->expects($this->atLeastOnce())
             ->method('get')
-            ->withConsecutive(
-                [GiftCardProportionalValuePayoneConnectorDependencyProvider::SERVICE_PAYONE],
-                [GiftCardProportionalValuePayoneConnectorDependencyProvider::FACADE_SALES],
-            )->willReturnOnConsecutiveCalls(
-                $this->payoneServiceMock,
-                $this->salesFacadeMock,
-            );
+            ->willReturnCallback(static function (string $key) use ($self) {
+                switch ($key) {
+                    case GiftCardProportionalValuePayoneConnectorDependencyProvider::SERVICE_PAYONE:
+                        return $self->payoneServiceMock;
+                    case GiftCardProportionalValuePayoneConnectorDependencyProvider::FACADE_SALES:
+                        return $self->salesFacadeMock;
+                }
+
+                throw new Exception('Unexpected call');
+            });
 
         $this->assertInstanceOf(ProportionalGiftCardCalculatorInterface::class, $this->factory->createProportionalGiftCardCalculator());
     }

@@ -3,6 +3,7 @@
 namespace FondOfOryx\Zed\JellyfishSalesOrderGiftCardProportionalValueConnector\Business;
 
 use Codeception\Test\Unit;
+use Exception;
 use FondOfOryx\Zed\JellyfishSalesOrderGiftCardProportionalValueConnector\Business\Expander\OrderItemsExpander;
 use FondOfOryx\Zed\JellyfishSalesOrderGiftCardProportionalValueConnector\Business\Mapper\ProportionalValueMapperInterface;
 use FondOfOryx\Zed\JellyfishSalesOrderGiftCardProportionalValueConnector\Dependency\Facade\JellyfishSalesOrderGiftCardProportionalValueConnectorToGiftCardProportionalValueFacadeInterface;
@@ -71,19 +72,22 @@ class JellyfishSalesOrderGiftCardProportionalValueConnectorBusinessFactoryTest e
      */
     public function testCreateOrderItemsExpander(): void
     {
-        $this->containerMock->expects(static::atLeastOnce())
-            ->method('has')
-            ->withConsecutive(
-                [JellyfishSalesOrderGiftCardProportionalValueConnectorDependencyProvider::FACADE_GIFT_CARD_PROPORTIONAL_VALUE],
-            )
-            ->willReturn(true);
+        $self = $this;
 
         $this->containerMock->expects(static::atLeastOnce())
+            ->method('has')
+            ->willReturn(true);
+
+        $this->containerMock->expects($this->atLeastOnce())
             ->method('get')
-            ->withConsecutive(
-                [JellyfishSalesOrderGiftCardProportionalValueConnectorDependencyProvider::FACADE_GIFT_CARD_PROPORTIONAL_VALUE],
-            )
-            ->willReturnOnConsecutiveCalls($this->proportionalValueConnectorFacadeMock);
+            ->willReturnCallback(static function (string $key) use ($self) {
+                switch ($key) {
+                    case JellyfishSalesOrderGiftCardProportionalValueConnectorDependencyProvider::FACADE_GIFT_CARD_PROPORTIONAL_VALUE:
+                        return $self->proportionalValueConnectorFacadeMock;
+                }
+
+                throw new Exception('Unexpected call');
+            });
 
         static::assertInstanceOf(
             OrderItemsExpander::class,

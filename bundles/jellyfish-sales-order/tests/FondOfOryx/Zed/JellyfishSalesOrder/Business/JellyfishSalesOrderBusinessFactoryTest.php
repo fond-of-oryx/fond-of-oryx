@@ -3,6 +3,7 @@
 namespace FondOfOryx\Zed\JellyfishSalesOrder\Business;
 
 use Codeception\Test\Unit;
+use Exception;
 use FondOfOryx\Zed\JellyfishSalesOrder\Business\Model\Exporter\SalesOrderExporter;
 use FondOfOryx\Zed\JellyfishSalesOrder\Business\Trigger\SalesOrderExportTrigger;
 use FondOfOryx\Zed\JellyfishSalesOrder\Dependency\Facade\JellyfishSalesOrderToOmsFacadeInterface;
@@ -101,27 +102,32 @@ class JellyfishSalesOrderBusinessFactoryTest extends Unit
      */
     public function testCreateSalesOrderExporter(): void
     {
+        $self = $this;
+
         $this->containerMock->expects(static::atLeastOnce())
             ->method('has')
             ->willReturn(true);
 
-        $this->containerMock->expects(static::atLeastOnce())
+        $this->containerMock->expects($this->atLeastOnce())
             ->method('get')
-            ->withConsecutive(
-                [JellyfishSalesOrderDependencyProvider::PLUGINS_JELLYFISH_ORDER_ADDRESS_EXPANDER_POST_MAP],
-                [JellyfishSalesOrderDependencyProvider::PLUGINS_JELLYFISH_ORDER_EXPANDER_POST_MAP],
-                [JellyfishSalesOrderDependencyProvider::PLUGINS_JELLYFISH_ORDER_ITEM_EXPANDER_POST_MAP],
-                [JellyfishSalesOrderDependencyProvider::PLUGINS_JELLYFISH_ORDER_POST_MAP],
-                [JellyfishSalesOrderDependencyProvider::SERVICE_UTIL_ENCODING],
-                [JellyfishSalesOrderDependencyProvider::PLUGINS_JELLYFISH_ORDER_BEFORE_EXPORT],
-            )->willReturnOnConsecutiveCalls(
-                [],
-                [],
-                [],
-                [],
-                $this->utilEncodingServiceMock,
-                [],
-            );
+            ->willReturnCallback(static function (string $key) use ($self) {
+                switch ($key) {
+                    case JellyfishSalesOrderDependencyProvider::PLUGINS_JELLYFISH_ORDER_ADDRESS_EXPANDER_POST_MAP:
+                        return [];
+                    case JellyfishSalesOrderDependencyProvider::PLUGINS_JELLYFISH_ORDER_EXPANDER_POST_MAP:
+                        return [];
+                    case JellyfishSalesOrderDependencyProvider::PLUGINS_JELLYFISH_ORDER_ITEM_EXPANDER_POST_MAP:
+                        return [];
+                    case JellyfishSalesOrderDependencyProvider::PLUGINS_JELLYFISH_ORDER_POST_MAP:
+                        return [];
+                    case JellyfishSalesOrderDependencyProvider::SERVICE_UTIL_ENCODING:
+                        return $self->utilEncodingServiceMock;
+                    case JellyfishSalesOrderDependencyProvider::PLUGINS_JELLYFISH_ORDER_BEFORE_EXPORT:
+                        return [];
+                }
+
+                throw new Exception('Unexpected call');
+            });
 
         static::assertInstanceOf(
             SalesOrderExporter::class,
@@ -134,19 +140,24 @@ class JellyfishSalesOrderBusinessFactoryTest extends Unit
      */
     public function testCreateSalesOrderExportTrigger(): void
     {
+        $self = $this;
+
         $this->containerMock->expects(static::atLeastOnce())
             ->method('has')
             ->willReturn(true);
 
-        $this->containerMock->expects(static::atLeastOnce())
+        $this->containerMock->expects($this->atLeastOnce())
             ->method('get')
-            ->withConsecutive(
-                [JellyfishSalesOrderDependencyProvider::FACADE_OMS],
-                [JellyfishSalesOrderDependencyProvider::FACADE_STORE],
-            )->willReturnOnConsecutiveCalls(
-                $this->omsFacadeMock,
-                $this->storeFacadeMock,
-            );
+            ->willReturnCallback(static function (string $key) use ($self) {
+                switch ($key) {
+                    case JellyfishSalesOrderDependencyProvider::FACADE_OMS:
+                        return $self->omsFacadeMock;
+                    case JellyfishSalesOrderDependencyProvider::FACADE_STORE:
+                        return $self->storeFacadeMock;
+                }
+
+                throw new Exception('Unexpected call');
+            });
 
         static::assertInstanceOf(
             SalesOrderExportTrigger::class,

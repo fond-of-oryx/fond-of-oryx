@@ -3,6 +3,7 @@
 namespace FondOfOryx\Glue\ErpInvoicePageSearchRestApi\Model\Translator;
 
 use Codeception\Test\Unit;
+use Exception;
 use FondOfOryx\Glue\ErpInvoicePageSearchRestApi\Dependency\Client\ErpInvoicePageSearchRestApiToGlossaryStorageClientInterface;
 use Generated\Shared\Transfer\RestErpInvoicePageSearchCollectionResponseTransfer;
 use Generated\Shared\Transfer\RestErpInvoicePageSearchPaginationSortTransfer;
@@ -58,6 +59,8 @@ class RestErpInvoicePageSearchCollectionResponseTranslatorTest extends Unit
      */
     public function testTranslate(): void
     {
+        $self = $this;
+
         $locale = 'de_DE';
         $sortParamNames = [
             'external-reference_asc',
@@ -80,10 +83,34 @@ class RestErpInvoicePageSearchCollectionResponseTranslatorTest extends Unit
             ->method('getSortParamNames')
             ->willReturn($sortParamNames);
 
-        $this->glossaryStorageClientMock->expects(static::atLeastOnce())
+        $callCount = $this->atLeastOnce();
+        $this->glossaryStorageClientMock->expects($callCount)
             ->method('translate')
-            ->withConsecutive([$untranslated['external-reference_asc'], $locale], [$untranslated['external-reference_desc'], $locale])
-            ->willReturnOnConsecutiveCalls($translated['external-reference_asc'], $translated['external-reference_desc']);
+            ->willReturnCallback(static function (string $id, string $localeName, array $parameters = []) use ($self, $callCount, $locale, $untranslated, $translated) {
+                /** @phpstan-ignore-next-line */
+                if (method_exists($callCount, 'getInvocationCount')) {
+                    /** @phpstan-ignore-next-line */
+                    $count = $callCount->getInvocationCount();
+                } else {
+                    /** @phpstan-ignore-next-line */
+                    $count = $callCount->numberOfInvocations();
+                }
+
+                switch ($count) {
+                    case 1:
+                        $self->assertSame($untranslated['external-reference_asc'], $id);
+                        $self->assertSame($locale, $localeName);
+
+                        return $translated['external-reference_asc'];
+                    case 2:
+                        $self->assertSame($untranslated['external-reference_desc'], $id);
+                        $self->assertSame($locale, $localeName);
+
+                        return $translated['external-reference_desc'];
+                }
+
+                throw new Exception('Unexpected call count');
+            });
 
         $this->restErpInvoicePageSearchPaginationSortTransferMock->expects(static::atLeastOnce())
             ->method('setSortParamLocalizedNames')

@@ -93,7 +93,7 @@ class TrboApiTest extends Unit
             ->disableOriginalConstructor()
             ->getMock();
 
-        $this->TrboTransferMock = $this->getMockBuilder(TrboTransfer::class)
+        $this->trboTransferMock = $this->getMockBuilder(TrboTransfer::class)
             ->disableOriginalConstructor()
             ->getMock();
 
@@ -147,13 +147,13 @@ class TrboApiTest extends Unit
 
         $this->trboMapperMock->expects(static::atLeastOnce())
             ->method('mapApiResponseToTransfer')
-            ->willReturn($this->TrboTransferMock);
+            ->willReturn($this->trboTransferMock);
 
         $this->loggerMock->expects(static::never())
             ->method('alert');
 
         $trboTransfer = $this->trboApi->requestData($this->requestMock);
 
-        static::assertEquals($trboTransfer, $this->TrboTransferMock);
+        static::assertEquals($trboTransfer, $this->trboTransferMock);
     }
 }

@@ -5,8 +5,8 @@ namespace FondOfOryx\Zed\ReturnLabelsRestApiCompanyBusinessUnitConnector\Busines
 use Codeception\Test\Unit;
 use FondOfOryx\Zed\ReturnLabelsRestApiCompanyBusinessUnitConnector\Business\Reader\CompanyBusinessUnitReader;
 use Generated\Shared\Transfer\CompanyBusinessUnitTransfer;
-use Generated\Shared\Transfer\CustomerTransfer;
 use Generated\Shared\Transfer\RestReturnLabelRequestTransfer;
+use Generated\Shared\Transfer\ReturnLabelRequestCustomerTransfer;
 use Generated\Shared\Transfer\ReturnLabelRequestTransfer;
 
 class CompanyBusinessUnitBusinessUnitExpanderTest extends Unit
@@ -60,7 +60,7 @@ class CompanyBusinessUnitBusinessUnitExpanderTest extends Unit
             ->disableOriginalConstructor()
             ->getMock();
 
-        $this->returnLabelRequestCustomerTransferMock = $this->getMockBuilder(CustomerTransfer::class)
+        $this->returnLabelRequestCustomerTransferMock = $this->getMockBuilder(ReturnLabelRequestCustomerTransfer::class)
             ->disableOriginalConstructor()
             ->getMock();
 

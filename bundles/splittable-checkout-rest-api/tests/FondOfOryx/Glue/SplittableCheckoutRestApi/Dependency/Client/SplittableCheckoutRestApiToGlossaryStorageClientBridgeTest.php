@@ -3,19 +3,20 @@
 namespace FondOfOryx\Glue\SplittableCheckoutRestApi\Dependency\Client;
 
 use Codeception\Test\Unit;
+use PHPUnit\Framework\MockObject\MockObject;
 use Spryker\Client\GlossaryStorage\GlossaryStorageClientInterface;
 
 class SplittableCheckoutRestApiToGlossaryStorageClientBridgeTest extends Unit
 {
     /**
-     * @var \PHPUnit\Framework\MockObject\MockObject|\Spryker\Client\GlossaryStorage\GlossaryStorageClientInterface|mixed
+     * @var \Spryker\Client\GlossaryStorage\GlossaryStorageClientInterface|\PHPUnit\Framework\MockObject\MockObject
      */
-    protected $glossaryStorageClientMock;
+    protected GlossaryStorageClientInterface|MockObject $glossaryStorageClientMock;
 
     /**
-     * @var \FondOfOryx\Glue\CartSearchRestApi\Dependency\Client\CartSearchRestApiToGlossaryStorageClientBridge
+     * @var \FondOfOryx\Glue\SplittableCheckoutRestApi\Dependency\Client\SplittableCheckoutRestApiToGlossaryStorageClientBridge
      */
-    protected $bridge;
+    protected SplittableCheckoutRestApiToGlossaryStorageClientBridge $bridge;
 
     /**
      * @return void

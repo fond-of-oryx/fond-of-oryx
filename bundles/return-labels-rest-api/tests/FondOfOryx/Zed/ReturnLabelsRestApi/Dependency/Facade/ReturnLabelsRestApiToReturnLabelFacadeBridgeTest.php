@@ -3,16 +3,17 @@
 namespace FondOfOryx\Zed\ReturnLabelsRestApi\Dependency\Facade;
 
 use Codeception\Test\Unit;
-use FondOfOryx\Zed\ReturnLabel\Business\ReturnLabelFacade;
+use FondOfOryx\Zed\ReturnLabel\Business\ReturnLabelFacadeInterface;
 use Generated\Shared\Transfer\ReturnLabelRequestTransfer;
 use Generated\Shared\Transfer\ReturnLabelResponseTransfer;
+use PHPUnit\Framework\MockObject\MockObject;
 
 class ReturnLabelsRestApiToReturnLabelFacadeBridgeTest extends Unit
 {
     /**
      * @var \FondOfOryx\Zed\ReturnLabel\Business\ReturnLabelFacadeInterface|\PHPUnit\Framework\MockObject\MockObject
      */
-    protected $returnLabelFacadeMock;
+    protected ReturnLabelFacadeInterface|MockObject $returnLabelFacadeMock;
 
     /**
      * @var \Generated\Shared\Transfer\ReturnLabelRequestTransfer|\PHPUnit\Framework\MockObject\MockObject
@@ -25,9 +26,9 @@ class ReturnLabelsRestApiToReturnLabelFacadeBridgeTest extends Unit
     protected $returnLabelResponseTransferMock;
 
     /**
-     * @var \FondOfOryx\Zed\ReturnLabelsRestApi\Dependency\Facade\ReturnLabelsRestApiToReturnLabelFacadeInterface
+     * @var \FondOfOryx\Zed\ReturnLabelsRestApi\Dependency\Facade\ReturnLabelsRestApiToReturnLabelFacadeBridge
      */
-    protected $bridge;
+    protected ReturnLabelsRestApiToReturnLabelFacadeBridge $bridge;
 
     /**
      * @return void
@@ -36,7 +37,7 @@ class ReturnLabelsRestApiToReturnLabelFacadeBridgeTest extends Unit
     {
         parent::_before();
 
-        $this->returnLabelFacadeMock = $this->getMockBuilder(ReturnLabelFacade::class)
+        $this->returnLabelFacadeMock = $this->getMockBuilder(ReturnLabelFacadeInterface::class)
             ->disableOriginalConstructor()
             ->getMock();
 

@@ -1,12 +1,8 @@
-includes:
-    - vendor/spryker-sdk/phpstan-spryker/extension.neon
-    - vendor/phpstan/phpstan/conf/bleedingEdge.neon
-
 parameters:
     level: 5
     reportUnmatchedIgnoredErrors: false
-    checkMissingIterableValueType: false
     scanDirectories:
         - src/Orm/Zed
     ignoreErrors:
         - '#.* on an unknown class Generated\\(Client|Glue|Service|Yves|Zed)\\.*#'
+        - '#Dead catch - Exception is never thrown in the try block.#'

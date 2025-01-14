@@ -20,7 +20,7 @@ class ProductItemTaxRateByRegionCalculatorTest extends Unit
     private $taxFacadeMock;
 
     /**
-     * @var \PHPUnit\Framework\MockObject\MockBuilder|\FondOfOryx\Zed\TaxCalculationConnector\Persistence\TaxCalculationConnectorRepository
+     * @var \PHPUnit\Framework\MockObject\MockObject|\FondOfOryx\Zed\TaxCalculationConnector\Persistence\TaxCalculationConnectorRepository
      */
     private $repositoryMock;
 

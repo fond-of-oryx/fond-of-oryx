@@ -3,12 +3,12 @@
 namespace FondOfOryx\Zed\StockApi\Business;
 
 use Codeception\Test\Unit;
+use Exception;
 use FondOfOryx\Zed\StockApi\Business\Model\StockApi;
 use FondOfOryx\Zed\StockApi\Dependency\Facade\StockApiToApiFacadeInterface;
 use FondOfOryx\Zed\StockApi\Dependency\Facade\StockApiToStockInterface;
 use FondOfOryx\Zed\StockApi\Dependency\QueryContainer\StockApiToApiQueryBuilderQueryContainerBridge;
 use FondOfOryx\Zed\StockApi\Persistence\StockApiQueryContainer;
-use FondOfOryx\Zed\StockApi\Persistence\StockApiQueryContainerInterface;
 use FondOfOryx\Zed\StockApi\StockApiConfig;
 use FondOfOryx\Zed\StockApi\StockApiDependencyProvider;
 use Spryker\Zed\Kernel\Container;
@@ -31,7 +31,7 @@ class StockApiBusinessFactoryTest extends Unit
     protected $containerMock;
 
     /**
-     * @var \FondOfOryx\Zed\StockApi\Persistence\StockApiQueryContainerInterface|\PHPUnit\Framework\MockObject\MockObject
+     * @var \FondOfOryx\Zed\StockApi\Persistence\StockApiQueryContainer|\PHPUnit\Framework\MockObject\MockObject
      */
     protected $queryContainerMock;
 
@@ -91,16 +91,16 @@ class StockApiBusinessFactoryTest extends Unit
             protected $containerMock;
 
             /**
-             * @var \FondOfOryx\Zed\StockApi\Persistence\StockApiQueryContainerInterface
+             * @var \FondOfOryx\Zed\StockApi\Persistence\StockApiQueryContainer
              */
             protected $queryContainerMock;
 
             /**
              * @param \FondOfOryx\Zed\StockApi\StockApiConfig $config
              * @param \Spryker\Zed\Kernel\Container $container
-             * @param \FondOfOryx\Zed\StockApi\Persistence\StockApiQueryContainerInterface $queryContainer
+             * @param \FondOfOryx\Zed\StockApi\Persistence\StockApiQueryContainer $queryContainer
              */
-            public function __construct(StockApiConfig $config, Container $container, StockApiQueryContainerInterface $queryContainer)
+            public function __construct(StockApiConfig $config, Container $container, StockApiQueryContainer $queryContainer)
             {
                 $this->configMock = $config;
                 $this->containerMock = $container;
@@ -138,23 +138,26 @@ class StockApiBusinessFactoryTest extends Unit
      */
     public function testCreateStockApi()
     {
+        $self = $this;
+
         $this->containerMock->expects($this->atLeastOnce())
             ->method('has')
             ->willReturn(true);
 
         $this->containerMock->expects($this->atLeastOnce())
             ->method('get')
-            ->withConsecutive(
-                [StockApiDependencyProvider::FACADE_STOCK],
-                [StockApiDependencyProvider::FACADE_API],
-                [StockApiDependencyProvider::QUERY_CONTAINER_API_QUERY_BUILDER],
-                [StockApiDependencyProvider::FACADE_API],
-            )->willReturnOnConsecutiveCalls(
-                $this->stockFacadeMock,
-                $this->apiFacadeMock,
-                $this->queryBuilderContainerMock,
-                $this->queryContainerMock,
-            );
+            ->willReturnCallback(static function (string $key) use ($self) {
+                switch ($key) {
+                    case StockApiDependencyProvider::FACADE_STOCK:
+                        return $self->stockFacadeMock;
+                    case StockApiDependencyProvider::FACADE_API:
+                        return $self->apiFacadeMock;
+                    case StockApiDependencyProvider::QUERY_CONTAINER_API_QUERY_BUILDER:
+                        return $self->queryBuilderContainerMock;
+                }
+
+                throw new Exception('Unexpected call');
+            });
 
         $this->assertInstanceOf(StockApi::class, $this->stockBusinessFactory->createStockApi());
     }

@@ -8,26 +8,27 @@ use Generated\Shared\Transfer\ProductListCollectionTransfer;
 use Generated\Shared\Transfer\RestProductListSearchPaginationTransfer;
 use Generated\Shared\Transfer\RestProductListSearchResultItemTransfer;
 use Generated\Shared\Transfer\RestProductListSearchSortTransfer;
+use PHPUnit\Framework\MockObject\MockObject;
 
 class RestProductListSearchAttributesMapperTest extends Unit
 {
     /**
-     * @var \FondOfOryx\Glue\ProductListSearchRestApi\Processor\Mapper\RestProductListSearchResultItemMapperInterface|\PHPUnit\Framework\MockObject\MockObject|mixed
+     * @var \FondOfOryx\Glue\ProductListSearchRestApi\Processor\Mapper\RestProductListSearchResultItemMapperInterface|\PHPUnit\Framework\MockObject\MockObject
      */
     protected $restProductListSearchResultItemMapperMock;
 
     /**
-     * @var \FondOfOryx\Glue\ProductListSearchRestApi\Processor\Mapper\RestProductListSearchSortMapperInterface|\PHPUnit\Framework\MockObject\MockObject|mixed
+     * @var \FondOfOryx\Glue\ProductListSearchRestApi\Processor\Mapper\RestProductListSearchSortMapperInterface|\PHPUnit\Framework\MockObject\MockObject
      */
     protected $restProductListSearchSortMapperMock;
 
     /**
-     * @var \FondOfOryx\Glue\ProductListSearchRestApi\Processor\Mapper\RestProductListSearchPaginationMapperInterface|\PHPUnit\Framework\MockObject\MockObject|mixed
+     * @var \FondOfOryx\Glue\ProductListSearchRestApi\Processor\Mapper\RestProductListSearchPaginationMapperInterface|\PHPUnit\Framework\MockObject\MockObject
      */
     protected $restProductListSearchPaginationMapperMock;
 
     /**
-     * @var \Generated\Shared\Transfer\ProductListCollectionTransfer|\PHPUnit\Framework\MockObject\MockObject|mixed
+     * @var \Generated\Shared\Transfer\ProductListCollectionTransfer|\PHPUnit\Framework\MockObject\MockObject
      */
     protected $productListCollectionTransferMock;
 
@@ -37,19 +38,24 @@ class RestProductListSearchAttributesMapperTest extends Unit
     protected $restProductListSearchResultItemTransferMocks;
 
     /**
-     * @var \Generated\Shared\Transfer\RestProductListSearchSortTransfer|\PHPUnit\Framework\MockObject\MockObject|mixed
+     * @var \Generated\Shared\Transfer\RestProductListSearchSortTransfer|\PHPUnit\Framework\MockObject\MockObject
      */
     protected $restProductListSearchSortTransferMock;
 
     /**
-     * @var \Generated\Shared\Transfer\RestProductListSearchPaginationTransfer|\PHPUnit\Framework\MockObject\MockObject|mixed
+     * @var \Generated\Shared\Transfer\RestProductListSearchPaginationTransfer|\PHPUnit\Framework\MockObject\MockObject
      */
     protected $restProductListSearchPaginationTransferMock;
 
     /**
-     * @var \FondOfOryx\Glue\ProductListSearchRestApi\Processor\Mapper\RestproductListSearchAttributesMapper
+     * @var \FondOfOryx\Glue\ProductListSearchRestApi\Processor\Mapper\RestProductListSearchAttributesMapper
      */
-    protected $restProductListSearchAttributesMapper;
+    protected RestProductListSearchAttributesMapper $restProductListSearchAttributesMapper;
+
+    /**
+     * @var \Generated\Shared\Transfer\RestProductListSearchPaginationTransfer|\PHPUnit\Framework\MockObject\MockObject
+     */
+    protected RestProductListSearchPaginationTransfer|MockObject $restproductListSearchPaginationTransferMock;
 
     /**
      * @return void

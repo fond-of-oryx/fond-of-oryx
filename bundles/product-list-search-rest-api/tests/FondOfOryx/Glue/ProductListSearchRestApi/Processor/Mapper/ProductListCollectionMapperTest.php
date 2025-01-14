@@ -4,6 +4,7 @@ namespace FondOfOryx\Glue\ProductListSearchRestApi\Processor\Mapper;
 
 use ArrayObject;
 use Codeception\Test\Unit;
+use Exception;
 use FondOfOryx\Glue\ProductListSearchRestApi\Processor\Filter\RequestParameterFilterInterface;
 use Generated\Shared\Transfer\PaginationTransfer;
 use Spryker\Glue\GlueApplication\Rest\Request\Data\RestRequestInterface;
@@ -79,6 +80,8 @@ class ProductListCollectionMapperTest extends Unit
      */
     public function testFromRestRequest(): void
     {
+        $self = $this;
+
         $query = 'foo';
         $sort = 'foo_asc';
 
@@ -92,17 +95,39 @@ class ProductListCollectionMapperTest extends Unit
             ->with($this->restRequestMock)
             ->willReturn($this->paginationTransferMock);
 
-        $this->requestParameterFilterMock->expects(static::atLeastOnce())
+        $callCount = $this->atLeastOnce();
+        $this->requestParameterFilterMock->expects($callCount)
             ->method('getRequestParameter')
-            ->withConsecutive(
-                [$this->restRequestMock, 'q'],
-                [$this->restRequestMock, 'show-all'],
-                [$this->restRequestMock, 'sort'],
-            )->willReturnOnConsecutiveCalls(
-                $query,
-                'true',
-                $sort,
-            );
+            ->willReturnCallback(static function (RestRequestInterface $restRequest, string $parameterName) use ($self, $callCount, $query, $sort) {
+                /** @phpstan-ignore-next-line */
+                if (method_exists($callCount, 'getInvocationCount')) {
+                    /** @phpstan-ignore-next-line */
+                    $count = $callCount->getInvocationCount();
+                } else {
+                    /** @phpstan-ignore-next-line */
+                    $count = $callCount->numberOfInvocations();
+                }
+
+                switch ($count) {
+                    case 1:
+                        $self->assertSame($self->restRequestMock, $restRequest);
+                        $self->assertSame('q', $parameterName);
+
+                        return $query;
+                    case 2:
+                        $self->assertSame($self->restRequestMock, $restRequest);
+                        $self->assertSame('show-all', $parameterName);
+
+                        return 'true';
+                    case 3:
+                        $self->assertSame($self->restRequestMock, $restRequest);
+                        $self->assertSame('sort', $parameterName);
+
+                        return $sort;
+                }
+
+                throw new Exception('Unexpected call count');
+            });
 
         $productListCollectionTransfer = $this->productListCollectionMapper->fromRestRequest($this->restRequestMock);
 

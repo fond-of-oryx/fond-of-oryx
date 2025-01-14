@@ -6,6 +6,7 @@ use Codeception\Test\Unit;
 use FondOfOryx\Zed\SplittableCheckoutRestApiCompanyUnitAddressConnector\Business\Expander\QuoteExpanderInterface;
 use Generated\Shared\Transfer\QuoteTransfer;
 use Generated\Shared\Transfer\RestSplittableCheckoutRequestTransfer;
+use PHPUnit\Framework\MockObject\MockObject;
 
 class SplittableCheckoutRestApiCompanyUnitAddressConnectorFacadeTest extends Unit
 {
@@ -25,9 +26,9 @@ class SplittableCheckoutRestApiCompanyUnitAddressConnectorFacadeTest extends Uni
     protected $quoteTransferMock;
 
     /**
-     * @var \Generated\Shared\Transfer\SplittableCheckoutRequestTransfer|\PHPUnit\Framework\MockObject\MockObject
+     * @var \Generated\Shared\Transfer\RestSplittableCheckoutRequestTransfer|\PHPUnit\Framework\MockObject\MockObject
      */
-    protected $restSplittableCheckoutRequestTransferMock;
+    protected RestSplittableCheckoutRequestTransfer|MockObject $restSplittableCheckoutRequestTransferMock;
 
     /**
      * @var \FondOfOryx\Zed\SplittableCheckoutRestApiCompanyUnitAddressConnector\Business\SplittableCheckoutRestApiCompanyUnitAddressConnectorFacade

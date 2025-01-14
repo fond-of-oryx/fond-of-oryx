@@ -3,6 +3,7 @@
 namespace FondOfOryx\Client\ReturnLabelsRestApi;
 
 use Codeception\Test\Unit;
+use Exception;
 use FondOfOryx\Client\ReturnLabelsRestApi\Dependency\Client\ReturnLabelsRestApiToZedRequestClientBridge;
 use FondOfOryx\Client\ReturnLabelsRestApi\Zed\ReturnLabelsRestApiZedStub;
 use FondOfOryx\Client\ReturnLabelsRestApi\Zed\ReturnLabelsRestApiZedStubInterface;
@@ -58,14 +59,22 @@ class ReturnLabelsRestApiFactoryTest extends Unit
      */
     public function testCreateReturnLabelZedStub(): void
     {
+        $self = $this;
+
         $this->containerMock->expects(static::atLeastOnce())
             ->method('has')
             ->willReturn(true);
 
-        $this->containerMock->expects(static::atLeastOnce())
+        $this->containerMock->expects($this->atLeastOnce())
             ->method('get')
-            ->withConsecutive([ReturnLabelsRestApiDependencyProvider::CLIENT_ZED_REQUEST])
-            ->willReturnOnConsecutiveCalls($this->returnLabelsRestApiToZedRequestClientBridgeMock);
+            ->willReturnCallback(static function (string $key) use ($self) {
+                switch ($key) {
+                    case ReturnLabelsRestApiDependencyProvider::CLIENT_ZED_REQUEST:
+                        return $self->returnLabelsRestApiToZedRequestClientBridgeMock;
+                }
+
+                throw new Exception('Unexpected call');
+            });
 
         static::assertInstanceOf(
             ReturnLabelsRestApiZedStubInterface::class,

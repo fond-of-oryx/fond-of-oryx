@@ -8,34 +8,35 @@ use FondOfOryx\Zed\ProductListApi\ProductListApiConfig;
 use Generated\Shared\Transfer\ApiCollectionTransfer;
 use Generated\Shared\Transfer\ApiDataTransfer;
 use Generated\Shared\Transfer\ApiRequestTransfer;
+use PHPUnit\Framework\MockObject\MockObject;
 use RuntimeException;
 
 class ProductListApiResourcePluginTest extends Unit
 {
     /**
-     * @var \Generated\Shared\Transfer\ApiDataTransfer|\PHPUnit\Framework\MockObject\MockObject|null
+     * @var \Generated\Shared\Transfer\ApiDataTransfer|\PHPUnit\Framework\MockObject\MockObject
      */
     protected $apiDataTransferMock;
 
     /**
-     * @var \Generated\Shared\Transfer\ApiCollectionTransfer|\PHPUnit\Framework\MockObject\MockObject|null
+     * @var \Generated\Shared\Transfer\ApiCollectionTransfer|\PHPUnit\Framework\MockObject\MockObject
      */
     protected $apiCollectionTransferMock;
 
     /**
-     * @var \Generated\Shared\Transfer\ApiRequestTransfer|\PHPUnit\Framework\MockObject\MockObject|null
+     * @var \Generated\Shared\Transfer\ApiRequestTransfer|\PHPUnit\Framework\MockObject\MockObject
      */
     protected $apiRequestTransferMock;
 
     /**
-     * @var \FondOfOryx\Zed\CustomerProductListApi\Business\CustomerProductListApiFacade|\PHPUnit\Framework\MockObject\MockObject|null
+     * @var \FondOfOryx\Zed\ProductListApi\Business\ProductListApiFacade|\PHPUnit\Framework\MockObject\MockObject
      */
-    protected $facadeMock;
+    protected ProductListApiFacade|MockObject $facadeMock;
 
     /**
-     * @var \FondOfOryx\Zed\CustomerProductListApi\Communication\Plugin\Api\CustomerProductListApiResourcePlugin
+     * @var \FondOfOryx\Zed\ProductListApi\Communication\Plugin\Api\ProductListApiResourcePlugin
      */
-    protected $plugin;
+    protected ProductListApiResourcePlugin $plugin;
 
     /**
      * @return void

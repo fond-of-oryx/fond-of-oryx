@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <database xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" name="zed"
-          xsi:noNamespaceSchemaLocation="http://static.spryker.com/schema-01.xsd"
+          xsi:noNamespaceSchemaLocation="https://static.spryker.com/schema-01.xsd"
           namespace="Orm\Zed\ProductPaymentRestriction\Persistence" package="src.Orm.Zed.ProductPaymentRestriction.Persistence">
     <table name="foo_product_abstract_payment_restriction" phpName="FooProductAbstractPaymentRestriction" identifierQuoting="true">
         <column name="id_product_abstract_payment_restriction" required="true" type="INTEGER" autoIncrement="true" primaryKey="true"/>

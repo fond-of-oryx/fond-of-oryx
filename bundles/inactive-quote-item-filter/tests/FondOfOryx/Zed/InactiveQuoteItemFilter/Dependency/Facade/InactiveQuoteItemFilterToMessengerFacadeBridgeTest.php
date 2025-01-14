@@ -10,12 +10,12 @@ use Spryker\Zed\Messenger\Business\MessengerFacadeInterface;
 class InactiveQuoteItemFilterToMessengerFacadeBridgeTest extends Unit
 {
     /**
-     * @var \PHPUnit\Framework\MockObject\MockObject|(\Spryker\Zed\Messenger\Business\MessengerFacadeInterface&\PHPUnit\Framework\MockObject\MockObject)
+     * @var \PHPUnit\Framework\MockObject\MockObject|\Spryker\Zed\Messenger\Business\MessengerFacadeInterface
      */
     protected MockObject|MessengerFacadeInterface $facadeMock;
 
     /**
-     * @var (\Generated\Shared\Transfer\MessageTransfer&\PHPUnit\Framework\MockObject\MockObject)|\PHPUnit\Framework\MockObject\MockObject
+     * @var \PHPUnit\Framework\MockObject\MockObject|\Generated\Shared\Transfer\MessageTransfer
      */
     protected MockObject|MessageTransfer $messageTransferMock;
 

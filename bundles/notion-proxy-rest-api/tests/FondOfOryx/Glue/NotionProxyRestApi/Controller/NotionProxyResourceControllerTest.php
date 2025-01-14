@@ -6,6 +6,7 @@ use Codeception\Test\Unit;
 use FondOfOryx\Glue\NotionProxyRestApi\NotionProxyRestApiFactory;
 use FondOfOryx\Glue\NotionProxyRestApi\Processor\Creator\NotionProxyRequestCreatorInterface;
 use Generated\Shared\Transfer\RestNotionProxyRequestAttributesTransfer;
+use PHPUnit\Framework\MockObject\MockObject;
 use Spryker\Glue\GlueApplication\Rest\JsonApi\RestResponseInterface;
 use Spryker\Glue\GlueApplication\Rest\Request\Data\RestRequestInterface;
 use Spryker\Glue\Kernel\AbstractFactory;

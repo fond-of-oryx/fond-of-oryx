@@ -11,17 +11,17 @@ use PHPUnit\Framework\MockObject\MockObject;
 class StoreReaderTest extends Unit
 {
     /**
-     * @var (\FondOfOryx\Zed\FallbackLocaleMailProxy\Dependency\Facade\FallbackLocaleMailProxyToStoreFacadeInterface&\PHPUnit\Framework\MockObject\MockObject)|\PHPUnit\Framework\MockObject\MockObject
+     * @var \PHPUnit\Framework\MockObject\MockObject|\FondOfOryx\Zed\FallbackLocaleMailProxy\Dependency\Facade\FallbackLocaleMailProxyToStoreFacadeInterface
      */
     protected MockObject|FallbackLocaleMailProxyToStoreFacadeInterface $storeFacadeMock;
 
     /**
-     * @var (\Generated\Shared\Transfer\MailTransfer&\PHPUnit\Framework\MockObject\MockObject)|\PHPUnit\Framework\MockObject\MockObject
+     * @var \PHPUnit\Framework\MockObject\MockObject|\Generated\Shared\Transfer\MailTransfer
      */
     protected MockObject|MailTransfer $mailTransferMock;
 
     /**
-     * @var (\Generated\Shared\Transfer\StoreTransfer&\PHPUnit\Framework\MockObject\MockObject)|\PHPUnit\Framework\MockObject\MockObject
+     * @var \Generated\Shared\Transfer\StoreTransfer|\PHPUnit\Framework\MockObject\MockObject
      */
     protected StoreTransfer|MockObject $storeTransferMock;
 

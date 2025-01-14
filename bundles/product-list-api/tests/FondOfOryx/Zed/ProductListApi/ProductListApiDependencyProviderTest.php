@@ -3,6 +3,7 @@
 namespace FondOfOryx\Zed\ProductListApi;
 
 use Codeception\Test\Unit;
+use Exception;
 use FondOfOryx\Zed\ProductListApi\Dependency\Facade\ProductListApiToApiFacadeInterface;
 use Orm\Zed\ProductList\Persistence\SpyProductListQuery;
 use Spryker\Shared\Kernel\BundleProxy;
@@ -50,9 +51,18 @@ class ProductListApiDependencyProviderTest extends Unit
     {
         parent::_before();
 
-        $this->containerMock = $this->getMockBuilder(Container::class)
-            ->setMethodsExcept(['factory', 'set', 'offsetSet', 'get', 'offsetGet'])
-            ->getMock();
+        $containerMock = $this->getMockBuilder(Container::class);
+
+        /** @phpstan-ignore-next-line */
+        if (method_exists($containerMock, 'setMethodsExcept')) {
+            /** @phpstan-ignore-next-line */
+            $containerMock->setMethodsExcept(['factory', 'set', 'offsetSet', 'get', 'offsetGet']);
+        } else {
+            /** @phpstan-ignore-next-line */
+            $containerMock->onlyMethods(['getLocator'])->enableOriginalClone();
+        }
+
+        $this->containerMock = $containerMock->getMock();
 
         $this->locatorMock = $this->getMockBuilder(Locator::class)
             ->disableOriginalConstructor()
@@ -80,21 +90,25 @@ class ProductListApiDependencyProviderTest extends Unit
      */
     public function testProvideBusinessLayerDependencies(): void
     {
-        $this->containerMock->expects(static::atLeastOnce())
+        $self = $this;
+        $this->containerMock->expects($this->atLeastOnce())
             ->method('getLocator')
             ->willReturn($this->locatorMock);
 
-        $this->locatorMock->expects(static::atLeastOnce())
+        $this->locatorMock->expects($this->atLeastOnce())
             ->method('__call')
-            ->withConsecutive(
-                ['api'],
-            )->willReturn($this->bundleProxyMock);
+            ->willReturnCallback(static function (string $key) use ($self) {
+                switch ($key) {
+                    case 'api':
+                        return $self->bundleProxyMock;
+                }
+
+                throw new Exception('Invalid key');
+            });
 
         $this->bundleProxyMock->expects(static::atLeastOnce())
             ->method('__call')
-            ->withConsecutive(
-                ['facade'],
-            )->willReturnOnConsecutiveCalls(
+            ->willReturnOnConsecutiveCalls(
                 $this->apiFacadeMock,
             );
 
@@ -114,23 +128,27 @@ class ProductListApiDependencyProviderTest extends Unit
      */
     public function testProvidePersistenceLayerDependencies(): void
     {
-        $this->containerMock->expects(static::atLeastOnce())
+        $self = $this;
+        $this->containerMock->expects($this->atLeastOnce())
             ->method('getLocator')
             ->willReturn($this->locatorMock);
 
-        $this->locatorMock->expects(static::atLeastOnce())
+        $this->locatorMock->expects($this->atLeastOnce())
             ->method('__call')
-            ->withConsecutive(
-                ['api'],
-                ['apiQueryBuilder'],
-            )->willReturn($this->bundleProxyMock);
+            ->willReturnCallback(static function (string $key) use ($self) {
+                switch ($key) {
+                    case 'api':
+                        return $self->bundleProxyMock;
+                    case 'apiQueryBuilder':
+                        return $self->bundleProxyMock;
+                }
+
+                throw new Exception('Invalid key');
+            });
 
         $this->bundleProxyMock->expects(static::atLeastOnce())
             ->method('__call')
-            ->withConsecutive(
-                ['facade'],
-                ['queryContainer'],
-            )->willReturnOnConsecutiveCalls(
+            ->willReturnOnConsecutiveCalls(
                 $this->apiFacadeMock,
                 $this->apiQueryBuilderQueryContainerMock,
             );

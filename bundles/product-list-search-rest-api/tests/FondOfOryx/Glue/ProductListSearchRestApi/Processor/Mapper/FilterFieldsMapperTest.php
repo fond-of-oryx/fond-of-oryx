@@ -26,6 +26,11 @@ class FilterFieldsMapperTest extends Unit
     protected $filterFieldTransferMock;
 
     /**
+     * @var \FondOfOryx\Glue\ProductListSearchRestApi\Processor\Mapper\FilterFieldsMapper
+     */
+    protected FilterFieldsMapper $filterFieldsMapper;
+
+    /**
      * @return void
      */
     protected function _before(): void

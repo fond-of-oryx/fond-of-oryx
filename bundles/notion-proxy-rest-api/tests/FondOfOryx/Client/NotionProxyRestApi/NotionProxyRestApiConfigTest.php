@@ -14,7 +14,7 @@ class NotionProxyRestApiConfigTest extends Unit
     protected NotionProxyRestApiConfig $config;
 
     /**
-     * @var \PHPUnit\Framework\MockObject\MockObject|\FondOfOryx\Shared\NotionProxyRestApi\NotionProxyRestApiConfig
+     * @var \PHPUnit\Framework\MockObject\MockObject|\FondOfOryx\Client\NotionProxyRestApi\NotionProxyRestApiConfig
      */
     protected MockObject|NotionProxyRestApiConfig $sharedConfigMock;
 

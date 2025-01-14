@@ -3,6 +3,7 @@
 namespace FondOfOryx\Zed\MailjetMailConnector;
 
 use Codeception\Test\Unit;
+use Exception;
 use FondOfOryx\Shared\MailjetMailConnector\MailjetMailConnectorConstants;
 
 class MailjetMailConnectorConfigTest extends Unit
@@ -29,10 +30,30 @@ class MailjetMailConnectorConfigTest extends Unit
      */
     public function testGetMailjetKey(): void
     {
-        $this->config->expects(static::atLeastOnce())
+        $self = $this;
+
+        $callCount = $this->atLeastOnce();
+        $this->config->expects($callCount)
             ->method('get')
-            ->withConsecutive([MailjetMailConnectorConstants::MAILJET_KEY])
-            ->willReturnOnConsecutiveCalls('');
+            ->willReturnCallback(static function ($key, $default = null) use ($self, $callCount) {
+                /** @phpstan-ignore-next-line */
+                if (method_exists($callCount, 'getInvocationCount')) {
+                    /** @phpstan-ignore-next-line */
+                    $count = $callCount->getInvocationCount();
+                } else {
+                    /** @phpstan-ignore-next-line */
+                    $count = $callCount->numberOfInvocations();
+                }
+
+                switch ($count) {
+                    case 1:
+                        $self->assertSame(MailjetMailConnectorConstants::MAILJET_KEY, $key);
+
+                        return '';
+                }
+
+                throw new Exception('Unexpected call count');
+            });
 
         static::assertIsString($this->config->getMailjetKey());
     }
@@ -42,10 +63,30 @@ class MailjetMailConnectorConfigTest extends Unit
      */
     public function testGetMailjetSecret(): void
     {
-        $this->config->expects(static::atLeastOnce())
+        $self = $this;
+
+        $callCount = $this->atLeastOnce();
+        $this->config->expects($callCount)
             ->method('get')
-            ->withConsecutive([MailjetMailConnectorConstants::MAILJET_SECRET])
-            ->willReturnOnConsecutiveCalls('');
+            ->willReturnCallback(static function ($key, $default = null) use ($self, $callCount) {
+                /** @phpstan-ignore-next-line */
+                if (method_exists($callCount, 'getInvocationCount')) {
+                    /** @phpstan-ignore-next-line */
+                    $count = $callCount->getInvocationCount();
+                } else {
+                    /** @phpstan-ignore-next-line */
+                    $count = $callCount->numberOfInvocations();
+                }
+
+                switch ($count) {
+                    case 1:
+                        $self->assertSame(MailjetMailConnectorConstants::MAILJET_SECRET, $key);
+
+                        return '';
+                }
+
+                throw new Exception('Unexpected call count');
+            });
 
         static::assertIsString($this->config->getMailjetSecret());
     }
@@ -55,10 +96,30 @@ class MailjetMailConnectorConfigTest extends Unit
      */
     public function testGetMailjetConnectionTimeout(): void
     {
-        $this->config->expects(static::atLeastOnce())
+        $self = $this;
+
+        $callCount = $this->atLeastOnce();
+        $this->config->expects($callCount)
             ->method('get')
-            ->withConsecutive([MailjetMailConnectorConstants::MAILJET_CONNECTION_TIMEOUT])
-            ->willReturnOnConsecutiveCalls(2.0);
+            ->willReturnCallback(static function ($key, $default = null) use ($self, $callCount) {
+                /** @phpstan-ignore-next-line */
+                if (method_exists($callCount, 'getInvocationCount')) {
+                    /** @phpstan-ignore-next-line */
+                    $count = $callCount->getInvocationCount();
+                } else {
+                    /** @phpstan-ignore-next-line */
+                    $count = $callCount->numberOfInvocations();
+                }
+
+                switch ($count) {
+                    case 1:
+                        $self->assertSame(MailjetMailConnectorConstants::MAILJET_CONNECTION_TIMEOUT, $key);
+
+                        return 2.0;
+                }
+
+                throw new Exception('Unexpected call count');
+            });
 
         static::assertIsFloat($this->config->getMailjetConnectionTimeout());
     }
@@ -68,10 +129,30 @@ class MailjetMailConnectorConfigTest extends Unit
      */
     public function testGetMailjetTimeout(): void
     {
-        $this->config->expects(static::atLeastOnce())
+        $self = $this;
+
+        $callCount = $this->atLeastOnce();
+        $this->config->expects($callCount)
             ->method('get')
-            ->withConsecutive([MailjetMailConnectorConstants::MAILJET_TIMEOUT])
-            ->willReturnOnConsecutiveCalls(15.0);
+            ->willReturnCallback(static function ($key, $default = null) use ($self, $callCount) {
+                /** @phpstan-ignore-next-line */
+                if (method_exists($callCount, 'getInvocationCount')) {
+                    /** @phpstan-ignore-next-line */
+                    $count = $callCount->getInvocationCount();
+                } else {
+                    /** @phpstan-ignore-next-line */
+                    $count = $callCount->numberOfInvocations();
+                }
+
+                switch ($count) {
+                    case 1:
+                        $self->assertSame(MailjetMailConnectorConstants::MAILJET_TIMEOUT, $key);
+
+                        return 15.0;
+                }
+
+                throw new Exception('Unexpected call count');
+            });
 
         static::assertIsFloat($this->config->getMailjetTimeout());
     }
@@ -81,10 +162,30 @@ class MailjetMailConnectorConfigTest extends Unit
      */
     public function testIsMailjetApiCallEnabled(): void
     {
-        $this->config->expects(static::atLeastOnce())
+        $self = $this;
+
+        $callCount = $this->atLeastOnce();
+        $this->config->expects($callCount)
             ->method('get')
-            ->withConsecutive([MailjetMailConnectorConstants::MAILJET_API_CALL_ENABLED])
-            ->willReturnOnConsecutiveCalls(true);
+            ->willReturnCallback(static function ($key, $default = null) use ($self, $callCount) {
+                /** @phpstan-ignore-next-line */
+                if (method_exists($callCount, 'getInvocationCount')) {
+                    /** @phpstan-ignore-next-line */
+                    $count = $callCount->getInvocationCount();
+                } else {
+                    /** @phpstan-ignore-next-line */
+                    $count = $callCount->numberOfInvocations();
+                }
+
+                switch ($count) {
+                    case 1:
+                        $self->assertSame(MailjetMailConnectorConstants::MAILJET_API_CALL_ENABLED, $key);
+
+                        return true;
+                }
+
+                throw new Exception('Unexpected call count');
+            });
 
         static::assertIsBool($this->config->isMailjetApiCallEnabled());
     }
@@ -94,10 +195,30 @@ class MailjetMailConnectorConfigTest extends Unit
      */
     public function testGetFromEmail(): void
     {
-        $this->config->expects(static::atLeastOnce())
+        $self = $this;
+
+        $callCount = $this->atLeastOnce();
+        $this->config->expects($callCount)
             ->method('get')
-            ->withConsecutive([MailjetMailConnectorConstants::MAILJET_FROM_EMAIL])
-            ->willReturnOnConsecutiveCalls('');
+            ->willReturnCallback(static function ($key, $default = null) use ($self, $callCount) {
+                /** @phpstan-ignore-next-line */
+                if (method_exists($callCount, 'getInvocationCount')) {
+                    /** @phpstan-ignore-next-line */
+                    $count = $callCount->getInvocationCount();
+                } else {
+                    /** @phpstan-ignore-next-line */
+                    $count = $callCount->numberOfInvocations();
+                }
+
+                switch ($count) {
+                    case 1:
+                        $self->assertSame(MailjetMailConnectorConstants::MAILJET_FROM_EMAIL, $key);
+
+                        return '';
+                }
+
+                throw new Exception('Unexpected call count');
+            });
 
         static::assertIsString($this->config->getFromEmail());
     }
@@ -107,10 +228,30 @@ class MailjetMailConnectorConfigTest extends Unit
      */
     public function testGetFromName(): void
     {
-        $this->config->expects(static::atLeastOnce())
+        $self = $this;
+
+        $callCount = $this->atLeastOnce();
+        $this->config->expects($callCount)
             ->method('get')
-            ->withConsecutive([MailjetMailConnectorConstants::MAILJET_FROM_NAME])
-            ->willReturnOnConsecutiveCalls('');
+            ->willReturnCallback(static function ($key, $default = null) use ($self, $callCount) {
+                /** @phpstan-ignore-next-line */
+                if (method_exists($callCount, 'getInvocationCount')) {
+                    /** @phpstan-ignore-next-line */
+                    $count = $callCount->getInvocationCount();
+                } else {
+                    /** @phpstan-ignore-next-line */
+                    $count = $callCount->numberOfInvocations();
+                }
+
+                switch ($count) {
+                    case 1:
+                        $self->assertSame(MailjetMailConnectorConstants::MAILJET_FROM_NAME, $key);
+
+                        return '';
+                }
+
+                throw new Exception('Unexpected call count');
+            });
 
         static::assertIsString($this->config->getFromName());
     }
@@ -120,10 +261,30 @@ class MailjetMailConnectorConfigTest extends Unit
      */
     public function testGetVersion(): void
     {
-        $this->config->expects(static::atLeastOnce())
+        $self = $this;
+
+        $callCount = $this->atLeastOnce();
+        $this->config->expects($callCount)
             ->method('get')
-            ->withConsecutive([MailjetMailConnectorConstants::MAILJET_VERSION])
-            ->willReturnOnConsecutiveCalls('v3.1');
+            ->willReturnCallback(static function ($key, $default = null) use ($self, $callCount) {
+                /** @phpstan-ignore-next-line */
+                if (method_exists($callCount, 'getInvocationCount')) {
+                    /** @phpstan-ignore-next-line */
+                    $count = $callCount->getInvocationCount();
+                } else {
+                    /** @phpstan-ignore-next-line */
+                    $count = $callCount->numberOfInvocations();
+                }
+
+                switch ($count) {
+                    case 1:
+                        $self->assertSame(MailjetMailConnectorConstants::MAILJET_VERSION, $key);
+
+                        return 'v3.1';
+                }
+
+                throw new Exception('Unexpected call count');
+            });
 
         static::assertIsString($this->config->getVersion());
     }
@@ -133,10 +294,30 @@ class MailjetMailConnectorConfigTest extends Unit
      */
     public function testGetDefaultLocale(): void
     {
-        $this->config->expects(static::atLeastOnce())
+        $self = $this;
+
+        $callCount = $this->atLeastOnce();
+        $this->config->expects($callCount)
             ->method('get')
-            ->withConsecutive([MailjetMailConnectorConstants::MAILJET_DEFAULT_LOCALE])
-            ->willReturnOnConsecutiveCalls('en_US');
+            ->willReturnCallback(static function ($key, $default = null) use ($self, $callCount) {
+                /** @phpstan-ignore-next-line */
+                if (method_exists($callCount, 'getInvocationCount')) {
+                    /** @phpstan-ignore-next-line */
+                    $count = $callCount->getInvocationCount();
+                } else {
+                    /** @phpstan-ignore-next-line */
+                    $count = $callCount->numberOfInvocations();
+                }
+
+                switch ($count) {
+                    case 1:
+                        $self->assertSame(MailjetMailConnectorConstants::MAILJET_DEFAULT_LOCALE, $key);
+
+                        return 'en_US';
+                }
+
+                throw new Exception('Unexpected call count');
+            });
 
         static::assertIsString($this->config->getDefaultLocale());
     }
@@ -146,10 +327,30 @@ class MailjetMailConnectorConfigTest extends Unit
      */
     public function testGetUrl(): void
     {
-        $this->config->expects(static::atLeastOnce())
+        $self = $this;
+
+        $callCount = $this->atLeastOnce();
+        $this->config->expects($callCount)
             ->method('get')
-            ->withConsecutive([MailjetMailConnectorConstants::MAILJET_URL])
-            ->willReturnOnConsecutiveCalls('');
+            ->willReturnCallback(static function ($key, $default = null) use ($self, $callCount) {
+                /** @phpstan-ignore-next-line */
+                if (method_exists($callCount, 'getInvocationCount')) {
+                    /** @phpstan-ignore-next-line */
+                    $count = $callCount->getInvocationCount();
+                } else {
+                    /** @phpstan-ignore-next-line */
+                    $count = $callCount->numberOfInvocations();
+                }
+
+                switch ($count) {
+                    case 1:
+                        $self->assertSame(MailjetMailConnectorConstants::MAILJET_URL, $key);
+
+                        return '';
+                }
+
+                throw new Exception('Unexpected call count');
+            });
 
         static::assertIsString($this->config->getUrl());
     }
@@ -159,10 +360,30 @@ class MailjetMailConnectorConfigTest extends Unit
      */
     public function testGetSecure(): void
     {
-        $this->config->expects(static::atLeastOnce())
+        $self = $this;
+
+        $callCount = $this->atLeastOnce();
+        $this->config->expects($callCount)
             ->method('get')
-            ->withConsecutive([MailjetMailConnectorConstants::MAILJET_SECURE])
-            ->willReturnOnConsecutiveCalls(true);
+            ->willReturnCallback(static function ($key, $default = null) use ($self, $callCount) {
+                /** @phpstan-ignore-next-line */
+                if (method_exists($callCount, 'getInvocationCount')) {
+                    /** @phpstan-ignore-next-line */
+                    $count = $callCount->getInvocationCount();
+                } else {
+                    /** @phpstan-ignore-next-line */
+                    $count = $callCount->numberOfInvocations();
+                }
+
+                switch ($count) {
+                    case 1:
+                        $self->assertSame(MailjetMailConnectorConstants::MAILJET_SECURE, $key);
+
+                        return true;
+                }
+
+                throw new Exception('Unexpected call count');
+            });
 
         static::assertIsBool($this->config->getSecure());
     }
@@ -172,10 +393,30 @@ class MailjetMailConnectorConfigTest extends Unit
      */
     public function testGetSandboxMode(): void
     {
-        $this->config->expects(static::atLeastOnce())
+        $self = $this;
+
+        $callCount = $this->atLeastOnce();
+        $this->config->expects($callCount)
             ->method('get')
-            ->withConsecutive([MailjetMailConnectorConstants::MAILJET_SANDBOX_MODE])
-            ->willReturnOnConsecutiveCalls(false);
+            ->willReturnCallback(static function ($key, $default = null) use ($self, $callCount) {
+                /** @phpstan-ignore-next-line */
+                if (method_exists($callCount, 'getInvocationCount')) {
+                    /** @phpstan-ignore-next-line */
+                    $count = $callCount->getInvocationCount();
+                } else {
+                    /** @phpstan-ignore-next-line */
+                    $count = $callCount->numberOfInvocations();
+                }
+
+                switch ($count) {
+                    case 1:
+                        $self->assertSame(MailjetMailConnectorConstants::MAILJET_SANDBOX_MODE, $key);
+
+                        return false;
+                }
+
+                throw new Exception('Unexpected call count');
+            });
 
         static::assertIsBool($this->config->getSandboxMode());
     }
@@ -185,10 +426,30 @@ class MailjetMailConnectorConfigTest extends Unit
      */
     public function testGetTemplateLanguage(): void
     {
-        $this->config->expects(static::atLeastOnce())
+        $self = $this;
+
+        $callCount = $this->atLeastOnce();
+        $this->config->expects($callCount)
             ->method('get')
-            ->withConsecutive([MailjetMailConnectorConstants::MAILJET_TEMPLATE_LANGUAGE])
-            ->willReturnOnConsecutiveCalls(true);
+            ->willReturnCallback(static function ($key, $default = null) use ($self, $callCount) {
+                /** @phpstan-ignore-next-line */
+                if (method_exists($callCount, 'getInvocationCount')) {
+                    /** @phpstan-ignore-next-line */
+                    $count = $callCount->getInvocationCount();
+                } else {
+                    /** @phpstan-ignore-next-line */
+                    $count = $callCount->numberOfInvocations();
+                }
+
+                switch ($count) {
+                    case 1:
+                        $self->assertSame(MailjetMailConnectorConstants::MAILJET_TEMPLATE_LANGUAGE, $key);
+
+                        return true;
+                }
+
+                throw new Exception('Unexpected call count');
+            });
 
         static::assertIsBool($this->config->getTemplateLanguage());
     }

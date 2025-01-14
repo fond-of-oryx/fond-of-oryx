@@ -3,6 +3,7 @@
 namespace FondOfOryx\Zed\ErpDeliveryNotePageSearch\Business;
 
 use Codeception\Test\Unit;
+use Exception;
 use FondOfOryx\Zed\ErpDeliveryNotePageSearch\Business\Publisher\ErpDeliveryNotePageSearchPublisher;
 use FondOfOryx\Zed\ErpDeliveryNotePageSearch\Business\UnPublisher\ErpDeliveryNotePageSearchUnpublisher;
 use FondOfOryx\Zed\ErpDeliveryNotePageSearch\Dependency\Service\ErpDeliveryNotePageSearchToUtilEncodingServiceInterface;
@@ -81,25 +82,26 @@ class ErpDeliveryNotePageSearchBusinessFactoryTest extends Unit
      */
     public function testCreateErpDeliveryNotePageSearchPublisher(): void
     {
-        $this->containerMock->expects(static::atLeastOnce())
-            ->method('has')
-            ->withConsecutive(
-                [ErpDeliveryNotePageSearchDependencyProvider::SERVICE_UTIL_ENCODING],
-                [ErpDeliveryNotePageSearchDependencyProvider::PLUGINS_FULL_TEXT_EXPANDER],
-                [ErpDeliveryNotePageSearchDependencyProvider::PLUGINS_FULL_TEXT_BOOSTED_EXPANDER],
-            )->willReturn(true);
+        $self = $this;
 
         $this->containerMock->expects(static::atLeastOnce())
+            ->method('has')
+            ->willReturn(true);
+
+        $this->containerMock->expects($this->atLeastOnce())
             ->method('get')
-            ->withConsecutive(
-                [ErpDeliveryNotePageSearchDependencyProvider::SERVICE_UTIL_ENCODING],
-                [ErpDeliveryNotePageSearchDependencyProvider::PLUGINS_FULL_TEXT_EXPANDER],
-                [ErpDeliveryNotePageSearchDependencyProvider::PLUGINS_FULL_TEXT_BOOSTED_EXPANDER],
-            )->willReturnOnConsecutiveCalls(
-                $this->erpDeliveryNotePageSearchToUtilEncodingServiceMock,
-                [],
-                [],
-            );
+            ->willReturnCallback(static function (string $key) use ($self) {
+                switch ($key) {
+                    case ErpDeliveryNotePageSearchDependencyProvider::SERVICE_UTIL_ENCODING:
+                        return $self->erpDeliveryNotePageSearchToUtilEncodingServiceMock;
+                    case ErpDeliveryNotePageSearchDependencyProvider::PLUGINS_FULL_TEXT_EXPANDER:
+                        return [];
+                    case ErpDeliveryNotePageSearchDependencyProvider::PLUGINS_FULL_TEXT_BOOSTED_EXPANDER:
+                        return [];
+                }
+
+                throw new Exception('Unexpected call');
+            });
 
         static::assertInstanceOf(
             ErpDeliveryNotePageSearchPublisher::class,

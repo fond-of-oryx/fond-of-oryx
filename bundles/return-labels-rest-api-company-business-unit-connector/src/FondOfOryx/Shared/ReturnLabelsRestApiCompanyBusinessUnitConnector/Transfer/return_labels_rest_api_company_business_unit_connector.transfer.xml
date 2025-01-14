@@ -23,4 +23,8 @@
     <transfer name="CompanyBusinessUnit">
         <property name="email" type="string"/>
     </transfer>
+
+    <transfer name="ReturnLabelRequestCustomer">
+        <property name="email" type="string"/>
+    </transfer>
 </transfers>

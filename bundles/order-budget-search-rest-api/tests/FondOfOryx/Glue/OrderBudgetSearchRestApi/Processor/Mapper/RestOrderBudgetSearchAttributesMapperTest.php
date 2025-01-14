@@ -13,37 +13,37 @@ use PHPUnit\Framework\MockObject\MockObject;
 class RestOrderBudgetSearchAttributesMapperTest extends Unit
 {
     /**
-     * @var (\FondOfOryx\Glue\OrderBudgetSearchRestApi\Processor\Mapper\RestOrderBudgetsAttributesMapperInterface&\PHPUnit\Framework\MockObject\MockObject)|\PHPUnit\Framework\MockObject\MockObject
+     * @var \FondOfOryx\Glue\OrderBudgetSearchRestApi\Processor\Mapper\RestOrderBudgetsAttributesMapperInterface|\PHPUnit\Framework\MockObject\MockObject
      */
     protected RestOrderBudgetsAttributesMapperInterface|MockObject $restOrderBudgetsAttributesMapperMock;
 
     /**
-     * @var (\FondOfOryx\Glue\OrderBudgetSearchRestApi\Processor\Mapper\RestOrderBudgetSearchSortMapperInterface&\PHPUnit\Framework\MockObject\MockObject)|\PHPUnit\Framework\MockObject\MockObject
+     * @var \PHPUnit\Framework\MockObject\MockObject|\FondOfOryx\Glue\OrderBudgetSearchRestApi\Processor\Mapper\RestOrderBudgetSearchSortMapperInterface
      */
     protected MockObject|RestOrderBudgetSearchSortMapperInterface $restOrderBudgetSearchSortMapperMock;
 
     /**
-     * @var (\FondOfOryx\Glue\OrderBudgetSearchRestApi\Processor\Mapper\RestOrderBudgetSearchPaginationMapperInterface&\PHPUnit\Framework\MockObject\MockObject)|\PHPUnit\Framework\MockObject\MockObject
+     * @var \FondOfOryx\Glue\OrderBudgetSearchRestApi\Processor\Mapper\RestOrderBudgetSearchPaginationMapperInterface|\PHPUnit\Framework\MockObject\MockObject
      */
     protected RestOrderBudgetSearchPaginationMapperInterface|MockObject $restOrderBudgetSearchPaginationMapperMock;
 
     /**
-     * @var (\Generated\Shared\Transfer\OrderBudgetListTransfer&\PHPUnit\Framework\MockObject\MockObject)|\PHPUnit\Framework\MockObject\MockObject
+     * @var \Generated\Shared\Transfer\OrderBudgetListTransfer|\PHPUnit\Framework\MockObject\MockObject
      */
     protected OrderBudgetListTransfer|MockObject $orderBudgetListTransferMock;
 
     /**
-     * @var (\Generated\Shared\Transfer\RestOrderBudgetsAttributesTransfer&\PHPUnit\Framework\MockObject\MockObject)|\PHPUnit\Framework\MockObject\MockObject
+     * @var \PHPUnit\Framework\MockObject\MockObject|\Generated\Shared\Transfer\RestOrderBudgetsAttributesTransfer
      */
     protected MockObject|RestOrderBudgetsAttributesTransfer $restOrderBudgetsAttributesTransferMock;
 
     /**
-     * @var (\Generated\Shared\Transfer\RestOrderBudgetSearchSortTransfer&\PHPUnit\Framework\MockObject\MockObject)|\PHPUnit\Framework\MockObject\MockObject
+     * @var \PHPUnit\Framework\MockObject\MockObject|\Generated\Shared\Transfer\RestOrderBudgetSearchSortTransfer
      */
     protected MockObject|RestOrderBudgetSearchSortTransfer $restOrderBudgetSearchSortTransferMock;
 
     /**
-     * @var (\Generated\Shared\Transfer\RestOrderBudgetSearchPaginationTransfer&\PHPUnit\Framework\MockObject\MockObject)|\PHPUnit\Framework\MockObject\MockObject
+     * @var \Generated\Shared\Transfer\RestOrderBudgetSearchPaginationTransfer|\PHPUnit\Framework\MockObject\MockObject
      */
     protected RestOrderBudgetSearchPaginationTransfer|MockObject $restOrderBudgetSearchPaginationTransferMock;
 

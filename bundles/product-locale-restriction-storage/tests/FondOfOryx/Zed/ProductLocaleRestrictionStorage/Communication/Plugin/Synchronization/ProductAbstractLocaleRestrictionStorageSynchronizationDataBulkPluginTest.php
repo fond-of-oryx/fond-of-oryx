@@ -75,7 +75,7 @@ class ProductAbstractLocaleRestrictionStorageSynchronizationDataBulkPluginTest e
                 /**
                  * @return \Spryker\Zed\Kernel\AbstractBundleConfig
                  */
-                protected function getConfig(): AbstractBundleConfig
+                public function getConfig(): AbstractBundleConfig
                 {
                     return $this->productLocaleRestrictionStorageConfig;
                 }

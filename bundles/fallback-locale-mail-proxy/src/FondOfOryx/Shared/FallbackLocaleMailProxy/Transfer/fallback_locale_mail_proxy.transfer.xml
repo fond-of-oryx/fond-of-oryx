@@ -10,6 +10,7 @@
     <transfer name="Mail">
         <property name="string" type="storeName"/>
         <property name="locale" type="Locale"/>
+        <property name="storeName" type="string"/>
     </transfer>
 
     <transfer name="Store">

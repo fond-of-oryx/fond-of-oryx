@@ -3,6 +3,7 @@
 namespace FondOfOryx\Zed\ErpInvoicePageSearch\Persistence;
 
 use Codeception\Test\Unit;
+use Exception;
 use FondOfOryx\Zed\ErpInvoicePageSearch\ErpInvoicePageSearchDependencyProvider;
 use FondOfOryx\Zed\ErpInvoicePageSearch\Persistence\Propel\Mapper\ErpInvoicePageSearchMapperInterface;
 use Orm\Zed\ErpInvoice\Persistence\FooErpInvoiceQuery;
@@ -70,18 +71,23 @@ class ErpInvoicePageSearchPersistenceFactoryTest extends Unit
      */
     public function testGetErpInvoicePageSearchQuery()
     {
+        $self = $this;
+
         $this->containerMock->expects(static::atLeastOnce())
             ->method('has')
             ->with(ErpInvoicePageSearchDependencyProvider::QUERY_ERP_INVOICE_PAGE_SEARCH)
             ->willReturn(true);
 
-        $this->containerMock->expects(static::atLeastOnce())
+        $this->containerMock->expects($this->atLeastOnce())
             ->method('get')
-            ->withConsecutive(
-                [ErpInvoicePageSearchDependencyProvider::QUERY_ERP_INVOICE_PAGE_SEARCH],
-            )->willReturnOnConsecutiveCalls(
-                $this->fooErpInvoicePageSearchQueryMock,
-            );
+            ->willReturnCallback(static function (string $key) use ($self) {
+                switch ($key) {
+                    case ErpInvoicePageSearchDependencyProvider::QUERY_ERP_INVOICE_PAGE_SEARCH:
+                        return $self->fooErpInvoicePageSearchQueryMock;
+                }
+
+                throw new Exception('Unexpected call');
+            });
 
         $this->assertInstanceOf(
             FooErpInvoicePageSearchQuery::class,

@@ -12,22 +12,22 @@ use Spryker\Zed\MailExtension\Dependency\Plugin\MailProviderPluginInterface;
 class ProxyMailProviderPluginTest extends Unit
 {
     /**
-     * @var \PHPUnit\Framework\MockObject\MockObject|(\Spryker\Zed\MailExtension\Dependency\Plugin\MailProviderPluginInterface&\PHPUnit\Framework\MockObject\MockObject)
+     * @var \PHPUnit\Framework\MockObject\MockObject|\Spryker\Zed\MailExtension\Dependency\Plugin\MailProviderPluginInterface
      */
     protected MockObject|MailProviderPluginInterface $mailProviderPluginMock;
 
     /**
-     * @var (\FondOfOryx\Zed\MailProxy\Communication\MailProxyCommunicationFactory&\PHPUnit\Framework\MockObject\MockObject)|\PHPUnit\Framework\MockObject\MockObject
+     * @var \PHPUnit\Framework\MockObject\MockObject|\FondOfOryx\Zed\MailProxy\Communication\MailProxyCommunicationFactory
      */
     protected MockObject|MailProxyCommunicationFactory $factoryMock;
 
     /**
-     * @var (\FondOfOryx\Zed\MailProxyExtension\Dependency\Plugin\MailExpanderPluginInterface&\PHPUnit\Framework\MockObject\MockObject)|\PHPUnit\Framework\MockObject\MockObject
+     * @var \FondOfOryx\Zed\MailProxyExtension\Dependency\Plugin\MailExpanderPluginInterface|\PHPUnit\Framework\MockObject\MockObject
      */
     protected MailExpanderPluginInterface|MockObject $mailExpanderPluginMock;
 
     /**
-     * @var (\Generated\Shared\Transfer\MailTransfer&\PHPUnit\Framework\MockObject\MockObject)|\PHPUnit\Framework\MockObject\MockObject
+     * @var \PHPUnit\Framework\MockObject\MockObject|\Generated\Shared\Transfer\MailTransfer
      */
     protected MockObject|MailTransfer $mailTransferMock;
 

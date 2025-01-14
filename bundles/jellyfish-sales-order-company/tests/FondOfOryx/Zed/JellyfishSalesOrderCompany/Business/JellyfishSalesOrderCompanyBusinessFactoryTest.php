@@ -3,6 +3,7 @@
 namespace FondOfOryx\Zed\JellyfishSalesOrderCompany\Business;
 
 use Codeception\Test\Unit;
+use Exception;
 use FondOfOryx\Zed\JellyfishSalesOrderCompany\Business\Expander\JellyfishOrderExpander;
 use FondOfOryx\Zed\JellyfishSalesOrderCompany\Dependency\Facade\JellyfishSalesOrderCompanyToCompanyUserReferenceFacadeInterface;
 use FondOfOryx\Zed\JellyfishSalesOrderCompany\Dependency\Facade\JellyfishSalesOrderCompanyToCurrencyFacadeInterface;
@@ -67,21 +68,26 @@ class JellyfishSalesOrderCompanyBusinessFactoryTest extends Unit
      */
     public function testCreateJellyfishOrderExpander(): void
     {
+        $self = $this;
+
         $this->containerMock->expects(static::atLeastOnce())
             ->method('has')
             ->willReturn(true);
 
-        $this->containerMock->expects(static::atLeastOnce())
+        $this->containerMock->expects($this->atLeastOnce())
             ->method('get')
-            ->withConsecutive(
-                [JellyfishSalesOrderCompanyDependencyProvider::FACADE_LOCALE],
-                [JellyfishSalesOrderCompanyDependencyProvider::FACADE_CURRENCY],
-                [JellyfishSalesOrderCompanyDependencyProvider::FACADE_COMPANY_USER_REFERENCE],
-            )->willReturnOnConsecutiveCalls(
-                $this->localeFacadeMock,
-                $this->currencyFacadeMock,
-                $this->companyUserReferenceFacadeMock,
-            );
+            ->willReturnCallback(static function (string $key) use ($self) {
+                switch ($key) {
+                    case JellyfishSalesOrderCompanyDependencyProvider::FACADE_LOCALE:
+                        return $self->localeFacadeMock;
+                    case JellyfishSalesOrderCompanyDependencyProvider::FACADE_CURRENCY:
+                        return $self->currencyFacadeMock;
+                    case JellyfishSalesOrderCompanyDependencyProvider::FACADE_COMPANY_USER_REFERENCE:
+                        return $self->companyUserReferenceFacadeMock;
+                }
+
+                throw new Exception('Unexpected call');
+            });
 
         static::assertInstanceOf(
             JellyfishOrderExpander::class,

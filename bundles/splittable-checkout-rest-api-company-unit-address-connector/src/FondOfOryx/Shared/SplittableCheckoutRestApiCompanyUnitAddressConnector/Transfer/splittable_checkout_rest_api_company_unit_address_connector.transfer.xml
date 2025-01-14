@@ -27,6 +27,8 @@
     <transfer name="Quote">
         <property name="shippingAddress" type="Address"/>
         <property name="billingAddress" type="Address"/>
+        <property name="companyUserReference" type="string"/>
+        <property name="shipment" type="Shipment"/>
     </transfer>
 
     <transfer name="Address"/>

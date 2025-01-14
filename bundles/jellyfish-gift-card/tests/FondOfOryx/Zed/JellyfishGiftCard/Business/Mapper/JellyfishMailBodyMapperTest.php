@@ -3,6 +3,7 @@
 namespace FondOfOryx\Zed\JellyfishGiftCard\Business\Mapper;
 
 use Codeception\Test\Unit;
+use Exception;
 use FondOfOryx\Shared\JellyfishGiftCard\JellyfishGiftCardConstants;
 use FondOfOryx\Zed\JellyfishGiftCard\Business\Renderer\RendererInterface;
 use Generated\Shared\Transfer\JellyfishGiftCardRequestTransfer;
@@ -57,6 +58,8 @@ class JellyfishMailBodyMapperTest extends Unit
      */
     public function testFromJellyfishGiftCardRequest(): void
     {
+        $self = $this;
+
         $options = ['order' => [], 'gift-card' => [], 'locale' => []];
         $renderedPlainTextTemplate = 'Foo bar!';
         $renderedHtmlTemplate = '<h1>Foo bar!</h1>';
@@ -69,23 +72,36 @@ class JellyfishMailBodyMapperTest extends Unit
             ->method('toArray')
             ->willReturn($options);
 
-        $this->rendererMock->expects(static::atLeastOnce())
+        $callCount = $this->atLeastOnce();
+        $this->rendererMock->expects($callCount)
             ->method('render')
-            ->withConsecutive(
-                [
-                    JellyfishGiftCardConstants::LAYOUT_TEMPLATE_MAIL_TEXT,
-                    $this->localeTransferMock,
-                    $options,
-                ],
-                [
-                     JellyfishGiftCardConstants::LAYOUT_TEMPLATE_MAIL_HTML,
-                     $this->localeTransferMock,
-                     $options,
-                 ],
-            )->willReturnOnConsecutiveCalls(
-                $renderedPlainTextTemplate,
-                $renderedHtmlTemplate,
-            );
+            ->willReturnCallback(static function (string $template, LocaleTransfer $localeTransfer, array $optionsFn = []) use ($self, $callCount, $options, $renderedPlainTextTemplate, $renderedHtmlTemplate) {
+                /** @phpstan-ignore-next-line */
+                if (method_exists($callCount, 'getInvocationCount')) {
+                    /** @phpstan-ignore-next-line */
+                    $count = $callCount->getInvocationCount();
+                } else {
+                    /** @phpstan-ignore-next-line */
+                    $count = $callCount->numberOfInvocations();
+                }
+
+                switch ($count) {
+                    case 1:
+                        $self->assertSame(JellyfishGiftCardConstants::LAYOUT_TEMPLATE_MAIL_TEXT, $template);
+                        $self->assertSame($self->localeTransferMock, $localeTransfer);
+                        $self->assertSame($options, $optionsFn);
+
+                        return $renderedPlainTextTemplate;
+                    case 2:
+                        $self->assertSame(JellyfishGiftCardConstants::LAYOUT_TEMPLATE_MAIL_HTML, $template);
+                        $self->assertSame($self->localeTransferMock, $localeTransfer);
+                        $self->assertSame($options, $optionsFn);
+
+                        return $renderedHtmlTemplate;
+                }
+
+                throw new Exception('Unexpected call count');
+            });
 
         $jellyfishMailBodyTransfer = $this->jellyfishMailBodyMapper
             ->fromJellyfishGiftCardRequest($this->jellyfishGiftCardRequestTransferMock);

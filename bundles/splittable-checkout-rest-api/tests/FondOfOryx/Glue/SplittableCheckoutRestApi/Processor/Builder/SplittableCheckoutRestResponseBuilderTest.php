@@ -11,6 +11,7 @@ use Generated\Shared\Transfer\RestErrorMessageTransfer;
 use Generated\Shared\Transfer\RestSplittableCheckoutErrorTransfer;
 use Generated\Shared\Transfer\RestSplittableCheckoutTransfer;
 use Generated\Shared\Transfer\SplittableCheckoutTransfer;
+use PHPUnit\Framework\MockObject\MockObject;
 use Spryker\Glue\GlueApplication\Rest\JsonApi\RestResourceBuilderInterface;
 use Spryker\Glue\GlueApplication\Rest\JsonApi\RestResourceInterface;
 use Spryker\Glue\GlueApplication\Rest\JsonApi\RestResponseInterface;
@@ -58,7 +59,7 @@ class SplittableCheckoutRestResponseBuilderTest extends Unit
     /**
      * @var \Generated\Shared\Transfer\RestSplittableCheckoutErrorTransfer|\PHPUnit\Framework\MockObject\MockObject
      */
-    protected $restSplittableCheckoutErrorTransferMock;
+    protected RestSplittableCheckoutErrorTransfer|MockObject $restSplittableCheckoutErrorTransferMock;
 
     /**
      * @var \PHPUnit\Framework\MockObject\MockObject|\Spryker\Glue\GlueApplication\Rest\Request\Data\RestRequestInterface
@@ -170,6 +171,7 @@ class SplittableCheckoutRestResponseBuilderTest extends Unit
         static::assertEquals(
             $this->restResponseMock,
             $this->restResponseBuilder->createNotPlacedErrorRestResponse(
+                //@phpstan-ignore-next-line
                 new ArrayObject([$this->restSplittableCheckoutErrorTransferMock]),
                 $this->restRequestMock,
             ),

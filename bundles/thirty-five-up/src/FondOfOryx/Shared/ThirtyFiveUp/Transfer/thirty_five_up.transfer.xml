@@ -39,6 +39,7 @@
 
     <transfer name="Quote">
         <property name="thirtyFiveUpOrder" type="ThirtyFiveUpOrder"/>
+        <property name="items" type="Item[]" singular="item"/>
     </transfer>
 
     <transfer name="Item">

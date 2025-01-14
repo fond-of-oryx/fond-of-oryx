@@ -5,6 +5,7 @@ namespace FondOfOryx\Zed\GiftCardProductConnector\Persistence\Propel\Mapper;
 use Codeception\Test\Unit;
 use Generated\Shared\Transfer\SpyGiftCardProductAbstractConfigurationLinkEntityTransfer;
 use Orm\Zed\GiftCard\Persistence\SpyGiftCardProductAbstractConfigurationLink;
+use PHPUnit\Framework\MockObject\MockObject;
 
 class GiftCardProductAbstractConfigurationLinkMapperTest extends Unit
 {
@@ -14,9 +15,9 @@ class GiftCardProductAbstractConfigurationLinkMapperTest extends Unit
     protected $giftCardProductAbstractConfigurationLinkMapper;
 
     /**
-     * @var \PHPUnit\Framework\MockObject\MockObject|\Orm\Zed\GiftCard\Persistence\SpyGiftCardProductAbstractConfigurationLink
+     * @var \Orm\Zed\GiftCard\Persistence\SpyGiftCardProductAbstractConfigurationLink|\PHPUnit\Framework\MockObject\MockObject
      */
-    protected $spyGiftCardProductAbstractConfigurationLinkMock;
+    protected SpyGiftCardProductAbstractConfigurationLink|MockObject $spyGiftCardProductAbstractConfigurationLinkMock;
 
     /**
      * @var \PHPUnit\Framework\MockObject\MockObject|\Generated\Shared\Transfer\SpyGiftCardProductAbstractConfigurationLinkEntityTransfer

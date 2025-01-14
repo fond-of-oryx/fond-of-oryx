@@ -17,7 +17,7 @@ class GiftCardProductConnectorBusinessFactoryTest extends Unit
     protected $containerMock;
 
     /**
-     * @var \FondOfOryx\Zed\GiftCardProductConnector\GiftCardProductConnectorConfig\PHPUnit\Framework\MockObject\MockObject
+     * @var \FondOfOryx\Zed\GiftCardProductConnector\GiftCardProductConnectorConfig|\PHPUnit\Framework\MockObject\MockObject
      */
     protected $configMock;
 

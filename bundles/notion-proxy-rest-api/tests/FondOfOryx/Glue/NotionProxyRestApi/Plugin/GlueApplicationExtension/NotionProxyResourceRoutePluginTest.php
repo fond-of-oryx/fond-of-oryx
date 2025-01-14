@@ -5,6 +5,7 @@ namespace FondOfOryx\Glue\NotionProxyRestApi\Plugin\GlueApplicationExtension;
 use Codeception\Test\Unit;
 use FondOfOryx\Glue\NotionProxyRestApi\NotionProxyRestApiConfig;
 use Generated\Shared\Transfer\RestNotionProxyRequestAttributesTransfer;
+use PHPUnit\Framework\MockObject\MockObject;
 use Spryker\Glue\GlueApplicationExtension\Dependency\Plugin\ResourceRouteCollectionInterface;
 
 class NotionProxyResourceRoutePluginTest extends Unit

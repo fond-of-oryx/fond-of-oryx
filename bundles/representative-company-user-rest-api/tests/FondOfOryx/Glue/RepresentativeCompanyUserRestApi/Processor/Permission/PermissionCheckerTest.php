@@ -3,6 +3,7 @@
 namespace FondOfOryx\Glue\RepresentativeCompanyUserRestApi\Processor\Permission;
 
 use Codeception\Test\Unit;
+use Exception;
 use FondOfOryx\Glue\RepresentativeCompanyUserRestApi\Dependency\Client\RepresentativeCompanyUserRestApiToRepresentativeCompanyUserRestApiPermissionInterface;
 use FondOfOryx\Glue\RepresentativeCompanyUserRestApi\Processor\Mapper\PermissionRequestMapperInterface;
 use FondOfOryx\Shared\RepresentativeCompanyUserRestApi\RepresentativeCompanyUserRestApiConstants;
@@ -70,6 +71,8 @@ class PermissionCheckerTest extends Unit
      */
     public function testCanOwn(): void
     {
+        $self = $this;
+
         $id = 'id';
 
         $this->restAttributesTransferMock->expects(static::atLeastOnce())
@@ -80,13 +83,32 @@ class PermissionCheckerTest extends Unit
             ->method('fromAttributesTransfer')
             ->willReturn($this->representativeCompanyUserRestApiPermissionRequestTransferMock);
 
-        $this->representativeCompanyUserRestApiPermissionRequestTransferMock->expects(static::atLeastOnce())
+        $callCount = $this->atLeastOnce();
+        $this->representativeCompanyUserRestApiPermissionRequestTransferMock->expects($callCount)
             ->method('setPermissionKey')
-            ->withConsecutive(
-                [RepresentativeCompanyUserRestApiConstants::PERMISSION_KEY_OWN],
-                [RepresentativeCompanyUserRestApiConstants::PERMISSION_KEY_GLOBAL],
-            )
-            ->willReturnSelf();
+            ->willReturnCallback(static function (string $key) use ($self, $callCount) {
+                /** @phpstan-ignore-next-line */
+                if (method_exists($callCount, 'getInvocationCount')) {
+                    /** @phpstan-ignore-next-line */
+                    $count = $callCount->getInvocationCount();
+                } else {
+                    /** @phpstan-ignore-next-line */
+                    $count = $callCount->numberOfInvocations();
+                }
+
+                switch ($count) {
+                    case 1:
+                        $self->assertSame(RepresentativeCompanyUserRestApiConstants::PERMISSION_KEY_OWN, $key);
+
+                        return $self->representativeCompanyUserRestApiPermissionRequestTransferMock;
+                    case 2:
+                        $self->assertSame(RepresentativeCompanyUserRestApiConstants::PERMISSION_KEY_GLOBAL, $key);
+
+                        return $self->representativeCompanyUserRestApiPermissionRequestTransferMock;
+                }
+
+                throw new Exception('Unexpected call count');
+            });
 
         $this->representativeCompanyUserRestApiPermissionRequestTransferMock->expects(static::atLeastOnce())
             ->method('setOriginatorReference')
@@ -109,6 +131,8 @@ class PermissionCheckerTest extends Unit
      */
     public function testCanGlobal(): void
     {
+        $self = $this;
+
         $id = 'id';
         $id2 = 'id2';
 
@@ -120,13 +144,32 @@ class PermissionCheckerTest extends Unit
             ->method('fromAttributesTransfer')
             ->willReturn($this->representativeCompanyUserRestApiPermissionRequestTransferMock);
 
-        $this->representativeCompanyUserRestApiPermissionRequestTransferMock->expects(static::atLeastOnce())
+        $callCount = $this->atLeastOnce();
+        $this->representativeCompanyUserRestApiPermissionRequestTransferMock->expects($callCount)
             ->method('setPermissionKey')
-            ->withConsecutive(
-                [RepresentativeCompanyUserRestApiConstants::PERMISSION_KEY_OWN],
-                [RepresentativeCompanyUserRestApiConstants::PERMISSION_KEY_GLOBAL],
-            )
-            ->willReturnSelf();
+            ->willReturnCallback(static function ($permissionKey) use ($self, $callCount) {
+                /** @phpstan-ignore-next-line */
+                if (method_exists($callCount, 'getInvocationCount')) {
+                    /** @phpstan-ignore-next-line */
+                    $count = $callCount->getInvocationCount();
+                } else {
+                    /** @phpstan-ignore-next-line */
+                    $count = $callCount->numberOfInvocations();
+                }
+
+                switch ($count) {
+                    case 1:
+                        $self->assertSame(RepresentativeCompanyUserRestApiConstants::PERMISSION_KEY_OWN, $permissionKey);
+
+                        return $self->representativeCompanyUserRestApiPermissionRequestTransferMock;
+                    case 2:
+                        $self->assertSame(RepresentativeCompanyUserRestApiConstants::PERMISSION_KEY_GLOBAL, $permissionKey);
+
+                        return $self->representativeCompanyUserRestApiPermissionRequestTransferMock;
+                }
+
+                throw new Exception('Unexpected call count');
+            });
 
         $this->representativeCompanyUserRestApiPermissionRequestTransferMock->expects(static::atLeastOnce())
             ->method('setOriginatorReference')

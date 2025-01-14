@@ -3,6 +3,7 @@
 namespace FondOfOryx\Glue\OrderBudgetSearchRestApi\Processor\Translator;
 
 use Codeception\Test\Unit;
+use Exception;
 use FondOfOryx\Glue\OrderBudgetSearchRestApi\Dependency\Client\OrderBudgetSearchRestApiToGlossaryStorageClientInterface;
 use Generated\Shared\Transfer\RestOrderBudgetSearchAttributesTransfer;
 use Generated\Shared\Transfer\RestOrderBudgetSearchSortTransfer;
@@ -11,17 +12,17 @@ use PHPUnit\Framework\MockObject\MockObject;
 class RestOrderBudgetSearchAttributesTranslatorTest extends Unit
 {
     /**
-     * @var (\FondOfOryx\Glue\OrderBudgetSearchRestApi\Dependency\Client\OrderBudgetSearchRestApiToGlossaryStorageClientInterface&\PHPUnit\Framework\MockObject\MockObject)|\PHPUnit\Framework\MockObject\MockObject
+     * @var \FondOfOryx\Glue\OrderBudgetSearchRestApi\Dependency\Client\OrderBudgetSearchRestApiToGlossaryStorageClientInterface|\PHPUnit\Framework\MockObject\MockObject
      */
     protected OrderBudgetSearchRestApiToGlossaryStorageClientInterface|MockObject $glossaryStorageClientMock;
 
     /**
-     * @var (\Generated\Shared\Transfer\RestOrderBudgetSearchAttributesTransfer&\PHPUnit\Framework\MockObject\MockObject)|\PHPUnit\Framework\MockObject\MockObject
+     * @var \Generated\Shared\Transfer\RestOrderBudgetSearchAttributesTransfer|\PHPUnit\Framework\MockObject\MockObject
      */
     protected RestOrderBudgetSearchAttributesTransfer|MockObject $restOrderBudgetSearchAttributesTransferMock;
 
     /**
-     * @var (\Generated\Shared\Transfer\RestOrderBudgetSearchSortTransfer&\PHPUnit\Framework\MockObject\MockObject)|\PHPUnit\Framework\MockObject\MockObject
+     * @var \PHPUnit\Framework\MockObject\MockObject|\Generated\Shared\Transfer\RestOrderBudgetSearchSortTransfer
      */
     protected MockObject|RestOrderBudgetSearchSortTransfer $restOrderBudgetSearchSortTransferMock;
 
@@ -59,6 +60,8 @@ class RestOrderBudgetSearchAttributesTranslatorTest extends Unit
      */
     public function testTranslate(): void
     {
+        $self = $this;
+
         $locale = 'de_DE';
         $untranslated = [
             'name_asc' => 'order_budget_search_rest_api.sort.name_asc',
@@ -77,10 +80,34 @@ class RestOrderBudgetSearchAttributesTranslatorTest extends Unit
             ->method('getSortParamLocalizedNames')
             ->willReturn($untranslated);
 
-        $this->glossaryStorageClientMock->expects(static::atLeastOnce())
+        $callCount = $this->atLeastOnce();
+        $this->glossaryStorageClientMock->expects($callCount)
             ->method('translate')
-            ->withConsecutive([$untranslated['name_asc'], $locale], [$untranslated['name_desc'], $locale])
-            ->willReturnOnConsecutiveCalls($translated['name_asc'], $translated['name_desc']);
+            ->willReturnCallback(static function (string $id, string $localeName, array $parameters = []) use ($self, $callCount, $locale, $translated, $untranslated) {
+                /** @phpstan-ignore-next-line */
+                if (method_exists($callCount, 'getInvocationCount')) {
+                    /** @phpstan-ignore-next-line */
+                    $count = $callCount->getInvocationCount();
+                } else {
+                    /** @phpstan-ignore-next-line */
+                    $count = $callCount->numberOfInvocations();
+                }
+
+                switch ($count) {
+                    case 1:
+                        $self->assertSame($untranslated['name_asc'], $id);
+                        $self->assertSame($locale, $localeName);
+
+                        return $translated['name_asc'];
+                    case 2:
+                        $self->assertSame($untranslated['name_desc'], $id);
+                        $self->assertSame($locale, $localeName);
+
+                        return $translated['name_desc'];
+                }
+
+                throw new Exception('Unexpected call count');
+            });
 
         $this->restOrderBudgetSearchSortTransferMock->expects(static::atLeastOnce())
             ->method('setSortParamLocalizedNames')

@@ -11,12 +11,12 @@ use PHPUnit\Framework\MockObject\MockObject;
 class RestOrderBudgetsAttributesMapperTest extends Unit
 {
     /**
-     * @var (\Generated\Shared\Transfer\OrderBudgetListTransfer&\PHPUnit\Framework\MockObject\MockObject)|\PHPUnit\Framework\MockObject\MockObject
+     * @var \Generated\Shared\Transfer\OrderBudgetListTransfer|\PHPUnit\Framework\MockObject\MockObject
      */
     protected OrderBudgetListTransfer|MockObject $orderBudgetListTransferMock;
 
     /**
-     * @var (\Generated\Shared\Transfer\OrderBudgetTransfer&\PHPUnit\Framework\MockObject\MockObject)|\PHPUnit\Framework\MockObject\MockObject
+     * @var \Generated\Shared\Transfer\OrderBudgetTransfer|\PHPUnit\Framework\MockObject\MockObject
      */
     protected OrderBudgetTransfer|MockObject $orderBudgetTransferMock;
 

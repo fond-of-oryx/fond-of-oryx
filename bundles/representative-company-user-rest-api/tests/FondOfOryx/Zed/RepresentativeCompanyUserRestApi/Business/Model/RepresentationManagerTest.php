@@ -4,6 +4,7 @@ namespace FondOfOryx\Zed\RepresentativeCompanyUserRestApi\Business\Model;
 
 use ArrayObject;
 use Codeception\Test\Unit;
+use Exception;
 use FondOfOryx\Zed\RepresentativeCompanyUserRestApi\Business\Model\Mapper\RestDataMapperInterface;
 use FondOfOryx\Zed\RepresentativeCompanyUserRestApi\Dependency\Facade\RepresentativeCompanyUserRestApiToRepresentativeCompanyUserFacadeInterface;
 use FondOfOryx\Zed\RepresentativeCompanyUserRestApi\Dependency\Facade\RepresentativeCompanyUserRestApiToRepresentativeCompanyUserRestApiPermissionFacadeInterface;
@@ -246,6 +247,8 @@ class RepresentationManagerTest extends Unit
      */
     public function testAddRepresentations(): void
     {
+        $self = $this;
+
         $distributerReference = 'distributer-reference';
         $distributerId = 1;
 
@@ -302,13 +305,32 @@ class RepresentationManagerTest extends Unit
             ->method('getEndAt')
             ->willReturn($endAt);
 
-        $this->restRepresentativeCompanyUserAttributesTransferMock->expects(static::atLeastOnce())
+        $callCount = $this->atLeastOnce();
+        $this->restRepresentativeCompanyUserAttributesTransferMock->expects($callCount)
             ->method('setReferenceRepresentation')
-            ->withConsecutive(
-                [$representationReference1],
-                [$representationReference2],
-            )
-            ->willReturnSelf();
+            ->willReturnCallback(static function ($referenceRepresentation) use ($self, $callCount, $representationReference1, $representationReference2) {
+                /** @phpstan-ignore-next-line */
+                if (method_exists($callCount, 'getInvocationCount')) {
+                    /** @phpstan-ignore-next-line */
+                    $count = $callCount->getInvocationCount();
+                } else {
+                    /** @phpstan-ignore-next-line */
+                    $count = $callCount->numberOfInvocations();
+                }
+
+                switch ($count) {
+                    case 1:
+                        $self->assertSame($representationReference1, $referenceRepresentation);
+
+                        return $self->restRepresentativeCompanyUserAttributesTransferMock;
+                    case 2:
+                        $self->assertSame($representationReference2, $referenceRepresentation);
+
+                        return $self->restRepresentativeCompanyUserAttributesTransferMock;
+                }
+
+                throw new Exception('Unexpected call count');
+            });
 
         $this->restRepresentativeCompanyUserAttributesTransferMock->expects(static::atLeastOnce())
             ->method('getGroupHash')

@@ -3,6 +3,7 @@
 namespace FondOfOryx\Zed\ErpInvoicePageSearch\Business;
 
 use Codeception\Test\Unit;
+use Exception;
 use FondOfOryx\Zed\ErpInvoicePageSearch\Business\Publisher\ErpInvoicePageSearchPublisher;
 use FondOfOryx\Zed\ErpInvoicePageSearch\Business\UnPublisher\ErpInvoicePageSearchUnpublisher;
 use FondOfOryx\Zed\ErpInvoicePageSearch\Dependency\Service\ErpInvoicePageSearchToUtilEncodingServiceInterface;
@@ -81,25 +82,26 @@ class ErpInvoicePageSearchBusinessFactoryTest extends Unit
      */
     public function testCeateErpInvoicePageSearchPublisher(): void
     {
-        $this->containerMock->expects(static::atLeastOnce())
-            ->method('has')
-            ->withConsecutive(
-                [ErpInvoicePageSearchDependencyProvider::SERVICE_UTIL_ENCODING],
-                [ErpInvoicePageSearchDependencyProvider::PLUGINS_FULL_TEXT_EXPANDER],
-                [ErpInvoicePageSearchDependencyProvider::PLUGINS_FULL_TEXT_BOOSTED_EXPANDER],
-            )->willReturn(true);
+        $self = $this;
 
         $this->containerMock->expects(static::atLeastOnce())
+            ->method('has')
+            ->willReturn(true);
+
+        $this->containerMock->expects($this->atLeastOnce())
             ->method('get')
-            ->withConsecutive(
-                [ErpInvoicePageSearchDependencyProvider::SERVICE_UTIL_ENCODING],
-                [ErpInvoicePageSearchDependencyProvider::PLUGINS_FULL_TEXT_EXPANDER],
-                [ErpInvoicePageSearchDependencyProvider::PLUGINS_FULL_TEXT_BOOSTED_EXPANDER],
-            )->willReturnOnConsecutiveCalls(
-                $this->erpInvoicePageSearchToUtilEncodingServiceMock,
-                [],
-                [],
-            );
+            ->willReturnCallback(static function (string $key) use ($self) {
+                switch ($key) {
+                    case ErpInvoicePageSearchDependencyProvider::SERVICE_UTIL_ENCODING:
+                        return $self->erpInvoicePageSearchToUtilEncodingServiceMock;
+                    case ErpInvoicePageSearchDependencyProvider::PLUGINS_FULL_TEXT_EXPANDER:
+                        return [];
+                    case ErpInvoicePageSearchDependencyProvider::PLUGINS_FULL_TEXT_BOOSTED_EXPANDER:
+                        return [];
+                }
+
+                throw new Exception('Unexpected call');
+            });
 
         static::assertInstanceOf(
             ErpInvoicePageSearchPublisher::class,
