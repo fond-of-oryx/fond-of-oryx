@@ -4,7 +4,6 @@ namespace FondOfOryx\Zed\AvailabilityCartDataExtender\Communication\Plugin;
 
 use Codeception\Test\Unit;
 use FondOfOryx\Zed\AvailabilityCartDataExtender\Business\AvailabilityCartDataExtenderFacade;
-use FondOfOryx\Zed\AvailabilityCartDataExtender\Business\AvailabilityCartDataExtenderFacadeInterface;
 use Generated\Shared\Transfer\QuoteTransfer;
 use Spryker\Zed\Kernel\Business\AbstractFacade;
 

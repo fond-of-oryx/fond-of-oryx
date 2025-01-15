@@ -7,7 +7,6 @@ use FondOfOryx\Zed\SplittableCheckoutRestApi\Business\SplittableCheckoutRestApiF
 use Generated\Shared\Transfer\RestSplittableCheckoutRequestTransfer;
 use Generated\Shared\Transfer\RestSplittableCheckoutResponseTransfer;
 use Generated\Shared\Transfer\RestSplittableTotalsResponseTransfer;
-use Spryker\Zed\Kernel\Business\AbstractFacade;
 
 class GatewayControllerTest extends Unit
 {
