@@ -27,7 +27,7 @@ class TaxCalculationConnectorRepository extends AbstractRepository implements Ta
         array $idRegions
     ): TaxCalculationConnectorTransfer {
         /** @var \Propel\Runtime\Collection\ArrayCollection|iterable $taxRateEntity */
-        $taxRateEntity = $this->getFactory()
+        $taxRateEntity = $this->getFactory()//@phpstan-ignore-line
             ->createTaxSetQuery()
             ->useSpyProductAbstractQuery()
                 ->filterByIdProductAbstract($idProductAbstracts, Criteria::IN)

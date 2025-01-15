@@ -13,17 +13,17 @@ use Symfony\Component\HttpFoundation\Request;
 class CompanyUserFilterFieldsExpanderPluginTest extends Unit
 {
     /**
-     * @var \PHPUnit\Framework\MockObject\MockObject|(\Spryker\Glue\GlueApplication\Rest\Request\Data\RestRequestInterface&\PHPUnit\Framework\MockObject\MockObject)
+     * @var \Spryker\Glue\GlueApplication\Rest\Request\Data\RestRequestInterface|\PHPUnit\Framework\MockObject\MockObject
      */
     protected RestRequestInterface|MockObject $restRequestMock;
 
     /**
-     * @var \PHPUnit\Framework\MockObject\MockObject|(\Symfony\Component\HttpFoundation\Request&\PHPUnit\Framework\MockObject\MockObject)
+     * @var \PHPUnit\Framework\MockObject\MockObject|\Symfony\Component\HttpFoundation\Request
      */
     protected MockObject|Request $httpRequestMock;
 
     /**
-     * @var \ArrayObject<\PHPUnit\Framework\MockObject\MockObject|(\Generated\Shared\Transfer\FilterFieldTransfer&\PHPUnit\Framework\MockObject\MockObject)>
+     * @var \ArrayObject<\PHPUnit\Framework\MockObject\MockObject|\Generated\Shared\Transfer\FilterFieldTransfer>
      */
     protected ArrayObject $filterFieldTransferMocks;
 
