@@ -23,6 +23,7 @@ class CompanyProductListsRestApiRepository extends AbstractRepository implements
     public function getCompanyIdsByCompanyUuidsAndIdCustomer(array $companyUuids, int $idCustomer): array
     {
         /** @var \Propel\Runtime\Collection\ArrayCollection $spyCompanyUserCollection */
+        //@phpstan-ignore-next-line
         $spyCompanyUserCollection = $this->getFactory()->getCompanyQuery()
             ->useCompanyUserQuery()
                 ->filterByFkCustomer($idCustomer)

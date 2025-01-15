@@ -59,6 +59,7 @@ class AvailabilityAlertDependencyProvider extends AbstractBundleDependencyProvid
     protected function addAvailabilityAlertClient(Container $container): Container
     {
         $container[static::CLIENT_AVAILABILITY_ALERT] = static function (Container $container) {
+            //@phpstan-ignore-next-line
             return $container->getLocator()->availabilityAlert()->client();
         };
 

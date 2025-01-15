@@ -14,12 +14,12 @@ use Propel\Runtime\ActiveQuery\Criteria;
 class CompanyUserSearchQuoteQueryExpanderPluginTest extends Unit
 {
     /**
-     * @var array<(\Generated\Shared\Transfer\FilterFieldTransfer&\PHPUnit\Framework\MockObject\MockObject)|\PHPUnit\Framework\MockObject\MockObject>
+     * @var array<\Generated\Shared\Transfer\FilterFieldTransfer|\PHPUnit\Framework\MockObject\MockObject>
      */
     protected array $filterFieldTransferMocks;
 
     /**
-     * @var (\Generated\Shared\Transfer\QueryJoinCollectionTransfer&\PHPUnit\Framework\MockObject\MockObject)|\PHPUnit\Framework\MockObject\MockObject
+     * @var \PHPUnit\Framework\MockObject\MockObject|\Generated\Shared\Transfer\QueryJoinCollectionTransfer
      */
     protected MockObject|QueryJoinCollectionTransfer $queryJoinCollectionTransferMock;
 

@@ -27,9 +27,9 @@ class CompanyUserReaderTest extends Unit
     protected BusinessOnBehalfRestApiToCompanyUserFacadeInterface|MockObject $companyUserTransferMock;
 
     /**
-     * @var \FondOfOryx\Zed\BusinessOnBehalfRestApi\Dependency\Facade\BusinessOnBehalfRestApiToCompanyUserFacadeInterface|\PHPUnit\Framework\MockObject\MockObject
+     * @var \Generated\Shared\Transfer\RestBusinessOnBehalfRequestTransfer|\PHPUnit\Framework\MockObject\MockObject
      */
-    protected BusinessOnBehalfRestApiToCompanyUserFacadeInterface|MockObject $restBusinessOnBehalfRequestTransfer;
+    protected RestBusinessOnBehalfRequestTransfer|MockObject $restBusinessOnBehalfRequestTransfer;
 
     /**
      * @var \FondOfOryx\Zed\BusinessOnBehalfRestApi\Business\Reader\CompanyUserReader

@@ -9,7 +9,8 @@
     }
   ],
   "require": {
-    "php": ">=8.2"
+    "php": ">=8.2",
+    "spryker/glue-application": "1.0.0"
   },
   "require-dev": {
     "fond-of-codeception/spryker": "*",

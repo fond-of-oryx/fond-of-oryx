@@ -3,6 +3,7 @@
 namespace FondOfOryx\Zed\CompanyDeleter\Business;
 
 use Codeception\Test\Unit;
+use Exception;
 use FondOfOryx\Zed\CompanyDeleter\Business\Executor\PluginExecutor;
 use FondOfOryx\Zed\CompanyDeleter\Business\Model\CompanyDeleter;
 use FondOfOryx\Zed\CompanyDeleter\CompanyDeleterDependencyProvider;
@@ -109,27 +110,26 @@ class CompanyDeleterBusinessFactoryTest extends Unit
      */
     public function testCreateCompanyDeleter(): void
     {
-        $this->containerMock->expects(static::atLeastOnce())
-            ->method('has')
-            ->withConsecutive(
-                [CompanyDeleterDependencyProvider::FACADE_COMPANY],
-                [CompanyDeleterDependencyProvider::PLUGINS_PRE_COMPANY_DELETER],
-                [CompanyDeleterDependencyProvider::PLUGINS_POST_COMPANY_DELETER],
-            )
-            ->willReturn(true);
+        $self = $this;
 
         $this->containerMock->expects(static::atLeastOnce())
+            ->method('has')
+            ->willReturn(true);
+
+        $this->containerMock->expects($this->atLeastOnce())
             ->method('get')
-            ->withConsecutive(
-                [CompanyDeleterDependencyProvider::FACADE_COMPANY],
-                [CompanyDeleterDependencyProvider::PLUGINS_PRE_COMPANY_DELETER],
-                [CompanyDeleterDependencyProvider::PLUGINS_POST_COMPANY_DELETER],
-            )
-            ->willReturnOnConsecutiveCalls(
-                $this->companyFacadeMock,
-                [],
-                [],
-            );
+            ->willReturnCallback(static function (string $key) use ($self) {
+                switch ($key) {
+                    case CompanyDeleterDependencyProvider::FACADE_COMPANY:
+                        return $self->companyFacadeMock;
+                    case CompanyDeleterDependencyProvider::PLUGINS_PRE_COMPANY_DELETER:
+                        return [];
+                    case CompanyDeleterDependencyProvider::PLUGINS_POST_COMPANY_DELETER:
+                        return [];
+                }
+
+                throw new Exception('Unexpected call');
+            });
 
         static::assertInstanceOf(
             CompanyDeleter::class,
@@ -144,22 +144,20 @@ class CompanyDeleterBusinessFactoryTest extends Unit
     {
         $this->containerMock->expects(static::atLeastOnce())
             ->method('has')
-            ->withConsecutive(
-                [CompanyDeleterDependencyProvider::PLUGINS_PRE_COMPANY_DELETER],
-                [CompanyDeleterDependencyProvider::PLUGINS_POST_COMPANY_DELETER],
-            )
             ->willReturn(true);
 
-        $this->containerMock->expects(static::atLeastOnce())
+        $this->containerMock->expects($this->atLeastOnce())
             ->method('get')
-            ->withConsecutive(
-                [CompanyDeleterDependencyProvider::PLUGINS_PRE_COMPANY_DELETER],
-                [CompanyDeleterDependencyProvider::PLUGINS_POST_COMPANY_DELETER],
-            )
-            ->willReturnOnConsecutiveCalls(
-                [],
-                [],
-            );
+            ->willReturnCallback(static function (string $key) {
+                switch ($key) {
+                    case CompanyDeleterDependencyProvider::PLUGINS_PRE_COMPANY_DELETER:
+                        return [];
+                    case CompanyDeleterDependencyProvider::PLUGINS_POST_COMPANY_DELETER:
+                        return [];
+                }
+
+                throw new Exception('Unexpected call');
+            });
 
         static::assertInstanceOf(
             PluginExecutor::class,
