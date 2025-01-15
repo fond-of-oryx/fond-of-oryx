@@ -9,7 +9,7 @@
     }
   ],
   "require": {
-    "php": ">=8.0",
+    "php": ">=8.2",
     "fond-of-impala/company-type": "^1.0.0",
     "fond-of-oryx/company-user-search-rest-api-extension": "^1.0.0",
     "spryker/glue-application": "^1.0.0",

@@ -3,6 +3,7 @@
 namespace FondOfOryx\Zed\BusinessOnBehalfRestApi;
 
 use Codeception\Test\Unit;
+use Exception;
 use FondOfOryx\Zed\BusinessOnBehalfRestApi\Dependency\Facade\BusinessOnBehalfRestApiToBusinessOnBehalfFacadeInterface;
 use FondOfOryx\Zed\BusinessOnBehalfRestApi\Dependency\Facade\BusinessOnBehalfRestApiToCompanyUserFacadeInterface;
 use PHPUnit\Framework\MockObject\MockObject;
@@ -30,12 +31,12 @@ class BusinessOnBehalfRestApiDependencyProviderTest extends Unit
     protected MockObject|BundleProxy $bundleProxyMock;
 
     /**
-     * @var \PHPUnit\Framework\MockObject\MockObject|(\Spryker\Zed\BusinessOnBehalf\Business\BusinessOnBehalfFacadeInterface&\PHPUnit\Framework\MockObject\MockObject)
+     * @var \Spryker\Zed\BusinessOnBehalf\Business\BusinessOnBehalfFacadeInterface|\PHPUnit\Framework\MockObject\MockObject
      */
     protected BusinessOnBehalfFacadeInterface|MockObject $businessOnBehalfFacadeMock;
 
     /**
-     * @var \PHPUnit\Framework\MockObject\MockObject|(\Spryker\Zed\CompanyUser\Business\CompanyUserFacadeInterface&\PHPUnit\Framework\MockObject\MockObject)
+     * @var \Spryker\Zed\CompanyUser\Business\CompanyUserFacadeInterface|\PHPUnit\Framework\MockObject\MockObject
      */
     protected CompanyUserFacadeInterface|MockObject $companyUserFacadeMock;
 
@@ -51,9 +52,18 @@ class BusinessOnBehalfRestApiDependencyProviderTest extends Unit
     {
         parent::_before();
 
-        $this->containerMock = $this->getMockBuilder(Container::class)
-            ->setMethodsExcept(['factory', 'set', 'offsetSet', 'get', 'offsetGet'])
-            ->getMock();
+        $containerMock = $this->getMockBuilder(Container::class);
+
+        /** @phpstan-ignore-next-line */
+        if (method_exists($containerMock, 'setMethodsExcept')) {
+            /** @phpstan-ignore-next-line */
+            $containerMock->setMethodsExcept(['factory', 'set', 'offsetSet', 'get', 'offsetGet']);
+        } else {
+            /** @phpstan-ignore-next-line */
+            $containerMock->onlyMethods(['getLocator'])->enableOriginalClone();
+        }
+
+        $this->containerMock = $containerMock->getMock();
 
         $this->locatorMock = $this->getMockBuilder(Locator::class)
             ->disableOriginalConstructor()
@@ -79,18 +89,27 @@ class BusinessOnBehalfRestApiDependencyProviderTest extends Unit
      */
     public function testProvideBusinessLayerDependencies(): void
     {
-        $this->containerMock->expects(static::atLeastOnce())
+        $self = $this;
+        $this->containerMock->expects($this->atLeastOnce())
             ->method('getLocator')
             ->willReturn($this->locatorMock);
 
-        $this->locatorMock->expects(static::atLeastOnce())
+        $this->locatorMock->expects($this->atLeastOnce())
             ->method('__call')
-            ->withConsecutive(['businessOnBehalf'], ['companyUser'])
-            ->willReturn($this->bundleProxyMock);
+            ->willReturnCallback(static function (string $key) use ($self) {
+                switch ($key) {
+                    case 'businessOnBehalf':
+                        return $self->bundleProxyMock;
+                    case 'companyUser':
+                        return $self->bundleProxyMock;
+                }
 
-        $this->bundleProxyMock->expects(static::atLeastOnce())
+                throw new Exception('Invalid key');
+            });
+
+        $this->bundleProxyMock->expects($this->atLeastOnce())
             ->method('__call')
-            ->withConsecutive(['facade'], ['facade'])
+            ->with('facade')
             ->willReturnOnConsecutiveCalls(
                 $this->businessOnBehalfFacadeMock,
                 $this->companyUserFacadeMock,

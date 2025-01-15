@@ -65,6 +65,7 @@ class TrboApiConfigurationTest extends Unit
             ->disableOriginalConstructor()
             ->getMock();
 
+        //@phpstan-ignore-next-line
         $this->requestMock->cookies = $this->requestCookieMock;
         $this->requestMock->headers = $this->requestHeaderMock;
         $this->requestMock->method('getSession')->willReturn($this->requestSessionMock);

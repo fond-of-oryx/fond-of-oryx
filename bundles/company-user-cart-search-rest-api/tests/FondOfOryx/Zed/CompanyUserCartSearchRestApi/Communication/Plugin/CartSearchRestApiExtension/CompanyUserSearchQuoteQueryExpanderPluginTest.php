@@ -111,7 +111,7 @@ class CompanyUserSearchQuoteQueryExpanderPluginTest extends Unit
                     ) => $queryJoinTransfer->getWhereConditions()->count() === 1
                         && $queryJoinTransfer->getWhereConditions()->offsetGet(0)->getColumn() === SpyQuoteTableMap::COL_COMPANY_USER_REFERENCE
                         && $queryJoinTransfer->getWhereConditions()->offsetGet(0)->getComparison() === Criteria::EQUAL
-                        && $queryJoinTransfer->getWhereConditions()->offsetGet(0)->getValue() === $companyUserReference
+                        && $queryJoinTransfer->getWhereConditions()->offsetGet(0)->getValue() === $companyUserReference,
                 ),
             )->willReturn($this->queryJoinCollectionTransferMock);
 

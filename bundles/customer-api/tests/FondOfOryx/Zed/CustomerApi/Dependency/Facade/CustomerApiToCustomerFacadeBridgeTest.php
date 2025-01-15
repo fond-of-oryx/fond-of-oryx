@@ -16,17 +16,17 @@ class CustomerApiToCustomerFacadeBridgeTest extends Unit
     protected CustomerApiToCustomerFacadeBridge $bridge;
 
     /**
-     * @var \PHPUnit\Framework\MockObject\MockObject|(\Spryker\Zed\Customer\Business\CustomerFacade&\PHPUnit\Framework\MockObject\MockObject)
+     * @var \PHPUnit\Framework\MockObject\MockObject|\Spryker\Zed\Customer\Business\CustomerFacade
      */
     protected MockObject|CustomerFacade $facadeMock;
 
     /**
-     * @var (\Generated\Shared\Transfer\CustomerResponseTransfer&\PHPUnit\Framework\MockObject\MockObject)|\PHPUnit\Framework\MockObject\MockObject
+     * @var \Generated\Shared\Transfer\CustomerResponseTransfer|\PHPUnit\Framework\MockObject\MockObject
      */
     protected CustomerResponseTransfer|MockObject $customerResponseTransferMock;
 
     /**
-     * @var (\Generated\Shared\Transfer\CustomerTransfer&\PHPUnit\Framework\MockObject\MockObject)|\PHPUnit\Framework\MockObject\MockObject
+     * @var \Generated\Shared\Transfer\CustomerTransfer|\PHPUnit\Framework\MockObject\MockObject
      */
     protected CustomerTransfer|MockObject $customerTransferMock;
 

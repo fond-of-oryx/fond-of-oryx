@@ -13,32 +13,32 @@ use PHPUnit\Framework\MockObject\MockObject;
 class BusinessOnBehalfProductListConnectorFacadeTest extends Unit
 {
     /**
-     * @var (\FondOfOryx\Zed\BusinessOnBehalfProductListConnector\Business\BusinessOnBehalfProductListConnectorBusinessFactory&\PHPUnit\Framework\MockObject\MockObject)|\PHPUnit\Framework\MockObject\MockObject
+     * @var \FondOfOryx\Zed\BusinessOnBehalfProductListConnector\Business\BusinessOnBehalfProductListConnectorBusinessFactory|\PHPUnit\Framework\MockObject\MockObject
      */
     protected MockObject|BusinessOnBehalfProductListConnectorBusinessFactory $factoryMock;
 
     /**
-     * @var (\FondOfOryx\Zed\BusinessOnBehalfProductListConnector\Business\Validator\ProductListRestrictionValidatorInterface&\PHPUnit\Framework\MockObject\MockObject)|\PHPUnit\Framework\MockObject\MockObject
+     * @var \FondOfOryx\Zed\BusinessOnBehalfProductListConnector\Business\Validator\ProductListRestrictionValidatorInterface|\PHPUnit\Framework\MockObject\MockObject
      */
     protected MockObject|ProductListRestrictionValidatorInterface $productListRestrictionValidatorMock;
 
     /**
-     * @var (\FondOfOryx\Zed\BusinessOnBehalfProductListConnector\Business\Filter\RestrictedItemsFilterInterface&\PHPUnit\Framework\MockObject\MockObject)|\PHPUnit\Framework\MockObject\MockObject
+     * @var \FondOfOryx\Zed\BusinessOnBehalfProductListConnector\Business\Filter\RestrictedItemsFilterInterface|\PHPUnit\Framework\MockObject\MockObject
      */
     protected RestrictedItemsFilterInterface|MockObject $restrictedItemsFilterMock;
 
     /**
-     * @var (\Generated\Shared\Transfer\QuoteTransfer&\PHPUnit\Framework\MockObject\MockObject)|\PHPUnit\Framework\MockObject\MockObject
+     * @var \Generated\Shared\Transfer\QuoteTransfer|\PHPUnit\Framework\MockObject\MockObject
      */
     protected QuoteTransfer|MockObject $quoteTransferMock;
 
     /**
-     * @var (\Generated\Shared\Transfer\CartChangeTransfer&\PHPUnit\Framework\MockObject\MockObject)|\PHPUnit\Framework\MockObject\MockObject
+     * @var \Generated\Shared\Transfer\CartChangeTransfer|\PHPUnit\Framework\MockObject\MockObject
      */
     protected CartChangeTransfer|MockObject $cartChangeTransferMock;
 
     /**
-     * @var (\Generated\Shared\Transfer\CartPreCheckResponseTransfer&\PHPUnit\Framework\MockObject\MockObject)|\PHPUnit\Framework\MockObject\MockObject
+     * @var \Generated\Shared\Transfer\CartPreCheckResponseTransfer|\PHPUnit\Framework\MockObject\MockObject
      */
     protected CartPreCheckResponseTransfer|MockObject $cartPreCheckResponseTransferMock;
 

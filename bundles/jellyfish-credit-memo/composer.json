@@ -8,19 +8,19 @@
       "email": "gengjozsef86@gmail.com"
     },
     {
-      "name": "Julian Zimmermann",
-      "email": "dev@julianzimmermann.dev"
+      "name": "Julian Hyatt",
+      "email": "dev@jzit.de"
     }
   ],
   "require": {
-    "php": ">=8.0",
+    "php": ">=8.2",
     "fond-of-oryx/credit-memo": "^1.0.0 || ^2.0.0",
     "spryker/oms": "^6.0.0 || ^7.0.0 || ^8.0.0 || ^10.0.0 || ^11.0.0",
     "spryker/sales": "^6.0.0 || ^7.0.0 || ^8.0.0 || ^10.0.0 || ^11.0.0",
     "spryker/util-encoding": "^1.0.0 || ^2.0.0"
   },
   "require-dev": {
-    "fond-of-codeception/spryker": "^2.0.0",
+    "fond-of-codeception/spryker": "*",
     "spryker/code-sniffer": "*",
     "spryker-sdk/phpstan-spryker": "*"
   },
@@ -35,7 +35,7 @@
     "psr-4": {
       "FondOfOryx\\": "tests/FondOfOryx/",
       "Generated\\": "src/Generated/",
-      "Orm\\Zed\\": "src/Orm/Zed/"
+      "Orm\\": "src/Orm/"
     }
   },
   "config": {
@@ -45,4 +45,3 @@
     }
   }
 }
-

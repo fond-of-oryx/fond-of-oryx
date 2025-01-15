@@ -5,13 +5,11 @@ namespace FondOfOryx\Zed\ThirtyFiveUpApi\Communication\Plugin\Api;
 use Codeception\Test\Unit;
 use Exception;
 use FondOfOryx\Zed\ThirtyFiveUpApi\Business\ThirtyFiveUpApiFacade;
-use FondOfOryx\Zed\ThirtyFiveUpApi\Business\ThirtyFiveUpApiFacadeInterface;
 use Generated\Shared\Transfer\ApiCollectionTransfer;
 use Generated\Shared\Transfer\ApiDataTransfer;
 use Generated\Shared\Transfer\ApiItemTransfer;
 use Generated\Shared\Transfer\ApiRequestTransfer;
 use Spryker\Zed\Api\Business\Exception\ApiDispatchingException;
-use Spryker\Zed\Kernel\Business\AbstractFacade;
 
 class ThirtyFiveUpApiResourcePluginTest extends Unit
 {
@@ -21,7 +19,7 @@ class ThirtyFiveUpApiResourcePluginTest extends Unit
     protected $plugin;
 
     /**
-     * @var \FondOfOryx\Zed\ThirtyFiveUpApi\Business\ThirtyFiveUpApiFacadeInterface|\PHPUnit\Framework\MockObject\MockObject
+     * @var \FondOfOryx\Zed\ThirtyFiveUpApi\Business\ThirtyFiveUpApiFacade|\PHPUnit\Framework\MockObject\MockObject
      */
     protected $facadeMock;
 
@@ -72,24 +70,24 @@ class ThirtyFiveUpApiResourcePluginTest extends Unit
 
         $this->plugin = new class ($this->facadeMock) extends ThirtyFiveUpApiResourcePlugin {
             /**
-             * @var \FondOfOryx\Zed\ThirtyFiveUpApi\Business\ThirtyFiveUpApiFacadeInterface
+             * @var \FondOfOryx\Zed\ThirtyFiveUpApi\Business\ThirtyFiveUpApiFacade
              */
             public $facade;
 
             /**
              *  constructor.
              *
-             * @param \FondOfOryx\Zed\ThirtyFiveUpApi\Business\ThirtyFiveUpApiFacadeInterface $thirtyFiveUpFacade
+             * @param \FondOfOryx\Zed\ThirtyFiveUpApi\Business\ThirtyFiveUpApiFacade $thirtyFiveUpFacade
              */
-            public function __construct(ThirtyFiveUpApiFacadeInterface $thirtyFiveUpFacade)
+            public function __construct(ThirtyFiveUpApiFacade $thirtyFiveUpFacade)
             {
                 $this->facade = $thirtyFiveUpFacade;
             }
 
             /**
-             * @return \FondOfOryx\Zed\ThirtyFiveUpApi\Business\ThirtyFiveUpApiFacadeInterface|\Spryker\Zed\Kernel\Business\AbstractFacade
+             * @return \FondOfOryx\Zed\ThirtyFiveUpApi\Business\ThirtyFiveUpApiFacade
              */
-            protected function getFacade(): AbstractFacade
+            protected function getFacade(): ThirtyFiveUpApiFacade
             {
                 return $this->facade;
             }

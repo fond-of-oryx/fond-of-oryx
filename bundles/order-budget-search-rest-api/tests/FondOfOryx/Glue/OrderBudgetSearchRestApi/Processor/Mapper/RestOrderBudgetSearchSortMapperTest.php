@@ -13,17 +13,17 @@ use PHPUnit\Framework\MockObject\MockObject;
 class RestOrderBudgetSearchSortMapperTest extends Unit
 {
     /**
-     * @var (\FondOfOryx\Glue\OrderBudgetSearchRestApi\OrderBudgetSearchRestApiConfig&\PHPUnit\Framework\MockObject\MockObject)|\PHPUnit\Framework\MockObject\MockObject
+     * @var \FondOfOryx\Glue\OrderBudgetSearchRestApi\OrderBudgetSearchRestApiConfig|\PHPUnit\Framework\MockObject\MockObject
      */
     protected OrderBudgetSearchRestApiConfig|MockObject $configMock;
 
     /**
-     * @var (\Generated\Shared\Transfer\OrderBudgetListTransfer&\PHPUnit\Framework\MockObject\MockObject)|\PHPUnit\Framework\MockObject\MockObject
+     * @var \Generated\Shared\Transfer\OrderBudgetListTransfer|\PHPUnit\Framework\MockObject\MockObject
      */
     protected OrderBudgetListTransfer|MockObject $orderBudgetListTransferMock;
 
     /**
-     * @var array<(\Generated\Shared\Transfer\FilterFieldTransfer&\PHPUnit\Framework\MockObject\MockObject)|\PHPUnit\Framework\MockObject\MockObject>
+     * @var array<\Generated\Shared\Transfer\FilterFieldTransfer|\PHPUnit\Framework\MockObject\MockObject>
      */
     protected array $filterFieldTransferMocks;
 

@@ -3,6 +3,7 @@
 namespace FondOfOryx\Zed\RepresentativeCompanyUserTradeFairRestApi;
 
 use Codeception\Test\Unit;
+use Exception;
 use FondOfImpala\Zed\CompanyType\Business\CompanyTypeFacadeInterface;
 use FondOfOryx\Zed\RepresentativeCompanyUserTradeFair\Business\RepresentativeCompanyUserTradeFairFacadeInterface;
 use FondOfOryx\Zed\RepresentativeCompanyUserTradeFairRestApi\Dependency\Facade\RepresentativeCompanyUserTradeFairRestApiToCompanyTypeFacadeInterface;
@@ -54,9 +55,18 @@ class RepresentativeCompanyUserTradeFairRestApiDependencyProviderTest extends Un
     {
         parent::_before();
 
-        $this->containerMock = $this->getMockBuilder(Container::class)
-            ->setMethodsExcept(['factory', 'set', 'offsetSet', 'get', 'offsetGet'])
-            ->getMock();
+        $containerMock = $this->getMockBuilder(Container::class);
+
+        /** @phpstan-ignore-next-line */
+        if (method_exists($containerMock, 'setMethodsExcept')) {
+            /** @phpstan-ignore-next-line */
+            $containerMock->setMethodsExcept(['factory', 'set', 'offsetSet', 'get', 'offsetGet']);
+        } else {
+            /** @phpstan-ignore-next-line */
+            $containerMock->onlyMethods(['getLocator'])->enableOriginalClone();
+        }
+
+        $this->containerMock = $containerMock->getMock();
 
         $this->locatorMock = $this->getMockBuilder(Locator::class)
             ->disableOriginalConstructor()
@@ -106,18 +116,26 @@ class RepresentativeCompanyUserTradeFairRestApiDependencyProviderTest extends Un
      */
     public function testProvideBusinessLayerDependencies(): void
     {
-        $this->containerMock->expects(static::atLeastOnce())
+        $self = $this;
+        $this->containerMock->expects($this->atLeastOnce())
             ->method('getLocator')
             ->willReturn($this->locatorMock);
 
-        $this->locatorMock->expects(static::atLeastOnce())
+        $this->locatorMock->expects($this->atLeastOnce())
             ->method('__call')
-            ->withConsecutive(['representativeCompanyUserTradeFair'], ['companyType'])
-            ->willReturn($this->bundleProxyMock);
+            ->willReturnCallback(static function (string $key) use ($self) {
+                switch ($key) {
+                    case 'representativeCompanyUserTradeFair':
+                        return $self->bundleProxyMock;
+                    case 'companyType':
+                        return $self->bundleProxyMock;
+                }
+
+                throw new Exception('Invalid key');
+            });
 
         $this->bundleProxyMock->expects(static::atLeastOnce())
             ->method('__call')
-            ->withConsecutive(['facade'], ['facade'])
             ->willReturnOnConsecutiveCalls(
                 $this->representativeCompanyUserTradeFairFacadeMock,
                 $this->companyTypeFacadeMock,

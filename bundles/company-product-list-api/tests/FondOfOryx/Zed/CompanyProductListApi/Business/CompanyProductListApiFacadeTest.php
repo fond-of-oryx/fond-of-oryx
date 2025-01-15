@@ -30,7 +30,7 @@ class CompanyProductListApiFacadeTest extends Unit
     protected $factoryMock;
 
     /**
-     * @var \FondOfOryx\Zed\CopanyProductListApi\Business\CompanyProductListApiFacade
+     * @var \FondOfOryx\Zed\CompanyProductListApi\Business\CompanyProductListApiFacade
      */
     protected $facade;
 

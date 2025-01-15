@@ -5,18 +5,18 @@
   "authors": [
     {
       "name": "Julian Hyatt",
-      "email": "dev@julianzimmermann.dev"
+      "email": "dev@jzit.de"
     }
   ],
   "require": {
-    "php": ">=8.0",
+    "php": ">=8.2",
     "spryker/api": "^0.4.0",
     "spryker/api-extension": "^0.1.0",
     "spryker/api-query-builder": "^0.1.0",
     "spryker/gift-card": "^1.0.0"
   },
   "require-dev": {
-    "fond-of-codeception/spryker": "^2.0.0",
+    "fond-of-codeception/spryker": "*",
     "spryker/code-sniffer": "*",
     "spryker-sdk/phpstan-spryker": "*"
   },
@@ -31,7 +31,7 @@
     "psr-4": {
       "FondOfOryx\\": "tests/FondOfOryx/",
       "Generated\\": "src/Generated/",
-      "Orm\\Zed\\": "src/Orm/Zed/"
+      "Orm\\": "src/Orm/"
     }
   },
   "config": {

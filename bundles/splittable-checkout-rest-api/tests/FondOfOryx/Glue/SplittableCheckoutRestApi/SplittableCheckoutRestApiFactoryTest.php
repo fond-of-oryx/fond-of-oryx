@@ -3,6 +3,7 @@
 namespace FondOfOryx\Glue\SplittableCheckoutRestApi;
 
 use Codeception\Test\Unit;
+use Exception;
 use FondOfOryx\Client\SplittableCheckoutRestApi\SplittableCheckoutRestApiClient;
 use FondOfOryx\Glue\SplittableCheckoutRestApi\Dependency\Client\SplittableCheckoutRestApiToGlossaryStorageClientInterface;
 use FondOfOryx\Glue\SplittableCheckoutRestApi\Processor\Reader\SplittableTotalsReader;
@@ -154,19 +155,24 @@ class SplittableCheckoutRestApiFactoryTest extends Unit
      */
     public function testCreateSplittableCheckoutProcessor(): void
     {
-        $this->containerMock->expects(static::atLeastOnce())
-            ->method('has')
-            ->withConsecutive(
-                [SplittableCheckoutRestApiDependencyProvider::CLIENT_GLOSSARY_STORAGE],
-                [SplittableCheckoutRestApiDependencyProvider::PLUGINS_REST_SPLITTABLE_CHECKOUT_EXPANDER],
-            )->willReturn(true);
+        $self = $this;
 
         $this->containerMock->expects(static::atLeastOnce())
+            ->method('has')
+            ->willReturn(true);
+
+        $this->containerMock->expects($this->atLeastOnce())
             ->method('get')
-            ->withConsecutive(
-                [SplittableCheckoutRestApiDependencyProvider::CLIENT_GLOSSARY_STORAGE],
-                [SplittableCheckoutRestApiDependencyProvider::PLUGINS_REST_SPLITTABLE_CHECKOUT_EXPANDER],
-            )->willReturn($this->glossaryStorageClientMock, []);
+            ->willReturnCallback(static function (string $key) use ($self) {
+                switch ($key) {
+                    case SplittableCheckoutRestApiDependencyProvider::CLIENT_GLOSSARY_STORAGE:
+                        return $self->glossaryStorageClientMock;
+                    case SplittableCheckoutRestApiDependencyProvider::PLUGINS_REST_SPLITTABLE_CHECKOUT_EXPANDER:
+                        return [];
+                }
+
+                throw new Exception('Unexpected call');
+            });
 
         static::assertInstanceOf(
             SplittableCheckoutProcessor::class,

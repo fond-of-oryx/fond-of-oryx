@@ -10,12 +10,12 @@ use Spryker\Zed\CompanyUser\Business\CompanyUserFacadeInterface;
 class BusinessOnBehalfRestApiToCompanyUserFacadeBridgeTest extends Unit
 {
     /**
-     * @var \PHPUnit\Framework\MockObject\MockObject|(\Spryker\Zed\CompanyUser\Business\CompanyUserFacadeInterface&\PHPUnit\Framework\MockObject\MockObject)
+     * @var \Spryker\Zed\CompanyUser\Business\CompanyUserFacadeInterface|\PHPUnit\Framework\MockObject\MockObject
      */
     protected CompanyUserFacadeInterface|MockObject $facadeMock;
 
     /**
-     * @var (\Generated\Shared\Transfer\CompanyUserTransfer&\PHPUnit\Framework\MockObject\MockObject)|\PHPUnit\Framework\MockObject\MockObject
+     * @var \Generated\Shared\Transfer\CompanyUserTransfer|\PHPUnit\Framework\MockObject\MockObject
      */
     protected CompanyUserTransfer|MockObject $companyUserTransferMock;
 

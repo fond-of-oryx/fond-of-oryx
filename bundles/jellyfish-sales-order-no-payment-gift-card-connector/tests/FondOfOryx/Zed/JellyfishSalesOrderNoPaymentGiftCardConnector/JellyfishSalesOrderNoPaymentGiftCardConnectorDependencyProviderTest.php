@@ -3,6 +3,7 @@
 namespace FondOfOryx\Zed\JellyfishSalesOrderNoPaymentGiftCardConnector;
 
 use Codeception\Test\Unit;
+use Exception;
 use FondOfOryx\Zed\GiftCardProportionalValue\Business\GiftCardProportionalValueFacadeInterface;
 use FondOfOryx\Zed\JellyfishSalesOrderNoPaymentGiftCardConnector\Dependency\Facade\JellyfishSalesOrderNoPaymentGiftCardConnectorToGiftCardProportionalValueFacadeInterface;
 use FondOfOryx\Zed\JellyfishSalesOrderNoPaymentGiftCardConnector\Dependency\Facade\JellyfishSalesOrderNoPaymentGiftCardConnectorToSalesFacadeInterface;
@@ -50,9 +51,18 @@ class JellyfishSalesOrderNoPaymentGiftCardConnectorDependencyProviderTest extend
     {
         parent::_before();
 
-        $this->containerMock = $this->getMockBuilder(Container::class)
-            ->setMethodsExcept(['factory', 'set', 'offsetSet', 'get', 'offsetGet'])
-            ->getMock();
+        $containerMock = $this->getMockBuilder(Container::class);
+
+        /** @phpstan-ignore-next-line */
+        if (method_exists($containerMock, 'setMethodsExcept')) {
+            /** @phpstan-ignore-next-line */
+            $containerMock->setMethodsExcept(['factory', 'set', 'offsetSet', 'get', 'offsetGet']);
+        } else {
+            /** @phpstan-ignore-next-line */
+            $containerMock->onlyMethods(['getLocator'])->enableOriginalClone();
+        }
+
+        $this->containerMock = $containerMock->getMock();
 
         $this->locatorMock = $this->getMockBuilder(Locator::class)
             ->disableOriginalConstructor()
@@ -81,23 +91,26 @@ class JellyfishSalesOrderNoPaymentGiftCardConnectorDependencyProviderTest extend
      */
     public function testProvideBusinessLayerDependencies(): void
     {
-        $this->containerMock->expects(static::atLeastOnce())
+        $self = $this;
+        $this->containerMock->expects($this->atLeastOnce())
             ->method('getLocator')
             ->willReturn($this->locatorMock);
 
-        $this->locatorMock->expects(static::atLeastOnce())
+        $this->locatorMock->expects($this->atLeastOnce())
             ->method('__call')
-            ->withConsecutive(
-                ['sales'],
-                ['giftCardProportionalValue'],
-            )->willReturn($this->bundleProxyMock);
+            ->willReturnCallback(static function (string $key) use ($self) {
+                switch ($key) {
+                    case 'sales':
+                        return $self->bundleProxyMock;
+                    case 'giftCardProportionalValue':
+                        return $self->bundleProxyMock;
+                }
+
+                throw new Exception('Invalid key');
+            });
 
         $this->bundleProxyMock->expects(static::atLeastOnce())
             ->method('__call')
-            ->withConsecutive(
-                ['facade'],
-                ['facade'],
-            )
             ->willReturnOnConsecutiveCalls(
                 $this->salesFacadeMock,
                 $this->proportionalValueConnectorFacadeMock,

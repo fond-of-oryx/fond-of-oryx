@@ -47,6 +47,6 @@ class ThirtyFiveUpPaymentConnectorBusinessFactoryTest extends Unit
      */
     public function testCreateThirtyFiveUpPaymentMethodFilter(): void
     {
-        $this->businessFactory->createThirtyFiveUpPaymentMethodFilter($this->thirtyFiveUpPaymentConnectorConfigMock);
+        $this->businessFactory->createThirtyFiveUpPaymentMethodFilter();
     }
 }

@@ -3,6 +3,7 @@
 namespace FondOfOryx\Glue\CompanyBusinessUnitAddressSearchRestApi\Processor\Translator;
 
 use Codeception\Test\Unit;
+use Exception;
 use FondOfOryx\Glue\CompanyBusinessUnitAddressSearchRestApi\Dependency\Client\CompanyBusinessUnitAddressSearchRestApiToGlossaryStorageClientInterface;
 use Generated\Shared\Transfer\RestCompanyBusinessUnitAddressSearchAttributesTransfer;
 use Generated\Shared\Transfer\RestCompanyBusinessUnitAddressSearchSortTransfer;
@@ -58,6 +59,8 @@ class RestCompanyBusinessUnitAddressSearchAttributesTranslatorTest extends Unit
      */
     public function testTranslate(): void
     {
+        $self = $this;
+
         $locale = 'de_DE';
         $untranslated = [
             'name_asc' => 'companies_rest_api.sort.name_asc',
@@ -76,10 +79,34 @@ class RestCompanyBusinessUnitAddressSearchAttributesTranslatorTest extends Unit
             ->method('getSortParamLocalizedNames')
             ->willReturn($untranslated);
 
-        $this->glossaryStorageClientMock->expects(static::atLeastOnce())
+        $callCount = $this->atLeastOnce();
+        $this->glossaryStorageClientMock->expects($callCount)
             ->method('translate')
-            ->withConsecutive([$untranslated['name_asc'], $locale], [$untranslated['name_desc'], $locale])
-            ->willReturnOnConsecutiveCalls($translated['name_asc'], $translated['name_desc']);
+            ->willReturnCallback(static function (string $id, string $localeName, array $parameters = []) use ($self, $callCount, $untranslated, $translated, $locale) {
+                /** @phpstan-ignore-next-line */
+                if (method_exists($callCount, 'getInvocationCount')) {
+                    /** @phpstan-ignore-next-line */
+                    $count = $callCount->getInvocationCount();
+                } else {
+                    /** @phpstan-ignore-next-line */
+                    $count = $callCount->numberOfInvocations();
+                }
+
+                switch ($count) {
+                    case 1:
+                        $self->assertSame($untranslated['name_asc'], $id);
+                        $self->assertSame($locale, $localeName);
+
+                        return $translated['name_asc'];
+                    case 2:
+                        $self->assertSame($untranslated['name_desc'], $id);
+                        $self->assertSame($locale, $localeName);
+
+                        return $translated['name_desc'];
+                }
+
+                throw new Exception('Unexpected call count');
+            });
 
         $this->restCompanyBusinessUnitAddressSearchSortTransferMock->expects(static::atLeastOnce())
             ->method('setSortParamLocalizedNames')

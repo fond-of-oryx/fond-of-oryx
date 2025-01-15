@@ -5,6 +5,7 @@ namespace FondOfOryx\Glue\NotionProxyRestApi\Processor\Builder;
 use Codeception\Test\Unit;
 use FondOfOryx\Glue\NotionProxyRestApi\NotionProxyRestApiConfig;
 use Generated\Shared\Transfer\RestNotionProxyRequestResponseTransfer;
+use PHPUnit\Framework\MockObject\MockObject;
 use Spryker\Glue\GlueApplication\Rest\JsonApi\RestResourceBuilderInterface;
 use Spryker\Glue\GlueApplication\Rest\JsonApi\RestResourceInterface;
 use Spryker\Glue\GlueApplication\Rest\JsonApi\RestResponseInterface;

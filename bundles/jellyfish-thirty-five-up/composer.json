@@ -4,17 +4,17 @@
   "license": "MIT",
   "authors": [
     {
-      "name": "Julian Zimmermann",
-      "email": "info@julianzimmermann.dev"
+      "name": "Julian Hyatt",
+      "email": "dev@jzit.de"
     }
   ],
   "require": {
-    "php": ">=8.0",
+    "php": ">=8.2",
     "fond-of-oryx/jellyfish-sales-order-extension": "^1.0.0 || ^2.0.0",
     "fond-of-oryx/thirty-five-up": "^1.0.0 || ^2.0.0"
   },
   "require-dev": {
-    "fond-of-codeception/spryker": "^2.0.0",
+    "fond-of-codeception/spryker": "*",
     "spryker/code-sniffer": "*",
     "spryker-sdk/phpstan-spryker": "*"
   },
@@ -28,7 +28,8 @@
   "autoload-dev": {
     "psr-4": {
       "FondOfOryx\\": "tests/FondOfOryx/",
-      "Generated\\": "src/Generated/"
+      "Generated\\": "src/Generated/",
+      "Orm\\": "src/Orm/"
     }
   },
   "config": {

@@ -18,7 +18,7 @@ class CompanyUserCompanyRoleConnectorFacadeTest extends Unit
     protected $businessFactoryMock;
 
     /**
-     * @var \PHPUnit\Framework\MockObject\MockObject|\FondOfOryx\Zed\CompanyBusinessUnitOrderBudget\Business\CompanyBusinessUnitOrderBudgetBusinessFactory
+     * @var \PHPUnit\Framework\MockObject\MockObject|\FondOfOryx\Zed\CompanyUserCompanyRoleConnector\Business\Writer\CompanyUserCompanyRoleWriterInterface
      */
     protected $companyUserCompanyRoleWriterMock;
 

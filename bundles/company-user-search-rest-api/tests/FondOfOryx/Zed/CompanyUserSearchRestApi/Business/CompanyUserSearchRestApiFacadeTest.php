@@ -10,17 +10,17 @@ use PHPUnit\Framework\MockObject\MockObject;
 class CompanyUserSearchRestApiFacadeTest extends Unit
 {
     /**
-     * @var (\FondOfOryx\Zed\CompanyUserSearchRestApi\Business\CompanyUserSearchRestApiBusinessFactory&\PHPUnit\Framework\MockObject\MockObject)|\PHPUnit\Framework\MockObject\MockObject
+     * @var \FondOfOryx\Zed\CompanyUserSearchRestApi\Business\CompanyUserSearchRestApiBusinessFactory|\PHPUnit\Framework\MockObject\MockObject
      */
     protected CompanyUserSearchRestApiBusinessFactory|MockObject $factoryMock;
 
     /**
-     * @var (\FondOfOryx\Zed\CompanyUserSearchRestApi\Business\Reader\CompanyUserReaderInterface&\PHPUnit\Framework\MockObject\MockObject)|\PHPUnit\Framework\MockObject\MockObject
+     * @var \FondOfOryx\Zed\CompanyUserSearchRestApi\Business\Reader\CompanyUserReaderInterface|\PHPUnit\Framework\MockObject\MockObject
      */
     protected CompanyUserReaderInterface|MockObject $companyUserReaderMock;
 
     /**
-     * @var (\Generated\Shared\Transfer\CompanyUserListTransfer&\PHPUnit\Framework\MockObject\MockObject)|\PHPUnit\Framework\MockObject\MockObject
+     * @var \PHPUnit\Framework\MockObject\MockObject|\Generated\Shared\Transfer\CompanyUserListTransfer
      */
     protected MockObject|CompanyUserListTransfer $companyUserListTransferMock;
 

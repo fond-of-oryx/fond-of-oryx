@@ -3,6 +3,7 @@
 namespace FondOfOryx\Zed\ErpDeliveryNoteApi;
 
 use Codeception\Test\Unit;
+use Exception;
 use FondOfOryx\Zed\ErpDeliveryNote\Business\ErpDeliveryNoteFacadeInterface;
 use FondOfOryx\Zed\ErpDeliveryNoteApi\Dependency\Facade\ErpDeliveryNoteApiToApiFacadeBridge;
 use FondOfOryx\Zed\ErpDeliveryNoteApi\Dependency\Facade\ErpDeliveryNoteApiToErpDeliveryNoteFacadeBridge;
@@ -50,9 +51,18 @@ class ErpDeliveryNoteApiDependencyProviderTest extends Unit
     {
         parent::_before();
 
-        $this->containerMock = $this->getMockBuilder(Container::class)
-            ->setMethodsExcept(['factory', 'set', 'offsetSet', 'get', 'offsetGet', 'has', 'offsetExists'])
-            ->getMock();
+        $containerMock = $this->getMockBuilder(Container::class);
+
+        /** @phpstan-ignore-next-line */
+        if (method_exists($containerMock, 'setMethodsExcept')) {
+            /** @phpstan-ignore-next-line */
+            $containerMock->setMethodsExcept(['factory', 'set', 'offsetSet', 'get', 'offsetGet']);
+        } else {
+            /** @phpstan-ignore-next-line */
+            $containerMock->onlyMethods(['getLocator'])->enableOriginalClone();
+        }
+
+        $this->containerMock = $containerMock->getMock();
 
         $this->locatorMock = $this->getMockBuilder(Locator::class)
             ->disableOriginalConstructor()
@@ -78,18 +88,27 @@ class ErpDeliveryNoteApiDependencyProviderTest extends Unit
      */
     public function testProvideBusinessLayerDependencies(): void
     {
+        $self = $this;
+
         $this->containerMock->expects(static::atLeastOnce())
             ->method('getLocator')
             ->willReturn($this->locatorMock);
 
-        $this->locatorMock->expects(static::atLeastOnce())
+        $this->locatorMock->expects($this->atLeastOnce())
             ->method('__call')
-            ->withConsecutive(['erpDeliveryNote'], ['api'])
-            ->willReturn($this->bundleProxyMock);
+            ->willReturnCallback(static function (string $key) use ($self) {
+                switch ($key) {
+                    case 'erpDeliveryNote':
+                        return $self->bundleProxyMock;
+                    case 'api':
+                        return $self->bundleProxyMock;
+                }
+
+                throw new Exception('Invalid key');
+            });
 
         $this->bundleProxyMock->expects(static::atLeastOnce())
             ->method('__call')
-            ->withConsecutive(['facade'], ['facade'])
             ->willReturnOnConsecutiveCalls(
                 $this->erpDeliveryNoteFacadeMock,
                 $this->apiFacadeMock,

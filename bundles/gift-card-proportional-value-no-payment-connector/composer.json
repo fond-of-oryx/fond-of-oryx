@@ -5,17 +5,17 @@
   "authors": [
     {
       "name": "Julian Hyatt",
-      "email": "info@julianzimmermann.dev"
+      "email": "dev@jzit.de"
     }
   ],
   "require": {
-    "php": ">=8.0",
+    "php": ">=8.2",
     "fond-of-oryx/gift-card-proportional-value": "^1.1.0 || ^2.0.0",
     "fond-of-oryx/gift-card-proportional-value-extension": "^1.0.0 || ^2.0.0",
     "spryker/nopayment": "^4.0"
   },
   "require-dev": {
-    "fond-of-codeception/spryker": "^2.0.0",
+    "fond-of-codeception/spryker": "*",
     "spryker/code-sniffer": "*",
     "spryker-sdk/phpstan-spryker": "*"
   },
@@ -30,7 +30,7 @@
     "psr-4": {
       "FondOfOryx\\": "tests/FondOfOryx/",
       "Generated\\": "src/Generated/",
-      "Orm\\Zed\\": "src/Orm/Zed/"
+      "Orm\\": "src/Orm/"
     }
   },
   "config": {

@@ -11,19 +11,19 @@ use Spryker\Zed\Kernel\Business\AbstractFacade;
 class GatewayControllerTest extends Unit
 {
     /**
-     * @var (\FondOfOryx\Zed\OrderBudgetSearchRestApi\Business\OrderBudgetSearchRestApiFacade&\PHPUnit\Framework\MockObject\MockObject)|\PHPUnit\Framework\MockObject\MockObject
+     * @var \FondOfOryx\Zed\OrderBudgetSearchRestApi\Business\OrderBudgetSearchRestApiFacade|\PHPUnit\Framework\MockObject\MockObject
      */
     protected OrderBudgetSearchRestApiFacade|MockObject $facadeMock;
 
     /**
-     * @var (\Generated\Shared\Transfer\OrderBudgetListTransfer&\PHPUnit\Framework\MockObject\MockObject)|\PHPUnit\Framework\MockObject\MockObject
+     * @var \Generated\Shared\Transfer\OrderBudgetListTransfer|\PHPUnit\Framework\MockObject\MockObject
      */
     protected OrderBudgetListTransfer|MockObject $orderBudgetListTransferMock;
 
     /**
-     * @var \FondOfOryx\Zed\OrderBudgetSearchRestApi\Communication\Controller\GatewayController|\FondOfOryx\Zed\OrderBudgetSearchRestApi\Communication\Controller\__anonymous @1362
+     * @var \FondOfOryx\Zed\OrderBudgetSearchRestApi\Communication\Controller\GatewayController
      */
-    protected $gatewayController;
+    protected GatewayController $gatewayController;
 
     /**
      * @return void

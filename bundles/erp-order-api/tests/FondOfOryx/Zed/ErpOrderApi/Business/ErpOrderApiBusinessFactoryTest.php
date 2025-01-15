@@ -3,6 +3,7 @@
 namespace FondOfOryx\Zed\ErpOrderApi\Business;
 
 use Codeception\Test\Unit;
+use Exception;
 use FondOfOryx\Zed\ErpOrderApi\Business\Model\ErpOrderApi;
 use FondOfOryx\Zed\ErpOrderApi\Business\Validator\ErpOrderApiValidator;
 use FondOfOryx\Zed\ErpOrderApi\Dependency\Facade\ErpOrderApiToApiFacadeInterface;
@@ -71,14 +72,24 @@ class ErpOrderApiBusinessFactoryTest extends Unit
      */
     public function testCreateErpOrderApi(): void
     {
+        $self = $this;
+
         $this->containerMock->expects(static::atLeastOnce())
             ->method('has')
             ->willReturn(true);
 
-        $this->containerMock->expects(static::atLeastOnce())
+        $this->containerMock->expects($this->atLeastOnce())
             ->method('get')
-            ->withConsecutive([ErpOrderApiDependencyProvider::FACADE_API], [ErpOrderApiDependencyProvider::FACADE_ERP_ORDER])
-            ->willReturnOnConsecutiveCalls($this->apiFacadeMock, $this->erpOrderFacadeMock);
+            ->willReturnCallback(static function (string $key) use ($self) {
+                switch ($key) {
+                    case ErpOrderApiDependencyProvider::FACADE_API:
+                        return $self->apiFacadeMock;
+                    case ErpOrderApiDependencyProvider::FACADE_ERP_ORDER:
+                        return $self->erpOrderFacadeMock;
+                }
+
+                throw new Exception('Unexpected call');
+            });
 
         static::assertInstanceOf(
             ErpOrderApi::class,

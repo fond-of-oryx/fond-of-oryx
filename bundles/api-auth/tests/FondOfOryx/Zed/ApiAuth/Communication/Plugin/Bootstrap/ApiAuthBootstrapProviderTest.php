@@ -31,9 +31,18 @@ class ApiAuthBootstrapProviderTest extends Unit
     {
         parent::_before();
 
-        $this->apiAuthBoostrapProvider = $this->getMockBuilder(ApiAuthBootstrapProvider::class)
-            ->setMethods(['getFacade'])
-            ->getMock();
+        $apiAuthBoostrapProvider = $this->getMockBuilder(ApiAuthBootstrapProvider::class);
+
+        /** @phpstan-ignore-next-line */
+        if (method_exists($apiAuthBoostrapProvider, 'setMethods')) {
+            /** @phpstan-ignore-next-line */
+            $apiAuthBoostrapProvider->setMethods(['getFacade']);
+        } else {
+            /** @phpstan-ignore-next-line */
+            $apiAuthBoostrapProvider->onlyMethods(['getFacade'])->enableOriginalClone();
+        }
+
+        $this->apiAuthBoostrapProvider = $apiAuthBoostrapProvider->getMock();
 
         $this->apiAuthFacadeMock = $this->getMockBuilder(ApiAuthFacade::class)
             ->disableOriginalConstructor()

@@ -12,22 +12,22 @@ use PHPUnit\Framework\MockObject\MockObject;
 class CustomerReaderTest extends Unit
 {
     /**
-     * @var (\FondOfOryx\Zed\BusinessOnBehalfProductListConnector\Dependency\Facade\BusinessOnBehalfProductListConnectorToCustomerFacadeInterface&\PHPUnit\Framework\MockObject\MockObject)|\PHPUnit\Framework\MockObject\MockObject
+     * @var \PHPUnit\Framework\MockObject\MockObject|\FondOfOryx\Zed\BusinessOnBehalfProductListConnector\Dependency\Facade\BusinessOnBehalfProductListConnectorToCustomerFacadeInterface
      */
     protected MockObject|BusinessOnBehalfProductListConnectorToCustomerFacadeInterface $customerFacadeMock;
 
     /**
-     * @var (\FondOfOryx\Zed\BusinessOnBehalfProductListConnector\Persistence\BusinessOnBehalfProductListConnectorRepositoryInterface&\PHPUnit\Framework\MockObject\MockObject)|\PHPUnit\Framework\MockObject\MockObject
+     * @var \FondOfOryx\Zed\BusinessOnBehalfProductListConnector\Persistence\BusinessOnBehalfProductListConnectorRepositoryInterface|\PHPUnit\Framework\MockObject\MockObject
      */
     protected BusinessOnBehalfProductListConnectorRepositoryInterface|MockObject $repositoryMock;
 
     /**
-     * @var (\Generated\Shared\Transfer\QuoteTransfer&\PHPUnit\Framework\MockObject\MockObject)|\PHPUnit\Framework\MockObject\MockObject
+     * @var \Generated\Shared\Transfer\QuoteTransfer|\PHPUnit\Framework\MockObject\MockObject
      */
     protected QuoteTransfer|MockObject $quoteTransferMock;
 
     /**
-     * @var (\Generated\Shared\Transfer\CustomerTransfer&\PHPUnit\Framework\MockObject\MockObject)|\PHPUnit\Framework\MockObject\MockObject
+     * @var \Generated\Shared\Transfer\CustomerTransfer|\PHPUnit\Framework\MockObject\MockObject
      */
     protected CustomerTransfer|MockObject $customerTransferMock;
 
@@ -88,7 +88,7 @@ class CustomerReaderTest extends Unit
                 static::callback(
                     static fn (
                         CustomerTransfer $customerTransfer
-                    ) => $customerTransfer->getIdCustomer() === $idCustomer
+                    ) => $customerTransfer->getIdCustomer() === $idCustomer,
                 ),
             )->willReturn($this->customerTransferMock);
 

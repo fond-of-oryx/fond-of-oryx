@@ -13,22 +13,22 @@ use RuntimeException;
 class CustomerProductListApiResourcePluginTest extends Unit
 {
     /**
-     * @var \Generated\Shared\Transfer\ApiDataTransfer|\PHPUnit\Framework\MockObject\MockObject|null
+     * @var \Generated\Shared\Transfer\ApiDataTransfer|\PHPUnit\Framework\MockObject\MockObject
      */
     protected $apiDataTransferMock;
 
     /**
-     * @var \Generated\Shared\Transfer\ApiItemTransfer|\PHPUnit\Framework\MockObject\MockObject|null
+     * @var \Generated\Shared\Transfer\ApiItemTransfer|\PHPUnit\Framework\MockObject\MockObject
      */
     protected $apiItemTransferMock;
 
     /**
-     * @var \Generated\Shared\Transfer\ApiRequestTransfer|\PHPUnit\Framework\MockObject\MockObject|null
+     * @var \Generated\Shared\Transfer\ApiRequestTransfer|\PHPUnit\Framework\MockObject\MockObject
      */
     protected $apiRequestTransferMock;
 
     /**
-     * @var \FondOfOryx\Zed\CustomerProductListApi\Business\CustomerProductListApiFacade|\PHPUnit\Framework\MockObject\MockObject|null
+     * @var \FondOfOryx\Zed\CustomerProductListApi\Business\CustomerProductListApiFacade|\PHPUnit\Framework\MockObject\MockObject
      */
     protected $facadeMock;
 
@@ -127,7 +127,7 @@ class CustomerProductListApiResourcePluginTest extends Unit
     {
         static::assertEquals(
             CustomerProductListApiConfig::RESOURCE_CUSTOMER_PRODUCT_LIST,
-            $this->plugin->getResourceName($this->apiRequestTransferMock),
+            $this->plugin->getResourceName(),
         );
     }
 }

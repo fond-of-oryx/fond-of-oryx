@@ -73,7 +73,7 @@ class StockApiToApiFacadeBridgeTest extends Unit
             ->method('createApiItem')
             ->willReturn($this->apiItemTransferMock);
 
-        $apiItemTransfer = $this->bridge->createApiItem(new StockTransfer(), 1);
+        $apiItemTransfer = $this->bridge->createApiItem(new StockTransfer(), '1');
 
         $this->assertInstanceOf(ApiItemTransfer::class, $apiItemTransfer);
     }

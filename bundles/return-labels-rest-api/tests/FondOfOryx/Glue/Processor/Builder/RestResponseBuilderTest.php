@@ -8,7 +8,7 @@ use FondOfOryx\Glue\ReturnLabelsRestApi\ReturnLabelsRestApiConfig;
 use Generated\Shared\Transfer\RestReturnLabelTransfer;
 use Generated\Shared\Transfer\ReturnLabelTransfer;
 use Spryker\Glue\GlueApplication\Rest\JsonApi\RestResource;
-use Spryker\Glue\GlueApplication\Rest\JsonApi\RestResourceBuilder;
+use Spryker\Glue\GlueApplication\Rest\JsonApi\RestResourceBuilderInterface;
 use Spryker\Glue\GlueApplication\Rest\JsonApi\RestResponse;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -45,9 +45,9 @@ class RestResponseBuilderTest extends Unit
     protected $restResourceMock;
 
     /**
-     * @var \FondOfOryx\Glue\ReturnLabelsRestApi\Processor\Builder\RestResponseBuilderInterface
+     * @var \FondOfOryx\Glue\ReturnLabelsRestApi\Processor\Builder\RestResponseBuilder
      */
-    protected $builder;
+    protected RestResponseBuilder $builder;
 
     /**
      * @return void
@@ -60,7 +60,7 @@ class RestResponseBuilderTest extends Unit
             ->disableOriginalConstructor()
             ->getMock();
 
-        $this->restResourceBuilderMock = $this->getMockBuilder(RestResourceBuilder::class)
+        $this->restResourceBuilderMock = $this->getMockBuilder(RestResourceBuilderInterface::class)
             ->disableOriginalConstructor()
             ->getMock();
 

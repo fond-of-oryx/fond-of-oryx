@@ -3,6 +3,7 @@
 namespace FondOfOryx\Zed\GiftCardProportionalValue\Business;
 
 use Codeception\Test\Unit;
+use Exception;
 use FondOfOryx\Zed\GiftCardProportionalValue\Business\Executor\ProportionalValueCalculatorPluginExecutorInterface;
 use FondOfOryx\Zed\GiftCardProportionalValue\Business\Manager\ProportionalGiftCardValueManagerInterface;
 use FondOfOryx\Zed\GiftCardProportionalValue\Business\Validator\HasRedeemedGiftCardValidatorInterface;
@@ -78,14 +79,16 @@ class GiftCardProportionalValueBusinessFactoryTest extends Unit
             ->method('has')
             ->willReturn(true);
 
-        $this->containerMock->expects(static::atLeastOnce())
+        $this->containerMock->expects($this->atLeastOnce())
             ->method('get')
-            ->withConsecutive(
-                [GiftCardProportionalValueDependencyProvider::PLUGINS_PROPORTIONAL_VALUE_CALCULATION],
-            )
-            ->willReturnOnConsecutiveCalls(
-                [],
-            );
+            ->willReturnCallback(static function (string $key) {
+                switch ($key) {
+                    case GiftCardProportionalValueDependencyProvider::PLUGINS_PROPORTIONAL_VALUE_CALCULATION:
+                        return [];
+                }
+
+                throw new Exception('Unexpected call');
+            });
 
         $this->assertInstanceOf(ProportionalGiftCardValueManagerInterface::class, $this->factory->createManager());
     }
@@ -99,14 +102,16 @@ class GiftCardProportionalValueBusinessFactoryTest extends Unit
             ->method('has')
             ->willReturn(true);
 
-        $this->containerMock->expects(static::atLeastOnce())
+        $this->containerMock->expects($this->atLeastOnce())
             ->method('get')
-            ->withConsecutive(
-                [GiftCardProportionalValueDependencyProvider::PLUGINS_PROPORTIONAL_VALUE_CALCULATION],
-            )
-            ->willReturnOnConsecutiveCalls(
-                [],
-            );
+            ->willReturnCallback(static function (string $key) {
+                switch ($key) {
+                    case GiftCardProportionalValueDependencyProvider::PLUGINS_PROPORTIONAL_VALUE_CALCULATION:
+                        return [];
+                }
+
+                throw new Exception('Unexpected call');
+            });
 
         $this->assertInstanceOf(ProportionalValueCalculatorPluginExecutorInterface::class, $this->factory->createProportionalValueCalculatorPluginExecutor());
     }

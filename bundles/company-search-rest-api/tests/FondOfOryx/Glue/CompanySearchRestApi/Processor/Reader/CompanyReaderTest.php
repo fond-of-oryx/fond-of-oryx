@@ -16,42 +16,42 @@ use Spryker\Glue\GlueApplication\Rest\Request\Data\RestRequestInterface;
 class CompanyReaderTest extends Unit
 {
     /**
-     * @var (\FondOfOryx\Glue\CompanySearchRestApi\Processor\Mapper\CompanyListMapperInterface&\PHPUnit\Framework\MockObject\MockObject)|\PHPUnit\Framework\MockObject\MockObject
+     * @var \FondOfOryx\Glue\CompanySearchRestApi\Processor\Mapper\CompanyListMapperInterface|\PHPUnit\Framework\MockObject\MockObject
      */
     protected CompanyListMapperInterface|MockObject $companyListMapperMock;
 
     /**
-     * @var (\FondOfOryx\Glue\CompanySearchRestApi\Processor\Filter\CustomerReferenceFilterInterface&\PHPUnit\Framework\MockObject\MockObject)|\PHPUnit\Framework\MockObject\MockObject
+     * @var \FondOfOryx\Glue\CompanySearchRestApi\Processor\Filter\CustomerReferenceFilterInterface|\PHPUnit\Framework\MockObject\MockObject
      */
     protected CustomerReferenceFilterInterface|MockObject $customerReferenceFilter;
 
     /**
-     * @var (\FondOfOryx\Glue\CompanySearchRestApi\Processor\Builder\RestResponseBuilderInterface&\PHPUnit\Framework\MockObject\MockObject)|\PHPUnit\Framework\MockObject\MockObject
+     * @var \FondOfOryx\Glue\CompanySearchRestApi\Processor\Builder\RestResponseBuilderInterface|\PHPUnit\Framework\MockObject\MockObject
      */
     protected RestResponseBuilderInterface|MockObject $restResponseBuilderMock;
 
     /**
-     * @var (\FondOfOryx\Client\CompanySearchRestApi\CompanySearchRestApiClientInterface&\PHPUnit\Framework\MockObject\MockObject)|\PHPUnit\Framework\MockObject\MockObject
+     * @var \PHPUnit\Framework\MockObject\MockObject|\FondOfOryx\Client\CompanySearchRestApi\CompanySearchRestApiClientInterface
      */
     protected MockObject|CompanySearchRestApiClientInterface $clientMock;
 
     /**
-     * @var \PHPUnit\Framework\MockObject\MockObject|(\Spryker\Glue\GlueApplication\Rest\Request\Data\RestRequestInterface&\PHPUnit\Framework\MockObject\MockObject)
+     * @var \Spryker\Glue\GlueApplication\Rest\Request\Data\RestRequestInterface|\PHPUnit\Framework\MockObject\MockObject
      */
     protected RestRequestInterface|MockObject $restRequestMock;
 
     /**
-     * @var \PHPUnit\Framework\MockObject\MockObject|(\Spryker\Glue\GlueApplication\Rest\Request\Data\MetadataInterface&\PHPUnit\Framework\MockObject\MockObject)
+     * @var \Spryker\Glue\GlueApplication\Rest\Request\Data\MetadataInterface|\PHPUnit\Framework\MockObject\MockObject
      */
     protected MetadataInterface|MockObject $metadataMock;
 
     /**
-     * @var \PHPUnit\Framework\MockObject\MockObject|(\Spryker\Glue\GlueApplication\Rest\JsonApi\RestResponseInterface&\PHPUnit\Framework\MockObject\MockObject)
+     * @var \Spryker\Glue\GlueApplication\Rest\JsonApi\RestResponseInterface|\PHPUnit\Framework\MockObject\MockObject
      */
     protected RestResponseInterface|MockObject $restResponseMock;
 
     /**
-     * @var (\Generated\Shared\Transfer\CompanyListTransfer&\PHPUnit\Framework\MockObject\MockObject)|\PHPUnit\Framework\MockObject\MockObject
+     * @var \Generated\Shared\Transfer\CompanyListTransfer|\PHPUnit\Framework\MockObject\MockObject
      */
     protected CompanyListTransfer|MockObject $companyListTransferMock;
 

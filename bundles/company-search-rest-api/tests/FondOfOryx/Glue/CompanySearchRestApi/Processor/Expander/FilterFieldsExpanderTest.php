@@ -12,17 +12,17 @@ use Spryker\Glue\GlueApplication\Rest\Request\Data\RestRequestInterface;
 class FilterFieldsExpanderTest extends Unit
 {
     /**
-     * @var (\FondOfOryx\Glue\CompanySearchRestApiExtension\Dependency\Plugin\FilterFieldsExpanderPluginInterface&\PHPUnit\Framework\MockObject\MockObject)|\PHPUnit\Framework\MockObject\MockObject
+     * @var \PHPUnit\Framework\MockObject\MockObject|\FondOfOryx\Glue\CompanySearchRestApiExtension\Dependency\Plugin\FilterFieldsExpanderPluginInterface
      */
     protected MockObject|FilterFieldsExpanderPluginInterface $filterFieldsExpanderPluginMock;
 
     /**
-     * @var array<(\PHPUnit\Framework\MockObject\MockObject|(\Generated\Shared\Transfer\FilterFieldTransfer&\PHPUnit\Framework\MockObject\MockObject))>
+     * @var array<\PHPUnit\Framework\MockObject\MockObject|\Generated\Shared\Transfer\FilterFieldTransfer>
      */
     protected array $filterFieldTransferMocks;
 
     /**
-     * @var \PHPUnit\Framework\MockObject\MockObject|(\Spryker\Glue\GlueApplication\Rest\Request\Data\RestRequestInterface&\PHPUnit\Framework\MockObject\MockObject)
+     * @var \Spryker\Glue\GlueApplication\Rest\Request\Data\RestRequestInterface|\PHPUnit\Framework\MockObject\MockObject
      */
     protected RestRequestInterface|MockObject $restRequestMock;
 

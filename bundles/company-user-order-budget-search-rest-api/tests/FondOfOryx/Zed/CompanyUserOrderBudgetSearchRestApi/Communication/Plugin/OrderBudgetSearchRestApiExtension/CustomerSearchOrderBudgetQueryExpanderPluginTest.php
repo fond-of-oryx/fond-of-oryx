@@ -3,7 +3,7 @@
 namespace FondOfOryx\Zed\CompanyUserOrderBudgetSearchRestApi\Communication\Plugin\OrderBudgetSearchRestApiExtension;
 
 use Codeception\Test\Unit;
-use FondOfOryx\Shared\CompanyBusinessUnitCartSearchRestApi\CompanyBusinessUnitCartSearchRestApiConstants;
+use Exception;
 use FondOfOryx\Shared\CompanyUserOrderBudgetSearchRestApi\CompanyUserOrderBudgetSearchRestApiConstants;
 use Generated\Shared\Transfer\FilterFieldTransfer;
 use Generated\Shared\Transfer\QueryJoinCollectionTransfer;
@@ -17,12 +17,12 @@ use Propel\Runtime\ActiveQuery\Criteria;
 class CustomerSearchOrderBudgetQueryExpanderPluginTest extends Unit
 {
     /**
-     * @var array<(\Generated\Shared\Transfer\FilterFieldTransfer&\PHPUnit\Framework\MockObject\MockObject)|\PHPUnit\Framework\MockObject\MockObject>
+     * @var array<\Generated\Shared\Transfer\FilterFieldTransfer|\PHPUnit\Framework\MockObject\MockObject>
      */
     protected array $filterFieldTransferMocks;
 
     /**
-     * @var (\Generated\Shared\Transfer\QueryJoinCollectionTransfer&\PHPUnit\Framework\MockObject\MockObject)|\PHPUnit\Framework\MockObject\MockObject
+     * @var \PHPUnit\Framework\MockObject\MockObject|\Generated\Shared\Transfer\QueryJoinCollectionTransfer
      */
     protected MockObject|QueryJoinCollectionTransfer $queryJoinCollectionTransferMock;
 
@@ -91,42 +91,52 @@ class CustomerSearchOrderBudgetQueryExpanderPluginTest extends Unit
      */
     public function testExpand(): void
     {
+        $self = $this;
+
         $this->filterFieldTransferMocks[0]->expects(static::atLeastOnce())
             ->method('getType')
             ->willReturn('foo');
 
         $this->filterFieldTransferMocks[1]->expects(static::atLeastOnce())
             ->method('getType')
-            ->willReturn(CompanyBusinessUnitCartSearchRestApiConstants::FILTER_FIELD_TYPE_ID_CUSTOMER);
+            ->willReturn('idCustomer');
 
         $this->filterFieldTransferMocks[1]->expects(static::atLeastOnce())
             ->method('getValue')
             ->willReturn(1);
 
-        $this->queryJoinCollectionTransferMock->expects(static::atLeastOnce())
+        $callCount = $this->atLeastOnce();
+        $this->queryJoinCollectionTransferMock->expects($callCount)
             ->method('addQueryJoin')
-            ->withConsecutive(
-                [
-                    static::callback(
-                        static function (QueryJoinTransfer $queryJoinTransfer) {
-                            return $queryJoinTransfer->getLeft() == [FooOrderBudgetTableMap::COL_ID_ORDER_BUDGET]
-                                && $queryJoinTransfer->getRight() == [SpyCompanyBusinessUnitTableMap::COL_FK_ORDER_BUDGET]
-                                && $queryJoinTransfer->getJoinType() === Criteria::INNER_JOIN
-                                && $queryJoinTransfer->getWhereConditions()->count() === 0;
-                        },
-                    ),
-                ],
-                [
-                    static::callback(
-                        static function (QueryJoinTransfer $queryJoinTransfer) {
-                            return $queryJoinTransfer->getLeft() == [SpyCompanyBusinessUnitTableMap::COL_ID_COMPANY_BUSINESS_UNIT]
-                                && $queryJoinTransfer->getRight() == [SpyCompanyUserTableMap::COL_FK_COMPANY_BUSINESS_UNIT]
-                                && $queryJoinTransfer->getJoinType() === Criteria::INNER_JOIN
-                                && $queryJoinTransfer->getWhereConditions()->count() === 1;
-                        },
-                    ),
-                ],
-            )->willReturn($this->queryJoinCollectionTransferMock);
+            ->willReturnCallback(static function (QueryJoinTransfer $queryJoinTransfer) use ($self, $callCount) {
+                /** @phpstan-ignore-next-line */
+                if (method_exists($callCount, 'getInvocationCount')) {
+                    /** @phpstan-ignore-next-line */
+                    $count = $callCount->getInvocationCount();
+                } else {
+                    /** @phpstan-ignore-next-line */
+                    $count = $callCount->numberOfInvocations();
+                }
+
+                switch ($count) {
+                    case 1:
+                        $self->assertEquals([FooOrderBudgetTableMap::COL_ID_ORDER_BUDGET], $queryJoinTransfer->getLeft());
+                        $self->assertEquals([SpyCompanyBusinessUnitTableMap::COL_FK_ORDER_BUDGET], $queryJoinTransfer->getRight());
+                        $self->assertSame(Criteria::INNER_JOIN, $queryJoinTransfer->getJoinType());
+                        $self->assertCount(0, $queryJoinTransfer->getWhereConditions());
+
+                        return $self->queryJoinCollectionTransferMock;
+                    case 2:
+                        $self->assertEquals([SpyCompanyBusinessUnitTableMap::COL_ID_COMPANY_BUSINESS_UNIT], $queryJoinTransfer->getLeft());
+                        $self->assertEquals([SpyCompanyUserTableMap::COL_FK_COMPANY_BUSINESS_UNIT], $queryJoinTransfer->getRight());
+                        $self->assertSame(Criteria::INNER_JOIN, $queryJoinTransfer->getJoinType());
+                        $self->assertCount(1, $queryJoinTransfer->getWhereConditions());
+
+                        return $self->queryJoinCollectionTransferMock;
+                }
+
+                throw new Exception('Unexpected call count');
+            });
 
         static::assertEquals(
             $this->queryJoinCollectionTransferMock,

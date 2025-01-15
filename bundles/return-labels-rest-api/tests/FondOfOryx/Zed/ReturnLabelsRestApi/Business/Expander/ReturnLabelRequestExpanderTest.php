@@ -6,6 +6,7 @@ use Codeception\Test\Unit;
 use FondOfOryx\Zed\ReturnLabelsRestApiExtension\Dependency\Plugin\ReturnLabelRequestExpanderPluginInterface;
 use Generated\Shared\Transfer\RestReturnLabelRequestTransfer;
 use Generated\Shared\Transfer\ReturnLabelRequestTransfer;
+use PHPUnit\Framework\MockObject\MockObject;
 
 class ReturnLabelRequestExpanderTest extends Unit
 {
@@ -22,7 +23,7 @@ class ReturnLabelRequestExpanderTest extends Unit
     /**
      * @var \FondOfOryx\Zed\ReturnLabelsRestApiExtension\Dependency\Plugin\ReturnLabelRequestExpanderPluginInterface|\PHPUnit\Framework\MockObject\MockObject
      */
-    protected $pluginMock;
+    protected ReturnLabelRequestExpanderPluginInterface|MockObject $pluginMock;
 
     /**
      * @var \FondOfOryx\Zed\ReturnLabelsRestApi\Business\Expander\ReturnLabelRequestExpanderInterface

@@ -13,22 +13,22 @@ use Spryker\Glue\Kernel\AbstractFactory;
 class OrderBudgetSearchResourceControllerTest extends Unit
 {
     /**
-     * @var (\FondOfOryx\Glue\OrderBudgetSearchRestApi\OrderBudgetSearchRestApiFactory&\PHPUnit\Framework\MockObject\MockObject)|\PHPUnit\Framework\MockObject\MockObject
+     * @var \FondOfOryx\Glue\OrderBudgetSearchRestApi\OrderBudgetSearchRestApiFactory|\PHPUnit\Framework\MockObject\MockObject
      */
     protected OrderBudgetSearchRestApiFactory|MockObject $factoryMock;
 
     /**
-     * @var (\FondOfOryx\Glue\OrderBudgetSearchRestApi\Processor\Reader\OrderBudgetReaderInterface&\PHPUnit\Framework\MockObject\MockObject)|\PHPUnit\Framework\MockObject\MockObject
+     * @var \FondOfOryx\Glue\OrderBudgetSearchRestApi\Processor\Reader\OrderBudgetReaderInterface|\PHPUnit\Framework\MockObject\MockObject
      */
     protected OrderBudgetReaderInterface|MockObject $orderBudgetReaderMock;
 
     /**
-     * @var \PHPUnit\Framework\MockObject\MockObject|(\Spryker\Glue\GlueApplication\Rest\Request\Data\RestRequestInterface&\PHPUnit\Framework\MockObject\MockObject)
+     * @var \Spryker\Glue\GlueApplication\Rest\Request\Data\RestRequestInterface|\PHPUnit\Framework\MockObject\MockObject
      */
     protected RestRequestInterface|MockObject $restRequestMock;
 
     /**
-     * @var \PHPUnit\Framework\MockObject\MockObject|(\Spryker\Glue\GlueApplication\Rest\JsonApi\RestResponseInterface&\PHPUnit\Framework\MockObject\MockObject)
+     * @var \Spryker\Glue\GlueApplication\Rest\JsonApi\RestResponseInterface|\PHPUnit\Framework\MockObject\MockObject
      */
     protected RestResponseInterface|MockObject $restResponseMock;
 

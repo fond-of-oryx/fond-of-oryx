@@ -4,6 +4,7 @@ namespace FondOfOryx\Glue\CompanySearchRestApi\Processor\Mapper;
 
 use ArrayObject;
 use Codeception\Test\Unit;
+use Exception;
 use FondOfOryx\Glue\CompanySearchRestApi\Processor\Filter\RequestParameterFilterInterface;
 use Generated\Shared\Transfer\PaginationTransfer;
 use PHPUnit\Framework\MockObject\MockObject;
@@ -12,27 +13,27 @@ use Spryker\Glue\GlueApplication\Rest\Request\Data\RestRequestInterface;
 class CompanyListMapperTest extends Unit
 {
     /**
-     * @var (\FondOfOryx\Glue\CompanySearchRestApi\Processor\Mapper\PaginationMapperInterface&\PHPUnit\Framework\MockObject\MockObject)|\PHPUnit\Framework\MockObject\MockObject
+     * @var \FondOfOryx\Glue\CompanySearchRestApi\Processor\Mapper\PaginationMapperInterface|\PHPUnit\Framework\MockObject\MockObject
      */
     protected PaginationMapperInterface|MockObject $paginationMapperMock;
 
     /**
-     * @var (\FondOfOryx\Glue\CompanySearchRestApi\Processor\Mapper\FilterFieldsMapperInterface&\PHPUnit\Framework\MockObject\MockObject)|\PHPUnit\Framework\MockObject\MockObject
+     * @var \PHPUnit\Framework\MockObject\MockObject|\FondOfOryx\Glue\CompanySearchRestApi\Processor\Mapper\FilterFieldsMapperInterface
      */
     protected MockObject|FilterFieldsMapperInterface $filterFieldsMapperMock;
 
     /**
-     * @var (\FondOfOryx\Glue\CompanySearchRestApi\Processor\Filter\RequestParameterFilterInterface&\PHPUnit\Framework\MockObject\MockObject)|\PHPUnit\Framework\MockObject\MockObject
+     * @var \PHPUnit\Framework\MockObject\MockObject|\FondOfOryx\Glue\CompanySearchRestApi\Processor\Filter\RequestParameterFilterInterface
      */
     protected MockObject|RequestParameterFilterInterface $requestParameterFilterMock;
 
     /**
-     * @var \PHPUnit\Framework\MockObject\MockObject|(\Spryker\Glue\GlueApplication\Rest\Request\Data\RestRequestInterface&\PHPUnit\Framework\MockObject\MockObject)
+     * @var \Spryker\Glue\GlueApplication\Rest\Request\Data\RestRequestInterface|\PHPUnit\Framework\MockObject\MockObject
      */
     protected RestRequestInterface|MockObject $restRequestMock;
 
     /**
-     * @var (\Generated\Shared\Transfer\PaginationTransfer&\PHPUnit\Framework\MockObject\MockObject)|\PHPUnit\Framework\MockObject\MockObject
+     * @var \PHPUnit\Framework\MockObject\MockObject|\Generated\Shared\Transfer\PaginationTransfer
      */
     protected MockObject|PaginationTransfer $paginationTransferMock;
 
@@ -80,6 +81,8 @@ class CompanyListMapperTest extends Unit
      */
     public function testFromRestRequest(): void
     {
+        $self = $this;
+
         $companyUuid = 'e5046482-92ba-4c21-a239-db9ce1bc3c60';
         $query = 'foo';
         $sort = 'foo_asc';
@@ -94,15 +97,34 @@ class CompanyListMapperTest extends Unit
             ->with($this->restRequestMock)
             ->willReturn(new ArrayObject());
 
-        $this->requestParameterFilterMock->expects(static::atLeastOnce())
+        $callCount = $this->atLeastOnce();
+        $this->requestParameterFilterMock->expects($callCount)
             ->method('getRequestParameter')
-            ->withConsecutive(
-                [$this->restRequestMock, 'sort'],
-                [$this->restRequestMock, 'id'],
-            )->willReturnOnConsecutiveCalls(
-                $sort,
-                $companyUuid,
-            );
+            ->willReturnCallback(static function (RestRequestInterface $restRequest, string $parameterName) use ($self, $callCount, $companyUuid, $sort) {
+                /** @phpstan-ignore-next-line */
+                if (method_exists($callCount, 'getInvocationCount')) {
+                    /** @phpstan-ignore-next-line */
+                    $count = $callCount->getInvocationCount();
+                } else {
+                    /** @phpstan-ignore-next-line */
+                    $count = $callCount->numberOfInvocations();
+                }
+
+                switch ($count) {
+                    case 1:
+                        $self->assertSame($self->restRequestMock, $restRequest);
+                        $self->assertSame('sort', $parameterName);
+
+                        return $sort;
+                    case 2:
+                        $self->assertSame($self->restRequestMock, $restRequest);
+                        $self->assertSame('id', $parameterName);
+
+                        return $companyUuid;
+                }
+
+                throw new Exception('Unexpected call count');
+            });
 
         $companyListTransfer = $this->companyListMapper->fromRestRequest($this->restRequestMock);
 

@@ -14,27 +14,27 @@ use PHPUnit\Framework\MockObject\MockObject;
 class ProductExistsCartPreCheckPluginTest extends Unit
 {
     /**
-     * @var (\Generated\Shared\Transfer\CartChangeTransfer&\PHPUnit\Framework\MockObject\MockObject)|\PHPUnit\Framework\MockObject\MockObject
+     * @var \Generated\Shared\Transfer\CartChangeTransfer|\PHPUnit\Framework\MockObject\MockObject
      */
     protected CartChangeTransfer|MockObject $cartChangeTransferMock;
 
     /**
-     * @var (\Generated\Shared\Transfer\QuoteTransfer&\PHPUnit\Framework\MockObject\MockObject)|\PHPUnit\Framework\MockObject\MockObject
+     * @var \Generated\Shared\Transfer\QuoteTransfer|\PHPUnit\Framework\MockObject\MockObject
      */
     protected QuoteTransfer|MockObject $quoteTransferMock;
 
     /**
-     * @var (\Generated\Shared\Transfer\StoreTransfer&\PHPUnit\Framework\MockObject\MockObject)|\PHPUnit\Framework\MockObject\MockObject
+     * @var \Generated\Shared\Transfer\StoreTransfer|\PHPUnit\Framework\MockObject\MockObject
      */
     protected StoreTransfer|MockObject $storeTransferMock;
 
     /**
-     * @var array<(\Generated\Shared\Transfer\ItemTransfer&\PHPUnit\Framework\MockObject\MockObject)|\PHPUnit\Framework\MockObject\MockObject>
+     * @var array<\Generated\Shared\Transfer\ItemTransfer|\PHPUnit\Framework\MockObject\MockObject>
      */
     protected array $itemTransferMocks;
 
     /**
-     * @var (\FondOfOryx\Zed\InactiveQuoteItemFilter\Persistence\InactiveQuoteItemFilterRepository&\PHPUnit\Framework\MockObject\MockObject)|\PHPUnit\Framework\MockObject\MockObject
+     * @var \PHPUnit\Framework\MockObject\MockObject|\FondOfOryx\Zed\InactiveQuoteItemFilter\Persistence\InactiveQuoteItemFilterRepository
      */
     protected MockObject|InactiveQuoteItemFilterRepository $repositoryMock;
 

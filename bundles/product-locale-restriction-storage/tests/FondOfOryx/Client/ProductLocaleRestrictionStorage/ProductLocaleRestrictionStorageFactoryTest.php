@@ -3,6 +3,7 @@
 namespace FondOfOryx\Client\ProductLocaleRestrictionStorage;
 
 use Codeception\Test\Unit;
+use Exception;
 use FondOfOryx\Client\ProductLocaleRestrictionStorage\Dependency\Client\ProductLocaleRestrictionStorageToLocaleClientInterface;
 use FondOfOryx\Client\ProductLocaleRestrictionStorage\Dependency\Client\ProductLocaleRestrictionStorageToStorageClientInterface;
 use FondOfOryx\Client\ProductLocaleRestrictionStorage\Dependency\Service\ProductLocaleRestrictionStorageToSynchronizationServiceInterface;
@@ -68,21 +69,26 @@ class ProductLocaleRestrictionStorageFactoryTest extends Unit
      */
     public function testCreateProductAbstractRestrictionReader(): void
     {
+        $self = $this;
+
         $this->containerMock->expects(static::atLeastOnce())
             ->method('has')
             ->willReturn(true);
 
-        $this->containerMock->expects(static::atLeastOnce())
+        $this->containerMock->expects($this->atLeastOnce())
             ->method('get')
-            ->withConsecutive(
-                [ProductLocaleRestrictionStorageDependencyProvider::CLIENT_LOCALE],
-                [ProductLocaleRestrictionStorageDependencyProvider::CLIENT_STORAGE],
-                [ProductLocaleRestrictionStorageDependencyProvider::SERVICE_SYNCHRONIZATION],
-            )->willReturnOnConsecutiveCalls(
-                $this->localeClientMock,
-                $this->storageClientMock,
-                $this->synchronizationServiceMock,
-            );
+            ->willReturnCallback(static function (string $key) use ($self) {
+                switch ($key) {
+                    case ProductLocaleRestrictionStorageDependencyProvider::CLIENT_LOCALE:
+                        return $self->localeClientMock;
+                    case ProductLocaleRestrictionStorageDependencyProvider::CLIENT_STORAGE:
+                        return $self->storageClientMock;
+                    case ProductLocaleRestrictionStorageDependencyProvider::SERVICE_SYNCHRONIZATION:
+                        return $self->synchronizationServiceMock;
+                }
+
+                throw new Exception('Unexpected call');
+            });
 
         static::assertInstanceOf(
             ProductAbstractRestrictionReader::class,

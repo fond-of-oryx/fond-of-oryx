@@ -11,17 +11,17 @@ use Spryker\Zed\Cart\Business\CartFacadeInterface;
 class SplittableCheckoutRestApiToCartFacadeBridgeTest extends Unit
 {
     /**
-     * @var \PHPUnit\Framework\MockObject\MockObject|(\Spryker\Zed\Cart\Business\CartFacadeInterface&\PHPUnit\Framework\MockObject\MockObject)
+     * @var \PHPUnit\Framework\MockObject\MockObject|\Spryker\Zed\Cart\Business\CartFacadeInterface
      */
     protected MockObject|CartFacadeInterface $facadeMock;
 
     /**
-     * @var (\Generated\Shared\Transfer\QuoteTransfer&\PHPUnit\Framework\MockObject\MockObject)|\PHPUnit\Framework\MockObject\MockObject
+     * @var \Generated\Shared\Transfer\QuoteTransfer|\PHPUnit\Framework\MockObject\MockObject
      */
     protected QuoteTransfer|MockObject $quoteTransferMock;
 
     /**
-     * @var (\Generated\Shared\Transfer\QuoteResponseTransfer&\PHPUnit\Framework\MockObject\MockObject)|\PHPUnit\Framework\MockObject\MockObject
+     * @var \Generated\Shared\Transfer\QuoteResponseTransfer|\PHPUnit\Framework\MockObject\MockObject
      */
     protected QuoteResponseTransfer|MockObject $quoteResponseTransferMock;
 

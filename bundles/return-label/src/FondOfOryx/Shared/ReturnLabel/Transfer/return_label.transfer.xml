@@ -33,6 +33,10 @@
         <property name="data" type="string" />
     </transfer>
 
+    <transfer name="RestErrorMessage">
+        <property name="code" type="string" />
+    </transfer>
+
     <transfer name="ReturnLabelResponse">
         <property name="isSuccessful" type="bool" />
         <property name="returnLabel" type="ReturnLabel" />

@@ -10,12 +10,12 @@ use Spryker\Shared\Kernel\Transfer\TransferInterface;
 class OrderBudgetSearchRestApiToZedRequestClientBridgeTest extends Unit
 {
     /**
-     * @var \PHPUnit\Framework\MockObject\MockObject|(\Spryker\Client\ZedRequest\ZedRequestClientInterface&\PHPUnit\Framework\MockObject\MockObject)
+     * @var \Spryker\Client\ZedRequest\ZedRequestClientInterface|\PHPUnit\Framework\MockObject\MockObject
      */
     protected ZedRequestClientInterface|MockObject $zedRequestClientMock;
 
     /**
-     * @var \PHPUnit\Framework\MockObject\MockObject|(\Spryker\Shared\Kernel\Transfer\TransferInterface&\PHPUnit\Framework\MockObject\MockObject)
+     * @var \Spryker\Shared\Kernel\Transfer\TransferInterface|\PHPUnit\Framework\MockObject\MockObject
      */
     protected TransferInterface|MockObject $transferMock;
 

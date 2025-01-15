@@ -5,6 +5,7 @@ namespace FondOfOryx\Shared\Datadog\Plugin\Console;
 use Spryker\Shared\Console\Dependency\Plugin\ConsolePreRunHookPluginInterface;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
+// @phpstan-ignore-next-line
 use function DDTrace\root_span;
 
 /**
@@ -24,6 +25,7 @@ class DatadogConsolePreRunHookPlugin implements ConsolePreRunHookPluginInterface
             return 0;
         }
 
+        /** @phpstan-ignore-next-line */
         $span = root_span();
 
         if ($span === null) {

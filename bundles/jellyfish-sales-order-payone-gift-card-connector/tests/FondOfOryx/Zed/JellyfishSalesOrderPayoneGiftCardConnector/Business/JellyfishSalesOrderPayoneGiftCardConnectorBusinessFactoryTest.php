@@ -3,6 +3,7 @@
 namespace FondOfOryx\Zed\JellyfishSalesOrderPayoneGiftCardConnector\Business;
 
 use Codeception\Test\Unit;
+use Exception;
 use FondOfOryx\Zed\JellyfishSalesOrderPayoneGiftCardConnector\Business\Calculator\ProportionalGiftCardAmountCalculator;
 use FondOfOryx\Zed\JellyfishSalesOrderPayoneGiftCardConnector\Business\Expander\OrderItemsExpander;
 use FondOfOryx\Zed\JellyfishSalesOrderPayoneGiftCardConnector\Business\Manager\ProportionalGiftCardValueManager;
@@ -74,23 +75,26 @@ class JellyfishSalesOrderPayoneGiftCardConnectorBusinessFactoryTest extends Unit
      */
     public function testCreateProportionalGiftCardValueCalculator(): void
     {
-        $this->containerMock->expects(static::atLeastOnce())
-            ->method('has')
-            ->withConsecutive(
-                [JellyfishSalesOrderPayoneGiftCardConnectorDependencyProvider::SERVICE_PAYONE],
-                [JellyfishSalesOrderPayoneGiftCardConnectorDependencyProvider::FACADE_SALES],
-                [JellyfishSalesOrderPayoneGiftCardConnectorDependencyProvider::FACADE_GIFT_CARD_PROPORTIONAL_VALUE_CONNECTOR],
-            )
-            ->willReturn(true);
+        $self = $this;
 
         $this->containerMock->expects(static::atLeastOnce())
+            ->method('has')
+            ->willReturn(true);
+
+        $this->containerMock->expects($this->atLeastOnce())
             ->method('get')
-            ->withConsecutive(
-                [JellyfishSalesOrderPayoneGiftCardConnectorDependencyProvider::SERVICE_PAYONE],
-                [JellyfishSalesOrderPayoneGiftCardConnectorDependencyProvider::FACADE_SALES],
-                [JellyfishSalesOrderPayoneGiftCardConnectorDependencyProvider::FACADE_GIFT_CARD_PROPORTIONAL_VALUE_CONNECTOR],
-            )
-            ->willReturnOnConsecutiveCalls($this->payoneServiceMock, $this->salesFacadeMock, $this->proportionalValueConnectorFacadeMock);
+            ->willReturnCallback(static function (string $key) use ($self) {
+                switch ($key) {
+                    case JellyfishSalesOrderPayoneGiftCardConnectorDependencyProvider::SERVICE_PAYONE:
+                        return $self->payoneServiceMock;
+                    case JellyfishSalesOrderPayoneGiftCardConnectorDependencyProvider::FACADE_SALES:
+                        return $self->salesFacadeMock;
+                    case JellyfishSalesOrderPayoneGiftCardConnectorDependencyProvider::FACADE_GIFT_CARD_PROPORTIONAL_VALUE_CONNECTOR:
+                        return $self->proportionalValueConnectorFacadeMock;
+                }
+
+                throw new Exception('Unexpected call');
+            });
 
         static::assertInstanceOf(
             ProportionalGiftCardAmountCalculator::class,
@@ -103,19 +107,22 @@ class JellyfishSalesOrderPayoneGiftCardConnectorBusinessFactoryTest extends Unit
      */
     public function testCreateProportionalGiftCardValueManager(): void
     {
-        $this->containerMock->expects(static::atLeastOnce())
-            ->method('has')
-            ->withConsecutive(
-                [JellyfishSalesOrderPayoneGiftCardConnectorDependencyProvider::FACADE_GIFT_CARD_PROPORTIONAL_VALUE_CONNECTOR],
-            )
-            ->willReturn(true);
+        $self = $this;
 
         $this->containerMock->expects(static::atLeastOnce())
+            ->method('has')
+            ->willReturn(true);
+
+        $this->containerMock->expects($this->atLeastOnce())
             ->method('get')
-            ->withConsecutive(
-                [JellyfishSalesOrderPayoneGiftCardConnectorDependencyProvider::FACADE_GIFT_CARD_PROPORTIONAL_VALUE_CONNECTOR],
-            )
-            ->willReturnOnConsecutiveCalls($this->proportionalValueConnectorFacadeMock);
+            ->willReturnCallback(static function (string $key) use ($self) {
+                switch ($key) {
+                    case JellyfishSalesOrderPayoneGiftCardConnectorDependencyProvider::FACADE_GIFT_CARD_PROPORTIONAL_VALUE_CONNECTOR:
+                        return $self->proportionalValueConnectorFacadeMock;
+                }
+
+                throw new Exception('Unexpected call');
+            });
 
         static::assertInstanceOf(
             ProportionalGiftCardValueManager::class,
@@ -128,19 +135,22 @@ class JellyfishSalesOrderPayoneGiftCardConnectorBusinessFactoryTest extends Unit
      */
     public function testCreateOrderItemsExpander(): void
     {
-        $this->containerMock->expects(static::atLeastOnce())
-            ->method('has')
-            ->withConsecutive(
-                [JellyfishSalesOrderPayoneGiftCardConnectorDependencyProvider::FACADE_GIFT_CARD_PROPORTIONAL_VALUE_CONNECTOR],
-            )
-            ->willReturn(true);
+        $self = $this;
 
         $this->containerMock->expects(static::atLeastOnce())
+            ->method('has')
+            ->willReturn(true);
+
+        $this->containerMock->expects($this->atLeastOnce())
             ->method('get')
-            ->withConsecutive(
-                [JellyfishSalesOrderPayoneGiftCardConnectorDependencyProvider::FACADE_GIFT_CARD_PROPORTIONAL_VALUE_CONNECTOR],
-            )
-            ->willReturnOnConsecutiveCalls($this->proportionalValueConnectorFacadeMock);
+            ->willReturnCallback(static function (string $key) use ($self) {
+                switch ($key) {
+                    case JellyfishSalesOrderPayoneGiftCardConnectorDependencyProvider::FACADE_GIFT_CARD_PROPORTIONAL_VALUE_CONNECTOR:
+                        return $self->proportionalValueConnectorFacadeMock;
+                }
+
+                throw new Exception('Unexpected call');
+            });
 
         static::assertInstanceOf(
             OrderItemsExpander::class,

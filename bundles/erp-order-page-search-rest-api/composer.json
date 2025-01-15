@@ -8,12 +8,12 @@
       "email": "gengjozsef86@gmail.com"
     },
     {
-      "name": "Julian Zimmermann",
-      "email": "info@julianzimmermann.dev"
+      "name": "Julian Hyatt",
+      "email": "dev@jzit.de"
     }
   ],
   "require": {
-    "php": ">=8.0",
+    "php": ">=8.2",
     "fond-of-oryx/erp-order-page-search": "^3.7.0",
     "spryker/glossary-storage": "^1.5.0",
     "spryker/glue-application": "^1.0.0",
@@ -35,7 +35,7 @@
     "psr-4": {
       "FondOfOryx\\": "tests/FondOfOryx/",
       "Generated\\": "src/Generated/",
-      "Orm\\Zed\\": "src/Orm/Zed/"
+      "Orm\\": "src/Orm/"
     }
   },
   "config": {

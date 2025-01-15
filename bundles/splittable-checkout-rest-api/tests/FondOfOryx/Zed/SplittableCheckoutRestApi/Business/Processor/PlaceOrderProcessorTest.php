@@ -9,6 +9,7 @@ use FondOfOryx\Zed\SplittableCheckoutRestApi\Dependency\Facade\SplittableCheckou
 use Generated\Shared\Transfer\QuoteTransfer;
 use Generated\Shared\Transfer\RestSplittableCheckoutRequestTransfer;
 use Generated\Shared\Transfer\SplittableCheckoutResponseTransfer;
+use PHPUnit\Framework\MockObject\MockObject;
 
 class PlaceOrderProcessorTest extends Unit
 {
@@ -28,9 +29,9 @@ class PlaceOrderProcessorTest extends Unit
     protected $splittableCheckoutResponseTransferMock;
 
     /**
-     * @var \FondOfOryx\Zed\SplittableCheckoutRestApi\Business\Reader\QuoteReaderInterface
+     * @var \FondOfOryx\Zed\SplittableCheckoutRestApi\Business\Reader\QuoteReaderInterface|\PHPUnit\Framework\MockObject\MockObject
      */
-    protected $quoteReaderMock;
+    protected QuoteReaderInterface|MockObject $quoteReaderMock;
 
     /**
      * @var \PHPUnit\Framework\MockObject\MockObject|\Generated\Shared\Transfer\QuoteTransfer

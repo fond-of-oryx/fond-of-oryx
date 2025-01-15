@@ -12,17 +12,17 @@ use Spryker\Glue\GlueApplication\Rest\Request\Data\RestRequestInterface;
 class OrderByFilterFieldMapperTest extends Unit
 {
     /**
-     * @var \PHPUnit\Framework\MockObject\MockObject|(\Spryker\Glue\GlueApplication\Rest\Request\Data\RestRequestInterface&\PHPUnit\Framework\MockObject\MockObject)
+     * @var \Spryker\Glue\GlueApplication\Rest\Request\Data\RestRequestInterface|\PHPUnit\Framework\MockObject\MockObject
      */
     protected RestRequestInterface|MockObject $restRequestMock;
 
     /**
-     * @var (\FondOfOryx\Glue\CompanyUserSearchRestApi\Processor\Filter\RequestParameterFilterInterface&\PHPUnit\Framework\MockObject\MockObject)|\PHPUnit\Framework\MockObject\MockObject
+     * @var \PHPUnit\Framework\MockObject\MockObject|\FondOfOryx\Glue\CompanyUserSearchRestApi\Processor\Filter\RequestParameterFilterInterface
      */
     protected MockObject|RequestParameterFilterInterface $requestParameterFilterMock;
 
     /**
-     * @var (\FondOfOryx\Glue\CompanyUserSearchRestApi\CompanyUserSearchRestApiConfig&\PHPUnit\Framework\MockObject\MockObject)|\PHPUnit\Framework\MockObject\MockObject
+     * @var \PHPUnit\Framework\MockObject\MockObject|\FondOfOryx\Glue\CompanyUserSearchRestApi\CompanyUserSearchRestApiConfig
      */
     protected MockObject|CompanyUserSearchRestApiConfig $configMock;
 

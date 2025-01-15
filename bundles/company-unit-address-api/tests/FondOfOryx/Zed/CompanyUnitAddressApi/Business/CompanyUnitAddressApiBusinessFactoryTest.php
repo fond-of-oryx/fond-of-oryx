@@ -3,6 +3,7 @@
 namespace FondOfOryx\Zed\CompanyUnitAddressApi\Business;
 
 use Codeception\Test\Unit;
+use Exception;
 use FondOfOryx\Zed\CompanyUnitAddressApi\Business\Model\CompanyUnitAddressApi;
 use FondOfOryx\Zed\CompanyUnitAddressApi\Business\Model\Validator\CompanyUnitAddressApiValidator;
 use FondOfOryx\Zed\CompanyUnitAddressApi\CompanyUnitAddressApiDependencyProvider;
@@ -69,19 +70,24 @@ class CompanyUnitAddressApiBusinessFactoryTest extends Unit
      */
     public function testCreateCompanyUnitAddressApi(): void
     {
+        $self = $this;
+
         $this->containerMock->expects($this->atLeastOnce())
             ->method('has')
             ->willReturn(true);
 
         $this->containerMock->expects($this->atLeastOnce())
             ->method('get')
-            ->withConsecutive(
-                [CompanyUnitAddressApiDependencyProvider::FACADE_API],
-                [CompanyUnitAddressApiDependencyProvider::FACADE_COMPANY_UNIT_ADDRESS],
-            )->willReturnOnConsecutiveCalls(
-                $this->apiFacadeMock,
-                $this->companyUnitAddressFacadeMock,
-            );
+            ->willReturnCallback(static function (string $key) use ($self) {
+                switch ($key) {
+                    case CompanyUnitAddressApiDependencyProvider::FACADE_API:
+                        return $self->apiFacadeMock;
+                    case CompanyUnitAddressApiDependencyProvider::FACADE_COMPANY_UNIT_ADDRESS:
+                        return $self->companyUnitAddressFacadeMock;
+                }
+
+                throw new Exception('Unexpected call');
+            });
 
         static::assertInstanceOf(
             CompanyUnitAddressApi::class,

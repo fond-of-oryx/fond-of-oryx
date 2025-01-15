@@ -14,27 +14,27 @@ use PHPUnit\Framework\MockObject\MockObject;
 class DiscountJellyfishOrderExpanderPostMapPluginTest extends Unit
 {
     /**
-     * @var (\Orm\Zed\Sales\Persistence\SpySalesOrder&\PHPUnit\Framework\MockObject\MockObject)|\PHPUnit\Framework\MockObject\MockObject
+     * @var \PHPUnit\Framework\MockObject\MockObject|\Orm\Zed\Sales\Persistence\SpySalesOrder
      */
     protected MockObject|SpySalesOrder $spySalesOrderMock;
 
     /**
-     * @var (\Generated\Shared\Transfer\JellyfishOrderTransfer&\PHPUnit\Framework\MockObject\MockObject)|\PHPUnit\Framework\MockObject\MockObject
+     * @var \PHPUnit\Framework\MockObject\MockObject|\Generated\Shared\Transfer\JellyfishOrderTransfer
      */
     protected MockObject|JellyfishOrderTransfer $jellyfishOrderTransferMock;
 
     /**
-     * @var (\Orm\Zed\Sales\Persistence\SpySalesDiscount&\PHPUnit\Framework\MockObject\MockObject)|\PHPUnit\Framework\MockObject\MockObject
+     * @var \PHPUnit\Framework\MockObject\MockObject|\Orm\Zed\Sales\Persistence\SpySalesDiscount
      */
     protected MockObject|SpySalesDiscount $spySalesDiscountMock;
 
     /**
-     * @var (\Orm\Zed\Sales\Persistence\SpySalesOrderItem&\PHPUnit\Framework\MockObject\MockObject)|\PHPUnit\Framework\MockObject\MockObject
+     * @var \PHPUnit\Framework\MockObject\MockObject|\Orm\Zed\Sales\Persistence\SpySalesOrderItem
      */
     protected MockObject|SpySalesOrderItem $spySalesOrderItemMock;
 
     /**
-     * @var (\Orm\Zed\Sales\Persistence\SpySalesDiscountCode&\PHPUnit\Framework\MockObject\MockObject)|\PHPUnit\Framework\MockObject\MockObject
+     * @var \PHPUnit\Framework\MockObject\MockObject|\Orm\Zed\Sales\Persistence\SpySalesDiscountCode
      */
     protected MockObject|SpySalesDiscountCode $spySalesDiscountCodeMock;
 
@@ -136,7 +136,7 @@ class DiscountJellyfishOrderExpanderPostMapPluginTest extends Unit
                         && $jellyfishOrderDiscountTransfers->offsetGet(0)->getQuantity() === $data['quantity']
                         && $jellyfishOrderDiscountTransfers->offsetGet(0)->getUnitAmount() === $data['amount']
                         && $jellyfishOrderDiscountTransfers->offsetGet(0)->getSumAmount() === $data['amount']
-                        && $jellyfishOrderDiscountTransfers->offsetGet(0)->getCode() === 'code-10'
+                        && $jellyfishOrderDiscountTransfers->offsetGet(0)->getCode() === 'code-10',
                 ),
             )->willReturn($this->jellyfishOrderTransferMock);
 

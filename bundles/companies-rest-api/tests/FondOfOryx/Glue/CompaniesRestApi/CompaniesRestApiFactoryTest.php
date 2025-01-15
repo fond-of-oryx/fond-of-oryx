@@ -3,6 +3,7 @@
 namespace FondOfOryx\Glue\CompaniesRestApi;
 
 use Codeception\Test\Unit;
+use Exception;
 use FondOfOryx\Client\CompaniesRestApi\CompaniesRestApiClient;
 use FondOfOryx\Glue\CompaniesRestApi\Dependency\Client\CompaniesRestApiToCompaniesRestApiPermissionInterface;
 use FondOfOryx\Glue\CompaniesRestApi\Processor\Deleter\CompanyDeleter;
@@ -101,19 +102,22 @@ class CompaniesRestApiFactoryTest extends Unit
      */
     public function testCreateCompanyDeleter(): void
     {
-        $this->containerMock->expects(static::atLeastOnce())
-            ->method('has')
-            ->withConsecutive(
-                [CompaniesRestApiDependencyProvider::CLIENT_COMPANIES_REST_API_PERMISSION],
-            )->willReturn(true);
+        $self = $this;
 
         $this->containerMock->expects(static::atLeastOnce())
+            ->method('has')
+            ->willReturn(true);
+
+        $this->containerMock->expects($this->atLeastOnce())
             ->method('get')
-            ->withConsecutive(
-                [CompaniesRestApiDependencyProvider::CLIENT_COMPANIES_REST_API_PERMISSION],
-            )->willReturnOnConsecutiveCalls(
-                $this->permissionClientMock,
-            );
+            ->willReturnCallback(static function (string $key) use ($self) {
+                switch ($key) {
+                    case CompaniesRestApiDependencyProvider::CLIENT_COMPANIES_REST_API_PERMISSION:
+                        return $self->permissionClientMock;
+                }
+
+                throw new Exception('Unexpected call');
+            });
 
         static::assertInstanceOf(
             CompanyDeleter::class,

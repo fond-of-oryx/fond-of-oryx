@@ -12,12 +12,12 @@ use PHPUnit\Framework\MockObject\MockObject;
 class CustomerApiValidatorPluginTest extends Unit
 {
     /**
-     * @var (\FondOfOryx\Zed\CustomerApi\Business\CustomerApiFacade&\PHPUnit\Framework\MockObject\MockObject)|\PHPUnit\Framework\MockObject\MockObject
+     * @var \FondOfOryx\Zed\CustomerApi\Business\CustomerApiFacade|\PHPUnit\Framework\MockObject\MockObject
      */
     protected CustomerApiFacade|MockObject $customerApiFacadeMock;
 
     /**
-     * @var (\Generated\Shared\Transfer\ApiRequestTransfer&\PHPUnit\Framework\MockObject\MockObject)|\PHPUnit\Framework\MockObject\MockObject
+     * @var \Generated\Shared\Transfer\ApiRequestTransfer|\PHPUnit\Framework\MockObject\MockObject
      */
     protected ApiRequestTransfer|MockObject $apiRequestTransferMock;
 

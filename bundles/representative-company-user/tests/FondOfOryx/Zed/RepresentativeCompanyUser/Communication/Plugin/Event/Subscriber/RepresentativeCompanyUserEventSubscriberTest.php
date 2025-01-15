@@ -3,6 +3,7 @@
 namespace FondOfOryx\Zed\RepresentativeCompanyUser\Communication\Plugin\Event\Subscriber;
 
 use Codeception\Test\Unit;
+use Exception;
 use FondOfOryx\Shared\RepresentativeCompanyUser\RepresentativeCompanyUserConstants;
 use FondOfOryx\Zed\RepresentativeCompanyUser\Communication\Plugin\Event\Listener\RepresentativeCompanyUserCompanyUserCreatorListener;
 use FondOfOryx\Zed\RepresentativeCompanyUser\Communication\Plugin\Event\Listener\RepresentativeCompanyUserCompanyUserDeleterListener;
@@ -40,43 +41,50 @@ class RepresentativeCompanyUserEventSubscriberTest extends Unit
      */
     public function testGetSubscribedEvents(): void
     {
-        $this->eventCollectionMock->expects(static::atLeastOnce())
+        $self = $this;
+
+        $callCount = $this->atLeastOnce();
+        $this->eventCollectionMock->expects($callCount)
             ->method('addListenerQueued')
-            ->withConsecutive(
-                [
-                    RepresentativeCompanyUserConstants::REPRESENTATIVE_COMPANY_USER_MARK_FOR_EXPIRE,
-                    static::callback(
-                        static function (EventBaseHandlerInterface $eventHandler) {
-                            return $eventHandler instanceof RepresentativeCompanyUserCompanyUserDeleterListener;
-                        },
-                    ),
-                    0,
-                    null,
-                    null,
-                ],
-                [
-                    RepresentativeCompanyUserConstants::REPRESENTATIVE_COMPANY_USER_MARK_FOR_REVOCATION,
-                    static::callback(
-                        static function (EventBaseHandlerInterface $eventHandler) {
-                            return $eventHandler instanceof RepresentativeCompanyUserCompanyUserDeleterListener;
-                        },
-                    ),
-                    0,
-                    null,
-                    null,
-                ],
-                [
-                    RepresentativeCompanyUserConstants::REPRESENTATIVE_COMPANY_USER_MARK_FOR_CREATE_COMPANY_USER,
-                    static::callback(
-                        static function (EventBaseHandlerInterface $eventHandler) {
-                            return $eventHandler instanceof RepresentativeCompanyUserCompanyUserCreatorListener;
-                        },
-                    ),
-                    0,
-                    null,
-                    null,
-                ],
-            );
+            ->willReturnCallback(static function ($eventName, EventBaseHandlerInterface $eventHandler, $priority = 0, $queuePoolName = null, $eventQueueName = null) use ($self, $callCount) {
+                /** @phpstan-ignore-next-line */
+                if (method_exists($callCount, 'getInvocationCount')) {
+                    /** @phpstan-ignore-next-line */
+                    $count = $callCount->getInvocationCount();
+                } else {
+                    /** @phpstan-ignore-next-line */
+                    $count = $callCount->numberOfInvocations();
+                }
+
+                switch ($count) {
+                    case 1:
+                        $self->assertSame(RepresentativeCompanyUserConstants::REPRESENTATIVE_COMPANY_USER_MARK_FOR_EXPIRE, $eventName);
+                        $self->assertInstanceOf(RepresentativeCompanyUserCompanyUserDeleterListener::class, $eventHandler);
+                        $self->assertSame(0, $priority);
+                        $self->assertNull($queuePoolName);
+                        $self->assertNull($eventQueueName);
+
+                        return $self->eventCollectionMock;
+                    case 2:
+                        $self->assertSame(RepresentativeCompanyUserConstants::REPRESENTATIVE_COMPANY_USER_MARK_FOR_REVOCATION, $eventName);
+                        $self->assertInstanceOf(RepresentativeCompanyUserCompanyUserDeleterListener::class, $eventHandler);
+                        $self->assertSame(0, $priority);
+                        $self->assertNull($queuePoolName);
+                        $self->assertNull($eventQueueName);
+
+                        return $self->eventCollectionMock;
+                    case 3:
+                        $self->assertSame(RepresentativeCompanyUserConstants::REPRESENTATIVE_COMPANY_USER_MARK_FOR_CREATE_COMPANY_USER, $eventName);
+                        $self->assertInstanceOf(RepresentativeCompanyUserCompanyUserCreatorListener::class, $eventHandler);
+                        $self->assertSame(0, $priority);
+                        $self->assertNull($queuePoolName);
+                        $self->assertNull($eventQueueName);
+
+                        return $self->eventCollectionMock;
+                }
+
+                throw new Exception('Unexpected call count');
+            });
 
         static::assertEquals(
             $this->eventCollectionMock,

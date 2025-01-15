@@ -9,7 +9,7 @@
     }
   ],
   "require": {
-    "php": ">=8.0",
+    "php": ">=8.2",
     "spryker/gift-card": "^1.0.0",
     "spryker/glossary": "^3.0.0",
     "spryker/guzzle": "^2.0.0",
@@ -19,7 +19,7 @@
     "spryker/util-encoding": "^1.0.0 || ^2.0.0"
   },
   "require-dev": {
-    "fond-of-codeception/spryker": "^2.0.0",
+    "fond-of-codeception/spryker": "*",
     "spryker/code-sniffer": "*",
     "spryker-sdk/phpstan-spryker": "*"
   },
@@ -33,7 +33,8 @@
   "autoload-dev": {
     "psr-4": {
       "FondOfOryx\\": "tests/FondOfOryx/",
-      "Generated\\": "src/Generated/"
+      "Generated\\": "src/Generated/",
+      "Orm\\": "src/Orm/"
     }
   },
   "config": {

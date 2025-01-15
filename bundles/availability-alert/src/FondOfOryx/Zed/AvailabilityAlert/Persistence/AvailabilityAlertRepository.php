@@ -80,7 +80,6 @@ class AvailabilityAlertRepository extends AbstractRepository implements Availabi
      */
     public function getCountOfSubscriberPerProductAbstract(): array
     {
-        /** @var \Orm\Zed\AvailabilityAlert\Persistence\FosAvailabilityAlertSubscriptionQuery $query */
         $query = $this->getFactory()->createAvailabilityAlertSubscriptionQuery();
         $query->filterByStatus(FooAvailabilityAlertSubscriptionTableMap::COL_STATUS_PENDING)
             ->withColumn('COUNT(*)', 'count_of_subscriber')

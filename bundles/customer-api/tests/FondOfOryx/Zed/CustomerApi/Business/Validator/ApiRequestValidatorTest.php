@@ -10,12 +10,12 @@ use PHPUnit\Framework\MockObject\MockObject;
 class ApiRequestValidatorTest extends Unit
 {
     /**
-     * @var (\Generated\Shared\Transfer\ApiRequestTransfer&\PHPUnit\Framework\MockObject\MockObject)|\PHPUnit\Framework\MockObject\MockObject
+     * @var \Generated\Shared\Transfer\ApiRequestTransfer|\PHPUnit\Framework\MockObject\MockObject
      */
     protected ApiRequestTransfer|MockObject $apiRequestTransferMock;
 
     /**
-     * @var (\Generated\Shared\Transfer\ApiDataTransfer&\PHPUnit\Framework\MockObject\MockObject)|\PHPUnit\Framework\MockObject\MockObject
+     * @var \Generated\Shared\Transfer\ApiDataTransfer|\PHPUnit\Framework\MockObject\MockObject
      */
     protected ApiDataTransfer|MockObject $apiDataTransferMock;
 

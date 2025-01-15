@@ -14,6 +14,9 @@
     </transfer>
 
     <transfer name="Quote">
+        <property name="billingAddress" type="Address"/>
+        <property name="shippingAddress" type="Address"/>
+        <property name="billingSameAsShipping" type="bool"/>
         <property name="items" type="Item[]" singular="item" />
     </transfer>
 
@@ -27,6 +30,7 @@
 
     <transfer name="Item">
         <property name="shipment" type="Shipment" />
+        <property name="sku" type="string" />
     </transfer>
 
     <transfer name="Shipment">
@@ -42,5 +46,9 @@
         <property name="isSuccessful" type="bool"/>
         <property name="errors" type="QuoteError[]" singular="errors"/>
         <property name="messages" type="Message[]"  singular="message"/>
+    </transfer>
+
+    <transfer name="Message">
+        <property name="type" type="string"/>
     </transfer>
 </transfers>

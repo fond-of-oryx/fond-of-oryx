@@ -1,36 +1,37 @@
 {
-    "name": "fond-of-oryx/thirty-five-up-payment-connector",
-    "description": "Handle payment-selection for thirty-five-up items.",
-    "license": "MIT",
-    "authors": [
-        {
-            "name": "Pascal Fischer",
-            "email": "p-fischer@gmx.net"
-        }
-    ],
-    "require": {
-        "php": ">=8.0",
-        "spryker/payment-extension": "^1.0.0",
-        "fond-of-oryx/prepayment": "^1.0.0 || ^2.0.0"
-    },
-    "require-dev": {
-        "fond-of-codeception/spryker": "^2.0.0",
-        "spryker/code-sniffer": "*",
-        "spryker-sdk/phpstan-spryker": "*"
-    },
-    "minimum-stability": "dev",
-    "prefer-stable": true,
-    "autoload": {
-        "psr-4": {
-            "FondOfOryx\\": "src/FondOfOryx/"
-        }
-    },
-    "autoload-dev": {
-        "psr-4": {
-            "FondOfOryx\\": "tests/FondOfOryx/",
-            "Generated\\": "src/Generated/"
-        }
-    },
+  "name": "fond-of-oryx/thirty-five-up-payment-connector",
+  "description": "Handle payment-selection for thirty-five-up items.",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Pascal Fischer",
+      "email": "p-fischer@gmx.net"
+    }
+  ],
+  "require": {
+    "php": ">=8.2",
+    "spryker/payment-extension": "^1.0.0",
+    "fond-of-oryx/prepayment": "^1.0.0 || ^2.0.0"
+  },
+  "require-dev": {
+    "fond-of-codeception/spryker": "*",
+    "spryker/code-sniffer": "*",
+    "spryker-sdk/phpstan-spryker": "*"
+  },
+  "minimum-stability": "dev",
+  "prefer-stable": true,
+  "autoload": {
+    "psr-4": {
+      "FondOfOryx\\": "src/FondOfOryx/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "FondOfOryx\\": "tests/FondOfOryx/",
+      "Generated\\": "src/Generated/",
+      "Orm\\": "src/Orm/"
+    }
+  },
   "config": {
     "sort-packages": true,
     "allow-plugins": {

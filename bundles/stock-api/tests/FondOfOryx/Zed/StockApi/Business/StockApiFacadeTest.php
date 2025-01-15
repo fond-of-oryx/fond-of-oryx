@@ -48,7 +48,7 @@ class StockApiFacadeTest extends Unit
     protected $stockApiBusinessFactoryMock;
 
     /**
-     * @var \FondOfOryx\Zed\StockApi\Business\StockApiFacadeInterface
+     * @var \FondOfOryx\Zed\StockApi\Business\StockApiFacade
      */
     protected $stockApiFacade;
 

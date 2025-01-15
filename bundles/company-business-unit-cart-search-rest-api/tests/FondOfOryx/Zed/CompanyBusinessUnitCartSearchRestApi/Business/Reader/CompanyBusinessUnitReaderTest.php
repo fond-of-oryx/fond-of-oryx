@@ -3,6 +3,7 @@
 namespace FondOfOryx\Zed\CompanyBusinessUnitCartSearchRestApi\Business\Reader;
 
 use Codeception\Test\Unit;
+use Exception;
 use FondOfOryx\Zed\CompanyBusinessUnitCartSearchRestApi\Business\Filter\CompanyBusinessUnitUuidFilterInterface;
 use FondOfOryx\Zed\CompanyBusinessUnitCartSearchRestApi\Business\Filter\IdCustomerFilterInterface;
 use FondOfOryx\Zed\CompanyBusinessUnitCartSearchRestApi\Persistence\CompanyBusinessUnitCartSearchRestApiRepositoryInterface;
@@ -75,23 +76,38 @@ class CompanyBusinessUnitReaderTest extends Unit
      */
     public function testGetIdByFilterFields(): void
     {
+        $self = $this;
+
         $idCompanyBusinessUnit = 1;
         $idCustomer = 1;
         $companyBusinessUnitUuid = 'd5ffcf7e-183f-4aa1-819e-74acf9f6a134';
 
-        $this->idCustomerFilterMock->expects(static::atLeastOnce())
+        $callCount = $this->atLeastOnce();
+        $this->idCustomerFilterMock->expects($callCount)
             ->method('filterByFilterField')
-            ->withConsecutive(
-                [
-                    $this->filterFieldTransferMocks[0],
-                ],
-                [
-                    $this->filterFieldTransferMocks[1],
-                ],
-            )->willReturnOnConsecutiveCalls(
-                $idCustomer,
-                null,
-            );
+            ->willReturnCallback(static function (FilterFieldTransfer $filterFieldTransfer) use ($self, $callCount, $idCustomer) {
+                /** @phpstan-ignore-next-line */
+                if (method_exists($callCount, 'getInvocationCount')) {
+                    /** @phpstan-ignore-next-line */
+                    $count = $callCount->getInvocationCount();
+                } else {
+                    /** @phpstan-ignore-next-line */
+                    $count = $callCount->numberOfInvocations();
+                }
+
+                switch ($count) {
+                    case 1:
+                        $self->assertSame($self->filterFieldTransferMocks[0], $filterFieldTransfer);
+
+                        return $idCustomer;
+                    case 2:
+                        $self->assertSame($self->filterFieldTransferMocks[1], $filterFieldTransfer);
+
+                        return null;
+                }
+
+                throw new Exception('Unexpected call count');
+            });
 
         $this->companyBusinessUnitUuidFilterMock->expects(static::atLeastOnce())
             ->method('filterByFilterField')
@@ -116,21 +132,36 @@ class CompanyBusinessUnitReaderTest extends Unit
      */
     public function testGetIdByFilterFieldsWithInvalidFilterFields(): void
     {
+        $self = $this;
+
         $idCustomer = 1;
 
-        $this->idCustomerFilterMock->expects(static::atLeastOnce())
+        $callCount = $this->atLeastOnce();
+        $this->idCustomerFilterMock->expects($callCount)
             ->method('filterByFilterField')
-            ->withConsecutive(
-                [
-                    $this->filterFieldTransferMocks[0],
-                ],
-                [
-                    $this->filterFieldTransferMocks[1],
-                ],
-            )->willReturnOnConsecutiveCalls(
-                $idCustomer,
-                null,
-            );
+            ->willReturnCallback(static function (FilterFieldTransfer $filterFieldTransfer) use ($self, $callCount, $idCustomer) {
+                /** @phpstan-ignore-next-line */
+                if (method_exists($callCount, 'getInvocationCount')) {
+                    /** @phpstan-ignore-next-line */
+                    $count = $callCount->getInvocationCount();
+                } else {
+                    /** @phpstan-ignore-next-line */
+                    $count = $callCount->numberOfInvocations();
+                }
+
+                switch ($count) {
+                    case 1:
+                        $self->assertSame($self->filterFieldTransferMocks[0], $filterFieldTransfer);
+
+                        return $idCustomer;
+                    case 2:
+                        $self->assertSame($self->filterFieldTransferMocks[1], $filterFieldTransfer);
+
+                        return null;
+                }
+
+                throw new Exception('Unexpected call count');
+            });
 
         $this->companyBusinessUnitUuidFilterMock->expects(static::atLeastOnce())
             ->method('filterByFilterField')

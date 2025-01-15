@@ -17,9 +17,18 @@ class ApiAuthConfigTest extends Unit
      */
     protected function _before()
     {
-        $this->apiAuthConfig = $this->getMockBuilder(ApiAuthConfig::class)
-            ->setMethods(['get'])
-            ->getMock();
+        $apiAuthConfig = $this->getMockBuilder(ApiAuthConfig::class);
+
+        /** @phpstan-ignore-next-line */
+        if (method_exists($apiAuthConfig, 'setMethods')) {
+            /** @phpstan-ignore-next-line */
+            $apiAuthConfig->setMethods(['get']);
+        } else {
+            /** @phpstan-ignore-next-line */
+            $apiAuthConfig->onlyMethods(['get'])->enableOriginalClone();
+        }
+
+        $this->apiAuthConfig = $apiAuthConfig->getMock();
     }
 
     /**

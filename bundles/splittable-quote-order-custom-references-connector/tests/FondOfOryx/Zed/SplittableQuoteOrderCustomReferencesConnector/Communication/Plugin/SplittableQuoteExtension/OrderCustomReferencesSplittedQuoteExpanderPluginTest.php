@@ -8,7 +8,7 @@ use Generated\Shared\Transfer\QuoteTransfer;
 class OrderCustomReferencesSplittedQuoteExpanderPluginTest extends Unit
 {
     /**
-     * @var \Generated\Shared\Transfer\QuoteTransfer&\PHPUnit\Framework\MockObject\MockObject|\PHPUnit\Framework\MockObject\MockObject
+     * @var \Generated\Shared\Transfer\QuoteTransfer|\PHPUnit\Framework\MockObject\MockObject
      */
     protected $quoteTransferMock;
 

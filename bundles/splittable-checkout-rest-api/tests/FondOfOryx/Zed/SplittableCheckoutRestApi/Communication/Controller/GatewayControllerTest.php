@@ -7,7 +7,6 @@ use FondOfOryx\Zed\SplittableCheckoutRestApi\Business\SplittableCheckoutRestApiF
 use Generated\Shared\Transfer\RestSplittableCheckoutRequestTransfer;
 use Generated\Shared\Transfer\RestSplittableCheckoutResponseTransfer;
 use Generated\Shared\Transfer\RestSplittableTotalsResponseTransfer;
-use Spryker\Zed\Kernel\Business\AbstractFacade;
 
 class GatewayControllerTest extends Unit
 {
@@ -61,22 +60,22 @@ class GatewayControllerTest extends Unit
 
         $this->gatewayController = new class ($this->splittableCheckoutRestApiFacadeMock) extends GatewayController {
             /**
-             * @var \FondOfOryx\Zed\SplittableCheckoutRestApi\Business\SplittableCheckoutRestApiFacadeInterface
+             * @var \FondOfOryx\Zed\SplittableCheckoutRestApi\Business\SplittableCheckoutRestApiFacade
              */
             protected $splittableCheckoutRestApiFacade;
 
             /**
-             * @param \Spryker\Zed\Kernel\Business\AbstractFacade $facade
+             * @param \FondOfOryx\Zed\SplittableCheckoutRestApi\Business\SplittableCheckoutRestApiFacade $facade
              */
-            public function __construct(AbstractFacade $facade)
+            public function __construct(SplittableCheckoutRestApiFacade $facade)
             {
                 $this->splittableCheckoutRestApiFacade = $facade;
             }
 
             /**
-             * @return \Spryker\Zed\Kernel\Business\AbstractFacade
+             * @return \FondOfOryx\Zed\SplittableCheckoutRestApi\Business\SplittableCheckoutRestApiFacade
              */
-            protected function getFacade(): AbstractFacade
+            protected function getFacade(): SplittableCheckoutRestApiFacade
             {
                 return $this->splittableCheckoutRestApiFacade;
             }

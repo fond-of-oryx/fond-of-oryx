@@ -6,12 +6,13 @@ use Codeception\Test\Unit;
 use FondOfOryx\Zed\CustomerRegistration\Business\CustomerRegistrationFacadeInterface;
 use Generated\Shared\Transfer\CustomerRegistrationRequestTransfer;
 use Generated\Shared\Transfer\CustomerRegistrationResponseTransfer;
+use Generated\Shared\Transfer\CustomerRegistrationTransfer;
 use Generated\Shared\Transfer\CustomerTransfer;
 
 class CustomerRegistrationSalesConnectorToCustomerRegistrationFacadeBridgeTest extends Unit
 {
     /**
-     * @var \FondOfOryx\Zed\CustomerRegistrationSalesConnector\Dependency\Facade\CustomerRegistrationSalesConnectorToCustomerFacadeBridge
+     * @var \FondOfOryx\Zed\CustomerRegistrationSalesConnector\Dependency\Facade\CustomerRegistrationSalesConnectorToCustomerRegistrationFacadeBridge
      */
     protected $facade;
 
@@ -24,6 +25,11 @@ class CustomerRegistrationSalesConnectorToCustomerRegistrationFacadeBridgeTest e
      * @var \Generated\Shared\Transfer\CustomerTransfer|\PHPUnit\Framework\MockObject\MockObject
      */
     protected $customerTransferMock;
+
+    /**
+     * @var \Generated\Shared\Transfer\CustomerRegistrationTransfer|\PHPUnit\Framework\MockObject\MockObject
+     */
+    protected $customerRegistrationTransferMock;
 
     /**
      * @var \Generated\Shared\Transfer\CustomerRegistrationRequestTransfer|\PHPUnit\Framework\MockObject\MockObject
@@ -48,6 +54,10 @@ class CustomerRegistrationSalesConnectorToCustomerRegistrationFacadeBridgeTest e
             ->disableOriginalConstructor()
             ->getMock();
 
+        $this->customerRegistrationTransferMock = $this->getMockBuilder(CustomerRegistrationTransfer::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
         $this->customerRegistrationRequestTransferMock = $this->getMockBuilder(CustomerRegistrationRequestTransfer::class)
             ->disableOriginalConstructor()
             ->getMock();
@@ -56,7 +66,7 @@ class CustomerRegistrationSalesConnectorToCustomerRegistrationFacadeBridgeTest e
             ->disableOriginalConstructor()
             ->getMock();
 
-        $this->facade = new CustomerRegistrationSalesConnectorToCustomerFacadeBridge(
+        $this->facade = new CustomerRegistrationSalesConnectorToCustomerRegistrationFacadeBridge(
             $this->facadeMock,
         );
     }
@@ -64,24 +74,12 @@ class CustomerRegistrationSalesConnectorToCustomerRegistrationFacadeBridgeTest e
     /**
      * @return void
      */
-    public function testCustomerRegistration(): void
+    public function testRegisterCustomer(): void
     {
-        $this->facadeMock->expects(static::once())->method('customerRegistration')->willReturn($this->customerRegistrationResponseTransferMock);
+        $this->facadeMock->expects(static::once())->method('handleKnownCustomer');
 
-        $this->facade->customerRegistration(
-            $this->customerRegistrationRequestTransferMock,
-        );
-    }
-
-    /**
-     * @return void
-     */
-    public function testFlagCustomerAsGdprAccepted(): void
-    {
-        $this->facadeMock->expects(static::once())->method('flagCustomerAsGdprAccepted')->willReturn($this->customerTransferMock);
-
-        $this->facade->flagCustomerAsGdprAccepted(
-            $this->customerTransferMock,
+        $this->facade->handleKnownCustomer(
+            $this->customerRegistrationTransferMock,
         );
     }
 }

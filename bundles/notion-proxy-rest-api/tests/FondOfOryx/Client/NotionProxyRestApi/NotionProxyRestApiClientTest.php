@@ -18,7 +18,7 @@ class NotionProxyRestApiClientTest extends Unit
     /**
      * @var \PHPUnit\Framework\MockObject\MockObject|\FondOfOryx\Client\NotionProxyRestApi\Request\RequestInterface
      */
-    protected RequestInterface $clientRequestMock;
+    protected RequestInterface|MockObject $clientRequestMock;
 
     /**
      * @var \PHPUnit\Framework\MockObject\MockObject|\FondOfOryx\Client\NotionProxyRestApi\NotionProxyRestApiFactory

@@ -4,7 +4,6 @@ namespace FondOfOryx\Zed\AvailabilityCartDataExtender\Communication\Plugin;
 
 use Codeception\Test\Unit;
 use FondOfOryx\Zed\AvailabilityCartDataExtender\Business\AvailabilityCartDataExtenderFacade;
-use FondOfOryx\Zed\AvailabilityCartDataExtender\Business\AvailabilityCartDataExtenderFacadeInterface;
 use Generated\Shared\Transfer\QuoteTransfer;
 use Spryker\Zed\Kernel\Business\AbstractFacade;
 
@@ -37,14 +36,14 @@ class AddAvailabilityDataToQuoteItemQuoteChangeObserverPluginTest extends Unit
 
         $this->toTest = new class ($this->facadeMock) extends AddAvailabilityDataToQuoteItemQuoteChangeObserverPlugin {
             /**
-             * @var \FondOfOryx\Zed\AvailabilityCartDataExtender\Business\AvailabilityCartDataExtenderFacadeInterface
+             * @var \FondOfOryx\Zed\AvailabilityCartDataExtender\Business\AvailabilityCartDataExtenderFacade
              */
             protected $facadeMock;
 
             /**
-             * @param \FondOfOryx\Zed\AvailabilityCartDataExtender\Business\AvailabilityCartDataExtenderFacadeInterface $facadeMock
+             * @param \FondOfOryx\Zed\AvailabilityCartDataExtender\Business\AvailabilityCartDataExtenderFacade $facadeMock
              */
-            public function __construct(AvailabilityCartDataExtenderFacadeInterface $facadeMock)
+            public function __construct(AvailabilityCartDataExtenderFacade $facadeMock)
             {
                 $this->facadeMock = $facadeMock;
             }

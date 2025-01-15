@@ -4,24 +4,25 @@ namespace FondOfOryx\Glue\CompanyUserSearchRestApi\Processor\Filter;
 
 use Codeception\Test\Unit;
 use Generated\Shared\Transfer\RestUserTransfer;
+use PHPUnit\Framework\MockObject\MockObject;
 use Spryker\Glue\GlueApplication\Rest\Request\Data\RestRequestInterface;
 
 class CustomerIdFilterTest extends Unit
 {
     /**
-     * @var \PHPUnit\Framework\MockObject\MockObject|\Spryker\Glue\GlueApplication\Rest\Request\Data\RestRequestInterface|mixed
+     * @var \Spryker\Glue\GlueApplication\Rest\Request\Data\RestRequestInterface|\PHPUnit\Framework\MockObject\MockObject
      */
-    protected $restRequestMock;
+    protected RestRequestInterface|MockObject $restRequestMock;
 
     /**
-     * @var \Generated\Shared\Transfer\RestUserTransfer|\PHPUnit\Framework\MockObject\MockObject|mixed
+     * @var \Generated\Shared\Transfer\RestUserTransfer|\PHPUnit\Framework\MockObject\MockObject
      */
-    protected $restUserTransferMock;
+    protected RestUserTransfer|MockObject $restUserTransferMock;
 
     /**
-     * @var \FondOfOryx\Glue\CompanyUserSearchRestApi\Processor\Filter\CustomerReferenceFilter
+     * @var \FondOfOryx\Glue\CompanyUserSearchRestApi\Processor\Filter\CustomerIdFilter
      */
-    protected $CustomerIdFilter;
+    protected CustomerIdFilter $CustomerIdFilter;
 
     /**
      * @return void

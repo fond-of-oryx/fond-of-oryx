@@ -12,17 +12,17 @@ use Spryker\Zed\Kernel\Business\AbstractFacade;
 class GatewayControllerTest extends Unit
 {
     /**
-     * @var (\FondOfOryx\Zed\BusinessOnBehalfRestApi\Business\BusinessOnBehalfRestApiFacade&\PHPUnit\Framework\MockObject\MockObject)|\PHPUnit\Framework\MockObject\MockObject
+     * @var \FondOfOryx\Zed\BusinessOnBehalfRestApi\Business\BusinessOnBehalfRestApiFacade|\PHPUnit\Framework\MockObject\MockObject
      */
     protected MockObject|BusinessOnBehalfRestApiFacade $facadeMock;
 
     /**
-     * @var (\Generated\Shared\Transfer\RestBusinessOnBehalfRequestTransfer&\PHPUnit\Framework\MockObject\MockObject)|\PHPUnit\Framework\MockObject\MockObject
+     * @var \Generated\Shared\Transfer\RestBusinessOnBehalfRequestTransfer|\PHPUnit\Framework\MockObject\MockObject
      */
     protected MockObject|RestBusinessOnBehalfRequestTransfer $restBusinessOnBehalfRequestTransferMock;
 
     /**
-     * @var (\Generated\Shared\Transfer\RestBusinessOnBehalfResponseTransfer&\PHPUnit\Framework\MockObject\MockObject)|\PHPUnit\Framework\MockObject\MockObject
+     * @var \Generated\Shared\Transfer\RestBusinessOnBehalfResponseTransfer|\PHPUnit\Framework\MockObject\MockObject
      */
     protected MockObject|RestBusinessOnBehalfResponseTransfer $restBusinessOnBehalfResponseTransferMock;
 

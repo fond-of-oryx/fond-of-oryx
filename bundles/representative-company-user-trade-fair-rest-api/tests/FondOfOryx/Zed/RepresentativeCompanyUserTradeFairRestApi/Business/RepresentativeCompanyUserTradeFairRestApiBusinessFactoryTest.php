@@ -3,6 +3,7 @@
 namespace FondOfOryx\Zed\RepresentativeCompanyUserTradeFairRestApi\Business;
 
 use Codeception\Test\Unit;
+use Exception;
 use FondOfOryx\Zed\RepresentativeCompanyUserTradeFairRestApi\Business\Model\TradeFairRepresentationManagerInterface;
 use FondOfOryx\Zed\RepresentativeCompanyUserTradeFairRestApi\Business\Validator\DurationValidatorInterface;
 use FondOfOryx\Zed\RepresentativeCompanyUserTradeFairRestApi\Dependency\Facade\RepresentativeCompanyUserTradeFairRestApiToCompanyTypeFacadeInterface;
@@ -128,22 +129,24 @@ class RepresentativeCompanyUserTradeFairRestApiBusinessFactoryTest extends Unit
      */
     public function testCreateTradeFairRepresentationManager(): void
     {
-        $this->containerMock->expects(static::atLeastOnce())
-            ->method('has')
-            ->withConsecutive(
-                [RepresentativeCompanyUserTradeFairRestApiDependencyProvider::FACADE_REPRESENTATIVE_COMPANY_USER],
-                [RepresentativeCompanyUserTradeFairRestApiDependencyProvider::FACADE_COMPANY_TYPE],
-            )->willReturn(true);
+        $self = $this;
 
         $this->containerMock->expects(static::atLeastOnce())
+            ->method('has')
+            ->willReturn(true);
+
+        $this->containerMock->expects($this->atLeastOnce())
             ->method('get')
-            ->withConsecutive(
-                [RepresentativeCompanyUserTradeFairRestApiDependencyProvider::FACADE_REPRESENTATIVE_COMPANY_USER],
-                [RepresentativeCompanyUserTradeFairRestApiDependencyProvider::FACADE_COMPANY_TYPE],
-            )->willReturnOnConsecutiveCalls(
-                $this->representativeCompanyUserTradeFairRestApiToRepresentativeCompanyUserTradeFairFacadeMock,
-                $this->representativeCompanyUserTradeFairRestApiToCompanyTypeFacadeMock,
-            );
+            ->willReturnCallback(static function (string $key) use ($self) {
+                switch ($key) {
+                    case RepresentativeCompanyUserTradeFairRestApiDependencyProvider::FACADE_REPRESENTATIVE_COMPANY_USER:
+                        return $self->representativeCompanyUserTradeFairRestApiToRepresentativeCompanyUserTradeFairFacadeMock;
+                    case RepresentativeCompanyUserTradeFairRestApiDependencyProvider::FACADE_COMPANY_TYPE:
+                        return $self->representativeCompanyUserTradeFairRestApiToCompanyTypeFacadeMock;
+                }
+
+                throw new Exception('Unexpected call');
+            });
 
         static::assertInstanceOf(
             TradeFairRepresentationManagerInterface::class,

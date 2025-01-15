@@ -4,18 +4,19 @@ namespace FondOfOryx\Zed\SplittableQuoteCartNotesConnector\Communication\Plugin\
 
 use Codeception\Test\Unit;
 use Generated\Shared\Transfer\QuoteTransfer;
+use PHPUnit\Framework\MockObject\MockObject;
 
 class CartNotesSplittedQuoteExpanderPluginTest extends Unit
 {
     /**
      * @var \Generated\Shared\Transfer\QuoteTransfer|\PHPUnit\Framework\MockObject\MockObject
      */
-    protected $quoteTransferMock;
+    protected QuoteTransfer|MockObject $quoteTransferMock;
 
     /**
-     * @var \FondOfOryx\Zed\SplittableQuoteOrderCustomReferencesConnector\Communication\Plugin\SplittableQuoteExtension\OrderCustomReferencesSplittedQuoteExpanderPlugin
+     * @var \FondOfOryx\Zed\SplittableQuoteCartNotesConnector\Communication\Plugin\SplittableQuoteExtension\CartNotesSplittedQuoteExpanderPlugin
      */
-    protected $plugin;
+    protected CartNotesSplittedQuoteExpanderPlugin $plugin;
 
     /**
      * @return void

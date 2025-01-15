@@ -16,7 +16,7 @@ use Symfony\Component\HttpFoundation\Request;
 class IdFilterFieldsExpanderPluginTest extends Unit
 {
     /**
-     * @var \PHPUnit\Framework\MockObject\MockObject|\Spryker\Glue\GlueApplication\Rest\Request\Data\RestRequestInterface|mixed
+     * @var \PHPUnit\Framework\MockObject\MockObject|\Spryker\Glue\GlueApplication\Rest\Request\Data\RestRequestInterface
      */
     protected MockObject|RestRequestInterface $restRequestMock;
 

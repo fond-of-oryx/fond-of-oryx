@@ -14,7 +14,7 @@ class GiftCardProductConfigurationLinkMapperTest extends Unit
     protected $giftCardProductConfigurationLinkMapper;
 
     /**
-     * @var \PHPUnit\Framework\MockObject\MockObject|\Orm\Zed\GiftCard\Persistence\SpyGiftCardProductConfiguration
+     * @var \PHPUnit\Framework\MockObject\MockObject|\Orm\Zed\GiftCard\Persistence\SpyGiftCardProductConfigurationLink
      */
     protected $spyGiftCardProductConfigurationLinkMock;
 

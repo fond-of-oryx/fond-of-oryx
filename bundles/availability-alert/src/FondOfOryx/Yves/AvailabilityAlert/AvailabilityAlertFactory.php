@@ -7,7 +7,6 @@ use FondOfOryx\Yves\AvailabilityAlert\Dependency\Client\AvailabilityAlertToLocal
 use FondOfOryx\Yves\AvailabilityAlert\Dependency\Client\AvailabilityAlertToStoreClientInterface;
 use FondOfOryx\Yves\AvailabilityAlert\Form\DataProvider\SubscriptionFormDataProvider;
 use FondOfOryx\Yves\AvailabilityAlert\Form\SubscriptionForm;
-use Spryker\Shared\Application\ApplicationConstants;
 use Spryker\Yves\Kernel\AbstractFactory;
 
 class AvailabilityAlertFactory extends AbstractFactory
@@ -43,7 +42,7 @@ class AvailabilityAlertFactory extends AbstractFactory
      */
     protected function getFormFactory()
     {
-        return $this->getProvidedDependency(ApplicationConstants::FORM_FACTORY);
+        return $this->getProvidedDependency(AvailabilityAlertDependencyProvider::FORM_FACTORY);
     }
 
     /**

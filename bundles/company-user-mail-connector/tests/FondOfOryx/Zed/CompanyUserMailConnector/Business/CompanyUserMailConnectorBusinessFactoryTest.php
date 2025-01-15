@@ -3,6 +3,7 @@
 namespace FondOfOryx\Zed\CompanyUserMailConnector\Business;
 
 use Codeception\Test\Unit;
+use Exception;
 use FondOfOryx\Zed\CompanyUserMailConnector\Business\Model\Mail\CompanyUserCreationNotificationMailHandler;
 use FondOfOryx\Zed\CompanyUserMailConnector\Business\Model\Mail\MailHandler;
 use FondOfOryx\Zed\CompanyUserMailConnector\CompanyUserMailConnectorConfig;
@@ -83,22 +84,24 @@ class CompanyUserMailConnectorBusinessFactoryTest extends Unit
      */
     public function testCreateMailHandler(): void
     {
-        $this->containerMock->expects(static::atLeastOnce())
-            ->method('has')
-            ->withConsecutive(
-                [CompanyUserMailConnectorDependencyProvider::FACADE_LOCALE],
-                [CompanyUserMailConnectorDependencyProvider::FACADE_MAIL],
-            )->willReturn(true);
+        $self = $this;
 
         $this->containerMock->expects(static::atLeastOnce())
+            ->method('has')
+            ->willReturn(true);
+
+        $this->containerMock->expects($this->atLeastOnce())
             ->method('get')
-            ->withConsecutive(
-                [CompanyUserMailConnectorDependencyProvider::FACADE_LOCALE],
-                [CompanyUserMailConnectorDependencyProvider::FACADE_MAIL],
-            )->willReturnOnConsecutiveCalls(
-                $this->localeFacadeMock,
-                $this->mailFacadeMock,
-            );
+            ->willReturnCallback(static function (string $key) use ($self) {
+                switch ($key) {
+                    case CompanyUserMailConnectorDependencyProvider::FACADE_LOCALE:
+                        return $self->localeFacadeMock;
+                    case CompanyUserMailConnectorDependencyProvider::FACADE_MAIL:
+                        return $self->mailFacadeMock;
+                }
+
+                throw new Exception('Unexpected call');
+            });
 
         static::assertInstanceOf(
             MailHandler::class,
@@ -111,22 +114,24 @@ class CompanyUserMailConnectorBusinessFactoryTest extends Unit
      */
     public function testCreateCompanyUserCreationNotificationMailHandler(): void
     {
-        $this->containerMock->expects(static::atLeastOnce())
-            ->method('has')
-            ->withConsecutive(
-                [CompanyUserMailConnectorDependencyProvider::FACADE_LOCALE],
-                [CompanyUserMailConnectorDependencyProvider::FACADE_MAIL],
-            )->willReturn(true);
+        $self = $this;
 
         $this->containerMock->expects(static::atLeastOnce())
+            ->method('has')
+            ->willReturn(true);
+
+        $this->containerMock->expects($this->atLeastOnce())
             ->method('get')
-            ->withConsecutive(
-                [CompanyUserMailConnectorDependencyProvider::FACADE_LOCALE],
-                [CompanyUserMailConnectorDependencyProvider::FACADE_MAIL],
-            )->willReturnOnConsecutiveCalls(
-                $this->localeFacadeMock,
-                $this->mailFacadeMock,
-            );
+            ->willReturnCallback(static function (string $key) use ($self) {
+                switch ($key) {
+                    case CompanyUserMailConnectorDependencyProvider::FACADE_LOCALE:
+                        return $self->localeFacadeMock;
+                    case CompanyUserMailConnectorDependencyProvider::FACADE_MAIL:
+                        return $self->mailFacadeMock;
+                }
+
+                throw new Exception('Unexpected call');
+            });
 
         static::assertInstanceOf(
             CompanyUserCreationNotificationMailHandler::class,

@@ -3,7 +3,6 @@
 namespace FondOfOryx\Glue\BusinessOnBehalfRestApi\Processor\Filter;
 
 use Codeception\Test\Unit;
-use FondOfOryx\Glue\ProductListsRestApi\Processor\Filter\IdCustomerFilter;
 use Generated\Shared\Transfer\RestUserTransfer;
 use PHPUnit\Framework\MockObject\MockObject;
 use Spryker\Glue\GlueApplication\Rest\Request\Data\RestRequestInterface;
@@ -21,7 +20,7 @@ class IdCustomerFilterTest extends Unit
     protected MockObject|RestUserTransfer $restUserTransferMock;
 
     /**
-     * @var \FondOfOryx\Glue\ProductListsRestApi\Processor\Filter\IdCustomerFilter
+     * @var \FondOfOryx\Glue\BusinessOnBehalfRestApi\Processor\Filter\IdCustomerFilter
      */
     protected IdCustomerFilter $idCustomerFilter;
 

@@ -3,6 +3,7 @@
 namespace FondOfOryx\Zed\RepresentativeCompanyUserTradeFair\Business;
 
 use Codeception\Test\Unit;
+use Exception;
 use FondOfOryx\Zed\RepresentativeCompanyUserTradeFair\Business\Manager\TradeFairRepresentationManager;
 use FondOfOryx\Zed\RepresentativeCompanyUserTradeFair\Dependency\Facade\RepresentativeCompanyUserTradeFairToRepresentativeCompanyUserInterface;
 use FondOfOryx\Zed\RepresentativeCompanyUserTradeFair\Persistence\RepresentativeCompanyUserTradeFairEntityManager;
@@ -131,18 +132,22 @@ class RepresentativeCompanyUserTradeFairBusinessFactoryTest extends Unit
      */
     public function testCreateTradeFairRepresentationManager(): void
     {
+        $self = $this;
+
         $this->containerMock->expects(static::atLeastOnce())
             ->method('has')
             ->willReturn(true);
 
-        $this->containerMock->expects(static::atLeastOnce())
+        $this->containerMock->expects($this->atLeastOnce())
             ->method('get')
-            ->withConsecutive(
-                [RepresentativeCompanyUserTradeFairDependencyProvider::FACADE_REPRESENTATIVE_COMPANY_USER],
-            )
-            ->willReturnOnConsecutiveCalls(
-                $this->representativeCompanyUserFacadeMock,
-            );
+            ->willReturnCallback(static function (string $key) use ($self) {
+                switch ($key) {
+                    case RepresentativeCompanyUserTradeFairDependencyProvider::FACADE_REPRESENTATIVE_COMPANY_USER:
+                        return $self->representativeCompanyUserFacadeMock;
+                }
+
+                throw new Exception('Unexpected call');
+            });
 
         static::assertInstanceOf(
             TradeFairRepresentationManager::class,

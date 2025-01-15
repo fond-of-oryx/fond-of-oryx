@@ -3,6 +3,7 @@
 namespace FondOfOryx\Zed\ShipmentTableRate\Business;
 
 use Codeception\Test\Unit;
+use Exception;
 use FondOfOryx\Zed\ShipmentTableRate\Business\Model\PriceCalculator;
 use FondOfOryx\Zed\ShipmentTableRate\Dependency\Facade\ShipmentTableRateToCountryFacadeInterface;
 use FondOfOryx\Zed\ShipmentTableRate\Dependency\Facade\ShipmentTableRateToStoreFacadeInterface;
@@ -99,23 +100,28 @@ class ShipmentTableRateBusinessFactoryTest extends Unit
      */
     public function testCreatePriceCalculator(): void
     {
+        $self = $this;
+
         $this->containerMock->expects(static::atLeastOnce())
             ->method('has')
             ->willReturn(true);
 
-        $this->containerMock->expects(static::atLeastOnce())
+        $this->containerMock->expects($this->atLeastOnce())
             ->method('get')
-            ->withConsecutive(
-                [ShipmentTableRateDependencyProvider::FACADE_COUNTRY],
-                [ShipmentTableRateDependencyProvider::FACADE_STORE],
-                [ShipmentTableRateDependencyProvider::PLUGIN_PRICE_TO_PAY_FILTER],
-                [ShipmentTableRateDependencyProvider::SERVICE_UTIL_MATH_FORMULA],
-            )->willReturnOnConsecutiveCalls(
-                $this->countryFacadeMock,
-                $this->storeFacadeMock,
-                $this->priceToPayFilterPluginMock,
-                $this->utilMathFormulaServiceMock,
-            );
+            ->willReturnCallback(static function (string $key) use ($self) {
+                switch ($key) {
+                    case ShipmentTableRateDependencyProvider::FACADE_COUNTRY:
+                        return $self->countryFacadeMock;
+                    case ShipmentTableRateDependencyProvider::FACADE_STORE:
+                        return $self->storeFacadeMock;
+                    case ShipmentTableRateDependencyProvider::PLUGIN_PRICE_TO_PAY_FILTER:
+                        return $self->priceToPayFilterPluginMock;
+                    case ShipmentTableRateDependencyProvider::SERVICE_UTIL_MATH_FORMULA:
+                        return $self->utilMathFormulaServiceMock;
+                }
+
+                throw new Exception('Unexpected call');
+            });
 
         static::assertInstanceOf(
             PriceCalculator::class,

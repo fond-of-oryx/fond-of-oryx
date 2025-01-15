@@ -4,11 +4,9 @@ namespace FondOfOryx\Service\PaymentEpcQrCode\Dependency\Plugin\Oms;
 
 use Codeception\Test\Unit;
 use FondOfOryx\Zed\PaymentEpcQrCode\Business\PaymentEpcQrCodeFacade;
-use FondOfOryx\Zed\PaymentEpcQrCode\Business\PaymentEpcQrCodeFacadeInterface;
 use FondOfOryx\Zed\PaymentEpcQrCode\Dependency\Plugin\Oms\PaymentEpcQrCodeExpanderPlugin;
 use Generated\Shared\Transfer\MailTransfer;
 use Generated\Shared\Transfer\OrderTransfer;
-use Spryker\Zed\Kernel\Business\AbstractFacade;
 
 class PaymentEpcQrCodeExpanderPluginTest extends Unit
 {
@@ -23,7 +21,7 @@ class PaymentEpcQrCodeExpanderPluginTest extends Unit
     protected $orderTransferMock;
 
     /**
-     * @var \FondOfOryx\Zed\PaymentEpcQrCode\Business\PaymentEpcQrCodeFacadeInterface|\PHPUnit\Framework\MockObject\MockObject
+     * @var \FondOfOryx\Zed\PaymentEpcQrCode\Business\PaymentEpcQrCodeFacade|\PHPUnit\Framework\MockObject\MockObject
      */
     protected $facadeMock;
 
@@ -46,24 +44,24 @@ class PaymentEpcQrCodeExpanderPluginTest extends Unit
         $this->plugin = new class ($this->facadeMock) extends PaymentEpcQrCodeExpanderPlugin
         {
             /**
-             * @var \FondOfOryx\Zed\PaymentEpcQrCode\Business\PaymentEpcQrCodeFacadeInterface
+             * @var \FondOfOryx\Zed\PaymentEpcQrCode\Business\PaymentEpcQrCodeFacade
              */
             protected $ownFacade;
 
             /**
              *  constructor.
              *
-             * @param \FondOfOryx\Zed\PaymentEpcQrCode\Business\PaymentEpcQrCodeFacadeInterface $facade
+             * @param \FondOfOryx\Zed\PaymentEpcQrCode\Business\PaymentEpcQrCodeFacade $facade
              */
-            public function __construct(PaymentEpcQrCodeFacadeInterface $facade)
+            public function __construct(PaymentEpcQrCodeFacade $facade)
             {
                 $this->ownFacade = $facade;
             }
 
             /**
-             * @return \Spryker\Zed\Kernel\Business\AbstractFacade
+             * @return \FondOfOryx\Zed\PaymentEpcQrCode\Business\PaymentEpcQrCodeFacade
              */
-            protected function getFacade(): AbstractFacade
+            protected function getFacade(): PaymentEpcQrCodeFacade
             {
                 return $this->ownFacade;
             }

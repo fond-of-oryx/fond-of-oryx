@@ -14,27 +14,27 @@ use PHPUnit\Framework\MockObject\MockObject;
 class ProductListReaderTest extends Unit
 {
     /**
-     * @var (\FondOfOryx\Zed\ProductListSearchRestApi\Persistence\ProductListSearchRestApiRepositoryInterface&\PHPUnit\Framework\MockObject\MockObject)|\PHPUnit\Framework\MockObject\MockObject
+     * @var \FondOfOryx\Zed\ProductListSearchRestApi\Persistence\ProductListSearchRestApiRepositoryInterface|\PHPUnit\Framework\MockObject\MockObject
      */
     protected ProductListSearchRestApiRepositoryInterface|MockObject $repositoryMock;
 
     /**
-     * @var array<(\FondOfOryx\Zed\ProductListSearchRestApiExtension\Dependency\Plugin\SearchProductListQueryExpanderPluginInterface&\PHPUnit\Framework\MockObject\MockObject)|\PHPUnit\Framework\MockObject\MockObject>
+     * @var array<\FondOfOryx\Zed\ProductListSearchRestApiExtension\Dependency\Plugin\SearchProductListQueryExpanderPluginInterface|\PHPUnit\Framework\MockObject\MockObject>
      */
     protected array $searchProductListQueryExpanderPluginMocks;
 
     /**
-     * @var (\Generated\Shared\Transfer\ProductListCollectionTransfer&\PHPUnit\Framework\MockObject\MockObject)|\PHPUnit\Framework\MockObject\MockObject
+     * @var \Generated\Shared\Transfer\ProductListCollectionTransfer|\PHPUnit\Framework\MockObject\MockObject
      */
     protected ProductListCollectionTransfer|MockObject $productListCollectionTransferMock;
 
     /**
-     * @var array<(\Generated\Shared\Transfer\FilterFieldTransfer&\PHPUnit\Framework\MockObject\MockObject)|\PHPUnit\Framework\MockObject\MockObject>
+     * @var array<\Generated\Shared\Transfer\FilterFieldTransfer|\PHPUnit\Framework\MockObject\MockObject>
      */
     protected array $filterFieldTransferMocks;
 
     /**
-     * @var (\Generated\Shared\Transfer\QueryJoinCollectionTransfer&\PHPUnit\Framework\MockObject\MockObject)|\PHPUnit\Framework\MockObject\MockObject
+     * @var \PHPUnit\Framework\MockObject\MockObject|\Generated\Shared\Transfer\QueryJoinCollectionTransfer
      */
     protected MockObject|QueryJoinCollectionTransfer $queryJoinCollectionTransferMock;
 
@@ -94,7 +94,7 @@ class ProductListReaderTest extends Unit
             ->with($this->filterFieldTransferMocks, static::callback(
                 static fn (
                     QueryJoinCollectionTransfer $queryJoinCollectionTransfer
-                ) => $queryJoinCollectionTransfer->getQueryJoins()->count() === 0
+                ) => $queryJoinCollectionTransfer->getQueryJoins()->count() === 0,
             ))->willReturn($this->queryJoinCollectionTransferMock);
 
         $this->productListCollectionTransferMock->expects(static::atLeastOnce())

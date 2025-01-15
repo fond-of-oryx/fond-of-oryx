@@ -3,6 +3,7 @@
 namespace FondOfOryx\Zed\CompanyOmsMailConnector\Business;
 
 use Codeception\Test\Unit;
+use Exception;
 use FondOfOryx\Zed\CompanyOmsMailConnector\Business\Expander\LocaleExpander;
 use FondOfOryx\Zed\CompanyOmsMailConnector\Business\Expander\MailExpander;
 use FondOfOryx\Zed\CompanyOmsMailConnector\CompanyOmsMailConnectorDependencyProvider;
@@ -71,26 +72,26 @@ class CompanyOmsMailConnectorBusinessFactoryTest extends Unit
      */
     public function testLocaleExpander(): void
     {
-        $this->containerMock->expects(static::atLeastOnce())
-            ->method('has')
-            ->withConsecutive(
-                [CompanyOmsMailConnectorDependencyProvider::FACADE_COMPANY_USER_REFERENCE],
-                [CompanyOmsMailConnectorDependencyProvider::FACADE_LOCALE],
-                [CompanyOmsMailConnectorDependencyProvider::FACADE_COMPANY],
-            )->willReturn(true);
+        $self = $this;
 
         $this->containerMock->expects(static::atLeastOnce())
+            ->method('has')
+            ->willReturn(true);
+
+        $this->containerMock->expects($this->atLeastOnce())
             ->method('get')
-            ->withConsecutive(
-                [CompanyOmsMailConnectorDependencyProvider::FACADE_COMPANY_USER_REFERENCE],
-                [CompanyOmsMailConnectorDependencyProvider::FACADE_LOCALE],
-                [CompanyOmsMailConnectorDependencyProvider::FACADE_COMPANY],
-            )
-            ->willReturnOnConsecutiveCalls(
-                $this->companyUserReferenceFacadeMock,
-                $this->localeFacadeMock,
-                $this->companyFacadeMock,
-            );
+            ->willReturnCallback(static function (string $key) use ($self) {
+                switch ($key) {
+                    case CompanyOmsMailConnectorDependencyProvider::FACADE_COMPANY_USER_REFERENCE:
+                        return $self->companyUserReferenceFacadeMock;
+                    case CompanyOmsMailConnectorDependencyProvider::FACADE_LOCALE:
+                        return $self->localeFacadeMock;
+                    case CompanyOmsMailConnectorDependencyProvider::FACADE_COMPANY:
+                        return $self->companyFacadeMock;
+                }
+
+                throw new Exception('Unexpected call');
+            });
 
         static::assertInstanceOf(
             LocaleExpander::class,
@@ -103,20 +104,22 @@ class CompanyOmsMailConnectorBusinessFactoryTest extends Unit
      */
     public function testMailExpander(): void
     {
-        $this->containerMock->expects(static::atLeastOnce())
-            ->method('has')
-            ->withConsecutive(
-                [CompanyOmsMailConnectorDependencyProvider::FACADE_COMPANY_USER_REFERENCE],
-            )->willReturn(true);
+        $self = $this;
 
         $this->containerMock->expects(static::atLeastOnce())
+            ->method('has')
+            ->willReturn(true);
+
+        $this->containerMock->expects($this->atLeastOnce())
             ->method('get')
-            ->withConsecutive(
-                [CompanyOmsMailConnectorDependencyProvider::FACADE_COMPANY_USER_REFERENCE],
-            )
-            ->willReturnOnConsecutiveCalls(
-                $this->companyUserReferenceFacadeMock,
-            );
+            ->willReturnCallback(static function (string $key) use ($self) {
+                switch ($key) {
+                    case CompanyOmsMailConnectorDependencyProvider::FACADE_COMPANY_USER_REFERENCE:
+                        return $self->companyUserReferenceFacadeMock;
+                }
+
+                throw new Exception('Unexpected call');
+            });
 
         static::assertInstanceOf(
             MailExpander::class,

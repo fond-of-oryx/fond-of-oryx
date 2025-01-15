@@ -16,7 +16,9 @@
         <property name="customer" type="ReturnLabelRequestCustomer"/>
     </transfer>
 
-    <transfer name="ReturnLabelRequestCustomer"/>
+    <transfer name="ReturnLabelRequestCustomer">
+        <property name="reference" type="string" />
+    </transfer>
 
     <transfer name="Company">
         <property name="debtorNumber" type="string" />

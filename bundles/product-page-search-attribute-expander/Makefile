@@ -16,7 +16,7 @@ phpstan:
 
 .PHONY: codeception
 codeception:
-	./vendor/bin/codecept run --env standalone
+	./vendor/bin/codecept run --env standalone --coverage --coverage-xml --coverage-html
 
 .PHONY: ci
 ci: phpcs codeception phpstan
@@ -25,6 +25,6 @@ ci: phpcs codeception phpstan
 clean:
 	rm -Rf composer.lock
 	rm -Rf ./vendor
-	find ./tests/_output/ -not -name .gitignore -not -name .gitkeep -delete
+	find ./tests/_output/ -not -name .gitignore -delete
 	rm -Rf src/Generated/*
 	rm -Rf src/Orm/*

@@ -4,7 +4,6 @@ namespace FondOfOryx\Zed\ThirtyFiveUpApi\Persistence;
 
 use Codeception\Test\Unit;
 use FondOfOryx\Zed\ThirtyFiveUpApi\Dependency\Facade\ThirtyFiveUpApiToApiFacadeBridge;
-use FondOfOryx\Zed\ThirtyFiveUpApi\Dependency\Facade\ThirtyFiveUpApiToApiFacadeInterface;
 use FondOfOryx\Zed\ThirtyFiveUpApi\Dependency\Facade\ThirtyFiveUpApiToThirtyFiveUpFacadeBridge;
 use FondOfOryx\Zed\ThirtyFiveUpApi\Dependency\Facade\ThirtyFiveUpApiToThirtyFiveUpFacadeInterface;
 use FondOfOryx\Zed\ThirtyFiveUpApi\Dependency\QueryContainer\ThirtyFiveUpApiToApiQueryBuilderContainerBridge;
@@ -94,17 +93,6 @@ class ThirtyFiveUpApiPersistenceFactoryTest extends Unit
         $this->containerMock->method('get')->with(ThirtyFiveUpApiDependencyProvider::QUERY_BUILDER_CONTAINER_API)->willReturn($this->thirtyFiveUpQueryBuilderContainerMock);
 
         $this->assertInstanceOf(ThirtyFiveUpApiToApiQueryBuilderContainerInterface::class, $this->factory->getQueryBuilderContainer());
-    }
-
-    /**
-     * @return void
-     */
-    public function testGetQueryContainer(): void
-    {
-        $this->containerMock->method('has')->willReturn(true);
-        $this->containerMock->method('get')->with(ThirtyFiveUpApiDependencyProvider::FACADE_API)->willReturn($this->thirtyFiveUpQueryContainerMock);
-
-        $this->assertInstanceOf(ThirtyFiveUpApiToApiFacadeInterface::class, $this->factory->getQueryContainer());
     }
 
     /**

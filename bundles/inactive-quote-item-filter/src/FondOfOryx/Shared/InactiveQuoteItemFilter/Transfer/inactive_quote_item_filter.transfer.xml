@@ -18,4 +18,14 @@
     <transfer name="Store">
         <property name="name" type="string"/>
     </transfer>
+
+    <transfer name="CartChange">
+        <property name="quote" type="Quote"/>
+        <property name="items" type="Item[]" singular="item"/>
+    </transfer>
+
+    <transfer name="CartPreCheckResponse">
+        <property name="isSuccess" type="bool"/>
+        <property name="messages" type="Message[]" singular="message"/>
+    </transfer>
 </transfers>

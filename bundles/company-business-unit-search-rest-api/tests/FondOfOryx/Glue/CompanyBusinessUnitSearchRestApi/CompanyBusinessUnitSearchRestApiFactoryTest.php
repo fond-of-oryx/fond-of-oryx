@@ -3,6 +3,7 @@
 namespace FondOfOryx\Glue\CompanyBusinessUnitSearchRestApi;
 
 use Codeception\Test\Unit;
+use Exception;
 use FondOfOryx\Client\CompanyBusinessUnitSearchRestApi\CompanyBusinessUnitSearchRestApiClient;
 use FondOfOryx\Glue\CompanyBusinessUnitSearchRestApi\Dependency\Client\CompanyBusinessUnitSearchRestApiToGlossaryStorageClientInterface;
 use FondOfOryx\Glue\CompanyBusinessUnitSearchRestApi\Processor\Reader\CompanyBusinessUnitReader;
@@ -101,24 +102,24 @@ class CompanyBusinessUnitSearchRestApiFactoryTest extends Unit
      */
     public function testCreateCompanyBusinessUnitReader(): void
     {
-        $this->containerMock->expects(static::atLeastOnce())
-            ->method('has')
-            ->withConsecutive(
-                [CompanyBusinessUnitSearchRestApiDependencyProvider::PLUGINS_FILTER_FIELDS_EXPANDER],
-                [CompanyBusinessUnitSearchRestApiDependencyProvider::CLIENT_GLOSSARY_STORAGE],
-            )
-            ->willReturn(true);
+        $self = $this;
 
         $this->containerMock->expects(static::atLeastOnce())
+            ->method('has')
+            ->willReturn(true);
+
+        $this->containerMock->expects($this->atLeastOnce())
             ->method('get')
-            ->withConsecutive(
-                [CompanyBusinessUnitSearchRestApiDependencyProvider::PLUGINS_FILTER_FIELDS_EXPANDER],
-                [CompanyBusinessUnitSearchRestApiDependencyProvider::CLIENT_GLOSSARY_STORAGE],
-            )
-            ->willReturnOnConsecutiveCalls(
-                [],
-                $this->glossaryStorageClientMock,
-            );
+            ->willReturnCallback(static function (string $key) use ($self) {
+                switch ($key) {
+                    case CompanyBusinessUnitSearchRestApiDependencyProvider::PLUGINS_FILTER_FIELDS_EXPANDER:
+                        return [];
+                    case CompanyBusinessUnitSearchRestApiDependencyProvider::CLIENT_GLOSSARY_STORAGE:
+                        return $self->glossaryStorageClientMock;
+                }
+
+                throw new Exception('Unexpected call');
+            });
 
         static::assertInstanceOf(
             CompanyBusinessUnitReader::class,

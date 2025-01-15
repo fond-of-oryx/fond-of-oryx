@@ -23,7 +23,7 @@ class RestCompanyBusinessUnitAddressSearchSortMapperTest extends Unit
     protected $companyBusinessUnitAddressListTransferMock;
 
     /**
-     * @var \Generated\Shared\Transfer\CompanyBusinessUnitAddressListTransfer|\PHPUnit\Framework\MockObject\MockObject
+     * @var \Generated\Shared\Transfer\FilterFieldTransfer|\PHPUnit\Framework\MockObject\MockObject
      */
     protected FilterFieldTransfer|MockObject $filterFieldTransferMock;
 

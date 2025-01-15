@@ -3,6 +3,7 @@
 namespace FondOfOryx\Zed\ProductListsRestApi\Business;
 
 use Codeception\Test\Unit;
+use Exception;
 use FondOfOryx\Zed\ProductListsRestApi\Business\Updater\ProductListUpdater;
 use FondOfOryx\Zed\ProductListsRestApi\Dependency\Facade\ProductListsRestApiToProductListFacadeInterface;
 use FondOfOryx\Zed\ProductListsRestApi\Persistence\ProductListsRestApiRepository;
@@ -71,31 +72,28 @@ class ProductListsRestApiBusinessFactoryTest extends Unit
      */
     public function testCreateProductListUpdater(): void
     {
-        $this->containerMock->expects(static::atLeastOnce())
-            ->method('has')
-            ->withConsecutive(
-                [ProductListsRestApiDependencyProvider::FACADE_PRODUCT_LIST],
-                [ProductListsRestApiDependencyProvider::PLUGINS_PRODUCT_LIST_UPDATE_PRE_CHECK],
-                [ProductListsRestApiDependencyProvider::PLUGINS_PRODUCT_LIST_POST_UPDATE],
-                [ProductListsRestApiDependencyProvider::PLUGINS_REST_PRODUCT_LIST_UPDATE_REQUEST_EXPANDER],
-                [ProductListsRestApiDependencyProvider::FACADE_PRODUCT_LIST],
-            )->willReturn(true);
+        $self = $this;
 
         $this->containerMock->expects(static::atLeastOnce())
+            ->method('has')
+            ->willReturn(true);
+
+        $this->containerMock->expects($this->atLeastOnce())
             ->method('get')
-            ->withConsecutive(
-                [ProductListsRestApiDependencyProvider::FACADE_PRODUCT_LIST],
-                [ProductListsRestApiDependencyProvider::PLUGINS_PRODUCT_LIST_UPDATE_PRE_CHECK],
-                [ProductListsRestApiDependencyProvider::PLUGINS_PRODUCT_LIST_POST_UPDATE],
-                [ProductListsRestApiDependencyProvider::PLUGINS_REST_PRODUCT_LIST_UPDATE_REQUEST_EXPANDER],
-                [ProductListsRestApiDependencyProvider::FACADE_PRODUCT_LIST],
-            )->willReturnOnConsecutiveCalls(
-                $this->productListFacadeMock,
-                [],
-                [],
-                [],
-                $this->productListFacadeMock,
-            );
+            ->willReturnCallback(static function (string $key) use ($self) {
+                switch ($key) {
+                    case ProductListsRestApiDependencyProvider::FACADE_PRODUCT_LIST:
+                        return $self->productListFacadeMock;
+                    case ProductListsRestApiDependencyProvider::PLUGINS_PRODUCT_LIST_UPDATE_PRE_CHECK:
+                        return [];
+                    case ProductListsRestApiDependencyProvider::PLUGINS_PRODUCT_LIST_POST_UPDATE:
+                        return [];
+                    case ProductListsRestApiDependencyProvider::PLUGINS_REST_PRODUCT_LIST_UPDATE_REQUEST_EXPANDER:
+                        return [];
+                }
+
+                throw new Exception('Unexpected call');
+            });
 
         static::assertInstanceOf(
             ProductListUpdater::class,

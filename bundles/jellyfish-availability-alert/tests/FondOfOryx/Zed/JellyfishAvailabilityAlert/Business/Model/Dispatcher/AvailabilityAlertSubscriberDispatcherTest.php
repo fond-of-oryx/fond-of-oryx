@@ -46,9 +46,9 @@ class AvailabilityAlertSubscriberDispatcherTest extends Unit
         $this->dispatcher = new class ($this->adapterMock, $this->loggerMock) extends AvailabilityAlertSubscriberDispatcher
         {
             /**
-             * @var \Monolog\Logger
+             * @var \Psr\Log\LoggerInterface
              */
-            protected $logger;
+            protected LoggerInterface $logger;
 
             /**
              *  constructor.

@@ -3,6 +3,7 @@
 namespace FondOfOryx\Zed\ErpDeliveryNotePageSearch\Persistence;
 
 use Codeception\Test\Unit;
+use Exception;
 use FondOfOryx\Zed\ErpDeliveryNotePageSearch\ErpDeliveryNotePageSearchDependencyProvider;
 use FondOfOryx\Zed\ErpDeliveryNotePageSearch\Persistence\Propel\Mapper\ErpDeliveryNotePageSearchMapperInterface;
 use Orm\Zed\ErpDeliveryNote\Persistence\FooErpDeliveryNoteQuery;
@@ -70,18 +71,23 @@ class ErpDeliveryNotePageSearchPersistenceFactoryTest extends Unit
      */
     public function testGetErpDeliveryNotePageSearchQuery()
     {
+        $self = $this;
+
         $this->containerMock->expects(static::atLeastOnce())
             ->method('has')
             ->with(ErpDeliveryNotePageSearchDependencyProvider::QUERY_ERP_DELIVERY_NOTE_PAGE_SEARCH)
             ->willReturn(true);
 
-        $this->containerMock->expects(static::atLeastOnce())
+        $this->containerMock->expects($this->atLeastOnce())
             ->method('get')
-            ->withConsecutive(
-                [ErpDeliveryNotePageSearchDependencyProvider::QUERY_ERP_DELIVERY_NOTE_PAGE_SEARCH],
-            )->willReturnOnConsecutiveCalls(
-                $this->fooErpDeliveryNotePageSearchQueryMock,
-            );
+            ->willReturnCallback(static function (string $key) use ($self) {
+                switch ($key) {
+                    case ErpDeliveryNotePageSearchDependencyProvider::QUERY_ERP_DELIVERY_NOTE_PAGE_SEARCH:
+                        return $self->fooErpDeliveryNotePageSearchQueryMock;
+                }
+
+                throw new Exception('Unexpected call');
+            });
 
         $this->assertInstanceOf(
             FooErpDeliveryNotePageSearchQuery::class,

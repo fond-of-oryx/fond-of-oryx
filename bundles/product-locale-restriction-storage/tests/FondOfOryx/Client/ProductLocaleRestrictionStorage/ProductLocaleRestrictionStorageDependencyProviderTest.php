@@ -3,6 +3,7 @@
 namespace FondOfOryx\Client\ProductLocaleRestrictionStorage;
 
 use Codeception\Test\Unit;
+use Exception;
 use FondOfOryx\Client\ProductLocaleRestrictionStorage\Dependency\Client\ProductLocaleRestrictionStorageToLocaleClientInterface;
 use FondOfOryx\Client\ProductLocaleRestrictionStorage\Dependency\Client\ProductLocaleRestrictionStorageToStorageClientInterface;
 use FondOfOryx\Client\ProductLocaleRestrictionStorage\Dependency\Service\ProductLocaleRestrictionStorageToSynchronizationServiceInterface;
@@ -57,9 +58,18 @@ class ProductLocaleRestrictionStorageDependencyProviderTest extends Unit
     {
         parent::_before();
 
-        $this->containerMock = $this->getMockBuilder(Container::class)
-            ->setMethodsExcept(['factory', 'set', 'offsetSet', 'get', 'offsetGet'])
-            ->getMock();
+        $containerMock = $this->getMockBuilder(Container::class);
+
+        /** @phpstan-ignore-next-line */
+        if (method_exists($containerMock, 'setMethodsExcept')) {
+            /** @phpstan-ignore-next-line */
+            $containerMock->setMethodsExcept(['factory', 'set', 'offsetSet', 'get', 'offsetGet']);
+        } else {
+            /** @phpstan-ignore-next-line */
+            $containerMock->onlyMethods(['getLocator'])->enableOriginalClone();
+        }
+
+        $this->containerMock = $containerMock->getMock();
 
         $this->locatorMock = $this->getMockBuilder(Locator::class)
             ->disableOriginalConstructor()
@@ -89,31 +99,56 @@ class ProductLocaleRestrictionStorageDependencyProviderTest extends Unit
      */
     public function testProvideServiceLayerDependencies(): void
     {
-        $this->containerMock->expects(static::atLeastOnce())
+        $self = $this;
+        $this->containerMock->expects($this->atLeastOnce())
             ->method('getLocator')
             ->willReturn($this->locatorMock);
 
-        $this->locatorMock->expects(static::atLeastOnce())
+        $this->locatorMock->expects($this->atLeastOnce())
             ->method('__call')
-            ->withConsecutive(
-                ['locale'],
-                ['storage'],
-                ['synchronization'],
-            )
-            ->willReturn($this->bundleProxyMock);
+            ->willReturnCallback(static function (string $key) use ($self) {
+                switch ($key) {
+                    case 'locale':
+                        return $self->bundleProxyMock;
+                    case 'storage':
+                        return $self->bundleProxyMock;
+                    case 'synchronization':
+                        return $self->bundleProxyMock;
+                }
 
-        $this->bundleProxyMock->expects(static::atLeastOnce())
+                throw new Exception('Invalid key');
+            });
+
+        $callCount = $this->atLeastOnce();
+        $this->bundleProxyMock->expects($callCount)
             ->method('__call')
-            ->withConsecutive(
-                ['client'],
-                ['client'],
-                ['service'],
-            )
-            ->willReturnOnConsecutiveCalls(
-                $this->localeClientMock,
-                $this->storageClientMock,
-                $this->synchronizationServiceMock,
-            );
+            ->willReturnCallback(static function (string $key) use ($self, $callCount) {
+                /** @phpstan-ignore-next-line */
+                if (method_exists($callCount, 'getInvocationCount')) {
+                    /** @phpstan-ignore-next-line */
+                    $count = $callCount->getInvocationCount();
+                } else {
+                    /** @phpstan-ignore-next-line */
+                    $count = $callCount->numberOfInvocations();
+                }
+
+                switch ($count) {
+                    case 1:
+                        $self->assertSame('client', $key);
+
+                        return $self->localeClientMock;
+                    case 2:
+                        $self->assertSame('client', $key);
+
+                        return $self->storageClientMock;
+                    case 3:
+                        $self->assertSame('service', $key);
+
+                        return $self->synchronizationServiceMock;
+                }
+
+                throw new Exception('Unexpected call count');
+            });
 
         $container = $this->productLocaleRestrictionStorageDependencyProvider->provideServiceLayerDependencies(
             $this->containerMock,

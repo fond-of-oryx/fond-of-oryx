@@ -3,6 +3,7 @@
 namespace FondOfOryx\Zed\SplittableCheckout\Business;
 
 use Codeception\Test\Unit;
+use Exception;
 use FondOfOryx\Zed\SplittableCheckout\Business\Workflow\SplittableCheckoutWorkflow;
 use FondOfOryx\Zed\SplittableCheckout\Dependency\Facade\SplittableCheckoutToCheckoutFacadeInterface;
 use FondOfOryx\Zed\SplittableCheckout\Dependency\Facade\SplittableCheckoutToPermissionFacadeInterface;
@@ -90,26 +91,30 @@ class SplittableCheckoutBusinessFactoryTest extends Unit
      */
     public function testCreateSplittableCheckoutWorkflow(): void
     {
+        $self = $this;
+
         $this->containerMock->expects(static::atLeastOnce())
             ->method('has')
             ->willReturn(true);
 
-        $this->containerMock->expects(static::atLeastOnce())
+        $this->containerMock->expects($this->atLeastOnce())
             ->method('get')
-            ->withConsecutive(
-                [SplittableCheckoutDependencyProvider::FACADE_CHECKOUT],
-                [SplittableCheckoutDependencyProvider::FACADE_SPLITTABLE_QUOTE],
-                [SplittableCheckoutDependencyProvider::FACADE_QUOTE],
-                [SplittableCheckoutDependencyProvider::FACADE_PERMISSION],
-                [SplittableCheckoutDependencyProvider::PLUGIN_IDENTIFIER_EXTRACTOR],
-            )
-            ->willReturnOnConsecutiveCalls(
-                $this->splittableCheckoutToCheckoutFacadeMock,
-                $this->splittableCheckoutToSplittableQuoteFacadeMock,
-                $this->splittableCheckoutToQuoteFacadeMock,
-                $this->splittableCheckoutToPermissionFacadeMock,
-                null,
-            );
+            ->willReturnCallback(static function (string $key) use ($self) {
+                switch ($key) {
+                    case SplittableCheckoutDependencyProvider::FACADE_CHECKOUT:
+                        return $self->splittableCheckoutToCheckoutFacadeMock;
+                    case SplittableCheckoutDependencyProvider::FACADE_SPLITTABLE_QUOTE:
+                        return $self->splittableCheckoutToSplittableQuoteFacadeMock;
+                    case SplittableCheckoutDependencyProvider::FACADE_QUOTE:
+                        return $self->splittableCheckoutToQuoteFacadeMock;
+                    case SplittableCheckoutDependencyProvider::FACADE_PERMISSION:
+                        return $self->splittableCheckoutToPermissionFacadeMock;
+                    case SplittableCheckoutDependencyProvider::PLUGIN_IDENTIFIER_EXTRACTOR:
+                        return null;
+                }
+
+                throw new Exception('Unexpected call');
+            });
 
         static::assertInstanceOf(
             SplittableCheckoutWorkflow::class,

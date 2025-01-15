@@ -3,6 +3,7 @@
 namespace FondOfOryx\Zed\CartSearchRestApi\Business;
 
 use Codeception\Test\Unit;
+use Exception;
 use FondOfOryx\Zed\CartSearchRestApi\Business\Reader\QuoteReader;
 use FondOfOryx\Zed\CartSearchRestApi\CartSearchRestApiDependencyProvider;
 use FondOfOryx\Zed\CartSearchRestApi\Dependency\Facade\CartSearchRestApiToQuoteFacadeInterface;
@@ -70,21 +71,24 @@ class CartSearchRestApiBusinessFactoryTest extends Unit
      */
     public function testCreateQuoteReader(): void
     {
+        $self = $this;
+
         $this->containerMock->expects(static::atLeastOnce())
             ->method('has')
             ->willReturn(true);
 
-        $this->containerMock->expects(static::atLeastOnce())
+        $this->containerMock->expects($this->atLeastOnce())
             ->method('get')
-            ->withConsecutive(
-                [CartSearchRestApiDependencyProvider::FACADE_QUOTE],
-                [CartSearchRestApiDependencyProvider::PLUGINS_SEARCH_QUOTE_QUERY_EXPANDER],
-            )->willReturnOnConsecutiveCalls(
-                $this->quoteFacadeMock,
-                [
-                    $this->searchQuoteQueryExpanderPluginMock,
-                ],
-            );
+            ->willReturnCallback(static function (string $key) use ($self) {
+                switch ($key) {
+                    case CartSearchRestApiDependencyProvider::FACADE_QUOTE:
+                        return $self->quoteFacadeMock;
+                    case CartSearchRestApiDependencyProvider::PLUGINS_SEARCH_QUOTE_QUERY_EXPANDER:
+                        return [$self->searchQuoteQueryExpanderPluginMock];
+                }
+
+                throw new Exception('Unexpected call');
+            });
 
         static::assertInstanceOf(
             QuoteReader::class,

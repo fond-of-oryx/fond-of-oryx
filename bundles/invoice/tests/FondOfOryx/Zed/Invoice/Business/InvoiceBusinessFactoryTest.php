@@ -3,6 +3,7 @@
 namespace FondOfOryx\Zed\Invoice\Business;
 
 use Codeception\Test\Unit;
+use Exception;
 use FondOfOryx\Zed\Invoice\Business\Model\InvoiceAddressWriter;
 use FondOfOryx\Zed\Invoice\Business\Model\InvoiceItemsWriter;
 use FondOfOryx\Zed\Invoice\Business\Model\InvoiceReferenceGenerator;
@@ -99,10 +100,18 @@ class InvoiceBusinessFactoryTest extends Unit
             ->method('has')
             ->willReturn(true);
 
-        $this->containerMock->expects(static::atLeastOnce())
+        $this->containerMock->expects($this->atLeastOnce())
             ->method('get')
-            ->withConsecutive([InvoiceDependencyProvider::PLUGINS_PRE_SAVE], [InvoiceDependencyProvider::PLUGINS_POST_SAVE])
-            ->willReturnOnConsecutiveCalls([], []);
+            ->willReturnCallback(static function (string $key) {
+                switch ($key) {
+                    case InvoiceDependencyProvider::PLUGINS_PRE_SAVE:
+                        return [];
+                    case InvoiceDependencyProvider::PLUGINS_POST_SAVE:
+                        return [];
+                }
+
+                throw new Exception('Unexpected call');
+            });
 
         static::assertInstanceOf(InvoiceWriter::class, $this->factory->createInvoiceWriter());
     }
@@ -128,14 +137,24 @@ class InvoiceBusinessFactoryTest extends Unit
      */
     public function testCreateInvoiceReferenceGenerator(): void
     {
+        $self = $this;
+
         $this->containerMock->expects(static::atLeastOnce())
             ->method('has')
             ->willReturn(true);
 
-        $this->containerMock->expects(static::atLeastOnce())
+        $this->containerMock->expects($this->atLeastOnce())
             ->method('get')
-            ->withConsecutive([InvoiceDependencyProvider::FACADE_SEQUENCE_NUMBER], [InvoiceDependencyProvider::FACADE_STORE])
-            ->willReturnOnConsecutiveCalls($this->sequenceNumberFacadeMock, $this->storeFacadeMock);
+            ->willReturnCallback(static function (string $key) use ($self) {
+                switch ($key) {
+                    case InvoiceDependencyProvider::FACADE_SEQUENCE_NUMBER:
+                        return $self->sequenceNumberFacadeMock;
+                    case InvoiceDependencyProvider::FACADE_STORE:
+                        return $self->storeFacadeMock;
+                }
+
+                throw new Exception('Unexpected call');
+            });
 
         static::assertInstanceOf(InvoiceReferenceGenerator::class, $this->factory->createInvoiceReferenceGenerator());
     }

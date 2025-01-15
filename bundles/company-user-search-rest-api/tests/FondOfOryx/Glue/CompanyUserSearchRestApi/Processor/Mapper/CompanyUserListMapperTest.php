@@ -4,6 +4,7 @@ namespace FondOfOryx\Glue\CompanyUserSearchRestApi\Processor\Mapper;
 
 use ArrayObject;
 use Codeception\Test\Unit;
+use Exception;
 use FondOfOryx\Glue\CompanyUserSearchRestApi\Processor\Filter\CompanyRoleNameFilterInterface;
 use FondOfOryx\Glue\CompanyUserSearchRestApi\Processor\Filter\CustomerIdFilterInterface;
 use FondOfOryx\Glue\CompanyUserSearchRestApi\Processor\Filter\CustomerReferenceFilterInterface;
@@ -16,47 +17,47 @@ use Spryker\Glue\GlueApplication\Rest\Request\Data\RestRequestInterface;
 class CompanyUserListMapperTest extends Unit
 {
     /**
-     * @var (\FondOfOryx\Glue\CompanyUserSearchRestApi\Processor\Mapper\PaginationMapperInterface&\PHPUnit\Framework\MockObject\MockObject)|\PHPUnit\Framework\MockObject\MockObject
+     * @var \PHPUnit\Framework\MockObject\MockObject|\FondOfOryx\Glue\CompanyUserSearchRestApi\Processor\Mapper\PaginationMapperInterface
      */
     protected MockObject|PaginationMapperInterface $paginationMapperMock;
 
     /**
-     * @var (\FondOfOryx\Glue\CompanyUserSearchRestApi\Processor\Mapper\FilterFieldsMapperInterface&\PHPUnit\Framework\MockObject\MockObject)|\PHPUnit\Framework\MockObject\MockObject
+     * @var \PHPUnit\Framework\MockObject\MockObject|\FondOfOryx\Glue\CompanyUserSearchRestApi\Processor\Mapper\FilterFieldsMapperInterface
      */
     protected MockObject|FilterFieldsMapperInterface $filterFieldsMapperMock;
 
     /**
-     * @var (\FondOfOryx\Glue\CompanyUserSearchRestApi\Processor\Filter\RequestParameterFilterInterface&\PHPUnit\Framework\MockObject\MockObject)|\PHPUnit\Framework\MockObject\MockObject
+     * @var \PHPUnit\Framework\MockObject\MockObject|\FondOfOryx\Glue\CompanyUserSearchRestApi\Processor\Filter\RequestParameterFilterInterface
      */
     protected MockObject|RequestParameterFilterInterface $requestParameterFilterMock;
 
     /**
-     * @var (\FondOfOryx\Glue\CompanyUserSearchRestApi\Processor\Filter\CustomerReferenceFilterInterface&\PHPUnit\Framework\MockObject\MockObject)|\PHPUnit\Framework\MockObject\MockObject
+     * @var \FondOfOryx\Glue\CompanyUserSearchRestApi\Processor\Filter\CustomerReferenceFilterInterface|\PHPUnit\Framework\MockObject\MockObject
      */
     protected CustomerReferenceFilterInterface|MockObject $customerReferenceFilterMock;
 
     /**
-     * @var (\FondOfOryx\Glue\CompanyUserSearchRestApi\Processor\Filter\CustomerIdFilterInterface&\PHPUnit\Framework\MockObject\MockObject)|\PHPUnit\Framework\MockObject\MockObject
+     * @var \PHPUnit\Framework\MockObject\MockObject|\FondOfOryx\Glue\CompanyUserSearchRestApi\Processor\Filter\CustomerIdFilterInterface
      */
     protected MockObject|CustomerIdFilterInterface $customerIdFilterMock;
 
     /**
-     * @var (\FondOfOryx\Glue\CompanyUserSearchRestApi\Processor\Filter\CompanyRoleNameFilterInterface&\PHPUnit\Framework\MockObject\MockObject)|\PHPUnit\Framework\MockObject\MockObject
+     * @var \PHPUnit\Framework\MockObject\MockObject|\FondOfOryx\Glue\CompanyUserSearchRestApi\Processor\Filter\CompanyRoleNameFilterInterface
      */
     protected MockObject|CompanyRoleNameFilterInterface $companyRoleNameFilterMock;
 
     /**
-     * @var (\FondOfOryx\Glue\CompanyUserSearchRestApi\Processor\Filter\EmailFilterInterface&\PHPUnit\Framework\MockObject\MockObject)|\PHPUnit\Framework\MockObject\MockObject
+     * @var \PHPUnit\Framework\MockObject\MockObject|\FondOfOryx\Glue\CompanyUserSearchRestApi\Processor\Filter\EmailFilterInterface
      */
     protected MockObject|EmailFilterInterface $emailFilterMock;
 
     /**
-     * @var \PHPUnit\Framework\MockObject\MockObject|(\Spryker\Glue\GlueApplication\Rest\Request\Data\RestRequestInterface&\PHPUnit\Framework\MockObject\MockObject)
+     * @var \Spryker\Glue\GlueApplication\Rest\Request\Data\RestRequestInterface|\PHPUnit\Framework\MockObject\MockObject
      */
     protected RestRequestInterface|MockObject $restRequestMock;
 
     /**
-     * @var (\Generated\Shared\Transfer\PaginationTransfer&\PHPUnit\Framework\MockObject\MockObject)|\PHPUnit\Framework\MockObject\MockObject
+     * @var \PHPUnit\Framework\MockObject\MockObject|\Generated\Shared\Transfer\PaginationTransfer
      */
     protected MockObject|PaginationTransfer $paginationTransferMock;
 
@@ -124,6 +125,8 @@ class CompanyUserListMapperTest extends Unit
      */
     public function testFromRestRequest(): void
     {
+        $self = $this;
+
         $customerReference = 'FOO-C--1';
         $companyUuid = 'foo company uuid';
         $companyUserReference = 'FOO-CU--1';
@@ -140,19 +143,44 @@ class CompanyUserListMapperTest extends Unit
             ->with($this->restRequestMock)
             ->willReturn(new ArrayObject());
 
-        $this->requestParameterFilterMock->expects(static::atLeastOnce())
+        $callCount = $this->atLeastOnce();
+        $this->requestParameterFilterMock->expects($callCount)
             ->method('getRequestParameter')
-            ->withConsecutive(
-                [$this->restRequestMock, 'show-all'],
-                [$this->restRequestMock, 'only-one-per-customer'],
-                [$this->restRequestMock, 'company-id'],
-                [$this->restRequestMock, 'company-user-reference'],
-            )->willReturnOnConsecutiveCalls(
-                'true',
-                'true',
-                $companyUuid,
-                $companyUserReference,
-            );
+            ->willReturnCallback(static function (RestRequestInterface $restRequest, string $parameterName) use ($self, $callCount, $companyUuid, $companyUserReference) {
+                /** @phpstan-ignore-next-line */
+                if (method_exists($callCount, 'getInvocationCount')) {
+                    /** @phpstan-ignore-next-line */
+                    $count = $callCount->getInvocationCount();
+                } else {
+                    /** @phpstan-ignore-next-line */
+                    $count = $callCount->numberOfInvocations();
+                }
+
+                switch ($count) {
+                    case 1:
+                        $self->assertSame($self->restRequestMock, $restRequest);
+                        $self->assertSame('show-all', $parameterName);
+
+                        return 'true';
+                    case 2:
+                        $self->assertSame($self->restRequestMock, $restRequest);
+                        $self->assertSame('only-one-per-customer', $parameterName);
+
+                        return 'true';
+                    case 3:
+                        $self->assertSame($self->restRequestMock, $restRequest);
+                        $self->assertSame('company-id', $parameterName);
+
+                        return $companyUuid;
+                    case 4:
+                        $self->assertSame($self->restRequestMock, $restRequest);
+                        $self->assertSame('company-user-reference', $parameterName);
+
+                        return $companyUserReference;
+                }
+
+                throw new Exception('Unexpected call count');
+            });
 
         $this->customerReferenceFilterMock->expects(static::atLeastOnce())
             ->method('filterFromRestRequest')

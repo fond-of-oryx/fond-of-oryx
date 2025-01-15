@@ -25,7 +25,7 @@ class VatIdJellyfishOrderExpanderPostMapPluginTest extends Unit
     protected $spySalesOrderAddressMock;
 
     /**
-     * @var \FondOfOryx\Zed\JellyfishSalesOrderOrderCustomReference\Communication\Plugin\JellyfishSalesOrderExtension\CustomReferenceJellyfishOrderExpanderPostMapPlugin
+     * @var \FondOfOryx\Zed\JellyfishSalesOrderVatId\Communication\Plugin\JellyfishSalesOrderExtension\VatIdJellyfishOrderExpanderPostMapPlugin
      */
     protected $plugin;
 

@@ -3,6 +3,7 @@
 namespace FondOfOryx\Zed\ReturnLabelsRestApi\Business;
 
 use Codeception\Test\Unit;
+use Exception;
 use FondOfOryx\Zed\ReturnLabelsRestApi\Business\Model\ReturnLabelGenerator;
 use FondOfOryx\Zed\ReturnLabelsRestApi\Dependency\Facade\ReturnLabelsRestApiToReturnLabelFacadeBridge;
 use FondOfOryx\Zed\ReturnLabelsRestApi\ReturnLabelsRestApiDependencyProvider;
@@ -56,16 +57,24 @@ class ReturnLabelsRestApiBusinessFactoryTest extends Unit
      */
     public function testCreateReturnLabelGenerator(): void
     {
+        $self = $this;
+
         $this->containerMock->expects(static::atLeastOnce())
             ->method('has')
             ->willReturn(true);
 
-        $this->containerMock->expects(static::atLeastOnce())
+        $this->containerMock->expects($this->atLeastOnce())
             ->method('get')
-            ->withConsecutive(
-                [ReturnLabelsRestApiDependencyProvider::FACADE_RETURN_LABEL],
-                [ReturnLabelsRestApiDependencyProvider::PLUGINS_RETURN_LABEL_REQUEST_EXPANDER],
-            )->willReturnOnConsecutiveCalls($this->returnLabelFacadeMock, []);
+            ->willReturnCallback(static function (string $key) use ($self) {
+                switch ($key) {
+                    case ReturnLabelsRestApiDependencyProvider::FACADE_RETURN_LABEL:
+                        return $self->returnLabelFacadeMock;
+                    case ReturnLabelsRestApiDependencyProvider::PLUGINS_RETURN_LABEL_REQUEST_EXPANDER:
+                        return [];
+                }
+
+                throw new Exception('Unexpected call');
+            });
 
         static::assertInstanceOf(
             ReturnLabelGenerator::class,

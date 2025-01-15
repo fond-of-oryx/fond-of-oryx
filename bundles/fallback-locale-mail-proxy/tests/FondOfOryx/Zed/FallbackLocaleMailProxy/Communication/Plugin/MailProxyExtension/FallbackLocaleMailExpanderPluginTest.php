@@ -10,12 +10,12 @@ use PHPUnit\Framework\MockObject\MockObject;
 class FallbackLocaleMailExpanderPluginTest extends Unit
 {
     /**
-     * @var (\FondOfOryx\Zed\FallbackLocaleMailProxy\Business\FallbackLocaleMailProxyFacade&\PHPUnit\Framework\MockObject\MockObject)|\PHPUnit\Framework\MockObject\MockObject
+     * @var \FondOfOryx\Zed\FallbackLocaleMailProxy\Business\FallbackLocaleMailProxyFacade|\PHPUnit\Framework\MockObject\MockObject
      */
     protected FallbackLocaleMailProxyFacade|MockObject $facadeMock;
 
     /**
-     * @var (\Generated\Shared\Transfer\MailTransfer&\PHPUnit\Framework\MockObject\MockObject)|\PHPUnit\Framework\MockObject\MockObject
+     * @var \PHPUnit\Framework\MockObject\MockObject|\Generated\Shared\Transfer\MailTransfer
      */
     protected MockObject|MailTransfer $mailTransferMock;
 

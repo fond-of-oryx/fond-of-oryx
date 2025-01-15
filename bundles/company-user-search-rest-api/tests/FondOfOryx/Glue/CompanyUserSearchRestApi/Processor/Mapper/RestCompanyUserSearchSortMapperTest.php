@@ -12,17 +12,17 @@ use PHPUnit\Framework\MockObject\MockObject;
 class RestCompanyUserSearchSortMapperTest extends Unit
 {
     /**
-     * @var (\FondOfOryx\Glue\CompanyUserSearchRestApi\CompanyUserSearchRestApiConfig&\PHPUnit\Framework\MockObject\MockObject)|\PHPUnit\Framework\MockObject\MockObject
+     * @var \PHPUnit\Framework\MockObject\MockObject|\FondOfOryx\Glue\CompanyUserSearchRestApi\CompanyUserSearchRestApiConfig
      */
     protected MockObject|CompanyUserSearchRestApiConfig $configMock;
 
     /**
-     * @var (\Generated\Shared\Transfer\CompanyUserListTransfer&\PHPUnit\Framework\MockObject\MockObject)|\PHPUnit\Framework\MockObject\MockObject
+     * @var \PHPUnit\Framework\MockObject\MockObject|\Generated\Shared\Transfer\CompanyUserListTransfer
      */
     protected MockObject|CompanyUserListTransfer $companyUserListTransferMock;
 
     /**
-     * @var array<(\Generated\Shared\Transfer\FilterFieldTransfer&\PHPUnit\Framework\MockObject\MockObject)|\PHPUnit\Framework\MockObject\MockObject>
+     * @var array<\Generated\Shared\Transfer\FilterFieldTransfer|\PHPUnit\Framework\MockObject\MockObject>
      */
     protected array $filterFieldTransferMocks;
 

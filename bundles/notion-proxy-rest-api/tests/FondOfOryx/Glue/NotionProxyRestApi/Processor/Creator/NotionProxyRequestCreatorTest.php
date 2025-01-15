@@ -16,7 +16,7 @@ class NotionProxyRequestCreatorTest extends Unit
     /**
      * @var \FondOfOryx\Glue\NotionProxyRestApi\Processor\Creator\NotionProxyRequestCreatorInterface
      */
-    protected NotionProxyRequestCreator $creator;
+    protected NotionProxyRequestCreatorInterface $creator;
 
     /**
      * @var \PHPUnit\Framework\MockObject\MockObject|\FondOfOryx\Client\NotionProxyRestApi\NotionProxyRestApiClient

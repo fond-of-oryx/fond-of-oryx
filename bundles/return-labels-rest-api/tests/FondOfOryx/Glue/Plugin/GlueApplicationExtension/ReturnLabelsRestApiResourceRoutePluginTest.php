@@ -5,7 +5,7 @@ namespace FondOfOryx\Glue\ReturnLabelsRestApi\Plugin\GlueApplicationExtension;
 use Codeception\Test\Unit;
 use FondOfOryx\Glue\ReturnLabelsRestApi\ReturnLabelsRestApiConfig;
 use Generated\Shared\Transfer\RestReturnLabelRequestAttributesTransfer;
-use Spryker\Glue\GlueApplication\Rest\Collection\ResourceRouteCollection;
+use PHPUnit\Framework\MockObject\MockObject;
 use Spryker\Glue\GlueApplicationExtension\Dependency\Plugin\ResourceRouteCollectionInterface;
 
 class ReturnLabelsRestApiResourceRoutePluginTest extends Unit
@@ -13,12 +13,12 @@ class ReturnLabelsRestApiResourceRoutePluginTest extends Unit
     /**
      * @var \Spryker\Glue\GlueApplicationExtension\Dependency\Plugin\ResourceRouteCollectionInterface|\PHPUnit\Framework\MockObject\MockObject
      */
-    protected $resourceRouteCollectionMock;
+    protected ResourceRouteCollectionInterface|MockObject $resourceRouteCollectionMock;
 
     /**
-     * @var \FondOfOryx\Glue\ErpOrderPageSearchRestApi\Plugin\GlueApplicationExtension\ErpOrderPageSearchRestApiResourceRoutePlugin
+     * @var \FondOfOryx\Glue\ReturnLabelsRestApi\Plugin\GlueApplicationExtension\ReturnLabelsRestApiResourceRoutePlugin
      */
-    protected $plugin;
+    protected ReturnLabelsRestApiResourceRoutePlugin $plugin;
 
     /**
      * @return void
@@ -28,7 +28,7 @@ class ReturnLabelsRestApiResourceRoutePluginTest extends Unit
         parent::_before();
 
         $this->resourceRouteCollectionMock = $this
-            ->getMockBuilder(ResourceRouteCollection::class)
+            ->getMockBuilder(ResourceRouteCollectionInterface::class)
             ->disableOriginalConstructor()
             ->getMock();
 

@@ -4,16 +4,10 @@ namespace FondOfOryx\Zed\ThirtyFiveUp\Communication\Plugin\Sales;
 
 use Codeception\Test\Unit;
 use FondOfOryx\Zed\ThirtyFiveUp\Business\ThirtyFiveUpFacade;
-use FondOfOryx\Zed\ThirtyFiveUp\Business\ThirtyFiveUpFacadeInterface;
 use Generated\Shared\Transfer\QuoteTransfer;
 use Generated\Shared\Transfer\SpySalesOrderEntityTransfer;
 use Generated\Shared\Transfer\ThirtyFiveUpOrderTransfer;
-use Spryker\Zed\Kernel\Business\AbstractFacade;
 
-/**
- * @method \FondOfOryx\Zed\ThirtyFiveUp\Business\ThirtyFiveUpFacadeInterface getFacade()
- * @method \FondOfOryx\Zed\ThirtyFiveUp\Business\ThirtyFiveUpBusinessFactory getFactory()
- */
 class ThirtyFiveUpOrderExpanderPluginTest extends Unit
 {
     /**
@@ -22,7 +16,7 @@ class ThirtyFiveUpOrderExpanderPluginTest extends Unit
     protected $plugin;
 
     /**
-     * @var \FondOfOryx\Zed\ThirtyFiveUp\Business\ThirtyFiveUpFacadeInterface|\PHPUnit\Framework\MockObject\MockObject
+     * @var \FondOfOryx\Zed\ThirtyFiveUp\Business\ThirtyFiveUpFacade|\PHPUnit\Framework\MockObject\MockObject
      */
     protected $facadeMock;
 
@@ -64,24 +58,24 @@ class ThirtyFiveUpOrderExpanderPluginTest extends Unit
 
         $this->plugin = new class ($this->facadeMock) extends ThirtyFiveUpOrderExpanderPlugin {
             /**
-             * @var \FondOfOryx\Zed\ThirtyFiveUp\Business\ThirtyFiveUpFacadeInterface
+             * @var \FondOfOryx\Zed\ThirtyFiveUp\Business\ThirtyFiveUpFacade
              */
             public $facade;
 
             /**
              *  constructor.
              *
-             * @param \FondOfOryx\Zed\ThirtyFiveUp\Business\ThirtyFiveUpFacadeInterface $thirtyFiveUpFacade
+             * @param \FondOfOryx\Zed\ThirtyFiveUp\Business\ThirtyFiveUpFacade $thirtyFiveUpFacade
              */
-            public function __construct(ThirtyFiveUpFacadeInterface $thirtyFiveUpFacade)
+            public function __construct(ThirtyFiveUpFacade $thirtyFiveUpFacade)
             {
                 $this->facade = $thirtyFiveUpFacade;
             }
 
             /**
-             * @return \FondOfOryx\Zed\ThirtyFiveUp\Business\ThirtyFiveUpFacadeInterface|\Spryker\Zed\Kernel\Business\AbstractFacade
+             * @return \FondOfOryx\Zed\ThirtyFiveUp\Business\ThirtyFiveUpFacade
              */
-            protected function getFacade(): AbstractFacade
+            protected function getFacade(): ThirtyFiveUpFacade
             {
                 return $this->facade;
             }

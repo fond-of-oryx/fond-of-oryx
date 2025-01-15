@@ -31,7 +31,7 @@ class GiftCardProductConnectorFacadeTest extends Unit
     protected $productAbstractTransferMock;
 
     /**
-     * @var \PHPUnit\Framework\MockObject\MockObject|\Generated\Shared\Transfer\ProductConcreteTransferTransfer
+     * @var \PHPUnit\Framework\MockObject\MockObject|\Generated\Shared\Transfer\ProductConcreteTransfer
      */
     protected $productConcreteTransferMock;
 

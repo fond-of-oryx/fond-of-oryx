@@ -56,7 +56,7 @@ class CompanyUnitAddressReaderTest extends Unit
     protected $addressTransferMock;
 
     /**
-     * @var (\Generated\Shared\Transfer\QuoteTransfer&\PHPUnit\Framework\MockObject\MockObject)|\PHPUnit\Framework\MockObject\MockObject
+     * @var \Generated\Shared\Transfer\QuoteTransfer|\PHPUnit\Framework\MockObject\MockObject
      */
     protected $quoteTransferMock;
 

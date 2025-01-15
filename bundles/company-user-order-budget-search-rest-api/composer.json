@@ -9,7 +9,8 @@
     }
   ],
   "require": {
-    "php": ">=8.0",
+    "php": ">=8.2",
+    "fond-of-oryx/cart-search-rest-api-extension": "^2.0.0",
     "fond-of-oryx/company-business-unit-order-budget": "^1.0.0 || ^2.0.0",
     "fond-of-oryx/order-budget-search-rest-api-extension": "^1.0.0"
   },

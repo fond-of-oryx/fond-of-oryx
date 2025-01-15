@@ -3,6 +3,7 @@
 namespace FondOfOryx\Zed\CompanyOmsMailConnector\Business;
 
 use Codeception\Test\Unit;
+use Exception;
 use FondOfOryx\Zed\CompanyOmsMailConnector\Business\Expander\LocaleExpander;
 use FondOfOryx\Zed\CompanyOmsMailConnector\Business\Expander\MailExpander;
 use Generated\Shared\Transfer\MailTransfer;
@@ -76,14 +77,35 @@ class CompanyOmsMailConnectorFacadeTest extends Unit
      */
     public function testExpandOrderMailTransferWithCompanyMailAddress(): void
     {
+        $self = $this;
+
         $this->businessFactoryMock->expects(static::once())
             ->method('createMailExpander')
             ->willReturn($this->mailExpanderMock);
 
-        $this->mailExpanderMock->expects(static::atLeastOnce())
+        $callCount = $this->atLeastOnce();
+        $this->mailExpanderMock->expects($callCount)
             ->method('expand')
-            ->withConsecutive([$this->mailTransferMock], [$this->orderTransferMock])
-            ->willReturn($this->mailTransferMock);
+            ->willReturnCallback(static function (MailTransfer $mailTransfer, OrderTransfer $orderTransfer) use ($self, $callCount) {
+                /** @phpstan-ignore-next-line */
+                if (method_exists($callCount, 'getInvocationCount')) {
+                    /** @phpstan-ignore-next-line */
+                    $count = $callCount->getInvocationCount();
+                } else {
+                    /** @phpstan-ignore-next-line */
+                    $count = $callCount->numberOfInvocations();
+                }
+
+                switch ($count) {
+                    case 1:
+                        $self->assertSame($self->mailTransferMock, $mailTransfer);
+                        $self->assertSame($self->orderTransferMock, $orderTransfer);
+
+                        return $self->mailTransferMock;
+                }
+
+                throw new Exception('Unexpected call count');
+            });
 
         static::assertEquals(
             $this->mailTransferMock,
@@ -96,14 +118,35 @@ class CompanyOmsMailConnectorFacadeTest extends Unit
      */
     public function testExpandOrderMailTransferWithCompanyLocale(): void
     {
+        $self = $this;
+
         $this->businessFactoryMock->expects(static::once())
             ->method('createLocaleExpander')
             ->willReturn($this->mailExpanderMock);
 
-        $this->mailExpanderMock->expects(static::atLeastOnce())
+        $callCount = $this->atLeastOnce();
+        $this->mailExpanderMock->expects($callCount)
             ->method('expand')
-            ->withConsecutive([$this->mailTransferMock], [$this->orderTransferMock])
-            ->willReturn($this->mailTransferMock);
+            ->willReturnCallback(static function (MailTransfer $mailTransfer, OrderTransfer $orderTransfer) use ($self, $callCount) {
+                /** @phpstan-ignore-next-line */
+                if (method_exists($callCount, 'getInvocationCount')) {
+                    /** @phpstan-ignore-next-line */
+                    $count = $callCount->getInvocationCount();
+                } else {
+                    /** @phpstan-ignore-next-line */
+                    $count = $callCount->numberOfInvocations();
+                }
+
+                switch ($count) {
+                    case 1:
+                        $self->assertSame($self->mailTransferMock, $mailTransfer);
+                        $self->assertSame($self->orderTransferMock, $orderTransfer);
+
+                        return $self->mailTransferMock;
+                }
+
+                throw new Exception('Unexpected call count');
+            });
 
         static::assertEquals(
             $this->mailTransferMock,

@@ -3,6 +3,7 @@
 namespace FondOfOryx\Zed\CompanyBusinessUnitCartSearchRestApi\Business\Expander;
 
 use Codeception\Test\Unit;
+use Exception;
 use FondOfOryx\Zed\CompanyBusinessUnitCartSearchRestApi\Business\Reader\CompanyBusinessUnitReaderInterface;
 use Generated\Shared\Transfer\FilterFieldTransfer;
 use Generated\Shared\Transfer\QueryJoinCollectionTransfer;
@@ -67,6 +68,8 @@ class QueryJoinCollectionExpanderTest extends Unit
      */
     public function testExpand(): void
     {
+        $self = $this;
+
         $idCompanyBusinessUnit = 1;
 
         $this->companyBusinessUnitReaderMock->expects(static::atLeastOnce())
@@ -74,51 +77,53 @@ class QueryJoinCollectionExpanderTest extends Unit
             ->with($this->filterFieldTransferMocks)
             ->willReturn($idCompanyBusinessUnit);
 
-        $this->queryJoinCollectionTransferMock->expects(static::atLeastOnce())
+        $callCount = $this->atLeastOnce();
+        $this->queryJoinCollectionTransferMock->expects($callCount)
             ->method('addQueryJoin')
-            ->withConsecutive(
-                [
-                    static::callback(
-                        static function (QueryJoinTransfer $queryJoinTransfer) {
-                            return $queryJoinTransfer->getLeft() == [SpyQuoteTableMap::COL_COMPANY_USER_REFERENCE]
-                                && $queryJoinTransfer->getRight() == [SpyCompanyUserTableMap::COL_COMPANY_USER_REFERENCE]
-                                && $queryJoinTransfer->getJoinType() === Criteria::INNER_JOIN
-                                && $queryJoinTransfer->getWhereConditions()->count() === 0;
-                        },
-                    ),
-                ],
-                [
-                    static::callback(
-                        static function (QueryJoinTransfer $queryJoinTransfer) {
-                            return $queryJoinTransfer->getLeft() == [SpyCompanyUserTableMap::COL_FK_CUSTOMER]
-                                && $queryJoinTransfer->getRight() == [SpyCustomerTableMap::COL_ID_CUSTOMER]
-                                && $queryJoinTransfer->getJoinType() === Criteria::INNER_JOIN
-                                && $queryJoinTransfer->getWhereConditions()->count() === 1;
-                        },
-                    ),
-                ],
-                [
-                    static::callback(
-                        static function (QueryJoinTransfer $queryJoinTransfer) use ($idCompanyBusinessUnit) {
-                            return $queryJoinTransfer->getLeft() == [SpyCompanyUserTableMap::COL_FK_COMPANY]
-                                && $queryJoinTransfer->getRight() == [SpyCompanyBusinessUnitTableMap::COL_FK_COMPANY]
-                                && $queryJoinTransfer->getJoinType() === Criteria::INNER_JOIN
-                                && $queryJoinTransfer->getWhereConditions()->count() === 1
-                                && $queryJoinTransfer->getWhereConditions()->offsetGet(0)->getValue() === (string)$idCompanyBusinessUnit;
-                        },
-                    ),
-                ],
-                [
-                    static::callback(
-                        static function (QueryJoinTransfer $queryJoinTransfer) {
-                            return $queryJoinTransfer->getLeft() == [SpyCompanyBusinessUnitTableMap::COL_FK_COMPANY]
-                                && $queryJoinTransfer->getRight() == [SpyCompanyTableMap::COL_ID_COMPANY]
-                                && $queryJoinTransfer->getJoinType() === Criteria::INNER_JOIN
-                                && $queryJoinTransfer->getWhereConditions()->count() === 0;
-                        },
-                    ),
-                ],
-            )->willReturn($this->queryJoinCollectionTransferMock);
+            ->willReturnCallback(static function (QueryJoinTransfer $queryJoinTransfer) use ($self, $callCount, $idCompanyBusinessUnit) {
+                /** @phpstan-ignore-next-line */
+                if (method_exists($callCount, 'getInvocationCount')) {
+                    /** @phpstan-ignore-next-line */
+                    $count = $callCount->getInvocationCount();
+                } else {
+                    /** @phpstan-ignore-next-line */
+                    $count = $callCount->numberOfInvocations();
+                }
+
+                switch ($count) {
+                    case 1:
+                        $self->assertEquals([SpyQuoteTableMap::COL_COMPANY_USER_REFERENCE], $queryJoinTransfer->getLeft());
+                        $self->assertEquals([SpyCompanyUserTableMap::COL_COMPANY_USER_REFERENCE], $queryJoinTransfer->getRight());
+                        $self->assertSame(Criteria::INNER_JOIN, $queryJoinTransfer->getJoinType());
+                        $self->assertCount(0, $queryJoinTransfer->getWhereConditions());
+
+                        return $self->queryJoinCollectionTransferMock;
+                    case 2:
+                        $self->assertEquals([SpyCompanyUserTableMap::COL_FK_CUSTOMER], $queryJoinTransfer->getLeft());
+                        $self->assertEquals([SpyCustomerTableMap::COL_ID_CUSTOMER], $queryJoinTransfer->getRight());
+                        $self->assertSame(Criteria::INNER_JOIN, $queryJoinTransfer->getJoinType());
+                        $self->assertCount(1, $queryJoinTransfer->getWhereConditions());
+
+                        return $self->queryJoinCollectionTransferMock;
+                    case 3:
+                        $self->assertEquals([SpyCompanyUserTableMap::COL_FK_COMPANY], $queryJoinTransfer->getLeft());
+                        $self->assertEquals([SpyCompanyBusinessUnitTableMap::COL_FK_COMPANY], $queryJoinTransfer->getRight());
+                        $self->assertSame(Criteria::INNER_JOIN, $queryJoinTransfer->getJoinType());
+                        $self->assertCount(1, $queryJoinTransfer->getWhereConditions());
+                        $self->assertSame((string)$idCompanyBusinessUnit, $queryJoinTransfer->getWhereConditions()->offsetGet(0)->getValue());
+
+                        return $self->queryJoinCollectionTransferMock;
+                    case 4:
+                        $self->assertEquals([SpyCompanyBusinessUnitTableMap::COL_FK_COMPANY], $queryJoinTransfer->getLeft());
+                        $self->assertEquals([SpyCompanyTableMap::COL_ID_COMPANY], $queryJoinTransfer->getRight());
+                        $self->assertSame(Criteria::INNER_JOIN, $queryJoinTransfer->getJoinType());
+                        $self->assertCount(0, $queryJoinTransfer->getWhereConditions());
+
+                        return $self->queryJoinCollectionTransferMock;
+                }
+
+                throw new Exception('Unexpected call count');
+            });
 
         static::assertEquals(
             $this->queryJoinCollectionTransferMock,
@@ -134,56 +139,60 @@ class QueryJoinCollectionExpanderTest extends Unit
      */
     public function testExpandWithNullableIdCompanyBusinessUnit(): void
     {
+        $self = $this;
+
         $this->companyBusinessUnitReaderMock->expects(static::atLeastOnce())
             ->method('getIdByFilterFields')
             ->with($this->filterFieldTransferMocks)
             ->willReturn(null);
 
-        $this->queryJoinCollectionTransferMock->expects(static::atLeastOnce())
+        $callCount = $this->atLeastOnce();
+        $this->queryJoinCollectionTransferMock->expects($callCount)
             ->method('addQueryJoin')
-            ->withConsecutive(
-                [
-                    static::callback(
-                        static function (QueryJoinTransfer $queryJoinTransfer) {
-                            return $queryJoinTransfer->getLeft() == [SpyQuoteTableMap::COL_COMPANY_USER_REFERENCE]
-                                && $queryJoinTransfer->getRight() == [SpyCompanyUserTableMap::COL_COMPANY_USER_REFERENCE]
-                                && $queryJoinTransfer->getJoinType() === Criteria::INNER_JOIN
-                                && $queryJoinTransfer->getWhereConditions()->count() === 0;
-                        },
-                    ),
-                ],
-                [
-                    static::callback(
-                        static function (QueryJoinTransfer $queryJoinTransfer) {
-                            return $queryJoinTransfer->getLeft() == [SpyCompanyUserTableMap::COL_FK_CUSTOMER]
-                                && $queryJoinTransfer->getRight() == [SpyCustomerTableMap::COL_ID_CUSTOMER]
-                                && $queryJoinTransfer->getJoinType() === Criteria::INNER_JOIN
-                                && $queryJoinTransfer->getWhereConditions()->count() === 1;
-                        },
-                    ),
-                ],
-                [
-                    static::callback(
-                        static function (QueryJoinTransfer $queryJoinTransfer) {
-                            return $queryJoinTransfer->getLeft() == [SpyCompanyUserTableMap::COL_FK_COMPANY]
-                                && $queryJoinTransfer->getRight() == [SpyCompanyBusinessUnitTableMap::COL_FK_COMPANY]
-                                && $queryJoinTransfer->getJoinType() === Criteria::INNER_JOIN
-                                && $queryJoinTransfer->getWhereConditions()->count() === 1
-                                && $queryJoinTransfer->getWhereConditions()->offsetGet(0)->getValue() === '-1';
-                        },
-                    ),
-                ],
-                [
-                    static::callback(
-                        static function (QueryJoinTransfer $queryJoinTransfer) {
-                            return $queryJoinTransfer->getLeft() == [SpyCompanyBusinessUnitTableMap::COL_FK_COMPANY]
-                                && $queryJoinTransfer->getRight() == [SpyCompanyTableMap::COL_ID_COMPANY]
-                                && $queryJoinTransfer->getJoinType() === Criteria::INNER_JOIN
-                                && $queryJoinTransfer->getWhereConditions()->count() === 0;
-                        },
-                    ),
-                ],
-            )->willReturn($this->queryJoinCollectionTransferMock);
+            ->willReturnCallback(static function (QueryJoinTransfer $queryJoinTransfer) use ($self, $callCount) {
+                /** @phpstan-ignore-next-line */
+                if (method_exists($callCount, 'getInvocationCount')) {
+                    /** @phpstan-ignore-next-line */
+                    $count = $callCount->getInvocationCount();
+                } else {
+                    /** @phpstan-ignore-next-line */
+                    $count = $callCount->numberOfInvocations();
+                }
+
+                switch ($count) {
+                    case 1:
+                        $self->assertEquals([SpyQuoteTableMap::COL_COMPANY_USER_REFERENCE], $queryJoinTransfer->getLeft());
+                        $self->assertEquals([SpyCompanyUserTableMap::COL_COMPANY_USER_REFERENCE], $queryJoinTransfer->getRight());
+                        $self->assertSame(Criteria::INNER_JOIN, $queryJoinTransfer->getJoinType());
+                        $self->assertCount(0, $queryJoinTransfer->getWhereConditions());
+
+                        return $self->queryJoinCollectionTransferMock;
+                    case 2:
+                        $self->assertEquals([SpyCompanyUserTableMap::COL_FK_CUSTOMER], $queryJoinTransfer->getLeft());
+                        $self->assertEquals([SpyCustomerTableMap::COL_ID_CUSTOMER], $queryJoinTransfer->getRight());
+                        $self->assertSame(Criteria::INNER_JOIN, $queryJoinTransfer->getJoinType());
+                        $self->assertCount(1, $queryJoinTransfer->getWhereConditions());
+
+                        return $self->queryJoinCollectionTransferMock;
+                    case 3:
+                        $self->assertEquals([SpyCompanyUserTableMap::COL_FK_COMPANY], $queryJoinTransfer->getLeft());
+                        $self->assertEquals([SpyCompanyBusinessUnitTableMap::COL_FK_COMPANY], $queryJoinTransfer->getRight());
+                        $self->assertSame(Criteria::INNER_JOIN, $queryJoinTransfer->getJoinType());
+                        $self->assertCount(1, $queryJoinTransfer->getWhereConditions());
+                        $self->assertSame('-1', $queryJoinTransfer->getWhereConditions()->offsetGet(0)->getValue());
+
+                        return $self->queryJoinCollectionTransferMock;
+                    case 4:
+                        $self->assertEquals([SpyCompanyBusinessUnitTableMap::COL_FK_COMPANY], $queryJoinTransfer->getLeft());
+                        $self->assertEquals([SpyCompanyTableMap::COL_ID_COMPANY], $queryJoinTransfer->getRight());
+                        $self->assertSame(Criteria::INNER_JOIN, $queryJoinTransfer->getJoinType());
+                        $self->assertCount(0, $queryJoinTransfer->getWhereConditions());
+
+                        return $self->queryJoinCollectionTransferMock;
+                }
+
+                throw new Exception('Unexpected call count');
+            });
 
         static::assertEquals(
             $this->queryJoinCollectionTransferMock,

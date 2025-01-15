@@ -3,6 +3,7 @@
 namespace FondOfOryx\Zed\LogSlackConnector;
 
 use Codeception\Test\Unit;
+use Exception;
 use FondOfOryx\Shared\LogSlackConnector\LogSlackConnectorConstants;
 
 class LogSlackConnectorConfigTest extends Unit
@@ -27,13 +28,31 @@ class LogSlackConnectorConfigTest extends Unit
      */
     public function testGetSlackUsername(): void
     {
-        $this->config->expects(static::atLeastOnce())
+        $self = $this;
+
+        $callCount = $this->atLeastOnce();
+        $this->config->expects($callCount)
             ->method('get')
-            ->withConsecutive(
-                [LogSlackConnectorConstants::SLACK_USERNAME, LogSlackConnectorConstants::SLACK_USERNAME_VALUE],
-            )->willReturnOnConsecutiveCalls(
-                LogSlackConnectorConstants::SLACK_USERNAME_VALUE,
-            );
+            ->willReturnCallback(static function ($key, $default = null) use ($self, $callCount) {
+                /** @phpstan-ignore-next-line */
+                if (method_exists($callCount, 'getInvocationCount')) {
+                    /** @phpstan-ignore-next-line */
+                    $count = $callCount->getInvocationCount();
+                } else {
+                    /** @phpstan-ignore-next-line */
+                    $count = $callCount->numberOfInvocations();
+                }
+
+                switch ($count) {
+                    case 1:
+                        $self->assertSame(LogSlackConnectorConstants::SLACK_USERNAME, $key);
+                        $self->assertSame(LogSlackConnectorConstants::SLACK_USERNAME_VALUE, $default);
+
+                        return LogSlackConnectorConstants::SLACK_USERNAME_VALUE;
+                }
+
+                throw new Exception('Unexpected call count');
+            });
 
         static::assertEquals(LogSlackConnectorConstants::SLACK_USERNAME_VALUE, $this->config->getSlackUsername());
     }
@@ -43,13 +62,31 @@ class LogSlackConnectorConfigTest extends Unit
      */
     public function testGetSlackChannel(): void
     {
-        $this->config->expects(static::atLeastOnce())
+        $self = $this;
+
+        $callCount = $this->atLeastOnce();
+        $this->config->expects($callCount)
             ->method('get')
-            ->withConsecutive(
-                [LogSlackConnectorConstants::SLACK_CHANNEL, LogSlackConnectorConstants::SLACK_CHANNEL_VALUE],
-            )->willReturnOnConsecutiveCalls(
-                LogSlackConnectorConstants::SLACK_CHANNEL_VALUE,
-            );
+            ->willReturnCallback(static function ($key, $default = null) use ($self, $callCount) {
+                /** @phpstan-ignore-next-line */
+                if (method_exists($callCount, 'getInvocationCount')) {
+                    /** @phpstan-ignore-next-line */
+                    $count = $callCount->getInvocationCount();
+                } else {
+                    /** @phpstan-ignore-next-line */
+                    $count = $callCount->numberOfInvocations();
+                }
+
+                switch ($count) {
+                    case 1:
+                        $self->assertSame(LogSlackConnectorConstants::SLACK_CHANNEL, $key);
+                        $self->assertSame(LogSlackConnectorConstants::SLACK_CHANNEL_VALUE, $default);
+
+                        return LogSlackConnectorConstants::SLACK_CHANNEL_VALUE;
+                }
+
+                throw new Exception('Unexpected call count');
+            });
 
         static::assertEquals(LogSlackConnectorConstants::SLACK_CHANNEL_VALUE, $this->config->getSlackChannel());
     }
@@ -59,13 +96,31 @@ class LogSlackConnectorConfigTest extends Unit
      */
     public function testGetSlackToken(): void
     {
-        $this->config->expects(static::atLeastOnce())
+        $self = $this;
+
+        $callCount = $this->atLeastOnce();
+        $this->config->expects($callCount)
             ->method('get')
-            ->withConsecutive(
-                [LogSlackConnectorConstants::SLACK_TOKEN, ''],
-            )->willReturnOnConsecutiveCalls(
-                '',
-            );
+            ->willReturnCallback(static function ($key, $default = null) use ($self, $callCount) {
+                /** @phpstan-ignore-next-line */
+                if (method_exists($callCount, 'getInvocationCount')) {
+                    /** @phpstan-ignore-next-line */
+                    $count = $callCount->getInvocationCount();
+                } else {
+                    /** @phpstan-ignore-next-line */
+                    $count = $callCount->numberOfInvocations();
+                }
+
+                switch ($count) {
+                    case 1:
+                        $self->assertSame(LogSlackConnectorConstants::SLACK_TOKEN, $key);
+                        $self->assertSame('', $default);
+
+                        return '';
+                }
+
+                throw new Exception('Unexpected call count');
+            });
 
         static::assertEquals('', $this->config->getSlackToken());
     }

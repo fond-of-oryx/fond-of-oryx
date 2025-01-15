@@ -54,5 +54,15 @@
         <property name="moneyValue" type="MoneyValue" />
         <property name="baseUrlSslYves" type="string" />
     </transfer>
+
+    <transfer name="ProductAbstract">
+        <property name="prices" type="PriceProduct[]" singular="price"/>
+    </transfer>
+
+    <transfer name="PriceProduct">
+        <property name="moneyValue" type="MoneyValue"/>
+    </transfer>
+
+    <transfer name="MoneyValue" />
 </transfers>
 

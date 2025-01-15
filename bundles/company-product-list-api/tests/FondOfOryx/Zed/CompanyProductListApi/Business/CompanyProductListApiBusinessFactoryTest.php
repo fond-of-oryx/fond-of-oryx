@@ -3,6 +3,7 @@
 namespace FondOfOryx\Zed\CompanyProductListApi\Business;
 
 use Codeception\Test\Unit;
+use Exception;
 use FondOfOryx\Zed\CompanyProductListApi\Business\Model\CompanyProductListApiInterface;
 use FondOfOryx\Zed\CompanyProductListApi\CompanyProductListApiDependencyProvider;
 use FondOfOryx\Zed\CompanyProductListApi\Dependency\Facade\CompanyProductListApiToApiFacadeInterface;
@@ -61,22 +62,24 @@ class CompanyProductListApiBusinessFactoryTest extends Unit
      */
     public function testCreateCompanyProductListApi(): void
     {
-        $this->containerMock->expects(static::atLeastOnce())
-            ->method('has')
-            ->withConsecutive(
-                [CompanyProductListApiDependencyProvider::FACADE_COMPANY_PRODUCT_LIST_CONNECTOR],
-                [CompanyProductListApiDependencyProvider::FACADE_API],
-            )->willReturn(true);
+        $self = $this;
 
         $this->containerMock->expects(static::atLeastOnce())
+            ->method('has')
+            ->willReturn(true);
+
+        $this->containerMock->expects($this->atLeastOnce())
             ->method('get')
-            ->withConsecutive(
-                [CompanyProductListApiDependencyProvider::FACADE_COMPANY_PRODUCT_LIST_CONNECTOR],
-                [CompanyProductListApiDependencyProvider::FACADE_API],
-            )->willReturnOnConsecutiveCalls(
-                $this->companyProductListConnectorFacadeMock,
-                $this->apiFacadeMock,
-            );
+            ->willReturnCallback(static function (string $key) use ($self) {
+                switch ($key) {
+                    case CompanyProductListApiDependencyProvider::FACADE_COMPANY_PRODUCT_LIST_CONNECTOR:
+                        return $self->companyProductListConnectorFacadeMock;
+                    case CompanyProductListApiDependencyProvider::FACADE_API:
+                        return $self->apiFacadeMock;
+                }
+
+                throw new Exception('Unexpected call');
+            });
 
         static::assertInstanceOf(
             CompanyProductListApiInterface::class,

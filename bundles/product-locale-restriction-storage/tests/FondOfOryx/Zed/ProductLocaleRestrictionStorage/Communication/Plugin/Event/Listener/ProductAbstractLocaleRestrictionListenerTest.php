@@ -32,9 +32,9 @@ class ProductAbstractLocaleRestrictionListenerTest extends Unit
     protected $eventEntityTransferMocks;
 
     /**
-     * @var \FondOfOryx\Zed\ProductLocaleRestrictionStorage\Communication\Plugin\Event\Listener\ProductAbstractListener
+     * @var \FondOfOryx\Zed\ProductLocaleRestrictionStorage\Communication\Plugin\Event\Listener\ProductAbstractLocaleRestrictionListener
      */
-    protected $productAbstractLocaleRestrictionListener;
+    protected ProductAbstractLocaleRestrictionListener $productAbstractLocaleRestrictionListener;
 
     /**
      * @return void

@@ -3,6 +3,7 @@
 namespace FondOfOryx\Zed\ErpDeliveryNoteApi\Business;
 
 use Codeception\Test\Unit;
+use Exception;
 use FondOfOryx\Zed\ErpDeliveryNoteApi\Business\Model\ErpDeliveryNoteApi;
 use FondOfOryx\Zed\ErpDeliveryNoteApi\Business\Validator\ErpDeliveryNoteApiValidator;
 use FondOfOryx\Zed\ErpDeliveryNoteApi\Dependency\Facade\ErpDeliveryNoteApiToApiFacadeInterface;
@@ -71,14 +72,24 @@ class ErpDeliveryNoteApiBusinessFactoryTest extends Unit
      */
     public function testCreateErpDeliveryNoteApi(): void
     {
+        $self = $this;
+
         $this->containerMock->expects(static::atLeastOnce())
             ->method('has')
             ->willReturn(true);
 
-        $this->containerMock->expects(static::atLeastOnce())
+        $this->containerMock->expects($this->atLeastOnce())
             ->method('get')
-            ->withConsecutive([ErpDeliveryNoteApiDependencyProvider::FACADE_API], [ErpDeliveryNoteApiDependencyProvider::FACADE_ERP_DELIVERY_NOTE])
-            ->willReturnOnConsecutiveCalls($this->apiFacadeMock, $this->erpDeliveryNoteFacadeMock);
+            ->willReturnCallback(static function (string $key) use ($self) {
+                switch ($key) {
+                    case ErpDeliveryNoteApiDependencyProvider::FACADE_API:
+                        return $self->apiFacadeMock;
+                    case ErpDeliveryNoteApiDependencyProvider::FACADE_ERP_DELIVERY_NOTE:
+                        return $self->erpDeliveryNoteFacadeMock;
+                }
+
+                throw new Exception('Unexpected call');
+            });
 
         static::assertInstanceOf(
             ErpDeliveryNoteApi::class,

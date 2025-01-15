@@ -9,7 +9,7 @@
     }
   ],
   "require": {
-    "php": ">=8.0",
+    "php": ">=8.2",
     "fond-of-oryx/shipment-table-rate-extension": "^3.0.0",
     "fond-of-oryx/util-math-formula": "^1.0.0 || ^2.0.0",
     "spryker/country": "^3.1.0 || ^4.0.0",
@@ -18,8 +18,9 @@
     "spryker/store": "^1.2.0"
   },
   "require-dev": {
-    "fond-of-codeception/spryker": "^2.0.0",
-    "spryker/code-sniffer": "^0.12"
+    "fond-of-codeception/spryker": "*",
+    "spryker/code-sniffer": "*",
+    "spryker-sdk/phpstan-spryker": "*"
   },
   "replace": {
     "fond-of-spryker/shipment-table-rate": "*"
@@ -34,7 +35,8 @@
   "autoload-dev": {
     "psr-4": {
       "FondOfOryx\\": "tests/FondOfOryx/",
-      "Generated\\": "src/Generated/"
+      "Generated\\": "src/Generated/",
+      "Orm\\": "src/Orm/"
     }
   },
   "config": {

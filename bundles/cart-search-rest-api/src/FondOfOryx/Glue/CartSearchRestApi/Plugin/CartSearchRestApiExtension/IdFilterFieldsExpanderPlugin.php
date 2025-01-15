@@ -32,7 +32,7 @@ class IdFilterFieldsExpanderPlugin extends AbstractPlugin implements FilterField
         /** @phpstan-ignore-next-line */
         $uuids = $bag instanceof InputBag ? $bag->all(
             CartSearchRestApiConstants::PARAMETER_NAME_ID,
-        ) : $bag->get(
+        ) : $bag->get(/** @phpstan-ignore-line */
             CartSearchRestApiConstants::PARAMETER_NAME_ID,
         );
 

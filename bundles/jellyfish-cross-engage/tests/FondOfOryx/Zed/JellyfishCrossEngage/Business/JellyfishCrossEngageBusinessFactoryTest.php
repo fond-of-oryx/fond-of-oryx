@@ -3,6 +3,7 @@
 namespace FondOfOryx\Zed\JellyfishCrossEngage\Business;
 
 use Codeception\Test\Unit;
+use Exception;
 use FondOfOryx\Zed\JellyfishCrossEngage\Business\JellyfishCrossEngage\JellyfishCrossEngageReaderInterface;
 use FondOfOryx\Zed\JellyfishCrossEngage\Dependency\Client\JellyfishCrossEngageToLocaleFacadeInterface;
 use FondOfOryx\Zed\JellyfishCrossEngage\Dependency\Client\JellyfishCrossEngageToProductCategoryFacadeInterface;
@@ -78,21 +79,26 @@ class JellyfishCrossEngageBusinessFactoryTest extends Unit
      */
     public function testCreateJellyfishCrossEngageReader(): void
     {
+        $self = $this;
+
         $this->containerMock->expects($this->atLeastOnce())
             ->method('has')
             ->willReturn(true);
 
         $this->containerMock->expects($this->atLeastOnce())
             ->method('get')
-            ->withConsecutive(
-                [JellyfishCrossEngageDependencyProvider::PRODUCT_FACADE],
-                [JellyfishCrossEngageDependencyProvider::PRODUCT_CATEGORY_FACADE],
-                [JellyfishCrossEngageDependencyProvider::LOCALE_FACADE],
-            )->willReturnOnConsecutiveCalls(
-                $this->productFacadeMock,
-                $this->productCategoryFacadeMock,
-                $this->localeTransferMock,
-            );
+            ->willReturnCallback(static function (string $key) use ($self) {
+                switch ($key) {
+                    case JellyfishCrossEngageDependencyProvider::PRODUCT_FACADE:
+                        return $self->productFacadeMock;
+                    case JellyfishCrossEngageDependencyProvider::PRODUCT_CATEGORY_FACADE:
+                        return $self->productCategoryFacadeMock;
+                    case JellyfishCrossEngageDependencyProvider::LOCALE_FACADE:
+                        return $self->localeTransferMock;
+                }
+
+                throw new Exception('Unexpected call');
+            });
 
         $this->assertInstanceOf(
             JellyfishCrossEngageReaderInterface::class,

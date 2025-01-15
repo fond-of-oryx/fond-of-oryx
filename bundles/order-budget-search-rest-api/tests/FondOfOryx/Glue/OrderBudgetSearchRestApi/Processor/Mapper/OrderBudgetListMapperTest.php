@@ -11,22 +11,22 @@ use Spryker\Glue\GlueApplication\Rest\Request\Data\RestRequestInterface;
 class OrderBudgetListMapperTest extends Unit
 {
     /**
-     * @var (\FondOfOryx\Glue\OrderBudgetSearchRestApi\Processor\Mapper\PaginationMapperInterface&\PHPUnit\Framework\MockObject\MockObject)|\PHPUnit\Framework\MockObject\MockObject
+     * @var \PHPUnit\Framework\MockObject\MockObject|\FondOfOryx\Glue\OrderBudgetSearchRestApi\Processor\Mapper\PaginationMapperInterface
      */
     protected MockObject|PaginationMapperInterface $paginationMapperMock;
 
     /**
-     * @var (\FondOfOryx\Glue\OrderBudgetSearchRestApi\Processor\Mapper\FilterFieldsMapperInterface&\PHPUnit\Framework\MockObject\MockObject)|\PHPUnit\Framework\MockObject\MockObject
+     * @var \FondOfOryx\Glue\OrderBudgetSearchRestApi\Processor\Mapper\FilterFieldsMapperInterface|\PHPUnit\Framework\MockObject\MockObject
      */
     protected FilterFieldsMapperInterface|MockObject $filterFieldsMapperMock;
 
     /**
-     * @var \PHPUnit\Framework\MockObject\MockObject|(\Spryker\Glue\GlueApplication\Rest\Request\Data\RestRequestInterface&\PHPUnit\Framework\MockObject\MockObject)
+     * @var \Spryker\Glue\GlueApplication\Rest\Request\Data\RestRequestInterface|\PHPUnit\Framework\MockObject\MockObject
      */
     protected RestRequestInterface|MockObject $restRequestMock;
 
     /**
-     * @var (\Generated\Shared\Transfer\PaginationTransfer&\PHPUnit\Framework\MockObject\MockObject)|\PHPUnit\Framework\MockObject\MockObject
+     * @var \PHPUnit\Framework\MockObject\MockObject|\Generated\Shared\Transfer\PaginationTransfer
      */
     protected MockObject|PaginationTransfer $paginationTransferMock;
 

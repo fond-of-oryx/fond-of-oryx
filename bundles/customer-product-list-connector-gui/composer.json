@@ -9,7 +9,7 @@
     }
   ],
   "require": {
-    "php": ">=8.0",
+    "php": ">=8.2",
     "fond-of-oryx/customer-product-list-connector": "^1.0.0 || ^2.0.0",
     "spryker/customer": "^7.12.0",
     "spryker/customer-extension": "^1.1.0",
@@ -17,8 +17,9 @@
     "spryker/util-sanitize": "^1.0.0 || ^2.0.0"
   },
   "require-dev": {
-    "fond-of-codeception/spryker": "^2.0.0",
-    "spryker/code-sniffer": "^0.12"
+    "fond-of-codeception/spryker": "*",
+    "spryker/code-sniffer": "*",
+    "spryker-sdk/phpstan-spryker": "*"
   },
   "minimum-stability": "dev",
   "prefer-stable": true,
@@ -30,7 +31,8 @@
   "autoload-dev": {
     "psr-4": {
       "FondOfOryx\\": "tests/FondOfOryx/",
-      "Generated\\": "src/Generated/"
+      "Generated\\": "src/Generated/",
+      "Orm\\": "src/Orm/"
     }
   },
   "config": {

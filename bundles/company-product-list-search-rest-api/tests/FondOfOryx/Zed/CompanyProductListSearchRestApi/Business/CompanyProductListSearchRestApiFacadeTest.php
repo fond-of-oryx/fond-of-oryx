@@ -11,22 +11,22 @@ use PHPUnit\Framework\MockObject\MockObject;
 class CompanyProductListSearchRestApiFacadeTest extends Unit
 {
     /**
-     * @var (\FondOfOryx\Zed\CompanyProductListSearchRestApi\Business\CompanyProductListSearchRestApiBusinessFactory&\PHPUnit\Framework\MockObject\MockObject)|\PHPUnit\Framework\MockObject\MockObject
+     * @var \FondOfOryx\Zed\CompanyProductListSearchRestApi\Business\CompanyProductListSearchRestApiBusinessFactory|\PHPUnit\Framework\MockObject\MockObject
      */
     protected CompanyProductListSearchRestApiBusinessFactory|MockObject $factoryMock;
 
     /**
-     * @var (\FondOfOryx\Zed\CompanyProductListSearchRestApi\Business\Expander\SearchProductListQueryExpanderInterface&\PHPUnit\Framework\MockObject\MockObject)|\PHPUnit\Framework\MockObject\MockObject
+     * @var \PHPUnit\Framework\MockObject\MockObject|\FondOfOryx\Zed\CompanyProductListSearchRestApi\Business\Expander\SearchProductListQueryExpanderInterface
      */
     protected MockObject|SearchProductListQueryExpanderInterface $searchProductListQueryExpanderMock;
 
     /**
-     * @var (\Generated\Shared\Transfer\QueryJoinCollectionTransfer&\PHPUnit\Framework\MockObject\MockObject)|\PHPUnit\Framework\MockObject\MockObject
+     * @var \PHPUnit\Framework\MockObject\MockObject|\Generated\Shared\Transfer\QueryJoinCollectionTransfer
      */
     protected MockObject|QueryJoinCollectionTransfer $queryJoinCollectionTransferMock;
 
     /**
-     * @var array<(\Generated\Shared\Transfer\FilterFieldTransfer&\PHPUnit\Framework\MockObject\MockObject)|\PHPUnit\Framework\MockObject\MockObject>
+     * @var array<\Generated\Shared\Transfer\FilterFieldTransfer|\PHPUnit\Framework\MockObject\MockObject>
      */
     protected array $filterFieldTransferMocks;
 

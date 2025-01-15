@@ -4,6 +4,7 @@ namespace FondOfOryx\Zed\ApiAuth\Communication\Plugin\EventDispatcherExtension;
 
 use Closure;
 use Codeception\Test\Unit;
+use Exception;
 use FondOfOryx\Shared\ApiAuth\ApiAuthConstants;
 use FondOfOryx\Zed\ApiAuth\Business\ApiAuthFacade;
 use ReflectionMethod;
@@ -131,19 +132,40 @@ class ApiAuthorizationEventDispatcherPluginTest extends Unit
      */
     public function testOnKernelRequest(): void
     {
+        $self = $this;
+
         $token = 'foo';
 
         $this->requestEventMock->expects(self::atLeastOnce())
             ->method('getRequest')
             ->willReturn($this->requestMock);
 
-        $this->attributesMock->expects(self::atLeastOnce())
+        $callCount = $this->atLeastOnce();
+        $this->attributesMock->expects($callCount)
             ->method('get')
-            ->withConsecutive(['module'], ['controller'])
-            ->willReturnOnConsecutiveCalls(
-                'api',
-                'rest',
-            );
+            ->willReturnCallback(static function (string $key) use ($self, $callCount) {
+                /** @phpstan-ignore-next-line */
+                if (method_exists($callCount, 'getInvocationCount')) {
+                    /** @phpstan-ignore-next-line */
+                    $count = $callCount->getInvocationCount();
+                } else {
+                    /** @phpstan-ignore-next-line */
+                    $count = $callCount->numberOfInvocations();
+                }
+
+                switch ($count) {
+                    case 1:
+                        $self->assertSame('module', $key);
+
+                        return 'api';
+                    case 2:
+                        $self->assertSame('controller', $key);
+
+                        return 'rest';
+                }
+
+                throw new Exception('Unexpected call count');
+            });
 
         $this->headersMock->expects(self::atLeastOnce())
             ->method('get')
@@ -171,19 +193,40 @@ class ApiAuthorizationEventDispatcherPluginTest extends Unit
      */
     public function testOnKernelRequestWithInvalidToken(): void
     {
+        $self = $this;
+
         $token = 'foo';
 
         $this->requestEventMock->expects(self::atLeastOnce())
             ->method('getRequest')
             ->willReturn($this->requestMock);
 
-        $this->attributesMock->expects(self::atLeastOnce())
+        $callCount = $this->atLeastOnce();
+        $this->attributesMock->expects($callCount)
             ->method('get')
-            ->withConsecutive(['module'], ['controller'])
-            ->willReturnOnConsecutiveCalls(
-                'api',
-                'rest',
-            );
+            ->willReturnCallback(static function (string $key) use ($self, $callCount) {
+                /** @phpstan-ignore-next-line */
+                if (method_exists($callCount, 'getInvocationCount')) {
+                    /** @phpstan-ignore-next-line */
+                    $count = $callCount->getInvocationCount();
+                } else {
+                    /** @phpstan-ignore-next-line */
+                    $count = $callCount->numberOfInvocations();
+                }
+
+                switch ($count) {
+                    case 1:
+                        $self->assertSame('module', $key);
+
+                        return 'api';
+                    case 2:
+                        $self->assertSame('controller', $key);
+
+                        return 'rest';
+                }
+
+                throw new Exception('Unexpected call count');
+            });
 
         $this->headersMock->expects(self::atLeastOnce())
             ->method('get')
@@ -211,19 +254,40 @@ class ApiAuthorizationEventDispatcherPluginTest extends Unit
      */
     public function testOnKernelRequestWithInvalidModule(): void
     {
+        $self = $this;
+
         $token = 'foo';
 
         $this->requestEventMock->expects(self::atLeastOnce())
             ->method('getRequest')
             ->willReturn($this->requestMock);
 
-        $this->attributesMock->expects(self::atLeastOnce())
+        $callCount = $this->atLeastOnce();
+        $this->attributesMock->expects($callCount)
             ->method('get')
-            ->withConsecutive(['module'], ['controller'])
-            ->willReturnOnConsecutiveCalls(
-                'foo',
-                'rest',
-            );
+            ->willReturnCallback(static function (string $key) use ($self, $callCount) {
+                /** @phpstan-ignore-next-line */
+                if (method_exists($callCount, 'getInvocationCount')) {
+                    /** @phpstan-ignore-next-line */
+                    $count = $callCount->getInvocationCount();
+                } else {
+                    /** @phpstan-ignore-next-line */
+                    $count = $callCount->numberOfInvocations();
+                }
+
+                switch ($count) {
+                    case 1:
+                        $self->assertSame('module', $key);
+
+                        return 'foo';
+                    case 2:
+                        $self->assertSame('controller', $key);
+
+                        return 'rest';
+                }
+
+                throw new Exception('Unexpected call count');
+            });
 
         $this->headersMock->expects(self::never())
             ->method('get')

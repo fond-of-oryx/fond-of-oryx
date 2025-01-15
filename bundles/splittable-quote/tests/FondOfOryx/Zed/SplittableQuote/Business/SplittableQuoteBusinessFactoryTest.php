@@ -3,6 +3,7 @@
 namespace FondOfOryx\Zed\SplittableQuote\Business;
 
 use Codeception\Test\Unit;
+use Exception;
 use FondOfOryx\Zed\SplittableQuote\Business\Splitter\QuoteSplitter;
 use FondOfOryx\Zed\SplittableQuote\Dependency\Facade\SplittableQuoteToCalculationFacadeInterface;
 use FondOfOryx\Zed\SplittableQuote\SplittableQuoteConfig;
@@ -58,19 +59,24 @@ class SplittableQuoteBusinessFactoryTest extends Unit
      */
     public function testCreateQuoteSplitter(): void
     {
+        $self = $this;
+
         $this->containerMock->expects(static::atLeastOnce())
             ->method('has')
             ->willReturn(true);
 
-        $this->containerMock->expects(static::atLeastOnce())
+        $this->containerMock->expects($this->atLeastOnce())
             ->method('get')
-            ->withConsecutive(
-                [SplittableQuoteDependencyProvider::FACADE_CALCULATION],
-                [SplittableQuoteDependencyProvider::PLUGINS_SPLITTED_QUOTE_EXPANDER],
-            )->willReturnOnConsecutiveCalls(
-                $this->calculationFacadeMock,
-                [],
-            );
+            ->willReturnCallback(static function (string $key) use ($self) {
+                switch ($key) {
+                    case SplittableQuoteDependencyProvider::FACADE_CALCULATION:
+                        return $self->calculationFacadeMock;
+                    case SplittableQuoteDependencyProvider::PLUGINS_SPLITTED_QUOTE_EXPANDER:
+                        return [];
+                }
+
+                throw new Exception('Unexpected call');
+            });
 
         static::assertInstanceOf(
             QuoteSplitter::class,

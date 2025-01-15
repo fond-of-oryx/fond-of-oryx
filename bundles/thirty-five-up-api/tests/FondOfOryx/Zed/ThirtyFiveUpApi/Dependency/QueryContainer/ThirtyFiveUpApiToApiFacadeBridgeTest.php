@@ -61,7 +61,7 @@ class ThirtyFiveUpApiToApiFacadeBridgeTest extends Unit
             ->method('createApiItem')
             ->willReturn($this->apiItemTransferMock);
 
-        $this->bridge->createApiItem($this->apiItemTransferMock, 1);
+        $this->bridge->createApiItem($this->apiItemTransferMock, '1');
     }
 
     /**

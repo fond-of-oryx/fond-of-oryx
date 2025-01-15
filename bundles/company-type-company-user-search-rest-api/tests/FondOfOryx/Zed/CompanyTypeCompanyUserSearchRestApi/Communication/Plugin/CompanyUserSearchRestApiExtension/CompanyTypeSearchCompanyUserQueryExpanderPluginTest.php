@@ -15,14 +15,19 @@ use Propel\Runtime\ActiveQuery\Criteria;
 class CompanyTypeSearchCompanyUserQueryExpanderPluginTest extends Unit
 {
     /**
-     * @var array<(\Generated\Shared\Transfer\FilterFieldTransfer&\PHPUnit\Framework\MockObject\MockObject)|\PHPUnit\Framework\MockObject\MockObject>
+     * @var array<\Generated\Shared\Transfer\FilterFieldTransfer|\PHPUnit\Framework\MockObject\MockObject>
      */
     protected array $filterFieldTransferMocks;
 
     /**
-     * @var (\Generated\Shared\Transfer\QueryJoinCollectionTransfer&\PHPUnit\Framework\MockObject\MockObject)|\PHPUnit\Framework\MockObject\MockObject
+     * @var \PHPUnit\Framework\MockObject\MockObject|\Generated\Shared\Transfer\QueryJoinCollectionTransfer
      */
     protected MockObject|QueryJoinCollectionTransfer $queryJoinCollectionTransferMock;
+
+    /**
+     * @var \FondOfOryx\Zed\CompanyTypeCompanyUserSearchRestApi\Communication\Plugin\CompanyUserSearchRestApiExtension\CompanyTypeSearchCompanyUserQueryExpanderPlugin
+     */
+    protected CompanyTypeSearchCompanyUserQueryExpanderPlugin $plugin;
 
     /**
      * @return void
@@ -110,7 +115,7 @@ class CompanyTypeSearchCompanyUserQueryExpanderPluginTest extends Unit
                         && $queryJoinTransfer->getWhereConditions()->count() === 1
                         && $queryJoinTransfer->getWhereConditions()->offsetGet(0)->getColumn() === FoiCompanyTypeTableMap::COL_NAME
                         && $queryJoinTransfer->getWhereConditions()->offsetGet(0)->getComparison() === Criteria::EQUAL
-                        && $queryJoinTransfer->getWhereConditions()->offsetGet(0)->getValue() === $companyType
+                        && $queryJoinTransfer->getWhereConditions()->offsetGet(0)->getValue() === $companyType,
                 ),
             )->willReturn($this->queryJoinCollectionTransferMock);
 

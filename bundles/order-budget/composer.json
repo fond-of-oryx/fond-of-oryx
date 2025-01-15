@@ -9,7 +9,7 @@
     }
   ],
   "require": {
-    "php": ">=8.0",
+    "php": ">=8.2",
     "spryker/util-date-time": "^1.0.0"
   },
   "require-dev": {

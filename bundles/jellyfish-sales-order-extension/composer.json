@@ -9,13 +9,13 @@
     }
   ],
   "require": {
-    "php": ">=8.0"
+    "php": ">=8.2",
+    "spryker/sales": "^10.1.0 || ^11.0.0"
   },
   "require-dev": {
-    "fond-of-codeception/spryker": "^2.0.0",
+    "fond-of-codeception/spryker": "*",
     "spryker/code-sniffer": "*",
-    "spryker-sdk/phpstan-spryker": "*",
-    "spryker/sales": "*"
+    "spryker-sdk/phpstan-spryker": "*"
   },
   "minimum-stability": "dev",
   "prefer-stable": true,
@@ -28,7 +28,7 @@
     "psr-4": {
       "FondOfOryx\\": "tests/FondOfOryx/",
       "Generated\\": "src/Generated/",
-      "Orm\\Zed\\": "src/Orm/Zed/"
+      "Orm\\": "src/Orm/"
     }
   },
   "config": {

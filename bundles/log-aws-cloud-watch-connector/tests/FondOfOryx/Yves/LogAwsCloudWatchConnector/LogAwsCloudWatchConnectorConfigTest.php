@@ -3,6 +3,7 @@
 namespace FondOfOryx\Yves\LogAwsCloudWatchConnector;
 
 use Codeception\Test\Unit;
+use Exception;
 use FondOfOryx\Shared\LogAwsCloudWatchConnector\LogAwsCloudWatchConnectorConstants;
 
 class LogAwsCloudWatchConnectorConfigTest extends Unit
@@ -27,13 +28,31 @@ class LogAwsCloudWatchConnectorConfigTest extends Unit
      */
     public function testGetAwsRegion(): void
     {
-        $this->config->expects(static::atLeastOnce())
+        $self = $this;
+
+        $callCount = $this->atLeastOnce();
+        $this->config->expects($callCount)
             ->method('get')
-            ->withConsecutive(
-                [LogAwsCloudWatchConnectorConstants::AWS_REGION, LogAwsCloudWatchConnectorConstants::AWS_REGION_DEFAULT_VALUE],
-            )->willReturnOnConsecutiveCalls(
-                LogAwsCloudWatchConnectorConstants::AWS_REGION_DEFAULT_VALUE,
-            );
+            ->willReturnCallback(static function ($key, $default = null) use ($self, $callCount) {
+                /** @phpstan-ignore-next-line */
+                if (method_exists($callCount, 'getInvocationCount')) {
+                    /** @phpstan-ignore-next-line */
+                    $count = $callCount->getInvocationCount();
+                } else {
+                    /** @phpstan-ignore-next-line */
+                    $count = $callCount->numberOfInvocations();
+                }
+
+                switch ($count) {
+                    case 1:
+                        $self->assertSame(LogAwsCloudWatchConnectorConstants::AWS_REGION, $key);
+                        $self->assertSame(LogAwsCloudWatchConnectorConstants::AWS_REGION_DEFAULT_VALUE, $default);
+
+                        return LogAwsCloudWatchConnectorConstants::AWS_REGION_DEFAULT_VALUE;
+                }
+
+                throw new Exception('Unexpected call count');
+            });
 
         static::assertEquals(LogAwsCloudWatchConnectorConstants::AWS_REGION_DEFAULT_VALUE, $this->config->getAwsRegion());
     }
@@ -43,13 +62,31 @@ class LogAwsCloudWatchConnectorConfigTest extends Unit
      */
     public function testGetAwsVersion(): void
     {
-        $this->config->expects(static::atLeastOnce())
+        $self = $this;
+
+        $callCount = $this->atLeastOnce();
+        $this->config->expects($callCount)
             ->method('get')
-            ->withConsecutive(
-                [LogAwsCloudWatchConnectorConstants::AWS_VERSION, LogAwsCloudWatchConnectorConstants::AWS_VERSION_DEFAULT_VALUE],
-            )->willReturnOnConsecutiveCalls(
-                LogAwsCloudWatchConnectorConstants::AWS_VERSION_DEFAULT_VALUE,
-            );
+            ->willReturnCallback(static function ($key, $default = null) use ($self, $callCount) {
+                /** @phpstan-ignore-next-line */
+                if (method_exists($callCount, 'getInvocationCount')) {
+                    /** @phpstan-ignore-next-line */
+                    $count = $callCount->getInvocationCount();
+                } else {
+                    /** @phpstan-ignore-next-line */
+                    $count = $callCount->numberOfInvocations();
+                }
+
+                switch ($count) {
+                    case 1:
+                        $self->assertSame(LogAwsCloudWatchConnectorConstants::AWS_VERSION, $key);
+                        $self->assertSame(LogAwsCloudWatchConnectorConstants::AWS_VERSION_DEFAULT_VALUE, $default);
+
+                        return LogAwsCloudWatchConnectorConstants::AWS_VERSION_DEFAULT_VALUE;
+                }
+
+                throw new Exception('Unexpected call count');
+            });
 
         static::assertEquals(LogAwsCloudWatchConnectorConstants::AWS_VERSION_DEFAULT_VALUE, $this->config->getAwsVersion());
     }
@@ -59,13 +96,31 @@ class LogAwsCloudWatchConnectorConfigTest extends Unit
      */
     public function testGetAwsKey(): void
     {
-        $this->config->expects(static::atLeastOnce())
+        $self = $this;
+
+        $callCount = $this->atLeastOnce();
+        $this->config->expects($callCount)
             ->method('get')
-            ->withConsecutive(
-                [LogAwsCloudWatchConnectorConstants::AWS_KEY, ''],
-            )->willReturnOnConsecutiveCalls(
-                '',
-            );
+            ->willReturnCallback(static function ($key, $default = null) use ($self, $callCount) {
+                /** @phpstan-ignore-next-line */
+                if (method_exists($callCount, 'getInvocationCount')) {
+                    /** @phpstan-ignore-next-line */
+                    $count = $callCount->getInvocationCount();
+                } else {
+                    /** @phpstan-ignore-next-line */
+                    $count = $callCount->numberOfInvocations();
+                }
+
+                switch ($count) {
+                    case 1:
+                        $self->assertSame(LogAwsCloudWatchConnectorConstants::AWS_KEY, $key);
+                        $self->assertSame('', $default);
+
+                        return '';
+                }
+
+                throw new Exception('Unexpected call count');
+            });
 
         static::assertEquals('', $this->config->getAwsKey());
     }
@@ -75,13 +130,31 @@ class LogAwsCloudWatchConnectorConfigTest extends Unit
      */
     public function testGetAwsSecret(): void
     {
-        $this->config->expects(static::atLeastOnce())
+        $self = $this;
+
+        $callCount = $this->atLeastOnce();
+        $this->config->expects($callCount)
             ->method('get')
-            ->withConsecutive(
-                [LogAwsCloudWatchConnectorConstants::AWS_SECRET, ''],
-            )->willReturnOnConsecutiveCalls(
-                '',
-            );
+            ->willReturnCallback(static function ($key, $default = null) use ($self, $callCount) {
+                /** @phpstan-ignore-next-line */
+                if (method_exists($callCount, 'getInvocationCount')) {
+                    /** @phpstan-ignore-next-line */
+                    $count = $callCount->getInvocationCount();
+                } else {
+                    /** @phpstan-ignore-next-line */
+                    $count = $callCount->numberOfInvocations();
+                }
+
+                switch ($count) {
+                    case 1:
+                        $self->assertSame(LogAwsCloudWatchConnectorConstants::AWS_SECRET, $key);
+                        $self->assertSame('', $default);
+
+                        return '';
+                }
+
+                throw new Exception('Unexpected call count');
+            });
 
         static::assertEquals('', $this->config->getAwsSecret());
     }
@@ -91,13 +164,31 @@ class LogAwsCloudWatchConnectorConfigTest extends Unit
      */
     public function testGetAwsLogGroupName(): void
     {
-        $this->config->expects(static::atLeastOnce())
+        $self = $this;
+
+        $callCount = $this->atLeastOnce();
+        $this->config->expects($callCount)
             ->method('get')
-            ->withConsecutive(
-                [LogAwsCloudWatchConnectorConstants::AWS_LOG_GROUP_NAME_YVES, LogAwsCloudWatchConnectorConstants::AWS_LOG_GROUP_NAME_YVES_DEFAULT_VALUE],
-            )->willReturnOnConsecutiveCalls(
-                LogAwsCloudWatchConnectorConstants::AWS_LOG_GROUP_NAME_YVES_DEFAULT_VALUE,
-            );
+            ->willReturnCallback(static function ($key, $default = null) use ($self, $callCount) {
+                /** @phpstan-ignore-next-line */
+                if (method_exists($callCount, 'getInvocationCount')) {
+                    /** @phpstan-ignore-next-line */
+                    $count = $callCount->getInvocationCount();
+                } else {
+                    /** @phpstan-ignore-next-line */
+                    $count = $callCount->numberOfInvocations();
+                }
+
+                switch ($count) {
+                    case 1:
+                        $self->assertSame(LogAwsCloudWatchConnectorConstants::AWS_LOG_GROUP_NAME_YVES, $key);
+                        $self->assertSame(LogAwsCloudWatchConnectorConstants::AWS_LOG_GROUP_NAME_YVES_DEFAULT_VALUE, $default);
+
+                        return LogAwsCloudWatchConnectorConstants::AWS_LOG_GROUP_NAME_YVES_DEFAULT_VALUE;
+                }
+
+                throw new Exception('Unexpected call count');
+            });
 
         static::assertEquals(LogAwsCloudWatchConnectorConstants::AWS_LOG_GROUP_NAME_YVES_DEFAULT_VALUE, $this->config->getAwsLogGroupName());
     }
@@ -107,13 +198,31 @@ class LogAwsCloudWatchConnectorConfigTest extends Unit
      */
     public function testGetAwsLogStreamName(): void
     {
-        $this->config->expects(static::atLeastOnce())
+        $self = $this;
+
+        $callCount = $this->atLeastOnce();
+        $this->config->expects($callCount)
             ->method('get')
-            ->withConsecutive(
-                [LogAwsCloudWatchConnectorConstants::AWS_LOG_STREAM_NAME_YVES, LogAwsCloudWatchConnectorConstants::AWS_LOG_STREAM_NAME_YVES_DEFAULT_VALUE],
-            )->willReturnOnConsecutiveCalls(
-                LogAwsCloudWatchConnectorConstants::AWS_LOG_STREAM_NAME_YVES_DEFAULT_VALUE,
-            );
+            ->willReturnCallback(static function ($key, $default = null) use ($self, $callCount) {
+                /** @phpstan-ignore-next-line */
+                if (method_exists($callCount, 'getInvocationCount')) {
+                    /** @phpstan-ignore-next-line */
+                    $count = $callCount->getInvocationCount();
+                } else {
+                    /** @phpstan-ignore-next-line */
+                    $count = $callCount->numberOfInvocations();
+                }
+
+                switch ($count) {
+                    case 1:
+                        $self->assertSame(LogAwsCloudWatchConnectorConstants::AWS_LOG_STREAM_NAME_YVES, $key);
+                        $self->assertSame(LogAwsCloudWatchConnectorConstants::AWS_LOG_STREAM_NAME_YVES_DEFAULT_VALUE, $default);
+
+                        return LogAwsCloudWatchConnectorConstants::AWS_LOG_STREAM_NAME_YVES_DEFAULT_VALUE;
+                }
+
+                throw new Exception('Unexpected call count');
+            });
 
         static::assertEquals(LogAwsCloudWatchConnectorConstants::AWS_LOG_STREAM_NAME_YVES_DEFAULT_VALUE, $this->config->getAwsLogStreamName());
     }
@@ -123,13 +232,31 @@ class LogAwsCloudWatchConnectorConfigTest extends Unit
      */
     public function testGetAwsLogRetentionDays(): void
     {
-        $this->config->expects(static::atLeastOnce())
+        $self = $this;
+
+        $callCount = $this->atLeastOnce();
+        $this->config->expects($callCount)
             ->method('get')
-            ->withConsecutive(
-                [LogAwsCloudWatchConnectorConstants::AWS_LOG_RETENTION_DAYS, LogAwsCloudWatchConnectorConstants::AWS_LOG_RETENTION_DAYS_DEFAULT_VALUE],
-            )->willReturnOnConsecutiveCalls(
-                LogAwsCloudWatchConnectorConstants::AWS_LOG_RETENTION_DAYS_DEFAULT_VALUE,
-            );
+            ->willReturnCallback(static function ($key, $default = null) use ($self, $callCount) {
+                /** @phpstan-ignore-next-line */
+                if (method_exists($callCount, 'getInvocationCount')) {
+                    /** @phpstan-ignore-next-line */
+                    $count = $callCount->getInvocationCount();
+                } else {
+                    /** @phpstan-ignore-next-line */
+                    $count = $callCount->numberOfInvocations();
+                }
+
+                switch ($count) {
+                    case 1:
+                        $self->assertSame(LogAwsCloudWatchConnectorConstants::AWS_LOG_RETENTION_DAYS, $key);
+                        $self->assertSame(LogAwsCloudWatchConnectorConstants::AWS_LOG_RETENTION_DAYS_DEFAULT_VALUE, $default);
+
+                        return LogAwsCloudWatchConnectorConstants::AWS_LOG_RETENTION_DAYS_DEFAULT_VALUE;
+                }
+
+                throw new Exception('Unexpected call count');
+            });
 
         static::assertEquals(LogAwsCloudWatchConnectorConstants::AWS_LOG_RETENTION_DAYS_DEFAULT_VALUE, $this->config->getAwsLogRetentionDays());
     }
@@ -139,13 +266,31 @@ class LogAwsCloudWatchConnectorConfigTest extends Unit
      */
     public function testGetAwsLogLevel(): void
     {
-        $this->config->expects(static::atLeastOnce())
+        $self = $this;
+
+        $callCount = $this->atLeastOnce();
+        $this->config->expects($callCount)
             ->method('get')
-            ->withConsecutive(
-                [LogAwsCloudWatchConnectorConstants::AWS_LOG_LEVEL_YVES, LogAwsCloudWatchConnectorConstants::AWS_LOG_LEVEL_YVES_DEFAULT_VALUE],
-            )->willReturnOnConsecutiveCalls(
-                LogAwsCloudWatchConnectorConstants::AWS_LOG_LEVEL_YVES_DEFAULT_VALUE,
-            );
+            ->willReturnCallback(static function ($key, $default = null) use ($self, $callCount) {
+                /** @phpstan-ignore-next-line */
+                if (method_exists($callCount, 'getInvocationCount')) {
+                    /** @phpstan-ignore-next-line */
+                    $count = $callCount->getInvocationCount();
+                } else {
+                    /** @phpstan-ignore-next-line */
+                    $count = $callCount->numberOfInvocations();
+                }
+
+                switch ($count) {
+                    case 1:
+                        $self->assertSame(LogAwsCloudWatchConnectorConstants::AWS_LOG_LEVEL_YVES, $key);
+                        $self->assertSame(LogAwsCloudWatchConnectorConstants::AWS_LOG_LEVEL_YVES_DEFAULT_VALUE, $default);
+
+                        return LogAwsCloudWatchConnectorConstants::AWS_LOG_LEVEL_YVES_DEFAULT_VALUE;
+                }
+
+                throw new Exception('Unexpected call count');
+            });
 
         static::assertEquals(LogAwsCloudWatchConnectorConstants::AWS_LOG_LEVEL_YVES_DEFAULT_VALUE, $this->config->getAwsLogLevel());
     }
@@ -155,13 +300,31 @@ class LogAwsCloudWatchConnectorConfigTest extends Unit
      */
     public function testGetAwsLogTags(): void
     {
-        $this->config->expects(static::atLeastOnce())
+        $self = $this;
+
+        $callCount = $this->atLeastOnce();
+        $this->config->expects($callCount)
             ->method('get')
-            ->withConsecutive(
-                [LogAwsCloudWatchConnectorConstants::AWS_LOG_TAGS, LogAwsCloudWatchConnectorConstants::AWS_LOG_TAGS_DEFAULT_VALUE],
-            )->willReturnOnConsecutiveCalls(
-                LogAwsCloudWatchConnectorConstants::AWS_LOG_TAGS_DEFAULT_VALUE,
-            );
+            ->willReturnCallback(static function ($key, $default = null) use ($self, $callCount) {
+                /** @phpstan-ignore-next-line */
+                if (method_exists($callCount, 'getInvocationCount')) {
+                    /** @phpstan-ignore-next-line */
+                    $count = $callCount->getInvocationCount();
+                } else {
+                    /** @phpstan-ignore-next-line */
+                    $count = $callCount->numberOfInvocations();
+                }
+
+                switch ($count) {
+                    case 1:
+                        $self->assertSame(LogAwsCloudWatchConnectorConstants::AWS_LOG_TAGS, $key);
+                        $self->assertSame(LogAwsCloudWatchConnectorConstants::AWS_LOG_TAGS_DEFAULT_VALUE, $default);
+
+                        return LogAwsCloudWatchConnectorConstants::AWS_LOG_TAGS_DEFAULT_VALUE;
+                }
+
+                throw new Exception('Unexpected call count');
+            });
 
         static::assertEquals(LogAwsCloudWatchConnectorConstants::AWS_LOG_TAGS_DEFAULT_VALUE, $this->config->getAwsLogTags());
     }
@@ -171,13 +334,31 @@ class LogAwsCloudWatchConnectorConfigTest extends Unit
      */
     public function testGetAwsLogBatchSize(): void
     {
-        $this->config->expects(static::atLeastOnce())
+        $self = $this;
+
+        $callCount = $this->atLeastOnce();
+        $this->config->expects($callCount)
             ->method('get')
-            ->withConsecutive(
-                [LogAwsCloudWatchConnectorConstants::AWS_LOG_BATCH_SIZE, LogAwsCloudWatchConnectorConstants::AWS_LOG_BATCH_SIZE_DEFAULT_VALUE],
-            )->willReturnOnConsecutiveCalls(
-                LogAwsCloudWatchConnectorConstants::AWS_LOG_BATCH_SIZE_DEFAULT_VALUE,
-            );
+            ->willReturnCallback(static function ($key, $default = null) use ($self, $callCount) {
+                /** @phpstan-ignore-next-line */
+                if (method_exists($callCount, 'getInvocationCount')) {
+                    /** @phpstan-ignore-next-line */
+                    $count = $callCount->getInvocationCount();
+                } else {
+                    /** @phpstan-ignore-next-line */
+                    $count = $callCount->numberOfInvocations();
+                }
+
+                switch ($count) {
+                    case 1:
+                        $self->assertSame(LogAwsCloudWatchConnectorConstants::AWS_LOG_BATCH_SIZE, $key);
+                        $self->assertSame(LogAwsCloudWatchConnectorConstants::AWS_LOG_BATCH_SIZE_DEFAULT_VALUE, $default);
+
+                        return LogAwsCloudWatchConnectorConstants::AWS_LOG_BATCH_SIZE_DEFAULT_VALUE;
+                }
+
+                throw new Exception('Unexpected call count');
+            });
 
         static::assertEquals(LogAwsCloudWatchConnectorConstants::AWS_LOG_BATCH_SIZE_DEFAULT_VALUE, $this->config->getAwsLogBatchSize());
     }

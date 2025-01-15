@@ -6,11 +6,12 @@ use Codeception\Test\Unit;
 use FondOfOryx\Zed\StockApi\Business\StockApiFacade;
 use Generated\Shared\Transfer\ApiRequestTransfer;
 use Generated\Shared\Transfer\ApiValidationErrorTransfer;
+use PHPUnit\Framework\MockObject\MockObject;
 
 class StockApiValidatorPluginTest extends Unit
 {
     /**
-     * @var \Generated\Shared\Transfer\ApiRequestTransfer|\PHPUnit\Framework\MockObject\MockObject|null
+     * @var \Generated\Shared\Transfer\ApiRequestTransfer|\PHPUnit\Framework\MockObject\MockObject
      */
     protected $apiRequestTransferMock;
 
@@ -20,7 +21,12 @@ class StockApiValidatorPluginTest extends Unit
     protected $stockApiValidatorPlugin;
 
     /**
-     * @var \FondOfOryx\Zed\StockApi\Business\StockApiFacadeInterface|\PHPUnit\Framework\MockObject\MockObject|null
+     * @var \Generated\Shared\Transfer\ApiValidationErrorTransfer|\PHPUnit\Framework\MockObject\MockObject
+     */
+    protected ApiValidationErrorTransfer|MockObject $apiValidateErrorTransferMock;
+
+    /**
+     * @var \FondOfOryx\Zed\StockApi\Business\StockApiFacade|\PHPUnit\Framework\MockObject\MockObject
      */
     protected $facadeMock;
 

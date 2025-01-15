@@ -3,6 +3,7 @@
 namespace FondOfOryx\Zed\CompanyBusinessUnitApi\Business\Mapper;
 
 use Codeception\Test\Unit;
+use Exception;
 use FondOfOryx\Zed\CompanyBusinessUnitApi\Business\CompanyBusinessUnitApiBusinessFactory;
 use FondOfOryx\Zed\CompanyBusinessUnitApi\Business\Model\CompanyBusinessUnitApi;
 use FondOfOryx\Zed\CompanyBusinessUnitApi\Business\Model\Validator\CompanyBusinessUnitApiValidator;
@@ -84,23 +85,24 @@ class CompanyBusinessUnitApiBusinessFactoryTest extends Unit
      */
     public function testCreateCompanyBusinessUnitApi(): void
     {
-        $this->containerMock->expects(static::atLeastOnce())
-            ->method('has')
-            ->withConsecutive(
-                [CompanyBusinessUnitApiDependencyProvider::FACADE_API],
-                [CompanyBusinessUnitApiDependencyProvider::FACADE_COMPANY_BUSINESS_UNIT],
-            )->willReturn(true);
+        $self = $this;
 
         $this->containerMock->expects(static::atLeastOnce())
+            ->method('has')
+            ->willReturn(true);
+
+        $this->containerMock->expects($this->atLeastOnce())
             ->method('get')
-            ->withConsecutive(
-                [CompanyBusinessUnitApiDependencyProvider::FACADE_API],
-                [CompanyBusinessUnitApiDependencyProvider::FACADE_COMPANY_BUSINESS_UNIT],
-            )
-            ->willReturnOnConsecutiveCalls(
-                $this->apiFacadeMock,
-                $this->companyBusinessUnitFacadeMock,
-            );
+            ->willReturnCallback(static function (string $key) use ($self) {
+                switch ($key) {
+                    case CompanyBusinessUnitApiDependencyProvider::FACADE_API:
+                        return $self->apiFacadeMock;
+                    case CompanyBusinessUnitApiDependencyProvider::FACADE_COMPANY_BUSINESS_UNIT:
+                        return $self->companyBusinessUnitFacadeMock;
+                }
+
+                throw new Exception('Unexpected call');
+            });
 
         static::assertInstanceOf(
             CompanyBusinessUnitApi::class,

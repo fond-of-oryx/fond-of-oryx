@@ -19,47 +19,47 @@ use Spryker\Glue\GlueApplication\Rest\Request\Data\RestRequestInterface;
 class BusinessOnBehalfProcessorTest extends Unit
 {
     /**
-     * @var (\FondOfOryx\Glue\BusinessOnBehalfRestApi\Processor\Filter\IdCustomerFilterInterface&\PHPUnit\Framework\MockObject\MockObject)|\PHPUnit\Framework\MockObject\MockObject
+     * @var \FondOfOryx\Glue\BusinessOnBehalfRestApi\Processor\Filter\IdCustomerFilterInterface|\PHPUnit\Framework\MockObject\MockObject
      */
     protected IdCustomerFilterInterface|MockObject $idCustomerFilterMock;
 
     /**
-     * @var (\FondOfOryx\Glue\BusinessOnBehalfRestApi\Processor\Mapper\RestBusinessOnBehalfRequestMapperInterface&\PHPUnit\Framework\MockObject\MockObject)|\PHPUnit\Framework\MockObject\MockObject
+     * @var \PHPUnit\Framework\MockObject\MockObject|\FondOfOryx\Glue\BusinessOnBehalfRestApi\Processor\Mapper\RestBusinessOnBehalfRequestMapperInterface
      */
     protected MockObject|RestBusinessOnBehalfRequestMapperInterface $restBusinessOnBehalfRequestMapperMock;
 
     /**
-     * @var (\FondOfOryx\Glue\BusinessOnBehalfRestApi\Processor\Builder\RestResponseBuilderInterface&\PHPUnit\Framework\MockObject\MockObject)|\PHPUnit\Framework\MockObject\MockObject
+     * @var \PHPUnit\Framework\MockObject\MockObject|\FondOfOryx\Glue\BusinessOnBehalfRestApi\Processor\Builder\RestResponseBuilderInterface
      */
     protected MockObject|RestResponseBuilderInterface $restResponseBuilderMock;
 
     /**
-     * @var (\FondOfOryx\Client\BusinessOnBehalfRestApi\BusinessOnBehalfRestApiClientInterface&\PHPUnit\Framework\MockObject\MockObject)|\PHPUnit\Framework\MockObject\MockObject
+     * @var \FondOfOryx\Client\BusinessOnBehalfRestApi\BusinessOnBehalfRestApiClientInterface|\PHPUnit\Framework\MockObject\MockObject
      */
     protected BusinessOnBehalfRestApiClientInterface|MockObject $clientMock;
 
     /**
-     * @var \PHPUnit\Framework\MockObject\MockObject|(\Spryker\Glue\GlueApplication\Rest\Request\Data\RestRequestInterface&\PHPUnit\Framework\MockObject\MockObject)
+     * @var \Spryker\Glue\GlueApplication\Rest\Request\Data\RestRequestInterface|\PHPUnit\Framework\MockObject\MockObject
      */
     protected RestRequestInterface|MockObject $restRequestMock;
 
     /**
-     * @var (\Generated\Shared\Transfer\RestBusinessOnBehalfRequestAttributesTransfer&\PHPUnit\Framework\MockObject\MockObject)|\PHPUnit\Framework\MockObject\MockObject
+     * @var \PHPUnit\Framework\MockObject\MockObject|\Generated\Shared\Transfer\RestBusinessOnBehalfRequestAttributesTransfer
      */
     protected MockObject|RestBusinessOnBehalfRequestAttributesTransfer $restBusinessOnBehalfRequestAttributesTransferMock;
 
     /**
-     * @var \PHPUnit\Framework\MockObject\MockObject|(\Spryker\Glue\GlueApplication\Rest\JsonApi\RestResponseInterface&\PHPUnit\Framework\MockObject\MockObject)
+     * @var \Spryker\Glue\GlueApplication\Rest\JsonApi\RestResponseInterface|\PHPUnit\Framework\MockObject\MockObject
      */
     protected RestResponseInterface|MockObject $restResponseMock;
 
     /**
-     * @var (\Generated\Shared\Transfer\RestBusinessOnBehalfRequestTransfer&\PHPUnit\Framework\MockObject\MockObject)|\PHPUnit\Framework\MockObject\MockObject
+     * @var \PHPUnit\Framework\MockObject\MockObject|\Generated\Shared\Transfer\RestBusinessOnBehalfRequestTransfer
      */
     protected MockObject|RestBusinessOnBehalfRequestTransfer $restBusinessOnBehalfRequestTransferMock;
 
     /**
-     * @var (\Generated\Shared\Transfer\RestBusinessOnBehalfResponseTransfer&\PHPUnit\Framework\MockObject\MockObject)|\PHPUnit\Framework\MockObject\MockObject
+     * @var \PHPUnit\Framework\MockObject\MockObject|\Generated\Shared\Transfer\RestBusinessOnBehalfResponseTransfer
      */
     protected MockObject|RestBusinessOnBehalfResponseTransfer $restBusinessOnBehalfResponseTransferMock;
 

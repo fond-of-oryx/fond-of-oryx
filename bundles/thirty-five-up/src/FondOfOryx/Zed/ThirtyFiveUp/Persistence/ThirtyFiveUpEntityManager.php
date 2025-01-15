@@ -129,6 +129,7 @@ class ThirtyFiveUpEntityManager extends AbstractEntityManager implements ThirtyF
 
         $query = $this->getFactory()->createThirtyFiveUpVendorQuery();
         $entity = $query->filterByName($vendorTransfer->getName())->findOneOrCreate();
+        //@phpstan-ignore-next-line
         if ($entity->getIdThirtyFiveUpVendor() === null) {
             $entity->save();
         }

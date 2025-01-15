@@ -10,17 +10,17 @@ use PHPUnit\Framework\MockObject\MockObject;
 class FallbackLocaleMailProxyFacadeTest extends Unit
 {
     /**
-     * @var (\FondOfOryx\Zed\FallbackLocaleMailProxy\Business\FallbackLocaleMailProxyBusinessFactory&\PHPUnit\Framework\MockObject\MockObject)|\PHPUnit\Framework\MockObject\MockObject
+     * @var \PHPUnit\Framework\MockObject\MockObject|\FondOfOryx\Zed\FallbackLocaleMailProxy\Business\FallbackLocaleMailProxyBusinessFactory
      */
     protected MockObject|FallbackLocaleMailProxyBusinessFactory $factoryMock;
 
     /**
-     * @var (\FondOfOryx\Zed\FallbackLocaleMailProxy\Business\Expander\MailExpanderInterface&\PHPUnit\Framework\MockObject\MockObject)|\PHPUnit\Framework\MockObject\MockObject
+     * @var \PHPUnit\Framework\MockObject\MockObject|\FondOfOryx\Zed\FallbackLocaleMailProxy\Business\Expander\MailExpanderInterface
      */
     protected MockObject|MailExpanderInterface $mailExpanderMock;
 
     /**
-     * @var (\Generated\Shared\Transfer\MailTransfer&\PHPUnit\Framework\MockObject\MockObject)|\PHPUnit\Framework\MockObject\MockObject
+     * @var \PHPUnit\Framework\MockObject\MockObject|\Generated\Shared\Transfer\MailTransfer
      */
     protected MockObject|MailTransfer $mailTransferMock;
 

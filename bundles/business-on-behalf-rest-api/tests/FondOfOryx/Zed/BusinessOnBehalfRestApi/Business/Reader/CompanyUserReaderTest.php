@@ -12,7 +12,7 @@ use PHPUnit\Framework\MockObject\MockObject;
 class CompanyUserReaderTest extends Unit
 {
     /**
-     * @var \FondOfOryx\Zed\BusinessOnBehalfRestApi\Persistence\BusinessOnBehalfRestApiRepositoryInterface|\PHPUnit\Framework\MockObject\MockObject
+     * @var \PHPUnit\Framework\MockObject\MockObject|\FondOfOryx\Zed\BusinessOnBehalfRestApi\Persistence\BusinessOnBehalfRestApiRepositoryInterface
      */
     protected MockObject|BusinessOnBehalfRestApiRepositoryInterface $repositoryMock;
 

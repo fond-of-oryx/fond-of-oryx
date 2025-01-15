@@ -3,6 +3,7 @@
 namespace FondOfOryx\Zed\VertigoPriceProductPriceList\Business;
 
 use Codeception\Test\Unit;
+use Exception;
 use FondOfOryx\Zed\VertigoPriceProductPriceList\Business\Requester\PriceProductPriceListRequester;
 use FondOfOryx\Zed\VertigoPriceProductPriceList\Dependency\Facade\VertigoPriceProductPriceListToProductFacadeInterface;
 use FondOfOryx\Zed\VertigoPriceProductPriceList\Dependency\Service\VertigoPriceProductPriceListToUtilEncodingServiceInterface;
@@ -116,22 +117,24 @@ class VertigoPriceProductPriceListBusinessFactoryTest extends Unit
      */
     public function testCreatePriceProductPriceListRequester(): void
     {
-        $this->containerMock->expects(static::atLeastOnce())
-            ->method('has')
-            ->withConsecutive(
-                [VertigoPriceProductPriceListDependencyProvider::SERVICE_UTIL_ENCODING],
-                [VertigoPriceProductPriceListDependencyProvider::FACADE_PRODUCT],
-            )->willReturn(true);
+        $self = $this;
 
         $this->containerMock->expects(static::atLeastOnce())
+            ->method('has')
+            ->willReturn(true);
+
+        $this->containerMock->expects($this->atLeastOnce())
             ->method('get')
-            ->withConsecutive(
-                [VertigoPriceProductPriceListDependencyProvider::SERVICE_UTIL_ENCODING],
-                [VertigoPriceProductPriceListDependencyProvider::FACADE_PRODUCT],
-            )->willReturnOnConsecutiveCalls(
-                $this->utilEncodingServiceMock,
-                $this->productFacadeMock,
-            );
+            ->willReturnCallback(static function (string $key) use ($self) {
+                switch ($key) {
+                    case VertigoPriceProductPriceListDependencyProvider::SERVICE_UTIL_ENCODING:
+                        return $self->utilEncodingServiceMock;
+                    case VertigoPriceProductPriceListDependencyProvider::FACADE_PRODUCT:
+                        return $self->productFacadeMock;
+                }
+
+                throw new Exception('Unexpected call');
+            });
 
         static::assertInstanceOf(
             PriceProductPriceListRequester::class,

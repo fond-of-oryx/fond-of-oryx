@@ -17,32 +17,32 @@ use Generated\Shared\Transfer\RestCompanyUsersRequestAttributesTransfer;
 class CompanyUserCompanyRoleWriterTest extends Unit
 {
     /**
-     * @var \FondOfOryx\Zed\CompanyUserCompanyRoleConnector\Dependency\Facade\CompanyUserCompanyRoleConnectorToCompanyRoleFacadeInterface|\PHPUnit\Framework\MockObject\MockObject|mixed
+     * @var \FondOfOryx\Zed\CompanyUserCompanyRoleConnector\Dependency\Facade\CompanyUserCompanyRoleConnectorToCompanyRoleFacadeInterface|\PHPUnit\Framework\MockObject\MockObject
      */
     protected $companyRoleFacadeMock;
 
     /**
-     * @var \Generated\Shared\Transfer\CompanyRoleTransfer|\PHPUnit\Framework\MockObject\MockObject|mixed
+     * @var \Generated\Shared\Transfer\CompanyRoleTransfer|\PHPUnit\Framework\MockObject\MockObject
      */
     protected $companyRoleTransferMock;
 
     /**
-     * @var \Generated\Shared\Transfer\CompanyRoleResponseTransfer|\PHPUnit\Framework\MockObject\MockObject|mixed
+     * @var \Generated\Shared\Transfer\CompanyRoleResponseTransfer|\PHPUnit\Framework\MockObject\MockObject
      */
     protected $companyRoleResponseTransferMock;
 
     /**
-     * @var \FondOfOryx\Zed\CompanyUserCompanyRoleConnector\Business\Expander\CompanyUserExpanderInterface|\PHPUnit\Framework\MockObject\MockObject|mixed
+     * @var \FondOfOryx\Zed\CompanyUserCompanyRoleConnector\Business\Expander\CompanyUserExpanderInterface|\PHPUnit\Framework\MockObject\MockObject
      */
     protected $companyUserExpanderMock;
 
     /**
-     * @var \Generated\Shared\Transfer\CompanyUserTransfer|\PHPUnit\Framework\MockObject\MockObject|mixed
+     * @var \Generated\Shared\Transfer\CompanyUserTransfer|\PHPUnit\Framework\MockObject\MockObject
      */
     protected $companyUserTransferMock;
 
     /**
-     * @var \Generated\Shared\Transfer\RestCompanyUsersRequestAttributesTransfer|\PHPUnit\Framework\MockObject\MockObject|mixed
+     * @var \Generated\Shared\Transfer\RestCompanyUsersRequestAttributesTransfer|\PHPUnit\Framework\MockObject\MockObject
      */
     protected $companyUsersRequestAttributesTransferMock;
 
@@ -52,9 +52,14 @@ class CompanyUserCompanyRoleWriterTest extends Unit
     protected $companyUserCompanyRoleWriter;
 
     /**
-     * @var \Generated\Shared\Transfer\RestCompanyRoleTransfer|\PHPUnit\Framework\MockObject\MockObject|mixed
+     * @var \Generated\Shared\Transfer\RestCompanyRoleTransfer|\PHPUnit\Framework\MockObject\MockObject
      */
     protected $restCompanyRoleTransferMock;
+
+    /**
+     * @var \Generated\Shared\Transfer\CompanyRoleCollectionTransfer|\PHPUnit\Framework\MockObject\MockObject
+     */
+    protected $companyRoleCollectionTransferMock;
 
     /**
      * @return void
