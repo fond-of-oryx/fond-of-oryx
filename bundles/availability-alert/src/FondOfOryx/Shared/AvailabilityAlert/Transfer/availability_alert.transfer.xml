@@ -56,7 +56,7 @@
     </transfer>
 
     <transfer name="ProductAbstract">
-        <property name="prices" type="array" singular="price"/>
+        <property name="prices" type="PriceProduct[]" singular="price"/>
     </transfer>
 
     <transfer name="PriceProduct">
