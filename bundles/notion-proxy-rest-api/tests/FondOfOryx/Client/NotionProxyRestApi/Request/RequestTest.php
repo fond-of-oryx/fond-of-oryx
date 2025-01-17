@@ -139,4 +139,56 @@ class RequestTest extends Unit
         static::assertEquals($restNotionProxyRequestResponseTransfer->getStatus(), '200');
         static::assertNull($restNotionProxyRequestResponseTransfer->getData());
     }
+
+    /**
+     * @return void
+     */
+    public function testSendBadJsonData(): void
+    {
+        $method = 'POST';
+        $path = 'path';
+
+        $this->restNotionProxyRequestAttributesTransferMock->expects(static::atLeastOnce())
+            ->method('getMethod')
+            ->willReturn($method);
+
+        $this->restNotionProxyRequestAttributesTransferMock->expects(static::atLeastOnce())
+            ->method('getPath')
+            ->willReturn($path);
+
+        $this->restNotionProxyRequestAttributesTransferMock->expects(static::atLeastOnce())
+            ->method('getData')
+            ->willReturn('{{{{{{{{');
+
+        $this->guzzleHttpClientMock->expects(static::atLeastOnce())
+            ->method('request')
+            ->with($method, $path)
+            ->willReturn($this->responseMock);
+
+        $this->responseMock->expects(static::atLeastOnce())
+            ->method('getStatusCode')
+            ->willReturn(200);
+
+        $this->responseMock->expects(static::atLeastOnce())
+            ->method('getBody')
+            ->willReturn($this->streamMock);
+
+        $this->streamMock->expects(static::atLeastOnce())
+            ->method('getContents')
+            ->willReturn('content');
+
+        $this->loggerMock->expects(static::atLeastOnce())
+            ->method('error');
+
+        $restNotionProxyRequestResponseTransfer = $this->request
+            ->send($this->restNotionProxyRequestAttributesTransferMock);
+
+        static::assertInstanceOf(
+            RestNotionProxyRequestResponseTransfer::class,
+            $restNotionProxyRequestResponseTransfer,
+        );
+
+        static::assertEquals($restNotionProxyRequestResponseTransfer->getStatus(), '200');
+        static::assertNull($restNotionProxyRequestResponseTransfer->getData());
+    }
 }
