@@ -6,6 +6,7 @@ use Exception;
 use Generated\Shared\Transfer\RestNotionProxyRequestAttributesTransfer;
 use Generated\Shared\Transfer\RestNotionProxyRequestResponseTransfer;
 use GuzzleHttp\Client;
+use Psr\Log\LoggerInterface;
 
 class Request implements RequestInterface
 {
@@ -20,11 +21,18 @@ class Request implements RequestInterface
     protected $client;
 
     /**
-     * @param \GuzzleHttp\Client $client
+     * @var \Psr\Log\LoggerInterface
      */
-    public function __construct(Client $client)
+    protected LoggerInterface $logger;
+
+    /**
+     * @param \GuzzleHttp\Client $client
+     * @param \Psr\Log\LoggerInterface $logger
+     */
+    public function __construct(Client $client, LoggerInterface $logger)
     {
         $this->client = $client;
+        $this->logger = $logger;
     }
 
     /**
@@ -65,7 +73,12 @@ class Request implements RequestInterface
         $options = [];
 
         if ($restNotionProxyRequestAttributesTransfer->getData()) {
-            $options['json'] = $restNotionProxyRequestAttributesTransfer->getData();
+            try {
+                $options['json'] = json_decode($restNotionProxyRequestAttributesTransfer->getData(), true, 512, JSON_THROW_ON_ERROR);
+            } catch (Exception $e) {
+                $this->logger->error('NotionProxyRestApi: Error while decoding data: ' . $restNotionProxyRequestAttributesTransfer->getData());
+                $this->logger->error($e->getMessage(), $e->getTrace());
+            }
         }
 
         return $options;

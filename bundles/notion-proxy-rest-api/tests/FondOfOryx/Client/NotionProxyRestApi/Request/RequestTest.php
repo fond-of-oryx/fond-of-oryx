@@ -9,6 +9,7 @@ use GuzzleHttp\Client;
 use PHPUnit\Framework\MockObject\MockObject;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\StreamInterface;
+use Psr\Log\LoggerInterface;
 
 class RequestTest extends Unit
 {
@@ -26,6 +27,11 @@ class RequestTest extends Unit
      * @var \PHPUnit\Framework\MockObject\MockObject|\Psr\Http\Message\ResponseInterface
      */
     protected MockObject|ResponseInterface $responseMock;
+
+    /**
+     * @var \Psr\Log\LoggerInterface|\PHPUnit\Framework\MockObject\MockObject
+     */
+    protected LoggerInterface|MockObject $loggerMock;
 
     /**
      * @var \PHPUnit\Framework\MockObject\MockObject|\Generated\Shared\Transfer\RestNotionProxyRequestAttributesTransfer
@@ -59,6 +65,11 @@ class RequestTest extends Unit
             ->disableOriginalConstructor()
             ->getMock();
 
+        $this->loggerMock = $this
+            ->getMockBuilder(LoggerInterface::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
         $this->restNotionProxyRequestAttributesTransferMock = $this
             ->getMockBuilder(RestNotionProxyRequestAttributesTransfer::class)
             ->disableOriginalConstructor()
@@ -74,7 +85,7 @@ class RequestTest extends Unit
             ->disableOriginalConstructor()
             ->getMock();
 
-        $this->request = new Request($this->guzzleHttpClientMock);
+        $this->request = new Request($this->guzzleHttpClientMock, $this->loggerMock);
     }
 
     /**
@@ -99,7 +110,7 @@ class RequestTest extends Unit
 
         $this->guzzleHttpClientMock->expects(static::atLeastOnce())
             ->method('request')
-            ->with($method, $path, ['json' => '{}'])
+            ->with($method, $path, ['json' => json_decode('{}', true)])
             ->willReturn($this->responseMock);
 
         $this->responseMock->expects(static::atLeastOnce())
@@ -113,6 +124,61 @@ class RequestTest extends Unit
         $this->streamMock->expects(static::atLeastOnce())
             ->method('getContents')
             ->willReturn('content');
+
+        $this->loggerMock->expects(static::never())
+            ->method('error');
+
+        $restNotionProxyRequestResponseTransfer = $this->request
+            ->send($this->restNotionProxyRequestAttributesTransferMock);
+
+        static::assertInstanceOf(
+            RestNotionProxyRequestResponseTransfer::class,
+            $restNotionProxyRequestResponseTransfer,
+        );
+
+        static::assertEquals($restNotionProxyRequestResponseTransfer->getStatus(), '200');
+        static::assertNull($restNotionProxyRequestResponseTransfer->getData());
+    }
+
+    /**
+     * @return void
+     */
+    public function testSendBadJsonData(): void
+    {
+        $method = 'POST';
+        $path = 'path';
+
+        $this->restNotionProxyRequestAttributesTransferMock->expects(static::atLeastOnce())
+            ->method('getMethod')
+            ->willReturn($method);
+
+        $this->restNotionProxyRequestAttributesTransferMock->expects(static::atLeastOnce())
+            ->method('getPath')
+            ->willReturn($path);
+
+        $this->restNotionProxyRequestAttributesTransferMock->expects(static::atLeastOnce())
+            ->method('getData')
+            ->willReturn('{{{{{{{{');
+
+        $this->guzzleHttpClientMock->expects(static::atLeastOnce())
+            ->method('request')
+            ->with($method, $path)
+            ->willReturn($this->responseMock);
+
+        $this->responseMock->expects(static::atLeastOnce())
+            ->method('getStatusCode')
+            ->willReturn(200);
+
+        $this->responseMock->expects(static::atLeastOnce())
+            ->method('getBody')
+            ->willReturn($this->streamMock);
+
+        $this->streamMock->expects(static::atLeastOnce())
+            ->method('getContents')
+            ->willReturn('content');
+
+        $this->loggerMock->expects(static::atLeastOnce())
+            ->method('error');
 
         $restNotionProxyRequestResponseTransfer = $this->request
             ->send($this->restNotionProxyRequestAttributesTransferMock);
