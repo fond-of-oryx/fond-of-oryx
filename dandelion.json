@@ -721,7 +721,7 @@
     },
     "notion-proxy-rest-api": {
       "path": "bundles/notion-proxy-rest-api",
-      "version": "1.0.0-beta.2"
+      "version": "1.0.0"
     },
     "oms-credit-memo-gift-card-connector": {
       "path": "bundles/oms-credit-memo-gift-card-connector/",

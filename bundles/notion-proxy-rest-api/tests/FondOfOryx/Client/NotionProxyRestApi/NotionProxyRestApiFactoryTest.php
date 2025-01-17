@@ -6,6 +6,7 @@ use Codeception\Test\Unit;
 use FondOfOryx\Client\NotionProxyRestApi\Request\RequestInterface;
 use PHPUnit\Framework\MockObject\MockObject;
 use Psr\Log\LoggerInterface;
+use Spryker\Shared\Log\Config\LoggerConfigInterface;
 
 class NotionProxyRestApiFactoryTest extends Unit
 {
@@ -39,7 +40,7 @@ class NotionProxyRestApiFactoryTest extends Unit
             ->disableOriginalConstructor()
             ->getMock();
 
-        $this->factory = new class($this->loggerMock) extends NotionProxyRestApiFactory {
+        $this->factory = new class ($this->loggerMock) extends NotionProxyRestApiFactory {
             /**
              * @var \Psr\Log\LoggerInterface
              */
@@ -52,10 +53,13 @@ class NotionProxyRestApiFactoryTest extends Unit
             {
                 $this->logger = $logger;
             }
+
             /**
+             * @param \Spryker\Shared\Log\Config\LoggerConfigInterface|null $loggerConfig
+             *
              * @return \Psr\Log\LoggerInterface
              */
-            public function getLogger(): LoggerInterface
+            protected function getLogger(?LoggerConfigInterface $loggerConfig = null): LoggerInterface
             {
                 return $this->logger;
             }

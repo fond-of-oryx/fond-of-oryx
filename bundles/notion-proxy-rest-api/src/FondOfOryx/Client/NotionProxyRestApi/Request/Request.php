@@ -74,8 +74,8 @@ class Request implements RequestInterface
 
         if ($restNotionProxyRequestAttributesTransfer->getData()) {
             try {
-                $options['json'] = json_decode($restNotionProxyRequestAttributesTransfer->getData());
-            }catch (Exception $e) {
+                $options['json'] = json_decode($restNotionProxyRequestAttributesTransfer->getData(), true);
+            } catch (Exception $e) {
                 $this->logger->error('NotionProxyRestApi: Error while decoding data: ' . $restNotionProxyRequestAttributesTransfer->getData());
                 $this->logger->error($e->getMessage(), $e->getTrace());
             }

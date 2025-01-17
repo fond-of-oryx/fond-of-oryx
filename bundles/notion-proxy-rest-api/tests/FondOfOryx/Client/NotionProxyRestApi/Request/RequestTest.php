@@ -110,7 +110,7 @@ class RequestTest extends Unit
 
         $this->guzzleHttpClientMock->expects(static::atLeastOnce())
             ->method('request')
-            ->with($method, $path, ['json' => '{}'])
+            ->with($method, $path, ['json' => json_decode('{}', true)])
             ->willReturn($this->responseMock);
 
         $this->responseMock->expects(static::atLeastOnce())
@@ -124,6 +124,9 @@ class RequestTest extends Unit
         $this->streamMock->expects(static::atLeastOnce())
             ->method('getContents')
             ->willReturn('content');
+
+        $this->loggerMock->expects(static::never())
+            ->method('error');
 
         $restNotionProxyRequestResponseTransfer = $this->request
             ->send($this->restNotionProxyRequestAttributesTransferMock);
