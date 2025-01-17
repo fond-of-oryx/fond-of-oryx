@@ -9,6 +9,7 @@ use GuzzleHttp\Client;
 use PHPUnit\Framework\MockObject\MockObject;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\StreamInterface;
+use Psr\Log\LoggerInterface;
 
 class RequestTest extends Unit
 {
@@ -26,6 +27,11 @@ class RequestTest extends Unit
      * @var \PHPUnit\Framework\MockObject\MockObject|\Psr\Http\Message\ResponseInterface
      */
     protected MockObject|ResponseInterface $responseMock;
+
+    /**
+     * @var \Psr\Log\LoggerInterface|\PHPUnit\Framework\MockObject\MockObject
+     */
+    protected LoggerInterface|MockObject $loggerMock;
 
     /**
      * @var \PHPUnit\Framework\MockObject\MockObject|\Generated\Shared\Transfer\RestNotionProxyRequestAttributesTransfer
@@ -59,6 +65,11 @@ class RequestTest extends Unit
             ->disableOriginalConstructor()
             ->getMock();
 
+        $this->loggerMock = $this
+            ->getMockBuilder(LoggerInterface::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
         $this->restNotionProxyRequestAttributesTransferMock = $this
             ->getMockBuilder(RestNotionProxyRequestAttributesTransfer::class)
             ->disableOriginalConstructor()
@@ -74,7 +85,7 @@ class RequestTest extends Unit
             ->disableOriginalConstructor()
             ->getMock();
 
-        $this->request = new Request($this->guzzleHttpClientMock);
+        $this->request = new Request($this->guzzleHttpClientMock, $this->loggerMock);
     }
 
     /**

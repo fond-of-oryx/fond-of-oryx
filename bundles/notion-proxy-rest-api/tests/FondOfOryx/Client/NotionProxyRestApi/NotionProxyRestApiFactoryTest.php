@@ -5,6 +5,7 @@ namespace FondOfOryx\Client\NotionProxyRestApi;
 use Codeception\Test\Unit;
 use FondOfOryx\Client\NotionProxyRestApi\Request\RequestInterface;
 use PHPUnit\Framework\MockObject\MockObject;
+use Psr\Log\LoggerInterface;
 
 class NotionProxyRestApiFactoryTest extends Unit
 {
@@ -12,6 +13,11 @@ class NotionProxyRestApiFactoryTest extends Unit
      * @var \PHPUnit\Framework\MockObject\MockObject|\FondOfOryx\Client\NotionProxyRestApi\NotionProxyRestApiConfig
      */
     protected MockObject|NotionProxyRestApiConfig $configMock;
+
+    /**
+     * @var \Psr\Log\LoggerInterface|\PHPUnit\Framework\MockObject\MockObject
+     */
+    protected LoggerInterface|MockObject $loggerMock;
 
     /**
      * @var \FondOfOryx\Client\NotionProxyRestApi\NotionProxyRestApiFactory
@@ -29,7 +35,31 @@ class NotionProxyRestApiFactoryTest extends Unit
             ->disableOriginalConstructor()
             ->getMock();
 
-        $this->factory = new NotionProxyRestApiFactory();
+        $this->loggerMock = $this->getMockBuilder(LoggerInterface::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $this->factory = new class($this->loggerMock) extends NotionProxyRestApiFactory {
+            /**
+             * @var \Psr\Log\LoggerInterface
+             */
+            protected LoggerInterface $logger;
+
+            /**
+             * @param \Psr\Log\LoggerInterface $logger
+             */
+            public function __construct(LoggerInterface $logger)
+            {
+                $this->logger = $logger;
+            }
+            /**
+             * @return \Psr\Log\LoggerInterface
+             */
+            public function getLogger(): LoggerInterface
+            {
+                return $this->logger;
+            }
+        };
         $this->factory->setConfig($this->configMock);
     }
 
