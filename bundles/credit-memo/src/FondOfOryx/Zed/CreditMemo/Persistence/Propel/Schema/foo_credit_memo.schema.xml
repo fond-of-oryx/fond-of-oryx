@@ -14,7 +14,7 @@
         <column name="credit_memo_reference" required="true" size="255" type="VARCHAR"/>
         <column name="external_reference" required="true" default="" size="255" type="VARCHAR"/>
 
-        <column name="customer_reference" required="true" size="255" type="VARCHAR"/>
+        <column name="customer_reference" required="false" size="255" type="VARCHAR"/>
         <column name="email" required="false" size="255" type="VARCHAR"/>
         <column name="first_name" required="false" size="100" type="VARCHAR"/>
         <column name="last_name" required="false" size="100" type="VARCHAR"/>
