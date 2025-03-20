@@ -313,7 +313,7 @@
     },
     "credit-memo": {
       "path": "bundles/credit-memo/",
-      "version": "2.0.0"
+      "version": "2.0.1"
     },
     "credit-memo-api": {
       "path": "bundles/credit-memo-api/",
