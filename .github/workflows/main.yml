@@ -24,6 +24,7 @@ jobs:
                   php-version: ${{ matrix.php-versions }}
                   extensions: mbstring, dom, fileinfo, pgsql, json
                   coverage: xdebug
+                  tools: composer:2.6.6
 
             - name: Changed Files
               id: changed-files
@@ -39,8 +40,8 @@ jobs:
               uses: actions/cache@v3
               with:
                   path: ${{ steps.composercache.outputs.dir }}
-                  key: ${{ runner.os }}-composer-${{ matrix.php-versions }}-${{ hashFiles('composer.json') }}
-                  restore-keys: ${{ runner.os }}-composer-${{ matrix.php-versions }}-
+                  key: ${{ runner.os }}-composer-2.6.6-${{ matrix.php-versions }}-${{ hashFiles('composer.json') }}
+                  restore-keys: ${{ runner.os }}-composer-2.6.6-${{ matrix.php-versions }}-
 
             - name: Cache phpstan
               uses: actions/cache@v3
