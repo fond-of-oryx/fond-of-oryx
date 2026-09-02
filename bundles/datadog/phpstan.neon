@@ -1,7 +1,0 @@
-parameters:
-    level: 5
-    reportUnmatchedIgnoredErrors: false
-    scanDirectories:
-        - src/Orm/Zed
-    ignoreErrors:
-        - '#DDTrace\root_span not found.#'
